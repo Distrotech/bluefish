@@ -355,22 +355,6 @@ void gui_set_title(Tbfwin *bfwin, Tdocument *doc) {
 	g_free(prfilepart);
 }
 
-void gui_apply_settings(Tbfwin *bfwin) {
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook),main_v->props.document_tabposition);
-	/* We don't want to set the tab position if the left panel is hidden */
-	if (bfwin->leftpanel_notebook) {
-		gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook),main_v->props.leftpanel_tabposition);
-
-		/* check if the left panel needs to move over to the right */
-		if (main_v->props.left_panel_left && bfwin->leftpanel_notebook == GTK_PANED(bfwin->hpane)->child1) {
-			DEBUG_MSG("gui_apply_settings, left panel is on the right location\n");
-		} else {
-			left_panel_show_hide_toggle(bfwin,FALSE, FALSE, FALSE);
-			left_panel_show_hide_toggle(bfwin,FALSE, TRUE, FALSE);
-		}
-	}
-}
-
 typedef struct {
 	const gchar *ident;
 	void (*func)();
@@ -1242,7 +1226,40 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 	gtk_drag_finish(context, TRUE, (mode == GDK_ACTION_COPY), time);
 }
 
-void gui_bfwin_cleanup(Tbfwin *bfwin) {
+static gboolean gui_periodic_check_lcb(gpointer data) {
+	Tbfwin *bfwin = data;
+	if (bfwin->current_document) {
+		doc_start_modified_check(bfwin->current_document);
+	}
+	return TRUE;
+}
+
+void gui_bfwin_periodic_check(Tbfwin *bfwin, gboolean enabled) {
+	if (enabled) {
+		if (!bfwin->periodic_check_id) bfwin->periodic_check_id = g_timeout_add_full(G_PRIORITY_LOW,15000,gui_periodic_check_lcb,bfwin,NULL);
+	} else {
+		if (bfwin->periodic_check_id) g_source_remove(bfwin->periodic_check_id);
+	}
+}
+
+void gui_apply_settings(Tbfwin *bfwin) {
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook),main_v->props.document_tabposition);
+	/* We don't want to set the tab position if the left panel is hidden */
+	if (bfwin->leftpanel_notebook) {
+		gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook),main_v->props.leftpanel_tabposition);
+
+		/* check if the left panel needs to move over to the right */
+		if (main_v->props.left_panel_left && bfwin->leftpanel_notebook == GTK_PANED(bfwin->hpane)->child1) {
+			DEBUG_MSG("gui_apply_settings, left panel is on the right location\n");
+		} else {
+			left_panel_show_hide_toggle(bfwin,FALSE, FALSE, FALSE);
+			left_panel_show_hide_toggle(bfwin,FALSE, TRUE, FALSE);
+		}
+	}
+	gui_bfwin_periodic_check(bfwin, main_v->props.do_periodic_check);
+}
+
+static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 	GList *tmplist;
 	/* call all cleanup functions here */
 	/*remove_window_entry_from_all_windows(bfwin);*/
@@ -1258,6 +1275,7 @@ void gui_bfwin_cleanup(Tbfwin *bfwin) {
 		left */
 		tmplist = g_list_first(bfwin->documentlist);
 	}
+	gui_bfwin_periodic_check(bfwin,FALSE);
 	fb2_cleanup(bfwin);
 	bmark_cleanup(bfwin);
 	outputbox_cleanup(bfwin);
@@ -1268,7 +1286,7 @@ void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	DEBUG_MSG("main_window_destroy_lcb, started\n");
 	DEBUG_MSG("main_window_destroy_lcb, will hide the window now\n");
 	gtk_widget_hide(bfwin->main_window);
-	g_source_remove(bfwin->periodic_check_id);
+	
 	main_v->bfwinlist = g_list_remove(main_v->bfwinlist, bfwin);
 	DEBUG_MSG("main_window_destroy_lcb, bfwin(%p) is removed from bfwinlist\n",bfwin);
 	gui_bfwin_cleanup(bfwin);
@@ -1298,14 +1316,6 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 		}
 	}
 	return FALSE;
-}
-
-static gboolean gui_periodic_check_lcb(gpointer data) {
-	Tbfwin *bfwin = data;
-	if (bfwin->current_document) {
-		doc_start_modified_check(bfwin->current_document);
-	}
-	return TRUE;
 }
 
 void gui_create_main(Tbfwin *bfwin, GList *filenames) {
@@ -1454,8 +1464,9 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 				GDK_ACTION_LINK | GDK_ACTION_PRIVATE | GDK_ACTION_ASK));
 		g_signal_connect(G_OBJECT(bfwin->main_window), "drag_data_received", G_CALLBACK(main_win_on_drag_data_lcb), bfwin);
 	}
-	bfwin->periodic_check_id = g_timeout_add_full(G_PRIORITY_LOW,8000
-				,gui_periodic_check_lcb,bfwin,NULL);
+	if (main_v->props.do_periodic_check) {
+		gui_bfwin_periodic_check(bfwin,TRUE);
+	}
 }
 
 void gui_show_main(Tbfwin *bfwin) {
