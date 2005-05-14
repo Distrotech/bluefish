@@ -222,15 +222,16 @@ dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget 
 
 /**
  * message_dialog_set_text:
+ * 	@dialog:			 #GtkWidget * The message dialog.
  * 	@primaryText:	 #const gchar * The primary text displayed in the message dialog.
  * 	@secondaryText: #const gchar * The secondary text displayed in the message dialog.
  *  
  * 	Sets the primary and optional secondary text in a message dialog.
  *
- * Return value: #gchar * The full text displayed in the message dialog.
+ * Return value: void
  */
-static gchar *
-message_dialog_set_text(const gchar *primaryText, const gchar *secondaryText)
+static void
+message_dialog_set_text(GtkWidget *dialog, const gchar *primaryText, const gchar *secondaryText)
 {
 	gchar *text;
 	
@@ -240,7 +241,10 @@ message_dialog_set_text(const gchar *primaryText, const gchar *secondaryText)
 		text = g_strconcat ("<span weight=\"bold\" size=\"larger\">", primaryText, "</span>\n\n", secondaryText, "\n", NULL);
 	}
 	
-	return text;
+	gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dialog), text);
+	g_free (text);
+	
+	gtk_window_set_title (GTK_WINDOW (dialog), "");
 }
 
 /**
@@ -262,18 +266,14 @@ message_dialog_new(GtkWidget *parent,
 						 const gchar *primaryText, const gchar *secondaryText)
 {
 	GtkWidget *dialog;
-	gchar *text;
-	
-	text = message_dialog_set_text(primaryText, secondaryText);
-	
+		
 	dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (parent),
 																GTK_DIALOG_DESTROY_WITH_PARENT,
 																type,
 																button,
-																text);	
+																NULL);	
 
-	g_free (text);
-	gtk_window_set_title (GTK_WINDOW(dialog), "");
+	message_dialog_set_text(dialog, primaryText, secondaryText);
 	
 	gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (dialog);
@@ -289,10 +289,6 @@ message_dialog_new(GtkWidget *parent,
  *  
  * 	Creates a non-modal GtkMessageDialog with multiple buttons.
  *
- * BUG: if your primaryText or secondaryText contain the '%' character, it will be interpreted 
- * printf() style, which results in weird dialog messages. For example in URI's a % is very common
- * as escape character. %20 for example is a space.
- *
  * Return value: #gint The response ID
  */
 gint
@@ -302,19 +298,16 @@ message_dialog_new_multi(GtkWidget *parent,
 								 const gchar *primaryText, const gchar *secondaryText)
 {
 	GtkWidget *dialog;
-	gchar *text;
 	gint response;
 	int i = 0;
-	
-	text = message_dialog_set_text(primaryText, secondaryText);
-	
+		
 	dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (parent),
 																GTK_DIALOG_DESTROY_WITH_PARENT,
 																type,
 																GTK_BUTTONS_NONE,
-																text);
-	g_free (text);
-	gtk_window_set_title (GTK_WINDOW(dialog), "");
+																NULL);
+
+	message_dialog_set_text(dialog, primaryText, secondaryText);																
 
 	for (i = 0; *buttons; i++) {
 		gtk_dialog_add_button (GTK_DIALOG (dialog), *buttons++, i);

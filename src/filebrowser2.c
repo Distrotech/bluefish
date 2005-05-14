@@ -1079,23 +1079,24 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 		uri = fb2_uri_from_file_selection(fb2);
 	}
 	if (uri) {
-		GtkWidget *dialog;
-		gint retval;
-		gchar *fullpath, *filename;
-		fullpath = full_path_utf8_from_uri(uri);
+      const gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
+      gchar *text;
+      gint retval;
+      gchar *fullpath, *filename;
+      fullpath = full_path_utf8_from_uri(uri);
 		filename = filename_utf8_from_full_path_utf8(fullpath);
-		/* we cannot use the functions from dialog_utils because the URI might contain the % character */
-		dialog = gtk_message_dialog_new(GTK_WINDOW(fb2->bfwin->main_window),
-					GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_NONE,
-					_("Are you sure you want to delete \"%s\" ?"), filename);
-		gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
-					_("If you choose delete, %s will be permanently lost"),fullpath);
-		gtk_window_set_title (GTK_WINDOW(dialog), "");
-		gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_CANCEL, 0);
-		gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_DELETE, 1);
-		gtk_dialog_set_default_response(GTK_DIALOG(dialog), 1);
-		retval = gtk_dialog_run(GTK_DIALOG(dialog));
-		gtk_widget_destroy(dialog);
+		/* Do we really need to display the full path here?
+		 *  
+		 * Having the filename in the both the primary and secondary text seems to be redundant.
+		 * Set back to just the primary text for now.
+		 */
+      text = g_strdup_printf (_("Are you sure you want to delete\n\"%s\"?"), fullpath);
+      retval = message_dialog_new_multi(fb2->bfwin->main_window,
+                                        GTK_MESSAGE_QUESTION,
+                                        buttons,
+                                        text,
+                                        _("If you delete this file, it will be permanently lost."));
+      g_free(text);
 		if (retval == 1) {
 			GnomeVFSResult res;
 			gchar *errmessage = NULL;
