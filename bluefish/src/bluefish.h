@@ -165,6 +165,7 @@ typedef struct {
 } Tdocument;
 
 typedef struct {
+	gint do_periodic_check;
 	gint view_line_numbers; /* view line numbers on the left side by default */
 	gint filebrowser_two_pane_view; /* have one or two panes in the filebrowser */
 	gchar *filebrowser_unknown_icon;
@@ -195,7 +196,6 @@ typedef struct {
 	gint backup_cleanuponclose; /* remove the backupfile after close ? */
 	gchar *image_thumbnailstring;	/* string to append to thumbnail filenames */
 	gchar *image_thumbnailtype;	/* fileformat to use for thumbnails, "jpeg" or "png" can be handled by gdkpixbuf*/
-	gint allow_multi_instances; /* allow multiple instances of the same file */
 	gint modified_check_type; /* 0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
 	gint num_undo_levels; 	/* number of undo levels per document */
 	gint clear_undo_on_save; 	/* clear all undo information on file save */

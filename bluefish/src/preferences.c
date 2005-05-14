@@ -35,6 +35,7 @@
 #include "stringlist.h"	/* duplicate_arraylist*/
 
 enum {
+	do_periodic_check,
 	view_html_toolbar,
 	view_custom_menu,
 	view_main_toolbar,
@@ -63,11 +64,6 @@ enum {
 	backup_cleanuponclose, /* remove the backupfile after close ? */
 	image_thumbnailstring,	/* string to append to thumbnail filenames */
 	image_thumbnailtype,	/* fileformat to use for thumbnails, "jpeg" or "png" can be handled by gdkpixbuf*/
-	image_thumbnailsizing_type,	/* scaling ratio=0, fixed width=1, height=2, width+height (discard aspect ratio)=3 */
-	image_thumbnailsizing_val1,	/* the width, height or ratio, depending on the value above */
-	image_thumbnailsizing_val2, /* height if the type=3 */
-	image_thumnailformatstring, /* like <a href="%r"><img src="%t"></a> or more advanced */
-	allow_multi_instances, /* allow multiple instances of the same file */
 	modified_check_type, /* 0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
 	num_undo_levels, 	/* number of undo levels per document */
 	clear_undo_on_save, 	/* clear all undo information on file save */
@@ -77,11 +73,8 @@ enum {
 	ext_browsers_in_submenu,
 	ext_commands_in_submenu,
 	ext_outputbox_in_submenu,
-/*	bookmarks_default_store,
-	bookmarks_filename_mode,*/
 	document_tabposition,
 	leftpanel_tabposition,
-/*	default_basedir,*/
 	/* not yet in use */
 	image_editor_cline, 	/* image editor commandline */
 	full_p,				/* use </p> */
@@ -1881,13 +1874,12 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.backup_cleanuponclose, pd->prefs[backup_cleanuponclose], TRUE);
 	integer_apply(&main_v->props.num_undo_levels, pd->prefs[num_undo_levels], FALSE);
 	integer_apply(&main_v->props.clear_undo_on_save, pd->prefs[clear_undo_on_save], TRUE);
-	integer_apply(&main_v->props.allow_multi_instances, pd->prefs[allow_multi_instances], TRUE);
 #ifdef WITH_MSG_QUEUE
 	integer_apply(&main_v->props.open_in_running_bluefish, pd->prefs[open_in_running_bluefish], TRUE);
 #endif
 	main_v->props.modified_check_type = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[modified_check_type]));
+	integer_apply(&main_v->props.do_periodic_check, pd->prefs[do_periodic_check], TRUE);
 	integer_apply(&main_v->props.max_recent_files, pd->prefs[max_recent_files], FALSE);
-	
 	integer_apply(&main_v->props.restore_dimensions, pd->prefs[restore_dimensions], TRUE);
 	if (!main_v->props.restore_dimensions) {
 		integer_apply(&main_v->globses.left_panel_width, pd->prefs[left_panel_width], FALSE);
@@ -1921,9 +1913,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.image_thumbnailstring, pd->prefs[image_thumbnailstring]);
 	string_apply(&main_v->props.image_thumbnailtype, GTK_COMBO(pd->prefs[image_thumbnailtype])->entry);
 
-#ifdef HAVE_GNOME_VFS
 	integer_apply(&main_v->props.server_zope_compat, pd->prefs[server_zope_compat], TRUE);
-#endif
 
 	/*filetype_apply_changes(pd);*/
 	/*filefilter_apply_changes(pd);*/
@@ -2102,11 +2092,11 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
-	pd->prefs[allow_multi_instances] = boxed_checkbut_with_value(_("Allow multi instances of a file"), main_v->props.allow_multi_instances, vbox2);
 #ifdef WITH_MSG_QUEUE
 	pd->prefs[open_in_running_bluefish] = boxed_checkbut_with_value(_("Open files in already running bluefish window"),main_v->props.open_in_running_bluefish, vbox2);
 #endif /* WITH_MSG_QUEUE */		
 	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(_("File modified on disk check "), main_v->props.modified_check_type, vbox2, modified_check_types);
+	pd->prefs[do_periodic_check] = boxed_checkbut_with_value(_("Periodically check file on disk"), main_v->props.do_periodic_check, vbox2);
 	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent'"), main_v->props.max_recent_files, vbox2, pd, 3, 100);
 
 	frame = gtk_frame_new(_("File browser"));
