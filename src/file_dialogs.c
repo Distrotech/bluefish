@@ -59,7 +59,8 @@ static void files_advanced_win_ok_clicked(Tfiles_advanced *tfs) {
 	extension_filter = gtk_editable_get_chars (GTK_EDITABLE (GTK_BIN (tfs->find_pattern)->child), 0, -1);
 	basedir = gtk_editable_get_chars (GTK_EDITABLE (tfs->basedir), 0, -1);
 	baseuri = gnome_vfs_uri_new (basedir);
-	content_filter = gtk_editable_get_chars (GTK_EDITABLE (tfs->grep_pattern), 0, -1);
+	content_filter = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->grep_pattern)->entry), 0, -1);
+	tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist,content_filter,TRUE,TRUE);
 
 	open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
 			, strlen(extension_filter) ==0 ? NULL : extension_filter
@@ -156,7 +157,7 @@ void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
 	gtk_table_set_row_spacing(GTK_TABLE(table), 5, 18);
 	bf_label_tad_with_markup(_("<b>Contains</b>"), 0, 0.5, table, 0, 3, 4, 5);
 
-	tfs->grep_pattern = entry_with_text(NULL, 255);
+	tfs->grep_pattern = combo_with_popdown("", bfwin->session->searchlist, TRUE);
 	bf_mnemonic_label_tad_with_alignment(_("Pa_ttern:"), tfs->grep_pattern, 0, 0.5, table, 1, 2, 5, 6);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 2, 4, 5, 6);
 	
