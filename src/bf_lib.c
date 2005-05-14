@@ -87,17 +87,28 @@ void free_urilist(GList *urilist) {
 	g_list_free(urilist);
 }
 
-/**
- * uri_to_document_filename:
- *
- * does uri to utf8 display name conversion
- */
-gchar *uri_to_document_filename(GnomeVFSURI *uri) {
+gchar *full_path_utf8_from_uri(GnomeVFSURI *uri) {
 	gchar *tmpuri, *utf8uri;
 	tmpuri = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD); /* this function automatically hides the toplevel method for local files */
 	utf8uri = gnome_vfs_format_uri_for_display(tmpuri);
 	g_free(tmpuri);
 	return utf8uri;
+}
+
+gchar *filename_utf8_from_full_path_utf8(const gchar *full_path_utf8) {
+	gchar *tmp, *tmp2;
+	tmp = g_path_get_basename(full_path_utf8);
+	tmp2 = gnome_vfs_unescape_string(tmp, "");
+	g_free(tmp);
+	return tmp2;
+}
+
+gchar *filename_utf8_from_uri(GnomeVFSURI *uri) {
+	gchar *full_path_utf8, *tmp;
+	full_path_utf8 = full_path_utf8_from_uri(uri);
+	tmp = filename_utf8_from_full_path_utf8(full_path_utf8);
+	g_free(full_path_utf8);
+	return tmp;
 }
 
 /**

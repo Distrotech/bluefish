@@ -956,7 +956,7 @@ static void open_advanced_backend(Topenadv *oa, GnomeVFSURI *basedir) {
 
 	oad->basedir = basedir;
 	gnome_vfs_uri_ref(basedir);
-	utf8uri = uri_to_document_filename(basedir);
+	utf8uri = full_path_utf8_from_uri(basedir);
 	tmp = g_strdup_printf("Advanced open: searching in %s", utf8uri);
 	statusbar_message(oa->bfwin,tmp, 1000);
 	g_free(tmp);

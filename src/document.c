@@ -478,13 +478,8 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 void doc_set_title(Tdocument *doc) {
 	gchar *label_string, *tabmenu_string;
 	if (doc->uri) {
-		gchar *utf8uri, *tmp;
-		utf8uri = uri_to_document_filename(doc->uri);
-		tmp = g_path_get_basename(utf8uri);
-		label_string = gnome_vfs_unescape_string(tmp, "");
-		tabmenu_string = g_strdup(utf8uri);
-		g_free(utf8uri);
-		g_free(tmp);
+		tabmenu_string = full_path_utf8_from_uri(doc->uri);
+		label_string = filename_utf8_from_full_path_utf8(tabmenu_string);
 	} else {
 		label_string = g_strdup_printf(_("Untitled %d"),main_v->num_untitled_documents);
 		tabmenu_string =  g_strdup(label_string);
@@ -3809,7 +3804,7 @@ static void new_floatingview(Tdocument *doc) {
 	fv = g_new(Tfloatingview,1);
 	doc->floatingview = fv;
 	DEBUG_MSG("new_floatingview for doc=%p is at %p\n",doc,doc->floatingview);
-	title = (doc->uri) ? uri_to_document_filename(doc->uri) : g_strdup("Untitled");
+	title = (doc->uri) ? full_path_utf8_from_uri(doc->uri) : g_strdup("Untitled");
 	fv->window = window_full2(title, GTK_WIN_POS_NONE, 5, G_CALLBACK(floatingview_destroy_lcb), doc, TRUE, NULL);
 	g_free(title);
 	gtk_window_set_role(GTK_WINDOW(fv->window), "floatingview");
