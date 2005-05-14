@@ -212,7 +212,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 		newiter = g_new(GtkTreeIter,1);
 		uri_dup = child_uri;
 		gnome_vfs_uri_ref(child_uri);
-		tmp = uri_to_document_filename(child_uri);
+		tmp = full_path_utf8_from_uri(child_uri);
 		tmp2 = strrchr(tmp, '/');
 /*		DEBUG_MSG("fb2_add_filesystem_entry, tmp2=%s for tmp=%s\n",tmp2,tmp);*/
 		if (tmp2 && strlen(tmp2)>2) display_name = gnome_vfs_unescape_string(tmp2+1, "");
@@ -1079,18 +1079,23 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 		uri = fb2_uri_from_file_selection(fb2);
 	}
 	if (uri) {
-		const gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
-		gchar *text;
+		GtkWidget *dialog;
 		gint retval;
-		gchar *filename;
-		filename = uri_to_document_filename(uri);
-		text = g_strdup_printf(_("Are you sure you want to delete \"%s\" ?"), filename);
-		retval = message_dialog_new_multi(fb2->bfwin->main_window,
-													 GTK_MESSAGE_QUESTION,
-													 buttons,
-													 text,
-													 _("If you delete this file, it will be permanently lost."));
-		g_free(text);
+		gchar *fullpath, *filename;
+		fullpath = full_path_utf8_from_uri(uri);
+		filename = filename_utf8_from_full_path_utf8(fullpath);
+		/* we cannot use the functions from dialog_utils because the URI might contain the % character */
+		dialog = gtk_message_dialog_new(GTK_WINDOW(fb2->bfwin->main_window),
+					GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_NONE,
+					_("Are you sure you want to delete \"%s\" ?"), filename);
+		gtk_message_dialog_format_secondary_text(GTK_MESSAGE_DIALOG(dialog),
+					_("If you choose delete, %s will be permanently lost"),fullpath);
+		gtk_window_set_title (GTK_WINDOW(dialog), "");
+		gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_CANCEL, 0);
+		gtk_dialog_add_button(GTK_DIALOG(dialog), GTK_STOCK_DELETE, 1);
+		gtk_dialog_set_default_response(GTK_DIALOG(dialog), 1);
+		retval = gtk_dialog_run(GTK_DIALOG(dialog));
+		gtk_widget_destroy(dialog);
 		if (retval == 1) {
 			GnomeVFSResult res;
 			gchar *errmessage = NULL;
@@ -1116,6 +1121,7 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 			fb2_refresh_parent_of_uri(uri);
 		}
 		g_free(filename);
+		g_free(fullpath);
 	}
 }
 
@@ -1425,7 +1431,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 		gchar *name;
 		uri = gnome_vfs_uri_new(tmplist->data);
 		if (uri) {
-			name = uri_to_document_filename(uri);
+			name = full_path_utf8_from_uri(uri);
 			gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m),&iter);
 			gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m),&iter
 					,DIR_NAME_COLUMN,name
@@ -1440,7 +1446,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 	tmp = gnome_vfs_uri_dup(newcurdir);
 	cont = gnome_vfs_uri_has_parent(tmp);
 	while (cont) {
-		gchar *name = uri_to_document_filename(tmp);
+		gchar *name = full_path_utf8_from_uri(tmp);
 		DEBUG_MSG("dirmenu_set_curdir, appending %s to the new model\n",name);
 		gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m),&iter);
 		if (!havesetiter) {
@@ -1710,7 +1716,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 			gchar *name;
 			uri = gnome_vfs_uri_new(tmplist->data);
 			if (uri) {
-				name = uri_to_document_filename(uri);
+				name = full_path_utf8_from_uri(uri);
 				gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m),&iter);
 				DEBUG_MSG("fb2_init, adding %s to dir menu\n",(gchar *)tmplist->data);
 				gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m),&iter

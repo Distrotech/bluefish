@@ -44,7 +44,10 @@ void refcpointer_unref(Trefcpointer *rp);
 GnomeVFSURI *add_suffix_to_uri(GnomeVFSURI *uri, const char *suffix);
 GList *urilist_to_stringlist(GList *urilist);
 void free_urilist(GList *urilist);
-gchar *uri_to_document_filename(GnomeVFSURI *uri);
+
+gchar *full_path_utf8_from_uri(GnomeVFSURI *uri);
+gchar *filename_utf8_from_full_path_utf8(const gchar *full_path_utf8);
+gchar *filename_utf8_from_uri(GnomeVFSURI *uri);
 
 gchar *get_filename_on_disk_encoding(const gchar *utf8filename);
 gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname);

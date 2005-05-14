@@ -363,7 +363,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
 				const gchar *buttons[] = {_("_Abort save"), _("_Continue save"), NULL};
 				gint retval;
 				gchar *tmpstr, *utf8uri;
-				utf8uri = uri_to_document_filename(doc->uri);
+				utf8uri = full_path_utf8_from_uri(doc->uri);
 				if (status == CHECKANDSAVE_ERROR_MODIFIED) {
 					tmpstr = g_strdup_printf(_("File %s has been modified on disk, overwrite?"), utf8uri);
 				} else {

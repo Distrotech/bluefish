@@ -271,6 +271,7 @@ message_dialog_new(GtkWidget *parent,
 																type,
 																button,
 																text);	
+
 	g_free (text);
 	gtk_window_set_title (GTK_WINDOW(dialog), "");
 	
@@ -287,6 +288,10 @@ message_dialog_new(GtkWidget *parent,
  * 	@secondaryText: #const gchar * The secondary text displayed in the message dialog.
  *  
  * 	Creates a non-modal GtkMessageDialog with multiple buttons.
+ *
+ * BUG: if your primaryText or secondaryText contain the '%' character, it will be interpreted 
+ * printf() style, which results in weird dialog messages. For example in URI's a % is very common
+ * as escape character. %20 for example is a space.
  *
  * Return value: #gint The response ID
  */
