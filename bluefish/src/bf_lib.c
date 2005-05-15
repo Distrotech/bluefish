@@ -90,7 +90,16 @@ void free_urilist(GList *urilist) {
 gchar *full_path_utf8_from_uri(GnomeVFSURI *uri) {
 	gchar *tmpuri, *utf8uri;
 	tmpuri = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD); /* this function automatically hides the toplevel method for local files */
-	utf8uri = gnome_vfs_unescape_string_for_display(tmpuri);
+	/* not sure what to use here. 
+	gnome_vfs_format_uri_for_display guarantees to return UTF-8, it will retrieve the 
+		encoding of the filesystem, and use that to create the utf8 encoded string, and 
+		if it fails	to convert a local filename to utf-8 it will return the uri form
+	gnome_vfs_unescape_string_for_display does return some string, but 
+		it seems (after some testing) to stop after it encounters any character 
+		it cannot convert to utf-8 (and thus shows only half of the filename)
+	 */
+	utf8uri = gnome_vfs_format_uri_for_display(tmpuri);
+	/*utf8uri = gnome_vfs_unescape_string_for_display(tmpuri);*/
 	g_free(tmpuri);
 	return utf8uri;
 }
@@ -98,7 +107,11 @@ gchar *full_path_utf8_from_uri(GnomeVFSURI *uri) {
 gchar *filename_utf8_from_full_path_utf8(const gchar *full_path_utf8) {
 	gchar *tmp, *tmp2;
 	tmp = g_path_get_basename(full_path_utf8);
-	tmp2 = gnome_vfs_unescape_string(tmp, "");
+	/* BUG: if the filename contains characters that are not in utf8, the 
+	'unescape_string' will unescape those characters, and thus produce non-utf8, which bluefish
+	cannot display... "Invalid UTF-8 string passed to pango_layout_set_text()"
+	hmm how to do this... perhaps test if the returned string is utf8 ??*/
+	tmp2 = gnome_vfs_unescape_string_for_display(tmp);
 	g_free(tmp);
 	return tmp2;
 }

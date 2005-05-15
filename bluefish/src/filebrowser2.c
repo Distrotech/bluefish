@@ -1079,24 +1079,27 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 		uri = fb2_uri_from_file_selection(fb2);
 	}
 	if (uri) {
-      const gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
-      gchar *text;
-      gint retval;
-      gchar *fullpath, *filename;
-      fullpath = full_path_utf8_from_uri(uri);
+		const gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
+		gchar *text;
+		gint retval;
+		gchar *fullpath, *filename;
+		fullpath = full_path_utf8_from_uri(uri);
 		filename = filename_utf8_from_full_path_utf8(fullpath);
 		/* Do we really need to display the full path here?
 		 *  
 		 * Having the filename in the both the primary and secondary text seems to be redundant.
 		 * Set back to just the primary text for now.
+		 *
+		 * --> I'm not sure, but sometimes you can have a file in many directories (e.g. Makefile.in)
+		 * and then this might give you more indication if this is indeed the file you wanted to delete
 		 */
-      text = g_strdup_printf (_("Are you sure you want to delete\n\"%s\"?"), fullpath);
-      retval = message_dialog_new_multi(fb2->bfwin->main_window,
-                                        GTK_MESSAGE_QUESTION,
-                                        buttons,
-                                        text,
-                                        _("If you delete this file, it will be permanently lost."));
-      g_free(text);
+		text = g_strdup_printf (_("Are you sure you want to delete\n\"%s\"?"), fullpath);
+		retval = message_dialog_new_multi(fb2->bfwin->main_window,
+					GTK_MESSAGE_QUESTION,
+					buttons,
+					text,
+					_("If you delete this file, it will be permanently lost."));
+		g_free(text);
 		if (retval == 1) {
 			GnomeVFSResult res;
 			gchar *errmessage = NULL;
