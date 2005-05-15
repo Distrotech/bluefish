@@ -267,11 +267,11 @@ message_dialog_new(GtkWidget *parent,
 {
 	GtkWidget *dialog;
 		
-	dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (parent),
-																GTK_DIALOG_DESTROY_WITH_PARENT,
-																type,
-																button,
-																NULL);	
+	dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+												GTK_DIALOG_DESTROY_WITH_PARENT,
+												type,
+												button,
+												NULL);	
 
 	message_dialog_set_text(dialog, primaryText, secondaryText);
 	
@@ -301,11 +301,11 @@ message_dialog_new_multi(GtkWidget *parent,
 	gint response;
 	int i = 0;
 		
-	dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (parent),
-																GTK_DIALOG_DESTROY_WITH_PARENT,
-																type,
-																GTK_BUTTONS_NONE,
-																NULL);
+	dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+												GTK_DIALOG_DESTROY_WITH_PARENT,
+												type,
+												GTK_BUTTONS_NONE,
+												NULL);
 
 	message_dialog_set_text(dialog, primaryText, secondaryText);																
 
