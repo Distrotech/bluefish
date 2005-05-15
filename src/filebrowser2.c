@@ -1003,7 +1003,7 @@ static void fb2rpopup_new(Tfilebrowser2 *fb2, gboolean newisdir) {
 		if (res == GNOME_VFS_OK) {
 			fb2_refresh_parent_of_uri(newuri);
 		} else {
-			DEBUG_MSG("fb2rpopup_new, failed creation..\n");
+			DEBUG_MSG("fb2rpopup_new, failed creation.. (res=%d, %s)\n",res,gnome_vfs_result_to_string(res));
 		}
 		gnome_vfs_uri_unref(newuri);
 		gnome_vfs_uri_unref(baseuri);
@@ -1070,6 +1070,22 @@ static void fb2rpopup_rename(Tfilebrowser2 *fb2) {
 	}
 }
 
+static void rcpopup_async_delete_lcb(gpointer data) {
+	GnomeVFSURI *uri = data;
+	if (uri) {
+		GList *alldocs;
+		fb2_refresh_parent_of_uri(uri);
+		
+		alldocs = return_allwindows_documentlist();
+		Tdocument *exdoc = documentlist_return_document_from_uri(alldocs, uri);
+		if (exdoc) {
+			document_unset_filename(exdoc);
+		}
+		g_list_free(alldocs);
+		gnome_vfs_uri_unref(uri);
+	}
+}
+
 static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 	GnomeVFSURI *uri;
 	
@@ -1101,28 +1117,9 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 					_("If you delete this file, it will be permanently lost."));
 		g_free(text);
 		if (retval == 1) {
-			GnomeVFSResult res;
-			gchar *errmessage = NULL;
-			if (fb2->last_popup_on_dir) {
-				res = gnome_vfs_remove_directory_from_uri(uri);
-			} else {
-				res = gnome_vfs_unlink_from_uri(uri);
-			}
-			if (res != GNOME_VFS_OK) {
-				errmessage = g_strconcat(_("Could not delete \n"), filename, NULL);
-				message_dialog_new(fb2->bfwin->main_window, 
-										 GTK_MESSAGE_ERROR, 
-								 		 GTK_BUTTONS_CLOSE, 
-								 		 errmessage,
-								 		 NULL);
-				g_free(errmessage);
-			} else {
-				GList *alldocs = return_allwindows_documentlist();
-				Tdocument *exdoc = documentlist_return_document_from_uri(alldocs, uri);
-				if (exdoc) document_unset_filename(exdoc);
-				g_list_free(alldocs);
-			}
-			fb2_refresh_parent_of_uri(uri);
+			/* ref the uri, it is unreffed by the callback */
+			gnome_vfs_uri_ref(uri);
+			file_delete_file_async(uri, rcpopup_async_delete_lcb, uri);
 		}
 		g_free(filename);
 		g_free(fullpath);
