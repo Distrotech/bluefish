@@ -1100,7 +1100,7 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 		gint retval;
 		gchar *fullpath, *filename;
 		fullpath = full_path_utf8_from_uri(uri);
-		filename = filename_utf8_from_full_path_utf8(fullpath);
+		filename = filename_utf8_from_uri(uri);
 		/* Do we really need to display the full path here?
 		 *  
 		 * Having the filename in the both the primary and secondary text seems to be redundant.
