@@ -1086,9 +1086,10 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	if (!setfile || strlen(setfile)==0) {
 		if (fb->bfwin && fb->bfwin->current_document->uri) {
 			if (setfile) g_free(setfile);
-			setfile = gnome_vfs_uri_extract_dirname(fb->bfwin->current_document->uri);
+			setfile = gnome_vfs_uri_to_string(fb->bfwin->current_document->uri, GNOME_VFS_URI_HIDE_PASSWORD);
+			/* setfile = gnome_vfs_uri_extract_dirname(fb->bfwin->current_document->uri);*/
 		}
-	} else if (setfile && strchr(setfile, '/') == NULL && fb->bfwin && fb->bfwin->current_document->uri) {
+	} else if (setfile && setfile[0] != '/' && strchr(setfile, ':')==NULL && fb->bfwin && fb->bfwin->current_document->uri) {
 		/* if setfile is a relative name, we should try to make it a full path. relative names have 
 		no slashes in the name */
 		gchar *basedir, *oldsetfile;
