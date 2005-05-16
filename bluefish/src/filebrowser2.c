@@ -978,6 +978,44 @@ static void fb2rpopup_refresh(Tfilebrowser2 *fb2) {
 	}
 }
 
+static void rename_not_open_file(Tbfwin *bfwin, GnomeVFSURI *olduri) {
+	gchar *newfilename=NULL, *oldfilename;
+	
+	/* Promt user, "File/Move To"-style. */
+	oldfilename = gnome_vfs_uri_to_string(olduri,0);
+	newfilename = ask_new_filename(bfwin, oldfilename, oldfilename, TRUE);
+	if (newfilename) {
+		GnomeVFSURI *newuri=NULL;
+		GnomeVFSResult res;
+		newuri = gnome_vfs_uri_new(newfilename);
+		res = gnome_vfs_move_uri(olduri,newuri,TRUE);
+		if (res != GNOME_VFS_OK) {
+			gchar *errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
+			message_dialog_new(bfwin->main_window, 
+									 GTK_MESSAGE_ERROR, 
+						 			 GTK_BUTTONS_CLOSE, 
+						 			 errmessage,
+						 			 NULL);
+			g_free(errmessage);
+		} else {
+			GnomeVFSURI *parent1, *parent2;
+			parent1 = gnome_vfs_uri_get_parent(olduri);
+			parent2 = gnome_vfs_uri_get_parent(newuri);
+			if (!gnome_vfs_uri_equal(parent1,parent2)) {
+				fb2_refresh_parent_of_uri(olduri);
+				fb2_refresh_parent_of_uri(newuri);
+			} else {
+				fb2_refresh_dir_from_uri(parent1);
+			}
+			gnome_vfs_uri_unref(parent1);
+			gnome_vfs_uri_unref(parent2);
+		}
+		g_free(newfilename);
+		gnome_vfs_uri_unref(newuri);
+	}
+	g_free(oldfilename);
+} 
+
 static void fb2rpopup_new(Tfilebrowser2 *fb2, gboolean newisdir) {
 	GnomeVFSURI *baseuri;
 	if (fb2->last_popup_on_dir) {
@@ -998,6 +1036,7 @@ static void fb2rpopup_new(Tfilebrowser2 *fb2, gboolean newisdir) {
 			res = gnome_vfs_create_uri(&handle,newuri,GNOME_VFS_OPEN_WRITE,FALSE,0644);
 			if (res == GNOME_VFS_OK) {
 				res = gnome_vfs_close(handle);
+				rename_not_open_file(fb2->bfwin, newuri);
 			}
 		}
 		if (res == GNOME_VFS_OK) {
@@ -1032,39 +1071,8 @@ static void fb2rpopup_rename(Tfilebrowser2 *fb2) {
 			/* If an error occurs, doc_save takes care of notifying the user.
 			 * Currently, nothing is done here. */	
 			doc_save_backend(tmpdoc, TRUE, TRUE, FALSE, FALSE);
-			/* Refresh the appropriate parts of the filebrowser 
-			BUG: because file saving is asynchronous, it could be that the new file is not yet created, or the
-			old file not yet removed, so perhaps we should delay this, or call it from the doc_save_backend.. */
 		} else { /* olduri is not open */
-			gchar *newfilename=NULL, *oldfilename;
-			
-			/* Promt user, "File/Move To"-style. */
-			oldfilename = gnome_vfs_uri_to_string(olduri,0);
-			newfilename = ask_new_filename(fb2->bfwin, oldfilename, oldfilename, TRUE);
-			if (newfilename) {
-				GnomeVFSURI *newuri=NULL;
-				GnomeVFSResult res;
-				newuri = gnome_vfs_uri_new(newfilename);
-				res = gnome_vfs_move_uri(olduri,newuri,TRUE);
-				if (res != GNOME_VFS_OK) {
-					gchar *errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
-					message_dialog_new(fb2->bfwin->main_window, 
-											 GTK_MESSAGE_ERROR, 
-								 			 GTK_BUTTONS_CLOSE, 
-								 			 errmessage,
-								 			 NULL);
-					g_free(errmessage);
-				}
-				
-				fb2_refresh_parent_of_uri(olduri);
-				if (newuri) {
-					fb2_refresh_parent_of_uri(newuri);
-				}
-				
-				g_free(newfilename);
-				gnome_vfs_uri_unref(newuri);
-			}
-			g_free(oldfilename);
+			rename_not_open_file(fb2->bfwin, olduri);
 		}
 		gnome_vfs_uri_unref(olduri);
 	}
