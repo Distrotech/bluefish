@@ -1090,14 +1090,17 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 			/* setfile = gnome_vfs_uri_extract_dirname(fb->bfwin->current_document->uri);*/
 		}
 	} else if (setfile && setfile[0] != '/' && strchr(setfile, ':')==NULL && fb->bfwin && fb->bfwin->current_document->uri) {
-		/* if setfile is a relative name, we should try to make it a full path. relative names have 
-		no slashes in the name */
-		gchar *basedir, *oldsetfile;
-		oldsetfile = setfile;
-		basedir = gnome_vfs_uri_extract_dirname(fb->bfwin->current_document->uri);
-		setfile = create_full_path(oldsetfile, basedir);
-		g_free(oldsetfile);
-		g_free(basedir);
+		/* if setfile is a relative name, we should try to make it a full path. relative names
+		cannot start with a slash or with a scheme (such as file://) */
+		gchar *doccuri, *newsetfile;
+		
+		doccuri = gnome_vfs_uri_to_string(fb->bfwin->current_document->uri, GNOME_VFS_URI_HIDE_PASSWORD);
+		newsetfile = gnome_vfs_uri_make_full_from_relative(doccuri,setfile);
+		if (newsetfile) {
+			g_free(setfile);
+			setfile = newsetfile;
+		}
+		g_free(doccuri);
 	}
 	
 	{
