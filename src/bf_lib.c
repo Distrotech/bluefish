@@ -88,49 +88,72 @@ void free_urilist(GList *urilist) {
 }
 
 gchar *full_path_utf8_from_uri(GnomeVFSURI *uri) {
-	gchar *tmpuri, *utf8uri;
-	tmpuri = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD); /* this function automatically hides the toplevel method for local files */
-	/* not sure what to use here. 
+	gchar *curi;
+	
+	curi = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
+	if (gnome_vfs_uri_is_local(uri)) {
+		gchar *utf8uri;
+		/* for local uri's, this function  will use the encoding of the filesystem to
+		unescape the uri correctly to UTF-8 */
+		utf8uri = gnome_vfs_format_uri_for_display(curi);
+		g_free(curi);
+		curi = utf8uri;
+	}
+	return curi;
+	/* 
 	gnome_vfs_format_uri_for_display guarantees to return UTF-8, it will retrieve the 
-		encoding of the filesystem, and use that to create the utf8 encoded string, and 
+		encoding of the LOCAL filesystem, and use that to create the utf8 encoded string, and 
 		if it fails	to convert a local filename to utf-8 it will return the uri form
 		
-	Does it just retrieve the encoding from a remote filesystem or only the local filesystem?	
-	There also does not appear to be any way to determine if the conversion failed or not.
-	
 	gnome_vfs_unescape_string_for_display does return some string, but 
 		it seems (after some testing) to stop after it encounters any character 
-		it cannot convert to utf-8 (and thus shows only half of the filename)
-	 */
-	utf8uri = gnome_vfs_format_uri_for_display(tmpuri);
-	/*utf8uri = gnome_vfs_unescape_string_for_display(tmpuri);*/
-	g_free(tmpuri);
-	return utf8uri;
+		it cannot convert to utf-8 (and thus shows only half of the filename) */
 }
 
-gchar *filename_utf8_from_full_path_utf8(const gchar *full_path_utf8) {
+/* gchar *filename_utf8_from_full_path_utf8(const gchar *full_path_utf8) {
 	gchar *tmp, *tmp2;
 	tmp = g_path_get_basename(full_path_utf8);
-	/* BUG: if the filename contains characters that are not in utf8, the 
+	/ * BUG: if the filename contains characters that are not in utf8, the 
 	'unescape_string' will unescape those characters, and thus produce non-utf8, which bluefish
 	cannot display... "Invalid UTF-8 string passed to pango_layout_set_text()"
-	hmm how to do this... perhaps test if the returned string is utf8 ??*/
+	hmm how to do this... perhaps test if the returned string is utf8 ??* /
 	
-	/* What does gnome-vfs use for the conversion? The g_filename_* set of functions?
+	/ * What does gnome-vfs use for the conversion? The g_filename_* set of functions?
 	 * There is a short description in the glib documentation about file name encodings
 	 * in the character set conversion section. I don't recall seeing it previously.
-	 */
+	 * /
 	tmp2 = gnome_vfs_unescape_string_for_display(tmp);
 	g_free(tmp);
 	return tmp2;
-}
+}*/
 
 gchar *filename_utf8_from_uri(GnomeVFSURI *uri) {
-	gchar *full_path_utf8, *tmp;
-	full_path_utf8 = full_path_utf8_from_uri(uri);
-	tmp = filename_utf8_from_full_path_utf8(full_path_utf8);
-	g_free(full_path_utf8);
-	return tmp;
+	gchar *filename;
+	/* for local files we can use the current disk encoding, and 
+	then strip the filename part of the uri. For remote files we
+	strip the filename, and try to unescape, if the resulting string is
+	utf8  we use it, else we'll use the escaped string */
+	
+	if (gnome_vfs_uri_is_local(uri)) {
+		gchar *tmp,*curi;
+		curi = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
+		tmp = gnome_vfs_format_uri_for_display(curi);
+		filename = g_path_get_basename(tmp);
+		g_free(tmp);
+		g_free(curi);
+	} else {
+		gchar *tmp, *tmp2;
+		tmp = gnome_vfs_uri_extract_short_path_name(uri);
+		tmp2 = gnome_vfs_unescape_string(tmp, "");
+		if (g_utf8_validate(tmp2, -1, NULL)) {
+			filename =  tmp2;
+			g_free(tmp);
+		} else {
+			filename =  tmp;
+			g_free(tmp2);
+		}
+	}
+	return filename;
 }
 
 /**

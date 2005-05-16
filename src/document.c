@@ -479,7 +479,7 @@ void doc_set_title(Tdocument *doc) {
 	gchar *label_string, *tabmenu_string;
 	if (doc->uri) {
 		tabmenu_string = full_path_utf8_from_uri(doc->uri);
-		label_string = filename_utf8_from_full_path_utf8(tabmenu_string);
+		label_string = filename_utf8_from_uri(doc->uri);
 	} else {
 		label_string = g_strdup_printf(_("Untitled %d"),main_v->num_untitled_documents);
 		tabmenu_string =  g_strdup(label_string);
