@@ -83,6 +83,7 @@ gchar *create_full_path(const gchar * filename, const gchar *basedir);
 gchar *strip_trailing_slash(gchar *input);
 gchar *ending_slash(const gchar *dirname);
 gchar *path_get_dirname_with_ending_slash(const gchar *filename);
+gboolean full_path_exists(const gchar *full_path);
 gboolean file_exists_and_readable(const gchar * filename);
 gchar *return_first_existing_filename(const gchar * filename, ...);
 gboolean filename_test_extensions(gchar **extensions, const gchar *filename);

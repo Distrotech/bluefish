@@ -974,7 +974,7 @@ gboolean rcfile_parse_global_session(void) {
 	GList *configlist = return_globalsession_configlist(TRUE);
 	configlist = return_session_configlist(configlist, main_v->session);
 	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/session", NULL);
-	if (!file_exists_and_readable(filename)) {
+	if (!full_path_exists(filename)) {
 		/* versions before 0.13 did not have a separate session file, so 
 		we'll try to load these items from rcfile_v2 */
 		g_free(filename);

@@ -4480,11 +4480,9 @@ static void frefcb_del_entity(GtkWidget * widget, Tbfwin *bfwin)
 
 /* --------------------------      END CALLBACKS   ---------------------------------------------------------- */
 
-static void fill_toplevels(Tfref_data * fdata, gboolean empty_first)
-{
+static void fill_toplevels(Tfref_data * fdata, gboolean empty_first) {
 	GList *reflist;
 	gint *cnt;
-	FILE *auxf;
 
 	if (empty_first) {
 		gtk_tree_store_clear(fdata->store);
@@ -4493,26 +4491,20 @@ static void fill_toplevels(Tfref_data * fdata, gboolean empty_first)
 	while (reflist) {
 		gchar **tmparray = reflist->data;
 		if (count_array(tmparray) == 2) {
-			if (file_exists_and_readable(tmparray[1])) {
+			if (access(tmparray[1], R_OK) == 0) {
 				GtkTreeIter iter;
 				GtkTreeIter iter2;
 				DEBUG_MSG("fill_toplevels, adding %s as %s\n",tmparray[1],tmparray[0]);
 				gtk_tree_store_append(fdata->store, &iter, NULL);
-				auxf = fopen(tmparray[1],"a");
-				if ( auxf!=NULL )
-				{
+				if (access(tmparray[1], W_OK) == 0) {
 					gtk_tree_store_set(fdata->store, &iter,PIXMAP_COLUMN,fdata->icon_rw,
 				               STR_COLUMN, tmparray[0], PTR_COLUMN, 0,
 								   FILE_COLUMN, tmparray[1], VISIBLE_COLUMN,FALSE,-1);
-					fclose(auxf);				   			   
-				}				   
-				else
-				{
+				} else {
 					gtk_tree_store_set(fdata->store, &iter,PIXMAP_COLUMN,fdata->icon_ro,
 				               STR_COLUMN, tmparray[0], PTR_COLUMN, 0,
 								   FILE_COLUMN, tmparray[1], VISIBLE_COLUMN,TRUE,-1);
 				}				   
-				
 				cnt = g_new0(gint, 1);
 				*cnt = 0;
 				g_hash_table_replace(fdata->refcount, g_strdup(tmparray[0]), cnt);

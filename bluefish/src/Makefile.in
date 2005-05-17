@@ -34,7 +34,7 @@ gnulocaledir = $(prefix)/share/locale
 aliaspath = $(localedir):.
 
 CC = @CC@
-CFLAGS = -DFB2 @CFLAGS@
+CFLAGS = @CFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 INSTALL = @INSTALL@

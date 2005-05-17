@@ -1232,6 +1232,24 @@ gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
 }
 
 /**
+ * full_path_exists:
+ * @full_path: gchar*
+ *
+ * convenience function that will create a GnomeVFSURI, check if it exists, and unref it again.
+ *
+ * if you already have a GnomeVFSURI you should use gnome_vfs_uri_exists()
+ *
+ */
+gboolean full_path_exists(const gchar *full_path) {
+	GnomeVFSURI *uri;
+	gboolean retval;
+	uri = gnome_vfs_uri_new(full_path);
+	retval = gnome_vfs_uri_exists(uri);
+	gnome_vfs_uri_unref(uri);
+	return retval;
+}
+
+/**
  * file_exists_and_readable:
  * @filename: a #const gchar * with a file path
  *
@@ -1242,7 +1260,7 @@ gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
  * this function is Gnome-VFS aware, so it will work on URI's
  *
  * Return value: gboolean, TRUE if readable, else FALSE
- **/
+ ** /
 gboolean file_exists_and_readable(const gchar * filename) {
 	GnomeVFSURI* uri;
 	gboolean retval=TRUE;
@@ -1254,15 +1272,15 @@ gboolean file_exists_and_readable(const gchar * filename) {
 		return FALSE;
 	}
 	DEBUG_MSG("file_exists_and_readable, filename(%p)=\"%s\", strlen(filename)=%d\n", filename, filename, strlen(filename));
-	if (strchr(filename, ':')!=NULL) { /* uri */
+	if (strchr(filename, ':')!=NULL) { / * uri * /
 		uri = gnome_vfs_uri_new(filename);
-	} else if (filename[0] == '/') { /* local path */
+	} else if (filename[0] == '/') { / * local path * /
 		uri = gnome_vfs_uri_new(filename);
 	} else {
 		gchar *curi, *tmp1, *tmp2;
 		tmp1 = g_get_current_dir();
 		tmp2 = ending_slash(tmp1);
-		/* relative path */
+		/ * relative path * /
 		curi = gnome_vfs_uri_make_full_from_relative(tmp2, filename);
 		DEBUG_MSG("file_exists_and_readable, constructed %s from %s and %s\n",curi,tmp2,filename);
 		uri = gnome_vfs_uri_new(curi);
@@ -1275,6 +1293,7 @@ gboolean file_exists_and_readable(const gchar * filename) {
 	DEBUG_MSG("file_exists_and_readable, return %d for %s\n",retval,filename);
 	return retval;
 }
+*/
 /**
  * return_first_existing_filename:
  * @filename: a #const gchar * with a filename
@@ -1292,7 +1311,7 @@ gchar *return_first_existing_filename(const gchar *filename, ...) {
 	va_start(args, filename);
 	while (filename) {
 		DEBUG_MSG("return_first_existing_filename, testing %s\n",filename);
-		if (file_exists_and_readable(filename)) {
+		if (access(filename, R_OK) == 0) {
 			retval = g_strdup(filename);
 			break;
 		}
