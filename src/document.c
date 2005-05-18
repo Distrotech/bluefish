@@ -3236,6 +3236,7 @@ void doc_reload(Tdocument *doc) {
 		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 	}
 	doc_set_status(doc, DOC_STATUS_LOADING);
+	doc_set_modified(doc,FALSE);
 	file_doc_fill_from_uri(doc, doc->uri, NULL, -1);
 }
 
