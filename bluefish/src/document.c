@@ -2891,6 +2891,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
  */
 Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo) {
 	Tdocument *doc = doc_new_backend(bfwin, FALSE);
+	DEBUG_MSG("doc_new_loading_in_background, bfwin=%p, doc=%p, for uri %s\n",bfwin,doc,gnome_vfs_uri_get_path(uri));
 	if (finfo) {
 		doc->fileinfo = gnome_vfs_file_info_dup(finfo);
 	} else {
@@ -2970,7 +2971,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 /**
  * doc_new_from_uri:
  *
- * OR curi OR uri should be set !
+ * uri should be set !
  *
  * and goto_line and goto_offset should not BOTH be >= 0 (if so, offset is ignored)
  */
@@ -2984,8 +2985,8 @@ void doc_new_from_uri(Tbfwin *bfwin, GnomeVFSURI *opturi, GnomeVFSFileInfo *finf
 	}
 	uri = opturi;
 	gnome_vfs_uri_ref(opturi);
-	tmpcuri = gnome_vfs_uri_to_string(opturi,0);
-	DEBUG_MSG("doc_new_from_uri, started for %s\n",tmpcuri);
+	tmpcuri = gnome_vfs_uri_to_string(opturi,GNOME_VFS_URI_HIDE_PASSWORD);
+	DEBUG_MSG("doc_new_from_uri, started for uri(%p)=%s=%s\n",uri,gnome_vfs_uri_get_path(uri),tmpcuri);
 	
 	/* check if the document already is opened */
 	alldocs = return_allwindows_documentlist();
@@ -3031,13 +3032,20 @@ void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gb
 			curi = gnome_vfs_make_uri_from_input_with_dirs(input, GNOME_VFS_MAKE_URI_DIR_HOMEDIR);
 		}
 	} else {
-		DEBUG_MSG("doc_new_from_input, converting..\n");
 		curi = gnome_vfs_make_uri_from_input(input);
+		DEBUG_MSG("doc_new_from_input, converting %s, result=%s\n",input, curi);
 	}
 	if (curi) {
 		GnomeVFSURI *uri = gnome_vfs_uri_new(curi);
-		doc_new_from_uri(bfwin, uri, NULL, delay_activate, move_to_this_win, goto_line, -1);
-		gnome_vfs_uri_unref(uri);
+		if (uri) {
+			DEBUG_MSG("doc_new_from_input, uri(%p)=%s\n",uri,gnome_vfs_uri_get_path(uri));
+			if (gnome_vfs_uri_get_path(uri) != NULL) {
+				doc_new_from_uri(bfwin, uri, NULL, delay_activate, move_to_this_win, goto_line, -1);
+			}
+			gnome_vfs_uri_unref(uri);
+		} else {
+			DEBUG_MSG("doc_new_from_input, ERROR: failed to create GnomeVFSURI from %s\n",curi);
+		}
 	}
 }
 
