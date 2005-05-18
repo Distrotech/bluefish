@@ -228,15 +228,10 @@ static void open_url_cancel_lcb(GtkWidget *widget, Tou *ou) {
 	gtk_widget_destroy(ou->win);
 }
 static void open_url_ok_lcb(GtkWidget *widget, Tou *ou) {
-	GnomeVFSURI *uri;
 	gchar *url = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(ou->entry)->entry),0,-1);
-	/*doc_new_with_file(ou->bfwin,url,FALSE,FALSE);*/
-	uri = gnome_vfs_uri_new(url);
-	if (uri) {
-		doc_new_from_uri(ou->bfwin, uri, NULL, FALSE, FALSE, -1, -1);
-	}
+	DEBUG_MSG("open_url_ok_lcb, url=%s\n",url);
+	doc_new_from_input(ou->bfwin, url, FALSE, FALSE, -1);
 	g_free(url);
-	gnome_vfs_uri_unref(uri);
 	gtk_widget_destroy(ou->win);
 }
 
