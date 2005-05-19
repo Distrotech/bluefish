@@ -694,9 +694,9 @@ large php files, a cache of
 	12 resulted in 152% of the buffer to be parsed
 	14 resulted in 152% of the buffer to be parsed
 	16 resulted in 152% of the buffer to be parsed
-so we keep it at 10 for the moment
+so we keep it at 12 for the moment
 */
-#define UTF8_OFFSET_CACHE_SIZE 10
+#define UTF8_OFFSET_CACHE_SIZE 12
 /* #define UTF8_BYTECHARDEBUG */
 
 typedef struct {

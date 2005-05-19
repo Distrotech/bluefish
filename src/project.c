@@ -32,7 +32,6 @@
 #include "gtk_easy.h"
 #include "rcfile.h"
 #include "bf_lib.h"
-#include "filebrowser.h"
 #include "filebrowser2.h"
 #include "file_dialogs.h"
 #include "menu.h"
