@@ -25,6 +25,7 @@
 #include <gdk/gdkkeysyms.h>
 
 /*#define DEBUG*/
+/*#define TEST_CODE*/
 
 #include "bluefish.h"
 #include "about.h"
@@ -1254,7 +1255,6 @@ void rename_window_entry_in_all_windows(Tbfwin *tobfwin, gchar *newtitle) {
 /*****************/
 /* Browsers!!    */
 /*****************/
-/* #define TEST_CODE */
 static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
 #ifdef TEST_CODE
 	external_command(bfwin, "mozilla %i");
@@ -1312,6 +1312,9 @@ static void browser_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	view_in_browser(bdm->bfwin,arr[1]);
 }
 static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
+#ifdef TEST_CODE
+	filter_command(bdm->bfwin, "tac");
+#else
 	gchar *secure_tempname = NULL, *secure_tempname2 = NULL;
 	gboolean need_s=FALSE, need_f=FALSE, need_i=FALSE;
 	gchar **arr = (gchar **)bdm->data;
@@ -1394,6 +1397,7 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 		DEBUG_MSG("external_command_lcb, about to start %s\n", arr[1]);
 		system(arr[1]);
 	}
+#endif /* TEST_CODE */
 }
 /**
  * external_menu_rebuild:
