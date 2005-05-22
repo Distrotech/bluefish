@@ -1121,12 +1121,8 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
 	g_free(eff_link_to_filepath);
 	return returnstring;
 }
-#ifdef HAVE_GNOME_VFS
+
 #define STRIP_FILE_URI
-#endif
-#ifdef HAVE_ATLEAST_GTK_2_4
-#define STRIP_FILE_URI
-#endif
 /**
  * create_full_path:
  * @filename: a gchar * with the (relative or not) filename
@@ -1145,13 +1141,18 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
  *
  * Return value: a newly allocated gchar * with the full path
  **/
+/* 
+used:
+bluefish.c:95
+bluefish.c:120
+outputbox.c:163
+*/
 gchar *create_full_path(const gchar * filename, const gchar *basedir) {
 	gchar *absolute_filename;
 	gchar *tmpcdir;
 
 	if (!filename) return NULL;
 	DEBUG_MSG("create_full_path, filename=%s, basedir=%s\n", filename, basedir);
-#ifdef STRIP_FILE_URI
 	if (strchr(filename, ':') != NULL) { /* it is an URI!! */
 		DEBUG_MSG("create_full_path, %s is an URI\n",filename);
 		if (strncmp(filename, "file://", 7)==0) {
@@ -1159,7 +1160,6 @@ gchar *create_full_path(const gchar * filename, const gchar *basedir) {
 		}
 		return g_strdup(filename); /* cannot do this on remote paths */
 	}
-#endif /* HAVE_GNOME_VFS */
 	if (g_path_is_absolute(filename)) {
 		absolute_filename = g_strdup(filename);
 	} else {
