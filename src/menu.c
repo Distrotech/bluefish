@@ -1254,8 +1254,11 @@ void rename_window_entry_in_all_windows(Tbfwin *tobfwin, gchar *newtitle) {
 /*****************/
 /* Browsers!!    */
 /*****************/
-
+/* #define TEST_CODE */
 static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
+#ifdef TEST_CODE
+	external_command(bfwin, "mozilla %i");
+#else
 	if (bfwin->current_document->uri) {
 		Tconvert_table *table, *tmpt;
 		gchar *command;
@@ -1289,6 +1292,7 @@ static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
 								 _("Could not view file in browser."), 
 								 _("File has not been saved\n"));
 	}
+#endif
 }
 
 void browser_toolbar_cb(GtkWidget *widget, Tbfwin *bfwin) {
