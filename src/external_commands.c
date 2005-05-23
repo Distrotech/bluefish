@@ -29,11 +29,12 @@ typedef struct {
 	gboolean pipe_in;
 	gboolean pipe_out;
 	
-	pid_t child_process;
 	GIOChannel* channel_in;
 	gchar *buffer_out;
 	gchar *buffer_out_position;
 	GIOChannel* channel_out;
+	
+	gpointer data;
 } Texternalp;
 
 static void externalp_unref(Texternalp *ep) {
@@ -110,7 +111,7 @@ static void start_command(Texternalp *ep, gboolean include_stderr, GIOFunc chann
 #ifdef WIN32
 	include_stderr = FALSE;
 #endif
-	g_spawn_async_with_pipes(NULL,argv,NULL,0,(include_stderr) ? spawn_setup_lcb: NULL,NULL,NULL,
+	g_spawn_async_with_pipes(NULL,argv,NULL,0,(include_stderr) ? spawn_setup_lcb: NULL,ep,NULL,
 				(ep->pipe_in) ? &standard_input : NULL,
 				(ep->pipe_out) ? &standard_output : NULL,
 				NULL,&error);
@@ -300,14 +301,55 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 	}
 	table[cur].my_int = '\0';
 	table[cur].my_char = NULL;
-	
-	retstring = replace_string_printflike(formatstring, table);
+	if (cur == 0) {
+		retstring = g_strdup(formatstring);
+	} else {
+		retstring = replace_string_printflike(formatstring, table);
+	}
 	free_convert_table(table);
 
 	return retstring;
 }
 
-void outputbox_command(Tbfwin *bfwin, const gchar *formatstring, GIOFunc callback, gpointer callback_data) {
+static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition condition,gpointer data) {
+	Texternalp *ep = data;
+	DEBUG_MSG("outputbox_io_watch_lcb, called with condition %d\n",condition);
+	if (condition & G_IO_IN) {
+		gchar *buf=NULL;
+		gsize buflen=0,termpos=0;
+		GError *error=NULL;
+		GIOStatus status = g_io_channel_read_line(channel,&buf,&buflen,&termpos,&error);
+		while (status == G_IO_STATUS_NORMAL && buflen > 0) {
+			if (termpos < buflen) buf[termpos] = '\0';
+			fill_output_box(ep->bfwin->outputbox, buf);
+			g_free(buf);
+			status = g_io_channel_read_line(channel,&buf,&buflen,&termpos,&error);
+		}
+	}
+	if (condition & G_IO_OUT) {
+		DEBUG_MSG("outputbox_io_watch_lcb, condition %d G_IO_OUT not handled\n",condition);
+	}
+	if (condition & G_IO_PRI) {
+		DEBUG_MSG("outputbox_io_watch_lcb, condition %d G_IO_PRI not handled\n",condition);
+	}
+	if (condition & G_IO_ERR) {
+		DEBUG_MSG("outputbox_io_watch_lcb, condition %d G_IO_ERR not handled\n",condition);
+	}
+	if (condition & G_IO_HUP) {
+		GError *error=NULL;
+		DEBUG_MSG("outputbox_io_watch_lcb, condition %d G_IO_HUP\n",condition);
+		/* cleanup !!!!!!!!! */
+		g_io_channel_shutdown(channel,TRUE,&error);
+		externalp_unref(ep);
+		return FALSE;
+	}
+	if (condition & G_IO_NVAL) {
+		DEBUG_MSG("outputbox_io_watch_lcb, condition %d G_IO_NVAL not handled\n",condition);
+	}
+	return TRUE;
+}
+
+void outputbox_command(Tbfwin *bfwin, const gchar *formatstring) {
 	Texternalp *ep;
 	
 	ep = g_new0(Texternalp,1);
@@ -325,7 +367,7 @@ void outputbox_command(Tbfwin *bfwin, const gchar *formatstring, GIOFunc callbac
 	if (!ep->fifo_in) {
 		ep->pipe_in = TRUE;
 	}
-	start_command(ep, TRUE, callback, callback_data);
+	start_command(ep, TRUE, outputbox_io_watch_lcb, ep);
 }
 
 static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,gpointer data) {
