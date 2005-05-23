@@ -7,6 +7,7 @@
 #include "bluefish.h"
 #include "document.h"
 #include "bf_lib.h"
+#include "outputbox.h"
 
 /*
  * for the external commands, the external filters, and the outputbox, we have some general code
@@ -26,16 +27,25 @@ typedef struct {
 	gchar *securedir; /* if we need any local temporary files for input or output we'll use fifo's */
 	gchar *fifo_in;
 	gchar *fifo_out;
+	gchar *tmp_in;
+	gchar *tmp_out;
 	gboolean pipe_in;
 	gboolean pipe_out;
+	
+	gboolean include_stderr;
 	
 	GIOChannel* channel_in;
 	gchar *buffer_out;
 	gchar *buffer_out_position;
 	GIOChannel* channel_out;
 	
+	GIOFunc channel_out_lcb;
+	gpointer channel_out_data;
+	
 	gpointer data;
 } Texternalp;
+
+static void start_command_backend(Texternalp *ep);
 
 static void externalp_unref(Texternalp *ep) {
 	ep->refcount--;
@@ -73,7 +83,11 @@ static gboolean start_command_write_lcb(GIOChannel *channel,GIOCondition conditi
 	if (strlen(ep->buffer_out) <= (ep->buffer_out_position - ep->buffer_out)) {
 		DEBUG_MSG("start_command_write_lcb, finished, shutting down channel\n");
 		g_io_channel_shutdown(channel,TRUE,&error);
-		externalp_unref(ep);
+		if (ep->tmp_in) {
+			start_command_backend(ep);
+		} else {
+			externalp_unref(ep);
+		}
 		return FALSE;
 	}
 	return TRUE;
@@ -87,7 +101,7 @@ void spawn_setup_lcb(gpointer user_data) {
 #endif
 }
 
-static void start_command(Texternalp *ep, gboolean include_stderr, GIOFunc channel_out_lcb,gpointer out_data) {
+static void start_command_backend(Texternalp *ep) {
 	gchar *argv[4];
 	gint standard_input,standard_output,standard_error;
 	GError *error=NULL;
@@ -110,11 +124,11 @@ static void start_command(Texternalp *ep, gboolean include_stderr, GIOFunc chann
 		}
 	}
 #ifdef WIN32
-	include_stderr = FALSE;
+	ep->include_stderr = FALSE;
 #endif
 	DEBUG_MSG("start_command, about to spawn process /bin/sh -c %s\n",argv[2]);
 	DEBUG_MSG("start_command, pipe_in=%d, pipe_out=%d, fifo_in=%s, fifo_out=%s\n",ep->pipe_in,ep->pipe_out,ep->fifo_in,ep->fifo_out);
-	g_spawn_async_with_pipes(NULL,argv,NULL,0,(include_stderr) ? spawn_setup_lcb: NULL,ep,NULL,
+	g_spawn_async_with_pipes(NULL,argv,NULL,0,(ep->include_stderr) ? spawn_setup_lcb: NULL,ep,NULL,
 				(ep->pipe_in) ? &standard_input : NULL,
 				(ep->pipe_out) ? &standard_output : NULL,
 				NULL,&error);
@@ -142,11 +156,23 @@ static void start_command(Texternalp *ep, gboolean include_stderr, GIOFunc chann
 		ep->channel_out = g_io_channel_new_file(ep->fifo_out,"r",NULL);
 		DEBUG_MSG("start_command, created channel_out from fifo %s\n",ep->fifo_out);
 	}
-	if (ep->pipe_out || ep->fifo_out) {
+	if (ep->channel_out_lcb && (ep->pipe_out || ep->fifo_out || ep->tmp_out)) {
 		ep->refcount++;
 		g_io_channel_set_flags(ep->channel_out,G_IO_FLAG_NONBLOCK,NULL);
 		DEBUG_MSG("start_command, add watch for channel_out\n");
-		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,channel_out_lcb,out_data);
+		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,ep->channel_out_lcb,ep->channel_out_data);
+	}
+}
+
+static void start_command(Texternalp *ep) {
+	if (ep->tmp_in) {
+		/* first create tmp_in, then start the real command in the callback */
+		ep->channel_in = g_io_channel_new_file(ep->tmp_in,"w",NULL);
+		g_io_channel_set_flags(ep->channel_in,G_IO_FLAG_NONBLOCK,NULL);
+		DEBUG_MSG("start_command, add watch for channel_in\n");
+		g_io_add_watch(ep->channel_in,G_IO_OUT,start_command_write_lcb,ep);
+	} else {
+		start_command_backend(ep);
 	}
 }
 /*
@@ -230,10 +256,10 @@ static void start_command_alt2(Texternalp *ep, gboolean include_stderr, GIOFunc 
     * %c local directory of file (function should abort for remote files)
     * %f filename without path
     * %u URL
-    * %i temporary filename, before execute bluefish should create this locally
-    * %o temporary local filename for output of filters
-    * if the first character is a pipe | we'll use a pipe to feed the documentdata
-    * if the last character is a pipe | we'll use a pipe to read the filter/outputbox data
+    * %i temporary fifo for input
+    * %o temporary fifo for output of filters or outputbox
+    * %I temporary filename for input (fifo is faster)
+    * %O temporary filename for output of filters or outputbox (fifo is faster)
 */
 static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gboolean discard_output) {
 	Tconvert_table *table;
@@ -256,8 +282,8 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 		/* BUG: give a warning that the current command only works for local files */
 		return NULL;
 	}
-	need_tmpin = (strstr(formatstring, "%i") != NULL);
-	need_tmpout = (strstr(formatstring, "%o") != NULL);
+	need_tmpin = (strstr(formatstring, "%i") != NULL || strstr(formatstring, "%I") != NULL);
+	need_tmpout = (strstr(formatstring, "%o") != NULL || strstr(formatstring, "%O") != NULL);
 	if (need_tmpout && discard_output) {
 		/*  BUG: give a warning that external commands should not use %o */
 		return NULL;
@@ -285,17 +311,29 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 		cur++;
 	}
 	if (need_tmpin) {
-		table[cur].my_int = 'i';
-		ep->fifo_in = create_secure_dir_return_filename();
-		table[cur].my_char = g_strdup(ep->fifo_in);
-		DEBUG_MSG("create_commandstring, %%i will be at %s\n",ep->fifo_in);
+		if (strstr(formatstring, "%i") != NULL) {
+			table[cur].my_int = 'i';
+			ep->fifo_in = create_secure_dir_return_filename();
+			table[cur].my_char = g_strdup(ep->fifo_in);
+			DEBUG_MSG("create_commandstring, %%i will be at %s\n",ep->fifo_in);
+		} else {
+			table[cur].my_int = 'I';
+			ep->tmp_in = create_secure_dir_return_filename();
+			table[cur].my_char = g_strdup(ep->tmp_in);
+		}
 		cur++;
 	}
 	if (need_tmpout) {
-		table[cur].my_int = 'o';
-		ep->fifo_out = create_secure_dir_return_filename();
-		table[cur].my_char = g_strdup(ep->fifo_out);
-		DEBUG_MSG("create_commandstring, %%o will be at %s\n",ep->fifo_out);
+		if (strstr(formatstring, "%o") != NULL) {
+			table[cur].my_int = 'o';
+			ep->fifo_out = create_secure_dir_return_filename();
+			table[cur].my_char = g_strdup(ep->fifo_out);
+			DEBUG_MSG("create_commandstring, %%o will be at %s\n",ep->fifo_out);
+		} else {
+			table[cur].my_int = 'O';
+			ep->tmp_out = create_secure_dir_return_filename();
+			table[cur].my_char = g_strdup(ep->tmp_out);
+		}
 		cur++;
 	}
 	if (need_local) {
@@ -376,7 +414,10 @@ void outputbox_command(Tbfwin *bfwin, const gchar *formatstring) {
 		DEBUG_MSG("outputbox_command, force pipe_in=TRUE\n");
 		ep->pipe_in = TRUE;
 	}
-	start_command(ep, TRUE, outputbox_io_watch_lcb, ep);
+	ep->include_stderr = TRUE;
+	ep->channel_out_lcb = outputbox_io_watch_lcb;
+	ep->channel_out_data = ep;
+	start_command(ep);
 }
 
 static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,gpointer data) {
@@ -441,7 +482,10 @@ void filter_command(Tbfwin *bfwin, const gchar *formatstring) {
 	if (!ep->fifo_in) {
 		ep->pipe_in = TRUE;
 	}
-	start_command(ep, FALSE, filter_io_watch_lcb, ep);
+	ep->include_stderr = FALSE;
+	ep->channel_out_lcb = filter_io_watch_lcb;
+	ep->channel_out_data = ep;
+	start_command(ep);
 }
 
 void external_command(Tbfwin *bfwin, const gchar *formatstring) {
@@ -456,7 +500,10 @@ void external_command(Tbfwin *bfwin, const gchar *formatstring) {
 		/* BUG: is the user notified of the error ?*/
 		return;
 	}
+	ep->include_stderr = FALSE;
+	ep->channel_out_lcb = NULL;
+	ep->channel_out_data = NULL;
 	
-	start_command(ep, FALSE, NULL, NULL);
+	start_command(ep);
 }
 
