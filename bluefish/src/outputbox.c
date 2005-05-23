@@ -18,6 +18,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 /* #define DEBUG */
+/* #define TEST_CODE */
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -137,7 +138,7 @@ static Toutputbox *init_output_box(Tbfwin *bfwin) {
 	return ob;
 }
 
-static void fill_output_box(Toutputbox *ob, gchar *string) {
+void fill_output_box(Toutputbox *ob, gchar *string) {
 	GtkTreeIter iter;
 	if (regexec(&ob->def->preg,string,NUM_MATCH,ob->def->pmatch,0)==0) {
 		/* we have a valid line */
@@ -362,8 +363,10 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	ob->def->line_subpat = line_subpat;
 	ob->def->output_subpat = output_subpat;
 	regcomp(&ob->def->preg,ob->def->pattern, REG_EXTENDED);
-	ob->def->command = g_strdup(command);
 	gtk_list_store_clear(GTK_LIST_STORE(ob->lstore));
-	
+#ifdef TEST_CODE
+	outputbox_command(bfwin, "weblint %i");
+#else
 	run_command(ob);
+#endif
 }
