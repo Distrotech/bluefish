@@ -25,7 +25,7 @@
 #include <gdk/gdkkeysyms.h>
 
 /*#define DEBUG*/
-/*#define TEST_CODE*/
+/* #define TEST_CODE */
 
 #include "bluefish.h"
 #include "about.h"

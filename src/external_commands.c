@@ -101,6 +101,7 @@ static void start_command(Texternalp *ep, gboolean include_stderr, GIOFunc chann
 			g_print("some error happened creating fifo %s??\n",ep->fifo_in);
 			return;
 		}
+		DEBUG_MSG("start_command, created fifo %s\n",ep->fifo_in);
 	}
 	if (ep->fifo_out) {
 		if (mkfifo(ep->fifo_out, 0600) != 0) {
@@ -111,13 +112,19 @@ static void start_command(Texternalp *ep, gboolean include_stderr, GIOFunc chann
 #ifdef WIN32
 	include_stderr = FALSE;
 #endif
+	DEBUG_MSG("start_command, about to spawn process /bin/sh -c %s\n",argv[2]);
+	DEBUG_MSG("start_command, pipe_in=%d, pipe_out=%d, fifo_in=%s, fifo_out=%s\n",ep->pipe_in,ep->pipe_out,ep->fifo_in,ep->fifo_out);
 	g_spawn_async_with_pipes(NULL,argv,NULL,0,(include_stderr) ? spawn_setup_lcb: NULL,ep,NULL,
 				(ep->pipe_in) ? &standard_input : NULL,
 				(ep->pipe_out) ? &standard_output : NULL,
 				NULL,&error);
+	if (error) {
+		DEBUG_MSG("start_command, there is an error!!\n");
+	}
 	if (ep->pipe_in) {
 		ep->channel_in = g_io_channel_unix_new(standard_input);
 	} else if (ep->fifo_in) {
+		DEBUG_MSG("start_command, connecting channel_in to fifo %s\n",ep->fifo_in);
 		ep->channel_in = g_io_channel_new_file(ep->fifo_in,"w",NULL);
 	}
 	if (ep->pipe_in || ep->fifo_in) {
@@ -307,7 +314,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 		retstring = replace_string_printflike(formatstring, table);
 	}
 	free_convert_table(table);
-
+	DEBUG_MSG("create_commandstring, returning %s\n",retstring);
 	return retstring;
 }
 
@@ -362,9 +369,11 @@ void outputbox_command(Tbfwin *bfwin, const gchar *formatstring) {
 		return;
 	}
 	if (!ep->fifo_out) {
+		DEBUG_MSG("outputbox_command, force pipe_out=TRUE\n");
 		ep->pipe_out = TRUE;
 	}
 	if (!ep->fifo_in) {
+		DEBUG_MSG("outputbox_command, force pipe_in=TRUE\n");
 		ep->pipe_in = TRUE;
 	}
 	start_command(ep, TRUE, outputbox_io_watch_lcb, ep);
