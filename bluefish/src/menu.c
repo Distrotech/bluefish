@@ -25,7 +25,6 @@
 #include <gdk/gdkkeysyms.h>
 
 /*#define DEBUG*/
-/* #define TEST_CODE */
 
 #include "bluefish.h"
 #include "about.h"
@@ -54,6 +53,7 @@
 #include "stringlist.h"		/* free_stringlist() */
 #include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
 #include "wizards.h"
+#include "external_commands.h"
 
 #include "outputbox.h"		/* temporary */
 
@@ -1256,9 +1256,8 @@ void rename_window_entry_in_all_windows(Tbfwin *tobfwin, gchar *newtitle) {
 /* Browsers!!    */
 /*****************/
 static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
-#ifdef TEST_CODE
-	external_command(bfwin, "mozilla %i");
-#else
+	external_command(bfwin, browser);
+/*
 	if (bfwin->current_document->uri) {
 		Tconvert_table *table, *tmpt;
 		gchar *command;
@@ -1292,7 +1291,7 @@ static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
 								 _("Could not view file in browser."), 
 								 _("File has not been saved\n"));
 	}
-#endif
+*/
 }
 
 void browser_toolbar_cb(GtkWidget *widget, Tbfwin *bfwin) {
@@ -1306,23 +1305,23 @@ void browser_toolbar_cb(GtkWidget *widget, Tbfwin *bfwin) {
 
 static void browser_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	gchar **arr = (gchar **)bdm->data;
-	if (!bdm->bfwin->current_document->uri || bdm->bfwin->current_document->modified) {
+/*	if (!bdm->bfwin->current_document->uri || bdm->bfwin->current_document->modified) {
 		file_save_cb(NULL, bdm->bfwin);
-	}
+	}*/
 	view_in_browser(bdm->bfwin,arr[1]);
 }
 static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
-#ifdef TEST_CODE
-	filter_command(bdm->bfwin, "tac");
-#else
+	gchar **arr = (gchar **)bdm->data;
+	filter_command(bdm->bfwin, arr[1]);
+/*
 	gchar *secure_tempname = NULL, *secure_tempname2 = NULL;
 	gboolean need_s=FALSE, need_f=FALSE, need_i=FALSE;
 	gchar **arr = (gchar **)bdm->data;
-	/* now check if
+	/ * now check if
 	 * %s - current document filename
 	 * %f - output filename that we need to read after the command has finished (filter)
 	 * %i - input filename for the filter
-	 */
+	 * /
 	need_f = (strstr(arr[1], "%f") != NULL);
 	need_i = (strstr(arr[1], "%i") != NULL);
 	need_s = (strstr(arr[1], "%s") != NULL);
@@ -1333,7 +1332,7 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 			return;
 		}
 		if (gnome_vfs_uri_is_local(bdm->bfwin->current_document->uri)) {
-			/* for local files we chdir() to their directory */
+			/ * for local files we chdir() to their directory * /
 			gchar *tmpstring = gnome_vfs_uri_extract_dirname(bdm->bfwin->current_document->uri);
 			chdir(tmpstring);
 			g_free(tmpstring);
@@ -1365,15 +1364,15 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 			tmpt->my_int = 'i';
 			tmpt->my_char = secure_tempname2;
 			tmpt++;
-			/* now we also save the current filename (or in the future the selection) to this file */
+			/ * now we also save the current filename (or in the future the selection) to this file * /
 			buffer = gtk_text_buffer_get_text(bdm->bfwin->current_document->buffer,&itstart,&itend,FALSE);
 			buffer_to_file(BFWIN(bdm->bfwin), buffer, secure_tempname2);
 			g_free(buffer);
 		}
 		tmpt->my_char = NULL;
 		command = replace_string_printflike(arr[1], table);
-		/* BUG: there is a memory leak here !!!!!!!! some entries of the table have newly
-		allocated strings which should be freed !!!!!!!!!!!*/
+		/ * BUG: there is a memory leak here !!!!!!!! some entries of the table have newly
+		allocated strings which should be freed !!!!!!!!!!!* /
 		g_free(table);
 		system(command);
 		g_free(command);
@@ -1381,7 +1380,7 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 			gint end;
 			gchar *buf = NULL;
 			gboolean suc6;
-			/* empty textbox and fill from file secure_tempname */
+			/ * empty textbox and fill from file secure_tempname * /
 			end = doc_get_max_offset(bdm->bfwin->current_document);
 			suc6 = g_file_get_contents(secure_tempname, &buf, NULL, NULL);
 			if (suc6 && buf) {
@@ -1397,7 +1396,7 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 		DEBUG_MSG("external_command_lcb, about to start %s\n", arr[1]);
 		system(arr[1]);
 	}
-#endif /* TEST_CODE */
+*/
 }
 /**
  * external_menu_rebuild:

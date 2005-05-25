@@ -29,6 +29,7 @@ typedef struct {
 	gchar *fifo_out;
 	gchar *tmp_in;
 	gchar *tmp_out;
+	gchar *inplace;
 	gboolean pipe_in;
 	gboolean pipe_out;
 	
@@ -41,6 +42,8 @@ typedef struct {
 	
 	GIOFunc channel_out_lcb;
 	gpointer channel_out_data;
+	
+	GPid child_pid;
 	
 	gpointer data;
 } Texternalp;
@@ -61,6 +64,19 @@ static void externalp_unref(Texternalp *ep) {
 			unlink(ep->fifo_out);
 			g_free(ep->fifo_out);
 		}
+		if (ep->tmp_in) {
+			unlink(ep->tmp_in);
+			g_free(ep->tmp_in);
+		}
+		if (ep->tmp_out) {
+			unlink(ep->tmp_out);
+			g_free(ep->tmp_out);
+		}
+		if (ep->inplace) {
+			unlink(ep->inplace);
+			g_free(ep->inplace);
+		}
+		
 		if (ep->buffer_out) g_free(ep->buffer_out);
 		if (ep->securedir) {
 			rmdir(ep->securedir);
@@ -93,17 +109,36 @@ static gboolean start_command_write_lcb(GIOChannel *channel,GIOCondition conditi
 	return TRUE;
 }
 
-void spawn_setup_lcb(gpointer user_data) {
+static void spawn_setup_lcb(gpointer user_data) {
 #ifndef WIN32
 	/* because win32 does not have both fork() and excec(), this function is
 	not called in the child but in the parent on win32 */
 	dup2(STDOUT_FILENO,STDERR_FILENO);
 #endif
 }
+static void child_watch_lcb(GPid pid,gint status,gpointer data) {
+	Texternalp *ep = data;
+	DEBUG_MSG("child_watch_lcb, status=%d\n",status);
+	/* if there was a temporary output file, we should now open it and start to read it */
+	if (ep->tmp_out) {
+		ep->channel_out = g_io_channel_new_file(ep->tmp_out,"r",NULL);
+		DEBUG_MSG("child_watch_lcb, created channel_out from file %s\n",ep->tmp_out);
+	} else if (ep->inplace) {
+		ep->channel_out = g_io_channel_new_file(ep->inplace,"r",NULL);
+		DEBUG_MSG("child_watch_lcb, created channel_out from file %s\n",ep->inplace);
+	}
+	if (ep->tmp_out||ep->inplace){
+		ep->refcount++;
+		g_io_channel_set_flags(ep->channel_out,G_IO_FLAG_NONBLOCK,NULL);
+		DEBUG_MSG("child_watch_lcb, add watch for channel_out\n");
+		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,ep->channel_out_lcb,ep->channel_out_data);
+	}
+	externalp_unref(ep);
+}
 
 static void start_command_backend(Texternalp *ep) {
 	gchar *argv[4];
-	gint standard_input,standard_output,standard_error;
+	gint standard_input,standard_output;
 	GError *error=NULL;
 
 	argv[0] = "/bin/sh";
@@ -128,10 +163,13 @@ static void start_command_backend(Texternalp *ep) {
 #endif
 	DEBUG_MSG("start_command, about to spawn process /bin/sh -c %s\n",argv[2]);
 	DEBUG_MSG("start_command, pipe_in=%d, pipe_out=%d, fifo_in=%s, fifo_out=%s\n",ep->pipe_in,ep->pipe_out,ep->fifo_in,ep->fifo_out);
-	g_spawn_async_with_pipes(NULL,argv,NULL,0,(ep->include_stderr) ? spawn_setup_lcb: NULL,ep,NULL,
+	g_spawn_async_with_pipes(NULL,argv,NULL,G_SPAWN_DO_NOT_REAP_CHILD,(ep->include_stderr) ? spawn_setup_lcb: NULL,ep,&ep->child_pid,
 				(ep->pipe_in) ? &standard_input : NULL,
 				(ep->pipe_out) ? &standard_output : NULL,
 				NULL,&error);
+	ep->refcount++;
+	g_child_watch_add(ep->child_pid,child_watch_lcb,ep);
+	
 	if (error) {
 		DEBUG_MSG("start_command, there is an error!!\n");
 	}
@@ -156,18 +194,20 @@ static void start_command_backend(Texternalp *ep) {
 		ep->channel_out = g_io_channel_new_file(ep->fifo_out,"r",NULL);
 		DEBUG_MSG("start_command, created channel_out from fifo %s\n",ep->fifo_out);
 	}
-	if (ep->channel_out_lcb && (ep->pipe_out || ep->fifo_out || ep->tmp_out)) {
+	if (ep->channel_out_lcb && (ep->pipe_out || ep->fifo_out)) {
 		ep->refcount++;
 		g_io_channel_set_flags(ep->channel_out,G_IO_FLAG_NONBLOCK,NULL);
 		DEBUG_MSG("start_command, add watch for channel_out\n");
 		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,ep->channel_out_lcb,ep->channel_out_data);
 	}
+	
 }
 
 static void start_command(Texternalp *ep) {
 	if (ep->tmp_in) {
 		/* first create tmp_in, then start the real command in the callback */
 		ep->channel_in = g_io_channel_new_file(ep->tmp_in,"w",NULL);
+		ep->buffer_out = ep->buffer_out_position = doc_get_chars(ep->bfwin->current_document,0,-1);
 		g_io_channel_set_flags(ep->channel_in,G_IO_FLAG_NONBLOCK,NULL);
 		DEBUG_MSG("start_command, add watch for channel_in\n");
 		g_io_add_watch(ep->channel_in,G_IO_OUT,start_command_write_lcb,ep);
@@ -254,25 +294,33 @@ static void start_command_alt2(Texternalp *ep, gboolean include_stderr, GIOFunc 
 /* The format string should have new options:
     * %s local full path (function should abort for remote files)
     * %c local directory of file (function should abort for remote files)
-    * %f filename without path
+    * %n filename without path
     * %u URL
     * %i temporary fifo for input
     * %o temporary fifo for output of filters or outputbox
     * %I temporary filename for input (fifo is faster)
-    * %O temporary filename for output of filters or outputbox (fifo is faster)
+    * %O temporary filename for output of filters or outputbox (fifo is faster) (previously %f)
+    * %t temporary filename for both input and output (for in-place-editing filters)
 */
 static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gboolean discard_output) {
 	Tconvert_table *table;
-	gchar *localname=NULL, *localfilename=NULL, *retstring, *curi;
-	gboolean need_local = FALSE, need_tmpin = FALSE, need_tmpout = FALSE, need_filename=FALSE;
+	gchar *localname=NULL, *localfilename=NULL, *retstring, *curi=NULL;
+	gboolean need_local = FALSE, 
+		need_tmpin = FALSE,
+		need_tmpout = FALSE,
+		need_fifoin = FALSE,
+		need_fifoout = FALSE,
+		need_inplace = FALSE,
+		need_filename=FALSE,
+		need_tmpout_compatibility = FALSE;
 	gint items = 2, cur=0;
 	
 	if (!ep->bfwin->current_document) {
 		return NULL;
 	}
 	need_filename = need_local = (strstr(formatstring, "%c") != NULL || strstr(formatstring, "%s") != NULL);
-	if (!need_filename) { /* local implies we need a filename */
-		need_filename = (strstr(formatstring, "%f") != NULL || strstr(formatstring, "%u") != NULL);
+	if (!need_filename) { /* local already implies we need a filename */
+		need_filename = (strstr(formatstring, "%n") != NULL || strstr(formatstring, "%u") != NULL);
 	}
 	if (need_filename && !ep->bfwin->current_document->uri) {
 		/* BUG: give a warning that the current command only works for files with a name */
@@ -282,28 +330,49 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 		/* BUG: give a warning that the current command only works for local files */
 		return NULL;
 	}
-	need_tmpin = (strstr(formatstring, "%i") != NULL || strstr(formatstring, "%I") != NULL);
-	need_tmpout = (strstr(formatstring, "%o") != NULL || strstr(formatstring, "%O") != NULL);
-	if (need_tmpout && discard_output) {
+	need_tmpin = (strstr(formatstring, "%I") != NULL);
+	/* %f is for backwards compatibility with bluefish 1.0 */
+	need_tmpout = (strstr(formatstring, "%O") != NULL);
+	if (!need_tmpout) {
+		need_tmpout = need_tmpout_compatibility = (strstr(formatstring, "%f") != NULL);
+	}
+	need_fifoin = (strstr(formatstring, "%i") != NULL);
+	need_fifoout = (strstr(formatstring, "%o") != NULL);
+	need_inplace = (strstr(formatstring, "%t") != NULL);
+	
+	if ((need_tmpout || need_fifoout || need_inplace) && discard_output) {
 		/*  BUG: give a warning that external commands should not use %o */
 		return NULL;
+	}
+	if ((need_tmpin && (need_fifoin || need_inplace)) || (need_fifoin && need_inplace)) {
+		/*  BUG: give a warning that you cannot have multiple inputs */
+		return NULL;
+	}
+	if ((need_tmpout && (need_fifoout || need_inplace)) || (need_fifoout && need_inplace)) {
+		/*  BUG: give a warning that you cannot have multiple outputs */
+		return NULL;
+	}
+	if (!discard_output && !need_tmpout && !need_fifoout && !need_inplace) {
+		ep->pipe_out = TRUE;
 	}
 	DEBUG_MSG("create_commandstring, formatstring '%s' seems OK\n",formatstring);
 	if (need_filename) {
 		curi = gnome_vfs_uri_to_string(ep->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 		if (need_local) {
 			localname = gnome_vfs_get_local_path_from_uri(curi);
-			localfilename = strrchr(localname, '/');
+			localfilename = strrchr(localname, '/')+1;
 			items += 2;
 		}
 	}
 	if (need_tmpin) items++;
 	if (need_tmpout) items++;
-	
+	if (need_fifoin) items++;
+	if (need_fifoout) items++;
+	if (need_inplace) items++;
 	
 	table = g_new(Tconvert_table, items+1);
 	if (need_filename) {
-		table[cur].my_int = 'f';
+		table[cur].my_int = 'n';
 		table[cur].my_char = need_local ? g_strdup(localfilename) : gnome_vfs_uri_extract_short_path_name(ep->bfwin->current_document->uri);
 		cur++;
 		table[cur].my_int = 'u';
@@ -311,29 +380,33 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 		cur++;
 	}
 	if (need_tmpin) {
-		if (strstr(formatstring, "%i") != NULL) {
-			table[cur].my_int = 'i';
-			ep->fifo_in = create_secure_dir_return_filename();
-			table[cur].my_char = g_strdup(ep->fifo_in);
-			DEBUG_MSG("create_commandstring, %%i will be at %s\n",ep->fifo_in);
-		} else {
-			table[cur].my_int = 'I';
-			ep->tmp_in = create_secure_dir_return_filename();
-			table[cur].my_char = g_strdup(ep->tmp_in);
-		}
+		table[cur].my_int = 'I';
+		ep->tmp_in = create_secure_dir_return_filename();
+		table[cur].my_char = g_strdup(ep->tmp_in);
+		cur++;
+	} else if (need_fifoin) {
+		table[cur].my_int = 'i';
+		ep->fifo_in = create_secure_dir_return_filename();
+		table[cur].my_char = g_strdup(ep->fifo_in);
+		DEBUG_MSG("create_commandstring, %%i will be at %s\n",ep->fifo_in);
+		cur++;
+	} else if (need_inplace) {
+		table[cur].my_int = 't';
+		ep->inplace = create_secure_dir_return_filename();
+		table[cur].my_char = g_strdup(ep->inplace);
+		DEBUG_MSG("create_commandstring, %%t will be at %s\n",ep->inplace);
 		cur++;
 	}
 	if (need_tmpout) {
-		if (strstr(formatstring, "%o") != NULL) {
-			table[cur].my_int = 'o';
-			ep->fifo_out = create_secure_dir_return_filename();
-			table[cur].my_char = g_strdup(ep->fifo_out);
-			DEBUG_MSG("create_commandstring, %%o will be at %s\n",ep->fifo_out);
-		} else {
-			table[cur].my_int = 'O';
-			ep->tmp_out = create_secure_dir_return_filename();
-			table[cur].my_char = g_strdup(ep->tmp_out);
-		}
+		table[cur].my_int = (need_tmpout_compatibility) ? 'f' : 'O';
+		ep->tmp_out = create_secure_dir_return_filename();
+		table[cur].my_char = g_strdup(ep->tmp_out);
+		cur++;
+	} else if (need_fifoout) {
+		table[cur].my_int = 'o';
+		ep->fifo_out = create_secure_dir_return_filename();
+		table[cur].my_char = g_strdup(ep->fifo_out);
+		DEBUG_MSG("create_commandstring, %%o will be at %s\n",ep->fifo_out);
 		cur++;
 	}
 	if (need_local) {
@@ -369,6 +442,13 @@ static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 			fill_output_box(ep->bfwin->outputbox, buf);
 			g_free(buf);
 			status = g_io_channel_read_line(channel,&buf,&buflen,&termpos,&error);
+		}
+		if (status == G_IO_STATUS_EOF) {
+			GError *error=NULL;
+			/* cleanup !!!!!!!!! */
+			g_io_channel_shutdown(channel,TRUE,&error);
+			externalp_unref(ep);
+			return FALSE;
 		}
 	}
 	if (condition & G_IO_OUT) {
@@ -406,14 +486,6 @@ void outputbox_command(Tbfwin *bfwin, const gchar *formatstring) {
 		/* BUG: is the user notified of the error ?*/
 		return;
 	}
-	if (!ep->fifo_out) {
-		DEBUG_MSG("outputbox_command, force pipe_out=TRUE\n");
-		ep->pipe_out = TRUE;
-	}
-	if (!ep->fifo_in) {
-		DEBUG_MSG("outputbox_command, force pipe_in=TRUE\n");
-		ep->pipe_in = TRUE;
-	}
 	ep->include_stderr = TRUE;
 	ep->channel_out_lcb = outputbox_io_watch_lcb;
 	ep->channel_out_data = ep;
@@ -430,11 +502,16 @@ static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,g
 		GError *error=NULL;
 		
 		status = g_io_channel_read_to_end(channel,&str_return,&length,&error);
-		if (status == G_IO_STATUS_NORMAL) {
+		if (status == G_IO_STATUS_NORMAL && str_return) {
 			gint end;
-			DEBUG_MSG("filter_io_watch_lcb, received %s\n",str_return);
+			GError *error=NULL;
+			DEBUG_MSG("filter_io_watch_lcb, received '%s'\n",str_return);
 			end = doc_get_max_offset(ep->bfwin->current_document);
 			doc_replace_text(ep->bfwin->current_document, str_return, 0, end);
+			g_io_channel_shutdown(channel,TRUE,&error);
+			externalp_unref(ep);
+			g_free(str_return);
+			return FALSE;
 		} else {
 			DEBUG_MSG("filter_io_watch_lcb, status=%d\n",status);
 		}
@@ -447,7 +524,7 @@ static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,g
 		externalp_unref(ep);
 		return FALSE;
 	}
-		if (condition & G_IO_OUT) {
+	if (condition & G_IO_OUT) {
 		DEBUG_MSG("filter_io_watch_lcb, condition %d G_IO_OUT not handled\n",condition);
 	}
 	if (condition & G_IO_PRI) {
@@ -475,12 +552,6 @@ void filter_command(Tbfwin *bfwin, const gchar *formatstring) {
 		g_free(ep);
 		/* BUG: is the user notified of the error ?*/
 		return;
-	}
-	if (!ep->fifo_out) {
-		ep->pipe_out = TRUE;
-	}
-	if (!ep->fifo_in) {
-		ep->pipe_in = TRUE;
 	}
 	ep->include_stderr = FALSE;
 	ep->channel_out_lcb = filter_io_watch_lcb;
