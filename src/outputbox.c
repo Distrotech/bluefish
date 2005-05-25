@@ -18,7 +18,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 /* #define DEBUG */
-/* #define TEST_CODE */
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -37,6 +36,7 @@
 #include "gtk_easy.h"
 #include "stringlist.h"
 #include "pixmap.h"
+#include "external_commands.h"
 
 #define NUM_MATCH 30
 
@@ -50,8 +50,8 @@ typedef struct {
 	regmatch_t pmatch[NUM_MATCH];
 	regex_t preg;
 
-	pid_t process;
-	GIOChannel* channel;
+/*	pid_t process;
+	GIOChannel* channel;*/
 } Toutput_def;
 
 typedef struct {
@@ -184,7 +184,7 @@ static void outputbox_def_cleanup(Toutputbox *ob, gboolean do_shutdown) {
 	GError *error=NULL;
 	gint status;
 	DEBUG_MSG("outputbox_def_cleanup, started\n");
-	if (do_shutdown) {
+/*	if (do_shutdown) {
 		g_io_channel_shutdown(ob->def->channel,FALSE,&error);
 		if (error) {
 			DEBUG_MSG("outputbox_def_cleanup, error shutting down channel: %s\n", error->message);
@@ -195,7 +195,7 @@ static void outputbox_def_cleanup(Toutputbox *ob, gboolean do_shutdown) {
 	kill(ob->def->process, SIGKILL);
 	DEBUG_MSG("outputbox_def_cleanup, will now waitpid() for the child\n");
 	waitpid(ob->def->process, &status, 0);
-	g_io_channel_unref(ob->def->channel);
+	g_io_channel_unref(ob->def->channel);*/
 	g_free(ob->def->pattern);
 	regfree(&ob->def->preg);
 	g_free(ob->def->command);
@@ -227,26 +227,10 @@ static void outputbox_def_cleanup(Toutputbox *ob, gboolean do_shutdown) {
 	DEBUG_MSG("parse_for_lines, remaining is %s\n",ob->def->buf);
 }*/
 
-static gboolean io_watch_lcb(GIOChannel *source,GIOCondition condition,gpointer data) {
+/* static gboolean io_watch_lcb(GIOChannel *source,GIOCondition condition,gpointer data) {
 	Toutputbox *ob = data;
 	DEBUG_MSG("io_watch_lcb, called with condition %d\n",condition);
 	if (condition & G_IO_IN) {
-/*		gchar buf[1024];
-		gsize bytes_read=0;
-		GError *error=NULL;
-		DEBUG_MSG("io_watch_lcb, read.. (buffer size=%d)\n",g_io_channel_get_buffer_size(source));
-		g_io_channel_read_chars(source,buf,4096,&bytes_read,&error);
-		if (bytes_read > 0) {
-			DEBUG_MSG("io_watch_lcb, read %d bytes..\n",bytes_read);
-			if (ob->def->buf) {
-				gchar *tmp = ob->def->buf;
-				ob->def->buf = g_strconcat(tmp, buf, NULL);
-				g_free(tmp);
-			} else {
-				ob->def->buf = g_strndup(buf,bytes_read);
-			}
-			parse_for_lines(ob);
-		}*/
 		gchar *buf=NULL;
 		gsize buflen=0,termpos=0;
 		GError *error=NULL;
@@ -269,7 +253,7 @@ static gboolean io_watch_lcb(GIOChannel *source,GIOCondition condition,gpointer 
 	}
 	if (condition & G_IO_HUP) {
 		DEBUG_MSG("io_watch_lcb, condition %d G_IO_HUP\n",condition);
-		/* cleanup !!!!!!!!! */
+		/ * cleanup !!!!!!!!! * /
 		outputbox_def_cleanup(ob, FALSE);
 		return FALSE;
 	}
@@ -277,22 +261,21 @@ static gboolean io_watch_lcb(GIOChannel *source,GIOCondition condition,gpointer 
 		DEBUG_MSG("io_watch_lcb, condition %d G_IO_NVAL not handled\n",condition);
 	}
 	return TRUE;
-}
-
+}*/
+/*
 static void start_command(Toutputbox *ob, const gchar *command) {
 	int fd[2];
-	/* 0 is for reading, 1 is for writing */
+	/ * 0 is for reading, 1 is for writing * /
 	if (pipe(fd) != 0) {
 		g_print("some error happened ??\n");
 		return;
 	}
 	if ((ob->def->process = fork()) == 0) {
-		/*close(STDIN_FILENO);*/
 		close(fd[0]);
 		dup2(fd[1],STDOUT_FILENO);
-		close(fd[1]); /* dup makes a duplicate, so we can close the original */
+		close(fd[1]); / * dup makes a duplicate, so we can close the original * /
 		dup2(STDOUT_FILENO,STDERR_FILENO);
-		/* close(fd[1]); dup makes a duplicate, so we can close the original */
+		/ * close(fd[1]); dup makes a duplicate, so we can close the original * /
 		execlp("/bin/sh", "sh", "-c", command, NULL);
 		exit(127);
 	}
@@ -300,14 +283,14 @@ static void start_command(Toutputbox *ob, const gchar *command) {
 	ob->def->channel = g_io_channel_unix_new(fd[0]);
 	g_io_channel_set_flags(ob->def->channel,G_IO_FLAG_NONBLOCK,NULL);
 	g_io_add_watch(ob->def->channel, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,io_watch_lcb,ob);
-}
-
+}*/
+/*
 static void run_command(Toutputbox *ob) {
 	Tconvert_table *table, *tmpt;
 	gchar *command1;
 	
 	if (!ob->bfwin->current_document->uri) {
-		/* cannot (yet) use nameless files */
+		/ * cannot (yet) use nameless files * /
 		return;
 	}
 	
@@ -331,7 +314,7 @@ static void run_command(Toutputbox *ob) {
 
 	start_command(ob,command1);
 	g_free(command1);
-}
+}*/
 
 void outputbox_cleanup(Tbfwin *bfwin) {
 	DEBUG_MSG("outputbox_cleanup, called for bfwin %p, outputbox=%p\n",bfwin,bfwin->outputbox);
@@ -364,9 +347,8 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	ob->def->output_subpat = output_subpat;
 	regcomp(&ob->def->preg,ob->def->pattern, REG_EXTENDED);
 	gtk_list_store_clear(GTK_LIST_STORE(ob->lstore));
-#ifdef TEST_CODE
-	outputbox_command(bfwin, "weblint %i");
-#else
+	outputbox_command(bfwin, command);
+/*
 	run_command(ob);
-#endif
+*/
 }

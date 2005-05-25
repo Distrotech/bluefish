@@ -20,7 +20,8 @@
 #ifndef __EXTERNAL_COMMANDS_H_
 #define __EXTERNAL_COMMANDS_H_
 
-
+void outputbox_command(Tbfwin *bfwin, const gchar *formatstring);
+void filter_command(Tbfwin *bfwin, const gchar *formatstring);
 void external_command(Tbfwin *bfwin, const gchar *formatstring);
 
 #endif /* __EXTERNAL_COMMANDS_H_ */
