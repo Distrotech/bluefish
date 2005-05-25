@@ -138,8 +138,9 @@ static Toutputbox *init_output_box(Tbfwin *bfwin) {
 	return ob;
 }
 
-void fill_output_box(Toutputbox *ob, gchar *string) {
+void fill_output_box(gpointer data, gchar *string) {
 	GtkTreeIter iter;
+	Toutputbox *ob = data;
 	if (regexec(&ob->def->preg,string,NUM_MATCH,ob->def->pmatch,0)==0) {
 		/* we have a valid line */
 		gchar *filename,*line,*output;
@@ -347,6 +348,7 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	ob->def->output_subpat = output_subpat;
 	regcomp(&ob->def->preg,ob->def->pattern, REG_EXTENDED);
 	gtk_list_store_clear(GTK_LIST_STORE(ob->lstore));
+	ob->def->show_all_output = show_all_output;
 	outputbox_command(bfwin, command);
 /*
 	run_command(ob);

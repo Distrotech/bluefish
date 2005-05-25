@@ -21,7 +21,7 @@
 #define __OUTPUTBOX_H_
 
 /*void init_output_box(Tbfwin *bfwin,GtkWidget *vbox);*/
-void fill_output_box(Toutputbox *ob, gchar *string);
+void fill_output_box(gpointer data, gchar *string);
 void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gboolean show_all_output);
 void outputbox_cleanup(Tbfwin *bfwin);
 

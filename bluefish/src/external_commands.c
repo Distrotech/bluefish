@@ -109,11 +109,14 @@ static gboolean start_command_write_lcb(GIOChannel *channel,GIOCondition conditi
 	return TRUE;
 }
 
-static void spawn_setup_lcb(gpointer user_data) {
+static void spawn_setup_lcb(gpointer data) {
+	Texternalp *ep = data;
 #ifndef WIN32
 	/* because win32 does not have both fork() and excec(), this function is
 	not called in the child but in the parent on win32 */
-	dup2(STDOUT_FILENO,STDERR_FILENO);
+	if (ep->include_stderr) {
+		dup2(STDOUT_FILENO,STDERR_FILENO);
+	}
 #endif
 }
 static void child_watch_lcb(GPid pid,gint status,gpointer data) {
@@ -133,12 +136,13 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 		DEBUG_MSG("child_watch_lcb, add watch for channel_out\n");
 		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,ep->channel_out_lcb,ep->channel_out_data);
 	}
+	g_spawn_close_pid(pid);
 	externalp_unref(ep);
 }
 
 static void start_command_backend(Texternalp *ep) {
 	gchar *argv[4];
-	gint standard_input,standard_output;
+	gint standard_input=0,standard_output=0;
 	GError *error=NULL;
 
 	argv[0] = "/bin/sh";
@@ -161,12 +165,13 @@ static void start_command_backend(Texternalp *ep) {
 #ifdef WIN32
 	ep->include_stderr = FALSE;
 #endif
+	DEBUG_MSG("start_command, pipe_in=%d, pipe_out=%d, fifo_in=%s, fifo_out=%s,include_stderr=%d\n",ep->pipe_in,ep->pipe_out,ep->fifo_in,ep->fifo_out,ep->include_stderr);
 	DEBUG_MSG("start_command, about to spawn process /bin/sh -c %s\n",argv[2]);
-	DEBUG_MSG("start_command, pipe_in=%d, pipe_out=%d, fifo_in=%s, fifo_out=%s\n",ep->pipe_in,ep->pipe_out,ep->fifo_in,ep->fifo_out);
-	g_spawn_async_with_pipes(NULL,argv,NULL,G_SPAWN_DO_NOT_REAP_CHILD,(ep->include_stderr) ? spawn_setup_lcb: NULL,ep,&ep->child_pid,
+	g_spawn_async_with_pipes(NULL,argv,NULL,G_SPAWN_DO_NOT_REAP_CHILD,(ep->include_stderr)?spawn_setup_lcb:NULL,ep,&ep->child_pid,
 				(ep->pipe_in) ? &standard_input : NULL,
 				(ep->pipe_out) ? &standard_output : NULL,
 				NULL,&error);
+	DEBUG_MSG("start_command, standard_output=%d\n",standard_output);
 	ep->refcount++;
 	g_child_watch_add(ep->child_pid,child_watch_lcb,ep);
 	
@@ -437,10 +442,12 @@ static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 		gsize buflen=0,termpos=0;
 		GError *error=NULL;
 		GIOStatus status = g_io_channel_read_line(channel,&buf,&buflen,&termpos,&error);
-		while (status == G_IO_STATUS_NORMAL && buflen > 0) {
-			if (termpos < buflen) buf[termpos] = '\0';
-			fill_output_box(ep->bfwin->outputbox, buf);
-			g_free(buf);
+		while (status == G_IO_STATUS_NORMAL) {
+			if (buflen > 0) {
+				if (termpos < buflen) buf[termpos] = '\0';
+				fill_output_box(ep->bfwin->outputbox, buf);
+				g_free(buf);
+			}
 			status = g_io_channel_read_line(channel,&buf,&buflen,&termpos,&error);
 		}
 		if (status == G_IO_STATUS_EOF) {
