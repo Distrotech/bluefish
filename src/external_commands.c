@@ -171,7 +171,6 @@ static void start_command_backend(Texternalp *ep) {
 				(ep->pipe_in) ? &standard_input : NULL,
 				(ep->pipe_out) ? &standard_output : NULL,
 				NULL,&error);
-	DEBUG_MSG("start_command, standard_output=%d\n",standard_output);
 	ep->refcount++;
 	g_child_watch_add(ep->child_pid,child_watch_lcb,ep);
 	
@@ -301,6 +300,7 @@ static void start_command_alt2(Texternalp *ep, gboolean include_stderr, GIOFunc 
     * %c local directory of file (function should abort for remote files)
     * %n filename without path
     * %u URL
+    * %p preview URL if basedir and preview dir are set in project settings, else identical to %u
     * %i temporary fifo for input
     * %o temporary fifo for output of filters or outputbox
     * %I temporary filename for input (fifo is faster)
@@ -316,6 +316,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 		need_fifoin = FALSE,
 		need_fifoout = FALSE,
 		need_inplace = FALSE,
+		need_preview_uri = FALSE,
 		need_filename=FALSE,
 		need_tmpout_compatibility = FALSE;
 	gint items = 2, cur=0;
@@ -324,8 +325,9 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 		return NULL;
 	}
 	need_filename = need_local = (strstr(formatstring, "%c") != NULL || strstr(formatstring, "%s") != NULL);
+	need_preview_uri = (strstr(formatstring, "%p") != NULL);
 	if (!need_filename) { /* local already implies we need a filename */
-		need_filename = (strstr(formatstring, "%n") != NULL || strstr(formatstring, "%u") != NULL);
+		need_filename = (need_preview_uri || strstr(formatstring, "%n") != NULL || strstr(formatstring, "%u") != NULL);
 	}
 	if (need_filename && !ep->bfwin->current_document->uri) {
 		/* BUG: give a warning that the current command only works for files with a name */
@@ -368,6 +370,9 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 			localfilename = strrchr(localname, '/')+1;
 			items += 2;
 		}
+		if (need_preview_uri) {
+			items++;
+		}
 	}
 	if (need_tmpin) items++;
 	if (need_tmpout) items++;
@@ -383,6 +388,18 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 		table[cur].my_int = 'u';
 		table[cur].my_char = curi;
 		cur++;
+		if (need_preview_uri) {
+			table[cur].my_int = 'p';
+			if (ep->bfwin->project && ep->bfwin->project->webdir 
+					&& ep->bfwin->project->basedir && strlen(ep->bfwin->project->webdir)>2
+					&& strlen(ep->bfwin->project->basedir)>2 
+					&& strncmp(curi, ep->bfwin->project->basedir, strlen(ep->bfwin->project->basedir))==0) {
+						table[cur].my_char = g_strconcat(ep->bfwin->project->webdir, &curi[strlen(ep->bfwin->project->basedir)], NULL);
+			} else {
+				table[cur].my_char = g_strdup(curi);
+			}
+			cur++;
+		}
 	}
 	if (need_tmpin) {
 		table[cur].my_int = 'I';
