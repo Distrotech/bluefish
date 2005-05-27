@@ -20,10 +20,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-/* this is needed for Solaris to comply with the latest POSIX standard 
- * regarding the ctime_r() function
- * the problem is that it generates a compiler warning on Linux, lstat() undefined.. */
-#define _POSIX_C_SOURCE 200312L
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h> /* for the keyboard event codes */
 #include <sys/types.h> 	/* stat() */
@@ -33,7 +29,6 @@
 #include <string.h>		/* strchr() */
 #include <regex.h> 		/* regcomp() */
 #include <stdlib.h>		/* system() */
-#include <time.h>			/* ctime_r() */
 #include <pcre.h>
 
 /* #define DEBUG */
@@ -394,8 +389,8 @@ Tfiletype *get_filetype_by_filename_and_content(const gchar *filename, gchar *bu
 void doc_set_tooltip(Tdocument *doc) {
 	gchar *text, *tmp;
 	gchar *encoding;
-	gchar mtimestr[128], *modestr=NULL, *sizestr=NULL;
-	mtimestr[0] = '\0';
+	gchar *mtimestr=NULL;
+	gchar *modestr=NULL, *sizestr=NULL;
 	DEBUG_MSG("doc_set_tooltip, fileinfo=%p for doc %s\n", doc->fileinfo, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 	if (doc->fileinfo) {
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_PERMISSIONS) {
@@ -404,7 +399,7 @@ void doc_set_tooltip(Tdocument *doc) {
 			g_free(tmp);
 		}
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) {
-			ctime_r(&doc->fileinfo->mtime,mtimestr);
+			mtimestr = bf_portable_time(&doc->fileinfo->mtime);
 		}
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) {
 			sizestr = g_strdup_printf("%"GNOME_VFS_SIZE_FORMAT_STR, doc->fileinfo->size);
@@ -430,11 +425,12 @@ void doc_set_tooltip(Tdocument *doc) {
 		g_free(modestr);
 		tmp = text;
 	}
-	if (mtimestr[0] != '\0') {
+	if (mtimestr) {
 		trunc_on_char(mtimestr, '\n');
 		text = g_strconcat(text, _("\nLast modified: "), mtimestr, NULL);
 		g_free(tmp);
 		tmp = text;
+		g_free(mtimestr);
 	}
 
 	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, text, "");
@@ -3269,12 +3265,11 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 	break;
 	case CHECKMODIFIED_MODIFIED:
 		{
-		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
+		gchar *tmpstr, *oldtimestr, *newtimestr;
 		gint retval;
 		const gchar *buttons[] = {_("_Ignore"),_("_Reload"), NULL};
-
-		ctime_r(&new->mtime,newtimestr);
-		ctime_r(&orig->mtime,oldtimestr);
+		newtimestr = bf_portable_time(&new->mtime);
+		oldtimestr = bf_portable_time(&orig->mtime);
 		tmpstr = g_strdup_printf(_("Filename: %s\n\nNew modification time is: %s\nOld modification time is: %s"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), newtimestr, oldtimestr);
 		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
 													 GTK_MESSAGE_WARNING,
@@ -3282,6 +3277,8 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 													 _("File has been modified by another process\n"),
 													 tmpstr);
 		g_free(tmpstr);
+		g_free(newtimestr);
+		g_free(oldtimestr);
 		if (retval == 0) { /* ignore */
 			if (doc->fileinfo) {
 				gnome_vfs_file_info_unref(doc->fileinfo);

@@ -48,6 +48,15 @@
 #undef HAVE_SYS_IPC_H
 #undef HAVE_SYS_MSG_H
 
+#undef HAVE_MSGRCV
+#undef HAVE_MSGSND
+
+#undef HAVE_CTIME
+#undef HAVE_CTIME_R
+#undef HAVE_ASCTIME
+#undef HAVE_ASCTIME_R
+#undef HAVE_LOCALTIME
+
 /* python */
 #undef HAVE_PYTHON
 

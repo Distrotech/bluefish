@@ -21,6 +21,8 @@
 #ifndef __BF_LIB_H_
 #define __BF_LIB_H_
 
+#include <time.h> /* for time_t */
+
 typedef struct {
 	gint my_int;
 	gchar *my_char;
@@ -95,4 +97,5 @@ void remove_secure_dir_and_filename(gchar *filename);
 void wordcount(gchar *text, guint *chars, guint *lines, guint *words);
 GSList *gslist_from_glist_reversed(GList *src);
 GList *glist_from_gslist(GSList *src);
+gchar *bf_portable_time(const time_t *timep);
 #endif /* __BF_LIB_H_ */

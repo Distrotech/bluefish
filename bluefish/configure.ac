@@ -425,13 +425,28 @@ dnl ************************
 
 AC_CHECK_HEADERS(stdlib.h unistd.h string.h strings.h errno.h stdio.h sys/stat.h ctype.h getopt.h math.h time.h sys/types.h fcntl.h netdb.h netinet/in.h sys/socket.h arpa/inet.h dirent.h sys/select.h sys/time.h sys/ipc.h sys/msg.h)
 
-dnl ************************
-dnl Checks for external programs.
-dnl ************************
-AC_PATH_PROG(EXTERNAL_FIND, find, /usr/bin/find)
-AC_PATH_PROG(EXTERNAL_GREP, grep, /bin/grep)
-AC_DEFINE_UNQUOTED(EXTERNAL_FIND, "$EXTERNAL_FIND")
-AC_DEFINE_UNQUOTED(EXTERNAL_GREP, "$EXTERNAL_GREP")
+AC_CHECK_FUNC(msgrcv,
+	AC_DEFINE(HAVE_MSGRCV)
+)
+AC_CHECK_FUNC(msgsnd,
+	AC_DEFINE(HAVE_MSGSND)
+)
+
+AC_CHECK_FUNC(ctime,
+	AC_DEFINE(HAVE_CTIME)
+)
+AC_CHECK_FUNC(ctime_r,
+	AC_DEFINE(HAVE_CTIME_R)
+)
+AC_CHECK_FUNC(asctime,
+	AC_DEFINE(HAVE_ASCTIME)
+)
+AC_CHECK_FUNC(asctime_r,
+	AC_DEFINE(HAVE_ASCTIME_R)
+)
+AC_CHECK_FUNC(localtime,
+	AC_DEFINE(HAVE_LOCALTIME)
+)
 
 dnl **************************
 dnl  For the spell checker
