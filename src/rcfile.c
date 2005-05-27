@@ -410,9 +410,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta,"auto_update_meta:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.encoding_search_Nbytes, "encoding_search_Nbytes:", 500, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.ext_browsers_in_submenu,"ext_browsers_in_submenu:",0, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.document_tabposition,"document_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.leftpanel_tabposition,"leftpanel_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
 /*	init_prop_string    (&config_rc, &main_v->props.default_basedir,"default_basedir:",g_get_home_dir());*/

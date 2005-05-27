@@ -216,9 +216,6 @@ typedef struct {
 	gint auto_set_encoding_meta; /* auto set metatag for the encoding */
 	gint auto_update_meta; /* auto update author and generator meta tags on save */
 	gint encoding_search_Nbytes; /* number of bytes to look for the encoding meta tag */
-	gint ext_browsers_in_submenu;
-	gint ext_commands_in_submenu;
-	gint ext_outputbox_in_submenu;
 	gint document_tabposition;
 	gint leftpanel_tabposition;
 	gchar *project_suffix;

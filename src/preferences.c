@@ -70,9 +70,6 @@ enum {
 	newfile_default_encoding,/* if you open a new file, what encoding will it use */
 	auto_set_encoding_meta,/* auto set metatag for the encoding */
 	auto_update_meta,
-	ext_browsers_in_submenu,
-	ext_commands_in_submenu,
-	ext_outputbox_in_submenu,
 	document_tabposition,
 	leftpanel_tabposition,
 	/* not yet in use */
@@ -1901,10 +1898,6 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.view_html_toolbar, pd->prefs[view_html_toolbar], TRUE);*/
 	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
 	
-	integer_apply(&main_v->props.ext_browsers_in_submenu, pd->prefs[ext_browsers_in_submenu], TRUE);
-	integer_apply(&main_v->props.ext_commands_in_submenu, pd->prefs[ext_commands_in_submenu], TRUE);
-	integer_apply(&main_v->props.ext_outputbox_in_submenu, pd->prefs[ext_outputbox_in_submenu], TRUE);
-
 /*	string_apply(&main_v->props.default_basedir, pd->prefs[default_basedir]);*/
 	integer_apply(&main_v->props.filebrowser_two_pane_view, pd->prefs[filebrowser_two_pane_view], TRUE);
 	string_apply(&main_v->props.filebrowser_unknown_icon, pd->prefs[filebrowser_unknown_icon]);
@@ -2134,10 +2127,6 @@ static void preferences_dialog() {
 	pd->prefs[view_html_toolbar] = boxed_checkbut_with_value(_("Show HTML toolbar by default"), main_v->props.view_html_toolbar, vbox2);*/
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
 
-	pd->prefs[ext_browsers_in_submenu] = boxed_checkbut_with_value(_("External browsers in submenu"), main_v->props.ext_browsers_in_submenu, vbox2);
-	pd->prefs[ext_commands_in_submenu] = boxed_checkbut_with_value(_("External commands in submenu"), main_v->props.ext_commands_in_submenu, vbox2);
-	pd->prefs[ext_outputbox_in_submenu] = boxed_checkbut_with_value(_("External outputbox in submenu"), main_v->props.ext_outputbox_in_submenu, vbox2);
-	
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font (leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
 	
 	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
@@ -2150,8 +2139,8 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 	pd->prefs[bflib_info_font] = prefs_string(_("Font"), main_v->props.bflib_info_font, vbox2, pd, string_font);
-   pd->prefs[bflib_info_bkg] = prefs_string(_("Info background color"), main_v->props.bflib_info_bkg, vbox2, pd, string_color);
-   pd->prefs[bflib_info_fg] = prefs_string(_("Info foreground color"), main_v->props.bflib_info_fg, vbox2, pd, string_color);
+	pd->prefs[bflib_info_bkg] = prefs_string(_("Info background color"), main_v->props.bflib_info_bkg, vbox2, pd, string_color);
+	pd->prefs[bflib_info_fg] = prefs_string(_("Info foreground color"), main_v->props.bflib_info_fg, vbox2, pd, string_color);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Images"), 155,TRUE));

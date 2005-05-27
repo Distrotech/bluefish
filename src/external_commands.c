@@ -301,15 +301,16 @@ static void start_command_alt2(Texternalp *ep, gboolean include_stderr, GIOFunc 
     * %n filename without path
     * %u URL
     * %p preview URL if basedir and preview dir are set in project settings, else identical to %u
-    * %i temporary fifo for input
+    * %i temporary fifo for input, if the document is not modified and local equal to %s
     * %o temporary fifo for output of filters or outputbox
-    * %I temporary filename for input (fifo is faster)
+    * %I temporary filename for input (fifo is faster), if the document is not modified and local equal to %s
     * %O temporary filename for output of filters or outputbox (fifo is faster) (previously %f)
     * %t temporary filename for both input and output (for in-place-editing filters)
 */
 static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gboolean discard_output) {
 	Tconvert_table *table;
 	gchar *localname=NULL, *localfilename=NULL, *retstring, *curi=NULL;
+	gboolean is_local_non_modified;
 	gboolean need_local = FALSE, 
 		need_tmpin = FALSE,
 		need_tmpout = FALSE,
@@ -330,9 +331,11 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 	}
 	if (need_filename && !ep->bfwin->current_document->uri) {
 		/* BUG: give a warning that the current command only works for files with a name */
+		DEBUG_MSG("create_commandstring, this command needs a filename, but there is no\n");
 		return NULL;
 	}
 	if (need_local && !gnome_vfs_uri_is_local(ep->bfwin->current_document->uri)) {
+		DEBUG_MSG("create_commandstring, this command needs a local filefilename, but there is no\n");
 		/* BUG: give a warning that the current command only works for local files */
 		return NULL;
 	}
@@ -344,14 +347,17 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 	need_inplace = (strstr(formatstring, "%t") != NULL);
 	
 	if ((need_tmpout || need_fifoout || need_inplace) && discard_output) {
+		DEBUG_MSG("create_commandstring, external_commands should not have %%o\n");
 		/*  BUG: give a warning that external commands should not use %o */
 		return NULL;
 	}
 	if ((need_tmpin && (need_fifoin || need_inplace)) || (need_fifoin && need_inplace)) {
+		DEBUG_MSG("create_commandstring, cannot have multiple inputs\n");
 		/*  BUG: give a warning that you cannot have multiple inputs */
 		return NULL;
 	}
 	if ((need_tmpout && (need_fifoout || need_inplace)) || (need_fifoout && need_inplace)) {
+		DEBUG_MSG("create_commandstring, cannot have multiple outputs\n");
 		/*  BUG: give a warning that you cannot have multiple outputs */
 		return NULL;
 	}
@@ -376,6 +382,10 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 	if (need_fifoout) items++;
 	if (need_inplace) items++;
 	
+	is_local_non_modified = (ep->bfwin->current_document->uri 
+		&& !ep->bfwin->current_document->modified
+		&& gnome_vfs_uri_is_local(ep->bfwin->current_document->uri));
+	
 	table = g_new(Tconvert_table, items+1);
 	if (need_filename) {
 		table[cur].my_int = 'n';
@@ -399,13 +409,21 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 	}
 	if (need_tmpin) {
 		table[cur].my_int = 'I';
-		ep->tmp_in = create_secure_dir_return_filename();
-		table[cur].my_char = g_strdup(ep->tmp_in);
+		if (is_local_non_modified) {
+			table[cur].my_char = gnome_vfs_get_local_path_from_uri(curi);
+		} else {
+			ep->tmp_in = create_secure_dir_return_filename();
+			table[cur].my_char = g_strdup(ep->tmp_in);
+		}
 		cur++;
 	} else if (need_fifoin) {
 		table[cur].my_int = 'i';
-		ep->fifo_in = create_secure_dir_return_filename();
-		table[cur].my_char = g_strdup(ep->fifo_in);
+		if (is_local_non_modified) {
+			table[cur].my_char = gnome_vfs_get_local_path_from_uri(curi);
+		} else {
+			ep->fifo_in = create_secure_dir_return_filename();
+			table[cur].my_char = g_strdup(ep->fifo_in);
+		}
 		DEBUG_MSG("create_commandstring, %%i will be at %s\n",ep->fifo_in);
 		cur++;
 	} else if (need_inplace) {
