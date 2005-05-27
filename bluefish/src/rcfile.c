@@ -380,7 +380,8 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
 	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2, TRUE); /* deprecated (<= 1.0.1) */
 	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:", 7, TRUE); /* deprecated (<= 1.0.1) */
-	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 0, TRUE); /* with 2 items is deprecated (<= 1.0.1), to 3 items is converted below */
+	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 2, TRUE); /* deprecated (<= 1.0.1) */
+	init_prop_arraylist (&config_rc, &main_v->props.external_command, "external_command:", 3, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_filter, "external_filter:", 2, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_outputbox, "external_outputbox:", 7, TRUE);
 	
