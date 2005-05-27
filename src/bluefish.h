@@ -28,7 +28,11 @@
 #define BLUEFISH_SPLASH_FILENAME PKGDATADIR"bluefish_splash.png"
 
 #ifdef HAVE_SYS_MSG_H
+#ifdef HAVE_MSGRCV
+#ifdef HAVE_MSGSND
 #define WITH_MSG_QUEUE
+#endif
+#endif
 #endif
 
 #ifdef DEBUG

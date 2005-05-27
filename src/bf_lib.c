@@ -18,8 +18,14 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 /* #define DEBUG */
-
+#define _POSIX_C_SOURCE 200312L
 #include <gtk/gtk.h>
+
+/* this is needed for Solaris to comply with the latest POSIX standard 
+ * regarding the ctime_r() function
+ * the problem is that it generates a compiler warning on Linux, lstat() undefined.. */
+#include <time.h>			/* ctime_r() */
+
 #include <unistd.h> /* chdir() */
 #include <stdio.h> /* fopen() */
 #include <ctype.h> /* toupper */
@@ -1549,4 +1555,26 @@ GList *glist_from_gslist(GSList *src) {
 		tmplist = g_slist_next(tmplist);
 	}
 	return target;
+}
+/* returns a newly allocated string! */
+gchar *bf_portable_time(const time_t *timep) {
+	gchar *retstr="";
+#ifdef HAVE_CTIME_R
+	retstr = g_new(gchar, 128);
+	ctime_r(timep,retstr);
+#else
+#ifdef HAVE_ASCTIME_R
+	retstr = g_new(gchar, 128);
+	asctime_r(localtime(timep),retstr);
+#else
+#ifdef HAVE_CTIME
+	retstr = g_strdup(ctime(timep));
+#else
+#ifdef HAVE_ASCTIME
+	retstr = g_strdup(asctime(locasltime(timep)));
+#endif /* HAVE_ASCTIME */
+#endif /* HAVE_CTIME */
+#endif /* HAVE_ASCTIME_R */
+#endif /* HAVE_CTIME_R */
+	return retstr;
 }

@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.46 2005-02-17 21:37:00 oli4 Exp $
+ * $Id: html.c,v 1.47 2005-05-27 12:21:37 oli4 Exp $
  */
 /*#define DEBUG*/
 
@@ -437,7 +437,11 @@ void insert_time_dialog(Tbfwin *bfwin) {
 			temp = g_strdup_printf(_("  _Unix Time (%i)"), (int) time_var);
 			break;
 		case 5:
-			temp = g_strdup_printf(_("  Unix Date _String (%s"), ctime(&time_var));
+			{
+				gchar *tmpstrtime = bf_portable_time(&time_var);
+				temp = g_strdup_printf(_("  Unix Date _String (%s"), tmpstrtime);
+				g_free(tmpstrtime);
+			}
 			/* Replace \n on ')' */
 			temp[strlen(temp) - 1] = ')';
 			break;
