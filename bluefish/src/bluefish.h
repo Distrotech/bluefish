@@ -178,8 +178,16 @@ typedef struct {
 	gint editor_tab_width;	/* editor tabwidth */
 	gint editor_indent_wspaces; /* indent with spaces, not tabs */
 	gchar *tab_font_string;		/* notebook tabs font */
-	GList *browsers; /* browsers array */
-	GList *external_commands;	/* external commands array */
+	
+	/* old entries */
+	GList *browsers; /* DEPRECATED browsers array ( <=1.0.1) */
+	GList *external_commands;	/* DEPRECATED external commands array ( <=1.0.1) */
+	GList *outputbox; /* DEPRECATED all outputbox commands ( <=1.0.1) */
+	/* new replacements: */
+	GList *external_command; /* array: name,command,is_default_browser */
+	GList *external_filter; /* array: name,command */
+	GList *external_outputbox; /* array:name,command,.......*/
+	
 	GList *cust_menu; 		/* DEPRECATED entries in the custom menu */
 	GList *cmenu_insert; /* custom menu inserts */
 	GList *cmenu_replace; /* custom menu replaces */
@@ -208,7 +216,6 @@ typedef struct {
 	gint auto_set_encoding_meta; /* auto set metatag for the encoding */
 	gint auto_update_meta; /* auto update author and generator meta tags on save */
 	gint encoding_search_Nbytes; /* number of bytes to look for the encoding meta tag */
-	GList *outputbox; /* all outputbox commands */
 	gint ext_browsers_in_submenu;
 	gint ext_commands_in_submenu;
 	gint ext_outputbox_in_submenu;

@@ -378,8 +378,12 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
-	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2, TRUE);
-	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 2, TRUE);
+	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2, TRUE); /* deprecated (<= 1.0.1) */
+	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:", 7, TRUE); /* deprecated (<= 1.0.1) */
+	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 0, TRUE); /* with 2 items is deprecated (<= 1.0.1), to 3 items is converted below */
+	init_prop_arraylist (&config_rc, &main_v->props.external_filter, "external_filter:", 2, TRUE);
+	init_prop_arraylist (&config_rc, &main_v->props.external_outputbox, "external_outputbox:", 7, TRUE);
+	
 	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 5, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE);
 	/* old type filetypes have a different count, they are converted below */
@@ -406,7 +410,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta,"auto_update_meta:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.encoding_search_Nbytes, "encoding_search_Nbytes:", 500, TRUE);
-	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:", 7, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.ext_browsers_in_submenu,"ext_browsers_in_submenu:",0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.ext_commands_in_submenu,"ext_commands_in_submenu:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.ext_outputbox_in_submenu,"ext_outputbox_in_submenu:",1, TRUE);
@@ -521,9 +524,70 @@ void rcfile_parse_main(void)
 	g_free(filename);
 	if (main_v->props.encoding_search_Nbytes< 1000) main_v->props.encoding_search_Nbytes = 2048;
 	/* do some default configuration for the lists */
-	if (main_v->props.browsers == NULL) {
-		/* if the user does not have browsers --> set them to defaults values */
-		gchar **arr;
+	
+	if (main_v->props.external_commands){ /* convert old-style external_commands to new style, 1.0.1 had old style */
+		GList *tmplist = g_list_first(main_v->props.external_commands);
+		while (tmplist) {
+			gchar **orig = (gchar **)tmplist->data;
+			if (count_array(orig)==2) {
+				gchar *pf = strstr(orig[1], "%f");
+				if (pf) {
+					gchar **new;
+					pf++;
+					*pf = 'O';
+					new = array_from_arglist(orig[0], orig[1],NULL);
+					main_v->props.external_filter = g_list_prepend(main_v->props.external_filter, new);
+				} else {
+					gchar **new = array_from_arglist(orig[0], orig[1], "0", NULL);
+					main_v->props.external_command = g_list_prepend(main_v->props.external_command, new);
+				}
+			}
+			tmplist = g_list_next(tmplist);
+		}
+		free_arraylist(main_v->props.external_commands);
+		main_v->props.external_commands = NULL;
+	}
+	
+	if (main_v->props.browsers) { /* convert old-style browsers to new style, 1.0.1 had old style */
+		gboolean have_default = FALSE;
+		GList *tmplist = g_list_first(main_v->props.browsers);
+		while (tmplist) {
+			gchar **orig = (gchar **)tmplist->data;
+			if (count_array(orig)==2) {
+				gchar **new;
+				if (have_default) {
+					new = array_from_arglist(orig[0], orig[1], "0", NULL);
+				} else {
+					new = array_from_arglist(orig[0], orig[1], "1", NULL);
+					have_default = TRUE;
+				}
+				main_v->props.external_command = g_list_prepend(main_v->props.external_command, new);
+			}
+			tmplist = g_list_next(tmplist);
+		}
+		free_arraylist(main_v->props.browsers);
+		main_v->props.browsers = NULL;
+	}
+	if (main_v->props.outputbox) {/* convert old-style outputbox to new style, 1.0.1 had old style */
+		GList *tmplist = g_list_first(main_v->props.outputbox);
+		while (tmplist) {
+			gchar **new;
+			gchar **orig = (gchar **)tmplist->data;
+			gchar *pf = strstr(orig[5], "%f");
+			if (pf) {
+				pf++;
+				*pf = 'O';
+			}
+			new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], orig[4], orig[5], orig[6], NULL);
+			main_v->props.external_outputbox = g_list_prepend(main_v->props.external_outputbox, new);
+			tmplist = g_list_next(tmplist);
+		}
+		free_arraylist(main_v->props.outputbox);
+		main_v->props.outputbox = NULL;
+	}
+
+
+/*		gchar **arr;
 		arr = array_from_arglist(_("Galeon"), "galeon -x %s&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 		arr = array_from_arglist(_("Mozilla"), "mozilla -remote 'openURL(%s, new-window)' || mozilla %s&",NULL);
@@ -533,8 +597,9 @@ void rcfile_parse_main(void)
 		arr = array_from_arglist(_("Netscape"), "/usr/lib/netscape/477/communicator/communicator-smotif %s&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 		arr = array_from_arglist(_("Gnome default"), "gnome-moz-remote --newwin %s&",NULL);
-		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-	}
+		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);*/
+	
+	
 	{
 		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"encodings",
 											"data/encodings",
@@ -554,24 +619,26 @@ void rcfile_parse_main(void)
 		}
 		g_free(defaultfile);
 	}
-	if (main_v->props.outputbox==NULL) {
-		/* if the user does not have outputbox settings --> set them to defaults values */
+/*	if (main_v->props.outputbox==NULL) {
+		/ * if the user does not have outputbox settings --> set them to defaults values * /
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","make","1",NULL));
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("weblint HTML checker"),"([a-zA-Z0-9/_.-]+) \\(([0-9:]+)\\) (.*)","1","2","3","weblint '%s'","0",NULL));
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("tidy HTML validator"),"line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","tidy -qe '%s'","0",NULL));
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("javac"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac '%s'","0",NULL));
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("xmllint XML checker"),"([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\: (.*)","1","2","3","xmllint --noout --valid '%s'","0",NULL));
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("php"),"(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)","1","2","3","php '%s'","0",NULL));
-/*		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(,NULL)); */
+/ *		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(,NULL)); * /
 	}
+	
 	if (main_v->props.external_commands == NULL) {
-		/* if the user does not have external commands --> set them to defaults values */
+		/ * if the user does not have external commands --> set them to defaults values * /
 		gchar **arr;
 		arr = array_from_arglist(_("Dos2Unix filter"), "cat '%s' | dos2unix > '%f'",NULL);
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 		arr = array_from_arglist(_("Tidy cleanup filter"), "cat '%s' | tidy -utf8 -q >'%f' 2>/dev/null",NULL);
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 	}
+	*/
 	{
 		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"filetypes",
 									"data/filetypes",
