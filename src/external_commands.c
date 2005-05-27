@@ -317,8 +317,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 		need_fifoout = FALSE,
 		need_inplace = FALSE,
 		need_preview_uri = FALSE,
-		need_filename=FALSE,
-		need_tmpout_compatibility = FALSE;
+		need_filename=FALSE;
 	gint items = 2, cur=0;
 	
 	if (!ep->bfwin->current_document) {
@@ -340,9 +339,6 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 	need_tmpin = (strstr(formatstring, "%I") != NULL);
 	/* %f is for backwards compatibility with bluefish 1.0 */
 	need_tmpout = (strstr(formatstring, "%O") != NULL);
-	if (!need_tmpout) {
-		need_tmpout = need_tmpout_compatibility = (strstr(formatstring, "%f") != NULL);
-	}
 	need_fifoin = (strstr(formatstring, "%i") != NULL);
 	need_fifoout = (strstr(formatstring, "%o") != NULL);
 	need_inplace = (strstr(formatstring, "%t") != NULL);
@@ -420,7 +416,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 		cur++;
 	}
 	if (need_tmpout) {
-		table[cur].my_int = (need_tmpout_compatibility) ? 'f' : 'O';
+		table[cur].my_int = 'O';
 		ep->tmp_out = create_secure_dir_return_filename();
 		table[cur].my_char = g_strdup(ep->tmp_out);
 		cur++;
