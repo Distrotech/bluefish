@@ -1558,7 +1558,7 @@ GList *glist_from_gslist(GSList *src) {
 }
 /* returns a newly allocated string! */
 gchar *bf_portable_time(const time_t *timep) {
-	gchar *retstr="";
+	gchar *retstr=NULL;
 #ifdef HAVE_CTIME_R
 	retstr = g_new(gchar, 128);
 	ctime_r(timep,retstr);
