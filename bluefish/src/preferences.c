@@ -654,7 +654,7 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ftd.lview);
-	gtk_widget_set_size_request(scrolwin, 150, 190);
+	gtk_widget_set_size_request(scrolwin, 200, 350);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	
 /*	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview));
@@ -833,7 +833,7 @@ static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ffd.lview);
-	gtk_widget_set_size_request(scrolwin, 150, 190);
+	gtk_widget_set_size_request(scrolwin, 200, 350);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	{
 		GList *tmplist = g_list_first(pd->lists[filefilters]);
@@ -1410,17 +1410,20 @@ static void delete_extcommands_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	pref_delete_strarr(pd, &pd->bd, 3);
 }
 static void create_extcommands_gui(Tprefdialog *pd, GtkWidget *vbox1) {
-	GtkWidget *hbox, *but, *scrolwin;
+	GtkWidget *hbox, *but, *scrolwin, *label;
 	pd->lists[extcommands] = duplicate_arraylist(main_v->props.external_command);
 	pd->bd.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER);
 	pd->bd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bd.lstore));
 	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 1, G_CALLBACK(extcommands_0_edited_lcb), pd, _("Label"), 0);
 	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 1, G_CALLBACK(extcommands_1_edited_lcb), pd, _("Command"), 1);
 	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 2, G_CALLBACK(extcommands_2_edited_lcb), pd, _("Default browser"), 2);
+	label = gtk_label_new(NULL);
+	gtk_label_set_markup(GTK_LABEL(label), _("<small><b>Input options</b>\nspecify no options to read the input from the standard output\n%s local filename (available for local files)\n%i temporary fifo for input, equals %s if the document is not modified and local\n%I temporary filename for input, equals %s if the document is not modified and local\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
+	gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->bd.lview);
-	gtk_widget_set_size_request(scrolwin, 150, 190);
+	gtk_widget_set_size_request(scrolwin, 200, 210);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	{
 		GList *tmplist = g_list_first(pd->lists[extcommands]);
@@ -1567,16 +1570,20 @@ static void delete_external_filter_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	pref_delete_strarr(pd, &pd->ed, 2);
 }
 static void create_filters_gui(Tprefdialog *pd, GtkWidget *vbox1) {
-	GtkWidget *hbox, *but, *scrolwin;
+	GtkWidget *hbox, *but, *scrolwin, *label;
 	pd->lists[extfilters] = duplicate_arraylist(main_v->props.external_filter);
 	pd->ed.lstore = gtk_list_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
 	pd->ed.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->ed.lstore));
 	pref_create_column(GTK_TREE_VIEW(pd->ed.lview), 1, G_CALLBACK(external_filter_0_edited_lcb), pd, _("Label"), 0);
 	pref_create_column(GTK_TREE_VIEW(pd->ed.lview), 1, G_CALLBACK(external_filter_1_edited_lcb), pd, _("Command"), 1);
+	
+	label = gtk_label_new(NULL);
+	gtk_label_set_markup(GTK_LABEL(label), _("<small><b>Input options</b>\nspecify no options to read the input from the standard output\n%s local filename (available for local files)\n%i temporary fifo for input, equals %s if the document is not modified and local\n%I temporary filename for input, equals %s if the document is not modified and local\n<b>Output options</b>\nspecify no options to read the output from the standard output\n%o temporary fifo\n%O temporary filename\n%t temporary filename for both input and output (for in-place-editing filters)\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
+	gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ed.lview);
-	gtk_widget_set_size_request(scrolwin, 120, 190);
+	gtk_widget_set_size_request(scrolwin, 200, 190);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	{
 		GList *tmplist = g_list_first(pd->lists[extfilters]);
@@ -1593,7 +1600,7 @@ static void create_filters_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->ed.insertloc = -1;
 	g_signal_connect(G_OBJECT(pd->ed.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->ed);
 	g_signal_connect(G_OBJECT(pd->ed.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->ed);
-	gtk_box_pack_start(GTK_BOX(vbox1),gtk_label_new(_("%s for current filename (any command)\n%i for input and %f for output filename (filters)")), TRUE, TRUE, 2);
+	
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_external_filter_lcb), pd);
@@ -1754,7 +1761,7 @@ static void delete_outputbox_lcb(GtkWidget *wid, Tprefdialog *pd) {
 }
 
 static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
-	GtkWidget *hbox, *but, *scrolwin;
+	GtkWidget *hbox, *but, *scrolwin, *label;
 	pd->lists[extoutputbox] = duplicate_arraylist(main_v->props.external_outputbox);
 	pd->od.lstore = gtk_list_store_new (8,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER);
 	pd->od.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->od.lstore));
@@ -1765,10 +1772,13 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_4_edited_lcb), pd, _("Output #"), 4);
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_5_edited_lcb), pd, _("Command"), 5);
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 2, G_CALLBACK(outputbox_6_toggled_lcb), pd, _("Show all output"), 6);
+	label = gtk_label_new(NULL);
+	gtk_label_set_markup(GTK_LABEL(label), _("<small><b>Input options</b>\nspecify no options to read the input from the standard output\n%s local filename (available for local files)\n%i temporary fifo for input, equals %s if the document is not modified and local\n%I temporary filename for input, equals %s if the document is not modified and local\n<b>Output options</b>\nspecify no options to read the output from the standard output\n%o temporary fifo\n%O temporary filename\n%t temporary filename for both input and output (for in-place-editing filters)\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
+	gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->od.lview);
-	gtk_widget_set_size_request(scrolwin, 150, 190);
+	gtk_widget_set_size_request(scrolwin, 200, 190);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	{
 		GList *tmplist = g_list_first(pd->lists[extoutputbox]);
@@ -2155,20 +2165,19 @@ static void preferences_dialog() {
 	}
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Filetypes"), 153,TRUE));
-
-	frame = gtk_frame_new(_("Filetypes"));
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("File types"), 153,TRUE));
+	frame = gtk_frame_new(_("File types"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-
 	create_filetype_gui(pd, vbox2);
-	
-	frame = gtk_frame_new(_("Filefilters"));
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("File filters"), 153,TRUE));
+	frame = gtk_frame_new(_("File filters"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
 	create_filefilter_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
@@ -2176,36 +2185,33 @@ static void preferences_dialog() {
 
 	frame = gtk_frame_new(_("Patterns"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
+	vbox2 = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 	create_highlightpattern_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External programs"), 151,TRUE));
-
-	frame = gtk_frame_new(_("Filters"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-
-	create_filters_gui(pd, vbox2);
-
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External commands"), 151,TRUE));
 	frame = gtk_frame_new(_("Commands"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
+	vbox2 = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-
 	create_extcommands_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Output parsers"), 157,TRUE));
-	
-	frame = gtk_frame_new(_("Outputbox"));
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External filters"), 151,TRUE));
+	frame = gtk_frame_new(_("Filters"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
+	vbox2 = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
+	create_filters_gui(pd, vbox2);
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Output parsers"), 157,TRUE));
+	frame = gtk_frame_new(_("Output parsers"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 5);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_outputbox_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
