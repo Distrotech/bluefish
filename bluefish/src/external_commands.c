@@ -365,7 +365,12 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 		ep->pipe_out = TRUE;
 	}
 	DEBUG_MSG("create_commandstring, formatstring '%s' seems OK\n",formatstring);
-	if (need_filename) {
+
+	is_local_non_modified = (ep->bfwin->current_document->uri 
+		&& !ep->bfwin->current_document->modified
+		&& gnome_vfs_uri_is_local(ep->bfwin->current_document->uri));
+
+	if (need_filename || is_local_non_modified) {
 		curi = gnome_vfs_uri_to_string(ep->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 		if (need_local) {
 			localname = gnome_vfs_get_local_path_from_uri(curi);
@@ -381,10 +386,6 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 	if (need_fifoin) items++;
 	if (need_fifoout) items++;
 	if (need_inplace) items++;
-	
-	is_local_non_modified = (ep->bfwin->current_document->uri 
-		&& !ep->bfwin->current_document->modified
-		&& gnome_vfs_uri_is_local(ep->bfwin->current_document->uri));
 	
 	table = g_new(Tconvert_table, items+1);
 	if (need_filename) {
@@ -424,7 +425,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 			ep->fifo_in = create_secure_dir_return_filename();
 			table[cur].my_char = g_strdup(ep->fifo_in);
 		}
-		DEBUG_MSG("create_commandstring, %%i will be at %s\n",ep->fifo_in);
+		DEBUG_MSG("create_commandstring, %%i will be at %s\n",table[cur].my_char);
 		cur++;
 	} else if (need_inplace) {
 		table[cur].my_int = 't';
