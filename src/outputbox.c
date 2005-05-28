@@ -43,6 +43,7 @@
 typedef struct {
 	gchar *command;
 	gchar *pattern;
+	gchar *docuri;
 	gint file_subpat;
 	gint line_subpat;
 	gint output_subpat;
@@ -160,12 +161,17 @@ void fill_output_box(gpointer data, gchar *string) {
 		}
 		DEBUG_MSG("fill_output_box, filename=%s, line=%s, output=%s\n",filename,line,output);
 		if (filename) {
-			gchar *fullpath;
-			/* create_full_path uses the current directory of no basedir is set */
-			fullpath = create_full_path(filename, NULL);
-			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,0,fullpath,-1);
+			gchar *addtolist;
+			if (filename[0] == '/') {
+				addtolist = gnome_vfs_make_uri_from_input(filename);
+			} else if (strchr(filename,':')==NULL) {
+				addtolist = gnome_vfs_uri_make_full_from_relative(ob->def->docuri,filename);
+			} else {
+				addtolist = gnome_vfs_make_uri_canonical_strip_fragment(filename);
+			}
+			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,0,addtolist,-1);
 			g_free(filename);
-			g_free(fullpath);
+			g_free(addtolist);
 		}
 		if (line) {
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,1,line, -1);
@@ -182,8 +188,8 @@ void fill_output_box(gpointer data, gchar *string) {
 }
 
 static void outputbox_def_cleanup(Toutputbox *ob, gboolean do_shutdown) {
-	GError *error=NULL;
-	gint status;
+/*	GError *error=NULL;
+	gint status;*/
 	DEBUG_MSG("outputbox_def_cleanup, started\n");
 /*	if (do_shutdown) {
 		g_io_channel_shutdown(ob->def->channel,FALSE,&error);
@@ -200,6 +206,7 @@ static void outputbox_def_cleanup(Toutputbox *ob, gboolean do_shutdown) {
 	g_free(ob->def->pattern);
 	regfree(&ob->def->preg);
 	g_free(ob->def->command);
+	g_free(ob->def->docuri);
 	g_free(ob->def);
 	ob->def = NULL;
 	DEBUG_MSG("outputbox_def_cleanup, finished\n");
@@ -343,6 +350,9 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	}
 	ob->def = g_new0(Toutput_def,1);
 	ob->def->pattern = g_strdup(pattern);
+	if (bfwin->current_document->uri) {
+		ob->def->docuri = gnome_vfs_uri_to_string(bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+	}
 	ob->def->file_subpat = file_subpat;
 	ob->def->line_subpat = line_subpat;
 	ob->def->output_subpat = output_subpat;
