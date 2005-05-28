@@ -928,11 +928,11 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 
 static GList *return_globalsession_configlist(gboolean init_values) {
 	GList *config_rc = NULL;
-	init_prop_stringlist(&config_rc, &main_v->globses.quickbar_items, "quickbar_items:", TRUE);
+	init_prop_stringlist(&config_rc, &main_v->globses.quickbar_items, "quickbar_items:", init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.main_window_h, "main_window_height:", 400, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.main_window_w, "main_window_width:", 600, init_values); /* negative width means maximized */
 	init_prop_integer   (&config_rc, &main_v->globses.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250, init_values);
-	init_prop_integer   (&config_rc, &main_v->globses.left_panel_width, "left_panel_width:", 150, TRUE);
+	init_prop_integer   (&config_rc, &main_v->globses.left_panel_width, "left_panel_width:", 150, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.fref_info_type,"fref_info_type:",0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_cust_menu, "lasttime_cust_menu:", 0, init_values);
@@ -1019,13 +1019,14 @@ gboolean rcfile_save_project(Tproject *project, gchar *filename) {
 
 gboolean rcfile_save_global_session(void) {
 	gboolean retval;
-	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/session", NULL);
-	GList *configlist = return_globalsession_configlist(FALSE);
+	gchar *filename;
+	GList *configlist;
+	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/session", NULL);
+	configlist = return_globalsession_configlist(FALSE);
 	configlist = return_session_configlist(configlist, main_v->session);
 	DEBUG_MSG("rcfile_save_global_session, saving global session to %s\n",filename);
 	DEBUG_MSG("rcfile_save_global_session, length session recent_files=%d\n",g_list_length(main_v->session->recent_files));
 	DEBUG_MSG("rcfile_save_global_session, length session recent_projects=%d\n",g_list_length(main_v->globses.recent_projects));
-	DEBUG_MSG("rcfile_save_global_session, main window width=%d\n",main_v->globses.main_window_w);
 	retval = save_config_file(configlist, filename);
 	free_configlist(configlist);
 	g_free(filename);

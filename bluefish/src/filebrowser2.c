@@ -1697,6 +1697,13 @@ void fb2_update_settings_from_session(Tbfwin *bfwin) {
 		}
 	}
 }
+static void fb2_two_pane_notify_position_lcb(GObject *object,GParamSpec *pspec,gpointer data){
+	gint position;
+	g_object_get(object, pspec->name, &position, NULL);
+	if (main_v->props.restore_dimensions) {
+		main_v->globses.two_pane_filebrowser_height = position;
+	}
+}
 
 GtkWidget *fb2_init(Tbfwin *bfwin) {
 	Tfilebrowser2 *fb2;
@@ -1796,6 +1803,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		vpaned = gtk_vpaned_new();
 		gtk_widget_set_size_request(vpaned, main_v->globses.left_panel_width, -1);
 		gtk_paned_set_position(GTK_PANED(vpaned), main_v->globses.two_pane_filebrowser_height);
+		g_signal_connect(G_OBJECT(vpaned),"notify::position",G_CALLBACK(fb2_two_pane_notify_position_lcb), NULL);
 
 		gtk_paned_add1(GTK_PANED(vpaned), scrolwin);
 
