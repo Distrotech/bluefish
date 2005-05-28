@@ -230,7 +230,7 @@ void gui_notebook_switch(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpointer data){
 	gint position;
 	g_object_get(object, pspec->name, &position, NULL);
-	DEBUG_MSG("left_panel_notify_position_lcb, new position=%d\n", position);
+	DEBUG_MSG("left_panel_notify_position_lcb, restore_dimensions=%d, new position=%d\n",main_v->props.restore_dimensions, position);
 	if (main_v->props.restore_dimensions) {
 		if (main_v->props.left_panel_left) {
 			main_v->globses.left_panel_width = position;
