@@ -91,8 +91,8 @@ gchar *return_first_existing_filename(const gchar * filename, ...);
 gboolean filename_test_extensions(gchar **extensions, const gchar *filename);
 gchar *bf_str_repeat(const gchar * str, gint number_of);
 gint get_int_from_string(gchar *string);
-gchar *create_secure_dir_return_filename();
-void remove_secure_dir_and_filename(gchar *filename);
+gchar *create_secure_dir_return_filename(void);
+/*void remove_secure_dir_and_filename(gchar *filename);*/
 /*gchar *buf_replace_char(gchar *buf, gint len, gchar srcchar, gchar destchar);*/
 void wordcount(gchar *text, guint *chars, guint *lines, guint *words);
 GSList *gslist_from_glist_reversed(GList *src);

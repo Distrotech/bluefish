@@ -18,20 +18,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 /* #define DEBUG */
+
 #define _POSIX_C_SOURCE 200312L
 #include <gtk/gtk.h>
-
 /* this is needed for Solaris to comply with the latest POSIX standard 
  * regarding the ctime_r() function
  * the problem is that it generates a compiler warning on Linux, lstat() undefined.. */
 #include <time.h>			/* ctime_r() */
-
 #include <unistd.h> /* chdir() */
-#include <stdio.h> /* fopen() */
 #include <ctype.h> /* toupper */
 #include <string.h> /* strrchr strncmp memmove strncat*/
 #include <sys/stat.h> /* S_IFDIR */
 #include <errno.h> 	/* errno */
+#include <stdio.h> /* fopen(), tempnam() */
 
 #include "bluefish.h"  /* for DEBUG_MSG and stuff like that */
 #include "bf_lib.h"  /* myself */
@@ -1410,6 +1409,27 @@ gint get_int_from_string(gchar *string) {
 	return -1;
 }
 
+static gchar *return_securedir(void) {
+	if (main_v->securedir) {
+		if (access(main_v->securedir, W_OK|X_OK)==0) {
+			return main_v->securedir;
+		} else {
+			g_free(main_v->securedir);
+		}
+	}
+	DEBUG_MSG("return_securedir,g_get_tmp_dir()=%s\n", g_get_tmp_dir());
+	/* it is SAFE to use tempnam() here, because we don't open a file with that name,
+	 * we create a directory with that name. mkdir() will FAIL if this name is a hardlink
+	 * or a symlink, so we DO NOT overwrite any file the link is pointing to
+	 */
+	main_v->securedir = tempnam(g_get_tmp_dir(), "bfish");
+	while (mkdir(main_v->securedir, 0700) != 0) {
+		g_free(main_v->securedir);
+		main_v->securedir = tempnam(g_get_tmp_dir(), "bfish");
+	}
+	return main_v->securedir;
+}
+
 /**
  * create_secure_dir_return_filename:
  *
@@ -1423,26 +1443,13 @@ gint get_int_from_string(gchar *string) {
  *
  * Return value: a newly allocated #gchar * containing a temporary filename in a secure dir
  **/
-gchar *create_secure_dir_return_filename() {
+gchar *create_secure_dir_return_filename(void) {
 	gchar *name, *name2;
-	DEBUG_MSG("create_secure_dir_return_filename,g_get_tmp_dir()=%s\n", g_get_tmp_dir());
-	/* it is SAFE to use tempnam() here, because we don't open a file with that name,
-	 * we create a directory with that name. mkdir() will FAIL if this name is a hardlink
-	 * or a symlink, so we DO NOT overwrite any file the link is pointing to
-	 */
-	name = tempnam(g_get_tmp_dir(), NULL);
-	DEBUG_MSG("create_secure_dir_return_filename, name=%s\n", name);
-	if (!name) {
-		return NULL;
-	}
-
-	if (mkdir(name, 0700) != 0) {
-		g_free(name);
-		return NULL;
-	}
-	name2 = tempnam(name, NULL);
+	
+	name = return_securedir();
+	DEBUG_MSG("create_secure_dir_return_filename, dir is at %s\n",name);
+	name2 = tempnam(name, "bf-");
 	DEBUG_MSG("create_secure_dir_return_filename, name2=%s\n", name2);
-	g_free(name);
 	return name2;
 }
 /**
@@ -1455,12 +1462,12 @@ gchar *create_secure_dir_return_filename() {
  *
  * Return value: void
  **/
-void remove_secure_dir_and_filename(gchar *filename) {
+/*void remove_secure_dir_and_filename(gchar *filename) {
 	gchar *dirname = g_path_get_dirname(filename);
 	unlink(filename);
 	rmdir(dirname);
 	g_free(dirname);
-}
+}*/
 
 /* gchar *buf_replace_char(gchar *buf, gint len, gchar srcchar, gchar destchar) {
 	gint curlen=0;

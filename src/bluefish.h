@@ -390,6 +390,7 @@ typedef struct {
 	guint16 lastkp_hardware_keycode; /* for the autoclosing, we need to know the last pressed key, in the key release callback, */
 	guint lastkp_keyval;             /* this is different if the modifier key is not pressed anymore during the key-release */
 	pcre *autoclosingtag_regc; /* the regular expression to check for a valid tag in tag autoclosing*/
+	gchar *securedir; /* temporary rwx------ directory for secure file creation */
 } Tmain;
 
 extern Tmain *main_v;
