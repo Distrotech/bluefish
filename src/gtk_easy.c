@@ -468,7 +468,7 @@ GtkWidget *boxed_spinbut_with_value(gchar *value, gfloat lower, gfloat upper, gf
  * Create new popupmenu from options, and set the selected index from curval
  *
  * Return value: #GtkWidget* pointer to the new menu widget
- * Created by: Rubén Dorta
+ * Created by: RubÃ©n Dorta
  */
 
 GtkWidget *optionmenu_with_value(gchar **options, gint curval) {
@@ -503,7 +503,7 @@ GtkWidget *optionmenu_with_value(gchar **options, gint curval) {
  * setting the selected index from curval
  *
  * Return value: #GtkWidget* pointer to the new menu widget
- * Modified by: Rubén Dorta
+ * Modified by: RubÃ©n Dorta
  */
 
 GtkWidget *boxed_optionmenu_with_value(const gchar *labeltext, gint curval, GtkWidget *box, gchar **options) {
@@ -1243,11 +1243,11 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	setfile = gtk_editable_get_chars(GTK_EDITABLE(GTK_ENTRY(fb->entry)),0,-1);
 	/* if setfile is empty we should probably use the current document basedir ? right? */
 	if (!setfile || strlen(setfile)==0) {
-		if (fb->bfwin->current_document->filename && strlen(fb->bfwin->current_document->filename)) {
+		if (fb->bfwin && fb->bfwin->current_document->filename && strlen(fb->bfwin->current_document->filename)) {
 			if (setfile) g_free(setfile);
 			setfile = path_get_dirname_with_ending_slash(fb->bfwin->current_document->filename);
 		}
-	} else if (setfile && strchr(setfile, '/') == NULL && fb->bfwin->current_document->filename) {
+	} else if (setfile && strchr(setfile, '/') == NULL && fb->bfwin && fb->bfwin->current_document->filename) {
 		/* if setfile is a relative name, we should try to make it a full path. relative names have 
 		no slashes in the name */
 		gchar *basedir, *oldsetfile;
@@ -1263,7 +1263,6 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 		GtkWidget *dialog;
 		dialog = file_chooser_dialog(NULL, _("Select File"), GTK_FILE_CHOOSER_ACTION_OPEN, setfile, FALSE, FALSE, NULL);
 		gtk_window_set_transient_for(GTK_WINDOW(dialog),GTK_WINDOW(gtk_widget_get_toplevel(fb->entry)));
-		gtk_file_chooser_set_filename(GTK_FILE_CHOOSER(dialog),setfile);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 			tmp2string = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 			tmpstring = create_full_path(tmp2string, NULL);

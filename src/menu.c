@@ -30,28 +30,31 @@
 #include "bfspell.h"
 #include "bookmark.h"
 #include "pixmap.h"
-#include "document.h"			/* file_open etc. */
-#include "highlight.h" /* doc_highlight_full */
-#include "menu.h" /* my own .h file */
-#include "undo_redo.h" /* undo_cb() redo_cb() etc. */
-#include "snr2.h" /* search_cb, replace_cb */
-#include "gui.h" /* go_to_line_win_cb */
-#include "stringlist.h" 	/* free_stringlist() */
-#include "bf_lib.h"  /* append_string_to_file() */
-#include "gtk_easy.h" /* window_full, bf_stock_ok_button */
-#include "preferences.h" /* open_preferences_menu_cb */
+#include "document.h"		/* file_open etc. */
+#include "highlight.h"		/* doc_highlight_full */
+#include "menu.h"				/* my own .h file */
+#include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
+#include "snr2.h"				/* search_cb, replace_cb */
+#include "gui.h"				/* go_to_line_win_cb */
+#include "stringlist.h"		/* free_stringlist() */
+#include "bf_lib.h"			/* append_string_to_file() */
+#include "gtk_easy.h"		/* window_full, bf_stock_ok_button */
+#include "preferences.h"	/* open_preferences_menu_cb */
 #include "html.h"
 #include "html2.h"
 #include "html_table.h"
 #include "html_form.h"
 #include "wizards.h"
 #include "image.h"
-#include "rcfile.h" /* rcfile_save_configfile_menu_cb */
+#include "rcfile.h" 			/* rcfile_save_configfile_menu_cb */
 #include "rpopup.h"
 #include "project.h"
 #include "about.h"
+#include "outputbox.h"		/* temporary */
 
-#include "outputbox.h" /* temporary */
+#ifdef HAVE_ATLEAST_GTK_2_4
+#include "quickstart.h"
+#endif /* HAVE_ATLEAST_GTK_2_4 */
 
 /*
 The callback for an ItemFactory entry can take two forms. If callback_action is zero, it is of the following form:
@@ -241,7 +244,11 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		optgroupdialog_dialog(bfwin,NULL);
 	break;
 	case 32:
+#ifdef HAVE_ATLEAST_GTK_2_4
+		quickstart_dialog_new(bfwin);
+#else
 		quickstart_dialog(bfwin,NULL);
+#endif
 	break;
 	case 33:
 		inputdialog_dialog(bfwin, NULL, NULL);
@@ -254,6 +261,7 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 	break;
 	case 36:
 		new_css_dialog(NULL,bfwin);
+	break;
 	case 37:
 		sel_colour_cb(NULL,bfwin);	
 	break;
@@ -916,10 +924,10 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_accel_map_add_entry("<bluefishmain>/Go/Last document", GDK_Page_Down, GDK_SHIFT_MASK | GDK_CONTROL_MASK);	
 	gtk_widget_show(bfwin->menubar);
 
-	setup_toggle_item(item_factory, "/View/View Main Toolbar", main_v->props.view_main_toolbar);
-	setup_toggle_item(item_factory, "/View/View HTML Toolbar", main_v->props.view_html_toolbar);
-	setup_toggle_item(item_factory, "/View/View Custom Menu", main_v->props.view_custom_menu);
-	setup_toggle_item(item_factory, "/View/View Sidebar", main_v->props.view_left_panel);
+    setup_toggle_item(item_factory, "/View/View Main Toolbar", bfwin->session->view_main_toolbar);
+    setup_toggle_item(item_factory, "/View/View HTML Toolbar", bfwin->session->view_html_toolbar);
+    setup_toggle_item(item_factory, "/View/View Custom Menu", bfwin->session->view_custom_menu);
+    setup_toggle_item(item_factory, "/View/View Sidebar", bfwin->session->view_left_panel);	
 	setup_toggle_item(item_factory, "/Document/Auto Indent", main_v->props.autoindent);
 	set_project_menu_widgets(bfwin, FALSE);
 	filetype_menu_rebuild(bfwin, item_factory);

@@ -1,20 +1,15 @@
-# translation of pt.po
-# translation of bluefish to Portuguese
-# Copyright (C) 2000,2003, 2004, 2005 Free Software Foundation, Inc.
-# Lopo Pizarro <lopo-pizarro@netcabo.pt>, 2005.
-#
+# Traditional Chinese(zh_TW) language file for Bluefish.
 msgid ""
 msgstr ""
-"Project-Id-Version: Bluefish-1.0.1\n"
+"Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-04-08 05:52-0700\n"
-"PO-Revision-Date: 2005-04-17 22:59+0100\n"
-"Last-Translator: Lopo Pizarro <lopo-pizarro@netcabo.pt>\n"
-"Language-Team:  <pt@li.org>\n"
+"PO-Revision-Date: 2005-01-19 11:34+0800\n"
+"Last-Translator: OLS3 <ols3@lxer.idv.tw>\n"
+"Language-Team: zh_TW <i18n-translation@b2d.org.tw>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.9.1\n"
 
 #: ../src/about.c:123
 msgid ""
@@ -28,16 +23,16 @@ msgid ""
 "\n"
 "This version of bluefish was compiled with the following options:\n"
 msgstr ""
-"O Bluefish é um editor para Web Designers experientes e programadores. "
-"Suporta muitas linguagens de marcação e programação, mas é especialmente "
-"concebido para edição de sites dinâmicos e interactivos. O Bluefish é um "
-"projecto distribuído sob a Licença GPL\n"
-"Para mais informação visite o sitio do Bluefish em http://bluefish."
-"openoffice.nl/\n"
+"Bluefish 是給有經驗的網頁設計師和程式設計師使用的編輯器.它支援許多程式和標記"
+"語言,但主要用於編輯動態互動的網站.Bluefish 是一個開放原始碼計劃,以 GPL 授"
+"權.\n"
 "\n"
-"Esta versão do Bluefish foi compilada com as seguintes opções:\n"
+"若要獲得更多訊息,請參考 Bluefish 的網站 http://bluefish.openoffice.nl/\n"
+"\n"
+"這個版本的 Bluefish 使用以下編譯選項:\n"
 
 #: ../src/about.c:124
+#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -100,15 +95,16 @@ msgid ""
 "\n"
 "Thanks to all who helped making this software available.\n"
 msgstr ""
-"Lider do Projecto:\n"
+"計劃領導人:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
 "\n"
-"Desenvolvimento para esta distribuição:\n"
+"開發群:\n"
 "  Jim Hayward <jimhayward@linuxexperience.com>\n"
-"  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
+"  Oskar ??wida <swida@aragorn.pb.bialystok.pl>\n"
+"  Christian Tellefsen <christian@tellefsen.net>\n"
 "  Eugene Morenko(More) <more@irpin.com>\n"
 "\n"
-"Desenvolvimento da distribuição anterior:\n"
+"舊版本的開發群:\n"
 "  Chris Mazuc\n"
 "  Neil Millar\n"
 "  Gero Takke\n"
@@ -121,23 +117,23 @@ msgstr ""
 "  Christian Tellefsen <chris@tellefsen.net>\n"
 "  Antti-Juhani Kaijanaho\n"
 "\n"
-"Documentação:\n"
+"文件:\n"
 "  Alastair Porter <alastair@linuxexperience.com>\n"
 "  Daniel Blair <joecamel@realcoders.org>\n"
 "  Denny Reeh\n"
 "\n"
-"Manutenção de pacotes:\n"
-"  Debian:   Davide Puricelli <evo@debian.org>\n"
-"  Redhat:   Matthias Haase <matthias_haase@bennewitz.com>\n"
-"  Mandrake: Todd Lyons <todd@mrball.net>\n"
+"套件維護群:\n"
+"  Debian:  Davide Puricelli <evo@debian.org>\n"
+"  Redhat:  Matthias Haase <matthias_haase@bennewitz.com>\n"
+"  Mandrake:Todd Lyons <todd@mrball.net>\n"
 "\n"
-"Se conhecer alguém que falte nesta lista, contacte por favor\n"
+"如果您知道遺漏了誰沒有列入, 請和我們聯繫\n"
 "<bluefish@bluefish.openoffice.nl>\n"
 "\n"
-"Obrigado a todos aqueles que nos ajudaram a desenvolver e disponibilizar "
-"este programa.\n"
+"感謝所有對本軟體有貢獻的人..\n"
 
 #: ../src/about.c:185
+#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -199,185 +195,171 @@ msgid ""
 "   <barathee@yahoo.com>\n"
 "\n"
 msgstr ""
-"Tradutores actuais:\n"
+"目前的翻譯者:\n"
 "\n"
-"  Alemão - Roland Steinbach\n"
-"   <roland@netzblick.de>\n"
-"\n"
-"  Búlgaro - Peio Popov\n"
-"   <peio@peio.org>\n"
-"\n"
-"  Chinês - Ting Yang (Dormouse)\n"
-"   <mouselinux@163.com>\n"
-"\n"
-"  Dinamarquês - Rasmus Toftdahl Olesen\n"
-"   <rto@pohldata.dk>\n"
-"\n"
-"  Espanhol - Walter Oscar Echarri\n"
-"   <wecharri@infovia.com.ar>\n"
-"\n"
-"  Finlandês - Juho Roukala\n"
-"   <j.mr@luukku.com>\n"
-"\n"
-"  Francês - Michèle Garoche\n"
-"   <michele.garoche@easyconnect.fr>\n"
-"\n"
-"  Húngaro - Péter Sáska\n"
-"   <sasek@ccsystem.hu>\n"
-"\n"
-"  Italiano - Stefano Canepa\n"
-"   <sc@linux.it>\n"
-"\n"
-"  Norueguês - Christian Tellefsen\n"
-"   <chris@tellefsen.net>\n"
-"\n"
-"  Polaco - Oskar Swida\n"
-"   <swida@aragorn.pb.bialystok.pl>\n"
-"\n"
-"  Português - Lopo Pizarro\n"
-"   <lopo-pizarro@netcabo.pt>\n"
-"\n"
-"  Português do Brasil - Anderson Rocha\n"
+"  巴西葡萄牙語 - Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
 "\n"
-"  Russo - Eugene Rupakov\n"
+"  保加利亞語 - Peio Popov\n"
+"   <peio@peio.org>\n"
+"\n"
+"  簡體中文 - 楊(廷頁) (Dormouse)\n"
+"   <mouselinux@163.com>\n"
+"\n"
+"  正體中文 - 臥龍小三\n"
+"   <ols3@lxer.idv.tw>\n"
+"\n"
+"  丹麥語 - Rasmus Toftdahl Olesen\n"
+"   <rto@pohldata.dk>\n"
+"\n"
+"  芬蘭語 - Juho Roukala\n"
+"   <j.mr@luukku.com>\n"
+"\n"
+"  法語 - Rom??o Viu-Berges\n"
+"   <apostledemencia@free.fr>\n"
+"\n"
+"  德語 - Roland Steinbach\n"
+"   <roland@netzblick.de>\n"
+"\n"
+"  匈牙利語 - P??ter S??ska\n"
+"   <sasek@ccsystem.hu>\n"
+"\n"
+"  意大利語 - Stefano Canepa\n"
+"   <sc@linux.it>\n"
+"\n"
+"  挪威語 - Christian Tellefsen\n"
+"   <chris@tellefsen.net>\n"
+"\n"
+"  波蘭語 - Oskar Swida\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"\n"
+"  葡萄牙語 - Lopo Pizarro\n"
+"   <lopopizarro@netcabo.pt>\n"
+"\n"
+"  俄語 - Eugene Rupakov\n"
 "   <rupakov@jet.msk.su>\n"
 "\n"
-"  Sérvio - Marko Milenović\n"
+"  塞爾維亞語 - Marko Milenovi??\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
-"  Sueco - David Smeringe\n"
+"  西班牙語 - Walter Oscar Echarri\n"
+"   <wecharri@infovia.com.ar>\n"
+"\n"
+"  瑞典語 - David Smeringe\n"
 "   <david.smeringe@telia.com>\n"
 "\n"
-"  Tamil - Murugapandian Barathee\n"
+"  泰米爾語 - Murugapandian Barathee\n"
 "   <barathee@yahoo.com>\n"
 "\n"
 
 #: ../src/about.c:226
 msgid "About Bluefish"
-msgstr "Sobre o Bluefish"
+msgstr "關於 Bluefish"
 
-# src/html.c:1315
 #: ../src/about.c:258 ../src/fref.c:1448 ../src/fref.c:1732 ../src/fref.c:1819
 #: ../src/fref.c:1854 ../src/fref.c:2331
 msgid "Info"
-msgstr "Informações"
+msgstr "訊息"
 
 #: ../src/about.c:260
 msgid "Authors"
-msgstr "Autores"
+msgstr "作者"
 
 #: ../src/about.c:261
 msgid "Translators"
-msgstr "Tradutores"
+msgstr "翻譯者"
 
 #: ../src/authen.c:75
 msgid "Authentication required"
-msgstr "Autenticação requerida"
+msgstr "需要身份驗證"
 
 #: ../src/authen.c:85
 #, c-format
 msgid "Authentication is required for %s."
-msgstr "Autenticação requerida para %s."
+msgstr "%s 需要身份驗證"
 
 #: ../src/authen.c:91
 msgid "Username:"
-msgstr "Nome de utilizador:"
+msgstr "使用者名稱:"
 
 #: ../src/authen.c:96
 msgid "Password:"
-msgstr "Palavra-passe"
+msgstr "密碼:"
 
 #: ../src/bf_lib.c:52 ../src/bf_lib.c:74
 msgid ""
 "Bluefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
 msgstr ""
-"O Bluefish está a ter dificuldade ao ler o nome dos ficheiros. Tente definir "
-"a variável G_BROKEN_FILENAMES=1\n"
+"Bluefish 讀取此一檔名有問題.請試著設定一下環境變數 G_BROKEN_FILENAMES=1\n"
 
-# src/html_form.c:351 src/html_form.c:396
 #: ../src/bfspell.c:384
 msgid "Check Spelling"
-msgstr "Verificação Ortográfica"
+msgstr "拼字檢查"
 
-# src/html_form.c:351 src/html_form.c:396
 #: ../src/bfspell.c:388
 msgid "Checking"
-msgstr "A verificar"
+msgstr "檢查中"
 
 #: ../src/bfspell.c:397
 msgid "_Misspelled word:"
-msgstr "Palavra errada:"
+msgstr "拼錯的單字(_M):"
 
 #: ../src/bfspell.c:401
 msgid "Change _to:"
-msgstr "Mudar para:"
+msgstr "變更為(_T):"
 
-# src/html.c:1315
 #: ../src/bfspell.c:404
 msgid "I_gnore"
-msgstr "I_gnorar"
+msgstr "忽略(_G)"
 
-# src/snr2.c:651 src/snr2.c:688
 #: ../src/bfspell.c:405 ../src/snr2.c:884
 msgid "_Replace"
-msgstr "Substitui_r"
+msgstr "取代(_R)"
 
-# src/menu.c:133
 #: ../src/bfspell.c:418
 msgid "In _document"
-msgstr "No _documento"
+msgstr "在文件中(_D)"
 
-# src/snr2.c:681
 #: ../src/bfspell.c:419
 msgid "I_n selection"
-msgstr "_Na selecção"
+msgstr "在選擇中(_N)"
 
-# src/configure.c:472
 #: ../src/bfspell.c:428
 msgid "personal dictionary"
-msgstr "dicionário pessoal"
+msgstr "個人字典"
 
-# src/configure.c:472
 #: ../src/bfspell.c:431
 msgid "session dictionary"
-msgstr "sessão de dicionário"
+msgstr "session 字典"
 
-# src/html_form.c:115
 #: ../src/bfspell.c:437
 msgid "Dictionary:"
-msgstr "Dicionário:"
+msgstr "字典:"
 
-# src/menu.c:1141
 #: ../src/bfspell.c:441
 msgid "_Add"
-msgstr "_Adicionar"
+msgstr "新增(_A)"
 
-# src/html.c:909
 #: ../src/bfspell.c:445
 msgid "Language:"
-msgstr "Idioma:"
+msgstr "語言:"
 
-# src/document.c:830
 #: ../src/bfspell.c:449
 msgid "Set defa_ult"
-msgstr "Definir uso por defeito"
+msgstr "設為預設(_U)"
 
-# src/rpopup.c:288
 #: ../src/bfspell.c:453
 msgid "Filter:"
-msgstr "Filtro:"
+msgstr "過濾器:"
 
-# src/configure.c:434
 #: ../src/bfspell.c:461
 msgid "no filter"
-msgstr "sem filtro"
+msgstr "不過濾"
 
-# src/configure.c:434
 #: ../src/bfspell.c:463
 msgid "html filter"
-msgstr "filtro html"
+msgstr "html 過濾器"
 
 #: ../src/bluefish.c:96
 #, c-format
@@ -386,66 +368,59 @@ msgid ""
 "Usage: %s [options] [filenames ...]\n"
 msgstr ""
 "\n"
-"Uso: %s [opções] [nome dos ficheiros ...]\n"
+"使用法: %s [選項] [檔名 ...]\n"
 
-# src/init.c:864
 #: ../src/bluefish.c:97
 msgid ""
 "\n"
 "Currently accepted options are:\n"
 msgstr ""
 "\n"
-"As opções actualmente aceites são:\n"
+"目前可用的選項有:\n"
 
-# src/init.c:865
 #: ../src/bluefish.c:98
 msgid "-s           skip root check\n"
-msgstr "-s           saltar a verificação do super-utilizador\n"
+msgstr "-s           跳過 root 檢查\n"
 
-# src/init.c:866
 #: ../src/bluefish.c:99
 msgid "-v           current version\n"
-msgstr "-v           versão actual\n"
+msgstr "-v           目前的版本\n"
 
-# src/init.c:866
 #: ../src/bluefish.c:100
 msgid "-n           open new window\n"
-msgstr "-v           abrir nova janela\n"
+msgstr "-n           開啟新視窗\n"
 
 #: ../src/bluefish.c:101
 msgid "-p filename  open project\n"
-msgstr "-p nome do ficheiro  abrir projecto\n"
+msgstr "-p 檔名    開啟專案\n"
 
-# src/init.c:867
 #: ../src/bluefish.c:102
 msgid "-h           this help screen\n"
-msgstr "-h           este ecrã de ajuda\n"
+msgstr "-h           這個求助畫面\n"
 
-# src/menu.c:469
 #: ../src/bluefish.c:179
 msgid "parsing highlighting file..."
-msgstr "analisar destaque do ficheiro..."
+msgstr "解析反白顏色的檔案..."
 
 #: ../src/bluefish.c:190
 msgid "compiling highlighting patterns..."
-msgstr "a compilar padrões para destaque..."
+msgstr "編譯反白顏色的檔型態..."
 
 #: ../src/bluefish.c:197
 msgid "parsing custom menu file..."
-msgstr "analisar ficheiro do menu personalizado..."
+msgstr "解析自定選單檔案..."
 
 #: ../src/bluefish.c:209
 msgid "creating main gui..."
-msgstr "criar interface gráfica principal..."
+msgstr "建立主要圖型介面..."
 
 #: ../src/bluefish.c:220
 msgid "showing main gui..."
-msgstr "mostrar interface gráfica principal..."
+msgstr "顯示主要圖型介面..."
 
-# src/callbacks.c:433
 #: ../src/bluefish.c:234
 msgid "Bluefish tip:"
-msgstr "Dica do Bluefish:"
+msgstr "Bluefish 技巧:"
 
 #: ../src/bluefish.c:234
 msgid ""
@@ -454,151 +429,128 @@ msgid ""
 "If you right-click a button in the HTML toolbars you can add buttons to the "
 "Quickbar."
 msgstr ""
-"Essa mensagem é mostrada porque não existe nenhum item na Barra Rápida.\n"
+"因為您的快捷列上沒有任何項目, 所以顯示這個訊息.\n"
 "\n"
-"Se clicar com o botão direito na barra de ferramentas HTML pode adicionar "
-"botões na Barra Rápida."
+"您可以按滑鼠右鍵點按工具列上的按鈕來新增按鈕到快捷列上"
 
-# src/html.c:893 src/html.c:1244 src/html.c:1358 src/html_form.c:156
-# src/html_form.c:175 src/html_form.c:208 src/html_form.c:252
-# src/html_form.c:291 src/html_form.c:342 src/html_form.c:387
-# src/html_form.c:432 src/images.c:247 src/wml.c:167 src/wml.c:207
-# src/wml.c:323
 #: ../src/bookmark.c:366 ../src/html.c:612 ../src/html.c:832
 #: ../src/html.c:1427 ../src/html.c:1856 ../src/html_form.c:231
 #: ../src/html_form.c:596 ../src/html_form.c:795 ../src/html_form.c:890
 #: ../src/image.c:314
 msgid "_Name:"
-msgstr "_Nome:"
+msgstr "名稱(_N):"
 
-# src/toolbars.c:427
 #: ../src/bookmark.c:371
 msgid "_Description:"
-msgstr "_Descrição:"
+msgstr "描述(_D):"
 
 #: ../src/bookmark.c:373
 msgid "Temporary"
-msgstr "Temporário"
+msgstr "暫時"
 
-# src/document.c:1004
 #: ../src/bookmark.c:473
 #, c-format
 msgid "Could not find the file \"%s\"."
-msgstr "Não foi possível encontrar o ficheiro \"%s\"."
+msgstr "找不到檔案“%s”."
 
 #: ../src/bookmark.c:475
 msgid "This bookmark is set in a file that no longer exists."
-msgstr "Este marcador está definido para um ficheiro que já não existe."
+msgstr "設立此書籤的檔案已不存在."
 
-# src/document.c:1465
 #: ../src/bookmark.c:610
 #, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
-msgstr "Tem a certeza que quer apagar os marcadores para %s?"
+msgstr "您真的要刪除 %s 的所有書籤嗎?"
 
 #: ../src/bookmark.c:611
 msgid "Delete bookmarks?"
-msgstr "Apagar os marcadores?"
+msgstr "刪除書籤?"
 
-# src/document.c:1465
 #: ../src/bookmark.c:641
 #, c-format
 msgid "Do you really want to delete %s?"
-msgstr "Tem a certeza que quer apagar %s?"
+msgstr "您真的要刪除 %s 嗎?"
 
 #: ../src/bookmark.c:643
 msgid "Delete permanent bookmark."
-msgstr "Apagar marcador permanente "
+msgstr "永久刪除書籤."
 
 #: ../src/bookmark.c:660
 msgid "Edit bookmark"
-msgstr "Editar macador"
+msgstr "編輯書籤"
 
 #: ../src/bookmark.c:674
 msgid "Goto bookmark"
-msgstr "Ir para macador"
+msgstr "跳到書籤"
 
-# src/menu.c:88
 #: ../src/bookmark.c:682
 msgid "Edit"
-msgstr "Editar"
+msgstr "編輯"
 
-# src/stringlist.c:262
 #: ../src/bookmark.c:686
 msgid "Delete"
-msgstr "Apagar"
+msgstr "刪除"
 
-# src/menu.c:134
 #: ../src/bookmark.c:692
 msgid "Delete all in document"
-msgstr "Apagar tudo no documento"
+msgstr "刪除在檔案中的全部"
 
-# src/stringlist.c:262
 #: ../src/bookmark.c:697
 msgid "Delete all"
-msgstr "Apagar tudo"
+msgstr " 刪除全部 "
 
 #: ../src/bookmark.c:1278 ../src/bookmark.c:1295 ../src/bookmark.c:1331
 #: ../src/document.c:2036
 msgid "Add bookmark"
-msgstr "Adicionar marcador"
+msgstr "新增書籤"
 
-# src/configure.c:360
 #: ../src/bookmark.c:1279 ../src/bookmark.c:1332
 msgid "Cannot add bookmarks in unnamed files."
-msgstr "Não é possível adicionar marcadores em ficheiros sem nome."
+msgstr "無法在未命名的檔案中新增書籤."
 
 #: ../src/bookmark.c:1296
 msgid "You already have a bookmark here!"
-msgstr "Já possui um marcador aqui!"
+msgstr "您目前在這裡頭已經有書籤了!"
 
 #: ../src/bookmark.c:1369
 msgid "Delete all bookmarks."
-msgstr "Apagar todos os marcadores"
+msgstr "刪除所有書籤."
 
 #: ../src/bookmark.c:1369
 msgid "Are you sure?"
-msgstr "Tem a certeza?"
+msgstr "您確定嗎?"
 
 #: ../src/bookmark.c:1412
 msgid "File size changed in file\n"
-msgstr "O tamanho do ficheiro mudou no ficheiro\n"
+msgstr "檔案大小已改變\n"
 
 #: ../src/bookmark.c:1413
 msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
-msgstr "As posições dos marcadores podem estar incorrectas. Apagar marcadores?"
+msgstr "書籤位置可能不正確. 要刪除書籤嗎?"
 
-# src/highlight.c:429 src/interface.c:213 src/menu.c:122
 #: ../src/document.c:260
 msgid "/Document/Highlight Syntax"
-msgstr "/Documento/Destacar sintaxe"
+msgstr "/檔案(D)/語法顏色識別"
 
-# src/html.c:893 src/html.c:1244 src/html.c:1358 src/html_form.c:156
-# src/html_form.c:175 src/html_form.c:208 src/html_form.c:252
-# src/html_form.c:291 src/html_form.c:342 src/html_form.c:387
-# src/html_form.c:432 src/images.c:247 src/wml.c:167 src/wml.c:207
-# src/wml.c:323
 #: ../src/document.c:700
 msgid "Name: "
-msgstr "Nome:"
+msgstr "名稱:"
 
-# src/wml.c:315
 #: ../src/document.c:701
 msgid ""
 "\n"
 "Type: "
 msgstr ""
 "\n"
-"Tipo:"
+"類型:"
 
-# src/configure.c:474
 #: ../src/document.c:702
 msgid ""
 "\n"
 "Encoding: "
 msgstr ""
 "\n"
-"Codificação"
+"編碼:"
 
 #: ../src/document.c:705
 msgid ""
@@ -606,11 +558,11 @@ msgid ""
 "Size (on disk): "
 msgstr ""
 "\n"
-"Tamanho (no disco)"
+"大小(磁碟上):"
 
 #: ../src/document.c:705
 msgid " bytes"
-msgstr " bytes"
+msgstr " 位元組"
 
 #: ../src/document.c:711
 msgid ""
@@ -618,7 +570,7 @@ msgid ""
 "Permissions: "
 msgstr ""
 "\n"
-"Permissões: "
+"權限:"
 
 #: ../src/document.c:718
 msgid ""
@@ -626,91 +578,81 @@ msgid ""
 "Last modified: "
 msgstr ""
 "\n"
-"Última modificação: "
+"上次修改時間:"
 
-# src/document.c:1166
 #: ../src/document.c:743
 #, c-format
 msgid "Untitled %d"
-msgstr "Sem título %d"
+msgstr "無標題 %d"
 
 #: ../src/document.c:1092
-#, c-format
+#, fuzzy, c-format
 msgid " Ln: %d, Col: %d"
-msgstr " Ln %d, Col %d"
+msgstr "列 %d, 欄 %d"
 
 #: ../src/document.c:1125 ../src/document.c:1126
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-# src/document.c:1004
 #: ../src/document.c:1419 ../src/document.c:1440
 msgid "Could not read file:\n"
-msgstr "Não foi possível ler o ficheiro:\n"
+msgstr "無法讀取檔案:\n"
 
-# src/document.c:997
 #: ../src/document.c:1471
 msgid "Opening file "
-msgstr "A abrir o ficheiro "
+msgstr "開啟檔案 "
 
 #: ../src/document.c:1586
 msgid "Cannot display file, unknown characters found."
-msgstr "Não foi possível mostrar o ficheiro, caracteres desconhecidos encontrados."
+msgstr "無法顯示檔案, 發現不明的字元集."
 
-# src/snr2.c:651 src/snr2.c:688
 #: ../src/document.c:2019 ../src/snr2.c:1332
 msgid "Replace"
-msgstr "Substituir"
+msgstr "取代"
 
 #: ../src/document.c:2024 ../src/snr2.c:1335
 msgid "Find"
-msgstr "Procurar"
+msgstr "尋找"
 
 #: ../src/document.c:2032
 msgid "Delete bookmark"
-msgstr "Apagar marcador"
+msgstr "刪除書籤"
 
-# src/configure.c:363
 #: ../src/document.c:2052
 msgid "Edit color"
-msgstr "Editar côr"
+msgstr "編輯顏色"
 
-# src/rpopup.c:328
 #: ../src/document.c:2060
 msgid "Edit tag"
-msgstr "Editar etiqueta"
+msgstr "編輯標記"
 
-# src/document.c:1091
 #: ../src/document.c:2203
 msgid "Saving file"
-msgstr "A gravar ficheiro"
+msgstr "正在儲存檔案"
 
 #: ../src/document.c:2226 ../src/document.c:2250
 msgid "_Abort save"
-msgstr "_Abortar gravação"
+msgstr "中斷儲存(_A)"
 
 #: ../src/document.c:2226
 msgid "_Continue save"
-msgstr "_Continuar gravação"
+msgstr "繼續儲存(_C)"
 
 #: ../src/document.c:2228
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
-msgstr ""
-"A cópia de segurança para %s não pode ser criada. Se continuar, esse "
-"ficheiro será substituído."
+msgstr "%s 的備份檔案無法建立. 如果您繼續操作, 此檔案將會被覆蓋."
 
-# src/callbacks.c:174
 #: ../src/document.c:2229
 msgid "File backup failure"
-msgstr "Falha no ficheiro de cópia de segurança"
+msgstr "檔案備份失敗"
 
 #: ../src/document.c:2250
 msgid "_Continue save in UTF-8"
-msgstr "_Continuar gravação em UTF-8"
+msgstr "繼續以 UTF-8 儲存(_C)"
 
 #: ../src/document.c:2261
 #, c-format
@@ -720,70 +662,62 @@ msgid ""
 "\n"
 "Continue saving in UTF-8 encoding?"
 msgstr ""
-"Falha ao converter %s para codificação de caracter %s. A codificação falho "
-"no caracter '%s' na linha %d coluna %d\n"
+" %s 轉為編碼 %s 失敗. 編碼失敗的字元 '%s' 在第 %d 列第 %d 欄.\n"
 "\n"
-"Continuar a gravar no tipo de codificação UTF-8?"
+"要繼續以 UTF-8 編碼儲存嗎?"
 
 #: ../src/document.c:2262
 msgid "File encoding conversion failure"
-msgstr "Falha na conversão da codificação do ficheiro"
+msgstr "檔案編碼轉換失敗"
 
-# src/document.c:1337
 #: ../src/document.c:2394
 msgid "Previously: "
-msgstr "Previamente: "
+msgstr "前一個: "
 
-# src/configure.c:428 src/interface.c:783 src/interface.c:936
+# c-format
 #: ../src/document.c:2426
 #, c-format
 msgid "Move/rename %s to"
-msgstr "Mover/Mudar o nome %s para"
+msgstr "搬移/重新命名 %s 為"
 
-# src/document.c:1304
+# c-format
 #: ../src/document.c:2426
 #, c-format
 msgid "Save %s as"
-msgstr "Gravar %s como"
+msgstr " %s 另存為"
 
-# src/document.c:1318 src/document.c:1419 src/interface.c:702
 #: ../src/document.c:2469 ../src/document.c:2484 ../src/document.c:2582
 #: ../src/document.c:3773 ../src/project.c:201
 msgid "_Cancel"
-msgstr "_Cancelar"
+msgstr "取消(_C)"
 
-# src/document.c:1318
 #: ../src/document.c:2469 ../src/document.c:2484 ../src/document.c:2582
 #: ../src/project.c:201
 msgid "_Overwrite"
-msgstr "S_ubstituir"
+msgstr "覆蓋(_O)"
 
-# src/document.c:1319
 #: ../src/document.c:2470
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
-msgstr "O ficheiro %s está aberto, substituir?"
+msgstr "檔案 %s 已存在且已被開啟, 要覆蓋嗎?"
 
 #: ../src/document.c:2471
 msgid "The file you have selected is being edited in Bluefish."
-msgstr "O ficheiro que seleccionou está a ser editado no Bluefish."
+msgstr "您選擇的檔案已在 Bluefish 中編輯了."
 
 #: ../src/document.c:2485 ../src/project.c:202
 #, c-format
 msgid "A file named \"%s\" already exists."
-msgstr "Já existe um ficheiro com o nome \"%s\"."
+msgstr "檔案“%s” 已存在."
 
-# src/document.c:1465
 #: ../src/document.c:2487 ../src/project.c:204
 msgid "Do you want to replace the existing file?"
-msgstr "Deseja gravar as mudanças feitas neste ficheiro Sem título?"
+msgstr "您要取代已存在的檔案嗎?"
 
-# src/document.c:1304
 #: ../src/document.c:2537
 msgid "Save as..."
-msgstr "Gravar Como..."
+msgstr "另存為..."
 
-# src/document.c:1319
 #: ../src/document.c:2586
 #, c-format
 msgid ""
@@ -792,100 +726,89 @@ msgid ""
 "New modification time: %s\n"
 "Old modification time: %s"
 msgstr ""
-"Ficheiro: %s\n"
+"檔案: %s\n"
 "\n"
-"Hora da nova modificação: %s\n"
-"Hora da velha modificação: %s"
+"新修改時間: %s\n"
+"舊修改時間: %s"
 
 #: ../src/document.c:2587
 msgid "File has been modified by another process."
-msgstr "O ficheiro foi modificado por outro processo."
+msgstr "檔案已被另一個行程修改."
 
-# src/html.c:1258
 #: ../src/document.c:2600
 #, c-format
 msgid "Saving %s"
-msgstr "A gravar %s"
+msgstr "儲存 %s"
 
-# src/document.c:1004
 #: ../src/document.c:2614
 msgid ""
 "Could not backup file:\n"
 "\""
 msgstr ""
-"Não foi possível fazer a cópia de segurança do ficheiro:\n"
+"無法備份檔案:\n"
 "\""
 
-# src/document.c:1103
 #: ../src/document.c:2615
 msgid "File save aborted.\n"
-msgstr "Gravação do ficheiro abortado.\n"
+msgstr "檔案儲存中斷.\n"
 
-# src/document.c:1004
 #: ../src/document.c:2620
 msgid ""
 "Could not write file:\n"
 "\""
 msgstr ""
-"Não foi possível escrever o ficheiro:\n"
+"無法寫入檔案:\n"
 "\""
 
 #: ../src/document.c:2621
 msgid "File save error"
-msgstr "Erro ao gravar ficheiro"
+msgstr "檔案儲存錯誤"
 
 #: ../src/document.c:2671
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
-msgstr "Gravar alterações para \"%s\" antes de fechar?."
+msgstr "關閉前要儲存 \"%s\" 嗎?."
 
 #: ../src/document.c:2678 ../src/project.c:354
 msgid "Do_n't save"
-msgstr "Não gravar"
+msgstr "不儲存(_N)"
 
 #: ../src/document.c:2680 ../src/document.c:3775 ../src/project.c:363
 msgid "If you don't save your changes they will be lost."
-msgstr "Se não gravar as alterações, estas perder-se-ão."
+msgstr "若您不儲存, 則所有的更改將會消失."
 
-# src/document.c:1347 src/document.c:1547
 #: ../src/document.c:2960
 msgid "No filename"
-msgstr "Nenhum nome de ficheiro"
+msgstr "沒有檔案名稱"
 
-# src/document.c:1091
 #: ../src/document.c:3097
 msgid "Loading files..."
-msgstr "A carregar ficheiros..."
+msgstr "載入檔案中..."
 
 #: ../src/document.c:3115
 msgid ""
 "These files could not opened:\n"
 "\n"
 msgstr ""
-"Estes ficheiros não puderam ser abertos:\n"
+"這些檔案無法開啟:\n"
 "\n"
 
-# src/document.c:1374
 #: ../src/document.c:3117 ../src/msg_queue.c:235
 msgid "Unable to open file(s)\n"
-msgstr "Não foi possível abrir o(s) ficheiro(s)\n"
+msgstr "無法開啟檔案\n"
 
-# src/document.c:1374
 #: ../src/document.c:3149
 msgid "Unable to open file"
-msgstr "Não foi possível abrir o ficheiro"
+msgstr "無法開啟檔案"
 
-# src/snr2.c:651 src/snr2.c:688
 #: ../src/document.c:3211
 msgid "_Reload"
-msgstr "_Recarregar"
+msgstr "重新載入(_R)"
 
-# src/html.c:1315
 #: ../src/document.c:3211
 msgid "_Ignore"
-msgstr "_Ignorar"
+msgstr "忽略(_I)"
 
-# src/document.c:1319
 #: ../src/document.c:3215
 #, c-format
 msgid ""
@@ -894,1477 +817,1205 @@ msgid ""
 "New modification time is: %s\n"
 "Old modification time is: %s"
 msgstr ""
-"Ficheiro: %s\n"
+"檔名:%s\n"
 "\n"
-"Hora da nova modificação: %s\n"
-"Hora da velha modificação: %s"
+"新的修改時間:%s\n"
+"舊的修改時間:%s"
 
 #: ../src/document.c:3216
 msgid "File has been modified by another process\n"
-msgstr "O ficheiro foi modificado por outro processo.\n"
+msgstr "檔案已經被另一個行程修改\n"
 
-# src/document.c:1091
 #: ../src/document.c:3323
 msgid "searching files..."
-msgstr "procurar ficheiros..."
+msgstr "正在搜尋檔案..."
 
-# src/html_form.c:489
 #: ../src/document.c:3354 ../src/document.c:3361
 msgid "Select basedir"
-msgstr "Seleccione a directoria base"
+msgstr "選擇基本目錄"
 
 #: ../src/document.c:3380
 msgid "Advanced open file selector"
-msgstr "Seleccionador avançado para abrir ficheiro"
+msgstr "進階開啟檔案選擇器"
 
 #: ../src/document.c:3391
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
-msgstr "grep {conteúdo} `find {directoriabase} -name '{tipodoficheiro}'`"
+msgstr "grep {包含} `find {基本目錄} -name '{檔案類型}'`"
 
 #: ../src/document.c:3396
 msgid "<b>General</b>"
-msgstr "<b>Geral</b>"
+msgstr "<b>一般的</b>"
 
-# src/project.c:202
 #: ../src/document.c:3398
 msgid "Base_dir:"
-msgstr "Directoriabase:"
+msgstr "基本目錄(_D):"
 
-# src/configure.c:463
 #: ../src/document.c:3400 ../src/gtk_easy.c:1321
 msgid "_Browse..."
-msgstr "Navegar..."
+msgstr "瀏覽(_B)..."
 
-# src/interface.c:736
 #: ../src/document.c:3418
 msgid "_File Type:"
-msgstr "_Tipo do ficheiro:"
+msgstr "檔案類型(_F):"
 
-# src/interface.c:928
 #: ../src/document.c:3424
 msgid "_Recursive:"
-msgstr "_Recursivo:"
+msgstr "遞迴包含下層(_R):"
 
-# src/html.c:1369
 #: ../src/document.c:3429
 msgid "<b>Contains</b>"
-msgstr "<b>Conteúdo</b>"
+msgstr "<b>包含</b>"
 
-# src/toolbars.c:109
 #: ../src/document.c:3432
 msgid "Pa_ttern:"
-msgstr "Padrão:"
+msgstr "樣式(_T):"
 
 #: ../src/document.c:3436
 msgid "Is rege_x:"
-msgstr "É uma expressão regular:"
+msgstr "是正規式(_X):"
 
 #: ../src/document.c:3571
 msgid "Open URL"
-msgstr "Abrir URL"
+msgstr "開啟 URL"
 
 #: ../src/document.c:3575
 msgid "<b>Open URL</b>"
-msgstr "<b>Abrir URL</b>"
+msgstr "<b>開啟 URL</b>"
 
-# src/bluefish.c:617
 #: ../src/document.c:3621 ../src/gtk_easy.c:1621
 msgid "Select files"
-msgstr "Seleccionar ficheiros"
+msgstr "選擇檔案"
 
-# src/document.c:1091
 #: ../src/document.c:3641 ../src/document.c:3661 ../src/document.c:3678
 #, c-format
 msgid "Loading %d file(s)..."
-msgstr "A carregar ficheiro(s) %d..."
+msgstr "正在載入 %d 個檔案..."
 
 #: ../src/document.c:3656
 msgid "No matching files found"
-msgstr "Não foram encontradas ficheiros correspondentes"
+msgstr "沒有找到符合條件的檔案"
 
-# src/document.c:1347 src/document.c:1547
 #: ../src/document.c:3711 ../src/document.c:3718
 msgid "Select file to insert"
-msgstr "Seleccione ficheiro para inserir"
+msgstr "選擇要插入的檔案"
 
-# src/document.c:1347 src/document.c:1547
 #: ../src/document.c:3721
 msgid "No file to insert"
-msgstr "Nenhum ficheiro para inserir"
+msgstr "沒有要插入的檔案"
 
-# src/document.c:1592 src/project.c:279
 #: ../src/document.c:3773
 msgid "_Save All"
-msgstr "_Gravar tudo"
+msgstr "全部儲存(_S)"
 
-# src/document.c:1592 src/project.c:279
 #: ../src/document.c:3773
 msgid "Close _All"
-msgstr "Fechar tudo"
+msgstr "全部關閉(_A)"
 
-# src/document.c:1592 src/project.c:279
 #: ../src/document.c:3773
 msgid "Choose per _File"
-msgstr "Escolher por ficheiro"
+msgstr "選擇每個檔案(_F)"
 
-# src/document.c:1593 src/project.c:280
 #: ../src/document.c:3774
 msgid "Multiple open files have been changed."
-msgstr "Múltiplos ficheiros abertos foram modificados."
+msgstr "多重開啟的檔案已更改."
 
 #: ../src/document.c:4022
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
-msgstr "Estatísticas: %d linhas, %d palavras, %d caracteres"
+msgstr "統計: 共 %d 列, %d 個單字, %d 個字元"
 
-# src/document.c:1749
 #: ../src/filebrowser.c:1063
 msgid "Error creating path"
-msgstr "Erro ao tentar criar caminho"
+msgstr "建立路徑失敗"
 
 #: ../src/filebrowser.c:1063
 msgid "The specified pathname already exists."
-msgstr "O caminho especificado já existe."
+msgstr "指定的路徑名稱已存在."
 
-# src/interface.c:731
 #: ../src/filebrowser.c:1133
 msgid "File name"
-msgstr "Nome do ficheiro"
+msgstr "檔案名稱"
 
-# src/interface.c:928
 #: ../src/filebrowser.c:1135
 msgid "Directory name"
-msgstr "Nome do directoria"
+msgstr "目錄名稱"
 
-# src/document.c:1798
 #: ../src/filebrowser.c:1166
 msgid "Opening directory..."
-msgstr "A abrir a directoria..."
+msgstr "開啟目錄... "
 
-# src/document.c:1004
 #: ../src/filebrowser.c:1255 ../src/filebrowser.c:1259
 msgid "Could not rename\n"
-msgstr "Não foi possível mudar o nome\n"
+msgstr "無法重新命名\n"
 
-# src/interface.c:705
 #: ../src/filebrowser.c:1302
 #, c-format
 msgid "Are you sure you want to delete \"%s\" ?"
-msgstr "Tem certeza que deseja apagar \"%s\" ?"
+msgstr "您確定要刪除 \" %s \" 嗎?"
 
 #: ../src/filebrowser.c:1303
 msgid "If you delete this file, it will be permanently lost."
-msgstr "Se apagar este ficheiro, este será permanentemente eliminado."
+msgstr "如果您刪除這個檔案, 它將會永久消失."
 
-# src/document.c:1004
 #: ../src/filebrowser.c:1312 ../src/filebrowser.c:1316
 msgid "Could not delete \n"
-msgstr "Não foi possível apagar\n"
+msgstr "無法刪除 \n"
 
-# src/menu.c:74
 #: ../src/filebrowser.c:1455
 msgid "/Open _Advanced..."
-msgstr "/Abrir _Avançado..."
+msgstr "/進階開啟(_A)..."
 
-# src/toolbars.c:491
 #: ../src/filebrowser.c:1459
 msgid "/_Refresh"
-msgstr "/_Actualizar"
+msgstr "/重新整理(_R)"
 
-# src/html_form.c:489
 #: ../src/filebrowser.c:1460
 msgid "/_Set as basedir"
-msgstr "/_Seleccione como directoriabase"
+msgstr "/設為基本目錄(_S)"
 
-# src/html2.c:383
 #: ../src/filebrowser.c:1464
 msgid "/New _File"
-msgstr "/Novo Ficheiro"
+msgstr "/新增檔案(_F)"
 
-# src/document.c:1798
 #: ../src/filebrowser.c:1465
 msgid "/_New Directory"
-msgstr "/_Nova Directoria"
+msgstr "/新增目錄(_N)"
 
-# src/menu.c:459
 #: ../src/filebrowser.c:1470
 msgid "/_Open"
-msgstr "/Abrir"
+msgstr "/開啟(_O)"
 
 #: ../src/filebrowser.c:1471
 msgid "/Rena_me"
-msgstr "/Mudar o nome"
+msgstr "/重新命名(_M)"
 
-# src/stringlist.c:262
 #: ../src/filebrowser.c:1472
 msgid "/_Delete"
-msgstr "/Apagar"
+msgstr "/刪除(_D)"
 
 #: ../src/filebrowser.c:1494
 msgid "Show hidden files"
-msgstr "Mostrar ficheiros ocultos"
+msgstr "顯示隱藏檔案"
 
-# src/configure.c:360
 #: ../src/filebrowser.c:1499
 msgid "Show backup files"
-msgstr "Mostrar ficheiros de cópia de segurança"
+msgstr "顯示備份檔案"
 
-# src/rpopup.c:288
 #: ../src/filebrowser.c:1505
 msgid "Filter"
-msgstr "Filtro"
+msgstr "過濾器"
 
-# src/configure.c:425 src/interface.c:763
 #: ../src/filebrowser.c:1705 ../src/gtk_easy.c:1402
 msgid "All files"
-msgstr "Todos os ficheiros"
+msgstr "所有檔案"
 
 #: ../src/filebrowser.c:1977
 msgid "Show full tree"
-msgstr "Mostrar a árvore completa"
+msgstr "顯示全部目錄樹"
 
 #: ../src/filebrowser.c:1978
 msgid "Follow focus"
-msgstr "Seguir foco"
+msgstr "跟著焦點"
 
-# src/callbacks.c:320 src/document.c:1419 src/rpopup.c:302 src/toolbars.c:102
 #: ../src/fref.c:1467 ../src/gui.c:1088
 msgid "Close"
-msgstr "Fechar"
+msgstr "關閉"
 
-# src/menu.c:377
 #: ../src/fref.c:1471 ../src/fref.c:1813 ../src/fref.c:1849 ../src/fref.c:2330
 msgid "Dialog"
-msgstr "Diálogo"
+msgstr "對話"
 
-# src/ref_dialog.c:237 src/rpopup.c:305
 #: ../src/fref.c:1472 ../src/fref.c:1816 ../src/fref.c:1843
 msgid "Insert"
-msgstr "Inserir"
+msgstr "插入"
 
-# src/html.c:878
 #: ../src/fref.c:1825 ../src/html.c:1269
 msgid "Options"
-msgstr "Opções"
+msgstr "選項"
 
-# src/callbacks.c:433
 #: ../src/fref.c:1833
 msgid "Rescan reference files"
-msgstr "Varrer por ficheiros de referência"
+msgstr "重新掃描參考檔案"
 
 #: ../src/fref.c:1837
 msgid "Left doubleclick action"
-msgstr "Acção do clique-duplo esquerdo"
+msgstr "左鍵雙擊動作"
 
-# src/html.c:1315
 #: ../src/fref.c:1859
 msgid "Info type"
-msgstr "Tipo de informação"
+msgstr "訊息類型"
 
-# src/toolbars.c:427
 #: ../src/fref.c:1864
 msgid "Description"
-msgstr "Descrição"
+msgstr "描述"
 
 #: ../src/fref.c:1869
 msgid "Attributes/Parameters"
-msgstr "Atributos/Parametros"
+msgstr "屬性/參數"
 
-# src/toolbars.c:363
 #: ../src/fref.c:1874
 msgid "Notes"
-msgstr "Notas"
+msgstr "筆記"
 
-# src/toolbars.c:523
 #: ../src/fref.c:2050 ../src/fref.c:2064
 msgid "Reference search"
-msgstr "Procurar referência"
+msgstr "搜尋參考"
 
 #: ../src/fref.c:2065
 msgid "Reference not found"
-msgstr "Referência não encontrada"
+msgstr "找不到參考"
 
 #: ../src/fref.c:2082
 msgid "Error"
-msgstr "Erro"
+msgstr "錯誤"
 
 #: ../src/fref.c:2084
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
-msgstr ""
-"Talvez não tenha carregado a referência, ou não tenha selecionado a "
-"referência na pesquisa."
+msgstr "或許您沒有載入參考, 或沒有選擇一個要搜尋的參考."
 
 #: ../src/fref.c:2316
 msgid "Show info window"
-msgstr "Mostrar janela de informações"
+msgstr "顯示訊息視窗"
 
-# src/snr2.c:654 src/toolbars.c:111
 #: ../src/fref.c:2332
 msgid "Search"
-msgstr "Procurar"
+msgstr "搜尋"
 
 #: ../src/gtk_easy.c:1161
 #, c-format
 msgid "%d of %d"
-msgstr "%d de %d"
+msgstr "%d 的 %d"
 
-# src/bluefish.c:617
 #: ../src/gtk_easy.c:1264
 msgid "Select File"
-msgstr "Seleccionar ficheiro"
+msgstr "選擇檔案"
 
 #: ../src/gtk_easy.c:1395
 msgid "Show hidden"
-msgstr "Mostrar ficheiros ocultos"
+msgstr "顯示隱藏檔案"
 
-# src/bluefish.c:617
 #: ../src/gtk_easy.c:1594
 msgid "Select file"
-msgstr "Seleccionar ficheiro"
+msgstr "選擇檔案"
 
-# src/interface.c:758
 #: ../src/gui.c:225
 msgid "Filebrowser"
-msgstr "Navegador de ficheiros"
+msgstr "檔案瀏覽器"
 
-# src/toolbars.c:523
 #: ../src/gui.c:226
 msgid "Function reference"
-msgstr "Referência de função"
+msgstr "函式參考"
 
 #: ../src/gui.c:227
 msgid "Bookmarks"
-msgstr "Marcadores"
+msgstr "書籤"
 
-# src/toolbars.c:159
 #: ../src/gui.c:593
 msgid "QuickStart..."
-msgstr "Início Rápido..."
+msgstr "快速啟動..."
 
-# src/toolbars.c:164
 #: ../src/gui.c:594
 msgid "Body..."
-msgstr "Corpo..."
+msgstr "本體..."
 
-# src/toolbars.c:167 src/toolbars.c:477
 #: ../src/gui.c:595
 msgid "Bold"
-msgstr "Negrito"
+msgstr "粗體"
 
-# src/toolbars.c:169 src/toolbars.c:479
 #: ../src/gui.c:596
 msgid "Italic"
-msgstr "Itálico"
+msgstr "斜體"
 
-# src/toolbars.c:232
 #: ../src/gui.c:597 ../src/html.c:776
 msgid "Paragraph"
-msgstr "Parágrafo"
+msgstr "段落"
 
-# src/toolbars.c:234
 #: ../src/gui.c:598
 msgid "Break"
-msgstr "Quebra"
+msgstr "換列"
 
-# src/toolbars.c:236
 #: ../src/gui.c:599
 msgid "Break and clear"
-msgstr "Quebrar e limpar"
+msgstr "換列清除"
 
-# src/toolbars.c:239
 #: ../src/gui.c:600
 msgid "Non-breaking space"
-msgstr "Espaço sem quebra"
+msgstr "不換列空白"
 
-# src/toolbars.c:243
 #: ../src/gui.c:602
 msgid "Anchor..."
-msgstr "Âncora..."
+msgstr "錨..."
 
-# src/toolbars.c:245
 #: ../src/gui.c:603
 msgid "Rule..."
-msgstr "Régua..."
+msgstr "橫線..."
 
-# src/toolbars.c:253
 #: ../src/gui.c:604
 msgid "Center"
-msgstr "Centrar"
+msgstr "置中"
 
-# src/toolbars.c:256
 #: ../src/gui.c:605
 msgid "Right Justify"
-msgstr "Justificar à Direita"
+msgstr "向右對齊"
 
-# src/toolbars.c:260
 #: ../src/gui.c:606
 msgid "Comment"
-msgstr "Comentário"
+msgstr "註解"
 
-# src/toolbars.c:262
 #: ../src/gui.c:607
 msgid "E-Mail..."
-msgstr "E-Mail..."
+msgstr "電子郵件..."
 
-# src/configure.c:81 src/toolbars.c:270
 #: ../src/gui.c:608
 msgid "Font..."
-msgstr "Fonte..."
+msgstr "字型..."
 
-# src/toolbars.c:273
 #: ../src/gui.c:609
 msgid "Base Font Size..."
-msgstr "Tamanho da Fonte Base..."
+msgstr "基本字型大小..."
 
-# src/toolbars.c:275
 #: ../src/gui.c:611
 msgid "Font Size +1"
-msgstr "Tamanho da Fonte +1"
+msgstr "字型大小 +1"
 
-# src/toolbars.c:277
 #: ../src/gui.c:612
 msgid "Font Size -1"
-msgstr "Tamanho da Fonte -1"
+msgstr "字型大小 -1"
 
-# src/toolbars.c:282
 #: ../src/gui.c:613
 msgid "Preformatted Text"
-msgstr "Texto Pré-formatado"
+msgstr "預先已格式化文字"
 
-# src/toolbars.c:288
 #: ../src/gui.c:614
 msgid "Subscript"
-msgstr "Subscrito"
+msgstr "下標"
 
-# src/toolbars.c:290
 #: ../src/gui.c:615
 msgid "Superscript"
-msgstr "Sobrescrito"
+msgstr "上標"
 
-# src/toolbars.c:294
 #: ../src/gui.c:616
 msgid "Strong"
-msgstr "Forte"
+msgstr "加粗"
 
-# src/toolbars.c:296
 #: ../src/gui.c:617
 msgid "Emphasis"
-msgstr "Ênfase"
+msgstr "強調"
 
-# src/toolbars.c:299
 #: ../src/gui.c:619 ../src/html.c:785
 msgid "Heading 1"
-msgstr "Cabeçalho 1"
+msgstr "標題 1"
 
-# src/toolbars.c:301
 #: ../src/gui.c:620 ../src/html.c:788
 msgid "Heading 2"
-msgstr "Cabeçalho 2"
+msgstr "標題 2"
 
-# src/toolbars.c:303
 #: ../src/gui.c:621 ../src/html.c:791
 msgid "Heading 3"
-msgstr "Cabeçalho 3"
+msgstr "標題 3"
 
-# src/toolbars.c:305
 #: ../src/gui.c:622 ../src/html.c:794
 msgid "Heading 4"
-msgstr "Cabeçalho 4"
+msgstr "標題 4"
 
-# src/toolbars.c:307
 #: ../src/gui.c:623 ../src/html.c:797
 msgid "Heading 5"
-msgstr "Cabeçalho 5"
+msgstr "標題 5"
 
-# src/toolbars.c:309
 #: ../src/gui.c:624 ../src/html.c:800
 msgid "Heading 6"
-msgstr "Cabeçalho 6"
+msgstr "標題 6"
 
-# src/toolbars.c:316
 #: ../src/gui.c:625
 msgid "Table Wizard..."
-msgstr "Assistente de Tabela..."
+msgstr "表格精靈..."
 
-# src/toolbars.c:319
 #: ../src/gui.c:627
 msgid "Table..."
-msgstr "Tabela..."
+msgstr "表格..."
 
-# src/toolbars.c:322
 #: ../src/gui.c:628
 msgid "Table Row..."
-msgstr "Linha da Tabela..."
+msgstr "表格列..."
 
-# src/toolbars.c:325
 #: ../src/gui.c:629
 msgid "Table Header..."
-msgstr "Cabeçalho da Tabela..."
+msgstr "表頭..."
 
-# src/toolbars.c:329
 #: ../src/gui.c:630
 msgid "Table Data..."
-msgstr "Dados da Tabela..."
+msgstr "表格資料..."
 
-# src/html_table.c:66 src/toolbars.c:333
 #: ../src/gui.c:632 ../src/html_table.c:81
 msgid "Table"
-msgstr "Tabela"
+msgstr "表格"
 
-# src/html_table.c:136 src/toolbars.c:335
 #: ../src/gui.c:633 ../src/html_table.c:213
 msgid "Table Row"
-msgstr "Linha da Tabela"
+msgstr "表格列"
 
-# src/html_table.c:185 src/toolbars.c:338
 #: ../src/gui.c:634 ../src/html_table.c:324
 msgid "Table Header"
-msgstr "Cabeçalho da Tabela"
+msgstr "表頭"
 
-# src/html_table.c:258 src/toolbars.c:340
 #: ../src/gui.c:635 ../src/html_table.c:322
 msgid "Table Data"
-msgstr "Dados da Tabela"
+msgstr "表格資料"
 
-# src/toolbars.c:343
 #: ../src/gui.c:636
 msgid "Table Caption"
-msgstr "Legenda da Tabela"
+msgstr "表格標題"
 
-# src/toolbars.c:351
 #: ../src/gui.c:637
 msgid "Frame Wizard..."
-msgstr "Assistente de Frames..."
+msgstr "框架精靈..."
 
-# src/toolbars.c:354
 #: ../src/gui.c:639
 msgid "Frameset..."
-msgstr "Frameset..."
+msgstr "框架組..."
 
-# src/toolbars.c:356
 #: ../src/gui.c:640
 msgid "Frame..."
-msgstr "Frame..."
+msgstr "框架..."
 
-# src/html.c:648 src/html.c:1180 src/toolbars.c:359
 #: ../src/gui.c:642 ../src/html.c:1760
 msgid "Frameset"
-msgstr "Frameset"
+msgstr "框架組"
 
-# src/html.c:1235 src/toolbars.c:361
 #: ../src/gui.c:643 ../src/html.c:1844
 msgid "Frame"
-msgstr "Frame"
+msgstr "框架"
 
-# src/toolbars.c:363
 #: ../src/gui.c:644
 msgid "Noframes"
-msgstr "Sem frames"
+msgstr "沒有框架"
 
-# src/html.c:889 src/html_form.c:136
 #: ../src/gui.c:645
 msgid "Target"
-msgstr "Alvo"
+msgstr "目標"
 
-# src/toolbars.c:373
 #: ../src/gui.c:646
 msgid "Form..."
-msgstr "Formulário..."
+msgstr "表單..."
 
-# src/toolbars.c:390
 #: ../src/gui.c:647
 msgid "Input Button..."
-msgstr "Botão de entrada..."
+msgstr "輸入按鈕..."
 
-# src/toolbars.c:390
 #: ../src/gui.c:648
 msgid "Input Text..."
-msgstr "Texto de entrada..."
+msgstr "輸入文字..."
 
-# src/toolbars.c:383
 #: ../src/gui.c:649
 msgid "Input Hidden..."
-msgstr "Entrada Oculta..."
+msgstr "輸入隱藏..."
 
-# src/toolbars.c:386
 #: ../src/gui.c:650
 msgid "Textarea..."
-msgstr "Área de Texto..."
+msgstr "文字區..."
 
-# src/toolbars.c:390
 #: ../src/gui.c:651
 msgid "Input Radio Button..."
-msgstr "Entrada de Botão de Rádio..."
+msgstr "輸入選鈕..."
 
-# src/toolbars.c:393
 #: ../src/gui.c:652
 msgid "Input Check Box..."
-msgstr "Entrada de Caixa de Verificação..."
+msgstr "輸入檢示盒..."
 
-# src/toolbars.c:396
 #: ../src/gui.c:653
 msgid "Select..."
-msgstr "Seleccionar..."
+msgstr "選擇..."
 
-# src/toolbars.c:399
 #: ../src/gui.c:654
 msgid "Option..."
-msgstr "Opção..."
+msgstr "選項..."
 
-# src/toolbars.c:399
 #: ../src/gui.c:655
 msgid "Option group..."
-msgstr "Grupo de opção..."
+msgstr "選項群組..."
 
-# src/html_form.c:337
 #: ../src/gui.c:656
 msgid "Button..."
-msgstr "Botão..."
+msgstr "按鈕..."
 
-# src/toolbars.c:405
 #: ../src/gui.c:657
 msgid "Quick List..."
-msgstr "Lista Rápida..."
+msgstr "快速列表..."
 
-# src/toolbars.c:409
 #: ../src/gui.c:658
 msgid "Unordered List"
-msgstr "Lista Desordenada"
+msgstr "無序列表"
 
-# src/toolbars.c:413
 #: ../src/gui.c:659
 msgid "Ordered List"
-msgstr "Lista Ordenada"
+msgstr "有序列表"
 
-# src/toolbars.c:415
 #: ../src/gui.c:660
 msgid "List Item"
-msgstr "Item da Lista"
+msgstr "列表項目"
 
-# src/toolbars.c:419
 #: ../src/gui.c:661
 msgid "Definition List"
-msgstr "Lista de Definições"
+msgstr "定義列表"
 
-# src/toolbars.c:423
 #: ../src/gui.c:662
 msgid "Definition Term"
-msgstr "Termo de Definição"
+msgstr "名辭定義"
 
-# src/toolbars.c:427
 #: ../src/gui.c:663 ../src/gui.c:672
 msgid "Definition"
-msgstr "Definição"
+msgstr "定義"
 
-# src/toolbars.c:441
 #: ../src/gui.c:664
 msgid "Create stylesheet..."
-msgstr "Criar página de estilos..."
+msgstr "建立樣式表..."
 
-# src/toolbars.c:444
 #: ../src/gui.c:665
 msgid "Span..."
 msgstr "Span..."
 
-# src/toolbars.c:446
 #: ../src/gui.c:666
 msgid "Div..."
 msgstr "Div..."
 
-# src/html.c:905 src/html.c:1317 src/toolbars.c:452
 #: ../src/gui.c:667 ../src/html_form.c:825
 msgid "Style"
-msgstr "Estilo"
+msgstr "樣式"
 
-# src/toolbars.c:454
 #: ../src/gui.c:668
 msgid "Link to stylesheet..."
-msgstr "Ligação para a página de estilos..."
+msgstr "連結到樣式表..."
 
-# src/toolbars.c:519
 #: ../src/gui.c:669
 msgid "Insert image..."
-msgstr "Inserir imagem..."
+msgstr "插入圖像..."
 
-# src/images.c:180
 #: ../src/gui.c:670
 msgid "Insert thumbnail..."
-msgstr "Inserir imagem miniatura"
+msgstr "插入略圖..."
 
-# src/configure.c:451
 #: ../src/gui.c:671
 msgid "Multi thumbnail..."
-msgstr "Multi miniatura..."
+msgstr "多重略圖..."
 
-# src/callbacks.c:320 src/document.c:1419 src/rpopup.c:302 src/toolbars.c:102
 #: ../src/gui.c:673
 msgid "Code"
-msgstr "Código"
+msgstr "代碼"
 
 #: ../src/gui.c:674
 msgid "Sample"
-msgstr "Amostra"
+msgstr "樣本"
 
-# src/html2.c:791
 #: ../src/gui.c:675
 msgid "Keyboard"
-msgstr "Teclado"
+msgstr "鍵盤"
 
-# src/menu.c:1106
 #: ../src/gui.c:676
 msgid "Variable"
-msgstr "Variável"
+msgstr "變數"
 
-# src/html.c:1369
 #: ../src/gui.c:677
 msgid "Citation"
-msgstr "Citação"
+msgstr "引用"
 
 #: ../src/gui.c:678
 msgid "Abbreviation"
-msgstr "Abreviatura"
+msgstr "縮寫"
 
-# src/html_form.c:115
 #: ../src/gui.c:679
 msgid "Acronym"
-msgstr "Acrónimo"
+msgstr "字頭"
 
 #: ../src/gui.c:876
 msgid "Remove from quickbar"
-msgstr "Remover da Barra Rápida"
+msgstr "從快捷列移除"
 
 #: ../src/gui.c:877
 msgid "Move Left"
-msgstr "Mover para a Esquerda"
+msgstr "左移"
 
-# src/html.c:1411 src/html_table.c:210 src/html_table.c:284 src/images.c:216
 #: ../src/gui.c:878
 msgid "Move Right"
-msgstr "Mover para a Direita"
+msgstr "右移"
 
-# src/toolbars.c:266
 #: ../src/gui.c:918
 msgid "Add to quickbar"
-msgstr "Adicionar para Barra Rápida "
+msgstr "新增到快捷列"
 
-# src/toolbars.c:266
 #: ../src/gui.c:1015
 msgid " Quick bar "
-msgstr " Barra Rápida "
+msgstr " 快捷列 "
 
-# src/toolbars.c:227
 #: ../src/gui.c:1020
 msgid "Heading"
-msgstr "Cabeçalho"
+msgstr "標題"
 
 #: ../src/gui.c:1022
 msgid " Standard bar "
-msgstr " Barra Padrão "
+msgstr " 標準列 "
 
-# src/html2.c:809
 #: ../src/gui.c:1027
 msgid "Context formatting"
-msgstr "Formato do contexto"
+msgstr "上下文格式化"
 
-# src/toolbars.c:312
 #: ../src/gui.c:1029
 msgid " Fonts "
-msgstr " Fontes "
+msgstr " 字型 "
 
-# src/toolbars.c:347
 #: ../src/gui.c:1034
 msgid " Tables "
-msgstr " Tabelas "
+msgstr " 表格 "
 
-# src/toolbars.c:369
 #: ../src/gui.c:1039
 msgid " Frames "
-msgstr " Frames "
+msgstr " 框架 "
 
-# src/toolbars.c:401
 #: ../src/gui.c:1044
 msgid " Forms "
-msgstr " Formulários "
+msgstr " 表單 "
 
-# src/toolbars.c:436
 #: ../src/gui.c:1049
 msgid " List "
-msgstr " Lista "
+msgstr " 列表 "
 
-# src/toolbars.c:457
 #: ../src/gui.c:1054
 msgid " CSS "
 msgstr " CSS "
 
-# src/toolbars.c:94
 #: ../src/gui.c:1080
 msgid "New"
-msgstr "Novo"
+msgstr "新增"
 
-# src/toolbars.c:399
 #: ../src/gui.c:1082
 msgid "Open..."
-msgstr "Abrir.."
+msgstr "開啟.."
 
-# src/document.c:1419 src/rpopup.c:293 src/toolbars.c:98
 #: ../src/gui.c:1084
 msgid "Save"
-msgstr "Gravar"
+msgstr "儲存"
 
-# src/document.c:1304
 #: ../src/gui.c:1086
 msgid "Save As..."
-msgstr "Gravar Como..."
+msgstr "另存為..."
 
-# src/toolbars.c:107
 #: ../src/gui.c:1091
 msgid "Cut"
-msgstr "Cortar"
+msgstr "剪下"
 
-# src/toolbars.c:105
 #: ../src/gui.c:1093
 msgid "Copy"
-msgstr "Copiar"
+msgstr "複製"
 
-# src/toolbars.c:109
 #: ../src/gui.c:1095
 msgid "Paste"
-msgstr "Colar"
+msgstr "貼上"
 
 #: ../src/gui.c:1098
 msgid "Find..."
-msgstr "Procurar..."
+msgstr "尋找..."
 
-# src/snr2.c:651 src/snr2.c:688
 #: ../src/gui.c:1100
 msgid "Replace..."
-msgstr "Substituir..."
+msgstr "取代..."
 
-# src/toolbars.c:118
 #: ../src/gui.c:1103 ../src/preferences.c:1992
 msgid "Undo"
-msgstr "Desfazer"
+msgstr "復原"
 
-# src/toolbars.c:120
 #: ../src/gui.c:1105
 msgid "Redo"
-msgstr "Refazer"
+msgstr "重做"
 
 #: ../src/gui.c:1108
 msgid "Shift Left"
-msgstr "Deslocar à esquerda"
+msgstr "左移"
 
 #: ../src/gui.c:1110
 msgid "Shift Right"
-msgstr "Deslocar à direita"
+msgstr "右移"
 
-# src/toolbars.c:128
 #: ../src/gui.c:1117
 msgid "Spellcheck..."
-msgstr "Verificar ortografia..."
+msgstr "拼字檢查..."
 
-# src/interface.c:758
 #: ../src/gui.c:1122
 msgid "View in browser"
-msgstr "Ver no navegador"
+msgstr "在瀏覽器中觀看"
 
-# src/toolbars.c:523
 #: ../src/gui.c:1125
 msgid "Preferences..."
-msgstr "Preferências..."
+msgstr "偏好設定..."
 
-# src/callbacks.c:433
 #: ../src/gui.c:1315
 msgid "New Bluefish Window"
-msgstr "Nova Janela do bluefish"
+msgstr "新增 Bluefish 視窗"
 
-# src/toolbars.c:444
 #: ../src/gui.c:1372
 msgid "Stand by..."
-msgstr "Esperar por..."
+msgstr "稍待..."
 
-# src/document.c:822
 #: ../src/gui.c:1556
 msgid "Goto line"
-msgstr "Ir para linha"
+msgstr "跳至列"
 
-# src/document.c:830
 #: ../src/gui.c:1564
 msgid "_Line number:"
-msgstr "Número da _linha:"
+msgstr "列號(_L):"
 
-# src/configure.c:183
 #: ../src/gui.c:1570
 msgid "From _selection"
-msgstr "Da _selecção"
+msgstr "由選擇中(_S)"
 
-# src/configure.c:456
 #: ../src/gui.c:1573
 msgid "Keep _dialog"
-msgstr "Manter _diálogo"
+msgstr "保持對話盒(_D)"
 
 #: ../src/gui.c:1639
 msgid "starting bluefish"
-msgstr "a iniciar o bluefish"
+msgstr "開始執行 bluefish"
 
-# src/menu.c:469
 #: ../src/highlight.c:361 ../src/highlight.c:373 ../src/highlight.c:400
 #: ../src/highlight.c:414
 msgid "Syntax highlighting error for "
-msgstr "Erro no destaque de sintaxe em"
+msgstr "語法識別錯誤予"
 
 #: ../src/highlight.c:362
 #, c-format
 msgid "compiling pattern '%s': %s at offset %d"
-msgstr "padrão de compilação '%s': %s no offset %d"
+msgstr "編譯樣式 '%s': %s 在偏移 %d"
 
 #: ../src/highlight.c:374
 #, c-format
 msgid "studying pattern '%s': %s"
-msgstr "a estudar padrão '%s': %s"
+msgstr "研究樣式 '%s': %s"
 
 #: ../src/highlight.c:401
 #, c-format
 msgid "compiling 2nd pattern '%s': %s at offset %d"
-msgstr "a compilar o segundo padrão '%s': %s no offset %d"
+msgstr "編譯第二個樣式 '%s': %s 在偏移 %d"
 
 #: ../src/highlight.c:415
 #, c-format
 msgid "studying 2nd pattern '%s': %s"
-msgstr "a estudar segundo padrão '%s': %s"
+msgstr "研究第二個樣式 '%s': %s"
 
-# src/configure.c:437
 #: ../src/html2.c:557
 msgid "Cascading StyleSheet dialog"
-msgstr "Diálogo de CSS"
+msgstr "串列樣式表對話盒"
 
-# src/html_form.c:427
 #: ../src/html2.c:577
 msgid "_Selector:"
-msgstr "_Seleccionador"
+msgstr "選擇(_S):"
 
-# src/menu.c:135
 #: ../src/html2.c:596
 msgid "_Property:"
-msgstr "_Propriedade:"
+msgstr "屬性(_P):"
 
-# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
-# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
-# src/html_form.c:476 src/wml.c:171 src/wml.c:211
 #: ../src/html2.c:598 ../src/html_form.c:650 ../src/html_form.c:799
 #: ../src/html_form.c:894
 msgid "_Value:"
-msgstr "_Valor:"
+msgstr "值(_V):"
 
-# src/html_form.c:427
 #: ../src/html2.c:616
 msgid "Selector"
-msgstr "Seleccionador"
+msgstr "選擇器"
 
-# src/menu.c:135
 #: ../src/html2.c:616 ../src/html2.c:619
 msgid "Property"
-msgstr "Propriedade"
+msgstr "屬性"
 
-# src/html_form.c:160 src/html_form.c:179 src/html_form.c:256
-# src/html_form.c:295 src/html_form.c:346 src/html_form.c:391
-# src/html_form.c:476 src/wml.c:171 src/wml.c:211
 #: ../src/html2.c:616 ../src/html2.c:619
 msgid "Value"
-msgstr "Valor"
+msgstr "值"
 
-# src/stringlist.c:258
 #: ../src/html2.c:634
 msgid " _Add "
-msgstr " _Adicionar "
+msgstr " 新增(_A) "
 
-# src/stringlist.c:260
 #: ../src/html2.c:637
 msgid " _Update "
-msgstr " Actualizar "
+msgstr " 更新(_U) "
 
-# src/stringlist.c:262
 #: ../src/html2.c:640
 msgid " _Delete "
-msgstr " Apagar "
+msgstr " 刪除(_D) "
 
-# src/html.c:905 src/html.c:1317 src/toolbars.c:452
 #: ../src/html2.c:896 ../src/html2.c:933
 msgid "_Style..."
-msgstr "E_stilo..."
+msgstr "樣式(_S)..."
 
-# src/project.c:56
 #: ../src/html2.c:1090
 msgid "Bluefish: Select color"
-msgstr "Bluefish: Seleccionar cor"
+msgstr "Bluefish: 選擇顏色"
 
-# src/toolbars.c:519
 #: ../src/html.c:392
 msgid "Insert Time"
-msgstr "Inserir Hora"
+msgstr "插入時間"
 
-# src/html.c:1550
 #: ../src/html.c:400
 #, c-format
 msgid "  _Time (%i:%i:%i)"
-msgstr "  Hora (%i:%i:%i)"
+msgstr "  時間(_T) (%i:%i:%i)"
 
-# src/html.c:1521
 #: ../src/html.c:405
 msgid "  Day of the _week (Sunday)"
-msgstr "  Dia da semana (Domingo)"
+msgstr "  星期幾(_W) (星期日)"
 
-# src/html.c:1524
 #: ../src/html.c:408
 msgid "  Day of the _week (Monday)"
-msgstr "  Dia da semana (Segunda)"
+msgstr "  星期幾(_W) (星期一)"
 
-# src/html.c:1527
 #: ../src/html.c:411
 msgid "  Day of the _week (Tuesday)"
-msgstr "  Dia da semana (Terça)"
+msgstr "  星期幾(_W) (星期二)"
 
-# src/html.c:1530
 #: ../src/html.c:414
 msgid "  Day of the _week (Wednesday)"
-msgstr "  Dia da semana (Quarta)"
+msgstr "  星期幾(_W) (星期三)"
 
-# src/html.c:1533
 #: ../src/html.c:417
 msgid "  Day of the _week (Thursday)"
-msgstr "  Dia da semana (Quinta)"
+msgstr "  星期幾(_W) (星期四)"
 
-# src/html.c:1536
 #: ../src/html.c:420
 msgid "  Day of the _week (Friday)"
-msgstr "  Dia da semana (Sexta)"
+msgstr "  星期幾(_W) (星期五)"
 
-# src/html.c:1539
 #: ../src/html.c:423
 msgid "  Day of the _week (Saturday)"
-msgstr "  Dia da semana (Sábado)"
+msgstr "  星期幾(_W) (星期六)"
 
-# src/html.c:1542
 #: ../src/html.c:426
 msgid "You appear to have a non existant day!\n"
-msgstr "Parece ter um dia não existente!\n"
+msgstr "您似乎選了一個不存在的日期!\n"
 
-# src/html.c:1550
 #: ../src/html.c:434
 #, c-format
 msgid "  _Date (%i/%i/%i)"
-msgstr "  _Data (%i/%i/%i)"
+msgstr "  日期(_D) (%i/%i/%i)"
 
-# src/html.c:1553
 #: ../src/html.c:437
 #, c-format
 msgid "  _Unix Time (%i)"
-msgstr "  Hora _Unix (%i)"
+msgstr "  _Unix 時間 (%i)"
 
-# src/html.c:1556
 #: ../src/html.c:440
 #, c-format
 msgid "  Unix Date _String (%s"
-msgstr "  String de Data Unix (%s"
+msgstr "  Unix 日期字串(_S) (%s"
 
-# src/html.c:873
 #: ../src/html.c:584
 msgid "Quick Anchor"
-msgstr "Âncora Rápida"
+msgstr "快速錨"
 
 #: ../src/html.c:590 ../src/html_form.c:780
 msgid "Attributes"
-msgstr "Atributos"
+msgstr "屬性"
 
-# src/html.c:885 src/wml.c:250
 #: ../src/html.c:604
 msgid "_HREF:"
 msgstr "_HREF:"
 
-# src/html.c:889 src/html_form.c:136
 #: ../src/html.c:608 ../src/html_form.c:183
 msgid "_Target:"
-msgstr "Alvo:"
+msgstr "目標(_T):"
 
-# src/html.c:909
 #: ../src/html.c:618 ../src/html.c:1292 ../src/html.c:2003
 msgid "_Language:"
-msgstr "Idioma:"
+msgstr "語言(_L):"
 
-# src/html.c:913 src/html.c:1021 src/html.c:1097 src/html.c:1154
-# src/html.c:1206 src/html.c:1288 src/html.c:1377 src/html_form.c:140
-# src/html_form.c:220 src/html_form.c:260 src/html_form.c:310
-# src/html_form.c:355 src/html_form.c:400 src/html_form.c:445
-# src/html_table.c:108 src/html_table.c:159 src/html_table.c:232
-# src/html_table.c:306 src/images.c:256
 #: ../src/html.c:622 ../src/html.c:840 ../src/html.c:974 ../src/html.c:1296
 #: ../src/html.c:1451 ../src/html.c:1792 ../src/html.c:1893 ../src/html.c:2022
 #: ../src/html_form.c:187 ../src/html_form.c:243 ../src/html_form.c:609
 #: ../src/html_form.c:903 ../src/html_table.c:105 ../src/html_table.c:257
 #: ../src/html_table.c:365 ../src/image.c:322
 msgid "Custo_m:"
-msgstr "Personalizado:"
+msgstr "自定(_M):"
 
-# src/html.c:917
 #: ../src/html.c:625 ../src/html.c:1300 ../src/html_form.c:829
 msgid "Events"
-msgstr "Eventos"
+msgstr "事件"
 
-# src/html.c:922
 #: ../src/html.c:628
 msgid "OnClic_k:"
-msgstr "OnClic_k:"
+msgstr "單擊(_K):"
 
-# src/html.c:926
 #: ../src/html.c:632
 msgid "OnD_blClick:"
-msgstr "OnD_blClick:"
+msgstr "雙擊(_B):"
 
-# src/html.c:930
 #: ../src/html.c:636
 msgid "OnMouseO_ver:"
-msgstr "OnMouseO_ver:"
+msgstr "鼠標經過(_V):"
 
-# src/html.c:934
 #: ../src/html.c:640
 msgid "OnMouse_Down:"
-msgstr "OnMouse_Down:"
+msgstr "鼠標按下(_D):"
 
-# src/html.c:938
 #: ../src/html.c:644
 msgid "OnMouse_Move:"
-msgstr "OnMouse_Move:"
+msgstr "鼠標移動(_M):"
 
-# src/html.c:942
 #: ../src/html.c:648
 msgid "OnMouseOu_t:"
-msgstr "OnMouseOu_t:"
+msgstr "鼠標移出(_T):"
 
-# src/html.c:946
 #: ../src/html.c:652
 msgid "OnMouse_Up:"
-msgstr "OnMouse_Up:"
+msgstr "鼠標放開(_U):"
 
-# src/html.c:950
 #: ../src/html.c:656
 msgid "OnKeyDo_wn:"
-msgstr "OnKeyDo_wn:"
+msgstr "鍵盤按下(_W):"
 
-# src/html.c:954
 #: ../src/html.c:660
 msgid "OnKey_Press:"
-msgstr "OnKey_Press:"
+msgstr "鍵盤按下(_P):"
 
-# src/html.c:958
 #: ../src/html.c:664
 msgid "OnKe_yUp:"
-msgstr "OnKe_yUp:"
+msgstr "鍵盤放開(_Y):"
 
-# src/toolbars.c:446
 #: ../src/html.c:779
 msgid "Div"
 msgstr "Div"
 
-# src/html.c:1202 src/html.c:1279
 #: ../src/html.c:782
 msgid "Span"
-msgstr "Espaço"
+msgstr "Span"
 
-# src/html.c:994 src/html.c:1422 src/html_table.c:79 src/html_table.c:145
-# src/html_table.c:202 src/html_table.c:276 src/images.c:232
 #: ../src/html.c:817 ../src/html_table.c:113 ../src/html_table.c:223
 #: ../src/html_table.c:337
 msgid "Ali_gn:"
-msgstr "Alinhar"
+msgstr "對齊(_G):"
 
-# src/html.c:901
 #: ../src/html.c:821 ../src/html.c:1284 ../src/html_diag.c:372
 #: ../src/html_table.c:95 ../src/html_table.c:241 ../src/html_table.c:355
 msgid "Cl_ass:"
-msgstr "Cl_asse:"
+msgstr "類別(_A):"
 
-# src/html.c:905 src/html.c:1317 src/toolbars.c:452
 #: ../src/html.c:825 ../src/html.c:1185 ../src/html.c:1277
 #: ../src/html_diag.c:380 ../src/html_table.c:100 ../src/html_table.c:252
 #: ../src/html_table.c:360
 msgid "St_yle:"
-msgstr "Estilo:"
+msgstr "樣式(_Y):"
 
-# src/html.c:897 src/wml.c:123 src/wml.c:163 src/wml.c:203 src/wml.c:246
-# src/wml.c:304 src/wml.c:360 src/wml.c:398
 #: ../src/html.c:836 ../src/html.c:1288 ../src/html_diag.c:376
 msgid "_ID:"
 msgstr "_ID:"
 
-# src/html.c:985
 #: ../src/html.c:937
 msgid "Horizontal Rule"
-msgstr "Régua Horizontal"
+msgstr "水平線"
 
-# src/html.c:994 src/html.c:1422 src/html_table.c:79 src/html_table.c:145
-# src/html_table.c:202 src/html_table.c:276 src/images.c:232
 #: ../src/html.c:948 ../src/html.c:1941 ../src/image.c:340
 msgid "_Align:"
-msgstr "_Alinhar:"
+msgstr "對齊(_A):"
 
-# src/html.c:1411 src/html_table.c:210 src/html_table.c:284 src/images.c:216
 #: ../src/html.c:955 ../src/html.c:1949 ../src/html_table.c:391
 msgid "_Height:"
-msgstr "Altura:"
+msgstr "高度(_H):"
 
-# src/html.c:1008 src/html.c:1404 src/html_table.c:192 src/html_table.c:266
-# src/images.c:208
 #: ../src/html.c:961 ../src/html.c:1945 ../src/html_table.c:138
 #: ../src/html_table.c:384 ../src/image.c:298
 msgid "_Width:"
-msgstr "Largura:"
+msgstr "寬度(_W):"
 
-# src/html.c:1012
 #: ../src/html.c:964
 msgid "Is _percent"
-msgstr "É _percentual?"
+msgstr "百分比(_P)"
 
-# src/html.c:1018
 #: ../src/html.c:969
 msgid "No _shading"
-msgstr "Sem sombra"
+msgstr "無陰影(_S)"
 
-# src/toolbars.c:159
 #: ../src/html.c:1061 ../src/quickstart.c:573
 msgid "Quick Start"
-msgstr "Início Rápido"
+msgstr "快速啟動"
 
-# src/html_form.c:132 src/wml.c:271
 #: ../src/html.c:1110
 msgid "_Doctype:"
-msgstr "_Doctype:"
+msgstr "文件類型(_D):"
 
-# src/html.c:708
 #: ../src/html.c:1116
 msgid "Header tags:"
-msgstr "Etiquetas de cabeçalho:"
+msgstr "標題標記:"
 
-# src/html.c:705 src/wml.c:127 src/wml.c:364
 #: ../src/html.c:1171 ../src/quickstart.c:591 ../src/wizards.c:187
 msgid "_Title:"
-msgstr "_Título:"
+msgstr "標題(_T):"
 
-# src/html.c:802
 #: ../src/html.c:1261
 msgid "Body"
-msgstr "Corpo"
+msgstr "本體"
 
 #: ../src/html.c:1307
 msgid "On_Load:"
-msgstr "On_Load:"
+msgstr "載入時(_L):"
 
 #: ../src/html.c:1315
 msgid "On_UnLoad:"
-msgstr "On_UnLoad:"
+msgstr "卸載時(_U):"
 
-# src/toolbars.c:128
 #: ../src/html.c:1324
 msgid "Depreciated options"
-msgstr "Opções desaconselhadas"
+msgstr "棄用的選項"
 
-# src/html.c:810
 #: ../src/html.c:1334
 msgid "Background _Image:"
-msgstr "Imagem de Fundo:"
+msgstr "背景圖像(_I):"
 
-# src/html.c:817 src/html_table.c:103 src/html_table.c:154
-# src/html_table.c:222 src/html_table.c:296
 #: ../src/html.c:1341
 msgid "Back_ground Color:"
-msgstr "Cor de Fundo:"
+msgstr "背景顏色(_G):"
 
-# src/html.c:823
 #: ../src/html.c:1347
 msgid "_Text Color:"
-msgstr "Cor do _Texto:"
+msgstr "文字顏色(_T):"
 
-# src/html.c:829
 #: ../src/html.c:1353
 msgid "_Link Color:"
-msgstr "Cor da _Ligação"
+msgstr "連結顏色(_L):"
 
-# src/html.c:835
 #: ../src/html.c:1359
 msgid "_Visited Link Color:"
-msgstr "Cor da Ligação _Visitada:"
+msgstr "已點按連結顏色(_V):"
 
-# src/html.c:841
 #: ../src/html.c:1365
 msgid "_Active Link Color:"
-msgstr "Cor da Ligação _Activa:"
+msgstr "使用中的連結顏色(_A):"
 
-# src/html.c:1345
 #: ../src/html.c:1413
 msgid "Meta"
 msgstr "Meta"
 
-# src/html.c:1363
 #: ../src/html.c:1438
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-# src/html.c:1369
 #: ../src/html.c:1443
 msgid "Con_tent:"
-msgstr "Con_teúdo:"
+msgstr "Con_tent:"
 
-# src/html.c:1373
 #: ../src/html.c:1447
 msgid "_Scheme:"
-msgstr "E_squema:"
+msgstr "_Scheme:"
 
-# src/html.c:1067
 #: ../src/html.c:1528 ../src/preferences.c:1984
 msgid "Font"
-msgstr "Fonte"
+msgstr "字型"
 
-# src/html.c:1125
 #: ../src/html.c:1531
 msgid "Base Font"
-msgstr "Fonte Base"
+msgstr "基本字型"
 
-# src/html.c:1001 src/html.c:1076 src/html.c:1133 src/html_form.c:303
-# src/html_form.c:437
 #: ../src/html.c:1546
 msgid "Size"
-msgstr "Tamanho"
+msgstr "大小"
 
-# src/html.c:1088 src/html.c:1145
 #: ../src/html.c:1554
 msgid "Color"
-msgstr "Cor"
+msgstr "顏色"
 
-# src/html.c:1093 src/html.c:1150
 #: ../src/html.c:1559
 msgid "Face"
-msgstr "Face"
+msgstr "字型樣式"
 
-# src/html.c:913 src/html.c:1021 src/html.c:1097 src/html.c:1154
-# src/html.c:1206 src/html.c:1288 src/html.c:1377 src/html_form.c:140
-# src/html_form.c:220 src/html_form.c:260 src/html_form.c:310
-# src/html_form.c:355 src/html_form.c:400 src/html_form.c:445
-# src/html_table.c:108 src/html_table.c:159 src/html_table.c:232
-# src/html_table.c:306 src/images.c:256
 #: ../src/html.c:1563
 msgid "Custom"
-msgstr "Personalizado"
+msgstr "自定"
 
-# src/html.c:1034
 #: ../src/html.c:1622
 msgid "Email"
-msgstr "Email"
+msgstr "電子郵件"
 
-# src/html.c:1038
 #: ../src/html.c:1630
 msgid "_Email address:"
-msgstr "_Endereço de E-mail:"
+msgstr "電子郵件位址(_E):"
 
 #: ../src/html.c:1635
 msgid "UrlEncoded _subject:"
-msgstr "Assunto codificado:"
+msgstr "UrlEncoded 主題(_S):"
 
 #: ../src/html.c:1639
 msgid "UrlEncoded _body:"
-msgstr "Corpo codificado:"
+msgstr "UrlEncoded_本體(_B):"
 
-# src/html.c:1302
 #: ../src/html.c:1683
 msgid "Quick List"
-msgstr "Lista Rápida"
+msgstr "快速列表"
 
-# src/html.c:1191 src/html.c:1310 src/html_form.c:213
 #: ../src/html.c:1688 ../src/html.c:1770 ../src/html_form.c:236
 msgid "_Rows:"
-msgstr "Linhas:"
+msgstr "列(_R):"
 
-# src/html.c:1313
 #: ../src/html.c:1691
 msgid "Or_dered"
-msgstr "Or_denado"
+msgstr "有序(_D)"
 
-# src/html.c:1315
 #: ../src/html.c:1692
 msgid "_Unordered"
-msgstr "Desordenado"
+msgstr "無序(_U)"
 
-# src/html.c:905 src/html.c:1317 src/toolbars.c:452
 #: ../src/html.c:1694
 msgid "Style:"
-msgstr "Estilo:"
+msgstr "樣式:"
 
-# src/html.c:1186 src/html_form.c:217
 #: ../src/html.c:1766 ../src/html_form.c:240
 msgid "Co_ls:"
-msgstr "Colunas:"
+msgstr "欄(_L):"
 
 #: ../src/html.c:1775
 msgid "_Add <frame> elements"
-msgstr "_Adicionar elementos <frame>"
+msgstr "新增 <frame> 元素(_A)"
 
-# src/html.c:1240
 #: ../src/html.c:1852 ../src/html.c:1937 ../src/html.c:1996
 msgid "_Source:"
-msgstr "Código Fonte:"
+msgstr "原始碼(_S):"
 
-# src/html.c:1265
 #: ../src/html.c:1860
 msgid "Margin _Width:"
-msgstr "Largura da Margem:"
+msgstr "邊距寬度(_W):"
 
-# src/html.c:1272
 #: ../src/html.c:1864
 msgid "Margin _Height:"
-msgstr "Altura da Margem"
+msgstr "邊距高度(_H):"
 
-# src/html.c:1258
 #: ../src/html.c:1872
 msgid "Scrollin_g:"
-msgstr "Rola_gem:"
+msgstr "捲動(_G):"
 
-# src/html.c:648 src/html.c:1180 src/toolbars.c:359
 #: ../src/html.c:1876
 msgid "_Frameborder:"
-msgstr "_Frameborder:"
+msgstr "框架邊框(_F):"
 
-# src/html.c:1284
 #: ../src/html.c:1881
 msgid "No _Resize:"
-msgstr "Não Redimensionar:"
+msgstr "不改變大小(_R):"
 
-# src/html.c:1390
 #: ../src/html.c:1931
 msgid "Embed"
-msgstr "Embutido"
+msgstr "嵌入"
 
-# src/html.c:1196 src/html.c:1247 src/html.c:1250 src/html.c:1418
-# src/html_table.c:98 src/images.c:226
 #: ../src/html.c:1953 ../src/html_table.c:144
 msgid "Bo_rder:"
-msgstr "Bo_rda:"
+msgstr "邊框(_R):"
 
-# src/toolbars.c:288
 #: ../src/html.c:1989
 msgid "Script"
 msgstr "Script"
 
-# src/wml.c:315
 #: ../src/html.c:2018 ../src/html.c:2085 ../src/html_form.c:789
 #: ../src/html_form.c:899
 msgid "_Type:"
-msgstr "_Tipo:"
+msgstr "類型(_T):"
 
 #: ../src/html.c:2060
 msgid "Link"
-msgstr "Ligação"
+msgstr "連結"
 
-# src/html.c:1235 src/toolbars.c:361
 #: ../src/html.c:2071
 msgid "_Href:"
 msgstr "_Href:"
@@ -2375,282 +2026,223 @@ msgstr "Href_lang:"
 
 #: ../src/html.c:2091
 msgid "_Forward Relation:"
-msgstr "_Forward Relation:"
+msgstr "向前關係(_F):"
 
 #: ../src/html.c:2095
 msgid "_Reverse Relation:"
-msgstr "_Relação inversa"
+msgstr "往後關係(_R):"
 
-# src/html.c:1345
 #: ../src/html.c:2106
 msgid "Media:"
-msgstr "Media:"
+msgstr "媒體:"
 
-# src/html.c:909
 #: ../src/html.c:2110
 msgid "L_ang:"
-msgstr "I_dioma:"
+msgstr "語言(_L):"
 
-# src/html.c:913 src/html.c:1021 src/html.c:1097 src/html.c:1154
-# src/html.c:1206 src/html.c:1288 src/html.c:1377 src/html_form.c:140
-# src/html_form.c:220 src/html_form.c:260 src/html_form.c:310
-# src/html_form.c:355 src/html_form.c:400 src/html_form.c:445
-# src/html_table.c:108 src/html_table.c:159 src/html_table.c:232
-# src/html_table.c:306 src/images.c:256
 #: ../src/html.c:2114
 msgid "_Custom:"
-msgstr "_Personalizado:"
+msgstr "自定(_C):"
 
-# src/html_form.c:110
 #: ../src/html_form.c:141
 msgid "Form"
-msgstr "Formulário"
+msgstr "表單"
 
-# src/html_form.c:115
 #: ../src/html_form.c:159
 msgid "_Action:"
-msgstr "_Acção:"
+msgstr "動作(_A):"
 
-# src/html_form.c:123 src/wml.c:264
 #: ../src/html_form.c:167
 msgid "Metho_d:"
-msgstr "Méto_do:"
+msgstr "方法(_D):"
 
-# src/html_form.c:132 src/wml.c:271
 #: ../src/html_form.c:176
 msgid "_Enctype:"
-msgstr "_Enctype:"
+msgstr "編碼類型(_E):"
 
-# src/html_form.c:203
 #: ../src/html_form.c:225
 msgid "Text area"
-msgstr "Área de Texto"
+msgstr "文字區"
 
-# src/html_form.c:427
 #: ../src/html_form.c:590
 msgid "Select"
-msgstr "Seleccionar"
+msgstr "選擇"
 
-# src/html.c:1001 src/html.c:1076 src/html.c:1133 src/html_form.c:303
-# src/html_form.c:437
 #: ../src/html_form.c:601 ../src/html_form.c:808
 msgid "Si_ze:"
-msgstr "Tamanho:"
+msgstr "大小(_Z):"
 
-# src/html_form.c:441
 #: ../src/html_form.c:605
 msgid "Multiple _Selections:"
-msgstr "Selecções Múltiplas:"
+msgstr "多重選取(_S):"
 
-# src/html_form.c:471
 #: ../src/html_form.c:644
 msgid "Option"
-msgstr "Opção"
+msgstr "選項"
 
-# src/html_form.c:484 src/wml.c:319
 #: ../src/html_form.c:654 ../src/html_form.c:697
 msgid "_Label:"
-msgstr "Rótulo:"
+msgstr "標籤(_L):"
 
-# src/html_form.c:489
 #: ../src/html_form.c:659
 msgid "_Selected:"
-msgstr "Selecionado:"
+msgstr "已選(_S):"
 
-# src/html_form.c:471
 #: ../src/html_form.c:692
 msgid "Option group"
-msgstr "Grupo de Opções"
+msgstr "選項群組"
 
 #: ../src/html_form.c:775
 msgid "Input"
-msgstr "Entrada"
+msgstr "輸入"
 
-# src/html_form.c:351 src/html_form.c:396
 #: ../src/html_form.c:803
 msgid "_Checked:"
-msgstr "_Verificado:"
+msgstr "已檢核的(_C):"
 
-# src/html_form.c:307
 #: ../src/html_form.c:812
 msgid "Max _Length:"
-msgstr "Comprimento Máximo:"
+msgstr "最大長度(_L):"
 
-# src/html_form.c:115
 #: ../src/html_form.c:816
 msgid "_Accept:"
-msgstr "_Aceitar:"
+msgstr "接受(_A):"
 
-# src/html.c:913 src/html.c:1021 src/html.c:1097 src/html.c:1154
-# src/html.c:1206 src/html.c:1288 src/html.c:1377 src/html_form.c:140
-# src/html_form.c:220 src/html_form.c:260 src/html_form.c:310
-# src/html_form.c:355 src/html_form.c:400 src/html_form.c:445
-# src/html_table.c:108 src/html_table.c:159 src/html_table.c:232
-# src/html_table.c:306 src/images.c:256
 #: ../src/html_form.c:820
 msgid "C_ustom:"
-msgstr "P_ersonalizado:"
+msgstr "自定(_U):"
 
-# src/html.c:946
 #: ../src/html_form.c:832
 msgid "On_Focus:"
-msgstr "On_Focus:"
+msgstr "在焦點時(_F):"
 
 #: ../src/html_form.c:836
 msgid "On_Blur:"
-msgstr "On_Blur:"
+msgstr "在模糊時(_B):"
 
-# src/html_form.c:427
 #: ../src/html_form.c:840
 msgid "On_Select:"
-msgstr "On_Select:"
+msgstr "在選擇時(_S):"
 
 #: ../src/html_form.c:844
 msgid "On_Change:"
-msgstr "On_Change:"
+msgstr "在改變時(_C):"
 
-# src/html_form.c:337
 #: ../src/html_form.c:884
 msgid "Button"
-msgstr "Botão"
+msgstr "按鈕"
 
-# src/html_table.c:71
 #: ../src/html_table.c:87
 msgid "Cell _Padding:"
-msgstr "Enchimento de célula:"
+msgstr "格子填入(_P):"
 
-# src/html_table.c:90
 #: ../src/html_table.c:91
 msgid "C_ell Spacing:"
-msgstr "Espaçamento entre Células:"
+msgstr "格子間距(_E):"
 
-# src/html_table.c:94 src/html_table.c:149 src/html_table.c:214
-# src/html_table.c:288
 #: ../src/html_table.c:127 ../src/html_table.c:237 ../src/html_table.c:351
 msgid "_Valign:"
-msgstr "Alinhamento _Vertical:"
+msgstr "垂直對齊(_V):"
 
-# src/html.c:817 src/html_table.c:103 src/html_table.c:154
-# src/html_table.c:222 src/html_table.c:296
 #: ../src/html_table.c:132 ../src/html_table.c:246 ../src/html_table.c:396
 msgid "Backgrou_nd Color:"
-msgstr "Cor de Fu_ndo:"
+msgstr "背景顏色(_N):"
 
-# src/html.c:1235 src/toolbars.c:361
 #: ../src/html_table.c:158
 msgid "_Frame:"
-msgstr "_Frame:"
+msgstr "框架(_F):"
 
-# src/toolbars.c:245
 #: ../src/html_table.c:169
 msgid "R_ules:"
-msgstr "Régua:"
+msgstr "橫線(_U):"
 
-# src/html_table.c:206 src/html_table.c:280
 #: ../src/html_table.c:369
 msgid "Co_l Span:"
-msgstr "Espaço entre Colunas:"
+msgstr "欄合併(_L):"
 
-# src/html_table.c:218 src/html_table.c:292
 #: ../src/html_table.c:373
 msgid "_Row Span:"
-msgstr "Espaço entre linha:"
+msgstr "列合併(_R):"
 
-# src/html_table.c:228 src/html_table.c:302
 #: ../src/html_table.c:378
 msgid "No Wra_p:"
-msgstr "Sem quebra de linha"
+msgstr "不自動換列(_P):"
 
-# src/images.c:180
 #: ../src/image.c:262
 msgid "Insert thumbnail"
-msgstr "Inserir imagem em miniatura"
+msgstr "插入略圖"
 
-# src/images.c:182
 #: ../src/image.c:264
 msgid "Insert image"
-msgstr "Inserir imagem"
+msgstr "插入圖像"
 
-# src/images.c:188
 #: ../src/image.c:270
 msgid "Preview"
-msgstr "Pré-visualizar"
+msgstr "預覽"
 
-# src/images.c:198
 #: ../src/image.c:290
 msgid "_Image location:"
-msgstr "Localização da imagem:"
+msgstr "圖像位置(_I):"
 
-# src/html.c:1411 src/html_table.c:210 src/html_table.c:284 src/images.c:216
 #: ../src/image.c:305
 msgid "Hei_ght:"
-msgstr "Altura:"
+msgstr "高度(_G):"
 
-# src/images.c:251
 #: ../src/image.c:310
 msgid "_Usemap:"
-msgstr "_Usemap:"
+msgstr "使用映射(_U):"
 
-# src/images.c:221
 #: ../src/image.c:318
 msgid "Alternate _text:"
-msgstr "_Texto alternativo:"
+msgstr "替代文字(_T):"
 
-# src/images.c:237
 #: ../src/image.c:326
 msgid "_Hspace:"
-msgstr "Espaço _Horizontal:"
+msgstr "水平距離(_H):"
 
-# src/images.c:243
 #: ../src/image.c:330
 msgid "_Vspace:"
-msgstr "Espaço _Vertical:"
+msgstr "垂直距離(_V):"
 
-# src/html.c:1196 src/html.c:1247 src/html.c:1250 src/html.c:1418
-# src/html_table.c:98 src/images.c:226
 #: ../src/image.c:344
 msgid "Borde_r:"
-msgstr "Borda:"
+msgstr "邊框(_R):"
 
 #: ../src/image.c:416 ../src/image.c:425
 msgid "Select files for thumbnail creation"
-msgstr "Seleccione os ficheiros para criação de miniaturas"
+msgstr "選擇建立略圖的檔案"
 
-# src/html.c:1258
 #: ../src/image.c:543
 msgid "Scaling (%)"
-msgstr "Escala (%)"
+msgstr "縮放 (%)"
 
-# src/html.c:1008 src/html.c:1404 src/html_table.c:192 src/html_table.c:266
-# src/images.c:208
 #: ../src/image.c:547 ../src/image.c:555
 msgid "Width"
-msgstr "Largura"
+msgstr "寬度"
 
-# src/html.c:1411 src/html_table.c:210 src/html_table.c:284 src/images.c:216
 #: ../src/image.c:551 ../src/image.c:578
 msgid "Height"
-msgstr "Altura"
+msgstr "高度"
 
 #: ../src/image.c:567
 msgid "Multi thumbnail"
-msgstr "Miniaturas múltiplas"
+msgstr "多重略圖"
 
 #: ../src/image.c:573
 msgid "By scaling"
-msgstr "Por escala"
+msgstr "根據比例"
 
 #: ../src/image.c:574
 msgid "By width, keep aspect ratio"
-msgstr "Por largura, manter proporção"
+msgstr "根據寬度, 保持高寬比"
 
 #: ../src/image.c:575
 msgid "By height, keep aspect ratio"
-msgstr "Por altura, manter proporção"
+msgstr "根據高度, 保持高寬比"
 
 #: ../src/image.c:576
 msgid "By width and height, ignore aspect ratio"
-msgstr "Por largura e altura, ignorar proporção"
+msgstr "根據和寬度和高度, 忽略高寬比"
 
 #: ../src/image.c:600
 msgid ""
@@ -2659,2765 +2251,2383 @@ msgid ""
 "%x: thumbnail width  %y: thumbnail height\n"
 "%b: original size (bytes)"
 msgstr ""
-"%r: nomedoficheiro original  %t: nomedoficheiro miniatura\n"
-"%w: largura original  %h: altura original\n"
-"%x: largura da miniatura  %y: altura da miniatura\n"
-"%b: tamanho original (bytes)"
+"%r: 原檔名  %t: 略圖檔名\n"
+"%w: 原寬度  %h: 原高度\n"
+"%x: 略圖寬度  %y: 略圖高度\n"
+"%b: 原大小(字元組)"
 
-# src/menu.c:69
 #: ../src/menu.c:314
 msgid "/_File"
-msgstr "/Ficheiro"
+msgstr "/檔案(F)"
 
-# src/menu.c:70
 #: ../src/menu.c:315
 msgid "/File/tearoff1"
-msgstr "/Ficheiro/tearoff1"
+msgstr "/檔案(F)/tearoff1"
 
-# src/menu.c:71
 #: ../src/menu.c:316
 msgid "/File/_New"
-msgstr "/Ficheiro/_Novo"
+msgstr "/檔案(F)/新增(_N)"
 
-# src/menu.c:71
 #: ../src/menu.c:317
 msgid "/File/New _Window"
-msgstr "/Ficheiro/Nova Janela"
+msgstr "/檔案(F)/新增視窗(_W)"
 
-# src/menu.c:72
 #: ../src/menu.c:318
 msgid "/File/_Open..."
-msgstr "/Ficheiro/Abrir..."
+msgstr "/檔案(F)/開啟(_O)..."
 
-# src/menu.c:74
 #: ../src/menu.c:319
 msgid "/File/Open _recent"
-msgstr "/Ficheiro/Abrir _recente"
+msgstr "/檔案(F)/開啟最近的(_R)"
 
-# src/menu.c:74
 #: ../src/menu.c:320
 msgid "/File/Open recent/tearoff1"
-msgstr "/Ficheiro/Abrir recente/tearoff1"
+msgstr "/檔案(F)/開啟最近的(R)/tearoff1"
 
-# src/menu.c:74
 #: ../src/menu.c:323
 msgid "/File/Open Ad_vanced..."
-msgstr "/Ficheiro/Abrir a_vançado..."
+msgstr "/檔案(F)/進階開啟(_V)..."
 
-# src/menu.c:72
 #: ../src/menu.c:327
 msgid "/File/Open _URL..."
-msgstr "/Ficheiro/Abrir _URL..."
+msgstr "/檔案(F)/開啟 _URL..."
 
-# src/menu.c:74
 #: ../src/menu.c:329
 msgid "/File/Open _from selection"
-msgstr "/Ficheiro/Abrir da selecção"
+msgstr "/檔案(F)/根據選擇開啟(_F)"
 
-# src/menu.c:76
 #: ../src/menu.c:330
 msgid "/File/sep1"
-msgstr "/Ficheiro/sep1"
+msgstr "/檔案(F)/sep1"
 
-# src/menu.c:77
 #: ../src/menu.c:331
 msgid "/File/_Save"
-msgstr "/Ficheiro/_Gravar"
+msgstr "/檔案(F)/儲存(_S)"
 
-# src/menu.c:78
 #: ../src/menu.c:332
 msgid "/File/Save _As..."
-msgstr "/Ficheiro/Gravar Como..."
+msgstr "/檔案(F)/另存為(_A)..."
 
-# src/menu.c:80
 #: ../src/menu.c:333
 msgid "/File/Sav_e All"
-msgstr "/Ficheiro/Grav_ar Todos"
+msgstr "/檔案(F)/全部儲存(_E)"
 
-# src/menu.c:79
 #: ../src/menu.c:334
 msgid "/File/Rever_t to Saved"
-msgstr "/Ficheiro/Rever_ter para gravado"
+msgstr "/檔案(F)/回復到已儲存的(_T)"
 
-# src/menu.c:76
 #: ../src/menu.c:335
 msgid "/File/sep2"
-msgstr "/Ficheiro/sep2"
+msgstr "/檔案(F)/sep2"
 
-# src/menu.c:75
 #: ../src/menu.c:336
 msgid "/File/_Insert..."
-msgstr "/Ficheiro/_Inserir..."
+msgstr "/檔案(F)/插入(_I)..."
 
-# src/menu.c:72
 #: ../src/menu.c:337
 msgid "/File/Rena_me..."
-msgstr "/Ficheiro/Mudar o nome..."
+msgstr "/檔案(F)/重新命名(_M)..."
 
-# src/menu.c:81
 #: ../src/menu.c:338
 msgid "/File/sep3"
-msgstr "/Ficheiro/sep3"
+msgstr "/檔案(F)/sep3"
 
-# src/menu.c:82
 #: ../src/menu.c:339
 msgid "/File/_Close"
-msgstr "/Ficheiro/Fechar"
+msgstr "/檔案(F)/關閉(_C)"
 
-# src/menu.c:83
 #: ../src/menu.c:340
 msgid "/File/Close A_ll"
-msgstr "/Ficheiro/Fechar Todos"
+msgstr "/檔案(F)/全部關閉(_L)"
 
-# src/menu.c:83
 #: ../src/menu.c:341
 msgid "/File/Close Win_dow"
-msgstr "/Ficheiro/Fechar Janela"
+msgstr "/檔案(F)/關閉視窗(_D)"
 
-# src/menu.c:76
 #: ../src/menu.c:342
 msgid "/File/sep4"
-msgstr "/Ficheiro/sep4"
+msgstr "/檔案(F)/sep4"
 
-# src/menu.c:87
 #: ../src/menu.c:343
 msgid "/File/_Quit"
-msgstr "/Ficheiro/Sair"
+msgstr "/檔案(F)/離開(_Q)"
 
-# src/menu.c:88
 #: ../src/menu.c:344
 msgid "/_Edit"
-msgstr "/_Editar"
+msgstr "/編輯(_E)"
 
-# src/menu.c:89
 #: ../src/menu.c:345
 msgid "/Edit/Tearoff1"
-msgstr "/Editar/Tearoff1"
+msgstr "/編輯(E)/Tearoff1"
 
-# src/menu.c:104
 #: ../src/menu.c:346
 msgid "/Edit/_Undo"
-msgstr "/Editar/Desfazer"
+msgstr "/編輯(E)/復原(_U)"
 
-# src/menu.c:105
 #: ../src/menu.c:347
 msgid "/Edit/_Redo"
-msgstr "/Editar/_Refazer"
+msgstr "/編輯(E)/重做(_R)"
 
-# src/menu.c:106
 #: ../src/menu.c:348
 msgid "/Edit/Undo All"
-msgstr "/Editar/Desfazer Tudo"
+msgstr "/編輯(E)/復原所有"
 
-# src/menu.c:107
 #: ../src/menu.c:349
 msgid "/Edit/Redo All"
-msgstr "/Editar/Refazer Tudo"
+msgstr "/編輯(E)/重做所有"
 
-# src/menu.c:96
 #: ../src/menu.c:350
 msgid "/Edit/sep1"
-msgstr "/Editar/sep1"
+msgstr "/編輯(E)/sep1"
 
-# src/menu.c:90
 #: ../src/menu.c:351
 msgid "/Edit/Cu_t"
-msgstr "/Editar/Cortar"
+msgstr "/編輯(E)/剪下(_T)"
 
-# src/menu.c:91
 #: ../src/menu.c:352
 msgid "/Edit/_Copy"
-msgstr "/Editar/_Copiar"
+msgstr "/編輯(E)/複製(_C)"
 
-# src/menu.c:92
 #: ../src/menu.c:353
 msgid "/Edit/_Paste"
-msgstr "/Editar/Colar"
+msgstr "/編輯(E)/貼上(_P)"
 
-# src/menu.c:96
 #: ../src/menu.c:354
 msgid "/Edit/sep2"
-msgstr "/Editar/sep2"
+msgstr "/編輯(E)/sep2"
 
-# src/menu.c:94
 #: ../src/menu.c:355
 msgid "/Edit/Select _All"
-msgstr "/Editar/Seleccion_ar Tudo"
+msgstr "/編輯(E)/全選(_A)"
 
-# src/menu.c:96
 #: ../src/menu.c:356
 msgid "/Edit/sep3"
-msgstr "/Editar/sep3"
+msgstr "/編輯(E)/sep3"
 
-# src/menu.c:97
 #: ../src/menu.c:357
 msgid "/Edit/_Find..."
-msgstr "/Editar/Procurar..."
+msgstr "/編輯(E)/尋找(_F)..."
 
-# src/menu.c:99
 #: ../src/menu.c:358
 msgid "/Edit/Find A_gain"
-msgstr "/Editar/Procurar novamente"
+msgstr "/編輯(E)/尋找下一個(_G)"
 
-# src/menu.c:74
 #: ../src/menu.c:359
 msgid "/Edit/Find from selection"
-msgstr "/Ficheiro/Procurar na selecção"
+msgstr "/編輯(E)/在選擇中尋找"
 
-# src/menu.c:100
 #: ../src/menu.c:360
 msgid "/Edit/R_eplace..."
-msgstr "/Editar/Substituir..."
+msgstr "/編輯(E)/取代(_E)..."
 
-# src/menu.c:102
 #: ../src/menu.c:361
 msgid "/Edit/Replace Agai_n"
-msgstr "/Editar/Substituir Novamente"
+msgstr "/編輯(E)/取代下一個(_N)"
 
-# src/menu.c:100
 #: ../src/menu.c:362
 msgid "/Edit/Replace special"
-msgstr "/Editar/Substituir especial"
+msgstr "/編輯(E)/特殊取代"
 
-# src/menu.c:102
 #: ../src/menu.c:363
 msgid "/Edit/Replace special/Tearoff1"
-msgstr "/Editar/Substituir especial/Tearoff1"
+msgstr "/編輯(E)/特殊取代/Tearoff1"
 
-# src/menu.c:375
 #: ../src/menu.c:364
 msgid "/Edit/Replace special/_ASCII to HTML Entities"
-msgstr "/Editar/Substituir especial/_ASCII para Entidade HTML"
+msgstr "/編輯(E)/特殊取代/取代 _ASCII 為 HTML 實體"
 
-# src/menu.c:374
 #: ../src/menu.c:365
 msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
-msgstr "/Editar/Substituir especial/_ISO8859 para Entidades HTML"
+msgstr "/編輯(E)/特殊取代/取代 _iso8859 為 HTML 實體"
 
-# src/menu.c:375
 #: ../src/menu.c:366
 msgid "/Edit/Replace special/_Both Types to HTML Entities"
-msgstr "/Editar/Substituir especial/Ambos tipos para Entidades HTML"
+msgstr "/編輯(E)/特殊取代/兩者都取代為 HTML 實體(_B)"
 
-# src/menu.c:102
 #: ../src/menu.c:367
 msgid "/Edit/Replace special/To _Uppercase"
-msgstr "/Editar/Substituir especial/Para Maiúsc_ulas"
+msgstr "/編輯(E)/特殊取代/轉成大寫(_U)"
 
-# src/menu.c:102
 #: ../src/menu.c:368
 msgid "/Edit/Replace special/To _Lowercase"
-msgstr "/Editar/Substituir especial/Para Minúscu_las"
+msgstr "/編輯(E)/特殊取代/轉成小寫(_L)"
 
-# src/menu.c:103
 #: ../src/menu.c:369
 msgid "/Edit/sep4"
-msgstr "/Editar/sep4"
+msgstr "/編輯(E)/sep4"
 
 #: ../src/menu.c:370
 msgid "/Edit/S_hift Right"
-msgstr "/Editar/Deslocar à direita"
+msgstr "/編輯(E)/右移(_H)"
 
-# src/menu.c:92
 #: ../src/menu.c:371
 msgid "/Edit/Shift _Left"
-msgstr "/Editar/Deslocar à esquerda"
+msgstr "/編輯(E)/左移(_L)"
 
-# src/menu.c:108
 #: ../src/menu.c:372
 msgid "/Edit/sep5"
-msgstr "/Editar/sep5"
+msgstr "/編輯(E)/sep5"
 
 #: ../src/menu.c:373
 msgid "/Edit/Add _Bookmark"
-msgstr "/Editar/Adicionar _Marcador"
+msgstr "/編輯(E)/新增書籤(_B)"
 
-# src/menu.c:96
 #: ../src/menu.c:374
 msgid "/Edit/sep6"
-msgstr "/Editar/sep6"
+msgstr "/編輯(E)/sep6"
 
-# src/menu.c:473
 #: ../src/menu.c:375
 msgid "/Edit/Save Sett_ings"
-msgstr "/Editar/Gravar Conf_igurações"
+msgstr "/編輯(E)/儲存設定(_I)"
 
-# src/menu.c:473
 #: ../src/menu.c:376
 msgid "/Edit/Save Shortcut _Keys"
-msgstr "/Editar/Gravar Teclas de Atalho"
+msgstr "/編輯(E)/儲存快捷鍵(_K)"
 
-# src/toolbars.c:523
 #: ../src/menu.c:377
 msgid "/Edit/Preference_s"
-msgstr "/Editar/Preferência_s"
+msgstr "/編輯(E)/偏好設定(_S)"
 
-# src/menu.c:69
 #: ../src/menu.c:378
 msgid "/_View"
-msgstr "/_Ver"
+msgstr "/檢視(_V)"
 
-# src/menu.c:70
 #: ../src/menu.c:379
 msgid "/View/tearoff1"
-msgstr "/Ver/tearoff1"
+msgstr "/檢視(V)/tearoff1"
 
-# src/menu.c:462
 #: ../src/menu.c:380
 msgid "/View/View _Main Toolbar"
-msgstr "/Ver/Ver Barra de Ferramentas Principal"
+msgstr "/檢視(V)/檢視主工作列(_M)"
 
-# src/menu.c:463
 #: ../src/menu.c:381
 msgid "/View/View _HTML Toolbar"
-msgstr "/Ver/Ver Barra de Ferramentas HTML"
+msgstr "/檢視(V)/檢視 _HTML 工作列"
 
-# src/menu.c:464
 #: ../src/menu.c:382
 msgid "/View/View _Custom Menu"
-msgstr "/Ver/Ver Barra de Ferramentas Personalizada"
+msgstr "/檢視(V)/檢視自定選單(_C)"
 
-# src/menu.c:462
 #: ../src/menu.c:383
 msgid "/View/View _Sidebar"
-msgstr "/Ver/Ver Barra de Ferramentas Principal"
+msgstr "/檢視(V)/檢視邊列(_S)"
 
-# src/menu.c:137
 #: ../src/menu.c:384
 msgid "/_Tags"
-msgstr "/_Etiquetas"
+msgstr "/標記(_T)"
 
-# src/menu.c:138
 #: ../src/menu.c:385
 msgid "/Tags/Tearoff1"
-msgstr "/Etiquetas/Tearoff1"
+msgstr "/標記(T)/Tearoff1"
 
-# src/menu.c:139
 #: ../src/menu.c:387
 msgid "/Tags/_Headings"
-msgstr "/Etiquetas/Cabeçalhos"
+msgstr "/標記(T)/標題(_H)"
 
-# src/menu.c:140
 #: ../src/menu.c:388
 msgid "/Tags/Headings/Tearoff1"
-msgstr "/Etiquetas/Cabeçalhos/Tearoff1"
+msgstr "/標記(T)/標題(H)/Tearoff1"
 
-# src/menu.c:141
 #: ../src/menu.c:389
 msgid "/Tags/Headings/H_1"
-msgstr "/Etiquetas/Cabeçalhos/H_1"
+msgstr "/標記(T)/標題(H)/H_1"
 
-# src/menu.c:142
 #: ../src/menu.c:390
 msgid "/Tags/Headings/H_2"
-msgstr "/Etiquetas/Cabeçalhos/H_2"
+msgstr "/標記(T)/標題(H)/H_2"
 
-# src/menu.c:143
 #: ../src/menu.c:391
 msgid "/Tags/Headings/H_3"
-msgstr "/Etiquetas/Cabeçalhos/H_3"
+msgstr "/標記(T)/標題(H)/H_3"
 
-# src/menu.c:144
 #: ../src/menu.c:392
 msgid "/Tags/Headings/H_4"
-msgstr "/Etiquetas/Cabeçalhos/H_4"
+msgstr "/標記(T)/標題(H)/H_4"
 
-# src/menu.c:145
 #: ../src/menu.c:393
 msgid "/Tags/Headings/H_5"
-msgstr "/Etiquetas/Cabeçalhos/H_5"
+msgstr "/標記(T)/標題(H)/H_5"
 
-# src/menu.c:146
 #: ../src/menu.c:394
 msgid "/Tags/Headings/H_6"
-msgstr "/Etiquetas/Cabeçalhos/H_6"
+msgstr "/標記(T)/標題(H)/H_6"
 
-# src/menu.c:147
 #: ../src/menu.c:395
 msgid "/Tags/_Special"
-msgstr "/Etiquetas/E_special"
+msgstr "/標記(T)/特殊(_S)"
 
-# src/menu.c:304
 #: ../src/menu.c:396
 msgid "/Tags/Special/tearoff1"
-msgstr "/Etiquetas/Especial/tearoff1"
+msgstr "/標記(T)/特殊(S)/tearoff1"
 
-# src/menu.c:148
 #: ../src/menu.c:397
 msgid "/Tags/Special/_Accent"
-msgstr "/Etiquetas/Especial/_Acento"
+msgstr "/標記(T)/特殊(S)/音標(_A)"
 
-# src/menu.c:149
 #: ../src/menu.c:398
 msgid "/Tags/Special/Accent/tearoff1"
-msgstr "/Etiquetas/Especial/Acento/tearoff1"
+msgstr "/標記(T)/特殊(S)/音標(A)/tearoff1"
 
-# src/menu.c:150
 #: ../src/menu.c:399
 msgid "/Tags/Special/Accent/_Uppercase"
-msgstr "/Etiquetas/Especial/Acento/Maiúsc_ulas"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(_U)"
 
-# src/menu.c:151
 #: ../src/menu.c:400
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/_A-I"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/_A-I"
 
-# src/menu.c:152
 #: ../src/menu.c:401
 msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/tearoff1"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/tearoff1"
 
-# src/menu.c:153
 #: ../src/menu.c:402
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/A com crase À"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:154
 #: ../src/menu.c:403
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/A com agudo Á"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:155
 #: ../src/menu.c:404
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/A com circunflexo Â"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:156
 #: ../src/menu.c:405
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/A com til Ã"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:157
 #: ../src/menu.c:406
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/AE união Æ"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:158
 #: ../src/menu.c:407
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/A com trema Ä"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:159
 #: ../src/menu.c:408
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/A com anel Å"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:160
 #: ../src/menu.c:409
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/C cedilha Ç"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:161
 #: ../src/menu.c:410
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/E com grave È"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:162
 #: ../src/menu.c:411
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/E com agudo É"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:163
 #: ../src/menu.c:412
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/E com circunflexo Ê"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:164
 #: ../src/menu.c:413
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/E com trema Ë"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:165
 #: ../src/menu.c:414
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/I com grave Ì"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:166
 #: ../src/menu.c:415
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/I com agudo Í"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:167
 #: ../src/menu.c:416
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/I com circunflexo Î"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:168
 #: ../src/menu.c:417
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/I com trema Ï"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/??"
 
-# src/menu.c:169
 #: ../src/menu.c:418
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/_J-Z"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/_J-Z"
 
-# src/menu.c:170
 #: ../src/menu.c:419
 msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/J-Z/tearoff1"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/J-Z/tearoff1"
 
-# src/menu.c:171
 #: ../src/menu.c:420
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/J-Z/N com til Ñ"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/J-Z/??"
 
-# src/menu.c:172
 #: ../src/menu.c:421
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/J-Z/O com grave Ò"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/J-Z/??"
 
-# src/menu.c:173
 #: ../src/menu.c:422
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/J-Z/O com agudo Ó"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/J-Z/??"
 
-# src/menu.c:174
 #: ../src/menu.c:423
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/J-Z/O com circunflexo Ô"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/J-Z/??"
 
-# src/menu.c:157
 #: ../src/menu.c:424
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/A-I/OE união"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/A-I/OE"
 
-# src/menu.c:175
 #: ../src/menu.c:425
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/J-Z/O com til Õ"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/J-Z/??"
 
-# src/menu.c:176
 #: ../src/menu.c:426
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/J-Z/O com trema Ö"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/J-Z/??"
 
-# src/menu.c:177
 #: ../src/menu.c:427
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/J-Z/O com barra Ø"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/J-Z/??"
 
-# src/menu.c:178
 #: ../src/menu.c:428
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/J-Z/U com grave Ù"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/J-Z/??"
 
-# src/menu.c:179
 #: ../src/menu.c:429
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/J-Z/U com agudo Ú"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/J-Z/??"
 
-# src/menu.c:180
 #: ../src/menu.c:430
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/J-Z/U com circunflexo Û"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/J-Z/??"
 
-# src/menu.c:181
 #: ../src/menu.c:431
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/J-Z/U com trema Ü"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/J-Z/??"
 
-# src/menu.c:183
 #: ../src/menu.c:432
+#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
-msgstr "/Etiquetas/Especial/Acento/Maiúsculas/J-Z/Y com agudo Ý"
+msgstr "/標記(T)/特殊(S)/音標(A)/大寫(U)/J-Z/??"
 
-# src/menu.c:185
 #: ../src/menu.c:433
 msgid "/Tags/Special/Accent/_Lowercase"
-msgstr "/Etiquetas/Especial/Acento/Minúscu_las"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(_L)"
 
-# src/menu.c:186
 #: ../src/menu.c:434
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/_A-I"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/_A-I"
 
-# src/menu.c:187
 #: ../src/menu.c:435
 msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/tearoff1"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/tearoff1"
 
-# src/menu.c:189
 #: ../src/menu.c:436
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/a com grave à"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:191
 #: ../src/menu.c:437
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/a com agudo á"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:193
 #: ../src/menu.c:438
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/a com circunflexo â"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:195
 #: ../src/menu.c:439
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/a com til ã"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:197
 #: ../src/menu.c:440
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/a com anel å"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:199
 #: ../src/menu.c:441
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/ae união æ"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:201
 #: ../src/menu.c:442
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/a com trema ä"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:203
 #: ../src/menu.c:443
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/c cedilha ç"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:205
 #: ../src/menu.c:444
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/e com grave è"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:207
 #: ../src/menu.c:445
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/e com agudo é"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:209
 #: ../src/menu.c:446
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/e com circunflexo ê"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:211
 #: ../src/menu.c:447
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/e com trema ë"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:213
 #: ../src/menu.c:448
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/i com grave ì"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:215
 #: ../src/menu.c:449
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/i com agudo í"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:217
 #: ../src/menu.c:450
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/i com circunflexo î"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:219
 #: ../src/menu.c:451
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/i com trema ï"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:221
 #: ../src/menu.c:452
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/_J-Z"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/_J-Z"
 
-# src/menu.c:222
 #: ../src/menu.c:453
 msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/tearoff1"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/tearoff1"
 
-# src/menu.c:224
 #: ../src/menu.c:454
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/n com til ñ"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/??"
 
-# src/menu.c:226
 #: ../src/menu.c:455
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/o com grave ò"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/??"
 
-# src/menu.c:228
 #: ../src/menu.c:456
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/o com agudo ó"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/??"
 
-# src/menu.c:199
 #: ../src/menu.c:457
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/A-I/ae união æ"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/A-I/??"
 
-# src/menu.c:230
 #: ../src/menu.c:458
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/o com circunflexo ô"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/??"
 
-# src/menu.c:232
 #: ../src/menu.c:459
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/o com til õ"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/??"
 
-# src/menu.c:234
 #: ../src/menu.c:460
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/o com trema ö"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/??"
 
-# src/menu.c:236
 #: ../src/menu.c:461
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/o com barra ø"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/??"
 
-# src/menu.c:238
 #: ../src/menu.c:462
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/u com grave ù"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/??"
 
-# src/menu.c:240
 #: ../src/menu.c:463
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/u com agudo ú"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/??"
 
-# src/menu.c:242
 #: ../src/menu.c:464
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/u com circunflexo û"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/??"
 
-# src/menu.c:244
 #: ../src/menu.c:465
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/u com trema ü"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/??"
 
-# src/menu.c:246
 #: ../src/menu.c:466
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/y com agudo ý"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/??"
 
-# src/menu.c:248
 #: ../src/menu.c:467
+#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
-msgstr "/Etiquetas/Especial/Acento/Minúsculas/J-Z/y com trema ÿ"
+msgstr "/標記(T)/特殊(S)/音標(A)/小寫(L)/J-Z/??"
 
-# src/menu.c:250
 #: ../src/menu.c:468
 msgid "/Tags/Special/Accent/separator"
-msgstr "/Etiquetas/Especial/Acento/separador"
+msgstr "/標記(T)/特殊(S)/音標(A)/Separator"
 
-# src/menu.c:251
 #: ../src/menu.c:469
+#, fuzzy
 msgid "/Tags/Special/Accent/U_mlaut ¨"
-msgstr "/Etiquetas/Especial/Acento/Tre_ma ¨"
+msgstr "/標記(T)/特殊(S)/音標(A)/‥(_M)"
 
-# src/menu.c:252
 #: ../src/menu.c:470
+#, fuzzy
 msgid "/Tags/Special/Accent/_Acute ´"
-msgstr "/Etiquetas/Especial/Acento/_Agudo ´"
+msgstr "/標記(T)/特殊(S)/音標(A)/??(_A)"
 
-# src/menu.c:253
 #: ../src/menu.c:471
+#, fuzzy
 msgid "/Tags/Special/Accent/_Cedilla ¸"
-msgstr "/Etiquetas/Especial/Acento/_Cedilha ¸"
+msgstr "/標記(T)/特殊(S)/音標(A)/??(_C)"
 
-# src/menu.c:254
 #: ../src/menu.c:472
 msgid "/Tags/Special/_Currency"
-msgstr "/Etiquetas/Especial/Moeda"
+msgstr "/標記(T)/特殊(S)/貨幣(_C)"
 
-# src/menu.c:255
 #: ../src/menu.c:473
 msgid "/Tags/Special/Currency/tearoff1"
-msgstr "/Etiquetas/Especial/Moeda/tearoff1"
+msgstr "/標記(T)/特殊(S)/貨幣(C)/tearoff1"
 
-# src/menu.c:256
 #: ../src/menu.c:474
+#, fuzzy
 msgid "/Tags/Special/Currency/_Cent sign ¢"
-msgstr "/Etiquetas/Especial/Moeda/Sinal de _Centavo de Dólar ¢"
+msgstr "/標記(T)/特殊(S)/貨幣(C)/??(_C)"
 
-# src/menu.c:258
 #: ../src/menu.c:475
+#, fuzzy
 msgid "/Tags/Special/Currency/_Pound sterling £"
-msgstr "/Etiquetas/Especial/Moeda/Libra Esterlina £"
+msgstr "/標記(T)/特殊(S)/貨幣(C)/??(_P)"
 
-# src/menu.c:260
 #: ../src/menu.c:476
+#, fuzzy
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
-msgstr "/Etiquetas/Especial/Moeda/Sinal de Moeda ¤"
+msgstr "/標記(T)/特殊(S)/貨幣(C)/??(_U)"
 
-# src/menu.c:262
 #: ../src/menu.c:477
+#, fuzzy
 msgid "/Tags/Special/Currency/_Yen sign ¥"
-msgstr "/Etiquetas/Especial/Moeda/Sinal de Yen ¥"
+msgstr "/標記(T)/特殊(S)/貨幣(C)/??(_Y)"
 
-# src/menu.c:254
 #: ../src/menu.c:478
 msgid "/Tags/Special/Currency/_Euro "
-msgstr "/Etiquetas/Especial/Moeda/_Euro "
+msgstr "/標記(T)/特殊(S)/貨幣(C)/_歐元 "
 
-# src/menu.c:263
 #: ../src/menu.c:479
 msgid "/Tags/Special/_Math-Science"
-msgstr "/Etiquetas/Especial/Matemática"
+msgstr "/標記(T)/特殊(S)/數學符號(_M)"
 
-# src/menu.c:264
 #: ../src/menu.c:480
 msgid "/Tags/Special/Math-Science/tearoff1"
-msgstr "/Etiquetas/Especial/Matemática/tearoff1"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/tearoff1"
 
-# src/menu.c:265
 #: ../src/menu.c:481
+#, fuzzy
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
-msgstr "/Etiquetas/Especial/Matemática/Sinal _Não Lógico ¬"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/??(_N)"
 
-# src/menu.c:267
 #: ../src/menu.c:482
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
-msgstr "/Etiquetas/Especial/Matemática/Sinal de Multiplicação ×"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/×(_M)"
 
-# src/menu.c:269
 #: ../src/menu.c:483
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
-msgstr "/Etiquetas/Especial/Matemática/Sinal de _Divisão ÷"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/÷(_D)"
 
-# src/menu.c:271
 #: ../src/menu.c:484
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
-msgstr "/Etiquetas/Especial/Matemática/Sinal de Mais ou Menos ±"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/±(_P)"
 
-# src/menu.c:273
 #: ../src/menu.c:485
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
-msgstr "/Etiquetas/Especial/Matemática/Sinal de Menor que <"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/<(_L)"
 
-# src/menu.c:275
 #: ../src/menu.c:486
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
-msgstr "/Etiquetas/Especial/Matemática/Sinal de Maior que >"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/>(_G)"
 
-# src/menu.c:277
 #: ../src/menu.c:487
+#, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
-msgstr "/Etiquetas/Especial/Matemática/Elevado a 1 ¹"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/上標 _1 ??"
 
-# src/menu.c:279
 #: ../src/menu.c:488
+#, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
-msgstr "/Etiquetas/Especial/Matemática/Elevado a 2 ²"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/上標 _2 ??"
 
-# src/menu.c:281
 #: ../src/menu.c:489
+#, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
-msgstr "/Etiquetas/Especial/Matemática/Elevado a _3 ³"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/上標 _3 ??"
 
-# src/menu.c:283
 #: ../src/menu.c:490
+#, fuzzy
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
-msgstr "/Etiquetas/Especial/Matemática/Um _quarto ¼"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/??(_Q)"
 
-# src/menu.c:285
 #: ../src/menu.c:491
+#, fuzzy
 msgid "/Tags/Special/Math-Science/One _half ½"
-msgstr "/Etiquetas/Especial/Matemática/Um meio ½"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/??(_H)"
 
-# src/menu.c:287
 #: ../src/menu.c:492
+#, fuzzy
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
-msgstr "/Etiquetas/Especial/Matemática/_Três quartos ¾"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/??(_T)"
 
-# src/menu.c:289
 #: ../src/menu.c:493
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
-msgstr "/Etiquetas/Especial/Matemática/Sinal de g_rau °"
+msgstr "/標記(T)/特殊(S)/數學符號(M)/°(_R)"
 
-# src/menu.c:291
 #: ../src/menu.c:494
 msgid "/Tags/Special/_Non Latin"
-msgstr "/Etiquetas/Especial/_Não Latina"
+msgstr "/標記(T)/特殊(S)/非拉丁字元(_N)"
 
-# src/menu.c:292
 #: ../src/menu.c:495
 msgid "/Tags/Special/Non Latin/tearoff1"
-msgstr "/Etiquetas/Especial/Não Latina/tearoff1"
+msgstr "/標記(T)/特殊(S)/非拉丁字元(N)/tearoff1"
 
-# src/menu.c:293
 #: ../src/menu.c:496
+#, fuzzy
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
-msgstr "/Etiquetas/Especial/Não Latina/_ETH (Islândia) Ð"
+msgstr "/標記(T)/特殊(S)/非拉丁字母(N)/??(_E)"
 
-# src/menu.c:295
 #: ../src/menu.c:497
+#, fuzzy
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
-msgstr "/Etiquetas/Especial/Não Latina/_THORN (Islândia) Þ"
+msgstr "/標記(T)/特殊(S)/非拉丁字元(N)/ ??(_T)"
 
-# src/menu.c:297
 #: ../src/menu.c:498
+#, fuzzy
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
-msgstr "/Etiquetas/Especial/Não Latina/et_h (Islândia) ð"
+msgstr "/標記(T)/特殊(S)/非拉丁字元(N)/??(_H)"
 
-# src/menu.c:299
 #: ../src/menu.c:499
+#, fuzzy
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
-msgstr "/Etiquetas/Especial/Não Latina/th_orn ÿ"
+msgstr "/標記(T)/特殊(S)/非拉丁字元(N)/??(_O)"
 
-# src/menu.c:300
 #: ../src/menu.c:500
+#, fuzzy
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
-msgstr "/Etiquetas/Especial/Não Latina/Sharp _s ß"
+msgstr "/標記(T)/特殊(S)/非拉丁字元(N)/??(_S)"
 
-# src/menu.c:301
 #: ../src/menu.c:501
+#, fuzzy
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
-msgstr "/Etiquetas/Especial/Não Latina/Sinal _micro µ"
+msgstr "/標記(T)/特殊(S)/非拉丁字元(N)/??(_M)"
 
-# src/menu.c:303
 #: ../src/menu.c:502
 msgid "/Tags/Special/_Other"
-msgstr "/Etiquetas/Especial/_Outros"
+msgstr "/標記(T)/特殊(S)/其它(_O)"
 
-# src/menu.c:304
 #: ../src/menu.c:503
 msgid "/Tags/Special/Other/tearoff1"
-msgstr "/Etiquetas/Especial/Outros/tearoff1"
+msgstr "/標記(T)/特殊(S)/其它(O)/tearoff1"
 
-# src/menu.c:305
 #: ../src/menu.c:504
 msgid "/Tags/Special/Other/_Non-breaking space"
-msgstr "/Etiquetas/Especial/Outros/Espaço sem quebra"
+msgstr "/標記(T)/特殊(S)/其它(O)/不換列空白"
 
-# src/menu.c:307
 #: ../src/menu.c:505
 msgid "/Tags/Special/Other/_Section sign §"
-msgstr "/Etiquetas/Especial/Outros/Sinal de secção §"
+msgstr "/標記(T)/特殊(S)/其它(O)/§(_S)"
 
-# src/menu.c:309
 #: ../src/menu.c:506
+#, fuzzy
 msgid "/Tags/Special/Other/_Copyright sign ©"
-msgstr "/Etiquetas/Especial/Outros/Sinal de copyright ©"
+msgstr "/標記(T)/特殊(S)/其它(O)/??(_C)"
 
-# src/menu.c:311
 #: ../src/menu.c:507
+#, fuzzy
 msgid "/Tags/Special/Other/_Left angle quotes «"
-msgstr "/Etiquetas/Especial/Outros/Aspas angu_lar esquerda «"
+msgstr "/標記(T)/特殊(S)/其它(O)/??(_L)"
 
-# src/menu.c:313
 #: ../src/menu.c:508
+#, fuzzy
 msgid "/Tags/Special/Other/_Right angle quotes »"
-msgstr "/Etiquetas/Especial/Outros/Aspas angula_r direita »"
+msgstr "/標記(T)/特殊(S)/其它(O)/??(_R)"
 
-# src/menu.c:315
 #: ../src/menu.c:509
+#, fuzzy
 msgid "/Tags/Special/Other/Registered _trademark ®"
-msgstr "/Etiquetas/Especial/Outros/Marca registrada ®"
+msgstr "/標記(T)/特殊(S)/其它(O)/??(_T)"
 
-# src/menu.c:317
 #: ../src/menu.c:510
+#, fuzzy
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
-msgstr "/Etiquetas/Especial/Outros/Exclamação invertida ¡"
+msgstr "/標記(T)/特殊(S)/其它(O)/??(_E)"
 
-# src/menu.c:319
 #: ../src/menu.c:511
+#, fuzzy
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
-msgstr "/Etiquetas/Especial/Outros/Interrogação invertida ¿"
+msgstr "/標記(T)/特殊(S)/其它(O)/??(_Q)"
 
-# src/menu.c:321
 #: ../src/menu.c:512
+#, fuzzy
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
-msgstr "/Etiquetas/Especial/Outros/Ordinal _Feminino ª"
+msgstr "/標記(T)/特殊(S)/其它(O)/??(_F)"
 
-# src/menu.c:323
 #: ../src/menu.c:513
+#, fuzzy
 msgid "/Tags/Special/Other/_Masculine ordinal º"
-msgstr "/Etiquetas/Especial/Outros/Ordinal _Masculino º"
+msgstr "/標記(T)/特殊(S)/其它(O)/??(_M)"
 
-# src/menu.c:325
 #: ../src/menu.c:514
+#, fuzzy
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
-msgstr "/Etiquetas/Especial/Outros/Sinal de Parágrado ¶"
+msgstr "/標記(T)/特殊(S)/其它(O)/??(_P)"
 
-# src/menu.c:327
 #: ../src/menu.c:515
+#, fuzzy
 msgid "/Tags/Special/Other/_Broken bar ¦"
-msgstr "/Etiquetas/Especial/Outros/Barra quebrada ¦"
+msgstr "/標記(T)/特殊(S)/其它(O)/??(_B)"
 
-# src/menu.c:328
 #: ../src/menu.c:516
 msgid "/Tags/Special/Other/Soft _hypen -"
-msgstr "/Etiquetas/Especial/Outros/Hífen -"
+msgstr "/標記(T)/特殊(S)/其它(O)/-(_H)"
 
-# src/menu.c:329
 #: ../src/menu.c:517
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
-msgstr "/Etiquetas/Especial/Outros/Hífen alto ¯"
+msgstr "/標記(T)/特殊(S)/其它(O)/¯(_C)"
 
-# src/menu.c:331
 #: ../src/menu.c:518
 msgid "/Tags/Special/Other/Middle _dot ·"
-msgstr "/Etiquetas/Especial/Outros/Ponto no centro ·"
+msgstr "/標記(T)/特殊(S)/其它(O)/·(_D)"
 
-# src/menu.c:333
 #: ../src/menu.c:519
 msgid "/Tags/_Format by layout"
-msgstr "/Etiquetas/_Formatação por estilo"
+msgstr "/標記(T)/規格格式(_F)"
 
-# src/menu.c:334
 #: ../src/menu.c:520
 msgid "/Tags/Format by layout/tearoff1"
-msgstr "/Etiquetas/Formatação por estilo/tearoff1"
+msgstr "/標記(T)/規格格式(F)/tearoff1"
 
-# src/menu.c:335
 #: ../src/menu.c:521
 msgid "/Tags/Format by layout/_Bold"
-msgstr "/Etiquetas/Formatação por estilo/Negrito"
+msgstr "/標記(T)/規格格式(F)/粗體(_B)"
 
-# src/menu.c:336
 #: ../src/menu.c:522
 msgid "/Tags/Format by layout/_Italic"
-msgstr "/Etiquetas/Formatação por estilo/_Itálico"
+msgstr "/標記(T)/規格格式(F)/斜體(_I)"
 
-# src/menu.c:337
 #: ../src/menu.c:523
 msgid "/Tags/Format by layout/_Underline"
-msgstr "/Etiquetas/Formatação por estilo/S_ublinhado"
+msgstr "/標記(T)/規格格式(F)/下划線(_U)"
 
-# src/menu.c:338
 #: ../src/menu.c:524
 msgid "/Tags/Format by layout/_Strikeout"
-msgstr "/Etiquetas/Formatação por estilo/Riscado"
+msgstr "/標記(T)/規格格式(F)/刪除線(_S)"
 
-# src/menu.c:336
 #: ../src/menu.c:525
 msgid "/Tags/Format by layout/Sm_all"
-msgstr "/Etiquetas/Formatação por estilo/Pequen_a"
+msgstr "/標記(T)/規格格式(F)/斜體(_A)"
 
-# src/menu.c:333
 #: ../src/menu.c:526
 msgid "/Tags/Format by layout/Bi_g"
-msgstr "/Etiquetas/_Formatação por composição/_Grande"
+msgstr "/標記(T)/規格格式(_G)"
 
-# src/menu.c:333
 #: ../src/menu.c:528
 msgid "/Tags/F_ormat by context"
-msgstr "/Etiquetas/F_ormatação por contexto"
+msgstr "/標記(T)/上下文格式(_O)"
 
-# src/menu.c:334
 #: ../src/menu.c:529
 msgid "/Tags/Format by context/tearoff1"
-msgstr "/Etiquetas/Formatação por contexto/tearoff1"
+msgstr "/標記(T)/上下文格式(O)/tearoff1"
 
-# src/menu.c:339
 #: ../src/menu.c:530
 msgid "/Tags/Format by context/_Strong"
-msgstr "/Etiquetas/Formatação por contexto/Forte"
+msgstr "/標記(T)/上下文格式(O)/加粗(_S)"
 
-# src/menu.c:340
 #: ../src/menu.c:531
 msgid "/Tags/Format by context/_Emphasis"
-msgstr "/Etiquetas/Formatação por contexto/Ênfas_e"
+msgstr "/標記(T)/上下文格式(O)/強調(_E)"
 
-# src/menu.c:333
 #: ../src/menu.c:532
 msgid "/Tags/Format by context/_Define"
-msgstr "/Etiquetas/Formataçãopor contexto/_Definir"
+msgstr "/標記(T)/上下文格式(O)/定義(_D)"
 
-# src/menu.c:357
 #: ../src/menu.c:533
 msgid "/Tags/Format by context/_Code"
-msgstr "/Etiquetas/Formatação por contexto/_Código"
+msgstr "/標記(T)/上下文格式(O)/代碼(_C)"
 
-# src/menu.c:336
 #: ../src/menu.c:534
 msgid "/Tags/Format by context/Sa_mple"
-msgstr "/Etiquetas/Formatação por contexto/A_mostra"
+msgstr "/標記(T)/上下文格式(O)/樣本(_M)"
 
-# src/menu.c:354
 #: ../src/menu.c:535
 msgid "/Tags/Format by context/_Keyboard"
-msgstr "/Etiquetas/Formatação por contexto/Teclado"
+msgstr "/標記(T)/上下文格式(O)/鍵盤(_K)"
 
-# src/menu.c:336
 #: ../src/menu.c:536
 msgid "/Tags/Format by context/_Variable"
-msgstr "/Etiquetas/Formatação por contexto/_Variável"
+msgstr "/標記(T)/上下文格式(O)/變數(_V)"
 
-# src/menu.c:333
 #: ../src/menu.c:537
 msgid "/Tags/Format by context/Ci_tation"
-msgstr "/Etiquetas/Formatação por contexto/Ci_tação"
+msgstr "/標記(T)/上下文格式(O)/引用(_T)"
 
-# src/menu.c:333
 #: ../src/menu.c:538
 msgid "/Tags/Format by context/_Abbreviation"
-msgstr "/Etiquetas/Formatação por contexto/_Abreviatura"
+msgstr "/標記(T)/上下文格式(O)/縮寫(_A)"
 
-# src/menu.c:339
 #: ../src/menu.c:539
 msgid "/Tags/Format by context/Ac_ronym"
-msgstr "/Etiquetas/Formatação por contexto/Ac_rónimo"
+msgstr "/標記(T)/上下文格式(O)/字頭(_R)"
 
-# src/menu.c:354
 #: ../src/menu.c:540
 msgid "/Tags/Format _general"
-msgstr "/Etiquetas/Formatação Geral"
+msgstr "/標記(T)/一般格式(_G)"
 
-# src/menu.c:334
 #: ../src/menu.c:541
 msgid "/Tags/Format general/tearoff1"
-msgstr "/Etiquetas/Formatação Geral/tearoff1"
+msgstr "/標記(T)/一般格式(G)/tearoff1"
 
-# src/menu.c:342
 #: ../src/menu.c:542
 msgid "/Tags/Format general/_Paragraph"
-msgstr "/Etiquetas/Formatação Geral/_Parágrafo"
+msgstr "/標記(T)/一般格式(G)/段落(_P)"
 
-# src/menu.c:343
 #: ../src/menu.c:543
 msgid "/Tags/Format general/_Break"
-msgstr "/Etiquetas/Formatação Geral/Que_bra"
+msgstr "/標記(T)/一般格式(G)/換列(_B)"
 
-# src/menu.c:344
 #: ../src/menu.c:544
 msgid "/Tags/Format general/Break clear _all"
-msgstr "/Etiquetas/Formatação Geral/Limp_ar todas as quebras"
+msgstr "/標記(T)/一般格式(G)/換列清除所有(_A)"
 
-# src/menu.c:345
 #: ../src/menu.c:545
 msgid "/Tags/Format general/_Non-Breaking Space"
-msgstr "/Etiquetas/Formatação Geral/Espaço sem quebra"
+msgstr "/標記(T)/一般格式(G)/不換列空白(_N)"
 
-# src/menu.c:341 src/menu.c:346 src/menu.c:349 src/menu.c:353 src/menu.c:356
 #: ../src/menu.c:546 ../src/menu.c:549 ../src/menu.c:553
 msgid "/Tags/Format general/<separator>"
-msgstr "/Etiquetas/Formatação Geral/<separador>"
+msgstr "/標記(T)/一般格式(G)/<separator>"
 
-# src/menu.c:347
 #: ../src/menu.c:547
 msgid "/Tags/Format general/Font Si_ze +1"
-msgstr "/Etiquetas/Formatação Geral/Tamanho da Fonte +1"
+msgstr "/標記(T)/一般格式(G)/字型大小 +1"
 
-# src/menu.c:348
 #: ../src/menu.c:548
 msgid "/Tags/Format general/Font _Size -1"
-msgstr "/Etiquetas/Formatação Geral/Tamanho da Fonte -1"
+msgstr "/標記(T)/一般格式(G)/字型大小 -1"
 
-# src/menu.c:350
 #: ../src/menu.c:550
 msgid "/Tags/Format general/Preformatted _Text"
-msgstr "/Etiquetas/Formatação Geral/Texto Pré-formatado"
+msgstr "/標記(T)/一般格式(G)/預先已格式化文字(_T)"
 
-# src/menu.c:351
 #: ../src/menu.c:551
 msgid "/Tags/Format general/Su_bscript"
-msgstr "/Etiquetas/Formatação Geral/Su_bscrito"
+msgstr "/標記(T)/一般格式(G)/下標(_B)"
 
-# src/menu.c:352
 #: ../src/menu.c:552
 msgid "/Tags/Format general/Su_perscript"
-msgstr "/Etiquetas/Formatação Geral/Sobrescrito"
+msgstr "/標記(T)/一般格式(G)/上標(_P)"
 
-# src/menu.c:354
 #: ../src/menu.c:554
 msgid "/Tags/Format general/_Center"
-msgstr "/Etiquetas/Formatação Geral/_Centrar"
+msgstr "/標記(T)/一般格式(G)/置中(_C)"
 
-# src/menu.c:355
 #: ../src/menu.c:555
 msgid "/Tags/Format general/Align _right"
-msgstr "/Etiquetas/Formatação Geral/Alinhar à di_reita"
+msgstr "/標記(T)/一般格式(G)/向右對齊(_R)"
 
-# src/menu.c:358
 #: ../src/menu.c:556
 msgid "/Tags/_Table"
-msgstr "/Etiquetas/_Tabela"
+msgstr "/標記(T)/表格(_T)"
 
-# src/menu.c:359
 #: ../src/menu.c:557
 msgid "/Tags/Table/tearoff1"
-msgstr "/Etiquetas/Tabela/tearoff1"
+msgstr "/標記(T)/表格(T)/tearoff1"
 
-# src/menu.c:360
 #: ../src/menu.c:558
 msgid "/Tags/Table/_Table"
-msgstr "/Etiquetas/Tabela/_Tabela"
+msgstr "/標記(T)/表格(T)/表格(_T)"
 
-# src/menu.c:361
 #: ../src/menu.c:559
 msgid "/Tags/Table/Table _Row"
-msgstr "/Etiquetas/Tabela/Linha da Tabela"
+msgstr "/標記(T)/表格(T)/表格列(_R)"
 
-# src/menu.c:362
 #: ../src/menu.c:560
 msgid "/Tags/Table/Table _Header"
-msgstr "/Etiquetas/Tabela/Cabeçalho da Tabela"
+msgstr "/標記(T)/表格(T)/表頭(_H)"
 
-# src/menu.c:363
 #: ../src/menu.c:561
 msgid "/Tags/Table/Table _Data"
-msgstr "/Etiquetas/Tabela/Dados da Tabela"
+msgstr "/標記(T)/表格(T)/表格資料(_D)"
 
-# src/menu.c:364
 #: ../src/menu.c:562
 msgid "/Tags/Table/Table _Caption"
-msgstr "/Etiquetas/Tabela/Legenda da Tabela"
+msgstr "/標記(T)/表格(T)/表格標題(_C)"
 
-# src/menu.c:365
 #: ../src/menu.c:563
 msgid "/Tags/_List"
-msgstr "/Etiquetas/_Lista"
+msgstr "/標記(T)/列表(_L)"
 
-# src/menu.c:366
 #: ../src/menu.c:564
 msgid "/Tags/List/tearoff1"
-msgstr "/Etiquetas/Lista/tearoff1"
+msgstr "/標記(T)/列表(L)/tearoff1"
 
-# src/menu.c:367
 #: ../src/menu.c:565
 msgid "/Tags/List/Unordered _List"
-msgstr "/Etiquetas/Lista/_Lista Desordenada"
+msgstr "/標記(T)/列表(L)/無序列表(_L)"
 
-# src/menu.c:368
 #: ../src/menu.c:566
 msgid "/Tags/List/_Ordered List"
-msgstr "/Etiquetas/Lista/Lista Ordenada"
+msgstr "/標記(T)/列表(L)/有序列表(_O)"
 
-# src/menu.c:369
 #: ../src/menu.c:567
 msgid "/Tags/List/List Ite_m"
-msgstr "/Etiquetas/Lista/Ite_m da Lista"
+msgstr "/標記(T)/列表(L)/列表項目(_M)"
 
-# src/menu.c:370
 #: ../src/menu.c:568
 msgid "/Tags/List/De_finition List"
-msgstr "/Etiquetas/Lista/Lista de De_finição"
+msgstr "/標記(T)/列表(L)/定義列表(_F)"
 
-# src/menu.c:371
 #: ../src/menu.c:569
 msgid "/Tags/List/Definition _Term"
-msgstr "/Etiquetas/Lista/_Termo de Definição"
+msgstr "/標記(T)/列表(L)/名辭定義(_T)"
 
-# src/menu.c:372
 #: ../src/menu.c:570
 msgid "/Tags/List/_Definition"
-msgstr "/Etiquetas/Lista/_Definição"
+msgstr "/標記(T)/列表(L)/定義(_D)"
 
-# src/menu.c:373
 #: ../src/menu.c:571
 msgid "/Tags/List/Men_u"
-msgstr "/Etiquetas/Lista/Men_u"
+msgstr "/標記(T)/列表(L)/選單(_U)"
 
-# src/menu.c:415
 #: ../src/menu.c:572
 msgid "/Tags/Fo_rm"
-msgstr "/Etiquetas/Fo_rmulário"
+msgstr "/標記(T)/表單(_R)"
 
-# src/menu.c:416
 #: ../src/menu.c:573
 msgid "/Tags/Form/tearoff1"
-msgstr "/Etiquetas/Formulário/tearoff1"
+msgstr "/標記(T)/表單(R)/tearoff1"
 
-# src/menu.c:417
 #: ../src/menu.c:574
 msgid "/Tags/Form/_Form"
-msgstr "/Etiquetas/Formulário/_Formulário..."
+msgstr "/標記(T)/表單(R)/表單(_F)"
 
-# src/menu.c:423
 #: ../src/menu.c:575
 msgid "/Tags/Form/_Button"
-msgstr "/Etiquetas/Formulário/_Botão"
+msgstr "/標記(T)/表單(R)/按鈕(_B)"
 
-# src/menu.c:423
 #: ../src/menu.c:576
 msgid "/Tags/Form/_Input"
-msgstr "/Etiquetas/Formulário/_Entrada"
+msgstr "/標記(T)/表單(R)/輸入(_I)"
 
-# src/menu.c:422
 #: ../src/menu.c:577
 msgid "/Tags/Form/_Textarea"
-msgstr "/Etiquetas/Formulário/Área de _Texto..."
+msgstr "/標記(T)/表單(R)/文字區(_T)"
 
-# src/menu.c:365
 #: ../src/menu.c:579
 msgid "/Tags/_Misc"
-msgstr "/Etiquetas/_Várias"
+msgstr "/標記(T)/其他(_M)"
 
-# src/menu.c:366
 #: ../src/menu.c:580
 msgid "/Tags/Misc/tearoff1"
-msgstr "/Etiquetas/Vários/tearoff1"
+msgstr "/標記(T)/其他(M)/tearoff1"
 
-# src/menu.c:376
 #: ../src/menu.c:581
 msgid "/Tags/Misc/Insert Generator _META-Tag"
-msgstr "/Etiquetas/Vários/Inserir Gerador _META-etiqueta"
+msgstr "/標記(T)/其他(M)/插入產生器 _META 標記"
 
-# src/menu.c:147
 #: ../src/menu.c:582
 msgid "/Tags/Misc/_Span"
-msgstr "/Etiquetas/Vários/_Span"
+msgstr "/標記(T)/其他(M)/_Span"
 
-# src/menu.c:372
 #: ../src/menu.c:583
 msgid "/Tags/Misc/_Div"
-msgstr "/Etiquetas/Vários/_Div"
+msgstr "/標記(T)/其他(M)/_Div"
 
-# src/menu.c:365
 #: ../src/menu.c:584
 msgid "/Tags/Misc/_Link"
-msgstr "/Etiquetas/Vários/_Ligação"
+msgstr "/標記(T)/其他(M)/連結(_L)"
 
-# src/menu.c:365
 #: ../src/menu.c:585
 msgid "/Tags/Misc/S_cript"
-msgstr "/Etiquetas/Vários/S_cript"
+msgstr "/標記(T)/其他(M)/S_cript"
 
-# src/menu.c:372
 #: ../src/menu.c:586
 msgid "/Tags/Misc/_Anchor"
-msgstr "/Etiquetas/Vários/_Âncora"
+msgstr "/標記(T)/其他(M)/錨(_A)"
 
-# src/menu.c:358
 #: ../src/menu.c:587
 msgid "/Tags/Misc/_Image"
-msgstr "/Etiquetas/Vários/_Imagem"
+msgstr "/標記(T)/其他(M)/圖像(_I)"
 
-# src/menu.c:357
 #: ../src/menu.c:589
 msgid "/Tags/_Comment"
-msgstr "/Etiquetas/_Comentário"
+msgstr "/標記(T)/註解(_C)"
 
-# src/menu.c:377
 #: ../src/menu.c:590
 msgid "/Dial_ogs"
-msgstr "/Diál_ogos"
+msgstr "/對話(_O)"
 
-# src/menu.c:378
 #: ../src/menu.c:591
 msgid "/Dialogs/tearoff1"
-msgstr "/Diálogos/tearoff1"
+msgstr "/對話(O)/tearoff1"
 
-# src/menu.c:379
 #: ../src/menu.c:592
 msgid "/Dialogs/_General"
-msgstr "/Diálogos/_Geral"
+msgstr "/對話(O)/一般(_G)"
 
-# src/menu.c:380
 #: ../src/menu.c:593
 msgid "/Dialogs/General/tearoff1"
-msgstr "/Diálogos/Geral/tearoff1"
+msgstr "/對話(O)/一般(G)/tearoff1"
 
-# src/menu.c:381
 #: ../src/menu.c:594
 msgid "/Dialogs/General/_Quickstart..."
-msgstr "/Diálogos/Geral/Início Rápido..."
+msgstr "/對話(O)/一般(G)/快速啟動(_Q)..."
 
-# src/menu.c:384
 #: ../src/menu.c:597
 msgid "/Dialogs/General/_Body..."
-msgstr "/Diálogos/Geral/Corpo..."
+msgstr "/對話(O)/一般(G)/本體(_B)..."
 
-# src/menu.c:385
 #: ../src/menu.c:598
 msgid "/Dialogs/General/_Anchor..."
-msgstr "/Diálogos/Geral/Âncora..."
+msgstr "/對話(O)/一般(G)/錨(_A)..."
 
-# src/menu.c:386
 #: ../src/menu.c:599
 msgid "/Dialogs/General/_Email..."
-msgstr "/Diálogos/Geral/_Email..."
+msgstr "/對話(O)/一般(G)/電子郵件(_E)..."
 
-# src/menu.c:387
 #: ../src/menu.c:600
 msgid "/Dialogs/General/_Rule..."
-msgstr "/Diálogos/Geral/_Régua..."
+msgstr "/對話(O)/一般(G)/橫線(_R)..."
 
-# src/menu.c:388
 #: ../src/menu.c:601
 msgid "/Dialogs/General/_Font..."
-msgstr "/Diálogos/Geral/_Fonte..."
+msgstr "/對話(O)/一般(G)/字型(_F)..."
 
-# src/menu.c:389
 #: ../src/menu.c:602
 msgid "/Dialogs/General/Basef_ont..."
-msgstr "/Diálogos/Geral/F_onte Base"
+msgstr "/對話(O)/一般(G)/基本字型(_O).."
 
-# src/menu.c:390
 #: ../src/menu.c:603
 msgid "/Dialogs/General/Quick_list..."
-msgstr "/Diálogos/Geral/_Lista Rápida"
+msgstr "/對話(O)/一般(G)/快速列表(_L)..."
 
-# src/menu.c:391
 #: ../src/menu.c:604
 msgid "/Dialogs/General/_Meta..."
-msgstr "/Diálogos/Geral/_Meta"
+msgstr "/對話(O)/一般(G)/_Meta..."
 
-# src/menu.c:392
 #: ../src/menu.c:605
 msgid "/Dialogs/General/Embe_d..."
-msgstr "/Diálogos/Geral/Embuti_do..."
+msgstr "/對話(O)/一般(G)/嵌入(_D)..."
 
-# src/menu.c:393
 #: ../src/menu.c:606
 msgid "/Dialogs/General/Select _Color..."
-msgstr "/Diálogos/Geral/Seleccionar _Cor..."
+msgstr "/對話(O)/一般(G)/選擇顏色(_C)..."
 
-# src/menu.c:394
 #: ../src/menu.c:607
 msgid "/Dialogs/General/Insert _Time..."
-msgstr "/Diálogos/Geral/Inserir Hora..."
+msgstr "/對話(O)/一般(G)/插入時間(_T)..."
 
-# src/menu.c:395
 #: ../src/menu.c:608
 msgid "/Dialogs/General/Insert _Image..."
-msgstr "/Diálogos/Geral/Inserir Imagem..."
+msgstr "/對話(O)/一般(G)/插入圖像(_I)..."
 
-# src/menu.c:396
 #: ../src/menu.c:609
 msgid "/Dialogs/General/Insert T_humbnail..."
-msgstr "/Diálogos/Geral/Inserir Miniatura..."
+msgstr "/對話(O)/一般(G)/插入略圖(_H)..."
 
-# src/menu.c:397
 #: ../src/menu.c:610
 msgid "/Dialogs/_Table"
-msgstr "/Diálogos/_Tabela"
+msgstr "/對話(O)/表格(_T)"
 
-# src/menu.c:398
 #: ../src/menu.c:611
 msgid "/Dialogs/Table/tearoff1"
-msgstr "/Diálogos/Tabela/tearoff1"
+msgstr "/對話(O)/表格(T)/tearoff1"
 
-# src/menu.c:401
 #: ../src/menu.c:612
 msgid "/Dialogs/Table/Table _Wizard..."
-msgstr "/Diálogos/Tabela/Assistente de Tabela..."
+msgstr "/對話(O)/表格(T)/表格精靈(_W)..."
 
-# src/menu.c:399
 #: ../src/menu.c:613
 msgid "/Dialogs/Table/_Table..."
-msgstr "/Diálogos/Tabela/_Tabela..."
+msgstr "/對話(O)/表格(T)/表格(_T)..."
 
-# src/menu.c:400
 #: ../src/menu.c:614
 msgid "/Dialogs/Table/Table _Row..."
-msgstr "/Diálogos/Tabela/Linha da Tabela..."
+msgstr "/對話(O)/表格(T)/表格列(_R)..."
 
-# src/menu.c:401
 #: ../src/menu.c:615
 msgid "/Dialogs/Table/Table _Head..."
-msgstr "/Diálogos/Tabela/Cabeçalho da Tabela..."
+msgstr "/對話(O)/表格(T)/表頭(_H)..."
 
-# src/menu.c:402
 #: ../src/menu.c:616
 msgid "/Dialogs/Table/Table _Data..."
-msgstr "/Diálogos/Tabela/_Dados da Tabela..."
+msgstr "/對話(O)/表格(T)/表格資料(_D)..."
 
-# src/menu.c:403
 #: ../src/menu.c:617
 msgid "/Dialogs/_CSS"
-msgstr "/Diálogos/_CSS"
+msgstr "/對話(O)/_CSS"
 
-# src/menu.c:404
 #: ../src/menu.c:618
 msgid "/Dialogs/CSS/tearoff1"
-msgstr "/Diálogos/CSS/tearoff1"
+msgstr "對話框/CSS/tearoff1"
 
-# src/menu.c:405
 #: ../src/menu.c:619
 msgid "/Dialogs/CSS/_Create Style..."
-msgstr "/Diálogos/CSS/_Criar Estilo..."
+msgstr "/對話(O)/CSS/建立樣式表(_C)..."
 
-# src/menu.c:406
 #: ../src/menu.c:620
 msgid "/Dialogs/CSS/S_pan..."
-msgstr "/Diálogos/CSS/Espaço..."
+msgstr "/對話(O)/CSS/S_pan..."
 
-# src/menu.c:407
 #: ../src/menu.c:621
 msgid "/Dialogs/CSS/_Div..."
-msgstr "/Diálogos/CSS/_Div..."
+msgstr "/對話(O)/CSS/_Div..."
 
-# src/menu.c:409
 #: ../src/menu.c:622
 msgid "/Dialogs/CSS/_Style..."
-msgstr "/Diálogos/CSS/E_stilo..."
+msgstr "/對話(O)/CSS/樣式(_S)..."
 
-# src/menu.c:410
 #: ../src/menu.c:623
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
-msgstr "/Diálogos/CSS/_Ligação para a Página de Estilos..."
+msgstr "/對話(O)/CSS/連結到樣式表(_L)..."
 
-# src/menu.c:411
 #: ../src/menu.c:624
 msgid "/Dialogs/_Frame"
-msgstr "/Diálogos/_Frame"
+msgstr "/對話(O)/框架(_F)"
 
-# src/menu.c:412
 #: ../src/menu.c:625
 msgid "/Dialogs/Frame/tearoff1"
-msgstr "/Diálogos/Frame/tearoff1"
+msgstr "/對話(O)/框架(F)/tearoff1"
 
-# src/menu.c:414
 #: ../src/menu.c:626
 msgid "/Dialogs/Frame/Frame _Wizard..."
-msgstr "/Diálogos/Frame/Assistente de Frame..."
+msgstr "/對話(O)/框架(F)/框架精靈(_W)..."
 
-# src/menu.c:413
 #: ../src/menu.c:627
 msgid "/Dialogs/Frame/Frame_set..."
-msgstr "/Diálogos/Frame/Frame_set..."
+msgstr "/對話(O)/框架(F)/框架組(_S)..."
 
-# src/menu.c:414
 #: ../src/menu.c:628
 msgid "/Dialogs/Frame/_Frame..."
-msgstr "/Diálogos/Frame/_Frame..."
+msgstr "/對話(O)/框架(F)/框架(_F)..."
 
-# src/menu.c:415
 #: ../src/menu.c:629
 msgid "/Dialogs/F_orm"
-msgstr "/Diálogos/F_ormulário"
+msgstr "/對話(O)/表單(_O)"
 
-# src/menu.c:416
 #: ../src/menu.c:630
 msgid "/Dialogs/Form/tearoff1"
-msgstr "/Diálogos/Formulário/tearoff1"
+msgstr "/對話(O)/表單(O)/tearoff1"
 
-# src/menu.c:417
 #: ../src/menu.c:631
 msgid "/Dialogs/Form/F_orm..."
-msgstr "/Diálogos/Formulário/F_ormulário..."
+msgstr "/對話(O)/表單(O)/表單(_O)..."
 
-# src/menu.c:423
 #: ../src/menu.c:632
 msgid "/Dialogs/Form/_Input..."
-msgstr "/Diálogos/Formulário/_Entrada"
+msgstr "/對話(O)/表單(O)/輸入(_I)..."
 
-# src/menu.c:423
 #: ../src/menu.c:633
 msgid "/Dialogs/Form/Input Buttons..."
-msgstr "/Diálogos/Formulário/Botões de entrada"
+msgstr "/對話(O)/表單(O)/輸入按鈕..."
 
-# src/menu.c:420
 #: ../src/menu.c:634
 msgid "/Dialogs/Form/Input Text..."
-msgstr "/Diálogos/Formulário/Texto de Entrada..."
+msgstr "/對話(O)/表單(O)/輸入文字..."
 
-# src/menu.c:422
 #: ../src/menu.c:635
 msgid "/Dialogs/Form/Text_area..."
-msgstr "/Diálogos/Formulário/Áre_a de Texto..."
+msgstr "/對話(O)/表單(O)/文字區(_A)..."
 
-# src/menu.c:425
 #: ../src/menu.c:636
 msgid "/Dialogs/Form/_Select..."
-msgstr "/Diálogos/Formulário/_Seleccionar..."
+msgstr "/對話(O)/表單(O)/選擇(_S)..."
 
-# src/menu.c:426
 #: ../src/menu.c:637
 msgid "/Dialogs/Form/O_ption..."
-msgstr "/Diálogos/Formulário/O_pções..."
+msgstr "/對話(O)/表單(O)/選項(_O)..."
 
-# src/menu.c:426
 #: ../src/menu.c:638
 msgid "/Dialogs/Form/Option _Group..."
-msgstr "/Diálogos/Formulário/_Grupo de opção"
+msgstr "/對話(O)/表單(O)/選項組(_G)..."
 
-# src/menu.c:423
 #: ../src/menu.c:639
 msgid "/Dialogs/Form/_Button..."
-msgstr "/Diálogos/Formulário/_Botão"
+msgstr "/對話(O)/表單(O)/按鈕(_B)..."
 
-# src/menu.c:378
 #: ../src/menu.c:666
 msgid "/Dialogs/sep1"
-msgstr "/Diálogos/sep1"
+msgstr "/對話(O)/sep1"
 
 #: ../src/menu.c:667
 msgid "/Dialogs/_Edit tag under cursor..."
-msgstr "/Diálogos/_Editar etiqueta por baixo do cursor..."
+msgstr "/對話(O)/編輯游標所在的標記(_E)..."
 
-# src/configure.c:428 src/interface.c:783 src/interface.c:936
 #: ../src/menu.c:668
 msgid "/_Document"
-msgstr "/_Documento"
+msgstr "/文件(_D)"
 
-# src/menu.c:125
 #: ../src/menu.c:669
 msgid "/Document/tearoff1"
-msgstr "/Documento/tearoff1"
+msgstr "/文件(D)/tearoff1"
 
-# src/menu.c:465
 #: ../src/menu.c:670
 msgid "/Document/_Increase Tabsize"
-msgstr "/Documento/Aumentar tabulação"
+msgstr "/文件(D)/增加 Tab 大小(_I)"
 
-# src/menu.c:465
 #: ../src/menu.c:671
 msgid "/Document/_Decrease Tabsize"
-msgstr "/Documento/Diminuir tabulação"
+msgstr "/文件(D)/減少 Tab 大小(_D)"
 
-# src/menu.c:466
 #: ../src/menu.c:672
 msgid "/Document/_Auto Indent"
-msgstr "/Documento/_Auto Indentar"
+msgstr "/文件(D)/自動縮排(_A)"
 
-# src/configure.c:428 src/interface.c:783 src/interface.c:936
 #: ../src/menu.c:673
 msgid "/Document/sep1"
-msgstr "/Documento/sep1"
+msgstr "/文件(D)/sep1"
 
-# src/menu.c:466
 #: ../src/menu.c:674
 msgid "/Document/Auto Close H_TML tags"
-msgstr "/Documento/Fechar Automaticamente Etiq. H_TML"
+msgstr "/文件(D)/自動關閉 HTML 標記(_T)"
 
 #: ../src/menu.c:675
 msgid "/Document/_Wrap"
-msgstr "/Documento/Justificar"
+msgstr "/文件(D)/自動換列(_W)"
 
-# src/html_form.c:132 src/wml.c:271
 #: ../src/menu.c:676
 msgid "/Document/_Line Numbers"
-msgstr "/Documento/Número de _Linhas"
+msgstr "/文件(D)/列號(_L)"
 
-# src/configure.c:428 src/interface.c:783 src/interface.c:936
 #: ../src/menu.c:677
 msgid "/Document/sep2"
-msgstr "/Documento/sep2"
+msgstr "/文件(D)/sep2"
 
-# src/highlight.c:429 src/interface.c:213 src/menu.c:122
 #: ../src/menu.c:678
 msgid "/Document/_Highlight Syntax"
-msgstr "/Documento/Destacar sintaxe"
+msgstr "/文件(D)/語法識別(_H)"
 
-# src/menu.c:123
 #: ../src/menu.c:679
 msgid "/Document/_Update Highlighting"
-msgstr "/Documento/Actualizar destaque"
+msgstr "/文件(D)/更新語法識別(_U)"
 
-# src/configure.c:428 src/interface.c:783 src/interface.c:936
 #: ../src/menu.c:680
 msgid "/Document/sep3"
-msgstr "/Documento/sep3"
+msgstr "/文件(D)/sep3"
 
-# src/html_form.c:132 src/wml.c:271
 #: ../src/menu.c:681
 msgid "/Document/Document Ty_pe"
-msgstr "/Documento/Ti_po de Documento"
+msgstr "/文件(D)/檔案類型(_P)"
 
-# src/menu.c:136
 #: ../src/menu.c:682
 msgid "/Document/Document Type/tearoff1"
-msgstr "/Documento/Tipo do Documento/tearoff1"
+msgstr "/文件(D)/檔案類型/tearoff1"
 
-# src/configure.c:474
 #: ../src/menu.c:683
 msgid "/Document/Character _Encoding"
-msgstr "/Documento/Codificação dos Caract_eres"
+msgstr "/文件(D)/字元編碼(_E)"
 
 #: ../src/menu.c:684
 msgid "/Document/Character Encoding/tearoff1"
-msgstr "/Documento/Codificação dos Caracteres/tearoff1"
+msgstr "/文件(D)/字元編碼/tearoff1"
 
-# src/configure.c:428 src/interface.c:783 src/interface.c:936
 #: ../src/menu.c:685
 msgid "/Document/sep4"
-msgstr "/Documento/sep4"
+msgstr "/文件(D)/sep4"
 
-# src/configure.c:474
 #: ../src/menu.c:687
 msgid "/Document/Check _Spelling..."
-msgstr "/Documento/Verificação Ortográfica..."
+msgstr "/文件(D)/拼字檢查(_S)..."
 
-# src/configure.c:474
 #: ../src/menu.c:689
 msgid "/Document/_Floating window"
-msgstr "/Documento/Janela Flutuante"
+msgstr "/文件(D)/浮動視窗(_F)"
 
-# src/menu.c:90
 #: ../src/menu.c:690
 msgid "/Document/Word _Count"
-msgstr "/Documento/_Contar palavras"
+msgstr "/文件(D)/字數統計(_C)"
 
 #: ../src/menu.c:691
 msgid "/_Go"
-msgstr "/Ir"
+msgstr "/衝(_G)"
 
-# src/menu.c:70
 #: ../src/menu.c:692
 msgid "/Go/tearoff1"
-msgstr "/Ir/tearoff1"
+msgstr "/衝(G)/tearoff1"
 
 #: ../src/menu.c:693
 msgid "/Go/_Previous document"
-msgstr "/Ir/Documento anterior"
+msgstr "/衝(G)/前一文件(_P)"
 
-# src/configure.c:428 src/interface.c:783 src/interface.c:936
 #: ../src/menu.c:694
 msgid "/Go/_Next document"
-msgstr "/Ir/Próximo docume_nto"
+msgstr "/衝(G)/下一文件(_N)"
 
-# src/configure.c:428 src/interface.c:783 src/interface.c:936
 #: ../src/menu.c:695 ../src/menu.c:698
 msgid "/Go/sep1"
-msgstr "/Ir/sep1"
+msgstr "/衝(G)/sep1"
 
-# src/menu.c:133
 #: ../src/menu.c:696
 msgid "/Go/_First document"
-msgstr "/Ir/Primeiro documento"
+msgstr "/衝(G)/第一個文件(_F)"
 
-# src/configure.c:428 src/interface.c:783 src/interface.c:936
 #: ../src/menu.c:697
 msgid "/Go/L_ast document"
-msgstr "/Ir/Último documento"
+msgstr "/衝(G)/最後一個文件(_A)"
 
-# src/menu.c:95
 #: ../src/menu.c:699
 msgid "/Go/Goto _Line"
-msgstr "/Ir/Para a _Linha"
+msgstr "/衝(G)/跳到列(_L)"
 
-# src/menu.c:95
 #: ../src/menu.c:700
 msgid "/Go/Goto _Selection"
-msgstr "/Ir/Para a _Selecção"
+msgstr "/衝(G)/跳到選擇(_S)"
 
 #: ../src/menu.c:701
 msgid "/_Project"
-msgstr "/_Projecto"
+msgstr "/專案(_P)"
 
-# src/menu.c:125
 #: ../src/menu.c:702
 msgid "/Project/tearoff1"
-msgstr "/Projecto/tearoff1"
+msgstr "/專案(P)/tearoff1"
 
-# src/menu.c:74
 #: ../src/menu.c:703
 msgid "/Project/_New Project"
-msgstr "/Projecto/_Novo Projecto"
+msgstr "/專案(P)/新增專案(_N)"
 
-# src/menu.c:74
 #: ../src/menu.c:704
 msgid "/Project/_Open Project..."
-msgstr "/Projecto/Abrir Projecto..."
+msgstr "/專案(P)/開啟專案(_O)..."
 
-# src/menu.c:74
 #: ../src/menu.c:705
 msgid "/Project/Open _recent"
-msgstr "/Projecto/Abrir _recente"
+msgstr "/專案(P)/開啟最近的(_R)"
 
-# src/menu.c:74
 #: ../src/menu.c:706
 msgid "/Project/Open recent/tearoff1"
-msgstr "/Projecto/Abrir recente/tearoff1"
+msgstr "/專案(P)/開啟最近的(E)/tearoff1"
 
 #: ../src/menu.c:707
 msgid "/Project/sep1"
-msgstr "/Projecto/sep1"
+msgstr "/專案(P)/sep1"
 
 #: ../src/menu.c:708
 msgid "/Project/_Save"
-msgstr "/Projecto/_Gravar"
+msgstr "/專案(P)/儲存(_S)"
 
 #: ../src/menu.c:709
 msgid "/Project/Save _as..."
-msgstr "/Projecto/Gravar como..."
+msgstr "/專案(P)/另存為(_A)..."
 
 #: ../src/menu.c:710
 msgid "/Project/Save & _close"
-msgstr "/Projecto/Gravar & fe_char"
+msgstr "/專案(P)/儲存並關閉(_C)..."
 
 #: ../src/menu.c:711
 msgid "/Project/sep2"
-msgstr "/Projecto/sep2"
+msgstr "/專案(P)/sep2"
 
 #: ../src/menu.c:712
 msgid "/Project/E_dit Project Options..."
-msgstr "/Projecto/Editar Opções do Projecto"
+msgstr "/專案(P)/編輯專案選項(_D)..."
 
 #: ../src/menu.c:713
 msgid "/E_xternal"
-msgstr "/E_xterno"
+msgstr "/外部(_X)"
 
 #: ../src/menu.c:714
 msgid "/External/tearoff1"
-msgstr "/Externo/tearoff1"
+msgstr "/外部(X)/tearoff1"
 
 #: ../src/menu.c:720
 msgid "/_Help"
-msgstr "/_Ajuda"
+msgstr "/求助(_H)"
 
 #: ../src/menu.c:721
 msgid "/Help/_About..."
-msgstr "/Ajuda/_Sobre..."
+msgstr "/幫助(H)/關於(_A)..."
 
-# src/html_form.c:132 src/wml.c:271
 #: ../src/menu.c:883
 msgid "/Document/Document Type"
-msgstr "/Documento/Tipo do Documento"
+msgstr "/檔案(D)/檔案類型"
 
-# src/document.c:1091
 #: ../src/menu.c:1000
 msgid "Loading file(s)..."
-msgstr "Carregar ficheiro(s)..."
+msgstr "載入檔案..."
 
-# src/document.c:1347 src/document.c:1547
 #: ../src/menu.c:1004
 msgid "The filename was:\n"
-msgstr "O nome do ficheiro era:\n"
+msgstr "檔名為:\n"
 
-# src/document.c:1004
 #: ../src/menu.c:1005
 msgid "Could not open file\n"
-msgstr "Não foi possível abrir o ficheiro\n"
+msgstr "無法開啟檔案\n"
 
-# src/menu.c:74
 #: ../src/menu.c:1028
 msgid "/Project/Open recent"
-msgstr "/Projecto/Abrir recente"
+msgstr "/專案(P)/開啟最近的"
 
-# src/menu.c:74
 #: ../src/menu.c:1032
 msgid "/File/Open recent"
-msgstr "/Ficheiro/Abrir recente"
+msgstr "/檔案(F)/開啟最近的"
 
 #: ../src/menu.c:1211
 msgid "/Windows"
-msgstr "/Janelas"
+msgstr "/視窗"
 
 #: ../src/menu.c:1277
 msgid "Could not view file in browser, the file does not yet have a name\n"
-msgstr ""
-"Não pode visualizar o ficheiro no navegador, o ficheiro ainda não tem um "
-"nome\n"
+msgstr "這個檔案尚未命名, 無法在瀏覽器中顯示\n"
 
-# src/menu.c:454
 #: ../src/menu.c:1412
 msgid "/External/Outputbox/"
-msgstr "/Externo/Caixa de Saída/"
+msgstr "/外部(X)/輸出視窗/"
 
 #: ../src/menu.c:1415
 msgid "/External/Commands/"
-msgstr "/Externo/Comandos/"
+msgstr "/外部(X)/命令/"
 
 #: ../src/menu.c:1418
 msgid "/External/Browsers/"
-msgstr "/Externo/Navegadores/"
+msgstr "/外部(X)/瀏覽器/"
 
 #: ../src/menu.c:1423 ../src/menu.c:1438 ../src/menu.c:1457 ../src/menu.c:1473
 #: ../src/menu.c:1486 ../src/menu.c:1508
 msgid "/External"
-msgstr "/Externo"
+msgstr "/外部程式(X)"
 
 #: ../src/menu.c:1436
 msgid "/External/Browsers"
-msgstr "/Externo/Navegadores"
+msgstr "/外部(X)/瀏覽器"
 
 #: ../src/menu.c:1471
 msgid "/External/Commands"
-msgstr "/Externo/Comandos"
+msgstr "/外部(X)/命令"
 
 #: ../src/menu.c:1506
 msgid "/External/Outputbox"
-msgstr "/Externo/Caixa de Saída"
+msgstr "/外部(X)/輸出視窗"
 
-# src/configure.c:474
 #: ../src/menu.c:1552
 msgid "/Document/Character Encoding"
-msgstr "/Documento/Codificação de Caracteres"
+msgstr "/檔案(D)/字元編碼"
 
 #: ../src/menu.c:1818
 msgid "This custom search and replace requires a selection"
-msgstr "Essa procura e substituição personalizada precisa de uma selecção "
+msgstr "自定搜尋和取代需要先做選擇"
 
-# src/menu.c:1177
 #: ../src/menu.c:1915
 msgid "/_Custom menu"
-msgstr "/Menu Personalizado"
+msgstr "/自定選單(_C)"
 
-# src/menu.c:1178
 #: ../src/menu.c:1916
 msgid "/Custom menu/sep"
-msgstr "/Menu Personalizado/sep"
+msgstr "/自定選單(C)/sep"
 
-# src/menu.c:1179
 #: ../src/menu.c:1917
 msgid "/Custom menu/Edit custom menu..."
-msgstr "/Menu Personalizado/Editar Menu Personalizado..."
+msgstr "/自定選單(C)/編輯自定選單..."
 
-# src/menu.c:1178
 #: ../src/menu.c:1918
 msgid "/Custom menu/Reset"
-msgstr "/Menu Personalizado/Redefinir"
+msgstr "/自定選單(C)/重置"
 
-# src/menu.c:1178
 #: ../src/menu.c:1919
 msgid "/Custom menu/Load new"
-msgstr "/Menu Personalizado/Carregar novo"
+msgstr "/自定選單(C)/載入新的"
 
-# src/snr2.c:654 src/toolbars.c:111
 #: ../src/menu.c:2135
 msgid "Search Pattern"
-msgstr "Procurar Padrão"
+msgstr "搜尋樣式"
 
-# src/snr2.c:706
 #: ../src/menu.c:2136
 msgid "Replace String"
-msgstr "Substituir texto"
+msgstr "取代字元串"
 
-# src/menu.c:1127
 #: ../src/menu.c:2139
 msgid "Formatstring Before"
-msgstr "String de Formatação anterior"
+msgstr "在格式字串前"
 
-# src/menu.c:1132
 #: ../src/menu.c:2140
 msgid "Formatstring After"
-msgstr "String de Formatação posterior"
+msgstr "在格式字串後"
 
 #: ../src/menu.c:2187
 msgid "The menupath you want to update does not exist yet"
-msgstr "o caminho do menu que quer actualizar ainda não existe"
+msgstr "您要更新的選單路徑並未存在"
 
 #: ../src/menu.c:2187
 msgid "Try 'add' instead."
-msgstr "Tente usar 'add'"
+msgstr "試著換用“新增”."
 
 #: ../src/menu.c:2189
 msgid "The menupath you want to add already exists."
-msgstr "O caminho do menu que quer adicionar já existe."
+msgstr "您要新增的選單路徑已存在."
 
 #: ../src/menu.c:2194
 msgid "The menupath should start with a / character"
-msgstr "O caminho do menu deve começar com o caractere /"
+msgstr "選單路徑要以 / 開頭"
 
-# src/menu.c:1177
 #: ../src/menu.c:2356
 msgid "Custom Menu Editor"
-msgstr "Editor de Menu Personalizado"
+msgstr "編輯自定選單"
 
 #: ../src/menu.c:2367
 msgid "Add New Menu Entry"
-msgstr "Adicionar Nova Entrada no Menu"
+msgstr "新增新的選單項次"
 
 #: ../src/menu.c:2369
 msgid "Apply Changes"
-msgstr "Aplicar Mudanças"
+msgstr "套用更改"
 
 #: ../src/menu.c:2371
 msgid "Delete Menu Entry"
-msgstr "Apagar Entrada do Menu"
+msgstr "刪除選單項"
 
 #: ../src/menu.c:2374
 msgid "Close Discards Changes"
-msgstr "Fechar e Desacartar Mudanças"
+msgstr "不儲存並關閉"
 
 #: ../src/menu.c:2376
 msgid "Save Changes and Exit"
-msgstr "Gravar Mudanças e Sair"
+msgstr "儲存更改並離開"
 
-# src/menu.c:1083
 #: ../src/menu.c:2386
 msgid "_Menu Path:"
-msgstr "Caminho do _Menu:"
+msgstr "選單路徑(_M):"
 
-# src/menu.c:1083
 #: ../src/menu.c:2407
 msgid "Menu path"
-msgstr "Caminho do Menu"
+msgstr "選單路徑"
 
-# src/menu.c:1101
 #: ../src/menu.c:2427
 msgid "Number of _Variables:"
-msgstr "Número de _variáveis"
+msgstr "變數個數(_V):"
 
-# src/menu.c:1106
 #: ../src/menu.c:2435
 msgid "Variables"
-msgstr "Variáveis"
+msgstr "變數"
 
-# src/wml.c:239
 #: ../src/menu.c:2454
 msgid "Custom Dialo_g"
-msgstr "Diálo_go personalizado"
+msgstr "自定對話盒(_G)"
 
-# src/toolbars.c:114
 #: ../src/menu.c:2456
 msgid "Custom Replace"
-msgstr "Substituição personalizada"
+msgstr "自定取代(_S)"
 
-# src/snr2.c:651 src/snr2.c:688
 #: ../src/menu.c:2468
 msgid "_Replace:"
-msgstr "Substitui_r:"
+msgstr "取代(_R):"
 
-# src/menu.c:133
 #: ../src/menu.c:2471
 msgid "in current document"
-msgstr "no documento actual"
+msgstr "在目前文件"
 
 #: ../src/menu.c:2471
 msgid "from cursor"
-msgstr "do cursor"
+msgstr "從游標開始"
 
-# src/snr2.c:681
 #: ../src/menu.c:2471
 msgid "in selection"
-msgstr "na selecção"
+msgstr "在選中內容"
 
-# src/menu.c:134
 #: ../src/menu.c:2471
 msgid "in all open documents"
-msgstr "em todos documentos abertos"
+msgstr "在所有開啟的文件中"
 
-# src/html.c:1202 src/html.c:1279
 #: ../src/menu.c:2479
 msgid "Matc_hing:"
-msgstr "Coincidir:"
+msgstr "比對(_H):"
 
 #: ../src/menu.c:2482
 msgid "normal"
-msgstr "normal"
+msgstr "正常的"
 
-# src/snr2.c:685
 #: ../src/menu.c:2482
 msgid "posix regular expressions"
-msgstr "expressões regulares posix"
+msgstr "posix 正規式"
 
-# src/snr2.c:685
 #: ../src/menu.c:2482
 msgid "perl regular expressions"
-msgstr "expressões regulares perl"
+msgstr "perl 正規式"
 
-# src/snr2.c:684
 #: ../src/menu.c:2488
 msgid "Case Se_nsitive"
-msgstr "Sensível a Maiúsculo/Minúsculo"
+msgstr "區分大小寫(_N)"
 
 #: ../src/msg_queue.c:233
 msgid "These files were not opened:\n"
-msgstr "Estes ficheiros não foram abertos:\n"
+msgstr "這些檔案沒有被開啟:\n"
 
-# src/document.c:1166
 #: ../src/preferences.c:202
 msgid "Untitled"
-msgstr "Sem título"
+msgstr "無標題"
 
-# src/html_form.c:427
 #: ../src/preferences.c:302
 msgid "Select font"
-msgstr "Seleccionar fonte"
+msgstr "選擇字型"
 
-# src/html_form.c:484 src/wml.c:319
 #: ../src/preferences.c:625 ../src/preferences.c:809 ../src/preferences.c:1396
 #: ../src/preferences.c:1554
 msgid "Label"
-msgstr "Rótulo"
+msgstr "標記"
 
 #: ../src/preferences.c:626
 msgid "Extensions"
-msgstr "Extensões"
+msgstr "擴充"
 
-# src/stringlist.c:260
 #: ../src/preferences.c:627
 msgid "Update chars"
-msgstr "Actualizar caracteres"
+msgstr "更新字元"
 
 #: ../src/preferences.c:628
 msgid "Icon"
-msgstr "Ícone"
+msgstr "圖示"
 
-# src/rpopup.c:328
 #: ../src/preferences.c:629
 msgid "Editable"
-msgstr "Editável"
+msgstr "可編輯的"
 
-# src/html.c:1369
 #: ../src/preferences.c:630
 msgid "Content regex"
-msgstr "Conteúdo expressão regular"
+msgstr "上下文正規式"
 
 #: ../src/preferences.c:631
 msgid "Auto close tags mode"
-msgstr "Modo de fechar etiquetas automático"
+msgstr "自動關閉標記模式"
 
-# src/configure.c:433
 #: ../src/preferences.c:810
 msgid "Inverse filter"
-msgstr "Filtro inverso"
+msgstr "反轉過濾器"
 
-# src/interface.c:758
 #: ../src/preferences.c:811
 msgid "Filetypes in filter"
-msgstr "Tipo de ficheiros no filtro"
+msgstr "過濾檔案類型"
 
-# src/html2.c:874
 #: ../src/preferences.c:1164
 msgid "filetype"
-msgstr "tipo de ficheiro"
+msgstr "檔案類型"
 
-# src/html.c:648 src/html.c:1180 src/toolbars.c:359
 #: ../src/preferences.c:1169
 msgid "Reset"
-msgstr "Limpar"
+msgstr "重置"
 
-# src/toolbars.c:109
 #: ../src/preferences.c:1175
 msgid "Pattern name"
-msgstr "Nome padrão"
+msgstr "樣式名稱"
 
-# src/toolbars.c:109
 #: ../src/preferences.c:1193 ../src/preferences.c:1742
 msgid "Pattern"
-msgstr "Padrão"
+msgstr "樣式"
 
 #: ../src/preferences.c:1216
 msgid "Start pattern and end pattern"
-msgstr "Padrão inicial e padrão final"
+msgstr "開始樣式和結束樣式"
 
-# src/snr2.c:654 src/toolbars.c:111
 #: ../src/preferences.c:1218
 msgid "Only start pattern"
-msgstr "Só padrão inicial"
+msgstr "只有開始樣式"
 
 #: ../src/preferences.c:1220
 msgid "Subpattern from parent"
-msgstr "Subpadrão do pai"
+msgstr "由樣式中的子樣式"
 
-# src/snr2.c:654 src/toolbars.c:111
 #: ../src/preferences.c:1226
 msgid "Start pattern"
-msgstr "Padrão inicial"
+msgstr "開始樣式"
 
-# src/toolbars.c:109
 #: ../src/preferences.c:1227
 msgid "End pattern"
-msgstr "Padrão final"
+msgstr "結束樣式"
 
-# src/snr2.c:684
 #: ../src/preferences.c:1228
 msgid "Case sensitive matching"
-msgstr "Coincidir Maiúsculo/Minúsculo"
+msgstr "區分大小寫地比對"
 
 #: ../src/preferences.c:1229
 msgid "Parentmatch"
-msgstr "Pai correspondente"
+msgstr "比對上層"
 
-# src/html.c:817 src/html_table.c:103 src/html_table.c:154
-# src/html_table.c:222 src/html_table.c:296
 #: ../src/preferences.c:1230
 msgid "Foreground color"
-msgstr "Cor do primeiro plano"
+msgstr "前景顏色"
 
-# src/html.c:817 src/html_table.c:103 src/html_table.c:154
-# src/html_table.c:222 src/html_table.c:296
 #: ../src/preferences.c:1231
 msgid "Background color"
-msgstr "Cor do plano de fundo"
+msgstr "背景顏色"
 
 #: ../src/preferences.c:1239
 msgid "don't change weight"
-msgstr "não mudar espessura"
+msgstr "不改變字型粗細"
 
-# src/html2.c:529
 #: ../src/preferences.c:1241
 msgid "force non-bold weight"
-msgstr "forçar não-negrito"
+msgstr "使用非粗體"
 
 #: ../src/preferences.c:1243
 msgid "force bold weight"
-msgstr "forçar negrito"
+msgstr "使用粗體"
 
-# src/html2.c:384
 #: ../src/preferences.c:1249
 msgid "don't change style"
-msgstr "não mudar estilo"
+msgstr "不改變字型樣態"
 
 #: ../src/preferences.c:1251
 msgid "force non-italic style"
-msgstr "forçar não-itálico"
+msgstr "使用非斜體"
 
 #: ../src/preferences.c:1253
 msgid "force italic style"
-msgstr "forçar itálico"
+msgstr "使用斜體"
 
-# src/configure.c:467
 #: ../src/preferences.c:1397 ../src/preferences.c:1555
 #: ../src/preferences.c:1746
 msgid "Command"
-msgstr "Commando"
+msgstr "命令"
 
+# c-format
 #: ../src/preferences.c:1576
 #, c-format
 msgid ""
 "%s for current filename (any command)\n"
 "%i for input and %f for output filename (filters)"
 msgstr ""
-"%s para nomedoficheiro actual (qq comando)\n"
-"%i para nome-de-ficheiro de entrada e %f para nome-de-ficheiro de saída (para "
-"filtros)"
+"%s 目前檔名 (任何命令)\n"
+"%i 輸入檔名, %f 輸出檔名 (過濾器)"
 
-# src/html.c:893 src/html.c:1244 src/html.c:1358 src/html_form.c:156
-# src/html_form.c:175 src/html_form.c:208 src/html_form.c:252
-# src/html_form.c:291 src/html_form.c:342 src/html_form.c:387
-# src/html_form.c:432 src/images.c:247 src/wml.c:167 src/wml.c:207
-# src/wml.c:323
 #: ../src/preferences.c:1741
 msgid "Name"
-msgstr "Nome"
+msgstr "名稱"
 
-# src/rpopup.c:288
 #: ../src/preferences.c:1743
 msgid "File #"
-msgstr "Ficheiro #"
+msgstr "檔案 #"
 
-# src/configure.c:351
 #: ../src/preferences.c:1744
 msgid "Line #"
-msgstr "Linha #"
+msgstr "列 #"
 
-# src/configure.c:475
 #: ../src/preferences.c:1745
 msgid "Output #"
-msgstr "Saída #"
+msgstr "輸出 #"
 
 #: ../src/preferences.c:1747
 msgid "Show all output"
-msgstr "Mostrar toda saída"
+msgstr "顯示所有輸出"
 
-# src/html2.c:608 src/html2.c:648
 #: ../src/preferences.c:1961 ../src/preferences.c:1962
 msgid "left"
-msgstr "esquerda"
+msgstr "左"
 
-# src/html2.c:606 src/html2.c:646
 #: ../src/preferences.c:1961 ../src/preferences.c:1962
 msgid "right"
-msgstr "direita"
+msgstr "右"
 
-# src/html2.c:605 src/html2.c:645
 #: ../src/preferences.c:1961
 msgid "top"
-msgstr "topo"
+msgstr "上"
 
-# src/html2.c:607 src/html2.c:647
 #: ../src/preferences.c:1961
 msgid "bottom"
-msgstr "fundo"
+msgstr "下"
 
 #: ../src/preferences.c:1963
 msgid "no check"
-msgstr "não verificar"
+msgstr "不檢查"
 
 #: ../src/preferences.c:1963
 msgid "check mtime and size"
-msgstr "verificar mtime e tamanho"
+msgstr "檢查 mtime 時間和大小"
 
 #: ../src/preferences.c:1963
 msgid "check mtime"
-msgstr "verificar mtime"
+msgstr "檢查 mtime 時間"
 
 #: ../src/preferences.c:1963
 msgid "check size"
-msgstr "verificar tamanho"
+msgstr "檢查大小"
 
-# src/toolbars.c:523
 #: ../src/preferences.c:1966
 msgid "Edit preferences"
-msgstr "Editar preferências"
+msgstr "編輯偏好設定"
 
-# src/configure.c:363
 #: ../src/preferences.c:1977
 msgid "Editor"
-msgstr "Editor"
+msgstr "編輯器"
 
-# src/configure.c:343
 #: ../src/preferences.c:1979
 msgid "Editor options"
-msgstr "Opções do Editor"
+msgstr "編輯器選項"
 
-# src/configure.c:349
 #: ../src/preferences.c:1985
 msgid "Tab width"
-msgstr "Largura da tabulação"
+msgstr "Tab 鍵寬度"
 
 #: ../src/preferences.c:1986
 msgid "Use spaces to indent, not tabs"
-msgstr "Usar espaços para indentar, não usar tabulações"
+msgstr "用空格縮排, 不用 tab 鍵"
 
-# src/configure.c:350
 #: ../src/preferences.c:1987
 msgid "Word wrap default"
-msgstr "Quebra de palavras por defeito"
+msgstr "預設自動換列"
 
-# src/document.c:830
 #: ../src/preferences.c:1988
 msgid "Line numbers by default"
-msgstr "Número de linha por defeito"
+msgstr "預設顯示列號"
 
-# src/highlight.c:429 src/interface.c:213 src/menu.c:122
 #: ../src/preferences.c:1989
 msgid "Highlight syntax by default"
-msgstr "Destacar sintaxe por defeito"
+msgstr "預設使用語法識別"
 
-# src/configure.c:353
 #: ../src/preferences.c:1990
 msgid "Highlight # lines"
-msgstr "Destacar # linhas"
+msgstr "反白 # 列"
 
 #: ../src/preferences.c:1997
 msgid "Undo history size"
-msgstr "Tamanho do histórico do desfazer"
+msgstr "可復原次數"
 
 #: ../src/preferences.c:1998
 msgid "Clear undo history on save"
-msgstr "Limpar histórico de desfazer quando gravar"
+msgstr "儲存後清除復原歷史"
 
 #: ../src/preferences.c:2000
 msgid "Bookmark options"
-msgstr "Opções de marcador"
+msgstr "書籤選項"
 
-# src/document.c:830
 #: ../src/preferences.c:2005
 msgid "Make permanent by default"
-msgstr "Tornar permanente por defeito"
+msgstr "預設為永久"
 
-# src/menu.c:1083
 #: ../src/preferences.c:2007
 msgid "full path"
-msgstr "caminho completo"
+msgstr "完整路徑"
 
-# src/html_form.c:489
 #: ../src/preferences.c:2007
 msgid "path from basedir"
-msgstr "Camniho desde a Directoria Base"
+msgstr "由基本目錄起的路徑"
 
-# src/document.c:1347 src/document.c:1547
 #: ../src/preferences.c:2007
 msgid "filename"
-msgstr "Nome de Ficheiro"
+msgstr "檔名"
 
 #: ../src/preferences.c:2008
 msgid "Bookmarks filename display"
-msgstr "Mostrar o Ficheiro de Marcadores"
+msgstr "顯示書籤檔名"
 
-# src/configure.c:397
 #: ../src/preferences.c:2012
 msgid "HTML"
 msgstr "HTML"
 
-# src/configure.c:365
 #: ../src/preferences.c:2014
 msgid "HTML options"
-msgstr "Opções HTML"
+msgstr "HTML 選項"
 
 #: ../src/preferences.c:2019
 msgid "Lowercase HTML tags"
-msgstr "Etiquetas HTML minúsculas"
+msgstr "HTML 標記小寫"
 
 #: ../src/preferences.c:2020
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-msgstr "Usar etiquetas desaconselhadas(ex: <font> e <nobr>)"
+msgstr "使用棄用的標記 (例如 <font> 和 <nobr>)"
 
-# src/configure.c:389
 #: ../src/preferences.c:2021
 msgid "Use XHTML style tags (<br />)"
-msgstr "Usar etiquetas no estilo XHTML (ex: <br />)"
+msgstr "使用 XHTML 樣式標記 (<br />)"
 
 #: ../src/preferences.c:2022
 msgid "Automatic update author meta"
-msgstr "Actualização automática da etiqueta meta autor"
+msgstr "自動更新作者 meta 標記"
 
-# src/interface.c:929 src/interface.c:948
 #: ../src/preferences.c:2025
 msgid "Files"
-msgstr "Ficheiros"
+msgstr "檔案"
 
-# src/configure.c:474
 #: ../src/preferences.c:2027
 msgid "Encoding"
-msgstr "Codificação"
+msgstr "編碼"
 
 #: ../src/preferences.c:2039
 msgid "Default character set"
-msgstr "Conjunto de caracteres por defeito"
+msgstr "預設字元集"
 
 #: ../src/preferences.c:2042
 msgid "Auto set <meta> encoding tag on change"
-msgstr "Auto inserir codificação na etiqueta <meta> ao modificar"
+msgstr "在改變時自動設定 <meta> 編碼標記"
 
 #: ../src/preferences.c:2044
 msgid "Backup"
-msgstr "Cópia de segurança"
+msgstr "備份"
 
 #: ../src/preferences.c:2048
 msgid "Create backup on save"
-msgstr "Criar cópias de segurança quando gravar"
+msgstr "儲存時建立備份"
 
-# src/configure.c:360
 #: ../src/preferences.c:2049
 msgid "Backup file suffix"
-msgstr "Extensão do ficheiro de cópia de segurança"
+msgstr "備份檔案副檔名"
 
 #: ../src/preferences.c:2051
 msgid "save"
-msgstr "gravar"
+msgstr "儲存"
 
-# src/toolbars.c:496
 #: ../src/preferences.c:2051
 msgid "abort"
-msgstr "abortar"
+msgstr "中斷"
 
 #: ../src/preferences.c:2051
 msgid "ask"
-msgstr "perguntar"
+msgstr "詢問"
 
-# src/callbacks.c:174
 #: ../src/preferences.c:2052
 msgid "Action on backup failure"
-msgstr "Acção quando a cópia de segurança falhar"
+msgstr "備份失敗時動作"
 
-# src/configure.c:360
 #: ../src/preferences.c:2054
 msgid "Remove backupfile on close"
-msgstr "Apagar ficheiro de cópia de segurança quando fechar"
+msgstr "關閉時刪除備份檔案"
 
 #: ../src/preferences.c:2058
 msgid "Misc"
-msgstr "Miscelânea"
+msgstr "其他"
 
-# src/configure.c:358
 #: ../src/preferences.c:2063
 msgid "Allow multi instances of a file"
-msgstr "Permitir múltiplas instâncias do mesmo ficheiro"
+msgstr "允許檔案重覆開啟"
 
 #: ../src/preferences.c:2065
 msgid "Open files in already running bluefish window"
-msgstr "Abrir ficheiros na janela actual"
+msgstr "在已執行的 bluefish 視窗中開啟檔案"
 
 #: ../src/preferences.c:2067
 msgid "File modified on disk check "
-msgstr "Ficheiro modificado na verificação no disco"
+msgstr "磁碟檢查時修改檔案"
 
 #: ../src/preferences.c:2068
 msgid "Number of files in 'Open recent'"
-msgstr "Número de ficheiros no 'Abrir recente'"
+msgstr "最近開啟的檔案數"
 
-# src/interface.c:758
 #: ../src/preferences.c:2070
 msgid "File browser"
-msgstr "Navegador de ficheiros"
+msgstr "檔案瀏覽器"
 
-# src/html_form.c:489
 #: ../src/preferences.c:2074
 msgid "Default basedir"
-msgstr "Directoriabase Padrão"
+msgstr "預設的基本目錄"
 
 #: ../src/preferences.c:2075
 msgid "Use separate file and directory view"
-msgstr "Usar ficheiro separado e ver directoria"
+msgstr "使用不同的檔案和目錄檢視"
 
-# src/callbacks.c:195
 #: ../src/preferences.c:2076
 msgid "Unknown icon"
-msgstr "Ícone desconhecido"
+msgstr "不明的圖示"
 
-# src/interface.c:928
 #: ../src/preferences.c:2077
 msgid "Directory icon"
-msgstr "Ícone de directoria"
+msgstr "目錄圖示"
 
 #: ../src/preferences.c:2080
 msgid "User interface"
-msgstr "Interface do utilizador"
+msgstr "使用者介面"
 
 #: ../src/preferences.c:2082
 msgid "Dimensions"
-msgstr "Dimensões"
+msgstr "大小"
 
 #: ../src/preferences.c:2086
 msgid "Restore last used dimensions"
-msgstr "Restaurar últimas dimensões usadas"
+msgstr "回存上次使用的大小"
 
-# src/configure.c:416
 #: ../src/preferences.c:2087
 msgid "Initial sidebar width"
-msgstr "Largura inicial da barra lateral"
+msgstr "初始化邊列寬度"
 
-# src/configure.c:417
 #: ../src/preferences.c:2088
 msgid "Initial window height"
-msgstr "Altura inicial da janela"
+msgstr "初始化視窗高度"
 
-# src/configure.c:416
 #: ../src/preferences.c:2089
 msgid "Initial window width"
-msgstr "Largura inicial da janela"
+msgstr "初始化視窗寬度"
 
 #: ../src/preferences.c:2093
 msgid "General"
-msgstr "Geral"
+msgstr "一般"
 
-# src/document.c:830
 #: ../src/preferences.c:2098
 msgid "Show main toolbar by default"
-msgstr "Mostrar barra de ferramentas principal por defeito"
+msgstr "預設顯示主要工作列"
 
-# src/document.c:830
 #: ../src/preferences.c:2099
 msgid "Show sidebar by default"
-msgstr "Mostrar barra lateral por defeito"
+msgstr "預設顯示邊列"
 
-# src/document.c:830
 #: ../src/preferences.c:2100
 msgid "Show custom menu by default"
-msgstr "Mostrar menu personalizado por defeito"
+msgstr "預設顯示自定選單"
 
 #: ../src/preferences.c:2101
 msgid "Show HTML toolbar by default"
-msgstr "Mostrar barra de ferramentas HTML por defeito"
+msgstr "預設顯示 HTML 工作列"
 
-# src/configure.c:456
 #: ../src/preferences.c:2102
 msgid "Make HTML dialogs transient"
-msgstr "Fazer diálogo de HTML transiente"
+msgstr "產生臨時 HTML 對話盒"
 
-# src/configure.c:459
 #: ../src/preferences.c:2104
 msgid "External browsers in submenu"
-msgstr "Navegadores externos no submenu"
+msgstr "在子選單中的外部瀏覽器"
 
-# src/menu.c:457
 #: ../src/preferences.c:2105
 msgid "External commands in submenu"
-msgstr "Comandos externos no submenu"
+msgstr "在子選單中的外部命令"
 
 #: ../src/preferences.c:2106
 msgid "External outputbox in submenu"
-msgstr "Caixa de saída externa no submenu"
+msgstr "在子選單中的外部輸出視窗"
 
 #: ../src/preferences.c:2108
 msgid "Notebook tab font (leave empty for gtk default)"
-msgstr "Fonte da guia (deixe vazio para valor por defeito gtk)"
+msgstr "筆記 tab 字型 (若空白則使用 gtk 預設)"
 
-# src/configure.c:413
 #: ../src/preferences.c:2110
 msgid "Document notebook tab position"
-msgstr "Posição da guia do documento"
+msgstr "文件筆記 tab 位置"
 
-# src/configure.c:413
 #: ../src/preferences.c:2111
 msgid "Sidebar notebook tab position"
-msgstr "Posição do separador do bloco de notas da barra lateral"
+msgstr "邊列筆記 tab 位置"
 
-# src/images.c:198
 #: ../src/preferences.c:2112
 msgid "Sidebar location"
-msgstr "Localização da barra lateral"
+msgstr "邊列位置"
 
-# src/configure.c:427 src/interface.c:777 src/interface.c:934
 #: ../src/preferences.c:2115 ../src/rcfile.c:572
 msgid "Images"
-msgstr "Imagens"
+msgstr "圖像"
 
-# src/configure.c:451
 #: ../src/preferences.c:2117
 msgid "Thumbnails"
-msgstr "Miniaturas"
+msgstr "略圖"
 
-# src/configure.c:451
 #: ../src/preferences.c:2121
 msgid "Thumbnail suffix"
-msgstr "Sufixo da miniatura"
+msgstr "略圖副檔名"
 
-# src/configure.c:451
 #: ../src/preferences.c:2125
 msgid "Thumbnail filetype"
-msgstr "Tipo de ficheiro de miniatura"
+msgstr "略圖檔案類型"
 
-# src/interface.c:929 src/interface.c:948
 #: ../src/preferences.c:2130 ../src/preferences.c:2132
 msgid "Filetypes"
-msgstr "Tipo de ficheiros"
+msgstr "檔案類型"
 
-# src/interface.c:758
 #: ../src/preferences.c:2139
 msgid "Filefilters"
-msgstr "Filtro de ficheiro"
+msgstr "檔案過濾器"
 
-# src/menu.c:469
 #: ../src/preferences.c:2147
 msgid "Syntax highlighting"
-msgstr "Destacar sintaxe"
+msgstr "語法識別"
 
-# src/toolbars.c:109
 #: ../src/preferences.c:2149
 msgid "Patterns"
-msgstr "Padrões"
+msgstr "樣式"
 
-# src/configure.c:459
 #: ../src/preferences.c:2157
 msgid "External programs"
-msgstr "Programas externos"
+msgstr "外部程式"
 
-# src/configure.c:463
 #: ../src/preferences.c:2159
 msgid "Browsers"
-msgstr "Navegador"
+msgstr "瀏覽器"
 
-# src/interface.c:758
 #: ../src/preferences.c:2166
 msgid "Utilities and filters"
-msgstr "Utilitários e filtros"
+msgstr "工具和過濾器"
 
-# src/configure.c:475
 #: ../src/preferences.c:2174
 msgid "Output parsers"
-msgstr "Analisadores de saída"
+msgstr "輸出語法解析器"
 
 #: ../src/preferences.c:2176
 msgid "Outputbox"
-msgstr "Caixa de Saída"
+msgstr "輸出盒"
 
 #: ../src/preferences.c:2185
 msgid "Servers"
-msgstr "Servidores"
+msgstr "伺服器"
 
-# src/document.c:1798
 #: ../src/preferences.c:2187
 msgid "Remote servers"
-msgstr "Remover servidores"
+msgstr "遠端伺服器"
 
 #: ../src/preferences.c:2192
 msgid "Zope compatibility mode"
-msgstr "Modo de compatibilidade Zope"
+msgstr "Zope 相容模式"
 
-# src/document.c:1798
 #: ../src/project.c:88
 msgid "New project"
-msgstr "Novo projecto"
+msgstr "新增專案"
 
-# src/document.c:1347 src/document.c:1547
 #: ../src/project.c:184 ../src/project.c:191
 msgid "Enter Bluefish project filename"
-msgstr "Introduzir o nome do projecto Bluefish"
+msgstr "輸入 Bluefish 專案檔名"
 
-# src/document.c:1347 src/document.c:1547
 #: ../src/project.c:304 ../src/project.c:311
 msgid "Select Bluefish project filename"
-msgstr "Seleccionar nome do projecto Bluefish"
+msgstr "選擇 Bluefish 專案檔名"
 
-# src/document.c:1465
 #: ../src/project.c:361
 msgid "Do you want to save the project?"
-msgstr "Deseja gravar o projecto?"
+msgstr "您要儲存專案嗎?"
 
 #: ../src/project.c:490
 msgid "Create New Project"
-msgstr "Criar Novo Projecto"
+msgstr "建立新專案"
 
-# src/toolbars.c:523
 #: ../src/project.c:493
 msgid "Edit Project"
-msgstr "Editar Projecto"
+msgstr "編輯專案"
 
 #: ../src/project.c:516
 #, c-format
 msgid "This project contains %d files"
-msgstr "Este projecto contém %d ficheiros"
+msgstr "這個專案包含 %d 個檔案"
 
-# src/html.c:893 src/html.c:1244 src/html.c:1358 src/html_form.c:156
-# src/html_form.c:175 src/html_form.c:208 src/html_form.c:252
-# src/html_form.c:291 src/html_form.c:342 src/html_form.c:387
-# src/html_form.c:432 src/images.c:247 src/wml.c:167 src/wml.c:207
-# src/wml.c:323
 #: ../src/project.c:528
 msgid "Project _Name:"
-msgstr "_Nome do Projecto:"
+msgstr "專案名稱(_N):"
 
-# src/project.c:202
 #: ../src/project.c:532
+#, fuzzy
 msgid "Base _Dir:"
-msgstr "_Directoriabase:"
+msgstr "基本目錄(_D):"
 
-# src/images.c:188
 #: ../src/project.c:536
 msgid "_Preview URL:"
-msgstr "_Pré-visualizar URL:"
+msgstr "預覽 URL(_P):"
 
-# src/snr2.c:651 src/snr2.c:688
 #: ../src/project.c:540
 msgid "_Template:"
-msgstr "Modelo:"
+msgstr "樣板(_T):"
 
-# src/configure.c:350
 #: ../src/project.c:546
 msgid "_Word wrap by default"
-msgstr "Justificar palavras por defeito"
+msgstr "預設自動換行(_W)"
 
 #: ../src/project.c:557
 msgid "Create _Project"
-msgstr "Criar _Projecto"
+msgstr "建立專案(_P)"
 
 #: ../src/project.c:597
 msgid "Create project"
-msgstr "Criar Projecto"
+msgstr "建立專案"
 
 #: ../src/project.c:601
 msgid "Create project with currently opened documents"
-msgstr "Criar projecto com os documentos actualmente abertos"
+msgstr "用目前開啟的文件建立專案"
 
 #: ../src/project.c:602
 msgid "Create empty project"
-msgstr "Criar projecto vazio"
+msgstr "建立空專案"
 
 #: ../src/quickstart.c:456
 msgid "<b>External Style Sheet</b>"
-msgstr "<b>Folha de Estilos externa</b>"
+msgstr ""
 
-# src/wml.c:315
 #: ../src/quickstart.c:466
+#, fuzzy
 msgid "Ty_pe:"
-msgstr "Ti_po:"
+msgstr "類型(_T):"
 
-# src/html.c:1235 src/toolbars.c:361
 #: ../src/quickstart.c:484
+#, fuzzy
 msgid "Hre_f:"
-msgstr "Hre_f:"
+msgstr "_Href:"
 
-# src/html.c:1345
 #: ../src/quickstart.c:488
+#, fuzzy
 msgid "_Media:"
-msgstr "_Media:"
+msgstr "媒體:"
 
 #: ../src/quickstart.c:494
+#, fuzzy
 msgid "<b>Style Area</b>"
-msgstr "<b>Área de estilo</b>"
+msgstr "<b>一般的</b>"
 
 #: ../src/quickstart.c:498
+#, fuzzy
 msgid "Create _empty style area"
-msgstr "Criar uma área de _estilo vazia"
+msgstr "建立空專案"
 
 #: ../src/quickstart.c:520
+#, fuzzy
 msgid "<b>Attributes</b>"
-msgstr "<b>Atributos</b>"
+msgstr "屬性"
 
-# src/html.c:1240
 #: ../src/quickstart.c:535
+#, fuzzy
 msgid "_Src:"
-msgstr "_Src::"
+msgstr "原始碼(_S):"
 
 #: ../src/quickstart.c:542
 msgid "<b>Script Area</b>"
-msgstr "<b>Área de Script</b>"
+msgstr ""
 
 #: ../src/quickstart.c:546
+#, fuzzy
 msgid "Create _empty script area"
-msgstr "Criar uma ár_ea de script vazia"
+msgstr "建立空專案"
 
 #: ../src/quickstart.c:587
+#, fuzzy
 msgid "_DTD:"
-msgstr "_DTD:"
+msgstr "使用 _DTD:"
 
-# src/html.c:1235 src/toolbars.c:361
 #: ../src/quickstart.c:614
+#, fuzzy
 msgid "_Head:"
-msgstr "_Head:"
+msgstr "_Href:"
 
 #: ../src/rcfile.c:496
 msgid "Galeon"
@@ -5427,33 +4637,29 @@ msgstr "Galeon"
 msgid "Mozilla"
 msgstr "Mozilla"
 
-# src/toolbars.c:96
 #: ../src/rcfile.c:500
 msgid "Opera"
 msgstr "Opera"
 
-# src/toolbars.c:512
 #: ../src/rcfile.c:502
 msgid "Netscape"
 msgstr "Netscape"
 
-# src/document.c:830
 #: ../src/rcfile.c:504
 msgid "Gnome default"
-msgstr "Por defeito Gnome"
+msgstr "GNOME 預設的"
 
-# src/configure.c:427 src/interface.c:777 src/interface.c:934
 #: ../src/rcfile.c:528
 msgid "make"
 msgstr "make"
 
 #: ../src/rcfile.c:529
 msgid "weblint HTML checker"
-msgstr "verificador HTML weblint"
+msgstr "weblint HTML checker"
 
 #: ../src/rcfile.c:530
 msgid "tidy HTML validator"
-msgstr "validador HTML tidy"
+msgstr "tidy HTML validator"
 
 #: ../src/rcfile.c:531
 msgid "javac"
@@ -5461,7 +4667,7 @@ msgstr "javac"
 
 #: ../src/rcfile.c:532
 msgid "xmllint XML checker"
-msgstr "verificador HTML xmllint"
+msgstr "xmllint XML checker"
 
 #: ../src/rcfile.c:533
 msgid "php"
@@ -5469,283 +4675,240 @@ msgstr "php"
 
 #: ../src/rcfile.c:539
 msgid "Dos2Unix filter"
-msgstr "Filtro Dos2Unix"
+msgstr "Dos2Unix filter"
 
-# src/interface.c:758
 #: ../src/rcfile.c:541
 msgid "Tidy cleanup filter"
-msgstr "Filtro de limpeza Tidy"
+msgstr "Tidy cleanup filter"
 
 #: ../src/rcfile.c:566
 msgid "C programming"
-msgstr "Programação C"
+msgstr "C 程式設計"
 
-# src/configure.c:426 src/init.c:710 src/interface.c:771 src/interface.c:932
 #: ../src/rcfile.c:568
 msgid "All web files"
-msgstr "Todos os ficheiros web"
+msgstr "所有的 Web 檔案"
 
 #: ../src/rcfile.c:570
 msgid "Java programming"
-msgstr "Programação Java"
+msgstr "Java 程式設計"
 
-# src/bluefish.c:617
 #: ../src/rcfile.c:574
 msgid "Hide objectfiles"
-msgstr "Ocultar ficheiros objecto"
+msgstr "隱藏目標檔案"
 
-# src/document.c:1166
 #: ../src/rcfile.c:882
 msgid "Untitled Project"
-msgstr "Projecto Sem título"
+msgstr "無標題專案"
 
-# src/snr2.c:685
 #: ../src/snr2.c:187
 msgid "Regular expression error: "
-msgstr "Erro na expressão regular: "
+msgstr "正規式錯誤:"
 
-# src/snr2.c:654 src/toolbars.c:111
 #: ../src/snr2.c:188 ../src/snr2.c:233
 msgid "Search failed"
-msgstr "Falha na procura"
+msgstr "搜尋失敗"
 
-# src/snr2.c:685
 #: ../src/snr2.c:232
 #, c-format
 msgid "Regular expression error: %s at offset %d"
-msgstr "Erro na expressão regular: %s de %d"
+msgstr "正規式錯誤: %s 位於偏移 %d"
 
-# src/snr2.c:474
 #: ../src/snr2.c:858
 msgid "Confirm replace"
-msgstr "Confirmar substituição"
+msgstr "確認取代"
 
 #: ../src/snr2.c:870
 msgid "Replace selected text?"
-msgstr "Substituir texto selecionado?"
+msgstr "要取代選定的字文嗎?"
 
 #: ../src/snr2.c:883
 msgid "_Skip"
-msgstr "_Saltar"
+msgstr "跳過(_S)"
 
-# src/snr2.c:651 src/snr2.c:688
 #: ../src/snr2.c:885
 msgid "Replace _all"
-msgstr "Substituir todos"
+msgstr "全部取代(_A)"
 
 #: ../src/snr2.c:1130 ../src/snr2.c:1137
 msgid "Search: no match found"
-msgstr "Procura: não encontrada"
+msgstr "搜尋: 找不到符合的"
 
-# src/snr2.c:654 src/toolbars.c:111
 #: ../src/snr2.c:1361
 msgid "_Search for: "
-msgstr "_Procurar por: "
+msgstr "搜尋(_S):"
 
-# src/snr2.c:695
 #: ../src/snr2.c:1374
 msgid "_Replace with: "
-msgstr "Substitui_r por: "
+msgstr "取代以(_R):"
 
 #: ../src/snr2.c:1384
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
-msgstr "\\0 faz referência ao primeiro padrão de subprocura, \\1 para o segundo etc."
+msgstr "\\0 參考第一個子搜尋樣式,\\1 到第二個,依此類推."
 
-# src/snr2.c:679
 #: ../src/snr2.c:1399
 msgid "Beginning of document till end"
-msgstr "Do início do documento até o fim"
+msgstr "從檔案開始到結束"
 
-# src/snr2.c:680
 #: ../src/snr2.c:1399
 msgid "Current position till end"
-msgstr "Posição actual até o fim"
+msgstr "從目前位置到結束"
 
-# src/snr2.c:681
 #: ../src/snr2.c:1399
 msgid "Beginning of selection till end of selection"
-msgstr "No início da selecção até o fim da selecção"
+msgstr "從選擇區開始到選擇區結束"
 
 #: ../src/snr2.c:1399
 msgid "All opened files begin till end"
-msgstr "Todos ficheiros abertos até o fim"
+msgstr "從所有已開啟的檔案開始到結束"
 
-# src/menu.c:1106
 #: ../src/snr2.c:1400
 msgid "Disabled"
-msgstr "Desactivado"
+msgstr "關閉"
 
-# src/html.c:1315
 #: ../src/snr2.c:1400
 msgid "POSIX type"
-msgstr "Tipo POSIX"
+msgstr "POSIX 類型"
 
 #: ../src/snr2.c:1400
 msgid "PERL type"
-msgstr "Tipo PERL"
+msgstr "PERL 類型"
 
-# src/snr2.c:654 src/toolbars.c:111
 #: ../src/snr2.c:1401
 msgid "Starts at:"
-msgstr "Começa em:"
+msgstr "開始於:"
 
-# src/snr2.c:685
 #: ../src/snr2.c:1413
 msgid "Regular expression:"
-msgstr "Expressão Regular:"
+msgstr "正規式:"
 
-# src/html_form.c:110
 #: ../src/snr2.c:1427
 msgid "Normal"
-msgstr "Normal"
+msgstr "一般"
 
-# src/snr2.c:707
 #: ../src/snr2.c:1427
 msgid "Uppercase"
-msgstr "Maiúscula"
+msgstr "大寫"
 
-# src/snr2.c:708
 #: ../src/snr2.c:1427
 msgid "Lowercase"
-msgstr "Minúscula"
+msgstr "小寫"
 
-# src/snr2.c:706
 #: ../src/snr2.c:1428
 msgid "Replace type:"
-msgstr "Substituir tipo:"
+msgstr "取代類型:"
 
 #: ../src/snr2.c:1441
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
-msgstr "_Padrões contém sequências de escape - barra-invertida (\\n, \\t)"
+msgstr "樣式包含反斜線跳脫字元 (\\n、\\t)"
 
 #: ../src/snr2.c:1442
 msgid "_Match case"
-msgstr "Coincidir _Maiúsculas e Minúsculas"
+msgstr "區分大小寫(_M)"
 
-# src/snr2.c:686
 #: ../src/snr2.c:1443
 msgid "O_verlap searches"
-msgstr "So_brepor buscas"
+msgstr "重覆搜尋(_O)"
 
-# src/snr2.c:712
 #: ../src/snr2.c:1445
 msgid "Prompt _before replace"
-msgstr "Perguntar antes de substituir"
+msgstr "取代前提示(_B)"
 
-# src/snr2.c:713
 #: ../src/snr2.c:1446
 msgid "Replace o_nce"
-msgstr "Substituir u_ma vez"
+msgstr "取代一次(_N)"
 
 #: ../src/snr2.c:1448
 msgid "Bookmark results"
-msgstr "Resultados dos Marcadores"
+msgstr "結果存入書籤"
 
-# src/stringlist.c:258
 #: ../src/stringlist.c:366
 msgid " Add "
-msgstr "  Adicionar "
+msgstr " 新增 "
 
-# src/stringlist.c:260
 #: ../src/stringlist.c:368
 msgid " Update "
-msgstr " Actualizar "
+msgstr " 更新 "
 
-# src/stringlist.c:262
 #: ../src/stringlist.c:370
 msgid " Delete "
-msgstr " Apagar "
+msgstr " 刪除 "
 
-# src/stringlist.c:264
 #: ../src/stringlist.c:372
 msgid " Up "
-msgstr " Acima "
+msgstr " 上 "
 
-# src/stringlist.c:266
 #: ../src/stringlist.c:374
 msgid " Down "
-msgstr " Abaixo "
+msgstr " 下 "
 
-# src/stringlist.c:268
 #: ../src/stringlist.c:376
 msgid " Sort "
-msgstr " Ordenar "
+msgstr " 排序 "
 
-# src/wizards.c:59
 #: ../src/wizards.c:69
 msgid "Table Wizard"
-msgstr "Assistente de Tabela"
+msgstr "表格精靈"
 
-# src/wizards.c:65
 #: ../src/wizards.c:77
 msgid "Number of _rows:"
-msgstr "Número de Linhas:"
+msgstr "列數(_R):"
 
-# src/wizards.c:65
 #: ../src/wizards.c:81
 msgid "Number of colu_mns:"
-msgstr "Número de colunas:"
+msgstr "欄數(_M):"
 
-# src/html2.c:532
 #: ../src/wizards.c:85
 msgid "Table rows on one _line:"
-msgstr "Colunas de tabela numa linha:"
+msgstr "表格列數(_L):"
 
 #: ../src/wizards.c:89
 msgid "_Indent table code:"
-msgstr "_Indentar código da tabela:"
+msgstr "縮排表格代碼(_I):"
 
-# src/wizards.c:132
 #: ../src/wizards.c:176
 msgid "Frame Wizard"
-msgstr "Assistente de Frame"
+msgstr "框架精靈"
 
 #: ../src/wizards.c:191
 msgid "Use _DTD:"
-msgstr "Usar _DTD:"
+msgstr "使用 _DTD:"
 
-# src/html.c:1369
 #: ../src/wizards.c:194
 msgid "Orientation:"
-msgstr "Orientação:"
+msgstr "方向:"
 
-# src/wizards.c:147
 #: ../src/wizards.c:197
 msgid "_Horizontal"
-msgstr "_Horizontal"
+msgstr "水平(_H)"
 
-# src/wizards.c:149
 #: ../src/wizards.c:198
 msgid "_Vertical"
-msgstr "_Vertical"
+msgstr "垂直(_V)"
 
-# src/wizards.c:138
 #: ../src/wizards.c:203
 msgid "Number of _Frames:"
-msgstr "Número de Frames:"
+msgstr "框架數(_F):"
 
-# src/html.c:1235 src/toolbars.c:361
 #: ../src/wizards.c:206
 msgid "Frame's"
-msgstr "Da frame"
+msgstr "框架的"
 
-# src/html.c:893 src/html.c:1244 src/html.c:1358 src/html_form.c:156
-# src/html_form.c:175 src/html_form.c:208 src/html_form.c:252
-# src/html_form.c:291 src/html_form.c:342 src/html_form.c:387
-# src/html_form.c:432 src/images.c:247 src/wml.c:167 src/wml.c:207
-# src/wml.c:323
 #: ../src/wizards.c:218
 msgid "Name:"
-msgstr "Nome:"
+msgstr "名稱:"
 
-# src/html.c:1240
 #: ../src/wizards.c:220
 msgid "Source:"
-msgstr "Código Fonte:"
+msgstr "原始碼:"
 
-# src/html.c:1001 src/html.c:1076 src/html.c:1133 src/html_form.c:303
-# src/html_form.c:437
 #: ../src/wizards.c:224
 msgid "Size:"
-msgstr "Tamanho:"
+msgstr "大小:"
 
+#, fuzzy
+#~ msgid "Titl_e:"
+#~ msgstr "標題(_T):"
+
+#~ msgid "_Basedir:"
+#~ msgstr "基本目錄(_D):"

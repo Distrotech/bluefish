@@ -323,10 +323,6 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 static GList *props_init_main(GList * config_rc)
 {
 /* these are used in the gtk-2 port already */
-	init_prop_integer   (&config_rc, &main_v->props.view_html_toolbar, "view_html_toolbar:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.view_custom_menu, "view_custom_menu:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.view_main_toolbar, "view_main_toolbar:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.view_left_panel, "view_left_panel:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_backup_files, "fb_show_backup_f:", 0, TRUE);
@@ -526,11 +522,11 @@ void rcfile_parse_main(void)
 	if (main_v->props.outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","make","1",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("weblint HTML checker"),"([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)","1","2","3","weblint '%s'","1",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("weblint HTML checker"),"([a-zA-Z0-9/_.-]+) \\(([0-9:]+)\\) (.*)","1","2","3","weblint '%s'","0",NULL));
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("tidy HTML validator"),"line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","tidy -qe '%s'","0",NULL));
 		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("javac"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac '%s'","0",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("xmllint XML checker"),"([a-zA-Z0-9/_.-]+)\\(([0-9]+)\\): (.*)","1","2","3","xmllint --noout --valid '%s'","1",NULL));
-		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("php"),"([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\:(.*)","1","2","3","php '%s'","1",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("xmllint XML checker"),"([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\: (.*)","1","2","3","xmllint --noout --valid '%s'","0",NULL));
+		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(_("php"),"(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)","1","2","3","php '%s'","0",NULL));
 /*		main_v->props.outputbox = g_list_append(main_v->props.outputbox,array_from_arglist(,NULL)); */
 	}
 	if (main_v->props.external_commands == NULL) {
@@ -874,6 +870,10 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_limitedstringlist(&configlist, &session->recent_dirs, "recent_dirs:", main_v->props.max_dir_history, FALSE);
 	init_prop_string_with_escape(&configlist, &session->opendir, "opendir:", NULL);
 	init_prop_string_with_escape(&configlist, &session->savedir, "savedir:", NULL);
+    init_prop_integer(&configlist, &session->view_html_toolbar, "view_html_toolbar:", 1, FALSE);
+    init_prop_integer(&configlist, &session->view_custom_menu, "view_custom_menu:", 1, FALSE);
+    init_prop_integer(&configlist, &session->view_main_toolbar, "view_main_toolbar:", 1, FALSE);
+    init_prop_integer(&configlist, &session->view_left_panel, "view_left_panel:", 1, FALSE);	
 	return configlist;
 }
 
@@ -885,10 +885,6 @@ static GList *return_project_configlist(Tproject *project) {
 	init_prop_string(&configlist, &project->webdir,"webdir:","");
 	init_prop_string(&configlist, &project->template,"template:","");
 /*	init_prop_stringlist(&configlist, &project->recentfiles, "recentfiles:", FALSE); / * should be changed to use the session->recent_files */
-	init_prop_integer (&configlist, &project->view_main_toolbar,"view_main_toolbar:",1,FALSE);
-	init_prop_integer (&configlist, &project->view_left_panel,"view_left_panel:",1,FALSE);
-	init_prop_integer (&configlist, &project->view_custom_menu,"view_custom_menu:",1,FALSE);
-	init_prop_integer (&configlist, &project->view_html_toolbar,"view_html_toolbar:",1,FALSE);
 	init_prop_integer (&configlist, &project->word_wrap,"word_wrap:",1,FALSE);
 	configlist = return_session_configlist(configlist, project->session);
 	return configlist;

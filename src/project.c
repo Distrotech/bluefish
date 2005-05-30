@@ -50,6 +50,13 @@ static void free_session(Tsessionvars *session) {
 	g_free(session);
 }
 
+static void project_setup_initial_session(Tsessionvars *session) {
+	session->view_html_toolbar = main_v->session->view_html_toolbar;
+	session->view_custom_menu = main_v->session->view_custom_menu;
+	session->view_main_toolbar = main_v->session->view_main_toolbar;
+	session->view_left_panel = main_v->session->view_left_panel;
+}
+
 Tbfwin *project_is_open(gchar *filename) {
 	GList *tmplist;
 	tmplist = g_list_first(main_v->bfwinlist);
@@ -96,6 +103,8 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 		DEBUG_MSG("create_new_project, new project, no bfwin\n");
 	}
 	prj->session = g_new0(Tsessionvars,1);
+	project_setup_initial_session(prj->session);
+
 	/* we should copy bookmarks from the files to this session */
 	if (bfwin && prj->files) {
 		GList *tmplist;
@@ -141,10 +150,6 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	}
 	prj->webdir = g_strdup("");
 	prj->template = g_strdup("");
-	prj->view_main_toolbar = main_v->props.view_main_toolbar;
-	prj->view_left_panel = main_v->props.view_left_panel;
-	prj->view_custom_menu = main_v->props.view_custom_menu;
-	prj->view_html_toolbar = main_v->props.view_html_toolbar;
 	prj->word_wrap = main_v->props.word_wrap;
 	if (bfwin) {
 		setup_bfwin_for_project(bfwin);
@@ -249,10 +254,13 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 
 	prj = g_new0(Tproject,1);
 	prj->session = g_new0(Tsessionvars,1);
+	project_setup_initial_session(prj->session);
 	prj->bookmarkstore = gtk_tree_store_new(2, G_TYPE_STRING, G_TYPE_POINTER); 
 	retval = rcfile_parse_project(prj, fromfilename);
 	if (!retval) {
 		DEBUG_MSG("project_open_from_file, failed parsing the project at file %s\n",fromfilename);
+		g_object_unref(prj->bookmarkstore);
+		g_free(prj->session);
 		g_free(prj);
 		return;
 	}
@@ -268,11 +276,11 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		prwin->project = prj;
 		prwin->bookmarkstore = prj->bookmarkstore;
 		
-		gui_set_html_toolbar_visible(prwin, prj->view_html_toolbar, TRUE);
-		gui_set_main_toolbar_visible(prwin, prj->view_main_toolbar, TRUE);
-		gui_set_custom_menu_visible(prwin, prj->view_custom_menu, TRUE);
+      gui_set_html_toolbar_visible(prwin, prj->session->view_html_toolbar, TRUE);
+      gui_set_main_toolbar_visible(prwin, prj->session->view_main_toolbar, TRUE);
+      gui_set_custom_menu_visible(prwin, prj->session->view_custom_menu, TRUE);
 		DEBUG_MSG("project_open_from_file, calling left_panel_show_hide_toggle bfwin=%p\n",prwin);
-		left_panel_show_hide_toggle(prwin,FALSE,prj->view_left_panel, TRUE);
+		left_panel_show_hide_toggle(prwin,FALSE,prj->session->view_left_panel, TRUE);
 		filebrowser_set_basedir(prwin, prj->basedir);
 		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
 		docs_new_from_files(prwin, prj->files, TRUE);
@@ -456,10 +464,10 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 
 	if (pred->bfwin == NULL) {
 		pred->bfwin = gui_new_window(NULL, pred->project);
-		setup_bfwin_for_project(pred->bfwin);
 	} else {
 		gui_set_title(pred->bfwin, pred->bfwin->current_document);
 	}
+	setup_bfwin_for_project(pred->bfwin);
 /* set_project_menu_widgets(pred->bfwin, TRUE);*/
 	project_save(pred->bfwin,FALSE);
 	gtk_widget_destroy(pred->win);
@@ -529,7 +537,7 @@ void project_edit(Tbfwin *bfwin) {
 	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[name], 2, 3, 0, 1);
 
 	pred->entries[basedir] = entry_with_text(pred->project->basedir, 255);
-	bf_mnemonic_label_tad_with_alignment(_("_Basedir:"), pred->entries[basedir], 1, 0.5, table, 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(_("Base _Dir:"), pred->entries[basedir], 1, 0.5, table, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[basedir], 2, 3, 1, 2);
 
 	pred->entries[webdir] = entry_with_text(pred->project->webdir, 255);
@@ -646,4 +654,3 @@ void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	break;
 	}
 }
-
