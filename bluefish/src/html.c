@@ -3,7 +3,7 @@
  *
  * Copyright (C) 
  * 1998 Olivier Sessink and Chris Mazuc
- * 1999-2002 Olivier Sessink
+ * 1999-2005 Olivier Sessink
  * rewrite November 2000 (C) Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.44 2004-10-17 17:22:59 jimh6583 Exp $
+ * $Id: html.c,v 1.44.2.1 2005-05-30 20:48:40 dleidert Exp $
  */
 /*#define DEBUG*/
 
@@ -979,6 +979,7 @@ void quickrule_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	if (custom)	g_free(custom);
 }
 
+#ifndef HAVE_ATLEAST_GTK_2_4
 static void quickstart_ok_lcb(GtkWidget * widget, Thtml_diag * dg) {
 	gchar *tmpchar, *tmpchar1, *tmpchar2, *tmpchar3, *finalstring;
 	GList *tmplist;
@@ -1203,6 +1204,7 @@ void quickstart_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	
 	html_diag_finish(dg, G_CALLBACK(quickstart_ok_lcb));
 }
+#endif /* HAVE_ATLEAST_GTK_2_4 */
 
 static void bodyok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	Tbfwin *bfwin = dg->bfwin;
@@ -1939,11 +1941,11 @@ void embed_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	bf_mnemonic_label_tad_with_alignment(_("_Align:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(dg->combo[1]), 1, 2, 1, 2);
 
-	dg->spin[1] = spinbut_with_value("", 0, 500, 1.0, 5.0);
+	dg->spin[1] = spinbut_with_value("", 0, 10000, 1.0, 5.0);
 	bf_mnemonic_label_tad_with_alignment(_("_Width:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 2, 3);
 
-	dg->spin[2] = spinbut_with_value("", 0, 500, 1.0, 5.0);
+	dg->spin[2] = spinbut_with_value("", 0, 10000, 1.0, 5.0);
 	bf_mnemonic_label_tad_with_alignment(_("_Height:"), dg->spin[2], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 1, 2, 3, 4);
 

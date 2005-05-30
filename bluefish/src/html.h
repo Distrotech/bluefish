@@ -39,7 +39,6 @@ void h4_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void h5_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void h6_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void quickrule_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void quickstart_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void body_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void meta_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void font_dialog(Tbfwin *bfwin, Ttagpopup *data);
@@ -51,4 +50,9 @@ void frame_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void embed_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void script_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+
+#ifndef HAVE_ATLEAST_GTK_2_4
+void quickstart_dialog(Tbfwin *bfwin, Ttagpopup *data);
+#endif /* HAVE_ATLEAST_GTK_2_4 */
+
 #endif							/* __HTML_H_ */

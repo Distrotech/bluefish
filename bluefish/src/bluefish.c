@@ -162,6 +162,7 @@ int main(int argc, char *argv[])
 #endif /* HAVE_GNOME_VFS */
 	main_v = g_new0(Tmain, 1);
 	main_v->session = g_new0(Tsessionvars,1);
+	main_v->session->view_html_toolbar = main_v->session->view_main_toolbar = main_v->session->view_custom_menu = main_v->session->view_left_panel = 1;
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
 
 	rcfile_check_directory();
@@ -230,7 +231,7 @@ int main(int argc, char *argv[])
 	}
 
 	gui_show_main(firstbfwin);
-	if (main_v->props.view_html_toolbar && main_v->globses.quickbar_items == NULL) {
+	if (firstbfwin->session->view_html_toolbar && main_v->globses.quickbar_items == NULL) {
 		info_dialog(firstbfwin->main_window, _("Bluefish tip:"), _("This message is shown since you do not have any items in the Quickbar.\n\nIf you right-click a button in the HTML toolbars you can add buttons to the Quickbar."));
 	}
 	if (projectfiles) {

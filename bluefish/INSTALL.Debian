@@ -1,0 +1,39 @@
+Bluefish provides recent Debian files to build Debian packages from
+source (e.g. for a CVS-version of bluefish).
+
+To package on Debian:
+(1) be (really) prepared for package building
+    see the manual at http://www.debian.org/doc/maint-guide/ for more info
+
+(2) download the source package or get the latest version by downloading a
+    CVS-snapshot or using CVS directly
+    (see the official documentation on how to do this)
+
+(3) if you downloaded bluefish from CVS, copy the directory 'bluefish-gtk2'
+    to a location of your choice and rename it to something like
+    'bluefish-1.0+cvs20050116' and go in there
+
+(4) remove the CVS directories in your bluefish source path (lintian does
+    not like them)
+    'find . -type d -name CVS -exec -rm -r "{}" ";"'
+  
+(5) prepare for packaging
+    'dh_make [your options]'
+    'dch -i' (add changelog entry || read about NMU packages)
+  
+(6) adjust debian/control file
+    - libgnomeui-dev is optional: remove it, if you don't want to have a
+      a full tail of GNOME library dependencies
+    - in accordance to /usr/share/doc/autotools-dev/README.Debian.gz we
+      have 'Build-Depends: autoconf, automake1.7' and
+      'Build-Conflicts: autoconf2.13, automake1.4' and debian/rules runs
+      'aclocal-1.7' -> adjust this if necessary
+  
+(7) build the package || be sure to have met the 'Build-Depends:' after
+    reading (7) carefully
+    'dpkg-buildpackage -rfakeroot [your options]' OR
+    'debuild [your options]'
+
+(8) install the package
+    'su'
+    'dpkg -i bluefish_1.0+cvs20050116-0.1_i386.deb'                            

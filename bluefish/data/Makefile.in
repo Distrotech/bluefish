@@ -40,7 +40,8 @@ FUNCREFFILES = funcref_html.xml funcref_php.xml funcref_css.xml funcref_python.x
 
 all: $(DEFAULTFILES)
 	sed -e 's!ICONDIR!$(ICONPATH)!' < bluefish.desktop.in > bluefish.desktop
-	if test "x${HAVE_GNOME_VFS}" = "xyes" ; then \
+	sed -e 's!ICONDIR!$(ICONPATH)!' < bluefish-project.desktop.in > bluefish-project.desktop
+	if test "x${HAVE_GNOME_VFS}" = "x1" ; then \
 		sed -e 's!EXPECT_URIS!true!' -e 's!SUPPORTED_URI_SCHEMES!file,http,ftp,sftp,smb!' < bluefish.applications.in > bluefish.applications ;\
 	else \
 		sed -e 's!EXPECT_URIS!false!' -e 's!SUPPORTED_URI_SCHEMES!!' < bluefish.applications.in > bluefish.applications ;\
@@ -49,10 +50,12 @@ all: $(DEFAULTFILES)
 install-gnome1-menu:
 	$(INSTALL_DIR) $(DESTDIR)$(GNOME1MENU)
 	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(GNOME1MENU)
+	$(INSTALL_DATA) bluefish-project.desktop $(DESTDIR)$(GNOME1MENU)
 
 install-fdmenu:
 	$(INSTALL_DIR) $(DESTDIR)$(FDMENU)
 	$(INSTALL_DATA) bluefish.desktop $(DESTDIR)$(FDMENU)
+	$(INSTALL_DATA) bluefish-project.desktop $(DESTDIR)$(FDMENU)
 
 install-update-menu:
 	$(UPDATE_DESKTOP)
@@ -93,6 +96,7 @@ uninstall:
 	rm -f $(GAPPREG)/bluefish.applications
 	rm -f $(GNOME1MENU)/bluefish.desktop
 	rm -f $(FDMENU)/bluefish.desktop
+	rm -f $(FDMENU)/bluefish-project.desktop
 	rm -f $(ICONPATH)/gnome-application-bluefish-project.png
 	@for file in $(DEFAULTFILES) ; do \
 		rm -f $(pkgdatadir)$$file ;\
@@ -104,6 +108,7 @@ uninstall:
 clean:
 	rm -f *.default
 	rm -f bluefish.desktop
+	rm -f bluefish-project.desktop
 	rm -f bluefish.applications
 
 distclean: clean

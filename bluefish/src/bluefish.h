@@ -149,10 +149,6 @@ typedef struct {
 } Tdocument;
 
 typedef struct {
-	gint view_html_toolbar;				/* view html toolbar */
-	gint view_custom_menu;			/* view custom menubar */
-	gint view_main_toolbar;				/* view main toolbar */
-	gint view_left_panel;  	/* view filebrowser/functionbrowser etc. */
 	gint view_line_numbers; /* view line numbers on the left side by default */
 	gint filebrowser_show_hidden_files;
 	gint filebrowser_show_backup_files;
@@ -271,6 +267,10 @@ typedef struct {
 	GList *recent_dirs;
 	gchar *opendir;
 	gchar *savedir;
+   gint view_html_toolbar;	/* view html toolbar */
+   gint view_custom_menu;  /* view custom menubar */
+   gint view_main_toolbar;	/* view main toolbar */
+   gint view_left_panel;	/* view filebrowser/functionbrowser etc. */
 } Tsessionvars;
 
 typedef struct {
@@ -281,10 +281,6 @@ typedef struct {
 	gchar *webdir;
 	gchar *template;
 	gpointer editor;
-	gint view_main_toolbar;
-	gint view_left_panel;
-	gint view_custom_menu;
-	gint view_html_toolbar;
 	gint word_wrap;
 	Tsessionvars *session;
 	GtkTreeStore *bookmarkstore; /* project bookmarks */

@@ -1089,7 +1089,7 @@ static void doc_set_statusbar_lncol(Tdocument *doc) {
 		gtk_text_iter_forward_char(&start);
 	}
 
-	msg = g_strdup_printf(_(" Ln %d, Col %d"), line + 1, col + 1);
+	msg = g_strdup_printf(_(" Ln: %d, Col: %d"), line + 1, col + 1);
 
 	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_lncol), 0);
 	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_lncol), 0, msg);
@@ -1767,6 +1767,18 @@ static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdo
 	DEBUG_MSG("doc_view_key_press_lcb, keyval=%d, hardware_keycode=%d\n",kevent->keyval, kevent->hardware_keycode);
 	main_v->lastkp_keyval = kevent->keyval;
 	main_v->lastkp_hardware_keycode = kevent->hardware_keycode;
+	if (kevent->keyval == GDK_Tab && main_v->props.editor_indent_wspaces) {
+  		GtkTextMark* imark;
+		GtkTextIter iter;
+  	   gchar *string;
+  	   /* replace the tab with spaces if the user wants that */
+  	   string = bf_str_repeat(" ", main_v->props.editor_tab_width);
+  	   imark = gtk_text_buffer_get_insert(doc->buffer);
+  	   gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter,imark);
+  	   gtk_text_buffer_insert(doc->buffer,&iter,string,main_v->props.editor_tab_width);
+  	   g_free(string);
+  	   return TRUE; /* we handled the event, stop the event from cascading further */
+  	}
 	return FALSE; /* we didn't handle all of the event */
 }
 

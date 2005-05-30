@@ -50,6 +50,10 @@
 #include "bookmark.h"
 #include "project.h"
 
+#ifdef HAVE_ATLEAST_GTK_2_4
+#include "quickstart.h"
+#endif /* HAVE_ATLEAST_GTK_2_4 */
+
 #ifdef HAVE_LIBASPELL
 #include "bfspell.h"
 #endif /* HAVE_LIBASPELL */
@@ -480,7 +484,11 @@ static void acronym_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 }
 
 static void quickstart_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+#ifdef HAVE_ATLEAST_GTK_2_4
+	quickstart_dialog_new(bfwin);
+#else
 	quickstart_dialog(bfwin,NULL);
+#endif
 }
 static void body_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	body_dialog(bfwin,NULL);
@@ -1341,15 +1349,15 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 		bfwin->custom_menu_hb = gtk_handle_box_new();
 		gtk_box_pack_start(GTK_BOX(vbox), bfwin->custom_menu_hb, FALSE, FALSE, 0);
 
-		if ((bfwin->project && bfwin->project->view_main_toolbar) || (!bfwin->project && main_v->props.view_main_toolbar)) {
+		if (bfwin->session->view_main_toolbar) {
 			make_main_toolbar(bfwin);
 			gtk_widget_show(bfwin->main_toolbar_hb);
 		}
-		if ((bfwin->project && bfwin->project->view_html_toolbar) || (!bfwin->project && main_v->props.view_html_toolbar)) {
+		if (bfwin->session->view_html_toolbar) {
 			make_html_toolbar(bfwin);
 			gtk_widget_show(bfwin->html_toolbar_hb);
 		}
-		if ((bfwin->project && bfwin->project->view_custom_menu) || (!bfwin->project && main_v->props.view_custom_menu)) {
+		if (bfwin->session->view_custom_menu) {
 			make_cust_menubar(bfwin,bfwin->custom_menu_hb);
 			gtk_widget_show(bfwin->custom_menu_hb);
 		}
@@ -1380,7 +1388,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	/* output_box */
 	init_output_box(bfwin, vbox);
 
-	left_panel_show_hide_toggle(bfwin,TRUE, (bfwin->project && bfwin->project->view_left_panel) || (!bfwin->project && main_v->props.view_left_panel), FALSE);
+	left_panel_show_hide_toggle(bfwin,TRUE, (bfwin->session->view_left_panel), FALSE);
 
 	/* finally the statusbar */
 	{
@@ -1444,9 +1452,9 @@ void gui_show_main(Tbfwin *bfwin) {
 	gtk_widget_show(bfwin->main_window);
 	flush_queue();
 	doc_scroll_to_cursor(bfwin->current_document);
-	if ((bfwin->project && bfwin->project->view_left_panel) || (!bfwin->project && main_v->props.view_left_panel)) {
+/*	if ((bfwin->project && bfwin->project->view_left_panel) || (!bfwin->project && main_v->props.view_left_panel)) {
 		filebrowser_scroll_initial(bfwin);
-	}
+	}*/
 }
 /***********************/
 /* statusbar functions */
@@ -1689,19 +1697,19 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	DEBUG_MSG("gui_toggle_hidewidget_cb, action=%d, active=%d\n",action,active);
 	switch (action) {
 	case 1:
-		if (bfwin->project) bfwin->project->view_main_toolbar = active;;
+		bfwin->session->view_main_toolbar = active;
 		gui_set_main_toolbar_visible(bfwin, active, FALSE);
 	break;
 	case 2:
-		if (bfwin->project) bfwin->project->view_html_toolbar = active;
+		bfwin->session->view_html_toolbar = active;
 		gui_set_html_toolbar_visible(bfwin, active, FALSE);
 	break;
 	case 3:
-		if (bfwin->project) bfwin->project->view_custom_menu = active;
+		bfwin->session->view_custom_menu = active;
 		gui_set_custom_menu_visible(bfwin, active, FALSE);
 	break;
 	case 4:
-		if (bfwin->project) bfwin->project->view_left_panel = active;
+		bfwin->session->view_left_panel = active;
 		left_panel_show_hide_toggle(bfwin,FALSE, active, FALSE);
 	break;
 	default:

@@ -38,7 +38,7 @@ cmenu_insert: /PHP+HTML/Text Input:<input type="text" name="%0" value="<?php if 
 cmenu_insert: /PHP+HTML/Selectbox/From MySQL Result Set:<select name="%0">\n<?php\nwhile($row = mysql_fetch_row($%1)) {\n\tif (isset($%0) && ($%0 == $row[%2])) {\n\t\\techo '<option value="'.$row[%2].'" selected>'.$row[%3].'</option>';\n\t} else {\n\t\\techo '<option value="'.$row[%2].'">'.$row[%3].'</option>';\n\t}\n}\n?></select>::4:<select> Name:Query Result Handle:Value Index:Label Index:
 cmenu_insert: /PHP+HTML/Selectbox/From InterBase Result Set:<select name="%0">\n<?php\nwhile($row = ibase_fetch_row($%1)) {\n\tif (isset($%0) && ($%0 == $row[%2])) {\n\t\\techo '<option value="'.$row[%2].'" selected>'.$row[%3].'</option>';\n\t} else {\n\t\techo '<option value="'.$row[%2].'">'.$row[%3].'</option>';\n\t}\n}\n?></select>::4:<select> Name:Query Result Handle:Value Index:Label Index:
 cmenu_insert: /PHP+HTML/Selectbox/From Array:<select name="%0">\n<?php\nwhile(list($key, $val)=each($%1)) {\n\tif (isset($%0) && ($%0 == $val)) {\n\t\techo '<option value="'.$key.'" selected>'.$val.'</option>';\n\t} else {\n\t\techo '<option value="'.$key.'">'.$val.'</option>';\n\t}\n}\n?></select>::2:<select> Name:Name of Array w/ Options:
-cmenu_insert: /PHP+HTML/General/Calendar Table:<?php\n\t$now = getdate(time());\n\t$time = mktime(0,0,0, $now['mon'], 1, $now['year']);\n\t$date = getdate($time);\n\t$dayTotal = cal_days_in_month(0, $date['mon'], $date['year']);\n\t//Print the calendar header with the month name.\n\tprint '<table><tr><td colspan="7"><strong>' . $date['month'] . '</strong></td></tr>';\n\tfor ($i = 0; $i < 6; $i++) {\n\t\tprint '<tr>';\n\t\tfor ($j = 1; $j <= 7; $j++) {\n\t\t\t$dayNum = $j + $i*7 - $date['wday'];\n\t\t\t//Print a cell with the day number in it.  If it is today, highlight it.\n\t\t\tprint '<td';\n\t\t\tif ($dayNum > 0 && $dayNum <= $dayTotal) {\n\t\t\t\tprint ($dayNum == $now['mday']) ? ' style="background: #ccc;">' \: '>';\n\t\t\t\tprint $dayNum;\n\t\t\t}\n\t\t\telse {\n\t\t\t\t//Print a blank cell if no date falls on that day, but the row is unfinished.\n\t\t\t\tprint '>';\n\t\t\t}\n\t\t\tprint '</td>';\n\t\t}\n\t\tprint '</tr>';\n\t\tif ($dayNum >= $dayTotal && $i != 6)\n\t\t\tbreak;\n\t}\n\tprint '</table>';\n?>::0:
+cmenu_insert: /PHP+HTML/General/Calendar Table:<?php\n\t$now = getdate(time());\n\t$time = mktime(0,0,0, $now['mon'], 1, $now['year']);\n\t$date = getdate($time);\n\t$dayTotal = cal_days_in_month(0, $date['mon'], $date['year']);\n\t//Print the calendar header with the month name.\n\tprint '<table><tr><td colspan="7"><strong>' . $date['month'] . '</strong></td></tr>';\n\tfor ($i = 0; $i < 6; $i++) {\n\t\tprint '<tr>';\n\t\tfor ($j = 1; $j <= 7; $j++) {\n\t\t\t$dayNum = $j + $i*7 - $date['wday'];\n\t\t\t//Print a cell with the day number in it.  If it is today, highlight it.\n\t\t\tprint '<td';\n\t\t\tif ($dayNum > 0 && $dayNum <= $dayTotal) {\n\t\t\t\tprint ($dayNum == $now['mday']) ? ' style="background\: #ccc;">' \: '>';\n\t\t\t\tprint $dayNum;\n\t\t\t}\n\t\t\telse {\n\t\t\t\t//Print a blank cell if no date falls on that day, but the row is unfinished.\n\t\t\t\tprint '>';\n\t\t\t}\n\t\t\tprint '</td>';\n\t\t}\n\t\tprint '</tr>';\n\t\tif ($dayNum >= $dayTotal && $i != 6)\n\t\t\tbreak;\n\t}\n\tprint '</table>';\n?>::0:
 cmenu_insert: /PHP+HTML/Form + Action:<?php if (isset($submitted)) {\n//form submit code here\n} else { ?>\n<form method="POST" action="<?php echo $SCRIPT_NAME ?>">\n\n<input type="submit" name="submitted" value="%0"></form>\n<?php } // end of form ?>::1:Submit Button Text:
 cmenu_insert: /PHP+HTML/Form:<form method="POST" action="<?php echo $SCRIPT_NAME ?>">\n\n:</form>:0:
 cmenu_insert: /PHP+HTML/Checkbox:<input type="checkbox" name="%0" value="%1" <?php if (isset($%0)) { echo 'checked'; } ?>>::2:<input> Name:Checked Value:
@@ -46,7 +46,7 @@ cmenu_insert: /HTML/Script:<script type="application/x-javascript">\n\t<!--\n\n\
 cmenu_insert: /HTML/Named Anchor:<a name="%0">:</a>:1:Name:
 cmenu_insert: /HTML/Meta/Meta tag:<meta name="%0" value="%1" />::2:Name:Content:
 cmenu_insert: /HTML/Meta/HTTP Refresh:<meta http-equiv="refresh" content="%0; URL=%1">::2:Refresh time (seconds):Destination URL:
-cmenu_insert: /HTML/Link:<link rel="%0" type="%1" href="%1" />::3:Relationship:Type:href:
+cmenu_insert: /HTML/Link:<link rel="%0" type="%1" href="%2" />::3:Relationship:Type:href:
 cmenu_insert: /HTML/Image:<img src="%0" height="%1" width="%2" alt="%3" />::4:Image src:Height:Width:alt Text:
 cmenu_insert: /HTML/Hyperlinked Anchor:<a href="%0" title="%1">%2:</a>:3:Link Destination:Title:Linked Text:
 cmenu_insert: /HTML/Forms/<select>:<select name="%0">:</select>:1:Name::
@@ -60,9 +60,9 @@ cmenu_insert: /HTML/Forms/<input> File:<input type="file" name="%0" />::1:Name:
 cmenu_insert: /HTML/Forms/<input> Checkbox:<input type="checkbox" name="%0" value="%1" />::2:Name:Checked Value:
 cmenu_insert: /HTML/Forms/<form>:<form action="%0" method="%1">:</form>:2:Action:Method:
 cmenu_insert: /HTML/External Stylesheet:<link rel="stylesheet" type="text/css" href="%0" />::0:Stylesheet:
-cmenu_insert: /HTML/DOCTYPEs/XHTML Transitional:<!DOCTYPE XHTML PUBLIC "-//W3C//DTD HTML 1.0 Transitional//EN" "http\://www.w3.org/TR/xhtml1/xhtml1-loose.dtd">::0:
-cmenu_insert: /HTML/DOCTYPEs/XHTML Strict:<!DOCTYPE XHTML PUBLIC "-//W3C//DTD XHTML 1.0//EN" "http\://www.w3.org/TR/xhtml1/xhtml1-strict.dtd">::0:
-cmenu_insert: /HTML/DOCTYPEs/XHTML Frameset:<!DOCTYPE XHTML PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http\://www.w3.org/TR/xhtml1/xhtml1-frameset.dtd">::0:
+cmenu_insert: /HTML/DOCTYPEs/XHTML Transitional:<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 1.0 Transitional//EN" "http\://www.w3.org/TR/xhtml1/xhtml1-loose.dtd">::0:
+cmenu_insert: /HTML/DOCTYPEs/XHTML Strict:<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http\://www.w3.org/TR/xhtml1/xhtml1-strict.dtd">::0:
+cmenu_insert: /HTML/DOCTYPEs/XHTML Frameset:<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http\://www.w3.org/TR/xhtml1/xhtml1-frameset.dtd">::0:
 cmenu_insert: /HTML/DOCTYPEs/HTML Transitional:<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http\://www.w3.org/TR/html4/loose.dtd">::0:
 cmenu_insert: /HTML/DOCTYPEs/HTML Strict:<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http\://www.w3.org/TR/html4/strict.dtd">::0:
 cmenu_insert: /HTML/DOCTYPEs/HTML Frameset:<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http\://www.w3.org/TR/html4/frameset.dtd">::0:
@@ -92,7 +92,7 @@ cmenu_insert: /DocBook/Lists/Variable List:<variablelist><title>%0</title>\n\t<v
 cmenu_insert: /DocBook/Lists/Ordered List:<orderedlist>\n\t  <listitem><para>:</para></listitem>\n</orderedlist>:0:
 cmenu_insert: /DocBook/Lists/List Item:<listitem><para>:</para></listitem>:0:
 cmenu_insert: /DocBook/Lists/Itemized List:<itemizedlist>\n\t  <listitem><para>:</para></listitem>\n</itemizedlist>:0:
-cmenu_insert: /DocBook/Links/Internal Link:<xref linkend="%0">\n::1:Link ID:
+cmenu_insert: /DocBook/Links/Internal Link:<xref linkend="%0" />\n::1:Link ID:
 cmenu_insert: /DocBook/Links/External Link:<ulink url="%0">%1</ulink>\n::2:Link URL:Text:
 cmenu_insert: /DocBook/Layout/Option:<option>:</option>\n:0:
 cmenu_insert: /DocBook/Layout/Emphasis:<emphasis>:</emphasis>:0:
@@ -101,12 +101,12 @@ cmenu_insert: /DocBook/Layout/Application:<application>\n:</application>:0:
 cmenu_insert: /DocBook/Layout/Acronym:<acronym>\n:</acronym>:0:
 cmenu_insert: /DocBook/Headers/Legal Notice:<legalnotice>\n<para>:</para>\n</legalnotice>:0:
 cmenu_insert: /DocBook/Headers/History/Revision History:<revhistory>\n:\n</revhistory>:0:
-cmenu_insert: /DocBook/Headers/History/Revision:<revision>\n\t<revnumber>%0</revnumber>\n\t<date>%1</date>\n\t<authorinitials>%2</authorinitials>\n<revremark>%3</revremark>\n</revision>::4:Revision Number:Revision Date:Author's Initials:Remark:
+cmenu_insert: /DocBook/Headers/History/Revision:<revision>\n\t<revnumber>%0</revnumber>\n\t<date>%1</date>\n\t<authorinitials>%2</authorinitials>\n\t<revremark>%3</revremark>\n</revision>::4:Revision Number:Revision Date:Author's Initials:Remark:
 cmenu_insert: /DocBook/Headers/Entity/System Entity:<!ENTITY %0 SYSTEM "%0">::1:Entity Name:
 cmenu_insert: /DocBook/Headers/Entity/Simple Entity:<!ENTITY %0 "%0">::1:Entity Name:
 cmenu_insert: /DocBook/Headers/Entity/Complex Entity:<!ENTITY %0 "%1">::2:Entity Name:Entity Definition:
-cmenu_insert: /DocBook/Headers/DocTypes/Book:<!Doctype BOOK PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
-cmenu_insert: /DocBook/Headers/DocTypes/Article:<!Doctype ARTICLE PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
+cmenu_insert: /DocBook/Headers/DocTypes/Book:<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
+cmenu_insert: /DocBook/Headers/DocTypes/Article:<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook V%0//EN" [\n:]>:1:Version:
 cmenu_insert: /DocBook/Headers/Copyright:<copyright>\n\t<year>%0</year>\n\t<holder>%1</holder>\n</copyright>::2:Year:Holder:
 cmenu_insert: /DocBook/Headers/Authors/Author Group:<authorgroup>\n:\n</authorgroup>:0:
 cmenu_insert: /DocBook/Headers/Authors/Author:<author>\n\t<firstname>%0</firstname>\n\t<surname>%1</surname>\n</author>::2:First Name:Surname:

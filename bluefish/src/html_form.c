@@ -3,7 +3,7 @@
  *
  * Copyright (C) 
  * 1998 Olivier Sessink and Chris Mazuc
- * 1999-2000 Olivier Sessink
+ * 1999-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -596,7 +596,7 @@ void selectdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 0, 1);
 
-	dg->spin[1] = spinbut_with_value(tagvalues[1], 0, 100, 1.0, 5.0);
+	dg->spin[1] = spinbut_with_value(tagvalues[1], 0, 1000, 1.0, 5.0);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 1, 2);
 	bf_mnemonic_label_tad_with_alignment(_("Si_ze:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 1, 2);
 
@@ -804,11 +804,11 @@ void inputdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, const gchar *type) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[0], 1, 3, 3, 4);
 	parse_existence_for_dialog(tagvalues[3], dg->check[0]);
 	
-	dg->spin[0] = spinbut_with_value(tagvalues[4], 0, 500, 1.0, 5.0);
+	dg->spin[0] = spinbut_with_value(tagvalues[4], 0, 1000, 1.0, 5.0);
 	bf_mnemonic_label_tad_with_alignment(_("Si_ze:"), dg->spin[0], 0, 0.5, dgtable, 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[0], 1, 2, 4, 5);
 
-	dg->spin[1] = spinbut_with_value(tagvalues[5], 0, 500, 1.0, 5.0);
+	dg->spin[1] = spinbut_with_value(tagvalues[5], 0, 10000, 1.0, 5.0);
 	bf_mnemonic_label_tad_with_alignment(_("Max _Length:"), dg->spin[1], 0, 0.5, dgtable, 0, 1, 5, 6);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 1, 2, 5, 6);
 

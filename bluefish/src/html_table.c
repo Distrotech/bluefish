@@ -3,7 +3,7 @@
  *
  * Copyright (C) 
  * 1998 Olivier Sessink and Chris Mazuc
- * 1999-2000 Olivier Sessink
+ * 1999-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -133,7 +133,7 @@ void tabledialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->combo[3], 3, 4, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), var_but, 4, 5, 2, 3);
 
-	dg->spin[2] = spinbut_with_value(NULL, 0, 900, 1.0, 5.0);
+	dg->spin[2] = spinbut_with_value(NULL, 0, 10000, 1.0, 5.0);
 	dg->check[1] = gtk_check_button_new_with_label("%");
 	bf_mnemonic_label_tad_with_alignment(_("_Width:"), dg->spin[2], 0, 0.5, dgtable, 5, 6, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[2], 6, 7, 0, 1);
@@ -365,7 +365,7 @@ static void table_head_and_data_dialog_cb(gint type, Tbfwin *bfwin, Ttagpopup *d
 	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 7, 4, 5);
 
-	dg->spin[5] = spinbut_with_value(tagvalues[2], 0, 10, 1.0, 2.0);
+	dg->spin[5] = spinbut_with_value(tagvalues[2], 0, 100, 1.0, 2.0);
 	bf_mnemonic_label_tad_with_alignment(_("Co_l Span:"), dg->spin[5], 1, 0.5, dgtable, 2, 3, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[5], 3, 4, 0, 1);
 
@@ -378,14 +378,14 @@ static void table_head_and_data_dialog_cb(gint type, Tbfwin *bfwin, Ttagpopup *d
 	bf_mnemonic_label_tad_with_alignment(_("No Wra_p:"), dg->check[1], 1, 0.5, dgtable, 2, 3, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[1], 3, 4, 2, 3);
 	
-	dg->spin[1] = spinbut_with_value(NULL, 0, 100, 1.0, 5.0);
+	dg->spin[1] = spinbut_with_value(NULL, 0, 10000, 1.0, 5.0);
 	dg->check[2] = gtk_check_button_new_with_label("%");
 	parse_integer_for_dialog(tagvalues[0], dg->spin[1], NULL, dg->check[2]);
 	bf_mnemonic_label_tad_with_alignment(_("_Width:"), dg->spin[1], 1, 0.5, dgtable, 4, 5, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->spin[1], 5, 6, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->check[2], 6, 7, 0, 1);
 
-	dg->spin[3] = spinbut_with_value(NULL, 0, 100, 1.0, 5.0);
+	dg->spin[3] = spinbut_with_value(NULL, 0, 10000, 1.0, 5.0);
 	dg->check[3] = gtk_check_button_new_with_label("%");
 	parse_integer_for_dialog(tagvalues[3], dg->spin[3], NULL, dg->check[3]);
 	bf_mnemonic_label_tad_with_alignment(_("_Height:"), dg->spin[3], 1, 0.5, dgtable, 4, 5, 1, 2);

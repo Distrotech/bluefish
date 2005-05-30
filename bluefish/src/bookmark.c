@@ -1025,6 +1025,7 @@ void bmark_set_for_doc(Tdocument * doc) {
 					}
 					doc->bmark_parent = g_memdup(&tmpiter, sizeof(GtkTreeIter));
 					DEBUG_MSG("bmark_set_for_doc, added parent_iter %p to doc %p\n",doc->bmark_parent,doc);
+					g_hash_table_insert(BFWIN(doc->bfwin)->bmark_files, g_strdup(mark->filepath), doc->bmark_parent);
 					return;
 				}
 			}

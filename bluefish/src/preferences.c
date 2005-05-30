@@ -1864,10 +1864,10 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.leftpanel_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[leftpanel_tabposition]));
 	main_v->props.left_panel_left = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[left_panel_left]));
 
-	integer_apply(&main_v->props.view_main_toolbar, pd->prefs[view_main_toolbar], TRUE);
+/*	integer_apply(&main_v->props.view_main_toolbar, pd->prefs[view_main_toolbar], TRUE);
 	integer_apply(&main_v->props.view_left_panel, pd->prefs[view_left_panel], TRUE);
 	integer_apply(&main_v->props.view_custom_menu, pd->prefs[view_custom_menu], TRUE);
-	integer_apply(&main_v->props.view_html_toolbar, pd->prefs[view_html_toolbar], TRUE);
+	integer_apply(&main_v->props.view_html_toolbar, pd->prefs[view_html_toolbar], TRUE);*/
 	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
 	
 	integer_apply(&main_v->props.ext_browsers_in_submenu, pd->prefs[ext_browsers_in_submenu], TRUE);
@@ -2095,10 +2095,10 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
-	pd->prefs[view_main_toolbar] = boxed_checkbut_with_value(_("Show main toolbar by default"), main_v->props.view_main_toolbar, vbox2);
+/*	pd->prefs[view_main_toolbar] = boxed_checkbut_with_value(_("Show main toolbar by default"), main_v->props.view_main_toolbar, vbox2);
 	pd->prefs[view_left_panel] = boxed_checkbut_with_value(_("Show sidebar by default"), main_v->props.view_left_panel, vbox2);
 	pd->prefs[view_custom_menu] = boxed_checkbut_with_value(_("Show custom menu by default"), main_v->props.view_custom_menu, vbox2);
-	pd->prefs[view_html_toolbar] = boxed_checkbut_with_value(_("Show HTML toolbar by default"), main_v->props.view_html_toolbar, vbox2);
+	pd->prefs[view_html_toolbar] = boxed_checkbut_with_value(_("Show HTML toolbar by default"), main_v->props.view_html_toolbar, vbox2);*/
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
 
 	pd->prefs[ext_browsers_in_submenu] = boxed_checkbut_with_value(_("External browsers in submenu"), main_v->props.ext_browsers_in_submenu, vbox2);
