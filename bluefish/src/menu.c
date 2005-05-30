@@ -327,11 +327,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/_Open..."), "<control>O", menu_file_operations_cb, 2, "<StockItem>", GTK_STOCK_OPEN},
 	{N_("/File/Open _recent"), NULL, NULL, 0, "<Branch>"},
 	{N_("/File/Open recent/tearoff1"), NULL, NULL, 0, "<Tearoff>"},	
-#ifdef EXTERNAL_GREP
-#ifdef EXTERNAL_FIND
 	{N_("/File/Open Ad_vanced..."), "<shift><control>O", menu_file_operations_cb, 3, "<Item>"},
-#endif /* EXTERNAL_FIND */
-#endif /* EXTERNAL_GREP */
 #ifdef HAVE_GNOME_VFS
 	{N_("/File/Open _URL..."), NULL, menu_file_operations_cb, 25, "<Item>"},
 #endif /* HAVE_GNOME_VFS */
