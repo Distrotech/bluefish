@@ -123,19 +123,15 @@ void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
 																GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 																NULL);	
 
-	table = gtk_table_new (7, 5, FALSE);
-	gtk_container_set_border_width (GTK_CONTAINER (table), 10);
-	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
-	gtk_table_set_col_spacings (GTK_TABLE (table), 12);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (tfs->dialog)->vbox), table, FALSE, FALSE, 0);
+	table = dialog_table_in_vbox(7, 5, 10, GTK_DIALOG (tfs->dialog)->vbox, FALSE, FALSE, 0);
 
-	bf_label_tad_with_markup(_("<b>General</b>"), 0, 0.5, table, 0, 3, 0, 1);
+	bf_label_tad_with_markup(_("<b>General</b>"), 0, 0.5, table, 0, 3, 0, 1);	
 	if (!basedir) {
 		tfs->basedir = entry_with_text(bfwin->session->opendir, 255);
 	} else {
 		tfs->basedir = entry_with_text(basedir, 255);
 	}
-	bf_mnemonic_label_tad_with_alignment(_("Base_dir:"), tfs->basedir, 0, 0.5, table, 1, 2, 1, 2);
+	dialog_mnemonic_label_in_table(_("Base _Dir:"), tfs->basedir, table, 1, 2, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->basedir, 2, 4, 1, 2);
 	gtk_table_attach(GTK_TABLE(table), bf_allbuttons_backend(_("_Browse..."), TRUE, 112, G_CALLBACK(files_advanced_win_select_basedir_lcb), tfs), 4, 5, 1, 2, GTK_SHRINK, GTK_SHRINK, 0, 0);
 
@@ -146,23 +142,23 @@ void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
 	};
 	tfs->find_pattern = gtk_combo_box_entry_new_with_model (GTK_TREE_MODEL (lstore), 0);
 	g_object_unref (lstore);
-	bf_mnemonic_label_tad_with_alignment(_("_Pattern:"), tfs->find_pattern, 0, 0.5, table, 1, 2, 2, 3);
+	dialog_mnemonic_label_in_table(_("_Pattern:"), tfs->find_pattern, table, 1, 2, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 2, 4, 2, 3);
 	g_signal_connect (G_OBJECT (tfs->find_pattern), "changed", G_CALLBACK (files_advanced_win_findpattern_changed), tfs);
 
 	tfs->recursive = checkbut_with_value(NULL, tfs->bfwin ? tfs->bfwin->session->adv_open_recursive : TRUE);
-	bf_mnemonic_label_tad_with_alignment(_("_Recursive:"), tfs->recursive, 0, 0.5, table, 1, 2, 3, 4);
+	dialog_mnemonic_label_in_table(_("_Recursive:"), tfs->recursive, table, 1, 2, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->recursive, 2, 3, 3, 4);	
 	
-	gtk_table_set_row_spacing(GTK_TABLE(table), 5, 18);
 	bf_label_tad_with_markup(_("<b>Contains</b>"), 0, 0.5, table, 0, 3, 4, 5);
 
+	/* TODO: This needs to be converted to use GtkComboBoxEntry */
 	tfs->grep_pattern = combo_with_popdown("", bfwin->session->searchlist, TRUE);
-	bf_mnemonic_label_tad_with_alignment(_("Pa_ttern:"), tfs->grep_pattern, 0, 0.5, table, 1, 2, 5, 6);
+	dialog_mnemonic_label_in_table(_("Pa_ttern:"), (GTK_COMBO (tfs->grep_pattern)->entry), table, 1, 2, 5, 6);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 2, 4, 5, 6);
 	
 	tfs->is_regex = checkbut_with_value(NULL, 0);
-	bf_mnemonic_label_tad_with_alignment(_("Is rege_x:"), tfs->is_regex, 0, 0.5, table, 1, 2, 6, 7);
+	dialog_mnemonic_label_in_table(_("Is rege_x:"), tfs->is_regex, table, 1, 2, 6, 7);
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->is_regex, 2, 3, 6, 7);
 
 	gtk_dialog_set_response_sensitive (GTK_DIALOG (tfs->dialog), GTK_RESPONSE_ACCEPT, FALSE);
