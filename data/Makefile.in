@@ -105,7 +105,16 @@ uninstall:
 	done
 
 clean:
-	rm -f bluefish.desktop bluefish-project.desktop bluefish.applications bluefish.keys filetypes
 
 distclean: clean
-	rm -f Makefile *.rej *.orig *~
+	rm -f \
+		Makefile \
+		bluefish.desktop \
+		bluefish-project.desktop \
+		bluefish.applications \
+		bluefish.keys \
+		filetypes \
+		*.rej \
+		*.orig \
+		*~
+
