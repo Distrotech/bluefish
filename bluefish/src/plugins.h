@@ -29,6 +29,7 @@ typedef struct {
 	void (*init) (void); /* called once after plugin is loaded */
 	void (*init_gui) (Tbfwin *bfwin); /* builds the gui */
 	void (*cleanup) (void);
+	void (*cleanup_gui) (Tbfwin *bfwin);
 	
 	void (*doc_view_populate_popup)(GtkTextView *textview,GtkMenu *menu,Tdocument *doc);
 	void (*doc_view_button_press)(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc);

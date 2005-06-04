@@ -1,4 +1,20 @@
-
+/* Copyright (C) 2005 Olivier Sessink
+ * plugins.c - handle plugin loading
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
 #include "config.h"
 
 #include <gtk/gtk.h>
@@ -10,7 +26,6 @@ typedef struct {
 } TPrivatePluginData;
 
 #define PRIVATE(var) ((TPrivatePluginData *)var->private)
-#define PRIVATE2(var) ((TPrivatePluginData *)var)
 
 static TBluefishPlugin *load_plugin(const gchar *filename) {
 	GModule *module;
@@ -44,7 +59,7 @@ static TBluefishPlugin *load_plugin(const gchar *filename) {
 void bluefish_load_plugins(void) {
 	TBluefishPlugin *bfplugin;
 	/* should be finished when plugins are really working */
-	bfplugin = load_plugin("testplugin.so");
+	bfplugin = load_plugin("htmlbar.so");
 	if (bfplugin) {
 		bfplugin->init();
 	}
