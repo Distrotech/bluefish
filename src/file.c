@@ -575,6 +575,9 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 					g_free(encoding);
 				}
 			}
+			if (fid->bfwin->current_document == fid->doc) {
+				doc_force_activate(fid->doc);
+			}
 			fileintodoc_cleanup(data);
 		break;
 		case OPENFILE_ERROR_CANCELLED: /* hmm what to do here ? */
