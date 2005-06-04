@@ -76,8 +76,8 @@ GnomeVFSURI *add_suffix_to_uri(GnomeVFSURI *uri, const char *suffix) {
 
 GList *urilist_to_stringlist(GList *urilist) {
 	GList *retlist=NULL, *tmplist = g_list_last(urilist);
-	while (tmplist) {
-		retlist = g_list_prepend(retlist, gnome_vfs_uri_to_string((GnomeVFSURI *)tmplist->data,GNOME_VFS_URI_HIDE_PASSWORD));
+	while (tmplist) {/* previously, passwords were hidden with GNOME_VFS_URI_HIDE_PASSWORD */
+		retlist = g_list_prepend(retlist, gnome_vfs_uri_to_string((GnomeVFSURI *)tmplist->data,0));
 		tmplist = g_list_previous(tmplist);
 	}
 	return retlist;
