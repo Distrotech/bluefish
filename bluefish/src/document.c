@@ -2017,6 +2017,20 @@ static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *beve
 		rpopup_bevent_in_html_code(doc, &iter);
 		bmark_store_bevent_location(doc, gtk_text_iter_get_offset(&iter));
 	}
+/* here we ask any plugins to do any processing */
+#ifdef ENABLEPLUGINS
+	if (main_v->doc_view_button_press_cbs) {
+		GSList *tmplist = main_v->doc_view_button_press_cbs;
+		while (tmplist) {
+			void *(* func)() = tmplist->data;
+			DEBUG_MSG("doc_view_button_press_lcb, calling plugin func %p\n", tmplist->data);
+			func(widget,bevent,doc);
+			tmplist = g_slist_next(tmplist);
+		}
+	}
+#endif /* ENABLEPLUGINS */
+
+	
 	return FALSE;
 }
 
@@ -2082,6 +2096,18 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 	} else {
 		gtk_widget_set_sensitive(menuitem, FALSE);
 	}
+	
+/* here we ask any plugins to add there menu item */
+#ifdef ENABLEPLUGINS
+	if (main_v->doc_view_populate_popup_cbs) {
+		GSList *tmplist = main_v->doc_view_populate_popup_cbs;
+		while (tmplist) {
+			void *(* func)() = tmplist->data;
+			func(textview,menu,doc);
+			tmplist = g_slist_next(tmplist);
+		}
+	}
+#endif /* ENABLEPLUGINS */
 	
 	gtk_widget_show_all(GTK_WIDGET(menu));
 }
