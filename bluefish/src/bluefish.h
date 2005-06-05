@@ -394,6 +394,8 @@ typedef struct {
 	gchar *securedir; /* temporary rwx------ directory for secure file creation */
 #ifdef ENABLEPLUGINS
 	GSList *plugins;
+	GSList *doc_view_populate_popup_cbs;
+	GSList *doc_view_button_press_cbs;
 #endif /* ENABLEPLUGINS */
 } Tmain;
 
