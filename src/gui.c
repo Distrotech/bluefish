@@ -53,6 +53,10 @@
 #include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
 #include "wizards.h"
 
+#ifdef ENABLEPLUGINS
+#include "plugins.h"
+#endif
+
 #ifdef HAVE_LIBASPELL
 #include "bfspell.h"
 #endif /* HAVE_LIBASPELL */
@@ -1430,6 +1434,11 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_editmode), onecharwidth * 25, -1);
 		gtk_widget_show_all(hbox);
 	}
+	
+	/* here we ask any plugins to build there gui */
+#ifdef ENABLEPLUGINS
+	g_slist_foreach(main_v->plugins, bluefish_plugin_gui, bfwin);
+#endif /* ENABLEPLUGINS */
 	/* We have to know when the notebook changes */
 	gui_notebook_bind_signals(bfwin);
 	

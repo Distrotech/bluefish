@@ -42,12 +42,15 @@ typedef struct {
 	gpointer extra4;
 } TBluefishPlugin;
 
+#define BFPLUGIN(var) ((TBluefishPlugin *)var)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 void bluefish_load_plugins(void);
 void bluefish_cleanup_plugins(void);
+void bluefish_plugin_gui(gpointer data, gpointer user_data);
 
 #ifdef __cplusplus
 };
