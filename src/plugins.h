@@ -23,17 +23,16 @@
 
 #include "bluefish.h"
 
+#define BFPLUGIN_VERSION 2
 typedef struct {
 	const gchar *name; /* plugin name */
+	const guint version; 
 	gpointer private; /* to be filled by Bluefish after loading */
 	void (*init) (void); /* called once after plugin is loaded */
 	void (*init_gui) (Tbfwin *bfwin); /* builds the gui */
 	void (*cleanup) (void);
 	void (*cleanup_gui) (Tbfwin *bfwin);
 	
-	void (*doc_view_populate_popup)(GtkTextView *textview,GtkMenu *menu,Tdocument *doc);
-	void (*doc_view_button_press)(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc);
-
 	GList *(*register_config)(GList *configlist);
 
 	gpointer extra1; /* for binary compatibility */

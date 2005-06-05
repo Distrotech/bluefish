@@ -64,9 +64,13 @@ void bluefish_load_plugins(void) {
 	/* should be finished when plugins are really working */
 	bfplugin = load_plugin("/home/olivier/cvsbluefish/src/plugins/htmlbar.so");
 	if (bfplugin) {
-		DEBUG_MSG("bluefish_load_plugins, found htmlbar.so, init!\n");
-		bfplugin->init();
-		main_v->plugins = g_slist_prepend(main_v->plugins,bfplugin);
+		if (bfplugin->version == BFPLUGIN_VERSION) {
+			DEBUG_MSG("bluefish_load_plugins, found htmlbar.so, init!\n");
+			bfplugin->init();
+			main_v->plugins = g_slist_prepend(main_v->plugins,bfplugin);
+		} else {
+			DEBUG_MSG("bluefish_load_plugins, wrong version %u\n",bfplugin->version);
+		}
 	}
 }
 void bluefish_cleanup_plugins(void) {
