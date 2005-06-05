@@ -116,6 +116,7 @@ typedef struct {
 /*******************/
 #define BFWIN(var) ((Tbfwin *)(var))
 #define DOCUMENT(var) ((Tdocument *)(var))
+#define CURDOC(bfwin) (bfwin->current_document)
 
 typedef enum {
 	DOC_STATUS_ERROR,
@@ -391,6 +392,9 @@ typedef struct {
 	guint lastkp_keyval;             /* this is different if the modifier key is not pressed anymore during the key-release */
 	pcre *autoclosingtag_regc; /* the regular expression to check for a valid tag in tag autoclosing*/
 	gchar *securedir; /* temporary rwx------ directory for secure file creation */
+#ifdef ENABLEPLUGINS
+	GSList *plugins;
+#endif /* ENABLEPLUGINS */
 } Tmain;
 
 extern Tmain *main_v;

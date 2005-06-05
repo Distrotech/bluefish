@@ -15,6 +15,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+#ifdef ENABLEPLUGINS
+#define DEBUG
+
 #include "config.h"
 
 #include <gtk/gtk.h>
@@ -59,12 +62,23 @@ static TBluefishPlugin *load_plugin(const gchar *filename) {
 void bluefish_load_plugins(void) {
 	TBluefishPlugin *bfplugin;
 	/* should be finished when plugins are really working */
-	bfplugin = load_plugin("htmlbar.so");
+	bfplugin = load_plugin("/home/olivier/cvsbluefish/src/plugins/htmlbar.so");
 	if (bfplugin) {
+		DEBUG_MSG("bluefish_load_plugins, found htmlbar.so, init!\n");
 		bfplugin->init();
+		main_v->plugins = g_slist_prepend(main_v->plugins,bfplugin);
 	}
 }
 void bluefish_cleanup_plugins(void) {
 	/* should be finished when plugins are really working */
 
 }
+
+/* can be called by g_list_foreach() */
+void bluefish_plugin_gui(gpointer data, gpointer user_data) {
+	Tbfwin *bfwin = user_data;
+	TBluefishPlugin *bfplugin = data;
+	DEBUG_MSG("bluefish_plugins_gui, init_gui for plugin %p and bfwin %p\n",bfplugin,bfwin);	
+	bfplugin->init_gui(bfwin);
+}
+#endif /* ENABLEPLUGINS */

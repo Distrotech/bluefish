@@ -55,7 +55,9 @@
 #include "project.h"
 #include "rcfile.h"			/* rcfile_parse_main() */
 #include "stringlist.h"		/* put_stringlist(), get_stringlist() */
-
+#ifdef ENABLEPLUGINS
+#include "plugins.h"
+#endif
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -193,6 +195,9 @@ int main(int argc, char *argv[])
 	if (main_v->session->recent_dirs == NULL) {
 		main_v->session->recent_dirs = g_list_append(main_v->session->recent_dirs, g_strconcat("file://", g_get_home_dir(), NULL));
 	}
+#ifdef ENABLEPLUGINS
+	bluefish_load_plugins();
+#endif /* ENABLEPLUGINS */
 	
 	rcfile_parse_highlighting();
 #ifndef NOSPLASH
