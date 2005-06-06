@@ -756,6 +756,8 @@ void file_doc_retry_uri(Tdocument *doc) {
 	f2d->bfwin = doc->bfwin;
 	f2d->doc = doc;
 	doc_set_status(doc, DOC_STATUS_LOADING);
+	/* this forces an activate on the document, which will call widget_show() on the textview */
+	BFWIN(doc->bfwin)->focus_next_new_doc = TRUE;
 	f2d->uri = doc->uri;
 	gnome_vfs_uri_ref(doc->uri);
 	if (doc->fileinfo == NULL) {
@@ -772,6 +774,8 @@ void file_doc_fill_from_uri(Tdocument *doc, GnomeVFSURI *uri, GnomeVFSFileInfo *
 	f2d->doc = doc;
 	f2d->doc->action.load = f2d;
 	f2d->doc->action.goto_line = goto_line;
+	/* this forces an activate on the document, which will call widget_show() on the textview */
+	BFWIN(doc->bfwin)->focus_next_new_doc = TRUE;
 	if (finfo == NULL) {
 		file_doc_fill_fileinfo(f2d->doc, uri);
 	}
