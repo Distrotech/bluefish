@@ -81,6 +81,10 @@
 #include "highlight.h" /* hl_reset_to_default()*/
 #include "document.h" /* DOCUMENT_BACKUP_ABORT_ASK */
 
+#ifdef ENABLEPLUGINS
+#include "plugins.h"
+#endif /* ENABLEPLUGINS */
+
 typedef struct {
 	void *pointer; /* where should the value be stored ?*/
 	unsigned char type; /* a=arraylist, l=stringlist, s=string, e=string with escape, i=integer, m=limiTed stringlist */
@@ -947,6 +951,9 @@ static GList *return_globalsession_configlist(gboolean init_values) {
 	init_prop_string    (&config_rc, &main_v->globses.image_thumnailformatstring,"image_thumnailformatstring:",(init_values ? "<a href=\"%r\"><img src=\"%t\" width=\"%x\" height=\"%y\" border=\"0\"></a>" : NULL));
 	init_prop_arraylist (&config_rc, &main_v->globses.reference_files, "reference_files:", 2, init_values);
 	init_prop_limitedstringlist(&config_rc, &main_v->globses.recent_projects, "recent_projects:", main_v->props.max_recent_files, init_values);
+#ifdef ENABLEPLUGINS
+	config_rc = bfplugins_register_globses_config(config_rc);
+#endif /* ENABLEPLUGINS */
 	return config_rc;
 }
 
@@ -981,7 +988,9 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 #ifdef HAVE_LIBASPELL
 	init_prop_string(&configlist, &session->spell_default_lang, "spell_default_lang:", NULL);
 #endif /* HAVE_LIBASPELL */
-
+#ifdef ENABLEPLUGINS
+	configlist = bfplugins_register_session_config(configlist);
+#endif /* ENABLEPLUGINS */
 	return configlist;
 }
 

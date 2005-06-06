@@ -23,7 +23,7 @@
 
 #include "bluefish.h"
 
-#define BFPLUGIN_VERSION 3
+#define BFPLUGIN_VERSION 4
 typedef struct {
 	const gchar *name; /* plugin name */
 	const gushort bfplugin_version;
@@ -40,7 +40,8 @@ typedef struct {
 	void (*cleanup) (void);
 	void (*cleanup_gui) (Tbfwin *bfwin);
 	
-	GList *(*register_config)(GList *configlist);
+	GList *(*register_globses_config)(GList *configlist);
+	GList *(*register_session_config)(GList *configlist);
 
 	gpointer extra1; /* for binary compatibility */
 	gpointer extra2;
@@ -56,7 +57,10 @@ extern "C" {
 
 void bluefish_load_plugins(void);
 void bluefish_cleanup_plugins(void);
-void bluefish_plugin_gui(gpointer data, gpointer user_data);
+
+void bfplugins_gui(gpointer data, gpointer user_data);
+GList *bfplugins_register_globses_config(GList *list);
+GList *bfplugins_register_session_config(GList *list);
 
 #ifdef __cplusplus
 };

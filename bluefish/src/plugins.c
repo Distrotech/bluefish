@@ -85,10 +85,34 @@ void bluefish_cleanup_plugins(void) {
 }
 
 /* can be called by g_list_foreach() */
-void bluefish_plugin_gui(gpointer data, gpointer user_data) {
+void bfplugins_gui(gpointer data, gpointer user_data) {
 	Tbfwin *bfwin = user_data;
 	TBluefishPlugin *bfplugin = data;
 	DEBUG_MSG("bluefish_plugins_gui, init_gui for plugin %p and bfwin %p\n",bfplugin,bfwin);	
 	bfplugin->init_gui(bfwin);
 }
+
+GList *bfplugins_register_globses_config(GList *list) {
+	GSList *tmplist = main_v->plugins;
+	while (tmplist) {
+		TBluefishPlugin *bfplugin = tmplist->data;
+		if (bfplugin->register_globses_config) {
+			list = bfplugin->register_globses_config(list);
+		}
+		tmplist =  g_slist_next(tmplist);
+	}
+	return list;
+}
+GList *bfplugins_register_session_config(GList *list) {
+	GSList *tmplist = main_v->plugins;
+	while (tmplist) {
+		TBluefishPlugin *bfplugin = tmplist->data;
+		if (bfplugin->register_session_config) {
+			list = bfplugin->register_session_config(list);
+		}
+		tmplist =  g_slist_next(tmplist);
+	}
+	return list;
+}
+
 #endif /* ENABLEPLUGINS */
