@@ -324,6 +324,7 @@ typedef struct {
 	Tdocument *last_activated_doc;
 	Tproject *project; /* might be NULL for a default project */
 	GtkWidget *main_window;
+	GtkWidget *toolbarbox; /* vbox on top, with main and html toolbar */
 	GtkWidget *menubar;
 	gint last_notebook_page; /* a check to see if the notebook changed to a new page */
 	gulong notebook_switch_signal;
