@@ -23,10 +23,17 @@
 
 #include "bluefish.h"
 
-#define BFPLUGIN_VERSION 2
+#define BFPLUGIN_VERSION 3
 typedef struct {
 	const gchar *name; /* plugin name */
-	const guint version; 
+	const gushort bfplugin_version;
+	const gushort document_size;
+	const gushort sessionvars_size;
+	const gushort globalsession_size;
+	const gushort bfwin_size;
+	const gushort project_size;
+	const gushort main_size;
+		
 	gpointer private; /* to be filled by Bluefish after loading */
 	void (*init) (void); /* called once after plugin is loaded */
 	void (*init_gui) (Tbfwin *bfwin); /* builds the gui */
