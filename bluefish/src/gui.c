@@ -1341,10 +1341,14 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(bfwin->main_window), vbox);
 	gtk_widget_show(vbox);
+	
+	bfwin->toolbarbox = gtk_vbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox), bfwin->toolbarbox, FALSE, FALSE, 0);
+	gtk_widget_show(bfwin->toolbarbox);
 
 	/* first a menubar */
 	DEBUG_MSG("gui_create_main, starting menu_create_main\n");
-	menu_create_main(bfwin, vbox);
+	menu_create_main(bfwin, bfwin->toolbarbox);
 	DEBUG_MSG("gui_create_main, starting recent_menu\n");
 	recent_menu_init(bfwin);
 	DEBUG_MSG("gui_create_main, starting external-encoding_menu\n");
@@ -1357,11 +1361,11 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	{
 		DEBUG_MSG("gui_create_main, creating handles for all menu/toolbars\n");
 		bfwin->main_toolbar_hb = gtk_handle_box_new();
-		gtk_box_pack_start(GTK_BOX(vbox), bfwin->main_toolbar_hb, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->main_toolbar_hb, FALSE, FALSE, 0);
 		bfwin->html_toolbar_hb = gtk_handle_box_new();
-		gtk_box_pack_start(GTK_BOX(vbox), bfwin->html_toolbar_hb, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->html_toolbar_hb, FALSE, FALSE, 0);
 		bfwin->custom_menu_hb = gtk_handle_box_new();
-		gtk_box_pack_start(GTK_BOX(vbox), bfwin->custom_menu_hb, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->custom_menu_hb, FALSE, FALSE, 0);
 
 		if (bfwin->session->view_main_toolbar) {
 			make_main_toolbar(bfwin);
