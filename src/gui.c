@@ -1441,7 +1441,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	
 	/* here we ask any plugins to build there gui */
 #ifdef ENABLEPLUGINS
-	g_slist_foreach(main_v->plugins, bluefish_plugin_gui, bfwin);
+	g_slist_foreach(main_v->plugins, bfplugins_gui, bfwin);
 #endif /* ENABLEPLUGINS */
 	/* We have to know when the notebook changes */
 	gui_notebook_bind_signals(bfwin);
