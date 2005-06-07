@@ -108,7 +108,7 @@ uninstall:
 	done
 
 clean:
-	rm -f (FUNCREFFILES)
+	rm -f $(FUNCREFFILES)
 
 distclean: clean
 	rm -f \
