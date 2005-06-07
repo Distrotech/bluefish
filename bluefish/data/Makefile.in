@@ -43,6 +43,9 @@ FUNCREFFILES = \
 	bflib_xhtml_transitional.xml
 
 all:
+	for file in $(FUNCREFFILES) ; do \
+		gzip $$file ;\
+	done
 
 install-fdmenu:
 	$(INSTALL_DIR) $(DESTDIR)$(FDMENU)
@@ -81,11 +84,10 @@ install-theme-icon:
 install: all $(INSTALLDATA)
 	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
 	for file in $(DEFAULTFILES) ; do \
-		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir)$$file ;\
+		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
 	done
 	for file in $(FUNCREFFILES) ; do \
-		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
-		gzip $(DESTDIR)$(pkgdatadir)/$$file ;\
+		$(INSTALL_DATA) $$file.gz $(DESTDIR)$(pkgdatadir) ;\
 	done
 
 uninstall:
@@ -105,6 +107,7 @@ uninstall:
 	done
 
 clean:
+	rm -f bflib_*.xml.gz
 
 distclean: clean
 	rm -f \
