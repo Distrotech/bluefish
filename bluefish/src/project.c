@@ -292,8 +292,9 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		bfwin->session = prj->session;
 		prwin->project = prj;
 		prwin->bmarkdata = prj->bmarkdata;
-		
+#ifndef ENABLEPLUGINS
 		gui_set_html_toolbar_visible(prwin, prj->session->view_html_toolbar, TRUE);
+#endif /* ENABLEPLUGINS*/
 		gui_set_main_toolbar_visible(prwin, prj->session->view_main_toolbar, TRUE);
 		gui_set_custom_menu_visible(prwin, prj->session->view_custom_menu, TRUE);
 		DEBUG_MSG("project_open_from_file, calling left_panel_show_hide_toggle bfwin=%p\n",prwin);

@@ -944,14 +944,18 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	DEBUG_MSG("handle_activate_on_file, file %s has type %p\n",filename, ft);
 	if (ft == NULL || ft->editable) {
 		doc_new_from_uri(fb2->bfwin, uri, NULL, FALSE, FALSE, -1, -1);
-	} else if (strcmp(ft->type, "webimage")==0 || strcmp(ft->type, "image")==0) {
+	}
+#ifndef ENABLEPLUGINS
+	 else if (strcmp(ft->type, "webimage")==0 || strcmp(ft->type, "image")==0) {
 		gchar *relfilename, *curi;
 		curi = gnome_vfs_uri_to_string(fb2->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 		relfilename = create_relative_link_to(curi, filename);
 		image_insert_from_filename(fb2->bfwin,relfilename);
 		g_free(relfilename);
 		g_free(curi);
-	} else if (strcmp(ft->type, "bfproject") == 0) {
+	} 
+#endif /* ENABLEPLUGINS */
+	else if (strcmp(ft->type, "bfproject") == 0) {
 		project_open_from_file(fb2->bfwin, filename);
 	} else {
 		DEBUG_MSG("handle_activate_on_file, file %s is not-editable, do something special now?\n",filename);

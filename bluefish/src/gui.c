@@ -358,7 +358,7 @@ void gui_set_title(Tbfwin *bfwin, Tdocument *doc) {
 	g_free(title);
 	g_free(prfilepart);
 }
-
+#ifndef ENABLEPLUGINS
 typedef struct {
 	const gchar *ident;
 	void (*func)();
@@ -1082,7 +1082,7 @@ void make_html_toolbar(Tbfwin *bfwin) {
 
 	gtk_widget_show_all(html_notebook);
 }
-
+#endif /* ENABLEPLUGINS */
 static void doc_indent_lcb(GtkWidget *wid,Tbfwin *bfwin) {
 	if (bfwin->current_document) {
 		doc_indent_selection(bfwin->current_document,0);
@@ -1371,10 +1371,12 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 			make_main_toolbar(bfwin);
 			gtk_widget_show(bfwin->main_toolbar_hb);
 		}
+#ifndef ENABLEPLUGINS
 		if (bfwin->session->view_html_toolbar) {
 			make_html_toolbar(bfwin);
 			gtk_widget_show(bfwin->html_toolbar_hb);
 		}
+#endif /* ENABLEPLUGINS */
 		if (bfwin->session->view_custom_menu) {
 			make_cust_menubar(bfwin,bfwin->custom_menu_hb);
 			gtk_widget_show(bfwin->custom_menu_hb);
@@ -1694,7 +1696,7 @@ GtkWidget *start_splash_screen() {
 	return splashscreen.window;
 }
 #endif /* #ifndef NOSPLASH */
-
+#ifndef ENABLEPLUGINS
 void gui_set_html_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
 	if (sync_menu) {
 		DEBUG_MSG("gui_set_html_toolbar_visible, trying to sync menu\n");
@@ -1705,6 +1707,7 @@ void gui_set_html_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync
 	}
 	widget_set_visible(bfwin->html_toolbar_hb,visible);
 }
+#endif /* ENABLEPLUGINS */
 void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
 	if (sync_menu) {
 		DEBUG_MSG("gui_set_main_toolbar_visible, trying to sync menu\n");
@@ -1734,10 +1737,12 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 		bfwin->session->view_main_toolbar = active;
 		gui_set_main_toolbar_visible(bfwin, active, FALSE);
 	break;
+#ifndef ENABLEPLUGINS
 	case 2:
 		bfwin->session->view_html_toolbar = active;
 		gui_set_html_toolbar_visible(bfwin, active, FALSE);
 	break;
+#endif /* ENABLEPLUGINS*/
 	case 3:
 		bfwin->session->view_custom_menu = active;
 		gui_set_custom_menu_visible(bfwin, active, FALSE);
