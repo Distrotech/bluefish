@@ -32,20 +32,21 @@ INSTALL_DATA = $(INSTALL) -m 644
 
 DEFAULTFILES = highlighting filetypes encodings custom_menu custom_menu.fr custom_menu.de
 FUNCREFFILES = \
-	bflib_css2.xml \
-	bflib_html_4.01.xml \
-	bflib_php4.xml \
-	bflib_php5.xml \
-	bflib_php5_with_examples.xml \
-	bflib_python_2.3.xml \
-	bflib_xhtml_strict_test.xml \
-	bflib_xhtml_strict.xml \
-	bflib_xhtml_transitional.xml
+	bflib_css2.xml.gz \
+	bflib_html_4.01.xml.gz \
+	bflib_php4.xml.gz \
+	bflib_php5.xml.gz \
+	bflib_php5_with_examples.xml.gz \
+	bflib_python_2.3.xml.gz \
+	bflib_xhtml_strict_test.xml.gz \
+	bflib_xhtml_strict.xml.gz \
+	bflib_xhtml_transitional.xml.gz
 
-all:
-	for file in $(FUNCREFFILES) ; do \
-		gzip -c $$file > $$file.gz ;\
-	done
+
+%.xml.gz : %.xml
+	gzip $< -c > $@
+
+all: $(FUNCREFFILES)
 
 install-fdmenu:
 	$(INSTALL_DIR) $(DESTDIR)$(FDMENU)
@@ -87,7 +88,7 @@ install: all $(INSTALLDATA)
 		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
 	done
 	for file in $(FUNCREFFILES) ; do \
-		$(INSTALL_DATA) $$file.gz $(DESTDIR)$(pkgdatadir) ;\
+		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
 	done
 
 uninstall:
@@ -103,11 +104,11 @@ uninstall:
 		rm -f $(DESTDIR)$(pkgdatadir)$$file.default ;\
 	done
 	@for file in $(FUNCREFFILES) ; do \
-		rm -f $(DESTDIR)$(pkgdatadir)$$file.gz ;\
+		rm -f $(DESTDIR)$(pkgdatadir)$$file ;\
 	done
 
 clean:
-	rm -f bflib_*.xml.gz
+	rm -f (FUNCREFFILES)
 
 distclean: clean
 	rm -f \
