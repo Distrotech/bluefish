@@ -44,7 +44,7 @@ FUNCREFFILES = \
 
 all:
 	for file in $(FUNCREFFILES) ; do \
-		gzip $$file ;\
+		gzip -c $$file > $$file.gz ;\
 	done
 
 install-fdmenu:
