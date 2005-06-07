@@ -9,6 +9,42 @@
 #	fi
 #done
 
+TOOLBAR_ENABLEPLUGINS = \
+	pixmap_bookmarks bookmarks.png \
+	pixmap_bluefish_icon1 bluefish_icon1.png \
+	pixmap_close close.png \
+	pixmap_filetree filetree.png \
+	pixmap_fref fref.png \
+	pixmap_frdialog frdialog.png \
+	pixmap_frdialog2 frdialog2.png \
+	pixmap_frhide frhide.png \
+	pixmap_frinfo frinfo.png \
+	pixmap_frsearch frsearch.png \
+	pixmap_frlibrary frlibrary.png \
+	pixmap_frlibrary_ro frlibrary_ro.png \
+	pixmap_frgroup frgroup.png \
+	pixmap_frnote frnote.png \
+	pixmap_frfunction frfunction.png \
+	pixmap_frtag frtag.png \
+	pixmap_frvar frvar.png \
+	pixmap_frcss frcss.png \
+	pixmap_frsnippet frsnippet.png \
+	pixmap_indent indent.png \
+	pixmap_new new.png \
+	pixmap_nothing nothing.png \
+	pixmap_open_small open_small.png \
+	pixmap_prefseditor prefs-editor.png \
+	pixmap_prefsfiletypes prefs-filetypes.png \
+	pixmap_prefsinterface prefs-interface.png \
+	pixmap_prefsexternal prefs-external.png \
+	pixmap_prefshtml prefs-html.png \
+	pixmap_prefsoutputparser prefs-outputparser.png \
+	pixmap_prefsfiles prefs-files.png \
+	pixmap_prefsimages prefs-images.png \
+ 	pixmap_prefssyntax prefs-syntax.png \
+	pixmap_unindent unindent.png \
+	pixmap_view_in_browser view_in_browser.png
+
 TOOLBAR = \
 	pixmap_abbr abbr.png \
 	pixmap_acronym acronym.png \
