@@ -2014,7 +2014,9 @@ static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *beve
 	if (bevent->button == 3) {
 		GtkTextIter iter;
 		doc_get_iter_at_bevent(doc, bevent, &iter);
+#ifndef ENABLEPLUGINS
 		rpopup_bevent_in_html_code(doc, &iter);
+#endif /* ENABLEPLUGINS */
 		bmark_store_bevent_location(doc, gtk_text_iter_get_offset(&iter));
 	}
 /* here we ask any plugins to do any processing */
@@ -2079,7 +2081,7 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem)); */
 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
-
+#ifndef ENABLEPLUGINS
 	menuitem = gtk_image_menu_item_new_with_label(_("Edit color"));
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
 	if (rpopup_doc_located_color(doc)) {
@@ -2096,7 +2098,7 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 	} else {
 		gtk_widget_set_sensitive(menuitem, FALSE);
 	}
-	
+#endif /* ENABLEPLUGINS */
 /* here we ask any plugins to add there menu item */
 #ifdef ENABLEPLUGINS
 	if (main_v->doc_view_populate_popup_cbs) {

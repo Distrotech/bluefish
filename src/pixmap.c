@@ -28,6 +28,7 @@ static Tpixmap tp[] = {
 /* 	{10, undo}, */
 /* 	{11, redo}, */
 /* 	{12, preferences}, */
+#ifndef ENABLEPLUGINS
 	{13, pixmap_quick_start},
 	{14, pixmap_body},
 	{15, pixmap_bold},
@@ -115,9 +116,12 @@ static Tpixmap tp[] = {
 	{98, pixmap_cite},
 	{99, pixmap_abbr},
 	{100, pixmap_acronym},
+#endif /* ENABLEPLUGINS */
 	{101, pixmap_close_small},
 	{102, pixmap_view_in_browser},
+#ifndef ENABLEPLUGINS
 	{103, pixmap_context}, /* context dropdown image */
+#endif /* ENABLEPLUGINS */
  	{104, pixmap_bookmarks},
 	{105, pixmap_filetree},
 	{106, pixmap_fref},
@@ -127,7 +131,9 @@ static Tpixmap tp[] = {
 	{110, pixmap_indent},
 	{111, pixmap_unindent},
 	{112, pixmap_open_small},
+#ifndef ENABLEPLUGINS
 	{113, pixmap_edit_tag},
+#endif /* ENABLEPLUGINS */
 	{150,pixmap_prefseditor},
 	{151,pixmap_prefsexternal},
 	{152,pixmap_prefsfiles},

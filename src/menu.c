@@ -165,6 +165,7 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		exit(123);
 	}
 }
+#ifndef ENABLEPLUGINS
 static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	switch (callback_action) {
 	case 1:
@@ -281,6 +282,7 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		exit(123);
 	}
 }
+#endif /* ENABLEPLUGINS */
 #ifdef HAVE_LIBASPELL
 static void spell_check_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	spell_check_cb(NULL, bfwin);
@@ -390,6 +392,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/View/View _HTML Toolbar"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"},
 	{N_("/View/View _Custom Menu"), NULL, gui_toggle_hidewidget_cb, 3, "<ToggleItem>"},
 	{N_("/View/View _Sidebar"), "F9", gui_toggle_hidewidget_cb, 4, "<ToggleItem>"},
+#ifndef ENABLEPLUGINS
 	{N_("/_Tags"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Tags/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 /*	{N_("/Tags/Repeat last"), "F4", repeat_last_insert_cb, 0, NULL},*/
@@ -674,6 +677,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/WML/Set Variable..."), NULL, vardialog_cb, 0, NULL},*/
 	{N_("/Dialogs/sep1"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Dialogs/_Edit tag under cursor..."), "F3", menu_html_dialogs_lcb, 38, "<ImageItem>", pixmap_edit_tag},
+#endif /* ENABLEPLUGINS */
 	{N_("/_Document"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Document/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/_Increase Tabsize"), NULL, gui_change_tabsize, 1, "<Item>"},
