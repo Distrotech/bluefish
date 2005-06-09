@@ -242,6 +242,7 @@ typedef struct {
 	gchar *bflib_info_font;
 	gchar *bflib_info_bkg;
 	gchar *bflib_info_fg;
+	GList *plugin_config; /* array, 0=filename, 1=enabled, 2=name*/
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
