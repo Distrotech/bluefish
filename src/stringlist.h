@@ -55,8 +55,7 @@ gint array_n_strings_identical(gchar **array1, gchar **array2, gboolean case_sen
 GList *arraylist_delete_identical(GList *arraylist, gchar **compare, gint testlevel, gboolean case_sensitive);
 GList *arraylist_append_identical_from_list(GList *thelist, GList *source, gchar **compare, gint testlevel, gboolean case_sensitive);
 GList *arraylist_append_identical_from_file(GList *thelist, const gchar *sourcefilename, gchar **compare, gint testlevel, gboolean case_sensitive);
-
-gboolean arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel, gboolean case_sensitive);
+gchar **arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel, gboolean case_sensitive);
 GList *arraylist_load_new_identifiers_from_list(GList *mylist, GList *deflist, gint uniquelevel);
 GList *arraylist_load_new_identifiers_from_file(GList *mylist, const gchar *fromfilename, gint uniquelevel);
 #endif							/* __STRINGLIST_H_ */

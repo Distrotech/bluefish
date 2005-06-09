@@ -1097,18 +1097,18 @@ GList *arraylist_append_identical_from_file(GList *thelist, const gchar *sourcef
  * so if you want the test to check for a 100% identical array that number 
  * should be high (9999 or so)
  *
- * Return value: #gboolean 
+ * Return value: #gchar ** 
  */
-gboolean arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel, gboolean case_sensitive) {
+gchar **arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel, gboolean case_sensitive) {
 	GList *tmplist = g_list_first(arraylist);
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
 		if (array_n_strings_identical(value, tmparr, case_sensitive, testlevel)==0) {
-			return TRUE;
+			return tmparr;
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	return FALSE;
+	return NULL;
 }
 /**
  * arraylist_load_new_identifiers_from_list:
