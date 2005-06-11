@@ -768,7 +768,8 @@ AC_CONFIG_FILES(
 	data/bluefish.applications
 	data/bluefish.desktop
 	data/bluefish-project.desktop
-	data/bluefish.keys)
+	data/bluefish.keys
+	src/plugin_htmlbar/Makefile)
 AC_OUTPUT
 
 echo "-----------"

@@ -1,6 +1,6 @@
 # Bluefish HTML Editor
-# Makefile.in - the Makefile template
-# Copyright (C) 2002-2005 Olivier Sessink
+# Makefile.in - the plugin Makefile template
+# Copyright (C) 2005 Olivier Sessink
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,9 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-PACKAGE = @PACKAGE@
-VERSION = @VERSION@
 
 top_srcdir = @top_srcdir@
 top_builddir = @top_srcdir@
@@ -43,71 +40,35 @@ INSTALL_PROGRAM = $(INSTALL) -s -m 755
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGNULOCALEDIR=\"$(gnulocaledir)\" \
 -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -DPKGDATADIR=\"$(pkgdatadir)\" @DEFS@
 
-SRCS = 	about.c \
-			authen2.c \
-			bf_lib.c \
-			bfspell.c \
-			bluefish.c \
-			bookmark.c \
-			cap.c \
-			char_table.c \
-			dialog_utils.c \
-			document.c \
-			embed_python.c \
-			external_commands.c \
-			file.c \
-			file_dialogs.c \
-			filebrowser2.c \
-			fref2.c \
-			gtk_easy.c \
-			gui.c \
-			highlight.c \
-			html.c \
-			html2.c \
-			html_diag.c \
-			html_form.c \
-			html_table.c \
-			image.c \
-			menu.c \
-			msg_queue.c \
-			outputbox.c \
-			pixmap.c \
-			preferences.c \
-			project.c \
-			quickstart.c \
-			rcfile.c \
-			rpopup.c \
-			snr2.c \
-			stringlist.c \
-			treetips.c \
-			undo_redo.c \
-			wizards.c
+PLUGIN=htmlbar.so
+PLUGINDIR=${pkgdatadir}
 
-OBJS = $(SRCS:.c=.o)
+OBJECTS= cap.o \
+	htmlbar.o \
+	html.o \
+	html2.o \
+	html_diag.o \
+	html_table.o \
+	html_form.o \
+	image.o \
+	htmlbar_gui.o \
+	rpopup.o \
+	wizards.o
 
-all: bluefish
-bluefish: $(SRCS) $(OBJS)
-	$(CC) $(DEFS) -o bluefish $(OBJS) $(LDFLAGS) $(LIBS)
-	echo "The bluefish binary is succesfully created"
+all : $(PLUGIN)
+
+install : $(PLUGIN)
+	mkdir -p $(PLUGINDIR)
+	install $(PLUGIN) $(PLUGINDIR)
+
+
+$(PLUGIN) : $(OBJECTS)
+	$(CC) $(LIBS) -shared $^ -o $@
 
 .c.o: $(SRCS)
-	$(CC) $(DEFS) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c $^ -o $@
 
-$(OBJS): bluefish.h
+clean :
+	rm -f $(PLUGIN) *.o
 
-clean:
-	rm -f $(OBJS) bluefish
 
-patchclean: clean
-	rm -f *.orig *.rej  
-
-distclean: patchclean
-	rm -f config.h Makefile *~ *.bak core
-	rm -f *.bb *.bbg *.c.gcov *.da
-
-install: all
-	$(INSTALL_DIR) $(DESTDIR)$(bindir)
-	$(INSTALL_PROGRAM) ./bluefish $(DESTDIR)$(bindir)/$(PACKAGE)
-
-uninstall:
-	/bin/rm -f $(DESTDIR)$(bindir)/$(PACKAGE)
