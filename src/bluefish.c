@@ -203,7 +203,9 @@ int main(int argc, char *argv[])
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("compiling highlighting patterns..."));
 #endif /* #ifndef NOSPLASH */
+#ifndef USE_SCANNER
 	hl_init();
+#endif	
 	fb2config_init(); /* filebrowser2config */
 	/*filebrowserconfig_init();*/
 	/*filebrowser_filters_rebuild();*/

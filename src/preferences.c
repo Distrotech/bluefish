@@ -41,6 +41,10 @@ enum {
 	view_main_toolbar,
 	view_left_panel,
 	view_line_numbers,
+#ifdef USE_SCANNER
+	view_blocks,
+	view_symbols,	
+#endif	
 	filebrowser_two_pane_view,
 	filebrowser_unknown_icon,
 	filebrowser_dir_icon,
@@ -1854,6 +1858,10 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&main_v->props.word_wrap, pd->prefs[word_wrap], TRUE);
 	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);
+#ifdef USE_SCANNER	
+	integer_apply(&main_v->props.view_blocks, pd->prefs[view_blocks], TRUE);
+	integer_apply(&main_v->props.view_symbols, pd->prefs[view_symbols], TRUE);
+#endif
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
 
@@ -1941,7 +1949,9 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.external_outputbox = duplicate_arraylist(pd->lists[extoutputbox]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
+#ifndef USE_SCANNER	
 	filetype_highlighting_rebuild(TRUE);
+#endif	
 	/*filebrowser_filters_rebuild();*/
 	fb2_filters_rebuild();
 	
@@ -2018,6 +2028,10 @@ static void preferences_dialog() {
 	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap default"), main_v->props.word_wrap, vbox2);
 	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);
+#ifdef USE_SCANNER	
+	pd->prefs[view_blocks] = boxed_checkbut_with_value(_("Block folding view by default"), main_v->props.view_blocks, vbox2);
+	pd->prefs[view_symbols] = boxed_checkbut_with_value(_("Symbols view by default"), main_v->props.view_symbols, vbox2);	
+#endif
 	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
 	pd->prefs[highlight_num_lines_count] = prefs_integer(_("Highlight # lines"), main_v->props.highlight_num_lines_count, vbox2, pd, 1, 8);
 
