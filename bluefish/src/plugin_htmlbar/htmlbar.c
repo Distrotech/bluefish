@@ -27,6 +27,7 @@ static void htmlbar_init(void) {
 	bind_textdomain_codeset(PACKAGE"_plugin_htmlbar", "UTF-8");
 #endif
 	htmlbar_v.quickbar_items = NULL;
+	htmlbar_v.view_htmlbar = TRUE;
 	htmlbar_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,
 					NULL /* == g_direct_equal() */,
 					g_free,NULL);
