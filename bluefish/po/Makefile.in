@@ -71,7 +71,7 @@ update-po: ${PACKAGE}.po
 	@for file in $(SRCS) ; do \
 		lang=`echo $${file} | sed -e 's/\.po$$//'`;\
 		echo -n "updating $${lang}.po...";\
-		$(MSGMERGE) -q --output-file=tmp.po $${lang}.po bluefish.po && mv tmp.po $${lang}.po;\
+		$(MSGMERGE) -q --output-file=tmp.po $${lang}.po ${PACKAGE}.po && mv tmp.po $${lang}.po;\
 		$(MSGFMT) --statistics $${lang}.po -o $${lang}.gmo ;\
 	done
 
