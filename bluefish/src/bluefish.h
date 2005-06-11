@@ -24,6 +24,8 @@
 #ifndef __BLUEFISH_H_
 #define __BLUEFISH_H_
 
+#define ENABLEPLUGINS
+
 #include "config.h"
 #define BLUEFISH_SPLASH_FILENAME PKGDATADIR"bluefish_splash.png"
 

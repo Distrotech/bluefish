@@ -15,16 +15,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#ifdef ENABLEPLUGINS
 #define DEBUG
 
 #include "config.h"
 
 #include <gtk/gtk.h>
 #include <string.h>
+#include "bluefish.h"
 #include "plugins.h"
 #include "stringlist.h"
 
+#ifdef ENABLEPLUGINS
 typedef struct {
 	gchar *filename;
 } TPrivatePluginData;
@@ -60,10 +61,6 @@ static TBluefishPlugin *load_plugin(const gchar *filename) {
 	return bfplugin;
 }
 
-#ifndef PLUGINDIR
-#define PLUGINDIR "/home/olivier/cvsbluefish/src/plugins/"
-#endif
-
 static const gchar *plugin_from_filename(const gchar *path) {
 	TBluefishPlugin *bfplugin;
 	bfplugin = load_plugin(path);
@@ -89,8 +86,8 @@ void bluefish_load_plugins(void) {
 	GList *oldlist;
 	const gchar *tmp;
 
-	DEBUG_MSG("bluefish_load_plugins, loading from %s\n",PLUGINDIR);
-	gdir = g_dir_open(PLUGINDIR ,0,&error);
+	DEBUG_MSG("bluefish_load_plugins, loading from %s\n",PKGDATADIR);
+	gdir = g_dir_open(PKGDATADIR ,0,&error);
 	if (error) {
 		/* BUG: handle the error  */
 		return;
@@ -101,7 +98,7 @@ void bluefish_load_plugins(void) {
 	tmp = g_dir_read_name(gdir);
 	while (tmp) {
 		if (g_pattern_match(patspec, strlen(tmp), tmp, NULL)) {
-			gchar *path = g_strconcat(PLUGINDIR, tmp, NULL);
+			gchar *path = g_strconcat(PKGDATADIR, tmp, NULL);
 			gchar *compare[] = {path, NULL}, **arr;
 
 			arr = arraylist_value_exists(oldlist, compare, 1, FALSE);

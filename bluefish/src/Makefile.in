@@ -43,13 +43,24 @@ INSTALL_PROGRAM = $(INSTALL) -s -m 755
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGNULOCALEDIR=\"$(gnulocaledir)\" \
 -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -DPKGDATADIR=\"$(pkgdatadir)\" @DEFS@
 
+OLDSRC = \
+			cap.c \
+			html.c \
+			html2.c \
+			html_diag.c \
+			html_form.c \
+			html_table.c \
+			image.c \
+			quickstart.c \
+			rpopup.c \
+			wizards.c
+			
 SRCS = 	about.c \
 			authen2.c \
 			bf_lib.c \
 			bfspell.c \
 			bluefish.c \
 			bookmark.c \
-			cap.c \
 			char_table.c \
 			dialog_utils.c \
 			document.c \
@@ -62,26 +73,18 @@ SRCS = 	about.c \
 			gtk_easy.c \
 			gui.c \
 			highlight.c \
-			html.c \
-			html2.c \
-			html_diag.c \
-			html_form.c \
-			html_table.c \
-			image.c \
 			menu.c \
 			msg_queue.c \
 			outputbox.c \
 			pixmap.c \
+			plugins.c \
 			preferences.c \
 			project.c \
-			quickstart.c \
 			rcfile.c \
-			rpopup.c \
 			snr2.c \
 			stringlist.c \
 			treetips.c \
-			undo_redo.c \
-			wizards.c
+			undo_redo.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -89,6 +92,7 @@ all: bluefish
 bluefish: $(SRCS) $(OBJS)
 	$(CC) $(DEFS) -o bluefish $(OBJS) $(LDFLAGS) $(LIBS)
 	echo "The bluefish binary is succesfully created"
+	@cd plugin_htmlbar/ && $(MAKE) all
 
 .c.o: $(SRCS)
 	$(CC) $(DEFS) $(CFLAGS) -c -o $@ $<
