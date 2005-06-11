@@ -389,7 +389,9 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_View"), NULL, NULL, 0, "<Branch>"},
 	{N_("/View/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/View/View _Main Toolbar"), NULL, gui_toggle_hidewidget_cb, 1, "<ToggleItem>"},
+#ifndef ENABLEPLUGINS
 	{N_("/View/View _HTML Toolbar"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"},
+#endif /* ENABLEPLUGINS */
 	{N_("/View/View _Custom Menu"), NULL, gui_toggle_hidewidget_cb, 3, "<ToggleItem>"},
 	{N_("/View/View _Sidebar"), "F9", gui_toggle_hidewidget_cb, 4, "<ToggleItem>"},
 #ifndef ENABLEPLUGINS
@@ -939,7 +941,9 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_accel_map_add_entry("<bluefishmain>/Go/Last document", GDK_Page_Down, GDK_SHIFT_MASK | GDK_CONTROL_MASK);
 	gtk_widget_show(bfwin->menubar);
 	setup_toggle_item(item_factory, "/View/View Main Toolbar", bfwin->session->view_main_toolbar);
+#ifndef ENABLEPLUGINS
 	setup_toggle_item(item_factory, "/View/View HTML Toolbar", bfwin->session->view_html_toolbar);
+#endif /* ENABLEPLUGINS */
 	setup_toggle_item(item_factory, "/View/View Custom Menu", bfwin->session->view_custom_menu);
 	setup_toggle_item(item_factory, "/View/View Sidebar", bfwin->session->view_left_panel);
 	setup_toggle_item(item_factory, "/Document/Auto Indent", main_v->props.autoindent);

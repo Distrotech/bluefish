@@ -40,7 +40,9 @@
 #include "bluefish.h"
 #include "bf_lib.h"
 #include "bookmark.h"
+#ifndef ENABLEPLUGINS
 #include "cap.h"
+#endif /* ENABLEPLUGINS */
 #include "char_table.h"		/* convert_utf8...() */
 #include "dialog_utils.h"
 #include "document.h"
@@ -1745,7 +1747,7 @@ static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIt
 				}
 				tmp++;
 			}
-			return g_strconcat("</",cap(tagname),">", NULL);
+			return g_strconcat("</",tagname,">", NULL);
 		}
 	}
 	return NULL;

@@ -23,6 +23,7 @@
 
 #include "bluefish.h"
 
+
 #define BFPLUGIN_VERSION 4
 typedef struct {
 	const gchar *name; /* plugin name */
