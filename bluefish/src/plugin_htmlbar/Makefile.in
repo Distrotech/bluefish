@@ -59,11 +59,13 @@ OBJECTS= cap.o \
 all : $(PLUGIN)
 
 install : $(PLUGIN)
+	@cd po/ && make install
 	$(INSTALL_DIR) $(PLUGINDIR)
 	$(INSTALL_PROGRAM) $(PLUGIN) $(PLUGINDIR)
 
 
 $(PLUGIN) : $(OBJECTS)
+	@cd po/ && make
 	$(CC) $(LIBS) -shared $^ -o $@
 
 .c.o: $(SRCS)
