@@ -298,7 +298,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{N_("/Tags/Format by layout/_Bold"), "<control><alt>b", general_html_menu_cb, 1, "<ImageItem>",pixmap_bold},
 		{N_("/Tags/Format by layout/_Italic"), "<control><alt>i", general_html_menu_cb, 2, "<ImageItem>",pixmap_italic},
 		{N_("/Tags/Format by layout/_Underline"), "<control><alt>u", general_html_menu_cb, 3, "<ImageItem>",pixmap_underline},
-		{N_("/Tags/Format by layout/_Strikeout"), "<control><alt>s", general_html_menu_cb, 4, "<Item>"},
+		{N_("/Tags/Format by layout/_Strikeout"), "<control><alt>s", general_html_menu_cb, 4, "<ImageItem>",pixmap_strikeout},
 		{N_("/Tags/Format by layout/Sm_all"), NULL, general_html_menu_cb, 56, "<Item>"},
 		{N_("/Tags/Format by layout/Bi_g"), NULL, general_html_menu_cb, 57, "<Item>"},
 		{N_("/Tags/F_ormat by context"), NULL, NULL, 0, "<Branch>"},
