@@ -36,7 +36,8 @@ LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
-INSTALL_PROGRAM = $(INSTALL) -s -m 755
+INSTALL_PLUGIN = $(INSTALL) -s -m 644
+
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGNULOCALEDIR=\"$(gnulocaledir)\" \
 -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -DPKGDATADIR=\"$(pkgdatadir)\" @DEFS@
 
@@ -58,15 +59,15 @@ OBJECTS= cap.o \
 all : $(PLUGIN)
 
 install : $(PLUGIN)
-	mkdir -p $(PLUGINDIR)
-	install $(PLUGIN) $(PLUGINDIR)
+	$(INSTALL_DIR) $(PLUGINDIR)
+	$(INSTALL_PROGRAM) $(PLUGIN) $(PLUGINDIR)
 
 
 $(PLUGIN) : $(OBJECTS)
 	$(CC) $(LIBS) -shared $^ -o $@
 
 .c.o: $(SRCS)
-	$(CC) $(CFLAGS) -c $^ -o $@
+	$(CC) $(DEFS) $(CFLAGS) -c $^ -o $@
 
 clean :
 	rm -f $(PLUGIN) *.o
