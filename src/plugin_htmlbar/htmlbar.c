@@ -21,6 +21,11 @@ static void htmlbar_doc_view_button_press(GtkWidget *widget,GdkEventButton *beve
 }
 
 static void htmlbar_init(void) {
+#ifdef ENABLE_NLS
+	DEBUG_MSG("htmlbar_init, gettext domain-name=%s\n",PACKAGE"_plugin_htmlbar");
+	bindtextdomain(PACKAGE"_plugin_htmlbar", LOCALEDIR);
+	bind_textdomain_codeset(PACKAGE"_plugin_htmlbar", "UTF-8");
+#endif
 	htmlbar_v.quickbar_items = NULL;
 	htmlbar_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,
 					NULL /* == g_direct_equal() */,

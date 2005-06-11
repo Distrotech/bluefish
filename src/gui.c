@@ -755,7 +755,7 @@ static void html_toolbar_quickbar_switch(Ttoolbaritem *tbitem, gboolean moverigh
 
 	/* first we look for the current location of this item */	
 	pos = get_quickbar_item_position(tbitem);
-	DEBUG_MSG("html_toolbar_quickbar_switch, found item %s at pos=%d, config list length=%d\n",tbitem->ident,pos,g_list_length(main_v->globses.quickbar_items));
+	DEBUG_MSG("html_toolbar_quickbar_switch, found item at pos=%d, config list length=%d\n",pos,g_list_length(main_v->globses.quickbar_items));
 	if (pos >= 0) {
 		GList *tmp1, *tmp2, *tmplist;
 		/* then we move this item to the new place in the config list */
@@ -779,29 +779,17 @@ static void html_toolbar_quickbar_switch(Ttoolbaritem *tbitem, gboolean moverigh
 			DEBUG_MSG("html_toolbar_quickbar_switch, checking bfwin=%p\n",bfwin);
 			if (bfwin->toolbar_quickbar && bfwin->toolbar_quickbar_children) {
 				Tquickbaritem *qbi1;
-				DEBUG_MSG("retrieving quickbaritem from pos %d\n",pos);
 				tmp1 = g_list_nth(bfwin->toolbar_quickbar_children, pos);
-				tmp2 = (moveright) ? g_list_next(tmp1) : g_list_previous(tmp1);
 				qbi1 = (Tquickbaritem *)tmp1->data;
-				list_switch_order(tmp1, tmp2);
-				DEBUG_MSG("html_toolbar_quickbar_switch, quickbaritem %p has tbitem %s\n",qbi1, qbi1->tbitem->ident);
-				/* I don't know why the next bit of code doesn't work... bug in gtk? */
-				/*g_object_ref(G_OBJECT(qbi1->button));
-				DEBUG_MSG("html_toolbar_quickbar_switch, detaching widget!, button=%p, button->parent=%p, toolbar=%p\n",qbi1->button,qbi1->button->parent,bfwin->toolbar_quickbar);
+				g_object_ref(G_OBJECT(qbi1->button));
+				DEBUG_MSG("html_toolbar_quickbar_switch, detaching widget!\n");
 				gtk_container_remove(GTK_CONTAINER(bfwin->toolbar_quickbar),qbi1->button);
 				DEBUG_MSG("html_toolbar_quickbar_switch, attaching widget at pos %d\n",(moveright)?pos+1:pos-1);
 				gtk_toolbar_insert_widget(GTK_TOOLBAR(bfwin->toolbar_quickbar),qbi1->button,
 							_(qbi1->tbitem->tooltiptext),"",(moveright)?pos+1:pos-1);
 				g_object_unref(G_OBJECT(qbi1->button));
-				*/
-				/* this workaround bit of code removes (and thus destroys) the button and creates a new identical button on the new location */
-				DEBUG_MSG("html_toolbar_quickbar_switch, about to destroy button,(toolbar has %d children)\n",g_list_length(GTK_TOOLBAR(bfwin->toolbar_quickbar)->children));
-				gtk_container_remove(GTK_CONTAINER(bfwin->toolbar_quickbar),qbi1->button);
-				DEBUG_MSG("html_toolbar_quickbar_switch, inserting widget at pos %d (toolbar has %d children)\n",(moveright)?pos+1:pos-1, g_list_length(GTK_TOOLBAR(bfwin->toolbar_quickbar)->children));
-				qbi1->button = gtk_toolbar_insert_item(GTK_TOOLBAR(bfwin->toolbar_quickbar), NULL, _(qbi1->tbitem->tooltiptext),
-							"", new_pixmap(qbi1->tbitem->pixmaptype), G_CALLBACK(qbi1->tbitem->func), bfwin, (moveright)?pos+1:pos-1);
-				g_signal_connect(qbi1->button, "button-press-event", G_CALLBACK(html_toolbar_quickbar_item_button_press_lcb), tbitem);
-				gtk_widget_show(qbi1->button);
+				gtk_widget_show_all(qbi1->button);
+				gtk_widget_show_all(bfwin->toolbar_quickbar);
 			}
 			tmplist = g_list_next(tmplist);
 		}
@@ -1032,7 +1020,6 @@ void make_html_toolbar(Tbfwin *bfwin) {
 					g_signal_connect(qbi->button, "button-press-event", G_CALLBACK(html_toolbar_quickbar_item_button_press_lcb), &tbi[i]);
 					qbi->tbitem = &tbi[i];
 					bfwin->toolbar_quickbar_children = g_list_append(bfwin->toolbar_quickbar_children, qbi);
-					DEBUG_MSG("make_html_toolbar, appended %s as quickbaritem %p to quickbar %p\n",qbi->tbitem->ident, qbi,bfwin->toolbar_quickbar);
 					break;
 				}
 			}

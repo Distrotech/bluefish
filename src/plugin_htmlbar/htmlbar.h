@@ -25,6 +25,7 @@
 #define DEBUG
 
 #include <gtk/gtk.h>
+#include "../config.h"
 #include "../bluefish.h"
 
 #ifdef ENABLE_NLS
