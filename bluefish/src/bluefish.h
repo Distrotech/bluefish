@@ -163,6 +163,10 @@ typedef struct {
 	gboolean highlightstate; /* does this document use highlighting ? */
 	gboolean wrapstate; /* does this document use wrap?*/
 	gboolean linenumberstate; /* does this document use linenumbers? */
+#ifdef USE_SCANNER	
+	gboolean blocksstate; /* does this document show blocks? */
+	gboolean symstate; /* does this document show symbols? */	
+#endif	
 	gboolean overwrite_mode; /* is document in overwrite mode */
 	gboolean autoclosingtag; /* does the document use autoclosing of tags */
 	gpointer floatingview; /* a 2nd textview widget that has its own window */
@@ -245,6 +249,10 @@ typedef struct {
 	gchar *bflib_info_bkg;
 	gchar *bflib_info_fg;
 	GList *plugin_config; /* array, 0=filename, 1=enabled, 2=name*/
+#ifdef USE_SCANNER
+	gint view_blocks; /* view blocks on the left side by default */
+	gint view_symbols; /* view symbols on the left side by default */	
+#endif	
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 

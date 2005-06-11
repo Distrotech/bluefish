@@ -58,7 +58,9 @@
 #include "snr2.h"				/* snr2_run_extern_replace */
 #include "stringlist.h"		/* free_stringlist() */
 #include "undo_redo.h"		/* doc_unre_init() */
-
+#ifdef USE_SCANNER
+#include "bf-textview.h"
+#endif
 
 typedef struct {
 	GtkWidget *textview;
@@ -274,6 +276,7 @@ Tdocument *documentlist_return_document_from_index(GList *doclist, gint index) {
  * Return value: void
  **/
 void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+#ifndef USE_SCANNER
 	if (!bfwin->current_document) return;
 	DEBUG_MSG("doc_update_highlighting, curdoc=%p, highlightstate=%d\n", bfwin->current_document, bfwin->current_document->highlightstate);
 	if (bfwin->current_document->highlightstate == 0) {
@@ -284,6 +287,7 @@ void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *wid
 	} else {
 		doc_highlight_full(bfwin->current_document);
 	}
+#endif	
 }
 
 /**
@@ -389,6 +393,7 @@ Tfiletype *get_filetype_by_filename_and_content(const gchar *filename, gchar *bu
  * Return value: void
  */
 void doc_set_tooltip(Tdocument *doc) {
+#ifndef USE_SCANNER
 	gchar *text, *tmp;
 	gchar *encoding;
 	gchar *mtimestr=NULL;
@@ -437,6 +442,7 @@ void doc_set_tooltip(Tdocument *doc) {
 
 	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, text, "");
 	g_free(text);
+#endif	
 }
 /**
  * doc_set_filetype:
@@ -452,7 +458,9 @@ void doc_set_tooltip(Tdocument *doc) {
 gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 	DEBUG_MSG("doc_set_filetype, will set filetype %s\n",ft->type);
 	if (ft != doc->hl) {
+#ifndef USE_SCANNER	
 		doc_remove_highlighting(doc);
+#endif		
 		doc->hl = ft;
 		doc->need_highlighting = TRUE;
 		doc->autoclosingtag = (ft->autoclosingtag > 0);
@@ -1599,7 +1607,9 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 				g_print("doc_buffer_to_textbox, doc does not have a filetype ????\n");
 			}
 #endif
+#ifndef USE_SCANNER
 			doc_highlight_full(doc);
+#endif			
 		}
 	}
 	if (!enable_undo) {
@@ -1771,7 +1781,9 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 				}
 			}
 			if (do_highlighting) {
+#ifndef USE_SCANNER			
 				doc_highlight_line(doc);
+#endif				
 			}
 		}
 	}
@@ -1920,7 +1932,9 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 				}
 			}
 			if (do_highlighting) {
+#ifndef USE_SCANNER			
 				doc_highlight_line(doc);
+#endif				
 			}
 		}
 		/* undo_redo stuff */
@@ -1957,7 +1971,9 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 		if (doc->paste_operation) {
 			if (PASTEOPERATION(doc->paste_operation)->eo > PASTEOPERATION(doc->paste_operation)->so) {
 				DEBUG_MSG("doc_view_button_release_lcb, start doc-highlight_region for so=%d, eo=%d\n",PASTEOPERATION(doc->paste_operation)->so,PASTEOPERATION(doc->paste_operation)->eo);
+#ifndef USE_SCANNER				
 				doc_highlight_region(doc, PASTEOPERATION(doc->paste_operation)->so, PASTEOPERATION(doc->paste_operation)->eo);
+#endif				
 			}
 			g_free(doc->paste_operation);
 			doc->paste_operation = NULL;
@@ -2707,6 +2723,7 @@ static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
 	doc_close_single_backend(data, FALSE, FALSE);
 }
 
+#ifndef USE_SCANNER
 /* contributed by Oskar Swida <swida@aragorn.pb.bialystok.pl>, with help from the gedit source */
 static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose * event, gpointer doc) {
 	GtkTextView *view = (GtkTextView*)widget;
@@ -2758,6 +2775,7 @@ static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose
 	if (temp_tab) g_hash_table_destroy(temp_tab);
 	return TRUE;
 }
+#endif
 
 /**
  * document_set_line_numbers:
@@ -2769,6 +2787,9 @@ static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose
  * Return value: void
  **/ 
 void document_set_line_numbers(Tdocument *doc, gboolean value) {
+#ifdef USE_SCANNER
+	bf_textview_show_lines(BF_TEXTVIEW(doc->view),value);
+#else
 	if (value) {
 		gtk_text_view_set_left_margin(GTK_TEXT_VIEW(doc->view),2);
 		gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT,20);
@@ -2777,12 +2798,45 @@ void document_set_line_numbers(Tdocument *doc, gboolean value) {
 		gtk_text_view_set_left_margin(GTK_TEXT_VIEW(doc->view),0);
 		gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT,0);
 	}
+#endif	
 }
+
+
+#ifdef USE_SCANNER
+/**
+ * document_set_show_blocks:
+ * @doc: a #Tdocument*
+ * @value: a #gboolean
+ *
+ * Show or hide blocks (at the left of the main GtkTextView).
+ *
+ * Return value: void
+ **/ 
+void document_set_show_blocks(Tdocument *doc, gboolean value) {
+	bf_textview_show_blocks(BF_TEXTVIEW(doc->view),value);
+}
+
+/**
+ * document_set_show_symbols:
+ * @doc: a #Tdocument*
+ * @value: a #gboolean
+ *
+ * Show or hide symbols (at the left of the main GtkTextView).
+ *
+ * Return value: void
+ **/ 
+void document_set_show_symbols(Tdocument *doc, gboolean value) {
+	bf_textview_show_symbols(BF_TEXTVIEW(doc->view),value);
+}
+
+#endif
 
 static void doc_view_drag_end_lcb(GtkWidget *widget,GdkDragContext *drag_context,Tdocument *doc) {
 	if (doc->paste_operation) {
 		if (PASTEOPERATION(doc->paste_operation)->eo > PASTEOPERATION(doc->paste_operation)->so) {
+#ifndef USE_SCANNER		
 			doc_highlight_region(doc, PASTEOPERATION(doc->paste_operation)->so, PASTEOPERATION(doc->paste_operation)->eo);
+#endif			
 		}
 		g_free(doc->paste_operation);
 		doc->paste_operation = NULL;
@@ -2799,6 +2853,9 @@ static void doc_view_drag_begin_lcb(GtkWidget *widget,GdkDragContext *drag_conte
 static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	GtkWidget *scroll;
 	Tdocument *newdoc;
+#ifdef USE_SCANNER
+	gchar *pstr;
+#endif	
 	
 	/* test if the current document is empty and nameless, if so we return that */
 	if (!force_new && g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
@@ -2811,10 +2868,23 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	DEBUG_MSG("doc_new_backend, main_v is at %p, bfwin at %p, newdoc at %p\n", main_v, bfwin, newdoc);
 	newdoc->bfwin = (gpointer)bfwin;
 	newdoc->status = DOC_STATUS_COMPLETE; /* if we don't set this default we will get problems for new empty files */
+	
+#ifdef USE_SCANNER
+	newdoc->buffer = gtk_text_buffer_new(NULL);
+	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
+	pstr = g_strconcat(g_get_home_dir(), "/."PACKAGE"/sample.bflang", NULL);
+	bf_textview_add_language(BF_TEXTVIEW(newdoc->view),"default",pstr);
+	bf_textview_set_language(BF_TEXTVIEW(newdoc->view),"default");
+	bf_textview_set_autoscan(BF_TEXTVIEW(newdoc->view),TRUE);
+	bf_textview_set_autoscan_lines(BF_TEXTVIEW(newdoc->view),-1);
+	g_signal_connect(G_OBJECT(newdoc->view),"token",G_CALLBACK(hl_slot),NULL);
+/*	bf_textview_color_blocks(BF_TEXTVIEW(newdoc->view),TRUE);*/
+#else	
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
-	newdoc->autoclosingtag = (newdoc->hl->autoclosingtag > 0);
+	newdoc->autoclosingtag = (newdoc->hl->autoclosingtag > 0);		
 	newdoc->buffer = gtk_text_buffer_new(highlight_return_tagtable());
 	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);
+#endif	
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
 									   GTK_POLICY_AUTOMATIC,
@@ -2825,6 +2895,12 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 
 	newdoc->linenumberstate = main_v->props.view_line_numbers;
 	document_set_line_numbers(newdoc, newdoc->linenumberstate);
+#ifdef USE_SCANNER
+	newdoc->blocksstate = main_v->props.view_blocks;
+	document_set_show_blocks(newdoc, newdoc->blocksstate);
+	newdoc->symstate = main_v->props.view_symbols;
+	document_set_show_symbols(newdoc, newdoc->symstate);	
+#endif	
 
 	newdoc->tab_label = gtk_label_new(NULL);
 	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
@@ -3397,7 +3473,9 @@ void doc_activate(Tdocument *doc) {
 
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
+#ifndef USE_SCANNER	
 		doc_highlight_full(doc);
+#endif		
 		DEBUG_MSG("doc_activate, doc=%p, after doc_highlight_full, need_highlighting=%d\n",doc,doc->need_highlighting);
 	}
 
@@ -3540,7 +3618,9 @@ void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	doc_unre_new_group(doc);
 	if (PASTEOPERATION(doc->paste_operation)->eo > PASTEOPERATION(doc->paste_operation)->so) {
 		DEBUG_MSG("edit_paste_cb, start doc_highlight_region for so=%d, eo=%d\n",PASTEOPERATION(doc->paste_operation)->so,PASTEOPERATION(doc->paste_operation)->eo);
+#ifndef USE_SCANNER		
 		doc_highlight_region(doc, PASTEOPERATION(doc->paste_operation)->so, PASTEOPERATION(doc->paste_operation)->eo);
+#endif		
 	}
 	g_free(doc->paste_operation);
 	doc->paste_operation = NULL;
@@ -3580,9 +3660,13 @@ void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	bfwin->current_document->highlightstate = 1 - bfwin->current_document->highlightstate;
 	DEBUG_MSG("doc_toggle_highlighting_cb, started, highlightstate now is %d\n", bfwin->current_document->highlightstate);
 	if (bfwin->current_document->highlightstate == 0) {
+#ifndef USE_SCANNER	
 		doc_remove_highlighting(bfwin->current_document);
+#endif		
 	} else {
+#ifndef USE_SCANNER	
 		doc_highlight_full(bfwin->current_document);
+#endif		
 	}
 }
 

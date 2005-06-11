@@ -25,6 +25,8 @@
 #define HL_DEBUG 
 #define DEBUG*/
 
+
+
 #ifdef DEBUG
 #define DEVELOPMENT
 #endif
@@ -55,6 +57,8 @@
 #include "menu.h"				/* menu_current_document_set_toggle_wo_activate */
 #include "rcfile.h"			/* array_from_arglist() */
 #include "stringlist.h"		/* count_array() */
+
+
 
 
 #define MAX_OVECTOR 30 /* should be a multiple of three for pcre_exec(), 
@@ -152,10 +156,29 @@ how it works:
 /*********************************/
 static Thighlight highlight;
 
+#ifdef USE_SCANNER
+
+void hl_slot(BfTextView *view,BfLangToken *tokenDef,GtkTextIter *startIter,GtkTextIter *endIter) {
+	GdkColor col;
+	GtkTextTag *tag;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+	
+	if ( gdk_color_parse(tokenDef->group,&col) ) {
+		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(buffer),tokenDef->group);
+		if ( tag==NULL )
+			tag = gtk_text_buffer_create_tag(buffer,tokenDef->group,"foreground-gdk",&col,NULL);
+		gtk_text_buffer_apply_tag_by_name(buffer,tokenDef->group,startIter,endIter);	
+	}
+}
+
+#else
+
+
 /*********************************/
 /* debugging                     */
 /*********************************/
 #ifdef DEBUG
+
 
 static void print_meta_for_pattern(Tpattern *pat) {
 	GList *tmplist = g_list_first(highlight.all_highlight_patterns);
@@ -1561,3 +1584,6 @@ void hl_reset_to_default()
 GtkTextTagTable *highlight_return_tagtable() {
 	return highlight.tagtable;
 }
+
+
+#endif

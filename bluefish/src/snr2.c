@@ -1162,7 +1162,9 @@ void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 	}
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
+#ifndef USE_SCANNER	
 		doc_highlight_full(doc);
+#endif		
 	}
 }
 

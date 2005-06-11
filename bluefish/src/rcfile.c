@@ -374,6 +374,10 @@ static GList *props_init_main(GList * config_rc)
 {
 	init_prop_integer   (&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1, TRUE);
+#ifdef USE_SCANNER
+	init_prop_integer   (&config_rc, &main_v->props.view_blocks, "view_blocks:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.view_symbols, "view_symbols:", 1, TRUE);	
+#endif	
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_two_pane_view, "fb_two_pane_view:", 1, TRUE);
 
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_unknown_icon, "fb_unknown_icon:", PKGDATADIR"icon_unknown.png");

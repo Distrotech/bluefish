@@ -21,6 +21,12 @@
 #ifndef __HIGHLIGHT_H_
 #define __HIGHLIGHT_H_
 
+#ifdef USE_SCANNER
+
+#include "bf-textview.h"
+void hl_slot(BfTextView *view,BfLangToken *tokenDef,GtkTextIter *startIter,GtkTextIter *endIter);
+
+#else
 void filetype_highlighting_rebuild(gboolean gui_errors);
 void hl_init(void);
 void doc_highlight_full(Tdocument *doc);
@@ -29,5 +35,6 @@ void doc_highlight_line(Tdocument *doc);
 void doc_remove_highlighting(Tdocument *doc);
 
 GtkTextTagTable *highlight_return_tagtable();
+#endif
 
 #endif /* __HIGHLIGHT_H_ */

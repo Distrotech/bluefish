@@ -318,6 +318,16 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 	case 4:
 		main_v->props.autoindent = GTK_CHECK_MENU_ITEM(widget)->active;
 		break;
+#ifdef USE_SCANNER
+	case 5:
+		bfwin->current_document->blocksstate = GTK_CHECK_MENU_ITEM(widget)->active;
+		document_set_show_blocks(bfwin->current_document, bfwin->current_document->blocksstate);
+		break;
+	case 6:
+		bfwin->current_document->symstate = GTK_CHECK_MENU_ITEM(widget)->active;
+		document_set_show_symbols(bfwin->current_document, bfwin->current_document->symstate);
+		break;		
+#endif		
 	}
 }
 
@@ -689,6 +699,10 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/Auto Close H_TML tags"), "<control>T", toggle_doc_property, 3, "<ToggleItem>"},
 	{N_("/Document/_Wrap"), NULL, toggle_doc_property, 1, "<ToggleItem>"},
 	{N_("/Document/_Line Numbers"), NULL, toggle_doc_property, 2, "<ToggleItem>"},
+#ifdef USE_SCANNER
+	{N_("/Document/Show _blocks"), NULL, toggle_doc_property, 5, "<ToggleItem>"},
+	{N_("/Document/Show _symbols"), NULL, toggle_doc_property, 6, "<ToggleItem>"},	
+#endif	
 	{N_("/Document/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/_Highlight Syntax"), NULL, doc_toggle_highlighting_cb, 1, "<ToggleItem>"},
 	{N_("/Document/_Update Highlighting"), "F5", doc_update_highlighting, 0, "<Item>"},
@@ -864,7 +878,9 @@ static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu
 	DEBUG_MSG("menu_current_document_type_change, started for hlset %p\n", bdm->data);
 	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
 		if (doc_set_filetype(bdm->bfwin->current_document, bdm->data)) {
+#ifndef USE_SCANNER		
 			doc_highlight_full(bdm->bfwin->current_document);
+#endif			
 		} else {
 			menu_current_document_set_toggle_wo_activate(bdm->bfwin,bdm->bfwin->current_document->hl, NULL);
 		}
