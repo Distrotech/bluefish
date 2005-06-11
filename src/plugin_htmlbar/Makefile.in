@@ -74,4 +74,9 @@ $(PLUGIN) : $(OBJECTS)
 clean :
 	rm -f $(PLUGIN) *.o
 
+patchclean:
+	rm -f *.orig *.rej
+
+distclean: clean patchclean
+	rm -f Makefile
 
