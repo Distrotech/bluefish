@@ -29,7 +29,7 @@
 
 #ifdef ENABLE_NLS
 #undef _
-#define _(String) dgettext("bluefish_plugin_htmlbar", String)
+#define _(String) dgettext(PACKAGE"_plugin_htmlbar", String)
 #endif    
 
 typedef struct {

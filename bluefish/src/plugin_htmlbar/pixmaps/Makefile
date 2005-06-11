@@ -86,6 +86,7 @@ TOOLBAR = \
 	pixmap_php3 php3.png \
 	pixmap_right right.png \
 	pixmap_samp samp.png \
+	pixmap_strikeout strikeout.png \
 	pixmap_table table.png \
 	pixmap_table2 table2.png \
 	pixmap_table_capt table_capt.png \
