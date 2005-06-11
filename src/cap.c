@@ -26,6 +26,8 @@
 #include "cap.h"
 #include "bluefish.h"
 
+#ifndef ENABLEPLUGINS
+
 #define MAX_BUCKETS 9
 
 /* In theory you could implement this as a caching system: when you
@@ -84,3 +86,5 @@ char *cap(const char *s)
 
 	return rv;
 }
+
+#endif /* ENABLEPLUGINS */
