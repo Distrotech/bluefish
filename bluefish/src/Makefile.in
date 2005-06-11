@@ -101,17 +101,22 @@ $(OBJS): bluefish.h
 
 clean:
 	rm -f $(OBJS) bluefish
+	@cd plugin_htmlbar/ && $(MAKE) clean
 
 patchclean: clean
-	rm -f *.orig *.rej  
+	rm -f *.orig *.rej
+	@cd plugin_htmlbar/ && $(MAKE) patchclean
 
 distclean: patchclean
 	rm -f config.h Makefile *~ *.bak core
 	rm -f *.bb *.bbg *.c.gcov *.da
+	@cd plugin_htmlbar/ && $(MAKE) distclean
 
 install: all
 	$(INSTALL_DIR) $(DESTDIR)$(bindir)
 	$(INSTALL_PROGRAM) ./bluefish $(DESTDIR)$(bindir)/$(PACKAGE)
+	@cd plugin_htmlbar/ && $(MAKE) install
 
 uninstall:
 	/bin/rm -f $(DESTDIR)$(bindir)/$(PACKAGE)
+	@cd plugin_htmlbar/ && $(MAKE) uninstall
