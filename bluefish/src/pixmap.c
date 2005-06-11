@@ -1,6 +1,8 @@
 #include <gtk/gtk.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
+#include "bluefish.h"
+
 #include "../inline_images/toolbar_icons.c"
 #include "../inline_images/general_icons.c"
 

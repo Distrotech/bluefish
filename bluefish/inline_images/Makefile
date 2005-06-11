@@ -218,7 +218,7 @@ GENERAL = \
 	pixmap_edit_tag edit_tag.png
 
 all:
-	gdk-pixbuf-csource --raw --extern --build-list $(TOOLBAR) > toolbar_icons.c
+	gdk-pixbuf-csource --raw --extern --build-list $(TOOLBAR_ENABLEPLUGINS) > toolbar_icons.c
 	gdk-pixbuf-csource --raw --extern --build-list $(GENERAL) > general_icons.c
 
 
