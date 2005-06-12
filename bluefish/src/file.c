@@ -559,11 +559,13 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 				tmp = fid->doc->encoding;
 				doc_buffer_to_textbox(fid->doc, buffer, buflen, FALSE, TRUE);
 	/*			DEBUG_MSG("fileintodoc_lcb, fid->doc->hl=%p, %s, first=%p\n",fid->doc->hl,fid->doc->hl->type,((GList *)g_list_first(main_v->filetypelist))->data);*/
+#ifndef USE_SCANNER	
 				if (fid->doc->hl == ((GList *)g_list_first(main_v->filetypelist))->data || fid->doc->hl == NULL) {
 					doc_reset_filetype(fid->doc, fid->doc->uri, buffer);
 				} else if (tmp != fid->doc->encoding) { /* the pointer only changes if the encoding changes */
 					doc_set_tooltip(fid->doc);
 				}
+#endif				
 				doc_set_status(fid->doc, DOC_STATUS_COMPLETE);
 				fid->doc->action.load = NULL;
 			} else { /* file_insert, convert to UTF-8 and insert it! */
@@ -644,11 +646,14 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			DEBUG_MSG("file2doc_lcb, status=%d, now we should convert %s data into a GtkTextBuffer and such\n",status, gnome_vfs_uri_get_path(f2d->uri));
 			tmp = f2d->doc->encoding;
 			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
+			g_print("AFTER\n");
+#ifndef  USE_SCANNER
 			if (f2d->doc->hl == ((GList *)g_list_first(main_v->filetypelist))->data || f2d->doc->hl == NULL) {
 				doc_reset_filetype(f2d->doc, f2d->doc->uri, buffer);
 			} else if (tmp != f2d->doc->encoding) { /* the pointer only changes if the encoding changes */
 				doc_set_tooltip(f2d->doc);
 			}
+#endif			
 			doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
 			bmark_set_for_doc(f2d->doc);
 			bmark_check_length(f2d->bfwin,f2d->doc);
