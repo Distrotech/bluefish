@@ -19,6 +19,7 @@
  */
 
 #include "bf-textview.h"
+#include "bluefish.h"
 #include <stdarg.h>
 #include <string.h>
 #include <libxml/xmlmemory.h>
@@ -36,7 +37,7 @@ static void bf_textview_delete_range_before_cb (GtkTextBuffer * textbuffer,
 						GtkTextIter * arg1, GtkTextIter * arg2, gpointer user_data);
 static void bf_textview_insert_text_cb (GtkTextBuffer * textbuffer,
 					GtkTextIter * arg1, gchar * arg2, gint arg3, gpointer user_data);
-static void bftv_fold (GtkTextMark * mark);
+static void bftv_fold (GtkTextMark * mark, gboolean move_cursor);
 
 /* --- Auxiliary closures ---- */
 typedef void (*___Sig1) (BfTextView *, gpointer, gpointer, gpointer, gpointer);
@@ -187,10 +188,6 @@ enum {
    LAST_SIGNAL
 };
 
-static gint tabnum = 0;
-static gint bb_tabnum = 0;
-static gint be_tabnum = 0;
-
 #define BFTV_TOKEN_IDS		10000
 #define BFTV_BLOCK_IDS		10000
 #define BFTV_TAG_IDS			8000
@@ -234,8 +231,27 @@ GType bf_textview_get_type (void)
 
 #define GET_NEW ((BfTextView *)g_object_new(bf_textview_get_type(), NULL))
 
+static void bftv_expand_all(GtkWidget * widget, BfTextView *view) {
+	GtkTextIter it;
+	bf_textview_fold_blocks(view,FALSE);
+	gtk_text_buffer_get_start_iter(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)),&it);
+	gtk_text_buffer_place_cursor (gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)), &it);	
+	gtk_widget_queue_draw(GTK_WIDGET(view));
+}
+
+static void bftv_collapse_all(GtkWidget * widget, BfTextView *view) {
+	GtkTextIter it;
+	bf_textview_fold_blocks(view,TRUE);
+	gtk_text_buffer_get_start_iter(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)),&it);
+	gtk_text_buffer_place_cursor (gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)), &it);		
+	gtk_widget_queue_draw(GTK_WIDGET(view));
+}
+
+
 static void bf_textview_init (BfTextView * o)
 {
+	GtkWidget *item;
+	
    o->lw_size_lines = o->lw_size_blocks = o->lw_size_sym = 0;
    o->symbols = g_hash_table_new (g_str_hash, g_str_equal);
    o->symbol_lines = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, NULL);
@@ -248,6 +264,14 @@ static void bf_textview_init (BfTextView * o)
    gdk_color_parse ("#F7F3D2", &o->block_color);
    gdk_color_parse ("#FFFFFF", &o->bkg_color);
    gdk_color_parse ("#000000", &o->fg_color);
+   o->fold_menu = gtk_menu_new();
+	item = gtk_menu_item_new_with_label(_("Expand all"));
+	gtk_menu_append(GTK_MENU(o->fold_menu),item);
+	g_signal_connect(GTK_OBJECT(item), "activate", G_CALLBACK(bftv_expand_all),o);
+	item = gtk_menu_item_new_with_label(_("Collapse all"));
+	gtk_menu_append(GTK_MENU(o->fold_menu),item);
+	gtk_widget_show_all(o->fold_menu);
+	g_signal_connect(GTK_OBJECT(item), "activate", G_CALLBACK(bftv_collapse_all),o);   
 }
 
 
@@ -1163,12 +1187,9 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 	    } /* while */
 	    if (block_found) {
 	       currstate = 0;
-	       /*gtk_text_iter_forward_char (&ita);*/
 	       its = ita;
 	       continue;
 	    } else { ita=previt; c=gtk_text_iter_get_char (&ita);  }
-	    /* its = ita;
-	    gtk_text_iter_forward_char (&its);*/
 	}
  } /* BLOCKs */	
 
@@ -1207,7 +1228,6 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
       }
       gtk_text_iter_forward_char (&ita);
    }				/* while */
-
 }
 
 /**
@@ -1302,8 +1322,8 @@ static void bftv_put_into_block_dfa (BfLangConfig * cfg, BfLangBlock * b)
       p = g_hash_table_lookup (curr_table, ptr);
       if (p == NULL) {
 	 pom_table = g_hash_table_new (g_str_hash, g_str_equal);
-	 bb_tabnum++;
-	 g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", bb_tabnum));
+	 cfg->bb_tabnum++;
+	 g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", cfg->bb_tabnum));
 	 g_hash_table_replace (curr_table, g_strdup (ptr), pom_table);
 	 curr_table = pom_table;
       }
@@ -1332,8 +1352,8 @@ static void bftv_put_into_block_dfa (BfLangConfig * cfg, BfLangBlock * b)
       p = g_hash_table_lookup (curr_table, ptr);
       if (p == NULL) {
 	 pom_table = g_hash_table_new (g_str_hash, g_str_equal);
-	 be_tabnum++;
-	 g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", be_tabnum));
+	 cfg->be_tabnum++;
+	 g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", cfg->be_tabnum));
 	 g_hash_table_replace (curr_table, g_strdup (ptr), pom_table);
 	 curr_table = pom_table;
       }
@@ -1414,8 +1434,8 @@ static void bftv_put_into_dfa (GHashTable * dfa, BfLangToken * token, BfLangConf
 	 p = g_hash_table_lookup (curr_table, ptr);
 	 if (p == NULL) {	/* table not found */
 	    pom_table = g_hash_table_new (g_str_hash, g_str_equal);
-	    tabnum++;
-	    g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", tabnum));
+	    cfg->tabnum++;
+	    g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", cfg->tabnum));
 	    g_hash_table_replace (curr_table, g_strdup (ptr), pom_table);
 	    curr_table = pom_table;
 	    cfg->dfa_tables = g_list_append (cfg->dfa_tables, pom_table);
@@ -1478,8 +1498,8 @@ static void bftv_put_into_dfa (GHashTable * dfa, BfLangToken * token, BfLangConf
 	    if (p == NULL) {	/* table not found */
 	       if (!pom_table) {
 		  pom_table = g_hash_table_new (g_str_hash, g_str_equal);
-		  tabnum++;
-		  g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", tabnum));
+		  cfg->tabnum++;
+		  g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", cfg->tabnum));
 		  pom_regexp_tables = g_list_append (pom_regexp_tables, pom_table);
 		  cfg->dfa_tables = g_list_append (cfg->dfa_tables, pom_table);
 	       }
@@ -1567,7 +1587,7 @@ static void bftv_dfa_build (gpointer key, gpointer value, gpointer data)
 }
 
 
-static gint **bftv_make_scan_table (GHashTable * dfa)
+static gint **bftv_make_scan_table (GHashTable * dfa, BfLangConfig *cfg)
 {
    gint **table;
    gint i, j;
@@ -1576,8 +1596,8 @@ static gint **bftv_make_scan_table (GHashTable * dfa)
 
    table = g_new0 (gint *, 256);
    for (i = 0; i < 256; i++) {
-      table[i] = g_new0 (gint, tabnum + 1);
-      for (j = 0; j < tabnum + 1; j++)
+      table[i] = g_new0 (gint, cfg->tabnum + 1);
+      for (j = 0; j < cfg->tabnum + 1; j++)
 	 table[i][j] = 0;
    }
    bb->table = table;
@@ -1620,7 +1640,7 @@ static void bftv_dfa_build_b (gpointer key, gpointer value, gpointer data)
 #define BT_END 1
 
 
-static gint **bftv_make_bscan_table (GHashTable * dfa, gint btype)
+static gint **bftv_make_bscan_table (GHashTable * dfa, gint btype, BfLangConfig *cfg)
 {
    gint **table = NULL;
    gint size = 0, i, j;
@@ -1629,10 +1649,10 @@ static gint **bftv_make_bscan_table (GHashTable * dfa, gint btype)
 
    switch (btype) {
    case BT_BEGIN:
-      size = bb_tabnum + 1;
+      size = cfg->bb_tabnum + 1;
       break;
    case BT_END:
-      size = be_tabnum + 1;
+      size = cfg->be_tabnum + 1;
       break;
    }
    table = g_new0 (gint *, 256);
@@ -1788,10 +1808,10 @@ static BfLangConfig *bftv_load_config (BfTextView * self, gchar * filename)
       cfg->dfa = g_hash_table_new (g_str_hash, g_str_equal);
       cfg->dfa_tables = NULL;
 
-      tabnum = 0;
+      cfg->tabnum = 0;
       tokennum = BFTV_TOKEN_IDS + 1;
-      bb_tabnum = 0;
-      be_tabnum = 0;
+      cfg->bb_tabnum = 0;
+      cfg->be_tabnum = 0;
       blocknum = BFTV_BLOCK_IDS + 1;
       g_hash_table_insert (cfg->dfa, "number", "0");
       cfg->block_begin_dfa = g_hash_table_new (g_str_hash, g_str_equal);
@@ -1972,9 +1992,9 @@ static BfLangConfig *bftv_load_config (BfTextView * self, gchar * filename)
    }
    if (doc)
       xmlFreeDoc (doc);
-   cfg->scan_table = bftv_make_scan_table (cfg->dfa);
-   cfg->scan_bb_table = bftv_make_bscan_table (cfg->block_begin_dfa, BT_BEGIN);
-   cfg->scan_be_table = bftv_make_bscan_table (cfg->block_end_dfa, BT_END);
+   cfg->scan_table = bftv_make_scan_table (cfg->dfa,cfg);
+   cfg->scan_bb_table = bftv_make_bscan_table (cfg->block_begin_dfa, BT_BEGIN,cfg);
+   cfg->scan_be_table = bftv_make_bscan_table (cfg->block_end_dfa, BT_END,cfg);
    if (cfg->scan_tags)
       cfg->scan_tag_table = bftv_make_tscan_table ();
    bftv_free_dfa (cfg);
@@ -2169,7 +2189,7 @@ void bf_textview_fold_blocks_area (BfTextView * self, GtkTextIter * start, GtkTe
 	       g_object_set_data (G_OBJECT (mark), "folded", "false");
 	    else
 	       g_object_set_data (G_OBJECT (mark), "folded", "true");
-	    bftv_fold (mark);
+	    bftv_fold (mark,FALSE);
 	 }
       }
    }
@@ -2458,13 +2478,14 @@ bf_textview_insert_text_cb (GtkTextBuffer * textbuffer, GtkTextIter * arg1, gcha
 {
 }*/
 
-static void bftv_fold (GtkTextMark * mark)
+static void bftv_fold (GtkTextMark * mark, gboolean move_cursor)
 {
    GtkTextBuffer *buf = gtk_text_mark_get_buffer (mark);
    gchar *pomstr = g_object_get_data (G_OBJECT (mark), "folded");
    gboolean f = FALSE;
    GtkTextIter it1, it2, it3, it4;
    TBfBlock *block = (TBfBlock *) g_object_get_data (G_OBJECT (mark), "pointer");
+   gint i;
 
    if (!pomstr)
       return;
@@ -2483,19 +2504,29 @@ static void bftv_fold (GtkTextMark * mark)
    gtk_text_buffer_get_iter_at_mark (buf, &it1, block->mark_begin);
    gtk_text_iter_set_line (&it1, gtk_text_iter_get_line (&it1));
    gtk_text_buffer_get_iter_at_mark (buf, &it2, block->mark_end);
-   gtk_text_iter_forward_char (&it2);
+   /*gtk_text_iter_forward_char (&it2);*/
    it3 = it1;
    gtk_text_iter_forward_to_line_end (&it3);
    if (f) {
-      it4 = it2;
-      gtk_text_iter_forward_line (&it4);
-      gtk_text_buffer_place_cursor (buf, &it4);
+   	if ( move_cursor ) {
+	      it4 = it2;
+   	   gtk_text_iter_forward_char (&it4);
+   	   gtk_text_buffer_place_cursor (buf, &it4);
+   	}   
       gtk_text_buffer_apply_tag_by_name (buf, "_folded_", &it3, &it2);
       gtk_text_buffer_apply_tag_by_name (buf, "_fold_header_", &it1, &it3);
+      it4 = it2;
+      for(i=0;i<g_utf8_strlen(block->def->end,-1);i++)
+	      gtk_text_iter_forward_char (&it4);
+	   gtk_text_buffer_apply_tag_by_name (buf, "_fold_header_", &it2, &it4);   
    }
    else {
       gtk_text_buffer_remove_tag_by_name (buf, "_fold_header_", &it1, &it3);
       gtk_text_buffer_remove_tag_by_name (buf, "_folded_", &it3, &it2);
+      it4 = it2;
+      for(i=0;i<g_utf8_strlen(block->def->end,-1);i++)
+	      gtk_text_iter_forward_char (&it4);
+	   gtk_text_buffer_remove_tag_by_name (buf, "_fold_header_", &it2, &it4);         
    }
 }
 
@@ -2507,14 +2538,39 @@ static gboolean bf_textview_mouse_cb (GtkWidget * widget, GdkEvent * event, gpoi
    gint x, y;
    GtkTextIter it;
    GtkTextMark *block_mark = NULL;
+   gint pt_lines,pt_sym,pt_blocks;
 
    if (win != event->button.window)
       return FALSE;
-   gtk_text_view_window_to_buffer_coords (GTK_TEXT_VIEW (widget), GTK_TEXT_WINDOW_TEXT, 0, event->button.y, &x, &y);
-   gtk_text_view_get_line_at_y (GTK_TEXT_VIEW (widget), &it, y, &x);
-   block_mark = bftv_get_first_block_at_line (&it);
-   if (block_mark)
-      bftv_fold (block_mark);
+      
+      pt_lines = 2;
+   	if (BF_TEXTVIEW (widget)->show_lines)
+      	pt_sym = BF_TEXTVIEW (widget)->lw_size_lines + 2;
+   	else
+      	pt_sym = 2;
+   	pt_blocks = 2;
+   	if (BF_TEXTVIEW (widget)->show_lines)
+      	pt_blocks = BF_TEXTVIEW (widget)->lw_size_lines + pt_blocks;
+	   if (BF_TEXTVIEW (widget)->show_symbols)
+   	   pt_blocks = BF_TEXTVIEW (widget)->lw_size_sym + pt_blocks;
+      
+   if ( event->button.button == 1 ) {   
+		if ( event->button.x >= pt_blocks ) {
+		   gtk_text_view_window_to_buffer_coords (GTK_TEXT_VIEW (widget), GTK_TEXT_WINDOW_TEXT, 0, event->button.y, &x, &y);
+   		gtk_text_view_get_line_at_y (GTK_TEXT_VIEW (widget), &it, y, &x);
+   		block_mark = bftv_get_first_block_at_line (&it);
+   		if (block_mark)
+   		   bftv_fold (block_mark,TRUE);
+   		return TRUE;   
+   	}	   
+   }
+   else if ( event->button.button == 3 ) {
+   	if ( event->button.x >= pt_blocks ) {
+	 		gtk_menu_popup(GTK_MENU(BF_TEXTVIEW(widget)->fold_menu),
+	 											NULL,NULL,NULL,NULL,1,gtk_get_current_event_time()); 
+   		return TRUE;
+   	}
+   }	  
    return FALSE;
 }
 
@@ -2888,4 +2944,7 @@ TBfBlock *bf_textview_get_nearest_block (BfTextView * self,GtkTextIter *iter) {
 	}
 	return NULL;
 }
+
+
+
 
