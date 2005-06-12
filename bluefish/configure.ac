@@ -720,6 +720,9 @@ fi
 
 pkgdatadir=${datadir}/${PACKAGE}/
 AC_SUBST(pkgdatadir)
+pkglibdir=${libdir}/${PACKAGE}/
+AC_SUBST(pkglibdir)
+
 
 eval BF_APP_PKGDATADIR=`echo $pkgdatadir`
 AC_SUBST(BF_APP_PKGDATADIR)
