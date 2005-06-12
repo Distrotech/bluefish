@@ -1154,13 +1154,17 @@ void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
 
 void gui_set_document_widgets(Tdocument *doc) {
 	GtkItemFactory *tmp1 = gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar);
+#ifndef USE_SCANNER	
 	setup_toggle_item(tmp1,("/Document/Highlight Syntax"), (doc->highlightstate && doc->hl->highlightlist != NULL));
+#endif	
 	/*gtk_widget_set_sensitive(gtk_item_factory_get_widget(tmp1,_("/Document/Highlight Syntax")), (doc->hl->highlightlist != NULL));*/
 	gui_set_undo_redo_widgets(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Wrap", doc->wrapstate);
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Line Numbers", doc->linenumberstate);
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Auto Close HTML tags", doc->autoclosingtag);
+#ifndef USE_SCANNER	
 	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),doc->hl, doc->encoding);
+#endif	
 }
 
 void gui_notebook_bind_signals(Tbfwin *bfwin) {

@@ -393,7 +393,6 @@ Tfiletype *get_filetype_by_filename_and_content(const gchar *filename, gchar *bu
  * Return value: void
  */
 void doc_set_tooltip(Tdocument *doc) {
-#ifndef USE_SCANNER
 	gchar *text, *tmp;
 	gchar *encoding;
 	gchar *mtimestr=NULL;
@@ -415,11 +414,17 @@ void doc_set_tooltip(Tdocument *doc) {
 	if (doc->encoding) encoding = doc->encoding;
 	else if (BFWIN(doc->bfwin)->session->encoding) encoding = BFWIN(doc->bfwin)->session->encoding;
 	else encoding = main_v->props.newfile_default_encoding;
-	
+
+#ifdef USE_SCANNER	
+	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
+							,_("\nEncoding: "), encoding
+							,NULL);
+#else
 	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
 							,_("\nType: "),doc->hl->type
 							,_("\nEncoding: "), encoding
 							,NULL);
+#endif							
 	if (sizestr) {
 		text = g_strconcat(text, _("\nSize (on disk): "), sizestr, _(" bytes"), NULL);
 		g_free(tmp);
@@ -442,7 +447,6 @@ void doc_set_tooltip(Tdocument *doc) {
 
 	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, text, "");
 	g_free(text);
-#endif	
 }
 /**
  * doc_set_filetype:
@@ -457,10 +461,9 @@ void doc_set_tooltip(Tdocument *doc) {
  **/
 gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 	DEBUG_MSG("doc_set_filetype, will set filetype %s\n",ft->type);
+#ifndef USE_SCANNER		
 	if (ft != doc->hl) {
-#ifndef USE_SCANNER	
 		doc_remove_highlighting(doc);
-#endif		
 		doc->hl = ft;
 		doc->need_highlighting = TRUE;
 		doc->autoclosingtag = (ft->autoclosingtag > 0);
@@ -468,6 +471,7 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 		doc_set_tooltip(doc);
 		return TRUE;
 	}
+#endif			
 	return FALSE;
 }
 /**
@@ -1152,8 +1156,12 @@ void doc_set_statusbar_insovr(Tdocument *doc)
 void doc_set_statusbar_editmode_encoding(Tdocument *doc)
 {
 	gchar *msg;
+#ifdef USE_SCANNER
+	msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
+#else	
 	if (doc->hl == NULL) msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
 	else msg = g_strdup_printf(_("  %s, %s"), doc->hl->type, doc->encoding);
+#endif	
 	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_editmode), 0);
 	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_editmode), 0, msg);
 	g_free(msg);		
@@ -1591,7 +1599,6 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 	if (doc->encoding) g_free(doc->encoding);
 	doc->encoding = encoding;
 	add_encoding_to_list(encoding);
-
 	gtk_text_buffer_insert_at_cursor(doc->buffer,newbuf,-1);
 	g_free(newbuf);
 
@@ -1599,6 +1606,7 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 		doc->need_highlighting=TRUE;
 		DEBUG_MSG("doc_buffer_to_textbox, highlightstate=%d, need_highlighting=%d, delay=%d\n",doc->highlightstate,doc->need_highlighting,delay);
 		if (!delay) {
+#ifndef USE_SCANNER		
 #ifdef DEBUG
 			g_print("doc_buffer_to_textbox, doc->hl=%p, type=%s\n", doc->hl, doc->hl->type);
 			if (doc->hl) {
@@ -1607,7 +1615,6 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 				g_print("doc_buffer_to_textbox, doc does not have a filetype ????\n");
 			}
 #endif
-#ifndef USE_SCANNER
 			doc_highlight_full(doc);
 #endif			
 		}
@@ -1732,6 +1739,7 @@ static gboolean find_char(gunichar ch,gchar *data) {
 static gchar *noclosingtag [] = {"br","input","img","hr","meta","frame","map","base","link",NULL};
 
 static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIter *iter) {
+#ifndef USE_SCANNER
 	/* only for XML all start tags have to end on < /> so we check for that, all other tags 
 	 * will be treated like HTML tags */
 	if (tagname[0] != '/') {
@@ -1760,12 +1768,14 @@ static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIt
 			return g_strconcat("</",tagname,">", NULL);
 		}
 	}
+#endif	
 	return NULL;
 }
 static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
 	DEBUG_MSG("doc_buffer_insert_text_after_lcb, started for string '%s'\n",string);
 	if (!doc->paste_operation) {
 		/* highlighting stuff */
+#ifndef USE_SCANNER		
 		if (doc->highlightstate && string && doc->hl) {
 			gboolean do_highlighting = FALSE;
 			if (doc->hl->update_chars[0] == '\0' ) {
@@ -1781,11 +1791,10 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 				}
 			}
 			if (do_highlighting) {
-#ifndef USE_SCANNER			
 				doc_highlight_line(doc);
-#endif				
 			}
 		}
+#endif		
 	}
 #ifdef DEBUG
 	else {
@@ -1918,6 +1927,7 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 	DEBUG_MSG("doc_buffer_delete_range_lcb, string='%s'\n",string);
 	if (string) {
 		/* highlighting stuff */
+#ifndef USE_SCANNER		
 		if (doc->highlightstate && string && doc->hl) {
 			if (strlen(doc->hl->update_chars)==0 ) {
 				do_highlighting = TRUE;
@@ -1932,11 +1942,10 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 				}
 			}
 			if (do_highlighting) {
-#ifndef USE_SCANNER			
 				doc_highlight_line(doc);
-#endif				
 			}
 		}
+#endif		
 		/* undo_redo stuff */
 		{
 			gint start, end, len;
