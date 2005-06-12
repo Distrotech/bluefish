@@ -1587,3 +1587,4 @@ GtkTextTagTable *highlight_return_tagtable() {
 
 
 #endif
+
