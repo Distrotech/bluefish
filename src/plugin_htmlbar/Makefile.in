@@ -23,6 +23,7 @@ prefix = @prefix@
 exec_prefix = @exec_prefix@
 bindir = @bindir@
 pkgdatadir = @pkgdatadir@
+pkglibdir = @pkglibdir@
 
 infodir = $(prefix)/info
 mandir = $(prefix)/man/man1
@@ -42,7 +43,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" -DGNULOCALEDIR=\"$(gnulocaledir)\" \
 -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -DPKGDATADIR=\"$(pkgdatadir)\" @DEFS@
 
 PLUGIN=htmlbar.so
-PLUGINDIR=${pkgdatadir}
+PLUGINDIR=${pkglibdir}
 
 OBJECTS= cap.o \
 	htmlbar.o \

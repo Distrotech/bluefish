@@ -26,6 +26,7 @@ prefix = @prefix@
 exec_prefix = @exec_prefix@
 bindir = @bindir@
 pkgdatadir = @pkgdatadir@
+pkglibdir = @pkglibdir@
 
 infodir = $(prefix)/info
 mandir = $(prefix)/man/man1
@@ -41,7 +42,7 @@ INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
 INSTALL_PROGRAM = $(INSTALL) -s -m 755
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGNULOCALEDIR=\"$(gnulocaledir)\" \
--DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -DPKGDATADIR=\"$(pkgdatadir)\" @DEFS@
+-DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -DPKGDATADIR=\"$(pkgdatadir)\"  -DPKGLIBDIR=\"$(pkglibdir)\" @DEFS@
 
 OLDSRC = \
 			cap.c \

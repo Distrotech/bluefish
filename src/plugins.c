@@ -86,8 +86,8 @@ void bluefish_load_plugins(void) {
 	GList *oldlist;
 	const gchar *tmp;
 
-	DEBUG_MSG("bluefish_load_plugins, loading from %s\n",PKGDATADIR);
-	gdir = g_dir_open(PKGDATADIR ,0,&error);
+	DEBUG_MSG("bluefish_load_plugins, loading from %s\n",PKGLIBDIR);
+	gdir = g_dir_open(PKGLIBDIR ,0,&error);
 	if (error) {
 		/* BUG: handle the error  */
 		return;
@@ -98,7 +98,7 @@ void bluefish_load_plugins(void) {
 	tmp = g_dir_read_name(gdir);
 	while (tmp) {
 		if (g_pattern_match(patspec, strlen(tmp), tmp, NULL)) {
-			gchar *path = g_strconcat(PKGDATADIR, tmp, NULL);
+			gchar *path = g_strconcat(PKGLIBDIR, tmp, NULL);
 			gchar *compare[] = {path, NULL}, **arr;
 
 			arr = arraylist_value_exists(oldlist, compare, 1, FALSE);
