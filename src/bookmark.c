@@ -36,6 +36,10 @@
 #include "stringlist.h"
 #include "menu.h"				/* menu_translate() */
 
+#ifdef USE_SCANNER
+#include "bf-textview.h"
+#endif
+
 /*
 bookmarks will be loaded and saved to an arraylist (see stringlist.c). This 
 is a double linked list (GList *) with pointers to string arrays (gchar **).
@@ -413,10 +417,19 @@ static void bmark_popup_menu_goto(Tbfwin *bfwin) {
  */
 static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 	GtkTreeIter parent;
+#ifdef USE_SCANNER
+	GtkTextIter it;
+#endif	
 	if (gtk_tree_model_iter_parent(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&parent,&b->iter)) {
 		gint numchild = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &parent);
 		DEBUG_MSG("bmark_check_remove, the parent of this bookmark has %d children\n", numchild);
 		gtk_tree_store_remove(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &(b->iter));
+#ifdef USE_SCANNER
+				if (b->doc) {
+				 	gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
+				 	bf_textview_set_symbol(BF_TEXTVIEW(b->doc->view),"bmark",gtk_text_iter_get_line(&it)+1,FALSE);
+				} 
+#endif		
 		if (numchild == 1) {
 			gpointer ptr;
 			DEBUG_MSG("bmark_check_remove, we removed the last child, now remove the parent\n");
@@ -928,6 +941,9 @@ void bmark_set_for_doc(Tdocument * doc) {
 					mark->doc = doc;
 					gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
 					mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
+#ifdef USE_SCANNER
+					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bmark",gtk_text_iter_get_line(&it)+1,TRUE);
+#endif					
 					cont2 =
 						gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore),
 												 &child);
@@ -941,6 +957,9 @@ void bmark_set_for_doc(Tdocument * doc) {
 							gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
 							mark->mark =
 								gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
+#ifdef USE_SCANNER
+					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bmark",gtk_text_iter_get_line(&it)+1,TRUE);
+#endif													
 						}
 						cont2 =
 							gtk_tree_model_iter_next(GTK_TREE_MODEL
@@ -1059,6 +1078,10 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 	if (!m->is_temp) {
 		bmark_store(BFWIN(doc->bfwin), m);
 	}
+#ifdef USE_SCANNER
+	bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bmark",gtk_text_iter_get_line(&it)+1,TRUE);
+	gtk_widget_queue_draw(doc->view);
+#endif	
 }
 
 /**
