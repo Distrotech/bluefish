@@ -58,8 +58,27 @@
 #include "snr2.h"				/* snr2_run_extern_replace */
 #include "stringlist.h"		/* free_stringlist() */
 #include "undo_redo.h"		/* doc_unre_init() */
+
 #ifdef USE_SCANNER
 #include "bf-textview.h"
+
+static char * bmark_xpm[] = {
+"10 10 4 1",
+" 	c None",
+".	c #008000",
+"+	c #FFFFFF",
+"@	c #000000",
+"..........",
+".++++++++.",
+".@+++++++.",
+".@@++++++.",
+".+@@+++++@",
+".++@@+++@@",
+".+++@@+@@.",
+".++++@@@+.",
+".+++++@++.",
+".........."};
+
 #endif
 
 typedef struct {
@@ -105,6 +124,19 @@ void session_set_savedir(Tbfwin *bfwin, gchar *curi) {
 		}
 	}
 }
+
+#ifdef USE_SCANNER
+static void doc_realize_cb(GtkWidget *widget,gpointer user_data) {
+	GdkWindow *left_win;
+	GdkPixmap *pix;
+	Tdocument *doc = DOCUMENT(user_data);
+	left_win = gtk_text_view_get_window(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
+	if (left_win) {
+			pix = gdk_pixmap_create_from_xpm_d(GDK_DRAWABLE(left_win),NULL,NULL,bmark_xpm);
+			bf_textview_add_symbol(BF_TEXTVIEW(doc->view),"bmark",pix);		
+		} 	
+}
+#endif
 
 /**
  * return_allwindows_documentlist:
@@ -2887,12 +2919,12 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	bf_textview_set_autoscan(BF_TEXTVIEW(newdoc->view),TRUE);
 	bf_textview_set_autoscan_lines(BF_TEXTVIEW(newdoc->view),-1);
 	g_signal_connect(G_OBJECT(newdoc->view),"token",G_CALLBACK(hl_slot),NULL);
-/*	bf_textview_color_blocks(BF_TEXTVIEW(newdoc->view),TRUE);*/
+	g_signal_connect_after(G_OBJECT(newdoc->view),"realize",G_CALLBACK(doc_realize_cb),newdoc);
 #else	
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
 	newdoc->autoclosingtag = (newdoc->hl->autoclosingtag > 0);		
 	newdoc->buffer = gtk_text_buffer_new(highlight_return_tagtable());
-	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);
+	newdoc->view = gtk_text_view_new_with_buffer(newdoc->buffer);	
 #endif	
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
@@ -3507,6 +3539,7 @@ void doc_activate(Tdocument *doc) {
 	gtk_widget_grab_focus(GTK_WIDGET(doc->view));
 
 	DEBUG_MSG("doc_activate, doc=%p, finished\n",doc);
+
 }
 
 void doc_force_activate(Tdocument *doc) {
@@ -3953,3 +3986,4 @@ static void new_floatingview(Tdocument *doc) {
 void file_floatingview_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	new_floatingview(bfwin->current_document);
 }
+
