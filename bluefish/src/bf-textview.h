@@ -90,6 +90,9 @@ typedef struct {
    gint **scan_bb_table;
    gint **scan_be_table;
    gint **scan_tag_table;
+   gint tabnum;
+	gint bb_tabnum;
+	gint be_tabnum;   
 } BfLangConfig;
 
 typedef struct {
@@ -184,6 +187,7 @@ typedef struct  {
    BfLangBlock *current_context;
    TBfScanner scanner;
    GtkTextTag *folded_tag, *block_tag, *fold_header_tag;
+   GtkWidget *fold_menu;
 } BfTextView;
 
 /*
