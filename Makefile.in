@@ -54,6 +54,7 @@ all: ${MAKEMAIN}
 
 make-nls:
 	cd po/ && $(MAKE) all;
+	cd src/plugin_htmlbar/po/ && $(MAKE) all;
 
 clean:
 	rm -f core *~
@@ -84,6 +85,7 @@ install-theme-icon:
 
 install-nls:
 	cd po/ && $(MAKE) install
+	cd src/plugin_htmlbar/po/ && $(MAKE) install
 
 install: src/bluefish ${INSTALLMAIN}
 	pkgdatadir=@pkgdatadir@
