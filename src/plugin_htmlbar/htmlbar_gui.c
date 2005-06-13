@@ -155,6 +155,12 @@ void htmlbar_view_lcb(Thtmlbarwin *hbw,guint action,GtkWidget *widget) {
 	}
 }
 
+#ifdef ENABLE_NLS
+gchar *htmlbar_menu_translate(const gchar * path, gpointer data) {
+	return _(path);
+}
+#endif       
+
 void htmlbar_build_menu(Thtmlbarwin *hbw) {
 	GtkItemFactory *ifactory;
 	Tbfwin *bfwin = hbw->bfwin;
@@ -416,8 +422,14 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{N_("/View/View _HTML Bar"), NULL, htmlbar_view_lcb, 0, "<ToggleItem>"}
 	};
 	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
+#ifdef ENABLE_NLS
+	gtk_item_factory_set_translate_func(ifactory, htmlbar_menu_translate, "<bluefishmain>", NULL);
+#endif
 	gtk_item_factory_create_items(ifactory, sizeof(menu_items) / sizeof(menu_items[0]), menu_items, bfwin);
 	gtk_item_factory_create_items(ifactory, sizeof(menu_items1) / sizeof(menu_items1[0]), menu_items1, hbw);
+
+	setup_toggle_item(ifactory, "/View/View HTML Toolbar", htmlbar_v.view_htmlbar);
+	
 	gtk_widget_show_all(bfwin->menubar);
 }
 
