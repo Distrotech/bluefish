@@ -5,13 +5,14 @@
 
 #include "../stringlist.h"
 #include "../bf_lib.h"
-
+#include "../gtk_easy.h"
 #include "htmlbar_gui.h"
 #include "html.h"
 #include "html2.h"
 #include "html_form.h"
 #include "html_table.h"
 #include "image.h"
+#include "quickstart.h"
 #include "rpopup.h"
 #include "wizards.h"
 
@@ -115,9 +116,9 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 	case 31:
 		optgroupdialog_dialog(bfwin,NULL);
 	break;
-/*	case 32:
+	case 32:
 		quickstart_dialog_new(bfwin);
-	break;*/
+	break;
 	case 33:
 		inputdialog_dialog(bfwin, NULL, NULL);
 	break;
@@ -371,7 +372,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{N_("/Dialogs/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 		{N_("/Dialogs/_General"), NULL, NULL, 0, "<Branch>"},
 		{N_("/Dialogs/General/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-/*		{N_("/Dialogs/General/_Quickstart..."), "<shift><alt>q", menu_html_dialogs_lcb, 32, "<ImageItem>", pixmap_quick_start},*/
+		{N_("/Dialogs/General/_Quickstart..."), "<shift><alt>q", menu_html_dialogs_lcb, 32, "<ImageItem>", pixmap_quick_start},
 		{N_("/Dialogs/General/_Body..."), "<shift><alt>B", menu_html_dialogs_lcb, 1, "<ImageItem>", pixmap_body},
 		{N_("/Dialogs/General/_Anchor..."), "<shift><alt>a", menu_html_dialogs_lcb, 2, "<ImageItem>", pixmap_anchor},
 		{N_("/Dialogs/General/_Email..."), "<shift><alt>e", menu_html_dialogs_lcb, 3, "<Item>"},
@@ -585,9 +586,9 @@ static void acronym_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	general_html_menu_cb(bfwin, 55, NULL);
 }
 
-/*static void quickstart_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+static void quickstart_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	quickstart_dialog_new(bfwin);
-}*/
+}
 static void body_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	body_dialog(bfwin,NULL);
 }
@@ -688,7 +689,7 @@ static void div_dialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 
 
 static Ttoolbaritem tbi[] = {
-/*	{"quickstart...", quickstart_clicked_lcb,13 , N_("QuickStart...")},*/
+	{"quickstart...", quickstart_clicked_lcb,pixmap_quick_start , N_("QuickStart...")},
 	{"body...", body_clicked_lcb, pixmap_body, N_("Body...")},
 	{"bold", bold_clicked_lcb,  pixmap_bold, N_("Bold")},
 	{"italic", italic_clicked_lcb,  pixmap_italic, N_("Italic")},
