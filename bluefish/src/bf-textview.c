@@ -758,6 +758,25 @@ bf_textview_block_misplaced_end (BfTextView * self, BfLangBlock * blockDef,
    g_value_unset (&___param_values[3]);
 }
 
+static void bftv_update_iters(BfTextView *view, TBfBlock *b) {
+	GtkTextIter it;
+	GtkTextBuffer *buff = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+	gint i;
+	
+	if ( !b ) return;
+	gtk_text_buffer_get_iter_at_mark(buff,&it,b->mark_begin);
+	b->b_start = it;
+	for(i=0;i<g_utf8_strlen(b->def->begin,-1);i++)
+		gtk_text_iter_forward_char(&it);
+	b->b_end = it;
+	gtk_text_buffer_get_iter_at_mark(buff,&it,b->mark_end);
+	b->e_start = it;
+	for(i=0;i<g_utf8_strlen(b->def->end,-1);i++)
+		gtk_text_iter_forward_char(&it);
+	b->e_end = it;		
+}
+
+
 GtkTextMark *bftv_get_block_at_iter (GtkTextIter * it)
 {
    GSList *lst = gtk_text_iter_get_marks (it);
@@ -777,10 +796,11 @@ GtkTextMark *bftv_get_block_at_iter (GtkTextIter * it)
 }
 
 
-GtkTextMark *bftv_get_first_block_at_line (GtkTextIter * it)
+GtkTextMark *bftv_get_first_block_at_line (GtkTextIter * it, gboolean not_single)
 {
    GtkTextIter it2, it3;
    GtkTextMark *mark = NULL;
+   TBfBlock *bb;
 
    if (!it)
       return NULL;
@@ -792,7 +812,10 @@ GtkTextMark *bftv_get_first_block_at_line (GtkTextIter * it)
    while (gtk_text_iter_compare (&it2, &it3) <= 0 && gtk_text_iter_get_line (&it2) == gtk_text_iter_get_line (it)) {
       mark = bftv_get_block_at_iter (&it2);
       if (mark) {
-	 return mark;
+      	if ( not_single ) {
+      		bb = (TBfBlock*)g_object_get_data(G_OBJECT(mark),"pointer");
+      		if ( !bb->single_line ) return mark;
+      	} else  return mark;
       }
       if (!gtk_text_iter_forward_char (&it2))
 	 break;
@@ -896,6 +919,13 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
       }
       c = gtk_text_iter_get_char (&ita);
 
+		/* ESCAPED CHARACTERS */
+		while ( self->current_lang->escapes[(gint)c] )
+		{
+			gtk_text_iter_forward_char(&ita);
+			gtk_text_iter_forward_char(&ita);
+			c = gtk_text_iter_get_char (&ita);
+		}
 
       /* MARKUP TAGS */
       if (!self->scanner.current_block)
@@ -1087,12 +1117,19 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 
 		  		
 	 /* BLOCKS BEGINS */
+	 if ( self->scanner.state != BFTV_STATE_DONT_SCAN ) {
 	 currstate = self->current_lang->scan_bb_table[(gint) c][currstate];
 	 if (currstate > 0) {
 	    block_found = FALSE;
 	    previt = ita;
 	    while (gtk_text_iter_compare (&ita, end) <= 0 && currstate > 0) {
 	       if (currstate > BFTV_BLOCK_IDS) {
+	       	BfLangBlock *tmp = (BfLangBlock *) g_hash_table_lookup (self->current_lang->blocks_id, &currstate);
+	       	if ( self->scanner.current_block != NULL && self->scanner.current_block->def == tmp ) {
+	       		/* probably this is the end of block */
+	       		block_found = FALSE;
+	       		break;
+	       	}
 		  		self->scanner.current_block = g_new0 (TBfBlock, 1);
 		  		self->scanner.current_block->def = (BfLangBlock *) g_hash_table_lookup (self->current_lang->blocks_id, &currstate);
 		 		self->scanner.current_block->b_start = its;
@@ -1117,9 +1154,9 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 	       currstate = 0;
 	       its = ita;
 	       continue;
-	    } else { ita = previt; c = gtk_text_iter_get_char (&ita); }
+	    } else { ita = previt; c = gtk_text_iter_get_char (&ita); currstate=0; }
 	 }
-
+    } /* dont scan */
 	
 	 /* BLOCKS ENDS */
 	 currstate = self->current_lang->scan_be_table[(gint) c][currstate];
@@ -1132,7 +1169,7 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 				  if (!g_queue_is_empty (&(self->scanner.block_stack)))    
 				  	bb = (TBfBlock *)g_queue_peek_head (&(self->scanner.block_stack));
 		  		  ptr2 = g_hash_table_lookup (self->current_lang->blocks_id, &currstate);
-		  		  if (self->scanner.current_block != NULL && bb && bb->def == ptr2) {
+		  		  if (self->scanner.current_block != NULL && bb && bb->def == ptr2 ) {
 		      		g_queue_pop_head (&(self->scanner.block_stack));
 		     			self->scanner.current_block->e_start = its;
 		     			self->scanner.current_block->e_end = ita;
@@ -1189,7 +1226,7 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 	       currstate = 0;
 	       its = ita;
 	       continue;
-	    } else { ita=previt; c=gtk_text_iter_get_char (&ita);  }
+	    } else { ita=previt; c=gtk_text_iter_get_char (&ita); currstate=0; }
 	}
  } /* BLOCKs */	
 
@@ -1258,7 +1295,7 @@ void bf_textview_scan_lines (BfTextView * self, gint start, gint end)
       itp = its;
       for (i = start; i <= end; i++) {
 	 gtk_text_iter_set_line (&itp, i);
-	 mark = bftv_get_first_block_at_line (&itp);
+	 mark = bftv_get_first_block_at_line (&itp,TRUE);
 	 if (mark) {
 	    pomstr = g_object_get_data (G_OBJECT (mark), "type");
 	    if (strcmp (pomstr, "block_end") == 0) {
@@ -1818,8 +1855,10 @@ static BfLangConfig *bftv_load_config (BfTextView * self, gchar * filename)
       g_hash_table_insert (cfg->block_begin_dfa, "number", "0");
       cfg->block_end_dfa = g_hash_table_new (g_str_hash, g_str_equal);
       g_hash_table_insert (cfg->block_end_dfa, "number", "0");
-      for (i = 0; i < 256; i++)
-	 cfg->as_triggers[i] = 0;
+      for (i = 0; i < 256; i++) {
+       cfg->as_triggers[i] = 0;
+       cfg->escapes[i] = 0;
+      } 
       cur = cur->xmlChildrenNode;
       while (cur != NULL) {
 	 if (xmlStrcmp (cur->name, "options") == 0) {
@@ -1838,21 +1877,31 @@ static BfLangConfig *bftv_load_config (BfTextView * self, gchar * filename)
 		     else if (xmlStrcmp (tmps, "extensions") == 0)
 			cfg->extensions = g_strdup (tmps2);
 		     else if (xmlStrcmp (tmps, "auto-scan-triggers") == 0) {
-			gchar *p = tmps2;
-			i = 0;
-			while (i < g_utf8_strlen (tmps2, -1)) {
-			   cfg->as_triggers[(gint) * p] = 1;
-			   i++;
-			   p = g_utf8_next_char (p);
-			}
-		     }
-		     xmlFree (tmps);
+					gchar *p = tmps2;
+					i = 0;
+					while (i < g_utf8_strlen (tmps2, -1)) {
+					   cfg->as_triggers[(gint) * p] = 1;
+					   i++;
+					   p = g_utf8_next_char (p);
+					}
+			 }
+		     else if (xmlStrcmp (tmps, "escape-characters") == 0) {
+					gchar *p = tmps2;
+					i = 0;
+					while (i < g_utf8_strlen (tmps2, -1)) {
+					   cfg->escapes[(gint) * p] = 1;
+					   i++;
+					   p = g_utf8_next_char (p);
+					}
+			 }
+			 
+			 xmlFree (tmps);
 		  }
 		  if (tmps2)
-		     xmlFree (tmps2);
-	       }
-	       cur2 = cur2->next;
-	    }			/* end of cur2 */
+				     xmlFree (tmps2);
+		 }
+	    cur2 = cur2->next;
+	   }			/* end of cur2 */
 
 	 }
 	 else if (xmlStrcmp (cur->name, "block-group") == 0) {	/* blocks */
@@ -2181,7 +2230,7 @@ void bf_textview_fold_blocks_area (BfTextView * self, GtkTextIter * start, GtkTe
    it = *start;
    for (i = gtk_text_iter_get_line (start); i <= gtk_text_iter_get_line (end); i++) {
       gtk_text_iter_set_line (&it, i);
-      mark = bftv_get_first_block_at_line (&it);
+      mark = bftv_get_first_block_at_line (&it,TRUE);
       if (mark) {
 	 pomstr = g_object_get_data (G_OBJECT (mark), "type");
 	 if (strcmp (pomstr, "block_begin") == 0) {
@@ -2382,7 +2431,7 @@ static gboolean bf_textview_expose_cb (GtkWidget * widget, GdkEventExpose * even
 	 }
       }
       if (BF_TEXTVIEW (widget)->show_blocks) {	/* show block markers */
-	 block_mark = bftv_get_first_block_at_line (&it);
+	 block_mark = bftv_get_first_block_at_line (&it,TRUE);
 	 if (block_mark)
 	    blockptr = g_object_get_data (G_OBJECT (block_mark), "pointer");
 	 else
@@ -2558,7 +2607,7 @@ static gboolean bf_textview_mouse_cb (GtkWidget * widget, GdkEvent * event, gpoi
 		if ( event->button.x >= pt_blocks ) {
 		   gtk_text_view_window_to_buffer_coords (GTK_TEXT_VIEW (widget), GTK_TEXT_WINDOW_TEXT, 0, event->button.y, &x, &y);
    		gtk_text_view_get_line_at_y (GTK_TEXT_VIEW (widget), &it, y, &x);
-   		block_mark = bftv_get_first_block_at_line (&it);
+   		block_mark = bftv_get_first_block_at_line (&it,TRUE);
    		if (block_mark)
    		   bftv_fold (block_mark,TRUE);
    		return TRUE;   
@@ -2912,6 +2961,7 @@ void bf_textview_set_fg_color (BfTextView * self, gchar * color)
 }
 
 
+
 /**
 *	bf_textview_get_nearest_block:
 *	@self:  BfTextView widget 
@@ -2922,11 +2972,13 @@ void bf_textview_set_fg_color (BfTextView * self, gchar * color)
 * 	
 * Returns: @TBfBlock structure or NULL if block not found.
 */
-TBfBlock *bf_textview_get_nearest_block (BfTextView * self,GtkTextIter *iter, gboolean backward, gint mode) {
+TBfBlock *bf_textview_get_nearest_block (BfTextView * self,GtkTextIter *iter, gboolean backward, gint mode, gboolean not_single) {
 	GtkTextMark *mark = bftv_get_block_at_iter(iter);
 	GtkTextIter it = *iter, endit;
 	gchar *pomstr="";
 	gpointer ptr;
+	TBfBlock *bb=NULL;
+	gboolean found=FALSE;
 	
 	if ( mark )
 		pomstr = g_object_get_data (G_OBJECT (mark), "type");
@@ -2952,34 +3004,45 @@ TBfBlock *bf_textview_get_nearest_block (BfTextView * self,GtkTextIter *iter, gb
 		break;
 				
 	}
-	
+
 	if ( backward ) {	
-		while ( strcmp(pomstr,"block_begin") != 0 && strcmp(pomstr,"block_end") != 0 && !gtk_text_iter_compare(&it,&endit)>=0 ) {
+		while ( !found && !gtk_text_iter_compare(&it,&endit)>=0 ) {
 			gtk_text_iter_backward_char(&it);
 			mark = bftv_get_block_at_iter(&it);
-			if (mark)
-				pomstr = g_object_get_data (G_OBJECT (mark), "type");
-			else
-				pomstr="";	
+			if (mark) {
+				ptr = g_object_get_data (G_OBJECT (mark), "pointer");
+				if ( ptr ) {
+					if ( not_single ) {
+						bb = (TBfBlock*)ptr;
+						if ( !bb->single_line ) found = TRUE;
+					} else found=TRUE;
+				}
+			}	
 		}
 	} else { /* forward */
-		while ( strcmp(pomstr,"block_begin") != 0 && strcmp(pomstr,"block_end") != 0 && !gtk_text_iter_compare(&it,&endit)<=0 ) {
+		while ( !found && !gtk_text_iter_compare(&it,&endit)<=0 ) {
 			gtk_text_iter_forward_char(&it);
 			mark = bftv_get_block_at_iter(&it);
-			if (mark)
-				pomstr = g_object_get_data (G_OBJECT (mark), "type");
-			else
-				pomstr="";	
-		}	
+			if (mark) {
+				ptr = g_object_get_data (G_OBJECT (mark), "pointer");
+				if ( ptr ) {
+					if ( not_single ) {
+						bb = (TBfBlock*)ptr;
+						if ( !bb->single_line ) found = TRUE;
+					} else found=TRUE;
+				}
+			}	
+		}
 	}
+
 	
 	if ( mark ) {
-		ptr = g_object_get_data (G_OBJECT (mark), "pointer");
-		if ( ptr ) return (TBfBlock*)ptr;
+		bb = (TBfBlock*)g_object_get_data (G_OBJECT (mark), "pointer");
+		bftv_update_iters(self,bb);
+		return bb;
 	}
 	return NULL;
 }
-
 
 
 
