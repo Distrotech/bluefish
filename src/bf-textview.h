@@ -271,7 +271,12 @@ void bf_textview_set_blocks_color (BfTextView * self, gchar * color);
 void bf_textview_fold_blocks (BfTextView * self, gboolean fold);
 void bf_textview_fold_blocks_area (BfTextView * self, GtkTextIter * start, GtkTextIter * end, gboolean fold);
 void bf_textview_fold_blocks_lines (BfTextView * self, gint start, gint end, gboolean fold);
-TBfBlock *bf_textview_get_nearest_block (BfTextView * self,GtkTextIter *iter);
+
+#define BF_GNB_CHAR				0
+#define BF_GNB_LINE					1
+#define BF_GNB_DOCUMENT	2
+TBfBlock *bf_textview_get_nearest_block (BfTextView * self,GtkTextIter *iter,
+																					gboolean backward, gint mode);
 
 void bf_textview_set_bg_color (BfTextView * self, gchar * color);
 void bf_textview_set_fg_color (BfTextView * self, gchar * color);

@@ -2916,28 +2916,63 @@ void bf_textview_set_fg_color (BfTextView * self, gchar * color)
 *	bf_textview_get_nearest_block:
 *	@self:  BfTextView widget 
 * @iter: - GtkTextIter indicating begin of a search.
-*
+*	@backward - if TRUE search is performed backward else forward
+*	@mode - how much should we search - look at BF_GNB defines in header file
 *	Find block nearest to a given iterator. 
 * 	
 * Returns: @TBfBlock structure or NULL if block not found.
 */
-TBfBlock *bf_textview_get_nearest_block (BfTextView * self,GtkTextIter *iter) {
+TBfBlock *bf_textview_get_nearest_block (BfTextView * self,GtkTextIter *iter, gboolean backward, gint mode) {
 	GtkTextMark *mark = bftv_get_block_at_iter(iter);
-	GtkTextIter it = *iter;
+	GtkTextIter it = *iter, endit;
 	gchar *pomstr="";
 	gpointer ptr;
 	
 	if ( mark )
 		pomstr = g_object_get_data (G_OBJECT (mark), "type");
-		
-	while ( strcmp(pomstr,"block_begin") != 0 && !gtk_text_iter_is_start(&it) ) {
-		gtk_text_iter_backward_char(&it);
-		mark = bftv_get_block_at_iter(&it);
-		if (mark)
-			pomstr = g_object_get_data (G_OBJECT (mark), "type");
-		else
-			pomstr="";	
+	endit = it;	
+	switch ( mode ) {
+		case BF_GNB_LINE:
+			if ( backward )
+				gtk_text_iter_set_line(&endit,gtk_text_iter_get_line(iter));
+			else
+				gtk_text_iter_forward_to_line_end(&endit);			
+		break;
+		case BF_GNB_DOCUMENT:
+			if (backward)
+				gtk_text_iter_set_offset(&endit,0);
+			else
+				gtk_text_iter_forward_to_end(&endit);	
+		break;
+		case BF_GNB_CHAR:
+			if (backward)
+				gtk_text_iter_backward_char(&endit);
+			else
+				gtk_text_iter_forward_char(&endit);	
+		break;
+				
 	}
+	
+	if ( backward ) {	
+		while ( strcmp(pomstr,"block_begin") != 0 && strcmp(pomstr,"block_end") != 0 && !gtk_text_iter_compare(&it,&endit)>=0 ) {
+			gtk_text_iter_backward_char(&it);
+			mark = bftv_get_block_at_iter(&it);
+			if (mark)
+				pomstr = g_object_get_data (G_OBJECT (mark), "type");
+			else
+				pomstr="";	
+		}
+	} else { /* forward */
+		while ( strcmp(pomstr,"block_begin") != 0 && strcmp(pomstr,"block_end") != 0 && !gtk_text_iter_compare(&it,&endit)<=0 ) {
+			gtk_text_iter_forward_char(&it);
+			mark = bftv_get_block_at_iter(&it);
+			if (mark)
+				pomstr = g_object_get_data (G_OBJECT (mark), "type");
+			else
+				pomstr="";	
+		}	
+	}
+	
 	if ( mark ) {
 		ptr = g_object_get_data (G_OBJECT (mark), "pointer");
 		if ( ptr ) return (TBfBlock*)ptr;
