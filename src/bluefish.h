@@ -406,11 +406,9 @@ typedef struct {
 	guint lastkp_keyval;             /* this is different if the modifier key is not pressed anymore during the key-release */
 	pcre *autoclosingtag_regc; /* the regular expression to check for a valid tag in tag autoclosing*/
 	gchar *securedir; /* temporary rwx------ directory for secure file creation */
-#ifdef ENABLEPLUGINS
 	GSList *plugins;
 	GSList *doc_view_populate_popup_cbs;
 	GSList *doc_view_button_press_cbs;
-#endif /* ENABLEPLUGINS */
 } Tmain;
 
 extern Tmain *main_v;

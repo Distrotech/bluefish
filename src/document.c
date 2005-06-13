@@ -40,9 +40,6 @@
 #include "bluefish.h"
 #include "bf_lib.h"
 #include "bookmark.h"
-#ifndef ENABLEPLUGINS
-#include "cap.h"
-#endif /* ENABLEPLUGINS */
 #include "char_table.h"		/* convert_utf8...() */
 #include "dialog_utils.h"
 #include "document.h"
@@ -54,7 +51,6 @@
 #include "highlight.h"		/* all highlight functions */
 #include "menu.h"				/* add_to_recent_list */
 #include "pixmap.h"
-#include "rpopup.h"			/* doc_bevent_in_html_tag(), rpopup_edit_tag_cb() */
 #include "snr2.h"				/* snr2_run_extern_replace */
 #include "stringlist.h"		/* free_stringlist() */
 #include "undo_redo.h"		/* doc_unre_init() */
@@ -2094,13 +2090,9 @@ static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *beve
 	if (bevent->button == 3) {
 		GtkTextIter iter;
 		doc_get_iter_at_bevent(doc, bevent, &iter);
-#ifndef ENABLEPLUGINS
-		rpopup_bevent_in_html_code(doc, &iter);
-#endif /* ENABLEPLUGINS */
 		bmark_store_bevent_location(doc, gtk_text_iter_get_offset(&iter));
 	}
 /* here we ask any plugins to do any processing */
-#ifdef ENABLEPLUGINS
 	if (main_v->doc_view_button_press_cbs) {
 		GSList *tmplist = main_v->doc_view_button_press_cbs;
 		while (tmplist) {
@@ -2110,9 +2102,6 @@ static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *beve
 			tmplist = g_slist_next(tmplist);
 		}
 	}
-#endif /* ENABLEPLUGINS */
-
-	
 	return FALSE;
 }
 
@@ -2161,26 +2150,8 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem)); */
 
 	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
-#ifndef ENABLEPLUGINS
-	menuitem = gtk_image_menu_item_new_with_label(_("Edit color"));
-	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
-	if (rpopup_doc_located_color(doc)) {
-		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rpopup_edit_color_cb), doc);
-	} else {
-		gtk_widget_set_sensitive(menuitem, FALSE);
-	}
 
-	menuitem = gtk_image_menu_item_new_with_label(_("Edit tag"));
-	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),new_pixmap(113));
-	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
-	if (rpopup_doc_located_tag(doc)) {
-		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rpopup_edit_tag_cb), doc);
-	} else {
-		gtk_widget_set_sensitive(menuitem, FALSE);
-	}
-#endif /* ENABLEPLUGINS */
 /* here we ask any plugins to add there menu item */
-#ifdef ENABLEPLUGINS
 	if (main_v->doc_view_populate_popup_cbs) {
 		GSList *tmplist = main_v->doc_view_populate_popup_cbs;
 		while (tmplist) {
@@ -2189,7 +2160,6 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 			tmplist = g_slist_next(tmplist);
 		}
 	}
-#endif /* ENABLEPLUGINS */
 	
 	gtk_widget_show_all(GTK_WIDGET(menu));
 }
