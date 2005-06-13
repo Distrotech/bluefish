@@ -91,10 +91,11 @@ SRCS = 	about.c \
 OBJS = $(SRCS:.c=.o)
 
 all: bluefish
+	@cd plugin_htmlbar/ && $(MAKE) all
+
 bluefish: $(SRCS) $(OBJS)
 	$(CC) $(DEFS) -o bluefish $(OBJS) $(LDFLAGS) $(LIBS)
 	echo "The bluefish binary is succesfully created"
-	@cd plugin_htmlbar/ && $(MAKE) all
 
 .c.o: $(SRCS)
 	$(CC) $(DEFS) $(CFLAGS) -c -o $@ $<

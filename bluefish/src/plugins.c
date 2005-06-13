@@ -22,6 +22,7 @@
 #include <gtk/gtk.h>
 #include <string.h>
 #include "bluefish.h"
+#include "bf_lib.h"
 #include "plugins.h"
 #include "stringlist.h"
 
@@ -78,17 +79,19 @@ static const gchar *plugin_from_filename(const gchar *path) {
 	return NULL;
 }
 
-void bluefish_load_plugins(void) {
+void bluefish_scan_dir_load_plugins(const gchar *indirname) {
 	GError *error = NULL;
 	GPatternSpec* patspec;
 	GDir* gdir;
 	GList *oldlist;
 	const gchar *tmp;
+	gchar *dirname = ending_slash(indirname);
 
-	DEBUG_MSG("bluefish_load_plugins, loading from %s\n",PKGLIBDIR);
-	gdir = g_dir_open(PKGLIBDIR ,0,&error);
+	DEBUG_MSG("bluefish_scan_dir_load_plugins, loading from %s\n",dirname);
+	gdir = g_dir_open(dirname ,0,&error);
 	if (error) {
 		/* BUG: handle the error  */
+		g_free(dirname);
 		return;
 	}
 	patspec = g_pattern_spec_new("*.so");
@@ -97,22 +100,22 @@ void bluefish_load_plugins(void) {
 	tmp = g_dir_read_name(gdir);
 	while (tmp) {
 		if (g_pattern_match(patspec, strlen(tmp), tmp, NULL)) {
-			gchar *path = g_strconcat(PKGLIBDIR, tmp, NULL);
+			gchar *path = g_strconcat(dirname, tmp, NULL);
 			gchar *compare[] = {path, NULL}, **arr;
 
 			arr = arraylist_value_exists(oldlist, compare, 1, FALSE);
 			if (arr) {
 				GList *link;
-				DEBUG_MSG("bluefish_load_plugins, found %s in configfile (len(oldlist)=%d, len(plugin_config=%d)\n",arr[0],g_list_length(oldlist),g_list_length(main_v->props.plugin_config));
+				DEBUG_MSG("bluefish_scan_dir_load_plugins, found %s in configfile (len(oldlist)=%d, len(plugin_config=%d)\n",arr[0],g_list_length(oldlist),g_list_length(main_v->props.plugin_config));
 				link = g_list_find(oldlist,arr);
 				oldlist = g_list_remove_link(oldlist, link);
 				main_v->props.plugin_config = g_list_concat(main_v->props.plugin_config, link);
 			}
 			if (arr && arr[1][0] == '0') {
-				DEBUG_MSG("plugin %s is disabled\n",path);
+				DEBUG_MSG("bluefish_scan_dir_load_plugins, plugin %s is disabled\n",path);
 			} else {
 				const gchar *plugname;
-				DEBUG_MSG("try loading plugin %s\n",path);
+				DEBUG_MSG("bluefish_scan_dir_load_plugins, try loading plugin %s\n",path);
 				plugname = plugin_from_filename(path);
 				if (plugname) {
 					if (!arr) {
@@ -120,7 +123,7 @@ void bluefish_load_plugins(void) {
 						main_v->props.plugin_config = g_list_append(main_v->props.plugin_config, arr);
 					}
 				} else { /* no plugname ==> failed to load */
-					DEBUG_MSG("bluefish_load_plugins, load failed\n");
+					DEBUG_MSG("bluefish_scan_dir_load_plugins, load failed\n");
 					if (arr && count_array(arr)>=2) {
 						g_free(arr[1]);
 						arr[1] = g_strdup("0");
@@ -137,6 +140,14 @@ void bluefish_load_plugins(void) {
 	g_dir_close(gdir);
 	g_pattern_spec_free(patspec);
 	free_arraylist(oldlist);
+	g_free(dirname);
+}
+
+void bluefish_load_plugins(void) {
+	bluefish_scan_dir_load_plugins(PKGLIBDIR);
+#ifdef DEVELOPMENT
+	bluefish_scan_dir_load_plugins("/home/olivier/.bluefish-unstable/");
+#endif /* DEVELOPMENT */
 }
 
 void bluefish_cleanup_plugins(void) {
@@ -162,12 +173,12 @@ GList *bfplugins_register_globses_config(GList *list) {
 	}
 	return list;
 }
-GList *bfplugins_register_session_config(GList *list) {
+GList *bfplugins_register_session_config(GList *list, Tsessionvars *session) {
 	GSList *tmplist = main_v->plugins;
 	while (tmplist) {
 		TBluefishPlugin *bfplugin = tmplist->data;
 		if (bfplugin->register_session_config) {
-			list = bfplugin->register_session_config(list);
+			list = bfplugin->register_session_config(list, session);
 		}
 		tmplist =  g_slist_next(tmplist);
 	}

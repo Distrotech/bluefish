@@ -936,7 +936,6 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 
 static GList *return_globalsession_configlist(gboolean init_values) {
 	GList *config_rc = NULL;
-	init_prop_stringlist(&config_rc, &main_v->globses.quickbar_items, "quickbar_items:", init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.main_window_h, "main_window_height:", 400, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.main_window_w, "main_window_width:", 600, init_values); /* negative width means maximized */
 	init_prop_integer   (&config_rc, &main_v->globses.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250, init_values);
@@ -979,7 +978,6 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_string_with_escape(&configlist, &session->encoding, "encoding:", NULL);
 	init_prop_integer   (&configlist, &session->adv_open_recursive, "adv_open_recursive:", 0, FALSE);
 	init_prop_string    (&configlist, &session->last_filefilter, "last_filefilter:", "");
-	init_prop_integer   (&configlist, &session->view_html_toolbar, "view_html_toolbar:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->view_custom_menu, "view_custom_menu:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->view_main_toolbar, "view_main_toolbar:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->view_left_panel, "view_left_panel:", 1, FALSE);
@@ -990,7 +988,7 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 #ifdef HAVE_LIBASPELL
 	init_prop_string(&configlist, &session->spell_default_lang, "spell_default_lang:", NULL);
 #endif /* HAVE_LIBASPELL */
-	configlist = bfplugins_register_session_config(configlist);
+	configlist = bfplugins_register_session_config(configlist,session);
 	return configlist;
 }
 
