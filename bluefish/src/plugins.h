@@ -38,6 +38,7 @@ typedef struct {
 	gpointer private; /* to be filled by Bluefish after loading */
 	void (*init) (void); /* called once after plugin is loaded */
 	void (*init_gui) (Tbfwin *bfwin); /* builds the gui */
+	void (*enforce_session) (Tbfwin *bfwin); /* may change the gui to enforce some session setting */
 	void (*cleanup) (void);
 	void (*cleanup_gui) (Tbfwin *bfwin);
 	
@@ -60,6 +61,8 @@ void bluefish_load_plugins(void);
 void bluefish_cleanup_plugins(void);
 
 void bfplugins_gui(gpointer data, gpointer user_data);
+void bfplugins_enforce_session(gpointer data, gpointer user_data);
+
 GList *bfplugins_register_globses_config(GList *list);
 GList *bfplugins_register_session_config(GList *list,Tsessionvars *session);
 

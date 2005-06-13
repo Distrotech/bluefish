@@ -42,8 +42,11 @@ typedef struct {
 typedef struct {
 	Tbfwin *bfwin;
 	GtkWidget *handlebox;
-
 } Thtmlbarwin;
+
+typedef struct {
+	gint view_htmlbar;
+} Thtmlbarsession;
 
 extern Thtmlbar htmlbar_v;
 

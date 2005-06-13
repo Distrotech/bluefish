@@ -36,6 +36,7 @@
 #include "file_dialogs.h"
 #include "menu.h"
 #include "bookmark.h"
+#include "plugins.h"
 
 static void free_session(Tsessionvars *session) {
 	free_stringlist(session->classlist);
@@ -108,6 +109,8 @@ static void setup_bfwin_for_project(Tbfwin *bfwin) {
 	fb2_set_basedir(bfwin, bfwin->project->basedir);
 	recent_menu_from_list(bfwin, bfwin->project->session->recent_files, FALSE);
 	set_project_menu_widgets(bfwin, TRUE);
+	/* force this session in the plugins */
+	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);
 }
 
 /* bfwin is allowed to be NULL for an empty project */
@@ -363,6 +366,9 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 /*	g_free (newbasedir);*/
 	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
 	set_project_menu_widgets(bfwin, FALSE);
+
+	/* force this session in the plugins */
+	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);
 }
 
 /* 

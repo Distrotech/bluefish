@@ -79,7 +79,7 @@ static const gchar *plugin_from_filename(const gchar *path) {
 	return NULL;
 }
 
-void bluefish_scan_dir_load_plugins(const gchar *indirname) {
+static void bluefish_scan_dir_load_plugins(const gchar *indirname) {
 	GError *error = NULL;
 	GPatternSpec* patspec;
 	GDir* gdir;
@@ -158,8 +158,15 @@ void bluefish_cleanup_plugins(void) {
 void bfplugins_gui(gpointer data, gpointer user_data) {
 	Tbfwin *bfwin = user_data;
 	TBluefishPlugin *bfplugin = data;
-	DEBUG_MSG("bluefish_plugins_gui, init_gui for plugin %p and bfwin %p\n",bfplugin,bfwin);	
+	DEBUG_MSG("bfplugins_gui, init_gui for plugin %p and bfwin %p\n",bfplugin,bfwin);	
 	bfplugin->init_gui(bfwin);
+}
+/* can be called by g_list_foreach() */
+void bfplugins_enforce_session(gpointer data, gpointer user_data) {
+	Tbfwin *bfwin = user_data;
+	TBluefishPlugin *bfplugin = data;
+	DEBUG_MSG("bfplugins_enforce_session, enforce_session for plugin %p and bfwin %p\n",bfplugin,bfwin);	
+	bfplugin->enforce_session(bfwin);
 }
 
 GList *bfplugins_register_globses_config(GList *list) {
