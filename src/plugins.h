@@ -42,7 +42,7 @@ typedef struct {
 	void (*cleanup_gui) (Tbfwin *bfwin);
 	
 	GList *(*register_globses_config)(GList *configlist);
-	GList *(*register_session_config)(GList *configlist);
+	GList *(*register_session_config)(GList *configlist, Tsessionvars *session);
 
 	gpointer extra1; /* for binary compatibility */
 	gpointer extra2;
@@ -61,7 +61,7 @@ void bluefish_cleanup_plugins(void);
 
 void bfplugins_gui(gpointer data, gpointer user_data);
 GList *bfplugins_register_globses_config(GList *list);
-GList *bfplugins_register_session_config(GList *list);
+GList *bfplugins_register_session_config(GList *list,Tsessionvars *session);
 
 #ifdef __cplusplus
 };

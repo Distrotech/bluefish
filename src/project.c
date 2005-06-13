@@ -68,7 +68,6 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 		session->last_filefilter = g_strdup(main_v->session->last_filefilter);
 	}
 	session->adv_open_recursive = main_v->session->adv_open_recursive;
-	session->view_html_toolbar = main_v->session->view_html_toolbar;
 	session->view_custom_menu = main_v->session->view_custom_menu;
 	session->view_main_toolbar = main_v->session->view_main_toolbar;
 	session->view_left_panel = main_v->session->view_left_panel;

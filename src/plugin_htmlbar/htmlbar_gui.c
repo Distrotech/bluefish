@@ -420,7 +420,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{N_("/Dialogs/_Edit tag under cursor..."), "F3", menu_html_dialogs_lcb, 38, "<ImageItem>", pixmap_edit_tag}
 	};
 	static GtkItemFactoryEntry menu_items1[] = {
-		{N_("/View/View _HTML Bar"), NULL, htmlbar_view_lcb, 0, "<ToggleItem>"}
+		{N_("/View/View _HTML Toolbar"), NULL, htmlbar_view_lcb, 0, "<ToggleItem>"}
 	};
 	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
 #ifdef ENABLE_NLS

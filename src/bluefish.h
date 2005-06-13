@@ -261,7 +261,6 @@ typedef struct {
 over every time you run Bluefish, so things that *need* to be
 saved after every run! */
 typedef struct {
-	GList *quickbar_items; /* items in the quickbar toolbar */	
 	gint main_window_h;			/* main window height */
 	gint main_window_w;			/* main window width */
 	gint two_pane_filebrowser_height; /* position of the pane separater on the two paned file browser */
@@ -301,7 +300,6 @@ typedef struct {
 	gchar *encoding;
 	gint   adv_open_recursive;
 	gchar *last_filefilter;	/* last filelist filter type */
-	gint view_html_toolbar;				/* view html toolbar */
 	gint view_custom_menu;			/* view custom menubar */
 	gint view_main_toolbar;				/* view main toolbar */
 	gint view_left_panel;  	/* view filebrowser/functionbrowser etc. */

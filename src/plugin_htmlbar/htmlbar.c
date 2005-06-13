@@ -63,7 +63,8 @@ static GList *htmlbar_register_globses_config(GList *configlist) {
 /*	configlist = make_config_list_item(configlist, &htmlbar_v.view_htmlbar, 'i', "view_htmlbar", 0);*/
 	return configlist;
 }
-static GList *htmlbar_register_session_config(GList *configlist) {
+static GList *htmlbar_register_session_config(GList *configlist, Tsessionvars *session) {
+	/* BUG: these settings should be different for each session */
 	configlist = make_config_list_item(configlist, &htmlbar_v.view_htmlbar, 'i', "htmlbar_view:", 0);
 	configlist = make_config_list_item(configlist, &htmlbar_v.quickbar_items, 'l', "htmlbar_quickbar:", 0);
 	return configlist;
