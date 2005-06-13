@@ -52,6 +52,9 @@ static void htmlbar_initgui(Tbfwin* bfwin) {
 	}
 	DEBUG_MSG("htmlbar_initgui, finished\n");
 }
+static void htmlbar_enforce_session(Tbfwin* bfwin) {
+
+}
 static void htmlbar_cleanup(void) {
 
 }
@@ -64,7 +67,7 @@ static GList *htmlbar_register_globses_config(GList *configlist) {
 	return configlist;
 }
 static GList *htmlbar_register_session_config(GList *configlist, Tsessionvars *session) {
-	/* BUG: these settings should be different for each session */
+	/* BUG: these settings should be different for each session, and not global for the plugin */
 	configlist = make_config_list_item(configlist, &htmlbar_v.view_htmlbar, 'i', "htmlbar_view:", 0);
 	configlist = make_config_list_item(configlist, &htmlbar_v.quickbar_items, 'l', "htmlbar_quickbar:", 0);
 	return configlist;
@@ -83,6 +86,7 @@ static TBluefishPlugin bfplugin = {
 	NULL, /* private */
 	htmlbar_init, /* init */
 	htmlbar_initgui, 
+	htmlbar_enforce_session,
 	htmlbar_cleanup,
 	htmlbar_cleanup_gui,
 	htmlbar_register_globses_config,
