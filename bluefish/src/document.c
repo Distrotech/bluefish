@@ -129,12 +129,33 @@ void session_set_savedir(Tbfwin *bfwin, gchar *curi) {
 static void doc_realize_cb(GtkWidget *widget,gpointer user_data) {
 	GdkWindow *left_win;
 	GdkPixmap *pix;
+	GdkColor clr;
 	Tdocument *doc = DOCUMENT(user_data);
 	left_win = gtk_text_view_get_window(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
 	if (left_win) {
 			pix = gdk_pixmap_create_from_xpm_d(GDK_DRAWABLE(left_win),NULL,NULL,bmark_xpm);
 			bf_textview_add_symbol(BF_TEXTVIEW(doc->view),"bmark",pix);		
 		} 	
+	gdk_color_parse("#f7f29b",&clr);	
+	gtk_text_buffer_create_tag(doc->buffer,"matching_block","background-gdk",&clr,NULL); 	
+}
+
+static void doc_move_cursor_cb(GtkTextView *widget,GtkMovementStep step,
+                                            gint count,gboolean extend_selection,gpointer user_data) {
+	Tdocument *doc = DOCUMENT(user_data);
+	TBfBlock *block=NULL;
+	GtkTextIter it,it2;
+	gtk_text_buffer_get_iter_at_mark(doc->buffer,&it,gtk_text_buffer_get_insert(doc->buffer));
+	block = bf_textview_get_nearest_block(BF_TEXTVIEW(doc->view),&it,FALSE,BF_GNB_CHAR);
+	if ( block != NULL ) {
+		gtk_text_buffer_apply_tag_by_name(doc->buffer,"matching_block",&block->b_start,&block->b_end);
+		gtk_text_buffer_apply_tag_by_name(doc->buffer,"matching_block",&block->e_start,&block->e_end);
+	}	
+	else {
+		gtk_text_buffer_get_start_iter(doc->buffer,&it);
+		gtk_text_buffer_get_end_iter(doc->buffer,&it2);
+		gtk_text_buffer_remove_tag_by_name(doc->buffer,"matching_block",&it,&it2);
+	}	
 }
 #endif
 
@@ -2920,6 +2941,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	bf_textview_set_autoscan_lines(BF_TEXTVIEW(newdoc->view),-1);
 	g_signal_connect(G_OBJECT(newdoc->view),"token",G_CALLBACK(hl_slot),NULL);
 	g_signal_connect_after(G_OBJECT(newdoc->view),"realize",G_CALLBACK(doc_realize_cb),newdoc);
+	g_signal_connect_after(G_OBJECT(newdoc->view),"move-cursor",G_CALLBACK(doc_move_cursor_cb),newdoc);
 #else	
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
 	newdoc->autoclosingtag = (newdoc->hl->autoclosingtag > 0);		
