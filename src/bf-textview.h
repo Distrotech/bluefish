@@ -92,7 +92,8 @@ typedef struct {
    gint **scan_tag_table;
    gint tabnum;
 	gint bb_tabnum;
-	gint be_tabnum;   
+	gint be_tabnum;  
+	gchar escapes[256]; 
 } BfLangConfig;
 
 typedef struct {
@@ -276,7 +277,7 @@ void bf_textview_fold_blocks_lines (BfTextView * self, gint start, gint end, gbo
 #define BF_GNB_LINE					1
 #define BF_GNB_DOCUMENT	2
 TBfBlock *bf_textview_get_nearest_block (BfTextView * self,GtkTextIter *iter,
-																					gboolean backward, gint mode);
+																					gboolean backward, gint mode, gboolean not_single);
 
 void bf_textview_set_bg_color (BfTextView * self, gchar * color);
 void bf_textview_set_fg_color (BfTextView * self, gchar * color);

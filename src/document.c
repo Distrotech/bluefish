@@ -145,16 +145,16 @@ static void doc_move_cursor_cb(GtkTextView *widget,GtkMovementStep step,
 	Tdocument *doc = DOCUMENT(user_data);
 	TBfBlock *block=NULL;
 	GtkTextIter it,it2;
+	
+	gtk_text_buffer_get_start_iter(doc->buffer,&it);
+	gtk_text_buffer_get_end_iter(doc->buffer,&it2);
+	gtk_text_buffer_remove_tag_by_name(doc->buffer,"matching_block",&it,&it2);
 	gtk_text_buffer_get_iter_at_mark(doc->buffer,&it,gtk_text_buffer_get_insert(doc->buffer));
-	block = bf_textview_get_nearest_block(BF_TEXTVIEW(doc->view),&it,FALSE,BF_GNB_CHAR);
+	gtk_text_iter_backward_char(&it);
+	block = bf_textview_get_nearest_block(BF_TEXTVIEW(doc->view),&it,FALSE,BF_GNB_CHAR,TRUE);
 	if ( block != NULL ) {
 		gtk_text_buffer_apply_tag_by_name(doc->buffer,"matching_block",&block->b_start,&block->b_end);
 		gtk_text_buffer_apply_tag_by_name(doc->buffer,"matching_block",&block->e_start,&block->e_end);
-	}	
-	else {
-		gtk_text_buffer_get_start_iter(doc->buffer,&it);
-		gtk_text_buffer_get_end_iter(doc->buffer,&it2);
-		gtk_text_buffer_remove_tag_by_name(doc->buffer,"matching_block",&it,&it2);
 	}	
 }
 #endif
