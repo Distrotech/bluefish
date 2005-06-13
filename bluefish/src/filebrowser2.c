@@ -47,7 +47,6 @@ alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're 
 #include "file.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"		/* destroy_disposable_menu_cb() */
-#include "image.h"
 #include "menu.h"				/* menu_translate() */
 #include "project.h"
 #include "stringlist.h"		/* count_array() */

@@ -55,9 +55,7 @@
 #include "project.h"
 #include "rcfile.h"			/* rcfile_parse_main() */
 #include "stringlist.h"		/* put_stringlist(), get_stringlist() */
-#ifdef ENABLEPLUGINS
 #include "plugins.h"
-#endif
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -189,9 +187,7 @@ int main(int argc, char *argv[])
 		main_v->recent_directories = get_stringlist(filename, NULL);
 		g_free(filename);
 	}*/
-#ifdef ENABLEPLUGINS
 	bluefish_load_plugins();
-#endif /* ENABLEPLUGINS */
 	main_v->session = g_new0(Tsessionvars,1);
 	main_v->session->view_html_toolbar = main_v->session->view_main_toolbar = main_v->session->view_custom_menu = main_v->session->view_left_panel = main_v->session->filebrowser_focus_follow =1;
 	rcfile_parse_global_session();

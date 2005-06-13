@@ -25,7 +25,6 @@
 #include "plugins.h"
 #include "stringlist.h"
 
-#ifdef ENABLEPLUGINS
 typedef struct {
 	gchar *filename;
 } TPrivatePluginData;
@@ -175,4 +174,3 @@ GList *bfplugins_register_session_config(GList *list) {
 	return list;
 }
 
-#endif /* ENABLEPLUGINS */
