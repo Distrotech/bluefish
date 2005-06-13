@@ -33,8 +33,7 @@ static gboolean bf_textview_expose_cb (GtkWidget * widget, GdkEventExpose * even
 static gboolean bf_textview_mouse_cb (GtkWidget * widget, GdkEvent * event, gpointer user_data);
 static void bf_textview_delete_range_cb (GtkTextBuffer * textbuffer,
 					 GtkTextIter * arg1, GtkTextIter * arg2, gpointer user_data);
-static void bf_textview_delete_range_before_cb (GtkTextBuffer * textbuffer,
-						GtkTextIter * arg1, GtkTextIter * arg2, gpointer user_data);
+static void bftv_delete_blocks_from_area (BfTextView *view, GtkTextIter * arg1, GtkTextIter * arg2 );
 static void bf_textview_insert_text_cb (GtkTextBuffer * textbuffer,
 					GtkTextIter * arg1, gchar * arg2, gint arg3, gpointer user_data);
 static void bftv_fold (GtkTextMark * mark, gboolean move_cursor);
@@ -887,7 +886,7 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
    gint pos, pos2;
    gpointer ptr = NULL, ptr2 = NULL;
    GHashTable *ctab = NULL;
-   gboolean block_found = FALSE,tag_found=FALSE;
+   gboolean block_found = FALSE,tag_found=FALSE, regexp_found = FALSE;
    GtkTextMark *mark, *mark2;
    gboolean magic = FALSE, st = FALSE;
    gint currstate = 0;
@@ -908,6 +907,9 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
       g_queue_pop_head (&(self->scanner.block_stack));
    while (!g_queue_is_empty (&(self->scanner.tag_stack)))
       g_queue_pop_head (&(self->scanner.tag_stack));
+      
+	bftv_delete_blocks_from_area(self,start,end);
+
 
    while (gtk_text_iter_compare (&ita, end) <= 0) {
 
@@ -1125,7 +1127,8 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 	    while (gtk_text_iter_compare (&ita, end) <= 0 && currstate > 0) {
 	       if (currstate > BFTV_BLOCK_IDS) {
 	       	BfLangBlock *tmp = (BfLangBlock *) g_hash_table_lookup (self->current_lang->blocks_id, &currstate);
-	       	if ( self->scanner.current_block != NULL && self->scanner.current_block->def == tmp ) {
+	       	if ( self->scanner.current_block != NULL && self->scanner.current_block->def == tmp 
+	       		  && strcmp(self->scanner.current_block->def->begin,self->scanner.current_block->def->end)==0) {
 	       		/* probably this is the end of block */
 	       		block_found = FALSE;
 	       		break;
@@ -1232,6 +1235,7 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 
       /* TOKENS */
     if (self->scanner.state != BFTV_STATE_DONT_SCAN && (gint) c < 256 ) {
+    regexp_found = FALSE;	
     
 	 if (self->current_lang->case_sensitive)
 	    currstate = self->current_lang->scan_table[(gint) c][currstate];
@@ -1240,12 +1244,15 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 	 if (currstate > 0) {
 	    self->scanner.state = BFTV_STATE_TOKEN;
 	    if (currstate > BFTV_TOKEN_IDS) {
+	    	 
 	       self->scanner.current_token.def =
 		  (BfLangToken *) g_hash_table_lookup (self->current_lang->tokens, &currstate);
-	       if (self->scanner.current_token.def->context == NULL || self->current_context == NULL || self->scanner.current_token.def->context == self->current_context) {	/* only in proper context */
+	       if ( self->scanner.current_token.def->context == self->current_context || self->scanner.current_token.def->context == NULL) {	/* only in proper context */
 			  self->scanner.current_token.itstart = its;
 			  self->scanner.current_token.itend = ita;
 			  bf_textview_token (self, self->scanner.current_token.def, &its, &ita);	/* EMIT SIGNAL */
+			  if ( self->scanner.current_token.def->regexp ) 
+			  		regexp_found = TRUE;
 	       }
 	       its = ita;
 	       gtk_text_iter_forward_char (&its);
@@ -1263,7 +1270,8 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 	 its = ita;
 	 gtk_text_iter_forward_char (&its);
       }
-      gtk_text_iter_forward_char (&ita);
+      if ( !regexp_found ) 
+	      gtk_text_iter_forward_char (&ita);
    }				/* while */
 }
 
@@ -1973,11 +1981,11 @@ static BfLangConfig *bftv_load_config (BfTextView * self, gchar * filename)
 			if (!ptr)
 			   g_warning
 			      ("Token (%s) context defined as %s but such a block does not exists.", t->text, tmps2);
-			t->context = (BfLangBlock *) ptr;
-			xmlFree (tmps2);
+					t->context = (BfLangBlock *) ptr;
+					xmlFree (tmps2);
 		     }
 		     else
-			t->context = NULL;
+					t->context = NULL;
 		     bftv_put_into_dfa (cfg->dfa, t, cfg);
 		     g_hash_table_insert (cfg->tokens, &t->id, t);
 		  }
@@ -2011,14 +2019,15 @@ static BfLangConfig *bftv_load_config (BfTextView * self, gchar * filename)
 				 t->name = tmps;
 			      t->text = g_strdup (arr[i]);
 			      tmps2 = xmlGetProp (cur2, "context");
+			      t->context = NULL;
 			      if (tmps2) {
-				 ptr = g_hash_table_lookup (cfg->blocks, tmps2);
-				 if (!ptr)
-				    g_warning
-				       ("Token (%s) context defined as %s but such a block does not exists.",
-					t->text, tmps2);
-				 t->context = (BfLangBlock *) ptr;
-				 xmlFree (tmps2);
+						 ptr = g_hash_table_lookup (cfg->blocks, tmps2);
+						 if (!ptr)
+						    g_warning("Token (%s) context defined as %s but such a block does not exists.",
+								t->text, tmps2);
+						 if (ptr)		
+							 t->context = (BfLangBlock *) ptr;
+						 xmlFree (tmps2);
 			      }
 			      bftv_put_into_dfa (cfg->dfa, t, cfg);
 			      g_hash_table_insert (cfg->tokens, &t->id, t);
@@ -2284,8 +2293,8 @@ GtkWidget *bf_textview_new (void)
    g_signal_connect_after (G_OBJECT
 			   (gtk_text_view_get_buffer (GTK_TEXT_VIEW (o))),
 			   "insert-text", G_CALLBACK (bf_textview_insert_text_cb), o);
-   g_signal_connect (G_OBJECT (gtk_text_view_get_buffer (GTK_TEXT_VIEW (o))),
-		     "delete-range", G_CALLBACK (bf_textview_delete_range_before_cb), o);
+/*    g_signal_connect (G_OBJECT (gtk_text_view_get_buffer (GTK_TEXT_VIEW (o))),
+		     "delete-range", G_CALLBACK (bf_textview_delete_range_before_cb), o);*/
    g_signal_connect_after (G_OBJECT
 			   (gtk_text_view_get_buffer (GTK_TEXT_VIEW (o))),
 			   "delete-range", G_CALLBACK (bf_textview_delete_range_cb), o);
@@ -2324,8 +2333,8 @@ GtkWidget *bf_textview_new_with_buffer (GtkTextBuffer * buffer)
    g_signal_connect_after (G_OBJECT
 			   (gtk_text_view_get_buffer (GTK_TEXT_VIEW (o))),
 			   "insert-text", G_CALLBACK (bf_textview_insert_text_cb), o);
-   g_signal_connect (G_OBJECT (gtk_text_view_get_buffer (GTK_TEXT_VIEW (o))),
-		     "delete-range", G_CALLBACK (bf_textview_delete_range_before_cb), o);
+/*   g_signal_connect (G_OBJECT (gtk_text_view_get_buffer (GTK_TEXT_VIEW (o))),
+		     "delete-range", G_CALLBACK (bf_textview_delete_range_before_cb), o);*/
    g_signal_connect_after (G_OBJECT
 			   (gtk_text_view_get_buffer (GTK_TEXT_VIEW (o))),
 			   "delete-range", G_CALLBACK (bf_textview_delete_range_cb), o);
@@ -2623,11 +2632,9 @@ static gboolean bf_textview_mouse_cb (GtkWidget * widget, GdkEvent * event, gpoi
    return FALSE;
 }
 
-static void
-bf_textview_delete_range_before_cb (GtkTextBuffer * textbuffer,
-				    GtkTextIter * arg1, GtkTextIter * arg2, gpointer user_data)
+static void bftv_delete_blocks_from_area (BfTextView *view, GtkTextIter * arg1, GtkTextIter * arg2 )
 {
-   BfTextView *view = BF_TEXTVIEW (user_data);
+   GtkTextBuffer *textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
    GtkTextMark *mark = NULL;
    gboolean deleted = FALSE;
    GtkTextIter it, it2, it3;
@@ -2667,8 +2674,6 @@ bf_textview_delete_range_before_cb (GtkTextBuffer * textbuffer,
       if (gtk_text_iter_is_end (&it))
 	 break;
    }
-   if (deleted)
-      gtk_widget_queue_draw (GTK_WIDGET (view));
 }
 
 static void
