@@ -84,6 +84,7 @@ TOOLBAR = \
 	pixmap_open_small open_small.png \
 	pixmap_paragraph paragraph.png \
 	pixmap_php3 php3.png \
+	pixmap_quick_start quick_start.png \
 	pixmap_right right.png \
 	pixmap_samp samp.png \
 	pixmap_strikeout strikeout.png \
