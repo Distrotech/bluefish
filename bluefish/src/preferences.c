@@ -44,6 +44,7 @@ enum {
 #ifdef USE_SCANNER
 	view_blocks,
 	view_symbols,		
+	block_match_hl,
 #endif	
 	filebrowser_two_pane_view,
 	filebrowser_unknown_icon,
@@ -1872,6 +1873,7 @@ static void preferences_apply(Tprefdialog *pd) {
 #ifdef USE_SCANNER	
 	integer_apply(&main_v->props.view_blocks, pd->prefs[view_blocks], TRUE);
 	integer_apply(&main_v->props.view_symbols, pd->prefs[view_symbols], TRUE);
+	integer_apply(&main_v->props.block_match_hl, pd->prefs[block_match_hl], TRUE);
 #endif
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
@@ -2069,7 +2071,7 @@ static void preferences_dialog() {
 	column = gtk_tree_view_column_new_with_attributes("", cell, "text", NAMECOL, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(pd->noteb), column);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(pd->noteb), FALSE);	
-	gtk_box_pack_start(GTK_BOX(dvbox), dhbox, TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(dvbox), dhbox, TRUE, TRUE, 5);
 	gtk_container_add(GTK_CONTAINER(pd->win), dvbox);
 #else	
 	gtk_container_add(GTK_CONTAINER(pd->win), dvbox);
@@ -2416,10 +2418,12 @@ static void preferences_dialog() {
 	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("Scanner"), WIDGETCOL,vbox1,-1);	
 
 
-	frame = gtk_frame_new(_("Scanner preferences"));
+	frame = gtk_frame_new(_("General scanner preferences"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);	
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	
+	pd->prefs[block_match_hl] = boxed_checkbut_with_value(_("Highlight matching block begin-end"), main_v->props.block_match_hl, vbox2);
 	
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
