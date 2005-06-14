@@ -1,23 +1,46 @@
 #include "htmlbar.h"
 #include "../plugins.h"
 #include "../rcfile.h"
+#include "../document.h"
 #include "htmlbar_gui.h"
-
+#include "rpopup.h"
 Thtmlbar htmlbar_v;
 
 static void htmlbar_doc_view_populate_popup(GtkTextView *textview,GtkMenu *menu,Tdocument *doc) {
 	GtkWidget *menuitem;
 	DEBUG_MSG("htmlbar_doc_view_populate_popup, called\n");
 
-	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
+	menuitem = gtk_image_menu_item_new_with_label(_("Edit color"));
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+	if (rpopup_doc_located_color(doc)) { 	 
+		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rpopup_edit_color_cb), doc); 	 
+	} else { 	 
+		gtk_widget_set_sensitive(menuitem, FALSE); 	 
+	} 	 
+
+	menuitem = gtk_image_menu_item_new_with_label(_("Edit tag")); 	 
+	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),htmlbar_pixmap(pixmap_edit_tag));
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem)); 	 
+	if (rpopup_doc_located_tag(doc)) { 	 
+		g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(rpopup_edit_tag_cb), doc); 	 
+	} else { 	 
+		gtk_widget_set_sensitive(menuitem, FALSE); 	 
+	}
+
+/*	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(gtk_menu_item_new()));
 
 	menuitem = gtk_image_menu_item_new_with_label(_("Plugin test"));
-/*	g_signal_connect(menuitem, "activate", G_CALLBACK(search_cb), doc->bfwin);*/
+	g_signal_connect(menuitem, "activate", G_CALLBACK(search_cb), doc->bfwin);
 	gtk_image_menu_item_set_image(GTK_IMAGE_MENU_ITEM(menuitem),gtk_image_new_from_stock(GTK_STOCK_FIND, GTK_ICON_SIZE_MENU));
-	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem));
+	gtk_menu_shell_prepend(GTK_MENU_SHELL(menu), GTK_WIDGET(menuitem)); */
 }
 static void htmlbar_doc_view_button_press(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
 	DEBUG_MSG("htmlbar_doc_view_button_press, called\n");
+	if (bevent->button == 3) {
+		GtkTextIter iter;
+		doc_get_iter_at_bevent(doc, bevent, &iter);
+		rpopup_bevent_in_html_code(doc, &iter); 	 
+	}
 }
 
 static void htmlbar_init(void) {

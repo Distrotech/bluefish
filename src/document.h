@@ -76,6 +76,7 @@ void doc_unbind_signals(Tdocument *doc);
 gchar *doc_get_buffer_in_encoding(Tdocument *doc);
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename);
 void doc_set_fileinfo(Tdocument *doc, GnomeVFSFileInfo *finfo);
+void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter *iter);
 void doc_destroy(Tdocument * doc, gboolean delay_activation);
 void document_unset_filename(Tdocument *doc);
 gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name, gboolean is_move);

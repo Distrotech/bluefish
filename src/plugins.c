@@ -28,6 +28,7 @@
 
 typedef struct {
 	gchar *filename;
+	GModule *module;
 } TPrivatePluginData;
 
 #define PRIVATE(var) ((TPrivatePluginData *)var->private)
@@ -58,24 +59,29 @@ static TBluefishPlugin *load_plugin(const gchar *filename) {
 	}
 	bfplugin->private = g_new0(TPrivatePluginData,1);
 	PRIVATE(bfplugin)->filename = g_strdup(filename);
+	PRIVATE(bfplugin)->module = module;
 	return bfplugin;
 }
 
 static const gchar *plugin_from_filename(const gchar *path) {
 	TBluefishPlugin *bfplugin;
 	bfplugin = load_plugin(path);
-	if (bfplugin && bfplugin->bfplugin_version == BFPLUGIN_VERSION
+	if (bfplugin) {
+		if (bfplugin->bfplugin_version == BFPLUGIN_VERSION
 					&& bfplugin->document_size == sizeof(Tdocument)
 					&& bfplugin->sessionvars_size == sizeof(Tsessionvars)
 					&& bfplugin->globalsession_size == sizeof(Tglobalsession)
 					&& bfplugin->bfwin_size == sizeof(Tbfwin)
 					&& bfplugin->project_size == sizeof(Tproject)
 					&& bfplugin->main_size == sizeof(Tmain)) {
-		DEBUG_MSG("bluefish_load_plugins, found htmlbar.so, init!\n");
-		bfplugin->init();
-		main_v->plugins = g_slist_prepend(main_v->plugins,bfplugin);
-		return bfplugin->name;
-	} 
+			DEBUG_MSG("bluefish_load_plugins, found htmlbar.so, init!\n");
+			bfplugin->init();
+			main_v->plugins = g_slist_prepend(main_v->plugins,bfplugin);
+			return bfplugin->name;
+		} else {
+			g_module_close(PRIVATE(bfplugin)->module);
+		}
+	}
 	return NULL;
 }
 

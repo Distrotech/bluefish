@@ -959,7 +959,7 @@ static void html_toolbar_add_items(Tbfwin *bfwin, GtkWidget *html_toolbar, Ttool
 			item = gtk_toolbar_append_item(GTK_TOOLBAR(html_toolbar), NULL, _(tbi[i].tooltiptext),
 						NULL, htmlbar_pixmap(tbi[i].data), G_CALLBACK(tbi[i].func), bfwin);
 			g_signal_connect(item, "button-press-event", G_CALLBACK(html_toolbar_item_button_press_lcb), &tbi[i]);
-			DEBUG_MSG("adding tbitem %p to html_toolbar\n", &tbi[i]);
+/*			DEBUG_MSG("adding tbitem %p to html_toolbar\n", &tbi[i]);*/
 		}
 	}
 }
@@ -1005,7 +1005,7 @@ void htmlbar_toolbar(Thtmlbarwin *hbw) {
 	GtkWidget *html_toolbar, *html_notebook;
 	Tbfwin *bfwin = hbw->bfwin;
 
-	DEBUG_MSG("htmlbar_toolbar, started\n");
+	DEBUG_MSG("htmlbar_toolbar, started for %p\n",hbw);
 	html_notebook = gtk_notebook_new();
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_TOP);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(html_notebook), TRUE);
@@ -1017,7 +1017,7 @@ void htmlbar_toolbar(Thtmlbarwin *hbw) {
 
 	bfwin->toolbar_quickbar = gtk_toolbar_new();
 	gtk_toolbar_set_style(GTK_TOOLBAR(bfwin->toolbar_quickbar), GTK_TOOLBAR_ICONS);
-	DEBUG_MSG("htmlbar_toolbar, creating quickbar\n");
+	DEBUG_MSG("htmlbar_toolbar, creating quickbar, quickbar_items=%p\n",htmlbar_v.quickbar_items);
 	{
 		GList *tmplist;
 		gint i, numitems=(sizeof(tbi)/sizeof(Ttoolbaritem));
@@ -1080,7 +1080,12 @@ void htmlbar_toolbar(Thtmlbarwin *hbw) {
 	gtk_toolbar_set_style(GTK_TOOLBAR(html_toolbar), GTK_TOOLBAR_ICONS);
 	html_toolbar_add_items(bfwin,html_toolbar, tbi, 71, 73);
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" CSS ")));
+	DEBUG_MSG("quickbar_items=%p\n",htmlbar_v.quickbar_items);
 
 	gtk_widget_show_all(hbw->handlebox);
-}
+	if (htmlbar_v.quickbar_items == NULL) {
+		DEBUG_MSG("set notebook to page 1\n");
+		gtk_notebook_set_current_page(GTK_NOTEBOOK(html_notebook),1);
+	}
 
+}

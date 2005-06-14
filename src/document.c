@@ -2069,7 +2069,7 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 	return FALSE;
 }
 
-static void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter *iter) {
+void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter *iter) {
 	gint xpos, ypos;
 	GtkTextWindowType wintype;
 
