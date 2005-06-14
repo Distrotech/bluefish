@@ -229,7 +229,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 		DEBUG_URI(uri_dup, TRUE);
 #ifdef DEVELOPMENT
 		if (strcmp(display_name, "test1.html")==0) {
-			g_print("will add test1.html with pointer %p\n",display_name);
+			DEBUG_MSG("will add test1.html with pointer %p\n",display_name);
 		}
 #endif
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,
