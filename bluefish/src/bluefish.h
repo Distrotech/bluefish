@@ -168,8 +168,6 @@ typedef struct {
 #ifdef USE_SCANNER	
 	gboolean blocksstate; /* does this document show blocks? */
 	gboolean symstate; /* does this document show symbols? */	
-	gboolean bmhlstate; /* highlight matching block begin/end ? */	
-	gulong block_match_handler;
 #endif	
 	gboolean overwrite_mode; /* is document in overwrite mode */
 	gboolean autoclosingtag; /* does the document use autoclosing of tags */
@@ -256,7 +254,6 @@ typedef struct {
 #ifdef USE_SCANNER
 	gint view_blocks; /* view blocks on the left side by default */
 	gint view_symbols; /* view symbols on the left side by default */	
-	gint block_match_hl; /* highlight matching block begin and end */
 #endif	
 } Tproperties;
 
@@ -264,7 +261,6 @@ typedef struct {
 over every time you run Bluefish, so things that *need* to be
 saved after every run! */
 typedef struct {
-	GList *quickbar_items; /* items in the quickbar toolbar */	
 	gint main_window_h;			/* main window height */
 	gint main_window_w;			/* main window width */
 	gint two_pane_filebrowser_height; /* position of the pane separater on the two paned file browser */
@@ -304,7 +300,6 @@ typedef struct {
 	gchar *encoding;
 	gint   adv_open_recursive;
 	gchar *last_filefilter;	/* last filelist filter type */
-	gint view_html_toolbar;				/* view html toolbar */
 	gint view_custom_menu;			/* view custom menubar */
 	gint view_main_toolbar;				/* view main toolbar */
 	gint view_left_panel;  	/* view filebrowser/functionbrowser etc. */
@@ -409,11 +404,9 @@ typedef struct {
 	guint lastkp_keyval;             /* this is different if the modifier key is not pressed anymore during the key-release */
 	pcre *autoclosingtag_regc; /* the regular expression to check for a valid tag in tag autoclosing*/
 	gchar *securedir; /* temporary rwx------ directory for secure file creation */
-#ifdef ENABLEPLUGINS
 	GSList *plugins;
 	GSList *doc_view_populate_popup_cbs;
 	GSList *doc_view_button_press_cbs;
-#endif /* ENABLEPLUGINS */
 } Tmain;
 
 extern Tmain *main_v;
