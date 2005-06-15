@@ -44,7 +44,6 @@ enum {
 #ifdef USE_SCANNER
 	view_blocks,
 	view_symbols,		
-	block_match_hl,
 #endif	
 	filebrowser_two_pane_view,
 	filebrowser_unknown_icon,
@@ -1873,7 +1872,6 @@ static void preferences_apply(Tprefdialog *pd) {
 #ifdef USE_SCANNER	
 	integer_apply(&main_v->props.view_blocks, pd->prefs[view_blocks], TRUE);
 	integer_apply(&main_v->props.view_symbols, pd->prefs[view_symbols], TRUE);
-	integer_apply(&main_v->props.block_match_hl, pd->prefs[block_match_hl], TRUE);
 #endif
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
@@ -2423,7 +2421,6 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	
-	pd->prefs[block_match_hl] = boxed_checkbut_with_value(_("Highlight matching block begin-end"), main_v->props.block_match_hl, vbox2);
 	
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
