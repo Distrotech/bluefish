@@ -186,10 +186,42 @@ typedef enum {
 	string_color
 } Tprefstringtype;
 
+#ifdef USE_SCANNER
+void pref_click_column  (GtkTreeViewColumn *treeviewcolumn, gpointer user_data) {
+	GtkToggleButton *but = GTK_TOGGLE_BUTTON(user_data);
+	GList *lst = gtk_tree_view_column_get_cell_renderers(treeviewcolumn);
+	if ( gtk_toggle_button_get_active(but))
+	{
+		gtk_toggle_button_set_active(but,FALSE);
+		gtk_button_set_label(GTK_BUTTON(but),"");
+		gtk_tree_view_column_set_sizing(treeviewcolumn,GTK_TREE_VIEW_COLUMN_FIXED);
+		gtk_tree_view_column_set_fixed_width(treeviewcolumn,30);
+		if (lst) {
+			g_object_set(G_OBJECT(lst->data),"sensitive",FALSE,"mode",GTK_CELL_RENDERER_MODE_INERT,NULL);
+			g_list_free(lst);
+		}	
+	}	
+	else
+	{
+		gtk_toggle_button_set_active(but,TRUE);
+		gtk_button_set_label(GTK_BUTTON(but),(gchar*)g_object_get_data(G_OBJECT(but),"_title_"));
+		gtk_tree_view_column_set_sizing(treeviewcolumn,GTK_TREE_VIEW_COLUMN_AUTOSIZE);
+		if (lst) {
+			g_object_set(G_OBJECT(lst->data),"sensitive",TRUE,"mode",GTK_CELL_RENDERER_MODE_EDITABLE,NULL);
+			g_list_free(lst);
+		}			
+	}
+}
+#endif
+
+
 /* type 0/1=text, 2=toggle */
 static void pref_create_column(GtkTreeView *treeview, gint type, GCallback func, gpointer data, const gchar *title, gint num) {
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
+#ifdef USE_SCANNER
+	GtkWidget *but;
+#endif		
 	if (type == 1 || type == 0) {
 		renderer = gtk_cell_renderer_text_new();
 		g_object_set(G_OBJECT(renderer), "editable", TRUE, NULL);
@@ -200,6 +232,15 @@ static void pref_create_column(GtkTreeView *treeview, gint type, GCallback func,
 		g_signal_connect(G_OBJECT(renderer), "toggled", func, data);
 	}
 	column = gtk_tree_view_column_new_with_attributes(title, renderer,(type ==1) ? "text" : "active" ,num,NULL);
+#ifdef USE_SCANNER
+	gtk_tree_view_column_set_clickable(GTK_TREE_VIEW_COLUMN(column),TRUE);
+	but = gtk_check_button_new_with_label(title);
+	g_object_set_data(G_OBJECT(but),"_title_",g_strdup(title));
+	gtk_widget_show(but);
+	gtk_tree_view_column_set_widget(GTK_TREE_VIEW_COLUMN(column),but);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(but),TRUE);
+	g_signal_connect(G_OBJECT(column), "clicked", G_CALLBACK(pref_click_column), but);
+#endif	
 	gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
 }
 /* 3 entries must have len 3, but in reality it will be 4, because there is a NULL pointer appended */
