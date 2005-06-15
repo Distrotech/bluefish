@@ -77,7 +77,9 @@ extern void g_none(gchar *first, ...);
 #include <libgnomevfs/gnome-vfs.h>
 #endif
 
-
+#ifdef USE_SCANNER
+#include "bf-textview.h"
+#endif
 /*********************/
 /* undo/redo structs */
 /*********************/
@@ -407,6 +409,9 @@ typedef struct {
 	GSList *plugins;
 	GSList *doc_view_populate_popup_cbs;
 	GSList *doc_view_button_press_cbs;
+#ifdef USE_SCANNER
+	BfLangManager *lang_mgr;
+#endif	
 } Tmain;
 
 extern Tmain *main_v;
