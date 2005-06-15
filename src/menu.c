@@ -37,24 +37,15 @@
 #include "gtk_easy.h"		/* window_full, bf_stock_ok_button */
 #include "gui.h"				/* go_to_line_win_cb */
 #include "highlight.h"		/* doc_highlight_full */
-#include "html.h"
-#include "html2.h"
-#include "html_form.h"
-#include "html_table.h"
-#include "image.h"
 #include "menu.h"				/* my own .h file */
 #include "pixmap.h"
 #include "preferences.h"	/* open_preferences_menu_cb */
 #include "project.h"
-#include "quickstart.h"
 #include "rcfile.h"			/* rcfile_save_configfile_menu_cb */
-#include "rpopup.h"
 #include "snr2.h"				/* search_cb, replace_cb */
 #include "stringlist.h"		/* free_stringlist() */
 #include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
-#include "wizards.h"
 #include "external_commands.h"
-
 #include "outputbox.h"		/* temporary */
 
 #ifdef HAVE_PYTHON
@@ -165,124 +156,6 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		exit(123);
 	}
 }
-#ifndef ENABLEPLUGINS
-static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	switch (callback_action) {
-	case 1:
-		body_dialog(bfwin,NULL);
-	break;
-	case 2:
-		DEBUG_MSG("menu_html_dialogs_lcb,calling quickanchor_dialog with bfwin=%p and data=NULL\n",bfwin);
-		quickanchor_dialog(bfwin,NULL);
-	break;
-	case 3:
-		email_dialog(bfwin,NULL);
-	break;
-	case 4:
-		quickrule_dialog(bfwin,NULL);
-	break;
-	case 5:
-		font_dialog(bfwin,NULL);
-	break;
-	case 6:
-		basefont_dialog(bfwin,NULL);
-	break;
-	case 7:
-		quicklist_dialog(bfwin,NULL);
-	break;
-	case 8:
-		meta_dialog(bfwin,NULL);
-	break;
-	case 9:
-		embed_dialog(bfwin,NULL);
-	break;
-	case 10:
-		image_insert_dialog(bfwin,NULL);
-	break;
-	case 11:
-		thumbnail_insert_dialog(bfwin);
-	break;
-	case 12:
-		tablewizard_dialog(bfwin);
-	break;
-	case 13:
-		tabledialog_dialog(bfwin,NULL);
-	break;
-	case 14:
-		tablerowdialog_dialog(bfwin,NULL);
-	break;
-	case 15:
-		tableheaddialog_dialog(bfwin,NULL);
-	break;
-	case 16:
-		tabledatadialog_dialog(bfwin,NULL);
-	break;
-	case 17:
-		span_dialog(bfwin,NULL);
-	break;
-	case 18:
-		div_dialog(bfwin,NULL);
-	break;
-	case 19:
-		framewizard_dialog(bfwin);
-	break;
-	case 20:
-		frameset_dialog(bfwin,NULL);
-	break;
-	case 21:
-		frame_dialog(bfwin,NULL);
-	break;
-	case 22:
-		formdialog_dialog(bfwin,NULL);
-	break;
-	case 23:
-		inputdialog_dialog(bfwin, NULL, "submit");
-	break;
-	case 24:
-		inputdialog_dialog(bfwin, NULL, "text");
-	break;
-	case 25:
-		buttondialog_dialog(bfwin, NULL);
-	break;
-	case 26:
-		textareadialog_dialog(bfwin,NULL);
-	break;
-	case 29:
-		selectdialog_dialog(bfwin,NULL);
-	break;
-	case 30:
-		optiondialog_dialog(bfwin,NULL);
-	break;
-	case 31:
-		optgroupdialog_dialog(bfwin,NULL);
-	break;
-	case 32:
-		quickstart_dialog_new(bfwin);
-	break;
-	case 33:
-		inputdialog_dialog(bfwin, NULL, NULL);
-	break;
-	case 34:
-		insert_time_dialog(bfwin);
-	break;
-	case 35:
-		linkdialog_dialog(bfwin,NULL);
-	break;
-	case 36:
-		new_css_dialog(NULL,bfwin);
-	break;
-	case 37:
-		sel_colour_cb(NULL,bfwin);	
-	break;
-	case 38:
-		edit_tag_under_cursor_cb(bfwin);
-	break;
-	default:
-		g_print("menu_file_operations_cb, unknown action, abort!\n");
-		exit(123);
-	}
-}
-#endif /* ENABLEPLUGINS */
 #ifdef HAVE_LIBASPELL
 static void spell_check_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	spell_check_cb(NULL, bfwin);
@@ -327,10 +200,6 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 		bfwin->current_document->symstate = GTK_CHECK_MENU_ITEM(widget)->active;
 		document_set_show_symbols(bfwin->current_document, bfwin->current_document->symstate);
 		break;		
-	case 7:
-		bfwin->current_document->bmhlstate = GTK_CHECK_MENU_ITEM(widget)->active;
-		document_set_bmhl(bfwin->current_document, bfwin->current_document->bmhlstate);
-		break;				
 #endif		
 	}
 }
@@ -403,297 +272,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_View"), NULL, NULL, 0, "<Branch>"},
 	{N_("/View/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/View/View _Main Toolbar"), NULL, gui_toggle_hidewidget_cb, 1, "<ToggleItem>"},
-#ifndef ENABLEPLUGINS
-	{N_("/View/View _HTML Toolbar"), NULL, gui_toggle_hidewidget_cb, 2, "<ToggleItem>"},
-#endif /* ENABLEPLUGINS */
 	{N_("/View/View _Custom Menu"), NULL, gui_toggle_hidewidget_cb, 3, "<ToggleItem>"},
 	{N_("/View/View _Sidebar"), "F9", gui_toggle_hidewidget_cb, 4, "<ToggleItem>"},
-#ifndef ENABLEPLUGINS
-	{N_("/_Tags"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-/*	{N_("/Tags/Repeat last"), "F4", repeat_last_insert_cb, 0, NULL},*/
-	{N_("/Tags/_Headings"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Headings/Tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Headings/H_1"), "<control><alt>1", general_html_menu_cb, 18, "<ImageItem>",pixmap_fonth1},
-	{N_("/Tags/Headings/H_2"), "<control><alt>2", general_html_menu_cb, 19, "<ImageItem>",pixmap_fonth2},
-	{N_("/Tags/Headings/H_3"), "<control><alt>3", general_html_menu_cb, 20, "<ImageItem>",pixmap_fonth3},
-	{N_("/Tags/Headings/H_4"), "<control><alt>4", general_html_menu_cb, 21, "<ImageItem>",pixmap_fonth4},
-	{N_("/Tags/Headings/H_5"), "<control><alt>5", general_html_menu_cb, 22, "<ImageItem>",pixmap_fonth5},
-	{N_("/Tags/Headings/H_6"), "<control><alt>6", general_html_menu_cb, 23, "<ImageItem>",pixmap_fonth6},
-	{N_("/Tags/_Special"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Special/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Special/_Accent"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Special/Accent/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Special/Accent/_Uppercase"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Special/Accent/Uppercase/_A-I"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/A grave À"), NULL, insert_char_cb, 100, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/A acute Á"), NULL, insert_char_cb, 1, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"), NULL, insert_char_cb, 2, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"), NULL, insert_char_cb, 3, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"), NULL, insert_char_cb, 4, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"), NULL, insert_char_cb, 5, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/A ring Å"), NULL, insert_char_cb, 6, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"), NULL, insert_char_cb, 7, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/E grave È"), NULL, insert_char_cb, 8, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/E acute É"), NULL, insert_char_cb, 9, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"), NULL, insert_char_cb, 10, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"), NULL, insert_char_cb, 11, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/I grave Ì"), NULL, insert_char_cb, 12, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/I acute Í"), NULL, insert_char_cb, 13, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"), NULL, insert_char_cb, 14, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"), NULL, insert_char_cb, 15, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/_J-Z"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"), NULL, insert_char_cb, 16, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"), NULL, insert_char_cb, 17, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"), NULL, insert_char_cb, 18, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"), NULL, insert_char_cb, 19, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/OE ligature"), NULL, insert_char_cb, 100, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"), NULL, insert_char_cb, 20, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"), NULL, insert_char_cb, 21, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"), NULL, insert_char_cb, 22, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"), NULL, insert_char_cb, 23, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"), NULL, insert_char_cb, 24, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"), NULL, insert_char_cb, 25, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"), NULL, insert_char_cb, 26, "<Item>"},
-	{N_("/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"), NULL, insert_char_cb, 27, "<Item>"},
-	{N_("/Tags/Special/Accent/_Lowercase"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Special/Accent/Lowercase/_A-I"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/a grave à"), NULL, insert_char_cb, 28, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/a acute á"), NULL, insert_char_cb, 29, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/a circumflex â"), NULL, insert_char_cb, 30, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/a tilde ã"), NULL, insert_char_cb, 31, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/a ring å"), NULL, insert_char_cb, 32, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"), NULL, insert_char_cb, 33, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"), NULL, insert_char_cb, 34, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"), NULL, insert_char_cb, 35, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/e grave è"), NULL, insert_char_cb, 36, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/e acute é"), NULL, insert_char_cb, 37, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"), NULL, insert_char_cb, 38, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"), NULL, insert_char_cb, 39, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/i grave ì"), NULL, insert_char_cb, 40, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/i acute í"), NULL, insert_char_cb, 41, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/i circumflex î"), NULL, insert_char_cb, 42, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"), NULL, insert_char_cb, 43, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/_J-Z"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"), NULL, insert_char_cb, 44, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/o grave ò"), NULL, insert_char_cb, 45, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/o acute ó"), NULL, insert_char_cb,46, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"), NULL, insert_char_cb,99, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"), NULL, insert_char_cb, 47, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"), NULL, insert_char_cb, 48, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"), NULL, insert_char_cb, 49, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/o slash ø"), NULL, insert_char_cb, 50, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/u grave ù"), NULL, insert_char_cb, 51, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/u acute ú"), NULL, insert_char_cb, 52, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"), NULL, insert_char_cb, 53, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"), NULL, insert_char_cb, 54, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/y acute ý"), NULL, insert_char_cb, 55, "<Item>"},
-	{N_("/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"), NULL, insert_char_cb, 56, "<Item>"},
-	{N_("/Tags/Special/Accent/separator"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Tags/Special/Accent/U_mlaut ¨"), NULL, insert_char_cb, 57, "<Item>"},
-	{N_("/Tags/Special/Accent/_Acute ´"), NULL, insert_char_cb, 58, "<Item>"},
-	{N_("/Tags/Special/Accent/_Cedilla ¸"), NULL, insert_char_cb, 59, "<Item>"},
-	{N_("/Tags/Special/_Currency"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Special/Currency/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Special/Currency/_Cent sign ¢"), NULL, insert_char_cb, 60, "<Item>"},
-	{N_("/Tags/Special/Currency/_Pound sterling £"), NULL, insert_char_cb, 61, "<Item>"},
-	{N_("/Tags/Special/Currency/C_urrency sign ¤"), NULL, insert_char_cb, 62, "<Item>"},
-	{N_("/Tags/Special/Currency/_Yen sign ¥"), NULL, insert_char_cb, 63, "<Item>"},
-	{N_("/Tags/Special/Currency/_Euro "), NULL, insert_char_cb, 98, "<Item>"},
-	{N_("/Tags/Special/_Math-Science"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Special/Math-Science/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Special/Math-Science/Logical _not sign ¬"), NULL, insert_char_cb, 64, "<Item>"},
-	{N_("/Tags/Special/Math-Science/_Multiplication sign ×"), NULL, insert_char_cb, 65, "<Item>"},
-	{N_("/Tags/Special/Math-Science/_Division sign ÷"), "<control><alt>slash", insert_char_cb, 66, "<Item>"},
-	{N_("/Tags/Special/Math-Science/_Plus-minus sign ±"), NULL, insert_char_cb, 67, "<Item>"},
-	{N_("/Tags/Special/Math-Science/_Less-than sign <"), "<control><alt>comma", insert_char_cb, 68, "<Item>"},
-	{N_("/Tags/Special/Math-Science/_Greater-than sign >"), "<control><alt>period", insert_char_cb, 69, "<Item>"},
-	{N_("/Tags/Special/Math-Science/Superscript _1 ¹"), NULL, insert_char_cb, 70, "<Item>"},
-	{N_("/Tags/Special/Math-Science/Superscript _2 ²"), NULL, insert_char_cb, 71, "<Item>"},
-	{N_("/Tags/Special/Math-Science/Superscript _3 ³"), NULL, insert_char_cb, 72, "<Item>"},
-	{N_("/Tags/Special/Math-Science/One _quarter ¼"), NULL, insert_char_cb, 73, "<Item>"},
-	{N_("/Tags/Special/Math-Science/One _half ½"), NULL, insert_char_cb, 74, "<Item>"},
-	{N_("/Tags/Special/Math-Science/_Three quarters ¾"), NULL, insert_char_cb, 75, "<Item>"},
-	{N_("/Tags/Special/Math-Science/Deg_ree sign °"), NULL, insert_char_cb, 76, "<Item>"},
-	{N_("/Tags/Special/_Non Latin"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Special/Non Latin/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Special/Non Latin/_ETH (Icelandic) Ð"), NULL, insert_char_cb, 77, "<Item>"},
-	{N_("/Tags/Special/Non Latin/_THORN (Icelandic) Þ"), NULL, insert_char_cb, 78, "<Item>"},
-	{N_("/Tags/Special/Non Latin/et_h (Icelandic) ð"), NULL, insert_char_cb, 79, "<Item>"},
-	{N_("/Tags/Special/Non Latin/th_orn ÿ"), NULL, insert_char_cb, 80, "<Item>"},
-	{N_("/Tags/Special/Non Latin/Sharp _s ß"), NULL, insert_char_cb, 81, "<Item>"},
-	{N_("/Tags/Special/Non Latin/_Micro sign µ"), NULL, insert_char_cb, 82, "<Item>"},
-	{N_("/Tags/Special/_Other"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Special/Other/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Special/Other/_Non-breaking space"), NULL, insert_char_cb, 83, "<Item>"},
-	{N_("/Tags/Special/Other/_Section sign §"), NULL, insert_char_cb, 84, "<Item>"},
-	{N_("/Tags/Special/Other/_Copyright sign ©"), NULL, insert_char_cb, 85, "<Item>"},
-	{N_("/Tags/Special/Other/_Left angle quotes «"), NULL, insert_char_cb, 86, "<Item>"},
-	{N_("/Tags/Special/Other/_Right angle quotes »"), NULL, insert_char_cb, 87, "<Item>"},
-	{N_("/Tags/Special/Other/Registered _trademark ®"), NULL, insert_char_cb, 88, "<Item>"},
-	{N_("/Tags/Special/Other/Inverted _exclamation ¡"), NULL, insert_char_cb, 89, "<Item>"},
-	{N_("/Tags/Special/Other/Inverted _question mark ¿"), NULL, insert_char_cb, 90, "<Item>"},
-	{N_("/Tags/Special/Other/_Feminine ordinal ª"), NULL, insert_char_cb, 91, "<Item>"},
-	{N_("/Tags/Special/Other/_Masculine ordinal º"), NULL, insert_char_cb, 92, "<Item>"},
-	{N_("/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"), NULL, insert_char_cb, 93, "<Item>"},
-	{N_("/Tags/Special/Other/_Broken bar ¦"), NULL, insert_char_cb, 94, "<Item>"},
-	{N_("/Tags/Special/Other/Soft _hypen -"), NULL, insert_char_cb, 95, "<Item>"},
-	{N_("/Tags/Special/Other/Spa_cing macron ¯"), NULL, insert_char_cb, 96, "<Item>"},
-	{N_("/Tags/Special/Other/Middle _dot ·"), NULL, insert_char_cb, 97, "<Item>"},
-	{N_("/Tags/_Format by layout"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Format by layout/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Format by layout/_Bold"), "<control><alt>b", general_html_menu_cb, 1, "<ImageItem>",pixmap_bold},
-	{N_("/Tags/Format by layout/_Italic"), "<control><alt>i", general_html_menu_cb, 2, "<ImageItem>",pixmap_italic},
-	{N_("/Tags/Format by layout/_Underline"), "<control><alt>u", general_html_menu_cb, 3, "<ImageItem>",pixmap_underline},
-	{N_("/Tags/Format by layout/_Strikeout"), "<control><alt>s", general_html_menu_cb, 4, "<Item>"},
-	{N_("/Tags/Format by layout/Sm_all"), NULL, general_html_menu_cb, 56, "<Item>"},
-	{N_("/Tags/Format by layout/Bi_g"), NULL, general_html_menu_cb, 57, "<Item>"},
-	
-	{N_("/Tags/F_ormat by context"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Format by context/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Format by context/_Strong"), "<control><alt>g", general_html_menu_cb, 16, "<ImageItem>",pixmap_bold},
-	{N_("/Tags/Format by context/_Emphasis"), "<control><alt>e", general_html_menu_cb, 17, "<ImageItem>",pixmap_italic},
-	{N_("/Tags/Format by context/_Define"), NULL, general_html_menu_cb, 48, "<ImageItem>",pixmap_dfn},
-	{N_("/Tags/Format by context/_Code"), NULL, general_html_menu_cb, 49, "<ImageItem>",pixmap_code},
-	{N_("/Tags/Format by context/Sa_mple"), NULL, general_html_menu_cb, 50, "<ImageItem>",pixmap_samp},
-	{N_("/Tags/Format by context/_Keyboard"), NULL, general_html_menu_cb, 51, "<ImageItem>",pixmap_kbd},
-	{N_("/Tags/Format by context/_Variable"), NULL, general_html_menu_cb, 52, "<ImageItem>",pixmap_var},
-	{N_("/Tags/Format by context/Ci_tation"), NULL, general_html_menu_cb, 53, "<ImageItem>",pixmap_cite},
-	{N_("/Tags/Format by context/_Abbreviation"), NULL, general_html_menu_cb, 54, "<ImageItem>",pixmap_abbr},
-	{N_("/Tags/Format by context/Ac_ronym"), NULL, general_html_menu_cb, 55, "<ImageItem>",pixmap_acronym},
-	{N_("/Tags/Format _general"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Format general/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Format general/_Paragraph"), "<control><alt>p", general_html_menu_cb, 5, "<ImageItem>",pixmap_paragraph},
-	{N_("/Tags/Format general/_Break"),  "<control><alt>k", general_html_menu_cb, 6, "<ImageItem>",pixmap_brbreak},
-	{N_("/Tags/Format general/Break clear _all"), NULL, general_html_menu_cb, 41, "<ImageItem>",pixmap_breakall},
-	{N_("/Tags/Format general/_Non-Breaking Space"), "<control><alt>n", general_html_menu_cb, 7, "<ImageItem>",pixmap_nbsp},
-	{N_("/Tags/Format general/<separator>"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Tags/Format general/Font Si_ze +1"), "<control><alt>equal", general_html_menu_cb, 11, "<ImageItem>",pixmap_fontp1},
-	{N_("/Tags/Format general/Font _Size -1"), "<control><alt>minus", general_html_menu_cb, 12, "<ImageItem>",pixmap_fontm1},
-	{N_("/Tags/Format general/<separator>"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Tags/Format general/Preformatted _Text"), "<Control><Alt>f", general_html_menu_cb, 13, "<ImageItem>",pixmap_fontpre},
-	{N_("/Tags/Format general/Su_bscript"), NULL, general_html_menu_cb, 14, "<ImageItem>",pixmap_fontsub},
-	{N_("/Tags/Format general/Su_perscript"), NULL, general_html_menu_cb, 15, "<ImageItem>",pixmap_fontsuper},
-	{N_("/Tags/Format general/<separator>"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Tags/Format general/_Center"), NULL, general_html_menu_cb, 8, "<ImageItem>",pixmap_center},
-	{N_("/Tags/Format general/Align _right"), "<control><Alt>r", general_html_menu_cb, 9, "<ImageItem>",pixmap_right},
-	{N_("/Tags/_Table"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Table/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Table/_Table"), "<control><alt>t", general_html_menu_cb, 24, "<ImageItem>", pixmap_table2},
-	{N_("/Tags/Table/Table _Row"), NULL, general_html_menu_cb, 25, "<ImageItem>", pixmap_table_tr2},
-	{N_("/Tags/Table/Table _Header"), NULL, general_html_menu_cb, 26, "<ImageItem>", pixmap_table_th2},
-	{N_("/Tags/Table/Table _Data"), NULL, general_html_menu_cb, 27, "<ImageItem>", pixmap_table_td2},
-	{N_("/Tags/Table/Table _Caption"), NULL, general_html_menu_cb, 28, "<ImageItem>", pixmap_table_capt},
-	{N_("/Tags/_List"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/List/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/List/Unordered _List"), "<control><alt>L", general_html_menu_cb, 33, "<ImageItem>", pixmap_list_ul},
-	{N_("/Tags/List/_Ordered List"), "<control><alt>O", general_html_menu_cb, 34, "<ImageItem>", pixmap_list_ol},
-	{N_("/Tags/List/List Ite_m"), "<control><alt>M", general_html_menu_cb, 35, "<ImageItem>", pixmap_list_li},
-	{N_("/Tags/List/De_finition List"), NULL, general_html_menu_cb, 36, "<ImageItem>", pixmap_list_dl},
-	{N_("/Tags/List/Definition _Term"), NULL, general_html_menu_cb, 37, "<ImageItem>", pixmap_list_dt},
-	{N_("/Tags/List/_Definition"), NULL, general_html_menu_cb, 38, "<ImageItem>", pixmap_list_dd},
-	{N_("/Tags/List/Men_u"), NULL, general_html_menu_cb, 39, "<Item>"},
-	{N_("/Tags/Fo_rm"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Form/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Form/_Form"), NULL, general_html_menu_cb, 67, "<ImageItem>", pixmap_form},
-	{N_("/Tags/Form/_Button"), NULL, general_html_menu_cb, 58, "<Item>"},
-	{N_("/Tags/Form/_Input"), NULL, general_html_menu_cb, 65, "<Item>"},
-	{N_("/Tags/Form/_Textarea"), NULL, general_html_menu_cb, 66, "<Item>"},
-/*	{N_("/Tags/Form/"), NULL, general_html_menu_cb, , "<Item>"},*/
-	{N_("/Tags/_Misc"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Tags/Misc/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Misc/Insert Generator _META-Tag"), NULL, general_html_menu_cb, 47, "<Item>"},
-	{N_("/Tags/Misc/_Span"), NULL, general_html_menu_cb, 60, "<Item>"},
-	{N_("/Tags/Misc/_Div"), NULL, general_html_menu_cb, 62, "<Item>"},
-	{N_("/Tags/Misc/_Link"), NULL, general_html_menu_cb, 61, "<Item>"},
-	{N_("/Tags/Misc/S_cript"), NULL, general_html_menu_cb, 59, "<Item>"},
-	{N_("/Tags/Misc/_Anchor"), NULL, general_html_menu_cb, 63, "<ImageItem>", pixmap_anchor},
-	{N_("/Tags/Misc/_Image"), NULL, general_html_menu_cb, 64, "<ImageItem>", pixmap_image},
-/*	{N_("/Tags/Misc/"), NULL, general_html_menu_cb, , "<Item>"},*/
-	{N_("/Tags/_Comment"), "<control><alt>C", general_html_menu_cb, 10, "<ImageItem>", pixmap_comment},
-	{N_("/Dial_ogs"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Dialogs/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Dialogs/_General"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Dialogs/General/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Dialogs/General/_Quickstart..."), "<shift><alt>q", menu_html_dialogs_lcb, 32, "<ImageItem>", pixmap_quick_start},
-/*	{N_("/Dialogs/General/DTD"), NULL, dtd_cb, 0, NULL},
-	{N_("/Dialogs/General/Head"), NULL, head_cb, 0, NULL}, */
-	{N_("/Dialogs/General/_Body..."), "<shift><alt>B", menu_html_dialogs_lcb, 1, "<ImageItem>", pixmap_body},
-	{N_("/Dialogs/General/_Anchor..."), "<shift><alt>a", menu_html_dialogs_lcb, 2, "<ImageItem>", pixmap_anchor},
-	{N_("/Dialogs/General/_Email..."), "<shift><alt>e", menu_html_dialogs_lcb, 3, "<Item>"},
-	{N_("/Dialogs/General/_Rule..."), "<shift><alt>r", menu_html_dialogs_lcb, 4, "<ImageItem>", pixmap_hrule},
-	{N_("/Dialogs/General/_Font..."), "<shift><alt>f", menu_html_dialogs_lcb, 5, "<Item>"},
-	{N_("/Dialogs/General/Basef_ont..."), NULL, menu_html_dialogs_lcb, 6, "<Item>"},
-	{N_("/Dialogs/General/Quick_list..."), "<shift><alt>L", menu_html_dialogs_lcb, 7, "<ImageItem>", pixmap_list},
-	{N_("/Dialogs/General/_Meta..."), "<shift><alt>m", menu_html_dialogs_lcb, 8, "<Item>"},
-	{N_("/Dialogs/General/Embe_d..."), NULL, menu_html_dialogs_lcb, 9, "<Item>"},
-	{N_("/Dialogs/General/Select _Color..."), NULL, menu_html_dialogs_lcb, 37, "<Item>"},
-	{N_("/Dialogs/General/Insert _Time..."), NULL, menu_html_dialogs_lcb, 34, "<Item>"},
-	{N_("/Dialogs/General/Insert _Image..."), "<shift><alt>I", menu_html_dialogs_lcb, 10, "<ImageItem>", pixmap_image},
-	{N_("/Dialogs/General/Insert T_humbnail..."), "<shift><alt>N", menu_html_dialogs_lcb, 11, "<ImageItem>", pixmap_thumbnail},
-	{N_("/Dialogs/_Table"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Dialogs/Table/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Dialogs/Table/Table _Wizard..."), NULL, menu_html_dialogs_lcb, 12, "<ImageItem>", pixmap_tablewhiz},
-	{N_("/Dialogs/Table/_Table..."), "<shift><alt>T", menu_html_dialogs_lcb, 13, "<ImageItem>", pixmap_table},
-	{N_("/Dialogs/Table/Table _Row..."), NULL, menu_html_dialogs_lcb, 14, "<ImageItem>", pixmap_table_tr},
-	{N_("/Dialogs/Table/Table _Head..."), NULL, menu_html_dialogs_lcb, 15, "<ImageItem>", pixmap_table_th},
-	{N_("/Dialogs/Table/Table _Data..."), NULL, menu_html_dialogs_lcb, 16, "<ImageItem>", pixmap_table_td},
-	{N_("/Dialogs/_CSS"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Dialogs/CSS/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Dialogs/CSS/_Create Style..."), "<shift><alt>S", menu_html_dialogs_lcb, 36, "<ImageItem>",pixmap_cssnewstyle},
-	{N_("/Dialogs/CSS/S_pan..."), NULL, menu_html_dialogs_lcb, 17, "<ImageItem>",pixmap_cssspan},
-	{N_("/Dialogs/CSS/_Div..."), "<shift><alt>D", menu_html_dialogs_lcb, 18, "<ImageItem>",pixmap_cssdiv},
-	{N_("/Dialogs/CSS/_Style..."), NULL, general_html_menu_cb, 42, "<ImageItem>",pixmap_cssstyle},
-	{N_("/Dialogs/CSS/_Link to Stylesheet..."), NULL, menu_html_dialogs_lcb, 35, "<Item>"},
-	{N_("/Dialogs/_Frame"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Dialogs/Frame/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Dialogs/Frame/Frame _Wizard..."), NULL, menu_html_dialogs_lcb, 19, "<ImageItem>", pixmap_framewhiz},
-	{N_("/Dialogs/Frame/Frame_set..."), NULL, menu_html_dialogs_lcb, 20, "<ImageItem>", pixmap_frameset},
-	{N_("/Dialogs/Frame/_Frame..."), NULL, menu_html_dialogs_lcb, 21, "<ImageItem>", pixmap_frame},
-	{N_("/Dialogs/F_orm"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Dialogs/Form/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Dialogs/Form/F_orm..."), NULL, menu_html_dialogs_lcb, 22, "<ImageItem>", pixmap_form},
-	{N_("/Dialogs/Form/_Input..."), NULL, menu_html_dialogs_lcb, 33, "<Item>"},
-	{N_("/Dialogs/Form/Input Buttons..."), NULL, menu_html_dialogs_lcb, 23, "<ImageItem>", pixmap_form_submit},
-	{N_("/Dialogs/Form/Input Text..."), NULL, menu_html_dialogs_lcb, 24, "<ImageItem>", pixmap_form_text},
-	{N_("/Dialogs/Form/Text_area..."), NULL, menu_html_dialogs_lcb, 26, "<ImageItem>", pixmap_form_textarea},
-	{N_("/Dialogs/Form/_Select..."), NULL, menu_html_dialogs_lcb, 29, "<ImageItem>", pixmap_form_select},
-	{N_("/Dialogs/Form/O_ption..."), NULL, menu_html_dialogs_lcb, 30, "<ImageItem>", pixmap_form_option},
-	{N_("/Dialogs/Form/Option _Group..."), NULL, menu_html_dialogs_lcb, 31, "<ImageItem>",pixmap_form_optiongroup },
-	{N_("/Dialogs/Form/_Button..."), NULL, menu_html_dialogs_lcb, 25, "<Item>"},
-/*	{N_("/Dialogs/Javascript"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Dialogs/Javascript/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Dialogs/Javascript/Mouseover Script"), NULL, mouseover_script_cb, 0, NULL},
-	{N_("/Dialogs/Javascript/Netscape 4 Resize Bugfix Script"), NULL, ns47_bugfix_script_cb, 0, NULL},
-	{N_("/Dialogs/Javascript/Image Preload Script"), NULL, imagepreload_script_cb, 0, NULL},
-	{N_("/Dialogs/_WML"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Dialogs/WML/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Dialogs/WML/Standard Document"), NULL, general_wml_cb, 6, NULL},
-	{N_("/Dialogs/WML/Card..."), NULL, carddialog_cb, 0, NULL},
-	{N_("/Dialogs/WML/Postfield..."), NULL, postfielddialog_cb, 0, NULL},
-	{N_("/Dialogs/WML/Go..."), NULL, godialog_cb, 0, NULL},
-	{N_("/Dialogs/WML/Do..."), NULL, dodialog_cb, 0, NULL},
-	{N_("/Dialogs/WML/Anchor..."), NULL, anchordialog_cb, 0, NULL},
-	{N_("/Dialogs/WML/Access..."), NULL, accessdialog_cb, 0, NULL},
-	{N_("/Dialogs/WML/sep11"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Dialogs/WML/Paragraph"), NULL, general_wml_cb, 1, NULL},
-	{N_("/Dialogs/WML/Line Break"), NULL, general_wml_cb, 2, NULL},
-	{N_("/Dialogs/WML/Italic"), NULL, general_wml_cb, 3, NULL},
-	{N_("/Dialogs/WML/Non-Breaking Space"), NULL, general_wml_cb, 4, NULL},
-	{N_("/Dialogs/WML/Bold"), NULL, general_wml_cb, 5, NULL},
-	{N_("/Dialogs/WML/sep12"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Dialogs/WML/Prev"), NULL, general_wml_cb, 7, NULL},
-	{N_("/Dialogs/WML/Refresh"), NULL, general_wml_cb, 8, NULL},
-	{N_("/Dialogs/WML/Noop"), NULL, general_wml_cb, 9, NULL},
-	{N_("/Dialogs/WML/sep13"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Dialogs/WML/Set Variable..."), NULL, vardialog_cb, 0, NULL},*/
-	{N_("/Dialogs/sep1"), NULL, NULL, 0, "<Separator>"},
-	{N_("/Dialogs/_Edit tag under cursor..."), "F3", menu_html_dialogs_lcb, 38, "<ImageItem>", pixmap_edit_tag},
-#endif /* ENABLEPLUGINS */
 	{N_("/_Document"), NULL, NULL, 0, "<Branch>"},
 	{N_("/Document/tearoff1"), NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/_Increase Tabsize"), NULL, gui_change_tabsize, 1, "<Item>"},
@@ -706,7 +286,6 @@ static GtkItemFactoryEntry menu_items[] = {
 #ifdef USE_SCANNER
 	{N_("/Document/Show _blocks"), NULL, toggle_doc_property, 5, "<ToggleItem>"},
 	{N_("/Document/Show _symbols"), NULL, toggle_doc_property, 6, "<ToggleItem>"},	
-	{N_("/Document/_Match block begin-end"), NULL, toggle_doc_property, 7, "<ToggleItem>"},	
 #endif	
 	{N_("/Document/sep2"), NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/_Highlight Syntax"), NULL, doc_toggle_highlighting_cb, 1, "<ToggleItem>"},
@@ -962,9 +541,6 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_accel_map_add_entry("<bluefishmain>/Go/Last document", GDK_Page_Down, GDK_SHIFT_MASK | GDK_CONTROL_MASK);
 	gtk_widget_show(bfwin->menubar);
 	setup_toggle_item(item_factory, "/View/View Main Toolbar", bfwin->session->view_main_toolbar);
-#ifndef ENABLEPLUGINS
-	setup_toggle_item(item_factory, "/View/View HTML Toolbar", bfwin->session->view_html_toolbar);
-#endif /* ENABLEPLUGINS */
 	setup_toggle_item(item_factory, "/View/View Custom Menu", bfwin->session->view_custom_menu);
 	setup_toggle_item(item_factory, "/View/View Sidebar", bfwin->session->view_left_panel);
 	setup_toggle_item(item_factory, "/Document/Auto Indent", main_v->props.autoindent);
