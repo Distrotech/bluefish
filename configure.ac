@@ -302,16 +302,9 @@ else
 	AC_MSG_ERROR([gnome-vfs2 is required, please install libgnomevfs2-dev])
 fi
 
-echo -n "checking for gnome-vfs >= 2.2... "
-if pkg-config gnome-vfs-2.0 --atleast-version=2.2 ; then
-	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_2)
-	echo "yes"
-else
-	echo "no"
-fi
-
 echo -n "checking for gnome-vfs >= 2.6... "
 if pkg-config gnome-vfs-2.0 --atleast-version=2.6 ; then
+	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_2)
 	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_6)
 	echo "yes"
 else
