@@ -201,6 +201,8 @@ int main(int argc, char *argv[])
 #endif /* #ifndef NOSPLASH */
 #ifndef USE_SCANNER
 	hl_init();
+#else
+	main_v->lang_mgr	= bf_lang_mgr_new();
 #endif	
 	fb2config_init(); /* filebrowser2config */
 	/*filebrowserconfig_init();*/

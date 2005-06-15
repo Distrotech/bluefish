@@ -1829,21 +1829,26 @@ static void bftv_free_dfa (BfLangConfig * cfg)
 }
 
 
-static BfLangConfig *bftv_load_config (BfTextView * self, gchar * filename)
+static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangConfig *rcfg)
 {
    xmlDocPtr doc;
    xmlNodePtr cur, cur2;
    xmlChar *tmps, *tmps2 = NULL, *tmps3 = NULL;
    BfLangConfig *cfg = NULL;
    gpointer ptr = NULL;
-   gint i, j;
+   gint i;
+   gboolean options_set = FALSE;
 
-   g_return_val_if_fail (self != NULL, (BfLangConfig *) 0);
    g_return_val_if_fail (filename != NULL, (BfLangConfig *) 0);
    xmlLineNumbersDefault (1);
-   doc = xmlParseFile (filename);
+  	doc = xmlParseFile(filename);
    cur = xmlDocGetRootElement (doc);
+   if ( reuse && rcfg!=NULL )
+   	options_set = TRUE;
+   
+   
    if (xmlStrcmp (cur->name, "bflang") == 0) {
+   if ( !reuse || rcfg==NULL) {
       cfg = g_new0 (BfLangConfig, 1);
       cfg->name = xmlGetProp (cur, "name");
       cfg->description = xmlGetProp (cur, "description");
@@ -1867,50 +1872,53 @@ static BfLangConfig *bftv_load_config (BfTextView * self, gchar * filename)
        cfg->as_triggers[i] = 0;
        cfg->escapes[i] = 0;
       } 
-      cur = cur->xmlChildrenNode;
-      while (cur != NULL) {
+    } else cfg = rcfg;
+      
+    cur = cur->xmlChildrenNode;
+    while (cur != NULL) {
 	 if (xmlStrcmp (cur->name, "options") == 0) {
+	 	 
 	    cur2 = cur->xmlChildrenNode;
+	    
 	    while (cur2 != NULL) {
-	       if (xmlStrcmp (cur2->name, "option") == 0) {
-		  tmps = xmlGetProp (cur2, "name");
-		  tmps2 = xmlNodeListGetString (doc, cur2->xmlChildrenNode, 1);
-		  if (tmps) {
-		     if (xmlStrcmp (tmps, "case-sensitive") == 0)
-			cfg->case_sensitive = bftv_xml_bool (tmps2);
-		     else if (xmlStrcmp (tmps, "scan-markup-tags") == 0)
-			cfg->scan_tags = bftv_xml_bool (tmps2);
-		     else if (xmlStrcmp (tmps, "scan-blocks") == 0)
-			cfg->scan_blocks = bftv_xml_bool (tmps2);
-		     else if (xmlStrcmp (tmps, "extensions") == 0)
-			cfg->extensions = g_strdup (tmps2);
-		     else if (xmlStrcmp (tmps, "auto-scan-triggers") == 0) {
-					gchar *p = tmps2;
-					i = 0;
-					while (i < g_utf8_strlen (tmps2, -1)) {
-					   cfg->as_triggers[(gint) * p] = 1;
-					   i++;
-					   p = g_utf8_next_char (p);
-					}
-			 }
-		     else if (xmlStrcmp (tmps, "escape-characters") == 0) {
-					gchar *p = tmps2;
-					i = 0;
-					while (i < g_utf8_strlen (tmps2, -1)) {
-					   cfg->escapes[(gint) * p] = 1;
-					   i++;
-					   p = g_utf8_next_char (p);
-					}
-			 }
-			 
-			 xmlFree (tmps);
-		  }
-		  if (tmps2)
+	       if (xmlStrcmp (cur2->name, "option") == 0 && !options_set) {
+				  tmps = xmlGetProp (cur2, "name");
+				  tmps2 = xmlNodeListGetString (doc, cur2->xmlChildrenNode, 1);
+				  if (tmps) {
+				     if (xmlStrcmp (tmps, "case-sensitive") == 0 && !options_set)
+						cfg->case_sensitive = bftv_xml_bool (tmps2);
+				     else if (xmlStrcmp (tmps, "scan-markup-tags") == 0 && !options_set)
+						cfg->scan_tags = bftv_xml_bool (tmps2);
+				     else if (xmlStrcmp (tmps, "scan-blocks") == 0 && !options_set)
+						cfg->scan_blocks = bftv_xml_bool (tmps2);
+				     else if (xmlStrcmp (tmps, "extensions") == 0 && !options_set)
+						cfg->extensions = g_strdup (tmps2);
+				     else if (xmlStrcmp (tmps, "auto-scan-triggers") == 0 && !options_set) {
+							gchar *p = tmps2;
+							i = 0;
+							while (i < g_utf8_strlen (tmps2, -1)) {
+							   cfg->as_triggers[(gint) * p] = 1;
+							   i++;
+							   p = g_utf8_next_char (p);
+							}
+					  }
+				     else if (xmlStrcmp (tmps, "escape-characters") == 0 && !options_set) {
+							gchar *p = tmps2;
+							i = 0;
+							while (i < g_utf8_strlen (tmps2, -1)) {
+							   cfg->escapes[(gint) * p] = 1;
+							   i++;
+							   p = g_utf8_next_char (p);
+							}
+					 }			 
+				 	 if (tmps) xmlFree (tmps);
+			  }
+			  if (tmps2)
 				     xmlFree (tmps2);
-		 }
-	    cur2 = cur2->next;
-	   }			/* end of cur2 */
-
+			 }
+	  		 cur2 = cur2->next;
+	  }			/* end of cur2 */
+	   options_set = TRUE;		
 	 }
 	 else if (xmlStrcmp (cur->name, "block-group") == 0) {	/* blocks */
 	    tmps3 = xmlGetProp (cur, "id");
@@ -2050,41 +2058,17 @@ static BfLangConfig *bftv_load_config (BfTextView * self, gchar * filename)
    }
    if (doc)
       xmlFreeDoc (doc);
+   return cfg;
+}
+
+static void bftv_make_config_tables(BfLangConfig *cfg) {
+	if (!cfg) return;
    cfg->scan_table = bftv_make_scan_table (cfg->dfa,cfg);
    cfg->scan_bb_table = bftv_make_bscan_table (cfg->block_begin_dfa, BT_BEGIN,cfg);
    cfg->scan_be_table = bftv_make_bscan_table (cfg->block_end_dfa, BT_END,cfg);
    if (cfg->scan_tags)
       cfg->scan_tag_table = bftv_make_tscan_table ();
    bftv_free_dfa (cfg);
-
-/*	g_print("\n     ");
-	for(j=0;j<60;j++)
-	 if (j>31)
-		g_print("%c ",j);
-	g_print("\n");	
-	for(i=0;i<size;i++)
-	{
-		g_print("s%d: ",i);
-		for(j=0;j<60;j++){
-			g_print("%d ",cfg->scan_table[j][i]);
-		}	
-		g_print("\n");	
-	}	
-	g_print("\nxxxx: ");
-	for(j=60;j<120;j++)
-	 if (j>31)
-		g_print("%c     ",j);
-	g_print("\n");			
-	for(i=0;i<tabnum+1;i++)
-	{
-		g_print("s%2d: ",i);
-		for(j=60;j<120;j++){
-			g_print("%5d",cfg->scan_table[j][i]);
-		}	
-		g_print("\n");	
-	}	
-  */
-   return cfg;
 }
 
 static gboolean bftv_free_config_del_block (gpointer key, gpointer value, gpointer data)
@@ -2142,7 +2126,8 @@ gboolean bf_textview_add_language (BfTextView * self, gchar * langname, gchar * 
    ptr = g_hash_table_lookup (self->languages, langname);
    if (ptr)
       return FALSE;
-   cfg = bftv_load_config (self, filename);
+   cfg = bftv_load_config (filename,FALSE,NULL);
+   bftv_make_config_tables(cfg);
    if (cfg) {
       g_hash_table_insert (self->languages, langname, cfg);
       return TRUE;
@@ -2193,6 +2178,9 @@ void bf_textview_set_language (BfTextView * self, gchar * langname)
    }
 }
 
+void bf_textview_set_language_ptr (BfTextView * self, BfLangConfig *cfg) {
+	self->current_lang = cfg;
+}
 
 /* -------------------------  BLOCK FOLDING ----------------------- */
 
@@ -3049,5 +3037,52 @@ TBfBlock *bf_textview_get_nearest_block (BfTextView * self,GtkTextIter *iter, gb
 	return NULL;
 }
 
+
+/*
+*	---------------------------------------------------------------------------------------------------------------
+*										LANG MANAGER
+*  ---------------------------------------------------------------------------------------------------------------
+*/
+
+BfLangManager *bf_lang_mgr_new() {
+	BfLangManager *ret = g_new0(BfLangManager,1);
+	ret->languages = g_hash_table_new(g_str_hash,g_str_equal);
+	return ret;
+}
+
+gboolean bf_lang_mgr_load_config_list(BfLangManager *mgr,GList *list,gchar *langname) {
+	GList *l = g_list_first(list);
+	gchar *fname=NULL;
+	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
+	gboolean found;
+	BfLangConfig *cfg=NULL;
+	
+	while ( l ) {
+		found = FALSE;
+		fname = g_strconcat(PKGDATADIR,"/",l->data,NULL);
+		if (!g_file_test(fname,G_FILE_TEST_EXISTS)) {
+			g_free(fname);
+			fname = g_strconcat(userdir,l->data,NULL);
+			if ( g_file_test(fname,G_FILE_TEST_EXISTS) ) 
+				found=TRUE;
+		} else found=TRUE;		
+		if (found) 
+			cfg = bftv_load_config(fname,TRUE,cfg);
+		else
+			g_warning("BfLangManager: cannot load file %s",l->data);					
+		g_free(fname);	
+		l = g_list_next(l);
+	}
+	if ( cfg != NULL ) {
+		bftv_make_config_tables(cfg);
+		g_hash_table_replace(mgr->languages,langname,cfg);
+		return TRUE;
+	}
+	return FALSE;
+}
+
+BfLangConfig *bf_lang_mgr_get_config(BfLangManager *mgr,gchar *langname) {
+	return g_hash_table_lookup(mgr->languages,langname);
+}
 
 

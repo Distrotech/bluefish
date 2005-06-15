@@ -97,6 +97,14 @@ typedef struct {
 } BfLangConfig;
 
 typedef struct {
+	GHashTable *languages; /* table of recognized languages - structures BfLangConfig */
+} BfLangManager;
+
+BfLangManager *bf_lang_mgr_new();
+gboolean bf_lang_mgr_load_config_list(BfLangManager *mgr,GList *list,gchar *langname);
+BfLangConfig *bf_lang_mgr_get_config(BfLangManager *mgr,gchar *filetype);
+
+typedef struct {
    /*< private >*/      
    BfLangToken *def;
    GtkTextIter itstart, itend;
@@ -248,6 +256,7 @@ void bf_textview_block_misplaced_end (BfTextView * self, BfLangBlock * blockDef,
 gboolean bf_textview_add_language (BfTextView * self, gchar * langname, gchar * filename);
 void bf_textview_remove_language (BfTextView * self, gchar * langname);
 void bf_textview_set_language (BfTextView * self, gchar * langname);
+void bf_textview_set_language_ptr (BfTextView * self, BfLangConfig *cfg);
 
 void bf_textview_scan (BfTextView * self);
 void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter * end);

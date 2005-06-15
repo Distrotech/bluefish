@@ -2890,6 +2890,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	Tdocument *newdoc;
 #ifdef USE_SCANNER
 	gchar *pstr;
+	GList *list=NULL;
 #endif	
 	
 	/* test if the current document is empty and nameless, if so we return that */
@@ -2907,9 +2908,16 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 #ifdef USE_SCANNER
 	newdoc->buffer = gtk_text_buffer_new(NULL);
 	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
-	pstr = g_strconcat(g_get_home_dir(), "/."PACKAGE"/sample.bflang", NULL);
+/*	pstr = g_strconcat(g_get_home_dir(), "/."PACKAGE"/sample.bflang", NULL);
 	bf_textview_add_language(BF_TEXTVIEW(newdoc->view),"default",pstr);
-	bf_textview_set_language(BF_TEXTVIEW(newdoc->view),"default");
+	bf_textview_set_language(BF_TEXTVIEW(newdoc->view),"default");*/
+	list = g_list_append(list,"sample.bflang");
+	/*list = g_list_append(list,"sample2.bflang");*/
+	if ( main_v->lang_mgr ) {
+		bf_lang_mgr_load_config_list(main_v->lang_mgr,list,"default");
+		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),bf_lang_mgr_get_config(main_v->lang_mgr,"default"));
+	}	
+	g_list_free(list);
 	bf_textview_set_autoscan(BF_TEXTVIEW(newdoc->view),TRUE);
 	bf_textview_set_autoscan_lines(BF_TEXTVIEW(newdoc->view),-1);
 	g_signal_connect(G_OBJECT(newdoc->view),"token",G_CALLBACK(hl_slot),NULL);
