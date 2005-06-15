@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-11 19:28+0200\n"
+"POT-Creation-Date: 2005-06-15 19:09+0200\n"
 "PO-Revision-Date: 2004-11-30 01:14-0300\n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
@@ -61,1376 +61,1388 @@ msgstr "_Styl..."
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Wybierz kolor"
 
-#: ../htmlbar.c:14
-msgid "Plugin test"
-msgstr ""
+#: ../htmlbar.c:13
+msgid "Edit color"
+msgstr "Edytuj kolor"
 
-#: ../htmlbar_gui.c:162
+#: ../htmlbar.c:21
+msgid "Edit tag"
+msgstr "Edytuj znacznik"
+
+#: ../htmlbar_gui.c:169
 msgid "/_Tags"
 msgstr "/_Znaczniki"
 
-#: ../htmlbar_gui.c:163
+#: ../htmlbar_gui.c:170
 msgid "/Tags/Tearoff1"
 msgstr "/Znaczniki/Tearoff1"
 
-#: ../htmlbar_gui.c:164
+#: ../htmlbar_gui.c:171
 msgid "/Tags/_Headings"
 msgstr "/Znaczniki/Nagłówki"
 
-#: ../htmlbar_gui.c:165
+#: ../htmlbar_gui.c:172
 msgid "/Tags/Headings/Tearoff1"
 msgstr "/Znaczniki/Nagłówki/Tearoff1"
 
-#: ../htmlbar_gui.c:166
+#: ../htmlbar_gui.c:173
 msgid "/Tags/Headings/H_1"
 msgstr "/Znaczniki/Nagłówki/H1"
 
-#: ../htmlbar_gui.c:167
+#: ../htmlbar_gui.c:174
 msgid "/Tags/Headings/H_2"
 msgstr "/Znaczniki/Nagłówki/H2"
 
-#: ../htmlbar_gui.c:168
+#: ../htmlbar_gui.c:175
 msgid "/Tags/Headings/H_3"
 msgstr "/Znaczniki/Nagłówki/H3"
 
-#: ../htmlbar_gui.c:169
+#: ../htmlbar_gui.c:176
 msgid "/Tags/Headings/H_4"
 msgstr "/Znaczniki/Nagłówki/H4"
 
-#: ../htmlbar_gui.c:170
+#: ../htmlbar_gui.c:177
 msgid "/Tags/Headings/H_5"
 msgstr "/Znaczniki/Nagłówki/H5"
 
-#: ../htmlbar_gui.c:171
+#: ../htmlbar_gui.c:178
 msgid "/Tags/Headings/H_6"
 msgstr "/Znaczniki/Nagłówki/H6"
 
-#: ../htmlbar_gui.c:172
+#: ../htmlbar_gui.c:179
 msgid "/Tags/_Special"
 msgstr "/Znaczniki/Specjalne"
 
-#: ../htmlbar_gui.c:173
+#: ../htmlbar_gui.c:180
 msgid "/Tags/Special/tearoff1"
 msgstr "/Znaczniki/Specjalne/tearoff1"
 
-#: ../htmlbar_gui.c:174
+#: ../htmlbar_gui.c:181
 msgid "/Tags/Special/_Accent"
 msgstr "/Znaczniki/Specjalne/Akcent"
 
-#: ../htmlbar_gui.c:175
+#: ../htmlbar_gui.c:182
 msgid "/Tags/Special/Accent/tearoff1"
 msgstr "/Znaczniki/Specjalne/Akcent/tearoff1"
 
-#: ../htmlbar_gui.c:176
+#: ../htmlbar_gui.c:183
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże"
 
-#: ../htmlbar_gui.c:177
+#: ../htmlbar_gui.c:184
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I"
 
-#: ../htmlbar_gui.c:178
+#: ../htmlbar_gui.c:185
 msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/tearoff1"
 
-#: ../htmlbar_gui.c:179
+#: ../htmlbar_gui.c:186
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z kreską w lewo À"
 
-#: ../htmlbar_gui.c:180
+#: ../htmlbar_gui.c:187
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A kreską w prawo Á"
 
-#: ../htmlbar_gui.c:181
+#: ../htmlbar_gui.c:188
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z daszkiem Â"
 
-#: ../htmlbar_gui.c:182
+#: ../htmlbar_gui.c:189
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z tyldą Ã"
 
-#: ../htmlbar_gui.c:183
+#: ../htmlbar_gui.c:190
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/AE połączone Æ"
 
-#: ../htmlbar_gui.c:184
+#: ../htmlbar_gui.c:191
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z umlaut Ä"
 
-#: ../htmlbar_gui.c:185
+#: ../htmlbar_gui.c:192
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/A z kółkiem Å"
 
-#: ../htmlbar_gui.c:186
+#: ../htmlbar_gui.c:193
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/C z ogonkiem Ç"
 
-#: ../htmlbar_gui.c:187
+#: ../htmlbar_gui.c:194
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z kreską w lewo È"
 
-#: ../htmlbar_gui.c:188
+#: ../htmlbar_gui.c:195
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z kreską w prawo É"
 
-#: ../htmlbar_gui.c:189
+#: ../htmlbar_gui.c:196
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z daszkiem Ê"
 
-#: ../htmlbar_gui.c:190
+#: ../htmlbar_gui.c:197
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/E z umlaut Ë"
 
-#: ../htmlbar_gui.c:191
+#: ../htmlbar_gui.c:198
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z kreską w lewo Ì"
 
-#: ../htmlbar_gui.c:192
+#: ../htmlbar_gui.c:199
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z kreską w prawo Í"
 
-#: ../htmlbar_gui.c:193
+#: ../htmlbar_gui.c:200
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z daszkiem Î"
 
-#: ../htmlbar_gui.c:194
+#: ../htmlbar_gui.c:201
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/A-I/I z umlaut Ï"
 
-#: ../htmlbar_gui.c:195
+#: ../htmlbar_gui.c:202
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z"
 
-#: ../htmlbar_gui.c:196
+#: ../htmlbar_gui.c:203
 msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/tearoff1"
 
-#: ../htmlbar_gui.c:197
+#: ../htmlbar_gui.c:204
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/N z tyldą Ñ"
 
-#: ../htmlbar_gui.c:198
+#: ../htmlbar_gui.c:205
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z kreską w lewo Ò"
 
-#: ../htmlbar_gui.c:199
+#: ../htmlbar_gui.c:206
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z kreską w prawo Ó"
 
-#: ../htmlbar_gui.c:200
+#: ../htmlbar_gui.c:207
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z daszkiem Ô"
 
-#: ../htmlbar_gui.c:201
+#: ../htmlbar_gui.c:208
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/OE połączone"
 
-#: ../htmlbar_gui.c:202
+#: ../htmlbar_gui.c:209
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z tyldą Õ"
 
-#: ../htmlbar_gui.c:203
+#: ../htmlbar_gui.c:210
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z umlaut Ö"
 
-#: ../htmlbar_gui.c:204
+#: ../htmlbar_gui.c:211
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z kreską Ø"
 
-#: ../htmlbar_gui.c:205
+#: ../htmlbar_gui.c:212
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z kreską w lewo Ù"
 
-#: ../htmlbar_gui.c:206
+#: ../htmlbar_gui.c:213
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z kreską w prawo Ú"
 
-#: ../htmlbar_gui.c:207
+#: ../htmlbar_gui.c:214
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z daszkiem Û"
 
-#: ../htmlbar_gui.c:208
+#: ../htmlbar_gui.c:215
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/U z umlaut Ü"
 
-#: ../htmlbar_gui.c:209
+#: ../htmlbar_gui.c:216
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/Y z kreską w prawo Ý"
 
-#: ../htmlbar_gui.c:210
+#: ../htmlbar_gui.c:217
 msgid "/Tags/Special/Accent/_Lowercase"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe"
 
-#: ../htmlbar_gui.c:211
+#: ../htmlbar_gui.c:218
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I"
 
-#: ../htmlbar_gui.c:212
+#: ../htmlbar_gui.c:219
 msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/tearoff1"
 
-#: ../htmlbar_gui.c:213
+#: ../htmlbar_gui.c:220
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z kreską w lewo à"
 
-#: ../htmlbar_gui.c:214
+#: ../htmlbar_gui.c:221
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z kreską w prawo á"
 
-#: ../htmlbar_gui.c:215
+#: ../htmlbar_gui.c:222
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z daszkiem â"
 
-#: ../htmlbar_gui.c:216
+#: ../htmlbar_gui.c:223
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z tyldą ã"
 
-#: ../htmlbar_gui.c:217
+#: ../htmlbar_gui.c:224
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z kółkiem å"
 
-#: ../htmlbar_gui.c:218
+#: ../htmlbar_gui.c:225
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/ae połączone æ"
 
-#: ../htmlbar_gui.c:219
+#: ../htmlbar_gui.c:226
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/a z umlaut ä"
 
-#: ../htmlbar_gui.c:220
+#: ../htmlbar_gui.c:227
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/c z ogonkiem ç"
 
-#: ../htmlbar_gui.c:221
+#: ../htmlbar_gui.c:228
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z kreską w lewo è"
 
-#: ../htmlbar_gui.c:222
+#: ../htmlbar_gui.c:229
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z kreską w prawo é"
 
-#: ../htmlbar_gui.c:223
+#: ../htmlbar_gui.c:230
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z daszkiem ê"
 
-#: ../htmlbar_gui.c:224
+#: ../htmlbar_gui.c:231
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/e z umlaut ë"
 
-#: ../htmlbar_gui.c:225
+#: ../htmlbar_gui.c:232
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z kreską w lewo ì"
 
-#: ../htmlbar_gui.c:226
+#: ../htmlbar_gui.c:233
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z kreską w prawo í"
 
-#: ../htmlbar_gui.c:227
+#: ../htmlbar_gui.c:234
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z daszkiem î"
 
-#: ../htmlbar_gui.c:228
+#: ../htmlbar_gui.c:235
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/A-I/i z umlaut ï"
 
-#: ../htmlbar_gui.c:229
+#: ../htmlbar_gui.c:236
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z"
 
-#: ../htmlbar_gui.c:230
+#: ../htmlbar_gui.c:237
 msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/tearoff1"
 
-#: ../htmlbar_gui.c:231
+#: ../htmlbar_gui.c:238
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/n z tyldą ñ"
 
-#: ../htmlbar_gui.c:232
+#: ../htmlbar_gui.c:239
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską w lewo ò"
 
-#: ../htmlbar_gui.c:233
+#: ../htmlbar_gui.c:240
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską w prawo ó"
 
-#: ../htmlbar_gui.c:234
+#: ../htmlbar_gui.c:241
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/oe połączone æ"
 
-#: ../htmlbar_gui.c:235
+#: ../htmlbar_gui.c:242
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z daszkiem ô"
 
-#: ../htmlbar_gui.c:236
+#: ../htmlbar_gui.c:243
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z tyldą õ"
 
-#: ../htmlbar_gui.c:237
+#: ../htmlbar_gui.c:244
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z umlaut ö"
 
-#: ../htmlbar_gui.c:238
+#: ../htmlbar_gui.c:245
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską ø"
 
-#: ../htmlbar_gui.c:239
+#: ../htmlbar_gui.c:246
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z kreską w lewo ù"
 
-#: ../htmlbar_gui.c:240
+#: ../htmlbar_gui.c:247
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z kreską w prawo ú"
 
-#: ../htmlbar_gui.c:241
+#: ../htmlbar_gui.c:248
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z daszkiem û"
 
-#: ../htmlbar_gui.c:242
+#: ../htmlbar_gui.c:249
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/u z umlaut ü"
 
-#: ../htmlbar_gui.c:243
+#: ../htmlbar_gui.c:250
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/y z kreską w prawo ý"
 
-#: ../htmlbar_gui.c:244
+#: ../htmlbar_gui.c:251
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/y z umlaut ÿ"
 
-#: ../htmlbar_gui.c:245
+#: ../htmlbar_gui.c:252
 msgid "/Tags/Special/Accent/separator"
 msgstr "/Znaczniki/Specjalne/Akcent/Separator"
 
-#: ../htmlbar_gui.c:246
+#: ../htmlbar_gui.c:253
 msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "/Znaczniki/Specjalne/Akcent/U_mlaut ¨"
 
-#: ../htmlbar_gui.c:247
+#: ../htmlbar_gui.c:254
 msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "/Znaczniki/Specjalne/Akcent/_Kreska w prawo ´"
 
-#: ../htmlbar_gui.c:248
+#: ../htmlbar_gui.c:255
 msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "/Znaczniki/Specjalne/Akcent/_Ogonek ¸"
 
-#: ../htmlbar_gui.c:249
+#: ../htmlbar_gui.c:256
 msgid "/Tags/Special/_Currency"
 msgstr "/Znaczniki/Specjalne/_Waluta"
 
-#: ../htmlbar_gui.c:250
+#: ../htmlbar_gui.c:257
 msgid "/Tags/Special/Currency/tearoff1"
 msgstr "/Znaczniki/Specjalne/Waluty/tearoff1"
 
-#: ../htmlbar_gui.c:251
+#: ../htmlbar_gui.c:258
 msgid "/Tags/Special/Currency/_Cent sign ¢"
 msgstr "/Znaczniki/Specjalne/Waluty/_Cent ¢"
 
-#: ../htmlbar_gui.c:252
+#: ../htmlbar_gui.c:259
 msgid "/Tags/Special/Currency/_Pound sterling £"
 msgstr "/Znaczniki/Specjalne/Waluty/_Funt szterling £"
 
-#: ../htmlbar_gui.c:253
+#: ../htmlbar_gui.c:260
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
 msgstr "/Znaczniki/Specjalne/Waluty/Znak wal_uty ¤"
 
-#: ../htmlbar_gui.c:254
+#: ../htmlbar_gui.c:261
 msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Znaczniki/Specjalne/Waluty/_Yen ¥"
 
-#: ../htmlbar_gui.c:255
+#: ../htmlbar_gui.c:262
 msgid "/Tags/Special/Currency/_Euro "
 msgstr "/Znaczniki/Specjalne/Waluty/_Euro "
 
-#: ../htmlbar_gui.c:256
+#: ../htmlbar_gui.c:263
 msgid "/Tags/Special/_Math-Science"
 msgstr "/Znaczniki/Specjalne/_Matematyczne"
 
-#: ../htmlbar_gui.c:257
+#: ../htmlbar_gui.c:264
 msgid "/Tags/Special/Math-Science/tearoff1"
 msgstr "/Znaczniki/Specjalne/Matematyczne/tearoff1"
 
-#: ../htmlbar_gui.c:258
+#: ../htmlbar_gui.c:265
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
 msgstr "/Znaczniki/Specjalne/Matematyczne/_Negacja ¬"
 
-#: ../htmlbar_gui.c:259
+#: ../htmlbar_gui.c:266
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
 msgstr "/Znaczniki/Specjalne/Matematyczne/_Mnożenie ×"
 
-#: ../htmlbar_gui.c:260
+#: ../htmlbar_gui.c:267
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
 msgstr "/Znaczniki/Specjalne/Matematyczne/_Dzielenie ÷"
 
-#: ../htmlbar_gui.c:261
+#: ../htmlbar_gui.c:268
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
 msgstr "/Znaczniki/Specjalne/Matematyczne/_Plus minus ±"
 
-#: ../htmlbar_gui.c:262
+#: ../htmlbar_gui.c:269
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
 msgstr "/Znaczniki/Specjalne/Matematyczne/Mnie_jsze <"
 
-#: ../htmlbar_gui.c:263
+#: ../htmlbar_gui.c:270
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
 msgstr "/Znaczniki/Specjalne/Matematyczne/_Większe >"
 
-#: ../htmlbar_gui.c:264
+#: ../htmlbar_gui.c:271
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "/Znaczniki/Specjalne/Matematyczne/P_ierwsza potęga ¹"
 
-#: ../htmlbar_gui.c:265
+#: ../htmlbar_gui.c:272
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "/Znaczniki/Specjalne/Matematyczne/_Kwadrat ²"
 
-#: ../htmlbar_gui.c:266
+#: ../htmlbar_gui.c:273
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "/Znaczniki/Specjalne/Matematyczne/_Sześcian ³"
 
-#: ../htmlbar_gui.c:267
+#: ../htmlbar_gui.c:274
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
 msgstr "/Znaczniki/Specjalne/Matematyczne/Ćwi_erć ¼"
 
-#: ../htmlbar_gui.c:268
+#: ../htmlbar_gui.c:275
 msgid "/Tags/Special/Math-Science/One _half ½"
 msgstr "/Znaczniki/Specjalne/Matematyczne/_Pół ½"
 
-#: ../htmlbar_gui.c:269
+#: ../htmlbar_gui.c:276
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
 msgstr "/Znaczniki/Specjalne/Matematyczne/_Trzy czwarte ¾"
 
-#: ../htmlbar_gui.c:270
+#: ../htmlbar_gui.c:277
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
 msgstr "/Znaczniki/Specjalne/Matematyczne/St_opień °"
 
-#: ../htmlbar_gui.c:271
+#: ../htmlbar_gui.c:278
 msgid "/Tags/Special/_Non Latin"
 msgstr "/Znaczniki/Specjalne/Niełacińskie"
 
-#: ../htmlbar_gui.c:272
+#: ../htmlbar_gui.c:279
 msgid "/Tags/Special/Non Latin/tearoff1"
 msgstr "/Znaczniki/Specjalne/Niełacińskie/tearoff1"
 
-#: ../htmlbar_gui.c:273
+#: ../htmlbar_gui.c:280
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "/Znaczniki/Specjalne/Niełacińskie/_ETH (Islandzkie) Ð"
 
-#: ../htmlbar_gui.c:274
+#: ../htmlbar_gui.c:281
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "/Znaczniki/Specjalne/Niełacińskie/THORN (Islandzkie) Þ"
 
-#: ../htmlbar_gui.c:275
+#: ../htmlbar_gui.c:282
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "/Znaczniki/Specjalne/Niełacińskie/et_h (Islandzkie) ð"
 
-#: ../htmlbar_gui.c:276
+#: ../htmlbar_gui.c:283
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "/Znaczniki/Specjalne/Niełacińskie/th_orn ÿ"
 
-#: ../htmlbar_gui.c:277
+#: ../htmlbar_gui.c:284
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "/Znaczniki/Specjalne/Niełacińskie/Ostre _s ß"
 
-#: ../htmlbar_gui.c:278
+#: ../htmlbar_gui.c:285
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
 msgstr "/Znaczniki/Specjalne/Niełacińskie/_Mikro µ"
 
-#: ../htmlbar_gui.c:279
+#: ../htmlbar_gui.c:286
 msgid "/Tags/Special/_Other"
 msgstr "/Znaczniki/Specjalne/_Inne"
 
-#: ../htmlbar_gui.c:280
+#: ../htmlbar_gui.c:287
 msgid "/Tags/Special/Other/tearoff1"
 msgstr "/Znaczniki/Specjalne/Inne/tearoff1"
 
-#: ../htmlbar_gui.c:281
+#: ../htmlbar_gui.c:288
 msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "/Znaczniki/Specjalne/Inne/Twardy _odstęp"
 
-#: ../htmlbar_gui.c:282
+#: ../htmlbar_gui.c:289
 msgid "/Tags/Special/Other/_Section sign §"
 msgstr "/Znaczniki/Specjalne/Inne/Znak _sekcji §"
 
-#: ../htmlbar_gui.c:283
+#: ../htmlbar_gui.c:290
 msgid "/Tags/Special/Other/_Copyright sign ©"
 msgstr "/Znaczniki/Specjalne/Inne/_Znak praw autorskich ©"
 
-#: ../htmlbar_gui.c:284
+#: ../htmlbar_gui.c:291
 msgid "/Tags/Special/Other/_Left angle quotes «"
 msgstr "/Znaczniki/Specjalne/Inne/Cudzysłów w _lewo «"
 
-#: ../htmlbar_gui.c:285
+#: ../htmlbar_gui.c:292
 msgid "/Tags/Special/Other/_Right angle quotes »"
 msgstr "/Znaczniki/Specjalne/Inne/Cudzysłów w p_rawo »"
 
-#: ../htmlbar_gui.c:286
+#: ../htmlbar_gui.c:293
 msgid "/Tags/Special/Other/Registered _trademark ®"
 msgstr "/Znaczniki/Specjalne/Inne/Znak _Towarowy ®"
 
-#: ../htmlbar_gui.c:287
+#: ../htmlbar_gui.c:294
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
 msgstr "/Znaczniki/Specjalne/Inne/Odwrócony _wykrzyknik ¡"
 
-#: ../htmlbar_gui.c:288
+#: ../htmlbar_gui.c:295
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
 msgstr "/Znaczniki/Specjalne/Inne/Odwrócony znak _zapytania ¿"
 
-#: ../htmlbar_gui.c:289
+#: ../htmlbar_gui.c:296
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "/Znaczniki/Specjalne/Inne/Znak płci żeńs_kiej ª"
 
-#: ../htmlbar_gui.c:290
+#: ../htmlbar_gui.c:297
 msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "/Znaczniki/Specjalne/Inne/Znak płci _męskiej º"
 
-#: ../htmlbar_gui.c:291
+#: ../htmlbar_gui.c:298
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
 msgstr "/Znaczniki/Specjalne/Inne/Znak _paragrafu ¶"
 
-#: ../htmlbar_gui.c:292
+#: ../htmlbar_gui.c:299
 msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Znaczniki/Specjalne/Inne/Złama_ny słupek ¦"
 
-#: ../htmlbar_gui.c:293
+#: ../htmlbar_gui.c:300
 msgid "/Tags/Special/Other/Soft _hypen -"
 msgstr "/Znaczniki/Specjalne/Inne/Miękki z_nacznik -"
 
-#: ../htmlbar_gui.c:294
+#: ../htmlbar_gui.c:301
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
 msgstr "/Znaczniki/Specjalne/Inne/_Odstęp ¯"
 
-#: ../htmlbar_gui.c:295
+#: ../htmlbar_gui.c:302
 msgid "/Tags/Special/Other/Middle _dot ·"
 msgstr "/Znaczniki/Specjalne/Inne/Środkowa kr_opka ·"
 
-#: ../htmlbar_gui.c:296
+#: ../htmlbar_gui.c:303
 msgid "/Tags/_Format by layout"
 msgstr "/Znaczniki/Formatowanie wyglądu"
 
-#: ../htmlbar_gui.c:297
+#: ../htmlbar_gui.c:304
 msgid "/Tags/Format by layout/tearoff1"
 msgstr "/Znaczniki/Formatowanie wyglądu/tearoff1"
 
-#: ../htmlbar_gui.c:298
+#: ../htmlbar_gui.c:305
 msgid "/Tags/Format by layout/_Bold"
 msgstr "/Znaczniki/Formatowanie wyglądu/Pogrubione"
 
-#: ../htmlbar_gui.c:299
+#: ../htmlbar_gui.c:306
 msgid "/Tags/Format by layout/_Italic"
 msgstr "/Znaczniki/Formatowanie wyglądu/Kursywa"
 
-#: ../htmlbar_gui.c:300
+#: ../htmlbar_gui.c:307
 msgid "/Tags/Format by layout/_Underline"
 msgstr "/Znaczniki/Formatowanie wyglądu/Podkreślenie"
 
-#: ../htmlbar_gui.c:301
+#: ../htmlbar_gui.c:308
 msgid "/Tags/Format by layout/_Strikeout"
 msgstr "/Znaczniki/Formatowanie wyglądu/Przekreślenie"
 
-#: ../htmlbar_gui.c:302
+#: ../htmlbar_gui.c:309
 msgid "/Tags/Format by layout/Sm_all"
 msgstr "/Znaczniki/Formatowanie wyglądu/_Małe"
 
-#: ../htmlbar_gui.c:303
+#: ../htmlbar_gui.c:310
 msgid "/Tags/Format by layout/Bi_g"
 msgstr "/Znaczniki/Formatowanie wyglądu/_Duże"
 
-#: ../htmlbar_gui.c:304
+#: ../htmlbar_gui.c:311
 msgid "/Tags/F_ormat by context"
 msgstr "/Znaczniki/Format kontekstowy"
 
-#: ../htmlbar_gui.c:305
+#: ../htmlbar_gui.c:312
 msgid "/Tags/Format by context/tearoff1"
 msgstr "/Znaczniki/Format kontekstowy/tearoff1"
 
-#: ../htmlbar_gui.c:306
+#: ../htmlbar_gui.c:313
 msgid "/Tags/Format by context/_Strong"
 msgstr "/Znaczniki/Format kontekstowy/Wzmocnienie"
 
-#: ../htmlbar_gui.c:307
+#: ../htmlbar_gui.c:314
 msgid "/Tags/Format by context/_Emphasis"
 msgstr "/Znaczniki/Format kontekstowy/Wyróżnienie"
 
-#: ../htmlbar_gui.c:308
+#: ../htmlbar_gui.c:315
 msgid "/Tags/Format by context/_Define"
 msgstr "/Znaczniki/Format kontekstowy/Definicja"
 
-#: ../htmlbar_gui.c:309
+#: ../htmlbar_gui.c:316
 msgid "/Tags/Format by context/_Code"
 msgstr "/Znaczniki/Format kontekstowy/Kod"
 
-#: ../htmlbar_gui.c:310
+#: ../htmlbar_gui.c:317
 msgid "/Tags/Format by context/Sa_mple"
 msgstr "/Znaczniki/Format kontekstowy/Przykład"
 
-#: ../htmlbar_gui.c:311
+#: ../htmlbar_gui.c:318
 msgid "/Tags/Format by context/_Keyboard"
 msgstr "/Znaczniki/Format kontekstowy/Klawiatura"
 
-#: ../htmlbar_gui.c:312
+#: ../htmlbar_gui.c:319
 msgid "/Tags/Format by context/_Variable"
 msgstr "/Znaczniki/Format kontekstowy/Zmienna"
 
-#: ../htmlbar_gui.c:313
+#: ../htmlbar_gui.c:320
 msgid "/Tags/Format by context/Ci_tation"
 msgstr "/Znaczniki/Format kontekstowy/Cytat"
 
-#: ../htmlbar_gui.c:314
+#: ../htmlbar_gui.c:321
 msgid "/Tags/Format by context/_Abbreviation"
 msgstr "/Znaczniki/Format kontekstowy/Skrót"
 
-#: ../htmlbar_gui.c:315
+#: ../htmlbar_gui.c:322
 msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/Znaczniki/Format kontekstowy/Akronim"
 
-#: ../htmlbar_gui.c:316
+#: ../htmlbar_gui.c:323
 msgid "/Tags/Format _general"
 msgstr "/Znaczniki/Format ogólny"
 
-#: ../htmlbar_gui.c:317
+#: ../htmlbar_gui.c:324
 msgid "/Tags/Format general/tearoff1"
 msgstr "/Znaczniki/Format ogólny/tearoff1"
 
-#: ../htmlbar_gui.c:318
+#: ../htmlbar_gui.c:325
 msgid "/Tags/Format general/_Paragraph"
 msgstr "/Znaczniki/Format ogólny/_Paragraf"
 
-#: ../htmlbar_gui.c:319
+#: ../htmlbar_gui.c:326
 msgid "/Tags/Format general/_Break"
 msgstr "/Znaczniki/Format ogólny/_Koniec linii"
 
-#: ../htmlbar_gui.c:320
+#: ../htmlbar_gui.c:327
 msgid "/Tags/Format general/Break clear _all"
 msgstr "/Znaczniki/Format ogólny/Koniec linii i wyczyść"
 
-#: ../htmlbar_gui.c:321
+#: ../htmlbar_gui.c:328
 msgid "/Tags/Format general/_Non-Breaking Space"
 msgstr "/Znaczniki/Format ogólny/_Twardy odstęp"
 
-#: ../htmlbar_gui.c:322 ../htmlbar_gui.c:325 ../htmlbar_gui.c:329
+#: ../htmlbar_gui.c:329 ../htmlbar_gui.c:332 ../htmlbar_gui.c:336
 msgid "/Tags/Format general/<separator>"
 msgstr "/Znaczniki/Format ogólny/<separator>"
 
-#: ../htmlbar_gui.c:323
+#: ../htmlbar_gui.c:330
 msgid "/Tags/Format general/Font Si_ze +1"
 msgstr "/Znaczniki/Format ogólny/Rozmiar czcionki +1"
 
-#: ../htmlbar_gui.c:324
+#: ../htmlbar_gui.c:331
 msgid "/Tags/Format general/Font _Size -1"
 msgstr "/Znaczniki/Format ogólny/Rozmiar czcionki -1"
 
-#: ../htmlbar_gui.c:326
+#: ../htmlbar_gui.c:333
 msgid "/Tags/Format general/Preformatted _Text"
 msgstr "/Znaczniki/Format ogólny/_Preformatowany tekst"
 
-#: ../htmlbar_gui.c:327
+#: ../htmlbar_gui.c:334
 msgid "/Tags/Format general/Su_bscript"
 msgstr "/Znaczniki/Format ogólny/Indeks _dolny"
 
-#: ../htmlbar_gui.c:328
+#: ../htmlbar_gui.c:335
 msgid "/Tags/Format general/Su_perscript"
 msgstr "/Znaczniki/Format ogólny/Indeks _górny"
 
-#: ../htmlbar_gui.c:330
+#: ../htmlbar_gui.c:337
 msgid "/Tags/Format general/_Center"
 msgstr "/Znaczniki/Format ogólny/Wyśrodkuj"
 
-#: ../htmlbar_gui.c:331
+#: ../htmlbar_gui.c:338
 msgid "/Tags/Format general/Align _right"
 msgstr "/Znaczniki/Format ogólny/Do p_rawej"
 
-#: ../htmlbar_gui.c:332
+#: ../htmlbar_gui.c:339
 msgid "/Tags/_Table"
 msgstr "/Znaczniki/_Tabela"
 
-#: ../htmlbar_gui.c:333
+#: ../htmlbar_gui.c:340
 msgid "/Tags/Table/tearoff1"
 msgstr "/Znaczniki/Tabela/tearoff1"
 
-#: ../htmlbar_gui.c:334
+#: ../htmlbar_gui.c:341
 msgid "/Tags/Table/_Table"
 msgstr "/Znaczniki/Tabela/Ta_bela"
 
-#: ../htmlbar_gui.c:335
+#: ../htmlbar_gui.c:342
 msgid "/Tags/Table/Table _Row"
 msgstr "/Znaczniki/Tabela/_Wiersz tabeli"
 
-#: ../htmlbar_gui.c:336
+#: ../htmlbar_gui.c:343
 msgid "/Tags/Table/Table _Header"
 msgstr "/Znaczniki/Tabela/_Nagłówek tabeli"
 
-#: ../htmlbar_gui.c:337
+#: ../htmlbar_gui.c:344
 msgid "/Tags/Table/Table _Data"
 msgstr "/Znaczniki/Tabela/_Dane tabeli"
 
-#: ../htmlbar_gui.c:338
+#: ../htmlbar_gui.c:345
 msgid "/Tags/Table/Table _Caption"
 msgstr "/Znaczniki/Tabela/_Tytuł tabeli"
 
-#: ../htmlbar_gui.c:339
+#: ../htmlbar_gui.c:346
 msgid "/Tags/_List"
 msgstr "/Znaczniki/_Lista"
 
-#: ../htmlbar_gui.c:340
+#: ../htmlbar_gui.c:347
 msgid "/Tags/List/tearoff1"
 msgstr "/Znaczniki/Lista/tearoff1"
 
-#: ../htmlbar_gui.c:341
+#: ../htmlbar_gui.c:348
 msgid "/Tags/List/Unordered _List"
 msgstr "/Znaczniki/Lista/Nien_umerowana"
 
-#: ../htmlbar_gui.c:342
+#: ../htmlbar_gui.c:349
 msgid "/Tags/List/_Ordered List"
 msgstr "/Znaczniki/Lista/Numer_owana"
 
-#: ../htmlbar_gui.c:343
+#: ../htmlbar_gui.c:350
 msgid "/Tags/List/List Ite_m"
 msgstr "/Znaczniki/Lista/Element l_isty"
 
-#: ../htmlbar_gui.c:344
+#: ../htmlbar_gui.c:351
 msgid "/Tags/List/De_finition List"
 msgstr "/Znaczniki/Lista/Lista _definicji"
 
-#: ../htmlbar_gui.c:345
+#: ../htmlbar_gui.c:352
 msgid "/Tags/List/Definition _Term"
 msgstr "/Znaczniki/Lista/_Termin definicji"
 
-#: ../htmlbar_gui.c:346
+#: ../htmlbar_gui.c:353
 msgid "/Tags/List/_Definition"
 msgstr "/Znaczniki/Lista/_Definicja"
 
-#: ../htmlbar_gui.c:347
+#: ../htmlbar_gui.c:354
 msgid "/Tags/List/Men_u"
 msgstr "/Znaczniki/Lista/_Menu"
 
-#: ../htmlbar_gui.c:348
+#: ../htmlbar_gui.c:355
 msgid "/Tags/Fo_rm"
 msgstr "/Okna dialogowe/_Formularz"
 
-#: ../htmlbar_gui.c:349
+#: ../htmlbar_gui.c:356
 msgid "/Tags/Form/tearoff1"
 msgstr "/Okna dialogowe/Formularz/tearoff1"
 
-#: ../htmlbar_gui.c:350
+#: ../htmlbar_gui.c:357
 msgid "/Tags/Form/_Form"
 msgstr "/Okna dialogowe/Formularz/Formularz..."
 
-#: ../htmlbar_gui.c:351
+#: ../htmlbar_gui.c:358
 msgid "/Tags/Form/_Button"
 msgstr "/Okna dialogowe/Formularz/_Przycisk..."
 
-#: ../htmlbar_gui.c:352
+#: ../htmlbar_gui.c:359
 msgid "/Tags/Form/_Input"
 msgstr "/Okna dialogowe/Formularz/_Input..."
 
-#: ../htmlbar_gui.c:353
+#: ../htmlbar_gui.c:360
 msgid "/Tags/Form/_Textarea"
 msgstr "/Okna dialogowe/Formularz/Obszar tekstowy..."
 
-#: ../htmlbar_gui.c:354
+#: ../htmlbar_gui.c:361
 msgid "/Tags/_Misc"
 msgstr "/Znaczniki/_Różne"
 
-#: ../htmlbar_gui.c:355
+#: ../htmlbar_gui.c:362
 msgid "/Tags/Misc/tearoff1"
 msgstr "/Znaczniki/Różne/tearoff1"
 
-#: ../htmlbar_gui.c:356
+#: ../htmlbar_gui.c:363
 msgid "/Tags/Misc/Insert Generator _META-Tag"
 msgstr "/Znaczniki/Różne/_Wstaw znacznik META 'Generator'"
 
-#: ../htmlbar_gui.c:357
+#: ../htmlbar_gui.c:364
 msgid "/Tags/Misc/_Span"
 msgstr "/Znaczniki/Różne/_Span"
 
-#: ../htmlbar_gui.c:358
+#: ../htmlbar_gui.c:365
 msgid "/Tags/Misc/_Div"
 msgstr "/Znaczniki/Różne/_Div"
 
-#: ../htmlbar_gui.c:359
+#: ../htmlbar_gui.c:366
 msgid "/Tags/Misc/_Link"
 msgstr "/Znaczniki/Różne/_Link"
 
-#: ../htmlbar_gui.c:360
+#: ../htmlbar_gui.c:367
 msgid "/Tags/Misc/S_cript"
 msgstr "/Znaczniki/Różne/_Skrypt"
 
-#: ../htmlbar_gui.c:361
+#: ../htmlbar_gui.c:368
 msgid "/Tags/Misc/_Anchor"
 msgstr "/Znaczniki/Różne/_Odnośnik"
 
-#: ../htmlbar_gui.c:362
+#: ../htmlbar_gui.c:369
 msgid "/Tags/Misc/_Image"
 msgstr "/Znaczniki/Różne/_Obrazek"
 
-#: ../htmlbar_gui.c:363
+#: ../htmlbar_gui.c:370
 msgid "/Tags/_Comment"
 msgstr "/Znaczniki/_Komentarz"
 
-#: ../htmlbar_gui.c:364
+#: ../htmlbar_gui.c:371
 msgid "/Dial_ogs"
 msgstr "/Okna dialogowe"
 
-#: ../htmlbar_gui.c:365
+#: ../htmlbar_gui.c:372
 msgid "/Dialogs/tearoff1"
 msgstr "/Okna dialogowe/tearoff1"
 
-#: ../htmlbar_gui.c:366
+#: ../htmlbar_gui.c:373
 msgid "/Dialogs/_General"
 msgstr "/Okna dialogowe/Ogólne"
 
-#: ../htmlbar_gui.c:367
+#: ../htmlbar_gui.c:374
 msgid "/Dialogs/General/tearoff1"
 msgstr "/Okna dialogowe/Ogólne/tearoff1"
 
-#: ../htmlbar_gui.c:369
+#: ../htmlbar_gui.c:375
+msgid "/Dialogs/General/_Quickstart..."
+msgstr "/Okna dialogowe/Ogólne/Szybki start..."
+
+#: ../htmlbar_gui.c:376
 msgid "/Dialogs/General/_Body..."
 msgstr "/Okna dialogowe/Ogólne/Treść..."
 
-#: ../htmlbar_gui.c:370
+#: ../htmlbar_gui.c:377
 msgid "/Dialogs/General/_Anchor..."
 msgstr "/Okna dialogowe/Ogólne/_Odnośnik..."
 
-#: ../htmlbar_gui.c:371
+#: ../htmlbar_gui.c:378
 msgid "/Dialogs/General/_Email..."
 msgstr "/Okna dialogowe/Ogólne/Email..."
 
-#: ../htmlbar_gui.c:372
+#: ../htmlbar_gui.c:379
 msgid "/Dialogs/General/_Rule..."
 msgstr "/Okna dialogowe/Ogólne/Linia pozioma..."
 
-#: ../htmlbar_gui.c:373
+#: ../htmlbar_gui.c:380
 msgid "/Dialogs/General/_Font..."
 msgstr "/Okna dialogowe/Ogólne/Czcionka..."
 
-#: ../htmlbar_gui.c:374
+#: ../htmlbar_gui.c:381
 msgid "/Dialogs/General/Basef_ont..."
 msgstr "/Okna dialogowe/Ogólne/Czcionka podstawowa..."
 
-#: ../htmlbar_gui.c:375
+#: ../htmlbar_gui.c:382
 msgid "/Dialogs/General/Quick_list..."
 msgstr "/Okna dialogowe/Ogólne/Szybka lista..."
 
-#: ../htmlbar_gui.c:376
+#: ../htmlbar_gui.c:383
 msgid "/Dialogs/General/_Meta..."
 msgstr "/Okna dialogowe/Ogólne/Meta..."
 
-#: ../htmlbar_gui.c:377
+#: ../htmlbar_gui.c:384
 msgid "/Dialogs/General/Embe_d..."
 msgstr "/Okna dialogowe/Ogólne/Osadź..."
 
-#: ../htmlbar_gui.c:378
+#: ../htmlbar_gui.c:385
 msgid "/Dialogs/General/Select _Color..."
 msgstr "/Okna dialogowe/Ogólne/Wybierz _kolor..."
 
-#: ../htmlbar_gui.c:379
+#: ../htmlbar_gui.c:386
 msgid "/Dialogs/General/Insert _Time..."
 msgstr "/Okna dialogowe/Ogólne/Wstaw _czas..."
 
-#: ../htmlbar_gui.c:380
+#: ../htmlbar_gui.c:387
 msgid "/Dialogs/General/Insert _Image..."
 msgstr "/Okna dialogowe/Ogólne/Wstaw _obrazek..."
 
-#: ../htmlbar_gui.c:381
+#: ../htmlbar_gui.c:388
 msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "/Okna dialogowe/Ogólne/Wstaw _miniaturę..."
 
-#: ../htmlbar_gui.c:382
+#: ../htmlbar_gui.c:389
 msgid "/Dialogs/_Table"
 msgstr "/Okna dialogowe/Tabela"
 
-#: ../htmlbar_gui.c:383
+#: ../htmlbar_gui.c:390
 msgid "/Dialogs/Table/tearoff1"
 msgstr "/Okna dialogowe/Tabela/tearoff1"
 
-#: ../htmlbar_gui.c:384
+#: ../htmlbar_gui.c:391
 msgid "/Dialogs/Table/Table _Wizard..."
 msgstr "/Okna dialogowe/Tabela/_Kreator tabeli..."
 
-#: ../htmlbar_gui.c:385
+#: ../htmlbar_gui.c:392
 msgid "/Dialogs/Table/_Table..."
 msgstr "/Okna dialogowe/Tabela/Tabela..."
 
-#: ../htmlbar_gui.c:386
+#: ../htmlbar_gui.c:393
 msgid "/Dialogs/Table/Table _Row..."
 msgstr "/Okna dialogowe/Tabela/_Wiersz tabeli..."
 
-#: ../htmlbar_gui.c:387
+#: ../htmlbar_gui.c:394
 msgid "/Dialogs/Table/Table _Head..."
 msgstr "/Okna dialogowe/Tabela/_Nagłówek tabeli..."
 
-#: ../htmlbar_gui.c:388
+#: ../htmlbar_gui.c:395
 msgid "/Dialogs/Table/Table _Data..."
 msgstr "/Okna dialogowe/Tabela/_Dane tabeli..."
 
-#: ../htmlbar_gui.c:389
+#: ../htmlbar_gui.c:396
 msgid "/Dialogs/_CSS"
 msgstr "/Okna dialogowe/CSS"
 
-#: ../htmlbar_gui.c:390
+#: ../htmlbar_gui.c:397
 msgid "/Dialogs/CSS/tearoff1"
 msgstr "/Okna dialogowe/CSS/tearoff1"
 
-#: ../htmlbar_gui.c:391
+#: ../htmlbar_gui.c:398
 msgid "/Dialogs/CSS/_Create Style..."
 msgstr "/Okna dialogowe/CSS/_Utwórz styl..."
 
-#: ../htmlbar_gui.c:392
+#: ../htmlbar_gui.c:399
 msgid "/Dialogs/CSS/S_pan..."
 msgstr "/Okna dialogowe/CSS/Span..."
 
-#: ../htmlbar_gui.c:393
+#: ../htmlbar_gui.c:400
 msgid "/Dialogs/CSS/_Div..."
 msgstr "/Okna dialogowe/CSS/Div..."
 
-#: ../htmlbar_gui.c:394
+#: ../htmlbar_gui.c:401
 msgid "/Dialogs/CSS/_Style..."
 msgstr "/Okna dialogowe/CSS/Styl..."
 
-#: ../htmlbar_gui.c:395
+#: ../htmlbar_gui.c:402
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
 msgstr "/Okna dialogowe/CSS/Łącze do a_rkusza stylów..."
 
-#: ../htmlbar_gui.c:396
+#: ../htmlbar_gui.c:403
 msgid "/Dialogs/_Frame"
 msgstr "/Okna dialogowe/Ramka"
 
-#: ../htmlbar_gui.c:397
+#: ../htmlbar_gui.c:404
 msgid "/Dialogs/Frame/tearoff1"
 msgstr "/Okna dialogowe/Ramka/tearoff1"
 
-#: ../htmlbar_gui.c:398
+#: ../htmlbar_gui.c:405
 msgid "/Dialogs/Frame/Frame _Wizard..."
 msgstr "/Okna dialogowe/Ramka/Krea_tor ramek..."
 
-#: ../htmlbar_gui.c:399
+#: ../htmlbar_gui.c:406
 msgid "/Dialogs/Frame/Frame_set..."
 msgstr "/Okna dialogowe/Ramka/Zbiór ramek..."
 
-#: ../htmlbar_gui.c:400
+#: ../htmlbar_gui.c:407
 msgid "/Dialogs/Frame/_Frame..."
 msgstr "/Okna dialogowe/Ramka/Ramka..."
 
-#: ../htmlbar_gui.c:401
+#: ../htmlbar_gui.c:408
 msgid "/Dialogs/F_orm"
 msgstr "/Okna dialogowe/Formularz"
 
-#: ../htmlbar_gui.c:402
+#: ../htmlbar_gui.c:409
 msgid "/Dialogs/Form/tearoff1"
 msgstr "/Okna dialogowe/Formularz/tearoff1"
 
-#: ../htmlbar_gui.c:403
+#: ../htmlbar_gui.c:410
 msgid "/Dialogs/Form/F_orm..."
 msgstr "/Okna dialogowe/Formularz/Formularz..."
 
-#: ../htmlbar_gui.c:404
+#: ../htmlbar_gui.c:411
 msgid "/Dialogs/Form/_Input..."
 msgstr "/Okna dialogowe/Formularz/_Input..."
 
-#: ../htmlbar_gui.c:405
+#: ../htmlbar_gui.c:412
 msgid "/Dialogs/Form/Input Buttons..."
 msgstr "/Okna dialogowe/Formularz/_Przyciski..."
 
-#: ../htmlbar_gui.c:406
+#: ../htmlbar_gui.c:413
 msgid "/Dialogs/Form/Input Text..."
 msgstr "/Okna dialogowe/Formularz/Input Text..."
 
-#: ../htmlbar_gui.c:407
+#: ../htmlbar_gui.c:414
 msgid "/Dialogs/Form/Text_area..."
 msgstr "/Okna dialogowe/Formularz/Obszar tekstowy..."
 
-#: ../htmlbar_gui.c:408
+#: ../htmlbar_gui.c:415
 msgid "/Dialogs/Form/_Select..."
 msgstr "/Okna dialogowe/Formularz/Lista wyboru..."
 
-#: ../htmlbar_gui.c:409
+#: ../htmlbar_gui.c:416
 msgid "/Dialogs/Form/O_ption..."
 msgstr "/Okna dialogowe/Formularz/Opcja..."
 
-#: ../htmlbar_gui.c:410
+#: ../htmlbar_gui.c:417
 msgid "/Dialogs/Form/Option _Group..."
 msgstr "/Okna dialogowe/Formularz/_Grupa opcji..."
 
-#: ../htmlbar_gui.c:411
+#: ../htmlbar_gui.c:418
 msgid "/Dialogs/Form/_Button..."
 msgstr "/Okna dialogowe/Formularz/_Przycisk..."
 
-#: ../htmlbar_gui.c:412
+#: ../htmlbar_gui.c:419
 msgid "/Dialogs/sep1"
 msgstr "/Okna dialogowe/sep1"
 
-#: ../htmlbar_gui.c:413
+#: ../htmlbar_gui.c:420
 msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/Okna dialogowe/_Edytuj znacznik przy kursorze..."
 
-#: ../htmlbar_gui.c:416
+#: ../htmlbar_gui.c:423
 #, fuzzy
-msgid "/View/View _HTML Bar"
-msgstr "/Widok/Pokaż pasek _HTML"
+msgid "/View/View _HTML Toolbar"
+msgstr "/Widok/Pokaż pasek _główny"
 
-#: ../htmlbar_gui.c:680
+#: ../htmlbar_gui.c:692
+msgid "QuickStart..."
+msgstr "Szybki start..."
+
+#: ../htmlbar_gui.c:693
 msgid "Body..."
 msgstr "Treść..."
 
-#: ../htmlbar_gui.c:681
+#: ../htmlbar_gui.c:694
 msgid "Bold"
 msgstr "Pogrubione"
 
-#: ../htmlbar_gui.c:682
+#: ../htmlbar_gui.c:695
 msgid "Italic"
 msgstr "Kursywa"
 
-#: ../htmlbar_gui.c:683 ../html.c:779
+#: ../htmlbar_gui.c:696 ../html.c:779
 msgid "Paragraph"
 msgstr "Paragraf"
 
-#: ../htmlbar_gui.c:684
+#: ../htmlbar_gui.c:697
 msgid "Break"
 msgstr "Koniec linii"
 
-#: ../htmlbar_gui.c:685
+#: ../htmlbar_gui.c:698
 msgid "Break and clear"
 msgstr "Koniec linii i wyczyść"
 
-#: ../htmlbar_gui.c:686
+#: ../htmlbar_gui.c:699
 msgid "Non-breaking space"
 msgstr "Twardy odstęp"
 
-#: ../htmlbar_gui.c:688
+#: ../htmlbar_gui.c:701
 msgid "Anchor..."
 msgstr "Odnośnik..."
 
-#: ../htmlbar_gui.c:689
+#: ../htmlbar_gui.c:702
 msgid "Rule..."
 msgstr "Linia pozioma..."
 
-#: ../htmlbar_gui.c:690
+#: ../htmlbar_gui.c:703
 msgid "Center"
 msgstr "Wyśrodkowanie"
 
-#: ../htmlbar_gui.c:691
+#: ../htmlbar_gui.c:704
 msgid "Right Justify"
 msgstr "Do prawej"
 
-#: ../htmlbar_gui.c:692
+#: ../htmlbar_gui.c:705
 msgid "Comment"
 msgstr "Komentarz"
 
-#: ../htmlbar_gui.c:693
+#: ../htmlbar_gui.c:706
 msgid "E-Mail..."
 msgstr "E-Mail..."
 
-#: ../htmlbar_gui.c:694
+#: ../htmlbar_gui.c:707
 msgid "Font..."
 msgstr "Czcionka..."
 
-#: ../htmlbar_gui.c:695
+#: ../htmlbar_gui.c:708
 msgid "Base Font Size..."
 msgstr "Podstawowy rozmiar czcionki..."
 
-#: ../htmlbar_gui.c:697
+#: ../htmlbar_gui.c:710
 msgid "Font Size +1"
 msgstr "Rozmiar czcionki +1"
 
-#: ../htmlbar_gui.c:698
+#: ../htmlbar_gui.c:711
 msgid "Font Size -1"
 msgstr "Rozmiar czcionki -1"
 
-#: ../htmlbar_gui.c:699
+#: ../htmlbar_gui.c:712
 msgid "Preformatted Text"
 msgstr "Tekst preformatowany"
 
-#: ../htmlbar_gui.c:700
+#: ../htmlbar_gui.c:713
 msgid "Subscript"
 msgstr "Indeks dolny"
 
-#: ../htmlbar_gui.c:701
+#: ../htmlbar_gui.c:714
 msgid "Superscript"
 msgstr "Indeks górny"
 
-#: ../htmlbar_gui.c:702
+#: ../htmlbar_gui.c:715
 msgid "Strong"
 msgstr "Wzmocnienie"
 
-#: ../htmlbar_gui.c:703
+#: ../htmlbar_gui.c:716
 msgid "Emphasis"
 msgstr "Wyróżnienie"
 
-#: ../htmlbar_gui.c:705 ../html.c:788
+#: ../htmlbar_gui.c:718 ../html.c:788
 msgid "Heading 1"
 msgstr "Nagłówek 1"
 
-#: ../htmlbar_gui.c:706 ../html.c:791
+#: ../htmlbar_gui.c:719 ../html.c:791
 msgid "Heading 2"
 msgstr "Nagłówek 2"
 
-#: ../htmlbar_gui.c:707 ../html.c:794
+#: ../htmlbar_gui.c:720 ../html.c:794
 msgid "Heading 3"
 msgstr "Nagłówek 3"
 
-#: ../htmlbar_gui.c:708 ../html.c:797
+#: ../htmlbar_gui.c:721 ../html.c:797
 msgid "Heading 4"
 msgstr "Nagłówek 4"
 
-#: ../htmlbar_gui.c:709 ../html.c:800
+#: ../htmlbar_gui.c:722 ../html.c:800
 msgid "Heading 5"
 msgstr "Nagłówek 5"
 
-#: ../htmlbar_gui.c:710 ../html.c:803
+#: ../htmlbar_gui.c:723 ../html.c:803
 msgid "Heading 6"
 msgstr "Nagłówek 6"
 
-#: ../htmlbar_gui.c:711
+#: ../htmlbar_gui.c:724
 msgid "Table Wizard..."
 msgstr "Kreator tabeli..."
 
-#: ../htmlbar_gui.c:713
+#: ../htmlbar_gui.c:726
 msgid "Table..."
 msgstr "Tabela..."
 
-#: ../htmlbar_gui.c:714
+#: ../htmlbar_gui.c:727
 msgid "Table Row..."
 msgstr "Wiersz tabeli..."
 
-#: ../htmlbar_gui.c:715
+#: ../htmlbar_gui.c:728
 msgid "Table Header..."
 msgstr "Nagłówek tabeli..."
 
-#: ../htmlbar_gui.c:716
+#: ../htmlbar_gui.c:729
 msgid "Table Data..."
 msgstr "Dane tabeli..."
 
-#: ../htmlbar_gui.c:718 ../html_table.c:78
+#: ../htmlbar_gui.c:731 ../html_table.c:78
 msgid "Table"
 msgstr "Tabela"
 
-#: ../htmlbar_gui.c:719 ../html_table.c:210
+#: ../htmlbar_gui.c:732 ../html_table.c:210
 msgid "Table Row"
 msgstr "Wiersz"
 
-#: ../htmlbar_gui.c:720 ../html_table.c:321
+#: ../htmlbar_gui.c:733 ../html_table.c:321
 msgid "Table Header"
 msgstr "Nagłówek tabeli"
 
-#: ../htmlbar_gui.c:721 ../html_table.c:319
+#: ../htmlbar_gui.c:734 ../html_table.c:319
 msgid "Table Data"
 msgstr "Dane tabeli"
 
-#: ../htmlbar_gui.c:722
+#: ../htmlbar_gui.c:735
 msgid "Table Caption"
 msgstr "Tytuł tabeli"
 
-#: ../htmlbar_gui.c:723
+#: ../htmlbar_gui.c:736
 msgid "Frame Wizard..."
 msgstr "Kreator ramek..."
 
-#: ../htmlbar_gui.c:725
+#: ../htmlbar_gui.c:738
 msgid "Frameset..."
 msgstr "Zbiór ramek..."
 
-#: ../htmlbar_gui.c:726
+#: ../htmlbar_gui.c:739
 msgid "Frame..."
 msgstr "Ramka..."
 
-#: ../htmlbar_gui.c:728 ../html.c:1536
+#: ../htmlbar_gui.c:741 ../html.c:1536
 msgid "Frameset"
 msgstr "Zbiór ramek"
 
-#: ../htmlbar_gui.c:729 ../html.c:1620
+#: ../htmlbar_gui.c:742 ../html.c:1620
 msgid "Frame"
 msgstr "Ramka"
 
-#: ../htmlbar_gui.c:730
+#: ../htmlbar_gui.c:743
 msgid "Noframes"
 msgstr "Bez ramek"
 
-#: ../htmlbar_gui.c:731
+#: ../htmlbar_gui.c:744
 msgid "Target"
 msgstr "Cel"
 
-#: ../htmlbar_gui.c:732
+#: ../htmlbar_gui.c:745
 msgid "Form..."
 msgstr "Formularz..."
 
-#: ../htmlbar_gui.c:733
+#: ../htmlbar_gui.c:746
 msgid "Input Button..."
 msgstr "Przycisk input..."
 
-#: ../htmlbar_gui.c:734
+#: ../htmlbar_gui.c:747
 msgid "Input Text..."
 msgstr "Przycisk text..."
 
-#: ../htmlbar_gui.c:735
+#: ../htmlbar_gui.c:748
 msgid "Input Hidden..."
 msgstr "Pole ukryte..."
 
-#: ../htmlbar_gui.c:736
+#: ../htmlbar_gui.c:749
 msgid "Textarea..."
 msgstr "Obszar tekstowy..."
 
-#: ../htmlbar_gui.c:737
+#: ../htmlbar_gui.c:750
 msgid "Input Radio Button..."
 msgstr "Przycisk 'radio'..."
 
-#: ../htmlbar_gui.c:738
+#: ../htmlbar_gui.c:751
 msgid "Input Check Box..."
 msgstr "Przycisk 'checkbox'..."
 
-#: ../htmlbar_gui.c:739
+#: ../htmlbar_gui.c:752
 msgid "Select..."
 msgstr "Selekcja..."
 
-#: ../htmlbar_gui.c:740
+#: ../htmlbar_gui.c:753
 msgid "Option..."
 msgstr "Opcja..."
 
-#: ../htmlbar_gui.c:741
+#: ../htmlbar_gui.c:754
 msgid "Option group..."
 msgstr "Grupa opcji..."
 
-#: ../htmlbar_gui.c:742
+#: ../htmlbar_gui.c:755
 msgid "Button..."
 msgstr "Przycisk..."
 
-#: ../htmlbar_gui.c:743
+#: ../htmlbar_gui.c:756
 msgid "Quick List..."
 msgstr "Szybka lista..."
 
-#: ../htmlbar_gui.c:744
+#: ../htmlbar_gui.c:757
 msgid "Unordered List"
 msgstr "Lista nienumerowana"
 
-#: ../htmlbar_gui.c:745
+#: ../htmlbar_gui.c:758
 msgid "Ordered List"
 msgstr "Lista numerowana"
 
-#: ../htmlbar_gui.c:746
+#: ../htmlbar_gui.c:759
 msgid "List Item"
 msgstr "Element listy"
 
-#: ../htmlbar_gui.c:747
+#: ../htmlbar_gui.c:760
 msgid "Definition List"
 msgstr "Lista definicji"
 
-#: ../htmlbar_gui.c:748
+#: ../htmlbar_gui.c:761
 msgid "Definition Term"
 msgstr "Termin definicji"
 
-#: ../htmlbar_gui.c:749 ../htmlbar_gui.c:758
+#: ../htmlbar_gui.c:762 ../htmlbar_gui.c:771
 msgid "Definition"
 msgstr "Definicja"
 
-#: ../htmlbar_gui.c:750
+#: ../htmlbar_gui.c:763
 msgid "Create stylesheet..."
 msgstr "Utwórz arkusz stylów..."
 
-#: ../htmlbar_gui.c:751
+#: ../htmlbar_gui.c:764
 msgid "Span..."
 msgstr "Span..."
 
-#: ../htmlbar_gui.c:752
+#: ../htmlbar_gui.c:765
 msgid "Div..."
 msgstr "Div..."
 
-#: ../htmlbar_gui.c:753 ../html_form.c:825
+#: ../htmlbar_gui.c:766 ../html_form.c:825
 msgid "Style"
 msgstr "Styl"
 
-#: ../htmlbar_gui.c:754
+#: ../htmlbar_gui.c:767
 msgid "Link to stylesheet..."
 msgstr "Łącze do arkusza stylów..."
 
-#: ../htmlbar_gui.c:755
+#: ../htmlbar_gui.c:768
 msgid "Insert image..."
 msgstr "Wstaw obrazek..."
 
-#: ../htmlbar_gui.c:756
+#: ../htmlbar_gui.c:769
 msgid "Insert thumbnail..."
 msgstr "Wstaw miniaturę..."
 
-#: ../htmlbar_gui.c:757
+#: ../htmlbar_gui.c:770
 msgid "Multi thumbnail..."
 msgstr "Wielokrotna miniatura..."
 
-#: ../htmlbar_gui.c:759
+#: ../htmlbar_gui.c:772
 msgid "Code"
 msgstr "Kod"
 
-#: ../htmlbar_gui.c:760
+#: ../htmlbar_gui.c:773
 msgid "Sample"
 msgstr "Przykład"
 
-#: ../htmlbar_gui.c:761
+#: ../htmlbar_gui.c:774
 msgid "Keyboard"
 msgstr "Klawiatura"
 
-#: ../htmlbar_gui.c:762
+#: ../htmlbar_gui.c:775
 msgid "Variable"
 msgstr "Zmienna"
 
-#: ../htmlbar_gui.c:763
+#: ../htmlbar_gui.c:776
 msgid "Citation"
 msgstr "Cytat"
 
-#: ../htmlbar_gui.c:764
+#: ../htmlbar_gui.c:777
 msgid "Abbreviation"
 msgstr "Skrót"
 
-#: ../htmlbar_gui.c:765
+#: ../htmlbar_gui.c:778
 msgid "Acronym"
 msgstr "Akronim"
 
-#: ../htmlbar_gui.c:885
+#: ../htmlbar_gui.c:898
 msgid "Remove from quickbar"
 msgstr "Usuń z paska podręcznego"
 
-#: ../htmlbar_gui.c:886
+#: ../htmlbar_gui.c:899
 msgid "Move Left"
 msgstr "Przesuń w lewo"
 
-#: ../htmlbar_gui.c:887
+#: ../htmlbar_gui.c:900
 msgid "Move Right"
 msgstr "Przesuń w prawo"
 
-#: ../htmlbar_gui.c:927
+#: ../htmlbar_gui.c:940
 msgid "Add to quickbar"
 msgstr "Dodaj do paska podręcznego"
 
-#: ../htmlbar_gui.c:1030
+#: ../htmlbar_gui.c:1043
 msgid " Quick bar "
 msgstr " Pasek podręczny "
 
-#: ../htmlbar_gui.c:1035
+#: ../htmlbar_gui.c:1048
 msgid "Heading"
 msgstr "Nagłówki"
 
-#: ../htmlbar_gui.c:1037
+#: ../htmlbar_gui.c:1050
 msgid " Standard bar "
 msgstr " Pasek standardowy "
 
-#: ../htmlbar_gui.c:1042
+#: ../htmlbar_gui.c:1055
 msgid "Context formatting"
 msgstr "Formatowanie kontekstowe"
 
-#: ../htmlbar_gui.c:1044
+#: ../htmlbar_gui.c:1057
 msgid " Fonts "
 msgstr " Czcionki "
 
-#: ../htmlbar_gui.c:1049
+#: ../htmlbar_gui.c:1062
 msgid " Tables "
 msgstr " Tabele "
 
-#: ../htmlbar_gui.c:1054
+#: ../htmlbar_gui.c:1067
 msgid " Frames "
 msgstr " Ramki "
 
-#: ../htmlbar_gui.c:1059
+#: ../htmlbar_gui.c:1072
 msgid " Forms "
 msgstr " Formularze "
 
-#: ../htmlbar_gui.c:1064
+#: ../htmlbar_gui.c:1077
 msgid " List "
 msgstr " Lista "
 
-#: ../htmlbar_gui.c:1069
+#: ../htmlbar_gui.c:1082
 msgid " CSS "
 msgstr " CSS "
 
@@ -2030,6 +2042,84 @@ msgstr ""
 "%x: szerokość miniatury  %y: wysokość miniatury\n"
 "%b: rozmiar oryginalny (bajty)"
 
+#: ../quickstart.c:504
+#, fuzzy
+msgid "<b>E_xternal Style Sheet</b>"
+msgstr "<b>Ogólne</b>"
+
+#: ../quickstart.c:514
+#, fuzzy
+msgid "Ty_pe:"
+msgstr "_Typ:"
+
+#: ../quickstart.c:532
+#, fuzzy
+msgid "Hre_f:"
+msgstr "_Href:"
+
+#: ../quickstart.c:536
+#, fuzzy
+msgid "_Media:"
+msgstr "Media:"
+
+#: ../quickstart.c:540
+#, fuzzy
+msgid "Titl_e:"
+msgstr "_Tytuł:"
+
+#: ../quickstart.c:546
+#, fuzzy
+msgid "<b>Style Area</b>"
+msgstr "<b>Ogólne</b>"
+
+#: ../quickstart.c:550
+#, fuzzy
+msgid "Cre_ate empty style area"
+msgstr "Utwórz pusty projekt"
+
+#: ../quickstart.c:572
+#, fuzzy
+msgid "<b>Attributes</b>"
+msgstr "Atrybuty/Parametry"
+
+#: ../quickstart.c:587
+#, fuzzy
+msgid "_Src:"
+msgstr "Źró_dło:"
+
+#: ../quickstart.c:594
+#, fuzzy
+msgid "<b>Script Area</b>"
+msgstr "<b>Ogólne</b>"
+
+#: ../quickstart.c:598
+#, fuzzy
+msgid "Cre_ate empty script area"
+msgstr "Utwórz pusty projekt"
+
+#: ../quickstart.c:625
+msgid "Quick Start"
+msgstr "Szybki start"
+
+#: ../quickstart.c:639
+#, fuzzy
+msgid "_DTD:"
+msgstr "Użyj _DTD"
+
+#: ../quickstart.c:643 ../wizards.c:186
+msgid "_Title:"
+msgstr "_Tytuł:"
+
+#: ../quickstart.c:666
+#, fuzzy
+msgid "_Head:"
+msgstr "_Href:"
+
+#: ../quickstart.c:683
+#, fuzzy
+msgid "Open in _new document."
+msgstr "W _dokumencie"
+
 #: ../wizards.c:68
 msgid "Table Wizard"
 msgstr "Kreator tabeli"
@@ -2053,10 +2143,6 @@ msgstr "_Odsuń kod tabeli:"
 #: ../wizards.c:175
 msgid "Frame Wizard"
 msgstr "Kreator ramek"
-
-#: ../wizards.c:186
-msgid "_Title:"
-msgstr "_Tytuł:"
 
 #: ../wizards.c:190
 msgid "Use _DTD:"
@@ -2093,6 +2179,10 @@ msgstr "Źródło:"
 #: ../wizards.c:223
 msgid "Size:"
 msgstr "Rozmiar:"
+
+#, fuzzy
+#~ msgid "/View/View _HTML Bar"
+#~ msgstr "/Widok/Pokaż pasek _HTML"
 
 #~ msgid ""
 #~ "Bluefish is an editor for experienced web designers and programmers. It "
@@ -2408,9 +2498,6 @@ msgstr "Rozmiar:"
 #~ msgid "_Replace"
 #~ msgstr "_Zamień"
 
-#~ msgid "In _document"
-#~ msgstr "W _dokumencie"
-
 #~ msgid "I_n selection"
 #~ msgstr "Wewnątrz _zaznaczenia"
 
@@ -2628,12 +2715,6 @@ msgstr "Rozmiar:"
 
 #~ msgid "Add bookmark"
 #~ msgstr "Dodaj zakładkę"
-
-#~ msgid "Edit color"
-#~ msgstr "Edytuj kolor"
-
-#~ msgid "Edit tag"
-#~ msgstr "Edytuj znacznik"
 
 #~ msgid "_Abort save"
 #~ msgstr "_Przerwij zapis"
@@ -3211,9 +3292,6 @@ msgstr "Rozmiar:"
 #~ msgid "Bookmarks"
 #~ msgstr "Zakładki"
 
-#~ msgid "QuickStart..."
-#~ msgstr "Szybki start..."
-
 #~ msgid "New"
 #~ msgstr "Nowy"
 
@@ -3483,17 +3561,11 @@ msgstr "Rozmiar:"
 #~ msgid "/View/tearoff1"
 #~ msgstr "/Widok/tearoff1"
 
-#~ msgid "/View/View _Main Toolbar"
-#~ msgstr "/Widok/Pokaż pasek _główny"
-
 #~ msgid "/View/View _Custom Menu"
 #~ msgstr "/Widok/Pokaż menu podręcz_ne"
 
 #~ msgid "/View/View _Sidebar"
 #~ msgstr "/Widok/Pokaż panel _boczny"
-
-#~ msgid "/Dialogs/General/_Quickstart..."
-#~ msgstr "/Okna dialogowe/Ogólne/Szybki start..."
 
 #~ msgid "/_Document"
 #~ msgstr "/_Dokument"
@@ -4205,53 +4277,6 @@ msgstr "Rozmiar:"
 
 #~ msgid "Create empty project"
 #~ msgstr "Utwórz pusty projekt"
-
-#, fuzzy
-#~ msgid "Ty_pe:"
-#~ msgstr "_Typ:"
-
-#, fuzzy
-#~ msgid "Hre_f:"
-#~ msgstr "_Href:"
-
-#, fuzzy
-#~ msgid "_Media:"
-#~ msgstr "Media:"
-
-#, fuzzy
-#~ msgid "Titl_e:"
-#~ msgstr "_Tytuł:"
-
-#, fuzzy
-#~ msgid "<b>Style Area</b>"
-#~ msgstr "<b>Ogólne</b>"
-
-#, fuzzy
-#~ msgid "Cre_ate empty style area"
-#~ msgstr "Utwórz pusty projekt"
-
-#, fuzzy
-#~ msgid "<b>Attributes</b>"
-#~ msgstr "Atrybuty/Parametry"
-
-#, fuzzy
-#~ msgid "_Src:"
-#~ msgstr "Źró_dło:"
-
-#, fuzzy
-#~ msgid "Create _empty script area"
-#~ msgstr "Utwórz pusty projekt"
-
-#~ msgid "Quick Start"
-#~ msgstr "Szybki start"
-
-#, fuzzy
-#~ msgid "_DTD:"
-#~ msgstr "Użyj _DTD"
-
-#, fuzzy
-#~ msgid "_Head:"
-#~ msgstr "_Href:"
 
 #~ msgid "Galeon"
 #~ msgstr "Galeon"

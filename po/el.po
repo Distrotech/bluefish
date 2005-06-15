@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-04-11 23:04+0200\n"
+"POT-Creation-Date: 2005-06-15 18:13+0200\n"
 "PO-Revision-Date: 2004-12-09 12:11+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team: no team\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: ../src/about.c:123
+#: ../src/about.c:125
 msgid ""
 "Bluefish is an editor for experienced web designers and programmers. It "
 "supports many programming and markup languages, but focuses on editing "
@@ -29,7 +29,7 @@ msgid ""
 "This version of bluefish was compiled with the following options:\n"
 msgstr ""
 
-#: ../src/about.c:124
+#: ../src/about.c:126
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -93,7 +93,7 @@ msgid ""
 "Thanks to all who helped making this software available.\n"
 msgstr ""
 
-#: ../src/about.c:185
+#: ../src/about.c:187
 msgid ""
 "Current translators:\n"
 "\n"
@@ -159,27 +159,45 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../src/about.c:228
+#: ../src/about.c:230
 msgid "About Bluefish"
 msgstr "Περί Bluefish"
 
-#: ../src/about.c:260 ../src/fref.c:1448 ../src/fref.c:1732 ../src/fref.c:1819
-#: ../src/fref.c:1854 ../src/fref.c:2331
+#: ../src/about.c:262
 #, fuzzy
 msgid "Info"
 msgstr "Μη αριθμημένα"
 
-#: ../src/about.c:262
+#: ../src/about.c:264
 msgid "Authors"
 msgstr ""
 
-#: ../src/about.c:263
+#: ../src/about.c:265
 msgid "Translators"
 msgstr "Μεταφραστές"
 
-#: ../src/authen.c:75
+#: ../src/authen2.c:163 ../src/authen.c:75
 msgid "Authentication required"
 msgstr ""
+
+#: ../src/authen2.c:173
+msgid "You must log in to access "
+msgstr ""
+
+#: ../src/authen2.c:187
+#, fuzzy
+msgid "_Username:"
+msgstr "Όνομα χρήστη:"
+
+#: ../src/authen2.c:192
+#, fuzzy
+msgid "_Domain:"
+msgstr "Κάθετη στοίχηση"
+
+#: ../src/authen2.c:195
+#, fuzzy
+msgid "_Pasword:"
+msgstr "Κωδικός:"
 
 #: ../src/authen.c:85
 #, c-format
@@ -194,7 +212,7 @@ msgstr "Όνομα χρήστη:"
 msgid "Password:"
 msgstr "Κωδικός:"
 
-#: ../src/bf_lib.c:80 ../src/bf_lib.c:102
+#: ../src/bf_lib.c:176 ../src/bf_lib.c:196
 msgid ""
 "Bluefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
@@ -222,7 +240,7 @@ msgstr ""
 msgid "I_gnore"
 msgstr "Μη αριθμημένα"
 
-#: ../src/bfspell.c:405 ../src/snr2.c:893
+#: ../src/bfspell.c:405 ../src/snr2.c:897
 msgid "_Replace"
 msgstr "_Αντικατάσταση"
 
@@ -274,14 +292,23 @@ msgstr "χωρίς φίλτρο"
 msgid "html filter"
 msgstr "φίλτρο html"
 
-#: ../src/bluefish.c:99
+#: ../src/bf-textview.c:267
+msgid "Expand all"
+msgstr ""
+
+#: ../src/bf-textview.c:270
+#, fuzzy
+msgid "Collapse all"
+msgstr "Κλείσιμο _Όλων"
+
+#: ../src/bluefish.c:101
 #, c-format
 msgid ""
 "\n"
 "Usage: %s [options] [filenames ...]\n"
 msgstr ""
 
-#: ../src/bluefish.c:100
+#: ../src/bluefish.c:102
 msgid ""
 "\n"
 "Currently accepted options are:\n"
@@ -289,24 +316,24 @@ msgstr ""
 "\n"
 "Δεκτές επιλογές ως τώρα:\n"
 
-#: ../src/bluefish.c:101
+#: ../src/bluefish.c:103
 msgid "-s           skip root check\n"
 msgstr "-s           αγνόηση ελέγχου για root\n"
 
-#: ../src/bluefish.c:102
+#: ../src/bluefish.c:104
 msgid "-v           current version\n"
 msgstr "-v          τρέχουσα έκδοση\n"
 
-#: ../src/bluefish.c:103
+#: ../src/bluefish.c:105
 #, fuzzy
 msgid "-n           open new window\n"
 msgstr "-v           τωρινή έκδοση\n"
 
-#: ../src/bluefish.c:104
+#: ../src/bluefish.c:106
 msgid "-p filename  open project\n"
 msgstr ""
 
-#: ../src/bluefish.c:105
+#: ../src/bluefish.c:107
 msgid "-h           this help screen\n"
 msgstr "-h           αυτή η βοηθητική οθόνη\n"
 
@@ -315,39 +342,23 @@ msgstr "-h           αυτή η βοηθητική οθόνη\n"
 msgid "parsing highlighting file..."
 msgstr "/Επιλογές/Λίστες/Υπογράμμιση σύνταξης"
 
-#: ../src/bluefish.c:192
+#: ../src/bluefish.c:200
 msgid "compiling highlighting patterns..."
 msgstr ""
 
-#: ../src/bluefish.c:200
+#: ../src/bluefish.c:210
 msgid "parsing custom menu file..."
 msgstr ""
 
-#: ../src/bluefish.c:212
+#: ../src/bluefish.c:222
 msgid "creating main gui..."
 msgstr ""
 
-#: ../src/bluefish.c:223
+#: ../src/bluefish.c:234
 msgid "showing main gui..."
 msgstr ""
 
-#: ../src/bluefish.c:240
-#, fuzzy
-msgid "Bluefish tip:"
-msgstr "Προεπισκόπηση του Bluefish:"
-
-#: ../src/bluefish.c:241
-msgid ""
-"This message is shown since you do not have any items in the Quickbar.\n"
-"\n"
-"If you right-click a button in the HTML toolbars you can add buttons to the "
-"Quickbar."
-msgstr ""
-
-#: ../src/bookmark.c:364 ../src/html.c:612 ../src/html.c:832
-#: ../src/html.c:1200 ../src/html.c:1629 ../src/html_form.c:231
-#: ../src/html_form.c:596 ../src/html_form.c:795 ../src/html_form.c:890
-#: ../src/image.c:399
+#: ../src/bookmark.c:364
 msgid "_Name:"
 msgstr "_Όνομα:"
 
@@ -359,176 +370,191 @@ msgstr "_Περιγραφή:"
 msgid "Temporary"
 msgstr "Προσωρινό"
 
-#: ../src/bookmark.c:573
+#: ../src/bookmark.c:502
 #, fuzzy, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
 msgstr "Είσαι σίγουρος για την αντικατάσταση;"
 
-#: ../src/bookmark.c:577
+#: ../src/bookmark.c:506
 msgid "Delete bookmarks?"
 msgstr "Διαγραφή σελιδοδεικτών;"
 
-#: ../src/bookmark.c:607 ../src/fref2.c:4156
+#: ../src/bookmark.c:531 ../src/fref2.c:4389
 #, fuzzy, c-format
 msgid "Do you really want to delete %s?"
 msgstr "Είσαι σίγουρος για την αντικατάσταση;"
 
-#: ../src/bookmark.c:611
+#: ../src/bookmark.c:535
 msgid "Delete permanent bookmark."
 msgstr ""
 
-#: ../src/bookmark.c:628
+#: ../src/bookmark.c:556
 msgid "Edit bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bookmark.c:642
-msgid "Goto bookmark"
-msgstr "Μετάβαση σε σελιδοδείκτη"
+#: ../src/bookmark.c:592
+msgid "/Goto"
+msgstr ""
 
-#: ../src/bookmark.c:650 ../src/fref2.c:4437 ../src/fref2.c:4443
-msgid "Edit"
-msgstr "Επεξεργασία"
-
-#: ../src/bookmark.c:654 ../src/fref2.c:1776
-msgid "Delete"
-msgstr "Διαγραφή"
-
-#: ../src/bookmark.c:660
+#: ../src/bookmark.c:593
 #, fuzzy
-msgid "Delete all in document"
+msgid "/Edit"
+msgstr "/_Επεξεργασία"
+
+#: ../src/bookmark.c:594
+#, fuzzy
+msgid "/Delete"
+msgstr " Σβήσιμο "
+
+#: ../src/bookmark.c:596
+#, fuzzy
+msgid "/Delete All in document"
 msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
 
-#: ../src/bookmark.c:665
-msgid "Delete all"
+#: ../src/bookmark.c:597
+#, fuzzy
+msgid "/Delete All"
 msgstr "Διαγραφή όλων"
 
-#: ../src/bookmark.c:1252 ../src/bookmark.c:1311
+#: ../src/bookmark.c:599
+#, fuzzy
+msgid "/Permanent by default"
+msgstr "Αριθμός γραμμής: "
+
+#: ../src/bookmark.c:601
+#, fuzzy
+msgid "/Show by file name"
+msgstr "Μη γνωστό όνομα αρχείου"
+
+#: ../src/bookmark.c:602
+#, fuzzy
+msgid "/Show by full path"
+msgstr "Θέση μενού"
+
+#: ../src/bookmark.c:603
+msgid "/Show by full uri"
+msgstr ""
+
+#: ../src/bookmark.c:1231 ../src/bookmark.c:1290
 #, fuzzy
 msgid "Error adding bookmark"
 msgstr "Επεξεργασία σελιδοσείκτη"
 
-#: ../src/bookmark.c:1253 ../src/bookmark.c:1312
+#: ../src/bookmark.c:1232 ../src/bookmark.c:1291
 #, fuzzy
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "Κατάληξη αρχείου ασφαλείας"
 
-#: ../src/bookmark.c:1272
+#: ../src/bookmark.c:1251
 #, fuzzy
 msgid "Can't add bookmark"
 msgstr "Προσθήκη σελιδοδείκτη"
 
-#: ../src/bookmark.c:1273
+#: ../src/bookmark.c:1252
 msgid "You already have a bookmark here!"
 msgstr ""
 
-#: ../src/bookmark.c:1352
+#: ../src/bookmark.c:1327
 msgid "Delete all bookmarks."
 msgstr "Διαγραφή όλων των σελιδοδεικτών."
 
-#: ../src/bookmark.c:1392
-msgid "File size changed in file\n"
-msgstr ""
+#: ../src/bookmark.c:1367
+#, fuzzy
+msgid "File size changed in file \n"
+msgstr "Σφάλμα του Bluefish"
 
-#: ../src/bookmark.c:1396
+#: ../src/bookmark.c:1371
 msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr ""
 
-#: ../src/document.c:284
+#: ../src/document.c:333
 #, fuzzy
 msgid "/Document/Highlight Syntax"
 msgstr "/Προβολή/Υπογράμμιση σύνταξης"
 
-#: ../src/document.c:417
+#: ../src/document.c:468 ../src/document.c:472
 msgid "Name: "
 msgstr "Όνομα: "
 
-#: ../src/document.c:418
+#: ../src/document.c:469 ../src/document.c:474
+msgid ""
+"\n"
+"Encoding: "
+msgstr ""
+
+#: ../src/document.c:473
 #, fuzzy
 msgid ""
 "\n"
 "Type: "
 msgstr "Τύπος"
 
-#: ../src/document.c:419
-msgid ""
-"\n"
-"Encoding: "
-msgstr ""
-
-#: ../src/document.c:422
+#: ../src/document.c:478
 msgid ""
 "\n"
 "Size (on disk): "
 msgstr ""
 
-#: ../src/document.c:422
+#: ../src/document.c:478
 msgid " bytes"
 msgstr " bytes"
 
-#: ../src/document.c:428
+#: ../src/document.c:484
 msgid ""
 "\n"
 "Permissions: "
 msgstr ""
 
-#: ../src/document.c:435
+#: ../src/document.c:491
 msgid ""
 "\n"
 "Last modified: "
 msgstr ""
 
-#: ../src/document.c:490
+#: ../src/document.c:543
 #, fuzzy, c-format
 msgid "Untitled %d"
 msgstr "Άτιτλο"
 
-#: ../src/document.c:1121
+#: ../src/document.c:1175
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr ""
 
-#: ../src/document.c:1154 ../src/document.c:1155
+#: ../src/document.c:1209 ../src/document.c:1211 ../src/document.c:1212
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-#: ../src/document.c:1571
+#: ../src/document.c:1643
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 
-#: ../src/document.c:2031 ../src/snr2.c:1349
+#: ../src/document.c:2121 ../src/snr2.c:1355
 msgid "Replace"
 msgstr "Αντικατάσταση"
 
-#: ../src/document.c:2036 ../src/fref2.c:4486 ../src/snr2.c:1352
+#: ../src/document.c:2126 ../src/fref2.c:4737 ../src/snr2.c:1358
 msgid "Find"
 msgstr "Εύρεση"
 
-#: ../src/document.c:2044
+#: ../src/document.c:2134
 msgid "Delete bookmark"
 msgstr "Διαγραφή σελιδοδείκτη"
 
-#: ../src/document.c:2048
+#: ../src/document.c:2138
 msgid "Add bookmark"
 msgstr "Προσθήκη σελιδοδείκτη"
 
-#: ../src/document.c:2064
-msgid "Edit color"
-msgstr "Επεξεργασία χρώματος"
-
-#: ../src/document.c:2072
-msgid "Edit tag"
-msgstr "Επιξεργασία ετικέτας"
-
-#: ../src/document.c:2196 ../src/file_dialogs.c:303 ../src/file_dialogs.c:342
+#: ../src/document.c:2286 ../src/file_dialogs.c:315 ../src/file_dialogs.c:355
 msgid "_Abort save"
 msgstr ""
 
-#: ../src/document.c:2196
+#: ../src/document.c:2286
 msgid "_Continue save in UTF-8"
 msgstr ""
 
-#: ../src/document.c:2207
+#: ../src/document.c:2297
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -537,33 +563,47 @@ msgid ""
 "Continue saving in UTF-8 encoding?"
 msgstr ""
 
-#: ../src/document.c:2211
+#: ../src/document.c:2301
 msgid "File encoding conversion failure"
 msgstr ""
 
-#: ../src/document.c:2443
+#: ../src/document.c:2529
 msgid "Previously: "
 msgstr ""
 
-#: ../src/document.c:2916
-#, fuzzy
-msgid "No filename"
-msgstr "Μη γνωστό όνομα αρχείου"
-
-#: ../src/document.c:3207
+#: ../src/document.c:3365
 msgid "Unable to open file"
 msgstr "Δεν είναι δυνατή η προσπέλαση του αρχείου"
 
-#: ../src/document.c:3234
-msgid "_Reload"
-msgstr "_Επαναφόρτωση"
+#: ../src/document.c:3386
+#, fuzzy
+msgid "_Unset file name"
+msgstr "όνομα αρχείου"
 
-#: ../src/document.c:3234
+#: ../src/document.c:3386
+#, fuzzy
+msgid "_Save"
+msgstr "Αποθήκευση"
+
+#: ../src/document.c:3388
+#, fuzzy, c-format
+msgid "File name: %s"
+msgstr "Όνομα αρχείου"
+
+#: ../src/document.c:3392
+msgid "File disappeared from disk\n"
+msgstr ""
+
+#: ../src/document.c:3409
 #, fuzzy
 msgid "_Ignore"
 msgstr "Μη αριθμημένα"
 
-#: ../src/document.c:3238
+#: ../src/document.c:3409
+msgid "_Reload"
+msgstr "_Επαναφόρτωση"
+
+#: ../src/document.c:3412
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -572,5000 +612,2563 @@ msgid ""
 "Old modification time is: %s"
 msgstr ""
 
-#: ../src/document.c:3242
+#: ../src/document.c:3416
 msgid "File has been modified by another process\n"
 msgstr ""
 
-#: ../src/document.c:3292
+#: ../src/document.c:3473
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:3292
+#: ../src/document.c:3473
 #, fuzzy
 msgid "_Close"
 msgstr "Κλείσιμο"
 
-#: ../src/document.c:3296
+#: ../src/document.c:3477
 #, fuzzy
 msgid "File "
 msgstr "/_Αρχεία"
 
-#: ../src/document.c:3296
+#: ../src/document.c:3477
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:3300
+#: ../src/document.c:3481
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:3403
+#: ../src/document.c:3581
 #, fuzzy
 msgid "Select file to insert"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/document.c:3410
+#: ../src/document.c:3588
 #, fuzzy
 msgid "No file to insert"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/document.c:3580
+#: ../src/document.c:3764
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Στατιστικά: %d γραμμές, %d λέξεις, %d χαρακτήρες"
 
-#: ../src/filebrowser2.c:986
-#, fuzzy
-msgid "New directory"
-msgstr "Προσωρινός κατάλογος:"
-
-#: ../src/filebrowser2.c:990
-#, fuzzy
-msgid "New file"
-msgstr "Νέο στυλ"
-
-#: ../src/filebrowser2.c:1037 ../src/filebrowser.c:1257
+#: ../src/filebrowser2.c:996
 #, fuzzy
 msgid "Could not rename\n"
 msgstr "Δεν ήταν δυνατή η προσπέλαση του αρχείου:\n"
 
-#: ../src/filebrowser2.c:1072 ../src/filebrowser.c:1299
+#: ../src/filebrowser2.c:1034
+#, fuzzy
+msgid "New directory"
+msgstr "Προσωρινός κατάλογος:"
+
+#: ../src/filebrowser2.c:1038
+#, fuzzy
+msgid "New file"
+msgstr "Νέο στυλ"
+
+#: ../src/filebrowser2.c:1123
 #, fuzzy, c-format
-msgid "Are you sure you want to delete \"%s\" ?"
+msgid ""
+"Are you sure you want to delete\n"
+"\"%s\"?"
 msgstr ""
 "Είστε σίγουρος πως θέλετε να κλείσετε το \n"
 "%s ;"
 
-#: ../src/filebrowser2.c:1077 ../src/filebrowser.c:1300
-msgid "If you delete this file, it will be permanently lost."
+#: ../src/filebrowser2.c:1124
+#, c-format
+msgid "If you delete %s, it will be permanently lost."
 msgstr ""
 
-#: ../src/filebrowser2.c:1088 ../src/filebrowser.c:1309
-#: ../src/filebrowser.c:1313
-msgid "Could not delete \n"
-msgstr "Αδυναμία διαγραφής\n"
-
-#: ../src/filebrowser2.c:1200 ../src/filebrowser.c:1467
+#: ../src/filebrowser2.c:1235
 #, fuzzy
 msgid "/_Open"
 msgstr "/Ε_πιλογές"
 
-#: ../src/filebrowser2.c:1201 ../src/filebrowser.c:1452
+#: ../src/filebrowser2.c:1236
 #, fuzzy
 msgid "/Open _Advanced..."
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/filebrowser2.c:1202 ../src/filebrowser.c:1468
+#: ../src/filebrowser2.c:1237
 msgid "/Rena_me"
 msgstr ""
 
-#: ../src/filebrowser2.c:1203 ../src/filebrowser.c:1469
+#: ../src/filebrowser2.c:1238
 #, fuzzy
 msgid "/_Delete"
 msgstr " Σβήσιμο "
 
-#: ../src/filebrowser2.c:1205 ../src/filebrowser.c:1461
+#: ../src/filebrowser2.c:1240
 #, fuzzy
 msgid "/New _File"
 msgstr "Νέο στυλ"
 
-#: ../src/filebrowser2.c:1206 ../src/filebrowser.c:1462
+#: ../src/filebrowser2.c:1241
 #, fuzzy
 msgid "/_New Directory"
 msgstr "Προσωρινός κατάλογος:"
 
-#: ../src/filebrowser2.c:1208 ../src/filebrowser.c:1456
+#: ../src/filebrowser2.c:1243
 #, fuzzy
 msgid "/_Refresh"
 msgstr "Ανανέωση εγγράφου"
 
-#: ../src/filebrowser2.c:1209
+#: ../src/filebrowser2.c:1244
 msgid "/Show Full _Tree"
 msgstr ""
 
-#: ../src/filebrowser2.c:1210 ../src/filebrowser.c:1457
+#: ../src/filebrowser2.c:1245
 #, fuzzy
 msgid "/_Set as basedir"
 msgstr "Επιλεγμένο"
 
-#: ../src/filebrowser2.c:1212
+#: ../src/filebrowser2.c:1247
 #, fuzzy
 msgid "/Follow active document"
 msgstr "Σχόλιο"
 
-#: ../src/filebrowser2.c:1213
+#: ../src/filebrowser2.c:1248
 #, fuzzy
 msgid "/Show hidden files"
 msgstr "Εμφάνιση κρυφών αρχείων"
 
-#: ../src/filebrowser2.c:1214
+#: ../src/filebrowser2.c:1249
 #, fuzzy
 msgid "/Show backup files"
 msgstr "Εμφάνιση αντιγράφων ασφαλείας"
 
-#: ../src/filebrowser2.c:1265 ../src/filebrowser.c:1502
+#: ../src/filebrowser2.c:1300
 msgid "Filter"
 msgstr "Φίλτρο"
 
-#: ../src/filebrowser2.c:1899 ../src/filebrowser.c:1702 ../src/gtk_easy.c:1384
+#: ../src/filebrowser2.c:1950 ../src/gtk_easy.c:1232
 msgid "All files"
 msgstr "Όλα τα αρχεία"
 
-#: ../src/filebrowser.c:1064
-#, fuzzy
-msgid "Error creating path"
-msgstr "Σφάλμα στο σβήσιμο του προσωρινού αρχείου εκτύπωσης."
-
-#: ../src/filebrowser.c:1064
-msgid "The specified pathname already exists."
+#: ../src/file.c:838
+msgid "Advanced open: finished searching files"
 msgstr ""
 
-#: ../src/filebrowser.c:1134
-msgid "File name"
-msgstr "Όνομα αρχείου"
-
-#: ../src/filebrowser.c:1136
-msgid "Directory name"
-msgstr "Όνομα καταλόγου"
-
-#: ../src/filebrowser.c:1167
-#, fuzzy
-msgid "Opening directory..."
-msgstr "Προσωρινός κατάλογος:"
-
-#: ../src/filebrowser.c:1491
-msgid "Show hidden files"
-msgstr "Εμφάνιση κρυφών αρχείων"
-
-#: ../src/filebrowser.c:1496
-msgid "Show backup files"
-msgstr "Εμφάνιση αντιγράφων ασφαλείας"
-
-#: ../src/filebrowser.c:1974
-msgid "Show full tree"
-msgstr ""
-
-#: ../src/filebrowser.c:1975
-msgid "Follow focus"
-msgstr ""
-
-#: ../src/file.c:937 ../src/snr2.c:892
+#: ../src/file.c:1028 ../src/snr2.c:896
 msgid "_Skip"
 msgstr ""
 
-#: ../src/file.c:937 ../src/file_dialogs.c:444 ../src/file_dialogs.c:467
-#: ../src/project.c:190
+#: ../src/file.c:1028 ../src/file_dialogs.c:479 ../src/file_dialogs.c:502
+#: ../src/project.c:219
 msgid "_Overwrite"
 msgstr "_Αντικατάσταση"
 
-#: ../src/file.c:942
+#: ../src/file.c:1033
 #, c-format
 msgid "%s already exists, overwrite?"
 msgstr ""
 
-#: ../src/file.c:946
+#: ../src/file.c:1037
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "_Αντικατάσταση"
 
-#: ../src/file_dialogs.c:80
+#: ../src/file_dialogs.c:82
 #, fuzzy
 msgid "Select basedir"
 msgstr "Επιλεγμένο"
 
-#: ../src/file_dialogs.c:117
+#: ../src/file_dialogs.c:119
 msgid "Advanced open file selector"
 msgstr ""
 
-#: ../src/file_dialogs.c:130
+#: ../src/file_dialogs.c:128
 msgid "<b>General</b>"
 msgstr "<b>Γενικά</b>"
 
-#: ../src/file_dialogs.c:136
+#: ../src/file_dialogs.c:134
 #, fuzzy
-msgid "Base_dir:"
+msgid "Base _Dir:"
 msgstr "Βασικός υποκατάλογος"
 
-#: ../src/file_dialogs.c:138 ../src/gtk_easy.c:1315
+#: ../src/file_dialogs.c:136 ../src/gtk_easy.c:1163
 msgid "_Browse..."
 msgstr "_Περιήγηση..."
 
-#: ../src/file_dialogs.c:147
+#: ../src/file_dialogs.c:145
 #, fuzzy
 msgid "_Pattern:"
 msgstr "Επικόλληση"
 
-#: ../src/file_dialogs.c:152
+#: ../src/file_dialogs.c:150
 msgid "_Recursive:"
 msgstr ""
 
-#: ../src/file_dialogs.c:156
+#: ../src/file_dialogs.c:153
 msgid "<b>Contains</b>"
 msgstr "<b>Περιέχει</b>"
 
-#: ../src/file_dialogs.c:159
+#: ../src/file_dialogs.c:157
 #, fuzzy
 msgid "Pa_ttern:"
 msgstr "Επικόλληση"
 
-#: ../src/file_dialogs.c:163
+#: ../src/file_dialogs.c:161
 msgid "Is rege_x:"
 msgstr ""
 
-#: ../src/file_dialogs.c:204
+#: ../src/file_dialogs.c:202
 msgid "Select files"
 msgstr "Επιλογή αρχείων"
 
-#: ../src/file_dialogs.c:257
+#: ../src/file_dialogs.c:250
 msgid "Open URL"
 msgstr "Άνοιγμα URL"
 
-#: ../src/file_dialogs.c:261
+#: ../src/file_dialogs.c:254
 msgid "<b>Open URL</b>"
 msgstr "<b>Άνοιγμα URL</b>"
 
-#: ../src/file_dialogs.c:303 ../src/file_dialogs.c:342
+#: ../src/file_dialogs.c:315 ../src/file_dialogs.c:355
 msgid "_Continue save"
 msgstr ""
 
-#: ../src/file_dialogs.c:305
+#: ../src/file_dialogs.c:317
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr ""
 
-#: ../src/file_dialogs.c:309
+#: ../src/file_dialogs.c:321
 #, fuzzy
 msgid "File backup failure"
 msgstr "Δε βρέθηκε το όνομα συστήματος"
 
-#: ../src/file_dialogs.c:327
+#: ../src/file_dialogs.c:339
 #, fuzzy
 msgid ""
 "Could not save file:\n"
 "\""
 msgstr "Δεν ήταν δυνατή η προσπέλαση του αρχείου:\n"
 
-#: ../src/file_dialogs.c:331
+#: ../src/file_dialogs.c:343
 #, fuzzy
 msgid "File save failed!\n"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/file_dialogs.c:346
+#: ../src/file_dialogs.c:360
 #, c-format
-msgid "File %s is modified on disk, overwrite?"
+msgid "File %s has been modified on disk, overwrite?"
 msgstr ""
 
-#: ../src/file_dialogs.c:348
+#: ../src/file_dialogs.c:362
 #, c-format
-msgid "Failed to check if %s is modified on disk"
+msgid "Failed to check if %s has been modified on disk"
 msgstr ""
 
-#: ../src/file_dialogs.c:353
-msgid "File modified on disk"
-msgstr ""
-
-#: ../src/file_dialogs.c:422
+#: ../src/file_dialogs.c:455
 #, fuzzy, c-format
 msgid "Move/rename %s to"
 msgstr "Σχόλιο"
 
-#: ../src/file_dialogs.c:422
+#: ../src/file_dialogs.c:455
 #, fuzzy, c-format
 msgid "Save %s as"
 msgstr "Αποθήκευση %s ως"
 
-#: ../src/file_dialogs.c:444 ../src/file_dialogs.c:467
-#: ../src/file_dialogs.c:683 ../src/project.c:190
+#: ../src/file_dialogs.c:479 ../src/file_dialogs.c:502
+#: ../src/file_dialogs.c:733 ../src/project.c:219
 msgid "_Cancel"
 msgstr "_Ακύρωση"
 
-#: ../src/file_dialogs.c:445
+#: ../src/file_dialogs.c:480
 #, c-format
-msgid "File %s exists and is opened, overwrite?"
+msgid "File %s exists and is open, overwrite?"
 msgstr ""
 
-#: ../src/file_dialogs.c:450
+#: ../src/file_dialogs.c:485
 msgid "The file you have selected is being edited in Bluefish."
 msgstr ""
 
-#: ../src/file_dialogs.c:468 ../src/project.c:191
+#: ../src/file_dialogs.c:503 ../src/project.c:220
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr ""
 
-#: ../src/file_dialogs.c:473 ../src/project.c:196
+#: ../src/file_dialogs.c:508 ../src/project.c:225
 #, fuzzy
 msgid "Do you want to replace the existing file?"
 msgstr "Είσαι σίγουρος για την αντικατάσταση;"
 
-#: ../src/file_dialogs.c:489
+#: ../src/file_dialogs.c:533
 #, fuzzy
 msgid ""
 "File:\n"
 "\""
 msgstr "Φίλτρο:"
 
-#: ../src/file_dialogs.c:493
+#: ../src/file_dialogs.c:537
 msgid "Save in progress!"
 msgstr ""
 
-#: ../src/file_dialogs.c:629 ../src/project.c:356
-msgid "Do_n't save"
-msgstr "Να _μην αποθηκευτεί"
-
-#: ../src/file_dialogs.c:632
-#, c-format
-msgid "Save changes to \"%s\" before closing?."
+#: ../src/file_dialogs.c:679 ../src/project.c:390
+msgid "Close _Without Saving"
 msgstr ""
 
-#: ../src/file_dialogs.c:637 ../src/file_dialogs.c:688 ../src/project.c:368
+#: ../src/file_dialogs.c:682
+#, c-format
+msgid "Save changes to \"%s\" before closing?"
+msgstr ""
+
+#: ../src/file_dialogs.c:687 ../src/file_dialogs.c:738 ../src/project.c:402
 msgid "If you don't save your changes they will be lost."
 msgstr ""
 
-#: ../src/file_dialogs.c:683
+#: ../src/file_dialogs.c:733
 #, fuzzy
 msgid "Choose per _File"
 msgstr "Επιλογή ανά αρχείο"
 
-#: ../src/file_dialogs.c:683
+#: ../src/file_dialogs.c:733
 msgid "Close _All"
 msgstr "Κλείσιμο _Όλων"
 
-#: ../src/file_dialogs.c:683
+#: ../src/file_dialogs.c:733
 msgid "_Save All"
 msgstr "Απο_θήκευση Όλων"
 
-#: ../src/file_dialogs.c:687
+#: ../src/file_dialogs.c:737
 msgid "Multiple open files have been changed."
 msgstr ""
 
-#: ../src/fref2.c:759
+#: ../src/fref2.c:789
 #, fuzzy, c-format
 msgid "Cannot load reference file %s\n"
 msgstr "Προεπισκόπηση του Bluefish:"
 
-#: ../src/fref2.c:764
-#, c-format
+#: ../src/fref2.c:794
+#, fuzzy, c-format
 msgid ""
 "Bad root element in reference file %s\n"
-"Should be <ref>or <r> and found %s"
-msgstr ""
+"Should be <ref> or <r> and found %s"
+msgstr "Προεπισκόπηση του Bluefish:"
 
-#: ../src/fref2.c:839
+#: ../src/fref2.c:871
 msgid "Load error"
 msgstr ""
 
-#: ../src/fref2.c:840
+#: ../src/fref2.c:872
 msgid "Cannot load reference file, perhaps it is not well-formed."
 msgstr ""
 
-#: ../src/fref2.c:853
+#: ../src/fref2.c:885
 #, fuzzy
 msgid "Bad root element in reference file"
 msgstr "Προεπισκόπηση του Bluefish:"
 
-#: ../src/fref2.c:854
+#: ../src/fref2.c:886
 msgid ""
 " \n"
 "Should be <ref> or <r> "
 msgstr ""
 
-#: ../src/fref2.c:879
+#: ../src/fref2.c:911
 #, fuzzy
 msgid "Bad reference"
 msgstr "Επεξεργασία προτιμήσεων"
 
-#: ../src/fref2.c:880
+#: ../src/fref2.c:912
 msgid ""
-"This is probably old reference file. \n"
+"This is probably an old reference file. \n"
 "Please update it to the new format."
 msgstr ""
 
-#: ../src/fref2.c:892
+#: ../src/fref2.c:925
 #, fuzzy
 msgid "Loading reference"
 msgstr "Επεξεργασία προτιμήσεων"
 
-#: ../src/fref2.c:991
+#: ../src/fref2.c:1024
 #, fuzzy
 msgid "Unloading reference"
 msgstr "/Επιλογές/Προτιμήσεις"
 
-#: ../src/fref2.c:992
+#: ../src/fref2.c:1025
 msgid " Freeing reference memory "
 msgstr ""
 
-#: ../src/fref2.c:1512 ../src/fref2.c:3518 ../src/fref2.c:3526
+#: ../src/fref2.c:1545 ../src/fref2.c:3694 ../src/fref2.c:3702
 #, fuzzy
 msgid "Identifier"
 msgstr "Κέντρο"
 
-#: ../src/fref2.c:1532 ../src/fref2.c:1682
+#: ../src/fref2.c:1565 ../src/fref2.c:1715
 #, fuzzy
 msgid "Kind"
 msgstr "Εύρεση"
 
-#: ../src/fref2.c:1538 ../src/fref2.c:1673 ../src/fref2.c:3511
-#: ../src/preferences.c:1741
+#: ../src/fref2.c:1571 ../src/fref2.c:1706 ../src/fref2.c:3687
+#: ../src/preferences.c:1784
 msgid "Name"
 msgstr "Όνομα"
 
-#: ../src/fref2.c:1549
+#: ../src/fref2.c:1582
 #, fuzzy
 msgid "Type"
 msgstr "_Τύπος:"
 
-#: ../src/fref2.c:1560
+#: ../src/fref2.c:1593
 #, fuzzy
 msgid "Default value"
 msgstr "Επιλεγμένο"
 
-#: ../src/fref2.c:1571
+#: ../src/fref2.c:1604
 #, fuzzy
 msgid "Input type"
 msgstr "Μη αριθμημένα"
 
-#: ../src/fref2.c:1589
+#: ../src/fref2.c:1622
 msgid "Required"
 msgstr ""
 
-#: ../src/fref2.c:1593 ../src/fref2.c:1720 ../src/fref2.c:1863
-#: ../src/fref2.c:3381 ../src/fref2.c:3511 ../src/fref2.c:4387
-#: ../src/fref.c:1864
+#: ../src/fref2.c:1626 ../src/fref2.c:1753 ../src/fref2.c:3541
+#: ../src/fref2.c:3687 ../src/fref2.c:4652
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: ../src/fref2.c:1612
+#: ../src/fref2.c:1645
 #, fuzzy
 msgid "Values"
 msgstr "Τιμή"
 
-#: ../src/fref2.c:1642
+#: ../src/fref2.c:1675
 #, fuzzy
 msgid "Insert syntax"
 msgstr "Εισαγωγή εικόνας"
 
-#: ../src/fref2.c:1643
+#: ../src/fref2.c:1676
 msgid ""
 "All elements:\n"
 "%0,%1,... - value of parameter number 0,1,...%* - values of all parameters\n"
 "Tag element:\n"
 "%_ - only non-empty attributes\n"
 "%! - only required attributes\n"
-"%~ only non-empty OR required attributes."
+"%~ - only non-empty OR required attributes."
 msgstr ""
 
-#: ../src/fref2.c:1700
+#: ../src/fref2.c:1733
 #, fuzzy
 msgid "Insert text"
 msgstr "Εισαγωγή Ώρας"
 
-#: ../src/fref2.c:1705
+#: ../src/fref2.c:1738
 msgid " ? "
 msgstr ""
 
-#: ../src/fref2.c:1707
+#: ../src/fref2.c:1740
 msgid "Help"
 msgstr ""
 
-#: ../src/fref2.c:1737
+#: ../src/fref2.c:1770
 #, fuzzy
 msgid "Properties"
 msgstr "Ιδιότητα"
 
-#: ../src/fref2.c:1768
+#: ../src/fref2.c:1801
 #, fuzzy
 msgid "Add property"
 msgstr "Ιδιότητα"
 
-#: ../src/fref2.c:1772
+#: ../src/fref2.c:1805
 #, fuzzy
-msgid "Add definition ref"
+msgid "Add ref definition"
 msgstr "Όρος προς ερμηνεία"
 
-#: ../src/fref2.c:1840
-#, fuzzy
-msgid "Select font for reference view"
-msgstr "Προεπισκόπηση του Bluefish:"
+#: ../src/fref2.c:1809
+msgid "Delete"
+msgstr "Διαγραφή"
 
-#: ../src/fref2.c:1851
-#, fuzzy
-msgid "Set reference colors"
-msgstr "Επεξεργασία προτιμήσεων"
-
-#: ../src/fref2.c:1867 ../src/fref2.c:4392 ../src/fref.c:1869
-msgid "Attributes/Parameters"
-msgstr ""
-
-#: ../src/fref2.c:1871 ../src/fref2.c:4397 ../src/fref.c:1874
-msgid "Notes"
-msgstr "Σημειώσεις"
-
-#: ../src/fref2.c:1875 ../src/fref2.c:4402
-#, fuzzy
-msgid "Examples"
-msgstr "Δείγμα"
-
-#: ../src/fref2.c:1879 ../src/fref2.c:4407
-#, fuzzy
-msgid "Links"
-msgstr "Σύνδεσμος"
-
-#: ../src/fref2.c:2022
+#: ../src/fref2.c:1998
 msgid "TAG: "
 msgstr ""
 
-#: ../src/fref2.c:2028
+#: ../src/fref2.c:2004
 msgid "PARENT TAGS: "
 msgstr ""
 
-#: ../src/fref2.c:2033
+#: ../src/fref2.c:2009
 msgid "FUNCTION: "
 msgstr ""
 
-#: ../src/fref2.c:2039
+#: ../src/fref2.c:2015
 msgid "RETURNS: "
 msgstr ""
 
-#: ../src/fref2.c:2044 ../src/fref2.c:2055 ../src/fref2.c:2066
+#: ../src/fref2.c:2020 ../src/fref2.c:2031 ../src/fref2.c:2042
 msgid "DEPENDENCIES: "
 msgstr ""
 
-#: ../src/fref2.c:2049
+#: ../src/fref2.c:2025
 msgid "PROPERTY: "
 msgstr ""
 
-#: ../src/fref2.c:2060
+#: ../src/fref2.c:2036
 msgid "SELECTOR: "
 msgstr ""
 
-#: ../src/fref2.c:2071
+#: ../src/fref2.c:2047
 msgid "VAR: "
 msgstr ""
 
-#: ../src/fref2.c:2077
+#: ../src/fref2.c:2053
 msgid "SNIPPET: "
 msgstr ""
 
-#: ../src/fref2.c:2089 ../src/fref2.c:2128
+#: ../src/fref2.c:2065 ../src/fref2.c:2104
 msgid "PARAMS:\n"
 msgstr ""
 
-#: ../src/fref2.c:2101
+#: ../src/fref2.c:2077
 msgid "ATTRIBUTES:\n"
 msgstr ""
 
-#: ../src/fref2.c:2149
+#: ../src/fref2.c:2125
 msgid ""
 "\n"
 "NOTES:\n"
 msgstr ""
 
-#: ../src/fref2.c:2172
+#: ../src/fref2.c:2148
 msgid ""
 "\n"
 "EXAMPLES:\n"
 msgstr ""
 
-#: ../src/fref2.c:2189
+#: ../src/fref2.c:2165
 msgid ""
 "SEE ALSO:\n"
 " "
 msgstr ""
 
-#: ../src/fref2.c:2729
+#: ../src/fref2.c:2695
 msgid "Choose colour"
 msgstr ""
 
-#: ../src/fref2.c:3331 ../src/fref2.c:3407 ../src/fref2.c:3452
-#: ../src/fref2.c:3477 ../src/fref.c:2082
+#: ../src/fref2.c:3491 ../src/fref2.c:3567 ../src/fref2.c:3586
+#: ../src/fref2.c:3619 ../src/fref2.c:3640 ../src/fref2.c:3653
+#: ../src/fref2.c:3800 ../src/fref2.c:3834 ../src/fref2.c:4193
+#: ../src/fref2.c:4355 ../src/fref2.c:4407 ../src/fref2.c:4428
 msgid "Error"
 msgstr "Σφάλμα"
 
-#: ../src/fref2.c:3332
+#: ../src/fref2.c:3492
 msgid ""
 "Perhaps you didn't load a library, or you did not select a library to search "
 "in."
 msgstr ""
 
-#: ../src/fref2.c:3340
+#: ../src/fref2.c:3500
 #, c-format
 msgid "Element %s not found"
 msgstr ""
 
-#: ../src/fref2.c:3344
+#: ../src/fref2.c:3504
 #, fuzzy
 msgid "Element search"
 msgstr "Ανανέωση εγγράφου"
 
-#: ../src/fref2.c:3381 ../src/fref2.c:4444
+#: ../src/fref2.c:3541 ../src/fref2.c:4695
 #, fuzzy
 msgid "New library"
 msgstr "Προσωρινός κατάλογος:"
 
-#: ../src/fref2.c:3381
+#: ../src/fref2.c:3541
 #, fuzzy
 msgid "Library name"
 msgstr "Όνομα καταλόγου"
 
-#: ../src/fref2.c:3408
+#: ../src/fref2.c:3568
 msgid "Library has to have a name."
 msgstr ""
 
-#: ../src/fref2.c:3438
+#: ../src/fref2.c:3587 ../src/fref2.c:3641 ../src/fref2.c:3835
+#: ../src/fref2.c:4194 ../src/fref2.c:4356 ../src/fref2.c:4429
+msgid "This library is readonly."
+msgstr ""
+
+#: ../src/fref2.c:3605
 #, fuzzy
 msgid "Delete library?"
 msgstr "Διαγραφή σελιδοδεικτών;"
 
-#: ../src/fref2.c:3453
+#: ../src/fref2.c:3620
 msgid "You have to select a reference."
 msgstr ""
 
-#: ../src/fref2.c:3478
+#: ../src/fref2.c:3654
 msgid "Reference not loaded."
 msgstr ""
 
-#: ../src/fref2.c:3493 ../src/fref2.c:3507 ../src/fref2.c:4007
-#: ../src/fref2.c:4191
+#: ../src/fref2.c:3669 ../src/fref2.c:3683 ../src/fref2.c:4206
+#: ../src/fref2.c:4441
 msgid "Bad element"
 msgstr ""
 
-#: ../src/fref2.c:3494
+#: ../src/fref2.c:3670
 msgid "You can define notes for: library, group or element."
 msgstr ""
 
-#: ../src/fref2.c:3497
+#: ../src/fref2.c:3673
 #, fuzzy
 msgid "New note"
 msgstr "Νέο έργο"
 
-#: ../src/fref2.c:3497
+#: ../src/fref2.c:3673
 #, fuzzy
 msgid "Title"
 msgstr "_Τίτλος:"
 
-#: ../src/fref2.c:3497
+#: ../src/fref2.c:3673
 #, fuzzy
 msgid "Text"
 msgstr "Πεδίο κειμένου"
 
-#: ../src/fref2.c:3508
+#: ../src/fref2.c:3684
 msgid "You can define group for: library or group."
 msgstr ""
 
-#: ../src/fref2.c:3511
+#: ../src/fref2.c:3687
 #, fuzzy
 msgid "New group"
 msgstr "Νέο έργο"
 
-#: ../src/fref2.c:3518
+#: ../src/fref2.c:3694
 #, fuzzy
 msgid "New description def"
 msgstr "Περιγραφή"
 
-#: ../src/fref2.c:3518
+#: ../src/fref2.c:3694
 #, fuzzy
 msgid "Description text"
 msgstr "Περιγραφή"
 
-#: ../src/fref2.c:3526
+#: ../src/fref2.c:3702
 #, fuzzy
 msgid "New values def"
 msgstr "Νέο Παράθυρο Bluefish"
 
-#: ../src/fref2.c:3526
+#: ../src/fref2.c:3702
 msgid "Values separated by comma"
 msgstr ""
 
-#: ../src/fref2.c:3710 ../src/fref2.c:3940
+#: ../src/fref2.c:3801 ../src/fref2.c:4304
+msgid "Element has to have a name."
+msgstr ""
+
+#: ../src/fref2.c:3900 ../src/fref2.c:4130
 msgid "Missing value"
 msgstr ""
 
-#: ../src/fref2.c:3711 ../src/fref2.c:3941
+#: ../src/fref2.c:3901 ../src/fref2.c:4131
 msgid "Property has to have a name."
 msgstr ""
 
-#: ../src/fref2.c:3832 ../src/fref2.c:4134
+#: ../src/fref2.c:4022 ../src/fref2.c:4363
 #, fuzzy
 msgid "Definitions"
 msgstr "Ορισμός"
 
-#: ../src/fref2.c:3879
+#: ../src/fref2.c:4069
 #, fuzzy
 msgid "New property"
 msgstr "Νέο έργο"
 
-#: ../src/fref2.c:4008
+#: ../src/fref2.c:4207
 msgid "Please select library or group."
 msgstr ""
 
-#: ../src/fref2.c:4011
+#: ../src/fref2.c:4210
 msgid "New element"
 msgstr ""
 
-#: ../src/fref2.c:4104
+#: ../src/fref2.c:4303
 #, fuzzy
 msgid "No name"
 msgstr "Μη γνωστό όνομα αρχείου"
 
-#: ../src/fref2.c:4105
-msgid "Element has to have a name."
-msgstr ""
-
-#: ../src/fref2.c:4160
+#: ../src/fref2.c:4393
 #, fuzzy
 msgid "Delete definition?"
 msgstr "Ορισμός"
 
-#: ../src/fref2.c:4192
+#: ../src/fref2.c:4408
+msgid "This property is used by some elements. Cannot delete."
+msgstr ""
+
+#: ../src/fref2.c:4442
 msgid "Please use delete library instead."
 msgstr ""
 
-#: ../src/fref2.c:4198
+#: ../src/fref2.c:4448
 #, fuzzy
 msgid "Delete group"
 msgstr " Διαγραφή "
 
-#: ../src/fref2.c:4199
+#: ../src/fref2.c:4449
 msgid "Not implemented yet"
 msgstr ""
 
-#: ../src/fref2.c:4213
+#: ../src/fref2.c:4463
 #, fuzzy
 msgid "Delete group?"
 msgstr " Διαγραφή "
 
-#: ../src/fref2.c:4214
+#: ../src/fref2.c:4464
 #, fuzzy
 msgid "Do you really want to delete current entity?"
 msgstr "Είσαι σίγουρος για την αντικατάσταση;"
 
-#: ../src/fref2.c:4368 ../src/fref.c:2316
+#: ../src/fref2.c:4633
 msgid "Show info window"
 msgstr ""
 
-#: ../src/fref2.c:4376 ../src/fref.c:1472 ../src/fref.c:1816
-#: ../src/fref.c:1843
+#: ../src/fref2.c:4641
 msgid "Insert"
 msgstr "Εισαγωγή"
 
-#: ../src/fref2.c:4379 ../src/fref2.c:4386
+#: ../src/fref2.c:4644 ../src/fref2.c:4651
 msgid "Show"
 msgstr ""
 
-#: ../src/fref2.c:4416 ../src/fref2.c:4422
-msgid "Settings"
+#: ../src/fref2.c:4657
+msgid "Attributes/Parameters"
 msgstr ""
 
-#: ../src/fref2.c:4423 ../src/fref.c:1833
+#: ../src/fref2.c:4662
+msgid "Notes"
+msgstr "Σημειώσεις"
+
+#: ../src/fref2.c:4667
 #, fuzzy
-msgid "Rescan reference files"
+msgid "Examples"
+msgstr "Δείγμα"
+
+#: ../src/fref2.c:4672
+#, fuzzy
+msgid "Links"
+msgstr "Σύνδεσμος"
+
+#: ../src/fref2.c:4681
+#, fuzzy
+msgid "Rescan directories"
 msgstr "Προεπισκόπηση του Bluefish:"
 
-#: ../src/fref2.c:4427
-#, fuzzy
-msgid "Set view font"
-msgstr "Επιλογή γραμματοσειράς"
+#: ../src/fref2.c:4688 ../src/fref2.c:4694
+msgid "Edit"
+msgstr "Επεξεργασία"
 
-#: ../src/fref2.c:4430
-msgid "Set view colors"
-msgstr ""
-
-#: ../src/fref2.c:4447
+#: ../src/fref2.c:4698
 #, fuzzy
 msgid "Delete library"
 msgstr "Διαγραφή σελιδοδείκτη"
 
-#: ../src/fref2.c:4451
+#: ../src/fref2.c:4702
 msgid "New entity"
 msgstr ""
 
-#: ../src/fref2.c:4454
+#: ../src/fref2.c:4705
 #, fuzzy
 msgid "Note"
 msgstr "Σημειώσεις"
 
-#: ../src/fref2.c:4457
+#: ../src/fref2.c:4708
 msgid "Group"
 msgstr ""
 
-#: ../src/fref2.c:4460
+#: ../src/fref2.c:4711
 #, fuzzy
 msgid "Property definition"
 msgstr "Ορισμός"
 
-#: ../src/fref2.c:4463
+#: ../src/fref2.c:4714
 #, fuzzy
 msgid "Description definition"
 msgstr "Περιγραφή"
 
-#: ../src/fref2.c:4466
+#: ../src/fref2.c:4717
 #, fuzzy
 msgid "Values definition"
 msgstr "Ορισμός"
 
-#: ../src/fref2.c:4470
+#: ../src/fref2.c:4721
 #, fuzzy
 msgid "Element"
 msgstr "Γεγονότα"
 
-#: ../src/fref2.c:4474
+#: ../src/fref2.c:4725
 #, fuzzy
 msgid "Delete definition"
 msgstr "Ορισμός"
 
-#: ../src/fref2.c:4477
+#: ../src/fref2.c:4728
 #, fuzzy
 msgid "Delete entity"
 msgstr " Διαγραφή "
 
-#: ../src/fref.c:1467 ../src/gui.c:1123
-msgid "Close"
-msgstr "Κλείσιμο"
-
-#: ../src/fref.c:1471 ../src/fref.c:1813 ../src/fref.c:1849 ../src/fref.c:2330
-msgid "Dialog"
-msgstr "Διάλογος"
-
-#: ../src/fref.c:1825 ../src/html.c:1042
-msgid "Options"
-msgstr "Επιλογές"
-
-#: ../src/fref.c:1837
-msgid "Left doubleclick action"
-msgstr ""
-
-#: ../src/fref.c:1859
-#, fuzzy
-msgid "Info type"
-msgstr "Μη αριθμημένα"
-
-#: ../src/fref.c:2050 ../src/fref.c:2064
-#, fuzzy
-msgid "Reference search"
-msgstr "Ανανέωση εγγράφου"
-
-#: ../src/fref.c:2065
-msgid "Reference not found"
-msgstr ""
-
-#: ../src/fref.c:2084
-msgid ""
-"Perhaps you didn't load a reference, or you did not select a reference to "
-"search in."
-msgstr ""
-
-#: ../src/fref.c:2332
-msgid "Search"
-msgstr "Αναζήτηση"
-
-#: ../src/gtk_easy.c:1161
+#: ../src/gtk_easy.c:1003
 #, c-format
 msgid "%d of %d"
 msgstr "%d από %d"
 
-#: ../src/gtk_easy.c:1262
+#: ../src/gtk_easy.c:1108
 msgid "Select File"
 msgstr "Επιλογή Αρχείου"
 
-#: ../src/gtk_easy.c:1377
+#: ../src/gtk_easy.c:1225
 msgid "Show hidden"
 msgstr "Εμφάνιση κρυφών"
 
-#: ../src/gui.c:261
+#: ../src/gui.c:254
 msgid "Filebrowser"
 msgstr "Περιηγητής αρχείων"
 
-#: ../src/gui.c:263
+#: ../src/gui.c:256
 #, fuzzy
 msgid "Function reference"
 msgstr "/Επιλογές/Προτιμήσεις"
 
-#: ../src/gui.c:264
+#: ../src/gui.c:257
 msgid "Bookmarks"
 msgstr "Σελίδοδείκτες"
 
-#: ../src/gui.c:630
-msgid "QuickStart..."
-msgstr "Γρήγορη αρχή..."
-
-#: ../src/gui.c:631
-msgid "Body..."
-msgstr "Κορμός..."
-
-#: ../src/gui.c:632
-msgid "Bold"
-msgstr "Έντονα"
-
-#: ../src/gui.c:633
-msgid "Italic"
-msgstr "Πλάγια"
-
-#: ../src/gui.c:634 ../src/html.c:776
-msgid "Paragraph"
-msgstr "Παράγραφος"
-
-#: ../src/gui.c:635
-msgid "Break"
-msgstr "Αλλαγή γραμμής"
-
-#: ../src/gui.c:636
-msgid "Break and clear"
-msgstr "Αλλαγή γραμμής και καθάριση"
-
-#: ../src/gui.c:637
-msgid "Non-breaking space"
-msgstr "Διάστημα χωρίς διακοπή"
-
-#: ../src/gui.c:639
-msgid "Anchor..."
-msgstr "Διασύνδεση..."
-
-#: ../src/gui.c:640
-msgid "Rule..."
-msgstr "Διαχωρισμός..."
-
-#: ../src/gui.c:641
-msgid "Center"
-msgstr "Κέντρο"
-
-#: ../src/gui.c:642
-msgid "Right Justify"
-msgstr "Στοίχηση δεξιά"
-
-#: ../src/gui.c:643
-msgid "Comment"
-msgstr "Σχόλιο"
-
-#: ../src/gui.c:644
-msgid "E-Mail..."
-msgstr "E-mail..."
-
-#: ../src/gui.c:645
-msgid "Font..."
-msgstr "Γραμματοσειρά..."
-
-#: ../src/gui.c:646
-msgid "Base Font Size..."
-msgstr "Βασικό μέγεθος γρ/σειράς..."
-
-#: ../src/gui.c:648
-msgid "Font Size +1"
-msgstr "Μέγεθος γρ/σειράς +1"
-
-#: ../src/gui.c:649
-msgid "Font Size -1"
-msgstr "Μέγεθος γρ/σειράς -1"
-
-#: ../src/gui.c:650
-msgid "Preformatted Text"
-msgstr "Προφορμαρισμένο Κείμενο"
-
-#: ../src/gui.c:651
-msgid "Subscript"
-msgstr "Δείκτης"
-
-#: ../src/gui.c:652
-msgid "Superscript"
-msgstr "Εκθέτης"
-
-#: ../src/gui.c:653
-msgid "Strong"
-msgstr "Έντονα"
-
-#: ../src/gui.c:654
-msgid "Emphasis"
-msgstr "Έμφασις"
-
-#: ../src/gui.c:656 ../src/html.c:785
-msgid "Heading 1"
-msgstr "Κεφαλίδα 1"
-
-#: ../src/gui.c:657 ../src/html.c:788
-msgid "Heading 2"
-msgstr "Κεφαλίδα 2"
-
-#: ../src/gui.c:658 ../src/html.c:791
-msgid "Heading 3"
-msgstr "Κεφαλίδα 3"
-
-#: ../src/gui.c:659 ../src/html.c:794
-msgid "Heading 4"
-msgstr "Κεφαλίδα 4"
-
-#: ../src/gui.c:660 ../src/html.c:797
-msgid "Heading 5"
-msgstr "Κεφαλίδα 5"
-
-#: ../src/gui.c:661 ../src/html.c:800
-msgid "Heading 6"
-msgstr "Κεφαλίδα 6"
-
-#: ../src/gui.c:662
-msgid "Table Wizard..."
-msgstr "Οδηγός πίνακα..."
-
-#: ../src/gui.c:664
-msgid "Table..."
-msgstr "Πίνακας..."
-
-#: ../src/gui.c:665
-msgid "Table Row..."
-msgstr "Γραμμή Πίνακα..."
-
-#: ../src/gui.c:666
-msgid "Table Header..."
-msgstr "Κεφαλίδα Πίνακα..."
-
-#: ../src/gui.c:667
-msgid "Table Data..."
-msgstr "Δεδομένα Πίνακα..."
-
-#: ../src/gui.c:669 ../src/html_table.c:81
-msgid "Table"
-msgstr "Πίνακας"
-
-#: ../src/gui.c:670 ../src/html_table.c:213
-msgid "Table Row"
-msgstr "Γραμμή Πίνακα"
-
-#: ../src/gui.c:671 ../src/html_table.c:324
-msgid "Table Header"
-msgstr "Κεφαλίδα Πίνακα"
-
-#: ../src/gui.c:672 ../src/html_table.c:322
-msgid "Table Data"
-msgstr "Δεδομένα Πίνακα"
-
-#: ../src/gui.c:673
-msgid "Table Caption"
-msgstr "Πλαίσιο πίνακα"
-
-#: ../src/gui.c:674
-msgid "Frame Wizard..."
-msgstr "Οδηγός Πλαισίων..."
-
-#: ../src/gui.c:676
-msgid "Frameset..."
-msgstr "Σετ πλαισίου..."
-
-#: ../src/gui.c:677
-msgid "Frame..."
-msgstr "Πλαίσιο..."
-
-#: ../src/gui.c:679 ../src/html.c:1533
-msgid "Frameset"
-msgstr "Frameset"
-
-#: ../src/gui.c:680 ../src/html.c:1617
-msgid "Frame"
-msgstr "Πλαίσιο"
-
-#: ../src/gui.c:681
-msgid "Noframes"
-msgstr "Χωρίς πλαίσια"
-
-#: ../src/gui.c:682
-msgid "Target"
-msgstr "Στόχος"
-
-#: ../src/gui.c:683
-msgid "Form..."
-msgstr "Φόρμα..."
-
-#: ../src/gui.c:684
-#, fuzzy
-msgid "Input Button..."
-msgstr "Ραδιο-κουμπί..."
-
-#: ../src/gui.c:685
-#, fuzzy
-msgid "Input Text..."
-msgstr "Ραδιο-κουμπί..."
-
-#: ../src/gui.c:686
-#, fuzzy
-msgid "Input Hidden..."
-msgstr "Κρύφο..."
-
-#: ../src/gui.c:687
-msgid "Textarea..."
-msgstr "Πεδίο κειμένου..."
-
-#: ../src/gui.c:688
-#, fuzzy
-msgid "Input Radio Button..."
-msgstr "Ραδιο-κουμπί..."
-
-#: ../src/gui.c:689
-#, fuzzy
-msgid "Input Check Box..."
-msgstr "Κουμπί τσεκαρίσματος..."
-
-#: ../src/gui.c:690
-msgid "Select..."
-msgstr "Επιλογή..."
-
-#: ../src/gui.c:691
-msgid "Option..."
-msgstr "Επιλογή..."
-
-#: ../src/gui.c:692
-#, fuzzy
-msgid "Option group..."
-msgstr "/Ε_πιλογές..."
-
-#: ../src/gui.c:693
-msgid "Button..."
-msgstr "Κουμπί..."
-
-#: ../src/gui.c:694
-msgid "Quick List..."
-msgstr "Γρήγορη λίστα..."
-
-#: ../src/gui.c:695
-msgid "Unordered List"
-msgstr "Μη αριθμημένη λίστα"
-
-#: ../src/gui.c:696
-msgid "Ordered List"
-msgstr "Αριθμημένη λίστα"
-
-#: ../src/gui.c:697
-msgid "List Item"
-msgstr "Αντικείμενο Λίστας"
-
-#: ../src/gui.c:698
-msgid "Definition List"
-msgstr "Λίστα Ορισμών"
-
-#: ../src/gui.c:699
-msgid "Definition Term"
-msgstr "Όρος προς ερμηνεία"
-
-#: ../src/gui.c:700 ../src/gui.c:709
-msgid "Definition"
-msgstr "Ορισμός"
-
-#: ../src/gui.c:701
-#, fuzzy
-msgid "Create stylesheet..."
-msgstr "Εισαγωγή στυλ στο φύλλο των στυλ..."
-
-#: ../src/gui.c:702
-msgid "Span..."
-msgstr "Διάστημα..."
-
-#: ../src/gui.c:703
-msgid "Div..."
-msgstr "Div..."
-
-#: ../src/gui.c:704 ../src/html_form.c:825
-msgid "Style"
-msgstr "Στυλ"
-
-#: ../src/gui.c:705
-#, fuzzy
-msgid "Link to stylesheet..."
-msgstr "Διασύνδεση σε φύλλο στυλ"
-
-#: ../src/gui.c:706
-msgid "Insert image..."
-msgstr "Εισαγωγή εικόνας..."
-
-#: ../src/gui.c:707
-msgid "Insert thumbnail..."
-msgstr "Εισαγωγή μικρογραφίας..."
-
-# src/configure.c:355		ΝΤΚ
-#: ../src/gui.c:708
-#, fuzzy
-msgid "Multi thumbnail..."
-msgstr "Τύπος προεπισκόπησης"
-
-#: ../src/gui.c:710
-msgid "Code"
-msgstr "Κώδικας"
-
-#: ../src/gui.c:711
-msgid "Sample"
-msgstr "Δείγμα"
-
-#: ../src/gui.c:712
-msgid "Keyboard"
-msgstr "Πληκρολόγιο"
-
-#: ../src/gui.c:713
-msgid "Variable"
-msgstr "Μεταβλητή"
-
-#: ../src/gui.c:714
-#, fuzzy
-msgid "Citation"
-msgstr "Περιεχόμενο"
-
-#: ../src/gui.c:715
-msgid "Abbreviation"
-msgstr ""
-
-#: ../src/gui.c:716
-#, fuzzy
-msgid "Acronym"
-msgstr "Ενέργεια"
-
-#: ../src/gui.c:913
-msgid "Remove from quickbar"
-msgstr ""
-
-#: ../src/gui.c:914
-msgid "Move Left"
-msgstr "Μετακίνηση Αριστερά"
-
-#: ../src/gui.c:915
-#, fuzzy
-msgid "Move Right"
-msgstr "Μετακίνηση Δεξιά"
-
-#: ../src/gui.c:955
-#, fuzzy
-msgid "Add to quickbar"
-msgstr " Γρήγορη μπάρα "
-
-#: ../src/gui.c:1052
-msgid " Quick bar "
-msgstr " Γρήγορη μπάρα "
-
-#: ../src/gui.c:1057
-msgid "Heading"
-msgstr "Κεφαλίδα"
-
-#: ../src/gui.c:1059
-msgid " Standard bar "
-msgstr ""
-
-#: ../src/gui.c:1064
-#, fuzzy
-msgid "Context formatting"
-msgstr "διακόσμηση κειμένου"
-
-#: ../src/gui.c:1066
-msgid " Fonts "
-msgstr " Γρ/σειρές"
-
-#: ../src/gui.c:1071
-msgid " Tables "
-msgstr " Πίνακες "
-
-#: ../src/gui.c:1076
-msgid " Frames "
-msgstr " Πλαίσια "
-
-#: ../src/gui.c:1081
-msgid " Forms "
-msgstr " Φόρμες "
-
-#: ../src/gui.c:1086
-msgid " List "
-msgstr " Λίστα "
-
-#: ../src/gui.c:1091
-msgid " CSS "
-msgstr " CSS "
-
-#: ../src/gui.c:1115
+#: ../src/gui.c:371
 msgid "New"
 msgstr "Νέο"
 
-#: ../src/gui.c:1117
+#: ../src/gui.c:373
 msgid "Open..."
 msgstr "Άνοιγμα..."
 
-#: ../src/gui.c:1119
+#: ../src/gui.c:375
 msgid "Save"
 msgstr "Αποθήκευση"
 
-#: ../src/gui.c:1121
+#: ../src/gui.c:377
 msgid "Save As..."
 msgstr "Αποθήκευση Ως..."
 
-#: ../src/gui.c:1126
+#: ../src/gui.c:379
+msgid "Close"
+msgstr "Κλείσιμο"
+
+#: ../src/gui.c:382
 msgid "Cut"
 msgstr "Αποκοπή"
 
-#: ../src/gui.c:1128
+#: ../src/gui.c:384
 msgid "Copy"
 msgstr "Αντιγραφή"
 
-#: ../src/gui.c:1130
+#: ../src/gui.c:386
 msgid "Paste"
 msgstr "Επικόλληση"
 
-#: ../src/gui.c:1133
+#: ../src/gui.c:389
 msgid "Find..."
 msgstr "Εύρεση..."
 
-#: ../src/gui.c:1135
+#: ../src/gui.c:391
 msgid "Replace..."
 msgstr "Αντικατάσταση..."
 
-#: ../src/gui.c:1138 ../src/preferences.c:1993
+#: ../src/gui.c:394
 msgid "Undo"
 msgstr "Αναίρεση"
 
-#: ../src/gui.c:1140
+#: ../src/gui.c:396
 msgid "Redo"
 msgstr "Επαναφορά"
 
-#: ../src/gui.c:1143
+#: ../src/gui.c:399
 msgid "Shift Left"
 msgstr ""
 
-#: ../src/gui.c:1145
+#: ../src/gui.c:401
 msgid "Shift Right"
 msgstr ""
 
-#: ../src/gui.c:1152
+#: ../src/gui.c:408
 msgid "Spellcheck..."
 msgstr "Έλεγχος Ορθογραφίας..."
 
-#: ../src/gui.c:1157
+#: ../src/gui.c:413
 msgid "View in browser"
 msgstr "Προβολή στον περιηγητή"
 
-#: ../src/gui.c:1160
+#: ../src/gui.c:416
 msgid "Preferences..."
 msgstr "Προτιμήσεις..."
 
-#: ../src/gui.c:1303
+#: ../src/gui.c:603
 msgid "New Bluefish Window"
 msgstr "Νέο Παράθυρο Bluefish"
 
-#: ../src/gui.c:1365
+#: ../src/gui.c:665
 #, fuzzy
 msgid "Stand by..."
 msgstr "Διάστημα..."
 
-#: ../src/gui.c:1554
+#: ../src/gui.c:861
 msgid "Goto line"
 msgstr "Πήγαινε στη γραμμή"
 
-#: ../src/gui.c:1562
+#: ../src/gui.c:869
 msgid "_Line number:"
 msgstr "Αριθμός _γραμμής:"
 
-#: ../src/gui.c:1568
+#: ../src/gui.c:875
 #, fuzzy
 msgid "From _selection"
 msgstr "Επιλογή γραμματοσειράς"
 
-#: ../src/gui.c:1571
+#: ../src/gui.c:878
 #, fuzzy
 msgid "Keep _dialog"
 msgstr "Διάλογος εικόνων"
 
-#: ../src/gui.c:1637
+#: ../src/gui.c:942
 msgid "starting bluefish"
 msgstr ""
 
-#: ../src/highlight.c:362 ../src/highlight.c:374 ../src/highlight.c:401
-#: ../src/highlight.c:415
+#: ../src/highlight.c:385 ../src/highlight.c:397 ../src/highlight.c:424
+#: ../src/highlight.c:438
 #, fuzzy
 msgid "Syntax highlighting error for "
 msgstr "/Επιλογές/Λίστες/Υπογράμμιση σύνταξης"
 
-#: ../src/highlight.c:363
+#: ../src/highlight.c:386
 #, c-format
 msgid "compiling pattern '%s': %s at offset %d"
 msgstr ""
 
-#: ../src/highlight.c:375
+#: ../src/highlight.c:398
 #, c-format
 msgid "studying pattern '%s': %s"
 msgstr ""
 
-#: ../src/highlight.c:402
+#: ../src/highlight.c:425
 #, c-format
 msgid "compiling 2nd pattern '%s': %s at offset %d"
 msgstr ""
 
-#: ../src/highlight.c:416
+#: ../src/highlight.c:439
 #, c-format
 msgid "studying 2nd pattern '%s': %s"
 msgstr ""
 
-#: ../src/html2.c:557
-msgid "Cascading StyleSheet dialog"
-msgstr ""
-
-#: ../src/html2.c:577
-msgid "_Selector:"
-msgstr "_Επιλογέας:"
-
-#: ../src/html2.c:596
-msgid "_Property:"
-msgstr "_ιδιότητα:"
-
-#: ../src/html2.c:598 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Τιμή:"
-
-#: ../src/html2.c:616
-msgid "Selector"
-msgstr "Επιλογέας"
-
-#: ../src/html2.c:616 ../src/html2.c:619
-msgid "Property"
-msgstr "Ιδιότητα"
-
-#: ../src/html2.c:616 ../src/html2.c:619
-msgid "Value"
-msgstr "Τιμή"
-
-#: ../src/html2.c:634
-msgid " _Add "
-msgstr " _Προσθήκη "
-
-#: ../src/html2.c:637
-msgid " _Update "
-msgstr " _Ανανέωση "
-
-#: ../src/html2.c:640
-msgid " _Delete "
-msgstr " _Διαγραφή "
-
-#: ../src/html2.c:896 ../src/html2.c:933
-msgid "_Style..."
-msgstr "_Στυλ..."
-
-#: ../src/html2.c:1090
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Επιλογή χρώματος"
-
-#: ../src/html.c:392
-msgid "Insert Time"
-msgstr "Εισαγωγή Ώρας"
-
-#: ../src/html.c:400
-#, c-format
-msgid "  _Time (%i:%i:%i)"
-msgstr " _Ώρα (%i:%i:%i)"
-
-#: ../src/html.c:405
-msgid "  Day of the _week (Sunday)"
-msgstr " Ημέρα της εβ_δομάδας (Κυριακή)"
-
-#: ../src/html.c:408
-msgid "  Day of the _week (Monday)"
-msgstr " Ημέρα της β_δομάδας (Δευτέρα)"
-
-#: ../src/html.c:411
-msgid "  Day of the _week (Tuesday)"
-msgstr " Ημέρα της ε_βδομάδας (Τρίτη)"
-
-#: ../src/html.c:414
-msgid "  Day of the _week (Wednesday)"
-msgstr " Ημέρα της ε_βδομάδας (Τετάρτη)"
-
-#: ../src/html.c:417
-msgid "  Day of the _week (Thursday)"
-msgstr " Ημέρα της ε_βδομάδας (Πέμπτη)"
-
-#: ../src/html.c:420
-msgid "  Day of the _week (Friday)"
-msgstr " Ημέρα της εβ_δομάδας (Παρασκευή)"
-
-#: ../src/html.c:423
-msgid "  Day of the _week (Saturday)"
-msgstr " Ημέρα της ε_βδομάδας (Σάββατο)"
-
-#: ../src/html.c:426
-msgid "You appear to have a non existant day!\n"
-msgstr "Φαίνεται πως έχετε μια μη υπαρκτή μέρα!\n"
-
-#: ../src/html.c:434
-#, c-format
-msgid "  _Date (%i/%i/%i)"
-msgstr " _Ημερομηνία (%i/%i/%i)"
-
-#: ../src/html.c:437
-#, c-format
-msgid "  _Unix Time (%i)"
-msgstr " Ώρα _Unix (%i)"
-
-#: ../src/html.c:440
-#, fuzzy, c-format
-msgid "  Unix Date _String (%s"
-msgstr " Ημερομηνία Unix (%s"
-
-# src/html.c:760		ΝΤΚ
-#: ../src/html.c:584
-msgid "Quick Anchor"
-msgstr "Γρήγορη διασύνδεση"
-
-#: ../src/html.c:590 ../src/html_form.c:780
-msgid "Attributes"
-msgstr "Γνωρίσματα"
-
-#: ../src/html.c:604
-msgid "_HREF:"
-msgstr "_HREF:"
-
-#: ../src/html.c:608 ../src/html_form.c:183
-#, fuzzy
-msgid "_Target:"
-msgstr "Στόχος"
-
-#: ../src/html.c:618 ../src/html.c:1065 ../src/html.c:1776
-msgid "_Language:"
-msgstr "_Γλώσσα:"
-
-#: ../src/html.c:622 ../src/html.c:840 ../src/html.c:974 ../src/html.c:1069
-#: ../src/html.c:1224 ../src/html.c:1565 ../src/html.c:1666 ../src/html.c:1795
-#: ../src/html_form.c:187 ../src/html_form.c:243 ../src/html_form.c:609
-#: ../src/html_form.c:903 ../src/html_table.c:105 ../src/html_table.c:257
-#: ../src/html_table.c:365 ../src/image.c:407
-#, fuzzy
-msgid "Custo_m:"
-msgstr "Προσαρμωγή"
-
-#: ../src/html.c:625 ../src/html.c:1073 ../src/html_form.c:829
-msgid "Events"
-msgstr "Γεγονότα"
-
-#: ../src/html.c:628
-msgid "OnClic_k:"
-msgstr ""
-
-#: ../src/html.c:632
-msgid "OnD_blClick:"
-msgstr ""
-
-#: ../src/html.c:636
-msgid "OnMouseO_ver:"
-msgstr ""
-
-#: ../src/html.c:640
-msgid "OnMouse_Down:"
-msgstr ""
-
-#: ../src/html.c:644
-msgid "OnMouse_Move:"
-msgstr ""
-
-#: ../src/html.c:648
-msgid "OnMouseOu_t:"
-msgstr ""
-
-#: ../src/html.c:652
-msgid "OnMouse_Up:"
-msgstr ""
-
-#: ../src/html.c:656
-msgid "OnKeyDo_wn:"
-msgstr ""
-
-#: ../src/html.c:660
-msgid "OnKey_Press:"
-msgstr ""
-
-#: ../src/html.c:664
-msgid "OnKe_yUp:"
-msgstr ""
-
-#: ../src/html.c:779
-msgid "Div"
-msgstr "Div"
-
-#: ../src/html.c:782
-msgid "Span"
-msgstr "Span"
-
-#: ../src/html.c:817 ../src/html_table.c:113 ../src/html_table.c:223
-#: ../src/html_table.c:337
-msgid "Ali_gn:"
-msgstr "Στοί_χηση:"
-
-#: ../src/html.c:821 ../src/html.c:1057 ../src/html_diag.c:372
-#: ../src/html_table.c:95 ../src/html_table.c:241 ../src/html_table.c:355
-#, fuzzy
-msgid "Cl_ass:"
-msgstr "Κλάση"
-
-#: ../src/html.c:825 ../src/html.c:1050 ../src/html_diag.c:380
-#: ../src/html_table.c:100 ../src/html_table.c:252 ../src/html_table.c:360
-msgid "St_yle:"
-msgstr "Σ_τυλ:"
-
-#: ../src/html.c:836 ../src/html.c:1061 ../src/html_diag.c:376
-msgid "_ID:"
-msgstr "_ID:"
-
-#: ../src/html.c:937
-msgid "Horizontal Rule"
-msgstr "Οριζόντια διαχώριση"
-
-#: ../src/html.c:948 ../src/html.c:1714 ../src/image.c:425
-msgid "_Align:"
-msgstr "Στοί_χηση:"
-
-#: ../src/html.c:955 ../src/html.c:1722 ../src/html_table.c:391
-msgid "_Height:"
-msgstr "_Ύψος:"
-
-#: ../src/html.c:961 ../src/html.c:1718 ../src/html_table.c:138
-#: ../src/html_table.c:384 ../src/image.c:383
-msgid "_Width:"
-msgstr "_Πλάτος:"
-
-#: ../src/html.c:964
-msgid "Is _percent"
-msgstr "Είναι _ποσοστό"
-
-#: ../src/html.c:969
-#, fuzzy
-msgid "No _shading"
-msgstr "Χωρίς σκιά"
-
-#: ../src/html.c:1034
-msgid "Body"
-msgstr "Σώμα"
-
-#: ../src/html.c:1080
-msgid "On_Load:"
-msgstr ""
-
-#: ../src/html.c:1088
-msgid "On_UnLoad:"
-msgstr ""
-
-#: ../src/html.c:1097
-#, fuzzy
-msgid "Depreciated options"
-msgstr "Ορθογραφία"
-
-#: ../src/html.c:1107
-msgid "Background _Image:"
-msgstr "Ει_κόνα Παρασκηνίου:"
-
-#: ../src/html.c:1114
-msgid "Back_ground Color:"
-msgstr "Χρώμα _Παρασκηνίου:"
-
-#: ../src/html.c:1120
-msgid "_Text Color:"
-msgstr "Χρώμα _Κειμένου:"
-
-#: ../src/html.c:1126
-msgid "_Link Color:"
-msgstr "Χρώμα _Συνδέσμου:"
-
-#: ../src/html.c:1132
-#, fuzzy
-msgid "_Visited Link Color:"
-msgstr "Χρώμα ήδη επισκεπτώμενης διασύνδεσης"
-
-#: ../src/html.c:1138
-#, fuzzy
-msgid "_Active Link Color:"
-msgstr "Χρώμα ενεργής διεύθηνσης"
-
-#: ../src/html.c:1186
-msgid "Meta"
-msgstr "Meta"
-
-#: ../src/html.c:1211
-msgid "_HTTP-EQUIV:"
-msgstr "_HTTP-EQUIV:"
-
-#: ../src/html.c:1216
-msgid "Con_tent:"
-msgstr "Περιε_χόμενο:"
-
-#: ../src/html.c:1220
-#, fuzzy
-msgid "_Scheme:"
-msgstr "Θέμα"
-
-#: ../src/html.c:1301 ../src/preferences.c:1985
-msgid "Font"
-msgstr "Γραμματοσειρά"
-
-#: ../src/html.c:1304
-msgid "Base Font"
-msgstr "Βασική Γραμματοσειρά"
-
-#: ../src/html.c:1319
-msgid "Size"
-msgstr "Μέγεθος"
-
-#: ../src/html.c:1327
-msgid "Color"
-msgstr "Χρώμα"
-
-#: ../src/html.c:1332
-msgid "Face"
-msgstr ""
-
-#: ../src/html.c:1336
-msgid "Custom"
-msgstr "Προσαρμοσμένο"
-
-#: ../src/html.c:1395
-msgid "Email"
-msgstr "Email"
-
-#: ../src/html.c:1403
-msgid "_Email address:"
-msgstr "_Email διεύθυνση:"
-
-#: ../src/html.c:1408
-msgid "UrlEncoded _subject:"
-msgstr ""
-
-#: ../src/html.c:1412
-msgid "UrlEncoded _body:"
-msgstr ""
-
-#: ../src/html.c:1456
-msgid "Quick List"
-msgstr "Γρήγορη λίστα"
-
-#: ../src/html.c:1461 ../src/html.c:1543 ../src/html_form.c:236
-msgid "_Rows:"
-msgstr "_Γραμμές:"
-
-#: ../src/html.c:1464
-#, fuzzy
-msgid "Or_dered"
-msgstr "Αριθμημένα"
-
-#: ../src/html.c:1465
-#, fuzzy
-msgid "_Unordered"
-msgstr "Μη αριθμημένα"
-
-#: ../src/html.c:1467
-msgid "Style:"
-msgstr "Στυλ:"
-
-#: ../src/html.c:1539 ../src/html_form.c:240
-#, fuzzy
-msgid "Co_ls:"
-msgstr "Στήλες"
-
-#: ../src/html.c:1548
-msgid "_Add <frame> elements"
-msgstr ""
-
-#: ../src/html.c:1625 ../src/html.c:1710 ../src/html.c:1769
-msgid "_Source:"
-msgstr "_Πηγή:"
-
-#: ../src/html.c:1633
-#, fuzzy
-msgid "Margin _Width:"
-msgstr " Πλάτος περιθωρίου "
-
-#: ../src/html.c:1637
-#, fuzzy
-msgid "Margin _Height:"
-msgstr " Ύψος περιθωρίου "
-
-# src/html.c:1073	ΝΤΚ
-#: ../src/html.c:1645
-#, fuzzy
-msgid "Scrollin_g:"
-msgstr "Ανακύλιση "
-
-#: ../src/html.c:1649
-#, fuzzy
-msgid "_Frameborder:"
-msgstr "Frameset"
-
-#: ../src/html.c:1654
-#, fuzzy
-msgid "No _Resize:"
-msgstr "Χωρίς αλλαγή διαστάσεων"
-
-#: ../src/html.c:1704
-msgid "Embed"
-msgstr "Ενσωμάτωση"
-
-#: ../src/html.c:1726 ../src/html_table.c:144
-#, fuzzy
-msgid "Bo_rder:"
-msgstr "Όριο"
-
-#: ../src/html.c:1762
-#, fuzzy
-msgid "Script"
-msgstr "Δείκτης"
-
-#: ../src/html.c:1791 ../src/html.c:1858 ../src/html_form.c:789
-#: ../src/html_form.c:899
-msgid "_Type:"
-msgstr "_Τύπος:"
-
-#: ../src/html.c:1833
-msgid "Link"
-msgstr "Σύνδεσμος"
-
-#: ../src/html.c:1844
-msgid "_Href:"
-msgstr "_Href:"
-
-#: ../src/html.c:1850
-msgid "Href_lang:"
-msgstr ""
-
-#: ../src/html.c:1864
-msgid "_Forward Relation:"
-msgstr ""
-
-#: ../src/html.c:1868
-msgid "_Reverse Relation:"
-msgstr ""
-
-#: ../src/html.c:1879
-#, fuzzy
-msgid "Media:"
-msgstr "Meta"
-
-#: ../src/html.c:1883
-msgid "L_ang:"
-msgstr "Γ_λώσσα:"
-
-#: ../src/html.c:1887
-#, fuzzy
-msgid "_Custom:"
-msgstr "Προσαρμωγή"
-
-#: ../src/html_form.c:141
-msgid "Form"
-msgstr "Φόρμα"
-
-#: ../src/html_form.c:159
-msgid "_Action:"
-msgstr "_Ενέργεια:"
-
-#: ../src/html_form.c:167
-msgid "Metho_d:"
-msgstr "Μέ_θοδος:"
-
-#: ../src/html_form.c:176
-msgid "_Enctype:"
-msgstr ""
-
-#: ../src/html_form.c:225
-msgid "Text area"
-msgstr "Πεδίο κειμένου"
-
-#: ../src/html_form.c:590
-msgid "Select"
-msgstr "Επιλογή"
-
-#: ../src/html_form.c:601 ../src/html_form.c:808
-msgid "Si_ze:"
-msgstr "_Μέγεθος:"
-
-#: ../src/html_form.c:605
-#, fuzzy
-msgid "Multiple _Selections:"
-msgstr "Πολλαπλές επιλογές"
-
-#: ../src/html_form.c:644
-msgid "Option"
-msgstr "Επιλογή"
-
-#: ../src/html_form.c:654 ../src/html_form.c:697
-#, fuzzy
-msgid "_Label:"
-msgstr "Ταμπέλα"
-
-#: ../src/html_form.c:659
-msgid "_Selected:"
-msgstr "_Επιλεγμένο:"
-
-#: ../src/html_form.c:692
-#, fuzzy
-msgid "Option group"
-msgstr "Ε_πιλογές"
-
-#: ../src/html_form.c:775
-msgid "Input"
-msgstr ""
-
-#: ../src/html_form.c:803
-#, fuzzy
-msgid "_Checked:"
-msgstr "Τσεκαρισμένο"
-
-#: ../src/html_form.c:812
-#, fuzzy
-msgid "Max _Length:"
-msgstr "Μέγιστο μήκος"
-
-#: ../src/html_form.c:816
-#, fuzzy
-msgid "_Accept:"
-msgstr "Ενέργεια"
-
-#: ../src/html_form.c:820
-msgid "C_ustom:"
-msgstr "Προ_σαρμοσμένο:"
-
-#: ../src/html_form.c:832
-msgid "On_Focus:"
-msgstr ""
-
-#: ../src/html_form.c:836
-msgid "On_Blur:"
-msgstr ""
-
-#: ../src/html_form.c:840
-#, fuzzy
-msgid "On_Select:"
-msgstr "Επιλογή"
-
-#: ../src/html_form.c:844
-#, fuzzy
-msgid "On_Change:"
-msgstr "Γλώσσα"
-
-#: ../src/html_form.c:884
-msgid "Button"
-msgstr "Κουμπί"
-
-#: ../src/html_table.c:87
-#, fuzzy
-msgid "Cell _Padding:"
-msgstr "Βάτα κελύφους"
-
-#: ../src/html_table.c:91
-#, fuzzy
-msgid "C_ell Spacing:"
-msgstr "Διάστημα κελύφους"
-
-#: ../src/html_table.c:127 ../src/html_table.c:237 ../src/html_table.c:351
-#, fuzzy
-msgid "_Valign:"
-msgstr "Κάθετη στοίχηση"
-
-#: ../src/html_table.c:132 ../src/html_table.c:246 ../src/html_table.c:396
-msgid "Backgrou_nd Color:"
-msgstr "Χρώμα _Παρασκηνίου:"
-
-#: ../src/html_table.c:158
-msgid "_Frame:"
-msgstr "_Πλαίσιο:"
-
-#: ../src/html_table.c:169
-#, fuzzy
-msgid "R_ules:"
-msgstr "Διαχωρισμός..."
-
-#: ../src/html_table.c:369
-#, fuzzy
-msgid "Co_l Span:"
-msgstr "Άνοιγμα σε στήλες"
-
-#: ../src/html_table.c:373
-#, fuzzy
-msgid "_Row Span:"
-msgstr "Άνοιγμα σε γραμμές"
-
-#: ../src/html_table.c:378
-#, fuzzy
-msgid "No Wra_p:"
-msgstr "Χωρίς περιτύλιξη"
-
-#: ../src/image.c:347
-msgid "Insert thumbnail"
-msgstr "Εισαγωγή μικρογραφίας"
-
-#: ../src/image.c:349
-msgid "Insert image"
-msgstr "Εισαγωγή εικόνας"
-
-#: ../src/image.c:355
-msgid "Preview"
-msgstr "Προεπισκόπηση"
-
-#: ../src/image.c:375
-msgid "_Image location:"
-msgstr "Τοποθεσία _εικόνας:"
-
-#: ../src/image.c:390
-msgid "Hei_ght:"
-msgstr "Ύ_ψος:"
-
-#: ../src/image.c:395
-msgid "_Usemap:"
-msgstr ""
-
-#: ../src/image.c:403
-msgid "Alternate _text:"
-msgstr "Εναλλακτικό _κείμενο:"
-
-#: ../src/image.c:411
-msgid "_Hspace:"
-msgstr "_Hspace:"
-
-#: ../src/image.c:415
-#, fuzzy
-msgid "_Vspace:"
-msgstr "Vspace"
-
-#: ../src/image.c:429
-#, fuzzy
-msgid "Borde_r:"
-msgstr "Όριο"
-
-#: ../src/image.c:754
-msgid "Select files for thumbnail creation"
-msgstr ""
-
-# src/html.c:1073	ΝΤΚ
-#: ../src/image.c:789
-#, fuzzy
-msgid "Scaling (%)"
-msgstr "Ανακύλιση "
-
-#: ../src/image.c:793 ../src/image.c:801
-msgid "Width"
-msgstr "Πλάτος"
-
-#: ../src/image.c:797 ../src/image.c:829
-msgid "Height"
-msgstr "Ύψος"
-
-#: ../src/image.c:818
-msgid "Multi thumbnail"
-msgstr ""
-
-#: ../src/image.c:824
-msgid "By scaling"
-msgstr ""
-
-#: ../src/image.c:825
-msgid "By width, keep aspect ratio"
-msgstr ""
-
-#: ../src/image.c:826
-msgid "By height, keep aspect ratio"
-msgstr ""
-
-#: ../src/image.c:827
-msgid "By width and height, ignore aspect ratio"
-msgstr ""
-
-#: ../src/image.c:851
-msgid ""
-"%r: original filename  %t: thumbnail filename\n"
-"%w: original width  %h: original height\n"
-"%x: thumbnail width  %y: thumbnail height\n"
-"%b: original size (bytes)"
-msgstr ""
-
-#: ../src/menu.c:321
+#: ../src/menu.c:208
 msgid "/_File"
 msgstr "/_Αρχείο"
 
-#: ../src/menu.c:322
+#: ../src/menu.c:209
 msgid "/File/tearoff1"
 msgstr ""
 
-#: ../src/menu.c:323
+#: ../src/menu.c:210
 #, fuzzy
 msgid "/File/_New"
 msgstr "/Αρχείο/_Νέο"
 
-#: ../src/menu.c:324
+#: ../src/menu.c:211
 #, fuzzy
 msgid "/File/New _Window"
 msgstr "Αρχείο/_Δημιουργία"
 
-#: ../src/menu.c:325
+#: ../src/menu.c:212
 #, fuzzy
 msgid "/File/_Open..."
 msgstr "Αρχείο/_Άνοιγμα"
 
-#: ../src/menu.c:326
+#: ../src/menu.c:213
 #, fuzzy
 msgid "/File/Open _recent"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/menu.c:327
+#: ../src/menu.c:214
 #, fuzzy
 msgid "/File/Open recent/tearoff1"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/menu.c:330
+#: ../src/menu.c:215
 #, fuzzy
 msgid "/File/Open Ad_vanced..."
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/menu.c:334
+#: ../src/menu.c:217
 #, fuzzy
 msgid "/File/Open _URL..."
 msgstr "Αρχείο/_Άνοιγμα"
 
-#: ../src/menu.c:336
+#: ../src/menu.c:219
 #, fuzzy
 msgid "/File/Open _from selection"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/menu.c:337
+#: ../src/menu.c:220
 #, fuzzy
 msgid "/File/sep1"
 msgstr "/Αρχείο/διαχ2"
 
-#: ../src/menu.c:338
+#: ../src/menu.c:221
 msgid "/File/_Save"
 msgstr "/Αρχείο/Απο_θήκευση"
 
-#: ../src/menu.c:339
+#: ../src/menu.c:222
 #, fuzzy
 msgid "/File/Save _As..."
 msgstr "/Αρχείο/Αποθήκευση _ώς"
 
-#: ../src/menu.c:340
+#: ../src/menu.c:223
 #, fuzzy
 msgid "/File/Sav_e All"
 msgstr "/Αρχείο/Αποθήκευση _όλων"
 
-#: ../src/menu.c:341
+#: ../src/menu.c:224
 #, fuzzy
 msgid "/File/Rever_t to Saved"
 msgstr "/Αρχείο/Μετακίνηση"
 
-#: ../src/menu.c:342
+#: ../src/menu.c:225
 msgid "/File/sep2"
 msgstr "/Αρχείο/διαχ2"
 
-#: ../src/menu.c:343
+#: ../src/menu.c:226
 #, fuzzy
 msgid "/File/_Insert..."
 msgstr "/Αρχείο/Εισαγωγή"
 
-#: ../src/menu.c:344
+#: ../src/menu.c:227
 #, fuzzy
 msgid "/File/Rena_me..."
 msgstr "Αρχείο/_Άνοιγμα"
 
-#: ../src/menu.c:345
+#: ../src/menu.c:228
 msgid "/File/sep3"
 msgstr "/Αρχείο/διαχ3"
 
-#: ../src/menu.c:346
+#: ../src/menu.c:229
 #, fuzzy
 msgid "/File/_Close"
 msgstr "/Αρχείο/Κλείσιμο"
 
-#: ../src/menu.c:347
+#: ../src/menu.c:230
 #, fuzzy
 msgid "/File/Close A_ll"
 msgstr "/Αρχείο/Κλείσιμο όλων"
 
-#: ../src/menu.c:348
+#: ../src/menu.c:231
 #, fuzzy
 msgid "/File/Close Win_dow"
 msgstr "/Αρχείο/Κλείσιμο"
 
-#: ../src/menu.c:349
+#: ../src/menu.c:232
 #, fuzzy
 msgid "/File/sep4"
 msgstr "/Αρχείο/διαχ2"
 
-#: ../src/menu.c:350
+#: ../src/menu.c:233
 #, fuzzy
 msgid "/File/_Quit"
 msgstr "/Αρχείο/Έξοδος"
 
-#: ../src/menu.c:352
+#: ../src/menu.c:235
 #, fuzzy
 msgid "/File/sep5"
 msgstr "/Αρχείο/διαχ2"
 
-#: ../src/menu.c:353
+#: ../src/menu.c:236
 msgid "/File/Run Python Script"
 msgstr ""
 
-#: ../src/menu.c:355
+#: ../src/menu.c:238
 msgid "/_Edit"
 msgstr "/_Επεξεργασία"
 
-#: ../src/menu.c:356
+#: ../src/menu.c:239
 #, fuzzy
 msgid "/Edit/Tearoff1"
 msgstr "/Επεξεργασία/διαχ1"
 
-#: ../src/menu.c:357
+#: ../src/menu.c:240
 #, fuzzy
 msgid "/Edit/_Undo"
 msgstr "/Επεξεργασία/Αναίρεση"
 
-#: ../src/menu.c:358
+#: ../src/menu.c:241
 #, fuzzy
 msgid "/Edit/_Redo"
 msgstr "/Επεξεργασία/Επαναφορά"
 
-#: ../src/menu.c:359
+#: ../src/menu.c:242
 #, fuzzy
 msgid "/Edit/Undo All"
 msgstr "/Επεξεργασία/Αναίρεση όλων"
 
-#: ../src/menu.c:360
+#: ../src/menu.c:243
 #, fuzzy
 msgid "/Edit/Redo All"
 msgstr "/Επεξεργασία/Επαναφορά όλων"
 
-#: ../src/menu.c:361
+#: ../src/menu.c:244
 #, fuzzy
 msgid "/Edit/sep1"
 msgstr "/Επεξεργασία/διαχ3"
 
-#: ../src/menu.c:362
+#: ../src/menu.c:245
 #, fuzzy
 msgid "/Edit/Cu_t"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/menu.c:363
+#: ../src/menu.c:246
 #, fuzzy
 msgid "/Edit/_Copy"
 msgstr "/Επεξεργασία/Αντιγραφή"
 
-#: ../src/menu.c:364
+#: ../src/menu.c:247
 #, fuzzy
 msgid "/Edit/_Paste"
 msgstr "/Επεξεργασία/Επικόλληση"
 
-#: ../src/menu.c:365
+#: ../src/menu.c:248
 #, fuzzy
 msgid "/Edit/sep2"
 msgstr "/Επεξεργασία/διαχ3"
 
-#: ../src/menu.c:366
+#: ../src/menu.c:249
 #, fuzzy
 msgid "/Edit/Select _All"
 msgstr "/Επεξεργασία/Επιλογή όλων"
 
-#: ../src/menu.c:367
+#: ../src/menu.c:250
 msgid "/Edit/sep3"
 msgstr "/Επεξεργασία/διαχ3"
 
-#: ../src/menu.c:368
+#: ../src/menu.c:251
 #, fuzzy
 msgid "/Edit/_Find..."
 msgstr "/Επεξεργασία/Εύρεση"
 
-#: ../src/menu.c:369
+#: ../src/menu.c:252
 #, fuzzy
 msgid "/Edit/Find A_gain"
 msgstr "/Επεξεργασία/Εύρεση επομένου"
 
-#: ../src/menu.c:370
+#: ../src/menu.c:253
 #, fuzzy
 msgid "/Edit/Find from selection"
 msgstr "/Επεξεργασία/Εύρεση γραμμής"
 
-#: ../src/menu.c:371
+#: ../src/menu.c:254
 #, fuzzy
 msgid "/Edit/R_eplace..."
 msgstr "/Επεξεργασία/Αντικατάσταση"
 
-#: ../src/menu.c:372
+#: ../src/menu.c:255
 #, fuzzy
 msgid "/Edit/Replace Agai_n"
 msgstr "/Επεξεργασία/Αντικατάσταση επομένου"
 
-#: ../src/menu.c:373
+#: ../src/menu.c:256
 #, fuzzy
 msgid "/Edit/Replace special"
 msgstr "/Επεξεργασία/Αντικατάσταση"
 
-#: ../src/menu.c:374
+#: ../src/menu.c:257
 #, fuzzy
 msgid "/Edit/Replace special/Tearoff1"
 msgstr "/Επεξεργασία/Αντικατάσταση επομένου"
 
-#: ../src/menu.c:375
+#: ../src/menu.c:258
 #, fuzzy
 msgid "/Edit/Replace special/_ASCII to HTML Entities"
 msgstr "/Ετικέτες/Αντικατάσταση χαρακτήρων ascii"
 
-#: ../src/menu.c:376
+#: ../src/menu.c:259
 #, fuzzy
 msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
 msgstr "/Ετικέτες/Αντικατάσταση χαρακτήρων iso 8859-1"
 
-#: ../src/menu.c:377
+#: ../src/menu.c:260
 #, fuzzy
 msgid "/Edit/Replace special/_Both Types to HTML Entities"
 msgstr "/Ετικέτες/Αντικατάσταση χαρακτήρων ascii"
 
-#: ../src/menu.c:378
+#: ../src/menu.c:261
 #, fuzzy
 msgid "/Edit/Replace special/To _Uppercase"
 msgstr "/Επεξεργασία/Αντικατάσταση επομένου"
 
-#: ../src/menu.c:379
+#: ../src/menu.c:262
 #, fuzzy
 msgid "/Edit/Replace special/To _Lowercase"
 msgstr "/Επεξεργασία/Αντικατάσταση επομένου"
 
-#: ../src/menu.c:380
+#: ../src/menu.c:263
 #, fuzzy
 msgid "/Edit/sep4"
 msgstr "/Επεξεργασία/διαχ2"
 
-#: ../src/menu.c:381
+#: ../src/menu.c:264
 #, fuzzy
 msgid "/Edit/S_hift Right"
 msgstr "/Επεξεργασία/Επικόλληση"
 
-#: ../src/menu.c:382
+#: ../src/menu.c:265
 #, fuzzy
 msgid "/Edit/Shift _Left"
 msgstr "/Επεξεργασία/Επικόλληση"
 
-#: ../src/menu.c:383
+#: ../src/menu.c:266
 #, fuzzy
 msgid "/Edit/sep5"
 msgstr "/Επεξεργασία/διαχ2"
 
-#: ../src/menu.c:384
+#: ../src/menu.c:267
 msgid "/Edit/Add _Bookmark"
 msgstr ""
 
-#: ../src/menu.c:385
+#: ../src/menu.c:268
 #, fuzzy
 msgid "/Edit/sep6"
 msgstr "/Επεξεργασία/διαχ2"
 
-#: ../src/menu.c:386
+#: ../src/menu.c:269
 #, fuzzy
 msgid "/Edit/Save Sett_ings"
 msgstr "/Επιλογές/Αποθήκευση πλήκτρων συντομίας"
 
-#: ../src/menu.c:387
+#: ../src/menu.c:270
 #, fuzzy
 msgid "/Edit/Save Shortcut _Keys"
 msgstr "/Επιλογές/Αποθήκευση πλήκτρων συντομίας"
 
-#: ../src/menu.c:388
+#: ../src/menu.c:271
 #, fuzzy
 msgid "/Edit/Preference_s"
 msgstr "Αναφορά PHP3..."
 
-#: ../src/menu.c:389
+#: ../src/menu.c:272
 #, fuzzy
 msgid "/_View"
 msgstr "/_Αρχείο"
 
-#: ../src/menu.c:390
+#: ../src/menu.c:273
 #, fuzzy
 msgid "/View/tearoff1"
 msgstr "/Αρχείο/κοψ1"
 
-#: ../src/menu.c:391
+#: ../src/menu.c:274
 #, fuzzy
 msgid "/View/View _Main Toolbar"
 msgstr "/Επιλογές/Προβολή κύριας γραμμής εργαλείων"
 
-#: ../src/menu.c:392
-#, fuzzy
-msgid "/View/View _HTML Toolbar"
-msgstr "/Επιλογές/Προβολή HTML γραμμής εργαλείων"
-
-#: ../src/menu.c:393
+#: ../src/menu.c:275
 #, fuzzy
 msgid "/View/View _Custom Menu"
 msgstr "/_Προσαρμοσμένο μενού"
 
-#: ../src/menu.c:394
+#: ../src/menu.c:276
 #, fuzzy
 msgid "/View/View _Sidebar"
 msgstr "/Επιλογές/Προβολή κύριας γραμμής εργαλείων"
 
-#: ../src/menu.c:395
-msgid "/_Tags"
-msgstr "/_Ετικέτες"
-
-#: ../src/menu.c:396
-msgid "/Tags/Tearoff1"
-msgstr "/Ετικέτες/διαχ1"
-
-#: ../src/menu.c:398
-#, fuzzy
-msgid "/Tags/_Headings"
-msgstr "/Ετικέτες/Κεφαλίδες"
-
-#: ../src/menu.c:399
-msgid "/Tags/Headings/Tearoff1"
-msgstr "/Ετικέτες/Κεφαλίδες/διαχ1"
-
-#: ../src/menu.c:400
-#, fuzzy
-msgid "/Tags/Headings/H_1"
-msgstr "/Ετικέτες/Κεφαλίδες/H1"
-
-#: ../src/menu.c:401
-#, fuzzy
-msgid "/Tags/Headings/H_2"
-msgstr "/Ετικέτες/Κεφαλίδες/H2"
-
-#: ../src/menu.c:402
-#, fuzzy
-msgid "/Tags/Headings/H_3"
-msgstr "/Ετικέτες/Κεφαλίδες/H3"
-
-#: ../src/menu.c:403
-#, fuzzy
-msgid "/Tags/Headings/H_4"
-msgstr "/Ετικέτες/Κεφαλίδες/H4"
-
-#: ../src/menu.c:404
-#, fuzzy
-msgid "/Tags/Headings/H_5"
-msgstr "/Ετικέτες/Κεφαλίδες/H5"
-
-#: ../src/menu.c:405
-#, fuzzy
-msgid "/Tags/Headings/H_6"
-msgstr "/Ετικέτες/Κεφαλίδες/H6"
-
-#: ../src/menu.c:406
-#, fuzzy
-msgid "/Tags/_Special"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες"
-
-#: ../src/menu.c:407
-#, fuzzy
-msgid "/Tags/Special/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/tearoff1"
-
-#: ../src/menu.c:408
-#, fuzzy
-msgid "/Tags/Special/_Accent"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά"
-
-#: ../src/menu.c:409
-msgid "/Tags/Special/Accent/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/tearoff1"
-
-#: ../src/menu.c:410
-#, fuzzy
-msgid "/Tags/Special/Accent/_Uppercase"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase"
-
-#: ../src/menu.c:411
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/_A-I"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I"
-
-#: ../src/menu.c:412
-msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/tearoff1"
-
-#: ../src/menu.c:413
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A grave"
-
-#: ../src/menu.c:414
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A acute"
-
-#: ../src/menu.c:415
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A circumflex"
-
-#: ../src/menu.c:416
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A tilde"
-
-#: ../src/menu.c:417
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/AE ligature"
-
-#: ../src/menu.c:418
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A diaeresis"
-
-#: ../src/menu.c:419
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A ring"
-
-#: ../src/menu.c:420
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/C cedilla"
-
-#: ../src/menu.c:421
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/E grave"
-
-#: ../src/menu.c:422
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/E acute"
-
-#: ../src/menu.c:423
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/E circumflex"
-
-#: ../src/menu.c:424
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/E diaeresis"
-
-#: ../src/menu.c:425
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/I grave"
-
-#: ../src/menu.c:426
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/I acute"
-
-#: ../src/menu.c:427
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/I circumflex"
-
-#: ../src/menu.c:428
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/I diaeresis"
-
-#: ../src/menu.c:429
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/_J-Z"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z"
-
-#: ../src/menu.c:430
-msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/tearoff1"
-
-#: ../src/menu.c:431
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/N tilde"
-
-#: ../src/menu.c:432
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O grave"
-
-#: ../src/menu.c:433
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O acute"
-
-#: ../src/menu.c:434
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O circumflex"
-
-#: ../src/menu.c:435
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/AE ligature"
-
-#: ../src/menu.c:436
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O tilde"
-
-#: ../src/menu.c:437
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O diaeresis"
-
-#: ../src/menu.c:438
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O slash"
-
-#: ../src/menu.c:439
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/U grave"
-
-#: ../src/menu.c:440
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/U acute"
-
-#: ../src/menu.c:441
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/U circumflex"
-
-#: ../src/menu.c:442
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/U diaeresis"
-
-#: ../src/menu.c:443
-#, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/Y acute"
-
-#: ../src/menu.c:444
-#, fuzzy
-msgid "/Tags/Special/Accent/_Lowercase"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Lowercase"
-
-#: ../src/menu.c:445
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/_A-I"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Lowercase/A-I"
-
-#: ../src/menu.c:446
-msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/tearoff1"
-
-#: ../src/menu.c:447
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a grave"
-
-#: ../src/menu.c:448
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a acute"
-
-#: ../src/menu.c:449
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a circumflex"
-
-#: ../src/menu.c:450
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a tilde"
-
-#: ../src/menu.c:451
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a ring"
-
-#: ../src/menu.c:452
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/ae ligature"
-
-#: ../src/menu.c:453
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a diaeresis"
-
-#: ../src/menu.c:454
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/c cedilla"
-
-#: ../src/menu.c:455
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/e grave"
-
-#: ../src/menu.c:456
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/e acute"
-
-#: ../src/menu.c:457
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/e circumflex"
-
-#: ../src/menu.c:458
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/e diaeresis"
-
-#: ../src/menu.c:459
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/i grave"
-
-#: ../src/menu.c:460
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/i acute"
-
-#: ../src/menu.c:461
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/i circumflex"
-
-#: ../src/menu.c:462
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/i diaeresis"
-
-#: ../src/menu.c:463
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/_J-Z"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z"
-
-#: ../src/menu.c:464
-msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/tearoff1"
-
-#: ../src/menu.c:465
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/n tilde"
-
-#: ../src/menu.c:466
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o grave"
-
-#: ../src/menu.c:467
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o acute"
-
-#: ../src/menu.c:468
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/ae ligature"
-
-#: ../src/menu.c:469
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o circumflex"
-
-#: ../src/menu.c:470
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o tilde"
-
-#: ../src/menu.c:471
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o diaeresis"
-
-#: ../src/menu.c:472
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o slash"
-
-#: ../src/menu.c:473
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/u grave"
-
-#: ../src/menu.c:474
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/u acute"
-
-#: ../src/menu.c:475
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/u circumflex"
-
-#: ../src/menu.c:476
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/u diaeresis"
-
-#: ../src/menu.c:477
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/y acute"
-
-#: ../src/menu.c:478
-#, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/y diaeresis"
-
-#: ../src/menu.c:479
-msgid "/Tags/Special/Accent/separator"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/διαχ"
-
-#: ../src/menu.c:480
-#, fuzzy
-msgid "/Tags/Special/Accent/U_mlaut ¨"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Umlaut"
-
-#: ../src/menu.c:481
-#, fuzzy
-msgid "/Tags/Special/Accent/_Acute ´"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Acute"
-
-#: ../src/menu.c:482
-#, fuzzy
-msgid "/Tags/Special/Accent/_Cedilla ¸"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Cedilla"
-
-#: ../src/menu.c:483
-#, fuzzy
-msgid "/Tags/Special/_Currency"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα"
-
-#: ../src/menu.c:484
-msgid "/Tags/Special/Currency/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/tearoff1"
-
-#: ../src/menu.c:485
-#, fuzzy
-msgid "/Tags/Special/Currency/_Cent sign ¢"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Σήμα σεντ"
-
-#: ../src/menu.c:486
-#, fuzzy
-msgid "/Tags/Special/Currency/_Pound sterling £"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Στερλίνα"
-
-#: ../src/menu.c:487
-#, fuzzy
-msgid "/Tags/Special/Currency/C_urrency sign ¤"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Σήμα νομίσματος"
-
-#: ../src/menu.c:488
-#, fuzzy
-msgid "/Tags/Special/Currency/_Yen sign ¥"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Σήμα γιεν"
-
-#: ../src/menu.c:489
-#, fuzzy
-msgid "/Tags/Special/Currency/_Euro "
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα"
-
-#: ../src/menu.c:490
-#, fuzzy
-msgid "/Tags/Special/_Math-Science"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά"
-
-#: ../src/menu.c:491
-msgid "/Tags/Special/Math-Science/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/tearoff1"
-
-#: ../src/menu.c:492
-#, fuzzy
-msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/λογικό όχι"
-
-#: ../src/menu.c:493
-#, fuzzy
-msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/πολλαπλασιασμού"
-
-#: ../src/menu.c:494
-#, fuzzy
-msgid "/Tags/Special/Math-Science/_Division sign ÷"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/διαίρεσης"
-
-#: ../src/menu.c:495
-#, fuzzy
-msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/συν-πλην"
-
-#: ../src/menu.c:496
-#, fuzzy
-msgid "/Tags/Special/Math-Science/_Less-than sign <"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/μικρότερο από"
-
-#: ../src/menu.c:497
-#, fuzzy
-msgid "/Tags/Special/Math-Science/_Greater-than sign >"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/μεγαλύτερο από"
-
-#: ../src/menu.c:498
-#, fuzzy
-msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/εκθέτης 1"
-
-#: ../src/menu.c:499
-#, fuzzy
-msgid "/Tags/Special/Math-Science/Superscript _2 ²"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/εκθέτης 2"
-
-#: ../src/menu.c:500
-#, fuzzy
-msgid "/Tags/Special/Math-Science/Superscript _3 ³"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/εκθέτης 3"
-
-#: ../src/menu.c:501
-#, fuzzy
-msgid "/Tags/Special/Math-Science/One _quarter ¼"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/ένα τέταρτο"
-
-#: ../src/menu.c:502
-#, fuzzy
-msgid "/Tags/Special/Math-Science/One _half ½"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/ένα δεύτερο"
-
-#: ../src/menu.c:503
-#, fuzzy
-msgid "/Tags/Special/Math-Science/_Three quarters ¾"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/τρία τέταρτα"
-
-#: ../src/menu.c:504
-#, fuzzy
-msgid "/Tags/Special/Math-Science/Deg_ree sign °"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/σήμα μοιρών"
-
-#: ../src/menu.c:505
-#, fuzzy
-msgid "/Tags/Special/_Non Latin"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί"
-
-#: ../src/menu.c:506
-msgid "/Tags/Special/Non Latin/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/tearoff1"
-
-#: ../src/menu.c:507
-#, fuzzy
-msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/ETH (Ισλανδικό)"
-
-#: ../src/menu.c:508
-#, fuzzy
-msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/THORN (Ισλανδικό)"
-
-#: ../src/menu.c:509
-#, fuzzy
-msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/eth (Ισλανδικό)"
-
-#: ../src/menu.c:510
-#, fuzzy
-msgid "/Tags/Special/Non Latin/th_orn ÿ"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/thorn"
-
-#: ../src/menu.c:511
-#, fuzzy
-msgid "/Tags/Special/Non Latin/Sharp _s ß"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/sharp s"
-
-#: ../src/menu.c:512
-#, fuzzy
-msgid "/Tags/Special/Non Latin/_Micro sign µ"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/micro sign"
-
-#: ../src/menu.c:513
-#, fuzzy
-msgid "/Tags/Special/_Other"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι"
-
-#: ../src/menu.c:514
-msgid "/Tags/Special/Other/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/tearoff1"
-
-#: ../src/menu.c:515
-#, fuzzy
-msgid "/Tags/Special/Other/_Non-breaking space"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Non-breaking space"
-
-#: ../src/menu.c:516
-#, fuzzy
-msgid "/Tags/Special/Other/_Section sign §"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Section sign"
-
-#: ../src/menu.c:517
-#, fuzzy
-msgid "/Tags/Special/Other/_Copyright sign ©"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Copyright sign"
-
-#: ../src/menu.c:518
-#, fuzzy
-msgid "/Tags/Special/Other/_Left angle quotes «"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Left angle quotes"
-
-#: ../src/menu.c:519
-#, fuzzy
-msgid "/Tags/Special/Other/_Right angle quotes »"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Right angle quotes"
-
-#: ../src/menu.c:520
-#, fuzzy
-msgid "/Tags/Special/Other/Registered _trademark ®"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Registered trademark"
-
-#: ../src/menu.c:521
-#, fuzzy
-msgid "/Tags/Special/Other/Inverted _exclamation ¡"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Inverted exclamation"
-
-#: ../src/menu.c:522
-#, fuzzy
-msgid "/Tags/Special/Other/Inverted _question mark ¿"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Inverted question mark"
-
-#: ../src/menu.c:523
-#, fuzzy
-msgid "/Tags/Special/Other/_Feminine ordinal ª"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Feminine ordinal"
-
-#: ../src/menu.c:524
-#, fuzzy
-msgid "/Tags/Special/Other/_Masculine ordinal º"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Masculine ordinal"
-
-#: ../src/menu.c:525
-#, fuzzy
-msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Pilcrow (paragraph sign)"
-
-#: ../src/menu.c:526
-#, fuzzy
-msgid "/Tags/Special/Other/_Broken bar ¦"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Broken bar"
-
-#: ../src/menu.c:527
-#, fuzzy
-msgid "/Tags/Special/Other/Soft _hypen -"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Soft hypen"
-
-#: ../src/menu.c:528
-#, fuzzy
-msgid "/Tags/Special/Other/Spa_cing macron ¯"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Spacing macron"
-
-#: ../src/menu.c:529
-#, fuzzy
-msgid "/Tags/Special/Other/Middle _dot ·"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Middle dot"
-
-#: ../src/menu.c:530
-#, fuzzy
-msgid "/Tags/_Format by layout"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
-
-#: ../src/menu.c:531
-#, fuzzy
-msgid "/Tags/Format by layout/tearoff1"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ1"
-
-#: ../src/menu.c:532
-#, fuzzy
-msgid "/Tags/Format by layout/_Bold"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Έντονα"
-
-#: ../src/menu.c:533
-#, fuzzy
-msgid "/Tags/Format by layout/_Italic"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Πλάγια"
-
-#: ../src/menu.c:534
-#, fuzzy
-msgid "/Tags/Format by layout/_Underline"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Υπογραμμισμένα"
-
-#: ../src/menu.c:535
-#, fuzzy
-msgid "/Tags/Format by layout/_Strikeout"
-msgstr "/Ετικέτες/Διαμόφωση κειμένου/Διαγεγραμμένα"
-
-#: ../src/menu.c:536
-#, fuzzy
-msgid "/Tags/Format by layout/Sm_all"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Πλάγια"
-
-#: ../src/menu.c:537
-#, fuzzy
-msgid "/Tags/Format by layout/Bi_g"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
-
-#: ../src/menu.c:539
-#, fuzzy
-msgid "/Tags/F_ormat by context"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
-
-#: ../src/menu.c:540
-#, fuzzy
-msgid "/Tags/Format by context/tearoff1"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ1"
-
-#: ../src/menu.c:541
-#, fuzzy
-msgid "/Tags/Format by context/_Strong"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Δυνατά"
-
-#: ../src/menu.c:542
-#, fuzzy
-msgid "/Tags/Format by context/_Emphasis"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Έμφαση"
-
-#: ../src/menu.c:543
-#, fuzzy
-msgid "/Tags/Format by context/_Define"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
-
-#: ../src/menu.c:544
-#, fuzzy
-msgid "/Tags/Format by context/_Code"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Σχόλιο"
-
-#: ../src/menu.c:545
-#, fuzzy
-msgid "/Tags/Format by context/Sa_mple"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Πλάγια"
-
-#: ../src/menu.c:546
-#, fuzzy
-msgid "/Tags/Format by context/_Keyboard"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Κέντρο"
-
-#: ../src/menu.c:547
-#, fuzzy
-msgid "/Tags/Format by context/_Variable"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Πλάγια"
-
-#: ../src/menu.c:548
-#, fuzzy
-msgid "/Tags/Format by context/Ci_tation"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
-
-#: ../src/menu.c:549
-#, fuzzy
-msgid "/Tags/Format by context/_Abbreviation"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
-
-#: ../src/menu.c:550
-#, fuzzy
-msgid "/Tags/Format by context/Ac_ronym"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Δυνατά"
-
-#: ../src/menu.c:551
-#, fuzzy
-msgid "/Tags/Format _general"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Κέντρο"
-
-#: ../src/menu.c:552
-#, fuzzy
-msgid "/Tags/Format general/tearoff1"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ1"
-
-#: ../src/menu.c:553
-#, fuzzy
-msgid "/Tags/Format general/_Paragraph"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Παράγραφος"
-
-#: ../src/menu.c:554
-#, fuzzy
-msgid "/Tags/Format general/_Break"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Διακοπή (νέα γραμμή)"
-
-#: ../src/menu.c:555
-#, fuzzy
-msgid "/Tags/Format general/Break clear _all"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Καθαρισμός διακοπών"
-
-#: ../src/menu.c:556
-#, fuzzy
-msgid "/Tags/Format general/_Non-Breaking Space"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Κείμενο χωρίς διακοπή"
-
-#: ../src/menu.c:557 ../src/menu.c:560 ../src/menu.c:564
-#, fuzzy
-msgid "/Tags/Format general/<separator>"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ"
-
-#: ../src/menu.c:558
-#, fuzzy
-msgid "/Tags/Format general/Font Si_ze +1"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Μέγεθος γρ-σειράς +1"
-
-#: ../src/menu.c:559
-#, fuzzy
-msgid "/Tags/Format general/Font _Size -1"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Μέγεθος γρ-σειράς -1"
-
-#: ../src/menu.c:561
-#, fuzzy
-msgid "/Tags/Format general/Preformatted _Text"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Προδιαμορφωμένο κείμενο"
-
-#: ../src/menu.c:562
-#, fuzzy
-msgid "/Tags/Format general/Su_bscript"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Δείκτης"
-
-#: ../src/menu.c:563
-#, fuzzy
-msgid "/Tags/Format general/Su_perscript"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Εκθέτης"
-
-#: ../src/menu.c:565
-#, fuzzy
-msgid "/Tags/Format general/_Center"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Κέντρο"
-
-#: ../src/menu.c:566
-#, fuzzy
-msgid "/Tags/Format general/Align _right"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Δεξιά στοίχηση"
-
-#: ../src/menu.c:567
-#, fuzzy
-msgid "/Tags/_Table"
-msgstr "/Ετικέτες/Πίνακες"
-
-#: ../src/menu.c:568
-msgid "/Tags/Table/tearoff1"
-msgstr "/Ετικέτες/Πίνακες/διαχ1"
-
-#: ../src/menu.c:569
-#, fuzzy
-msgid "/Tags/Table/_Table"
-msgstr "/Ετικέτες/Πίνακες/Πίνακας"
-
-#: ../src/menu.c:570
-#, fuzzy
-msgid "/Tags/Table/Table _Row"
-msgstr "/Ετικέτες/Πίνακες/Γραμμή"
-
-#: ../src/menu.c:571
-#, fuzzy
-msgid "/Tags/Table/Table _Header"
-msgstr "/Ετικέτες/Πίνακες/Κεφαλίδα πίνακα"
-
-#: ../src/menu.c:572
-#, fuzzy
-msgid "/Tags/Table/Table _Data"
-msgstr "/Ετικέτες/Πίνακες/Δεδομένα πίνακα"
-
-#: ../src/menu.c:573
-#, fuzzy
-msgid "/Tags/Table/Table _Caption"
-msgstr "/Ετικέτες/Πίνακες/Πλαίσιο πίνακα"
-
-#: ../src/menu.c:574
-#, fuzzy
-msgid "/Tags/_List"
-msgstr "/Ετικέτες/Λίστες"
-
-#: ../src/menu.c:575
-msgid "/Tags/List/tearoff1"
-msgstr "/Ετικέτες/Λίστες/διαχ1"
-
-#: ../src/menu.c:576
-#, fuzzy
-msgid "/Tags/List/Unordered _List"
-msgstr "/Ετικέτες/Λίστες/Μη αριθμημένη λίστα"
-
-#: ../src/menu.c:577
-#, fuzzy
-msgid "/Tags/List/_Ordered List"
-msgstr "/Ετικέτες/Λίστες/Αριθμημένη λίστα"
-
-#: ../src/menu.c:578
-#, fuzzy
-msgid "/Tags/List/List Ite_m"
-msgstr "/Ετικέτες/Λίστες/Αντικείμενο λίστας"
-
-#: ../src/menu.c:579
-#, fuzzy
-msgid "/Tags/List/De_finition List"
-msgstr "/Ετικέτες/Λίστες/Λίστα ορισμών"
-
-#: ../src/menu.c:580
-#, fuzzy
-msgid "/Tags/List/Definition _Term"
-msgstr "/Ετικέτες/Λίστες/Όρος προς ορισμό"
-
-#: ../src/menu.c:581
-#, fuzzy
-msgid "/Tags/List/_Definition"
-msgstr "/Ετικέτες/Λίστες/Ορισμός"
-
-#: ../src/menu.c:582
-#, fuzzy
-msgid "/Tags/List/Men_u"
-msgstr "/Ετικέτες/Λίστες/Μενού"
-
-#: ../src/menu.c:583
-#, fuzzy
-msgid "/Tags/Fo_rm"
-msgstr "/Διάλογοι/Φόρμες"
-
-#: ../src/menu.c:584
-#, fuzzy
-msgid "/Tags/Form/tearoff1"
-msgstr "/Διάλογοι/Φόρμες/διαχ1"
-
-#: ../src/menu.c:585
-#, fuzzy
-msgid "/Tags/Form/_Form"
-msgstr "/Διάλογοι/Φόρμες/Φόρμα"
-
-#: ../src/menu.c:586
-#, fuzzy
-msgid "/Tags/Form/_Button"
-msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
-
-#: ../src/menu.c:587
-#, fuzzy
-msgid "/Tags/Form/_Input"
-msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
-
-#: ../src/menu.c:588
-#, fuzzy
-msgid "/Tags/Form/_Textarea"
-msgstr "/Διάλογοι/Φόρμες/Πεδίο κειμένου"
-
-#: ../src/menu.c:590
-#, fuzzy
-msgid "/Tags/_Misc"
-msgstr "/Ετικέτες/Λίστες"
-
-#: ../src/menu.c:591
-#, fuzzy
-msgid "/Tags/Misc/tearoff1"
-msgstr "/Ετικέτες/Λίστες/διαχ1"
-
-#: ../src/menu.c:592
-#, fuzzy
-msgid "/Tags/Misc/Insert Generator _META-Tag"
-msgstr "/Ετικέτες/Εισαγωγή META-ετικέτας"
-
-#: ../src/menu.c:593
-#, fuzzy
-msgid "/Tags/Misc/_Span"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες"
-
-#: ../src/menu.c:594
-#, fuzzy
-msgid "/Tags/Misc/_Div"
-msgstr "/Ετικέτες/Λίστες/Ορισμός"
-
-#: ../src/menu.c:595
-#, fuzzy
-msgid "/Tags/Misc/_Link"
-msgstr "/Ετικέτες/Λίστες"
-
-#: ../src/menu.c:596
-#, fuzzy
-msgid "/Tags/Misc/S_cript"
-msgstr "/Ετικέτες/Λίστες"
-
-#: ../src/menu.c:597
-#, fuzzy
-msgid "/Tags/Misc/_Anchor"
-msgstr "/Ετικέτες/Λίστες/Ορισμός"
-
-#: ../src/menu.c:598
-#, fuzzy
-msgid "/Tags/Misc/_Image"
-msgstr "/Ετικέτες/Πίνακες"
-
-#: ../src/menu.c:600
-#, fuzzy
-msgid "/Tags/_Comment"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Σχόλιο"
-
-#: ../src/menu.c:601
-#, fuzzy
-msgid "/Dial_ogs"
-msgstr "/_Διάλογοι"
-
-#: ../src/menu.c:602
-msgid "/Dialogs/tearoff1"
-msgstr "/Διάλογοι/διαχ1"
-
-#: ../src/menu.c:603
-#, fuzzy
-msgid "/Dialogs/_General"
-msgstr "/Διάλογοι/Γενικοί"
-
-#: ../src/menu.c:604
-msgid "/Dialogs/General/tearoff1"
-msgstr "/Διάλογοι/Γενικοί/διαχ1"
-
-#: ../src/menu.c:605
-#, fuzzy
-msgid "/Dialogs/General/_Quickstart..."
-msgstr "/Διάλογοι/Γενικοί/Γρήγορη αρχή"
-
-#: ../src/menu.c:608
-#, fuzzy
-msgid "/Dialogs/General/_Body..."
-msgstr "/Διάλογοι/Γενικοί/Κορμός"
-
-#: ../src/menu.c:609
-#, fuzzy
-msgid "/Dialogs/General/_Anchor..."
-msgstr "/Διάλογοι/Γενικοί/Διασύνδεση"
-
-#: ../src/menu.c:610
-#, fuzzy
-msgid "/Dialogs/General/_Email..."
-msgstr "/Διάλογοι/Γενικοί/Email"
-
-#: ../src/menu.c:611
-#, fuzzy
-msgid "/Dialogs/General/_Rule..."
-msgstr "/Διάλογοι/Γενικοί/Διαχωρισμός"
-
-#: ../src/menu.c:612
-#, fuzzy
-msgid "/Dialogs/General/_Font..."
-msgstr "/Διάλογοι/Γενικοί/Γραμματοσειρά"
-
-#: ../src/menu.c:613
-#, fuzzy
-msgid "/Dialogs/General/Basef_ont..."
-msgstr "/Διάλογοι/Γενικοί/Βασική γρ-σειρά"
-
-#: ../src/menu.c:614
-#, fuzzy
-msgid "/Dialogs/General/Quick_list..."
-msgstr "/Διάλογοι/Γενικοί/Γρήγορη λίστα"
-
-#: ../src/menu.c:615
-#, fuzzy
-msgid "/Dialogs/General/_Meta..."
-msgstr "/Διάλογοι/Γενικοί/Meta"
-
-#: ../src/menu.c:616
-#, fuzzy
-msgid "/Dialogs/General/Embe_d..."
-msgstr "/Διάλογοι/Γενικοί/Ενσωμάτωση"
-
-#: ../src/menu.c:617
-#, fuzzy
-msgid "/Dialogs/General/Select _Color..."
-msgstr "/Διάλογοι/Γενικοί/Επιλογή χρώματος"
-
-#: ../src/menu.c:618
-#, fuzzy
-msgid "/Dialogs/General/Insert _Time..."
-msgstr "/Διάλογοι/Γενικοί/Εισαγωγή ώρας"
-
-#: ../src/menu.c:619
-#, fuzzy
-msgid "/Dialogs/General/Insert _Image..."
-msgstr "/Διάλογοι/Ειδικοί/Εισαγωγή εικόνας"
-
-#: ../src/menu.c:620
-#, fuzzy
-msgid "/Dialogs/General/Insert T_humbnail..."
-msgstr "/Διάλογοι/Ειδικοί/Εισαγωγή προεπισκ. εικόνας"
-
-#: ../src/menu.c:621
-#, fuzzy
-msgid "/Dialogs/_Table"
-msgstr "/Διάλογοι/Πίνακες"
-
-#: ../src/menu.c:622
-msgid "/Dialogs/Table/tearoff1"
-msgstr "/Διάλογοι/Πίνακες/διαχ1"
-
-#: ../src/menu.c:623
-#, fuzzy
-msgid "/Dialogs/Table/Table _Wizard..."
-msgstr "/Διάλογοι/Πίνακες/Κεφαλίδα cber"
-
-#: ../src/menu.c:624
-#, fuzzy
-msgid "/Dialogs/Table/_Table..."
-msgstr "/Διάλογοι/Πίνακες/Πίνακας"
-
-#: ../src/menu.c:625
-#, fuzzy
-msgid "/Dialogs/Table/Table _Row..."
-msgstr "/Διάλογοι/Πίνακες/Γραμμή πίνακα"
-
-#: ../src/menu.c:626
-#, fuzzy
-msgid "/Dialogs/Table/Table _Head..."
-msgstr "/Διάλογοι/Πίνακες/Κεφαλίδα cber"
-
-#: ../src/menu.c:627
-#, fuzzy
-msgid "/Dialogs/Table/Table _Data..."
-msgstr "/Διάλογοι/Πίνακες/Δεδομένα πίνακα"
-
-#: ../src/menu.c:628
-#, fuzzy
-msgid "/Dialogs/_CSS"
-msgstr "/Διάλογοι/CSS"
-
-#: ../src/menu.c:629
-msgid "/Dialogs/CSS/tearoff1"
-msgstr "/Διάλογοι/CSS/tearoff1"
-
-#: ../src/menu.c:630
-#, fuzzy
-msgid "/Dialogs/CSS/_Create Style..."
-msgstr "/Διάλογοι/CSS/Δημιουργία στυλ"
-
-#: ../src/menu.c:631
-#, fuzzy
-msgid "/Dialogs/CSS/S_pan..."
-msgstr "/Διάλογοι/CSS/Άνοιγμα"
-
-#: ../src/menu.c:632
-#, fuzzy
-msgid "/Dialogs/CSS/_Div..."
-msgstr "/Διάλογοι/CSS/Div"
-
-#: ../src/menu.c:633
-#, fuzzy
-msgid "/Dialogs/CSS/_Style..."
-msgstr "/Διάλογοι/CSS/Στυλ"
-
-#: ../src/menu.c:634
-#, fuzzy
-msgid "/Dialogs/CSS/_Link to Stylesheet..."
-msgstr "/Διάλογοι/CSS/Σύνδεση σε φύλλο στυλ"
-
-#: ../src/menu.c:635
-#, fuzzy
-msgid "/Dialogs/_Frame"
-msgstr "/Διάλογοι/Πλαίσια"
-
-#: ../src/menu.c:636
-msgid "/Dialogs/Frame/tearoff1"
-msgstr "/Διάλογοι/Πλαίσια/διαχ1"
-
-#: ../src/menu.c:637
-#, fuzzy
-msgid "/Dialogs/Frame/Frame _Wizard..."
-msgstr "/Διάλογοι/Πλαίσια/Πλαίσιο"
-
-#: ../src/menu.c:638
-#, fuzzy
-msgid "/Dialogs/Frame/Frame_set..."
-msgstr "/Διάλογοι/Πλαίσια/Σετ πλαισίων"
-
-#: ../src/menu.c:639
-#, fuzzy
-msgid "/Dialogs/Frame/_Frame..."
-msgstr "/Διάλογοι/Πλαίσια/Πλαίσιο"
-
-#: ../src/menu.c:640
-#, fuzzy
-msgid "/Dialogs/F_orm"
-msgstr "/Διάλογοι/Φόρμες"
-
-#: ../src/menu.c:641
-msgid "/Dialogs/Form/tearoff1"
-msgstr "/Διάλογοι/Φόρμες/διαχ1"
-
-#: ../src/menu.c:642
-#, fuzzy
-msgid "/Dialogs/Form/F_orm..."
-msgstr "/Διάλογοι/Φόρμες/Φόρμα"
-
-#: ../src/menu.c:643
-#, fuzzy
-msgid "/Dialogs/Form/_Input..."
-msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
-
-#: ../src/menu.c:644
-#, fuzzy
-msgid "/Dialogs/Form/Input Buttons..."
-msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
-
-#: ../src/menu.c:645
-#, fuzzy
-msgid "/Dialogs/Form/Input Text..."
-msgstr "/Διάλογοι/Φόρμες/Κείμενο"
-
-#: ../src/menu.c:646
-#, fuzzy
-msgid "/Dialogs/Form/Text_area..."
-msgstr "/Διάλογοι/Φόρμες/Πεδίο κειμένου"
-
-#: ../src/menu.c:647
-#, fuzzy
-msgid "/Dialogs/Form/_Select..."
-msgstr "/Διάλογοι/Φόρμες/Επιλογή"
-
-#: ../src/menu.c:648
-#, fuzzy
-msgid "/Dialogs/Form/O_ption..."
-msgstr "/Διάλογοι/Φόρμες/Επιλογή"
-
-#: ../src/menu.c:649
-#, fuzzy
-msgid "/Dialogs/Form/Option _Group..."
-msgstr "/Διάλογοι/Φόρμες/Επιλογή"
-
-#: ../src/menu.c:650
-#, fuzzy
-msgid "/Dialogs/Form/_Button..."
-msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
-
-#: ../src/menu.c:677
-#, fuzzy
-msgid "/Dialogs/sep1"
-msgstr "/Διάλογοι/διαχ1"
-
-#: ../src/menu.c:678
-msgid "/Dialogs/_Edit tag under cursor..."
-msgstr ""
-
-#: ../src/menu.c:679
+#: ../src/menu.c:277
 #, fuzzy
 msgid "/_Document"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:680
+#: ../src/menu.c:278
 #, fuzzy
 msgid "/Document/tearoff1"
 msgstr "/Σχέδιο/διαχ1"
 
-#: ../src/menu.c:681
+#: ../src/menu.c:279
 #, fuzzy
 msgid "/Document/_Increase Tabsize"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/menu.c:682
+#: ../src/menu.c:280
 #, fuzzy
 msgid "/Document/_Decrease Tabsize"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/menu.c:683
+#: ../src/menu.c:281
 #, fuzzy
 msgid "/Document/_Auto Indent"
 msgstr "/Επιλογές/Λίστες"
 
-#: ../src/menu.c:684
+#: ../src/menu.c:282
 #, fuzzy
 msgid "/Document/sep1"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:685
+#: ../src/menu.c:283
 #, fuzzy
 msgid "/Document/Auto Close H_TML tags"
 msgstr "/Επιλογές/Λίστες"
 
-#: ../src/menu.c:686
+#: ../src/menu.c:284
 msgid "/Document/_Wrap"
 msgstr ""
 
-#: ../src/menu.c:687
+#: ../src/menu.c:285
 #, fuzzy
 msgid "/Document/_Line Numbers"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/menu.c:688
+#: ../src/menu.c:287
+#, fuzzy
+msgid "/Document/Show _blocks"
+msgstr "/Επεξεργασία/Αποκοπή"
+
+#: ../src/menu.c:288
+#, fuzzy
+msgid "/Document/Show _symbols"
+msgstr "/Επεξεργασία/Αποκοπή"
+
+#: ../src/menu.c:290
 #, fuzzy
 msgid "/Document/sep2"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:689
+#: ../src/menu.c:291
 #, fuzzy
 msgid "/Document/_Highlight Syntax"
 msgstr "/Προβολή/Υπογράμμιση σύνταξης"
 
-#: ../src/menu.c:690
+#: ../src/menu.c:292
 #, fuzzy
 msgid "/Document/_Update Highlighting"
 msgstr "/Προβολή/Ανανέωση υπογράμμισης"
 
-#: ../src/menu.c:691
+#: ../src/menu.c:293
 #, fuzzy
 msgid "/Document/sep3"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:692
+#: ../src/menu.c:294
 #, fuzzy
 msgid "/Document/Document Ty_pe"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:693
+#: ../src/menu.c:295
 #, fuzzy
 msgid "/Document/Document Type/tearoff1"
 msgstr "/Σχέδιο/Αρχεία/διαχ1"
 
-#: ../src/menu.c:694
+#: ../src/menu.c:296
 #, fuzzy
 msgid "/Document/Character _Encoding"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/menu.c:695
+#: ../src/menu.c:297
 #, fuzzy
 msgid "/Document/Character Encoding/tearoff1"
 msgstr "/Σχέδιο/Αρχεία/διαχ1"
 
-#: ../src/menu.c:696
+#: ../src/menu.c:298
 #, fuzzy
 msgid "/Document/sep4"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:698
+#: ../src/menu.c:300
 msgid "/Document/Check _Spelling..."
 msgstr ""
 
-#: ../src/menu.c:700
+#: ../src/menu.c:302
 #, fuzzy
 msgid "/Document/_Floating window"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/menu.c:701
+#: ../src/menu.c:303
 #, fuzzy
 msgid "/Document/Word _Count"
 msgstr "/Επεξεργασία/Αποκοπή"
 
-#: ../src/menu.c:702
+#: ../src/menu.c:304
 #, fuzzy
 msgid "/Document/sep5"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:703
+#: ../src/menu.c:305
 #, fuzzy
 msgid "/Document/Move left"
 msgstr "/Επιλογές/Λίστες"
 
-#: ../src/menu.c:704
+#: ../src/menu.c:306
 #, fuzzy
 msgid "/Document/Move right"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:705
+#: ../src/menu.c:307
 msgid "/_Go"
 msgstr ""
 
-#: ../src/menu.c:706
+#: ../src/menu.c:308
 #, fuzzy
 msgid "/Go/tearoff1"
 msgstr "/Αρχείο/κοψ1"
 
-#: ../src/menu.c:707
+#: ../src/menu.c:309
 msgid "/Go/_Previous document"
 msgstr ""
 
-#: ../src/menu.c:708
+#: ../src/menu.c:310
 #, fuzzy
 msgid "/Go/_Next document"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:709 ../src/menu.c:712
+#: ../src/menu.c:311 ../src/menu.c:314
 #, fuzzy
 msgid "/Go/sep1"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:710
+#: ../src/menu.c:312
 #, fuzzy
 msgid "/Go/_First document"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/menu.c:711
+#: ../src/menu.c:313
 #, fuzzy
 msgid "/Go/L_ast document"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:713
+#: ../src/menu.c:315
 #, fuzzy
 msgid "/Go/Goto _Line"
 msgstr "Πήγαινε στη γραμμή"
 
-#: ../src/menu.c:714
+#: ../src/menu.c:316
 #, fuzzy
 msgid "/Go/Goto _Selection"
 msgstr "/Επεξεργασία/Εύρεση γραμμής"
 
-#: ../src/menu.c:715
+#: ../src/menu.c:317
 #, fuzzy
 msgid "/_Project"
 msgstr "/Σχέδιο/Αρχεία"
 
-#: ../src/menu.c:716
+#: ../src/menu.c:318
 #, fuzzy
 msgid "/Project/tearoff1"
 msgstr "/Σχέδιο/διαχ1"
 
-#: ../src/menu.c:717
+#: ../src/menu.c:319
 msgid "/Project/_New Project"
 msgstr ""
 
-#: ../src/menu.c:718
+#: ../src/menu.c:320
 msgid "/Project/_Open Project..."
 msgstr ""
 
-#: ../src/menu.c:719
+#: ../src/menu.c:321
 #, fuzzy
 msgid "/Project/Open _recent"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/menu.c:720
+#: ../src/menu.c:322
 #, fuzzy
 msgid "/Project/Open recent/tearoff1"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/menu.c:721
+#: ../src/menu.c:323
 #, fuzzy
 msgid "/Project/sep1"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:722
+#: ../src/menu.c:324
 #, fuzzy
 msgid "/Project/_Save"
 msgstr "/Αρχείο/Απο_θήκευση"
 
-#: ../src/menu.c:723
+#: ../src/menu.c:325
 #, fuzzy
 msgid "/Project/Save _as..."
 msgstr "/Αρχείο/Αποθήκευση _ώς"
 
-#: ../src/menu.c:724
+#: ../src/menu.c:326
 #, fuzzy
 msgid "/Project/Save & _close"
 msgstr "/Αρχείο/Αποθήκευση _ώς"
 
-#: ../src/menu.c:725
+#: ../src/menu.c:327
 #, fuzzy
 msgid "/Project/sep2"
 msgstr "/Αρχείο/διαχ2"
 
-#: ../src/menu.c:726
+#: ../src/menu.c:328
 msgid "/Project/E_dit Project Options..."
 msgstr ""
 
-#: ../src/menu.c:727
+#: ../src/menu.c:329
 msgid "/E_xternal"
 msgstr "/_Εξωτερικά"
 
-#: ../src/menu.c:728
+#: ../src/menu.c:330
 msgid "/External/tearoff1"
 msgstr "/Εξωτερικά/διαχ1"
 
-#: ../src/menu.c:734
+#: ../src/menu.c:336
 msgid "/_Help"
 msgstr ""
 
-#: ../src/menu.c:735
+#: ../src/menu.c:337
 msgid "/Help/_About..."
 msgstr ""
 
-#: ../src/menu.c:897
+#: ../src/menu.c:501
 #, fuzzy
 msgid "/Document/Document Type"
 msgstr "Σχόλιο"
 
-#: ../src/menu.c:1031
+#: ../src/menu.c:635
 #, fuzzy
 msgid "/Project/Open recent"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/menu.c:1035
+#: ../src/menu.c:639
 #, fuzzy
 msgid "/File/Open recent"
 msgstr "Αρχείο/_Άνοιγμα πρόσφατου"
 
-#: ../src/menu.c:1214
+#: ../src/menu.c:818
 msgid "/Windows"
 msgstr ""
 
-#: ../src/menu.c:1283
-#, fuzzy
-msgid "Could not view file in browser."
-msgstr "Δεν ήταν δυνατή η προσπέλαση του αρχείου:\n"
-
-#: ../src/menu.c:1284
-msgid "File has not been saved\n"
-msgstr ""
-
-#: ../src/menu.c:1419
+#: ../src/menu.c:1042
 #, fuzzy
 msgid "/External/Outputbox/"
 msgstr "/Εξωτερικά/διαχ11"
 
-#: ../src/menu.c:1422
+#: ../src/menu.c:1043
 msgid "/External/Commands/"
 msgstr "/Εξωτερικά/Εντολές/"
 
-#: ../src/menu.c:1425
+#: ../src/menu.c:1044
 #, fuzzy
-msgid "/External/Browsers/"
+msgid "/External/Filters/"
 msgstr "/Εξωτερικά/Φίλτρα/"
 
-#: ../src/menu.c:1430 ../src/menu.c:1445 ../src/menu.c:1464 ../src/menu.c:1480
-#: ../src/menu.c:1493 ../src/menu.c:1515
+#: ../src/menu.c:1057
+#, fuzzy
+msgid "/External/Filters"
+msgstr "/Εξωτερικά/διαχ1"
+
+#: ../src/menu.c:1080
 #, fuzzy
 msgid "/External"
 msgstr "/_Εξωτερικά"
 
-#: ../src/menu.c:1443
-#, fuzzy
-msgid "/External/Browsers"
-msgstr "/Εξωτερικά/Φίλτρα/"
-
-#: ../src/menu.c:1478
+#: ../src/menu.c:1082
 #, fuzzy
 msgid "/External/Commands"
 msgstr "/Εξωτερικά/Εντολές/"
 
-#: ../src/menu.c:1513
+#: ../src/menu.c:1110
 #, fuzzy
 msgid "/External/Outputbox"
 msgstr "/Εξωτερικά/διαχ11"
 
-#: ../src/menu.c:1563
+#: ../src/menu.c:1154
 #, fuzzy
 msgid "/Document/Character Encoding"
 msgstr "/Σχέδιο/διαχ1"
 
-#: ../src/menu.c:1832
+#: ../src/menu.c:1427
 msgid "This custom search and replace requires a selection"
 msgstr ""
 
-#: ../src/menu.c:1930
+#: ../src/menu.c:1525
 msgid "/_Custom menu"
 msgstr "/_Προσαρμοσμένο μενού"
 
 # src/html.c:736		ΝΤΚ
-#: ../src/menu.c:1931
+#: ../src/menu.c:1526
 msgid "/Custom menu/sep"
 msgstr "/Προσαρμοσμένο μενού/διαχ"
 
 # src/html.c:736		ΝΤΚ
-#: ../src/menu.c:1932
+#: ../src/menu.c:1527
 #, fuzzy
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Προσαρμοσμένο μενού/Διόρθωση"
 
 # src/html.c:736		ΝΤΚ
-#: ../src/menu.c:1933
+#: ../src/menu.c:1528
 #, fuzzy
 msgid "/Custom menu/Reset"
 msgstr "/Προσαρμοσμένο μενού/διαχ"
 
 # src/html.c:736		ΝΤΚ
-#: ../src/menu.c:1934
+#: ../src/menu.c:1529
 #, fuzzy
 msgid "/Custom menu/Load new"
 msgstr "/Προσαρμοσμένο μενού/διαχ"
 
-#: ../src/menu.c:2150
+#: ../src/menu.c:1746
 #, fuzzy
 msgid "Search Pattern"
 msgstr "Εύρεση"
 
-#: ../src/menu.c:2151
+#: ../src/menu.c:1747
 #, fuzzy
 msgid "Replace String"
 msgstr "Αντικατάσταση"
 
-#: ../src/menu.c:2154
+#: ../src/menu.c:1750
 #, fuzzy
 msgid "Formatstring Before"
 msgstr "Κείμενο διαμόρφωσης πριν"
 
-#: ../src/menu.c:2155
+#: ../src/menu.c:1751
 #, fuzzy
 msgid "Formatstring After"
 msgstr "Κείμενο διαμόρφωσης μετά"
 
-#: ../src/menu.c:2205
+#: ../src/menu.c:1801
 msgid "The menupath you want to update does not exist yet"
 msgstr ""
 
-#: ../src/menu.c:2206
+#: ../src/menu.c:1802
 msgid "Try 'add' instead."
 msgstr ""
 
-#: ../src/menu.c:2211
+#: ../src/menu.c:1807
 msgid "The menupath you want to add already exists."
 msgstr ""
 
-#: ../src/menu.c:2220
+#: ../src/menu.c:1816
 msgid "The menupath should start with a / character"
 msgstr ""
 
-#: ../src/menu.c:2383
+#: ../src/menu.c:1979
 #, fuzzy
 msgid "Custom Menu Editor"
 msgstr "/_Προσαρμοσμένο μενού"
 
-#: ../src/menu.c:2394
+#: ../src/menu.c:1990
 msgid "Add New Menu Entry"
 msgstr ""
 
-#: ../src/menu.c:2396
+#: ../src/menu.c:1992
 msgid "Apply Changes"
 msgstr ""
 
-#: ../src/menu.c:2398
+#: ../src/menu.c:1994
 msgid "Delete Menu Entry"
 msgstr ""
 
-#: ../src/menu.c:2401
+#: ../src/menu.c:1997
 msgid "Close Discards Changes"
 msgstr ""
 
-#: ../src/menu.c:2403
+#: ../src/menu.c:1999
 msgid "Save Changes and Exit"
 msgstr ""
 
-#: ../src/menu.c:2413
+#: ../src/menu.c:2009
 #, fuzzy
 msgid "_Menu Path:"
 msgstr "Θέση μενού"
 
-#: ../src/menu.c:2434
+#: ../src/menu.c:2030
 msgid "Menu path"
 msgstr "Θέση μενού"
 
-#: ../src/menu.c:2454
+#: ../src/menu.c:2050
 #, fuzzy
 msgid "Number of _Variables:"
 msgstr "Αριθμός μεταβλητών"
 
-#: ../src/menu.c:2462
+#: ../src/menu.c:2058
 msgid "Variables"
 msgstr "Μεταβλητές"
 
-#: ../src/menu.c:2481
+#: ../src/menu.c:2077
 #, fuzzy
 msgid "Custom Dialo_g"
 msgstr "Διάλογος Πήγαινε"
 
-#: ../src/menu.c:2483
+#: ../src/menu.c:2079
 #, fuzzy
 msgid "Custom Replace"
 msgstr "Εύρεση και Αντικατάσταση"
 
-#: ../src/menu.c:2495
+#: ../src/menu.c:2091
 #, fuzzy
 msgid "_Replace:"
 msgstr "Αντικατάσταση"
 
-#: ../src/menu.c:2498
+#: ../src/menu.c:2094
 #, fuzzy
 msgid "in current document"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/menu.c:2498
+#: ../src/menu.c:2094
 msgid "from cursor"
 msgstr ""
 
-#: ../src/menu.c:2498
+#: ../src/menu.c:2094
 #, fuzzy
 msgid "in selection"
 msgstr "Στην επιλογή"
 
-#: ../src/menu.c:2498
+#: ../src/menu.c:2094
 #, fuzzy
 msgid "in all open documents"
 msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
 
-#: ../src/menu.c:2506
+#: ../src/menu.c:2102
 #, fuzzy
 msgid "Matc_hing:"
 msgstr "Διάστημα"
 
-#: ../src/menu.c:2509
+#: ../src/menu.c:2105
 msgid "normal"
 msgstr ""
 
-#: ../src/menu.c:2509
+#: ../src/menu.c:2105
 #, fuzzy
 msgid "posix regular expressions"
 msgstr "Έκδοση HTML"
 
-#: ../src/menu.c:2509
+#: ../src/menu.c:2105
 #, fuzzy
 msgid "perl regular expressions"
 msgstr "Έκδοση HTML"
 
-#: ../src/menu.c:2515
+#: ../src/menu.c:2111
 #, fuzzy
 msgid "Case Se_nsitive"
 msgstr "Διαφορά πεζών-κεφαλαίων"
 
-#: ../src/preferences.c:202
+#: ../src/preferences.c:210
 #, fuzzy
 msgid "Untitled"
 msgstr "Άτιτλο"
 
-#: ../src/preferences.c:302
+#: ../src/preferences.c:310
 msgid "Select font"
 msgstr "Επιλογή γραμματοσειράς"
 
-#: ../src/preferences.c:625 ../src/preferences.c:809 ../src/preferences.c:1396
-#: ../src/preferences.c:1554
+#: ../src/preferences.c:335
+#, fuzzy
+msgid "Select color"
+msgstr "Επιλογέας"
+
+#: ../src/preferences.c:662 ../src/preferences.c:846 ../src/preferences.c:1433
+#: ../src/preferences.c:1593
 msgid "Label"
 msgstr "Ταμπέλα"
 
-#: ../src/preferences.c:626
+#: ../src/preferences.c:663
 msgid "Extensions"
 msgstr "Επεκτάσεις"
 
-#: ../src/preferences.c:627
+#: ../src/preferences.c:664
 #, fuzzy
 msgid "Update chars"
 msgstr " Ανανέωση "
 
-#: ../src/preferences.c:628
+#: ../src/preferences.c:665
 msgid "Icon"
 msgstr "Εικονίδιο"
 
-#: ../src/preferences.c:629
+#: ../src/preferences.c:666
 #, fuzzy
 msgid "Editable"
 msgstr "διόρθωση ετικέτας"
 
-#: ../src/preferences.c:630
+#: ../src/preferences.c:667
 #, fuzzy
 msgid "Content regex"
 msgstr "Περιεχόμενο"
 
-#: ../src/preferences.c:631
+#: ../src/preferences.c:668
 msgid "Auto close tags mode"
 msgstr ""
 
-#: ../src/preferences.c:810
+#: ../src/preferences.c:847
 #, fuzzy
 msgid "Inverse filter"
 msgstr "Διάλογος εικόνων"
 
-#: ../src/preferences.c:811
+#: ../src/preferences.c:848
 #, fuzzy
 msgid "Filetypes in filter"
 msgstr " Σβήσιμο "
 
-#: ../src/preferences.c:1164
+#: ../src/preferences.c:1201
 msgid "filetype"
 msgstr "τύπος αρχείου"
 
-#: ../src/preferences.c:1169
+#: ../src/preferences.c:1206
 #, fuzzy
 msgid "Reset"
 msgstr "Frameset"
 
-#: ../src/preferences.c:1175
+#: ../src/preferences.c:1212
 #, fuzzy
 msgid "Pattern name"
 msgstr "Επικόλληση"
 
-#: ../src/preferences.c:1193 ../src/preferences.c:1742
+#: ../src/preferences.c:1230 ../src/preferences.c:1785
 #, fuzzy
 msgid "Pattern"
 msgstr "Επικόλληση"
 
-#: ../src/preferences.c:1216
+#: ../src/preferences.c:1253
 msgid "Start pattern and end pattern"
 msgstr ""
 
-#: ../src/preferences.c:1218
+#: ../src/preferences.c:1255
 #, fuzzy
 msgid "Only start pattern"
 msgstr "Εύρεση"
 
-#: ../src/preferences.c:1220
+#: ../src/preferences.c:1257
 msgid "Subpattern from parent"
 msgstr ""
 
-#: ../src/preferences.c:1226
+#: ../src/preferences.c:1263
 #, fuzzy
 msgid "Start pattern"
 msgstr "Εύρεση"
 
-#: ../src/preferences.c:1227
+#: ../src/preferences.c:1264
 #, fuzzy
 msgid "End pattern"
 msgstr "Επικόλληση"
 
-#: ../src/preferences.c:1228
+#: ../src/preferences.c:1265
 #, fuzzy
 msgid "Case sensitive matching"
 msgstr "Διαφορά πεζών-κεφαλαίων"
 
-#: ../src/preferences.c:1229
+#: ../src/preferences.c:1266
 msgid "Parentmatch"
 msgstr ""
 
-#: ../src/preferences.c:1230
+#: ../src/preferences.c:1267
 #, fuzzy
 msgid "Foreground color"
 msgstr "Χρώμα φόντου"
 
-#: ../src/preferences.c:1231
+#: ../src/preferences.c:1268
 #, fuzzy
 msgid "Background color"
 msgstr "Χρώμα φόντου"
 
-#: ../src/preferences.c:1239
+#: ../src/preferences.c:1276
 msgid "don't change weight"
 msgstr ""
 
-#: ../src/preferences.c:1241
+#: ../src/preferences.c:1278
 #, fuzzy
 msgid "force non-bold weight"
 msgstr "font-wight"
 
-#: ../src/preferences.c:1243
+#: ../src/preferences.c:1280
 msgid "force bold weight"
 msgstr ""
 
-#: ../src/preferences.c:1249
+#: ../src/preferences.c:1286
 #, fuzzy
 msgid "don't change style"
 msgstr "Εισαγωγή νέου στυλ"
 
-#: ../src/preferences.c:1251
+#: ../src/preferences.c:1288
 msgid "force non-italic style"
 msgstr ""
 
-#: ../src/preferences.c:1253
+#: ../src/preferences.c:1290
 msgid "force italic style"
 msgstr ""
 
-#: ../src/preferences.c:1397 ../src/preferences.c:1555
-#: ../src/preferences.c:1746
+#: ../src/preferences.c:1434 ../src/preferences.c:1594
+#: ../src/preferences.c:1789
 msgid "Command"
 msgstr "Εντολή"
 
-#: ../src/preferences.c:1576
-#, c-format
+#: ../src/preferences.c:1435
+#, fuzzy
+msgid "Default browser"
+msgstr "Επιλεγμένο"
+
+#: ../src/preferences.c:1437
 msgid ""
-"%s for current filename (any command)\n"
-"%i for input and %f for output filename (filters)"
+"<small><b>Input options</b>\n"
+"specify no options to read the input from the standard output\n"
+"%s local filename (available for local files)\n"
+"%i temporary fifo for input, equals %s if the document is not modified and "
+"local\n"
+"%I temporary filename for input, equals %s if the document is not modified "
+"and local\n"
+"<b>Other options</b>\n"
+"%c local directory of file (available for local files)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else "
+"identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1743
+#: ../src/preferences.c:1597 ../src/preferences.c:1792
+msgid ""
+"<small><b>Input options</b>\n"
+"specify no options to read the input from the standard output\n"
+"%s local filename (available for local files)\n"
+"%i temporary fifo for input, equals %s if the document is not modified and "
+"local\n"
+"%I temporary filename for input, equals %s if the document is not modified "
+"and local\n"
+"<b>Output options</b>\n"
+"specify no options to read the output from the standard output\n"
+"%o temporary fifo\n"
+"%O temporary filename\n"
+"%t temporary filename for both input and output (for in-place-editing "
+"filters)\n"
+"<b>Other options</b>\n"
+"%c local directory of file (available for local files)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else "
+"identical to %u</small>"
+msgstr ""
+
+#: ../src/preferences.c:1786
 #, fuzzy
 msgid "File #"
 msgstr "/_Αρχεία"
 
-#: ../src/preferences.c:1744
+#: ../src/preferences.c:1787
 #, fuzzy
 msgid "Line #"
 msgstr "Τύλιγμα γραμμής"
 
-#: ../src/preferences.c:1745
+#: ../src/preferences.c:1788
 msgid "Output #"
 msgstr ""
 
-#: ../src/preferences.c:1747
+#: ../src/preferences.c:1790
 msgid "Show all output"
 msgstr ""
 
-#: ../src/preferences.c:1962 ../src/preferences.c:1963
+#: ../src/preferences.c:2048 ../src/preferences.c:2049
 msgid "left"
 msgstr "αριστερά"
 
-#: ../src/preferences.c:1962 ../src/preferences.c:1963
+#: ../src/preferences.c:2048 ../src/preferences.c:2049
 msgid "right"
 msgstr "δεξιά"
 
-#: ../src/preferences.c:1962
+#: ../src/preferences.c:2048
 msgid "top"
 msgstr "πάνω"
 
-#: ../src/preferences.c:1962
+#: ../src/preferences.c:2048
 msgid "bottom"
 msgstr "κάτω"
 
-#: ../src/preferences.c:1964
+#: ../src/preferences.c:2050
 msgid "no check"
 msgstr ""
 
-#: ../src/preferences.c:1964
+#: ../src/preferences.c:2050
 msgid "check mtime and size"
 msgstr ""
 
-#: ../src/preferences.c:1964
+#: ../src/preferences.c:2050
 msgid "check mtime"
 msgstr ""
 
-#: ../src/preferences.c:1964
+#: ../src/preferences.c:2050
 msgid "check size"
 msgstr ""
 
-#: ../src/preferences.c:1967
+#: ../src/preferences.c:2060
 msgid "Edit preferences"
 msgstr "Επεξεργασία προτιμήσεων"
 
-#: ../src/preferences.c:1978
+#: ../src/preferences.c:2087 ../src/preferences.c:2089
 msgid "Editor"
 msgstr "Επεξεργαστής"
 
-#: ../src/preferences.c:1980
+#: ../src/preferences.c:2091
 msgid "Editor options"
 msgstr "Ρυθμίσεις διορθωτή"
 
-#: ../src/preferences.c:1986
+#: ../src/preferences.c:2096 ../src/preferences.c:2245
+#: ../src/preferences.c:2288
+msgid "Font"
+msgstr "Γραμματοσειρά"
+
+#: ../src/preferences.c:2097
 msgid "Tab width"
 msgstr "Μέγεθος tab"
 
-#: ../src/preferences.c:1987
+#: ../src/preferences.c:2098
 msgid "Use spaces to indent, not tabs"
 msgstr ""
 
-#: ../src/preferences.c:1988
+#: ../src/preferences.c:2099
 #, fuzzy
 msgid "Word wrap default"
 msgstr "Τύλιγμα λέξης"
 
-#: ../src/preferences.c:1989
+#: ../src/preferences.c:2100
 #, fuzzy
 msgid "Line numbers by default"
 msgstr "Αριθμός γραμμής: "
 
-#: ../src/preferences.c:1990
+#: ../src/preferences.c:2102
+#, fuzzy
+msgid "Block folding view by default"
+msgstr "Τύλιγμα λέξης"
+
+#: ../src/preferences.c:2103
+#, fuzzy
+msgid "Symbols view by default"
+msgstr "Αριθμός γραμμής: "
+
+#: ../src/preferences.c:2105
 #, fuzzy
 msgid "Highlight syntax by default"
 msgstr "/Προβολή/Υπογράμμιση σύνταξης"
 
-#: ../src/preferences.c:1991
+#: ../src/preferences.c:2106
 #, fuzzy
 msgid "Highlight # lines"
 msgstr "Υπογράμμιση σα προεπιλογή"
 
-#: ../src/preferences.c:1998
+#: ../src/preferences.c:2108
+#, fuzzy
+msgid "Undo options"
+msgstr "Ρυθμίσεις διορθωτή"
+
+#: ../src/preferences.c:2113
 msgid "Undo history size"
 msgstr ""
 
-#: ../src/preferences.c:1999
+#: ../src/preferences.c:2114
 msgid "Clear undo history on save"
 msgstr ""
 
-#: ../src/preferences.c:2001
-msgid "Bookmark options"
-msgstr "Επιλογές σελιδοδεικτών"
-
-#: ../src/preferences.c:2006
-#, fuzzy
-msgid "Make permanent by default"
-msgstr "Αριθμός γραμμής: "
-
-#: ../src/preferences.c:2008
-#, fuzzy
-msgid "full path"
-msgstr "Θέση μενού"
-
-#: ../src/preferences.c:2008
-#, fuzzy
-msgid "path from basedir"
-msgstr "Επιλεγμένο"
-
-#: ../src/preferences.c:2008
-msgid "filename"
-msgstr "όνομα αρχείου"
-
-#: ../src/preferences.c:2009
-msgid "Bookmarks filename display"
-msgstr ""
-
-#: ../src/preferences.c:2013
+#: ../src/preferences.c:2130 ../src/preferences.c:2132
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:2015
+#: ../src/preferences.c:2135
 msgid "HTML options"
 msgstr "Ρυθμίσεις HTML"
 
-#: ../src/preferences.c:2020
+#: ../src/preferences.c:2140
 msgid "Lowercase HTML tags"
 msgstr ""
 
-#: ../src/preferences.c:2021
+#: ../src/preferences.c:2141
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr ""
 
-#: ../src/preferences.c:2022
+#: ../src/preferences.c:2142
 #, fuzzy
 msgid "Use XHTML style tags (<br />)"
 msgstr "Χρήση XHTML σύνταξης (όπως <br />)"
 
-#: ../src/preferences.c:2023
+#: ../src/preferences.c:2143
 msgid "Automatic update author meta"
 msgstr ""
 
-#: ../src/preferences.c:2026
+#: ../src/preferences.c:2148 ../src/preferences.c:2150
 msgid "Files"
 msgstr "Αρχεία"
 
-#: ../src/preferences.c:2028
+#: ../src/preferences.c:2153
 msgid "Encoding"
 msgstr "Κωδικοποίηση"
 
-#: ../src/preferences.c:2040
+#: ../src/preferences.c:2165
 #, fuzzy
 msgid "Default character set"
 msgstr "Προεπιλεγμένο σετ χαρακτήρων"
 
-#: ../src/preferences.c:2043
+#: ../src/preferences.c:2168
 msgid "Auto set <meta> encoding tag on change"
 msgstr ""
 
-#: ../src/preferences.c:2045
+#: ../src/preferences.c:2170
 msgid "Backup"
 msgstr "Αντίγραφο ασφαλείας"
 
-#: ../src/preferences.c:2049
+#: ../src/preferences.c:2174
 msgid "Create backup on save"
 msgstr ""
 
-#: ../src/preferences.c:2050
+#: ../src/preferences.c:2175
 msgid "Backup file suffix"
 msgstr "Κατάληξη αρχείου ασφαλείας"
 
-#: ../src/preferences.c:2052
+#: ../src/preferences.c:2177
 msgid "save"
 msgstr "αποθήκευση"
 
-#: ../src/preferences.c:2052
+#: ../src/preferences.c:2177
 #, fuzzy
 msgid "abort"
 msgstr "Θέση μεταβλητής"
 
-#: ../src/preferences.c:2052
+#: ../src/preferences.c:2177
 msgid "ask"
 msgstr ""
 
-#: ../src/preferences.c:2053
+#: ../src/preferences.c:2178
 #, fuzzy
 msgid "Action on backup failure"
 msgstr "Δε βρέθηκε το όνομα συστήματος"
 
-#: ../src/preferences.c:2055
+#: ../src/preferences.c:2180
 #, fuzzy
 msgid "Remove backupfile on close"
 msgstr "Κατάληξη αρχείου ασφαλείας"
 
-#: ../src/preferences.c:2059
+#: ../src/preferences.c:2184
 msgid "Misc"
 msgstr ""
 
-#: ../src/preferences.c:2064
-#, fuzzy
-msgid "Allow multi instances of a file"
-msgstr "Επιτρεπτή η πολλαπλή εμφάνιση του ίδιου αρχείου"
-
-#: ../src/preferences.c:2066
+#: ../src/preferences.c:2190
 msgid "Open files in already running bluefish window"
 msgstr ""
 
-#: ../src/preferences.c:2068
+#: ../src/preferences.c:2192
 msgid "File modified on disk check "
 msgstr ""
 
-#: ../src/preferences.c:2069
+#: ../src/preferences.c:2193
+msgid "Periodically check file on disk"
+msgstr ""
+
+#: ../src/preferences.c:2194
 msgid "Number of files in 'Open recent'"
 msgstr ""
 
-#: ../src/preferences.c:2071
+#: ../src/preferences.c:2196
 msgid "File browser"
 msgstr "Περιηγητής αρχείων"
 
-#: ../src/preferences.c:2075
-#, fuzzy
-msgid "Default basedir"
-msgstr "Επιλεγμένο"
-
-#: ../src/preferences.c:2076
+#: ../src/preferences.c:2201
 msgid "Use separate file and directory view"
 msgstr ""
 
-#: ../src/preferences.c:2077
+#: ../src/preferences.c:2202
 msgid "Unknown icon"
 msgstr "Άγνωστο εικονίδιο"
 
-#: ../src/preferences.c:2078
+#: ../src/preferences.c:2203
 msgid "Directory icon"
 msgstr ""
 
-#: ../src/preferences.c:2081
+#: ../src/preferences.c:2208 ../src/preferences.c:2251
 msgid "User interface"
 msgstr ""
 
-#: ../src/preferences.c:2083
-msgid "Dimensions"
-msgstr "Διαστάσεις"
-
-#: ../src/preferences.c:2087
-msgid "Restore last used dimensions"
-msgstr ""
-
-#: ../src/preferences.c:2088
-#, fuzzy
-msgid "Initial sidebar width"
-msgstr "Αρχικό πλάτος"
-
-#: ../src/preferences.c:2089
-#, fuzzy
-msgid "Initial window height"
-msgstr "Αρχικό ύψος"
-
-#: ../src/preferences.c:2090
-#, fuzzy
-msgid "Initial window width"
-msgstr "Αρχικό πλάτος"
-
-#: ../src/preferences.c:2094
+#: ../src/preferences.c:2210 ../src/preferences.c:2265
 msgid "General"
 msgstr "Γενικά"
 
-#: ../src/preferences.c:2103
+#: ../src/preferences.c:2215 ../src/preferences.c:2275
 #, fuzzy
 msgid "Make HTML dialogs transient"
 msgstr "Διάλογος εικόνων"
 
-#: ../src/preferences.c:2105
-#, fuzzy
-msgid "External browsers in submenu"
-msgstr "Παράμετροι εξωτερικών προγραμμάτων"
-
-#: ../src/preferences.c:2106
-#, fuzzy
-msgid "External commands in submenu"
-msgstr "/Εξωτερικά/Εντολές"
-
-#: ../src/preferences.c:2107
-msgid "External outputbox in submenu"
+#: ../src/preferences.c:2216
+msgid ""
+"Notebook tab font \n"
+"(leave empty for gtk default)"
 msgstr ""
 
-#: ../src/preferences.c:2109
-msgid "Notebook tab font (leave empty for gtk default)"
-msgstr ""
-
-#: ../src/preferences.c:2111
+#: ../src/preferences.c:2217 ../src/preferences.c:2279
 #, fuzzy
 msgid "Document notebook tab position"
 msgstr "Θέση του σημειωματάριου"
 
-#: ../src/preferences.c:2112
+#: ../src/preferences.c:2218 ../src/preferences.c:2280
 #, fuzzy
 msgid "Sidebar notebook tab position"
 msgstr "Θέση του σημειωματάριου"
 
-#: ../src/preferences.c:2113
+#: ../src/preferences.c:2219 ../src/preferences.c:2281
 #, fuzzy
 msgid "Sidebar location"
 msgstr "Τοποθεσία εικόνας"
 
-#: ../src/preferences.c:2116 ../src/rcfile.c:569
+#: ../src/preferences.c:2223 ../src/preferences.c:2225
+#: ../src/preferences.c:2254
+msgid "Dimensions"
+msgstr "Διαστάσεις"
+
+#: ../src/preferences.c:2229 ../src/preferences.c:2258
+msgid "Restore last used dimensions"
+msgstr ""
+
+#: ../src/preferences.c:2230 ../src/preferences.c:2259
+#, fuzzy
+msgid "Initial sidebar width"
+msgstr "Αρχικό πλάτος"
+
+#: ../src/preferences.c:2231 ../src/preferences.c:2260
+#, fuzzy
+msgid "Initial window height"
+msgstr "Αρχικό ύψος"
+
+#: ../src/preferences.c:2232 ../src/preferences.c:2261
+#, fuzzy
+msgid "Initial window width"
+msgstr "Αρχικό πλάτος"
+
+#: ../src/preferences.c:2238 ../src/preferences.c:2240
+#: ../src/preferences.c:2283
+#, fuzzy
+msgid "Reference library"
+msgstr "Ανανέωση εγγράφου"
+
+#: ../src/preferences.c:2246 ../src/preferences.c:2289
+#, fuzzy
+msgid "Info background color"
+msgstr "Χρώμα φόντου"
+
+#: ../src/preferences.c:2247 ../src/preferences.c:2290
+#, fuzzy
+msgid "Info foreground color"
+msgstr "Χρώμα φόντου"
+
+#: ../src/preferences.c:2277
+msgid "Notebook tab font (leave empty for gtk default)"
+msgstr ""
+
+#: ../src/preferences.c:2297 ../src/preferences.c:2299 ../src/rcfile.c:676
 msgid "Images"
 msgstr "Εικόνες"
 
 # src/configure.c:355		ΝΤΚ
-#: ../src/preferences.c:2118
+#: ../src/preferences.c:2302
 msgid "Thumbnails"
 msgstr "Μικρογραφίες"
 
 # src/configure.c:355		ΝΤΚ
-#: ../src/preferences.c:2122
+#: ../src/preferences.c:2306
 #, fuzzy
 msgid "Thumbnail suffix"
 msgstr "Τύπος προεπισκόπησης"
 
 # src/configure.c:355		ΝΤΚ
-#: ../src/preferences.c:2126
+#: ../src/preferences.c:2310
 #, fuzzy
 msgid "Thumbnail filetype"
 msgstr "Τύπος προεπισκόπησης"
 
-#: ../src/preferences.c:2131 ../src/preferences.c:2133
-msgid "Filetypes"
+#: ../src/preferences.c:2317 ../src/preferences.c:2319
+#: ../src/preferences.c:2321
+#, fuzzy
+msgid "File types"
 msgstr "Τύποι αρχείων"
 
-#: ../src/preferences.c:2140
+#: ../src/preferences.c:2330 ../src/preferences.c:2332
+#: ../src/preferences.c:2335
 #, fuzzy
-msgid "Filefilters"
+msgid "File filters"
 msgstr " Σβήσιμο "
 
-#: ../src/preferences.c:2148
+#: ../src/preferences.c:2344 ../src/preferences.c:2346
+#: ../src/preferences.c:2441 ../src/preferences.c:2444
 #, fuzzy
 msgid "Syntax highlighting"
 msgstr "/Επιλογές/Λίστες/Υπογράμμιση σύνταξης"
 
-#: ../src/preferences.c:2150
+#: ../src/preferences.c:2349
 #, fuzzy
 msgid "Patterns"
 msgstr "Επικόλληση"
 
-#: ../src/preferences.c:2158
-msgid "External programs"
+#: ../src/preferences.c:2359 ../src/preferences.c:2361
+#, fuzzy
+msgid "External commands"
+msgstr "/Εξωτερικά/Εντολές/"
+
+#: ../src/preferences.c:2364
+#, fuzzy
+msgid "Commands"
+msgstr "Εντολή"
+
+#: ../src/preferences.c:2373 ../src/preferences.c:2375
+#, fuzzy
+msgid "External filters"
 msgstr "Εξωτερικά προγράμματα"
 
-#: ../src/preferences.c:2160
-msgid "Browsers"
-msgstr "Περιηγητές Ιστοσελίδων"
-
-#: ../src/preferences.c:2167
+#: ../src/preferences.c:2378
 #, fuzzy
-msgid "Utilities and filters"
-msgstr " Σβήσιμο "
+msgid "Filters"
+msgstr "Φίλτρο"
 
-#: ../src/preferences.c:2175
+#: ../src/preferences.c:2387 ../src/preferences.c:2389
+#: ../src/preferences.c:2392
 msgid "Output parsers"
 msgstr ""
 
-#: ../src/preferences.c:2177
-msgid "Outputbox"
-msgstr ""
-
-#: ../src/preferences.c:2186
+#: ../src/preferences.c:2401 ../src/preferences.c:2404
 msgid "Servers"
 msgstr "Εξυπηρετητές"
 
-#: ../src/preferences.c:2188
+#: ../src/preferences.c:2407
 msgid "Remote servers"
 msgstr "Απομακρυσμένοι εξυπηρετητές"
 
-#: ../src/preferences.c:2193
+#: ../src/preferences.c:2412
 msgid "Zope compatibility mode"
 msgstr "Λειτουργία συμβατότητας με Zope"
 
-#: ../src/project.c:92
+#: ../src/preferences.c:2418
+msgid "Scanner"
+msgstr ""
+
+#: ../src/preferences.c:2421
+#, fuzzy
+msgid "General scanner preferences"
+msgstr "Προεπισκόπηση του Bluefish:"
+
+#: ../src/preferences.c:2426
+msgid "Highlight matching block begin-end"
+msgstr ""
+
+#: ../src/preferences.c:2430 ../src/preferences.c:2433
+#, fuzzy
+msgid "Languages"
+msgstr "Γλώσσα:"
+
+#: ../src/project.c:120
 msgid "New project"
 msgstr "Νέο έργο"
 
-#: ../src/project.c:177
+#: ../src/project.c:206
 #, fuzzy
 msgid "Enter Bluefish project filename"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/project.c:308
+#: ../src/project.c:338
 #, fuzzy
 msgid "Select Bluefish project filename"
 msgstr "Σφάλμα του Bluefish"
 
-#: ../src/project.c:363
+#: ../src/project.c:397
 #, fuzzy
 msgid "Save current project?"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/project.c:496
+#: ../src/project.c:530
 msgid "Create New Project"
 msgstr "Δημιουργία Νέου Έργου"
 
-#: ../src/project.c:499
+#: ../src/project.c:533
 msgid "Edit Project"
 msgstr "Επεξεργασία Έργου"
 
-#: ../src/project.c:522
+#: ../src/project.c:556
 #, c-format
 msgid "This project contains %d files"
 msgstr ""
 
-#: ../src/project.c:534
+#: ../src/project.c:568
 msgid "Project _Name:"
 msgstr "_Όνομα Έργου:"
 
-#: ../src/project.c:538
+#: ../src/project.c:572
 #, fuzzy
 msgid "_Basedir:"
 msgstr "Βασικός υποκατάλογος"
 
-#: ../src/project.c:542
+#: ../src/project.c:576
 msgid "_Preview URL:"
 msgstr "_Προεπισκόπηση URL:"
 
-#: ../src/project.c:546
+#: ../src/project.c:580
 msgid "_Template:"
 msgstr "_Πρότυπο:"
 
-#: ../src/project.c:552
+#: ../src/project.c:586
 #, fuzzy
 msgid "_Word wrap by default"
 msgstr "Τύλιγμα λέξης"
 
-#: ../src/project.c:563
+#: ../src/project.c:597
 msgid "Create _Project"
 msgstr ""
 
-#: ../src/project.c:603
+#: ../src/project.c:637
 msgid "Create project"
 msgstr ""
 
-#: ../src/project.c:607
+#: ../src/project.c:641
 msgid "Create project with currently opened documents"
 msgstr ""
 
-#: ../src/project.c:608
+#: ../src/project.c:642
 msgid "Create empty project"
 msgstr ""
 
-#: ../src/quickstart.c:471
-msgid "<b>External Style Sheet</b>"
-msgstr ""
-
-#: ../src/quickstart.c:481
-#, fuzzy
-msgid "Ty_pe:"
-msgstr "_Τύπος:"
-
-#: ../src/quickstart.c:499
-#, fuzzy
-msgid "Hre_f:"
-msgstr "_Href:"
-
-#: ../src/quickstart.c:503
-#, fuzzy
-msgid "_Media:"
-msgstr "Meta"
-
-#: ../src/quickstart.c:507
-#, fuzzy
-msgid "Titl_e:"
-msgstr "_Τίτλος:"
-
-#: ../src/quickstart.c:513
-#, fuzzy
-msgid "<b>Style Area</b>"
-msgstr "<b>Γενικά</b>"
-
-#: ../src/quickstart.c:517
-msgid "Cre_ate empty style area"
-msgstr ""
-
-#: ../src/quickstart.c:539
-#, fuzzy
-msgid "<b>Attributes</b>"
-msgstr "Γνωρίσματα"
-
-#: ../src/quickstart.c:554
-#, fuzzy
-msgid "_Src:"
-msgstr "_Πηγή:"
-
-#: ../src/quickstart.c:561
-msgid "<b>Script Area</b>"
-msgstr ""
-
-#: ../src/quickstart.c:565
-msgid "Create _empty script area"
-msgstr ""
-
-#: ../src/quickstart.c:592
-#, fuzzy
-msgid "Quick Start"
-msgstr "Γρήγορη αρχή..."
-
-#: ../src/quickstart.c:606
-#, fuzzy
-msgid "_DTD:"
-msgstr "Χρήση _DTD:"
-
-#: ../src/quickstart.c:610 ../src/wizards.c:187
-msgid "_Title:"
-msgstr "_Τίτλος:"
-
-#: ../src/quickstart.c:633
-#, fuzzy
-msgid "_Head:"
-msgstr "_Href:"
-
-#: ../src/rcfile.c:493
-msgid "Galeon"
-msgstr "Galeon"
-
-#: ../src/rcfile.c:495
-msgid "Mozilla"
-msgstr "Mozilla"
-
-#: ../src/rcfile.c:497
-msgid "Opera"
-msgstr "Opera"
-
-#: ../src/rcfile.c:499
-msgid "Netscape"
-msgstr "Netscape"
-
-#: ../src/rcfile.c:501
-msgid "Gnome default"
-msgstr "Προεπιλογή Gnome"
-
-#: ../src/rcfile.c:525
-#, fuzzy
-msgid "make"
-msgstr "Εικόνα..."
-
-#: ../src/rcfile.c:526
-msgid "weblint HTML checker"
-msgstr ""
-
-#: ../src/rcfile.c:527
-msgid "tidy HTML validator"
-msgstr ""
-
-#: ../src/rcfile.c:528
-msgid "javac"
-msgstr "javac"
-
-#: ../src/rcfile.c:529
-#, fuzzy
-msgid "xmllint XML checker"
-msgstr "Ορθογραφία"
-
-#: ../src/rcfile.c:530
-msgid "php"
-msgstr "php"
-
-#: ../src/rcfile.c:536
-msgid "Dos2Unix filter"
-msgstr "Φίλτρο Dos2Unix"
-
-#: ../src/rcfile.c:538
-#, fuzzy
-msgid "Tidy cleanup filter"
-msgstr " Σβήσιμο "
-
-#: ../src/rcfile.c:563
+#: ../src/rcfile.c:670
 msgid "C programming"
 msgstr "Προγραμματισμός C"
 
-#: ../src/rcfile.c:565
+#: ../src/rcfile.c:672
 #, fuzzy
 msgid "All web files"
 msgstr "Σε όλα τα ανοικτά αρχεία"
 
-#: ../src/rcfile.c:567
+#: ../src/rcfile.c:674
 msgid "Java programming"
 msgstr "Προγραμματισμός Java"
 
-#: ../src/rcfile.c:571
+#: ../src/rcfile.c:678
 #, fuzzy
 msgid "Hide objectfiles"
 msgstr "Διάλεξε αρχεία"
 
-#: ../src/rcfile.c:888
+#: ../src/rcfile.c:997
 #, fuzzy
 msgid "Untitled Project"
 msgstr "Άτιτλο"
 
-#: ../src/snr2.c:188
+#: ../src/snr2.c:192
 #, fuzzy
 msgid "Regular expression error: "
 msgstr "Έκδοση HTML"
 
-#: ../src/snr2.c:192 ../src/snr2.c:241
+#: ../src/snr2.c:196 ../src/snr2.c:245
 #, fuzzy
 msgid "Search failed"
 msgstr "Αποτυχία εύρεσης"
 
-#: ../src/snr2.c:237
+#: ../src/snr2.c:241
 #, fuzzy, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Έκδοση HTML"
 
-#: ../src/snr2.c:867
+#: ../src/snr2.c:871
 msgid "Confirm replace"
 msgstr "Επιβεβαίωση αντικατάστασης"
 
-#: ../src/snr2.c:879
+#: ../src/snr2.c:883
 msgid "Replace selected text?"
 msgstr "Αντικατάσταση επιλεγμένου κειμένου;"
 
-#: ../src/snr2.c:894
+#: ../src/snr2.c:898
 msgid "Replace _all"
 msgstr "Αντικατάσταση _όλων"
 
-#: ../src/snr2.c:1142 ../src/snr2.c:1153
+#: ../src/snr2.c:1146 ../src/snr2.c:1157
 msgid "Search: no match found"
 msgstr ""
 
-#: ../src/snr2.c:1378
+#: ../src/snr2.c:1384
 msgid "_Search for: "
 msgstr "Α_ναζήτηση για: "
 
-#: ../src/snr2.c:1391
+#: ../src/snr2.c:1397
 msgid "_Replace with: "
 msgstr "_Αντικατάσταση με: "
 
-#: ../src/snr2.c:1401
+#: ../src/snr2.c:1407
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr ""
 
-#: ../src/snr2.c:1416
+#: ../src/snr2.c:1422
 #, fuzzy
 msgid "Beginning of document till end"
 msgstr "Αρχή απ'την αρχή του έγγραφου"
 
-#: ../src/snr2.c:1416
+#: ../src/snr2.c:1422
 #, fuzzy
 msgid "Current position till end"
 msgstr "Αρχή από θέση κέρσορα"
 
-#: ../src/snr2.c:1416
+#: ../src/snr2.c:1422
 #, fuzzy
 msgid "Beginning of selection till end of selection"
 msgstr "Στην επιλογή"
 
-#: ../src/snr2.c:1416
+#: ../src/snr2.c:1422
 msgid "All opened files begin till end"
 msgstr ""
 
-#: ../src/snr2.c:1417
+#: ../src/snr2.c:1423
 #, fuzzy
 msgid "Disabled"
 msgstr "Μεταβλητές"
 
-#: ../src/snr2.c:1417
+#: ../src/snr2.c:1423
 msgid "POSIX type"
 msgstr "Τύπος POSIX"
 
-#: ../src/snr2.c:1417
+#: ../src/snr2.c:1423
 msgid "PERL type"
 msgstr "Τύπος PERL"
 
-#: ../src/snr2.c:1418
+#: ../src/snr2.c:1424
 #, fuzzy
 msgid "Starts at:"
 msgstr "Εύρεση"
 
-#: ../src/snr2.c:1430
+#: ../src/snr2.c:1436
 msgid "Regular expression:"
 msgstr "Κανονική έκφραση:"
 
-#: ../src/snr2.c:1444
+#: ../src/snr2.c:1450
 msgid "Normal"
 msgstr "Κανονικό"
 
-#: ../src/snr2.c:1444
+#: ../src/snr2.c:1450
 msgid "Uppercase"
 msgstr "Κεφαλαία"
 
-#: ../src/snr2.c:1444
+#: ../src/snr2.c:1450
 msgid "Lowercase"
 msgstr "Πεζά"
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1451
 #, fuzzy
 msgid "Replace type:"
 msgstr "Αντικατάσταση"
 
-#: ../src/snr2.c:1458
+#: ../src/snr2.c:1464
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr ""
 
-#: ../src/snr2.c:1459
+#: ../src/snr2.c:1465
 msgid "_Match case"
 msgstr ""
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1466
 msgid "O_verlap searches"
 msgstr ""
 
-#: ../src/snr2.c:1462
+#: ../src/snr2.c:1468
 #, fuzzy
 msgid "Prompt _before replace"
 msgstr "Ερώτηση πριν την αντικατάσταση"
 
-#: ../src/snr2.c:1463
+#: ../src/snr2.c:1469
 #, fuzzy
 msgid "Replace o_nce"
 msgstr "Αντικατάσταση μια φορά"
 
-#: ../src/snr2.c:1465
+#: ../src/snr2.c:1471
 #, fuzzy
 msgid "Bookmark results"
 msgstr "/Επιλογές/διαχ1"
@@ -5594,67 +3197,1885 @@ msgstr " Κάτω "
 msgid " Sort "
 msgstr " Ταξινόμηση "
 
-#: ../src/wizards.c:69
-msgid "Table Wizard"
-msgstr "Οδηγός Πίνακα"
-
-#: ../src/wizards.c:77
-msgid "Number of _rows:"
-msgstr "Αριθμός των _γραμμών:"
-
-#: ../src/wizards.c:81
-msgid "Number of colu_mns:"
-msgstr "Αριθμός των _στηλών:"
-
-#: ../src/wizards.c:85
 #, fuzzy
-msgid "Table rows on one _line:"
-msgstr "Εισαγωγή σα μια γραμμή"
+#~ msgid "Bluefish tip:"
+#~ msgstr "Προεπισκόπηση του Bluefish:"
 
-#: ../src/wizards.c:89
-msgid "_Indent table code:"
-msgstr ""
+#~ msgid "Goto bookmark"
+#~ msgstr "Μετάβαση σε σελιδοδείκτη"
 
-#: ../src/wizards.c:176
-msgid "Frame Wizard"
-msgstr "Οδηγός Πλαισίου"
+#~ msgid "Edit color"
+#~ msgstr "Επεξεργασία χρώματος"
 
-#: ../src/wizards.c:191
-msgid "Use _DTD:"
-msgstr "Χρήση _DTD:"
+#~ msgid "Edit tag"
+#~ msgstr "Επιξεργασία ετικέτας"
 
-#: ../src/wizards.c:194
-msgid "Orientation:"
-msgstr "Προσανατολισμός:"
+#~ msgid "Could not delete \n"
+#~ msgstr "Αδυναμία διαγραφής\n"
 
-#: ../src/wizards.c:197
-msgid "_Horizontal"
-msgstr "_Οριζόντια"
-
-#: ../src/wizards.c:198
-msgid "_Vertical"
-msgstr "_Κάθετα"
-
-#: ../src/wizards.c:203
-msgid "Number of _Frames:"
-msgstr "Αριθμός των _Πλαισίων:"
-
-#: ../src/wizards.c:206
 #, fuzzy
-msgid "Frame's"
-msgstr "Πλαίσιο"
+#~ msgid "Error creating path"
+#~ msgstr "Σφάλμα στο σβήσιμο του προσωρινού αρχείου εκτύπωσης."
 
-#: ../src/wizards.c:218
-msgid "Name:"
-msgstr "Όνομα:"
+#~ msgid "Directory name"
+#~ msgstr "Όνομα καταλόγου"
 
-#: ../src/wizards.c:220
-msgid "Source:"
-msgstr "Πηγή:"
+#, fuzzy
+#~ msgid "Opening directory..."
+#~ msgstr "Προσωρινός κατάλογος:"
 
-#: ../src/wizards.c:224
-msgid "Size:"
-msgstr "Μέγεθος:"
+#~ msgid "Show hidden files"
+#~ msgstr "Εμφάνιση κρυφών αρχείων"
+
+#~ msgid "Show backup files"
+#~ msgstr "Εμφάνιση αντιγράφων ασφαλείας"
+
+#~ msgid "Do_n't save"
+#~ msgstr "Να _μην αποθηκευτεί"
+
+#, fuzzy
+#~ msgid "Select font for reference view"
+#~ msgstr "Προεπισκόπηση του Bluefish:"
+
+#, fuzzy
+#~ msgid "Set reference colors"
+#~ msgstr "Επεξεργασία προτιμήσεων"
+
+#, fuzzy
+#~ msgid "Set view font"
+#~ msgstr "Επιλογή γραμματοσειράς"
+
+#~ msgid "Dialog"
+#~ msgstr "Διάλογος"
+
+#~ msgid "Options"
+#~ msgstr "Επιλογές"
+
+#, fuzzy
+#~ msgid "Info type"
+#~ msgstr "Μη αριθμημένα"
+
+#~ msgid "Search"
+#~ msgstr "Αναζήτηση"
+
+#~ msgid "QuickStart..."
+#~ msgstr "Γρήγορη αρχή..."
+
+#~ msgid "Body..."
+#~ msgstr "Κορμός..."
+
+#~ msgid "Bold"
+#~ msgstr "Έντονα"
+
+#~ msgid "Italic"
+#~ msgstr "Πλάγια"
+
+#~ msgid "Paragraph"
+#~ msgstr "Παράγραφος"
+
+#~ msgid "Break"
+#~ msgstr "Αλλαγή γραμμής"
+
+#~ msgid "Break and clear"
+#~ msgstr "Αλλαγή γραμμής και καθάριση"
+
+#~ msgid "Non-breaking space"
+#~ msgstr "Διάστημα χωρίς διακοπή"
+
+#~ msgid "Anchor..."
+#~ msgstr "Διασύνδεση..."
+
+#~ msgid "Rule..."
+#~ msgstr "Διαχωρισμός..."
+
+#~ msgid "Center"
+#~ msgstr "Κέντρο"
+
+#~ msgid "Right Justify"
+#~ msgstr "Στοίχηση δεξιά"
+
+#~ msgid "Comment"
+#~ msgstr "Σχόλιο"
+
+#~ msgid "E-Mail..."
+#~ msgstr "E-mail..."
+
+#~ msgid "Font..."
+#~ msgstr "Γραμματοσειρά..."
+
+#~ msgid "Base Font Size..."
+#~ msgstr "Βασικό μέγεθος γρ/σειράς..."
+
+#~ msgid "Font Size +1"
+#~ msgstr "Μέγεθος γρ/σειράς +1"
+
+#~ msgid "Font Size -1"
+#~ msgstr "Μέγεθος γρ/σειράς -1"
+
+#~ msgid "Preformatted Text"
+#~ msgstr "Προφορμαρισμένο Κείμενο"
+
+#~ msgid "Subscript"
+#~ msgstr "Δείκτης"
+
+#~ msgid "Superscript"
+#~ msgstr "Εκθέτης"
+
+#~ msgid "Strong"
+#~ msgstr "Έντονα"
+
+#~ msgid "Emphasis"
+#~ msgstr "Έμφασις"
+
+#~ msgid "Heading 1"
+#~ msgstr "Κεφαλίδα 1"
+
+#~ msgid "Heading 2"
+#~ msgstr "Κεφαλίδα 2"
+
+#~ msgid "Heading 3"
+#~ msgstr "Κεφαλίδα 3"
+
+#~ msgid "Heading 4"
+#~ msgstr "Κεφαλίδα 4"
+
+#~ msgid "Heading 5"
+#~ msgstr "Κεφαλίδα 5"
+
+#~ msgid "Heading 6"
+#~ msgstr "Κεφαλίδα 6"
+
+#~ msgid "Table Wizard..."
+#~ msgstr "Οδηγός πίνακα..."
+
+#~ msgid "Table..."
+#~ msgstr "Πίνακας..."
+
+#~ msgid "Table Row..."
+#~ msgstr "Γραμμή Πίνακα..."
+
+#~ msgid "Table Header..."
+#~ msgstr "Κεφαλίδα Πίνακα..."
+
+#~ msgid "Table Data..."
+#~ msgstr "Δεδομένα Πίνακα..."
+
+#~ msgid "Table"
+#~ msgstr "Πίνακας"
+
+#~ msgid "Table Row"
+#~ msgstr "Γραμμή Πίνακα"
+
+#~ msgid "Table Header"
+#~ msgstr "Κεφαλίδα Πίνακα"
+
+#~ msgid "Table Data"
+#~ msgstr "Δεδομένα Πίνακα"
+
+#~ msgid "Table Caption"
+#~ msgstr "Πλαίσιο πίνακα"
+
+#~ msgid "Frame Wizard..."
+#~ msgstr "Οδηγός Πλαισίων..."
+
+#~ msgid "Frameset..."
+#~ msgstr "Σετ πλαισίου..."
+
+#~ msgid "Frame..."
+#~ msgstr "Πλαίσιο..."
+
+#~ msgid "Frameset"
+#~ msgstr "Frameset"
+
+#~ msgid "Frame"
+#~ msgstr "Πλαίσιο"
+
+#~ msgid "Noframes"
+#~ msgstr "Χωρίς πλαίσια"
+
+#~ msgid "Target"
+#~ msgstr "Στόχος"
+
+#~ msgid "Form..."
+#~ msgstr "Φόρμα..."
+
+#, fuzzy
+#~ msgid "Input Button..."
+#~ msgstr "Ραδιο-κουμπί..."
+
+#, fuzzy
+#~ msgid "Input Text..."
+#~ msgstr "Ραδιο-κουμπί..."
+
+#, fuzzy
+#~ msgid "Input Hidden..."
+#~ msgstr "Κρύφο..."
+
+#~ msgid "Textarea..."
+#~ msgstr "Πεδίο κειμένου..."
+
+#, fuzzy
+#~ msgid "Input Radio Button..."
+#~ msgstr "Ραδιο-κουμπί..."
+
+#, fuzzy
+#~ msgid "Input Check Box..."
+#~ msgstr "Κουμπί τσεκαρίσματος..."
+
+#~ msgid "Select..."
+#~ msgstr "Επιλογή..."
+
+#~ msgid "Option..."
+#~ msgstr "Επιλογή..."
+
+#, fuzzy
+#~ msgid "Option group..."
+#~ msgstr "/Ε_πιλογές..."
+
+#~ msgid "Button..."
+#~ msgstr "Κουμπί..."
+
+#~ msgid "Quick List..."
+#~ msgstr "Γρήγορη λίστα..."
+
+#~ msgid "Unordered List"
+#~ msgstr "Μη αριθμημένη λίστα"
+
+#~ msgid "Ordered List"
+#~ msgstr "Αριθμημένη λίστα"
+
+#~ msgid "List Item"
+#~ msgstr "Αντικείμενο Λίστας"
+
+#~ msgid "Definition List"
+#~ msgstr "Λίστα Ορισμών"
+
+#~ msgid "Definition Term"
+#~ msgstr "Όρος προς ερμηνεία"
+
+#~ msgid "Definition"
+#~ msgstr "Ορισμός"
+
+#, fuzzy
+#~ msgid "Create stylesheet..."
+#~ msgstr "Εισαγωγή στυλ στο φύλλο των στυλ..."
+
+#~ msgid "Span..."
+#~ msgstr "Διάστημα..."
+
+#~ msgid "Div..."
+#~ msgstr "Div..."
+
+#~ msgid "Style"
+#~ msgstr "Στυλ"
+
+#, fuzzy
+#~ msgid "Link to stylesheet..."
+#~ msgstr "Διασύνδεση σε φύλλο στυλ"
+
+#~ msgid "Insert image..."
+#~ msgstr "Εισαγωγή εικόνας..."
+
+#~ msgid "Insert thumbnail..."
+#~ msgstr "Εισαγωγή μικρογραφίας..."
+
+# src/configure.c:355		ΝΤΚ
+#, fuzzy
+#~ msgid "Multi thumbnail..."
+#~ msgstr "Τύπος προεπισκόπησης"
+
+#~ msgid "Code"
+#~ msgstr "Κώδικας"
+
+#~ msgid "Sample"
+#~ msgstr "Δείγμα"
+
+#~ msgid "Keyboard"
+#~ msgstr "Πληκρολόγιο"
+
+#~ msgid "Variable"
+#~ msgstr "Μεταβλητή"
+
+#, fuzzy
+#~ msgid "Citation"
+#~ msgstr "Περιεχόμενο"
+
+#, fuzzy
+#~ msgid "Acronym"
+#~ msgstr "Ενέργεια"
+
+#~ msgid "Move Left"
+#~ msgstr "Μετακίνηση Αριστερά"
+
+#, fuzzy
+#~ msgid "Move Right"
+#~ msgstr "Μετακίνηση Δεξιά"
+
+#, fuzzy
+#~ msgid "Add to quickbar"
+#~ msgstr " Γρήγορη μπάρα "
+
+#~ msgid " Quick bar "
+#~ msgstr " Γρήγορη μπάρα "
+
+#~ msgid "Heading"
+#~ msgstr "Κεφαλίδα"
+
+#, fuzzy
+#~ msgid "Context formatting"
+#~ msgstr "διακόσμηση κειμένου"
+
+#~ msgid " Fonts "
+#~ msgstr " Γρ/σειρές"
+
+#~ msgid " Tables "
+#~ msgstr " Πίνακες "
+
+#~ msgid " Frames "
+#~ msgstr " Πλαίσια "
+
+#~ msgid " Forms "
+#~ msgstr " Φόρμες "
+
+#~ msgid " List "
+#~ msgstr " Λίστα "
+
+#~ msgid " CSS "
+#~ msgstr " CSS "
+
+#~ msgid "_Selector:"
+#~ msgstr "_Επιλογέας:"
+
+#~ msgid "_Property:"
+#~ msgstr "_ιδιότητα:"
+
+#~ msgid "_Value:"
+#~ msgstr "_Τιμή:"
+
+#~ msgid "Property"
+#~ msgstr "Ιδιότητα"
+
+#~ msgid "Value"
+#~ msgstr "Τιμή"
+
+#~ msgid " _Add "
+#~ msgstr " _Προσθήκη "
+
+#~ msgid " _Update "
+#~ msgstr " _Ανανέωση "
+
+#~ msgid " _Delete "
+#~ msgstr " _Διαγραφή "
+
+#~ msgid "_Style..."
+#~ msgstr "_Στυλ..."
+
+#~ msgid "Bluefish: Select color"
+#~ msgstr "Bluefish: Επιλογή χρώματος"
+
+#~ msgid "Insert Time"
+#~ msgstr "Εισαγωγή Ώρας"
+
+#~ msgid "  _Time (%i:%i:%i)"
+#~ msgstr " _Ώρα (%i:%i:%i)"
+
+#~ msgid "  Day of the _week (Sunday)"
+#~ msgstr " Ημέρα της εβ_δομάδας (Κυριακή)"
+
+#~ msgid "  Day of the _week (Monday)"
+#~ msgstr " Ημέρα της β_δομάδας (Δευτέρα)"
+
+#~ msgid "  Day of the _week (Tuesday)"
+#~ msgstr " Ημέρα της ε_βδομάδας (Τρίτη)"
+
+#~ msgid "  Day of the _week (Wednesday)"
+#~ msgstr " Ημέρα της ε_βδομάδας (Τετάρτη)"
+
+#~ msgid "  Day of the _week (Thursday)"
+#~ msgstr " Ημέρα της ε_βδομάδας (Πέμπτη)"
+
+#~ msgid "  Day of the _week (Friday)"
+#~ msgstr " Ημέρα της εβ_δομάδας (Παρασκευή)"
+
+#~ msgid "  Day of the _week (Saturday)"
+#~ msgstr " Ημέρα της ε_βδομάδας (Σάββατο)"
+
+#~ msgid "You appear to have a non existant day!\n"
+#~ msgstr "Φαίνεται πως έχετε μια μη υπαρκτή μέρα!\n"
+
+#~ msgid "  _Date (%i/%i/%i)"
+#~ msgstr " _Ημερομηνία (%i/%i/%i)"
+
+#~ msgid "  _Unix Time (%i)"
+#~ msgstr " Ώρα _Unix (%i)"
+
+#, fuzzy
+#~ msgid "  Unix Date _String (%s"
+#~ msgstr " Ημερομηνία Unix (%s"
+
+# src/html.c:760		ΝΤΚ
+#~ msgid "Quick Anchor"
+#~ msgstr "Γρήγορη διασύνδεση"
+
+#~ msgid "Attributes"
+#~ msgstr "Γνωρίσματα"
+
+#~ msgid "_HREF:"
+#~ msgstr "_HREF:"
+
+#, fuzzy
+#~ msgid "_Target:"
+#~ msgstr "Στόχος"
+
+#~ msgid "_Language:"
+#~ msgstr "_Γλώσσα:"
+
+#, fuzzy
+#~ msgid "Custo_m:"
+#~ msgstr "Προσαρμωγή"
+
+#~ msgid "Events"
+#~ msgstr "Γεγονότα"
+
+#~ msgid "Div"
+#~ msgstr "Div"
+
+#~ msgid "Span"
+#~ msgstr "Span"
+
+#~ msgid "Ali_gn:"
+#~ msgstr "Στοί_χηση:"
+
+#, fuzzy
+#~ msgid "Cl_ass:"
+#~ msgstr "Κλάση"
+
+#~ msgid "St_yle:"
+#~ msgstr "Σ_τυλ:"
+
+#~ msgid "_ID:"
+#~ msgstr "_ID:"
+
+#~ msgid "Horizontal Rule"
+#~ msgstr "Οριζόντια διαχώριση"
+
+#~ msgid "_Align:"
+#~ msgstr "Στοί_χηση:"
+
+#~ msgid "_Height:"
+#~ msgstr "_Ύψος:"
+
+#~ msgid "_Width:"
+#~ msgstr "_Πλάτος:"
+
+#~ msgid "Is _percent"
+#~ msgstr "Είναι _ποσοστό"
+
+#, fuzzy
+#~ msgid "No _shading"
+#~ msgstr "Χωρίς σκιά"
+
+#~ msgid "Body"
+#~ msgstr "Σώμα"
+
+#, fuzzy
+#~ msgid "Depreciated options"
+#~ msgstr "Ορθογραφία"
+
+#~ msgid "Background _Image:"
+#~ msgstr "Ει_κόνα Παρασκηνίου:"
+
+#~ msgid "Back_ground Color:"
+#~ msgstr "Χρώμα _Παρασκηνίου:"
+
+#~ msgid "_Text Color:"
+#~ msgstr "Χρώμα _Κειμένου:"
+
+#~ msgid "_Link Color:"
+#~ msgstr "Χρώμα _Συνδέσμου:"
+
+#, fuzzy
+#~ msgid "_Visited Link Color:"
+#~ msgstr "Χρώμα ήδη επισκεπτώμενης διασύνδεσης"
+
+#, fuzzy
+#~ msgid "_Active Link Color:"
+#~ msgstr "Χρώμα ενεργής διεύθηνσης"
+
+#~ msgid "Meta"
+#~ msgstr "Meta"
+
+#~ msgid "_HTTP-EQUIV:"
+#~ msgstr "_HTTP-EQUIV:"
+
+#~ msgid "Con_tent:"
+#~ msgstr "Περιε_χόμενο:"
+
+#, fuzzy
+#~ msgid "_Scheme:"
+#~ msgstr "Θέμα"
+
+#~ msgid "Base Font"
+#~ msgstr "Βασική Γραμματοσειρά"
+
+#~ msgid "Size"
+#~ msgstr "Μέγεθος"
+
+#~ msgid "Color"
+#~ msgstr "Χρώμα"
+
+#~ msgid "Custom"
+#~ msgstr "Προσαρμοσμένο"
+
+#~ msgid "Email"
+#~ msgstr "Email"
+
+#~ msgid "_Email address:"
+#~ msgstr "_Email διεύθυνση:"
+
+#~ msgid "Quick List"
+#~ msgstr "Γρήγορη λίστα"
+
+#~ msgid "_Rows:"
+#~ msgstr "_Γραμμές:"
+
+#, fuzzy
+#~ msgid "Or_dered"
+#~ msgstr "Αριθμημένα"
+
+#, fuzzy
+#~ msgid "_Unordered"
+#~ msgstr "Μη αριθμημένα"
+
+#~ msgid "Style:"
+#~ msgstr "Στυλ:"
+
+#, fuzzy
+#~ msgid "Co_ls:"
+#~ msgstr "Στήλες"
+
+#~ msgid "_Source:"
+#~ msgstr "_Πηγή:"
+
+#, fuzzy
+#~ msgid "Margin _Width:"
+#~ msgstr " Πλάτος περιθωρίου "
+
+#, fuzzy
+#~ msgid "Margin _Height:"
+#~ msgstr " Ύψος περιθωρίου "
+
+# src/html.c:1073	ΝΤΚ
+#, fuzzy
+#~ msgid "Scrollin_g:"
+#~ msgstr "Ανακύλιση "
+
+#, fuzzy
+#~ msgid "_Frameborder:"
+#~ msgstr "Frameset"
+
+#, fuzzy
+#~ msgid "No _Resize:"
+#~ msgstr "Χωρίς αλλαγή διαστάσεων"
+
+#~ msgid "Embed"
+#~ msgstr "Ενσωμάτωση"
+
+#, fuzzy
+#~ msgid "Bo_rder:"
+#~ msgstr "Όριο"
+
+#, fuzzy
+#~ msgid "Script"
+#~ msgstr "Δείκτης"
+
+#~ msgid "_Type:"
+#~ msgstr "_Τύπος:"
+
+#~ msgid "Link"
+#~ msgstr "Σύνδεσμος"
+
+#~ msgid "_Href:"
+#~ msgstr "_Href:"
+
+#, fuzzy
+#~ msgid "Media:"
+#~ msgstr "Meta"
+
+#~ msgid "L_ang:"
+#~ msgstr "Γ_λώσσα:"
+
+#, fuzzy
+#~ msgid "_Custom:"
+#~ msgstr "Προσαρμωγή"
+
+#~ msgid "Form"
+#~ msgstr "Φόρμα"
+
+#~ msgid "_Action:"
+#~ msgstr "_Ενέργεια:"
+
+#~ msgid "Metho_d:"
+#~ msgstr "Μέ_θοδος:"
+
+#~ msgid "Text area"
+#~ msgstr "Πεδίο κειμένου"
+
+#~ msgid "Select"
+#~ msgstr "Επιλογή"
+
+#~ msgid "Si_ze:"
+#~ msgstr "_Μέγεθος:"
+
+#, fuzzy
+#~ msgid "Multiple _Selections:"
+#~ msgstr "Πολλαπλές επιλογές"
+
+#~ msgid "Option"
+#~ msgstr "Επιλογή"
+
+#, fuzzy
+#~ msgid "_Label:"
+#~ msgstr "Ταμπέλα"
+
+#~ msgid "_Selected:"
+#~ msgstr "_Επιλεγμένο:"
+
+#, fuzzy
+#~ msgid "Option group"
+#~ msgstr "Ε_πιλογές"
+
+#, fuzzy
+#~ msgid "_Checked:"
+#~ msgstr "Τσεκαρισμένο"
+
+#, fuzzy
+#~ msgid "Max _Length:"
+#~ msgstr "Μέγιστο μήκος"
+
+#, fuzzy
+#~ msgid "_Accept:"
+#~ msgstr "Ενέργεια"
+
+#~ msgid "C_ustom:"
+#~ msgstr "Προ_σαρμοσμένο:"
+
+#, fuzzy
+#~ msgid "On_Select:"
+#~ msgstr "Επιλογή"
+
+#, fuzzy
+#~ msgid "On_Change:"
+#~ msgstr "Γλώσσα"
+
+#~ msgid "Button"
+#~ msgstr "Κουμπί"
+
+#, fuzzy
+#~ msgid "Cell _Padding:"
+#~ msgstr "Βάτα κελύφους"
+
+#, fuzzy
+#~ msgid "C_ell Spacing:"
+#~ msgstr "Διάστημα κελύφους"
+
+#~ msgid "Backgrou_nd Color:"
+#~ msgstr "Χρώμα _Παρασκηνίου:"
+
+#~ msgid "_Frame:"
+#~ msgstr "_Πλαίσιο:"
+
+#, fuzzy
+#~ msgid "R_ules:"
+#~ msgstr "Διαχωρισμός..."
+
+#, fuzzy
+#~ msgid "Co_l Span:"
+#~ msgstr "Άνοιγμα σε στήλες"
+
+#, fuzzy
+#~ msgid "_Row Span:"
+#~ msgstr "Άνοιγμα σε γραμμές"
+
+#, fuzzy
+#~ msgid "No Wra_p:"
+#~ msgstr "Χωρίς περιτύλιξη"
+
+#~ msgid "Insert thumbnail"
+#~ msgstr "Εισαγωγή μικρογραφίας"
+
+#~ msgid "Insert image"
+#~ msgstr "Εισαγωγή εικόνας"
+
+#~ msgid "Preview"
+#~ msgstr "Προεπισκόπηση"
+
+#~ msgid "_Image location:"
+#~ msgstr "Τοποθεσία _εικόνας:"
+
+#~ msgid "Hei_ght:"
+#~ msgstr "Ύ_ψος:"
+
+#~ msgid "Alternate _text:"
+#~ msgstr "Εναλλακτικό _κείμενο:"
+
+#~ msgid "_Hspace:"
+#~ msgstr "_Hspace:"
+
+#, fuzzy
+#~ msgid "_Vspace:"
+#~ msgstr "Vspace"
+
+#, fuzzy
+#~ msgid "Borde_r:"
+#~ msgstr "Όριο"
+
+# src/html.c:1073	ΝΤΚ
+#, fuzzy
+#~ msgid "Scaling (%)"
+#~ msgstr "Ανακύλιση "
+
+#~ msgid "Width"
+#~ msgstr "Πλάτος"
+
+#~ msgid "Height"
+#~ msgstr "Ύψος"
+
+#, fuzzy
+#~ msgid "/View/View _HTML Toolbar"
+#~ msgstr "/Επιλογές/Προβολή HTML γραμμής εργαλείων"
+
+#~ msgid "/_Tags"
+#~ msgstr "/_Ετικέτες"
+
+#~ msgid "/Tags/Tearoff1"
+#~ msgstr "/Ετικέτες/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/_Headings"
+#~ msgstr "/Ετικέτες/Κεφαλίδες"
+
+#~ msgid "/Tags/Headings/Tearoff1"
+#~ msgstr "/Ετικέτες/Κεφαλίδες/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/Headings/H_1"
+#~ msgstr "/Ετικέτες/Κεφαλίδες/H1"
+
+#, fuzzy
+#~ msgid "/Tags/Headings/H_2"
+#~ msgstr "/Ετικέτες/Κεφαλίδες/H2"
+
+#, fuzzy
+#~ msgid "/Tags/Headings/H_3"
+#~ msgstr "/Ετικέτες/Κεφαλίδες/H3"
+
+#, fuzzy
+#~ msgid "/Tags/Headings/H_4"
+#~ msgstr "/Ετικέτες/Κεφαλίδες/H4"
+
+#, fuzzy
+#~ msgid "/Tags/Headings/H_5"
+#~ msgstr "/Ετικέτες/Κεφαλίδες/H5"
+
+#, fuzzy
+#~ msgid "/Tags/Headings/H_6"
+#~ msgstr "/Ετικέτες/Κεφαλίδες/H6"
+
+#, fuzzy
+#~ msgid "/Tags/_Special"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες"
+
+#, fuzzy
+#~ msgid "/Tags/Special/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/tearoff1"
+
+#, fuzzy
+#~ msgid "/Tags/Special/_Accent"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά"
+
+#~ msgid "/Tags/Special/Accent/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/tearoff1"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/_Uppercase"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/_A-I"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/tearoff1"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A grave"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A acute"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A circumflex"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A tilde"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/AE ligature"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A diaeresis"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A ring"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/C cedilla"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/E grave"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/E acute"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/E circumflex"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/E diaeresis"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/I grave"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/I acute"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/I circumflex"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/I diaeresis"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/_J-Z"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/tearoff1"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/N tilde"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O grave"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O acute"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O circumflex"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/AE ligature"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O tilde"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O diaeresis"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O slash"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/U grave"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/U acute"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/U circumflex"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/U diaeresis"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/Y acute"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/_Lowercase"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Lowercase"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/_A-I"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Lowercase/A-I"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/tearoff1"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a grave"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a acute"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a circumflex"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a tilde"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a ring"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/ae ligature"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a diaeresis"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/c cedilla"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/e grave"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/e acute"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/e circumflex"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/e diaeresis"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/i grave"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/i acute"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/i circumflex"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/i diaeresis"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/_J-Z"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/tearoff1"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/n tilde"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o grave"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o acute"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/ae ligature"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o circumflex"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o tilde"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o diaeresis"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o slash"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/u grave"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/u acute"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/u circumflex"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/u diaeresis"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/y acute"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/y diaeresis"
+
+#~ msgid "/Tags/Special/Accent/separator"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/διαχ"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/U_mlaut ¨"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Umlaut"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/_Acute ´"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Acute"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Accent/_Cedilla ¸"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Cedilla"
+
+#, fuzzy
+#~ msgid "/Tags/Special/_Currency"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα"
+
+#~ msgid "/Tags/Special/Currency/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/tearoff1"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Currency/_Cent sign ¢"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Σήμα σεντ"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Currency/_Pound sterling £"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Στερλίνα"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Currency/C_urrency sign ¤"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Σήμα νομίσματος"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Currency/_Yen sign ¥"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Σήμα γιεν"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Currency/_Euro "
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα"
+
+#, fuzzy
+#~ msgid "/Tags/Special/_Math-Science"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά"
+
+#~ msgid "/Tags/Special/Math-Science/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/tearoff1"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/λογικό όχι"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/πολλαπλασιασμού"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Math-Science/_Division sign ÷"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/διαίρεσης"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/συν-πλην"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Math-Science/_Less-than sign <"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/μικρότερο από"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Math-Science/_Greater-than sign >"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/μεγαλύτερο από"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/εκθέτης 1"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Math-Science/Superscript _2 ²"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/εκθέτης 2"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Math-Science/Superscript _3 ³"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/εκθέτης 3"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Math-Science/One _quarter ¼"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/ένα τέταρτο"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Math-Science/One _half ½"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/ένα δεύτερο"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Math-Science/_Three quarters ¾"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/τρία τέταρτα"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Math-Science/Deg_ree sign °"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/σήμα μοιρών"
+
+#, fuzzy
+#~ msgid "/Tags/Special/_Non Latin"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί"
+
+#~ msgid "/Tags/Special/Non Latin/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/tearoff1"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/ETH (Ισλανδικό)"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/THORN (Ισλανδικό)"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/eth (Ισλανδικό)"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Non Latin/th_orn ÿ"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/thorn"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Non Latin/Sharp _s ß"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/sharp s"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Non Latin/_Micro sign µ"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/micro sign"
+
+#, fuzzy
+#~ msgid "/Tags/Special/_Other"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι"
+
+#~ msgid "/Tags/Special/Other/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/tearoff1"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/_Non-breaking space"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Non-breaking space"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/_Section sign §"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Section sign"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/_Copyright sign ©"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Copyright sign"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/_Left angle quotes «"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Left angle quotes"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/_Right angle quotes »"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Right angle quotes"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/Registered _trademark ®"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Registered trademark"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/Inverted _exclamation ¡"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Inverted exclamation"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/Inverted _question mark ¿"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Inverted question mark"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/_Feminine ordinal ª"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Feminine ordinal"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/_Masculine ordinal º"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Masculine ordinal"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Pilcrow (paragraph sign)"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/_Broken bar ¦"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Broken bar"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/Soft _hypen -"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Soft hypen"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/Spa_cing macron ¯"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Spacing macron"
+
+#, fuzzy
+#~ msgid "/Tags/Special/Other/Middle _dot ·"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Middle dot"
+
+#, fuzzy
+#~ msgid "/Tags/_Format by layout"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
+
+#, fuzzy
+#~ msgid "/Tags/Format by layout/tearoff1"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/Format by layout/_Bold"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Έντονα"
+
+#, fuzzy
+#~ msgid "/Tags/Format by layout/_Italic"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Πλάγια"
+
+#, fuzzy
+#~ msgid "/Tags/Format by layout/_Underline"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Υπογραμμισμένα"
+
+#, fuzzy
+#~ msgid "/Tags/Format by layout/_Strikeout"
+#~ msgstr "/Ετικέτες/Διαμόφωση κειμένου/Διαγεγραμμένα"
+
+#, fuzzy
+#~ msgid "/Tags/Format by layout/Sm_all"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Πλάγια"
+
+#, fuzzy
+#~ msgid "/Tags/Format by layout/Bi_g"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
+
+#, fuzzy
+#~ msgid "/Tags/F_ormat by context"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/tearoff1"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/_Strong"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Δυνατά"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/_Emphasis"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Έμφαση"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/_Define"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/_Code"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Σχόλιο"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/Sa_mple"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Πλάγια"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/_Keyboard"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Κέντρο"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/_Variable"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Πλάγια"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/Ci_tation"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/_Abbreviation"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/Ac_ronym"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Δυνατά"
+
+#, fuzzy
+#~ msgid "/Tags/Format _general"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Κέντρο"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/tearoff1"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/_Paragraph"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Παράγραφος"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/_Break"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Διακοπή (νέα γραμμή)"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/Break clear _all"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Καθαρισμός διακοπών"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/_Non-Breaking Space"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Κείμενο χωρίς διακοπή"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/<separator>"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/Font Si_ze +1"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Μέγεθος γρ-σειράς +1"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/Font _Size -1"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Μέγεθος γρ-σειράς -1"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/Preformatted _Text"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Προδιαμορφωμένο κείμενο"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/Su_bscript"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Δείκτης"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/Su_perscript"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Εκθέτης"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/_Center"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Κέντρο"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/Align _right"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Δεξιά στοίχηση"
+
+#, fuzzy
+#~ msgid "/Tags/_Table"
+#~ msgstr "/Ετικέτες/Πίνακες"
+
+#~ msgid "/Tags/Table/tearoff1"
+#~ msgstr "/Ετικέτες/Πίνακες/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/Table/_Table"
+#~ msgstr "/Ετικέτες/Πίνακες/Πίνακας"
+
+#, fuzzy
+#~ msgid "/Tags/Table/Table _Row"
+#~ msgstr "/Ετικέτες/Πίνακες/Γραμμή"
+
+#, fuzzy
+#~ msgid "/Tags/Table/Table _Header"
+#~ msgstr "/Ετικέτες/Πίνακες/Κεφαλίδα πίνακα"
+
+#, fuzzy
+#~ msgid "/Tags/Table/Table _Data"
+#~ msgstr "/Ετικέτες/Πίνακες/Δεδομένα πίνακα"
+
+#, fuzzy
+#~ msgid "/Tags/Table/Table _Caption"
+#~ msgstr "/Ετικέτες/Πίνακες/Πλαίσιο πίνακα"
+
+#, fuzzy
+#~ msgid "/Tags/_List"
+#~ msgstr "/Ετικέτες/Λίστες"
+
+#~ msgid "/Tags/List/tearoff1"
+#~ msgstr "/Ετικέτες/Λίστες/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/List/Unordered _List"
+#~ msgstr "/Ετικέτες/Λίστες/Μη αριθμημένη λίστα"
+
+#, fuzzy
+#~ msgid "/Tags/List/_Ordered List"
+#~ msgstr "/Ετικέτες/Λίστες/Αριθμημένη λίστα"
+
+#, fuzzy
+#~ msgid "/Tags/List/List Ite_m"
+#~ msgstr "/Ετικέτες/Λίστες/Αντικείμενο λίστας"
+
+#, fuzzy
+#~ msgid "/Tags/List/De_finition List"
+#~ msgstr "/Ετικέτες/Λίστες/Λίστα ορισμών"
+
+#, fuzzy
+#~ msgid "/Tags/List/Definition _Term"
+#~ msgstr "/Ετικέτες/Λίστες/Όρος προς ορισμό"
+
+#, fuzzy
+#~ msgid "/Tags/List/_Definition"
+#~ msgstr "/Ετικέτες/Λίστες/Ορισμός"
+
+#, fuzzy
+#~ msgid "/Tags/List/Men_u"
+#~ msgstr "/Ετικέτες/Λίστες/Μενού"
+
+#, fuzzy
+#~ msgid "/Tags/Fo_rm"
+#~ msgstr "/Διάλογοι/Φόρμες"
+
+#, fuzzy
+#~ msgid "/Tags/Form/tearoff1"
+#~ msgstr "/Διάλογοι/Φόρμες/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/Form/_Form"
+#~ msgstr "/Διάλογοι/Φόρμες/Φόρμα"
+
+#, fuzzy
+#~ msgid "/Tags/Form/_Button"
+#~ msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
+
+#, fuzzy
+#~ msgid "/Tags/Form/_Input"
+#~ msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
+
+#, fuzzy
+#~ msgid "/Tags/Form/_Textarea"
+#~ msgstr "/Διάλογοι/Φόρμες/Πεδίο κειμένου"
+
+#, fuzzy
+#~ msgid "/Tags/_Misc"
+#~ msgstr "/Ετικέτες/Λίστες"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/tearoff1"
+#~ msgstr "/Ετικέτες/Λίστες/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/Insert Generator _META-Tag"
+#~ msgstr "/Ετικέτες/Εισαγωγή META-ετικέτας"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/_Span"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/_Div"
+#~ msgstr "/Ετικέτες/Λίστες/Ορισμός"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/_Link"
+#~ msgstr "/Ετικέτες/Λίστες"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/S_cript"
+#~ msgstr "/Ετικέτες/Λίστες"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/_Anchor"
+#~ msgstr "/Ετικέτες/Λίστες/Ορισμός"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/_Image"
+#~ msgstr "/Ετικέτες/Πίνακες"
+
+#, fuzzy
+#~ msgid "/Tags/_Comment"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Σχόλιο"
+
+#, fuzzy
+#~ msgid "/Dial_ogs"
+#~ msgstr "/_Διάλογοι"
+
+#~ msgid "/Dialogs/tearoff1"
+#~ msgstr "/Διάλογοι/διαχ1"
+
+#, fuzzy
+#~ msgid "/Dialogs/_General"
+#~ msgstr "/Διάλογοι/Γενικοί"
+
+#~ msgid "/Dialogs/General/tearoff1"
+#~ msgstr "/Διάλογοι/Γενικοί/διαχ1"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/_Quickstart..."
+#~ msgstr "/Διάλογοι/Γενικοί/Γρήγορη αρχή"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/_Body..."
+#~ msgstr "/Διάλογοι/Γενικοί/Κορμός"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/_Anchor..."
+#~ msgstr "/Διάλογοι/Γενικοί/Διασύνδεση"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/_Email..."
+#~ msgstr "/Διάλογοι/Γενικοί/Email"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/_Rule..."
+#~ msgstr "/Διάλογοι/Γενικοί/Διαχωρισμός"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/_Font..."
+#~ msgstr "/Διάλογοι/Γενικοί/Γραμματοσειρά"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/Basef_ont..."
+#~ msgstr "/Διάλογοι/Γενικοί/Βασική γρ-σειρά"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/Quick_list..."
+#~ msgstr "/Διάλογοι/Γενικοί/Γρήγορη λίστα"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/_Meta..."
+#~ msgstr "/Διάλογοι/Γενικοί/Meta"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/Embe_d..."
+#~ msgstr "/Διάλογοι/Γενικοί/Ενσωμάτωση"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/Select _Color..."
+#~ msgstr "/Διάλογοι/Γενικοί/Επιλογή χρώματος"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/Insert _Time..."
+#~ msgstr "/Διάλογοι/Γενικοί/Εισαγωγή ώρας"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/Insert _Image..."
+#~ msgstr "/Διάλογοι/Ειδικοί/Εισαγωγή εικόνας"
+
+#, fuzzy
+#~ msgid "/Dialogs/General/Insert T_humbnail..."
+#~ msgstr "/Διάλογοι/Ειδικοί/Εισαγωγή προεπισκ. εικόνας"
+
+#, fuzzy
+#~ msgid "/Dialogs/_Table"
+#~ msgstr "/Διάλογοι/Πίνακες"
+
+#~ msgid "/Dialogs/Table/tearoff1"
+#~ msgstr "/Διάλογοι/Πίνακες/διαχ1"
+
+#, fuzzy
+#~ msgid "/Dialogs/Table/Table _Wizard..."
+#~ msgstr "/Διάλογοι/Πίνακες/Κεφαλίδα cber"
+
+#, fuzzy
+#~ msgid "/Dialogs/Table/_Table..."
+#~ msgstr "/Διάλογοι/Πίνακες/Πίνακας"
+
+#, fuzzy
+#~ msgid "/Dialogs/Table/Table _Row..."
+#~ msgstr "/Διάλογοι/Πίνακες/Γραμμή πίνακα"
+
+#, fuzzy
+#~ msgid "/Dialogs/Table/Table _Head..."
+#~ msgstr "/Διάλογοι/Πίνακες/Κεφαλίδα cber"
+
+#, fuzzy
+#~ msgid "/Dialogs/Table/Table _Data..."
+#~ msgstr "/Διάλογοι/Πίνακες/Δεδομένα πίνακα"
+
+#, fuzzy
+#~ msgid "/Dialogs/_CSS"
+#~ msgstr "/Διάλογοι/CSS"
+
+#~ msgid "/Dialogs/CSS/tearoff1"
+#~ msgstr "/Διάλογοι/CSS/tearoff1"
+
+#, fuzzy
+#~ msgid "/Dialogs/CSS/_Create Style..."
+#~ msgstr "/Διάλογοι/CSS/Δημιουργία στυλ"
+
+#, fuzzy
+#~ msgid "/Dialogs/CSS/S_pan..."
+#~ msgstr "/Διάλογοι/CSS/Άνοιγμα"
+
+#, fuzzy
+#~ msgid "/Dialogs/CSS/_Div..."
+#~ msgstr "/Διάλογοι/CSS/Div"
+
+#, fuzzy
+#~ msgid "/Dialogs/CSS/_Style..."
+#~ msgstr "/Διάλογοι/CSS/Στυλ"
+
+#, fuzzy
+#~ msgid "/Dialogs/CSS/_Link to Stylesheet..."
+#~ msgstr "/Διάλογοι/CSS/Σύνδεση σε φύλλο στυλ"
+
+#, fuzzy
+#~ msgid "/Dialogs/_Frame"
+#~ msgstr "/Διάλογοι/Πλαίσια"
+
+#~ msgid "/Dialogs/Frame/tearoff1"
+#~ msgstr "/Διάλογοι/Πλαίσια/διαχ1"
+
+#, fuzzy
+#~ msgid "/Dialogs/Frame/Frame _Wizard..."
+#~ msgstr "/Διάλογοι/Πλαίσια/Πλαίσιο"
+
+#, fuzzy
+#~ msgid "/Dialogs/Frame/Frame_set..."
+#~ msgstr "/Διάλογοι/Πλαίσια/Σετ πλαισίων"
+
+#, fuzzy
+#~ msgid "/Dialogs/Frame/_Frame..."
+#~ msgstr "/Διάλογοι/Πλαίσια/Πλαίσιο"
+
+#, fuzzy
+#~ msgid "/Dialogs/F_orm"
+#~ msgstr "/Διάλογοι/Φόρμες"
+
+#~ msgid "/Dialogs/Form/tearoff1"
+#~ msgstr "/Διάλογοι/Φόρμες/διαχ1"
+
+#, fuzzy
+#~ msgid "/Dialogs/Form/F_orm..."
+#~ msgstr "/Διάλογοι/Φόρμες/Φόρμα"
+
+#, fuzzy
+#~ msgid "/Dialogs/Form/_Input..."
+#~ msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
+
+#, fuzzy
+#~ msgid "/Dialogs/Form/Input Buttons..."
+#~ msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
+
+#, fuzzy
+#~ msgid "/Dialogs/Form/Input Text..."
+#~ msgstr "/Διάλογοι/Φόρμες/Κείμενο"
+
+#, fuzzy
+#~ msgid "/Dialogs/Form/Text_area..."
+#~ msgstr "/Διάλογοι/Φόρμες/Πεδίο κειμένου"
+
+#, fuzzy
+#~ msgid "/Dialogs/Form/_Select..."
+#~ msgstr "/Διάλογοι/Φόρμες/Επιλογή"
+
+#, fuzzy
+#~ msgid "/Dialogs/Form/O_ption..."
+#~ msgstr "/Διάλογοι/Φόρμες/Επιλογή"
+
+#, fuzzy
+#~ msgid "/Dialogs/Form/Option _Group..."
+#~ msgstr "/Διάλογοι/Φόρμες/Επιλογή"
+
+#, fuzzy
+#~ msgid "/Dialogs/Form/_Button..."
+#~ msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
+
+#, fuzzy
+#~ msgid "/Dialogs/sep1"
+#~ msgstr "/Διάλογοι/διαχ1"
+
+#, fuzzy
+#~ msgid "Could not view file in browser."
+#~ msgstr "Δεν ήταν δυνατή η προσπέλαση του αρχείου:\n"
+
+#, fuzzy
+#~ msgid "/External/Browsers"
+#~ msgstr "/Εξωτερικά/Φίλτρα/"
+
+#~ msgid "Bookmark options"
+#~ msgstr "Επιλογές σελιδοδεικτών"
+
+#, fuzzy
+#~ msgid "path from basedir"
+#~ msgstr "Επιλεγμένο"
+
+#, fuzzy
+#~ msgid "Allow multi instances of a file"
+#~ msgstr "Επιτρεπτή η πολλαπλή εμφάνιση του ίδιου αρχείου"
+
+#, fuzzy
+#~ msgid "External browsers in submenu"
+#~ msgstr "Παράμετροι εξωτερικών προγραμμάτων"
+
+#, fuzzy
+#~ msgid "External commands in submenu"
+#~ msgstr "/Εξωτερικά/Εντολές"
+
+#~ msgid "Browsers"
+#~ msgstr "Περιηγητές Ιστοσελίδων"
+
+#, fuzzy
+#~ msgid "Utilities and filters"
+#~ msgstr " Σβήσιμο "
+
+#, fuzzy
+#~ msgid "Ty_pe:"
+#~ msgstr "_Τύπος:"
+
+#, fuzzy
+#~ msgid "Hre_f:"
+#~ msgstr "_Href:"
+
+#, fuzzy
+#~ msgid "_Media:"
+#~ msgstr "Meta"
+
+#, fuzzy
+#~ msgid "Titl_e:"
+#~ msgstr "_Τίτλος:"
+
+#, fuzzy
+#~ msgid "<b>Style Area</b>"
+#~ msgstr "<b>Γενικά</b>"
+
+#, fuzzy
+#~ msgid "<b>Attributes</b>"
+#~ msgstr "Γνωρίσματα"
+
+#, fuzzy
+#~ msgid "_Src:"
+#~ msgstr "_Πηγή:"
+
+#, fuzzy
+#~ msgid "Quick Start"
+#~ msgstr "Γρήγορη αρχή..."
+
+#, fuzzy
+#~ msgid "_DTD:"
+#~ msgstr "Χρήση _DTD:"
+
+#~ msgid "_Title:"
+#~ msgstr "_Τίτλος:"
+
+#, fuzzy
+#~ msgid "_Head:"
+#~ msgstr "_Href:"
+
+#~ msgid "Galeon"
+#~ msgstr "Galeon"
+
+#~ msgid "Mozilla"
+#~ msgstr "Mozilla"
+
+#~ msgid "Opera"
+#~ msgstr "Opera"
+
+#~ msgid "Netscape"
+#~ msgstr "Netscape"
+
+#~ msgid "Gnome default"
+#~ msgstr "Προεπιλογή Gnome"
+
+#, fuzzy
+#~ msgid "make"
+#~ msgstr "Εικόνα..."
+
+#~ msgid "javac"
+#~ msgstr "javac"
+
+#, fuzzy
+#~ msgid "xmllint XML checker"
+#~ msgstr "Ορθογραφία"
+
+#~ msgid "php"
+#~ msgstr "php"
+
+#~ msgid "Dos2Unix filter"
+#~ msgstr "Φίλτρο Dos2Unix"
+
+#, fuzzy
+#~ msgid "Tidy cleanup filter"
+#~ msgstr " Σβήσιμο "
+
+#~ msgid "Table Wizard"
+#~ msgstr "Οδηγός Πίνακα"
+
+#~ msgid "Number of _rows:"
+#~ msgstr "Αριθμός των _γραμμών:"
+
+#~ msgid "Number of colu_mns:"
+#~ msgstr "Αριθμός των _στηλών:"
+
+#, fuzzy
+#~ msgid "Table rows on one _line:"
+#~ msgstr "Εισαγωγή σα μια γραμμή"
+
+#~ msgid "Frame Wizard"
+#~ msgstr "Οδηγός Πλαισίου"
+
+#~ msgid "Use _DTD:"
+#~ msgstr "Χρήση _DTD:"
+
+#~ msgid "Orientation:"
+#~ msgstr "Προσανατολισμός:"
+
+#~ msgid "_Horizontal"
+#~ msgstr "_Οριζόντια"
+
+#~ msgid "_Vertical"
+#~ msgstr "_Κάθετα"
+
+#~ msgid "Number of _Frames:"
+#~ msgstr "Αριθμός των _Πλαισίων:"
+
+#, fuzzy
+#~ msgid "Frame's"
+#~ msgstr "Πλαίσιο"
+
+#~ msgid "Name:"
+#~ msgstr "Όνομα:"
+
+#~ msgid "Source:"
+#~ msgstr "Πηγή:"
+
+#~ msgid "Size:"
+#~ msgstr "Μέγεθος:"
 
 #~ msgid "Are you sure?"
 #~ msgstr "Είστε σίγουρος;"
@@ -5734,10 +5155,6 @@ msgstr "Μέγεθος:"
 
 #, fuzzy
 #~ msgid "Show main toolbar by default"
-#~ msgstr "Αριθμός γραμμής: "
-
-#, fuzzy
-#~ msgid "Show sidebar by default"
 #~ msgstr "Αριθμός γραμμής: "
 
 #, fuzzy
