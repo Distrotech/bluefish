@@ -152,7 +152,11 @@ static void bluefish_scan_dir_load_plugins(const gchar *indirname) {
 void bluefish_load_plugins(void) {
 	bluefish_scan_dir_load_plugins(PKGLIBDIR);
 #ifdef DEVELOPMENT
-	bluefish_scan_dir_load_plugins("/home/olivier/.bluefish-unstable/");
+	{
+		gchar*dir = user_bfdir(NULL);
+		bluefish_scan_dir_load_plugins(dir);
+		g_free(dir);
+	}
 #endif /* DEVELOPMENT */
 }
 
