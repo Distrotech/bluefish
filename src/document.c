@@ -2918,8 +2918,10 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),bf_lang_mgr_get_config(main_v->lang_mgr,"default"));
 	}	
 	g_list_free(list);
-	bf_textview_set_autoscan(BF_TEXTVIEW(newdoc->view),TRUE);
-	bf_textview_set_autoscan_lines(BF_TEXTVIEW(newdoc->view),-1);
+	bf_textview_set_autoscan(BF_TEXTVIEW(newdoc->view),main_v->props.autoscan);
+	bf_textview_set_autoscan_lines(BF_TEXTVIEW(newdoc->view),main_v->props.autoscan_lines);
+	bf_textview_set_bg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_bg); 
+	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg); 
 	g_signal_connect(G_OBJECT(newdoc->view),"token",G_CALLBACK(hl_slot),NULL);
 	g_signal_connect_after(G_OBJECT(newdoc->view),"realize",G_CALLBACK(doc_realize_cb),newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view),"move-cursor",G_CALLBACK(doc_move_cursor_cb),newdoc);
