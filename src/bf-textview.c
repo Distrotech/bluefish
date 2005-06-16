@@ -257,7 +257,7 @@ static void bf_textview_init (BfTextView * o)
    o->languages = g_hash_table_new (g_str_hash, g_str_equal);
    o->current_lang = NULL;
    o->autoscan = FALSE;
-   o->autoscan_lines = -1;
+   o->autoscan_lines = 0;
    o->color_blocks = FALSE;
    g_queue_is_empty (&(o->scanner.block_stack));
    gdk_color_parse ("#F7F3D2", &o->block_color);
@@ -2606,7 +2606,7 @@ bf_textview_insert_text_cb (GtkTextBuffer * textbuffer, GtkTextIter * arg1, gcha
    }
    if (!trigger)
       return;
-   if (view->autoscan_lines == -1) {
+   if (view->autoscan_lines == 0) {
       bf_textview_scan (view);
       gtk_widget_queue_draw (GTK_WIDGET (user_data));
    }
@@ -2789,7 +2789,7 @@ bf_textview_delete_range_cb (GtkTextBuffer * textbuffer, GtkTextIter * arg1, Gtk
 	 p = g_utf8_next_char (p);
       }
       if (trigger) {
-	 if (view->autoscan_lines == -1) {
+	 if (view->autoscan_lines == 0) {
 	    bf_textview_scan (view);
 	    gtk_widget_queue_draw (GTK_WIDGET (user_data));
 	 }
@@ -2984,7 +2984,7 @@ void bf_textview_set_autoscan (BfTextView * self, gboolean setauto)
 * @lines: - number of lines forward and backward to scan.
 *
 *	Set number of lines which should be scanned from current cursor position (backward and forward). 
-* 	Value of -1 in @lines means "whole buffer".
+* 	Value of  0 in @lines means "whole buffer".
 */
 void bf_textview_set_autoscan_lines (BfTextView * self, gint lines)
 {
