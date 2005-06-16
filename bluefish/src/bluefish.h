@@ -254,8 +254,13 @@ typedef struct {
 	gchar *bflib_info_fg;
 	GList *plugin_config; /* array, 0=filename, 1=enabled, 2=name*/
 #ifdef USE_SCANNER
-	gint view_blocks; /* view blocks on the left side by default */
-	gint view_symbols; /* view symbols on the left side by default */	
+	gint view_blocks; /* show blocks on the left side by default */
+	gint view_symbols; /* show symbols on the left side by default */	
+	gint view_mbhl; /* show matching block begin-end */	
+	gint autoscan; /* run autoscan when editing document */
+	gint autoscan_lines; /* number of lines to autoscan */
+	gchar *editor_fg; /* editor foreground color */
+	gchar *editor_bg; /* editor background color */
 #endif	
 } Tproperties;
 

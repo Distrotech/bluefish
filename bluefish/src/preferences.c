@@ -44,6 +44,11 @@ enum {
 #ifdef USE_SCANNER
 	view_blocks,
 	view_symbols,		
+	view_mbhl,
+	autoscan,
+   autoscan_lines,
+	editor_fg,
+	editor_bg,	
 #endif	
 	filebrowser_two_pane_view,
 	filebrowser_unknown_icon,
@@ -1913,6 +1918,11 @@ static void preferences_apply(Tprefdialog *pd) {
 #ifdef USE_SCANNER	
 	integer_apply(&main_v->props.view_blocks, pd->prefs[view_blocks], TRUE);
 	integer_apply(&main_v->props.view_symbols, pd->prefs[view_symbols], TRUE);
+	integer_apply(&main_v->props.view_mbhl, pd->prefs[view_mbhl], TRUE);
+	integer_apply(&main_v->props.autoscan, pd->prefs[autoscan], TRUE);
+	integer_apply(&main_v->props.autoscan_lines, pd->prefs[autoscan_lines], TRUE);
+	string_apply(&main_v->props.editor_fg, pd->prefs[editor_fg]);
+	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);	
 #endif
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
@@ -2133,13 +2143,17 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	
 	pd->prefs[editor_font_string] = prefs_string(_("Font"), main_v->props.editor_font_string, vbox2, pd, string_font);
+#ifdef USE_SCANNER	
+	pd->prefs[editor_fg] = prefs_string(_("Foreground color"), main_v->props.editor_fg, vbox2, pd, string_color);
+	pd->prefs[editor_bg] = prefs_string(_("Background color"), main_v->props.editor_bg, vbox2, pd, string_color);
+#endif	
 	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
 	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap default"), main_v->props.word_wrap, vbox2);
 	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);
 #ifdef USE_SCANNER	
 	pd->prefs[view_blocks] = boxed_checkbut_with_value(_("Block folding view by default"), main_v->props.view_blocks, vbox2);
-	pd->prefs[view_symbols] = boxed_checkbut_with_value(_("Symbols view by default"), main_v->props.view_symbols, vbox2);	
+	pd->prefs[view_symbols] = boxed_checkbut_with_value(_("Symbols view by default"), main_v->props.view_symbols, vbox2);			
 #endif
 	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
 	pd->prefs[highlight_num_lines_count] = prefs_integer(_("Highlight # lines"), main_v->props.highlight_num_lines_count, vbox2, pd, 1, 8);
@@ -2461,18 +2475,9 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);	
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
-	
-	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_tree_store_append(pd->nstore, &auxit, &iter);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Languages"), WIDGETCOL,vbox1,-1);	
-
-
-	frame = gtk_frame_new(_("Languages"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);	
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
+	pd->prefs[view_mbhl] = boxed_checkbut_with_value(_("Match block begin-end by default"), main_v->props.view_mbhl, vbox2);
+	pd->prefs[autoscan] = boxed_checkbut_with_value(_("Autoscan"), main_v->props.autoscan, vbox2);
+	pd->prefs[autoscan_lines] = prefs_integer(_("Autoscan # lines\n(-1 to scan whole document)"), main_v->props.autoscan_lines, vbox2, pd, -1, 1000);
 	
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
