@@ -194,8 +194,10 @@ void hl_tag_end (BfTextView * self, gchar * tagName, GtkTextIter * b_startIter,
 	
 	if ( gdk_color_parse("#C56819",&col) ) {
 		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(buffer),"tagcolor");
-		if ( tag==NULL )
+		if ( tag==NULL ) {
 			tag = gtk_text_buffer_create_tag(buffer,"tagcolor","foreground-gdk",&col,NULL);
+			gtk_text_tag_set_priority(tag,0);
+		}	
 			gtk_text_buffer_apply_tag_by_name(buffer,"tagcolor",b_startIter,b_endIter);	
 			gtk_text_buffer_apply_tag_by_name(buffer,"tagcolor",e_startIter,e_endIter);	
 	}
@@ -211,8 +213,10 @@ void hl_tag_attr (BfTextView * self, gchar * attrName, gchar * attrValue,
 	
 	if ( gdk_color_parse("#000077",&col) ) {
 		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(buffer),"attrcolor");
-		if ( tag==NULL )
+		if ( tag==NULL ) {
 			tag = gtk_text_buffer_create_tag(buffer,"attrcolor","foreground-gdk",&col,NULL);
+			gtk_text_tag_set_priority(tag,1);
+		}	
 			gtk_text_buffer_apply_tag_by_name(buffer,"attrcolor",n_startIter,n_endIter);	
 	}
 			   
