@@ -77,6 +77,7 @@ typedef struct {
    gboolean case_sensitive;
    gboolean scan_tags;
    gboolean scan_blocks;
+   gboolean restricted_tags_only;
    gunichar as_triggers[256];
 
    GHashTable *tokens;
@@ -94,6 +95,7 @@ typedef struct {
 	gint bb_tabnum;
 	gint be_tabnum;  
 	gchar escapes[256]; 
+	GHashTable *restricted_tags;
 } BfLangConfig;
 
 typedef struct {
