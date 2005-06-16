@@ -2477,7 +2477,7 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[view_mbhl] = boxed_checkbut_with_value(_("Match block begin-end by default"), main_v->props.view_mbhl, vbox2);
 	pd->prefs[autoscan] = boxed_checkbut_with_value(_("Autoscan"), main_v->props.autoscan, vbox2);
-	pd->prefs[autoscan_lines] = prefs_integer(_("Autoscan # lines\n(-1 to scan whole document)"), main_v->props.autoscan_lines, vbox2, pd, -1, 1000);
+	pd->prefs[autoscan_lines] = prefs_integer(_("Autoscan # lines\n(0 to scan whole document)"), main_v->props.autoscan_lines, vbox2, pd, 0, 1000);
 	
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);

@@ -171,6 +171,54 @@ void hl_slot(BfTextView *view,BfLangToken *tokenDef,GtkTextIter *startIter,GtkTe
 	}
 }
 
+void hl_tag_begin (BfTextView * self, gchar * tagName, GtkTextIter * startIter, GtkTextIter * endIter) {
+	GdkColor col;
+	GtkTextTag *tag;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
+	
+	if ( gdk_color_parse("#C56819",&col) ) {
+		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(buffer),"tagcolor");
+		if ( tag==NULL )
+			tag = gtk_text_buffer_create_tag(buffer,"tagcolor","foreground-gdk",&col,NULL);
+			gtk_text_buffer_apply_tag_by_name(buffer,"tagcolor",startIter,endIter);	
+	}
+
+}
+
+void hl_tag_end (BfTextView * self, gchar * tagName, GtkTextIter * b_startIter,
+			  GtkTextIter * b_endIter, GtkTextIter * e_startIter, GtkTextIter * e_endIter)
+{
+	GdkColor col;
+	GtkTextTag *tag;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
+	
+	if ( gdk_color_parse("#C56819",&col) ) {
+		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(buffer),"tagcolor");
+		if ( tag==NULL )
+			tag = gtk_text_buffer_create_tag(buffer,"tagcolor","foreground-gdk",&col,NULL);
+			gtk_text_buffer_apply_tag_by_name(buffer,"tagcolor",b_startIter,b_endIter);	
+			gtk_text_buffer_apply_tag_by_name(buffer,"tagcolor",e_startIter,e_endIter);	
+	}
+
+}
+			  
+void hl_tag_attr (BfTextView * self, gchar * attrName, gchar * attrValue,
+			   GtkTextIter * n_startIter, GtkTextIter * n_endIter,
+			   GtkTextIter * v_startIter, GtkTextIter * v_endIter) {
+	GdkColor col;
+	GtkTextTag *tag;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
+	
+	if ( gdk_color_parse("#000077",&col) ) {
+		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(buffer),"attrcolor");
+		if ( tag==NULL )
+			tag = gtk_text_buffer_create_tag(buffer,"attrcolor","foreground-gdk",&col,NULL);
+			gtk_text_buffer_apply_tag_by_name(buffer,"attrcolor",n_startIter,n_endIter);	
+	}
+			   
+}			   
+
+
 #else
 
 

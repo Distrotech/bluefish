@@ -25,7 +25,12 @@
 
 #include "bf-textview.h"
 void hl_slot(BfTextView *view,BfLangToken *tokenDef,GtkTextIter *startIter,GtkTextIter *endIter);
-
+void hl_tag_begin (BfTextView * self, gchar * tagName, GtkTextIter * startIter, GtkTextIter * endIter);
+void hl_tag_end (BfTextView * self, gchar * tagName, GtkTextIter * b_startIter,
+			  GtkTextIter * b_endIter, GtkTextIter * e_startIter, GtkTextIter * e_endIter);
+void hl_tag_attr (BfTextView * self, gchar * attrName, gchar * attrValue,
+			   GtkTextIter * n_startIter, GtkTextIter * n_endIter,
+			   GtkTextIter * v_startIter, GtkTextIter * v_endIter);
 #else
 void filetype_highlighting_rebuild(gboolean gui_errors);
 void hl_init(void);
