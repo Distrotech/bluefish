@@ -1009,6 +1009,19 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 					 	break;
 				      case 9:		 /* attribute end */
 				      	self->scanner.current_attr.value_end = ita;
+				      	if ( self->current_lang->restricted_tags_only ) {
+				      		ptr = g_hash_table_lookup(self->current_lang->restricted_tags,self->scanner.current_tag.name);
+				      		if ( ptr ) {
+				      			if ( g_hash_table_lookup((GHashTable*)ptr,self->scanner.current_attr.name)  ){
+					       				bf_textview_tag_attr (self, 
+					       					self->scanner.current_attr.name,
+					       					self->scanner.current_attr.value,
+					       					&self->scanner.current_attr.name_start,&self->scanner.current_attr.name_end,
+					       					&self->scanner.current_attr.value_start,&self->scanner.current_attr.value_end); /* EMIT SIGNAL */				      			
+				      			}
+				      		}
+				      	} 
+				      	else
 	       				bf_textview_tag_attr (self, 
 	       					self->scanner.current_attr.name,
 	       					self->scanner.current_attr.value,
@@ -1021,6 +1034,19 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 				      break;
 	    				case 15:		 /* attribute end s.v.  */
 				      	self->scanner.current_attr.value_end = ita;
+				      	if ( self->current_lang->restricted_tags_only ) {
+				      		ptr = g_hash_table_lookup(self->current_lang->restricted_tags,self->scanner.current_tag.name);
+				      		if ( ptr ) {
+				      			if ( g_hash_table_lookup((GHashTable*)ptr,self->scanner.current_attr.name)  ){
+				       				bf_textview_tag_attr (self, 
+				       					self->scanner.current_attr.name,
+				       					self->scanner.current_attr.value,
+				       					&self->scanner.current_attr.name_start,&self->scanner.current_attr.name_end,
+				       					&self->scanner.current_attr.value_start,&self->scanner.current_attr.value_end); /* EMIT SIGNAL */				      			
+				      			}
+				      		}
+				      	}
+				      	else
 	       				bf_textview_tag_attr (self, 
 	       					self->scanner.current_attr.name,
 	       					self->scanner.current_attr.value,
@@ -1034,8 +1060,15 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 	       			break;
 	    				case BFTV_TAG_IDS_BEGIN_COMPLETED:
 	       				self->scanner.current_tag.b_end = ita;
-	       				bf_textview_tag_begin (self, self->scanner.current_tag.name, 
-	       					&self->scanner.current_tag.b_start, &ita);	 /* EMIT SIGNAL */
+	       				if ( self->current_lang->restricted_tags_only ) {
+	       					ptr = g_hash_table_lookup(self->current_lang->restricted_tags,self->scanner.current_tag.name);
+	       					if ( ptr )
+		       					bf_textview_tag_begin (self, self->scanner.current_tag.name, 
+		       						&self->scanner.current_tag.b_start, &ita);	 /* EMIT SIGNAL */	       					
+	       				} 
+	       				else
+	       					bf_textview_tag_begin (self, self->scanner.current_tag.name, 
+	       						&self->scanner.current_tag.b_start, &ita);	 /* EMIT SIGNAL */
 	       				currstate = 0;
 	       				g_queue_push_head (&(self->scanner.tag_stack), g_strdup (self->scanner.current_tag.name));
 	       				g_free(self->scanner.current_tag.name);
@@ -1045,11 +1078,24 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 	    				case BFTV_TAG_IDS_EMPTY:
 	       				self->scanner.current_tag.b_end = ita;
 	       				self->scanner.current_tag.e_end = ita;
-	       				bf_textview_tag_begin (self, self->scanner.current_tag.name, 
-	       					&self->scanner.current_tag.b_start, &ita);	 /* EMIT SIGNAL */
-	       				bf_textview_tag_end (self, self->scanner.current_tag.name, 
-	       				&self->scanner.current_tag.b_start, &self->scanner.current_tag.b_end, 
-	       				&self->scanner.current_tag.e_start, &self->scanner.current_tag.e_end);	 /* EMIT SIGNAL */
+	       				if ( self->current_lang->restricted_tags_only ) {
+	       					ptr = g_hash_table_lookup(self->current_lang->restricted_tags,self->scanner.current_tag.name);
+	       					if ( ptr ) {
+			       				bf_textview_tag_begin (self, self->scanner.current_tag.name, 
+			       					&self->scanner.current_tag.b_start, &ita);	 /* EMIT SIGNAL */
+			       				bf_textview_tag_end (self, self->scanner.current_tag.name, 
+				       				&self->scanner.current_tag.b_start, &self->scanner.current_tag.b_end, 
+				       				&self->scanner.current_tag.e_start, &self->scanner.current_tag.e_end);	 /* EMIT SIGNAL */
+		       				}		
+	       				} 
+	       				else
+							{	       				
+		       				bf_textview_tag_begin (self, self->scanner.current_tag.name, 
+		       					&self->scanner.current_tag.b_start, &ita);	 /* EMIT SIGNAL */
+		       				bf_textview_tag_end (self, self->scanner.current_tag.name, 
+			       				&self->scanner.current_tag.b_start, &self->scanner.current_tag.b_end, 
+			       				&self->scanner.current_tag.e_start, &self->scanner.current_tag.e_end);	 /* EMIT SIGNAL */
+			       		}		
 	       				g_free(self->scanner.current_tag.name);
 	       				self->scanner.current_tag.name = NULL;
 	       				currstate = 0;
@@ -1061,19 +1107,38 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 	       				ptr = g_queue_peek_head (&(self->scanner.tag_stack));
 	       				if (ptr && 
 	       				    strcmp ((gchar *) ptr, self->scanner.current_tag.name ) == 0) {		  						
-		  						bf_textview_tag_end (self, 
-		  							self->scanner.current_tag.name, 
-		  							&self->scanner.current_tag.b_start, &self->scanner.current_tag.b_end, 
-		  							&self->scanner.current_tag.e_start, &self->scanner.current_tag.e_end);	 /* EMIT SIGNAL */
+			       				if ( self->current_lang->restricted_tags_only ) {
+			       					ptr = g_hash_table_lookup(self->current_lang->restricted_tags,self->scanner.current_tag.name);
+			       					if ( ptr ) {
+						  						bf_textview_tag_end (self, 
+						  							self->scanner.current_tag.name, 
+						  							&self->scanner.current_tag.b_start, &self->scanner.current_tag.b_end, 
+						  							&self->scanner.current_tag.e_start, &self->scanner.current_tag.e_end);	 /* EMIT SIGNAL */			       					
+				       				}		
+			       				} 
+			       				else	       				    
+				  						bf_textview_tag_end (self, 
+				  							self->scanner.current_tag.name, 
+				  							&self->scanner.current_tag.b_start, &self->scanner.current_tag.b_end, 
+				  							&self->scanner.current_tag.e_start, &self->scanner.current_tag.e_end);	 /* EMIT SIGNAL */
 		  						ptr = g_queue_pop_head (&(self->scanner.tag_stack));
 		  						g_free (ptr);
 		  						g_free(self->scanner.current_tag.name);
 		  						self->scanner.current_tag.name = NULL;
 	       				}
 	       				else {
-		  						bf_textview_tag_misplaced_end (self, 
-		  							self->scanner.current_tag.name, 
-		  							&self->scanner.current_tag.e_start, &ita);	  /* EMIT SIGNAL  */
+			       				if ( self->current_lang->restricted_tags_only ) {
+			       					ptr = g_hash_table_lookup(self->current_lang->restricted_tags,self->scanner.current_tag.name);
+			       					if ( ptr ) {
+					  						bf_textview_tag_misplaced_end (self, 
+					  							self->scanner.current_tag.name, 
+					  							&self->scanner.current_tag.e_start, &ita);	  /* EMIT SIGNAL  */
+				       				}		
+			       				} 
+			       				else	       				    	       				
+				  						bf_textview_tag_misplaced_end (self, 
+				  							self->scanner.current_tag.name, 
+				  							&self->scanner.current_tag.e_start, &ita);	  /* EMIT SIGNAL  */
 		  						/* try to dig for proper one */
 		  						gboolean ff = FALSE;
 		  						while (!g_queue_is_empty(&self->scanner.tag_stack))	{
@@ -1082,10 +1147,20 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 		  							g_free(ptr);
 		  						}
 		  						if ( ff ) {
-			  						bf_textview_tag_end (self, 
-			  							self->scanner.current_tag.name, 
-			  							&self->scanner.current_tag.b_start, &self->scanner.current_tag.b_end, 
-			  							&self->scanner.current_tag.e_start, &self->scanner.current_tag.e_end);	 /* EMIT SIGNAL */		  							
+			       				if ( self->current_lang->restricted_tags_only ) {
+			       					ptr = g_hash_table_lookup(self->current_lang->restricted_tags,self->scanner.current_tag.name);
+			       					if ( ptr ) {
+					  						bf_textview_tag_end (self, 
+					  							self->scanner.current_tag.name, 
+					  							&self->scanner.current_tag.b_start, &self->scanner.current_tag.b_end, 
+					  							&self->scanner.current_tag.e_start, &self->scanner.current_tag.e_end);	 /* EMIT SIGNAL */		  							
+				       				}		
+			       				} 
+			       				else	       				    	       						  						
+				  						bf_textview_tag_end (self, 
+				  							self->scanner.current_tag.name, 
+				  							&self->scanner.current_tag.b_start, &self->scanner.current_tag.b_end, 
+				  							&self->scanner.current_tag.e_start, &self->scanner.current_tag.e_end);	 /* EMIT SIGNAL */		  							
 		  						}
 		  						g_free(self->scanner.current_tag.name);	
 		  						self->scanner.current_tag.name = NULL;
@@ -1857,7 +1932,7 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
       cfg->tokens = g_hash_table_new (g_int_hash, g_int_equal);
       cfg->dfa = g_hash_table_new (g_str_hash, g_str_equal);
       cfg->dfa_tables = NULL;
-
+		cfg->restricted_tags = g_hash_table_new (g_int_hash, g_int_equal);
       cfg->tabnum = 0;
       tokennum = BFTV_TOKEN_IDS + 1;
       cfg->bb_tabnum = 0;
@@ -1891,6 +1966,8 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 						cfg->scan_tags = bftv_xml_bool (tmps2);
 				     else if (xmlStrcmp (tmps, "scan-blocks") == 0 && !options_set)
 						cfg->scan_blocks = bftv_xml_bool (tmps2);
+				     else if (xmlStrcmp (tmps, "restricted-tags-only") == 0 && !options_set)
+						cfg->restricted_tags_only = bftv_xml_bool (tmps2);						
 				     else if (xmlStrcmp (tmps, "extensions") == 0 && !options_set)
 						cfg->extensions = g_strdup (tmps2);
 				     else if (xmlStrcmp (tmps, "auto-scan-triggers") == 0 && !options_set) {
@@ -2049,10 +2126,36 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 		     }
 		     xmlFree (tmps);
 		  }
-	       }		/* token-list */
+       }		/* token-list */
 	       cur2 = cur2->next;
 	    }			/* while cur2 */
 	 }
+  	 else if (xmlStrcmp (cur->name, "restricted-tags") == 0) {	/* restricted tags */
+	    cur2 = cur->xmlChildrenNode;
+	    while (cur2 != NULL) {
+			if (xmlStrcmp (cur2->name, "tag") == 0) {	
+				tmps = xmlGetProp(cur2,"name");
+				if ( tmps ) {
+					GHashTable *h = g_hash_table_new(g_str_hash,g_str_equal);
+					gchar **arr;
+					gint i=0;
+					g_hash_table_insert(cfg->restricted_tags,g_strdup(tmps),h);
+					xmlFree(tmps);
+					tmps = xmlGetProp(cur2,"attributes");
+					arr = g_strsplit (tmps, ",", -1);
+					while ( arr[i] != NULL ) {
+						g_hash_table_insert(h,g_strdup(arr[i]),"1");
+						i++;
+					}
+					xmlFree(tmps);
+					g_strfreev (arr);
+				}
+			}
+	    	cur2 = cur2->next;
+		 } /* while cur2 */     	 	
+  	 } /* restricted tags */
+	 
+	 
 	 cur = cur->next;
       }				/* while cur */
    }
