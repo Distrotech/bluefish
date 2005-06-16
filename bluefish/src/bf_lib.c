@@ -1585,3 +1585,4 @@ gchar *bf_portable_time(const time_t *timep) {
 #endif /* HAVE_CTIME_R */
 	return retstr;
 }
+

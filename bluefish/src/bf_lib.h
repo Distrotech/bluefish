@@ -47,6 +47,8 @@ GnomeVFSURI *add_suffix_to_uri(GnomeVFSURI *uri, const char *suffix);
 GList *urilist_to_stringlist(GList *urilist);
 void free_urilist(GList *urilist);
 
+#define user_bfdir(file) g_strconcat(g_get_home_dir(), "/."PACKAGE"/", file, NULL)
+
 gchar *full_path_utf8_from_uri(GnomeVFSURI *uri);
 gchar *filename_utf8_from_full_path_utf8(const gchar *full_path_utf8);
 gchar *filename_utf8_from_uri(GnomeVFSURI *uri);
@@ -98,4 +100,5 @@ void wordcount(gchar *text, guint *chars, guint *lines, guint *words);
 GSList *gslist_from_glist_reversed(GList *src);
 GList *glist_from_gslist(GSList *src);
 gchar *bf_portable_time(const time_t *timep);
+
 #endif /* __BF_LIB_H_ */

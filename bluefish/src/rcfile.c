@@ -511,8 +511,7 @@ static GList *arraylist_load_defaults(GList *thelist, const gchar *filename, con
 	return thelist;
 }
 */
-void rcfile_parse_main(void)
-{
+void rcfile_parse_main(void)  {
 	gchar *filename;
 
 	DEBUG_MSG("rcfile_parse_main, started\n");
@@ -523,7 +522,7 @@ void rcfile_parse_main(void)
 	/*Make the config_rc list ready for filling with data and set default values */
 	main_configlist = props_init_main(NULL);
 
-	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/rcfile_v2", NULL);
+	filename = user_bfdir("rcfile_v2");
 	if (!parse_config_file(main_configlist, filename)) {
 		/* should we initialize some things ?? */
 	}
@@ -706,8 +705,11 @@ void rcfile_parse_main(void)
 }
 
 gint rcfile_save_main(void) {
-	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/rcfile_v2", NULL);
-	return save_config_file(main_configlist, filename);
+	gint ret;
+	gchar *filename = user_bfdir("rcfile_v2");
+	ret = save_config_file(main_configlist, filename);
+	g_free(filename);
+	return ret;
 }
 /*
 static gboolean arraylist_test_identifier_exists(GList *arrlist, const gchar *name) {
@@ -1028,7 +1030,7 @@ gboolean rcfile_save_global_session(void) {
 	gboolean retval;
 	gchar *filename;
 	GList *configlist;
-	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/session", NULL);
+	filename = user_bfdir("session");
 	configlist = return_globalsession_configlist(FALSE);
 	configlist = return_session_configlist(configlist, main_v->session);
 	DEBUG_MSG("rcfile_save_global_session, saving global session to %s\n",filename);
