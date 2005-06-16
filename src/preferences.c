@@ -396,7 +396,12 @@ static GtkWidget *prefs_string(const gchar *title, const gchar *curval, GtkWidge
 	hbox = gtk_hbox_new(FALSE,3);
 	gtk_box_pack_start(GTK_BOX(box), hbox, FALSE, FALSE, 3);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(title), FALSE, FALSE, 3);
-	return_widget = boxed_entry_with_text(curval, 1023, hbox);
+	if (prefstringtype == string_color) {
+		return_widget = boxed_entry_with_text(curval, 8, hbox);
+		gtk_entry_set_width_chars(GTK_ENTRY(return_widget),8);
+	}	
+	else
+		return_widget = boxed_entry_with_text(curval, 1023, hbox);
 	if (prefstringtype == file) {
 		gtk_box_pack_start(GTK_BOX(hbox), file_but_new(return_widget, 1, NULL), FALSE, FALSE, 3);
 	} else if (prefstringtype == font) {
@@ -1234,6 +1239,317 @@ static void highlightpattern_reset_clicked_lcb(GtkWidget *button, Tprefdialog *p
 		g_free (defaultfile);
 	}
 }
+
+#ifdef USE_SCANNER
+static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
+  GtkWidget *vbox1,*hbox1, *label1;
+  GtkWidget *ft_combo, *rst_btn, *notebook1;
+  GtkWidget *hbox2,*vbox2,*label6;
+  GtkWidget *scrolledwindow1,*dg_tree,*vbuttonbox1,*button2,*button3;
+  GtkWidget *vbox3,*label7,*scrolledwindow2,*hg_tree,*g_pbox;
+  GtkWidget *label2, *hbox3, *vbox5,*label8, *scrolledwindow3;
+  GtkWidget *db_tree,*vbuttonbox2,*button4,*button5;
+  GtkWidget *vbox6,*label9,*scrolledwindow4;
+  GtkWidget *hb_tree, *b_pbox, *label3,*hbox4, *vbox8;
+  GtkWidget *label10,*scrolledwindow5, *dt_tree,*vbuttonbox3;
+  GtkWidget *button6, *button7, *vbox9,*label11, *scrolledwindow6;
+  GtkWidget *ht_tree, *t_pbox,*label4, *hbox5,*scrolledwindow7;
+  GtkWidget *tag_tree,*tag_pbox, *label5,*radio,*radio2,*txtlabel;
+  GList *tmplist;
+  GtkListStore *store;
+  GtkTreeIter it;
+  GtkCellRenderer *cell;
+  GtkTreeViewColumn *column;  
+  
+
+  vbox1 = gtk_vbox_new (FALSE, 0);
+  gtk_box_pack_start(GTK_BOX(mainbox), vbox1, FALSE, FALSE, 3);
+
+  txtlabel = gtk_label_new (_(""));
+  gtk_label_set_markup(GTK_LABEL(txtlabel),_("<small>Highlighting is performed only for elements which are in 'highlighted' lists.\nElement style is found using steps below:\n1. find definition for single token or block, if not found then,\n2. find definition for group to which token or block belongs</small>"));
+  gtk_misc_set_padding (GTK_MISC (txtlabel), 3, 3);
+  gtk_box_pack_start (GTK_BOX (vbox1), txtlabel, TRUE, TRUE, 0);  
+
+  hbox1 = gtk_hbox_new (FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox1), hbox1, FALSE, FALSE, 15);
+
+  label1 = gtk_label_new (_("File type"));
+  gtk_box_pack_start (GTK_BOX (hbox1), label1, FALSE, FALSE, 3);
+  gtk_misc_set_padding (GTK_MISC (label1), 3, 3);
+
+  ft_combo = gtk_combo_box_new_text ();
+  gtk_box_pack_start (GTK_BOX (hbox1), ft_combo, FALSE, FALSE, 3);
+  tmplist = g_list_first(pd->lists[filetypes]);
+   while (tmplist) {
+			gint arrcount;
+			gchar **strarr = (gchar **)tmplist->data;
+			arrcount = count_array(strarr);
+			if (arrcount==7) {
+			   gtk_combo_box_append_text(GTK_COMBO_BOX(ft_combo),strarr[0]);
+			}
+			tmplist = g_list_next(tmplist);
+	}  
+
+  rst_btn = gtk_button_new_with_mnemonic (_("Reset"));
+  gtk_box_pack_start (GTK_BOX (hbox1), rst_btn, FALSE, FALSE, 3);
+
+  notebook1 = gtk_notebook_new ();
+  gtk_box_pack_start (GTK_BOX (vbox1), notebook1, TRUE, TRUE,5);
+
+  hbox2 = gtk_hbox_new (FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (notebook1), hbox2);
+
+  vbox2 = gtk_vbox_new (FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox2), vbox2, TRUE, TRUE, 0);
+
+  label6 = gtk_label_new (_("Defined groups"));
+  gtk_box_pack_start (GTK_BOX (vbox2), label6, FALSE, FALSE, 0);
+  gtk_misc_set_padding (GTK_MISC (label6), 2, 2);
+
+  scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
+  gtk_box_pack_start (GTK_BOX (vbox2), scrolledwindow1, TRUE, TRUE, 0);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_SHADOW_IN);
+
+  dg_tree = gtk_tree_view_new ();
+  gtk_container_add (GTK_CONTAINER (scrolledwindow1), dg_tree);
+  gtk_container_set_border_width (GTK_CONTAINER (dg_tree), 3);
+  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dg_tree), FALSE);
+
+  vbuttonbox1 = gtk_vbutton_box_new ();
+  gtk_box_pack_start (GTK_BOX (hbox2), vbuttonbox1, FALSE, FALSE, 2);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (vbuttonbox1), GTK_BUTTONBOX_SPREAD);
+
+  button2 = gtk_button_new_with_mnemonic (_("<<"));
+  gtk_container_add (GTK_CONTAINER (vbuttonbox1), button2);
+  GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
+
+  button3 = gtk_button_new_with_mnemonic (_(">>"));
+  gtk_container_add (GTK_CONTAINER (vbuttonbox1), button3);
+  GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
+
+  vbox3 = gtk_vbox_new (FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox2), vbox3, TRUE, TRUE, 0);
+
+  label7 = gtk_label_new (_("Highlighted groups"));
+  gtk_box_pack_start (GTK_BOX (vbox3), label7, FALSE, FALSE, 0);
+  gtk_misc_set_padding (GTK_MISC (label7), 2, 2);
+
+  scrolledwindow2 = gtk_scrolled_window_new (NULL, NULL);
+  gtk_box_pack_start (GTK_BOX (vbox3), scrolledwindow2, TRUE, TRUE, 0);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow2), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow2), GTK_SHADOW_IN);
+
+  hg_tree = gtk_tree_view_new ();
+  gtk_container_add (GTK_CONTAINER (scrolledwindow2), hg_tree);
+  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (hg_tree), FALSE);
+
+  g_pbox = gtk_vbox_new (FALSE, 2);
+  gtk_box_pack_start (GTK_BOX (hbox2), g_pbox, TRUE, TRUE, 5);
+  prefs_string(_("Foreground color"), "", g_pbox, pd, string_color);
+  prefs_string(_("Background color"), "", g_pbox, pd, string_color);
+  radio = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
+  gtk_box_pack_start(GTK_BOX(g_pbox),radio, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force non-bold weight"));
+  gtk_box_pack_start(GTK_BOX(g_pbox),radio2, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force bold weight"));
+  gtk_box_pack_start(GTK_BOX(g_pbox),radio2, TRUE, TRUE, 0);
+  radio = gtk_radio_button_new_with_label(NULL, _("don't change style"));
+  gtk_box_pack_start(GTK_BOX(g_pbox),radio, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force non-italic style"));
+  gtk_box_pack_start(GTK_BOX(g_pbox),radio2, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force italic style"));
+  gtk_box_pack_start(GTK_BOX(g_pbox),radio2, TRUE, TRUE, 0);
+
+
+  label2 = gtk_label_new (_("Groups"));
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 0), label2);
+  gtk_misc_set_padding (GTK_MISC (label2), 2, 2);
+
+  hbox3 = gtk_hbox_new (FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (notebook1), hbox3);
+
+  vbox5 = gtk_vbox_new (FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox3), vbox5, TRUE, TRUE, 0);
+
+  label8 = gtk_label_new (_("Defined blocks"));
+  gtk_box_pack_start (GTK_BOX (vbox5), label8, FALSE, FALSE, 0);
+  gtk_misc_set_padding (GTK_MISC (label8), 2, 2);
+
+  scrolledwindow3 = gtk_scrolled_window_new (NULL, NULL);
+  gtk_box_pack_start (GTK_BOX (vbox5), scrolledwindow3, TRUE, TRUE, 0);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow3), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow3), GTK_SHADOW_IN);
+
+  db_tree = gtk_tree_view_new ();
+  gtk_container_add (GTK_CONTAINER (scrolledwindow3), db_tree);
+  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (db_tree), FALSE);
+
+  vbuttonbox2 = gtk_vbutton_box_new ();
+  gtk_box_pack_start (GTK_BOX (hbox3), vbuttonbox2, TRUE, TRUE, 0);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (vbuttonbox2), GTK_BUTTONBOX_SPREAD);
+
+  button4 = gtk_button_new_with_mnemonic (_("<<"));
+  gtk_container_add (GTK_CONTAINER (vbuttonbox2), button4);
+  GTK_WIDGET_SET_FLAGS (button4, GTK_CAN_DEFAULT);
+
+  button5 = gtk_button_new_with_mnemonic (_(">>"));
+  gtk_container_add (GTK_CONTAINER (vbuttonbox2), button5);
+  GTK_WIDGET_SET_FLAGS (button5, GTK_CAN_DEFAULT);
+
+  vbox6 = gtk_vbox_new (FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox3), vbox6, TRUE, TRUE, 0);
+
+  label9 = gtk_label_new (_("Highlighted blocks"));
+  gtk_box_pack_start (GTK_BOX (vbox6), label9, FALSE, FALSE, 0);
+  gtk_misc_set_padding (GTK_MISC (label9), 2, 2);
+
+  scrolledwindow4 = gtk_scrolled_window_new (NULL, NULL);
+  gtk_box_pack_start (GTK_BOX (vbox6), scrolledwindow4, TRUE, TRUE, 0);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow4), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow4), GTK_SHADOW_IN);
+
+  hb_tree = gtk_tree_view_new ();
+  gtk_container_add (GTK_CONTAINER (scrolledwindow4), hb_tree);
+  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (hb_tree), FALSE);
+
+  b_pbox = gtk_vbox_new (FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox3), b_pbox, TRUE, TRUE, 5);
+  prefs_string(_("Foreground color"), "", b_pbox, pd, string_color);
+  prefs_string(_("Background color"), "", b_pbox, pd, string_color);
+  radio = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
+  gtk_box_pack_start(GTK_BOX(b_pbox),radio, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force non-bold weight"));
+  gtk_box_pack_start(GTK_BOX(b_pbox),radio2, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force bold weight"));
+  gtk_box_pack_start(GTK_BOX(b_pbox),radio2, TRUE, TRUE, 0);
+  radio = gtk_radio_button_new_with_label(NULL, _("don't change style"));
+  gtk_box_pack_start(GTK_BOX(b_pbox),radio, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force non-italic style"));
+  gtk_box_pack_start(GTK_BOX(b_pbox),radio2, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force italic style"));
+  gtk_box_pack_start(GTK_BOX(b_pbox),radio2, TRUE, TRUE, 0);
+  
+  label3 = gtk_label_new (_("Blocks"));
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 1), label3);
+  gtk_misc_set_padding (GTK_MISC (label3), 2, 2);
+
+  hbox4 = gtk_hbox_new (FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (notebook1), hbox4);
+
+  vbox8 = gtk_vbox_new (FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox4), vbox8, TRUE, TRUE, 0);
+
+  label10 = gtk_label_new (_("Defined tokens"));
+  gtk_box_pack_start (GTK_BOX (vbox8), label10, FALSE, FALSE, 0);
+  gtk_misc_set_padding (GTK_MISC (label10), 2, 2);
+
+  scrolledwindow5 = gtk_scrolled_window_new (NULL, NULL);
+  gtk_box_pack_start (GTK_BOX (vbox8), scrolledwindow5, TRUE, TRUE, 0);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow5), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow5), GTK_SHADOW_IN);
+
+  dt_tree = gtk_tree_view_new ();
+  gtk_container_add (GTK_CONTAINER (scrolledwindow5), dt_tree);
+  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dt_tree), FALSE);
+
+  vbuttonbox3 = gtk_vbutton_box_new ();
+  gtk_box_pack_start (GTK_BOX (hbox4), vbuttonbox3, TRUE, TRUE, 0);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (vbuttonbox3), GTK_BUTTONBOX_SPREAD);
+
+  button6 = gtk_button_new_with_mnemonic (_("<<"));
+  gtk_container_add (GTK_CONTAINER (vbuttonbox3), button6);
+  GTK_WIDGET_SET_FLAGS (button6, GTK_CAN_DEFAULT);
+
+  button7 = gtk_button_new_with_mnemonic (_(">>"));
+  gtk_container_add (GTK_CONTAINER (vbuttonbox3), button7);
+  GTK_WIDGET_SET_FLAGS (button7, GTK_CAN_DEFAULT);
+
+  vbox9 = gtk_vbox_new (FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox4), vbox9, TRUE, TRUE, 0);
+
+  label11 = gtk_label_new (_("Highlighted tokens"));
+  gtk_box_pack_start (GTK_BOX (vbox9), label11, FALSE, FALSE, 0);
+  gtk_misc_set_padding (GTK_MISC (label11), 2, 2);
+
+  scrolledwindow6 = gtk_scrolled_window_new (NULL, NULL);
+  gtk_box_pack_start (GTK_BOX (vbox9), scrolledwindow6, TRUE, TRUE, 0);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow6), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow6), GTK_SHADOW_IN);
+
+  ht_tree = gtk_tree_view_new ();
+  gtk_container_add (GTK_CONTAINER (scrolledwindow6), ht_tree);
+  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (ht_tree), FALSE);
+
+  t_pbox = gtk_vbox_new (FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox4), t_pbox, TRUE, TRUE, 5);
+  prefs_string(_("Foreground color"), "", t_pbox, pd, string_color);
+  prefs_string(_("Background color"), "", t_pbox, pd, string_color);
+  radio = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
+  gtk_box_pack_start(GTK_BOX(t_pbox),radio, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force non-bold weight"));
+  gtk_box_pack_start(GTK_BOX(t_pbox),radio2, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force bold weight"));
+  gtk_box_pack_start(GTK_BOX(t_pbox),radio2, TRUE, TRUE, 0);
+  radio = gtk_radio_button_new_with_label(NULL, _("don't change style"));
+  gtk_box_pack_start(GTK_BOX(t_pbox),radio, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force non-italic style"));
+  gtk_box_pack_start(GTK_BOX(t_pbox),radio2, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force italic style"));
+  gtk_box_pack_start(GTK_BOX(t_pbox),radio2, TRUE, TRUE, 0);
+  label4 = gtk_label_new (_("Tokens"));
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 2), label4);
+  gtk_misc_set_padding (GTK_MISC (label4), 2, 2);
+
+  hbox5 = gtk_hbox_new (FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (notebook1), hbox5);
+
+  scrolledwindow7 = gtk_scrolled_window_new (NULL, NULL);
+  gtk_box_pack_start (GTK_BOX (hbox5), scrolledwindow7, TRUE, TRUE, 2);
+  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow7), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolledwindow7), GTK_SHADOW_IN);
+
+  tag_tree = gtk_tree_view_new ();
+  gtk_container_add (GTK_CONTAINER (scrolledwindow7), tag_tree);
+  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (tag_tree), FALSE);
+	store = gtk_list_store_new(2,G_TYPE_INT,G_TYPE_STRING);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(tag_tree),GTK_TREE_MODEL(store));	
+	cell = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes("", cell, "text", 1, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(tag_tree), column); 
+	gtk_list_store_append(store,&it);
+	gtk_list_store_set(store,&it,0,0,1,"tag begin",-1);
+	gtk_list_store_append(store,&it);
+	gtk_list_store_set(store,&it,0,1,1,"tag end",-1);
+	gtk_list_store_append(store,&it);
+	gtk_list_store_set(store,&it,0,2,1,"attribute name",-1);
+	gtk_list_store_append(store,&it);
+	gtk_list_store_set(store,&it,0,3,1,"attribute value",-1);
+	
+	
+
+  tag_pbox = gtk_vbox_new (FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (hbox5), tag_pbox, TRUE, TRUE, 5);
+  prefs_string(_("Foreground color"), "", tag_pbox, pd, string_color);
+  prefs_string(_("Background color"), "", tag_pbox, pd, string_color);
+  radio = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
+  gtk_box_pack_start(GTK_BOX(tag_pbox),radio, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force non-bold weight"));
+  gtk_box_pack_start(GTK_BOX(tag_pbox),radio2, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force bold weight"));
+  gtk_box_pack_start(GTK_BOX(tag_pbox),radio2, TRUE, TRUE, 0);
+  radio = gtk_radio_button_new_with_label(NULL, _("don't change style"));
+  gtk_box_pack_start(GTK_BOX(tag_pbox),radio, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force non-italic style"));
+  gtk_box_pack_start(GTK_BOX(tag_pbox),radio2, TRUE, TRUE, 0);
+  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force italic style"));
+  gtk_box_pack_start(GTK_BOX(tag_pbox),radio2, TRUE, TRUE, 0);
+  
+  label5 = gtk_label_new (_("Tags"));
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 3), label5);
+  gtk_misc_set_padding (GTK_MISC (label5), 2, 2);
+}
+#endif
 
 static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but, *vbox3;
@@ -2488,6 +2804,7 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);	
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	create_hl_gui(pd,vbox2);
 	
 
 #endif	
