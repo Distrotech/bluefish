@@ -1,0 +1,35 @@
+bluefish for Debian
+-------------------
+
+This is a short TODO list for future bluefish Debian packages, regarding the
+work in progress in upstream.
+
+ * split package into bluefish and bluefish-data
+   - bluefish-data should contain all bflib_* files (architecture
+     independent), which are optional, but not necessary
+   - bluefish should suggest, but not depend on bluefish-data
+   - adjust control and add package as 'Architecture: all'
+   - adjust rules and add necessary debhelper-scripts to binary-indep target
+     and move bflib_* files to bluefish-data package
+ -> decreases package size for bluefish, divides optional/necessary and
+    considers architecture-dependent packing praxis
+ 
+ * possible: if more plugins are added, optional plugins should go into an
+   bluefish-plugins package
+ 
+ * after scanner is ready, data files should go into an bluefish-common
+   package (also architecture independent)
+   - bluefish-data should contain all data files, which are _necessary_ to run
+     bluefish, but architecture independent (encodings, filetypes,
+     highlighting, bflang, ...)
+   - bluefish needs to depend on bluefish-common
+   - adjust control and add package as 'Architecture: all'
+   - adjust rules and add necessary debhelper-scripts to binary-indep target
+     and move bflib_* files to bluefish-data package
+ -> decreases package size for bluefish, divides optional/necessary and
+    considers architecture-dependent packing praxis
+
+ * package splits need to be advertised in the NEWS.Debian file
+
+ -- Daniel Leidert (dale) <daniel.leidert@wgdd.de>
+
