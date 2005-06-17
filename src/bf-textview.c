@@ -199,9 +199,6 @@ enum {
 #define BFTV_UTF8_RANGE	2048
 
 
-static gint tokennum = BFTV_TOKEN_IDS + 1;
-static gint blocknum = BFTV_BLOCK_IDS + 1;
-
 static guint object_signals[LAST_SIGNAL] = { 0 };
 static GtkTextViewClass *parent_class = NULL;
 
@@ -765,12 +762,12 @@ static void bftv_update_iters(BfTextView *view, TBfBlock *b) {
 	if ( !b ) return;
 	gtk_text_buffer_get_iter_at_mark(buff,&it,b->mark_begin);
 	b->b_start = it;
-	for(i=0;i<g_utf8_strlen(b->def->begin,-1);i++)
+	for(i=0;i<b->b_len;i++)
 		gtk_text_iter_forward_char(&it);
 	b->b_end = it;
 	gtk_text_buffer_get_iter_at_mark(buff,&it,b->mark_end);
 	b->e_start = it;
-	for(i=0;i<g_utf8_strlen(b->def->end,-1);i++)
+	for(i=0;i<b->e_len;i++)
 		gtk_text_iter_forward_char(&it);
 	b->e_end = it;		
 }
@@ -1264,11 +1261,14 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 			   				g_object_set_data (G_OBJECT (mark), "folded", "false");
 			   				g_object_set_data (G_OBJECT (mark), "pointer", self->scanner.current_block);
 			   				self->scanner.current_block->mark_begin = mark;
-
+			   				self->scanner.current_block->b_len = g_utf8_strlen(gtk_text_iter_get_slice(
+			   				&self->scanner.current_block->b_start,&self->scanner.current_block->b_end),-1)-1;
 			   				mark2 = gtk_text_buffer_create_mark (buf, NULL, &its, FALSE);
 			   				g_object_set_data (G_OBJECT (mark2), "type", "block_end");
 			   				g_object_set_data (G_OBJECT (mark2), "folded", "false");
 			   				g_object_set_data (G_OBJECT (mark2), "pointer", self->scanner.current_block);
+			   				self->scanner.current_block->e_len = g_utf8_strlen(gtk_text_iter_get_slice(
+			   				&self->scanner.current_block->e_start,&self->scanner.current_block->e_end),-1);
 
 			   				self->scanner.current_block->mark_end = mark2;
 			   				gtk_text_buffer_apply_tag_by_name (buf, "_block_", &(self->scanner.current_block->b_start), &ita);
@@ -1419,78 +1419,6 @@ static gboolean bftv_xml_bool (xmlChar * text)
 }
 
 
-
-static void bftv_put_into_block_dfa (BfLangConfig * cfg, BfLangBlock * b)
-{
-   glong i, size, j;
-   gchar *ptr, *inp, *inp2;
-   gpointer p;
-   GHashTable *curr_table = NULL, *pom_table = NULL;
-
-
-   b->tabid = blocknum;
-   blocknum++;
-   inp2 = g_strdup (b->begin);
-   inp = inp2;
-   curr_table = cfg->block_begin_dfa;
-   size = g_utf8_strlen (b->begin, -1);
-   i = 0;
-   j = 0;
-   while (i < size) {
-      ptr = g_strdup_printf ("%d%c", (int) j, *inp);
-      p = NULL;
-      p = g_hash_table_lookup (curr_table, ptr);
-      if (p == NULL) {
-	 pom_table = g_hash_table_new (g_str_hash, g_str_equal);
-	 cfg->bb_tabnum++;
-	 g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", cfg->bb_tabnum));
-	 g_hash_table_replace (curr_table, g_strdup (ptr), pom_table);
-	 curr_table = pom_table;
-      }
-      else {
-	 curr_table = (GHashTable *) p;
-      }
-      if (i == size - 1) {
-	 g_hash_table_replace (curr_table, g_strdup ("_final_"), b);
-      }
-      g_free (ptr);
-      inp++;
-      i++;
-      j++;
-   }				/* while */
-   g_free (inp2);
-
-   inp2 = g_strdup (b->end);
-   inp = inp2;
-   curr_table = cfg->block_end_dfa;
-   size = g_utf8_strlen (b->end, -1);
-   i = 0;
-   j = 0;
-   while (i < size) {
-      ptr = g_strdup_printf ("%d%c", (int) j, *inp);
-      p = NULL;
-      p = g_hash_table_lookup (curr_table, ptr);
-      if (p == NULL) {
-	 pom_table = g_hash_table_new (g_str_hash, g_str_equal);
-	 cfg->be_tabnum++;
-	 g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", cfg->be_tabnum));
-	 g_hash_table_replace (curr_table, g_strdup (ptr), pom_table);
-	 curr_table = pom_table;
-      }
-      else {
-	 curr_table = (GHashTable *) p;
-      }
-      if (i == size - 1) {
-	 g_hash_table_replace (curr_table, g_strdup ("_final_"), b);
-      }
-      g_free (ptr);
-      inp++;
-      i++;
-      j++;
-   }				/* while */
-   g_free (inp2);
-}
-
 static gpointer bftv_find_regexp_hash (GList * lst, gchar * key)
 {
    GList *pom = g_list_first (lst);
@@ -1523,6 +1451,257 @@ static void bftv_insert_regexp_hash (GList * lst, gchar * key, gpointer value, g
 }
 
 
+
+static void bftv_put_into_block_dfa (BfLangConfig * cfg, BfLangBlock * b)
+{
+   gint i, size, j, k, m;
+   gchar *ptr, *inp, *inp2, *inp3;
+   gpointer p;
+   GList *regexp_tables = NULL, *pom_regexp_tables = NULL, *as_tables = NULL;
+   GList *lst = NULL;   
+   GHashTable *curr_table = NULL, *pom_table = NULL;
+
+
+b->tabid = cfg->blocknum;
+cfg->blocknum++;
+   
+inp2 = g_strdup (b->begin);
+inp = inp2;
+size = g_utf8_strlen (b->begin, -1);
+i = 0;
+j = 0;
+if (b->regexp)
+   regexp_tables = g_list_append (regexp_tables, cfg->block_begin_dfa);
+else
+   curr_table = cfg->block_begin_dfa;
+
+
+while (i < size) {
+	if ( !b->regexp) {
+			ptr = g_strdup_printf ("%d%c", (int) j, *inp);
+		   p = NULL;
+		   p = g_hash_table_lookup (curr_table, ptr);
+		   if (p == NULL) {
+				 pom_table = g_hash_table_new (g_str_hash, g_str_equal);
+				 cfg->bb_tabnum++;
+				 g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", cfg->bb_tabnum));
+				 g_hash_table_replace (curr_table, g_strdup (ptr), pom_table);
+				 curr_table = pom_table;
+		   }
+		   else {
+				 curr_table = (GHashTable *) p;
+		   }
+		   if (i == size - 1) {
+				 g_hash_table_replace (curr_table, g_strdup ("_final_"), b);
+		   }
+		   g_free (ptr);
+   } /* not regexp begin */
+   else { /*regexp begin */
+			 if (*inp == '[') {
+				    k = i + 1;
+				    inp3 = inp + 1;
+				    lst = NULL;
+				    while (k < size && *inp3 != ']') {
+				       if (g_unichar_isalnum (*inp3) && *(inp3 + 1) == '-' && g_unichar_isalnum (*(inp3 + 2))) {
+					  for (m = (gint) (*inp3); m <= (gint) (*(inp3 + 2)); m++) {
+					     ptr = g_strdup_printf ("%d%c", j, m);
+					     if (!g_list_find (lst, ptr))
+						lst = g_list_append (lst, ptr);
+					  }
+					  inp3 = inp3 + 2;
+					  k += 2;
+				       }
+				       else {
+					  			lst = g_list_append (lst, g_strdup_printf ("%d%c", j, *inp3));
+				       }
+				       inp3++;
+				       k++;
+				    }
+				    i = k;
+				    inp = inp3;
+				 }
+				 else {
+				    lst = NULL;
+				    lst = g_list_append (lst, g_strdup_printf ("%d%c", j, *inp));
+				 }
+				 lst = g_list_first (lst);
+				 pom_regexp_tables = NULL;
+				 pom_table = NULL;
+				 as_tables = regexp_tables;
+				 if (*(inp + 1) == '?' || *(inp + 1) == '*') {
+				    GList *lst2 = g_list_first (regexp_tables);
+				    while (lst2) {
+				       if (!g_list_find (pom_regexp_tables, lst2->data)) {
+					  			pom_regexp_tables = g_list_append (pom_regexp_tables, lst2->data);
+				       }
+				       lst2 = g_list_next (lst2);
+				    }
+				    if (*(inp + 1) == '?') {
+				       i++;
+				       inp++;
+				    }
+				 }			/* optional modifier */
+				 while (lst) {
+				    p = bftv_find_regexp_hash (regexp_tables, lst->data);
+				    if (p == NULL) {	/* table not found */
+				    	 if (!pom_table) {
+							  pom_table = g_hash_table_new (g_str_hash, g_str_equal);
+							  cfg->bb_tabnum++;
+							  g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", cfg->bb_tabnum));
+							  pom_regexp_tables = g_list_append (pom_regexp_tables, pom_table);
+							  cfg->dfa_tables = g_list_append (cfg->dfa_tables, pom_table);
+				       }
+				       bftv_insert_regexp_hash (regexp_tables, lst->data, pom_table, TRUE);
+				    }
+				    else {		/* just follow */
+				       pom_regexp_tables = g_list_append (pom_regexp_tables, p);
+				    }
+				    if (*(inp + 1) == '+' || *(inp + 1) == '*') {
+				       bftv_insert_regexp_hash (pom_regexp_tables, lst->data, pom_table, TRUE);
+				    }			/* one/zero or more modifier */
+			
+				    lst = g_list_next (lst);
+				 }
+				 if (i == size - 1 || (i == size - 2 && *(inp + 1) == '+')
+				     || (i == size - 2 && *(inp + 1) == '*'))
+				    bftv_insert_regexp_hash (pom_regexp_tables, "_final_", b, TRUE);
+			
+				 if (*(inp + 1) == '+' || *(inp + 1) == '*') {
+				    i++;
+				    inp++;
+				 }
+				 if (regexp_tables)
+				    g_list_free (regexp_tables);
+				 regexp_tables = pom_regexp_tables;
+   
+   } /* regexp begin */
+   if (i<size) inp++;
+   i++;
+   j++;
+}				/* while  for begin */
+g_free (inp2);
+
+inp2 = g_strdup (b->end);
+inp = inp2;
+regexp_tables = NULL;pom_regexp_tables = NULL;as_tables = NULL;
+lst = NULL; pom_table = NULL;
+if (b->regexp)
+   regexp_tables = g_list_append (regexp_tables, cfg->block_end_dfa);
+else
+   curr_table = cfg->block_end_dfa;
+
+size = g_utf8_strlen (b->end, -1);
+i = 0;
+j = 0;
+while (i < size) {
+	if ( !b->regexp ) {
+		   ptr = g_strdup_printf ("%d%c", (int) j, *inp);
+		   p = NULL;
+		   p = g_hash_table_lookup (curr_table, ptr);
+		   if (p == NULL) {
+				 pom_table = g_hash_table_new (g_str_hash, g_str_equal);
+				 cfg->be_tabnum++;
+				 g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", cfg->be_tabnum));
+				 g_hash_table_replace (curr_table, g_strdup (ptr), pom_table);
+				 curr_table = pom_table;
+		   }
+		   else {
+				 curr_table = (GHashTable *) p;
+		   }
+		   if (i == size - 1) {
+				 g_hash_table_replace (curr_table, g_strdup ("_final_"), b);
+		   }
+		   g_free (ptr);
+   } /* not regexp end */
+   else /* regexp end */
+   {
+			 if (*inp == '[') {
+				    k = i + 1;
+				    inp3 = inp + 1;
+				    lst = NULL;
+				    while (k < size && *inp3 != ']') {
+				       if (g_unichar_isalnum (*inp3) && *(inp3 + 1) == '-' && g_unichar_isalnum (*(inp3 + 2))) {
+					  for (m = (gint) (*inp3); m <= (gint) (*(inp3 + 2)); m++) {
+					     ptr = g_strdup_printf ("%d%c", j, m);
+					     if (!g_list_find (lst, ptr))
+						lst = g_list_append (lst, ptr);
+					  }
+					  inp3 = inp3 + 2;
+					  k += 2;
+				       }
+				       else {
+					  			lst = g_list_append (lst, g_strdup_printf ("%d%c", j, *inp3));
+				       }
+				       inp3++;
+				       k++;
+				    }
+				    i = k;
+				    inp = inp3;
+				 }
+				 else {
+				    lst = NULL;
+				    lst = g_list_append (lst, g_strdup_printf ("%d%c", j, *inp));
+				 }
+				 lst = g_list_first (lst);
+				 pom_regexp_tables = NULL;
+				 pom_table = NULL;
+				 as_tables = regexp_tables;
+				 if (*(inp + 1) == '?' || *(inp + 1) == '*') {
+				    GList *lst2 = g_list_first (regexp_tables);
+				    while (lst2) {
+				       if (!g_list_find (pom_regexp_tables, lst2->data)) {
+					  			pom_regexp_tables = g_list_append (pom_regexp_tables, lst2->data);
+				       }
+				       lst2 = g_list_next (lst2);
+				    }
+				    if (*(inp + 1) == '?') {
+				       i++;
+				       inp++;
+				    }
+				 }			/* optional modifier */
+				 while (lst) {
+				    p = bftv_find_regexp_hash (regexp_tables, lst->data);
+				    if (p == NULL) {	/* table not found */
+				    	 if (!pom_table) {
+							  pom_table = g_hash_table_new (g_str_hash, g_str_equal);
+							  cfg->be_tabnum++;
+							  g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", cfg->be_tabnum));
+							  pom_regexp_tables = g_list_append (pom_regexp_tables, pom_table);
+							  cfg->dfa_tables = g_list_append (cfg->dfa_tables, pom_table);
+				       }
+				       bftv_insert_regexp_hash (regexp_tables, lst->data, pom_table, TRUE);
+				    }
+				    else {		/* just follow */
+				       pom_regexp_tables = g_list_append (pom_regexp_tables, p);
+				    }
+				    if (*(inp + 1) == '+' || *(inp + 1) == '*') {
+				       bftv_insert_regexp_hash (pom_regexp_tables, lst->data, pom_table, TRUE);
+				    }			/* one/zero or more modifier */
+			
+				    lst = g_list_next (lst);
+				 }
+				 if (i == size - 1 || (i == size - 2 && *(inp + 1) == '+')
+				     || (i == size - 2 && *(inp + 1) == '*'))
+				    bftv_insert_regexp_hash (pom_regexp_tables, "_final_", b, TRUE);
+			
+				 if (*(inp + 1) == '+' || *(inp + 1) == '*') {
+				    i++;
+				    inp++;
+				 }
+				 if (regexp_tables)
+				    g_list_free (regexp_tables);
+				 regexp_tables = pom_regexp_tables;
+   
+   } /* regexp end */
+   inp++;
+   i++;
+   j++;
+}				/* while  for end*/
+g_free (inp2);
+}
+
+
+
 static void bftv_put_into_dfa (GHashTable * dfa, BfLangToken * token, BfLangConfig * cfg)
 {
    gint i, size, j, k, m;
@@ -1532,8 +1711,8 @@ static void bftv_put_into_dfa (GHashTable * dfa, BfLangToken * token, BfLangConf
    GList *regexp_tables = NULL, *pom_regexp_tables = NULL, *as_tables = NULL;
    GList *lst = NULL;
 
-   token->id = tokennum;
-   tokennum++;
+   token->id = cfg->tokennum;
+   cfg->tokennum++;
    if (cfg->case_sensitive)
       inp2 = g_strdup (token->text);
    else
@@ -1548,7 +1727,7 @@ static void bftv_put_into_dfa (GHashTable * dfa, BfLangToken * token, BfLangConf
    i = 0;
    j = 0;
    while (i < size) {
-      if (!token->regexp) {
+    if (!token->regexp) {
 	 ptr = g_strdup_printf ("%d%c", j, *inp);
 	 p = NULL;
 	 p = g_hash_table_lookup (curr_table, ptr);
@@ -1563,91 +1742,90 @@ static void bftv_put_into_dfa (GHashTable * dfa, BfLangToken * token, BfLangConf
 	 else {			/* just follow */
 	    curr_table = (GHashTable *) p;
 	 }
-	 if (i == size - 1)
-	    g_hash_table_replace (curr_table, g_strdup ("_final_"), token);
-	 g_free (ptr);
-      }
-      else {			/* REGULAR EXPR */
+		 if (i == size - 1)
+		    g_hash_table_replace (curr_table, g_strdup ("_final_"), token);
+		 g_free (ptr);
+     }
+     else {			/* REGULAR EXPR */
 
-	 if (*inp == '[') {
-	    k = i + 1;
-	    inp3 = inp + 1;
-	    lst = NULL;
-	    while (k < size && *inp3 != ']') {
-	       if (g_unichar_isalnum (*inp3) && *(inp3 + 1) == '-' && g_unichar_isalnum (*(inp3 + 2))) {
-		  for (m = (gint) (*inp3); m <= (gint) (*(inp3 + 2)); m++) {
-		     ptr = g_strdup_printf ("%d%c", j, m);
-		     if (!g_list_find (lst, ptr))
-			lst = g_list_append (lst, ptr);
-		  }
-		  inp3 = inp3 + 2;
-		  k += 2;
-	       }
-	       else {
-		  lst = g_list_append (lst, g_strdup_printf ("%d%c", j, *inp3));
-	       }
-	       inp3++;
-	       k++;
-	    }
-	    i = k;
-	    inp = inp3;
-	 }
-	 else {
-	    lst = NULL;
-	    lst = g_list_append (lst, g_strdup_printf ("%d%c", j, *inp));
-	 }
-	 lst = g_list_first (lst);
-	 pom_regexp_tables = NULL;
-	 pom_table = NULL;
-	 as_tables = regexp_tables;
-	 if (*(inp + 1) == '?' || *(inp + 1) == '*') {
-	    GList *lst2 = g_list_first (regexp_tables);
-	    while (lst2) {
-	       if (!g_list_find (pom_regexp_tables, lst2->data)) {
-		  pom_regexp_tables = g_list_append (pom_regexp_tables, lst2->data);
-	       }
-	       lst2 = g_list_next (lst2);
-	    }
-	    if (*(inp + 1) == '?') {
-	       i++;
-	       inp++;
-	    }
-	 }			/* optional modifier */
-	 while (lst) {
-	    p = bftv_find_regexp_hash (regexp_tables, lst->data);
-	    if (p == NULL) {	/* table not found */
-	       if (!pom_table) {
-		  pom_table = g_hash_table_new (g_str_hash, g_str_equal);
-		  cfg->tabnum++;
-		  g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", cfg->tabnum));
-		  pom_regexp_tables = g_list_append (pom_regexp_tables, pom_table);
-		  cfg->dfa_tables = g_list_append (cfg->dfa_tables, pom_table);
-	       }
-	       bftv_insert_regexp_hash (regexp_tables, lst->data, pom_table, TRUE);
-	    }
-	    else {		/* just follow */
-	       pom_regexp_tables = g_list_append (pom_regexp_tables, p);
-	    }
-	    if (*(inp + 1) == '+' || *(inp + 1) == '*') {
-	       bftv_insert_regexp_hash (pom_regexp_tables, lst->data, pom_table, TRUE);
-	    }			/* one/zero or more modifier */
-
-	    lst = g_list_next (lst);
-	 }
-	 if (i == size - 1 || (i == size - 2 && *(inp + 1) == '+')
-	     || (i == size - 2 && *(inp + 1) == '*'))
-	    bftv_insert_regexp_hash (pom_regexp_tables, "_final_", token, TRUE);
-
-	 if (*(inp + 1) == '+' || *(inp + 1) == '*') {
-	    i++;
-	    inp++;
-	 }
-	 if (regexp_tables)
-	    g_list_free (regexp_tables);
-	 regexp_tables = pom_regexp_tables;
+				 if (*inp == '[') {
+				    k = i + 1;
+				    inp3 = inp + 1;
+				    lst = NULL;
+				    while (k < size && *inp3 != ']') {
+				       if (g_unichar_isalnum (*inp3) && *(inp3 + 1) == '-' && g_unichar_isalnum (*(inp3 + 2))) {
+					  for (m = (gint) (*inp3); m <= (gint) (*(inp3 + 2)); m++) {
+					     ptr = g_strdup_printf ("%d%c", j, m);
+					     if (!g_list_find (lst, ptr))
+						lst = g_list_append (lst, ptr);
+					  }
+					  inp3 = inp3 + 2;
+					  k += 2;
+				       }
+				       else {
+					  lst = g_list_append (lst, g_strdup_printf ("%d%c", j, *inp3));
+				       }
+				       inp3++;
+				       k++;
+				    }
+				    i = k;
+				    inp = inp3;
+				 }
+				 else {
+				    lst = NULL;
+				    lst = g_list_append (lst, g_strdup_printf ("%d%c", j, *inp));
+				 }
+				 lst = g_list_first (lst);
+				 pom_regexp_tables = NULL;
+				 pom_table = NULL;
+				 as_tables = regexp_tables;
+				 if (*(inp + 1) == '?' || *(inp + 1) == '*') {
+				    GList *lst2 = g_list_first (regexp_tables);
+				    while (lst2) {
+				       if (!g_list_find (pom_regexp_tables, lst2->data)) {
+					  		pom_regexp_tables = g_list_append (pom_regexp_tables, lst2->data);
+				       }
+				       lst2 = g_list_next (lst2);
+				    }
+				    if (*(inp + 1) == '?') {
+				       i++;
+				       inp++;
+				    }
+				 }			/* optional modifier */
+				 while (lst) {
+				    p = bftv_find_regexp_hash (regexp_tables, lst->data);
+				    if (p == NULL) {	/* table not found */
+				       if (!pom_table) {
+							  pom_table = g_hash_table_new (g_str_hash, g_str_equal);
+							  cfg->tabnum++;
+							  g_hash_table_insert (pom_table, "number", g_strdup_printf ("%d", cfg->tabnum));
+							  pom_regexp_tables = g_list_append (pom_regexp_tables, pom_table);
+							  cfg->dfa_tables = g_list_append (cfg->dfa_tables, pom_table);
+				       }
+				       bftv_insert_regexp_hash (regexp_tables, lst->data, pom_table, TRUE);
+				    }
+				    else {		/* just follow */
+				       pom_regexp_tables = g_list_append (pom_regexp_tables, p);
+				    }
+				    if (*(inp + 1) == '+' || *(inp + 1) == '*') {
+				       bftv_insert_regexp_hash (pom_regexp_tables, lst->data, pom_table, TRUE);
+				    }			/* one/zero or more modifier */
+			
+				    lst = g_list_next (lst);
+				 }
+				 if (i == size - 1 || (i == size - 2 && *(inp + 1) == '+')
+				     || (i == size - 2 && *(inp + 1) == '*'))
+				    bftv_insert_regexp_hash (pom_regexp_tables, "_final_", token, TRUE);
+			
+				 if (*(inp + 1) == '+' || *(inp + 1) == '*') {
+				    i++;
+				    inp++;
+				 }
+				 if (regexp_tables)
+				    g_list_free (regexp_tables);
+				 regexp_tables = pom_regexp_tables;
       }				/* end of REGEXP */
-      if (i < size)
-	 inp++;
+      if (i < size) inp++;
       i++;
       j++;
    }				/* while */
@@ -1689,19 +1867,19 @@ static void bftv_dfa_build (gpointer key, gpointer value, gpointer data)
       bb->number = atoi (pomstr);
       if ((bb->current != (GHashTable *) value)
 	  && !g_hash_table_lookup ((GHashTable *) value, "made")) {
-	 bb->bkp = bb->current;
-	 bb->current = (GHashTable *) value;
-	 g_hash_table_foreach ((GHashTable *) value, bftv_dfa_build, bb);
-	 g_hash_table_insert ((GHashTable *) value, "made", "1");
-	 bb->current = bb->bkp;
+			 bb->bkp = bb->current;
+			 bb->current = (GHashTable *) value;
+			 g_hash_table_foreach ((GHashTable *) value, bftv_dfa_build, bb);
+			 g_hash_table_insert ((GHashTable *) value, "made", "1");
+			 bb->current = bb->bkp;
       }
       bb->number = prev;
    }
    else if (strcmp ((gchar *) key, "_final_") == 0) {
       t = (BfLangToken *) value;
       for (len = 0; len < 256; len++)
-	 if (bb->table[len][bb->number] == 0)
-	    bb->table[len][bb->number] = t->id;
+			 if (bb->table[len][bb->number] == 0)
+			    bb->table[len][bb->number] = t->id;
    }
 
 }
@@ -1737,7 +1915,40 @@ static void bftv_dfa_build_b (gpointer key, gpointer value, gpointer data)
    gint len, idx, prev;
    BfLangBlock *t;
 
-   if (strcmp ((gchar *) key, "_final_") != 0 && strcmp ((gchar *) key, "number") != 0) {
+   if (strcmp ((gchar *) key, "_final_") != 0
+       && strcmp ((gchar *) key, "number") != 0 && strcmp ((gchar *) key, "made") != 0) {
+      pomstr = (gchar *) key;
+      len = g_utf8_strlen (pomstr, -1);
+      idx = (gint) pomstr[len - 1];
+      pomstr = g_hash_table_lookup ((GHashTable *) value, "number");
+      bb->table[idx][bb->number] = atoi (pomstr);
+      prev = bb->number;
+      bb->number = atoi (pomstr);
+      if ((bb->current != (GHashTable *) value)
+	  && !g_hash_table_lookup ((GHashTable *) value, "made")) {
+			 bb->bkp = bb->current;
+			 bb->current = (GHashTable *) value;
+			 g_hash_table_foreach ((GHashTable *) value, bftv_dfa_build_b, bb);
+			 g_hash_table_insert ((GHashTable *) value, "made", "1");
+			 bb->current = bb->bkp;
+      }
+      bb->number = prev;
+   }
+   else if (strcmp ((gchar *) key, "_final_") == 0) {
+      t = (BfLangBlock *) value;
+      for (len = 0; len < 256; len++)
+			 if (bb->table[len][bb->number] == 0)
+			    bb->table[len][bb->number] = t->tabid;
+   }
+
+/*
+   Tbf_bb *bb = (Tbf_bb *) data;
+   gchar *pomstr = NULL;
+   gint len, idx, prev;
+   BfLangBlock *t;
+	g_print("build %s %p\n",key);
+   if (strcmp ((gchar *) key, "_final_") != 0 && strcmp ((gchar *) key, "number") != 0 
+       && strcmp ((gchar *) key, "made") != 0) {
       pomstr = (gchar *) key;
       len = g_utf8_strlen (pomstr, -1);
       idx = (gint) pomstr[len - 1];
@@ -1746,6 +1957,7 @@ static void bftv_dfa_build_b (gpointer key, gpointer value, gpointer data)
       prev = bb->number;
       bb->number = atoi (pomstr);
       g_hash_table_foreach ((GHashTable *) value, bftv_dfa_build_b, bb);
+      g_hash_table_insert ((GHashTable *) value, "made", "1");
       bb->number = prev;
    }
    else if (strcmp ((gchar *) key, "_final_") == 0) {
@@ -1753,7 +1965,8 @@ static void bftv_dfa_build_b (gpointer key, gpointer value, gpointer data)
       for (len = 0; len < 256; len++)
 	 if (bb->table[len][bb->number] == 0)
 	    bb->table[len][bb->number] = t->tabid;
-   }
+   } 
+*/   
 }
 
 #define BT_BEGIN 0
@@ -1934,10 +2147,10 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
       cfg->dfa_tables = NULL;
 		cfg->restricted_tags = g_hash_table_new (g_int_hash, g_int_equal);
       cfg->tabnum = 0;
-      tokennum = BFTV_TOKEN_IDS + 1;
+      cfg->tokennum = BFTV_TOKEN_IDS + 1;
       cfg->bb_tabnum = 0;
       cfg->be_tabnum = 0;
-      blocknum = BFTV_BLOCK_IDS + 1;
+      cfg->blocknum = BFTV_BLOCK_IDS + 1;
       g_hash_table_insert (cfg->dfa, "number", "0");
       cfg->block_begin_dfa = g_hash_table_new (g_str_hash, g_str_equal);
       g_hash_table_insert (cfg->block_begin_dfa, "number", "0");
@@ -2012,21 +2225,21 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 			b->begin = xmlGetProp (cur2, "begin");
 			b->end = xmlGetProp (cur2, "end");
 			tmps2 = xmlGetProp (cur2, "scanned");
-			b->scanned = bftv_xml_bool (tmps2);
-			if (tmps2)
-			   xmlFree (tmps2);
+			b->scanned = bftv_xml_bool (tmps2);			
+			if (tmps2)  xmlFree (tmps2);
 			tmps2 = xmlGetProp (cur2, "markup");
 			b->markup = bftv_xml_bool (tmps2);
-			if (tmps2)
-			   xmlFree (tmps2);
+			if (tmps2) xmlFree (tmps2);
 			tmps2 = xmlGetProp (cur2, "foldable");
 			b->foldable = bftv_xml_bool (tmps2);
-			if (tmps2)
-			   xmlFree (tmps2);
+			if (tmps2) xmlFree (tmps2);
 			tmps2 = xmlGetProp (cur2, "case");
 			b->case_sensitive = bftv_xml_bool (tmps2);
-			if (tmps2)
-			   xmlFree (tmps2);
+			if (tmps2)  xmlFree (tmps2);
+			tmps2 = xmlGetProp (cur2, "regexp");
+			b->regexp = bftv_xml_bool (tmps2);
+			if (tmps2)  xmlFree (tmps2);
+			
 			g_hash_table_insert (cfg->blocks, tmps, b);
 			bftv_put_into_block_dfa (cfg, b);
 			g_hash_table_insert (cfg->blocks_id, &b->tabid, b);

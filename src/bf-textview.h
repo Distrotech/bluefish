@@ -46,6 +46,7 @@ typedef struct {
    gboolean scanned;
    gboolean foldable;
    gboolean markup;
+   gboolean regexp;
    /*< private >*/      
    gint tabid;
 } BfLangBlock;
@@ -96,6 +97,8 @@ typedef struct {
 	gint be_tabnum;  
 	gchar escapes[256]; 
 	GHashTable *restricted_tags;
+	gint tokennum; /* = BFTV_TOKEN_IDS + 1;*/
+	gint blocknum; /* = BFTV_BLOCK_IDS + 1;*/
 } BfLangConfig;
 
 typedef struct {
@@ -119,6 +122,7 @@ typedef struct {
    GtkTextIter e_start, e_end;
    GtkTextMark *mark_begin, *mark_end;
    gboolean single_line;
+   gint b_len,e_len;   
 } TBfBlock;
 
 typedef struct {
