@@ -1823,6 +1823,8 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 					DEBUG_MSG("doc_view_key_release_lcb, autoclosing, tagname='%s'\n",tagname);
 					toinsert = closingtagtoinsert(doc, tagname, &iter);
 					if (toinsert) {
+ 						/* we place this in a new undo/redo group */
+						doc_unre_new_group(doc);
 						/* we re-use the maxsearch iter now */
 						gtk_text_buffer_insert(doc->buffer,&maxsearch,toinsert,-1);
 						/* now we set the cursor back to its previous location, re-using itstart */
@@ -1830,6 +1832,7 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 						gtk_text_iter_backward_chars(&itstart,strlen(toinsert));
 						gtk_text_buffer_place_cursor(doc->buffer,&itstart);
 						g_free(toinsert);
+						doc_unre_new_group(doc);
 					}
 #ifdef DEBUG
 					 else {
