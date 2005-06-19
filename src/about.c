@@ -129,6 +129,8 @@ Developers for this release:\n\
    <olivier@bluefish.openoffice.nl>\n\
   Jim Hayward\n\
    <jimhayward@linuxexperience.net>\n\
+  Daniel Leidert\n\
+   <daniel.leidert@gmx.net>\n\
   Oskar Świda\n\
    <swida@aragorn.pb.bialystok.pl>\n\
   Eugene Morenko(More)\n\
