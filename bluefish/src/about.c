@@ -132,7 +132,7 @@ Developers for this release:\n\
   Jim Hayward\n\
    <jimhayward@linuxexperience.net>\n\
   Daniel Leidert\n\
-   <daniel.leidert@gmx.net>\n\
+   <daniel.leidert@wgdd.de>\n\
   Oskar Świda\n\
    <swida@aragorn.pb.bialystok.pl>\n\
   Eugene Morenko(More)\n\
