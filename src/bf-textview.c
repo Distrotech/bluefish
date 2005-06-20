@@ -2819,7 +2819,7 @@ bf_textview_insert_text_cb (GtkTextBuffer * textbuffer, GtkTextIter * arg1, gcha
    }
    if (!trigger)
       return;
-   if (view->autoscan_lines == 0) {
+   if (view->autoscan_lines <= 0) {
       bf_textview_scan (view);
       gtk_widget_queue_draw (GTK_WIDGET (user_data));
    }
@@ -3002,7 +3002,7 @@ bf_textview_delete_range_cb (GtkTextBuffer * textbuffer, GtkTextIter * arg1, Gtk
 	 p = g_utf8_next_char (p);
       }
       if (trigger) {
-	 if (view->autoscan_lines == 0) {
+	 if (view->autoscan_lines <= 0) {
 	    bf_textview_scan (view);
 	    gtk_widget_queue_draw (GTK_WIDGET (user_data));
 	 }
