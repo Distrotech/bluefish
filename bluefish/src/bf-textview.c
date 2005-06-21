@@ -2215,41 +2215,41 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 	    cur2 = cur->xmlChildrenNode;
 	    while (cur2 != NULL) {
 	       if (xmlStrcmp (cur2->name, "block") == 0) {
-		  tmps = xmlGetProp (cur2, "id");
-		  if (tmps) {
-		     ptr = g_hash_table_lookup (cfg->blocks, tmps);
-		     if (!ptr) {
-			BfLangBlock *b = g_new0 (BfLangBlock, 1);
-			b->id = tmps;
-			b->group = tmps3;
-			b->begin = xmlGetProp (cur2, "begin");
-			b->end = xmlGetProp (cur2, "end");
-			tmps2 = xmlGetProp (cur2, "scanned");
-			b->scanned = bftv_xml_bool (tmps2);			
-			if (tmps2)  xmlFree (tmps2);
-			tmps2 = xmlGetProp (cur2, "markup");
-			b->markup = bftv_xml_bool (tmps2);
-			if (tmps2) xmlFree (tmps2);
-			tmps2 = xmlGetProp (cur2, "foldable");
-			b->foldable = bftv_xml_bool (tmps2);
-			if (tmps2) xmlFree (tmps2);
-			tmps2 = xmlGetProp (cur2, "case");
-			b->case_sensitive = bftv_xml_bool (tmps2);
-			if (tmps2)  xmlFree (tmps2);
-			tmps2 = xmlGetProp (cur2, "regexp");
-			b->regexp = bftv_xml_bool (tmps2);
-			if (tmps2)  xmlFree (tmps2);
-			
-			g_hash_table_insert (cfg->blocks, tmps, b);
-			bftv_put_into_block_dfa (cfg, b);
-			g_hash_table_insert (cfg->blocks_id, &b->tabid, b);
-		     }
-		     else {
-			g_warning ("Block named %s already exists!", tmps);
-			xmlFree (tmps);
-		     }
-		  }
-	       }
+				  tmps = xmlGetProp (cur2, "id");
+				  if (tmps) {
+				     ptr = g_hash_table_lookup (cfg->blocks, tmps);
+				     if (!ptr) {
+							BfLangBlock *b = g_new0 (BfLangBlock, 1);
+							b->id = tmps;
+							b->group = tmps3;
+							b->begin = xmlGetProp (cur2, "begin");
+							b->end = xmlGetProp (cur2, "end");
+							tmps2 = xmlGetProp (cur2, "scanned");
+							b->scanned = bftv_xml_bool (tmps2);			
+							if (tmps2)  xmlFree (tmps2);
+							tmps2 = xmlGetProp (cur2, "markup");
+							b->markup = bftv_xml_bool (tmps2);
+							if (tmps2) xmlFree (tmps2);
+							tmps2 = xmlGetProp (cur2, "foldable");
+							b->foldable = bftv_xml_bool (tmps2);
+							if (tmps2) xmlFree (tmps2);
+							tmps2 = xmlGetProp (cur2, "case");
+							b->case_sensitive = bftv_xml_bool (tmps2);
+							if (tmps2)  xmlFree (tmps2);
+							tmps2 = xmlGetProp (cur2, "regexp");
+							b->regexp = bftv_xml_bool (tmps2);
+							if (tmps2)  xmlFree (tmps2);
+							
+							g_hash_table_insert (cfg->blocks, tmps, b);
+							bftv_put_into_block_dfa (cfg, b);
+							g_hash_table_insert (cfg->blocks_id, &b->tabid, b);
+			     }
+			     else {
+							g_warning ("Block named %s already exists!", tmps);
+							xmlFree (tmps);
+			     }
+			  }
+	       } /* block */
 	       cur2 = cur2->next;
 	    }
 	 }
@@ -2258,91 +2258,209 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 	    cur2 = cur->xmlChildrenNode;
 	    while (cur2 != NULL) {
 	       if (xmlStrcmp (cur2->name, "token") == 0) {
-		  tmps = xmlNodeListGetString (doc, cur2->xmlChildrenNode, 1);
-		  ptr = g_hash_table_lookup (cfg->tokens, tmps);
-		  if (!ptr) {
-		     BfLangToken *t = g_new0 (BfLangToken, 1);
-		     t->group = tmps3;
-		     tmps2 = xmlGetProp (cur2, "regexp");
-		     t->regexp = bftv_xml_bool (tmps2);
-		     if (tmps2)
-			xmlFree (tmps2);
-		     tmps2 = xmlGetProp (cur2, "name");
-		     if (tmps2)
-			t->name = tmps2;
-		     else
-			t->name = tmps;
-		     t->text = tmps;
-		     tmps2 = xmlGetProp (cur2, "context");
-		     if (tmps2) {
-			ptr = g_hash_table_lookup (cfg->blocks, tmps2);
-			if (!ptr)
-			   g_warning
-			      ("Token (%s) context defined as %s but such a block does not exists.", t->text, tmps2);
-					t->context = (BfLangBlock *) ptr;
-					xmlFree (tmps2);
-		     }
-		     else
-					t->context = NULL;
-		     bftv_put_into_dfa (cfg->dfa, t, cfg);
-		     g_hash_table_insert (cfg->tokens, &t->id, t);
-		  }
-		  else {
-		     g_warning ("Token %s already exists.", tmps);
-		     xmlFree (tmps);
-		  }
+					  tmps = xmlNodeListGetString (doc, cur2->xmlChildrenNode, 1);
+					  ptr = g_hash_table_lookup (cfg->tokens, tmps);
+					  if (!ptr) {
+					     BfLangToken *t = g_new0 (BfLangToken, 1);
+					     t->group = tmps3;
+					     tmps2 = xmlGetProp (cur2, "regexp");
+					     t->regexp = bftv_xml_bool (tmps2);
+					     if (tmps2)
+						xmlFree (tmps2);
+					     tmps2 = xmlGetProp (cur2, "name");
+					     if (tmps2)
+						t->name = tmps2;
+					     else
+						t->name = tmps;
+					     t->text = tmps;
+					     tmps2 = xmlGetProp (cur2, "context");
+					     if (tmps2) {
+						ptr = g_hash_table_lookup (cfg->blocks, tmps2);
+						if (!ptr)
+						   g_warning
+						      ("Token (%s) context defined as %s but such a block does not exists.", t->text, tmps2);
+								t->context = (BfLangBlock *) ptr;
+								xmlFree (tmps2);
+					     }
+					     else
+								t->context = NULL;
+					     bftv_put_into_dfa (cfg->dfa, t, cfg);
+					     g_hash_table_insert (cfg->tokens, &t->id, t);
+		 	 }
+		  	 else {
+				        g_warning ("Token %s already exists.", tmps);
+					     xmlFree (tmps);
+		  	  }
 	       }		/* token */
 	       else if (xmlStrcmp (cur2->name, "token-list") == 0) {
-		  tmps3 = xmlGetProp (cur2, "separator");
-		  if (tmps3) {
-		     tmps = xmlNodeListGetString (doc, cur2->xmlChildrenNode, 1);
-		     gchar **arr = g_strsplit (tmps, tmps3, -1);
-		     xmlFree (tmps3);
-		     if (arr) {
-			gint i = 0;
-			tmps3 = xmlGetProp (cur, "id");
-			while (arr[i] != NULL) {
-			   ptr = g_hash_table_lookup (cfg->tokens, arr[i]);
-			   if (!ptr) {
-			      BfLangToken *t = g_new0 (BfLangToken, 1);
-			      t->group = tmps3;
-			      tmps2 = xmlGetProp (cur2, "regexp");
-			      t->regexp = bftv_xml_bool (tmps2);
-			      if (tmps2)
-				 xmlFree (tmps2);
-			      tmps2 = xmlGetProp (cur2, "name");
-			      if (tmps2)
-				 t->name = tmps2;
-			      else
-				 t->name = tmps;
-			      t->text = g_strdup (arr[i]);
-			      tmps2 = xmlGetProp (cur2, "context");
-			      t->context = NULL;
-			      if (tmps2) {
-						 ptr = g_hash_table_lookup (cfg->blocks, tmps2);
-						 if (!ptr)
-						    g_warning("Token (%s) context defined as %s but such a block does not exists.",
-								t->text, tmps2);
-						 if (ptr)		
-							 t->context = (BfLangBlock *) ptr;
-						 xmlFree (tmps2);
-			      }
-			      bftv_put_into_dfa (cfg->dfa, t, cfg);
-			      g_hash_table_insert (cfg->tokens, &t->id, t);
-			   }
-			   else {
-			      g_warning ("Token %s already exists.", arr[i]);
-			   }
-			   i++;
-			}
-			g_strfreev (arr);
-		     }
-		     xmlFree (tmps);
-		  }
+					  tmps3 = xmlGetProp (cur2, "separator");
+					  if (tmps3) {
+					     tmps = xmlNodeListGetString (doc, cur2->xmlChildrenNode, 1);
+					     gchar **arr = g_strsplit (tmps, tmps3, -1);
+					     xmlFree (tmps3);
+					     if (arr) {
+						gint i = 0;
+						tmps3 = xmlGetProp (cur, "id");
+						while (arr[i] != NULL) {
+						   ptr = g_hash_table_lookup (cfg->tokens, arr[i]);
+						   if (!ptr) {
+						      BfLangToken *t = g_new0 (BfLangToken, 1);
+						      t->group = tmps3;
+						      tmps2 = xmlGetProp (cur2, "regexp");
+						      t->regexp = bftv_xml_bool (tmps2);
+						      if (tmps2)
+							 xmlFree (tmps2);
+						      tmps2 = xmlGetProp (cur2, "name");
+						      if (tmps2)
+							 t->name = tmps2;
+						      else
+							 t->name = tmps;
+						      t->text = g_strdup (arr[i]);
+						      tmps2 = xmlGetProp (cur2, "context");
+						      t->context = NULL;
+						      if (tmps2) {
+									 ptr = g_hash_table_lookup (cfg->blocks, tmps2);
+									 if (!ptr)
+									    g_warning("Token (%s) context defined as %s but such a block does not exists.",
+											t->text, tmps2);
+									 if (ptr)		
+										 t->context = (BfLangBlock *) ptr;
+									 xmlFree (tmps2);
+						      }
+						      bftv_put_into_dfa (cfg->dfa, t, cfg);
+						      g_hash_table_insert (cfg->tokens, &t->id, t);
+						   }
+						   else {
+						      g_warning ("Token %s already exists.", arr[i]);
+						   }
+						   i++;
+						}
+						g_strfreev (arr);
+					     }
+					     xmlFree (tmps);
+					  }
        }		/* token-list */
 	       cur2 = cur2->next;
 	    }			/* while cur2 */
 	 }
+	 else if (xmlStrcmp (cur->name, "block") == 0) { /* block without a group */
+				  tmps = xmlGetProp (cur, "id");
+				  if (tmps) {
+				     ptr = g_hash_table_lookup (cfg->blocks, tmps);
+				     if (!ptr) {
+							BfLangBlock *b = g_new0 (BfLangBlock, 1);
+							b->id = tmps;
+							b->group = NULL;
+							b->begin = xmlGetProp (cur, "begin");
+							b->end = xmlGetProp (cur, "end");
+							tmps2 = xmlGetProp (cur, "scanned");
+							b->scanned = bftv_xml_bool (tmps2);			
+							if (tmps2)  xmlFree (tmps2);
+							tmps2 = xmlGetProp (cur, "markup");
+							b->markup = bftv_xml_bool (tmps2);
+							if (tmps2) xmlFree (tmps2);
+							tmps2 = xmlGetProp (cur, "foldable");
+							b->foldable = bftv_xml_bool (tmps2);
+							if (tmps2) xmlFree (tmps2);
+							tmps2 = xmlGetProp (cur, "case");
+							b->case_sensitive = bftv_xml_bool (tmps2);
+							if (tmps2)  xmlFree (tmps2);
+							tmps2 = xmlGetProp (cur, "regexp");
+							b->regexp = bftv_xml_bool (tmps2);
+							if (tmps2)  xmlFree (tmps2);
+							
+							g_hash_table_insert (cfg->blocks, tmps, b);
+							bftv_put_into_block_dfa (cfg, b);
+							g_hash_table_insert (cfg->blocks_id, &b->tabid, b);
+			     }
+			     else {
+							g_warning ("Block named %s already exists!", tmps);
+							xmlFree (tmps);
+			     }
+			  }
+	 } /* block without a group */
+	 else if (xmlStrcmp (cur->name, "token") == 0) {
+					  tmps = xmlNodeListGetString (doc, cur->xmlChildrenNode, 1);
+					  ptr = g_hash_table_lookup (cfg->tokens, tmps);
+					  if (!ptr) {
+					     BfLangToken *t = g_new0 (BfLangToken, 1);
+					     t->group = NULL;
+					     tmps2 = xmlGetProp (cur, "regexp");
+					     t->regexp = bftv_xml_bool (tmps2);
+					     if (tmps2)
+						xmlFree (tmps2);
+					     tmps2 = xmlGetProp (cur, "name");
+					     if (tmps2)
+						t->name = tmps2;
+					     else
+						t->name = tmps;
+					     t->text = tmps;
+					     tmps2 = xmlGetProp (cur, "context");
+					     if (tmps2) {
+						ptr = g_hash_table_lookup (cfg->blocks, tmps2);
+						if (!ptr)
+						   g_warning
+						      ("Token (%s) context defined as %s but such a block does not exists.", t->text, tmps2);
+								t->context = (BfLangBlock *) ptr;
+								xmlFree (tmps2);
+					     }
+					     else
+								t->context = NULL;
+					     bftv_put_into_dfa (cfg->dfa, t, cfg);
+					     g_hash_table_insert (cfg->tokens, &t->id, t);
+		 	 }
+		  	 else {
+				        g_warning ("Token %s already exists.", tmps);
+					     xmlFree (tmps);
+		  	  }
+	  }		/* token  without a group */	
+      else if (xmlStrcmp (cur->name, "token-list") == 0) { /* token list without a group */
+					  tmps3 = xmlGetProp (cur, "separator");
+					  if (tmps3) {
+					     tmps = xmlNodeListGetString (doc, cur->xmlChildrenNode, 1);
+					     gchar **arr = g_strsplit (tmps, tmps3, -1);
+					     xmlFree (tmps3);
+					     if (arr) {
+						gint i = 0;
+						while (arr[i] != NULL) {
+						   ptr = g_hash_table_lookup (cfg->tokens, arr[i]);
+						   if (!ptr) {
+						      BfLangToken *t = g_new0 (BfLangToken, 1);
+						      t->group = NULL;
+						      tmps2 = xmlGetProp (cur, "regexp");
+						      t->regexp = bftv_xml_bool (tmps2);
+						      if (tmps2)
+							 xmlFree (tmps2);
+						      tmps2 = xmlGetProp (cur, "name");
+						      if (tmps2)
+							 t->name = tmps2;
+						      else
+							 t->name = tmps;
+						      t->text = g_strdup (arr[i]);
+						      tmps2 = xmlGetProp (cur, "context");
+						      t->context = NULL;
+						      if (tmps2) {
+									 ptr = g_hash_table_lookup (cfg->blocks, tmps2);
+									 if (!ptr)
+									    g_warning("Token (%s) context defined as %s but such a block does not exists.",
+											t->text, tmps2);
+									 if (ptr)		
+										 t->context = (BfLangBlock *) ptr;
+									 xmlFree (tmps2);
+						      }
+						      bftv_put_into_dfa (cfg->dfa, t, cfg);
+						      g_hash_table_insert (cfg->tokens, &t->id, t);
+						   }
+						   else {
+						      g_warning ("Token %s already exists.", arr[i]);
+						   }
+						   i++;
+						}
+						g_strfreev (arr);
+					     }
+					     xmlFree (tmps);
+					  }
+     }		/* token-list  without a group */	   
   	 else if (xmlStrcmp (cur->name, "restricted-tags") == 0) {	/* restricted tags */
 	    cur2 = cur->xmlChildrenNode;
 	    while (cur2 != NULL) {
