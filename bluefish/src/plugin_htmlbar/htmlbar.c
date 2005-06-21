@@ -79,8 +79,21 @@ static void htmlbar_enforce_session(Tbfwin* bfwin) {
 
 }
 static void htmlbar_cleanup(void) {
-
+	tmplist = g_list_first(gtk_window_list_toplevels());
+	while (tmplist) {
+		if (GTK_IS_WIDGET(tmplist->data)) {
+			gchar *role=NULL;
+			role = g_strdup(gtk_window_get_role ((GtkWindow*)tmplist->data));
+			if (role && strcmp(role,"html_dialog") ==0) {
+				gtk_widget_hide(GTK_WIDGET(tmplist->data));
+				window_destroy(GTK_WIDGET(tmplist->data));
+			}
+			g_free(role);
+		}
+		tmplist = g_list_next(tmplist);
+	}
 }
+
 static void htmlbar_cleanup_gui(Tbfwin *bfwin) {
 
 }
