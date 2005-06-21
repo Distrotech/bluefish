@@ -162,12 +162,20 @@ void hl_slot(BfTextView *view,BfLangToken *tokenDef,GtkTextIter *startIter,GtkTe
 	GdkColor col;
 	GtkTextTag *tag;
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
-	
+	if (tokenDef->group) {
 	if ( gdk_color_parse(tokenDef->group,&col) ) {
 		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(buffer),tokenDef->group);
 		if ( tag==NULL )
 			tag = gtk_text_buffer_create_tag(buffer,tokenDef->group,"foreground-gdk",&col,NULL);
 		gtk_text_buffer_apply_tag_by_name(buffer,tokenDef->group,startIter,endIter);	
+	}
+	} else {
+		gdk_color_parse("#00FF00",&col);
+		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(buffer),"alone_token");
+		if ( tag==NULL )
+			tag = gtk_text_buffer_create_tag(buffer,"alone_token","foreground-gdk",&col,NULL);
+		gtk_text_buffer_apply_tag_by_name(buffer,"alone_token",startIter,endIter);	
+	
 	}
 }
 
