@@ -79,6 +79,7 @@ typedef struct {
    gboolean scan_tags;
    gboolean scan_blocks;
    gboolean restricted_tags_only;
+   gboolean indent_blocks;
    gunichar as_triggers[256];
 
    GHashTable *tokens;
@@ -88,6 +89,7 @@ typedef struct {
    GList *dfa_tables;
    GHashTable *block_begin_dfa;
    GHashTable *block_end_dfa;
+   GArray *line_indent;
    gint **scan_table;
    gint **scan_bb_table;
    gint **scan_be_table;
@@ -99,6 +101,7 @@ typedef struct {
 	GHashTable *restricted_tags;
 	gint tokennum; /* = BFTV_TOKEN_IDS + 1;*/
 	gint blocknum; /* = BFTV_BLOCK_IDS + 1;*/
+	BfLangBlock *iblock;
 } BfLangConfig;
 
 typedef struct {
