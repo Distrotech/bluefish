@@ -20,6 +20,7 @@
 #include "config.h"
 
 #include <gtk/gtk.h>
+#include <gmodule.h>
 #include <string.h>
 #include "bluefish.h"
 #include "bf_lib.h"
