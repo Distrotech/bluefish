@@ -1312,7 +1312,7 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 							self->scanner.current_block->single_line = FALSE;
 		     			block_found = TRUE;
 		    			 mark = mark2 = NULL;
-		     			if (self->show_blocks && self->scanner.current_block->def->foldable) {
+		     			if (self->current_lang->scan_blocks && self->scanner.current_block->def->foldable) {
 							if (!bftv_get_block_at_iter (&(self->scanner.current_block->b_start))) {
 							   mark = gtk_text_buffer_create_mark (buf, NULL, &(self->scanner.current_block->b_start), FALSE);
 			  					g_object_set_data (G_OBJECT (mark), "type", "block_begin");
@@ -1440,7 +1440,7 @@ void bf_textview_scan_lines (BfTextView * self, gint start, gint end)
    gtk_text_buffer_get_iter_at_line (buf, &ite, end);
    gtk_text_iter_forward_to_line_end (&ite);
    /* expand to blocks  begin and end */
-   if (self->show_blocks) {
+   if (self->current_lang->scan_blocks) {
       itp = its;
       for (i = start; i <= end; i++) {
 	 gtk_text_iter_set_line (&itp, i);
@@ -3144,7 +3144,7 @@ static void bftv_delete_blocks_from_area (BfTextView *view, GtkTextIter * arg1, 
    TBfBlock *bb;
    gchar *p, *p2;
 
-   if (!view->show_blocks || !view->current_lang || !view->current_lang->scan_blocks)
+   if (!view->current_lang || !view->current_lang->scan_blocks)
       return;
    it = *arg1;
    while (gtk_text_iter_compare (&it, arg2) <= 0) {
