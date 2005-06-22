@@ -867,6 +867,49 @@ void bf_textview_scan (BfTextView * self)
    bf_textview_scan_area (self, &its, &ite);
 }
 
+static gint bftv_prepare_indent_blocks(BfTextView *view, gint start) {
+	gint currline,lev;
+	TBfBlock *bb;
+	GtkTextIter it1,it2;
+	GtkTextMark *mark=NULL,*mark2=NULL;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+	BfLangConfig *cfg = view->current_lang;
+	
+	lev = g_array_index(cfg->line_indent,gint,start+1);
+	currline = start+1;
+	while ( g_array_index(cfg->line_indent,gint,currline) >= lev && currline<cfg->line_indent->len ) {
+		if ( g_array_index(cfg->line_indent,gint,currline) > lev )
+			currline = bftv_prepare_indent_blocks(view,currline-1);		
+		currline++;
+	}	
+	bb = g_new0(TBfBlock,1);
+	bb->def = cfg->iblock;
+	gtk_text_buffer_get_iter_at_line(buffer,&it1,start);
+	gtk_text_buffer_get_iter_at_line(buffer,&it2,currline-1);
+	bb->b_start = it1;bb->e_start = it2;
+	gtk_text_iter_forward_to_line_end(&it1);
+	gtk_text_iter_forward_to_line_end(&it2);
+	bb->b_end = it1;bb->e_end = it2;
+	bb->single_line = FALSE;
+	if (!bftv_get_block_at_iter (&(bb->b_start))) {
+		   mark = gtk_text_buffer_create_mark (buffer, NULL, &(bb->b_start), FALSE);
+			g_object_set_data (G_OBJECT (mark), "type", "block_begin");
+			g_object_set_data (G_OBJECT (mark), "folded", "false");
+			g_object_set_data (G_OBJECT (mark), "pointer", bb);
+			bb->mark_begin = mark;
+			bb->b_len = g_utf8_strlen(gtk_text_iter_get_slice(&bb->b_start,&bb->b_end),-1)-1;
+			mark2 = gtk_text_buffer_create_mark (buffer, NULL, &(bb->e_start), FALSE);
+			g_object_set_data (G_OBJECT (mark2), "type", "block_end");
+			g_object_set_data (G_OBJECT (mark2), "folded", "false");
+			g_object_set_data (G_OBJECT (mark2), "pointer", bb);
+			bb->e_len = g_utf8_strlen(gtk_text_iter_get_slice(&bb->e_start,&bb->e_end),-1);
+			bb->mark_end = mark2;
+			gtk_text_buffer_apply_tag_by_name (buffer, "_block_", &(bb->b_start), &(bb->e_end));			
+	}
+	bf_textview_block_end (view, NULL,	&bb->b_start, &bb->b_end, &bb->e_start, &bb->e_end, mark, mark2);	/* EMIT SIGNAL */	
+	return currline-1;	
+}
+
 /**
 *	bf_textview_scan_area:
 *	@self:  BfTextView widget 
@@ -880,7 +923,7 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
    GtkTextBuffer *buf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (self));
    GtkTextIter its, ita, pit, previt;
    gunichar c;
-   gint pos, pos2;
+   gint pos, pos2,iaux,lev;
    gpointer ptr = NULL, ptr2 = NULL;
    GHashTable *ctab = NULL;
    gboolean block_found = FALSE,tag_found=FALSE, regexp_found = FALSE;
@@ -917,6 +960,21 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 	        break;
       }
       c = gtk_text_iter_get_char (&ita);
+
+		/* LINE INDENT */
+		if ( self->current_lang->indent_blocks && c=='\n') {
+			iaux = gtk_text_iter_get_line(&ita);
+			pit = ita;
+			gtk_text_iter_set_line(&pit,iaux);
+			lev = 0;
+			while ( (gtk_text_iter_get_char(&pit)==' ' || gtk_text_iter_get_char(&pit)=='\t') && gtk_text_iter_get_char(&pit)!='\n' ) {
+				lev++;
+				gtk_text_iter_forward_char(&pit);
+			}
+			if (self->current_lang->line_indent->len>iaux)
+				self->current_lang->line_indent = g_array_remove_index(self->current_lang->line_indent,iaux);
+			g_array_insert_val(self->current_lang->line_indent,iaux,lev);
+		}
 
 		/* ESCAPED CHARACTERS */
 		while ( self->current_lang->escapes[(gint)c] )
@@ -1273,8 +1331,7 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 			   				self->scanner.current_block->mark_end = mark2;
 			   				gtk_text_buffer_apply_tag_by_name (buf, "_block_", &(self->scanner.current_block->b_start), &ita);
 				  		}	/* it means we already have mark here  - do not remove it! */
-		    		}
-		    		
+		    		}		    		
 		   		 bf_textview_block_end (self, self->scanner.current_block->def, 
 		    				&self->scanner.current_block->b_start, &self->scanner.current_block->b_end, &its, &ita, mark, mark2);	/* EMIT SIGNAL */
 		     		 if (!g_queue_is_empty (&(self->scanner.block_stack)))	bb = (TBfBlock *) g_queue_peek_head (&(self->scanner.block_stack));
@@ -1348,6 +1405,15 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
       if ( !regexp_found ) 
 	      gtk_text_iter_forward_char (&ita);
    }				/* while */
+   
+	if ( self->current_lang->indent_blocks) {
+		for(iaux=0;iaux<self->current_lang->line_indent->len;iaux++) {
+			if ( iaux+1 < self->current_lang->line_indent->len ) {
+				if ( g_array_index(self->current_lang->line_indent,gint,iaux) < g_array_index(self->current_lang->line_indent,gint,iaux+1) )
+					iaux = bftv_prepare_indent_blocks(self,iaux);
+			}
+		}
+   }
 }
 
 /**
@@ -2146,6 +2212,7 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
       cfg->dfa = g_hash_table_new (g_str_hash, g_str_equal);
       cfg->dfa_tables = NULL;
 		cfg->restricted_tags = g_hash_table_new (g_int_hash, g_int_equal);
+		cfg->line_indent = g_array_new(TRUE,TRUE,sizeof(gint));
       cfg->tabnum = 0;
       cfg->tokennum = BFTV_TOKEN_IDS + 1;
       cfg->bb_tabnum = 0;
@@ -2181,6 +2248,8 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 						cfg->scan_blocks = bftv_xml_bool (tmps2);
 				     else if (xmlStrcmp (tmps, "restricted-tags-only") == 0 && !options_set)
 						cfg->restricted_tags_only = bftv_xml_bool (tmps2);						
+				     else if (xmlStrcmp (tmps, "indent-blocks") == 0 && !options_set)
+						cfg->indent_blocks = bftv_xml_bool (tmps2);												
 				     else if (xmlStrcmp (tmps, "extensions") == 0 && !options_set)
 						cfg->extensions = g_strdup (tmps2);
 				     else if (xmlStrcmp (tmps, "auto-scan-triggers") == 0 && !options_set) {
@@ -2490,6 +2559,18 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 	 cur = cur->next;
       }				/* while cur */
    }
+   if (cfg->indent_blocks) {
+      	cfg->iblock = g_new0(BfLangBlock,1);
+      	cfg->iblock->id = "Indent block";
+      	cfg->iblock->begin = cfg->iblock->end = g_strdup(" ");
+      	cfg->iblock->group = NULL;		
+      	cfg->iblock->tabid = cfg->blocknum;
+      	cfg->blocknum++;
+			g_hash_table_insert (cfg->blocks, cfg->iblock->id, cfg->iblock);
+			g_hash_table_insert (cfg->blocks_id, &cfg->iblock->tabid, cfg->iblock);      	
+      }
+   
+   
    if (doc)
       xmlFreeDoc (doc);
    return cfg;
