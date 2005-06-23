@@ -2197,7 +2197,7 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 
    g_return_val_if_fail (filename != NULL, (BfLangConfig *) 0);
    xmlLineNumbersDefault (1);
-  	doc = xmlParseFile(filename);
+  	doc = xmlReadFile(filename,"UTF-8",XML_PARSE_RECOVER | XML_PARSE_NOENT);
    cur = xmlDocGetRootElement (doc);
    if ( reuse && rcfg!=NULL )
    	options_set = TRUE;
