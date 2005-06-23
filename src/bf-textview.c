@@ -1813,7 +1813,7 @@ static void bftv_put_into_dfa (GHashTable * dfa, BfLangToken * token, BfLangConf
 		 g_free (ptr);
      }
      else {			/* REGULAR EXPR */
-
+				 
 				 if (*inp == '[') {
 				    k = i + 1;
 				    inp3 = inp + 1;
@@ -1829,7 +1829,8 @@ static void bftv_put_into_dfa (GHashTable * dfa, BfLangToken * token, BfLangConf
 					  k += 2;
 				       }
 				       else {
-					  lst = g_list_append (lst, g_strdup_printf ("%d%c", j, *inp3));
+				       		if (*inp3=='\\') { inp3++;k++;}
+					  			lst = g_list_append (lst, g_strdup_printf ("%d%c", j, *inp3));
 				       }
 				       inp3++;
 				       k++;
@@ -1839,6 +1840,7 @@ static void bftv_put_into_dfa (GHashTable * dfa, BfLangToken * token, BfLangConf
 				 }
 				 else {
 				    lst = NULL;
+				    if (*inp=='\\') { inp++;i++;}
 				    lst = g_list_append (lst, g_strdup_printf ("%d%c", j, *inp));
 				 }
 				 lst = g_list_first (lst);
@@ -2577,6 +2579,7 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 }
 
 static void bftv_make_config_tables(BfLangConfig *cfg) {
+	gint i,j;
 	if (!cfg) return;
    cfg->scan_table = bftv_make_scan_table (cfg->dfa,cfg);
    cfg->scan_bb_table = bftv_make_bscan_table (cfg->block_begin_dfa, BT_BEGIN,cfg);
@@ -2584,6 +2587,16 @@ static void bftv_make_config_tables(BfLangConfig *cfg) {
    if (cfg->scan_tags)
       cfg->scan_tag_table = bftv_make_tscan_table ();
    bftv_free_dfa (cfg);
+/*  	g_print("st   ");   
+   for(j=32;j<100;j++)
+   	g_print("%c  ",j);
+   g_print("\n");	
+   for(i=0;i<cfg->tabnum+1;i++) {
+   	g_print("%.2d   ",i);   
+   	for(j=32;j<100;j++)
+   		g_print("%d  ",cfg->scan_table[j][i]);
+   	g_print("\n");	
+   }	*/
 }
 
 static gboolean bftv_free_config_del_block (gpointer key, gpointer value, gpointer data)
@@ -2960,7 +2973,6 @@ static gboolean bf_textview_expose_cb (GtkWidget * widget, GdkEventExpose * even
 	    block_folded = FALSE;
 	 }
 
-
 	 if (blockptr && !blockptr->single_line && blockptr->mark_end && blockptr->mark_begin
 	 		&& !gtk_text_iter_has_tag (&it, BF_TEXTVIEW (widget)->folded_tag)    ) {
 	    gtk_text_buffer_get_iter_at_mark (buf, &it2, blockptr->mark_end);
@@ -2985,8 +2997,9 @@ static gboolean bf_textview_expose_cb (GtkWidget * widget, GdkEventExpose * even
 	    }
 	 }
 	 else {			/* not block begin or end, but perhaps inside */
-	    if (gtk_text_iter_has_tag (&it, BF_TEXTVIEW (widget)->block_tag)) {
-	       gdk_draw_line (GDK_DRAWABLE (left_win), gc, pt_blocks + 5, w, pt_blocks + 5, w + 14);
+	    if (gtk_text_iter_has_tag (&it, BF_TEXTVIEW (widget)->block_tag) && 
+	        !gtk_text_iter_has_tag (&it, BF_TEXTVIEW (widget)->folded_tag)) {
+	       gdk_draw_line (GDK_DRAWABLE (left_win), gc, pt_blocks + 5, w, pt_blocks + 5, w + 16);
 	    }
 	 }
       }
