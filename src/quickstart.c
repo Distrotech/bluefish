@@ -199,11 +199,7 @@ quickstart_load_metatags(GtkListStore *lstore)
 static void
 quickstart_meta_selection_changed(GtkTreeSelection *tselection, TQuickStart *qstart)
 {
-	GtkTreeModel *tmodel;
-	GtkTreeIter iter;
-	
-	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaView));
-	if (gtk_tree_selection_get_selected (tselection, &tmodel, &iter)) {
+	if (gtk_tree_selection_count_selected_rows (tselection) > 0) {
 		gtk_widget_set_sensitive (qstart->removeButton, TRUE);	
 	} else {
 		gtk_widget_set_sensitive (qstart->removeButton, FALSE);
@@ -233,14 +229,38 @@ static void
 quickstart_meta_remove_clicked(GtkWidget *widget, TQuickStart *qstart)
 {
 	GtkTreeModel *tmodel;
-	GtkTreeIter iter;
 	GtkTreeSelection *tselection;
+	GtkTreePath *path;
+	GtkTreeRowReference *ref;
+	GList *selectionlist = NULL, *reflist = NULL, *node;
 
+	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaView));	
 	tselection = gtk_tree_view_get_selection (GTK_TREE_VIEW (qstart->metaView));
-	tmodel = gtk_tree_view_get_model (GTK_TREE_VIEW (qstart->metaView));
-	if (gtk_tree_selection_get_selected (tselection, &tmodel, &iter)) {
-		gtk_list_store_remove (GTK_LIST_STORE (tmodel), &iter);
+
+	selectionlist = gtk_tree_selection_get_selected_rows (tselection, &tmodel);
+	for (node = selectionlist; node != NULL; node = node->next) {
+		path = node->data;
+		ref = gtk_tree_row_reference_new (tmodel, path);
+		reflist = g_list_append(reflist, ref);
 	}
+	
+	for (node = reflist; node != NULL; node = node->next) {
+		ref = node->data;
+		path = gtk_tree_row_reference_get_path (ref);
+		
+		if (path) {
+			GtkTreeIter iter;
+			
+			if (gtk_tree_model_get_iter (GTK_TREE_MODEL (tmodel), &iter, path)) {
+				gtk_list_store_remove (GTK_LIST_STORE (tmodel), &iter);
+			}
+		}
+	}
+	
+	g_list_foreach (selectionlist, (GFunc) gtk_tree_path_free, NULL);
+	g_list_free (selectionlist);
+	g_list_foreach (reflist, (GFunc) gtk_tree_row_reference_free, NULL);
+	g_list_free (reflist);
 }
 
 static void
@@ -440,7 +460,7 @@ quickstart_meta_page_create(TQuickStart *qstart)
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (qstart->metaView), FALSE);
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (qstart->metaView));
 	g_signal_connect (G_OBJECT (selection), "changed", G_CALLBACK (quickstart_meta_selection_changed), qstart);
-	gtk_tree_selection_set_mode (selection, GTK_SELECTION_SINGLE);
+	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
 	gtk_container_add (GTK_CONTAINER (scrolwin), qstart->metaView);
 	renderer = gtk_cell_renderer_text_new ();
 	g_object_set (renderer, "editable", TRUE, NULL);
