@@ -132,6 +132,7 @@ enum {
 	property_num_max
 };
 
+#define FILETYPES_ARRAY_LEN 8
 enum {
 	extcommands,
 	extfilters,
@@ -652,18 +653,18 @@ static void filetype_selection_changed_cb(GtkTreeSelection *selection, Tprefdial
 static void set_filetype_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
 	arrcount = count_array(strarr);
-	if (arrcount==7) {
+	if (arrcount==FILETYPES_ARRAY_LEN) {
 		gchar *escaped;
 		escaped = escape_string(strarr[2],FALSE);
 		gtk_list_store_set(GTK_LIST_STORE(pd->ftd.lstore), iter
 				,0,strarr[0],1,strarr[1],2,escaped,3,strarr[3]
 				,4,(strarr[4][0] != '0'),5,strarr[5],6,strarr[6]
-				,7,strarr,-1);
+				,7,strarr[7],FILETYPES_ARRAY_LEN,strarr,-1);
 		g_free(escaped);
 	}
 }
 static void filetype_apply_change(Tprefdialog *pd, gint type, gchar *path, gchar *newval, gint index) {
-	pref_apply_change(pd->ftd.lstore,7,type,path,newval,index);
+	pref_apply_change(pd->ftd.lstore,FILETYPES_ARRAY_LEN,type,path,newval,index);
 }
 static void filetype_0_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
 	filetype_apply_change(pd, 1, path, newtext, 0);
@@ -690,24 +691,27 @@ static void filetype_6_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *p
 		filetype_apply_change(pd, 1, path, newtext, 6);
 	}
 }
+static void filetype_7_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
+	filetype_apply_change(pd, 1, path, newtext, 7);
+}
 
 static void add_new_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
 	gchar **strarr;
 	GtkTreeIter iter;
-	strarr = pref_create_empty_strarr(7);
+	strarr = pref_create_empty_strarr(FILETYPES_ARRAY_LEN);
 	gtk_list_store_append(GTK_LIST_STORE(pd->ftd.lstore), &iter);
 	set_filetype_strarr_in_list(&iter, strarr,pd);
 	pd->lists[filetypes] = g_list_append(pd->lists[filetypes], strarr);
 	pd->ftd.insertloc = -1;
 }
 static void delete_filetype_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	pref_delete_strarr(pd, &pd->ftd, 7);
+	pref_delete_strarr(pd, &pd->ftd, FILETYPES_ARRAY_LEN);
 }
 
 static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but, *scrolwin;
 	pd->lists[filetypes] = duplicate_arraylist(main_v->props.filetypes);
-	pd->ftd.lstore = gtk_list_store_new (8,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
+	pd->ftd.lstore = gtk_list_store_new (FILETYPES_ARRAY_LEN+1,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
 	pd->ftd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->ftd.lstore));
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_0_edited_lcb), pd, _("Label"), 0);
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_1_edited_lcb), pd, _("Extensions"), 1);
@@ -716,7 +720,7 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 2, G_CALLBACK(filetype_4_toggled_lcb), pd, _("Editable"), 4);
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_5_edited_lcb), pd, _("Content regex"), 5);
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_6_edited_lcb), pd, _("Auto close tags mode"), 6);
-
+	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_7_edited_lcb), pd, _("Language file"), 7);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ftd.lview);
@@ -732,7 +736,7 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 			gint arrcount;
 			gchar **strarr = (gchar **)tmplist->data;
 			arrcount = count_array(strarr);
-			if (arrcount==7) {
+			if (arrcount==FILETYPES_ARRAY_LEN) {
 				GtkTreeIter iter;
 				gtk_list_store_append(GTK_LIST_STORE(pd->ftd.lstore), &iter);
 				set_filetype_strarr_in_list(&iter, strarr,pd);

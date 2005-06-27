@@ -650,7 +650,7 @@ void filetype_highlighting_rebuild(gboolean gui_errors) {
 		Tfiletype *filetype;
 		strarr = (gchar **) tmplist->data;
 		arrcount = count_array(strarr);
-		if (arrcount == 7) {
+		if (arrcount == 8) {
 			filetype = g_new(Tfiletype, 1);
 			filetype->editable = (strarr[4][0] != '0');
 			filetype->content_regex = g_strdup(strarr[5]);
@@ -671,6 +671,7 @@ void filetype_highlighting_rebuild(gboolean gui_errors) {
 			} else {
 				filetype->icon = NULL;
 			}
+			/* at this moment we don't use strarr[7] which contains the scanner language specification file */
 			filetype->highlightlist = NULL;
 			main_v->filetypelist = g_list_append(main_v->filetypelist, filetype);
 		}
