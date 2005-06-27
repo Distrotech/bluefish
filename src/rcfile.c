@@ -684,24 +684,31 @@ void rcfile_parse_main(void)  {
 	}
 	/* for backwards compatibility with old filetypes, 
 		before version 0.10 had length 4, 
-		before version 0.13 had length 6 */
+		before version 0.13 had length 6
+		after version 0.13 has length 7
+		after version 1.0.* the length is 8  */
 	{
 		GList *tmplist = g_list_first(main_v->props.filetypes);
 		while (tmplist) {
 			gchar **orig = (gchar **)tmplist->data;
 			if (count_array(orig)==4) {
-				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], "1", "", "1", NULL);
+				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], "1", "", "1", "", NULL);
 				tmplist->data = new;
 				g_strfreev(orig);
 			}
 			if (count_array(orig)==6) {
-				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], orig[4], orig[5], "0", NULL);
+				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], orig[4], orig[5], "0", "", NULL);
 				tmplist->data = new;
 				if (strcmp(orig[0], "xml")==0) {
 					new[6][0] = '1';
 				} else if (strcmp(orig[0], "html")==0 || strcmp(orig[0], "php")==0 || strcmp(orig[0], "jsp")==0 || strcmp(orig[0], "cfml")==0) {
 					new[6][0] = '2';
 				}
+				g_strfreev(orig);
+			}
+			if (count_array(orig)==7) {
+				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], orig[4], orig[5], orig[6], "", NULL);
+				tmplist->data = new;
 				g_strfreev(orig);
 			}
 			tmplist = g_list_next(tmplist);
