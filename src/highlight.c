@@ -158,6 +158,8 @@ static Thighlight highlight;
 
 #ifdef USE_SCANNER
 
+#include "bf-textview.h"
+
 void hl_slot(BfTextView *view,BfLangToken *tokenDef,GtkTextIter *startIter,GtkTextIter *endIter) {
 	GdkColor col;
 	GtkTextTag *tag;
@@ -229,6 +231,132 @@ void hl_tag_attr (BfTextView * self, gchar * attrName, gchar * attrValue,
 	}
 			   
 }			   
+
+/*
+ * This is modifed function for scanner environment.
+ * if gui_errors is set, we can send a popup with an error message,
+ * else (during startup) we use g_print()
+ */
+void filetype_highlighting_rebuild(gboolean gui_errors) {
+	GList *tmplist;
+	GList *alldoclist;
+	
+	alldoclist = return_allwindows_documentlist();
+	/* remove filetypes from documents, but to reconnect them 
+	again after the rebuild, we temporary put a string with 
+	the filetype on that pointer */
+	if (alldoclist) {
+		tmplist = g_list_first(alldoclist);
+		while (tmplist) {
+			Tdocument *thisdoc = (Tdocument *)tmplist->data;
+			if (thisdoc->hl) {
+				DEBUG_MSG("doc %p has type %p named %s\n", thisdoc, thisdoc->hl, thisdoc->hl->type);
+				DEBUG_MSG("disconnected document %p from filetype %s\n", thisdoc, thisdoc->hl->type);
+				thisdoc->hl = (gpointer)g_strdup(thisdoc->hl->type);
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
+
+	/* first remove the menu widgets, and delete the filetype structs */
+	DEBUG_MSG("filetype_highlighting_rebuild, testing for filetypelist existance\n");
+	filetype_menus_empty();
+	tmplist = g_list_first(main_v->filetypelist);
+	while (tmplist) {
+		Tfiletype *filetype = (Tfiletype *)tmplist->data;
+		g_free(filetype->type);
+		g_strfreev(filetype->extensions);
+		g_free(filetype->update_chars);
+		if (filetype->icon) {
+			g_object_unref(filetype->icon);
+		}
+		g_free(filetype->content_regex);
+		/* the highlightpatterns are freed separately, see below */
+		g_free(filetype);
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(main_v->filetypelist);
+	main_v->filetypelist = NULL;
+
+	DEBUG_MSG("filetype_highlighting_rebuild, rebuilding the filetype list\n");
+	/* now rebuild the filetype list */
+	tmplist = g_list_first(main_v->props.filetypes);
+	while (tmplist) {
+		gint arrcount;
+		gchar **strarr;
+		Tfiletype *filetype;
+		strarr = (gchar **) tmplist->data;
+		arrcount = count_array(strarr);
+		if (arrcount == 8) {
+			filetype = g_new(Tfiletype, 1);
+			filetype->editable = (strarr[4][0] != '0');
+			filetype->content_regex = g_strdup(strarr[5]);
+			filetype->type = g_strdup(strarr[0]);
+			filetype->autoclosingtag = atoi(strarr[6]);
+			DEBUG_MSG("extensions for %s loaded from %s\n", strarr[0], strarr[1]);
+			filetype->extensions = g_strsplit(strarr[1], ":", 127);
+			filetype->update_chars = g_strdup(strarr[2]);
+			if (strlen(strarr[3])){
+				GError *error=NULL;
+				filetype->icon = gdk_pixbuf_new_from_file(strarr[3], &error);
+				if (error != NULL) {
+					/* Report error to user, and free error */
+					g_print("ERROR while loading icon: %s\n", error->message);
+					g_error_free(error);
+					filetype->icon = NULL;
+				}
+			} else {
+				filetype->icon = NULL;
+			}
+			/* load configuration */
+			filetype->language_file = g_strdup(strarr[7]);
+			if ( strcmp(filetype->language_file,"")!=0 ) {
+				BfLangConfig *cfg;
+				gint i=0;
+				if ( !bf_lang_mgr_get_config(main_v->lang_mgr,filetype->type) )
+					bf_lang_mgr_load_config(main_v->lang_mgr,filetype->language_file,filetype->type);
+				cfg = bf_lang_mgr_get_config(main_v->lang_mgr,filetype->type);
+				if ( cfg ) {
+					gchar *p = filetype->update_chars;
+					i = 0;
+					while (i < g_utf8_strlen (filetype->update_chars, -1)) {
+						   cfg->as_triggers[(gint) * p] = 1;
+						   i++;
+						   p = g_utf8_next_char (p);
+					}
+				}	
+			}	
+			filetype->highlightlist = NULL;
+			main_v->filetypelist = g_list_append(main_v->filetypelist, filetype);
+		}
+#ifdef DEBUG
+		else {
+			DEBUG_MSG("filetype_list_rebuild, filetype needs 4 params in array\n");
+		}
+#endif
+		tmplist = g_list_next(tmplist);
+	}
+
+	/* now we have finished the rebuilding of the filetypes, we 
+	have to connect all the documents with their filetypes again, we 
+	stored the name of the filetype temporary in the place of the Tfiletype,
+	undo that now */
+	if (alldoclist) {
+		tmplist = g_list_first(alldoclist);
+		while (tmplist) {
+			if (((Tdocument *)tmplist->data)->hl) {
+				gchar *tmpstr = (gchar *)((Tdocument *)tmplist->data)->hl;
+				((Tdocument *)tmplist->data)->hl = get_filetype_by_name(tmpstr);
+				DEBUG_MSG("reconnecting document %p to filetype %s\n", tmplist->data, tmpstr);
+				g_free(tmpstr);
+				((Tdocument *)tmplist->data)->need_highlighting = TRUE;
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
+	g_list_free(alldoclist);
+}
+
 
 
 #else

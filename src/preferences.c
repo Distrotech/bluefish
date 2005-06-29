@@ -2331,9 +2331,8 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.external_outputbox = duplicate_arraylist(pd->lists[extoutputbox]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
-#ifndef USE_SCANNER	
 	filetype_highlighting_rebuild(TRUE);
-#endif	
+	
 	/*filebrowser_filters_rebuild();*/
 	fb2_filters_rebuild();
 	
@@ -2407,7 +2406,6 @@ void preftree_cursor_changed_cb (GtkTreeView *treeview, gpointer user_data) {
 		}	
 		gtk_tree_path_free(path);
 	}
-/*	gtk_widget_set_size_request(GTK_WIDGET(pd->noteb),200,-1);*/
 }
 #endif
 

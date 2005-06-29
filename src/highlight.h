@@ -31,6 +31,7 @@ void hl_tag_end (BfTextView * self, gchar * tagName, GtkTextIter * b_startIter,
 void hl_tag_attr (BfTextView * self, gchar * attrName, gchar * attrValue,
 			   GtkTextIter * n_startIter, GtkTextIter * n_endIter,
 			   GtkTextIter * v_startIter, GtkTextIter * v_endIter);
+void filetype_highlighting_rebuild(gboolean gui_errors);			   
 #else
 void filetype_highlighting_rebuild(gboolean gui_errors);
 void hl_init(void);
