@@ -1,0 +1,31 @@
+# $Id: NEWS,v 1.1.2.1 2005-06-29 14:14:17 dleidert Exp $
+# Release changes
+
+Bluefish 1.0.2 (UNRELEASED)
+---------------------------
+
+- Updated Debian packaging files (standards version and build-dependencies).
+- Updated config scripts.
+- Fixed Ctrl-Z bug in ??.
+- Fixed outdated configure script.
+- Fixed format specification bug in Bulgarian translation (Debian #308849).
+- Fixed translation bugs and typos in German translation (Debian #313674).
+
+
+Bluefish 1.0.1 (13 June 2005)
+-----------------------------
+
+- New QuickStart dialog.
+- Spaces not being used to instead of tabs.
+- Updated Debian packaging files (build-depends).
+- Updated and improved spell checking.
+- Updated and improved highlighting patterns.
+- Fixed custom menu.
+- Fixed bookmarks handling.
+- Fixed missing CSS dialog properties.
+- Fixed improperly opened color dialog when opening the CSS dialog.
+- Fixed project dialog segmentation fault when clicking the "Browse button"
+  (Debian #295536).
+- Fixed not retained "View" menu item settings after closing/restarting.
+- Fixed several build issues (debugging output, configure, ...)
+
