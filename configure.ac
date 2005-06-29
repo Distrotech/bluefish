@@ -365,14 +365,19 @@ AC_CHECK_HEADER(aspell.h,
 	AC_CHECK_LIB(aspell, new_aspell_config, 
 		LIBS="$LIBS -laspell"
 		AC_DEFINE(HAVE_LIBASPELL),
-		echo "libaspell not found please install libaspell-dev or similar"), 
-	OLDLIBS=$LIBS
-	LIBS="$LIBS -laspell-common -lstdc++"
-	AC_CHECK_LIB(aspell, new_aspell_config,
-		LIBS="$LIBS -laspell"
-		AC_DEFINE(HAVE_LIBASPELL),
-		LIBS=$OLDLIBS
-		echo "libaspell not found please install libaspell-dev or similar"
+		OLDLIBS=$LIBS
+		LIBS="$OLDSLIBS -lstdc++"
+		AC_CHECK_LIB(aspell, new_aspell_config,
+			LIBS="$LIBS -laspell"
+			AC_DEFINE(HAVE_LIBASPELL),
+			LIBS="$OLDSLIBS -laspell-common -lstdc++"
+			AC_CHECK_LIB(aspell, new_aspell_config,
+				LIBS="$LIBS -laspell"
+				AC_DEFINE(HAVE_LIBASPELL),
+				LIBS=$OLDLIBS
+				echo "libaspell not found please install libaspell-dev or similar"
+			)
+		)
 	)
 )
 
