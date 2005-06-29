@@ -463,17 +463,12 @@ void doc_set_tooltip(Tdocument *doc) {
 	if (doc->encoding) encoding = doc->encoding;
 	else if (BFWIN(doc->bfwin)->session->encoding) encoding = BFWIN(doc->bfwin)->session->encoding;
 	else encoding = main_v->props.newfile_default_encoding;
-
-#ifdef USE_SCANNER	
-	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
-							,_("\nEncoding: "), encoding
-							,NULL);
-#else
+	
 	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
 							,_("\nType: "),doc->hl->type
 							,_("\nEncoding: "), encoding
 							,NULL);
-#endif							
+							
 	if (sizestr) {
 		text = g_strconcat(text, _("\nSize (on disk): "), sizestr, _(" bytes"), NULL);
 		g_free(tmp);
@@ -510,17 +505,20 @@ void doc_set_tooltip(Tdocument *doc) {
  **/
 gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 	DEBUG_MSG("doc_set_filetype, will set filetype %s\n",ft->type);
-#ifndef USE_SCANNER		
 	if (ft != doc->hl) {
+#ifndef USE_SCANNER	
 		doc_remove_highlighting(doc);
+#endif		
 		doc->hl = ft;
 		doc->need_highlighting = TRUE;
 		doc->autoclosingtag = (ft->autoclosingtag > 0);
+#ifdef USE_SCANNER
+		bf_textview_set_language_ptr(BF_TEXTVIEW(doc->view),bf_lang_mgr_get_config(main_v->lang_mgr,ft->type));
+#endif		
 		gui_set_document_widgets(doc);
 		doc_set_tooltip(doc);
 		return TRUE;
 	}
-#endif			
 	return FALSE;
 }
 /**
@@ -1205,12 +1203,8 @@ void doc_set_statusbar_insovr(Tdocument *doc)
 void doc_set_statusbar_editmode_encoding(Tdocument *doc)
 {
 	gchar *msg;
-#ifdef USE_SCANNER
-	msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
-#else	
 	if (doc->hl == NULL) msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
 	else msg = g_strdup_printf(_("  %s, %s"), doc->hl->type, doc->encoding);
-#endif	
 	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_editmode), 0);
 	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_editmode), 0, msg);
 	g_free(msg);		
@@ -1655,7 +1649,7 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 		doc->need_highlighting=TRUE;
 		DEBUG_MSG("doc_buffer_to_textbox, highlightstate=%d, need_highlighting=%d, delay=%d\n",doc->highlightstate,doc->need_highlighting,delay);
 		if (!delay) {
-#ifndef USE_SCANNER		
+
 #ifdef DEBUG
 			g_print("doc_buffer_to_textbox, doc->hl=%p, type=%s\n", doc->hl, doc->hl->type);
 			if (doc->hl) {
@@ -1664,6 +1658,7 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 				g_print("doc_buffer_to_textbox, doc does not have a filetype ????\n");
 			}
 #endif
+#ifndef USE_SCANNER
 			doc_highlight_full(doc);
 #endif			
 		}
@@ -2908,14 +2903,9 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 #ifdef USE_SCANNER
 	newdoc->buffer = gtk_text_buffer_new(NULL);
 	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
-/*	pstr = g_strconcat(g_get_home_dir(), "/."PACKAGE"/sample.bflang", NULL);
-	bf_textview_add_language(BF_TEXTVIEW(newdoc->view),"default",pstr);
-	bf_textview_set_language(BF_TEXTVIEW(newdoc->view),"default");*/
-	list = g_list_append(list,"sample.bflang");
-	/*list = g_list_append(list,"sample2.bflang");*/
+	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
 	if ( main_v->lang_mgr ) {
-		bf_lang_mgr_load_config_list(main_v->lang_mgr,list,"default");
-		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),bf_lang_mgr_get_config(main_v->lang_mgr,"default"));
+		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),bf_lang_mgr_get_config(main_v->lang_mgr,newdoc->hl->type));
 	}	
 	g_list_free(list);
 	bf_textview_set_autoscan(BF_TEXTVIEW(newdoc->view),main_v->props.autoscan);

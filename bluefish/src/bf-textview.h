@@ -109,7 +109,8 @@ typedef struct {
 } BfLangManager;
 
 BfLangManager *bf_lang_mgr_new();
-gboolean bf_lang_mgr_load_config_list(BfLangManager *mgr,GList *list,gchar *langname);
+gboolean bf_lang_mgr_load_config_list(BfLangManager *mgr,GList *list,gchar *filetype);
+gboolean bf_lang_mgr_load_config(BfLangManager *mgr,gchar *filename,gchar *filetype);
 BfLangConfig *bf_lang_mgr_get_config(BfLangManager *mgr,gchar *filetype);
 
 typedef struct {

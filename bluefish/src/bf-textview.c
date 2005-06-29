@@ -2708,6 +2708,8 @@ void bf_textview_set_language (BfTextView * self, gchar * langname)
 
 void bf_textview_set_language_ptr (BfTextView * self, BfLangConfig *cfg) {
 	self->current_lang = cfg;
+	if (cfg)
+		bf_textview_scan(self);
 }
 
 /* -------------------------  BLOCK FOLDING ----------------------- */
@@ -3578,7 +3580,34 @@ BfLangManager *bf_lang_mgr_new() {
 	return ret;
 }
 
-gboolean bf_lang_mgr_load_config_list(BfLangManager *mgr,GList *list,gchar *langname) {
+gboolean bf_lang_mgr_load_config(BfLangManager *mgr,gchar *filename,gchar *filetype) {
+	gchar *fname=NULL;
+	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
+	gboolean found;
+	BfLangConfig *cfg=NULL;
+
+	found = FALSE;
+	fname = g_strconcat(PKGDATADIR,"/",filename,NULL);
+	if (!g_file_test(fname,G_FILE_TEST_EXISTS)) {
+			g_free(fname);
+			fname = g_strconcat(userdir,filename,NULL);
+			if ( g_file_test(fname,G_FILE_TEST_EXISTS) ) 
+				found=TRUE;
+		} else found=TRUE;		
+	if (found) 
+			cfg = bftv_load_config(fname,FALSE,cfg);
+	else
+			g_warning("BfLangManager: cannot load file %s",filename);					
+	g_free(fname);	
+	if ( cfg != NULL ) {
+		bftv_make_config_tables(cfg);
+		g_hash_table_replace(mgr->languages,filetype,cfg);
+		return TRUE;
+	}
+	return FALSE;	
+}
+
+gboolean bf_lang_mgr_load_config_list(BfLangManager *mgr,GList *list,gchar *filetype) {
 	GList *l = g_list_first(list);
 	gchar *fname=NULL;
 	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
@@ -3603,14 +3632,14 @@ gboolean bf_lang_mgr_load_config_list(BfLangManager *mgr,GList *list,gchar *lang
 	}
 	if ( cfg != NULL ) {
 		bftv_make_config_tables(cfg);
-		g_hash_table_replace(mgr->languages,langname,cfg);
+		g_hash_table_replace(mgr->languages,filetype,cfg);
 		return TRUE;
 	}
 	return FALSE;
 }
 
-BfLangConfig *bf_lang_mgr_get_config(BfLangManager *mgr,gchar *langname) {
-	return g_hash_table_lookup(mgr->languages,langname);
+BfLangConfig *bf_lang_mgr_get_config(BfLangManager *mgr,gchar *filetype) {
+	return g_hash_table_lookup(mgr->languages,filetype);
 }
 
 
