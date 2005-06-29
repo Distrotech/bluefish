@@ -121,7 +121,7 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
 	GtkWidget *notebook;
 	GtkWidget *info_ok_button;
 	GdkColor color;
-	gchar *I1;
+	gchar *I1, *tmp;
 	gchar *INFO = _("Bluefish is an editor for experienced web designers and programmers. It supports many programming and markup languages, but focuses on editing dynamic and interactive websites. Bluefish is an open source development project, released under the GPL license.\n\nFor more information, visit the Bluefish Website at http://bluefish.openoffice.nl/\n\nThis version of bluefish was compiled with the following options:\n");
 	gchar *AUTHORS = _("Project leader:\n\
   Olivier Sessink <olivier@bluefish.openoffice.nl>\n\
@@ -258,9 +258,40 @@ Thanks to all who helped making this software available.\n\
 
 	/* the notebook */
 	notebook = gtk_notebook_new();
+	
+	tmp = g_strconcat(CONFIGURE_OPTIONS, _("\nresulting in the detection of: "),
+#ifdef HAVE_PYTHON
+			"python, ",
+#endif
+#ifdef USE_SCANNER
+			"scanner request, ",
+#endif
+#ifdef HAVE_LIBASPELL
+			"libaspell, ",
+#endif
+#ifdef DEVELOPMENT
+			"development request, ",
+#endif
+#ifdef ENABLE_NLS
+			"i18n request, ",
+#endif
+#ifdef HAVE_ATLEAST_GTK_2_6
+			"gtk-2.6 or newer, ",
+#endif
+#ifdef HAVE_GNOMEVFS_2_6
+			"gnome_vfs-2.6 or newer, ",
+#endif
+#ifdef HAVE_ATLEAST_GNOMEUI_2_6
+			"gnomeui-2.6 or newer, ",
+#endif
+#ifdef PLATFORM_DARWIN
+			"platform Darwin, ",
+#endif
+			NULL);
 
 	/* add pages */
-	I1 = g_strconcat(INFO, CONFIGURE_OPTIONS, NULL);
+	I1 = g_strconcat(INFO, tmp, NULL);
+	g_free(tmp);
 	add_page(GTK_NOTEBOOK(notebook), _("Info"), I1, TRUE);
 	g_free(I1);
 	add_page(GTK_NOTEBOOK(notebook), _("Authors"), AUTHORS, TRUE);
