@@ -1,8 +1,8 @@
 %define	desktop_vendor 	endur
 %define name  		bluefish
 %define version		1.1
-%define release 	020050417
-%define source		bluefish-CVS-2005-04-17
+%define release 	020050528
+%define source		bluefish-CVS-2005-05-28
 
 
 Summary:	  A GTK2 web development application for experienced users.
@@ -54,7 +54,7 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 %postun
 update-mime-database %{_datadir}/mime > /dev/null 2>&1 || :
-update-desktop-database {_datadir}/applications > /dev/null 2>&1 || :
+update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 %files -f %{name}.lang
 %defattr(-, root, root)
@@ -72,5 +72,5 @@ update-desktop-database {_datadir}/applications > /dev/null 2>&1 || :
 
 
 %changelog
-* Mon Apr 18 2005 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2005-04-17
+* Wed Jun 29 2005 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2005-05-28
