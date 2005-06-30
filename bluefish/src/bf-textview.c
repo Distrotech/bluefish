@@ -2211,6 +2211,7 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
       cfg->blocks = g_hash_table_new (g_str_hash, g_str_equal);
       cfg->blocks_id = g_hash_table_new (g_int_hash, g_int_equal);
       cfg->tokens = g_hash_table_new (g_int_hash, g_int_equal);
+      cfg->groups = g_hash_table_new (g_int_hash, g_int_equal);
       cfg->dfa = g_hash_table_new (g_str_hash, g_str_equal);
       cfg->dfa_tables = NULL;
 		cfg->restricted_tags = g_hash_table_new (g_int_hash, g_int_equal);
@@ -2283,6 +2284,7 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 	 }
 	 else if (xmlStrcmp (cur->name, "block-group") == 0) {	/* blocks */
 	    tmps3 = xmlGetProp (cur, "id");
+	    g_hash_table_replace(cfg->groups,g_strdup(tmps3),"b");
 	    cur2 = cur->xmlChildrenNode;
 	    while (cur2 != NULL) {
 	       if (xmlStrcmp (cur2->name, "block") == 0) {
@@ -2326,6 +2328,7 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 	 }
 	 else if (xmlStrcmp (cur->name, "token-group") == 0) {	/* tokens */
 	    tmps3 = xmlGetProp (cur, "id");
+	    g_hash_table_replace(cfg->groups,g_strdup(tmps3),"t");
 	    cur2 = cur->xmlChildrenNode;
 	    while (cur2 != NULL) {
 	       if (xmlStrcmp (cur2->name, "token") == 0) {

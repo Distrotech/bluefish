@@ -84,6 +84,7 @@ typedef struct {
 
    GHashTable *tokens;
    GHashTable *blocks;
+   GHashTable *groups;
    GHashTable *blocks_id;
    GHashTable *dfa;
    GList *dfa_tables;

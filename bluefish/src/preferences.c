@@ -176,6 +176,9 @@ typedef struct {
 #ifdef USE_SCANNER
 	GtkTreeStore *nstore;
 	GtkWidget *fixed;
+	GtkWidget *hl_notebook;
+	GtkWidget *hl_tag_page;
+	GtkListStore *hl_dg_store,*hl_db_store,*hl_dt_store;
 #endif	
 	Tlistpref ftd;
 	Tlistpref ffd;
@@ -1245,9 +1248,75 @@ static void highlightpattern_reset_clicked_lcb(GtkWidget *button, Tprefdialog *p
 }
 
 #ifdef USE_SCANNER
+
+static void bf_ins_key(gpointer key,gpointer value,gpointer udata) {
+	GList **lst = (GList **)udata;
+	*lst = g_list_append(*lst,key);
+}
+
+static GList *bf_hash_keys_to_list(GHashTable *table) {
+	GList *lst=NULL;
+	g_hash_table_foreach(table,bf_ins_key,&lst);
+	return lst;
+}
+
+static void bf_ins_token(gpointer key,gpointer value,gpointer udata) {
+	GList **lst = (GList **)udata;
+	BfLangToken *t = (BfLangToken*)value;
+	*lst = g_list_append(*lst,t->text);
+}
+
+static GList *bf_tokens_to_list(GHashTable *table) {
+	GList *lst=NULL;
+	g_hash_table_foreach(table,bf_ins_token,&lst);
+	return lst;
+}
+
+
+static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
+	BfLangConfig *cfg = bf_lang_mgr_get_config(main_v->lang_mgr,gtk_combo_box_get_active_text(widget));
+	Tprefdialog *pd = (Tprefdialog *)user_data;
+	GList *lst=NULL;
+	GtkTreeIter it;
+	
+	if (!cfg) {
+		 gtk_widget_hide(pd->hl_notebook);
+		 return;
+	}	 
+	gtk_widget_show(pd->hl_notebook);
+	if ( cfg->scan_tags )
+		gtk_widget_show(pd->hl_tag_page);
+	else
+		gtk_widget_hide(pd->hl_tag_page);	
+	lst = bf_hash_keys_to_list(cfg->groups);
+	gtk_list_store_clear(pd->hl_dg_store);
+	while ( lst ) {
+		gtk_list_store_append(pd->hl_dg_store,&it);
+		gtk_list_store_set(pd->hl_dg_store,&it,0,lst->data,-1);
+		lst = g_list_next(lst);
+	}
+	lst=NULL;
+	lst = bf_hash_keys_to_list(cfg->blocks);
+	gtk_list_store_clear(pd->hl_db_store);
+	while ( lst ) {
+		gtk_list_store_append(pd->hl_db_store,&it);
+		gtk_list_store_set(pd->hl_db_store,&it,0,lst->data,-1);
+		lst = g_list_next(lst);
+	}
+	lst=NULL;
+	lst = bf_tokens_to_list(cfg->tokens);
+	gtk_list_store_clear(pd->hl_dt_store);
+	while ( lst ) {
+		gtk_list_store_append(pd->hl_dt_store,&it);
+		gtk_list_store_set(pd->hl_dt_store,&it,0,lst->data,-1);
+		lst = g_list_next(lst);
+	}
+			
+}
+
 static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
   GtkWidget *vbox1,*hbox1, *label1;
-  GtkWidget *ft_combo, *rst_btn, *notebook1;
+  GtkWidget *ft_combo, *rst_btn;
   GtkWidget *hbox2,*vbox2,*label6;
   GtkWidget *scrolledwindow1,*dg_tree,*vbuttonbox1,*button2,*button3;
   GtkWidget *vbox3,*label7,*scrolledwindow2,*hg_tree,*g_pbox;
@@ -1288,20 +1357,19 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 			gint arrcount;
 			gchar **strarr = (gchar **)tmplist->data;
 			arrcount = count_array(strarr);
-			if (arrcount==7) {
-			   gtk_combo_box_append_text(GTK_COMBO_BOX(ft_combo),strarr[0]);
-			}
+		   gtk_combo_box_append_text(GTK_COMBO_BOX(ft_combo),strarr[0]);
 			tmplist = g_list_next(tmplist);
 	}  
-
+  g_signal_connect(G_OBJECT(ft_combo),"changed",G_CALLBACK(hlg_ftype_changed),pd);
+  	  	
   rst_btn = gtk_button_new_with_mnemonic (_("Reset"));
   gtk_box_pack_start (GTK_BOX (hbox1), rst_btn, FALSE, FALSE, 3);
 
-  notebook1 = gtk_notebook_new ();
-  gtk_box_pack_start (GTK_BOX (vbox1), notebook1, TRUE, TRUE,5);
+  pd->hl_notebook = gtk_notebook_new ();
+  gtk_box_pack_start (GTK_BOX (vbox1), pd->hl_notebook, TRUE, TRUE,5);
 
   hbox2 = gtk_hbox_new (FALSE, 0);
-  gtk_container_add (GTK_CONTAINER (notebook1), hbox2);
+  gtk_container_add (GTK_CONTAINER (pd->hl_notebook), hbox2);
 
   vbox2 = gtk_vbox_new (FALSE, 0);
   gtk_box_pack_start (GTK_BOX (hbox2), vbox2, TRUE, TRUE, 0);
@@ -1317,21 +1385,27 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 
   dg_tree = gtk_tree_view_new ();
   gtk_container_add (GTK_CONTAINER (scrolledwindow1), dg_tree);
-  gtk_container_set_border_width (GTK_CONTAINER (dg_tree), 3);
   gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dg_tree), FALSE);
+  pd->hl_dg_store = gtk_list_store_new(1,G_TYPE_STRING);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(dg_tree),GTK_TREE_MODEL(pd->hl_dg_store));	
+	cell = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes("", cell, "text", 0, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(dg_tree), column); 
+  
 
-  vbuttonbox1 = gtk_vbutton_box_new ();
-  gtk_box_pack_start (GTK_BOX (hbox2), vbuttonbox1, FALSE, FALSE, 2);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (vbuttonbox1), GTK_BUTTONBOX_SPREAD);
+  vbuttonbox1 = gtk_vbox_new (FALSE,0);
+  gtk_box_pack_start (GTK_BOX (hbox2), vbuttonbox1, TRUE, FALSE, 2);
 
-  button2 = gtk_button_new_with_mnemonic (_("<<"));
-  gtk_container_add (GTK_CONTAINER (vbuttonbox1), button2);
-  GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
-
-  button3 = gtk_button_new_with_mnemonic (_(">>"));
-  gtk_container_add (GTK_CONTAINER (vbuttonbox1), button3);
-  GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
-
+  button2 = gtk_button_new();
+  gtk_box_pack_start (GTK_BOX (vbuttonbox1), button2, TRUE, FALSE, 2);
+  gtk_container_add(GTK_CONTAINER(button2), new_pixmap(1003));	
+	GTK_WIDGET_SET_FLAGS (button2, GTK_CAN_DEFAULT);
+	
+  button3 = gtk_button_new();
+  gtk_box_pack_end (GTK_BOX (vbuttonbox1), button3, TRUE, FALSE, 2);
+  gtk_container_add(GTK_CONTAINER(button3), new_pixmap(1004));	
+	GTK_WIDGET_SET_FLAGS (button3, GTK_CAN_DEFAULT);
+  
   vbox3 = gtk_vbox_new (FALSE, 0);
   gtk_box_pack_start (GTK_BOX (hbox2), vbox3, TRUE, TRUE, 0);
 
@@ -1367,11 +1441,11 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 
 
   label2 = gtk_label_new (_("Groups"));
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 0), label2);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (pd->hl_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (pd->hl_notebook), 0), label2);
   gtk_misc_set_padding (GTK_MISC (label2), 2, 2);
 
   hbox3 = gtk_hbox_new (FALSE, 0);
-  gtk_container_add (GTK_CONTAINER (notebook1), hbox3);
+  gtk_container_add (GTK_CONTAINER (pd->hl_notebook), hbox3);
 
   vbox5 = gtk_vbox_new (FALSE, 0);
   gtk_box_pack_start (GTK_BOX (hbox3), vbox5, TRUE, TRUE, 0);
@@ -1388,18 +1462,25 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
   db_tree = gtk_tree_view_new ();
   gtk_container_add (GTK_CONTAINER (scrolledwindow3), db_tree);
   gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (db_tree), FALSE);
+  pd->hl_db_store = gtk_list_store_new(1,G_TYPE_STRING);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(db_tree),GTK_TREE_MODEL(pd->hl_db_store));	
+	cell = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes("", cell, "text", 0, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(db_tree), column); 
 
-  vbuttonbox2 = gtk_vbutton_box_new ();
-  gtk_box_pack_start (GTK_BOX (hbox3), vbuttonbox2, TRUE, TRUE, 0);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (vbuttonbox2), GTK_BUTTONBOX_SPREAD);
 
-  button4 = gtk_button_new_with_mnemonic (_("<<"));
-  gtk_container_add (GTK_CONTAINER (vbuttonbox2), button4);
-  GTK_WIDGET_SET_FLAGS (button4, GTK_CAN_DEFAULT);
+  vbuttonbox2 = gtk_vbox_new (FALSE,0);
+  gtk_box_pack_start (GTK_BOX (hbox3), vbuttonbox2, TRUE, FALSE, 2);
 
-  button5 = gtk_button_new_with_mnemonic (_(">>"));
-  gtk_container_add (GTK_CONTAINER (vbuttonbox2), button5);
-  GTK_WIDGET_SET_FLAGS (button5, GTK_CAN_DEFAULT);
+  button4 = gtk_button_new();
+  gtk_box_pack_start (GTK_BOX (vbuttonbox2), button4, TRUE, FALSE, 2);
+  gtk_container_add(GTK_CONTAINER(button4), new_pixmap(1003));	
+	GTK_WIDGET_SET_FLAGS (button4, GTK_CAN_DEFAULT);
+	
+  button5 = gtk_button_new();
+  gtk_box_pack_end (GTK_BOX (vbuttonbox2), button5, TRUE, FALSE, 2);
+  gtk_container_add(GTK_CONTAINER(button5), new_pixmap(1004));	
+	GTK_WIDGET_SET_FLAGS (button5, GTK_CAN_DEFAULT);
 
   vbox6 = gtk_vbox_new (FALSE, 0);
   gtk_box_pack_start (GTK_BOX (hbox3), vbox6, TRUE, TRUE, 0);
@@ -1435,11 +1516,11 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
   gtk_box_pack_start(GTK_BOX(b_pbox),radio2, TRUE, TRUE, 0);
   
   label3 = gtk_label_new (_("Blocks"));
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 1), label3);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (pd->hl_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (pd->hl_notebook), 1), label3);
   gtk_misc_set_padding (GTK_MISC (label3), 2, 2);
 
   hbox4 = gtk_hbox_new (FALSE, 0);
-  gtk_container_add (GTK_CONTAINER (notebook1), hbox4);
+  gtk_container_add (GTK_CONTAINER (pd->hl_notebook), hbox4);
 
   vbox8 = gtk_vbox_new (FALSE, 0);
   gtk_box_pack_start (GTK_BOX (hbox4), vbox8, TRUE, TRUE, 0);
@@ -1456,18 +1537,25 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
   dt_tree = gtk_tree_view_new ();
   gtk_container_add (GTK_CONTAINER (scrolledwindow5), dt_tree);
   gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (dt_tree), FALSE);
+  pd->hl_dt_store = gtk_list_store_new(1,G_TYPE_STRING);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(dt_tree),GTK_TREE_MODEL(pd->hl_dt_store));	
+	cell = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes("", cell, "text", 0, NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(dt_tree), column); 
 
-  vbuttonbox3 = gtk_vbutton_box_new ();
-  gtk_box_pack_start (GTK_BOX (hbox4), vbuttonbox3, TRUE, TRUE, 0);
-  gtk_button_box_set_layout (GTK_BUTTON_BOX (vbuttonbox3), GTK_BUTTONBOX_SPREAD);
 
-  button6 = gtk_button_new_with_mnemonic (_("<<"));
-  gtk_container_add (GTK_CONTAINER (vbuttonbox3), button6);
-  GTK_WIDGET_SET_FLAGS (button6, GTK_CAN_DEFAULT);
+  vbuttonbox3 = gtk_vbox_new (FALSE,0);
+  gtk_box_pack_start (GTK_BOX (hbox4), vbuttonbox3, TRUE, FALSE, 2);
 
-  button7 = gtk_button_new_with_mnemonic (_(">>"));
-  gtk_container_add (GTK_CONTAINER (vbuttonbox3), button7);
-  GTK_WIDGET_SET_FLAGS (button7, GTK_CAN_DEFAULT);
+  button6 = gtk_button_new();
+  gtk_box_pack_start (GTK_BOX (vbuttonbox3), button6, TRUE, FALSE, 2);
+  gtk_container_add(GTK_CONTAINER(button6), new_pixmap(1003));	
+	GTK_WIDGET_SET_FLAGS (button6, GTK_CAN_DEFAULT);
+	
+  button7 = gtk_button_new();
+  gtk_box_pack_end (GTK_BOX (vbuttonbox3), button7, TRUE, FALSE, 2);
+  gtk_container_add(GTK_CONTAINER(button7), new_pixmap(1004));	
+	GTK_WIDGET_SET_FLAGS (button7, GTK_CAN_DEFAULT);
 
   vbox9 = gtk_vbox_new (FALSE, 0);
   gtk_box_pack_start (GTK_BOX (hbox4), vbox9, TRUE, TRUE, 0);
@@ -1502,11 +1590,11 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
   radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force italic style"));
   gtk_box_pack_start(GTK_BOX(t_pbox),radio2, TRUE, TRUE, 0);
   label4 = gtk_label_new (_("Tokens"));
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 2), label4);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (pd->hl_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (pd->hl_notebook), 2), label4);
   gtk_misc_set_padding (GTK_MISC (label4), 2, 2);
 
   hbox5 = gtk_hbox_new (FALSE, 0);
-  gtk_container_add (GTK_CONTAINER (notebook1), hbox5);
+  gtk_container_add (GTK_CONTAINER (pd->hl_notebook), hbox5);
 
   scrolledwindow7 = gtk_scrolled_window_new (NULL, NULL);
   gtk_box_pack_start (GTK_BOX (hbox5), scrolledwindow7, TRUE, TRUE, 2);
@@ -1516,7 +1604,7 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
   tag_tree = gtk_tree_view_new ();
   gtk_container_add (GTK_CONTAINER (scrolledwindow7), tag_tree);
   gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (tag_tree), FALSE);
-	store = gtk_list_store_new(2,G_TYPE_INT,G_TYPE_STRING);
+  store = gtk_list_store_new(2,G_TYPE_INT,G_TYPE_STRING);
   gtk_tree_view_set_model(GTK_TREE_VIEW(tag_tree),GTK_TREE_MODEL(store));	
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "text", 1, NULL);
@@ -1550,8 +1638,10 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
   gtk_box_pack_start(GTK_BOX(tag_pbox),radio2, TRUE, TRUE, 0);
   
   label5 = gtk_label_new (_("Tags"));
-  gtk_notebook_set_tab_label (GTK_NOTEBOOK (notebook1), gtk_notebook_get_nth_page (GTK_NOTEBOOK (notebook1), 3), label5);
+  gtk_notebook_set_tab_label (GTK_NOTEBOOK (pd->hl_notebook), gtk_notebook_get_nth_page (GTK_NOTEBOOK (pd->hl_notebook), 3), label5);
   gtk_misc_set_padding (GTK_MISC (label5), 2, 2);
+  pd->hl_tag_page = gtk_notebook_get_nth_page (GTK_NOTEBOOK (pd->hl_notebook), 3);	  
+  gtk_combo_box_set_active(GTK_COMBO_BOX(ft_combo),0);
 }
 #endif
 
