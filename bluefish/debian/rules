@@ -87,8 +87,7 @@ binary-arch: build install
 	dh_installdocs
 	dh_installman
 	dh_installmenu
-	dh_installchangelogs
-	# dh_installchangelogs ChangeLog # if source contains ChangeLog
+	dh_installchangelogs NEWS
 	dh_link
 	dh_strip
 	dh_compress
