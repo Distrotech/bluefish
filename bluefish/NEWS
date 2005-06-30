@@ -1,12 +1,13 @@
-# $Id: NEWS,v 1.1.2.1 2005-06-29 14:14:17 dleidert Exp $
+# $Id: NEWS,v 1.1.2.2 2005-06-30 15:27:20 dleidert Exp $
 # Release changes
 
-Bluefish 1.0.2 (UNRELEASED)
----------------------------
+Bluefish 1.0.2 (30 June 2005)
+-----------------------------
 
+- Added ability to remove multiple meta tags in Quickstart dialog.
 - Updated Debian packaging files (standards version and build-dependencies).
 - Updated config scripts.
-- Fixed Ctrl-Z bug in ??.
+- Fixed Ctrl-Z/undo bug.
 - Fixed outdated configure script.
 - Fixed format specification bug in Bulgarian translation (Debian #308849).
 - Fixed translation bugs and typos in German translation (Debian #313674).
