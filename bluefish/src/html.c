@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.44.2.2 2005-07-01 13:30:39 dleidert Exp $
+ * $Id: html.c,v 1.44.2.3 2005-07-01 13:37:24 dleidert Exp $
  */
 /*#define DEBUG*/
 
@@ -325,8 +325,8 @@ static gchar *extract_time_string(char *original_string)
 
 /* time insert struct */
 typedef struct {
-	GtkWidget *check[8];
-	GtkWidget *label[8];
+	GtkWidget *check[6];
+	GtkWidget *label[6];
 	GtkWidget *dialog;
 	Tbfwin *bfwin;
 } TimeInsert;
@@ -347,7 +347,7 @@ static void insert_time_callback(GtkWidget * widget, TimeInsert * timeinsert)
 
 	insert_string = g_malloc0(32);
 	final_string = g_malloc0(255);
-	for (count = 1; count < 8; count++) {
+	for (count = 1; count < 6; count++) {
 		if (GTK_TOGGLE_BUTTON(timeinsert->check[count])->active) {
 			gtk_label_get(GTK_LABEL(timeinsert->label[count]), &temp_string);
 			insert_string = extract_time_string(temp_string);
@@ -378,16 +378,12 @@ static void insert_time_cancel(GtkWidget * widget, TimeInsert * data)
 void insert_time_dialog(Tbfwin *bfwin) {
 
 	gint month, year, count;
-	gchar isotime[60];
 	time_t time_var;
 	gchar *temp = NULL;
-	char *old_time_locale, *saved_time_locale;
 	struct tm *time_struct;
 	TimeInsert *timeinsert;
 	GtkWidget *ok_b, *cancel_b, *vbox, *hbox;
 
-	old_time_locale = setlocale(LC_TIME, NULL);
-	saved_time_locale = strdup(old_time_locale);
 	timeinsert = g_malloc(sizeof(TimeInsert));
 	timeinsert->bfwin = bfwin;
 	time_var = time(NULL);
@@ -398,7 +394,7 @@ void insert_time_dialog(Tbfwin *bfwin) {
 	vbox = gtk_vbox_new(FALSE, 1);
 	gtk_container_add(GTK_CONTAINER(timeinsert->dialog), vbox);
 
-	for (count = 1; count < 8; count++) {
+	for (count = 1; count < 6; count++) {
 		switch (count) {
 		case 1:
 			temp = g_strdup_printf(_("  _Time (%i:%i:%i)"), time_struct->tm_hour, time_struct->tm_min, time_struct->tm_sec);
@@ -445,20 +441,6 @@ void insert_time_dialog(Tbfwin *bfwin) {
 			/* Replace \n on ')' */
 			temp[strlen(temp) - 1] = ')';
 			break;
-		case 6:
-			strftime(isotime, 30, "%Y-%m-%dT%H:%M:%S%z", time_struct);
-			temp = g_strdup_printf(_("  _ISO-8601 Time (%s)"), isotime);
-			break;
-		case 7:
-			setlocale(LC_TIME, "C");
-			time_struct = gmtime(&time_var);
-			strftime(isotime, 40, "%a, %d %b %Y %H:%M:%S %Z", time_struct);
-			temp = g_strdup_printf(_("  _RFC 822 Time (%s)"), isotime);
-			if (saved_time_locale == NULL)
-				setlocale (LC_TIME, NULL);
-			else
-				setlocale (LC_TIME, saved_time_locale);
-			break;
 		default:
 			break;
 		}						/* end of switch count */
@@ -470,7 +452,6 @@ void insert_time_dialog(Tbfwin *bfwin) {
 		gtk_box_pack_start(GTK_BOX(vbox), GTK_WIDGET(timeinsert->check[count]), TRUE, TRUE, 0);
 	}							/* end of for loop */
 
-	free (saved_time_locale);
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), gtk_hseparator_new(), TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 10);
