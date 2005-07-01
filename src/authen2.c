@@ -198,21 +198,21 @@ static Tauthdialog *password_dialog(Tauthen *auth, gchar *location, gchar *defau
 	gtk_widget_show_all(ad->dialog);
 	return ad;
 }
-/*
+
 static void vfs_async_authentication_lcb(gconstpointer in, size_t in_size, 
 				   gpointer out, size_t out_size, 
 				   gpointer user_data,
 				   GnomeVFSModuleCallbackResponse response,
 				   gpointer response_data) {
-	DEBUG_MSG("vfs_async_authentication_lcb, called\n");
+	g_print("vfs_async_authentication_lcb is not implemented yet: please email the Bluefish maintainers and explain how you got this warning\n");
 	response(response_data);
 }
 static void vfs_authentication_lcb(gconstpointer in, size_t in_size, 
 			     gpointer out, size_t out_size, 
 			     gpointer user_data) {
-	DEBUG_MSG("vfs_authentication_lcb, called\n");
+	g_print("vfs_authentication_lcb is not implemented yet: please email the Bluefish maintainers and explain how you got this warning\n");
 }
-*/
+
 static void full_authentication_response_lcb(GtkDialog *dialog,gint response,gpointer data) {
 	Tauthdialog *ad = data;
 	GnomeVFSModuleCallbackFullAuthenticationOut *out_real = ad->out;
@@ -375,21 +375,21 @@ static void vfs_save_authentication_lcb(gconstpointer in, size_t in_size,
 	af->response_data = NULL;
 	save_authentication_idle_lcb(af);
 }
-/*
+
 static void vfs_async_question_lcb(gconstpointer in, size_t in_size, 
 			     gpointer out, size_t out_size, 
 			     gpointer user_data,
 			     GnomeVFSModuleCallbackResponse response,
 			     gpointer response_data) {
-	DEBUG_MSG("vfs_async_question_lcb, called\n");
+	g_print("vfs_async_question_lcb is not implemented yet: please email the Bluefish maintainers and explain how you got this warning\n");
 	response(response_data);
 }
 
 static void vfs_question_lcb(gconstpointer in, size_t in_size, 
 		       gpointer out, size_t out_size, 
 		       gpointer user_data) {
-	DEBUG_MSG("vfs_question_lcb, called\n");
-} */
+	g_print("vfs_question_lcb is not implemented yet: please email the Bluefish maintainers and explain how you got this warning\n");
+}
 
 void authen_init(void) {
 	Tauthen * auth;
@@ -398,12 +398,12 @@ void authen_init(void) {
 	auth->hash = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, (GDestroyNotify) authen_value_free);
 	DEBUG_MSG("authen_init, auth=%p, hash=%p\n",auth,auth->hash);
 
-/*	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_AUTHENTICATION,
+	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_AUTHENTICATION,
 				vfs_async_authentication_lcb, 
 				auth,NULL);
 	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_HTTP_PROXY_AUTHENTICATION, 
 				vfs_async_authentication_lcb, 
-				auth,NULL);*/
+				auth,NULL);
 	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_FILL_AUTHENTICATION,
 				vfs_async_fill_authentication_lcb, 
 				auth,NULL);
@@ -413,7 +413,7 @@ void authen_init(void) {
 	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_SAVE_AUTHENTICATION,
 				vfs_async_save_authentication_lcb, 
 				auth,NULL);
-/*	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_QUESTION,
+	gnome_vfs_async_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_QUESTION,
 				vfs_async_question_lcb, 
 				auth,NULL);
 	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_AUTHENTICATION,
@@ -421,7 +421,7 @@ void authen_init(void) {
 				auth,NULL);
 	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_HTTP_PROXY_AUTHENTICATION, 
 				vfs_authentication_lcb, 
-				auth,NULL);*/
+				auth,NULL);
 	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_FILL_AUTHENTICATION,
 				vfs_fill_authentication_lcb, 
 				auth,NULL);
