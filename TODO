@@ -1,2 +1,20 @@
+TODOs:
+
+- Cancelling the Open Advanced dialog leads to "No matching files found.",
+  which is unexpected, because the dialog was cancelled.
+
+- "/File/tearoff1", "/File/sep1" should not be translatable
+
+- src/quickstart.c: "Href" (and similar) should be "href" ((X)HTML syntax)
+  in dialogs, if they mean attributes
+
+- ./src/gtk_easy.c:1264 is "Select File" and ../src/gtk_easy.c:1594 is
+  "Select file" -> such strings should be the same (similar for "Email" and
+  "E-Mail")
+
+- ../src/menu.c:424 "/Tags/Special/Accent/Uppercase/J-Z/OE ligature" misses
+  the UTF-8 encoded sign
+
 See the Bluefish wiki for todo information:
   http://bfwiki.tellefsen.net/index.php?pagename=ToDoList
+
