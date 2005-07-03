@@ -67,6 +67,7 @@ static TBluefishPlugin *load_plugin(const gchar *filename) {
 static const gchar *plugin_from_filename(const gchar *path) {
 	TBluefishPlugin *bfplugin;
 	bfplugin = load_plugin(path);
+	DEBUG_MSG("plugin_from_filename, bfplugin=%p\n",bfplugin);
 	if (bfplugin) {
 		if (bfplugin->bfplugin_version == BFPLUGIN_VERSION
 					&& bfplugin->document_size == sizeof(Tdocument)
@@ -80,6 +81,7 @@ static const gchar *plugin_from_filename(const gchar *path) {
 			main_v->plugins = g_slist_prepend(main_v->plugins,bfplugin);
 			return bfplugin->name;
 		} else {
+			DEBUG_MSG("plugin_from_filename, binary compatibility mismatch\n");
 			g_module_close(PRIVATE(bfplugin)->module);
 		}
 	}
@@ -130,7 +132,7 @@ static void bluefish_scan_dir_load_plugins(const gchar *indirname) {
 						main_v->props.plugin_config = g_list_append(main_v->props.plugin_config, arr);
 					}
 				} else { /* no plugname ==> failed to load */
-					DEBUG_MSG("bluefish_scan_dir_load_plugins, load failed\n");
+					DEBUG_MSG("bluefish_scan_dir_load_plugins, returned NULL -> load failed\n");
 					if (arr && count_array(arr)>=2) {
 						g_free(arr[1]);
 						arr[1] = g_strdup("0");
