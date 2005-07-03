@@ -1,147 +1,149 @@
-2005-07-02 13:46  dleidert
+2005-07-03  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/document.c: Remove the message dialog improperly displayed
+	  when pressing the cancel button in the Open Advanced dialog
+
+2005-07-03  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* README: Add http://bugzilla.gnome.org as a place to file bug
+	  reports Add some information about the Bluefish manual Add some
+	  information on translations Add some information about the
+	  bluefish-users mailing list
+
+2005-07-02  Daniel Leidert <daniel.leidert@wgdd.de>
+
+	* ChangeLog, NEWS: Update file and release changelog.
+
+2005-07-02  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* debian/changelog: Fix "badly formatted trailer line, at changelog
 	  line 6".
 
-2005-07-01 13:56  dleidert
+2005-07-01  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* ChangeLog, NEWS: Update file and release changelog.
 
-2005-07-01 13:48  dleidert
+2005-07-01  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* configure.ac: Include fix for aspell check.
 
-2005-07-01 13:39  dleidert
+2005-07-01  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* ChangeLog: Update ChangeLog (using: cvs2cl -l -d'>2005-05-29'
 	  --gmt --follow-only bluefish_1_0 --no-hide-branch-additions).
 
-2005-07-01 13:37  dleidert
+2005-07-01  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* TODO, src/html.c: Restore accidently updated files.
 
-2005-07-01 13:30  dleidert
+2005-07-01  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* ChangeLog, TODO, src/html.c: ChangeLog
 
-2005-06-30 15:27  dleidert
+2005-06-30  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* NEWS: Final release history for 1.0.2 release.
 
-2005-06-30 15:19  dleidert
+2005-06-30  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* debian/rules: Add upstream chngelog to debian package.
 
-2005-06-30 13:35  dleidert
+2005-06-30  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* po/de.po: Update and typo-fixes for German translation.
 
-2005-06-29 14:14  dleidert
+2005-06-29  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* NEWS: file NEWS was initially added on branch bluefish_1_0.
 
-2005-06-29 14:14  dleidert
+2005-06-29  Daniel Leidert <daniel.leidert@wgdd.de>
 
-	* ChangeLog, NEWS: 2005-06-29  Daniel Leidert
-	  <daniel.leidert.spam@gmx.net>
+	* NEWS: added initial history.
 
-		  * NEWS: added initial history.
+2005-06-28  Daniel Leidert <daniel.leidert@wgdd.de>
 
-2005-06-28 02:56  dleidert
+	* po/bg.po: fix bug #308849 (Debian BTS).
 
-	* ChangeLog, po/bg.po: 2005-06-28  Daniel Leidert
-	  <daniel.leidert.spam@gmx.net>
+2005-06-27  Daniel Leidert <daniel.leidert@wgdd.de>
 
-		  * po/bg.po: fix bug #308849 (Debian BTS).
+	* debian/control: update to standards version 3.6.2.1 and
+	  fixed typo in long description.
 
-2005-06-27 11:17  dleidert
+	* debian/changelog: synchronize with Debian package changelog.
 
-	* ChangeLog, debian/changelog: 2005-06-27  Daniel Leidert
-	  <daniel.leidert.spam@gmx.net>
-
-		  * debian/control: update to standards version 3.6.2.1 and
-	  fixed typo
-		  in long description.
-
-		  * debian/changelog: synchronize with Debian package
-	  changelog.
-
-2005-06-26 23:02  dleidert
+2005-06-26  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* debian/control: Update to latest standards version.
 
-2005-06-26 17:22  jimh6583
+2005-06-26  Jim Hayward <jimhayward@linuxexperience.net>
 
 	* src/quickstart.c: Add the ability to remove multiple meta tags at
 	  the same time.
 
-2005-06-26 17:11  jimh6583
+2005-06-26  Jim Hayward <jimhayward@linuxexperience.net>
 
 	* images/bluefish_splash.png: Update the splash screen to 1.0.2
 
-2005-06-22 03:30  dleidert
+2005-06-22  Daniel Leidert <daniel.leidert@wgdd.de>
 
-	* ChangeLog, configure.ac, debian/control: 2005-06-21  Daniel
-	  Leidert  <daniel.leidert.spam@gmx.net>
+	* configure.ac, debian/control:
 
 		  * configure.ac: changed version to 1.0.2
 
 		  * debian/control: fix dependencies (libtool is useless)
 
-2005-06-19 22:21  dleidert
+2005-06-19  Daniel Leidert <daniel.leidert@wgdd.de>
 
-	* AUTHORS, ChangeLog, src/about.c: 2005-06-20  Daniel Leidert
-	  <daniel.leidert@wgdd.de>  * src/about.c: fixed my e-mail address
-	  * AUTHORS: ditto	  * ChangeLog: remove leading blank lines
-	  (too wasteful)
+	* AUTHORS, src/about.c: fixed my e-mail address
+	* ChangeLog: remove leading blank lines (too wasteful)
 
-2005-06-19 17:54  jimh6583
+2005-06-19  Jim Hayward <jimhayward@linuxexperience.net>
 
 	* AUTHORS, src/about.c: Add Daniel Leidert
 	  <daniel.leidert.spam@gmx.net> to the list of developers.
 
-2005-06-19 16:49  jimh6583
+2005-06-19  Jim Hayward <jimhayward@linuxexperience.net>
 
 	* ChangeLog: Initial ChangeLog Entries Starting after the 1.0.1
 	  release
 
-2005-06-19 16:40  jimh6583
+2005-06-19  Jim Hayward <jimhayward@linuxexperience.net>
 
 	* ChangeLog: Add a blank ChangeLog file
 
-2005-06-19 16:40  jimh6583
+2005-06-19  Jim Hayward <jimhayward@linuxexperience.net>
 
 	* ChangeLog: file ChangeLog was initially added on branch
 	  bluefish_1_0.
 
-2005-06-17 14:21  dleidert
+2005-06-17  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* config.guess, config.sub: Also update GNU config helpers for 1.0
 	  branch.
 
-2005-06-17 04:43  jimh6583
+2005-06-17  Jim Hayward <jimhayward@linuxexperience.net>
 
 	* src/document.c: add Olivier's fix for the Ctrl-Z bug reported by
 	  Michele
 
-2005-06-15 11:29  dleidert
+2005-06-15  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* po/Makefile.in: Cosmetic fix.
 
-2005-05-30 21:03  dleidert
+2005-05-30  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* configure: Ok. configure should not be part of CVS.
 
-2005-05-30 21:01  dleidert
+2005-05-30  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* configure: Add missing file from latest 1.0.1 source.
 
-2005-05-30 21:01  dleidert
+2005-05-30  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* configure: file configure was initially added on branch
 	  bluefish_1_0.
 
-2005-05-30 20:47  dleidert
+2005-05-30  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* INSTALL, INSTALL.Debian, configure.ac, data/Makefile.in,
 	  data/bluefish-project.desktop.in, data/bluefish.desktop.in,
@@ -166,7 +168,7 @@
 	  src/menu.c, src/preferences.c, src/project.c, src/quickstart.c,
 	  src/quickstart.h, src/rcfile.c: Update to current 1.0.1 source.
 
-2005-05-30 20:24  dleidert
+2005-05-30  Daniel Leidert <daniel.leidert@wgdd.de>
 
 	* AUTHORS: Update to current 1.0.1 source.
 
