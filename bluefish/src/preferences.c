@@ -161,25 +161,21 @@ typedef struct {
 	const gchar *selected_filetype;
 } Thighlightpatterndialog;
 
-#ifdef USE_SCANNER
 enum {
 	NAMECOL,
 	WIDGETCOL
 };
-#endif
 
 typedef struct {
 	GtkWidget *prefs[property_num_max];
 	GList *lists[lists_num_max];
 	GtkWidget *win;
 	GtkWidget *noteb;
-#ifdef USE_SCANNER
 	GtkTreeStore *nstore;
 	GtkWidget *fixed;
 	GtkWidget *hl_notebook;
 	GtkWidget *hl_tag_page;
 	GtkListStore *hl_dg_store,*hl_db_store,*hl_dt_store;
-#endif	
 	Tlistpref ftd;
 	Tlistpref ffd;
 	Thighlightpatterndialog hpd;
@@ -195,7 +191,6 @@ typedef enum {
 	string_color
 } Tprefstringtype;
 
-#ifdef USE_SCANNER
 void pref_click_column  (GtkTreeViewColumn *treeviewcolumn, gpointer user_data) {
 	GtkToggleButton *but = GTK_TOGGLE_BUTTON(user_data);
 	GList *lst = gtk_tree_view_column_get_cell_renderers(treeviewcolumn);
@@ -221,16 +216,13 @@ void pref_click_column  (GtkTreeViewColumn *treeviewcolumn, gpointer user_data) 
 		}			
 	}
 }
-#endif
-
 
 /* type 0/1=text, 2=toggle */
 static void pref_create_column(GtkTreeView *treeview, gint type, GCallback func, gpointer data, const gchar *title, gint num) {
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
-#ifdef USE_SCANNER
 	GtkWidget *but;
-#endif		
+	
 	if (type == 1 || type == 0) {
 		renderer = gtk_cell_renderer_text_new();
 		g_object_set(G_OBJECT(renderer), "editable", TRUE, NULL);
@@ -241,7 +233,7 @@ static void pref_create_column(GtkTreeView *treeview, gint type, GCallback func,
 		g_signal_connect(G_OBJECT(renderer), "toggled", func, data);
 	}
 	column = gtk_tree_view_column_new_with_attributes(title, renderer,(type ==1) ? "text" : "active" ,num,NULL);
-#ifdef USE_SCANNER
+
 	gtk_tree_view_column_set_clickable(GTK_TREE_VIEW_COLUMN(column),TRUE);
 	but = gtk_check_button_new_with_label(title);
 	g_object_set_data(G_OBJECT(but),"_title_",g_strdup(title));
@@ -249,7 +241,7 @@ static void pref_create_column(GtkTreeView *treeview, gint type, GCallback func,
 	gtk_tree_view_column_set_widget(GTK_TREE_VIEW_COLUMN(column),but);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(but),TRUE);
 	g_signal_connect(G_OBJECT(column), "clicked", G_CALLBACK(pref_click_column), but);
-#endif	
+
 	gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
 }
 /* 3 entries must have len 3, but in reality it will be 4, because there is a NULL pointer appended */
@@ -2468,8 +2460,6 @@ static void create_backup_toggled_lcb(GtkToggleButton *togglebutton,Tprefdialog 
 	gtk_widget_set_sensitive(pd->prefs[backup_abort_action], togglebutton->active);
 }
 
-#ifdef USE_SCANNER
-
 void preftree_cursor_changed_cb (GtkTreeView *treeview, gpointer user_data) {
 	Tprefdialog *pd = (Tprefdialog*)user_data;
 	GtkTreePath *path;
@@ -2497,7 +2487,6 @@ void preftree_cursor_changed_cb (GtkTreeView *treeview, gpointer user_data) {
 		gtk_tree_path_free(path);
 	}
 }
-#endif
 
 static void preferences_dialog() {
 	Tprefdialog *pd;
@@ -2505,19 +2494,17 @@ static void preferences_dialog() {
 	gchar *notebooktabpositions[] = {N_("left"), N_("right"), N_("top"), N_("bottom"), NULL};
 	gchar *panellocations[] = {N_("right"), N_("left"), NULL};
 	gchar *modified_check_types[] = {N_("no check"), N_("check mtime and size"), N_("check mtime"), N_("check size"), NULL};
-#ifdef USE_SCANNER
 	GtkWidget *dhbox;	
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;	
 	GtkTreeIter auxit,iter;
 	GtkTreePath *path;
-#endif
 
 	pd = g_new0(Tprefdialog,1);
 	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_NONE, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
 	
 	dvbox = gtk_vbox_new(FALSE, 5);
-#ifdef USE_SCANNER
+
 	dhbox = gtk_hbox_new(FALSE, 5);
 	pd->fixed = gtk_hbox_new(FALSE,5);
 	pd->nstore = gtk_tree_store_new(2,G_TYPE_STRING,G_TYPE_POINTER);
@@ -2530,21 +2517,20 @@ static void preferences_dialog() {
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(pd->noteb), FALSE);	
 	gtk_box_pack_start(GTK_BOX(dvbox), dhbox, TRUE, TRUE, 5);
 	gtk_container_add(GTK_CONTAINER(pd->win), dvbox);
-#else	
+/*
 	gtk_container_add(GTK_CONTAINER(pd->win), dvbox);
 	pd->noteb = gtk_notebook_new();
 	gtk_notebook_set_homogeneous_tabs(GTK_NOTEBOOK(pd->noteb), TRUE);
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(pd->noteb), GTK_POS_LEFT);	
 	gtk_box_pack_start(GTK_BOX(dvbox), pd->noteb, FALSE, FALSE, 0);
-#endif
+*/
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-#ifdef USE_SCANNER
-		gtk_tree_store_append(pd->nstore, &auxit, NULL);
-		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Editor"), WIDGETCOL,vbox1,-1);
-#else	
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Editor"), WIDGETCOL,vbox1,-1);
+/*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Editor"),150,TRUE));
-#endif
+*/
 	frame = gtk_frame_new(_("Editor options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
@@ -2586,12 +2572,12 @@ static void preferences_dialog() {
 	}*/
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-#ifdef USE_SCANNER
-		gtk_tree_store_append(pd->nstore, &auxit, NULL);
-		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("HTML"), WIDGETCOL,vbox1,-1);	
-#else	
+
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("HTML"), WIDGETCOL,vbox1,-1);	
+/*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("HTML"),154,TRUE));
-#endif	
+*/
 
 	frame = gtk_frame_new(_("HTML options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2604,12 +2590,11 @@ static void preferences_dialog() {
 	pd->prefs[auto_update_meta] = boxed_checkbut_with_value(_("Automatic update author meta"), main_v->props.auto_update_meta, vbox2);
 	
 	vbox1 = gtk_vbox_new(FALSE, 5);
-#ifdef USE_SCANNER
-		gtk_tree_store_append(pd->nstore, &auxit, NULL);
-		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Files"), WIDGETCOL,vbox1,-1);	
-#else	
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Files"), WIDGETCOL,vbox1,-1);	
+/*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Files"),152,TRUE));
-#endif	
+*/
 
 	frame = gtk_frame_new(_("Encoding"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2664,9 +2649,9 @@ static void preferences_dialog() {
 	pd->prefs[filebrowser_dir_icon] = prefs_string(_("Directory icon"), main_v->props.filebrowser_dir_icon, vbox2, pd, string_file);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-#ifdef USE_SCANNER
-		gtk_tree_store_append(pd->nstore, &iter, NULL);
-		gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("User interface"), WIDGETCOL,vbox1,-1);	
+
+	gtk_tree_store_append(pd->nstore, &iter, NULL);
+	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("User interface"), WIDGETCOL,vbox1,-1);	
 
    frame = gtk_frame_new(_("General"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2708,7 +2693,7 @@ static void preferences_dialog() {
 	pd->prefs[bflib_info_fg] = prefs_string(_("Info foreground color"), main_v->props.bflib_info_fg, vbox2, pd, string_color);
 
 		
-#else		
+/*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("User interface"), 156,TRUE));
 
 
@@ -2729,10 +2714,10 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	
 
-/*	pd->prefs[view_main_toolbar] = boxed_checkbut_with_value(_("Show main toolbar by default"), main_v->props.view_main_toolbar, vbox2);
+/ *	pd->prefs[view_main_toolbar] = boxed_checkbut_with_value(_("Show main toolbar by default"), main_v->props.view_main_toolbar, vbox2);
 	pd->prefs[view_left_panel] = boxed_checkbut_with_value(_("Show sidebar by default"), main_v->props.view_left_panel, vbox2);
 	pd->prefs[view_custom_menu] = boxed_checkbut_with_value(_("Show custom menu by default"), main_v->props.view_custom_menu, vbox2);
-	pd->prefs[view_html_toolbar] = boxed_checkbut_with_value(_("Show HTML toolbar by default"), main_v->props.view_html_toolbar, vbox2);*/
+	pd->prefs[view_html_toolbar] = boxed_checkbut_with_value(_("Show HTML toolbar by default"), main_v->props.view_html_toolbar, vbox2);* /
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
 
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font (leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
@@ -2750,15 +2735,14 @@ static void preferences_dialog() {
 	pd->prefs[bflib_info_bkg] = prefs_string(_("Info background color"), main_v->props.bflib_info_bkg, vbox2, pd, string_color);
 	pd->prefs[bflib_info_fg] = prefs_string(_("Info foreground color"), main_v->props.bflib_info_fg, vbox2, pd, string_color);
 	
-#endif
+*/
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-#ifdef USE_SCANNER
-		gtk_tree_store_append(pd->nstore, &auxit, NULL);
-		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Images"), WIDGETCOL,vbox1,-1);	
-#else		
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Images"), WIDGETCOL,vbox1,-1);	
+/*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Images"), 155,TRUE));
-#endif
+*/
 
 	frame = gtk_frame_new(_("Thumbnails"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2773,12 +2757,11 @@ static void preferences_dialog() {
 	}
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-#ifdef USE_SCANNER
-		gtk_tree_store_append(pd->nstore, &auxit, NULL);
-		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("File types"), WIDGETCOL,vbox1,-1);	
-#else		
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("File types"), WIDGETCOL,vbox1,-1);	
+/*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("File types"), 153,TRUE));
-#endif	
+*/
 	frame = gtk_frame_new(_("File types"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
@@ -2786,12 +2769,11 @@ static void preferences_dialog() {
 	create_filetype_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-#ifdef USE_SCANNER
-		gtk_tree_store_append(pd->nstore, &auxit, NULL);
-		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("File filters"), WIDGETCOL,vbox1,-1);	
-#else		
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("File filters"), WIDGETCOL,vbox1,-1);	
+/*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("File filters"), 153,TRUE));
-#endif
+*/
 	
 	frame = gtk_frame_new(_("File filters"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2800,12 +2782,11 @@ static void preferences_dialog() {
 	create_filefilter_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-#ifdef USE_SCANNER
-		gtk_tree_store_append(pd->nstore, &auxit, NULL);
-		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);	
-#else		
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);	
+/*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Syntax highlighting"), 158,TRUE));
-#endif
+*/
 
 	frame = gtk_frame_new(_("Patterns"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2815,12 +2796,11 @@ static void preferences_dialog() {
 	create_highlightpattern_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-#ifdef USE_SCANNER
-		gtk_tree_store_append(pd->nstore, &auxit, NULL);
-		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("External commands"), WIDGETCOL,vbox1,-1);	
-#else			
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("External commands"), WIDGETCOL,vbox1,-1);	
+/*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External commands"), 151,TRUE));
-#endif
+*/
 	
 	frame = gtk_frame_new(_("Commands"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2829,12 +2809,11 @@ static void preferences_dialog() {
 	create_extcommands_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-#ifdef USE_SCANNER
-		gtk_tree_store_append(pd->nstore, &auxit, NULL);
-		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("External filters"), WIDGETCOL,vbox1,-1);	
-#else			
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("External filters"), WIDGETCOL,vbox1,-1);	
+/*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External filters"), 151,TRUE));
-#endif
+*/
 	
 	frame = gtk_frame_new(_("Filters"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2843,12 +2822,11 @@ static void preferences_dialog() {
 	create_filters_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-#ifdef USE_SCANNER
-		gtk_tree_store_append(pd->nstore, &auxit, NULL);
-		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Output parsers"), WIDGETCOL,vbox1,-1);	
-#else			
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Output parsers"), WIDGETCOL,vbox1,-1);	
+/*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Output parsers"), 157,TRUE));
-#endif
+*/
 	
 	frame = gtk_frame_new(_("Output parsers"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2857,13 +2835,11 @@ static void preferences_dialog() {
 	create_outputbox_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-#ifdef USE_SCANNER
-		gtk_tree_store_append(pd->nstore, &auxit, NULL);
-		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Servers"), WIDGETCOL,vbox1,-1);	
-
-#else			
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Servers"), WIDGETCOL,vbox1,-1);	
+/*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Servers"), 0,TRUE));
-#endif	
+*/
 	
 	frame = gtk_frame_new(_("Remote servers"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2925,13 +2901,11 @@ static void preferences_dialog() {
 	
 	gtk_widget_show_all(pd->win);
 	
-#ifdef USE_SCANNER	
 	g_signal_connect(G_OBJECT(pd->noteb),"cursor-changed",G_CALLBACK(preftree_cursor_changed_cb),pd);
 	path = gtk_tree_path_new_first();
 	gtk_tree_view_set_cursor(GTK_TREE_VIEW(pd->noteb),path,NULL,FALSE);
 	gtk_tree_path_free(path);
-#endif	
-	
+
 }
 
 void open_preferences_cb(GtkWidget *wid, gpointer data) {
