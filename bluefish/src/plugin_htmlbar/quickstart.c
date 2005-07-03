@@ -39,6 +39,7 @@
 
 #include "htmlbar.h"
 #include "cap.h"
+#include "../config.h"
 #include "../dialog_utils.h"
 #include "../document.h"
 #include "../gtk_easy.h"
