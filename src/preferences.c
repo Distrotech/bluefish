@@ -140,6 +140,7 @@ enum {
 	filetypes,
 	filefilters,
 	highlight_patterns,
+	pluginconfig,
 	lists_num_max
 };
 
@@ -167,6 +168,11 @@ enum {
 };
 
 typedef struct {
+	GtkListStore *lstore;
+	GtkWidget *lview;
+} Tplugindialog;
+
+typedef struct {
 	GtkWidget *prefs[property_num_max];
 	GList *lists[lists_num_max];
 	GtkWidget *win;
@@ -182,6 +188,7 @@ typedef struct {
 	Tlistpref bd;
 	Tlistpref ed;
 	Tlistpref od;
+	Tplugindialog pd;
 } Tprefdialog;
 
 typedef enum {
@@ -222,15 +229,18 @@ static void pref_create_column(GtkTreeView *treeview, gint type, GCallback func,
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 	GtkWidget *but;
-	
 	if (type == 1 || type == 0) {
 		renderer = gtk_cell_renderer_text_new();
-		g_object_set(G_OBJECT(renderer), "editable", TRUE, NULL);
-		g_signal_connect(G_OBJECT(renderer), "edited", func, data);
+		if (func) {
+			g_object_set(G_OBJECT(renderer), "editable", TRUE, NULL);
+			g_signal_connect(G_OBJECT(renderer), "edited", func, data);
+		}
 	} else {
 		renderer = gtk_cell_renderer_toggle_new();
-		g_object_set(G_OBJECT(renderer), "activatable", TRUE, NULL);
-		g_signal_connect(G_OBJECT(renderer), "toggled", func, data);
+		if (func) {
+			g_object_set(G_OBJECT(renderer), "activatable", TRUE, NULL);
+			g_signal_connect(G_OBJECT(renderer), "toggled", func, data);
+		}
 	}
 	column = gtk_tree_view_column_new_with_attributes(title, renderer,(type ==1) ? "text" : "active" ,num,NULL);
 
@@ -645,6 +655,63 @@ static void filetype_selection_changed_cb(GtkTreeSelection *selection, Tprefdial
 	}
 }
 */
+
+static void set_plugin_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
+	gint arrcount;
+	arrcount = count_array(strarr);
+	if (arrcount==3) {
+		g_print("set_plugin_strarr_in_list, arrcount=%d, file=%s\n",arrcount,strarr[0]);
+		gtk_list_store_set(GTK_LIST_STORE(pd->pd.lstore), iter
+				,0,strarr[2]
+				,1,(strarr[1][0] == '1')
+				,2,strarr[0]
+				,3,strarr,-1);
+	}
+}
+static void plugin_1_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
+	gchar *val = g_strdup(cellrenderertoggle->active ? "0" : "1");
+	pref_apply_change(pd->pd.lstore,3,2,path,val,1);
+	g_free(val);
+}
+static void create_plugin_gui(Tprefdialog *pd, GtkWidget *vbox1) {
+	GtkWidget *hbox, *but, *scrolwin;
+	pd->lists[pluginconfig] = duplicate_arraylist(main_v->props.plugin_config);
+	pd->pd.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_STRING,G_TYPE_POINTER);
+	pd->pd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->pd.lstore));
+	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 1, NULL, pd, _("Message"), 0);
+	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 2, G_CALLBACK(plugin_1_toggled_lcb), pd, _("Enabled"), 1);
+	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 1, NULL, pd, _("File"), 2);
+	scrolwin = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+	gtk_container_add(GTK_CONTAINER(scrolwin), pd->pd.lview);
+	gtk_widget_set_size_request(scrolwin, 200, 350);
+	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
+	
+	{
+		GList *tmplist = g_list_first(pd->lists[pluginconfig]);
+		while (tmplist) {
+			gint arrcount;
+			gchar **strarr = (gchar **)tmplist->data;
+			arrcount = count_array(strarr);
+			if (arrcount==3) {
+				GtkTreeIter iter;
+				gtk_list_store_append(GTK_LIST_STORE(pd->pd.lstore), &iter);
+				set_plugin_strarr_in_list(&iter, strarr,pd);
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
+/*	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_filetype_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
+	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_filetype_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);*/
+}
+
+
+
+
 static void set_filetype_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
 	arrcount = count_array(strarr);
@@ -2394,6 +2461,10 @@ static void preferences_apply(Tprefdialog *pd) {
 	/*externals_apply_changes(pd);*/
 	/*outputbox_apply_changes(pd);*/
 
+	free_arraylist(main_v->props.plugin_config);
+	main_v->props.plugin_config = duplicate_arraylist(pd->lists[pluginconfig]);
+
+
 	free_arraylist(main_v->props.filetypes);
 	main_v->props.filetypes = duplicate_arraylist(pd->lists[filetypes]);
 
@@ -2834,12 +2905,21 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_outputbox_gui(pd, vbox2);
 
-	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Servers"), WIDGETCOL,vbox1,-1);	
 /*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Servers"), 0,TRUE));
 */
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Plugins"), WIDGETCOL,vbox1,-1);
+	frame = gtk_frame_new(_("Plugins"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 5);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	create_plugin_gui(pd, vbox2);
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Servers"), WIDGETCOL,vbox1,-1);	
 	
 	frame = gtk_frame_new(_("Remote servers"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2847,6 +2927,7 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	
 	pd->prefs[server_zope_compat] = boxed_checkbut_with_value(_("Zope compatibility mode"), main_v->props.server_zope_compat, vbox2);
+
 
 #ifdef USE_SCANNER
 	vbox1 = gtk_vbox_new(FALSE, 5);

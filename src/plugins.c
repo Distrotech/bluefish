@@ -88,11 +88,10 @@ static const gchar *plugin_from_filename(const gchar *path) {
 	return NULL;
 }
 
-static void bluefish_scan_dir_load_plugins(const gchar *indirname) {
+static void bluefish_scan_dir_load_plugins(GList **oldlist,const gchar *indirname) {
 	GError *error = NULL;
 	GPatternSpec* patspec;
 	GDir* gdir;
-	GList *oldlist;
 	const gchar *tmp;
 	gchar *dirname = ending_slash(indirname);
 
@@ -104,20 +103,19 @@ static void bluefish_scan_dir_load_plugins(const gchar *indirname) {
 		return;
 	}
 	patspec = g_pattern_spec_new("*.so");
-	oldlist = main_v->props.plugin_config;
-	main_v->props.plugin_config = NULL;
+
 	tmp = g_dir_read_name(gdir);
 	while (tmp) {
 		if (g_pattern_match(patspec, strlen(tmp), tmp, NULL)) {
 			gchar *path = g_strconcat(dirname, tmp, NULL);
 			gchar *compare[] = {path, NULL}, **arr;
 
-			arr = arraylist_value_exists(oldlist, compare, 1, FALSE);
+			arr = arraylist_value_exists(*oldlist, compare, 1, FALSE);
 			if (arr) {
 				GList *link;
-				DEBUG_MSG("bluefish_scan_dir_load_plugins, found %s in configfile (len(oldlist)=%d, len(plugin_config=%d)\n",arr[0],g_list_length(oldlist),g_list_length(main_v->props.plugin_config));
-				link = g_list_find(oldlist,arr);
-				oldlist = g_list_remove_link(oldlist, link);
+				DEBUG_MSG("bluefish_scan_dir_load_plugins, found %s in configfile (len(oldlist)=%d, len(plugin_config=%d)\n",arr[0],g_list_length(*oldlist),g_list_length(main_v->props.plugin_config));
+				link = g_list_find(*oldlist,arr);
+				*oldlist = g_list_remove_link(*oldlist, link);
 				main_v->props.plugin_config = g_list_concat(main_v->props.plugin_config, link);
 			}
 			if (arr && arr[1][0] == '0') {
@@ -148,19 +146,24 @@ static void bluefish_scan_dir_load_plugins(const gchar *indirname) {
 	}
 	g_dir_close(gdir);
 	g_pattern_spec_free(patspec);
-	free_arraylist(oldlist);
 	g_free(dirname);
 }
 
 void bluefish_load_plugins(void) {
-	bluefish_scan_dir_load_plugins(PKGLIBDIR);
+	GList *oldlist;	
+	oldlist = main_v->props.plugin_config;
+	DEBUG_MSG("bluefish_load_plugins, oldlist %p len=%d\n",oldlist,g_list_length(oldlist));
+	main_v->props.plugin_config = NULL;
+
+	bluefish_scan_dir_load_plugins(&oldlist,PKGLIBDIR);
 #ifdef DEVELOPMENT
 	{
 		gchar*dir = user_bfdir(NULL);
-		bluefish_scan_dir_load_plugins(dir);
+		bluefish_scan_dir_load_plugins(&oldlist,dir);
 		g_free(dir);
 	}
 #endif /* DEVELOPMENT */
+	free_arraylist(oldlist);
 }
 
 void bluefish_cleanup_plugins(void) {

@@ -1104,10 +1104,12 @@ gchar **arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel, 
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
 		if (array_n_strings_identical(value, tmparr, case_sensitive, testlevel)==0) {
+/*			g_print("arraylist_value_exists,found it!\n");*/
 			return tmparr;
 		}
 		tmplist = g_list_next(tmplist);
 	}
+/*	g_print("arraylist_value_exists,found nothing, listlen=%d\n",g_list_length(arraylist));*/
 	return NULL;
 }
 /**
