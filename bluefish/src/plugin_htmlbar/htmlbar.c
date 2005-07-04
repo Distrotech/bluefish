@@ -132,7 +132,6 @@ static TBluefishPlugin bfplugin = {
 	NULL,
 	NULL
 };
-
-TBluefishPlugin *getplugin(void) {
+G_MODULE_EXPORT TBluefishPlugin *getplugin(void) {
 	return &bfplugin;
 }
