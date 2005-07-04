@@ -54,6 +54,10 @@ dnl ************************
 
 AC_ARG_PROGRAM
 AC_PROG_CC
+
+AC_LIBTOOL_DLOPEN
+AC_PROG_LIBTOOL
+
 AC_ISC_POSIX
 AC_C_INLINE
 AC_PROG_INSTALL
@@ -62,11 +66,11 @@ if test "$CC" = "gcc" ; then
 	CFLAGS="$CFLAGS -Wall -pipe"
 fi
 
-AC_CANONICAL_HOST
-    case $host_os in
-      *cygwin* ) CYGWIN=yes;;
-             * ) CYGWIN=no;;
-esac
+#AC_CANONICAL_HOST
+#    case $host_os in
+#      *cygwin* ) CYGWIN=yes;;
+#             * ) CYGWIN=no;;
+#esac
  
 if test "x$CYGWIN" = "xyes"; then
 	AC_DEFINE(WIN32)
