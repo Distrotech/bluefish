@@ -102,7 +102,7 @@ static void bluefish_scan_dir_load_plugins(GList **oldlist,const gchar *indirnam
 		g_free(dirname);
 		return;
 	}
-	patspec = g_pattern_spec_new("*.so");
+	patspec = g_pattern_spec_new("*."G_MODULE_SUFFIX);
 
 	tmp = g_dir_read_name(gdir);
 	while (tmp) {
