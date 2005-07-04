@@ -32,6 +32,7 @@ gnulocaledir = $(prefix)/share/locale
 aliaspath = $(localedir):.
 
 CC = @CC@
+LIBTOOL = @LIBTOOL@
 CFLAGS = @CFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
@@ -58,6 +59,8 @@ OBJECTS= cap.o \
 	rpopup.o \
 	wizards.o
 
+LOBJECTS = $(OBJECTS:.o=.lo)
+
 all : $(PLUGIN)
 
 install : $(PLUGIN)
@@ -65,14 +68,14 @@ install : $(PLUGIN)
 	$(INSTALL_PLUGIN) $(PLUGIN) $(DESTDIR)$(PLUGINDIR)
 
 $(PLUGIN) : $(OBJECTS)
-	$(CC) $(LIBS) -shared $^ -o $@
+	$(LIBTOOL) --mode=link $(CC) -module $(LIBS) -shared -o $@ $(LOBJECTS)
 
 .c.o: $(SRCS)
-	$(CC) $(DEFS) $(CFLAGS) -c $^ -o $@
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(CFLAGS) -c $^ -o $@
 
 clean :
 	@cd po/ && make clean
-	rm -f $(PLUGIN) *.o
+	rm -f $(PLUGIN) *.o *.lo
 
 patchclean:
 	rm -f *.orig *.rej

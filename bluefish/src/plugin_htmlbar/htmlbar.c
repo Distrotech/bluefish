@@ -109,7 +109,6 @@ static GList *htmlbar_register_session_config(GList *configlist, Tsessionvars *s
 	return configlist;
 }
 
-
 static TBluefishPlugin bfplugin = {
 	"htmlbar",
 	BFPLUGIN_VERSION,
@@ -132,6 +131,7 @@ static TBluefishPlugin bfplugin = {
 	NULL,
 	NULL
 };
-G_MODULE_EXPORT TBluefishPlugin *getplugin(void) {
+/* causes compile error? G_MODULE_EXPORT */
+TBluefishPlugin *getplugin(void) {
 	return &bfplugin;
 }
