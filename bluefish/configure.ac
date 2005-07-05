@@ -56,6 +56,7 @@ AC_ARG_PROGRAM
 AC_PROG_CC
 
 AC_LIBTOOL_DLOPEN
+AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 
 AC_ISC_POSIX
@@ -241,7 +242,7 @@ dnl ************************
 
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
 if test "x$PKG_CONFIG" = "xno" ; then
-	AC_MSG_ERROR(pkg-config not found please install pkg-config)
+	AC_MSG_ERROR([pkg-config not found please install pkg-config])
 fi
 
 echo -n "checking for gtk+ ... "
@@ -270,12 +271,18 @@ else
 	echo "no"
 fi
 
+echo -n "checking for gmodule >= 2.4... "
+if pkg-config gmodule-2.0 --atleast-version=2.4 ; then
+	echo "yes"
+	PKGCONFIGFILES="${PKGCONFIGFILES} gmodule-2.0"
+else
+	echo "no"
+	AC_MSG_ERROR([gmodule not detected, or too old, gmodule is part of glib])
+fi
+
 echo -n "checking for gtk+ requirements: gobject, gmodule, glib, gdk-pixbuf, gdk, and pango ... "
 if pkg-config --exists gobject-2.0 ; then
 	PKGCONFIGFILES="${PKGCONFIGFILES} gobject-2.0"
-fi
-if pkg-config --exists gmodule-2.0; then
-	PKGCONFIGFILES="${PKGCONFIGFILES} gmodule-2.0"
 fi
 if pkg-config --exists glib-2.0; then
 	PKGCONFIGFILES="${PKGCONFIGFILES} glib-2.0"
