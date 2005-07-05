@@ -27,12 +27,26 @@
 
 #include "dialog_utils.h"
 
-
+/**
+ * dialog_mnemonic_label_in_table:
+ * 	@labeltext:		 #const gchar * The label text.
+ * 	@m_widget:		 #GtkWidget * GtkWidget that is the mnemonic target.
+ * 	@table:			 #GtkWidget * GtkTable the label is attached to.
+ *    @left_attach:   #guint The column number to attach the left side of the label to.
+ *    @right_attach:	 #guint The column number to attach the right side of the label to.
+ *    @top_attach:	 #guint The row number to attach the top of the label to.
+ *    @bottom_attach: #guint The row number to attach the bottom of the label to.
+ *  
+ * 	Creates a GtkLabel, places it in a GtkTable, and sets it mnemonic widget.
+ *
+ * Return value: void
+ */
 void
 dialog_mnemonic_label_in_table(const gchar *labeltext,
 										 GtkWidget *m_widget,
 										 GtkWidget *table,
-										 guint left_attach, guint right_attach, guint top_attach, guint bottom_attach)
+										 guint left_attach, guint right_attach, 
+										 guint top_attach, guint bottom_attach)
 {
 	GtkWidget *label;
 	
@@ -42,6 +56,17 @@ dialog_mnemonic_label_in_table(const gchar *labeltext,
 	gtk_label_set_mnemonic_widget (GTK_LABEL(label), m_widget);
 }
 
+/**
+ * dialog_vbox_label_new:
+ * 	@labeltext:	#const gchar * The label text.
+ * 	@xalign:		#gfloat The horizontal alignment, from 0 (left) to 1 (right).
+ *    @yalign:		#gfloat the vertical alignment, from 0 (top) to 1 (bottom).
+ * 	@box:			#GtkWidget * GtkBox the label is packed into.
+ *  
+ * 	Creates a GtkLabel, aligns it, and packs it in a GtkBox.
+ *
+ * Return value: #GtkWidget * The new GtkLabel widget.
+ */
 static GtkWidget *
 dialog_vbox_label_new(const gchar *labeltext, gfloat xalign, gfloat yalign, GtkWidget *box)
 {
@@ -55,6 +80,14 @@ dialog_vbox_label_new(const gchar *labeltext, gfloat xalign, gfloat yalign, GtkW
 	return label;
 }
 
+/**
+ * dialog_vbox_new:
+ * 	@box:	#GtkWidget * GtkBox that a new GtkAlignment is packed into.
+ *  
+ * 	Creates a GtkVBox packed into a GtkAlignment.
+ *
+ * Return value: #GtkWidget * The new GtkVBox widget.
+ */
 static GtkWidget *
 dialog_vbox_new(GtkWidget *box)
 {
@@ -69,6 +102,15 @@ dialog_vbox_new(GtkWidget *box)
 	return vbox;
 }
 
+/**
+ * dialog_vbox_labeled:
+ * 	@labeltext:	#const gchar * The label text.
+ * 	@box:			#GtkWidget * GtkBox the label is packed into.
+ *  
+ * 	Creates a GtkVBox and packs a new GtkLabel into it.
+ *
+ * Return value: #GtkWidget * The new GtkVBox widget.
+ */
 GtkWidget *
 dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box)
 {
@@ -79,6 +121,16 @@ dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box)
 	return dialog_vbox_new(box);
 }
 
+/**
+ * dialog_vbox_labeled_checkbutton:
+ * 	@labeltext:	  #const gchar * The label text.
+ *    @checkbutton: #GtkWidget * GtkWidget that is the mnemonic target.
+ * 	@box:			  #GtkWidget * GtkBox the new GtkVBox is packed into.
+ *  
+ * 	Creates a GtkVBox with a GtkCheckButton as it's label.
+ *
+ * Return value: #GtkWidget * The new GtkVBox widget.
+ */
 GtkWidget *
 dialog_vbox_labeled_checkbutton(const gchar *labeltext, GtkWidget *checkbutton, GtkWidget *box)
 {
@@ -94,6 +146,16 @@ dialog_vbox_labeled_checkbutton(const gchar *labeltext, GtkWidget *checkbutton, 
 	return dialog_vbox_new(box);
 }
 
+/**
+ * dialog_table_new:
+ *    @rows:		  #gint The number of rows in the new table.
+ *    @cols:		  #gint The number of columns in the new table.
+ *    @borderWidth: #gint Amount of blank space to leave outside the table.
+ *  
+ * 	Creates a GtkTable and optionally sets a border width.
+ *
+ * Return value: #GtkWidget * The new GtkTable widget
+ */
 static GtkWidget *
 dialog_table_new(gint rows, gint cols, gint borderWidth)
 {
@@ -109,6 +171,20 @@ dialog_table_new(gint rows, gint cols, gint borderWidth)
 	return table;
 }
 
+/**
+ * dialog_table_in_vbox:
+ *    @rows:		  #gint The number of rows in the new table.
+ *    @cols:		  #gint The number of columns in the new table.
+ *    @borderWidth: #gint Amount of blank space to leave outside the table.
+ *    @box:			  #GtkWidget * The GtkVBox to pack the table into.
+ *    @expand:		  #gboolean TRUE if the new table is to be given extra space allocated to box.
+ *    @fill:		  #gboolean TRUE if space given to table by the expand option is actually allocated to table.
+ *    @padding:	  #guint Extra space in pixels to put between the table and its neighbors.
+ *  
+ * 	Creates a GtkTable and packs it into a GtkVBox using the supplied values.
+ *
+ * Return value: #GtkWidget * The new GtkTable widget
+ */
 GtkWidget *
 dialog_table_in_vbox(gint rows, gint cols, 
 							gint borderWidth, 
@@ -122,6 +198,17 @@ dialog_table_in_vbox(gint rows, gint cols,
 	return table;
 }
 
+/**
+ * dialog_table_in_vbox_defaults:
+ *    @rows:		  #gint The number of rows in the new table.
+ *    @cols:		  #gint The number of columns in the new table.
+ *    @borderWidth: #gint Amount of blank space to leave outside the table.
+ *    @box:			  #GtkWidget * The GtkVBox to pack the table into.
+ *  
+ * 	Creates a GtkTable and packs it into a GtkVBox using the default packing values for a GtkBox.
+ *
+ * Return value: #GtkWidget * The new GtkTable widget
+ */
 GtkWidget *
 dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget *box)
 {
@@ -135,8 +222,19 @@ dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget 
 /*****************************************************************************/
 /* Message Dialog Functions																  */
 /*****************************************************************************/
-static gchar *
-message_dialog_set_text(const gchar *primaryText, const gchar *secondaryText)
+
+/**
+ * message_dialog_set_text:
+ * 	@dialog:			 #GtkWidget * The message dialog.
+ * 	@primaryText:	 #const gchar * The primary text displayed in the message dialog.
+ * 	@secondaryText: #const gchar * The secondary text displayed in the message dialog.
+ *  
+ * 	Sets the primary and optional secondary text in a message dialog.
+ *
+ * Return value: void
+ */
+static void
+message_dialog_set_text(GtkWidget *dialog, const gchar *primaryText, const gchar *secondaryText)
 {
 	gchar *text;
 	
@@ -146,9 +244,24 @@ message_dialog_set_text(const gchar *primaryText, const gchar *secondaryText)
 		text = g_strconcat ("<span weight=\"bold\" size=\"larger\">", primaryText, "</span>\n\n", secondaryText, "\n", NULL);
 	}
 	
-	return text;
+	gtk_message_dialog_set_markup (GTK_MESSAGE_DIALOG (dialog), text);
+	g_free (text);
+	
+	gtk_window_set_title (GTK_WINDOW (dialog), "");
 }
 
+/**
+ * message_dialog_new:
+ * 	@parent:			 #GtkWidget * Transient parent, or NULL for none
+ *    @type:			 #GtkMessageType The type of message being displayed in the dialog.
+ * 	@button:			 #GtkButtonsType The type of button displayed in the dialog.
+ * 	@primaryText:	 #const gchar * The primary text displayed in the message dialog.
+ * 	@secondaryText: #const gchar * The secondary text displayed in the message dialog.
+ *  
+ * 	Creates a modal GtkMessageDialog with a single button.
+ *
+ * Return value: void
+ */
 void
 message_dialog_new(GtkWidget *parent, 
 						 GtkMessageType type, 
@@ -156,20 +269,31 @@ message_dialog_new(GtkWidget *parent,
 						 const gchar *primaryText, const gchar *secondaryText)
 {
 	GtkWidget *dialog;
-	gchar *text;
+		
+	dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+												GTK_DIALOG_DESTROY_WITH_PARENT,
+												type,
+												button,
+												NULL);	
+
+	message_dialog_set_text(dialog, primaryText, secondaryText);
 	
-	text = message_dialog_set_text(primaryText, secondaryText);
-	
-	dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (parent),
-																GTK_DIALOG_DESTROY_WITH_PARENT,
-																type,
-																button,
-																text);	
-	g_free (text);
 	gtk_dialog_run (GTK_DIALOG (dialog));
 	gtk_widget_destroy (dialog);
 }
 
+/**
+ * message_dialog_new_multi:
+ * 	@parent:			 #GtkWidget * Transient parent, or NULL for none
+ *    @type:			 #GtkMessageType The type of message being displayed in the dialog.
+ * 	@buttons:		 #const gchar * An array of strings to be displayed on the dialog buttons.
+ * 	@primaryText:	 #const gchar * The primary text displayed in the message dialog.
+ * 	@secondaryText: #const gchar * The secondary text displayed in the message dialog.
+ *  
+ * 	Creates a non-modal GtkMessageDialog with multiple buttons.
+ *
+ * Return value: #gint The response ID
+ */
 gint
 message_dialog_new_multi(GtkWidget *parent, 
 								 GtkMessageType type, 
@@ -177,18 +301,16 @@ message_dialog_new_multi(GtkWidget *parent,
 								 const gchar *primaryText, const gchar *secondaryText)
 {
 	GtkWidget *dialog;
-	gchar *text;
 	gint response;
 	int i = 0;
-	
-	text = message_dialog_set_text(primaryText, secondaryText);
-	
-	dialog = gtk_message_dialog_new_with_markup (GTK_WINDOW (parent),
-																GTK_DIALOG_DESTROY_WITH_PARENT,
-																type,
-																GTK_BUTTONS_NONE,
-																text);
-	g_free (text);
+		
+	dialog = gtk_message_dialog_new (GTK_WINDOW (parent),
+												GTK_DIALOG_DESTROY_WITH_PARENT,
+												type,
+												GTK_BUTTONS_NONE,
+												NULL);
+
+	message_dialog_set_text(dialog, primaryText, secondaryText);																
 
 	for (i = 0; *buttons; i++) {
 		gtk_dialog_add_button (GTK_DIALOG (dialog), *buttons++, i);
