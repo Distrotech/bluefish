@@ -1,5 +1,6 @@
 #include <string.h>
 #include "htmlbar.h"
+#include <gmodule.h>
 #include "../plugins.h"
 #include "../rcfile.h"
 #include "../document.h"
@@ -131,7 +132,7 @@ static TBluefishPlugin bfplugin = {
 	NULL,
 	NULL
 };
-/* causes compile error? G_MODULE_EXPORT */
-TBluefishPlugin *getplugin(void) {
+
+G_MODULE_EXPORT TBluefishPlugin *getplugin(void) {
 	return &bfplugin;
 }
