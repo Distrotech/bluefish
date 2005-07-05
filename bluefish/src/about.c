@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>				/* getopt() */
+#include <unistd.h>	/* getopt() */
 
 #include "config.h"
 
@@ -32,75 +32,6 @@
 #include "gtk_easy.h"
 
 static GtkWidget *info;
-/*
-static GtkWidget *create_header(GdkPixbuf * icon, const char *text)
-{
-	GtkWidget *eventbox, *label, *hbox, *image;
-	GtkStyle *style;
-	char *markup;
-	GdkColormap *cmap;
-	GdkColor color;
-
-	eventbox = gtk_event_box_new();
-
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_container_set_border_width(GTK_CONTAINER(hbox), 4);
-	gtk_container_add(GTK_CONTAINER(eventbox), hbox);
-
-	if (icon) {
-		image = gtk_image_new_from_pixbuf(icon);
-		gtk_box_pack_start(GTK_BOX(hbox), image, FALSE, FALSE, 0);
-	}
-
-	style = gtk_widget_get_style(eventbox);
-	cmap = gdk_colormap_get_system();
-	color.red = 0xaaaa;
-	color.green = 0x1112;
-	color.blue = 0x3fea;
-	if (!gdk_color_alloc(cmap, &color)) {
-		g_print("couldn't allocate color");
-	}
-	gtk_widget_modify_bg(eventbox, GTK_STATE_NORMAL, &color);
-
-	markup = g_strconcat("<span size=\"larger\"  weight=\"bold\">", text, "</span>", NULL);
-	label = gtk_label_new(markup);
-	g_free(markup);
-	gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
-
-	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
-
-	style = gtk_widget_get_style(label);
-	gtk_widget_modify_fg(label, GTK_STATE_NORMAL, &style->fg[GTK_STATE_SELECTED]);
-
-	gtk_widget_show_all(eventbox);
-	return eventbox;
-}
-*/
-/*
-static GdkPixbuf *inline_icon_at_size(const guint8 * data, int width, int height)
-{
-	GdkPixbuf *base;
-
-	base = gdk_pixbuf_new_from_inline(-1, data, FALSE, NULL);
-
-	g_assert(base);
-
-	if ((width < 0 && height < 0)
-		|| (gdk_pixbuf_get_width(base) == width && gdk_pixbuf_get_height(base) == height)) {
-		return base;
-	} else {
-		GdkPixbuf *scaled;
-
-		scaled =
-			gdk_pixbuf_scale_simple(base, width > 0 ? width : gdk_pixbuf_get_width(base),
-									height > 0 ? height : gdk_pixbuf_get_height(base),
-									GDK_INTERP_BILINEAR);
-
-		g_object_unref(G_OBJECT(base));
-
-		return scaled;
-	}
-}*/
 
 static void add_page(GtkNotebook * notebook, const gchar * name, const gchar * buf,
 					 gboolean hscrolling) {
@@ -121,9 +52,9 @@ void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * w
 	GtkWidget *notebook;
 	GtkWidget *info_ok_button;
 	GdkColor color;
-	gchar *I1, *tmp;
-	gchar *INFO = _("Bluefish is an editor for experienced web designers and programmers. It supports many programming and markup languages, but focuses on editing dynamic and interactive websites. Bluefish is an open source development project, released under the GPL license.\n\nFor more information, visit the Bluefish Website at http://bluefish.openoffice.nl/\n\nThis version of bluefish was compiled with the following options:\n");
-	gchar *AUTHORS = _("Project leader:\n\
+	gchar *I1, *config_options;
+	const gchar *INFO = _("Bluefish is an editor for experienced web designers and programmers. It supports many programming and markup languages, but focuses on editing dynamic and interactive websites. Bluefish is an open source development project, released under the GPL license.\n\nFor more information, visit the Bluefish Website at http://bluefish.openoffice.nl/\n\nThis version of bluefish was compiled with the following options:\n");
+	const gchar *AUTHORS = _("Project leader:\n\
   Olivier Sessink <olivier@bluefish.openoffice.nl>\n\
 \n\
 Developers for this release:\n\
@@ -186,7 +117,7 @@ If you know of anyone missing from this list, please let us know\n\
 \n\
 Thanks to all who helped making this software available.\n\
 ");
-	gchar *TRANSLATORS = _("Current translators:\n\n\
+	const gchar *TRANSLATORS = _("Current translators:\n\n\
   Brazilian Portuguese: Anderson Rocha\n\
    <anderson@maxlinux.com.br>\n\n\
   Bulgarian: Peio Popov\n\
@@ -259,39 +190,39 @@ Thanks to all who helped making this software available.\n\
 	/* the notebook */
 	notebook = gtk_notebook_new();
 	
-	tmp = g_strconcat(CONFIGURE_OPTIONS, _("\nresulting in the detection of: "),
+	config_options = g_strconcat(CONFIGURE_OPTIONS, _("\n\nResulting in the detection of:\n"),
 #ifdef HAVE_PYTHON
-			"python, ",
+			"Python\n",
 #endif
 #ifdef USE_SCANNER
-			"scanner request, ",
+			"Scanner request\n",
 #endif
 #ifdef HAVE_LIBASPELL
-			"libaspell, ",
+			"libaspell\n",
 #endif
 #ifdef DEVELOPMENT
-			"development request, ",
+			"Development request\n",
 #endif
 #ifdef ENABLE_NLS
-			"i18n request, ",
+			"i18n request\n",
 #endif
 #ifdef HAVE_ATLEAST_GTK_2_6
-			"gtk-2.6 or newer, ",
+			"GTK+ 2.6 or newer\n",
 #endif
 #ifdef HAVE_GNOMEVFS_2_6
-			"gnome_vfs-2.6 or newer, ",
+			"GnomeVFS 2.6 or newer\n",
 #endif
 #ifdef HAVE_ATLEAST_GNOMEUI_2_6
-			"gnomeui-2.6 or newer, ",
+			"libgnomeui 2.6 or newer\n",
 #endif
 #ifdef PLATFORM_DARWIN
-			"platform Darwin, ",
+			"Platform Darwin",
 #endif
 			NULL);
 
 	/* add pages */
-	I1 = g_strconcat(INFO, tmp, NULL);
-	g_free(tmp);
+	I1 = g_strconcat(INFO, config_options, NULL);
+	g_free(config_options);
 	add_page(GTK_NOTEBOOK(notebook), _("Info"), I1, TRUE);
 	g_free(I1);
 	add_page(GTK_NOTEBOOK(notebook), _("Authors"), AUTHORS, TRUE);
