@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.2 2005-07-05 15:30:48 dleidert Exp $
+ * $Id: html.c,v 1.3 2005-07-05 15:42:47 dleidert Exp $
  */
 /*#define DEBUG*/
 
@@ -1398,9 +1398,9 @@ static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	}
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->entry[5])))) {
 		if (have_questionmark) {
-			body = g_strconcat("&subject=", gtk_entry_get_text(GTK_ENTRY(dg->entry[5])), NULL);
+			body = g_strconcat("&body=", gtk_entry_get_text(GTK_ENTRY(dg->entry[5])), NULL);
 		} else {
-			body = g_strconcat("?subject=", gtk_entry_get_text(GTK_ENTRY(dg->entry[5])), NULL);
+			body = g_strconcat("?body=", gtk_entry_get_text(GTK_ENTRY(dg->entry[5])), NULL);
 			have_questionmark = TRUE;			
 		}		
 	} else {
