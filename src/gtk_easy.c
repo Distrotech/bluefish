@@ -989,7 +989,7 @@ gint multi_button_dialog_backend(GtkWidget *win, gchar *primary, gchar *secondar
 	GtkWidget *dialog;
 	int i, retval;
 
-	dialog = gtk_dialog_new_with_buttons (NULL, /* Note that no title is being set. */
+	dialog = gtk_dialog_new_with_buttons ("", /* Note that no title is being set. */
 												GTK_WINDOW(win),
 												GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 												*buttons, 0,
