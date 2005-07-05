@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.1 2005-06-11 15:35:38 oli4 Exp $
+ * $Id: html.c,v 1.2 2005-07-05 15:30:48 dleidert Exp $
  */
 /*#define DEBUG*/
 
@@ -324,8 +324,8 @@ static gchar *extract_time_string(char *original_string)
 
 /* time insert struct */
 typedef struct {
-	GtkWidget *check[6];
-	GtkWidget *label[6];
+	GtkWidget *check[7];
+	GtkWidget *label[7];
 	GtkWidget *dialog;
 	Tbfwin *bfwin;
 } TimeInsert;
@@ -346,7 +346,7 @@ static void insert_time_callback(GtkWidget * widget, TimeInsert * timeinsert)
 
 	insert_string = g_malloc0(32);
 	final_string = g_malloc0(255);
-	for (count = 1; count < 6; count++) {
+	for (count = 1; count < 7; count++) {
 		if (GTK_TOGGLE_BUTTON(timeinsert->check[count])->active) {
 			gtk_label_get(GTK_LABEL(timeinsert->label[count]), &temp_string);
 			insert_string = extract_time_string(temp_string);
@@ -377,6 +377,7 @@ static void insert_time_cancel(GtkWidget * widget, TimeInsert * data)
 void insert_time_dialog(Tbfwin *bfwin) {
 
 	gint month, year, count;
+	gchar isotime[60];
 	time_t time_var;
 	gchar *temp = NULL;
 	struct tm *time_struct;
@@ -393,7 +394,7 @@ void insert_time_dialog(Tbfwin *bfwin) {
 	vbox = gtk_vbox_new(FALSE, 1);
 	gtk_container_add(GTK_CONTAINER(timeinsert->dialog), vbox);
 
-	for (count = 1; count < 6; count++) {
+	for (count = 1; count < 7; count++) {
 		switch (count) {
 		case 1:
 			temp = g_strdup_printf(_("  _Time (%i:%i:%i)"), time_struct->tm_hour, time_struct->tm_min, time_struct->tm_sec);
@@ -443,6 +444,10 @@ void insert_time_dialog(Tbfwin *bfwin) {
 			}
 			/* Replace \n on ')' */
 			temp[strlen(temp) - 1] = ')';
+			break;
+		case 6:
+			strftime(isotime, 30, "%Y-%m-%dT%H:%M:%S%z", time_struct);
+			temp = g_strdup_printf(_("  _ISO-8601 Time (%s)"), isotime);
 			break;
 		default:
 			break;
@@ -1360,30 +1365,51 @@ void basefont_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
 static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
 {
-	gchar *finalstring, *tmpstr, *subj, *body;
+	gchar *finalstring, *tmpstr, *cc, *bcc, *subj, *body;
 	gboolean have_questionmark = FALSE;
 	tmpstr = g_strconcat(cap("<A HREF=\"mailto:")
 			, gtk_entry_get_text(GTK_ENTRY(dg->entry[1]))
 			, NULL);
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->entry[2])))) {
-		subj = g_strconcat("?Subject=", gtk_entry_get_text(GTK_ENTRY(dg->entry[2])), NULL);
+		cc = g_strconcat("?cc=", gtk_entry_get_text(GTK_ENTRY(dg->entry[2])), NULL);
 		have_questionmark = TRUE;
+	} else {
+		cc = g_strdup("");
+	}
+	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->entry[3])))) {
+		if (have_questionmark) {
+			bcc = g_strconcat("&bcc=", gtk_entry_get_text(GTK_ENTRY(dg->entry[3])), NULL);
+		} else {
+			bcc = g_strconcat("?bcc=", gtk_entry_get_text(GTK_ENTRY(dg->entry[3])), NULL);
+			have_questionmark = TRUE;
+		}		
+	} else {
+		bcc = g_strdup("");
+	}
+	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->entry[4])))) {
+		if (have_questionmark) {
+			subj = g_strconcat("&subject=", gtk_entry_get_text(GTK_ENTRY(dg->entry[4])), NULL);
+		} else {
+			subj = g_strconcat("?subject=", gtk_entry_get_text(GTK_ENTRY(dg->entry[4])), NULL);
+			have_questionmark = TRUE;			
+		}		
 	} else {
 		subj = g_strdup("");
 	}
-	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->entry[3])))) {
-		gchar *str2;
+	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->entry[5])))) {
 		if (have_questionmark) {
-			str2 = "&Body=";
+			body = g_strconcat("&subject=", gtk_entry_get_text(GTK_ENTRY(dg->entry[5])), NULL);
 		} else {
-			str2 = "?Body=";
-		}
-		body = g_strconcat(str2, gtk_entry_get_text(GTK_ENTRY(dg->entry[3])), NULL);
+			body = g_strconcat("?subject=", gtk_entry_get_text(GTK_ENTRY(dg->entry[5])), NULL);
+			have_questionmark = TRUE;			
+		}		
 	} else {
 		body = g_strdup("");
 	}
-	finalstring = g_strconcat(tmpstr, subj, body, "\">", NULL);
+	finalstring = g_strconcat(tmpstr, cc, bcc, subj, body, "\">", NULL);
 	g_free(tmpstr);
+	g_free(cc);
+	g_free(bcc);
 	g_free(subj);
 	g_free(body);
 	doc_insert_two_strings(dg->doc, finalstring, cap("</A>"));
@@ -1395,25 +1421,32 @@ void email_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
 	
-	dg = html_diag_new(bfwin,_("Email"));
+	dg = html_diag_new(bfwin,_("E-mail"));
 
-	dgtable = gtk_table_new(3, 2, FALSE);
+	dgtable = gtk_table_new(5, 2, FALSE);
 	gtk_table_set_col_spacings(GTK_TABLE(dgtable), 12);
 	gtk_table_set_row_spacings(GTK_TABLE(dgtable), 12);
 	gtk_box_pack_start(GTK_BOX(dg->vbox), dgtable, FALSE, FALSE, 0);
 
 	dg->entry[1] = gtk_entry_new_with_max_length(256);
-	bf_mnemonic_label_tad_with_alignment(_("_Email address:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(_("_Mail to:"), dg->entry[1], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 2, 0, 1);
 
-	
 	dg->entry[2] = gtk_entry_new_with_max_length(256);
-	bf_mnemonic_label_tad_with_alignment(_("UrlEncoded _subject:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(_("_Copy to:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 2, 1, 2);
 
 	dg->entry[3] = gtk_entry_new_with_max_length(256);
-	bf_mnemonic_label_tad_with_alignment(_("UrlEncoded _body:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(_("Blin_d copy to:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 2, 3);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 2, 2, 3);
+	
+	dg->entry[4] = gtk_entry_new_with_max_length(256);
+	bf_mnemonic_label_tad_with_alignment(_("with _Subject (URL-encoded):"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 2, 3, 4);
+
+	dg->entry[5] = gtk_entry_new_with_max_length(256);
+	bf_mnemonic_label_tad_with_alignment(_("with _Body (URL-encoded):"), dg->entry[5], 0, 0.5, dgtable, 0, 1, 4, 5);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[5], 1, 2, 4, 5);
 
 	html_diag_finish(dg, G_CALLBACK(emailok_lcb));
 }
@@ -1844,13 +1877,13 @@ void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 		dg->attrwidget[0] = combo_with_popdown(tagvalues[0], rel_link_list, 1);
 		free_stringlist(rel_link_list);
 	}
-	bf_mnemonic_label_tad_with_alignment(_("_Href:"), dg->attrwidget[0], 0, 0.5, dgtable, 0, 1, 0, 1);
+	bf_mnemonic_label_tad_with_alignment(_("_HREF:"), dg->attrwidget[0], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[0], 1, 2, 0, 1);
 	but = file_but_new(GTK_COMBO(dg->attrwidget[0])->entry, 0, bfwin);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), but, 2, 3, 0, 1);
 
 	dg->attrwidget[1] = entry_with_text(tagvalues[1], 1024);
-	bf_mnemonic_label_tad_with_alignment(_("Href_lang:"), dg->attrwidget[1], 0, 0.5, dgtable, 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(_("HREF_LANG:"), dg->attrwidget[1], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[1], 1, 3, 1, 2);
 
 	{
