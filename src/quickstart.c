@@ -72,6 +72,7 @@ typedef struct {
 	GtkWidget *scriptsrc;
 	GtkWidget *scriptarea;
 	GtkWidget *removeButton;
+	GtkWidget *openNewDoc;
 	Tbfwin *bfwin;
 } TQuickStart;
 
@@ -411,12 +412,8 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 		g_free (stylearea);
 		g_free (scriptsrc);
 		g_free (scriptarea);
-
-		/* I'm wondering if it might be better just to check and see if the 
-		 * current doc is empty or whether it should be an option in the dialog
-		 * to create in a new document.
-		 */		
-		if (!doc_is_empty_non_modified_and_nameless(qstart->bfwin->current_document)) {
+		
+		if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (qstart->openNewDoc))) {
 			Tdocument *doc;
 			doc = doc_new(qstart->bfwin, FALSE);
 			switch_to_document_by_pointer(qstart->bfwin, doc);
@@ -611,7 +608,7 @@ void
 quickstart_dialog_new(Tbfwin *bfwin)
 {
 	TQuickStart *qstart;
-	GtkWidget *dialog, *table, *frame, *page;
+	GtkWidget *dialog, *table, *frame, *page, *alignment;
 	GtkListStore *headStore;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
@@ -635,7 +632,7 @@ quickstart_dialog_new(Tbfwin *bfwin)
 													  NULL);	  
 	g_signal_connect (G_OBJECT (dialog), "response", G_CALLBACK (quickstart_response_lcb), qstart);
 
-	table = dialog_table_in_vbox_defaults(5, 3, 6, GTK_DIALOG (dialog)->vbox);
+	table = dialog_table_in_vbox_defaults(4, 3, 6, GTK_DIALOG (dialog)->vbox);
 	
 	qstart->dtd = gtk_combo_box_new_text ();
 	for (i = 0; i < G_N_ELEMENTS (dtds); i++) {
@@ -685,6 +682,13 @@ quickstart_dialog_new(Tbfwin *bfwin)
 	
 	gtk_tree_model_get_iter_first (GTK_TREE_MODEL (headStore), &iter);
 	gtk_tree_selection_select_iter (selection, &iter);
+	
+	qstart->openNewDoc = gtk_check_button_new_with_mnemonic (_("Open in _new document."));
+	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (qstart->openNewDoc), TRUE);
+	alignment = gtk_alignment_new (0, 0.5, 0, 0);
+	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 6, 8, 4, 0);
+	gtk_container_add (GTK_CONTAINER (alignment), qstart->openNewDoc);
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), alignment, FALSE, FALSE, 0);
 	
 	gtk_widget_show_all (dialog);
 }
