@@ -246,7 +246,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 		if (load_subdirs && type == TYPE_DIR) {
 			GnomeVFSURI *dummy_uri;
 			/* add a dummy item so the expander will be shown */
-			dummy_uri = gnome_vfs_uri_append_string(child_uri," ");
+			dummy_uri = gnome_vfs_uri_append_string(child_uri,"%20");
 			fb2_add_filesystem_entry(newiter, dummy_uri, TYPE_DIR, FALSE);
 			gnome_vfs_uri_unref(dummy_uri);
 		}
