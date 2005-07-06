@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.3 2005-07-05 15:42:47 dleidert Exp $
+ * $Id: html.c,v 1.4 2005-07-06 15:02:53 dleidert Exp $
  */
 /*#define DEBUG*/
 
@@ -1365,7 +1365,7 @@ void basefont_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
 static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
 {
-	gchar *finalstring, *tmpstr, *cc, *bcc, *subj, *body;
+	gchar *finalstring, *tmpstr, *cc, *bcc, *subj, *body, *urlencoded;
 	gboolean have_questionmark = FALSE;
 	tmpstr = g_strconcat(cap("<A HREF=\"mailto:")
 			, gtk_entry_get_text(GTK_ENTRY(dg->entry[1]))
@@ -1378,7 +1378,7 @@ static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	}
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->entry[3])))) {
 		if (have_questionmark) {
-			bcc = g_strconcat("&bcc=", gtk_entry_get_text(GTK_ENTRY(dg->entry[3])), NULL);
+			bcc = g_strconcat("&amp;bcc=", gtk_entry_get_text(GTK_ENTRY(dg->entry[3])), NULL);
 		} else {
 			bcc = g_strconcat("?bcc=", gtk_entry_get_text(GTK_ENTRY(dg->entry[3])), NULL);
 			have_questionmark = TRUE;
@@ -1387,20 +1387,22 @@ static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
 		bcc = g_strdup("");
 	}
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->entry[4])))) {
+		urlencoded = gnome_vfs_escape_string(gtk_entry_get_text(GTK_ENTRY(dg->entry[4])));
 		if (have_questionmark) {
-			subj = g_strconcat("&subject=", gtk_entry_get_text(GTK_ENTRY(dg->entry[4])), NULL);
+			subj = g_strconcat("&amp;subject=", urlencoded, NULL);
 		} else {
-			subj = g_strconcat("?subject=", gtk_entry_get_text(GTK_ENTRY(dg->entry[4])), NULL);
+			subj = g_strconcat("?subject=", urlencoded, NULL);
 			have_questionmark = TRUE;			
 		}		
 	} else {
 		subj = g_strdup("");
 	}
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->entry[5])))) {
+		urlencoded = gnome_vfs_escape_string(gtk_entry_get_text(GTK_ENTRY(dg->entry[5])));
 		if (have_questionmark) {
-			body = g_strconcat("&body=", gtk_entry_get_text(GTK_ENTRY(dg->entry[5])), NULL);
+			body = g_strconcat("&amp;body=", urlencoded, NULL);
 		} else {
-			body = g_strconcat("?body=", gtk_entry_get_text(GTK_ENTRY(dg->entry[5])), NULL);
+			body = g_strconcat("?body=", urlencoded, NULL);
 			have_questionmark = TRUE;			
 		}		
 	} else {
@@ -1412,6 +1414,7 @@ static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	g_free(bcc);
 	g_free(subj);
 	g_free(body);
+	g_free(urlencoded);
 	doc_insert_two_strings(dg->doc, finalstring, cap("</A>"));
 	g_free(finalstring);
 	html_diag_destroy_cb(NULL, dg);
@@ -1441,11 +1444,11 @@ void email_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 2, 2, 3);
 	
 	dg->entry[4] = gtk_entry_new_with_max_length(256);
-	bf_mnemonic_label_tad_with_alignment(_("with _Subject (URL-encoded):"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(_("with _Subject:"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 2, 3, 4);
 
 	dg->entry[5] = gtk_entry_new_with_max_length(256);
-	bf_mnemonic_label_tad_with_alignment(_("with _Body (URL-encoded):"), dg->entry[5], 0, 0.5, dgtable, 0, 1, 4, 5);
+	bf_mnemonic_label_tad_with_alignment(_("with _Body:"), dg->entry[5], 0, 0.5, dgtable, 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[5], 1, 2, 4, 5);
 
 	html_diag_finish(dg, G_CALLBACK(emailok_lcb));
