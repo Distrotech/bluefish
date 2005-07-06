@@ -57,5 +57,5 @@ install: all
 	done
 
 uninstall:
-	/bin/rm -f $(DESTDIR)$(pkgdatadir)icon_*.png
+	rm -f $(DESTDIR)$(pkgdatadir)icon_*.png
 

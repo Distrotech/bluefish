@@ -101,7 +101,7 @@ uninstall:
 	rm -f $(DESTDIR)$(ICONPATH)/gnome-mime-application-bluefish-project.png
 	rm -f $(DESTDIR)$(THEMEPATH)/48x48/mimetypes/gnome-mime-application-bluefish-project.png
 	@for file in $(DEFAULTFILES) ; do \
-		rm -f $(DESTDIR)$(pkgdatadir)$$file.default ;\
+		rm -f $(DESTDIR)$(pkgdatadir)$$file ;\
 	done
 	@for file in $(FUNCREFFILES) ; do \
 		rm -f $(DESTDIR)$(pkgdatadir)$$file ;\
