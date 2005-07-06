@@ -121,5 +121,5 @@ install: all
 	@cd plugin_htmlbar/ && $(MAKE) install
 
 uninstall:
-	/bin/rm -f $(DESTDIR)$(bindir)/$(PACKAGE)
+	rm -f $(DESTDIR)$(bindir)/$(PACKAGE)
 	@cd plugin_htmlbar/ && $(MAKE) uninstall
