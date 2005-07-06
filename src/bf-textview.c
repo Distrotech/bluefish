@@ -930,6 +930,7 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
    GtkTextMark *mark, *mark2;
    gboolean magic = FALSE, st = FALSE;
    gint currstate = 0;
+   TBfTag *tmp_tag=NULL;
 
    g_return_if_fail (self != NULL);
    g_return_if_fail (BF_IS_TEXTVIEW (self));
@@ -1125,7 +1126,11 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 	       					bf_textview_tag_begin (self, self->scanner.current_tag.name, 
 	       						&self->scanner.current_tag.b_start, &ita);	 /* EMIT SIGNAL */
 	       				currstate = 0;
-	       				g_queue_push_head (&(self->scanner.tag_stack), g_strdup (self->scanner.current_tag.name));
+	       				tmp_tag = g_new0(TBfTag,1);
+	       				tmp_tag->name = g_strdup(self->scanner.current_tag.name);
+	       				tmp_tag->b_start = self->scanner.current_tag.b_start;
+	       				tmp_tag->b_end = self->scanner.current_tag.b_end;
+	       				g_queue_push_head (&(self->scanner.tag_stack), tmp_tag);
 	       				g_free(self->scanner.current_tag.name);
 	       				self->scanner.current_tag.name = NULL;
 	      				tag_found = TRUE;
@@ -1161,7 +1166,9 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 	       				self->scanner.current_tag.e_end = ita;
 	       				ptr = g_queue_peek_head (&(self->scanner.tag_stack));
 	       				if (ptr && 
-	       				    strcmp ((gchar *) ptr, self->scanner.current_tag.name ) == 0) {		  						
+	       				    strcmp (((TBfTag *) ptr)->name, self->scanner.current_tag.name ) == 0) {
+	       				    	self->scanner.current_tag.b_start = ((TBfTag *) ptr)->b_start;
+	       				    	self->scanner.current_tag.b_end = ((TBfTag *) ptr)->b_end;
 			       				if ( self->current_lang->restricted_tags_only ) {
 			       					ptr = g_hash_table_lookup(self->current_lang->restricted_tags,self->scanner.current_tag.name);
 			       					if ( ptr ) {
@@ -1177,7 +1184,10 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 				  							&self->scanner.current_tag.b_start, &self->scanner.current_tag.b_end, 
 				  							&self->scanner.current_tag.e_start, &self->scanner.current_tag.e_end);	 /* EMIT SIGNAL */
 		  						ptr = g_queue_pop_head (&(self->scanner.tag_stack));
-		  						g_free (ptr);
+		  						if ( ptr ) {
+			  						g_free(((TBfTag*)ptr)->name);
+			  						g_free (ptr);
+			  					}	
 		  						g_free(self->scanner.current_tag.name);
 		  						self->scanner.current_tag.name = NULL;
 	       				}
@@ -1198,10 +1208,15 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 		  						gboolean ff = FALSE;
 		  						while (!g_queue_is_empty(&self->scanner.tag_stack))	{
 		  							ptr = g_queue_pop_head (&(self->scanner.tag_stack));
-		  							if ( strcmp((gchar*)ptr,self->scanner.current_tag.name) == 0 ) { ff=TRUE; g_free(ptr); break; }
-		  							g_free(ptr);
+		  							if ( strcmp(((TBfTag*)ptr)->name,self->scanner.current_tag.name) == 0 ) { ff=TRUE;  break; }
+		  							if ( ptr ) {
+			  							g_free(((TBfTag*)ptr)->name);
+			  							g_free(ptr);
+			  						}	
 		  						}
 		  						if ( ff ) {
+		  							self->scanner.current_tag.b_start = ((TBfTag*)ptr)->b_start;
+		  							self->scanner.current_tag.b_end = ((TBfTag*)ptr)->b_end;
 			       				if ( self->current_lang->restricted_tags_only ) {
 			       					ptr = g_hash_table_lookup(self->current_lang->restricted_tags,self->scanner.current_tag.name);
 			       					if ( ptr ) {
@@ -1216,6 +1231,8 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 				  							self->scanner.current_tag.name, 
 				  							&self->scanner.current_tag.b_start, &self->scanner.current_tag.b_end, 
 				  							&self->scanner.current_tag.e_start, &self->scanner.current_tag.e_end);	 /* EMIT SIGNAL */		  							
+			  						g_free(((TBfTag*)ptr)->name);
+			  						g_free(ptr);			
 		  						}
 		  						g_free(self->scanner.current_tag.name);	
 		  						self->scanner.current_tag.name = NULL;
@@ -1226,7 +1243,7 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 					 	
 					 } /* switch */
 					 if ( tag_found ) break;
-			       gtk_text_iter_forward_char (&ita);
+			       if  (!gtk_text_iter_forward_char (&ita)) { currstate=0; break; }
 			       c = gtk_text_iter_get_char (&ita);
 			   	 if (self->current_lang->case_sensitive)
 	    				currstate = self->current_lang->scan_tag_table[(gint) c][currstate];
@@ -2131,9 +2148,11 @@ static gint **bftv_make_tscan_table ()
    for (i = 0; i < BFTV_UTF8_RANGE; i++)
       table[i][8] = 8;
    table[(gint) '"'][8] = 9;
+/*   table[(gint) '>'][8] = 0;*/
    table[(gint) ' '][9] = 14;
    table[(gint) '\t'][9] = 14;
    table[(gint) '\n'][9] = 14;
+   table[(gint) '/'][9] = 10;
    table[(gint) '>'][9] = 4;
    table[(gint) '>'][10] = 11;
    for (i = 0; i < BFTV_UTF8_RANGE; i++)
