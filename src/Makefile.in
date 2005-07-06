@@ -44,7 +44,7 @@ INSTALL_PROGRAM = $(INSTALL) -s -m 755
 DEFS = -DLOCALEDIR=\"$(localedir)\" -DGNULOCALEDIR=\"$(gnulocaledir)\" \
 -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" -DPKGDATADIR=\"$(pkgdatadir)\"  -DPKGLIBDIR=\"$(pkglibdir)\" @DEFS@
 
-OLDSRC = \
+OLDSRC = about.c \
 			cap.c \
 			html.c \
 			html2.c \
@@ -56,7 +56,7 @@ OLDSRC = \
 			rpopup.c \
 			wizards.c
 			
-SRCS = 	about.c \
+SRCS = 	\
 			authen2.c \
 			bf_lib.c \
 			bfspell.c \
