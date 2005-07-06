@@ -32,6 +32,7 @@ config.status: configure
 		--without-icon-path \
 		--without-gnome2_4-mime \
 		--without-gnome2_4-appreg \
+		--disable-rpath \
 		--disable-update-databases
 
 build: build-stamp
@@ -52,6 +53,7 @@ clean:
 	-$(MAKE) distclean
 	-rm -f config.*
 	
+	libtoolize -c --force
 	-test -r /usr/share/misc/config.sub && \
 		cp -f /usr/share/misc/config.sub config.sub
 	-test -r /usr/share/misc/config.guess && \
