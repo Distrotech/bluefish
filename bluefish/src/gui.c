@@ -604,7 +604,7 @@ static Ttoolbaritem tbi[] = {
 	{"center", center_clicked_lcb,  28, N_("Center")},
 	{"rightjustify", rightjustify_clicked_lcb,  29, N_("Right Justify")},
 	{"comment", comment_clicked_lcb, 30 , N_("Comment")},
-	{"email...", email_clicked_lcb, 31, N_("E-Mail...")},
+	{"email...", email_clicked_lcb, 31, N_("E-mail...")},
 	{"font...",fontdialog_clicked_lcb , 32, N_("Font...")},
 	{"basefont...", basefont_clicked_lcb, 33, N_("Base Font Size...")},
 	{"", NULL, 0, NULL}, /* spacing */
