@@ -101,7 +101,8 @@ static void update_project_filelist(Tbfwin *bfwin, Tproject *prj) {
 }
 
 static void setup_bfwin_for_project(Tbfwin *bfwin) {
-	bfwin->session = bfwin->project->session;
+	DEBUG_MSG("setup_bfwin_for_project, bfwin=%p, bfwin->project=%p, bfwin->session=%p\n",bfwin,bfwin->project,bfwin->session);
+	DEBUG_MSG("setup_bfwin_for_project, bfwin->project->session=%p\n",bfwin->project->session);
 	bfwin->bmarkdata = bfwin->project->bmarkdata;
 	bmark_set_store(bfwin);
 	bmark_reload(bfwin);
@@ -181,6 +182,7 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 	prj->template = g_strdup("");
 	prj->word_wrap = main_v->props.word_wrap;
 	if (bfwin) {
+		bfwin->session = prj->session;
 		setup_bfwin_for_project(bfwin);
 	}
 	return prj;
@@ -312,6 +314,8 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		DEBUG_MSG("project_open_from_file, we need a new window\n");
 		prwin = gui_new_window(prj->files, prj);
 		DEBUG_MSG("project_open_from_file, new window with files ready\n");
+		bfwin->project = prj;
+		bfwin->session = prj->session;
 		setup_bfwin_for_project(bfwin);
 	}
 	set_project_menu_widgets(prwin, TRUE);
@@ -490,6 +494,7 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 
 	if (pred->bfwin == NULL) {
 		pred->bfwin = gui_new_window(NULL, pred->project);
+		pred->bfwin->session = pred->project->session;
 		setup_bfwin_for_project(pred->bfwin);
 	} else {
 		gui_set_title(pred->bfwin, pred->bfwin->current_document);
