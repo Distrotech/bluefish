@@ -35,7 +35,6 @@
 
 typedef struct {
 	GHashTable* lookup;
-	gint view_htmlbar;
 	GList *quickbar_items;
 } Thtmlbar;
 
