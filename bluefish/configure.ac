@@ -271,14 +271,22 @@ else
 	echo "no"
 fi
 
-echo -n "checking for libgnomeui >= 2.6... "
-if pkg-config libgnomeui-2.0 --atleast-version=2.6 ; then
-	AC_DEFINE(HAVE_ATLEAST_GNOMEUI_2_6)
-	LIBS="$LIBS `pkg-config --libs libgnomeui-2.0`"
-	CFLAGS="$CFLAGS `pkg-config --cflags libgnomeui-2.0`"
-	echo "yes"
-else
-	echo "no"
+AC_ARG_WITH(libgnomeui, 
+	AC_HELP_STRING([--without-libgnomeui],[disable libgnomeui detection]),[
+	LGNOMEUI=$withval
+	],[
+	LGNOMEUI=yes]
+)
+if test "x${LGNOMEUI}" = "xyes" ; then
+	echo -n "checking for libgnomeui >= 2.6... "
+	if pkg-config libgnomeui-2.0 --atleast-version=2.6 ; then
+		AC_DEFINE(HAVE_ATLEAST_GNOMEUI_2_6)
+      LIBS="$LIBS `pkg-config --libs libgnomeui-2.0`"
+      CFLAGS="$CFLAGS `pkg-config --cflags libgnomeui-2.0`"
+		echo "yes"
+	else
+		echo "no"
+	fi
 fi
 
 AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
