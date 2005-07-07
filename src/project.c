@@ -105,11 +105,16 @@ static void setup_bfwin_for_project(Tbfwin *bfwin) {
 	bfwin->bmarkdata = bfwin->project->bmarkdata;
 	bmark_set_store(bfwin);
 	bmark_reload(bfwin);
-	/*filebrowser_set_basedir(bfwin, bfwin->project->basedir);*/
-	fb2_set_basedir(bfwin, bfwin->project->basedir);
+
+	gui_set_main_toolbar_visible(bfwin, bfwin->session->view_main_toolbar, TRUE);
+	gui_set_custom_menu_visible(bfwin, bfwin->session->view_custom_menu, TRUE);
+	left_panel_show_hide_toggle(bfwin,FALSE,bfwin->session->view_left_panel, TRUE);
+	fb2_update_settings_from_session(bfwin);
+
 	recent_menu_from_list(bfwin, bfwin->project->session->recent_files, FALSE);
 	set_project_menu_widgets(bfwin, TRUE);
 	/* force this session in the plugins */
+	DEBUG_MSG("project.c: setup_bfwin_for_project: calling bfplugins_enforce_session for all plugins in %p\n",main_v->plugins);
 	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);
 }
 
@@ -294,17 +299,8 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		bfwin->session = prj->session;
 		prwin->project = prj;
 		prwin->bmarkdata = prj->bmarkdata;
-		gui_set_main_toolbar_visible(prwin, prj->session->view_main_toolbar, TRUE);
-		gui_set_custom_menu_visible(prwin, prj->session->view_custom_menu, TRUE);
-		DEBUG_MSG("project_open_from_file, calling left_panel_show_hide_toggle bfwin=%p\n",prwin);
-		left_panel_show_hide_toggle(prwin,FALSE,prj->session->view_left_panel, TRUE);
-		/*filebrowser_set_basedir(prwin, prj->basedir);*/
-		fb2_update_settings_from_session(prwin);
 
-		/* we should set these before we actually open any files, so every file can update 
-		their bookmarks after the loading of the data is finished */
-		bmark_reload(bfwin);
-		bmark_set_store(bfwin);
+		setup_bfwin_for_project(bfwin);
 
 		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
 		slist = gslist_from_glist_reversed(prj->files);
@@ -316,9 +312,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		DEBUG_MSG("project_open_from_file, we need a new window\n");
 		prwin = gui_new_window(prj->files, prj);
 		DEBUG_MSG("project_open_from_file, new window with files ready\n");
-		gui_set_title(prwin, prwin->current_document);
-		bmark_reload(bfwin);
-		bmark_set_store(bfwin);
+		setup_bfwin_for_project(bfwin);
 	}
 	set_project_menu_widgets(prwin, TRUE);
 	recent_menu_init_project(prwin);
