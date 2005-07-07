@@ -53,10 +53,9 @@ static void htmlbar_init(void) {
 	bind_textdomain_codeset(PACKAGE"_plugin_htmlbar", "UTF-8");
 #endif
 	htmlbar_v.quickbar_items = NULL;
-	htmlbar_v.view_htmlbar = TRUE;
 	htmlbar_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,
 					NULL /* == g_direct_equal() */,
-					g_free,NULL);
+					NULL,NULL);
 	DEBUG_MSG("htmlbar_init, will add doc_view_button_press %p\n",htmlbar_doc_view_button_press);
 	main_v->doc_view_populate_popup_cbs = g_slist_prepend(main_v->doc_view_populate_popup_cbs,htmlbar_doc_view_populate_popup);
 	main_v->doc_view_button_press_cbs = g_slist_prepend(main_v->doc_view_button_press_cbs,htmlbar_doc_view_button_press);
@@ -64,22 +63,32 @@ static void htmlbar_init(void) {
 }
 static void htmlbar_initgui(Tbfwin* bfwin) {
 	Thtmlbarwin *hbw;
-	gpointer *key;
+	Thtmlbarsession *hbs;
 
-	key = g_new(gpointer,1);
 	hbw = g_new0(Thtmlbarwin,1);
 	hbw->bfwin = bfwin;
-	*key = bfwin;
-	g_hash_table_insert(htmlbar_v.lookup,key,hbw);
+	g_hash_table_insert(htmlbar_v.lookup,bfwin,hbw);
+	DEBUG_MSG("htmlbar_initgui, adding hbw %p to hashtable %p with key %p\n",hbw,htmlbar_v.lookup,bfwin);
+	hbs = g_hash_table_lookup(htmlbar_v.lookup,bfwin->session);
+	if (!hbs) {
+		hbs = g_new0(Thtmlbarsession,1);
+		hbs->view_htmlbar = TRUE;
+		DEBUG_MSG("htmlbar_initgui, adding hbs %p to hashtable %p with key %p\n",hbs,htmlbar_v.lookup,bfwin->session);
+		g_hash_table_insert(htmlbar_v.lookup,bfwin->session,hbs);
+	}
 	DEBUG_MSG("htmlbar_initgui, started, will call htmlbar_build_menu\n");
 	htmlbar_build_menu(hbw);
-	if (htmlbar_v.view_htmlbar) {
-		htmlbar_toolbar(hbw);
-	}
+	htmlbar_view_toolbar(hbw, hbs->view_htmlbar);
 	DEBUG_MSG("htmlbar_initgui, finished\n");
 }
 static void htmlbar_enforce_session(Tbfwin* bfwin) {
-
+	Thtmlbarsession *hbs;
+	Thtmlbarwin *hbw;
+	hbs = g_hash_table_lookup(htmlbar_v.lookup,bfwin->session);
+	hbw = g_hash_table_lookup(htmlbar_v.lookup,bfwin);
+	if (hbs && hbw) {
+		htmlbar_view_toolbar(hbw, hbs->view_htmlbar);
+	}
 }
 static void htmlbar_cleanup(void) {
 	GList *tmplist = g_list_first(gtk_window_list_toplevels());
@@ -96,17 +105,24 @@ static void htmlbar_cleanup(void) {
 }
 
 static void htmlbar_cleanup_gui(Tbfwin *bfwin) {
-
+	/* BUG: clean the keys and structures in the hashtable */
 }
 
 static GList *htmlbar_register_globses_config(GList *configlist) {
 /*	configlist = make_config_list_item(configlist, &htmlbar_v.view_htmlbar, 'i', "view_htmlbar", 0);*/
+	configlist = make_config_list_item(configlist, &htmlbar_v.quickbar_items, 'l', "htmlbar_quickbar:", 0);
 	return configlist;
 }
 static GList *htmlbar_register_session_config(GList *configlist, Tsessionvars *session) {
-	/* BUG: these settings should be different for each session, and not global for the plugin */
-	configlist = make_config_list_item(configlist, &htmlbar_v.view_htmlbar, 'i', "htmlbar_view:", 0);
-	configlist = make_config_list_item(configlist, &htmlbar_v.quickbar_items, 'l', "htmlbar_quickbar:", 0);
+	Thtmlbarsession *hbs;
+	hbs = g_hash_table_lookup(htmlbar_v.lookup,session);
+	if (!hbs) {
+		hbs = g_new0(Thtmlbarsession,1);
+		hbs->view_htmlbar = TRUE;
+		g_hash_table_insert(htmlbar_v.lookup,session,hbs);
+		DEBUG_MSG("htmlbar_register_session_config, adding hbs %p to hashtable %p with key %p\n",hbs,htmlbar_v.lookup,session);
+	}
+	configlist = make_config_list_item(configlist, &hbs->view_htmlbar, 'i', "htmlbar_view:", 0);
 	return configlist;
 }
 

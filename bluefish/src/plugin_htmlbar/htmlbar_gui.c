@@ -143,17 +143,27 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 	}
 }
 
-void htmlbar_view_lcb(Thtmlbarwin *hbw,guint action,GtkWidget *widget) {
-	htmlbar_v.view_htmlbar = GTK_CHECK_MENU_ITEM(widget)->active;
-	if (GTK_CHECK_MENU_ITEM(widget)->active) {
+void htmlbar_view_toolbar(Thtmlbarwin *hbw, gboolean show) {
+	if (show) {
 		if (hbw->handlebox) {
 			gtk_widget_show(hbw->handlebox);
 		} else {
 			htmlbar_toolbar(hbw);
 		}
 	} else {
-		gtk_widget_hide(hbw->handlebox);
+		if (hbw->handlebox) gtk_widget_hide(hbw->handlebox);
 	}
+}
+
+static void htmlbar_view_lcb(Thtmlbarwin *hbw,guint action,GtkWidget *widget) {
+	Thtmlbarsession *hbs;
+	hbs = g_hash_table_lookup(htmlbar_v.lookup,hbw->bfwin->session);
+	if (hbs) {
+		hbs->view_htmlbar = GTK_CHECK_MENU_ITEM(widget)->active;
+	} else {
+		DEBUG_MSG("htmlbar_view_lcb, ERROR, no htmlbarsession ???\n");
+	}
+	htmlbar_view_toolbar(hbw, GTK_CHECK_MENU_ITEM(widget)->active);
 }
 
 #ifdef ENABLE_NLS
@@ -164,6 +174,7 @@ gchar *htmlbar_menu_translate(const gchar * path, gpointer data) {
 
 void htmlbar_build_menu(Thtmlbarwin *hbw) {
 	GtkItemFactory *ifactory;
+	Thtmlbarsession *hbs;
 	Tbfwin *bfwin = hbw->bfwin;
 	static GtkItemFactoryEntry menu_items[] = {
 		{N_("/_Tags"), NULL, NULL, 0, "<Branch>"},
@@ -429,7 +440,12 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 	gtk_item_factory_create_items(ifactory, sizeof(menu_items) / sizeof(menu_items[0]), menu_items, bfwin);
 	gtk_item_factory_create_items(ifactory, sizeof(menu_items1) / sizeof(menu_items1[0]), menu_items1, hbw);
 
-	setup_toggle_item(ifactory, "/View/View HTML Toolbar", htmlbar_v.view_htmlbar);
+	hbs = g_hash_table_lookup(htmlbar_v.lookup,bfwin->session);
+	if (hbs) {
+		setup_toggle_item(ifactory, "/View/View HTML Toolbar", hbs->view_htmlbar);
+	} else {
+		DEBUG_MSG("htmlbar_build_menu, ERROR, no htmlbarsession in hasht %p for session %p!!?!?!?!?\n",htmlbar_v.lookup,bfwin->session);
+	}
 	
 	gtk_widget_show_all(bfwin->menubar);
 }
