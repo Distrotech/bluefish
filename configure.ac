@@ -280,7 +280,7 @@ else
 	AC_MSG_ERROR([gmodule not detected, or too old, gmodule is part of glib])
 fi
 
-echo -n "checking for gtk+ requirements: gobject, gmodule, glib, gdk-pixbuf, gdk, and pango ... "
+echo -n "checking for gtk+ requirements: gobject, glib, gdk-pixbuf, gdk, and pango ... "
 if pkg-config --exists gobject-2.0 ; then
 	PKGCONFIGFILES="${PKGCONFIGFILES} gobject-2.0"
 fi
