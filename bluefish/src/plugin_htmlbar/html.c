@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.4 2005-07-06 15:02:53 dleidert Exp $
+ * $Id: html.c,v 1.5 2005-07-08 17:24:30 dleidert Exp $
  */
 /*#define DEBUG*/
 
@@ -1365,7 +1365,8 @@ void basefont_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
 static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
 {
-	gchar *finalstring, *tmpstr, *cc, *bcc, *subj, *body, *urlencoded;
+	gchar *finalstring, *tmpstr, *cc, *bcc, *subj, *body;
+	gchar *urlencoded = NULL;
 	gboolean have_questionmark = FALSE;
 	tmpstr = g_strconcat(cap("<A HREF=\"mailto:")
 			, gtk_entry_get_text(GTK_ENTRY(dg->entry[1]))
