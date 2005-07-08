@@ -172,7 +172,7 @@ AC_PROG_INSTALL
 AC_ARG_ENABLE(debugging-output,
 	AC_HELP_STRING([--enable-debugging-output],[Turns massive debugging output on, will slow down the program!]),[
    echo "With debugging output",
-AC_DEFINE(DEBUG)],)
+	AC_DEFINE(DEBUG)],)
 
 AC_ARG_ENABLE(splash-screen,
 	AC_HELP_STRING([--disable-splash-screen],[disables the splash screen]),[
@@ -182,7 +182,7 @@ AC_ARG_ENABLE(splash-screen,
 AC_ARG_ENABLE(highlight-profiling,
 	AC_HELP_STRING([--enable-highlight-profiling],[Enables profiling information about highlighting patterns]),[
    echo "With highlighting profiling",
-AC_DEFINE(HL_PROFILING)],)
+	AC_DEFINE(HL_PROFILING)],)
 
 AC_ARG_ENABLE(development,
 	AC_HELP_STRING([--enable-development],[Enables development checks, will slow down the program!]),[
@@ -281,8 +281,8 @@ if test "x${LGNOMEUI}" = "xyes" ; then
 	echo -n "checking for libgnomeui >= 2.6... "
 	if pkg-config libgnomeui-2.0 --atleast-version=2.6 ; then
 		AC_DEFINE(HAVE_ATLEAST_GNOMEUI_2_6)
-      LIBS="$LIBS `pkg-config --libs libgnomeui-2.0`"
-      CFLAGS="$CFLAGS `pkg-config --cflags libgnomeui-2.0`"
+		LIBS="$LIBS `pkg-config --libs libgnomeui-2.0`"
+		CFLAGS="$CFLAGS `pkg-config --cflags libgnomeui-2.0`"
 		echo "yes"
 	else
 		echo "no"
