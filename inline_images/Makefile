@@ -29,7 +29,6 @@ TOOLBAR_ENABLEPLUGINS = \
 	pixmap_frvar frvar.png \
 	pixmap_frcss frcss.png \
 	pixmap_frsnippet frsnippet.png \
-	pixmap_indent indent.png \
 	pixmap_new new.png \
 	pixmap_nothing nothing.png \
 	pixmap_open_small open_small.png \
@@ -42,7 +41,6 @@ TOOLBAR_ENABLEPLUGINS = \
 	pixmap_prefsfiles prefs-files.png \
 	pixmap_prefsimages prefs-images.png \
  	pixmap_prefssyntax prefs-syntax.png \
-	pixmap_unindent unindent.png \
 	pixmap_view_in_browser view_in_browser.png
 
 TOOLBAR = \
