@@ -38,8 +38,8 @@ static Tpixmap tp[] = {
 	{107, pixmap_frinfo},
 	{108, pixmap_frdialog},
 	{109, pixmap_frsearch},
-	{110, pixmap_indent},
-	{111, pixmap_unindent},
+/*	{110, pixmap_indent},
+	{111, pixmap_unindent},*/
 	{112, pixmap_open_small},
 	{150,pixmap_prefseditor},
 	{151,pixmap_prefsexternal},
