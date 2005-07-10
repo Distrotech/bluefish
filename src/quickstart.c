@@ -532,7 +532,7 @@ quickstart_style_page_create(TQuickStart *qstart)
 	
 	qstart->stylehref = gtk_combo_box_entry_new_with_model (GTK_TREE_MODEL (history), 0);
 	g_object_unref (history);
-	dialog_mnemonic_label_in_table(_("_HREF:"), qstart->stylehref, table, 0, 1, 0, 1);
+	dialog_mnemonic_label_in_table(_("HRE_F:"), qstart->stylehref, table, 0, 1, 0, 1);
 	gtk_table_attach (GTK_TABLE (table), qstart->stylehref, 1, 2, 0, 1, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
 	
 	qstart->stylemedia = gtk_entry_new ();
