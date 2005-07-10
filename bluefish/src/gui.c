@@ -395,11 +395,11 @@ void make_main_toolbar(Tbfwin *bfwin) {
 								"", G_CALLBACK(undo_cb), bfwin, -1);
 	bfwin->toolbar_redo = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_REDO, _("Redo"),	
 								"", G_CALLBACK(redo_cb), bfwin, -1);
-	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Shift Left"),
-							"", new_pixmap(111), G_CALLBACK(doc_unindent_lcb), bfwin);
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Shift Right"),
-							"", new_pixmap(110), G_CALLBACK(doc_indent_lcb), bfwin);
+	gtk_toolbar_append_space (GTK_TOOLBAR(toolbar));
+	gtk_toolbar_insert_stock (GTK_TOOLBAR(toolbar), GTK_STOCK_UNINDENT, _("Shift Left"), 
+	                     "", G_CALLBACK(doc_unindent_lcb), bfwin, -1);
+	gtk_toolbar_insert_stock (GTK_TOOLBAR(toolbar), GTK_STOCK_INDENT, _("Shift Right"),
+                        "", G_CALLBACK(doc_indent_lcb), bfwin, -1);
 
 /*
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Print..."), "",
