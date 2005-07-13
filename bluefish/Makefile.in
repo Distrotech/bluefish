@@ -107,4 +107,4 @@ uninstall:
 	rm -f $(DESTDIR)$(pkgdatadir)/bluefish_splash.png
 	rm -f $(DESTDIR)$(ICONPATH)/$(PACKAGE)-icon.png
 	rm -r $(DESTDIR)$(THEMEPATH)/48x48/apps/$(PACKAGE).png
-	rmdir $(DESTDIR)$(pkgdatadir)
+	rmdir --ignore-fail-on-non-empty $(DESTDIR)$(pkgdatadir)
