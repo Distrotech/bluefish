@@ -69,7 +69,7 @@ install: $(PLUGIN)
 
 uninstall:
 	rm -f $(DESTDIR)$(PLUGINDIR)/$(PLUGIN)
-	rmdir --ignore-fail-on-non-empty $(DESTDIR)$(PLUGINDIR)		
+	-rmdir $(DESTDIR)$(PLUGINDIR)		
 
 $(PLUGIN): $(OBJECTS)
 	$(LIBTOOL) --mode=link $(CC) -module $(LIBS) -shared -o $@ $(LOBJECTS)
