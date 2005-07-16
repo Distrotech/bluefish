@@ -1697,6 +1697,8 @@ static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs
 			after = replace_string_printflike(ccs->array[2], table);
 		}
 		doc_insert_two_strings(ccs->bfwin->current_document, before, after);
+		doc_scroll_to_cursor(ccs->bfwin->current_document);
+		
 		tmpt = table;
 		while (tmpt->my_char) {
 			DEBUG_MSG("cust_con_struc_dialog_ok_lcb, tmpt=%p, about to free(%p) %s\n", tmpt, tmpt->my_char, tmpt->my_char);
