@@ -43,7 +43,6 @@
 #include "project.h"
 #include "rcfile.h"			/* rcfile_save_configfile_menu_cb */
 #include "snr2.h"				/* search_cb, replace_cb */
-#include "snr_dialog.h"
 #include "stringlist.h"		/* free_stringlist() */
 #include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
 #include "external_commands.h"
@@ -104,15 +103,13 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		edit_select_all_cb(NULL, bfwin);
 	break;
 	case 14:
-/*		search_cb(NULL, bfwin);*/
-      snr_dialog_new(bfwin, BF_FIND_DIALOG);
+		search_cb(NULL, bfwin);
 	break;
 	case 16:
 		search_again_cb(NULL, bfwin);
 	break;
 	case 17:
-/*		replace_cb(NULL, bfwin);*/
-      snr_dialog_new(bfwin, BF_REPLACE_DIALOG);
+		replace_cb(NULL, bfwin);
 	break;
 	case 19:
 		replace_again_cb(NULL, bfwin);
