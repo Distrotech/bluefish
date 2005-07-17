@@ -633,7 +633,8 @@ GtkWidget *textview_buffer_in_scrolwin(GtkWidget **textview, gint width, gint he
 	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(*textview), wrapmode);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), *textview);
+	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolwin), GTK_SHADOW_IN);
+	gtk_container_add (GTK_CONTAINER (scrolwin), *textview);
 	gtk_widget_set_size_request(scrolwin, width, height);
 	if (contents) {
 		gtk_text_buffer_set_text(textbuf, contents, -1);
