@@ -43,6 +43,7 @@
 #include "project.h"
 #include "rcfile.h"			/* rcfile_save_configfile_menu_cb */
 #include "snr2.h"				/* search_cb, replace_cb */
+#include "snr_dialog.h"
 #include "stringlist.h"		/* free_stringlist() */
 #include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
 #include "external_commands.h"
@@ -103,13 +104,15 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		edit_select_all_cb(NULL, bfwin);
 	break;
 	case 14:
-		search_cb(NULL, bfwin);
+/*		search_cb(NULL, bfwin);*/
+      snr_dialog_new(bfwin, BF_FIND_DIALOG);
 	break;
 	case 16:
 		search_again_cb(NULL, bfwin);
 	break;
 	case 17:
-		replace_cb(NULL, bfwin);
+/*		replace_cb(NULL, bfwin);*/
+      snr_dialog_new(bfwin, BF_REPLACE_DIALOG);
 	break;
 	case 19:
 		replace_again_cb(NULL, bfwin);
@@ -1302,6 +1305,8 @@ static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs
 			after = replace_string_printflike(ccs->array[2], table);
 		}
 		doc_insert_two_strings(ccs->bfwin->current_document, before, after);
+		doc_scroll_to_cursor(ccs->bfwin->current_document);
+		
 		tmpt = table;
 		while (tmpt->my_char) {
 			DEBUG_MSG("cust_con_struc_dialog_ok_lcb, tmpt=%p, about to free(%p) %s\n", tmpt, tmpt->my_char, tmpt->my_char);
@@ -1357,7 +1362,7 @@ static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs
 
 static void cust_con_struc_dialog(Tbfwin *bfwin, gchar **array, gint type) {
 	Tcust_con_struc *ccs;
-	GtkWidget *vbox, *hbox, *okb, *cancb;
+   GtkWidget *vbox, *table, *hbox, *okb, *cancb;
 	gint i, num_vars;
 
 	ccs = g_malloc(sizeof(Tcust_con_struc));
@@ -1369,7 +1374,7 @@ static void cust_con_struc_dialog(Tbfwin *bfwin, gchar **array, gint type) {
 	DEBUG_MSG("cust_con_struc_dialog_cb, array[0] at %p, *array=%p\n", ccs->array[0], *ccs->array);
 	ccs->dialog = window_full2(ccs->array[0], GTK_WIN_POS_MOUSE,  
 			5, G_CALLBACK(cust_con_struc_dialog_destroy_lcb), ccs, TRUE, NULL);
-	vbox = gtk_vbox_new(TRUE, 0);
+	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(ccs->dialog), vbox);
 	DEBUG_MSG("cust_con_struc_dialog_cb, ccs->array[0]=%s\n", ccs->array[0]);
 	
@@ -1380,19 +1385,27 @@ static void cust_con_struc_dialog(Tbfwin *bfwin, gchar **array, gint type) {
 	}
 	DEBUG_MSG("cust_con_struc_dialog_cb, num_vars=%d\n", num_vars);
 
-	for (i=0; i<num_vars; i++) {
-		hbox = gtk_hbox_new(FALSE, 0);
-		if (type ==0) {
-			gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(ccs->array[i+4]), TRUE, TRUE, 2);
-		} else {
-			gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(ccs->array[i+7]), TRUE, TRUE, 2);
-		}
-		ccs->textentry[i] = gtk_entry_new();
+   table = gtk_table_new (num_vars, 2, FALSE);
+   gtk_table_set_row_spacings (GTK_TABLE (table), 12);
+   gtk_table_set_col_spacings (GTK_TABLE (table), 12);
+   gtk_box_pack_start (GTK_BOX (vbox), table, TRUE, TRUE, 0);
+
+   for (i = 0; i < num_vars; i++) {
+      gchar *labelTxt = NULL;
+      
+      if (type == 0) {
+         labelTxt = g_strconcat (ccs->array[i+4], ": ", NULL);
+      } else {
+         labelTxt = g_strconcat (ccs->array[i+7], ": ", NULL); 
+      }
+      
+      ccs->textentry[i] = gtk_entry_new ();
 		DEBUG_MSG("cust_con_struc_dialog_cb, textentry[%d]=%p\n", i, ccs->textentry[i]);
-		gtk_entry_set_activates_default(GTK_ENTRY(ccs->textentry[i]), TRUE);
-		gtk_box_pack_start(GTK_BOX(hbox), ccs->textentry[i], TRUE, TRUE, 0);		
-		gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 0);
-	}
+		bf_mnemonic_label_tad_with_alignment(labelTxt, ccs->textentry[i], 0, 0.5, table, 0, 1, i, i+1);
+		gtk_table_attach (GTK_TABLE (table), ccs->textentry[i], 1, 2, i, i+1, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
+		
+		g_free (labelTxt);
+   }
 	
 	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), FALSE, FALSE, 12);
 	hbox = gtk_hbutton_box_new();
