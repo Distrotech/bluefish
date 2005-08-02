@@ -1347,7 +1347,9 @@ static gboolean search_entry_key_press_event_lcb(GtkWidget *widget,GdkEventKey *
 static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	Tsnr2_win *snr2win;
 	GtkWidget *vbox, *hbox, *button, *table;
-	gchar *tmptext;
+	const gchar *tmptext;
+	gchar *buffer;
+	GtkTextIter start, end;
 
 	snr2win = g_malloc(sizeof(Tsnr2_win));
 	snr2win->bfwin = bfwin;
@@ -1387,8 +1389,15 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	gtk_label_set_justify (GTK_LABEL (snr2win->search_label), GTK_JUSTIFY_LEFT);
 	gtk_misc_set_alignment (GTK_MISC (snr2win->search_label), 0, 0.5);
 	/*snr2win->search_scrollbox = textview_buffer_in_scrolwin(&snr2win->search_entry, 300, 50, LASTSNR2(bfwin->snr2)->search_pattern, GTK_WRAP_NONE);*/
-	
-	snr2win->search_combo = combo_with_popdown("", bfwin->session->searchlist, TRUE);
+	gtk_text_buffer_get_selection_bounds(bfwin->current_document->buffer, &start, &end);
+	buffer = gtk_text_buffer_get_text(bfwin->current_document->buffer, &start, &end, FALSE);
+	if (strchr(buffer,'\n')!=NULL) {
+		/* a newline in the selection, we probably don't want this string as search string */
+		g_free(buffer);
+		buffer = NULL;
+	}
+	snr2win->search_combo = combo_with_popdown(buffer ? buffer : "", bfwin->session->searchlist, TRUE);
+	if (buffer) g_free(buffer);
 	gtk_table_attach (GTK_TABLE (table), snr2win->search_combo, 1, 2, 0, 1,
 					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
 	/*g_signal_connect(G_OBJECT(snr2win->search_entry), "key_press_event", G_CALLBACK(search_entry_key_press_event_lcb), snr2win);*/
