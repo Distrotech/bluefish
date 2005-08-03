@@ -3,8 +3,15 @@
  *
  * Copyright (C) 2005 Olivier Sessink
  *
- * inspired by code in libgnomeui and the previous dialog written by Salvador Fandino
+ * inspired by code in libgnomeui 
+ * and the previous dialog written by Salvador Fandino
  * (which was buggy with async gnome_vfs calls)
+ *
+ * there is hardly any documentation on this, you should read 
+ * libgnomevfs/gnome-vfs-standard-callbacks.h 
+ * libgnomeui/gnome-authentication-manager.c http://cvs.gnome.org/viewcvs/libgnomeui/libgnomeui/gnome-authentication-manager.c
+ * libgnomeui/gnome-password-dialog.c http://cvs.gnome.org/viewcvs/libgnomeui/libgnomeui/gnome-password-dialog.c
+ * gnome-keyring/gnome-keyring.c http://cvs.gnome.org/viewcvs/gnome-keyring/gnome-keyring.c
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -152,7 +159,7 @@ static void add_row(GtkWidget *table, int row, const char *label_text, GtkWidget
 	gtk_label_set_mnemonic_widget(GTK_LABEL(label), entry);
 }
 
-static Tauthdialog *password_dialog(Tauthen *auth, gchar *location, gchar *default_user, gchar *default_domain) {
+static Tauthdialog *password_dialog(Tauthen *auth, gboolean proxy_authentication, gchar *location, gchar *default_user, gchar *default_domain) {
 	Tauthdialog *ad;
 	gchar *tmp;
 	GtkWidget *table, *label;
@@ -160,12 +167,16 @@ static Tauthdialog *password_dialog(Tauthen *auth, gchar *location, gchar *defau
 	DEBUG_MSG("password_dialog, started for location %s\n",location);
 	ad = g_new0(Tauthdialog,1);
 	ad->auth = auth;
+	/* keep the messages for consistency the same as in libgnomeui */
 	ad->dialog = gtk_dialog_new_with_buttons(_("Authentication required"), NULL,
 			GTK_DIALOG_MODAL | GTK_DIALOG_DESTROY_WITH_PARENT,
 			GTK_STOCK_OK, GTK_RESPONSE_ACCEPT,
 			GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,NULL);
 	gtk_dialog_set_default_response(GTK_DIALOG(ad->dialog), GTK_RESPONSE_ACCEPT);
-
+	if (proxy_authentication) {
+		GtkWidget *label = gtk_label_new(_("Your HTTP Proxy requires you to log in."));
+		gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ad->dialog)->vbox), label, TRUE,TRUE,5);
+	}
 	gtk_dialog_set_has_separator (GTK_DIALOG(ad->dialog), FALSE);
 	gtk_window_set_position(GTK_WINDOW(ad->dialog), GTK_WIN_POS_CENTER);
 	gtk_container_set_border_width(GTK_CONTAINER(ad->dialog), 10);
@@ -199,18 +210,63 @@ static Tauthdialog *password_dialog(Tauthen *auth, gchar *location, gchar *defau
 	return ad;
 }
 
+static void authentication_response_lcb(GtkDialog *dialog,gint response,gpointer data) {
+	Tauthdialog *ad = data;
+	GnomeVFSModuleCallbackAuthenticationOut *out_real = ad->out;
+
+	if (response == GTK_RESPONSE_ACCEPT) {
+		out_real->password = gtk_editable_get_chars(GTK_EDITABLE(ad->password), 0, -1);
+		if (ad->username) out_real->username = gtk_editable_get_chars(GTK_EDITABLE(ad->username), 0, -1);
+	}
+	
+	gtk_widget_destroy(ad->dialog);
+	if (ad->response) {
+		DEBUG_MSG("authentication_response_lcb, calling response(response_data)\n");
+		ad->response(ad->response_data);
+	}
+	g_free(ad);
+}
+
 static void vfs_async_authentication_lcb(gconstpointer in, size_t in_size, 
 				   gpointer out, size_t out_size, 
 				   gpointer user_data,
 				   GnomeVFSModuleCallbackResponse response,
 				   gpointer response_data) {
-	g_print("vfs_async_authentication_lcb is not implemented yet: please email the Bluefish maintainers and explain how you got this warning\n");
-	response(response_data);
+	Tauthdialog *ad;
+	Tauthen *auth = user_data;
+	GnomeVFSModuleCallbackAuthenticationIn *in_real = (GnomeVFSModuleCallbackAuthenticationIn *)in;
+	GnomeVFSModuleCallbackAuthenticationOut *out_real = (GnomeVFSModuleCallbackAuthenticationOut *)out;
+
+	DEBUG_MSG("vfs_async_authentication_lcb, called\n");
+	ad = password_dialog(auth, TRUE, in_real->uri, 
+			"", NULL);
+	ad->in = in_real;
+	ad->out = out_real;
+	ad->response = response;
+	ad->response_data = response_data;
+	g_signal_connect(ad->dialog, "response", G_CALLBACK(authentication_response_lcb), ad);
+
 }
 static void vfs_authentication_lcb(gconstpointer in, size_t in_size, 
 			     gpointer out, size_t out_size, 
 			     gpointer user_data) {
-	g_print("vfs_authentication_lcb is not implemented yet: please email the Bluefish maintainers and explain how you got this warning\n");
+	/* seems to be for http-proxy authentication */
+	Tauthdialog *ad;
+	Tauthen *auth = user_data;
+	GnomeVFSModuleCallbackAuthenticationIn *in_real = (GnomeVFSModuleCallbackAuthenticationIn *)in;
+	GnomeVFSModuleCallbackAuthenticationOut *out_real = (GnomeVFSModuleCallbackAuthenticationOut *)out;
+	gint ret;
+	GDK_THREADS_ENTER ();
+	DEBUG_MSG("vfs_authentication_lcb, called\n");
+	ad = password_dialog(auth, TRUE, in_real->uri, 
+			"", NULL);
+	ad->in = in_real;
+	ad->out = out_real;
+	ad->response = NULL;
+	ad->response_data = NULL;
+	ret = gtk_dialog_run(GTK_DIALOG(ad->dialog));
+	authentication_response_lcb(GTK_DIALOG(ad->dialog),ret,ad);
+	GDK_THREADS_LEAVE ();
 }
 
 static void full_authentication_response_lcb(GtkDialog *dialog,gint response,gpointer data) {
@@ -229,7 +285,7 @@ static void full_authentication_response_lcb(GtkDialog *dialog,gint response,gpo
 	
 	gtk_widget_destroy(ad->dialog);
 	if (ad->response) {
-		DEBUG_MSG("full_authentication_response_lcb, calling response(response_data)\n");
+		DEBUG_MSG("full_authentication_response_lcb, calling response(response_data), abort=%d\n",out_real->abort_auth);
 		ad->response(ad->response_data);
 	}
 	g_free(ad);
@@ -242,13 +298,18 @@ static void vfs_async_full_authentication_lcb(gconstpointer in, size_t in_size,
 					gpointer response_data) {
 	Tauthdialog *ad;
 	Tauthen *auth = user_data;
+	gchar *username=NULL;
 	GnomeVFSModuleCallbackFullAuthenticationIn *in_real = (GnomeVFSModuleCallbackFullAuthenticationIn *)in;
 	GnomeVFSModuleCallbackFullAuthenticationOut *out_real = (GnomeVFSModuleCallbackFullAuthenticationOut *)out;
 
-	DEBUG_MSG("vfs_async_full_authentication_lcb, called\n");
-
-	ad = password_dialog(auth, in_real->uri, 
-			(in_real->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_USERNAME) ? (in_real->default_user ? in_real->default_user : in_real->username) : NULL, 
+	DEBUG_MSG("vfs_async_full_authentication_lcb, called, flags=%d\n",in_real->flags);
+	if (in_real->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_USERNAME) {
+		if (in_real->default_user) username = in_real->default_user;
+		else if (in_real->username) username = in_real->username;
+		else username = "";
+	}
+	ad = password_dialog(auth, FALSE, in_real->uri, 
+			username,
 			(in_real->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_DOMAIN) ? (in_real->domain ? in_real->domain : "" ): NULL);
 	ad->in = in_real;
 	ad->out = out_real;
@@ -266,7 +327,7 @@ static void vfs_full_authentication_lcb(gconstpointer in, size_t in_size,
 	gint ret;
 
 	DEBUG_MSG("vfs_full_authentication_lcb, called\n");
-	ad = password_dialog(auth, in_real->uri, 
+	ad = password_dialog(auth, FALSE, in_real->uri, 
 			(in_real->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_USERNAME) ? (in_real->default_user ? in_real->default_user : in_real->username) : NULL, 
 			(in_real->flags & GNOME_VFS_MODULE_CALLBACK_FULL_AUTHENTICATION_NEED_DOMAIN) ? (in_real->domain ? in_real->domain : "" ): NULL);
 	ad->in = in_real;
@@ -339,6 +400,7 @@ static gboolean save_authentication_idle_lcb(gpointer user_data) {
 	authen_insert(af->auth, in_real->password, in_real->protocol, in_real->server, in_real->port, in_real->object, in_real->authtype, in_real->username, in_real->domain);
 	if (af->response) {
 		DEBUG_MSG("save_authentication_idle_lcb, calling response()\n");
+		/* I can't find in libgnomeui nor in gnome-keyring.c if they call the response anywhere.. */
 		af->response(af->response_data);
 	}
 	g_free(af);
@@ -376,19 +438,73 @@ static void vfs_save_authentication_lcb(gconstpointer in, size_t in_size,
 	save_authentication_idle_lcb(af);
 }
 
+typedef struct {
+	Tauthen *auth;
+	GtkWidget *dialog;
+
+	GnomeVFSModuleCallbackResponse response;
+	gpointer response_data;
+	gpointer in;
+	gpointer out;
+} Tquesdialog;
+
+static Tquesdialog *create_question_dialog (char *prim_msg, char *sec_msg, char **choices)  {
+	Tquesdialog *qd;
+	int cnt, len;
+
+	qd = g_new0(Tquesdialog,1);
+	qd->dialog = gtk_message_dialog_new_with_markup (NULL, 0, GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE, "<span weight=\"bold\" size=\"larger\">%s</span>\n\n%s",prim_msg, sec_msg);
+	
+	if (choices) {
+		/* First count the items in the list then 
+		 * add the buttons in reverse order */
+		for (len=0; choices[len] != NULL; len++); 
+		for (cnt=len-1; cnt >= 0; cnt--) {
+			/* Maybe we should define some gnome-vfs stockbuttons and 
+			 * then replace them here with gtk-stockbuttons */
+			gtk_dialog_add_button (GTK_DIALOG(qd->dialog), choices[cnt], cnt);
+		}
+	}
+	return qd;
+}
+
+static void question_response_lcb(GtkDialog *dialog,gint response,gpointer data) {
+	Tquesdialog *qd = data;
+	GnomeVFSModuleCallbackQuestionOut *out_real = qd->out;
+	out_real->answer = response;
+	gtk_widget_destroy(qd->dialog);
+	if (qd->response) {
+		qd->response(qd->response_data);
+	}
+	g_free(qd);
+}
+
 static void vfs_async_question_lcb(gconstpointer in, size_t in_size, 
-			     gpointer out, size_t out_size, 
-			     gpointer user_data,
-			     GnomeVFSModuleCallbackResponse response,
-			     gpointer response_data) {
-	g_print("vfs_async_question_lcb is not implemented yet: please email the Bluefish maintainers and explain how you got this warning\n");
-	response(response_data);
+				gpointer out, size_t out_size, 
+				gpointer user_data,
+				GnomeVFSModuleCallbackResponse response,
+				gpointer response_data) {
+	GnomeVFSModuleCallbackQuestionIn *in_real = (GnomeVFSModuleCallbackQuestionIn *)in;
+	GnomeVFSModuleCallbackQuestionOut *out_real = (GnomeVFSModuleCallbackQuestionOut *)out;
+	Tquesdialog *qd = create_question_dialog(in_real->primary_message, in_real->secondary_message, in_real->choices);
+	qd->response = response;
+	qd->response_data = response_data;
+	qd->out = out_real;
+	out_real->answer = -1; /* Set a default value */
+	g_signal_connect(qd->dialog, "response", G_CALLBACK(question_response_lcb), qd);
 }
 
 static void vfs_question_lcb(gconstpointer in, size_t in_size, 
-		       gpointer out, size_t out_size, 
-		       gpointer user_data) {
-	g_print("vfs_question_lcb is not implemented yet: please email the Bluefish maintainers and explain how you got this warning\n");
+				gpointer out, size_t out_size, 
+				gpointer user_data) {
+	GnomeVFSModuleCallbackQuestionIn *in_real = (GnomeVFSModuleCallbackQuestionIn *)in;
+	GnomeVFSModuleCallbackQuestionOut *out_real = (GnomeVFSModuleCallbackQuestionOut *)out;
+	
+	Tquesdialog *qd;
+	qd = create_question_dialog(in_real->primary_message, in_real->secondary_message, in_real->choices);
+	qd->out = out_real;
+	out_real->answer = gtk_dialog_run(GTK_DIALOG(qd->dialog));
+	question_response_lcb(GTK_DIALOG(qd->dialog),out_real->answer,qd);
 }
 
 void authen_init(void) {
@@ -431,8 +547,8 @@ void authen_init(void) {
 	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_SAVE_AUTHENTICATION,
 				vfs_save_authentication_lcb, 
 				auth,NULL);
-/*	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_QUESTION,
+	gnome_vfs_module_callback_set_default(GNOME_VFS_MODULE_CALLBACK_QUESTION,
 				vfs_question_lcb, 
-				auth,NULL);*/
+				auth,NULL);
 }
 #endif /* ifndef HAVE_ATLEAST_GNOMEUI_2_6 */
