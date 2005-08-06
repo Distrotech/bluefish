@@ -368,8 +368,13 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Replace special/To _Uppercase"), NULL, doc_convert_asciichars_in_selection, 4, "<Item>"},
 	{N_("/Edit/Replace special/To _Lowercase"), NULL, doc_convert_asciichars_in_selection, 5, "<Item>"},
 	{"/Edit/sep4", NULL, NULL, 0, "<Separator>"},
+#ifdef HAVE_ATLEAST_GTK_2_4
+   {N_("/Edit/S_hift Right"), NULL, menu_indent_cb, 2, "<StockItem>", GTK_STOCK_INDENT},
+   {N_("/Edit/Shift _Left"), NULL, menu_indent_cb, 1, "<StockItem>", GTK_STOCK_UNINDENT},
+#else
 	{N_("/Edit/S_hift Right"), NULL, menu_indent_cb, 2, "<ImageItem>", pixmap_indent},
 	{N_("/Edit/Shift _Left"), NULL, menu_indent_cb, 1, "<ImageItem>", pixmap_unindent},
+#endif
 	{"/Edit/sep5", NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/Add _Bookmark"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
 	{"/Edit/sep6", NULL, NULL, 0, "<Separator>"},
