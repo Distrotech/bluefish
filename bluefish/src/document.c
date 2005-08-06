@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * document.c - the document
  *
- * Copyright (C) 1998-2004 Olivier Sessink
+ * Copyright (C) 1998-2005 Olivier Sessink
  * Copyright (C) 1998 Chris Mazuc
  * some additions Copyright (C) 2004 Eugene Morenko(More)
  *
@@ -1388,7 +1388,7 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 			gchar const *scheme=gnome_vfs_uri_get_scheme(uri);
 			if (scheme && (strcmp(scheme, "http")==0 || strcmp(scheme, "https")==0)) {
 				GnomeVFSURI* sourceuri;
-#ifdef HAVE_ATLEAST_GNOME_2_5
+#ifdef HAVE_ATLEAST_GNOME_2_6
 				/* TODO */
 				/* use metadata to get source property */
 				sourceuri=gnome_vfs_uri_append_file_name(uri, "document_src");
@@ -2470,8 +2470,10 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
 		gchar *tmpstr;
 		gint retval;
 		gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
+
 		tmpstr = g_strdup_printf(_("File %s exists and is opened, overwrite?"), newfilename);
-		retval = multi_warning_dialog(bfwin->main_window,tmpstr, _("The file you have selected is being edited in Bluefish."), 1, 0, options);
+		retval = multi_warning_dialog(bfwin->main_window, tmpstr, 
+		                              _("The file you have selected is being edited in Bluefish."), 1, 0, options);
 		g_free(tmpstr);
 		if (retval == 0) {
 			g_free(newfilename);
@@ -2480,26 +2482,23 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
 			document_unset_filename(exdoc);
 		}
 	} else {
-		gchar *ondiskencoding = get_filename_on_disk_encoding(newfilename);
-		if (g_file_test(ondiskencoding, G_FILE_TEST_EXISTS)) {
+      if (file_exists_and_readable(newfilename)) {      
 			gchar *tmpstr;
 			gint retval;
 			gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
+			
 			tmpstr = g_strdup_printf(_("A file named \"%s\" already exists."), newfilename);
-			retval = multi_warning_dialog(bfwin->main_window,tmpstr, 
-											_("Do you want to replace the existing file?"), 1, 0, options);
-			g_free(tmpstr);
+			retval = multi_warning_dialog(bfwin->main_window, tmpstr, 
+                                       _("Do you want to replace the existing file?"), 1, 0, options);
+			g_free (tmpstr);
 			if (retval == 0) {
-				g_free(newfilename);
-				g_free(ondiskencoding);
+				g_free (newfilename);
 				return NULL;
 			}
 		}
-		g_free(ondiskencoding);
 	}
 	return newfilename;
 }
-
 
 /**
  * doc_save:
