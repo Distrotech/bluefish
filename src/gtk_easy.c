@@ -18,6 +18,7 @@
  */
 
 /* #define DEBUG */
+
 #include <gtk/gtk.h>
 #include <stdlib.h> /* strtod() */
 #include <string.h> /* strlen() */
@@ -529,7 +530,7 @@ GtkWidget *boxed_optionmenu_with_value(const gchar *labeltext, gint curval, GtkW
  *
  * Return value: #GtkWidget* pointer to created window
  */
-GtkWidget *window_with_title(gchar * title, GtkWindowPosition position, gint borderwidth) {
+GtkWidget *window_with_title(const gchar * title, GtkWindowPosition position, gint borderwidth) {
 	GtkWidget *returnwidget;
 
 	returnwidget = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -585,7 +586,7 @@ static gboolean window_full_key_press_event_lcb(GtkWidget *widget,GdkEventKey *e
  *
  * Return value: #GtkWidget* pointer to created window
  */
-GtkWidget *window_full2(gchar * title, GtkWindowPosition position
+GtkWidget *window_full2(const gchar * title, GtkWindowPosition position
 			, gint borderwidth, GCallback close_func
 			, gpointer close_data
 			, gboolean delete_on_escape,
