@@ -931,7 +931,7 @@ static gboolean dialog_key_press_event_lcb(GtkWidget *widget,GdkEventKey *event,
  * (strong && larger) message and an additional, more descriptive message.
  * It is not resizeable, has no title, placement is selected by the wm.
  */
-static void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *secondary, gchar *icon)
+void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *secondary, gchar *icon)
 {
 	GtkWidget *vbox, *hbox, *image, *label;
 	gchar *message;

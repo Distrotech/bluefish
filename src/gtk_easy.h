@@ -31,6 +31,7 @@ typedef enum { none, file, font } Textra_but;
 void flush_queue(void);
 gint widget_get_string_size(GtkWidget *widget, gchar *string);
 void widget_set_visible(GtkWidget *widget, gboolean visible);
+void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *secondary, gchar *icon);
 /* Single-button dialogs*/
 void single_button_dialog_backend(GtkWidget *win,gchar * primary, gchar * secondary, gchar * icon);
 void error_dialog(GtkWidget *win,gchar * primary, gchar * secondary);

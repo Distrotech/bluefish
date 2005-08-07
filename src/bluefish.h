@@ -149,6 +149,7 @@ typedef struct {
 } Tdocument;
 
 typedef struct {
+   gint show_quickbar_tip;
 	gint view_line_numbers; /* view line numbers on the left side by default */
 	gint filebrowser_show_hidden_files;
 	gint filebrowser_show_backup_files;
