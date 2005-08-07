@@ -231,9 +231,35 @@ int main(int argc, char *argv[])
 	}
 
 	gui_show_main(firstbfwin);
-	if (firstbfwin->session->view_html_toolbar && main_v->globses.quickbar_items == NULL) {
-		info_dialog(firstbfwin->main_window, _("Bluefish tip:"), _("This message is shown since you do not have any items in the Quickbar.\n\nIf you right-click a button in the HTML toolbars you can add buttons to the Quickbar."));
+	if (firstbfwin->session->view_html_toolbar && 
+         main_v->globses.quickbar_items == NULL && 
+         main_v->props.show_quickbar_tip == TRUE) 
+   {	
+	   GtkWidget *dialog, *show_again;
+	   
+	   dialog = gtk_dialog_new_with_buttons ("", 
+	                                         GTK_WINDOW (firstbfwin->main_window),
+	                                         GTK_DIALOG_DESTROY_WITH_PARENT,
+	                                         GTK_STOCK_OK,
+	                                         GTK_RESPONSE_CLOSE,
+	                                         NULL);
+	                                         
+      hig_dialog_backend(GTK_DIALOG (dialog),
+                         _("Bluefish tip:"),
+                         _("This message is shown if you do not have any items in the Quickbar.\n\nTo add buttons to the Quickbar, right click on a button in the HTML toolbars."),
+                         GTK_STOCK_DIALOG_INFO);
+	   
+	   show_again = gtk_check_button_new_with_mnemonic (_("_Don't show this dialog again."));
+	   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), show_again, TRUE, FALSE, 0);
+	   
+	   gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
+	   gtk_dialog_run (GTK_DIALOG (dialog));
+	   if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (show_again))) {
+	      main_v->props.show_quickbar_tip = FALSE;
+	   }
+	   gtk_widget_destroy (dialog);
 	}
+	
 	if (projectfiles) {
 		GList *tmplist = g_list_first(projectfiles);
 		while (tmplist) {
