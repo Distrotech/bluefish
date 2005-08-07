@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.44.2.5 2005-07-08 17:21:58 dleidert Exp $
+ * $Id: html.c,v 1.44.2.6 2005-08-07 00:30:59 jimh6583 Exp $
  */
 /*#define DEBUG*/
 
@@ -444,7 +444,7 @@ void insert_time_dialog(Tbfwin *bfwin) {
 			break;
 		case 6:
 			strftime(isotime, 30, "%Y-%m-%dT%H:%M:%S%z", time_struct);
-			temp = g_strdup_printf(_("  _ISO-8601 Time (%s)"), isotime);
+			temp = g_strdup_printf(_("  ISO-8601 Ti_me (%s)"), isotime);
 			break;
 		default:
 			break;
