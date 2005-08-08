@@ -151,7 +151,7 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index) {
 	if (index >= 0) {
-		gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), (index));
+		gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), (index));
 /*		notebook_changed();*/
 		return TRUE;
 	}
@@ -210,9 +210,9 @@ void gui_notebook_switch(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 		break;
 		case 2: gtk_notebook_next_page(GTK_NOTEBOOK(bfwin->notebook));
 		break;
-		case 3: gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), 0);
+		case 3: gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), 0);
 		break;
-		case 4: gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), -1);
+		case 4: gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), -1);
 		break;
 		case 5: gui_notebook_move(bfwin, TRUE);
 		break;
@@ -252,10 +252,9 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	bmarks = bmark_gui(bfwin);
 	fb2g = fb2_init(bfwin);
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fb2g,new_pixmap(105),gtk_label_new(_("Filebrowser")));
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),bmarks,new_pixmap(104),gtk_label_new(_("Bookmarks")));
 /*	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105),gtk_label_new(_("Filebrowser")));*/
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fref,new_pixmap(106),gtk_label_new(_("Function reference")));
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),bmarks,new_pixmap(104),gtk_label_new(_("Bookmarks")));
-
 
 	gtk_widget_show_all(left_notebook);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(left_notebook),0);
