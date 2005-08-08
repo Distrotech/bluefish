@@ -1026,7 +1026,6 @@ void htmlbar_toolbar(Thtmlbarwin *hbw) {
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_TOP);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(html_notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(html_notebook), TRUE);
-	gtk_notebook_set_page(GTK_NOTEBOOK(html_notebook), 0);
 	hbw->handlebox = gtk_handle_box_new();
 	gtk_container_add(GTK_CONTAINER(hbw->handlebox), html_notebook);
 	gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), hbw->handlebox, FALSE, FALSE, 0);
