@@ -3298,9 +3298,9 @@ static void files_advanced_win_ok_clicked(GtkWidget * widget, Tfiles_advanced *t
 	c_basedir = gtk_editable_get_chars(GTK_EDITABLE(tfs->basedir), 0, -1);
 	c_find_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->find_pattern)->entry), 0, -1);	
 	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))) {
-		c_recursive= "-maxdepth 100 ";
+		c_recursive= " -maxdepth 100";
 	} else {
-		c_recursive = "-maxdepth 1 ";
+		c_recursive = " -maxdepth 1";
 	}
 
 	c_grep_pattern = gtk_editable_get_chars(GTK_EDITABLE(tfs->grep_pattern), 0, -1);
@@ -3310,13 +3310,13 @@ static void files_advanced_win_ok_clicked(GtkWidget * widget, Tfiles_advanced *t
 		c_is_regex = "-l ";
 	}
 /*
-command = `find c_basedir -name c_find_pattern c_recursive`
-command = `grep -E 'c_grep_pattern' `find c_basedir -name c_find_pattern c_recursive``
+command = `find c_basedir c_recursive -name c_find_pattern`
+command = `grep -E 'c_grep_pattern' `find c_basedir c_recursive -name c_find_pattern``
 */
 	if (strlen(c_grep_pattern) == 0) {
-		command = g_strconcat(EXTERNAL_FIND, " ", c_basedir, " -name '", c_find_pattern, "' ", c_recursive, "> ", temp_file, NULL);
+		command = g_strconcat (EXTERNAL_FIND, " ", c_basedir, c_recursive, " -name '", c_find_pattern, "' > ", temp_file, NULL);
 	} else {
-		command = g_strconcat(EXTERNAL_GREP, " ",c_is_regex, " '", c_grep_pattern,"' `", EXTERNAL_FIND, " ", c_basedir, " -name '", c_find_pattern, "' ", c_recursive, "`", "> ", temp_file, NULL);
+		command = g_strconcat (EXTERNAL_GREP, " ", c_is_regex, " '", c_grep_pattern, "' `", EXTERNAL_FIND, " ", c_basedir, c_recursive, " -name '", c_find_pattern, "' ` > ", temp_file, NULL);
 	}
 	g_free(c_basedir);
 	g_free(c_find_pattern);
