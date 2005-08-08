@@ -570,6 +570,7 @@ actions, so the first char in buf is actually number offset in the text widget *
 	}
 	DEBUG_MSG("replace_backend, offset=%d, result.start=%d, result.end=%d\n", offset, result.start, result.end);
 	if (result.end > 0) {
+		gchar *tofree;
 		switch (replacetype) {
 		case string:
 			if (matchtype == match_normal) {
@@ -586,11 +587,15 @@ actions, so the first char in buf is actually number offset in the text widget *
 		break;
 		case uppercase:
 			tmpstr = g_strndup(&buf[result.bstart], result.bend - result.bstart);
-			g_utf8_strup(tmpstr, -1);
+			tofree = tmpstr;
+			tmpstr = g_utf8_strup(tmpstr, -1);
+			g_free(tofree);
 		break;
 		case lowercase:
 			tmpstr = g_strndup(&buf[result.bstart], result.bend - result.bstart);
-			g_utf8_strdown(tmpstr, -1);
+			tofree = tmpstr;
+			tmpstr = g_utf8_strdown(tmpstr, -1);
+			g_free(tofree);
 		break;
 		}
 		DEBUG_MSG("replace_backend, len=%d, offset=%d, start=%d, end=%d, document=%p, tmpstr='%s'\n", result.end - result.start, offset, result.start + offset, result.end + offset, doc,tmpstr);
@@ -789,11 +794,17 @@ static void replace_prompt_dialog_ok_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 			tmpstr = reg_replace(tmpstr, 0, LASTSNR2(bfwin->snr2)->result, bfwin->current_document, LASTSNR2(bfwin->snr2)->unescape);
 			
 		} else if (LASTSNR2(bfwin->snr2)->replacetype_option==uppercase) {
+			gchar *tofree;
 			tmpstr = doc_get_chars(bfwin->current_document, LASTSNR2(bfwin->snr2)->result.start ,LASTSNR2(bfwin->snr2)->result.end);
-			g_utf8_strup(tmpstr, -1);
+			tofree = tmpstr;
+			tmpstr = g_utf8_strup(tmpstr, -1);
+			g_free(tofree);
 		} else {
+			gchar *tofree;
 			tmpstr = doc_get_chars(bfwin->current_document, LASTSNR2(bfwin->snr2)->result.start ,LASTSNR2(bfwin->snr2)->result.end);
-			g_utf8_strdown(tmpstr, -1);
+			tofree = tmpstr;
+			tmpstr = g_utf8_strdown(tmpstr, -1);
+			g_free(tofree);
 		}
 		/* avoid new highlighting at this stage, so call the backend directly instead of the frontend function
 		this because the highlighting interferes with the selection
