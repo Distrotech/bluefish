@@ -573,11 +573,11 @@ actions, so the first char in buf is actually number offset in the text widget *
 		break;
 		case uppercase:
 			tmpstr = g_strndup(&buf[result.bstart], result.bend - result.bstart);
-			g_strup(tmpstr);
+			g_utf8_strup(tmpstr, -1);
 		break;
 		case lowercase:
 			tmpstr = g_strndup(&buf[result.bstart], result.bend - result.bstart);
-			g_strdown(tmpstr);
+			g_utf8_strdown(tmpstr, -1);
 		break;
 		}
 		DEBUG_MSG("replace_backend, len=%d, offset=%d, start=%d, end=%d, document=%p, tmpstr='%s'\n", result.end - result.start, offset, result.start + offset, result.end + offset, doc,tmpstr);
@@ -777,10 +777,10 @@ static void replace_prompt_dialog_ok_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 			
 		} else if (LASTSNR2(bfwin->snr2)->replacetype_option==uppercase) {
 			tmpstr = doc_get_chars(bfwin->current_document, LASTSNR2(bfwin->snr2)->result.start ,LASTSNR2(bfwin->snr2)->result.end);
-			g_strup(tmpstr);
+			g_utf8_strup(tmpstr, -1);
 		} else {
 			tmpstr = doc_get_chars(bfwin->current_document, LASTSNR2(bfwin->snr2)->result.start ,LASTSNR2(bfwin->snr2)->result.end);
-			g_strdown(tmpstr);
+			g_utf8_strdown(tmpstr, -1);
 		}
 		/* avoid new highlighting at this stage, so call the backend directly instead of the frontend function
 		this because the highlighting interferes with the selection

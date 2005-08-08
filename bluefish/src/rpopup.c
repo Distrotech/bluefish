@@ -320,7 +320,7 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 					item = g_strndup(&tmpstring[prevtag + 1], count - prevtag);
 					value = g_strdup("");
 				}
-				g_strdown(item);
+				g_utf8_strdown(item, -1);
 				g_strstrip(item);
 				tag_item = g_malloc(sizeof(Ttagitem));
 				tag_item->item = item;
@@ -343,7 +343,7 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 
 	tmpstring = g_strdup(tagstring);
 	tmpstring = trunc_on_char(tmpstring, ' ');
-	g_strdown(tmpstring);
+	g_utf8_strdown(tmpstring, -1);
 	/* identifying which tag we have */
 	DEBUG_MSG("parse_tagstring, searching for dialog for %s\n", tmpstring);
 	
