@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gui.c - the main GUI
  *
- * Copyright (C) 2002-2004 Olivier Sessink
+ * Copyright (C) 2002-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,7 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+
+/* #define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <time.h> /* nanosleep() */
@@ -156,7 +157,7 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index) {
 	if (index >= 0) {
-		gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), (index));
+		gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), (index));
 /*		notebook_changed();*/
 		return TRUE;
 	}
@@ -189,9 +190,9 @@ void gui_notebook_switch(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 		break;
 		case 2: gtk_notebook_next_page(GTK_NOTEBOOK(bfwin->notebook));
 		break;
-		case 3: gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), 0);
+		case 3: gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), 0);
 		break;
-		case 4: gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), -1);
+		case 4: gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), -1);
 	}
 }
 
@@ -984,7 +985,6 @@ void make_html_toolbar(Tbfwin *bfwin) {
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(html_notebook), GTK_POS_TOP);
 	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(html_notebook), TRUE);
 	gtk_notebook_set_show_border(GTK_NOTEBOOK(html_notebook), TRUE);
-	gtk_notebook_set_page(GTK_NOTEBOOK(html_notebook), 0);
 	gtk_container_add(GTK_CONTAINER(bfwin->html_toolbar_hb), html_notebook);
 
 	bfwin->toolbar_quickbar = gtk_toolbar_new();
@@ -1054,6 +1054,10 @@ void make_html_toolbar(Tbfwin *bfwin) {
 	gtk_notebook_append_page(GTK_NOTEBOOK(html_notebook), html_toolbar, gtk_label_new(_(" CSS ")));
 
 	gtk_widget_show_all(html_notebook);
+	
+	if (main_v->globses.quickbar_items == NULL) {
+		gtk_notebook_set_current_page (GTK_NOTEBOOK (html_notebook), 1);
+	}
 }
 
 static void doc_indent_lcb(GtkWidget *wid,Tbfwin *bfwin) {
@@ -1431,7 +1435,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 		docs_new_from_files(bfwin,filenames,(bfwin->project != NULL));
 	}
 
-	gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), 0);
+	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), 0);
 	gtk_notebook_set_scrollable(GTK_NOTEBOOK(bfwin->notebook), TRUE);
 	/* don't use show_all since some widgets are and should be hidden */
 	gtk_widget_show(bfwin->notebook);
