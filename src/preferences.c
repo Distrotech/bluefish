@@ -1287,9 +1287,9 @@ static void highlightpattern_gui_rebuild_filetype_popup(Tprefdialog *pd) {
 }
 
 static void highlightpattern_reset_clicked_lcb(GtkWidget *button, Tprefdialog *pd) {
-	gchar *defaultfile = return_first_existing_filename(PKGDATADIR"highlighting.default",
-									"data/highlighting.default",
-									"../data/highlighting.default",NULL);
+	gchar *defaultfile = return_first_existing_filename(PKGDATADIR"highlighting",
+									"data/highlighting",
+									"../data/highlighting",NULL);
 	if (defaultfile) {
 		/* get current selected filetype && create array to compare to*/
 		gchar **compare = array_from_arglist(pd->hpd.selected_filetype, NULL);
