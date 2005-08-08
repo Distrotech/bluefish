@@ -1454,7 +1454,7 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 		snr2win->prompt_before_replace = boxed_checkbut_with_value(_("Prompt _before replace"), LASTSNR2(bfwin->snr2)->prompt_before_replace, vbox);
 		snr2win->replace_once = boxed_checkbut_with_value(_("Replace o_nce"), LASTSNR2(bfwin->snr2)->replace_once, vbox);
 	} else {
-		snr2win->bookmark_results = boxed_checkbut_with_value(_("Bookmark results"), LASTSNR2(bfwin->snr2)->bookmark_results, vbox);
+		snr2win->bookmark_results = boxed_checkbut_with_value(_("_Bookmark results"), LASTSNR2(bfwin->snr2)->bookmark_results, vbox);
 	}
 
 	hbox = gtk_hseparator_new ();
