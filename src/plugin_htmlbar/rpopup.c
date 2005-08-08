@@ -215,7 +215,7 @@ typedef struct {
 static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end)
 {
 	GList *tmplist = NULL;
-	gchar *tmpstring, *item, *value;
+	gchar *tmpstring, *item, *value, *tmp;
 	gint count, prevtag, item_value_delimiter;
 	Ttagitem *tag_item;
 	Ttagpopup *tag_popup;
@@ -319,7 +319,9 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 					item = g_strndup(&tmpstring[prevtag + 1], count - prevtag);
 					value = g_strdup("");
 				}
-				g_utf8_strdown(item, -1);
+				tmp = item;
+				item = g_utf8_strdown(item, -1);
+				g_free(tmp);
 				g_strstrip(item);
 				tag_item = g_malloc(sizeof(Ttagitem));
 				tag_item->item = item;
@@ -342,7 +344,9 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 
 	tmpstring = g_strdup(tagstring);
 	tmpstring = trunc_on_char(tmpstring, ' ');
-	g_utf8_strdown(tmpstring, -1);
+	tmp = tmpstring;
+	tmpstring = g_utf8_strdown(tmpstring, -1);
+	g_free(tmp);
 	/* identifying which tag we have */
 	DEBUG_MSG("parse_tagstring, searching for dialog for %s\n", tmpstring);
 	
