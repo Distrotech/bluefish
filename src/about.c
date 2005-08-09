@@ -64,14 +64,14 @@ Developers for this release:\n\
    <jimhayward@linuxexperience.net>\n\
   Daniel Leidert\n\
    <daniel.leidert@wgdd.de>\n\
+\n\
+Developers for previous releases:\n\
   Oskar Świda\n\
    <swida@aragorn.pb.bialystok.pl>\n\
   Eugene Morenko(More)\n\
    <more@irpin.com>\n\
   Alastair Porter\n\
-   <alastair@linuxexperience.com>\n\
-\n\
-Developers for previous releases:\n\
+   <alastair@porter.net.nz>\n\
   Chris Mazuc\n\
   Neil Millar\n\
   Gero Takke\n\
@@ -95,7 +95,7 @@ Documentation:\n\
   Anita Lewis\n\
    <ajreiki@highstream.net>\n\
   Alastair Porter\n\
-   <alastair@linuxexperience.com>\n\
+   <alastair@porter.net.nz>\n\
   Daniel Blair\n\
    <joecamel@realcoders.org>\n\
   Olivier Sessink\n\
