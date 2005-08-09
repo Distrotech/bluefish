@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-07 18:50-0700\n"
+"POT-Creation-Date: 2005-08-09 05:36-0700\n"
 "PO-Revision-Date: 2004-12-08 18:48-0300\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -47,14 +47,14 @@ msgid ""
 "   <jimhayward@linuxexperience.net>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
+"\n"
+"Developers for previous releases:\n"
 "  Oskar Świda\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "  Eugene Morenko(More)\n"
 "   <more@irpin.com>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
-"\n"
-"Developers for previous releases:\n"
+"   <alastair@porter.net.nz>\n"
 "  Chris Mazuc\n"
 "  Neil Millar\n"
 "  Gero Takke\n"
@@ -78,7 +78,7 @@ msgid ""
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
+"   <alastair@porter.net.nz>\n"
 "  Daniel Blair\n"
 "   <joecamel@realcoders.org>\n"
 "  Olivier Sessink\n"
@@ -324,7 +324,7 @@ msgstr "更改为(_T)："
 msgid "I_gnore"
 msgstr "忽略(_G)"
 
-#: ../src/bfspell.c:405 ../src/snr2.c:884
+#: ../src/bfspell.c:405 ../src/snr2.c:895
 msgid "_Replace"
 msgstr "替换(_R)"
 
@@ -622,11 +622,11 @@ msgstr "打开文件 "
 msgid "Cannot display file, unknown characters found."
 msgstr "无法显示文件，字符集未知。"
 
-#: ../src/document.c:2022 ../src/snr2.c:1334
+#: ../src/document.c:2022 ../src/snr2.c:1345
 msgid "Replace"
 msgstr "替换"
 
-#: ../src/document.c:2027 ../src/snr2.c:1337
+#: ../src/document.c:2027 ../src/snr2.c:1348
 msgid "Find"
 msgstr "查找"
 
@@ -1028,7 +1028,7 @@ msgstr "显示完整树"
 msgid "Follow focus"
 msgstr "跟随焦点"
 
-#: ../src/fref.c:1467 ../src/gui.c:1089
+#: ../src/fref.c:1467 ../src/gui.c:1092
 msgid "Close"
 msgstr "关闭"
 
@@ -1456,135 +1456,135 @@ msgstr "右移"
 msgid "Add to quickbar"
 msgstr "添加到快捷栏"
 
-#: ../src/gui.c:1016
+#: ../src/gui.c:1015
 msgid " Quick bar "
 msgstr " 快捷栏 "
 
-#: ../src/gui.c:1021
+#: ../src/gui.c:1020
 msgid "Heading"
 msgstr "标题"
 
-#: ../src/gui.c:1023
+#: ../src/gui.c:1022
 msgid " Standard bar "
 msgstr " 标准栏 "
 
-#: ../src/gui.c:1028
+#: ../src/gui.c:1027
 msgid "Context formatting"
 msgstr "上下文格式化"
 
-#: ../src/gui.c:1030
+#: ../src/gui.c:1029
 msgid " Fonts "
 msgstr " 字体 "
 
-#: ../src/gui.c:1035
+#: ../src/gui.c:1034
 msgid " Tables "
 msgstr " 表格 "
 
-#: ../src/gui.c:1040
+#: ../src/gui.c:1039
 msgid " Frames "
 msgstr " 框架 "
 
-#: ../src/gui.c:1045
+#: ../src/gui.c:1044
 msgid " Forms "
 msgstr " 表单 "
 
-#: ../src/gui.c:1050
+#: ../src/gui.c:1049
 msgid " List "
 msgstr " 列表 "
 
-#: ../src/gui.c:1055
+#: ../src/gui.c:1054
 msgid " CSS "
 msgstr " CSS "
 
-#: ../src/gui.c:1081
+#: ../src/gui.c:1084
 msgid "New"
 msgstr "新建"
 
-#: ../src/gui.c:1083
+#: ../src/gui.c:1086
 msgid "Open..."
 msgstr "打开.."
 
-#: ../src/gui.c:1085
+#: ../src/gui.c:1088
 msgid "Save"
 msgstr "保存"
 
-#: ../src/gui.c:1087
+#: ../src/gui.c:1090
 msgid "Save As..."
 msgstr "另存为..."
 
-#: ../src/gui.c:1092
+#: ../src/gui.c:1095
 msgid "Cut"
 msgstr "剪切"
 
-#: ../src/gui.c:1094
+#: ../src/gui.c:1097
 msgid "Copy"
 msgstr "复制"
 
-#: ../src/gui.c:1096
+#: ../src/gui.c:1099
 msgid "Paste"
 msgstr "粘贴"
 
-#: ../src/gui.c:1099
+#: ../src/gui.c:1102
 msgid "Find..."
 msgstr "查找..."
 
-#: ../src/gui.c:1101
+#: ../src/gui.c:1104
 msgid "Replace..."
 msgstr "替换..."
 
-#: ../src/gui.c:1104 ../src/preferences.c:1992
+#: ../src/gui.c:1107 ../src/preferences.c:1992
 msgid "Undo"
 msgstr "撤消"
 
-#: ../src/gui.c:1106
+#: ../src/gui.c:1109
 msgid "Redo"
 msgstr "重做"
 
-#: ../src/gui.c:1110 ../src/gui.c:1115
+#: ../src/gui.c:1113 ../src/gui.c:1118
 msgid "Shift Left"
 msgstr "左移"
 
-#: ../src/gui.c:1112 ../src/gui.c:1117
+#: ../src/gui.c:1115 ../src/gui.c:1120
 msgid "Shift Right"
 msgstr "右移"
 
-#: ../src/gui.c:1124
+#: ../src/gui.c:1127
 msgid "Spellcheck..."
 msgstr "拼写检查..."
 
-#: ../src/gui.c:1129
+#: ../src/gui.c:1132
 msgid "View in browser"
 msgstr "在浏览器中显示"
 
-#: ../src/gui.c:1132
+#: ../src/gui.c:1135
 msgid "Preferences..."
 msgstr "首选项..."
 
-#: ../src/gui.c:1322
+#: ../src/gui.c:1325
 msgid "New Bluefish Window"
 msgstr "新建 Bluefish 窗口"
 
-#: ../src/gui.c:1379
+#: ../src/gui.c:1382
 msgid "Stand by..."
 msgstr "请等待..."
 
-#: ../src/gui.c:1563
+#: ../src/gui.c:1566
 msgid "Goto line"
 msgstr "转到行"
 
-#: ../src/gui.c:1571
+#: ../src/gui.c:1574
 msgid "_Line number:"
 msgstr "行号(_L)："
 
-#: ../src/gui.c:1577
+#: ../src/gui.c:1580
 msgid "From _selection"
 msgstr "从选中内容(_S)"
 
-#: ../src/gui.c:1580
+#: ../src/gui.c:1583
 msgid "Keep _dialog"
 msgstr "保持对话框(_D)"
 
-#: ../src/gui.c:1646
+#: ../src/gui.c:1649
 msgid "starting bluefish"
 msgstr "开始 bluefish"
 
@@ -4420,112 +4420,113 @@ msgstr "搜索失败"
 msgid "Regular expression error: %s at offset %d"
 msgstr "正规表达式出错：位于偏移量 %2$d 的 %1$s"
 
-#: ../src/snr2.c:858
+#: ../src/snr2.c:869
 msgid "Confirm replace"
 msgstr "确认替换"
 
-#: ../src/snr2.c:870
+#: ../src/snr2.c:881
 msgid "Replace selected text?"
 msgstr "要替换选中的文本吗？"
 
-#: ../src/snr2.c:883
+#: ../src/snr2.c:894
 msgid "_Skip"
 msgstr "跳过(_S)"
 
-#: ../src/snr2.c:885
+#: ../src/snr2.c:896
 msgid "Replace _all"
 msgstr "全部替换(_A)"
 
-#: ../src/snr2.c:1130 ../src/snr2.c:1137
+#: ../src/snr2.c:1141 ../src/snr2.c:1148
 msgid "Search: no match found"
 msgstr "搜索：没有匹配项"
 
-#: ../src/snr2.c:1363
+#: ../src/snr2.c:1374
 msgid "_Search for: "
 msgstr "搜索(_S)："
 
-#: ../src/snr2.c:1383
+#: ../src/snr2.c:1394
 msgid "_Replace with: "
 msgstr "替换为(_R)："
 
-#: ../src/snr2.c:1393
+#: ../src/snr2.c:1404
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 指第一个查找子参数，\\1 指第二个，依此类推。"
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "Beginning of document till end"
 msgstr "从文档开始到结束"
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "Current position till end"
 msgstr "从当前位置到结束"
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "Beginning of selection till end of selection"
 msgstr "在选择文本内"
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "All opened files begin till end"
 msgstr "从所有打开的文档开始到结束"
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 msgid "Disabled"
 msgstr "关闭"
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 msgid "POSIX type"
 msgstr "POSIX 类型"
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 msgid "PERL type"
 msgstr "PERL 类型"
 
-#: ../src/snr2.c:1410
+#: ../src/snr2.c:1421
 msgid "Starts at:"
 msgstr "开始处:"
 
-#: ../src/snr2.c:1422
+#: ../src/snr2.c:1433
 msgid "Regular expression:"
 msgstr "正规表达式："
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 msgid "Normal"
 msgstr "一般"
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 msgid "Uppercase"
 msgstr "大写"
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 msgid "Lowercase"
 msgstr "小写"
 
-#: ../src/snr2.c:1437
+#: ../src/snr2.c:1448
 msgid "Replace type:"
 msgstr "替换类型："
 
-#: ../src/snr2.c:1450
+#: ../src/snr2.c:1461
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "模式包含反斜线转码字符(\\n、\\t)"
 
-#: ../src/snr2.c:1451
+#: ../src/snr2.c:1462
 msgid "_Match case"
 msgstr "区分大小写(_M)"
 
-#: ../src/snr2.c:1452
+#: ../src/snr2.c:1463
 msgid "O_verlap searches"
 msgstr "循环搜索(_O)"
 
-#: ../src/snr2.c:1454
+#: ../src/snr2.c:1465
 msgid "Prompt _before replace"
 msgstr "替换前提示(_B)"
 
-#: ../src/snr2.c:1455
+#: ../src/snr2.c:1466
 msgid "Replace o_nce"
 msgstr "替换一次(_N)"
 
-#: ../src/snr2.c:1457
-msgid "Bookmark results"
+#: ../src/snr2.c:1468
+#, fuzzy
+msgid "_Bookmark results"
 msgstr "把所有结果作为书签"
 
 #: ../src/stringlist.c:366

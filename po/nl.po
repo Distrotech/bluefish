@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-07 18:50-0700\n"
+"POT-Creation-Date: 2005-08-09 05:36-0700\n"
 "PO-Revision-Date: 2003-04-01 20:03+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <nl@li.org>\n"
@@ -40,14 +40,14 @@ msgid ""
 "   <jimhayward@linuxexperience.net>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
+"\n"
+"Developers for previous releases:\n"
 "  Oskar Świda\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "  Eugene Morenko(More)\n"
 "   <more@irpin.com>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
-"\n"
-"Developers for previous releases:\n"
+"   <alastair@porter.net.nz>\n"
 "  Chris Mazuc\n"
 "  Neil Millar\n"
 "  Gero Takke\n"
@@ -71,7 +71,7 @@ msgid ""
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
+"   <alastair@porter.net.nz>\n"
 "  Daniel Blair\n"
 "   <joecamel@realcoders.org>\n"
 "  Olivier Sessink\n"
@@ -231,7 +231,7 @@ msgstr ""
 msgid "I_gnore"
 msgstr "Negeren"
 
-#: ../src/bfspell.c:405 ../src/snr2.c:884
+#: ../src/bfspell.c:405 ../src/snr2.c:895
 #, fuzzy
 msgid "_Replace"
 msgstr "Vervangen"
@@ -546,11 +546,11 @@ msgstr "Bezig met bestand te openen"
 msgid "Cannot display file, unknown characters found."
 msgstr "Kan file niet laten zien. Onbekend karakter"
 
-#: ../src/document.c:2022 ../src/snr2.c:1334
+#: ../src/document.c:2022 ../src/snr2.c:1345
 msgid "Replace"
 msgstr "Vervangen"
 
-#: ../src/document.c:2027 ../src/snr2.c:1337
+#: ../src/document.c:2027 ../src/snr2.c:1348
 #, fuzzy
 msgid "Find"
 msgstr "Zoek: "
@@ -985,7 +985,7 @@ msgstr ""
 msgid "Follow focus"
 msgstr ""
 
-#: ../src/fref.c:1467 ../src/gui.c:1089
+#: ../src/fref.c:1467 ../src/gui.c:1092
 msgid "Close"
 msgstr "Sluiten"
 
@@ -1433,146 +1433,146 @@ msgstr "Hoogte"
 msgid "Add to quickbar"
 msgstr "Voeg toe aan  Snel balk "
 
-#: ../src/gui.c:1016
+#: ../src/gui.c:1015
 msgid " Quick bar "
 msgstr " Snel balk "
 
-#: ../src/gui.c:1021
+#: ../src/gui.c:1020
 #, fuzzy
 msgid "Heading"
 msgstr "Kop"
 
-#: ../src/gui.c:1023
+#: ../src/gui.c:1022
 msgid " Standard bar "
 msgstr "Standaard balk"
 
-#: ../src/gui.c:1028
+#: ../src/gui.c:1027
 msgid "Context formatting"
 msgstr "Logische opmaak"
 
-#: ../src/gui.c:1030
+#: ../src/gui.c:1029
 msgid " Fonts "
 msgstr " Lettertype "
 
-#: ../src/gui.c:1035
+#: ../src/gui.c:1034
 msgid " Tables "
 msgstr " Tabellen "
 
-#: ../src/gui.c:1040
+#: ../src/gui.c:1039
 msgid " Frames "
 msgstr " Frames "
 
-#: ../src/gui.c:1045
+#: ../src/gui.c:1044
 msgid " Forms "
 msgstr " Formulieren "
 
-#: ../src/gui.c:1050
+#: ../src/gui.c:1049
 #, fuzzy
 msgid " List "
 msgstr "Lijsten"
 
-#: ../src/gui.c:1055
+#: ../src/gui.c:1054
 msgid " CSS "
 msgstr " CSS "
 
-#: ../src/gui.c:1081
+#: ../src/gui.c:1084
 msgid "New"
 msgstr "Nieuw"
 
-#: ../src/gui.c:1083
+#: ../src/gui.c:1086
 #, fuzzy
 msgid "Open..."
 msgstr "Openen..."
 
-#: ../src/gui.c:1085
+#: ../src/gui.c:1088
 msgid "Save"
 msgstr "Opslaan"
 
-#: ../src/gui.c:1087
+#: ../src/gui.c:1090
 msgid "Save As..."
 msgstr "Opslaan Als..."
 
-#: ../src/gui.c:1092
+#: ../src/gui.c:1095
 msgid "Cut"
 msgstr "Knippen"
 
-#: ../src/gui.c:1094
+#: ../src/gui.c:1097
 msgid "Copy"
 msgstr "Kopieeren"
 
-#: ../src/gui.c:1096
+#: ../src/gui.c:1099
 msgid "Paste"
 msgstr "Plakken"
 
-#: ../src/gui.c:1099
+#: ../src/gui.c:1102
 #, fuzzy
 msgid "Find..."
 msgstr "Zoek: "
 
-#: ../src/gui.c:1101
+#: ../src/gui.c:1104
 #, fuzzy
 msgid "Replace..."
 msgstr "Vervangen"
 
-#: ../src/gui.c:1104 ../src/preferences.c:1992
+#: ../src/gui.c:1107 ../src/preferences.c:1992
 msgid "Undo"
 msgstr "Herstel"
 
-#: ../src/gui.c:1106
+#: ../src/gui.c:1109
 msgid "Redo"
 msgstr "Herhaal"
 
-#: ../src/gui.c:1110 ../src/gui.c:1115
+#: ../src/gui.c:1113 ../src/gui.c:1118
 msgid "Shift Left"
 msgstr ""
 
-#: ../src/gui.c:1112 ../src/gui.c:1117
+#: ../src/gui.c:1115 ../src/gui.c:1120
 msgid "Shift Right"
 msgstr ""
 
-#: ../src/gui.c:1124
+#: ../src/gui.c:1127
 msgid "Spellcheck..."
 msgstr "Spelling"
 
-#: ../src/gui.c:1129
+#: ../src/gui.c:1132
 msgid "View in browser"
 msgstr "Bezie in browser"
 
-#: ../src/gui.c:1132
+#: ../src/gui.c:1135
 msgid "Preferences..."
 msgstr "Voorkeuren..."
 
 # src/callbacks.c:425
-#: ../src/gui.c:1322
+#: ../src/gui.c:1325
 #, fuzzy
 msgid "New Bluefish Window"
 msgstr "Bluefish tip"
 
-#: ../src/gui.c:1379
+#: ../src/gui.c:1382
 #, fuzzy
 msgid "Stand by..."
 msgstr "Span..."
 
-#: ../src/gui.c:1563
+#: ../src/gui.c:1566
 msgid "Goto line"
 msgstr "Ga naar regel"
 
-#: ../src/gui.c:1571
+#: ../src/gui.c:1574
 #, fuzzy
 msgid "_Line number:"
 msgstr "Regel nummer: "
 
-#: ../src/gui.c:1577
+#: ../src/gui.c:1580
 #, fuzzy
 msgid "From _selection"
 msgstr "Van selectie"
 
-#: ../src/gui.c:1580
+#: ../src/gui.c:1583
 #, fuzzy
 msgid "Keep _dialog"
 msgstr "Venster actief houden"
 
-#: ../src/gui.c:1646
+#: ../src/gui.c:1649
 msgid "starting bluefish"
 msgstr "Start Bluefish"
 
@@ -4846,130 +4846,130 @@ msgstr "Zoek patroon"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Reguliere expressie error: "
 
-#: ../src/snr2.c:858
+#: ../src/snr2.c:869
 msgid "Confirm replace"
 msgstr "Bevestig vervangen"
 
-#: ../src/snr2.c:870
+#: ../src/snr2.c:881
 msgid "Replace selected text?"
 msgstr ""
 
-#: ../src/snr2.c:883
+#: ../src/snr2.c:894
 msgid "_Skip"
 msgstr ""
 
-#: ../src/snr2.c:885
+#: ../src/snr2.c:896
 #, fuzzy
 msgid "Replace _all"
 msgstr "Vervangen"
 
-#: ../src/snr2.c:1130 ../src/snr2.c:1137
+#: ../src/snr2.c:1141 ../src/snr2.c:1148
 msgid "Search: no match found"
 msgstr ""
 
-#: ../src/snr2.c:1363
+#: ../src/snr2.c:1374
 #, fuzzy
 msgid "_Search for: "
 msgstr "Zoeken"
 
-#: ../src/snr2.c:1383
+#: ../src/snr2.c:1394
 #, fuzzy
 msgid "_Replace with: "
 msgstr "Vervang met: "
 
-#: ../src/snr2.c:1393
+#: ../src/snr2.c:1404
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr ""
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 #, fuzzy
 msgid "Beginning of document till end"
 msgstr "Start aan het begin van het document"
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 #, fuzzy
 msgid "Current position till end"
 msgstr "Start op de cursor positie"
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 #, fuzzy
 msgid "Beginning of selection till end of selection"
 msgstr "in de selectie"
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "All opened files begin till end"
 msgstr ""
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 #, fuzzy
 msgid "Disabled"
 msgstr "Variabelen"
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 #, fuzzy
 msgid "POSIX type"
 msgstr "Negeren"
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 msgid "PERL type"
 msgstr ""
 
-#: ../src/snr2.c:1410
+#: ../src/snr2.c:1421
 #, fuzzy
 msgid "Starts at:"
 msgstr "Zoek patroon"
 
-#: ../src/snr2.c:1422
+#: ../src/snr2.c:1433
 #, fuzzy
 msgid "Regular expression:"
 msgstr "Reguliere expressie error: "
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 #, fuzzy
 msgid "Normal"
 msgstr "normaal"
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 #, fuzzy
 msgid "Uppercase"
 msgstr "Vervang hoofdletters"
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 #, fuzzy
 msgid "Lowercase"
 msgstr "Vervang kleine letters"
 
-#: ../src/snr2.c:1437
+#: ../src/snr2.c:1448
 #, fuzzy
 msgid "Replace type:"
 msgstr "Vervang tekst"
 
-#: ../src/snr2.c:1450
+#: ../src/snr2.c:1461
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr ""
 
-#: ../src/snr2.c:1451
+#: ../src/snr2.c:1462
 msgid "_Match case"
 msgstr ""
 
-#: ../src/snr2.c:1452
+#: ../src/snr2.c:1463
 #, fuzzy
 msgid "O_verlap searches"
 msgstr "Overlappend zoeken"
 
-#: ../src/snr2.c:1454
+#: ../src/snr2.c:1465
 #, fuzzy
 msgid "Prompt _before replace"
 msgstr "Waarschuwen voor het vervangen"
 
-#: ../src/snr2.c:1455
+#: ../src/snr2.c:1466
 #, fuzzy
 msgid "Replace o_nce"
 msgstr "Eenmalig vervangen"
 
-#: ../src/snr2.c:1457
+#: ../src/snr2.c:1468
 #, fuzzy
-msgid "Bookmark results"
+msgid "_Bookmark results"
 msgstr "/Opties/tearoff1"
 
 #: ../src/stringlist.c:366

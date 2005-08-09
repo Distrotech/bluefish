@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-07 18:50-0700\n"
+"POT-Creation-Date: 2005-08-09 05:36-0700\n"
 "PO-Revision-Date: 2003-12-09 11:07+0200\n"
 "Last-Translator: Peio Popov <peio@peio.org>\n"
 "Language-Team: Not a member <bg@li.org>\n"
@@ -50,14 +50,14 @@ msgid ""
 "   <jimhayward@linuxexperience.net>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
+"\n"
+"Developers for previous releases:\n"
 "  Oskar Świda\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "  Eugene Morenko(More)\n"
 "   <more@irpin.com>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
-"\n"
-"Developers for previous releases:\n"
+"   <alastair@porter.net.nz>\n"
 "  Chris Mazuc\n"
 "  Neil Millar\n"
 "  Gero Takke\n"
@@ -81,7 +81,7 @@ msgid ""
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
+"   <alastair@porter.net.nz>\n"
 "  Daniel Blair\n"
 "   <joecamel@realcoders.org>\n"
 "  Olivier Sessink\n"
@@ -333,7 +333,7 @@ msgstr "Промени _на:"
 msgid "I_gnore"
 msgstr "И_гнорира"
 
-#: ../src/bfspell.c:405 ../src/snr2.c:884
+#: ../src/bfspell.c:405 ../src/snr2.c:895
 msgid "_Replace"
 msgstr "_Замяна"
 
@@ -641,11 +641,11 @@ msgid "Cannot display file, unknown characters found."
 msgstr ""
 "Намерени са непознати символи в този файл и не може да бъде визуализиран."
 
-#: ../src/document.c:2022 ../src/snr2.c:1334
+#: ../src/document.c:2022 ../src/snr2.c:1345
 msgid "Replace"
 msgstr "Замяна"
 
-#: ../src/document.c:2027 ../src/snr2.c:1337
+#: ../src/document.c:2027 ../src/snr2.c:1348
 msgid "Find"
 msgstr "Търсене"
 
@@ -1054,7 +1054,7 @@ msgstr "Показване на пълното дърво"
 msgid "Follow focus"
 msgstr ""
 
-#: ../src/fref.c:1467 ../src/gui.c:1089
+#: ../src/fref.c:1467 ../src/gui.c:1092
 msgid "Close"
 msgstr "Затваряне"
 
@@ -1487,138 +1487,138 @@ msgstr "Височина"
 msgid "Add to quickbar"
 msgstr "Добави към менюто за бърз достъп"
 
-#: ../src/gui.c:1016
+#: ../src/gui.c:1015
 msgid " Quick bar "
 msgstr " Меню за бърз достъп "
 
-#: ../src/gui.c:1021
+#: ../src/gui.c:1020
 msgid "Heading"
 msgstr "Заглавие"
 
-#: ../src/gui.c:1023
+#: ../src/gui.c:1022
 msgid " Standard bar "
 msgstr " Стандартно меню "
 
-#: ../src/gui.c:1028
+#: ../src/gui.c:1027
 msgid "Context formatting"
 msgstr " Форматиране според контекста "
 
-#: ../src/gui.c:1030
+#: ../src/gui.c:1029
 msgid " Fonts "
 msgstr " Шрифтове "
 
-#: ../src/gui.c:1035
+#: ../src/gui.c:1034
 msgid " Tables "
 msgstr " Таблици "
 
-#: ../src/gui.c:1040
+#: ../src/gui.c:1039
 msgid " Frames "
 msgstr " Рамки "
 
-#: ../src/gui.c:1045
+#: ../src/gui.c:1044
 msgid " Forms "
 msgstr " Форми "
 
-#: ../src/gui.c:1050
+#: ../src/gui.c:1049
 msgid " List "
 msgstr " Лист "
 
-#: ../src/gui.c:1055
+#: ../src/gui.c:1054
 msgid " CSS "
 msgstr " CSS "
 
-#: ../src/gui.c:1081
+#: ../src/gui.c:1084
 msgid "New"
 msgstr "Нов"
 
-#: ../src/gui.c:1083
+#: ../src/gui.c:1086
 #, fuzzy
 msgid "Open..."
 msgstr "Отваряне"
 
-#: ../src/gui.c:1085
+#: ../src/gui.c:1088
 msgid "Save"
 msgstr "Запазване"
 
-#: ../src/gui.c:1087
+#: ../src/gui.c:1090
 msgid "Save As..."
 msgstr "Запазване като..."
 
-#: ../src/gui.c:1092
+#: ../src/gui.c:1095
 msgid "Cut"
 msgstr "Отрежи"
 
-#: ../src/gui.c:1094
+#: ../src/gui.c:1097
 msgid "Copy"
 msgstr "Копиране"
 
-#: ../src/gui.c:1096
+#: ../src/gui.c:1099
 msgid "Paste"
 msgstr "Добави"
 
-#: ../src/gui.c:1099
+#: ../src/gui.c:1102
 #, fuzzy
 msgid "Find..."
 msgstr "Търсене"
 
-#: ../src/gui.c:1101
+#: ../src/gui.c:1104
 #, fuzzy
 msgid "Replace..."
 msgstr "Замяна"
 
-#: ../src/gui.c:1104 ../src/preferences.c:1992
+#: ../src/gui.c:1107 ../src/preferences.c:1992
 msgid "Undo"
 msgstr "Възстанови"
 
-#: ../src/gui.c:1106
+#: ../src/gui.c:1109
 msgid "Redo"
 msgstr "Повтори"
 
-#: ../src/gui.c:1110 ../src/gui.c:1115
+#: ../src/gui.c:1113 ../src/gui.c:1118
 msgid "Shift Left"
 msgstr "Премести няляво"
 
-#: ../src/gui.c:1112 ../src/gui.c:1117
+#: ../src/gui.c:1115 ../src/gui.c:1120
 msgid "Shift Right"
 msgstr "Премести надясно"
 
-#: ../src/gui.c:1124
+#: ../src/gui.c:1127
 msgid "Spellcheck..."
 msgstr "Провека на правописа..."
 
-#: ../src/gui.c:1129
+#: ../src/gui.c:1132
 msgid "View in browser"
 msgstr "Преглед в браузъра"
 
-#: ../src/gui.c:1132
+#: ../src/gui.c:1135
 msgid "Preferences..."
 msgstr "Настройки..."
 
-#: ../src/gui.c:1322
+#: ../src/gui.c:1325
 msgid "New Bluefish Window"
 msgstr "Нов прозорец на Bluefish"
 
-#: ../src/gui.c:1379
+#: ../src/gui.c:1382
 msgid "Stand by..."
 msgstr "Изчаквай..."
 
-#: ../src/gui.c:1563
+#: ../src/gui.c:1566
 msgid "Goto line"
 msgstr "Отиди на ред..."
 
-#: ../src/gui.c:1571
+#: ../src/gui.c:1574
 msgid "_Line number:"
 msgstr "_Ред номер"
 
-#: ../src/gui.c:1577
+#: ../src/gui.c:1580
 msgid "From _selection"
 msgstr "От избрания текст"
 
-#: ../src/gui.c:1580
+#: ../src/gui.c:1583
 msgid "Keep _dialog"
 msgstr "Запази диалога"
 
-#: ../src/gui.c:1646
+#: ../src/gui.c:1649
 msgid "starting bluefish"
 msgstr "стартира bluefish"
 
@@ -4492,118 +4492,118 @@ msgstr "Неуспешно търсене"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Грешка в регулярния израз: %s при отместване %d"
 
-#: ../src/snr2.c:858
+#: ../src/snr2.c:869
 msgid "Confirm replace"
 msgstr "Потвърждаване заместването"
 
-#: ../src/snr2.c:870
+#: ../src/snr2.c:881
 msgid "Replace selected text?"
 msgstr "Заместване на избрания текст?"
 
-#: ../src/snr2.c:883
+#: ../src/snr2.c:894
 msgid "_Skip"
 msgstr "Пропускане"
 
-#: ../src/snr2.c:885
+#: ../src/snr2.c:896
 msgid "Replace _all"
 msgstr "Замяна на всички"
 
-#: ../src/snr2.c:1130 ../src/snr2.c:1137
+#: ../src/snr2.c:1141 ../src/snr2.c:1148
 msgid "Search: no match found"
 msgstr "Няма съпадения при търсенето"
 
-#: ../src/snr2.c:1363
+#: ../src/snr2.c:1374
 #, fuzzy
 msgid "_Search for: "
 msgstr "Търсене за: "
 
-#: ../src/snr2.c:1383
+#: ../src/snr2.c:1394
 #, fuzzy
 msgid "_Replace with: "
 msgstr "Замяна с: "
 
-#: ../src/snr2.c:1393
+#: ../src/snr2.c:1404
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 е първия под-шаблон, а \\1 втория и т.н.т."
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "Beginning of document till end"
 msgstr "От началото на документа до края"
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "Current position till end"
 msgstr "От настоящата позиция до края"
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "Beginning of selection till end of selection"
 msgstr "От началото на избрания текст до края"
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "All opened files begin till end"
 msgstr "Във всички отворени файлове от начало до край"
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 msgid "Disabled"
 msgstr "Деактивиран"
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 msgid "POSIX type"
 msgstr "Тип POSIX"
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 msgid "PERL type"
 msgstr "Тип PERL"
 
-#: ../src/snr2.c:1410
+#: ../src/snr2.c:1421
 msgid "Starts at:"
 msgstr "Започва на:"
 
-#: ../src/snr2.c:1422
+#: ../src/snr2.c:1433
 msgid "Regular expression:"
 msgstr "Регулярен израз:"
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 msgid "Normal"
 msgstr "Нормален"
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 msgid "Uppercase"
 msgstr "Горен регистър"
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 msgid "Lowercase"
 msgstr "Долен регистър"
 
-#: ../src/snr2.c:1437
+#: ../src/snr2.c:1448
 msgid "Replace type:"
 msgstr "Тип замяна:"
 
-#: ../src/snr2.c:1450
+#: ../src/snr2.c:1461
 #, fuzzy
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "Patterns contain backslash escape sequences (\\n, \\t)"
 
-#: ../src/snr2.c:1451
+#: ../src/snr2.c:1462
 #, fuzzy
 msgid "_Match case"
 msgstr "Съвпадение и при големи/малки букви"
 
-#: ../src/snr2.c:1452
+#: ../src/snr2.c:1463
 msgid "O_verlap searches"
 msgstr "Припокриване на търсенията"
 
-#: ../src/snr2.c:1454
+#: ../src/snr2.c:1465
 msgid "Prompt _before replace"
 msgstr "Попитай преди да замениш"
 
-#: ../src/snr2.c:1455
+#: ../src/snr2.c:1466
 #, fuzzy
 msgid "Replace o_nce"
 msgstr "Замени веднъж"
 
-#: ../src/snr2.c:1457
+#: ../src/snr2.c:1468
 #, fuzzy
-msgid "Bookmark results"
+msgid "_Bookmark results"
 msgstr "Отметки"
 
 #: ../src/stringlist.c:366
