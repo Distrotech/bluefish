@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-07 18:50-0700\n"
+"POT-Creation-Date: 2005-08-09 05:36-0700\n"
 "PO-Revision-Date: 2004-11-30 01:12-0300\n"
 "Last-Translator: Walter Echarri <wecharri@yahoo.com>\n"
 "Language-Team: español <es@li.org>\n"
@@ -50,14 +50,14 @@ msgid ""
 "   <jimhayward@linuxexperience.net>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
+"\n"
+"Developers for previous releases:\n"
 "  Oskar Świda\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "  Eugene Morenko(More)\n"
 "   <more@irpin.com>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
-"\n"
-"Developers for previous releases:\n"
+"   <alastair@porter.net.nz>\n"
 "  Chris Mazuc\n"
 "  Neil Millar\n"
 "  Gero Takke\n"
@@ -81,7 +81,7 @@ msgid ""
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
+"   <alastair@porter.net.nz>\n"
 "  Daniel Blair\n"
 "   <joecamel@realcoders.org>\n"
 "  Olivier Sessink\n"
@@ -363,7 +363,7 @@ msgstr "I_gnorar"
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
-#: ../src/bfspell.c:405 ../src/snr2.c:884
+#: ../src/bfspell.c:405 ../src/snr2.c:895
 msgid "_Replace"
 msgstr "_Reemplazar"
 
@@ -741,11 +741,11 @@ msgstr "No se puede mostrar el archivo: se encontraron caracteres desconocidos"
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
-#: ../src/document.c:2022 ../src/snr2.c:1334
+#: ../src/document.c:2022 ../src/snr2.c:1345
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: ../src/document.c:2027 ../src/snr2.c:1337
+#: ../src/document.c:2027 ../src/snr2.c:1348
 msgid "Find"
 msgstr "Buscar"
 
@@ -1240,7 +1240,7 @@ msgstr "Conservar foco"
 
 # src/callbacks.c:1290 src/toolbars.c:156
 # src/callbacks.c:313 src/toolbars.c:158
-#: ../src/fref.c:1467 ../src/gui.c:1089
+#: ../src/fref.c:1467 ../src/gui.c:1092
 msgid "Close"
 msgstr "Cerrar"
 
@@ -1847,186 +1847,186 @@ msgstr "Añadir de la Barra rápida "
 
 # src/toolbars.c:258
 # src/toolbars.c:262
-#: ../src/gui.c:1016
+#: ../src/gui.c:1015
 msgid " Quick bar "
 msgstr " Barra rápida "
 
 # src/toolbars.c:290
 # src/toolbars.c:294
-#: ../src/gui.c:1021
+#: ../src/gui.c:1020
 msgid "Heading"
 msgstr "Encabezado"
 
-#: ../src/gui.c:1023
+#: ../src/gui.c:1022
 msgid " Standard bar "
 msgstr " Barra estándar "
 
 # src/html2.c:736
 # src/html2.c:731
-#: ../src/gui.c:1028
+#: ../src/gui.c:1027
 msgid "Context formatting"
 msgstr "Formato del contexto"
 
 # src/toolbars.c:303
 # src/toolbars.c:307
-#: ../src/gui.c:1030
+#: ../src/gui.c:1029
 msgid " Fonts "
 msgstr " Fuentes"
 
 # src/toolbars.c:338
 # src/toolbars.c:342
-#: ../src/gui.c:1035
+#: ../src/gui.c:1034
 msgid " Tables "
 msgstr " Tablas "
 
 # src/toolbars.c:363
 # src/toolbars.c:367
-#: ../src/gui.c:1040
+#: ../src/gui.c:1039
 msgid " Frames "
 msgstr " Marcos "
 
 # src/toolbars.c:391
 # src/toolbars.c:395
-#: ../src/gui.c:1045
+#: ../src/gui.c:1044
 msgid " Forms "
 msgstr " Formularios "
 
 # src/toolbars.c:425
 # src/toolbars.c:429
-#: ../src/gui.c:1050
+#: ../src/gui.c:1049
 msgid " List "
 msgstr " Lista "
 
 # src/toolbars.c:445
 # src/toolbars.c:449
-#: ../src/gui.c:1055
+#: ../src/gui.c:1054
 msgid " CSS "
 msgstr " CSS "
 
 # src/toolbars.c:148
 # src/toolbars.c:150
-#: ../src/gui.c:1081
+#: ../src/gui.c:1084
 msgid "New"
 msgstr "Nuevo"
 
 # src/menu.c:475
-#: ../src/gui.c:1083
+#: ../src/gui.c:1086
 msgid "Open..."
 msgstr "Abrir..."
 
 # src/toolbars.c:152
 # src/toolbars.c:154
-#: ../src/gui.c:1085
+#: ../src/gui.c:1088
 msgid "Save"
 msgstr "Guardar"
 
 # src/toolbars.c:154
 # src/document.c:617
-#: ../src/gui.c:1087
+#: ../src/gui.c:1090
 msgid "Save As..."
 msgstr "Guardar como..."
 
 # src/toolbars.c:161
 # src/toolbars.c:163
-#: ../src/gui.c:1092
+#: ../src/gui.c:1095
 msgid "Cut"
 msgstr "Cortar"
 
 # src/toolbars.c:159
 # src/toolbars.c:161
-#: ../src/gui.c:1094
+#: ../src/gui.c:1097
 msgid "Copy"
 msgstr "Copiar"
 
 # src/toolbars.c:163
 # src/toolbars.c:165
-#: ../src/gui.c:1096
+#: ../src/gui.c:1099
 msgid "Paste"
 msgstr "Pegar"
 
-#: ../src/gui.c:1099
+#: ../src/gui.c:1102
 msgid "Find..."
 msgstr "Buscar..."
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
-#: ../src/gui.c:1101
+#: ../src/gui.c:1104
 msgid "Replace..."
 msgstr "Reemplazar..."
 
 # src/toolbars.c:172
 # src/toolbars.c:174
-#: ../src/gui.c:1104 ../src/preferences.c:1992
+#: ../src/gui.c:1107 ../src/preferences.c:1992
 msgid "Undo"
 msgstr "Deshacer"
 
 # src/toolbars.c:174
 # src/toolbars.c:176
-#: ../src/gui.c:1106
+#: ../src/gui.c:1109
 msgid "Redo"
 msgstr "Rehacer"
 
-#: ../src/gui.c:1110 ../src/gui.c:1115
+#: ../src/gui.c:1113 ../src/gui.c:1118
 msgid "Shift Left"
 msgstr "Desplazar a la izquierda"
 
-#: ../src/gui.c:1112 ../src/gui.c:1117
+#: ../src/gui.c:1115 ../src/gui.c:1120
 msgid "Shift Right"
 msgstr "Desplazar a la derecha"
 
 # src/html.c:1724 src/html.c:1768
 # src/html_form.c:325 src/html_form.c:369
-#: ../src/gui.c:1124
+#: ../src/gui.c:1127
 msgid "Spellcheck..."
 msgstr "Corrector ortográfico..."
 
-#: ../src/gui.c:1129
+#: ../src/gui.c:1132
 msgid "View in browser"
 msgstr "Ver en el navegador"
 
 # src/toolbars.c:469
 # src/toolbars.c:514
-#: ../src/gui.c:1132
+#: ../src/gui.c:1135
 msgid "Preferences..."
 msgstr "Preferencias..."
 
 # src/callbacks.c:166 src/callbacks.c:244
 # src/document.c:649 src/document.c:671 src/document.c:756
-#: ../src/gui.c:1322
+#: ../src/gui.c:1325
 msgid "New Bluefish Window"
 msgstr "Nueva ventana Bluefish"
 
 # src/toolbars.c:432
 # src/toolbars.c:436
-#: ../src/gui.c:1379
+#: ../src/gui.c:1382
 msgid "Stand by..."
 msgstr "Aguarde..."
 
 # src/callbacks.c:1134
 # src/document.c:997
-#: ../src/gui.c:1563
+#: ../src/gui.c:1566
 msgid "Goto line"
 msgstr "Ir a la línea"
 
 # src/callbacks.c:1141
 # src/document.c:1003
-#: ../src/gui.c:1571
+#: ../src/gui.c:1574
 msgid "_Line number:"
 msgstr "Número de _línea:"
 
 # src/configure.c:161
 # src/configure.c:172
-#: ../src/gui.c:1577
+#: ../src/gui.c:1580
 msgid "From _selection"
 msgstr "Desde _Selección"
 
 # src/configure.c:342
 # src/configure.c:393
-#: ../src/gui.c:1580
+#: ../src/gui.c:1583
 msgid "Keep _dialog"
 msgstr "Mantener _diálogo"
 
-#: ../src/gui.c:1646
+#: ../src/gui.c:1649
 msgid "starting bluefish"
 msgstr "iniciando bluefish"
 
@@ -5972,140 +5972,141 @@ msgid "Regular expression error: %s at offset %d"
 msgstr "Error en expresión regular: %s en %d"
 
 # src/snr2.c:381
-#: ../src/snr2.c:858
+#: ../src/snr2.c:869
 msgid "Confirm replace"
 msgstr "Comfirmar reemplazo"
 
-#: ../src/snr2.c:870
+#: ../src/snr2.c:881
 msgid "Replace selected text?"
 msgstr "¿Reemplazar texto seleccionado?"
 
-#: ../src/snr2.c:883
+#: ../src/snr2.c:894
 msgid "_Skip"
 msgstr "_Omitir"
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
-#: ../src/snr2.c:885
+#: ../src/snr2.c:896
 msgid "Replace _all"
 msgstr "Reemplazar _todo"
 
-#: ../src/snr2.c:1130 ../src/snr2.c:1137
+#: ../src/snr2.c:1141 ../src/snr2.c:1148
 msgid "Search: no match found"
 msgstr "Búsqueda: no hubo coincidencias"
 
 # src/snr.c:124 src/snr.c:172 src/toolbars.c:165
 # src/snr2.c:563 src/toolbars.c:167
-#: ../src/snr2.c:1363
+#: ../src/snr2.c:1374
 msgid "_Search for: "
 msgstr "_Buscar: "
 
 # src/snr.c:209
 # src/snr2.c:604
-#: ../src/snr2.c:1383
+#: ../src/snr2.c:1394
 msgid "_Replace with: "
 msgstr "Reemplazar _con: "
 
-#: ../src/snr2.c:1393
+#: ../src/snr2.c:1404
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 hace referencia al primer subpatrón, \\1 al segundo, etc."
 
 # src/snr.c:204
 # src/snr2.c:588
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "Beginning of document till end"
 msgstr "Comienzo del documento hasta el final"
 
 # src/snr.c:201
 # src/snr2.c:589
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "Current position till end"
 msgstr "Posición actual hasta el final"
 
 # src/configure.c:161
 # src/snr2.c:590
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "Beginning of selection till end of selection"
 msgstr "Comienzo hasta el final de la selección"
 
 # src/snr.c:212
 # src/snr2.c:591
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "All opened files begin till end"
 msgstr "Comienzo de todos los archivos abiertos hasta el final"
 
 # src/wml.c:196
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 msgid "Disabled"
 msgstr "Deshabilitado"
 
 # src/html.c:1847
 # src/html.c:1131
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 msgid "POSIX type"
 msgstr "Tipo POSIX"
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 msgid "PERL type"
 msgstr "Tipo PERL"
 
-#: ../src/snr2.c:1410
+#: ../src/snr2.c:1421
 msgid "Starts at:"
 msgstr "Empezar desde:"
 
 # src/snr2.c:594
-#: ../src/snr2.c:1422
+#: ../src/snr2.c:1433
 msgid "Regular expression:"
 msgstr "Expresión regular:"
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 msgid "Normal"
 msgstr "Normal"
 
 # src/snr.c:209
 # src/snr2.c:616
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 msgid "Uppercase"
 msgstr "Mayúsculas"
 
 # src/snr.c:209
 # src/snr2.c:617
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 msgid "Lowercase"
 msgstr "Minúsculas"
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
-#: ../src/snr2.c:1437
+#: ../src/snr2.c:1448
 msgid "Replace type:"
 msgstr "Reemplazar tipo:"
 
-#: ../src/snr2.c:1450
+#: ../src/snr2.c:1461
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "Los _patrones contienen secuencias de escape (\\n, \\t)"
 
-#: ../src/snr2.c:1451
+#: ../src/snr2.c:1462
 msgid "_Match case"
 msgstr "_Respetar May/Min"
 
 # src/snr2.c:595
-#: ../src/snr2.c:1452
+#: ../src/snr2.c:1463
 msgid "O_verlap searches"
 msgstr "_Búsquedas coincidentes"
 
 # src/snr2.c:621
-#: ../src/snr2.c:1454
+#: ../src/snr2.c:1465
 msgid "Prompt _before replace"
 msgstr "Preguntar _antes de reemplazar"
 
 # src/snr.c:209
 # src/snr2.c:622
-#: ../src/snr2.c:1455
+#: ../src/snr2.c:1466
 msgid "Replace o_nce"
 msgstr "Reem_plazar una vez"
 
-#: ../src/snr2.c:1457
-msgid "Bookmark results"
+#: ../src/snr2.c:1468
+#, fuzzy
+msgid "_Bookmark results"
 msgstr "Añadir un marcador al resultdo"
 
 # src/stringlist.c:146

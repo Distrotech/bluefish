@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-07 18:50-0700\n"
+"POT-Creation-Date: 2005-08-09 05:36-0700\n"
 "PO-Revision-Date: 2005-01-21 21:51+0200\n"
 "Last-Translator: Kenderessy Patrik <candy@602.cz>\n"
 "Language-Team: Not a member <cs@li.org>\n"
@@ -50,14 +50,14 @@ msgid ""
 "   <jimhayward@linuxexperience.net>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
+"\n"
+"Developers for previous releases:\n"
 "  Oskar Świda\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "  Eugene Morenko(More)\n"
 "   <more@irpin.com>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
-"\n"
-"Developers for previous releases:\n"
+"   <alastair@porter.net.nz>\n"
 "  Chris Mazuc\n"
 "  Neil Millar\n"
 "  Gero Takke\n"
@@ -81,7 +81,7 @@ msgid ""
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
+"   <alastair@porter.net.nz>\n"
 "  Daniel Blair\n"
 "   <joecamel@realcoders.org>\n"
 "  Olivier Sessink\n"
@@ -354,7 +354,7 @@ msgstr "Z_měnit na"
 msgid "I_gnore"
 msgstr "I_gnorovat"
 
-#: ../src/bfspell.c:405 ../src/snr2.c:884
+#: ../src/bfspell.c:405 ../src/snr2.c:895
 msgid "_Replace"
 msgstr "_Nahradit"
 
@@ -654,11 +654,11 @@ msgstr "Otevírání souboru"
 msgid "Cannot display file, unknown characters found."
 msgstr "Nelze zobrazit soubor kvůli neznámým znakům."
 
-#: ../src/document.c:2022 ../src/snr2.c:1334
+#: ../src/document.c:2022 ../src/snr2.c:1345
 msgid "Replace"
 msgstr "Nahradit"
 
-#: ../src/document.c:2027 ../src/snr2.c:1337
+#: ../src/document.c:2027 ../src/snr2.c:1348
 msgid "Find"
 msgstr "Najít"
 
@@ -1060,7 +1060,7 @@ msgstr "Zobrazit celý strom"
 msgid "Follow focus"
 msgstr "Následuj aktivované"
 
-#: ../src/fref.c:1467 ../src/gui.c:1089
+#: ../src/fref.c:1467 ../src/gui.c:1092
 msgid "Close"
 msgstr "Zavřít"
 
@@ -1490,135 +1490,135 @@ msgstr "Posunout Vpravo"
 msgid "Add to quickbar"
 msgstr "Přidat do lišty Rychlého spouštění"
 
-#: ../src/gui.c:1016
+#: ../src/gui.c:1015
 msgid " Quick bar "
 msgstr " Rychlé spouštění "
 
-#: ../src/gui.c:1021
+#: ../src/gui.c:1020
 msgid "Heading"
 msgstr "Nadpis"
 
-#: ../src/gui.c:1023
+#: ../src/gui.c:1022
 msgid " Standard bar "
 msgstr "Standardní lišta"
 
-#: ../src/gui.c:1028
+#: ../src/gui.c:1027
 msgid "Context formatting"
 msgstr "Formátování obsahu"
 
-#: ../src/gui.c:1030
+#: ../src/gui.c:1029
 msgid " Fonts "
 msgstr "Fonty"
 
-#: ../src/gui.c:1035
+#: ../src/gui.c:1034
 msgid " Tables "
 msgstr " Tabulky "
 
-#: ../src/gui.c:1040
+#: ../src/gui.c:1039
 msgid " Frames "
 msgstr "Rámy "
 
-#: ../src/gui.c:1045
+#: ../src/gui.c:1044
 msgid " Forms "
 msgstr " Formuláře "
 
-#: ../src/gui.c:1050
+#: ../src/gui.c:1049
 msgid " List "
 msgstr " Seznam "
 
-#: ../src/gui.c:1055
+#: ../src/gui.c:1054
 msgid " CSS "
 msgstr " CSS "
 
-#: ../src/gui.c:1081
+#: ../src/gui.c:1084
 msgid "New"
 msgstr "Nový"
 
-#: ../src/gui.c:1083
+#: ../src/gui.c:1086
 msgid "Open..."
 msgstr "Otevřít..."
 
-#: ../src/gui.c:1085
+#: ../src/gui.c:1088
 msgid "Save"
 msgstr "Uložit"
 
-#: ../src/gui.c:1087
+#: ../src/gui.c:1090
 msgid "Save As..."
 msgstr "Uložit jako..."
 
-#: ../src/gui.c:1092
+#: ../src/gui.c:1095
 msgid "Cut"
 msgstr "Vyjmout"
 
-#: ../src/gui.c:1094
+#: ../src/gui.c:1097
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: ../src/gui.c:1096
+#: ../src/gui.c:1099
 msgid "Paste"
 msgstr "Vložit"
 
-#: ../src/gui.c:1099
+#: ../src/gui.c:1102
 msgid "Find..."
 msgstr "Najít..."
 
-#: ../src/gui.c:1101
+#: ../src/gui.c:1104
 msgid "Replace..."
 msgstr "Nahradit..."
 
-#: ../src/gui.c:1104 ../src/preferences.c:1992
+#: ../src/gui.c:1107 ../src/preferences.c:1992
 msgid "Undo"
 msgstr "Akce Zpět (Undo)"
 
-#: ../src/gui.c:1106
+#: ../src/gui.c:1109
 msgid "Redo"
 msgstr "Vrátit akci"
 
-#: ../src/gui.c:1110 ../src/gui.c:1115
+#: ../src/gui.c:1113 ../src/gui.c:1118
 msgid "Shift Left"
 msgstr "Posunout Blok Vlevo"
 
-#: ../src/gui.c:1112 ../src/gui.c:1117
+#: ../src/gui.c:1115 ../src/gui.c:1120
 msgid "Shift Right"
 msgstr "Posunout Blok Vpravo"
 
-#: ../src/gui.c:1124
+#: ../src/gui.c:1127
 msgid "Spellcheck..."
 msgstr "Kontrola pravopisu..."
 
-#: ../src/gui.c:1129
+#: ../src/gui.c:1132
 msgid "View in browser"
 msgstr "Zobrazit v prohlížeči"
 
-#: ../src/gui.c:1132
+#: ../src/gui.c:1135
 msgid "Preferences..."
 msgstr "Předvolby..."
 
-#: ../src/gui.c:1322
+#: ../src/gui.c:1325
 msgid "New Bluefish Window"
 msgstr "Nové Okno Bluefishe"
 
-#: ../src/gui.c:1379
+#: ../src/gui.c:1382
 msgid "Stand by..."
 msgstr "V pohotopvosti..."
 
-#: ../src/gui.c:1563
+#: ../src/gui.c:1566
 msgid "Goto line"
 msgstr "Jít na řádek"
 
-#: ../src/gui.c:1571
+#: ../src/gui.c:1574
 msgid "_Line number:"
 msgstr "Číslo řá_dky:"
 
-#: ../src/gui.c:1577
+#: ../src/gui.c:1580
 msgid "From _selection"
 msgstr "Z _výběru"
 
-#: ../src/gui.c:1580
+#: ../src/gui.c:1583
 msgid "Keep _dialog"
 msgstr "Ponechat _dotaz"
 
-#: ../src/gui.c:1646
+#: ../src/gui.c:1649
 msgid "starting bluefish"
 msgstr "startuje bluefish"
 
@@ -4454,112 +4454,113 @@ msgstr "Hledání neúspěšné"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Chyba v regulárním výrazu: %s ofset %d"
 
-#: ../src/snr2.c:858
+#: ../src/snr2.c:869
 msgid "Confirm replace"
 msgstr "Potvrďte nahrazení"
 
-#: ../src/snr2.c:870
+#: ../src/snr2.c:881
 msgid "Replace selected text?"
 msgstr "Nahradit vybraný text?"
 
-#: ../src/snr2.c:883
+#: ../src/snr2.c:894
 msgid "_Skip"
 msgstr "Pře_skočit"
 
-#: ../src/snr2.c:885
+#: ../src/snr2.c:896
 msgid "Replace _all"
 msgstr "Nahr_adit vše"
 
-#: ../src/snr2.c:1130 ../src/snr2.c:1137
+#: ../src/snr2.c:1141 ../src/snr2.c:1148
 msgid "Search: no match found"
 msgstr "Hledání: nic nenalezeno"
 
-#: ../src/snr2.c:1363
+#: ../src/snr2.c:1374
 msgid "_Search for: "
 msgstr "_Hledat co:"
 
-#: ../src/snr2.c:1383
+#: ../src/snr2.c:1394
 msgid "_Replace with: "
 msgstr "Nahra_dit čím:"
 
-#: ../src/snr2.c:1393
+#: ../src/snr2.c:1404
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 odkazuje na první podvzorek hledání, \\1 na druhý atd."
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "Beginning of document till end"
 msgstr "Od začátku dokumentu do jeho konce"
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "Current position till end"
 msgstr "Od pozice kurzoru do konce dokumentu"
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "Beginning of selection till end of selection"
 msgstr "Od začátku výběru do konce výběru"
 
-#: ../src/snr2.c:1408
+#: ../src/snr2.c:1419
 msgid "All opened files begin till end"
 msgstr "Ve všech otevřených souborech od začátku do konce"
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 msgid "Disabled"
 msgstr "Vypnuto"
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 msgid "POSIX type"
 msgstr "POSIXový typ"
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1420
 msgid "PERL type"
 msgstr "PERLovský typ"
 
-#: ../src/snr2.c:1410
+#: ../src/snr2.c:1421
 msgid "Starts at:"
 msgstr "Kde začít:"
 
-#: ../src/snr2.c:1422
+#: ../src/snr2.c:1433
 msgid "Regular expression:"
 msgstr "Regulární výraz:"
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 msgid "Normal"
 msgstr "Normální"
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 msgid "Uppercase"
 msgstr "Nahradit velkými písmeny"
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1447
 msgid "Lowercase"
 msgstr "Nahradit malými písmeny"
 
-#: ../src/snr2.c:1437
+#: ../src/snr2.c:1448
 msgid "Replace type:"
 msgstr "Způsob nahrazení:"
 
-#: ../src/snr2.c:1450
+#: ../src/snr2.c:1461
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "Ře_tězec obsahuje backslash escape sekvence (\\n, \\t)"
 
-#: ../src/snr2.c:1451
+#: ../src/snr2.c:1462
 msgid "_Match case"
 msgstr "_Rozlišovat velká/malá písmena"
 
-#: ../src/snr2.c:1452
+#: ../src/snr2.c:1463
 msgid "O_verlap searches"
 msgstr "_Více kolové hledání"
 
-#: ../src/snr2.c:1454
+#: ../src/snr2.c:1465
 msgid "Prompt _before replace"
 msgstr "Optat se _před nahrazením"
 
-#: ../src/snr2.c:1455
+#: ../src/snr2.c:1466
 msgid "Replace o_nce"
 msgstr "_Nahradit pouze jednou"
 
-#: ../src/snr2.c:1457
-msgid "Bookmark results"
+#: ../src/snr2.c:1468
+#, fuzzy
+msgid "_Bookmark results"
 msgstr "Vytvoř záložky z výsledku hledání"
 
 #: ../src/stringlist.c:366
