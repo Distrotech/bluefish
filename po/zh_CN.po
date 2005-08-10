@@ -1,13 +1,13 @@
 # Chinese(GB) language file for Bluefish.
 # Copyright (C) 2003 Dormouse <mouselinux@163.com>, 2003
-# Funda Wang <fundawang@linux.net.cn>, 2004
+# Funda Wang <fundawang@linux.net.cn>, 2004, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-09 05:36-0700\n"
-"PO-Revision-Date: 2004-12-08 18:48-0300\n"
+"PO-Revision-Date: 2005-08-10 16:42+0800\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,6 @@ msgstr ""
 "此版本的 Bluefish 以下列选项编译：\n"
 
 #: ../src/about.c:57
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -104,12 +103,20 @@ msgstr ""
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
 "\n"
 "此版本的开发者：\n"
-"  Jim Hayward <jimhayward@linuxexperience.com>\n"
-"  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
-"  Christian Tellefsen <christian@tellefsen.net>\n"
-"  Eugene Morenko(More) <more@irpin.com>\n"
+"  Olivier Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
+"  Jim Hayward\n"
+"   <jimhayward@linuxexperience.net>\n"
+"  Daniel Leidert\n"
+"   <daniel.leidert@wgdd.de>\n"
 "\n"
 "先前版本的开发者：\n"
+"  Oskar Świda\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"  Eugene Morenko(More)\n"
+"   <more@irpin.com>\n"
+"  Alastair Porter\n"
+"   <alastair@porter.net.nz>\n"
 "  Chris Mazuc\n"
 "  Neil Millar\n"
 "  Gero Takke\n"
@@ -117,20 +124,38 @@ msgstr ""
 "  David Arno\n"
 "  Pablo De Napoli\n"
 "  Santiago Capel Torres\n"
-"  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
-"  Roland Steinbach <roland@netzblick.de>\n"
-"  Christian Tellefsen <chris@tellefsen.net>\n"
+"  Rasmus Toftdahl Olesen\n"
+"   <rto@pohldata.dk>\n"
+"  Roland Steinbach\n"
+"   <roland@netzblick.de>\n"
+"  Christian Tellefsen\n"
+"   <chris@tellefsen.net>\n"
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "文档：\n"
-"  Alastair Porter <alastair@linuxexperience.com>\n"
-"  Daniel Blair <joecamel@realcoders.org>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
+"  Anita Lewis\n"
+"   <ajreiki@highstream.net>\n"
+"  Alastair Porter\n"
+"   <alastair@porter.net.nz>\n"
+"  Daniel Blair\n"
+"   <joecamel@realcoders.org>\n"
+"  Olivier Sessink\n"
+"   <olivier@bluefish.openoffice.nl>\n"
 "  Denny Reeh\n"
 "\n"
 "软件包维护者：\n"
-"  Debian：  Davide Puricelli <evo@debian.org>\n"
-"  Redhat：  Matthias Haase <matthias_haase@bennewitz.com>\n"
-"  Mandrake：Todd Lyons <todd@mrball.net>\n"
+"  Debian:   Davide Puricelli\n"
+"   <evo@debian.org>\n"
+"  Redhat:   Matthias Haase\n"
+"   <matthias_haase@bennewitz.com>\n"
+"  Mandrake: Todd Lyons\n"
+"   <todd@mrball.net>\n"
+"  Fink: Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "如果你知道有谁从这个列表中遗漏了,请与我们联系\n"
 "<bluefish@bluefish.openoffice.nl>\n"
@@ -138,7 +163,6 @@ msgstr ""
 "感谢所有给予本软件帮助的人..\n"
 
 #: ../src/about.c:120
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -211,8 +235,10 @@ msgstr ""
 "  保加利亚语 - Peio Popov\n"
 "   <peio@peio.org>\n"
 "\n"
-"  中文 - 杨(廷页) (Dormouse)\n"
-"   <mouselinux@163.com>\n"
+"  中文 - Funda Wang\n"
+"\n"
+"  繁体中文: OLS3\n"
+"   <ols3@lxer.idv.tw>\n"
 "\n"
 "  丹麦语 - Rasmus Toftdahl Olesen\n"
 "   <rto@pohldata.dk>\n"
@@ -231,6 +257,9 @@ msgstr ""
 "\n"
 "  意大利语 - Stefano Canepa\n"
 "   <sc@linux.it>\n"
+"\n"
+"  日语 - Takeshi Hamasaki\n"
+"   <hma@syd.odn.ne.jp>\n"
 "\n"
 "  挪威语 - Christian Tellefsen\n"
 "   <chris@tellefsen.net>\n"
@@ -256,6 +285,9 @@ msgstr ""
 "  泰米尔语 - Murugapandian Barathee\n"
 "   <barathee@yahoo.com>\n"
 "\n"
+"  土耳其语：Oğuz Eren\n"
+"   <ogzeren@gmail.com>\n"
+"\n"
 
 #: ../src/about.c:163
 msgid "About Bluefish"
@@ -267,6 +299,9 @@ msgid ""
 "\n"
 "Resulting in the detection of:\n"
 msgstr ""
+"\n"
+"\n"
+"导致检测：\n"
 
 #: ../src/about.c:220 ../src/fref.c:1448 ../src/fref.c:1732 ../src/fref.c:1819
 #: ../src/fref.c:1854 ../src/fref.c:2331
@@ -288,7 +323,7 @@ msgstr "需要身份验证"
 #: ../src/authen.c:85
 #, c-format
 msgid "Authentication is required for %s."
-msgstr "%s 需要身份验证"
+msgstr "%s 需要身份验证。"
 
 #: ../src/authen.c:91
 msgid "Username:"
@@ -346,7 +381,7 @@ msgstr "会话字典"
 
 #: ../src/bfspell.c:437
 msgid "Dictionary:"
-msgstr "字典:"
+msgstr "字典："
 
 #: ../src/bfspell.c:441
 msgid "_Add"
@@ -358,7 +393,7 @@ msgstr "语言："
 
 #: ../src/bfspell.c:449
 msgid "Set defa_ult"
-msgstr "设为默认的(_U)"
+msgstr "设为默认值(_U)"
 
 #: ../src/bfspell.c:453
 msgid "Filter:"
@@ -411,42 +446,41 @@ msgstr "-h           当前帮助\n"
 
 #: ../src/bluefish.c:180
 msgid "parsing highlighting file..."
-msgstr "分析语法高亮文件..."
+msgstr "正在分析语法高亮文件..."
 
 #: ../src/bluefish.c:191
 msgid "compiling highlighting patterns..."
-msgstr "编译语法高亮参数..."
+msgstr "正在编译语法高亮参数..."
 
 #: ../src/bluefish.c:198
 msgid "parsing custom menu file..."
-msgstr "分析自定义菜单文件..."
+msgstr "正在分析自定义菜单文件..."
 
 #: ../src/bluefish.c:210
 msgid "creating main gui..."
-msgstr "创建主界面..."
+msgstr "正在创建主界面..."
 
 #: ../src/bluefish.c:221
 msgid "showing main gui..."
-msgstr "显示主界面..."
+msgstr "正在显示主界面..."
 
 #: ../src/bluefish.c:248
 msgid "Bluefish tip:"
 msgstr "Bluefish 提示："
 
 #: ../src/bluefish.c:249
-#, fuzzy
 msgid ""
 "This message is shown if you do not have any items in the Quickbar.\n"
 "\n"
 "To add buttons to the Quickbar, right click on a button in the HTML toolbars."
 msgstr ""
-"如果您的快捷栏上没有东东就会显示这个信息.\n"
+"如果您的快捷栏上没有东东就会显示这个信息。\n"
 "\n"
-"您可以用鼠标右键点击工具栏上的按钮来添加快捷栏上的按钮"
+"您可以用鼠标右键点击工具栏上的按钮来添加快捷栏上的按钮。"
 
 #: ../src/bluefish.c:252
 msgid "_Don't show this dialog again."
-msgstr ""
+msgstr "以后不再显示此对话框(_D)。"
 
 #: ../src/bookmark.c:366 ../src/html.c:617 ../src/html.c:837
 #: ../src/html.c:1432 ../src/html.c:1893 ../src/html_form.c:231
@@ -479,7 +513,7 @@ msgstr "您真的想要删除 %s 的所有书签吗？"
 
 #: ../src/bookmark.c:611
 msgid "Delete bookmarks?"
-msgstr "删除书签。"
+msgstr "删除书签吗？"
 
 #: ../src/bookmark.c:641
 #, c-format
@@ -512,7 +546,7 @@ msgstr "在文档中删除全部"
 
 #: ../src/bookmark.c:697
 msgid "Delete all"
-msgstr " 删除全部 "
+msgstr "删除全部"
 
 #: ../src/bookmark.c:1279 ../src/bookmark.c:1296 ../src/bookmark.c:1332
 #: ../src/document.c:2039
@@ -601,7 +635,7 @@ msgid "Untitled %d"
 msgstr "无标题 %d"
 
 #: ../src/document.c:1092
-#, fuzzy, c-format
+#, c-format
 msgid " Ln: %d, Col: %d"
 msgstr "行 %d，列 %d"
 
@@ -632,7 +666,7 @@ msgstr "查找"
 
 #: ../src/document.c:2035
 msgid "Delete bookmark"
-msgstr "删除书签。"
+msgstr "删除书签"
 
 #: ../src/document.c:2055
 msgid "Edit color"
@@ -875,7 +909,7 @@ msgstr "文件类型(_F)："
 
 #: ../src/document.c:3426
 msgid "_Recursive:"
-msgstr "包括子目录(_R)："
+msgstr "递归(_R)："
 
 #: ../src/document.c:3431
 msgid "<b>Contains</b>"
@@ -887,7 +921,7 @@ msgstr "模式(_T)："
 
 #: ../src/document.c:3438
 msgid "Is rege_x:"
-msgstr "是正规表达式(_X)："
+msgstr "是正则表达式(_X)："
 
 #: ../src/document.c:3573
 msgid "Open URL"
@@ -1176,7 +1210,6 @@ msgid "Comment"
 msgstr "注释"
 
 #: ../src/gui.c:608
-#, fuzzy
 msgid "E-mail..."
 msgstr "电子邮件..."
 
@@ -1406,11 +1439,11 @@ msgstr "插入图像..."
 
 #: ../src/gui.c:671
 msgid "Insert thumbnail..."
-msgstr "插入相册..."
+msgstr "插入缩略图..."
 
 #: ../src/gui.c:672
 msgid "Multi thumbnail..."
-msgstr "多相册..."
+msgstr "多缩略图..."
 
 #: ../src/gui.c:674
 msgid "Code"
@@ -1721,7 +1754,7 @@ msgstr "  Unix 日期字符串(_S) (%s"
 #: ../src/html.c:447
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
-msgstr ""
+msgstr "  ISO-8601 时间(_M)(%s)"
 
 #: ../src/html.c:589
 msgid "Quick Anchor"
@@ -1945,30 +1978,28 @@ msgid "Custom"
 msgstr "自定义"
 
 #: ../src/html.c:1652
-#, fuzzy
 msgid "E-mail"
 msgstr "电子邮件"
 
 #: ../src/html.c:1660
 msgid "_Mail to:"
-msgstr ""
+msgstr "邮寄到(_M)："
 
 #: ../src/html.c:1664
-#, fuzzy
 msgid "_Copy to:"
-msgstr "复制"
+msgstr "抄送(_C)："
 
 #: ../src/html.c:1668
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "密件抄送(_D)："
 
 #: ../src/html.c:1672
 msgid "with _Subject:"
-msgstr ""
+msgstr "主题为(_S)："
 
 #: ../src/html.c:1676
 msgid "with _Body:"
-msgstr ""
+msgstr "内容为(_B)："
 
 #: ../src/html.c:1720
 msgid "Quick List"
@@ -2044,9 +2075,8 @@ msgid "Link"
 msgstr "颜色"
 
 #: ../src/html.c:2114
-#, fuzzy
 msgid "HREF_LANG:"
-msgstr "_HREF："
+msgstr "HREF_LANG："
 
 #: ../src/html.c:2128
 msgid "_Forward Relation:"
@@ -2194,7 +2224,7 @@ msgstr "不换行(_P)："
 
 #: ../src/image.c:262
 msgid "Insert thumbnail"
-msgstr "插入相册"
+msgstr "插入缩略图"
 
 #: ../src/image.c:264
 msgid "Insert image"
@@ -2234,7 +2264,7 @@ msgstr "边框(_R)："
 
 #: ../src/image.c:416 ../src/image.c:425
 msgid "Select files for thumbnail creation"
-msgstr "选择用于生成相册的文件"
+msgstr "选择用于生成缩略图的文件"
 
 #: ../src/image.c:543
 msgid "Scaling (%)"
@@ -2250,7 +2280,7 @@ msgstr "高度"
 
 #: ../src/image.c:567
 msgid "Multi thumbnail"
-msgstr "多相册"
+msgstr "多缩略图"
 
 #: ../src/image.c:573
 msgid "By scaling"
@@ -2275,14 +2305,14 @@ msgid ""
 "%x: thumbnail width  %y: thumbnail height\n"
 "%b: original size (bytes)"
 msgstr ""
-"%r: 原文件名  %t: 相册文件名\n"
+"%r: 原文件名  %t: 缩略图文件名\n"
 "%w: 原宽度  %h: 原高度\n"
-"%x: 相册宽度  %y: 相册高度\n"
+"%x: 缩略图宽度  %y: 缩略图高度\n"
 "%b: 原大小(字节)"
 
 #: ../src/menu.c:315
 msgid "/_File"
-msgstr "/文件(F)"
+msgstr "/文件(_F)"
 
 #: ../src/menu.c:317
 msgid "/File/_New"
@@ -2609,9 +2639,8 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ô"
 
 #: ../src/menu.c:430
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/OE"
+msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Œ"
 
 #: ../src/menu.c:431
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
@@ -2734,9 +2763,8 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ó"
 
 #: ../src/menu.c:463
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/æ"
+msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/œ"
 
 #: ../src/menu.c:464
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
@@ -3207,9 +3235,8 @@ msgid "/Dialogs/General/_Quickstart..."
 msgstr "/对话(O)/常规(G)/快速启动(_Q)..."
 
 #: ../src/menu.c:602
-#, fuzzy
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/对话(O)/常规(G)/_Meta..."
+msgstr "/对话(O)/常规(G)/_Link 头..."
 
 #: ../src/menu.c:603
 msgid "/Dialogs/General/_Body..."
@@ -3261,7 +3288,7 @@ msgstr "/对话(O)/常规(G)/插入图像(_I)..."
 
 #: ../src/menu.c:615
 msgid "/Dialogs/General/Insert T_humbnail..."
-msgstr "/对话(O)/常规(G)/插入相册(_H)..."
+msgstr "/对话(O)/常规(G)/插入缩略图(_H)..."
 
 #: ../src/menu.c:616
 msgid "/Dialogs/_Table"
@@ -4142,15 +4169,15 @@ msgstr "图像"
 
 #: ../src/preferences.c:2117
 msgid "Thumbnails"
-msgstr "相册"
+msgstr "缩略图"
 
 #: ../src/preferences.c:2121
 msgid "Thumbnail suffix"
-msgstr "相册扩展名"
+msgstr "缩略图扩展名"
 
 #: ../src/preferences.c:2125
 msgid "Thumbnail filetype"
-msgstr "相册文件类型"
+msgstr "缩略图文件类型"
 
 #: ../src/preferences.c:2130 ../src/preferences.c:2132
 msgid "Filetypes"
@@ -4234,7 +4261,6 @@ msgid "Project _Name:"
 msgstr "项目名称(_N)："
 
 #: ../src/project.c:540
-#, fuzzy
 msgid "Base _Dir:"
 msgstr "基础目录(_D)："
 
@@ -4267,73 +4293,60 @@ msgid "Create empty project"
 msgstr "创建空项目"
 
 #: ../src/quickstart.c:507
-#, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr "<b>常规</b>"
+msgstr "<b>外部样式表(_X)</b>"
 
 #: ../src/quickstart.c:517
-#, fuzzy
 msgid "Ty_pe:"
-msgstr "类型(_T)："
+msgstr "类型(_P)："
 
 #: ../src/quickstart.c:535
-#, fuzzy
 msgid "HRE_F:"
-msgstr "_HREF："
+msgstr "HRE_F："
 
 #: ../src/quickstart.c:539
-#, fuzzy
 msgid "_Media:"
-msgstr "介质："
+msgstr "介质(_M)："
 
 #: ../src/quickstart.c:543
-#, fuzzy
 msgid "Titl_e:"
-msgstr "标题(_T)："
+msgstr "标题(_E)："
 
 #: ../src/quickstart.c:549
-#, fuzzy
 msgid "<b>Style Area</b>"
-msgstr "<b>常规</b>"
+msgstr "<b>样式区域</b>"
 
 #: ../src/quickstart.c:553
-#, fuzzy
 msgid "Cre_ate empty style area"
-msgstr "创建空项目"
+msgstr "创建空的样式区域(_A)"
 
 #: ../src/quickstart.c:575
-#, fuzzy
 msgid "<b>Attributes</b>"
-msgstr "属性"
+msgstr "<b>属性</b>"
 
 #: ../src/quickstart.c:590
-#, fuzzy
 msgid "_Src:"
-msgstr "源代码(_S)："
+msgstr "_Src："
 
 #: ../src/quickstart.c:597
 msgid "<b>Script Area</b>"
-msgstr ""
+msgstr "<b>脚本区域</b>"
 
 #: ../src/quickstart.c:601
-#, fuzzy
 msgid "Cre_ate empty script area"
-msgstr "创建空项目"
+msgstr "创建空的脚本区域(_A)"
 
 #: ../src/quickstart.c:642
-#, fuzzy
 msgid "_DTD:"
-msgstr "使用 _DTD："
+msgstr "_DTD："
 
 #: ../src/quickstart.c:669
-#, fuzzy
 msgid "_Head:"
-msgstr "_Href："
+msgstr "_Head："
 
 #: ../src/quickstart.c:686
-#, fuzzy
 msgid "Open in _new document."
-msgstr "在文档中(_D)"
+msgstr "在新文档中打开(_N)。"
 
 #: ../src/rcfile.c:493
 msgid "Galeon"
@@ -4353,7 +4366,7 @@ msgstr "Netscape"
 
 #: ../src/rcfile.c:501
 msgid "Gnome default"
-msgstr "GNOME 默认的"
+msgstr "GNOME 默认值"
 
 #: ../src/rcfile.c:525
 msgid "make"
@@ -4525,9 +4538,8 @@ msgid "Replace o_nce"
 msgstr "替换一次(_N)"
 
 #: ../src/snr2.c:1468
-#, fuzzy
 msgid "_Bookmark results"
-msgstr "把所有结果作为书签"
+msgstr "将结果加入书签(_B)"
 
 #: ../src/stringlist.c:366
 msgid " Add "
@@ -4612,214 +4624,3 @@ msgstr "源代码："
 #: ../src/wizards.c:224
 msgid "Size:"
 msgstr "大小："
-
-#~ msgid "No matching files found"
-#~ msgstr "未找到符合条件的文件"
-
-#~ msgid "_Email address:"
-#~ msgstr "电子邮件地址(_E)："
-
-#~ msgid "UrlEncoded _subject:"
-#~ msgstr "UrlEncoded 主题(_S)："
-
-#~ msgid "UrlEncoded _body:"
-#~ msgstr "主体内容(_B)："
-
-#~ msgid "_Href:"
-#~ msgstr "_Href："
-
-#~ msgid "Href_lang:"
-#~ msgstr "Href_lang："
-
-#~ msgid "/File/tearoff1"
-#~ msgstr "/文件(F)/tearoff1"
-
-#~ msgid "/File/Open recent/tearoff1"
-#~ msgstr "/文件(F)/打开最近(R)/tearoff1"
-
-#~ msgid "/File/sep1"
-#~ msgstr "/文件(F)/sep1"
-
-#~ msgid "/File/sep2"
-#~ msgstr "/文件(F)/sep2"
-
-#~ msgid "/File/sep3"
-#~ msgstr "/文件(F)/sep3"
-
-#~ msgid "/File/sep4"
-#~ msgstr "/文件(F)/sep4"
-
-#~ msgid "/Edit/Tearoff1"
-#~ msgstr "/编辑(E)/Tearoff1"
-
-#~ msgid "/Edit/sep1"
-#~ msgstr "/编辑(E)/sep1"
-
-#~ msgid "/Edit/sep2"
-#~ msgstr "/编辑(E)/sep2"
-
-#~ msgid "/Edit/sep3"
-#~ msgstr "/编辑(E)/sep3"
-
-#~ msgid "/Edit/Replace special/Tearoff1"
-#~ msgstr "/编辑(E)/特殊替换/Tearoff1"
-
-#~ msgid "/Edit/sep4"
-#~ msgstr "/编辑(E)/sep4"
-
-#~ msgid "/Edit/sep5"
-#~ msgstr "/编辑(E)/sep5"
-
-#~ msgid "/Edit/sep6"
-#~ msgstr "/编辑(E)/sep6"
-
-#~ msgid "/View/tearoff1"
-#~ msgstr "/查看(V)/tearoff1"
-
-#~ msgid "/Tags/Tearoff1"
-#~ msgstr "/标签(T)/Tearoff1"
-
-#~ msgid "/Tags/Headings/Tearoff1"
-#~ msgstr "/标签(T)/标题(H)/Tearoff1"
-
-#~ msgid "/Tags/Special/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/separator"
-#~ msgstr "/标签(T)/特殊(S)/音标(A)/Separator"
-
-#~ msgid "/Tags/Special/Currency/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/货币(C)/tearoff1"
-
-#~ msgid "/Tags/Special/Math-Science/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/tearoff1"
-
-#~ msgid "/Tags/Special/Non Latin/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/tearoff1"
-
-#~ msgid "/Tags/Special/Other/tearoff1"
-#~ msgstr "/标签(T)/特殊(S)/其它(O)/tearoff1"
-
-#~ msgid "/Tags/Format by layout/tearoff1"
-#~ msgstr "/标签(T)/布局格式(F)/tearoff1"
-
-#~ msgid "/Tags/Format by context/tearoff1"
-#~ msgstr "/标签(T)/环境格式(O)/tearoff1"
-
-#~ msgid "/Tags/Format general/tearoff1"
-#~ msgstr "/标签(T)/常规格式(G)/tearoff1"
-
-#~ msgid "/Tags/Format general/<separator>"
-#~ msgstr "/标签(T)/常规格式(G)/<separator>"
-
-#~ msgid "/Tags/Table/tearoff1"
-#~ msgstr "/标签(T)/表格(T)/tearoff1"
-
-#~ msgid "/Tags/List/tearoff1"
-#~ msgstr "/标签(T)/列表(L)/tearoff1"
-
-#~ msgid "/Tags/Form/tearoff1"
-#~ msgstr "/标签(T)/表单(R)/tearoff1"
-
-#~ msgid "/Tags/Misc/tearoff1"
-#~ msgstr "/标签(T)/其他(M)/tearoff1"
-
-#~ msgid "/Dialogs/tearoff1"
-#~ msgstr "/对话(O)/tearoff1"
-
-#~ msgid "/Dialogs/General/tearoff1"
-#~ msgstr "/对话(O)/常规(G)/tearoff1"
-
-#~ msgid "/Dialogs/Table/tearoff1"
-#~ msgstr "/对话(O)/表格(T)/tearoff1"
-
-#~ msgid "/Dialogs/CSS/tearoff1"
-#~ msgstr "对话框/CSS/tearoff1"
-
-#~ msgid "/Dialogs/Frame/tearoff1"
-#~ msgstr "/对话(O)/框架(F)/tearoff1"
-
-#~ msgid "/Dialogs/Form/tearoff1"
-#~ msgstr "/对话(O)/表单(O)/tearoff1"
-
-#~ msgid "/Dialogs/sep1"
-#~ msgstr "/对话(O)/sep1"
-
-#~ msgid "/Document/tearoff1"
-#~ msgstr "/文档(D)/tearoff1"
-
-#~ msgid "/Document/sep1"
-#~ msgstr "/文档(D)/sep1"
-
-#~ msgid "/Document/sep2"
-#~ msgstr "/文档(D)/sep2"
-
-#~ msgid "/Document/sep3"
-#~ msgstr "/文档(D)/sep3"
-
-#~ msgid "/Document/Document Type/tearoff1"
-#~ msgstr "/文档(D)/文档类型/tearoff1"
-
-#~ msgid "/Document/Character Encoding/tearoff1"
-#~ msgstr "/文档(D)/字符编码/tearoff1"
-
-#~ msgid "/Document/sep4"
-#~ msgstr "/文档(D)/sep4"
-
-#~ msgid "/Go/tearoff1"
-#~ msgstr "/转到(G)/tearoff1"
-
-#~ msgid "/Go/sep1"
-#~ msgstr "/转到(G)/sep1"
-
-#~ msgid "/Project/tearoff1"
-#~ msgstr "/项目(P)/tearoff1"
-
-#~ msgid "/Project/Open recent/tearoff1"
-#~ msgstr "/项目(P)/打开最近使用的项目(E)/tearoff1"
-
-#~ msgid "/Project/sep1"
-#~ msgstr "/项目(P)/sep1"
-
-#~ msgid "/Project/sep2"
-#~ msgstr "/项目(P)/sep2"
-
-#~ msgid "/External/tearoff1"
-#~ msgstr "/外部程序(X)/tearoff1"
-
-#~ msgid "/Custom menu/sep"
-#~ msgstr "/自定义菜单(C)/sep"
-
-#~ msgid "Show main toolbar by default"
-#~ msgstr "默认显示主工具栏"
-
-#~ msgid "Show sidebar by default"
-#~ msgstr "默认显示边栏"
-
-#~ msgid "Show custom menu by default"
-#~ msgstr "默认显示自定义菜单"
-
-#~ msgid "Show HTML toolbar by default"
-#~ msgstr "默认显示 HTML 工具栏"
-
-#, fuzzy
-#~ msgid "Hre_f:"
-#~ msgstr "_Href："
-
-#~ msgid "_Basedir:"
-#~ msgstr "基础目录(_D)："
