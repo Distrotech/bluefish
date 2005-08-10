@@ -38,7 +38,6 @@ msgstr ""
 "Diese Bluefish-Version wurde mit folgenden Optionen kompiliert:\n"
 
 #: ../src/about.c:57
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -111,14 +110,16 @@ msgstr ""
 "   <olivier@bluefish.openoffice.nl>\n"
 "  Jim Hayward\n"
 "   <jimhayward@linuxexperience.net>\n"
-"  Oskar ¿wida\n"
+"  Daniel Leidert\n"
+"   <daniel.leidert@wgdd.de>\n"
+"\n"
+"Entwickler bei älteren Releases:\n"
+"  Oskar Świda\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "  Eugene Morenko(More)\n"
 "   <more@irpin.com>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
-"\n"
-"Entwickler bei älteren Releases:\n"
+"   <alastair@porter.net.nz>\n"
 "  Chris Mazuc\n"
 "  Neil Millar\n"
 "  Gero Takke\n"
@@ -165,7 +166,6 @@ msgstr ""
 "Dank an alle die uns bei dieser Software geholfen haben.\n"
 
 #: ../src/about.c:120
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -241,6 +241,9 @@ msgstr ""
 "  Chinesisch - Ting Yang (Dormouse)\n"
 "   <mouselinux@163.com>\n"
 "\n"
+"  Chinesisch, Traditionell: OLS3\n"
+"   <ols3@lxer.idv.tw>\n"
+"\n"
 "  Dänisch - Rasmus Toftdahl Olesen\n"
 "   <rto@pohldata.dk>\n"
 "\n"
@@ -259,6 +262,9 @@ msgstr ""
 "  Italienisch - Stefano Canepa\n"
 "   <sc@linux.it>\n"
 "\n"
+"  Japanisch: Takeshi Hamasaki\n"
+"   <hma@syd.odn.ne.jp>\n"
+"\n"
 "  Norwegisch - Christian Tellefsen\n"
 "   <chris@tellefsen.net>\n"
 "\n"
@@ -271,7 +277,7 @@ msgstr ""
 "  Russisch - Eugene Rupakov\n"
 "   <rupakov@jet.msk.su>\n"
 "\n"
-"  Serbisch - Marko Milenovic\n"
+"  Serbisch - Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
 "  Spanisch - Walter Oscar Echarri\n"
@@ -282,6 +288,9 @@ msgstr ""
 "\n"
 "  Tamil - Murugapandian Barathee\n"
 "   <barathee@yahoo.com>\n"
+"\n"
+"  Türkisch: Oğuz Eren\n"
+"   <ogzeren@gmail.com>\n"
 "\n"
 
 #: ../src/about.c:163
@@ -294,6 +303,9 @@ msgid ""
 "\n"
 "Resulting in the detection of:\n"
 msgstr ""
+"\n"
+"\n"
+"Ergibt die Erkennung von:\n"
 
 #: ../src/about.c:220 ../src/fref.c:1448 ../src/fref.c:1732 ../src/fref.c:1819
 #: ../src/fref.c:1854 ../src/fref.c:2331
@@ -463,21 +475,20 @@ msgid "Bluefish tip:"
 msgstr "Bluefish Tipp:"
 
 #: ../src/bluefish.c:249
-#, fuzzy
 msgid ""
 "This message is shown if you do not have any items in the Quickbar.\n"
 "\n"
 "To add buttons to the Quickbar, right click on a button in the HTML toolbars."
 msgstr ""
-"Diese Nachricht wird angezeigt, da Sie keine Einträge in der "
-"Schnellzugriffleiste haben.\n"
+"Diese Nachricht wird angezeigt, falls Sie keine Einträge in der "
+"Schnellzugriffsleiste haben.\n"
 "\n"
-"Über Rechtsklick auf eine Schaltfläche der HTML-Werkzeugleisten, können Sie "
+"Durch Rechtsklick auf eine Schaltfläche der HTML-Werkzeugleisten, können Sie "
 "diese der Schnellzugriffleiste hinzufügen."
 
 #: ../src/bluefish.c:252
 msgid "_Don't show this dialog again."
-msgstr ""
+msgstr "_Dialog nicht mehr anzeigen"
 
 #: ../src/bookmark.c:366 ../src/html.c:617 ../src/html.c:837
 #: ../src/html.c:1432 ../src/html.c:1893 ../src/html_form.c:231
@@ -1208,7 +1219,6 @@ msgid "Comment"
 msgstr "Kommentar"
 
 #: ../src/gui.c:608
-#, fuzzy
 msgid "E-mail..."
 msgstr "E-Mail..."
 
@@ -1753,7 +1763,7 @@ msgstr "  Unixdatum (%s"
 #: ../src/html.c:447
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
-msgstr ""
+msgstr "  ISO-8601 Zei_t (%s)"
 
 #: ../src/html.c:589
 msgid "Quick Anchor"
@@ -1977,30 +1987,28 @@ msgid "Custom"
 msgstr "Benutzerdefiniert"
 
 #: ../src/html.c:1652
-#, fuzzy
 msgid "E-mail"
-msgstr "Email"
+msgstr "E-Mail"
 
 #: ../src/html.c:1660
 msgid "_Mail to:"
-msgstr ""
+msgstr "_Mail an:"
 
 #: ../src/html.c:1664
-#, fuzzy
 msgid "_Copy to:"
-msgstr "Kopieren"
+msgstr "_Kopieren nach:"
 
 #: ../src/html.c:1668
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "Blin_dkopie an:"
 
 #: ../src/html.c:1672
 msgid "with _Subject:"
-msgstr ""
+msgstr "mit Be_treff:"
 
 #: ../src/html.c:1676
 msgid "with _Body:"
-msgstr ""
+msgstr "mit _Text:"
 
 #: ../src/html.c:1720
 msgid "Quick List"
@@ -2076,9 +2084,8 @@ msgid "Link"
 msgstr "Link"
 
 #: ../src/html.c:2114
-#, fuzzy
 msgid "HREF_LANG:"
-msgstr "_HREF"
+msgstr "HREF _Sprache"
 
 #: ../src/html.c:2128
 msgid "_Forward Relation:"
@@ -2641,9 +2648,8 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Tags/Spezial/Akzent/Großbuchstaben/J-Z/Ô (O mit Zirkumflex)"
 
 #: ../src/menu.c:430
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Tags/Spezial/Akzent/Großbuchstaben/J-Z/Œ (OE Diphthong)"
+msgstr "/Tags/Spezial/Akzent/Großbuchstaben/J-Z/OE Ligatur Œ"
 
 #: ../src/menu.c:431
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
@@ -2766,9 +2772,8 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Tags/Spezial/Akzent/Kleinbuchstaben/J-Z/ó (o mit Akut)"
 
 #: ../src/menu.c:463
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Tags/Spezial/Akzent/Kleinbuchstaben/A-I/æ (oe Diphthong)"
+msgstr "/Tags/Spezial/Akzent/Kleinbuchstaben/A-I/oe Ligatur æ"
 
 #: ../src/menu.c:464
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
@@ -3239,9 +3244,8 @@ msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Dialoge/Allgemein/_Schnellstart..."
 
 #: ../src/menu.c:602
-#, fuzzy
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Dialoge/Allgemein/_Meta..."
+msgstr "/Dialoge/Allgemein/_Link Header..."
 
 #: ../src/menu.c:603
 msgid "/Dialogs/General/_Body..."
@@ -4297,18 +4301,16 @@ msgid "Create empty project"
 msgstr "Leeres Projekt erzeugen"
 
 #: ../src/quickstart.c:507
-#, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr "<b>Externes Stylesheet</b>"
+msgstr "<b>E_xternes Stylesheet</b>"
 
 #: ../src/quickstart.c:517
 msgid "Ty_pe:"
 msgstr "_type:"
 
 #: ../src/quickstart.c:535
-#, fuzzy
 msgid "HRE_F:"
-msgstr "_HREF"
+msgstr "HRE_F"
 
 #: ../src/quickstart.c:539
 msgid "_Media:"
@@ -4323,9 +4325,8 @@ msgid "<b>Style Area</b>"
 msgstr "<b>Style-Tag</b>"
 
 #: ../src/quickstart.c:553
-#, fuzzy
 msgid "Cre_ate empty style area"
-msgstr "Leeren Style-Tag erzeugen"
+msgstr "L_eeren Style-Tag erzeugen"
 
 #: ../src/quickstart.c:575
 msgid "<b>Attributes</b>"
@@ -4340,9 +4341,8 @@ msgid "<b>Script Area</b>"
 msgstr "<b>Script-Tag</b>"
 
 #: ../src/quickstart.c:601
-#, fuzzy
 msgid "Cre_ate empty script area"
-msgstr "Leeren Script-Tag erzeugen"
+msgstr "Leeren Scri_pt-Tag erzeugen"
 
 #: ../src/quickstart.c:642
 msgid "_DTD:"
@@ -4353,9 +4353,8 @@ msgid "_Head:"
 msgstr "_Header:"
 
 #: ../src/quickstart.c:686
-#, fuzzy
 msgid "Open in _new document."
-msgstr "Im _Dokument"
+msgstr "In _neuen Dokument öffnen."
 
 #: ../src/rcfile.c:493
 msgid "Galeon"
@@ -4547,9 +4546,8 @@ msgid "Replace o_nce"
 msgstr "Ersetze e_inmal"
 
 #: ../src/snr2.c:1468
-#, fuzzy
 msgid "_Bookmark results"
-msgstr "Lesezeichenergebnis"
+msgstr "_Lesezeichenergebnis"
 
 #: ../src/stringlist.c:366
 msgid " Add "
