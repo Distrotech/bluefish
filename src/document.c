@@ -2204,18 +2204,41 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 	GtkTextIter itstart, itend;
 
 	if (!window_closing) statusbar_message(BFWIN(doc->bfwin),_("Saving file"), 1000);
-	if (main_v->props.auto_update_meta) {
+
+	/* update author meta tag */
+	if (main_v->props.auto_update_meta_author) {
 		const gchar *realname = g_get_real_name();
 		if (realname && strlen(realname) > 0)  {
-			gchar *tmp;
-			Tsearch_result res = doc_search_run_extern(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*bluefish[^\"]*\"[ \t\n]*>",1,0);
-			if (res.end > 0) {
-				snr2_run_extern_replace(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,"<meta name=\"generator\" content=\"Bluefish, see http://bluefish.openoffice.nl/\">", FALSE);
-			}
-			tmp = g_strconcat("<meta name=\"author\" content=\"",realname,"\">",NULL);
-			snr2_run_extern_replace(doc,"<meta[ \t\n]name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*>",0,1,0,tmp,FALSE);
-			g_free(tmp);
+			gchar *author_tmp;
+			author_tmp = g_strconcat("<meta name=\"author\" content=\"",realname,"\"",NULL);
+			snr2_run_extern_replace(doc,"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",0,1,0,author_tmp,FALSE);
+			g_free(author_tmp);
 		}
+	}
+
+	/* update date meta tag */
+	if (main_v->props.auto_update_meta_date) {
+		time_t time_var;
+		struct tm *time_struct;
+		gchar isotime[60];
+		gchar *date_tmp;
+		
+		time_var = time(NULL);
+		time_struct = localtime(&time_var);
+		strftime(isotime, 30, "%Y-%m-%dT%H:%M:%S%z", time_struct);
+		
+		date_tmp = g_strconcat("<meta name=\"date\" content=\"",isotime,"\"",NULL);
+		snr2_run_extern_replace(doc,"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"date\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",0,1,0,date_tmp,FALSE);
+		g_free(date_tmp);
+	}
+	
+	/* update generator meta tag */
+	if (main_v->props.auto_update_meta_generator) {
+		/* what is this good for? do we really need it? */
+		/* Tsearch_result res = doc_search_run_extern(doc,"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*[bB]luefish[^\"]*\"[ \t\n]*",1,0);
+		 * if (res.end > 0) { */
+		snr2_run_extern_replace(doc,"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",0,1,0,"<meta name=\"generator\" content=\"Bluefish "VERSION"\"", FALSE);
+		/* } */
 	}
 
 	/* This writes the contents of a textbox to a file */
