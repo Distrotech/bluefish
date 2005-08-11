@@ -2023,9 +2023,9 @@ static void preferences_dialog() {
 	pd->prefs[lowercase_tags] = boxed_checkbut_with_value(_("Lowercase HTML tags"), main_v->props.lowercase_tags, vbox2);
 	pd->prefs[allow_dep] = boxed_checkbut_with_value(_("Use deprecated tags (e.g. <font> and <nobr>)"), main_v->props.allow_dep, vbox2);
 	pd->prefs[xhtml] = boxed_checkbut_with_value(_("Use XHTML style tags (<br />)"), main_v->props.xhtml, vbox2);
-	pd->prefs[auto_update_meta_author] = boxed_checkbut_with_value(_("Automatic update author meta tag"), main_v->props.auto_update_meta_author, vbox2);
-	pd->prefs[auto_update_meta_date] = boxed_checkbut_with_value(_("Automatic update date meta tag"), main_v->props.auto_update_meta_date, vbox2);
-	pd->prefs[auto_update_meta_generator] = boxed_checkbut_with_value(_("Automatic update generator meta tag"), main_v->props.auto_update_meta_generator, vbox2);
+	pd->prefs[auto_update_meta_author] = boxed_checkbut_with_value(_("Automatically update author meta tag"), main_v->props.auto_update_meta_author, vbox2);
+	pd->prefs[auto_update_meta_date] = boxed_checkbut_with_value(_("Automatically update date meta tag"), main_v->props.auto_update_meta_date, vbox2);
+	pd->prefs[auto_update_meta_generator] = boxed_checkbut_with_value(_("Automatically update generator meta tag"), main_v->props.auto_update_meta_generator, vbox2);
 	
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Files"),152,TRUE));
