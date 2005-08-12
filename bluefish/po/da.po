@@ -1,14 +1,14 @@
 # Danish language file for Bluefish.
-# Copyright (C) 2003 Free Software Foundation, Inc.
-# Rasmus Toftdahl Olesen <rto@pohldata.dk>, 2003.
+# Copyright (C) 2003-2005 Free Software Foundation, Inc.
+# Rasmus Toftdahl Olesen <halfdan@halfdans.net>, 2003-2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-09 05:36-0700\n"
-"PO-Revision-Date: 2004-11-26 22:30+0100\n"
-"Last-Translator: Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
+"PO-Revision-Date: 2005-08-10 15:05+0200\n"
+"Last-Translator: Rasmus Toftdahl Olesen <halfdan@halfdans.net>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,7 +37,6 @@ msgstr ""
 "Denne version af bluefish blev kompileret med følgende valg:\n"
 
 #: ../src/about.c:57
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -110,14 +109,16 @@ msgstr ""
 "   <olivier@bluefish.openoffice.nl>\n"
 "  Jim Hayward\n"
 "   <jimhayward@linuxexperience.net>\n"
+"  Daniel Leidert\n"
+"   <daniel.leidert@wgdd.de>\n"
+"\n"
+"Udviklere ved tidligere udgivelser:\n"
 "  Oskar Świda\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "  Eugene Morenko(More)\n"
 "   <more@irpin.com>\n"
 "  Alastair Porter\n"
 "   <alastair@linuxexperience.com>\n"
-"\n"
-"Udviklere ved tidligere udgivelser:\n"
 "  Chris Mazuc\n"
 "  Neil Millar\n"
 "  Gero Takke\n"
@@ -165,7 +166,6 @@ msgstr ""
 "Tak til alle som har hjulpet med at gøre dette program til virkelighed.\n"
 
 #: ../src/about.c:120
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -232,57 +232,65 @@ msgid ""
 msgstr ""
 "Nuværende oversættere:\n"
 "\n"
-"  Brasiliansk Portugisisk - Anderson Rocha\n"
+"  Brasiliansk Portugisisk: Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
 "\n"
-"  Bulgarsk - Peio Popov\n"
+"  Bulgarsk: Peio Popov\n"
 "   <peio@peio.org>\n"
 "\n"
-"  Dansk - Rasmus Toftdahl Olesen\n"
+"  Dansk: Rasmus Toftdahl Olesen\n"
 "   <halfdan@halfdans.net>\n"
 "\n"
-"  Finsk - Juho Roukala\n"
+"  Finsk: - Juho Roukala\n"
 "   <j.mr@luukku.com>\n"
 "\n"
-"  Fransk - Michèle Garoche\n"
+"  Fransk: Michèle Garoche\n"
 "   <michele.garoche@easyconnect.fr>\n"
 "\n"
-"  Italiensk - Stefano Canepa\n"
+"  Italiensk: Stefano Canepa\n"
 "   <sc@linux.it>\n"
 "\n"
-"  Kinesisk - Ting Yang (Dormouse)\n"
+"  Japansk: Takeshi Hamasaki\n"
+"   <hma@syd.odn.ne.jp>\n"
+"\n"
+"  Kinesisk: Ting Yang (Dormouse)\n"
 "   <mouselinux@163.com>\n"
 "\n"
-"  Norsk - Christian Tellefsen\n"
+"  Kinesisk, Traditionelt: OLS3\n"
+"   <ols3@lxer.idv.tw>\n"
+"\n"
+"  Norsk: Christian Tellefsen\n"
 "   <chris@tellefsen.net>\n"
 "\n"
-"  Polsk - Oskar Swida\n"
+"  Polsk: Oskar Swida\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "\n"
-"  Portugisisk - Lopo Pizarro\n"
+"  Portugisisk: Lopo Pizarro\n"
 "   <lopopizarro@netcabo.pt>\n"
 "\n"
-"  Russisk - Eugene Rupakov\n"
+"  Russisk: Eugene Rupakov\n"
 "   <rupakov@jet.msk.su>\n"
 "\n"
-"  Serbisk - Marko Milenović\n"
+"  Serbisk: Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
-"  Spansk - Walter Oscar Echarri\n"
+"  Spansk: Walter Oscar Echarri\n"
 "   <wecharri@infovia.com.ar>\n"
 "\n"
-"  Svensk - David Smeringe\n"
+"  Svensk: David Smeringe\n"
 "   <david.smeringe@telia.com>\n"
 "\n"
-"  Tamilsk - Murugapandian Barathee\n"
+"  Tamilsk: Murugapandian Barathee\n"
 "   <barathee@yahoo.com>\n"
 "\n"
-"  Tysk - Roland Steinbach\n"
+"  Tyrkisk: Oğuz Eren\n"
+"   <ogzeren@gmail.com>\n"
+"\n"
+"  Tysk: Roland Steinbach\n"
 "   <roland@netzblick.de>\n"
 "\n"
-"  Ungarsk - Péter Sáska\n"
+"  Ungarsk: Péter Sáska\n"
 "   <sasek@ccsystem.hu>\n"
-"\n"
 
 #: ../src/about.c:163
 msgid "About Bluefish"
@@ -294,6 +302,9 @@ msgid ""
 "\n"
 "Resulting in the detection of:\n"
 msgstr ""
+"\n"
+"\n"
+"Resulterede i detektionen af:\n"
 
 #: ../src/about.c:220 ../src/fref.c:1448 ../src/fref.c:1732 ../src/fref.c:1819
 #: ../src/fref.c:1854 ../src/fref.c:2331
@@ -463,21 +474,19 @@ msgid "Bluefish tip:"
 msgstr "Bluefish tip:"
 
 #: ../src/bluefish.c:249
-#, fuzzy
 msgid ""
 "This message is shown if you do not have any items in the Quickbar.\n"
 "\n"
 "To add buttons to the Quickbar, right click on a button in the HTML toolbars."
 msgstr ""
-"Denne meddelelse bliver vist fordi du endnu ikke har nogen knapper i din "
-"quickbar.\n"
+"Denne meddelelse bliver vist fordi du endnu ikke har noget i din Quickbar.\n"
 "\n"
-"Hvis du højre-klikker på en kanp i HTML værktøjslinjerne kan du tilføje "
-"knapper til din quickbar."
+"For at tilføje knapper til Quickbar'en, kan du højre-klikker på en kanp i "
+"HTML værktøjslinjerne."
 
 #: ../src/bluefish.c:252
 msgid "_Don't show this dialog again."
-msgstr ""
+msgstr "Vis ikke denne _dialog igen."
 
 #: ../src/bookmark.c:366 ../src/html.c:617 ../src/html.c:837
 #: ../src/html.c:1432 ../src/html.c:1893 ../src/html_form.c:231
@@ -632,9 +641,9 @@ msgid "Untitled %d"
 msgstr "Unavngivet %d"
 
 #: ../src/document.c:1092
-#, fuzzy, c-format
+#, c-format
 msgid " Ln: %d, Col: %d"
-msgstr "Ln %d, kol %d"
+msgstr " Ln: %d, Kol: %d"
 
 #: ../src/document.c:1125 ../src/document.c:1126
 #, c-format
@@ -1208,9 +1217,8 @@ msgid "Comment"
 msgstr "Kommentar"
 
 #: ../src/gui.c:608
-#, fuzzy
 msgid "E-mail..."
-msgstr "E-Post..."
+msgstr "E-post..."
 
 #: ../src/gui.c:609
 msgid "Font..."
@@ -1753,7 +1761,7 @@ msgstr "  Unix Dato _Streng (%s"
 #: ../src/html.c:447
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
-msgstr ""
+msgstr "  ISO-8601 Ti_d (%s)"
 
 #: ../src/html.c:589
 msgid "Quick Anchor"
@@ -1977,30 +1985,28 @@ msgid "Custom"
 msgstr "Bruger"
 
 #: ../src/html.c:1652
-#, fuzzy
 msgid "E-mail"
 msgstr "E-post"
 
 #: ../src/html.c:1660
 msgid "_Mail to:"
-msgstr ""
+msgstr "_Mail til:"
 
 #: ../src/html.c:1664
-#, fuzzy
 msgid "_Copy to:"
-msgstr "Kopiér"
+msgstr "_Kopiér til:"
 
 #: ../src/html.c:1668
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "Blin_d kopi til:"
 
 #: ../src/html.c:1672
 msgid "with _Subject:"
-msgstr ""
+msgstr "med _Emne:"
 
 #: ../src/html.c:1676
 msgid "with _Body:"
-msgstr ""
+msgstr "med _Kroppen:"
 
 #: ../src/html.c:1720
 msgid "Quick List"
@@ -2076,9 +2082,8 @@ msgid "Link"
 msgstr "Lænke"
 
 #: ../src/html.c:2114
-#, fuzzy
 msgid "HREF_LANG:"
-msgstr "_HREF:"
+msgstr "HREF_LANG:"
 
 #: ../src/html.c:2128
 msgid "_Forward Relation:"
@@ -2641,9 +2646,8 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Tags/Specielle/Accenter/Store/J-Z/O circumflex Ô"
 
 #: ../src/menu.c:430
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Tags/Specielle/Accenter/Store/J-Z/OE ligature "
+msgstr "/Tags/Specielle/Accenter/Store/J-Z/OE ligature Œ"
 
 #: ../src/menu.c:431
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
@@ -2766,9 +2770,8 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Tags/Specielle/Accenter/Små/J-Z/o acute ó"
 
 #: ../src/menu.c:463
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Tags/Specielle/Accenter/Små/J-Z/oe ligatur æ"
+msgstr "/Tags/Specielle/Accenter/Små/J-Z/oe ligatur œ"
 
 #: ../src/menu.c:464
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
@@ -3239,9 +3242,8 @@ msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Dialoger/Generelle/_Hurtig start..."
 
 #: ../src/menu.c:602
-#, fuzzy
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Dialoger/Generelle/_Meta..."
+msgstr "/Dialoger/Generelle/_Link Hoved..."
 
 #: ../src/menu.c:603
 msgid "/Dialogs/General/_Body..."
@@ -4265,7 +4267,6 @@ msgid "Project _Name:"
 msgstr "Projekt _Navn:"
 
 #: ../src/project.c:540
-#, fuzzy
 msgid "Base _Dir:"
 msgstr "Grun_dbibliotek:"
 
@@ -4298,73 +4299,60 @@ msgid "Create empty project"
 msgstr "Opret tomt projekt"
 
 #: ../src/quickstart.c:507
-#, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr "<b>Generél</b>"
+msgstr "<b>E_ksternt Style Sheet</b>"
 
 #: ../src/quickstart.c:517
-#, fuzzy
 msgid "Ty_pe:"
-msgstr "_Type:"
+msgstr "Ty_pe:"
 
 #: ../src/quickstart.c:535
-#, fuzzy
 msgid "HRE_F:"
-msgstr "_HREF:"
+msgstr "HRE_F:"
 
 #: ../src/quickstart.c:539
-#, fuzzy
 msgid "_Media:"
-msgstr "Medie:"
+msgstr "_Medie:"
 
 #: ../src/quickstart.c:543
-#, fuzzy
 msgid "Titl_e:"
-msgstr "_Unavngivet:"
+msgstr "Tit_el:"
 
 #: ../src/quickstart.c:549
-#, fuzzy
 msgid "<b>Style Area</b>"
-msgstr "<b>Generél</b>"
+msgstr "<b>Stil Del</b>"
 
 #: ../src/quickstart.c:553
-#, fuzzy
 msgid "Cre_ate empty style area"
-msgstr "Opret tomt projekt"
+msgstr "Op_ret tom stil del"
 
 #: ../src/quickstart.c:575
-#, fuzzy
 msgid "<b>Attributes</b>"
-msgstr "Attributter"
+msgstr "<b>Attributter</b>"
 
 #: ../src/quickstart.c:590
-#, fuzzy
 msgid "_Src:"
 msgstr "_Kilde:"
 
 #: ../src/quickstart.c:597
 msgid "<b>Script Area</b>"
-msgstr ""
+msgstr "<b>Skript Del</b>"
 
 #: ../src/quickstart.c:601
-#, fuzzy
 msgid "Cre_ate empty script area"
-msgstr "Opret tomt projekt"
+msgstr "Op_ret tom stil del"
 
 #: ../src/quickstart.c:642
-#, fuzzy
 msgid "_DTD:"
-msgstr "Brug _DTD:"
+msgstr "_DTD:"
 
 #: ../src/quickstart.c:669
-#, fuzzy
 msgid "_Head:"
-msgstr "_Href:"
+msgstr "_Hoved:"
 
 #: ../src/quickstart.c:686
-#, fuzzy
 msgid "Open in _new document."
-msgstr "I _dokument"
+msgstr "Åbn i _nyt dokument"
 
 #: ../src/rcfile.c:493
 msgid "Galeon"
@@ -4556,9 +4544,8 @@ msgid "Replace o_nce"
 msgstr "Ers_tat én gang"
 
 #: ../src/snr2.c:1468
-#, fuzzy
 msgid "_Bookmark results"
-msgstr "Opret bogmærker for resultat"
+msgstr "_Bogmærke resultater"
 
 #: ../src/stringlist.c:366
 msgid " Add "
@@ -4844,13 +4831,3 @@ msgstr "Størrelse:"
 
 #~ msgid "Show custom menu by default"
 #~ msgstr "Vis brugerdefineret menu som standard"
-
-#~ msgid "Show HTML toolbar by default"
-#~ msgstr "Vis HTML værktøjslinje som standard"
-
-#, fuzzy
-#~ msgid "Hre_f:"
-#~ msgstr "_Href:"
-
-#~ msgid "_Basedir:"
-#~ msgstr "Grund_bibliotek:"
