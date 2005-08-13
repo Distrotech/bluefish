@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-09 05:36-0700\n"
-"PO-Revision-Date: 2005-04-18 23:01+0200\n"
+"PO-Revision-Date: 2005-08-12 23:05+0200\n"
 "Last-Translator: Stefano Canepa <sc@linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,6 @@ msgstr ""
 "\n"
 
 #: ../src/about.c:57
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -166,7 +165,6 @@ msgstr ""
 "disponibile.\n"
 
 #: ../src/about.c:120
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -301,6 +299,9 @@ msgid ""
 "\n"
 "Resulting in the detection of:\n"
 msgstr ""
+"\n"
+"\n"
+"Risultati della ricerca di:\n"
 
 #: ../src/about.c:220 ../src/fref.c:1448 ../src/fref.c:1732 ../src/fref.c:1819
 #: ../src/fref.c:1854 ../src/fref.c:2331
@@ -470,20 +471,19 @@ msgid "Bluefish tip:"
 msgstr "Suggerimento di Bluefish:"
 
 #: ../src/bluefish.c:249
-#, fuzzy
 msgid ""
 "This message is shown if you do not have any items in the Quickbar.\n"
 "\n"
 "To add buttons to the Quickbar, right click on a button in the HTML toolbars."
 msgstr ""
-"Non ci sono elementi nella Quickbar.\n"
+"Questo messaggio è mostrato se non ci sono elementi nella Quickbar.\n"
 "\n"
 "Fare click con il tasto destro sulle barre dell'HTML per aggiungere pulsanti "
 "alla Quickbar"
 
 #: ../src/bluefish.c:252
 msgid "_Don't show this dialog again."
-msgstr ""
+msgstr "Non mostrare più questo _dialogo."
 
 #: ../src/bookmark.c:366 ../src/html.c:617 ../src/html.c:837
 #: ../src/html.c:1432 ../src/html.c:1893 ../src/html_form.c:231
@@ -1218,7 +1218,6 @@ msgid "Comment"
 msgstr "Commento"
 
 #: ../src/gui.c:608
-#, fuzzy
 msgid "E-mail..."
 msgstr "Email..."
 
@@ -1763,7 +1762,7 @@ msgstr "  _Stringa della data Unix (%s"
 #: ../src/html.c:447
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
-msgstr ""
+msgstr "Orario ISO-8601 (%s)"
 
 #: ../src/html.c:589
 msgid "Quick Anchor"
@@ -1987,30 +1986,28 @@ msgid "Custom"
 msgstr "Personalizzato"
 
 #: ../src/html.c:1652
-#, fuzzy
 msgid "E-mail"
 msgstr "Email"
 
 #: ../src/html.c:1660
 msgid "_Mail to:"
-msgstr ""
+msgstr "Spedire a:"
 
 #: ../src/html.c:1664
-#, fuzzy
 msgid "_Copy to:"
-msgstr "Copia"
+msgstr "_Copia"
 
 #: ../src/html.c:1668
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "Copia co_noscenza nascosta:"
 
 #: ../src/html.c:1672
 msgid "with _Subject:"
-msgstr ""
+msgstr "con o_ggetto:"
 
 #: ../src/html.c:1676
 msgid "with _Body:"
-msgstr ""
+msgstr "con co_rpo"
 
 #: ../src/html.c:1720
 msgid "Quick List"
@@ -2086,9 +2083,8 @@ msgid "Link"
 msgstr "Collegamento"
 
 #: ../src/html.c:2114
-#, fuzzy
 msgid "HREF_LANG:"
-msgstr "_HREF"
+msgstr "HREF_LANG"
 
 #: ../src/html.c:2128
 msgid "_Forward Relation:"
@@ -2655,9 +2651,8 @@ msgstr ""
 "/Tag/Speciali/Accentate/Maiuscole/J-Z/O maiuscola con accento circonflesso Ô"
 
 #: ../src/menu.c:430
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/OE maiuscola"
+msgstr "/Tag/Speciali/Accentate/Maiuscole/J-Z/OE legatura Œ"
 
 #: ../src/menu.c:431
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
@@ -2785,9 +2780,8 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/o minuscola con accento acuto ó"
 
 #: ../src/menu.c:463
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/oe minuscola æ"
+msgstr "/Tag/Speciali/Accentate/Minuscole/j-z/oe legatura œ"
 
 #: ../src/menu.c:464
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
@@ -3260,9 +3254,8 @@ msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Dialoghi/Generale/_Quickstart..."
 
 #: ../src/menu.c:602
-#, fuzzy
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Dialoghi/Generale/_Meta..."
+msgstr "/Dialoghi/Generale/_Link Header..."
 
 #: ../src/menu.c:603
 msgid "/Dialogs/General/_Body..."
@@ -4323,25 +4316,22 @@ msgid "Create empty project"
 msgstr "Crea un progetto vuoto"
 
 #: ../src/quickstart.c:507
-#, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr "<b>Foglio di stile esterno</b>"
+msgstr "<b>Foglio di stile e_sterno</b>"
 
 #: ../src/quickstart.c:517
 msgid "Ty_pe:"
 msgstr "_Tipo:"
 
 #: ../src/quickstart.c:535
-#, fuzzy
 msgid "HRE_F:"
-msgstr "_HREF"
+msgstr "HRE_F:"
 
 #: ../src/quickstart.c:539
 msgid "_Media:"
 msgstr "_Media:"
 
 #: ../src/quickstart.c:543
-#, fuzzy
 msgid "Titl_e:"
 msgstr "_Titolo:"
 
@@ -4350,9 +4340,8 @@ msgid "<b>Style Area</b>"
 msgstr "<b>Area di stile<b>"
 
 #: ../src/quickstart.c:553
-#, fuzzy
 msgid "Cre_ate empty style area"
-msgstr "Crea un prog_etto vuoto"
+msgstr "Crea un'area di stile vuota"
 
 #: ../src/quickstart.c:575
 msgid "<b>Attributes</b>"
@@ -4367,9 +4356,8 @@ msgid "<b>Script Area</b>"
 msgstr "<b>Script Area</b>"
 
 #: ../src/quickstart.c:601
-#, fuzzy
 msgid "Cre_ate empty script area"
-msgstr "Cr_ea un progetto vuoto"
+msgstr "Cr_ea un'area vuota per lo script"
 
 #: ../src/quickstart.c:642
 msgid "_DTD:"
@@ -4380,9 +4368,8 @@ msgid "_Head:"
 msgstr "_Head:"
 
 #: ../src/quickstart.c:686
-#, fuzzy
 msgid "Open in _new document."
-msgstr "Nel _documento"
+msgstr "Apri in un _nuovo documento."
 
 #: ../src/rcfile.c:493
 msgid "Galeon"
@@ -4575,9 +4562,8 @@ msgid "Replace o_nce"
 msgstr "Sostituisci solo _una volta"
 
 #: ../src/snr2.c:1468
-#, fuzzy
 msgid "_Bookmark results"
-msgstr "Segnalibri"
+msgstr "Risultati dei _bookmark"
 
 #: ../src/stringlist.c:366
 msgid " Add "
