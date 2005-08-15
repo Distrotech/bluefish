@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor - bookmarks
  *
  * Copyright (C) 2003 Oskar Swida
- * modifications (C) 2004 Olivier Sessink
+ * modifications (C) 2004,2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -104,6 +104,12 @@ enum {
 	BM_FMODE_HOME, /* not implemented, defaults to full */
 	BM_FMODE_FILE,
 	BM_FMODE_PATH
+};
+
+enum {
+	BM_SMODE_BOTH,
+	BM_SMODE_NAME,
+	BM_SMODE_CONTENT
 };
 
 static void gnome_vfs_uri_hash_destroy(gpointer data) {
@@ -583,7 +589,7 @@ static void bmark_rpopup_action_lcb(gpointer data, guint action, GtkWidget *widg
 			}
 		break;
 		default:
-			g_print("not implemented yet\n");
+			g_print("bmark_rpopup_action_lcb: action %d not implemented yet\n",action);
 		break;
 	}
 }
@@ -598,9 +604,14 @@ static GtkItemFactoryEntry bmark_rpopup_menu_entries[] = {
 	{ "/sep2",						NULL,	NULL,									0,	"<Separator>" },
 	{ N_("/Permanent by default"),	NULL,	bmark_rpopup_action_lcb,	20,	"<ToggleItem>" },
 	{ "/sep3",						NULL,	NULL,									0,	"<Separator>" },
-	{ N_("/Show by file name"),	NULL,	bmark_rpopup_action_lcb,	30,	"<RadioItem>" },
-	{ N_("/Show by full path"),	NULL,	bmark_rpopup_action_lcb,	31,	"/Show by file name" },
-	{ N_("/Show by full uri"),	NULL,	bmark_rpopup_action_lcb,	32,	"/Show by file name" }
+	{ N_("/Show file"),	NULL,	NULL,	0,	"<Branch>" },
+	{ N_("/Show file/By name"),	NULL,	bmark_rpopup_action_lcb,	30,	"<RadioItem>" },
+	{ N_("/Show file/By full path"),	NULL,	bmark_rpopup_action_lcb,	31,	"/Show file/By name" },
+	{ N_("/Show file/By full uri"),	NULL,	bmark_rpopup_action_lcb,	32,	"/Show file/By name" },
+	{ N_("/Show bookmark"),	NULL,	NULL,	0,	"<Branch>" },
+	{ N_("/Show bookmark/Name & Content"),	NULL,	bmark_rpopup_action_lcb,	40,	"<RadioItem>" },
+	{ N_("/Show bookmark/Content"),	NULL,	bmark_rpopup_action_lcb,	41,	"/Show bookmark/Name & Content" },
+	{ N_("/Show bookmark/Name"),	NULL,	bmark_rpopup_action_lcb,	42,	"/Show bookmark/Name & Content" }
 };
 
 static GtkWidget *bmark_popup_menu(Tbfwin * bfwin, gboolean show_bmark_specific, gboolean show_file_specific) {
@@ -824,8 +835,10 @@ void bmark_reload(Tbfwin * bfwin) {
 			b->len = atoi(items[5]);
 			b->strarr = items;
 			bmark_get_iter_at_tree_position(bfwin, b);
-			if (b->name && strlen(b->name)>0) {
+			if (b->name && strlen(b->name)>0 && bfwin->session->bookmarks_show_mode == BM_SMODE_BOTH) {
 				ptr = g_strconcat(b->name, " - ", b->text, NULL);
+			} else if ((b->name && bfwin->session->bookmarks_show_mode == BM_SMODE_NAME) || !b->text) {
+				ptr = g_strdup(b->name);
 			} else {
 				ptr = g_strdup(b->text);
 			}

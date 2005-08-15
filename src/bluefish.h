@@ -315,6 +315,7 @@ typedef struct {
 	gint filebrowser_show_backup_files;
 	gint filebrowser_focus_follow; /* have the directory of the current document in focus */
 	gint bookmarks_filename_mode; /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
+	gint bookmarks_show_mode; /* 0=both,1=name,2=content */
 #ifdef HAVE_LIBASPELL
 	gchar *spell_default_lang;
 #endif /* HAVE_LIBASPELL */
