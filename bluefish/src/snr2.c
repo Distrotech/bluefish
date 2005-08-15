@@ -1028,7 +1028,7 @@ static void search_doc_bookmark_backend(Tbfwin *bfwin,Tdocument *document, gchar
 	while (result.end > 0) {
 		gchar *text = doc_get_chars(document, result.start, result.end);
 		DEBUG_MSG("search_bookmark, adding bookmark '%s' at %d\n", text, result.start);
-		bmark_add_extern(document, result.start, NULL, text, !main_v->globses.bookmarks_default_store);
+		bmark_add_extern(document, result.start, search_pattern, text, !main_v->globses.bookmarks_default_store);
 		g_free(text);
 		if (LASTSNR2(bfwin->snr2)->overlapping_search) {
 			buf_byte_offset = result.bstart + 1;

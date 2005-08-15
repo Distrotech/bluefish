@@ -205,11 +205,11 @@ static void bmark_update_treestore_name(Tbfwin *bfwin) {
 			g_free(name);
 		}
 		while (cont2) {
-			cont2 = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&citer);
 			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &citer, PTR_COLUMN, &b,-1);
 			name = bmark_showname(bfwin, b);
 			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &citer, NAME_COLUMN, name, -1);
 			g_free(name);
+			cont2 = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&citer);
 		}
 		cont1 = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&piter);
 	}
