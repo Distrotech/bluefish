@@ -147,6 +147,74 @@ static void bmark_free(gpointer ptr)
 	g_free(m);
 }
 
+static gchar *bmark_showname(Tbfwin *bfwin, Tbmark *b) {
+	if (b->name && strlen(b->name)>0 && bfwin->session->bookmarks_show_mode == BM_SMODE_BOTH) {
+		return g_strconcat(b->name, " - ", b->text, NULL);
+	} else if ((b->name && bfwin->session->bookmarks_show_mode == BM_SMODE_NAME) || !b->text) {
+		return g_strdup(b->name);
+	} else {
+		return g_strdup(b->text);
+	}
+}
+
+static gchar *bmark_filename(Tbfwin *bfwin, GnomeVFSURI *filepath) {
+	gchar *title, *rawtitle = NULL;
+	switch (bfwin->session->bookmarks_filename_mode) {
+	/*case BM_FMODE_HOME:
+		if (bfwin->project != NULL && bfwin->project->basedir && strlen(bfwin->project->basedir)) {
+			gint baselen = strlen(bfwin->project->basedir);
+			gchar *tmp;
+			tmp = gnome_vfs_uri_to_string(m->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
+			if (tmp[baselen] == '/') baselen++;
+			if (strncmp(tmp, bfwin->project->basedir, baselen)==0) {
+				title = g_strdup(tmp + baselen);
+			}
+			g_free(tmp);
+		}
+		break;*/
+	case BM_FMODE_PATH:
+		title = g_strdup(gnome_vfs_uri_get_path(filepath));
+		break;
+	case BM_FMODE_FILE:
+		title = gnome_vfs_uri_extract_short_name(filepath);
+		break;
+	case BM_FMODE_FULL:
+	default:
+		rawtitle = gnome_vfs_uri_to_string(filepath,GNOME_VFS_URI_HIDE_PASSWORD);
+		title = gnome_vfs_format_uri_for_display(rawtitle);
+		g_free(rawtitle);
+		break;
+	}
+	return title;
+}
+
+static void bmark_update_treestore_name(Tbfwin *bfwin) {
+	GtkTreeIter piter, citer;
+	gboolean cont1, cont2;
+	cont1 = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&piter);
+	
+	while (cont1) {
+		Tbmark *b=NULL;
+		gchar *name;
+		cont2 = gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&citer,&piter);
+		/* first handle the filename of the parent */
+		if (cont2) {
+			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &citer, PTR_COLUMN, &b,-1);
+			name = bmark_filename(bfwin, b->filepath);
+			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &piter, NAME_COLUMN, name, -1);
+			g_free(name);
+		}
+		while (cont2) {
+			cont2 = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&citer);
+			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &citer, PTR_COLUMN, &b,-1);
+			name = bmark_showname(bfwin, b);
+			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &citer, NAME_COLUMN, name, -1);
+			g_free(name);
+		}
+		cont1 = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&piter);
+	}
+}
+
 static void bmark_update_offset_from_textmark(Tbmark *b) {
 	if (b->doc && b->mark) {
 		GtkTextIter it;
@@ -576,16 +644,37 @@ static void bmark_rpopup_action_lcb(gpointer data, guint action, GtkWidget *widg
 		case 30:
 			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
 				bfwin->session->bookmarks_filename_mode = BM_FMODE_FILE;
+				bmark_update_treestore_name(bfwin);
 			}
 		break;
 		case 31:
 			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
 				bfwin->session->bookmarks_filename_mode = BM_FMODE_PATH;
+				bmark_update_treestore_name(bfwin);
 			}
 		break;
 		case 32:
 			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
 				bfwin->session->bookmarks_filename_mode = BM_FMODE_FULL;
+				bmark_update_treestore_name(bfwin);
+			}
+		break;
+		case 40:
+			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
+				bfwin->session->bookmarks_show_mode = BM_SMODE_BOTH;
+				bmark_update_treestore_name(bfwin);
+			}
+		break;
+		case 41:
+			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
+				bfwin->session->bookmarks_show_mode = BM_SMODE_CONTENT;
+				bmark_update_treestore_name(bfwin);
+			}
+		break;
+		case 42:
+			if (gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget))) {
+				bfwin->session->bookmarks_show_mode = BM_SMODE_NAME;
+				bmark_update_treestore_name(bfwin);
 			}
 		break;
 		default:
@@ -634,9 +723,12 @@ static GtkWidget *bmark_popup_menu(Tbfwin * bfwin, gboolean show_bmark_specific,
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete All in document"), FALSE);
 	}
 	setup_toggle_item(menumaker, "/Permanent by default", main_v->globses.bookmarks_default_store);
-	setup_toggle_item(menumaker, "/Show by file name", bfwin->session->bookmarks_filename_mode == BM_FMODE_FILE);
-	setup_toggle_item(menumaker, "/Show by full path", bfwin->session->bookmarks_filename_mode == BM_FMODE_PATH);
-	setup_toggle_item(menumaker, "/Show by full uri", bfwin->session->bookmarks_filename_mode != BM_FMODE_FILE && bfwin->session->bookmarks_filename_mode != BM_FMODE_PATH);
+	setup_toggle_item(menumaker, "/Show file/By name", bfwin->session->bookmarks_filename_mode == BM_FMODE_FILE);
+	setup_toggle_item(menumaker, "/Show file/By full path", bfwin->session->bookmarks_filename_mode == BM_FMODE_PATH);
+	setup_toggle_item(menumaker, "/Show file/By full uri", bfwin->session->bookmarks_filename_mode != BM_FMODE_FILE && bfwin->session->bookmarks_filename_mode != BM_FMODE_PATH);
+	setup_toggle_item(menumaker, "/Show bookmark/Name & Content", bfwin->session->bookmarks_show_mode == BM_SMODE_BOTH);
+	setup_toggle_item(menumaker, "/Show bookmark/Content", bfwin->session->bookmarks_show_mode == BM_SMODE_CONTENT);
+	setup_toggle_item(menumaker, "/Show bookmark/Name", bfwin->session->bookmarks_show_mode != BM_SMODE_BOTH && bfwin->session->bookmarks_show_mode != BM_SMODE_CONTENT);
 	gtk_widget_show_all(menu);
 	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
 	return menu;
@@ -711,36 +803,10 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 	ptr = g_hash_table_lookup(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, m->filepath);
 	DEBUG_MSG("bmark_get_iter_at_tree_position, found %p for filepath %s in hashtable %p\n",ptr,gnome_vfs_uri_get_path(m->filepath),BMARKDATA(bfwin->bmarkdata)->bmarkfiles);
 	if (ptr == NULL) {			/* closed document or bookmarks never set */
-		gchar *title, *rawtitle = NULL;
+		gchar *title;
 		parent = g_new0(GtkTreeIter, 1);
 		gtk_tree_store_append(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, parent, NULL);
-		switch (bfwin->session->bookmarks_filename_mode) {
-		/*case BM_FMODE_HOME:
-			if (bfwin->project != NULL && bfwin->project->basedir && strlen(bfwin->project->basedir)) {
-				gint baselen = strlen(bfwin->project->basedir);
-				gchar *tmp;
-				tmp = gnome_vfs_uri_to_string(m->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
-				if (tmp[baselen] == '/') baselen++;
-				if (strncmp(tmp, bfwin->project->basedir, baselen)==0) {
-					title = g_strdup(tmp + baselen);
-				}
-				g_free(tmp);
-			}
-			break;*/
-		case BM_FMODE_PATH:
-			title = g_strdup(gnome_vfs_uri_get_path(m->filepath));
-			break;
-		case BM_FMODE_FILE:
-			title = gnome_vfs_uri_extract_short_name(m->filepath);
-			break;
-		case BM_FMODE_FULL:
-		default:
-			rawtitle = gnome_vfs_uri_to_string(m->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
-			title = gnome_vfs_format_uri_for_display(rawtitle);
-			g_free(rawtitle);
-			break;
-		}
-		
+		title = bmark_filename(bfwin,m->filepath);
 		gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, parent, NAME_COLUMN, title, PTR_COLUMN, m->doc, -1);
 		g_free(title);
 		  
@@ -835,15 +901,8 @@ void bmark_reload(Tbfwin * bfwin) {
 			b->len = atoi(items[5]);
 			b->strarr = items;
 			bmark_get_iter_at_tree_position(bfwin, b);
-			if (b->name && strlen(b->name)>0 && bfwin->session->bookmarks_show_mode == BM_SMODE_BOTH) {
-				ptr = g_strconcat(b->name, " - ", b->text, NULL);
-			} else if ((b->name && bfwin->session->bookmarks_show_mode == BM_SMODE_NAME) || !b->text) {
-				ptr = g_strdup(b->name);
-			} else {
-				ptr = g_strdup(b->text);
-			}
-			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &(b->iter), NAME_COLUMN, ptr, PTR_COLUMN, b,
-							   -1);
+			ptr = bmark_showname(bfwin, b);
+			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &(b->iter), NAME_COLUMN, ptr, PTR_COLUMN, b,-1);
 			g_free(ptr);
 		}
 		tmplist = g_list_next(tmplist);
