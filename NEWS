@@ -1,5 +1,37 @@
-# $Id: NEWS,v 1.1.2.5 2005-07-03 20:33:01 dleidert Exp $
 # Release changes
+
+Bluefish 1.0.3 (16 August 2005)
+-------------------------------
+
+- Translation updates: da.po, de.po, it.po, ja.po, zh_TW.po, zh_CN.po.
+- Patch from Eduard Carreras i Nadal <ecarreras@gmail.com>.
+   Single-line selected text becomes the search-string in the 
+   Find/Replace dialogs.
+- Add an option to disable the Quickbar Tip dialog.
+   Closes Bluefish bug #309401. Closes Debian Bug #249639.
+- After inserting a text block from the custom menu, Bluefish should 
+   scroll the editor window to make cursor visible.
+   Closes Bluefish Bug #310531.
+- Formatstring before/after in custom menu editor does not follow cursor.
+   Closes Bluefish Bug #310534.
+- Highlighting fixes to C, Python highlighting patterns.
+   Closes Bluefish Bug #312537.
+- Fix a bug where the user was not prompted to overwrite an existing file
+   on a remote file sytem.
+- Misc custom menu fixes.
+- GUI improvements to the custom menu dialogs
+- Extend e-mail dialog: Add CC and BCC fields. Subject and body are now
+   automatically URL-encoded.
+- Extend time insert dialog: Add possibility to insert ISO8601 date/time 
+   as recommended by the W3C for the date meta tag. Rewrite a part of the 
+   auto-update of meta tags. User can now choose, which meta tags should be 
+   updated. Add possibility to auto-update the date meta tag.
+   Partially fixes Bluefish Bug #309402. Closes Debian Bug #185158.
+- Clean up translatable strings. Fix a few menu entries.
+- Set an empty title in message dialogs as described in the GNOME HIG.
+- Add an option to the QuickStart dialog that allows the user to specifiy 
+   whether a new document should be opened.
+- Misc small bug fixes and improvements (refer to ChangeLog).
 
 Bluefish 1.0.2 (03 July 2005)
 -----------------------------
