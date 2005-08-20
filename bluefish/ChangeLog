@@ -1,3 +1,263 @@
+2005-08-13  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/it.po: Italian PO file update for 1.0.3
+
+2005-08-12  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/da.po: Danish PO file update for 1.0.3
+
+2005-08-11  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/zh_TW.po: Traditional Chinese PO file update for 1.0.3
+
+2005-08-11  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/preferences.c: Fix grammar for meta-tag update checkboxes.
+
+2005-08-10  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/: bluefish.h, document.c, preferences.c, quickstart.c,
+	  rcfile.c: Rewrite a part of the auto-update of meta tags. User
+	  can now choose, which meta tags should be updated. Further the
+	  possibility was added to auto-update the date meta tag (more work
+	  on http://bugzilla.gnome.org/show_bug.cgi?id=309402).
+
+2005-08-10  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* debian/changelog: Update Debian package changelog (sync with
+	  latest official package).
+
+2005-08-10  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* debian/changelog: Small format fix (useless spaces).
+
+2005-08-10  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/zh_CN.po: Chinese PO file update for 1.0.3
+
+2005-08-10  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/de.po: German PO file update for 1.0.3
+
+2005-08-10  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/ja.po: Japanese PO file update for 1.0.3
+
+2005-08-09  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/: bg.po, cs.po, da.po, de.po, el.po, es.po, fi.po, fr.po,
+	  hu.po, it.po, ja.po, nl.po, no.po, pl.po, pt.po, pt_BR.po, ro.po,
+	  ru.po, sr.po, sv.po, ta.po, tr.po, zh_CN.po, zh_TW.po: Update PO
+	  files.
+
+2005-08-09  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/about.c: Update developers for this release.  Update
+	  Alastair's e-mail address.
+
+2005-08-09  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* AUTHORS: Update developers for this release.	Update Alastair's
+	  e-mail address.
+
+2005-08-09  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/: bg.po, cs.po, da.po, de.po, el.po, es.po, fi.po, fr.po,
+	  hu.po, it.po, ja.po, nl.po, no.po, pl.po, pt_BR.po, pt.po, ro.po,
+	  ru.po, sr.po, sv.po, ta.po, tr.po, zh_CN.po, zh_TW.po: Update PO
+	  files.
+
+2005-08-09  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* configure.ac: Update VERSION to 1.0.3
+
+2005-08-09  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* images/bluefish_splash.png: Update splash to 1.0.3
+
+2005-08-08  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/: rpopup.c, snr2.c: Fix the change to g_utf8_str(down|up)
+	  which return a newly allocated string.
+
+2005-08-08  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/document.c: Fix a find warning when using the Open Advanced
+	  dialog.
+
+	  /usr/bin/find: warning: you have specified the -maxdepth option
+	  after a non-option argument -name, but options are not positional
+	  (-maxdepth affects tests specified before it as well as those
+	  specified after it).	Please specify options before other
+	  arguments.
+
+2005-08-08  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/snr2.c: Add a missing mnemonic to the Find dialog
+
+2005-08-08  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/gui.c: If there are no items in the Quickbar, set the
+	  Standard bar active.	Replace all depreciated calls to
+	  gtk_notebook_set_page () with gtk_notebook_set_current_page ().
+
+2005-08-08  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/: rpopup.c, snr2.c: Backport a patch from Mikael Hultgren
+	  <blomma@fastmail.fm> with minor changes.
+
+	  The patch replaces the use of g_strdown with g_utf8_strdown and
+	  g_strup with g_utf8_strup.
+
+2005-08-08  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: Fix Bluefish Bug #312537 Updated Python
+	  highlighting pattern from wim.champagne@tiscali.be With minor
+	  grammar changes to the pattern names.
+
+2005-08-07  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/: bluefish.c, bluefish.h, gtk_easy.c, gtk_easy.h, rcfile.c:
+	  Fix Bluefish bug #309401 Add an option to disable the Quickbar
+	  Tip dialog.
+
+2005-08-07  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/html.c: Change a difficult to read mnemonic in the Insert
+	  time dialog
+
+2005-08-06  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/: gtk_easy.h, gtk_easy.c, snr2.c: Patch from Eduard Carreras
+	  i Nadal <ecarreras@gmail.com>.  Single-line selected text becomes
+	  the search-string.
+
+2005-08-06  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/document.c: Fix a bug where the user was not prompted to
+	  overwrite an existing file on a remote file sytem.
+
+2005-08-06  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: Add missing GnomeVFSHandle to C
+	  highlighting pattern
+
+2005-08-06  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/: gui.c, menu.c: Use GTK_STOCK icons for Indent, Unindent if
+	  the user has GTK >= 2.4.
+
+2005-08-06  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/: custom_menu.in, custom_menu.de.in, custom_menu.fr.in: Fix
+	  a bug in the External Stylesheet menu item not displaying a
+	  dialog for the link to the stylesheet.
+
+2005-08-04  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/gtk_easy.c: Fix a couple GTK warnings. The GTK filechooser
+	  defaults to local only.  So gtk_file_chooser_set_local_only ()
+	  needs to be set to FALSE before any gtk_file_chooser_*_uri
+	  functions are used.
+
+2005-07-17  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/menu.c: GUI improvements to the custom menu dialogs
+
+2005-07-16  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/menu.c: Fix Bug #310531 After inserting a text block from the
+	  custom menu, Bluefish should scroll the editor window to make
+	  cursor visible
+
+2005-07-16  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/gtk_easy.c: Fix Bug #310534 Formatstring before/after in
+	  custom menu editor does not follow cursor
+
+2005-07-12  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* debian/bluefish_icon.xpm: Update Debian menu icon.
+
+2005-07-10  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/quickstart.c: Fix a duplicate mnemonic.
+
+2005-07-08  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/html.c: Fix compilation warning.
+
+2005-07-08  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* configure.ac: Only cosmetic changes (absolutely minor)
+
+2005-07-07  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* configure.ac: Add a configure option to compile without
+	  libgnomeui
+
+2005-07-06  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* debian/bug/presubj: file presubj was initially added on branch
+	  bluefish_1_0.
+
+2005-07-06  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* debian/: bluefish.dirs, bluefish.install, bug/presubj: Add
+	  information about BugZilla BTS. reportbug will output this info
+	  during user-dialog.
+
+2005-07-06  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* debian/: control, rules: Add tidy to suggested packages. Clean up
+	  clean target.
+
+2005-07-06  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/html.c: Extend e-mail dialog: Add cc and bcc fields. Subject
+	  and body are now automatically URL-encoded.
+
+	  Extend time insert dialog: add possibility to insert ISO8601
+	  date/time as recommended by the W3C for the date meta tag -
+	  partly fix for #309402 GNOME-BugZilla [1] (closes: #185158 Debian
+	  [2]).
+
+	  [1] http://bugzilla.gnome.org/show_bug.cgi?id=309402 [2]
+	  http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=185158
+
+2005-07-06  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/: gui.c, menu.c, quickstart.c: Clean up translatable strings.
+	  Fix a few menu entries (oe/OE ligature).
+
+2005-07-05  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/highlighting.in: Fix C string highlighting bug.
+
+2005-07-05  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/gtk_easy.c: Set an empty title in message dialogs as
+	  described in the GNOME HIG.
+
+2005-07-05  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/about.c: Add some info to the about dialog useful to
+	  developers.  Remove some unused, commented out code.
+
+2005-07-05  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/authen.h: Fix a compile warning when compiling without
+	  libgnomeui-devel installed.
+
+2005-07-05  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/quickstart.c: Add an option to allow the user to specifiy
+	  whether a new document should be opened.
+
+2005-07-05  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/dialog_utils.c: Sync with latest from CVS HEAD
+
 2005-07-03  Daniel Leidert <daniel.leidert.spam@gmx.net>
 
 	* README: Minor cosemtic fix: replace tabs with spaces for a
