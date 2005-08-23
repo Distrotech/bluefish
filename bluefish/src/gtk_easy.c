@@ -1077,6 +1077,7 @@ typedef struct {
 	GtkWidget *entry;
 	Tbfwin *bfwin;
 	gboolean fullpath;
+	GtkFileChooserAction chooseraction;
 } Tfilebut;
 
 static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
@@ -1106,11 +1107,19 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	
 	{
 		GtkWidget *dialog;
-		dialog = file_chooser_dialog(NULL, _("Select File"), GTK_FILE_CHOOSER_ACTION_OPEN, setfile, FALSE, FALSE, NULL);
+		dialog = file_chooser_dialog(NULL, _("Select File"), fb->chooseraction, setfile, FALSE, FALSE, NULL);
 		gtk_window_set_transient_for(GTK_WINDOW(dialog),GTK_WINDOW(gtk_widget_get_toplevel(fb->entry)));
-		gtk_file_chooser_set_uri(GTK_FILE_CHOOSER(dialog),setfile);
+		if (fb->chooseraction == GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER) {
+			gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),setfile);
+		} else {
+			gtk_file_chooser_set_uri(GTK_FILE_CHOOSER(dialog),setfile);
+		}
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-			tmpstring = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+			if (fb->chooseraction == GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER) {
+				tmpstring = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
+			} else {
+				tmpstring = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
+			}
 		}
 		gtk_widget_destroy(dialog);
 	}
@@ -1144,13 +1153,14 @@ static void file_but_destroy(GtkObject *object, Tfilebut *fb) {
  * @which_entry: #GtkWidget* GTK_ENTRY where to put the filename
  * @win: #GtkWidget* the GTK_WINDOW where the button is placed
  * @full_pathname: #gint 1 or 0, if you want the full path or a relative path
- * #bfwin: #Tbfwin, only required if you want a relative pathname
+ * @bfwin: #Tbfwin, only required if you want a relative pathname
+ * @chooseraction: #GtkFileChooserAction, usually GTK_FILE_CHOOSER_ACTION_OPEN or GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER
  *
  *	Create new "open file" button, that will put the string into an entry
  *
  * Return value: #GtkWidget* pointer to file button
  */
-GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfwin) {
+GtkWidget *file_but_new2(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfwin, GtkFileChooserAction chooseraction) {
 	GtkWidget *file_but;
 	Tfilebut *fb;
 
@@ -1158,6 +1168,7 @@ GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfw
 	fb->entry = which_entry;
 	fb->bfwin = bfwin;
 	fb->fullpath = full_pathname;
+	fb->chooseraction = chooseraction;
 	file_but = gtk_button_new();
 	g_signal_connect(G_OBJECT(file_but), "destroy", G_CALLBACK(file_but_destroy), fb);
 	DEBUG_MSG("file_but_new, entry=%p, button=%p\n",which_entry,file_but);
