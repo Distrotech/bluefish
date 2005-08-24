@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-08-09 05:36-0700\n"
-"PO-Revision-Date: 2004-11-30 01:12-0300\n"
+"PO-Revision-Date: 2005-08-23 10:29-0300\n"
 "Last-Translator: Walter Echarri <wecharri@yahoo.com>\n"
 "Language-Team: español <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,6 @@ msgstr ""
 "La presente versión de Bluefish fue compilada con las siguientes opciones:\n"
 
 #: ../src/about.c:57
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -111,12 +110,8 @@ msgstr ""
 "   <olivier@bluefish.openoffice.nl>\n"
 "  Jim Hayward\n"
 "   <jimhayward@linuxexperience.net>\n"
-"  Oskar Świda\n"
-"   <swida@aragorn.pb.bialystok.pl>\n"
-"  Eugene Morenko(More)\n"
-"   <more@irpin.com>\n"
-"  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
+"  Daniel Leidert\n"
+"   <daniel.leidert@wgdd.de>\n"
 "\n"
 "Desarrolladores de las versiones anteriores:\n"
 "  Chris Mazuc\n"
@@ -165,7 +160,6 @@ msgstr ""
 "Gracias a todos los que han ayudado a crear este programa.\n"
 
 #: ../src/about.c:120
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -241,6 +235,9 @@ msgstr ""
 "  Chino - Ting Yang (Dormouse)\n"
 "   <mouselinux@163.com>\n"
 "\n"
+"  Chino tradicional -  OLS3\n"
+"   <ols3@lxer.idv.tw>\n"
+"\n"
 "  Danés - Rasmus Toftdahl Olesen\n"
 "   <rto@pohldata.dk>\n"
 "\n"
@@ -258,6 +255,9 @@ msgstr ""
 "\n"
 "  Italiano - Stefano Canepa\n"
 "   <sc@linux.it>\n"
+"\n"
+"  Japonés: Takeshi Hamasaki\n"
+"   <hma@syd.odn.ne.jp>\n"
 "\n"
 "  Noruego - Christian Tellefsen\n"
 "   <chris@tellefsen.net>\n"
@@ -283,7 +283,9 @@ msgstr ""
 "  Tamil - Murugapandian Barathee\n"
 "   <barathee@yahoo.com>\n"
 "\n"
-
+"  Turco: Oğuz Eren\n"
+"   <ogzeren@gmail.com>\n"
+"\n"
 #: ../src/about.c:163
 msgid "About Bluefish"
 msgstr "Sobre Bluefish"
@@ -505,7 +507,6 @@ msgid "Bluefish tip:"
 msgstr "Consejo Bluefish:"
 
 #: ../src/bluefish.c:249
-#, fuzzy
 msgid ""
 "This message is shown if you do not have any items in the Quickbar.\n"
 "\n"
@@ -513,12 +514,11 @@ msgid ""
 msgstr ""
 "Este mensaje aparece porque no tiene ningún elemento en la Barra Rápida.\n"
 "\n"
-"Pulsando con el botón derecho del ratón en la Barra de Herramientas HTML "
-"puede añadir botones a la Barra Rápida."
+"Puede añadir elementos a la Barra Rápida pulsando con la tecla derecha del ratón sobre un elemento de la Barra de Herramientas HTML."
 
 #: ../src/bluefish.c:252
 msgid "_Don't show this dialog again."
-msgstr ""
+msgstr "No mostrar nuevamente este mensaje"
 
 # src/html.c:833 src/html.c:1407 src/html.c:1521 src/html.c:1541
 # src/html.c:1575 src/html.c:1626 src/html.c:1663 src/html.c:1715
@@ -714,9 +714,9 @@ msgid "Untitled %d"
 msgstr "Sin Título %d"
 
 #: ../src/document.c:1092
-#, fuzzy, c-format
+#, c-format
 msgid " Ln: %d, Col: %d"
-msgstr "Ln %d; Col %d"
+msgstr "Ln: %d; Col: %d"
 
 #: ../src/document.c:1125 ../src/document.c:1126
 #, c-format
@@ -824,7 +824,7 @@ msgstr "Anteriormente: "
 #: ../src/document.c:2429
 #, c-format
 msgid "Move/rename %s to"
-msgstr "Mover/Modificar nombre"
+msgstr "Mover/Modificar nombre de %s"
 
 # src/toolbars.c:154
 # src/document.c:617
@@ -1439,7 +1439,6 @@ msgstr "Comentario"
 # src/toolbars.c:254
 # src/toolbars.c:258
 #: ../src/gui.c:608
-#, fuzzy
 msgid "E-mail..."
 msgstr "Correo electrónico..."
 
@@ -2215,7 +2214,7 @@ msgstr " _Cadena de fecha unix (%s"
 #: ../src/html.c:447
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
-msgstr ""
+msgstr "  Hora ISO-8601 (%s)"
 
 # src/html.c:817
 # src/html.c:759
@@ -2545,32 +2544,30 @@ msgstr "Personalizar"
 # src/html.c:910
 # src/html.c:851
 #: ../src/html.c:1652
-#, fuzzy
 msgid "E-mail"
-msgstr "Correo electrónico..."
+msgstr "Correo electrónico"
 
 #: ../src/html.c:1660
 msgid "_Mail to:"
-msgstr ""
+msgstr "_Enviar a:"
 
 # src/toolbars.c:159
 # src/toolbars.c:161
 #: ../src/html.c:1664
-#, fuzzy
 msgid "_Copy to:"
-msgstr "Copiar"
+msgstr "_Copiar a:"
 
 #: ../src/html.c:1668
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "Copia _oculta a:"
 
 #: ../src/html.c:1672
 msgid "with _Subject:"
-msgstr ""
+msgstr "con _Asunto:"
 
 #: ../src/html.c:1676
 msgid "with _Body:"
-msgstr ""
+msgstr "con _Mensaje:"
 
 # src/html.c:1831
 # src/html.c:1115
@@ -2681,9 +2678,8 @@ msgstr "Enlace"
 # src/html.c:824
 # src/html.c:766 src/wml.c:250
 #: ../src/html.c:2114
-#, fuzzy
 msgid "HREF_LANG:"
-msgstr "_HREF"
+msgstr "HREF_LANG:"
 
 #: ../src/html.c:2128
 msgid "_Forward Relation:"
@@ -3509,9 +3505,8 @@ msgstr "/Etiquetas/Especiales/Acentos/Mayúsculas/J-Z/O circunflejo Ô"
 # src/menu.c:176
 # src/menu.c:178
 #: ../src/menu.c:430
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Etiquetas/Especiales/Acentos/Mayúsculas/A-I/ligadura OE"
+msgstr "/Etiquetas/Especiales/Acentos/Mayúsculas/J-Z/ligadura OE"
 
 # src/menu.c:194
 # src/menu.c:196
@@ -3696,9 +3691,8 @@ msgstr "/Etiquetas/Especiales/Acentos/Minúsculas/J-Z/o agudo ó"
 # src/menu.c:218
 # src/menu.c:220
 #: ../src/menu.c:463
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Etiquetas/Especiales/Acentos/Minúsculas/A-I/ligadura æ"
+msgstr "/Etiquetas/Especiales/Acentos/Minúsculas/J-Z/ligadura oe"
 
 # src/menu.c:249
 # src/menu.c:251
@@ -4399,9 +4393,8 @@ msgstr "/Diálogos/General/_Inicio rápido..."
 # src/menu.c:407
 # src/menu.c:411
 #: ../src/menu.c:602
-#, fuzzy
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Diálogos/General/_Meta..."
+msgstr "/Diálogos/General/Encabezado _enlace..."
 
 # src/menu.c:400
 # src/menu.c:404
@@ -5752,9 +5745,8 @@ msgstr "_Nombre del proyecto:"
 # src/callbacks.c:620
 # src/project.c:207
 #: ../src/project.c:540
-#, fuzzy
 msgid "Base _Dir:"
-msgstr "Directorio base:"
+msgstr "_Directorio base:"
 
 # src/images.c:189
 # src/images.c:186
@@ -5791,86 +5783,73 @@ msgid "Create empty project"
 msgstr "Crear proyecto vacío"
 
 #: ../src/quickstart.c:507
-#, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr "<b>General</b>"
+msgstr "<b>Hoja de estilo e_xterna</b>"
 
 # src/wml.c:315
 #: ../src/quickstart.c:517
-#, fuzzy
 msgid "Ty_pe:"
 msgstr "_Tipo:"
 
 # src/html.c:824
 # src/html.c:766 src/wml.c:250
 #: ../src/quickstart.c:535
-#, fuzzy
 msgid "HRE_F:"
-msgstr "_HREF"
+msgstr "HRE_F:"
 
 # src/html.c:1877
 # src/html.c:1161
 #: ../src/quickstart.c:539
-#, fuzzy
 msgid "_Media:"
-msgstr "Medio:"
+msgstr "_Medio:"
 
 # src/html.c:659
 # src/html.c:602 src/wml.c:127 src/wml.c:364
 #: ../src/quickstart.c:543
-#, fuzzy
 msgid "Titl_e:"
 msgstr "_Título:"
 
 #: ../src/quickstart.c:549
-#, fuzzy
 msgid "<b>Style Area</b>"
-msgstr "<b>General</b>"
+msgstr "<b>Area de estilo</b>"
 
 #: ../src/quickstart.c:553
-#, fuzzy
 msgid "Cre_ate empty style area"
-msgstr "Crear proyecto vacío"
+msgstr "Cre_ar área de estilo vacía"
 
 #: ../src/quickstart.c:575
-#, fuzzy
 msgid "<b>Attributes</b>"
-msgstr "Atributos"
+msgstr "<b>Atributos</b>"
 
 # src/html.c:1402
 # src/html.c:1053
 #: ../src/quickstart.c:590
-#, fuzzy
 msgid "_Src:"
 msgstr "F_uente:"
 
 #: ../src/quickstart.c:597
 msgid "<b>Script Area</b>"
-msgstr ""
+msgstr "<b>Area de script</b>"
 
 #: ../src/quickstart.c:601
-#, fuzzy
 msgid "Cre_ate empty script area"
-msgstr "Crear proyecto vacío"
+msgstr "Cre_ar área de script vacía"
 
 #: ../src/quickstart.c:642
-#, fuzzy
 msgid "_DTD:"
-msgstr "Usar _DTD:"
+msgstr "_DTD:"
 
 # src/html.c:1396 src/toolbars.c:354
 # src/html.c:1047 src/toolbars.c:358
 #: ../src/quickstart.c:669
-#, fuzzy
 msgid "_Head:"
-msgstr "_Href:"
+msgstr "_Encabezado:"
 
 # src/menu.c:152
 # src/menu.c:154
 #: ../src/quickstart.c:686
-#, fuzzy
 msgid "Open in _new document."
-msgstr "En el _documento"
+msgstr "Abrir en documento _nuevo"
 
 #: ../src/rcfile.c:493
 msgid "Galeon"
@@ -6238,359 +6217,4 @@ msgstr "Fuente:"
 msgid "Size:"
 msgstr "Tamaño:"
 
-#~ msgid "No matching files found"
-#~ msgstr "No se encontraron archivos"
 
-# src/html.c:914
-# src/html.c:855
-#~ msgid "_Email address:"
-#~ msgstr "_Dirección electrónica:"
-
-#~ msgid "UrlEncoded _subject:"
-#~ msgstr "_Asunto cifrado:"
-
-#~ msgid "UrlEncoded _body:"
-#~ msgstr "_Cuerpo cifrado:"
-
-# src/html.c:1396 src/toolbars.c:354
-# src/html.c:1047 src/toolbars.c:358
-#~ msgid "_Href:"
-#~ msgstr "_Href:"
-
-#~ msgid "Href_lang:"
-#~ msgstr "Href_lang:"
-
-# src/menu.c:102
-# src/menu.c:101
-#~ msgid "/File/tearoff1"
-#~ msgstr "/Archivo/tearoff1"
-
-# src/menu.c:104
-# src/menu.c:103
-#~ msgid "/File/Open recent/tearoff1"
-#~ msgstr "/Archivo/Abrir r_eciente/tearoff1"
-
-# src/menu.c:107
-# src/menu.c:106
-#~ msgid "/File/sep1"
-#~ msgstr "/Archivo/sep1"
-
-# src/menu.c:107
-# src/menu.c:106
-#~ msgid "/File/sep2"
-#~ msgstr "/Archivo/sep2"
-
-# src/menu.c:111
-# src/menu.c:111
-#~ msgid "/File/sep3"
-#~ msgstr "/Archivo/sep3"
-
-# src/menu.c:107
-# src/menu.c:106
-#~ msgid "/File/sep4"
-#~ msgstr "/Archivo/sep4"
-
-# src/menu.c:117
-# src/menu.c:117
-#~ msgid "/Edit/Tearoff1"
-#~ msgstr "/Edición/Tearoff1"
-
-# src/menu.c:124 src/menu.c:128 src/menu.c:133
-# src/menu.c:124 src/menu.c:131
-#~ msgid "/Edit/sep1"
-#~ msgstr "/Edición/sep1"
-
-# src/menu.c:124 src/menu.c:128 src/menu.c:133
-# src/menu.c:124 src/menu.c:131
-#~ msgid "/Edit/sep2"
-#~ msgstr "/Edición/sep2"
-
-# src/menu.c:124 src/menu.c:128 src/menu.c:133
-# src/menu.c:124 src/menu.c:131
-#~ msgid "/Edit/sep3"
-#~ msgstr "/Edición/sep3"
-
-# src/menu.c:127
-# src/menu.c:130
-#~ msgid "/Edit/Replace special/Tearoff1"
-#~ msgstr "/Edición/Reemplazar especial/Tearoff1"
-
-# src/menu.c:121
-# src/menu.c:121
-#~ msgid "/Edit/sep4"
-#~ msgstr "/Edición/sep4"
-
-# src/menu.c:121
-# src/menu.c:121
-#~ msgid "/Edit/sep5"
-#~ msgstr "/Edición/sep5"
-
-# src/menu.c:124 src/menu.c:128 src/menu.c:133
-# src/menu.c:124 src/menu.c:131
-#~ msgid "/Edit/sep6"
-#~ msgstr "/Edición/sep6"
-
-# src/menu.c:102
-# src/menu.c:101
-#~ msgid "/View/tearoff1"
-#~ msgstr "/Ver/tearoff1"
-
-# src/menu.c:157
-# src/menu.c:159
-#~ msgid "/Tags/Tearoff1"
-#~ msgstr "/Etiquetas/Tearoff1"
-
-# src/menu.c:159
-# src/menu.c:161
-#~ msgid "/Tags/Headings/Tearoff1"
-#~ msgstr "/Etiquetas/Encabezados/Tearoff1"
-
-# src/menu.c:323
-# src/menu.c:325
-#~ msgid "/Tags/Special/tearoff1"
-#~ msgstr "/Etiquetas/Especial/tearoff1"
-
-# src/menu.c:168
-# src/menu.c:170
-#~ msgid "/Tags/Special/Accent/tearoff1"
-#~ msgstr "/Etiquetas/Especiales/Acentos/tearoff1"
-
-# src/menu.c:171
-# src/menu.c:173
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-#~ msgstr "/Marcas/Especiales/Acentos/Mayúsculas/tearoff1"
-
-# src/menu.c:189
-# src/menu.c:191
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-#~ msgstr "/Etiquetas/Especiales/Acentos/Mayúsculas/J-Z/tearoff1"
-
-# src/menu.c:206
-# src/menu.c:208
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-#~ msgstr "/Etiquetas/Especiales/Acentos/Minúsculas/A-I/tearoff1"
-
-# src/menu.c:241
-# src/menu.c:243
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-#~ msgstr "/Etiquetas/Especiales/Acentos/Minúsculas/J-Z/tearoff1"
-
-# src/menu.c:269
-# src/menu.c:271
-#~ msgid "/Tags/Special/Accent/separator"
-#~ msgstr "/Etiquetas/Especiales/Acentos/Separador"
-
-# src/menu.c:274
-# src/menu.c:276
-#~ msgid "/Tags/Special/Currency/tearoff1"
-#~ msgstr "/Etiquetas/Especiales/Dinero/tearoff1"
-
-# src/menu.c:283
-# src/menu.c:285
-#~ msgid "/Tags/Special/Math-Science/tearoff1"
-#~ msgstr "/Etiquetas/Especiales/Matemática/tearoff1"
-
-# src/menu.c:311
-# src/menu.c:313
-#~ msgid "/Tags/Special/Non Latin/tearoff1"
-#~ msgstr "/Etiquetas/Especiales/No latinos/tearoff 1"
-
-# src/menu.c:323
-# src/menu.c:325
-#~ msgid "/Tags/Special/Other/tearoff1"
-#~ msgstr "/Etiquetas/Especiales/Otros/tearoff1"
-
-# src/menu.c:353
-# src/menu.c:355
-#~ msgid "/Tags/Format by layout/tearoff1"
-#~ msgstr "/Etiquetas/Formato según estilo/tearoff1"
-
-# src/menu.c:353
-# src/menu.c:355
-#~ msgid "/Tags/Format by context/tearoff1"
-#~ msgstr "/Etiquetas/Formato según contexto/tearoff1"
-
-# src/menu.c:353
-# src/menu.c:355
-#~ msgid "/Tags/Format general/tearoff1"
-#~ msgstr "/Etiquetas/Formato general/tearoff1"
-
-# src/menu.c:360 src/menu.c:365 src/menu.c:368 src/menu.c:372 src/menu.c:375
-# src/menu.c:362 src/menu.c:367 src/menu.c:370 src/menu.c:374 src/menu.c:377
-#~ msgid "/Tags/Format general/<separator>"
-#~ msgstr "/Etiquetas/Formato general/<separador>"
-
-# src/menu.c:378
-# src/menu.c:380
-#~ msgid "/Tags/Table/tearoff1"
-#~ msgstr "/Etiquetas/Tabla/tearoff1"
-
-# src/menu.c:385
-# src/menu.c:387
-#~ msgid "/Tags/List/tearoff1"
-#~ msgstr "/Etiquetas/Lista/tearoff1"
-
-# src/menu.c:432
-# src/menu.c:436
-#~ msgid "/Tags/Form/tearoff1"
-#~ msgstr "/Etiquetas/Formulario/tearoff1"
-
-# src/menu.c:385
-# src/menu.c:387
-#~ msgid "/Tags/Misc/tearoff1"
-#~ msgstr "/Etiquetas/Otras/tearoff1"
-
-# src/menu.c:394
-# src/menu.c:398
-#~ msgid "/Dialogs/tearoff1"
-#~ msgstr "/Diálogos/tearoff1"
-
-# src/menu.c:396
-# src/menu.c:400
-#~ msgid "/Dialogs/General/tearoff1"
-#~ msgstr "/Diálogos/General/tearoff1"
-
-# src/menu.c:414
-# src/menu.c:418
-#~ msgid "/Dialogs/Table/tearoff1"
-#~ msgstr "/Diálogos/Tablas/tearoff1"
-
-# src/menu.c:420
-# src/menu.c:424
-#~ msgid "/Dialogs/CSS/tearoff1"
-#~ msgstr "/Diálogos/CSS/tearoff1"
-
-# src/menu.c:428
-# src/menu.c:432
-#~ msgid "/Dialogs/Frame/tearoff1"
-#~ msgstr "/Diálogos/Marcos/tearoff1"
-
-# src/menu.c:432
-# src/menu.c:436
-#~ msgid "/Dialogs/Form/tearoff1"
-#~ msgstr "/Diálogos/Formulario/tearoff1"
-
-# src/menu.c:394
-# src/menu.c:398
-#~ msgid "/Dialogs/sep1"
-#~ msgstr "/Diálogos/sep1"
-
-# src/menu.c:144
-# src/menu.c:146
-#~ msgid "/Document/tearoff1"
-#~ msgstr "/Documento/tearoff1"
-
-# src/toolbars.c:252
-# src/toolbars.c:256
-#~ msgid "/Document/sep1"
-#~ msgstr "/Documento/sep1"
-
-# src/toolbars.c:252
-# src/toolbars.c:256
-#~ msgid "/Document/sep2"
-#~ msgstr "/Documento/sep2"
-
-# src/toolbars.c:252
-# src/toolbars.c:256
-#~ msgid "/Document/sep3"
-#~ msgstr "/Documento/sep3"
-
-# src/menu.c:155
-# src/menu.c:157
-#~ msgid "/Document/Document Type/tearoff1"
-#~ msgstr "/Documento/Tipo de documento/tearoff1"
-
-#~ msgid "/Document/Character Encoding/tearoff1"
-#~ msgstr "/Documento/Codificación/tearoff1"
-
-# src/toolbars.c:252
-# src/toolbars.c:256
-#~ msgid "/Document/sep4"
-#~ msgstr "/Documento/sep4"
-
-# src/menu.c:102
-# src/menu.c:101
-#~ msgid "/Go/tearoff1"
-#~ msgstr "/Ir/tearoff1"
-
-#~ msgid "/Go/sep1"
-#~ msgstr "/Ir/sep1"
-
-# src/menu.c:102
-# src/menu.c:101
-#~ msgid "/Project/tearoff1"
-#~ msgstr "/Proyecto/tearoff1"
-
-# src/menu.c:104
-# src/menu.c:103
-#~ msgid "/Project/Open recent/tearoff1"
-#~ msgstr "/Proyecto/Abrir reciente/tearoff1"
-
-# src/menu.c:104
-# src/menu.c:103
-#~ msgid "/Project/sep1"
-#~ msgstr "/Proyecto/sep1"
-
-# src/menu.c:104
-# src/menu.c:103
-#~ msgid "/Project/sep2"
-#~ msgstr "/Proyecto/sep2"
-
-# src/menu.c:443
-# src/menu.c:468
-#~ msgid "/External/tearoff1"
-#~ msgstr "/Externo/tearoff1"
-
-# src/html.c:793
-# src/html.c:735
-#~ msgid "/Custom menu/sep"
-#~ msgstr "/Menú personalizado/sep"
-
-# src/callbacks.c:1141
-# src/document.c:1003
-#~ msgid "Show main toolbar by default"
-#~ msgstr "Mostrar en forma predeterminada Barra de Herramientas Principal"
-
-# src/callbacks.c:1141
-# src/document.c:1003
-#~ msgid "Show sidebar by default"
-#~ msgstr "Mostrar en forma predeterminada Panel Lateral"
-
-# src/callbacks.c:1141
-# src/document.c:1003
-#~ msgid "Show custom menu by default"
-#~ msgstr "Mostrar en forma predeterminada Menú Personalizado"
-
-#~ msgid "Show HTML toolbar by default"
-#~ msgstr "Mostrar en forma predeterminada Barra de Herramientas HTML"
-
-# src/html.c:1396 src/toolbars.c:354
-# src/html.c:1047 src/toolbars.c:358
-#, fuzzy
-#~ msgid "Hre_f:"
-#~ msgstr "_Href:"
-
-# src/callbacks.c:620
-# src/project.c:207
-#~ msgid "_Basedir:"
-#~ msgstr "_Directorio base:"
-
-# src/toolbars.c:252
-# src/toolbars.c:256
-#~ msgid "Save document as"
-#~ msgstr "Guardar documento como"
-
-# src/snr.c:559
-# src/document.c:813 src/document.c:884
-#~ msgid "Save changes to this untitled file before closing?"
-#~ msgstr "¿Guardar los cambios en este archivo sin nombre antes de salir?"
-
-# src/snr.c:124 src/snr.c:172 src/toolbars.c:165
-# src/snr2.c:563 src/toolbars.c:167
-#~ msgid "Search..."
-#~ msgstr "Buscar..."
-
-# src/snr.c:142 src/snr.c:175 src/toolbars.c:168
-# src/toolbars.c:170
-#~ msgid "Search and Replace..."
-#~ msgstr "Buscar y reemplazar..."
