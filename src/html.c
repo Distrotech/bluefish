@@ -22,7 +22,7 @@
  */
 /* 
  * Changes by Antti-Juhani Kaijanaho <gaia@iki.fi> on 1999-10-20
- * $Id: html.c,v 1.44.2.6 2005-08-07 00:30:59 jimh6583 Exp $
+ * $Id: html.c,v 1.44.2.7 2005-08-24 13:29:17 dleidert Exp $
  */
 /*#define DEBUG*/
 
@@ -1612,22 +1612,42 @@ static void emailok_lcb(GtkWidget * widget, Thtml_diag *dg)
 		bcc = g_strdup("");
 	}
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->entry[4])))) {
+#ifdef HAVE_GNOME_VFS
 		urlencoded = gnome_vfs_escape_string(gtk_entry_get_text(GTK_ENTRY(dg->entry[4])));
+#endif /* HAVE_GNOME_VFS */
 		if (have_questionmark) {
+#ifdef HAVE_GNOME_VFS
 			subj = g_strconcat("&amp;subject=", urlencoded, NULL);
+#else
+			subj = g_strconcat("&amp;subject=", gtk_entry_get_text(GTK_ENTRY(dg->entry[4])), NULL);
+#endif /* HAVE_GNOME_VFS */
 		} else {
+#ifdef HAVE_GNOME_VFS
 			subj = g_strconcat("?subject=", urlencoded, NULL);
+#else
+			subj = g_strconcat("?subject=", gtk_entry_get_text(GTK_ENTRY(dg->entry[4])), NULL);
+#endif /* HAVE_GNOME_VFS */
 			have_questionmark = TRUE;			
 		}		
 	} else {
 		subj = g_strdup("");
 	}
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(dg->entry[5])))) {
+#ifdef HAVE_GNOME_VFS
 		urlencoded = gnome_vfs_escape_string(gtk_entry_get_text(GTK_ENTRY(dg->entry[5])));
+#endif /* HAVE_GNOME_VFS */
 		if (have_questionmark) {
+#ifdef HAVE_GNOME_VFS
 			body = g_strconcat("&amp;body=", urlencoded, NULL);
+#else
+			body = g_strconcat("&amp;body=", gtk_entry_get_text(GTK_ENTRY(dg->entry[5])), NULL);
+#endif /* HAVE_GNOME_VFS */
 		} else {
+#ifdef HAVE_GNOME_VFS
 			body = g_strconcat("?body=", urlencoded, NULL);
+#else
+			body = g_strconcat("?body=", gtk_entry_get_text(GTK_ENTRY(dg->entry[5])), NULL);
+#endif /* HAVE_GNOME_VFS */
 			have_questionmark = TRUE;			
 		}		
 	} else {
@@ -1669,11 +1689,19 @@ void email_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 2, 2, 3);
 	
 	dg->entry[4] = gtk_entry_new_with_max_length(256);
+#ifdef HAVE_GNOME_VFS
 	bf_mnemonic_label_tad_with_alignment(_("with _Subject:"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 3, 4);
+#else
+	bf_mnemonic_label_tad_with_alignment(_("with _Subject (URL-encoded):"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 3, 4);
+#endif /* HAVE_GNOME_VFS */
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 2, 3, 4);
 
 	dg->entry[5] = gtk_entry_new_with_max_length(256);
+#ifdef HAVE_GNOME_VFS
 	bf_mnemonic_label_tad_with_alignment(_("with _Body:"), dg->entry[5], 0, 0.5, dgtable, 0, 1, 4, 5);
+#else
+	bf_mnemonic_label_tad_with_alignment(_("with _Body (URL-encoded):"), dg->entry[5], 0, 0.5, dgtable, 0, 1, 4, 5);
+#endif /* HAVE_GNOME_VFS */
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[5], 1, 2, 4, 5);
 
 	html_diag_finish(dg, G_CALLBACK(emailok_lcb));
