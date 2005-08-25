@@ -1,17 +1,18 @@
 Source: bluefish
-Maintainer: Davide Puricelli (evo) <evo@debian.org>
+Maintainer: Daniel Leidert (dale) <daniel.leidert@wgdd.de>
+Uploaders: Leo Costela <costela@debian.org>
 Section: web
 Priority: optional
-Build-Depends: debhelper (>= 4), autoconf, automake1.7, autotools-dev, gettext, libtool, libaspell-dev, libfreetype6-dev, libgnomevfs2-dev, libglib2.0-dev, libgtk2.0-dev, libpcre3-dev, libxml2-dev, zlib1g-dev, python2.3-dev, libgnomeui-dev
+Build-Depends: debhelper (>= 4), autoconf, automake1.7, autotools-dev, gettext, libaspell-dev, libfreetype6-dev, libgnomeui-dev, libgnomevfs2-dev, libglib2.0-dev, libgtk2.0-dev, libpcre3-dev, libxml2-dev, python2.3-dev, zlib1g-dev
 Build-Conflicts: autoconf2.13, automake1.4
 Standards-Version: 3.6.2.1
 
 Package: bluefish
 Architecture: any
 Depends: ${shlibs:Depends}
-Suggests: galeon | mozilla | www-browser, weblint-perl | weblint, libxml2-utils, php4-cli, tidy, sysutils
+Suggests: galeon | mozilla | www-browser, weblint-perl | weblint, libxml2-utils, php4-cli, tidy
 Description: advanced Gtk+ HTML editor
- Bluefish is a GTK HTML editor for the experienced web designer.
+ Bluefish is a GTK+ HTML editor for the experienced web designer.
  Its features include nice wizards for startup, tables and frame; a
  fully featured image insert dialog; thumbnail creation and automatically
  linking of the thumbnail with the original image; and configurable HTML
@@ -21,5 +22,6 @@ Description: advanced Gtk+ HTML editor
  you need a web browser that can view local files given to it
  on the command line.
  .
- Homepage: http://bluefish.openoffice.nl/
+ Homepage: http://bluefish.openoffice.nl
+Tag: interface::x11, format::html, use::editing, uitoolkit::gtk
 
