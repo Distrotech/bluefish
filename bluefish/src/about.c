@@ -103,8 +103,8 @@ Documentation:\n\
   Denny Reeh\n\
 \n\
 Package Maintainers:\n\
-  Debian:   Davide Puricelli\n\
-   <evo@debian.org>\n\
+  Debian:   Daniel Leidert\n\
+   <daniel.leidert@wgdd.de>\n\
   Redhat:   Matthias Haase\n\
    <matthias_haase@bennewitz.com>\n\
   Mandrake: Todd Lyons\n\
