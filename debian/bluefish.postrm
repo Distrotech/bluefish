@@ -11,11 +11,12 @@ set -e
 #DEBHELPER#
 
 if [ -x /usr/bin/update-mime-database ] ; then
-        /usr/bin/update-mime-database /usr/share/mime
+	/usr/bin/update-mime-database /usr/share/mime
 fi
 
 if [ -x /usr/bin/update-desktop-database ] ; then
-        /usr/bin/update-desktop-database /usr/share/applications
+	/usr/bin/update-desktop-database /usr/share/applications
 fi
 
 exit 0
+

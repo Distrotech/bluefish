@@ -30,9 +30,10 @@ config.status: configure
 		--prefix=/usr \
 		--mandir=\$${prefix}/share/man \
 		--without-icon-path \
+		--with-freedesktop_org-menu=\$${prefix}/share/applications \
+		--with-freedesktop_org-mime=\$${prefix}/share/mime \
 		--without-gnome2_4-mime \
 		--without-gnome2_4-appreg \
-		--disable-rpath \
 		--disable-update-databases
 
 build: build-stamp
@@ -88,7 +89,7 @@ binary-arch: build install
 	dh_installman
 	dh_installmenu
 	dh_installchangelogs
-	# dh_installchangelogs ChangeLog # if source contains ChangeLog
+	# dh_installchangelogs NEWS # if source contains NEWS
 	dh_link
 	dh_strip
 	dh_compress

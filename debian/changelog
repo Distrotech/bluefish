@@ -1,12 +1,31 @@
+bluefish (1.0.3-1) unstable; urgency=low
+
+  * New maintainer (closes: #322091).
+  * Acknowledge NMU, thanks Leo (closes: #295536, #313674, #308849, #317239).
+  * New upstream version 1.0.3 (closes: #249639, #185158).
+  * A few fixes for the packaging files.
+
+ -- Daniel Leidert (dale) <daniel.leidert@wgdd.de>  Tue, 23 Aug 2005 03:02:29 +0200
+
+bluefish (1.0.2-0.1) unstable; urgency=low
+
+  * NMU 
+  * New upstream version (closes: #317239)
+  * Upstraam fixes:
+  	- Translations updated (closes: #308849, #313674)
+  	- Browse Project crash (closes: #295536)
+
+ -- Leo Costela <costela@debian.org>  Wed, 03 Aug 2005 17:06:46 -0300
+
 bluefish (1.0-1) unstable; urgency=medium
 
   * Acknowledge NMU, thanks Leo; closes: #291222.
-  * Updated debian/ files, thanks Daniel Leidert.
+  * Updated debian/ files, thanks Daniel Leidert. 
 
  -- Davide Puricelli (evo) <evo@debian.org>  Sat, 23 Apr 2005 17:05:18 +0200
 
 bluefish (1.0-0.1) unstable; urgency=high
-
+  
   * NMU 
   * New upstream release
   * Added --disable-update-databases to configure options
@@ -18,21 +37,21 @@ bluefish (0.13-1) unstable; urgency=high
   * Last upload before sarge (hopefully).
   * Acknowledge NMU, thanks Leo; closes: #243784.
   * Enhanced debian/rules.
-  
+
  -- Davide Puricelli (evo) <evo@debian.org>  Fri, 20 Aug 2004 18:15:38 +0200
 
 bluefish (0.13-0.1) unstable; urgency=low
 
   * NMU (sorry Evo, my bug report stood for 85 days without answer)
   * New upstream version. closes: #243784.
-  
+
  -- Leo Costela <costela@debian.org>  Fri, 09 Jul 2004 16:31:30 -0300
 
 bluefish (0.12-1) unstable; urgency=low
 
   * New upstream version.
   * Enhanced extended description; closes: #214941.
-  
+
  -- Davide Puricelli (evo) <evo@debian.org>  Mon, 22 Dec 2003 15:04:47 +0100
 
 bluefish (0.11-1) unstable; urgency=low
