@@ -664,19 +664,22 @@ void utf8_offset_cache_reset() {
  * is emptied if you change to another buffer. If you use the same buffer but 
  * change it inbetween calls, you have to reset it yourself using
  * the utf8_offset_cache_reset() function
+ *
+ **** the result is undefined if the provided byteoffset is in the middle of a UTF8 character ***
  * 
  * Return value: guint with character offset
  **/
 guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
 	guint retval;
 	gint i = UTF8_OFFSET_CACHE_SIZE-1;
+	if (byteoffset ==0) return 0;
 
 	if (string != utf8_offset_cache.last_buf) {
 		utf8_offset_cache_reset();
 		utf8_offset_cache.last_buf = string;
 	}
 #ifdef DEBUG
-	DEBUG_MSG("utf8_byteoffset_to_charsoffset_cached, string %p has strlen %d\n", string, strlen(string));
+	DEBUG_MSG("utf8_byteoffset_to_charsoffset_cached, string %p has strlen %d, looking for byteoffset %ld, starting in cache at i=%d\n", string, strlen(string),byteoffset,i);
 #endif
 
 	while (i > 0 && utf8_offset_cache.last_byteoffset[i] > byteoffset) {
@@ -684,6 +687,14 @@ guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
 	}
 	
 	if (i > 0) {
+		if (utf8_offset_cache.last_byteoffset[i] == byteoffset) {
+#ifdef DEBUG
+	DEBUG_MSG("byteoffset %ld is in the cache at i=%d, returning %d\n",byteoffset,i,utf8_offset_cache.last_charoffset[i]);
+#endif
+			return utf8_offset_cache.last_charoffset[i];
+       }
+       /* if the byteoffset is in the middle of a multibyte character, this line will fail (but
+	       we are not supposed to get called in the middle of a character)*/
 		retval = g_utf8_pointer_to_offset(string+utf8_offset_cache.last_byteoffset[i], string+byteoffset)+utf8_offset_cache.last_charoffset[i];
 #ifdef UTF8_BYTECHARDEBUG
 		utf8_offset_cache.numbytes_parsed += (byteoffset - utf8_offset_cache.last_byteoffset[i]);
@@ -696,6 +707,7 @@ guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
 		utf8_offset_cache.numbytes_parsed += byteoffset;
 #endif
 	}
+	DEBUG_MSG(" and byteoffset %ld has charoffset %d\n",byteoffset,retval);
 	if (i == (UTF8_OFFSET_CACHE_SIZE-1)) {
 		/* add this new calculation to the cache */
 		/* this is a nasty trick to move all guint entries one back in the array, so we can add the new one */

@@ -37,6 +37,11 @@
 #include <gtk/gtk.h>
 #include <sys/types.h>			/* _before_ regex.h for freeBSD */
 #include <pcre.h>				/* pcre_*() */
+ 
+#ifndef PCRE_UTF8 /* for compatibility with older libpcre's */
+#define PCRE_UTF8 0
+#endif /* PCRE_UTF8 */
+
 #include <string.h>				/* strerror() */
 #include <stdlib.h>				/* atoi() */
 
@@ -354,7 +359,7 @@ static void compile_pattern(gboolean gui_errors, gchar *filetype, gchar *name, g
 			int erroffset=0;
 			DEBUG_MSG("compiling pat1 '%s'\n", pat1);
 			pat->reg1.pcre = pcre_compile(pat1,
-					(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
+					(case_insens) ? PCRE_UTF8|PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_UTF8|PCRE_MULTILINE|PCRE_DOTALL,
 					&err,&erroffset,NULL);
 			if (err) {
 				gchar *str1, *str2;
@@ -393,7 +398,7 @@ static void compile_pattern(gboolean gui_errors, gchar *filetype, gchar *name, g
 			int erroffset=0;
 			DEBUG_MSG("compiling pat2 '%s'\n", pat2);
 			pat->reg2.pcre = pcre_compile(pat2,
-					(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
+					(case_insens) ? PCRE_UTF8|PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_UTF8|PCRE_MULTILINE|PCRE_DOTALL,
 					&err,&erroffset,NULL);
 			if (err) {
 				gchar *str1, *str2;
@@ -625,7 +630,7 @@ void filetype_highlighting_rebuild(gboolean gui_errors) {
 		const char *err=NULL;
 		int erroffset=0;
 		Tmetapattern *mpat = (Tmetapattern *)tmplist->data;
-		mpat->pcre = pcre_compile(mpat->parentmatch, 0, &err, &erroffset,NULL);
+		mpat->pcre = pcre_compile(mpat->parentmatch, PCRE_UTF8, &err, &erroffset,NULL);
 		if (err) {
 			g_print("error compiling parentmatch %s at %d\n", err, erroffset);
 		}
