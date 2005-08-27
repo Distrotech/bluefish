@@ -8,6 +8,8 @@ Bluefish 1.0.4 (27 August 2005)
 - Fix a compile issue when compiling without GnomeVFS support.
    Closes Bluefish Bug# 314174.
 - Update bluefish.desktop to current standards.
+- Fix a bug in the highlighting engine that incorrectly matched 
+   multi byte characters.
 
 Bluefish 1.0.3 (16 August 2005)
 -------------------------------

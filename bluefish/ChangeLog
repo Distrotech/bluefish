@@ -1,5 +1,22 @@
 2005-08-27  Jim Hayward <jimhayward@linuxexperience.net>
 
+	* src/: bf_lib.c, highlight.c, snr2.c: Backport a bug fix from CVS
+	  HEAD in the pcre matching and converting byte offsets to
+	  character offsets:
+
+     In order process UTF-8 strings, you must build PCRE to
+     include UTF-8 support in the code, and, in addition, you must
+     call pcre_compile() with the PCRE_UTF8 option flag. When you do
+     this, both the pattern and any subject strings that are matched
+     against it are treated as UTF-8 strings instead of just
+     strings of bytes.
+
+2005-08-27  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* ChangeLog: Update changes since 1.0.3
+
+2005-08-27  Jim Hayward <jimhayward@linuxexperience.net>
+
 	* NEWS: Update for 1.0.4
 
 2005-08-27  Jim Hayward <jimhayward@linuxexperience.net>
