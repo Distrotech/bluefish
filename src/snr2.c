@@ -44,11 +44,17 @@
 #ifdef HAVE_STRINGS_H
 #include <strings.h>
 #endif /* HAVE_STRINGS_H */
+
 #include <stdio.h>
 #include <string.h>
 #include <sys/types.h>  /* _before_ regex.h for freeBSD */
 #include <regex.h> 				/* regcomp() */
 #include <pcre.h> 	/* pcre_compile */
+
+#ifndef PCRE_UTF8 /* for compatibility with older libpcre's */
+#define PCRE_UTF8 0
+#endif /* PCRE_UTF8 */
+
 #include <gdk/gdkkeysyms.h> /* GDK_Return */
 
 #include "bluefish.h"
@@ -226,7 +232,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		int erroffset=0;
 		int ovector[30];
 		gint retval;
-		pcre_c = pcre_compile(search_pattern, (is_case_sens ? PCRE_DOTALL|PCRE_MULTILINE : PCRE_DOTALL|PCRE_CASELESS|PCRE_MULTILINE),&err,&erroffset,NULL);
+		pcre_c = pcre_compile(search_pattern, (is_case_sens ? PCRE_UTF8|PCRE_DOTALL|PCRE_MULTILINE : PCRE_UTF8|PCRE_DOTALL|PCRE_CASELESS|PCRE_MULTILINE),&err,&erroffset,NULL);
 		if (err) {
 			gchar *errstring;
 			errstring = g_strdup_printf(_("Regular expression error: %s at offset %d"), err, erroffset);
