@@ -1,3 +1,62 @@
+2005-08-27  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* NEWS: Update for 1.0.4
+
+2005-08-27  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* images/bluefish_splash.png: Update splash to 1.0.4
+
+2005-08-27  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* configure.ac: Update VERSION to 1.0.4
+
+2005-08-25  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* AUTHORS, src/about.c: Update Debian package maintainership.
+
+2005-08-25  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* debian/: README.Debian, changelog, control: Sync Debian files
+	  with latest package.
+
+2005-08-24  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/bluefish.desktop.in: Fix categories section (fits old GNOME
+	  <= 2.6 and new freedesktop.org standards, see
+	  http://standards.freedesktop.org/menu-spec/latest/apa.html).
+
+2005-08-24  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/html.c: Implement URL-encoding feature in email-dialog
+	  depending on the availability of gnome-vfs (should fix
+	  http://bugzilla.gnome.org/show_bug.cgi?id=314174).
+
+2005-08-24  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/es.po: Spanish translation update.
+
+2005-08-24  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: Sync with CVS HEAD. Fixes to HTML, PHP
+	  patterns.
+
+2005-08-20  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* ChangeLog: Update changes since the 1.0.2 release
+
+2005-08-17  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* po/de.po: Fix two doubled mnemonics in German translation.
+
+2005-08-17  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* debian/: bluefish.postinst, bluefish.postrm: Add newline to the
+	  end of each script.
+
+2005-08-17  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* NEWS: Update NEWS for upcoming 1.0.3 release.
+
 2005-08-13  Jim Hayward <jimhayward@linuxexperience.net>
 
 	* po/it.po: Italian PO file update for 1.0.3
