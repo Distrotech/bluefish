@@ -3,13 +3,13 @@ Maintainer: Daniel Leidert (dale) <daniel.leidert@wgdd.de>
 Uploaders: Leo Costela <costela@debian.org>
 Section: web
 Priority: optional
-Build-Depends: debhelper (>= 4), autoconf, automake1.7, autotools-dev, gettext, libaspell-dev, libfreetype6-dev, libgnomeui-dev, libgnomevfs2-dev, libglib2.0-dev, libgtk2.0-dev, libpcre3-dev, libxml2-dev, python2.3-dev, zlib1g-dev
+Build-Depends: debhelper (>= 4), autoconf, automake1.7, autotools-dev, gettext, libtool, libaspell-dev, libfreetype6-dev, libgnomeui-dev, libgnomevfs2-dev, libglib2.0-dev, libgtk2.0-dev, libpcre3-dev, libxml2-dev, python-dev, zlib1g-dev
 Build-Conflicts: autoconf2.13, automake1.4
 Standards-Version: 3.6.2.1
 
 Package: bluefish
 Architecture: any
-Depends: ${shlibs:Depends}
+Depends: ${shlibs:Depends}, ${python:Depends}
 Suggests: galeon | mozilla | www-browser, weblint-perl | weblint, libxml2-utils, php4-cli, tidy
 Description: advanced Gtk+ HTML editor
  Bluefish is a GTK+ HTML editor for the experienced web designer.
