@@ -1,3 +1,4 @@
+# Polish translation.
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Oskar Świda <swida@aragorn.pb.bialystok.pl>, 2004
 #
@@ -6,7 +7,7 @@ msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-15 18:13+0200\n"
-"PO-Revision-Date: 2004-11-30 01:14-0300\n"
+"PO-Revision-Date: 2005-09-01 14:14-0300\n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -161,7 +162,6 @@ msgstr ""
 "Dziękujemy wszystkim, którzy pomogli w udostępnianiu tego oprogramowania.\n"
 
 #: ../src/about.c:187
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -228,56 +228,65 @@ msgid ""
 msgstr ""
 "Tłumacze:\n"
 "\n"
-"  Brazylijski portugalski - Anderson Rocha\n"
+"  Brazylijski portugalski: Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
 "\n"
-"  Bułgarski - Peio Popov\n"
+"  Bułgarski: Peio Popov\n"
 "   <peio@peio.org>\n"
 "\n"
-"  Chiński - Ting Yang (Dormouse)\n"
+"  Chiński: Ting Yang (Dormouse)\n"
 "   <mouselinux@163.com>\n"
 "\n"
-"  Duński - Rasmus Toftdahl Olesen\n"
+"  Chiński, Traditional: OLS3\n"
+"   <ols3@lxer.idv.tw>\n"
+"\n"
+"  Duński: Rasmus Toftdahl Olesen\n"
 "   <rto@pohldata.dk>\n"
 "\n"
-"  Fiński - Juho Roukala\n"
+"  Fiński: Juho Roukala\n"
 "   <j.mr@luukku.com>\n"
 "\n"
-"  Francuski - Michèle Garoche\n"
+"  Francuski: Michèle Garoche\n"
 "   <michele.garoche@easyconnect.fr>\n"
 "\n"
-"  Niemiecki - Roland Steinbach\n"
+"  Niemiecki: Roland Steinbach\n"
 "   <roland@netzblick.de>\n"
 "\n"
-"  Węgierski - Péter Sáska\n"
+"  Węgierski: Péter Sáska\n"
 "   <sasek@ccsystem.hu>\n"
 "\n"
-"  Włoski - Stefano Canepa\n"
+"  Włoski: Stefano Canepa\n"
 "   <sc@linux.it>\n"
 "\n"
-"  Norweski - Christian Tellefsen\n"
+"  Japoński: Takeshi Hamasaki\n"
+"   <hma@syd.odn.ne.jp>\n"
+"\n"
+"  Norweski: Christian Tellefsen\n"
 "   <chris@tellefsen.net>\n"
 "\n"
-"  Polski - Oskar Świda\n"
+"  Polski: Oskar Świda\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "\n"
-"  Portugalski - Lopo Pizarro\n"
+"  Portugalski: Lopo Pizarro\n"
 "   <lopopizarro@netcabo.pt>\n"
 "\n"
-"  Rosyjski - Eugene Rupakov\n"
+"  Rosyjski: Eugene Rupakov\n"
 "   <rupakov@jet.msk.su>\n"
 "\n"
-"  Serbski - Marko Milenović\n"
+"  Serbski: Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
-"  Hiszpański - Walter Oscar Echarri\n"
+"  Hiszpański: Walter Oscar Echarri\n"
 "   <wecharri@arnet.com.ar>\n"
 "\n"
-"  Szwedzki - David Smeringe\n"
+"  Szwedzki: David Smeringe\n"
 "   <david.smeringe@telia.com>\n"
 "\n"
-"  Tamilski - Murugapandian Barathee\n"
+"  Tamilski: Murugapandian Barathee\n"
 "   <barathee@yahoo.com>\n"
+"\n"
+"  Turecki: Oğuz Eren\n"
+"   <ogzeren@gmail.com>\n"
 "\n"
 
 #: ../src/about.c:230
@@ -302,22 +311,19 @@ msgstr "Wymagana weryfikacja"
 
 #: ../src/authen2.c:173
 msgid "You must log in to access "
-msgstr ""
+msgstr "Musisz się zalogować "
 
 #: ../src/authen2.c:187
-#, fuzzy
 msgid "_Username:"
-msgstr "Użytkownik:"
+msgstr "_Użytkownik:"
 
 #: ../src/authen2.c:192
-#, fuzzy
 msgid "_Domain:"
-msgstr "Ustawienie p_ionowe:"
+msgstr "_Domena:"
 
 #: ../src/authen2.c:195
-#, fuzzy
 msgid "_Pasword:"
-msgstr "Hasło:"
+msgstr "_Hasło:"
 
 #: ../src/authen.c:85
 #, c-format
@@ -410,12 +416,11 @@ msgstr "filtr HTML"
 
 #: ../src/bf-textview.c:267
 msgid "Expand all"
-msgstr ""
+msgstr "Rozwiń wszystkie"
 
 #: ../src/bf-textview.c:270
-#, fuzzy
 msgid "Collapse all"
-msgstr "Z_amknij wszystkie"
+msgstr "Zwiń wszystkie"
 
 #: ../src/bluefish.c:101
 #, c-format
@@ -509,75 +514,62 @@ msgid "Edit bookmark"
 msgstr "Edytuj zakładkę"
 
 #: ../src/bookmark.c:592
-#, fuzzy
 msgid "/Goto"
-msgstr "/Idź _do"
+msgstr "/Idź do"
 
 #: ../src/bookmark.c:593
-#, fuzzy
 msgid "/Edit"
-msgstr "/_Edycja"
+msgstr "/Edycja"
 
 #: ../src/bookmark.c:594
-#, fuzzy
 msgid "/Delete"
-msgstr "/_Kasuj"
+msgstr "/Kasuj"
 
 #: ../src/bookmark.c:596
-#, fuzzy
 msgid "/Delete All in document"
-msgstr "Usuń wszystkie w dokumencie"
+msgstr "/Usuń wszystkie w dokumencie"
 
 #: ../src/bookmark.c:597
-#, fuzzy
 msgid "/Delete All"
-msgstr "Usuń wszystkie"
+msgstr "/Usuń wszystkie"
 
 #: ../src/bookmark.c:599
-#, fuzzy
 msgid "/Permanent by default"
-msgstr "Domyślnie zmień na zakładkę trwałą"
+msgstr "/Domyślnie zakładka trwała"
 
 #: ../src/bookmark.c:601
-#, fuzzy
 msgid "/Show by file name"
-msgstr "Brak nazwy pliku"
+msgstr "/Pokaż wg nazwy pliku"
 
 #: ../src/bookmark.c:602
-#, fuzzy
 msgid "/Show by full path"
-msgstr "Pokaż całe drzewo"
+msgstr "/Pokaż wg ścieżki"
 
 #: ../src/bookmark.c:603
-#, fuzzy
 msgid "/Show by full uri"
-msgstr "Pokaż całe drzewo"
+msgstr "/Pokaż wg URI"
 
 #: ../src/bookmark.c:1231 ../src/bookmark.c:1290
-#, fuzzy
 msgid "Error adding bookmark"
-msgstr "Edytuj zakładkę"
+msgstr "Błąd przy dodawaniu zakładki"
 
 #: ../src/bookmark.c:1232 ../src/bookmark.c:1291
-#, fuzzy
 msgid "Cannot add bookmarks to unsaved files."
-msgstr "Nie można dodawać zakładek w plikach bez nazwy."
+msgstr "Nie można dodawać zakładek w nie zapisanych plikach."
 
 #: ../src/bookmark.c:1251
-#, fuzzy
 msgid "Can't add bookmark"
-msgstr "Dodaj zakładkę"
+msgstr "Nie można dodać zakładki"
 
 #: ../src/bookmark.c:1252
 msgid "You already have a bookmark here!"
-msgstr "Już zdefiniowałeś zakładkę w tym miejscu!"
+msgstr "Już zdefiniowano zakładkę w tym miejscu!"
 
 #: ../src/bookmark.c:1327
 msgid "Delete all bookmarks."
 msgstr "Usuń wszystkie zakładki."
 
 #: ../src/bookmark.c:1367
-#, fuzzy
 msgid "File size changed in file \n"
 msgstr "Rozmiar pliku uległ zmianie\n"
 
@@ -643,9 +635,9 @@ msgid "Untitled %d"
 msgstr "Bez nazwy %d"
 
 #: ../src/document.c:1175
-#, fuzzy, c-format
+#, c-format
 msgid " Ln: %d, Col: %d"
-msgstr " Wie %d, Kol %d"
+msgstr " Wiersz: %d, Kol: %d"
 
 #: ../src/document.c:1209 ../src/document.c:1211 ../src/document.c:1212
 #, c-format
@@ -706,24 +698,21 @@ msgid "Unable to open file"
 msgstr "Nie można otworzyć pliku"
 
 #: ../src/document.c:3386
-#, fuzzy
 msgid "_Unset file name"
-msgstr "nazwa pliku"
+msgstr "_Przywróć nazwę pliku"
 
 #: ../src/document.c:3386
-#, fuzzy
 msgid "_Save"
-msgstr "Zapisz"
+msgstr "_Zapisz"
 
 #: ../src/document.c:3388
-#, fuzzy, c-format
+#, c-format
 msgid "File name: %s"
-msgstr "Nazwa pliku"
+msgstr "Nazwa pliku: %s"
 
 #: ../src/document.c:3392
-#, fuzzy
 msgid "File disappeared from disk\n"
-msgstr "Kryterium modyfikacji pliku "
+msgstr "Plik zniknął z dysku\n"
 
 #: ../src/document.c:3409
 msgid "_Ignore"
@@ -752,25 +741,23 @@ msgstr "Plik został zmodyfikowany przez inny proces\n"
 
 #: ../src/document.c:3473
 msgid "_Retry"
-msgstr ""
+msgstr "Powtó_rz"
 
 #: ../src/document.c:3473
-#, fuzzy
 msgid "_Close"
-msgstr "Zamknij"
+msgstr "Zam_knij"
 
 #: ../src/document.c:3477
-#, fuzzy
 msgid "File "
-msgstr "Plik nr"
+msgstr "Plik"
 
 #: ../src/document.c:3477
 msgid " failed to load."
-msgstr ""
+msgstr " ładowanie nieudane."
 
 #: ../src/document.c:3481
 msgid "File failed to load\n"
-msgstr ""
+msgstr "Nie udało się załadować pliku\n"
 
 #: ../src/document.c:3581
 msgid "Select file to insert"
@@ -790,26 +777,26 @@ msgid "Could not rename\n"
 msgstr "Nie można zmienić nazwy pliku\n"
 
 #: ../src/filebrowser2.c:1034
-#, fuzzy
 msgid "New directory"
-msgstr "/Nowy _folder"
+msgstr "Nowy folder"
 
 #: ../src/filebrowser2.c:1038
-#, fuzzy
 msgid "New file"
-msgstr "/_Nowy plik"
+msgstr "Nowy plik"
 
 #: ../src/filebrowser2.c:1123
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Are you sure you want to delete\n"
 "\"%s\"?"
-msgstr "Na pewno usunąć \"%s\" ?"
+msgstr ""
+"Na pewno usunąć\n"
+"\"%s\"?"
 
 #: ../src/filebrowser2.c:1124
-#, fuzzy, c-format
+#, c-format
 msgid "If you delete %s, it will be permanently lost."
-msgstr "Plik zostanie nieodwracalnie skasowany."
+msgstr "Jeżeli skasujesz %s, nieodwracalnie stracisz plik."
 
 #: ../src/filebrowser2.c:1235
 msgid "/_Open"
@@ -840,28 +827,24 @@ msgid "/_Refresh"
 msgstr "/_Odśwież"
 
 #: ../src/filebrowser2.c:1244
-#, fuzzy
 msgid "/Show Full _Tree"
-msgstr "Pokaż całe drzewo"
+msgstr "/Pokaż całe drzewo"
 
 #: ../src/filebrowser2.c:1245
 msgid "/_Set as basedir"
 msgstr "/_Ustaw jako katalog bazowy"
 
 #: ../src/filebrowser2.c:1247
-#, fuzzy
 msgid "/Follow active document"
-msgstr "/Idź do/Os_tatni dokument"
+msgstr "/Przesuwaj do katalogu aktualnego dokumentu"
 
 #: ../src/filebrowser2.c:1248
-#, fuzzy
 msgid "/Show hidden files"
-msgstr "Pokazuj ukryte pliki"
+msgstr "/Pokazuj ukryte pliki"
 
 #: ../src/filebrowser2.c:1249
-#, fuzzy
 msgid "/Show backup files"
-msgstr "Pokazuj kopie zapasowe plików"
+msgstr "/Pokazuj kopie zapasowe"
 
 #: ../src/filebrowser2.c:1300
 msgid "Filter"
@@ -872,9 +855,8 @@ msgid "All files"
 msgstr "Wszystkie pliki"
 
 #: ../src/file.c:838
-#, fuzzy
 msgid "Advanced open: finished searching files"
-msgstr "Zaawansowany wybór plików"
+msgstr "Otwieranie zaawansowane: zakończono przeszukiwanie plików"
 
 #: ../src/file.c:1028 ../src/snr2.c:896
 msgid "_Skip"
@@ -886,14 +868,13 @@ msgid "_Overwrite"
 msgstr "_Nadpisz"
 
 #: ../src/file.c:1033
-#, fuzzy, c-format
+#, c-format
 msgid "%s already exists, overwrite?"
-msgstr "Plik %s istnieje i jest otwarty, nadpisać?"
+msgstr "Plik %s już istnieje, nadpisać?"
 
 #: ../src/file.c:1037
-#, fuzzy
 msgid "Overwrite file?"
-msgstr "_Nadpisz"
+msgstr "Nadpisać plik?"
 
 #: ../src/file_dialogs.c:82
 msgid "Select basedir"
@@ -908,16 +889,14 @@ msgid "<b>General</b>"
 msgstr "<b>Ogólne</b>"
 
 #: ../src/file_dialogs.c:134
-#, fuzzy
 msgid "Base _Dir:"
-msgstr "Katalog bazowy:"
+msgstr "Katalog _bazowy:"
 
 #: ../src/file_dialogs.c:136 ../src/gtk_easy.c:1163
 msgid "_Browse..."
 msgstr "_Przeglądaj..."
 
 #: ../src/file_dialogs.c:145
-#, fuzzy
 msgid "_Pattern:"
 msgstr "W_zorzec:"
 
@@ -967,28 +946,26 @@ msgid "File backup failure"
 msgstr "Błąd tworzenia kopii zapasowej"
 
 #: ../src/file_dialogs.c:339
-#, fuzzy
 msgid ""
 "Could not save file:\n"
 "\""
 msgstr ""
-"Nie można zapisywać do pliku:\n"
+"Nie można zapisać pliku:\n"
 "\""
 
 #: ../src/file_dialogs.c:343
-#, fuzzy
 msgid "File save failed!\n"
-msgstr "Przerwano zapis pliku.\n"
+msgstr "Przerwano zapis pliku!\n"
 
 #: ../src/file_dialogs.c:360
-#, fuzzy, c-format
+#, c-format
 msgid "File %s has been modified on disk, overwrite?"
-msgstr "Plik %s istnieje i jest otwarty, nadpisać?"
+msgstr "Na dysku znaleziono zmodyfikowaną wersję pliku %s, nadpisać?"
 
 #: ../src/file_dialogs.c:362
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to check if %s has been modified on disk"
-msgstr "Kryterium modyfikacji pliku "
+msgstr "Nie można sprawdzić, czy plik %s został zmodyfikowany"
 
 #: ../src/file_dialogs.c:455
 #, c-format
@@ -1006,7 +983,7 @@ msgid "_Cancel"
 msgstr "_Anuluj"
 
 #: ../src/file_dialogs.c:480
-#, fuzzy, c-format
+#, c-format
 msgid "File %s exists and is open, overwrite?"
 msgstr "Plik %s istnieje i jest otwarty, nadpisać?"
 
@@ -1024,22 +1001,23 @@ msgid "Do you want to replace the existing file?"
 msgstr "Czy chcesz zamienić istniejący plik?"
 
 #: ../src/file_dialogs.c:533
-#, fuzzy
 msgid ""
 "File:\n"
 "\""
-msgstr "Filtr:"
+msgstr ""
+"Plik:\n"
+"\""
 
 #: ../src/file_dialogs.c:537
 msgid "Save in progress!"
-msgstr ""
+msgstr "Zapisywanie w toku!"
 
 #: ../src/file_dialogs.c:679 ../src/project.c:390
 msgid "Close _Without Saving"
-msgstr ""
+msgstr "Zamknij _bez zapisywania"
 
 #: ../src/file_dialogs.c:682
-#, fuzzy, c-format
+#, c-format
 msgid "Save changes to \"%s\" before closing?"
 msgstr "Zapisać zmiany do \"%s\" przed zamknięciem?"
 
@@ -1064,70 +1042,70 @@ msgid "Multiple open files have been changed."
 msgstr "Niektóre otwarte pliki zostały zmodyfikowane."
 
 #: ../src/fref2.c:789
-#, fuzzy, c-format
+#, c-format
 msgid "Cannot load reference file %s\n"
-msgstr "Wyszukaj pliki z referencjami"
+msgstr "Nie można załadować pliku %s\n"
 
 #: ../src/fref2.c:794
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Bad root element in reference file %s\n"
 "Should be <ref> or <r> and found %s"
-msgstr "Wyszukaj pliki z referencjami"
+msgstr ""
+"Niepoprawny element w pliku %s\n"
+"Powinno być <ref> lub <r> a znaleziono %s"
 
 #: ../src/fref2.c:871
 msgid "Load error"
-msgstr ""
+msgstr "Błąd ładowania"
 
 #: ../src/fref2.c:872
 msgid "Cannot load reference file, perhaps it is not well-formed."
-msgstr ""
+msgstr "Nie można załadować pliku konfiguracyjnego, być może jest niepoprawny."
 
 #: ../src/fref2.c:885
-#, fuzzy
 msgid "Bad root element in reference file"
-msgstr "Wyszukaj pliki z referencjami"
+msgstr "Niepoprawny element w pliku"
 
 #: ../src/fref2.c:886
 msgid ""
 " \n"
 "Should be <ref> or <r> "
 msgstr ""
+" \n"
+"Powinno być <ref> lub <r> "
 
 #: ../src/fref2.c:911
-#, fuzzy
 msgid "Bad reference"
-msgstr "Preferencje edycji"
+msgstr "Błędny plik"
 
 #: ../src/fref2.c:912
 msgid ""
 "This is probably an old reference file. \n"
 "Please update it to the new format."
 msgstr ""
+"To jest prawdopodobnie plik w starej wersji. \n"
+"Proszę uaktualnić bibliotekę do nowego formatu."
 
 #: ../src/fref2.c:925
-#, fuzzy
 msgid "Loading reference"
-msgstr "Preferencje edycji"
+msgstr "Ładowanie danych"
 
 #: ../src/fref2.c:1024
-#, fuzzy
 msgid "Unloading reference"
-msgstr "Lista funkcji"
+msgstr "Usuwanie danych"
 
 #: ../src/fref2.c:1025
 msgid " Freeing reference memory "
-msgstr ""
+msgstr " Zwalniam pamięć "
 
 #: ../src/fref2.c:1545 ../src/fref2.c:3694 ../src/fref2.c:3702
-#, fuzzy
 msgid "Identifier"
-msgstr "Wyśrodkowanie"
+msgstr "Identyfikator"
 
 #: ../src/fref2.c:1565 ../src/fref2.c:1715
-#, fuzzy
 msgid "Kind"
-msgstr "Szukaj"
+msgstr "Rodzaj"
 
 #: ../src/fref2.c:1571 ../src/fref2.c:1706 ../src/fref2.c:3687
 #: ../src/preferences.c:1784
@@ -1135,23 +1113,20 @@ msgid "Name"
 msgstr "Nazwa"
 
 #: ../src/fref2.c:1582
-#, fuzzy
 msgid "Type"
-msgstr "_Typ:"
+msgstr "Typ"
 
 #: ../src/fref2.c:1593
-#, fuzzy
 msgid "Default value"
-msgstr "Domyślny katalog bazowy"
+msgstr "Wartość domyślna"
 
 #: ../src/fref2.c:1604
-#, fuzzy
 msgid "Input type"
-msgstr "Typ informacji"
+msgstr "Typ wejścia"
 
 #: ../src/fref2.c:1622
 msgid "Required"
-msgstr ""
+msgstr "Wymagany"
 
 #: ../src/fref2.c:1626 ../src/fref2.c:1753 ../src/fref2.c:3541
 #: ../src/fref2.c:3687 ../src/fref2.c:4652
@@ -1159,14 +1134,12 @@ msgid "Description"
 msgstr "Opis"
 
 #: ../src/fref2.c:1645
-#, fuzzy
 msgid "Values"
-msgstr "Wartość"
+msgstr "Wartości"
 
 #: ../src/fref2.c:1675
-#, fuzzy
 msgid "Insert syntax"
-msgstr "Wstaw obrazek"
+msgstr "Składnia wstawianego tekstu"
 
 #: ../src/fref2.c:1676
 msgid ""
@@ -1179,33 +1152,28 @@ msgid ""
 msgstr ""
 
 #: ../src/fref2.c:1733
-#, fuzzy
 msgid "Insert text"
-msgstr "Wstaw czas"
+msgstr "Wstaw tekst"
 
 #: ../src/fref2.c:1738
 msgid " ? "
-msgstr ""
+msgstr " ? "
 
 #: ../src/fref2.c:1740
-#, fuzzy
 msgid "Help"
-msgstr "/_Pomoc"
+msgstr "Pomoc"
 
 #: ../src/fref2.c:1770
-#, fuzzy
 msgid "Properties"
-msgstr "Własność"
+msgstr "Własności"
 
 #: ../src/fref2.c:1801
-#, fuzzy
 msgid "Add property"
-msgstr "Własność"
+msgstr "Dodaj własność"
 
 #: ../src/fref2.c:1805
-#, fuzzy
 msgid "Add ref definition"
-msgstr "Termin definicji"
+msgstr "Dodaj definicję"
 
 #: ../src/fref2.c:1809
 msgid "Delete"
@@ -1213,69 +1181,75 @@ msgstr "Kasuj"
 
 #: ../src/fref2.c:1998
 msgid "TAG: "
-msgstr ""
+msgstr "ZNACZNIK: "
 
 #: ../src/fref2.c:2004
 msgid "PARENT TAGS: "
-msgstr ""
+msgstr "ZNACZNIKI RODZICE: "
 
 #: ../src/fref2.c:2009
 msgid "FUNCTION: "
-msgstr ""
+msgstr "FUNKCJA: "
 
 #: ../src/fref2.c:2015
 msgid "RETURNS: "
-msgstr ""
+msgstr "ZWRACA: "
 
 #: ../src/fref2.c:2020 ../src/fref2.c:2031 ../src/fref2.c:2042
 msgid "DEPENDENCIES: "
-msgstr ""
+msgstr "ZALEŻNOŚCI: "
 
 #: ../src/fref2.c:2025
 msgid "PROPERTY: "
-msgstr ""
+msgstr "WŁASNOŚĆ: "
 
 #: ../src/fref2.c:2036
 msgid "SELECTOR: "
-msgstr ""
+msgstr "SELEKTOR: "
 
 #: ../src/fref2.c:2047
 msgid "VAR: "
-msgstr ""
+msgstr "ZMIENNA: "
 
 #: ../src/fref2.c:2053
 msgid "SNIPPET: "
-msgstr ""
+msgstr "KOD: "
 
 #: ../src/fref2.c:2065 ../src/fref2.c:2104
 msgid "PARAMS:\n"
-msgstr ""
+msgstr "PARAMETRY:\n"
 
 #: ../src/fref2.c:2077
 msgid "ATTRIBUTES:\n"
-msgstr ""
+msgstr "ATRYBUTY:\n"
 
 #: ../src/fref2.c:2125
 msgid ""
 "\n"
 "NOTES:\n"
 msgstr ""
+"\n"
+"UWAGI:\n"
 
 #: ../src/fref2.c:2148
 msgid ""
 "\n"
 "EXAMPLES:\n"
 msgstr ""
+"\n"
+"PRZYKŁADY:\n"
 
 #: ../src/fref2.c:2165
 msgid ""
 "SEE ALSO:\n"
 " "
 msgstr ""
+"ZOBACZ TAKŻE:\n"
+" "
 
 #: ../src/fref2.c:2695
 msgid "Choose colour"
-msgstr ""
+msgstr "Wybierz kolor"
 
 #: ../src/fref2.c:3491 ../src/fref2.c:3567 ../src/fref2.c:3586
 #: ../src/fref2.c:3619 ../src/fref2.c:3640 ../src/fref2.c:3653
@@ -1285,175 +1259,155 @@ msgid "Error"
 msgstr "Błąd"
 
 #: ../src/fref2.c:3492
-#, fuzzy
 msgid ""
 "Perhaps you didn't load a library, or you did not select a library to search "
 "in."
 msgstr ""
-"Prawdopodobnie nie załadowałe(a)ś spisu funkcji albo nie wybrałe(a)ś spisu "
+"Prawdopodobnie nie załadowałe(a)ś biblioteki albo nie wybrałe(a)ś biblioteki "
 "do przeszukiwania."
 
 #: ../src/fref2.c:3500
-#, fuzzy, c-format
+#, c-format
 msgid "Element %s not found"
-msgstr "Nie znaleziono wpisu"
+msgstr "Nie znaleziono elementu %s"
 
 #: ../src/fref2.c:3504
-#, fuzzy
 msgid "Element search"
 msgstr "Wyszukiwanie"
 
 #: ../src/fref2.c:3541 ../src/fref2.c:4695
-#, fuzzy
 msgid "New library"
 msgstr "/Nowy _folder"
 
 #: ../src/fref2.c:3541
-#, fuzzy
 msgid "Library name"
-msgstr "Nazwa folderu"
+msgstr "Nazwa biblioteki"
 
 #: ../src/fref2.c:3568
 msgid "Library has to have a name."
-msgstr ""
+msgstr "Biblioteka musi mieć nazwę."
 
 #: ../src/fref2.c:3587 ../src/fref2.c:3641 ../src/fref2.c:3835
 #: ../src/fref2.c:4194 ../src/fref2.c:4356 ../src/fref2.c:4429
 msgid "This library is readonly."
-msgstr ""
+msgstr "Tej biblioteki nie możesz edytować."
 
 #: ../src/fref2.c:3605
-#, fuzzy
 msgid "Delete library?"
-msgstr "Skasować zakładki?"
+msgstr "Skasować bibliotekę?"
 
 #: ../src/fref2.c:3620
 msgid "You have to select a reference."
-msgstr ""
+msgstr "Musisz wybrać bibliotekę."
 
 #: ../src/fref2.c:3654
-#, fuzzy
 msgid "Reference not loaded."
-msgstr "Nie znaleziono wpisu"
+msgstr "Nie załadowano biblioteki"
 
 #: ../src/fref2.c:3669 ../src/fref2.c:3683 ../src/fref2.c:4206
 #: ../src/fref2.c:4441
 msgid "Bad element"
-msgstr ""
+msgstr "Niepoprawny element"
 
 #: ../src/fref2.c:3670
 msgid "You can define notes for: library, group or element."
-msgstr ""
+msgstr "Możesz dodawać notatki tylko do: biblioteki, grupy i elementu."
 
 #: ../src/fref2.c:3673
-#, fuzzy
 msgid "New note"
-msgstr "Nowy projekt"
+msgstr "Nowa notatka" 
 
 #: ../src/fref2.c:3673
-#, fuzzy
 msgid "Title"
-msgstr "_Tytuł:"
+msgstr "Tytuł"
 
 #: ../src/fref2.c:3673
-#, fuzzy
 msgid "Text"
-msgstr "Obszar tekstowy"
+msgstr "Tekst"
 
 #: ../src/fref2.c:3684
 msgid "You can define group for: library or group."
-msgstr ""
+msgstr "Możesz dodawać grupy tylko do biblioteki lub innej grupy."
 
 #: ../src/fref2.c:3687
-#, fuzzy
 msgid "New group"
-msgstr "Nowy projekt"
+msgstr "Nowa grupa"
 
 #: ../src/fref2.c:3694
-#, fuzzy
 msgid "New description def"
-msgstr "Opis"
+msgstr "Nowa definicja opisu"
 
 #: ../src/fref2.c:3694
-#, fuzzy
 msgid "Description text"
-msgstr "Opis"
+msgstr "Tekst opisu"
 
 #: ../src/fref2.c:3702
-#, fuzzy
 msgid "New values def"
-msgstr "Nowe okno Bluefish"
+msgstr "Nowa definicja listy wartości"
 
 #: ../src/fref2.c:3702
 msgid "Values separated by comma"
-msgstr ""
+msgstr "Wartości oddzielone przecinkiem"
 
 #: ../src/fref2.c:3801 ../src/fref2.c:4304
 msgid "Element has to have a name."
-msgstr ""
+msgstr "Element musi mieć nazwę."
 
 #: ../src/fref2.c:3900 ../src/fref2.c:4130
 msgid "Missing value"
-msgstr ""
+msgstr "Brak wartości"
 
 #: ../src/fref2.c:3901 ../src/fref2.c:4131
 msgid "Property has to have a name."
-msgstr ""
+msgstr "Własność musi mieć nazwę."
 
 #: ../src/fref2.c:4022 ../src/fref2.c:4363
-#, fuzzy
 msgid "Definitions"
-msgstr "Definicja"
+msgstr "Definicje"
 
 #: ../src/fref2.c:4069
-#, fuzzy
 msgid "New property"
-msgstr "Nowy projekt"
+msgstr "Nowa własność"
 
 #: ../src/fref2.c:4207
 msgid "Please select library or group."
-msgstr ""
+msgstr "Proszę wybrać bibliotekę lub grupę."
 
 #: ../src/fref2.c:4210
 msgid "New element"
-msgstr ""
+msgstr "Nowy element"
 
 #: ../src/fref2.c:4303
-#, fuzzy
 msgid "No name"
-msgstr "Brak nazwy pliku"
+msgstr "Brak nazwy"
 
 #: ../src/fref2.c:4393
-#, fuzzy
 msgid "Delete definition?"
-msgstr "Definicja"
+msgstr "Skasować definicję?"
 
 #: ../src/fref2.c:4408
 msgid "This property is used by some elements. Cannot delete."
-msgstr ""
+msgstr "Ta własność jest używana przez inne elementy. Nie można jej skasować."
 
 #: ../src/fref2.c:4442
 msgid "Please use delete library instead."
-msgstr ""
+msgstr "Proszę użyć opcji kasowania biblioteki."
 
 #: ../src/fref2.c:4448
-#, fuzzy
 msgid "Delete group"
-msgstr " Kasuj "
+msgstr "Kasuj grupę"
 
 #: ../src/fref2.c:4449
 msgid "Not implemented yet"
-msgstr ""
+msgstr "Nie zaimplementowane"
 
 #: ../src/fref2.c:4463
-#, fuzzy
 msgid "Delete group?"
-msgstr " Kasuj "
+msgstr "Skasować grupę?"
 
 #: ../src/fref2.c:4464
-#, fuzzy
 msgid "Do you really want to delete current entity?"
-msgstr "Na pewno usunąć %s?"
+msgstr "Na pewno usunąć wybrany element?"
 
 #: ../src/fref2.c:4633
 msgid "Show info window"
@@ -1465,7 +1419,7 @@ msgstr "Wstaw"
 
 #: ../src/fref2.c:4644 ../src/fref2.c:4651
 msgid "Show"
-msgstr ""
+msgstr "Pokaż"
 
 #: ../src/fref2.c:4657
 msgid "Attributes/Parameters"
@@ -1476,17 +1430,14 @@ msgid "Notes"
 msgstr "Uwagi"
 
 #: ../src/fref2.c:4667
-#, fuzzy
 msgid "Examples"
-msgstr "Przykład"
+msgstr "Przykłady"
 
 #: ../src/fref2.c:4672
-#, fuzzy
 msgid "Links"
-msgstr "Odnośnik"
+msgstr "Odnośniki"
 
 #: ../src/fref2.c:4681
-#, fuzzy
 msgid "Rescan directories"
 msgstr "Wyszukaj pliki z referencjami"
 
@@ -1495,52 +1446,44 @@ msgid "Edit"
 msgstr "Edytuj"
 
 #: ../src/fref2.c:4698
-#, fuzzy
 msgid "Delete library"
-msgstr "Usuń zakładkę"
+msgstr "Usuń bibliotekę"
 
 #: ../src/fref2.c:4702
 msgid "New entity"
-msgstr ""
+msgstr "Nowy element"
 
 #: ../src/fref2.c:4705
-#, fuzzy
 msgid "Note"
-msgstr "Uwagi"
+msgstr "Notatka"
 
 #: ../src/fref2.c:4708
 msgid "Group"
-msgstr ""
+msgstr "Grupa"
 
 #: ../src/fref2.c:4711
-#, fuzzy
 msgid "Property definition"
-msgstr "Definicja"
+msgstr "Definicja własności"
 
 #: ../src/fref2.c:4714
-#, fuzzy
 msgid "Description definition"
-msgstr "Opis"
+msgstr "Definicja opisu"
 
 #: ../src/fref2.c:4717
-#, fuzzy
 msgid "Values definition"
-msgstr "Definicja"
+msgstr "Definicja listy wartości"
 
 #: ../src/fref2.c:4721
-#, fuzzy
 msgid "Element"
-msgstr "Zdarzenia"
+msgstr "Element"
 
 #: ../src/fref2.c:4725
-#, fuzzy
 msgid "Delete definition"
-msgstr "Definicja"
+msgstr "Usuń definicję"
 
 #: ../src/fref2.c:4728
-#, fuzzy
 msgid "Delete entity"
-msgstr "Usuń element z menu"
+msgstr "Usuń element"
 
 #: ../src/gtk_easy.c:1003
 #, c-format
@@ -1786,13 +1729,12 @@ msgid "/File/_Quit"
 msgstr "/Plik/Wyjście"
 
 #: ../src/menu.c:235
-#, fuzzy
 msgid "/File/sep5"
-msgstr "/Plik/sep1"
+msgstr "/Plik/sep5"
 
 #: ../src/menu.c:236
 msgid "/File/Run Python Script"
-msgstr ""
+msgstr "/File/Wykonaj skrypt języka Python"
 
 #: ../src/menu.c:238
 msgid "/_Edit"
@@ -1987,14 +1929,12 @@ msgid "/Document/_Line Numbers"
 msgstr "/Dokument/Numery _linii"
 
 #: ../src/menu.c:287
-#, fuzzy
 msgid "/Document/Show _blocks"
-msgstr "/Dokument/_Ilość słów"
+msgstr "/Dokument/Pokazuj _bloki"
 
 #: ../src/menu.c:288
-#, fuzzy
 msgid "/Document/Show _symbols"
-msgstr "/Dokument/_Ilość słów"
+msgstr "/Dokument/Pokazuj _symbole"
 
 #: ../src/menu.c:290
 msgid "/Document/sep2"
@@ -2045,19 +1985,16 @@ msgid "/Document/Word _Count"
 msgstr "/Dokument/_Ilość słów"
 
 #: ../src/menu.c:304
-#, fuzzy
 msgid "/Document/sep5"
-msgstr "/Dokument/sep1"
+msgstr "/Dokument/sep5"
 
 #: ../src/menu.c:305
-#, fuzzy
 msgid "/Document/Move left"
-msgstr "/Dokument/_Automatyczne wcięcie"
+msgstr "/Dokument/Przesuń w lewo"
 
 #: ../src/menu.c:306
-#, fuzzy
 msgid "/Document/Move right"
-msgstr "/Dokument/sep1"
+msgstr "/Dokument/Przesuń w prawo"
 
 #: ../src/menu.c:307
 msgid "/_Go"
@@ -2184,14 +2121,12 @@ msgid "/External/Commands/"
 msgstr "/Zewnętrzne/Polecenia/"
 
 #: ../src/menu.c:1044
-#, fuzzy
 msgid "/External/Filters/"
-msgstr "/Zewnętrzne/Przeglądarki/"
+msgstr "/Zewnętrzne/Filtry/"
 
 #: ../src/menu.c:1057
-#, fuzzy
 msgid "/External/Filters"
-msgstr "/Zewnętrzne/tearoff1"
+msgstr "/Zewnętrzne/Filtry"
 
 #: ../src/menu.c:1080
 msgid "/External"
@@ -2362,9 +2297,8 @@ msgid "Select font"
 msgstr "Wybierz czcionkę"
 
 #: ../src/preferences.c:335
-#, fuzzy
 msgid "Select color"
-msgstr "Selektor"
+msgstr "Wybierz kolor"
 
 #: ../src/preferences.c:662 ../src/preferences.c:846 ../src/preferences.c:1433
 #: ../src/preferences.c:1593
@@ -2485,9 +2419,8 @@ msgid "Command"
 msgstr "Polecenie"
 
 #: ../src/preferences.c:1435
-#, fuzzy
 msgid "Default browser"
-msgstr "Domyślny katalog bazowy"
+msgstr "Przeglądarka domyślna"
 
 #: ../src/preferences.c:1437
 msgid ""
@@ -2611,14 +2544,12 @@ msgid "Line numbers by default"
 msgstr "Domyślnie pokazuj numery linii w dokumencie"
 
 #: ../src/preferences.c:2102
-#, fuzzy
 msgid "Block folding view by default"
-msgstr "Domyślne za_wijanie słów"
+msgstr "Domyślnie pokazuj zwijanie bloków"
 
 #: ../src/preferences.c:2103
-#, fuzzy
 msgid "Symbols view by default"
-msgstr "Domyślnie pokazuj panel boczny"
+msgstr "Domyślnie pokazuj symbole"
 
 #: ../src/preferences.c:2105
 msgid "Highlight syntax by default"
@@ -2629,9 +2560,8 @@ msgid "Highlight # lines"
 msgstr "Podświetl # linii"
 
 #: ../src/preferences.c:2108
-#, fuzzy
 msgid "Undo options"
-msgstr "Opcje edytora"
+msgstr "Opcje cofania"
 
 #: ../src/preferences.c:2113
 msgid "Undo history size"
@@ -2727,7 +2657,7 @@ msgstr "Kryterium modyfikacji pliku "
 
 #: ../src/preferences.c:2193
 msgid "Periodically check file on disk"
-msgstr ""
+msgstr "Okresowo sprawdzaj plik na dysku"
 
 #: ../src/preferences.c:2194
 msgid "Number of files in 'Open recent'"
@@ -2762,11 +2692,12 @@ msgid "Make HTML dialogs transient"
 msgstr "Centruj okna dialogowe HTML"
 
 #: ../src/preferences.c:2216
-#, fuzzy
 msgid ""
 "Notebook tab font \n"
 "(leave empty for gtk default)"
-msgstr "Czcionka zakładek (zostaw pustą aby zastosować domyślną z gtk)"
+msgstr ""
+"Czcionka zakładek \n"
+"(zostaw puste dla domyślnej czcionki gtk)"
 
 #: ../src/preferences.c:2217 ../src/preferences.c:2279
 msgid "Document notebook tab position"
@@ -2803,19 +2734,16 @@ msgstr "Początkowa szerokość okna"
 
 #: ../src/preferences.c:2238 ../src/preferences.c:2240
 #: ../src/preferences.c:2283
-#, fuzzy
 msgid "Reference library"
-msgstr "Wyszukiwanie"
+msgstr "Biblioteka"
 
 #: ../src/preferences.c:2246 ../src/preferences.c:2289
-#, fuzzy
 msgid "Info background color"
-msgstr "Kolor tła"
+msgstr "Kolor tła informacji"
 
 #: ../src/preferences.c:2247 ../src/preferences.c:2290
-#, fuzzy
 msgid "Info foreground color"
-msgstr "Kolor napisów"
+msgstr "Kolor napisów informacji"
 
 #: ../src/preferences.c:2277
 msgid "Notebook tab font (leave empty for gtk default)"
@@ -2839,13 +2767,11 @@ msgstr "Typ pliku miniatury"
 
 #: ../src/preferences.c:2317 ../src/preferences.c:2319
 #: ../src/preferences.c:2321
-#, fuzzy
 msgid "File types"
 msgstr "Typy plików"
 
 #: ../src/preferences.c:2330 ../src/preferences.c:2332
 #: ../src/preferences.c:2335
-#, fuzzy
 msgid "File filters"
 msgstr "Filtry plików"
 
@@ -2859,24 +2785,20 @@ msgid "Patterns"
 msgstr "Wzorce"
 
 #: ../src/preferences.c:2359 ../src/preferences.c:2361
-#, fuzzy
 msgid "External commands"
-msgstr "/Zewnętrzne/Polecenia"
+msgstr "Polecenia zewnętrzne"
 
 #: ../src/preferences.c:2364
-#, fuzzy
 msgid "Commands"
-msgstr "Polecenie"
+msgstr "Polecenia"
 
 #: ../src/preferences.c:2373 ../src/preferences.c:2375
-#, fuzzy
 msgid "External filters"
-msgstr "Programy zewnętrzne"
+msgstr "Filtry zewnętrzne"
 
 #: ../src/preferences.c:2378
-#, fuzzy
 msgid "Filters"
-msgstr "Filtr plików"
+msgstr "Filtry"
 
 #: ../src/preferences.c:2387 ../src/preferences.c:2389
 #: ../src/preferences.c:2392
@@ -2897,21 +2819,19 @@ msgstr "Tryb zgodności z Zope"
 
 #: ../src/preferences.c:2418
 msgid "Scanner"
-msgstr ""
+msgstr "Analizator leksykalny"
 
 #: ../src/preferences.c:2421
-#, fuzzy
 msgid "General scanner preferences"
-msgstr "Wyszukaj pliki z referencjami"
+msgstr "Ogólne opcje analizatora leksykalnego"
 
 #: ../src/preferences.c:2426
 msgid "Highlight matching block begin-end"
-msgstr ""
+msgstr "Podświetlaj pasujące początki i końce bloków"
 
 #: ../src/preferences.c:2430 ../src/preferences.c:2433
-#, fuzzy
 msgid "Languages"
-msgstr "Język:"
+msgstr "Języki"
 
 #: ../src/project.c:120
 msgid "New project"
@@ -2926,9 +2846,8 @@ msgid "Select Bluefish project filename"
 msgstr "Wybierz nazwę projektu"
 
 #: ../src/project.c:397
-#, fuzzy
 msgid "Save current project?"
-msgstr "Utwórz pusty projekt"
+msgstr "Zapisać aktualny projekt?"
 
 #: ../src/project.c:530
 msgid "Create New Project"
