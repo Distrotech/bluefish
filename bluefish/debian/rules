@@ -9,7 +9,6 @@
 # export DH_COMPAT=4
 
 PACKAGE=bluefish
-INSTALL=/usr/bin/install
 
 CFLAGS= -Wall -g
 
@@ -17,10 +16,6 @@ ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
   CFLAGS += -O0
 else
   CFLAGS += -O2
-endif
-
-ifeq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
-  INSTALL_PROGRAM += -s
 endif
 
 config.status: configure
@@ -52,9 +47,7 @@ clean:
 	
 	# Add here commands to clean up after the build process.
 	-$(MAKE) distclean
-	-rm -f config.*
 	
-	libtoolize -c --force
 	-test -r /usr/share/misc/config.sub && \
 		cp -f /usr/share/misc/config.sub config.sub
 	-test -r /usr/share/misc/config.guess && \
@@ -62,8 +55,6 @@ clean:
 	-test -r /usr/share/gettext/config.rpath && \
 		cp -f /usr/share/gettext/config.rpath config.rpath
 	
-	aclocal-1.7
-	autoconf
 	dh_clean
 
 install: build
