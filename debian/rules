@@ -47,7 +47,6 @@ clean:
 	
 	# Add here commands to clean up after the build process.
 	-$(MAKE) distclean
-	-rm -f config.*
 	
 	-test -r /usr/share/misc/config.sub && \
 		cp -f /usr/share/misc/config.sub config.sub
@@ -56,8 +55,6 @@ clean:
 	-test -r /usr/share/gettext/config.rpath && \
 		cp -f /usr/share/gettext/config.rpath config.rpath
 	
-	aclocal-1.7
-	autoconf
 	dh_clean
 
 install: build
