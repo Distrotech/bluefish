@@ -1328,32 +1328,47 @@ static GList *bf_hash_keys_to_list(GHashTable *table) {
 	return lst;
 }
 
+typedef struct {
+	GList **list;
+	gchar *grpcrit;
+} Thf;
+
 static void bf_ins_token(gpointer key,gpointer value,gpointer udata) {
-	GList **lst = (GList **)udata;
+	Thf *d = (Thf*)udata;
 	BfLangToken *t = (BfLangToken*)value;
-	*lst = g_list_append(*lst,t->text);
+	if ( d->grpcrit == NULL )
+		*(d->list) = g_list_append(*(d->list),t->text);
+	else
+		if ( strcmp(t->group,d->grpcrit) == 0 )	
+			*(d->list) = g_list_append(*(d->list),t->text);
 }
 
-static GList *bf_tokens_to_list(GHashTable *table) {
-	GList *lst=NULL;
-	g_hash_table_foreach(table,bf_ins_token,&lst);
-	return lst;
+static void bf_ins_block(gpointer key,gpointer value,gpointer udata) {
+	Thf *d = (Thf*)udata;
+	BfLangBlock *t = (BfLangBlock*)value;
+	if ( d->grpcrit == NULL )
+		*(d->list) = g_list_append(*(d->list),t->id);
+	else
+		if ( strcmp(t->group,d->grpcrit) == 0 )	
+			*(d->list) = g_list_append(*(d->list),t->id);
 }
-
 
 static void  hlg_toggled  (GtkToggleButton *togglebutton, gpointer user_data) {
 	Tprefdialog *pd = (Tprefdialog *)user_data;
 	BfLangConfig *cfg = bf_lang_mgr_get_config(main_v->lang_mgr,gtk_combo_box_get_active_text(GTK_COMBO_BOX(pd->hld.ftype_combo)));
+	GtkTreeIter it;
+
 	if ( !cfg ) return;
 	if ( !gtk_toggle_button_get_active(togglebutton)) return;
+	
 	if ( GTK_WIDGET(togglebutton) == pd->hld.blk_radio ) {
-		g_print("Blocks toggled\n");
+		gtk_tree_view_set_model(GTK_TREE_VIEW(pd->hld.tree),GTK_TREE_MODEL(pd->hld.blk_store));
 	}
 	else if ( GTK_WIDGET(togglebutton) == pd->hld.tk_radio ) {
-		g_print("tokens toggled\n");	
+		gtk_tree_view_set_model(GTK_TREE_VIEW(pd->hld.tree),GTK_TREE_MODEL(pd->hld.tk_store));
 	}
 	else if ( GTK_WIDGET(togglebutton) == pd->hld.tag_radio ) {
-		g_print("tags toggled\n");	
+		gtk_tree_view_set_model(GTK_TREE_VIEW(pd->hld.tree),GTK_TREE_MODEL(pd->hld.tag_store));
 	}
 }
 
@@ -1362,51 +1377,58 @@ static void  hlg_toggled  (GtkToggleButton *togglebutton, gpointer user_data) {
 static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
 	BfLangConfig *cfg = bf_lang_mgr_get_config(main_v->lang_mgr,gtk_combo_box_get_active_text(widget));
 	Tprefdialog *pd = (Tprefdialog *)user_data;
-	GList *lst=NULL;
-	GtkTreeIter it;
+	GList *lst=NULL,*lst2,*lst3;
+	GtkTreeIter iter,iter2;
+	Thf *hf = g_new0(Thf,1);
 	
 	if (!cfg) {
 		 gtk_widget_hide(pd->hld.main_view);
 		 return;
 	}	 
 	gtk_widget_show(pd->hld.main_view);
+	/* fill all stores */
+	lst = bf_hash_keys_to_list(cfg->groups);
+	gtk_tree_store_clear(pd->hld.blk_store);
+	gtk_tree_store_clear(pd->hld.tk_store);
+	while ( lst ) {
+		lst3 = NULL;
+		hf->list = &lst3;
+		hf->grpcrit = lst->data;
+		g_hash_table_foreach(cfg->blocks,bf_ins_block,hf);
+		lst2 = g_list_first(lst3);
+		if ( lst2 ) {
+			gtk_tree_store_append(pd->hld.blk_store, &iter, NULL);
+			gtk_tree_store_set(pd->hld.blk_store, &iter, 0,0,1,lst->data, -1);		
+			while (lst2) {
+				gtk_tree_store_append(pd->hld.blk_store, &iter2, &iter);
+				gtk_tree_store_set(pd->hld.blk_store, &iter2, 0,1,1,lst2->data, -1);			
+				lst2 = g_list_next(lst2);
+			}		
+			g_list_free(lst3);		
+		}
+		lst3 = NULL;
+		hf->list = &lst3;
+		hf->grpcrit = lst->data;
+		g_hash_table_foreach(cfg->tokens,bf_ins_token,hf);
+		lst2 = g_list_first(lst3);
+		if ( lst2 ) {
+			gtk_tree_store_append(pd->hld.tk_store, &iter, NULL);
+			gtk_tree_store_set(pd->hld.tk_store, &iter, 0,0,1,lst->data, -1);		
+			while (lst2) {
+				gtk_tree_store_append(pd->hld.tk_store, &iter2, &iter);
+				gtk_tree_store_set(pd->hld.tk_store, &iter2, 0,1,1,lst2->data, -1);			
+				lst2 = g_list_next(lst2);
+			}
+			g_list_free(lst3);
+		}
+		lst = g_list_next(lst);
+	}
+	g_free(hf);
 	if ( !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.blk_radio)) ) 
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.blk_radio),TRUE);	
 	else
 		hlg_toggled(GTK_TOGGLE_BUTTON(pd->hld.blk_radio),pd);
 }
-
-
-	
-/*	if ( cfg->scan_tags )
-		gtk_widget_show(pd->hld.tag_page);
-	else
-		gtk_widget_hide(pd->hld.tag_page);	
-	lst = bf_hash_keys_to_list(cfg->groups);
-	gtk_list_store_clear(pd->hld.dg_store);
-	while ( lst ) {
-		gtk_list_store_append(pd->hld.dg_store,&it);
-		gtk_list_store_set(pd->hld.dg_store,&it,0,lst->data,-1);
-		lst = g_list_next(lst);
-	}
-	lst=NULL;
-	lst = bf_hash_keys_to_list(cfg->blocks);
-	gtk_list_store_clear(pd->hld.db_store);
-	while ( lst ) {
-		gtk_list_store_append(pd->hld.db_store,&it);
-		gtk_list_store_set(pd->hld.db_store,&it,0,lst->data,-1);
-		lst = g_list_next(lst);
-	}
-	lst=NULL;
-	lst = bf_tokens_to_list(cfg->tokens);
-	gtk_list_store_clear(pd->hld.dt_store);
-	while ( lst ) {
-		gtk_list_store_append(pd->hld.dt_store,&it);
-		gtk_list_store_set(pd->hld.dt_store,&it,0,lst->data,-1);
-		lst = g_list_next(lst);
-	}
-	*/		
-
 
 
 static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
@@ -1417,11 +1439,22 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
   GtkWidget *hbox3,*scrolledwindow1;
   GtkWidget *t_pbox,*radio,*radio2;
   GList *tmplist=NULL;
+  GtkTreeViewColumn *column;
+  GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
+  GtkTreeIter iter;
 
   /* Prepare store for elements */
   pd->hld.blk_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
   pd->hld.tk_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
   pd->hld.tag_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
+  gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
+  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,1,1,g_strdup(_("Begin of a tag")), -1);
+  gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
+  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,1,1,g_strdup(_("End of a tag")), -1);
+  gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
+  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,1,1,g_strdup(_("Attribute name")), -1);
+  gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
+  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,1,1,g_strdup(_("Attribute value")), -1);
   
   vbox1 = gtk_vbox_new (FALSE, 3);
   gtk_box_pack_start(GTK_BOX(mainbox), vbox1, FALSE, FALSE, 3);  
@@ -1494,6 +1527,8 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
   gtk_container_set_border_width (GTK_CONTAINER (pd->hld.tree), 2);
   gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (pd->hld.tree), FALSE);
   gtk_widget_set_size_request(pd->hld.tree, 200, 150);
+  column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,"text", 1,NULL);
+  gtk_tree_view_append_column (GTK_TREE_VIEW(pd->hld.tree), column);
   
   t_pbox = gtk_vbox_new (FALSE, 0);
   gtk_box_pack_start (GTK_BOX (hbox3), t_pbox, TRUE, TRUE, 5);
@@ -1517,7 +1552,6 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
   g_signal_connect(G_OBJECT(pd->hld.tk_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
   g_signal_connect(G_OBJECT(pd->hld.tag_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
   
-  gtk_combo_box_set_active(GTK_COMBO_BOX(pd->hld.ftype_combo),0);
 }
 #endif
 
