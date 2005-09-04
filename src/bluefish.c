@@ -235,20 +235,32 @@ int main(int argc, char *argv[])
          main_v->globses.quickbar_items == NULL && 
          main_v->props.show_quickbar_tip == TRUE) 
    {	
-	   GtkWidget *dialog, *button, *show_again;
+	   GtkWidget *dialog, *hbox, *image, *vbox, *label, *button, *show_again;
 	   
 	   dialog = gtk_dialog_new_with_buttons ("", 
 	                                         GTK_WINDOW (firstbfwin->main_window),
 	                                         GTK_DIALOG_DESTROY_WITH_PARENT,
 	                                         NULL);
-		button = gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);	                                         
-      hig_dialog_backend(GTK_DIALOG (dialog),
-                         _("Bluefish tip:"),
-                         _("This message is shown if you do not have any items in the Quickbar.\n\nTo add buttons to the Quickbar, right click on a button in the HTML toolbars."),
-                         GTK_STOCK_DIALOG_INFO);
-	   
+		button = gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
+		gtk_window_set_resizable (GTK_WINDOW (dialog), FALSE);
+		gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
+		
+		hbox = gtk_hbox_new (FALSE, 12);
+		gtk_container_set_border_width (GTK_CONTAINER (hbox), 12);
+		gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG (dialog)->vbox), hbox);
+		image = gtk_image_new_from_stock (GTK_STOCK_DIALOG_INFO, GTK_ICON_SIZE_DIALOG);
+		gtk_misc_set_alignment (GTK_MISC (image), 0 ,0);
+		gtk_box_pack_start (GTK_BOX (hbox), image, FALSE, FALSE, 0);
+		vbox = gtk_vbox_new (FALSE, 0);
+		gtk_box_pack_start_defaults (GTK_BOX (hbox), vbox);
+		label = gtk_label_new (NULL);
+		gtk_label_set_markup (GTK_LABEL (label), 
+									 _("<span weight=\"bold\" size=\"larger\">Bluefish Tip:</span>\n\nThis message is shown if you do not have any items in the Quickbar.\n\nTo add buttons to the Quickbar, right click on a button in the HTML toolbars.\n"));
+		gtk_label_set_line_wrap (GTK_LABEL (label), TRUE);
+		gtk_box_pack_start (GTK_BOX (vbox), label, FALSE, FALSE, 0);
+
 	   show_again = gtk_check_button_new_with_mnemonic (_("_Don't show this dialog again."));
-	   gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), show_again, TRUE, FALSE, 0);
+	   gtk_box_pack_start (GTK_BOX (vbox), show_again, FALSE, FALSE, 12);
 	   
 	   gtk_widget_show_all (GTK_DIALOG (dialog)->vbox);
 		gtk_widget_grab_focus (button);
