@@ -31,10 +31,11 @@ void hl_block_slot(BfTextView * view, BfLangBlock * blockDef, GtkTextIter * b_st
 void filetype_highlighting_rebuild(gboolean gui_errors);			   
 void hl_init(void);
 GtkTextTagTable *highlight_return_tagtable();
+void doc_highlight_full(Tdocument *doc);
 #else
 void filetype_highlighting_rebuild(gboolean gui_errors);
 void hl_init(void);
-void doc_highlight_full(Tdocument *doc);
+
 void doc_highlight_region(Tdocument * doc, guint startof, guint endof);
 void doc_highlight_line(Tdocument *doc);
 void doc_remove_highlighting(Tdocument *doc);

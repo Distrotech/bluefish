@@ -1172,18 +1172,14 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, Tfiletype *filetype, gchar *encoding) {
 	Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(bfwin->menu_filetypes, filetype);
 	if (bdm && filetype && bdm->menuitem && !GTK_CHECK_MENU_ITEM(bdm->menuitem)->active) {
-#ifndef USE_SCANNER	
 		DEBUG_MSG("setting widget from hlset %p active\n", bfwin->current_document->hl);
-#endif		
 		g_signal_handler_disconnect(G_OBJECT(bdm->menuitem),bdm->signal_id);
 		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(bdm->menuitem), TRUE);
 		bdm->signal_id = g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) bdm);
 	}
 #ifdef DEBUG
 	 else {
-#ifndef USE_SCANNER	 
 	 	DEBUG_MSG("widget from filetype %p is already active, or filetype does not have a widget!!\n", bfwin->current_document->hl);
-#endif	 	
 	 }
 #endif
 	if (encoding) {

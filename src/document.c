@@ -126,6 +126,7 @@ static void doc_realize_cb(GtkWidget *widget,gpointer user_data) {
 	GdkWindow *left_win;
 	GdkPixmap *pix;
 	GdkColor clr;
+	GtkTextTag *tag;
 	Tdocument *doc = DOCUMENT(user_data);
 	left_win = gtk_text_view_get_window(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
 	if (left_win) {
@@ -133,7 +134,10 @@ static void doc_realize_cb(GtkWidget *widget,gpointer user_data) {
 			bf_textview_add_symbol(BF_TEXTVIEW(doc->view),"bmark",pix);		
 		} 	
 	gdk_color_parse("#f7f29b",&clr);	
-	gtk_text_buffer_create_tag(doc->buffer,"matching_block","background-gdk",&clr,NULL); 	
+	tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(doc->buffer),"matching_block");
+	if ( !tag )
+		gtk_text_buffer_create_tag(doc->buffer,"matching_block","background-gdk",&clr,NULL); 	
+		
 }
 
 static void doc_move_cursor_cb(GtkTextView *widget,GtkMovementStep step,
@@ -325,7 +329,6 @@ Tdocument *documentlist_return_document_from_index(GList *doclist, gint index) {
  * Return value: void
  **/
 void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-#ifndef USE_SCANNER
 	if (!bfwin->current_document) return;
 	DEBUG_MSG("doc_update_highlighting, curdoc=%p, highlightstate=%d\n", bfwin->current_document, bfwin->current_document->highlightstate);
 	if (bfwin->current_document->highlightstate == 0) {
@@ -336,7 +339,6 @@ void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *wid
 	} else {
 		doc_highlight_full(bfwin->current_document);
 	}
-#endif	
 }
 
 /**
@@ -1658,9 +1660,7 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 				g_print("doc_buffer_to_textbox, doc does not have a filetype ????\n");
 			}
 #endif
-#ifndef USE_SCANNER
 			doc_highlight_full(doc);
-#endif			
 		}
 	}
 	if (!enable_undo) {
@@ -2884,7 +2884,6 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	GtkWidget *scroll;
 	Tdocument *newdoc;
 #ifdef USE_SCANNER
-	gchar *pstr;
 	GList *list=NULL;
 #endif	
 	
@@ -3510,9 +3509,7 @@ void doc_activate(Tdocument *doc) {
 
 	/* if highlighting is needed for this document do this now !! */
 	if (doc->need_highlighting && doc->highlightstate) {
-#ifndef USE_SCANNER	
 		doc_highlight_full(doc);
-#endif		
 		DEBUG_MSG("doc_activate, doc=%p, after doc_highlight_full, need_highlighting=%d\n",doc,doc->need_highlighting);
 	}
 
@@ -3702,9 +3699,7 @@ void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 		doc_remove_highlighting(bfwin->current_document);
 #endif		
 	} else {
-#ifndef USE_SCANNER	
 		doc_highlight_full(bfwin->current_document);
-#endif		
 	}
 }
 

@@ -864,6 +864,7 @@ void bf_textview_scan (BfTextView * self)
    g_return_if_fail (buf != NULL);
    gtk_text_buffer_get_start_iter (buf, &its);
    gtk_text_buffer_get_end_iter (buf, &ite);
+   if ( gtk_text_iter_equal(&its,&ite) ) return;  
    bf_textview_scan_area (self, &its, &ite);
 }
 
@@ -1399,7 +1400,29 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
 	       if ( self->scanner.current_token.def->context == self->current_context || self->scanner.current_token.def->context == NULL) {	/* only in proper context */
 			  self->scanner.current_token.itstart = its;
 			  self->scanner.current_token.itend = ita;
-			  bf_textview_token (self, self->scanner.current_token.def, &its, &ita);	/* EMIT SIGNAL */
+			  { /* emit only if true token found */
+			  		GtkTextIter ait1=its,ait2=ita;
+			  		gboolean bok=FALSE,eok=FALSE;
+			  		gunichar c;
+			  		if ( gtk_text_iter_starts_line(&ait1) ) 
+			  		  bok = TRUE;
+			  		else {
+			  			gtk_text_iter_backward_char(&ait1);
+			  			c = gtk_text_iter_get_char (&ait1);
+			  			if (!g_unichar_isalnum(c) && c!='_')
+			  				bok=TRUE;
+			  		}	
+			  		if ( gtk_text_iter_ends_line(&ait2) ) 
+			  		  eok = TRUE;
+			  		else {
+			  			/*gtk_text_iter_forward_char(&ait2);*/
+			  			c = gtk_text_iter_get_char (&ait2);
+			  			if (!g_unichar_isalnum(c) && c!='_')
+			  				eok=TRUE;
+			  		}	
+			  		if ( bok && eok )
+				  		bf_textview_token (self, self->scanner.current_token.def, &its, &ita);	/* EMIT SIGNAL */
+			  }	
 			  if ( self->scanner.current_token.def->regexp ) 
 			  		regexp_found = TRUE;
 	       }
@@ -1963,8 +1986,9 @@ static void bftv_dfa_build (gpointer key, gpointer value, gpointer data)
    else if (strcmp ((gchar *) key, "_final_") == 0) {
       t = (BfLangToken *) value;
       for (len = 0; len < 256; len++)
-			 if (bb->table[len][bb->number] == 0)
+			 if (bb->table[len][bb->number] == 0 /*&& !g_ascii_isalnum((gchar)len) && (gchar)len!='_'*/)
 			    bb->table[len][bb->number] = t->id;
+       
    }
 
 }
@@ -2235,12 +2259,15 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
       cfg->dfa_tables = NULL;
 		cfg->restricted_tags = g_hash_table_new (g_int_hash, g_int_equal);
 		cfg->line_indent = g_array_new(TRUE,TRUE,sizeof(gint));
+		
       cfg->tabnum = 0;
+      g_hash_table_insert (cfg->dfa, "number", "0");
+      
       cfg->tokennum = BFTV_TOKEN_IDS + 1;
       cfg->bb_tabnum = 0;
       cfg->be_tabnum = 0;
       cfg->blocknum = BFTV_BLOCK_IDS + 1;
-      g_hash_table_insert (cfg->dfa, "number", "0");
+      
       cfg->block_begin_dfa = g_hash_table_new (g_str_hash, g_str_equal);
       g_hash_table_insert (cfg->block_begin_dfa, "number", "0");
       cfg->block_end_dfa = g_hash_table_new (g_str_hash, g_str_equal);
@@ -2603,7 +2630,8 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 }
 
 static void bftv_make_config_tables(BfLangConfig *cfg) {
-	gint i,j;
+/*	gint i,j;*/
+
 	if (!cfg) return;
    cfg->scan_table = bftv_make_scan_table (cfg->dfa,cfg);
    cfg->scan_bb_table = bftv_make_bscan_table (cfg->block_begin_dfa, BT_BEGIN,cfg);
@@ -2620,7 +2648,7 @@ static void bftv_make_config_tables(BfLangConfig *cfg) {
    	for(j=32;j<100;j++)
    		g_print("%d  ",cfg->scan_table[j][i]);
    	g_print("\n");	
-   }	*/
+   }*/
 }
 
 static gboolean bftv_free_config_del_block (gpointer key, gpointer value, gpointer data)
@@ -2841,16 +2869,25 @@ GtkWidget *bf_textview_new (void)
 			   (gtk_text_view_get_buffer (GTK_TEXT_VIEW (o))),
 			   "delete-range", G_CALLBACK (bf_textview_delete_range_cb), o);
    g_signal_connect (G_OBJECT (o), "button-press-event", G_CALLBACK (bf_textview_mouse_cb), NULL);
-   o->folded_tag =
-      gtk_text_buffer_create_tag (gtk_text_view_get_buffer
-				  (GTK_TEXT_VIEW (o)), "_folded_", "editable", FALSE, "invisible", TRUE, NULL);
-   o->fold_header_tag =
-      gtk_text_buffer_create_tag (gtk_text_view_get_buffer
-				  (GTK_TEXT_VIEW (o)), "_fold_header_",
-				  "editable", FALSE, "background-gdk", &o->bkg_color, NULL);
-   o->block_tag =
-      gtk_text_buffer_create_tag (gtk_text_view_get_buffer
-				  (GTK_TEXT_VIEW (o)), "_block_", "background-gdk", &o->bkg_color, NULL);
+   o->folded_tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(gtk_text_view_get_buffer
+				  (GTK_TEXT_VIEW (o))),"_folded_");
+	if ( !o->folded_tag )			  
+	   o->folded_tag =
+   	   gtk_text_buffer_create_tag (gtk_text_view_get_buffer
+					  (GTK_TEXT_VIEW (o)), "_folded_", "editable", FALSE, "invisible", TRUE, NULL);
+   o->fold_header_tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(gtk_text_view_get_buffer
+				  (GTK_TEXT_VIEW (o))),"_fold_header_");
+	if ( !o->fold_header_tag )				  
+	   o->fold_header_tag =
+   	   gtk_text_buffer_create_tag (gtk_text_view_get_buffer
+					  (GTK_TEXT_VIEW (o)), "_fold_header_",
+					  "editable", FALSE, "background-gdk", &o->bkg_color, NULL);
+   o->block_tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(gtk_text_view_get_buffer
+				  (GTK_TEXT_VIEW (o))),"_block_");
+	if ( !o->block_tag )				  
+	   o->block_tag =
+   	   gtk_text_buffer_create_tag (gtk_text_view_get_buffer
+					  (GTK_TEXT_VIEW (o)), "_block_", "background-gdk", &o->bkg_color, NULL);
    gtk_widget_modify_base (GTK_WIDGET (o), GTK_WIDGET (o)->state, &o->bkg_color);
    gtk_widget_modify_text (GTK_WIDGET (o), GTK_WIDGET (o)->state, &o->fg_color);
 
@@ -2881,17 +2918,26 @@ GtkWidget *bf_textview_new_with_buffer (GtkTextBuffer * buffer)
 			   (gtk_text_view_get_buffer (GTK_TEXT_VIEW (o))),
 			   "delete-range", G_CALLBACK (bf_textview_delete_range_cb), o);
    g_signal_connect (G_OBJECT (o), "button-press-event", G_CALLBACK (bf_textview_mouse_cb), NULL);
-   o->folded_tag =
-      gtk_text_buffer_create_tag (gtk_text_view_get_buffer
-				  (GTK_TEXT_VIEW (o)), "_folded_", "editable", FALSE, "invisible", TRUE, NULL);
-	gdk_color_parse ("#F7F3D2", &col);				  
-   o->fold_header_tag =
-      gtk_text_buffer_create_tag (gtk_text_view_get_buffer
-				  (GTK_TEXT_VIEW (o)), "_fold_header_",
-				  "editable", FALSE, "background-gdk", &col, NULL);
-   o->block_tag =
-      gtk_text_buffer_create_tag (gtk_text_view_get_buffer
-				  (GTK_TEXT_VIEW (o)), "_block_", "background-gdk", &o->bkg_color, NULL);
+   o->folded_tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(gtk_text_view_get_buffer
+				  (GTK_TEXT_VIEW (o))),"_folded_");   
+	if ( !o->folded_tag )			  
+	   o->folded_tag =
+   	   gtk_text_buffer_create_tag (gtk_text_view_get_buffer
+					  (GTK_TEXT_VIEW (o)), "_folded_", "editable", FALSE, "invisible", TRUE, NULL);
+	gdk_color_parse ("#F7F3D2", &col);
+   o->fold_header_tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(gtk_text_view_get_buffer
+				  (GTK_TEXT_VIEW (o))),"_fold_header_");
+	if ( !o->fold_header_tag )
+	   o->fold_header_tag =
+   	   gtk_text_buffer_create_tag (gtk_text_view_get_buffer
+					  (GTK_TEXT_VIEW (o)), "_fold_header_",
+					  "editable", FALSE, "background-gdk", &col, NULL);
+   o->block_tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(gtk_text_view_get_buffer
+				  (GTK_TEXT_VIEW (o))),"_block_");					  
+	if ( !o->block_tag )			  
+	   o->block_tag =
+   	   gtk_text_buffer_create_tag (gtk_text_view_get_buffer
+					  (GTK_TEXT_VIEW (o)), "_block_", "background-gdk", &o->bkg_color, NULL);
    gtk_widget_modify_base (GTK_WIDGET (o), GTK_WIDGET (o)->state, &o->bkg_color);
    gtk_widget_modify_text (GTK_WIDGET (o), GTK_WIDGET (o)->state, &o->fg_color);   
 	
@@ -3650,7 +3696,7 @@ gboolean bf_lang_mgr_load_config_list(BfLangManager *mgr,GList *list,gchar *file
 		if (found) 
 			cfg = bftv_load_config(fname,TRUE,cfg);
 		else
-			g_warning("BfLangManager: cannot load file %s",l->data);					
+			g_warning("BfLangManager: cannot load file %s",(gchar*)l->data);					
 		g_free(fname);	
 		l = g_list_next(l);
 	}

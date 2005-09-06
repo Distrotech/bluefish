@@ -256,6 +256,11 @@ void create_style(Tfiletype *filetype,gchar *tp,gchar *name,gchar *fgcolor,gchar
 		g_object_unref(tag);
 }
 
+gboolean filetype_clear_tags(gpointer key,gpointer value,gpointer data) {
+   gtk_text_tag_table_remove(highlight.tagtable,GTK_TEXT_TAG(value));
+	return TRUE;
+}
+
 /*
  * This is modifed function for scanner environment.
  * if gui_errors is set, we can send a popup with an error message,
@@ -295,6 +300,10 @@ void filetype_highlighting_rebuild(gboolean gui_errors) {
 			g_object_unref(filetype->icon);
 		}
 		g_free(filetype->content_regex);
+		g_hash_table_foreach_remove(filetype->hl_block,filetype_clear_tags,NULL);
+		g_hash_table_foreach_remove(filetype->hl_token,filetype_clear_tags,NULL);
+		g_hash_table_foreach_remove(filetype->hl_tag,filetype_clear_tags,NULL);
+		g_hash_table_foreach_remove(filetype->hl_group,filetype_clear_tags,NULL);
 		/* the highlightpatterns are freed separately, see below */
 		g_free(filetype);
 		tmplist = g_list_next(tmplist);
@@ -401,6 +410,12 @@ void hl_init() {
 	filetype_highlighting_rebuild(FALSE);
 }
 
+
+void doc_highlight_full(Tdocument * doc) {
+		if ( !doc->hl ) return;
+		bf_textview_scan(BF_TEXTVIEW(doc->view));
+		doc->need_highlighting = FALSE;
+}
 
 
 #else
