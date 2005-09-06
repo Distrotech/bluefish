@@ -2901,7 +2901,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	newdoc->status = DOC_STATUS_COMPLETE; /* if we don't set this default we will get problems for new empty files */
 	
 #ifdef USE_SCANNER
-	newdoc->buffer = gtk_text_buffer_new(NULL);
+	newdoc->buffer = gtk_text_buffer_new(highlight_return_tagtable());
 	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
 	if ( main_v->lang_mgr ) {
@@ -2912,9 +2912,8 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	bf_textview_set_autoscan_lines(BF_TEXTVIEW(newdoc->view),main_v->props.autoscan_lines);
 	bf_textview_set_bg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_bg); 
 	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg); 
-	g_signal_connect(G_OBJECT(newdoc->view),"token",G_CALLBACK(hl_slot),NULL);
-	g_signal_connect(G_OBJECT(newdoc->view),"tag-end",G_CALLBACK(hl_tag_end),NULL);
-	g_signal_connect(G_OBJECT(newdoc->view),"tag-attr",G_CALLBACK(hl_tag_attr),NULL);
+	g_signal_connect(G_OBJECT(newdoc->view),"token",G_CALLBACK(hl_token_slot),NULL);
+	g_signal_connect(G_OBJECT(newdoc->view),"block_end",G_CALLBACK(hl_block_slot),NULL);
 	g_signal_connect_after(G_OBJECT(newdoc->view),"realize",G_CALLBACK(doc_realize_cb),newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view),"move-cursor",G_CALLBACK(doc_move_cursor_cb),newdoc);
 #else	

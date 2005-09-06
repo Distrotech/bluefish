@@ -165,63 +165,96 @@ static Thighlight highlight;
 
 #include "bf-textview.h"
 
-void hl_slot(BfTextView *view,BfLangToken *tokenDef,GtkTextIter *startIter,GtkTextIter *endIter) {
+
+
+void hl_token_slot(BfTextView *view,BfLangToken *tokenDef,GtkTextIter *startIter,GtkTextIter *endIter) {
 	GdkColor col;
-	GtkTextTag *tag;
+	GtkTextTag *tag=NULL;
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
-	if (tokenDef->group) {
-	if ( gdk_color_parse(tokenDef->group,&col) ) {
-		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(buffer),tokenDef->group);
-		if ( tag==NULL )
-			tag = gtk_text_buffer_create_tag(buffer,tokenDef->group,"foreground-gdk",&col,NULL);
-		gtk_text_buffer_apply_tag_by_name(buffer,tokenDef->group,startIter,endIter);	
-	}
-	} else {
-		gdk_color_parse("#00FF00",&col);
-		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(buffer),"alone_token");
-		if ( tag==NULL )
-			tag = gtk_text_buffer_create_tag(buffer,"alone_token","foreground-gdk",&col,NULL);
-		gtk_text_buffer_apply_tag_by_name(buffer,"alone_token",startIter,endIter);	
+	GList *lst = g_list_first(main_v->bfwinlist);
+	Tdocument *doc = NULL;
 	
+	/* first find current document */
+	while ( lst ) {
+		Tbfwin *bf = (Tbfwin*)lst->data;
+		if ( bf->current_document->view == GTK_WIDGET(view) )  {
+			doc = bf->current_document;
+			break;
+		}	
+		lst = g_list_next(lst);
 	}
+	if ( doc == NULL ) return;
+	tag = g_hash_table_lookup(doc->hl->hl_token,tokenDef->name);
+	if ( !tag && tokenDef->group)
+		tag = g_hash_table_lookup(doc->hl->hl_group,tokenDef->group);
+	if ( !tag ) return;
+	gtk_text_buffer_apply_tag(buffer,tag,startIter,endIter);		
 }
 
-void hl_tag_end (BfTextView * self, gchar * tagName, GtkTextIter * b_startIter,
-			  GtkTextIter * b_endIter, GtkTextIter * e_startIter, GtkTextIter * e_endIter)
-{
+void hl_block_slot(BfTextView * view, BfLangBlock * blockDef, GtkTextIter * b_startIter,
+								   	 GtkTextIter * b_endIter, GtkTextIter * e_startIter,
+			    						 GtkTextIter * e_endIter, GtkTextMark * startMark, GtkTextMark * endMark) {
 	GdkColor col;
-	GtkTextTag *tag;
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
+	GtkTextTag *tag=NULL;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+	GList *lst = g_list_first(main_v->bfwinlist);
+	Tdocument *doc = NULL;
 	
-	if ( gdk_color_parse("#C56819",&col) ) {
-		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(buffer),"tagcolor");
-		if ( tag==NULL ) {
-			tag = gtk_text_buffer_create_tag(buffer,"tagcolor","foreground-gdk",&col,NULL);
-			gtk_text_tag_set_priority(tag,0);
+	/* first find current document */
+	while ( lst ) {
+		Tbfwin *bf = (Tbfwin*)lst->data;
+		if ( bf->current_document->view == GTK_WIDGET(view) )  {
+			doc = bf->current_document;
+			break;
 		}	
-		gtk_text_buffer_apply_tag_by_name(buffer,"tagcolor",b_startIter,b_endIter);	
-		gtk_text_buffer_apply_tag_by_name(buffer,"tagcolor",e_startIter,e_endIter);	
+		lst = g_list_next(lst);
 	}
-
+	if ( doc == NULL ) return;
+	tag = g_hash_table_lookup(doc->hl->hl_block,blockDef->id);
+	if ( !tag && blockDef->group)
+		tag = g_hash_table_lookup(doc->hl->hl_group,blockDef->group);
+	if ( !tag ) return;
+	gtk_text_buffer_apply_tag(buffer,tag,b_startIter,e_endIter);		
 }
-			  
-void hl_tag_attr (BfTextView * self, gchar * attrName, gchar * attrValue,
-			   GtkTextIter * n_startIter, GtkTextIter * n_endIter,
-			   GtkTextIter * v_startIter, GtkTextIter * v_endIter) {
-	GdkColor col;
-	GtkTextTag *tag;
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
-	
-	if ( gdk_color_parse("#000077",&col) ) {
-		tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(buffer),"attrcolor");
-		if ( tag==NULL ) {
-			tag = gtk_text_buffer_create_tag(buffer,"attrcolor","foreground-gdk",&col,NULL);
-			gtk_text_tag_set_priority(tag,1);
+
+
+void create_style(Tfiletype *filetype,gchar *tp,gchar *name,gchar *fgcolor,gchar *bgcolor,gint weight,gint style) {
+	GtkTextTag *tag;	
+		tag = gtk_text_tag_new(NULL);
+		if (strlen(fgcolor)) {
+			g_object_set(tag, "foreground", fgcolor, NULL);
+		}
+		if (strlen(bgcolor)) {
+			g_object_set(tag, "background", bgcolor, NULL);
+		}
+		if (weight > 0) {
+			if (1 == weight) {
+				g_object_set(tag, "weight", PANGO_WEIGHT_NORMAL, NULL);
+			} else {
+				g_object_set(tag, "weight", PANGO_WEIGHT_BOLD, NULL);
+			}
+		}
+		if (style > 0) {
+			if (1 == style) {
+				g_object_set(tag, "style", PANGO_STYLE_NORMAL, NULL);
+			} else {
+				g_object_set(tag, "style", PANGO_STYLE_ITALIC, NULL);
+			}
+		}
+		gtk_text_tag_table_add(highlight.tagtable, tag);
+		if ( strcmp(tp,"b")==0)
+			g_hash_table_insert(filetype->hl_block,name,tag);
+		else if ( strcmp(tp,"t")==0) {
+			g_hash_table_insert(filetype->hl_token,name,tag);
 		}	
-			gtk_text_buffer_apply_tag_by_name(buffer,"attrcolor",n_startIter,n_endIter);	
-	}
-			   
-}			   
+		else if ( strcmp(tp,"m")==0)
+			g_hash_table_insert(filetype->hl_tag,name,tag);
+		else if ( strcmp(tp,"g")==0)
+			g_hash_table_insert(filetype->hl_group,name,tag);
+			
+		/* this might fix a memory leak reported by Jim Hayward <jimhayward@linuxexperience.com> Fri, 13 Aug 2004 14:45:23 -0700 */
+		g_object_unref(tag);
+}
 
 /*
  * This is modifed function for scanner environment.
@@ -229,7 +262,7 @@ void hl_tag_attr (BfTextView * self, gchar * attrName, gchar * attrValue,
  * else (during startup) we use g_print()
  */
 void filetype_highlighting_rebuild(gboolean gui_errors) {
-	GList *tmplist;
+	GList *tmplist, *tmplist2;
 	GList *alldoclist;
 	
 	alldoclist = return_allwindows_documentlist();
@@ -318,15 +351,26 @@ void filetype_highlighting_rebuild(gboolean gui_errors) {
 				}	
 			}	
 			filetype->highlightlist = NULL;
-			main_v->filetypelist = g_list_append(main_v->filetypelist, filetype);
+			filetype->hl_block = g_hash_table_new(g_str_hash,g_str_equal);
+			filetype->hl_token = g_hash_table_new(g_str_hash,g_str_equal);
+			filetype->hl_tag = g_hash_table_new(g_str_hash,g_str_equal);
+			filetype->hl_group = g_hash_table_new(g_str_hash,g_str_equal);			
+			main_v->filetypelist = g_list_append(main_v->filetypelist, filetype);			
+			tmplist2 = g_list_first(main_v->props.highlight_patterns);
+			while (tmplist2) {
+				gchar **strarr;
+				strarr = (gchar **) tmplist2->data;
+				if (strcmp(filetype->type,strarr[0])==0) {
+					create_style(filetype,strarr[1],strarr[2],strarr[3],strarr[4],atoi(strarr[5]),atoi(strarr[6]));
+				}
+				tmplist2 = g_list_next(tmplist2);
+			}
+						
 		}
-#ifdef DEBUG
-		else {
-			DEBUG_MSG("filetype_list_rebuild, filetype needs 4 params in array\n");
-		}
-#endif
+
 		tmplist = g_list_next(tmplist);
 	}
+
 
 	/* now we have finished the rebuilding of the filetypes, we 
 	have to connect all the documents with their filetypes again, we 
@@ -346,6 +390,15 @@ void filetype_highlighting_rebuild(gboolean gui_errors) {
 		}
 	}
 	g_list_free(alldoclist);
+}
+
+
+void hl_init() {
+	/* init main_v->filetypelist, the first set is the defaultset */
+	highlight.all_highlight_patterns = NULL; 
+	highlight.tagtable = gtk_text_tag_table_new();
+
+	filetype_highlighting_rebuild(FALSE);
 }
 
 
@@ -1761,10 +1814,13 @@ void hl_reset_to_default()
 	main_v->props.highlight_patterns = g_list_append(main_v->props.highlight_patterns,array_from_arglist("python", "braces", "0", "[{()}\\[\\]]", "", "2", "", "#000000", "", "2", "0",  NULL));
 }
 #endif /* HIGHLIGHTING_DEFAULTS_NOW_EXTERNAL */
+
+#endif /* SCANNER */
+
 GtkTextTagTable *highlight_return_tagtable() {
 	return highlight.tagtable;
 }
 
 
-#endif
+
 

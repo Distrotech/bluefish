@@ -109,6 +109,9 @@ typedef struct {
 	gchar **extensions;
 	GdkPixbuf *icon;
 	gchar *update_chars;
+#ifdef USE_SCANNER
+	GHashTable *hl_block,*hl_token,*hl_tag,*hl_group;
+#endif	
 	GList *highlightlist;
 	gboolean editable; /* this a type that can be edited by Bluefish */
 	gint autoclosingtag; /* 0=off, 1=xml mode, 2=html mode */
