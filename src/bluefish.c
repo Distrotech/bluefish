@@ -203,7 +203,7 @@ int main(int argc, char *argv[])
 	hl_init();
 #else
 	main_v->lang_mgr	= bf_lang_mgr_new();
-	filetype_highlighting_rebuild(FALSE);
+	hl_init();
 #endif	
 	fb2config_init(); /* filebrowser2config */
 	/*filebrowserconfig_init();*/

@@ -738,22 +738,36 @@ static gboolean arraylist_test_identifier_exists(GList *arrlist, const gchar *na
 void rcfile_parse_highlighting(void) {
 	gchar *filename;
 	gchar *defaultfile;
+#ifdef USE_SCANNER
+	GList *lst=NULL;
+#endif	
 
 	DEBUG_MSG("rcfile_parse_highlighting, started\n");
 
 	highlighting_configlist = NULL;
 	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "patterns:", 0, TRUE);
 
+#ifdef USE_SCANNER
+	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting2", NULL);
+	defaultfile = return_first_existing_filename(PKGDATADIR"highlighting2",
+									"data/highlighting2",
+									"../data/highlighting2",NULL);
+#else
 	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting", NULL);
 	defaultfile = return_first_existing_filename(PKGDATADIR"highlighting",
 									"data/highlighting",
 									"../data/highlighting",NULL);
+#endif									
 	if (!parse_config_file(highlighting_configlist, filename)) {
 		/* init the highlighting in some way? */
 		if (defaultfile) {
 			main_v->props.highlight_patterns = get_list(defaultfile,NULL,TRUE);
 		} else {
+#ifdef USE_SCANNER
+			g_print("Unable to find '"PKGDATADIR"highlighting2'\n");
+#else		
 			g_print("Unable to find '"PKGDATADIR"highlighting'\n");
+#endif			
 		}
 		save_config_file(highlighting_configlist, filename);
 		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
@@ -770,7 +784,11 @@ void rcfile_parse_highlighting(void) {
 
 gint rcfile_save_highlighting(void) {
 	gint retval;
+#ifdef USE_SCANNER	
+	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting2", NULL);
+#else
 	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting", NULL);
+#endif	
 	retval = save_config_file(highlighting_configlist, filename);
 	g_free(filename);
 	return retval;

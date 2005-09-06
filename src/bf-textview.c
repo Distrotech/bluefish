@@ -2403,12 +2403,13 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 						      t->regexp = bftv_xml_bool (tmps2);
 						      if (tmps2)
 							 xmlFree (tmps2);
-						      tmps2 = xmlGetProp (cur2, "name");
+/*						      tmps2 = xmlGetProp (cur2, "name");
 						      if (tmps2)
 							 t->name = tmps2;
 						      else
-							 t->name = tmps;
+							   t->name = tmps;*/
 						      t->text = g_strdup (arr[i]);
+						      t->name = t->text;
 						      tmps2 = xmlGetProp (cur2, "context");
 						      t->context = NULL;
 						      if (tmps2) {
@@ -2524,12 +2525,13 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 						      t->regexp = bftv_xml_bool (tmps2);
 						      if (tmps2)
 							 xmlFree (tmps2);
-						      tmps2 = xmlGetProp (cur, "name");
+/*						      tmps2 = xmlGetProp (cur, "name");
 						      if (tmps2)
 							 t->name = tmps2;
 						      else
-							 t->name = tmps;
+							   t->name = tmps;*/
 						      t->text = g_strdup (arr[i]);
+						      t->name = t->text;
 						      tmps2 = xmlGetProp (cur, "context");
 						      t->context = NULL;
 						      if (tmps2) {
@@ -3661,6 +3663,7 @@ gboolean bf_lang_mgr_load_config_list(BfLangManager *mgr,GList *list,gchar *file
 }
 
 BfLangConfig *bf_lang_mgr_get_config(BfLangManager *mgr,gchar *filetype) {
+	if ( !filetype ) return NULL;
 	return g_hash_table_lookup(mgr->languages,filetype);
 }
 

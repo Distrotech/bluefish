@@ -178,6 +178,10 @@ typedef struct {
 	GtkWidget *main_view;
 	GtkWidget *tree,*ftype_combo;
 	GtkWidget *blk_radio,*tk_radio,*tag_radio;
+	GtkWidget *bg_color,*fg_color;
+	GtkWidget *bold_radio[3];
+	GtkWidget *italic_radio[3];
+	gboolean filetype_change;
 } Thldialog;
 #endif
 
@@ -190,14 +194,15 @@ typedef struct {
 	GtkWidget *fixed;
 	Tlistpref ftd;
 	Tlistpref ffd;
+#ifdef USE_SCANNER
+	Thldialog hld;
+#else	
 	Thighlightpatterndialog hpd;
+#endif	
 	Tlistpref bd;
 	Tlistpref ed;
 	Tlistpref od;
 	Tplugindialog pd;
-#ifdef USE_SCANNER
-	Thldialog hld;
-#endif	
 } Tprefdialog;
 
 typedef enum {
@@ -1002,6 +1007,7 @@ static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);	
 }
 
+#ifndef USE_SCANNER
 static gchar **highlightpattern_create_strarr(Tprefdialog *pd) {
 	gchar **strarr;
 	strarr = g_malloc(12*sizeof(gchar *));
@@ -1314,6 +1320,7 @@ static void highlightpattern_reset_clicked_lcb(GtkWidget *button, Tprefdialog *p
 		g_free (defaultfile);
 	}
 }
+#endif
 
 #ifdef USE_SCANNER
 
@@ -1337,10 +1344,10 @@ static void bf_ins_token(gpointer key,gpointer value,gpointer udata) {
 	Thf *d = (Thf*)udata;
 	BfLangToken *t = (BfLangToken*)value;
 	if ( d->grpcrit == NULL )
-		*(d->list) = g_list_append(*(d->list),t->text);
+		*(d->list) = g_list_append(*(d->list),t->name);
 	else
 		if ( strcmp(t->group,d->grpcrit) == 0 )	
-			*(d->list) = g_list_append(*(d->list),t->text);
+			*(d->list) = g_list_append(*(d->list),t->name);
 }
 
 static void bf_ins_block(gpointer key,gpointer value,gpointer udata) {
@@ -1360,7 +1367,7 @@ static void  hlg_toggled  (GtkToggleButton *togglebutton, gpointer user_data) {
 
 	if ( !cfg ) return;
 	if ( !gtk_toggle_button_get_active(togglebutton)) return;
-	
+	pd->hld.filetype_change = TRUE;		
 	if ( GTK_WIDGET(togglebutton) == pd->hld.blk_radio ) {
 		gtk_tree_view_set_model(GTK_TREE_VIEW(pd->hld.tree),GTK_TREE_MODEL(pd->hld.blk_store));
 	}
@@ -1370,8 +1377,20 @@ static void  hlg_toggled  (GtkToggleButton *togglebutton, gpointer user_data) {
 	else if ( GTK_WIDGET(togglebutton) == pd->hld.tag_radio ) {
 		gtk_tree_view_set_model(GTK_TREE_VIEW(pd->hld.tree),GTK_TREE_MODEL(pd->hld.tag_store));
 	}
+	pd->hld.filetype_change = FALSE;		
 }
 
+static gchar **hlg_find_pattern(Tprefdialog *pd, gchar *filetype, gchar *type, gchar *name) {
+	GList *lst = g_list_first(pd->lists[highlight_patterns]);
+	while ( lst ) {
+		gchar **arr = lst->data;
+		if ( strcmp(arr[0],filetype)==0  && strcmp(arr[1],type)==0 && strcmp(arr[2],name)==0 ) {
+			return arr;
+		}	
+		lst = g_list_next(lst);
+	}
+	return NULL;
+}
 
 
 static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
@@ -1385,6 +1404,7 @@ static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
 		 gtk_widget_hide(pd->hld.main_view);
 		 return;
 	}	 
+	pd->hld.filetype_change = TRUE;
 	gtk_widget_show(pd->hld.main_view);
 	/* fill all stores */
 	lst = bf_hash_keys_to_list(cfg->groups);
@@ -1398,10 +1418,12 @@ static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
 		lst2 = g_list_first(lst3);
 		if ( lst2 ) {
 			gtk_tree_store_append(pd->hld.blk_store, &iter, NULL);
-			gtk_tree_store_set(pd->hld.blk_store, &iter, 0,0,1,lst->data, -1);		
+			gtk_tree_store_set(pd->hld.blk_store, &iter, 0,0,1,lst->data, 
+			      2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"g",lst->data), -1);		
 			while (lst2) {
 				gtk_tree_store_append(pd->hld.blk_store, &iter2, &iter);
-				gtk_tree_store_set(pd->hld.blk_store, &iter2, 0,1,1,lst2->data, -1);			
+				gtk_tree_store_set(pd->hld.blk_store, &iter2, 0,1,1,lst2->data,
+					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"b",lst2->data), -1);			
 				lst2 = g_list_next(lst2);
 			}		
 			g_list_free(lst3);		
@@ -1413,10 +1435,12 @@ static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
 		lst2 = g_list_first(lst3);
 		if ( lst2 ) {
 			gtk_tree_store_append(pd->hld.tk_store, &iter, NULL);
-			gtk_tree_store_set(pd->hld.tk_store, &iter, 0,0,1,lst->data, -1);		
+			gtk_tree_store_set(pd->hld.tk_store, &iter, 0,0,1,lst->data,
+					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"g",lst->data),-1);		
 			while (lst2) {
 				gtk_tree_store_append(pd->hld.tk_store, &iter2, &iter);
-				gtk_tree_store_set(pd->hld.tk_store, &iter2, 0,1,1,lst2->data, -1);			
+				gtk_tree_store_set(pd->hld.tk_store, &iter2, 0,2,1,lst2->data,
+					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"t",lst2->data), -1);			
 				lst2 = g_list_next(lst2);
 			}
 			g_list_free(lst3);
@@ -1428,8 +1452,146 @@ static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.blk_radio),TRUE);	
 	else
 		hlg_toggled(GTK_TOGGLE_BUTTON(pd->hld.blk_radio),pd);
+	if ( cfg->scan_tags ) {
+		gtk_widget_set_sensitive(pd->hld.tag_radio,TRUE);	
+		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->hld.tag_store),&iter);
+		gtk_tree_store_set(pd->hld.tag_store,&iter,2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"m","tag_begin"), -1);
+		gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->hld.tag_store),&iter);
+		gtk_tree_store_set(pd->hld.tag_store,&iter,2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"m","tag_end"), -1);
+		gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->hld.tag_store),&iter);
+		gtk_tree_store_set(pd->hld.tag_store,&iter,2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"m","attr_name"), -1);
+		gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->hld.tag_store),&iter);
+		gtk_tree_store_set(pd->hld.tag_store,&iter,2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"m","attr_val"), -1);		
+	}	
+	else
+		gtk_widget_set_sensitive(pd->hld.tag_radio,FALSE);		
+	pd->hld.filetype_change = FALSE;		
 }
 
+static void hlg_apply_style(Tprefdialog *pd) {
+	GtkTreeIter iter;
+	GtkTreeSelection *select;
+	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hld.tree));
+	if ( !select ) return;
+	if (gtk_tree_selection_get_selected (select,NULL,&iter)) {
+		gchar **strarr=NULL;
+		gtk_tree_model_get(GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter, 2, &strarr, -1);
+		if ( strarr ) {
+			gtk_entry_set_text(GTK_ENTRY(pd->hld.fg_color),strarr[3]);
+			gtk_entry_set_text(GTK_ENTRY(pd->hld.bg_color),strarr[4]);
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.bold_radio[atoi(strarr[5])]),TRUE);
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[atoi(strarr[6])]),TRUE);
+		} else {
+			gtk_entry_set_text(GTK_ENTRY(pd->hld.fg_color),"");
+			gtk_entry_set_text(GTK_ENTRY(pd->hld.bg_color),"");		
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.bold_radio[0]),TRUE);
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[0]),TRUE);			
+		}
+	}
+	
+}
+
+static void hlg_cursor_changed  (GtkTreeView *treeview, gpointer user_data) {
+	Tprefdialog *pd = (Tprefdialog *)user_data;
+	pd->hld.filetype_change = TRUE;		
+	hlg_apply_style(pd);
+	pd->hld.filetype_change = FALSE;		
+}
+
+static void hlg_apply_changes_to_item(Tprefdialog *pd) {
+	gchar **strarr=NULL;
+	GtkTreeIter iter;
+	GtkTreeSelection *select;
+	gint tp;
+	gchar *pomstr;
+
+	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hld.tree));
+	if ( !select ) return;
+	if (gtk_tree_selection_get_selected (select,NULL,&iter)) {
+		gtk_tree_model_get(GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter, 2, &strarr, -1);	
+		if ( strarr ) { /* already have array */
+			strarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->hld.fg_color),0,-1);
+			strarr[4] = gtk_editable_get_chars(GTK_EDITABLE(pd->hld.bg_color),0,-1);
+			g_free(strarr[5]);
+			if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.bold_radio[1])) )
+				strarr[5] = g_strdup("1");
+			else if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.bold_radio[2])) )	
+				strarr[5] = g_strdup("2");
+			else
+				strarr[5] = g_strdup("0");	
+			g_free(strarr[6]);	
+			if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[1])) )
+				strarr[6] = g_strdup("1");
+			else if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[2])) )	
+				strarr[6] = g_strdup("2");				
+			else
+				strarr[6] = g_strdup("0");	
+		} else { /* create new array */
+			strarr = g_malloc(8*sizeof(gchar *));
+			strarr[7] = NULL;
+			strarr[0] = g_strdup(gtk_combo_box_get_active_text(GTK_COMBO_BOX(pd->hld.ftype_combo)));				
+			gtk_tree_model_get(GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter, 0, &tp, -1);	
+			switch ( tp ) {
+				case 0: /* group */
+					strarr[1] = g_strdup("g");break;
+				case 1: /* block */
+					strarr[1] = g_strdup("b");break;
+				case 2: /* token */
+					strarr[1] = g_strdup("t");break;					
+				case 3: /* markup */
+				case 4: 
+				case 5:
+				case 6:
+					strarr[1] = g_strdup("m");break;										
+			}
+			if ( tp < 3 ) {
+				gtk_tree_model_get(GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter, 1, &pomstr, -1);
+				strarr[2] = g_strdup(pomstr);
+			} else {
+				switch ( tp ) {
+					case 3: strarr[2] = g_strdup("tag_begin");break;
+					case 4: strarr[2] = g_strdup("tag_end");break;
+					case 5: strarr[2] = g_strdup("attr_name");break;
+					case 6: strarr[2] = g_strdup("attr_val");break;
+				}
+			}	
+			strarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->hld.fg_color),0,-1);
+			strarr[4] = gtk_editable_get_chars(GTK_EDITABLE(pd->hld.bg_color),0,-1);
+			if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.bold_radio[1])) )
+				strarr[5] = g_strdup("1");
+			else if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.bold_radio[2])) )	
+				strarr[5] = g_strdup("2");
+			else
+				strarr[5] = g_strdup("0");	
+			if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[1])) )
+				strarr[6] = g_strdup("1");
+			else if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[2])) )	
+				strarr[6] = g_strdup("2");				
+			else
+				strarr[6] = g_strdup("0");				
+			gtk_tree_store_set(GTK_TREE_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter,
+			   2, strarr,-1);	
+			pd->lists[highlight_patterns] = g_list_append(pd->lists[highlight_patterns],strarr);   
+		} /* create new array */
+	}	/* get_selected */
+
+}
+
+
+static void hlg_entry_changed (GtkEditable *editable, gpointer user_data) {
+	Tprefdialog *pd = (Tprefdialog *)user_data;
+	GtkEntry *entry = GTK_ENTRY(editable);
+	if ( pd->hld.filetype_change ) return;	
+	if ( strcmp(gtk_entry_get_text(entry),"") == 0 ) return;
+	hlg_apply_changes_to_item(pd);
+}
+
+static void  hlg_bi_changed (GtkToggleButton *togglebutton, gpointer user_data) {
+	Tprefdialog *pd = (Tprefdialog *)user_data;
+	if ( pd->hld.filetype_change ) return;		
+	if ( !gtk_toggle_button_get_active(togglebutton)) return;
+	hlg_apply_changes_to_item(pd);
+}
 
 static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
   GtkWidget *vbox1,*lab_help,*hbox1,*label2;
@@ -1437,24 +1599,26 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
   GtkWidget *hbox2;
   GSList *blk_radio_group = NULL;
   GtkWidget *hbox3,*scrolledwindow1;
-  GtkWidget *t_pbox,*radio,*radio2;
+  GtkWidget *t_pbox;
   GList *tmplist=NULL;
   GtkTreeViewColumn *column;
   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
   GtkTreeIter iter;
+
+  pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
 
   /* Prepare store for elements */
   pd->hld.blk_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
   pd->hld.tk_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
   pd->hld.tag_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
   gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
-  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,1,1,g_strdup(_("Begin of a tag")), -1);
+  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,3,1,g_strdup(_("Begin of a tag")), -1);
   gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
-  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,1,1,g_strdup(_("End of a tag")), -1);
+  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,4,1,g_strdup(_("End of a tag")), -1);
   gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
-  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,1,1,g_strdup(_("Attribute name")), -1);
+  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,5,1,g_strdup(_("Attribute name")), -1);
   gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
-  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,1,1,g_strdup(_("Attribute value")), -1);
+  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,6,1,g_strdup(_("Attribute value")), -1);
   
   vbox1 = gtk_vbox_new (FALSE, 3);
   gtk_box_pack_start(GTK_BOX(mainbox), vbox1, FALSE, FALSE, 3);  
@@ -1532,29 +1696,39 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
   
   t_pbox = gtk_vbox_new (FALSE, 0);
   gtk_box_pack_start (GTK_BOX (hbox3), t_pbox, TRUE, TRUE, 5);
-  prefs_string(_("Foreground color"), "", t_pbox, pd, string_color);
-  prefs_string(_("Background color"), "", t_pbox, pd, string_color);
-  radio = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
-  gtk_box_pack_start(GTK_BOX(t_pbox),radio, TRUE, TRUE, 0);
-  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force non-bold weight"));
-  gtk_box_pack_start(GTK_BOX(t_pbox),radio2, TRUE, TRUE, 0);
-  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force bold weight"));
-  gtk_box_pack_start(GTK_BOX(t_pbox),radio2, TRUE, TRUE, 0);
-  radio = gtk_radio_button_new_with_label(NULL, _("don't change style"));
-  gtk_box_pack_start(GTK_BOX(t_pbox),radio, TRUE, TRUE, 0);
-  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force non-italic style"));
-  gtk_box_pack_start(GTK_BOX(t_pbox),radio2, TRUE, TRUE, 0);
-  radio2 = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(radio), _("force italic style"));
-  gtk_box_pack_start(GTK_BOX(t_pbox),radio2, TRUE, TRUE, 0);
+  pd->hld.fg_color = prefs_string(_("Foreground color"), "", t_pbox, pd, string_color);
+  pd->hld.bg_color = prefs_string(_("Background color"), "", t_pbox, pd, string_color);
+  pd->hld.bold_radio[0] = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
+  gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.bold_radio[0], TRUE, TRUE, 0);
+  pd->hld.bold_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.bold_radio[0]), _("force non-bold weight"));
+  gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.bold_radio[1], TRUE, TRUE, 0);
+  pd->hld.bold_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.bold_radio[0]), _("force bold weight"));
+  gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.bold_radio[2], TRUE, TRUE, 0);
+  pd->hld.italic_radio[0] = gtk_radio_button_new_with_label(NULL, _("don't change style"));
+  gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[0], TRUE, TRUE, 0);
+  pd->hld.italic_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.italic_radio[0]), _("force non-italic style"));
+  gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[1], TRUE, TRUE, 0);
+  pd->hld.italic_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.italic_radio[0]), _("force italic style"));
+  gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[2], TRUE, TRUE, 0);
 
   g_signal_connect(G_OBJECT(pd->hld.ftype_combo),"changed",G_CALLBACK(hlg_ftype_changed),pd);
   g_signal_connect(G_OBJECT(pd->hld.blk_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
   g_signal_connect(G_OBJECT(pd->hld.tk_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
   g_signal_connect(G_OBJECT(pd->hld.tag_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
-  
+  g_signal_connect(G_OBJECT(pd->hld.tree),"cursor-changed",G_CALLBACK(hlg_cursor_changed),pd);
+  g_signal_connect(G_OBJECT(pd->hld.fg_color),"changed",G_CALLBACK(hlg_entry_changed),pd);
+  g_signal_connect(G_OBJECT(pd->hld.bg_color),"changed",G_CALLBACK(hlg_entry_changed),pd);
+  g_signal_connect(G_OBJECT(pd->hld.bold_radio[0]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
+  g_signal_connect(G_OBJECT(pd->hld.bold_radio[1]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
+  g_signal_connect(G_OBJECT(pd->hld.bold_radio[2]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
+  g_signal_connect(G_OBJECT(pd->hld.italic_radio[0]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
+  g_signal_connect(G_OBJECT(pd->hld.italic_radio[1]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
+  g_signal_connect(G_OBJECT(pd->hld.italic_radio[2]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
+  pd->hld.filetype_change = FALSE;
 }
 #endif
 
+#ifndef USE_SCANNER
 static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but, *vbox3;
 	pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
@@ -1655,6 +1829,7 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->hpd.radio[8] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[6]), _("force italic style"));
 	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[8], TRUE, TRUE, 0);
 }
+#endif
 /*
 static gchar **browser_create_strarr(Tprefdialog *pd) {
 	return generic_create_strarr(2, pd->bd.entry, TRUE);
@@ -2218,7 +2393,9 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ffd.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
 
+#ifndef USE_SCANNER
 	g_signal_handlers_destroy(G_OBJECT(pd->hpd.popmenu));
+#endif	
 /*	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->bd.combo)->list));*/
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->bd.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
@@ -2307,7 +2484,9 @@ static void preferences_apply(Tprefdialog *pd) {
 
 	/*filetype_apply_changes(pd);*/
 	/*filefilter_apply_changes(pd);*/
+#ifndef USE_SCANNER	
 	highlightpattern_apply_changes(pd);
+#endif	
 	/*browsers_apply_changes(pd);*/
 	/*externals_apply_changes(pd);*/
 	/*outputbox_apply_changes(pd);*/
@@ -2710,6 +2889,7 @@ static void preferences_dialog() {
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Syntax highlighting"), 158,TRUE));
 */
 
+#ifndef USE_SCANNER
 	frame = gtk_frame_new(_("Patterns"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 5);
@@ -2720,6 +2900,8 @@ static void preferences_dialog() {
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("External commands"), WIDGETCOL,vbox1,-1);	
+#endif
+	
 /*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External commands"), 151,TRUE));
 */

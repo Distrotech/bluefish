@@ -24,13 +24,13 @@
 #ifdef USE_SCANNER
 
 #include "bf-textview.h"
-void hl_slot(BfTextView *view,BfLangToken *tokenDef,GtkTextIter *startIter,GtkTextIter *endIter);
-void hl_tag_end (BfTextView * self, gchar * tagName, GtkTextIter * b_startIter,
-			  GtkTextIter * b_endIter, GtkTextIter * e_startIter, GtkTextIter * e_endIter);
-void hl_tag_attr (BfTextView * self, gchar * attrName, gchar * attrValue,
-			   GtkTextIter * n_startIter, GtkTextIter * n_endIter,
-			   GtkTextIter * v_startIter, GtkTextIter * v_endIter);
+void hl_token_slot(BfTextView *view,BfLangToken *tokenDef,GtkTextIter *startIter,GtkTextIter *endIter);
+void hl_block_slot(BfTextView * view, BfLangBlock * blockDef, GtkTextIter * b_startIter,
+								   	 GtkTextIter * b_endIter, GtkTextIter * e_startIter,
+			    						 GtkTextIter * e_endIter, GtkTextMark * startMark, GtkTextMark * endMark);
 void filetype_highlighting_rebuild(gboolean gui_errors);			   
+void hl_init(void);
+GtkTextTagTable *highlight_return_tagtable();
 #else
 void filetype_highlighting_rebuild(gboolean gui_errors);
 void hl_init(void);
