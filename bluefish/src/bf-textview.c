@@ -2374,7 +2374,7 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 	 }
 	 else if (xmlStrcmp (cur->name, "token-group") == 0) {	/* tokens */
 	    tmps3 = xmlGetProp (cur, "id");
-	    g_hash_table_replace(cfg->groups,g_strdup(tmps3),"t");
+	    g_hash_table_insert(cfg->groups,g_strdup(tmps3),"t");
 	    cur2 = cur->xmlChildrenNode;
 	    while (cur2 != NULL) {
 	       if (xmlStrcmp (cur2->name, "token") == 0) {
