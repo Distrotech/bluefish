@@ -434,6 +434,8 @@ void gui_set_document_widgets(Tdocument *doc) {
 	GtkItemFactory *tmp1 = gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar);
 #ifndef USE_SCANNER	
 	setup_toggle_item(tmp1,("/Document/Highlight Syntax"), (doc->highlightstate && doc->hl->highlightlist != NULL));
+#else
+	setup_toggle_item(tmp1,("/Document/Highlight Syntax"), doc->highlightstate);	
 #endif	
 	/*gtk_widget_set_sensitive(gtk_item_factory_get_widget(tmp1,_("/Document/Highlight Syntax")), (doc->hl->highlightlist != NULL));*/
 	gui_set_undo_redo_widgets(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));

@@ -1343,27 +1343,32 @@ typedef struct {
 static void bf_ins_token(gpointer key,gpointer value,gpointer udata) {
 	Thf *d = (Thf*)udata;
 	BfLangToken *t = (BfLangToken*)value;
-	if ( d->grpcrit == NULL )
+	if ( d->grpcrit == NULL && t->group==NULL)
+	{
 		*(d->list) = g_list_append(*(d->list),t->name);
+	}	
 	else
-		if ( strcmp(t->group,d->grpcrit) == 0 )	
+		if ( d->grpcrit!=NULL && t->group!=NULL && strcmp(t->group,d->grpcrit) == 0 )	
+		{
 			*(d->list) = g_list_append(*(d->list),t->name);
+		}	
 }
 
 static void bf_ins_block(gpointer key,gpointer value,gpointer udata) {
 	Thf *d = (Thf*)udata;
 	BfLangBlock *t = (BfLangBlock*)value;
-	if ( d->grpcrit == NULL )
+	if ( d->grpcrit == NULL  && t->group==NULL) {
 		*(d->list) = g_list_append(*(d->list),t->id);
+	}	
 	else
-		if ( strcmp(t->group,d->grpcrit) == 0 )	
+		if ( d->grpcrit!=NULL && t->group!=NULL && strcmp(t->group,d->grpcrit) == 0 )	 {
 			*(d->list) = g_list_append(*(d->list),t->id);
+		}	
 }
 
 static void  hlg_toggled  (GtkToggleButton *togglebutton, gpointer user_data) {
 	Tprefdialog *pd = (Tprefdialog *)user_data;
 	BfLangConfig *cfg = bf_lang_mgr_get_config(main_v->lang_mgr,gtk_combo_box_get_active_text(GTK_COMBO_BOX(pd->hld.ftype_combo)));
-	GtkTreeIter it;
 
 	if ( !cfg ) return;
 	if ( !gtk_toggle_button_get_active(togglebutton)) return;
@@ -1447,6 +1452,32 @@ static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
 		}
 		lst = g_list_next(lst);
 	}
+	lst3 = NULL;
+	hf->list = &lst3;
+	hf->grpcrit = NULL;
+	g_hash_table_foreach(cfg->blocks,bf_ins_block,hf);
+	lst2 = g_list_first(lst3);
+	while (lst2) {
+				gtk_tree_store_append(pd->hld.blk_store, &iter2, NULL);
+				gtk_tree_store_set(pd->hld.blk_store, &iter2, 0,1,1,lst2->data,
+					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"b",lst2->data), -1);			
+				lst2 = g_list_next(lst2);
+	}		
+	g_list_free(lst3);		
+	lst3 = NULL;
+	hf->list = &lst3;
+	hf->grpcrit = NULL;
+	g_hash_table_foreach(cfg->tokens,bf_ins_token,hf);
+	lst2 = g_list_first(lst3);
+	while (lst2) {
+				gtk_tree_store_append(pd->hld.tk_store, &iter2, NULL);
+				gtk_tree_store_set(pd->hld.tk_store, &iter2, 0,2,1,lst2->data,
+					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"t",lst2->data), -1);			
+				lst2 = g_list_next(lst2);
+	}		
+	g_list_free(lst3);		
+
+	
 	g_free(hf);
 	if ( !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.blk_radio)) ) 
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.blk_radio),TRUE);	
@@ -2417,7 +2448,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.view_symbols, pd->prefs[view_symbols], TRUE);
 	integer_apply(&main_v->props.view_mbhl, pd->prefs[view_mbhl], TRUE);
 	integer_apply(&main_v->props.autoscan, pd->prefs[autoscan], TRUE);
-	integer_apply(&main_v->props.autoscan_lines, pd->prefs[autoscan_lines], TRUE);
+	integer_apply(&main_v->props.autoscan_lines, pd->prefs[autoscan_lines], FALSE);
 	string_apply(&main_v->props.editor_fg, pd->prefs[editor_fg]);
 	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);	
 #endif
@@ -2515,10 +2546,8 @@ static void preferences_apply(Tprefdialog *pd) {
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
 	filetype_highlighting_rebuild(TRUE);
-	
 	/*filebrowser_filters_rebuild();*/
 	fb2_filters_rebuild();
-	
 	all_documents_apply_settings();
 	{
 		GList *tmplist = g_list_first(main_v->bfwinlist);
@@ -2881,7 +2910,7 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_filefilter_gui(pd, vbox2);
-
+#ifndef USE_SCANNER
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);	
@@ -2889,18 +2918,19 @@ static void preferences_dialog() {
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Syntax highlighting"), 158,TRUE));
 */
 
-#ifndef USE_SCANNER
+
 	frame = gtk_frame_new(_("Patterns"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 	create_highlightpattern_gui(pd, vbox2);
+#endif
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("External commands"), WIDGETCOL,vbox1,-1);	
-#endif
+
 	
 /*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External commands"), 151,TRUE));
