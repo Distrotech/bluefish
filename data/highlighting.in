@@ -124,13 +124,13 @@ perl:RegExp 03:0:~\\s*(s|tr|y)\\s*".*?(?<!\\\\)".*?(?<!\\\\)"\\s*[gcimosxde]*::2
 perl:RegExp 04:0:~\\s*(s|tr|y)\\s*'.*?(?<!\\\\)'.*?(?<!\\\\)'\\s*[gcimosxde]*::2::#666666::0:1:
 perl:RegExp 05:0:~\\s*/:(?<!\\\\)/\\s*[gcimosxde]*:1::#666666::0:1:
 perl:RegExp 06:0:~\\s*":(?<!\\\\)"\\s*[gcimosxde]*:1::#666666::0:1:
-perl:RegExp 06:0:~\\s*m\\s*":(?<!\\\\)"\\s*[gcimosxde]*:1::#666666::0:1:
-perl:RegExp 06:0:~\\s*m\\s*':(?<!\\\\)'\\s*[gcimosxde]*:1::#666666::0:1:
-perl:RegExp 07:0:~\\s*m\\s*/:(?<!\\\\)/\\s*[gcimosxde]*::1::#666666::0:1:
-perl:RegExp 08:0:~\\s*m\\s*\\|:(?<!\\\\)\\|\\s*[gcimosxde]*:1::#666666::0:1:
-perl:RegExp 09:0:~\\s*m\\s*\\[:(?<!\\\\)\\]\\s*[gcimosxde]*:1::#666666::0:1:
-perl:RegExp 10:0:~\\s*m\\s*\\{:(?<!\\\\)\\}\\s*[gcimosxde]*:1::#666666::0:1:
-perl:RegExp 11:0:~\\s*m\\s*\\(:(?<!\\\\)\\)\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 07:0:~\\s*m\\s*":(?<!\\\\)"\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 08:0:~\\s*m\\s*':(?<!\\\\)'\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 09:0:~\\s*m\\s*/:(?<!\\\\)/\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 10:0:~\\s*m\\s*\\|:(?<!\\\\)\\|\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 11:0:~\\s*m\\s*\\[:(?<!\\\\)\\]\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 12:0:~\\s*m\\s*\\{:(?<!\\\\)\\}\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 13:0:~\\s*m\\s*\\(:(?<!\\\\)\\)\\s*[gcimosxde]*:1::#666666::0:1:
 perl:String (single quoted) 1:0:\\bq\\s*~:(?<!\\\\)~:1::#009900::0:0:
 perl:String (single quoted) 2:0:\\bq\\s*\\(:(?<!\\\\)\\):1::#009900::0:0:
 perl:String (single quoted) 3:0:\\bq\\s*\\[:(?<!\\\\)\\]:1::#009900::0:0:
@@ -157,7 +157,7 @@ perl:File Tests:0:\\b-[rwxRWXoOezsfdlSpbcugktTBMAC]\\b::2::#990000::2:0:
 perl:Variables (Scalar):1:\\$(\\\\(\\\\)?|\\^[a-z]?|[^0-9a-z_]|[a-z0-9_]+)::2::#000099::0:0:
 perl:Variables (Array):1:\\@\\$?[a-z0-9_]([a-z0-9_]+)?::2::#0000ff::0:0:
 perl:Variables (Hash):1:\\%\\$?[a-z]([a-z0-9_]+)?::2::#0000cc::0:0:
-perl:File Functions:1:\\b(bind|binmode|close(?:dir)?|connect|eof|fcntl|fileno|flock|getc|getpeername|getsockname|getsockopt|ioctl|listen|open(?:dir)?|recv|read(?:dir)?|rewinddir|seek(?:dir)?|send|setsockopt|shutdown|socket|sysopen|sysread|sysseek|syswrite|tell(?:dir)?|write|accept|pipe|socketpair|print|printf|select)\\b::2::#900000::2:0:
+perl:File Functions:1:\\b(bind|binmode|close(?\:dir)?|connect|eof|fcntl|fileno|flock|getc|getpeername|getsockname|getsockopt|ioctl|listen|open(?\:dir)?|recv|read(?\:dir)?|rewinddir|seek(?\:dir)?|send|setsockopt|shutdown|socket|sysopen|sysread|sysseek|syswrite|tell(?\:dir)?|write|accept|pipe|socketpair|print|printf|select)\\b::2::#900000::2:0:
 php:HTML:1:<(/?[a-z][a-z0-9]*):>:1::#0000ee::0:0:
 php:<html> Tags:1:1::3:^HTML$:#000066::2:0:
 php:HTML Attributes:1:((?\:xml\:)?[a-z][a-z-]*=)[ \\n\\t]*((?\:"[^"]+")|(?\:'[^']+'))::2:^HTML$:#660099::0:0:
