@@ -20,7 +20,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
 [
-<!ENTITY bookinfo    SYSTEM "bookinfo.xml">
+<!ENTITY bookinfo   SYSTEM "bookinfo.xml">
 <!ENTITY preface    SYSTEM "preface.xml">
 <!ENTITY getting_bf SYSTEM "getting_bluefish.xml">
 <!ENTITY install_bf SYSTEM "installing_bluefish.xml">
@@ -34,9 +34,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <!ENTITY appd       SYSTEM "appd.xml">
 ]>
 
-  <book id="bluefish">
+<book id="bluefish">
   <title>Bluefish: The Definitive Guide</title>
-   <subtitle>User's, Developer's, and Documentarian's Guide for Bluefish version 1.0</subtitle>
+  <subtitle>User's, Developer's, and Documentarian's Guide for Bluefish version 1.0</subtitle>
 
   <!-- External entity refs -->
 
@@ -53,4 +53,4 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
   &appc;
   &appd;
 
-  </book>
+</book>
