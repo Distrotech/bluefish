@@ -157,6 +157,12 @@ static void doc_move_cursor_cb(GtkTextView *widget,GtkMovementStep step,
 		gtk_text_buffer_apply_tag_by_name(doc->buffer,"matching_block",&block->e_start,&block->e_end);
 	}	
 }
+
+void document_register_tag(gpointer key,gpointer value,gpointer data) {
+   bf_textview_register_hltag(BF_TEXTVIEW(data),GTK_TEXT_TAG(value));
+}
+
+
 #endif
 
 /**
@@ -516,6 +522,10 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 		doc->autoclosingtag = (ft->autoclosingtag > 0);
 #ifdef USE_SCANNER
 		bf_textview_set_language_ptr(BF_TEXTVIEW(doc->view),bf_lang_mgr_get_config(main_v->lang_mgr,ft->type));
+		g_hash_table_foreach(doc->hl->hl_block,document_register_tag,doc->view);
+		g_hash_table_foreach(doc->hl->hl_token,document_register_tag,doc->view);
+		g_hash_table_foreach(doc->hl->hl_tag,document_register_tag,doc->view);
+		g_hash_table_foreach(doc->hl->hl_group,document_register_tag,doc->view);		
 #endif		
 		gui_set_document_widgets(doc);
 		doc_set_tooltip(doc);
@@ -2913,6 +2923,9 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg); 
 	g_signal_connect(G_OBJECT(newdoc->view),"token",G_CALLBACK(hl_token_slot),NULL);
 	g_signal_connect(G_OBJECT(newdoc->view),"block_end",G_CALLBACK(hl_block_slot),NULL);
+	g_signal_connect(G_OBJECT(newdoc->view),"tag_begin",G_CALLBACK(hl_tag_begin_slot),NULL);
+	g_signal_connect(G_OBJECT(newdoc->view),"tag_end",G_CALLBACK(hl_tag_end_slot),NULL);
+	g_signal_connect(G_OBJECT(newdoc->view),"tag_attr",G_CALLBACK(hl_tag_attr_slot),NULL);
 	g_signal_connect_after(G_OBJECT(newdoc->view),"realize",G_CALLBACK(doc_realize_cb),newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view),"move-cursor",G_CALLBACK(doc_move_cursor_cb),newdoc);
 #else	

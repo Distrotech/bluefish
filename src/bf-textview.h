@@ -208,6 +208,7 @@ typedef struct  {
    TBfScanner scanner;
    GtkTextTag *folded_tag, *block_tag, *fold_header_tag;
    GtkWidget *fold_menu;
+   GList *hltags;
 } BfTextView;
 
 /*
@@ -302,6 +303,8 @@ TBfBlock *bf_textview_get_nearest_block (BfTextView * self,GtkTextIter *iter,
 void bf_textview_set_bg_color (BfTextView * self, gchar * color);
 void bf_textview_set_fg_color (BfTextView * self, gchar * color);
 
-
+void bf_textview_register_hltag(BfTextView *self,GtkTextTag *tag);
+void bf_textview_unregister_hltag(BfTextView *self,GtkTextTag *tag);
+void bf_textview_clear_hltags(BfTextView *self);
 
 #endif
