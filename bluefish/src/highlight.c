@@ -168,7 +168,6 @@ static Thighlight highlight;
 
 
 void hl_token_slot(BfTextView *view,BfLangToken *tokenDef,GtkTextIter *startIter,GtkTextIter *endIter) {
-	GdkColor col;
 	GtkTextTag *tag=NULL;
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
 	GList *lst = g_list_first(main_v->bfwinlist);
@@ -194,7 +193,6 @@ void hl_token_slot(BfTextView *view,BfLangToken *tokenDef,GtkTextIter *startIter
 void hl_block_slot(BfTextView * view, BfLangBlock * blockDef, GtkTextIter * b_startIter,
 								   	 GtkTextIter * b_endIter, GtkTextIter * e_startIter,
 			    						 GtkTextIter * e_endIter, GtkTextMark * startMark, GtkTextMark * endMark) {
-	GdkColor col;
 	GtkTextTag *tag=NULL;
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
 	GList *lst = g_list_first(main_v->bfwinlist);
@@ -216,6 +214,75 @@ void hl_block_slot(BfTextView * view, BfLangBlock * blockDef, GtkTextIter * b_st
 	if ( !tag ) return;
 	gtk_text_buffer_apply_tag(buffer,tag,b_startIter,e_endIter);		
 }
+
+void hl_tag_begin_slot (BfTextView * view, gchar * tagName, GtkTextIter * startIter, GtkTextIter * endIter) {
+	GtkTextTag *tag=NULL;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+	GList *lst = g_list_first(main_v->bfwinlist);
+	Tdocument *doc = NULL;
+	
+	/* first find current document */
+	while ( lst ) {
+		Tbfwin *bf = (Tbfwin*)lst->data;
+		if ( bf->current_document->view == GTK_WIDGET(view) )  {
+			doc = bf->current_document;
+			break;
+		}	
+		lst = g_list_next(lst);
+	}
+	if ( doc == NULL ) return;
+	tag = g_hash_table_lookup(doc->hl->hl_tag,"tag_begin");
+	if ( !tag ) return;
+	gtk_text_buffer_apply_tag(buffer,tag,startIter,endIter);		
+}
+
+void hl_tag_end_slot (BfTextView * view, gchar * tagName, GtkTextIter * b_startIter,
+ 		  GtkTextIter * b_endIter, GtkTextIter * e_startIter, GtkTextIter * e_endIter) {
+	GtkTextTag *tag=NULL;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+	GList *lst = g_list_first(main_v->bfwinlist);
+	Tdocument *doc = NULL;
+	
+	/* first find current document */
+	while ( lst ) {
+		Tbfwin *bf = (Tbfwin*)lst->data;
+		if ( bf->current_document->view == GTK_WIDGET(view) )  {
+			doc = bf->current_document;
+			break;
+		}	
+		lst = g_list_next(lst);
+	}
+	if ( doc == NULL ) return;
+	tag = g_hash_table_lookup(doc->hl->hl_tag,"tag_end");
+	if ( !tag ) return;
+	gtk_text_buffer_apply_tag(buffer,tag,e_startIter,e_endIter);		
+}
+
+void hl_tag_attr_slot (BfTextView * view, gchar * attrName, gchar * attrValue,
+			   GtkTextIter * n_startIter, GtkTextIter * n_endIter,
+			   GtkTextIter * v_startIter, GtkTextIter * v_endIter) {
+	GtkTextTag *tag=NULL;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+	GList *lst = g_list_first(main_v->bfwinlist);
+	Tdocument *doc = NULL;
+	
+	/* first find current document */
+	while ( lst ) {
+		Tbfwin *bf = (Tbfwin*)lst->data;
+		if ( bf->current_document->view == GTK_WIDGET(view) )  {
+			doc = bf->current_document;
+			break;
+		}	
+		lst = g_list_next(lst);
+	}
+	if ( doc == NULL ) return;
+	tag = g_hash_table_lookup(doc->hl->hl_tag,"attr_name");
+	if ( tag ) 
+		gtk_text_buffer_apply_tag(buffer,tag,n_startIter,n_endIter);					   
+	tag = g_hash_table_lookup(doc->hl->hl_tag,"attr_val");
+	if ( tag ) 
+		gtk_text_buffer_apply_tag(buffer,tag,v_startIter,v_endIter);					   		
+}			   
 
 
 void create_style(Tfiletype *filetype,gchar *tp,gchar *name,gchar *fgcolor,gchar *bgcolor,gint weight,gint style) {
@@ -247,8 +314,13 @@ void create_style(Tfiletype *filetype,gchar *tp,gchar *name,gchar *fgcolor,gchar
 		else if ( strcmp(tp,"t")==0) {
 			g_hash_table_insert(filetype->hl_token,name,tag);
 		}	
-		else if ( strcmp(tp,"m")==0)
+		else if ( strcmp(tp,"m")==0) {
 			g_hash_table_insert(filetype->hl_tag,name,tag);
+			/*if ( strcmp(name,"tag_begin") == 0 || strcmp(name,"tag_end")==0 )
+				gtk_text_tag_set_priority(tag,1);
+			else
+				gtk_text_tag_set_priority(tag,2);*/
+		}	
 		else if ( strcmp(tp,"g")==0)
 			g_hash_table_insert(filetype->hl_group,name,tag);
 			
@@ -260,6 +332,11 @@ gboolean filetype_clear_tags(gpointer key,gpointer value,gpointer data) {
    gtk_text_tag_table_remove(highlight.tagtable,GTK_TEXT_TAG(value));
 	return TRUE;
 }
+
+void filetype_register_tag(gpointer key,gpointer value,gpointer data) {
+   bf_textview_register_hltag(BF_TEXTVIEW(data),GTK_TEXT_TAG(value));
+}
+
 
 /*
  * This is modifed function for scanner environment.
@@ -281,8 +358,9 @@ void filetype_highlighting_rebuild(gboolean gui_errors) {
 			if (thisdoc->hl) {
 				DEBUG_MSG("doc %p has type %p named %s\n", thisdoc, thisdoc->hl, thisdoc->hl->type);
 				DEBUG_MSG("disconnected document %p from filetype %s\n", thisdoc, thisdoc->hl->type);
-				thisdoc->hl = (gpointer)g_strdup(thisdoc->hl->type);
+				thisdoc->hl = (gpointer)g_strdup(thisdoc->hl->type);				
 			}
+			bf_textview_clear_hltags(BF_TEXTVIEW(thisdoc->view));
 			tmplist = g_list_next(tmplist);
 		}
 	}

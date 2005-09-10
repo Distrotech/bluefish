@@ -28,6 +28,13 @@ void hl_token_slot(BfTextView *view,BfLangToken *tokenDef,GtkTextIter *startIter
 void hl_block_slot(BfTextView * view, BfLangBlock * blockDef, GtkTextIter * b_startIter,
 								   	 GtkTextIter * b_endIter, GtkTextIter * e_startIter,
 			    						 GtkTextIter * e_endIter, GtkTextMark * startMark, GtkTextMark * endMark);
+void hl_tag_begin_slot (BfTextView * view, gchar * tagName, GtkTextIter * startIter, GtkTextIter * endIter); 
+void hl_tag_end_slot (BfTextView * view, gchar * tagName, GtkTextIter * b_startIter,
+ 		  GtkTextIter * b_endIter, GtkTextIter * e_startIter, GtkTextIter * e_endIter); 
+void hl_tag_attr_slot (BfTextView * view, gchar * attrName, gchar * attrValue,
+			   GtkTextIter * n_startIter, GtkTextIter * n_endIter,
+			   GtkTextIter * v_startIter, GtkTextIter * v_endIter);
+			    						 
 void filetype_highlighting_rebuild(gboolean gui_errors);			   
 void hl_init(void);
 GtkTextTagTable *highlight_return_tagtable();

@@ -268,6 +268,7 @@ static void bf_textview_init (BfTextView * o)
 	gtk_menu_append(GTK_MENU(o->fold_menu),item);
 	gtk_widget_show_all(o->fold_menu);
 	g_signal_connect(GTK_OBJECT(item), "activate", G_CALLBACK(bftv_collapse_all),o);   
+	o->hltags = NULL;
 }
 
 
@@ -932,7 +933,8 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
    gboolean magic = FALSE, st = FALSE;
    gint currstate = 0;
    TBfTag *tmp_tag=NULL;
-
+   GList *lst=NULL;
+   
    g_return_if_fail (self != NULL);
    g_return_if_fail (BF_IS_TEXTVIEW (self));
 
@@ -951,7 +953,11 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
       g_queue_pop_head (&(self->scanner.tag_stack));
       
 	bftv_delete_blocks_from_area(self,start,end);
-
+	lst = g_list_first(self->hltags);
+	while ( lst ) {
+		gtk_text_buffer_remove_tag(buf,GTK_TEXT_TAG(lst->data),start,end);
+		lst = g_list_next(lst);
+	}
 
    while (gtk_text_iter_compare (&ita, end) <= 0) {
 
@@ -3638,6 +3644,20 @@ TBfBlock *bf_textview_get_nearest_block (BfTextView * self,GtkTextIter *iter, gb
 }
 
 
+void bf_textview_register_hltag(BfTextView *self,GtkTextTag *tag) {
+	self->hltags = g_list_append(self->hltags,tag);
+}
+
+void bf_textview_unregister_hltag(BfTextView *self,GtkTextTag *tag) {
+	self->hltags = g_list_remove_all(self->hltags,tag);
+}
+
+void bf_textview_clear_hltags(BfTextView *self) {
+	g_list_free(self->hltags);
+	self->hltags = NULL;
+}
+
+
 /*
 *	---------------------------------------------------------------------------------------------------------------
 *										LANG MANAGER
@@ -3712,5 +3732,6 @@ BfLangConfig *bf_lang_mgr_get_config(BfLangManager *mgr,gchar *filetype) {
 	if ( !filetype ) return NULL;
 	return g_hash_table_lookup(mgr->languages,filetype);
 }
+
 
 
