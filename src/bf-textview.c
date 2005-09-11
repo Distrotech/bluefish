@@ -1524,7 +1524,7 @@ static gboolean bftv_xml_bool (xmlChar * text)
 {
    if (text == NULL)
       return FALSE;
-   if (xmlStrcmp (text, "true") == 0 || xmlStrcmp (text, "TRUE") == 0 || xmlStrcmp (text, "1") == 0) {
+   if (xmlStrcmp (text, (const xmlChar *) "true") == 0 || xmlStrcmp (text, (const xmlChar *) "TRUE") == 0 || xmlStrcmp (text, (const xmlChar *) "1") == 0) {
       return TRUE;
    }
    return FALSE;
@@ -2252,11 +2252,11 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
    	options_set = TRUE;
    
    
-   if (xmlStrcmp (cur->name, "bflang") == 0) {
+   if (xmlStrcmp (cur->name, (const xmlChar *) "bflang") == 0) {
    if ( !reuse || rcfg==NULL) {
       cfg = g_new0 (BfLangConfig, 1);
-      cfg->name = xmlGetProp (cur, "name");
-      cfg->description = xmlGetProp (cur, "description");
+      cfg->name = xmlGetProp (cur, (const xmlChar *) "name");
+      cfg->description = xmlGetProp (cur, (const xmlChar *) "description");
       cfg->blocks = g_hash_table_new (g_str_hash, g_str_equal);
       cfg->blocks_id = g_hash_table_new (g_int_hash, g_int_equal);
       cfg->tokens = g_hash_table_new (g_int_hash, g_int_equal);
@@ -2286,28 +2286,28 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
       
     cur = cur->xmlChildrenNode;
     while (cur != NULL) {
-	 if (xmlStrcmp (cur->name, "options") == 0) {
+	 if (xmlStrcmp (cur->name, (const xmlChar *) "options") == 0) {
 	 	 
 	    cur2 = cur->xmlChildrenNode;
 	    
 	    while (cur2 != NULL) {
-	       if (xmlStrcmp (cur2->name, "option") == 0 && !options_set) {
-				  tmps = xmlGetProp (cur2, "name");
+	       if (xmlStrcmp (cur2->name, (const xmlChar *) "option") == 0 && !options_set) {
+				  tmps = xmlGetProp (cur2, (const xmlChar *) "name");
 				  tmps2 = xmlNodeListGetString (doc, cur2->xmlChildrenNode, 1);
 				  if (tmps) {
-				     if (xmlStrcmp (tmps, "case-sensitive") == 0 && !options_set)
+				     if (xmlStrcmp (tmps, (const xmlChar *) "case-sensitive") == 0 && !options_set)
 						cfg->case_sensitive = bftv_xml_bool (tmps2);
-				     else if (xmlStrcmp (tmps, "scan-markup-tags") == 0 && !options_set)
+				     else if (xmlStrcmp (tmps, (const xmlChar *) "scan-markup-tags") == 0 && !options_set)
 						cfg->scan_tags = bftv_xml_bool (tmps2);
-				     else if (xmlStrcmp (tmps, "scan-blocks") == 0 && !options_set)
+				     else if (xmlStrcmp (tmps, (const xmlChar *) "scan-blocks") == 0 && !options_set)
 						cfg->scan_blocks = bftv_xml_bool (tmps2);
-				     else if (xmlStrcmp (tmps, "restricted-tags-only") == 0 && !options_set)
+				     else if (xmlStrcmp (tmps, (const xmlChar *) "restricted-tags-only") == 0 && !options_set)
 						cfg->restricted_tags_only = bftv_xml_bool (tmps2);						
-				     else if (xmlStrcmp (tmps, "indent-blocks") == 0 && !options_set)
+				     else if (xmlStrcmp (tmps, (const xmlChar *) "indent-blocks") == 0 && !options_set)
 						cfg->indent_blocks = bftv_xml_bool (tmps2);												
-				     else if (xmlStrcmp (tmps, "extensions") == 0 && !options_set)
+				     else if (xmlStrcmp (tmps, (const xmlChar *) "extensions") == 0 && !options_set)
 						cfg->extensions = g_strdup (tmps2);
-				     else if (xmlStrcmp (tmps, "auto-scan-triggers") == 0 && !options_set) {
+				     else if (xmlStrcmp (tmps, (const xmlChar *) "auto-scan-triggers") == 0 && !options_set) {
 							gchar *p = tmps2;
 							i = 0;
 							while (i < g_utf8_strlen (tmps2, -1)) {
@@ -2316,7 +2316,7 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 							   p = g_utf8_next_char (p);
 							}
 					  }
-				     else if (xmlStrcmp (tmps, "escape-characters") == 0 && !options_set) {
+				     else if (xmlStrcmp (tmps, (const xmlChar *) "escape-characters") == 0 && !options_set) {
 							gchar *p = tmps2;
 							i = 0;
 							while (i < g_utf8_strlen (tmps2, -1)) {
@@ -2334,34 +2334,34 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 	  }			/* end of cur2 */
 	   options_set = TRUE;		
 	 }
-	 else if (xmlStrcmp (cur->name, "block-group") == 0) {	/* blocks */
-	    tmps3 = xmlGetProp (cur, "id");
+	 else if (xmlStrcmp (cur->name, (const xmlChar *) "block-group") == 0) {	/* blocks */
+	    tmps3 = xmlGetProp (cur, (const xmlChar *) "id");
 	    g_hash_table_replace(cfg->groups,g_strdup(tmps3),"b");
 	    cur2 = cur->xmlChildrenNode;
 	    while (cur2 != NULL) {
-	       if (xmlStrcmp (cur2->name, "block") == 0) {
-				  tmps = xmlGetProp (cur2, "id");
+	       if (xmlStrcmp (cur2->name, (const xmlChar *) "block") == 0) {
+				  tmps = xmlGetProp (cur2, (const xmlChar *) "id");
 				  if (tmps) {
 				     ptr = g_hash_table_lookup (cfg->blocks, tmps);
 				     if (!ptr) {
 							BfLangBlock *b = g_new0 (BfLangBlock, 1);
 							b->id = tmps;
 							b->group = tmps3;
-							b->begin = xmlGetProp (cur2, "begin");
-							b->end = xmlGetProp (cur2, "end");
-							tmps2 = xmlGetProp (cur2, "scanned");
+							b->begin = xmlGetProp (cur2, (const xmlChar *) "begin");
+							b->end = xmlGetProp (cur2, (const xmlChar *) "end");
+							tmps2 = xmlGetProp (cur2, (const xmlChar *) "scanned");
 							b->scanned = bftv_xml_bool (tmps2);			
 							if (tmps2)  xmlFree (tmps2);
-							tmps2 = xmlGetProp (cur2, "markup");
+							tmps2 = xmlGetProp (cur2, (const xmlChar *) "markup");
 							b->markup = bftv_xml_bool (tmps2);
 							if (tmps2) xmlFree (tmps2);
-							tmps2 = xmlGetProp (cur2, "foldable");
+							tmps2 = xmlGetProp (cur2, (const xmlChar *) "foldable");
 							b->foldable = bftv_xml_bool (tmps2);
 							if (tmps2) xmlFree (tmps2);
-							tmps2 = xmlGetProp (cur2, "case");
+							tmps2 = xmlGetProp (cur2, (const xmlChar *) "case");
 							b->case_sensitive = bftv_xml_bool (tmps2);
 							if (tmps2)  xmlFree (tmps2);
-							tmps2 = xmlGetProp (cur2, "regexp");
+							tmps2 = xmlGetProp (cur2, (const xmlChar *) "regexp");
 							b->regexp = bftv_xml_bool (tmps2);
 							if (tmps2)  xmlFree (tmps2);
 							
@@ -2378,28 +2378,28 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 	       cur2 = cur2->next;
 	    }
 	 }
-	 else if (xmlStrcmp (cur->name, "token-group") == 0) {	/* tokens */
-	    tmps3 = xmlGetProp (cur, "id");
+	 else if (xmlStrcmp (cur->name, (const xmlChar *) "token-group") == 0) {	/* tokens */
+	    tmps3 = xmlGetProp (cur, (const xmlChar *) "id");
 	    g_hash_table_insert(cfg->groups,g_strdup(tmps3),"t");
 	    cur2 = cur->xmlChildrenNode;
 	    while (cur2 != NULL) {
-	       if (xmlStrcmp (cur2->name, "token") == 0) {
+	       if (xmlStrcmp (cur2->name, (const xmlChar *) "token") == 0) {
 					  tmps = xmlNodeListGetString (doc, cur2->xmlChildrenNode, 1);
 					  ptr = g_hash_table_lookup (cfg->tokens, tmps);
 					  if (!ptr) {
 					     BfLangToken *t = g_new0 (BfLangToken, 1);
 					     t->group = tmps3;
-					     tmps2 = xmlGetProp (cur2, "regexp");
+					     tmps2 = xmlGetProp (cur2, (const xmlChar *) "regexp");
 					     t->regexp = bftv_xml_bool (tmps2);
 					     if (tmps2)
 						xmlFree (tmps2);
-					     tmps2 = xmlGetProp (cur2, "name");
+					     tmps2 = xmlGetProp (cur2, (const xmlChar *) "name");
 					     if (tmps2)
 						t->name = tmps2;
 					     else
 						t->name = tmps;
 					     t->text = tmps;
-					     tmps2 = xmlGetProp (cur2, "context");
+					     tmps2 = xmlGetProp (cur2, (const xmlChar *) "context");
 					     if (tmps2) {
 						ptr = g_hash_table_lookup (cfg->blocks, tmps2);
 						if (!ptr)
@@ -2418,21 +2418,21 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 					     xmlFree (tmps);
 		  	  }
 	       }		/* token */
-	       else if (xmlStrcmp (cur2->name, "token-list") == 0) {
-					  tmps3 = xmlGetProp (cur2, "separator");
+	       else if (xmlStrcmp (cur2->name, (const xmlChar *) "token-list") == 0) {
+					  tmps3 = xmlGetProp (cur2, (const xmlChar *) "separator");
 					  if (tmps3) {
 					     tmps = xmlNodeListGetString (doc, cur2->xmlChildrenNode, 1);
 					     gchar **arr = g_strsplit (tmps, tmps3, -1);
 					     xmlFree (tmps3);
 					     if (arr) {
 						gint i = 0;
-						tmps3 = xmlGetProp (cur, "id");
+						tmps3 = xmlGetProp (cur, (const xmlChar *) "id");
 						while (arr[i] != NULL) {
 						   ptr = g_hash_table_lookup (cfg->tokens, arr[i]);
 						   if (!ptr) {
 						      BfLangToken *t = g_new0 (BfLangToken, 1);
 						      t->group = tmps3;
-						      tmps2 = xmlGetProp (cur2, "regexp");
+						      tmps2 = xmlGetProp (cur2, (const xmlChar *) "regexp");
 						      t->regexp = bftv_xml_bool (tmps2);
 						      if (tmps2)
 							 xmlFree (tmps2);
@@ -2443,7 +2443,7 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 							   t->name = tmps;*/
 						      t->text = g_strdup (arr[i]);
 						      t->name = t->text;
-						      tmps2 = xmlGetProp (cur2, "context");
+						      tmps2 = xmlGetProp (cur2, (const xmlChar *) "context");
 						      t->context = NULL;
 						      if (tmps2) {
 									 ptr = g_hash_table_lookup (cfg->blocks, tmps2);
@@ -2470,29 +2470,29 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 	       cur2 = cur2->next;
 	    }			/* while cur2 */
 	 }
-	 else if (xmlStrcmp (cur->name, "block") == 0) { /* block without a group */
-				  tmps = xmlGetProp (cur, "id");
+	 else if (xmlStrcmp (cur->name, (const xmlChar *) "block") == 0) { /* block without a group */
+				  tmps = xmlGetProp (cur, (const xmlChar *) "id");
 				  if (tmps) {
 				     ptr = g_hash_table_lookup (cfg->blocks, tmps);
 				     if (!ptr) {
 							BfLangBlock *b = g_new0 (BfLangBlock, 1);
 							b->id = tmps;
 							b->group = NULL;
-							b->begin = xmlGetProp (cur, "begin");
-							b->end = xmlGetProp (cur, "end");
-							tmps2 = xmlGetProp (cur, "scanned");
+							b->begin = xmlGetProp (cur, (const xmlChar *) "begin");
+							b->end = xmlGetProp (cur, (const xmlChar *) "end");
+							tmps2 = xmlGetProp (cur, (const xmlChar *) "scanned");
 							b->scanned = bftv_xml_bool (tmps2);			
 							if (tmps2)  xmlFree (tmps2);
-							tmps2 = xmlGetProp (cur, "markup");
+							tmps2 = xmlGetProp (cur, (const xmlChar *) "markup");
 							b->markup = bftv_xml_bool (tmps2);
 							if (tmps2) xmlFree (tmps2);
-							tmps2 = xmlGetProp (cur, "foldable");
+							tmps2 = xmlGetProp (cur, (const xmlChar *) "foldable");
 							b->foldable = bftv_xml_bool (tmps2);
 							if (tmps2) xmlFree (tmps2);
-							tmps2 = xmlGetProp (cur, "case");
+							tmps2 = xmlGetProp (cur, (const xmlChar *) "case");
 							b->case_sensitive = bftv_xml_bool (tmps2);
 							if (tmps2)  xmlFree (tmps2);
-							tmps2 = xmlGetProp (cur, "regexp");
+							tmps2 = xmlGetProp (cur, (const xmlChar *) "regexp");
 							b->regexp = bftv_xml_bool (tmps2);
 							if (tmps2)  xmlFree (tmps2);
 							
@@ -2506,23 +2506,23 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 			     }
 			  }
 	 } /* block without a group */
-	 else if (xmlStrcmp (cur->name, "token") == 0) {
+	 else if (xmlStrcmp (cur->name, (const xmlChar *) "token") == 0) {
 					  tmps = xmlNodeListGetString (doc, cur->xmlChildrenNode, 1);
 					  ptr = g_hash_table_lookup (cfg->tokens, tmps);
 					  if (!ptr) {
 					     BfLangToken *t = g_new0 (BfLangToken, 1);
 					     t->group = NULL;
-					     tmps2 = xmlGetProp (cur, "regexp");
+					     tmps2 = xmlGetProp (cur, (const xmlChar *) "regexp");
 					     t->regexp = bftv_xml_bool (tmps2);
 					     if (tmps2)
 						xmlFree (tmps2);
-					     tmps2 = xmlGetProp (cur, "name");
+					     tmps2 = xmlGetProp (cur, (const xmlChar *) "name");
 					     if (tmps2)
 						t->name = tmps2;
 					     else
 						t->name = tmps;
 					     t->text = tmps;
-					     tmps2 = xmlGetProp (cur, "context");
+					     tmps2 = xmlGetProp (cur, (const xmlChar *) "context");
 					     if (tmps2) {
 						ptr = g_hash_table_lookup (cfg->blocks, tmps2);
 						if (!ptr)
@@ -2541,8 +2541,8 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 					     xmlFree (tmps);
 		  	  }
 	  }		/* token  without a group */	
-      else if (xmlStrcmp (cur->name, "token-list") == 0) { /* token list without a group */
-					  tmps3 = xmlGetProp (cur, "separator");
+      else if (xmlStrcmp (cur->name, (const xmlChar *) "token-list") == 0) { /* token list without a group */
+					  tmps3 = xmlGetProp (cur, (const xmlChar *) "separator");
 					  if (tmps3) {
 					     tmps = xmlNodeListGetString (doc, cur->xmlChildrenNode, 1);
 					     gchar **arr = g_strsplit (tmps, tmps3, -1);
@@ -2554,7 +2554,7 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 						   if (!ptr) {
 						      BfLangToken *t = g_new0 (BfLangToken, 1);
 						      t->group = NULL;
-						      tmps2 = xmlGetProp (cur, "regexp");
+						      tmps2 = xmlGetProp (cur, (const xmlChar *) "regexp");
 						      t->regexp = bftv_xml_bool (tmps2);
 						      if (tmps2)
 							 xmlFree (tmps2);
@@ -2565,7 +2565,7 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 							   t->name = tmps;*/
 						      t->text = g_strdup (arr[i]);
 						      t->name = t->text;
-						      tmps2 = xmlGetProp (cur, "context");
+						      tmps2 = xmlGetProp (cur, (const xmlChar *) "context");
 						      t->context = NULL;
 						      if (tmps2) {
 									 ptr = g_hash_table_lookup (cfg->blocks, tmps2);
@@ -2589,18 +2589,18 @@ static BfLangConfig *bftv_load_config (gchar *filename, gboolean reuse, BfLangCo
 					     xmlFree (tmps);
 					  }
      }		/* token-list  without a group */	   
-  	 else if (xmlStrcmp (cur->name, "restricted-tags") == 0) {	/* restricted tags */
+  	 else if (xmlStrcmp (cur->name, (const xmlChar *) "restricted-tags") == 0) {	/* restricted tags */
 	    cur2 = cur->xmlChildrenNode;
 	    while (cur2 != NULL) {
-			if (xmlStrcmp (cur2->name, "tag") == 0) {	
-				tmps = xmlGetProp(cur2,"name");
+			if (xmlStrcmp (cur2->name, (const xmlChar *) "tag") == 0) {	
+				tmps = xmlGetProp(cur2, (const xmlChar *) "name");
 				if ( tmps ) {
 					GHashTable *h = g_hash_table_new(g_str_hash,g_str_equal);
 					gchar **arr;
 					gint i=0;
 					g_hash_table_insert(cfg->restricted_tags,g_strdup(tmps),h);
 					xmlFree(tmps);
-					tmps = xmlGetProp(cur2,"attributes");
+					tmps = xmlGetProp(cur2, (const xmlChar *) "attributes");
 					arr = g_strsplit (tmps, ",", -1);
 					while ( arr[i] != NULL ) {
 						g_hash_table_insert(h,g_strdup(arr[i]),"1");

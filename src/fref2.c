@@ -291,41 +291,41 @@ Tfref_property *fref_parse_property(xmlNodePtr node,xmlDocPtr doc,Tfref_info *in
 
 
 		if ( common) {
-			auxs2 = xmlGetProp(node,fref_names[FID_ID]);
+			auxs2 = xmlGetProp(node, (const xmlChar *) fref_names[FID_ID]);
 			if (auxs2 == NULL) {
 					g_warning("Definition has to have id attribute!");
 					g_free(p);
 					return NULL;
 			}		
 			p->id = auxs2;
-			p->name = xmlGetProp(node,fref_names[FID_NAME]);
+			p->name = xmlGetProp(node, (const xmlChar *) fref_names[FID_NAME]);
 			if (p->name==NULL)
 			    p->name = p->id;
 		}
 		else {
-			p->name = xmlGetProp(node,fref_names[FID_NAME]);
+			p->name = xmlGetProp(node, (const xmlChar *) fref_names[FID_NAME]);
 			p->id = "";
 		}
 
-		auxs2 = xmlGetProp(node,fref_names[FID_KIND]);
+		auxs2 = xmlGetProp(node, (const xmlChar *) fref_names[FID_KIND]);
 		if ( auxs2 == NULL ) {
 			g_warning("Kind of property not determined ");
 			g_free(p);
 			return NULL;
 		}	
-		if (xmlStrcmp(auxs2,fref_names[FID_LINK]) == 0)
+		if (xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_LINK]) == 0)
 			p->ptype = FREF_EL_LINK;
-		else if (xmlStrcmp(auxs2,fref_names[FID_EXAMPLE]) == 0)	
+		else if (xmlStrcmp(auxs2,(const xmlChar *) fref_names[FID_EXAMPLE]) == 0)	
 			p->ptype = FREF_EL_EXAMPLE;		
-		else if (xmlStrcmp(auxs2,fref_names[FID_DEPENDENCY]) == 0)	
+		else if (xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_DEPENDENCY]) == 0)	
 			p->ptype = FREF_EL_DEPEND;		
-		else if (xmlStrcmp(auxs2,fref_names[FID_ATTRIBUTE]) == 0)	
+		else if (xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_ATTRIBUTE]) == 0)	
 			p->ptype = FREF_EL_ATTR;		
-		else if (xmlStrcmp(auxs2,fref_names[FID_PARAMETER]) == 0)	
+		else if (xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_PARAMETER]) == 0)	
 			p->ptype = FREF_EL_PARAM;		
-		else if (xmlStrcmp(auxs2,fref_names[FID_RETURN]) == 0)	
+		else if (xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_RETURN]) == 0)	
 			p->ptype = FREF_EL_RETURN;		
-		else if (xmlStrcmp(auxs2,fref_names[FID_PARENTS]) == 0)	
+		else if (xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_PARENTS]) == 0)	
 			p->ptype = FREF_EL_PARENTS;		
 		else {
 			g_warning("Uknown property kind ");
@@ -335,39 +335,39 @@ Tfref_property *fref_parse_property(xmlNodePtr node,xmlDocPtr doc,Tfref_info *in
 		}	
 		xmlFree(auxs2);
 		
-		p->type = xmlGetProp(node,fref_names[FID_TYPE]);
+		p->type = xmlGetProp(node, (const xmlChar *) fref_names[FID_TYPE]);
 		
-		auxs2 = xmlGetProp(node,fref_names[FID_REQUIRED]);		
-		if ( auxs2 && (xmlStrcmp(auxs2,"1") == 0)) 
+		auxs2 = xmlGetProp(node, (const xmlChar *) fref_names[FID_REQUIRED]);		
+		if ( auxs2 && (xmlStrcmp(auxs2, (const xmlChar *)  "1") == 0)) 
 			p->required = TRUE;
 		else
 			p->required = FALSE;	
 			
 		if (auxs2) xmlFree(auxs2);	
 		
-		auxs2 = xmlGetProp(node,fref_names[FID_INPUT]);		
+		auxs2 = xmlGetProp(node, (const xmlChar *) fref_names[FID_INPUT]);		
 		p->input_type = FREF_INP_ENTRY;
 		if (auxs2)
 		{
-			if ( xmlStrcmp(auxs2,"list") == 0 )
+			if ( xmlStrcmp(auxs2, (const xmlChar *) "list") == 0 )
 				p->input_type = FREF_INP_LIST;
-			else if 	( xmlStrcmp(auxs2,"list+entry") == 0 )
+			else if 	( xmlStrcmp(auxs2, (const xmlChar *) "list+entry") == 0 )
 				p->input_type = FREF_INP_LIST_ENTRY;
-			else if 	( xmlStrcmp(auxs2,"color") == 0 || xmlStrcmp(auxs2,"colour") == 0)	
+			else if 	( xmlStrcmp(auxs2, (const xmlChar *) "color") == 0 || xmlStrcmp(auxs2, (const xmlChar *) "colour") == 0)	
 				p->input_type = FREF_INP_COLOUR;
-			else if 	( xmlStrcmp(auxs2,"color+list") == 0 || xmlStrcmp(auxs2,"colour+list") == 0)		
+			else if 	( xmlStrcmp(auxs2, (const xmlChar *) "color+list") == 0 || xmlStrcmp(auxs2, (const xmlChar *) "colour+list") == 0)		
 				p->input_type = FREF_INP_COLOUR_LIST;
-			else if 	( xmlStrcmp(auxs2,"file") == 0 )
+			else if 	( xmlStrcmp(auxs2, (const xmlChar *) "file") == 0 )
 				p->input_type = FREF_INP_FILE;				
 			xmlFree(auxs2);
 		}
 			
-		p->def = xmlGetProp(node,fref_names[FID_DEFAULT]);
+		p->def = xmlGetProp(node, (const xmlChar *) fref_names[FID_DEFAULT]);
 		
 		auxn = node->xmlChildrenNode;		
 		while ( auxn ) {
-			if ( xmlStrcmp(auxn->name,fref_names[FID_VALUES]) == 0 ) {
-						auxs3 = xmlGetProp(auxn,fref_names[FID_REF]);
+			if ( xmlStrcmp(auxn->name, (const xmlChar *) fref_names[FID_VALUES]) == 0 ) {
+						auxs3 = xmlGetProp(auxn, (const xmlChar *) fref_names[FID_REF]);
 						if ( auxs3 != NULL ) {
 							auxp = g_hash_table_lookup(info->commons,auxs3);
 							if ( auxp == NULL ) {
@@ -397,8 +397,8 @@ Tfref_property *fref_parse_property(xmlNodePtr node,xmlDocPtr doc,Tfref_info *in
 						      /*g_free(auxs2);*/
 			        }
 			}        
-			else if ( xmlStrcmp(auxn->name,fref_names[FID_DESCRIPTION]) == 0 ) {
-						auxs3 = xmlGetProp(auxn,fref_names[FID_REF]);
+			else if ( xmlStrcmp(auxn->name, (const xmlChar *) fref_names[FID_DESCRIPTION]) == 0 ) {
+						auxs3 = xmlGetProp(auxn, (const xmlChar *) fref_names[FID_REF]);
 						if ( auxs3 != NULL ) {
 							auxp = g_hash_table_lookup(info->commons,auxs3);
 							if ( auxp == NULL ) {
@@ -430,7 +430,7 @@ Tfref_element *fref_parse_element(xmlNodePtr node,xmlDocPtr doc,Tfref_info *info
 	guchar *auxs;
 	gpointer auxp;
 
-	auxs = xmlGetProp(node,fref_names[FID_REF]);
+	auxs = xmlGetProp(node, (const xmlChar *) fref_names[FID_REF]);
 	if ( auxs ) {
 		auxp = g_hash_table_lookup(info->commons,auxs);
 		if ( auxp == NULL ) {
@@ -444,7 +444,7 @@ Tfref_element *fref_parse_element(xmlNodePtr node,xmlDocPtr doc,Tfref_info *info
 		}    
 	}
 	
-	p->name = xmlGetProp(node,fref_names[FID_NAME]);
+	p->name = xmlGetProp(node, (const xmlChar *) fref_names[FID_NAME]);
 	
 	if ( p->name == NULL) {
 		g_warning("Element has to have a name!");
@@ -452,24 +452,24 @@ Tfref_element *fref_parse_element(xmlNodePtr node,xmlDocPtr doc,Tfref_info *info
 		return NULL;
 	}
 
-	auxs = xmlGetProp(node,fref_names[FID_KIND]);
+	auxs = xmlGetProp(node, (const xmlChar *) fref_names[FID_KIND]);
 	if ( auxs == NULL ) {
 			g_warning("Kind of element not determined ");
 			g_free(p);
 			return NULL;
 	}	
 	
-	if (xmlStrcmp(auxs,fref_names[FID_FUNCTION]) == 0)
+	if (xmlStrcmp(auxs, (const xmlChar *) fref_names[FID_FUNCTION]) == 0)
 			p->etype = FREF_EL_FUNCTION;
-		else if (xmlStrcmp(auxs,fref_names[FID_TAG]) == 0)	
+		else if (xmlStrcmp(auxs, (const xmlChar *) fref_names[FID_TAG]) == 0)	
 			p->etype = FREF_EL_TAG;		
-		else if (xmlStrcmp(auxs,fref_names[FID_VAR]) == 0)	
+		else if (xmlStrcmp(auxs, (const xmlChar *) fref_names[FID_VAR]) == 0)	
 			p->etype = FREF_EL_VAR;		
-		else if (xmlStrcmp(auxs,fref_names[FID_CSSPROP]) == 0)	
+		else if (xmlStrcmp(auxs, (const xmlChar *) fref_names[FID_CSSPROP]) == 0)	
 			p->etype = FREF_EL_CSSPROP;		
-		else if (xmlStrcmp(auxs,fref_names[FID_CSSSELECT]) == 0)	
+		else if (xmlStrcmp(auxs, (const xmlChar *) fref_names[FID_CSSSELECT]) == 0)	
 			p->etype = FREF_EL_CSSSELECT;					
-		else if (xmlStrcmp(auxs,fref_names[FID_SNIPPET]) == 0)	
+		else if (xmlStrcmp(auxs, (const xmlChar *) fref_names[FID_SNIPPET]) == 0)	
 			p->etype = FREF_EL_SNIPPET;		
 		else {
 			g_warning("Uknown element kind ");
@@ -481,8 +481,8 @@ Tfref_element *fref_parse_element(xmlNodePtr node,xmlDocPtr doc,Tfref_info *info
 	
 	auxn = node->xmlChildrenNode;
 	while ( auxn ) {
-		if ( xmlStrcmp(auxn->name,fref_names[FID_DESCRIPTION]) == 0) { /* description */
-			auxs = xmlGetProp(auxn,fref_names[FID_REF]);
+		if ( xmlStrcmp(auxn->name, (const xmlChar *) fref_names[FID_DESCRIPTION]) == 0) { /* description */
+			auxs = xmlGetProp(auxn, (const xmlChar *) fref_names[FID_REF]);
 			if ( auxs ) {
 				auxp = g_hash_table_lookup(info->commons,auxs);
 				if ( auxp == NULL ) {
@@ -502,14 +502,14 @@ Tfref_element *fref_parse_element(xmlNodePtr node,xmlDocPtr doc,Tfref_info *info
 				/* g_free(auxs);*/
 			}
 		} /* description */
-		else if ( xmlStrcmp(auxn->name,fref_names[FID_PROPERTIES]) == 0) { /* properties */
+		else if ( xmlStrcmp(auxn->name, (const xmlChar *) fref_names[FID_PROPERTIES]) == 0) { /* properties */
 				xmlNodePtr nptr = auxn->xmlChildrenNode;
 				Tfref_property *apv; 				
 				while ( nptr  ) {
-				 if (xmlStrcmp(nptr->name,fref_names[FID_PROPERTY])==0) 
+				 if (xmlStrcmp(nptr->name, (const xmlChar *) fref_names[FID_PROPERTY])==0) 
 				 {
 							Tfref_record *rec=NULL;
-							auxs = xmlGetProp(nptr,fref_names[FID_REF]);
+							auxs = xmlGetProp(nptr, (const xmlChar *) fref_names[FID_REF]);
 							if ( auxs ) {
 								auxp = g_hash_table_lookup(info->commons,auxs);
 								if ( auxp == NULL ) {
@@ -532,9 +532,9 @@ Tfref_element *fref_parse_element(xmlNodePtr node,xmlDocPtr doc,Tfref_info *info
 								p->properties = g_list_append(p->properties,apv);			
 				 }		/* is property */
 				 else
- 				 if (xmlStrcmp(nptr->name,fref_names[FID_PROPLIST])==0)  /* property list */
+ 				 if (xmlStrcmp(nptr->name, (const xmlChar *) fref_names[FID_PROPLIST])==0)  /* property list */
 				 {
-				 	auxs = xmlGetProp(nptr,fref_names[FID_REF]);
+				 	auxs = xmlGetProp(nptr, (const xmlChar *) fref_names[FID_REF]);
 				 	if ( auxs != NULL )
 				 	{
 				 		gpointer props = g_hash_table_lookup(info->proplists,auxs);
@@ -553,15 +553,15 @@ Tfref_element *fref_parse_element(xmlNodePtr node,xmlDocPtr doc,Tfref_info *info
 				 nptr = nptr->next;
 				}
 		} /* properties */
-		else if ( xmlStrcmp(auxn->name,fref_names[FID_NOTE]) == 0) { /* note */
+		else if ( xmlStrcmp(auxn->name, (const xmlChar *) fref_names[FID_NOTE]) == 0) { /* note */
 			Tfref_note *note = g_new0(Tfref_note,1);
-			note->title = xmlGetProp(auxn,fref_names[FID_TITLE]);
+			note->title = xmlGetProp(auxn, (const xmlChar *) fref_names[FID_TITLE]);
 			note->text = xmlNodeListGetString(doc,auxn->xmlChildrenNode,1);
 			p->notes = g_list_append(p->notes,note);
 			auxs = fref_unique_name(xmlGetLineNo(auxn));
 			fref_insert_into_commons(info,auxs,FREF_EL_NOTE,note,FALSE);			
 		} /* note */
-		else if ( xmlStrcmp(auxn->name,fref_names[FID_INSERT]) == 0) { /* insert */
+		else if ( xmlStrcmp(auxn->name, (const xmlChar *) fref_names[FID_INSERT]) == 0) { /* insert */
 				p->insert = xmlNodeListGetString(doc,auxn->xmlChildrenNode,1);
 		} /* insert */
 		auxn = auxn->next;
@@ -581,7 +581,7 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 	
 	   	              						  
 	if (!node) return;
-	if ( xmlStrcmp(node->name,fref_names[FID_GROUP]) == 0 ) { /* group */
+	if ( xmlStrcmp(node->name, (const xmlChar *) fref_names[FID_GROUP]) == 0 ) { /* group */
 		Tfref_record *el;
 		Tfref_note *n = g_new0(Tfref_note,1);
 		
@@ -592,12 +592,12 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 			g_free(n);
 			return;
 		}
-		n->title = xmlGetProp(node,fref_names[FID_NAME]);
+		n->title = xmlGetProp(node, (const xmlChar *) fref_names[FID_NAME]);
 		
 		auxn = node->xmlChildrenNode;
 		while ( auxn ) {
-			if ( xmlStrcmp(auxn->name,fref_names[FID_DESCRIPTION]) == 0 ) {
-				auxs = xmlGetProp(auxn,fref_names[FID_REF]);
+			if ( xmlStrcmp(auxn->name, (const xmlChar *) fref_names[FID_DESCRIPTION]) == 0 ) {
+				auxs = xmlGetProp(auxn, (const xmlChar *) fref_names[FID_REF]);
 				if ( auxs ) {
 					auxp = g_hash_table_lookup(info->commons,auxs);
 					if ( auxp == NULL ) {
@@ -632,12 +632,12 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 			auxn = auxn->next;
 		}
 	} /* group */   	              						  
-	else 	if ( xmlStrcmp(node->name,fref_names[FID_NOTE]) == 0 ) { /* global note */
+	else 	if ( xmlStrcmp(node->name, (const xmlChar *) fref_names[FID_NOTE]) == 0 ) { /* global note */
 		path = gtk_tree_model_get_path(GTK_TREE_MODEL(store),parent);
 		/*if (gtk_tree_path_get_depth(path) == 1) { */
 			Tfref_note *n = g_new0(Tfref_note,1);
 			Tfref_record *el;
-			n->title = xmlGetProp(node,fref_names[FID_TITLE]);
+			n->title = xmlGetProp(node, (const xmlChar *) fref_names[FID_TITLE]);
 			n->text = xmlNodeListGetString(doc,node->xmlChildrenNode,1);
 
 			auxs = fref_unique_name(xmlGetLineNo(node));
@@ -653,18 +653,18 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 			}	
 		/*}*/
 	} /* global note */
-	else 	if ( xmlStrcmp(node->name,fref_names[FID_DEF]) == 0 ) { /* definition */
-		auxs = xmlGetProp(node,fref_names[FID_ID]);
+	else 	if ( xmlStrcmp(node->name, (const xmlChar *) fref_names[FID_DEF]) == 0 ) { /* definition */
+		auxs = xmlGetProp(node, (const xmlChar *) fref_names[FID_ID]);
 		if ( auxs == NULL ) {
 			g_warning("Definition has to have an id");
 			return;
 		}
-		auxs2 = xmlGetProp(node,fref_names[FID_DEFTYPE]);		
+		auxs2 = xmlGetProp(node, (const xmlChar *) fref_names[FID_DEFTYPE]);		
 		if ( auxs2 == NULL ) {
 			g_warning("Definition type not defined");
 			return;
 		}
-		if ( xmlStrcmp(auxs2,fref_names[FID_PROPERTY]) == 0 ) {			/* property definition */
+		if ( xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_PROPERTY]) == 0 ) {			/* property definition */
 			Tfref_property *pp = fref_parse_property(node,doc,info,TRUE);
 			if ( pp ) {
 				if ( fref_insert_into_commons(info,g_strdup(auxs),pp->ptype,pp,TRUE) == NULL) {				
@@ -673,21 +673,21 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 				}
 			}	
 		}
-		else if ( xmlStrcmp(auxs2,fref_names[FID_DESCRIPTION]) == 0 ) {		/* descr definition */
+		else if ( xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_DESCRIPTION]) == 0 ) {		/* descr definition */
 			fref_insert_into_commons(info,g_strdup(auxs),FREF_EL_DESCR,xmlNodeListGetString(doc,node->xmlChildrenNode,1),TRUE);	
 			xmlFree(auxs);
 		} 
-		else if ( xmlStrcmp(auxs2,fref_names[FID_VALUES]) == 0 ) {		/* values definition */
+		else if ( xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_VALUES]) == 0 ) {		/* values definition */
 			fref_insert_into_commons(info,g_strdup(auxs),FREF_EL_VALUES,g_strstrip(xmlNodeListGetString(doc,node->xmlChildrenNode,1)),TRUE);	
 			xmlFree(auxs);
 		} 		
-		else if ( xmlStrcmp(auxs2,fref_names[FID_PROPLIST]) == 0 ) {		/* property list definition */
+		else if ( xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_PROPLIST]) == 0 ) {		/* property list definition */
 			GList *plst=NULL;
 			Tfref_record *rec;
 			auxn = node->xmlChildrenNode;
 			while ( auxn )
 			{
-				if ( xmlStrcmp(auxn->name,fref_names[FID_PROPERTY]) == 0 )
+				if ( xmlStrcmp(auxn->name, (const xmlChar *) fref_names[FID_PROPERTY]) == 0 )
 				{
 					Tfref_property *pp = fref_parse_property(auxn,doc,info,FALSE);
 					if ( pp )
@@ -710,7 +710,7 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 		}
 		xmlFree(auxs2);
 	} /* definition */	
-	else 	if ( xmlStrcmp(node->name,fref_names[FID_ELEMENT]) == 0 ) { /* element */
+	else 	if ( xmlStrcmp(node->name, (const xmlChar *) fref_names[FID_ELEMENT]) == 0 ) { /* element */
 		Tfref_element *el = fref_parse_element(node,doc,info,bfwin);
 		Tfref_record *rec; 
 		if ( el ) {
@@ -790,15 +790,15 @@ gchar *fref_load_refname(gchar *filename) {
 		return NULL;
 	}	
 	cur = xmlDocGetRootElement(doc);	
-	if ( xmlStrcmp(cur->name, "ref") != 0  && xmlStrcmp(cur->name, "r") != 0) {
+	if ( xmlStrcmp(cur->name, (const xmlChar *) "ref") != 0  && xmlStrcmp(cur->name, (const xmlChar *) "r") != 0) {
 		g_warning(_("Bad root element in reference file %s\nShould be <ref> or <r> and found %s"),filename,cur->name);
 		xmlFreeDoc(doc);
 		return NULL;
 	}
-	if (xmlStrcmp(cur->name, "ref")==0)
-		ret = xmlGetProp(cur,"name");
+	if (xmlStrcmp(cur->name, (const xmlChar *) "ref")==0)
+		ret = xmlGetProp(cur, (const xmlChar *) "name");
 	else
-		ret = xmlGetProp(cur,"n");	
+		ret = xmlGetProp(cur, (const xmlChar *) "n");	
    xmlFreeDoc(doc);
    return ret;
 }
@@ -877,7 +877,7 @@ gboolean fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * 
 		return FALSE;
 	}	
 	cur = xmlDocGetRootElement(doc);	
-	if ( xmlStrcmp(cur->name, "ref") != 0 &&  xmlStrcmp(cur->name,"r") != 0 ) {
+	if ( xmlStrcmp(cur->name, (const xmlChar *) "ref") != 0 &&  xmlStrcmp(cur->name, (const xmlChar *) "r") != 0 ) {
 		
 		message_dialog_new(bfwin->main_window, 
 						 		 GTK_MESSAGE_ERROR, 
@@ -890,7 +890,7 @@ gboolean fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * 
 		xmlFreeDoc(doc);
 		return FALSE;
 	}
-	if (xmlStrcmp(cur->name, "ref") == 0) 
+	if (xmlStrcmp(cur->name, (const xmlChar *) "ref") == 0) 
 	{
 		fref_names = fref_full;
 		fref_node_count = fref_count_nodes(doc,"//element");
@@ -903,7 +903,7 @@ gboolean fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * 
 		fref_node_current = 0;
 	}	
 
-	tmps = xmlGetProp(cur,fref_names[FID_VERSION]);
+	tmps = xmlGetProp(cur, (const xmlChar *) fref_names[FID_VERSION]);
 	if (xmlStrcmp(tmps, (const xmlChar *) "2") != 0 ) {
 		message_dialog_new(bfwin->main_window, 
 						 		 GTK_MESSAGE_WARNING, 
@@ -918,7 +918,7 @@ gboolean fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * 
 		return FALSE;		
 	}
 	if (tmps) xmlFree(tmps);
-	tmps = xmlGetProp(cur,fref_names[FID_DESCRIPTION]);
+	tmps = xmlGetProp(cur, (const xmlChar *) fref_names[FID_DESCRIPTION]);
 	if (tmps!=NULL)
 		info->description = tmps;
 	cur = cur->xmlChildrenNode;
@@ -1110,19 +1110,19 @@ static void fref_save_common(gpointer key,gpointer value,gpointer data)
 		
 	if ( name[0]=='_' || name[1]=='_') return;
 	
-	anode = xmlNewNode(NULL,"def");
+	anode = xmlNewNode(NULL, (const xmlChar *) "def");
 	switch (rec->etype)
 	{
 		case FREF_EL_DESCR:
-			xmlNewProp(anode,"deftype","description");
-			xmlNewProp(anode,"id",key);
+			xmlNewProp(anode, (const xmlChar *) "deftype", (const xmlChar *) "description");
+			xmlNewProp(anode, (const xmlChar *) "id", key);
 			txt = xmlNewText(rec->data);
 			xmlAddChild(anode,txt);
 			xmlAddChild(ptr,anode);
 		break;
 		case FREF_EL_VALUES:
-			xmlNewProp(anode,"deftype","values");
-			xmlNewProp(anode,"id",key);			
+			xmlNewProp(anode, (const xmlChar *) "deftype", (const xmlChar *) "values");
+			xmlNewProp(anode, (const xmlChar *) "id", key);			
 			txt = xmlNewText(rec->data);
 			xmlAddChild(anode,txt);
 			xmlAddChild(ptr,anode);
@@ -1141,34 +1141,34 @@ static void fref_save_common(gpointer key,gpointer value,gpointer data)
 			if (!tp) tp = "return";							
 		case FREF_EL_PARENTS:
 			if (!tp) tp = "parents";								
-			xmlNewProp(anode,"deftype","property");
-			xmlNewProp(anode,"id",key);			
-			xmlNewProp(anode,"kind",tp);			
-			xmlNewProp(anode,"name",FREFPROPERTY(rec->data)->name);			
+			xmlNewProp(anode, (const xmlChar *) "deftype", (const xmlChar *) "property");
+			xmlNewProp(anode, (const xmlChar *) "id", key);			
+			xmlNewProp(anode, (const xmlChar *) "kind", (const xmlChar *) tp);			
+			xmlNewProp(anode, (const xmlChar *) "name", FREFPROPERTY(rec->data)->name);			
 			if (FREFPROPERTY(rec->data)->required)
-				xmlNewProp(anode,"required","1");			
+				xmlNewProp(anode, (const xmlChar *) "required", (const xmlChar *) "1");			
 			if (FREFPROPERTY(rec->data)->def)
-				xmlNewProp(anode,"default",FREFPROPERTY(rec->data)->def);
+				xmlNewProp(anode, (const xmlChar *) "default",FREFPROPERTY(rec->data)->def);
 			if (FREFPROPERTY(rec->data)->type)
-				xmlNewProp(anode,"type",FREFPROPERTY(rec->data)->type);
+				xmlNewProp(anode, (const xmlChar *) "type",FREFPROPERTY(rec->data)->type);
 			switch (FREFPROPERTY(rec->data)->input_type)
 			{
-				case FREF_INP_LIST:xmlNewProp(anode,"input","list");break;			
-				case FREF_INP_LIST_ENTRY:xmlNewProp(anode,"input","list+entry");break;							
-				case FREF_INP_COLOUR:xmlNewProp(anode,"input","color");break;							
-				case FREF_INP_COLOUR_LIST:xmlNewProp(anode,"input","color+list");break;							
-				case FREF_INP_FILE:xmlNewProp(anode,"input","file");break;							
+				case FREF_INP_LIST:xmlNewProp(anode, (const xmlChar *) "input", (const xmlChar *) "list");break;			
+				case FREF_INP_LIST_ENTRY:xmlNewProp(anode, (const xmlChar *) "input", (const xmlChar *) "list+entry");break;			
+				case FREF_INP_COLOUR:xmlNewProp(anode, (const xmlChar *) "input", (const xmlChar *) "color");break;							
+				case FREF_INP_COLOUR_LIST:xmlNewProp(anode, (const xmlChar *) "input", (const xmlChar *) "color+list");break;							
+				case FREF_INP_FILE:xmlNewProp(anode, (const xmlChar *) "input", (const xmlChar *) "file");break;							
 			}
 			if (FREFPROPERTY(rec->data)->vlist)
 			{
-				n = xmlNewNode(NULL,"values");
+				n = xmlNewNode(NULL, (const xmlChar *) "values");
 				txt = xmlNewText(FREFPROPERTY(rec->data)->vlist);
 				xmlAddChild(n,txt);
 				xmlAddChild(anode,n);
 			}	
 			if (FREFPROPERTY(rec->data)->description)
 			{
-				n = xmlNewNode(NULL,"description");
+				n = xmlNewNode(NULL, (const xmlChar *) "description");
 				txt = xmlNewText(FREFPROPERTY(rec->data)->description);
 				xmlAddChild(n,txt);
 				xmlAddChild(anode,n);
@@ -1184,10 +1184,10 @@ static void fref_save_property(Tfref_property *prop,xmlNodePtr parent)
 	xmlNodePtr node,txt,node2;
 	gchar *tp=NULL;
 	
-	node = xmlNewNode(NULL, "property");
+	node = xmlNewNode(NULL, (const xmlChar *) "property");
 	if (prop->id && strcmp(prop->id,"")!=0) /* common */
 	{
-		xmlNewProp(node, "ref", prop->id);
+		xmlNewProp(node, (const xmlChar *) "ref", prop->id);
 	}
 	else
 	{
@@ -1205,28 +1205,28 @@ static void fref_save_property(Tfref_property *prop,xmlNodePtr parent)
 				if (!tp) tp = "parameter";
 			case FREF_EL_RETURN:
 				if (!tp) tp = "return";
-				xmlNewProp(node, "kind", tp);
-				xmlNewProp(node, "name", prop->name);
+				xmlNewProp(node, (const xmlChar *) "kind", (const xmlChar *) tp);
+				xmlNewProp(node, (const xmlChar *) "name", prop->name);
 				if ( prop->description )
 				{
-					node2 = xmlNewNode(NULL, "description");
+					node2 = xmlNewNode(NULL, (const xmlChar *) "description");
 					txt = xmlNewText(prop->description);
 					xmlAddChild(node2,txt);
 					xmlAddChild(node,node2);
 				}	
 				if ( prop->vlist )
 				{
-					node2 = xmlNewNode(NULL, "values");
+					node2 = xmlNewNode(NULL, (const xmlChar *) "values");
 					txt = xmlNewText(prop->vlist);
 					xmlAddChild(node2,txt);
 					xmlAddChild(node,node2);
 				}	
 				if ( prop->type )
-					xmlNewProp(node, "type", prop->type);
+					xmlNewProp(node, (const xmlChar *) "type", prop->type);
 				if (prop->def)
-					xmlNewProp(node, "default", prop->def);
+					xmlNewProp(node, (const xmlChar *) "default", prop->def);
 				if (prop->required)
-					xmlNewProp(node, "required", "1");	
+					xmlNewProp(node, (const xmlChar *) "required", (const xmlChar *) "1");	
 				tp=NULL;	
 				switch (prop->input_type)
 				{
@@ -1240,7 +1240,7 @@ static void fref_save_property(Tfref_property *prop,xmlNodePtr parent)
 						if (!tp) tp="color+list";
 					case FREF_INP_FILE:
 						if (!tp) tp="file";
-						xmlNewProp(node, "input", tp);	
+						xmlNewProp(node, (const xmlChar *) "input", (const xmlChar *) tp);	
 				}/* sw */	
 			break;
 		} /* switch */
@@ -1264,8 +1264,8 @@ static void fref_save_element(GtkTreeStore *store,GtkTreeIter *iter,xmlDocPtr do
 		{
 			case FREF_EL_NOTE: {
 				Tfref_note *n = FREFNOTE(rec->data);
-				node = xmlNewNode(NULL, "note");
-				xmlNewProp(node, "title", n->title);
+				node = xmlNewNode(NULL, (const xmlChar *) "note");
+				xmlNewProp(node, (const xmlChar *) "title", n->title);
 				txt = xmlNewText(n->text);
 				xmlAddChild(node,txt);
 				xmlAddChild(parent,node);
@@ -1273,9 +1273,9 @@ static void fref_save_element(GtkTreeStore *store,GtkTreeIter *iter,xmlDocPtr do
 			break;
 			case FREF_EL_GROUP: {
 				Tfref_note *n = FREFNOTE(rec->data);
-				node = xmlNewNode(NULL, "group");
-				xmlNewProp(node, "name", n->title);
-				node2 = xmlNewNode(NULL, "description");
+				node = xmlNewNode(NULL, (const xmlChar *) "group");
+				xmlNewProp(node, (const xmlChar *) "name", n->title);
+				node2 = xmlNewNode(NULL, (const xmlChar *) "description");
 				txt = xmlNewText(n->text);
 				xmlAddChild(node2,txt);
 				xmlAddChild(node,node2);
@@ -1292,34 +1292,34 @@ static void fref_save_element(GtkTreeStore *store,GtkTreeIter *iter,xmlDocPtr do
 			break;			
 			default:{
 				Tfref_element *el = FREFELEMENT(rec->data);
-				node = xmlNewNode(NULL,"element");
+				node = xmlNewNode(NULL, (const xmlChar *) "element");
 				switch (el->etype)
 				{
-					case FREF_EL_FUNCTION:xmlNewProp(node, "kind", "function");break;
-					case FREF_EL_TAG:xmlNewProp(node, "kind", "tag");break;
-					case FREF_EL_VAR:xmlNewProp(node, "kind", "var");break;
-					case FREF_EL_CSSPROP:xmlNewProp(node, "kind", "css_property");break;
-					case FREF_EL_CSSSELECT:xmlNewProp(node, "kind", "css_selector");break;
-					case FREF_EL_SNIPPET:xmlNewProp(node, "kind", "snippet");break;
+					case FREF_EL_FUNCTION:xmlNewProp(node, (const xmlChar *) "kind", (const xmlChar *) "function");break;
+					case FREF_EL_TAG:xmlNewProp(node, (const xmlChar *) "kind", (const xmlChar *) "tag");break;
+					case FREF_EL_VAR:xmlNewProp(node, (const xmlChar *) "kind", (const xmlChar *) "var");break;
+					case FREF_EL_CSSPROP:xmlNewProp(node, (const xmlChar *) "kind", (const xmlChar *) "css_property");break;
+					case FREF_EL_CSSSELECT:xmlNewProp(node, (const xmlChar *) "kind", (const xmlChar *) "css_selector");break;
+					case FREF_EL_SNIPPET:xmlNewProp(node, (const xmlChar *) "kind", (const xmlChar *) "snippet");break;
 				} /* switch */
-				xmlNewProp(node, "name", el->name);
+				xmlNewProp(node, (const xmlChar *) "name", el->name);
 				if ( el->description )
 				{
-					node2 = xmlNewNode(NULL, "description");
+					node2 = xmlNewNode(NULL, (const xmlChar *) "description");
 					txt = xmlNewText(el->description);
 					xmlAddChild(node2,txt);
 					xmlAddChild(node,node2);				
 				}
 				if ( el->insert )
 				{
-					node2 = xmlNewNode(NULL, "insert");
+					node2 = xmlNewNode(NULL, (const xmlChar *) "insert");
 					txt = xmlNewText(el->insert);
 					xmlAddChild(node2,txt);
 					xmlAddChild(node,node2);				
 				}				
 				/* properties ! */
 				lst = g_list_first(el->properties);
-				node2 = xmlNewNode(NULL, "properties");
+				node2 = xmlNewNode(NULL, (const xmlChar *) "properties");
 				xmlAddChild(node,node2);
 				while ( lst )
 				{
@@ -1330,8 +1330,8 @@ static void fref_save_element(GtkTreeStore *store,GtkTreeIter *iter,xmlDocPtr do
 				while (lst)
 				{
 					Tfref_note *n = FREFNOTE(lst->data);
-					node2 = xmlNewNode(NULL, "note");
-					xmlNewProp(node2,"title",n->title);
+					node2 = xmlNewNode(NULL, (const xmlChar *) "note");
+					xmlNewProp(node2, (const xmlChar *) "title", n->title);
 					txt = xmlNewText(n->text);
 					xmlAddChild(node2,txt);
 					xmlAddChild(node,node2);									
@@ -1367,15 +1367,15 @@ static gboolean fref_save_ref(Tbfwin *bfwin)
 		}
 		if ( !fname ) return FALSE;		
 		
-		doc = xmlNewDoc("1.0");
-		rnode = xmlNewNode(NULL, "ref");
+		doc = xmlNewDoc((const xmlChar *) "1.0");
+		rnode = xmlNewNode(NULL, (const xmlChar *) "ref");
 		xmlDocSetRootElement(doc, rnode);
 		
-		xmlNewProp(rnode, "version", "2");
+		xmlNewProp(rnode, (const xmlChar *) "version", (const xmlChar *) "2");
 		val2 = g_new0(GValue, 1);
 		gtk_tree_model_get_value(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store),&iter,STR_COLUMN, val2);
 		if (G_IS_VALUE(val2) && g_value_fits_pointer(val2) && g_value_peek_pointer(val2)) {
-			xmlNewProp(rnode,"name",g_value_peek_pointer(val2));
+			xmlNewProp(rnode, (const xmlChar *) "name", g_value_peek_pointer(val2));
 		}
 		g_value_unset(val2);
 		g_free(val2);    	
@@ -1388,7 +1388,7 @@ static gboolean fref_save_ref(Tbfwin *bfwin)
 			Tfref_record *rr = FREFRECORD(g_value_peek_pointer(val2));
 			if (FREFINFO(rr->data)->description)
 			{
-				xmlNewProp(rnode,"description",FREFINFO(rr->data)->description);
+				xmlNewProp(rnode, (const xmlChar *) "description", FREFINFO(rr->data)->description);
 			}	
 			gtk_tree_model_iter_children(GTK_TREE_MODEL(FREFDATA(main_v->frefdata)->store), &it, &iter);
 			while (1) 
@@ -3844,7 +3844,7 @@ static void frefcb_new_re_prop(GtkWidget * widget, Tbfwin *bfwin) {
 		
 		xmlChar *name = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_name)));
 		xmlChar *id = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_id)));
-		if ( xmlStrcmp(name,"")!=0 || xmlStrcmp(id,"")!=0)
+		if ( xmlStrcmp(name, (const xmlChar *) "")!=0 || xmlStrcmp(id, (const xmlChar *) "")!=0)
 		{
 			prop = g_new0(Tfref_property,1);
 			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(data->e_kind)) )
@@ -3879,13 +3879,13 @@ static void frefcb_new_re_prop(GtkWidget * widget, Tbfwin *bfwin) {
 				
 			inf = fref_refinfo_for_current(bfwin);
 			vals = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_values)));
-			if ( xmlStrcmp(vals,"")!=0 )
+			if ( xmlStrcmp(vals, (const xmlChar *) "")!=0 )
 				{
 					rec = fref_insert_into_commons(inf,fref_unique_name(-1),FREF_EL_VALUES,vals,FALSE);
 					prop->vlist = vals;
 				} else xmlFree(vals);	
 			vals = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_description)));
-			if ( xmlStrcmp(vals,"")!=0 )
+			if ( xmlStrcmp(vals, (const xmlChar *) "")!=0 )
 				{
 					rec = fref_insert_into_commons(inf,fref_unique_name(-1),FREF_EL_DESCR,vals,FALSE);
 					prop->description = vals;
@@ -4072,7 +4072,7 @@ static void frefcb_new_prop(GtkWidget * widget, Tfref_adddef_data *dt) {
 	{
 		
 		xmlChar *name = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_name)));
-		if ( xmlStrcmp(name,"")!=0 )
+		if ( xmlStrcmp(name, (const xmlChar *) "")!=0 )
 		{
 			prop = g_new0(Tfref_property,1);
 			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(data->e_kind)) )
@@ -4107,12 +4107,12 @@ static void frefcb_new_prop(GtkWidget * widget, Tfref_adddef_data *dt) {
 				
 			inf = fref_refinfo_for_current(dt->bfwin);
 			vals = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_values)));
-			if ( xmlStrcmp(vals,"")!=0 )
+			if ( xmlStrcmp(vals, (const xmlChar *) "")!=0 )
 				{
 					prop->vlist = vals;
 				} else xmlFree(vals);	
 			vals = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_description)));
-			if ( xmlStrcmp(vals,"")!=0 )
+			if ( xmlStrcmp(vals, (const xmlChar *) "")!=0 )
 				{
 					prop->description = vals;
 				} else xmlFree(vals);	
@@ -4227,7 +4227,7 @@ static void frefcb_new_element(GtkWidget * widget, Tbfwin *bfwin)
 	 	if (gtk_dialog_run(GTK_DIALOG(dlg))==GTK_RESPONSE_OK)
 	 	{
 			xmlChar *name = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_name)));
-			if ( xmlStrcmp(name,"")!=0 )	 	
+			if ( xmlStrcmp(name, (const xmlChar *) "")!=0 )	 	
 			{
 				Tfref_element *el = g_new0(Tfref_element,1);
 				el->name = name;
@@ -4242,13 +4242,13 @@ static void frefcb_new_element(GtkWidget * widget, Tbfwin *bfwin)
 				}
 				inf = fref_refinfo_for_current(bfwin);	
 				vals = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_description)));
-				if ( xmlStrcmp(vals,"")!=0 )
+				if ( xmlStrcmp(vals, (const xmlChar *) "")!=0 )
 				{
 					fref_insert_into_commons(inf,fref_unique_name(-1),FREF_EL_DESCR,vals,FALSE);
 					el->description = vals;
 				} else xmlFree(vals);	
 				vals = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_insert)));
-				if ( xmlStrcmp(vals,"")!=0 )
+				if ( xmlStrcmp(vals, (const xmlChar *) "")!=0 )
 				{
 					el->insert = vals;
 				} else xmlFree(vals);	
