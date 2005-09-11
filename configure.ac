@@ -79,6 +79,11 @@ if test "x$CYGWIN" = "xyes"; then
 	LIBS="$LIBS -lintl.dll"
 fi  
 
+case "$host_os" in
+    solaris*)
+        AC_DEFINE(PLATFORM_SOLARIS);;
+esac
+
 case "${host}" in
 powerpc-apple-darwin*)
 	OSTYPE="DARWIN"
