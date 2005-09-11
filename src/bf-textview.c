@@ -936,6 +936,7 @@ void bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter 
    GList *lst=NULL;
    
    g_return_if_fail (self != NULL);
+   g_return_if_fail (self->current_lang != NULL);
    g_return_if_fail (BF_IS_TEXTVIEW (self));
 
    its = *start;
