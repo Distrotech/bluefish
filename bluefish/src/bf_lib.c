@@ -17,23 +17,27 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
 /* #define DEBUG */
 
-#define _POSIX_C_SOURCE 200312L
-#include <gtk/gtk.h>
 /* this is needed for Solaris to comply with the latest POSIX standard 
  * regarding the ctime_r() function
- * the problem is that it generates a compiler warning on Linux, lstat() undefined.. */
-#include <time.h>			/* ctime_r() */
-#include <unistd.h> /* chdir() */
-#include <ctype.h> /* toupper */
-#include <string.h> /* strrchr strncmp memmove strncat*/
-#include <sys/stat.h> /* S_IFDIR */
-#include <errno.h> 	/* errno */
-#include <stdio.h> /* fopen(), tempnam() */
+ */
+#ifdef PLATFORM_SOLARIS
+#define _POSIX_C_SOURCE 200312L
+#endif
+
+#include <gtk/gtk.h>
+#include <ctype.h>     /* toupper */
+#include <errno.h>     /* errno */
+#include <stdio.h>     /* fopen(), tempnam() */
+#include <string.h>    /* strrchr strncmp memmove strncat*/
+#include <sys/stat.h>  /* S_IFDIR */
+#include <time.h>      /* ctime_r() */
+#include <unistd.h>    /* chdir() */
 
 #include "bluefish.h"  /* for DEBUG_MSG and stuff like that */
-#include "bf_lib.h"  /* myself */
+#include "bf_lib.h"    /* myself */
 
 #ifdef WIN32
 #define DIRSTR "\\"
