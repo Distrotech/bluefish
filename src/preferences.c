@@ -196,6 +196,7 @@ typedef struct {
 	Tlistpref ffd;
 #ifdef USE_SCANNER
 	Thldialog hld;
+	GtkListStore *lang_files;
 #else	
 	Thighlightpatterndialog hpd;
 #endif	
@@ -237,6 +238,32 @@ void pref_click_column  (GtkTreeViewColumn *treeviewcolumn, gpointer user_data) 
 		}			
 	}
 }
+#ifdef USE_SCANNER
+static void pref_create_combo_column(GtkTreeView *treeview,GCallback func, gpointer data, const gchar *title, gint num,GtkListStore *store) {
+	GtkTreeViewColumn *column;
+	GtkCellRenderer *renderer;
+	GtkWidget *but;
+		renderer = gtk_cell_renderer_combo_new();
+		if (func) {
+			g_object_set(G_OBJECT(renderer), "editable", TRUE, 
+	             "model", store,
+                "text-column", 0,
+                "has-entry", FALSE,	NULL);
+			g_signal_connect(G_OBJECT(renderer), "edited", func, data);
+		}
+	column = gtk_tree_view_column_new_with_attributes(title, renderer,"text",num,NULL);
+
+	gtk_tree_view_column_set_clickable(GTK_TREE_VIEW_COLUMN(column),TRUE);
+	but = gtk_check_button_new_with_label(title);
+	g_object_set_data(G_OBJECT(but),"_title_",g_strdup(title));
+	gtk_widget_show(but);
+	gtk_tree_view_column_set_widget(GTK_TREE_VIEW_COLUMN(column),but);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(but),TRUE);
+	g_signal_connect(G_OBJECT(column), "clicked", G_CALLBACK(pref_click_column), but);
+
+	gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
+}
+#endif
 
 /* type 0/1=text, 2=toggle */
 static void pref_create_column(GtkTreeView *treeview, gint type, GCallback func, gpointer data, const gchar *title, gint num) {
@@ -796,7 +823,11 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 2, G_CALLBACK(filetype_4_toggled_lcb), pd, _("Editable"), 4);
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_5_edited_lcb), pd, _("Content regex"), 5);
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_6_edited_lcb), pd, _("Auto close tags mode"), 6);
+#ifdef USE_SCANNER	
+	pref_create_combo_column(GTK_TREE_VIEW(pd->ftd.lview), G_CALLBACK(filetype_7_edited_lcb), pd, _("Language file"), 7, pd->lang_files);
+#else
 	pref_create_column(GTK_TREE_VIEW(pd->ftd.lview), 1, G_CALLBACK(filetype_7_edited_lcb), pd, _("Language file"), 7);
+#endif	
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ftd.lview);
@@ -2618,6 +2649,52 @@ void preftree_cursor_changed_cb (GtkTreeView *treeview, gpointer user_data) {
 	}
 }
 
+#ifdef USE_SCANNER
+/* List of language files */
+	
+static void rescan_lang_files(Tprefdialog *pd)
+{
+	const gchar *filename;
+	GError *error = NULL;
+	GtkTreeIter iter;
+	GPatternSpec *ps = g_pattern_spec_new("*.bflang"); 
+	GDir *gd;
+	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
+
+	if ( pd->lang_files != NULL ) {
+		gtk_list_store_clear(pd->lang_files);
+	} else {
+			pd->lang_files = gtk_list_store_new (1, G_TYPE_STRING);
+	}
+	
+	gd = g_dir_open(PKGDATADIR, 0, &error);
+	filename = g_dir_read_name(gd);
+	while (filename) {
+		if (g_pattern_match(ps, strlen(filename), filename, NULL) ) {
+ 	      gtk_list_store_append (pd->lang_files, &iter);
+      	gtk_list_store_set (pd->lang_files, &iter,0, filename,-1);
+		}
+		filename = g_dir_read_name(gd);
+	}
+	g_dir_close(gd);
+	
+	gd = g_dir_open(userdir, 0, &error);
+	filename = g_dir_read_name(gd);
+	while (filename) {
+		if (g_pattern_match(ps, strlen(filename), filename, NULL) ) {
+ 	      gtk_list_store_append (pd->lang_files, &iter);
+      	gtk_list_store_set (pd->lang_files, &iter,0, filename,-1);
+		}
+		filename = g_dir_read_name(gd);
+	}
+	g_dir_close(gd);
+	g_free(userdir);
+	g_pattern_spec_free(ps);
+
+}
+
+#endif
+
 static void preferences_dialog() {
 	Tprefdialog *pd;
 	GtkWidget *dvbox, *frame, *vbox1, *vbox2;
@@ -2632,7 +2709,9 @@ static void preferences_dialog() {
 
 	pd = g_new0(Tprefdialog,1);
 	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_NONE, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
-	
+#ifdef USE_SCANNER
+	rescan_lang_files(pd);
+#endif	
 	dvbox = gtk_vbox_new(FALSE, 5);
 
 	dhbox = gtk_hbox_new(FALSE, 5);
@@ -3017,7 +3096,6 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_hl_gui(pd,vbox2);
-	
 
 #endif	
 
