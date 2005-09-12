@@ -1,4 +1,4 @@
-c:String:0:":":1::#009900::0:0:
+c:String:0:".*?(?<!\\\\)"::2::#009900::0:0:
 c:String Escape:0:\\\\(n|t|v|b|r|f|a|\\\\|\\?|'|"|\\d{1,3}|x\\d+)::2:^String$:#990099::0:0:
 c:Preprocessor:0:#(include|define|if(def|ndef)?|else|elif|endif|undef)::2::#990099::0:0:
 c:Comment (C):0:/\\*.*?\\*/::2::#0000FF::1:2:
@@ -12,7 +12,7 @@ c:Glib Keywords:0:\\b(GArray|GCallback|GClassInitFunc|GClosure|GCompareDataFunc|
 c:GDK Keywords:0:\\b(Gdk(Color|Colormap|CursorType|Display|DragContext|Drawable|Event|EventAny|EventButton|EventCrossing|EventExpose|EventFocus|EventKey|EventScroll|Pixbuf|Pixdata|Pixmap|Rectangle|Region|Screen|Window|WindowAttr))\\b::2::#990000::2:0:
 c:GnomeVFS Keywords:0:\\b(GnomeVFS(AsyncHandle|FileInfo|FileSize|FileType|Handle|Result|ToplevelURI|URI|XferProgressInfo))\\b::2::#990000::2:0:
 c:Braces:0:[{}]::2::#000000::2:0:
-c:Character:0:':':1::#009900::0:0:
+c:Character:0:'.*?'::2::#009900::0:0:
 c:Character Escape:0:\\\\.::2:^character$:#000099::0:0:
 c:Defines:0:\\b(NULL|TRUE|FALSE)\\b::2::#999900::2:0:
 c:Numbers:1:\\b\\d+\\b::2::#009900::0:0:
@@ -124,40 +124,31 @@ perl:RegExp 03:0:~\\s*(s|tr|y)\\s*".*?(?<!\\\\)".*?(?<!\\\\)"\\s*[gcimosxde]*::2
 perl:RegExp 04:0:~\\s*(s|tr|y)\\s*'.*?(?<!\\\\)'.*?(?<!\\\\)'\\s*[gcimosxde]*::2::#666666::0:1:
 perl:RegExp 05:0:~\\s*/:(?<!\\\\)/\\s*[gcimosxde]*:1::#666666::0:1:
 perl:RegExp 06:0:~\\s*":(?<!\\\\)"\\s*[gcimosxde]*:1::#666666::0:1:
-perl:RegExp 06:0:~\\s*m\\s*":(?<!\\\\)"\\s*[gcimosxde]*:1::#666666::0:1:
-perl:RegExp 06:0:~\\s*m\\s*':(?<!\\\\)'\\s*[gcimosxde]*:1::#666666::0:1:
-perl:RegExp 07:0:~\\s*m\\s*/:(?<!\\\\)/\\s*[gcimosxde]*::1::#666666::0:1:
-perl:RegExp 08:0:~\\s*m\\s*\\|:(?<!\\\\)\\|\\s*[gcimosxde]*:1::#666666::0:1:
-perl:RegExp 09:0:~\\s*m\\s*\\[:(?<!\\\\)\\]\\s*[gcimosxde]*:1::#666666::0:1:
-perl:RegExp 10:0:~\\s*m\\s*\\{:(?<!\\\\)\\}\\s*[gcimosxde]*:1::#666666::0:1:
-perl:RegExp 11:0:~\\s*m\\s*\\(:(?<!\\\\)\\)\\s*[gcimosxde]*:1::#666666::0:1:
-perl:String (single quoted) 1:0:\\bq\\s*~:(?<!\\\\)~:1::#009900::0:0:
-perl:String (single quoted) 2:0:\\bq\\s*\\(:(?<!\\\\)\\):1::#009900::0:0:
-perl:String (single quoted) 3:0:\\bq\\s*\\[:(?<!\\\\)\\]:1::#009900::0:0:
-perl:String (single quoted) 4:0:\\bq\\s*\\|:(?<!\\\\)\\|:1::#009900::0:0:
-perl:String (single quoted) 5:0:\\bq\\s*/:(?<!\\\\)/:1::#009900::0:0:
-perl:String (single quoted) 6:0:':(?<!\\\\)':1::#009900::0:0:
-perl:String (double quoted) 1:0:\\bqq\\s*~:(?<!\\\\)~:1::#009900::0:0:
-perl:String (double quoted) 2:0:\\bqq\\s*\\(:(?<!\\\\)\\):1::#009900::0:0:
-perl:String (double quoted) 3:0:\\bqq\\s*\\[:(?<!\\\\)\\]:1::#009900::0:0:
-perl:String (double quoted) 4:0:\\bqq\\s*\\|:(?<!\\\\)\\|:1::#009900::0:0:
-perl:String (double quoted) 5:0:\\bqq\\s*/:(?<!\\\\)/:1::#009900::0:0:
-perl:String (double quoted) 6:0:":(?<!\\\\)":1::#009900::0:0:
+perl:RegExp 07:0:~\\s*m\\s*":(?<!\\\\)"\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 08:0:~\\s*m\\s*':(?<!\\\\)'\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 09:0:~\\s*m\\s*/:(?<!\\\\)/\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 10:0:~\\s*m\\s*\\|:(?<!\\\\)\\|\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 11:0:~\\s*m\\s*\\[:(?<!\\\\)\\]\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 12:0:~\\s*m\\s*\\{:(?<!\\\\)\\}\\s*[gcimosxde]*:1::#666666::0:1:
+perl:RegExp 13:0:~\\s*m\\s*\\(:(?<!\\\\)\\)\\s*[gcimosxde]*:1::#666666::0:1:
+perl:String (single quoted):0:(?<!\\\\)'.*?'::2::#009900::0:0:
+perl:String (double quoted):0:(?<!\\\\)".*?"::2::#009900::0:0:
 perl:String (execute) 1:0:\\bqx\\s*~:(?<!\\\\)~:1::#880000::0:0:
 perl:String (execute) 2:0:\\bqx\\s*\\(:(?<!\\\\)\\):1::#880000::0:0:
 perl:String (execute) 3:0:\\bqx\\s*\\[:(?<!\\\\)\\]:1::#880000::0:0:
 perl:String (execute) 4:0:\\bqx\\s*\\|:(?<!\\\\)\\|:1::#880000::0:0:
 perl:String (execute) 5:0:\\bqx\\s*/:(?<!\\\\)/:1::#880000::0:0:
 perl:String (execute) 6:0:\\`:(?<!\\\\)\\`:1::#880000::0:0:
-perl:Statements:0:\\b(if|until|while|elsif|else|unless|for(each)?|continue|last|goto|next|redo|do(?=\\s*\\{)|BEGIN|END)\\b::2::#000000::2:0:
-perl:Modules:0:^(bless|caller|import|no|package|prototype|require|return|INIT|CHECK|BEGIN|END|use|new)::2::#990000::2:0:
-perl:Pragma:0:\\b(attrs|autouse|base|blib|constant|diagnostics|fields|integer|less|lib|locale|ops|overload|re|sigtrap|strict|subs|vars|vmsish)\\b::2::#990000::2:0:
-perl:Methods:0:\\b(can|isa|VERSION)\\b::2::#900000::2:0:
+perl:Keywords:0:\\b(AnyDBM_File|AutoLoader|AutoSplit|B|B\:\:Asmdata|B\:\:Assembler|B\:\:Bblock|B\:\:Bytecode|B\:\:C|B\:\:CC|B\:\:Debug|B\:\:Deparse|B\:\:Disassembler|B\:\:Lint|B\:\:Showlex|B\:\:Stackobj|B\:\:Stash|B\:\:Terse|B\:\:Xref|Benchmark|ByteLoader|CGI|CGI\:\:Apache|CGI\:\:Carp|CGI\:\:Cookie|CGI\:\:Fast|CGI\:\:Pretty|CGI\:\:Push|CGI\:\:Switch|CPAN|CPAN\:\:FirstTime|CPAN\:\:Nox|Carp|Carp\:\:Heavy Carp guts|Class\:\:Struct|Config|Cwd|DB|DB_File|Data\:\:Dumper|DBI|DBD\:\:mysql|Devel\:\:Peek|Devel\:\:SelfStubber|Digest\:\:MD5|DirHandle|Dumpvalue|DynaLoader|English|Env|Errno|Exporter|Exporter\:\:Heavy|ExtUtils\:\:Embed|ExtUtils\:\:Install|ExtUtils\:\:Installed|ExtUtils\:\:Liblist|ExtUtils\:\:MM_Cygwin|ExtUtils\:\:MM_OS2|ExtUtils\:\:MM_Unix|ExtUtils\:\:MM_VMS|ExtUtils\:\:MM_Win32|ExtUtils\:\:MakeMaker|ExtUtils\:\:Manifest|ExtUtils\:\:Mkbootstrap|ExtUtils\:\:Mksymlists|ExtUtils\:\:Packlist|ExtUtils\:\:testlib|Fatal|Fcntl|File\:\:Basename|File\:\:CheckTree|File\:\:Compare|File\:\:Copy|File\:\:DosGlob|File\:\:Find|File\:\:Glob|File\:\:Path|File\:\:Spec|File\:\:Spec\:\:Functions|File\:\:Spec\:\:Mac|File\:\:Spec\:\:OS2|File\:\:Spec\:\:Unix|File\:\:Spec\:\:VMS|File\:\:Spec\:\:Win32|File\:\:stat|FileCache|FileHandle|FindBin|GDBM_File|Getopt\:\:Long|Getopt\:\:Std|I18N\:\:Collate|IO|IO\:\:Dir|IO\:\:File|IO\:\:Handle|IO\:\:Pipe|IO\:\:Poll|IO\:\:Seekable|IO\:\:Select|IO\:\:Socket|IO\:\:Socket\:\:INET|IO\:\:Socket\:\:UNIX|IPC\:\:Msg|IPC\:\:Open2|IPC\:\:Open3|IPC\:\:Semaphore|IPC\:\:SysV|Math\:\:BigFloat|Math\:\:BigInt|Math\:\:Complex|Math\:\:Trig|Net\:\:Ping|Net\:\:hostent|Net\:\:netent|Net\:\:protoentNet\:\:servent|O|Opcode|POSIX|Pod\:\:Checker|Pod\:\:Html|Pod\:\:InputObjects|Pod\:\:Man|Pod\:\:Parser|Pod\:\:Select|Pod\:\:Text|Pod\:\:Text\:\:Color|Pod\:\:Usage|SUPER|Safe|Search\:\:Dict|SelectSaver|SelfLoader|Shell|Socket|Symbol|Sys\:\:Hostname|Sys\:\:Syslog|Term\:\:Cap|Term\:\:Complete|Term\:\:ReadLine|Test|Test\:\:Harness|Text\:\:Abbrev|Text\:\:ParseWords|Text\:\:Soundex|Text\:\:Tabs|Text\:\:Wrap|Tie\:\:Array|Tie\:\:Handle|Tie\:\:Hash|Tie\:\:RefHash|Tie\:\:Scalar|Tie\:\:SubstrHash|Time\:\:Local|Time\:\:gmtime|Time\:\:localtime|Time\:\:tm|UNIVERSAL|User\:\:grent|User\:\:pwent|xtUtils\:\:Command)\\b::2::#900000::2:0:
+perl:Pragma:0:\\b(attributes|attrs|autouse|base|blib|caller|charnames|constant|diagnostics|fields|filetest|integer|less|lib|locale|ops|overload|re|sigtrap|strict|subs|utf8|vars|warnings)\\b::2::#900000::2:0:
+perl:UNIX Commands:0:\\b(STDERR|STDIN|STDOUT|a|abs|accept|alarm|and|atan2|b|bind|binmode|caller|chdir|chmod|chomp|chop|chown|chr|chroot|cmp|connect|continue|cos|crypt|dbmclose|dbmopen|default|defined|delete|dump|endgrent|endhostent|endnetent|endprotoent|endpwent|endservent|eof|eq|exec|exists|exp|fcntl|fileno|flock|fork|format|formline|ge|getc|getgrent|getgrgid|getgrnam|gethostbyaddr|gethostbyname|gethostent|getlogin|getnetbyaddr|getnetbyname|getnetent|getpeername|getpgrp|getppid|getpriority|getprotobyname|getprotobynumber|getprotoent|getpwent|getpwnam|getpwuid|getservbyname|getservbyport|getservent|getsockname|getsockopt|glob|gmtime|goto|gt|hex|import|index|int|ioctl|join|keys|kill|last|lc|lcfirst|le|length|link|listen|local|localtime|log|lstat|lt|m|mkdir|msgctl|msgget|msgrcv|msgsnd|ne|new|next)\\b::2::#0000CC::0:0:
+perl:UNIX Commands Part 2:0:\\b(no|not|oct|or|ord|pack|pipe|pop|pos|push|q|qq|quotemeta|qw|qx|rand|read(?\:dir)?|readdir|readlink|readpipe|recv|redo|ref|rename|reset|reverse|rewinddir|rindex|rmdir|s|scalar|seek(?\:dir)?|seekdir|select|semctl|semget|semop|send|setgrent|sethostent|setnetent|setpgrp|setpriority|setprotoent|setpwent|setservent|setsockopt|shift|shmctl|shmget|shmread|shmwrite|shutdown|sin|sleep|socket|socketpair|sort|split|sqrt|srand|stat|study|substr|switch|symlink|syscall|sysread|system|syswrite|tell(?\:dir)?|telldir|time|times|tr|truncate|uc|ucfirst|umask|undef|unlink|unpack|unshift|untie|utime|vec|wait|waitpid|wantarray|write|x|xor|y)\\b::2::#0000CC::2:0:
+perl:Program Flow:0:\\b(do|each|else|elsif|for|foreach|if|unless|until|values|while|our|my|print|printf|local)\\b::2::#0000CC::2:0:
+perl:Core Language:0:\\b(AUTOLOAD|CORE|DESTROY|ISA|__BEGIN__|__END__|__PACKAGE__|bless|carp|close(?\:dir)?|closedir|confess|croak|die|eval|exit|grep|map|no|open(?\:dir)?|opendir|package|require|return|splice|split|sprintf|sub|sysopen|use|warn)\\b::2::#993300::2:0:
 perl:File Tests:0:\\b-[rwxRWXoOezsfdlSpbcugktTBMAC]\\b::2::#990000::2:0:
-perl:Variables (Scalar):1:\\$(\\\\(\\\\)?|\\^[a-z]?|[^0-9a-z_]|[a-z0-9_]+)::2::#000099::0:0:
+perl:Variables (Scalar):1:\\$(\\\\(\\\\)?|\\^[a-z]?|[^0-9a-z_]|[a-z0-9_]+)::2::#000033::0:0:
 perl:Variables (Array):1:\\@\\$?[a-z0-9_]([a-z0-9_]+)?::2::#0000ff::0:0:
 perl:Variables (Hash):1:\\%\\$?[a-z]([a-z0-9_]+)?::2::#0000cc::0:0:
-perl:File Functions:1:\\b(bind|binmode|close(?:dir)?|connect|eof|fcntl|fileno|flock|getc|getpeername|getsockname|getsockopt|ioctl|listen|open(?:dir)?|recv|read(?:dir)?|rewinddir|seek(?:dir)?|send|setsockopt|shutdown|socket|sysopen|sysread|sysseek|syswrite|tell(?:dir)?|write|accept|pipe|socketpair|print|printf|select)\\b::2::#900000::2:0:
 php:HTML:1:<(/?[a-z][a-z0-9]*):>:1::#0000ee::0:0:
 php:<html> Tags:1:1::3:^HTML$:#000066::2:0:
 php:HTML Attributes:1:((?\:xml\:)?[a-z][a-z-]*=)[ \\n\\t]*((?\:"[^"]+")|(?\:'[^']+'))::2:^HTML$:#660099::0:0:
