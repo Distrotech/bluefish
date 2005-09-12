@@ -37,7 +37,7 @@ typedef struct {
 	return NULL;
 }*/
 static int Document_init(bluefish_DocumentObject *self, PyObject *args, PyObject *kwds) {
-	char *uri=NULL;
+	GnomeVFSURI *uri;
 	static char *kwlist[] = {"uri", NULL};
 	PyObject *PyBfwin;
 	Tbfwin *bfwin;
@@ -52,7 +52,7 @@ static int Document_init(bluefish_DocumentObject *self, PyObject *args, PyObject
 		Tdocument *tmpdoc;
 		tmpdoc = documentlist_return_document_from_uri(bfwin->documentlist, uri);
 		if (!tmpdoc) return -1;
-		g_print("found %p for %s\n",tmpdoc,uri);
+		g_print("found %p for %s\n",tmpdoc,urii->text);
 		self->doc = tmpdoc;
 	} else {
 		self->doc = bfwin->current_document;
