@@ -562,7 +562,11 @@ static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 }
 
 void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
-	DEBUG_MSG("main_window_destroy_lcb, started\n");
+	DEBUG_MSG("main_window_destroy_lcb, started for bfwin=%p, first cleanup any project (%p)\n",bfwin,bfwin->project);
+	if (bfwin->project) {
+		project_save_and_close(bfwin, TRUE);
+	}
+	
 	DEBUG_MSG("main_window_destroy_lcb, will hide the window now\n");
 	gtk_widget_hide(bfwin->main_window);
 	
