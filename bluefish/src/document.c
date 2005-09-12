@@ -241,7 +241,7 @@ gint return_num_untitled_documents(GList *doclist) {
  * will not add it to the menu, only to the list and the file
  **/
 void add_filename_to_history(Tbfwin *bfwin, gchar *filename) {
-	gchar *dirname;
+/*	gchar *dirname;*/
 
 	add_to_recent_list(bfwin, filename, 0, FALSE); /* the recent menu */
 /*	dirname = g_path_get_dirname(filename);
