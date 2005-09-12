@@ -496,7 +496,7 @@ void doc_highlight_full(Tdocument * doc) {
 }
 
 
-#else
+#else /* USE_SCANNER */
 
 
 /*********************************/
