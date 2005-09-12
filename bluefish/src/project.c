@@ -269,6 +269,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 
 	/* first we test if the project is already open */
 	prwin = project_is_open(fromfilename);
+	DEBUG_MSG("project_open_from_file, bfwin=%p, fromfilename=%s, found existing prwin=%p\n",bfwin,fromfilename,prwin);
 	if (prwin != NULL) {
 		DEBUG_MSG("project_open_from_file, project is open in bfwin=%p\n",prwin);
 		gtk_window_present(GTK_WINDOW(prwin->main_window));
@@ -296,6 +297,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		GSList *slist;
 		/* we will use this Bluefish window to open the project */
 		prwin = bfwin;
+		DEBUG_MSG("project_open_from_file, project %p will be in existing prwin=%p\n",prj,bfwin);
 		/* now we need to clean the session, and reset it to the session from the project */
 		/* free_session(bfwin->session); there is no session specific to a window anymore, only a global one*/
 		bfwin->session = prj->session;
@@ -304,7 +306,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 
 		setup_bfwin_for_project(bfwin);
 
-		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing bfwin=%p\n",prwin);
+		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing prwin=%p\n",prwin);
 		slist = gslist_from_glist_reversed(prj->files);
 		docs_new_from_uris(prwin, slist, TRUE);
 		/* docs_new_from_files(prwin, prj->files, TRUE); */
@@ -313,10 +315,10 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 		/* we will open a new Bluefish window for this project */
 		DEBUG_MSG("project_open_from_file, we need a new window\n");
 		prwin = gui_new_window(prj->files, prj);
-		DEBUG_MSG("project_open_from_file, new window with files ready\n");
-		bfwin->project = prj;
-		bfwin->session = prj->session;
-		setup_bfwin_for_project(bfwin);
+		DEBUG_MSG("project_open_from_file, new window with files ready at prwin=%p\n",prwin);
+		prwin->project = prj;
+		prwin->session = prj->session;
+		setup_bfwin_for_project(prwin);
 	}
 	set_project_menu_widgets(prwin, TRUE);
 	recent_menu_init_project(prwin);
@@ -339,6 +341,7 @@ static void project_open(Tbfwin *bfwin) {
 }
 
 static void project_destroy(Tproject *project) {
+	DEBUG_MSG("project_destroy, project=%p, project->session=%p\n",project,project->session);
 	bookmark_data_cleanup(project->bmarkdata);
 	free_stringlist(project->files);
 	free_session(project->session);
@@ -351,6 +354,7 @@ static void project_destroy(Tproject *project) {
 }
 
 static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
+	DEBUG_MSG("setup_bfwin_for_nonproject, bfwin=%p\n",bfwin);
 /*	gchar * newbasedir = g_strdup (g_get_home_dir());*/
 	bfwin->session = main_v->session;
 	bfwin->bmarkdata = main_v->bmarkdata;
@@ -375,10 +379,11 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
  */
 gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 	gboolean dont_save = FALSE;
-	DEBUG_MSG("project_save_and_close, bfwin=%p, close_win=%d, project->close=%d\n",bfwin,close_win,bfwin->project->close);
+	DEBUG_MSG("project_save_and_close, bfwin=%p, project=%p, close_win=%d, project->close=%d\n",bfwin,bfwin->project,close_win,bfwin->project->close);
 	if (bfwin->project->close) {
 		project_destroy(bfwin->project);
-		setup_bfwin_for_nonproject(bfwin);
+		/* we should only set the window for nonproject if the window will keep alive*/
+		if (!close_win)setup_bfwin_for_nonproject(bfwin);
 		return TRUE;
 	}
 	
@@ -429,9 +434,11 @@ gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 		project_destroy(bfwin->project);
 		setup_bfwin_for_nonproject(bfwin);
 	} else {
+		/* the last document that closes should close the window, and in the window-delete-event handler (in gui.c)
+		project_save_and_close() is called again, which will clean-up the memory */
+		DEBUG_MSG("project_save_and_close, documents are closing!, setting project->close to TRUE for project %p in bfwin %p\n", bfwin->project, bfwin);
 		bfwin->project->close = TRUE;
 		doc_close_multiple_backend(bfwin, close_win);
-		DEBUG_MSG("project_save_and_close, documents are closing!\n");
 	}
 	return TRUE;
 }
@@ -651,7 +658,7 @@ void project_create_gui(Tbfwin *bfwin) {
 }
 
 void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	DEBUG_MSG("project_menu_cb, bfwin=%p, callback_action=%d\n",bfwin,callback_action);
+	DEBUG_MSG("project_menu_cb, bfwin=%p, project=%p,callback_action=%d\n",bfwin,bfwin->project,callback_action);
 	switch (callback_action) {
 	case 1:
 		project_open(bfwin);
