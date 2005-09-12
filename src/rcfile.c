@@ -421,7 +421,9 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.newfile_default_encoding,"newfile_default_encoding:","UTF-8");
 	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 2, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta,"auto_update_meta:",1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta_author,"auto_update_meta_author:",1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta_date,"auto_update_meta_date:",1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta_generator,"auto_update_meta_generator:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.encoding_search_Nbytes, "encoding_search_Nbytes:", 500, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.document_tabposition,"document_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.leftpanel_tabposition,"leftpanel_tabposition:",(gint)GTK_POS_BOTTOM, TRUE);
