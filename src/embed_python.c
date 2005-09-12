@@ -52,7 +52,7 @@ static int Document_init(bluefish_DocumentObject *self, PyObject *args, PyObject
 		Tdocument *tmpdoc;
 		tmpdoc = documentlist_return_document_from_uri(bfwin->documentlist, uri);
 		if (!tmpdoc) return -1;
-		g_print("found %p for %s\n",tmpdoc,urii->text);
+		g_print("found %p for %s\n",tmpdoc,uri->text);
 		self->doc = tmpdoc;
 	} else {
 		self->doc = bfwin->current_document;
