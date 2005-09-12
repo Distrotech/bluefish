@@ -3528,8 +3528,8 @@ void bf_textview_color_blocks (BfTextView * self, gboolean color)
 void bf_textview_set_blocks_color (BfTextView * self, gchar * color)
 {
    gdk_color_parse (color, &self->block_color);
-   g_object_set (G_OBJECT (self->block_tag), "background-gdk", &(self->block_color));
-   g_object_set (G_OBJECT (self->fold_header_tag), "background-gdk", &(self->block_color));
+   g_object_set (G_OBJECT (self->block_tag), "background-gdk", &(self->block_color), NULL);
+   g_object_set (G_OBJECT (self->fold_header_tag), "background-gdk", &(self->block_color), NULL);
 }
 
 /**
