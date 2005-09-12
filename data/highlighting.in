@@ -1,4 +1,4 @@
-c:String:0:":":1::#009900::0:0:
+c:String:0:".*?(?<!\\\\)"::2::#009900::0:0:
 c:String Escape:0:\\\\(n|t|v|b|r|f|a|\\\\|\\?|'|"|\\d{1,3}|x\\d+)::2:^String$:#990099::0:0:
 c:Preprocessor:0:#(include|define|if(def|ndef)?|else|elif|endif|undef)::2::#990099::0:0:
 c:Comment (C):0:/\\*.*?\\*/::2::#0000FF::1:2:
@@ -12,7 +12,7 @@ c:Glib Keywords:0:\\b(GArray|GCallback|GClassInitFunc|GClosure|GCompareDataFunc|
 c:GDK Keywords:0:\\b(Gdk(Color|Colormap|CursorType|Display|DragContext|Drawable|Event|EventAny|EventButton|EventCrossing|EventExpose|EventFocus|EventKey|EventScroll|Pixbuf|Pixdata|Pixmap|Rectangle|Region|Screen|Window|WindowAttr))\\b::2::#990000::2:0:
 c:GnomeVFS Keywords:0:\\b(GnomeVFS(AsyncHandle|FileInfo|FileSize|FileType|Handle|Result|ToplevelURI|URI|XferProgressInfo))\\b::2::#990000::2:0:
 c:Braces:0:[{}]::2::#000000::2:0:
-c:Character:0:':':1::#009900::0:0:
+c:Character:0:'.*?'::2::#009900::0:0:
 c:Character Escape:0:\\\\.::2:^character$:#000099::0:0:
 c:Defines:0:\\b(NULL|TRUE|FALSE)\\b::2::#999900::2:0:
 c:Numbers:1:\\b\\d+\\b::2::#009900::0:0:
@@ -131,18 +131,8 @@ perl:RegExp 10:0:~\\s*m\\s*\\|:(?<!\\\\)\\|\\s*[gcimosxde]*:1::#666666::0:1:
 perl:RegExp 11:0:~\\s*m\\s*\\[:(?<!\\\\)\\]\\s*[gcimosxde]*:1::#666666::0:1:
 perl:RegExp 12:0:~\\s*m\\s*\\{:(?<!\\\\)\\}\\s*[gcimosxde]*:1::#666666::0:1:
 perl:RegExp 13:0:~\\s*m\\s*\\(:(?<!\\\\)\\)\\s*[gcimosxde]*:1::#666666::0:1:
-perl:String (single quoted) 1:0:\\bq\\s*~:(?<!\\\\)~:1::#009900::0:0:
-perl:String (single quoted) 2:0:\\bq\\s*\\(:(?<!\\\\)\\):1::#009900::0:0:
-perl:String (single quoted) 3:0:\\bq\\s*\\[:(?<!\\\\)\\]:1::#009900::0:0:
-perl:String (single quoted) 4:0:\\bq\\s*\\|:(?<!\\\\)\\|:1::#009900::0:0:
-perl:String (single quoted) 5:0:\\bq\\s*/:(?<!\\\\)/:1::#009900::0:0:
-perl:String (single quoted) 6:0:':(?<!\\\\)':1::#009900::0:0:
-perl:String (double quoted) 1:0:\\bqq\\s*~:(?<!\\\\)~:1::#009900::0:0:
-perl:String (double quoted) 2:0:\\bqq\\s*\\(:(?<!\\\\)\\):1::#009900::0:0:
-perl:String (double quoted) 3:0:\\bqq\\s*\\[:(?<!\\\\)\\]:1::#009900::0:0:
-perl:String (double quoted) 4:0:\\bqq\\s*\\|:(?<!\\\\)\\|:1::#009900::0:0:
-perl:String (double quoted) 5:0:\\bqq\\s*/:(?<!\\\\)/:1::#009900::0:0:
-perl:String (double quoted) 6:0:":(?<!\\\\)":1::#009900::0:0:
+perl:String (single quoted):0:(?<!\\\\)'.*?'::2::#009900::0:0:
+perl:String (double quoted):0:(?<!\\\\)".*?"::2::#009900::0:0:
 perl:String (execute) 1:0:\\bqx\\s*~:(?<!\\\\)~:1::#880000::0:0:
 perl:String (execute) 2:0:\\bqx\\s*\\(:(?<!\\\\)\\):1::#880000::0:0:
 perl:String (execute) 3:0:\\bqx\\s*\\[:(?<!\\\\)\\]:1::#880000::0:0:
