@@ -178,6 +178,7 @@ quickstart_load_metatags(GtkListStore *lstore)
 	const gchar *metaTags[] = {
 		"name=\"generator\" content=\"Bluefish\"",
 		"name=\"author\" content=\"\"",
+		"name=\"date\" content=\"\"",
 		"name=\"copyright\" content=\"\"",
 		"name=\"keywords\" content=\"\"",
 		"name=\"description\" content=\"\"",

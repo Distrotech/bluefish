@@ -229,7 +229,9 @@ typedef struct {
 	gchar *newfile_default_encoding; /* if you open a new file, what encoding will it use */
 	GList *encodings; /* all encodings you can choose from */
 	gint auto_set_encoding_meta; /* auto set metatag for the encoding */
-	gint auto_update_meta; /* auto update author and generator meta tags on save */
+	gint auto_update_meta_author; /* auto update author meta tag on save */
+	gint auto_update_meta_date; /* auto update date meta tag on save */
+	gint auto_update_meta_generator; /* auto update generator meta tag on save */
 	gint encoding_search_Nbytes; /* number of bytes to look for the encoding meta tag */
 	gint document_tabposition;
 	gint leftpanel_tabposition;

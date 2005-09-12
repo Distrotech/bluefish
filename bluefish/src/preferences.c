@@ -78,7 +78,9 @@ enum {
 	clear_undo_on_save, 	/* clear all undo information on file save */
 	newfile_default_encoding,/* if you open a new file, what encoding will it use */
 	auto_set_encoding_meta,/* auto set metatag for the encoding */
-	auto_update_meta,
+	auto_update_meta_author, /* auto update author meta tag */
+	auto_update_meta_date, /* auto update date meta tag */
+	auto_update_meta_generator, /* auto update generator meta tag */
 	document_tabposition,
 	leftpanel_tabposition,
 	/* not yet in use */
@@ -2497,7 +2499,9 @@ static void preferences_apply(Tprefdialog *pd) {
 		integer_apply(&main_v->props.lowercase_tags, pd->prefs[lowercase_tags], TRUE);
 		integer_apply(&main_v->props.allow_dep, pd->prefs[allow_dep], TRUE);
 	}
-	integer_apply(&main_v->props.auto_update_meta, pd->prefs[auto_update_meta], TRUE);
+	integer_apply(&main_v->props.auto_update_meta_author, pd->prefs[auto_update_meta_author], TRUE);
+	integer_apply(&main_v->props.auto_update_meta_date, pd->prefs[auto_update_meta_date], TRUE);
+	integer_apply(&main_v->props.auto_update_meta_generator, pd->prefs[auto_update_meta_generator], TRUE);
 	
 	string_apply(&main_v->props.newfile_default_encoding, GTK_COMBO(pd->prefs[newfile_default_encoding])->entry);
 	integer_apply(&main_v->props.auto_set_encoding_meta, pd->prefs[auto_set_encoding_meta], TRUE);
@@ -2796,7 +2800,10 @@ static void preferences_dialog() {
 	pd->prefs[lowercase_tags] = boxed_checkbut_with_value(_("Lowercase HTML tags"), main_v->props.lowercase_tags, vbox2);
 	pd->prefs[allow_dep] = boxed_checkbut_with_value(_("Use deprecated tags (e.g. <font> and <nobr>)"), main_v->props.allow_dep, vbox2);
 	pd->prefs[xhtml] = boxed_checkbut_with_value(_("Use XHTML style tags (<br />)"), main_v->props.xhtml, vbox2);
-	pd->prefs[auto_update_meta] = boxed_checkbut_with_value(_("Automatic update author meta"), main_v->props.auto_update_meta, vbox2);
+	
+	pd->prefs[auto_update_meta_author] = boxed_checkbut_with_value(_("Automatic update author meta tag"), main_v->props.auto_update_meta_author, vbox2);
+	pd->prefs[auto_update_meta_date] = boxed_checkbut_with_value(_("Automatic update date meta tag"), main_v->props.auto_update_meta_date, vbox2);
+	pd->prefs[auto_update_meta_generator] = boxed_checkbut_with_value(_("Automatic update generator meta tag"), main_v->props.auto_update_meta_generator, vbox2);
 	
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
