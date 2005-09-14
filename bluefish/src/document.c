@@ -2921,11 +2921,11 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	bf_textview_set_autoscan_lines(BF_TEXTVIEW(newdoc->view),main_v->props.autoscan_lines);
 	bf_textview_set_bg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_bg); 
 	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg); 
-	g_signal_connect(G_OBJECT(newdoc->view),"token",G_CALLBACK(hl_token_slot),NULL);
+/*	g_signal_connect(G_OBJECT(newdoc->view),"token",G_CALLBACK(hl_token_slot),NULL);
 	g_signal_connect(G_OBJECT(newdoc->view),"block_end",G_CALLBACK(hl_block_slot),NULL);
 	g_signal_connect(G_OBJECT(newdoc->view),"tag_begin",G_CALLBACK(hl_tag_begin_slot),NULL);
 	g_signal_connect(G_OBJECT(newdoc->view),"tag_end",G_CALLBACK(hl_tag_end_slot),NULL);
-	g_signal_connect(G_OBJECT(newdoc->view),"tag_attr",G_CALLBACK(hl_tag_attr_slot),NULL);
+	g_signal_connect(G_OBJECT(newdoc->view),"tag_attr",G_CALLBACK(hl_tag_attr_slot),NULL);*/
 	g_signal_connect_after(G_OBJECT(newdoc->view),"realize",G_CALLBACK(doc_realize_cb),newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view),"move-cursor",G_CALLBACK(doc_move_cursor_cb),newdoc);
 #else	
