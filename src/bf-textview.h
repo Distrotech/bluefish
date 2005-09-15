@@ -26,6 +26,8 @@
 #ifndef __BF_TEXTVIEW_H__
 #define __BF_TEXTVIEW_H__
 
+
+
 #define BFTV_UTF8_RANGE	512
 
 /**
@@ -209,6 +211,7 @@ typedef struct {
     GHashTable *group_tags,*token_tags,*block_tags;
     GtkWidget *fold_menu;
     GList *hltags;
+    GHashTable *token_styles,*block_styles,*tag_styles,*group_styles;
 } BfTextView;
 
 /*
@@ -225,9 +228,8 @@ GType bf_textview_get_type(void);
 void bf_textview_set_language_ptr(BfTextView * self, BfLangConfig * cfg);
 
 void bf_textview_scan(BfTextView * self);
-void bf_textview_scan_area(BfTextView * self, GtkTextIter * start,
-			   GtkTextIter * end);
-void bf_textview_scan_lines(BfTextView * self, gint start, gint end);
+void bf_textview_scan_area(BfTextView * self, GtkTextIter * start,GtkTextIter * end);
+void bf_textview_scan_visible(BfTextView * self);
 
 GtkWidget *bf_textview_new(void);
 GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer);
