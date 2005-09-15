@@ -115,6 +115,7 @@ typedef struct {
     GHashTable *languages;	/* table of recognized languages - structures BfLangConfig */
 } BfLangManager;
 
+BfLangManager *bf_lang_mgr_new ();
 gboolean bf_lang_mgr_load_config(BfLangManager * mgr, gchar * filename,
 				 gchar * filetype);
 BfLangConfig *bf_lang_mgr_get_config(BfLangManager * mgr,
@@ -201,6 +202,7 @@ typedef struct {
     gboolean highlight;							/* TRUE if highlighting should be performed */
     gboolean mark_tokens;					/* TRUE if tokens should be marked also */
     gboolean match_blocks;				/* TRUE if matching block begin/end should be shown */
+    gboolean show_current_line;  /* TRUE if current line should be shown */
     gint hl_mode;											/* highlighting mode */
     /*< private > */
     gint lw_size_lines, lw_size_blocks, lw_size_sym;
@@ -208,7 +210,8 @@ typedef struct {
     GHashTable *symbol_lines;
     BfLangConfig *lang;
     TBfScanner scanner;
-    GtkTextTag *folded_tag, *block_tag, *fold_header_tag, *block_match_tag;
+    GtkTextTag *folded_tag, *block_tag, *fold_header_tag;
+    GtkTextTag *block_match_tag;
     GHashTable *group_tags,*token_tags,*block_tags;
     GtkWidget *fold_menu;
     GHashTable *token_styles,*block_styles,*tag_styles,*group_styles;
