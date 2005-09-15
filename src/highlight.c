@@ -333,10 +333,6 @@ gboolean filetype_clear_tags(gpointer key,gpointer value,gpointer data) {
 	return TRUE;
 }
 
-void filetype_register_tag(gpointer key,gpointer value,gpointer data) {
-   bf_textview_register_hltag(BF_TEXTVIEW(data),GTK_TEXT_TAG(value));
-}
-
 
 /*
  * This is modifed function for scanner environment.
@@ -360,7 +356,6 @@ void filetype_highlighting_rebuild(gboolean gui_errors) {
 				DEBUG_MSG("disconnected document %p from filetype %s\n", thisdoc, thisdoc->hl->type);
 				thisdoc->hl = (gpointer)g_strdup(thisdoc->hl->type);				
 			}
-			bf_textview_clear_hltags(BF_TEXTVIEW(thisdoc->view));
 			tmplist = g_list_next(tmplist);
 		}
 	}
@@ -490,8 +485,7 @@ void hl_init() {
 
 
 void doc_highlight_full(Tdocument * doc) {
-		if ( !doc->hl || !doc->need_highlighting ) return;
-		BF_TEXTVIEW(doc->view)->need_rescan = TRUE;
+		if ( !doc->hl ) return;	
 		bf_textview_scan(BF_TEXTVIEW(doc->view));
 		doc->need_highlighting = FALSE;
 }

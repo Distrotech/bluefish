@@ -2676,7 +2676,8 @@ static void rescan_lang_files(Tprefdialog *pd)
 	} else {
 			pd->lang_files = gtk_list_store_new (1, G_TYPE_STRING);
 	}
-	
+   gtk_list_store_append (pd->lang_files, &iter);
+ 	gtk_list_store_set (pd->lang_files, &iter,0, "",-1);	
 	gd = g_dir_open(PKGDATADIR, 0, &error);
 	filename = g_dir_read_name(gd);
 	while (filename) {
