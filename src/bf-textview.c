@@ -147,6 +147,7 @@ bf_textview_init (BfTextView * o)
   o->match_blocks = TRUE;
   o->token_styles = o->block_styles = o->tag_styles = o->group_styles = NULL;
   o->hl_mode = BFTV_HL_MODE_VISIBLE;
+  o->show_current_line = TRUE;
 }
 
 
@@ -1744,7 +1745,23 @@ bf_textview_expose_cb (GtkWidget * widget, GdkEventExpose * event, gpointer doc)
 
   left_win = gtk_text_view_get_window (GTK_TEXT_VIEW (widget), GTK_TEXT_WINDOW_LEFT);
   if (left_win != event->window)
+  {  /* current line highlighting - from gtksourceview team :) */
+   	 if ( event->window == gtk_text_view_get_window (GTK_TEXT_VIEW (widget), GTK_TEXT_WINDOW_TEXT)
+  	       && BF_TEXTVIEW(widget)->show_current_line )
+  	       {
+  	       	 gtk_text_buffer_get_iter_at_mark(buf,&it,gtk_text_buffer_get_insert(buf));
+  	       	 gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget),&rect);
+  	       	 gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget),&it,&w,&w2);
+  	       	 gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget),GTK_TEXT_WINDOW_TEXT,
+  	       	 											rect.x, rect.y, &l_top1,&l_top2);
+  	       	 gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget),GTK_TEXT_WINDOW_TEXT,
+  	       	 											0, w, NULL,&w);
+  	       	 gdk_draw_rectangle(event->window,widget->style->bg_gc[GTK_WIDGET_STATE(widget)],
+  	       	 	TRUE,rect.x,w,rect.width,w2);											
+  	       	 											
+  	       }
     return FALSE;
+  }  
   if (!BF_TEXTVIEW (widget)->show_lines
       && !BF_TEXTVIEW (widget)->show_symbols && !BF_TEXTVIEW (widget)->show_blocks)
     return FALSE;

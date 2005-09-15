@@ -121,45 +121,6 @@ void session_set_savedir(Tbfwin *bfwin, gchar *curi) {
 	}
 }
 
-#ifdef USE_SCANNER
-static void doc_realize_cb(GtkWidget *widget,gpointer user_data) {
-	GdkWindow *left_win;
-	GdkPixmap *pix;
-	GdkColor clr;
-	GtkTextTag *tag;
-	Tdocument *doc = DOCUMENT(user_data);
-	left_win = gtk_text_view_get_window(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
-	if (left_win) {
-			pix = gdk_pixmap_create_from_xpm_d(GDK_DRAWABLE(left_win),NULL,NULL,bmark_xpm);
-			bf_textview_add_symbol(BF_TEXTVIEW(doc->view),"bmark",pix);		
-		} 	
-	gdk_color_parse("#f7f29b",&clr);	
-	tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(doc->buffer),"matching_block");
-	if ( !tag )
-		gtk_text_buffer_create_tag(doc->buffer,"matching_block","background-gdk",&clr,NULL); 	
-		
-}
-
-static void doc_move_cursor_cb(GtkTextView *widget,GtkMovementStep step,
-                                            gint count,gboolean extend_selection,gpointer user_data) {
-	Tdocument *doc = DOCUMENT(user_data);
-	TBfBlock *block=NULL;
-	GtkTextIter it,it2;
-	
-	gtk_text_buffer_get_start_iter(doc->buffer,&it);
-	gtk_text_buffer_get_end_iter(doc->buffer,&it2);
-	gtk_text_buffer_remove_tag_by_name(doc->buffer,"matching_block",&it,&it2);
-	gtk_text_buffer_get_iter_at_mark(doc->buffer,&it,gtk_text_buffer_get_insert(doc->buffer));
-	gtk_text_iter_backward_char(&it);
-	block = bf_textview_get_nearest_block(BF_TEXTVIEW(doc->view),&it,FALSE,BF_GNB_CHAR,TRUE);
-	if ( block != NULL ) {
-		gtk_text_buffer_apply_tag_by_name(doc->buffer,"matching_block",&block->b_start,&block->b_end);
-		gtk_text_buffer_apply_tag_by_name(doc->buffer,"matching_block",&block->e_start,&block->e_end);
-	}	
-}
-
-
-#endif
 
 /**
  * return_allwindows_documentlist:
