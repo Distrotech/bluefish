@@ -102,7 +102,7 @@ typedef struct {
     GArray *dfa;
     GList *dfa_tables;
     GArray *line_indent;
-    gint **scan_table;
+    gshort **scan_table;
     gint tabnum;
     gchar escapes[BFTV_UTF8_RANGE];
     GHashTable *restricted_tags;
@@ -189,28 +189,28 @@ typedef struct {
  * Main object structure
  */
 
+#define BFTV_HL_MODE_ALL					1
+#define BFTV_HL_MODE_VISIBLE			2
+
 typedef struct {
     GtkTextView __parent__;
-    GdkColor block_color;
     GdkColor bkg_color, fg_color;
     gboolean show_lines;
     gboolean show_blocks;
     gboolean show_symbols;
-    gboolean autoscan;
-    gboolean color_blocks;
-    gint autoscan_lines;
-    gboolean highlight;
+    gboolean highlight;							/* TRUE if highlighting should be performed */
+    gboolean mark_tokens;					/* TRUE if tokens should be marked also */
+    gboolean match_blocks;				/* TRUE if matching block begin/end should be shown */
+    gint hl_mode;											/* highlighting mode */
     /*< private > */
-    gboolean need_rescan; 					/* I'm checking if document was modified before rescanning */ 
     gint lw_size_lines, lw_size_blocks, lw_size_sym;
     GHashTable *symbols;
     GHashTable *symbol_lines;
     BfLangConfig *lang;
     TBfScanner scanner;
-    GtkTextTag *folded_tag, *block_tag, *fold_header_tag;
+    GtkTextTag *folded_tag, *block_tag, *fold_header_tag, *block_match_tag;
     GHashTable *group_tags,*token_tags,*block_tags;
     GtkWidget *fold_menu;
-    GList *hltags;
     GHashTable *token_styles,*block_styles,*tag_styles,*group_styles;
 } BfTextView;
 
@@ -235,20 +235,19 @@ GtkWidget *bf_textview_new(void);
 GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer);
 
 void bf_textview_show_lines(BfTextView * self, gboolean show);
-
 void bf_textview_show_symbols(BfTextView * self, gboolean show);
 gboolean bf_textview_add_symbol(BfTextView * self, gchar * name,
 				GdkPixmap * pix);
 void bf_textview_remove_symbol(BfTextView * self, gchar * name);
 void bf_textview_set_symbol(BfTextView * self, gchar * name, gint line,
 			    gboolean set);
-
-void bf_textview_set_autoscan(BfTextView * self, gboolean setauto);
-void bf_textview_set_autoscan_lines(BfTextView * self, gint lines);
-
 void bf_textview_show_blocks(BfTextView * self, gboolean show);
-void bf_textview_color_blocks(BfTextView * self, gboolean color);
-void bf_textview_set_blocks_color(BfTextView * self, gchar * color);
+
+void bf_textview_set_highlight(BfTextView * self, gboolean on);
+void bf_textview_set_match_blocks(BfTextView * self, gboolean on);
+void bf_textview_set_mark_tokens(BfTextView * self, gboolean on);
+
+
 void bf_textview_fold_blocks(BfTextView * self, gboolean fold);
 void bf_textview_fold_blocks_area(BfTextView * self, GtkTextIter * start,
 				  GtkTextIter * end, gboolean fold);
@@ -258,7 +257,9 @@ void bf_textview_fold_blocks_lines(BfTextView * self, gint start, gint end,
 #define BF_GNB_CHAR					0
 #define BF_GNB_LINE					1
 #define BF_GNB_DOCUMENT	2
-TBfBlock *bf_textview_get_nearest_block(BfTextView * self,
+#define BF_GNB_HERE					3
+
+GtkTextMark *bf_textview_get_nearest_block(BfTextView * self,
 					GtkTextIter * iter,
 					gboolean backward, gint mode,
 					gboolean not_single);
@@ -266,8 +267,5 @@ TBfBlock *bf_textview_get_nearest_block(BfTextView * self,
 void bf_textview_set_bg_color(BfTextView * self, gchar * color);
 void bf_textview_set_fg_color(BfTextView * self, gchar * color);
 
-void bf_textview_register_hltag(BfTextView * self, GtkTextTag * tag);
-void bf_textview_unregister_hltag(BfTextView * self, GtkTextTag * tag);
-void bf_textview_clear_hltags(BfTextView * self);
 
 #endif
