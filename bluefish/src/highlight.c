@@ -490,7 +490,8 @@ void hl_init() {
 
 
 void doc_highlight_full(Tdocument * doc) {
-		if ( !doc->hl ) return;
+		if ( !doc->hl || !doc->need_highlighting ) return;
+		BF_TEXTVIEW(doc->view)->need_rescan = TRUE;
 		bf_textview_scan(BF_TEXTVIEW(doc->view));
 		doc->need_highlighting = FALSE;
 }

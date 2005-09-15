@@ -20,6 +20,7 @@
 
 #include "bf-textview.h"
 #include "bluefish.h"
+
 #include <stdarg.h>
 #include <string.h>
 #include <libxml/xmlmemory.h>
@@ -146,6 +147,8 @@ bf_textview_init (BfTextView * o)
   o->block_tags = g_hash_table_new(g_str_hash,g_str_equal);
   o->token_tags = g_hash_table_new(g_str_hash,g_str_equal);
   o->need_rescan = FALSE;
+  o->highlight = TRUE;
+  o->token_styles = o->block_styles = o->tag_styles = o->group_styles = NULL;
 }
 
 
@@ -357,6 +360,7 @@ bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter * end
   gint currstate = 0 ;
   GList *lst = NULL;
   TBfBlock *bf=NULL;
+  GtkTextTag *tag=NULL;
 
 
 
@@ -473,6 +477,14 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 								g_object_set_data(G_OBJECT(mark),"type",&tid_token);
 								g_object_set_data(G_OBJECT(mark),"info",t);
 								g_object_set_data(G_OBJECT(mark),"ref",mark2);
+								if ( self->highlight && self->token_styles && self->group_styles ) 
+								{
+										tag = g_hash_table_lookup(self->token_styles,t->name);
+										if ( !tag && t->group)
+												tag = g_hash_table_lookup(self->group_styles,t->group);
+										if ( tag )
+												gtk_text_buffer_apply_tag(buf,tag,&its,&ita);										
+								}
 				          break;
 		 	       	case 1:
 		 	       			if ( self->scanner.current_context && !self->scanner.current_context->markup ) break;
@@ -481,6 +493,12 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 								g_object_set_data(G_OBJECT(mark),"type",&tid_tag_end);
 								g_object_set_data(G_OBJECT(mark),"info",t);
 								g_object_set_data(G_OBJECT(mark),"ref",mark2);
+								if ( self->highlight && self->tag_styles  ) 
+								{
+										tag = g_hash_table_lookup(self->tag_styles,"tag_end");
+										if ( tag )
+												gtk_text_buffer_apply_tag(buf,tag,&its,&ita);										
+								}								
 			 	       	break;
 	 	 	       	case 2:	
 	 	 	       	case 3:
@@ -501,7 +519,17 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 										mark2 = gtk_text_buffer_create_mark  (buf,NULL,&ita,TRUE);
 										g_object_set_data(G_OBJECT(mark),"ref_v2",mark2);										
 						 	       	g_strfreev(arr);
-						 	       	g_free(txt);	 	 	       				
+						 	       	g_free(txt);	 	
+										if ( self->highlight && self->tag_styles ) 
+										{
+											tag = g_hash_table_lookup(self->tag_styles,"attr_name");
+											if ( tag )
+												gtk_text_buffer_apply_tag(buf,tag,&its,&pit);										
+											tag = g_hash_table_lookup(self->tag_styles,"attr_val");
+											if ( tag )
+												gtk_text_buffer_apply_tag(buf,tag,&pit,&ita);										
+												
+										}						 	       	 	       				
 	 	 	       				}; break;	 	 	       	
 		 	       }
 		   }
@@ -542,7 +570,13 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 							   	g_object_set_data(G_OBJECT(mark),"type",&tid_tag_start);
 									g_object_set_data(G_OBJECT(mark),"info",tmp);
 									g_object_set_data(G_OBJECT(mark),"ref",mark2);
-							   	g_free(bf);
+									if ( self->highlight && self->tag_styles  ) 
+									{
+										tag = g_hash_table_lookup(self->tag_styles,"tag_begin");
+										if ( tag )
+												gtk_text_buffer_apply_tag(buf,tag,&bf->b_start,&ita);										
+									}							   	
+							   	g_free(bf);									
 							   } /* bf */	
 						   };		/* else */
 						   break;
@@ -586,6 +620,17 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 								   g_object_set_data (G_OBJECT (mark3),"ref", mark4);
 								   g_object_set_data (G_OBJECT (mark3),"ref_b1", mark);
 								   g_object_set_data (G_OBJECT (mark3),"ref_b2", mark2);
+								   
+								   gtk_text_buffer_apply_tag(buf,self->block_tag,&bf->b_end,&its);
+
+									if ( self->highlight && self->block_styles  && self->group_styles) 
+									{
+										tag = g_hash_table_lookup(self->block_styles,tmp->id);
+										if ( !tag && tmp->group)
+												tag = g_hash_table_lookup(self->group_styles,tmp->group);
+										if ( tag )
+												gtk_text_buffer_apply_tag(buf,tag,&bf->b_start,&ita);										
+									}							   	
 								   
 								   if ( gtk_text_iter_get_line(&bf->b_start)==gtk_text_iter_get_line(&its)) 
 								   {
@@ -668,68 +713,52 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 }
 
 /**
-*	bf_textview_scan_lines:
+*	bf_textview_scan_visible:
 *	@self:  BfTextView widget 
-* @start: start line
-* @end: end line
 *
-*	Scan buffer from line "start" to line "end". 
+*	Scan buffer in visible window. 
 */
 void
-bf_textview_scan_lines (BfTextView * self, gint start, gint end)
+bf_textview_scan_visible(BfTextView * self)
 {
   GtkTextBuffer *buf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (self));
-  GtkTextIter its, ite, itp;
+  GtkTextIter its, ite;
   GtkTextMark *mark = NULL;
-  gchar *pomstr;
-  TBfBlock *bb;
-  gint i;
+  gpointer ptr; 	
+  GdkRectangle rect;
+  GtkTextIter  l_start,l_end;
 
   g_return_if_fail (self != NULL);
   g_return_if_fail (BF_IS_TEXTVIEW (self));
   g_return_if_fail (buf != NULL);
-  gtk_text_buffer_get_iter_at_line (buf, &its, start);
-  gtk_text_buffer_get_iter_at_line (buf, &ite, end);
-  gtk_text_iter_forward_to_line_end (&ite);
-  /*
-   * expand to blocks begin and end 
-   */
+  if ( !self->need_rescan ) return;
+    
+  gtk_text_view_get_visible_rect (GTK_TEXT_VIEW (self), &rect);
+  gtk_text_view_get_line_at_y (GTK_TEXT_VIEW (self), &l_start, rect.y, NULL);
+  gtk_text_view_get_line_at_y (GTK_TEXT_VIEW (self), &l_end, rect.y + rect.height, NULL);
+	its = l_start;
+	ite = l_end;  
+
   if (self->lang->scan_blocks)
     {
-      itp = its;
-      for (i = start; i <= end; i++)
-	{
-	  gtk_text_iter_set_line (&itp, i);
-	  mark = bftv_get_first_block_at_line (&itp, TRUE);
-	  if (mark)
-	    {
-	      pomstr = g_object_get_data (G_OBJECT (mark), "type");
-	      if (strcmp (pomstr, "block_end") == 0)
-		{
-		  bb = (TBfBlock *) g_object_get_data (G_OBJECT (mark), "pointer");
-		  gtk_text_buffer_get_iter_at_mark (buf, &its, bb->mark_begin);
-		}
-	      break;
-	    }
-	}			/* for */
-      itp = ite;
-      for (i = end; i >= start; i--)
-	{
-	  gtk_text_iter_set_line (&itp, i);
-	  mark = bftv_get_last_block_at_line (&itp);
-	  if (mark)
-	    {
-	      pomstr = g_object_get_data (G_OBJECT (mark), "type");
-	      if (strcmp (pomstr, "block_begin") == 0)
-		{
-		  bb = (TBfBlock *) g_object_get_data (G_OBJECT (mark), "pointer");
-		  gtk_text_buffer_get_iter_at_mark (buf, &ite, bb->mark_end);
-		}
-	      break;
-	    }
-	}			/* for */
+			mark = bftv_get_first_block_at_line(&its,TRUE);        	
+			if ( mark  && g_object_get_data(G_OBJECT(mark),"type") == &tid_block_end )
+			{
+				 ptr = g_object_get_data(G_OBJECT(mark),"ref_b1");
+				 if ( ptr )
+				 	gtk_text_buffer_get_iter_at_mark(buf,&its,GTK_TEXT_MARK(ptr));
+			}
+			mark = bftv_get_last_block_at_line(&ite);        	
+			if ( mark  && g_object_get_data(G_OBJECT(mark),"type") == &tid_block_start )
+			{
+				 ptr = g_object_get_data(G_OBJECT(mark),"ref_e2");
+				 if ( ptr )
+				 	gtk_text_buffer_get_iter_at_mark(buf,&ite,GTK_TEXT_MARK(ptr));
+			}			
     }
-  bf_textview_scan_area (self, &its, &ite);
+
+    bf_textview_scan_area (self, &its, &ite);
+    self->need_rescan = FALSE;
 }
 
 
@@ -1050,7 +1079,7 @@ static gpointer bftv_make_entity(xmlDocPtr doc,xmlNodePtr node,BfLangConfig *cfg
 			   t->regexp = bftv_xml_bool (tmps2);
 			   if (tmps2) xmlFree (tmps2);
 			   tmps2 = xmlGetProp (node, (const xmlChar *) "name");
-			   if (tmps2)   t->name = tmps2;
+			   if (tmps2 && text==NULL)   t->name = tmps2;
 			   else    t->name = tmps;
 			   t->text = tmps;
 			   tmps2 = xmlGetProp (node, (const xmlChar *) "context");
@@ -1457,7 +1486,7 @@ bftv_free_config_del_token (gpointer key, gpointer value, gpointer data)
 }
 
 
-static void
+/*static void
 bftv_free_config (BfLangConfig * cfg)
 {
   if (!cfg)
@@ -1468,7 +1497,7 @@ bftv_free_config (BfLangConfig * cfg)
   g_hash_table_foreach_remove (cfg->blocks, bftv_free_config_del_block, NULL);
   g_hash_table_foreach_remove (cfg->tokens, bftv_free_config_del_token, NULL);
   g_free (cfg);
-}
+}*/
 
 
 void
@@ -1700,7 +1729,6 @@ bf_textview_expose_cb (GtkWidget * widget, GdkEventExpose * event, gpointer doc)
   GdkRectangle rect;
   GtkTextIter l_start, l_end, it, it2;
   GtkTextMark *block_mark;
-  TBfBlock *blockptr;
   gint l_top1, numlines, w, l_top2, i, w2;
   PangoLayout *l;
   gchar *pomstr = NULL;
@@ -1709,7 +1737,7 @@ bf_textview_expose_cb (GtkWidget * widget, GdkEventExpose * event, gpointer doc)
   gpointer aux;
   GdkColor cwhite, cblack;
   GtkTextBuffer *buf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (widget));
-  gboolean block_folded;
+
 
   left_win = gtk_text_view_get_window (GTK_TEXT_VIEW (widget), GTK_TEXT_WINDOW_LEFT);
   if (left_win != event->window)
@@ -1790,7 +1818,7 @@ bf_textview_expose_cb (GtkWidget * widget, GdkEventExpose * event, gpointer doc)
       if (BF_TEXTVIEW (widget)->show_blocks)
 	{			/* show block markers */
 	    GtkTextMark *mark_begin=NULL, *mark_end=NULL;
-	    gpointer b_type,b_folded,b_single;
+	    gpointer b_type,b_folded;
 	        block_mark = bftv_get_first_block_at_line (&it, TRUE);
 	        if ( block_mark )
 	        {
@@ -1847,41 +1875,39 @@ bf_textview_insert_text_cb (GtkTextBuffer * textbuffer, GtkTextIter * arg1,
 			    gchar * arg2, gint arg3, gpointer user_data)
 {
   BfTextView *view = BF_TEXTVIEW (user_data);
-  gint l1, l2, len;
+  gint len;
   gboolean trigger = FALSE;
   gchar *p = arg2;
 
-  if (!view->autoscan || !view->lang)
-    return;
+  if (!view->autoscan || !view->lang) return;
   len = 0;
   while (len < g_utf8_strlen (arg2, -1))
-    {
+ {
       if (view->lang->as_triggers[(gint) * p] == 1)
-	{
-	  trigger = TRUE;
-	  break;
-	}
+		{
+		  trigger = TRUE; break;
+		}
       len++;
       p = g_utf8_next_char (p);
-    }
-  if (!trigger)
-    return;
-  if (view->autoscan_lines <= 0)
+ }
+ 
+ if (!trigger) return;
+ 
+ if (view->autoscan_lines <= 0)
     {
-      bf_textview_scan (view);
-      gtk_widget_queue_draw (GTK_WIDGET (user_data));
+ 	     bf_textview_scan_visible (view);
+ 	     gtk_widget_queue_draw (GTK_WIDGET (user_data));
     }
   else
     {
-      l1 = l2 = gtk_text_iter_get_line (arg1);
-      l1 -= view->autoscan_lines;
-      l2 += view->autoscan_lines;
-      if (l1 < 0)
-	l1 = 0;
-      if (l2 >= gtk_text_buffer_get_line_count (textbuffer))
-	l2 = gtk_text_buffer_get_line_count (textbuffer) - 1;
-      bf_textview_scan_lines (view, l1, l2);
-      gtk_widget_queue_draw (GTK_WIDGET (user_data));
+/* 	     l1 = l2 = gtk_text_iter_get_line (arg1);
+ 	     l1 -= view->autoscan_lines;
+ 	     l2 += view->autoscan_lines;
+ 	     if (l1 < 0)	l1 = 0;
+	     if (l2 >= gtk_text_buffer_get_line_count (textbuffer))
+		 l2 = gtk_text_buffer_get_line_count (textbuffer) - 1;*/
+	      bf_textview_scan_visible (view);
+   	   gtk_widget_queue_draw (GTK_WIDGET (user_data));
     }
 }
 
@@ -2007,9 +2033,7 @@ bftv_delete_blocks_from_area (BfTextView * view, GtkTextIter * arg1, GtkTextIter
   GtkTextBuffer *textbuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
   GtkTextMark *mark = NULL;
   gboolean deleted = FALSE;
-  GtkTextIter it, it2, it3;
-  TBfBlock *bb;
-  gchar *p, *p2;
+  GtkTextIter it;
 
   if (!view->lang || !view->lang->scan_blocks)
     return;
@@ -2018,36 +2042,22 @@ bftv_delete_blocks_from_area (BfTextView * view, GtkTextIter * arg1, GtkTextIter
     {
       mark = bftv_get_block_at_iter (&it);
       if (mark)
-	{
-	  p = g_object_get_data (G_OBJECT (mark), "type");
-	  p2 = g_object_get_data (G_OBJECT (mark), "folded");
-	  bb = (TBfBlock *) g_object_get_data (G_OBJECT (mark), "pointer");
-	  if (strcmp (p2, "true") != 0)
+		{
+		  if (g_object_get_data(G_OBJECT(mark),"folded") != &tid_true)
 	    {
-	      if (strcmp (p, "block_begin") == 0)
-		{
-		  gtk_text_buffer_get_iter_at_mark (textbuffer, &it2, bb->mark_begin);
-		  gtk_text_buffer_get_iter_at_mark (textbuffer, &it3, bb->mark_end);
-		  gtk_text_iter_forward_char (&it3);
-		  gtk_text_buffer_remove_tag_by_name (textbuffer, "_block_", &it2, &it3);
-		  gtk_text_buffer_delete_mark (textbuffer, bb->mark_end);
-		}
-	      else if (strcmp (p, "block_end") == 0)
-		{
-		  gtk_text_buffer_get_iter_at_mark (textbuffer, &it2, bb->mark_begin);
-		  gtk_text_buffer_get_iter_at_mark (textbuffer, &it3, bb->mark_end);
-		  gtk_text_iter_forward_char (&it3);
-		  gtk_text_buffer_remove_tag_by_name (textbuffer, "_block_", &it2, &it3);
-		  gtk_text_buffer_delete_mark (textbuffer, bb->mark_begin);
-		  bb->mark_end = NULL;
-		}
-	      gtk_text_buffer_delete_mark (textbuffer, mark);
+		      if ( g_object_get_data (G_OBJECT (mark), "type") == &tid_block_start )
+				{
+						  gtk_text_buffer_delete_mark (textbuffer, mark);	
+				}	
+		      else if ( g_object_get_data (G_OBJECT (mark), "type") == &tid_block_end )
+				{
+						  gtk_text_buffer_delete_mark (textbuffer, mark);					
+				}
 	      deleted = TRUE;
 	    }			/* folded */
-	}
+	  }
       gtk_text_iter_forward_char (&it);
-      if (gtk_text_iter_is_end (&it))
-	break;
+      if (gtk_text_iter_is_end (&it))	break;
     }
 }
 
@@ -2056,7 +2066,6 @@ bf_textview_delete_range_cb (GtkTextBuffer * textbuffer, GtkTextIter * arg1,
 			     GtkTextIter * arg2, gpointer user_data)
 {
   BfTextView *view = BF_TEXTVIEW (user_data);
-  gint l1, l2;
   gboolean trigger = FALSE;
   gint len;
   gchar *p, *pomstr;
@@ -2067,32 +2076,32 @@ bf_textview_delete_range_cb (GtkTextBuffer * textbuffer, GtkTextIter * arg1,
       p = pomstr = gtk_text_buffer_get_text (textbuffer, arg1, arg2, TRUE);
       len = 0;
       while (len < g_utf8_strlen (pomstr, -1))
-	{
-	  if (view->lang->as_triggers[(gint) * p] == 1)
-	    {
-	      trigger = TRUE;
-	      break;
-	    }
-	  len++;
-	  p = g_utf8_next_char (p);
-	}
+		{
+			  if (view->lang->as_triggers[(gint) * p] == 1)
+			    {
+				      trigger = TRUE; break;
+	    		}
+			  len++;
+	 		 p = g_utf8_next_char (p);
+		}
+		
       if (trigger)
-	{
-	  if (view->autoscan_lines <= 0)
-	    {
-	      bf_textview_scan (view);
-	      gtk_widget_queue_draw (GTK_WIDGET (user_data));
-	    }
-	  else
-	    {
-	      l1 = l2 = gtk_text_iter_get_line (arg1);
-	      l1 -= view->autoscan_lines;
-	      l2 += view->autoscan_lines;
-	      if (l1 < 0)
+		{
+	  		if (view->autoscan_lines <= 0)
+	    	{
+	      	bf_textview_scan_visible (view);
+	      	gtk_widget_queue_draw (GTK_WIDGET (user_data));
+	    	}
+	  		else
+	    	{
+	   /*   		l1 = l2 = gtk_text_iter_get_line (arg1);
+			      l1 -= view->autoscan_lines;
+	   		   l2 += view->autoscan_lines;
+	   		   if (l1 < 0)
 		l1 = 0;
 	      if (l2 >= gtk_text_buffer_get_line_count (textbuffer))
-		l2 = gtk_text_buffer_get_line_count (textbuffer) - 1;
-	      bf_textview_scan_lines (view, l1, l2);
+		l2 = gtk_text_buffer_get_line_count (textbuffer) - 1;*/
+	      bf_textview_scan_visible(view);
 	      gtk_widget_queue_draw (GTK_WIDGET (user_data));
 	    }
 	}

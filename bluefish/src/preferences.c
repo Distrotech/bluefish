@@ -1378,12 +1378,16 @@ static void bf_ins_token(gpointer key,gpointer value,gpointer udata) {
 	BfLangToken *t = (BfLangToken*)value;
 	if ( d->grpcrit == NULL && t->group==NULL)
 	{
+		if ( strcmp(t->name,"_tag_end_")!=0 && strcmp(t->name,"_attr_")!=0 && 
+				strcmp(t->name,"_attr2_")!=0 )
 		*(d->list) = g_list_append(*(d->list),t->name);
 	}	
 	else
 		if ( d->grpcrit!=NULL && t->group!=NULL && strcmp(t->group,d->grpcrit) == 0 )	
 		{
-			*(d->list) = g_list_append(*(d->list),t->name);
+		if ( strcmp(t->name,"_tag_end_")!=0 && strcmp(t->name,"_attr_")!=0 && 
+				strcmp(t->name,"_attr2_")!=0 )
+	  			  *(d->list) = g_list_append(*(d->list),t->name);
 		}	
 }
 
@@ -1391,11 +1395,13 @@ static void bf_ins_block(gpointer key,gpointer value,gpointer udata) {
 	Thf *d = (Thf*)udata;
 	BfLangBlock *t = (BfLangBlock*)value;
 	if ( d->grpcrit == NULL  && t->group==NULL) {
-		*(d->list) = g_list_append(*(d->list),t->id);
+		if ( strcmp(t->id,"_tag_begin_")!=0 )
+			*(d->list) = g_list_append(*(d->list),t->id);
 	}	
 	else
 		if ( d->grpcrit!=NULL && t->group!=NULL && strcmp(t->group,d->grpcrit) == 0 )	 {
-			*(d->list) = g_list_append(*(d->list),t->id);
+			if ( strcmp(t->id,"_tag_begin_")!=0 )		
+				*(d->list) = g_list_append(*(d->list),t->id);
 		}	
 }
 

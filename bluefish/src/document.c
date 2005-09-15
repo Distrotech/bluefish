@@ -526,6 +526,10 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 		g_hash_table_foreach(doc->hl->hl_token,document_register_tag,doc->view);
 		g_hash_table_foreach(doc->hl->hl_tag,document_register_tag,doc->view);
 		g_hash_table_foreach(doc->hl->hl_group,document_register_tag,doc->view);		
+		BF_TEXTVIEW(doc->view)->token_styles =  doc->hl->hl_token;
+		BF_TEXTVIEW(doc->view)->block_styles =  doc->hl->hl_block;
+		BF_TEXTVIEW(doc->view)->tag_styles =  doc->hl->hl_tag;
+		BF_TEXTVIEW(doc->view)->group_styles =  doc->hl->hl_group;
 #endif		
 		gui_set_document_widgets(doc);
 		doc_set_tooltip(doc);
@@ -2913,6 +2917,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	newdoc->buffer = gtk_text_buffer_new(highlight_return_tagtable());
 	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
+	
 	if ( main_v->lang_mgr ) {
 		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),bf_lang_mgr_get_config(main_v->lang_mgr,newdoc->hl->type));
 	}	
