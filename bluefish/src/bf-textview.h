@@ -75,7 +75,7 @@ typedef struct {
     gboolean regexp;
     /*< private > */
     gint tabid;
-    gshort spec_type; /* 0 - normal block, 1- tag_end, 2 - attr, 3 - attr2 */
+    gshort spec_type; /* 0 - normal block, 1- tag_end, 2 - attr, 3 - attr2, 4 - tag_begin_end in tag context */
 } BfLangToken;
 
 /**
@@ -99,11 +99,11 @@ typedef struct {
     GHashTable *blocks;
     GHashTable *groups;
     GHashTable *blocks_id;
-    GArray *dfa;
-    GList *dfa_tables;
+    GArray *dfa,*tag_dfa;
     GArray *line_indent;
     gshort **scan_table;
-    gint tabnum;
+    gshort **tag_scan_table;
+    gint tabnum,tag_tabnum;    
     gchar escapes[BFTV_UTF8_RANGE];
     GHashTable *restricted_tags;
     gint tokennum;		/* = BFTV_TOKEN_IDS + 1; */
