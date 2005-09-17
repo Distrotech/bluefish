@@ -104,6 +104,7 @@ typedef struct {
     gshort **scan_table;
     gshort **tag_scan_table;
     gint tabnum,tag_tabnum;    
+    gint counter;
     gchar escapes[BFTV_UTF8_RANGE];
     GHashTable *restricted_tags;
     gint tokennum;		/* = BFTV_TOKEN_IDS + 1; */
