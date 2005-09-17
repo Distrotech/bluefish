@@ -546,7 +546,10 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 							   }			
 							   currtable = self->lang->scan_table;	/* TABLE RETURN !!! */					
 	 	 	       	  break;	
-		 	       }
+	 	 	       	case 5:
+	 	 	       		/* fake token - do nothing */
+	 	 	       	break;  
+		 	       } /* switch */
 		   }
 		   its = ita;
 		   currstate = 0;
@@ -798,7 +801,6 @@ bftv_xml_bool (xmlChar * text)
 #define BFTV_DFA_TYPE_BLOCK_BEGIN		1
 #define BFTV_DFA_TYPE_BLOCK_END			2
 
-#define STI(a)		()
 
 static void
 bftv_put_into_dfa (GArray * dfa, BfLangConfig * cfg, gpointer data, gint type, gboolean tag)
@@ -816,6 +818,7 @@ bftv_put_into_dfa (GArray * dfa, BfLangConfig * cfg, gpointer data, gint type, g
   gboolean charset[BFTV_UTF8_RANGE];
   gboolean states[10000],pstates[10000];
   gboolean done=FALSE;
+  gint counter=0;
 
   switch (type) {
   	case BFTV_DFA_TYPE_TOKEN: 
@@ -850,16 +853,22 @@ bftv_put_into_dfa (GArray * dfa, BfLangConfig * cfg, gpointer data, gint type, g
   }
   pstates[0]=TRUE;	
 
-  if (cfg->case_sensitive)
+  if (cfg->case_sensitive || (token && token->spec_type==5))
     inp2 = g_utf8_to_ucs4_fast (ptr, -1, &size);
   else
     inp2 = g_utf8_to_ucs4_fast (g_utf8_strup (ptr, -1), -1, &size);
   inp = inp2;
+
+if ( !regexp )
+{
+	if (g_utf8_strlen(ptr,-1)>cfg->counter)
+		cfg->counter = g_utf8_strlen(ptr,-1);
+}
   
   i = 0;
   j = 0;
-  while (i < size)
-    {
+while (i < size)
+{
 if (!regexp)
 			{
 				x = g_array_index(dfa,gshort*,currstate);
@@ -970,7 +979,7 @@ for(k=0;k<s+1;k++)
 			for(m=0;m<BFTV_UTF8_RANGE;m++)
 				if (charset[m])
 					{
-						if ( x[m] ==0 )
+						if ( x[m] ==0 || x[m]>BFTV_TOKEN_IDS) /* rewrite longer token */
 							{
 								if ( !done )
 								{
@@ -993,11 +1002,10 @@ for(k=0;k<s+1;k++)
 								}	
 							}				
 						else
-							if ( x[m] < 10000 )
 							{
 								states[x[m]]=TRUE;
-							}	
-					}
+							}
+					} /* charset */
 			}		
 }
 			
@@ -1027,7 +1035,7 @@ for(k=0;k<s+1;k++)
 	  		     {
  	  		     	 x = g_array_index(dfa,gshort*,k);		
 			  		 for(m=0;m<BFTV_UTF8_RANGE;m++)
-   	 			   if ( x[m] == 0 )
+   	 			   if ( x[m] == 0 || x[m]>BFTV_TOKEN_IDS)
    	 				{
 							    switch (type) 
 							    {
@@ -1056,18 +1064,23 @@ for(k=0;k<s+1;k++)
 			
 } /* regexp */
 
-
+      if ( regexp ) counter++;
       if (i < size) 	inp++;
       i++;
       j++;
 
   }				/* while i < size */
 
+  if ( regexp ){
+  	if ( counter > cfg->counter)
+  	   cfg->counter = counter;
+  }
+
   if (!regexp)
     {
     		x = g_array_index(dfa,gshort*,currstate);
     		for(m=0;m<BFTV_UTF8_RANGE;m++)
-    			if ( x[m] == 0 && !g_unichar_isalnum((gunichar)m) && (gchar)m!='_')
+    			if ( x[m] == 0 )
     			{
 				    switch (type) {
 				    	case BFTV_DFA_TYPE_TOKEN:
@@ -1242,6 +1255,8 @@ bftv_load_config (gchar * filename)
      x = (gshort*)g_malloc0(BFTV_UTF8_RANGE*sizeof(gshort));
      g_array_append_val(cfg->tag_dfa,x);     
 	  cfg->tag_tabnum = 0;
+	  
+	  cfg->counter = 0;
 
 	  
 	  cfg->tokennum = BFTV_TOKEN_IDS + 1;
@@ -1499,6 +1514,63 @@ bftv_load_config (gchar * filename)
 				}    
 
 
+{ /* fake identifier */
+	gunichar c;
+	gchar *pstr,*tofree,*pstr2;
+	gchar out[6];
+
+   pstr = g_strdup("");
+   for( c = 0;c<BFTV_UTF8_RANGE;c++)
+   {
+     if ( g_unichar_isalpha(c) || (gchar)c=='_' )
+     {
+		tofree = pstr;
+		for(i=0;i<6;i++) out[i]='\0';
+		g_unichar_to_utf8(c,out);
+		pstr = g_strdup_printf("%s%s",pstr,out);   	
+		g_free(tofree);
+	  }	
+   }
+   pstr2 = g_strdup("");
+   for( c = 0;c<BFTV_UTF8_RANGE;c++)
+   {
+     if ( g_unichar_isalnum(c) || (gchar)c=='_' )
+     {
+		tofree = pstr2;
+		for(i=0;i<6;i++) out[i]='\0';
+		g_unichar_to_utf8(c,out);
+		pstr2 = g_strdup_printf("%s%s",pstr2,out);   	
+		g_free(tofree);
+	  }	
+   }
+   tofree = pstr;
+   pstr = g_strdup_printf("[%s]",pstr);
+   g_free(tofree);  
+   for(i=0;i<cfg->counter-3;i++)
+   {
+   	tofree = pstr;
+   	pstr = g_strdup_printf("%s[%s]",pstr,pstr2);
+   	g_free(tofree);
+   }
+   
+   tofree = pstr;
+   pstr = g_strdup_printf("%s[%s]*",pstr,pstr2);
+   g_free(tofree);
+   g_free(pstr2);
+	
+   BfLangToken *t = g_new0 (BfLangToken, 1);
+	t->group = NULL;
+	t->regexp = TRUE;
+	t->name = g_strdup("_fake_ident_");
+	t->text = pstr;
+	t->context = NULL;
+	t->spec_type = 5;
+	bftv_put_into_dfa (cfg->dfa, cfg, t, BFTV_DFA_TYPE_TOKEN,FALSE);
+ 	g_hash_table_insert (cfg->tokens, &t->tabid, t);					
+
+}
+
+
   if (doc)
     xmlFreeDoc (doc);
   return cfg;
@@ -1507,13 +1579,13 @@ bftv_load_config (gchar * filename)
 static void
 bftv_make_config_tables (BfLangConfig * cfg)
 {
-/*  gint i, j;*/
+  gint i, j;
   if (!cfg) return;
   g_print("Scan table for %s\n",cfg->name);  
   cfg->scan_table = bftv_make_scan_table (cfg->dfa, cfg);
   cfg->tag_scan_table = bftv_make_tag_scan_table (cfg->tag_dfa, cfg);
-
-  /*g_print("st,"); 
+   g_print("Longest token %d\n",cfg->counter);
+ /* g_print("st,"); 
   for(j=32;j<120;j++) g_print("%c,",j);
   g_print("\n"); 
   for(i=0;i<cfg->tabnum+1;i++) { 
@@ -1521,8 +1593,8 @@ bftv_make_config_tables (BfLangConfig * cfg)
      for(j=32;j<120;j++) 
         g_print("%d,",cfg->scan_table[i][j]);
     g_print("\n"); 
-   }
-  */ 
+   }*/
+   
    
 /*  for(i=0;i<cfg->tabnum+1;i++) 
      for(j=36;j<120;j++) 
