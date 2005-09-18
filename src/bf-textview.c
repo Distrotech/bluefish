@@ -143,7 +143,7 @@ bf_textview_init (BfTextView * o)
   o->block_tags = g_hash_table_new(g_str_hash,g_str_equal);
   o->token_tags = g_hash_table_new(g_str_hash,g_str_equal);
   o->highlight = TRUE;
-  o->mark_tokens = TRUE;
+  o->mark_tokens = FALSE;
   o->match_blocks = TRUE;
   o->token_styles = o->block_styles = o->tag_styles = o->group_styles = NULL;
   o->hl_mode = BFTV_HL_MODE_VISIBLE;
@@ -235,6 +235,7 @@ bftv_get_last_block_at_line (GtkTextIter * it)
     }
   return mark2;
 }
+
 
 
 /*
@@ -468,11 +469,14 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 		 	       switch (t->spec_type) 
 		 	       {
 		 	       	case 0:
-								mark = gtk_text_buffer_create_mark  (buf,NULL,&its,TRUE);
-								mark2 = gtk_text_buffer_create_mark  (buf,NULL,&ita,TRUE);
-								g_object_set_data(G_OBJECT(mark),"_type_",&tid_token);
-								g_object_set_data(G_OBJECT(mark),"info",t);
-								g_object_set_data(G_OBJECT(mark),"ref",mark2);
+		 	       			if ( self->mark_tokens)
+		 	       			{
+									mark = gtk_text_buffer_create_mark  (buf,NULL,&its,TRUE);
+									mark2 = gtk_text_buffer_create_mark  (buf,NULL,&ita,TRUE);
+									g_object_set_data(G_OBJECT(mark),"_type_",&tid_token);
+									g_object_set_data(G_OBJECT(mark),"info",t);
+									g_object_set_data(G_OBJECT(mark),"ref",mark2);
+								}	
 								if ( self->highlight && self->token_styles && self->group_styles ) 
 								{
 										tag = g_hash_table_lookup(self->token_styles,t->name);
@@ -484,11 +488,14 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 				          break;
 		 	       	case 1:
 		 	       			if ( self->scanner.current_context && !self->scanner.current_context->markup ) break;
-								mark = gtk_text_buffer_create_mark  (buf,NULL,&its,TRUE);
-								mark2 = gtk_text_buffer_create_mark  (buf,NULL,&ita,TRUE);
-								g_object_set_data(G_OBJECT(mark),"_type_",&tid_tag_end);
-								g_object_set_data(G_OBJECT(mark),"info",t);
-								g_object_set_data(G_OBJECT(mark),"ref",mark2);
+		 	       			if ( self->mark_tokens )
+		 	       			{
+									mark = gtk_text_buffer_create_mark  (buf,NULL,&its,TRUE);
+									mark2 = gtk_text_buffer_create_mark  (buf,NULL,&ita,TRUE);
+									g_object_set_data(G_OBJECT(mark),"_type_",&tid_tag_end);
+									g_object_set_data(G_OBJECT(mark),"info",t);
+									g_object_set_data(G_OBJECT(mark),"ref",mark2);
+								}
 								if ( self->highlight && self->tag_styles  ) 
 								{
 										tag = g_hash_table_lookup(self->tag_styles,"tag_end");
@@ -505,15 +512,18 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 					 	            gchar **arr = g_strsplit(txt,"=",-1);
 					 	            pit = its;
 					 	            gtk_text_iter_forward_chars(&pit,g_utf8_strlen(arr[0],-1));
-										mark = gtk_text_buffer_create_mark  (buf,NULL,&its,TRUE);
-										mark2 = gtk_text_buffer_create_mark  (buf,NULL,&pit,TRUE);
-										g_object_set_data(G_OBJECT(mark),"_type_",&tid_tag_attr);
-										g_object_set_data(G_OBJECT(mark),"info",t);
-										g_object_set_data(G_OBJECT(mark),"ref",mark2);
-										mark2 = gtk_text_buffer_create_mark  (buf,NULL,&pit,TRUE);
-										g_object_set_data(G_OBJECT(mark),"ref_v1",mark2);
-										mark2 = gtk_text_buffer_create_mark  (buf,NULL,&ita,TRUE);
-										g_object_set_data(G_OBJECT(mark),"ref_v2",mark2);										
+					 	            if ( self->mark_tokens )
+					 	            {
+											mark = gtk_text_buffer_create_mark  (buf,NULL,&its,TRUE);
+											mark2 = gtk_text_buffer_create_mark  (buf,NULL,&pit,TRUE);
+											g_object_set_data(G_OBJECT(mark),"_type_",&tid_tag_attr);
+											g_object_set_data(G_OBJECT(mark),"info",t);
+											g_object_set_data(G_OBJECT(mark),"ref",mark2);
+											mark2 = gtk_text_buffer_create_mark  (buf,NULL,&pit,TRUE);
+											g_object_set_data(G_OBJECT(mark),"ref_v1",mark2);
+											mark2 = gtk_text_buffer_create_mark  (buf,NULL,&ita,TRUE);
+											g_object_set_data(G_OBJECT(mark),"ref_v2",mark2);										
+										}	
 						 	       	g_strfreev(arr);
 						 	       	g_free(txt);	 	
 										if ( self->highlight && self->tag_styles ) 
@@ -527,15 +537,18 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 												
 										}						 	       	 	       				
 	 	 	       				}; break;	 
-	 	 	       	 case 4: /* tag begin end in tag context  - heh this is weird :) */				 	       	
+	 	 	       	 case 4: /* tag begin end in tag context    :) */				 	       	
 				   	      bf = g_queue_pop_head(&(self->scanner.tag_stack));
 				   	      if ( bf ) 
 				   	      {
 							   	self->scanner.current_context = NULL;
-									mark = gtk_text_buffer_create_mark  (buf,NULL,&bf->b_start,TRUE);
-									mark2 = gtk_text_buffer_create_mark  (buf,NULL,&ita,TRUE);
-							   	g_object_set_data(G_OBJECT(mark),"_type_",&tid_tag_start);
-									g_object_set_data(G_OBJECT(mark),"ref",mark2);
+							   	if ( self->mark_tokens )
+							   	{
+										mark = gtk_text_buffer_create_mark  (buf,NULL,&bf->b_start,TRUE);
+										mark2 = gtk_text_buffer_create_mark  (buf,NULL,&ita,TRUE);
+								   	g_object_set_data(G_OBJECT(mark),"_type_",&tid_tag_start);
+										g_object_set_data(G_OBJECT(mark),"ref",mark2);
+									}	
 									if ( self->highlight && self->tag_styles  ) 
 									{
 										tag = g_hash_table_lookup(self->tag_styles,"tag_begin");
@@ -584,11 +597,14 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 				   	      if ( bf && bf->def==tmp) 
 				   	      {
 							   	self->scanner.current_context = NULL;
-									mark = gtk_text_buffer_create_mark  (buf,NULL,&bf->b_start,TRUE);
-									mark2 = gtk_text_buffer_create_mark  (buf,NULL,&ita,TRUE);
-							   	g_object_set_data(G_OBJECT(mark),"_type_",&tid_tag_start);
-									g_object_set_data(G_OBJECT(mark),"info",tmp);
-									g_object_set_data(G_OBJECT(mark),"ref",mark2);
+							   	if ( self->mark_tokens )
+							   	{
+										mark = gtk_text_buffer_create_mark  (buf,NULL,&bf->b_start,TRUE);
+										mark2 = gtk_text_buffer_create_mark  (buf,NULL,&ita,TRUE);
+								   	g_object_set_data(G_OBJECT(mark),"_type_",&tid_tag_start);
+										g_object_set_data(G_OBJECT(mark),"info",tmp);
+										g_object_set_data(G_OBJECT(mark),"ref",mark2);
+									}
 									if ( self->highlight && self->tag_styles  ) 
 									{
 										tag = g_hash_table_lookup(self->tag_styles,"tag_begin");
@@ -622,26 +638,48 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 				   	      	g_queue_pop_head(&(self->scanner.block_stack));
 				   	      	mark=mark2=NULL;
 				   	      	GtkTextMark *mark3,*mark4;
+				   	      	gboolean do_mark = TRUE;
 				   	      	
-	 							   mark =  gtk_text_buffer_create_mark (buf,NULL,&bf->b_start, FALSE);
-								   g_object_set_data (G_OBJECT (mark), "_type_", &tid_block_start);
-								   g_object_set_data (G_OBJECT (mark), "folded", &tid_false);
-								   g_object_set_data (G_OBJECT (mark),"info", tmp);
-								   mark2 = gtk_text_buffer_create_mark (buf, NULL, &bf->b_end, FALSE);
-								   g_object_set_data (G_OBJECT (mark),"ref", mark2);
-								   mark3 = gtk_text_buffer_create_mark (buf, NULL, &its, FALSE);
-								   g_object_set_data (G_OBJECT (mark),"ref_e1", mark3);
-								   mark4 = gtk_text_buffer_create_mark (buf, NULL, &ita, FALSE);
-								   g_object_set_data (G_OBJECT (mark),"ref_e2", mark4);
-								   g_object_set_data (G_OBJECT (mark3), "_type_", &tid_block_end);
-								   g_object_set_data (G_OBJECT (mark3), "folded", &tid_false);
-								   g_object_set_data (G_OBJECT (mark3), "info", tmp);
-								   g_object_set_data (G_OBJECT (mark3),"ref", mark4);
-								   g_object_set_data (G_OBJECT (mark3),"ref_b1", mark);
-								   g_object_set_data (G_OBJECT (mark3),"ref_b2", mark2);
-								   								   
-								   gtk_text_buffer_apply_tag(buf,self->block_tag,&bf->b_end,&its);
-
+				   	      	mark3 = bftv_get_block_at_iter(&bf->b_start);
+				   	      	if ( mark3 )
+				   	      	{
+				   	      			if ( g_object_get_data(G_OBJECT(mark3),"_type_")==&tid_block_start &&
+				   	      					g_object_get_data(G_OBJECT(mark3),"info") == tmp )
+				   	      					do_mark = FALSE;
+				   	      	} 
+				   	      	
+				   	      	if ( do_mark )
+				   	      	{
+		 							   mark =  gtk_text_buffer_create_mark (buf,NULL,&bf->b_start, FALSE);
+									   g_object_set_data (G_OBJECT (mark), "_type_", &tid_block_start);
+									   g_object_set_data (G_OBJECT (mark), "folded", &tid_false);
+									   g_object_set_data (G_OBJECT (mark),"info", tmp);
+									   mark2 = gtk_text_buffer_create_mark (buf, NULL, &bf->b_end, FALSE);
+									   g_object_set_data (G_OBJECT (mark),"ref", mark2);
+									   mark3 = gtk_text_buffer_create_mark (buf, NULL, &its, FALSE);
+									   g_object_set_data (G_OBJECT (mark),"ref_e1", mark3);
+									   mark4 = gtk_text_buffer_create_mark (buf, NULL, &ita, FALSE);
+									   g_object_set_data (G_OBJECT (mark),"ref_e2", mark4);
+									   g_object_set_data (G_OBJECT (mark3), "_type_", &tid_block_end);
+									   g_object_set_data (G_OBJECT (mark3), "folded", &tid_false);
+									   g_object_set_data (G_OBJECT (mark3), "info", tmp);
+									   g_object_set_data (G_OBJECT (mark3),"ref", mark4);
+									   g_object_set_data (G_OBJECT (mark3),"ref_b1", mark);
+									   g_object_set_data (G_OBJECT (mark3),"ref_b2", mark2);
+									   if ( gtk_text_iter_get_line(&bf->b_start)==gtk_text_iter_get_line(&its)) 
+									   {
+									   	g_object_set_data (G_OBJECT (mark), "single-line", &tid_true);
+									   	g_object_set_data (G_OBJECT (mark3), "single-line", &tid_true);
+									   }	
+									   else
+									   {
+									   	g_object_set_data (G_OBJECT (mark), "single-line", &tid_false);
+									   	g_object_set_data (G_OBJECT (mark3), "single-line", &tid_false);
+									   }									   
+								   }
+								   								   								   
+  								   gtk_text_buffer_apply_tag(buf,self->block_tag,&bf->b_end,&its);
+  								   
 									if ( self->highlight && self->block_styles  && self->group_styles) 
 									{
 										tag = g_hash_table_lookup(self->block_styles,tmp->id);
@@ -651,16 +689,6 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 												gtk_text_buffer_apply_tag(buf,tag,&bf->b_start,&ita);										
 									}							   	
 								   
-								   if ( gtk_text_iter_get_line(&bf->b_start)==gtk_text_iter_get_line(&its)) 
-								   {
-								   	g_object_set_data (G_OBJECT (mark), "single-line", &tid_true);
-								   	g_object_set_data (G_OBJECT (mark3), "single-line", &tid_true);
-								   }	
-								   else
-								   {
-								   	g_object_set_data (G_OBJECT (mark), "single-line", &tid_false);
-								   	g_object_set_data (G_OBJECT (mark3), "single-line", &tid_false);
-								   }
 								   	
 							   	if ( g_queue_is_empty(&(self->scanner.block_stack)) )
 							   	{
@@ -722,9 +750,24 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 #ifdef HL_PROFILING
 {
 	glong tot_ms;
+/*	GSList *ss = NULL;*/
 	times(&tms2);
 	tot_ms = (glong) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 	g_print("PROFILING: total time %ld ms\n", tot_ms);
+/*	gtk_text_buffer_get_bounds(buf,&its,&ita);	
+	pit = its;
+	tot_ms = 0;
+	while ( gtk_text_iter_compare(&pit,&ita)<0 )
+	{
+	   ss =   gtk_text_iter_get_marks (&pit) ;
+	   while ( ss ) {
+	   	tot_ms++;
+	   	ss = g_slist_next(ss);
+	   }
+		gtk_text_iter_forward_char(&pit);
+	}
+	g_slist_free(ss);
+	g_print("Total number of marks: %ld\n",tot_ms);*/
 }	
 #endif
     
@@ -1579,7 +1622,7 @@ bftv_load_config (gchar * filename)
 static void
 bftv_make_config_tables (BfLangConfig * cfg)
 {
-  gint i, j;
+/*  gint i, j;*/
   if (!cfg) return;
   g_print("Scan table for %s\n",cfg->name);  
   cfg->scan_table = bftv_make_scan_table (cfg->dfa, cfg);
@@ -2192,13 +2235,12 @@ static void
 bftv_delete_blocks_from_area (BfTextView * view, GtkTextIter * arg1, GtkTextIter * arg2)
 {
   GtkTextBuffer *textbuffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
-  GtkTextMark *mark = NULL;
+  GtkTextMark *mark = NULL,*mark2=NULL,*mark3,*mark4;
   gboolean deleted = FALSE;
-  GtkTextIter it;
+  GtkTextIter it,it2,it3;
 
   if (!view->lang || !view->lang->scan_blocks)
     return;
-  gtk_text_buffer_remove_tag(textbuffer,view->block_tag,arg1,arg2);  
   it = *arg1;
   while (gtk_text_iter_compare (&it, arg2) <= 0)
     {
@@ -2207,14 +2249,28 @@ bftv_delete_blocks_from_area (BfTextView * view, GtkTextIter * arg1, GtkTextIter
 		{
 		  if (g_object_get_data(G_OBJECT(mark),"folded") != &tid_true)
 	    {
-		      if ( g_object_get_data (G_OBJECT (mark), "_type_") == &tid_block_start )
+		      if ( g_object_get_data (G_OBJECT (mark), "_type_") == &tid_block_start  )
 				{
-						gtk_text_buffer_delete_mark (textbuffer, mark);	
+						mark2 = GTK_TEXT_MARK(g_object_get_data(G_OBJECT(mark),"ref"));
+						mark3 = GTK_TEXT_MARK(g_object_get_data(G_OBJECT(mark),"ref_e1"));
+						mark4 = GTK_TEXT_MARK(g_object_get_data(G_OBJECT(mark),"ref_e2"));
+						
+						gtk_text_buffer_get_iter_at_mark(textbuffer,&it2,mark);
+						gtk_text_buffer_get_iter_at_mark(textbuffer,&it3,mark4);
+						if ( gtk_text_iter_in_range(&it2,arg1,arg2) && gtk_text_iter_in_range(&it3,arg1,arg2) )
+						{
+								if ( !gtk_text_iter_has_tag(&it2, view->block_tag) )
+								{
+								   gtk_text_buffer_get_iter_at_mark(textbuffer,&it2,mark2);
+								   gtk_text_buffer_get_iter_at_mark(textbuffer,&it3,mark3);
+									gtk_text_buffer_remove_tag(textbuffer,view->block_tag,&it2,&it3); 
+								}																	
+								gtk_text_buffer_delete_mark (textbuffer, mark);	
+								gtk_text_buffer_delete_mark (textbuffer, mark2);
+								gtk_text_buffer_delete_mark (textbuffer, mark3);
+								gtk_text_buffer_delete_mark (textbuffer, mark4);
+						}		
 				}	
-		      else if ( g_object_get_data (G_OBJECT (mark), "_type_") == &tid_block_end )
-				{
-						  gtk_text_buffer_delete_mark (textbuffer, mark);					
-				}
 	      deleted = TRUE;
 	    }			/* folded */
 	  }
