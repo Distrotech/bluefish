@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h> /* strcmp() */
@@ -31,6 +31,7 @@
 #include "highlight.h"
 #include "menu.h"
 #include "rcfile.h"
+#include "textstyle.h"
 #include "pixmap.h"
 #include "stringlist.h"	/* duplicate_arraylist*/
 
@@ -1008,6 +1009,7 @@ static void textstyle_radio_change(GtkListStore *lstore, gint pointerindex, gint
 		gint i;
 		gtk_tree_model_get(GTK_TREE_MODEL(lstore), &iter, pointerindex, &strarr, -1);
 		for (i=0;i<numradiocols;i++) {
+			DEBUG_MSG("textstyle_radio_change,set modelindex %d to %d\n",modelindex+i,(i==newval));
 			gtk_list_store_set(GTK_LIST_STORE(lstore),&iter,modelindex+i,(i==newval),-1);
 		}
 		if (strarr[arrindex]) {
@@ -1027,27 +1029,27 @@ static void textstyle_3_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gc
 }
 static void textstyle_4_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
 	if (!cellrenderertoggle->active) {
-		textstyle_radio_change(pd->tsd.lstore,9,3,path,1,4,3);
+		textstyle_radio_change(pd->tsd.lstore,9,3,path,1,3,3);
 	}
 }
 static void textstyle_5_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
 	if (!cellrenderertoggle->active) {
-		textstyle_radio_change(pd->tsd.lstore,9,3,path,2,5,3);
+		textstyle_radio_change(pd->tsd.lstore,9,3,path,2,3,3);
 	}
 }
 static void textstyle_6_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
 	if (!cellrenderertoggle->active) {
-		textstyle_radio_change(pd->tsd.lstore,9,3,path,0,6,3);
+		textstyle_radio_change(pd->tsd.lstore,9,4,path,0,6,3);
 	}
 }
 static void textstyle_7_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
 	if (!cellrenderertoggle->active) {
-		textstyle_radio_change(pd->tsd.lstore,9,3,path,1,7,3);
+		textstyle_radio_change(pd->tsd.lstore,9,4,path,1,6,3);
 	}
 }
 static void textstyle_8_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
 	if (!cellrenderertoggle->active) {
-		textstyle_radio_change(pd->tsd.lstore,9,3,path,2,8,3);
+		textstyle_radio_change(pd->tsd.lstore,9,4,path,2,6,3);
 	}
 }
 
@@ -1089,7 +1091,7 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		GList *tmplist = g_list_first(pd->lists[textstyles]);
 		while (tmplist) {
 			gchar **strarr = (gchar **)tmplist->data;
-			if (count_array(strarr)==3) {
+			if (count_array(strarr)==5) {
 				GtkTreeIter iter;
 				gtk_list_store_append(GTK_LIST_STORE(pd->tsd.lstore), &iter);
 				set_textstyle_strarr_in_list(&iter, strarr,pd);
@@ -1112,6 +1114,7 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 }
 
 #ifndef USE_SCANNER
+/***** highlighting patterns (PCRE engine) ****/
 static gchar **highlightpattern_create_strarr(Tprefdialog *pd) {
 	gchar **strarr;
 	strarr = g_malloc(12*sizeof(gchar *));
@@ -2629,16 +2632,12 @@ static void preferences_apply(Tprefdialog *pd) {
 
 	/*filetype_apply_changes(pd);*/
 	/*filefilter_apply_changes(pd);*/
-#ifndef USE_SCANNER	
-	highlightpattern_apply_changes(pd);
-#endif	
 	/*browsers_apply_changes(pd);*/
 	/*externals_apply_changes(pd);*/
 	/*outputbox_apply_changes(pd);*/
 
 	free_arraylist(main_v->props.plugin_config);
 	main_v->props.plugin_config = duplicate_arraylist(pd->lists[pluginconfig]);
-
 
 	free_arraylist(main_v->props.filetypes);
 	main_v->props.filetypes = duplicate_arraylist(pd->lists[filetypes]);
@@ -2658,9 +2657,17 @@ static void preferences_apply(Tprefdialog *pd) {
 	free_arraylist(main_v->props.external_outputbox);
 	main_v->props.external_outputbox = duplicate_arraylist(pd->lists[extoutputbox]);
 
+	free_arraylist(main_v->props.textstyles);
+	main_v->props.textstyles = duplicate_arraylist(pd->lists[textstyles]);
+
 	/* apply the changes to highlighting patterns and filetypes to the running program */
+	textstyle_rebuild();
+	
 	filetype_highlighting_rebuild(TRUE);
 	/*filebrowser_filters_rebuild();*/
+#ifndef USE_SCANNER	
+	highlightpattern_apply_changes(pd);
+#endif	
 	fb2_filters_rebuild();
 	all_documents_apply_settings();
 	{
