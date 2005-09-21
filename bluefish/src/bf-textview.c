@@ -1082,7 +1082,7 @@ for(k=0;k<s+1;k++)
 	  		     {
  	  		     	 x = g_array_index(dfa,gshort*,k);		
 			  		 for(m=0;m<BFTV_UTF8_RANGE;m++)
-   	 			   if ( x[m] == 0 || x[m]>BFTV_TOKEN_IDS)
+   	 			   if ( x[m] == 0 /*|| x[m]>BFTV_TOKEN_IDS*/ )
    	 				{
 							    switch (type) 
 							    {
@@ -1127,7 +1127,7 @@ for(k=0;k<s+1;k++)
     {
     		x = g_array_index(dfa,gshort*,currstate);
     		for(m=0;m<BFTV_UTF8_RANGE;m++)
-    			if ( x[m] == 0 )
+    			if ( x[m] == 0  /*|| x[m]>BFTV_TOKEN_IDS*/ )
     			{
 				    switch (type) {
 				    	case BFTV_DFA_TYPE_TOKEN:
@@ -1150,7 +1150,7 @@ static gshort **
 bftv_make_scan_table (GArray * dfa, BfLangConfig * cfg)
 {
   gshort **table;
-  gint i/*, j*/;
+  gint i, j;
 /*  glong cnt = 0;*/
   gint size = cfg->tabnum+1;
 
@@ -1631,7 +1631,7 @@ bftv_make_config_tables (BfLangConfig * cfg)
 /*  g_print("Scan table for %s\n",cfg->name);  */
   cfg->scan_table = bftv_make_scan_table (cfg->dfa, cfg);
   cfg->tag_scan_table = bftv_make_tag_scan_table (cfg->tag_dfa, cfg);
- /* g_print("st,"); 
+/*  g_print("st,"); 
   for(j=32;j<120;j++) g_print("%c,",j);
   g_print("\n"); 
   for(i=0;i<cfg->tabnum+1;i++) { 
@@ -1639,8 +1639,8 @@ bftv_make_config_tables (BfLangConfig * cfg)
      for(j=32;j<120;j++) 
         g_print("%d,",cfg->scan_table[i][j]);
     g_print("\n"); 
-   }*/
-   
+   }
+   */
    
 /*  for(i=0;i<cfg->tabnum+1;i++) 
      for(j=36;j<120;j++) 
