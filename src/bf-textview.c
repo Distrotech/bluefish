@@ -1058,7 +1058,7 @@ for(k=0;k<s+1;k++)
 			
 	
  				
-		   if ( i<size-1 && ( *(inp+1)=='*' || *(inp+1)=='+') )
+		   if ( i<size-1 && ( *(inp+1)=='*' || *(inp+1)=='+' ) )
 				  for(m=0;m<BFTV_UTF8_RANGE;m++)
 						if (charset[m])
 						{
@@ -1075,7 +1075,7 @@ for(k=0;k<s+1;k++)
    	s = cfg->tabnum;	
 	
 					
-			if (i == size - 1 || (i == size - 2 && *(inp + 1) == '+') || (i == size - 2 && *(inp + 1) == '*'))
+			if (i == size - 1 || (i == size - 2 && *(inp + 1) == '+') || (i == size - 2 && *(inp + 1) == '*') || (i == size - 2 && *(inp + 1) == '?'))
 	  		 {
 	  		   for(k=0;k<s+1;k++)
 	  		     if ( states[k] )
@@ -1639,8 +1639,8 @@ bftv_make_config_tables (BfLangConfig * cfg)
      for(j=32;j<120;j++) 
         g_print("%d,",cfg->scan_table[i][j]);
     g_print("\n"); 
-   }
-   */
+   }*/
+   
    
 /*  for(i=0;i<cfg->tabnum+1;i++) 
      for(j=36;j<120;j++) 
