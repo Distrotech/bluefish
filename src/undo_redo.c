@@ -33,13 +33,16 @@ typedef struct {
 	undo_op_t op;		/* action to execute */	
 } unreentry_t;
 
-static unregroup_t *unregroup_new(Tdocument *doc) {
+static guint action_id_count = 1; /* 0 means it should be auto-generated */
+
+static unregroup_t *unregroup_new(Tdocument *doc, guint action_id) {
 	unregroup_t *newgroup;
 	
 	newgroup = g_malloc(sizeof(unregroup_t));
 	newgroup->changed = doc->modified;
 	newgroup->entries = NULL;
-	DEBUG_MSG("unregroup_new, at %p with modified=%d\n", newgroup, newgroup->changed);
+	newgroup->action_id = (action_id == 0) ? action_id_count++ : action_id ;
+	DEBUG_MSG("unregroup_new, at %p with modified=%d and action_id=%u\n", newgroup, newgroup->changed,newgroup->action_id);
 	return newgroup;
 }
 
@@ -144,7 +147,7 @@ static gint doc_undo(Tdocument *doc) {
 		curgroup = doc->unre.current;
 		/* hmm, when this group is created, the doc->modified is not yet in the 'undo' state
 		because activate is not yet called, so this group will have the wrong 'changed' value*/
-		doc->unre.current = unregroup_new(doc);
+		doc->unre.current = unregroup_new(doc,0);
 		doc->unre.current->changed = curgroup->changed;
 	} else if (doc->unre.first) {
 		/* we have to undo the first one in the list */
@@ -265,7 +268,6 @@ void doc_unre_add(Tdocument *doc, const char *text, gint start, gint end, undo_o
 	}
 }
 
-
 static void doc_unre_start(Tdocument *doc) {
 	DEBUG_MSG("doc_unre_start, started\n");
 	doc_unbind_signals(doc);
@@ -292,10 +294,10 @@ static void doc_unre_finish(Tdocument *doc, gint cursorpos) {
  * starts a new undo/redo group for document doc, all items in one group
  * are processed as a single undo or redo operation
  * 
- * Return value: void
+ * Return value: the action_id of this group
  **/
-void doc_unre_new_group(Tdocument *doc) {
-	DEBUG_MSG("doc_unre_new_group, started, num entries=%d\n", g_list_length(doc->unre.current->entries));
+guint doc_unre_new_group_action_id(Tdocument *doc, guint action_id) {
+	DEBUG_MSG("doc_unre_new_group_w_id, started, num entries=%d, action_id=%u\n", g_list_length(doc->unre.current->entries),action_id);
 	if (g_list_length(doc->unre.current->entries) > 0) {
 		doc->unre.first = g_list_prepend(doc->unre.first, doc->unre.current);
 		if (!doc->unre.last) {
@@ -303,11 +305,35 @@ void doc_unre_new_group(Tdocument *doc) {
 		}
 		doc->unre.num_groups++;
 		DEBUG_MSG("doc_unre_new_group, added a group, num_groups =%d\n", doc->unre.num_groups);
-		doc->unre.current = unregroup_new(doc);
+		doc->unre.current = unregroup_new(doc,action_id);
 		if (doc->unre.num_groups > main_v->props.num_undo_levels) {
 			doc_unre_destroy_last_group(doc);
 		}
+	} else if (action_id != 0) {
+		doc->unre.current->action_id = action_id;
+	} else {
+		/* this line usually is not necessary, but in a very obscure situation 
+		it is: if multiple documents (including this one) have an unre group with 
+		the same action_id, and this document has no entries, and the calling 
+		function wants to use the action_id for multiple documents again: we could 
+		have the action_id in wrong unre groups then! So if a new group is asked, and
+		no action_id is specified, we generate a new id `just to be sure'
+		*/
+		doc->unre.current->action_id = action_id_count++;
 	}
+	return doc->unre.current->action_id;
+}
+/**
+ * doc_unre_new_group:
+ * @doc: a #Tdocument
+ * 
+ * starts a new undo/redo group for document doc, all items in one group
+ * are processed as a single undo or redo operation
+ * 
+ * Return value: the action_id of this group
+ **/
+guint doc_unre_new_group(Tdocument *doc) {
+	doc_unre_new_group_action_id(doc, 0);
 }
 
 /**
@@ -322,7 +348,7 @@ void doc_unre_init(Tdocument *doc) {
 	DEBUG_MSG("doc_unre_init, started\n");
 	doc->unre.first = NULL;
 	doc->unre.last = NULL;
-	doc->unre.current = unregroup_new(doc);
+	doc->unre.current = unregroup_new(doc,0);
 	doc->unre.num_groups = 0;
 	doc->unre.redofirst = NULL;
 }

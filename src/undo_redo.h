@@ -23,7 +23,7 @@
 #define __UNDO_REDO_H_
 
 void doc_unre_add(Tdocument *doc, const char *text, int start, int end, undo_op_t op);
-void doc_unre_new_group(Tdocument *doc);
+guint doc_unre_new_group(Tdocument *doc);
 void doc_unre_init(Tdocument *doc);
 void doc_unre_destroy(Tdocument *doc);
 void doc_unre_clear_all(Tdocument *doc);

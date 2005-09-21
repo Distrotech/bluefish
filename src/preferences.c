@@ -131,7 +131,6 @@ enum {
    autoscan_lines,
 	editor_fg,
 	editor_bg,
-	textstyles,
 #endif	
 	property_num_max
 };
