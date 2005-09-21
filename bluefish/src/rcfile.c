@@ -373,17 +373,7 @@ static GList *props_init_main(GList * config_rc)
 {
 	init_prop_integer   (&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1, TRUE);
-#ifdef USE_SCANNER
-	init_prop_integer   (&config_rc, &main_v->props.view_blocks, "view_blocks:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.view_symbols, "view_symbols:", 1, TRUE);	
-	init_prop_integer   (&config_rc, &main_v->props.view_mbhl, "view_mbhl:", 1, TRUE);	
-	init_prop_integer   (&config_rc, &main_v->props.autoscan, "autoscan:", 1, TRUE);	
-	init_prop_integer   (&config_rc, &main_v->props.autoscan_lines, "autoscan_lines:", 0, TRUE);	
-	init_prop_string    (&config_rc, &main_v->props.editor_fg,"editor_fg:","#000000");
-	init_prop_string    (&config_rc, &main_v->props.editor_bg,"editor_bg:","#FFFFFF");
-#endif	
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_two_pane_view, "fb_two_pane_view:", 1, TRUE);
-
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_unknown_icon, "fb_unknown_icon:", PKGDATADIR"icon_unknown.png");
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_dir_icon, "fb_dir_icon:", PKGDATADIR"icon_dir.png");
 	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
@@ -454,6 +444,16 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.bflib_info_bkg,"bflib_info_bkg:","#FFFFFF");
 	init_prop_string    (&config_rc, &main_v->props.bflib_info_fg,"bflib_info_fg:","#000000");
 	init_prop_arraylist (&config_rc, &main_v->props.plugin_config, "plugin_config:", 3, TRUE);
+#ifdef USE_SCANNER
+	init_prop_integer   (&config_rc, &main_v->props.view_blocks, "view_blocks:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.view_symbols, "view_symbols:", 1, TRUE);	
+	init_prop_integer   (&config_rc, &main_v->props.view_mbhl, "view_mbhl:", 1, TRUE);	
+	init_prop_integer   (&config_rc, &main_v->props.autoscan, "autoscan:", 1, TRUE);	
+	init_prop_integer   (&config_rc, &main_v->props.autoscan_lines, "autoscan_lines:", 0, TRUE);	
+	init_prop_string    (&config_rc, &main_v->props.editor_fg,"editor_fg:","#000000");
+	init_prop_string    (&config_rc, &main_v->props.editor_bg,"editor_bg:","#FFFFFF");
+	init_prop_arraylist (&config_rc, &main_v->props.textstyles, "textstyles:", 5, TRUE);
+#endif	
 	return config_rc;
 }
 

@@ -268,6 +268,7 @@ typedef struct {
 	gchar *editor_fg; /* editor foreground color */
 	gchar *editor_bg; /* editor background color */
 #endif	
+	GList *textstyles; /* tet styles: name,foreground,background,weight,style */
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
