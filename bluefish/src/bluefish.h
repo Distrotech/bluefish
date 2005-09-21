@@ -90,6 +90,7 @@ typedef enum {
 typedef struct {
 	GList *entries;	/* the list of entries that should be undone in one action */
 	gint changed;		/* doc changed status at this undo node */
+	guint action_id;
 } unregroup_t;
 
 typedef struct {
