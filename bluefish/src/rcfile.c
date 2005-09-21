@@ -452,8 +452,8 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.autoscan_lines, "autoscan_lines:", 0, TRUE);	
 	init_prop_string    (&config_rc, &main_v->props.editor_fg,"editor_fg:","#000000");
 	init_prop_string    (&config_rc, &main_v->props.editor_bg,"editor_bg:","#FFFFFF");
+#endif
 	init_prop_arraylist (&config_rc, &main_v->props.textstyles, "textstyles:", 5, TRUE);
-#endif	
 	return config_rc;
 }
 

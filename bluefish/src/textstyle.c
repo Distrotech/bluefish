@@ -18,6 +18,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+#define DEBUG
+
 #include <glib.h>
 #include <gtk/gtk.h>
 #include <string.h> /* strlen */
@@ -62,23 +64,30 @@ static GtkTextTag *textstyle_compile(gchar **arr) {
 	return tag;
 }
 
-static void cleantags_lcb(GtkTextTag *tag,gpointer data) {
-	gtk_text_tag_table_remove((GtkTextTagTable *)data,tag);
+static void addtolist_lcb(GtkTextTag *tag,gpointer data) {
+	*((GList **)data) = g_list_append(*((GList **)data),tag);
 }
 
 void textstyle_rebuild(void) {
-	GList *tmplist;
+	GList *tmplist=NULL;
 	if (textstyle.tagtable) {
 		/* cleanup the existing tags */
-		gtk_text_tag_table_foreach(textstyle.tagtable,cleantags_lcb,textstyle.tagtable);
+		gtk_text_tag_table_foreach(textstyle.tagtable,addtolist_lcb,&tmplist);
+		for (tmplist=g_list_first(tmplist);tmplist!=NULL;tmplist=tmplist->next) {
+			DEBUG_MSG("textstyle_rebuild, removing tag %p from tagtable %p\n",tmplist->data,textstyle.tagtable);
+			gtk_text_tag_table_remove(textstyle.tagtable,tmplist->data);
+		}
+		g_list_free(tmplist);
 	} else {
 		textstyle.tagtable = gtk_text_tag_table_new();
+		DEBUG_MSG("textstyle_rebuild, tagtable at %p\n",textstyle.tagtable);
 	}
 
 	for (tmplist=g_list_first(main_v->props.textstyles);tmplist!=NULL;tmplist=tmplist->next) {
 		gchar **arr = tmplist->data;
 		GtkTextTag *tag;
 		tag = textstyle_compile(arr);
+		DEBUG_MSG("textstyle_rebuild, adding tag %p to tagtable %p\n",tag,textstyle.tagtable);
 		gtk_text_tag_table_add(textstyle.tagtable, tag);
 	}
 }

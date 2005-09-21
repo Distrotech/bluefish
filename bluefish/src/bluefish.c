@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
 	if (main_v->session->recent_dirs == NULL) {
 		main_v->session->recent_dirs = g_list_append(main_v->session->recent_dirs, g_strconcat("file://", g_get_home_dir(), NULL));
 	}
-	
+	textstyle_rebuild();
 	rcfile_parse_highlighting();
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("compiling highlighting patterns..."));
