@@ -21,9 +21,8 @@ To install Bluefish from source:
 	su
 	make install
 
-To install on Debian:
+To install on Debian(-based distributions):
 	simply run apt-get install bluefish
-	(see INSTALL.Debian for building your own package)
 
 To install on rpm based systems:
 	first download the proper file: bluefish-version-distro.arch.rpm
@@ -32,3 +31,4 @@ To install on rpm based systems:
 		`arch' is the architecture (i386, i586)
 	then install:
 	rpm -Uvh bluefish-version-distro.arch.rpm
+
