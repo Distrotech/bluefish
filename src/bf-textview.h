@@ -267,6 +267,12 @@ GtkTextMark *bf_textview_get_nearest_block(BfTextView * self,
 					GtkTextIter * iter,
 					gboolean backward, gint mode,
 					gboolean not_single);
+GtkTextMark *bf_textview_get_nearest_block_of_type(BfTextView * self,
+					BfLangBlock *block,
+					GtkTextIter * iter,
+					gboolean backward, gint mode,
+					gboolean not_single);
+
 
 void bf_textview_set_bg_color(BfTextView * self, gchar * color);
 void bf_textview_set_fg_color(BfTextView * self, gchar * color);

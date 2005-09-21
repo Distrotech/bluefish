@@ -461,7 +461,11 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 								}	
 			  			}
 			  		} else ctxok = TRUE;
-			  		
+			  		if ( !ctxok )
+			  		{ /* last chance - perhaps defined earlier */
+			  			GtkTextMark *m = bf_textview_get_nearest_block_of_type(self,t->context,&its,TRUE,BF_GNB_DOCUMENT,TRUE);
+			  			if ( m && g_object_get_data(G_OBJECT(m),"_type_")==&tid_block_start ) ctxok=TRUE;
+			  		}
 			  }
 			  
 		  	  if ( ctxok )
@@ -1146,8 +1150,8 @@ static gshort **
 bftv_make_scan_table (GArray * dfa, BfLangConfig * cfg)
 {
   gshort **table;
-  gint i, j;
-  glong cnt = 0;
+  gint i/*, j*/;
+/*  glong cnt = 0;*/
   gint size = cfg->tabnum+1;
 
   table = g_new0 (gshort *, size);
@@ -1158,12 +1162,12 @@ bftv_make_scan_table (GArray * dfa, BfLangConfig * cfg)
 
       
  
-  g_print ("Token table size: %d\n", size  * BFTV_UTF8_RANGE * sizeof (gshort));
+/*  g_print ("Token table size: %d\n", size  * BFTV_UTF8_RANGE * sizeof (gshort));
   for (i = 0; i < size; i++)
     for (j = 0; j < BFTV_UTF8_RANGE; j++)
 		if (table[i][j] != 0)  cnt++;
   g_print ("Number of states: %d\n", size);
-  g_print ("Size of efective entries: %ld\n", cnt * sizeof (gshort));
+  g_print ("Size of efective entries: %ld\n", cnt * sizeof (gshort));*/
   return table;
 }
 
@@ -1171,8 +1175,8 @@ static gshort **
 bftv_make_tag_scan_table (GArray * dfa, BfLangConfig * cfg)
 {
   gshort **table;
-  gint i, j;
-  gshort cnt = 0;
+  gint i/*, j*/;
+/*  gshort cnt = 0;*/
   gint size = cfg->tag_tabnum+1;
 
   table = g_new0 (gshort *, size);
@@ -1182,12 +1186,12 @@ bftv_make_tag_scan_table (GArray * dfa, BfLangConfig * cfg)
     }
 
       
-  g_print ("Tag table size: %d\n", size  * BFTV_UTF8_RANGE * sizeof (gshort));
+/*  g_print ("Tag table size: %d\n", size  * BFTV_UTF8_RANGE * sizeof (gshort));
   for (i = 0; i < size; i++)
     for (j = 0; j < BFTV_UTF8_RANGE; j++)
 		if (table[i][j] != 0)  cnt++;
   g_print ("Number of states: %d\n", size);
-  g_print ("Size of efective entries: %d\n", cnt * sizeof (gshort));
+  g_print ("Size of efective entries: %d\n", cnt * sizeof (gshort));*/
   return table;
 }
 
@@ -1624,10 +1628,9 @@ bftv_make_config_tables (BfLangConfig * cfg)
 {
 /*  gint i, j;*/
   if (!cfg) return;
-  g_print("Scan table for %s\n",cfg->name);  
+/*  g_print("Scan table for %s\n",cfg->name);  */
   cfg->scan_table = bftv_make_scan_table (cfg->dfa, cfg);
   cfg->tag_scan_table = bftv_make_tag_scan_table (cfg->tag_dfa, cfg);
-   g_print("Longest token %d\n",cfg->counter);
  /* g_print("st,"); 
   for(j=32;j<120;j++) g_print("%c,",j);
   g_print("\n"); 
@@ -2637,6 +2640,28 @@ bf_textview_get_nearest_block (BfTextView * self,
 
   return mark;
 }
+
+GtkTextMark *bf_textview_get_nearest_block_of_type( BfTextView * self,
+					BfLangBlock *block,
+					GtkTextIter * iter,
+					gboolean backward, gint mode,
+					gboolean not_single)
+{
+	GtkTextMark *mark=NULL,*prev_mark=NULL;
+	GtkTextIter it;
+	mark = bf_textview_get_nearest_block(self,iter,backward,mode,not_single);
+	if (mark) gtk_text_buffer_get_iter_at_mark(gtk_text_iter_get_buffer(iter),&it,mark);
+	if (mark && g_object_get_data(G_OBJECT(mark),"info") == block) return mark;
+	while ( prev_mark != mark )
+	{
+		prev_mark = mark;
+		mark = bf_textview_get_nearest_block(self,&it,backward,mode,not_single);
+		if (mark) gtk_text_buffer_get_iter_at_mark(gtk_text_iter_get_buffer(iter),&it,mark);
+		if (mark && g_object_get_data(G_OBJECT(mark),"info") == block) return mark;		
+	}
+	return NULL;
+}					
+
 
 
 void bf_textview_set_highlight(BfTextView * self, gboolean on) {
