@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  *
  * undo_redo.c - imrpoved undo/redo functionality
- * Copyright (C) 2001-2002 Olivier Sessink
+ * Copyright (C) 2001-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,13 +35,17 @@ typedef struct {
 
 static guint action_id_count = 1; /* 0 means it should be auto-generated */
 
+guint new_unre_action_id(void) {
+	return ++action_id_count;
+}
+
 static unregroup_t *unregroup_new(Tdocument *doc, guint action_id) {
 	unregroup_t *newgroup;
 	
 	newgroup = g_malloc(sizeof(unregroup_t));
 	newgroup->changed = doc->modified;
 	newgroup->entries = NULL;
-	newgroup->action_id = (action_id == 0) ? action_id_count++ : action_id ;
+	newgroup->action_id = action_id;
 	DEBUG_MSG("unregroup_new, at %p with modified=%d and action_id=%u\n", newgroup, newgroup->changed,newgroup->action_id);
 	return newgroup;
 }
@@ -294,9 +298,9 @@ static void doc_unre_finish(Tdocument *doc, gint cursorpos) {
  * starts a new undo/redo group for document doc, all items in one group
  * are processed as a single undo or redo operation
  * 
- * Return value: the action_id of this group
+ * Return value: void
  **/
-guint doc_unre_new_group_action_id(Tdocument *doc, guint action_id) {
+void doc_unre_new_group_action_id(Tdocument *doc, guint action_id) {
 	DEBUG_MSG("doc_unre_new_group_w_id, started, num entries=%d, action_id=%u\n", g_list_length(doc->unre.current->entries),action_id);
 	if (g_list_length(doc->unre.current->entries) > 0) {
 		doc->unre.first = g_list_prepend(doc->unre.first, doc->unre.current);
@@ -311,17 +315,7 @@ guint doc_unre_new_group_action_id(Tdocument *doc, guint action_id) {
 		}
 	} else if (action_id != 0) {
 		doc->unre.current->action_id = action_id;
-	} else {
-		/* this line usually is not necessary, but in a very obscure situation 
-		it is: if multiple documents (including this one) have an unre group with 
-		the same action_id, and this document has no entries, and the calling 
-		function wants to use the action_id for multiple documents again: we could 
-		have the action_id in wrong unre groups then! So if a new group is asked, and
-		no action_id is specified, we generate a new id `just to be sure'
-		*/
-		doc->unre.current->action_id = action_id_count++;
 	}
-	return doc->unre.current->action_id;
 }
 /**
  * doc_unre_new_group:
@@ -332,7 +326,7 @@ guint doc_unre_new_group_action_id(Tdocument *doc, guint action_id) {
  * 
  * Return value: the action_id of this group
  **/
-guint doc_unre_new_group(Tdocument *doc) {
+void doc_unre_new_group(Tdocument *doc) {
 	doc_unre_new_group_action_id(doc, 0);
 }
 

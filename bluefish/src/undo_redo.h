@@ -2,7 +2,7 @@
  *
  * undo_redo.h -- undo structures and function declarations
  *
- * Copyright (C) 1998-2002 Olivier Sessink
+ * Copyright (C) 1998-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,8 @@
 #define __UNDO_REDO_H_
 
 void doc_unre_add(Tdocument *doc, const char *text, int start, int end, undo_op_t op);
-guint doc_unre_new_group(Tdocument *doc);
+void doc_unre_new_group_action_id(Tdocument *doc, guint action_id);
+void doc_unre_new_group(Tdocument *doc);
 void doc_unre_init(Tdocument *doc);
 void doc_unre_destroy(Tdocument *doc);
 void doc_unre_clear_all(Tdocument *doc);
