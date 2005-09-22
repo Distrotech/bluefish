@@ -21,7 +21,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADER(src/config.h)
 
 PACKAGE=bluefish
-VERSION=1.0.4
+VERSION=1.0.5
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
@@ -30,7 +30,7 @@ AC_DEFINE_UNQUOTED(CURRENT_VERSION_NAME, "$PACKAGE $VERSION HTML editor")
 AC_DEFINE_UNQUOTED(CONFIGURE_OPTIONS, "$0 $*")
 
 # these are the languages that will be installed, so these should be finished
-ALL_LINGUAS="bg cs da de es fi fr hu it ja no pl pt pt_BR ru sr sv ta tr zh_CN zh_TW"
+ALL_LINGUAS="bg cs da de es eu fi fr hu it ja no pl pt pt_BR ru sr sv ta tr zh_CN zh_TW"
 AC_SUBST(ALL_LINGUAS)
 
 dnl ************************
