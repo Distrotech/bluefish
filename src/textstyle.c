@@ -89,6 +89,7 @@ void textstyle_rebuild(void) {
 		tag = textstyle_compile(arr);
 		DEBUG_MSG("textstyle_rebuild, adding tag %p to tagtable %p\n",tag,textstyle.tagtable);
 		gtk_text_tag_table_add(textstyle.tagtable, tag);
+		g_object_unref(tag);
 	}
 }
 

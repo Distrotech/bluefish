@@ -284,7 +284,11 @@ void hl_tag_attr_slot (BfTextView * view, gchar * attrName, gchar * attrValue,
 		gtk_text_buffer_apply_tag(buffer,tag,v_startIter,v_endIter);					   		
 }			   
 
-
+/*
+this function should change when we link the textstyles to the scanner engine,
+it should be replaced by a function that only retrieves the GtkTextTag from the 
+textstyle by name, and adds the GtkTextTag to the correct hashtable
+*/
 void create_style(Tfiletype *filetype,gchar *tp,gchar *name,gchar *fgcolor,gchar *bgcolor,gint weight,gint style) {
 	GtkTextTag *tag;	
 		tag = gtk_text_tag_new(NULL);

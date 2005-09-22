@@ -268,6 +268,7 @@ typedef struct {
 	gint autoscan_lines; /* number of lines to autoscan */
 	gchar *editor_fg; /* editor foreground color */
 	gchar *editor_bg; /* editor background color */
+	GList *syntax_styles; /* textstyles (see below) for each detected bit of syntax */
 #endif	
 	GList *textstyles; /* tet styles: name,foreground,background,weight,style */
 } Tproperties;
