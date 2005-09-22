@@ -679,7 +679,7 @@ Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_type
  * 
  * Return value: void
  **/
-void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype, gboolean unescape) {
+void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype, gboolean unescape, guint unre_action_id) {
 /* endpos -1 means do till end */
 	gchar *fulltext, *realpats, *realpatr;
 	gboolean realunesc;
@@ -687,7 +687,7 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 	gint buf_byte_offset=0;
 	gint buf_text_offset=startpos;
 	gint replacelen; /* replacelen -1 means there is no replacelen known yet */
-	doc_unre_new_group(doc);
+	doc_unre_new_group_action_id(doc,unre_action_id);
 
 	DEBUG_MSG("replace_doc_multiple, startpos=%d, endpos=%d\n", startpos, endpos);
 	if (matchtype == match_normal || replacetype != string) {
@@ -737,7 +737,7 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 		g_free(realpatr);
 	}
 
-	doc_unre_new_group(doc);
+	doc_unre_new_group_action_id(doc,0);
 
 	LASTSNR2(bfwin->snr2)->result.start = -1;
 	LASTSNR2(bfwin->snr2)->result.end = -1;
@@ -763,10 +763,10 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
  **/
 void replace_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *replace_pattern, Treplace_types replacetype, gboolean unescape) {
 	GList *tmplist;
-
+	guint unre_action_id = new_unre_action_id();
 	tmplist = g_list_first(bfwin->documentlist);
 	while (tmplist) {
-		replace_doc_multiple(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, (Tdocument *)tmplist->data, replacetype, unescape);
+		replace_doc_multiple(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, (Tdocument *)tmplist->data, replacetype, unescape, unre_action_id);
 		tmplist = g_list_next(tmplist);
 	}
 }
@@ -1140,7 +1140,7 @@ void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 			} else if (LASTSNR2(bfwin->snr2)->replace_once) {
 				replace_doc_once(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->replace_pattern, doc, replacetype, LASTSNR2(bfwin->snr2)->unescape);
 			} else {
-				replace_doc_multiple(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->replace_pattern, doc, replacetype, LASTSNR2(bfwin->snr2)->unescape);
+				replace_doc_multiple(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->replace_pattern, doc, replacetype, LASTSNR2(bfwin->snr2)->unescape, 0);
 			}		
 		}
 	} else { /* find, not replace */

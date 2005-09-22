@@ -21,7 +21,7 @@
 
 #ifndef __UNDO_REDO_H_
 #define __UNDO_REDO_H_
-
+guint new_unre_action_id(void);
 void doc_unre_add(Tdocument *doc, const char *text, int start, int end, undo_op_t op);
 void doc_unre_new_group_action_id(Tdocument *doc, guint action_id);
 void doc_unre_new_group(Tdocument *doc);
