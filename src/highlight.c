@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * highlight2.c - the syntax highlighting with perl compatible regular expressions
  *
- * Copyright (C) 2002 Olivier Sessink
+ * Copyright (C) 2002-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines highlight.c
  */
+
 /*#define HL_TIMING
 #define HL_DEBUG 
 #define DEBUG*/
@@ -35,35 +36,38 @@
 #endif
 
 #include <gtk/gtk.h>
-#include <sys/types.h>			/* _before_ regex.h for freeBSD */
-#include <pcre.h>				/* pcre_*() */
- 
-#ifndef PCRE_UTF8 /* for compatibility with older libpcre's */
+#include <sys/types.h>    /* _before_ regex.h for freeBSD */
+#include <pcre.h>         /* pcre_*() */
+
+#ifdef HAVE_PCRE_UTF8 
+#ifndef PCRE_UTF8         /* for compatibility with older libpcre's */
 #define PCRE_UTF8 0
 #endif /* PCRE_UTF8 */
+#endif /* HAVE_PCRE_UTF8 */
 
-#include <string.h>				/* strerror() */
-#include <stdlib.h>				/* atoi() */
+#include <string.h>       /* strerror() */
+#include <stdlib.h>       /* atoi() */
 
-#include "config.h" /* HL_PROFILING might be defined there */
+#include "config.h"       /* HL_PROFILING might be defined there */
 
-#ifdef HL_PROFILING /* per pattern profiling information, interesting for users making a new pattern */
+#ifdef HL_PROFILING       /* per pattern profiling information, interesting for users making a new pattern */
 #include <sys/times.h>
 #include <unistd.h>
 #endif
 
 #include "bluefish.h"
-#include "bf_lib.h"				/* filename_test_extensions() */
-#include "rcfile.h"				/* array_from_arglist() */
-#include "stringlist.h" 	/* count_array() */
-#include "menu.h" 			/* menu_current_document_set_toggle_wo_activate */
-#include "document.h" /* doc_get_chars() */
+#include "bf_lib.h"       /* filename_test_extensions() */
+#include "document.h"     /* doc_get_chars() */
+#include "gtk_easy.h"     /* error_dialog() */
 #include "highlight.h"
-#include "gtk_easy.h" /* error_dialog() */
+#include "menu.h"         /* menu_current_document_set_toggle_wo_activate */
+#include "rcfile.h"       /* array_from_arglist() */
+#include "stringlist.h"   /* count_array() */
 
-#define MAX_OVECTOR 30 /* should be a multiple of three for pcre_exec(), 
-									and at maximum 2/3 of this size can really be used for substrings */
-#define MIN_OVECTOR 9 /* the minimum size for the ovector */
+#define MIN_OVECTOR 9     /* the minimum size for the ovector */
+#define MAX_OVECTOR 30    /* should be a multiple of three for pcre_exec(), 
+                             and at maximum 2/3 of this size can really be used for substrings */
+
 typedef struct {
 	pcre *pcre;
 	pcre_extra *pcre_e;
@@ -359,7 +363,11 @@ static void compile_pattern(gboolean gui_errors, gchar *filetype, gchar *name, g
 			int erroffset=0;
 			DEBUG_MSG("compiling pat1 '%s'\n", pat1);
 			pat->reg1.pcre = pcre_compile(pat1,
+#ifdef HAVE_PCRE_UTF8
 					(case_insens) ? PCRE_UTF8|PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_UTF8|PCRE_MULTILINE|PCRE_DOTALL,
+#else
+					(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
+#endif /* HAVE_PCRE_UTF8 */
 					&err,&erroffset,NULL);
 			if (err) {
 				gchar *str1, *str2;
@@ -398,7 +406,11 @@ static void compile_pattern(gboolean gui_errors, gchar *filetype, gchar *name, g
 			int erroffset=0;
 			DEBUG_MSG("compiling pat2 '%s'\n", pat2);
 			pat->reg2.pcre = pcre_compile(pat2,
+#ifdef HAVE_PCRE_UTF8
 					(case_insens) ? PCRE_UTF8|PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_UTF8|PCRE_MULTILINE|PCRE_DOTALL,
+#else
+					(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
+#endif /* HAVE_PCRE_UTF8 */
 					&err,&erroffset,NULL);
 			if (err) {
 				gchar *str1, *str2;
@@ -630,7 +642,11 @@ void filetype_highlighting_rebuild(gboolean gui_errors) {
 		const char *err=NULL;
 		int erroffset=0;
 		Tmetapattern *mpat = (Tmetapattern *)tmplist->data;
+#ifdef HAVE_PCRE_UTF8		
 		mpat->pcre = pcre_compile(mpat->parentmatch, PCRE_UTF8, &err, &erroffset,NULL);
+#else
+		mpat->pcre = pcre_compile(mpat->parentmatch, 0, &err, &erroffset,NULL);
+#endif
 		if (err) {
 			g_print("error compiling parentmatch %s at %d\n", err, erroffset);
 		}

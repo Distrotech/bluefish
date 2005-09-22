@@ -47,26 +47,28 @@
 
 #include <stdio.h>
 #include <string.h>
-#include <sys/types.h>  /* _before_ regex.h for freeBSD */
-#include <regex.h> 				/* regcomp() */
-#include <pcre.h> 	/* pcre_compile */
+#include <sys/types.h>    /* _before_ regex.h for freeBSD */
+#include <regex.h>        /* regcomp() */
+#include <pcre.h>         /* pcre_compile */
 
-#ifndef PCRE_UTF8 /* for compatibility with older libpcre's */
+#ifdef HAVE_PCRE_UTF8
+#ifndef PCRE_UTF8         /* for compatibility with older libpcre's */
 #define PCRE_UTF8 0
 #endif /* PCRE_UTF8 */
+#endif /* HAVE_PCRE_UTF8 */
 
 #include <gdk/gdkkeysyms.h> /* GDK_Return */
 
 #include "bluefish.h"
-#include "bookmark.h" /* bmark_add_extern() */
+#include "bookmark.h"    /* bmark_add_extern() */
 #include "bf_lib.h"
-#include "undo_redo.h" /* doc_unre_new_group */
-#include "document.h"			/* doc_replace_text() */
-#include "gui.h" /* switch_to_document_by_pointer() */
-#include "gtk_easy.h"         /* a lot of GUI functions */
+#include "document.h"    /* doc_replace_text() */
+#include "gtk_easy.h"    /* a lot of GUI functions */
+#include "gui.h"         /* switch_to_document_by_pointer() */
+#include "highlight.h"   /* doc_highlight_full() */
 #include "snr2.h"
-#include "highlight.h" /* doc_highlight_full() */
-#include "stringlist.h" /* add_to_history_stringlist */
+#include "stringlist.h"  /* add_to_history_stringlist */
+#include "undo_redo.h"   /* doc_unre_new_group */
 
 /* Updates, May 2003, by Ruben Dorta */
 
@@ -232,7 +234,13 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		int erroffset=0;
 		int ovector[30];
 		gint retval;
-		pcre_c = pcre_compile(search_pattern, (is_case_sens ? PCRE_UTF8|PCRE_DOTALL|PCRE_MULTILINE : PCRE_UTF8|PCRE_DOTALL|PCRE_CASELESS|PCRE_MULTILINE),&err,&erroffset,NULL);
+		pcre_c = pcre_compile(search_pattern,  
+#ifdef HAVE_PCRE_UTF8
+				(is_case_sens ? PCRE_UTF8|PCRE_DOTALL|PCRE_MULTILINE : PCRE_UTF8|PCRE_DOTALL|PCRE_CASELESS|PCRE_MULTILINE),
+#else
+				(is_case_sens ? PCRE_DOTALL|PCRE_MULTILINE : PCRE_DOTALL|PCRE_CASELESS|PCRE_MULTILINE),
+#endif
+				&err,&erroffset,NULL);
 		if (err) {
 			gchar *errstring;
 			errstring = g_strdup_printf(_("Regular expression error: %s at offset %d"), err, erroffset);
