@@ -295,6 +295,24 @@ if test "x$PCRE_CONFIG" = "xno" ; then
 else 
 	LIBS="$LIBS `$PCRE_CONFIG --libs`"
 	CFLAGS="$CFLAGS `$PCRE_CONFIG --cflags`"
+
+	AC_CACHE_CHECK([libpcre was compiled with UTF-8 support],
+		[ac_cv_have_pcre_utf8_support],
+		[AC_RUN_IFELSE(
+			[AC_LANG_SOURCE(
+				 [[#include <pcre.h>
+
+				   int main() {
+				     int t;
+				     return (pcre_config (PCRE_CONFIG_UTF8, &t) || !t);
+				   }]])],
+			[ac_cv_have_pcre_utf8_support="yes"],
+			[ac_cv_have_pcre_utf8_support="no"])])
+			
+	if test "$ac_cv_have_pcre_utf8_support" = "yes"; then
+		AC_DEFINE(HAVE_PCRE_UTF8)
+	fi
+
 fi
 
 AC_CHECK_LIB(posix4, nanosleep, 
