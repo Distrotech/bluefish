@@ -1511,7 +1511,7 @@ static gchar **hlg_find_pattern(Tprefdialog *pd, gchar *filetype, gchar *type, g
 	return NULL;
 }
 
-
+/* called when a filetype is set in the syntax highlighting dialog */
 static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
 	BfLangConfig *cfg = bf_lang_mgr_get_config(main_v->lang_mgr,gtk_combo_box_get_active_text(widget));
 	Tprefdialog *pd = (Tprefdialog *)user_data;
@@ -1520,8 +1520,8 @@ static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
 	Thf *hf = g_new0(Thf,1);
 	
 	if (!cfg) {
-		 gtk_widget_hide(pd->hld.main_view);
-		 return;
+		gtk_widget_hide(pd->hld.main_view);
+		return;
 	}	 
 	pd->hld.filetype_change = TRUE;
 	gtk_widget_show(pd->hld.main_view);
@@ -1572,11 +1572,11 @@ static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
 	g_hash_table_foreach(cfg->blocks,bf_ins_block,hf);
 	lst2 = g_list_first(lst3);
 	while (lst2) {
-				gtk_tree_store_append(pd->hld.blk_store, &iter2, NULL);
-				gtk_tree_store_set(pd->hld.blk_store, &iter2, 0,1,1,lst2->data,
+		gtk_tree_store_append(pd->hld.blk_store, &iter2, NULL);
+		gtk_tree_store_set(pd->hld.blk_store, &iter2, 0,1,1,lst2->data,
 					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"b",lst2->data), -1);			
-				lst2 = g_list_next(lst2);
-	}		
+		lst2 = g_list_next(lst2);
+	}
 	g_list_free(lst3);		
 	lst3 = NULL;
 	hf->list = &lst3;
@@ -1584,10 +1584,10 @@ static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
 	g_hash_table_foreach(cfg->tokens,bf_ins_token,hf);
 	lst2 = g_list_first(lst3);
 	while (lst2) {
-				gtk_tree_store_append(pd->hld.tk_store, &iter2, NULL);
-				gtk_tree_store_set(pd->hld.tk_store, &iter2, 0,2,1,lst2->data,
+		gtk_tree_store_append(pd->hld.tk_store, &iter2, NULL);
+		gtk_tree_store_set(pd->hld.tk_store, &iter2, 0,2,1,lst2->data,
 					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"t",lst2->data), -1);			
-				lst2 = g_list_next(lst2);
+		lst2 = g_list_next(lst2);
 	}		
 	g_list_free(lst3);		
 
@@ -1739,137 +1739,135 @@ static void  hlg_bi_changed (GtkToggleButton *togglebutton, gpointer user_data) 
 }
 
 static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
-  GtkWidget *vbox1,*lab_help,*hbox1,*label2;
-  GtkWidget *reset_btn,*vbox2;
-  GtkWidget *hbox2;
-  GSList *blk_radio_group = NULL;
-  GtkWidget *hbox3,*scrolledwindow1;
-  GtkWidget *t_pbox;
-  GList *tmplist=NULL;
-  GtkTreeViewColumn *column;
-  GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
-  GtkTreeIter iter;
-
-  pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
-
-  /* Prepare store for elements */
-  pd->hld.blk_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
-  pd->hld.tk_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
-  pd->hld.tag_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
-  gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
-  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,3,1,g_strdup(_("Begin of a tag")), -1);
-  gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
-  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,4,1,g_strdup(_("End of a tag")), -1);
-  gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
-  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,5,1,g_strdup(_("Attribute name")), -1);
-  gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
-  gtk_tree_store_set(pd->hld.tag_store, &iter, 0,6,1,g_strdup(_("Attribute value")), -1);
-  
-  vbox1 = gtk_vbox_new (FALSE, 3);
-  gtk_box_pack_start(GTK_BOX(mainbox), vbox1, FALSE, FALSE, 3);  
-    
-  lab_help = gtk_label_new (_("label1"));
-  gtk_box_pack_start (GTK_BOX (vbox1), lab_help, FALSE, FALSE, 0);
-  gtk_label_set_use_markup (GTK_LABEL (lab_help), TRUE);
-  gtk_misc_set_padding (GTK_MISC (lab_help), 3, 3);
-  gtk_label_set_markup(GTK_LABEL(lab_help),_("<small>Highlighting is performed only for elements which are in 'highlighted' lists.\nElement style is found using steps below:\n1. find definition for single token or block, if not found then,\n2. find definition for group to which token or block belongs</small>"));
-
-  hbox1 = gtk_hbox_new (FALSE, 3);
-  gtk_box_pack_start (GTK_BOX (vbox1), hbox1, TRUE, TRUE, 0);
-
-  label2 = gtk_label_new (_("File type"));
-  gtk_box_pack_start (GTK_BOX (hbox1), label2, FALSE, FALSE, 0);
-  gtk_misc_set_padding (GTK_MISC (label2), 3, 3);
-
-  pd->hld.ftype_combo = gtk_combo_box_new_text ();
-  gtk_box_pack_start (GTK_BOX (hbox1), pd->hld.ftype_combo, FALSE, TRUE, 2);
-  gtk_container_set_border_width (GTK_CONTAINER (pd->hld.ftype_combo), 2);
-  tmplist = g_list_first(pd->lists[filetypes]);
-   while (tmplist) {
-			gint arrcount;
-			gchar **strarr = (gchar **)tmplist->data;
-			arrcount = count_array(strarr);
-		   gtk_combo_box_append_text(GTK_COMBO_BOX(pd->hld.ftype_combo),strarr[0]);
-			tmplist = g_list_next(tmplist);
+	GtkWidget *vbox1,*lab_help,*hbox1,*label2;
+	GtkWidget *reset_btn,*vbox2;
+	GtkWidget *hbox2;
+	GSList *blk_radio_group = NULL;
+	GtkWidget *hbox3,*scrolledwindow1;
+	GtkWidget *t_pbox;
+	GList *tmplist=NULL;
+	GtkTreeViewColumn *column;
+	GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
+	GtkTreeIter iter;
+	
+	pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
+	
+	/* Prepare store for elements */
+	pd->hld.blk_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
+	pd->hld.tk_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
+	pd->hld.tag_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
+	gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
+	gtk_tree_store_set(pd->hld.tag_store, &iter, 0,3,1,g_strdup(_("Begin of a tag")), -1);
+	gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
+	gtk_tree_store_set(pd->hld.tag_store, &iter, 0,4,1,g_strdup(_("End of a tag")), -1);
+	gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
+	gtk_tree_store_set(pd->hld.tag_store, &iter, 0,5,1,g_strdup(_("Attribute name")), -1);
+	gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
+	gtk_tree_store_set(pd->hld.tag_store, &iter, 0,6,1,g_strdup(_("Attribute value")), -1);
+	
+	vbox1 = gtk_vbox_new (FALSE, 3);
+	gtk_box_pack_start(GTK_BOX(mainbox), vbox1, FALSE, FALSE, 3);  
+	  
+	lab_help = gtk_label_new (_("label1"));
+	gtk_box_pack_start (GTK_BOX (vbox1), lab_help, FALSE, FALSE, 0);
+	gtk_label_set_use_markup (GTK_LABEL (lab_help), TRUE);
+	gtk_misc_set_padding (GTK_MISC (lab_help), 3, 3);
+	gtk_label_set_markup(GTK_LABEL(lab_help),_("<small>Highlighting is performed only for elements which are in 'highlighted' lists.\nElement style is found using steps below:\n1. find definition for single token or block, if not found then,\n2. find definition for group to which token or block belongs</small>"));
+	
+	hbox1 = gtk_hbox_new (FALSE, 3);
+	gtk_box_pack_start (GTK_BOX (vbox1), hbox1, TRUE, TRUE, 0);
+	
+	label2 = gtk_label_new (_("File type"));
+	gtk_box_pack_start (GTK_BOX (hbox1), label2, FALSE, FALSE, 0);
+	gtk_misc_set_padding (GTK_MISC (label2), 3, 3);
+	
+	pd->hld.ftype_combo = gtk_combo_box_new_text ();
+	gtk_box_pack_start (GTK_BOX (hbox1), pd->hld.ftype_combo, FALSE, TRUE, 2);
+	gtk_container_set_border_width (GTK_CONTAINER (pd->hld.ftype_combo), 2);
+	tmplist = g_list_first(pd->lists[filetypes]);
+	while (tmplist) {
+		gint arrcount;
+		gchar **strarr = (gchar **)tmplist->data;
+		arrcount = count_array(strarr);
+		gtk_combo_box_append_text(GTK_COMBO_BOX(pd->hld.ftype_combo),strarr[0]);
+		tmplist = g_list_next(tmplist);
 	}  
-  
-  
-  reset_btn = gtk_button_new_with_mnemonic (_("Reset"));
-  gtk_box_pack_start(GTK_BOX (hbox1), reset_btn, FALSE, FALSE, 2);
-  gtk_container_set_border_width (GTK_CONTAINER (reset_btn), 2);
-
-  vbox2 = gtk_vbox_new (FALSE, 3);
-  gtk_box_pack_start (GTK_BOX (vbox1), vbox2, TRUE, TRUE, 0);
-  pd->hld.main_view = vbox2;
-
-  hbox2 = gtk_hbox_new (FALSE, 3);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 3);
-
-  pd->hld.blk_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Blocks"));
-  gtk_box_pack_start (GTK_BOX (hbox2), pd->hld.blk_radio, FALSE, FALSE, 2);
-  gtk_container_set_border_width (GTK_CONTAINER (pd->hld.blk_radio), 2);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (pd->hld.blk_radio), blk_radio_group);
-  blk_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (pd->hld.blk_radio));
-
-  pd->hld.tk_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Tokens"));
-  gtk_box_pack_start (GTK_BOX (hbox2), pd->hld.tk_radio, FALSE, FALSE, 2);
-  gtk_container_set_border_width (GTK_CONTAINER (pd->hld.tk_radio), 2);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (pd->hld.tk_radio), blk_radio_group);
-  blk_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (pd->hld.tk_radio));
-
-  pd->hld.tag_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Tags"));
-  gtk_box_pack_start (GTK_BOX (hbox2), pd->hld.tag_radio, FALSE, FALSE, 2);
-  gtk_container_set_border_width (GTK_CONTAINER (pd->hld.tag_radio), 2);
-  gtk_radio_button_set_group (GTK_RADIO_BUTTON (pd->hld.tag_radio), blk_radio_group);
-  blk_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (pd->hld.tag_radio));
-
-  hbox3 = gtk_hbox_new (FALSE, 3);
-  gtk_box_pack_start (GTK_BOX (vbox2), hbox3, TRUE, TRUE, 0);
-
-  scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-  gtk_box_pack_start (GTK_BOX (hbox3), scrolledwindow1, TRUE, TRUE, 2);
-  gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow1), 2);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-
-  pd->hld.tree = gtk_tree_view_new ();
-  gtk_container_add (GTK_CONTAINER (scrolledwindow1), pd->hld.tree);
-  gtk_container_set_border_width (GTK_CONTAINER (pd->hld.tree), 2);
-  gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (pd->hld.tree), FALSE);
-  gtk_widget_set_size_request(pd->hld.tree, 200, 150);
-  column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,"text", 1,NULL);
-  gtk_tree_view_append_column (GTK_TREE_VIEW(pd->hld.tree), column);
-  
-  t_pbox = gtk_vbox_new (FALSE, 0);
-  gtk_box_pack_start (GTK_BOX (hbox3), t_pbox, TRUE, TRUE, 5);
-  pd->hld.fg_color = prefs_string(_("Foreground color"), "", t_pbox, pd, string_color);
-  pd->hld.bg_color = prefs_string(_("Background color"), "", t_pbox, pd, string_color);
-  pd->hld.bold_radio[0] = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
-  gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.bold_radio[0], TRUE, TRUE, 0);
-  pd->hld.bold_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.bold_radio[0]), _("force non-bold weight"));
-  gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.bold_radio[1], TRUE, TRUE, 0);
-  pd->hld.bold_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.bold_radio[0]), _("force bold weight"));
-  gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.bold_radio[2], TRUE, TRUE, 0);
-  pd->hld.italic_radio[0] = gtk_radio_button_new_with_label(NULL, _("don't change style"));
-  gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[0], TRUE, TRUE, 0);
-  pd->hld.italic_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.italic_radio[0]), _("force non-italic style"));
-  gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[1], TRUE, TRUE, 0);
-  pd->hld.italic_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.italic_radio[0]), _("force italic style"));
-  gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[2], TRUE, TRUE, 0);
-
-  g_signal_connect(G_OBJECT(pd->hld.ftype_combo),"changed",G_CALLBACK(hlg_ftype_changed),pd);
-  g_signal_connect(G_OBJECT(pd->hld.blk_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
-  g_signal_connect(G_OBJECT(pd->hld.tk_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
-  g_signal_connect(G_OBJECT(pd->hld.tag_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
-  g_signal_connect(G_OBJECT(pd->hld.tree),"cursor-changed",G_CALLBACK(hlg_cursor_changed),pd);
-  g_signal_connect(G_OBJECT(pd->hld.fg_color),"changed",G_CALLBACK(hlg_entry_changed),pd);
-  g_signal_connect(G_OBJECT(pd->hld.bg_color),"changed",G_CALLBACK(hlg_entry_changed),pd);
-  g_signal_connect(G_OBJECT(pd->hld.bold_radio[0]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
-  g_signal_connect(G_OBJECT(pd->hld.bold_radio[1]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
-  g_signal_connect(G_OBJECT(pd->hld.bold_radio[2]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
-  g_signal_connect(G_OBJECT(pd->hld.italic_radio[0]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
-  g_signal_connect(G_OBJECT(pd->hld.italic_radio[1]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
-  g_signal_connect(G_OBJECT(pd->hld.italic_radio[2]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
-  pd->hld.filetype_change = FALSE;
+	reset_btn = gtk_button_new_with_mnemonic (_("Reset"));
+	gtk_box_pack_start(GTK_BOX (hbox1), reset_btn, FALSE, FALSE, 2);
+	gtk_container_set_border_width (GTK_CONTAINER (reset_btn), 2);
+	
+	vbox2 = gtk_vbox_new (FALSE, 3);
+	gtk_box_pack_start (GTK_BOX (vbox1), vbox2, TRUE, TRUE, 0);
+	pd->hld.main_view = vbox2;
+	
+	hbox2 = gtk_hbox_new (FALSE, 3);
+	gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 3);
+	
+	pd->hld.blk_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Blocks"));
+	gtk_box_pack_start (GTK_BOX (hbox2), pd->hld.blk_radio, FALSE, FALSE, 2);
+	gtk_container_set_border_width (GTK_CONTAINER (pd->hld.blk_radio), 2);
+	gtk_radio_button_set_group (GTK_RADIO_BUTTON (pd->hld.blk_radio), blk_radio_group);
+	blk_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (pd->hld.blk_radio));
+	
+	pd->hld.tk_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Tokens"));
+	gtk_box_pack_start (GTK_BOX (hbox2), pd->hld.tk_radio, FALSE, FALSE, 2);
+	gtk_container_set_border_width (GTK_CONTAINER (pd->hld.tk_radio), 2);
+	gtk_radio_button_set_group (GTK_RADIO_BUTTON (pd->hld.tk_radio), blk_radio_group);
+	blk_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (pd->hld.tk_radio));
+	
+	pd->hld.tag_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Tags"));
+	gtk_box_pack_start (GTK_BOX (hbox2), pd->hld.tag_radio, FALSE, FALSE, 2);
+	gtk_container_set_border_width (GTK_CONTAINER (pd->hld.tag_radio), 2);
+	gtk_radio_button_set_group (GTK_RADIO_BUTTON (pd->hld.tag_radio), blk_radio_group);
+	blk_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (pd->hld.tag_radio));
+	
+	hbox3 = gtk_hbox_new (FALSE, 3);
+	gtk_box_pack_start (GTK_BOX (vbox2), hbox3, TRUE, TRUE, 0);
+	
+	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
+	gtk_box_pack_start (GTK_BOX (hbox3), scrolledwindow1, TRUE, TRUE, 2);
+	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow1), 2);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	
+	pd->hld.tree = gtk_tree_view_new ();
+	gtk_container_add (GTK_CONTAINER (scrolledwindow1), pd->hld.tree);
+	gtk_container_set_border_width (GTK_CONTAINER (pd->hld.tree), 2);
+	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (pd->hld.tree), FALSE);
+	gtk_widget_set_size_request(pd->hld.tree, 200, 150);
+	column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,"text", 1,NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW(pd->hld.tree), column);
+	
+	t_pbox = gtk_vbox_new (FALSE, 0);
+	gtk_box_pack_start (GTK_BOX (hbox3), t_pbox, TRUE, TRUE, 5);
+	pd->hld.fg_color = prefs_string(_("Foreground color"), "", t_pbox, pd, string_color);
+	pd->hld.bg_color = prefs_string(_("Background color"), "", t_pbox, pd, string_color);
+	pd->hld.bold_radio[0] = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
+	gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.bold_radio[0], TRUE, TRUE, 0);
+	pd->hld.bold_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.bold_radio[0]), _("force non-bold weight"));
+	gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.bold_radio[1], TRUE, TRUE, 0);
+	pd->hld.bold_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.bold_radio[0]), _("force bold weight"));
+	gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.bold_radio[2], TRUE, TRUE, 0);
+	pd->hld.italic_radio[0] = gtk_radio_button_new_with_label(NULL, _("don't change style"));
+	gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[0], TRUE, TRUE, 0);
+	pd->hld.italic_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.italic_radio[0]), _("force non-italic style"));
+	gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[1], TRUE, TRUE, 0);
+	pd->hld.italic_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.italic_radio[0]), _("force italic style"));
+	gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[2], TRUE, TRUE, 0);
+	
+	g_signal_connect(G_OBJECT(pd->hld.ftype_combo),"changed",G_CALLBACK(hlg_ftype_changed),pd);
+	g_signal_connect(G_OBJECT(pd->hld.blk_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
+	g_signal_connect(G_OBJECT(pd->hld.tk_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
+	g_signal_connect(G_OBJECT(pd->hld.tag_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
+	g_signal_connect(G_OBJECT(pd->hld.tree),"cursor-changed",G_CALLBACK(hlg_cursor_changed),pd);
+	g_signal_connect(G_OBJECT(pd->hld.fg_color),"changed",G_CALLBACK(hlg_entry_changed),pd);
+	g_signal_connect(G_OBJECT(pd->hld.bg_color),"changed",G_CALLBACK(hlg_entry_changed),pd);
+	g_signal_connect(G_OBJECT(pd->hld.bold_radio[0]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
+	g_signal_connect(G_OBJECT(pd->hld.bold_radio[1]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
+	g_signal_connect(G_OBJECT(pd->hld.bold_radio[2]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
+	g_signal_connect(G_OBJECT(pd->hld.italic_radio[0]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
+	g_signal_connect(G_OBJECT(pd->hld.italic_radio[1]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
+	g_signal_connect(G_OBJECT(pd->hld.italic_radio[2]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
+	pd->hld.filetype_change = FALSE;
 }
 #endif
 
