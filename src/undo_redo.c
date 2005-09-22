@@ -24,6 +24,7 @@
 
 #include "bluefish.h" 
 #include "undo_redo.h"
+#include "dialog_utils.h"
 #include "document.h" /* doc_bind_signals() */
 
 typedef struct {
@@ -37,6 +38,16 @@ static guint action_id_count = 1; /* 0 means it should be auto-generated */
 
 guint new_unre_action_id(void) {
 	return ++action_id_count;
+}
+
+static gboolean have_current_action_id(unre_t unre) {
+	if (unre.current->entries) {
+		DEBUG_MSG("have_current_action_id, count=%d, doc has %d\n",action_id_count,unre.current->action_id);
+		return (unre.current->action_id == action_id_count);
+	} else {
+		DEBUG_MSG("have_current_action_id, count=%d, doc has %d\n",action_id_count,((unregroup_t *)unre.first->data)->action_id);
+		return (((unregroup_t *)unre.first->data)->action_id == action_id_count);
+	}
 }
 
 static unregroup_t *unregroup_new(Tdocument *doc, guint action_id) {
@@ -313,7 +324,7 @@ void doc_unre_new_group_action_id(Tdocument *doc, guint action_id) {
 		if (doc->unre.num_groups > main_v->props.num_undo_levels) {
 			doc_unre_destroy_last_group(doc);
 		}
-	} else if (action_id != 0) {
+	} else {
 		doc->unre.current->action_id = action_id;
 	}
 }
@@ -442,6 +453,26 @@ void undo_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	DEBUG_MSG("undo_cb, started\n");
 	if (bfwin->current_document) {
 		gint lastpos;
+		if (have_current_action_id(bfwin->current_document->unre)) {
+			gint ret;
+			const gchar *buttons[] = {_("Undo in _all documents"), _("Undo only _this document"), NULL};
+			/* there might be more douments that can be undone in the current unre group */
+			ret = message_dialog_new_multi(bfwin->main_window, GTK_MESSAGE_QUESTION, buttons,
+				_("Undo this change in all documents?"), _("This change concerns multiple documents."));
+			if (ret == 0) {
+				GList *tmplist = g_list_first(bfwin->documentlist);
+				while (tmplist) {
+					if (have_current_action_id(DOCUMENT(tmplist->data)->unre)) {
+						doc_unre_start(DOCUMENT(tmplist->data));
+						lastpos = doc_undo(DOCUMENT(tmplist->data));
+						doc_unre_finish(DOCUMENT(tmplist->data), lastpos);
+					}
+					tmplist = g_list_next(tmplist);
+				}
+				DEBUG_MSG("undo in all finished!\n");
+				return;
+			}
+		}
 		doc_unre_start(bfwin->current_document);
 		lastpos = doc_undo(bfwin->current_document);
 		doc_unre_finish(bfwin->current_document, lastpos);
