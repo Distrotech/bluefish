@@ -86,32 +86,32 @@ typedef struct {
 * Represents language configuration file. 
 */
 
-
 typedef struct {
-    /*< private > */
-    gchar *name, *extensions, *description;
-    gboolean case_sensitive;
-    gboolean scan_tags;
-    gboolean scan_blocks;
-    gboolean restricted_tags_only;
-    gboolean indent_blocks;
-    gunichar as_triggers[BFTV_UTF8_RANGE];
-
-    GHashTable *tokens;
-    GHashTable *blocks;
-    GHashTable *groups;
-    GHashTable *blocks_id;
-    GArray *dfa,*tag_dfa;
-    GArray *line_indent;
-    gshort **scan_table;
-    gshort **tag_scan_table;
-    gint tabnum,tag_tabnum;    
-    gint counter;
-    gchar escapes[BFTV_UTF8_RANGE];
-    GHashTable *restricted_tags;
-    gint tokennum;		/* = BFTV_TOKEN_IDS + 1; */
-    gint blocknum;		  /* = BFTV_BLOCK_IDS + 1; */
-    BfLangBlock *iblock;
+	/*< private > */
+	gchar *name, *extensions, *description;
+	gboolean case_sensitive;
+	gboolean scan_tags;
+	gboolean scan_blocks;
+	gboolean restricted_tags_only;
+	gboolean indent_blocks;
+	gunichar as_triggers[BFTV_UTF8_RANGE];
+	
+	GHashTable *tokens;
+	GHashTable *blocks;
+	GHashTable *groups;
+	GHashTable *blocks_id;
+	GArray *dfa,*tag_dfa;
+	GArray *line_indent;
+	gshort **scan_table;
+	gshort **tag_scan_table;
+	gint tabnum,tag_tabnum;    
+	gint counter;
+	gchar escapes[BFTV_UTF8_RANGE];
+	GHashTable *restricted_tags;
+	gint tokennum;		/* = BFTV_TOKEN_IDS + 1; */
+	gint blocknum;		  /* = BFTV_BLOCK_IDS + 1; */
+	BfLangBlock *iblock;
+	gpointer *filetype;
 } BfLangConfig;
 
 typedef struct {
@@ -120,7 +120,7 @@ typedef struct {
 
 BfLangManager *bf_lang_mgr_new ();
 gboolean bf_lang_mgr_load_config(BfLangManager * mgr, gchar * filename,
-				 gchar * filetype);
+				 gpointer * filetype);
 BfLangConfig *bf_lang_mgr_get_config(BfLangManager * mgr,
 				     gchar * filetype);
 
@@ -217,7 +217,7 @@ typedef struct {
     GtkTextTag *block_match_tag;
     GHashTable *group_tags,*token_tags,*block_tags;
     GtkWidget *fold_menu;
-    GHashTable *token_styles,*block_styles,*tag_styles,*group_styles;
+/*    GHashTable *token_styles,*block_styles,*tag_styles,*group_styles;*/
 } BfTextView;
 
 /*

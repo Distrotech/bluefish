@@ -27,7 +27,7 @@
 #include "bluefish.h"
 
 
-void hl_token_slot(BfTextView * view, BfLangToken * tokenDef, GtkTextIter * startIter,
+/*void hl_token_slot(BfTextView * view, BfLangToken * tokenDef, GtkTextIter * startIter,
 				   GtkTextIter * endIter)
 {
 	GtkTextTag *tag = NULL;
@@ -35,7 +35,7 @@ void hl_token_slot(BfTextView * view, BfLangToken * tokenDef, GtkTextIter * star
 	GList *lst = g_list_first(main_v->bfwinlist);
 	Tdocument *doc = NULL;
 
-	/* first find current document */
+	/ * first find current document * /
 	while (lst) {
 		Tbfwin *bf = (Tbfwin *) lst->data;
 		if (bf->current_document->view == GTK_WIDGET(view)) {
@@ -63,7 +63,7 @@ void hl_block_slot(BfTextView * view, BfLangBlock * blockDef, GtkTextIter * b_st
 	GList *lst = g_list_first(main_v->bfwinlist);
 	Tdocument *doc = NULL;
 
-	/* first find current document */
+	/ * first find current document * /
 	while (lst) {
 		Tbfwin *bf = (Tbfwin *) lst->data;
 		if (bf->current_document->view == GTK_WIDGET(view)) {
@@ -90,7 +90,7 @@ void hl_tag_begin_slot(BfTextView * view, gchar * tagName, GtkTextIter * startIt
 	GList *lst = g_list_first(main_v->bfwinlist);
 	Tdocument *doc = NULL;
 
-	/* first find current document */
+	/ * first find current document * /
 	while (lst) {
 		Tbfwin *bf = (Tbfwin *) lst->data;
 		if (bf->current_document->view == GTK_WIDGET(view)) {
@@ -115,7 +115,7 @@ void hl_tag_end_slot(BfTextView * view, gchar * tagName, GtkTextIter * b_startIt
 	GList *lst = g_list_first(main_v->bfwinlist);
 	Tdocument *doc = NULL;
 
-	/* first find current document */
+	/ * first find current document * /
 	while (lst) {
 		Tbfwin *bf = (Tbfwin *) lst->data;
 		if (bf->current_document->view == GTK_WIDGET(view)) {
@@ -141,7 +141,7 @@ void hl_tag_attr_slot(BfTextView * view, gchar * attrName, gchar * attrValue,
 	GList *lst = g_list_first(main_v->bfwinlist);
 	Tdocument *doc = NULL;
 
-	/* first find current document */
+	/ * first find current document * /
 	while (lst) {
 		Tbfwin *bf = (Tbfwin *) lst->data;
 		if (bf->current_document->view == GTK_WIDGET(view)) {
@@ -158,7 +158,7 @@ void hl_tag_attr_slot(BfTextView * view, gchar * attrName, gchar * attrValue,
 	tag = g_hash_table_lookup(doc->hl->hl_tag, "attr_val");
 	if (tag)
 		gtk_text_buffer_apply_tag(buffer, tag, v_startIter, v_endIter);
-}
+}*/
 
 /*
 gboolean filetype_clear_tags(gpointer key,gpointer value,gpointer data) {
@@ -251,13 +251,13 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 			}
 			/* load configuration */
 			filetype->language_file = g_strdup(strarr[7]);
-			if (strcmp(filetype->language_file, "") != 0) {
+			if (filetype->language_file && filetype->language_file[0] != '\0') {
 				BfLangConfig *cfg;
 				gint i = 0;
 				if (!bf_lang_mgr_get_config(main_v->lang_mgr, filetype->type))
 					bf_lang_mgr_load_config(main_v->lang_mgr, filetype->language_file,
 											filetype->type);
-				cfg = bf_lang_mgr_get_config(main_v->lang_mgr, filetype->type);
+				cfg = bf_lang_mgr_get_config(main_v->lang_mgr, filetype);
 				if (cfg) {
 					gchar *p = filetype->update_chars;
 					i = 0;
@@ -269,12 +269,18 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 				}
 			}
 			filetype->highlightlist = NULL;
-			filetype->hl_block = g_hash_table_new(g_str_hash, g_str_equal);
+/*			filetype->hl_block = g_hash_table_new(g_str_hash, g_str_equal);
 			filetype->hl_token = g_hash_table_new(g_str_hash, g_str_equal);
 			filetype->hl_tag = g_hash_table_new(g_str_hash, g_str_equal);
-			filetype->hl_group = g_hash_table_new(g_str_hash, g_str_equal);
+			filetype->hl_group = g_hash_table_new(g_str_hash, g_str_equal);*/
+			
+			filetype->tag_begin = get_tag_for_scanner_style(filetype->type,"m","tag_begin");
+			filetype->tag_end = get_tag_for_scanner_style(filetype->type,"m","tag_end");
+			filetype->attr_name = get_tag_for_scanner_style(filetype->type,"m","attr_name");
+			filetype->attr_val = get_tag_for_scanner_style(filetype->type,"m","attr_val");
+			
 			main_v->filetypelist = g_list_append(main_v->filetypelist, filetype);
-			tmplist2 = g_list_first(main_v->props.highlight_patterns);
+/*			tmplist2 = g_list_first(main_v->props.highlight_patterns);
 			while (tmplist2) {
 				gchar **strarr;
 				strarr = (gchar **) tmplist2->data;
@@ -283,7 +289,7 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 								 atoi(strarr[5]), atoi(strarr[6]));
 				}
 				tmplist2 = g_list_next(tmplist2);
-			}
+			}*/
 
 		}
 
