@@ -111,7 +111,7 @@ typedef struct {
 	GdkPixbuf *icon;
 	gchar *update_chars;
 #ifdef USE_SCANNER
-	GHashTable *hl_block,*hl_token,*hl_tag,*hl_group;
+/*	GHashTable *hl_block,*hl_token,*hl_tag,*hl_group;*/
 #endif	
 	GList *highlightlist;
 	gboolean editable; /* this a type that can be edited by Bluefish */
@@ -132,6 +132,7 @@ typedef struct {
 #define BFWIN(var) ((Tbfwin *)(var))
 #define DOCUMENT(var) ((Tdocument *)(var))
 #define CURDOC(bfwin) (bfwin->current_document)
+#define FILETYPE(var) ((Tfiletype *)(var))
 
 typedef enum {
 	DOC_STATUS_ERROR,

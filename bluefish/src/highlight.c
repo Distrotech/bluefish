@@ -173,6 +173,7 @@ this function should change when we link the textstyles to the scanner engine,
 it should be replaced by a function that only retrieves the GtkTextTag from the 
 textstyle by name, and adds the GtkTextTag to the correct hashtable
 */
+/*
 void create_style(Tfiletype *filetype,gchar *tp,gchar *name,gchar *fgcolor,gchar *bgcolor,gint weight,gint style) {
 	GtkTextTag *tag;	
 		tag = gtk_text_tag_new(NULL);
@@ -197,7 +198,7 @@ void create_style(Tfiletype *filetype,gchar *tp,gchar *name,gchar *fgcolor,gchar
 			}
 		}
 		gtk_text_tag_table_add(highlight.tagtable, tag);
-/*		gtk_text_tag_set_priority(tag,1);*/
+/ *		gtk_text_tag_set_priority(tag,1);* /
 		if ( strcmp(tp,"b")==0)
 			g_hash_table_insert(filetype->hl_block,name,tag);
 		else if ( strcmp(tp,"t")==0) {
@@ -209,10 +210,10 @@ void create_style(Tfiletype *filetype,gchar *tp,gchar *name,gchar *fgcolor,gchar
 		else if ( strcmp(tp,"g")==0)
 			g_hash_table_insert(filetype->hl_group,name,tag);
 			
-		/* this might fix a memory leak reported by Jim Hayward <jimhayward@linuxexperience.com> Fri, 13 Aug 2004 14:45:23 -0700 */
+		/ * this might fix a memory leak reported by Jim Hayward <jimhayward@linuxexperience.com> Fri, 13 Aug 2004 14:45:23 -0700 * /
 		g_object_unref(tag);
 }
-
+*/
 
 
 void hl_init() {

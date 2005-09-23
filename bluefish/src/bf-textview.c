@@ -146,7 +146,7 @@ bf_textview_init (BfTextView * o)
   o->highlight = TRUE;
   o->mark_tokens = FALSE;
   o->match_blocks = TRUE;
-  o->token_styles = o->block_styles = o->tag_styles = o->group_styles = NULL;
+/*  o->token_styles = o->block_styles = o->tag_styles = o->group_styles = NULL;*/
   o->hl_mode = BFTV_HL_MODE_VISIBLE;
   o->show_current_line = TRUE;
 }
@@ -379,14 +379,14 @@ bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter * end
   ct->buf = buf;
   ct->start = start;
   ct->end = end;
-  if (self->token_styles)
+/*  if (self->token_styles)
 	  g_hash_table_foreach(self->token_styles,bftv_remove_tag,ct);
   if (self->block_styles)	  
 	  g_hash_table_foreach(self->block_styles,bftv_remove_tag,ct);
   if (self->tag_styles)	  
 	  g_hash_table_foreach(self->tag_styles,bftv_remove_tag,ct);
   if (self->group_styles)	  
-  	  g_hash_table_foreach(self->group_styles,bftv_remove_tag,ct);
+  	  g_hash_table_foreach(self->group_styles,bftv_remove_tag,ct);*/
   g_free(ct);
 
 currtable = self->lang->scan_table;
@@ -482,7 +482,7 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 									g_object_set_data(G_OBJECT(mark),"info",t);
 									g_object_set_data(G_OBJECT(mark),"ref",mark2);
 								}	
-								if ( self->highlight && self->token_styles && self->group_styles ) 
+								if ( self->highlight /*&& self->token_styles && self->group_styles*/ ) 
 								{
 										/*tag = g_hash_table_lookup(self->token_styles,t->name);
 										if ( !tag && t->group)
@@ -501,10 +501,11 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 									g_object_set_data(G_OBJECT(mark),"info",t);
 									g_object_set_data(G_OBJECT(mark),"ref",mark2);
 								}
-								if ( self->highlight && self->tag_styles  ) 
+								if ( self->highlight /*&& self->tag_styles*/  ) 
 								{
 									/* get this tag from the Tfiletype struct !! */
-										tag = g_hash_table_lookup(self->tag_styles,"tag_end");
+										/*tag = g_hash_table_lookup(self->tag_styles,"tag_end");*/
+										tag = FILETYPE(self->lang->filetype)->tag_end;
 										if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&its,&ita);										
 								}								
@@ -532,13 +533,15 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 										}	
 						 	       	g_strfreev(arr);
 						 	       	g_free(txt);	 	
-										if ( self->highlight && self->tag_styles ) 
+										if ( self->highlight /*&& self->tag_styles*/ ) 
 										{
 											/* get from Tfiletype struct */
-											tag = g_hash_table_lookup(self->tag_styles,"attr_name");
+											/*tag = g_hash_table_lookup(self->tag_styles,"attr_name");*/
+											tag = FILETYPE(self->lang->filetype)->attr_name;
 											if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&its,&pit);										
-											tag = g_hash_table_lookup(self->tag_styles,"attr_val");
+											/*tag = g_hash_table_lookup(self->tag_styles,"attr_val");*/
+											tag = FILETYPE(self->lang->filetype)->attr_val;
 											if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&pit,&ita);										
 												
@@ -556,10 +559,11 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 								   	g_object_set_data(G_OBJECT(mark),"_type_",&tid_tag_start);
 										g_object_set_data(G_OBJECT(mark),"ref",mark2);
 									}	
-									if ( self->highlight && self->tag_styles  ) 
+									if ( self->highlight /*&& self->tag_styles */ ) 
 									{
 										/* get tag from Tfiletype struct */
-										tag = g_hash_table_lookup(self->tag_styles,"tag_begin");
+										/*tag = g_hash_table_lookup(self->tag_styles,"tag_begin");*/
+										tag = FILETYPE(self->lang->filetype)->tag_begin;
 										if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&bf->b_start,&ita);										
 									}							   	
@@ -613,10 +617,11 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 										g_object_set_data(G_OBJECT(mark),"info",tmp);
 										g_object_set_data(G_OBJECT(mark),"ref",mark2);
 									}
-									if ( self->highlight && self->tag_styles  ) 
+									if ( self->highlight /*&& self->tag_styles */ ) 
 									{
 										/* get tag from Tfiletype struct */
-										tag = g_hash_table_lookup(self->tag_styles,"tag_begin");
+										/*tag = g_hash_table_lookup(self->tag_styles,"tag_begin");*/
+										tag = FILETYPE(self->lang->filetype)->tag_begin;
 										if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&bf->b_start,&ita);										
 									}							   	
@@ -689,7 +694,7 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 								   								   								   
   								   gtk_text_buffer_apply_tag(buf,self->block_tag,&bf->b_end,&its);
   								   
-									if ( self->highlight && self->block_styles  && self->group_styles) 
+									if ( self->highlight /*&& self->block_styles  && self->group_styles*/) 
 									{
 										/*tag = g_hash_table_lookup(self->block_styles,tmp->id);
 										if ( !tag && tmp->group)
@@ -2703,7 +2708,7 @@ bf_lang_mgr_new ()
 }
 
 gboolean
-bf_lang_mgr_load_config (BfLangManager * mgr, gchar * filename, gchar * filetype)
+bf_lang_mgr_load_config (BfLangManager * mgr, gchar * filename, gpointer *filetype)
 {
   gchar *fname = NULL;
   gchar *userdir = g_strconcat (g_get_home_dir (), "/." PACKAGE "/", NULL);
@@ -2728,8 +2733,9 @@ bf_lang_mgr_load_config (BfLangManager * mgr, gchar * filename, gchar * filetype
   g_free (fname);
   if (cfg != NULL)
     {
+    	cfg->filetype = filetype;
       bftv_make_config_tables (cfg);
-      g_hash_table_replace (mgr->languages, filetype, cfg);
+      g_hash_table_replace (mgr->languages, FILETYPE(filetype)->type, cfg);
       return TRUE;
     }
   return FALSE;

@@ -479,10 +479,10 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 		doc->autoclosingtag = (ft->autoclosingtag > 0);
 #ifdef USE_SCANNER
 		bf_textview_set_language_ptr(BF_TEXTVIEW(doc->view),bf_lang_mgr_get_config(main_v->lang_mgr,ft->type));
-		BF_TEXTVIEW(doc->view)->token_styles =  doc->hl->hl_token;
+/*		BF_TEXTVIEW(doc->view)->token_styles =  doc->hl->hl_token;
 		BF_TEXTVIEW(doc->view)->block_styles =  doc->hl->hl_block;
 		BF_TEXTVIEW(doc->view)->tag_styles =  doc->hl->hl_tag;
-		BF_TEXTVIEW(doc->view)->group_styles =  doc->hl->hl_group;
+		BF_TEXTVIEW(doc->view)->group_styles =  doc->hl->hl_group;*/
 #endif		
 		gui_set_document_widgets(doc);
 		doc_set_tooltip(doc);
@@ -2874,7 +2874,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	if ( main_v->lang_mgr ) {
 		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),bf_lang_mgr_get_config(main_v->lang_mgr,newdoc->hl->type));
 	}	
-	g_list_free(list);
+	g_list_free(list); /* BUG: Oskar: why this line here? */
 	bf_textview_set_bg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_bg); 
 	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg); 
 #else	
