@@ -1,4 +1,5 @@
-/* Bluefish HTML Editor - bookmarks
+/* Bluefish HTML Editor
+ * bookmark.h - bookmarks
  *
  * Copyright (C) 2003 Oskar Swida
  * modifications (C) 2004 Olivier Sessink
@@ -15,8 +16,9 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
 #ifndef __BOOKMARK_H__
 #define __BOOKMARK_H__
 
