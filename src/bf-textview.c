@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+#define DEBUG
 
 #include "bf-textview.h"
 #include "bluefish.h"
@@ -483,11 +484,11 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 								}	
 								if ( self->highlight && self->token_styles && self->group_styles ) 
 								{
-										tag = g_hash_table_lookup(self->token_styles,t->name);
+										/*tag = g_hash_table_lookup(self->token_styles,t->name);
 										if ( !tag && t->group)
-												tag = g_hash_table_lookup(self->group_styles,t->group);
-										if ( tag )
-												gtk_text_buffer_apply_tag(buf,tag,&its,&ita);										
+												tag = g_hash_table_lookup(self->group_styles,t->group);*/
+									if ( t->tag )
+										gtk_text_buffer_apply_tag(buf,t->tag,&its,&ita);
 								}
 				          break;
 		 	       	case 1:
@@ -502,6 +503,7 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 								}
 								if ( self->highlight && self->tag_styles  ) 
 								{
+									/* get this tag from the Tfiletype struct !! */
 										tag = g_hash_table_lookup(self->tag_styles,"tag_end");
 										if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&its,&ita);										
@@ -532,6 +534,7 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 						 	       	g_free(txt);	 	
 										if ( self->highlight && self->tag_styles ) 
 										{
+											/* get from Tfiletype struct */
 											tag = g_hash_table_lookup(self->tag_styles,"attr_name");
 											if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&its,&pit);										
@@ -555,6 +558,7 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 									}	
 									if ( self->highlight && self->tag_styles  ) 
 									{
+										/* get tag from Tfiletype struct */
 										tag = g_hash_table_lookup(self->tag_styles,"tag_begin");
 										if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&bf->b_start,&ita);										
@@ -611,6 +615,7 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 									}
 									if ( self->highlight && self->tag_styles  ) 
 									{
+										/* get tag from Tfiletype struct */
 										tag = g_hash_table_lookup(self->tag_styles,"tag_begin");
 										if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&bf->b_start,&ita);										
@@ -686,11 +691,11 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
   								   
 									if ( self->highlight && self->block_styles  && self->group_styles) 
 									{
-										tag = g_hash_table_lookup(self->block_styles,tmp->id);
+										/*tag = g_hash_table_lookup(self->block_styles,tmp->id);
 										if ( !tag && tmp->group)
-												tag = g_hash_table_lookup(self->group_styles,tmp->group);
-										if ( tag )
-												gtk_text_buffer_apply_tag(buf,tag,&bf->b_start,&ita);										
+												tag = g_hash_table_lookup(self->group_styles,tmp->group);*/
+										if ( tmp->tag )
+												gtk_text_buffer_apply_tag(buf,tmp->tag,&bf->b_start,&ita);
 									}							   	
 								   
 								   	
@@ -1204,62 +1209,68 @@ static gpointer bftv_make_entity(xmlDocPtr doc,xmlNodePtr node,BfLangConfig *cfg
 	switch (type) {
 		case BFTV_DFA_TYPE_TOKEN:
 			if (text == NULL )		
-				  tmps = xmlNodeListGetString (doc, node->xmlChildrenNode, 1);
+				tmps = xmlNodeListGetString (doc, node->xmlChildrenNode, 1);
 			else
-				  tmps = text;	  
-			   BfLangToken *t = g_new0 (BfLangToken, 1);
-			   t->group = group;
-			   tmps2 = xmlGetProp (node, (const xmlChar *) "regexp");
-			   t->regexp = bftv_xml_bool (tmps2);
-			   if (tmps2) xmlFree (tmps2);
-			   tmps2 = xmlGetProp (node, (const xmlChar *) "name");
-			   if (tmps2 && text==NULL)   t->name = tmps2;
-			   else    t->name = tmps;
-			   t->text = tmps;
-			   tmps2 = xmlGetProp (node, (const xmlChar *) "context");
-  			   if (tmps2)
-			    {
-			       ptr = g_hash_table_lookup (cfg->blocks, tmps2);
-			       if (!ptr)	g_warning ("Token (%s) context defined as %s but such a block does not exists.",
-				   t->text, tmps2);
-			       t->context = (BfLangBlock *) ptr;
-			       xmlFree (tmps2);
-			    }
-			   else
-			     t->context = NULL;
-			   bftv_put_into_dfa (cfg->dfa, cfg, t, BFTV_DFA_TYPE_TOKEN,FALSE);
- 			   g_hash_table_insert (cfg->tokens, &t->tabid, t);
- 			   return t;
+				tmps = text;	  
+				BfLangToken *t = g_new0 (BfLangToken, 1);
+				t->group = group;
+				tmps2 = xmlGetProp (node, (const xmlChar *) "regexp");
+				t->regexp = bftv_xml_bool (tmps2);
+				if (tmps2) xmlFree (tmps2);
+				tmps2 = xmlGetProp (node, (const xmlChar *) "name");
+				if (tmps2 && text==NULL)   t->name = tmps2;
+				else    t->name = tmps;
+				t->text = tmps;
+				tmps2 = xmlGetProp (node, (const xmlChar *) "context");
+				if (tmps2) {
+					ptr = g_hash_table_lookup (cfg->blocks, tmps2);
+					if (!ptr)	g_warning ("Token (%s) context defined as %s but such a block does not exists.",
+					t->text, tmps2);
+					t->context = (BfLangBlock *) ptr;
+					xmlFree (tmps2);
+				} else t->context = NULL;
+				t->tag = get_tag_for_scanner_style(cfg->name,"t",t->name);
+				if (!t->tag) {
+					t->tag = get_tag_for_scanner_style(cfg->name,"t",t->group);
+				}
+				bftv_put_into_dfa (cfg->dfa, cfg, t, BFTV_DFA_TYPE_TOKEN,FALSE);
+				g_hash_table_insert (cfg->tokens, &t->tabid, t);
+				return t;
 		break;
 		case BFTV_DFA_TYPE_BLOCK_BEGIN:
 		     tmps = xmlGetProp (node, (const xmlChar *) "id");
-		     if (tmps)	
-		     {
-			 	     BfLangBlock *b = g_new0 (BfLangBlock, 1);
-			      	 b->id = tmps;
-			      	 b->group = group;
-			         b->begin = xmlGetProp (node, (const xmlChar *) "begin");
-			      	 b->end = xmlGetProp (node, (const xmlChar *) "end");
-				     tmps2 = xmlGetProp (node, (const xmlChar *) "scanned");
-			         b->scanned = bftv_xml_bool (tmps2);
-			      	 if (tmps2) xmlFree (tmps2);
-			         tmps2 = xmlGetProp (node, (const xmlChar *) "markup");
-			         b->markup = bftv_xml_bool (tmps2);
-			         if (tmps2) xmlFree (tmps2);
-			         tmps2 = xmlGetProp (node, (const xmlChar *) "foldable");
-			         b->foldable = bftv_xml_bool (tmps2);
-			         if (tmps2) xmlFree (tmps2);
-			         tmps2 = xmlGetProp (node, (const xmlChar *) "case");
-			         b->case_sensitive = bftv_xml_bool (tmps2);
-			         if (tmps2)	xmlFree (tmps2);
-			         tmps2 = xmlGetProp (node, (const xmlChar *) "regexp");
-			         b->regexp = bftv_xml_bool (tmps2);
-			         if (tmps2) xmlFree (tmps2);
- 	               g_hash_table_insert (cfg->blocks, tmps, b);
-			         bftv_put_into_dfa (cfg->dfa, cfg, b,BFTV_DFA_TYPE_BLOCK_BEGIN,FALSE );
-			         bftv_put_into_dfa (cfg->dfa, cfg, b,BFTV_DFA_TYPE_BLOCK_END,FALSE );
-			         g_hash_table_insert (cfg->blocks_id, &b->tabid, b);
-			         return b;
+			if (tmps) {
+				BfLangBlock *b = g_new0 (BfLangBlock, 1);
+				b->id = tmps;
+				b->group = group;
+				b->begin = xmlGetProp (node, (const xmlChar *) "begin");
+				b->end = xmlGetProp (node, (const xmlChar *) "end");
+				tmps2 = xmlGetProp (node, (const xmlChar *) "scanned");
+				b->scanned = bftv_xml_bool (tmps2);
+				if (tmps2) xmlFree (tmps2);
+				tmps2 = xmlGetProp (node, (const xmlChar *) "markup");
+				b->markup = bftv_xml_bool (tmps2);
+				if (tmps2) xmlFree (tmps2);
+				tmps2 = xmlGetProp (node, (const xmlChar *) "foldable");
+				b->foldable = bftv_xml_bool (tmps2);
+				if (tmps2) xmlFree (tmps2);
+				tmps2 = xmlGetProp (node, (const xmlChar *) "case");
+				b->case_sensitive = bftv_xml_bool (tmps2);
+				if (tmps2)	xmlFree (tmps2);
+				tmps2 = xmlGetProp (node, (const xmlChar *) "regexp");
+				b->regexp = bftv_xml_bool (tmps2);
+				if (tmps2) xmlFree (tmps2);
+				/* try to retrieve the tag based on the name of the block, if no tag is found, 
+				try to retrieve a tag for the group name */
+				b->tag = get_tag_for_scanner_style(cfg->name,"b",b->id);
+				if (!b->tag) {
+					b->tag = get_tag_for_scanner_style(cfg->name,"b",b->group);
+				}
+				g_hash_table_insert (cfg->blocks, tmps, b);
+				bftv_put_into_dfa (cfg->dfa, cfg, b,BFTV_DFA_TYPE_BLOCK_BEGIN,FALSE );
+				bftv_put_into_dfa (cfg->dfa, cfg, b,BFTV_DFA_TYPE_BLOCK_END,FALSE );
+				g_hash_table_insert (cfg->blocks_id, &b->tabid, b);
+				return b;
 			}		
 		break;
 	}
