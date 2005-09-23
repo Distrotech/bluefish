@@ -2867,7 +2867,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	newdoc->status = DOC_STATUS_COMPLETE; /* if we don't set this default we will get problems for new empty files */
 	
 #ifdef USE_SCANNER
-	newdoc->buffer = gtk_text_buffer_new(highlight_return_tagtable());
+	newdoc->buffer = gtk_text_buffer_new(textstyle_return_tagtable());
 	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
 	

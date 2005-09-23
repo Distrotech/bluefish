@@ -24,10 +24,10 @@
 #include <gtk/gtk.h>
 #include <string.h> /* strlen */
 #include <stdlib.h> /* atoi */
-
+#include "config.h"
 #include "bluefish.h"
 #include "textstyle.h"
-
+#include "stringlist.h"
 typedef struct {
 	GtkTextTagTable *tagtable;
 } Ttextstyle;
@@ -111,3 +111,18 @@ GtkWidget* textstyle_combo_box(GList *configstyles) {
 GtkTextTagTable *textstyle_return_tagtable(void) {
 	return textstyle.tagtable;
 }
+#ifdef USE_SCANNER
+GtkTextTag *get_tag_for_scanner_style(gchar *filetype,gchar *type,gchar *name) {
+	gchar **arr1, *arr2[] = {filetype, type, name, NULL};
+/*	DEBUG_MSG("get_tag_for_scanner_style, filetype %s, type %s, name %s\n",filetype,type,name);*/
+	arr1 = arraylist_value_exists(main_v->props.syntax_styles, arr2, 3, TRUE);
+	if (arr1) {
+		DEBUG_MSG("get_tag_for_scanner_style(%s:%s:%s) return tag for textstyle %s\n",filetype,type,name,arr1[3]);
+		return textstyle_get(arr1[3]);
+	}
+	DEBUG_MSG("no config found for %s:%s:%s\n",filetype,type,name);
+	return NULL;
+}
+#endif /* USE_SCANNER */
+
+

@@ -54,6 +54,7 @@ typedef struct {
     /*< private > */
     gint tabid;
     gshort spec_type; /* 0 - normal block, 1- tag_begin */
+    GtkTextTag *tag;
 } BfLangBlock;
 
 /**
@@ -76,6 +77,7 @@ typedef struct {
     /*< private > */
     gint tabid;
     gshort spec_type; /* 0 - normal block, 1- tag_end, 2 - attr, 3 - attr2, 4 - tag_begin_end in tag context */
+    GtkTextTag *tag;
 } BfLangToken;
 
 /**
