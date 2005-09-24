@@ -1,5 +1,5 @@
 /* Bluefish HTML Editor
- * fref2.h
+ * fref2.h - Library aka Function reference (second implementation)
  *
  * Copyright (C) 2005 Oskar Świda swida@aragorn.pb.bialystok.pl
  *
@@ -15,11 +15,8 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
-
-
 
 #ifndef __FREF_H__
 #define __FREF_H__

@@ -1,5 +1,5 @@
 /* Bluefish HTML Editor
- * char_table.h - character convertion prototypes
+ * char_table.c - character convertion prototypes
  *
  * Complete rewrite for UTF8 Copyright (C) 2002 Olivier Sessink
  * some ideas from original version Copyright (C) 2000 Pablo De Napoli
@@ -16,7 +16,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 /* #define DEBUG */
 
