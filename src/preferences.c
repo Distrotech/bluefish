@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * preferences.c the preferences code
  *
- * Copyright (C) 2002-2003 Olivier Sessink
+ * Copyright (C) 2002-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -158,10 +158,12 @@ typedef struct {
 typedef struct {
 	GtkListStore *lstore;
 	GtkWidget *lview;
+	gchar **curstrarr;
 	int insertloc;
 	GList **thelist;
-	GtkTreeModel *weight;
-	GtkTreeModel *style;
+	GtkWidget *bg_color,*fg_color;
+	GtkWidget *bold_radio[3];
+	GtkWidget *italic_radio[3];
 } Ttextstylepref;
 
 
@@ -208,7 +210,7 @@ typedef struct {
 	GtkWidget *fixed;
 	Tlistpref ftd; /* FileTypeDialog */
 	Tlistpref ffd; /* FileFilterDialog */
-	Tlistpref tsd; /* TextStyleDialog */
+	Ttextstylepref tsd; /* TextStyleDialog */
 #ifdef USE_SCANNER
 	Thldialog hld;
 	GtkListStore *lang_files;
@@ -977,10 +979,7 @@ static void set_textstyle_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tpre
 	arrcount = count_array(strarr);
 	if (arrcount==5) {
 		gtk_list_store_set(GTK_LIST_STORE(pd->tsd.lstore), iter
-				,0,strarr[0],1,strarr[1],2,strarr[2]
-				,3,(strarr[3][0]=='0'),4,(strarr[3][0]=='1'),5,(strarr[3][0]=='2')
-				,6,(strarr[4][0]=='0'),7,(strarr[4][0]=='1'),8,(strarr[4][0]=='2')
-				,9,strarr,-1);
+				,0,strarr[0],1,strarr,-1);
 	} else {
 		DEBUG_MSG("ERROR: set_textstyle_strarr_in_list, arraycount != 5 !!!!!!\n");
 	}
@@ -991,65 +990,6 @@ static void textstyle_apply_change(Tprefdialog *pd, gint type, gchar *path, gcha
 }
 static void textstyle_0_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
 	textstyle_apply_change(pd, 1, path, newtext, 0);
-}
-static void textstyle_1_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
-	textstyle_apply_change(pd, 1, path, newtext, 1);
-}
-static void textstyle_2_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
-	textstyle_apply_change(pd, 1, path, newtext, 2);
-}
-
-static void textstyle_radio_change(GtkListStore *lstore, gint pointerindex, gint arrindex, gchar *path, gint newval, gint modelindex, gint numradiocols) {
-	gchar **strarr;
-	GtkTreeIter iter;
-	GtkTreePath* tpath = gtk_tree_path_new_from_string(path);
-	DEBUG_MSG("textstyle_radio_change,arrindex=%d,newval=%d,modelindex=%d,numradiocols=%d\n",arrindex,newval,modelindex,numradiocols);
-	if (tpath && gtk_tree_model_get_iter(GTK_TREE_MODEL(lstore),&iter,tpath)) {
-		gint i;
-		gtk_tree_model_get(GTK_TREE_MODEL(lstore), &iter, pointerindex, &strarr, -1);
-		for (i=0;i<numradiocols;i++) {
-			DEBUG_MSG("textstyle_radio_change,set modelindex %d to %d\n",modelindex+i,(i==newval));
-			gtk_list_store_set(GTK_LIST_STORE(lstore),&iter,modelindex+i,(i==newval),-1);
-		}
-		if (strarr[arrindex]) {
-			g_free(strarr[arrindex]);
-		}
-		strarr[arrindex] = g_strdup_printf("%d",newval);
-	} else {
-		DEBUG_MSG("ERROR: path %s was not converted to tpath(%p) or iter (lstore=%p)\n",path,tpath,lstore);
-	}
-	gtk_tree_path_free(tpath);
-}
-
-static void textstyle_3_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
-	if (!cellrenderertoggle->active) {
-		textstyle_radio_change(pd->tsd.lstore,9,3,path,0,3,3);
-	}
-}
-static void textstyle_4_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
-	if (!cellrenderertoggle->active) {
-		textstyle_radio_change(pd->tsd.lstore,9,3,path,1,3,3);
-	}
-}
-static void textstyle_5_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
-	if (!cellrenderertoggle->active) {
-		textstyle_radio_change(pd->tsd.lstore,9,3,path,2,3,3);
-	}
-}
-static void textstyle_6_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
-	if (!cellrenderertoggle->active) {
-		textstyle_radio_change(pd->tsd.lstore,9,4,path,0,6,3);
-	}
-}
-static void textstyle_7_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
-	if (!cellrenderertoggle->active) {
-		textstyle_radio_change(pd->tsd.lstore,9,4,path,1,6,3);
-	}
-}
-static void textstyle_8_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
-	if (!cellrenderertoggle->active) {
-		textstyle_radio_change(pd->tsd.lstore,9,4,path,2,6,3);
-	}
 }
 
 static void add_new_textstyle_lcb(GtkWidget *wid, Tprefdialog *pd) {
@@ -1063,29 +1003,65 @@ static void add_new_textstyle_lcb(GtkWidget *wid, Tprefdialog *pd) {
 }
 
 static void delete_textstyle_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	pref_delete_strarr(pd, &pd->tsd, 9);
+	/*pref_delete_strarr(pd, &pd->tsd, 9);*/
+}
+
+static void textstyle_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	DEBUG_MSG("textstyle_selection_changed_cb, started\n");
+	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+		gchar **strarr;
+		gtk_tree_model_get(model, &iter, 1, &strarr, -1);
+		pd->tsd.curstrarr = strarr;
+		
+		gtk_entry_set_text(GTK_ENTRY(pd->tsd.fg_color), strarr[1]);
+		gtk_entry_set_text(GTK_ENTRY(pd->tsd.bg_color), strarr[2]);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.bold_radio[0]), (strarr[3][0] == '0'));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.bold_radio[1]), (strarr[3][0] == '1'));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.bold_radio[2]), (strarr[3][0] == '2'));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[0]), (strarr[4][0] == '0'));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[1]), (strarr[4][0] == '1'));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[2]), (strarr[4][0] == '2'));
+	} else {
+		DEBUG_MSG("no selection, returning..\n");
+	}
 }
 
 static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
-	GtkWidget *hbox, *but, *scrolwin;
+	GtkWidget *hbox, *vbox, *hbox2, *but, *scrolwin;
+	GtkTreeSelection *select;
+	hbox = gtk_hbox_new (FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 2);
 	pd->lists[textstyles] = duplicate_arraylist(main_v->props.textstyles);
-	pd->tsd.lstore = gtk_list_store_new (10,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_BOOLEAN,G_TYPE_BOOLEAN,G_TYPE_BOOLEAN,G_TYPE_BOOLEAN,G_TYPE_BOOLEAN,G_TYPE_POINTER);
+	pd->tsd.lstore = gtk_list_store_new (2,G_TYPE_STRING,G_TYPE_POINTER);
 	pd->tsd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->tsd.lstore));
 	pref_create_column(GTK_TREE_VIEW(pd->tsd.lview), 1, G_CALLBACK(textstyle_0_edited_lcb), pd, _("Label"), 0);
-	pref_create_column(GTK_TREE_VIEW(pd->tsd.lview), 1, G_CALLBACK(textstyle_1_edited_lcb), pd, _("Foreground color"), 1);
-	pref_create_column(GTK_TREE_VIEW(pd->tsd.lview), 1, G_CALLBACK(textstyle_2_edited_lcb), pd, _("Background color"), 2);
-	pref_create_column(GTK_TREE_VIEW(pd->tsd.lview), 3, G_CALLBACK(textstyle_3_toggled_lcb), pd, _("Don't change weight"), 3);
-	pref_create_column(GTK_TREE_VIEW(pd->tsd.lview), 3, G_CALLBACK(textstyle_4_toggled_lcb), pd, _("Normal Weight"), 4);
-	pref_create_column(GTK_TREE_VIEW(pd->tsd.lview), 3, G_CALLBACK(textstyle_5_toggled_lcb), pd, _("Bold Weight"), 5);
-	pref_create_column(GTK_TREE_VIEW(pd->tsd.lview), 3, G_CALLBACK(textstyle_6_toggled_lcb), pd, _("Don't change Style"), 6);
-	pref_create_column(GTK_TREE_VIEW(pd->tsd.lview), 3, G_CALLBACK(textstyle_7_toggled_lcb), pd, _("Normal Style"), 7);
-	pref_create_column(GTK_TREE_VIEW(pd->tsd.lview), 3, G_CALLBACK(textstyle_8_toggled_lcb), pd, _("Italic Style"), 8);
+	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->tsd.lview));
+	g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(textstyle_selection_changed_cb),pd);
 	
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->tsd.lview);
 	gtk_widget_set_size_request(scrolwin, 200, 350);
-	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(hbox), scrolwin, TRUE, TRUE, 2);
+	
+	vbox = gtk_vbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 5);
+	pd->tsd.fg_color = prefs_string(_("Foreground color"), "", vbox, pd, string_color);
+	pd->tsd.bg_color = prefs_string(_("Background color"), "", vbox, pd, string_color);
+	pd->tsd.bold_radio[0] = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
+	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.bold_radio[0], TRUE, TRUE, 0);
+	pd->tsd.bold_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.bold_radio[0]), _("force non-bold weight"));
+	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.bold_radio[1], TRUE, TRUE, 0);
+	pd->hld.bold_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.bold_radio[0]), _("force bold weight"));
+	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.bold_radio[2], TRUE, TRUE, 0);
+	pd->tsd.italic_radio[0] = gtk_radio_button_new_with_label(NULL, _("don't change style"));
+	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.italic_radio[0], TRUE, TRUE, 0);
+	pd->tsd.italic_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.italic_radio[0]), _("force non-italic style"));
+	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.italic_radio[1], TRUE, TRUE, 0);
+	pd->tsd.italic_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.italic_radio[0]), _("force italic style"));
+	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.italic_radio[2], TRUE, TRUE, 0);
 	{
 		GList *tmplist = g_list_first(pd->lists[textstyles]);
 		while (tmplist) {
@@ -1101,15 +1077,15 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->tsd.lview), TRUE);
 	pd->tsd.thelist = &pd->lists[textstyles];
 	pd->tsd.insertloc = -1;
-	g_signal_connect(G_OBJECT(pd->tsd.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->tsd);
-	g_signal_connect(G_OBJECT(pd->tsd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->tsd);
+/*	g_signal_connect(G_OBJECT(pd->tsd.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->tsd);
+	g_signal_connect(G_OBJECT(pd->tsd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->tsd);*/
 
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
+	hbox2 = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox2, TRUE, TRUE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_textstyle_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
+	gtk_box_pack_start(GTK_BOX(hbox2),but, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_textstyle_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
+	gtk_box_pack_start(GTK_BOX(hbox2),but, FALSE, FALSE, 2);
 }
 
 #ifndef USE_SCANNER

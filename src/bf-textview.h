@@ -115,7 +115,7 @@ typedef struct {
 	GtkTextTag *tag_end;
 	GtkTextTag *attr_name;
 	GtkTextTag *attr_val;
-	gpointer *filetype;
+	gpointer filetype;
 } BfLangConfig;
 
 typedef struct {
@@ -123,10 +123,8 @@ typedef struct {
 } BfLangManager;
 
 BfLangManager *bf_lang_mgr_new ();
-gboolean bf_lang_mgr_load_config(BfLangManager * mgr, gchar * filename,
-				 gpointer * filetype);
-BfLangConfig *bf_lang_mgr_get_config(BfLangManager * mgr,
-				     gchar * filetype);
+gboolean bf_lang_mgr_load_config(BfLangManager * mgr, gchar * filename, gpointer filetype);
+BfLangConfig *bf_lang_mgr_get_config(BfLangManager * mgr, gchar * filetype);
 
 typedef struct {
     /*< private > */
