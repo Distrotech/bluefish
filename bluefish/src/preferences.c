@@ -984,12 +984,9 @@ static void set_textstyle_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tpre
 		DEBUG_MSG("ERROR: set_textstyle_strarr_in_list, arraycount != 5 !!!!!!\n");
 	}
 }
-static void textstyle_apply_change(Tprefdialog *pd, gint type, gchar *path, gchar *newval, gint index) {
-	DEBUG_MSG("textstyle_apply_change,lstore=%p,path=%s,newval=%s,index=%d\n",pd->tsd.lstore,path,newval,index);
-	pref_apply_change(pd->tsd.lstore,9,type,path,newval,index);
-}
+
 static void textstyle_0_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
-	textstyle_apply_change(pd, 1, path, newtext, 0);
+	pref_apply_change(pd->tsd.lstore, 1, 1, path, newtext, 0);
 }
 
 static void add_new_textstyle_lcb(GtkWidget *wid, Tprefdialog *pd) {
@@ -1003,7 +1000,18 @@ static void add_new_textstyle_lcb(GtkWidget *wid, Tprefdialog *pd) {
 }
 
 static void delete_textstyle_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	/*pref_delete_strarr(pd, &pd->tsd, 9);*/
+	GtkTreeIter iter;
+	GtkTreeSelection *select;
+	pd->tsd.insertloc = -1;
+	pd->tsd.curstrarr = NULL;
+	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->tsd.lview));
+	if (gtk_tree_selection_get_selected (select,NULL,&iter)) {
+		gchar **strarr;
+		gtk_tree_model_get(GTK_TREE_MODEL(pd->tsd.lstore), &iter, 1, &strarr, -1);
+		gtk_list_store_remove(GTK_LIST_STORE(pd->tsd.lstore),&iter);
+		*pd->tsd.thelist = g_list_remove(*pd->tsd.thelist, strarr);
+		g_strfreev(strarr);
+	}
 }
 
 static void textstyle_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
