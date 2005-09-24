@@ -2674,38 +2674,25 @@ bf_lang_mgr_new ()
   return ret;
 }
 
-gboolean
-bf_lang_mgr_load_config (BfLangManager * mgr, gchar * filename, gpointer *filetype)
-{
-  gchar *fname = NULL;
-  gchar *userdir = g_strconcat (g_get_home_dir (), "/." PACKAGE "/", NULL);
-  gboolean found;
-  BfLangConfig *cfg = NULL;
-
-  found = FALSE;
-  fname = g_strconcat (PKGDATADIR, "/", filename, NULL);
-  if (!g_file_test (fname, G_FILE_TEST_EXISTS))
-    {
-      g_free (fname);
-      fname = g_strconcat (userdir, filename, NULL);
-      if (g_file_test (fname, G_FILE_TEST_EXISTS))
-	found = TRUE;
-    }
-  else
-    found = TRUE;
-  if (found)
-    cfg = bftv_load_config (fname);
-  else
-    g_warning ("BfLangManager: cannot load file %s", filename);
-  g_free (fname);
-  if (cfg != NULL)
-    {
-    	cfg->filetype = filetype;
-      bftv_make_config_tables (cfg);
-      g_hash_table_replace (mgr->languages, FILETYPE(filetype)->type, cfg);
-      return TRUE;
-    }
-  return FALSE;
+gboolean bf_lang_mgr_load_config (BfLangManager * mgr, gchar * filename, gpointer filetype) {
+	gchar *fname, *fname1, *fname2;
+	BfLangConfig *cfg = NULL;
+	
+	fname1 = g_strconcat(PKGDATADIR, filename, NULL);
+	fname2 = g_strconcat(g_get_home_dir(), "/."PACKAGE"/",filename, NULL);
+	fname = return_first_existing_filename(fname1,fname2,NULL);
+	if (fname) {
+		cfg = bftv_load_config(fname);
+		if (cfg != NULL) {
+			cfg->filetype = filetype;
+			bftv_make_config_tables (cfg);
+			DEBUG_MSG("bf_lang_mgr_load_config, adding %s to hashtable\n",FILETYPE(filetype)->type);
+			g_hash_table_replace (mgr->languages, FILETYPE(filetype)->type, cfg);
+		}
+	}
+	g_free(fname1);
+	g_free(fname2);
+	return (cfg != NULL);
 }
 
 

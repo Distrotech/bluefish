@@ -21,11 +21,18 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines filetype.c
  */
+#define DEBUG
+
 #include "config.h"
 #ifdef USE_SCANNER
 
-#include "bluefish.h"
+#include <string.h>
 
+#include "bluefish.h"
+#include "bf-textview.h"
+#include "document.h"
+#include "stringlist.h"
+#include "menu.h"
 
 /*void hl_token_slot(BfTextView * view, BfLangToken * tokenDef, GtkTextIter * startIter,
 				   GtkTextIter * endIter)
@@ -174,7 +181,7 @@ gboolean filetype_clear_tags(gpointer key,gpointer value,gpointer data) {
  */
 void filetype_highlighting_rebuild(gboolean gui_errors)
 {
-	GList *tmplist, *tmplist2;
+	GList *tmplist;
 	GList *alldoclist;
 
 	alldoclist = return_allwindows_documentlist();
@@ -254,10 +261,12 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 			if (filetype->language_file && filetype->language_file[0] != '\0') {
 				BfLangConfig *cfg;
 				gint i = 0;
-				if (!bf_lang_mgr_get_config(main_v->lang_mgr, filetype->type))
-					bf_lang_mgr_load_config(main_v->lang_mgr, filetype->language_file,
-											filetype->type);
-				cfg = bf_lang_mgr_get_config(main_v->lang_mgr, filetype);
+				DEBUG_MSG("filetype_highlighting_rebuild, get config for %s\n",filetype->type);
+				if (!bf_lang_mgr_get_config(main_v->lang_mgr, filetype->type)) {
+					DEBUG_MSG("filetype_highlighting_rebuild, loading %s(%p) from %s\n",filetype->type,filetype,filetype->language_file);
+					bf_lang_mgr_load_config(main_v->lang_mgr, filetype->language_file, filetype);
+				}
+				cfg = bf_lang_mgr_get_config(main_v->lang_mgr, (gpointer)filetype);
 				if (cfg) {
 					gchar *p = filetype->update_chars;
 					i = 0;

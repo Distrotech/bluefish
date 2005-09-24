@@ -49,6 +49,8 @@
 
 #include "config.h"		/* HL_PROFILING might be defined there */
 
+#ifdef USE_SCANNER
+
 #ifdef HL_PROFILING		/* per pattern profiling information, interesting for users making a new pattern */
 #include <sys/times.h>
 #include <unistd.h>
@@ -160,8 +162,6 @@ how it works:
 /* global vars for this module   */
 /*********************************/
 static Thighlight highlight;
-
-#ifdef USE_SCANNER
 
 #include "bf-textview.h"
 
