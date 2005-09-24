@@ -1,5 +1,5 @@
 /* Bluefish HTML Editor
- * html_table.h - table dialoges
+ * html_table.h - menu/toolbar callback prototypes
  *
  * Copyright (C) 2000 Olivier Sessink
  *
