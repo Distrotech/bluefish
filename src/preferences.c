@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h> /* strcmp() */
@@ -1013,8 +1013,8 @@ static void textstyle_selection_changed_cb(GtkTreeSelection *selection, Tprefdia
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
 		gchar **strarr;
 		gtk_tree_model_get(model, &iter, 1, &strarr, -1);
-		pd->tsd.curstrarr = strarr;
-		
+		pd->tsd.curstrarr = NULL;
+		DEBUG_MSG("textstyle_selection_changed_cb, strarr=%p\n",strarr);
 		gtk_entry_set_text(GTK_ENTRY(pd->tsd.fg_color), strarr[1]);
 		gtk_entry_set_text(GTK_ENTRY(pd->tsd.bg_color), strarr[2]);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.bold_radio[0]), (strarr[3][0] == '0'));
@@ -1023,14 +1023,62 @@ static void textstyle_selection_changed_cb(GtkTreeSelection *selection, Tprefdia
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[0]), (strarr[4][0] == '0'));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[1]), (strarr[4][0] == '1'));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[2]), (strarr[4][0] == '2'));
+		pd->tsd.curstrarr = strarr;
 	} else {
 		DEBUG_MSG("no selection, returning..\n");
+	}
+}
+
+static void textstyle_entry_changed(GtkEditable *editable, gpointer user_data) {
+	Tprefdialog *pd = (Tprefdialog *)user_data;
+	GtkEntry *entry = GTK_ENTRY(editable);
+	DEBUG_MSG("textstyle_entry_changed\n");
+	if (pd->tsd.curstrarr) {
+		int index = 2;
+		if (((GtkWidget *)entry) == pd->tsd.fg_color) {
+			index = 1;
+		}
+		if (pd->tsd.curstrarr[index]) g_free(pd->tsd.curstrarr[index]);
+		pd->tsd.curstrarr[index] = gtk_editable_get_chars(GTK_EDITABLE(entry),0,-1);
+		DEBUG_MSG("textstyle_radio_changed, changing arr[%d] to %s\n",index,pd->tsd.curstrarr[index]);
+	}
+}
+
+static void textstyle_radio_changed(GtkToggleButton *togglebutton, gpointer user_data) {
+	Tprefdialog *pd = (Tprefdialog *)user_data;
+	DEBUG_MSG("textstyle_radio_changed\n");
+	if (pd->tsd.curstrarr && togglebutton->active) {
+		int index = 3;
+		gchar *val = "0";
+		if ((GtkWidget *)togglebutton == pd->tsd.bold_radio[0]) {
+			index = 3;
+			val = "0";
+		} else if ((GtkWidget *)togglebutton == pd->tsd.bold_radio[1]) {
+			index = 3;
+			val = "1";
+		} else if ((GtkWidget *)togglebutton == pd->tsd.bold_radio[2]) {
+			index = 3;
+			val = "2";
+		} else if ((GtkWidget *)togglebutton == pd->tsd.italic_radio[0]) {
+			index = 4;
+			val = "0";
+		} else if ((GtkWidget *)togglebutton == pd->tsd.italic_radio[1]) {
+			index = 4;
+			val = "1";
+		} else if ((GtkWidget *)togglebutton == pd->tsd.italic_radio[2]) {
+			index = 4;
+			val = "2";
+		}
+		if (pd->tsd.curstrarr[index]) g_free(pd->tsd.curstrarr[index]);
+		pd->tsd.curstrarr[index] = g_strdup(val);
+		DEBUG_MSG("textstyle_radio_changed, changing arr[%d] to %s\n",index,val);
 	}
 }
 
 static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *vbox, *hbox2, *but, *scrolwin;
 	GtkTreeSelection *select;
+	DEBUG_MSG("create_textstyle_gui\n");
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 2);
 	pd->lists[textstyles] = duplicate_arraylist(main_v->props.textstyles);
@@ -1054,7 +1102,7 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.bold_radio[0], TRUE, TRUE, 0);
 	pd->tsd.bold_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.bold_radio[0]), _("force non-bold weight"));
 	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.bold_radio[1], TRUE, TRUE, 0);
-	pd->hld.bold_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.bold_radio[0]), _("force bold weight"));
+	pd->tsd.bold_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.bold_radio[0]), _("force bold weight"));
 	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.bold_radio[2], TRUE, TRUE, 0);
 	pd->tsd.italic_radio[0] = gtk_radio_button_new_with_label(NULL, _("don't change style"));
 	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.italic_radio[0], TRUE, TRUE, 0);
@@ -1079,6 +1127,16 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->tsd.insertloc = -1;
 /*	g_signal_connect(G_OBJECT(pd->tsd.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->tsd);
 	g_signal_connect(G_OBJECT(pd->tsd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->tsd);*/
+
+	g_signal_connect(G_OBJECT(pd->tsd.fg_color),"changed",G_CALLBACK(textstyle_entry_changed),pd);
+	g_signal_connect(G_OBJECT(pd->tsd.bg_color),"changed",G_CALLBACK(textstyle_entry_changed),pd);
+	g_signal_connect(G_OBJECT(pd->tsd.bold_radio[0]),"toggled",G_CALLBACK(textstyle_radio_changed),pd);
+	g_signal_connect(G_OBJECT(pd->tsd.bold_radio[1]),"toggled",G_CALLBACK(textstyle_radio_changed),pd);
+	g_signal_connect(G_OBJECT(pd->tsd.bold_radio[2]),"toggled",G_CALLBACK(textstyle_radio_changed),pd);
+	g_signal_connect(G_OBJECT(pd->tsd.italic_radio[0]),"toggled",G_CALLBACK(textstyle_radio_changed),pd);
+	g_signal_connect(G_OBJECT(pd->tsd.italic_radio[1]),"toggled",G_CALLBACK(textstyle_radio_changed),pd);
+	g_signal_connect(G_OBJECT(pd->tsd.italic_radio[2]),"toggled",G_CALLBACK(textstyle_radio_changed),pd);
+
 
 	hbox2 = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1),hbox2, TRUE, TRUE, 2);
@@ -1698,29 +1756,13 @@ static void hlg_apply_changes_to_item(Tprefdialog *pd) {
 
 }
 
-
-static void hlg_entry_changed (GtkEditable *editable, gpointer user_data) {
-	Tprefdialog *pd = (Tprefdialog *)user_data;
-	GtkEntry *entry = GTK_ENTRY(editable);
-	if ( pd->hld.filetype_change ) return;	
-	if ( strcmp(gtk_entry_get_text(entry),"") == 0 ) return;
-	hlg_apply_changes_to_item(pd);
-}
-
-static void  hlg_bi_changed (GtkToggleButton *togglebutton, gpointer user_data) {
-	Tprefdialog *pd = (Tprefdialog *)user_data;
-	if ( pd->hld.filetype_change ) return;		
-	if ( !gtk_toggle_button_get_active(togglebutton)) return;
-	hlg_apply_changes_to_item(pd);
-}
-
 static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	GtkWidget *vbox1,*lab_help,*hbox1,*label2;
 	GtkWidget *reset_btn,*vbox2;
 	GtkWidget *hbox2;
 	GSList *blk_radio_group = NULL;
 	GtkWidget *hbox3,*scrolledwindow1;
-	GtkWidget *t_pbox;
+/*	GtkWidget *t_pbox;*/
 	GList *tmplist=NULL;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
@@ -1813,7 +1855,7 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,"text", 1,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(pd->hld.tree), column);
 	
-	t_pbox = gtk_vbox_new (FALSE, 0);
+/*	t_pbox = gtk_vbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox3), t_pbox, TRUE, TRUE, 5);
 	pd->hld.fg_color = prefs_string(_("Foreground color"), "", t_pbox, pd, string_color);
 	pd->hld.bg_color = prefs_string(_("Background color"), "", t_pbox, pd, string_color);
@@ -1828,21 +1870,21 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	pd->hld.italic_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.italic_radio[0]), _("force non-italic style"));
 	gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[1], TRUE, TRUE, 0);
 	pd->hld.italic_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.italic_radio[0]), _("force italic style"));
-	gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[2], TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[2], TRUE, TRUE, 0);*/
 	
 	g_signal_connect(G_OBJECT(pd->hld.ftype_combo),"changed",G_CALLBACK(hlg_ftype_changed),pd);
 	g_signal_connect(G_OBJECT(pd->hld.blk_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
 	g_signal_connect(G_OBJECT(pd->hld.tk_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
 	g_signal_connect(G_OBJECT(pd->hld.tag_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
 	g_signal_connect(G_OBJECT(pd->hld.tree),"cursor-changed",G_CALLBACK(hlg_cursor_changed),pd);
-	g_signal_connect(G_OBJECT(pd->hld.fg_color),"changed",G_CALLBACK(hlg_entry_changed),pd);
+/*	g_signal_connect(G_OBJECT(pd->hld.fg_color),"changed",G_CALLBACK(hlg_entry_changed),pd);
 	g_signal_connect(G_OBJECT(pd->hld.bg_color),"changed",G_CALLBACK(hlg_entry_changed),pd);
 	g_signal_connect(G_OBJECT(pd->hld.bold_radio[0]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
 	g_signal_connect(G_OBJECT(pd->hld.bold_radio[1]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
 	g_signal_connect(G_OBJECT(pd->hld.bold_radio[2]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
 	g_signal_connect(G_OBJECT(pd->hld.italic_radio[0]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
 	g_signal_connect(G_OBJECT(pd->hld.italic_radio[1]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
-	g_signal_connect(G_OBJECT(pd->hld.italic_radio[2]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
+	g_signal_connect(G_OBJECT(pd->hld.italic_radio[2]),"toggled",G_CALLBACK(hlg_bi_changed),pd);*/
 	pd->hld.filetype_change = FALSE;
 }
 #endif
