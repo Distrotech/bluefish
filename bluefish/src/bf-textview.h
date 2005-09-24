@@ -111,6 +111,10 @@ typedef struct {
 	gint tokennum;		/* = BFTV_TOKEN_IDS + 1; */
 	gint blocknum;		  /* = BFTV_BLOCK_IDS + 1; */
 	BfLangBlock *iblock;
+	GtkTextTag *tag_begin;
+	GtkTextTag *tag_end;
+	GtkTextTag *attr_name;
+	GtkTextTag *attr_val;
 	gpointer *filetype;
 } BfLangConfig;
 

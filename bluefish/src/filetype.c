@@ -274,10 +274,10 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 			filetype->hl_tag = g_hash_table_new(g_str_hash, g_str_equal);
 			filetype->hl_group = g_hash_table_new(g_str_hash, g_str_equal);*/
 			
-			filetype->tag_begin = get_tag_for_scanner_style(filetype->type,"m","tag_begin");
+/*			filetype->tag_begin = get_tag_for_scanner_style(filetype->type,"m","tag_begin");
 			filetype->tag_end = get_tag_for_scanner_style(filetype->type,"m","tag_end");
 			filetype->attr_name = get_tag_for_scanner_style(filetype->type,"m","attr_name");
-			filetype->attr_val = get_tag_for_scanner_style(filetype->type,"m","attr_val");
+			filetype->attr_val = get_tag_for_scanner_style(filetype->type,"m","attr_val");*/
 			
 			main_v->filetypelist = g_list_append(main_v->filetypelist, filetype);
 /*			tmplist2 = g_list_first(main_v->props.highlight_patterns);

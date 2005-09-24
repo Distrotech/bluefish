@@ -119,10 +119,6 @@ typedef struct {
 	gchar *content_regex; /* a regex pattern to test the filetype using the content */
 #ifdef USE_SCANNER
 	gchar *language_file;
-	GtkTextTag *tag_begin;
-	GtkTextTag *tag_end;
-	GtkTextTag *attr_name;
-	GtkTextTag *attr_val;
 #endif	
 } Tfiletype;
 
