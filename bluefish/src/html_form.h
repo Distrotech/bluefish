@@ -1,5 +1,5 @@
 /* Bluefish HTML Editor
- * html_form.h - html form dialogs
+ * html_form.h - menu/toolbar callback prototypes
  *
  * Copyright (C) 2000 Olivier Sessink
  *

@@ -1,9 +1,8 @@
 /* Bluefish HTML Editor
  * html_form.c - html form dialogs
  *
- * Copyright (C) 
- * 1998 Olivier Sessink and Chris Mazuc
- * 1999-2005 Olivier Sessink
+ * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
+ * Copyright (C) 1999-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
