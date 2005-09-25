@@ -6,7 +6,7 @@
  *
  * Copyright (C) 1998-2000 Olivier Sessink, Chris Mazuc and Roland Steinbach
  * Copyright (C) 2000-2002 Olivier Sessink and Roland Steinbach
- * Copyright (C) 2002-2004 Olivier Sessink
+ * Copyright (C) 2002-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,37 +24,37 @@
  */
 
 #include <gtk/gtk.h>
-#include <stdlib.h> /* atoi */
-#include <string.h> /* strchr() */
+#include <stdlib.h>    /* atoi */
+#include <string.h>    /* strchr() */
 #include <gdk/gdkkeysyms.h>
 
 /* #define DEBUG */
 
 #include "bluefish.h"
+#include "menu.h"
+#include "about.h"
+#include "bf_lib.h"        /* append_string_to_file() */
 #include "bfspell.h"
 #include "bookmark.h"
-#include "pixmap.h"
-#include "document.h"		/* file_open etc. */
-#include "highlight.h"		/* doc_highlight_full */
-#include "menu.h"				/* my own .h file */
-#include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
-#include "snr2.h"				/* search_cb, replace_cb */
-#include "gui.h"				/* go_to_line_win_cb */
-#include "stringlist.h"		/* free_stringlist() */
-#include "bf_lib.h"			/* append_string_to_file() */
-#include "gtk_easy.h"		/* window_full, bf_stock_ok_button */
-#include "preferences.h"	/* open_preferences_menu_cb */
+#include "document.h"      /* file_open etc. */
+#include "gtk_easy.h"      /* window_full, bf_stock_ok_button */
+#include "gui.h"           /* go_to_line_win_cb */
+#include "highlight.h"     /* doc_highlight_full */
 #include "html.h"
 #include "html2.h"
 #include "html_table.h"
 #include "html_form.h"
-#include "wizards.h"
 #include "image.h"
-#include "rcfile.h" 			/* rcfile_save_configfile_menu_cb */
-#include "rpopup.h"
+#include "outputbox.h"     /* temporary */
+#include "pixmap.h"
+#include "preferences.h"   /* open_preferences_menu_cb */
 #include "project.h"
-#include "about.h"
-#include "outputbox.h"		/* temporary */
+#include "rcfile.h"        /* rcfile_save_configfile_menu_cb */
+#include "rpopup.h"
+#include "snr2.h"          /* search_cb, replace_cb */
+#include "stringlist.h"    /* free_stringlist() */
+#include "undo_redo.h"     /* undo_cb() redo_cb() etc. */
+#include "wizards.h"
 
 #ifdef HAVE_ATLEAST_GTK_2_4
 #include "quickstart.h"
@@ -528,10 +528,10 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Tags/Special/Other/Middle _dot ·"), NULL, insert_char_cb, 97, "<Item>"},
 	{N_("/Tags/_Format by layout"), NULL, NULL, 0, "<Branch>"},
 	{"/Tags/Format by layout/tearoff1", NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Tags/Format by layout/_Bold"), "<control><alt>b", general_html_menu_cb, 1, "<ImageItem>",pixmap_bold},
-	{N_("/Tags/Format by layout/_Italic"), "<control><alt>i", general_html_menu_cb, 2, "<ImageItem>",pixmap_italic},
-	{N_("/Tags/Format by layout/_Underline"), "<control><alt>u", general_html_menu_cb, 3, "<ImageItem>",pixmap_underline},
-	{N_("/Tags/Format by layout/_Strikeout"), "<control><alt>s", general_html_menu_cb, 4, "<Item>"},
+	{N_("/Tags/Format by layout/_Bold"), "<control><alt>b", general_html_menu_cb, 1, "<StockItem>", GTK_STOCK_BOLD},
+	{N_("/Tags/Format by layout/_Italic"), "<control><alt>i", general_html_menu_cb, 2, "<StockItem>", GTK_STOCK_ITALIC},
+	{N_("/Tags/Format by layout/_Underline"), "<control><alt>u", general_html_menu_cb, 3, "<StockItem>", GTK_STOCK_UNDERLINE},
+	{N_("/Tags/Format by layout/_Strikeout"), "<control><alt>s", general_html_menu_cb, 4, "<StockItem>", GTK_STOCK_STRIKETHROUGH},
 	{N_("/Tags/Format by layout/Sm_all"), NULL, general_html_menu_cb, 56, "<Item>"},
 	{N_("/Tags/Format by layout/Bi_g"), NULL, general_html_menu_cb, 57, "<Item>"},
 	{N_("/Tags/F_ormat by context"), NULL, NULL, 0, "<Branch>"},
