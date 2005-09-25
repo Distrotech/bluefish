@@ -20,6 +20,9 @@
 
 #define DEBUG
 
+#include "config.h"
+#ifdef USE_SCANNER
+
 #include "bf-textview.h"
 #include "bluefish.h"
 
@@ -2704,3 +2707,5 @@ bf_lang_mgr_get_config (BfLangManager * mgr, gchar * filetype)
     return NULL;
   return g_hash_table_lookup (mgr->languages, filetype);
 }
+
+#endif /* USE_SCANNER */
