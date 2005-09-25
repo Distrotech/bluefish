@@ -1,4 +1,4 @@
-c:String:0:".*?"::2::#009900::0:0:
+c:String:0:":":1::#009900::0:0:
 c:String Escape:0:\\\\(n|t|v|b|r|f|a|\\\\|\\?|'|"|\\d{1,3}|x\\d+)::2:^String$:#990099::0:0:
 c:Preprocessor:0:#(include|define|if(def|ndef)?|else|elif|endif|undef)::2::#990099::0:0:
 c:Comment (C):0:/\\*.*?\\*/::2::#0000FF::1:2:
