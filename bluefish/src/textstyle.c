@@ -112,10 +112,15 @@ GtkTextTagTable *textstyle_return_tagtable(void) {
 	return textstyle.tagtable;
 }
 #ifdef USE_SCANNER
-GtkTextTag *get_tag_for_scanner_style(gchar *filetype,gchar *type,gchar *name) {
-	gchar **arr1, *arr2[] = {filetype, type, name, NULL};
+
+gchar **get_arr_for_scanner_style(gchar *filetype,gchar *type,gchar *name) {
+	gchar *arr2[] = {filetype, type, name, NULL};
 /*	DEBUG_MSG("get_tag_for_scanner_style, filetype %s, type %s, name %s\n",filetype,type,name);*/
-	arr1 = arraylist_value_exists(main_v->props.syntax_styles, arr2, 3, TRUE);
+	return arraylist_value_exists(main_v->props.syntax_styles, arr2, 3, TRUE);
+}
+
+GtkTextTag *get_tag_for_scanner_style(gchar *filetype,gchar *type,gchar *name) {
+	gchar **arr1 = get_arr_for_scanner_style(filetype,type,name);
 	if (arr1) {
 		DEBUG_MSG("get_tag_for_scanner_style(%s:%s:%s) return tag for textstyle %s\n",filetype,type,name,arr1[3]);
 		return textstyle_get(arr1[3]);
@@ -124,5 +129,3 @@ GtkTextTag *get_tag_for_scanner_style(gchar *filetype,gchar *type,gchar *name) {
 	return NULL;
 }
 #endif /* USE_SCANNER */
-
-
