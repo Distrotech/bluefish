@@ -146,6 +146,7 @@ enum {
 	highlight_patterns,
 	pluginconfig,
 	textstyles,
+	syntax_styles,
 	lists_num_max
 };
 
@@ -167,7 +168,13 @@ typedef struct {
 	GtkWidget *italic_radio[3];
 } Ttextstylepref;
 
-
+#ifdef USE_SCANNER
+typedef struct {
+	GtkTreeStore *tstore;
+	GtkWidget *tview;
+} Thldialog;
+#endif
+#ifndef USE_SCANNER
 typedef struct {
 	GtkListStore *lstore;
 	GtkWidget *lview;
@@ -178,6 +185,7 @@ typedef struct {
 	gchar **curstrarr;
 	const gchar *selected_filetype;
 } Thighlightpatterndialog;
+#endif
 
 enum {
 	NAMECOL,
@@ -188,19 +196,6 @@ typedef struct {
 	GtkListStore *lstore;
 	GtkWidget *lview;
 } Tplugindialog;
-
-#ifdef USE_SCANNER
-typedef struct {
-	GtkTreeStore *blk_store,*tk_store,*tag_store;
-	GtkWidget *main_view;
-	GtkWidget *tree,*ftype_combo;
-	GtkWidget *blk_radio,*tk_radio,*tag_radio;
-	GtkWidget *bg_color,*fg_color;
-	GtkWidget *bold_radio[3];
-	GtkWidget *italic_radio[3];
-	gboolean filetype_change;
-} Thldialog;
-#endif
 
 typedef struct {
 	GtkWidget *prefs[property_num_max];
@@ -1472,7 +1467,7 @@ static void highlightpattern_reset_clicked_lcb(GtkWidget *button, Tprefdialog *p
 #endif
 
 #ifdef USE_SCANNER
-
+/*
 static void bf_ins_key(gpointer key,gpointer value,gpointer udata) {
 	GList **lst = (GList **)udata;
 	*lst = g_list_append(*lst,key);
@@ -1552,10 +1547,10 @@ static gchar **hlg_find_pattern(Tprefdialog *pd, gchar *filetype, gchar *type, g
 		lst = g_list_next(lst);
 	}
 	return NULL;
-}
+}*/
 
 /* called when a filetype is set in the syntax highlighting dialog */
-static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
+/*static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
 	BfLangConfig *cfg = bf_lang_mgr_get_config(main_v->lang_mgr,gtk_combo_box_get_active_text(widget));
 	Tprefdialog *pd = (Tprefdialog *)user_data;
 	GList *lst=NULL,*lst2,*lst3;
@@ -1568,7 +1563,7 @@ static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
 	}	 
 	pd->hld.filetype_change = TRUE;
 	gtk_widget_show(pd->hld.main_view);
-	/* fill all stores */
+	/ * fill all stores * /
 	lst = bf_hash_keys_to_list(cfg->groups);
 	gtk_tree_store_clear(pd->hld.blk_store);
 	gtk_tree_store_clear(pd->hld.tk_store);
@@ -1654,8 +1649,8 @@ static void hlg_ftype_changed  (GtkComboBox *widget, gpointer user_data) {
 	else
 		gtk_widget_set_sensitive(pd->hld.tag_radio,FALSE);		
 	pd->hld.filetype_change = FALSE;		
-}
-
+}*/
+/*
 static void hlg_apply_style(Tprefdialog *pd) {
 	GtkTreeIter iter;
 	GtkTreeSelection *select;
@@ -1676,17 +1671,16 @@ static void hlg_apply_style(Tprefdialog *pd) {
 			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[0]),TRUE);			
 		}
 	}
-	
-}
-
+}*/
+/*
 static void hlg_cursor_changed  (GtkTreeView *treeview, gpointer user_data) {
 	Tprefdialog *pd = (Tprefdialog *)user_data;
 	pd->hld.filetype_change = TRUE;		
 	hlg_apply_style(pd);
 	pd->hld.filetype_change = FALSE;		
-}
+}*/
 
-static void hlg_apply_changes_to_item(Tprefdialog *pd) {
+/* static void hlg_apply_changes_to_item(Tprefdialog *pd) {
 	gchar **strarr=NULL;
 	GtkTreeIter iter;
 	GtkTreeSelection *select;
@@ -1697,7 +1691,7 @@ static void hlg_apply_changes_to_item(Tprefdialog *pd) {
 	if ( !select ) return;
 	if (gtk_tree_selection_get_selected (select,NULL,&iter)) {
 		gtk_tree_model_get(GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter, 2, &strarr, -1);	
-		if ( strarr ) { /* already have array */
+		if ( strarr ) { / * already have array * /
 			strarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->hld.fg_color),0,-1);
 			strarr[4] = gtk_editable_get_chars(GTK_EDITABLE(pd->hld.bg_color),0,-1);
 			g_free(strarr[5]);
@@ -1714,19 +1708,19 @@ static void hlg_apply_changes_to_item(Tprefdialog *pd) {
 				strarr[6] = g_strdup("2");				
 			else
 				strarr[6] = g_strdup("0");	
-		} else { /* create new array */
+		} else { / * create new array * /
 			strarr = g_malloc(8*sizeof(gchar *));
 			strarr[7] = NULL;
 			strarr[0] = g_strdup(gtk_combo_box_get_active_text(GTK_COMBO_BOX(pd->hld.ftype_combo)));				
 			gtk_tree_model_get(GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter, 0, &tp, -1);	
 			switch ( tp ) {
-				case 0: /* group */
+				case 0: / * group * /
 					strarr[1] = g_strdup("g");break;
-				case 1: /* block */
+				case 1: / * block  * /
 					strarr[1] = g_strdup("b");break;
-				case 2: /* token */
+				case 2: / * token * /
 					strarr[1] = g_strdup("t");break;					
-				case 3: /* markup */
+				case 3: / * markup * /
 				case 4: 
 				case 5:
 				case 6:
@@ -1760,66 +1754,97 @@ static void hlg_apply_changes_to_item(Tprefdialog *pd) {
 			gtk_tree_store_set(GTK_TREE_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter,
 			   2, strarr,-1);	
 			pd->lists[highlight_patterns] = g_list_append(pd->lists[highlight_patterns],strarr);   
-		} /* create new array */
-	}	/* get_selected */
+		} / * create new array * /
+	}	/ * get_selected * /
+}
+*/
 
+/* 
+the new GUI will look like this (3 columns):
+
+-|- PHP                    "PHP"           NULL
+ |  |- php-group           "g"             NULL, or some gchar **
+ |  |  |- comment          "b"             NULL, or some gchar **
+ |  |  |- braces             ... .... 
+ |  |- markup group             ... .... 
+ |  |- general             ... .... 
+ |  |- keywords             ... .... 
+ |  |- tag begin            "begin_tag"    NULL, or some gchar **
+ |  |- tag end             ... .... 
+ |
+ |-Python
+ |  |
+
+in the liststore, we will have three columns: 
+	0: the visible name
+	1: the type as stored in the config file
+	3: the gchar ** that should be updated if the option is changed
+
+*/
+
+static void fill_hl_tree(Tprefdialog *pd) {
+	GList *tmplist;
+	tmplist = g_list_first(pd->lists[filetypes]);
+	while (tmplist) {
+		gchar **strarr = (gchar **)tmplist->data;
+		/* test if this filetype has a language file defined */
+		if (count_array(strarr)==FILETYPES_ARRAY_LEN) {
+			GtkTreeIter ftiter;
+			BfLangConfig *cfg;
+			gtk_tree_store_append(pd->hld.tstore, &ftiter, NULL);
+			gtk_tree_store_set(pd->hld.tstore, &ftiter
+					,0 , strarr[0],1 , strarr[0],2 , NULL, -1);
+			cfg = bf_lang_mgr_get_config(main_v->lang_mgr,strarr[0]);
+			if (cfg) {
+				/* add blocks/tokens/tags to the tree, the user doesn't need to know if something is a block, a token or 
+				a tag, so we insert their groups in the same level for the user */
+				
+				/* the gchar ** for a given item can be retrieved by */
+				/* gchar **get_arr_for_scanner_style(gchar *filetype,gchar *type,gchar *name)  */
+				
+				/* retrieve groups for tokens*/
+				/* for each group: */	
+					/* now add all items, but how do I retrieve them ?? */
+				/* retrieve groups for blocks*/
+				/* for each group: */	
+					/* now add all items, but how do I retrieve them ?? */
+				
+				/* now add tag items, but how do I know if a language needs them ?? */
+			}
+		}
+		tmplist = g_list_next(tmplist);
+	}  
 }
 
 static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
-	GtkWidget *vbox1,*lab_help,*hbox1,*label2;
-	GtkWidget *reset_btn,*vbox2;
-	GtkWidget *hbox2;
-	GSList *blk_radio_group = NULL;
-	GtkWidget *hbox3,*scrolledwindow1;
-/*	GtkWidget *t_pbox;*/
-	GList *tmplist=NULL;
+	GtkWidget *vbox, *scrolledwindow1;
+
 	GtkTreeViewColumn *column;
-	GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
-	GtkTreeIter iter;
+	GtkCellRenderer *renderer;
 	
-	pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
+	pd->lists[syntax_styles] = duplicate_arraylist(main_v->props.syntax_styles);
+	/* new structure: one treestore for all, column 1:visible label, 2:label for config file 3:pointer to strarr */
+	pd->hld.tstore = gtk_tree_store_new(3, G_TYPE_STRING,G_TYPE_POINTER,G_TYPE_POINTER);
+
+	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
+	gtk_box_pack_start(GTK_BOX(mainbox), scrolledwindow1, TRUE, TRUE, 2);
+	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow1), 2);
+	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	/* fill the tree */	
+	fill_hl_tree(pd);
+
 	
-	/* Prepare store for elements */
-	pd->hld.blk_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
-	pd->hld.tk_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
-	pd->hld.tag_store = gtk_tree_store_new(3, G_TYPE_INT,G_TYPE_STRING,G_TYPE_POINTER);
-	gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
-	gtk_tree_store_set(pd->hld.tag_store, &iter, 0,3,1,g_strdup(_("Begin of a tag")), -1);
-	gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
-	gtk_tree_store_set(pd->hld.tag_store, &iter, 0,4,1,g_strdup(_("End of a tag")), -1);
-	gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
-	gtk_tree_store_set(pd->hld.tag_store, &iter, 0,5,1,g_strdup(_("Attribute name")), -1);
-	gtk_tree_store_append(pd->hld.tag_store, &iter, NULL);
-	gtk_tree_store_set(pd->hld.tag_store, &iter, 0,6,1,g_strdup(_("Attribute value")), -1);
+	/* create the view component */
+	pd->hld.tview = gtk_tree_view_new_with_model(pd->hld.tstore);
+	gtk_container_add (GTK_CONTAINER(scrolledwindow1), pd->hld.tview);
+	gtk_container_set_border_width(GTK_CONTAINER (pd->hld.tview), 2);
+	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW (pd->hld.tview), FALSE);
+	gtk_widget_set_size_request(pd->hld.tview, 200, 150);
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,"text", 1,NULL);
+	gtk_tree_view_append_column (GTK_TREE_VIEW(pd->hld.tview), column);
 	
-	vbox1 = gtk_vbox_new (FALSE, 3);
-	gtk_box_pack_start(GTK_BOX(mainbox), vbox1, FALSE, FALSE, 3);  
-	  
-	lab_help = gtk_label_new (_("label1"));
-	gtk_box_pack_start (GTK_BOX (vbox1), lab_help, FALSE, FALSE, 0);
-	gtk_label_set_use_markup (GTK_LABEL (lab_help), TRUE);
-	gtk_misc_set_padding (GTK_MISC (lab_help), 3, 3);
-	gtk_label_set_markup(GTK_LABEL(lab_help),_("<small>Highlighting is performed only for elements which are in 'highlighted' lists.\nElement style is found using steps below:\n1. find definition for single token or block, if not found then,\n2. find definition for group to which token or block belongs</small>"));
-	
-	hbox1 = gtk_hbox_new (FALSE, 3);
-	gtk_box_pack_start (GTK_BOX (vbox1), hbox1, TRUE, TRUE, 0);
-	
-	label2 = gtk_label_new (_("File type"));
-	gtk_box_pack_start (GTK_BOX (hbox1), label2, FALSE, FALSE, 0);
-	gtk_misc_set_padding (GTK_MISC (label2), 3, 3);
-	
-	pd->hld.ftype_combo = gtk_combo_box_new_text ();
-	gtk_box_pack_start (GTK_BOX (hbox1), pd->hld.ftype_combo, FALSE, TRUE, 2);
-	gtk_container_set_border_width (GTK_CONTAINER (pd->hld.ftype_combo), 2);
-	tmplist = g_list_first(pd->lists[filetypes]);
-	while (tmplist) {
-		gint arrcount;
-		gchar **strarr = (gchar **)tmplist->data;
-		arrcount = count_array(strarr);
-		gtk_combo_box_append_text(GTK_COMBO_BOX(pd->hld.ftype_combo),strarr[0]);
-		tmplist = g_list_next(tmplist);
-	}  
-	reset_btn = gtk_button_new_with_mnemonic (_("Reset"));
+/*	reset_btn = gtk_button_new_with_mnemonic (_("Reset"));
 	gtk_box_pack_start(GTK_BOX (hbox1), reset_btn, FALSE, FALSE, 2);
 	gtk_container_set_border_width (GTK_CONTAINER (reset_btn), 2);
 	
@@ -1849,20 +1874,7 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	blk_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (pd->hld.tag_radio));
 	
 	hbox3 = gtk_hbox_new (FALSE, 3);
-	gtk_box_pack_start (GTK_BOX (vbox2), hbox3, TRUE, TRUE, 0);
-	
-	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_box_pack_start (GTK_BOX (hbox3), scrolledwindow1, TRUE, TRUE, 2);
-	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow1), 2);
-	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	
-	pd->hld.tree = gtk_tree_view_new ();
-	gtk_container_add (GTK_CONTAINER (scrolledwindow1), pd->hld.tree);
-	gtk_container_set_border_width (GTK_CONTAINER (pd->hld.tree), 2);
-	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (pd->hld.tree), FALSE);
-	gtk_widget_set_size_request(pd->hld.tree, 200, 150);
-	column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,"text", 1,NULL);
-	gtk_tree_view_append_column (GTK_TREE_VIEW(pd->hld.tree), column);
+	gtk_box_pack_start (GTK_BOX (vbox2), hbox3, TRUE, TRUE, 0);*/
 	
 /*	t_pbox = gtk_vbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox3), t_pbox, TRUE, TRUE, 5);
@@ -1881,20 +1893,12 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	pd->hld.italic_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.italic_radio[0]), _("force italic style"));
 	gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[2], TRUE, TRUE, 0);*/
 	
-	g_signal_connect(G_OBJECT(pd->hld.ftype_combo),"changed",G_CALLBACK(hlg_ftype_changed),pd);
+/*	g_signal_connect(G_OBJECT(pd->hld.ftype_combo),"changed",G_CALLBACK(hlg_ftype_changed),pd);
 	g_signal_connect(G_OBJECT(pd->hld.blk_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
 	g_signal_connect(G_OBJECT(pd->hld.tk_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
 	g_signal_connect(G_OBJECT(pd->hld.tag_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
-	g_signal_connect(G_OBJECT(pd->hld.tree),"cursor-changed",G_CALLBACK(hlg_cursor_changed),pd);
-/*	g_signal_connect(G_OBJECT(pd->hld.fg_color),"changed",G_CALLBACK(hlg_entry_changed),pd);
-	g_signal_connect(G_OBJECT(pd->hld.bg_color),"changed",G_CALLBACK(hlg_entry_changed),pd);
-	g_signal_connect(G_OBJECT(pd->hld.bold_radio[0]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
-	g_signal_connect(G_OBJECT(pd->hld.bold_radio[1]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
-	g_signal_connect(G_OBJECT(pd->hld.bold_radio[2]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
-	g_signal_connect(G_OBJECT(pd->hld.italic_radio[0]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
-	g_signal_connect(G_OBJECT(pd->hld.italic_radio[1]),"toggled",G_CALLBACK(hlg_bi_changed),pd);
-	g_signal_connect(G_OBJECT(pd->hld.italic_radio[2]),"toggled",G_CALLBACK(hlg_bi_changed),pd);*/
-	pd->hld.filetype_change = FALSE;
+	g_signal_connect(G_OBJECT(pd->hld.tree),"cursor-changed",G_CALLBACK(hlg_cursor_changed),pd);*/
+/*	pd->hld.filetype_change = FALSE;*/;
 }
 #endif
 
