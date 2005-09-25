@@ -1126,11 +1126,15 @@ static void highlightpattern_gui_rebuild_filetype_popup(Tprefdialog *pd) {
 	while (tmplist) {
 		gchar **arr = (gchar **)tmplist->data;
 		if (count_array(arr)>=3) {
-			menuitem = gtk_menu_item_new_with_label(arr[0]);
-			DEBUG_MSG("highlightpattern_gui_rebuild_filetype_popup, menuitem=%p for %s\n", menuitem, arr[0]);
-			g_signal_connect(GTK_OBJECT(menuitem), "activate",G_CALLBACK(highlightpattern_popmenu_activate),pd);
-			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-			gtk_widget_show(menuitem);
+			if (strcmp(arr[0], "objectfile") != 0 && strcmp(arr[0], "webimage") != 0 
+				&& strcmp(arr[0], "image") != 0 && strcmp(arr[0], "bfproject") != 0) {				
+				
+				menuitem = gtk_menu_item_new_with_label(arr[0]);
+				DEBUG_MSG("highlightpattern_gui_rebuild_filetype_popup, menuitem=%p for %s\n", menuitem, arr[0]);
+				g_signal_connect(GTK_OBJECT(menuitem), "activate",G_CALLBACK(highlightpattern_popmenu_activate),pd);
+				gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
+				gtk_widget_show(menuitem);
+			}
 		}
 		tmplist = g_list_next(tmplist);
 	}
