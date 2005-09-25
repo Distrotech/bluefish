@@ -2,7 +2,7 @@
  * bluefish.h - global prototypes
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2004 Olivier Sessink
+ * Copyright (C) 1999-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -150,7 +150,7 @@ typedef struct {
 } Tdocument;
 
 typedef struct {
-   gint show_quickbar_tip;
+	gint show_quickbar_tip;
 	gint view_line_numbers; /* view line numbers on the left side by default */
 	gint filebrowser_show_hidden_files;
 	gint filebrowser_show_backup_files;
@@ -160,6 +160,7 @@ typedef struct {
 	gchar *filebrowser_dir_icon;
 	gchar *editor_font_string;		/* editor font */
 	gint editor_tab_width;	/* editor tabwidth */
+	gint editor_smart_cursor;
 	gint editor_indent_wspaces; /* indent with spaces, not tabs */
 	gchar *tab_font_string;		/* notebook tabs font */
 	GList *browsers; /* browsers array */

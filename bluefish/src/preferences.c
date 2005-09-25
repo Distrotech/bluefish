@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * preferences.c - the preferences code
  *
- * Copyright (C) 2002-2003 Olivier Sessink
+ * Copyright (C) 2002-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,18 +21,18 @@
 /* #define DEBUG */
 
 #include <gtk/gtk.h>
-#include <string.h> /* strcmp() */
+#include <string.h>        /* strcmp() */
 
 #include "bluefish.h"
-#include "stringlist.h" /* duplicate_arraylist*/
-#include "bf_lib.h" /* list_switch_order() */
-#include "gtk_easy.h"
+#include "bf_lib.h"        /* list_switch_order() */
 #include "document.h"
-#include "pixmap.h"
-#include "highlight.h"
 #include "filebrowser.h"
-#include "menu.h"
+#include "gtk_easy.h"
 #include "gui.h"
+#include "highlight.h"
+#include "menu.h"
+#include "pixmap.h"
+#include "stringlist.h"    /* duplicate_arraylist*/
 
 enum {
 	view_html_toolbar,
@@ -43,36 +43,37 @@ enum {
 	filebrowser_two_pane_view,
 	filebrowser_unknown_icon,
 	filebrowser_dir_icon,
-	editor_font_string,		/* editor font */
-	editor_tab_width,	/* editor tabwidth */
+	editor_font_string,         /* editor font */
+	editor_tab_width,           /* editor tabwidth */
 	editor_indent_wspaces,
-	tab_font_string,		/* notebook tabs font */
-	highlight_num_lines_count, /* number of lines to highlight in continous highlighting */	
-	defaulthighlight,		/* highlight documents by default */
-	transient_htdialogs,  /* set html dialogs transient ro the main window */
+	editor_smart_cursor,
+	tab_font_string,            /* notebook tabs font */
+	highlight_num_lines_count,  /* number of lines to highlight in continous highlighting */	
+	defaulthighlight,           /* highlight documents by default */
+	transient_htdialogs,        /* set html dialogs transient ro the main window */
 	restore_dimensions,
 	left_panel_width,
 	left_panel_left,
-	main_window_h,			/* main window height */
-	main_window_w,			/* main window width */
-	max_recent_files,	/* length of Open Recent list */
-	max_dir_history,	/* length of directory history */
-	backup_file, 			/* wheather to use a backup file */
-	backup_filestring,  /* the string to append to the backup file */
-	backup_abort_action, /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
-	backup_cleanuponclose, /* remove the backupfile after close ? */
-	image_thumbnailstring,	/* string to append to thumbnail filenames */
-	image_thumbnailtype,	/* fileformat to use for thumbnails, "jpeg" or "png" can be handled by gdkpixbuf*/
+	main_window_h,              /* main window height */
+	main_window_w,              /* main window width */
+	max_recent_files,           /* length of Open Recent list */
+	max_dir_history,            /* length of directory history */
+	backup_file,                /* wheather to use a backup file */
+	backup_filestring,          /* the string to append to the backup file */
+	backup_abort_action,        /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
+	backup_cleanuponclose,      /* remove the backupfile after close ? */
+	image_thumbnailstring,      /* string to append to thumbnail filenames */
+	image_thumbnailtype,        /* fileformat to use for thumbnails, "jpeg" or "png" can be handled by gdkpixbuf*/
 	image_thumbnailsizing_type,	/* scaling ratio=0, fixed width=1, height=2, width+height (discard aspect ratio)=3 */
 	image_thumbnailsizing_val1,	/* the width, height or ratio, depending on the value above */
 	image_thumbnailsizing_val2, /* height if the type=3 */
 	image_thumnailformatstring, /* like <a href="%r"><img src="%t"></a> or more advanced */
-	allow_multi_instances, /* allow multiple instances of the same file */
-	modified_check_type, /* 0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
-	num_undo_levels, 	/* number of undo levels per document */
-	clear_undo_on_save, 	/* clear all undo information on file save */
-	newfile_default_encoding,/* if you open a new file, what encoding will it use */
-	auto_set_encoding_meta,/* auto set metatag for the encoding */
+	allow_multi_instances,      /* allow multiple instances of the same file */
+	modified_check_type,        /* 0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
+	num_undo_levels,            /* number of undo levels per document */
+	clear_undo_on_save,         /* clear all undo information on file save */
+	newfile_default_encoding,   /* if you open a new file, what encoding will it use */
+	auto_set_encoding_meta,     /* auto set metatag for the encoding */
 	auto_update_meta_author,
 	auto_update_meta_date,
 	auto_update_meta_generator,
@@ -85,48 +86,47 @@ enum {
 	leftpanel_tabposition,
 	default_basedir,
 	/* not yet in use */
-	image_editor_cline, 	/* image editor commandline */
-	full_p,				/* use </p> */
-	full_li,				/* use </li> */
-	allow_css,				/* CSS allowed */
-	allow_dep,				/* allow <FONT>... */
-	format_by_context, 	/* use <strong> instead of <b>, <emphasis instead of <i> etc. (W3C reccomendation) */
-	xhtml,					/* write <br /> */
-	allow_ruby,			/* allow <ruby> */
-	allow_h4,				/* allow <Q>... */
-	allow_frames,			/* allow <FRAME> */
-	force_dtd,				/* write <!DOCTYPE...> */
-	dtd_url,				/* URL in DTD */
-	xml_start,				/* <?XML...> */
-	lowercase_tags,		/* use lowercase tags */
-	word_wrap,				/* use wordwrap */
-	autoindent,			/* autoindent code */
-	drop_at_drop_pos, 	/* drop at drop position instead of cursor position */
-	link_management, 	/* perform link management */
+	image_editor_cline,         /* image editor commandline */
+	full_p,                     /* use </p> */
+	full_li,                    /* use </li> */
+	allow_css,                  /* CSS allowed */
+	allow_dep,                  /* allow <FONT>... */
+	format_by_context,          /* use <strong> instead of <b>, <emphasis instead of <i> etc. (W3C reccomendation) */
+	xhtml,                      /* write <br /> */
+	allow_ruby,                 /* allow <ruby> */
+	allow_h4,                   /* allow <Q>... */
+	allow_frames,               /* allow <FRAME> */
+	force_dtd,                  /* write <!DOCTYPE...> */
+	dtd_url,                    /* URL in DTD */
+	xml_start,                  /* <?XML...> */
+	lowercase_tags,             /* use lowercase tags */
+	word_wrap,                  /* use wordwrap */
+	autoindent,                 /* autoindent code */
+	drop_at_drop_pos,           /* drop at drop position instead of cursor position */
+	link_management,            /* perform link management */
 	html_ver,
-	cust_menu, 		/* entries in the custom menu */
+	cust_menu,                  /* entries in the custom menu */
 #ifdef WITH_SPC
 	/* spell checker options */
-	cfg_spc_cline      ,  /* spell checker command line */
-	cfg_spc_lang       ,  /* language */
-	spc_accept_compound ,  /* accept compound words ? */
-	spc_use_esc_chars   ,  /* specify aditional characters that
-                                     may be part of a word ? */
-	spc_esc_chars      ,  /* which ones ? */
-	spc_use_pers_dict  ,  /* use a personal dictionary */
-	spc_pers_dict      ,  /* which one ? */
-   spc_use_input_encoding ,  /* use input encoding */
-   spc_input_encoding     ,  /* wich one ? */
-   spc_output_html_chars  , /* output html chars ? (like &aacute,)*/
+	cfg_spc_cline,              /* spell checker command line */
+	cfg_spc_lang,               /* language */
+	spc_accept_compound,        /* accept compound words ? */
+	spc_use_esc_chars,          /* specify aditional characters that may be part of a word ? */
+	spc_esc_chars,              /* which ones ? */
+	spc_use_pers_dict,          /* use a personal dictionary */
+	spc_pers_dict,              /* which one ? */
+   spc_use_input_encoding,      /* use input encoding */
+   spc_input_encoding,          /* wich one ? */
+   spc_output_html_chars,       /* output html chars ? (like &aacute,)*/
 #endif
 	/* key conversion */
-	conv_ctrl_enter,		/* convert control-enter key press */
-	ctrl_enter_text,		/* inserted text */
-	conv_shift_enter,		/* convert shift-enter key press */
-	shift_enter_text,	/* inserted text */
-	conv_special_char,		/* convert ctrl-'<','>','&' */
+	conv_ctrl_enter,            /* convert control-enter key press */
+	ctrl_enter_text,            /* inserted text */
+	conv_shift_enter,           /* convert shift-enter key press */
+	shift_enter_text,           /* inserted text */
+	conv_special_char,          /* convert ctrl-'<','>','&' */
 #ifdef WITH_MSG_QUEUE
-	open_in_running_bluefish, /* open commandline documents in already running session*/
+	open_in_running_bluefish,   /* open commandline documents in already running session*/
 #endif /* WITH_MSG_QUEUE */
 #ifdef HAVE_GNOME_VFS
 	server_zope_compat,
@@ -1826,6 +1826,7 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.editor_tab_width, pd->prefs[editor_tab_width], FALSE);
+	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&main_v->props.word_wrap, pd->prefs[word_wrap], TRUE);
 	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);
@@ -1992,6 +1993,7 @@ static void preferences_dialog() {
 	
 	pd->prefs[editor_font_string] = prefs_string(_("Font"), main_v->props.editor_font_string, vbox2, pd, string_font);
 	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
+	pd->prefs[editor_smart_cursor] = boxed_checkbut_with_value(_("Smart cursor positioning at line start"), main_v->props.editor_smart_cursor, vbox2);
 	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap default"), main_v->props.word_wrap, vbox2);
 	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);
