@@ -25,9 +25,6 @@
 /*#define HL_TIMING
 #define HL_DEBUG 
 #define DEBUG*/
-
-
-
 #ifdef DEBUG
 #define DEVELOPMENT
 #endif
@@ -50,7 +47,7 @@
 
 #include "config.h"		/* HL_PROFILING might be defined there */
 
-#ifdef USE_SCANNER
+#ifndef USE_SCANNER
 
 #ifdef HL_PROFILING		/* per pattern profiling information, interesting for users making a new pattern */
 #include <sys/times.h>
@@ -65,9 +62,6 @@
 #include "menu.h"				/* menu_current_document_set_toggle_wo_activate */
 #include "rcfile.h"			/* array_from_arglist() */
 #include "stringlist.h"		/* count_array() */
-
-
-
 
 #define MAX_OVECTOR 30 /* should be a multiple of three for pcre_exec(), 
 									and at maximum 2/3 of this size can really be used for substrings */
@@ -164,7 +158,7 @@ how it works:
 /*********************************/
 static Thighlight highlight;
 
-#include "bf-textview.h"
+/* #include "bf-textview.h" */
 
 
 
@@ -216,9 +210,9 @@ void create_style(Tfiletype *filetype,gchar *tp,gchar *name,gchar *fgcolor,gchar
 }
 */
 
-
+/*
 void hl_init() {
-	/* init main_v->filetypelist, the first set is the defaultset */
+	/ * init main_v->filetypelist, the first set is the defaultset * /
 	highlight.all_highlight_patterns = NULL; 
 	highlight.tagtable = gtk_text_tag_table_new();
 
@@ -231,8 +225,8 @@ void doc_highlight_full(Tdocument * doc) {
 		bf_textview_scan(BF_TEXTVIEW(doc->view));
 		doc->need_highlighting = FALSE;
 }
-
-#else /* USE_SCANNER */
+*/
+/* #else / * USE_SCANNER */
 
 /*********************************/
 /* debugging                     */
