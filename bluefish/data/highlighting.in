@@ -10,7 +10,7 @@ c:GTK Widget Class:0:\\b(Gtk([a-zA-Z]+)Class)\\b::2::#990000::2:0:
 c:Glib Basictypes:0:\\b(gu?int(8|16|32|64)?|gshort|gushort|glong|gulong|gfloat|gdouble|gchar|guchar|gunichar|gpointer|gconstpointer|gboolean|gsize|gssize)\\b::2::#990000::2:0:
 c:Glib Keywords:0:\\b(GArray|GCallback|GClassInitFunc|GClosure|GCompareDataFunc|GCompareFunc|GDate|GDir|GEnumValue|GError|GFlagsValue|GFunc|GHashTable|GInstanceInitFunc|GIOChannel|GIOStatus|GList|GMarkupParseFlags|GMarkupParser|GMarkupParseContext|GObject|GObjectClass|GObjectConstructParam|GParamSpec|GPatternSpec|GPtrArray|GQuark|GSignalAccumulator|GSList|GString|GTimer|GTree|GType|GTypeInfo|GValue)\\b::2::#990000::2:0:
 c:GDK Keywords:0:\\b(Gdk(Color|Colormap|CursorType|Display|DragContext|Drawable|Event|EventAny|EventButton|EventCrossing|EventExpose|EventFocus|EventKey|EventScroll|Pixbuf|Pixdata|Pixmap|Rectangle|Region|Screen|Window|WindowAttr))\\b::2::#990000::2:0:
-c:GnomeVFS Keywords:0:\\b(GnomeVFS(AsyncHandle|FileInfo|FileSize|FileType|Handle|Result|ToplevelURI|URI|XferProgressInfo))\\b::2::#990000::2:0:
+c:GnomeVFS Keywords:0:\\b(GnomeVFS(AsyncHandle|DirectoryHandle|FileInfo|FileSize|FileType|Handle|Result|ToplevelURI|URI|XferProgressInfo))\\b::2::#990000::2:0:
 c:Braces:0:[{}]::2::#000000::2:0:
 c:Character:0:'.*?'::2::#009900::0:0:
 c:Character Escape:0:\\\\.::2:^character$:#000099::0:0:
