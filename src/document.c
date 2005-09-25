@@ -26,15 +26,15 @@
 #define _POSIX_C_SOURCE 200312L
 
 #include <gtk/gtk.h>
-#include <gdk/gdkkeysyms.h> /* for the keyboard event codes */
-#include <sys/types.h> 	/* stat() */
-#include <sys/stat.h> 	/* stat() */
-#include <unistd.h>		/* stat() */
-#include <stdio.h>		/* fopen() */
-#include <string.h>		/* strchr() */
-#include <regex.h> 		/* regcomp() */
-#include <stdlib.h>		/* system() */
-#include <time.h>			/* ctime_r() */
+#include <gdk/gdkkeysyms.h>    /* for the keyboard event codes */
+#include <sys/types.h>         /* stat() */
+#include <sys/stat.h>          /* stat() */
+#include <unistd.h>            /* stat() */
+#include <stdio.h>             /* fopen() */
+#include <string.h>            /* strchr() */
+#include <regex.h>             /* regcomp() */
+#include <stdlib.h>            /* system() */
+#include <time.h>              /* ctime_r() */
 #include <pcre.h>
 
 /* #define DEBUG */
@@ -44,22 +44,21 @@
 #endif
 
 #include "bluefish.h"
-
 #include "document.h"
-#include "highlight.h" /* all highlight functions */
-#include "gui.h" /* statusbar_message() */
 #include "bf_lib.h"
-#include "menu.h" /* add_to_recent_list */
-#include "stringlist.h" /* free_stringlist() */
-#include "gtk_easy.h" /* *_dialog() */
-#include "undo_redo.h" /* doc_unre_init() */
-#include "rpopup.h" /* doc_bevent_in_html_tag(), rpopup_edit_tag_cb() */
-#include "char_table.h" /* convert_utf8...() */
-#include "pixmap.h"
-#include "snr2.h" /* snr2_run_extern_replace */
-#include "cap.h"
-#include "filebrowser.h"
 #include "bookmark.h"
+#include "cap.h"
+#include "char_table.h"    /* convert_utf8...() */
+#include "filebrowser.h"
+#include "gtk_easy.h"      /* *_dialog() */
+#include "gui.h"           /* statusbar_message() */
+#include "highlight.h"     /* all highlight functions */
+#include "menu.h"          /* add_to_recent_list */
+#include "pixmap.h"
+#include "rpopup.h"        /* doc_bevent_in_html_tag(), rpopup_edit_tag_cb() */
+#include "snr2.h"          /* snr2_run_extern_replace */
+#include "stringlist.h"    /* free_stringlist() */
+#include "undo_redo.h"     /* doc_unre_init() */
 
 typedef struct {
 	GtkWidget *textview;
@@ -1767,18 +1766,57 @@ static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdo
 	DEBUG_MSG("doc_view_key_press_lcb, keyval=%d, hardware_keycode=%d\n",kevent->keyval, kevent->hardware_keycode);
 	main_v->lastkp_keyval = kevent->keyval;
 	main_v->lastkp_hardware_keycode = kevent->hardware_keycode;
+
+	if (((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home)) && main_v->props.editor_smart_cursor) {
+		GtkTextMark* imark;
+		GtkTextIter  iter, iterstart, linestart;
+
+		/* Get iterator for current position. */
+		imark = gtk_text_buffer_get_insert (doc->buffer);		
+		gtk_text_buffer_get_iter_at_mark (doc->buffer, &iterstart, imark);
+
+		/* Go to the start of the current line and save the position. */
+		iter = iterstart;
+		gtk_text_iter_backward_cursor_positions (&iter, gtk_text_iter_get_line_offset (&iter));
+		linestart = iter;
+
+		/* Move forward while we're at a space character but don't go past
+		 * the end of the current line. */
+		while (g_unichar_isspace (gtk_text_iter_get_char (&iter)) && !gtk_text_iter_ends_line (&iter))
+			gtk_text_iter_forward_char (&iter);
+
+		/* If the cursor is already at the first non-space.  Then jump back to
+		 * position zero of the current line.  Otherwise the iterator will stay
+		 * At the first non-space. */
+		if (gtk_text_iter_compare (&iterstart, &iter) == 0)
+			iter = linestart;
+
+		/* If the shift key is pressed, move only the insert mark to allow
+		 * text to be selected or de-selected. */
+		if (kevent->state & GDK_SHIFT_MASK)
+			gtk_text_buffer_move_mark (doc->buffer, imark, &iter);
+		else
+			gtk_text_buffer_place_cursor (doc->buffer, &iter);
+
+		/* Event handled. */
+		return TRUE;
+	}
+
 	if (kevent->keyval == GDK_Tab && main_v->props.editor_indent_wspaces) {
   		GtkTextMark* imark;
 		GtkTextIter iter;
-  	   gchar *string;
+		gchar *string;
+
   	   /* replace the tab with spaces if the user wants that */
   	   string = bf_str_repeat(" ", main_v->props.editor_tab_width);
   	   imark = gtk_text_buffer_get_insert(doc->buffer);
   	   gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter,imark);
   	   gtk_text_buffer_insert(doc->buffer,&iter,string,main_v->props.editor_tab_width);
   	   g_free(string);
+
   	   return TRUE; /* we handled the event, stop the event from cascading further */
   	}
+  	
 	return FALSE; /* we didn't handle all of the event */
 }
 

@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * rcfile.c - loading and parsing of the configfiles
  *
- * Copyright (C) 2000-2004 Olivier Sessink
+ * Copyright (C) 2000-2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -334,6 +334,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_dir_icon, "fb_dir_icon:", PKGDATADIR"icon_dir.png");
 	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
 	init_prop_integer   (&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3, TRUE);
+	init_prop_integer	(&config_rc, &main_v->props.editor_smart_cursor, "editor_smart_cursor:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
 	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2, TRUE);
