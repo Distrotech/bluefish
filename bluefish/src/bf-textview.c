@@ -2708,4 +2708,22 @@ bf_lang_mgr_get_config (BfLangManager * mgr, gchar * filetype)
   return g_hash_table_lookup (mgr->languages, filetype);
 }
 
+GList *bf_lang_get_groups(BfLangConfig *cfg) {
+	GList *lst = g_list_append(NULL, "a group");
+	return lst;
+}
+GList *bf_lang_get_blocks_for_group(BfLangConfig *cfg, gchar *group) {
+	GList *lst = g_list_append(NULL, "a block");
+	return lst;
+}
+GList *bf_lang_get_tokens_for_group(BfLangConfig *cfg,gchar *group) {
+	GList *lst = g_list_append(NULL, "a token");
+	return lst;
+}
+gboolean bf_lang_needs_tags(BfLangConfig *cfg) {
+	return TRUE;
+}
+
+
+
 #endif /* USE_SCANNER */
