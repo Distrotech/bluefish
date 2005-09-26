@@ -1865,6 +1865,46 @@ static void fill_hl_tree(Tprefdialog *pd) {
 		tmplist1= g_list_next(tmplist1);
 	}  
 }
+
+static void hl_set_textstylecombo_by_text(Tprefdialog *pd, const gchar *text) {
+	DEBUG_MSG("hl_set_textstylecombo_by_text, text=%s\n",text);
+	if (text == NULL) {
+		gtk_combo_box_set_active(GTK_COMBO_BOX(pd->hld.textstyle),-1);
+	} else {
+		GtkTreeIter iter;
+		gboolean cont = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->hld.cstore),&iter);
+		while (cont) {
+			gchar *name;
+			gtk_tree_model_get(GTK_TREE_MODEL(pd->hld.cstore),&iter,0,&name,-1);
+			DEBUG_MSG("hl_set_textstylecombo_by_text, compare %s and %s\n",text,name);
+			if (strcmp(name,text)==0) {
+				gtk_combo_box_set_active_iter(GTK_COMBO_BOX(pd->hld.textstyle),&iter);
+				g_free(name);
+				return;
+			}
+			g_free(name);
+			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->hld.cstore),&iter);
+		}
+		gtk_combo_box_set_active(GTK_COMBO_BOX(pd->hld.textstyle),-1);
+	}
+}
+
+static void hl_textstylecombo_changed(GtkComboBox *widget,Tprefdialog *pd) {
+	GtkTreeIter iter;
+	if (!pd->hld.curstrarr) return;
+	DEBUG_MSG("hl_textstylecombo_changed, curstrarr=%p\n",pd->hld.curstrarr);
+	if (gtk_combo_box_get_active_iter(widget,&iter)) {
+		gchar *name;
+		gtk_tree_model_get(GTK_TREE_MODEL(pd->hld.cstore),&iter,0,&name,-1);
+		DEBUG_MSG("hl_textstylecombo_changed, found name %s\n",name);
+		if (pd->hld.curstrarr[3]) {
+			DEBUG_MSG("free old value %s\n",pd->hld.curstrarr[3]);
+			g_free(pd->hld.curstrarr[3]);
+		}
+		pd->hld.curstrarr[3] = name;
+	}
+}
+
 static void hl_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
@@ -1873,20 +1913,24 @@ static void hl_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd
 		gchar *name, *filetype, *type, **strarr;
 		gtk_tree_model_get(model, &iter, 0, &name, 1, &filetype, 2, &type, 3, &strarr, -1);
 		pd->hld.curstrarr = NULL;
-		if (strarr == NULL) {
-			/* create the strarr if there is none yet */
-			strarr = g_malloc0((5)*sizeof(gchar *));
-			strarr[0] = filetype;
-			strarr[1] = name;
-			strarr[2] = type;
-			strarr[3] = g_strdup("");
-			gtk_tree_store_set(GTK_TREE_STORE(model), &iter, 3, &strarr, -1);
-			pd->hld.curstrarr = strarr;
-		} else {
-			DEBUG_MSG("textstyle_selection_changed_cb, strarr=%p\n",strarr);
-			
-			/*gtk_combo_box_set_active_iter(pd->hld.cstore,&iter);*/
-			pd->hld.curstrarr = strarr;
+		if (type) {
+			if (strarr == NULL) {
+				/* create the strarr if there is none yet */
+				strarr = g_malloc((5)*sizeof(gchar *));
+				strarr[0] = filetype;
+				strarr[1] = type;
+				strarr[2] = name;
+				strarr[3] = g_strdup("old value");
+				strarr[4] = NULL;
+				DEBUG_MSG("hl_selection_changed_cb, created %p %s:%s:%s:%s\n",strarr, strarr[0],strarr[1],strarr[2],strarr[3]);
+				gtk_tree_store_set(GTK_TREE_STORE(model), &iter, 3, strarr, -1);
+				hl_set_textstylecombo_by_text(pd, NULL);
+				pd->hld.curstrarr = strarr;
+			} else {
+				DEBUG_MSG("textstyle_selection_changed_cb, existing strarr=%p has strarr[3]=%s\n",strarr,strarr[3]);
+				hl_set_textstylecombo_by_text(pd, strarr[3]);
+				pd->hld.curstrarr = strarr;
+			}
 		}
 	} else {
 		DEBUG_MSG("no selection, returning..\n");
@@ -1936,6 +1980,7 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	renderer = gtk_cell_renderer_text_new();
 	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(pd->hld.textstyle),renderer, TRUE);
 	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(pd->hld.textstyle), renderer, "text", 0, NULL);
+	g_signal_connect(G_OBJECT(pd->hld.textstyle), "changed",G_CALLBACK(hl_textstylecombo_changed),pd);
 	
 	
 	gtk_box_pack_start(GTK_BOX(vbox), pd->hld.textstyle, TRUE, FALSE, 2);
