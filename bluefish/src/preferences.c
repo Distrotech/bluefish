@@ -179,9 +179,11 @@ typedef struct {
 typedef struct {
 	GtkTreeStore *tstore;
 	GtkWidget *tview;
+	GtkWidget *textstyle;
+	GtkListStore *cstore;
+	gchar **curstrarr;
 } Thldialog;
-#endif
-#ifndef USE_SCANNER
+#else
 typedef struct {
 	GtkListStore *lstore;
 	GtkWidget *lview;
@@ -1774,16 +1776,16 @@ static void hlg_cursor_changed  (GtkTreeView *treeview, gpointer user_data) {
 */
 
 /* 
-the new GUI will look like this (only 1st column is visible, 2 and 3 are not rendered):
+the new GUI will look like this (only 1st column is visible, 2, 3 and 4 are not rendered):
 
--|- PHP                    "PHP"           NULL
- |  |- php-group           "g"             NULL, or some gchar **
- |  |  |- comment          "b"             NULL, or some gchar **
+-|- PHP                    "PHP"        NULL,   NULL
+ |  |- php-group           "PHP",       "g"     NULL, or some gchar **
+ |  |  |- comment          "PHP",       "b"     NULL, or some gchar **
  |  |  |- braces             ... .... 
  |  |- markup group             ... .... 
  |  |- general             ... .... 
  |  |- keywords             ... .... 
- |  |- tag begin            "begin_tag"    NULL, or some gchar **
+ |  |- tag begin            "PHP",       "begin_tag"    NULL, or some gchar **
  |  |- tag end             ... .... 
  |
  |-Python
@@ -1791,29 +1793,41 @@ the new GUI will look like this (only 1st column is visible, 2 and 3 are not ren
 
 in the liststore, we will have three columns: 
 	0: the visible name
-	1: the type as stored in the config file
+	1: the filetype
+	2: the type as stored in the config file
 	3: the gchar ** that should be updated if the option is changed
 
 */
+static void fill_hl_combo(Tprefdialog *pd) {
+	GList *tmplist;
+	GtkTreeIter iter;
+	for (tmplist = g_list_first(pd->lists[textstyles]);tmplist;tmplist = g_list_next(tmplist)) {
+		gchar **arr = tmplist->data;
+		DEBUG_MSG("fill_hl_combo, adding %s\n",arr[0]);
+		gtk_list_store_append(GTK_LIST_STORE(pd->hld.cstore), &iter);
+		gtk_list_store_set(GTK_LIST_STORE(pd->hld.cstore), &iter,0,arr[0],-1);
+	}
+}
 
 static void retrieve_arr_add_to_model(Tprefdialog *pd, GtkTreeIter *parent, GtkTreeIter *iiter, const gchar *filetype, const gchar *type, const gchar *name) {
 	gchar **iarr = get_arr_for_scanner_style(filetype,type,name);
+	DEBUG_MSG("retrieve_arr_add_to_model, adding %s to model\n",name);
 	gtk_tree_store_append(GTK_TREE_STORE(pd->hld.tstore), iiter, parent);
-	gtk_tree_store_set(GTK_TREE_STORE(pd->hld.tstore), iiter,0 , name,1 , type, 2 , iarr, -1);
+	gtk_tree_store_set(GTK_TREE_STORE(pd->hld.tstore), iiter,0,name,1,filetype,2,type,3,iarr,-1);
 }
 
 static void fill_hl_tree(Tprefdialog *pd) {
-	GList *tmplist;
-	tmplist = g_list_first(pd->lists[filetypes]);
-	while (tmplist) {
-		gchar **strarr = (gchar **)tmplist->data;
+	GList *tmplist1;
+	tmplist1= g_list_first(pd->lists[filetypes]);
+	while (tmplist1) {
+		gchar **strarr = (gchar **)tmplist1->data;
 		/* test if this filetype has a language file defined */
 		if (count_array(strarr)==FILETYPES_ARRAY_LEN) {
 			GtkTreeIter ftiter;
 			BfLangConfig *cfg;
 			gtk_tree_store_append(pd->hld.tstore, &ftiter, NULL);
 			gtk_tree_store_set(pd->hld.tstore, &ftiter
-					,0 , strarr[0],1 , strarr[0],2 , NULL, -1);
+					,0,strarr[0],1,strarr[0],2, NULL,3,NULL, -1);
 			cfg = bf_lang_mgr_get_config(main_v->lang_mgr,strarr[0]);
 			if (cfg) {
 				GtkTreeIter giter;
@@ -1848,37 +1862,83 @@ static void fill_hl_tree(Tprefdialog *pd) {
 				}
 			}
 		}
-		tmplist = g_list_next(tmplist);
+		tmplist1= g_list_next(tmplist1);
 	}  
+}
+static void hl_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
+	GtkTreeIter iter;
+	GtkTreeModel *model;
+	DEBUG_MSG("hl_selection_changed_cb, started\n");
+	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
+		gchar *name, *filetype, *type, **strarr;
+		gtk_tree_model_get(model, &iter, 0, &name, 1, &filetype, 2, &type, 3, &strarr, -1);
+		pd->hld.curstrarr = NULL;
+		if (strarr == NULL) {
+			/* create the strarr if there is none yet */
+			strarr = g_malloc0((5)*sizeof(gchar *));
+			strarr[0] = filetype;
+			strarr[1] = name;
+			strarr[2] = type;
+			strarr[3] = g_strdup("");
+			gtk_tree_store_set(GTK_TREE_STORE(model), &iter, 3, &strarr, -1);
+			pd->hld.curstrarr = strarr;
+		} else {
+			DEBUG_MSG("textstyle_selection_changed_cb, strarr=%p\n",strarr);
+			
+			/*gtk_combo_box_set_active_iter(pd->hld.cstore,&iter);*/
+			pd->hld.curstrarr = strarr;
+		}
+	} else {
+		DEBUG_MSG("no selection, returning..\n");
+	}
 }
 
 static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
-	GtkWidget *vbox, *scrolledwindow1;
+	GtkWidget *hbox, *vbox, *scrolledwindow1;
 
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
+	GtkTreeSelection *select;
 	
+
 	pd->lists[syntax_styles] = duplicate_arraylist(main_v->props.syntax_styles);
 	/* new structure: one treestore for all, column 1:visible label, 2:label for config file 3:pointer to strarr */
-	pd->hld.tstore = gtk_tree_store_new(3, G_TYPE_STRING,G_TYPE_POINTER,G_TYPE_POINTER);
+	pd->hld.tstore = gtk_tree_store_new(4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
+	pd->hld.cstore = gtk_list_store_new(1,G_TYPE_STRING);
 
+	hbox = gtk_hbox_new(TRUE,0);
+	gtk_box_pack_start(GTK_BOX(mainbox), hbox, TRUE, TRUE, 2);
 	scrolledwindow1 = gtk_scrolled_window_new (NULL, NULL);
-	gtk_box_pack_start(GTK_BOX(mainbox), scrolledwindow1, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(hbox), scrolledwindow1, TRUE, TRUE, 2);
 	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow1), 2);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	/* fill the tree */	
 	fill_hl_tree(pd);
-
+	/* fill the combo box model */
+	fill_hl_combo(pd);
 	
 	/* create the view component */
 	pd->hld.tview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->hld.tstore));
 	gtk_container_add (GTK_CONTAINER(scrolledwindow1), pd->hld.tview);
 	gtk_container_set_border_width(GTK_CONTAINER (pd->hld.tview), 2);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW (pd->hld.tview), FALSE);
-	gtk_widget_set_size_request(pd->hld.tview, 200, 150);
+	gtk_widget_set_size_request(pd->hld.tview, 150, 500);
 	renderer = gtk_cell_renderer_text_new();
-	column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,"text", 1,NULL);
+	column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,"text", 0,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(pd->hld.tview), column);
+	
+	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hld.tview));
+	g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(hl_selection_changed_cb),pd);
+	vbox = gtk_vbox_new(TRUE,0);
+	gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 2);
+
+	pd->hld.textstyle = gtk_combo_box_new_with_model(GTK_TREE_MODEL(pd->hld.cstore));
+	renderer = gtk_cell_renderer_text_new();
+	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(pd->hld.textstyle),renderer, TRUE);
+	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(pd->hld.textstyle), renderer, "text", 0, NULL);
+	
+	
+	gtk_box_pack_start(GTK_BOX(vbox), pd->hld.textstyle, TRUE, FALSE, 2);
 	
 /*	reset_btn = gtk_button_new_with_mnemonic (_("Reset"));
 	gtk_box_pack_start(GTK_BOX (hbox1), reset_btn, FALSE, FALSE, 2);
@@ -2947,15 +3007,24 @@ static void preferences_dialog() {
 	
 	pd->prefs[server_zope_compat] = boxed_checkbut_with_value(_("Zope compatibility mode"), main_v->props.server_zope_compat, vbox2);
 
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Text styles"), WIDGETCOL,vbox1,-1);
+	frame = gtk_frame_new(_("Text styles"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);	
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	create_textstyle_gui(pd,vbox2);
+
 
 #ifdef USE_SCANNER
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	
 	gtk_tree_store_append(pd->nstore, &iter, NULL);
-	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("Scanner"), WIDGETCOL,vbox1,-1);	
+	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("Syntax scanning"), WIDGETCOL,vbox1,-1);	
 
 
-	frame = gtk_frame_new(_("General scanner preferences"));
+	frame = gtk_frame_new(_("Advanced syntax scanning options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);	
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
@@ -2975,14 +3044,6 @@ static void preferences_dialog() {
 	create_hl_gui(pd,vbox2);
 
 #endif
-	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Text styles"), WIDGETCOL,vbox1,-1);
-	frame = gtk_frame_new(_("Text styles"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);	
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	create_textstyle_gui(pd,vbox2);
 
 	/* end, create buttons for dialog now */
 	{
