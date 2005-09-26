@@ -1801,6 +1801,8 @@ in the liststore, we will have three columns:
 static void fill_hl_combo(Tprefdialog *pd) {
 	GList *tmplist;
 	GtkTreeIter iter;
+	gtk_list_store_append(GTK_LIST_STORE(pd->hld.cstore), &iter);
+	gtk_list_store_set(GTK_LIST_STORE(pd->hld.cstore), &iter,0,"",-1);
 	for (tmplist = g_list_first(pd->lists[textstyles]);tmplist;tmplist = g_list_next(tmplist)) {
 		gchar **arr = tmplist->data;
 		DEBUG_MSG("fill_hl_combo, adding %s\n",arr[0]);
