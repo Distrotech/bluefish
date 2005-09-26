@@ -36,6 +36,10 @@
 #include "pixmap.h"
 #include "stringlist.h"	/* duplicate_arraylist*/
 
+#ifdef USE_SCANNER
+#include "bf-textview.h"
+#endif
+
 enum {
 	do_periodic_check,
 	view_html_toolbar,
@@ -145,7 +149,7 @@ enum {
 	filefilters,
 	pluginconfig,
 	textstyles,
-#ifdef SCANNER
+#ifdef USE_SCANNER
 	syntax_styles,
 #else
 	highlight_patterns,
@@ -1792,6 +1796,12 @@ in the liststore, we will have three columns:
 
 */
 
+static void retrieve_arr_add_to_model(Tprefdialog *pd, GtkTreeIter *parent, GtkTreeIter *iiter, const gchar *filetype, const gchar *type, const gchar *name) {
+	gchar **iarr = get_arr_for_scanner_style(filetype,type,name);
+	gtk_tree_store_append(GTK_TREE_STORE(pd->hld.tstore), iiter, parent);
+	gtk_tree_store_set(GTK_TREE_STORE(pd->hld.tstore), iiter,0 , name,1 , type, 2 , iarr, -1);
+}
+
 static void fill_hl_tree(Tprefdialog *pd) {
 	GList *tmplist;
 	tmplist = g_list_first(pd->lists[filetypes]);
@@ -1806,20 +1816,36 @@ static void fill_hl_tree(Tprefdialog *pd) {
 					,0 , strarr[0],1 , strarr[0],2 , NULL, -1);
 			cfg = bf_lang_mgr_get_config(main_v->lang_mgr,strarr[0]);
 			if (cfg) {
+				GtkTreeIter giter;
+				GList *grouplist, *tmplist;
 				/* add blocks/tokens/tags to the tree, the user doesn't need to know if something is a block, a token or 
 				a tag, so we insert their groups in the same level for the user */
-				
-				/* the gchar ** for a given item can be retrieved by */
-				/* gchar **get_arr_for_scanner_style(gchar *filetype,gchar *type,gchar *name)  */
-				
-				/* retrieve groups for tokens*/
-				/* for each group: */	
-					/* now add all items, but how do I retrieve them ?? */
-				/* retrieve groups for blocks*/
-				/* for each group: */	
-					/* now add all items, but how do I retrieve them ?? */
-				
-				/* now add tag items, but how do I know if a language needs them ?? */
+				grouplist = bf_lang_get_groups(cfg);
+				for (tmplist = g_list_first(grouplist);tmplist;tmplist = g_list_next(tmplist)) {
+					GList *ilist, *tmplist2;
+					GtkTreeIter iiter;
+					retrieve_arr_add_to_model(pd, &ftiter, &giter, strarr[0], "g", tmplist->data);
+					/* get blocks for this group and add them */
+					ilist = bf_lang_get_blocks_for_group(cfg, tmplist->data);
+					for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
+						retrieve_arr_add_to_model(pd, &giter, &iiter, strarr[0], "b", tmplist2->data);
+					}
+					g_list_free(ilist);
+					/* get tokens for this group and add them */
+					ilist = bf_lang_get_tokens_for_group(cfg, tmplist->data);
+					for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
+						retrieve_arr_add_to_model(pd, &giter, &iiter, strarr[0], "t", tmplist2->data);
+					}
+					g_list_free(ilist);
+				}
+				g_list_free(grouplist);
+				/* add tags if required */
+				if (bf_lang_needs_tags(cfg)) {
+					retrieve_arr_add_to_model(pd, &ftiter, &giter, strarr[0], "m", "tag_begin");
+					retrieve_arr_add_to_model(pd, &ftiter, &giter, strarr[0], "m", "tag_end");
+					retrieve_arr_add_to_model(pd, &ftiter, &giter, strarr[0], "m", "attr_name");
+					retrieve_arr_add_to_model(pd, &ftiter, &giter, strarr[0], "m", "attr_val");
+				}
 			}
 		}
 		tmplist = g_list_next(tmplist);
@@ -1845,7 +1871,7 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 
 	
 	/* create the view component */
-	pd->hld.tview = gtk_tree_view_new_with_model(pd->hld.tstore);
+	pd->hld.tview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->hld.tstore));
 	gtk_container_add (GTK_CONTAINER(scrolledwindow1), pd->hld.tview);
 	gtk_container_set_border_width(GTK_CONTAINER (pd->hld.tview), 2);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW (pd->hld.tview), FALSE);
@@ -2267,10 +2293,12 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	free_arraylist(pd->lists[filetypes]);
 	free_arraylist(pd->lists[filefilters]);
 	free_arraylist(pd->lists[textstyles]);
-#ifdef SCANNER
+#ifdef USE_SCANNER
 	free_arraylist(pd->lists[syntax_styles]);
+	pd->lists[syntax_styles] = NULL;
 #else
 	free_arraylist(pd->lists[highlight_patterns]);
+	pd->lists[highlight_patterns] = NULL;
 #endif
 
 	free_arraylist(pd->lists[extcommands]);
@@ -2278,7 +2306,6 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	free_arraylist(pd->lists[extoutputbox]);
 	pd->lists[filetypes] = NULL;
 	pd->lists[filefilters] = NULL;
-	pd->lists[highlight_patterns] = NULL;
 	pd->lists[extcommands] = NULL;
 	pd->lists[extfilters] = NULL;
 	pd->lists[extoutputbox] = NULL;
@@ -2396,9 +2423,13 @@ static void preferences_apply(Tprefdialog *pd) {
 
 	free_arraylist(main_v->props.filefilters);
 	main_v->props.filefilters = duplicate_arraylist(pd->lists[filefilters]);
-
+#ifdef USE_SCANNER
+	free_arraylist(main_v->props.syntax_styles);
+	main_v->props.syntax_styles = duplicate_arraylist(pd->lists[syntax_styles]);
+#else
 	free_arraylist(main_v->props.highlight_patterns);
 	main_v->props.highlight_patterns = duplicate_arraylist(pd->lists[highlight_patterns]);
+#endif
 	
 	free_arraylist(main_v->props.external_command);
 	main_v->props.external_command = duplicate_arraylist(pd->lists[extcommands]);

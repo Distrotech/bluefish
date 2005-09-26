@@ -300,7 +300,9 @@ void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *wid
 		DEBUG_MSG("doc_update_highlighting, calling doc_toggle_highlighting_cb\n");
 		doc_toggle_highlighting_cb(bfwin, 0, NULL);
 	} else {
+#ifndef USE_SCANNER
 		doc_highlight_full(bfwin->current_document);
+#endif
 	}
 }
 
@@ -1627,7 +1629,9 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 				g_print("doc_buffer_to_textbox, doc does not have a filetype ????\n");
 			}
 #endif
+#ifndef USE_SCANNER
 			doc_highlight_full(doc);
+#endif
 		}
 	}
 	if (!enable_undo) {
@@ -3658,13 +3662,14 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
 void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	bfwin->current_document->highlightstate = 1 - bfwin->current_document->highlightstate;
 	DEBUG_MSG("doc_toggle_highlighting_cb, started, highlightstate now is %d\n", bfwin->current_document->highlightstate);
-	if (bfwin->current_document->highlightstate == 0) {
 #ifndef USE_SCANNER	
+	if (bfwin->current_document->highlightstate == 0) {
 		doc_remove_highlighting(bfwin->current_document);
-#endif		
+
 	} else {
 		doc_highlight_full(bfwin->current_document);
 	}
+#endif
 }
 
 /**
