@@ -143,10 +143,13 @@ enum {
 	extoutputbox,
 	filetypes,
 	filefilters,
-	highlight_patterns,
 	pluginconfig,
 	textstyles,
+#ifdef SCANNER
 	syntax_styles,
+#else
+	highlight_patterns,
+#endif
 	lists_num_max
 };
 
@@ -2263,7 +2266,13 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 
 	free_arraylist(pd->lists[filetypes]);
 	free_arraylist(pd->lists[filefilters]);
+	free_arraylist(pd->lists[textstyles]);
+#ifdef SCANNER
+	free_arraylist(pd->lists[syntax_styles]);
+#else
 	free_arraylist(pd->lists[highlight_patterns]);
+#endif
+
 	free_arraylist(pd->lists[extcommands]);
 	free_arraylist(pd->lists[extfilters]);
 	free_arraylist(pd->lists[extoutputbox]);
