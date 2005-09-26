@@ -196,7 +196,9 @@ int main(int argc, char *argv[])
 		main_v->session->recent_dirs = g_list_append(main_v->session->recent_dirs, g_strconcat("file://", g_get_home_dir(), NULL));
 	}
 	textstyle_rebuild();
+#ifndef USE_SCANNER
 	rcfile_parse_highlighting();
+#endif
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("compiling highlighting patterns..."));
 #endif /* #ifndef NOSPLASH */
@@ -204,6 +206,7 @@ int main(int argc, char *argv[])
 	hl_init();
 #else
 	main_v->lang_mgr	= bf_lang_mgr_new();
+	filetype_highlighting_rebuild(FALSE);
 #endif	
 	fb2config_init(); /* filebrowser2config */
 	/*filebrowserconfig_init();*/
