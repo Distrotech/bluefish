@@ -2708,20 +2708,95 @@ bf_lang_mgr_get_config (BfLangManager * mgr, gchar * filetype)
   return g_hash_table_lookup (mgr->languages, filetype);
 }
 
+/*
+*				Auxiliary functions 
+*/
+
+static void bftv_ins_key(gpointer key,gpointer value,gpointer udata) {
+	GList **lst = (GList **)udata;
+	*lst = g_list_append(*lst,key);
+}
+
+
 GList *bf_lang_get_groups(BfLangConfig *cfg) {
-	GList *lst = g_list_append(NULL, "a group");
+	GList *lst=NULL;
+	g_hash_table_foreach(cfg->groups,bftv_ins_key,&lst);
 	return lst;
 }
+
+typedef struct {
+	GList **list;
+	gchar *grpcrit;
+} Thf;
+
+static void bftv_ins_block(gpointer key,gpointer value,gpointer udata) {
+	Thf *d = (Thf*)udata;
+	BfLangBlock *t = (BfLangBlock*)value;
+	if ( d->grpcrit == NULL  && t->group==NULL) {
+		if ( strcmp(t->id,"_tag_begin_")!=0 )
+			*(d->list) = g_list_append(*(d->list),t->id);
+	}	
+	else
+		if ( d->grpcrit!=NULL && t->group!=NULL && strcmp(t->group,d->grpcrit) == 0 )	 {
+			if ( strcmp(t->id,"_tag_begin_")!=0 )		
+				*(d->list) = g_list_append(*(d->list),t->id);
+		}	
+}
+
+/* If you want to get list of "unaligned" blocks 
+*  i.e. blocks which are defined without a group - 
+*  just use NULL for group param 
+*/
 GList *bf_lang_get_blocks_for_group(BfLangConfig *cfg, gchar *group) {
-	GList *lst = g_list_append(NULL, "a block");
+	GList *lst = NULL;
+	Thf *hf = g_new0(Thf,1);
+	
+	hf->list = &lst;
+	hf->grpcrit = group;
+	g_hash_table_foreach(cfg->blocks,bftv_ins_block,hf);	
+	g_free(hf);
 	return lst;
 }
+
+
+static void bftv_ins_token(gpointer key,gpointer value,gpointer udata) {
+	Thf *d = (Thf*)udata;
+	BfLangToken *t = (BfLangToken*)value;
+	if ( d->grpcrit == NULL && t->group==NULL)
+	{
+		if ( strcmp(t->name,"_tag_end_")!=0 && strcmp(t->name,"_attr_")!=0 && 
+				strcmp(t->name,"_attr2_")!=0 && strcmp(t->name,"_attr_tag_begin_end_")!=0 &&
+				strcmp(t->name,"_fake_ident_")!=0)
+		*(d->list) = g_list_append(*(d->list),t->name);
+	}	
+	else
+		if ( d->grpcrit!=NULL && t->group!=NULL && strcmp(t->group,d->grpcrit) == 0 )	
+		{
+		if ( strcmp(t->name,"_tag_end_")!=0 && strcmp(t->name,"_attr_")!=0 && 
+				strcmp(t->name,"_attr2_")!=0 && strcmp(t->name,"_attr_tag_begin_end_")!=0 &&
+				strcmp(t->name,"_fake_ident_")!=0)
+	  			  *(d->list) = g_list_append(*(d->list),t->name);
+		}	
+}
+
+/* If you want to get list of "unaligned" tokens 
+*  i.e. tokens which are defined without a group - 
+*  just use NULL for group param 
+*/
 GList *bf_lang_get_tokens_for_group(BfLangConfig *cfg,gchar *group) {
-	GList *lst = g_list_append(NULL, "a token");
+	GList *lst = NULL;
+	Thf *hf = g_new0(Thf,1);
+	
+	hf->list = &lst;
+	hf->grpcrit = group;
+	g_hash_table_foreach(cfg->tokens,bftv_ins_token,hf);	
+	g_free(hf);	
 	return lst;
 }
+
+
 gboolean bf_lang_needs_tags(BfLangConfig *cfg) {
-	return TRUE;
+	return cfg->scan_tags;
 }
 
 
