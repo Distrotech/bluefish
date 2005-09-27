@@ -132,8 +132,8 @@ enum {
 	view_blocks,
 	view_symbols,		
 	view_mbhl,
-	autoscan,
-   autoscan_lines,
+	view_cline,
+   scan_mode,
 	editor_fg,
 	editor_bg,
 #endif	
@@ -2456,8 +2456,8 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.view_blocks, pd->prefs[view_blocks], TRUE);
 	integer_apply(&main_v->props.view_symbols, pd->prefs[view_symbols], TRUE);
 	integer_apply(&main_v->props.view_mbhl, pd->prefs[view_mbhl], TRUE);
-	integer_apply(&main_v->props.autoscan, pd->prefs[autoscan], TRUE);
-	integer_apply(&main_v->props.autoscan_lines, pd->prefs[autoscan_lines], FALSE);
+	integer_apply(&main_v->props.view_cline, pd->prefs[view_cline], TRUE);
+	main_v->props.scan_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[scan_mode]));
 	string_apply(&main_v->props.editor_fg, pd->prefs[editor_fg]);
 	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);	
 #endif
@@ -2695,6 +2695,9 @@ static void preferences_dialog() {
 	GtkTreeViewColumn *column;	
 	GtkTreeIter auxit,iter;
 	GtkTreePath *path;
+#ifdef USE_SCANNER
+	GList *lst;
+#endif	
 
 	pd = g_new0(Tprefdialog,1);
 	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_NONE, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
@@ -3084,8 +3087,11 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[view_mbhl] = boxed_checkbut_with_value(_("Match block begin-end by default"), main_v->props.view_mbhl, vbox2);
-	pd->prefs[autoscan] = boxed_checkbut_with_value(_("Autoscan"), main_v->props.autoscan, vbox2);
-	pd->prefs[autoscan_lines] = prefs_integer(_("Autoscan # lines\n(0 to scan whole document)"), main_v->props.autoscan_lines, vbox2, pd, 0, 1000);
+	pd->prefs[view_cline] = boxed_checkbut_with_value(_("Highlight current line by default"), main_v->props.view_cline, vbox2);
+	{
+		gchar *modes[] = {N_("whole document"), N_("visible area"),  NULL};
+		pd->prefs[scan_mode] = boxed_optionmenu_with_value(_("Scan mode"), main_v->props.scan_mode, vbox2, modes);
+	}
 	
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);

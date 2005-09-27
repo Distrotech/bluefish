@@ -266,8 +266,8 @@ typedef struct {
 	gint view_blocks; /* show blocks on the left side by default */
 	gint view_symbols; /* show symbols on the left side by default */	
 	gint view_mbhl; /* show matching block begin-end */	
-	gint autoscan; /* run autoscan when editing document */
-	gint autoscan_lines; /* number of lines to autoscan */
+	gint view_cline; /* run autoscan when editing document */
+	gint scan_mode; /* number of lines to autoscan */
 	gchar *editor_fg; /* editor foreground color */
 	gchar *editor_bg; /* editor background color */
 	GList *syntax_styles; /* textstyles (see below) for each detected bit of syntax */
