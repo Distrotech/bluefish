@@ -503,7 +503,7 @@ static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 #ifdef USE_SCANNER
 				if (b->doc) {
 				 	gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
-				 	bf_textview_set_symbol(BF_TEXTVIEW(b->doc->view),"bmark",gtk_text_iter_get_line(&it)+1,FALSE);
+				 	bf_textview_set_symbol(BF_TEXTVIEW(b->doc->view),"bookmark",gtk_text_iter_get_line(&it)+1,FALSE);
 				} 
 #endif		
 		if (numchild == 1) {
@@ -1016,7 +1016,7 @@ void bmark_set_for_doc(Tdocument * doc) {
 					gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
 					mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
 #ifdef USE_SCANNER
-					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bmark",gtk_text_iter_get_line(&it)+1,TRUE);
+					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it)+1,TRUE);
 #endif					
 					cont2 =
 						gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore),
@@ -1032,7 +1032,7 @@ void bmark_set_for_doc(Tdocument * doc) {
 							mark->mark =
 								gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
 #ifdef USE_SCANNER
-					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bmark",gtk_text_iter_get_line(&it)+1,TRUE);
+					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it)+1,TRUE);
 #endif													
 						}
 						cont2 =
@@ -1153,7 +1153,7 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 		bmark_store(BFWIN(doc->bfwin), m);
 	}
 #ifdef USE_SCANNER
-	bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bmark",gtk_text_iter_get_line(&it)+1,TRUE);
+	bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it)+1,TRUE);
 	gtk_widget_queue_draw(doc->view);
 #endif	
 }
