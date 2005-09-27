@@ -1240,7 +1240,7 @@ static gpointer bftv_make_entity(xmlDocPtr doc,xmlNodePtr node,BfLangConfig *cfg
 				} else t->context = NULL;
 				t->tag = get_tag_for_scanner_style(cfg->name,"t",t->name);
 				if (!t->tag) {
-					t->tag = get_tag_for_scanner_style(cfg->name,"t",t->group);
+					t->tag = get_tag_for_scanner_style(cfg->name,"g",t->group);
 				}
 				bftv_put_into_dfa (cfg->dfa, cfg, t, BFTV_DFA_TYPE_TOKEN,FALSE);
 				g_hash_table_insert (cfg->tokens, &t->tabid, t);
@@ -2596,36 +2596,34 @@ bf_textview_get_nearest_block (BfTextView * self,
       break;
     }
 
-  if (backward)
-      while (!found && !gtk_text_iter_compare (&it, &endit) >= 0)
-		{
-			  gtk_text_iter_backward_char (&it);
-			  mark = bftv_get_block_at_iter (&it);
-			  if (mark)
-	   		 {
-					  if (not_single)
-				    {
-							if (g_object_get_data(G_OBJECT(mark),"single-line") == &tid_false) found = TRUE;
-				    }
-					  else   found = TRUE;
-				}
+	if (backward) {
+		gboolean cont = TRUE;
+		while (!found && !gtk_text_iter_compare (&it, &endit) >= 0 && cont) {
+			/* I (Olivier) have added a check for the return value if this function, because there is 
+			an indefinite loop somewhere here*/
+			cont = gtk_text_iter_backward_char (&it);
+			mark = bftv_get_block_at_iter (&it);
+			if (mark) {
+				if (not_single) {
+					if (g_object_get_data(G_OBJECT(mark),"single-line") == &tid_false) found = TRUE;
+				} else   found = TRUE;
+			}
 		} /* while */
-  else
-      while (!found && !gtk_text_iter_compare (&it, &endit) <= 0)
-		{
-			  gtk_text_iter_forward_char (&it);
-			  mark = bftv_get_block_at_iter (&it);
-			  if (mark)
-		    {
-				  if (not_single)
-			    {
-						if (g_object_get_data(G_OBJECT(mark),"single-line") == &tid_false) found = TRUE;
-			    }
-				  else   found = TRUE;
-			  }
-      } /* while */
-
-  return mark;
+	} else {
+		gboolean cont = TRUE;
+		while (!found && !gtk_text_iter_compare (&it, &endit) <= 0 && cont) {
+			/* I (Olivier) have added a check for the return value if this function, because there is 
+			an indefinite loop somewhere here*/
+			cont = gtk_text_iter_forward_char (&it);
+			mark = bftv_get_block_at_iter (&it);
+			if (mark) {
+				if (not_single) {
+					if (g_object_get_data(G_OBJECT(mark),"single-line") == &tid_false) found = TRUE;
+				} else   found = TRUE;
+			}
+		} /* while */
+	}
+	return mark;
 }
 
 GtkTextMark *bf_textview_get_nearest_block_of_type( BfTextView * self,
