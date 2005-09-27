@@ -1480,6 +1480,108 @@ static void highlightpattern_reset_clicked_lcb(GtkWidget *button, Tprefdialog *p
 		g_free (defaultfile);
 	}
 }
+
+static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
+	GtkWidget *hbox, *but, *vbox3;
+	pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
+	
+	DEBUG_MSG("create_highlightpattern_gui, pd=%p, pd->lists[highlight_patterns]=%p\n", pd, pd->lists[highlight_patterns]);
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 3);
+
+	gtk_box_pack_start(GTK_BOX(hbox),gtk_label_new(_("filetype")),FALSE, FALSE, 3);
+	pd->hpd.popmenu = gtk_option_menu_new();
+	gtk_option_menu_set_menu(GTK_OPTION_MENU(pd->hpd.popmenu), gtk_menu_new());
+	highlightpattern_gui_rebuild_filetype_popup(pd);
+	gtk_box_pack_start(GTK_BOX(hbox),pd->hpd.popmenu,TRUE, TRUE, 3);
+	but = gtk_button_new_with_label(_("Reset"));
+	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(highlightpattern_reset_clicked_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox),but,FALSE, FALSE, 3);
+
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 3);
+	pd->hpd.entry[0] = boxed_full_entry(_("Pattern name"), NULL, 500, hbox);
+
+	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_highlightpattern_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 3);
+	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(highlightpattern_delete_clicked_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 1);
+	
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
+
+	pd->hpd.lstore = gtk_list_store_new (1, G_TYPE_STRING);
+	pd->hpd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->hpd.lstore));
+	{
+		GtkTreeViewColumn *column;
+		GtkWidget *scrolwin;
+		GtkTreeSelection *select;
+	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
+
+		column = gtk_tree_view_column_new_with_attributes (_("Pattern"), renderer,"text", 0,NULL);
+		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->hpd.lview), column);
+		scrolwin = gtk_scrolled_window_new(NULL, NULL);
+		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+		gtk_container_add(GTK_CONTAINER(scrolwin), pd->hpd.lview);
+		gtk_box_pack_start(GTK_BOX(hbox), scrolwin, FALSE, TRUE, 2);
+		
+		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
+		g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(highlightpattern_selection_changed_cb),pd);
+	}
+
+	vbox3 = gtk_vbox_new(FALSE, 2);
+	gtk_box_pack_start(GTK_BOX(hbox), vbox3, FALSE, FALSE, 2);
+	/* pack up and down buttons here */
+
+	but = bf_gtkstock_button(GTK_STOCK_GO_UP, G_CALLBACK(highlightpattern_up_clicked_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(vbox3), but, FALSE, FALSE, 1);
+	but = bf_gtkstock_button(GTK_STOCK_GO_DOWN, G_CALLBACK(highlightpattern_down_clicked_lcb), pd);
+	gtk_box_pack_start(GTK_BOX(vbox3), but, FALSE, FALSE, 1);
+	
+	vbox3 = gtk_vbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 2);
+
+	pd->hpd.radio[0] = gtk_radio_button_new_with_label(NULL, _("Start pattern and end pattern"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[0], TRUE, TRUE, 0);
+	pd->hpd.radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[0]), _("Only start pattern"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[1], TRUE, TRUE, 0);
+	pd->hpd.radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[0]), _("Subpattern from parent"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[2], TRUE, TRUE, 0);
+	g_signal_connect(G_OBJECT(pd->hpd.radio[0]), "toggled", G_CALLBACK(highlightpattern_type_toggled), pd);
+	g_signal_connect(G_OBJECT(pd->hpd.radio[1]), "toggled", G_CALLBACK(highlightpattern_type_toggled), pd);
+	g_signal_connect(G_OBJECT(pd->hpd.radio[2]), "toggled", G_CALLBACK(highlightpattern_type_toggled), pd);
+
+	pd->hpd.entry[1] = boxed_full_entry(_("Start pattern"), NULL, 4000, vbox3);
+	pd->hpd.entry[2] = boxed_full_entry(_("End pattern"), NULL, 4000, vbox3);
+	pd->hpd.check = boxed_checkbut_with_value(_("Case sensitive matching"), FALSE, vbox3);
+	pd->hpd.entry[3] = boxed_full_entry(_("Parentmatch"), NULL, 300, vbox3);
+	pd->hpd.entry[4] = prefs_string(_("Foreground color"), "", vbox3, pd, string_color);
+	pd->hpd.entry[5] = prefs_string(_("Background color"), "", vbox3, pd, string_color);
+
+	hbox = gtk_hbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
+	
+	vbox3 = gtk_vbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 0);
+	
+	pd->hpd.radio[3] = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[3], TRUE, TRUE, 0);
+	pd->hpd.radio[4] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[3]), _("force non-bold weight"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[4], TRUE, TRUE, 0);
+	pd->hpd.radio[5] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[3]), _("force bold weight"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[5], TRUE, TRUE, 0);
+
+	vbox3 = gtk_vbox_new(FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 0);
+
+	pd->hpd.radio[6] = gtk_radio_button_new_with_label(NULL, _("don't change style"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[6], TRUE, TRUE, 0);
+	pd->hpd.radio[7] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[6]), _("force non-italic style"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[7], TRUE, TRUE, 0);
+	pd->hpd.radio[8] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[6]), _("force italic style"));
+	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[8], TRUE, TRUE, 0);
+}
+
 #endif
 /************ highlighting, scanner engine ****************/
 #ifdef USE_SCANNER
@@ -1832,14 +1934,12 @@ static void fill_hl_tree(Tprefdialog *pd) {
 					,0,strarr[0],1,strarr[0],2, NULL,3,NULL, -1);
 			cfg = bf_lang_mgr_get_config(main_v->lang_mgr,strarr[0]);
 			if (cfg) {
-				GtkTreeIter giter;
-				GList *grouplist, *tmplist;
+				GtkTreeIter giter, iiter;
+				GList *grouplist, *tmplist, *ilist, *tmplist2;
 				/* add blocks/tokens/tags to the tree, the user doesn't need to know if something is a block, a token or 
 				a tag, so we insert their groups in the same level for the user */
 				grouplist = bf_lang_get_groups(cfg);
 				for (tmplist = g_list_first(grouplist);tmplist;tmplist = g_list_next(tmplist)) {
-					GList *ilist, *tmplist2;
-					GtkTreeIter iiter;
 					retrieve_arr_add_to_model(pd, &ftiter, &giter, strarr[0], "g", tmplist->data);
 					/* get blocks for this group and add them */
 					ilist = bf_lang_get_blocks_for_group(cfg, tmplist->data);
@@ -1855,6 +1955,17 @@ static void fill_hl_tree(Tprefdialog *pd) {
 					g_list_free(ilist);
 				}
 				g_list_free(grouplist);
+				/* now add blocks/tokens that do not have a group */
+				ilist = bf_lang_get_blocks_for_group(cfg, NULL);
+				for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
+					retrieve_arr_add_to_model(pd, &ftiter, &iiter, strarr[0], "b", tmplist2->data);
+				}
+				g_list_free(ilist);
+				ilist = bf_lang_get_tokens_for_group(cfg, NULL);
+				for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
+					retrieve_arr_add_to_model(pd, &ftiter, &iiter, strarr[0], "t", tmplist2->data);
+				}
+				g_list_free(ilist);
 				/* add tags if required */
 				if (bf_lang_needs_tags(cfg)) {
 					retrieve_arr_add_to_model(pd, &ftiter, &giter, strarr[0], "m", "tag_begin");
@@ -1927,6 +2038,7 @@ static void hl_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd
 				DEBUG_MSG("hl_selection_changed_cb, created %p %s:%s:%s:%s\n",strarr, strarr[0],strarr[1],strarr[2],strarr[3]);
 				gtk_tree_store_set(GTK_TREE_STORE(model), &iter, 3, strarr, -1);
 				hl_set_textstylecombo_by_text(pd, NULL);
+				pd->lists[syntax_styles] = g_list_prepend(pd->lists[syntax_styles], strarr);
 				pd->hld.curstrarr = strarr;
 			} else {
 				DEBUG_MSG("textstyle_selection_changed_cb, existing strarr=%p has strarr[3]=%s\n",strarr,strarr[3]);
@@ -1945,7 +2057,6 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 	GtkTreeSelection *select;
-	
 
 	pd->lists[syntax_styles] = duplicate_arraylist(main_v->props.syntax_styles);
 	/* new structure: one treestore for all, column 1:visible label, 2:label for config file 3:pointer to strarr */
@@ -2042,109 +2153,6 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	g_signal_connect(G_OBJECT(pd->hld.tag_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
 	g_signal_connect(G_OBJECT(pd->hld.tree),"cursor-changed",G_CALLBACK(hlg_cursor_changed),pd);*/
 /*	pd->hld.filetype_change = FALSE;*/;
-}
-#endif
-
-#ifndef USE_SCANNER
-static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
-	GtkWidget *hbox, *but, *vbox3;
-	pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
-	
-	DEBUG_MSG("create_highlightpattern_gui, pd=%p, pd->lists[highlight_patterns]=%p\n", pd, pd->lists[highlight_patterns]);
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 3);
-
-	gtk_box_pack_start(GTK_BOX(hbox),gtk_label_new(_("filetype")),FALSE, FALSE, 3);
-	pd->hpd.popmenu = gtk_option_menu_new();
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(pd->hpd.popmenu), gtk_menu_new());
-	highlightpattern_gui_rebuild_filetype_popup(pd);
-	gtk_box_pack_start(GTK_BOX(hbox),pd->hpd.popmenu,TRUE, TRUE, 3);
-	but = gtk_button_new_with_label(_("Reset"));
-	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(highlightpattern_reset_clicked_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox),but,FALSE, FALSE, 3);
-
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 3);
-	pd->hpd.entry[0] = boxed_full_entry(_("Pattern name"), NULL, 500, hbox);
-
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_highlightpattern_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 3);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(highlightpattern_delete_clicked_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 1);
-	
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
-
-	pd->hpd.lstore = gtk_list_store_new (1, G_TYPE_STRING);
-	pd->hpd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->hpd.lstore));
-	{
-		GtkTreeViewColumn *column;
-		GtkWidget *scrolwin;
-		GtkTreeSelection *select;
-	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
-
-		column = gtk_tree_view_column_new_with_attributes (_("Pattern"), renderer,"text", 0,NULL);
-		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->hpd.lview), column);
-		scrolwin = gtk_scrolled_window_new(NULL, NULL);
-		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-		gtk_container_add(GTK_CONTAINER(scrolwin), pd->hpd.lview);
-		gtk_box_pack_start(GTK_BOX(hbox), scrolwin, FALSE, TRUE, 2);
-		
-		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
-		g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(highlightpattern_selection_changed_cb),pd);
-	}
-
-	vbox3 = gtk_vbox_new(FALSE, 2);
-	gtk_box_pack_start(GTK_BOX(hbox), vbox3, FALSE, FALSE, 2);
-	/* pack up and down buttons here */
-
-	but = bf_gtkstock_button(GTK_STOCK_GO_UP, G_CALLBACK(highlightpattern_up_clicked_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(vbox3), but, FALSE, FALSE, 1);
-	but = bf_gtkstock_button(GTK_STOCK_GO_DOWN, G_CALLBACK(highlightpattern_down_clicked_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(vbox3), but, FALSE, FALSE, 1);
-	
-	vbox3 = gtk_vbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 2);
-
-	pd->hpd.radio[0] = gtk_radio_button_new_with_label(NULL, _("Start pattern and end pattern"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[0], TRUE, TRUE, 0);
-	pd->hpd.radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[0]), _("Only start pattern"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[1], TRUE, TRUE, 0);
-	pd->hpd.radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[0]), _("Subpattern from parent"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[2], TRUE, TRUE, 0);
-	g_signal_connect(G_OBJECT(pd->hpd.radio[0]), "toggled", G_CALLBACK(highlightpattern_type_toggled), pd);
-	g_signal_connect(G_OBJECT(pd->hpd.radio[1]), "toggled", G_CALLBACK(highlightpattern_type_toggled), pd);
-	g_signal_connect(G_OBJECT(pd->hpd.radio[2]), "toggled", G_CALLBACK(highlightpattern_type_toggled), pd);
-
-	pd->hpd.entry[1] = boxed_full_entry(_("Start pattern"), NULL, 4000, vbox3);
-	pd->hpd.entry[2] = boxed_full_entry(_("End pattern"), NULL, 4000, vbox3);
-	pd->hpd.check = boxed_checkbut_with_value(_("Case sensitive matching"), FALSE, vbox3);
-	pd->hpd.entry[3] = boxed_full_entry(_("Parentmatch"), NULL, 300, vbox3);
-	pd->hpd.entry[4] = prefs_string(_("Foreground color"), "", vbox3, pd, string_color);
-	pd->hpd.entry[5] = prefs_string(_("Background color"), "", vbox3, pd, string_color);
-
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
-	
-	vbox3 = gtk_vbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 0);
-	
-	pd->hpd.radio[3] = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[3], TRUE, TRUE, 0);
-	pd->hpd.radio[4] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[3]), _("force non-bold weight"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[4], TRUE, TRUE, 0);
-	pd->hpd.radio[5] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[3]), _("force bold weight"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[5], TRUE, TRUE, 0);
-
-	vbox3 = gtk_vbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 0);
-
-	pd->hpd.radio[6] = gtk_radio_button_new_with_label(NULL, _("don't change style"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[6], TRUE, TRUE, 0);
-	pd->hpd.radio[7] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[6]), _("force non-italic style"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[7], TRUE, TRUE, 0);
-	pd->hpd.radio[8] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[6]), _("force italic style"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[8], TRUE, TRUE, 0);
 }
 #endif
 
