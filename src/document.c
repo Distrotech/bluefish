@@ -2854,9 +2854,6 @@ static void doc_view_drag_begin_lcb(GtkWidget *widget,GdkDragContext *drag_conte
 static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	GtkWidget *scroll;
 	Tdocument *newdoc;
-#ifdef USE_SCANNER
-	GList *list=NULL;
-#endif	
 	
 	/* test if the current document is empty and nameless, if so we return that */
 	if (!force_new && g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
@@ -2878,9 +2875,9 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	if ( main_v->lang_mgr ) {
 		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),bf_lang_mgr_get_config(main_v->lang_mgr,newdoc->hl->type));
 	}	
-	g_list_free(list); /* BUG: Oskar: why this line here? */
 	bf_textview_set_bg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_bg); 
 	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg); 
+	bf_textview_add_symbol(BF_TEXTVIEW(newdoc->view),"bookmark",gdk_pixbuf_new_from_inline(-1,pixmap_bookmarks,FALSE,NULL));	
 #else	
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
 	newdoc->autoclosingtag = (newdoc->hl->autoclosingtag > 0);		

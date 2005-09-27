@@ -187,7 +187,7 @@ typedef struct {
 typedef struct {
     /*< private > */
     gchar *name;
-    GdkPixmap *pixmap;
+    GdkPixbuf *pixmap;
 } BfTextViewSymbol;
 
 /*
@@ -244,7 +244,7 @@ GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer);
 void bf_textview_show_lines(BfTextView * self, gboolean show);
 void bf_textview_show_symbols(BfTextView * self, gboolean show);
 gboolean bf_textview_add_symbol(BfTextView * self, gchar * name,
-				GdkPixmap * pix);
+				GdkPixbuf * pix);
 void bf_textview_remove_symbol(BfTextView * self, gchar * name);
 void bf_textview_set_symbol(BfTextView * self, gchar * name, gint line,
 			    gboolean set);

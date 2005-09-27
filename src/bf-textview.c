@@ -2015,9 +2015,14 @@ bf_textview_expose_cb (GtkWidget * widget, GdkEventExpose * event, gpointer doc)
 	      aux = g_hash_table_lookup (BF_TEXTVIEW (widget)->symbol_lines, pomstr);
 	      if (aux)
 		{
-		  gdk_draw_drawable (GDK_DRAWABLE (left_win), gc,
+		   GdkPixbuf *pix = gdk_pixbuf_scale_simple(((BfTextViewSymbol *)aux)->pixmap,10,10,GDK_INTERP_BILINEAR);
+			gdk_pixbuf_render_to_drawable   (pix,
+                                             GDK_DRAWABLE (left_win),gc,0,0,pt_sym, w + 2, 10, 10,
+                                             GDK_RGB_DITHER_NORMAL,0,0);
+		   g_free(pix);
+/*		  gdk_draw_drawable (GDK_DRAWABLE (left_win), gc,
 				     GDK_DRAWABLE (((BfTextViewSymbol *)
-						    aux)->pixmap), 0, 0, pt_sym, w + 2, 10, 10);
+						    aux)->pixmap), 0, 0, pt_sym, w + 2, 10, 10);*/
 		}
 	      g_free (pomstr);
 	    }
@@ -2050,7 +2055,7 @@ bf_textview_expose_cb (GtkWidget * widget, GdkEventExpose * event, gpointer doc)
 						    if (b_folded == &tid_true)
 						    {
 		      					gdk_draw_line (GDK_DRAWABLE (left_win), gc,pt_blocks + 3, w + 7, pt_blocks + 7, w + 7);
-							      gdk_draw_line (GDK_DRAWABLE (left_win), gc,pt_blocks + 5, w + 5, pt_blocks + 5, w + 9);
+							      gdk_draw_line (GDK_DRAWABLE (left_win), gc,pt_blocks + 5, w + 5, pt_blocks + 5, w + 9);							      
 		    				}
 						  else
 							    gdk_draw_line (GDK_DRAWABLE (left_win), gc,pt_blocks + 3, w + 7, pt_blocks + 7, w + 7);
@@ -2423,7 +2428,7 @@ bf_textview_show_symbols (BfTextView * self, gboolean show)
 * Returns: TRUE if symbol added or FALSE if widget cannot add symbol (symbol of that name already exists).	
 */
 gboolean
-bf_textview_add_symbol (BfTextView * self, gchar * name, GdkPixmap * pix)
+bf_textview_add_symbol (BfTextView * self, gchar * name, GdkPixbuf * pix)
 {
   gpointer ptr = g_hash_table_lookup (self->symbols, name);
   if (ptr)
@@ -2800,3 +2805,4 @@ gboolean bf_lang_needs_tags(BfLangConfig *cfg) {
 
 
 #endif /* USE_SCANNER */
+
