@@ -25,6 +25,8 @@
 
 #include "bf-textview.h"
 #include "bluefish.h"
+#include "textstyle.h"
+#include "bf_lib.h"
 
 #include <stdarg.h>
 #include <string.h>
@@ -270,66 +272,6 @@ bf_textview_scan (BfTextView * self)
   bf_textview_scan_area (self, &its, &ite);
 }
 
-static gint
-bftv_prepare_indent_blocks (BfTextView * view, gint start)
-{
-  gint currline, lev;
-  TBfBlock *bb;
-  GtkTextIter it1, it2;
-  GtkTextMark *mark = NULL, *mark2 = NULL;
-  GtkTextBuffer *buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (view));
-  BfLangConfig *cfg = view->lang;
-
-  lev = g_array_index (cfg->line_indent, gint, start + 1);
-  currline = start + 1;
-  while (g_array_index (cfg->line_indent, gint, currline) >= lev
-	 && currline < cfg->line_indent->len)
-    {
-      if (g_array_index (cfg->line_indent, gint, currline) > lev)
-	currline = bftv_prepare_indent_blocks (view, currline - 1);
-      currline++;
-    }
-  bb = g_new0 (TBfBlock, 1);
-  bb->def = cfg->iblock;
-  gtk_text_buffer_get_iter_at_line (buffer, &it1, start);
-  gtk_text_buffer_get_iter_at_line (buffer, &it2, currline - 1);
-  bb->b_start = it1;
-  bb->e_start = it2;
-  gtk_text_iter_forward_to_line_end (&it1);
-  gtk_text_iter_forward_to_line_end (&it2);
-  bb->b_end = it1;
-  bb->e_end = it2;
-  bb->single_line = FALSE;
-  if (!bftv_get_block_at_iter (&(bb->b_start)))
-    {
-      mark = gtk_text_buffer_create_mark (buffer, NULL, &(bb->b_start), FALSE);
-      g_object_set_data (G_OBJECT (mark), "_type_", "block_begin");
-      g_object_set_data (G_OBJECT (mark), "folded", "false");
-      g_object_set_data (G_OBJECT (mark), "pointer", bb);
-      bb->mark_begin = mark;
-      bb->b_len = g_utf8_strlen (gtk_text_iter_get_slice (&bb->b_start, &bb->b_end), -1) - 1;
-      mark2 = gtk_text_buffer_create_mark (buffer, NULL, &(bb->e_start), FALSE);
-      g_object_set_data (G_OBJECT (mark2), "_type_", "block_end");
-      g_object_set_data (G_OBJECT (mark2), "folded", "false");
-      g_object_set_data (G_OBJECT (mark2), "pointer", bb);
-      bb->e_len = g_utf8_strlen (gtk_text_iter_get_slice (&bb->e_start, &bb->e_end), -1);
-      bb->mark_end = mark2;
-      gtk_text_buffer_apply_tag_by_name (buffer, "_block_", &(bb->b_start), &(bb->e_end));
-    }
-  return currline - 1;
-}
-
-
-typedef struct {
-	GtkTextBuffer *buf;
-	GtkTextIter *start,*end;
-} Tct;
-
-static void bftv_remove_tag(gpointer key,gpointer value,gpointer data)
-{
-	Tct *s = (Tct*)data;
-	gtk_text_buffer_remove_tag(s->buf,GTK_TEXT_TAG(value),s->start,s->end);
-}
 
 
 /**
@@ -353,7 +295,6 @@ bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter * end
   gshort currstate = 0 ;
   TBfBlock *bf=NULL;
   GtkTextTag *tag=NULL;
-	Tct *ct;
 	gshort **currtable;
 
 
@@ -379,21 +320,8 @@ bf_textview_scan_area (BfTextView * self, GtkTextIter * start, GtkTextIter * end
     g_queue_pop_head (&(self->scanner.tag_stack));
 
   bftv_delete_blocks_from_area (self, start, end);
-  ct = g_new0(Tct,1);
-  ct->buf = buf;
-  ct->start = start;
-  ct->end = end;
-/*  if (self->token_styles)
-	  g_hash_table_foreach(self->token_styles,bftv_remove_tag,ct);
-  if (self->block_styles)	  
-	  g_hash_table_foreach(self->block_styles,bftv_remove_tag,ct);
-  if (self->tag_styles)	  
-	  g_hash_table_foreach(self->tag_styles,bftv_remove_tag,ct);
-  if (self->group_styles)	  
-  	  g_hash_table_foreach(self->group_styles,bftv_remove_tag,ct);*/
-  g_free(ct);
 
-currtable = self->lang->scan_table;
+   currtable = self->lang->scan_table;
 
 while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 {
@@ -403,22 +331,6 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 	
       c = gtk_text_iter_get_char (&ita);
       if ((gint) c < 0 || (gint) c > BFTV_UTF8_RANGE) 	{ recognizing=FALSE; currstate = 0; }
-
-      if (self->lang->indent_blocks && c == '\n') /* indent blocks */
-		{
-		  iaux = gtk_text_iter_get_line (&ita);
-		  pit = ita;
-		  gtk_text_iter_set_line (&pit, iaux);
-		  lev = 0;
-		  while ((gtk_text_iter_get_char (&pit) == ' '  || gtk_text_iter_get_char (&pit) == '\t')  && gtk_text_iter_get_char (&pit) != '\n')
-	    	{
-	      		lev++;
-		       gtk_text_iter_forward_char (&pit);
-	    	}
-		  if (self->lang->line_indent->len > iaux)
-		    self->lang->line_indent = g_array_remove_index (self->lang->line_indent, iaux);
-		    g_array_insert_val (self->lang->line_indent, iaux, lev);
-		} /* indent blocks */
 
       while (gtk_text_iter_compare (&ita, end) <= 0 && self->lang->escapes[(gint) c]) /* remove escapes */
 		{
@@ -439,7 +351,6 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 	    currstate = currtable[currstate][(gint) c];
     else
 	    currstate = currtable[currstate][(gint) g_unichar_toupper (c)];	  
-/*	g_print("state2:%d, char:%c\n",currstate,c);      */
 	if ( currstate != 0 )
 	{
 		recognizing = TRUE;
@@ -488,9 +399,6 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 								}	
 								if ( self->highlight /*&& self->token_styles && self->group_styles*/ ) 
 								{
-										/*tag = g_hash_table_lookup(self->token_styles,t->name);
-										if ( !tag && t->group)
-												tag = g_hash_table_lookup(self->group_styles,t->group);*/
 									if ( t->tag )
 										gtk_text_buffer_apply_tag(buf,t->tag,&its,&ita);
 								}
@@ -508,7 +416,6 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 								if ( self->highlight /*&& self->tag_styles*/  ) 
 								{
 									/* get this tag from the Tfiletype struct !! */
-										/*tag = g_hash_table_lookup(self->tag_styles,"tag_end");*/
 										tag = self->lang->tag_end;
 										if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&its,&ita);										
@@ -540,11 +447,9 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 										if ( self->highlight /*&& self->tag_styles*/ ) 
 										{
 											/* get from Tfiletype struct */
-											/*tag = g_hash_table_lookup(self->tag_styles,"attr_name");*/
 											tag = self->lang->attr_name;
 											if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&its,&pit);										
-											/*tag = g_hash_table_lookup(self->tag_styles,"attr_val");*/
 											tag = self->lang->attr_val;
 											if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&pit,&ita);										
@@ -566,7 +471,6 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 									if ( self->highlight /*&& self->tag_styles */ ) 
 									{
 										/* get tag from Tfiletype struct */
-										/*tag = g_hash_table_lookup(self->tag_styles,"tag_begin");*/
 										tag = self->lang->tag_begin;
 										if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&bf->b_start,&ita);										
@@ -624,7 +528,6 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 									if ( self->highlight /*&& self->tag_styles */ ) 
 									{
 										/* get tag from Tfiletype struct */
-										/*tag = g_hash_table_lookup(self->tag_styles,"tag_begin");*/
 										tag = self->lang->tag_begin;
 										if ( tag )
 												gtk_text_buffer_apply_tag(buf,tag,&bf->b_start,&ita);										
@@ -700,9 +603,6 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
   								   
 									if ( self->highlight /*&& self->block_styles  && self->group_styles*/) 
 									{
-										/*tag = g_hash_table_lookup(self->block_styles,tmp->id);
-										if ( !tag && tmp->group)
-												tag = g_hash_table_lookup(self->group_styles,tmp->group);*/
 										if ( tmp->tag )
 												gtk_text_buffer_apply_tag(buf,tmp->tag,&bf->b_start,&ita);
 									}							   	
@@ -752,18 +652,6 @@ while (gtk_text_iter_compare (&ita, end) <= 0) /* main loop */
 		gtk_text_iter_forward_char (&ita);
  }		/* main loop */	
 
-  if (self->lang->indent_blocks)
-    {
-      for (iaux = 0; iaux < self->lang->line_indent->len; iaux++)
-	{
-	  if (iaux + 1 < self->lang->line_indent->len)
-	    {
-	      if (g_array_index (self->lang->line_indent, gint, iaux)
-		  < g_array_index (self->lang->line_indent, gint, iaux + 1))
-		iaux = bftv_prepare_indent_blocks (self, iaux);
-	    }
-	}
-    }
 
 #ifdef HL_PROFILING
 {
