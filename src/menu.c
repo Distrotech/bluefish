@@ -465,13 +465,13 @@ static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory)
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
 	DEBUG_MSG("menu_current_document_type_change, started for hlset %p\n", bdm->data);
 	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
-#ifndef USE_SCANNER			
 		if (doc_set_filetype(bdm->bfwin->current_document, bdm->data)) {
+#ifndef USE_SCANNER			
 			doc_highlight_full(bdm->bfwin->current_document);
+#endif			
 		} else {
 			menu_current_document_set_toggle_wo_activate(bdm->bfwin,bdm->bfwin->current_document->hl, NULL);
 		}
-#endif			
 	}
 	doc_set_statusbar_editmode_encoding(bdm->bfwin->current_document);
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
