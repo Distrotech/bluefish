@@ -447,9 +447,9 @@ void gui_set_document_widgets(Tdocument *doc) {
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Show blocks", doc->blocksstate);
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Show symbols", doc->symstate);
 #endif	
-#ifndef USE_SCANNER	
+/*#ifndef USE_SCANNER	why did we not set the encoding and filetype with the scanner enabled????*/
 	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),doc->hl, doc->encoding);
-#endif	
+/*#endif	*/
 }
 
 void gui_notebook_bind_signals(Tbfwin *bfwin) {
