@@ -1817,6 +1817,7 @@ bf_textview_expose_cb (GtkWidget * widget, GdkEventExpose * event, gpointer doc)
   GdkColor cwhite, cblack;
   GtkTextBuffer *buf = gtk_text_view_get_buffer (GTK_TEXT_VIEW (widget));
 
+	DEBUG_MSG("bf_textview_expose_cb, started\n");
 
   left_win = gtk_text_view_get_window (GTK_TEXT_VIEW (widget), GTK_TEXT_WINDOW_LEFT);
   if (left_win != event->window)
@@ -1883,9 +1884,9 @@ bf_textview_expose_cb (GtkWidget * widget, GdkEventExpose * event, gpointer doc)
       gtk_text_view_buffer_to_window_coords (GTK_TEXT_VIEW (widget),
 					     GTK_TEXT_WINDOW_LEFT, 0, w, NULL, &w);
 
-      if (BF_TEXTVIEW (widget)->show_lines)
-	{			/* show line numbers */
-	  if (!gtk_text_iter_has_tag (&it, BF_TEXTVIEW (widget)->folded_tag))
+      if (BF_TEXTVIEW (widget)->show_lines) {			/* show line numbers */
+      DEBUG_MSG("checking for folded tag %p\n",BF_TEXTVIEW(widget)->folded_tag);
+	  if (!gtk_text_iter_has_tag (&it, BF_TEXTVIEW(widget)->folded_tag))
 	    {
 	      pomstr = g_strdup_printf ("<span foreground=\"#7E7979\">%d</span>", i + 1);
 	      pango_layout_set_markup (l, pomstr, -1);
@@ -1954,8 +1955,8 @@ bf_textview_expose_cb (GtkWidget * widget, GdkEventExpose * event, gpointer doc)
 							  gdk_draw_line (GDK_DRAWABLE (left_win), gc, pt_blocks + 5, w + 6, pt_blocks + 10, w + 6);
 						}	
 	    		}
-			  else
-	   	 {			/* not block begin or end, but perhaps inside */
+			  else {			/* not block begin or end, but perhaps inside */
+				DEBUG_MSG("checking if we're in tag %p\n",BF_TEXTVIEW(widget)->block_tag);
 	   		   if (gtk_text_iter_has_tag(&it, BF_TEXTVIEW (widget)->block_tag)
 						  && !gtk_text_iter_has_tag (&it, BF_TEXTVIEW (widget)->folded_tag))
 					{
