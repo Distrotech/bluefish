@@ -2447,6 +2447,7 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	g_free(pd);
 }
 static void preferences_apply(Tprefdialog *pd) {
+	DEBUG_MSG("preferences_apply, started\n");
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.editor_tab_width, pd->prefs[editor_tab_width], FALSE);
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);

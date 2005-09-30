@@ -70,12 +70,18 @@ static void addtolist_lcb(GtkTextTag *tag,gpointer data) {
 
 void textstyle_rebuild(void) {
 	GList *tmplist=NULL;
+	DEBUG_MSG("textstyle_rebuild, started\n");
 	if (textstyle.tagtable) {
 		/* cleanup the existing tags */
 		gtk_text_tag_table_foreach(textstyle.tagtable,addtolist_lcb,&tmplist);
 		for (tmplist=g_list_first(tmplist);tmplist!=NULL;tmplist=tmplist->next) {
-			DEBUG_MSG("textstyle_rebuild, removing tag %p from tagtable %p\n",tmplist->data,textstyle.tagtable);
-			gtk_text_tag_table_remove(textstyle.tagtable,tmplist->data);
+			GtkTextTag *tag = tmplist->data;
+			if (strcmp(tag->name, "_folded_") !=0 && strcmp(tag->name, "_fold_header_") !=0 && strcmp(tag->name, "_block_") !=0 && strcmp(tag->name, "_block_match_") !=0) {
+				DEBUG_MSG("textstyle_rebuild, removing tag %p from tagtable %p\n",tmplist->data,textstyle.tagtable);
+				gtk_text_tag_table_remove(textstyle.tagtable,tmplist->data);
+			} else {
+				DEBUG_MSG("textstyle_rebuild, not removing %s\n",tag->name);
+			}
 		}
 		g_list_free(tmplist);
 	} else {
@@ -122,8 +128,9 @@ gchar **get_arr_for_scanner_style(gchar *filetype,gchar *type,gchar *name) {
 GtkTextTag *get_tag_for_scanner_style(gchar *filetype,gchar *type,gchar *name) {
 	gchar **arr1 = get_arr_for_scanner_style(filetype,type,name);
 	if (arr1) {
-		DEBUG_MSG("get_tag_for_scanner_style(%s:%s:%s) return tag for textstyle %s\n",filetype,type,name,arr1[3]);
-		return textstyle_get(arr1[3]);
+		GtkTextTag *tag = textstyle_get(arr1[3]);
+		DEBUG_MSG("get_tag_for_scanner_style(%s:%s:%s) return tag %p for textstyle %s\n",filetype,type,name,tag,arr1[3]);
+		return tag;
 	}
 	DEBUG_MSG("no config found for %s:%s:%s\n",filetype,type,name);
 	return NULL;
