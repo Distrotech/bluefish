@@ -466,7 +466,7 @@ static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu
 	DEBUG_MSG("menu_current_document_type_change, started for hlset %p\n", bdm->data);
 	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
 		if (doc_set_filetype(bdm->bfwin->current_document, bdm->data)) {
-#ifndef USE_SCANNER			
+#ifndef USE_SCANNER /* the scanner sets the filetype pointer in doc_set_filetype() */
 			doc_highlight_full(bdm->bfwin->current_document);
 #endif			
 		} else {
