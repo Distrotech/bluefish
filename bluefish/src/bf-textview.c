@@ -1174,7 +1174,7 @@ static gpointer bftv_make_entity(xmlDocPtr doc,xmlNodePtr node,BfLangConfig *cfg
 	return NULL;
 }
 
-static BfLangConfig *bftv_load_config(gchar * filename)
+static BfLangConfig *bftv_load_config(gchar * filename, const gchar *filetype_name)
 {
 	xmlDocPtr doc;
 	xmlNodePtr cur, cur2;
@@ -1189,7 +1189,8 @@ static BfLangConfig *bftv_load_config(gchar * filename)
 	cur = xmlDocGetRootElement(doc);
 	if (xmlStrcmp(cur->name, (const xmlChar *) "bflang") == 0) {
 		cfg = g_new0(BfLangConfig, 1);
-		cfg->name = xmlGetProp(cur, (const xmlChar *) "name");
+/*		cfg->name = xmlGetProp(cur, (const xmlChar *) "name"); */
+		cfg->name = g_strdup(filetype_name);
 		cfg->description = xmlGetProp(cur, (const xmlChar *) "description");
 		cfg->blocks = g_hash_table_new(g_str_hash, g_str_equal);
 		cfg->blocks_id = g_hash_table_new(g_int_hash, g_int_equal);
@@ -2577,7 +2578,7 @@ BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, gchar * filename, gpo
 	fname2 = g_strconcat(g_get_home_dir(), "/."PACKAGE"/",filename, NULL);
 	fname = return_first_existing_filename(fname1,fname2,NULL);
 	if (fname) {
-		cfg = bftv_load_config(fname);
+		cfg = bftv_load_config(fname, FILETYPE(filetype)->type);
 		if (cfg != NULL) {
 			cfg->filetype = filetype;
 			bftv_make_config_tables (cfg);
