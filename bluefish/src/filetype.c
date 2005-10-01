@@ -259,19 +259,18 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 			/* load configuration */
 			filetype->language_file = g_strdup(strarr[7]);
 			if (filetype->language_file && filetype->language_file[0] != '\0') {
-				BfLangConfig *cfg;
 				gint i = 0;
 				DEBUG_MSG("filetype_highlighting_rebuild, get config for %s\n",filetype->type);
-				if (!bf_lang_mgr_get_config(main_v->lang_mgr, filetype->type)) {
+				filetype->cfg = bf_lang_mgr_get_config(main_v->lang_mgr, filetype->type);
+				if (!filetype->cfg) {
 					DEBUG_MSG("filetype_highlighting_rebuild, loading %s(%p) from %s\n",filetype->type,filetype,filetype->language_file);
-					bf_lang_mgr_load_config(main_v->lang_mgr, filetype->language_file, filetype);
+					filetype->cfg = bf_lang_mgr_load_config(main_v->lang_mgr, filetype->language_file, filetype);
 				}
-				cfg = bf_lang_mgr_get_config(main_v->lang_mgr, (gpointer)filetype);
-				if (cfg) {
+				if (filetype->cfg) {
 					gchar *p = filetype->update_chars;
 					i = 0;
 					while (i < g_utf8_strlen(filetype->update_chars, -1)) {
-						cfg->as_triggers[(gint) * p] = 1;
+						filetype->cfg->as_triggers[(gint) * p] = 1;
 						i++;
 						p = g_utf8_next_char(p);
 					}

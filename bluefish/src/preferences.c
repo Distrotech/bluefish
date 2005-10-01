@@ -1029,10 +1029,10 @@ static void textstyle_selection_changed_cb(GtkTreeSelection *selection, Tprefdia
 		DEBUG_MSG("textstyle_selection_changed_cb, strarr=%p\n",strarr);
 		gtk_entry_set_text(GTK_ENTRY(pd->tsd.fg_color), strarr[1]);
 		gtk_entry_set_text(GTK_ENTRY(pd->tsd.bg_color), strarr[2]);
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.bold_radio[0]), (strarr[3][0] == '0'));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.bold_radio[0]), (strarr[3][0] != '1' && strarr[3][0] != '2'));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.bold_radio[1]), (strarr[3][0] == '1'));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.bold_radio[2]), (strarr[3][0] == '2'));
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[0]), (strarr[4][0] == '0'));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[0]), (strarr[4][0] != '1' && strarr[4][0] != '2'));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[1]), (strarr[4][0] == '1'));
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.italic_radio[2]), (strarr[4][0] == '2'));
 		pd->tsd.curstrarr = strarr;
@@ -1156,7 +1156,6 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	g_signal_connect(G_OBJECT(pd->tsd.italic_radio[0]),"toggled",G_CALLBACK(textstyle_radio_changed),pd);
 	g_signal_connect(G_OBJECT(pd->tsd.italic_radio[1]),"toggled",G_CALLBACK(textstyle_radio_changed),pd);
 	g_signal_connect(G_OBJECT(pd->tsd.italic_radio[2]),"toggled",G_CALLBACK(textstyle_radio_changed),pd);
-
 
 	hbox2 = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1),hbox2, TRUE, TRUE, 2);
@@ -2033,7 +2032,7 @@ static void hl_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd
 				strarr[0] = filetype;
 				strarr[1] = type;
 				strarr[2] = name;
-				strarr[3] = g_strdup("old value");
+				strarr[3] = g_strdup("");
 				strarr[4] = NULL;
 				DEBUG_MSG("hl_selection_changed_cb, created %p %s:%s:%s:%s\n",strarr, strarr[0],strarr[1],strarr[2],strarr[3]);
 				gtk_tree_store_set(GTK_TREE_STORE(model), &iter, 3, strarr, -1);

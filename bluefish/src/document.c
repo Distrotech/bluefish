@@ -480,7 +480,7 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 		doc->need_highlighting = TRUE;
 		doc->autoclosingtag = (ft->autoclosingtag > 0);
 #ifdef USE_SCANNER
-		bf_textview_set_language_ptr(BF_TEXTVIEW(doc->view),bf_lang_mgr_get_config(main_v->lang_mgr,ft->type));
+		bf_textview_set_language_ptr(BF_TEXTVIEW(doc->view),ft->cfg);
 /*		BF_TEXTVIEW(doc->view)->token_styles =  doc->hl->hl_token;
 		BF_TEXTVIEW(doc->view)->block_styles =  doc->hl->hl_block;
 		BF_TEXTVIEW(doc->view)->tag_styles =  doc->hl->hl_tag;
@@ -2872,9 +2872,9 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
 	
-	if ( main_v->lang_mgr ) {
-		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),bf_lang_mgr_get_config(main_v->lang_mgr,newdoc->hl->type));
-	}	
+	if (newdoc->hl->cfg) {
+		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),newdoc->hl->cfg);
+	}
 	bf_textview_set_bg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_bg); 
 	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg); 
 	bf_textview_add_symbol(BF_TEXTVIEW(newdoc->view),"bookmark",gdk_pixbuf_new_from_inline(-1,pixmap_bookmarks,FALSE,NULL));	

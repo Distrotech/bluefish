@@ -2569,8 +2569,7 @@ bf_lang_mgr_new ()
   ret->languages = g_hash_table_new (g_str_hash, g_str_equal);
   return ret;
 }
-
-gboolean bf_lang_mgr_load_config (BfLangManager * mgr, gchar * filename, gpointer filetype) {
+BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, gchar * filename, gpointer filetype) {
 	gchar *fname, *fname1, *fname2;
 	BfLangConfig *cfg = NULL;
 	
@@ -2588,16 +2587,13 @@ gboolean bf_lang_mgr_load_config (BfLangManager * mgr, gchar * filename, gpointe
 	}
 	g_free(fname1);
 	g_free(fname2);
-	return (cfg != NULL);
+	return (cfg);
 }
 
 
-BfLangConfig *
-bf_lang_mgr_get_config (BfLangManager * mgr, gchar * filetype)
-{
-  if (!filetype)
-    return NULL;
-  return g_hash_table_lookup (mgr->languages, filetype);
+BfLangConfig *bf_lang_mgr_get_config (BfLangManager * mgr, const gchar * filetype) {
+	if (!filetype) return NULL;
+	return g_hash_table_lookup (mgr->languages, filetype);
 }
 
 /*

@@ -122,8 +122,8 @@ typedef struct {
 } BfLangManager;
 
 BfLangManager *bf_lang_mgr_new ();
-gboolean bf_lang_mgr_load_config(BfLangManager * mgr, gchar * filename, gpointer filetype);
-BfLangConfig *bf_lang_mgr_get_config(BfLangManager * mgr, gchar * filetype);
+BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, gchar * filename, gpointer filetype);
+BfLangConfig *bf_lang_mgr_get_config(BfLangManager * mgr, const gchar * filetype);
 
 typedef struct {
     /*< private > */
