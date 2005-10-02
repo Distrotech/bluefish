@@ -348,7 +348,7 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 			styletitle = gtk_editable_get_chars (GTK_EDITABLE (qstart->styletitle), 0, -1);
 			
 			if (strcmp(name, "Linked") == 0) {
-				stylestr = g_string_append (stylestr, "<link rel=stylesheet type=\"text/css\" ");
+				stylestr = g_string_append (stylestr, "<link rel=\"stylesheet\" type=\"text/css\" ");
 				if (strlen(stylemedia) > 0) {
 					if (strlen(styletitle) > 0) {
 						tmpstr2 = g_strdup_printf ("media=\"%s\" href=\"%s\" title=\"%s\">\n", stylemedia, stylehref, styletitle);
