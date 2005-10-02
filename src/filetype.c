@@ -261,10 +261,10 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 			if (filetype->language_file && filetype->language_file[0] != '\0') {
 				gint i = 0;
 				DEBUG_MSG("filetype_highlighting_rebuild, get config for %s\n",filetype->type);
-				filetype->cfg = bf_lang_mgr_get_config(main_v->lang_mgr, filetype->type);
+				filetype->cfg = bf_lang_mgr_get_config(main_v->lang_mgr, filetype->language_file);
 				if (!filetype->cfg) {
 					DEBUG_MSG("filetype_highlighting_rebuild, loading %s(%p) from %s\n",filetype->type,filetype,filetype->language_file);
-					filetype->cfg = bf_lang_mgr_load_config(main_v->lang_mgr, filetype->language_file, filetype);
+					filetype->cfg = bf_lang_mgr_load_config(main_v->lang_mgr, filetype->language_file);
 				}
 				if (filetype->cfg) {
 					gchar *p = filetype->update_chars;
