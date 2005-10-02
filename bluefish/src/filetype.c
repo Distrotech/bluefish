@@ -275,6 +275,8 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 						p = g_utf8_next_char(p);
 					}
 				}
+			} else {
+				filetype->cfg = NULL;
 			}
 			filetype->highlightlist = NULL;
 /*			filetype->hl_block = g_hash_table_new(g_str_hash, g_str_equal);
