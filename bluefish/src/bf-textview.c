@@ -2570,7 +2570,7 @@ bf_lang_mgr_new ()
   ret->languages = g_hash_table_new (g_str_hash, g_str_equal);
   return ret;
 }
-BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, gchar * filename, gpointer filetype) {
+BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, const gchar * filename) {
 	gchar *fname, *fname1, *fname2;
 	BfLangConfig *cfg = NULL;
 	
@@ -2578,12 +2578,11 @@ BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, gchar * filename, gpo
 	fname2 = g_strconcat(g_get_home_dir(), "/."PACKAGE"/",filename, NULL);
 	fname = return_first_existing_filename(fname1,fname2,NULL);
 	if (fname) {
-		cfg = bftv_load_config(fname, FILETYPE(filetype)->type);
+		cfg = bftv_load_config(fname, filename);
 		if (cfg != NULL) {
-			cfg->filetype = filetype;
 			bftv_make_config_tables (cfg);
-			DEBUG_MSG("bf_lang_mgr_load_config, adding %s to hashtable\n",FILETYPE(filetype)->type);
-			g_hash_table_replace (mgr->languages, FILETYPE(filetype)->type, cfg);
+			DEBUG_MSG("bf_lang_mgr_load_config, adding %s to hashtable\n",filename);
+			g_hash_table_replace (mgr->languages, filename, cfg);
 		}
 	}
 	g_free(fname1);
@@ -2592,9 +2591,8 @@ BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, gchar * filename, gpo
 }
 
 
-BfLangConfig *bf_lang_mgr_get_config (BfLangManager * mgr, const gchar * filetype) {
-	if (!filetype) return NULL;
-	return g_hash_table_lookup (mgr->languages, filetype);
+BfLangConfig *bf_lang_mgr_get_config (BfLangManager * mgr, const gchar * filename) {
+	return g_hash_table_lookup (mgr->languages, filename);
 }
 
 /*
