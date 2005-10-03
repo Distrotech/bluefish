@@ -31,7 +31,7 @@
 #include <stdlib.h>		/* system() */
 #include <pcre.h>
 
-/* #define DEBUG */
+#define DEBUG
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -480,11 +480,8 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 		doc->need_highlighting = TRUE;
 		doc->autoclosingtag = (ft->autoclosingtag > 0);
 #ifdef USE_SCANNER
+		DEBUG_MSG("doc_set_filetype, calling bf_textview_set_language_ptr(%p)\n",ft->cfg);
 		bf_textview_set_language_ptr(BF_TEXTVIEW(doc->view),ft->cfg);
-/*		BF_TEXTVIEW(doc->view)->token_styles =  doc->hl->hl_token;
-		BF_TEXTVIEW(doc->view)->block_styles =  doc->hl->hl_block;
-		BF_TEXTVIEW(doc->view)->tag_styles =  doc->hl->hl_tag;
-		BF_TEXTVIEW(doc->view)->group_styles =  doc->hl->hl_group;*/
 #endif		
 		gui_set_document_widgets(doc);
 		doc_set_tooltip(doc);

@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 #include "config.h"
 #ifdef USE_SCANNER
@@ -37,8 +37,6 @@
 #include <sys/times.h>
 #include <unistd.h>
 #endif
-
-
 
 #ifdef HL_PROFILING
 	struct tms tms1;
@@ -1189,8 +1187,7 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar *filetype_na
 	cur = xmlDocGetRootElement(doc);
 	if (xmlStrcmp(cur->name, (const xmlChar *) "bflang") == 0) {
 		cfg = g_new0(BfLangConfig, 1);
-/*		cfg->name = xmlGetProp(cur, (const xmlChar *) "name"); */
-		cfg->name = g_strdup(filetype_name);
+		cfg->name = xmlGetProp(cur, (const xmlChar *) "name");
 		cfg->description = xmlGetProp(cur, (const xmlChar *) "description");
 		cfg->blocks = g_hash_table_new(g_str_hash, g_str_equal);
 		cfg->blocks_id = g_hash_table_new(g_int_hash, g_int_equal);
