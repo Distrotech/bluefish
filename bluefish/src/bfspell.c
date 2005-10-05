@@ -108,7 +108,7 @@ gchar *doc_get_next_word(Tbfspell *bfspell, GtkTextIter *itstart, GtkTextIter *i
 	if (bfspell->offset > bfspell->stop_position) {
 		return NULL;
 	}
-	retval = gtk_text_buffer_get_text(bfspell->doc->buffer,itstart,itend,FALSE);
+	retval = gtk_text_buffer_get_text(bfspell->doc->buffer,itstart,itend,TRUE);
 	if (strlen(retval)<1) {
 		g_free(retval);
 		return NULL;
