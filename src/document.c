@@ -968,7 +968,7 @@ gchar *doc_get_chars(Tdocument *doc, gint start, gint end) {
 		return NULL;
 	}
 	DEBUG_MSG("doc_get_chars, retrieving string, start=%d, end=%d\n", start, end);
-	string = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,FALSE);
+	string = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,TRUE);
 	DEBUG_MSG("doc_get_chars, retrieved string (%p)\n", string);
 	return string;
 }
@@ -1207,7 +1207,7 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 		DEBUG_MSG("doc_replace_text_backend, get iters at start %d and end %d\n", start, end);
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
-		buf = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,FALSE);
+		buf = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,TRUE);
 		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 		DEBUG_MSG("doc_replace_text_backend, calling doc_unre_add for buf=%s, start=%d and end=%d\n", buf, start, end);
 		doc_unre_add(doc, buf, start, end, UndoDelete);
@@ -1759,7 +1759,7 @@ static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIt
 			gchar *tmp;
 			GtkTextIter itstart = *iter, itend=*iter;
 			gtk_text_iter_backward_chars(&itstart,2);
-			tmp = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+			tmp = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
 			DEBUG_MSG("closingtagtoinsert, while testing for XML < />, tmp=%s\n",tmp);
 			if (tmp[0] == '/') {
 				g_free(tmp);
@@ -1865,7 +1865,7 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 				int ovector[30], ret;
 				DEBUG_MSG("doc_view_key_release_lcb, we found a '<'\n");
 				maxsearch = iter; /* re-use maxsearch */
-				buf = gtk_text_buffer_get_text(doc->buffer,&itstart,&maxsearch,FALSE);
+				buf = gtk_text_buffer_get_text(doc->buffer,&itstart,&maxsearch,TRUE);
 				DEBUG_MSG("doc_view_key_release_lcb, buf='%s'\n",buf);
 				ret = pcre_exec(main_v->autoclosingtag_regc, NULL, buf, strlen(buf), 0,PCRE_ANCHORED, ovector, 30);
 				if (ret > 0) {
@@ -1915,7 +1915,7 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 			/* set to the beginning of the previous line */
 			gtk_text_iter_backward_line(&itstart);
 			gtk_text_iter_set_line_index(&itstart, 0);
-			string = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+			string = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
 			if (string) {
 				/* now count the indenting in this string */
 				indenting = string;
@@ -1938,7 +1938,7 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * itstart,GtkTextIter * itend, Tdocument * doc) {
 	gchar *string;
 	gboolean do_highlighting=FALSE;
-	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, FALSE);
+	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, TRUE);
 	DEBUG_MSG("doc_buffer_delete_range_lcb, string='%s'\n",string);
 	if (string) {
 		/* highlighting stuff */
@@ -2238,7 +2238,7 @@ gchar *doc_get_buffer_in_encoding(Tdocument *doc) {
 	gchar *buffer;
 
 	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-	buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+	buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
 	
 	if (doc->encoding) {
 		gchar *newbuf;
@@ -2275,7 +2275,7 @@ gchar *doc_get_buffer_in_encoding(Tdocument *doc) {
 				update_encoding_meta_in_file(doc, "UTF-8");
 				g_free(buffer);
 				gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-				buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+				buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
 			}
 		}
 	}
@@ -2342,7 +2342,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 	}
 	
 	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-	buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+	buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
 	
 	if (doc->encoding) {
 		gchar *newbuf;
@@ -2375,7 +2375,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 				update_encoding_meta_in_file(doc, "UTF-8");
 				g_free(buffer);
 				gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-				buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+				buffer = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
 			}
 		}
 	}
@@ -3773,7 +3773,7 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 					gint i=0;
 					itend = itstart;
 					gtk_text_iter_forward_chars(&itend,main_v->props.editor_tab_width);
-					buf = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,FALSE);
+					buf = gtk_text_buffer_get_text(doc->buffer,&itstart,&itend,TRUE);
 					DEBUG_MSG("tab_width=%d, strlen(buf)=%d, buf='%s'\n",main_v->props.editor_tab_width,strlen(buf),buf);
 					while (cont && buf[i] != '\0') {
 						cont = (buf[i] == ' ');
@@ -3833,7 +3833,7 @@ void doc_indent_selection(Tdocument *doc, gboolean unindent) {
 			gchar *tmpstr, *tmp2str;
 			GtkTextIter itend = iter;
 			gtk_text_iter_forward_chars(&itend,main_v->props.editor_tab_width);
-			tmpstr = gtk_text_buffer_get_text(doc->buffer,&iter,&itend,FALSE);
+			tmpstr = gtk_text_buffer_get_text(doc->buffer,&iter,&itend,TRUE);
 			tmp2str = bf_str_repeat(" ", main_v->props.editor_tab_width);
 			if (tmpstr[0] == '\t') {
 				deletelen = 1;

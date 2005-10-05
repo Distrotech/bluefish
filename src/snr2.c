@@ -1296,7 +1296,7 @@ static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
 	}
 	/*buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(data->search_entry));
 	gtk_text_buffer_get_bounds(buf,&itstart,&itend);
-	LASTSNR2(bfwin->snr2)->search_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);*/
+	LASTSNR2(bfwin->snr2)->search_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, TRUE);*/
 	LASTSNR2(bfwin->snr2)->search_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(data->search_combo)->entry),0,-1);
 	
 	data->bfwin->session->searchlist = add_to_history_stringlist(data->bfwin->session->searchlist,LASTSNR2(bfwin->snr2)->search_pattern,TRUE,TRUE);
@@ -1308,7 +1308,7 @@ static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
 		/*GtkTextIter itstart, itend;
 		GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(data->replace_entry));
 		gtk_text_buffer_get_bounds(buf,&itstart,&itend);
-		LASTSNR2(bfwin->snr2)->replace_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, FALSE);*/
+		LASTSNR2(bfwin->snr2)->replace_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, TRUE);*/
 		LASTSNR2(bfwin->snr2)->replace = 1;
 		LASTSNR2(bfwin->snr2)->replace_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(data->replace_combo)->entry),0,-1);
 		
@@ -1405,7 +1405,7 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	gtk_misc_set_alignment (GTK_MISC (snr2win->search_label), 0, 0.5);
 	/*snr2win->search_scrollbox = textview_buffer_in_scrolwin(&snr2win->search_entry, 300, 50, LASTSNR2(bfwin->snr2)->search_pattern, GTK_WRAP_NONE);*/
 	gtk_text_buffer_get_selection_bounds(bfwin->current_document->buffer, &start, &end);
-	buffer = gtk_text_buffer_get_text(bfwin->current_document->buffer, &start, &end, FALSE);
+	buffer = gtk_text_buffer_get_text(bfwin->current_document->buffer, &start, &end, TRUE);
 	if (strchr(buffer,'\n')!=NULL) {
 		/* a newline in the selection, we probably don't want this string as search string */
 		g_free(buffer);
