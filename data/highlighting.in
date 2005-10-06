@@ -237,6 +237,7 @@ shell:Statement:0:\\b(alias|break|case|continue|do|done|elif|else|esac|exit|expo
 shell:Comment:1:#.*?$::2::#994f49::0:2:
 shell:EOL escape:1:\\\\\\n::2::#cc0000::0:0:
 sql:Braces:1:[{()}]::2::::2:0:
+sql:Comment:1:--:\\n:1::#C0C0C0::0:0:
 sql:Table:1:([a-z0-9]+)\\.::2::::2:2:
 sql:Row:1:\\.([a-z0-9]+)::2::::0:2:
 sql:Reference:1:\\@([a-z0-9]+)::2::navy::2:2:
@@ -268,7 +269,6 @@ sql:Data Types:1:\\b(CHAR|CHAR_LENGTH|CHARACTER|CHARACTER_LENGTH|DEC|DECIMAL|DOU
 sql:Admin:1:\\b(AUTHORIZATION|DROP|GRANT|GROUP|SYSTEM_USER|USER|REVOKE|PRIVILEGES|SESSION|SESSION_USER)\\b::2::#992828::2:0:
 sql:User/Host:1:\\b([a-z0-9]+)\\@([a-z0-9]+)\\b::2::::2:2:
 sql:Group/Joining/Order:1:\\b(GROUP BY|INNER JOIN|OUTER JOIN|RIGHT JOIN|LEFT JOIN|ORDER BY)\\b::2::darkorange::2:0:
-sql:Comment:1:--:\\n:1::#C0C0C0::0:0:
 Tcl:Comment:1:#.*?$::2:^top$:#999999::0:2:
 Tcl:Keywords:1:\\b(package|proc|global|return)\\b::2::#003399::2:1:
 Tcl:Import/Include:1:\\b(require|provide)\\b::2::#009999::2:1:
