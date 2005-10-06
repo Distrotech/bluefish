@@ -1499,6 +1499,8 @@ static void generalfontdialog_lcb(gint type, GtkWidget * widget, Thtml_diag *dg)
 	finalstring = g_strconcat(thestring, ">", NULL);
 	g_free(thestring);
 
+	dg->bfwin->session->fontlist = add_entry_to_stringlist(dg->bfwin->session->fontlist, GTK_WIDGET(GTK_COMBO(dg->combo[3])->entry));
+
 	if (dg->range.end == -1) {
 		doc_insert_two_strings(dg->doc, finalstring, cap("</FONT>"));
 	} else {
