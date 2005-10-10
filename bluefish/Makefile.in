@@ -50,6 +50,7 @@ bluefish:all
 all: ${MAKEMAIN}
 	@cd src/ && $(MAKE) all
 	@cd data/ && $(MAKE) all
+	@cd man/ && $(MAKE) all
 
 make-nls:
 	cd po/ && $(MAKE) all;
@@ -59,6 +60,7 @@ clean:
 	@cd src/ && $(MAKE) clean
 	@cd po/ && $(MAKE) clean
 	@cd data/ && $(MAKE) clean
+	@cd man/ && $(MAKE) clean
 
 patchclean: clean
 	rm -f *.orig *.rej
@@ -86,12 +88,15 @@ install: src/bluefish ${INSTALLMAIN}
 	@cd icons/ && $(MAKE) install
 	@cd src/ && $(MAKE) install
 	@cd data/ && $(MAKE) install
+	@cd man/ && $(MAKE) install
 
 uninstall:
 	@cd icons/ && $(MAKE) uninstall
 	@cd src/ && $(MAKE) uninstall
 	@cd po/ && $(MAKE) uninstall
 	@cd data/ && $(MAKE) uninstall
+	@cd data/ && $(MAKE) uninstall
 	rm -f $(pkgdatadir)/bluefish_splash.png
 	rm -f $(iconpath)/bluefish-icon.png
 	/bin/rmdir $(DESTDIR)$(pkgdatadir)
+
