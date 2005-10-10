@@ -70,6 +70,7 @@ distclean:
 	@cd src/ && $(MAKE) distclean
 	@cd po/ && $(MAKE) distclean
 	@cd data/ && $(MAKE) distclean
+	@cd man/ && $(MAKE) distclean
 	rm -f Makefile src/Makefile icons/Makefile config.status config.cache config.log
 	rm -rf autom4te.cache/
 	rm -f *.orig *.rej
@@ -95,7 +96,7 @@ uninstall:
 	@cd src/ && $(MAKE) uninstall
 	@cd po/ && $(MAKE) uninstall
 	@cd data/ && $(MAKE) uninstall
-	@cd data/ && $(MAKE) uninstall
+	@cd man/ && $(MAKE) uninstall
 	rm -f $(pkgdatadir)/bluefish_splash.png
 	rm -f $(iconpath)/bluefish-icon.png
 	/bin/rmdir $(DESTDIR)$(pkgdatadir)
