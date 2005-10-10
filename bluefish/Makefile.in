@@ -51,6 +51,7 @@ bluefish:all
 all: ${MAKEMAIN}
 	@cd src/ && $(MAKE) all
 	@cd data/ && $(MAKE) all
+	@cd man/ && $(MAKE) all
 
 make-nls:
 	cd po/ && $(MAKE) all;
@@ -62,6 +63,7 @@ clean:
 	@cd po/ && $(MAKE) clean
 	@cd src/plugin_htmlbar/po/ && $(MAKE) clean
 	@cd data/ && $(MAKE) clean
+	@cd man/ && $(MAKE) clean
 
 patchclean: clean
 	rm -f *.orig *.rej
@@ -73,6 +75,7 @@ distclean:
 	@cd src/plugin_htmlbar/po/ && $(MAKE) distclean
 	@cd src/plugin_about/po/ && $(MAKE) distclean
 	@cd data/ && $(MAKE) distclean
+	@cd man/ && $(MAKE) distclean
 	rm -f Makefile src/Makefile icons/Makefile config.status config.cache config.log libtool 
 	rm -rf autom4te.cache/
 	rm -f *.orig *.rej
@@ -97,6 +100,7 @@ install: src/bluefish ${INSTALLMAIN}
 	@cd icons/ && $(MAKE) install
 	@cd src/ && $(MAKE) install
 	@cd data/ && $(MAKE) install
+	@cd man/ && $(MAKE) install
 
 uninstall:
 	@cd icons/ && $(MAKE) uninstall
@@ -104,6 +108,7 @@ uninstall:
 	@cd po/ && $(MAKE) uninstall
 	@cd src/plugin_htmlbar/po/ && $(MAKE) uninstall
 	@cd data/ && $(MAKE) uninstall
+	@cd man/ && $(MAKE) uninstall
 	rm -f $(DESTDIR)$(pkgdatadir)/bluefish_splash.png
 	rm -f $(DESTDIR)$(ICONPATH)/$(PACKAGE)-icon.png
 	rm -r $(DESTDIR)$(THEMEPATH)/48x48/apps/$(PACKAGE).png
