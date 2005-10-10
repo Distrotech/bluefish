@@ -632,7 +632,7 @@ AC_SUBST(INSTALLDATA)
 AC_SUBST(INSTALLMAIN)
 AC_SUBST(MAKEMAIN)
 
-AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile po/Makefile data/Makefile)
+AC_CONFIG_FILES(Makefile icons/Makefile src/Makefile po/Makefile data/Makefile man/Makefile)
 AC_OUTPUT
 
 echo "-----------"
