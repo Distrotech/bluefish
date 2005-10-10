@@ -796,6 +796,7 @@ AC_CONFIG_FILES(
 	data/bluefish.desktop
 	data/bluefish-project.desktop
 	data/bluefish.keys
+	man/Makefile
 	src/plugin_htmlbar/Makefile
 	src/plugin_htmlbar/po/Makefile
 	src/plugin_about/Makefile
