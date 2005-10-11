@@ -51,4 +51,9 @@ void replace_cb(GtkWidget *widget, Tbfwin *bfwin);
 void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfilename, gint doc_has_newfilename);
 void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding);
 
+enum {
+	BF_FIND_DIALOG = 0,
+	BF_REPLACE_DIALOG
+};
+
 #endif							/* __SNR_H_ */

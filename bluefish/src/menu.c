@@ -22,13 +22,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
 #include <gtk/gtk.h>
 #include <stdlib.h>			/* atoi */
 #include <string.h>			/* strchr() */
 #include <gdk/gdkkeysyms.h>
 
 /* #define DEBUG */
+/* to test the new snr dialog */
+/*#define SNRDIALOG2 */
 
 #include "bluefish.h"
 #include "about.h"
@@ -107,13 +108,21 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		edit_select_all_cb(NULL, bfwin);
 	break;
 	case 14:
+#ifdef SNRDIALOG2
+		snr_dialog_new(bfwin, 0);
+#else
 		search_cb(NULL, bfwin);
+#endif
 	break;
 	case 16:
 		search_again_cb(NULL, bfwin);
 	break;
 	case 17:
+#ifdef SNRDIALOG2
+		snr_dialog_new(bfwin, 1);
+#else
 		replace_cb(NULL, bfwin);
+#endif
 	break;
 	case 19:
 		replace_again_cb(NULL, bfwin);

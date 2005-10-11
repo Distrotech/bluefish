@@ -85,7 +85,7 @@ dialog_vbox_label_new(const gchar *labeltext, gfloat xalign, gfloat yalign, GtkW
  *
  * Return value: #GtkWidget * The new GtkVBox widget.
  */
-static GtkWidget *
+GtkWidget *
 dialog_vbox_new(GtkWidget *box)
 {
 	GtkWidget *alignment, *vbox;
