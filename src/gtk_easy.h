@@ -66,6 +66,7 @@ GtkWidget *optionmenu_with_value(gchar **options, gint curval);
 GtkWidget *boxed_optionmenu_with_value(const gchar *labeltext, gint curval, GtkWidget *box, gchar **options);
 GtkWidget *window_with_title(const gchar * title, GtkWindowPosition position, gint borderwidth);
 
+void window_delete_on_escape(GtkWindow *window);
 #define window_full(title,position,borderwidth,close_func,close_data,delete_on_escape) window_full2(title,position,borderwidth,close_func,close_data,delete_on_escape,NULL)
 
 GtkWidget *window_full2(const gchar * title, GtkWindowPosition position, gint borderwidth, GCallback close_func,

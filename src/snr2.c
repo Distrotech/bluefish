@@ -24,7 +24,7 @@
  *                              snr2_run
  *              ________________/ | \  \___________________________
  *             /      / |         |  \                   \  \      \
- *  search_bookmark  |  |         |  replace_prompt_all  |   \      \
+ *  search_multiple  |  |         |  replace_prompt_all  |   \      \
  *     |            /   |         |         /           /     \      \
  *     |   search_all   |   _____replace_prompt_doc    /       \    replace_all
  *     |     |          |  /          /               /         \     /
@@ -89,9 +89,9 @@ typedef struct {
 	gchar *replace_pattern;
 	gint unescape;
 	gint overlapping_search;
-	gint prompt_before_replace;
+	gint prompt_before_replace; /* deprecated in new dialog */
 	gint is_case_sens;
-	gint replace_once;
+	gint replace_once; /* deprecated in new dialog */
 	gint bookmark_results;
 	Treplace_types replacetype_option;
 	Tmatch_types matchtype_option;
@@ -1080,9 +1080,11 @@ void replace_prompt_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matcht
 	}
 }
 
-static void search_doc_bookmark_backend(Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gboolean unescape) {
+/* this function can do multiple searches, only used for bookmarking and counting matches, it
+returns the number of matches */
+static gint search_doc_multiple_backend(Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gboolean unescape, gboolean bookmark) {
 	gchar *fulltext, *realpat;
-	gint buf_byte_offset=0;
+	gint buf_byte_offset=0, count=0;
 	Tsearch_result result;
 	fulltext = doc_get_chars(document, 0, -1);
 	utf8_offset_cache_reset();
@@ -1093,10 +1095,13 @@ static void search_doc_bookmark_backend(Tbfwin *bfwin,Tdocument *document, gchar
 	}
 	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 0, FALSE);
 	while (result.end > 0) {
-		gchar *text = doc_get_chars(document, result.start, result.end);
-		DEBUG_MSG("search_bookmark, adding bookmark '%s' at %d\n", text, result.start);
-		bmark_add_extern(document, result.start, search_pattern, text, !main_v->globses.bookmarks_default_store);
-		g_free(text);
+		if (bookmark) {
+			gchar *text = doc_get_chars(document, result.start, result.end);
+			DEBUG_MSG("search_doc_multiple_backend, adding bookmark '%s' at %d\n", text, result.start);
+			bmark_add_extern(document, result.start, search_pattern, text, !main_v->globses.bookmarks_default_store);
+			g_free(text);
+		}
+		count++;
 		if (LASTSNR2(bfwin->snr2)->overlapping_search) {
 			buf_byte_offset = result.bstart + 1;
 		} else {
@@ -1108,28 +1113,31 @@ static void search_doc_bookmark_backend(Tbfwin *bfwin,Tdocument *document, gchar
 		g_free(realpat);
 	}
 	g_free(fulltext);
+	return count;
 }
 
 /**
- * search_bookmark:
+ * search_multiple:
  * @bfwin: #Tbfwin *
  * @startat: #gint
  *
- * will search, and bookmark all matches
+ * will search all, return the count, and if requested bookmark the matches
  * 
  */
-static void search_bookmark(Tbfwin *bfwin, gint startat) {
-	DEBUG_MSG("search_bookmark, started\n");
+static gint search_multiple(Tbfwin *bfwin, gboolean bookmark, gint startat) {
+	gint count=0;
+	DEBUG_MSG("search_multiple, started\n");
 	if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
 		GList *tmplist = g_list_first(bfwin->documentlist);
 		while (tmplist) {
-			search_doc_bookmark_backend(bfwin,DOCUMENT(tmplist->data), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, 0, LASTSNR2(bfwin->snr2)->unescape);
+			count += search_doc_multiple_backend(bfwin,DOCUMENT(tmplist->data), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, 0, LASTSNR2(bfwin->snr2)->unescape, bookmark);
 			tmplist = g_list_next(tmplist);
 		}
 	} else {
-		search_doc_bookmark_backend(bfwin,DOCUMENT(bfwin->current_document), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startat, LASTSNR2(bfwin->snr2)->unescape);
+		count = search_doc_multiple_backend(bfwin,DOCUMENT(bfwin->current_document), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startat, LASTSNR2(bfwin->snr2)->unescape, bookmark);
 	}
-	DEBUG_MSG("search_bookmark, done\n");
+	DEBUG_MSG("search_multiple, done\n");
+	return count;
 }
 
 /*****************************************************/
@@ -1209,7 +1217,7 @@ gboolean snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 		}
 	} else { /* find, not replace */
 		if (LASTSNR2(bfwin->snr2)->bookmark_results) {
-			search_bookmark(bfwin, startpos);
+			search_multiple(bfwin, startpos, TRUE);
 		} else {
 			if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
 				DEBUG_MSG("snr2dialog_ok_lcb, search = all\n");
@@ -1906,7 +1914,7 @@ static void snr_dialog_destroy(TSNRWin * snrwin)
 
 static void setup_new_snr2(Tbfwin *bfwin, const gchar *search_pattern, gboolean unescape, 
 		gboolean is_case_sens, gboolean overlapping_search,
-		gboolean bookmark,
+		gboolean bookmark, Tplace_types place_type,
 		gboolean replace, const gchar *replace_pattern) {
 	if (LASTSNR2(bfwin->snr2)->search_pattern) {
 		g_free(LASTSNR2(bfwin->snr2)->search_pattern);
@@ -1922,18 +1930,19 @@ static void setup_new_snr2(Tbfwin *bfwin, const gchar *search_pattern, gboolean 
  	LASTSNR2(bfwin->snr2)->is_case_sens = is_case_sens;
  	LASTSNR2(bfwin->snr2)->overlapping_search = overlapping_search;
 	LASTSNR2(bfwin->snr2)->replace = replace;
+	LASTSNR2(bfwin->snr2)->placetype_option = place_type;
 	if (replace_pattern) {
 		LASTSNR2(bfwin->snr2)->replace_pattern = g_strdup(replace_pattern);
 		bfwin->session->replacelist = add_to_history_stringlist(bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,TRUE,TRUE);
 	}
 	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;
-
 }
 	
 static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
 	gchar *search_pattern, *replace_pattern=NULL;
 	gboolean ret;
+	gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 	DEBUG_MSG("snr_response_lcb, dialogtype=%d, response=%d\n",snrwin->dialogType,response);
 	search_pattern = gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->search));
 	if (snrwin->dialogType == BF_REPLACE_DIALOG) {
@@ -1941,14 +1950,17 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	}
 	switch (response) {
 	case SNR_RESPONSE_FIND:
-		/* BUG: we should check if we need a new search, or continue the current one */
+		/* we should check if we need a new search, or continue the current one */
 		setup_new_snr2(snrwin->bfwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
 			GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
-			GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, FALSE, replace_pattern);
+			GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, scope, FALSE, replace_pattern);
 		ret = snr2_run(snrwin->bfwin,NULL);
 		if (ret && snrwin->dialogType == BF_REPLACE_DIALOG) {
 			LASTSNR2(snrwin->bfwin->snr2)->replace = TRUE;
 			gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);
+		} else {
+			gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
+			gtk_widget_set_sensitive(snrwin->replaceAllButton, FALSE);
 		}
 	break;
 	case SNR_RESPONSE_REPLACE:
@@ -1957,13 +1969,13 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	case SNR_RESPONSE_REPLACE_ALL:
 		setup_new_snr2(snrwin->bfwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
 			GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
-			GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, TRUE, replace_pattern);
+			GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, scope, TRUE, replace_pattern);
 		snr2_run(snrwin->bfwin,NULL);
 	break;
 	case SNR_RESPONSE_FIND_ALL:
 		setup_new_snr2(snrwin->bfwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
 			GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
-			GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, TRUE, replace_pattern);
+			GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, scope, TRUE, replace_pattern);
 		snr2_run(snrwin->bfwin,NULL);
 	break;
 	default:
@@ -2019,6 +2031,7 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 		gtk_dialog_new_with_buttons(title, GTK_WINDOW(bfwin->main_window),
 									GTK_DIALOG_DESTROY_WITH_PARENT, NULL);
 	gtk_window_set_resizable(GTK_WINDOW(snrwin->dialog), FALSE);
+	window_delete_on_escape(GTK_WINDOW(snrwin->dialog));
 	g_signal_connect(G_OBJECT(snrwin->dialog), "response", G_CALLBACK(snr_response_lcb), snrwin);
 	g_free(title);
 
@@ -2142,7 +2155,7 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 	if (dialogType == BF_REPLACE_DIALOG) {
 		gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->replaceType), 0);
 	}
-
+	gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_FIND);
 	gtk_widget_show(snrwin->dialog);
 }
 
