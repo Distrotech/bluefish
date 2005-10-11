@@ -567,6 +567,10 @@ static gboolean window_full_key_press_event_lcb(GtkWidget *widget,GdkEventKey *e
 	return FALSE;
 }
 
+void window_delete_on_escape(GtkWindow *window) {
+	g_signal_connect(G_OBJECT(window), "key_press_event", G_CALLBACK(window_full_key_press_event_lcb), window);
+}
+
 /**
  * window_full2:
  * 	@title: #gchar* the title string
@@ -605,6 +609,7 @@ GtkWidget *window_full2(const gchar * title, GtkWindowPosition position
 		gtk_window_set_transient_for(GTK_WINDOW(returnwidget), GTK_WINDOW(transientforparent));
 	}
 	if (delete_on_escape) {
+		window_delete_on_escape(returnwidget);
 		g_signal_connect(G_OBJECT(returnwidget), "key_press_event", G_CALLBACK(window_full_key_press_event_lcb), returnwidget);
 		/* for these windows it is also convenient if they destroy when their parent is destroyed */
 		gtk_window_set_destroy_with_parent(GTK_WINDOW(returnwidget), TRUE);
