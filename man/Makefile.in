@@ -24,20 +24,16 @@ INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755
 INSTALL_DATA = ${INSTALL} -m 644
 
-%.1.gz : %.1
-	gzip $< -c > $@
-
-all: bluefish.1.gz
+all:
 
 install:
 	$(INSTALL_DIR) $(DESTDIR)$(mandir)/man1
-	$(INSTALL_DATA) bluefish.1.gz $(DESTDIR)$(mandir)/man1
+	$(INSTALL_DATA) bluefish.1 $(DESTDIR)$(mandir)/man1
 
 uninstall:
-	rm -f $(DESTDIR)$(mandir)/man1/bluefish.1.gz
+	rm -f $(DESTDIR)$(mandir)/man1/bluefish.1
 
 clean:
-	rm -f bluefish.1.gz
 
 distclean: clean
 
