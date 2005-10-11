@@ -124,7 +124,7 @@ typedef struct {
 #define LASTSNR2(var) ((Tlast_snr2 *)(var))
 /***********************************************************/
 
-void snr2_run(Tbfwin *bfwin,Tdocument *doc);
+gboolean snr2_run(Tbfwin *bfwin,Tdocument *doc);
 
 /***********************************************************/
 
@@ -773,6 +773,68 @@ void replace_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gi
 	}
 }
 
+/**
+ * replace_current_match:
+ *
+ *
+ * for new dialog: 
+ *
+ * Return value: gboolean if a next match is found
+ */
+static gboolean replace_current_match(Tbfwin *bfwin) {
+	gchar *tmpstr;
+	gint sel_start_pos, sel_end_pos;
+	doc_get_selection(bfwin->current_document, &sel_start_pos, &sel_end_pos);
+	if ((sel_start_pos == LASTSNR2(bfwin->snr2)->result.start) &&
+				(sel_end_pos == LASTSNR2(bfwin->snr2)->result.end)) {
+		gint lenadded;
+		if (LASTSNR2(bfwin->snr2)->replacetype_option==string) {
+			tmpstr = g_strdup(LASTSNR2(bfwin->snr2)->replace_pattern);
+			/* if it was a regex replace we need to do the sub-search_pattern matching */
+			tmpstr = reg_replace(tmpstr, 0, LASTSNR2(bfwin->snr2)->result, bfwin->current_document, LASTSNR2(bfwin->snr2)->unescape);
+		} else if (LASTSNR2(bfwin->snr2)->replacetype_option==uppercase) {
+			gchar *tofree;
+			tmpstr = doc_get_chars(bfwin->current_document, LASTSNR2(bfwin->snr2)->result.start ,LASTSNR2(bfwin->snr2)->result.end);
+			tofree = tmpstr;
+			tmpstr = g_utf8_strup(tmpstr, -1);
+			g_free(tofree);
+		} else {
+			gchar *tofree;
+			tmpstr = doc_get_chars(bfwin->current_document, LASTSNR2(bfwin->snr2)->result.start ,LASTSNR2(bfwin->snr2)->result.end);
+			tofree = tmpstr;
+			tmpstr = g_utf8_strdown(tmpstr, -1);
+			g_free(tofree);
+		}
+		/* avoid new highlighting at this stage, so call the backend directly instead of the frontend function
+		this because the highlighting interferes with the selection
+		the better solution is to have the highlighting handle the selection better, 
+		the problem starts in document.c in get_positions() because the selection is not saved there
+		I don't know why the selection is gray, but that's basically the reason why it doesn't save the selection
+		 */
+
+		doc_unre_new_group(bfwin->current_document);
+		doc_replace_text_backend(bfwin->current_document, tmpstr, LASTSNR2(bfwin->snr2)->result.start,LASTSNR2(bfwin->snr2)->result.end);
+		doc_unre_new_group(bfwin->current_document);
+		doc_set_modified(bfwin->current_document, 1);
+
+		lenadded = strlen(tmpstr) - (LASTSNR2(bfwin->snr2)->result.end - LASTSNR2(bfwin->snr2)->result.start);
+		DEBUG_MSG("lenadded=%d (streln=%d, end-start=%d)\n",lenadded,strlen(tmpstr),(LASTSNR2(bfwin->snr2)->result.end - LASTSNR2(bfwin->snr2)->result.start));
+		g_free(tmpstr);
+		/* empty the last match */
+		if (LASTSNR2(bfwin->snr2)->result.pmatch) {
+			g_free(LASTSNR2(bfwin->snr2)->result.pmatch);
+			LASTSNR2(bfwin->snr2)->result.pmatch = NULL;
+		}
+		if (!LASTSNR2(bfwin->snr2)->overlapping_search && lenadded > 0) {
+			LASTSNR2(bfwin->snr2)->result.end += lenadded;
+		}
+		/* find the next match */
+		LASTSNR2(bfwin->snr2)->replace = FALSE;
+		return snr2_run(bfwin,NULL);
+	}
+	return FALSE;
+}
+
 /*****************************************************/
 /*             Replace prompt callbacks              */
 /*****************************************************/
@@ -1079,9 +1141,9 @@ static void search_bookmark(Tbfwin *bfwin, gint startat) {
  *
  * Continues a search or replace action as specified by the last_snr2 struct.
  * 
- * Return value: void
+ * Return value: gboolean if a match/replace was found/done
  **/
-void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
+gboolean snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 	gint startpos, endpos;
 	Tsearch_result result;
 	Tsearch_all_result result_all;
@@ -1107,7 +1169,7 @@ void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 		if (!doc_get_selection(doc,&startpos,&endpos)) {
 			/* what to do if there was no selection ?*/
 			DEBUG_MSG("snr2_run, no selection found, returning\n");
-			return;
+			return FALSE;
 		}
 		DEBUG_MSG("snr2_run, from selection: startpos=%d, endpos=%d\n", startpos, endpos);
 	}
@@ -1161,6 +1223,7 @@ void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 											 GTK_BUTTONS_OK, 
 											 _("Search: no match found"), 
 											 NULL);
+					return FALSE;
 				}
 			} else {
 				result = search_doc(bfwin,doc, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, LASTSNR2(bfwin->snr2)->unescape);
@@ -1172,6 +1235,7 @@ void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 											 GTK_BUTTONS_OK, 
 											 _("Search: no match found"), 
 											 NULL);
+					return FALSE;
 				}
 			}
 		}
@@ -1182,6 +1246,7 @@ void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 		doc_highlight_full(doc);
 #endif		
 	}
+	return TRUE;
 }
 
 /**
@@ -1863,12 +1928,12 @@ static void setup_new_snr2(Tbfwin *bfwin, const gchar *search_pattern, gboolean 
 	}
 	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;
 
-	snr2_run(bfwin,NULL);
 }
 	
 static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
 	gchar *search_pattern, *replace_pattern=NULL;
+	gboolean ret;
 	DEBUG_MSG("snr_response_lcb, dialogtype=%d, response=%d\n",snrwin->dialogType,response);
 	search_pattern = gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->search));
 	if (snrwin->dialogType == BF_REPLACE_DIALOG) {
@@ -1876,24 +1941,30 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	}
 	switch (response) {
 	case SNR_RESPONSE_FIND:
+		/* BUG: we should check if we need a new search, or continue the current one */
 		setup_new_snr2(snrwin->bfwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
 			GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
 			GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, FALSE, replace_pattern);
+		ret = snr2_run(snrwin->bfwin,NULL);
+		if (ret && snrwin->dialogType == BF_REPLACE_DIALOG) {
+			LASTSNR2(snrwin->bfwin->snr2)->replace = TRUE;
+			gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);
+		}
 	break;
 	case SNR_RESPONSE_REPLACE:
-		setup_new_snr2(snrwin->bfwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
-			GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
-			GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, TRUE, replace_pattern);
+		replace_current_match(snrwin->bfwin);
 	break;
 	case SNR_RESPONSE_REPLACE_ALL:
 		setup_new_snr2(snrwin->bfwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
 			GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
 			GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, TRUE, replace_pattern);
+		snr2_run(snrwin->bfwin,NULL);
 	break;
 	case SNR_RESPONSE_FIND_ALL:
 		setup_new_snr2(snrwin->bfwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
 			GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
 			GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, TRUE, replace_pattern);
+		snr2_run(snrwin->bfwin,NULL);
 	break;
 	default:
 		snr_dialog_destroy(snrwin);
