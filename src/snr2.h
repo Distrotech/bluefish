@@ -55,5 +55,5 @@ enum {
 	BF_FIND_DIALOG = 0,
 	BF_REPLACE_DIALOG
 };
-
+void snr_dialog_new(Tbfwin * bfwin, gint dialogType);
 #endif							/* __SNR_H_ */
