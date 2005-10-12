@@ -96,6 +96,8 @@ typedef struct {
 	Treplace_types replacetype_option;
 	Tmatch_types matchtype_option;
 	Tplace_types placetype_option;
+	gint matches; /* number of matches found */
+	gint replaces; /* number of matches replaced */
 } Tlast_snr2;
 
 typedef struct {
@@ -681,8 +683,9 @@ Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_type
  * 
  * Return value: void
  **/
-void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype, gboolean unescape, guint unre_action_id) {
+static gint replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype, gboolean unescape, guint unre_action_id) {
 /* endpos -1 means do till end */
+	gint count=0;
 	gchar *fulltext, *realpats, *realpatr;
 	gboolean realunesc;
 	Tsearch_result result;
@@ -730,7 +733,7 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 			replacelen = -1;
 		}
 		result = replace_backend(bfwin,realpats, matchtype, is_case_sens, fulltext, buf_byte_offset, realpatr, doc, buf_text_offset, replacetype, &replacelen, realunesc);
-
+		count++;
 		DEBUG_MSG("replace_doc_multiple, 1- buf_text_offset=%d, buf_byte_offset=%d, result.start=%d, result.end=%d\n", buf_text_offset, buf_byte_offset, result.start, result.end);
 	}
 	if (unescape && (matchtype == match_normal || replacetype != string)) {
@@ -745,6 +748,7 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 	LASTSNR2(bfwin->snr2)->result.end = -1;
 	LASTSNR2(bfwin->snr2)->doc = doc;
 	g_free(fulltext);
+	return count;
 }
 
 /*****************************************************/
@@ -763,14 +767,16 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
  * 
  * Return value: void
  **/
-void replace_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *replace_pattern, Treplace_types replacetype, gboolean unescape) {
+static gint replace_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *replace_pattern, Treplace_types replacetype, gboolean unescape) {
 	GList *tmplist;
+	gint count=0;
 	guint unre_action_id = new_unre_action_id();
 	tmplist = g_list_first(bfwin->documentlist);
 	while (tmplist) {
-		replace_doc_multiple(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, (Tdocument *)tmplist->data, replacetype, unescape, unre_action_id);
+		count += replace_doc_multiple(bfwin,search_pattern, matchtype, is_case_sens, 0, -1, replace_pattern, (Tdocument *)tmplist->data, replacetype, unescape, unre_action_id);
 		tmplist = g_list_next(tmplist);
 	}
+	return count;
 }
 
 /**
@@ -1082,7 +1088,7 @@ void replace_prompt_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matcht
 
 /* this function can do multiple searches, only used for bookmarking and counting matches, it
 returns the number of matches */
-static gint search_doc_multiple_backend(Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gboolean unescape, gboolean bookmark) {
+static gint search_doc_multiple_backend(Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gboolean unescape) {
 	gchar *fulltext, *realpat;
 	gint buf_byte_offset=0, count=0;
 	Tsearch_result result;
@@ -1095,7 +1101,7 @@ static gint search_doc_multiple_backend(Tbfwin *bfwin,Tdocument *document, gchar
 	}
 	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 0, FALSE);
 	while (result.end > 0) {
-		if (bookmark) {
+		if (LASTSNR2(bfwin->snr2)->bookmark_results) {
 			gchar *text = doc_get_chars(document, result.start, result.end);
 			DEBUG_MSG("search_doc_multiple_backend, adding bookmark '%s' at %d\n", text, result.start);
 			bmark_add_extern(document, result.start, search_pattern, text, !main_v->globses.bookmarks_default_store);
@@ -1124,20 +1130,52 @@ static gint search_doc_multiple_backend(Tbfwin *bfwin,Tdocument *document, gchar
  * will search all, return the count, and if requested bookmark the matches
  * 
  */
-static gint search_multiple(Tbfwin *bfwin, gboolean bookmark, gint startat) {
+static gint search_multiple(Tbfwin *bfwin, gint startat) {
 	gint count=0;
 	DEBUG_MSG("search_multiple, started\n");
 	if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
 		GList *tmplist = g_list_first(bfwin->documentlist);
 		while (tmplist) {
-			count += search_doc_multiple_backend(bfwin,DOCUMENT(tmplist->data), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, 0, LASTSNR2(bfwin->snr2)->unescape, bookmark);
+			count += search_doc_multiple_backend(bfwin,DOCUMENT(tmplist->data), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, 0, LASTSNR2(bfwin->snr2)->unescape);
 			tmplist = g_list_next(tmplist);
 		}
 	} else {
-		count = search_doc_multiple_backend(bfwin,DOCUMENT(bfwin->current_document), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startat, LASTSNR2(bfwin->snr2)->unescape, bookmark);
+		count = search_doc_multiple_backend(bfwin,DOCUMENT(bfwin->current_document), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startat, LASTSNR2(bfwin->snr2)->unescape);
 	}
 	DEBUG_MSG("search_multiple, done\n");
 	return count;
+}
+
+static gint search_single(Tbfwin *bfwin, gint startpos) {
+	Tsearch_result result;
+	Tsearch_all_result result_all;
+	if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
+		result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape);
+		if (result_all.end > 0) {
+			doc_show_result(result_all.doc, result_all.start, result_all.end);
+			return 1;
+		} else {
+			message_dialog_new(bfwin->main_window, 
+						 	 		 GTK_MESSAGE_INFO, 
+									 GTK_BUTTONS_OK, 
+									 _("Search: no match found"), 
+									 NULL);
+			return 0;
+		}
+	} else {
+		result = search_doc(bfwin,bfwin->current_document, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, LASTSNR2(bfwin->snr2)->unescape);
+		if (result.end > 0) {
+			doc_show_result(bfwin->current_document, result.start, result.end);
+			return 1;
+		} else {
+			message_dialog_new(bfwin->main_window, 
+						 	 		 GTK_MESSAGE_INFO, 
+									 GTK_BUTTONS_OK, 
+									 _("Search: no match found"), 
+									 NULL);
+			return FALSE;
+		}
+	}
 }
 
 /*****************************************************/
@@ -1217,7 +1255,7 @@ gboolean snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 		}
 	} else { /* find, not replace */
 		if (LASTSNR2(bfwin->snr2)->bookmark_results) {
-			search_multiple(bfwin, startpos, TRUE);
+			search_multiple(bfwin, startpos);
 		} else {
 			if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
 				DEBUG_MSG("snr2dialog_ok_lcb, search = all\n");
@@ -1891,23 +1929,56 @@ static void realize_combo_set_tooltip(GtkWidget *combo,gpointer   data)
 	gtk_container_forall(GTK_CONTAINER(combo),set_combo_tooltip,data);
 }
 
-static void snr_search_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin)
+static void snr_update_count_label(TSNRWin * snrwin) {
+	gchar *text;
+	if (snrwin->dialogType == BF_REPLACE_DIALOG) {
+		text = g_strdup_printf(_("Found %d matches, replaced %d"),LASTSNR2(snrwin->bfwin->snr2)->matches,LASTSNR2(snrwin->bfwin->snr2)->replaces);
+	} else {
+		text = g_strdup_printf(_("Found %d matches"),LASTSNR2(snrwin->bfwin->snr2)->matches);
+	}
+	gtk_label_set_text(GTK_LABEL(snrwin->countlabel), text);
+	g_free(text);
+}
+
+static void snr_combo_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin)
 {
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child))) > 0) {
 		gtk_widget_set_sensitive(snrwin->findButton, TRUE);
 		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
 			gtk_widget_set_sensitive(snrwin->replaceAllButton, TRUE);
+			gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);
+		} else {
+			gtk_widget_set_sensitive(snrwin->findAllButton, TRUE);
 		}
 	} else {
 		gtk_widget_set_sensitive(snrwin->findButton, FALSE);
 		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
 			gtk_widget_set_sensitive(snrwin->replaceAllButton, FALSE);
+			gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
+		} else {
+			gtk_widget_set_sensitive(snrwin->findAllButton, FALSE);
 		}
 	}
+	/* on any change we reset the current set of options */
+	LASTSNR2(snrwin->bfwin->snr2)->result.start = -1;
+	LASTSNR2(snrwin->bfwin->snr2)->matches = 0;
+	LASTSNR2(snrwin->bfwin->snr2)->replaces = 0;
+	snr_update_count_label(snrwin);
+}
+
+static void snr_option_toggled(GtkToggleButton *togglebutton,gpointer user_data) 
+{
+	TSNRWin *snrwin = (TSNRWin *)user_data;
+	
+	LASTSNR2(snrwin->bfwin->snr2)->result.start = -1;
+	LASTSNR2(snrwin->bfwin->snr2)->matches = 0;
+	LASTSNR2(snrwin->bfwin->snr2)->replaces = 0;
+	snr_update_count_label(snrwin);
 }
 
 static void snr_dialog_destroy(TSNRWin * snrwin)
 {
+	DEBUG_MSG("snr_dialog_destroy, called\n");
 	g_free(snrwin);
 	gtk_widget_destroy(GTK_WIDGET(snrwin->dialog));
 }
@@ -1937,51 +2008,97 @@ static void setup_new_snr2(Tbfwin *bfwin, const gchar *search_pattern, gboolean 
 	}
 	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;
 }
-	
+
 static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
 	gchar *search_pattern, *replace_pattern=NULL;
-	gboolean ret;
+	gint ret, startpos,endpos=-1;
+	Tbfwin *bfwin=snrwin->bfwin;
 	gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 	DEBUG_MSG("snr_response_lcb, dialogtype=%d, response=%d\n",snrwin->dialogType,response);
 	search_pattern = gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->search));
 	if (snrwin->dialogType == BF_REPLACE_DIALOG) {
 		replace_pattern = gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->replace));
 	}
+	
+	/* cleanup any leftovers of previous run */
+	if (LASTSNR2(bfwin->snr2)->result.pmatch) {
+		g_free(LASTSNR2(bfwin->snr2)->result.pmatch);
+		LASTSNR2(bfwin->snr2)->result.pmatch = NULL;
+	}
+
+	/* now check if we started with the current option set already, if so we can continue it, if 
+	not we should setup a new set of options*/
+	if (LASTSNR2(snrwin->bfwin->snr2)->result.start == -1) {
+		setup_new_snr2(snrwin->bfwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
+				GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
+				GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, scope, (snrwin->dialogType == BF_REPLACE_DIALOG), replace_pattern);
+		if (LASTSNR2(bfwin->snr2)->placetype_option==beginning) {
+			startpos = 0;
+			endpos = -1;
+		} else if (LASTSNR2(bfwin->snr2)->placetype_option==cursor) {
+			startpos = doc_get_cursor_position(bfwin->current_document);
+			endpos = -1;
+		} else if (LASTSNR2(bfwin->snr2)->placetype_option==selection) {
+			if (!doc_get_selection(bfwin->current_document,&startpos,&endpos)) {
+				/* BUG: what to do if there was no selection ?*/
+				DEBUG_MSG("snr2_run, no selection found, returning\n");
+				return;
+			}
+			DEBUG_MSG("snr2_run, from selection: startpos=%d, endpos=%d\n", startpos, endpos);
+		}
+	} else {
+		if (LASTSNR2(bfwin->snr2)->doc == bfwin->current_document) {
+			if (LASTSNR2(bfwin->snr2)->result.end > 0) {
+				if (LASTSNR2(bfwin->snr2)->overlapping_search) {
+					startpos = LASTSNR2(bfwin->snr2)->result.start + 1;
+				} else {
+					startpos = LASTSNR2(bfwin->snr2)->result.end;
+				}
+			}
+		}	
+	}
+	DEBUG_MSG("snr_response_lcb, startpos=%d, result.start=%d\n",startpos,LASTSNR2(snrwin->bfwin->snr2)->result.start);
 	switch (response) {
 	case SNR_RESPONSE_FIND:
-		/* we should check if we need a new search, or continue the current one */
-		setup_new_snr2(snrwin->bfwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
-			GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
-			GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, scope, FALSE, replace_pattern);
-		ret = snr2_run(snrwin->bfwin,NULL);
-		if (ret && snrwin->dialogType == BF_REPLACE_DIALOG) {
-			LASTSNR2(snrwin->bfwin->snr2)->replace = TRUE;
-			gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);
-		} else {
-			gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
-			gtk_widget_set_sensitive(snrwin->replaceAllButton, FALSE);
+		ret = search_single(snrwin->bfwin, startpos);
+		if (ret) {
+			LASTSNR2(snrwin->bfwin->snr2)->matches++;
+			snr_update_count_label(snrwin);
+		}
+		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
+			if (ret) {
+				/*LASTSNR2(snrwin->bfwin->snr2)->replace = TRUE;*/
+				gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);
+			} else {
+				gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
+			}
 		}
 	break;
 	case SNR_RESPONSE_REPLACE:
 		replace_current_match(snrwin->bfwin);
+		LASTSNR2(snrwin->bfwin->snr2)->replaces++;
+		snr_update_count_label(snrwin);
 	break;
 	case SNR_RESPONSE_REPLACE_ALL:
-		setup_new_snr2(snrwin->bfwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
-			GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
-			GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, scope, TRUE, replace_pattern);
-		snr2_run(snrwin->bfwin,NULL);
+		ret = replace_all(snrwin->bfwin,LASTSNR2(snrwin->bfwin->snr2)->search_pattern, LASTSNR2(snrwin->bfwin->snr2)->matchtype_option, LASTSNR2(snrwin->bfwin->snr2)->is_case_sens, LASTSNR2(snrwin->bfwin->snr2)->replace_pattern, LASTSNR2(snrwin->bfwin->snr2)->replacetype_option, LASTSNR2(snrwin->bfwin->snr2)->unescape);
+		/* now update the count widget in the dialog */
+		LASTSNR2(snrwin->bfwin->snr2)->matches += ret;
+		LASTSNR2(snrwin->bfwin->snr2)->replaces += ret;
+		snr_update_count_label(snrwin);		
 	break;
 	case SNR_RESPONSE_FIND_ALL:
-		setup_new_snr2(snrwin->bfwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
-			GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
-			GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, scope, TRUE, replace_pattern);
-		snr2_run(snrwin->bfwin,NULL);
+		ret = search_multiple(snrwin->bfwin, LASTSNR2(snrwin->bfwin->snr2)->result.end);
+		LASTSNR2(snrwin->bfwin->snr2)->matches += ret;
+		snr_update_count_label(snrwin);
 	break;
 	default:
+		DEBUG_MSG("response %d is not handled yet: destroy dialog\n", response);
 		snr_dialog_destroy(snrwin);
 	break;
 	}
+	g_free(search_pattern);
+	g_free(replace_pattern);
 }
 
 void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
@@ -2050,7 +2167,7 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 	dialog_mnemonic_label_in_table(_("_Search for: "), snrwin->search, table, 0, 1, 0, 1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->search, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
-	g_signal_connect(snrwin->search, "changed", G_CALLBACK(snr_search_changed), snrwin);
+	g_signal_connect(snrwin->search, "changed", G_CALLBACK(snr_combo_changed), snrwin);
 	g_signal_connect(snrwin->search, "realize",G_CALLBACK(realize_combo_set_tooltip), _("The pattern to look for"));
 
 	if (dialogType == BF_REPLACE_DIALOG) {
@@ -2067,6 +2184,7 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 		dialog_mnemonic_label_in_table(_("Replace _with: "), snrwin->replace, table, 0, 1, 1, 2);
 		gtk_table_attach(GTK_TABLE(table), snrwin->replace, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL,
 						 GTK_SHRINK, 0, 0);
+		g_signal_connect(snrwin->replace, "changed", G_CALLBACK(snr_combo_changed), snrwin);
 		g_signal_connect(snrwin->replace, "realize",G_CALLBACK(realize_combo_set_tooltip), _("Replace matching text with"));
 	}
 
@@ -2077,6 +2195,7 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 	dialog_mnemonic_label_in_table(_("Sco_pe: "), snrwin->scope, table, 0, 1, numrows - 2, numrows -1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->scope, 1, 2, numrows - 2, numrows-1,
 					 GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+	g_signal_connect(snrwin->scope, "changed", G_CALLBACK(snr_combo_changed), snrwin);
 	g_signal_connect(snrwin->scope, "realize",G_CALLBACK(realize_combo_set_tooltip), _("Where to look for the pattern."));
 
 	snrwin->countlabel = gtk_label_new((dialogType == BF_REPLACE_DIALOG)?_("Found 0 matches, replaced 0"):_("Found 0 matches"));
@@ -2102,7 +2221,9 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 	dialog_mnemonic_label_in_table(_("Match Patter_n: "), snrwin->matchPattern, table, 0, 1, 0, 1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->matchPattern, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
-	gtk_tooltips_set_tip(main_v->tooltips,snrwin->matchPattern,_("How to interpret the pattern."),"");
+	g_signal_connect(snrwin->matchPattern, "changed", G_CALLBACK(snr_combo_changed), snrwin);
+	g_signal_connect(snrwin->matchPattern, "realize",G_CALLBACK(realize_combo_set_tooltip), _("How to interpret the pattern."));
+	
 	if (dialogType == BF_REPLACE_DIALOG) {
 		snrwin->replaceType = gtk_combo_box_new_text();
 		for (i = 0; i < G_N_ELEMENTS(replaceType); i++) {
@@ -2112,25 +2233,29 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 									   2);
 		gtk_table_attach(GTK_TABLE(table), snrwin->replaceType, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL,
 						 GTK_SHRINK, 0, 0);
-		gtk_tooltips_set_tip(main_v->tooltips,snrwin->matchPattern,_("What to replace with."),"");
+		g_signal_connect(snrwin->replaceType, "changed", G_CALLBACK(snr_combo_changed), snrwin);
+		g_signal_connect(snrwin->replaceType, "realize",G_CALLBACK(realize_combo_set_tooltip), _("What to replace with."));
 	}
-	
 
 	snrwin->overlappingMatches =
 		gtk_check_button_new_with_mnemonic(_("Allow o_verlapping matches"));
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->overlappingMatches, FALSE, FALSE, 0);
+	g_signal_connect(snrwin->overlappingMatches, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->overlappingMatches,_("After a match is found, start next search within that match."),NULL);
 
 	snrwin->matchCase = gtk_check_button_new_with_mnemonic(_("_Case sensitive matching"));
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->matchCase, FALSE, FALSE, 0);
+	g_signal_connect(snrwin->matchCase, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->matchCase,_("Only match if case (upper/lower) is identical."),NULL);
 
 	snrwin->escapeChars = gtk_check_button_new_with_mnemonic(_("_Use escape chars"));
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->escapeChars, FALSE, FALSE, 0);
+	g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->escapeChars,_("Unescape backslash escaped characters such as \\n, \\t etc."),NULL);
 	
 	snrwin->bookmarks = gtk_check_button_new_with_mnemonic(_("_Bookmark matches"));
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->bookmarks, FALSE, FALSE, 0);
+	g_signal_connect(snrwin->bookmarks, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->bookmarks,_("Create a bookmark for each match"),NULL);
 
 	gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
