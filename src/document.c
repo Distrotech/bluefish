@@ -300,9 +300,11 @@ void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *wid
 		DEBUG_MSG("doc_update_highlighting, calling doc_toggle_highlighting_cb\n");
 		doc_toggle_highlighting_cb(bfwin, 0, NULL);
 	} else {
-#ifndef USE_SCANNER
+#ifndef USE_SCANNER	
 		doc_highlight_full(bfwin->current_document);
-#endif
+#else
+		bf_textview_scan(BF_TEXTVIEW(bfwin->current_document->view));
+#endif		
 	}
 }
 
@@ -3661,7 +3663,11 @@ void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 		doc_remove_highlighting(bfwin->current_document);
 
 	} else {
+#ifndef USE_SCANNER	
 		doc_highlight_full(bfwin->current_document);
+#else
+		bf_textview_scan(BFTEXVIEW(bfwin->view));
+#endif		
 	}
 #endif
 }
