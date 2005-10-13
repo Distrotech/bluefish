@@ -255,6 +255,25 @@ void bf_textview_scan(BfTextView * self)
 }
 
 
+typedef struct {
+	GtkTextBuffer *buffer;
+	GtkTextIter *start;
+	GtkTextIter *end;
+} Trts;
+
+static void bftv_remove_t_tag(gpointer key,gpointer value,gpointer data) {
+	BfLangToken *t = (BfLangToken*)value;
+	Trts *s = (Trts*)data;
+	if ( t->tag )
+		gtk_text_buffer_remove_tag(s->buffer,t->tag,s->start,s->end);
+}
+
+static void bftv_remove_b_tag(gpointer key,gpointer value,gpointer data) {
+	BfLangBlock *b = (BfLangBlock*)value;
+	Trts *s = (Trts*)data;
+	if ( b->tag )
+		gtk_text_buffer_remove_tag(s->buffer,b->tag,s->start,s->end);
+}
 
 /**
 *	bf_textview_scan_area:
@@ -277,6 +296,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	TBfBlock *bf = NULL;
 	GtkTextTag *tag = NULL;
 	gshort **currtable;
+	Trts rts;
 
 
 	g_return_if_fail(self != NULL);
@@ -302,6 +322,15 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 		g_queue_pop_head(&(self->scanner.tag_stack));
 
 	bftv_delete_blocks_from_area(self, start, end);
+	if ( self->lang->tag_begin ) gtk_text_buffer_remove_tag(buf,self->lang->tag_begin,start,end);
+	if ( self->lang->tag_end ) gtk_text_buffer_remove_tag(buf,self->lang->tag_end,start,end);
+	if ( self->lang->attr_name ) gtk_text_buffer_remove_tag(buf,self->lang->attr_name,start,end);
+	if ( self->lang->attr_val ) gtk_text_buffer_remove_tag(buf,self->lang->attr_val,start,end);		
+	rts.buffer = buf;
+	rts.start = start;
+	rts.end = end;
+	g_hash_table_foreach(self->lang->tokens,bftv_remove_t_tag,&rts);
+	g_hash_table_foreach(self->lang->blocks,bftv_remove_b_tag,&rts);
 
 	currtable = self->lang->scan_table;
 
@@ -382,7 +411,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						if (self->highlight /*&& self->token_styles && self->group_styles */ ) {
 							if (t->tag)
 								gtk_text_buffer_apply_tag(buf, t->tag, &its, &ita);
-						}
+						} 
 						break;
 					case 1:
 						if (self->scanner.current_context && !self->scanner.current_context->markup)
