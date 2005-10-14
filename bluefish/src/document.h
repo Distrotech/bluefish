@@ -33,6 +33,7 @@ GList *return_urilist_from_doclist(GList *doclist);
 gint documentlist_return_index_from_uri(GList *doclist, GnomeVFSURI *uri);
 Tdocument *documentlist_return_document_from_uri(GList *doclist, GnomeVFSURI *uri);
 Tdocument *documentlist_return_document_from_index(GList *doclist, gint index);
+gint document_return_num_notcomplete(GList *doclist);
 
 void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void doc_set_wrap(Tdocument *doc);

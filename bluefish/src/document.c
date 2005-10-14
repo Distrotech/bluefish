@@ -31,7 +31,7 @@
 #include <stdlib.h>		/* system() */
 #include <pcre.h>
 
-#define DEBUG
+/* #define DEBUG */
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -277,6 +277,21 @@ Tdocument *documentlist_return_document_from_uri(GList *doclist, GnomeVFSURI *ur
  **/
 Tdocument *documentlist_return_document_from_index(GList *doclist, gint index) {
 	return (Tdocument *) g_list_nth_data(doclist, index);
+}
+
+/**
+ * document_return_num_loading:
+ * @doclist: a list of Tdocument* to count 
+ *
+ * Return value: number of documents that are not 'complete'
+ */
+gint document_return_num_notcomplete(GList *doclist) {
+	GList *tmplist;
+	gint count=0;
+	for (tmplist = g_list_first(doclist);tmplist!=NULL;tmplist=tmplist->next) {
+		if (DOCUMENT(tmplist->data)->status != DOC_STATUS_COMPLETE) count++;
+	}
+	return count;
 }
 
 /**
@@ -2999,6 +3014,7 @@ Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeV
 	}
 	doc_set_filename(doc,uri);
 	doc_set_status(doc, DOC_STATUS_LOADING);
+	bfwin_docs_not_complete(bfwin, TRUE);
 	return doc;
 }
 
@@ -3336,6 +3352,7 @@ void doc_reload(Tdocument *doc) {
 		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 	}
 	doc_set_status(doc, DOC_STATUS_LOADING);
+	bfwin_docs_not_complete(doc->bfwin, TRUE);
 	doc_set_modified(doc,FALSE);
 	file_doc_fill_from_uri(doc, doc->uri, NULL, -1);
 }

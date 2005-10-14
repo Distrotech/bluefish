@@ -173,6 +173,12 @@ gboolean switch_to_document_by_uri(Tbfwin *bfwin,GnomeVFSURI *uri) {
 	return switch_to_document_by_index(bfwin,index);
 }
 
+void bfwin_docs_not_complete(Tbfwin *bfwin, gboolean increase) {
+	if (increase) bfwin->num_docs_not_completed++;
+	else bfwin->num_docs_not_completed--;
+	DEBUG_MSG("bfwin_docs_not_complete, increase=%d, num=%d\n",increase,bfwin->num_docs_not_completed);
+}
+
 static void notebook_switch_page_lcb(GtkWidget *notebook,GtkNotebookPage *page,gint page_num,Tbfwin *bfwin) {
 	DEBUG_MSG("notebook_switch_page_lcb, page=%d\n", page_num);
 	notebook_changed(bfwin,page_num);

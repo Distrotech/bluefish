@@ -1938,12 +1938,13 @@ static void snr_update_count_label(TSNRWin * snrwin) {
 	} else {
 		text = g_strdup_printf(_("Found %d matches"),LASTSNR2(snrwin->bfwin->snr2)->matches);
 	}
-	gtk_label_set_text(GTK_LABEL(snrwin->countlabel), text);
+	gtk_label_set_markup(GTK_LABEL(snrwin->countlabel), text);
 	g_free(text);
 }
 
 static void snr_combo_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin)
 {
+	gint scope;
 	DEBUG_MSG("snr_combo_changed, called\n");
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child))) > 0) {
 		gtk_widget_set_sensitive(snrwin->findButton, TRUE);
@@ -1966,7 +1967,13 @@ static void snr_combo_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin
 	LASTSNR2(snrwin->bfwin->snr2)->result.start = -1;
 	LASTSNR2(snrwin->bfwin->snr2)->matches = 0;
 	LASTSNR2(snrwin->bfwin->snr2)->replaces = 0;
-	snr_update_count_label(snrwin);
+	scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
+	if (scope == opened_files && snrwin->bfwin->num_docs_not_completed > 0) {
+		/* display warning that not all documents have yet finished loading */
+		gtk_label_set_markup(GTK_LABEL(snrwin->countlabel), _("<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</span>"));
+	} else {
+		snr_update_count_label(snrwin);
+	}
 }
 
 static void snr_option_toggled(GtkToggleButton *togglebutton,gpointer user_data) 
@@ -2303,6 +2310,5 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 	}
 	gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_FIND);
 	gtk_widget_show(snrwin->dialog);
-/*	g_signal_connect(G_OBJECT(snrwin->dialog), "key-press-event",G_CALLBACK(snr_key_press_event_lcb), snrwin);*/
 }
 
