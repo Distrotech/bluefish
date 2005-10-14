@@ -1944,6 +1944,7 @@ static void snr_update_count_label(TSNRWin * snrwin) {
 
 static void snr_combo_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin)
 {
+	DEBUG_MSG("snr_combo_changed, called\n");
 	if (strlen(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child))) > 0) {
 		gtk_widget_set_sensitive(snrwin->findButton, TRUE);
 		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
@@ -2076,6 +2077,8 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 			if (ret) {
 				/*LASTSNR2(snrwin->bfwin->snr2)->replace = TRUE;*/
 				gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);
+				gtk_widget_grab_focus(snrwin->replaceButton);
+				gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_REPLACE);
 			} else {
 				gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
 			}
@@ -2108,6 +2111,13 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	}
 	g_free(search_pattern);
 	g_free(replace_pattern);
+}
+
+static void snr_combo_activate_lcb(GtkEntry *entry,gpointer user_data) {
+	TSNRWin *snrwin = (TSNRWin *)user_data;
+	DEBUG_MSG("snr_combo_activate_lcb, called\n");
+	gtk_widget_grab_focus(snrwin->findButton);
+	gtk_dialog_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_FIND);
 }
 
 void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
@@ -2178,6 +2188,7 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 					 GTK_SHRINK, 0, 0);
 	g_signal_connect(snrwin->search, "changed", G_CALLBACK(snr_combo_changed), snrwin);
 	g_signal_connect(snrwin->search, "realize",G_CALLBACK(realize_combo_set_tooltip), _("The pattern to look for"));
+	g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))), "activate",G_CALLBACK(snr_combo_activate_lcb), snrwin);
 
 	if (dialogType == BF_REPLACE_DIALOG) {
 		history = gtk_list_store_new(1, G_TYPE_STRING);
@@ -2195,8 +2206,9 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 						 GTK_SHRINK, 0, 0);
 		g_signal_connect(snrwin->replace, "changed", G_CALLBACK(snr_combo_changed), snrwin);
 		g_signal_connect(snrwin->replace, "realize",G_CALLBACK(realize_combo_set_tooltip), _("Replace matching text with"));
+		g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",G_CALLBACK(snr_combo_activate_lcb), snrwin);
 	}
-
+	
 	snrwin->scope = gtk_combo_box_new_text();
 	for (i = 0; i < G_N_ELEMENTS(scope); i++) {
 		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->scope), scope[i]);
@@ -2291,5 +2303,6 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 	}
 	gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_FIND);
 	gtk_widget_show(snrwin->dialog);
+/*	g_signal_connect(G_OBJECT(snrwin->dialog), "key-press-event",G_CALLBACK(snr_key_press_event_lcb), snrwin);*/
 }
 
