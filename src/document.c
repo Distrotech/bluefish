@@ -3452,7 +3452,7 @@ void doc_activate(Tdocument *doc) {
 		return;
 	}
 	if (doc->status == DOC_STATUS_ERROR) {
-		const gchar *buttons[] = {_("_Retry"), _("_Close"), NULL};
+		const gchar *buttons[] = {_("_Retry"), _("Retry _all failed"),_("_Close"), NULL};
 		gchar *tmpstr;
 		gint retval;
 		DEBUG_MSG("doc_activate, DOC_STATUS_ERROR, retry???\n");
@@ -3465,6 +3465,12 @@ void doc_activate(Tdocument *doc) {
 		g_free(tmpstr);
 		if (retval == 0) {
 			file_doc_retry_uri(doc);
+		} else if (retval == 1) {
+			GList *tmplist;
+			/* retry all failed documents */
+			for (tmplist=g_list_first(BFWIN(doc->bfwin)->documentlist);tmplist!=NULL;tmplist=tmplist->next) {
+				if (DOCUMENT(tmplist->data)->status == DOC_STATUS_ERROR) file_doc_retry_uri(DOCUMENT(tmplist->data));
+			}
 		} else {
 			g_idle_add(doc_close_from_activate, doc);
 		}
