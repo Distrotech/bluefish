@@ -566,8 +566,9 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 				} else if (tmp != fid->doc->encoding) { /* the pointer only changes if the encoding changes */
 					doc_set_tooltip(fid->doc);
 				}
-#endif				
+#endif			
 				doc_set_status(fid->doc, DOC_STATUS_COMPLETE);
+				bfwin_docs_not_complete(fid->doc->bfwin, FALSE);
 				fid->doc->action.load = NULL;
 			} else { /* file_insert, convert to UTF-8 and insert it! */
 				gchar *encoding, *newbuf;
@@ -612,7 +613,10 @@ void file_into_doc(Tdocument *doc, GnomeVFSURI *uri, gboolean isTemplate) {
 	fid->bfwin = doc->bfwin;
 	fid->doc = doc;
 	fid->isTemplate = isTemplate;
-	if (isTemplate) doc_set_status(doc, DOC_STATUS_LOADING);
+	if (isTemplate) {
+		doc_set_status(doc, DOC_STATUS_LOADING);
+		bfwin_docs_not_complete(doc->bfwin, TRUE);
+	}
 	fid->uri = uri;
 	gnome_vfs_uri_ref(uri);
 	file_openfile_uri_async(fid->uri,fileintodoc_lcb,fid);
@@ -656,6 +660,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			}
 #endif			
 			doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
+			bfwin_docs_not_complete(f2d->doc->bfwin, FALSE);
 			bmark_set_for_doc(f2d->doc);
 			bmark_check_length(f2d->bfwin,f2d->doc);
 			DEBUG_MSG("file2doc_lcb, focus_next_new_doc=%d\n",f2d->bfwin->focus_next_new_doc);
@@ -762,6 +767,7 @@ void file_doc_retry_uri(Tdocument *doc) {
 	f2d->bfwin = doc->bfwin;
 	f2d->doc = doc;
 	doc_set_status(doc, DOC_STATUS_LOADING);
+	bfwin_docs_not_complete(doc->bfwin, TRUE);
 	/* this forces an activate on the document, which will call widget_show() on the textview */
 	BFWIN(doc->bfwin)->focus_next_new_doc = TRUE;
 	f2d->uri = doc->uri;
