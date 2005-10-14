@@ -1981,8 +1981,8 @@ static void snr_option_toggled(GtkToggleButton *togglebutton,gpointer user_data)
 static void snr_dialog_destroy(TSNRWin * snrwin)
 {
 	DEBUG_MSG("snr_dialog_destroy, called\n");
+	gtk_widget_destroy(snrwin->dialog);
 	g_free(snrwin);
-	gtk_widget_destroy(GTK_WIDGET(snrwin->dialog));
 }
 
 static void setup_new_snr2(Tbfwin *bfwin, const gchar *search_pattern, gboolean unescape, 
