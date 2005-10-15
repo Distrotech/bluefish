@@ -348,11 +348,10 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	currtable = self->lang->scan_table;
 
 	while (gtk_text_iter_compare(&ita, end) <= 0) {	/* main loop */
-
-		if (gtk_text_iter_compare(&ita, end) == 0 && !magic)
-			magic = TRUE;
-		else if (gtk_text_iter_compare(&ita, end) == 0 && magic)
-			break;
+		if (gtk_text_iter_equal(&ita, end)) {
+			if (!magic) magic = TRUE;
+			else break;
+		}
 
 		c = gtk_text_iter_get_char(&ita);
 		if ((gint) c < 0 || (gint) c > BFTV_UTF8_RANGE) {
