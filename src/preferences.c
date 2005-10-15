@@ -2587,7 +2587,9 @@ static void preferences_apply(Tprefdialog *pd) {
 		}
 	}
 	rcfile_save_main();
+#ifndef USE_SCANNER
 	rcfile_save_highlighting();
+#endif
 }
 
 static void preferences_cancel_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
