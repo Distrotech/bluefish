@@ -272,6 +272,9 @@ GtkTextMark *bf_textview_get_nearest_block_of_type(BfTextView * self, BfLangBloc
 void bf_textview_set_bg_color(BfTextView * self, gchar * color);
 void bf_textview_set_fg_color(BfTextView * self, gchar * color);
 
+/* these functions return the names of groups, blocks and tokens that are defined 
+for a certain language config. They are used in the preferences panel to build
+the GUI to set textstyles */
 GList *bf_lang_get_groups(BfLangConfig * cfg);
 GList *bf_lang_get_blocks_for_group(BfLangConfig * cfg, gchar * group);
 GList *bf_lang_get_tokens_for_group(BfLangConfig * cfg, gchar * group);

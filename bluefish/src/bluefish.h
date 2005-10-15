@@ -212,7 +212,9 @@ typedef struct {
 	GList *filetypes; /* filetypes for highlighting and filtering */
 	gint numcharsforfiletype; /* maximum number of characters in the file to use to find the filetype */
 	GList *filefilters; /* filebrowser.c filtering */
+#ifndef USE_SCANNER
 	GList *highlight_patterns; /* the highlight patterns */
+#endif
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint restore_dimensions; /* use the dimensions as used the previous run */
 	gint left_panel_left; /* 1 = left, 0 = right */

@@ -156,7 +156,18 @@ static void bf_textview_class_init(BfTextViewClass * c)
 	parent_class = g_type_class_ref(GTK_TYPE_TEXT_VIEW);
 }
 
-
+/**
+ * bftv_get_block_at_iter:
+ *
+ * I don't know what this function does
+ *
+ * profiling reveils that this function takes 9.51% of the 
+ * time during file loading, because it is called *very* often
+ * so this is a good candidate for speed optimisation, or
+ * the calling function should be optimised to cache the
+ * calls to this function ???
+ *
+ */
 GtkTextMark *bftv_get_block_at_iter(GtkTextIter * it)
 {
 	GSList *lst = gtk_text_iter_get_marks(it);
@@ -276,13 +287,17 @@ static void bftv_remove_b_tag(gpointer key,gpointer value,gpointer data) {
 }
 
 /**
-*	bf_textview_scan_area:
-*	@self:  BfTextView widget 
-* @start: textbuffer iterator at start of area
-* @end: textbuffer iterator at end of area
-*
-*	Scan buffer area - this is main scanning function, the rest of "scans" uses this method.
-*/
+ * bf_textview_scan_area:
+ * @self:  BfTextView widget 
+ * @start: textbuffer iterator at start of area
+ * @end: textbuffer iterator at end of area
+ *
+ * Scan buffer area - this is main scanning function, the rest of "scans" uses this method.
+ *
+ * after some profiling, this functions takes up 77.45% of the time during the loading of files
+ * so this is an interesting candidate for speed optimisations
+ *
+ */
 void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end)
 {
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
@@ -316,10 +331,8 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 #endif
 
 
-	while (!g_queue_is_empty(&(self->scanner.block_stack)))
-		g_queue_pop_head(&(self->scanner.block_stack));
-	while (!g_queue_is_empty(&(self->scanner.tag_stack)))
-		g_queue_pop_head(&(self->scanner.tag_stack));
+	while (g_queue_pop_head(&(self->scanner.block_stack)) != NULL) {};
+	while (g_queue_pop_head(&(self->scanner.tag_stack)) != NULL) {};
 
 	bftv_delete_blocks_from_area(self, start, end);
 	if ( self->lang->tag_begin ) gtk_text_buffer_remove_tag(buf,self->lang->tag_begin,start,end);
