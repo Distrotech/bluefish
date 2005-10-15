@@ -29,7 +29,9 @@ void rcfile_check_directory(void);
 void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidget *widget);
 
 gint rcfile_save_main(void);
+#ifndef USE_SCANNER
 gint rcfile_save_highlighting(void);
+#endif
 gint rcfile_save_custom_menu(void);
 gboolean rcfile_parse_project(Tproject *project, gchar *filename);
 gboolean rcfile_save_project(Tproject *project, gchar *filename);

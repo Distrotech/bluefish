@@ -93,7 +93,9 @@ typedef struct {
 } Tconfig_list_item;
 
 static GList *main_configlist=NULL;
+#ifndef USE_SCANNER
 static GList *highlighting_configlist=NULL;
+#endif
 static GList *custom_menu_configlist=NULL;
 
 static void free_configlist(GList *configlist) {
@@ -726,51 +728,26 @@ gint rcfile_save_main(void) {
 	g_free(filename);
 	return ret;
 }
-/*
-static gboolean arraylist_test_identifier_exists(GList *arrlist, const gchar *name) {
-	GList *tmplist = g_list_first(arrlist);
-	while(tmplist) {
-		if (strcmp(name, ((gchar **)(tmplist->data))[0])==0) {
-			return TRUE;
-		}
-		tmplist = g_list_next(tmplist);
-	}
-	return FALSE;
-}
-*/
+
+#ifndef USE_SCANNER	
 void rcfile_parse_highlighting(void) {
 	gchar *filename;
 	gchar *defaultfile;
-#ifdef USE_SCANNER
-	GList *lst=NULL;
-#endif	
-
 	DEBUG_MSG("rcfile_parse_highlighting, started\n");
 
 	highlighting_configlist = NULL;
 	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "patterns:", 0, TRUE);
 
-#ifdef USE_SCANNER
-	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting2", NULL);
-	defaultfile = return_first_existing_filename(PKGDATADIR"highlighting2",
-									"data/highlighting2",
-									"../data/highlighting2",NULL);
-#else
 	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting", NULL);
 	defaultfile = return_first_existing_filename(PKGDATADIR"highlighting",
 									"data/highlighting",
 									"../data/highlighting",NULL);
-#endif									
 	if (!parse_config_file(highlighting_configlist, filename)) {
 		/* init the highlighting in some way? */
 		if (defaultfile) {
 			main_v->props.highlight_patterns = get_list(defaultfile,NULL,TRUE);
 		} else {
-#ifdef USE_SCANNER
-			g_print("Unable to find '"PKGDATADIR"highlighting2'\n");
-#else		
 			g_print("Unable to find '"PKGDATADIR"highlighting'\n");
-#endif			
 		}
 		save_config_file(highlighting_configlist, filename);
 		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
@@ -784,19 +761,14 @@ void rcfile_parse_highlighting(void) {
 	g_free(filename);
 	g_free(defaultfile);
 }
-
 gint rcfile_save_highlighting(void) {
 	gint retval;
-#ifdef USE_SCANNER	
-	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting2", NULL);
-#else
 	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting", NULL);
-#endif	
 	retval = save_config_file(highlighting_configlist, filename);
 	g_free(filename);
 	return retval;
 }
-
+#endif
 static void rcfile_custom_menu_load_new(gchar *defaultfile) {
 	GList *default_insert=NULL, *default_replace=NULL, *tmp_configlist=NULL;
 	DEBUG_MSG("rcfile_custom_menu_load_new, started!\n");
@@ -947,9 +919,11 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 	case 0:
 		rcfile_save_main();
 	break;
+#ifndef USE_SCANNER
 	case 1:
 		rcfile_save_highlighting();
 	break;
+#endif
 	case 2:
 		rcfile_save_custom_menu();
 	break;
