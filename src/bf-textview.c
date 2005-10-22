@@ -1993,6 +1993,10 @@ static void bftv_fold(GtkTextMark * mark, gboolean move_cursor)
 /*  gtk_text_iter_forward_to_line_end(&it2);*/
 	ptr = g_object_get_data(G_OBJECT(mark), "ref_e1");
 	gtk_text_buffer_get_iter_at_mark(buf, &it3, GTK_TEXT_MARK(ptr));
+	
+	/* move it3 backward to offset 0 such that the indenting of the block end is preserved */
+	gtk_text_iter_set_line_offset(&it3, 0);
+	
 	ptr = g_object_get_data(G_OBJECT(mark), "ref_e2");
 	gtk_text_buffer_get_iter_at_mark(buf, &it4, GTK_TEXT_MARK(ptr));
 
