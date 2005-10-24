@@ -52,15 +52,8 @@ alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're 
 #include "project.h"
 #include "stringlist.h"		/* count_array() */
 
-
 typedef struct {
-	gchar *name;
-	gboolean mode; /* 0= hide matching files, 1=show matching files */
-	GList *filetypes; /* if NULL all files are OK */
-} Tfilter;
-
-typedef struct {
-	GList *filters; /* the compiled filters */
+	/* GList *filters;  the compiled filters -> now in main_v->filefilters */
 	GList *filetypes_with_icon; /* name says it all! */
 	
 	GtkTreeStore *filesystem_tstore; /* the directory tree */	
@@ -1207,7 +1200,7 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 }
 
 static Tfilter *find_filter_by_name(const gchar *name) {
-	GList *tmplist = g_list_first(FB2CONFIG(main_v->fb2config)->filters);
+	GList *tmplist = g_list_first(main_v->filefilters);
 	while(tmplist) {
 		Tfilter *filter = (Tfilter *)tmplist->data;
 		if (strcmp(filter->name, name)==0) {
@@ -1306,7 +1299,7 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 		GList *tmplist;
 		fmenu = gtk_menu_new();
 		gtk_menu_item_set_submenu(GTK_MENU_ITEM(menu_item), fmenu);
-		tmplist = g_list_last(FB2CONFIG(main_v->fb2config)->filters);
+		tmplist = g_list_last(main_v->filefilters);
 		while (tmplist) {
 			Tfilter *filter = (Tfilter *)tmplist->data;
 			menu_item = gtk_radio_menu_item_new_with_label(group, filter->name);
@@ -1926,16 +1919,19 @@ static void filter_destroy(Tfilter *filter) {
 	g_free(filter);
 }
 
+/* 
+ * WARNING: these filter are also used in the filechooser dialog (file->open in the menu)
+ */
 void fb2_filters_rebuild(void) {
 	GList *tmplist;
 	/* free any existing filters */
-	tmplist = g_list_first(FB2CONFIG(main_v->fb2config)->filters);
+	tmplist = g_list_first(main_v->filefilters);
 	while (tmplist) {
 		filter_destroy(tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
-	g_list_free(FB2CONFIG(main_v->fb2config)->filters);
-	FB2CONFIG(main_v->fb2config)->filters = NULL;
+	g_list_free(main_v->filefilters);
+	main_v->filefilters = NULL;
 	g_list_free(FB2CONFIG(main_v->fb2config)->filetypes_with_icon);
 	FB2CONFIG(main_v->fb2config)->filetypes_with_icon = NULL;
 	
@@ -1948,13 +1944,13 @@ void fb2_filters_rebuild(void) {
 		tmplist = g_list_next(tmplist);
 	}
 	/* build a list of filters */
-	FB2CONFIG(main_v->fb2config)->filters = g_list_prepend(NULL, new_filter(_("All files"), "0", NULL));
+	main_v->filefilters = g_list_prepend(NULL, new_filter(_("All files"), "0", NULL));
 	tmplist = g_list_first(main_v->props.filefilters);
 	while (tmplist) {
 		gchar **strarr = (gchar **) tmplist->data;
 		if (count_array(strarr) == 3) {
 			Tfilter *filter = new_filter(strarr[0], strarr[1], strarr[2]);
-			FB2CONFIG(main_v->fb2config)->filters = g_list_prepend(FB2CONFIG(main_v->fb2config)->filters, filter);
+			main_v->filefilters = g_list_prepend(main_v->filefilters, filter);
 		}
 		tmplist = g_list_next(tmplist);
 	}

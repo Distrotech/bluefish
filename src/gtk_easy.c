@@ -1189,13 +1189,46 @@ GtkWidget *file_but_new2(GtkWidget * which_entry, gint full_pathname, Tbfwin *bf
 /************    FILE SELECTION FUNCTIONS  ******************************/
 /************************************************************************/
 
+typedef struct {
+	GtkWidget *dialog;
+	GtkWidget *show_backup;
+	GtkWidget *show_hidden;
+	Tfilter *filter;
+} Tfchooser_filter;
+
+static Tfchooser_filter *new_fchooser_filter(GtkWidget *dialog, GtkWidget *show_backup, GtkWidget *show_hidden, Tfilter *filter) {
+	Tfchooser_filter *cf = g_new(Tfchooser_filter,1);
+	cf->dialog = dialog;
+	cf->show_backup = show_backup;
+	cf->show_hidden = show_hidden;
+	cf->filter = filter;
+	return cf;
+}
+
 static void viewlocal_toggled_lcb(GtkToggleButton *togglebutton,GtkWidget *dialog) {
 	g_object_set(G_OBJECT(dialog), "show-hidden", togglebutton->active, NULL);
 }
 
+static gboolean file_chooser_custom_filter_func(GtkFileFilterInfo *filter_info,gpointer data) {
+	GList *tmplist;
+	Tfchooser_filter *cf = data;
+	if (!filter_info->filename || filter_info->filename[0] == '\0') return FALSE; /* error condition ?? */
+	if (!GTK_TOGGLE_BUTTON(cf->show_backup)->active) {
+		gint namelen = strlen(filter_info->filename);
+		if (filter_info->filename[namelen-1] == '~' ) return FALSE;
+	}
+	if (!GTK_TOGGLE_BUTTON(cf->show_hidden)->active && filter_info->filename[0] == '.' ) return FALSE;
+	if (cf->filter == NULL) return TRUE;
+	if (!cf->filter->filetypes) return !cf->filter->mode;
+	for (tmplist=g_list_first(cf->filter->filetypes);tmplist!=NULL;tmplist=tmplist->next) {
+		if (filename_test_extensions(((Tfiletype *)tmplist->data)->extensions, filter_info->filename)) return cf->filter->mode;
+	}
+	return !cf->filter->mode;
+}
+
 GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, 
 											gchar *set, gboolean localonly, gboolean multiple, const gchar *filter) {
-	GtkWidget *vbox, *hbox, *dialog, *viewlocal;
+	GtkWidget *vbox, *hbox, *dialog, *viewlocal, *viewhidden;
 	dialog = gtk_file_chooser_dialog_new_with_backend(title,bfwin ? GTK_WINDOW(bfwin->main_window) : NULL,
 			action,"gnome-vfs",
 			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -1241,15 +1274,28 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 
 	hbox = gtk_hbox_new(FALSE, 5);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 5);
-	viewlocal = boxed_checkbut_with_value(_("Show hidden"), 0, hbox);
+	viewlocal = boxed_checkbut_with_value(_("Show hidden files"), 0, hbox);
 	g_signal_connect(G_OBJECT(viewlocal), "toggled", G_CALLBACK(viewlocal_toggled_lcb), dialog);
+	viewhidden = boxed_checkbut_with_value(_("Show backup files"), 0, hbox);
+	
 	gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(dialog),vbox);
 	if (action == GTK_FILE_CHOOSER_ACTION_OPEN || action == GTK_FILE_CHOOSER_ACTION_SAVE){
 		GList *tmplist;
 		GtkFileFilter* ff;
 		ff = gtk_file_filter_new();
 		gtk_file_filter_set_name(ff,_("All files"));
-		gtk_file_filter_add_pattern(ff, "*");
+		gtk_file_filter_add_custom(ff,GTK_FILE_FILTER_FILENAME,file_chooser_custom_filter_func,
+								new_fchooser_filter(dialog, viewlocal, viewhidden, NULL),g_free);
+		gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
+		for (tmplist=g_list_first(main_v->filefilters);tmplist!=NULL;tmplist=tmplist->next) {
+			Tfilter *filter =tmplist->data;
+			ff = gtk_file_filter_new();
+			gtk_file_filter_set_name(ff,filter->name);
+			gtk_file_filter_add_custom(ff,GTK_FILE_FILTER_FILENAME,file_chooser_custom_filter_func,
+									new_fchooser_filter(dialog, viewlocal, viewhidden, filter),g_free);
+			gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
+		}
+/*		gtk_file_filter_add_pattern(ff, "*");
 		gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
 		if (filter == NULL)	gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(dialog), ff);
 		tmplist = g_list_first(main_v->filetypelist);
@@ -1273,7 +1319,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 				if (filter && strcmp(filter, ft->type) == 0)	gtk_file_chooser_set_filter (GTK_FILE_CHOOSER (dialog), ff);
 			}
 			tmplist = g_list_next(tmplist);
-		}
+		}*/
 	}
 	gtk_widget_show_all(vbox);
 	return dialog;
