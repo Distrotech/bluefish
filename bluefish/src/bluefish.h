@@ -102,9 +102,9 @@ typedef struct {
 	GList *redofirst;
 } unre_t;
 
-/************************/
-/* filetype struct      */
-/************************/
+/******************************************************************************************/
+/* filetype struct, used for filtering, highlighting/scanning, and as document property   */
+/******************************************************************************************/
 
 typedef struct {
 	gchar *type;
@@ -121,9 +121,18 @@ typedef struct {
 #endif	
 } Tfiletype;
 
-/*******************/
-/* document struct */
-/*******************/
+/*****************************************************/
+/* filter struct - used in filebrowser2 and gtk_easy */
+/*****************************************************/
+typedef struct {
+	gchar *name;
+	gboolean mode; /* 0= hide matching files, 1=show matching files */
+	GList *filetypes; /* if NULL all files are OK */
+} Tfilter;
+
+/********************************************************************/
+/* document struct, used everywhere, most importantly in document.c */
+/********************************************************************/
 #define BFWIN(var) ((Tbfwin *)(var))
 #define DOCUMENT(var) ((Tdocument *)(var))
 #define CURDOC(bfwin) (bfwin->current_document)
@@ -136,6 +145,7 @@ typedef enum {
 	DOC_CLOSING
 } Tdocstatus;
 
+/* if an action is set, this action has to be executed after the document finishing closing/opening */
 typedef struct {
 	gint goto_line;
 	gint goto_offset;
@@ -149,7 +159,7 @@ typedef struct {
 
 typedef struct {
 	GnomeVFSURI *uri;
-	Tdoc_action action;
+	Tdoc_action action; /* see above, if set, some action has to be executed after opening/closing is done */
 /*	gchar *filename;  this is the UTF-8 encoded filename, before you use it on disk you need convert to disk-encoding! */
 	Tdocstatus status; /* can be DOC_STATUS_ERROR, DOC_STATUS_LOADING, DOC_STATUS_COMPLETE, DOC_CLOSING */
 	gchar *encoding;
@@ -415,6 +425,7 @@ typedef struct {
 	Tsessionvars *session; /* holds all session variables for non-project windows */
 	gpointer filebrowserconfig;
 	gpointer fb2config; /* filebrowser2config */
+	GList *filefilters; /* initialized by fb2config functions */
 	gpointer frefdata;
 	gpointer bmarkdata;
 /* 	GtkTreeStore *bookmarkstore; the global bookmarks from the global session */
