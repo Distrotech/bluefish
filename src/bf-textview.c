@@ -370,9 +370,14 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 		token_found = FALSE;
 		block_found = FALSE;
 
-/*	g_print("state1:%d, char:%c\n",currstate,c);*/
-		if (currstate > BFTV_TOKEN_IDS)
-			currstate = 0;
+
+		if (currstate > BFTV_TOKEN_IDS)	currstate = 0;
+		if ( self->scanner.state == BFTV_STATE_DONT_SCAN && currstate>0 &&
+				self->scanner.maxs>0 && self->scanner.mins>0)
+		{
+			if ( currstate < self->scanner.mins || currstate > self->scanner.maxs  )
+				currstate = 0;
+		}
 
 		if (self->lang->case_sensitive)
 			currstate = currtable[currstate][(gint) c];
@@ -550,22 +555,27 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						};		/* else */
 						break;
 					case 0:
-						if (currstate > 0) {
-							if (self->scanner.state == BFTV_STATE_DONT_SCAN)
-								break;
+						if (currstate > 0 && self->scanner.state != BFTV_STATE_DONT_SCAN) {
 							bf = g_new0(TBfBlock, 1);
 							bf->def = tmp;
 							bf->b_start = its;
 							bf->b_end = ita;
 							g_queue_push_head(&(self->scanner.block_stack), bf);
 							self->scanner.current_context = tmp;
-							if (!tmp->scanned)
+							if (!tmp->scanned) {							
 								self->scanner.state = BFTV_STATE_DONT_SCAN;
-							else
+								self->scanner.mins = tmp->min_state;
+								self->scanner.maxs = tmp->max_state;
+							}	
+							else {
 								self->scanner.state = BFTV_STATE_NORMAL;
+								self->scanner.mins = 0;
+								self->scanner.maxs = 0;								
+							}	
+							
 						} else {
-							if (g_queue_is_empty(&(self->scanner.block_stack)))
-								break;
+							if (g_queue_is_empty(&(self->scanner.block_stack)))	break;
+							
 							bf = g_queue_peek_head(&(self->scanner.block_stack));
 							if (bf && bf->def == tmp) {
 								g_queue_pop_head(&(self->scanner.block_stack));
@@ -626,14 +636,22 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 								if (g_queue_is_empty(&(self->scanner.block_stack))) {
 									self->scanner.current_context = NULL;
 									self->scanner.state = BFTV_STATE_NORMAL;
+									self->scanner.mins = 0;
+									self->scanner.maxs = 0;
 								} else {
 									self->scanner.current_context =
 										((TBfBlock *)
 										 g_queue_peek_head(&(self->scanner.block_stack)))->def;
-									if (!self->scanner.current_context->scanned)
+									if (!self->scanner.current_context->scanned) {
 										self->scanner.state = BFTV_STATE_DONT_SCAN;
-									else
+										self->scanner.mins = self->scanner.current_context->min_state;
+										self->scanner.maxs = self->scanner.current_context->max_state;																				
+									}	
+									else {
 										self->scanner.state = BFTV_STATE_NORMAL;
+										self->scanner.mins = 0;
+										self->scanner.maxs = 0;										
+									}	
 								}
 
 							}	/* bf */
@@ -688,7 +706,6 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	g_print("Total number of marks: %ld\n",tot_ms);*/
 	}
 #endif
-
 }
 
 /**
@@ -773,7 +790,7 @@ static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, g
 	gboolean charset[BFTV_UTF8_RANGE];
 	gboolean states[10000], pstates[10000];
 	gboolean done = FALSE;
-	gint counter = 0;
+	gint counter = 0, mins=0,maxs=0;
 
 	switch (type) {
 	case BFTV_DFA_TYPE_TOKEN:
@@ -795,6 +812,7 @@ static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, g
 		regexp = block->regexp;
 		cfg->blocknum++;
 		ptr = block->end;
+		mins=maxs=cfg->tabnum;
 		break;
 	}
 
@@ -910,7 +928,6 @@ static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, g
 
 			for (k = 0; k < s + 1; k++)
 				if (pstates[k]) {
-					/*  g_print("state in loop %d\n",k); */
 					x = g_array_index(dfa, gshort *, k);
 					if (x) {
 						for (m = 0; m < BFTV_UTF8_RANGE; m++)
@@ -1024,6 +1041,13 @@ static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, g
 	}
 
 	g_free(inp2);
+   if ( type == BFTV_DFA_TYPE_BLOCK_END )
+   {
+   			maxs=cfg->tabnum;
+   			block->min_state = mins;
+   			block->max_state = maxs;
+   }
+
 
 }
 
