@@ -54,6 +54,7 @@ typedef struct {
 	gint tabid;
 	gshort spec_type;			/* 0 - normal block, 1- tag_begin */
 	GtkTextTag *tag;
+	gint min_state,max_state;
 } BfLangBlock;
 
 /**
@@ -169,6 +170,7 @@ typedef struct {
 	TBfBlock *current_block;
 	BfLangBlock *current_context;
 	gint state;
+	gint mins,maxs;
 	GQueue block_stack;
 	GQueue tag_stack;
 } TBfScanner;
