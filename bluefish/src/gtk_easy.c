@@ -1206,8 +1206,14 @@ static Tfchooser_filter *new_fchooser_filter(GtkWidget *dialog, GtkWidget *show_
 }
 
 static void refresh_filter_lcb(GtkToggleButton *togglebutton,GtkWidget *dialog) {
+	gchar *uri;
+/*	GtkFileFilter *filter;*/
 	/*g_object_set(G_OBJECT(dialog), "show-hidden", togglebutton->active, NULL);*/
-	gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(dialog), gtk_file_chooser_get_filter(GTK_FILE_CHOOSER(dialog)));
+/*	filter = gtk_file_chooser_get_filter(GTK_FILE_CHOOSER(dialog));
+	gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(dialog), filter);*/
+	/* this successfully triggers the refiltering! */
+	uri = gtk_file_chooser_get_current_folder_uri(GTK_FILE_CHOOSER(dialog));
+	gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),uri);
 }
 
 static gboolean file_chooser_custom_filter_func(GtkFileFilterInfo *filter_info,gpointer data) {
@@ -1276,10 +1282,15 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 	hbox = gtk_hbox_new(FALSE, 5);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 5);
 	viewhidden = boxed_checkbut_with_value(_("Show hidden files"), 0, hbox);
-	g_signal_connect(G_OBJECT(viewhidden), "toggled", G_CALLBACK(refresh_filter_lcb), dialog);
-	g_object_set(G_OBJECT(dialog), "show-hidden", TRUE, NULL);
 	viewbackup = boxed_checkbut_with_value(_("Show backup files"), 0, hbox);
+	if (bfwin && bfwin->session) {
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(viewhidden), bfwin->session->filebrowser_show_hidden_files);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(viewbackup), bfwin->session->filebrowser_show_backup_files);
+	}
+	g_signal_connect(G_OBJECT(viewhidden), "toggled", G_CALLBACK(refresh_filter_lcb), dialog);
 	g_signal_connect(G_OBJECT(viewbackup), "toggled", G_CALLBACK(refresh_filter_lcb), dialog);
+	g_object_set(G_OBJECT(dialog), "show-hidden", TRUE, NULL);
+	
 	gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(dialog),vbox);
 	if (action == GTK_FILE_CHOOSER_ACTION_OPEN || action == GTK_FILE_CHOOSER_ACTION_SAVE){
 		GList *tmplist;
