@@ -138,6 +138,10 @@ GtkTextTag *get_tag_for_scanner_style(const gchar *filetype,const gchar *type,co
 	} else if (defaultstyle && defaultstyle[0] != '\0'){
 		/* try the default style */
 		tag = textstyle_get(defaultstyle);
+		if (tag) {
+			gchar **arr2 = array_from_arglist(filetype,type,name,defaultstyle,NULL);
+			main_v->props.syntax_styles = g_list_append(main_v->props.syntax_styles,arr2);
+		}
 		DEBUG_MSG("get_tag_for_scanner_style, return default style %s for %s:%s:%s\n",defaultstyle,filetype,type,name);
 		return tag;
 	}

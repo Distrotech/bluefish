@@ -30,7 +30,7 @@ INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
 INSTALL_DATA = $(INSTALL) -m 644
 
-DEFAULTFILES = highlighting filetypes encodings custom_menu custom_menu.fr custom_menu.de textstyles
+DEFAULTFILES = highlighting filetypes encodings custom_menu custom_menu.fr custom_menu.de textstyles php.bflang
 FUNCREFFILES = \
 	bflib_css2.xml.gz \
 	bflib_html_4.01.xml.gz \

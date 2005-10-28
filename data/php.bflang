@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+
+<bflang name="PHP" description="PHP language file">
+
+<options>
+    <option name="case-sensitive">false</option>
+    <option name="scan-markup-tags">true</option>
+    <option name="scan-blocks">true</option>
+   <option name="auto-scan-triggers">{}&#x0A;&lt;&gt;</option>	
+   <option name="escape-characters">\</option>
+</options>
+
+<block-group id="markup-group">
+<block id="markup-comment" begin="&lt;!--" end="--&gt;" scanned="false" foldable="true" defaultstyle="comment"/>
+</block-group>
+
+<block-group id="php-group">
+<block id="PHP area" begin="&lt;?php" end="?&gt;" scanned="true" foldable="true" markup="false" case="true" defaultstyle="code-block"/>
+<block id="braces" begin="{" end="}" scanned="true" foldable="true" markup="false" case="true"  context="PHP area"/>
+<block id="braces2" begin="(" end=")" scanned="true" foldable="true" markup="false" case="true"  context="PHP area"/>
+<block id="braces3" begin="[" end="]" scanned="true" foldable="true" markup="false" case="true"  context="PHP area"/>
+<block id="comment" begin="/*" end="*/" scanned="false" foldable="true" markup="false" case="true"  context="PHP area" defaultstyle="comment"/>
+</block-group>
+
+<token-group id="general">
+ <token name="string" regexp="true" context="PHP area" defaultstyle="string">&quot;[^&quot;]*&quot;</token>
+ <token name="single-string" regexp="true"  context="PHP area" defaultstyle="string">&apos;[^&apos;]*&apos;</token> 
+ <token name="lcomment" regexp="true" context="PHP area" defaultstyle="comment">//[^&#x0A;]*</token>
+ <token name="lcomment2" regexp="true" context="PHP area" defaultstyle="comment">#[^&#x0A;]*</token>
+</token-group>
+
+<token-group id="markup">
+ <token name="entity" regexp="true">&amp;[a-zA-Z0-9#]+;</token>
+ <token name="doctype" regexp="true">&lt;![a-zA-Z0-9]+[^&gt;]*&gt;</token>
+</token-group>
+
+<token-group id="keywords" defaultstyle="keyword" >
+  <token-list name="keywords" separator="," context="PHP area">foreach,return,goto,if,else,elseif,case,default,switch</token-list>
+  <token-list name="keywords2" separator="," context="PHP area">break,continue,while,do,for,global,var,class,function,new</token-list>
+</token-group>
+
+<token name="$variable" regexp="true" context="PHP area" defaultstyle="variable">$[a-z_][a-z0-9>-_]*</token>
+<token name="number" regexp="true" context="PHP area" defaultstyle="variable">[0-9]+</token>
+<token name="hex number" regexp="true" context="PHP area" defaultstyle="variable">0x[0-9]+</token>
+
+</bflang>
