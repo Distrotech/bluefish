@@ -995,7 +995,7 @@ gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
  *
  * Return value: #gint
  */
-gint array_n_strings_identical(gchar **array1, gchar **array2, gboolean case_sensitive, gint testlevel) {
+gint array_n_strings_identical(const gchar **array1, const gchar **array2, gboolean case_sensitive, gint testlevel) {
 	gint i=0, res=0;
 	while (i<testlevel && res==0) {
 		/*  array1[i]==array2[i] will only happen when they are both NULL	*/
@@ -1025,12 +1025,12 @@ gint array_n_strings_identical(gchar **array1, gchar **array2, gboolean case_sen
  *
  * Return value: the new list
  */
-GList *arraylist_delete_identical(GList *thelist, gchar **compare, gint testlevel, gboolean case_sensitive) {
+GList *arraylist_delete_identical(GList *thelist, const gchar **compare, gint testlevel, gboolean case_sensitive) {
 	GList *tmplist = g_list_first(thelist);
 	while (tmplist) {
 		GList *nextlist = g_list_next(tmplist);
 		gchar **tmparr = tmplist->data;
-		if (array_n_strings_identical(compare, tmparr, case_sensitive, testlevel)==0) {
+		if (array_n_strings_identical(compare, (const gchar **)tmparr, case_sensitive, testlevel)==0) {
 			DEBUG_MSG("arraylist_delete_identical, %s and %s are identical, will delete %p from list\n",tmparr[0],compare[0], tmplist);
 			thelist = g_list_delete_link(thelist, tmplist);
 			DEBUG_MSG("arraylist_delete_identical, free array %p (%s)\n",tmparr,tmparr[0]);
@@ -1054,11 +1054,11 @@ GList *arraylist_delete_identical(GList *thelist, gchar **compare, gint testleve
  *
  * Return value: the new arraylist
  */
-GList *arraylist_append_identical_from_list(GList *thelist, GList *source, gchar **compare, gint testlevel, gboolean case_sensitive) {
+GList *arraylist_append_identical_from_list(GList *thelist, GList *source, const gchar **compare, gint testlevel, gboolean case_sensitive) {
 	GList *tmplist = g_list_first(source);
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
-		if (array_n_strings_identical(compare, tmparr, case_sensitive, testlevel)==0) {
+		if (array_n_strings_identical(compare, (const gchar **)tmparr, case_sensitive, testlevel)==0) {
 			thelist = g_list_append(thelist, duplicate_stringarray(tmparr));
 		}
 		tmplist = g_list_next(tmplist);
@@ -1079,7 +1079,7 @@ GList *arraylist_append_identical_from_list(GList *thelist, GList *source, gchar
  *
  * Return value: the new arraylist
  */
-GList *arraylist_append_identical_from_file(GList *thelist, const gchar *sourcefilename, gchar **compare, gint testlevel, gboolean case_sensitive) {
+GList *arraylist_append_identical_from_file(GList *thelist, const gchar *sourcefilename, const gchar **compare, gint testlevel, gboolean case_sensitive) {
 	GList *sourcelist = get_list(sourcefilename,NULL,TRUE);
 	thelist = arraylist_append_identical_from_list(thelist, sourcelist, compare, testlevel, case_sensitive);
 	free_arraylist(sourcelist);
@@ -1100,11 +1100,11 @@ GList *arraylist_append_identical_from_file(GList *thelist, const gchar *sourcef
  *
  * Return value: #gchar ** 
  */
-gchar **arraylist_value_exists(GList *arraylist, gchar **value, gint testlevel, gboolean case_sensitive) {
+gchar **arraylist_value_exists(GList *arraylist, const gchar **value, gint testlevel, gboolean case_sensitive) {
 	GList *tmplist = g_list_first(arraylist);
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
-		if (array_n_strings_identical(value, tmparr, case_sensitive, testlevel)==0) {
+		if (array_n_strings_identical(value, (const gchar **)tmparr, case_sensitive, testlevel)==0) {
 /*			g_print("arraylist_value_exists,found it!\n");*/
 			return tmparr;
 		}
@@ -1132,7 +1132,7 @@ GList *arraylist_load_new_identifiers_from_list(GList *mylist, GList *deflist, g
 	while (tmplist) {
 		gchar **tmparr = tmplist->data;
 		if (count_array(tmparr) >= uniquelevel) {
-			if (!arraylist_value_exists(mylist, tmparr, uniquelevel, TRUE)) {
+			if (!arraylist_value_exists(mylist, (const gchar **)tmparr, uniquelevel, TRUE)) {
 				DEBUG_MSG("arraylist_load_new_identifiers, adding %s to thelist\n",tmparr[0]);
 				mylist = g_list_append(mylist, duplicate_stringarray(tmparr));
 			}

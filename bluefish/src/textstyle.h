@@ -36,7 +36,7 @@ GtkTextTag *textstyle_get(const gchar *name);
 GtkWidget* textstyle_combo_box(GList *configstyles);
 
 #ifdef USE_SCANNER
-GtkTextTag *get_tag_for_scanner_style(gchar *filetype,gchar *type,gchar *name);
+GtkTextTag *get_tag_for_scanner_style(const gchar *filetype,const gchar *type,const gchar *name, const gchar *defaultstyle);
 #endif
 
 #endif /* __TEXTSTYLE_H__ */

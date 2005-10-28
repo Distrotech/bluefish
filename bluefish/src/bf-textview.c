@@ -1133,10 +1133,14 @@ static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * 
 			xmlFree(tmps2);
 		} else
 			t->context = NULL;
-		t->tag = get_tag_for_scanner_style(cfg->name, "t", t->name);
+		
+		tmps2 = xmlGetProp(node, (const xmlChar *) "defaultstyle");
+		t->tag = get_tag_for_scanner_style(cfg->name, "t", t->name, tmps2);
 		if (!t->tag) {
-			t->tag = get_tag_for_scanner_style(cfg->name, "g", t->group);
+			t->tag = get_tag_for_scanner_style(cfg->name, "g", t->group, NULL);
 		}
+		if (tmps2) xmlFree(tmps2);
+		
 		bftv_put_into_dfa(cfg->dfa, cfg, t, BFTV_DFA_TYPE_TOKEN, FALSE);
 		g_hash_table_insert(cfg->tokens, &t->tabid, t);
 		return t;
@@ -1169,12 +1173,16 @@ static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * 
 			b->regexp = bftv_xml_bool(tmps2);
 			if (tmps2)
 				xmlFree(tmps2);
+
 			/* try to retrieve the tag based on the name of the block, if no tag is found, 
 			   try to retrieve a tag for the group name */
-			b->tag = get_tag_for_scanner_style(cfg->name, "b", b->id);
+			tmps2 = xmlGetProp(node, (const xmlChar *) "defaultstyle");
+			b->tag = get_tag_for_scanner_style(cfg->name, "b", b->id, tmps2);
 			if (!b->tag) {
-				b->tag = get_tag_for_scanner_style(cfg->name, "b", b->group);
+				b->tag = get_tag_for_scanner_style(cfg->name, "g", b->group, NULL);
 			}
+			if (tmps2) xmlFree(tmps2);
+			
 			g_hash_table_insert(cfg->blocks, tmps, b);
 			bftv_put_into_dfa(cfg->dfa, cfg, b, BFTV_DFA_TYPE_BLOCK_BEGIN, FALSE);
 			bftv_put_into_dfa(cfg->dfa, cfg, b, BFTV_DFA_TYPE_BLOCK_END, FALSE);
@@ -1208,10 +1216,10 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 		cfg->tokens = g_hash_table_new(g_int_hash, g_int_equal);
 		cfg->groups = g_hash_table_new(g_str_hash, g_str_equal);
 
-		cfg->tag_begin = get_tag_for_scanner_style(cfg->name, "m", "tag_begin");
-		cfg->tag_end = get_tag_for_scanner_style(cfg->name, "m", "tag_end");
-		cfg->attr_name = get_tag_for_scanner_style(cfg->name, "m", "attr_name");
-		cfg->attr_val = get_tag_for_scanner_style(cfg->name, "m", "attr_val");
+		cfg->tag_begin = get_tag_for_scanner_style(cfg->name, "m", "tag_begin", "tag begin");
+		cfg->tag_end = get_tag_for_scanner_style(cfg->name, "m", "tag_end", "tag end");
+		cfg->attr_name = get_tag_for_scanner_style(cfg->name, "m", "attr_name", "attribute");
+		cfg->attr_val = get_tag_for_scanner_style(cfg->name, "m", "attr_val", "attribute value");
 
 		cfg->restricted_tags = g_hash_table_new(g_int_hash, g_int_equal);
 		cfg->line_indent = g_array_new(TRUE, TRUE, sizeof(gint));
@@ -2167,7 +2175,7 @@ static void bf_textview_delete_range_cb(GtkTextBuffer * textbuffer, GtkTextIter 
 
 }
 
-
+/* this function does highlight the matching braces (block end and start) */
 static void bf_textview_move_cursor_cb(GtkTextView * widget, GtkMovementStep step, gint count,
 									   gboolean extend_selection, gpointer user_data)
 {
