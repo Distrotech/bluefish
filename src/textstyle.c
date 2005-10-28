@@ -119,17 +119,26 @@ GtkTextTagTable *textstyle_return_tagtable(void) {
 }
 #ifdef USE_SCANNER
 
-gchar **get_arr_for_scanner_style(gchar *filetype,gchar *type,gchar *name) {
-	gchar *arr2[] = {filetype, type, name, NULL};
+gchar **get_arr_for_scanner_style(const gchar *filetype,const gchar *type,const gchar *name) {
+	const gchar *arr2[] = {filetype, type, name, NULL};
 /*	DEBUG_MSG("get_tag_for_scanner_style, filetype %s, type %s, name %s\n",filetype,type,name);*/
 	return arraylist_value_exists(main_v->props.syntax_styles, arr2, 3, TRUE);
 }
 
-GtkTextTag *get_tag_for_scanner_style(gchar *filetype,gchar *type,gchar *name) {
+GtkTextTag *get_tag_for_scanner_style(const gchar *filetype,const gchar *type,const gchar *name, const gchar *defaultstyle) {
 	gchar **arr1 = get_arr_for_scanner_style(filetype,type,name);
-	if (arr1) {
-		GtkTextTag *tag = textstyle_get(arr1[3]);
+	GtkTextTag *tag=NULL;
+	if (arr1 && arr1[3]) {
+		/* the style for this element is set in the config */
+		if (arr1[3][0] != '\0') {
+			tag = textstyle_get(arr1[3]);
+		}
 		DEBUG_MSG("get_tag_for_scanner_style(%s:%s:%s) return tag %p for textstyle %s\n",filetype,type,name,tag,arr1[3]);
+		return tag;
+	} else if (defaultstyle && defaultstyle[0] != '\0'){
+		/* try the default style */
+		tag = textstyle_get(defaultstyle);
+		DEBUG_MSG("get_tag_for_scanner_style, return default style %s for %s:%s:%s\n",defaultstyle,filetype,type,name);
 		return tag;
 	}
 	DEBUG_MSG("no config found for %s:%s:%s\n",filetype,type,name);

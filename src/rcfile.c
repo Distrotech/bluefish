@@ -696,13 +696,16 @@ void rcfile_parse_main(void)  {
 		GList *tmplist = g_list_first(main_v->props.filetypes);
 		while (tmplist) {
 			gchar **orig = (gchar **)tmplist->data;
+			gchar *bflangname;
+			
+			bflangname = g_strconcat(orig[0],".bflang",NULL);
 			if (count_array(orig)==4) {
-				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], "1", "", "1", "", NULL);
+				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], "1", "", "1", bflangname, NULL);
 				tmplist->data = new;
 				g_strfreev(orig);
 			}
 			if (count_array(orig)==6) {
-				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], orig[4], orig[5], "0", "", NULL);
+				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], orig[4], orig[5], "0", bflangname, NULL);
 				tmplist->data = new;
 				if (strcmp(orig[0], "xml")==0) {
 					new[6][0] = '1';
@@ -712,11 +715,26 @@ void rcfile_parse_main(void)  {
 				g_strfreev(orig);
 			}
 			if (count_array(orig)==7) {
-				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], orig[4], orig[5], orig[6], "", NULL);
+				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], orig[4], orig[5], orig[6], bflangname, NULL);
 				tmplist->data = new;
 				g_strfreev(orig);
 			}
+			g_free(bflangname);
+			
 			tmplist = g_list_next(tmplist);
+		}
+	}
+	
+	/* initialize the default textstyles */
+	if (main_v->props.textstyles == NULL) {
+		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"textstyles",
+									"data/textstyles",
+									"../data/textstyles",NULL);
+		
+		if (defaultfile) {
+				main_v->props.textstyles = get_list(defaultfile,NULL,TRUE);
+		} else {
+			g_print("Unable to find '"PKGDATADIR"textsyles'\n");
 		}
 	}
 }
