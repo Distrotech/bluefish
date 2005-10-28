@@ -217,7 +217,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 			if (ft && ft->icon) pixmap = ft->icon;
 			else pixmap = FB2CONFIG(main_v->fb2config)->unknown_icon;
 		}
-		DEBUG_MSG("fb2_add_filesystem_entry, appending iter\n");
+		DEBUG_MSG("fb2_add_filesystem_entry, appending iter for %s\n",display_name);
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);
 		DEBUG_MSG("fb2_add_filesystem_entry, will add ");
 		DEBUG_URI(uri_dup, TRUE);
