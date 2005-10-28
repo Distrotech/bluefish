@@ -2544,8 +2544,6 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.filefilters = duplicate_arraylist(pd->lists[filefilters]);
 #ifdef USE_SCANNER
 	DEBUG_MSG("preferences_apply: free old syntax styles, and building new list\n");
-	dump_arraylist(main_v->props.syntax_styles);
-	dump_arraylist(pd->lists[syntax_styles]);
 	free_arraylist(main_v->props.syntax_styles);
 	main_v->props.syntax_styles = duplicate_arraylist(pd->lists[syntax_styles]);
 #else
@@ -2571,7 +2569,9 @@ static void preferences_apply(Tprefdialog *pd) {
 	
 	filetype_highlighting_rebuild(TRUE);
 	/*filebrowser_filters_rebuild();*/
-#ifndef USE_SCANNER	
+#ifdef USE_SCANNER
+	bf_lang_mgr_retag();
+#else
 	highlightpattern_apply_changes(pd);
 #endif	
 	fb2_filters_rebuild();

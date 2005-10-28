@@ -2652,6 +2652,41 @@ gboolean bf_lang_needs_tags(BfLangConfig * cfg)
 	return cfg->scan_tags;
 }
 
+static void bflang_retag_token(gpointer key, gpointer value, gpointer udata)
+{
+	BfLangToken *t = (BfLangToken*)value;
+	BfLangConfig *cfg = (BfLangConfig*)udata;
+	t->tag = get_tag_for_scanner_style(cfg->name, "t", t->name, NULL);
+	if (!t->tag) {
+		t->tag = get_tag_for_scanner_style(cfg->name, "g", t->group, NULL);
+	}
+}
 
+static void bflang_retag_block(gpointer key, gpointer value, gpointer udata)
+{
+	BfLangBlock *b = (BfLangBlock *) value;
+	BfLangConfig *cfg = (BfLangConfig*)udata;
+	b->tag = get_tag_for_scanner_style(cfg->name, "b", b->id, NULL);
+	if (!b->tag) {
+		b->tag = get_tag_for_scanner_style(cfg->name, "g", b->group, NULL);
+	}
+}
+
+static void bf_lang_retag(gpointer key, gpointer value, gpointer udata)
+{
+	BfLangConfig *cfg = (BfLangConfig *)value;
+	g_hash_table_foreach(cfg->tokens, bflang_retag_token, cfg);
+	g_hash_table_foreach(cfg->blocks, bflang_retag_block, cfg);
+	cfg->tag_begin = get_tag_for_scanner_style(cfg->name, "m", "tag_begin", NULL);
+	cfg->tag_end = get_tag_for_scanner_style(cfg->name, "m", "tag_end", NULL);
+	cfg->attr_name = get_tag_for_scanner_style(cfg->name, "m", "attr_name", NULL);
+	cfg->attr_val = get_tag_for_scanner_style(cfg->name, "m", "attr_val", NULL);
+
+	/* we should perhaps also retag some of the internal tags such as _block_match_ ? */
+}
+
+void bf_lang_mgr_retag(void) {
+	g_hash_table_foreach(main_v->lang_mgr->languages, bf_lang_retag, NULL);
+}
 
 #endif							/* USE_SCANNER */
