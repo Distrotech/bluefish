@@ -1100,7 +1100,7 @@ static gshort **bftv_make_tag_scan_table(GArray * dfa, BfLangConfig * cfg)
 
 
 static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * cfg, gint type,
-								 gchar * group, gchar * text)
+								 gchar * group, const gchar *groupstyle, gchar * text)
 {
 	xmlChar *tmps, *tmps2;
 	gpointer ptr;
@@ -1137,7 +1137,7 @@ static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * 
 		tmps2 = xmlGetProp(node, (const xmlChar *) "defaultstyle");
 		t->tag = get_tag_for_scanner_style(cfg->name, "t", t->name, tmps2);
 		if (!t->tag) {
-			t->tag = get_tag_for_scanner_style(cfg->name, "g", t->group, NULL);
+			t->tag = get_tag_for_scanner_style(cfg->name, "g", t->group, groupstyle);
 		}
 		if (tmps2) xmlFree(tmps2);
 		
@@ -1179,7 +1179,7 @@ static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * 
 			tmps2 = xmlGetProp(node, (const xmlChar *) "defaultstyle");
 			b->tag = get_tag_for_scanner_style(cfg->name, "b", b->id, tmps2);
 			if (!b->tag) {
-				b->tag = get_tag_for_scanner_style(cfg->name, "g", b->group, NULL);
+				b->tag = get_tag_for_scanner_style(cfg->name, "g", b->group, groupstyle);
 			}
 			if (tmps2) xmlFree(tmps2);
 			
@@ -1198,7 +1198,7 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 {
 	xmlDocPtr doc;
 	xmlNodePtr cur, cur2;
-	xmlChar *tmps, *tmps2 = NULL, *tmps3 = NULL;
+	xmlChar *tmps, *tmps2 = NULL, *tmps3 = NULL, *tmps4;
 	BfLangConfig *cfg = NULL;
 	gint i;
 	gshort *x;
@@ -1291,21 +1291,24 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 			} /* options */
 			else if (xmlStrcmp(cur->name, (const xmlChar *) "block-group") == 0) {	/* blocks  */
 				tmps3 = xmlGetProp(cur, (const xmlChar *) "id");
+				tmps4 = xmlGetProp(cur, (const xmlChar *) "defaultstyle");
 				g_hash_table_insert(cfg->groups, g_strdup(tmps3), "b");
 				cur2 = cur->xmlChildrenNode;
 				while (cur2 != NULL) {
 					if (xmlStrcmp(cur2->name, (const xmlChar *) "block") == 0) {
-						bftv_make_entity(doc, cur2, cfg, BFTV_DFA_TYPE_BLOCK_BEGIN, tmps3, NULL);
+						bftv_make_entity(doc, cur2, cfg, BFTV_DFA_TYPE_BLOCK_BEGIN, tmps3, tmps4, NULL);
 					}
 					cur2 = cur2->next;
 				}				/* while */
+				xmlFree(tmps4);
 			} else if (xmlStrcmp(cur->name, (const xmlChar *) "token-group") == 0) {	/* tokens  */
 				tmps3 = xmlGetProp(cur, (const xmlChar *) "id");
+				tmps4 = xmlGetProp(cur, (const xmlChar *) "defaultstyle");
 				g_hash_table_insert(cfg->groups, g_strdup(tmps3), "t");
 				cur2 = cur->xmlChildrenNode;
 				while (cur2 != NULL) {
 					if (xmlStrcmp(cur2->name, (const xmlChar *) "token") == 0) {
-						bftv_make_entity(doc, cur2, cfg, BFTV_DFA_TYPE_TOKEN, tmps3, NULL);
+						bftv_make_entity(doc, cur2, cfg, BFTV_DFA_TYPE_TOKEN, tmps3, tmps4, NULL);
 					} else if (xmlStrcmp(cur2->name, (const xmlChar *) "token-list") == 0) {
 						tmps2 = xmlGetProp(cur2, (const xmlChar *) "separator");
 						if (tmps2) {
@@ -1315,7 +1318,7 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 							if (arr) {
 								gint i = 0;
 								while (arr[i] != NULL) {
-									bftv_make_entity(doc, cur2, cfg, BFTV_DFA_TYPE_TOKEN, tmps3,
+									bftv_make_entity(doc, cur2, cfg, BFTV_DFA_TYPE_TOKEN, tmps3,tmps4,
 													 g_strdup(arr[i]));
 									i++;
 								}	/* while */
@@ -1327,12 +1330,13 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 					}			/* token-list */
 					cur2 = cur2->next;
 				}				/* while cur2 */
+				xmlFree(tmps4);
 			} /* token group */
 			else if (xmlStrcmp(cur->name, (const xmlChar *) "block") == 0) {	/* block  * without  * a  * group  */
-				bftv_make_entity(doc, cur, cfg, BFTV_DFA_TYPE_BLOCK_BEGIN, NULL, NULL);
+				bftv_make_entity(doc, cur, cfg, BFTV_DFA_TYPE_BLOCK_BEGIN, NULL, NULL, NULL);
 			} /* block without a group */
 			else if (xmlStrcmp(cur->name, (const xmlChar *) "token") == 0) {
-				bftv_make_entity(doc, cur, cfg, BFTV_DFA_TYPE_TOKEN, NULL, NULL);
+				bftv_make_entity(doc, cur, cfg, BFTV_DFA_TYPE_TOKEN, NULL, NULL, NULL);
 			} /* token without a group */
 			else if (xmlStrcmp(cur->name, (const xmlChar *) "token-list") == 0) {	/* token  * list  * without  * a  * group  */
 				tmps2 = xmlGetProp(cur, (const xmlChar *) "separator");
@@ -1343,7 +1347,7 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 					if (arr) {
 						gint i = 0;
 						while (arr[i] != NULL) {
-							bftv_make_entity(doc, cur, cfg, BFTV_DFA_TYPE_TOKEN, NULL,
+							bftv_make_entity(doc, cur, cfg, BFTV_DFA_TYPE_TOKEN, NULL, NULL,
 											 g_strdup(arr[i]));
 							i++;
 						}
