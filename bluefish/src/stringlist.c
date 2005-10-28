@@ -1161,3 +1161,17 @@ GList *arraylist_load_new_identifiers_from_file(GList *mylist, const gchar *from
 	free_arraylist(deflist);
 	return mylist;	
 }
+
+/* pure for debugging purposes */
+#ifdef DEVELOPMENT
+void dump_arraylist(GList *list) {
+	GList *tmplist;
+	for (tmplist=g_list_first(list);tmplist;tmplist=tmplist->next) {
+		gchar *tmp = array_to_string((gchar **)tmplist->data);
+		g_print("%s\n",tmp);
+		g_free(tmp);
+	}
+}
+#endif
+
+

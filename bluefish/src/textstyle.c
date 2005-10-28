@@ -119,7 +119,7 @@ GtkTextTagTable *textstyle_return_tagtable(void) {
 }
 #ifdef USE_SCANNER
 
-gchar **get_arr_for_scanner_style(const gchar *filetype,const gchar *type,const gchar *name) {
+static gchar **get_arr_for_scanner_style(const gchar *filetype,const gchar *type,const gchar *name) {
 	const gchar *arr2[] = {filetype, type, name, NULL};
 /*	DEBUG_MSG("get_tag_for_scanner_style, filetype %s, type %s, name %s\n",filetype,type,name);*/
 	return arraylist_value_exists(main_v->props.syntax_styles, arr2, 3, TRUE);
