@@ -1026,7 +1026,7 @@ static void textstyle_selection_changed_cb(GtkTreeSelection *selection, Tprefdia
 		gchar **strarr;
 		gtk_tree_model_get(model, &iter, 1, &strarr, -1);
 		pd->tsd.curstrarr = NULL;
-		DEBUG_MSG("textstyle_selection_changed_cb, strarr=%p\n",strarr);
+		DEBUG_MSG("textstyle_selection_changed_cb, setting %s, strarr=%p\n",strarr[0], strarr);
 		gtk_entry_set_text(GTK_ENTRY(pd->tsd.fg_color), strarr[1]);
 		gtk_entry_set_text(GTK_ENTRY(pd->tsd.bg_color), strarr[2]);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->tsd.bold_radio[0]), (strarr[3][0] != '1' && strarr[3][0] != '2'));
@@ -1913,7 +1913,8 @@ static void fill_hl_combo(Tprefdialog *pd) {
 }
 
 static void retrieve_arr_add_to_model(Tprefdialog *pd, GtkTreeIter *parent, GtkTreeIter *iiter, const gchar *filetype, const gchar *type, const gchar *name) {
-	gchar **iarr = get_arr_for_scanner_style(filetype,type,name);
+	const gchar *arr2[] = {filetype, type, name, NULL};
+	gchar **iarr =  arraylist_value_exists(pd->lists[syntax_styles], arr2, 3, TRUE);
 	DEBUG_MSG("retrieve_arr_add_to_model, adding %s to model\n",name);
 	gtk_tree_store_append(GTK_TREE_STORE(pd->hld.tstore), iiter, parent);
 	gtk_tree_store_set(GTK_TREE_STORE(pd->hld.tstore), iiter,0,name,1,filetype,2,type,3,iarr,-1);
@@ -2059,6 +2060,7 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	GtkCellRenderer *renderer;
 	GtkTreeSelection *select;
 
+	DEBUG_MSG("create_hl_gui, duplicate arraylist \n");
 	pd->lists[syntax_styles] = duplicate_arraylist(main_v->props.syntax_styles);
 	/* new structure: one treestore for all, column 1:visible label, 2:label for config file 3:pointer to strarr */
 	pd->hld.tstore = gtk_tree_store_new(4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
@@ -2541,6 +2543,9 @@ static void preferences_apply(Tprefdialog *pd) {
 	free_arraylist(main_v->props.filefilters);
 	main_v->props.filefilters = duplicate_arraylist(pd->lists[filefilters]);
 #ifdef USE_SCANNER
+	DEBUG_MSG("preferences_apply: free old syntax styles, and building new list\n");
+	dump_arraylist(main_v->props.syntax_styles);
+	dump_arraylist(pd->lists[syntax_styles]);
 	free_arraylist(main_v->props.syntax_styles);
 	main_v->props.syntax_styles = duplicate_arraylist(pd->lists[syntax_styles]);
 #else
@@ -2557,6 +2562,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	free_arraylist(main_v->props.external_outputbox);
 	main_v->props.external_outputbox = duplicate_arraylist(pd->lists[extoutputbox]);
 
+	DEBUG_MSG("preferences_apply: free old textstyles, and building new list\n");
 	free_arraylist(main_v->props.textstyles);
 	main_v->props.textstyles = duplicate_arraylist(pd->lists[textstyles]);
 
