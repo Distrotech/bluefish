@@ -1157,11 +1157,11 @@ static gint search_single(Tbfwin *bfwin, gint startpos, gint endpos) {
 			doc_show_result(result_all.doc, result_all.start, result_all.end);
 			return 1;
 		} else {
-			message_dialog_new(bfwin->main_window, 
+/*			message_dialog_new(bfwin->main_window, 
 						 	 		 GTK_MESSAGE_INFO, 
 									 GTK_BUTTONS_OK, 
 									 _("Search: no match found"), 
-									 NULL);
+									 NULL);*/
 			return 0;
 		}
 	} else {
@@ -1170,11 +1170,11 @@ static gint search_single(Tbfwin *bfwin, gint startpos, gint endpos) {
 			doc_show_result(bfwin->current_document, result.start, result.end);
 			return 1;
 		} else {
-			message_dialog_new(bfwin->main_window, 
+/*			message_dialog_new(bfwin->main_window, 
 						 	 		 GTK_MESSAGE_INFO, 
 									 GTK_BUTTONS_OK, 
 									 _("Search: no match found"), 
-									 NULL);
+									 NULL);*/
 			return FALSE;
 		}
 	}
@@ -1901,6 +1901,7 @@ typedef struct {
 	GtkWidget *replace;
 	GtkWidget *scope;
 	GtkWidget *countlabel;
+	GtkWidget *warninglabel;
 	GtkWidget *matchPattern;
 	GtkWidget *replaceType;
 	GtkWidget *overlappingMatches;
@@ -1921,11 +1922,11 @@ enum {
 	SNR_RESPONSE_FIND_ALL
 };
 
+/* the following two functions are a trick to get a tooltip working on top of a gtkcombobox */
 static void set_combo_tooltip(GtkWidget *widget, gpointer   data)
 {
 	if (GTK_IS_BUTTON (widget)) gtk_tooltips_set_tip(main_v->tooltips, widget,(gchar *)data, NULL);
 }
-
 static void realize_combo_set_tooltip(GtkWidget *combo,gpointer   data)
 {
 	gtk_container_forall(GTK_CONTAINER(combo),set_combo_tooltip,data);
@@ -1970,7 +1971,9 @@ static void snr_combo_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin
 	scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 	if (scope == opened_files && snrwin->bfwin->num_docs_not_completed > 0) {
 		/* display warning that not all documents have yet finished loading */
-		gtk_label_set_markup(GTK_LABEL(snrwin->countlabel), _("<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</span>"));
+		gtk_label_set_markup(GTK_LABEL(snrwin->warninglabel), _("<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</span>"));
+		gtk_widget_show(snrwin->warninglabel);
+		/* BUG: when do we hide this label? */
 	} else {
 		snr_update_count_label(snrwin);
 	}
@@ -2028,6 +2031,7 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	Tbfwin *bfwin=snrwin->bfwin;
 	gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 	DEBUG_MSG("snr_response_lcb, dialogtype=%d, response=%d\n",snrwin->dialogType,response);
+	
 	search_pattern = gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->search));
 	if (snrwin->dialogType == BF_REPLACE_DIALOG) {
 		replace_pattern = gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->replace));
@@ -2039,6 +2043,8 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 		LASTSNR2(bfwin->snr2)->result.pmatch = NULL;
 	}
 	if (response != GTK_RESPONSE_CLOSE) {
+		gtk_widget_hide(snrwin->warninglabel);
+	
 		/* now check if we started with the current option set already, if so we can continue it, if 
 		not we should setup a new set of options*/
 		if (LASTSNR2(snrwin->bfwin->snr2)->result.start == -1) {
@@ -2079,6 +2085,9 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 		if (ret) {
 			LASTSNR2(snrwin->bfwin->snr2)->matches++;
 			snr_update_count_label(snrwin);
+		} else {
+			gtk_label_set_markup(snrwin->warninglabel,_("<span foreground=\"red\" weight=\"bold\">No more matches found, next search will continue at the beginning.</span>"));
+			gtk_widget_show(snrwin->warninglabel);
 		}
 		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
 			if (ret) {
@@ -2220,17 +2229,25 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 	for (i = 0; i < G_N_ELEMENTS(scope); i++) {
 		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->scope), scope[i]);
 	}
-	dialog_mnemonic_label_in_table(_("Sco_pe: "), snrwin->scope, table, 0, 1, numrows - 2, numrows -1);
-	gtk_table_attach(GTK_TABLE(table), snrwin->scope, 1, 2, numrows - 2, numrows-1,
+	dialog_mnemonic_label_in_table(_("Sco_pe: "), snrwin->scope, table, 0, 1, numrows-2, numrows-1);
+	gtk_table_attach(GTK_TABLE(table), snrwin->scope, 1, 2, numrows-2, numrows-1,
 					 GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 	g_signal_connect(snrwin->scope, "changed", G_CALLBACK(snr_combo_changed), snrwin);
 	g_signal_connect(snrwin->scope, "realize",G_CALLBACK(realize_combo_set_tooltip), _("Where to look for the pattern."));
 
+	vbox2 = gtk_vbox_new(FALSE,0);
+	gtk_table_attach(GTK_TABLE(table), vbox2, 1, 2, numrows - 1, numrows,
+					 GTK_FILL, GTK_FILL, 0, 0);
+
 	snrwin->countlabel = gtk_label_new((dialogType == BF_REPLACE_DIALOG)?_("Found 0 matches, replaced 0"):_("Found 0 matches"));
 	gtk_misc_set_alignment(GTK_MISC(snrwin->countlabel), 0.0f, 0.5f);
 	g_object_set(snrwin->countlabel, "single-line-mode", TRUE, NULL);
-	gtk_table_attach(GTK_TABLE(table), snrwin->countlabel, 1, 2, numrows - 1, numrows,
-					 GTK_FILL, GTK_FILL, 0, 0);
+	gtk_box_pack_start(vbox2,snrwin->countlabel,TRUE,TRUE,0);
+	
+	snrwin->warninglabel = gtk_label_new(NULL);
+	gtk_label_set_line_wrap(GTK_LABEL(snrwin->warninglabel),TRUE);
+	gtk_misc_set_alignment(GTK_MISC(snrwin->warninglabel), 0.0f, 0.5f);
+	gtk_box_pack_start(vbox2,snrwin->warninglabel,TRUE,TRUE,0);
 	
 	expander = gtk_expander_new_with_mnemonic(_("<b>_Options</b>"));
 	gtk_expander_set_use_markup(GTK_EXPANDER(expander), TRUE);
@@ -2302,7 +2319,8 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 	gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND, FALSE);
 
 	gtk_widget_show_all(GTK_WIDGET(GTK_BOX(GTK_DIALOG(snrwin->dialog)->vbox)));
-
+	gtk_widget_hide(snrwin->warninglabel);
+	
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->scope), 0);
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->matchPattern), 0);
 	if (dialogType == BF_REPLACE_DIALOG) {
