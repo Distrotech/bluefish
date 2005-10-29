@@ -63,7 +63,7 @@
 
 <token-group id="glib types" defaultstyle="keyword-red">
 <token-list name="gtypes" separator=",">guint,guint8,guint16,guint32,guint64,gshort,gushort,glong,gulong,gfloat,gdouble,gchar</token-list>
-<token-list name="gtypes2" separator=",">guchar,gunichar,gpointer,gconstpointer,gboolean,gsize,gssize</token-list>
+<token-list name="gtypes2" separator=",">gint,guchar,gunichar,gpointer,gconstpointer,gboolean,gsize,gssize</token-list>
 </token-group>
 
 <token-group id="glib keywords" defaultstyle="keyword-red">
