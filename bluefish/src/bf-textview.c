@@ -262,6 +262,7 @@ void bf_textview_scan(BfTextView * self)
 	gtk_text_buffer_get_end_iter(buf, &ite);
 	if (gtk_text_iter_equal(&its, &ite))
 		return;
+	self->need_rescan = FALSE;
 	bf_textview_scan_area(self, &its, &ite);
 }
 
@@ -1822,6 +1823,10 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
 
 	DEBUG_MSG("bf_textview_expose_cb, started\n");
+	if (BF_TEXTVIEW(widget)->need_rescan) {
+		DEBUG_MSG("bf_textview_expose_cb, need rescan!\n");
+		bf_textview_scan(BF_TEXTVIEW(widget));
+	}
 
 	left_win = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT);
 	if (left_win != event->window) {	/* current line highlighting - from gtksourceview team :) */
@@ -1969,32 +1974,32 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 	gint len;
 	gboolean trigger = FALSE;
 	gchar *p = arg2;
-
+	DEBUG_MSG("bf_textview_insert_text_cb, started\n");
 	if (!view->lang)
 		return;
-	len = 0;
-	while (len < g_utf8_strlen(arg2, -1)) {
-		if (view->lang->as_triggers[(gint) * p] == 1) {
-			trigger = TRUE;
-			break;
+	
+	if (GTK_WIDGET_VISIBLE(view)) {
+		len = 0;
+		while (len < g_utf8_strlen(arg2, -1)) {
+			if (view->lang->as_triggers[(gint) * p] == 1) {
+				trigger = TRUE;
+				break;
+			}
+			len++;
+			p = g_utf8_next_char(p);
 		}
-		len++;
-		p = g_utf8_next_char(p);
+	
+		if (!trigger)
+			return;
+		if (view->hl_mode == BFTV_HL_MODE_ALL || view->need_rescan) {
+			bf_textview_scan(view);
+		} else {
+			bf_textview_scan_visible(view);
+		}
+	} else {
+		DEBUG_MSG("bf_textview_insert_text_cb, postpone the scanning, setting need_rescan\n");
+		view->need_rescan = TRUE;
 	}
-
-	if (!trigger)
-		return;
-
-	switch (view->hl_mode) {
-	case BFTV_HL_MODE_ALL:
-		bf_textview_scan(view);
-		break;
-		/* gtk_widget_queue_draw (GTK_WIDGET (user_data)); */
-	case BFTV_HL_MODE_VISIBLE:
-		bf_textview_scan_visible(view);
-		break;
-		/*   gtk_widget_queue_draw (GTK_WIDGET (user_data)); */
-	}							/* switch */
 }
 
 static void bftv_fold(GtkTextMark * mark, gboolean move_cursor)
@@ -2061,7 +2066,7 @@ static gboolean bf_textview_mouse_cb(GtkWidget * widget, GdkEvent * event, gpoin
 	GtkTextIter it;
 	GtkTextMark *block_mark = NULL;
 	gint pt_lines, pt_sym, pt_blocks;
-
+	DEBUG_MSG("bf_textview_mouse_cb, started\n");
 	if (win != event->button.window)
 		return FALSE;
 
@@ -2147,36 +2152,32 @@ static void bf_textview_delete_range_cb(GtkTextBuffer * textbuffer, GtkTextIter 
 	gint len;
 	gchar *p, *pomstr;
 
-
+	DEBUG_MSG("bf_textview_delete_range_cb, started\n");
 	if (!view->lang)
 		return;
-
-	p = pomstr = gtk_text_buffer_get_text(textbuffer, arg1, arg2, TRUE);
-	len = 0;
-	while (len < g_utf8_strlen(pomstr, -1)) {
-		if (view->lang->as_triggers[(gint) * p] == 1) {
-			trigger = TRUE;
-			break;
+	if (GTK_WIDGET_VISIBLE(view)) {
+		p = pomstr = gtk_text_buffer_get_text(textbuffer, arg1, arg2, TRUE);
+		len = 0;
+		while (len < g_utf8_strlen(pomstr, -1)) {
+			if (view->lang->as_triggers[(gint) * p] == 1) {
+				trigger = TRUE;
+				break;
+			}
+			len++;
+			p = g_utf8_next_char(p);
 		}
-		len++;
-		p = g_utf8_next_char(p);
+	
+		if (!trigger)
+			return;
+	
+		if (view->hl_mode == BFTV_HL_MODE_ALL || view->need_rescan) {
+			bf_textview_scan(view);
+		} else {
+			bf_textview_scan_visible(view);
+		}
+	} else {
+		view->need_rescan = TRUE;
 	}
-
-	if (!trigger)
-		return;
-
-	switch (view->hl_mode) {
-	case BFTV_HL_MODE_ALL:
-		bf_textview_scan(view);
-		break;
-		/* gtk_widget_queue_draw (GTK_WIDGET (user_data)); */
-	case BFTV_HL_MODE_VISIBLE:
-		bf_textview_scan_visible(view);
-		break;
-		/*   gtk_widget_queue_draw (GTK_WIDGET (user_data)); */
-	}							/* switch */
-
-
 }
 
 /* this function does highlight the matching braces (block end and start) */
@@ -2186,7 +2187,7 @@ static void bf_textview_move_cursor_cb(GtkTextView * widget, GtkMovementStep ste
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(widget);
 	GtkTextIter it, it2;
 	GtkTextMark *block = NULL;
-
+	DEBUG_MSG("bf_textview_move_cursor_cb, started\n");
 	gtk_text_buffer_get_start_iter(buf, &it);
 	gtk_text_buffer_get_end_iter(buf, &it2);
 	gtk_text_buffer_remove_tag(buf, BF_TEXTVIEW(widget)->block_match_tag, &it, &it2);

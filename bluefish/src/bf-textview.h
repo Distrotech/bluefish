@@ -220,6 +220,9 @@ typedef struct {
 	GHashTable *group_tags, *token_tags, *block_tags;
 	GtkWidget *fold_menu;
 /*    GHashTable *token_styles,*block_styles,*tag_styles,*group_styles;*/
+	gboolean need_rescan; /* this is set to true if the buffer is changed, but the
+						 widget is not visible to the user, the scanning is then postponed until 
+						 the widget is visible to the user */
 } BfTextView;
 
 /*
