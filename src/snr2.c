@@ -1646,7 +1646,7 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 
 /*****************************************************/
 
-void search_from_selection(Tbfwin *bfwin) {
+/*void search_from_selection(Tbfwin *bfwin) {
 	gchar *string;
 	GtkClipboard* cb;
 
@@ -1668,7 +1668,7 @@ void search_from_selection(Tbfwin *bfwin) {
 		LASTSNR2(bfwin->snr2)->matchtype_option = 0;
 		snr2_run(bfwin,bfwin->current_document);
 	}
-}
+}*/
 
 /**
  * search_cb:
@@ -1893,6 +1893,35 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 	}
 }
 
+static void setup_new_snr2(Tbfwin *bfwin, const gchar *search_pattern, gboolean unescape, 
+		gboolean is_case_sens, gboolean overlapping_search,
+		gboolean bookmark, Tplace_types place_type,
+		gboolean replace, const gchar *replace_pattern) {
+	if (LASTSNR2(bfwin->snr2)->search_pattern) {
+		g_free(LASTSNR2(bfwin->snr2)->search_pattern);
+		LASTSNR2(bfwin->snr2)->search_pattern = NULL;
+	}
+	if (LASTSNR2(bfwin->snr2)->replace_pattern) {
+		g_free(LASTSNR2(bfwin->snr2)->replace_pattern);
+		LASTSNR2(bfwin->snr2)->replace_pattern = NULL;
+	}
+	LASTSNR2(bfwin->snr2)->search_pattern = g_strdup(search_pattern);
+	bfwin->session->searchlist = add_to_history_stringlist(bfwin->session->searchlist,LASTSNR2(bfwin->snr2)->search_pattern,TRUE,TRUE);
+	LASTSNR2(bfwin->snr2)->unescape = unescape;
+ 	LASTSNR2(bfwin->snr2)->is_case_sens = is_case_sens;
+ 	LASTSNR2(bfwin->snr2)->overlapping_search = overlapping_search;
+	LASTSNR2(bfwin->snr2)->replace = replace;
+	LASTSNR2(bfwin->snr2)->placetype_option = place_type;
+	if (replace_pattern) {
+		LASTSNR2(bfwin->snr2)->replace_pattern = g_strdup(replace_pattern);
+		bfwin->session->replacelist = add_to_history_stringlist(bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,TRUE,TRUE);
+	}
+	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;
+	LASTSNR2(bfwin->snr2)->matches = 0;
+	LASTSNR2(bfwin->snr2)->replaces = 0;
+}
+
+
 /***************** NEW DIALOG ************************************/
 typedef struct {
 	gint dialogType;
@@ -1996,34 +2025,6 @@ static void snr_dialog_destroy(TSNRWin * snrwin)
 	g_free(snrwin);
 }
 
-static void setup_new_snr2(Tbfwin *bfwin, const gchar *search_pattern, gboolean unescape, 
-		gboolean is_case_sens, gboolean overlapping_search,
-		gboolean bookmark, Tplace_types place_type,
-		gboolean replace, const gchar *replace_pattern) {
-	if (LASTSNR2(bfwin->snr2)->search_pattern) {
-		g_free(LASTSNR2(bfwin->snr2)->search_pattern);
-		LASTSNR2(bfwin->snr2)->search_pattern = NULL;
-	}
-	if (LASTSNR2(bfwin->snr2)->replace_pattern) {
-		g_free(LASTSNR2(bfwin->snr2)->replace_pattern);
-		LASTSNR2(bfwin->snr2)->replace_pattern = NULL;
-	}
-	LASTSNR2(bfwin->snr2)->search_pattern = g_strdup(search_pattern);
-	bfwin->session->searchlist = add_to_history_stringlist(bfwin->session->searchlist,LASTSNR2(bfwin->snr2)->search_pattern,TRUE,TRUE);
-	LASTSNR2(bfwin->snr2)->unescape = unescape;
- 	LASTSNR2(bfwin->snr2)->is_case_sens = is_case_sens;
- 	LASTSNR2(bfwin->snr2)->overlapping_search = overlapping_search;
-	LASTSNR2(bfwin->snr2)->replace = replace;
-	LASTSNR2(bfwin->snr2)->placetype_option = place_type;
-	if (replace_pattern) {
-		LASTSNR2(bfwin->snr2)->replace_pattern = g_strdup(replace_pattern);
-		bfwin->session->replacelist = add_to_history_stringlist(bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,TRUE,TRUE);
-	}
-	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;
-	LASTSNR2(bfwin->snr2)->matches = 0;
-	LASTSNR2(bfwin->snr2)->replaces = 0;
-}
-
 static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
 	gchar *search_pattern, *replace_pattern=NULL;
@@ -2086,7 +2087,7 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 			LASTSNR2(snrwin->bfwin->snr2)->matches++;
 			snr_update_count_label(snrwin);
 		} else {
-			gtk_label_set_markup(snrwin->warninglabel,_("<span foreground=\"red\" weight=\"bold\">No more matches found, next search will continue at the beginning.</span>"));
+			gtk_label_set_markup(GTK_LABEL(snrwin->warninglabel),_("<span foreground=\"red\" weight=\"bold\">No more matches found, next search will continue at the beginning.</span>"));
 			gtk_widget_show(snrwin->warninglabel);
 		}
 		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
@@ -2136,7 +2137,7 @@ static void snr_combo_activate_lcb(GtkEntry *entry,gpointer user_data) {
 	gtk_dialog_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_FIND);
 }
 
-void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
+static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 {
 	TSNRWin *snrwin;
 	GtkWidget *table, *expander, *vbox, *vbox2;
@@ -2192,6 +2193,7 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 	history = gtk_list_store_new(1, G_TYPE_STRING);
 	list = g_list_first(bfwin->session->searchlist);
 	while (list) {
+		DEBUG_MSG("snr_dialog_real: adding search history %s\n",(gchar *)list->data);
 		gtk_list_store_append(history, &iter);
 		gtk_list_store_set(history, &iter, 0, list->data, -1);
 		list = g_list_next(list);
@@ -2210,6 +2212,7 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 		history = gtk_list_store_new(1, G_TYPE_STRING);
 		list = g_list_first(bfwin->session->replacelist);
 		while (list) {
+			DEBUG_MSG("snr_dialog_real: adding replace history %s\n",(gchar *)list->data);
 			gtk_list_store_append(history, &iter);
 			gtk_list_store_set(history, &iter, 0, list->data, -1);
 			list = g_list_next(list);
@@ -2242,12 +2245,12 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 	snrwin->countlabel = gtk_label_new((dialogType == BF_REPLACE_DIALOG)?_("Found 0 matches, replaced 0"):_("Found 0 matches"));
 	gtk_misc_set_alignment(GTK_MISC(snrwin->countlabel), 0.0f, 0.5f);
 	g_object_set(snrwin->countlabel, "single-line-mode", TRUE, NULL);
-	gtk_box_pack_start(vbox2,snrwin->countlabel,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(vbox2),snrwin->countlabel,TRUE,TRUE,0);
 	
 	snrwin->warninglabel = gtk_label_new(NULL);
 	gtk_label_set_line_wrap(GTK_LABEL(snrwin->warninglabel),TRUE);
 	gtk_misc_set_alignment(GTK_MISC(snrwin->warninglabel), 0.0f, 0.5f);
-	gtk_box_pack_start(vbox2,snrwin->warninglabel,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(vbox2),snrwin->warninglabel,TRUE,TRUE,0);
 	
 	expander = gtk_expander_new_with_mnemonic(_("<b>_Options</b>"));
 	gtk_expander_set_use_markup(GTK_EXPANDER(expander), TRUE);
@@ -2327,6 +2330,30 @@ void snr_dialog_new(Tbfwin * bfwin, gint dialogType)
 		gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->replaceType), 0);
 	}
 	gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_FIND);
+	DEBUG_MSG("snr_dialog_real: display the dialog\n");
 	gtk_widget_show(snrwin->dialog);
+	return snrwin;
 }
 
+void snr_dialog_new(Tbfwin * bfwin, gint dialogType) {
+	snr_dialog_real(bfwin, dialogType);
+}
+
+void search_from_selection(Tbfwin *bfwin) {
+	gchar *string;
+	GtkClipboard* cb;
+
+	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
+	string = gtk_clipboard_wait_for_text(cb);
+	if (string) {
+		GtkTreeModel* history;
+		GtkTreeIter iter;
+/*		setup_new_snr2(bfwin, string, FALSE, FALSE, FALSE,FALSE, beginning,FALSE, NULL);*/
+		TSNRWin *snrwin = snr_dialog_real(bfwin, BF_FIND_DIALOG);
+		history = gtk_combo_box_get_model(GTK_COMBO_BOX(snrwin->search));
+		gtk_list_store_append(history, &iter);
+		gtk_list_store_set(history, &iter, 0, string, -1);
+		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(snrwin->search),&iter);
+		gtk_dialog_response(snrwin->dialog,SNR_RESPONSE_FIND);
+	}
+}
