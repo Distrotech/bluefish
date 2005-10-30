@@ -296,7 +296,9 @@ typedef struct {
 	gint fref_ldoubleclick_action; /* left doubleclick in the function reference */
 	gint fref_info_type; /* type of info shown in a small function reference window */
 	gint lasttime_cust_menu; /* the last time the defaultfile was checked for new entries */
+#ifndef USE_SCANNER
 	gint lasttime_highlighting; /* see above */
+#endif
 	gint lasttime_filetypes; /* see above */
 	gint lasttime_encodings; /* see above */
 	gint bookmarks_default_store; /* 0= temporary by default, 1= permanent by default */
