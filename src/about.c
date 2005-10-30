@@ -118,6 +118,8 @@ If you know of anyone missing from this list, please let us know\n\
 Thanks to all who helped making this software available.\n\
 ");
 	const gchar *TRANSLATORS = _("Current translators:\n\n\
+  Basque: Hizkuntza Politikarako Sailburuordetza\n\
+   <hizkpol@ej-gv.es>\n\n\
   Brazilian Portuguese: Anderson Rocha\n\
    <anderson@maxlinux.com.br>\n\n\
   Bulgarian: Peio Popov\n\
