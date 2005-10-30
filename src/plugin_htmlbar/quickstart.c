@@ -346,18 +346,21 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 			styletitle = gtk_editable_get_chars (GTK_EDITABLE (qstart->styletitle), 0, -1);
 			
 			if (strcmp(name, "Linked") == 0) {
-				stylestr = g_string_append (stylestr, "<link rel=\"stylesheet\" type=\"text/css\" ");
+			    tmpstr2 = g_strdup_printf ("<link href=\"%s\" rel=\"stylesheet\" type=\"text/css\"", stylehref);
+			    stylestr = g_string_append (stylestr, tmpstr2);
+			    g_free (tmpstr2);
+			    
 				if (strlen(stylemedia) > 0) {
 					if (strlen(styletitle) > 0) {
-						tmpstr2 = g_strdup_printf ("media=\"%s\" href=\"%s\" title=\"%s\">\n", stylemedia, stylehref, styletitle);
+						tmpstr2 = g_strdup_printf (" media=\"%s\" title=\"%s\">\n", stylemedia, styletitle);
 					} else {
-						tmpstr2 = g_strdup_printf ("media=\"%s\" href=\"%s\">\n", stylemedia, stylehref);
+						tmpstr2 = g_strdup_printf (" media=\"%s\">\n", stylemedia);
 					}
 				} else {
 					if (strlen(styletitle) > 0) {
-						tmpstr2 = g_strdup_printf ("href=\"%s\" title=\"%s\">\n", stylehref, styletitle);
+						tmpstr2 = g_strdup_printf (" title=\"%s\">\n", styletitle);
 					} else {
-						tmpstr2 = g_strdup_printf ("href=\"%s\">\n", stylehref);
+					    tmpstr2 = g_strdup (">\n");
 					}
 				}
 			} else {
@@ -399,8 +402,8 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 		}
 		
 		finalstr = g_strconcat (xmlstr, dtdstr, tmpstr, titlestr, metastr->str, 
-										stylestr->str, stylearea, scriptsrc, scriptarea, 
-										cap("</HEAD>\n"), is_frameset_dtd ? cap("<FRAMESET>\n") : cap("<BODY>\n"), NULL);
+                                    stylestr->str, stylearea, scriptsrc, scriptarea, 
+                                    cap("</HEAD>\n"), is_frameset_dtd ? cap("<FRAMESET>\n") : cap("<BODY>\n"), NULL);
 		
 		g_free (xmlstr);
 		g_free (dtdstr);
@@ -419,8 +422,8 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 		}
 		
 		doc_insert_two_strings(qstart->bfwin->current_document, 
-									  finalstr, 
-									  is_frameset_dtd ? cap("\n</FRAMESET>\n</HTML>") : cap("\n</BODY>\n</HTML>"));
+                                finalstr, 
+                                is_frameset_dtd ? cap("\n</FRAMESET>\n</HTML>") : cap("\n</BODY>\n</HTML>"));
 		g_free (finalstr);
 		
 		doc_set_filetype(qstart->bfwin->current_document, get_filetype_by_name("html"));
@@ -533,7 +536,7 @@ quickstart_style_page_create(TQuickStart *qstart)
 	
 	qstart->stylehref = gtk_combo_box_entry_new_with_model (GTK_TREE_MODEL (history), 0);
 	g_object_unref (history);
-	dialog_mnemonic_label_in_table(_("_HREF:"), qstart->stylehref, table, 0, 1, 0, 1);
+	dialog_mnemonic_label_in_table(_("HRE_F:"), qstart->stylehref, table, 0, 1, 0, 1);
 	gtk_table_attach (GTK_TABLE (table), qstart->stylehref, 1, 2, 0, 1, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
 	
 	qstart->stylemedia = gtk_entry_new ();
@@ -685,7 +688,10 @@ quickstart_dialog_new(Tbfwin *bfwin)
 	gtk_tree_selection_select_iter (selection, &iter);
 	
 	qstart->openNewDoc = gtk_check_button_new_with_mnemonic (_("Open in _new document."));
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (qstart->openNewDoc), TRUE);
+	if (doc_is_empty_non_modified_and_nameless(bfwin->current_document))
+	    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (qstart->openNewDoc), FALSE);
+	else
+	    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (qstart->openNewDoc), TRUE);	
 	alignment = gtk_alignment_new (0, 0.5, 0, 0);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 6, 8, 4, 0);
 	gtk_container_add (GTK_CONTAINER (alignment), qstart->openNewDoc);
