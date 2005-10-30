@@ -50,6 +50,9 @@ enum {
 	tab_font_string,            /* notebook tabs font */
 	highlight_num_lines_count,  /* number of lines to highlight in continous highlighting */	
 	defaulthighlight,           /* highlight documents by default */
+#ifdef HAVE_PCRE_UTF8
+	highlight_utf8,             /* enable PCRE UTF-8 support */
+#endif /* HAVE_PCRE_UTF8 */
 	transient_htdialogs,        /* set html dialogs transient ro the main window */
 	restore_dimensions,
 	left_panel_width,
@@ -1831,6 +1834,9 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.word_wrap, pd->prefs[word_wrap], TRUE);
 	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
+#ifdef HAVE_PCRE_UTF8
+	integer_apply(&main_v->props.highlight_utf8, pd->prefs[highlight_utf8], TRUE);
+#endif /* HAVE_PCRE_UTF8 */
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
 
 	integer_apply(&main_v->props.bookmarks_default_store, pd->prefs[bookmarks_default_store], TRUE);
@@ -1998,6 +2004,9 @@ static void preferences_dialog() {
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap default"), main_v->props.word_wrap, vbox2);
 	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);
 	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
+#ifdef HAVE_PCRE_UTF8
+	pd->prefs[highlight_utf8] = boxed_checkbut_with_value(_("Enable highlighting PCRE UTF-8 support"), main_v->props.highlight_utf8, vbox2);
+#endif /* HAVE_PCRE_UTF8 */
 	pd->prefs[highlight_num_lines_count] = prefs_integer(_("Highlight # lines"), main_v->props.highlight_num_lines_count, vbox2, pd, 1, 8);
 
 	frame = gtk_frame_new(_("Undo"));

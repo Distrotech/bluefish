@@ -334,13 +334,16 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.filebrowser_dir_icon, "fb_dir_icon:", PKGDATADIR"icon_dir.png");
 	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
 	init_prop_integer   (&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3, TRUE);
-	init_prop_integer	(&config_rc, &main_v->props.editor_smart_cursor, "editor_smart_cursor:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.editor_smart_cursor, "editor_smart_cursor:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
 	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 2, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 5, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE);
+#ifdef HAVE_PCRE_UTF8
+	init_prop_integer   (&config_rc, &main_v->props.highlight_utf8, "highlight_utf8:", 0, TRUE);
+#endif /* HAVE_PCRE_UTF8 */
 	/* old type filetypes have a different count, they are converted below */
 	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.numcharsforfiletype, "numcharsforfiletype:", 200, TRUE);

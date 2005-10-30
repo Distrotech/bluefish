@@ -170,6 +170,9 @@ typedef struct {
 	GList *cmenu_replace; /* custom menu replaces */
 	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */	
 	gint defaulthighlight;		/* highlight documents by default */
+#ifdef HAVE_PCRE_UTF8
+	gint highlight_utf8;    /* enable PCRE UTF-8 support */
+#endif /* HAVE_PCRE_UTF8 */
 	GList *filetypes; /* filetypes for highlighting and filtering */
 	gint numcharsforfiletype; /* maximum number of characters in the file to use to find the filetype */
 	GList *filefilters; /* filebrowser.c filtering */
