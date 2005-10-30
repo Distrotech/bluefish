@@ -737,13 +737,14 @@ static gint replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_typ
  * @is_case_sens: #gint
  * @replace_pattern: #gchar* to replace pattern
  * @replacetype: see #Treplace_types
+ * @unescape: #gboolean if the pattern needs unescaping
  * 
  * Perform a replace_doc_multiple() with supplied data on all open documents.
  * This will replace all occurences of search_pattern in all documents.
  * 
  * Return value: void
  **/
-static gint replace_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *replace_pattern, Treplace_types replacetype, gboolean unescape) {
+static gint replace_all(Tbfwin *bfwin,const gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, const gchar *replace_pattern, Treplace_types replacetype, gboolean unescape) {
 	GList *tmplist;
 	gint count=0;
 	guint unre_action_id = new_unre_action_id();
@@ -818,7 +819,7 @@ static gboolean replace_current_match(Tbfwin *bfwin) {
 /*****************************************************/
 /*             Replace prompt callbacks              */
 /*****************************************************/
-
+#ifdef OLD_DIALOG
 /*
  *
  * Performs the actual replace-surgery by calls to doc_replace_text_backend() !
@@ -1059,6 +1060,7 @@ void replace_prompt_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matcht
 		}
 	}
 }
+#endif /* OLD_DIALOG */
 
 /* this function can do multiple searches, only used for bookmarking and counting matches, it
 returns the number of matches */
@@ -1153,7 +1155,7 @@ static gint search_single(Tbfwin *bfwin, gint startpos, gint endpos) {
 }
 
 /*****************************************************/
-
+#ifdef OLD_DIALOG
 /**
  * snr2_run:
  * @bfwin: #Tbfwin*
@@ -1268,6 +1270,7 @@ gboolean snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 	}
 	return TRUE;
 }
+#endif /* OLD_DIALOG */
 
 /**
  * snr2_run_extern_replace:
@@ -1279,56 +1282,39 @@ gboolean snr2_run(Tbfwin *bfwin, Tdocument *doc) {
  * @replace_pattern: #gchar* to replace pattern.
  * @store_as_last_snr2: Set to FALSE to keep the old last_snr2 after the snr has been completed.
  * 
- * Performs the specified replace action on the document by setting
- * a last_snr2 and calling snr2_run().
- *
- * Additional non-configureable arguments passed to snr2_run() via last_snr2:
- * replace = 1
- * prompt_before_replace = off
- * replace_once = off
- *
  * Return value: void
  **/
-void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
-							gint matchtype, gint is_case_sens, gchar *replace_pattern,
-							gboolean store_as_last_snr2) {
-	Tbfwin *bfwin = BFWIN(doc->bfwin);
-	gchar *search_pattern_bck, *replace_pattern_bck;
-	Tlast_snr2 last_snr2_bck;
-	
-	search_pattern_bck = LASTSNR2(bfwin->snr2)->search_pattern;
-	replace_pattern_bck = LASTSNR2(bfwin->snr2)->replace_pattern;
-	last_snr2_bck = *LASTSNR2(bfwin->snr2);
-	DEBUG_MSG("snr2..extern..: last_snr2_bck.search_pattern=%p, replace_pattern=%p\n"
-		,last_snr2_bck.search_pattern, last_snr2_bck.replace_pattern);
 
-	if (!search_pattern || !replace_pattern || !strlen(search_pattern)) {
-		DEBUG_MSG("snr2_run_extern, returning, non-valid arguments\n");
-		return;
-	}
-	DEBUG_MSG("snr2..extern..: doc=%p, search_pattern='%s', region=%d, matchtype=%d, is_case_sens=%d, replace_pattern=%s, store_as_last=%d\n"
-			,doc,search_pattern,region,matchtype,is_case_sens,replace_pattern,store_as_last_snr2);
-	LASTSNR2(bfwin->snr2)->search_pattern = g_strdup(search_pattern);
-	LASTSNR2(bfwin->snr2)->placetype_option = region;
- 	LASTSNR2(bfwin->snr2)->is_case_sens = is_case_sens;
- 	LASTSNR2(bfwin->snr2)->overlapping_search = 0;
-	LASTSNR2(bfwin->snr2)->replace = 1;
-	LASTSNR2(bfwin->snr2)->replace_pattern = g_strdup(replace_pattern);
- 	LASTSNR2(bfwin->snr2)->prompt_before_replace = 0;
- 	LASTSNR2(bfwin->snr2)->replace_once = 0;
- 	LASTSNR2(bfwin->snr2)->unescape = 0;
-	LASTSNR2(bfwin->snr2)->matchtype_option = matchtype;
- 	LASTSNR2(bfwin->snr2)->replacetype_option = string;
- 	LASTSNR2(bfwin->snr2)->bookmark_results = 0;
-	snr2_run(BFWIN(doc->bfwin),doc);
-	if (store_as_last_snr2) {
-		DEBUG_MSG("free-ing old patterns at %p and %p\n",search_pattern_bck,replace_pattern_bck);
-		g_free(search_pattern_bck);
-		g_free(replace_pattern_bck);
+void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint region,
+							gint matchtype, gint is_case_sens, const gchar *replace_pattern,
+							gboolean store_as_last_snr2) {
+	DEBUG_MSG("snr2_run_extern_replace, pattern=%s\n",search_pattern);
+	if (region == 3) { /* in all open files */
+		replace_all(BFWIN(doc->bfwin),search_pattern
+					, matchtype
+					, is_case_sens
+					, replace_pattern
+					, string
+					, 0 /* unescape is disabled */);
 	} else {
-		g_free(LASTSNR2(bfwin->snr2)->search_pattern);
-		g_free(LASTSNR2(bfwin->snr2)->replace_pattern);
-		*LASTSNR2(bfwin->snr2) = last_snr2_bck;
+		gint startpos=0,endpos=-1;
+		if (region == 1) {
+			startpos = doc_get_cursor_position(doc);
+		} else if (region == 2){
+			if (!doc_get_selection(doc,&startpos,&endpos)) {		
+				return;
+			}
+		}
+		replace_doc_multiple(BFWIN(doc->bfwin),search_pattern
+					, matchtype
+					, is_case_sens
+					, startpos, endpos, replace_pattern
+					, BFWIN(doc->bfwin)->current_document
+					, string
+					, 0 /* unescape is disabled */, 0);	
+	}
+	if (store_as_last_snr2) {
+		g_print("the option store_as_last_snr2 in function snr2_run_extern_replace is currently broken\n");
 	}
 }
 
