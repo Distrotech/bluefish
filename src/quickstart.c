@@ -688,7 +688,10 @@ quickstart_dialog_new(Tbfwin *bfwin)
 	gtk_tree_selection_select_iter (selection, &iter);
 	
 	qstart->openNewDoc = gtk_check_button_new_with_mnemonic (_("Open in _new document."));
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (qstart->openNewDoc), TRUE);
+	if (doc_is_empty_non_modified_and_nameless(bfwin->current_document))
+	    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (qstart->openNewDoc), FALSE);
+	else
+	    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (qstart->openNewDoc), TRUE);	
 	alignment = gtk_alignment_new (0, 0.5, 0, 0);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 6, 8, 4, 0);
 	gtk_container_add (GTK_CONTAINER (alignment), qstart->openNewDoc);
