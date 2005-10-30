@@ -1963,21 +1963,23 @@ static void snr_combo_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin
 {
 	gint scope;
 	DEBUG_MSG("snr_combo_changed, called\n");
-	if (strlen(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child))) > 0) {
-		gtk_widget_set_sensitive(snrwin->findButton, TRUE);
-		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
-			gtk_widget_set_sensitive(snrwin->replaceAllButton, TRUE);
-			gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);
+	if (comboboxentry == GTK_COMBO_BOX_ENTRY(snrwin->search)) {
+		if (strlen(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child))) > 0) {
+			gtk_widget_set_sensitive(snrwin->findButton, TRUE);
+			if (snrwin->dialogType == BF_REPLACE_DIALOG) {
+				gtk_widget_set_sensitive(snrwin->replaceAllButton, TRUE);
+				gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);
+			} else {
+				gtk_widget_set_sensitive(snrwin->findAllButton, TRUE);
+			}
 		} else {
-			gtk_widget_set_sensitive(snrwin->findAllButton, TRUE);
-		}
-	} else {
-		gtk_widget_set_sensitive(snrwin->findButton, FALSE);
-		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
-			gtk_widget_set_sensitive(snrwin->replaceAllButton, FALSE);
-			gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
-		} else {
-			gtk_widget_set_sensitive(snrwin->findAllButton, FALSE);
+			gtk_widget_set_sensitive(snrwin->findButton, FALSE);
+			if (snrwin->dialogType == BF_REPLACE_DIALOG) {
+				gtk_widget_set_sensitive(snrwin->replaceAllButton, FALSE);
+				gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
+			} else {
+				gtk_widget_set_sensitive(snrwin->findAllButton, FALSE);
+			}
 		}
 	}
 	/* on any change we reset the current set of options */
@@ -2014,15 +2016,16 @@ static void snr_dialog_destroy(TSNRWin * snrwin)
 
 static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
-	gchar *search_pattern, *replace_pattern=NULL;
+	const gchar *search_pattern, *replace_pattern=NULL;
 	gint ret, startpos=0,endpos=-1;
 	Tbfwin *bfwin=snrwin->bfwin;
 	gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 	DEBUG_MSG("snr_response_lcb, dialogtype=%d, response=%d\n",snrwin->dialogType,response);
 	
-	search_pattern = gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->search));
+	search_pattern = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child)); /* gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->search));*/
+	DEBUG_MSG("snr_response_lcb, search_pattern=%s\n",search_pattern);
 	if (snrwin->dialogType == BF_REPLACE_DIALOG) {
-		replace_pattern = gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->replace));
+		replace_pattern = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->replace)->child)); /* gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->replace));*/
 	}
 	
 	/* cleanup any leftovers of previous run */
@@ -2072,8 +2075,10 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 		ret = search_single(snrwin->bfwin, startpos, endpos);
 		if (ret) {
 			LASTSNR2(snrwin->bfwin->snr2)->matches++;
+			DEBUG_MSG("snr_response_lcb, found match, update count label\n");
 			snr_update_count_label(snrwin);
 		} else {
+			DEBUG_MSG("snr_response_lcb, nothing found, showing warning label\n");
 			gtk_label_set_markup(GTK_LABEL(snrwin->warninglabel),_("<span foreground=\"red\" weight=\"bold\">No more matches found, next search will continue at the beginning.</span>"));
 			gtk_widget_show(snrwin->warninglabel);
 		}
@@ -2094,7 +2099,11 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 		snr_update_count_label(snrwin);
 	break;
 	case SNR_RESPONSE_REPLACE_ALL:
-		ret = replace_all(snrwin->bfwin,LASTSNR2(snrwin->bfwin->snr2)->search_pattern, LASTSNR2(snrwin->bfwin->snr2)->matchtype_option, LASTSNR2(snrwin->bfwin->snr2)->is_case_sens, LASTSNR2(snrwin->bfwin->snr2)->replace_pattern, LASTSNR2(snrwin->bfwin->snr2)->replacetype_option, LASTSNR2(snrwin->bfwin->snr2)->unescape);
+		if (LASTSNR2(bfwin->snr2)->placetype_option== opened_files) {
+			ret = replace_all(snrwin->bfwin,LASTSNR2(snrwin->bfwin->snr2)->search_pattern, LASTSNR2(snrwin->bfwin->snr2)->matchtype_option, LASTSNR2(snrwin->bfwin->snr2)->is_case_sens, LASTSNR2(snrwin->bfwin->snr2)->replace_pattern, LASTSNR2(snrwin->bfwin->snr2)->replacetype_option, LASTSNR2(snrwin->bfwin->snr2)->unescape);
+		} else {
+			ret = replace_doc_multiple(snrwin->bfwin,LASTSNR2(snrwin->bfwin->snr2)->search_pattern, LASTSNR2(snrwin->bfwin->snr2)->matchtype_option, LASTSNR2(snrwin->bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(snrwin->bfwin->snr2)->replace_pattern, snrwin->bfwin->current_document, LASTSNR2(snrwin->bfwin->snr2)->replacetype_option, LASTSNR2(snrwin->bfwin->snr2)->unescape, 0);
+		}
 		/* now update the count widget in the dialog */
 		LASTSNR2(snrwin->bfwin->snr2)->matches += ret;
 		LASTSNR2(snrwin->bfwin->snr2)->replaces += ret;
@@ -2113,8 +2122,8 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 		snr_dialog_destroy(snrwin);
 	break;
 	}
-	g_free(search_pattern);
-	g_free(replace_pattern);
+/*	g_free(search_pattern);
+	g_free(replace_pattern);*/
 }
 
 static void snr_combo_activate_lcb(GtkEntry *entry,gpointer user_data) {
