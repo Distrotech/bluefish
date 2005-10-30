@@ -761,7 +761,7 @@ static gint replace_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matcht
  *
  * for new dialog: 
  *
- * Return value: gboolean if a next match is found
+ * Return value: TRUE if found and replaced the match
  */
 static gboolean replace_current_match(Tbfwin *bfwin) {
 	gchar *tmpstr;
@@ -810,10 +810,7 @@ static gboolean replace_current_match(Tbfwin *bfwin) {
 		if (!LASTSNR2(bfwin->snr2)->overlapping_search && lenadded > 0) {
 			LASTSNR2(bfwin->snr2)->result.end += lenadded;
 		}
-		/* find the next match */
-		LASTSNR2(bfwin->snr2)->replace = FALSE;
-		/* BUG: hmm this should use new code as well */
-		return snr2_run(bfwin,NULL);
+		return TRUE;
 	}
 	return FALSE;
 }
@@ -1735,9 +1732,13 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 		}
 	break;
 	case SNR_RESPONSE_REPLACE:
-		replace_current_match(snrwin->bfwin);
-		LASTSNR2(snrwin->bfwin->snr2)->replaces++;
-		snr_update_count_label(snrwin);
+		if (replace_current_match(snrwin->bfwin)) {
+			LASTSNR2(snrwin->bfwin->snr2)->replaces++;
+			snr_update_count_label(snrwin);
+			/* now run another find */
+			gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
+			gtk_dialog_response(snrwin->dialog,SNR_RESPONSE_FIND);
+		}
 	break;
 	case SNR_RESPONSE_REPLACE_ALL:
 		if (LASTSNR2(bfwin->snr2)->placetype_option== opened_files) {
