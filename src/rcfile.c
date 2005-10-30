@@ -970,7 +970,9 @@ static GList *return_globalsession_configlist(gboolean init_values) {
 	init_prop_integer   (&config_rc, &main_v->globses.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.fref_info_type,"fref_info_type:",0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_cust_menu, "lasttime_cust_menu:", 0, init_values);
+#ifndef USE_SCANNER
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_highlighting, "lasttime_highlighting:", 0, init_values);
+#endif
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_filetypes, "lasttime_filetypes:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_encodings, "lasttime_encodings:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.bookmarks_default_store,"bookmarks_default_store:",1, init_values);
