@@ -183,8 +183,11 @@ GtkTextMark *bftv_get_block_at_iter(GtkTextIter * it)
 	g_slist_free(lst);
 	return NULL;
 }
-
-
+/*
+ * hmm this function is called quite heavily during scrolling through a document
+ * which makes scrolling quite slow.. (16% of the cpu time during a profiling run 
+ * with loits of scrolling)
+ */
 GtkTextMark *bftv_get_first_block_at_line(GtkTextIter * it, gboolean not_single)
 {
 	GtkTextIter it2, it3;
@@ -774,7 +777,14 @@ static gboolean bftv_xml_bool(xmlChar * text)
 #define BFTV_DFA_TYPE_BLOCK_BEGIN		1
 #define BFTV_DFA_TYPE_BLOCK_END			2
 
+/* 
+what does this function do Oskar?
+what does 'dfa' stand for?
 
+it seems this function takes quite some cpu time, I just did some 
+profiling (30-okt-2005) with much scrolling through documents and 
+this function took 63% of the cpu time..
+*/
 static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, gint type,
 							  gboolean tag)
 {
