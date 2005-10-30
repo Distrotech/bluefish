@@ -348,18 +348,21 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 			styletitle = gtk_editable_get_chars (GTK_EDITABLE (qstart->styletitle), 0, -1);
 			
 			if (strcmp(name, "Linked") == 0) {
-				stylestr = g_string_append (stylestr, "<link rel=\"stylesheet\" type=\"text/css\" ");
+			    tmpstr2 = g_strdup_printf ("<link href=\"%s\" rel=\"stylesheet\" type=\"text/css\"", stylehref);
+			    stylestr = g_string_append (stylestr, tmpstr2);
+			    g_free (tmpstr2);
+			    
 				if (strlen(stylemedia) > 0) {
 					if (strlen(styletitle) > 0) {
-						tmpstr2 = g_strdup_printf ("media=\"%s\" href=\"%s\" title=\"%s\">\n", stylemedia, stylehref, styletitle);
+						tmpstr2 = g_strdup_printf (" media=\"%s\" title=\"%s\">\n", stylemedia, styletitle);
 					} else {
-						tmpstr2 = g_strdup_printf ("media=\"%s\" href=\"%s\">\n", stylemedia, stylehref);
+						tmpstr2 = g_strdup_printf (" media=\"%s\">\n", stylemedia);
 					}
 				} else {
 					if (strlen(styletitle) > 0) {
-						tmpstr2 = g_strdup_printf ("href=\"%s\" title=\"%s\">\n", stylehref, styletitle);
+						tmpstr2 = g_strdup_printf (" title=\"%s\">\n", styletitle);
 					} else {
-						tmpstr2 = g_strdup_printf ("href=\"%s\">\n", stylehref);
+					    tmpstr2 = g_strdup (">\n");
 					}
 				}
 			} else {
@@ -401,8 +404,8 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 		}
 		
 		finalstr = g_strconcat (xmlstr, dtdstr, tmpstr, titlestr, metastr->str, 
-										stylestr->str, stylearea, scriptsrc, scriptarea, 
-										cap("</HEAD>\n"), is_frameset_dtd ? cap("<FRAMESET>\n") : cap("<BODY>\n"), NULL);
+                                    stylestr->str, stylearea, scriptsrc, scriptarea, 
+                                    cap("</HEAD>\n"), is_frameset_dtd ? cap("<FRAMESET>\n") : cap("<BODY>\n"), NULL);
 		
 		g_free (xmlstr);
 		g_free (dtdstr);
@@ -421,8 +424,8 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 		}
 
 		doc_insert_two_strings(qstart->bfwin->current_document, 
-									  finalstr, 
-									  is_frameset_dtd ? cap("\n</FRAMESET>\n</HTML>") : cap("\n</BODY>\n</HTML>"));
+                                finalstr, 
+                                is_frameset_dtd ? cap("\n</FRAMESET>\n</HTML>") : cap("\n</BODY>\n</HTML>"));
 		g_free (finalstr);
 		
 		doc_set_filetype(qstart->bfwin->current_document, get_filetype_by_name("html"));
