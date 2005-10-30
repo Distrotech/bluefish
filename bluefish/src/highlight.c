@@ -362,13 +362,20 @@ static void compile_pattern(gboolean gui_errors, gchar *filetype, gchar *name, g
 			const char *err=NULL;
 			int erroffset=0;
 			DEBUG_MSG("compiling pat1 '%s'\n", pat1);
-			pat->reg1.pcre = pcre_compile(pat1,
 #ifdef HAVE_PCRE_UTF8
+			if (main_v->props.highlight_utf8)
+				pat->reg1.pcre = pcre_compile(pat1,
 					(case_insens) ? PCRE_UTF8|PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_UTF8|PCRE_MULTILINE|PCRE_DOTALL,
-#else
-					(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
-#endif /* HAVE_PCRE_UTF8 */
 					&err,&erroffset,NULL);
+			else
+				pat->reg1.pcre = pcre_compile(pat1,
+					(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
+					&err,&erroffset,NULL);
+#else
+			pat->reg1.pcre = pcre_compile(pat1,
+				(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
+				&err,&erroffset,NULL);
+#endif /* HAVE_PCRE_UTF8 */
 			if (err) {
 				gchar *str1, *str2;
 				str1 = g_strconcat(_("Syntax highlighting error for "),filetype," - ",name,NULL);
@@ -405,13 +412,20 @@ static void compile_pattern(gboolean gui_errors, gchar *filetype, gchar *name, g
 			const char *err=NULL;
 			int erroffset=0;
 			DEBUG_MSG("compiling pat2 '%s'\n", pat2);
-			pat->reg2.pcre = pcre_compile(pat2,
 #ifdef HAVE_PCRE_UTF8
+			if (main_v->props.highlight_utf8)
+				pat->reg2.pcre = pcre_compile(pat2,
 					(case_insens) ? PCRE_UTF8|PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_UTF8|PCRE_MULTILINE|PCRE_DOTALL,
-#else
-					(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
-#endif /* HAVE_PCRE_UTF8 */
 					&err,&erroffset,NULL);
+			else
+				pat->reg2.pcre = pcre_compile(pat2,
+					(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
+					&err,&erroffset,NULL);			
+#else
+			pat->reg2.pcre = pcre_compile(pat2,
+				(case_insens) ? PCRE_CASELESS|PCRE_MULTILINE|PCRE_DOTALL : PCRE_MULTILINE|PCRE_DOTALL,
+				&err,&erroffset,NULL);
+#endif /* HAVE_PCRE_UTF8 */
 			if (err) {
 				gchar *str1, *str2;
 				str1 = g_strconcat(_("Syntax highlighting error for "),filetype," - ",name,NULL);
