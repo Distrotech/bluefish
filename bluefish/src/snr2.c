@@ -1684,19 +1684,6 @@ void search_cb(GtkWidget *widget, Tbfwin *bfwin) {
 }
 
 /**
- * search_again_cb:
- * @widget: unused #GtkWidget*
- * @data: unused #gpointer
- * 
- * Repeat last search, if any.
- * 
- * Return value: void
- **/ 
-void search_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	snr2_run(bfwin,NULL);
-}
-
-/**
  * replace_again_cb:
  * @widget: unused #GtkWidget*
  * @data: unused #gpointer
@@ -2028,7 +2015,7 @@ static void snr_dialog_destroy(TSNRWin * snrwin)
 static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
 	gchar *search_pattern, *replace_pattern=NULL;
-	gint ret, startpos,endpos=-1;
+	gint ret, startpos=0,endpos=-1;
 	Tbfwin *bfwin=snrwin->bfwin;
 	gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 	DEBUG_MSG("snr_response_lcb, dialogtype=%d, response=%d\n",snrwin->dialogType,response);
@@ -2356,4 +2343,36 @@ void search_from_selection(Tbfwin *bfwin) {
 		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(snrwin->search),&iter);
 		gtk_dialog_response(snrwin->dialog,SNR_RESPONSE_FIND);
 	}
+}
+
+/**
+ * search_again_cb:
+ * @widget: unused #GtkWidget*
+ * @data: unused #gpointer
+ * 
+ * Repeat last search, if any.
+ * 
+ * Return value: void
+ **/ 
+void search_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
+	gint ret, startpos=0,endpos=-1;
+
+	if (LASTSNR2(bfwin->snr2)->doc == bfwin->current_document) {
+		if (LASTSNR2(bfwin->snr2)->result.end > 0) {
+			if (LASTSNR2(bfwin->snr2)->overlapping_search) {
+				startpos = LASTSNR2(bfwin->snr2)->result.start + 1;
+			} else {
+				startpos = LASTSNR2(bfwin->snr2)->result.end;
+			}
+		}
+	}	
+	
+	ret = search_single(bfwin, startpos, endpos);
+	if (ret) {
+		LASTSNR2(bfwin->snr2)->matches++;
+	} else {
+		TSNRWin *snrwin = snr_dialog_real(bfwin, BF_FIND_DIALOG);
+		gtk_label_set_markup(GTK_LABEL(snrwin->warninglabel),_("<span foreground=\"red\" weight=\"bold\">No more matches found, next search will continue at the beginning.</span>"));
+		gtk_widget_show(snrwin->warninglabel);
+	}	
 }
