@@ -100,35 +100,9 @@ typedef struct {
 	gint replaces; /* number of matches replaced */
 } Tlast_snr2;
 
-typedef struct {
-	gint replace;
-	Tbfwin *bfwin;
-	GtkWidget *window;
-	GtkWidget *search_combo;
-	/*GtkWidget *search_entry;*/
-	GtkWidget *search_label;
-	/*GtkWidget *search_scrollbox;*/
-	GtkWidget *replace_combo;
-	/*GtkWidget *replace_entry;*/
-	GtkWidget *replace_label;
-	/*GtkWidget *replace_scrollbox;*/
-	GtkWidget *subpat_help;
-	GtkWidget *overlapping_search;
-	GtkWidget *prompt_before_replace;
-	GtkWidget *is_case_sens;
-	GtkWidget *replace_once;
-	GtkWidget *unescape;
-	GtkWidget *replacetype_option;
-	GtkWidget *matchtype_option;
-	GtkWidget *placetype_option;
-	GtkWidget *bookmark_results;
-} Tsnr2_win;
 #define LASTSNR2(var) ((Tlast_snr2 *)(var))
 /***********************************************************/
 
-gboolean snr2_run(Tbfwin *bfwin,Tdocument *doc);
-
-/***********************************************************/
 
 void snr2_init(Tbfwin *bfwin) {
 	Tlast_snr2 *lsnr2 = g_new0(Tlast_snr2,1);
@@ -838,6 +812,7 @@ static gboolean replace_current_match(Tbfwin *bfwin) {
 		}
 		/* find the next match */
 		LASTSNR2(bfwin->snr2)->replace = FALSE;
+		/* BUG: hmm this should use new code as well */
 		return snr2_run(bfwin,NULL);
 	}
 	return FALSE;
@@ -1374,340 +1349,6 @@ void snr2_run_extern_replace(Tdocument *doc, gchar *search_pattern, gint region,
 Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens) {
 	return search_doc(BFWIN(doc->bfwin),doc, search_pattern, matchtype, is_case_sens, 0, -1, FALSE);
 } 
-
-/******************************************************/
-/*        Search and replace dialogs callbacks        */
-/******************************************************/
-
-static void snr2dialog_destroy_lcb(GtkWidget *widget, gpointer data) {
-	DEBUG_MSG("snr2dialog_destroy_lcb, started, about to call window_destroy\n");
-	window_destroy(((Tsnr2_win *)data)->window);
-	DEBUG_MSG("snr2dialog_destroy_lcb, about to free data %p\n", data);
-	g_free(data);
-	DEBUG_MSG("snr2dialog_destroy_lcb, done\n");
-}
-
-static void snr2dialog_cancel_lcb(GtkWidget *widget, gpointer data) {
-	snr2dialog_destroy_lcb(NULL, data);
-}
-
-/*****************************************************/
-
-/*
- * Sets the last_snr2 as specified by the user and calls snr2_run(NULL) (aka, run on current document)
- */
-static void snr2dialog_ok_lcb(GtkWidget *widget, Tsnr2_win *data) {
-	/*GtkTextIter itstart, itend;
-	GtkTextBuffer *buf;*/
-	Tbfwin *bfwin = data->bfwin;
-	if (LASTSNR2(bfwin->snr2)->search_pattern) {
-		g_free(LASTSNR2(bfwin->snr2)->search_pattern);
-		LASTSNR2(bfwin->snr2)->search_pattern = NULL;
-	}
-	if (LASTSNR2(bfwin->snr2)->replace_pattern) {
-		g_free(LASTSNR2(bfwin->snr2)->replace_pattern);
-		LASTSNR2(bfwin->snr2)->replace_pattern = NULL;
-	}
-	/*buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(data->search_entry));
-	gtk_text_buffer_get_bounds(buf,&itstart,&itend);
-	LASTSNR2(bfwin->snr2)->search_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, TRUE);*/
-	LASTSNR2(bfwin->snr2)->search_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(data->search_combo)->entry),0,-1);
-	
-	data->bfwin->session->searchlist = add_to_history_stringlist(data->bfwin->session->searchlist,LASTSNR2(bfwin->snr2)->search_pattern,TRUE,TRUE);
-	
-	LASTSNR2(bfwin->snr2)->unescape = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->unescape));
- 	LASTSNR2(bfwin->snr2)->is_case_sens = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->is_case_sens));
- 	LASTSNR2(bfwin->snr2)->overlapping_search = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->overlapping_search));
-	if (data->replace) {
-		/*GtkTextIter itstart, itend;
-		GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(data->replace_entry));
-		gtk_text_buffer_get_bounds(buf,&itstart,&itend);
-		LASTSNR2(bfwin->snr2)->replace_pattern = gtk_text_buffer_get_text(buf,&itstart,&itend, TRUE);*/
-		LASTSNR2(bfwin->snr2)->replace = 1;
-		LASTSNR2(bfwin->snr2)->replace_pattern = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(data->replace_combo)->entry),0,-1);
-		
-		data->bfwin->session->replacelist = add_to_history_stringlist(data->bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,TRUE,TRUE);
-		
-	 	LASTSNR2(bfwin->snr2)->prompt_before_replace = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->prompt_before_replace));
-	 	LASTSNR2(bfwin->snr2)->replace_once = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->replace_once));
-	} else {
-		LASTSNR2(bfwin->snr2)->replace = 0;
-		LASTSNR2(bfwin->snr2)->bookmark_results = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(data->bookmark_results));
-	}
-	window_destroy(data->window);
-	g_free(data);
-
-	snr2_run(bfwin,NULL);
-}
-
-static void placetype_changed_lcb(GtkWidget *widget, Tsnr2_win *snr2win) {
-	LASTSNR2(snr2win->bfwin->snr2)->placetype_option =  gtk_option_menu_get_history((GtkOptionMenu *) snr2win->placetype_option);
-	DEBUG_MSG("placetype_changed_lcb, changing option to %d\n", LASTSNR2(snr2win->bfwin->snr2)->placetype_option);
-}	
-
-static void matchtype_changed_lcb(GtkWidget *widget, Tsnr2_win *snr2win) {
-	LASTSNR2(snr2win->bfwin->snr2)->matchtype_option =  gtk_option_menu_get_history((GtkOptionMenu *) snr2win->matchtype_option);
-	if (snr2win->replace) {
-		if (LASTSNR2(snr2win->bfwin->snr2)->matchtype_option==0) {
-			gtk_widget_hide(snr2win->subpat_help);
-		}
-		else {
-			gtk_widget_show(snr2win->subpat_help);
-		}
-	}
-	DEBUG_MSG("matchtype_changed_lcb, changing option to %d\n", LASTSNR2(snr2win->bfwin->snr2)->matchtype_option);
-}	
-
-static void replacetype_changed_lcb(GtkWidget *widget, Tsnr2_win *snr2win) {
-	LASTSNR2(snr2win->bfwin->snr2)->replacetype_option =  gtk_option_menu_get_history((GtkOptionMenu *) snr2win->replacetype_option);
-	/*gtk_widget_set_sensitive(snr2win->replace_entry, LASTSNR2(snr2win->bfwin->snr2)->replacetype_option==0);*/
-	gtk_widget_set_sensitive(snr2win->replace_combo, LASTSNR2(snr2win->bfwin->snr2)->replacetype_option==0);
-	DEBUG_MSG("replacetype_changed_lcb, changing option to %d\n", LASTSNR2(snr2win->bfwin->snr2)->replacetype_option);
-}
-/*
-static gboolean search_entry_key_press_event_lcb(GtkWidget *widget,GdkEventKey *event,Tsnr2_win *snr2win) {
-	if ((event->state & GDK_CONTROL_MASK) && (event->keyval == GDK_Return)) {
-		snr2dialog_ok_lcb(NULL, snr2win);
-		return TRUE;
-	}
-	return FALSE;
-}*/
-
-static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
-	Tsnr2_win *snr2win;
-	GtkWidget *vbox, *hbox, *button, *table;
-	const gchar *tmptext;
-	gchar *buffer;
-	GtkTextIter start, end;
-
-	snr2win = g_malloc(sizeof(Tsnr2_win));
-	snr2win->bfwin = bfwin;
-	if (is_replace) {
-		tmptext = _("Replace");
-		snr2win->replace = 1;
-	} else {
-		tmptext = _("Find");
-		snr2win->replace = 0;
-	}
-	if (is_new_search) {
-		reset_last_snr2(bfwin);
-	} else {
-		LASTSNR2(bfwin->snr2)->result.start = -1;
-		LASTSNR2(bfwin->snr2)->result.end = -1;
-		LASTSNR2(bfwin->snr2)->doc = NULL;
-	}
-	snr2win->window = window_full(tmptext, GTK_WIN_POS_MOUSE, 12, G_CALLBACK(snr2dialog_destroy_lcb), snr2win, TRUE);
-	gtk_window_set_role(GTK_WINDOW(snr2win->window), "snr");
-	vbox = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(snr2win->window), vbox);
-
-	if (is_replace) {
-		table = gtk_table_new (2, 2, FALSE);
-	}
-	else {
-		table = gtk_table_new (1, 2, FALSE);
-	}
-	gtk_widget_show (table);
-	gtk_box_pack_start (GTK_BOX (vbox), table, TRUE, TRUE, 0);
-	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
-	gtk_table_set_col_spacings (GTK_TABLE (table), 6);
-
-	snr2win->search_label = gtk_label_new_with_mnemonic(_("_Search for: "));
-	gtk_table_attach (GTK_TABLE (table), snr2win->search_label, 0, 1, 0, 1,
-					(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 2, 0);
-	gtk_label_set_justify (GTK_LABEL (snr2win->search_label), GTK_JUSTIFY_LEFT);
-	gtk_misc_set_alignment (GTK_MISC (snr2win->search_label), 0, 0.5);
-	/*snr2win->search_scrollbox = textview_buffer_in_scrolwin(&snr2win->search_entry, 300, 50, LASTSNR2(bfwin->snr2)->search_pattern, GTK_WRAP_NONE);*/
-	gtk_text_buffer_get_selection_bounds(bfwin->current_document->buffer, &start, &end);
-	buffer = gtk_text_buffer_get_text(bfwin->current_document->buffer, &start, &end, TRUE);
-	if (strchr(buffer,'\n')!=NULL) {
-		/* a newline in the selection, we probably don't want this string as search string */
-		g_free(buffer);
-		buffer = NULL;
-	}
-	snr2win->search_combo = combo_with_popdown(buffer ? buffer : "", bfwin->session->searchlist, TRUE);
-	if (buffer) g_free(buffer);
-	gtk_table_attach (GTK_TABLE (table), snr2win->search_combo, 1, 2, 0, 1,
-					(GtkAttachOptions) (GTK_EXPAND | GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
-	/*g_signal_connect(G_OBJECT(snr2win->search_entry), "key_press_event", G_CALLBACK(search_entry_key_press_event_lcb), snr2win);*/
-
-	if (is_replace) {
-		snr2win->replace_label = gtk_label_new_with_mnemonic(_("_Replace with: "));
-		gtk_table_attach (GTK_TABLE (table), snr2win->replace_label, 0, 1, 1, 2,
-						(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 2, 0);
-		gtk_label_set_justify (GTK_LABEL (snr2win->replace_label), GTK_JUSTIFY_LEFT);
-		gtk_misc_set_alignment (GTK_MISC (snr2win->replace_label), 0, 0.5);
-		/*snr2win->replace_scrollbox = textview_buffer_in_scrolwin(&snr2win->replace_entry, 300, 50, LASTSNR2(bfwin->snr2)->replace_pattern, GTK_WRAP_NONE);*/
-		snr2win->replace_combo = combo_with_popdown("", bfwin->session->replacelist, TRUE);
-		gtk_table_attach (GTK_TABLE (table), snr2win->replace_combo, 1, 2, 1, 2,
-						(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
-		/*g_signal_connect(G_OBJECT(snr2win->replace_entry), "key_press_event", G_CALLBACK(search_entry_key_press_event_lcb), snr2win);*/
-		snr2win->subpat_help = gtk_label_new(_("\\0 refers to the first subsearch_pattern, \\1 to the second etc."));
-		gtk_box_pack_start(GTK_BOX(vbox), snr2win->subpat_help, FALSE, TRUE, 6);
-		gtk_label_set_justify (GTK_LABEL (snr2win->subpat_help), GTK_JUSTIFY_LEFT);
-		gtk_misc_set_alignment (GTK_MISC (snr2win->subpat_help), 1, 0.5);
-	}
-
-	if (is_replace) {
-		table = gtk_table_new (3, 2, FALSE);
-	} else {
-		table = gtk_table_new (2, 2, FALSE);
-	}
-	gtk_box_pack_start (GTK_BOX (vbox), table, TRUE, TRUE, 12);
-	gtk_table_set_row_spacings (GTK_TABLE (table), 12);
-	gtk_table_set_col_spacings (GTK_TABLE (table), 6);
-	{
-		gchar *placeactions[] = {N_("Beginning of document till end"), N_("Current position till end"),	N_("Beginning of selection till end of selection"), N_("All opened files begin till end"), NULL};
-		gchar *matchactions[] = {N_("Disabled"), N_("POSIX type"),	N_("PERL type"), NULL};
-		GtkWidget *matchlabel, *placelabel = gtk_label_new(_("Starts at:"));
-		DEBUG_MSG("snr2dialog, LASTSNR2(bfwin->snr2)->placetype_option=%d\n", LASTSNR2(bfwin->snr2)->placetype_option);
-		snr2win->placetype_option = optionmenu_with_value(placeactions, LASTSNR2(bfwin->snr2)->placetype_option);
-
-		gtk_table_attach (GTK_TABLE (table), placelabel, 0, 1, 0, 1,
-						(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 2, 0);
-		gtk_label_set_justify (GTK_LABEL (placelabel), GTK_JUSTIFY_LEFT);
-		gtk_misc_set_alignment (GTK_MISC (placelabel), 0, 0.5);
-		gtk_table_attach (GTK_TABLE (table), snr2win->placetype_option, 1, 2, 0, 1, 
-						(GtkAttachOptions) (GTK_EXPAND | GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
-		g_signal_connect(G_OBJECT((GtkWidget *) snr2win->placetype_option), "changed", G_CALLBACK(placetype_changed_lcb), snr2win);
-		
-		matchlabel = gtk_label_new(_("Regular expression:"));
-		DEBUG_MSG("snr2dialog, LASTSNR2(bfwin->snr2)->matchtype_option=%d\n", LASTSNR2(bfwin->snr2)->matchtype_option);
-		snr2win->matchtype_option = optionmenu_with_value(matchactions, LASTSNR2(bfwin->snr2)->matchtype_option);
-
-		gtk_table_attach (GTK_TABLE (table), matchlabel, 0, 1, 1, 2,
-						(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 2, 0);
-		gtk_label_set_justify (GTK_LABEL (matchlabel), GTK_JUSTIFY_LEFT);
-		gtk_misc_set_alignment (GTK_MISC (matchlabel), 0, 0.5);
-		gtk_table_attach (GTK_TABLE (table), snr2win->matchtype_option, 1, 2, 1, 2, 
-						(GtkAttachOptions) (GTK_EXPAND | GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
-		g_signal_connect(G_OBJECT((GtkWidget *) snr2win->matchtype_option), "changed", G_CALLBACK(matchtype_changed_lcb), snr2win);
-
-
-		if (is_replace) {
-			gchar *replaceactions[] = {N_("Normal"), N_("Uppercase"),	N_("Lowercase"), NULL};
-			GtkWidget *replacelabel = gtk_label_new(_("Replace type:"));
-			DEBUG_MSG("snr2dialog, LASTSNR2(bfwin->snr2)->replacetype_option=%d\n", LASTSNR2(bfwin->snr2)->replacetype_option);
-			snr2win->replacetype_option = optionmenu_with_value(replaceactions, LASTSNR2(bfwin->snr2)->replacetype_option);
-	
-			gtk_table_attach (GTK_TABLE (table), replacelabel, 0, 1, 2, 3, 
-							(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 2, 0);
-			gtk_label_set_justify (GTK_LABEL (replacelabel), GTK_JUSTIFY_LEFT);
-			gtk_misc_set_alignment (GTK_MISC (replacelabel), 0, 0.5);
-			gtk_table_attach (GTK_TABLE (table), snr2win->replacetype_option, 1, 2, 2, 3, 
-							(GtkAttachOptions) (GTK_EXPAND | GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
-			g_signal_connect(G_OBJECT((GtkWidget *) snr2win->replacetype_option), "changed", G_CALLBACK(replacetype_changed_lcb), snr2win);
-		}
-	}
-	snr2win->unescape = boxed_checkbut_with_value(_("_Patterns contain backslash escape sequences (\\n, \\t)"), LASTSNR2(bfwin->snr2)->unescape, vbox);
-	snr2win->is_case_sens = boxed_checkbut_with_value(_("_Match case"), LASTSNR2(bfwin->snr2)->is_case_sens, vbox);
-	snr2win->overlapping_search = boxed_checkbut_with_value(_("O_verlap searches"), LASTSNR2(bfwin->snr2)->overlapping_search, vbox);
-	if (is_replace) {
-		snr2win->prompt_before_replace = boxed_checkbut_with_value(_("Prompt _before replace"), LASTSNR2(bfwin->snr2)->prompt_before_replace, vbox);
-		snr2win->replace_once = boxed_checkbut_with_value(_("Replace o_nce"), LASTSNR2(bfwin->snr2)->replace_once, vbox);
-	} else {
-		snr2win->bookmark_results = boxed_checkbut_with_value(_("Bookmark results"), LASTSNR2(bfwin->snr2)->bookmark_results, vbox);
-	}
-
-	hbox = gtk_hseparator_new ();
-	gtk_widget_show (hbox);
-	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, TRUE, 12);
-
-	hbox = gtk_hbutton_box_new();
-	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 6);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
-
-	gtk_box_pack_start(GTK_BOX(hbox), bf_stock_cancel_button(G_CALLBACK(snr2dialog_cancel_lcb), snr2win), FALSE, TRUE, 0);
-	button = bf_stock_ok_button(G_CALLBACK(snr2dialog_ok_lcb), snr2win);
-	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, TRUE, 0);
-	gtk_window_set_default(GTK_WINDOW(snr2win->window), button);
-	
-	gtk_label_set_mnemonic_widget(GTK_LABEL(snr2win->search_label), GTK_COMBO(snr2win->search_combo)->entry);
-	if(is_replace) {
-		gtk_label_set_mnemonic_widget(GTK_LABEL(snr2win->replace_label), GTK_COMBO(snr2win->replace_combo)->entry);
-	}
-	gtk_widget_grab_focus(snr2win->search_combo);
-	gtk_widget_show_all(vbox);
-
-	gtk_widget_show(snr2win->window);
-/*	{
-		GtkTextIter itstart, itend;
-		gtk_text_buffer_get_bounds(gtk_text_view_get_buffer(GTK_TEXT_VIEW(snr2win->search_entry)),&itstart,&itend);
-		gtk_text_buffer_move_mark_by_name(gtk_text_view_get_buffer(GTK_TEXT_VIEW(snr2win->search_entry)),"insert",&itstart);
-		gtk_text_buffer_move_mark_by_name(gtk_text_view_get_buffer(GTK_TEXT_VIEW(snr2win->search_entry)),"selection_bound",&itend);
-	}*/
-	
-	if (is_replace) {
-		matchtype_changed_lcb(NULL, snr2win);
-		replacetype_changed_lcb(NULL, snr2win);
-	}
-}
-
-/*****************************************************/
-
-/*void search_from_selection(Tbfwin *bfwin) {
-	gchar *string;
-	GtkClipboard* cb;
-
-	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
-	string = gtk_clipboard_wait_for_text(cb);
-	if (string) {
-		if (LASTSNR2(bfwin->snr2)->search_pattern) {
-			g_free(LASTSNR2(bfwin->snr2)->search_pattern);
-		}
-		if (LASTSNR2(bfwin->snr2)->replace_pattern) {
-			g_free(LASTSNR2(bfwin->snr2)->replace_pattern);
-			LASTSNR2(bfwin->snr2)->replace_pattern = NULL;
-		}
-		LASTSNR2(bfwin->snr2)->search_pattern = string;
-		LASTSNR2(bfwin->snr2)->placetype_option = 0;
- 		LASTSNR2(bfwin->snr2)->is_case_sens = 1;
-	 	LASTSNR2(bfwin->snr2)->overlapping_search = 0;
-		LASTSNR2(bfwin->snr2)->replace = 0;
-		LASTSNR2(bfwin->snr2)->matchtype_option = 0;
-		snr2_run(bfwin,bfwin->current_document);
-	}
-}*/
-
-/**
- * search_cb:
- * @widget: unused #GtkWidget*
- * @data: unused #gpointer
- * 
- * Show the search-dialog.
- * 
- * Return value: void
- **/
-void search_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	snr_dialog_new(bfwin, BF_FIND_DIALOG);
-}
-
-/**
- * replace_again_cb:
- * @widget: unused #GtkWidget*
- * @data: unused #gpointer
- * 
- * Repeat last replace, if any.
- * 
- * Return value: void
- **/ 
-void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	snr2_run(bfwin,NULL);
-}
-
-/**
- * replace_cb:
- * @widget: unused #GtkWidget*
- * @data: unused #gpointer
- * 
- * Show replace dialog.
- * 
- * Return value: void
- **/ 
-void replace_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	snr_dialog_new(bfwin, BF_REPLACE_DIALOG);
-}
 
 /*****************************************************/
 
@@ -2355,6 +1996,33 @@ void search_from_selection(Tbfwin *bfwin) {
 }
 
 /**
+ * search_cb:
+ * @widget: unused #GtkWidget*
+ * @data: unused #gpointer
+ * 
+ * Show the search-dialog.
+ * 
+ * Return value: void
+ **/
+void search_cb(GtkWidget *widget, Tbfwin *bfwin) {
+	snr_dialog_new(bfwin, BF_FIND_DIALOG);
+}
+
+/**
+ * replace_cb:
+ * @widget: unused #GtkWidget*
+ * @data: unused #gpointer
+ * 
+ * Show replace dialog.
+ * 
+ * Return value: void
+ **/ 
+void replace_cb(GtkWidget *widget, Tbfwin *bfwin) {
+	snr_dialog_new(bfwin, BF_REPLACE_DIALOG);
+}
+
+
+/**
  * search_again_cb:
  * @widget: unused #GtkWidget*
  * @data: unused #gpointer
@@ -2384,4 +2052,29 @@ void search_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 		gtk_label_set_markup(GTK_LABEL(snrwin->warninglabel),_("<span foreground=\"red\" weight=\"bold\">No more matches found, next search will continue at the beginning.</span>"));
 		gtk_widget_show(snrwin->warninglabel);
 	}	
+}
+
+/**
+ * replace_again_cb:
+ * @widget: unused #GtkWidget*
+ * @data: unused #gpointer
+ * 
+ * Repeat last replace, if any.
+ * 
+ * Return value: void
+ **/ 
+void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
+	gint startpos=0,endpos=-1;
+	Tsearch_result sret;
+	if (LASTSNR2(bfwin->snr2)->doc == bfwin->current_document) {
+		if (LASTSNR2(bfwin->snr2)->result.end > 0) {
+			if (LASTSNR2(bfwin->snr2)->overlapping_search) {
+				startpos = LASTSNR2(bfwin->snr2)->result.start + 1;
+			} else {
+				startpos = LASTSNR2(bfwin->snr2)->result.end;
+			}
+		}
+	}		
+	sret = replace_doc_once(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->replace_pattern
+			, bfwin->current_document, LASTSNR2(bfwin->snr2)->replacetype_option, LASTSNR2(bfwin->snr2)->unescape);
 }
