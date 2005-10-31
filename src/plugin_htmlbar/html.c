@@ -1896,7 +1896,7 @@ void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[2], 1, 3, 2, 3);
 	
 	{
-		GList *tmplist = list_from_arglist(FALSE, "Alternate", "Stylesheet", "Start", "Next", "Prev", "Contents", "Index", "Glossary", "Copyright", "Chapter", "Section", "Subsection", "Appendix", "Help", "Bookmark", NULL);
+		GList *tmplist = list_from_arglist(FALSE, "stylesheet", "alternate", "alternate stylesheet", "shortcut icon", "contents", "chapter", "section", "subsection", "index", "glossary", "appendix", "search", "author", "copyright", "next", "prev", "first", "last", "up", "top", "help", "bookmark", NULL);
 		dg->attrwidget[3] = combo_with_popdown(tagvalues[3], tmplist, 1);
 		bf_mnemonic_label_tad_with_alignment(_("_Forward Relation:"), dg->attrwidget[3], 0, 0.5, dgtable, 0, 1, 3, 4);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[3], 1, 3, 3, 4);
