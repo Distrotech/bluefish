@@ -1100,7 +1100,7 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *vbox, *hbox2, *but, *scrolwin, *label;
 	GtkTreeSelection *select;
 	DEBUG_MSG("create_textstyle_gui\n");
-	label = gtk_label_new(_("Textstyles are applied on top of each other. If multiple styles are applied to the same text, the top-most style has the highest priority. Use drag and drop to re-order the textstyles."));
+	label = gtk_label_new(_("Text styles are applied on top of each other. If multiple styles are applied to the same text, the top-most style has the highest priority. Use drag and drop to re-order the text styles."));
 	gtk_label_set_line_wrap(label, TRUE);
 	gtk_box_pack_start(GTK_BOX(vbox1),label, FALSE, TRUE, 2);
 
