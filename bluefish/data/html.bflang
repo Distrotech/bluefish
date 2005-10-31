@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+
+<bflang name="HTML" description="HTML language file">
+
+<options>
+    <option name="case-sensitive">false</option>
+    <option name="scan-markup-tags">true</option>
+    <option name="scan-blocks">true</option>
+   <option name="auto-scan-triggers">{}&#x0A;&lt;&gt;</option>	
+   <option name="escape-characters">\</option>
+</options>
+
+<block id="markup-comment" begin="&lt;!--" end="--&gt;" scanned="false" foldable="true" defaultstyle="comment"/>
+<token name="entity" regexp="true" defaultstyle="keyword">&amp;[a-zA-Z0-9#]+;</token>
+<token name="doctype" regexp="true" defaultstyle="preprocessor">&lt;![a-zA-Z0-9]+[^&gt;]*&gt;</token>
+
+</bflang>
