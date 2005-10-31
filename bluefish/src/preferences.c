@@ -167,9 +167,10 @@ typedef struct {
 typedef struct {
 	GtkListStore *lstore;
 	GtkWidget *lview;
-	gchar **curstrarr;
 	int insertloc;
 	GList **thelist;
+	/* the above is identical to Tlistpref, andf makes it possible to typecast this to Tlistpref */
+	gchar **curstrarr;
 	GtkWidget *bg_color,*fg_color;
 	GtkWidget *bold_radio[3];
 	GtkWidget *italic_radio[3];
@@ -1096,9 +1097,13 @@ if pd->tsd.curstrarr == NULL then there is no name selected, for example we are 
 a switch, delete, add etc.
 */
 static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
-	GtkWidget *hbox, *vbox, *hbox2, *but, *scrolwin;
+	GtkWidget *hbox, *vbox, *hbox2, *but, *scrolwin, *label;
 	GtkTreeSelection *select;
 	DEBUG_MSG("create_textstyle_gui\n");
+	label = gtk_label_new(_("Textstyles are applied on top of each other. If multiple styles are applied to the same text, the top-most style has the highest priority. Use drag and drop to re-order the textstyles."));
+	gtk_label_set_line_wrap(label, TRUE);
+	gtk_box_pack_start(GTK_BOX(vbox1),label, FALSE, TRUE, 2);
+
 	hbox = gtk_hbox_new (FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 2);
 	pd->lists[textstyles] = duplicate_arraylist(main_v->props.textstyles);
@@ -1145,8 +1150,8 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->tsd.lview), TRUE);
 	pd->tsd.thelist = &pd->lists[textstyles];
 	pd->tsd.insertloc = -1;
-/*	g_signal_connect(G_OBJECT(pd->tsd.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->tsd);
-	g_signal_connect(G_OBJECT(pd->tsd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->tsd);*/
+	g_signal_connect(G_OBJECT(pd->tsd.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->tsd);
+	g_signal_connect(G_OBJECT(pd->tsd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->tsd);
 
 	g_signal_connect(G_OBJECT(pd->tsd.fg_color),"changed",G_CALLBACK(textstyle_entry_changed),pd);
 	g_signal_connect(G_OBJECT(pd->tsd.bg_color),"changed",G_CALLBACK(textstyle_entry_changed),pd);
