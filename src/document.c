@@ -769,11 +769,16 @@ gboolean test_only_empty_doc_left(GList *doclist) {
  *
  * Return value: void, ignored
  */
-void doc_move_to_window(Tdocument *doc, Tbfwin *newwin) {
-	Tbfwin *oldwin = BFWIN(doc->bfwin);
+void doc_move_to_window(Tdocument *doc, Tbfwin *oldwin, Tbfwin *newwin) 
+{
 	GtkWidget *tab_widget, *scroll;
 	DEBUG_MSG("doc_move_to_window, oldwin=%p, newwin=%p, doc=%p\n",oldwin,newwin,doc);
-	tab_widget = doc->tab_label->parent;
+	/* first test if the document still exists in the old window */
+	if (g_list_index(oldwin->documentlist, doc)==-1) {
+		DEBUG_MSG("doc_move_to_window, the document no longer exists in oldwin %p\n",oldwin);
+		return;
+	}
+	tab_widget = doc->tab_eventbox->parent;
 	scroll = doc->view->parent;
 	gtk_widget_ref(scroll);
 	gtk_widget_ref(tab_widget);
@@ -800,6 +805,36 @@ void doc_move_to_window(Tdocument *doc, Tbfwin *newwin) {
 		file_new_cb(NULL, oldwin);
 	}
 }
+
+typedef struct {
+	Tdocument *doc;
+	Tbfwin *newwin;
+	Tbfwin *oldwin;
+} Tdmwd;
+
+static void doc_move_to_window_dialog_response_lcb(GtkDialog *dialog,gint response,gpointer user_data) {
+	Tdmwd *dmwd = (Tdmwd *)user_data;
+	if (response == GTK_RESPONSE_YES) {
+		doc_move_to_window(dmwd->doc, dmwd->oldwin, dmwd->newwin);
+	}
+	gtk_widget_destroy(dialog);
+	g_free(dmwd);
+}
+void doc_move_to_window_dialog(Tdocument *doc, Tbfwin *newwin) {
+	GtkWidget *dialog;
+	Tdmwd *dmwd;
+	dmwd = g_new(Tdmwd,1);
+	dmwd->doc = doc;
+	dmwd->newwin = newwin;
+	dmwd->oldwin = doc->bfwin;
+	dialog = gtk_message_dialog_new(GTK_WINDOW(newwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT
+			,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO
+			,_("Document %s is already open in another Bluefish window. Move it to this window?")
+			,gtk_label_get_text(GTK_LABEL(doc->tab_label)) );
+	g_signal_connect(dialog, "response", doc_move_to_window_dialog_response_lcb, dmwd);
+	gtk_widget_show_all(dialog);
+}
+
 /**
  * doc_has_selection:
  * @doc: a #Tdocument
@@ -3110,7 +3145,8 @@ void doc_new_from_uri(Tbfwin *bfwin, GnomeVFSURI *opturi, GnomeVFSFileInfo *finf
 	g_list_free(alldocs);
 	if (tmpdoc) { /* document is already open */
 		if (move_to_this_win) {
-			doc_move_to_window(tmpdoc, bfwin);
+			/* we should aks the user if it is OK to move the document */
+			doc_move_to_window_dialog(tmpdoc, bfwin);
 		} else if (!delay_activate) { /* switch to window, only if we should */
 			switch_to_document_by_pointer(BFWIN(tmpdoc->bfwin),tmpdoc);
 			if (bfwin != tmpdoc->bfwin) gtk_window_present(GTK_WINDOW(BFWIN(tmpdoc->bfwin)->main_window));
