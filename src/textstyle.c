@@ -88,8 +88,10 @@ void textstyle_rebuild(void) {
 		textstyle.tagtable = gtk_text_tag_table_new();
 		DEBUG_MSG("textstyle_rebuild, tagtable at %p\n",textstyle.tagtable);
 	}
-
-	for (tmplist=g_list_first(main_v->props.textstyles);tmplist!=NULL;tmplist=tmplist->next) {
+	/* we want the first entry in the list to have the highest priority, so we'll
+	start with the last textstyle, and end with the first one, because the last GtkTextTag has
+	the highest priority */
+	for (tmplist=g_list_last(main_v->props.textstyles);tmplist!=NULL;tmplist=tmplist->prev) {
 		gchar **arr = tmplist->data;
 		GtkTextTag *tag;
 		tag = textstyle_compile(arr);
