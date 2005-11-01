@@ -774,7 +774,7 @@ void doc_move_to_window(Tdocument *doc, Tbfwin *oldwin, Tbfwin *newwin)
 	GtkWidget *tab_widget, *scroll;
 	DEBUG_MSG("doc_move_to_window, oldwin=%p, newwin=%p, doc=%p\n",oldwin,newwin,doc);
 	/* first test if the document still exists in the old window */
-	if (g_list_index(oldwin->documentlist, doc)==-1) {
+	if (g_list_index(oldwin->documentlist, doc)==-1 || !bfwin_exists(oldwin) || !bfwin_exists(newwin)) {
 		DEBUG_MSG("doc_move_to_window, the document no longer exists in oldwin %p\n",oldwin);
 		return;
 	}

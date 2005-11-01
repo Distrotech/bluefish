@@ -20,6 +20,9 @@
 
 #ifndef __GUI_H_
 #define __GUI_H_
+
+#define bfwin_exists(bfwin) (g_list_index(main_v->bfwinlist, bfwin)!=-1)
+
 void gui_set_html_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu);
 void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu);
 void gui_set_custom_menu_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu);
