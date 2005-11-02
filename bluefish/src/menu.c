@@ -69,7 +69,7 @@ callback_data is a pointer to an arbitrary piece of data and is set during the c
 
 we want to pass the Tbfwin* so we should never use a callback_action of zero
 */
-static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+static void menu_file_operations_cb(Tbfwin *bfwin, guint callback_action, GtkWidget *widget) {
 	switch(callback_action) {
 	case 1:
 		file_new_cb(NULL,bfwin);
@@ -157,7 +157,7 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		exit(123);
 	}
 }
-static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+static void menu_html_dialogs_lcb(Tbfwin *bfwin, guint callback_action, GtkWidget *widget) {
 	switch (callback_action) {
 	case 1:
 		body_dialog(bfwin,NULL);
@@ -261,15 +261,18 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		insert_time_dialog(bfwin);
 	break;
 	case 35:
-		linkdialog_dialog(bfwin,NULL);
+		linkdialog_dialog(bfwin,NULL,linkdialog_mode_default);
 	break;
 	case 36:
-		new_css_dialog(NULL,bfwin);
+		linkdialog_dialog(bfwin,NULL,linkdialog_mode_css);
 	break;
 	case 37:
-		sel_colour_cb(NULL,bfwin);	
+		new_css_dialog(NULL,bfwin);
 	break;
 	case 38:
+		sel_colour_cb(NULL,bfwin);	
+	break;
+	case 39:
 		edit_tag_under_cursor_cb(bfwin);
 	break;
 	default:
@@ -613,7 +616,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/General/Quick_list..."), "<shift><alt>L", menu_html_dialogs_lcb, 7, "<ImageItem>", pixmap_list},
 	{N_("/Dialogs/General/_Meta..."), "<shift><alt>m", menu_html_dialogs_lcb, 8, "<Item>"},
 	{N_("/Dialogs/General/Embe_d..."), NULL, menu_html_dialogs_lcb, 9, "<Item>"},
-	{N_("/Dialogs/General/Select _Color..."), NULL, menu_html_dialogs_lcb, 37, "<Item>"},
+	{N_("/Dialogs/General/Select _Color..."), NULL, menu_html_dialogs_lcb, 38, "<Item>"},
 	{N_("/Dialogs/General/Insert _Time..."), NULL, menu_html_dialogs_lcb, 34, "<Item>"},
 	{N_("/Dialogs/General/Insert _Image..."), "<shift><alt>I", menu_html_dialogs_lcb, 10, "<ImageItem>", pixmap_image},
 	{N_("/Dialogs/General/Insert T_humbnail..."), "<shift><alt>N", menu_html_dialogs_lcb, 11, "<ImageItem>", pixmap_thumbnail},
@@ -626,11 +629,11 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Dialogs/Table/Table _Data..."), NULL, menu_html_dialogs_lcb, 16, "<ImageItem>", pixmap_table_td},
 	{N_("/Dialogs/_CSS"), NULL, NULL, 0, "<Branch>"},
 	{"/Dialogs/CSS/tearoff1", NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Dialogs/CSS/_Create Style..."), "<shift><alt>S", menu_html_dialogs_lcb, 36, "<ImageItem>",pixmap_cssnewstyle},
+	{N_("/Dialogs/CSS/_Create Style..."), "<shift><alt>S", menu_html_dialogs_lcb, 37, "<ImageItem>",pixmap_cssnewstyle},
 	{N_("/Dialogs/CSS/S_pan..."), NULL, menu_html_dialogs_lcb, 17, "<ImageItem>",pixmap_cssspan},
 	{N_("/Dialogs/CSS/_Div..."), "<shift><alt>D", menu_html_dialogs_lcb, 18, "<ImageItem>",pixmap_cssdiv},
 	{N_("/Dialogs/CSS/_Style..."), NULL, general_html_menu_cb, 42, "<ImageItem>",pixmap_cssstyle},
-	{N_("/Dialogs/CSS/_Link to Stylesheet..."), NULL, menu_html_dialogs_lcb, 35, "<Item>"},
+	{N_("/Dialogs/CSS/_Link to Stylesheet..."), NULL, menu_html_dialogs_lcb, 36, "<Item>"},
 	{N_("/Dialogs/_Frame"), NULL, NULL, 0, "<Branch>"},
 	{"/Dialogs/Frame/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Dialogs/Frame/Frame _Wizard..."), NULL, menu_html_dialogs_lcb, 19, "<ImageItem>", pixmap_framewhiz},
@@ -674,7 +677,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{"/Dialogs/WML/sep13", NULL, NULL, 0, "<Separator>"},
 	{N_("/Dialogs/WML/Set Variable..."), NULL, vardialog_cb, 0, NULL},*/
 	{"/Dialogs/sep1", NULL, NULL, 0, "<Separator>"},
-	{N_("/Dialogs/_Edit tag under cursor..."), "F3", menu_html_dialogs_lcb, 38, "<ImageItem>", pixmap_edit_tag},
+	{N_("/Dialogs/_Edit tag under cursor..."), "F3", menu_html_dialogs_lcb, 39, "<ImageItem>", pixmap_edit_tag},
 	{N_("/_Document"), NULL, NULL, 0, "<Branch>"},
 	{"/Document/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/_Increase Tabsize"), NULL, gui_change_tabsize, 1, "<Item>"},
