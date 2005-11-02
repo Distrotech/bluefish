@@ -1717,7 +1717,7 @@ static void embedok_lcb(GtkWidget * widget,Thtml_diag *dg )
 	thestring = g_strdup(cap("<EMBED"));
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->entry[1])), cap("SRC"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[1])), cap("WIDTH"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("HEGHT"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[2])), cap("HEIGHT"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(dg->spin[3])), cap("BORDER"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_ENTRY(GTK_COMBO(dg->combo[1])->entry)), cap("ALIGN"), thestring, NULL);
 
@@ -1843,11 +1843,13 @@ static void linkdialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	thestring = g_strdup(cap("<LINK"));
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[0])->entry), cap("HREF"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[1]), cap("HREFLANG"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[2])->entry), cap("TYPE"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[3])->entry), cap("REL"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[4])->entry), cap("REV"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[5])->entry), cap("MEDIA"), thestring, NULL);
-	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[6]), cap("LANG"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[2]), cap("TITLE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[3])->entry), cap("TYPE"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[4])->entry), cap("REL"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[5])->entry), cap("REV"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->attrwidget[6])->entry), cap("MEDIA"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[7]), cap("LANG"), thestring, NULL);
+	thestring = insert_string_if_entry(GTK_WIDGET(dg->attrwidget[8]), NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, (main_v->props.xhtml == 1) ? " />" : ">", NULL);
 	g_free(thestring);
 
@@ -1860,9 +1862,24 @@ static void linkdialogok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	html_diag_destroy_cb(NULL, dg);
 }
 
-void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	static gchar *tagitems[] = {"href", "hreflang", "type", "rel", "rev", "media", "lang", NULL };
-	gchar *tagvalues[8];
+/*
+ * This dialog can be used for almost every <link .../> tag usage. A few parts
+ * are missing:
+ *
+ *   - rel="fontdef" src="..." which is for downloadable font types
+ *     should grey out everything else or separate dialog?
+ *   - missing: target (bad-style?), and charset attributes are not part of
+ *     the dialog
+ *
+ * The mode-switch can be used to add more default values for links (see
+ * html.h -> Tlinkdialog_mode. Maybe we can use this to handle the link-dialog
+ * for downloadable font types. Oliver suggested to add some buttons as a way
+ * for a fast and direct way to access several standard values (e.g. CSS) from
+ * inside the dialog.
+ */
+void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, Tlinkdialog_mode mode) {
+	static gchar *tagitems[] = {"href", "hreflang", "title", "type", "rel", "rev", "media", "lang", NULL };
+	gchar *tagvalues[9];
 	gchar *custom = NULL;
 	Thtml_diag *dg;
 	GtkWidget *dgtable, *but;
@@ -1884,45 +1901,89 @@ void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), but, 2, 3, 0, 1);
 
 	dg->attrwidget[1] = entry_with_text(tagvalues[1], 1024);
-	bf_mnemonic_label_tad_with_alignment(_("HREF_LANG:"), dg->attrwidget[1], 0, 0.5, dgtable, 0, 1, 1, 2);
+	bf_mnemonic_label_tad_with_alignment(_("HREF_LANG:"), dg->attrwidget[1], 0, 0.5, dgtable, 0, 1, 1, 2);	
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[1], 1, 3, 1, 2);
 
+	dg->attrwidget[2] = entry_with_text(tagvalues[2], 1024);
+	bf_mnemonic_label_tad_with_alignment(_("T_itle:"), dg->attrwidget[2], 0, 0.5, dgtable, 0, 1, 2, 3);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[2], 1, 3, 2, 3);
+
 	{
+		gchar *tmp;
 		GList *tmplist = list_from_arglist(FALSE, "text/html", "text/css", "text/plain", "text/javascript", "application/postscript", NULL);
-		dg->attrwidget[2] = combo_with_popdown(tagvalues[2], tmplist, 1);
+		switch (mode) {
+			case linkdialog_mode_default:
+				tmp = tagvalues[3];
+			break;
+			case linkdialog_mode_css:
+				tmp = "text/css";
+			break;
+			default:
+				tmp = tagvalues[3];
+			break;
+		}
+		dg->attrwidget[3] = combo_with_popdown(tmp, tmplist, 1);
+		
 		g_list_free(tmplist);
 	}
-	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->attrwidget[2], 0, 0.5, dgtable, 0, 1, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[2], 1, 3, 2, 3);
+	bf_mnemonic_label_tad_with_alignment(_("_Type:"), dg->attrwidget[3], 0, 0.5, dgtable, 0, 1, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[3], 1, 3, 3, 4);
 	
 	{
+		gchar *tmp;
 		GList *tmplist = list_from_arglist(FALSE, "stylesheet", "alternate", "alternate stylesheet", "shortcut icon", "contents", "chapter", "section", "subsection", "index", "glossary", "appendix", "search", "author", "copyright", "next", "prev", "first", "last", "up", "top", "help", "bookmark", NULL);
-		dg->attrwidget[3] = combo_with_popdown(tagvalues[3], tmplist, 1);
-		bf_mnemonic_label_tad_with_alignment(_("_Forward Relation:"), dg->attrwidget[3], 0, 0.5, dgtable, 0, 1, 3, 4);
-		gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[3], 1, 3, 3, 4);
-		
-		dg->attrwidget[4] = combo_with_popdown(tagvalues[4], tmplist, 1);
-		bf_mnemonic_label_tad_with_alignment(_("_Reverse Relation:"), dg->attrwidget[4], 0, 0.5, dgtable, 0, 1, 4, 5);
+
+		switch (mode) {
+			case linkdialog_mode_default:
+				tmp = tagvalues[4];
+			break;
+			case linkdialog_mode_css:
+				tmp = "stylesheet";
+			break;
+			default:
+				tmp = tagvalues[4];
+			break;
+		}
+		dg->attrwidget[4] = combo_with_popdown(tmp, tmplist, 1);
+		bf_mnemonic_label_tad_with_alignment(_("_Forward Relation:"), dg->attrwidget[4], 0, 0.5, dgtable, 0, 1, 4, 5);
 		gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[4], 1, 3, 4, 5);
 		
+		dg->attrwidget[5] = combo_with_popdown(tagvalues[5], tmplist, 1);
+		bf_mnemonic_label_tad_with_alignment(_("_Reverse Relation:"), dg->attrwidget[5], 0, 0.5, dgtable, 0, 1, 5, 6);
+		gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[5], 1, 3, 5, 6);
+		
 		g_list_free(tmplist);
 	}
 	
 	{
+		gchar *tmp;
 		GList *tmplist = list_from_arglist(FALSE, "screen", "tty", "tv", "projection", "handheld", "print", "braille", "aural", "all", NULL);
-		dg->attrwidget[5] = combo_with_popdown(tagvalues[5], tmplist, 1);
+
+		switch (mode) {
+			case linkdialog_mode_default:
+				tmp = tagvalues[6];
+			break;
+			case linkdialog_mode_css:
+				tmp = "screen";
+			break;
+			default:
+				tmp = tagvalues[6];
+			break;
+		}
+		dg->attrwidget[6] = combo_with_popdown(tmp, tmplist, 1);
+		
 		g_list_free(tmplist);
 	}
-	bf_mnemonic_label_tad_with_alignment(_("Media:"), dg->attrwidget[5], 0, 0.5, dgtable, 0, 1, 5, 6);
-	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[5], 1, 3, 5, 6);
-
-	dg->attrwidget[6] = entry_with_text(tagvalues[6], 1024);
-	bf_mnemonic_label_tad_with_alignment(_("L_ang:"), dg->attrwidget[6], 0, 0.5, dgtable, 0, 1, 6, 7);
+	bf_mnemonic_label_tad_with_alignment(_("Media:"), dg->attrwidget[6], 0, 0.5, dgtable, 0, 1, 6, 7);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[6], 1, 3, 6, 7);
-	
-	dg->attrwidget[7] = entry_with_text(custom, 1024);
-	bf_mnemonic_label_tad_with_alignment(_("_Custom:"), dg->attrwidget[7], 0, 0.5, dgtable, 0, 1, 7, 8);
+
+	dg->attrwidget[7] = entry_with_text(tagvalues[7], 1024);
+	bf_mnemonic_label_tad_with_alignment(_("L_ang:"), dg->attrwidget[7], 0, 0.5, dgtable, 0, 1, 7, 8);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[7], 1, 3, 7, 8);
+	
+	dg->attrwidget[8] = entry_with_text(custom, 1024);
+	bf_mnemonic_label_tad_with_alignment(_("_Custom:"), dg->attrwidget[8], 0, 0.5, dgtable, 0, 1, 8, 9);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->attrwidget[8], 1, 3, 8, 9);
 	
 	html_diag_finish(dg, G_CALLBACK(linkdialogok_lcb));
 	if (custom)	g_free(custom);

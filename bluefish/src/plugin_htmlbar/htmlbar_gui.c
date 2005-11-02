@@ -145,15 +145,18 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		insert_time_dialog(bfwin);
 	break;
 	case 35:
-		linkdialog_dialog(bfwin,NULL);
+		linkdialog_dialog(bfwin,NULL,linkdialog_mode_default);
 	break;
 	case 36:
+		linkdialog_dialog(bfwin,NULL,linkdialog_mode_css);
+	breal;
+	case 37:
 		new_css_dialog(NULL,bfwin);
 	break;
-	case 37:
+	case 38:
 		sel_colour_cb(NULL,bfwin);	
 	break;
-	case 38:
+	case 39:
 		edit_tag_under_cursor_cb(bfwin);
 	break;
 	default:
@@ -403,6 +406,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{N_("/Dialogs/_General"), NULL, NULL, 0, "<Branch>"},
 		{"/Dialogs/General/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 		{N_("/Dialogs/General/_Quickstart..."), "<shift><alt>q", menu_html_dialogs_lcb, 32, "<ImageItem>", pixmap_quick_start},
+		{N_("/Dialogs/General/_Link Header..."), NULL, menu_html_dialogs_lcb, 35, "<Item>"},
 		{N_("/Dialogs/General/_Body..."), "<shift><alt>B", menu_html_dialogs_lcb, 1, "<ImageItem>", pixmap_body},
 		{N_("/Dialogs/General/_Anchor..."), "<shift><alt>a", menu_html_dialogs_lcb, 2, "<ImageItem>", pixmap_anchor},
 		{N_("/Dialogs/General/_Email..."), "<shift><alt>e", menu_html_dialogs_lcb, 3, "<Item>"},
@@ -412,7 +416,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{N_("/Dialogs/General/Quick_list..."), "<shift><alt>L", menu_html_dialogs_lcb, 7, "<ImageItem>", pixmap_list},
 		{N_("/Dialogs/General/_Meta..."), "<shift><alt>m", menu_html_dialogs_lcb, 8, "<Item>"},
 		{N_("/Dialogs/General/Embe_d..."), NULL, menu_html_dialogs_lcb, 9, "<Item>"},
-		{N_("/Dialogs/General/Select _Color..."), NULL, menu_html_dialogs_lcb, 37, "<Item>"},
+		{N_("/Dialogs/General/Select _Color..."), NULL, menu_html_dialogs_lcb, 38, "<Item>"},
 		{N_("/Dialogs/General/Insert _Time..."), NULL, menu_html_dialogs_lcb, 34, "<Item>"},
 		{N_("/Dialogs/General/Insert _Image..."), "<shift><alt>I", menu_html_dialogs_lcb, 10, "<ImageItem>", pixmap_image},
 		{N_("/Dialogs/General/Insert T_humbnail..."), "<shift><alt>N", menu_html_dialogs_lcb, 11, "<ImageItem>", pixmap_thumbnail},
@@ -425,11 +429,11 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{N_("/Dialogs/Table/Table _Data..."), NULL, menu_html_dialogs_lcb, 16, "<ImageItem>", pixmap_table_td},
 		{N_("/Dialogs/_CSS"), NULL, NULL, 0, "<Branch>"},
 		{"/Dialogs/CSS/tearoff1", NULL, NULL, 0, "<Tearoff>"},
-		{N_("/Dialogs/CSS/_Create Style..."), "<shift><alt>S", menu_html_dialogs_lcb, 36, "<ImageItem>",pixmap_cssnewstyle},
+		{N_("/Dialogs/CSS/_Create Style..."), "<shift><alt>S", menu_html_dialogs_lcb, 37, "<ImageItem>",pixmap_cssnewstyle},
 		{N_("/Dialogs/CSS/S_pan..."), NULL, menu_html_dialogs_lcb, 17, "<ImageItem>",pixmap_cssspan},
 		{N_("/Dialogs/CSS/_Div..."), "<shift><alt>D", menu_html_dialogs_lcb, 18, "<ImageItem>",pixmap_cssdiv},
 		{N_("/Dialogs/CSS/_Style..."), NULL, general_html_menu_cb, 42, "<ImageItem>",pixmap_cssstyle},
-		{N_("/Dialogs/CSS/_Link to Stylesheet..."), NULL, menu_html_dialogs_lcb, 35, "<Item>"},
+		{N_("/Dialogs/CSS/_Link to Stylesheet..."), NULL, menu_html_dialogs_lcb, 36, "<Item>"},
 		{N_("/Dialogs/_Frame"), NULL, NULL, 0, "<Branch>"},
 		{"/Dialogs/Frame/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 		{N_("/Dialogs/Frame/Frame _Wizard..."), NULL, menu_html_dialogs_lcb, 19, "<ImageItem>", pixmap_framewhiz},
@@ -447,7 +451,7 @@ void htmlbar_build_menu(Thtmlbarwin *hbw) {
 		{N_("/Dialogs/Form/Option _Group..."), NULL, menu_html_dialogs_lcb, 31, "<ImageItem>",pixmap_form_optiongroup },
 		{N_("/Dialogs/Form/_Button..."), NULL, menu_html_dialogs_lcb, 25, "<Item>"},
 		{"/Dialogs/sep1", NULL, NULL, 0, "<Separator>"},
-		{N_("/Dialogs/_Edit tag under cursor..."), "F3", menu_html_dialogs_lcb, 38, "<ImageItem>", pixmap_edit_tag}
+		{N_("/Dialogs/_Edit tag under cursor..."), "F3", menu_html_dialogs_lcb, 39, "<ImageItem>", pixmap_edit_tag}
 	};
 	static GtkItemFactoryEntry menu_items1[] = {
 		{N_("/View/View _HTML Toolbar"), NULL, htmlbar_view_lcb, 0, "<ToggleItem>"}
@@ -653,7 +657,7 @@ static void quicklist_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	quicklist_dialog(bfwin,NULL);
 }
 static void link_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	linkdialog_dialog(bfwin,NULL);
+	linkdialog_dialog(bfwin,NULL,linkdialog_mode_css);
 }
 static void formdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	formdialog_dialog(bfwin,NULL);

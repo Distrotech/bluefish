@@ -23,6 +23,11 @@
 
 #include "html_diag.h" /* Ttagpopup */
 
+typedef enum {
+	linkdialog_mode_default,
+	linkdialog_mode_css
+} Tlinkdialog_mode;
+
 void insert_char_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget);
 void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget);
 
@@ -49,5 +54,5 @@ void frameset_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void frame_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void embed_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void script_dialog(Tbfwin *bfwin, Ttagpopup *data);
-void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data);
+void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, Tlinkdialog_mode mode);
 #endif							/* __HTML_H_ */
