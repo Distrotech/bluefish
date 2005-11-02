@@ -1134,6 +1134,9 @@ void quickstart_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 		tmpstr = g_strconcat("<meta name=\"author\" content=\"\"",endstr,NULL);
 		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
 		g_free(tmpstr);
+		tmpstr = g_strconcat("<meta name=\"date\" content=\"\"",endstr,NULL);
+		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
+		g_free(tmpstr);
 		tmpstr = g_strconcat("<meta name=\"copyright\" content=\"\"",endstr,NULL);
 		recent_attribs.headerlist = add_to_stringlist(recent_attribs.headerlist, tmpstr);
 		g_free(tmpstr);
