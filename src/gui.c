@@ -520,7 +520,7 @@ static void quicklist_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	quicklist_dialog(bfwin,NULL);
 }
 static void link_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	linkdialog_dialog(bfwin,NULL);
+	linkdialog_dialog(bfwin,NULL,linkdialog_mode_css);
 }
 static void formdialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	formdialog_dialog(bfwin,NULL);
