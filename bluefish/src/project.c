@@ -45,8 +45,6 @@ static void free_session(Tsessionvars *session) {
 	free_stringlist(session->targetlist);
 	free_stringlist(session->urllist);
 	free_stringlist(session->fontlist);
-	free_stringlist(session->dtd_cblist);
-	free_stringlist(session->headerlist);
 	free_stringlist(session->positionlist);
 	free_stringlist(session->searchlist);
 	free_stringlist(session->replacelist);

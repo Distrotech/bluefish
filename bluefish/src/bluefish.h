@@ -317,8 +317,6 @@ typedef struct {
 	GList *targetlist;
 	GList *urllist;
 	GList *fontlist;
-	GList *dtd_cblist; /* is this used ?? */
-	GList *headerlist; /* is this used ?? */
 	GList *positionlist; /* is this used ?? */
 	GList *searchlist; /* used in snr2 and for advanced_open */
 	GList *replacelist; /* used in snr2 */
