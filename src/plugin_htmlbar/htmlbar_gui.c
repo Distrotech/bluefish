@@ -149,7 +149,7 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 	break;
 	case 36:
 		linkdialog_dialog(bfwin,NULL,linkdialog_mode_css);
-	breal;
+	break;
 	case 37:
 		new_css_dialog(NULL,bfwin);
 	break;
