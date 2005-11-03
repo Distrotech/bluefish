@@ -185,10 +185,10 @@ quickstart_load_metatags(GtkListStore *lstore)
 		"name=\"keywords\" content=\"\"",
 		"name=\"description\" content=\"\"",
 		"name=\"ROBOTS\" content=\"NOINDEX, NOFOLLOW\"",
-		"http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"",
-		"http-equiv=\"Content-Type\" content=\"application/xhtml+xml; charset=UTF-8\"",
-		"http-equiv=\"Content-Style-Type\" content=\"text/css\"",
-		"http-equiv=\"Expires\" content=\"\"",
+		"http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"",
+		"http-equiv=\"content-type\" content=\"application/xhtml+xml; charset=UTF-8\"",
+		"http-equiv=\"content-style-type\" content=\"text/css\"",
+		"http-equiv=\"expires\" content=\"0\"",
 		"http-equiv=\"refresh\" content=\"5; URL=http://\"",
 	};
 
