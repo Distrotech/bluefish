@@ -1740,7 +1740,7 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 				type = g_strdup("text/html");
 				xhtmlend = g_strdup( main_v->props.xhtml ? "/" : "");
 			}
-			replacestring = g_strconcat("<meta http-equiv=\"Content-Type\" content=\"",type,"; charset=",encoding,"\" ",xhtmlend,">", NULL);
+			replacestring = g_strconcat("<meta http-equiv=\"content-type\" content=\"",type,"; charset=",encoding,"\" ",xhtmlend,">", NULL);
 			DEBUG_MSG("update_encoding_meta_in_file, 1: we have a match\n");
 			doc_replace_text(doc, replacestring, result.start, result.end);
 			g_free(replacestring);
@@ -1752,7 +1752,7 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 			search_pattern = "<head>";
 			result = search_backend(bfwin,search_pattern, match_posix, 0, fulltext, 0, 0);
 			if (result.end > 0) {
-				gchar *replacestring = g_strconcat("<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=",encoding,"\">", NULL);
+				gchar *replacestring = g_strconcat("<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=",encoding,"\">", NULL);
 				DEBUG_MSG("update_encoding_meta_in_file, 2: we have a match\n");
 				doc_replace_text(doc, replacestring, result.start, result.end);
 				g_free(replacestring);
