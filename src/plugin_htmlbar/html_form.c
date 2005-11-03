@@ -279,8 +279,8 @@ static void textok_lcb(GtkWidget * widget, Thtml_diag *dg)
 
 void textdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	GtkWidget *varbut;
-	static gchar *tagitems[] = { "name", "value", "size", "maxlength", "type", NULL };
-	gchar *tagvalues[6];
+	static gchar *tagitems[] = { "name", "value", "size", "maxlength", NULL };
+	gchar *tagvalues[5];
 	gchar *custom = NULL;
 	GtkWidget *dgtable;
 	Thtml_diag *dg;
@@ -345,7 +345,7 @@ static void buttondialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 }
 
 void buttondialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	static gchar *tagitems[] = { "name", "value", "type",  NULL };
+	static gchar *tagitems[] = { "name", "value", "type", NULL };
 	gchar *tagvalues[4];
 	gchar *custom = NULL;
 	GtkWidget *dgtable;
@@ -406,8 +406,8 @@ static void hiddenok_lcb(GtkWidget * widget, Thtml_diag *dg)
 }
 
 void hiddendialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	static gchar *tagitems[] = { "name", "value", "type", NULL };
-	gchar *tagvalues[4];
+	static gchar *tagitems[] = { "name", "value", NULL };
+	gchar *tagvalues[3];
 	gchar *custom = NULL;
 
 	GtkWidget *dgtable;
@@ -461,8 +461,8 @@ static void radiodialogok_lcb(GtkWidget * widget, Thtml_diag *dg)
 
 
 void radiodialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	static gchar *tagitems[] = { "name", "value", "checked", "type", NULL };
-	gchar *tagvalues[5];
+	static gchar *tagitems[] = { "name", "value", "checked", NULL };
+	gchar *tagvalues[4];
 	gchar *custom = NULL;
 
 	GtkWidget *dgtable, *varbut;
@@ -523,8 +523,8 @@ static void checkdialogok_lcb(GtkWidget * widget,Thtml_diag *dg )
 }
 
 void checkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data) {
-	static gchar *tagitems[] = { "name", "value", "checked", "type", NULL };
-	gchar *tagvalues[5];
+	static gchar *tagitems[] = { "name", "value", "checked", NULL };
+	gchar *tagvalues[4];
 	gchar *custom = NULL;
 	GtkWidget *dgtable, *varbut;
 	Thtml_diag *dg;

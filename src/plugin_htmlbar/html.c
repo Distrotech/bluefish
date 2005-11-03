@@ -1001,8 +1001,8 @@ static void bodyok_lcb(GtkWidget * widget, Thtml_diag *dg) {
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[6])->entry), cap("CLASS"), thestring, NULL);
 	thestring = insert_string_if_entry(dg->entry[4], cap("ID"), thestring, NULL);
 	thestring = insert_string_if_entry(dg->entry[5], cap("LANG"), thestring, NULL);
-	thestring = insert_string_if_entry(dg->entry[6], cap("OnLoad"), thestring, NULL);
-	thestring = insert_string_if_entry(dg->entry[7], cap("OnUnLoad"), thestring, NULL);
+	thestring = insert_string_if_entry(dg->entry[6], cap("ONLOAD"), thestring, NULL);
+	thestring = insert_string_if_entry(dg->entry[7], cap("ONUNLOAD"), thestring, NULL);
 
 	thestring = insert_string_if_entry(dg->entry[2], NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring, ">\n", NULL);
@@ -1163,9 +1163,12 @@ static void metaok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	thestring = g_strdup(cap("<META"));
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("HTTP-EQUIV"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), cap("NAME"), thestring, NULL);
-	thestring = insert_string_if_entry(dg->entry[1], cap("CONTENT"), thestring, NULL);
-	thestring = insert_string_if_entry(dg->entry[2], cap("SCHEME"), thestring, NULL);
-	thestring = insert_string_if_entry(dg->entry[3], NULL, thestring, NULL);
+	thestring = insert_string_if_entry(dg->entry[2], cap("LANG"), thestring, NULL);
+	if (main_v->props.xhtml == 1) {
+		thestring = insert_string_if_entry(dg->entry[2], cap("XML:LANG"), thestring, NULL);
+	}
+	thestring = insert_string_if_entry(dg->entry[3], cap("SCHEME"), thestring, NULL);
+	thestring = insert_string_if_entry(dg->entry[4], NULL, thestring, NULL);
 	finalstring = g_strconcat(thestring,main_v->props.xhtml == 1 ? " />" : ">", NULL);
 	g_free(thestring);
 
@@ -1182,8 +1185,8 @@ static void metaok_lcb(GtkWidget * widget, Thtml_diag *dg)
 void meta_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	GList *popuplist = NULL;
 
-	static gchar *tagitems[] = { "http-equiv", "name", "content", "scheme", NULL };
-	gchar *tagvalues[5];
+	static gchar *tagitems[] = { "http-equiv", "name", "content", "lang", "scheme", NULL };
+	gchar *tagvalues[6];
 	gchar *custom = NULL;
 	Thtml_diag *dg;
 	GtkWidget *dgtable;
@@ -1193,25 +1196,38 @@ void meta_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 
-	popuplist = g_list_append(NULL, "Description");
-	popuplist = g_list_append(popuplist, "Date");
-	popuplist = g_list_append(popuplist, "Copyright");
-	popuplist = g_list_append(popuplist, "Author");
-	popuplist = g_list_append(popuplist, "Reply-to"); /* name or equiv? */
-	popuplist = g_list_append(popuplist, "Keywords");
-	popuplist = g_list_append(popuplist, "PICS-label"); /* name or equiv? */
-	popuplist = g_list_append(popuplist, "Refresh");
+	popuplist = g_list_append(NULL, "abstract");
+	popuplist = g_list_append(popuplist, "audience");
+	popuplist = g_list_append(popuplist, "author");
+	popuplist = g_list_append(popuplist, "copyright");
+	popuplist = g_list_append(popuplist, "date");
+	popuplist = g_list_append(popuplist, "description");
+	popuplist = g_list_append(popuplist, "keywords");
+	popuplist = g_list_append(popuplist, "page-topic");
+	popuplist = g_list_append(popuplist, "page-type");
+	popuplist = g_list_append(popuplist, "publisher");
+	popuplist = g_list_append(popuplist, "revisit-after");
+	popuplist = g_list_append(popuplist, "robots");
 	dg->combo[2] = combo_with_popdown(tagvalues[1], popuplist, 1);
 	bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 10, 0, 1);
 	g_list_free(popuplist);
 
-	popuplist = g_list_append(NULL, "Expires");
-	popuplist = g_list_append(popuplist, "Content-Type");
-	popuplist = g_list_append(popuplist, "Content-Location");
-	popuplist = g_list_append(popuplist, "Content-Language");
-	popuplist = g_list_append(popuplist, "Content-Encoding");
-	popuplist = g_list_append(popuplist, "Pragma");
+	/* extra field for Dublin Core meta tags: DC.foo ?*/
+	
+	popuplist = g_list_append(NULL, "expires");
+	popuplist = g_list_append(popuplist, "refresh");
+	popuplist = g_list_append(popuplist, "content-encoding");
+	popuplist = g_list_append(popuplist, "content-location");
+	popuplist = g_list_append(popuplist, "content-language");
+	popuplist = g_list_append(popuplist, "content-style-type");
+	popuplist = g_list_append(popuplist, "content-script-type");
+	popuplist = g_list_append(popuplist, "content-type");
+	popuplist = g_list_append(popuplist, "ext-cache");
+	popuplist = g_list_append(popuplist, "cache-control");
+	popuplist = g_list_append(popuplist, "pragma");
+	popuplist = g_list_append(popuplist, "set-cookie");
+	popuplist = g_list_append(popuplist, "PICS-Label");
 	dg->combo[1] = combo_with_popdown(tagvalues[0], popuplist, 1);
 	bf_mnemonic_label_tad_with_alignment(_("_HTTP-EQUIV:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 10, 1, 2);
@@ -1222,13 +1238,17 @@ void meta_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[1], 1, 10, 2, 3);
 
 	dg->entry[2] = entry_with_text(tagvalues[3], 256);
-	bf_mnemonic_label_tad_with_alignment(_("_Scheme:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
+	bf_mnemonic_label_tad_with_alignment(_("_Language:"), dg->entry[2], 0, 0.5, dgtable, 0, 1, 3, 4);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[2], 1, 10, 3, 4);
-
-	dg->entry[3] = entry_with_text(custom, 1024);
-	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 4, 5);
+	
+	dg->entry[3] = entry_with_text(tagvalues[4], 256);
+	bf_mnemonic_label_tad_with_alignment(_("_Scheme:"), dg->entry[3], 0, 0.5, dgtable, 0, 1, 4, 5);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[3], 1, 10, 4, 5);
-
+	
+	dg->entry[4] = entry_with_text(custom, 1024);
+	bf_mnemonic_label_tad_with_alignment(_("Custo_m:"), dg->entry[4], 0, 0.5, dgtable, 0, 1, 5, 6);
+	gtk_table_attach_defaults(GTK_TABLE(dgtable), dg->entry[4], 1, 10, 5, 6);
+	
 	html_diag_finish(dg, G_CALLBACK(metaok_lcb));
 	if (custom)	g_free(custom);
 }

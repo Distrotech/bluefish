@@ -1515,7 +1515,7 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 		regex_t preg;
 		regmatch_t pmatch[10];
 		gint retval;
-		/* <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> */
+		/* <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> */
 		gchar *pattern = "<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"text/x?html;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>";
 		retval = regcomp(&preg,pattern,REG_EXTENDED|REG_ICASE);
 #ifdef DEBUG
