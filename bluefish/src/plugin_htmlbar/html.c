@@ -1956,22 +1956,8 @@ void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, Tlinkdialog_mode mode) {
 	}
 	
 	{
-		gchar *tmp;
 		GList *tmplist = list_from_arglist(FALSE, "screen", "tty", "tv", "projection", "handheld", "print", "braille", "aural", "all", NULL);
-
-		switch (mode) {
-			case linkdialog_mode_default:
-				tmp = tagvalues[6];
-			break;
-			case linkdialog_mode_css:
-				tmp = "screen";
-			break;
-			default:
-				tmp = tagvalues[6];
-			break;
-		}
-		dg->attrwidget[6] = combo_with_popdown(tmp, tmplist, 1);
-		
+		dg->attrwidget[6] = combo_with_popdown(tagvalues[6], tmplist, 1);
 		g_list_free(tmplist);
 	}
 	bf_mnemonic_label_tad_with_alignment(_("Media:"), dg->attrwidget[6], 0, 0.5, dgtable, 0, 1, 6, 7);
