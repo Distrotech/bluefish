@@ -209,7 +209,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 		gint suflen,filen;
 		GtkWidget *dialog;
 		gchar *filename = NULL;
-		dialog = file_chooser_dialog(bfwin,_("Enter Bluefish project filename"),GTK_FILE_CHOOSER_ACTION_SAVE, NULL, TRUE, FALSE, "bfproject");
+		dialog = file_chooser_dialog(bfwin,_("Enter Bluefish project filename"),GTK_FILE_CHOOSER_ACTION_SAVE, NULL, TRUE, FALSE, "bfproject", FALSE);
 		if (gtk_dialog_run(GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 			filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
 		}
@@ -334,7 +334,7 @@ static void project_open_response_lcb(GtkDialog *dialog,gint response,Tbfwin *bf
 }
 static void project_open(Tbfwin *bfwin) {
 	GtkWidget *dialog;
-	dialog = file_chooser_dialog(bfwin, _("Select Bluefish project filename"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, FALSE, "bfproject");
+	dialog = file_chooser_dialog(bfwin, _("Select Bluefish project filename"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, FALSE, "bfproject", FALSE);
 	g_signal_connect(dialog, "response", G_CALLBACK(project_open_response_lcb), bfwin);
 	gtk_widget_show_all(dialog);
 }

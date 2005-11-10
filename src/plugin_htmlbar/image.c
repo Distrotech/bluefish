@@ -771,7 +771,7 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 		}
 	}
 		
-	dialog = file_chooser_dialog(mtd->bfwin, _("Select files for thumbnail creation"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE, "webimage");
+	dialog = file_chooser_dialog(mtd->bfwin, _("Select files for thumbnail creation"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE, "webimage", FALSE);
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 		files = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
 	}

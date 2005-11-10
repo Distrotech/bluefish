@@ -3602,10 +3602,11 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 	gchar *tmpfilename=NULL;
 	{
 		GtkWidget *dialog;
-		dialog = file_chooser_dialog(bfwin, _("Select file to insert"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, FALSE, NULL);
+		dialog = file_chooser_dialog(bfwin, _("Select file to insert"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, FALSE, NULL, TRUE);
 		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
 			tmpfilename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 		}
+		/* BUG: get the encoding from the dialog !!! */
 		gtk_widget_destroy(dialog);
 	}
 	if (tmpfilename == NULL) {

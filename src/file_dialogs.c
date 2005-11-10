@@ -81,7 +81,7 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 	gchar *newdir = NULL;
 	GtkWidget *dialog;
 
-	dialog = file_chooser_dialog(tfs->bfwin, _("Select basedir"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, NULL, TRUE, FALSE, NULL);
+	dialog = file_chooser_dialog(tfs->bfwin, _("Select basedir"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, NULL, TRUE, FALSE, NULL, FALSE);
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 		newdir = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
 	}
@@ -185,6 +185,7 @@ static void file_open_ok_lcb(GtkDialog *dialog,gint response,Tbfwin *bfwin) {
 		GSList *slist;
 		bfwin->focus_next_new_doc = TRUE;
 		slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
+		/* BUG: get encoding from dialog */
 		docs_new_from_uris(bfwin, slist, FALSE);
 		g_slist_free(slist);
 	}
@@ -201,7 +202,7 @@ static void file_open_ok_lcb(GtkDialog *dialog,gint response,Tbfwin *bfwin) {
  **/
 void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GtkWidget *dialog;
-	dialog = file_chooser_dialog(bfwin, _("Select files"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE, NULL);
+	dialog = file_chooser_dialog(bfwin, _("Select files"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, TRUE, NULL, TRUE);
 	g_signal_connect(dialog, "response", G_CALLBACK(file_open_ok_lcb), bfwin);
 	gtk_widget_show_all(dialog);
 /*	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
@@ -455,7 +456,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
 	GtkWidget *dialog;
 	
 	dialogtext = g_strdup_printf((is_move) ? _("Move/rename %s to"): _("Save %s as"), gui_name);
-	dialog = file_chooser_dialog(bfwin, dialogtext, GTK_FILE_CHOOSER_ACTION_SAVE, old_curi, FALSE, FALSE, NULL);
+	dialog = file_chooser_dialog(bfwin, dialogtext, GTK_FILE_CHOOSER_ACTION_SAVE, old_curi, FALSE, FALSE, NULL, FALSE);
 	g_free(dialogtext);
 	
 	if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_ACCEPT) {
