@@ -183,9 +183,27 @@ void file_open_advanced_cb(GtkWidget * widget, Tbfwin *bfwin) {
 static void file_open_ok_lcb(GtkDialog *dialog,gint response,Tbfwin *bfwin) {
 	if (response == GTK_RESPONSE_ACCEPT) {
 		GSList *slist;
+		GtkComboBox *combo;
 		bfwin->focus_next_new_doc = TRUE;
 		slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
-		/* BUG: get encoding from dialog */
+
+		combo = g_object_get_data(G_OBJECT(dialog),"encodings");
+		if (combo) {
+			GtkTreeIter iter;
+			if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(combo),&iter)) {
+				GtkTreeModel *model;
+				gchar **arr;
+				model = gtk_combo_box_get_model(GTK_COMBO_BOX(combo));
+				gtk_tree_model_get(GTK_TREE_MODEL(model),&iter,1,&arr,-1);
+				if (bfwin->session->encoding) g_free(bfwin->session->encoding);
+				if (arr) {
+					bfwin->session->encoding = arr[1];
+				} else {
+					bfwin->session->encoding = NULL;
+				}
+				DEBUG_MSG("file_open_ok_lcb, session encoding is set to %s\n",bfwin->session->encoding);
+			}
+		}
 		docs_new_from_uris(bfwin, slist, FALSE);
 		g_slist_free(slist);
 	}

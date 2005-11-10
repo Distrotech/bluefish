@@ -61,6 +61,7 @@ void flush_queue(void) {
  * the last column will thus always contain a pointer to the array
  *
  */
+#ifdef REQUIRED
 GtkTreeModel *treemodel_from_arraylist(GList *list, gint numcols) {
 	GList *tmplist;
 	GtkTreeModel *retm;
@@ -90,7 +91,7 @@ GtkTreeModel *treemodel_from_arraylist(GList *list, gint numcols) {
 	}
 	return retm;
 }
-
+#endif
 
 /**
  * widget_get_string_size:
@@ -1378,16 +1379,29 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 		/* make character encoding widget */
 		GtkWidget *label, *combo;
 		GtkTreeModel *model;
-		GtkTreeIter iter;
+		GtkTreeIter iter, seliter;
+		gboolean have_seliter=FALSE;
 		GtkCellRenderer *renderer;
+		GList *tmplist;
 
 		hbox = gtk_hbox_new (FALSE, 6);
 		label = gtk_label_new_with_mnemonic(_("_Character Encoding:"));
-		model = treemodel_from_arraylist(main_v->props.encodings, 2);
+		model = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_POINTER);
+		for (tmplist=g_list_first(main_v->props.encodings);tmplist;tmplist=tmplist->next){
+			gchar **arr = (gchar **)tmplist->data;
+			if (count_array(arr) == 2) {
+				gtk_list_store_append(GTK_LIST_STORE(model),&iter);
+				gtk_list_store_set(GTK_LIST_STORE(model),&iter,0,arr[0],1,arr,-1);
+				if (bfwin->session->encoding && strcmp(arr[1],bfwin->session->encoding)==0) {
+					seliter = iter;
+					have_seliter = TRUE;
+				}
+			}
+		}
 		gtk_list_store_prepend(GTK_LIST_STORE(model),&iter);
 		gtk_list_store_set(GTK_LIST_STORE(model),&iter, 0, _("Automatic detection"),1,NULL,-1);
 		combo = gtk_combo_box_new_with_model(model);
-		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(combo),&iter);
+		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(combo),have_seliter ?&seliter:&iter);
 		
 		renderer = gtk_cell_renderer_text_new();
 		gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(combo), renderer, TRUE);
