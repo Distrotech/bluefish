@@ -51,6 +51,47 @@ void flush_queue(void) {
 		g_main_context_iteration (NULL, TRUE);
 	}
 }
+
+/*
+ * this function creates a GtkListStore with numcols columns, where numcols >= 2
+ * every row will be filled from the data pointer of the list, which should be an array
+ * every column is filled with the entries in the array, except the last one, that 
+ * will contain the array itself.
+ * 
+ * the last column will thus always contain a pointer to the array
+ *
+ */
+GtkTreeModel *treemodel_from_arraylist(GList *list, gint numcols) {
+	GList *tmplist;
+	GtkTreeModel *retm;
+	GtkTreeIter iter;
+	GType *types;
+	int i;
+	
+	if (numcols < 2) return NULL;
+	
+	types = g_new(GType,numcols);
+	for (i=0;i<numcols-1;i++) {
+		types[i] = G_TYPE_STRING;
+	}
+	types[numcols-1] = G_TYPE_POINTER;
+	retm = GTK_TREE_MODEL(gtk_list_store_newv(numcols, types));
+	
+	for (tmplist=g_list_first(list);tmplist;tmplist=tmplist->next){
+		gchar **arr = (gchar **)tmplist->data;
+		if (count_array(arr) >= numcols-1) {
+			gtk_list_store_append(GTK_LIST_STORE(retm),&iter);
+			for (i=0;i<numcols-1;i++) {
+				g_print("set column %d to value %s\n",i,arr[i]);
+				gtk_list_store_set(GTK_LIST_STORE(retm),&iter,i,arr[i],-1);
+			}
+			gtk_list_store_set(GTK_LIST_STORE(retm),&iter,numcols-1,arr,-1);
+		}
+	}
+	return retm;
+}
+
+
 /**
  * widget_get_string_size:
  * @widget: #GtkWidget* to put the string on
@@ -1114,7 +1155,7 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	
 	{
 		GtkWidget *dialog;
-		dialog = file_chooser_dialog(NULL, _("Select File"), fb->chooseraction, setfile, FALSE, FALSE, NULL);
+		dialog = file_chooser_dialog(NULL, _("Select File"), fb->chooseraction, setfile, FALSE, FALSE, NULL, FALSE);
 		gtk_window_set_transient_for(GTK_WINDOW(dialog),GTK_WINDOW(gtk_widget_get_toplevel(fb->entry)));
 		if (fb->chooseraction == GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER) {
 			gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),setfile);
@@ -1234,7 +1275,7 @@ static gboolean file_chooser_custom_filter_func(GtkFileFilterInfo *filter_info,g
 }
 
 GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, 
-											gchar *set, gboolean localonly, gboolean multiple, const gchar *filter) {
+											gchar *set, gboolean localonly, gboolean multiple, const gchar *filter, gboolean show_encoding) {
 	GtkWidget *vbox, *hbox, *dialog, *viewhidden, *viewbackup;
 	dialog = gtk_file_chooser_dialog_new_with_backend(title,bfwin ? GTK_WINDOW(bfwin->main_window) : NULL,
 			action,"gnome-vfs",
@@ -1291,7 +1332,6 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 	g_signal_connect(G_OBJECT(viewbackup), "toggled", G_CALLBACK(refresh_filter_lcb), dialog);
 	g_object_set(G_OBJECT(dialog), "show-hidden", TRUE, NULL);
 	
-	gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(dialog),vbox);
 	if (action == GTK_FILE_CHOOSER_ACTION_OPEN || action == GTK_FILE_CHOOSER_ACTION_SAVE){
 		GList *tmplist;
 		GtkFileFilter* ff;
@@ -1334,6 +1374,32 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 			tmplist = g_list_next(tmplist);
 		}*/
 	}
+	if (show_encoding) {
+		/* make character encoding widget */
+		GtkWidget *label, *combo;
+		GtkTreeModel *model;
+		GtkTreeIter iter;
+		GtkCellRenderer *renderer;
+
+		hbox = gtk_hbox_new (FALSE, 6);
+		label = gtk_label_new_with_mnemonic(_("_Character Encoding:"));
+		model = treemodel_from_arraylist(main_v->props.encodings, 2);
+		gtk_list_store_prepend(GTK_LIST_STORE(model),&iter);
+		gtk_list_store_set(GTK_LIST_STORE(model),&iter, 0, _("Automatic detection"),1,NULL,-1);
+		combo = gtk_combo_box_new_with_model(model);
+		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(combo),&iter);
+		
+		renderer = gtk_cell_renderer_text_new();
+		gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(combo), renderer, TRUE);
+		gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(combo), renderer, "text", 0, NULL);
+		gtk_label_set_mnemonic_widget(GTK_LABEL(label), GTK_COMBO_BOX(combo));
+		gtk_box_pack_start (GTK_BOX(hbox), label,FALSE,FALSE, 0);
+		gtk_box_pack_end (GTK_BOX(hbox), combo, TRUE,TRUE,0);
+
+		gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 5);
+		g_object_set_data(G_OBJECT(dialog),"encodings",combo);
+	}
+	gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(dialog),vbox);
 	gtk_widget_show_all(vbox);
 	return dialog;
 }

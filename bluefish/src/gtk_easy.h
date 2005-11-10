@@ -98,7 +98,7 @@ void bf_label_tad_with_markup(const gchar *labeltext, gfloat xalign, gfloat yali
 GtkWidget *file_but_new2(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfwin,GtkFileChooserAction chooseraction);
 #define file_but_new(entry,path,bfwin) file_but_new2(entry,path,bfwin,GTK_FILE_CHOOSER_ACTION_OPEN)
 GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, 
-											gchar *set, gboolean localonly, gboolean multiple, const gchar *filter);
+											gchar *set, gboolean localonly, gboolean multiple, const gchar *filter, gboolean show_encoding);
 void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu);
 
 #ifndef HAVE_ATLEAST_GNOMEVFS_2_2
