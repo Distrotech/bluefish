@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+
+<bflang name="Python" description="Python programming language">
+
+<options>
+    <option name="case-sensitive">true</option>
+    <option name="scan-markup-tags">false</option>
+    <option name="scan-blocks">true</option>
+    <option name="escape-characters">\</option>
+</options>
+
+<block-group id="blocks">
+<block id="square braces" begin="[" end="]" scanned="true" foldable="false" markup="false" case="true" />
+<block id="round braces" begin="(" end=")" scanned="true" foldable="true" markup="false" case="true" />
+</block-group>
+
+<token-group id="general">
+ <token name="string double quoted" regexp="true" defaultstyle="string">&quot;[^&quot;]*&quot;</token>
+ <token name="string single quoted" regexp="true" defaultstyle="string">&apos;[^&apos;]*&apos;</token>
+ <token name="line comment" regexp="true" defaultstyle="comment">#[^&#x0A;]*</token>
+</token-group>
+
+<token-group id="imports" defaultstyle="preprocessor">
+ <token-list name="imports" separator=",">import,from</token-list>
+</token-group>
+
+<token-group id="keywords">
+<token-list name="keywords" separator="," defaultstyle="keyword">del,raise,assert,lambda,global,try,class,except,exec,yield,def,finally,in,print</token-list>
+<token-list name="keywords2" separator="," defaultstyle="keyword-blue">and,or,is,not</token-list>
+<token-list name="keywords3" separator="," defaultstyle="keyword-red">for,while,elif,else,if</token-list>
+<token-list name="keywords4" separator="," defaultstyle="keyword-red">return,break,continue,pass</token-list>
+</token-group>
+
+<token-group id="other" defaultstyle="variable">
+ <token-list name="defines" separator=",">None</token-list>
+ <token name="number" regexp="true">[0-9]+.?[0-9]*</token>
+ <token name="hex number" regexp="true">0x[0-9]+</token>
+</token-group>
+
+</bflang>
