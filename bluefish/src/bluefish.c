@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <unistd.h> /* getopt() */
@@ -57,7 +57,7 @@
 #include "rcfile.h"			/* rcfile_parse_main() */
 #include "stringlist.h"		/* put_stringlist(), get_stringlist() */
 #include "plugins.h"
-
+#include "textstyle.h"
 /*********************************************/
 /* this var is global for all bluefish files */
 /*********************************************/
@@ -112,7 +112,7 @@ static gint parse_commandline(int argc, char **argv
 			*open_in_new_win = 1;
 		break;
 		default:
-			DEBUG_MSG("parse_commandline, abort ?!?\n");
+			DEBUG_MSG("parse_commandline, abort, option %c not known??\n",c);
 			abort();
 		}
 	}
