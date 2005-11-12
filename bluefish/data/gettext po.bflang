@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<bflang name="Po" description="Gettext message catalog files">
+<options>
+    <option name="case-sensitive">true</option>
+    <option name="scan-markup-tags">false</option>
+    <option name="scan-blocks">true</option>
+    <option name="escape-characters">\</option>
+</options>
+<token-group id="general">
+ <token name="string double quoted" regexp="true" defaultstyle="string">&quot;[^&quot;]*&quot;</token>
+ <token name="line comment" regexp="true" defaultstyle="comment">#[^&#x0A;]*</token>
+</token-group>
+<token-group id="keywords" defaultstyle="keyword">
+<token-list name="keywords" separator=",">msgid,msgstr</token-list>
+</token-group>
+</bflang>
