@@ -152,8 +152,10 @@ Thanks to all who helped making this software available.\n\
    <rupakov@jet.msk.su>\n\n\
   Serbian: Marko Milenović\n\
    <raven@sbb.co.yu>\n\n\
+  Slovak: Vladimir VASIL\n\
+   <vvasil@post.sk>\n\n\
   Spanish: Walter Oscar Echarri\n\
-   <wecharri@arnet.com.ar>\n\n\
+   <wecharri@gmail.com>\n\n\
   Swedish: David Smeringe\n\
    <david.smeringe@telia.com>\n\n\
   Tamil: Murugapandian Barathee\n\
