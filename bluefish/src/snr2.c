@@ -71,7 +71,7 @@
 /* Updates, May 2003, by Ruben Dorta */
 
 typedef enum { string, uppercase, lowercase } Treplace_types;
-typedef enum { match_normal, match_posix, match_perl } Tmatch_types;
+typedef enum { match_normal, match_word, match_posix, match_perl } Tmatch_types;
 typedef enum { beginning, cursor, selection, opened_files } Tplace_types;
 
 typedef struct {
@@ -1144,7 +1144,7 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 
 static void setup_new_snr2(Tbfwin *bfwin, const gchar *search_pattern, gboolean unescape, 
 		gboolean is_case_sens, gboolean overlapping_search,
-		gboolean bookmark, Tplace_types place_type,
+		gboolean bookmark, Tplace_types place_type, Tmatch_types match_type,
 		gboolean replace, const gchar *replace_pattern) {
 	if (LASTSNR2(bfwin->snr2)->search_pattern) {
 		g_free(LASTSNR2(bfwin->snr2)->search_pattern);
@@ -1161,6 +1161,7 @@ static void setup_new_snr2(Tbfwin *bfwin, const gchar *search_pattern, gboolean 
  	LASTSNR2(bfwin->snr2)->overlapping_search = overlapping_search;
 	LASTSNR2(bfwin->snr2)->replace = replace;
 	LASTSNR2(bfwin->snr2)->placetype_option = place_type;
+	LASTSNR2(bfwin->snr2)->matchtype_option = match_type;	
 	if (replace_pattern) {
 		LASTSNR2(bfwin->snr2)->replace_pattern = g_strdup(replace_pattern);
 		bfwin->session->replacelist = add_to_history_stringlist(bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,TRUE,TRUE);
@@ -1281,8 +1282,10 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	const gchar *search_pattern, *replace_pattern=NULL;
 	gint ret, startpos=0,endpos=-1;
 	Tbfwin *bfwin=snrwin->bfwin;
+	gint matchtype;
 	gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
-	DEBUG_MSG("snr_response_lcb, dialogtype=%d, response=%d\n",snrwin->dialogType,response);
+	matchtype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->matchPattern));
+	DEBUG_MSG("snr_response_lcb, scope=%d, dialogtype=%d, response=%d\n",scope,snrwin->dialogType,response);
 	
 	search_pattern = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child)); /* gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->search));*/
 	DEBUG_MSG("snr_response_lcb, search_pattern=%s\n",search_pattern);
@@ -1304,7 +1307,7 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 			DEBUG_MSG("result.start == -1: setup new search\n");
 			setup_new_snr2(snrwin->bfwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
 					GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
-					GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, scope, (snrwin->dialogType == BF_REPLACE_DIALOG), replace_pattern);
+					GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, scope, matchtype, (snrwin->dialogType == BF_REPLACE_DIALOG), replace_pattern);
 			if (LASTSNR2(bfwin->snr2)->placetype_option==beginning) {
 				startpos = 0;
 				endpos = -1;
