@@ -1247,7 +1247,7 @@ static void snr_combo_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin
 		}
 	}
 	
-	if (comboboxentry == GTK_COMBO_BOX_ENTRY(snrwin->replaceType)) {
+	if (snrwin->dialogType == BF_REPLACE_DIALOG && comboboxentry == GTK_COMBO_BOX_ENTRY(snrwin->replaceType)) {
 		int replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
 		gtk_widget_set_sensitive(snrwin->replace, (replacetype == string));
 	}
