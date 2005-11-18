@@ -1246,12 +1246,18 @@ static void snr_combo_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin
 			}
 		}
 	}
+	
+	if (comboboxentry == GTK_COMBO_BOX_ENTRY(snrwin->replaceType)) {
+		int replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
+		gtk_widget_set_sensitive(snrwin->replace, (replacetype == string));
+	}
 	/* on any change we reset the current set of options */
 	LASTSNR2(snrwin->bfwin->snr2)->result.start = -1;
 	LASTSNR2(snrwin->bfwin->snr2)->matches = 0;
 	LASTSNR2(snrwin->bfwin->snr2)->replaces = 0;
 	scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 	if (scope == opened_files && snrwin->bfwin->num_docs_not_completed > 0) {
+		DEBUG_MSG("snr_combo_changed, num docs not completed is %d\n",snrwin->bfwin->num_docs_not_completed);
 		/* display warning that not all documents have yet finished loading */
 		gtk_label_set_markup(GTK_LABEL(snrwin->warninglabel), _("<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</span>"));
 		gtk_widget_show(snrwin->warninglabel);
