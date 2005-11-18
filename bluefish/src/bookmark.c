@@ -635,10 +635,10 @@ static void bmark_rpopup_action_lcb(gpointer data, guint action, GtkWidget *widg
 			bmark_popup_menu_del(bfwin);
 		break;
 		case 10:
-			bmark_del_all(bfwin,TRUE);
+			bmark_popup_menu_deldoc(bfwin);
 		break;
 		case 11:
-			bmark_popup_menu_deldoc(bfwin);
+			bmark_del_all(bfwin,TRUE);
 		break;
 		case 20:
 			main_v->globses.bookmarks_default_store = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
