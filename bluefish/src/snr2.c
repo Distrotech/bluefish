@@ -74,11 +74,6 @@ typedef enum { string, uppercase, lowercase } Treplace_types;
 typedef enum { match_normal, match_word, match_posix, match_perl } Tmatch_types;
 typedef enum { beginning, cursor, selection, opened_files } Tplace_types;
 
-typedef struct {
-	gint start;
-	gint end;
-	Tdocument *doc;
-} Tsearch_all_result;
 
 typedef struct {
 	Tbfwin *bfwin;
@@ -325,7 +320,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
  *
  * Return value: #Tsearch_result
  **/
-Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gboolean unescape) {
+Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gboolean unescape, gboolean want_submatches) {
 	gchar *fulltext, *realpat;
 	Tsearch_result result;
 	
@@ -338,7 +333,7 @@ Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_patte
 	} else {
 		realpat = search_pattern;
 	}
-	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 0, (matchtype != match_normal));
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 0, want_submatches);
 	if (unescape) {
 		g_free(realpat);
 	}
@@ -399,7 +394,7 @@ void doc_show_result(Tdocument *document, gint start, gint end) {
  *
  * Return value: #Tsearch_all_result
  **/
-Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gboolean unescape) {
+Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gboolean unescape, gboolean want_submatches) {
 	GList *tmplist;
 	Tsearch_all_result result_all;
 
@@ -417,7 +412,7 @@ Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types 
 	while (tmplist) {
 		Tsearch_result result;
 
-		result = search_doc(bfwin,(Tdocument *)tmplist->data, search_pattern, matchtype, is_case_sens, LASTSNR2(bfwin->snr2)->result.end, -1, unescape);
+		result = search_doc(bfwin,(Tdocument *)tmplist->data, search_pattern, matchtype, is_case_sens, LASTSNR2(bfwin->snr2)->result.end, -1, unescape, want_submatches);
 		if (result.end > 0) {
 			result_all.start = result.start;
 			result_all.end = result.end;
@@ -665,7 +660,7 @@ Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_type
  * 
  * Return value: void
  **/
-static gint replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype, gboolean unescape, guint unre_action_id) {
+static gint replace_doc_multiple(Tbfwin *bfwin,const gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, const gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype, gboolean unescape, guint unre_action_id) {
 /* endpos -1 means do till end */
 	gint count=0;
 	gchar *fulltext, *realpats, *realpatr;
@@ -685,15 +680,15 @@ static gint replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_typ
 			realpatr = unescape_string(replace_pattern, FALSE);
 			DEBUG_MSG("replace_doc_multiple, unescaped patterns, realpats='%s', realpatr='%s'\n",realpats, realpatr);
 		} else {
-			realpats = search_pattern;
-			realpatr = replace_pattern;
+			realpats = (gchar *)search_pattern;
+			realpatr = (gchar *)replace_pattern;
 		}
 		replacelen = g_utf8_strlen(realpatr,-1);
 		realunesc = FALSE;
 	} else {
 		replacelen=-1;
-		realpats = search_pattern;
-		realpatr = replace_pattern;
+		realpats = (gchar *)search_pattern;
+		realpatr = (gchar *)replace_pattern;
 		realunesc = unescape;
 	}
 	fulltext = doc_get_chars(doc, startpos, endpos);
@@ -882,35 +877,23 @@ static gint search_multiple(Tbfwin *bfwin, gint startpos, gint endpos) {
 	return count;
 }
 
-static gint search_single(Tbfwin *bfwin, gint startpos, gint endpos) {
-	Tsearch_result result;
-	Tsearch_all_result result_all;
+static Tsearch_result search_single_and_show(Tbfwin *bfwin, gint startpos, gint endpos, gboolean want_submatches) {
+	Tsearch_result result = {0,0,0,0,NULL,0};
 	if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
-		result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape);
+		Tsearch_all_result result_all;
+		result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
+		result.start = result_all.start;
+		result.end = result_all.end;
 		if (result_all.end > 0) {
 			doc_show_result(result_all.doc, result_all.start, result_all.end);
-			return 1;
-		} else {
-/*			message_dialog_new(bfwin->main_window, 
-						 	 		 GTK_MESSAGE_INFO, 
-									 GTK_BUTTONS_OK, 
-									 _("Search: no match found"), 
-									 NULL);*/
-			return 0;
 		}
+		return result;
 	} else {
-		result = search_doc(bfwin,bfwin->current_document, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape);
+		result = search_doc(bfwin,bfwin->current_document, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
 		if (result.end > 0) {
 			doc_show_result(bfwin->current_document, result.start, result.end);
-			return 1;
-		} else {
-/*			message_dialog_new(bfwin->main_window, 
-						 	 		 GTK_MESSAGE_INFO, 
-									 GTK_BUTTONS_OK, 
-									 _("Search: no match found"), 
-									 NULL);*/
-			return FALSE;
-		}
+		} 
+		return result;
 	}
 }
 
@@ -974,7 +957,7 @@ void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
  * Return value: #Tsearch_result_doc
  **/
 Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens) {
-	return search_doc(BFWIN(doc->bfwin),doc, search_pattern, matchtype, is_case_sens, 0, -1, FALSE);
+	return search_doc(BFWIN(doc->bfwin),doc, search_pattern, matchtype, is_case_sens, 0, -1, FALSE, FALSE);
 } 
 
 /*****************************************************/
@@ -1295,7 +1278,7 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	const gchar *search_pattern, *replace_pattern=NULL;
 	gint ret, startpos=0,endpos=-1;
 	Tbfwin *bfwin=snrwin->bfwin;
-	gint matchtype, replacetype;
+	gint matchtype, replacetype=-1;
 	gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
 	
 	matchtype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->matchPattern));
@@ -1311,7 +1294,7 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	}
 	
 	/* cleanup any leftovers of previous run */
-	if (LASTSNR2(bfwin->snr2)->result.pmatch) {
+	if (response != SNR_RESPONSE_REPLACE && LASTSNR2(bfwin->snr2)->result.pmatch) {
 		g_free(LASTSNR2(bfwin->snr2)->result.pmatch);
 		LASTSNR2(bfwin->snr2)->result.pmatch = NULL;
 	}
@@ -1355,8 +1338,10 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	}
 	switch (response) {
 	case SNR_RESPONSE_FIND:
-		ret = search_single(snrwin->bfwin, startpos, endpos);
-		if (ret) {
+	{
+		Tsearch_result result;
+		result = search_single_and_show(snrwin->bfwin, startpos, endpos, (snrwin->dialogType == BF_REPLACE_DIALOG));
+		if (result.end >0) {
 			LASTSNR2(snrwin->bfwin->snr2)->matches++;
 			DEBUG_MSG("snr_response_lcb, found match, update count label\n");
 			snr_update_count_label(snrwin);
@@ -1366,15 +1351,18 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 			gtk_widget_show(snrwin->warninglabel);
 		}
 		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
-			if (ret) {
+			if (result.end >0) {
 				/*LASTSNR2(snrwin->bfwin->snr2)->replace = TRUE;*/
 				gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);
 				gtk_widget_grab_focus(snrwin->replaceButton);
 				gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_REPLACE);
+				LASTSNR2(bfwin->snr2)->result = result;
+				DEBUG_MSG("snr_response_lcb, pmatch=%p, nmatch=%d\n",LASTSNR2(bfwin->snr2)->result.pmatch, LASTSNR2(bfwin->snr2)->result.nmatch);
 			} else {
 				gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
 			}
 		}
+	}
 	break;
 	case SNR_RESPONSE_REPLACE:
 		if (replace_current_match(snrwin->bfwin)) {
@@ -1382,7 +1370,7 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 			snr_update_count_label(snrwin);
 			/* now run another find */
 			gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
-			gtk_dialog_response(snrwin->dialog,SNR_RESPONSE_FIND);
+			gtk_dialog_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_FIND);
 		}
 	break;
 	case SNR_RESPONSE_REPLACE_ALL:
@@ -1634,10 +1622,10 @@ void search_from_selection(Tbfwin *bfwin) {
 /*		setup_new_snr2(bfwin, string, FALSE, FALSE, FALSE,FALSE, beginning,FALSE, NULL);*/
 		TSNRWin *snrwin = snr_dialog_real(bfwin, BF_FIND_DIALOG);
 		history = gtk_combo_box_get_model(GTK_COMBO_BOX(snrwin->search));
-		gtk_list_store_append(history, &iter);
-		gtk_list_store_set(history, &iter, 0, string, -1);
+		gtk_list_store_append(GTK_LIST_STORE(history), &iter);
+		gtk_list_store_set(GTK_LIST_STORE(history), &iter, 0, string, -1);
 		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(snrwin->search),&iter);
-		gtk_dialog_response(snrwin->dialog,SNR_RESPONSE_FIND);
+		gtk_dialog_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_FIND);
 	}
 }
 
@@ -1678,7 +1666,8 @@ void replace_cb(GtkWidget *widget, Tbfwin *bfwin) {
  * Return value: void
  **/ 
 void search_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	gint ret, startpos=0,endpos=-1;
+	gint startpos=0,endpos=-1;
+	Tsearch_result result;
 
 	if (LASTSNR2(bfwin->snr2)->doc == bfwin->current_document) {
 		if (LASTSNR2(bfwin->snr2)->result.end > 0) {
@@ -1690,8 +1679,8 @@ void search_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 		}
 	}	
 	
-	ret = search_single(bfwin, startpos, endpos);
-	if (ret) {
+	result = search_single_and_show(bfwin, startpos, endpos, FALSE);
+	if (result.end > 0) {
 		LASTSNR2(bfwin->snr2)->matches++;
 	} else {
 		TSNRWin *snrwin = snr_dialog_real(bfwin, BF_FIND_DIALOG);

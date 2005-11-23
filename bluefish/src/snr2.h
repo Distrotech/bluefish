@@ -36,6 +36,12 @@ typedef struct {
 	gint nmatch;
 } Tsearch_result;
 
+typedef struct {
+	gint start;
+	gint end;
+	Tdocument *doc;
+} Tsearch_all_result;
+
 void snr2_init(Tbfwin *bfwin);
 void snr2_cleanup(Tbfwin *bfwin);
 
