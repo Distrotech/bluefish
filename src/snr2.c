@@ -89,9 +89,9 @@ typedef struct {
 	gchar *replace_pattern;
 	gint unescape;
 	gint overlapping_search;
-	gint prompt_before_replace; /* deprecated in new dialog */
+	/* gint prompt_before_replace; deprecated in new dialog */
 	gint is_case_sens;
-	gint replace_once; /* deprecated in new dialog */
+	/* gint replace_once; deprecated in new dialog */
 	gint bookmark_results;
 	Treplace_types replacetype_option;
 	Tmatch_types matchtype_option;
@@ -240,7 +240,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			int nmatch,i;
 			regmatch_t *pmatch;
 			pcre_fullinfo(pcre_c, NULL, PCRE_INFO_CAPTURECOUNT, &nmatch);
-			DEBUG_MSG("search_backend, nmatch=%d, retval=%d\n", nmatch, retval);
+			DEBUG_MSG("search_backend, want_submatches=%d, nmatch=%d, retval=%d\n", want_submatches, nmatch, retval);
 			pmatch = g_malloc((nmatch+1)*sizeof(regmatch_t));
 			for (i=0;i<=nmatch;i++) { /* nmatch==1 means 1 subsearch_pattern, so 2 search_patterns in total*/
 				pmatch[i].rm_so = ovector[i*2] + byte_offset;
@@ -338,7 +338,7 @@ Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_patte
 	} else {
 		realpat = search_pattern;
 	}
-	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 0, FALSE);
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 0, (matchtype != match_normal));
 	if (unescape) {
 		g_free(realpat);
 	}
@@ -350,6 +350,10 @@ Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_patte
 		LASTSNR2(bfwin->snr2)->result.start = result.start;
 		LASTSNR2(bfwin->snr2)->result.end = result.end;
 		LASTSNR2(bfwin->snr2)->doc = document;
+		if (matchtype != match_normal) {
+			/* BUG: copy the subpatterns */
+			
+		}
 	} else {
 		LASTSNR2(bfwin->snr2)->result.start = -1;
 		LASTSNR2(bfwin->snr2)->result.end =  -1;
@@ -437,7 +441,9 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
 	gchar *retval;
 	gint i, size;
 	DEBUG_MSG("reg_replace, started for pattern='%s',standardescape=%d\n",replace_pattern,standardescape);
-	size = (result.nmatch <= 10) ? (result.nmatch == 0 ) ? 0 : result.nmatch -1 : 10;
+	if (result.nmatch <= 10) size = (result.nmatch == 0 ) ? 0 : result.nmatch -1;
+	else size= 10;
+	DEBUG_MSG("reg_repplace, size=%d\n",size);
 	tct = new_convert_table(size, standardescape);
 	for (i=0;i<size;i++) {
 		tct[i].my_int = i+48;
@@ -1291,14 +1297,17 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	Tbfwin *bfwin=snrwin->bfwin;
 	gint matchtype, replacetype;
 	gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
-	matchtype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->matchPattern));
-	replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
-	DEBUG_MSG("snr_response_lcb, scope=%d, dialogtype=%d, response=%d\n",scope,snrwin->dialogType,response);
 	
-	search_pattern = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child)); /* gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->search));*/
+	matchtype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->matchPattern));
+	search_pattern = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child)); 
+				/* gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->search));*/
+	DEBUG_MSG("snr_response_lcb, scope=%d, dialogtype=%d, response=%d\n",scope,snrwin->dialogType,response);
+
 	DEBUG_MSG("snr_response_lcb, search_pattern=%s\n",search_pattern);
 	if (snrwin->dialogType == BF_REPLACE_DIALOG) {
-		replace_pattern = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->replace)->child)); /* gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->replace));*/
+		replace_pattern = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->replace)->child)); 
+					/* gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->replace));*/
+		replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
 	}
 	
 	/* cleanup any leftovers of previous run */
