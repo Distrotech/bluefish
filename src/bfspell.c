@@ -355,7 +355,7 @@ static void spell_gui_replace_clicked(GtkWidget *widget, Tbfspell *bfspell) {
 	const gchar *newstring = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(bfspell->suggestions)->entry));
 	if (!original || !newstring) return;
 	
-	if (strlen(origina)>0 && strlen(newstring)>0) {
+	if (strlen(original)>0 && strlen(newstring)>0) {
 		aspell_speller_store_replacement(bfspell->spell_checker,original,-1,newstring,-1);
 	}
 	gtk_text_buffer_get_iter_at_mark(bfspell->doc->buffer,&iter,bfspell->so);
