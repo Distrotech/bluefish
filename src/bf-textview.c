@@ -374,6 +374,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 		if ((gint) c < 0 || (gint) c > BFTV_UTF8_RANGE) {
 			recognizing = FALSE;
 			currstate = 0;
+			c = 0;
 		}
 
 		while (gtk_text_iter_compare(&ita, end) <= 0 && self->lang->escapes[(gint) c]) {	/* remove escapes */

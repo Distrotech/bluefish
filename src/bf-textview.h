@@ -27,7 +27,7 @@
 
 
 
-#define BFTV_UTF8_RANGE	512
+#define BFTV_UTF8_RANGE	128
 
 /**
 *	BfLangBlock:
