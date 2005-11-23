@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bfspell.c - aspell spell checker
  *
- * Copyright (C) 2002-2004 Olivier Sessink
+ * Copyright (C) 2002,2003,2004,2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -79,7 +79,7 @@ static gboolean test_unichar(gunichar ch,gpointer data) {
 }
 
 /* return value should be freed by the calling function */
-gchar *doc_get_next_word(Tbfspell *bfspell, GtkTextIter *itstart, GtkTextIter *itend) {
+static gchar *doc_get_next_word(Tbfspell *bfspell, GtkTextIter *itstart, GtkTextIter *itend) {
 	gboolean havestart=FALSE;
 	gchar *retval;
 	
@@ -116,17 +116,18 @@ gchar *doc_get_next_word(Tbfspell *bfspell, GtkTextIter *itstart, GtkTextIter *i
 	return retval;
 }
 
-void spell_add_to_session(Tbfspell *bfspell, gboolean to_session, const gchar * word) {
+static void spell_add_to_session(Tbfspell *bfspell, gboolean to_session, const gchar * word) {
 	DEBUG_MSG("spell_add_to_session, to_session=%d, word=%s\n",to_session,word);
-	if (to_session) {
-		aspell_speller_add_to_session(bfspell->spell_checker, word, -1);
-	} else {
-		aspell_speller_add_to_personal(bfspell->spell_checker, word, -1);
+	if (word && strlen(word)) {
+		if (to_session) {
+			aspell_speller_add_to_session(bfspell->spell_checker, word, -1);
+		} else {
+			aspell_speller_add_to_personal(bfspell->spell_checker, word, -1);
+		}
 	}
-
 }
 
-gboolean spell_check_word(Tbfspell *bfspell, gchar * tocheck, GtkTextIter *itstart, GtkTextIter *itend) {
+static gboolean spell_check_word(Tbfspell *bfspell, gchar * tocheck, GtkTextIter *itstart, GtkTextIter *itend) {
 	if (tocheck && !isdigit(tocheck[0])) {
 		int correct = aspell_speller_check(bfspell->spell_checker, tocheck, -1);
 		DEBUG_MSG("word '%s' has correct=%d\n",tocheck,correct);
@@ -181,7 +182,7 @@ static void spell_run_finished(Tbfspell *bfspell) {
 	spell_gui_set_button_status(bfspell, FALSE);
 }
 
-gboolean spell_run(Tbfspell *bfspell) {
+static gboolean spell_run(Tbfspell *bfspell) {
 	GtkTextIter itstart,itend;
 	gchar *word = doc_get_next_word(bfspell, &itstart,&itend);
 	DEBUG_MSG("spell_run, started, bfspell=%p, word=%s\n",bfspell,word);
@@ -206,7 +207,7 @@ gboolean spell_run(Tbfspell *bfspell) {
 	return TRUE; /* not yet finished */
 }
 
-void spell_start(Tbfspell *bfspell) {
+static void spell_start(Tbfspell *bfspell) {
 	DEBUG_MSG("spell_start, started for bfspell=%p\n",bfspell);
 	bfspell->spell_config = new_aspell_config();
 	DEBUG_MSG("spell_start, created spell_config at %p\n",bfspell->spell_config);
@@ -245,23 +246,22 @@ static void spell_gui_destroy(GtkWidget * widget, Tbfspell *bfspell) {
 	g_free(bfspell);
 }
 
-void spell_gui_cancel_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
+static void spell_gui_cancel_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
 	spell_gui_destroy(NULL, bfspell);
 }
 
-void spell_gui_ok_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
+static void spell_gui_ok_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
 	AspellCanHaveError *possible_err;
 	const gchar *lang;
+	gint indx;
 	DEBUG_MSG("spell_gui_ok_clicked_cb, bfspell=%p, bfwin=%p\n",bfspell, bfspell->bfwin);
 	bfspell->doc = bfspell->bfwin->current_document;
-	{
-		gint indx;
-		indx = gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell->lang));
-		lang = g_list_nth_data(bfspell->langs, indx);
-		DEBUG_MSG("spell_gui_ok_clicked_cb, indx=%d has language %s\n",indx,lang);
+	indx = gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell->lang));
+	lang = g_list_nth_data(bfspell->langs, indx);
+	DEBUG_MSG("spell_gui_ok_clicked_cb, indx=%d has language %s\n",indx,lang);
+	if (lang && strlen(lang)) {
+		aspell_config_replace(bfspell->spell_config, "lang", lang);
 	}
-	aspell_config_replace(bfspell->spell_config, "lang", lang);
-
 	DEBUG_MSG("spell_gui_ok_clicked_cb, about to create speller for spell_config=%p\n",bfspell->spell_config);
 	possible_err = new_aspell_speller(bfspell->spell_config);
 	bfspell->spell_checker = 0;
@@ -289,7 +289,7 @@ void spell_gui_ok_clicked_cb(GtkWidget *widget, Tbfspell *bfspell) {
 	}
 }
 
-void spell_gui_fill_dicts(Tbfspell *bfspell) {
+static void spell_gui_fill_dicts(Tbfspell *bfspell) {
 	GtkWidget *menu, *menuitem;
 	AspellDictInfoEnumeration * dels;
 	AspellDictInfoList * dlist;
@@ -325,22 +325,22 @@ void spell_gui_fill_dicts(Tbfspell *bfspell) {
 	gtk_option_menu_set_history(GTK_OPTION_MENU(bfspell->lang),0);
 }
 
-void spell_gui_add_clicked(GtkWidget *widget, Tbfspell *bfspell) {
+static void spell_gui_add_clicked(GtkWidget *widget, Tbfspell *bfspell) {
 	const gchar *original = gtk_entry_get_text(GTK_ENTRY(bfspell->incorrectword));
-	if (strlen(original)) {
+	if (original && strlen(original)>0) {
 		if (gtk_option_menu_get_history(GTK_OPTION_MENU(bfspell->dict))) {
 			spell_add_to_session(bfspell, TRUE,original);
 		} else {
 			spell_add_to_session(bfspell, FALSE,original);
 		}
-		}
+	}
 	if (spell_run(bfspell)) {
 		spell_gui_set_button_status(bfspell,TRUE);
 	} else {
 		spell_gui_set_button_status(bfspell,FALSE);
 	}
 }
-void spell_gui_ignore_clicked(GtkWidget *widget, Tbfspell *bfspell) {
+static void spell_gui_ignore_clicked(GtkWidget *widget, Tbfspell *bfspell) {
 	DEBUG_MSG("ignore\n");
 	if (spell_run(bfspell)) {
 		spell_gui_set_button_status(bfspell,TRUE);
@@ -348,14 +348,16 @@ void spell_gui_ignore_clicked(GtkWidget *widget, Tbfspell *bfspell) {
 		spell_gui_set_button_status(bfspell,FALSE);
 	}
 }
-void spell_gui_replace_clicked(GtkWidget *widget, Tbfspell *bfspell) {
+static void spell_gui_replace_clicked(GtkWidget *widget, Tbfspell *bfspell) {
 	gint start, end;
 	GtkTextIter iter;
 	const gchar *original = gtk_entry_get_text(GTK_ENTRY(bfspell->incorrectword));
 	const gchar *newstring = gtk_entry_get_text(GTK_ENTRY(GTK_COMBO(bfspell->suggestions)->entry));
-
-	aspell_speller_store_replacement(bfspell->spell_checker,original,-1,newstring,-1);
-
+	if (!original || !newstring) return;
+	
+	if (strlen(origina)>0 && strlen(newstring)>0) {
+		aspell_speller_store_replacement(bfspell->spell_checker,original,-1,newstring,-1);
+	}
 	gtk_text_buffer_get_iter_at_mark(bfspell->doc->buffer,&iter,bfspell->so);
 	start = gtk_text_iter_get_offset(&iter);
 	gtk_text_buffer_get_iter_at_mark(bfspell->doc->buffer,&iter,bfspell->eo);
