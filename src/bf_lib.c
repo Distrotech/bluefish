@@ -765,7 +765,7 @@ guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
 	gint i = UTF8_OFFSET_CACHE_SIZE-1;
 	if (byteoffset ==0) return 0;
 #ifdef DEVELOPMENT
-	if (string != utf8_offset_cache.last_buf) {
+	if (utf8_offset_cache.last_buf != NULL && string != utf8_offset_cache.last_buf) {
 		/*utf8_offset_cache_reset();
 		utf8_offset_cache.last_buf = string;*/
 		g_print("bug found in a call to utf8_byteoffset_to_charsoffset_cached, the cache was not reset\n");
