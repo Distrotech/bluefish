@@ -245,7 +245,7 @@ Tsavefile *file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, Gnome
 	sf->uri = uri;
 	refcpointer_ref(buffer);
 	sf->buffer_size = buffer_size;
-	gnome_vfs_async_open_uri(&sf->handle,uri,GNOME_VFS_OPEN_WRITE,GNOME_VFS_PRIORITY_DEFAULT
+	gnome_vfs_async_open_uri(&sf->handle,uri,GNOME_VFS_OPEN_WRITE,GNOME_VFS_PRIORITY_DEFAULT-1
 				,savefile_asyncopenuri_lcb,sf);
 	return sf;
 }
@@ -477,6 +477,7 @@ gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Tre
 
 static void openfile_cleanup(Topenfile *of) {
 	DEBUG_MSG("openfile_cleanup %p\n",of);
+	gnome_vfs_uri_unref(of->uri);
 	g_free(of->buffer);
 	g_free(of);
 }
@@ -514,14 +515,31 @@ static void openfile_asyncread_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 	}
 }
 
+static void openfile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data);
+
+static gboolean openfile_asyncopenuri_try_again_lcb(gpointer data) {
+	Topenfile *of = (Topenfile *)data;
+	DEBUG_MSG("openfile_asyncopenuri_try_again_lcb, try open %s again\n", gnome_vfs_uri_get_path(of->uri));
+	gnome_vfs_async_open_uri(&of->handle,of->uri,GNOME_VFS_OPEN_READ,GNOME_VFS_PRIORITY_DEFAULT-1
+				,openfile_asyncopenuri_lcb,of);
+	return FALSE;
+}
+
 static void openfile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
 	Topenfile *of = data;
 	if (result == GNOME_VFS_OK) {
 		of->callback_func(OPENFILE_CHANNEL_OPENED,result,NULL,0,of->callback_data);
 		gnome_vfs_async_read(handle,of->buffer,CHUNK_SIZE,openfile_asyncread_lcb,of);
 	} else {
-		of->callback_func(OPENFILE_ERROR_NOCHANNEL, result, NULL,0, of->callback_data);
-		openfile_cleanup(of);
+		if (result == GNOME_VFS_ERROR_TOO_MANY_OPEN_FILES) {
+			DEBUG_MSG("openfile_asyncopenuri_lcb, error, got result %d: %s\n",result,gnome_vfs_result_to_string(result));
+			/* try again 0.5 sec. later! */
+			g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,500,openfile_asyncopenuri_try_again_lcb,of,NULL);
+		} else {
+			g_print("openfile_asyncopenuri_lcb, error, got result %d: %s\n",result,gnome_vfs_result_to_string(result));
+			of->callback_func(OPENFILE_ERROR_NOCHANNEL, result, NULL,0, of->callback_data);
+			openfile_cleanup(of);
+		}
 	}
 }
 
@@ -533,8 +551,10 @@ Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callb
 	of->callback_func = callback_func;
 	of->buffer_size = BUFFER_INCR_SIZE;
 	of->used_size = 0;
+	of->uri = uri;
+	gnome_vfs_uri_ref(of->uri);
 	of->buffer = g_malloc(of->buffer_size+1); /* the +1 is so we can add a \0 to the buffer */
-	gnome_vfs_async_open_uri(&of->handle,uri,GNOME_VFS_OPEN_READ,GNOME_VFS_PRIORITY_DEFAULT
+	gnome_vfs_async_open_uri(&of->handle,uri,GNOME_VFS_OPEN_READ,GNOME_VFS_PRIORITY_DEFAULT-1
 				,openfile_asyncopenuri_lcb,of);
 	return of;
 }
@@ -979,7 +999,7 @@ static void open_advanced_backend(Topenadv *oa, GnomeVFSURI *basedir) {
 	g_free(tmp);
 	g_free(utf8uri);
 	gnome_vfs_async_load_directory_uri(&oad->handle,oad->basedir,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
-									10,GNOME_VFS_PRIORITY_DEFAULT,open_adv_load_directory_lcb,oad);
+									10,GNOME_VFS_PRIORITY_DEFAULT-1,open_adv_load_directory_lcb,oad);
 }
 
 void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gchar *extension_filter, gchar *content_filter, gboolean use_regex) {
