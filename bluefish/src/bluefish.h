@@ -276,7 +276,7 @@ typedef struct {
 	gint view_blocks; /* show blocks on the left side by default */
 	gint view_symbols; /* show symbols on the left side by default */	
 	gint view_mbhl; /* show matching block begin-end */	
-	gint view_cline; /* run autoscan when editing document */
+	gint view_cline; /* highlight current line */
 	gint scan_mode; /* number of lines to autoscan */
 	gchar *editor_fg; /* editor foreground color */
 	gchar *editor_bg; /* editor background color */
