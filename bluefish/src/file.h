@@ -104,6 +104,7 @@ typedef enum {
 typedef void (* OpenfileAsyncCallback) (Topenfile_status status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer callback_data);
 
 typedef struct {
+	GnomeVFSURI *uri;
 	GnomeVFSAsyncHandle *handle;
 	gchar *buffer;
 	GnomeVFSFileSize buffer_size;
