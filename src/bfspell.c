@@ -214,7 +214,9 @@ void spell_start(Tbfspell *bfspell) {
 	 * default language should come from config file, runtime from GUI,
 	 * should first set the default one 
 	 */
-	aspell_config_replace(bfspell->spell_config, "lang", main_v->props.spell_default_lang);
+	if (main_v->props.spell_default_lang) {
+		aspell_config_replace(bfspell->spell_config, "lang", main_v->props.spell_default_lang);
+	}
 	DEBUG_MSG("spell_start, default lang=%s\n",main_v->props.spell_default_lang);
 	/*
 	 * it is unclear from the manual if aspell supports utf-8 in the
