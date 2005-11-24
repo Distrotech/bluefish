@@ -134,7 +134,8 @@ static void reset_last_snr2(Tbfwin *bfwin) {
  * Performs an actual search in a supplied buffer (#gchar*, aka string).
  * NOTE: If want_submatches is set, tsearch_result->pmatch should be free`ed by the calling function!
  *
- * Return value: #Tsearch_result, contains both character and byte offsets, for wide-char-compatibility. Note values for start/end are set to -1 on error.
+ * Return value: #Tsearch_result, contains both character and byte offsets, 
+ * they are absolute values to the start of the provided buffer . Note values for start/end are set to -1 on error.
  **/
 Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *buf, guint byte_offset, gboolean want_submatches) {
 	Tsearch_result returnvalue;
@@ -285,6 +286,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			returnvalue.end = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.bend);
 		}
 		if (want_submatches) {
+			/* now convert the submatch start and end to character values */
 			int i;
 			for (i=0;i<returnvalue.nmatch;i++) {
 				returnvalue.pmatch[i].rm_so = utf8_byteoffset_to_charsoffset_cached(buf, returnvalue.pmatch[i].rm_so);
@@ -582,7 +584,27 @@ actions, so the first char in buf is actually number offset in the text widget *
 			g_free(tofree);
 		break;
 		}
-		DEBUG_MSG("replace_backend, len=%d, offset=%d, start=%d, end=%d, document=%p, tmpstr='%s'\n", result.end - result.start, offset, result.start + offset, result.end + offset, doc,tmpstr);
+#ifdef DEBUG
+		{
+		gchar *replacing;
+		replacing = doc_get_chars(doc, result.start + offset, result.end + offset);
+		DEBUG_MSG("replace_backend, replacing %s (%d characters) with %s (%d characters), starting at character %d\n"
+				, replacing, (result.end - result.start), tmpstr, (gint)g_utf8_strlen(tmpstr, -1), offset+result.start);
+		if (replacetype ==uppercase || replacetype==lowercase) {
+			gchar *tmp1, *tmp2;
+			tmp1 = g_utf8_strdown(replacing,-1);
+			tmp2 = g_utf8_strdown(tmpstr,-1);
+			if (g_utf8_strlen(tmpstr, -1) != g_utf8_strlen(replacing, -1) || strcmp(tmp1,tmp2)!=0) {
+				g_print("you found a bug: uppercase/lowercase replace found a different string\n");
+				exit(155);
+			}
+			g_free(tmp1);
+			g_free(tmp2);
+		}
+		g_free(replacing);
+		}
+#endif
+		/* doc_replace_text_backend needs CHARACTER positions, not bytes !! */
 		doc_replace_text_backend(doc, tmpstr, result.start + offset, result.end + offset);
 		if (*replacelen == -1) {
 			*replacelen = g_utf8_strlen(tmpstr, -1);
@@ -648,6 +670,7 @@ Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_type
  * @search_pattern: #gchar* to search pattern
  * @matchtype: see #Tmatch_types
  * @is_case_sens: #gint
+ * @startpos: #gint where to start in characters
  * @endpos: #gint where to stop replacing. Set to -1 to cover the entire buffer.
  * @replace_pattern: #gchar* to replace pattern
  * @doc: a #Tdocument* to work on
@@ -666,12 +689,12 @@ static gint replace_doc_multiple(Tbfwin *bfwin,const gchar *search_pattern, Tmat
 	gchar *fulltext, *realpats, *realpatr;
 	gboolean realunesc;
 	Tsearch_result result;
-	gint buf_byte_offset=0;
-	gint buf_text_offset=startpos;
+	gint buf_b_offset=0; /* the position in bytes where to start the next search in our temporary buffer */
+	gint offset=startpos; /* the number of characters after which our temporary buffer starts */
 	gint replacelen; /* replacelen -1 means there is no replacelen known yet */
 	doc_unre_new_group_action_id(doc,unre_action_id);
 
-	DEBUG_MSG("replace_doc_multiple, startpos=%d, endpos=%d\n", startpos, endpos);
+	DEBUG_MSG("replace_doc_multiple, STARTED, startpos=%d, endpos=%d, document=%p\n", startpos, endpos, doc);
 	if (matchtype == match_normal || replacetype != string) {
 		/* the replace string has a fixed length if it is not regex, or it is not type string
 		 in this case we can also do the unescaping in this function */
@@ -692,26 +715,32 @@ static gint replace_doc_multiple(Tbfwin *bfwin,const gchar *search_pattern, Tmat
 		realunesc = unescape;
 	}
 	fulltext = doc_get_chars(doc, startpos, endpos);
-	result = replace_backend(bfwin,realpats, matchtype, is_case_sens, fulltext, 0, realpatr, doc, buf_text_offset, replacetype, &replacelen, realunesc);
+	utf8_offset_cache_reset();
+	result = replace_backend(bfwin,realpats, matchtype, is_case_sens, fulltext, 0, realpatr, doc, offset, replacetype, &replacelen, realunesc);
 	while (result.end > 0) {
+		/* the 'buf_b_offset' is the location in the buffer, measured in bytes, where the next search has to start 
+		 *
+		 * 'offset' is the number of characters after which our temporary buffer starts
+		 *
+		 */
 		if (replacetype == string) {
-			buf_text_offset += replacelen - (result.end - result.start);
+			offset += replacelen - (result.end - result.start);
 		}
 		if (LASTSNR2(bfwin->snr2)->overlapping_search) {
-			buf_byte_offset = result.bstart + 1;
-			/* buf_text_offset += result.start + 1; */
+			buf_b_offset = result.bstart + 1;
+			/* BUG: if the first following character is a multibute character, we should perhaps 
+			add 2 or 3 to result.bstart */
 		} else {
-			buf_byte_offset = result.bend;
-			/* buf_text_offset += result.end; */
+			buf_b_offset = result.bend;
 		}
-		DEBUG_MSG("replace_doc_multiple, after first search, buf_text_offset=%d, buf_byte_offset=%d\n", buf_text_offset, buf_byte_offset);
 		if (matchtype != match_normal && replacetype == string) {
 			/* all regex replaces can have different replace lengths, so they have to be re-calculated */
 			replacelen = -1;
 		}
-		result = replace_backend(bfwin,realpats, matchtype, is_case_sens, fulltext, buf_byte_offset, realpatr, doc, buf_text_offset, replacetype, &replacelen, realunesc);
+		result = replace_backend(bfwin,realpats, matchtype, is_case_sens, fulltext, buf_b_offset, realpatr
+						, doc, offset, replacetype, &replacelen, realunesc);
 		count++;
-		DEBUG_MSG("replace_doc_multiple, 1- buf_text_offset=%d, buf_byte_offset=%d, result.start=%d, result.end=%d\n", buf_text_offset, buf_byte_offset, result.start, result.end);
+		DEBUG_MSG("replace_doc_multiple, after replace_backend, offset=%d, buf_b_offset=%d, result.start=%d, result.end=%d\n", offset, buf_b_offset, result.start, result.end);
 	}
 	if (unescape && (matchtype == match_normal || replacetype != string)) {
 		DEBUG_MSG("replace_doc_multiple, free-ing realpats and realpatr\n");
@@ -1709,7 +1738,7 @@ void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 				startpos = LASTSNR2(bfwin->snr2)->result.end;
 			}
 		}
-	}		
+	}
 	sret = replace_doc_once(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->replace_pattern
 			, bfwin->current_document, LASTSNR2(bfwin->snr2)->replacetype_option, LASTSNR2(bfwin->snr2)->unescape);
 }
