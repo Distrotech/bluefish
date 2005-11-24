@@ -1475,6 +1475,7 @@ void doc_highlight_region(Tdocument * doc, guint startof, guint endof) {
 		timing_start(TIMING_TOTAL);
 #endif
 		buf = doc_get_chars(doc, so, eo);
+		utf8_offset_cache_reset();
 		applylevel(doc,buf,so,0,strlen(buf),NULL,patternlist);
 		g_free(buf);
 #ifdef HL_TIMING

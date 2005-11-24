@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 /* this is needed for Solaris to comply with the latest POSIX standard 
  * regarding the ctime_r() function
@@ -709,7 +709,9 @@ so we keep it at 12 for the moment
 /* #define UTF8_BYTECHARDEBUG */
 
 typedef struct {
+#ifdef DEVELOPMENT
 	gchar *last_buf;
+#endif
 	/* the two arrays must be grouped and in this order, because they are moved back 
 	one position in ONE memmove() call */
 	guint  last_byteoffset[UTF8_OFFSET_CACHE_SIZE];
@@ -728,13 +730,8 @@ static Tutf8_offset_cache utf8_offset_cache;
  * utf8_offset_cache_reset:
  * 
  * this function will reset the utf8 offset cache used by 
- * utf8_byteoffset_to_charsoffset_cached()
+ * utf8_byteoffset_to_charsoffset_cached() to use a new buffer
  *
- * normally this is done automatically if utf8_byteoffset_to_charsoffset_cached() 
- * is called with a new buffer. But if you ever call that function for 
- * the same buffer but the buffer is changed in the meantime you have 
- * to reset it manually using utf8_offset_cache_reset()
- * 
  * Return value: void
  **/
 #ifdef __GNUC__
@@ -767,11 +764,14 @@ guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
 	guint retval;
 	gint i = UTF8_OFFSET_CACHE_SIZE-1;
 	if (byteoffset ==0) return 0;
-
+#ifdef DEVELOPMENT
 	if (string != utf8_offset_cache.last_buf) {
-		utf8_offset_cache_reset();
-		utf8_offset_cache.last_buf = string;
+		/*utf8_offset_cache_reset();
+		utf8_offset_cache.last_buf = string;*/
+		g_print("bug found in a call to utf8_byteoffset_to_charsoffset_cached, the cache was not reset\n");
+		exit(156);
 	}
+#endif
 #ifdef DEBUG
 	DEBUG_MSG("utf8_byteoffset_to_charsoffset_cached, string %p has strlen %d, looking for byteoffset %ld, starting in cache at i=%d\n", string, strlen(string),byteoffset,i);
 #endif
