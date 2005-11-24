@@ -584,7 +584,7 @@ actions, so the first char in buf is actually number offset in the text widget *
 			g_free(tofree);
 		break;
 		}
-#ifdef DEBUG
+#ifdef DEVELOPMENT
 		{
 		gchar *replacing;
 		replacing = doc_get_chars(doc, result.start + offset, result.end + offset);
