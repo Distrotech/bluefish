@@ -474,9 +474,21 @@ gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Tre
 
 #define CHUNK_SIZE 4096
 #define BUFFER_INCR_SIZE 40960
+#define WORKING_QUEUE_SIZE 20
+
+typedef struct {
+	GList *work; /* Topenfile structures that are pushed to gnome_vfs */
+	guint worknum; /* number of elements in work */
+	GList *todo; /* Topenfile structures that are not being worked on */
+	guint task_id; /* the event source id of the task running with g_timeout_add(), or 0 if no task is running */
+} Topenfile_queue;
+
+static Topenfile_queue ofqueue = {NULL, 0, NULL};
 
 static void openfile_cleanup(Topenfile *of) {
-	DEBUG_MSG("openfile_cleanup %p\n",of);
+	ofqueue.work = g_list_remove(ofqueue.work, of);
+	ofqueue.worknum--;
+	DEBUG_MSG("openfile_cleanup, cleaning %p, %d files working\n",of,ofqueue.worknum);
 	gnome_vfs_uri_unref(of->uri);
 	g_free(of->buffer);
 	g_free(of);
@@ -543,6 +555,30 @@ static void openfile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 	}
 }
 
+static void openfile_activate(Topenfile *of) {
+	ofqueue.work = g_list_prepend(ofqueue.work, of);
+	ofqueue.worknum++;
+	gnome_vfs_async_open_uri(&of->handle,of->uri,GNOME_VFS_OPEN_READ,GNOME_VFS_PRIORITY_DEFAULT-1
+				,openfile_asyncopenuri_lcb,of);
+	DEBUG_MSG("openfile_activate, %d files working\n",ofqueue.worknum);
+}
+
+static gboolean openfile_process_queue(gpointer data) {
+	GList *lastlst = g_list_last(ofqueue.todo);
+	while (lastlst != NULL && ofqueue.worknum <= WORKING_QUEUE_SIZE) {
+		GList *curlst = lastlst;
+		lastlst = curlst->prev;
+		ofqueue.todo = g_list_remove_link(ofqueue.todo, curlst);
+		openfile_activate((Topenfile *)curlst->data);
+		g_list_free_1(curlst);
+	}
+	if (ofqueue.todo == NULL) {
+		ofqueue.task_id = 0;
+		return FALSE;
+	}
+	return TRUE;
+}
+
 Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callback_func, gpointer callback_data) {
 	Topenfile *of;
 	of = g_new(Topenfile,1);
@@ -554,8 +590,16 @@ Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callb
 	of->uri = uri;
 	gnome_vfs_uri_ref(of->uri);
 	of->buffer = g_malloc(of->buffer_size+1); /* the +1 is so we can add a \0 to the buffer */
-	gnome_vfs_async_open_uri(&of->handle,uri,GNOME_VFS_OPEN_READ,GNOME_VFS_PRIORITY_DEFAULT-1
-				,openfile_asyncopenuri_lcb,of);
+	if (ofqueue.worknum > WORKING_QUEUE_SIZE) {
+		DEBUG_MSG("file_openfile_uri_async, worknum=%d, queueing\n",ofqueue.worknum);
+		ofqueue.todo = g_list_prepend(ofqueue.todo, of);
+		if (ofqueue.task_id == 0) {
+			DEBUG_MSG("file_openfile_uri_async, starting timeout task\n");
+			ofqueue.task_id = g_timeout_add(250, openfile_process_queue, NULL);
+		}
+	} else {
+		openfile_activate(of);
+	}
 	return of;
 }
 /************ LOAD A FILE ASYNC INTO A DOCUMENT ************************/
