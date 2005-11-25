@@ -1685,9 +1685,11 @@ void fb2_update_settings_from_session(Tbfwin *bfwin) {
 		fb2->filebrowser_show_backup_files = bfwin->session->filebrowser_show_backup_files;
 		if (fb2->dir_tfilter) gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
 		if (fb2->file_lfilter) gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
-		if (bfwin->session->recent_dirs) {
+		if (bfwin->session->recent_dirs 
+					&& ((GList *)g_list_first(bfwin->session->recent_dirs))->data 
+					&& strlen(((GList *)g_list_first(bfwin->session->recent_dirs))->data)>0) {
 			fb2_set_basedir(bfwin, ((GList *)g_list_first(bfwin->session->recent_dirs))->data);
-		} else if (bfwin->project) {
+		} else if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>0) {
 			fb2_set_basedir(bfwin, bfwin->project->basedir);
 		} else {
 			fb2_set_basedir(bfwin, NULL);
