@@ -658,6 +658,14 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 		break;
 		case OPENFILE_CHANNEL_OPENED:
 			/* do nothing */
+		{
+			gchar *utf8uri, *tmp;
+			utf8uri = full_path_utf8_from_uri(fid->uri);
+			tmp = g_strdup_printf("Loading %s", utf8uri);
+			statusbar_message(fid->doc->bfwin,tmp, 1000);
+			g_free(tmp);
+			g_free(utf8uri);
+		}
 		break;
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:
@@ -748,6 +756,15 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 		break;
 		case OPENFILE_CHANNEL_OPENED:
 			/* do nothing */
+		{
+			gchar *utf8uri, *tmp;
+			utf8uri = full_path_utf8_from_uri(f2d->uri);
+			tmp = g_strdup_printf("Loading %s", utf8uri);
+			statusbar_message(f2d->doc->bfwin,tmp, 1000);
+			g_free(tmp);
+			g_free(utf8uri);
+		}
+
 		break;
    	case OPENFILE_ERROR_CANCELLED:
 		/* lets close the document */
