@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file.c - file operations based on GnomeVFS
  *
- * Copyright (C) 2002-2005 Olivier Sessink
+ * Copyright (C) 2002,2003,2004,2005 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,6 +34,43 @@
 #include "gtk_easy.h"
 #include "gui.h"
 #include "stringlist.h"
+
+/* queue functions */
+typedef struct {
+	guint worknum; /* number of elements that are being worked on */
+	GList *todo; /* data structures that are *not* being worked on */
+	guint task_id; /* the event source id of the task running with g_timeout_add(), or 0 if no task is running */
+	guint max_worknum;
+	void (*activate_func) ();
+} Tqueue;
+/*
+static gboolean process_queue(gpointer data) {
+	Tqueue *queue = (Tqueue *)data;
+	GList *lastlst = g_list_last(queue->todo);
+	while (lastlst != NULL && queue->worknum < queue->max_worknum) {
+		GList *curlst = lastlst;
+		lastlst = curlst->prev;
+		queue->todo = g_list_remove_link(queue->todo, curlst);
+		queue->activate_func(curlst->data);
+		g_list_free_1(curlst);
+	}
+	if (queue->todo == NULL) {
+		queue->task_id = 0;
+		return FALSE;
+	}
+	return TRUE;
+}
+
+static void push_to_queue(Tqueue *queue, gpointer data) {
+	if (queue->worknum >= queue->max_worknum) {
+		queue->todo = g_list_append(queue->todo, data);
+		if (queue->task_id == 0) {
+			queue->task_id = g_timeout_add(250, process_queue, queue);
+		}
+	} else {
+		queue->activate_func(data);
+	}
+}*/
 
 /*************************** FILE DELETE ASYNC ******************************/
 
@@ -702,7 +739,7 @@ typedef struct {
 } Tfile2doc;
 
 static void file2doc_cleanup(Tfile2doc *f2d) {
-	DEBUG_MSG("file2doc_cleanup, %p\n",f2d);
+	DEBUG_MSG("file2doc_cleanup, %p, num open documents=%d\n",f2d,g_list_length(f2d->bfwin->documentlist));
 	gnome_vfs_uri_unref(f2d->uri);
 	g_free(f2d);
 }
@@ -873,6 +910,7 @@ void file_doc_fill_from_uri(Tdocument *doc, GnomeVFSURI *uri, GnomeVFSFileInfo *
 	f2d->of = file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
 }
 
+/* this funcion is usually used to load documents */
 void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line, gint goto_offset) {
 	Tfile2doc *f2d;
 	f2d = g_new(Tfile2doc,1);
@@ -893,6 +931,15 @@ void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo,
 }
 
 /*************************** OPEN ADVANCED ******************************/
+
+typedef struct {
+	GList *todo;
+	guint worknum;
+	guint task_id;
+
+} Tadvqueue;
+
+static Tadvqueue advqueue = {NULL, 0, 0};
 
 typedef struct {
 	guint refcount;
@@ -989,8 +1036,12 @@ static void openadv_content_filter_file(Topenadv *oa, GnomeVFSURI *uri, GnomeVFS
 	file_openfile_uri_async(uri, open_adv_content_filter_lcb, oau);
 }
 
+static gboolean process_advqueue(gpointer data);
+
 static void open_adv_load_directory_cleanup(Topenadv_dir *oad) {
 	DEBUG_MSG("open_adv_load_directory_cleanup %p for %s\n", oad, gnome_vfs_uri_get_path(oad->basedir));
+	advqueue.worknum--;
+	g_idle_add(process_advqueue, GINT_TO_POINTER(FALSE));
 	gnome_vfs_uri_unref(oad->basedir);
 	openadv_unref(oad->oa);
 	g_free(oad);
@@ -1044,23 +1095,70 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 	}
 }
 
+static void advdir_statusbar_message(Tbfwin *bfwin, GnomeVFSURI *basedir) {
+	gchar *utf8uri, *tmp;
+	utf8uri = full_path_utf8_from_uri(basedir);
+	tmp = g_strdup_printf("Advanced open: searching in %s", utf8uri);
+	statusbar_message(bfwin,tmp, 4000);
+	g_free(tmp);
+	g_free(utf8uri);
+}
+
+/* this function is called from g_idle_add and from g_timeout_add */
+static gboolean process_advqueue(gpointer data) {
+	gboolean called_from_timeout = GPOINTER_TO_INT(data);
+	DEBUG_MSG("process_advqueue, todo=%d, worknum=%d, called_from_timeout=%d\n",g_list_length(advqueue.todo),advqueue.worknum,called_from_timeout);
+	if (advqueue.todo == NULL) {
+		/* we do not have to do anything */
+		if (called_from_timeout) {
+			advqueue.task_id = 0;
+		}
+		return FALSE;	
+	}
+	if (ofqueue.todo != NULL || advqueue.worknum >= 2) {
+		/* do not activate a new directory at this moment */
+		if (advqueue.task_id == 0) {
+			DEBUG_MSG("process_advqueue, calling g_timeout_add\n");
+			advqueue.task_id = g_timeout_add(250, process_advqueue, GINT_TO_POINTER(TRUE));
+			return FALSE;
+		} else {
+			if (called_from_timeout) {
+				/* called from g_timeout */
+				return TRUE;
+			} else {
+				/* called from g_idle */
+				return FALSE;
+			}
+		}
+	} else {
+		/* activate a directory from the queue */
+		Topenadv_dir *oad = advqueue.todo->data;
+		DEBUG_MSG("process_advqueue, activate directory\n");
+		advqueue.todo = g_list_remove(advqueue.todo, oad);
+		gnome_vfs_async_load_directory_uri(&oad->handle,oad->basedir,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
+									10,GNOME_VFS_PRIORITY_DEFAULT-1,open_adv_load_directory_lcb,oad);
+		advqueue.worknum++;
+		g_idle_add(process_advqueue, GINT_TO_POINTER(FALSE));
+		advdir_statusbar_message(oad->oa->bfwin, oad->basedir);
+	}
+	if (called_from_timeout) return TRUE;
+	return FALSE;
+}
+
 static void open_advanced_backend(Topenadv *oa, GnomeVFSURI *basedir) {
 	Topenadv_dir *oad;
-	gchar *tmp, *utf8uri;
 	
 	oad = g_new0(Topenadv_dir, 1);
 	oad->oa = oa;
 	oa->refcount++;
 
 	oad->basedir = basedir;
-	gnome_vfs_uri_ref(basedir);
-	utf8uri = full_path_utf8_from_uri(basedir);
-	tmp = g_strdup_printf("Advanced open: searching in %s", utf8uri);
-	statusbar_message(oa->bfwin,tmp, 1000);
-	g_free(tmp);
-	g_free(utf8uri);
-	gnome_vfs_async_load_directory_uri(&oad->handle,oad->basedir,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
-									10,GNOME_VFS_PRIORITY_DEFAULT-1,open_adv_load_directory_lcb,oad);
+	gnome_vfs_uri_ref(oad->basedir);
+
+/*	gnome_vfs_async_load_directory_uri(&oad->handle,oad->basedir,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
+									10,GNOME_VFS_PRIORITY_DEFAULT-1,open_adv_load_directory_lcb,oad);*/
+	advqueue.todo = g_list_prepend(advqueue.todo,oad);
+	g_idle_add(process_advqueue, GINT_TO_POINTER(FALSE));
 }
 
 void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gchar *extension_filter, gchar *content_filter, gboolean use_regex) {
