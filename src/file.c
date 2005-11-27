@@ -968,7 +968,10 @@ static void openadv_unref(Topenadv *oa) {
 	oa->refcount--;
 	DEBUG_MSG("openadv_unref, count=%d\n",oa->refcount);
 	if (oa->refcount <= 0 ) {
-		statusbar_message(oa->bfwin,_("Advanced open: finished searching files"), 4000);
+		gchar *tmp;
+		tmp = g_strdup_printf(_("Advanced open: finished searching files, %d documents open"), g_list_length(oa->bfwin->documentlist));
+		statusbar_message(oa->bfwin,tmp, 4000);
+		g_free(tmp);
 		if (oa->extension_filter) g_free(oa->extension_filter);
 		if (oa->patspec) g_pattern_spec_free(oa->patspec);
 		if (oa->content_filter) g_free(oa->content_filter);
@@ -1115,7 +1118,7 @@ static gboolean process_advqueue(gpointer data) {
 		}
 		return FALSE;	
 	}
-	if (ofqueue.todo != NULL || advqueue.worknum >= 2) {
+	if (ofqueue.todo != NULL || advqueue.worknum >= 5) {
 		/* do not activate a new directory at this moment */
 		if (advqueue.task_id == 0) {
 			DEBUG_MSG("process_advqueue, calling g_timeout_add\n");
