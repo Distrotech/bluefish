@@ -3,7 +3,7 @@ HAVE_XSL_DIR=1
 
 ## You shouldn't normally need to edit anything below here.
 SHELL = /bin/sh
-VERSION=1.0-2
+VERSION=1.0-3
 BOOK_PREFIX=bluefish-doc
 BOOK_TOP=.
 BOOK_DIR=${BOOK_TOP}/src

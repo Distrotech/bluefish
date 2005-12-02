@@ -18,39 +18,36 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 -->
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
-	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd"
+	"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd"
 [
-<!ENTITY bookinfo   SYSTEM "bookinfo.xml">
-<!ENTITY preface    SYSTEM "preface.xml">
+<!ENTITY bookinfo SYSTEM "bookinfo.xml">
+<!ENTITY preface SYSTEM "preface.xml">
 <!ENTITY getting_bf SYSTEM "getting_bluefish.xml">
 <!ENTITY install_bf SYSTEM "installing_bluefish.xml">
-<!ENTITY using_bf   SYSTEM "using_bluefish.xml">
-<!ENTITY debug_bf   SYSTEM "debugging_bluefish.xml">
-<!ENTITY ref_bf     SYSTEM "reference_bluefish.xml">
-<!ENTITY dev_bf     SYSTEM "developing_bluefish.xml">
-<!ENTITY appa       SYSTEM "appa.xml">
-<!ENTITY appb       SYSTEM "appb.xml">
-<!ENTITY appc       SYSTEM "appc.xml">
-<!ENTITY appd       SYSTEM "appd.xml">
+<!ENTITY using_bf SYSTEM "using_bluefish.xml">
+<!ENTITY debug_bf SYSTEM "debugging_bluefish.xml">
+<!ENTITY ref_bf SYSTEM "reference_bluefish.xml">
+<!ENTITY dev_bf SYSTEM "developing_bluefish.xml">
+<!ENTITY appa SYSTEM "appa.xml">
+<!ENTITY appb SYSTEM "appb.xml">
+<!ENTITY appc SYSTEM "appc.xml">
+<!ENTITY appd SYSTEM "appd.xml">
 ]>
 
 <book id="bluefish">
-  <title>Bluefish: The Definitive Guide</title>
-  <subtitle>User's, Developer's, and Documentarian's Guide for Bluefish version 1.0</subtitle>
-
-  <!-- External entity refs -->
-
-  &bookinfo;
-  &preface;
-  &getting_bf;
-  &install_bf;
-  &using_bf;
-  &debug_bf;
-  &ref_bf;
-  &dev_bf;
-  &appa;
-  &appb;
-  &appc;
-  &appd;
-
+<title>Bluefish: The Definitive Guide</title>
+<subtitle>User's, Developer's, and Documentarian's Guide for Bluefish version 1.0.1</subtitle>
+<!-- External entity refs -->
+&bookinfo;
+&preface;
+&getting_bf;
+&install_bf;
+&using_bf;
+&debug_bf;
+&ref_bf;
+&dev_bf;
+&appa;
+&appb;
+&appc;
+&appd;
 </book>

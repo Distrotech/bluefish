@@ -27,10 +27,6 @@ section		toc
 <xsl:param name="generate.section.toc.level" select="2"/>
 <!-- Section autolabelling -->
 <xsl:variable name="section.autolabel">f</xsl:variable>
-<!-- Admon graphics -->
-<xsl:param name="admon.graphics" select="1"/>
-<xsl:param name="admon.graphics.path">imgs/</xsl:param>
-<xsl:param name="admon.style"/>
 <!-- Css stylesheet -->
 <xsl:param name="html.stylesheet" select="'manual.css'"/>
 <!-- Separate toc -->

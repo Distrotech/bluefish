@@ -27,11 +27,11 @@ I. PRIMER
 II. REQUIREMENTS
 
 
-1. Get DocBook 4.3
+1. Get DocBook 4.4
 
 	Fetch the distribution for your system and install it.
-	
-	
+
+
 2. Get XSL stylesheets for Docbook
 
    The "Docbook Open Repository" on Sourceforge has a large collection
@@ -64,15 +64,15 @@ II. REQUIREMENTS
 
      If you don't want to compile libxslt, you can just fetch the
      appropriate OS binary package. 
-     
-    
+
+
 4. Use xmllint to validate the xml files
 
-	It should be available on all systems, presumably on SourceForge.
-	
-	Install it, it is used before all xml files are processed. 
-	
-	
+     It should be available on all systems, presumably on SourceForge.
+     
+     Install it, it is used before all xml files are processed.
+
+
 5. Use FOP to produce PS and PDF files
 
 	This is optional, unless you run make all, or want to produce
@@ -124,98 +124,80 @@ You have the following options to produce the documentation
 from the  bluefish-doc/src directory, it is installed in the 
 directory bluefish-doc/built-doc, automatically created by the 
 built process:
-	
-	make html 
-	
-		Produces the book in html format, with numerous html files.
-		
+
+   make html 
+       Produces the book in html format, with numerous html files.
+
 	make html-one-big 
-	
-		Produces the book in html format, with a unique html file. 
-	
-	make html-all 
-	
-		Produces the book in html format, both outputs.
-		
+	    Produces the book in html format, with a unique html file.
+
+	make html-all
+	    Produces the book in html format, both outputs.
+
 	make pdf-a4 
-	
-		Produces the book in PDF format suitable for A4 paper. 
-		
+	    Produces the book in PDF format suitable for A4 paper.
+
 	make ps-a4 
-	
-		Produces the book in PostScript format suitable for A4 paper. 
-		
-	make pspdf-a4 
-	
-		Produces the PDF and PostScript versions for A4 paper. 
-		
-	make pdf-us 
-	
-		Produces the book in PDF format suitable for USLetter paper. 
-		
-	make ps-us 
-	
-		Produces the book in PostScript format suitable for USLetter paper. 
-		
-	make pspdf-us 
-	
-		Produces the PDF and PostScript versions for USLetter paper. 
-		
-	make all 
-		Produces all versions of the book. 
-		
-		
+	    Produces the book in PostScript format suitable for A4 paper.
+
+	make pspdf-a4
+	    Produces the PDF and PostScript versions for A4 paper.
+
+	make pdf-us
+	    Produces the book in PDF format suitable for USLetter paper.
+
+	make ps-us
+	    Produces the book in PostScript format suitable for USLetter paper.
+
+	make pspdf-us
+	    Produces the PDF and PostScript versions for USLetter paper.
+
+	make all
+	    Produces all versions of the book. 
+
+
 The following options apply to the doc directory cleaning:
-	
-	clean html 
-	
-		Removes the book in html format (both outputs). 
-		
-	clean pdf-a4 
-	
-		Removes the book in PostScript format suitable for A4 paper. 
-		
-	clean ps-a4 
-	
-		Removes the book in PDF format suitable for A4 paper. 
-		
-	clean pdfps-a4 
-	
-		Removes the PDF and PostScript versions for A4 paper. 
-		
-	clean pdf-us 
-	
-		Removes the book in PDF format suitable for USLetter paper. 
-		
-	clean ps-us 
-	
-		Removes the book in PostScript format suitable for USLetter paper. 
-		
-	clean pspdf-us 
-	
-		Removes the PDF and PostScript versions for USLetter paper. 
-		
-	clean all 
-	
-		Removes all versions of the book. 
-		
-		
+
+    clean html
+        Removes the book in html format (both outputs).
+
+	clean pdf-a4
+	    Removes the book in PostScript format suitable for A4 paper.
+
+	clean ps-a4
+	    Removes the book in PDF format suitable for A4 paper.
+
+	clean pdfps-a4
+	    Removes the PDF and PostScript versions for A4 paper.
+
+	clean pdf-us
+	    Removes the book in PDF format suitable for USLetter paper.
+
+	clean ps-us
+	    Removes the book in PostScript format suitable for USLetter paper.
+
+	clean pspdf-us
+	    Removes the PDF and PostScript versions for USLetter paper.
+
+	clean all
+	    Removes all versions of the book.
+
+
 The following option validates all xml files producing the doc:
-	
-	make validate-all 
-		Validate the whole book. 
-		
-		
+
+    make validate-all
+        Validate the whole book.
+        
+    
 The following option produces tarballs:
-	
-	make tarball-all 
-	
-		Produces tarballs suitable to put on the Bluefish web site or for 
-		individual use. 
-		
+
+    make tarball-all
+        Produces tarballs suitable to put on the Bluefish web site or for 
+		individual use.
 		They are installed in the tarballs directory, automatically created 
 		by the built process.
-		
+
+
 
 III. HACKING ON THE DOCS
 
