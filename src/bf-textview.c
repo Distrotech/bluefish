@@ -798,6 +798,10 @@ what does 'dfa' stand for?
 it seems this function takes quite some cpu time, I just did some 
 profiling (30-okt-2005) with much scrolling through documents and 
 this function took 63% of the cpu time..
+
+The pointer gshort *z is allocating memory with g_malloc0 in 
+two different places in this function. This appears to be a 
+large memory leak. Is this freed somewhere else?
 */
 static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, gint type,
 							  gboolean tag)
@@ -2585,6 +2589,7 @@ BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, const gchar * filenam
 			DEBUG_MSG("bf_lang_mgr_load_config, adding %s to hashtable\n", filename);
 			g_hash_table_replace(mgr->languages, filename, cfg);
 		}
+		g_free(fname);
 	}
 	g_free(fname1);
 	g_free(fname2);
