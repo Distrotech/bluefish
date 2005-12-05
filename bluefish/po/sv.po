@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-30 13:56-0800\n"
+"POT-Creation-Date: 2005-11-12 06:40-0800\n"
 "PO-Revision-Date: 2005-04-20 20:53+0200\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -160,8 +160,12 @@ msgstr ""
 "Tack till alla som har hjälpt till att göra denna mjukvara tillgänglig.\n"
 
 #: ../src/about.c:120
+#, fuzzy
 msgid ""
 "Current translators:\n"
+"\n"
+"  Basque: Hizkuntza Politikarako Sailburuordetza\n"
+"   <hizkpol@ej-gv.es>\n"
 "\n"
 "  Brazilian Portuguese: Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
@@ -280,11 +284,11 @@ msgstr ""
 "  Ungerska: Péter Sáska\n"
 "   <sasek@ccsystem.hu>\n"
 
-#: ../src/about.c:163
+#: ../src/about.c:165
 msgid "About Bluefish"
 msgstr "Om Bluefish"
 
-#: ../src/about.c:193
+#: ../src/about.c:195
 msgid ""
 "\n"
 "\n"
@@ -294,16 +298,16 @@ msgstr ""
 "\n"
 "Som ett resultat av följande upptäkter:\n"
 
-#: ../src/about.c:220 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
+#: ../src/about.c:222 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
 #: ../src/fref.c:1870 ../src/fref.c:2347
 msgid "Info"
 msgstr "Info"
 
-#: ../src/about.c:222
+#: ../src/about.c:224
 msgid "Authors"
 msgstr "Upphovsmän"
 
-#: ../src/about.c:223
+#: ../src/about.c:225
 msgid "Translators"
 msgstr "Översättare"
 
@@ -477,7 +481,7 @@ msgid "_Don't show this dialog again."
 msgstr "_Visa inte denna dialogruta igen."
 
 #: ../src/bookmark.c:368 ../src/html.c:614 ../src/html.c:834
-#: ../src/html.c:1429 ../src/html.c:1920 ../src/html_form.c:231
+#: ../src/html.c:1440 ../src/html.c:1944 ../src/html_form.c:231
 #: ../src/html_form.c:596 ../src/html_form.c:795 ../src/html_form.c:890
 #: ../src/image.c:334
 msgid "_Name:"
@@ -1069,7 +1073,7 @@ msgstr "Dialog"
 msgid "Insert"
 msgstr "Sätt in"
 
-#: ../src/fref.c:1841 ../src/html.c:1271
+#: ../src/fref.c:1841 ../src/html.c:1274
 msgid "Options"
 msgstr "Alternativ"
 
@@ -1322,11 +1326,11 @@ msgstr "Ramsamling..."
 msgid "Frame..."
 msgstr "Ram..."
 
-#: ../src/gui.c:643 ../src/html.c:1824
+#: ../src/gui.c:643 ../src/html.c:1848
 msgid "Frameset"
 msgstr "Ramuppsamling"
 
-#: ../src/gui.c:644 ../src/html.c:1908
+#: ../src/gui.c:644 ../src/html.c:1932
 msgid "Frame"
 msgstr "Ram"
 
@@ -1761,7 +1765,7 @@ msgstr "Ankare"
 msgid "Attributes"
 msgstr "Attribut"
 
-#: ../src/html.c:606 ../src/html.c:2135
+#: ../src/html.c:606 ../src/html.c:2161
 msgid "_HREF:"
 msgstr "HREF:"
 
@@ -1769,19 +1773,19 @@ msgstr "HREF:"
 msgid "_Target:"
 msgstr "M_ål:"
 
-#: ../src/html.c:620 ../src/html.c:1294 ../src/html.c:2067
+#: ../src/html.c:620 ../src/html.c:1297 ../src/html.c:1469 ../src/html.c:2091
 msgid "_Language:"
 msgstr "Språ_k:"
 
-#: ../src/html.c:624 ../src/html.c:842 ../src/html.c:976 ../src/html.c:1298
-#: ../src/html.c:1453 ../src/html.c:1856 ../src/html.c:1957 ../src/html.c:2086
+#: ../src/html.c:624 ../src/html.c:842 ../src/html.c:976 ../src/html.c:1301
+#: ../src/html.c:1477 ../src/html.c:1880 ../src/html.c:1981 ../src/html.c:2110
 #: ../src/html_form.c:187 ../src/html_form.c:243 ../src/html_form.c:609
 #: ../src/html_form.c:903 ../src/html_table.c:104 ../src/html_table.c:256
 #: ../src/html_table.c:364 ../src/image.c:342
 msgid "Custo_m:"
 msgstr "An_passad:"
 
-#: ../src/html.c:627 ../src/html.c:1302 ../src/html_form.c:829
+#: ../src/html.c:627 ../src/html.c:1305 ../src/html_form.c:829
 msgid "Events"
 msgstr "Händelser"
 
@@ -1838,18 +1842,18 @@ msgstr "Spann"
 msgid "Ali_gn:"
 msgstr "_Justera:"
 
-#: ../src/html.c:823 ../src/html.c:1286 ../src/html_diag.c:372
+#: ../src/html.c:823 ../src/html.c:1289 ../src/html_diag.c:372
 #: ../src/html_table.c:94 ../src/html_table.c:240 ../src/html_table.c:354
 msgid "Cl_ass:"
 msgstr "Kl_ass:"
 
-#: ../src/html.c:827 ../src/html.c:1187 ../src/html.c:1279
+#: ../src/html.c:827 ../src/html.c:1190 ../src/html.c:1282
 #: ../src/html_diag.c:380 ../src/html_table.c:99 ../src/html_table.c:251
 #: ../src/html_table.c:359
 msgid "St_yle:"
 msgstr "St_il:"
 
-#: ../src/html.c:838 ../src/html.c:1290 ../src/html_diag.c:376
+#: ../src/html.c:838 ../src/html.c:1293 ../src/html_diag.c:376
 msgid "_ID:"
 msgstr "_ID:"
 
@@ -1857,15 +1861,15 @@ msgstr "_ID:"
 msgid "Horizontal Rule"
 msgstr "Horisontell linje"
 
-#: ../src/html.c:950 ../src/html.c:2005 ../src/image.c:360
+#: ../src/html.c:950 ../src/html.c:2029 ../src/image.c:360
 msgid "_Align:"
 msgstr "Justera:"
 
-#: ../src/html.c:957 ../src/html.c:2013 ../src/html_table.c:390
+#: ../src/html.c:957 ../src/html.c:2037 ../src/html_table.c:390
 msgid "_Height:"
 msgstr "_Höjd:"
 
-#: ../src/html.c:963 ../src/html.c:2009 ../src/html_table.c:137
+#: ../src/html.c:963 ../src/html.c:2033 ../src/html_table.c:137
 #: ../src/html_table.c:383 ../src/image.c:318
 msgid "_Width:"
 msgstr "_Bredd:"
@@ -1890,218 +1894,223 @@ msgstr "_Dokumenttyp:"
 msgid "Header tags:"
 msgstr "Rubriktaggar:"
 
-#: ../src/html.c:1173 ../src/quickstart.c:650 ../src/wizards.c:188
+#: ../src/html.c:1176 ../src/quickstart.c:650 ../src/wizards.c:188
 msgid "_Title:"
 msgstr "_Titel:"
 
-#: ../src/html.c:1263
+#: ../src/html.c:1266
 msgid "Body"
 msgstr "Kropp"
 
-#: ../src/html.c:1309
+#: ../src/html.c:1312
 msgid "On_Load:"
 msgstr "Vid laddning:"
 
-#: ../src/html.c:1317
+#: ../src/html.c:1320
 msgid "On_UnLoad:"
 msgstr "Vid urladdning:"
 
-#: ../src/html.c:1326
+#: ../src/html.c:1329
 msgid "Depreciated options"
 msgstr "Föråldrade alternativ"
 
-#: ../src/html.c:1336
+#: ../src/html.c:1339
 msgid "Background _Image:"
 msgstr "Bakgrundsb_ild:"
 
-#: ../src/html.c:1343
+#: ../src/html.c:1346
 msgid "Back_ground Color:"
 msgstr "Bak_grundsfärg:"
 
-#: ../src/html.c:1349
+#: ../src/html.c:1352
 msgid "_Text Color:"
 msgstr "_Textfärg:"
 
-#: ../src/html.c:1355
+#: ../src/html.c:1358
 msgid "_Link Color:"
 msgstr "Färg på _länk:"
 
-#: ../src/html.c:1361
+#: ../src/html.c:1364
 msgid "_Visited Link Color:"
 msgstr "Färg på besökt länk:"
 
-#: ../src/html.c:1367
+#: ../src/html.c:1370
 msgid "_Active Link Color:"
 msgstr "Färg på _aktiv länk:"
 
-#: ../src/html.c:1415
+#: ../src/html.c:1422
 msgid "Meta"
 msgstr "Meta"
 
-#: ../src/html.c:1440
+#: ../src/html.c:1460
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-#: ../src/html.c:1445
+#: ../src/html.c:1465
 msgid "Con_tent:"
 msgstr "_Innehåll:"
 
-#: ../src/html.c:1449
+#: ../src/html.c:1473
 msgid "_Scheme:"
 msgstr "_Schema:"
 
-#: ../src/html.c:1532 ../src/preferences.c:2000
+#: ../src/html.c:1556 ../src/preferences.c:2000
 msgid "Font"
 msgstr "Typsnitt"
 
-#: ../src/html.c:1535
+#: ../src/html.c:1559
 msgid "Base Font"
 msgstr "Standardtypsnitt"
 
-#: ../src/html.c:1550
+#: ../src/html.c:1574
 msgid "Size"
 msgstr "Storlek"
 
-#: ../src/html.c:1558
+#: ../src/html.c:1582
 msgid "Color"
 msgstr "Färg"
 
-#: ../src/html.c:1563
+#: ../src/html.c:1587
 msgid "Face"
 msgstr "Typsnittsfamilj"
 
-#: ../src/html.c:1567
+#: ../src/html.c:1591
 msgid "Custom"
 msgstr "Anpassad"
 
-#: ../src/html.c:1671
+#: ../src/html.c:1695
 msgid "E-mail"
 msgstr "E-post"
 
-#: ../src/html.c:1679
+#: ../src/html.c:1703
 msgid "_Mail to:"
 msgstr "_E-post till:"
 
-#: ../src/html.c:1683
+#: ../src/html.c:1707
 msgid "_Copy to:"
 msgstr "_Kopiera:"
 
-#: ../src/html.c:1687
+#: ../src/html.c:1711
 msgid "Blin_d copy to:"
 msgstr "Dol_d kopia till:"
 
-#: ../src/html.c:1692
+#: ../src/html.c:1716
 msgid "with _Subject:"
 msgstr "med _Ämnet:"
 
-#: ../src/html.c:1694
+#: ../src/html.c:1718
 #, fuzzy
 msgid "with _Subject (URL-encoded):"
 msgstr "med _Ämnet:"
 
-#: ../src/html.c:1700
+#: ../src/html.c:1724
 msgid "with _Body:"
 msgstr "med innehållet:"
 
-#: ../src/html.c:1702
+#: ../src/html.c:1726
 #, fuzzy
 msgid "with _Body (URL-encoded):"
 msgstr "med innehållet:"
 
-#: ../src/html.c:1747
+#: ../src/html.c:1771
 msgid "Quick List"
 msgstr "Snabblista"
 
-#: ../src/html.c:1752 ../src/html.c:1834 ../src/html_form.c:236
+#: ../src/html.c:1776 ../src/html.c:1858 ../src/html_form.c:236
 msgid "_Rows:"
 msgstr "Rader:"
 
-#: ../src/html.c:1755
+#: ../src/html.c:1779
 msgid "Or_dered"
 msgstr "Or_dnad"
 
-#: ../src/html.c:1756
+#: ../src/html.c:1780
 msgid "_Unordered"
 msgstr "_Oordnad"
 
-#: ../src/html.c:1758
+#: ../src/html.c:1782
 msgid "Style:"
 msgstr "Stil:"
 
-#: ../src/html.c:1830 ../src/html_form.c:240
+#: ../src/html.c:1854 ../src/html_form.c:240
 msgid "Co_ls:"
 msgstr "Ko_lumner:"
 
-#: ../src/html.c:1839
+#: ../src/html.c:1863
 msgid "_Add <frame> elements"
 msgstr "_Läggtill <frame> element"
 
-#: ../src/html.c:1916 ../src/html.c:2001 ../src/html.c:2060
+#: ../src/html.c:1940 ../src/html.c:2025 ../src/html.c:2084
 msgid "_Source:"
 msgstr "_Källkod:"
 
-#: ../src/html.c:1924
+#: ../src/html.c:1948
 msgid "Margin _Width:"
 msgstr "Marginalb_redd:"
 
-#: ../src/html.c:1928
+#: ../src/html.c:1952
 msgid "Margin _Height:"
 msgstr "Marginal_höjd:"
 
-#: ../src/html.c:1936
+#: ../src/html.c:1960
 msgid "Scrollin_g:"
 msgstr "Rullnin_g:"
 
-#: ../src/html.c:1940
+#: ../src/html.c:1964
 msgid "_Frameborder:"
 msgstr "_Ramkant:"
 
-#: ../src/html.c:1945
+#: ../src/html.c:1969
 msgid "No _Resize:"
 msgstr "Ingen sto_rleksändring:"
 
-#: ../src/html.c:1995
+#: ../src/html.c:2019
 msgid "Embed"
 msgstr "Inbäddad"
 
-#: ../src/html.c:2017 ../src/html_table.c:143
+#: ../src/html.c:2041 ../src/html_table.c:143
 msgid "Bo_rder:"
 msgstr "Kant:"
 
-#: ../src/html.c:2053
+#: ../src/html.c:2077
 msgid "Script"
 msgstr "Skript"
 
-#: ../src/html.c:2082 ../src/html.c:2149 ../src/html_form.c:789
+#: ../src/html.c:2106 ../src/html.c:2193 ../src/html_form.c:789
 #: ../src/html_form.c:899
 msgid "_Type:"
 msgstr "_Typ:"
 
-#: ../src/html.c:2124
+#: ../src/html.c:2150
 msgid "Link"
 msgstr "Länk"
 
-#: ../src/html.c:2141
+#: ../src/html.c:2167
 msgid "HREF_LANG:"
 msgstr "HREF_LANG:"
 
-#: ../src/html.c:2155
+#: ../src/html.c:2171
+#, fuzzy
+msgid "T_itle:"
+msgstr "_Titel:"
+
+#: ../src/html.c:2212
 msgid "_Forward Relation:"
 msgstr "_Framåtrelation:"
 
-#: ../src/html.c:2159
+#: ../src/html.c:2216
 msgid "_Reverse Relation:"
 msgstr "_Bakåtrelation:"
 
-#: ../src/html.c:2170
+#: ../src/html.c:2227
 msgid "Media:"
 msgstr "Media:"
 
-#: ../src/html.c:2174
+#: ../src/html.c:2231
 msgid "L_ang:"
 msgstr "Spr_åk:"
 
-#: ../src/html.c:2178
+#: ../src/html.c:2235
 msgid "_Custom:"
 msgstr "A_npassad:"
 
@@ -2317,1424 +2326,1424 @@ msgstr ""
 "%x: miniatyrbildsbredd  %y: miniatyrbildshöjd\n"
 "%b: originalstorlek (bitar)"
 
-#: ../src/menu.c:319
+#: ../src/menu.c:322
 msgid "/_File"
 msgstr "/_Arkiv"
 
-#: ../src/menu.c:321
+#: ../src/menu.c:324
 msgid "/File/_New"
 msgstr "/Arkiv/_Nytt"
 
-#: ../src/menu.c:322
+#: ../src/menu.c:325
 msgid "/File/New _Window"
 msgstr "/Arkiv/Nytt _Fönster"
 
-#: ../src/menu.c:323
+#: ../src/menu.c:326
 msgid "/File/_Open..."
 msgstr "/Arkiv/_Öppna..."
 
-#: ../src/menu.c:324
+#: ../src/menu.c:327
 msgid "/File/Open _recent"
 msgstr "/Arkiv/Öppna senaste"
 
-#: ../src/menu.c:328
+#: ../src/menu.c:331
 msgid "/File/Open Ad_vanced..."
 msgstr "/Arkiv/Öppna A_vancerat..."
 
-#: ../src/menu.c:332
+#: ../src/menu.c:335
 msgid "/File/Open _URL..."
 msgstr "/Arkiv/Öppna _URL..."
 
-#: ../src/menu.c:334
+#: ../src/menu.c:337
 msgid "/File/Open _from selection"
 msgstr "/Arkiv/Öppna _från markering"
 
-#: ../src/menu.c:336
+#: ../src/menu.c:339
 msgid "/File/_Save"
 msgstr "/Arkiv/_Spara"
 
-#: ../src/menu.c:337
+#: ../src/menu.c:340
 msgid "/File/Save _As..."
 msgstr "/Arkiv/Sp_ara som..."
 
-#: ../src/menu.c:338
+#: ../src/menu.c:341
 msgid "/File/Sav_e All"
 msgstr "/Arkiv/S_para alla"
 
-#: ../src/menu.c:339
+#: ../src/menu.c:342
 msgid "/File/Rever_t to Saved"
 msgstr "/Arkiv/_Återgå till sparat"
 
-#: ../src/menu.c:341
+#: ../src/menu.c:344
 msgid "/File/_Insert..."
 msgstr "/Arkiv/_Infoga..."
 
-#: ../src/menu.c:342
+#: ../src/menu.c:345
 msgid "/File/Rena_me..."
 msgstr "/Arkiv/_Döp om..."
 
-#: ../src/menu.c:344
+#: ../src/menu.c:347
 msgid "/File/_Close"
 msgstr "/Arkiv/S_täng"
 
-#: ../src/menu.c:345
+#: ../src/menu.c:348
 msgid "/File/Close A_ll"
 msgstr "/Arkiv/Stäng alla"
 
-#: ../src/menu.c:346
+#: ../src/menu.c:349
 msgid "/File/Close Win_dow"
 msgstr "/Arkiv/Stäng Föns_ter"
 
-#: ../src/menu.c:348
+#: ../src/menu.c:351
 msgid "/File/_Quit"
 msgstr "/Arkiv/_Avsluta"
 
-#: ../src/menu.c:349
+#: ../src/menu.c:352
 msgid "/_Edit"
 msgstr "/_Redigera"
 
-#: ../src/menu.c:351
+#: ../src/menu.c:354
 msgid "/Edit/_Undo"
 msgstr "/Redigera/_Ångra"
 
-#: ../src/menu.c:352
+#: ../src/menu.c:355
 msgid "/Edit/_Redo"
 msgstr "/Redigera/_Gör om"
 
-#: ../src/menu.c:353
+#: ../src/menu.c:356
 msgid "/Edit/Undo All"
 msgstr "/Redigera/Ångra allt"
 
-#: ../src/menu.c:354
+#: ../src/menu.c:357
 msgid "/Edit/Redo All"
 msgstr "/Redigera/Gör om allt"
 
-#: ../src/menu.c:356
+#: ../src/menu.c:359
 msgid "/Edit/Cu_t"
 msgstr "/Redigera/Klipp _ut"
 
-#: ../src/menu.c:357
+#: ../src/menu.c:360
 msgid "/Edit/_Copy"
 msgstr "/Redigera/_Kopiera"
 
-#: ../src/menu.c:358
+#: ../src/menu.c:361
 msgid "/Edit/_Paste"
 msgstr "/Redigera/Klistra _in"
 
-#: ../src/menu.c:360
+#: ../src/menu.c:363
 msgid "/Edit/Select _All"
 msgstr "/Redigera/Markera _allt"
 
-#: ../src/menu.c:362
+#: ../src/menu.c:365
 msgid "/Edit/_Find..."
 msgstr "/Redigera/_Sök..."
 
-#: ../src/menu.c:363
+#: ../src/menu.c:366
 msgid "/Edit/Find A_gain"
 msgstr "/Redigera/Sök ige_n"
 
-#: ../src/menu.c:364
+#: ../src/menu.c:367
 msgid "/Edit/Find from selection"
 msgstr "/Redigera/Sök utifrån markering"
 
-#: ../src/menu.c:365
+#: ../src/menu.c:368
 msgid "/Edit/R_eplace..."
 msgstr "/Redigera/_Ersätt..."
 
-#: ../src/menu.c:366
+#: ../src/menu.c:369
 msgid "/Edit/Replace Agai_n"
 msgstr "/Redigera/Ersätt _igen"
 
-#: ../src/menu.c:367
+#: ../src/menu.c:370
 msgid "/Edit/Replace special"
 msgstr "/Redigera/Ersätt special"
 
-#: ../src/menu.c:369
+#: ../src/menu.c:372
 msgid "/Edit/Replace special/_ASCII to HTML Entities"
 msgstr "/Redigera/Ersätt special/_ASCII till HTML-entiteter"
 
-#: ../src/menu.c:370
+#: ../src/menu.c:373
 msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
 msgstr "/Redigera/Ersätt special/_iso8859 till HTML-entiteter"
 
-#: ../src/menu.c:371
+#: ../src/menu.c:374
 msgid "/Edit/Replace special/_Both Types to HTML Entities"
 msgstr "/Redigera/Ersätt special/_Båda typerna till HTML-entiteter"
 
-#: ../src/menu.c:372
+#: ../src/menu.c:375
 msgid "/Edit/Replace special/To _Uppercase"
 msgstr "/Redigera/Ersätt special/Till _Versaler"
 
-#: ../src/menu.c:373
+#: ../src/menu.c:376
 msgid "/Edit/Replace special/To _Lowercase"
 msgstr "/Redigera/Ersätt special/Till _Gemener"
 
-#: ../src/menu.c:376 ../src/menu.c:379
+#: ../src/menu.c:379 ../src/menu.c:382
 msgid "/Edit/S_hift Right"
 msgstr "/Edit/Flytta åt _höger"
 
-#: ../src/menu.c:377 ../src/menu.c:380
+#: ../src/menu.c:380 ../src/menu.c:383
 msgid "/Edit/Shift _Left"
 msgstr "/Redigera/Flytta åt _vänster"
 
-#: ../src/menu.c:383
+#: ../src/menu.c:386
 msgid "/Edit/Add _Bookmark"
 msgstr "/Redigera/Lägg till _Bokmärke"
 
-#: ../src/menu.c:385
+#: ../src/menu.c:388
 msgid "/Edit/Save Sett_ings"
 msgstr "/Redigera/_Spara inställningar"
 
-#: ../src/menu.c:386
+#: ../src/menu.c:389
 msgid "/Edit/Save Shortcut _Keys"
 msgstr "/Redigera/Spara _kortkomandon"
 
-#: ../src/menu.c:387
+#: ../src/menu.c:390
 msgid "/Edit/Preference_s"
 msgstr "/Redigera/_Inställningar"
 
-#: ../src/menu.c:388
+#: ../src/menu.c:391
 msgid "/_View"
 msgstr "/_Visa"
 
-#: ../src/menu.c:390
+#: ../src/menu.c:393
 msgid "/View/View _Main Toolbar"
 msgstr "/Visa/Visa h_uvudverktygsraden"
 
-#: ../src/menu.c:391
+#: ../src/menu.c:394
 msgid "/View/View _HTML Toolbar"
 msgstr "/Visa/Visa _HTML-verktygen"
 
-#: ../src/menu.c:392
+#: ../src/menu.c:395
 msgid "/View/View _Custom Menu"
 msgstr "/Visa/Visa _anpassad meny"
 
-#: ../src/menu.c:393
+#: ../src/menu.c:396
 msgid "/View/View _Sidebar"
 msgstr "/Visa/Visa sidolist"
 
-#: ../src/menu.c:394
+#: ../src/menu.c:397
 msgid "/_Tags"
 msgstr "/_Taggar"
 
-#: ../src/menu.c:397
+#: ../src/menu.c:400
 msgid "/Tags/_Headings"
 msgstr "/Taggar/_Rubriker"
 
-#: ../src/menu.c:399
+#: ../src/menu.c:402
 msgid "/Tags/Headings/H_1"
 msgstr "/Taggar/Rubriker/H_1"
 
-#: ../src/menu.c:400
+#: ../src/menu.c:403
 msgid "/Tags/Headings/H_2"
 msgstr "/Taggar/Rubriker/H_2"
 
-#: ../src/menu.c:401
+#: ../src/menu.c:404
 msgid "/Tags/Headings/H_3"
 msgstr "/Taggar/Rubriker/H_3"
 
-#: ../src/menu.c:402
+#: ../src/menu.c:405
 msgid "/Tags/Headings/H_4"
 msgstr "/Taggar/Rubriker/H_4"
 
-#: ../src/menu.c:403
+#: ../src/menu.c:406
 msgid "/Tags/Headings/H_5"
 msgstr "/Taggar/Rubriker/H_5"
 
-#: ../src/menu.c:404
+#: ../src/menu.c:407
 msgid "/Tags/Headings/H_6"
 msgstr "/Taggar/Rubriker/H_6"
 
-#: ../src/menu.c:405
+#: ../src/menu.c:408
 msgid "/Tags/_Special"
 msgstr "/Taggar/_Special"
 
-#: ../src/menu.c:407
+#: ../src/menu.c:410
 msgid "/Tags/Special/_Accent"
 msgstr "/Taggar/Special/Accentuerade"
 
-#: ../src/menu.c:409
+#: ../src/menu.c:412
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "/Taggar/Special/Accentuerade/Versaler"
 
-#: ../src/menu.c:410
+#: ../src/menu.c:413
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr "/Taggar/Special/Accentuerade/Versaler/_A-I"
 
-#: ../src/menu.c:412
+#: ../src/menu.c:415
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/A med grav accent À"
 
-#: ../src/menu.c:413
+#: ../src/menu.c:416
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/A med akut accent Á"
 
-#: ../src/menu.c:414
+#: ../src/menu.c:417
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/A circumflex Â"
 
-#: ../src/menu.c:415
+#: ../src/menu.c:418
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/A med tilde Ã"
 
-#: ../src/menu.c:416
+#: ../src/menu.c:419
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/AE med ligatur Æ"
 
-#: ../src/menu.c:417
+#: ../src/menu.c:420
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/A med trema Ä"
 
-#: ../src/menu.c:418
+#: ../src/menu.c:421
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/A med ring Å"
 
-#: ../src/menu.c:419
+#: ../src/menu.c:422
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/C med cedilj Ç"
 
-#: ../src/menu.c:420
+#: ../src/menu.c:423
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/E med grav accent È"
 
-#: ../src/menu.c:421
+#: ../src/menu.c:424
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/E med akut accent É"
 
-#: ../src/menu.c:422
+#: ../src/menu.c:425
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/E med cirkumflex É"
 
-#: ../src/menu.c:423
+#: ../src/menu.c:426
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/E med trema É"
 
-#: ../src/menu.c:424
+#: ../src/menu.c:427
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/I med grav accent Ì"
 
-#: ../src/menu.c:425
+#: ../src/menu.c:428
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/I med akut accent Í"
 
-#: ../src/menu.c:426
+#: ../src/menu.c:429
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/I cirkumflex Î"
 
-#: ../src/menu.c:427
+#: ../src/menu.c:430
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/I med trema Ï"
 
-#: ../src/menu.c:428
+#: ../src/menu.c:431
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
 msgstr "/Taggar/Special/Accentuerade/Versaler/_J-Z"
 
-#: ../src/menu.c:430
+#: ../src/menu.c:433
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/N med tilde Ñ"
 
-#: ../src/menu.c:431
+#: ../src/menu.c:434
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/O med grav accent Ò"
 
-#: ../src/menu.c:432
+#: ../src/menu.c:435
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/O med akut accent Ó"
 
-#: ../src/menu.c:433
+#: ../src/menu.c:436
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/O med cirkumflex Ô"
 
-#: ../src/menu.c:434
+#: ../src/menu.c:437
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
 msgstr "/Taggar/Special/Accentuerade/Versaler/A-I/OE ligatur Œ"
 
-#: ../src/menu.c:435
+#: ../src/menu.c:438
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/O med tilde Õ"
 
-#: ../src/menu.c:436
+#: ../src/menu.c:439
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/O med trema Ö"
 
-#: ../src/menu.c:437
+#: ../src/menu.c:440
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/O med snedstreck Ø"
 
-#: ../src/menu.c:438
+#: ../src/menu.c:441
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/U med grav accent Ù"
 
-#: ../src/menu.c:439
+#: ../src/menu.c:442
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/U med akut accent Ú"
 
-#: ../src/menu.c:440
+#: ../src/menu.c:443
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/U med cirkumflex Û"
 
-#: ../src/menu.c:441
+#: ../src/menu.c:444
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/U med trema Ü"
 
-#: ../src/menu.c:442
+#: ../src/menu.c:445
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr "/Taggar/Special/Accentuerade/Versaler/J-Z/Y med akut accent Ý"
 
-#: ../src/menu.c:443
+#: ../src/menu.c:446
 msgid "/Tags/Special/Accent/_Lowercase"
 msgstr "/Taggar/Special/Accentuerade/_Gemener"
 
-#: ../src/menu.c:444
+#: ../src/menu.c:447
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
 msgstr "/Taggar/Special/Accentuerade/gemener/_A-I"
 
-#: ../src/menu.c:446
+#: ../src/menu.c:449
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/a med grav accent à"
 
-#: ../src/menu.c:447
+#: ../src/menu.c:450
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/a med akut accent á"
 
-#: ../src/menu.c:448
+#: ../src/menu.c:451
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/a med cirkumflex â"
 
-#: ../src/menu.c:449
+#: ../src/menu.c:452
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/a med tilde ã"
 
-#: ../src/menu.c:450
+#: ../src/menu.c:453
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/a med ring å"
 
-#: ../src/menu.c:451
+#: ../src/menu.c:454
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/ae med ligatur æ"
 
-#: ../src/menu.c:452
+#: ../src/menu.c:455
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/a med trema ä"
 
-#: ../src/menu.c:453
+#: ../src/menu.c:456
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/c med cedilj ç"
 
-#: ../src/menu.c:454
+#: ../src/menu.c:457
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/e grav accent è"
 
-#: ../src/menu.c:455
+#: ../src/menu.c:458
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/e akut accent é"
 
-#: ../src/menu.c:456
+#: ../src/menu.c:459
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/e med cirkumflex ê"
 
-#: ../src/menu.c:457
+#: ../src/menu.c:460
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/e med trema ë"
 
-#: ../src/menu.c:458
+#: ../src/menu.c:461
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/i med grav ì"
 
-#: ../src/menu.c:459
+#: ../src/menu.c:462
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/i med akut í"
 
-#: ../src/menu.c:460
+#: ../src/menu.c:463
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/i med cirkumflex î"
 
-#: ../src/menu.c:461
+#: ../src/menu.c:464
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/i med trema ï"
 
-#: ../src/menu.c:462
+#: ../src/menu.c:465
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr "/Taggar/Special/Accentuerade/gemener/_J-Z"
 
-#: ../src/menu.c:464
+#: ../src/menu.c:467
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/n med tilde ñ"
 
-#: ../src/menu.c:465
+#: ../src/menu.c:468
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/o med grav accent ò"
 
-#: ../src/menu.c:466
+#: ../src/menu.c:469
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/o med akut accent ó"
 
-#: ../src/menu.c:467
+#: ../src/menu.c:470
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
 msgstr "/Taggar/Special/Accentuerade/gemener/A-I/oe med ligatur æ"
 
-#: ../src/menu.c:468
+#: ../src/menu.c:471
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/o med cirkumflex ô"
 
-#: ../src/menu.c:469
+#: ../src/menu.c:472
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/o med tilde õ"
 
-#: ../src/menu.c:470
+#: ../src/menu.c:473
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/o med trema ö"
 
-#: ../src/menu.c:471
+#: ../src/menu.c:474
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/o med snedstreck ø"
 
-#: ../src/menu.c:472
+#: ../src/menu.c:475
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/u med grav accent ù"
 
-#: ../src/menu.c:473
+#: ../src/menu.c:476
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/u med akut accent ú"
 
-#: ../src/menu.c:474
+#: ../src/menu.c:477
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/u med cirkumflex û"
 
-#: ../src/menu.c:475
+#: ../src/menu.c:478
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/u med trema ü"
 
-#: ../src/menu.c:476
+#: ../src/menu.c:479
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/y med akut accent ý"
 
-#: ../src/menu.c:477
+#: ../src/menu.c:480
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr "/Taggar/Special/Accentuerade/gemener/J-Z/y med trema ÿ"
 
-#: ../src/menu.c:479
+#: ../src/menu.c:482
 msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "/Taggar/Special/Accent/U_mlaut ¨"
 
-#: ../src/menu.c:480
+#: ../src/menu.c:483
 msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "/Taggar/Special/Accent/_Akut ´"
 
-#: ../src/menu.c:481
+#: ../src/menu.c:484
 msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "/Taggar/Special/Accent/_Cedilj ¸"
 
-#: ../src/menu.c:482
+#: ../src/menu.c:485
 msgid "/Tags/Special/_Currency"
 msgstr "/Taggar/Special/_Valuta"
 
-#: ../src/menu.c:484
+#: ../src/menu.c:487
 msgid "/Tags/Special/Currency/_Cent sign ¢"
 msgstr "/Taggar/Special/Valuta/_Cent tecken ¢"
 
-#: ../src/menu.c:485
+#: ../src/menu.c:488
 msgid "/Tags/Special/Currency/_Pound sterling £"
 msgstr "/Taggar/Special/Valuta/_Pund £"
 
-#: ../src/menu.c:486
+#: ../src/menu.c:489
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
 msgstr "/Taggar/Special/Valuta/Va_lutatecken ¤"
 
-#: ../src/menu.c:487
+#: ../src/menu.c:490
 msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Taggar/Special/Valuta/Yentecken ¥"
 
-#: ../src/menu.c:488
+#: ../src/menu.c:491
 msgid "/Tags/Special/Currency/_Euro "
 msgstr "/Taggar/Special/Valuta/_Euro "
 
-#: ../src/menu.c:489
+#: ../src/menu.c:492
 msgid "/Tags/Special/_Math-Science"
 msgstr "/Taggar/Special/Matematik-Vetenskap"
 
-#: ../src/menu.c:491
+#: ../src/menu.c:494
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
 msgstr "/Taggar/Special/Matematik-Vetenskap/Logiskt i_nte ¬"
 
-#: ../src/menu.c:492
+#: ../src/menu.c:495
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
 msgstr "/Taggar/Special/Matematik-Vetenskap/_Multiplikationstecken ×"
 
-#: ../src/menu.c:493
+#: ../src/menu.c:496
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
 msgstr "/Taggar/Special/Matematik-Vetenskap/_Divisionstecken ÷"
 
-#: ../src/menu.c:494
+#: ../src/menu.c:497
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
 msgstr "/Taggar/Special/Matematik-Vetenskap/_Plus-minus-tecken ±"
 
-#: ../src/menu.c:495
+#: ../src/menu.c:498
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
 msgstr "/Taggar/Special/Matematik-Vetenskap/ Mindre _än-tecken <"
 
-#: ../src/menu.c:496
+#: ../src/menu.c:499
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
 msgstr "/Taggar/Special/Matematik-Vetenskap/S_törre än-tecken >"
 
-#: ../src/menu.c:497
+#: ../src/menu.c:500
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "/Taggar/Special/Matematik-Vetenskap/Upphöjt _1 ¹"
 
-#: ../src/menu.c:498
+#: ../src/menu.c:501
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "/Taggar/Special/Matematik-Vetenskap/Upphöjt _2 ²"
 
-#: ../src/menu.c:499
+#: ../src/menu.c:502
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "/Taggar/Special/Matematik-Vetenskap/Upphöjt _3 ³"
 
-#: ../src/menu.c:500
+#: ../src/menu.c:503
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
 msgstr "/Taggar/Special/Matematik-Vetenskap/En _fjärdedel ¼"
 
-#: ../src/menu.c:501
+#: ../src/menu.c:504
 msgid "/Tags/Special/Math-Science/One _half ½"
 msgstr "/Taggar/Special/Matematik-Vetenskap/En _halv ½"
 
-#: ../src/menu.c:502
+#: ../src/menu.c:505
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
 msgstr "/Taggar/Special/Matematik-Vetenskap/_Tre fjärdedelar ¾"
 
-#: ../src/menu.c:503
+#: ../src/menu.c:506
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
 msgstr "/Taggar/Special/Matematik-Vetenskap/G_radtecken °"
 
-#: ../src/menu.c:504
+#: ../src/menu.c:507
 msgid "/Tags/Special/_Non Latin"
 msgstr "/Taggar/Special/Ej lati_nska"
 
-#: ../src/menu.c:506
+#: ../src/menu.c:509
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "/Taggar/Special/Ej latinska/_ETH (Isländskt) Ð"
 
-#: ../src/menu.c:507
+#: ../src/menu.c:510
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "/Taggar/Special/Ej latinska/ _THORN (Isländskt) Þ"
 
-#: ../src/menu.c:508
+#: ../src/menu.c:511
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "/Taggar/Special/Ej latinska/et_h (Isländskt) ð"
 
-#: ../src/menu.c:509
+#: ../src/menu.c:512
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "/Taggar/Special/Ej latinska/th_orn ÿ"
 
-#: ../src/menu.c:510
+#: ../src/menu.c:513
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "/Taggar/Special/Ej latinska/Sharp_s ß"
 
-#: ../src/menu.c:511
+#: ../src/menu.c:514
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
 msgstr "/Taggar/Special/Ej latinska/Microtecken µ"
 
-#: ../src/menu.c:512
+#: ../src/menu.c:515
 msgid "/Tags/Special/_Other"
 msgstr "/Taggar/Special/_Övriga"
 
-#: ../src/menu.c:514
+#: ../src/menu.c:517
 msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "/Taggar/Special/Övriga/Radbryt_ningsfritt mellanslag"
 
-#: ../src/menu.c:515
+#: ../src/menu.c:518
 msgid "/Tags/Special/Other/_Section sign §"
 msgstr "/Taggar/Special/Övriga/_Paragraftecken §"
 
-#: ../src/menu.c:516
+#: ../src/menu.c:519
 msgid "/Tags/Special/Other/_Copyright sign ©"
 msgstr "/Taggar/Special/Övriga/_Copyrighttecken ©"
 
-#: ../src/menu.c:517
+#: ../src/menu.c:520
 msgid "/Tags/Special/Other/_Left angle quotes «"
 msgstr "/Taggar/Special/Övriga/_Vänster vinkelcitationstecken «"
 
-#: ../src/menu.c:518
+#: ../src/menu.c:521
 msgid "/Tags/Special/Other/_Right angle quotes »"
 msgstr "/Taggar/Special/Övriga/_Höger vinkelcitationstecken »"
 
-#: ../src/menu.c:519
+#: ../src/menu.c:522
 msgid "/Tags/Special/Other/Registered _trademark ®"
 msgstr "/Taggar/Special/Övriga/_Registrerat varumärke ®"
 
-#: ../src/menu.c:520
+#: ../src/menu.c:523
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
 msgstr "/Taggar/Special/Övriga/Inv_erterat utropstecken ¡"
 
-#: ../src/menu.c:521
+#: ../src/menu.c:524
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
 msgstr "/Taggar/Special/Övriga/Inverterat fr_ågetecken ¿"
 
-#: ../src/menu.c:522
+#: ../src/menu.c:525
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "/Taggar/Special/Övriga/_Feminint ordinal ª"
 
-#: ../src/menu.c:523
+#: ../src/menu.c:526
 msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "/Taggar/Special/Övriga/_Maskulint ordinal º"
 
-#: ../src/menu.c:524
+#: ../src/menu.c:527
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
 msgstr "/Taggar/Special/Övriga/_Paragraftecken ¶"
 
-#: ../src/menu.c:525
+#: ../src/menu.c:528
 msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Taggar/Special/Övriga/_Bruten vertikal linje ¦"
 
-#: ../src/menu.c:526
+#: ../src/menu.c:529
 msgid "/Tags/Special/Other/Soft _hypen -"
 msgstr "/Taggar/Special/Övriga/M_jukt bindestreck -"
 
-#: ../src/menu.c:527
+#: ../src/menu.c:530
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
 msgstr "/Taggar/Special/Övriga/Upp_höjt bindestreck ¯"
 
-#: ../src/menu.c:528
+#: ../src/menu.c:531
 msgid "/Tags/Special/Other/Middle _dot ·"
 msgstr "/Taggar/Special/Övriga/Mittenp_unkt ·"
 
-#: ../src/menu.c:529
+#: ../src/menu.c:532
 msgid "/Tags/_Format by layout"
 msgstr "/Taggar/_Formatera efter layout"
 
-#: ../src/menu.c:531
+#: ../src/menu.c:534
 msgid "/Tags/Format by layout/_Bold"
 msgstr "/Taggar/Formatera efter layout/_Fet"
 
-#: ../src/menu.c:532
+#: ../src/menu.c:535
 msgid "/Tags/Format by layout/_Italic"
 msgstr "/Taggar/Formatera efter layout/_Kursiv"
 
-#: ../src/menu.c:533
+#: ../src/menu.c:536
 msgid "/Tags/Format by layout/_Underline"
 msgstr "/Taggar/Formatera efter layout/_Understrykning"
 
-#: ../src/menu.c:534
+#: ../src/menu.c:537
 msgid "/Tags/Format by layout/_Strikeout"
 msgstr "/Taggar/Formatera efter layout/_Överstrykning"
 
-#: ../src/menu.c:535
+#: ../src/menu.c:538
 msgid "/Tags/Format by layout/Sm_all"
 msgstr "/Taggar/Formatera efter layout/L_iten"
 
-#: ../src/menu.c:536
+#: ../src/menu.c:539
 msgid "/Tags/Format by layout/Bi_g"
 msgstr "/Taggar/_Formatera efter layout/S_tor"
 
-#: ../src/menu.c:537
+#: ../src/menu.c:540
 msgid "/Tags/F_ormat by context"
 msgstr "/Taggar/F_ormatera genom sammanhang"
 
-#: ../src/menu.c:539
+#: ../src/menu.c:542
 msgid "/Tags/Format by context/_Strong"
 msgstr "/Taggar/Formatera efter sammanhang/_Markerad"
 
-#: ../src/menu.c:540
+#: ../src/menu.c:543
 msgid "/Tags/Format by context/_Emphasis"
 msgstr "/Taggar/Formatera efter sammanhang/_Betonad"
 
-#: ../src/menu.c:541
+#: ../src/menu.c:544
 msgid "/Tags/Format by context/_Define"
 msgstr "/Taggar/Formatera efter sammanhang/_Definition"
 
-#: ../src/menu.c:542
+#: ../src/menu.c:545
 msgid "/Tags/Format by context/_Code"
 msgstr "/Taggar/Formatera efter sammanhang/_Kod"
 
-#: ../src/menu.c:543
+#: ../src/menu.c:546
 msgid "/Tags/Format by context/Sa_mple"
 msgstr "/Taggar/Formatera efter sammanhang/E_xempel"
 
-#: ../src/menu.c:544
+#: ../src/menu.c:547
 msgid "/Tags/Format by context/_Keyboard"
 msgstr "/Taggar/Formatera efter sammanhang/_Tangentbord"
 
-#: ../src/menu.c:545
+#: ../src/menu.c:548
 msgid "/Tags/Format by context/_Variable"
 msgstr "/Taggar/Formatera efter sammanhang/_Variabel"
 
-#: ../src/menu.c:546
+#: ../src/menu.c:549
 msgid "/Tags/Format by context/Ci_tation"
 msgstr "/Taggar/Formatera efter sammanhang/_Citat"
 
-#: ../src/menu.c:547
+#: ../src/menu.c:550
 msgid "/Tags/Format by context/_Abbreviation"
 msgstr "/Taggar/Formatera efter sammanhang/_Förkortning"
 
-#: ../src/menu.c:548
+#: ../src/menu.c:551
 msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/Taggar/Formatera efter sammanhang/Ak_ronym"
 
-#: ../src/menu.c:549
+#: ../src/menu.c:552
 msgid "/Tags/Format _general"
 msgstr "/Taggar/_Vanlig formatering"
 
-#: ../src/menu.c:551
+#: ../src/menu.c:554
 msgid "/Tags/Format general/_Paragraph"
 msgstr "/Taggar/Vanlig formatering/_Paragraf"
 
-#: ../src/menu.c:552
+#: ../src/menu.c:555
 msgid "/Tags/Format general/_Break"
 msgstr "/Taggar/Vanlig formatering/Rad_brytning"
 
-#: ../src/menu.c:553
+#: ../src/menu.c:556
 msgid "/Tags/Format general/Break clear _all"
 msgstr "/Taggar/Vanlig formatering/Radbrytning, töm _helt"
 
-#: ../src/menu.c:554
+#: ../src/menu.c:557
 msgid "/Tags/Format general/_Non-Breaking Space"
 msgstr "/Taggar/Vanlig formatering/Radbryt_ningsfritt mellanslag"
 
-#: ../src/menu.c:556
+#: ../src/menu.c:559
 msgid "/Tags/Format general/Font Si_ze +1"
 msgstr "/Taggar/Vanlig formatering/Typsnittss_torlek +1"
 
-#: ../src/menu.c:557
+#: ../src/menu.c:560
 msgid "/Tags/Format general/Font _Size -1"
 msgstr "/Taggar/Vanlig formatering/Typsnittsst_orlek -1"
 
-#: ../src/menu.c:559
+#: ../src/menu.c:562
 msgid "/Tags/Format general/Preformatted _Text"
 msgstr "/Taggar/Vanlig formatering/Förformaterad _text"
 
-#: ../src/menu.c:560
+#: ../src/menu.c:563
 msgid "/Tags/Format general/Su_bscript"
 msgstr "/Taggar/Vanlig formatering/S_änkt"
 
-#: ../src/menu.c:561
+#: ../src/menu.c:564
 msgid "/Tags/Format general/Su_perscript"
 msgstr "/Taggar/Vanlig formatering/_Upphöjd"
 
-#: ../src/menu.c:563
+#: ../src/menu.c:566
 msgid "/Tags/Format general/_Center"
 msgstr "/Taggar/Vanlig formatering/_Centrera"
 
-#: ../src/menu.c:564
+#: ../src/menu.c:567
 msgid "/Tags/Format general/Align _right"
 msgstr "/Taggar/Vanlig formatering/_Högerjustera"
 
-#: ../src/menu.c:565
+#: ../src/menu.c:568
 msgid "/Tags/_Table"
 msgstr "/Taggar/_Tabell"
 
-#: ../src/menu.c:567
+#: ../src/menu.c:570
 msgid "/Tags/Table/_Table"
 msgstr "/Taggar/Tabell/_Tabell"
 
-#: ../src/menu.c:568
+#: ../src/menu.c:571
 msgid "/Tags/Table/Table _Row"
 msgstr "/Taggar/Tabell/Tabell_rad"
 
-#: ../src/menu.c:569
+#: ../src/menu.c:572
 msgid "/Tags/Table/Table _Header"
 msgstr "/Taggar/Tabell/Tabell_huvud"
 
-#: ../src/menu.c:570
+#: ../src/menu.c:573
 msgid "/Tags/Table/Table _Data"
 msgstr "/Taggar/Tabell/Tabell_data"
 
-#: ../src/menu.c:571
+#: ../src/menu.c:574
 msgid "/Tags/Table/Table _Caption"
 msgstr "/Taggar/Tabell/Tabellr_ubrik"
 
-#: ../src/menu.c:572
+#: ../src/menu.c:575
 msgid "/Tags/_List"
 msgstr "/Taggar/_Lista"
 
-#: ../src/menu.c:574
+#: ../src/menu.c:577
 msgid "/Tags/List/Unordered _List"
 msgstr "/Taggar/Lista/Oordnad lista"
 
-#: ../src/menu.c:575
+#: ../src/menu.c:578
 msgid "/Tags/List/_Ordered List"
 msgstr "/Taggar/Lista/_Ordnad Lista"
 
-#: ../src/menu.c:576
+#: ../src/menu.c:579
 msgid "/Tags/List/List Ite_m"
 msgstr "/Taggar/Lista/List_enhet"
 
-#: ../src/menu.c:577
+#: ../src/menu.c:580
 msgid "/Tags/List/De_finition List"
 msgstr "/Taggar/Lista/De_finitionslista"
 
-#: ../src/menu.c:578
+#: ../src/menu.c:581
 msgid "/Tags/List/Definition _Term"
 msgstr "/Taggar/Lista/Definitions_term"
 
-#: ../src/menu.c:579
+#: ../src/menu.c:582
 msgid "/Tags/List/_Definition"
 msgstr "/Taggar/Lista/De_finition"
 
-#: ../src/menu.c:580
+#: ../src/menu.c:583
 msgid "/Tags/List/Men_u"
 msgstr "/Taggar/Lista/_Meny"
 
-#: ../src/menu.c:581
+#: ../src/menu.c:584
 msgid "/Tags/Fo_rm"
 msgstr "/Taggar/F_ormulär"
 
-#: ../src/menu.c:583
+#: ../src/menu.c:586
 msgid "/Tags/Form/_Form"
 msgstr "/Taggar/Formulär/F_ormulär..."
 
-#: ../src/menu.c:584
+#: ../src/menu.c:587
 msgid "/Tags/Form/_Button"
 msgstr "/Taggar/Formulär/_Knapp..."
 
-#: ../src/menu.c:585
+#: ../src/menu.c:588
 msgid "/Tags/Form/_Input"
 msgstr "/Taggar/Formulär/_Input..."
 
-#: ../src/menu.c:586
+#: ../src/menu.c:589
 msgid "/Tags/Form/_Textarea"
 msgstr "/Taggar/Formulär/Flerr_adigt textfält..."
 
-#: ../src/menu.c:588
+#: ../src/menu.c:591
 msgid "/Tags/_Misc"
 msgstr "/Taggar/_Övriga"
 
-#: ../src/menu.c:590
+#: ../src/menu.c:593
 msgid "/Tags/Misc/Insert Generator _META-Tag"
 msgstr "/Taggar/Övriga/Infoga _META-taggen \"Generator\""
 
-#: ../src/menu.c:591
+#: ../src/menu.c:594
 msgid "/Tags/Misc/_Span"
 msgstr "/Taggar/Övriga/_Span"
 
-#: ../src/menu.c:592
+#: ../src/menu.c:595
 msgid "/Tags/Misc/_Div"
 msgstr "/Taggar/Övriga/_Div"
 
-#: ../src/menu.c:593
+#: ../src/menu.c:596
 msgid "/Tags/Misc/_Link"
 msgstr "/Taggar/Övriga/_Link"
 
-#: ../src/menu.c:594
+#: ../src/menu.c:597
 msgid "/Tags/Misc/S_cript"
 msgstr "/Taggar/Övriga/S_cript"
 
-#: ../src/menu.c:595
+#: ../src/menu.c:598
 msgid "/Tags/Misc/_Anchor"
 msgstr "/Taggar/Övriga/_Ankare"
 
-#: ../src/menu.c:596
+#: ../src/menu.c:599
 msgid "/Tags/Misc/_Image"
 msgstr "/Taggar/Övriga/Tabell"
 
-#: ../src/menu.c:598
+#: ../src/menu.c:601
 msgid "/Tags/_Comment"
 msgstr "/Taggar/_Kommentar"
 
-#: ../src/menu.c:599
+#: ../src/menu.c:602
 msgid "/Dial_ogs"
 msgstr "/Dial_oger"
 
-#: ../src/menu.c:601
+#: ../src/menu.c:604
 msgid "/Dialogs/_General"
 msgstr "/Dialoger/_Vanliga"
 
-#: ../src/menu.c:603
+#: ../src/menu.c:606
 msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Dialoger/Vanliga/_Snabbstart..."
 
-#: ../src/menu.c:606
+#: ../src/menu.c:609
 msgid "/Dialogs/General/_Link Header..."
 msgstr "/Dialoger/Vanliga/_Länkhuvud..."
 
-#: ../src/menu.c:607
+#: ../src/menu.c:610
 msgid "/Dialogs/General/_Body..."
 msgstr "/Dialoger/Vanliga/_Kropp(body)..."
 
-#: ../src/menu.c:608
+#: ../src/menu.c:611
 msgid "/Dialogs/General/_Anchor..."
 msgstr "/Dialoger/Vanliga/_Ankare..."
 
-#: ../src/menu.c:609
+#: ../src/menu.c:612
 msgid "/Dialogs/General/_Email..."
 msgstr "/Dialoger/Vanliga/_E-post..."
 
-#: ../src/menu.c:610
+#: ../src/menu.c:613
 msgid "/Dialogs/General/_Rule..."
 msgstr "/Dialoger/Vanliga/_Linje..."
 
-#: ../src/menu.c:611
+#: ../src/menu.c:614
 msgid "/Dialogs/General/_Font..."
 msgstr "/Dialoger/Vanliga/_Typsnitt (font)..."
 
-#: ../src/menu.c:612
+#: ../src/menu.c:615
 msgid "/Dialogs/General/Basef_ont..."
 msgstr "/Dialoger/Vanliga/Gr_undtypsnitt (basefont).."
 
-#: ../src/menu.c:613
+#: ../src/menu.c:616
 msgid "/Dialogs/General/Quick_list..."
 msgstr "/Dialoger/Vanliga/Snabb_list..."
 
-#: ../src/menu.c:614
+#: ../src/menu.c:617
 msgid "/Dialogs/General/_Meta..."
 msgstr "/Dialoger/Vanliga/_Metadata..."
 
-#: ../src/menu.c:615
+#: ../src/menu.c:618
 msgid "/Dialogs/General/Embe_d..."
 msgstr "/Dialoger/Vanliga/Inbä_ddad..."
 
-#: ../src/menu.c:616
+#: ../src/menu.c:619
 msgid "/Dialogs/General/Select _Color..."
 msgstr "/Dialoger/Vanliga/Välj f_ärg..."
 
-#: ../src/menu.c:617
+#: ../src/menu.c:620
 msgid "/Dialogs/General/Insert _Time..."
 msgstr "/Dialoger/Vanliga/Infoga _tid..."
 
-#: ../src/menu.c:618
+#: ../src/menu.c:621
 msgid "/Dialogs/General/Insert _Image..."
 msgstr "/Dialoger/Vanliga/Infoga en _bild..."
 
-#: ../src/menu.c:619
+#: ../src/menu.c:622
 msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "/Dialoger/Vanliga/Infoga en _miniatyrbild..."
 
-#: ../src/menu.c:620
+#: ../src/menu.c:623
 msgid "/Dialogs/_Table"
 msgstr "/Dialoger/_Tabell"
 
-#: ../src/menu.c:622
+#: ../src/menu.c:625
 msgid "/Dialogs/Table/Table _Wizard..."
 msgstr "/Dialoger/Tabell/Tabell_guide"
 
-#: ../src/menu.c:623
+#: ../src/menu.c:626
 msgid "/Dialogs/Table/_Table..."
 msgstr "/Dialoger/Tabell/_Tabell..."
 
-#: ../src/menu.c:624
+#: ../src/menu.c:627
 msgid "/Dialogs/Table/Table _Row..."
 msgstr "/Dialoger/Tabell/Tabell_rad..."
 
-#: ../src/menu.c:625
+#: ../src/menu.c:628
 msgid "/Dialogs/Table/Table _Head..."
 msgstr "/Dialoger/Tabell/Tabell_huvud..."
 
-#: ../src/menu.c:626
+#: ../src/menu.c:629
 msgid "/Dialogs/Table/Table _Data..."
 msgstr "/Dialoger/Tabell/Tabell_innehåll..."
 
-#: ../src/menu.c:627
+#: ../src/menu.c:630
 msgid "/Dialogs/_CSS"
 msgstr "/Dialoger/_CSS"
 
-#: ../src/menu.c:629
+#: ../src/menu.c:632
 msgid "/Dialogs/CSS/_Create Style..."
 msgstr "/Dialoger/CSS/_Skapa stilmall..."
 
-#: ../src/menu.c:630
+#: ../src/menu.c:633
 msgid "/Dialogs/CSS/S_pan..."
 msgstr "/Dialoger/CSS/S_pan..."
 
-#: ../src/menu.c:631
+#: ../src/menu.c:634
 msgid "/Dialogs/CSS/_Div..."
 msgstr "/Dialoger/CSS/_Div..."
 
-#: ../src/menu.c:632
+#: ../src/menu.c:635
 msgid "/Dialogs/CSS/_Style..."
 msgstr "/Dialoger/CSS/_Style..."
 
-#: ../src/menu.c:633
+#: ../src/menu.c:636
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
 msgstr "/Dialoger/CSS/_Länk till stilmall..."
 
-#: ../src/menu.c:634
+#: ../src/menu.c:637
 msgid "/Dialogs/_Frame"
 msgstr "/Dialoger/_Ram"
 
-#: ../src/menu.c:636
+#: ../src/menu.c:639
 msgid "/Dialogs/Frame/Frame _Wizard..."
 msgstr "/Dialoger/Ram/Ram_guide..."
 
-#: ../src/menu.c:637
+#: ../src/menu.c:640
 msgid "/Dialogs/Frame/Frame_set..."
 msgstr "/Dialoger/Ram/Ram_uppsättning..."
 
-#: ../src/menu.c:638
+#: ../src/menu.c:641
 msgid "/Dialogs/Frame/_Frame..."
 msgstr "/Dialoger/Ram/_Ram..."
 
-#: ../src/menu.c:639
+#: ../src/menu.c:642
 msgid "/Dialogs/F_orm"
 msgstr "/Dialoger/F_ormulär"
 
-#: ../src/menu.c:641
+#: ../src/menu.c:644
 msgid "/Dialogs/Form/F_orm..."
 msgstr "/Dialoger/Formulär/F_ormulär..."
 
-#: ../src/menu.c:642
+#: ../src/menu.c:645
 msgid "/Dialogs/Form/_Input..."
 msgstr "/Dialoger/Formulär/_Input..."
 
-#: ../src/menu.c:643
+#: ../src/menu.c:646
 msgid "/Dialogs/Form/Input Buttons..."
 msgstr "/Dialoger/Formulär/_Knapp..."
 
-#: ../src/menu.c:644
+#: ../src/menu.c:647
 msgid "/Dialogs/Form/Input Text..."
 msgstr "/Dialoger/Formulär/_Textfält..."
 
-#: ../src/menu.c:645
+#: ../src/menu.c:648
 msgid "/Dialogs/Form/Text_area..."
 msgstr "/Dialoger/Formulär/Flerr_adigt textfält..."
 
-#: ../src/menu.c:646
+#: ../src/menu.c:649
 msgid "/Dialogs/Form/_Select..."
 msgstr "/Dialoger/Formulär/_Select..."
 
-#: ../src/menu.c:647
+#: ../src/menu.c:650
 msgid "/Dialogs/Form/O_ption..."
 msgstr "/Dialoger/Formulär/_Alternativ..."
 
-#: ../src/menu.c:648
+#: ../src/menu.c:651
 msgid "/Dialogs/Form/Option _Group..."
 msgstr "/Dialoger/Formulär/Alternativ_grupp..."
 
-#: ../src/menu.c:649
+#: ../src/menu.c:652
 msgid "/Dialogs/Form/_Button..."
 msgstr "/Dialoger/Formulär/_Knapp..."
 
-#: ../src/menu.c:677
+#: ../src/menu.c:680
 msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/Dialoger/_Redigera tagg vid markör..."
 
-#: ../src/menu.c:678
+#: ../src/menu.c:681
 msgid "/_Document"
 msgstr "/_Dokument"
 
-#: ../src/menu.c:680
+#: ../src/menu.c:683
 msgid "/Document/_Increase Tabsize"
 msgstr "/Dokument/_Öka tabulatorsteg"
 
-#: ../src/menu.c:681
+#: ../src/menu.c:684
 msgid "/Document/_Decrease Tabsize"
 msgstr "/Dokument/_Minska tabulatorsteg"
 
-#: ../src/menu.c:682
+#: ../src/menu.c:685
 msgid "/Document/_Auto Indent"
 msgstr "/Dokument/_Automatisk indentering"
 
-#: ../src/menu.c:684
+#: ../src/menu.c:687
 msgid "/Document/Auto Close H_TML tags"
 msgstr "/Dokument/Stäng H_TML-taggar Automatiskt"
 
-#: ../src/menu.c:685
+#: ../src/menu.c:688
 msgid "/Document/_Wrap"
 msgstr "/Dokument/_Radbrytning"
 
-#: ../src/menu.c:686
+#: ../src/menu.c:689
 msgid "/Document/_Line Numbers"
 msgstr "/Dokument/R_adnummer"
 
-#: ../src/menu.c:688
+#: ../src/menu.c:691
 msgid "/Document/_Highlight Syntax"
 msgstr "/Dokument/_Färgkoda syntax"
 
-#: ../src/menu.c:689
+#: ../src/menu.c:692
 msgid "/Document/_Update Highlighting"
 msgstr "/Dokument/_Uppdatera färgkodning"
 
-#: ../src/menu.c:691
+#: ../src/menu.c:694
 msgid "/Document/Document Ty_pe"
 msgstr "/Dokument/Dokumentty_p"
 
-#: ../src/menu.c:693
+#: ../src/menu.c:696
 msgid "/Document/Character _Encoding"
 msgstr "/Dokument/T_eckenkodning"
 
-#: ../src/menu.c:697
+#: ../src/menu.c:700
 msgid "/Document/Check _Spelling..."
 msgstr "/Dokument/Kontrollera _Stavning..."
 
-#: ../src/menu.c:699
+#: ../src/menu.c:702
 msgid "/Document/_Floating window"
 msgstr "/Dokument/_Flytande fönster"
 
-#: ../src/menu.c:700
+#: ../src/menu.c:703
 msgid "/Document/Word _Count"
 msgstr "/Dokument/Räkna _ord"
 
-#: ../src/menu.c:701
+#: ../src/menu.c:704
 msgid "/_Go"
 msgstr "/_Gå"
 
-#: ../src/menu.c:703
+#: ../src/menu.c:706
 msgid "/Go/_Previous document"
 msgstr "/Gå/_Föregående dokument"
 
-#: ../src/menu.c:704
+#: ../src/menu.c:707
 msgid "/Go/_Next document"
 msgstr "/Gå/_Nästa dokument"
 
-#: ../src/menu.c:706
+#: ../src/menu.c:709
 msgid "/Go/_First document"
 msgstr "/Gå/_Första dokumentet"
 
-#: ../src/menu.c:707
+#: ../src/menu.c:710
 msgid "/Go/L_ast document"
 msgstr "/Gå/Sist_a dokumentet"
 
-#: ../src/menu.c:709
+#: ../src/menu.c:712
 msgid "/Go/Goto _Line"
 msgstr "/Gå/Gå ti_ll rad"
 
-#: ../src/menu.c:710
+#: ../src/menu.c:713
 msgid "/Go/Goto _Selection"
 msgstr "/Gå/Gå till _markering"
 
-#: ../src/menu.c:711
+#: ../src/menu.c:714
 msgid "/_Project"
 msgstr "/Projekt"
 
-#: ../src/menu.c:713
+#: ../src/menu.c:716
 msgid "/Project/_New Project"
 msgstr "/Projekt/_Nytt Projekt"
 
-#: ../src/menu.c:714
+#: ../src/menu.c:717
 msgid "/Project/_Open Project..."
 msgstr "/Projekt/_Öppna Projekt..."
 
-#: ../src/menu.c:715
+#: ../src/menu.c:718
 msgid "/Project/Open _recent"
 msgstr "/Projekt/Öppna s_enaste"
 
-#: ../src/menu.c:718
+#: ../src/menu.c:721
 msgid "/Project/_Save"
 msgstr "/Projekt/_Spara"
 
-#: ../src/menu.c:719
+#: ../src/menu.c:722
 msgid "/Project/Save _as..."
 msgstr "/Projekt/Sp_ara _som..."
 
-#: ../src/menu.c:720
+#: ../src/menu.c:723
 msgid "/Project/Save & _close"
 msgstr "/Projekt/Sp_ara & stäng"
 
-#: ../src/menu.c:722
+#: ../src/menu.c:725
 msgid "/Project/E_dit Project Options..."
 msgstr "/Projekt/Re_digera Projektinställningar..."
 
-#: ../src/menu.c:723
+#: ../src/menu.c:726
 msgid "/E_xternal"
 msgstr "/E_xterna"
 
-#: ../src/menu.c:730
+#: ../src/menu.c:733
 msgid "/_Help"
 msgstr "/_Hjälp"
 
-#: ../src/menu.c:731
+#: ../src/menu.c:734
 msgid "/Help/_About..."
 msgstr "/Hjälp/_Om..."
 
-#: ../src/menu.c:893
+#: ../src/menu.c:896
 msgid "/Document/Document Type"
 msgstr "/Dokument/Dokumenttyp"
 
-#: ../src/menu.c:1010
+#: ../src/menu.c:1013
 msgid "Loading file(s)..."
 msgstr "Läser in fil(er)..."
 
-#: ../src/menu.c:1014
+#: ../src/menu.c:1017
 msgid "The filename was:\n"
 msgstr "Filnamnet var:\n"
 
-#: ../src/menu.c:1015
+#: ../src/menu.c:1018
 msgid "Could not open file\n"
 msgstr "Kunde inte öppna filen\n"
 
-#: ../src/menu.c:1038
+#: ../src/menu.c:1041
 msgid "/Project/Open recent"
 msgstr "/Projekt/Öppna senaste"
 
-#: ../src/menu.c:1042
+#: ../src/menu.c:1045
 msgid "/File/Open recent"
 msgstr "/Arkiv/Öppna senaste"
 
-#: ../src/menu.c:1221
+#: ../src/menu.c:1224
 msgid "/Windows"
 msgstr "/Fönster"
 
-#: ../src/menu.c:1287
+#: ../src/menu.c:1290
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr "Kunde inte visa filen i en webbläsare då den saknar namn\n"
 
-#: ../src/menu.c:1422
+#: ../src/menu.c:1425
 msgid "/External/Outputbox/"
 msgstr "/Externa/Utskriftsfönster/"
 
-#: ../src/menu.c:1425
+#: ../src/menu.c:1428
 msgid "/External/Commands/"
 msgstr "/Externa/Kommandon/"
 
-#: ../src/menu.c:1428
+#: ../src/menu.c:1431
 msgid "/External/Browsers/"
 msgstr "/Externa/Webbläsare/"
 
-#: ../src/menu.c:1433 ../src/menu.c:1448 ../src/menu.c:1467 ../src/menu.c:1483
-#: ../src/menu.c:1496 ../src/menu.c:1518
+#: ../src/menu.c:1436 ../src/menu.c:1451 ../src/menu.c:1470 ../src/menu.c:1486
+#: ../src/menu.c:1499 ../src/menu.c:1521
 msgid "/External"
 msgstr "/Externa"
 
-#: ../src/menu.c:1446
+#: ../src/menu.c:1449
 msgid "/External/Browsers"
 msgstr "/External/Webläsare"
 
-#: ../src/menu.c:1481
+#: ../src/menu.c:1484
 msgid "/External/Commands"
 msgstr "/Externa/Kommandon"
 
-#: ../src/menu.c:1516
+#: ../src/menu.c:1519
 msgid "/External/Outputbox"
 msgstr "/Externa/Utskriftsfönster"
 
-#: ../src/menu.c:1562
+#: ../src/menu.c:1565
 msgid "/Document/Character Encoding"
 msgstr "/Dokument/Teckenkodning"
 
-#: ../src/menu.c:1838
+#: ../src/menu.c:1841
 msgid "This custom search and replace requires a selection"
 msgstr "Den här sök- och ersättfunktionen kräver en  markering"
 
-#: ../src/menu.c:1935
+#: ../src/menu.c:1938
 msgid "/_Custom menu"
 msgstr "/_Egen meny"
 
-#: ../src/menu.c:1937
+#: ../src/menu.c:1940
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Egen meny/Redigera egen meny..."
 
-#: ../src/menu.c:1938
+#: ../src/menu.c:1941
 msgid "/Custom menu/Reset"
 msgstr "/Egen meny/Återställ"
 
-#: ../src/menu.c:1939
+#: ../src/menu.c:1942
 msgid "/Custom menu/Load new"
 msgstr "/Egen meny/Öppna ny"
 
-#: ../src/menu.c:2155
+#: ../src/menu.c:2158
 msgid "Search Pattern"
 msgstr "Sökmönster"
 
-#: ../src/menu.c:2156
+#: ../src/menu.c:2159
 msgid "Replace String"
 msgstr "Ersätt sträng"
 
-#: ../src/menu.c:2159
+#: ../src/menu.c:2162
 msgid "Formatstring Before"
 msgstr "Formatsträng Före"
 
-#: ../src/menu.c:2160
+#: ../src/menu.c:2163
 msgid "Formatstring After"
 msgstr "Formatsträng Efter"
 
-#: ../src/menu.c:2207
+#: ../src/menu.c:2210
 msgid "The menupath you want to update does not exist yet"
 msgstr "Menysökvägen som du vill uppdatera finns inte ännu"
 
-#: ../src/menu.c:2207
+#: ../src/menu.c:2210
 msgid "Try 'add' instead."
 msgstr "Försök 'lägg till' istället."
 
-#: ../src/menu.c:2209
+#: ../src/menu.c:2212
 msgid "The menupath you want to add already exists."
 msgstr "menysökvägen som du vill lägga till finns redan."
 
-#: ../src/menu.c:2214
+#: ../src/menu.c:2217
 msgid "The menupath should start with a / character"
 msgstr "Menysökvägen bör börja med ett /-tecken"
 
-#: ../src/menu.c:2376
+#: ../src/menu.c:2379
 msgid "Custom Menu Editor"
 msgstr "Redigerare för Egen meny"
 
-#: ../src/menu.c:2387
+#: ../src/menu.c:2390
 msgid "Add New Menu Entry"
 msgstr "Lägg till Nytt Menyval"
 
-#: ../src/menu.c:2389
+#: ../src/menu.c:2392
 msgid "Apply Changes"
 msgstr "Verkställ Ändringarna"
 
-#: ../src/menu.c:2391
+#: ../src/menu.c:2394
 msgid "Delete Menu Entry"
 msgstr "Ta bort menyval"
 
-#: ../src/menu.c:2394
+#: ../src/menu.c:2397
 msgid "Close Discards Changes"
 msgstr "Stäng och Ignorera Ändringarna"
 
-#: ../src/menu.c:2396
+#: ../src/menu.c:2399
 msgid "Save Changes and Exit"
 msgstr "Spara Ändringarna och Avsluta"
 
-#: ../src/menu.c:2406
+#: ../src/menu.c:2409
 msgid "_Menu Path:"
 msgstr "Menysökväg:"
 
-#: ../src/menu.c:2427
+#: ../src/menu.c:2430
 msgid "Menu path"
 msgstr "Menysökväg"
 
-#: ../src/menu.c:2447
+#: ../src/menu.c:2450
 msgid "Number of _Variables:"
 msgstr "Antal variabler:"
 
-#: ../src/menu.c:2455
+#: ../src/menu.c:2458
 msgid "Variables"
 msgstr "Variabler"
 
-#: ../src/menu.c:2474
+#: ../src/menu.c:2477
 msgid "Custom Dialo_g"
 msgstr "egen dialogruta"
 
-#: ../src/menu.c:2476
+#: ../src/menu.c:2479
 msgid "Custom Replace"
 msgstr "egen Ersätt"
 
-#: ../src/menu.c:2488
+#: ../src/menu.c:2491
 msgid "_Replace:"
 msgstr "_Ersätt:"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2494
 msgid "in current document"
 msgstr "i aktuellt dokument"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2494
 msgid "from cursor"
 msgstr "från markören"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2494
 msgid "in selection"
 msgstr "i urval"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2494
 msgid "in all open documents"
 msgstr "i alla öppna dokument"
 
-#: ../src/menu.c:2499
+#: ../src/menu.c:2502
 msgid "Matc_hing:"
 msgstr "Matchar:"
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2505
 msgid "normal"
 msgstr "normal"
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2505
 msgid "posix regular expressions"
 msgstr "posix reguljära uttryck"
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2505
 msgid "perl regular expressions"
 msgstr "perl reguljärt uttryck"
 
-#: ../src/menu.c:2508
+#: ../src/menu.c:2511
 msgid "Case Se_nsitive"
 msgstr "Känslig för _versaler/gemener"
 

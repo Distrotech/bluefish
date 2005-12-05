@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-30 13:56-0800\n"
+"POT-Creation-Date: 2005-11-12 06:40-0800\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Unknown <unk@unk.org>\n"
 "Language-Team: no team <LL@li.org>\n"
@@ -98,6 +98,9 @@ msgstr ""
 msgid ""
 "Current translators:\n"
 "\n"
+"  Basque: Hizkuntza Politikarako Sailburuordetza\n"
+"   <hizkpol@ej-gv.es>\n"
+"\n"
 "  Brazilian Portuguese: Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
 "\n"
@@ -160,28 +163,28 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../src/about.c:163
+#: ../src/about.c:165
 msgid "About Bluefish"
 msgstr ""
 
-#: ../src/about.c:193
+#: ../src/about.c:195
 msgid ""
 "\n"
 "\n"
 "Resulting in the detection of:\n"
 msgstr ""
 
-#: ../src/about.c:220 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
+#: ../src/about.c:222 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
 #: ../src/fref.c:1870 ../src/fref.c:2347
 #, fuzzy
 msgid "Info"
 msgstr "Neordonat"
 
-#: ../src/about.c:222
+#: ../src/about.c:224
 msgid "Authors"
 msgstr ""
 
-#: ../src/about.c:223
+#: ../src/about.c:225
 msgid "Translators"
 msgstr ""
 
@@ -362,7 +365,7 @@ msgid "_Don't show this dialog again."
 msgstr ""
 
 #: ../src/bookmark.c:368 ../src/html.c:614 ../src/html.c:834
-#: ../src/html.c:1429 ../src/html.c:1920 ../src/html_form.c:231
+#: ../src/html.c:1440 ../src/html.c:1944 ../src/html_form.c:231
 #: ../src/html_form.c:596 ../src/html_form.c:795 ../src/html_form.c:890
 #: ../src/image.c:334
 #, fuzzy
@@ -979,7 +982,7 @@ msgstr "Javascript"
 msgid "Insert"
 msgstr "Introdu"
 
-#: ../src/fref.c:1841 ../src/html.c:1271
+#: ../src/fref.c:1841 ../src/html.c:1274
 #, fuzzy
 msgid "Options"
 msgstr "Actiune"
@@ -1242,11 +1245,11 @@ msgstr "Frameset..."
 msgid "Frame..."
 msgstr "Frame..."
 
-#: ../src/gui.c:643 ../src/html.c:1824
+#: ../src/gui.c:643 ../src/html.c:1848
 msgid "Frameset"
 msgstr "Frameset"
 
-#: ../src/gui.c:644 ../src/html.c:1908
+#: ../src/gui.c:644 ../src/html.c:1932
 msgid "Frame"
 msgstr "Frame"
 
@@ -1733,7 +1736,7 @@ msgstr "Ancora rapida"
 msgid "Attributes"
 msgstr ""
 
-#: ../src/html.c:606 ../src/html.c:2135
+#: ../src/html.c:606 ../src/html.c:2161
 msgid "_HREF:"
 msgstr ""
 
@@ -1742,12 +1745,12 @@ msgstr ""
 msgid "_Target:"
 msgstr "Tinta"
 
-#: ../src/html.c:620 ../src/html.c:1294 ../src/html.c:2067
+#: ../src/html.c:620 ../src/html.c:1297 ../src/html.c:1469 ../src/html.c:2091
 msgid "_Language:"
 msgstr ""
 
-#: ../src/html.c:624 ../src/html.c:842 ../src/html.c:976 ../src/html.c:1298
-#: ../src/html.c:1453 ../src/html.c:1856 ../src/html.c:1957 ../src/html.c:2086
+#: ../src/html.c:624 ../src/html.c:842 ../src/html.c:976 ../src/html.c:1301
+#: ../src/html.c:1477 ../src/html.c:1880 ../src/html.c:1981 ../src/html.c:2110
 #: ../src/html_form.c:187 ../src/html_form.c:243 ../src/html_form.c:609
 #: ../src/html_form.c:903 ../src/html_table.c:104 ../src/html_table.c:256
 #: ../src/html_table.c:364 ../src/image.c:342
@@ -1755,7 +1758,7 @@ msgstr ""
 msgid "Custo_m:"
 msgstr "Taie"
 
-#: ../src/html.c:627 ../src/html.c:1302 ../src/html_form.c:829
+#: ../src/html.c:627 ../src/html.c:1305 ../src/html_form.c:829
 msgid "Events"
 msgstr ""
 
@@ -1815,20 +1818,20 @@ msgstr "Spatiere"
 msgid "Ali_gn:"
 msgstr "Aliniere"
 
-#: ../src/html.c:823 ../src/html.c:1286 ../src/html_diag.c:372
+#: ../src/html.c:823 ../src/html.c:1289 ../src/html_diag.c:372
 #: ../src/html_table.c:94 ../src/html_table.c:240 ../src/html_table.c:354
 #, fuzzy
 msgid "Cl_ass:"
 msgstr "Clasa"
 
-#: ../src/html.c:827 ../src/html.c:1187 ../src/html.c:1279
+#: ../src/html.c:827 ../src/html.c:1190 ../src/html.c:1282
 #: ../src/html_diag.c:380 ../src/html_table.c:99 ../src/html_table.c:251
 #: ../src/html_table.c:359
 #, fuzzy
 msgid "St_yle:"
 msgstr "Stil"
 
-#: ../src/html.c:838 ../src/html.c:1290 ../src/html_diag.c:376
+#: ../src/html.c:838 ../src/html.c:1293 ../src/html_diag.c:376
 msgid "_ID:"
 msgstr ""
 
@@ -1836,17 +1839,17 @@ msgstr ""
 msgid "Horizontal Rule"
 msgstr "Linie orizontala"
 
-#: ../src/html.c:950 ../src/html.c:2005 ../src/image.c:360
+#: ../src/html.c:950 ../src/html.c:2029 ../src/image.c:360
 #, fuzzy
 msgid "_Align:"
 msgstr "Aliniere"
 
-#: ../src/html.c:957 ../src/html.c:2013 ../src/html_table.c:390
+#: ../src/html.c:957 ../src/html.c:2037 ../src/html_table.c:390
 #, fuzzy
 msgid "_Height:"
 msgstr "Inaltime"
 
-#: ../src/html.c:963 ../src/html.c:2009 ../src/html_table.c:137
+#: ../src/html.c:963 ../src/html.c:2033 ../src/html_table.c:137
 #: ../src/html_table.c:383 ../src/image.c:318
 #, fuzzy
 msgid "_Width:"
@@ -1877,243 +1880,248 @@ msgstr "Enctype"
 msgid "Header tags:"
 msgstr "META"
 
-#: ../src/html.c:1173 ../src/quickstart.c:650 ../src/wizards.c:188
+#: ../src/html.c:1176 ../src/quickstart.c:650 ../src/wizards.c:188
 #, fuzzy
 msgid "_Title:"
 msgstr "Fara titlu"
 
-#: ../src/html.c:1263
+#: ../src/html.c:1266
 msgid "Body"
 msgstr "Body"
 
-#: ../src/html.c:1309
+#: ../src/html.c:1312
 msgid "On_Load:"
 msgstr ""
 
-#: ../src/html.c:1317
+#: ../src/html.c:1320
 msgid "On_UnLoad:"
 msgstr ""
 
-#: ../src/html.c:1326
+#: ../src/html.c:1329
 #, fuzzy
 msgid "Depreciated options"
 msgstr "Verifica scrierea cuvintelor"
 
-#: ../src/html.c:1336
+#: ../src/html.c:1339
 #, fuzzy
 msgid "Background _Image:"
 msgstr "Imagine background"
 
-#: ../src/html.c:1343
+#: ../src/html.c:1346
 #, fuzzy
 msgid "Back_ground Color:"
 msgstr "Culoare background"
 
-#: ../src/html.c:1349
+#: ../src/html.c:1352
 #, fuzzy
 msgid "_Text Color:"
 msgstr "Culoare text"
 
-#: ../src/html.c:1355
+#: ../src/html.c:1358
 #, fuzzy
 msgid "_Link Color:"
 msgstr "Culoare link"
 
-#: ../src/html.c:1361
+#: ../src/html.c:1364
 #, fuzzy
 msgid "_Visited Link Color:"
 msgstr "Culoare link vizitat"
 
-#: ../src/html.c:1367
+#: ../src/html.c:1370
 #, fuzzy
 msgid "_Active Link Color:"
 msgstr "Culoare link activ"
 
-#: ../src/html.c:1415
+#: ../src/html.c:1422
 msgid "Meta"
 msgstr "META"
 
-#: ../src/html.c:1440
+#: ../src/html.c:1460
 #, fuzzy
 msgid "_HTTP-EQUIV:"
 msgstr "HTTP-EQUIV"
 
-#: ../src/html.c:1445
+#: ../src/html.c:1465
 #, fuzzy
 msgid "Con_tent:"
 msgstr "Continut"
 
-#: ../src/html.c:1449
+#: ../src/html.c:1473
 msgid "_Scheme:"
 msgstr ""
 
-#: ../src/html.c:1532 ../src/preferences.c:2000
+#: ../src/html.c:1556 ../src/preferences.c:2000
 msgid "Font"
 msgstr "Font"
 
-#: ../src/html.c:1535
+#: ../src/html.c:1559
 msgid "Base Font"
 msgstr "Fontul de baza"
 
-#: ../src/html.c:1550
+#: ../src/html.c:1574
 msgid "Size"
 msgstr "Marime"
 
-#: ../src/html.c:1558
+#: ../src/html.c:1582
 msgid "Color"
 msgstr "Culoare"
 
-#: ../src/html.c:1563
+#: ../src/html.c:1587
 msgid "Face"
 msgstr "Familia font"
 
-#: ../src/html.c:1567
+#: ../src/html.c:1591
 #, fuzzy
 msgid "Custom"
 msgstr "Taie"
 
-#: ../src/html.c:1671
+#: ../src/html.c:1695
 #, fuzzy
 msgid "E-mail"
 msgstr "Email"
 
-#: ../src/html.c:1679
+#: ../src/html.c:1703
 msgid "_Mail to:"
 msgstr ""
 
-#: ../src/html.c:1683
+#: ../src/html.c:1707
 #, fuzzy
 msgid "_Copy to:"
 msgstr "Copiaza"
 
-#: ../src/html.c:1687
+#: ../src/html.c:1711
 msgid "Blin_d copy to:"
 msgstr ""
 
-#: ../src/html.c:1692
+#: ../src/html.c:1716
 msgid "with _Subject:"
 msgstr ""
 
-#: ../src/html.c:1694
+#: ../src/html.c:1718
 msgid "with _Subject (URL-encoded):"
 msgstr ""
 
-#: ../src/html.c:1700
+#: ../src/html.c:1724
 msgid "with _Body:"
 msgstr ""
 
-#: ../src/html.c:1702
+#: ../src/html.c:1726
 msgid "with _Body (URL-encoded):"
 msgstr ""
 
-#: ../src/html.c:1747
+#: ../src/html.c:1771
 msgid "Quick List"
 msgstr "Lista rapida"
 
-#: ../src/html.c:1752 ../src/html.c:1834 ../src/html_form.c:236
+#: ../src/html.c:1776 ../src/html.c:1858 ../src/html_form.c:236
 #, fuzzy
 msgid "_Rows:"
 msgstr "Linii"
 
-#: ../src/html.c:1755
+#: ../src/html.c:1779
 #, fuzzy
 msgid "Or_dered"
 msgstr "Ordonat"
 
-#: ../src/html.c:1756
+#: ../src/html.c:1780
 #, fuzzy
 msgid "_Unordered"
 msgstr "Neordonat"
 
-#: ../src/html.c:1758
+#: ../src/html.c:1782
 #, fuzzy
 msgid "Style:"
 msgstr "Stil"
 
-#: ../src/html.c:1830 ../src/html_form.c:240
+#: ../src/html.c:1854 ../src/html_form.c:240
 #, fuzzy
 msgid "Co_ls:"
 msgstr "Coloane"
 
-#: ../src/html.c:1839
+#: ../src/html.c:1863
 msgid "_Add <frame> elements"
 msgstr ""
 
-#: ../src/html.c:1916 ../src/html.c:2001 ../src/html.c:2060
+#: ../src/html.c:1940 ../src/html.c:2025 ../src/html.c:2084
 #, fuzzy
 msgid "_Source:"
 msgstr "Sursa"
 
-#: ../src/html.c:1924
+#: ../src/html.c:1948
 #, fuzzy
 msgid "Margin _Width:"
 msgstr " Latime margine "
 
-#: ../src/html.c:1928
+#: ../src/html.c:1952
 #, fuzzy
 msgid "Margin _Height:"
 msgstr " Inaltime margine "
 
-#: ../src/html.c:1936
+#: ../src/html.c:1960
 #, fuzzy
 msgid "Scrollin_g:"
 msgstr "Derulare "
 
-#: ../src/html.c:1940
+#: ../src/html.c:1964
 #, fuzzy
 msgid "_Frameborder:"
 msgstr "Frameset"
 
-#: ../src/html.c:1945
+#: ../src/html.c:1969
 #, fuzzy
 msgid "No _Resize:"
 msgstr "Fara schimbare marime"
 
-#: ../src/html.c:1995
+#: ../src/html.c:2019
 msgid "Embed"
 msgstr "Embed"
 
-#: ../src/html.c:2017 ../src/html_table.c:143
+#: ../src/html.c:2041 ../src/html_table.c:143
 #, fuzzy
 msgid "Bo_rder:"
 msgstr "Chenar"
 
-#: ../src/html.c:2053
+#: ../src/html.c:2077
 #, fuzzy
 msgid "Script"
 msgstr "Indice"
 
-#: ../src/html.c:2082 ../src/html.c:2149 ../src/html_form.c:789
+#: ../src/html.c:2106 ../src/html.c:2193 ../src/html_form.c:789
 #: ../src/html_form.c:899
 msgid "_Type:"
 msgstr ""
 
-#: ../src/html.c:2124
+#: ../src/html.c:2150
 msgid "Link"
 msgstr ""
 
-#: ../src/html.c:2141
+#: ../src/html.c:2167
 msgid "HREF_LANG:"
 msgstr ""
 
-#: ../src/html.c:2155
+#: ../src/html.c:2171
+#, fuzzy
+msgid "T_itle:"
+msgstr "Fara titlu"
+
+#: ../src/html.c:2212
 msgid "_Forward Relation:"
 msgstr ""
 
-#: ../src/html.c:2159
+#: ../src/html.c:2216
 msgid "_Reverse Relation:"
 msgstr ""
 
-#: ../src/html.c:2170
+#: ../src/html.c:2227
 #, fuzzy
 msgid "Media:"
 msgstr "META"
 
-#: ../src/html.c:2174
+#: ../src/html.c:2231
 msgid "L_ang:"
 msgstr ""
 
-#: ../src/html.c:2178
+#: ../src/html.c:2235
 #, fuzzy
 msgid "_Custom:"
 msgstr "Taie"
@@ -2359,1719 +2367,1719 @@ msgid ""
 "%b: original size (bytes)"
 msgstr ""
 
-#: ../src/menu.c:319
+#: ../src/menu.c:322
 msgid "/_File"
 msgstr "/_Fisier"
 
-#: ../src/menu.c:321
+#: ../src/menu.c:324
 #, fuzzy
 msgid "/File/_New"
 msgstr "/Fisier/_Nou"
 
-#: ../src/menu.c:322
+#: ../src/menu.c:325
 #, fuzzy
 msgid "/File/New _Window"
 msgstr "/Fisier/_Nou"
 
-#: ../src/menu.c:323
+#: ../src/menu.c:326
 #, fuzzy
 msgid "/File/_Open..."
 msgstr "/Fisier/_Deschide"
 
-#: ../src/menu.c:324
+#: ../src/menu.c:327
 #, fuzzy
 msgid "/File/Open _recent"
 msgstr "/Fisier/_Deschide"
 
-#: ../src/menu.c:328
+#: ../src/menu.c:331
 #, fuzzy
 msgid "/File/Open Ad_vanced..."
 msgstr "/Fisier/_Deschide"
 
-#: ../src/menu.c:332
+#: ../src/menu.c:335
 #, fuzzy
 msgid "/File/Open _URL..."
 msgstr "/Fisier/_Deschide"
 
-#: ../src/menu.c:334
+#: ../src/menu.c:337
 #, fuzzy
 msgid "/File/Open _from selection"
 msgstr "/Fisier/_Deschide"
 
-#: ../src/menu.c:336
+#: ../src/menu.c:339
 msgid "/File/_Save"
 msgstr "/Fisier/_Salveaza"
 
-#: ../src/menu.c:337
+#: ../src/menu.c:340
 #, fuzzy
 msgid "/File/Save _As..."
 msgstr "/Fisier/Salveaza _ca"
 
-#: ../src/menu.c:338
+#: ../src/menu.c:341
 #, fuzzy
 msgid "/File/Sav_e All"
 msgstr "/Fisier/Salveaza tot"
 
-#: ../src/menu.c:339
+#: ../src/menu.c:342
 #, fuzzy
 msgid "/File/Rever_t to Saved"
 msgstr "/Fisier/_Salveaza"
 
-#: ../src/menu.c:341
+#: ../src/menu.c:344
 #, fuzzy
 msgid "/File/_Insert..."
 msgstr "/Fisier/Introdu"
 
-#: ../src/menu.c:342
+#: ../src/menu.c:345
 #, fuzzy
 msgid "/File/Rena_me..."
 msgstr "/Fisier/_Deschide"
 
-#: ../src/menu.c:344
+#: ../src/menu.c:347
 #, fuzzy
 msgid "/File/_Close"
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:345
+#: ../src/menu.c:348
 #, fuzzy
 msgid "/File/Close A_ll"
 msgstr "/Fisier/Inchide tot"
 
-#: ../src/menu.c:346
+#: ../src/menu.c:349
 #, fuzzy
 msgid "/File/Close Win_dow"
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:348
+#: ../src/menu.c:351
 #, fuzzy
 msgid "/File/_Quit"
 msgstr "/Fisier/Iesire"
 
-#: ../src/menu.c:349
+#: ../src/menu.c:352
 msgid "/_Edit"
 msgstr ""
 
-#: ../src/menu.c:351
+#: ../src/menu.c:354
 msgid "/Edit/_Undo"
 msgstr ""
 
-#: ../src/menu.c:352
+#: ../src/menu.c:355
 #, fuzzy
 msgid "/Edit/_Redo"
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:353
+#: ../src/menu.c:356
 #, fuzzy
 msgid "/Edit/Undo All"
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:354
+#: ../src/menu.c:357
 #, fuzzy
 msgid "/Edit/Redo All"
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:356
+#: ../src/menu.c:359
 #, fuzzy
 msgid "/Edit/Cu_t"
 msgstr "Optiuni editor"
 
-#: ../src/menu.c:357
+#: ../src/menu.c:360
 #, fuzzy
 msgid "/Edit/_Copy"
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:358
+#: ../src/menu.c:361
 #, fuzzy
 msgid "/Edit/_Paste"
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:360
+#: ../src/menu.c:363
 #, fuzzy
 msgid "/Edit/Select _All"
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:362
+#: ../src/menu.c:365
 #, fuzzy
 msgid "/Edit/_Find..."
 msgstr "Muta la linia"
 
-#: ../src/menu.c:363
+#: ../src/menu.c:366
 #, fuzzy
 msgid "/Edit/Find A_gain"
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:364
+#: ../src/menu.c:367
 #, fuzzy
 msgid "/Edit/Find from selection"
 msgstr "Muta la linia"
 
-#: ../src/menu.c:365
+#: ../src/menu.c:368
 #, fuzzy
 msgid "/Edit/R_eplace..."
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:366
+#: ../src/menu.c:369
 #, fuzzy
 msgid "/Edit/Replace Agai_n"
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:367
+#: ../src/menu.c:370
 #, fuzzy
 msgid "/Edit/Replace special"
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:369
+#: ../src/menu.c:372
 #, fuzzy
 msgid "/Edit/Replace special/_ASCII to HTML Entities"
 msgstr "Extern"
 
-#: ../src/menu.c:370
+#: ../src/menu.c:373
 #, fuzzy
 msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
 msgstr "Extern"
 
-#: ../src/menu.c:371
+#: ../src/menu.c:374
 #, fuzzy
 msgid "/Edit/Replace special/_Both Types to HTML Entities"
 msgstr "Extern"
 
-#: ../src/menu.c:372
+#: ../src/menu.c:375
 #, fuzzy
 msgid "/Edit/Replace special/To _Uppercase"
 msgstr "Extern"
 
-#: ../src/menu.c:373
+#: ../src/menu.c:376
 #, fuzzy
 msgid "/Edit/Replace special/To _Lowercase"
 msgstr "Extern"
 
-#: ../src/menu.c:376 ../src/menu.c:379
+#: ../src/menu.c:379 ../src/menu.c:382
 #, fuzzy
 msgid "/Edit/S_hift Right"
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:377 ../src/menu.c:380
+#: ../src/menu.c:380 ../src/menu.c:383
 #, fuzzy
 msgid "/Edit/Shift _Left"
 msgstr "/Fisier/Inchide"
 
-#: ../src/menu.c:383
+#: ../src/menu.c:386
 msgid "/Edit/Add _Bookmark"
 msgstr ""
 
-#: ../src/menu.c:385
+#: ../src/menu.c:388
 msgid "/Edit/Save Sett_ings"
 msgstr ""
 
-#: ../src/menu.c:386
+#: ../src/menu.c:389
 msgid "/Edit/Save Shortcut _Keys"
 msgstr ""
 
-#: ../src/menu.c:387
+#: ../src/menu.c:390
 #, fuzzy
 msgid "/Edit/Preference_s"
 msgstr "Referinta PHP3 ..."
 
-#: ../src/menu.c:388
+#: ../src/menu.c:391
 #, fuzzy
 msgid "/_View"
 msgstr "/_Fisier"
 
-#: ../src/menu.c:390
+#: ../src/menu.c:393
 msgid "/View/View _Main Toolbar"
 msgstr ""
 
-#: ../src/menu.c:391
+#: ../src/menu.c:394
 msgid "/View/View _HTML Toolbar"
 msgstr ""
 
-#: ../src/menu.c:392
+#: ../src/menu.c:395
 #, fuzzy
 msgid "/View/View _Custom Menu"
 msgstr "Editeaza meniu"
 
-#: ../src/menu.c:393
+#: ../src/menu.c:396
 #, fuzzy
 msgid "/View/View _Sidebar"
 msgstr "Editeaza meniu"
 
-#: ../src/menu.c:394
+#: ../src/menu.c:397
 msgid "/_Tags"
 msgstr ""
 
-#: ../src/menu.c:397
+#: ../src/menu.c:400
 #, fuzzy
 msgid "/Tags/_Headings"
 msgstr "Aliniat 1"
 
-#: ../src/menu.c:399
+#: ../src/menu.c:402
 #, fuzzy
 msgid "/Tags/Headings/H_1"
 msgstr "Aliniat 1"
 
-#: ../src/menu.c:400
+#: ../src/menu.c:403
 #, fuzzy
 msgid "/Tags/Headings/H_2"
 msgstr "Aliniat 1"
 
-#: ../src/menu.c:401
+#: ../src/menu.c:404
 #, fuzzy
 msgid "/Tags/Headings/H_3"
 msgstr "Aliniat 1"
 
-#: ../src/menu.c:402
+#: ../src/menu.c:405
 #, fuzzy
 msgid "/Tags/Headings/H_4"
 msgstr "Aliniat 1"
 
-#: ../src/menu.c:403
+#: ../src/menu.c:406
 #, fuzzy
 msgid "/Tags/Headings/H_5"
 msgstr "Aliniat 1"
 
-#: ../src/menu.c:404
+#: ../src/menu.c:407
 #, fuzzy
 msgid "/Tags/Headings/H_6"
 msgstr "Aliniat 1"
 
-#: ../src/menu.c:405
+#: ../src/menu.c:408
 #, fuzzy
 msgid "/Tags/_Special"
 msgstr "Extern"
 
-#: ../src/menu.c:407
+#: ../src/menu.c:410
 #, fuzzy
 msgid "/Tags/Special/_Accent"
 msgstr "Extern"
 
-#: ../src/menu.c:409
+#: ../src/menu.c:412
 #, fuzzy
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "Extern"
 
-#: ../src/menu.c:410
+#: ../src/menu.c:413
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr ""
 
-#: ../src/menu.c:412
+#: ../src/menu.c:415
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr "Extern"
 
-#: ../src/menu.c:413
+#: ../src/menu.c:416
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr "Extern"
 
-#: ../src/menu.c:414
+#: ../src/menu.c:417
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr "Extern"
 
-#: ../src/menu.c:415
+#: ../src/menu.c:418
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr "Extern"
 
-#: ../src/menu.c:416
+#: ../src/menu.c:419
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr "Extern"
 
-#: ../src/menu.c:417
+#: ../src/menu.c:420
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr "Extern"
 
-#: ../src/menu.c:418
+#: ../src/menu.c:421
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr "Extern"
 
-#: ../src/menu.c:419
+#: ../src/menu.c:422
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr "Extern"
 
-#: ../src/menu.c:420
+#: ../src/menu.c:423
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr "Extern"
 
-#: ../src/menu.c:421
+#: ../src/menu.c:424
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr "Extern"
 
-#: ../src/menu.c:422
+#: ../src/menu.c:425
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr "Extern"
 
-#: ../src/menu.c:423
+#: ../src/menu.c:426
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr "Extern"
 
-#: ../src/menu.c:424
+#: ../src/menu.c:427
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr "Extern"
 
-#: ../src/menu.c:425
+#: ../src/menu.c:428
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr "Extern"
 
-#: ../src/menu.c:426
+#: ../src/menu.c:429
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr "Extern"
 
-#: ../src/menu.c:427
+#: ../src/menu.c:430
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr "Extern"
 
-#: ../src/menu.c:428
+#: ../src/menu.c:431
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
 msgstr ""
 
-#: ../src/menu.c:430
+#: ../src/menu.c:433
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr "Extern"
 
-#: ../src/menu.c:431
+#: ../src/menu.c:434
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr "Extern"
 
-#: ../src/menu.c:432
+#: ../src/menu.c:435
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr "Extern"
 
-#: ../src/menu.c:433
+#: ../src/menu.c:436
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "Extern"
 
-#: ../src/menu.c:434
+#: ../src/menu.c:437
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
 msgstr "Extern"
 
-#: ../src/menu.c:435
+#: ../src/menu.c:438
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr "Extern"
 
-#: ../src/menu.c:436
+#: ../src/menu.c:439
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr "Extern"
 
-#: ../src/menu.c:437
+#: ../src/menu.c:440
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr "Extern"
 
-#: ../src/menu.c:438
+#: ../src/menu.c:441
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr "Extern"
 
-#: ../src/menu.c:439
+#: ../src/menu.c:442
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr "Extern"
 
-#: ../src/menu.c:440
+#: ../src/menu.c:443
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr "Extern"
 
-#: ../src/menu.c:441
+#: ../src/menu.c:444
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr "Extern"
 
-#: ../src/menu.c:442
+#: ../src/menu.c:445
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr "Extern"
 
-#: ../src/menu.c:443
+#: ../src/menu.c:446
 #, fuzzy
 msgid "/Tags/Special/Accent/_Lowercase"
 msgstr "Extern"
 
-#: ../src/menu.c:444
+#: ../src/menu.c:447
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
 msgstr ""
 
-#: ../src/menu.c:446
+#: ../src/menu.c:449
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr "Extern"
 
-#: ../src/menu.c:447
+#: ../src/menu.c:450
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr "Extern"
 
-#: ../src/menu.c:448
+#: ../src/menu.c:451
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr "Extern"
 
-#: ../src/menu.c:449
+#: ../src/menu.c:452
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr "Extern"
 
-#: ../src/menu.c:450
+#: ../src/menu.c:453
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr "Extern"
 
-#: ../src/menu.c:451
+#: ../src/menu.c:454
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr "Extern"
 
-#: ../src/menu.c:452
+#: ../src/menu.c:455
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr "Extern"
 
-#: ../src/menu.c:453
+#: ../src/menu.c:456
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr "Extern"
 
-#: ../src/menu.c:454
+#: ../src/menu.c:457
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr "Extern"
 
-#: ../src/menu.c:455
+#: ../src/menu.c:458
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr "Extern"
 
-#: ../src/menu.c:456
+#: ../src/menu.c:459
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr "Extern"
 
-#: ../src/menu.c:457
+#: ../src/menu.c:460
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr "Extern"
 
-#: ../src/menu.c:458
+#: ../src/menu.c:461
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr "Extern"
 
-#: ../src/menu.c:459
+#: ../src/menu.c:462
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr "Extern"
 
-#: ../src/menu.c:460
+#: ../src/menu.c:463
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr "Extern"
 
-#: ../src/menu.c:461
+#: ../src/menu.c:464
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr "Extern"
 
-#: ../src/menu.c:462
+#: ../src/menu.c:465
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr ""
 
-#: ../src/menu.c:464
+#: ../src/menu.c:467
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr "Extern"
 
-#: ../src/menu.c:465
+#: ../src/menu.c:468
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr "Extern"
 
-#: ../src/menu.c:466
+#: ../src/menu.c:469
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "Extern"
 
-#: ../src/menu.c:467
+#: ../src/menu.c:470
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
 msgstr "Extern"
 
-#: ../src/menu.c:468
+#: ../src/menu.c:471
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr "Extern"
 
-#: ../src/menu.c:469
+#: ../src/menu.c:472
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr "Extern"
 
-#: ../src/menu.c:470
+#: ../src/menu.c:473
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr "Extern"
 
-#: ../src/menu.c:471
+#: ../src/menu.c:474
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr "Extern"
 
-#: ../src/menu.c:472
+#: ../src/menu.c:475
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr "Extern"
 
-#: ../src/menu.c:473
+#: ../src/menu.c:476
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr "Extern"
 
-#: ../src/menu.c:474
+#: ../src/menu.c:477
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr "Extern"
 
-#: ../src/menu.c:475
+#: ../src/menu.c:478
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr "Extern"
 
-#: ../src/menu.c:476
+#: ../src/menu.c:479
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr "Extern"
 
-#: ../src/menu.c:477
+#: ../src/menu.c:480
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr "Extern"
 
-#: ../src/menu.c:479
+#: ../src/menu.c:482
 #, fuzzy
 msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "Extern"
 
-#: ../src/menu.c:480
+#: ../src/menu.c:483
 #, fuzzy
 msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "Extern"
 
-#: ../src/menu.c:481
+#: ../src/menu.c:484
 #, fuzzy
 msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "Extern"
 
-#: ../src/menu.c:482
+#: ../src/menu.c:485
 #, fuzzy
 msgid "/Tags/Special/_Currency"
 msgstr "Extern"
 
-#: ../src/menu.c:484
+#: ../src/menu.c:487
 #, fuzzy
 msgid "/Tags/Special/Currency/_Cent sign ¢"
 msgstr "Extern"
 
-#: ../src/menu.c:485
+#: ../src/menu.c:488
 #, fuzzy
 msgid "/Tags/Special/Currency/_Pound sterling £"
 msgstr "Extern"
 
-#: ../src/menu.c:486
+#: ../src/menu.c:489
 #, fuzzy
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
 msgstr "Extern"
 
-#: ../src/menu.c:487
+#: ../src/menu.c:490
 #, fuzzy
 msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "Extern"
 
-#: ../src/menu.c:488
+#: ../src/menu.c:491
 #, fuzzy
 msgid "/Tags/Special/Currency/_Euro "
 msgstr "Extern"
 
-#: ../src/menu.c:489
+#: ../src/menu.c:492
 #, fuzzy
 msgid "/Tags/Special/_Math-Science"
 msgstr "Extern"
 
-#: ../src/menu.c:491
+#: ../src/menu.c:494
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
 msgstr "Extern"
 
-#: ../src/menu.c:492
+#: ../src/menu.c:495
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
 msgstr "Extern"
 
-#: ../src/menu.c:493
+#: ../src/menu.c:496
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
 msgstr "Extern"
 
-#: ../src/menu.c:494
+#: ../src/menu.c:497
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
 msgstr "Extern"
 
-#: ../src/menu.c:495
+#: ../src/menu.c:498
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
 msgstr "Extern"
 
-#: ../src/menu.c:496
+#: ../src/menu.c:499
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
 msgstr "Extern"
 
-#: ../src/menu.c:497
+#: ../src/menu.c:500
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "Extern"
 
-#: ../src/menu.c:498
+#: ../src/menu.c:501
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "Extern"
 
-#: ../src/menu.c:499
+#: ../src/menu.c:502
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "Extern"
 
-#: ../src/menu.c:500
+#: ../src/menu.c:503
 #, fuzzy
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
 msgstr "Extern"
 
-#: ../src/menu.c:501
+#: ../src/menu.c:504
 #, fuzzy
 msgid "/Tags/Special/Math-Science/One _half ½"
 msgstr "Extern"
 
-#: ../src/menu.c:502
+#: ../src/menu.c:505
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
 msgstr "Extern"
 
-#: ../src/menu.c:503
+#: ../src/menu.c:506
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
 msgstr "Extern"
 
-#: ../src/menu.c:504
+#: ../src/menu.c:507
 #, fuzzy
 msgid "/Tags/Special/_Non Latin"
 msgstr "Extern"
 
-#: ../src/menu.c:506
+#: ../src/menu.c:509
 #, fuzzy
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "Extern"
 
-#: ../src/menu.c:507
+#: ../src/menu.c:510
 #, fuzzy
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "Extern"
 
-#: ../src/menu.c:508
+#: ../src/menu.c:511
 #, fuzzy
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "Extern"
 
-#: ../src/menu.c:509
+#: ../src/menu.c:512
 #, fuzzy
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "Extern"
 
-#: ../src/menu.c:510
+#: ../src/menu.c:513
 #, fuzzy
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "Extern"
 
-#: ../src/menu.c:511
+#: ../src/menu.c:514
 #, fuzzy
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
 msgstr "Extern"
 
-#: ../src/menu.c:512
+#: ../src/menu.c:515
 #, fuzzy
 msgid "/Tags/Special/_Other"
 msgstr "Extern"
 
-#: ../src/menu.c:514
+#: ../src/menu.c:517
 #, fuzzy
 msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "Spatiu"
 
-#: ../src/menu.c:515
+#: ../src/menu.c:518
 #, fuzzy
 msgid "/Tags/Special/Other/_Section sign §"
 msgstr "Extern"
 
-#: ../src/menu.c:516
+#: ../src/menu.c:519
 #, fuzzy
 msgid "/Tags/Special/Other/_Copyright sign ©"
 msgstr "Extern"
 
-#: ../src/menu.c:517
+#: ../src/menu.c:520
 #, fuzzy
 msgid "/Tags/Special/Other/_Left angle quotes «"
 msgstr "Extern"
 
-#: ../src/menu.c:518
+#: ../src/menu.c:521
 #, fuzzy
 msgid "/Tags/Special/Other/_Right angle quotes »"
 msgstr "Extern"
 
-#: ../src/menu.c:519
+#: ../src/menu.c:522
 #, fuzzy
 msgid "/Tags/Special/Other/Registered _trademark ®"
 msgstr "Extern"
 
-#: ../src/menu.c:520
+#: ../src/menu.c:523
 #, fuzzy
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
 msgstr "Extern"
 
-#: ../src/menu.c:521
+#: ../src/menu.c:524
 #, fuzzy
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
 msgstr "Extern"
 
-#: ../src/menu.c:522
+#: ../src/menu.c:525
 #, fuzzy
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "Extern"
 
-#: ../src/menu.c:523
+#: ../src/menu.c:526
 #, fuzzy
 msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "Extern"
 
-#: ../src/menu.c:524
+#: ../src/menu.c:527
 #, fuzzy
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
 msgstr "Extern"
 
-#: ../src/menu.c:525
+#: ../src/menu.c:528
 #, fuzzy
 msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "Extern"
 
-#: ../src/menu.c:526
+#: ../src/menu.c:529
 #, fuzzy
 msgid "/Tags/Special/Other/Soft _hypen -"
 msgstr "Extern"
 
-#: ../src/menu.c:527
+#: ../src/menu.c:530
 #, fuzzy
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
 msgstr "Extern"
 
-#: ../src/menu.c:528
+#: ../src/menu.c:531
 #, fuzzy
 msgid "/Tags/Special/Other/Middle _dot ·"
 msgstr "Extern"
 
-#: ../src/menu.c:529
+#: ../src/menu.c:532
 #, fuzzy
 msgid "/Tags/_Format by layout"
 msgstr "Extern"
 
-#: ../src/menu.c:531
+#: ../src/menu.c:534
 msgid "/Tags/Format by layout/_Bold"
 msgstr ""
 
-#: ../src/menu.c:532
+#: ../src/menu.c:535
 msgid "/Tags/Format by layout/_Italic"
 msgstr ""
 
-#: ../src/menu.c:533
+#: ../src/menu.c:536
 msgid "/Tags/Format by layout/_Underline"
 msgstr ""
 
-#: ../src/menu.c:534
+#: ../src/menu.c:537
 msgid "/Tags/Format by layout/_Strikeout"
 msgstr ""
 
-#: ../src/menu.c:535
+#: ../src/menu.c:538
 #, fuzzy
 msgid "/Tags/Format by layout/Sm_all"
 msgstr "Extern"
 
-#: ../src/menu.c:536
+#: ../src/menu.c:539
 #, fuzzy
 msgid "/Tags/Format by layout/Bi_g"
 msgstr "Extern"
 
-#: ../src/menu.c:537
+#: ../src/menu.c:540
 #, fuzzy
 msgid "/Tags/F_ormat by context"
 msgstr "Extern"
 
-#: ../src/menu.c:539
+#: ../src/menu.c:542
 #, fuzzy
 msgid "/Tags/Format by context/_Strong"
 msgstr "Extern"
 
-#: ../src/menu.c:540
+#: ../src/menu.c:543
 msgid "/Tags/Format by context/_Emphasis"
 msgstr ""
 
-#: ../src/menu.c:541
+#: ../src/menu.c:544
 msgid "/Tags/Format by context/_Define"
 msgstr ""
 
-#: ../src/menu.c:542
+#: ../src/menu.c:545
 msgid "/Tags/Format by context/_Code"
 msgstr ""
 
-#: ../src/menu.c:543
+#: ../src/menu.c:546
 msgid "/Tags/Format by context/Sa_mple"
 msgstr ""
 
-#: ../src/menu.c:544
+#: ../src/menu.c:547
 #, fuzzy
 msgid "/Tags/Format by context/_Keyboard"
 msgstr "Extern"
 
-#: ../src/menu.c:545
+#: ../src/menu.c:548
 #, fuzzy
 msgid "/Tags/Format by context/_Variable"
 msgstr "Extern"
 
-#: ../src/menu.c:546
+#: ../src/menu.c:549
 #, fuzzy
 msgid "/Tags/Format by context/Ci_tation"
 msgstr "Extern"
 
-#: ../src/menu.c:547
+#: ../src/menu.c:550
 msgid "/Tags/Format by context/_Abbreviation"
 msgstr ""
 
-#: ../src/menu.c:548
+#: ../src/menu.c:551
 msgid "/Tags/Format by context/Ac_ronym"
 msgstr ""
 
-#: ../src/menu.c:549
+#: ../src/menu.c:552
 #, fuzzy
 msgid "/Tags/Format _general"
 msgstr "Extern"
 
-#: ../src/menu.c:551
+#: ../src/menu.c:554
 #, fuzzy
 msgid "/Tags/Format general/_Paragraph"
 msgstr "Extern"
 
-#: ../src/menu.c:552
+#: ../src/menu.c:555
 #, fuzzy
 msgid "/Tags/Format general/_Break"
 msgstr "Extern"
 
-#: ../src/menu.c:553
+#: ../src/menu.c:556
 #, fuzzy
 msgid "/Tags/Format general/Break clear _all"
 msgstr "Spatiu"
 
-#: ../src/menu.c:554
+#: ../src/menu.c:557
 #, fuzzy
 msgid "/Tags/Format general/_Non-Breaking Space"
 msgstr "Spatiu"
 
-#: ../src/menu.c:556
+#: ../src/menu.c:559
 #, fuzzy
 msgid "/Tags/Format general/Font Si_ze +1"
 msgstr "Extern"
 
-#: ../src/menu.c:557
+#: ../src/menu.c:560
 #, fuzzy
 msgid "/Tags/Format general/Font _Size -1"
 msgstr "Extern"
 
-#: ../src/menu.c:559
+#: ../src/menu.c:562
 #, fuzzy
 msgid "/Tags/Format general/Preformatted _Text"
 msgstr "Text preformatat"
 
-#: ../src/menu.c:560
+#: ../src/menu.c:563
 #, fuzzy
 msgid "/Tags/Format general/Su_bscript"
 msgstr "Extern"
 
-#: ../src/menu.c:561
+#: ../src/menu.c:564
 #, fuzzy
 msgid "/Tags/Format general/Su_perscript"
 msgstr "Extern"
 
-#: ../src/menu.c:563
+#: ../src/menu.c:566
 #, fuzzy
 msgid "/Tags/Format general/_Center"
 msgstr "Extern"
 
-#: ../src/menu.c:564
+#: ../src/menu.c:567
 #, fuzzy
 msgid "/Tags/Format general/Align _right"
 msgstr "Extern"
 
-#: ../src/menu.c:565
+#: ../src/menu.c:568
 msgid "/Tags/_Table"
 msgstr ""
 
-#: ../src/menu.c:567
+#: ../src/menu.c:570
 msgid "/Tags/Table/_Table"
 msgstr ""
 
-#: ../src/menu.c:568
+#: ../src/menu.c:571
 #, fuzzy
 msgid "/Tags/Table/Table _Row"
 msgstr "Javascript"
 
-#: ../src/menu.c:569
+#: ../src/menu.c:572
 #, fuzzy
 msgid "/Tags/Table/Table _Header"
 msgstr "Javascript"
 
-#: ../src/menu.c:570
+#: ../src/menu.c:573
 #, fuzzy
 msgid "/Tags/Table/Table _Data"
 msgstr "Javascript"
 
-#: ../src/menu.c:571
+#: ../src/menu.c:574
 #, fuzzy
 msgid "/Tags/Table/Table _Caption"
 msgstr "Javascript"
 
-#: ../src/menu.c:572
+#: ../src/menu.c:575
 #, fuzzy
 msgid "/Tags/_List"
 msgstr " Liste "
 
-#: ../src/menu.c:574
+#: ../src/menu.c:577
 #, fuzzy
 msgid "/Tags/List/Unordered _List"
 msgstr "Lista neordonata"
 
-#: ../src/menu.c:575
+#: ../src/menu.c:578
 #, fuzzy
 msgid "/Tags/List/_Ordered List"
 msgstr "Lista ordonata"
 
-#: ../src/menu.c:576
+#: ../src/menu.c:579
 #, fuzzy
 msgid "/Tags/List/List Ite_m"
 msgstr "Termen definitie"
 
-#: ../src/menu.c:577
+#: ../src/menu.c:580
 #, fuzzy
 msgid "/Tags/List/De_finition List"
 msgstr "Lista definitii"
 
-#: ../src/menu.c:578
+#: ../src/menu.c:581
 #, fuzzy
 msgid "/Tags/List/Definition _Term"
 msgstr "Termen definitie"
 
-#: ../src/menu.c:579
+#: ../src/menu.c:582
 #, fuzzy
 msgid "/Tags/List/_Definition"
 msgstr "Definitie"
 
-#: ../src/menu.c:580
+#: ../src/menu.c:583
 #, fuzzy
 msgid "/Tags/List/Men_u"
 msgstr " Liste "
 
-#: ../src/menu.c:581
+#: ../src/menu.c:584
 #, fuzzy
 msgid "/Tags/Fo_rm"
 msgstr "Javascript"
 
-#: ../src/menu.c:583
+#: ../src/menu.c:586
 #, fuzzy
 msgid "/Tags/Form/_Form"
 msgstr "Javascript"
 
-#: ../src/menu.c:584
+#: ../src/menu.c:587
 #, fuzzy
 msgid "/Tags/Form/_Button"
 msgstr "Javascript"
 
-#: ../src/menu.c:585
+#: ../src/menu.c:588
 #, fuzzy
 msgid "/Tags/Form/_Input"
 msgstr "Javascript"
 
-#: ../src/menu.c:586
+#: ../src/menu.c:589
 #, fuzzy
 msgid "/Tags/Form/_Textarea"
 msgstr "Javascript"
 
-#: ../src/menu.c:588
+#: ../src/menu.c:591
 #, fuzzy
 msgid "/Tags/_Misc"
 msgstr " Liste "
 
-#: ../src/menu.c:590
+#: ../src/menu.c:593
 msgid "/Tags/Misc/Insert Generator _META-Tag"
 msgstr ""
 
-#: ../src/menu.c:591
+#: ../src/menu.c:594
 #, fuzzy
 msgid "/Tags/Misc/_Span"
 msgstr "Extern"
 
-#: ../src/menu.c:592
+#: ../src/menu.c:595
 #, fuzzy
 msgid "/Tags/Misc/_Div"
 msgstr "Definitie"
 
-#: ../src/menu.c:593
+#: ../src/menu.c:596
 #, fuzzy
 msgid "/Tags/Misc/_Link"
 msgstr " Liste "
 
-#: ../src/menu.c:594
+#: ../src/menu.c:597
 #, fuzzy
 msgid "/Tags/Misc/S_cript"
 msgstr " Liste "
 
-#: ../src/menu.c:595
+#: ../src/menu.c:598
 #, fuzzy
 msgid "/Tags/Misc/_Anchor"
 msgstr "Definitie"
 
-#: ../src/menu.c:596
+#: ../src/menu.c:599
 #, fuzzy
 msgid "/Tags/Misc/_Image"
 msgstr " Liste "
 
-#: ../src/menu.c:598
+#: ../src/menu.c:601
 #, fuzzy
 msgid "/Tags/_Comment"
 msgstr "Comentariu"
 
-#: ../src/menu.c:599
+#: ../src/menu.c:602
 #, fuzzy
 msgid "/Dial_ogs"
 msgstr "Javascript"
 
-#: ../src/menu.c:601
+#: ../src/menu.c:604
 #, fuzzy
 msgid "/Dialogs/_General"
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:603
+#: ../src/menu.c:606
 #, fuzzy
 msgid "/Dialogs/General/_Quickstart..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:606
+#: ../src/menu.c:609
 #, fuzzy
 msgid "/Dialogs/General/_Link Header..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:607
+#: ../src/menu.c:610
 #, fuzzy
 msgid "/Dialogs/General/_Body..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:608
+#: ../src/menu.c:611
 #, fuzzy
 msgid "/Dialogs/General/_Anchor..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:609
+#: ../src/menu.c:612
 #, fuzzy
 msgid "/Dialogs/General/_Email..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:610
+#: ../src/menu.c:613
 #, fuzzy
 msgid "/Dialogs/General/_Rule..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:611
+#: ../src/menu.c:614
 #, fuzzy
 msgid "/Dialogs/General/_Font..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:612
+#: ../src/menu.c:615
 #, fuzzy
 msgid "/Dialogs/General/Basef_ont..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:613
+#: ../src/menu.c:616
 #, fuzzy
 msgid "/Dialogs/General/Quick_list..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:614
+#: ../src/menu.c:617
 #, fuzzy
 msgid "/Dialogs/General/_Meta..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:615
+#: ../src/menu.c:618
 #, fuzzy
 msgid "/Dialogs/General/Embe_d..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:616
+#: ../src/menu.c:619
 #, fuzzy
 msgid "/Dialogs/General/Select _Color..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:617
+#: ../src/menu.c:620
 #, fuzzy
 msgid "/Dialogs/General/Insert _Time..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:618
+#: ../src/menu.c:621
 #, fuzzy
 msgid "/Dialogs/General/Insert _Image..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:619
+#: ../src/menu.c:622
 #, fuzzy
 msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "Selecteaza culoare..."
 
-#: ../src/menu.c:620
+#: ../src/menu.c:623
 #, fuzzy
 msgid "/Dialogs/_Table"
 msgstr "Javascript"
 
-#: ../src/menu.c:622
+#: ../src/menu.c:625
 #, fuzzy
 msgid "/Dialogs/Table/Table _Wizard..."
 msgstr "Javascript"
 
-#: ../src/menu.c:623
+#: ../src/menu.c:626
 #, fuzzy
 msgid "/Dialogs/Table/_Table..."
 msgstr "Javascript"
 
-#: ../src/menu.c:624
+#: ../src/menu.c:627
 #, fuzzy
 msgid "/Dialogs/Table/Table _Row..."
 msgstr "Javascript"
 
-#: ../src/menu.c:625
+#: ../src/menu.c:628
 #, fuzzy
 msgid "/Dialogs/Table/Table _Head..."
 msgstr "Javascript"
 
-#: ../src/menu.c:626
+#: ../src/menu.c:629
 #, fuzzy
 msgid "/Dialogs/Table/Table _Data..."
 msgstr "Javascript"
 
-#: ../src/menu.c:627
+#: ../src/menu.c:630
 #, fuzzy
 msgid "/Dialogs/_CSS"
 msgstr "Javascript"
 
-#: ../src/menu.c:629
+#: ../src/menu.c:632
 #, fuzzy
 msgid "/Dialogs/CSS/_Create Style..."
 msgstr "Introdu stil in stylesheet..."
 
-#: ../src/menu.c:630
+#: ../src/menu.c:633
 #, fuzzy
 msgid "/Dialogs/CSS/S_pan..."
 msgstr "Javascript"
 
-#: ../src/menu.c:631
+#: ../src/menu.c:634
 #, fuzzy
 msgid "/Dialogs/CSS/_Div..."
 msgstr "Javascript"
 
-#: ../src/menu.c:632
+#: ../src/menu.c:635
 #, fuzzy
 msgid "/Dialogs/CSS/_Style..."
 msgstr "Javascript"
 
-#: ../src/menu.c:633
+#: ../src/menu.c:636
 #, fuzzy
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
 msgstr "Link la stylesheet"
 
-#: ../src/menu.c:634
+#: ../src/menu.c:637
 #, fuzzy
 msgid "/Dialogs/_Frame"
 msgstr "Javascript"
 
-#: ../src/menu.c:636
+#: ../src/menu.c:639
 #, fuzzy
 msgid "/Dialogs/Frame/Frame _Wizard..."
 msgstr "Javascript"
 
-#: ../src/menu.c:637
+#: ../src/menu.c:640
 #, fuzzy
 msgid "/Dialogs/Frame/Frame_set..."
 msgstr "Javascript"
 
-#: ../src/menu.c:638
+#: ../src/menu.c:641
 #, fuzzy
 msgid "/Dialogs/Frame/_Frame..."
 msgstr "Javascript"
 
-#: ../src/menu.c:639
+#: ../src/menu.c:642
 #, fuzzy
 msgid "/Dialogs/F_orm"
 msgstr "Javascript"
 
-#: ../src/menu.c:641
+#: ../src/menu.c:644
 #, fuzzy
 msgid "/Dialogs/Form/F_orm..."
 msgstr "Javascript"
 
-#: ../src/menu.c:642
+#: ../src/menu.c:645
 #, fuzzy
 msgid "/Dialogs/Form/_Input..."
 msgstr "Javascript"
 
-#: ../src/menu.c:643
+#: ../src/menu.c:646
 #, fuzzy
 msgid "/Dialogs/Form/Input Buttons..."
 msgstr "Javascript"
 
-#: ../src/menu.c:644
+#: ../src/menu.c:647
 #, fuzzy
 msgid "/Dialogs/Form/Input Text..."
 msgstr "Javascript"
 
-#: ../src/menu.c:645
+#: ../src/menu.c:648
 #, fuzzy
 msgid "/Dialogs/Form/Text_area..."
 msgstr "Javascript"
 
-#: ../src/menu.c:646
+#: ../src/menu.c:649
 #, fuzzy
 msgid "/Dialogs/Form/_Select..."
 msgstr "Javascript"
 
-#: ../src/menu.c:647
+#: ../src/menu.c:650
 #, fuzzy
 msgid "/Dialogs/Form/O_ption..."
 msgstr "Javascript"
 
-#: ../src/menu.c:648
+#: ../src/menu.c:651
 #, fuzzy
 msgid "/Dialogs/Form/Option _Group..."
 msgstr "Javascript"
 
-#: ../src/menu.c:649
+#: ../src/menu.c:652
 #, fuzzy
 msgid "/Dialogs/Form/_Button..."
 msgstr "Javascript"
 
-#: ../src/menu.c:677
+#: ../src/menu.c:680
 msgid "/Dialogs/_Edit tag under cursor..."
 msgstr ""
 
-#: ../src/menu.c:678
+#: ../src/menu.c:681
 #, fuzzy
 msgid "/_Document"
 msgstr "Comentariu"
 
-#: ../src/menu.c:680
+#: ../src/menu.c:683
 #, fuzzy
 msgid "/Document/_Increase Tabsize"
 msgstr "Enctype"
 
-#: ../src/menu.c:681
+#: ../src/menu.c:684
 #, fuzzy
 msgid "/Document/_Decrease Tabsize"
 msgstr "Enctype"
 
-#: ../src/menu.c:682
+#: ../src/menu.c:685
 #, fuzzy
 msgid "/Document/_Auto Indent"
 msgstr "Optiuni editor"
 
-#: ../src/menu.c:684
+#: ../src/menu.c:687
 #, fuzzy
 msgid "/Document/Auto Close H_TML tags"
 msgstr "Optiuni editor"
 
-#: ../src/menu.c:685
+#: ../src/menu.c:688
 msgid "/Document/_Wrap"
 msgstr ""
 
-#: ../src/menu.c:686
+#: ../src/menu.c:689
 #, fuzzy
 msgid "/Document/_Line Numbers"
 msgstr "Enctype"
 
-#: ../src/menu.c:688
+#: ../src/menu.c:691
 msgid "/Document/_Highlight Syntax"
 msgstr ""
 
-#: ../src/menu.c:689
+#: ../src/menu.c:692
 msgid "/Document/_Update Highlighting"
 msgstr ""
 
-#: ../src/menu.c:691
+#: ../src/menu.c:694
 #, fuzzy
 msgid "/Document/Document Ty_pe"
 msgstr "Enctype"
 
-#: ../src/menu.c:693
+#: ../src/menu.c:696
 #, fuzzy
 msgid "/Document/Character _Encoding"
 msgstr "Optiuni editor"
 
-#: ../src/menu.c:697
+#: ../src/menu.c:700
 #, fuzzy
 msgid "/Document/Check _Spelling..."
 msgstr "Enctype"
 
-#: ../src/menu.c:699
+#: ../src/menu.c:702
 #, fuzzy
 msgid "/Document/_Floating window"
 msgstr "Enctype"
 
-#: ../src/menu.c:700
+#: ../src/menu.c:703
 #, fuzzy
 msgid "/Document/Word _Count"
 msgstr "Optiuni editor"
 
-#: ../src/menu.c:701
+#: ../src/menu.c:704
 msgid "/_Go"
 msgstr ""
 
-#: ../src/menu.c:703
+#: ../src/menu.c:706
 msgid "/Go/_Previous document"
 msgstr ""
 
-#: ../src/menu.c:704
+#: ../src/menu.c:707
 #, fuzzy
 msgid "/Go/_Next document"
 msgstr "Comentariu"
 
-#: ../src/menu.c:706
+#: ../src/menu.c:709
 #, fuzzy
 msgid "/Go/_First document"
 msgstr "Comentariu"
 
-#: ../src/menu.c:707
+#: ../src/menu.c:710
 #, fuzzy
 msgid "/Go/L_ast document"
 msgstr "Comentariu"
 
-#: ../src/menu.c:709
+#: ../src/menu.c:712
 #, fuzzy
 msgid "/Go/Goto _Line"
 msgstr "Muta la linia"
 
-#: ../src/menu.c:710
+#: ../src/menu.c:713
 #, fuzzy
 msgid "/Go/Goto _Selection"
 msgstr "Muta la linia"
 
-#: ../src/menu.c:711
+#: ../src/menu.c:714
 #, fuzzy
 msgid "/_Project"
 msgstr "/_Proiect"
 
-#: ../src/menu.c:713
+#: ../src/menu.c:716
 msgid "/Project/_New Project"
 msgstr ""
 
-#: ../src/menu.c:714
+#: ../src/menu.c:717
 msgid "/Project/_Open Project..."
 msgstr ""
 
-#: ../src/menu.c:715
+#: ../src/menu.c:718
 #, fuzzy
 msgid "/Project/Open _recent"
 msgstr "/Fisier/_Deschide"
 
-#: ../src/menu.c:718
+#: ../src/menu.c:721
 #, fuzzy
 msgid "/Project/_Save"
 msgstr "/Fisier/_Salveaza"
 
-#: ../src/menu.c:719
+#: ../src/menu.c:722
 #, fuzzy
 msgid "/Project/Save _as..."
 msgstr "/Fisier/Salveaza _ca"
 
-#: ../src/menu.c:720
+#: ../src/menu.c:723
 #, fuzzy
 msgid "/Project/Save & _close"
 msgstr "/Fisier/Salveaza _ca"
 
-#: ../src/menu.c:722
+#: ../src/menu.c:725
 msgid "/Project/E_dit Project Options..."
 msgstr ""
 
-#: ../src/menu.c:723
+#: ../src/menu.c:726
 #, fuzzy
 msgid "/E_xternal"
 msgstr "Extern"
 
-#: ../src/menu.c:730
+#: ../src/menu.c:733
 msgid "/_Help"
 msgstr ""
 
-#: ../src/menu.c:731
+#: ../src/menu.c:734
 msgid "/Help/_About..."
 msgstr ""
 
-#: ../src/menu.c:893
+#: ../src/menu.c:896
 #, fuzzy
 msgid "/Document/Document Type"
 msgstr "Enctype"
 
-#: ../src/menu.c:1010
+#: ../src/menu.c:1013
 #, fuzzy
 msgid "Loading file(s)..."
 msgstr "Salvez fisierul"
 
-#: ../src/menu.c:1014
+#: ../src/menu.c:1017
 #, fuzzy
 msgid "The filename was:\n"
 msgstr "Numele fisierului este necunoscut"
 
-#: ../src/menu.c:1015
+#: ../src/menu.c:1018
 #, fuzzy
 msgid "Could not open file\n"
 msgstr "Fisierul nu a putut fi deschis :\n"
 
-#: ../src/menu.c:1038
+#: ../src/menu.c:1041
 #, fuzzy
 msgid "/Project/Open recent"
 msgstr "/Fisier/_Deschide"
 
-#: ../src/menu.c:1042
+#: ../src/menu.c:1045
 #, fuzzy
 msgid "/File/Open recent"
 msgstr "/Fisier/_Deschide"
 
-#: ../src/menu.c:1221
+#: ../src/menu.c:1224
 msgid "/Windows"
 msgstr ""
 
-#: ../src/menu.c:1287
+#: ../src/menu.c:1290
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr ""
 
-#: ../src/menu.c:1422
+#: ../src/menu.c:1425
 #, fuzzy
 msgid "/External/Outputbox/"
 msgstr "Extern"
 
-#: ../src/menu.c:1425
+#: ../src/menu.c:1428
 msgid "/External/Commands/"
 msgstr ""
 
-#: ../src/menu.c:1428
+#: ../src/menu.c:1431
 #, fuzzy
 msgid "/External/Browsers/"
 msgstr "Extern"
 
-#: ../src/menu.c:1433 ../src/menu.c:1448 ../src/menu.c:1467 ../src/menu.c:1483
-#: ../src/menu.c:1496 ../src/menu.c:1518
+#: ../src/menu.c:1436 ../src/menu.c:1451 ../src/menu.c:1470 ../src/menu.c:1486
+#: ../src/menu.c:1499 ../src/menu.c:1521
 #, fuzzy
 msgid "/External"
 msgstr "Extern"
 
-#: ../src/menu.c:1446
+#: ../src/menu.c:1449
 #, fuzzy
 msgid "/External/Browsers"
 msgstr "Extern"
 
-#: ../src/menu.c:1481
+#: ../src/menu.c:1484
 #, fuzzy
 msgid "/External/Commands"
 msgstr "Extern"
 
-#: ../src/menu.c:1516
+#: ../src/menu.c:1519
 #, fuzzy
 msgid "/External/Outputbox"
 msgstr "Extern"
 
-#: ../src/menu.c:1562
+#: ../src/menu.c:1565
 #, fuzzy
 msgid "/Document/Character Encoding"
 msgstr "Extern"
 
-#: ../src/menu.c:1838
+#: ../src/menu.c:1841
 msgid "This custom search and replace requires a selection"
 msgstr ""
 
-#: ../src/menu.c:1935
+#: ../src/menu.c:1938
 #, fuzzy
 msgid "/_Custom menu"
 msgstr "Editeaza meniu"
 
-#: ../src/menu.c:1937
+#: ../src/menu.c:1940
 #, fuzzy
 msgid "/Custom menu/Edit custom menu..."
 msgstr "Editeaza meniu"
 
-#: ../src/menu.c:1938
+#: ../src/menu.c:1941
 #, fuzzy
 msgid "/Custom menu/Reset"
 msgstr "Editeaza meniu"
 
-#: ../src/menu.c:1939
+#: ../src/menu.c:1942
 #, fuzzy
 msgid "/Custom menu/Load new"
 msgstr "Editeaza meniu"
 
-#: ../src/menu.c:2155
+#: ../src/menu.c:2158
 #, fuzzy
 msgid "Search Pattern"
 msgstr "Cauta"
 
-#: ../src/menu.c:2156
+#: ../src/menu.c:2159
 #, fuzzy
 msgid "Replace String"
 msgstr "Inlocuieste:"
 
-#: ../src/menu.c:2159
+#: ../src/menu.c:2162
 msgid "Formatstring Before"
 msgstr ""
 
-#: ../src/menu.c:2160
+#: ../src/menu.c:2163
 msgid "Formatstring After"
 msgstr ""
 
-#: ../src/menu.c:2207
+#: ../src/menu.c:2210
 msgid "The menupath you want to update does not exist yet"
 msgstr ""
 
-#: ../src/menu.c:2207
+#: ../src/menu.c:2210
 msgid "Try 'add' instead."
 msgstr ""
 
-#: ../src/menu.c:2209
+#: ../src/menu.c:2212
 msgid "The menupath you want to add already exists."
 msgstr ""
 
-#: ../src/menu.c:2214
+#: ../src/menu.c:2217
 msgid "The menupath should start with a / character"
 msgstr ""
 
-#: ../src/menu.c:2376
+#: ../src/menu.c:2379
 #, fuzzy
 msgid "Custom Menu Editor"
 msgstr "Editeaza meniu"
 
-#: ../src/menu.c:2387
+#: ../src/menu.c:2390
 msgid "Add New Menu Entry"
 msgstr ""
 
-#: ../src/menu.c:2389
+#: ../src/menu.c:2392
 msgid "Apply Changes"
 msgstr ""
 
-#: ../src/menu.c:2391
+#: ../src/menu.c:2394
 msgid "Delete Menu Entry"
 msgstr ""
 
-#: ../src/menu.c:2394
+#: ../src/menu.c:2397
 msgid "Close Discards Changes"
 msgstr ""
 
-#: ../src/menu.c:2396
+#: ../src/menu.c:2399
 msgid "Save Changes and Exit"
 msgstr ""
 
-#: ../src/menu.c:2406
+#: ../src/menu.c:2409
 #, fuzzy
 msgid "_Menu Path:"
 msgstr "Meniu"
 
-#: ../src/menu.c:2427
+#: ../src/menu.c:2430
 #, fuzzy
 msgid "Menu path"
 msgstr "Meniu"
 
-#: ../src/menu.c:2447
+#: ../src/menu.c:2450
 #, fuzzy
 msgid "Number of _Variables:"
 msgstr "Numar frameuri"
 
-#: ../src/menu.c:2455
+#: ../src/menu.c:2458
 msgid "Variables"
 msgstr ""
 
-#: ../src/menu.c:2474
+#: ../src/menu.c:2477
 #, fuzzy
 msgid "Custom Dialo_g"
 msgstr "Valoare"
 
-#: ../src/menu.c:2476
+#: ../src/menu.c:2479
 #, fuzzy
 msgid "Custom Replace"
 msgstr "Cauta si inlocuieste"
 
-#: ../src/menu.c:2488
+#: ../src/menu.c:2491
 #, fuzzy
 msgid "_Replace:"
 msgstr "Inlocuieste:"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2494
 msgid "in current document"
 msgstr ""
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2494
 msgid "from cursor"
 msgstr ""
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2494
 #, fuzzy
 msgid "in selection"
 msgstr "Selectarea fontului"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2494
 #, fuzzy
 msgid "in all open documents"
 msgstr "Fisierul nu poate fi deschis"
 
-#: ../src/menu.c:2499
+#: ../src/menu.c:2502
 #, fuzzy
 msgid "Matc_hing:"
 msgstr "Spatiere"
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2505
 msgid "normal"
 msgstr ""
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2505
 msgid "posix regular expressions"
 msgstr ""
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2505
 msgid "perl regular expressions"
 msgstr ""
 
-#: ../src/menu.c:2508
+#: ../src/menu.c:2511
 #, fuzzy
 msgid "Case Se_nsitive"
 msgstr "Diferenta intre litere mari si mici"

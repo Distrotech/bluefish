@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-30 13:56-0800\n"
+"POT-Creation-Date: 2005-11-12 06:40-0800\n"
 "PO-Revision-Date: 2005-08-28 11:14+0900\n"
 "Last-Translator: Takeshi HAMASAKI <hma@syd.odn.ne.jp>\n"
 "Language-Team: \n"
@@ -169,8 +169,12 @@ msgstr ""
 "このソフトウェアのリリースを手助けしてくれたすべての人に感謝します.\n"
 
 #: ../src/about.c:120
+#, fuzzy
 msgid ""
 "Current translators:\n"
+"\n"
+"  Basque: Hizkuntza Politikarako Sailburuordetza\n"
+"   <hizkpol@ej-gv.es>\n"
 "\n"
 "  Brazilian Portuguese: Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
@@ -296,11 +300,11 @@ msgstr ""
 "   <ogzeren@gmail.com>\n"
 "\n"
 
-#: ../src/about.c:163
+#: ../src/about.c:165
 msgid "About Bluefish"
 msgstr "Bluefish について"
 
-#: ../src/about.c:193
+#: ../src/about.c:195
 msgid ""
 "\n"
 "\n"
@@ -310,16 +314,16 @@ msgstr ""
 "\n"
 "検知の結果:\n"
 
-#: ../src/about.c:220 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
+#: ../src/about.c:222 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
 #: ../src/fref.c:1870 ../src/fref.c:2347
 msgid "Info"
 msgstr "情報"
 
-#: ../src/about.c:222
+#: ../src/about.c:224
 msgid "Authors"
 msgstr "作者たち"
 
-#: ../src/about.c:223
+#: ../src/about.c:225
 msgid "Translators"
 msgstr "翻訳者たち"
 
@@ -493,7 +497,7 @@ msgid "_Don't show this dialog again."
 msgstr "次回からは このダイアログを表示しない(_D)"
 
 #: ../src/bookmark.c:368 ../src/html.c:614 ../src/html.c:834
-#: ../src/html.c:1429 ../src/html.c:1920 ../src/html_form.c:231
+#: ../src/html.c:1440 ../src/html.c:1944 ../src/html_form.c:231
 #: ../src/html_form.c:596 ../src/html_form.c:795 ../src/html_form.c:890
 #: ../src/image.c:334
 msgid "_Name:"
@@ -1085,7 +1089,7 @@ msgstr "ダイアログ"
 msgid "Insert"
 msgstr "挿入"
 
-#: ../src/fref.c:1841 ../src/html.c:1271
+#: ../src/fref.c:1841 ../src/html.c:1274
 msgid "Options"
 msgstr "オプション"
 
@@ -1338,11 +1342,11 @@ msgstr "フレームセット..."
 msgid "Frame..."
 msgstr "フレーム..."
 
-#: ../src/gui.c:643 ../src/html.c:1824
+#: ../src/gui.c:643 ../src/html.c:1848
 msgid "Frameset"
 msgstr "フレームセット"
 
-#: ../src/gui.c:644 ../src/html.c:1908
+#: ../src/gui.c:644 ../src/html.c:1932
 msgid "Frame"
 msgstr "フレーム"
 
@@ -1777,7 +1781,7 @@ msgstr "クイック・アンカー"
 msgid "Attributes"
 msgstr "属性値"
 
-#: ../src/html.c:606 ../src/html.c:2135
+#: ../src/html.c:606 ../src/html.c:2161
 msgid "_HREF:"
 msgstr "_HREF:"
 
@@ -1785,19 +1789,19 @@ msgstr "_HREF:"
 msgid "_Target:"
 msgstr "ターゲット(_T):"
 
-#: ../src/html.c:620 ../src/html.c:1294 ../src/html.c:2067
+#: ../src/html.c:620 ../src/html.c:1297 ../src/html.c:1469 ../src/html.c:2091
 msgid "_Language:"
 msgstr "言語(_L):"
 
-#: ../src/html.c:624 ../src/html.c:842 ../src/html.c:976 ../src/html.c:1298
-#: ../src/html.c:1453 ../src/html.c:1856 ../src/html.c:1957 ../src/html.c:2086
+#: ../src/html.c:624 ../src/html.c:842 ../src/html.c:976 ../src/html.c:1301
+#: ../src/html.c:1477 ../src/html.c:1880 ../src/html.c:1981 ../src/html.c:2110
 #: ../src/html_form.c:187 ../src/html_form.c:243 ../src/html_form.c:609
 #: ../src/html_form.c:903 ../src/html_table.c:104 ../src/html_table.c:256
 #: ../src/html_table.c:364 ../src/image.c:342
 msgid "Custo_m:"
 msgstr "カスタム(_M):"
 
-#: ../src/html.c:627 ../src/html.c:1302 ../src/html_form.c:829
+#: ../src/html.c:627 ../src/html.c:1305 ../src/html_form.c:829
 msgid "Events"
 msgstr "イベント"
 
@@ -1854,18 +1858,18 @@ msgstr "SPAN"
 msgid "Ali_gn:"
 msgstr "配置(_G):"
 
-#: ../src/html.c:823 ../src/html.c:1286 ../src/html_diag.c:372
+#: ../src/html.c:823 ../src/html.c:1289 ../src/html_diag.c:372
 #: ../src/html_table.c:94 ../src/html_table.c:240 ../src/html_table.c:354
 msgid "Cl_ass:"
 msgstr "Cla_ss:"
 
-#: ../src/html.c:827 ../src/html.c:1187 ../src/html.c:1279
+#: ../src/html.c:827 ../src/html.c:1190 ../src/html.c:1282
 #: ../src/html_diag.c:380 ../src/html_table.c:99 ../src/html_table.c:251
 #: ../src/html_table.c:359
 msgid "St_yle:"
 msgstr "スタイルシート(_Y):"
 
-#: ../src/html.c:838 ../src/html.c:1290 ../src/html_diag.c:376
+#: ../src/html.c:838 ../src/html.c:1293 ../src/html_diag.c:376
 msgid "_ID:"
 msgstr "_ID:"
 
@@ -1873,15 +1877,15 @@ msgstr "_ID:"
 msgid "Horizontal Rule"
 msgstr "水平線"
 
-#: ../src/html.c:950 ../src/html.c:2005 ../src/image.c:360
+#: ../src/html.c:950 ../src/html.c:2029 ../src/image.c:360
 msgid "_Align:"
 msgstr "配置(_A):"
 
-#: ../src/html.c:957 ../src/html.c:2013 ../src/html_table.c:390
+#: ../src/html.c:957 ../src/html.c:2037 ../src/html_table.c:390
 msgid "_Height:"
 msgstr "高さ(_H):"
 
-#: ../src/html.c:963 ../src/html.c:2009 ../src/html_table.c:137
+#: ../src/html.c:963 ../src/html.c:2033 ../src/html_table.c:137
 #: ../src/html_table.c:383 ../src/image.c:318
 msgid "_Width:"
 msgstr "幅(_W):"
@@ -1906,216 +1910,221 @@ msgstr "ドキュメントタイプ(_D):"
 msgid "Header tags:"
 msgstr "ヘッダ タグ:"
 
-#: ../src/html.c:1173 ../src/quickstart.c:650 ../src/wizards.c:188
+#: ../src/html.c:1176 ../src/quickstart.c:650 ../src/wizards.c:188
 msgid "_Title:"
 msgstr "タイトル(_T):"
 
-#: ../src/html.c:1263
+#: ../src/html.c:1266
 msgid "Body"
 msgstr "Body"
 
-#: ../src/html.c:1309
+#: ../src/html.c:1312
 msgid "On_Load:"
 msgstr "On_Load:"
 
-#: ../src/html.c:1317
+#: ../src/html.c:1320
 msgid "On_UnLoad:"
 msgstr "On_UnLoad:"
 
-#: ../src/html.c:1326
+#: ../src/html.c:1329
 msgid "Depreciated options"
 msgstr "推奨されないオプション"
 
-#: ../src/html.c:1336
+#: ../src/html.c:1339
 msgid "Background _Image:"
 msgstr "背景画像(_I):"
 
-#: ../src/html.c:1343
+#: ../src/html.c:1346
 msgid "Back_ground Color:"
 msgstr "背景色(_G):"
 
-#: ../src/html.c:1349
+#: ../src/html.c:1352
 msgid "_Text Color:"
 msgstr "テキストの色(_T):"
 
-#: ../src/html.c:1355
+#: ../src/html.c:1358
 msgid "_Link Color:"
 msgstr "リンクの色(_L):"
 
-#: ../src/html.c:1361
+#: ../src/html.c:1364
 msgid "_Visited Link Color:"
 msgstr "閲覧済みリンクの色(_V):"
 
-#: ../src/html.c:1367
+#: ../src/html.c:1370
 msgid "_Active Link Color:"
 msgstr "選択中のリンクの色(_A):"
 
-#: ../src/html.c:1415
+#: ../src/html.c:1422
 msgid "Meta"
 msgstr "Meta"
 
-#: ../src/html.c:1440
+#: ../src/html.c:1460
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-#: ../src/html.c:1445
+#: ../src/html.c:1465
 msgid "Con_tent:"
 msgstr "Con_tent:"
 
-#: ../src/html.c:1449
+#: ../src/html.c:1473
 msgid "_Scheme:"
 msgstr "_Scheme:"
 
-#: ../src/html.c:1532 ../src/preferences.c:2000
+#: ../src/html.c:1556 ../src/preferences.c:2000
 msgid "Font"
 msgstr "フォント"
 
-#: ../src/html.c:1535
+#: ../src/html.c:1559
 msgid "Base Font"
 msgstr "ベースフォント"
 
-#: ../src/html.c:1550
+#: ../src/html.c:1574
 msgid "Size"
 msgstr "サイズ"
 
-#: ../src/html.c:1558
+#: ../src/html.c:1582
 msgid "Color"
 msgstr "色"
 
-#: ../src/html.c:1563
+#: ../src/html.c:1587
 msgid "Face"
 msgstr "書体"
 
-#: ../src/html.c:1567
+#: ../src/html.c:1591
 msgid "Custom"
 msgstr "カスタム設定"
 
-#: ../src/html.c:1671
+#: ../src/html.c:1695
 msgid "E-mail"
 msgstr "Eメール"
 
-#: ../src/html.c:1679
+#: ../src/html.c:1703
 msgid "_Mail to:"
 msgstr "宛先(_M):"
 
-#: ../src/html.c:1683
+#: ../src/html.c:1707
 msgid "_Copy to:"
 msgstr "_Cc:"
 
-#: ../src/html.c:1687
+#: ../src/html.c:1711
 msgid "Blin_d copy to:"
 msgstr "Bcc(_D):"
 
-#: ../src/html.c:1692
+#: ../src/html.c:1716
 msgid "with _Subject:"
 msgstr "件名(_S):"
 
-#: ../src/html.c:1694
+#: ../src/html.c:1718
 msgid "with _Subject (URL-encoded):"
 msgstr "件名(_S): (URLエンコード)"
 
-#: ../src/html.c:1700
+#: ../src/html.c:1724
 msgid "with _Body:"
 msgstr "本文(_B):"
 
-#: ../src/html.c:1702
+#: ../src/html.c:1726
 msgid "with _Body (URL-encoded):"
 msgstr "本文(_B): (URLエンコード)"
 
-#: ../src/html.c:1747
+#: ../src/html.c:1771
 msgid "Quick List"
 msgstr "クイック・リスト"
 
-#: ../src/html.c:1752 ../src/html.c:1834 ../src/html_form.c:236
+#: ../src/html.c:1776 ../src/html.c:1858 ../src/html_form.c:236
 msgid "_Rows:"
 msgstr "行(_R):"
 
-#: ../src/html.c:1755
+#: ../src/html.c:1779
 msgid "Or_dered"
 msgstr "順序つき(_D)"
 
-#: ../src/html.c:1756
+#: ../src/html.c:1780
 msgid "_Unordered"
 msgstr "順序なし(_U)"
 
-#: ../src/html.c:1758
+#: ../src/html.c:1782
 msgid "Style:"
 msgstr "スタイルシート:"
 
-#: ../src/html.c:1830 ../src/html_form.c:240
+#: ../src/html.c:1854 ../src/html_form.c:240
 msgid "Co_ls:"
 msgstr "列(_L):"
 
-#: ../src/html.c:1839
+#: ../src/html.c:1863
 msgid "_Add <frame> elements"
 msgstr "<frame>要素を追加(_A)"
 
-#: ../src/html.c:1916 ../src/html.c:2001 ../src/html.c:2060
+#: ../src/html.c:1940 ../src/html.c:2025 ../src/html.c:2084
 msgid "_Source:"
 msgstr "ソース(_S):"
 
-#: ../src/html.c:1924
+#: ../src/html.c:1948
 msgid "Margin _Width:"
 msgstr "マージン幅(_W):"
 
-#: ../src/html.c:1928
+#: ../src/html.c:1952
 msgid "Margin _Height:"
 msgstr "マージン高さ(_H):"
 
-#: ../src/html.c:1936
+#: ../src/html.c:1960
 msgid "Scrollin_g:"
 msgstr "スクロール(_G):"
 
-#: ../src/html.c:1940
+#: ../src/html.c:1964
 msgid "_Frameborder:"
 msgstr "フレーム境界(_F):"
 
-#: ../src/html.c:1945
+#: ../src/html.c:1969
 msgid "No _Resize:"
 msgstr "サイズ変更禁止(_R):"
 
-#: ../src/html.c:1995
+#: ../src/html.c:2019
 msgid "Embed"
 msgstr "埋め込み"
 
-#: ../src/html.c:2017 ../src/html_table.c:143
+#: ../src/html.c:2041 ../src/html_table.c:143
 msgid "Bo_rder:"
 msgstr "ボーダー(_R):"
 
-#: ../src/html.c:2053
+#: ../src/html.c:2077
 msgid "Script"
 msgstr "スクリプト"
 
-#: ../src/html.c:2082 ../src/html.c:2149 ../src/html_form.c:789
+#: ../src/html.c:2106 ../src/html.c:2193 ../src/html_form.c:789
 #: ../src/html_form.c:899
 msgid "_Type:"
 msgstr "種類(_T):"
 
-#: ../src/html.c:2124
+#: ../src/html.c:2150
 msgid "Link"
 msgstr "リンク"
 
-#: ../src/html.c:2141
+#: ../src/html.c:2167
 msgid "HREF_LANG:"
 msgstr "HREF_LANG:"
 
-#: ../src/html.c:2155
+#: ../src/html.c:2171
+#, fuzzy
+msgid "T_itle:"
+msgstr "タイトル(_T):"
+
+#: ../src/html.c:2212
 msgid "_Forward Relation:"
 msgstr "次の関係(_F):"
 
-#: ../src/html.c:2159
+#: ../src/html.c:2216
 msgid "_Reverse Relation:"
 msgstr "前の関係(_R):"
 
-#: ../src/html.c:2170
+#: ../src/html.c:2227
 msgid "Media:"
 msgstr "メディア:"
 
-#: ../src/html.c:2174
+#: ../src/html.c:2231
 msgid "L_ang:"
 msgstr "言語(_A):"
 
-#: ../src/html.c:2178
+#: ../src/html.c:2235
 msgid "_Custom:"
 msgstr "カスタム(_C):"
 
@@ -2331,1424 +2340,1424 @@ msgstr ""
 "%x: サムネイルの幅  %y: サムネイルの高さ\n"
 "%b: 元のファイルサイズ (バイト)"
 
-#: ../src/menu.c:319
+#: ../src/menu.c:322
 msgid "/_File"
 msgstr "/ファイル(_F)"
 
-#: ../src/menu.c:321
+#: ../src/menu.c:324
 msgid "/File/_New"
 msgstr "/ファイル/新規(_N)"
 
-#: ../src/menu.c:322
+#: ../src/menu.c:325
 msgid "/File/New _Window"
 msgstr "/ファイル/新規ウィンドウ(_W)"
 
-#: ../src/menu.c:323
+#: ../src/menu.c:326
 msgid "/File/_Open..."
 msgstr "/ファイル/開く(_O)..."
 
-#: ../src/menu.c:324
+#: ../src/menu.c:327
 msgid "/File/Open _recent"
 msgstr "/ファイル/最近開いたファイル"
 
-#: ../src/menu.c:328
+#: ../src/menu.c:331
 msgid "/File/Open Ad_vanced..."
 msgstr "/ファイル/検索したファイルを開く(_V)..."
 
-#: ../src/menu.c:332
+#: ../src/menu.c:335
 msgid "/File/Open _URL..."
 msgstr "/ファイル/URLを開く(_U)..."
 
-#: ../src/menu.c:334
+#: ../src/menu.c:337
 msgid "/File/Open _from selection"
 msgstr "/ファイル/選択したファイルを開く(_F)"
 
-#: ../src/menu.c:336
+#: ../src/menu.c:339
 msgid "/File/_Save"
 msgstr "/ファイル/保存(_S)"
 
-#: ../src/menu.c:337
+#: ../src/menu.c:340
 msgid "/File/Save _As..."
 msgstr "/ファイル/別名で保存(_A)..."
 
-#: ../src/menu.c:338
+#: ../src/menu.c:341
 msgid "/File/Sav_e All"
 msgstr "/ファイル/すべて保存(_E)"
 
-#: ../src/menu.c:339
+#: ../src/menu.c:342
 msgid "/File/Rever_t to Saved"
 msgstr "/ファイル/保存されている内容に戻す(_T)"
 
-#: ../src/menu.c:341
+#: ../src/menu.c:344
 msgid "/File/_Insert..."
 msgstr "/ファイル/挿入(_I)..."
 
-#: ../src/menu.c:342
+#: ../src/menu.c:345
 msgid "/File/Rena_me..."
 msgstr "/ファイル/名前の変更(_M)..."
 
-#: ../src/menu.c:344
+#: ../src/menu.c:347
 msgid "/File/_Close"
 msgstr "/ファイル/閉じる(_C)"
 
-#: ../src/menu.c:345
+#: ../src/menu.c:348
 msgid "/File/Close A_ll"
 msgstr "/ファイル/すべて閉じる(_L)"
 
-#: ../src/menu.c:346
+#: ../src/menu.c:349
 msgid "/File/Close Win_dow"
 msgstr "/ファイル/このウィンドウを閉じる(_D)"
 
-#: ../src/menu.c:348
+#: ../src/menu.c:351
 msgid "/File/_Quit"
 msgstr "/ファイル/終了(_Q)"
 
-#: ../src/menu.c:349
+#: ../src/menu.c:352
 msgid "/_Edit"
 msgstr "/編集(_E)"
 
-#: ../src/menu.c:351
+#: ../src/menu.c:354
 msgid "/Edit/_Undo"
 msgstr "/編集/やり直す(_U)"
 
-#: ../src/menu.c:352
+#: ../src/menu.c:355
 msgid "/Edit/_Redo"
 msgstr "/編集/元に戻す(_R)"
 
-#: ../src/menu.c:353
+#: ../src/menu.c:356
 msgid "/Edit/Undo All"
 msgstr "/編集/すべて元に戻す"
 
-#: ../src/menu.c:354
+#: ../src/menu.c:357
 msgid "/Edit/Redo All"
 msgstr "/編集/すべてやり直す"
 
-#: ../src/menu.c:356
+#: ../src/menu.c:359
 msgid "/Edit/Cu_t"
 msgstr "/編集/切り取り(_T)"
 
-#: ../src/menu.c:357
+#: ../src/menu.c:360
 msgid "/Edit/_Copy"
 msgstr "/編集/コピー(_C)"
 
-#: ../src/menu.c:358
+#: ../src/menu.c:361
 msgid "/Edit/_Paste"
 msgstr "/編集/貼り付け(_P)"
 
-#: ../src/menu.c:360
+#: ../src/menu.c:363
 msgid "/Edit/Select _All"
 msgstr "/編集/すべて選択(_A)"
 
-#: ../src/menu.c:362
+#: ../src/menu.c:365
 msgid "/Edit/_Find..."
 msgstr "/編集/検索(_F)..."
 
-#: ../src/menu.c:363
+#: ../src/menu.c:366
 msgid "/Edit/Find A_gain"
 msgstr "/編集/再検索(_G)"
 
-#: ../src/menu.c:364
+#: ../src/menu.c:367
 msgid "/Edit/Find from selection"
 msgstr "/編集/選択領域内で検索"
 
-#: ../src/menu.c:365
+#: ../src/menu.c:368
 msgid "/Edit/R_eplace..."
 msgstr "/編集/置換(_E)..."
 
-#: ../src/menu.c:366
+#: ../src/menu.c:369
 msgid "/Edit/Replace Agai_n"
 msgstr "/編集/再置換(_N)"
 
-#: ../src/menu.c:367
+#: ../src/menu.c:370
 msgid "/Edit/Replace special"
 msgstr "/編集/特殊文字の置換"
 
-#: ../src/menu.c:369
+#: ../src/menu.c:372
 msgid "/Edit/Replace special/_ASCII to HTML Entities"
 msgstr "/編集/特殊文字の置換/_ASCII文字をHTML文字実体参照に置換"
 
-#: ../src/menu.c:370
+#: ../src/menu.c:373
 msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
 msgstr "/編集/特殊文字の置換/_ISO8859文字をHTML文字実体参照に置換"
 
-#: ../src/menu.c:371
+#: ../src/menu.c:374
 msgid "/Edit/Replace special/_Both Types to HTML Entities"
 msgstr "/編集/特殊文字の置換/両方の形式をHTML文字実体参照に置換(_B)"
 
-#: ../src/menu.c:372
+#: ../src/menu.c:375
 msgid "/Edit/Replace special/To _Uppercase"
 msgstr "/編集/特殊文字の置換/大文字に変える"
 
-#: ../src/menu.c:373
+#: ../src/menu.c:376
 msgid "/Edit/Replace special/To _Lowercase"
 msgstr "/編集/特殊文字の置換/小文字に変える"
 
-#: ../src/menu.c:376 ../src/menu.c:379
+#: ../src/menu.c:379 ../src/menu.c:382
 msgid "/Edit/S_hift Right"
 msgstr "/編集/右へインデント(_H)"
 
-#: ../src/menu.c:377 ../src/menu.c:380
+#: ../src/menu.c:380 ../src/menu.c:383
 msgid "/Edit/Shift _Left"
 msgstr "/編集/左へインデント(_L)"
 
-#: ../src/menu.c:383
+#: ../src/menu.c:386
 msgid "/Edit/Add _Bookmark"
 msgstr "編集/ブックマークを追加する(_B)"
 
-#: ../src/menu.c:385
+#: ../src/menu.c:388
 msgid "/Edit/Save Sett_ings"
 msgstr "/編集/設定を保存する(_I)"
 
-#: ../src/menu.c:386
+#: ../src/menu.c:389
 msgid "/Edit/Save Shortcut _Keys"
 msgstr "/編集/ショートカットキー設定の保存(_K)"
 
-#: ../src/menu.c:387
+#: ../src/menu.c:390
 msgid "/Edit/Preference_s"
 msgstr "/編集/環境設定(_S)"
 
-#: ../src/menu.c:388
+#: ../src/menu.c:391
 msgid "/_View"
 msgstr "/表示(_V)"
 
-#: ../src/menu.c:390
+#: ../src/menu.c:393
 msgid "/View/View _Main Toolbar"
 msgstr "/表示/メインツールバー(_M)"
 
-#: ../src/menu.c:391
+#: ../src/menu.c:394
 msgid "/View/View _HTML Toolbar"
 msgstr "/表示/HTMLツールバー(_H)"
 
-#: ../src/menu.c:392
+#: ../src/menu.c:395
 msgid "/View/View _Custom Menu"
 msgstr "/表示/カスタムメニュー(_C)"
 
-#: ../src/menu.c:393
+#: ../src/menu.c:396
 msgid "/View/View _Sidebar"
 msgstr "/表示/サイドバー(_S)"
 
-#: ../src/menu.c:394
+#: ../src/menu.c:397
 msgid "/_Tags"
 msgstr "/タグ(_T)"
 
-#: ../src/menu.c:397
+#: ../src/menu.c:400
 msgid "/Tags/_Headings"
 msgstr "/タグ/見出し(_H)"
 
-#: ../src/menu.c:399
+#: ../src/menu.c:402
 msgid "/Tags/Headings/H_1"
 msgstr "/タグ/見出し/H_1"
 
-#: ../src/menu.c:400
+#: ../src/menu.c:403
 msgid "/Tags/Headings/H_2"
 msgstr "/タグ/見出し/H_2"
 
-#: ../src/menu.c:401
+#: ../src/menu.c:404
 msgid "/Tags/Headings/H_3"
 msgstr "/タグ/見出し/H_3"
 
-#: ../src/menu.c:402
+#: ../src/menu.c:405
 msgid "/Tags/Headings/H_4"
 msgstr "/タグ/見出し/H_4"
 
-#: ../src/menu.c:403
+#: ../src/menu.c:406
 msgid "/Tags/Headings/H_5"
 msgstr "/タグ/見出し/H_5"
 
-#: ../src/menu.c:404
+#: ../src/menu.c:407
 msgid "/Tags/Headings/H_6"
 msgstr "/タグ/見出し/H_6"
 
-#: ../src/menu.c:405
+#: ../src/menu.c:408
 msgid "/Tags/_Special"
 msgstr "/タグ/特殊文字(_S)"
 
-#: ../src/menu.c:407
+#: ../src/menu.c:410
 msgid "/Tags/Special/_Accent"
 msgstr "/タグ/特殊文字/アクセント(_A)"
 
-#: ../src/menu.c:409
+#: ../src/menu.c:412
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "/タグ/特殊文字/アクセント/大文字(_U)"
 
-#: ../src/menu.c:410
+#: ../src/menu.c:413
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr "/タグ/特殊文字/アクセント/大文字/_A-I"
 
-#: ../src/menu.c:412
+#: ../src/menu.c:415
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/A grave À"
 
-#: ../src/menu.c:413
+#: ../src/menu.c:416
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/A acute Á"
 
-#: ../src/menu.c:414
+#: ../src/menu.c:417
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/A circumflex Â"
 
-#: ../src/menu.c:415
+#: ../src/menu.c:418
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/A tilde Ã"
 
-#: ../src/menu.c:416
+#: ../src/menu.c:419
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/AE ligature Æ"
 
-#: ../src/menu.c:417
+#: ../src/menu.c:420
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/A diaeresis Ä"
 
-#: ../src/menu.c:418
+#: ../src/menu.c:421
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/A ring Å"
 
-#: ../src/menu.c:419
+#: ../src/menu.c:422
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/C cedilla Ç"
 
-#: ../src/menu.c:420
+#: ../src/menu.c:423
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/E grave È"
 
-#: ../src/menu.c:421
+#: ../src/menu.c:424
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/E acute É"
 
-#: ../src/menu.c:422
+#: ../src/menu.c:425
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/E circumflex Ê"
 
-#: ../src/menu.c:423
+#: ../src/menu.c:426
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/E diaeresis Ë"
 
-#: ../src/menu.c:424
+#: ../src/menu.c:427
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/I grave Ì"
 
-#: ../src/menu.c:425
+#: ../src/menu.c:428
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/I acute Í"
 
-#: ../src/menu.c:426
+#: ../src/menu.c:429
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/I circumflex Î"
 
-#: ../src/menu.c:427
+#: ../src/menu.c:430
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr "/タグ/特殊文字/アクセント/大文字/A-I/I diaeresis Ï"
 
-#: ../src/menu.c:428
+#: ../src/menu.c:431
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
 msgstr "/タグ/特殊文字/アクセント/大文字/_J-Z"
 
-#: ../src/menu.c:430
+#: ../src/menu.c:433
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr "/タグ/特殊文字/アクセント/大文字/J-Z/N tilde Ñ"
 
-#: ../src/menu.c:431
+#: ../src/menu.c:434
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr "/タグ/特殊文字/アクセント/大文字/J-Z/O grave Ò"
 
-#: ../src/menu.c:432
+#: ../src/menu.c:435
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr "/タグ/特殊文字/アクセント/大文字/J-Z/O acute Ó"
 
-#: ../src/menu.c:433
+#: ../src/menu.c:436
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/タグ/特殊文字/アクセント/大文字/J-Z/O circumflex Ô"
 
-#: ../src/menu.c:434
+#: ../src/menu.c:437
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
 msgstr "/タグ/特殊文字/アクセント/大文字/J-Z/OE ligature Œ"
 
-#: ../src/menu.c:435
+#: ../src/menu.c:438
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr "/タグ/特殊文字/アクセント/大文字/J-Z/O tilde Õ"
 
-#: ../src/menu.c:436
+#: ../src/menu.c:439
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr "/タグ/特殊文字/アクセント/大文字/J-Z/O diaeresis Ö"
 
-#: ../src/menu.c:437
+#: ../src/menu.c:440
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr "/タグ/特殊文字/アクセント/大文字/J-Z/O slash Ø"
 
-#: ../src/menu.c:438
+#: ../src/menu.c:441
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr "/タグ/特殊文字/アクセント/大文字/J-Z/U grave Ù"
 
-#: ../src/menu.c:439
+#: ../src/menu.c:442
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr "/タグ/特殊文字/アクセント/大文字/J-Z/U acute Ú"
 
-#: ../src/menu.c:440
+#: ../src/menu.c:443
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr "/タグ/特殊文字/アクセント/大文字/J-Z/U circumflex Û"
 
-#: ../src/menu.c:441
+#: ../src/menu.c:444
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr "/タグ/特殊文字/アクセント/大文字/J-Z/U diaeresis Ü"
 
-#: ../src/menu.c:442
+#: ../src/menu.c:445
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr "/タグ/特殊文字/アクセント/大文字/J-Z/Y acute Ý"
 
-#: ../src/menu.c:443
+#: ../src/menu.c:446
 msgid "/Tags/Special/Accent/_Lowercase"
 msgstr "/タグ/特殊文字/アクセント/小文字(_L)"
 
-#: ../src/menu.c:444
+#: ../src/menu.c:447
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
 msgstr "/タグ/特殊文字/アクセント/小文字/_A-I"
 
-#: ../src/menu.c:446
+#: ../src/menu.c:449
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/a grave à"
 
-#: ../src/menu.c:447
+#: ../src/menu.c:450
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/a acute á"
 
-#: ../src/menu.c:448
+#: ../src/menu.c:451
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/a circumflex â"
 
-#: ../src/menu.c:449
+#: ../src/menu.c:452
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/a tilde ã"
 
-#: ../src/menu.c:450
+#: ../src/menu.c:453
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/a ring å"
 
-#: ../src/menu.c:451
+#: ../src/menu.c:454
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/ae ligature æ"
 
-#: ../src/menu.c:452
+#: ../src/menu.c:455
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/a diaeresis ä"
 
-#: ../src/menu.c:453
+#: ../src/menu.c:456
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/c cedilla ç"
 
-#: ../src/menu.c:454
+#: ../src/menu.c:457
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/e grave è"
 
-#: ../src/menu.c:455
+#: ../src/menu.c:458
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/e acute é"
 
-#: ../src/menu.c:456
+#: ../src/menu.c:459
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/e circumflex ê"
 
-#: ../src/menu.c:457
+#: ../src/menu.c:460
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/e diaeresis ë"
 
-#: ../src/menu.c:458
+#: ../src/menu.c:461
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/i grave ì"
 
-#: ../src/menu.c:459
+#: ../src/menu.c:462
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/i acute í"
 
-#: ../src/menu.c:460
+#: ../src/menu.c:463
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/i circumflex î"
 
-#: ../src/menu.c:461
+#: ../src/menu.c:464
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr "/タグ/特殊文字/アクセント/小文字/A-I/i diaeresis ï"
 
-#: ../src/menu.c:462
+#: ../src/menu.c:465
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr "/タグ/特殊文字/アクセント/小文字/_J-Z"
 
-#: ../src/menu.c:464
+#: ../src/menu.c:467
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/n tilde ñ"
 
-#: ../src/menu.c:465
+#: ../src/menu.c:468
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/o grave ò"
 
-#: ../src/menu.c:466
+#: ../src/menu.c:469
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/o acute ó"
 
-#: ../src/menu.c:467
+#: ../src/menu.c:470
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/oe ligature œ"
 
-#: ../src/menu.c:468
+#: ../src/menu.c:471
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/o circumflex ô"
 
-#: ../src/menu.c:469
+#: ../src/menu.c:472
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/o tilde õ"
 
-#: ../src/menu.c:470
+#: ../src/menu.c:473
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/o diaeresis ö"
 
-#: ../src/menu.c:471
+#: ../src/menu.c:474
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/o slash ø"
 
-#: ../src/menu.c:472
+#: ../src/menu.c:475
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/u grave ù"
 
-#: ../src/menu.c:473
+#: ../src/menu.c:476
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/u acute ú"
 
-#: ../src/menu.c:474
+#: ../src/menu.c:477
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/u circumflex û"
 
-#: ../src/menu.c:475
+#: ../src/menu.c:478
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/u diaeresis ü"
 
-#: ../src/menu.c:476
+#: ../src/menu.c:479
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/y acute ý"
 
-#: ../src/menu.c:477
+#: ../src/menu.c:480
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr "/タグ/特殊文字/アクセント/小文字/J-Z/y diaeresis ÿ"
 
-#: ../src/menu.c:479
+#: ../src/menu.c:482
 msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "/タグ/特殊文字/アクセント/U_mlaut ¨"
 
-#: ../src/menu.c:480
+#: ../src/menu.c:483
 msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "/タグ/特殊文字/アクセント/_Acute ´"
 
-#: ../src/menu.c:481
+#: ../src/menu.c:484
 msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "/タグ/特殊文字/アクセント/_Cedilla ¸"
 
-#: ../src/menu.c:482
+#: ../src/menu.c:485
 msgid "/Tags/Special/_Currency"
 msgstr "/タグ/特殊文字/通貨記号(_C)"
 
-#: ../src/menu.c:484
+#: ../src/menu.c:487
 msgid "/Tags/Special/Currency/_Cent sign ¢"
 msgstr "/タグ/特殊文字/通貨記号/セント(_C) ¢"
 
-#: ../src/menu.c:485
+#: ../src/menu.c:488
 msgid "/Tags/Special/Currency/_Pound sterling £"
 msgstr "/タグ/特殊文字/通貨記号/ポンド(_P) £"
 
-#: ../src/menu.c:486
+#: ../src/menu.c:489
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
 msgstr "/タグ/特殊文字/通貨記号/通貨の記号(_U) ¤"
 
-#: ../src/menu.c:487
+#: ../src/menu.c:490
 msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/タグ/特殊文字/通貨記号/円(_Y) ¥"
 
-#: ../src/menu.c:488
+#: ../src/menu.c:491
 msgid "/Tags/Special/Currency/_Euro "
 msgstr "/タグ/特殊文字/通貨記号/ユーロ(_E) "
 
-#: ../src/menu.c:489
+#: ../src/menu.c:492
 msgid "/Tags/Special/_Math-Science"
 msgstr "/タグ/特殊文字/数学-科学記号(_M)"
 
-#: ../src/menu.c:491
+#: ../src/menu.c:494
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
 msgstr "/タグ/特殊文字/数学-科学記号/否定(_N) ¬"
 
-#: ../src/menu.c:492
+#: ../src/menu.c:495
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
 msgstr "/タグ/特殊文字/数学-科学記号/乗算(_M) ×"
 
-#: ../src/menu.c:493
+#: ../src/menu.c:496
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
 msgstr "/タグ/特殊文字/数学-科学記号/除算(_D) ÷"
 
-#: ../src/menu.c:494
+#: ../src/menu.c:497
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
 msgstr "/タグ/特殊文字/数学-科学記号/プラスマイナス(_P) ±"
 
-#: ../src/menu.c:495
+#: ../src/menu.c:498
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
 msgstr "/タグ/特殊文字/数学-科学記号/小なり(_L) <"
 
-#: ../src/menu.c:496
+#: ../src/menu.c:499
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
 msgstr "/タグ/特殊文字/数学-科学記号/大なり(_G) >"
 
-#: ../src/menu.c:497
+#: ../src/menu.c:500
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "/タグ/特殊文字/数学-科学記号/上付き _1 ¹"
 
-#: ../src/menu.c:498
+#: ../src/menu.c:501
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "/タグ/特殊文字/数学-科学記号/上付き _2 ²"
 
-#: ../src/menu.c:499
+#: ../src/menu.c:502
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "/タグ/特殊文字/数学-科学記号/上付き _3 ³"
 
-#: ../src/menu.c:500
+#: ../src/menu.c:503
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
 msgstr "/タグ/特殊文字/数学-科学記号/4分の1(_Q) ¼"
 
-#: ../src/menu.c:501
+#: ../src/menu.c:504
 msgid "/Tags/Special/Math-Science/One _half ½"
 msgstr "/タグ/特殊文字/数学-科学記号/2分の1(_H) ½"
 
-#: ../src/menu.c:502
+#: ../src/menu.c:505
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
 msgstr "/タグ/特殊文字/数学-科学記号/4分の3(_T) ¾"
 
-#: ../src/menu.c:503
+#: ../src/menu.c:506
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
 msgstr "/タグ/特殊文字/数学-科学記号/角度(_R) °"
 
-#: ../src/menu.c:504
+#: ../src/menu.c:507
 msgid "/Tags/Special/_Non Latin"
 msgstr "/タグ/特殊文字/非ラテン文字(_N)"
 
-#: ../src/menu.c:506
+#: ../src/menu.c:509
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "/タグ/特殊文字/非ラテン文字/_ETH (アイスランド) Ð"
 
-#: ../src/menu.c:507
+#: ../src/menu.c:510
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "/タグ/特殊文字/非ラテン文字/_THORN (アイスランド) Þ"
 
-#: ../src/menu.c:508
+#: ../src/menu.c:511
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "/タグ/特殊文字/非ラテン文字/et_h (アイスランド) ð"
 
-#: ../src/menu.c:509
+#: ../src/menu.c:512
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "/タグ/特殊文字/非ラテン文字/th_orn ÿ"
 
-#: ../src/menu.c:510
+#: ../src/menu.c:513
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "/タグ/特殊文字/非ラテン文字/エスツェット(_S) ß"
 
-#: ../src/menu.c:511
+#: ../src/menu.c:514
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
 msgstr "/タグ/特殊文字/非ラテン文字/マイクロ(_M) µ"
 
-#: ../src/menu.c:512
+#: ../src/menu.c:515
 msgid "/Tags/Special/_Other"
 msgstr "/タグ/特殊文字/その他(_O)"
 
-#: ../src/menu.c:514
+#: ../src/menu.c:517
 msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "/タグ/特殊文字/その他/改行なし空白(_N)"
 
-#: ../src/menu.c:515
+#: ../src/menu.c:518
 msgid "/Tags/Special/Other/_Section sign §"
 msgstr "/タグ/特殊文字/その他/セクション(_S) §"
 
-#: ../src/menu.c:516
+#: ../src/menu.c:519
 msgid "/Tags/Special/Other/_Copyright sign ©"
 msgstr "/タグ/特殊文字/その他/コピーライト(_C) ©"
 
-#: ../src/menu.c:517
+#: ../src/menu.c:520
 msgid "/Tags/Special/Other/_Left angle quotes «"
 msgstr "/タグ/特殊文字/その他/左角引用符(_L) «"
 
-#: ../src/menu.c:518
+#: ../src/menu.c:521
 msgid "/Tags/Special/Other/_Right angle quotes »"
 msgstr "/タグ/特殊文字/その他/右角引用符(_R) »"
 
-#: ../src/menu.c:519
+#: ../src/menu.c:522
 msgid "/Tags/Special/Other/Registered _trademark ®"
 msgstr "/タグ/特殊文字/その他/登録商標(_T) ®"
 
-#: ../src/menu.c:520
+#: ../src/menu.c:523
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
 msgstr "/タグ/特殊文字/その他/逆感嘆符(_E) ¡"
 
-#: ../src/menu.c:521
+#: ../src/menu.c:524
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
 msgstr "/タグ/特殊文字/その他/逆疑問符(_Q) ¿"
 
-#: ../src/menu.c:522
+#: ../src/menu.c:525
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "/タグ/特殊文字/その他/女性形序数(_F) ª"
 
-#: ../src/menu.c:523
+#: ../src/menu.c:526
 msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "/タグ/特殊文字/その他/男性形序数(_M) º"
 
-#: ../src/menu.c:524
+#: ../src/menu.c:527
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
 msgstr "/タグ/特殊文字/その他/ピルクロ(パラグラフ)(_P) ¶"
 
-#: ../src/menu.c:525
+#: ../src/menu.c:528
 msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/タグ/特殊文字/その他/中切れ縦棒(_B) ¦"
 
-#: ../src/menu.c:526
+#: ../src/menu.c:529
 msgid "/Tags/Special/Other/Soft _hypen -"
 msgstr "/タグ/特殊文字/その他/ソフトハイフン(_H) -"
 
-#: ../src/menu.c:527
+#: ../src/menu.c:530
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
 msgstr "/タグ/特殊文字/その他/オーバーライン(_C) ¯"
 
-#: ../src/menu.c:528
+#: ../src/menu.c:531
 msgid "/Tags/Special/Other/Middle _dot ·"
 msgstr "/タグ/特殊文字/その他/中黒(_D) ·"
 
-#: ../src/menu.c:529
+#: ../src/menu.c:532
 msgid "/Tags/_Format by layout"
 msgstr "/タグ/外観で書式指定(_F)"
 
-#: ../src/menu.c:531
+#: ../src/menu.c:534
 msgid "/Tags/Format by layout/_Bold"
 msgstr "/タグ/外観で書式指定/ボールド(_B)"
 
-#: ../src/menu.c:532
+#: ../src/menu.c:535
 msgid "/Tags/Format by layout/_Italic"
 msgstr "/タグ/外観で書式指定/イタリック(_I)"
 
-#: ../src/menu.c:533
+#: ../src/menu.c:536
 msgid "/Tags/Format by layout/_Underline"
 msgstr "/タグ/外観で書式指定/下線(_U)"
 
-#: ../src/menu.c:534
+#: ../src/menu.c:537
 msgid "/Tags/Format by layout/_Strikeout"
 msgstr "/タグ/外観で書式指定/取り消し線(_S)"
 
-#: ../src/menu.c:535
+#: ../src/menu.c:538
 msgid "/Tags/Format by layout/Sm_all"
 msgstr "/タグ/外観で書式指定/字を小さく(SM_ALL)"
 
-#: ../src/menu.c:536
+#: ../src/menu.c:539
 msgid "/Tags/Format by layout/Bi_g"
 msgstr "/タグ/外観で書式指定/字を大きく(BI_G)"
 
-#: ../src/menu.c:537
+#: ../src/menu.c:540
 msgid "/Tags/F_ormat by context"
 msgstr "/タグ/構成要素で書式指定(_O)"
 
-#: ../src/menu.c:539
+#: ../src/menu.c:542
 msgid "/Tags/Format by context/_Strong"
 msgstr "/タグ/構成要素で書式指定/より強い強調(_STRONG)"
 
-#: ../src/menu.c:540
+#: ../src/menu.c:543
 msgid "/Tags/Format by context/_Emphasis"
 msgstr "/タグ/構成要素で書式指定/強調(_EM)"
 
-#: ../src/menu.c:541
+#: ../src/menu.c:544
 msgid "/Tags/Format by context/_Define"
 msgstr "/タグ/構成要素で書式指定/定義(_DFN)"
 
-#: ../src/menu.c:542
+#: ../src/menu.c:545
 msgid "/Tags/Format by context/_Code"
 msgstr "/タグ/構成要素で書式指定/コード(_CODE)"
 
-#: ../src/menu.c:543
+#: ../src/menu.c:546
 msgid "/Tags/Format by context/Sa_mple"
 msgstr "/タグ/構成要素で書式指定/サンプル出力(SA_MPLE)"
 
-#: ../src/menu.c:544
+#: ../src/menu.c:547
 msgid "/Tags/Format by context/_Keyboard"
 msgstr "/タグ/構成要素で書式指定/キーボード(_KBD)"
 
-#: ../src/menu.c:545
+#: ../src/menu.c:548
 msgid "/Tags/Format by context/_Variable"
 msgstr "/タグ/構成要素で書式指定/変数(_VAR)"
 
-#: ../src/menu.c:546
+#: ../src/menu.c:549
 msgid "/Tags/Format by context/Ci_tation"
 msgstr "/タグ/構成要素で書式指定/引用(CI_TE)"
 
-#: ../src/menu.c:547
+#: ../src/menu.c:550
 msgid "/Tags/Format by context/_Abbreviation"
 msgstr "/タグ/構成要素で書式指定/略語(_ABBR)"
 
-#: ../src/menu.c:548
+#: ../src/menu.c:551
 msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/タグ/構成要素で書式指定/頭文字(AC_RONYM)"
 
-#: ../src/menu.c:549
+#: ../src/menu.c:552
 msgid "/Tags/Format _general"
 msgstr "/タグ/一般の書式指定(_G)"
 
-#: ../src/menu.c:551
+#: ../src/menu.c:554
 msgid "/Tags/Format general/_Paragraph"
 msgstr "/タグ/一般の書式指定/パラグラフ(_P)"
 
-#: ../src/menu.c:552
+#: ../src/menu.c:555
 msgid "/Tags/Format general/_Break"
 msgstr "/タグ/一般の書式指定/強制改行(_B)"
 
-#: ../src/menu.c:553
+#: ../src/menu.c:556
 msgid "/Tags/Format general/Break clear _all"
 msgstr "/タグ/一般の書式指定/強制改行(Clear _ALL)"
 
-#: ../src/menu.c:554
+#: ../src/menu.c:557
 msgid "/Tags/Format general/_Non-Breaking Space"
 msgstr "/タグ/一般の書式指定/改行なし空白(_N)"
 
-#: ../src/menu.c:556
+#: ../src/menu.c:559
 msgid "/Tags/Format general/Font Si_ze +1"
 msgstr "/タグ/一般の書式指定/フォントサイズ +1(_Z)"
 
-#: ../src/menu.c:557
+#: ../src/menu.c:560
 msgid "/Tags/Format general/Font _Size -1"
 msgstr "/タグ/一般の書式指定/フォントサイズ -1(_S)"
 
-#: ../src/menu.c:559
+#: ../src/menu.c:562
 msgid "/Tags/Format general/Preformatted _Text"
 msgstr "/タグ/一般の書式指定/整形済みテキスト(Pre)(_T)"
 
-#: ../src/menu.c:560
+#: ../src/menu.c:563
 msgid "/Tags/Format general/Su_bscript"
 msgstr "/タグ/一般の書式指定/下付き(SU_B)"
 
-#: ../src/menu.c:561
+#: ../src/menu.c:564
 msgid "/Tags/Format general/Su_perscript"
 msgstr "/タグ/一般の書式指定/上付き(SU_P)"
 
-#: ../src/menu.c:563
+#: ../src/menu.c:566
 msgid "/Tags/Format general/_Center"
 msgstr "/タグ/一般の書式指定/センタリング(_C)"
 
-#: ../src/menu.c:564
+#: ../src/menu.c:567
 msgid "/Tags/Format general/Align _right"
 msgstr "/タグ/一般の書式指定/右寄せ(_R)"
 
-#: ../src/menu.c:565
+#: ../src/menu.c:568
 msgid "/Tags/_Table"
 msgstr "/タグ/テーブル(_T)"
 
-#: ../src/menu.c:567
+#: ../src/menu.c:570
 msgid "/Tags/Table/_Table"
 msgstr "/タグ/テーブル/テーブル(_T)"
 
-#: ../src/menu.c:568
+#: ../src/menu.c:571
 msgid "/Tags/Table/Table _Row"
 msgstr "/タグ/テーブル/行(_R)"
 
-#: ../src/menu.c:569
+#: ../src/menu.c:572
 msgid "/Tags/Table/Table _Header"
 msgstr "/タグ/テーブル/ヘッダ(_H)"
 
-#: ../src/menu.c:570
+#: ../src/menu.c:573
 msgid "/Tags/Table/Table _Data"
 msgstr "/タグ/テーブル/データ(_D)"
 
-#: ../src/menu.c:571
+#: ../src/menu.c:574
 msgid "/Tags/Table/Table _Caption"
 msgstr "/タグ/テーブル/表題(_C)"
 
-#: ../src/menu.c:572
+#: ../src/menu.c:575
 msgid "/Tags/_List"
 msgstr "/タグ/リスト(_L)"
 
-#: ../src/menu.c:574
+#: ../src/menu.c:577
 msgid "/Tags/List/Unordered _List"
 msgstr "/タグ/リスト/順序無しリスト(_L)"
 
-#: ../src/menu.c:575
+#: ../src/menu.c:578
 msgid "/Tags/List/_Ordered List"
 msgstr "/タグ/リスト/順序有りリスト(_O)"
 
-#: ../src/menu.c:576
+#: ../src/menu.c:579
 msgid "/Tags/List/List Ite_m"
 msgstr "/タグ/リスト/リスト項目(_M)"
 
-#: ../src/menu.c:577
+#: ../src/menu.c:580
 msgid "/Tags/List/De_finition List"
 msgstr "/タグ/リスト/定義リスト(_F)"
 
-#: ../src/menu.c:578
+#: ../src/menu.c:581
 msgid "/Tags/List/Definition _Term"
 msgstr "/タグ/リスト/定義語(_T)"
 
-#: ../src/menu.c:579
+#: ../src/menu.c:582
 msgid "/Tags/List/_Definition"
 msgstr "/タグ/リスト/定義説明(_D)"
 
-#: ../src/menu.c:580
+#: ../src/menu.c:583
 msgid "/Tags/List/Men_u"
 msgstr "/タグ/リスト/メニュー(_U)"
 
-#: ../src/menu.c:581
+#: ../src/menu.c:584
 msgid "/Tags/Fo_rm"
 msgstr "/タグ/フォーム(_R)"
 
-#: ../src/menu.c:583
+#: ../src/menu.c:586
 msgid "/Tags/Form/_Form"
 msgstr "/タグ/フォーム/フォーム(_F)..."
 
-#: ../src/menu.c:584
+#: ../src/menu.c:587
 msgid "/Tags/Form/_Button"
 msgstr "/タグ/フォーム/ボタン(_B)..."
 
-#: ../src/menu.c:585
+#: ../src/menu.c:588
 msgid "/Tags/Form/_Input"
 msgstr "/タグ/フォーム/入力(_I)..."
 
-#: ../src/menu.c:586
+#: ../src/menu.c:589
 msgid "/Tags/Form/_Textarea"
 msgstr "/タグ/フォーム/複数行テキスト入力(_T)..."
 
-#: ../src/menu.c:588
+#: ../src/menu.c:591
 msgid "/Tags/_Misc"
 msgstr "/タグ/その他(_M)"
 
-#: ../src/menu.c:590
+#: ../src/menu.c:593
 msgid "/Tags/Misc/Insert Generator _META-Tag"
 msgstr "/タグ/その他/「Generator」_Metaタグを挿入"
 
-#: ../src/menu.c:591
+#: ../src/menu.c:594
 msgid "/Tags/Misc/_Span"
 msgstr "/タグ/その他/_Span"
 
-#: ../src/menu.c:592
+#: ../src/menu.c:595
 msgid "/Tags/Misc/_Div"
 msgstr "/タグ/その他/_Div"
 
-#: ../src/menu.c:593
+#: ../src/menu.c:596
 msgid "/Tags/Misc/_Link"
 msgstr "/タグ/その他/リンク(_L)"
 
-#: ../src/menu.c:594
+#: ../src/menu.c:597
 msgid "/Tags/Misc/S_cript"
 msgstr "/タグ/その他/スクリプト(_C)"
 
-#: ../src/menu.c:595
+#: ../src/menu.c:598
 msgid "/Tags/Misc/_Anchor"
 msgstr "/タグ/その他/アンカー(_A)"
 
-#: ../src/menu.c:596
+#: ../src/menu.c:599
 msgid "/Tags/Misc/_Image"
 msgstr "/タグ/その他/画像(_I)"
 
-#: ../src/menu.c:598
+#: ../src/menu.c:601
 msgid "/Tags/_Comment"
 msgstr "/タグ/コメント(_C)"
 
-#: ../src/menu.c:599
+#: ../src/menu.c:602
 msgid "/Dial_ogs"
 msgstr "/ダイアログ(_O)"
 
-#: ../src/menu.c:601
+#: ../src/menu.c:604
 msgid "/Dialogs/_General"
 msgstr "/ダイアログ/全般(_G)"
 
-#: ../src/menu.c:603
+#: ../src/menu.c:606
 msgid "/Dialogs/General/_Quickstart..."
 msgstr "/ダイアログ/全般/クイック・スタート(_Q)..."
 
-#: ../src/menu.c:606
+#: ../src/menu.c:609
 msgid "/Dialogs/General/_Link Header..."
 msgstr "/ダイアログ/全般/リンクヘッダ(_L)..."
 
-#: ../src/menu.c:607
+#: ../src/menu.c:610
 msgid "/Dialogs/General/_Body..."
 msgstr "/ダイアログ/全般/_Body..."
 
-#: ../src/menu.c:608
+#: ../src/menu.c:611
 msgid "/Dialogs/General/_Anchor..."
 msgstr "/ダイアログ/全般/アンカー(_A)..."
 
-#: ../src/menu.c:609
+#: ../src/menu.c:612
 msgid "/Dialogs/General/_Email..."
 msgstr "/ダイアログ/全般/_Eメール..."
 
-#: ../src/menu.c:610
+#: ../src/menu.c:613
 msgid "/Dialogs/General/_Rule..."
 msgstr "/ダイアログ/全般/水平線(_R)..."
 
-#: ../src/menu.c:611
+#: ../src/menu.c:614
 msgid "/Dialogs/General/_Font..."
 msgstr "/ダイアログ/全般/フォント(_F)..."
 
-#: ../src/menu.c:612
+#: ../src/menu.c:615
 msgid "/Dialogs/General/Basef_ont..."
 msgstr "/ダイアログ/全般/基本フォント(_F)..."
 
-#: ../src/menu.c:613
+#: ../src/menu.c:616
 msgid "/Dialogs/General/Quick_list..."
 msgstr "/ダイアログ/全般/クイック・リスト(_L)..."
 
-#: ../src/menu.c:614
+#: ../src/menu.c:617
 msgid "/Dialogs/General/_Meta..."
 msgstr "/ダイアログ/全般/_Meta..."
 
-#: ../src/menu.c:615
+#: ../src/menu.c:618
 msgid "/Dialogs/General/Embe_d..."
 msgstr "/ダイアログ/全般/Embe_d..."
 
-#: ../src/menu.c:616
+#: ../src/menu.c:619
 msgid "/Dialogs/General/Select _Color..."
 msgstr "/ダイアログ/全般/色の選択(_C)..."
 
-#: ../src/menu.c:617
+#: ../src/menu.c:620
 msgid "/Dialogs/General/Insert _Time..."
 msgstr "/ダイアログ/全般/日時の挿入(_T)..."
 
-#: ../src/menu.c:618
+#: ../src/menu.c:621
 msgid "/Dialogs/General/Insert _Image..."
 msgstr "/ダイアログ/全般/画像の挿入(_I)..."
 
-#: ../src/menu.c:619
+#: ../src/menu.c:622
 msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "/ダイアログ/全般/サムネイルの挿入(_H)..."
 
-#: ../src/menu.c:620
+#: ../src/menu.c:623
 msgid "/Dialogs/_Table"
 msgstr "/ダイアログ/テーブル(_T)"
 
-#: ../src/menu.c:622
+#: ../src/menu.c:625
 msgid "/Dialogs/Table/Table _Wizard..."
 msgstr "/ダイアログ/テーブル/テーブル・ウィザード(_W)..."
 
-#: ../src/menu.c:623
+#: ../src/menu.c:626
 msgid "/Dialogs/Table/_Table..."
 msgstr "/ダイアログ/テーブル/テーブル(_T)..."
 
-#: ../src/menu.c:624
+#: ../src/menu.c:627
 msgid "/Dialogs/Table/Table _Row..."
 msgstr "/ダイアログ/テーブル/行(_R)..."
 
-#: ../src/menu.c:625
+#: ../src/menu.c:628
 msgid "/Dialogs/Table/Table _Head..."
 msgstr "/ダイアログ/テーブル/ヘッダセル(_H)..."
 
-#: ../src/menu.c:626
+#: ../src/menu.c:629
 msgid "/Dialogs/Table/Table _Data..."
 msgstr "/ダイアログ/テーブル/データセル(_D)..."
 
-#: ../src/menu.c:627
+#: ../src/menu.c:630
 msgid "/Dialogs/_CSS"
 msgstr "/ダイアログ/_CSS"
 
-#: ../src/menu.c:629
+#: ../src/menu.c:632
 msgid "/Dialogs/CSS/_Create Style..."
 msgstr "/ダイアログ/CSS/スタイル作成(_C)..."
 
-#: ../src/menu.c:630
+#: ../src/menu.c:633
 msgid "/Dialogs/CSS/S_pan..."
 msgstr "/ダイアログ/CSS/S_PAN..."
 
-#: ../src/menu.c:631
+#: ../src/menu.c:634
 msgid "/Dialogs/CSS/_Div..."
 msgstr "/ダイアログ/CSS/_DIV..."
 
-#: ../src/menu.c:632
+#: ../src/menu.c:635
 msgid "/Dialogs/CSS/_Style..."
 msgstr "/ダイアログ/CSS/スタイル(_S)..."
 
-#: ../src/menu.c:633
+#: ../src/menu.c:636
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
 msgstr "/ダイアログ/CSS/スタイルシートへのリンク(_L)..."
 
-#: ../src/menu.c:634
+#: ../src/menu.c:637
 msgid "/Dialogs/_Frame"
 msgstr "/ダイアログ/フレーム(_F)"
 
-#: ../src/menu.c:636
+#: ../src/menu.c:639
 msgid "/Dialogs/Frame/Frame _Wizard..."
 msgstr "/ダイアログ/フレーム/フレーム・ウィザード(_W)..."
 
-#: ../src/menu.c:637
+#: ../src/menu.c:640
 msgid "/Dialogs/Frame/Frame_set..."
 msgstr "/ダイアログ/フレーム/フレームセット(_S)..."
 
-#: ../src/menu.c:638
+#: ../src/menu.c:641
 msgid "/Dialogs/Frame/_Frame..."
 msgstr "/ダイアログ/フレーム/フレーム(_F)..."
 
-#: ../src/menu.c:639
+#: ../src/menu.c:642
 msgid "/Dialogs/F_orm"
 msgstr "/ダイアログ/フォーム(_O)"
 
-#: ../src/menu.c:641
+#: ../src/menu.c:644
 msgid "/Dialogs/Form/F_orm..."
 msgstr "/ダイアログ/フォーム/フォーム(_O)..."
 
-#: ../src/menu.c:642
+#: ../src/menu.c:645
 msgid "/Dialogs/Form/_Input..."
 msgstr "/ダイアログ/フォーム/入力(_I)..."
 
-#: ../src/menu.c:643
+#: ../src/menu.c:646
 msgid "/Dialogs/Form/Input Buttons..."
 msgstr "/ダイアログ/フォーム/入力ボタン..."
 
-#: ../src/menu.c:644
+#: ../src/menu.c:647
 msgid "/Dialogs/Form/Input Text..."
 msgstr "/ダイアログ/フォーム/テキスト入力..."
 
-#: ../src/menu.c:645
+#: ../src/menu.c:648
 msgid "/Dialogs/Form/Text_area..."
 msgstr "/ダイアログ/フォーム/複数行テキスト入力(_A)..."
 
-#: ../src/menu.c:646
+#: ../src/menu.c:649
 msgid "/Dialogs/Form/_Select..."
 msgstr "/ダイアログ/フォーム/選択メニュー(_S)..."
 
-#: ../src/menu.c:647
+#: ../src/menu.c:650
 msgid "/Dialogs/Form/O_ption..."
 msgstr "/ダイアログ/フォーム/選択項目(_P)..."
 
-#: ../src/menu.c:648
+#: ../src/menu.c:651
 msgid "/Dialogs/Form/Option _Group..."
 msgstr "/ダイアログ/フォーム/選択項目グループ(_G)..."
 
-#: ../src/menu.c:649
+#: ../src/menu.c:652
 msgid "/Dialogs/Form/_Button..."
 msgstr "/ダイアログ/フォーム/ボタン(_B)..."
 
-#: ../src/menu.c:677
+#: ../src/menu.c:680
 msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/ダイアログ/カーソル位置のタグを編集(_E)..."
 
-#: ../src/menu.c:678
+#: ../src/menu.c:681
 msgid "/_Document"
 msgstr "文書(_D)"
 
-#: ../src/menu.c:680
+#: ../src/menu.c:683
 msgid "/Document/_Increase Tabsize"
 msgstr "/文書/タブサイズを増やす(_I)"
 
-#: ../src/menu.c:681
+#: ../src/menu.c:684
 msgid "/Document/_Decrease Tabsize"
 msgstr "/文書/タブサイズを減らす(_D)"
 
-#: ../src/menu.c:682
+#: ../src/menu.c:685
 msgid "/Document/_Auto Indent"
 msgstr "/文書/自動字下げ(_A)"
 
-#: ../src/menu.c:684
+#: ../src/menu.c:687
 msgid "/Document/Auto Close H_TML tags"
 msgstr "/文書/自動的にHTMLタグを閉じる(_T)"
 
-#: ../src/menu.c:685
+#: ../src/menu.c:688
 msgid "/Document/_Wrap"
 msgstr "/文書/折り返し(_W)"
 
-#: ../src/menu.c:686
+#: ../src/menu.c:689
 msgid "/Document/_Line Numbers"
 msgstr "/文書/行番号(_L)"
 
-#: ../src/menu.c:688
+#: ../src/menu.c:691
 msgid "/Document/_Highlight Syntax"
 msgstr "/表示/色分け(_H)"
 
-#: ../src/menu.c:689
+#: ../src/menu.c:692
 msgid "/Document/_Update Highlighting"
 msgstr "/文書/色分けの更新(_U)"
 
-#: ../src/menu.c:691
+#: ../src/menu.c:694
 msgid "/Document/Document Ty_pe"
 msgstr "/文書/形式(_P)"
 
-#: ../src/menu.c:693
+#: ../src/menu.c:696
 msgid "/Document/Character _Encoding"
 msgstr "/文書/文字コード(_E)"
 
-#: ../src/menu.c:697
+#: ../src/menu.c:700
 msgid "/Document/Check _Spelling..."
 msgstr "/文書/スペルチェック(_S)..."
 
-#: ../src/menu.c:699
+#: ../src/menu.c:702
 msgid "/Document/_Floating window"
 msgstr "/文書/ウィンドウのフロート化(_F)"
 
-#: ../src/menu.c:700
+#: ../src/menu.c:703
 msgid "/Document/Word _Count"
 msgstr "/文書/単語カウント(_C)"
 
-#: ../src/menu.c:701
+#: ../src/menu.c:704
 msgid "/_Go"
 msgstr "/移動(_G)"
 
-#: ../src/menu.c:703
+#: ../src/menu.c:706
 msgid "/Go/_Previous document"
 msgstr "/移動/前の文書(_P)"
 
-#: ../src/menu.c:704
+#: ../src/menu.c:707
 msgid "/Go/_Next document"
 msgstr "/移動/次の文書(_N)"
 
-#: ../src/menu.c:706
+#: ../src/menu.c:709
 msgid "/Go/_First document"
 msgstr "/移動/先頭の文書(_F)"
 
-#: ../src/menu.c:707
+#: ../src/menu.c:710
 msgid "/Go/L_ast document"
 msgstr "/移動/最後の文書(_A)"
 
-#: ../src/menu.c:709
+#: ../src/menu.c:712
 msgid "/Go/Goto _Line"
 msgstr "/移動/行ジャンプ(_L)"
 
-#: ../src/menu.c:710
+#: ../src/menu.c:713
 msgid "/Go/Goto _Selection"
 msgstr "/移動/選択ジャンプ(_O)"
 
-#: ../src/menu.c:711
+#: ../src/menu.c:714
 msgid "/_Project"
 msgstr "/プロジェクト(_P)"
 
-#: ../src/menu.c:713
+#: ../src/menu.c:716
 msgid "/Project/_New Project"
 msgstr "/プロジェクト/新規プロジェクト(_N)"
 
-#: ../src/menu.c:714
+#: ../src/menu.c:717
 msgid "/Project/_Open Project..."
 msgstr "/プロジェクト/プロジェクトを開く(_O)..."
 
-#: ../src/menu.c:715
+#: ../src/menu.c:718
 msgid "/Project/Open _recent"
 msgstr "/プロジェクト/最近開いたプロジェクト(_R)"
 
-#: ../src/menu.c:718
+#: ../src/menu.c:721
 msgid "/Project/_Save"
 msgstr "/プロジェクト/保存(_S)"
 
-#: ../src/menu.c:719
+#: ../src/menu.c:722
 msgid "/Project/Save _as..."
 msgstr "/プロジェクト/別名で保存(_A)..."
 
-#: ../src/menu.c:720
+#: ../src/menu.c:723
 msgid "/Project/Save & _close"
 msgstr "/プロジェクト/保存して閉じる(_C)"
 
-#: ../src/menu.c:722
+#: ../src/menu.c:725
 msgid "/Project/E_dit Project Options..."
 msgstr "/プロジェクト/オプションを編集(_D)..."
 
-#: ../src/menu.c:723
+#: ../src/menu.c:726
 msgid "/E_xternal"
 msgstr "/起動(_X)"
 
-#: ../src/menu.c:730
+#: ../src/menu.c:733
 msgid "/_Help"
 msgstr "/ヘルプ(_H)"
 
-#: ../src/menu.c:731
+#: ../src/menu.c:734
 msgid "/Help/_About..."
 msgstr "/ヘルプ/情報(_A)..."
 
-#: ../src/menu.c:893
+#: ../src/menu.c:896
 msgid "/Document/Document Type"
 msgstr "/文書/形式"
 
-#: ../src/menu.c:1010
+#: ../src/menu.c:1013
 msgid "Loading file(s)..."
 msgstr "ファイルを読み込み中..."
 
-#: ../src/menu.c:1014
+#: ../src/menu.c:1017
 msgid "The filename was:\n"
 msgstr "ファイル名は:\n"
 
-#: ../src/menu.c:1015
+#: ../src/menu.c:1018
 msgid "Could not open file\n"
 msgstr "ファイルを開くことができませんでした\n"
 
-#: ../src/menu.c:1038
+#: ../src/menu.c:1041
 msgid "/Project/Open recent"
 msgstr "/プロジェクト/最近開いたプロジェクト"
 
-#: ../src/menu.c:1042
+#: ../src/menu.c:1045
 msgid "/File/Open recent"
 msgstr "/ファイル/最近開いたファイル"
 
-#: ../src/menu.c:1221
+#: ../src/menu.c:1224
 msgid "/Windows"
 msgstr "/ウィンドウ"
 
-#: ../src/menu.c:1287
+#: ../src/menu.c:1290
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr "ファイルにはまだ名前がないので, ブラウザで見ることができませんした.\n"
 
-#: ../src/menu.c:1422
+#: ../src/menu.c:1425
 msgid "/External/Outputbox/"
 msgstr "/起動/Outputbox/"
 
-#: ../src/menu.c:1425
+#: ../src/menu.c:1428
 msgid "/External/Commands/"
 msgstr "/起動/コマンド/"
 
-#: ../src/menu.c:1428
+#: ../src/menu.c:1431
 msgid "/External/Browsers/"
 msgstr "/起動/ブラウザ/"
 
-#: ../src/menu.c:1433 ../src/menu.c:1448 ../src/menu.c:1467 ../src/menu.c:1483
-#: ../src/menu.c:1496 ../src/menu.c:1518
+#: ../src/menu.c:1436 ../src/menu.c:1451 ../src/menu.c:1470 ../src/menu.c:1486
+#: ../src/menu.c:1499 ../src/menu.c:1521
 msgid "/External"
 msgstr "/起動"
 
-#: ../src/menu.c:1446
+#: ../src/menu.c:1449
 msgid "/External/Browsers"
 msgstr "/起動/ブラウザ"
 
-#: ../src/menu.c:1481
+#: ../src/menu.c:1484
 msgid "/External/Commands"
 msgstr "/起動/コマンド"
 
-#: ../src/menu.c:1516
+#: ../src/menu.c:1519
 msgid "/External/Outputbox"
 msgstr "/起動/Outputbox"
 
-#: ../src/menu.c:1562
+#: ../src/menu.c:1565
 msgid "/Document/Character Encoding"
 msgstr "/文書/文字コード"
 
-#: ../src/menu.c:1838
+#: ../src/menu.c:1841
 msgid "This custom search and replace requires a selection"
 msgstr "このカスタム検索/置換では範囲指定が必要です"
 
-#: ../src/menu.c:1935
+#: ../src/menu.c:1938
 msgid "/_Custom menu"
 msgstr "/カスタムメニュー(_C)"
 
-#: ../src/menu.c:1937
+#: ../src/menu.c:1940
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/カスタムメニュー/メニュー編集..."
 
-#: ../src/menu.c:1938
+#: ../src/menu.c:1941
 msgid "/Custom menu/Reset"
 msgstr "/カスタムメニュー/リセット"
 
-#: ../src/menu.c:1939
+#: ../src/menu.c:1942
 msgid "/Custom menu/Load new"
 msgstr "/カスタムメニュー/新規に読み込む"
 
-#: ../src/menu.c:2155
+#: ../src/menu.c:2158
 msgid "Search Pattern"
 msgstr "検索パターン"
 
-#: ../src/menu.c:2156
+#: ../src/menu.c:2159
 msgid "Replace String"
 msgstr "置換文字列"
 
-#: ../src/menu.c:2159
+#: ../src/menu.c:2162
 msgid "Formatstring Before"
 msgstr "前に挿入する書式文字列"
 
-#: ../src/menu.c:2160
+#: ../src/menu.c:2163
 msgid "Formatstring After"
 msgstr "後に挿入する書式文字列"
 
-#: ../src/menu.c:2207
+#: ../src/menu.c:2210
 msgid "The menupath you want to update does not exist yet"
 msgstr "更新するように指示されたメニューパスは まだ存在しません"
 
-#: ../src/menu.c:2207
+#: ../src/menu.c:2210
 msgid "Try 'add' instead."
 msgstr "'新規メニューエントリを追加' を試してみて下さい."
 
-#: ../src/menu.c:2209
+#: ../src/menu.c:2212
 msgid "The menupath you want to add already exists."
 msgstr "追加するように指示されたメニューパスは 既に存在します."
 
-#: ../src/menu.c:2214
+#: ../src/menu.c:2217
 msgid "The menupath should start with a / character"
 msgstr "メニューパスは 半角文字 '/' で始めて下さい"
 
-#: ../src/menu.c:2376
+#: ../src/menu.c:2379
 msgid "Custom Menu Editor"
 msgstr "カスタムメニュー エディタ"
 
-#: ../src/menu.c:2387
+#: ../src/menu.c:2390
 msgid "Add New Menu Entry"
 msgstr "新規メニューエントリを追加"
 
-#: ../src/menu.c:2389
+#: ../src/menu.c:2392
 msgid "Apply Changes"
 msgstr "変更を適用"
 
-#: ../src/menu.c:2391
+#: ../src/menu.c:2394
 msgid "Delete Menu Entry"
 msgstr "メニューエントリを削除"
 
-#: ../src/menu.c:2394
+#: ../src/menu.c:2397
 msgid "Close Discards Changes"
 msgstr "変更を破棄して閉じる"
 
-#: ../src/menu.c:2396
+#: ../src/menu.c:2399
 msgid "Save Changes and Exit"
 msgstr "変更を保存して終了"
 
-#: ../src/menu.c:2406
+#: ../src/menu.c:2409
 msgid "_Menu Path:"
 msgstr "メニュー パス(_M):"
 
-#: ../src/menu.c:2427
+#: ../src/menu.c:2430
 msgid "Menu path"
 msgstr "メニュー パス"
 
-#: ../src/menu.c:2447
+#: ../src/menu.c:2450
 msgid "Number of _Variables:"
 msgstr "変数の数(_V):"
 
-#: ../src/menu.c:2455
+#: ../src/menu.c:2458
 msgid "Variables"
 msgstr "変数"
 
-#: ../src/menu.c:2474
+#: ../src/menu.c:2477
 msgid "Custom Dialo_g"
 msgstr "カスタムダイアログ(_G)"
 
-#: ../src/menu.c:2476
+#: ../src/menu.c:2479
 msgid "Custom Replace"
 msgstr "カスタム検索・置換"
 
-#: ../src/menu.c:2488
+#: ../src/menu.c:2491
 msgid "_Replace:"
 msgstr "置換(_R):"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2494
 msgid "in current document"
 msgstr "現在編集中の文書内"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2494
 msgid "from cursor"
 msgstr "カーソル位置から"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2494
 msgid "in selection"
 msgstr "選択範囲内"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2494
 msgid "in all open documents"
 msgstr "開いている文書内"
 
-#: ../src/menu.c:2499
+#: ../src/menu.c:2502
 msgid "Matc_hing:"
 msgstr "マッチング(_H):"
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2505
 msgid "normal"
 msgstr "通常"
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2505
 msgid "posix regular expressions"
 msgstr "POSIX 正規表現"
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2505
 msgid "perl regular expressions"
 msgstr "Perl 正規表現"
 
-#: ../src/menu.c:2508
+#: ../src/menu.c:2511
 msgid "Case Se_nsitive"
 msgstr "大文字小文字を区別する(_N)"
 
