@@ -1,3 +1,254 @@
+2005-11-24  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/bfspell.c: Possible fix for Bluefish bug #322126.
+
+2005-11-13  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* AUTHORS, src/about.c: Add new Slovak translator.  Update Walter's
+	  e-mail address.
+
+2005-11-12  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* configure.ac, po/Makefile.in, po/sk.po: Add new Slovak
+	  translation from Vladimir VASIL <vvasil@post.sk>.
+
+2005-11-03  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/snr2.c: Fixing s'n'r strings for content-type after my last
+	  changes.
+
+2005-11-03  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/: html.c, html_form.c, html_table.c, quickstart.c: 1. Doing
+	  some cleanup: removed obsolete type attributes and unified a few
+	  phrases.  2. Completing the list of values for the meta name and
+	  http-equiv attribute.  3. Implementing LANG attribute in meta-tag
+	  dialog.
+
+2005-11-03  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/html.c: No default for the media attribute because it is not
+	  a required attribute. See the note by Duncan Lithgow in
+	  http://bugzilla.gnome.org/show_bug.cgi?id=319753.
+
+2005-11-02  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/html.c: Add date meta tag to header-list.
+
+2005-11-02  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/: gui.c, html.c, html.h, menu.c: First attempt to fix
+	  http://bugzilla.gnome.org/show_bug.cgi?id=319753 by adding some
+	  defaults, if "Link to Stylesheet" menu item is used. Small typo
+	  fix in embedok_lcb(). Samll fix for linkdialogok_lcb(), so the
+	  custom part of the link-dialog is included in output.
+
+2005-10-31  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/html.c: Complete possible logical relationship list for link
+	  header.
+
+2005-10-30  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* AUTHORS, src/about.c: Add the new Basque translation to the
+	  AUTHORS file, About dialog.
+
+2005-10-30  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/: bg.po, cs.po, da.po, de.po, el.po, es.po, eu.po, fi.po,
+	  fr.po, hu.po, it.po, ja.po, nl.po, no.po, pl.po, pt.po, pt_BR.po,
+	  ro.po, ru.po, sr.po, sv.po, ta.po, tr.po, zh_CN.po, zh_TW.po: PO
+	  file update
+
+2005-10-30  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/quickstart.c: Set "Open in new document" inactive if the
+	  current document is unnamed, empty, unmodified.
+
+2005-10-30  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/quickstart.c: Change the way the code is outputted when
+	  creating a linked external stylesheet.
+
+2005-10-30  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/: bluefish.h, highlight.c, preferences.c, rcfile.c: Add an
+	  option to preferences to disable syntax highlighting PRCE UTF-8
+	  support if it is available. PCRE UTF-8 support is disabled by
+	  default to improve performance.
+
+2005-10-10  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* Makefile.in: Add build scripts to compress and install the
+	  bluefish manpage on every system. Closes
+	  http://bugzilla.gnome.org/show_bug.cgi?id=309404 for 1.0 branch
+	  (fix small issues).
+
+2005-10-10  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* Makefile.in, configure.ac: Add build scripts to compress and
+	  install the bluefish manpage on every system. Closes
+	  http://bugzilla.gnome.org/show_bug.cgi?id=309404 for 1.0 branch.
+
+2005-10-06  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: Add some missing Glib/GTK/GDK keywords
+
+2005-10-06  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: Fix Bug# 317769.  SQL Syntax Highlighting
+	  Incorrectly Highlights Comments
+
+2005-10-06  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/html.c: Fix Bug# 317974.	Fonts not being added to dropdown
+	  list in Font dialog.
+
+2005-10-03  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/bluefish.desktop.in: Comment was changed in relationship to
+	  Ubuntu bug #1166.
+	  https://launchpad.net/distros/ubuntu/+sources/bluefish/+bug/1166
+
+2005-10-02  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/quickstart.c: Add missing  when adding an external linked
+	  stylesheet
+
+2005-09-25  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/menu.c: Use GTK_STOCK icons for Bold, Italic, Underline,
+	  Strikethrough.
+
+2005-09-25  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: Add missing GnomeVFSDirectoryHandle to the
+	  C highlighting pattern.
+
+2005-09-25  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/: bluefish.h, document.c, preferences.c, rcfile.c: Add
+	  slightly modified patch from Robert Boucher <rboucher@bcssi.com>
+	  that enables smart cusror positioning when using the HOME key.
+
+	  Add an option to preferences to enable/disable the feature.
+
+2005-09-25  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/preferences.c: Don't display binary filetypes in the list of
+	  syntax highlighting patterns.
+
+2005-09-25  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* images/bluefish_splash.png: Update splash screen to 1.0.5
+
+2005-09-25  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: Revert back to using a start/end pattern
+	  for C strings.
+
+2005-09-24  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/: html_form.c, html_form.h, html_table.h: Update FSF address.
+	  Add missing and fix headers (license section in the head).
+
+2005-09-23  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* COPYING, Makefile.in, configure.ac, icons/Makefile.in,
+	  src/Makefile.in, src/about.c, src/about.h, src/authen.c,
+	  src/authen.h, src/bf_lib.c, src/bf_lib.h, src/bfspell.c,
+	  src/bfspell.h, src/bluefish.c, src/bluefish.h, src/bookmark.c,
+	  src/bookmark.h, src/cap.c, src/cap.h, src/char_table.c,
+	  src/char_table.h, src/config.h.in, src/dialog_utils.c,
+	  src/dialog_utils.h, src/document.c, src/document.h,
+	  src/filebrowser.c, src/filebrowser.h, src/fref.c, src/fref.h,
+	  src/gtk_easy.c, src/gtk_easy.h, src/gui.c, src/gui.h,
+	  src/highlight.c, src/highlight.h, src/html.c, src/html.h,
+	  src/html2.c, src/html2.h, src/html_diag.c, src/html_diag.h,
+	  src/html_form.c, src/html_form.h, src/html_table.c,
+	  src/html_table.h, src/image.c, src/image.h, src/menu.c,
+	  src/menu.h, src/msg_queue.c, src/msg_queue.h, src/outputbox.c,
+	  src/outputbox.h, src/pixmap.c, src/pixmap.h, src/preferences.c,
+	  src/preferences.h, src/project.c, src/project.h,
+	  src/quickstart.c, src/quickstart.h, src/rcfile.c, src/rcfile.h,
+	  src/rpopup.c, src/rpopup.h, src/snr2.c, src/snr2.h,
+	  src/stringlist.c, src/stringlist.h, src/treetips.c,
+	  src/treetips.h, src/undo_redo.c, src/undo_redo.h, src/wizards.c,
+	  src/wizards.h: Update FSF address. Add missing and fix headers
+	  (license section in the head).
+
+2005-09-22  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* configure.ac, po/Makefile.in, po/eu.po: Bump VERSION to 1.0.5 Add
+	  new Basque translation.
+
+2005-09-22  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* configure.ac, src/config.h.in, src/highlight.c, src/snr2.c: Add a
+	  configure check to see if PCRE is compiled with UTF-8 support.
+	  Fix for Bluefish bug#316866
+
+2005-09-22  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/document.c: Remove some unused, commented out code.
+
+2005-09-21  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* INSTALL, INSTALL.Debian: Remove all Debian packaging files in
+	  accordance to
+	  http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=322091. Move
+	  man-page to newly created man-subdirectory. Makefiles need to be
+	  written to install man-page per default (related to
+	  http://bugzilla.gnome.org/show_bug.cgi?id=309404).
+
+2005-09-12  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: Fix a newly introduced bug.  Still an old
+	  bug when multiple \" are embedded in a string.
+
+2005-09-12  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: C highlighting improvements.  Perl
+	  highlighting improvements. Should fix Bluefish bug #313000
+
+2005-09-09  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: Perl highlighting improvements.
+
+2005-09-06  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/: bg.po, cs.po, da.po, de.po, el.po, es.po, fi.po, fr.po,
+	  hu.po, it.po, ja.po, nl.po, no.po, pl.po, pt_BR.po, ro.po, ru.po,
+	  sr.po, ta.po, tr.po, zh_CN.po, zh_TW.po: Update PO files.
+
+2005-09-06  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: Fix missing "File Functions", "RegExp 07",
+	  entries in the Perl highlighting pattern. Bluefish bug# 315324
+	  Fix three duplicate entries in the Perl highlighting pattern.
+
+2005-09-04  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/bluefish.c: Right align the "Don't show this dialog again"
+	  checkbox in the Quickbar tip dialog.
+
+2005-09-03  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: Add missing Glib keyword GFunc to the C
+	  highlighting pattern.
+
+2005-08-30  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/sv.po: Swedish translation update
+
+2005-08-29  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/pt.po: Portuguese translation update
+
+2005-08-28  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* ChangeLog, NEWS: More changes for 1.0.4
+
 2005-08-28  Jim Hayward <jimhayward@linuxexperience.net>
 
 	* po/ja.po: Japanese translation update
