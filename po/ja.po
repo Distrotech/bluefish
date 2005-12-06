@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-12 06:40-0800\n"
+"POT-Creation-Date: 2005-12-05 19:35-0800\n"
 "PO-Revision-Date: 2005-08-28 11:14+0900\n"
 "Last-Translator: Takeshi HAMASAKI <hma@syd.odn.ne.jp>\n"
 "Language-Team: \n"
@@ -169,7 +169,6 @@ msgstr ""
 "このソフトウェアのリリースを手助けしてくれたすべての人に感謝します.\n"
 
 #: ../src/about.c:120
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -224,8 +223,11 @@ msgid ""
 "  Serbian: Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
+"  Slovak: Vladimir VASIL\n"
+"   <vvasil@post.sk>\n"
+"\n"
 "  Spanish: Walter Oscar Echarri\n"
-"   <wecharri@arnet.com.ar>\n"
+"   <wecharri@gmail.com>\n"
 "\n"
 "  Swedish: David Smeringe\n"
 "   <david.smeringe@telia.com>\n"
@@ -238,6 +240,9 @@ msgid ""
 "\n"
 msgstr ""
 "このバージョンの翻訳者たち:\n"
+"\n"
+"  バスク語: Hizkuntza Politikarako Sailburuordetza\n"
+"   <hizkpol@ej-gv.es>\n"
 "\n"
 "  ブラジルのポルトガル語 - Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
@@ -287,6 +292,9 @@ msgstr ""
 "  セルビア語 - Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
+"  スロバキア語: Vladimir VASIL\n"
+"   <vvasil@post.sk>\n"
+"\n"
 "  スペイン語 - Walter Oscar Echarri\n"
 "   <wecharri@infovia.com.ar>\n"
 "\n"
@@ -300,11 +308,11 @@ msgstr ""
 "   <ogzeren@gmail.com>\n"
 "\n"
 
-#: ../src/about.c:165
+#: ../src/about.c:167
 msgid "About Bluefish"
 msgstr "Bluefish について"
 
-#: ../src/about.c:195
+#: ../src/about.c:197
 msgid ""
 "\n"
 "\n"
@@ -314,16 +322,16 @@ msgstr ""
 "\n"
 "検知の結果:\n"
 
-#: ../src/about.c:222 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
+#: ../src/about.c:224 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
 #: ../src/fref.c:1870 ../src/fref.c:2347
 msgid "Info"
 msgstr "情報"
 
-#: ../src/about.c:224
+#: ../src/about.c:226
 msgid "Authors"
 msgstr "作者たち"
 
-#: ../src/about.c:225
+#: ../src/about.c:227
 msgid "Translators"
 msgstr "翻訳者たち"
 
@@ -352,71 +360,71 @@ msgstr ""
 "Bluefishはファイル名を読み取れません。次の環境変数を設定してみてください。"
 "G_BROKEN_FILENAMES=1\n"
 
-#: ../src/bfspell.c:385
+#: ../src/bfspell.c:387
 msgid "Check Spelling"
 msgstr "スペルをチェック中"
 
-#: ../src/bfspell.c:389
+#: ../src/bfspell.c:391
 msgid "Checking"
 msgstr "チェック中"
 
-#: ../src/bfspell.c:398
+#: ../src/bfspell.c:400
 msgid "_Misspelled word:"
 msgstr "スペルの違う語(_M):"
 
-#: ../src/bfspell.c:402
+#: ../src/bfspell.c:404
 msgid "Change _to:"
 msgstr "修正した語(_T):"
 
-#: ../src/bfspell.c:405
+#: ../src/bfspell.c:407
 msgid "I_gnore"
 msgstr "無視(_G)"
 
-#: ../src/bfspell.c:406 ../src/snr2.c:910
+#: ../src/bfspell.c:408 ../src/snr2.c:910
 msgid "_Replace"
 msgstr "置換(_R)"
 
-#: ../src/bfspell.c:419
+#: ../src/bfspell.c:421
 msgid "In _document"
 msgstr "文書内(_D)"
 
-#: ../src/bfspell.c:420
+#: ../src/bfspell.c:422
 msgid "I_n selection"
 msgstr "選択範囲内(_N)"
 
-#: ../src/bfspell.c:429
+#: ../src/bfspell.c:431
 msgid "personal dictionary"
 msgstr "個人辞書"
 
-#: ../src/bfspell.c:432
+#: ../src/bfspell.c:434
 msgid "session dictionary"
 msgstr "セッション辞書"
 
-#: ../src/bfspell.c:438
+#: ../src/bfspell.c:440
 msgid "Dictionary:"
 msgstr "辞書:"
 
-#: ../src/bfspell.c:442
+#: ../src/bfspell.c:444
 msgid "_Add"
 msgstr "追加(_A)"
 
-#: ../src/bfspell.c:446
+#: ../src/bfspell.c:448
 msgid "Language:"
 msgstr "言語:"
 
-#: ../src/bfspell.c:450
+#: ../src/bfspell.c:452
 msgid "Set defa_ult"
 msgstr "デフォルトを使う(_U)"
 
-#: ../src/bfspell.c:454
+#: ../src/bfspell.c:456
 msgid "Filter:"
 msgstr "フィルタ:"
 
-#: ../src/bfspell.c:462
+#: ../src/bfspell.c:464
 msgid "no filter"
 msgstr "フィルタなし"
 
-#: ../src/bfspell.c:464
+#: ../src/bfspell.c:466
 msgid "html filter"
 msgstr " HTMLフィルタ"
 
@@ -478,7 +486,6 @@ msgid "showing main gui..."
 msgstr "メイン GUI 表示..."
 
 #: ../src/bluefish.c:259
-#, fuzzy
 msgid ""
 "<span weight=\"bold\" size=\"larger\">Bluefish Tip:</span>\n"
 "\n"
@@ -487,10 +494,13 @@ msgid ""
 "To add buttons to the Quickbar, right click on a button in the HTML "
 "toolbars.\n"
 msgstr ""
+"<span weight=\"bold\" size=\"larger\">Bluefish 小技:</span>\n"
+"\n"
 "このメッセージはあなたがクイックバーに何もアイテムを置いていない時に表示され"
 "ます。\n"
 "\n"
-"HTMLツールバーの中で右クリックをすれば、クイックバーにボタンを追加できます。"
+"HTMLツールバーの中で右クリックをすれば、クイックバーにボタンを追加できま"
+"す。\n"
 
 #: ../src/bluefish.c:263
 msgid "_Don't show this dialog again."
@@ -2104,9 +2114,8 @@ msgid "HREF_LANG:"
 msgstr "HREF_LANG:"
 
 #: ../src/html.c:2171
-#, fuzzy
 msgid "T_itle:"
-msgstr "タイトル(_T):"
+msgstr "タイトル(_I):"
 
 #: ../src/html.c:2212
 msgid "_Forward Relation:"
@@ -3970,7 +3979,7 @@ msgstr "タブ幅"
 
 #: ../src/preferences.c:2002
 msgid "Smart cursor positioning at line start"
-msgstr ""
+msgstr "スマートな行頭へのカーソル移動を行う"
 
 #: ../src/preferences.c:2003
 msgid "Use spaces to indent, not tabs"
@@ -3990,7 +3999,7 @@ msgstr "デフォルトで色分けを行う"
 
 #: ../src/preferences.c:2008
 msgid "Enable highlighting PCRE UTF-8 support"
-msgstr ""
+msgstr "PCRE による UTF8 に対する色分けを行う"
 
 #: ../src/preferences.c:2010
 msgid "Highlight # lines"
