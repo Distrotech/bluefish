@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 21-11-03_fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-12 06:40-0800\n"
-"PO-Revision-Date: 2005-04-24 05:29+0200\n"
+"POT-Creation-Date: 2005-12-05 19:35-0800\n"
+"PO-Revision-Date: 2005-12-06 04:36+0100\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,7 +42,6 @@ msgstr ""
 "Cette version de Bluefish a été compilée avec les options suivantes :\n"
 
 #: ../src/about.c:57
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -115,14 +114,16 @@ msgstr ""
 "   <olivier@bluefish.openoffice.nl>\n"
 "  Jim Hayward\n"
 "   <jimhayward@linuxexperience.net>\n"
+"  Daniel Leidert\n"
+"   <daniel.leidert@wgdd.de>\n"
+"\n"
+"Développeurs des versions précédentes :\n"
 "  Oskar Świda\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
 "  Eugene Morenko(More)\n"
 "   <more@irpin.com>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
-"\n"
-"Développeurs des versions précédentes :\n"
+"   <alastair@porter.net.nz>\n"
 "  Chris Mazuc\n"
 "  Neil Millar\n"
 "  Gero Takke\n"
@@ -146,7 +147,7 @@ msgstr ""
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
+"   <alastair@porter.net.nz>\n"
 "  Daniel Blair\n"
 "   <joecamel@realcoders.org>\n"
 "  Olivier Sessink\n"
@@ -154,8 +155,8 @@ msgstr ""
 "  Denny Reeh\n"
 "\n"
 "Mainteneurs des paquets :\n"
-"  Debian:   Davide Puricelli\n"
-"   <evo@debian.org>\n"
+"  Debian:   Daniel Leidert\n"
+"   <daniel.leidert@wgdd.de>\n"
 "  Redhat:   Matthias Haase\n"
 "   <matthias_haase@bennewitz.com>\n"
 "  Mandrake: Todd Lyons\n"
@@ -224,8 +225,11 @@ msgid ""
 "  Serbian: Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
+"  Slovak: Vladimir VASIL\n"
+"   <vvasil@post.sk>\n"
+"\n"
 "  Spanish: Walter Oscar Echarri\n"
-"   <wecharri@arnet.com.ar>\n"
+"   <wecharri@gmail.com>\n"
 "\n"
 "  Swedish: David Smeringe\n"
 "   <david.smeringe@telia.com>\n"
@@ -241,6 +245,9 @@ msgstr ""
 "\n"
 "  Allemand : Roland Steinbach\n"
 "   <roland@netzblick.de>\n"
+"\n"
+"  Basque: Hizkuntza Politikarako Sailburuordetza\n"
+"   <hizkpol@ej-gv.es>\n"
 "\n"
 "  Bulgare : Peio Popov\n"
 "   <peio@peio.org>\n"
@@ -300,27 +307,30 @@ msgstr ""
 "   <ogzeren@gmail.com>\n"
 "\n"
 
-#: ../src/about.c:165
+#: ../src/about.c:167
 msgid "About Bluefish"
 msgstr "À propos de Bluefish"
 
-#: ../src/about.c:195
+#: ../src/about.c:197
 msgid ""
 "\n"
 "\n"
 "Resulting in the detection of:\n"
 msgstr ""
+"\n"
+"\n"
+"Qui ont mené à la détection de :\n"
 
-#: ../src/about.c:222 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
+#: ../src/about.c:224 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
 #: ../src/fref.c:1870 ../src/fref.c:2347
 msgid "Info"
 msgstr "Informations"
 
-#: ../src/about.c:224
+#: ../src/about.c:226
 msgid "Authors"
 msgstr "Auteurs"
 
-#: ../src/about.c:225
+#: ../src/about.c:227
 msgid "Translators"
 msgstr "Traducteurs"
 
@@ -350,71 +360,71 @@ msgstr ""
 "fichiers. Essayez d'initialiser la variable d'environnement "
 "G_BROKEN_FILENAMES=1\n"
 
-#: ../src/bfspell.c:385
+#: ../src/bfspell.c:387
 msgid "Check Spelling"
 msgstr "Vérification orthographique"
 
-#: ../src/bfspell.c:389
+#: ../src/bfspell.c:391
 msgid "Checking"
 msgstr "Vérification"
 
-#: ../src/bfspell.c:398
+#: ../src/bfspell.c:400
 msgid "_Misspelled word:"
 msgstr "_Mot mal orthographié :"
 
-#: ../src/bfspell.c:402
+#: ../src/bfspell.c:404
 msgid "Change _to:"
 msgstr "Remplacer _par :"
 
-#: ../src/bfspell.c:405
+#: ../src/bfspell.c:407
 msgid "I_gnore"
 msgstr "I_gnorer"
 
-#: ../src/bfspell.c:406 ../src/snr2.c:910
+#: ../src/bfspell.c:408 ../src/snr2.c:910
 msgid "_Replace"
 msgstr "_Remplacer"
 
-#: ../src/bfspell.c:419
+#: ../src/bfspell.c:421
 msgid "In _document"
 msgstr "Dans le _document actif"
 
-#: ../src/bfspell.c:420
+#: ../src/bfspell.c:422
 msgid "I_n selection"
 msgstr "Da_ns la sélection"
 
-#: ../src/bfspell.c:429
+#: ../src/bfspell.c:431
 msgid "personal dictionary"
 msgstr "Dictionnaire personnel"
 
-#: ../src/bfspell.c:432
+#: ../src/bfspell.c:434
 msgid "session dictionary"
 msgstr "Session dictionnaire"
 
-#: ../src/bfspell.c:438
+#: ../src/bfspell.c:440
 msgid "Dictionary:"
 msgstr "Dictionnaire :"
 
-#: ../src/bfspell.c:442
+#: ../src/bfspell.c:444
 msgid "_Add"
 msgstr "_Ajouter"
 
-#: ../src/bfspell.c:446
+#: ../src/bfspell.c:448
 msgid "Language:"
 msgstr "Langue :"
 
-#: ../src/bfspell.c:450
+#: ../src/bfspell.c:452
 msgid "Set defa_ult"
 msgstr "Par défa_ut"
 
-#: ../src/bfspell.c:454
+#: ../src/bfspell.c:456
 msgid "Filter:"
 msgstr "Filtre :"
 
-#: ../src/bfspell.c:462
+#: ../src/bfspell.c:464
 msgid "no filter"
 msgstr "Aucun filtre"
 
-#: ../src/bfspell.c:464
+#: ../src/bfspell.c:466
 msgid "html filter"
 msgstr "Filtre HTML"
 
@@ -476,7 +486,6 @@ msgid "showing main gui..."
 msgstr "Affichage de l'interface principale..."
 
 #: ../src/bluefish.c:259
-#, fuzzy
 msgid ""
 "<span weight=\"bold\" size=\"larger\">Bluefish Tip:</span>\n"
 "\n"
@@ -485,15 +494,17 @@ msgid ""
 "To add buttons to the Quickbar, right click on a button in the HTML "
 "toolbars.\n"
 msgstr ""
-"Ce message s'affiche car vous n'avez placé aucun élément dans la barre "
+"<span weight=\"bold\" size=\"larger\">Astuce Bluefish :</span>\n"
+"\n"
+"Ce message s'affiche si vous n'avez placé aucun élément dans la barre "
 "rapide.\n"
 "\n"
-"Vous pouvez ajouter un bouton à la barre rapide en appuyant sur le clic "
-"droit lorque la souris se trouve sur l'un des boutons des barres HTML."
+"Pour ajouter un bouton à la barre rapide, appuyez sur le clic droit lorque "
+"la souris se trouve sur l'un des boutons des barres HTML.\n"
 
 #: ../src/bluefish.c:263
 msgid "_Don't show this dialog again."
-msgstr ""
+msgstr "_N'affichez plus ce message."
 
 #: ../src/bookmark.c:368 ../src/html.c:614 ../src/html.c:834
 #: ../src/html.c:1440 ../src/html.c:1944 ../src/html_form.c:231
@@ -1233,7 +1244,6 @@ msgid "Comment"
 msgstr "Commentaire"
 
 #: ../src/gui.c:608
-#, fuzzy
 msgid "E-mail..."
 msgstr "Courriel..."
 
@@ -2002,38 +2012,36 @@ msgid "Custom"
 msgstr "Personnaliser"
 
 #: ../src/html.c:1695
-#, fuzzy
 msgid "E-mail"
 msgstr "Courriel"
 
 #: ../src/html.c:1703
 msgid "_Mail to:"
-msgstr ""
+msgstr "Adresse _électronique :"
 
 #: ../src/html.c:1707
-#, fuzzy
 msgid "_Copy to:"
-msgstr "Copier"
+msgstr "Copie _à :"
 
 #: ../src/html.c:1711
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "Copie _invisible à :"
 
 #: ../src/html.c:1716
 msgid "with _Subject:"
-msgstr ""
+msgstr "_Objet :"
 
 #: ../src/html.c:1718
 msgid "with _Subject (URL-encoded):"
-msgstr ""
+msgstr "O_bjet (encodage URL) :"
 
 #: ../src/html.c:1724
 msgid "with _Body:"
-msgstr ""
+msgstr "Cor_ps :"
 
 #: ../src/html.c:1726
 msgid "with _Body (URL-encoded):"
-msgstr ""
+msgstr "Corp_s (encodage URL :"
 
 #: ../src/html.c:1771
 msgid "Quick List"
@@ -2109,12 +2117,10 @@ msgid "Link"
 msgstr "Lien"
 
 #: ../src/html.c:2167
-#, fuzzy
 msgid "HREF_LANG:"
-msgstr "_HREF :"
+msgstr "HREF_LANG :"
 
 #: ../src/html.c:2171
-#, fuzzy
 msgid "T_itle:"
 msgstr "_Titre :"
 
@@ -2679,9 +2685,8 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Balises/Spéciales/Accents/Majuscules/J-Z/O circonflexe Ô"
 
 #: ../src/menu.c:437
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Balises/Spéciales/Accents/Majuscules/J-Z/OE ligature"
+msgstr "/Balises/Spéciales/Accents/Majuscules/J-Z/OE ligature Œ"
 
 #: ../src/menu.c:438
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
@@ -2804,9 +2809,8 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Balises/Spéciales/Accents/Minuscules/J-Z/o aigu ó"
 
 #: ../src/menu.c:470
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Balises/Spéciales/Accents/Minuscules/J-Z/oe ligature"
+msgstr "/Balises/Spéciales/Accents/Minuscules/J-Z/oe ligature œ"
 
 #: ../src/menu.c:471
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
@@ -3277,9 +3281,8 @@ msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Dialogues/Général/_Démarrage rapide..."
 
 #: ../src/menu.c:609
-#, fuzzy
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Dialogues/Général/_Meta..."
+msgstr "/Dialogues/Général/En-tête de _Liens..."
 
 #: ../src/menu.c:610
 msgid "/Dialogs/General/_Body..."
@@ -4005,7 +4008,7 @@ msgstr "Coloration syntaxique par défaut"
 
 #: ../src/preferences.c:2008
 msgid "Enable highlighting PCRE UTF-8 support"
-msgstr ""
+msgstr "Activer la coloration syntaxique de PCRE UTF-8"
 
 #: ../src/preferences.c:2010
 msgid "Highlight # lines"
@@ -4064,19 +4067,16 @@ msgid "Use XHTML style tags (<br />)"
 msgstr "Utiliser la syntaxe XHTML (tel <br />)"
 
 #: ../src/preferences.c:2042
-#, fuzzy
 msgid "Automatically update author meta tag"
-msgstr "Insertion automatique de la balise META Author"
+msgstr "Mise à jour automatique de la balise META Author"
 
 #: ../src/preferences.c:2043
-#, fuzzy
 msgid "Automatically update date meta tag"
-msgstr "Insertion automatique de la balise META Author"
+msgstr "Mise à jour automatique de la balise META date"
 
 #: ../src/preferences.c:2044
-#, fuzzy
 msgid "Automatically update generator meta tag"
-msgstr "Insertion automatique de la balise META Author"
+msgstr "Mise à jour automatique de la balise META Generator"
 
 #: ../src/preferences.c:2047
 msgid "Files"
@@ -4366,7 +4366,6 @@ msgid "Ty_pe:"
 msgstr "T_ype :"
 
 #: ../src/quickstart.c:539
-#, fuzzy
 msgid "HRE_F:"
 msgstr "_HREF :"
 
@@ -4411,9 +4410,8 @@ msgid "_Head:"
 msgstr "_En-tête :"
 
 #: ../src/quickstart.c:690
-#, fuzzy
 msgid "Open in _new document."
-msgstr "Dans le _document actif"
+msgstr "Ouvrir dans un _nouveau document."
 
 #: ../src/rcfile.c:500
 msgid "Galeon"
@@ -4605,9 +4603,8 @@ msgid "Replace o_nce"
 msgstr "Remplacer _une seule fois"
 
 #: ../src/snr2.c:1483
-#, fuzzy
 msgid "_Bookmark results"
-msgstr "Ajouter un signet au résultat"
+msgstr "Ajouter un _signet au résultat"
 
 #: ../src/stringlist.c:367
 msgid " Add "
@@ -4692,201 +4689,3 @@ msgstr "Source :"
 #: ../src/wizards.c:225
 msgid "Size:"
 msgstr "Taille :"
-
-#~ msgid "Bluefish tip:"
-#~ msgstr "Astuce Bluefish :"
-
-#~ msgid "No matching files found"
-#~ msgstr "Aucun fichier ne correspond à la demande"
-
-#~ msgid "_Email address:"
-#~ msgstr "Adresse él_ectronique :"
-
-#~ msgid "UrlEncoded _subject:"
-#~ msgstr "_Sujet encodé :"
-
-#~ msgid "UrlEncoded _body:"
-#~ msgstr "_Corps encodé :"
-
-#~ msgid "_Href:"
-#~ msgstr "_Href :"
-
-#~ msgid "Href_lang:"
-#~ msgstr "Href_lang :"
-
-#~ msgid "/File/tearoff1"
-#~ msgstr "/Fichier/tearoff1"
-
-#~ msgid "/File/Open recent/tearoff1"
-#~ msgstr "/Fichier/Récemment ouvert/tearoff1"
-
-#~ msgid "/File/sep1"
-#~ msgstr "/Fichier/sep1"
-
-#~ msgid "/File/sep2"
-#~ msgstr "/Fichier/sep2"
-
-#~ msgid "/File/sep3"
-#~ msgstr "/Fichier/sep3"
-
-#~ msgid "/File/sep4"
-#~ msgstr "/Fichier/sep4"
-
-#~ msgid "/Edit/Tearoff1"
-#~ msgstr "/Éditer/Tearoff1"
-
-#~ msgid "/Edit/sep1"
-#~ msgstr "/Éditer/sep1"
-
-#~ msgid "/Edit/sep2"
-#~ msgstr "/Éditer/sep2"
-
-#~ msgid "/Edit/sep3"
-#~ msgstr "/Éditer/sep3"
-
-#~ msgid "/Edit/Replace special/Tearoff1"
-#~ msgstr "/Éditer/Remplacement spécial/Tearoff1"
-
-#~ msgid "/Edit/sep4"
-#~ msgstr "/Éditer/sep4"
-
-#~ msgid "/Edit/sep5"
-#~ msgstr "/Éditer/sep5"
-
-#~ msgid "/Edit/sep6"
-#~ msgstr "/Éditer/sep6"
-
-#~ msgid "/View/tearoff1"
-#~ msgstr "/Affichage/tearoff1"
-
-#~ msgid "/Tags/Tearoff1"
-#~ msgstr "/Balises/Tearoff1"
-
-#~ msgid "/Tags/Headings/Tearoff1"
-#~ msgstr "/Balises/Titres/Tearoff1"
-
-#~ msgid "/Tags/Special/tearoff1"
-#~ msgstr "/Balises/Spéciales/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/tearoff1"
-#~ msgstr "/Balises/Spéciales/Accents/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-#~ msgstr "/Balises/Spéciales/Accents/Majuscules/A-I/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-#~ msgstr "/Balises/Spéciales/Accents/Majuscules/J-Z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-#~ msgstr "/Balises/Spéciales/Accents/Minuscules/A-I/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-#~ msgstr "/Balises/Spéciales/Accents/Minuscules/J-Z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/separator"
-#~ msgstr "/Balises/Spéciales/Accents/séparateur"
-
-#~ msgid "/Tags/Special/Currency/tearoff1"
-#~ msgstr "/Balises/Spéciales/Monnaie/tearoff1"
-
-#~ msgid "/Tags/Special/Math-Science/tearoff1"
-#~ msgstr "/Balises/Spéciales/Sciences-Maths/tearoff1"
-
-#~ msgid "/Tags/Special/Non Latin/tearoff1"
-#~ msgstr "/Balises/Spéciales/Non Latines/tearoff1"
-
-#~ msgid "/Tags/Special/Other/tearoff1"
-#~ msgstr "/Balises/Spéciales/Autres/tearoff1"
-
-#~ msgid "/Tags/Format by layout/tearoff1"
-#~ msgstr "/Balises/Formatage du style/tearoff1"
-
-#~ msgid "/Tags/Format by context/tearoff1"
-#~ msgstr "/Balises/Formatage contextuel/tearoff1"
-
-#~ msgid "/Tags/Format general/tearoff1"
-#~ msgstr "/Balises/Formatage général/tearoff1"
-
-#~ msgid "/Tags/Format general/<separator>"
-#~ msgstr "/Balises/Formatage général/<séparateur>"
-
-#~ msgid "/Tags/Table/tearoff1"
-#~ msgstr "/Balises/Tableau/tearoff1"
-
-#~ msgid "/Tags/List/tearoff1"
-#~ msgstr "/Balises/Liste/tearoff1"
-
-#~ msgid "/Tags/Form/tearoff1"
-#~ msgstr "/Balises/Formulaire/tearoff1"
-
-#~ msgid "/Tags/Misc/tearoff1"
-#~ msgstr "/Balises/Divers/tearoff1"
-
-#~ msgid "/Dialogs/tearoff1"
-#~ msgstr "/Dialogues/tearoff1"
-
-#~ msgid "/Dialogs/General/tearoff1"
-#~ msgstr "/Dialogues/Général/tearoff1"
-
-#~ msgid "/Dialogs/Table/tearoff1"
-#~ msgstr "/Dialogues/Tableau/tearoff1"
-
-#~ msgid "/Dialogs/CSS/tearoff1"
-#~ msgstr "/Dialogues/CSS/tearoff1"
-
-#~ msgid "/Dialogs/Frame/tearoff1"
-#~ msgstr "/Dialogues/Cadre/tearoff1"
-
-#~ msgid "/Dialogs/Form/tearoff1"
-#~ msgstr "/Dialogues/Formulaire/tearoff1"
-
-#~ msgid "/Dialogs/sep1"
-#~ msgstr "/Dialogues/sep1"
-
-#~ msgid "/Document/tearoff1"
-#~ msgstr "/Document/tearoff1"
-
-#~ msgid "/Document/sep1"
-#~ msgstr "/Document/sep1"
-
-#~ msgid "/Document/sep2"
-#~ msgstr "/Document/sep2"
-
-#~ msgid "/Document/sep3"
-#~ msgstr "/Document/sep3"
-
-#~ msgid "/Document/Document Type/tearoff1"
-#~ msgstr "/Document/Type de document/tearoff1"
-
-#~ msgid "/Document/Character Encoding/tearoff1"
-#~ msgstr "/Document/Encodage/tearoff1"
-
-#~ msgid "/Document/sep4"
-#~ msgstr "/Document/sep4"
-
-#~ msgid "/Go/tearoff1"
-#~ msgstr "/Aller à/tearoff1"
-
-#~ msgid "/Go/sep1"
-#~ msgstr "/Aller à/sep1"
-
-#~ msgid "/Project/tearoff1"
-#~ msgstr "/Projet/tearoff1"
-
-#~ msgid "/Project/Open recent/tearoff1"
-#~ msgstr "/Projet/Récemment ouvert/tearoff1"
-
-#~ msgid "/Project/sep1"
-#~ msgstr "/Projet/sep1"
-
-#~ msgid "/Project/sep2"
-#~ msgstr "/Projet/sep2"
-
-#~ msgid "/External/tearoff1"
-#~ msgstr "/Externe/tearoff1"
-
-#~ msgid "/Custom menu/sep"
-#~ msgstr "Menu personnalisé/sep"
-
-#~ msgid "Hre_f:"
-#~ msgstr "_Href :"
