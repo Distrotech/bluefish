@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-11-12 06:40-0800\n"
-"PO-Revision-Date: 2005-08-12 23:05+0200\n"
+"PO-Revision-Date: 2005-12-05 17:30+0100\n"
 "Last-Translator: Stefano Canepa <sc@linux.it>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,6 @@ msgstr ""
 "\n"
 
 #: ../src/about.c:57
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -107,18 +106,20 @@ msgstr ""
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
 "\n"
 "Sviluppatori di questa versione:\n"
-"  Oliver Sessink\n"
+"  Olivier Sessink\n"
 "   <olivier@bluefish.openoffice.nl>\n"
-"  Jim Hayward \n"
+"  Jim Hayward\n"
 "   <jimhayward@linuxexperience.net>\n"
+"  Daniel Leidert\n"
+"   <daniel.leidert@wgdd.de>\n"
+"\n"
+"Sviluppatori delle versioni precendenti:\n"
 "  Oskar Świda\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
-"  Eugene Morenko(More) \n"
+"  Eugene Morenko(More)\n"
 "   <more@irpin.com>\n"
 "  Alastair Porter\n"
-"\"  <alastair@linuxexperience.com>\n"
-"\n"
-"Sviluppatori delle precedenti versioni:\n"
+"   <alastair@porter.net.nz>\n"
 "  Chris Mazuc\n"
 "  Neil Millar\n"
 "  Gero Takke\n"
@@ -126,11 +127,11 @@ msgstr ""
 "  David Arno\n"
 "  Pablo De Napoli\n"
 "  Santiago Capel Torres\n"
-"  Rasmus Toftdahl Olesen \n"
+"  Rasmus Toftdahl Olesen\n"
 "   <rto@pohldata.dk>\n"
-"  Roland Steinbach \n"
+"  Roland Steinbach\n"
 "   <roland@netzblick.de>\n"
-"  Christian Tellefsen \n"
+"  Christian Tellefsen\n"
 "   <chris@tellefsen.net>\n"
 "  Antti-Juhani Kaijanaho\n"
 "\n"
@@ -142,7 +143,7 @@ msgstr ""
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
+"   <alastair@porter.net.nz>\n"
 "  Daniel Blair\n"
 "   <joecamel@realcoders.org>\n"
 "  Olivier Sessink\n"
@@ -150,8 +151,8 @@ msgstr ""
 "  Denny Reeh\n"
 "\n"
 "Manutentori dei pacchetti:\n"
-"  Debian:   Davide Puricelli\n"
-"   <evo@debian.org>\n"
+"  Debian:   Daniel Leidert\n"
+"   <daniel.leidert@wgdd.de>\n"
 "  Redhat:   Matthias Haase\n"
 "   <matthias_haase@bennewitz.com>\n"
 "  Mandrake: Todd Lyons\n"
@@ -159,14 +160,12 @@ msgstr ""
 "  Fink: Michèle Garoche\n"
 "   <michele.garoche@easyconnect.fr>\n"
 "\n"
-"Se conoscete qualcuno che manca in questa lista scrivete a\n"
+"Se siete a conoscenza di qualcuno che manca da questa lista fatemelo sapere\n"
 "<bluefish@bluefish.openoffice.nl>\n"
 "\n"
-"Grazie a tutti quelli che hanno aiutato per rendere questo software "
-"disponibile.\n"
+"Grazie a tutti quelli che hanno aiutato nel rendere questo software disponibile.\n"
 
 #: ../src/about.c:120
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -235,6 +234,9 @@ msgid ""
 "\n"
 msgstr ""
 "Attuali traduttori:\n"
+" \n"
+"  Basco: Hizkuntza Politikarako Sailburuordetza\n"
+"  <hizkpol@ej-gv.es\n"
 "\n"
 "  Bulgaro: Peio Popov\n"
 "   <peio@peio.org>\n"
@@ -251,8 +253,8 @@ msgstr ""
 "  Finlandese: Juho Roukala\n"
 "   <j.mr@luukku.com>\n"
 "\n"
-"  Francese: Roméo Viu-Berges\n"
-"   <apostledemencia@free.fr>\n"
+"  Francese:  Michèle Garoche\n"
+"  <michele.garoche@easyconnect.fr>\n"
 "  \n"
 "  Giapponese: Takeshi Hamasaki\n"
 "   <hma@syd.odn.ne.jp>\n"
@@ -471,8 +473,8 @@ msgstr "creazione della GUI principale in corso"
 msgid "showing main gui..."
 msgstr "costruzione della GUI in corso"
 
+# (URL-encoded):
 #: ../src/bluefish.c:259
-#, fuzzy
 msgid ""
 "<span weight=\"bold\" size=\"larger\">Bluefish Tip:</span>\n"
 "\n"
@@ -481,10 +483,11 @@ msgid ""
 "To add buttons to the Quickbar, right click on a button in the HTML "
 "toolbars.\n"
 msgstr ""
+"<span weight=\"bold\" size=\"larger\">Bluefish Tip:</span>\n"
+"\n"
 "Questo messaggio è mostrato se non ci sono elementi nella Quickbar.\n"
 "\n"
-"Fare click con il tasto destro sulle barre dell'HTML per aggiungere pulsanti "
-"alla Quickbar"
+"Fare click con il tasto destro sulle barre dell'HTML per aggiungere pulsanti alla Quickbar\n"
 
 #: ../src/bluefish.c:263
 msgid "_Don't show this dialog again."
@@ -2011,18 +2014,16 @@ msgid "with _Subject:"
 msgstr "con o_ggetto:"
 
 #: ../src/html.c:1718
-#, fuzzy
 msgid "with _Subject (URL-encoded):"
-msgstr "con o_ggetto:"
+msgstr "con o_ggetto (URL-encoded):"
 
 #: ../src/html.c:1724
 msgid "with _Body:"
 msgstr "con co_rpo"
 
 #: ../src/html.c:1726
-#, fuzzy
 msgid "with _Body (URL-encoded):"
-msgstr "con co_rpo"
+msgstr "con co_rpo (URL-encoded):"
 
 #: ../src/html.c:1771
 msgid "Quick List"
@@ -2102,7 +2103,6 @@ msgid "HREF_LANG:"
 msgstr "HREF_LANG"
 
 #: ../src/html.c:2171
-#, fuzzy
 msgid "T_itle:"
 msgstr "_Titolo:"
 
@@ -3984,7 +3984,7 @@ msgstr "Ampiezza tabulatore"
 
 #: ../src/preferences.c:2002
 msgid "Smart cursor positioning at line start"
-msgstr ""
+msgstr "Posizionamento intelligente del cursore all'inizio della riga"
 
 #: ../src/preferences.c:2003
 msgid "Use spaces to indent, not tabs"
@@ -4004,7 +4004,7 @@ msgstr "Evidenzia sintassi"
 
 #: ../src/preferences.c:2008
 msgid "Enable highlighting PCRE UTF-8 support"
-msgstr ""
+msgstr "Abilitare il supporto per evidenziazione della sintassi PCRE UTF-8"
 
 #: ../src/preferences.c:2010
 msgid "Highlight # lines"
@@ -4063,19 +4063,16 @@ msgid "Use XHTML style tags (<br />)"
 msgstr "Usa i tag in stile XHTML (<br />)"
 
 #: ../src/preferences.c:2042
-#, fuzzy
 msgid "Automatically update author meta tag"
 msgstr "Aggiorna automaticamente il meta tag autore"
 
 #: ../src/preferences.c:2043
-#, fuzzy
 msgid "Automatically update date meta tag"
-msgstr "Aggiorna automaticamente il meta tag autore"
+msgstr "Aggiorna automaticamente il meta tag data"
 
 #: ../src/preferences.c:2044
-#, fuzzy
 msgid "Automatically update generator meta tag"
-msgstr "Aggiorna automaticamente il meta tag autore"
+msgstr "Aggiorna automaticamente il meta tag generatore"
 
 #: ../src/preferences.c:2047
 msgid "Files"
