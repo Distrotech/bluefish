@@ -866,18 +866,29 @@ static void rcfile_custom_menu_load_all(gboolean full_reset, gchar *defaultfile)
 		main_v->props.cust_menu=NULL;
 	}
 }
-
+/*
+ - If LC_ALL is set and non-null, follow it.
+ - Else if LC_MESSAGES is set and non-null, follow it.
+ - Else if LANG is set and non-null, follow it.
+*/
 void rcfile_parse_custom_menu(gboolean full_reset, gboolean load_new) {
 	gchar *defaultfile, *langdefaultfile1=NULL, *langdefaultfile2=NULL, *tmp;
+	const gchar *tmp2;
 	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
-
+	tmp2 = g_getenv("LC_ALL");
+	if (tmp2 == NULL) {
+		tmp2 = g_getenv("LC_MESSAGES");
+		if (tmp2 == NULL) {
 #ifdef PLATFORM_DARWIN
-	tmp = g_strdup(g_getenv("LANGUAGE"));
+			tmp2 = g_getenv("LANGUAGE");
 #else
-	tmp = g_strdup(g_getenv("LANG"));
+			tmp2 = g_getenv("LANG");
 #endif
+		}
+	}
+	tmp = g_strdup(tmp2);
 	DEBUG_MSG("rcfile_parse_custom_menu, Language is: %s", tmp);
-	if (tmp) {
+	if (tmp && strlen(tmp)>0) {
 		tmp = trunc_on_char(tmp, '.');
 		tmp = trunc_on_char(tmp, '@');
 		langdefaultfile1 = g_strconcat(PKGDATADIR"custom_menu.",tmp,".default", NULL);
