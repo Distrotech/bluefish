@@ -149,6 +149,40 @@ gchar *entity_for_unichar(gunichar uchar, gboolean iso8859_1, gboolean symbols, 
 	}
 	return NULL;
 }
+
+gchar *urlencode(const gchar *inbuf) {
+	gchar *outbuf, *op;
+	const gchar *p;
+	outbuf = op = g_malloc((strlen(inbuf)*3+1)*sizeof(gchar));
+	for(p=inbuf; *p; p++) {
+		if ((*p >= ',' && *p <= '9') ||
+				(*p >= 'A' && *p <= 'Z') ||
+				(*p == '`') ||
+				(*p >= 'a' && *p <= 'z')) {
+			*op = *p;
+			op++;
+		} else {
+			sprintf(op, "%%%02X", *p);
+			op += 3; 
+		}
+	}
+	*op = '\0';
+	return outbuf;
+}
+
+static void doc_urlencode_selection(Tdocument *doc) {
+	gint start, end;
+	if (doc_get_selection(doc, &start, &end)) {
+		gchar *inbuf, *outbuf;
+		
+		inbuf = doc_get_chars(doc,start,end);
+		outbuf = urlencode(inbuf);
+		g_free(inbuf);
+		doc_replace_text(doc,outbuf,start,end);
+		g_free(outbuf);
+	}
+}
+
 /* inbuf is a NULL terminated UTF8 string */
 gchar *entities_to_utf8(const gchar *inbuf) {
 	const gchar *found, *prevfound;
@@ -395,39 +429,25 @@ static void entity_dialog(Tbfwin *bfwin, Tentmode mode) {
 	
 /*	g_signal_connect(ew->overlappingMatches, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_tooltips_set_tip(main_v->tooltips,ew->overlappingMatches,_("After a match is found, start next search within that match."),NULL);*/
-	gtk_combo_box_set_active(GTK_COMBO_BOX(ew->scope), 0);
+	if (doc_has_selection(bfwin->current_document)) {
+		gtk_combo_box_set_active(GTK_COMBO_BOX(ew->scope), 1);
+	} else {
+		gtk_combo_box_set_active(GTK_COMBO_BOX(ew->scope), 0);
+	}
 	gtk_widget_show_all(ew->dialog);
 }
 
 static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget){
-	if (callback_action == 0) {
-		/*gint start, end;
-		gchar *buf, *newbuf;
-		if (doc_get_selection(bfwin->current_document, &start, &end)) {
-			buf = doc_get_chars(bfwin->current_document,start,end);
-		} else {
-			buf = doc_get_chars(bfwin->current_document,0,-1);
-		}
-		newbuf = entities_to_utf8(buf);
-		g_free(buf);
-		doc_replace_text(bfwin->current_document,newbuf,0,-1);
-		g_free(newbuf);*/
+	switch (callback_action) {
+	case 0:
 		entity_dialog(bfwin, mode_ent2char);
-	} else {
-/*		gint start, end;
-		gchar *buf, *newbuf;
-		if (doc_get_selection(bfwin->current_document, &start, &end)) {
-			buf = doc_get_chars(bfwin->current_document,start,end);
-		} else {
-			buf = doc_get_chars(bfwin->current_document,0,-1);
-		}
-		newbuf = utf8_to_entities(buf,TRUE,TRUE,TRUE,FALSE);
-		g_free(buf);
-		doc_replace_text(bfwin->current_document,newbuf,0,-1);
-		g_free(newbuf);*/
-		/* we need a dialog on top of all these options! */
-		/* doc_utf8_to_entities(bfwin->current_document,TRUE,TRUE, TRUE, TRUE, FALSE);*/
+	break;
+	case 1:
 		entity_dialog(bfwin, mode_char2ent);
+	break;
+	case 2:
+		doc_urlencode_selection(bfwin->current_document);
+	break;
 	}
 }
 
@@ -457,7 +477,8 @@ static void entity_initgui(Tbfwin* bfwin) {
 	GtkItemFactory *ifactory;
 	static GtkItemFactoryEntry menu_items[] = {
 		{N_("/Edit/Replace special/Entities to characters"), NULL, entity_menu_lcb, 0, "<Item>"},
-		{N_("/Edit/Replace special/Characters to entities"), NULL, entity_menu_lcb, 1, "<Item>"}
+		{N_("/Edit/Replace special/Characters to entities"), NULL, entity_menu_lcb, 1, "<Item>"},
+		{N_("/Edit/Replace special/URL encode selection"), NULL, entity_menu_lcb, 2, "<Item>"}
 	};
 	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
 #ifdef ENABLE_NLS
