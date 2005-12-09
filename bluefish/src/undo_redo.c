@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -45,10 +45,11 @@ static gboolean have_current_action_id(unre_t unre) {
 	if (unre.current->entries) {
 		DEBUG_MSG("have_current_action_id, count=%d, doc has %d\n",action_id_count,unre.current->action_id);
 		return (unre.current->action_id == action_id_count);
-	} else {
+	} else if (unre.first) {
 		DEBUG_MSG("have_current_action_id, count=%d, doc has %d\n",action_id_count,((unregroup_t *)unre.first->data)->action_id);
 		return (((unregroup_t *)unre.first->data)->action_id == action_id_count);
 	}
+	return FALSE;
 }
 
 static unregroup_t *unregroup_new(Tdocument *doc, guint action_id) {
