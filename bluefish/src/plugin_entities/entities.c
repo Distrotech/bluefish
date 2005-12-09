@@ -150,19 +150,54 @@ gchar *entity_for_unichar(gunichar uchar, gboolean iso8859_1, gboolean symbols, 
 	return NULL;
 }
 
+gint gethex(gchar c) {
+	if (c >= '0' && c <= '9') return c-'0';
+	if (c >= 'a' && c <= 'f') return c-'a' + 10;
+	if (c >= 'A' && c <= 'F') return c-'A' + 10;
+	return 0;
+}
+
+gchar *urldecode(const gchar *inbuf) {
+	gchar *outbuf, *op;	/* ip = input-pointer, op=output-pointer */
+	const gchar *ip;
+
+	op = outbuf = g_malloc(strlen(inbuf)*sizeof(gchar));
+	ip = inbuf;
+	while (*ip) {
+		if (*ip == '%') {
+			if (g_ascii_isxdigit(ip[1]) && g_ascii_isxdigit(ip[2])) {
+				gchar decoded = g_ascii_xdigit_value(ip[1])*16+g_ascii_xdigit_value(ip[2]);
+				*op = decoded;
+				ip += 2;
+			} else {
+				/* invalid string */
+				g_free(outbuf);
+				return NULL;
+			}
+		} else {
+			*op = *ip;
+		}
+		op++;
+		ip++;
+	}
+	*op = '\0';
+	return outbuf;
+}
+/* for more information see http://www.ietf.org/rfc/rfc2396.txt */
 gchar *urlencode(const gchar *inbuf) {
-	gchar *outbuf, *op;
-	const gchar *p;
+	gchar *outbuf, *op; /* op=output-pointer, ip=input-pointer */
+	const gchar *ip;
 	outbuf = op = g_malloc((strlen(inbuf)*3+1)*sizeof(gchar));
-	for(p=inbuf; *p; p++) {
-		if ((*p >= ',' && *p <= '9') ||
-				(*p >= 'A' && *p <= 'Z') ||
-				(*p == '`') ||
-				(*p >= 'a' && *p <= 'z')) {
-			*op = *p;
+	for(ip=inbuf; *ip; ip++) {
+		if ((*ip == '-' || *ip == '_' || *ip == '.' || *ip == '!' || *ip == '~' || *ip == '`') ||
+				(*ip >= '\'' && *ip <= '*') ||
+				(*ip >= '0' && *ip <= '9') ||
+				(*ip >= 'A' && *ip <= 'Z') ||
+				(*ip >= 'a' && *ip <= 'z')) {
+			*op = *ip;
 			op++;
 		} else {
-			sprintf(op, "%%%02X", *p);
+			sprintf(op, "%%%02X", *ip);
 			op += 3; 
 		}
 	}
@@ -170,13 +205,22 @@ gchar *urlencode(const gchar *inbuf) {
 	return outbuf;
 }
 
-static void doc_urlencode_selection(Tdocument *doc) {
+typedef enum {
+	mode_urlencode,
+	mode_urldecode
+} Tencode_mode;
+
+static void doc_code_selection(Tdocument *doc, Tencode_mode mode) {
 	gint start, end;
 	if (doc_get_selection(doc, &start, &end)) {
 		gchar *inbuf, *outbuf;
 		
 		inbuf = doc_get_chars(doc,start,end);
-		outbuf = urlencode(inbuf);
+		if (mode == mode_urlencode) {
+			outbuf = urlencode(inbuf);
+		} else {
+			outbuf = urldecode(inbuf);
+		}
 		g_free(inbuf);
 		doc_replace_text(doc,outbuf,start,end);
 		g_free(outbuf);
@@ -446,7 +490,10 @@ static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widg
 		entity_dialog(bfwin, mode_char2ent);
 	break;
 	case 2:
-		doc_urlencode_selection(bfwin->current_document);
+		doc_code_selection(bfwin->current_document, mode_urlencode);
+	break;
+	case 3:
+		doc_code_selection(bfwin->current_document, mode_urldecode);
 	break;
 	}
 }
@@ -478,7 +525,8 @@ static void entity_initgui(Tbfwin* bfwin) {
 	static GtkItemFactoryEntry menu_items[] = {
 		{N_("/Edit/Replace special/Entities to characters"), NULL, entity_menu_lcb, 0, "<Item>"},
 		{N_("/Edit/Replace special/Characters to entities"), NULL, entity_menu_lcb, 1, "<Item>"},
-		{N_("/Edit/Replace special/URL encode selection"), NULL, entity_menu_lcb, 2, "<Item>"}
+		{N_("/Edit/Replace special/URL encode selection"), NULL, entity_menu_lcb, 2, "<Item>"},
+		{N_("/Edit/Replace special/URL decode selection"), NULL, entity_menu_lcb, 3, "<Item>"}
 	};
 	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
 #ifdef ENABLE_NLS
