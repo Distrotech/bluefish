@@ -251,6 +251,7 @@ typedef enum {
 typedef struct {
 	GtkWidget *dialog;
 	GtkWidget *scope;
+	GtkWidget *numerical;
 	GtkWidget *iso8859_1;
 	GtkWidget *symbol;
 	GtkWidget *special;
@@ -292,7 +293,20 @@ static void entity_dialog(Tbfwin *bfwin, Tentmode mode) {
 	dialog_mnemonic_label_in_table(_("Sco_pe: "), ew->scope, table, 0, 1, 0, 1);
 	gtk_table_attach(GTK_TABLE(table), ew->scope, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
 
+	if (mode == mode_ent2char) {
+		ew->numerical = gtk_check_button_new_with_mnemonic(_("Convert numerical characters"));
+		gtk_box_pack_start(GTK_BOX(vbox2), ew->numerical, FALSE, FALSE, 0);
+	} else {
+		ew->numerical = NULL;
+	}
 
+	ew->iso8859_1 = gtk_check_button_new_with_mnemonic(_("Convert iso-8859-1 characters"));
+	gtk_box_pack_start(GTK_BOX(vbox2), ew->iso8859_1, FALSE, FALSE, 0);
+/*	g_signal_connect(snrwin->overlappingMatches, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
+	gtk_tooltips_set_tip(main_v->tooltips,snrwin->overlappingMatches,_("After a match is found, start next search within that match."),NULL);*/
+	
+	
+	
 	gtk_widget_show_all(ew->dialog);
 }
 
