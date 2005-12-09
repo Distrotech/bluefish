@@ -95,6 +95,7 @@ OBJS = $(SRCS:.c=.o)
 all: bluefish
 	@cd plugin_htmlbar/ && $(MAKE) all
 	@cd plugin_about/ && $(MAKE) all
+	@cd plugin_entities/ && $(MAKE) all
 
 bluefish: $(SRCS) $(OBJS)
 	$(CC) $(DEFS) -o bluefish $(OBJS) $(LDFLAGS) $(LIBS)
@@ -109,25 +110,31 @@ clean:
 	rm -f $(OBJS) bluefish
 	@cd plugin_htmlbar/ && $(MAKE) clean
 	@cd plugin_about/ && $(MAKE) clean
+	@cd plugin_entities/ && $(MAKE) clean
 
 patchclean: clean
 	rm -f *.orig *.rej
 	@cd plugin_htmlbar/ && $(MAKE) patchclean
 	@cd plugin_about/ && $(MAKE) patchclean
+	@cd plugin_entities/ && $(MAKE) patchclean
 
 distclean: patchclean
 	rm -f config.h Makefile *~ *.bak core
 	rm -f *.bb *.bbg *.c.gcov *.da
 	@cd plugin_htmlbar/ && $(MAKE) distclean
 	@cd plugin_about/ && $(MAKE) distclean
+	@cd plugin_entities/ && $(MAKE) distclean
 
 install: all
 	$(INSTALL_DIR) $(DESTDIR)$(bindir)
 	$(INSTALL_PROGRAM) ./bluefish $(DESTDIR)$(bindir)/$(PACKAGE)
 	@cd plugin_htmlbar/ && $(MAKE) install
 	@cd plugin_about/ && $(MAKE) install
+	@cd plugin_entities/ && $(MAKE) install
 
 uninstall:
 	rm -f $(DESTDIR)$(bindir)/$(PACKAGE)
 	@cd plugin_htmlbar/ && $(MAKE) uninstall
 	@cd plugin_about/ && $(MAKE) uninstall
+	@cd plugin_entities/ && $(MAKE) uninstall
+	

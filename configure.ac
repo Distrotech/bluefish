@@ -800,7 +800,10 @@ AC_CONFIG_FILES(
 	src/plugin_htmlbar/Makefile
 	src/plugin_htmlbar/po/Makefile
 	src/plugin_about/Makefile
-	src/plugin_about/po/Makefile)
+	src/plugin_about/po/Makefile
+	src/plugin_entities/Makefile
+	src/plugin_entities/po/Makefile)
+
 AC_OUTPUT
 
 echo "-----------"
