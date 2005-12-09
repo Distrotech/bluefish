@@ -5,6 +5,8 @@
 #include "../bluefish.h"
 #include "../bf_lib.h"
 #include "../document.h"
+#include "../gtk_easy.h"
+#include "../undo_redo.h"
 /* see http://www.w3.org/TR/xhtml1/dtds.html for more information about the defined entities */
 
 static gchar *entities_iso8859_1[] = {
@@ -239,6 +241,59 @@ void doc_utf8_to_entities(Tdocument *doc, gboolean separate_undo, gboolean iso88
 	}
 	g_free(buf);
 	doc_unre_new_group(doc);
+}
+
+typedef enum {
+	mode_char2ent,
+	mode_ent2char
+} Tentmode;
+
+typedef struct {
+	GtkWidget *dialog;
+	GtkWidget *scope;
+	GtkWidget *iso8859_1;
+	GtkWidget *symbol;
+	GtkWidget *special;
+	GtkWidget *xml;
+	Tentmode mode;
+	Tbfwin *bfwin;
+} Tentwin;
+
+static void ew_response_lcb(GtkDialog * dialog, gint response, Tentwin * ew) {
+
+	/* DO SOMETHING */
+	
+	gtk_widget_destroy(ew->dialog);
+	g_free(ew);
+}
+
+static void entity_dialog(Tbfwin *bfwin, Tentmode mode) {
+	Tentwin *ew;
+	GtkWidget *table;
+	
+	ew = g_new(Tentwin,1);
+	ew->bfwin = bfwin;
+	ew->mode = mode;
+	
+	ew->dialog = gtk_dialog_new_with_buttons(mode == mode_char2ent ? _("Characters to entities") : _("Entities to characters"),
+			GTK_WINDOW(bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT, 
+			GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
+			GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, 
+			NULL);
+	g_signal_connect(G_OBJECT(ew->dialog), "response", G_CALLBACK(ew_response_lcb), ew);
+	window_delete_on_escape(GTK_WINDOW(ew->dialog));
+	
+	table = dialog_table_in_vbox(5, 2, 6, GTK_DIALOG(ew->dialog)->vbox, FALSE, FALSE, 0);
+
+	ew->scope = gtk_combo_box_new_text();
+	gtk_combo_box_append_text(GTK_COMBO_BOX(ew->scope), _("In current document"));
+	gtk_combo_box_append_text(GTK_COMBO_BOX(ew->scope), _("In selection"));
+	gtk_combo_box_append_text(GTK_COMBO_BOX(ew->scope), _("In all documents"));
+	dialog_mnemonic_label_in_table(_("Sco_pe: "), ew->scope, table, 0, 1, 0, 1);
+	gtk_table_attach(GTK_TABLE(table), ew->scope, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
+
+
+	gtk_widget_show_all(ew->dialog);
 }
 
 static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget){
