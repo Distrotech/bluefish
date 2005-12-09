@@ -205,7 +205,7 @@ gchar *utf8_to_entities(const gchar *inbuf, gboolean iso8859_1, gboolean symbols
 	return outbuf;
 }
 
-void doc_utf8_to_entities(Tdocument *doc, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml) {
+void doc_utf8_to_entities(Tdocument *doc, gboolean separate_undo, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml) {
 	gunichar unichar;
 	gint start, end;
 	gchar *buf, *srcp;
@@ -225,7 +225,11 @@ void doc_utf8_to_entities(Tdocument *doc, gboolean iso8859_1, gboolean symbols, 
 		entity = entity_for_unichar(unichar, iso8859_1, symbols, specials, xml);
 		if (entity) {
 			gchar *replacew = g_strconcat("&", entity, ";", NULL);
-			doc_replace_text_backend(doc,replacew,docpos,docpos+1);
+			if (separate_undo) {
+				doc_replace_text(doc,replacew,docpos,docpos+1);
+			} else {
+				doc_replace_text_backend(doc,replacew,docpos,docpos+1);
+			}
 			docpos += (strlen(replacew)-1);
 			g_free(replacew);
 		}
@@ -262,7 +266,8 @@ static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widg
 		g_free(buf);
 		doc_replace_text(bfwin->current_document,newbuf,0,-1);
 		g_free(newbuf);*/
-		doc_utf8_to_entities(bfwin->current_document, TRUE, TRUE, TRUE, FALSE);
+		/* we need a dialog on top of all these options! */
+		doc_utf8_to_entities(bfwin->current_document,TRUE,TRUE, TRUE, TRUE, FALSE);
 	}
 }
 
