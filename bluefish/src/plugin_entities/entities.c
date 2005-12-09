@@ -7,6 +7,7 @@
 #include "../document.h"
 #include "../gtk_easy.h"
 #include "../undo_redo.h"
+#include "../dialog_utils.h"
 /* see http://www.w3.org/TR/xhtml1/dtds.html for more information about the defined entities */
 
 static gchar *entities_iso8859_1[] = {
@@ -86,31 +87,45 @@ static gint index_in_array2(guint *arr, guint val) {
 	return -1;
 }
 
-gunichar unichar_for_entity(gchar *entity) {
+gunichar unichar_for_entity(gchar *entity,gboolean numerical, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml) {
 	gint indx;
 	if (!entity) return -1;
 	if (entity[0] == '#') {
-		/* convert the remaining characters to a number */
-		if (entity[1] == 'x') {
-			/* from hexadecimal */
-			return g_ascii_strtoull(&entity[2],NULL,16);
-		} else {
-			/* from decimal */
-			return g_ascii_strtoull(&entity[1],NULL,10);
+		if (numerical) {
+			/* convert the remaining characters to a number */
+			if (entity[1] == 'x') {
+				/* from hexadecimal */
+				return g_ascii_strtoull(&entity[2],NULL,16);
+			} else {
+				/* from decimal */
+				return g_ascii_strtoull(&entity[1],NULL,10);
+			}
+		}
+		return -1;
+	}
+	if (iso8859_1) {
+		indx = index_in_array(entities_iso8859_1, entity);
+		if (indx != -1) {
+			return indx + 161;
 		}
 	}
-	indx = index_in_array(entities_iso8859_1, entity);
-	if (indx != -1) {
-		return indx + 161;
+	if (symbols) {
+		indx = index_in_array(entities_symbols, entity);
+		if (indx != -1) {
+			return entity_unicode_symbols[indx];
+		}
 	}
-	indx = index_in_array(entities_symbols, entity);
-	if (indx != -1) {
-		return entity_unicode_symbols[indx];
+	if (specials) {
+		indx = index_in_array(entities_special, entity);
+		if (indx != -1) {
+			return entity_unicode_special[indx];
+		}
 	}
-	indx = index_in_array(entities_special, entity);
-	if (indx != -1) {
-		g_print("found index %d for entity %s\n",indx,entity);
-		return entity_unicode_special[indx];
+	if (xml) {
+		indx = index_in_array(entities_xml, entity);
+		if (indx != -1) {
+			return entity_unicode_xml[indx];
+		}
 	}
 	return -1;
 }
@@ -156,7 +171,7 @@ gchar *entities_to_utf8(const gchar *inbuf) {
 			len = (found - prevfound);
 			memcpy(outbufloc,prevfound,len);
 			outbufloc += len;
-			unic = unichar_for_entity(entity);
+			unic = unichar_for_entity(entity, TRUE,TRUE,TRUE,TRUE,FALSE);
 			if (unic != -1) {
 				g_print("unic=%d for entity '%s'\n",unic,entity);
 				memset(tmp, 0, 7);
@@ -180,6 +195,48 @@ gchar *entities_to_utf8(const gchar *inbuf) {
 	}
 	memcpy(outbufloc,prevfound,strlen(prevfound)+1);
 	return outbuf;
+}
+
+void doc_entities_to_utf8(Tdocument *doc, gint start, gint end, gboolean numerical, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml) {
+	gchar *buf;
+	const gchar *found, *prevfound;
+	guint docoffset=start; /* docoffset is an offset in characters between the buffer and the GtkTextBuffer contents */
+
+	buf = doc_get_chars(doc,start,end);
+	utf8_offset_cache_reset();
+	
+	found = g_utf8_strchr(buf,-1, '&');
+	while (found) {
+		gchar *endfound;
+		endfound = g_utf8_strchr(found,-1, ';');
+		if (endfound && endfound - found <= 7) {
+			gchar *entity;
+			gint len;
+			gunichar unic;
+			
+			entity = g_strndup(found+1, (endfound-found)-1);
+			len = (found - prevfound);
+			unic = unichar_for_entity(entity,numerical,iso8859_1,symbols,specials,xml);
+			if (unic != -1) {
+				guint cfound,cendfound;
+				gchar tmp[7];
+				g_print("unic=%d for entity '%s'\n",unic,entity);
+				memset(tmp, 0, 7);
+				len = g_unichar_to_utf8(unic, tmp);
+				
+				cfound = utf8_byteoffset_to_charsoffset_cached(buf, (found-buf));
+				cendfound = utf8_byteoffset_to_charsoffset_cached(buf, (endfound-buf));
+				
+				doc_replace_text_backend(doc,tmp,cfound+docoffset,cendfound+docoffset+1);
+				docoffset = docoffset - (cendfound+1-cfound) + 1;
+			}
+			g_free(entity);
+			prevfound = g_utf8_next_char(endfound);
+			found = g_utf8_strchr(prevfound,-1, '&');
+		} else {
+			found = g_utf8_strchr(g_utf8_next_char(found),-1, '&');
+		}
+	}
 }
 
 
@@ -207,19 +264,11 @@ gchar *utf8_to_entities(const gchar *inbuf, gboolean iso8859_1, gboolean symbols
 	return outbuf;
 }
 
-void doc_utf8_to_entities(Tdocument *doc, gboolean separate_undo, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml) {
+void doc_utf8_to_entities(Tdocument *doc, gint start, gint end, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml) {
 	gunichar unichar;
-	gint start, end;
 	gchar *buf, *srcp;
-	guint docpos;
-	if (doc_get_selection(doc, &start, &end)) {
-		buf = doc_get_chars(doc,start,end);
-		docpos = start;
-	} else {
-		buf = doc_get_chars(doc,0,-1);
-		docpos = 0;
-	}
-	doc_unre_new_group(doc);
+	guint docpos=start;
+	buf = doc_get_chars(doc,start,end);
 	srcp = buf;
 	unichar = g_utf8_get_char(buf);
 	while (unichar) {
@@ -227,11 +276,7 @@ void doc_utf8_to_entities(Tdocument *doc, gboolean separate_undo, gboolean iso88
 		entity = entity_for_unichar(unichar, iso8859_1, symbols, specials, xml);
 		if (entity) {
 			gchar *replacew = g_strconcat("&", entity, ";", NULL);
-			if (separate_undo) {
-				doc_replace_text(doc,replacew,docpos,docpos+1);
-			} else {
-				doc_replace_text_backend(doc,replacew,docpos,docpos+1);
-			}
+			doc_replace_text_backend(doc,replacew,docpos,docpos+1);
 			docpos += (strlen(replacew)-1);
 			g_free(replacew);
 		}
@@ -240,7 +285,6 @@ void doc_utf8_to_entities(Tdocument *doc, gboolean separate_undo, gboolean iso88
 		docpos++;
 	}
 	g_free(buf);
-	doc_unre_new_group(doc);
 }
 
 typedef enum {
@@ -261,16 +305,46 @@ typedef struct {
 } Tentwin;
 
 static void ew_response_lcb(GtkDialog * dialog, gint response, Tentwin * ew) {
-
-	/* DO SOMETHING */
-	
+	if (response == GTK_RESPONSE_ACCEPT) {
+		gint start=0, end=-1;
+		gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(ew->scope));
+		if (scope == 0 || (scope == 1 && doc_get_selection(ew->bfwin->current_document, &start, &end))) {
+			doc_unre_new_group_action_id(ew->bfwin->current_document,0);
+			if (ew->mode == mode_char2ent) {
+				doc_utf8_to_entities(ew->bfwin->current_document, start, end,  
+						GTK_TOGGLE_BUTTON(ew->iso8859_1)->active, GTK_TOGGLE_BUTTON(ew->symbol)->active, 
+						GTK_TOGGLE_BUTTON(ew->special)->active, GTK_TOGGLE_BUTTON(ew->xml)->active);
+			} else {
+				doc_entities_to_utf8(ew->bfwin->current_document, start, end, GTK_TOGGLE_BUTTON(ew->numerical)->active,
+						GTK_TOGGLE_BUTTON(ew->iso8859_1)->active, GTK_TOGGLE_BUTTON(ew->symbol)->active, 
+						GTK_TOGGLE_BUTTON(ew->special)->active, GTK_TOGGLE_BUTTON(ew->xml)->active);
+			}
+			doc_unre_new_group_action_id(ew->bfwin->current_document,0);
+		} else /* (scope == 2) */ {
+			guint unre_action_id = new_unre_action_id();
+			GList *tmplist;
+			for (tmplist=g_list_first(ew->bfwin->documentlist);tmplist;tmplist=tmplist->next) {
+				doc_unre_new_group_action_id(DOCUMENT(tmplist->data), unre_action_id);
+				if (ew->mode == mode_char2ent) {
+					doc_utf8_to_entities(DOCUMENT(tmplist->data), 0, -1, 
+							GTK_TOGGLE_BUTTON(ew->iso8859_1)->active, GTK_TOGGLE_BUTTON(ew->symbol)->active, 
+							GTK_TOGGLE_BUTTON(ew->special)->active, GTK_TOGGLE_BUTTON(ew->xml)->active);
+				} else {
+					doc_entities_to_utf8(DOCUMENT(tmplist->data), 0, -1, GTK_TOGGLE_BUTTON(ew->numerical)->active,
+							GTK_TOGGLE_BUTTON(ew->iso8859_1)->active, GTK_TOGGLE_BUTTON(ew->symbol)->active, 
+							GTK_TOGGLE_BUTTON(ew->special)->active, GTK_TOGGLE_BUTTON(ew->xml)->active);
+				}
+				doc_unre_new_group_action_id(DOCUMENT(tmplist->data),0);
+			}
+		}
+	}
 	gtk_widget_destroy(ew->dialog);
 	g_free(ew);
 }
 
 static void entity_dialog(Tbfwin *bfwin, Tentmode mode) {
 	Tentwin *ew;
-	GtkWidget *table;
+	GtkWidget *hbox;
 	
 	ew = g_new(Tentwin,1);
 	ew->bfwin = bfwin;
@@ -283,36 +357,51 @@ static void entity_dialog(Tbfwin *bfwin, Tentmode mode) {
 			NULL);
 	g_signal_connect(G_OBJECT(ew->dialog), "response", G_CALLBACK(ew_response_lcb), ew);
 	window_delete_on_escape(GTK_WINDOW(ew->dialog));
-	
-	table = dialog_table_in_vbox(5, 2, 6, GTK_DIALOG(ew->dialog)->vbox, FALSE, FALSE, 0);
+	gtk_container_set_border_width(GTK_CONTAINER(ew->dialog),10);
+	gtk_box_set_spacing(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox),10);
+	hbox = gtk_hbox_new(FALSE,50);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), hbox, FALSE, FALSE, 0);
 
 	ew->scope = gtk_combo_box_new_text();
 	gtk_combo_box_append_text(GTK_COMBO_BOX(ew->scope), _("In current document"));
 	gtk_combo_box_append_text(GTK_COMBO_BOX(ew->scope), _("In selection"));
 	gtk_combo_box_append_text(GTK_COMBO_BOX(ew->scope), _("In all documents"));
-	dialog_mnemonic_label_in_table(_("Sco_pe: "), ew->scope, table, 0, 1, 0, 1);
-	gtk_table_attach(GTK_TABLE(table), ew->scope, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
-
+	dialog_box_label_new(_("Sco_pe:"), 0.5, 0.5, hbox);
+	gtk_box_pack_start(GTK_BOX(hbox), ew->scope, FALSE, FALSE, 0);
+	
 	if (mode == mode_ent2char) {
 		ew->numerical = gtk_check_button_new_with_mnemonic(_("Convert numerical characters"));
-		gtk_box_pack_start(GTK_BOX(vbox2), ew->numerical, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->numerical, FALSE, FALSE, 0);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->numerical),TRUE);
 	} else {
 		ew->numerical = NULL;
 	}
 
-	ew->iso8859_1 = gtk_check_button_new_with_mnemonic(_("Convert iso-8859-1 characters"));
-	gtk_box_pack_start(GTK_BOX(vbox2), ew->iso8859_1, FALSE, FALSE, 0);
-/*	g_signal_connect(snrwin->overlappingMatches, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
-	gtk_tooltips_set_tip(main_v->tooltips,snrwin->overlappingMatches,_("After a match is found, start next search within that match."),NULL);*/
+	ew->iso8859_1 = gtk_check_button_new_with_mnemonic(_("Convert _iso-8859-1 characters"));
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->iso8859_1, FALSE, FALSE, 0);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->iso8859_1),TRUE);
 	
+	ew->symbol = gtk_check_button_new_with_mnemonic(_("Convert _symbol characters"));
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->symbol, FALSE, FALSE, 0);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->symbol),TRUE);
 	
+	ew->special = gtk_check_button_new_with_mnemonic(_("Convert spe_cial characters"));
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->special, FALSE, FALSE, 0);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->special),TRUE);
 	
+	ew->xml = gtk_check_button_new_with_mnemonic(_("Convert _xml characters <>&"));
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(ew->dialog)->vbox), ew->xml, FALSE, FALSE, 0);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ew->xml),FALSE);
+	
+/*	g_signal_connect(ew->overlappingMatches, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
+	gtk_tooltips_set_tip(main_v->tooltips,ew->overlappingMatches,_("After a match is found, start next search within that match."),NULL);*/
+	gtk_combo_box_set_active(GTK_COMBO_BOX(ew->scope), 0);
 	gtk_widget_show_all(ew->dialog);
 }
 
 static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget){
 	if (callback_action == 0) {
-		gint start, end;
+		/*gint start, end;
 		gchar *buf, *newbuf;
 		if (doc_get_selection(bfwin->current_document, &start, &end)) {
 			buf = doc_get_chars(bfwin->current_document,start,end);
@@ -322,7 +411,8 @@ static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widg
 		newbuf = entities_to_utf8(buf);
 		g_free(buf);
 		doc_replace_text(bfwin->current_document,newbuf,0,-1);
-		g_free(newbuf);
+		g_free(newbuf);*/
+		entity_dialog(bfwin, mode_ent2char);
 	} else {
 /*		gint start, end;
 		gchar *buf, *newbuf;
@@ -336,7 +426,8 @@ static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widg
 		doc_replace_text(bfwin->current_document,newbuf,0,-1);
 		g_free(newbuf);*/
 		/* we need a dialog on top of all these options! */
-		doc_utf8_to_entities(bfwin->current_document,TRUE,TRUE, TRUE, TRUE, FALSE);
+		/* doc_utf8_to_entities(bfwin->current_document,TRUE,TRUE, TRUE, TRUE, FALSE);*/
+		entity_dialog(bfwin, mode_char2ent);
 	}
 }
 
