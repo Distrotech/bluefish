@@ -204,6 +204,39 @@ gchar *utf8_to_entities(const gchar *inbuf, gboolean iso8859_1, gboolean symbols
 	}
 	return outbuf;
 }
+
+void doc_utf8_to_entities(Tdocument *doc, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml) {
+	gunichar unichar;
+	gint start, end;
+	gchar *buf, *srcp;
+	guint docpos;
+	if (doc_get_selection(doc, &start, &end)) {
+		buf = doc_get_chars(doc,start,end);
+		docpos = start;
+	} else {
+		buf = doc_get_chars(doc,0,-1);
+		docpos = 0;
+	}
+	doc_unre_new_group(doc);
+	srcp = buf;
+	unichar = g_utf8_get_char(buf);
+	while (unichar) {
+		gchar *entity;
+		entity = entity_for_unichar(unichar, iso8859_1, symbols, specials, xml);
+		if (entity) {
+			gchar *replacew = g_strconcat("&", entity, ";", NULL);
+			doc_replace_text_backend(doc,replacew,docpos,docpos+1);
+			docpos += (strlen(replacew)-1);
+			g_free(replacew);
+		}
+		srcp = g_utf8_next_char(srcp);
+		unichar = g_utf8_get_char (srcp);
+		docpos++;
+	}
+	g_free(buf);
+	doc_unre_new_group(doc);
+}
+
 static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget){
 	if (callback_action == 0) {
 		gint start, end;
@@ -218,7 +251,7 @@ static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widg
 		doc_replace_text(bfwin->current_document,newbuf,0,-1);
 		g_free(newbuf);
 	} else {
-		gint start, end;
+/*		gint start, end;
 		gchar *buf, *newbuf;
 		if (doc_get_selection(bfwin->current_document, &start, &end)) {
 			buf = doc_get_chars(bfwin->current_document,start,end);
@@ -228,8 +261,8 @@ static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widg
 		newbuf = utf8_to_entities(buf,TRUE,TRUE,TRUE,FALSE);
 		g_free(buf);
 		doc_replace_text(bfwin->current_document,newbuf,0,-1);
-		g_free(newbuf);
-	
+		g_free(newbuf);*/
+		doc_utf8_to_entities(bfwin->current_document, TRUE, TRUE, TRUE, FALSE);
 	}
 }
 
