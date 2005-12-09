@@ -1258,7 +1258,11 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 		GtkTextIter itstart, itend;
 		DEBUG_MSG("doc_replace_text_backend, get iters at start %d and end %d\n", start, end);
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
-		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
+		if (end == -1) {
+			gtk_text_buffer_get_end_iter(doc->buffer,&itend);
+		} else {
+			gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
+		}
 		buf = gtk_text_buffer_get_text(doc->buffer, &itstart, &itend,TRUE);
 		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 		DEBUG_MSG("doc_replace_text_backend, calling doc_unre_add for buf=%s, start=%d and end=%d\n", buf, start, end);
