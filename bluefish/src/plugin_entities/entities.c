@@ -222,8 +222,10 @@ static void doc_code_selection(Tdocument *doc, Tencode_mode mode) {
 			outbuf = urldecode(inbuf);
 		}
 		g_free(inbuf);
-		doc_replace_text(doc,outbuf,start,end);
-		g_free(outbuf);
+		if (outbuf) {
+			doc_replace_text(doc,outbuf,start,end);
+			g_free(outbuf);
+		}
 	}
 }
 
