@@ -22,9 +22,9 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines highlight.c
  */
 
-/*#define HL_TIMING
+/* #define HL_TIMING
 #define HL_DEBUG 
-#define DEBUG*/
+#define DEBUG */
 
 #ifdef DEBUG
 #define DEVELOPMENT
@@ -597,7 +597,7 @@ void filetype_highlighting_rebuild(gboolean gui_errors) {
 		Tfiletype *filetype;
 		strarr = (gchar **) tmplist->data;
 		arrcount = count_array(strarr);
-		if (arrcount == 7) {
+		if (arrcount >= 7) {
 			filetype = g_new(Tfiletype, 1);
 			filetype->editable = (strarr[4][0] != '0');
 			filetype->content_regex = g_strdup(strarr[5]);
