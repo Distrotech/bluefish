@@ -92,26 +92,26 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <title>Patches</title>
 <?linebreakus?>
 <para>Before starting to code:</para>
-<orderedlist spacing="compact">
+<orderedlist>
 <listitem><para>Update your CVS tree, or alternatively download the latest snapshot</para></listitem>
 <listitem><para>Copy this original tree, so you can make a patch against this tree</para></listitem>
 </orderedlist>
 <?linebreakus?>
 <para>Before creating the patch:</para>
-<orderedlist spacing="compact">
+<orderedlist>
 <listitem><para>Run <userinput>make distclean &amp;&amp; ./configure &amp;&amp; make</userinput> and test if it runs successfully</para></listitem>
 <listitem><para>If you have the possibility do this both with <filename>gcc-2.95</filename> and <filename>gcc-3.x</filename> as compiler</para></listitem>
 </orderedlist>
 <?linebreakus?>
 <para>Now create the patch. Assuming that you have two directories, <filename>original-tree</filename> and <filename>my-tree</filename>:</para>
-<orderedlist spacing="compact">
+<orderedlist>
 <listitem><para>Run <userinput>make distclean</userinput> in both trees</para></listitem>
 <listitem><para>cd to the parent directory of both trees</para></listitem>
 <listitem><para>Run <userinput>diff -Naur original-tree my-tree | bzip2 -9c &gt; patchbla.diff.bz2</userinput></para></listitem>
 </orderedlist>
 </sect1>
 
-<?linebreakus?>
+<?linebreaka4?>
 <sect1 id="developing-bluefish-translations">
 <title>Translations</title>
 
@@ -142,17 +142,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <para>Those which begin with "#~ " containing obsolete strings as: '<literal>#~ msgid "Save document as"</literal>'</para>
 </listitem>
 </orderedlist>
-<variablelist>
-<varlistentry>
-<term><emphasis>Warning</emphasis></term>
-<listitem>
+<warning>
 <para>When an entry is tagged as fuzzy (i.e. when the line begins with "<literal>#, fuzzy</literal>"), that means it is probably incorrect.</para>
 <para>You have to make sure the translation is correct and then delete either the "<literal>#, fuzzy</literal>" line if this is the only flag on the line, or the "<literal>, fuzzy</literal>" part of the line if there are some other flags on the same line, like in "<literal>#, fuzzy, c-format</literal>".</para>
 <para>Remember that as long as a translation is marked "fuzzy", it will NOT actually be used!</para>
 <para>As far as obsolete strings are concerned, it is up to you to decide if you want to remove them. On one hand they can be reused in a latter version of the po file, on the other hand they make the po file bigger.</para>
-</listitem>
-</varlistentry>
-</variablelist>
+</warning>
 <para>Hence, your task as a translator is to:</para>
 <orderedlist spacing="compact">
 <listitem><para>Translate all empty msgstr entries</para></listitem>
@@ -172,11 +167,9 @@ msgid "/_Refresh"
 msgstr "/_Actualizar"
 </screen>
 <para>It means that in the English locale the user have to press <keycombo><keycap>Alt</keycap><keycap>R</keycap></keycombo> to activate this particular GUI element. On the other hand if your locale is Spanish your shortcut key will be <keycombo><keycap>Alt</keycap><keycap>A</keycap></keycombo>.</para>
-<variablelist><varlistentry>
-<term><emphasis>Warning</emphasis></term>
-<listitem>
+<warning>
 <para>You have to keep in mind that two GUI elements must not have the same shortcut key at the same level.</para>
-</listitem></varlistentry></variablelist>
+</warning>
 </sect2>
 
 <sect2>

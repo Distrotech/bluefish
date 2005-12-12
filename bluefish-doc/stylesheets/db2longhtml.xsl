@@ -16,8 +16,20 @@ book      toc,title,figure,example,procedure
 </xsl:param>
 <!-- Toc depth -->
 <xsl:variable name="toc.section.depth">3</xsl:variable>
+<!-- Chapter autolabelling -->
+<xsl:param name="chapter.autolabel" select="'I'"/>
 <!-- Section autolabelling -->
-<xsl:variable name="section.autolabel">f</xsl:variable>
+<xsl:variable name="section.autolabel" select="'1'"/>
 <!-- Css stylesheet -->
 <xsl:param name='html.stylesheet' select="'manual.css'"/>
+<!-- Use admon graphics -->
+<xsl:param name="admon.graphics" select="'1'"/>
+<!-- Just use graphics for admon graphics -->
+<xsl:param name="admon.textlabel" select="'0'"/>
+<!-- Customized path for admon graphics -->
+<xsl:param name="admon.graphics.path" select="'imgs/'"/>
+<!-- Remove indentation to admon graphics -->
+<xsl:param name="admon.style">
+  <xsl:text>margin-left: 0in; margin-right: 0in;</xsl:text>
+</xsl:param>
 </xsl:stylesheet>

@@ -18,8 +18,6 @@
              xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 <!-- ********************************************************************
-     $Id: titlepage-a4.xml,v 1.5 2005-12-02 20:24:56 michga Exp $
-     ********************************************************************
 
      This file is part of the DocBook XSL Stylesheet distribution.
      See ../README or http://docbook.sf.net/ for copyright
@@ -30,22 +28,32 @@
 <!-- Customization for bluefish manual
 		Removed set, part, article, bibliograpy, glossary, reference, 
 		index and their associated templates
-		Removed table, example, equation in toc template
+		Removed table, equation in toc template
 		Removed author in chapter and section templates
 		Customized the remaining parts 
 		Made by Michèle Garoche on 09/12/2004 
+		Updated on 08/12/2005
 -->
 
 <!-- ==================================================================== -->
 
   <t:titlepage t:element="book" t:wrapper="fo:block">
     <t:titlepage-content t:side="recto">
+     <authorgroup 
+      font-size="12pt"      
+      text-align="right"
+      line-height="2"      
+      space-before="0.5in"
+      space-after="2.2in"/>
+      <author 
+	      keep-with-next.within-column="always"/>
+      <mediaobject/>
       <title
 	     t:named-template="division.title"
 	     param:node="ancestor-or-self::book[1]"
 	     text-align="center"
-	     font-size="28pt"
-	     space-before="1in"
+	     font-size="30pt"
+	     space-before="1.5in"
 	     font-weight="bold"
 	     font-family="{$title.fontset}"/>
       <subtitle
@@ -56,29 +64,16 @@
 		space-before="0in"
 		space-after="1mm"
 		font-family="{$title.fontset}"/>
-	   <mediaobject/>
-      <authorgroup 
-      space-before="1.9in"
-      space-after="2in"/>
-      <author font-size="&hsize3;"
-	      space-before="2.7in"
-	      space-after="2in"
-	      keep-with-next="always"/>
-     <copyright font-size="11pt"
-	      space-before="2.3in"
-	      space-after="0in"
-	      font-weight="normal"
-	      keep-with-next="always"/>
-    </t:titlepage-content>
+     </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">
       <title
 	     t:named-template="book.verso.title"
-	     font-size="10pt"
-	     font-weight="bold"
-	     font-family="{$title.fontset}"
-	     text-align="center"
-	     space-after="1em"/>
+	    text-align="center"
+	    font-size="10pt"
+	    font-weight="bold"
+	    space-after="1em"
+	    font-family="{$title.fontset}"/>
       <corpauthor/>
       <authorgroup t:named-template="verso.authorgroup"
       text-align="center"/>
@@ -87,13 +82,13 @@
       <revision font-size="11pt"
 	      space-before="0in"
 	      space-after="0in"
-	      keep-with-next="always"/>
+	    keep-with-next.within-column="always"/>
        <revhistory font-size="11pt"
  	      space-before="1in"
 	      space-after="1in"
-	      keep-with-next="always"/>
+	    keep-with-next.within-column="always"/>
       <copyright 
-      space-before="5.3in"
+      space-before="5in"
       space-after="0in"
       text-align="center"/>
       <abstract/>
@@ -131,23 +126,13 @@
 	     font-family="{$title.fontset}"
 	     font-weight="bold"
 	     text-align="center"
+	     start-indent="0pt"
 	     space-before.minimum="0em"
 	     space-before.optimum="0em"
 	     space-before.maximum="0em"
 	     space-after="0em"/>
       <subtitle
 		font-family="{$title.fontset}"/>
-      <corpauthor/>
-      <authorgroup/>
-      <author/>
-      <othercredit/>
-      <releaseinfo/>
-      <copyright/>
-      <legalnotice/>
-      <pubdate/>
-      <revision/>
-      <revhistory/>
-      <abstract/>
     </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">
@@ -170,25 +155,15 @@
     <t:titlepage-content t:side="recto" margin-left="{$title.margin.left}">
       <title t:named-template="component.title"
 	     param:node="ancestor-or-self::chapter[1]"
-	     font-size="&hsize5;"
-	     text-align="center"
+	     font-size="&hsize5;"	     	     
 	     font-weight="bold"
-	     space-before.minimum="0em"
+	     text-align="center"
+	     start-indent="0pt"
+ 	     space-before.minimum="0em"
 	     space-before.optimum="0em"
 	     space-before.maximum="0em"
 	     space-after="0em"/>
-      <subtitle/>
-      <corpauthor/>
-      <authorgroup/>
-      <author/>
-      <othercredit/>
-      <releaseinfo/>
-      <copyright/>
-      <legalnotice/>
-      <pubdate/>
-      <revision/>
-      <revhistory/>
-      <abstract/>
+	  <subtitle/>
     </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">
@@ -212,26 +187,16 @@
 	     t:named-template="component.title"
 	     param:node="ancestor-or-self::appendix[1]"
 	     margin-left="{$title.margin.left}"
-             space-before.minimum="0em"
-             space-before.optimum="0em"
-             space-before.maximum="0em"
 	     font-size="&hsize4;"
 	     font-weight="bold"
-	     font-family="{$title.fontset}"
-	     text-align="center"/>
+	     text-align="center"
+	     start-indent="0pt"
+	     space-before.minimum="0em"
+         space-before.optimum="0em"
+         space-before.maximum="0em"
+         font-family="{$title.fontset}"/>
       <subtitle
-			font-family="{$title.fontset}"/>
-      <corpauthor/>
-      <authorgroup/>
-      <author/>
-      <othercredit/>
-      <releaseinfo/>
-      <copyright/>
-      <legalnotice/>
-      <pubdate/>
-      <revision/>
-      <revhistory/>
-      <abstract/>
+		font-family="{$title.fontset}"/>
     </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">
@@ -256,17 +221,6 @@
 	   font-family="{$title.fontset}"/>
     <subtitle
 	      font-family="{$title.fontset}"/>
-    <corpauthor/>
-    <authorgroup/>
-    <author/>
-    <othercredit/>
-    <releaseinfo/>
-    <copyright/>
-    <legalnotice/>
-    <pubdate/>
-    <revision/>
-    <revhistory/>
-    <abstract/>
   </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">
@@ -289,17 +243,6 @@
 	   font-family="{$title.fontset}"/>
     <subtitle
 	      font-family="{$title.fontset}"/>
-    <corpauthor/>
-    <authorgroup/>
-    <author/>
-    <othercredit/>
-    <releaseinfo/>
-    <copyright/>
-    <legalnotice/>
-    <pubdate/>
-    <revision/>
-    <revhistory/>
-    <abstract/>
   </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">
@@ -322,17 +265,6 @@
 	   font-family="{$title.fontset}"/>
     <subtitle
 	      font-family="{$title.fontset}"/>
-    <corpauthor/>
-    <authorgroup/>
-    <author/>
-    <othercredit/>
-    <releaseinfo/>
-    <copyright/>
-    <legalnotice/>
-    <pubdate/>
-    <revision/>
-    <revhistory/>
-    <abstract/>
   </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">
@@ -355,17 +287,6 @@
 	   font-family="{$title.fontset}"/>
     <subtitle
 	      font-family="{$title.fontset}"/>
-    <corpauthor/>
-    <authorgroup/>
-    <author/>
-    <othercredit/>
-    <releaseinfo/>
-    <copyright/>
-    <legalnotice/>
-    <pubdate/>
-    <revision/>
-    <revhistory/>
-    <abstract/>
   </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">
@@ -388,17 +309,6 @@
 	   font-family="{$title.fontset}"/>
     <subtitle
 	      font-family="{$title.fontset}"/>
-    <corpauthor/>
-    <authorgroup/>
-    <author/>
-    <othercredit/>
-    <releaseinfo/>
-    <copyright/>
-    <legalnotice/>
-    <pubdate/>
-    <revision/>
-    <revhistory/>
-    <abstract/>
   </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">
@@ -421,17 +331,6 @@
 	   font-family="{$title.fontset}"/>
     <subtitle
 	      font-family="{$title.fontset}"/>
-    <corpauthor/>
-    <authorgroup/>
-    <author/>
-    <othercredit/>
-    <releaseinfo/>
-    <copyright/>
-    <legalnotice/>
-    <pubdate/>
-    <revision/>
-    <revhistory/>
-    <abstract/>
   </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">
@@ -454,17 +353,6 @@
 	   font-family="{$title.fontset}"/>
     <subtitle
 	      font-family="{$title.fontset}"/>
-    <corpauthor/>
-    <authorgroup/>
-    <author/>
-    <othercredit/>
-    <releaseinfo/>
-    <copyright/>
-    <legalnotice/>
-    <pubdate/>
-    <revision/>
-    <revhistory/>
-    <abstract/>
   </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">
@@ -493,10 +381,11 @@
              space-before.maximum="0em"
 	     space-after="0.5em"
 	     margin-left="{$title.margin.left}"
+	     start-indent="0pt"
+	     text-align="center"
 	     font-size="&hsize3;"
 	     font-weight="bold"
-	     font-family="{$title.fontset}"
-	     text-align="center"/>
+	     font-family="{$title.fontset}"/>
     </t:titlepage-content>
 
     <t:titlepage-content t:side="verso">
@@ -523,8 +412,10 @@
              space-before.maximum="0em"
 	     space-after="0.5em"
 	     margin-left="{$title.margin.left}"
+	     start-indent="0pt"
 	     font-size="&hsize3;"
 	     font-weight="bold"
+	     text-align="center"
 	     font-family="{$title.fontset}"/>
     </t:titlepage-content>
 
@@ -552,10 +443,11 @@
              space-before.maximum="0em"
 	     space-after="0.5em"
 	     margin-left="{$title.margin.left}"
-	     font-size="&hsize3;"
+	     start-indent="0pt"
+		 text-align="center"	     
+		 font-size="&hsize3;"
 	     font-weight="bold"
-	     font-family="{$title.fontset}"
-	     text-align="center"/>
+	     font-family="{$title.fontset}"/>
     </t:titlepage-content>
 
     <t:titlepage-content t:side="verso">
@@ -582,10 +474,11 @@
              space-before.maximum="0em"
 	     space-after="0.5em"
 	     margin-left="{$title.margin.left}"
+	     start-indent="0pt"
 	     font-size="&hsize3;"
 	     font-weight="bold"
-	     font-family="{$title.fontset}"
-	     text-align="center"/>
+		 text-align="center"
+		 font-family="{$title.fontset}"/>
     </t:titlepage-content>
 
     <t:titlepage-content t:side="verso">
@@ -612,10 +505,11 @@
              space-before.maximum="0em"
 	     space-after="0.5em"
 	     margin-left="{$title.margin.left}"
+	     start-indent="0pt"
 	     font-size="&hsize3;"
 	     font-weight="bold"
-	     font-family="{$title.fontset}"
-	     text-align="center"/>
+	     text-align="center"
+	     font-family="{$title.fontset}"/>
     </t:titlepage-content>
 
     <t:titlepage-content t:side="verso">
@@ -642,10 +536,11 @@
              space-before.maximum="0em"
 	     space-after="0.5em"
 	     margin-left="{$title.margin.left}"
+	     start-indent="0pt"
 	     font-size="&hsize3;"
 	     font-weight="bold"
-	     font-family="{$title.fontset}"
-	     text-align="center"/>
+	     text-align="center"
+	     font-family="{$title.fontset}"/>
     </t:titlepage-content>
 
     <t:titlepage-content t:side="verso">

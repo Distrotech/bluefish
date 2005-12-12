@@ -22,10 +22,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <sect1 id="bluefish-about">
 <title>About this Manual</title>
 <para>Bluefish has a large feature set, allowing the user to customize the editing experience in numerous ways. This manual targets both novice and advanced users, providing a full resource for everyone.</para>
-<para>Chapters <xref linkend="getting-bluefish" role="template:%n" />, <xref linkend="installing-bluefish" role="template:%n" />, and <xref linkend="using-bluefish" role="template:%n" /> are highly recommended for anyone new to Bluefish. They present general information, installation instructions, and an introduction to the main features of Bluefish.</para>
-<para>Chapter <xref linkend="debugging-bluefish" role="template:%n" /> explains how to debug Bluefish.</para>
-<para>Chapter <xref linkend="reference-bluefish" role="template:%n" /> contains a nearly complete feature reference, useful for advanced users interested in customizing Bluefish. </para>
-<para>Chapter <xref linkend="developing-bluefish" role="template:%n" /> provides guidance for developers, including code formatting styles and a reference for all the source files.</para>
+<para>Chapters <xref linkend="getting-bluefish" role="template:%n"/>, <xref linkend="installing-bluefish" role="template:%n"/>, and <xref linkend="using-bluefish" role="template:%n"/> are highly recommended for anyone new to Bluefish. They present general information, installation instructions, and an introduction to the main features of Bluefish.</para>
+<para>Chapter <xref linkend="debugging-bluefish" role="template:%n"/> explains how to debug Bluefish.</para>
+<para>Chapter <xref linkend="reference-bluefish" role="template:%n"/> contains a nearly complete feature reference, useful for advanced users interested in customizing Bluefish. </para>
+<para>Chapter <xref linkend="developing-bluefish" role="template:%n"/> provides guidance for developers, including code formatting styles and a reference for all the source files.</para>
 <para>The manual targets the <emphasis>end user</emphasis>. To that end, we have tried to use a simple, well-explained approach whenever possible. Some typographic conventions are denoted below:</para>
 <itemizedlist>
 <listitem>
@@ -39,17 +39,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 </listitem>
 <listitem>
 <para>When referring to user input, like issuing commands to the command prompt, a monotype font is used: <screen>$ foo -bar | bang -l</screen></para>
-<variablelist>
-<varlistentry>
-<term><emphasis>Note</emphasis></term>
-<listitem>
+<note>
 <para>Do not write the <literal>$</literal> character - it simply identifies the command prompt. For commands requiring root access, the prompt is shown as a <literal>#</literal>.</para>
-</listitem>
-</varlistentry>
-</variablelist>
+</note>
 </listitem>
 </itemizedlist>
-<para>Finally, if you find errors in this manual or wish to write new sections, join the <link linkend="bluefish-contact">mailing list</link> and let us know. Guidelines for this manual can be found in <xref linkend="bluefish-manual-guide" />.</para>
+<para>Finally, if you find errors in this manual or wish to write new sections, join the <link linkend="bluefish-contact">mailing list</link> and let us know. Guidelines for this manual can be found in <xref linkend="bluefish-manual-guide"/>.</para>
 </sect1>
 <?linebreaka4?>
 <sect1 id="bluefish-what-is-bf">

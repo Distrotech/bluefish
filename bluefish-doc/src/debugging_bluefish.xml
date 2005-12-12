@@ -23,7 +23,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <para>Here are the detailed steps for sending a useful backtrace to the Bluefish Developer Team.</para>
 <procedure><title>Running bluefish under gdb</title>
 <step>
-<para>Get the latest CVS release (see <xref linkend="getting-bluefish-cvs" /> for info)</para>
+<para>Get the latest CVS release (see <xref linkend="getting-bluefish-cvs"/> for info)</para>
 </step>
 <step>
 <para>From <filename>bluefish-gtk2</filename>, the top directory of the bluefish source, run: <userinput>autoconf</userinput></para>
@@ -56,7 +56,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <para>Type <userinput>bt</userinput> in gdb to get the backtrace, and copy it to the email too. If the backtrace is huge, copy only the first 50 lines.</para>
 </step>
 <step>
-<para>Send the email to the general address, the mailing list, or a specific developer (see <xref linkend="bluefish-contact" /> for info).</para>
+<para>Send the email to the general address, the mailing list, or a specific developer (see <xref linkend="bluefish-contact"/> for info).</para>
 </step>
 <step>
 <para>Quit gdb with <userinput>q</userinput></para></step>

@@ -21,7 +21,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 <sect1 id="installing-bluefish-requirements">
 <title>Requirements</title>
-<para>Bluefish aims to be portable; that is, wherever GTK is ported. A comparatively small set of external libraries are necessary for it to work. Any recent GNU/Linux distribution or other *NIX with GTK2 installed should be sufficient. In addition to the list of requirements below, you may also want to look at <xref linkend="installing-bluefish-specific-issues" />. Note that these requirements fit the GTK2 version. If you only have GTK1, you want the last GTK1-version, v0.7.</para>
+<para>Bluefish aims to be portable; that is, wherever GTK is ported. A comparatively small set of external libraries are necessary for it to work. Any recent GNU/Linux distribution or other *NIX with GTK2 installed should be sufficient. In addition to the list of requirements below, you may also want to look at <xref linkend="installing-bluefish-specific-issues"/>. Note that these requirements fit the GTK2 version. If you only have GTK1, you want the last GTK1-version, v0.7.</para>
 <para>The main requirements:</para>
 <itemizedlist spacing="compact">
 <listitem>
@@ -40,7 +40,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <para>libaspell<emphasis> - spell checker</emphasis></para>
 </listitem>
 <listitem>
-<para>grep &amp; find<emphasis> - used by the <xref linkend="open-advanced" /></emphasis> dialog.</para>
+<para>grep &amp; find<emphasis> - used by the <xref linkend="open-advanced"/></emphasis> dialog.</para>
 </listitem>
 </itemizedlist>
 <?linebreakus?>
@@ -65,7 +65,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <title>Quick Standard Installation</title>
 <para>There are two main methods for installing Bluefish: Compile from source or install a binary package. Binary installation is easiest, so we will cover that first. There are a few different approaches, caused by the differences between systems. We will start off by summarizing a few really quick and simple approaches before dealing with this problem more extensively.</para>
 <?linebreakus?>
-<itemizedlist spacing="compact">
+<itemizedlist>
 <listitem>
 <para>Debian: run <userinput>su - &amp;&amp; apt-get update &amp;&amp; apt-get install bluefish</userinput></para>
 </listitem>
@@ -86,10 +86,10 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <para>Different systems have different approaches to solutions and packaging. You might find the information below interesting.</para>
 <?linebreaka4?>
 <para>Cygwin:</para>
-<itemizedlist spacing="compact">
+<itemizedlist>
 <listitem>
 <para>You need to install the following packages:</para>
-<itemizedlist spacing="compact">
+<itemizedlist>
 <listitem>
 <para>From the Base section: <command>cygrunsrv</command> (installs a necessary service to Windows)</para>
 </listitem>
@@ -106,7 +106,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 </listitem>
 <listitem>
 <para>You may want to install the following optional packages:</para>
-<itemizedlist spacing="compact">
+<itemizedlist>
 <listitem>
 <para>From the Devel section: <command>libxml2</command> (for the <command>xmllint</command> tool)</para>
 </listitem>
@@ -135,11 +135,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 </listitem>
 <listitem>
 <para>To allow Bluefish to use the Cygserver facilities (to use the XSI IPC function calls like <function>msgget</function> successfully) you need to export the <envar>CYGWIN</envar> environment variable. Add the following line to your <filename>~/.bash_profile</filename>:</para>
-<programlisting>export CYGWIN=server</programlisting>
+<screen>$ export CYGWIN=server</screen>
 </listitem>
 </itemizedlist>
 <para>Debian:</para>
-<itemizedlist spacing="compact">
+<itemizedlist>
 <listitem>
 <para>Debian Woody (the current Stable) has an old GTK 2.0.2 version, that contains several known bugs, but they are not serious.</para>
 </listitem>
@@ -196,12 +196,12 @@ the following steps:</para>
 </listitem>
 </orderedlist>
 <para>The <command>configure</command> script is used to automatically find the appropriate settings for your system. Because of differences between systems, this compile-time configuration is necessary, and configure solves this challenge easily -- with an added bonus of telling whether you have everything needed to compile.</para>
-<para>The configure-script can be, um, configured. This is something you most likely will not need to do, but it is easy to do if necessary. For a complete list of configure options, see <xref linkend="installing-bluefish-configure" /></para>
+<para>The configure-script can be, um, configured. This is something you most likely will not need to do, but it is easy to do if necessary. For a complete list of configure options, see <xref linkend="installing-bluefish-configure"/></para>
  </sect2>
 
 <sect2 id="installing-bluefish-devel-source">
 <title>Installing from Development Source Tree</title>
-<para>You can get the latest Bluefish version via CVS using the instructions in <xref linkend="getting-bluefish-cvs" />. Next, install it with the following steps:</para>
+<para>You can get the latest Bluefish version via CVS using the instructions in <xref linkend="getting-bluefish-cvs"/>. Next, install it with the following steps:</para>
 <orderedlist spacing="compact">
 <listitem>
 <para>Enter the directory containing the bluefish source files: <userinput>cd bluefish-gtk2</userinput></para>
@@ -220,14 +220,13 @@ the following steps:</para>
 <listitem><para>When <command>make</command> has completed, you can install Bluefish: (<command>su</command> to root first, unless you specified a user writable prefix to configure), then issue: <userinput># make install</userinput>.</para>
 </listitem>
 </orderedlist>
-<?linebreaka4?>
 <para>To update the sources at a later time, you run the command <userinput>cvs -z3 -q update</userinput> from within the <filename>bluefish-gtk2</filename> directory.</para>
 </sect2>
 
 <sect2 id="installing-bluefish-problems">
 <title>Problems Compiling?</title>
-<para>If compilation fails, first make sure you have the necessary utilities and libraries. See <xref linkend="installing-bluefish-requirements" />.</para>
-<para>Next, see if your system is mentioned in <xref linkend="installing-bluefish-specific-issues" />.</para>
+<para>If compilation fails, first make sure you have the necessary utilities and libraries. See <xref linkend="installing-bluefish-requirements"/>.</para>
+<para>Next, see if your system is mentioned in <xref linkend="installing-bluefish-specific-issues"/>.</para>
 <para> Below is a list of well known problems that have been mentioned on the bluefish-dev list:</para>
 <itemizedlist>
 <listitem>
@@ -238,13 +237,14 @@ the following steps:</para>
 <para>... more trouble to come ;-)</para>
 </listitem>
 </itemizedlist>
-<para>If you're unable to find a solution (or if you think you have a solution others might want), feel free to contact us on the <emphasis>bluefish-dev</emphasis> list (See <xref linkend="bluefish-contact" />).</para>
+<para>If you're unable to find a solution (or if you think you have a solution others might want), feel free to contact us on the <emphasis>bluefish-dev</emphasis> list (See <xref linkend="bluefish-contact"/>).</para>
 </sect2>
 </sect1>
 
 <sect1 id="installing-bluefish-configure">
 <title>Configure Options</title>
 <para>This section describes all the configure options available for bluefish.</para>
+<?linebreakus?>
 <sect2 id="installing-bluefish-standard-flags">
 <title>Standard configuration flags</title>
 <variablelist>
@@ -307,6 +307,8 @@ the following steps:</para>
 </variablelist>
 <variablelist>
 <title>Installation directories:</title>
+<tip>
+<para>By default, <command>make install</command> will install all the files in <filename>/usr/local/bin</filename>, <filename>/usr/local/lib</filename>, etc. You can specify an installation prefix other than <filename>/usr/local</filename> using <option>--prefix</option>, for instance <option>--prefix=$HOME</option>.</para></tip>
 <varlistentry>
 <term><option>--prefix=PREFIX</option></term>
 <listitem>
@@ -319,21 +321,12 @@ the following steps:</para>
 <para>install architecture-dependent files in EPREFIX [<filename>PREFIX</filename> by default]</para>
 </listitem>
 </varlistentry>
-<varlistentry>
-<term><emphasis>Tip</emphasis></term>
-<listitem>
-<para>By default, <command>make install</command> will install all the files in <filename>/usr/local/bin</filename>, <filename>/usr/local/lib</filename>, etc. You can specify an installation prefix other than <filename>/usr/local</filename> using <option>--prefix</option>, for instance <option>--prefix=$HOME</option>.</para>
-</listitem>
-</varlistentry>
 </variablelist>
+<?linebreaka4?>
 <variablelist>
 <title>Fine tuning of the installation directories:</title>
-<varlistentry>
-<term><emphasis>Tip</emphasis></term>
-<listitem>
-<para>For better control, use the options below. Defaults are shown within brackets.</para>
-</listitem>
-</varlistentry>
+<tip>
+<para>For better control, use the options below. Defaults are shown within brackets.</para></tip>
 <varlistentry>
 <term><option>--bindir=DIR</option></term>
 <listitem>
@@ -407,6 +400,7 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 </variablelist>
+<?linebreaka4?>
 <variablelist>
 <title>Program names:</title>
 <varlistentry>
@@ -428,6 +422,7 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 </variablelist>
+<?linebreaka4?>
 <variablelist>
 <title>System types:</title>
 <varlistentry>
@@ -443,14 +438,12 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 </variablelist>
+<?linebreaka4?>
 <variablelist>
 <title>Some influential environment variables:</title>
-<varlistentry>
-<term><emphasis>Tip</emphasis></term>
-<listitem>
+<tip>
 <para>Use these variables to override the choices made by <command>configure</command> or to help it to find libraries and programs with nonstandard names/locations.</para>
-</listitem>
-</varlistentry>
+</tip>
 <varlistentry>
 <term><varname>CC</varname></term>
 <listitem>
@@ -486,15 +479,13 @@ the following steps:</para>
 
 <sect2 id="installing-bluefish-personal-flags">
 <title>Flags personal to bluefish</title>
+<?linebreaka4?>
 <variablelist>
 <title>Optional Features:</title>
-<varlistentry>
-<term><emphasis>Note</emphasis></term>
-<listitem>
+<note>
 <para>It works as is: <option>--enable-feature</option> enables the feature, <option>--disable-feature</option> or <option>--enable-feature=no</option> disables the feature.</para>
 <para>By default, the <option>--enable-feature</option> option is not enabled, you should pass it if you want to get it, the <option>--disable-xxx</option> option is not disabled, you should pass it if you want to disable it.</para>
-</listitem>
-</varlistentry>
+</note>
 <varlistentry>
 <term><option>--enable-auto-optimization</option></term>
 <listitem>
@@ -509,7 +500,6 @@ the following steps:</para>
 </listitem>
 </orderedlist>
 <para>Tested gcc versions: 3.2.*, 3.0.*, 2.95.*</para>
-<?linebreakus?>
 <para>Machines: Intel(R) Pentium(R) 4CPU, Pentium III, AMD-K6 (tm) 3D, Pentium 75 - 200, Pentium II, AMD Athlon(TM) XP</para>
 <para>Other machines are ignored</para>
 </listitem>
@@ -583,12 +573,9 @@ the following steps:</para>
 <?linebreak?>
 <variablelist>
 <title>Optional Packages:</title>
-<varlistentry>
-<term><emphasis>Note</emphasis></term>
-<listitem>
+<note>
 <para>This works as is: <option>--with-xxx=foo</option> enables the flag, <option>--without-xxx</option> disables it. When not enabled, the default is used.</para>
-</listitem>
-</varlistentry>
+</note>
 <varlistentry>
 <term><option>--with-gnome1-menu</option></term>
 <listitem>
@@ -706,7 +693,7 @@ the following steps:</para>
 </sect2>
 </sect1>
 
-<?linebreaka4?>
+<?pagebreaka4?>
 <sect1 id="installing-bluefish-binary">
 <title>Installing a Binary Distribution</title>
 <para>Different packages -- different installation. We will cover only a few approaches here<footnote>

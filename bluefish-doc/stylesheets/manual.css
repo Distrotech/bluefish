@@ -205,15 +205,6 @@ div.caption {
 	background-color: #eee;
 }
 
-.tip > .title {
-	color: #3366cc;
-}
-
-/* For variable lists, to display tip in blue */
-dt > SPAN[class="term"] > SPAN[class="emphasis"]  > em {
-	color: #3366cc;
-}
-
 /* For figure, to get a small margin */
 .figure {
 	margin-left: 0.7em;
@@ -254,8 +245,19 @@ dd {
 /* For variable lists, indentation of the term element */
 .term {
 	margin-left: 1em;
+	 color: #5e3880;
 }
 
 .command, .userinput {
 	font-size: 90%;
+}
+
+.userinput, .screen {
+    color: #38805b;
+}
+    
+div.note p, div.warning p, div.tip p, div.caution p, div.important p {
+	font-size: 12px;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	margin-bottom: 0px;
 }
