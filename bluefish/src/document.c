@@ -2440,6 +2440,10 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
 
+	if (doc->status == DOC_STATUS_ERROR) {
+		bfwin_docs_not_complete(doc->bfwin, FALSE);
+	}
+
 	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n",doc);
 	bmark_clean_for_doc(doc);
 /*        bmark_adjust_visible(bfwin);   */
@@ -3459,7 +3463,7 @@ void doc_activate(Tdocument *doc) {
 		return;
 	}
 	if (doc->status == DOC_STATUS_ERROR) {
-		const gchar *buttons[] = {_("_Retry"), _("Retry _all failed"),_("_Close"), NULL};
+		const gchar *buttons[] = {_("_Retry"), _("Retry _all failed"),_("_Close"), _("Close all _failed"), NULL};
 		gchar *tmpstr;
 		gint retval;
 		DEBUG_MSG("doc_activate, DOC_STATUS_ERROR, retry???\n");
@@ -3470,16 +3474,33 @@ void doc_activate(Tdocument *doc) {
 													 _("File failed to load\n"),
 													 tmpstr);
 		g_free(tmpstr);
-		if (retval == 0) {
-			file_doc_retry_uri(doc);
-		} else if (retval == 1) {
-			GList *tmplist;
-			/* retry all failed documents */
-			for (tmplist=g_list_first(BFWIN(doc->bfwin)->documentlist);tmplist!=NULL;tmplist=tmplist->next) {
-				if (DOCUMENT(tmplist->data)->status == DOC_STATUS_ERROR) file_doc_retry_uri(DOCUMENT(tmplist->data));
-			}
-		} else {
-			g_idle_add(doc_close_from_activate, doc);
+		switch (retval) {
+			case 0:
+				file_doc_retry_uri(doc);
+			break;
+			case 1: {
+				GList *tmplist;
+				/* retry all failed documents */
+				for (tmplist=g_list_first(BFWIN(doc->bfwin)->documentlist);tmplist!=NULL;tmplist=tmplist->next) {
+					if (DOCUMENT(tmplist->data)->status == DOC_STATUS_ERROR) file_doc_retry_uri(DOCUMENT(tmplist->data));
+				}
+			} break;
+			case 2:
+				g_idle_add(doc_close_from_activate, doc);
+			break;
+			case 3: {
+				GList *tmplist;
+				/* retry all failed documents */
+				for (tmplist=g_list_first(BFWIN(doc->bfwin)->documentlist);tmplist!=NULL;tmplist=tmplist->next) {
+					if (DOCUMENT(tmplist->data)->status == DOC_STATUS_ERROR) g_idle_add(doc_close_from_activate,DOCUMENT(tmplist->data));
+				}
+			} break;
+#ifdef DEVELOPMENT
+			default:
+				g_print("doc_activate, retval=%d does not exist\n",retval);
+				exit(123);
+			break;
+#endif
 		}
 		DEBUG_MSG("doc_activate, returning\n");
 		return;

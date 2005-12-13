@@ -882,8 +882,11 @@ void file_doc_retry_uri(Tdocument *doc) {
 	f2d = g_new(Tfile2doc,1);
 	f2d->bfwin = doc->bfwin;
 	f2d->doc = doc;
+	
+	if (doc->status != DOC_STATUS_ERROR) {
+		bfwin_docs_not_complete(doc->bfwin, TRUE);
+	}
 	doc_set_status(doc, DOC_STATUS_LOADING);
-	bfwin_docs_not_complete(doc->bfwin, TRUE);
 	/* this forces an activate on the document, which will call widget_show() on the textview */
 	BFWIN(doc->bfwin)->focus_next_new_doc = TRUE;
 	f2d->uri = doc->uri;
