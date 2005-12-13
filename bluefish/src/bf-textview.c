@@ -58,7 +58,7 @@ static void bf_textview_delete_range_cb(GtkTextBuffer * textbuffer, GtkTextIter 
 static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, GtkTextIter * arg2);
 static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter * arg1, gchar * arg2,
 									   gint arg3, gpointer user_data);
-static void bftv_fold(GtkTextMark * mark, gboolean move_cursor);
+static void bftv_fold(BfTextView *self,GtkTextMark * mark, gboolean move_cursor);
 static void bf_textview_move_cursor_cb(GtkTextView * widget, GtkMovementStep step, gint count,
 									   gboolean extend_selection, gpointer user_data);
 
@@ -1675,7 +1675,7 @@ void bf_textview_fold_blocks_area(BfTextView * self, GtkTextIter * start, GtkTex
 					g_object_set_data(G_OBJECT(mark), "folded", &tid_false);
 				else
 					g_object_set_data(G_OBJECT(mark), "folded", &tid_true);
-				bftv_fold(mark, FALSE);
+				bftv_fold(self,mark, FALSE);
 			}
 		}
 	}
@@ -2032,7 +2032,7 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 }
 
 /* this function does the actual folding based on a GtkTextMark 
-which should be the start of the block start *** Oskar, is that correct??? ***
+which should be the start of the block start *** Oskar, is that correct??? *** **** Yes ********
 
 it uses properties ref, ref_e1 and ref_e2
 all these three properties contain other GtkTextMarks
@@ -2042,7 +2042,7 @@ ref_e1 is the mark that is at the beginning of the block end
 ref_e2 is the mark that is at the end of the block end
 
  */
-static void bftv_fold(GtkTextMark * mark, gboolean move_cursor)
+static void bftv_fold(BfTextView * self, GtkTextMark * mark, gboolean move_cursor)
 {
 	GtkTextBuffer *buf = gtk_text_mark_get_buffer(mark);
 	gpointer ptr = g_object_get_data(G_OBJECT(mark), "folded");
@@ -2093,6 +2093,10 @@ static void bftv_fold(GtkTextMark * mark, gboolean move_cursor)
 	} else {
 		gtk_text_buffer_remove_tag_by_name(buf, "_fold_header_", &it1, &it4);
 		gtk_text_buffer_remove_tag_by_name(buf, "_folded_", &it1, &it4);
+		/* unfold also all internal blocks */
+		gtk_text_iter_forward_line(&it2);
+		gtk_text_iter_backward_line(&it3);
+		bf_textview_fold_blocks_area(self, &it2, &it3,FALSE);
 	}
 }
 
@@ -2128,7 +2132,7 @@ static gboolean bf_textview_mouse_cb(GtkWidget * widget, GdkEvent * event, gpoin
 			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &it, y, &x);
 			block_mark = bftv_get_first_block_at_line(&it, TRUE);
 			if (block_mark)
-				bftv_fold(block_mark, TRUE);
+				bftv_fold(BF_TEXTVIEW(widget),block_mark, TRUE);
 			return TRUE;
 		}
 	} else if (event->button.button == 3) {
