@@ -30,7 +30,7 @@
 
 #include "bluefish.h"
 #include "bf_lib.h"
-#include "char_table.h"
+/* #include "char_table.h" */ /* Compilation problem */
 #include "dialog_utils.h"
 #include "document.h"
 #include "fref2.h"
