@@ -160,6 +160,7 @@ static void bf_textview_class_init(BfTextViewClass * c)
  * bftv_get_block_at_iter:
  *
  * this documentation is a guess,  *** Oskar please confirm is this is right ***
+ * ******* CONFIRMED *************
  *
  * this function tries if iter 'it' is at the position of a block start or block end
  * if so, it will return the GtkTextMark that marks the start or end of that block
@@ -189,7 +190,7 @@ GtkTextMark *bftv_get_block_at_iter(GtkTextIter * it)
 /*
  *
  * this documentation is a guess,  *** Oskar please confirm is this is right ***
- *
+ * ******* CONFIRMED ********
  * this function searches for the first block that is started or ended on the line 
  * where iter 'it' is located. It returns the GtkTextMark that marks this block
  *
@@ -227,7 +228,7 @@ GtkTextMark *bftv_get_first_block_at_line(GtkTextIter * it, gboolean not_single)
 /*
  *
  * this documentation is a guess,  *** Oskar please confirm is this is right ***
- *
+ * ******** CONFIRMED ***************
  * this function searches for the last block that is started or ended on the line 
  * where iter 'it' is located. It returns the GtkTextMark that marks this block
  */
@@ -704,11 +705,11 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 #ifdef HL_PROFILING
 	{
 		glong tot_ms;
-/*	GSList *ss = NULL;*/
+	GSList *ss = NULL;
 		times(&tms2);
 		tot_ms = (glong) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		g_print("PROFILING: total time %ld ms\n", tot_ms);
-/*	gtk_text_buffer_get_bounds(buf,&its,&ita);	
+	gtk_text_buffer_get_bounds(buf,&its,&ita);	
 	pit = its;
 	tot_ms = 0;
 	while ( gtk_text_iter_compare(&pit,&ita)<0 )
@@ -716,12 +717,12 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	   ss =   gtk_text_iter_get_marks (&pit) ;
 	   while ( ss ) {
 	   	tot_ms++;
-	   	ss = g_slist_next(ss);
+	   	ss = g_slist_next(ss); 
 	   }
 		gtk_text_iter_forward_char(&pit);
 	}
 	g_slist_free(ss);
-	g_print("Total number of marks: %ld\n",tot_ms);*/
+	g_print("Total number of marks: %ld\n",tot_ms);
 	}
 #endif
 }
@@ -794,6 +795,17 @@ static gboolean bftv_xml_bool(xmlChar * text)
 /* 
 what does this function do Oskar?
 what does 'dfa' stand for?
+
+***** Hmm, this function should not be called during editing !
+ It is used to build Determinstic  Finite Automata for scanner (DFA) and this should be performed only 
+ when language configuration is loaded and scanner table prepared.
+ Can be time consuming regarding that I'm doing two things in one place:
+  We are using regular expressions in config files. The only automata you can build for that is Non-deterministic (NFA),but
+   then you can transform NFA into DFA using for example algorithm included in Aho,Sethi,Ullman dragon book (about compilers)
+   (geee never really managed to analyze it precisely.... :-) ).
+   I'm doing everything at once here.
+ *********
+ 
 
 it seems this function takes quite some cpu time, I just did some 
 profiling (30-okt-2005) with much scrolling through documents and 
@@ -2032,7 +2044,8 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 }
 
 /* this function does the actual folding based on a GtkTextMark 
-which should be the start of the block start *** Oskar, is that correct??? *** **** Yes ********
+which should be the start of the block start *** Oskar, is that correct??? *** 
+**** CONFIRMED ********
 
 it uses properties ref, ref_e1 and ref_e2
 all these three properties contain other GtkTextMarks
