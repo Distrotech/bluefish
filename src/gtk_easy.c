@@ -29,7 +29,6 @@
 #include "bf_lib.h"
 #include "pixmap.h"
 #include "gui.h" /* statusbar_message() */
-#include "char_table.h" /* xml_escape() */
 
 #ifdef WIN32
 #define DIRSTR "\\"
@@ -651,7 +650,7 @@ GtkWidget *window_full2(const gchar * title, GtkWindowPosition position
 		gtk_window_set_transient_for(GTK_WINDOW(returnwidget), GTK_WINDOW(transientforparent));
 	}
 	if (delete_on_escape) {
-		window_delete_on_escape(returnwidget);
+		window_delete_on_escape(GTK_WINDOW(returnwidget));
 		g_signal_connect(G_OBJECT(returnwidget), "key_press_event", G_CALLBACK(window_full_key_press_event_lcb), returnwidget);
 		/* for these windows it is also convenient if they destroy when their parent is destroyed */
 		gtk_window_set_destroy_with_parent(GTK_WINDOW(returnwidget), TRUE);
@@ -991,13 +990,16 @@ static void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *second
 	
 	if(secondary) { /* Creates label-content. */
 		gchar *str1, *str2;
-		str1 = xml_escape(primary);
-		str2 = xml_escape(secondary);
+		str1 = g_markup_escape_text(primary,-1);
+		str2 = g_markup_escape_text(secondary,-1);
 		message = g_strconcat(spanstart, str1, spanend, str2, msgend, NULL);
+		g_free(str1);
+		g_free(str2);
 	} else {
 		gchar *str1;
-		str1 = xml_escape(primary);
+		str1 = g_markup_escape_text(primary,-1);
 		message = g_strconcat(spanstart, str1, spanend, NULL);
+		g_free(str1);
 	}
 			
 	label = gtk_label_new (message);

@@ -40,7 +40,6 @@
 #include "bluefish.h"
 #include "bf_lib.h"
 #include "bookmark.h"
-#include "char_table.h"		/* convert_utf8...() */
 #include "dialog_utils.h"
 #include "document.h"
 #include "file.h"
@@ -1300,38 +1299,6 @@ void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint
 	doc_unre_new_group(doc);
 	doc_replace_text_backend(doc, newstring, start, end);
 	doc_unre_new_group(doc);
-}
-
-static void doc_convert_chars_to_entities(Tdocument *doc, gint start, gint end, gboolean ascii, gboolean iso) {
-	gchar *string;
-	DEBUG_MSG("doc_convert_chars_to_entities, start=%d, end=%d\n", start,end);
-	string = doc_get_chars(doc, start, end);
-	if (string) {
-		gchar *newstring = convert_string_utf8_to_html(string, ascii, iso);
-		g_free(string);
-		if (newstring) {
-			doc_replace_text(doc, newstring, start, end);
-			g_free(newstring);
-		}
-#ifdef DEBUG
-		 else {
-		 	DEBUG_MSG("doc_convert_chars_to_entities, newstring=NULL\n");
-		 }
-#endif
-	}
-#ifdef DEBUG
-		 else {
-		 	DEBUG_MSG("doc_convert_chars_to_entities, string=NULL\n");
-		 }
-#endif		 
-}
-
-static void doc_convert_chars_to_entities_in_selection(Tdocument *doc, gboolean ascii, gboolean iso) {
-	gint start, end;
-	if (doc_get_selection(doc, &start, &end)) {
-		DEBUG_MSG("doc_convert_chars_to_entities_in_selection, start=%d, end=%d\n", start, end);
-		doc_convert_chars_to_entities(doc, start, end, ascii, iso);
-	}
 }
 
 static void doc_convert_case_in_selection(Tdocument *doc, gboolean toUpper) {
@@ -3752,26 +3719,6 @@ void all_documents_apply_settings() {
 		tmplist = g_list_next(tmplist);
 	}
 
-}
-
-/**
- * doc_convert_asciichars_in_selection:
- * @callback_data: unused #gpointer
- * @callback_action: #guint type of chars to change
- * @widget: unused #GtkWidget*
- *
- * Convert characters in current document to entities.
- * callback_action set to 1 (only ascii), 2 (only iso) or 3 (both).
- * or 4 (ToUppercase) or 5 (ToLowercase)
- *
- * Return value: void
- **/
-void doc_convert_asciichars_in_selection(Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
-	if (callback_action >= 4) {
-		doc_convert_case_in_selection(bfwin->current_document, (callback_action == 4));
-	} else {
-		doc_convert_chars_to_entities_in_selection(bfwin->current_document, (callback_action != 2), (callback_action != 1));
-	}
 }
 
 /**
