@@ -118,13 +118,6 @@ static void gnome_vfs_uri_hash_destroy(gpointer data) {
 	gnome_vfs_uri_unref((GnomeVFSURI *)data);
 }
 
-static gchar *bmark_display_text(gchar *name, gchar *text) {
-	if (name && strlen(name) > 0) {
-		return g_strconcat(name, " - ", text,NULL);
-	} 
-	return g_strdup(text);
-}
-
 /* Free bookmark structure */
 static void bmark_free(gpointer ptr)
 {
@@ -459,11 +452,7 @@ void bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 		g_free(m->description);
 		m->description = g_strdup(gtk_entry_get_text(GTK_ENTRY(desc)));
 		m->is_temp = GTK_TOGGLE_BUTTON(istemp)->active;
-		if (m->name && strlen(m->name) > 0) {
-			tmpstr = g_strconcat(m->name, " - ", m->text,NULL);
-		} else {
-			tmpstr = g_strdup(m->text);
-		}
+		tmpstr = bmark_showname(bfwin, m);
 		gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &m->iter, NAME_COLUMN,
 						   tmpstr,-1);
 		g_free(tmpstr);
@@ -1144,7 +1133,7 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 	
 	/* insert into tree */
 	bmark_get_iter_at_tree_position(doc->bfwin, m);
-	displaytext = bmark_display_text(m->name, m->text);
+	displaytext = bmark_showname(doc->bfwin, m);
 	gtk_tree_store_set(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore, &m->iter, NAME_COLUMN, displaytext, PTR_COLUMN, m, -1);
 	g_free (displaytext);
 	
