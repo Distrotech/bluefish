@@ -22,7 +22,7 @@
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
-#include <regex.h>
+#include <pcre.h>
 #include <stdlib.h>
 #include <string.h> /* strlen() */
 #include <sys/types.h>
@@ -49,11 +49,9 @@ typedef struct {
 	gint line_subpat;
 	gint output_subpat;
 	gboolean show_all_output;
-	regmatch_t pmatch[NUM_MATCH];
-	regex_t preg;
-
-/*	pid_t process;
-	GIOChannel* channel;*/
+	
+	pcre *pcre_c;
+	pcre_extra *pcre_s;
 } Toutput_def;
 
 typedef struct {
@@ -142,23 +140,27 @@ static Toutputbox *init_output_box(Tbfwin *bfwin) {
 
 void fill_output_box(gpointer data, gchar *string) {
 	GtkTreeIter iter;
+	int ovector[30];
+	int nummatches;
 	Toutputbox *ob = data;
-	if (regexec(&ob->def->preg,string,NUM_MATCH,ob->def->pmatch,0)==0) {
+	
+	nummatches = pcre_exec(ob->def->pcre_c, ob->def->pcre_s,string, strlen(string), 0,0, ovector, 30);
+	if (nummatches > 0) {
 		/* we have a valid line */
-		gchar *filename,*line,*output;
+		const char *filename,*line,*output;
 		filename=line=output=NULL;
 		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
-		if (ob->def->file_subpat >= 0 && ob->def->pmatch[ob->def->file_subpat].rm_so >=0) {
-			DEBUG_MSG("fill_output_box, filename from %d to %d\n", ob->def->pmatch[ob->def->file_subpat].rm_so ,ob->def->pmatch[ob->def->file_subpat].rm_eo);
-			filename=g_strndup(&string[ob->def->pmatch[ob->def->file_subpat].rm_so], ob->def->pmatch[ob->def->file_subpat].rm_eo - ob->def->pmatch[ob->def->file_subpat].rm_so);
+		if (ob->def->file_subpat >= 0 && ovector[ob->def->file_subpat*2] >=0) {
+			pcre_get_substring(string,ovector,nummatches,ob->def->file_subpat,&filename);
+/*			DEBUG_MSG("fill_output_box, filename from %d to %d\n", ob->def->pmatch[ob->def->file_subpat].rm_so ,ob->def->pmatch[ob->def->file_subpat].rm_eo);*/
 		}
-		if (ob->def->line_subpat >= 0&& ob->def->pmatch[ob->def->line_subpat].rm_so >=0) {
-			DEBUG_MSG("fill_output_box, line from %d to %d\n", ob->def->pmatch[ob->def->line_subpat].rm_so ,ob->def->pmatch[ob->def->line_subpat].rm_eo);
-			line=g_strndup(&string[ob->def->pmatch[ob->def->line_subpat].rm_so], ob->def->pmatch[ob->def->line_subpat].rm_eo - ob->def->pmatch[ob->def->line_subpat].rm_so);
+		if (ob->def->line_subpat >= 0&& ovector[ob->def->line_subpat*2] >=0) {
+			pcre_get_substring(string,ovector,nummatches,ob->def->line_subpat,&line);
+/*			DEBUG_MSG("fill_output_box, line from %d to %d\n", ob->def->pmatch[ob->def->line_subpat].rm_so ,ob->def->pmatch[ob->def->line_subpat].rm_eo);*/
 		}
-		if (ob->def->output_subpat >= 0&& ob->def->pmatch[ob->def->output_subpat].rm_so >=0) {
-			DEBUG_MSG("fill_output_box, output from %d to %d\n", ob->def->pmatch[ob->def->output_subpat].rm_so ,ob->def->pmatch[ob->def->output_subpat].rm_eo);
-			output=g_strndup(&string[ob->def->pmatch[ob->def->output_subpat].rm_so], ob->def->pmatch[ob->def->output_subpat].rm_eo - ob->def->pmatch[ob->def->output_subpat].rm_so);
+		if (ob->def->output_subpat >= 0&& ovector[ob->def->output_subpat*2] >=0) {
+			pcre_get_substring(string,ovector,nummatches,ob->def->output_subpat,&output);
+/*			DEBUG_MSG("fill_output_box, output from %d to %d\n", ob->def->pmatch[ob->def->output_subpat].rm_so ,ob->def->pmatch[ob->def->output_subpat].rm_eo);*/
 		}
 		DEBUG_MSG("fill_output_box, filename=%s, line=%s, output=%s\n",filename,line,output);
 		if (filename) {
@@ -171,16 +173,16 @@ void fill_output_box(gpointer data, gchar *string) {
 				addtolist = gnome_vfs_make_uri_canonical_strip_fragment(filename);
 			}
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,0,addtolist,-1);
-			g_free(filename);
+			g_free((gchar *)filename);
 			g_free(addtolist);
 		}
 		if (line) {
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,1,line, -1);
-			g_free(line);
+			g_free((gchar *)line);
 		}
 		if (output) {
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,2,output, -1);
-			g_free(output);
+			g_free((gchar *)output);
 		}
 	} else if (ob->def->show_all_output) {
 		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
@@ -189,141 +191,16 @@ void fill_output_box(gpointer data, gchar *string) {
 }
 
 static void outputbox_def_cleanup(Toutputbox *ob, gboolean do_shutdown) {
-/*	GError *error=NULL;
-	gint status;*/
 	DEBUG_MSG("outputbox_def_cleanup, started\n");
-/*	if (do_shutdown) {
-		g_io_channel_shutdown(ob->def->channel,FALSE,&error);
-		if (error) {
-			DEBUG_MSG("outputbox_def_cleanup, error shutting down channel: %s\n", error->message);
-			g_error_free(error);
-		}
-	}
-	g_io_channel_close(ob->def->channel);
-	kill(ob->def->process, SIGKILL);
-	DEBUG_MSG("outputbox_def_cleanup, will now waitpid() for the child\n");
-	waitpid(ob->def->process, &status, 0);
-	g_io_channel_unref(ob->def->channel);*/
 	g_free(ob->def->pattern);
-	regfree(&ob->def->preg);
+	pcre_free(ob->def->pcre_c);
+	pcre_free(ob->def->pcre_s);
 	g_free(ob->def->command);
 	g_free(ob->def->docuri);
 	g_free(ob->def);
 	ob->def = NULL;
 	DEBUG_MSG("outputbox_def_cleanup, finished\n");
 }
-
-/*static void parse_for_lines(Toutputbox *ob) {
-	gint pos=0, size;
-	gchar *newpos=NULL;
-	if (!ob->def->buf) return;
-	
-	newpos = strchr(ob->def->buf+pos, '\n');
-	while (newpos != NULL) {
-		*newpos = '\0';
-		fill_output_box(ob, ob->def->buf+pos);
-		pos = (newpos - ob->def->buf + 1);
-		newpos = strchr(ob->def->buf+pos, '\n');
-	}
-	size = strlen(ob->def->buf+pos)+1;
-	DEBUG_MSG("parse_for_lines, remaining size=%d\n",size);
-	if (size > 1) {
-		memmove(ob->def->buf,ob->def->buf+pos,size);
-	} else {
-		g_free(ob->def->buf);
-		ob->def->buf = NULL;
-	}
-	DEBUG_MSG("parse_for_lines, remaining is %s\n",ob->def->buf);
-}*/
-
-/* static gboolean io_watch_lcb(GIOChannel *source,GIOCondition condition,gpointer data) {
-	Toutputbox *ob = data;
-	DEBUG_MSG("io_watch_lcb, called with condition %d\n",condition);
-	if (condition & G_IO_IN) {
-		gchar *buf=NULL;
-		gsize buflen=0,termpos=0;
-		GError *error=NULL;
-		GIOStatus status = g_io_channel_read_line(source,&buf,&buflen,&termpos,&error);
-		while (status == G_IO_STATUS_NORMAL && buflen > 0) {
-			if (termpos < buflen) buf[termpos] = '\0';
-			fill_output_box(ob, buf);
-			g_free(buf);
-			status = g_io_channel_read_line(source,&buf,&buflen,&termpos,&error);
-		}
-	}
-	if (condition & G_IO_OUT) {
-		DEBUG_MSG("io_watch_lcb, condition %d G_IO_OUT not handled\n",condition);
-	}
-	if (condition & G_IO_PRI) {
-		DEBUG_MSG("io_watch_lcb, condition %d G_IO_PRI not handled\n",condition);
-	}
-	if (condition & G_IO_ERR) {
-		DEBUG_MSG("io_watch_lcb, condition %d G_IO_ERR not handled\n",condition);
-	}
-	if (condition & G_IO_HUP) {
-		DEBUG_MSG("io_watch_lcb, condition %d G_IO_HUP\n",condition);
-		/ * cleanup !!!!!!!!! * /
-		outputbox_def_cleanup(ob, FALSE);
-		return FALSE;
-	}
-	if (condition & G_IO_NVAL) {
-		DEBUG_MSG("io_watch_lcb, condition %d G_IO_NVAL not handled\n",condition);
-	}
-	return TRUE;
-}*/
-/*
-static void start_command(Toutputbox *ob, const gchar *command) {
-	int fd[2];
-	/ * 0 is for reading, 1 is for writing * /
-	if (pipe(fd) != 0) {
-		g_print("some error happened ??\n");
-		return;
-	}
-	if ((ob->def->process = fork()) == 0) {
-		close(fd[0]);
-		dup2(fd[1],STDOUT_FILENO);
-		close(fd[1]); / * dup makes a duplicate, so we can close the original * /
-		dup2(STDOUT_FILENO,STDERR_FILENO);
-		/ * close(fd[1]); dup makes a duplicate, so we can close the original * /
-		execlp("/bin/sh", "sh", "-c", command, NULL);
-		exit(127);
-	}
-	close(fd[1]);
-	ob->def->channel = g_io_channel_unix_new(fd[0]);
-	g_io_channel_set_flags(ob->def->channel,G_IO_FLAG_NONBLOCK,NULL);
-	g_io_add_watch(ob->def->channel, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,io_watch_lcb,ob);
-}*/
-/*
-static void run_command(Toutputbox *ob) {
-	Tconvert_table *table, *tmpt;
-	gchar *command1;
-	
-	if (!ob->bfwin->current_document->uri) {
-		/ * cannot (yet) use nameless files * /
-		return;
-	}
-	
-	table = tmpt = g_new(Tconvert_table, 2);
-	tmpt->my_int = 's';
-	if (gnome_vfs_uri_is_local(ob->bfwin->current_document->uri)) {
-		tmpt->my_char = g_strdup(gnome_vfs_uri_get_path(ob->bfwin->current_document->uri));
-	} else {
-		tmpt->my_char = gnome_vfs_uri_to_string(ob->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
-	}
-	tmpt++;
-	tmpt->my_char = NULL;
-	command1 = replace_string_printflike(ob->def->command, table);
-	g_free(table);
-	DEBUG_MSG("run_command, should run %s now\n", command1);
-	if (gnome_vfs_uri_is_local(ob->bfwin->current_document->uri)) {
-		gchar *tmpstring = g_path_get_dirname(gnome_vfs_uri_get_path(ob->bfwin->current_document->uri));
-		chdir(tmpstring);
-		g_free(tmpstring);
-	}
-
-	start_command(ob,command1);
-	g_free(command1);
-}*/
 
 void outputbox_cleanup(Tbfwin *bfwin) {
 	DEBUG_MSG("outputbox_cleanup, called for bfwin %p, outputbox=%p\n",bfwin,bfwin->outputbox);
@@ -339,6 +216,8 @@ void outputbox_cleanup(Tbfwin *bfwin) {
 
 void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat, gint output_subpat, gchar *command, gboolean show_all_output) {
 	Toutputbox *ob;
+	const char *errptr;
+	gint erroffset;
 	DEBUG_MSG("outputbox, bfwin->outputbox=%p\n",bfwin->outputbox);
 	if (bfwin->outputbox) {
 		ob = OUTPUTBOX(bfwin->outputbox);
@@ -349,6 +228,8 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 		/* we have a command still running !!! we have to cancel that first! */
 		outputbox_def_cleanup(ob, TRUE);
 	}
+	gtk_list_store_clear(GTK_LIST_STORE(ob->lstore));
+	
 	ob->def = g_new0(Toutput_def,1);
 	ob->def->pattern = g_strdup(pattern);
 	if (bfwin->current_document->uri) {
@@ -357,11 +238,18 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	ob->def->file_subpat = file_subpat;
 	ob->def->line_subpat = line_subpat;
 	ob->def->output_subpat = output_subpat;
-	regcomp(&ob->def->preg,ob->def->pattern, REG_EXTENDED);
-	gtk_list_store_clear(GTK_LIST_STORE(ob->lstore));
+	
+	
 	ob->def->show_all_output = show_all_output;
+	
+	ob->def->pcre_c = pcre_compile(ob->def->pattern, PCRE_UTF8,&errptr,&erroffset,NULL);
+	if (ob->def->pcre_c == NULL) {
+		gchar *tmpstr = g_strdup_printf(_("failed to compile outputbox pattern %s\n"),ob->def->pattern);
+		statusbar_message(bfwin,tmpstr,4000);
+		g_free(tmpstr);
+		return;
+	}
+	ob->def->pcre_s = pcre_study(ob->def->pcre_c, 0,&errptr);
+	
 	outputbox_command(bfwin, command);
-/*
-	run_command(ob);
-*/
 }
