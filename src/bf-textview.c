@@ -704,25 +704,29 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 
 #ifdef HL_PROFILING
 	{
-		glong tot_ms;
-	GSList *ss = NULL;
+		glong tot_ms=0, tot_tags=0;
+		GSList *ss = NULL;
 		times(&tms2);
 		tot_ms = (glong) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		g_print("PROFILING: total time %ld ms\n", tot_ms);
-	gtk_text_buffer_get_bounds(buf,&its,&ita);	
-	pit = its;
-	tot_ms = 0;
-	while ( gtk_text_iter_compare(&pit,&ita)<0 )
-	{
-	   ss =   gtk_text_iter_get_marks (&pit) ;
-	   while ( ss ) {
-	   	tot_ms++;
-	   	ss = g_slist_next(ss); 
-	   }
-		gtk_text_iter_forward_char(&pit);
-	}
-	g_slist_free(ss);
-	g_print("Total number of marks: %ld\n",tot_ms);
+		gtk_text_buffer_get_bounds(buf,&its,&ita);	
+		pit = its;
+		while ( gtk_text_iter_compare(&pit,&ita)<0 ) {
+		   ss =   gtk_text_iter_get_marks(&pit);
+		   while ( ss ) {
+		   	tot_ms++;
+		   	ss = g_slist_next(ss); 
+		   }
+		   g_slist_free(ss);
+			ss = gtk_text_iter_get_toggled_tags(&pit,TRUE);
+			while ( ss ) {
+		   	tot_tags++;
+		   	ss = g_slist_next(ss); 
+		   }
+		   g_slist_free(ss);
+			gtk_text_iter_forward_char(&pit);
+		}
+		g_print("Total number of marks: %ld, total number of tags: %ld\n",tot_ms,tot_tags);
 	}
 #endif
 }
