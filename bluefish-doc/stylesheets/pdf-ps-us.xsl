@@ -71,6 +71,9 @@ book      toc,title,figure,example,procedure
 <!-- Size of footnotes -->
 <xsl:param name="footnote.font.size" select="'8pt'"></xsl:param>
 
+<!-- Customization of chapter, appendix, preface title
+Made here as it really overrides the setting in titlepage -->
+<xsl:attribute-set name="component.title.properties">  <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>  <xsl:attribute name="text-align">    <xsl:choose>      <xsl:when test="((ancestor-or-self::preface[1]) or (ancestor-or-self::chapter[1]) or (ancestor-or-self::appendix[1]))">center</xsl:when>      <xsl:otherwise>left</xsl:otherwise>    </xsl:choose>  </xsl:attribute>  <xsl:attribute name="start-indent"><xsl:value-of select="$title.margin.left"/></xsl:attribute></xsl:attribute-set>
 <!-- Size of body font -->
 <xsl:param name="body.font.master">10</xsl:param>
 <xsl:param name="body.font.size">

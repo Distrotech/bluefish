@@ -77,6 +77,9 @@ book      toc,title,figure,example,procedure
  <xsl:value-of select="$body.font.master"/><xsl:text>pt</xsl:text>
 </xsl:param>
 
+<!-- Customization of chapter, appendix, preface title
+Made here as it really overrides the setting in titlepage -->
+<xsl:attribute-set name="component.title.properties">  <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>  <xsl:attribute name="text-align">    <xsl:choose>      <xsl:when test="((ancestor-or-self::preface[1]) or (ancestor-or-self::chapter[1]) or (ancestor-or-self::appendix[1]))">center</xsl:when>      <xsl:otherwise>left</xsl:otherwise>    </xsl:choose>  </xsl:attribute>  <xsl:attribute name="start-indent"><xsl:value-of select="$title.margin.left"/></xsl:attribute></xsl:attribute-set>
 <!-- Spaces before title -->
 <xsl:attribute-set name="section.title.properties">
   <xsl:attribute name="font-family">
@@ -287,7 +290,7 @@ procedure before
   <xsl:attribute name="space-after.minimum">0.3em</xsl:attribute>
   <xsl:attribute name="space-after.optimum">0.3em</xsl:attribute>
   <xsl:attribute name="space-after.maximum">0.3em</xsl:attribute>
-</xsl:attribute-set>
+ </xsl:attribute-set>
 
 <!-- For page breaks, don't forget to add hardcoded ones when book is finished -->
 <xsl:template match="processing-instruction('pagebreak')">
