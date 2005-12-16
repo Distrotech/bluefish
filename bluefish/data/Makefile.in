@@ -41,14 +41,11 @@ DEFAULTFILES = \
 
 FUNCREFFILES = \
 	bflib_css2.xml.gz \
-	bflib_html_4.01.xml.gz \
 	bflib_php4.xml.gz \
 	bflib_php5.xml.gz \
 	bflib_php5_with_examples.xml.gz \
 	bflib_python_2.3.xml.gz \
-	bflib_xhtml_strict_test.xml.gz \
-	bflib_xhtml_strict.xml.gz \
-	bflib_xhtml_transitional.xml.gz
+	bflib_xhtml.xml.gz
 
 
 %.xml.gz : %.xml
