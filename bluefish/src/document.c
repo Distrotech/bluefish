@@ -53,6 +53,7 @@
 #include "snr2.h"				/* snr2_run_extern_replace */
 #include "stringlist.h"		/* free_stringlist() */
 #include "undo_redo.h"		/* doc_unre_init() */
+#include "textstyle.h"
 
 #ifdef USE_SCANNER
 #include "bf-textview.h"
@@ -440,7 +441,7 @@ void doc_set_tooltip(Tdocument *doc) {
 			mtimestr = bf_portable_time(&doc->fileinfo->mtime);
 		}
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) {
-			sizestr = g_strdup_printf("%"GNOME_VFS_SIZE_FORMAT_STR, doc->fileinfo->size);
+			sizestr = gnome_vfs_format_file_size_for_display(doc->fileinfo->size);
 		}
 	}
 	if (doc->encoding) encoding = doc->encoding;
@@ -816,7 +817,7 @@ static void doc_move_to_window_dialog_response_lcb(GtkDialog *dialog,gint respon
 	if (response == GTK_RESPONSE_YES) {
 		doc_move_to_window(dmwd->doc, dmwd->oldwin, dmwd->newwin);
 	}
-	gtk_widget_destroy(dialog);
+	gtk_widget_destroy(GTK_WIDGET(dialog));
 	g_free(dmwd);
 }
 void doc_move_to_window_dialog(Tdocument *doc, Tbfwin *newwin) {
@@ -830,7 +831,7 @@ void doc_move_to_window_dialog(Tdocument *doc, Tbfwin *newwin) {
 			,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO
 			,_("Document %s is already open in another Bluefish window. Move it to this window?")
 			,gtk_label_get_text(GTK_LABEL(doc->tab_label)) );
-	g_signal_connect(dialog, "response", doc_move_to_window_dialog_response_lcb, dmwd);
+	g_signal_connect(dialog, "response", G_CALLBACK(doc_move_to_window_dialog_response_lcb), dmwd);
 	gtk_widget_show_all(dialog);
 }
 
@@ -1398,7 +1399,7 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 static void add_encoding_to_list(gchar *encoding) {
 	gchar **enc = g_new0(gchar *,3);
 	enc[0] = g_strdup(encoding);
-	if (!arraylist_value_exists(main_v->props.encodings, enc, 1, FALSE)) {
+	if (!arraylist_value_exists(main_v->props.encodings, (const gchar **)enc, 1, FALSE)) {
 		GList *tmplist;
 		enc[1] = g_strdup(encoding);
 		main_v->props.encodings = g_list_insert(main_v->props.encodings, enc, 1);
@@ -1771,7 +1772,10 @@ static gboolean find_char(gunichar ch,gchar *data) {
 #endif
 	return (strchr(data, ch) != NULL);
 }
+
+#ifndef USE_SCANNER
 static gchar *noclosingtag [] = {"br","input","img","hr","meta","frame","map","base","link",NULL};
+#endif /* USE_SCANNER */
 
 static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIter *iter) {
 #ifndef USE_SCANNER
@@ -1960,7 +1964,9 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 
 static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * itstart,GtkTextIter * itend, Tdocument * doc) {
 	gchar *string;
+#ifndef USE_SCANNER
 	gboolean do_highlighting=FALSE;
+#endif /* USE_SCANNER */
 	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, TRUE);
 	DEBUG_MSG("doc_buffer_delete_range_lcb, string='%s'\n",string);
 	if (string) {
