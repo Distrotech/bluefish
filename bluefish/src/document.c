@@ -686,14 +686,19 @@ static void doc_set_tooltip(Tdocument *doc) {
 			ctime_r(&doc->fileinfo->mtime,mtimestr);
 		}
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) {
-			sizestr = g_strdup_printf("%"GNOME_VFS_SIZE_FORMAT_STR, doc->fileinfo->size);
+			sizestr = gnome_vfs_format_file_size_for_display(doc->fileinfo->size);
 		}
 	}
 #else
 	if (doc->statbuf.st_mode != 0 || doc->statbuf.st_size != 0) {
 		modestr = filemode_to_string(doc->statbuf.st_mode);
 		ctime_r(&doc->statbuf.st_mtime,mtimestr);
-		sizestr = g_strdup_printf("%ld", doc->statbuf.st_size);
+		/*sizestr = g_strdup_printf("%ld", doc->statbuf.st_size);*/
+		if (sizeof(off_t) == sizeof(unsigned long long int)) {
+			sizestr = g_strdup_printf("%llu", (unsigned long long int )doc->statbuf.st_size);
+		} else {
+			sizestr = g_strdup_printf("%lu", doc->statbuf.st_size);
+        }
 	}
 #endif
 	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
