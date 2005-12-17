@@ -340,7 +340,7 @@ static void bftv_dump_location_info(gint line, GtkTextBuffer *buffer, GtkTextIte
 	ss = gtk_text_iter_get_marks(it);
 	while (ss) {
 		GtkTextMark *m = (GtkTextMark *)ss->data;
-		g_print("bftv_dump_location_info, called from line %d, location %d has mark %s\n",line,gtk_text_iter_get_offset(it),gtk_text_mark_get_name(m));
+		g_print("bftv_dump_location_info, called from line %d, location %d has mark %p (%s)\n",line,gtk_text_iter_get_offset(it),m,gtk_text_mark_get_name(m));
 		ss = g_slist_next(ss);
 	}
 	g_slist_free(ss);
@@ -796,7 +796,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 
 #ifdef HL_PROFILING
 	{
-		glong tot_ms=0, tot_tags=0;
+		glong tot_ms=0, marks=0,allmarks=0,tags=0;
 		GSList *ss = NULL;
 		times(&tms2);
 		tot_ms = (glong) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
@@ -804,21 +804,24 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 		gtk_text_buffer_get_bounds(buf,&its,&ita);	
 		pit = its;
 		while ( gtk_text_iter_compare(&pit,&ita)<0 ) {
-		   ss =   gtk_text_iter_get_marks(&pit);
-		   while ( ss ) {
-		   	tot_ms++;
-		   	ss = g_slist_next(ss); 
-		   }
-		   g_slist_free(ss);
+			ss =   gtk_text_iter_get_marks(&pit);
+			while ( ss ) {
+				allmarks++;
+				if (!gtk_text_mark_get_deleted(ss->data)) {
+					marks++;
+				}
+				ss = g_slist_next(ss); 
+			}
+			g_slist_free(ss);
 			ss = gtk_text_iter_get_toggled_tags(&pit,TRUE);
 			while ( ss ) {
-		   	tot_tags++;
-		   	ss = g_slist_next(ss); 
-		   }
-		   g_slist_free(ss);
+				tags++;
+				ss = g_slist_next(ss); 
+			}
+			g_slist_free(ss);
 			gtk_text_iter_forward_char(&pit);
 		}
-		g_print("Total number of marks: %ld, total number of tags: %ld\n",tot_ms,tot_tags);
+		g_print("Total number of existing marks: %ld, all marks: %ld total number of tags: %ld\n",marks,allmarks,tags);
 	}
 #endif
 }
@@ -2282,6 +2285,9 @@ static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, 
 							gtk_text_buffer_get_iter_at_mark(textbuffer, &it3, mark3);
 							gtk_text_buffer_remove_tag(textbuffer, view->block_tag, &it2, &it3);
 						}
+#ifdef HL_PROFILING
+						g_print("bftv_delete_blocks_from_area, called for mark %p, %p, %p and %p\n",mark,mark2,mark3,mark4);
+#endif
 						gtk_text_buffer_delete_mark(textbuffer, mark);
 						gtk_text_buffer_delete_mark(textbuffer, mark2);
 						gtk_text_buffer_delete_mark(textbuffer, mark3);
