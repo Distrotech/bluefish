@@ -333,7 +333,19 @@ void bf_textview_scan(BfTextView * self)
 	self->need_rescan = FALSE;
 	bf_textview_scan_area(self, &its, &ite);
 }
-
+#ifdef HL_PROFILING
+/* this function is here for debugging purposes */
+static void bftv_dump_location_info(gint line, GtkTextBuffer *buffer, GtkTextIter *it) {
+	GSList *ss;
+	ss = gtk_text_iter_get_marks(it);
+	while (ss) {
+		GtkTextMark *m = (GtkTextMark *)ss->data;
+		g_print("bftv_dump_location_info, called from line %d, location %d has mark %s\n",line,gtk_text_iter_get_offset(it),gtk_text_mark_get_name(m));
+		ss = g_slist_next(ss);
+	}
+	g_slist_free(ss);
+}
+#endif /* HL_DEBUG */
 
 typedef struct {
 	GtkTextBuffer *buffer;
@@ -489,6 +501,10 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 					switch (t->spec_type) {
 					case 0:
 						if (self->mark_tokens) {
+#ifdef HL_PROFILING
+							bftv_dump_location_info(__LINE__,buf, &its);
+							bftv_dump_location_info(__LINE__,buf, &ita);
+#endif
 							mark = gtk_text_buffer_create_mark(buf, NULL, &its, TRUE);
 							mark2 = gtk_text_buffer_create_mark(buf, NULL, &ita, TRUE);
 							g_object_set_data(G_OBJECT(mark), "_type_", &tid_token);
@@ -504,6 +520,10 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						if (self->scanner.current_context && !self->scanner.current_context->markup)
 							break;
 						if (self->mark_tokens) {
+#ifdef HL_PROFILING
+							bftv_dump_location_info(__LINE__,buf, &its);
+							bftv_dump_location_info(__LINE__,buf, &ita);
+#endif
 							mark = gtk_text_buffer_create_mark(buf, NULL, &its, TRUE);
 							mark2 = gtk_text_buffer_create_mark(buf, NULL, &ita, TRUE);
 							g_object_set_data(G_OBJECT(mark), "_type_", &tid_tag_end);
@@ -528,6 +548,11 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							pit = its;
 							gtk_text_iter_forward_chars(&pit, g_utf8_strlen(arr[0], -1));
 							if (self->mark_tokens) {
+#ifdef HL_PROFILING
+								bftv_dump_location_info(__LINE__,buf, &its);
+								bftv_dump_location_info(__LINE__,buf, &pit);
+								bftv_dump_location_info(__LINE__,buf, &ita);
+#endif
 								mark = gtk_text_buffer_create_mark(buf, NULL, &its, TRUE);
 								mark2 = gtk_text_buffer_create_mark(buf, NULL, &pit, TRUE);
 								g_object_set_data(G_OBJECT(mark), "_type_", &tid_tag_attr);
@@ -557,6 +582,10 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						if (bf) {
 							self->scanner.current_context = NULL;
 							if (self->mark_tokens) {
+#ifdef HL_PROFILING
+								bftv_dump_location_info(__LINE__,buf, &bf->b_start);
+								bftv_dump_location_info(__LINE__,buf, &ita);
+#endif
 								mark = gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, TRUE);
 								mark2 = gtk_text_buffer_create_mark(buf, NULL, &ita, TRUE);
 								g_object_set_data(G_OBJECT(mark), "_type_", &tid_tag_start);
@@ -607,6 +636,11 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							if (bf && bf->def == tmp) {
 								self->scanner.current_context = NULL;
 								if (self->mark_tokens) {
+#ifdef HL_PROFILING
+									bftv_dump_location_info(__LINE__,buf, &bf->b_start);
+									bftv_dump_location_info(__LINE__,buf, &ita);
+#endif
+
 									mark =
 										gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, TRUE);
 									mark2 = gtk_text_buffer_create_mark(buf, NULL, &ita, TRUE);
@@ -662,6 +696,13 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 								}
 
 								if (do_mark) {
+#ifdef HL_PROFILING
+									bftv_dump_location_info(__LINE__,buf, &bf->b_start);
+									bftv_dump_location_info(__LINE__,buf, &bf->b_end);
+									bftv_dump_location_info(__LINE__,buf, &its);
+									bftv_dump_location_info(__LINE__,buf, &ita);
+#endif
+
 									mark =
 										gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, FALSE);
 									g_object_set_data(G_OBJECT(mark), "_type_", &tid_block_start);
