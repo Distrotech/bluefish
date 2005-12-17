@@ -23,6 +23,57 @@
 
 /* #define DEBUG */
 
+/*
+Typical scanner in compiler is an automata. To implement automata you
+need a TABLE. Such a table
+is an implementation of function:
+
+    ( state , character ) ------>  next state
+
+where "next state" can be simply next automata state or "finishing
+state" which means we are accepting some word.
+For example: we want to build scanner recognizing three words "some",
+"somebody" and "any"
+
+Sample table
+
+|state|| space| a | b | d | e | m | n | o | s | y |
+|  0  ||      | 1 |   |   |   |   |   |   | 3 |   |
+|  1  ||      |   |   |   |   |   | 2 |   |   |   |
+|  2  ||      |   |   |   |   |   |   |   |   |   |
+|  3  ||      |   |   |   |   |   |   | 4 |   |   |
+|  4  ||      |   |   |   |   | 5 |   |   |   |   |
+|  5  ||      |   |   |   | 6 |   |   |   |   |   |
+|  6  ||   *  | * | 7 | * | * | * | * | * | * | * |
+|  7  ||      |   |   |   |   |   |   | 8 |   |   |
+|  8  ||      |   |   | 9 |   |   |   |   |   |   |
+|  9  ||      |   |   |   |   |   |   |   |   | # |
+
+* = 'some'
+# = 'somebody'
+
+Let's analyze: given a phrase "Does any some somebody " we can start
+scanner.
+First state is 0, so:
+  (0,D)-> 0 , (0,o)->0, (0,e)->0, (0,s)->3  but (3,space)->0  again
+then:
+  (0,a)->1 , (1,n)->2, (2,y)->word "any" found
+
+And so on. As you see the case of "some" and "somebody" is different
+because these words have the same prefix, so
+when in state 5 I have "e" character I'm going to state 6 where the
+decision is made. If next character is "b" it means it
+could be "somebody", everything else means we have found word "some".
+
+In BfTextView I'm building such table from configuration file (it is a
+bit more complex because of regular expressions) and
+that is all what I need. Next if I want find any tokens in editor text I
+simply set scanner state to 0 and start to iterate through
+characters, changing scanner states according the table. If I find
+"finishing state" I'm marking a token.
+
+*/
+
 #include "config.h"
 #ifdef USE_SCANNER
 
