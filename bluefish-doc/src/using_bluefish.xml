@@ -3749,6 +3749,7 @@ don't change weight(0), non-bold(1), bold(2):
 don't change style(0), non-italic(1), italic(2):</programlisting></para>
 <para>The same options are found in the syntax highlighting preferences.</para>
 <para>As an exercise you may want to add the highlighting patterns for the xsl stylesheet file type created previously. They will be based on the xml patterns with just small changes.</para>
+<note><para>If you check the force bold weight check box, you should also check that the font you use has a bold variant in the <guilabel>Editor</guilabel> tab of the <guilabel>Preferences</guilabel> panel.</para></note>
 </sect2>
 
 </sect1>
