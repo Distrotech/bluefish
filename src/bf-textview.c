@@ -548,6 +548,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							pit = its;
 							gtk_text_iter_forward_chars(&pit, g_utf8_strlen(arr[0], -1));
 							if (self->mark_tokens) {
+								/* need more documentation here, what is 'pit', what is 'ita', what is 'its' ? */
 #ifdef HL_PROFILING
 								bftv_dump_location_info(__LINE__,buf, &its);
 								bftv_dump_location_info(__LINE__,buf, &pit);
