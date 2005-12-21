@@ -405,8 +405,10 @@ Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types 
 	result_all.doc = NULL;
 	
 	if (LASTSNR2(bfwin->snr2)->doc) {
+		DEBUG_MSG("search_all, continuing previous search at doc %p\n",LASTSNR2(bfwin->snr2)->doc);
 		tmplist = g_list_find(bfwin->documentlist, LASTSNR2(bfwin->snr2)->doc);
 	} else {
+		DEBUG_MSG("search_all, starting at first document\n");
 		LASTSNR2(bfwin->snr2)->result.end = 0;
 		tmplist = g_list_first(bfwin->documentlist);
 	}
@@ -1201,6 +1203,7 @@ static void setup_new_snr2(Tbfwin *bfwin, const gchar *search_pattern, gboolean 
 	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;
 	LASTSNR2(bfwin->snr2)->matches = 0;
 	LASTSNR2(bfwin->snr2)->replaces = 0;
+	LASTSNR2(bfwin->snr2)->doc = NULL;
 }
 
 
@@ -1428,7 +1431,8 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	break;
 	case SNR_RESPONSE_FIND_ALL:
 		ret = search_multiple(snrwin->bfwin, startpos, endpos);
-		LASTSNR2(snrwin->bfwin->snr2)->matches += ret;
+		/* hmm should we add the found matches to the already known value, or just set it to the found value? */
+		LASTSNR2(snrwin->bfwin->snr2)->matches = ret;
 		snr_update_count_label(snrwin);
 	break;
 	case GTK_RESPONSE_CLOSE:
