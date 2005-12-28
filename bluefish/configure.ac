@@ -423,9 +423,12 @@ if test "$python" = yes; then
 			PY_PREFIX=`$pythonpath -c 'import sys; print sys.prefix'`
 			PY_EXEC_PREFIX=`$pythonpath -c 'import sys; print sys.exec_prefix'`
 			if test -f $PY_INC/Python.h; then
-				LIBS="$LIBS -L$PY_LIB/config -lpython$PY_VER -lpthread -lutil"
+				AC_MSG_RESULT([-I${PY_INC}])
+				AC_MSG_CHECKING(Python link flags)
+				PYSHARED=`$pythonpath -c 'import distutils.sysconfig;print distutils.sysconfig.get_config_var("LINKFORSHARED")'`
+				AC_MSG_RESULT([-L${PY_LIB}/config -lpython${PY_VER} ${PYSHARED}])
+				LIBS="$LIBS -L${PY_LIB}/config -lpython${PY_VER} ${PYSHARED}"
 				CFLAGS="$CFLAGS -I$PY_INC"
-				AC_MSG_RESULT(ok)
 			else
 				python=no
 				AC_MSG_RESULT([Can't find Python.h])

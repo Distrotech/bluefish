@@ -34,6 +34,7 @@ localedir = @localedir@
 gnulocaledir = $(prefix)/share/locale
 aliaspath = $(localedir):.
 
+LIBTOOL = @LIBTOOL@
 CC = @CC@
 CFLAGS = @CFLAGS@
 LDFLAGS = @LDFLAGS@
@@ -97,11 +98,11 @@ all: bluefish
 	@cd plugin_entities/ && $(MAKE) all
 
 bluefish: $(SRCS) $(OBJS)
-	$(CC) $(DEFS) -o bluefish $(OBJS) $(LDFLAGS) $(LIBS)
+	$(LIBTOOL) --mode=link $(CC) -export-dynamic $(DEFS) $(LDFLAGS) $(LIBS) -o bluefish $(OBJS)
 	echo "The bluefish binary is succesfully created"
 
 .c.o: $(SRCS)
-	$(CC) $(DEFS) $(CFLAGS) -c -o $@ $<
+	$(LIBTOOL) --mode=compile $(CC) $(DEFS) $(CFLAGS) -c -o $@ $<
 
 $(OBJS): bluefish.h
 
