@@ -131,6 +131,7 @@ install: all
 	@cd plugin_htmlbar/ && $(MAKE) install
 	@cd plugin_about/ && $(MAKE) install
 	@cd plugin_entities/ && $(MAKE) install
+	$(LIBTOOL) --finish /usr/local/lib/bluefish-unstable/
 
 uninstall:
 	rm -f $(DESTDIR)$(bindir)/$(PACKAGE)
