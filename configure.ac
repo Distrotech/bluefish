@@ -79,24 +79,20 @@ if test "x$CYGWIN" = "xyes"; then
 	LIBS="$LIBS -lintl.dll"
 fi  
 
+
 case "$host_os" in
-    solaris*)
-        AC_DEFINE(PLATFORM_SOLARIS);;
+	solaris*)
+		AC_DEFINE(PLATFORM_SOLARIS)
+		echo "platform... solaris"
+	;;
 esac
 
 case "${host}" in
 powerpc-apple-darwin*)
-	OSTYPE="DARWIN"
+	AC_DEFINE(PLATFORM_DARWIN)
+	echo "platform... Mac OSX"
 	;;
 esac
-
-echo -n "checking for Mac OS X... "
-if test "x$OSTYPE" = "xDARWIN";then
-	echo "yes"
-	AC_DEFINE(PLATFORM_DARWIN)
-else
-	echo "no"
-fi
 
 AC_ARG_ENABLE(auto-optimization, 
 		AC_HELP_STRING([--enable-auto-optimization],
