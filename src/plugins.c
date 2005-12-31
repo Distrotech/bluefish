@@ -79,12 +79,12 @@ static const gchar *plugin_from_filename(const gchar *path) {
 					&& bfplugin->bfwin_size == sizeof(Tbfwin)
 					&& bfplugin->project_size == sizeof(Tproject)
 					&& bfplugin->main_size == sizeof(Tmain)) {
-			DEBUG_MSG("bluefish_load_plugins, found htmlbar.so, init!\n");
+			DEBUG_MSG("bluefish_load_plugins, loaded %s properly, init!\n",path);
 			bfplugin->init();
 			main_v->plugins = g_slist_prepend(main_v->plugins,bfplugin);
 			return bfplugin->name;
 		} else {
-			DEBUG_MSG("plugin_from_filename, binary compatibility mismatch\n");
+			DEBUG_MSG("plugin_from_filename, %s binary compatibility mismatch\n",path);
 			g_module_close(PRIVATE(bfplugin)->module);
 		}
 	}
