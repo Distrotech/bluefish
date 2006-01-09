@@ -208,6 +208,7 @@ typedef struct {
 	gboolean mark_tokens;		/* TRUE if tokens should be marked also */
 	gboolean match_blocks;		/* TRUE if matching block begin/end should be shown */
 	gboolean show_current_line;	/* TRUE if current line should be shown */
+	gboolean tag_autoclose;           /* TRUE if tags should be automatically closed */
 	gint hl_mode;				/* highlighting mode */
 	/*< private > */
 	gint lw_size_lines, lw_size_blocks, lw_size_sym;
@@ -223,6 +224,7 @@ typedef struct {
 	gboolean need_rescan; /* this is set to true if the buffer is changed, but the
 						 widget is not visible to the user, the scanning is then postponed until 
 						 the widget is visible to the user */
+	gulong insert_signal_id; /* needed for blocking */						 
 } BfTextView;
 
 /*

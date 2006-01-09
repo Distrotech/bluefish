@@ -199,6 +199,7 @@ static void bf_textview_init(BfTextView * o)
 /*  o->token_styles = o->block_styles = o->tag_styles = o->group_styles = NULL;*/
 	o->hl_mode = BFTV_HL_MODE_VISIBLE;
 	o->show_current_line = main_v->props.view_cline;
+	o->tag_autoclose = FALSE;
 }
 
 
@@ -549,6 +550,8 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							gtk_text_iter_forward_chars(&pit, g_utf8_strlen(arr[0], -1));
 							if (self->mark_tokens) {
 								/* need more documentation here, what is 'pit', what is 'ita', what is 'its' ? */
+								/* 'its' marks begining of attribute text and 'ita' - end of this. But it decribes whole attribute i.e. 'attr=value' string. */
+								/* I need aux variable 'pit' to find where attribute value string begins */
 #ifdef HL_PROFILING
 								bftv_dump_location_info(__LINE__,buf, &its);
 								bftv_dump_location_info(__LINE__,buf, &pit);
@@ -598,6 +601,28 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 								if (tag)
 									gtk_text_buffer_apply_tag(buf, tag, &bf->b_start, &ita);
 							}
+							/* TAG autoclose */
+							if ( self->tag_autoclose )
+							{
+								GtkTextIter it9;
+								gtk_text_buffer_get_iter_at_mark(buf,&it9,gtk_text_buffer_get_insert(buf));
+								if ( gtk_text_iter_equal(&it9,&ita) )
+								{
+									gchar *txt = gtk_text_buffer_get_text(buf, &bf->b_start, &ita, FALSE);
+									gchar *pc = txt+1;
+									gchar **arr = g_strsplit(pc,">",-1);
+									gchar **arr2 = g_strsplit(arr[0]," ",-1);
+									gchar *pp = g_strjoin("","</",arr2[0],">",NULL);
+/*									g_signal_handler_block(self,self->insert_signal_id);*/
+								   gtk_text_buffer_insert(buf,&ita,pp,g_utf8_strlen(pp,-1));								   
+/*									g_signal_handler_unblock(self,self->insert_signal_id);								   */
+								   g_strfreev(arr);
+								   g_strfreev(arr2);
+								   g_free(pp);
+								   g_free(txt);
+								   return; /* I have to return from scan, because it has been performed after latest insert */
+								}
+							}							
 							g_free(bf);
 						}
 						currtable = self->lang->scan_table;	/* TABLE RETURN !!! */
@@ -632,7 +657,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							self->scanner.current_context = tmp;
 							currtable = self->lang->tag_scan_table;	/* TABLE CHANGE !!! */
 						} else {
-							/* !!! end of tag begin */
+							/* !!! end of tag begin  - hmmm - this should not be called now .... */
 							bf = g_queue_pop_head(&(self->scanner.tag_stack));
 							if (bf && bf->def == tmp) {
 								self->scanner.current_context = NULL;
@@ -1836,7 +1861,7 @@ GtkWidget *bf_textview_new(void)
 	g_signal_connect(G_OBJECT(o), "expose-event", G_CALLBACK(bf_textview_expose_cb), NULL);
 
 
-	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "insert-text",
+	o->insert_signal_id = g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "insert-text",
 						   G_CALLBACK(bf_textview_insert_text_cb), o);
 	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "delete-range",
 						   G_CALLBACK(bf_textview_delete_range_cb), o);
@@ -1895,7 +1920,7 @@ GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer)
 	GdkColor col;
 
 	g_signal_connect(G_OBJECT(o), "expose-event", G_CALLBACK(bf_textview_expose_cb), NULL);
-	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "insert-text",
+	o->insert_signal_id = 	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "insert-text",
 						   G_CALLBACK(bf_textview_insert_text_cb), o);
 	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "delete-range",
 						   G_CALLBACK(bf_textview_delete_range_cb), o);
@@ -2115,6 +2140,7 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 	gint len;
 	gboolean trigger = FALSE;
 	gchar *p = arg2;
+									g_print("INSERT\n");	
 	DEBUG_MSG("bf_textview_insert_text_cb, started\n");
 	if (!view->lang)
 		return;

@@ -499,6 +499,7 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 #ifdef USE_SCANNER
 		DEBUG_MSG("doc_set_filetype, calling bf_textview_set_language_ptr(%p)\n",ft->cfg);
 		bf_textview_set_language_ptr(BF_TEXTVIEW(doc->view),ft->cfg);
+		BF_TEXTVIEW(doc->view)->tag_autoclose = doc->autoclosingtag;
 #endif		
 		gui_set_document_widgets(doc);
 		doc_set_tooltip(doc);
@@ -2901,9 +2902,10 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	newdoc->buffer = gtk_text_buffer_new(textstyle_return_tagtable());
 	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
-	
+	newdoc->autoclosingtag = (newdoc->hl->autoclosingtag > 0);
 	if (newdoc->hl->cfg) {
 		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),newdoc->hl->cfg);
+		BF_TEXTVIEW(newdoc->view)->tag_autoclose = newdoc->autoclosingtag;
 	}
 	bf_textview_set_bg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_bg); 
 	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg); 
