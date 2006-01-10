@@ -200,6 +200,9 @@ static void bf_textview_init(BfTextView * o)
 	o->hl_mode = BFTV_HL_MODE_VISIBLE;
 	o->show_current_line = main_v->props.view_cline;
 	o->tag_autoclose = FALSE;
+	o->bai_cache = g_hash_table_new(g_str_hash,g_str_equal);
+	o->fbal_cache = g_hash_table_new(g_str_hash,g_str_equal);
+	o->lbal_cache = g_hash_table_new(g_str_hash,g_str_equal);
 }
 
 
@@ -250,13 +253,21 @@ GtkTextMark *bftv_get_block_at_iter(GtkTextIter * it)
  * which makes scrolling quite slow.. (16% of the cpu time during a profiling run 
  * with loits of scrolling)
  */
-GtkTextMark *bftv_get_first_block_at_line(GtkTextIter * it, gboolean not_single)
+GtkTextMark *bftv_get_first_block_at_line(BfTextView *view,GtkTextIter * it, gboolean not_single)
 {
 	GtkTextIter it2, it3;
 	GtkTextMark *mark = NULL;
+	gchar *ln = g_strdup_printf("%d",gtk_text_iter_get_line(it));
+	gpointer ptr = NULL;
+	
 
-	if (!it)
-		return NULL;
+	if (!it) return NULL;
+	ptr = g_hash_table_lookup(view->fbal_cache,ln);	
+	if ( ptr )
+	{
+		g_free(ln);
+		return GTK_TEXT_MARK(ptr);
+	}
 	it2 = it3 = *it;
 	gtk_text_iter_set_line(&it2, gtk_text_iter_get_line(it));
 	gtk_text_iter_forward_to_line_end(&it3);
@@ -268,13 +279,20 @@ GtkTextMark *bftv_get_first_block_at_line(GtkTextIter * it, gboolean not_single)
 		if (mark) {
 			if (not_single) {
 				if (g_object_get_data(G_OBJECT(mark), "single-line") != &tid_true)
+				{
+					g_hash_table_insert(view->fbal_cache,ln,mark);
 					return mark;
+				}	
 			} else
+			{
+				g_hash_table_insert(view->fbal_cache,ln,mark);
 				return mark;
+			}	
 		}
 		if (!gtk_text_iter_forward_char(&it2))
 			break;
 	}
+	g_free(ln);
 	return NULL;
 }
 /*
@@ -284,13 +302,21 @@ GtkTextMark *bftv_get_first_block_at_line(GtkTextIter * it, gboolean not_single)
  * this function searches for the last block that is started or ended on the line 
  * where iter 'it' is located. It returns the GtkTextMark that marks this block
  */
-GtkTextMark *bftv_get_last_block_at_line(GtkTextIter * it)
+GtkTextMark *bftv_get_last_block_at_line(BfTextView *view, GtkTextIter * it)
 {
 	GtkTextIter it2, it3;
 	GtkTextMark *mark = NULL, *mark2 = NULL;
+	gchar *ln = g_strdup_printf("%d",gtk_text_iter_get_line(it));
+	gpointer ptr = NULL;
 
-	if (!it)
-		return NULL;
+	if (!it)	return NULL;
+	ptr = g_hash_table_lookup(view->lbal_cache,ln);	
+	if ( ptr )
+	{
+		g_free(ln);
+		return GTK_TEXT_MARK(ptr);
+	}
+	
 	it2 = it3 = *it;
 	gtk_text_iter_set_line(&it2, gtk_text_iter_get_line(it));
 	gtk_text_iter_forward_to_line_end(&it3);
@@ -305,6 +331,8 @@ GtkTextMark *bftv_get_last_block_at_line(GtkTextIter * it)
 		if (!gtk_text_iter_forward_char(&it2))
 			break;
 	}
+	if (mark2) g_hash_table_insert(view->fbal_cache,ln,mark2);
+	g_free(ln);
 	return mark2;
 }
 
@@ -368,6 +396,10 @@ static void bftv_remove_b_tag(gpointer key,gpointer value,gpointer data) {
 		gtk_text_buffer_remove_tag(s->buffer,b->tag,s->start,s->end);
 }
 
+static gboolean bftv_remove_cache_item(gpointer key,gpointer value,gpointer data) {
+	g_free(key);
+	return TRUE;
+}
 /**
  * bf_textview_scan_area:
  * @self:  BfTextView widget 
@@ -415,6 +447,8 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 
 	while (g_queue_pop_head(&(self->scanner.block_stack)) != NULL) {};
 	while (g_queue_pop_head(&(self->scanner.tag_stack)) != NULL) {};
+	g_hash_table_foreach_remove(self->fbal_cache,bftv_remove_cache_item,NULL);
+	g_hash_table_foreach_remove(self->lbal_cache,bftv_remove_cache_item,NULL);
 
 	bftv_delete_blocks_from_area(self, start, end);
 	if ( self->lang->tag_begin ) gtk_text_buffer_remove_tag(buf,self->lang->tag_begin,start,end);
@@ -878,13 +912,13 @@ void bf_textview_scan_visible(BfTextView * self)
 	ite = l_end;
 
 	if (self->lang->scan_blocks) {
-		mark = bftv_get_first_block_at_line(&its, TRUE);
+		mark = bftv_get_first_block_at_line(self,&its, TRUE);
 		if (mark && g_object_get_data(G_OBJECT(mark), "_type_") == &tid_block_end) {
 			ptr = g_object_get_data(G_OBJECT(mark), "ref_b1");
 			if (ptr)
 				gtk_text_buffer_get_iter_at_mark(buf, &its, GTK_TEXT_MARK(ptr));
 		}
-		mark = bftv_get_last_block_at_line(&ite);
+		mark = bftv_get_last_block_at_line(self,&ite);
 		if (mark && g_object_get_data(G_OBJECT(mark), "_type_") == &tid_block_start) {
 			ptr = g_object_get_data(G_OBJECT(mark), "ref_e2");
 			if (ptr)
@@ -1804,7 +1838,7 @@ void bf_textview_fold_blocks_area(BfTextView * self, GtkTextIter * start, GtkTex
 	it = *start;
 	for (i = gtk_text_iter_get_line(start); i <= gtk_text_iter_get_line(end); i++) {
 		gtk_text_iter_set_line(&it, i);
-		mark = bftv_get_first_block_at_line(&it, TRUE);
+		mark = bftv_get_first_block_at_line(self,&it, TRUE);
 		if (mark) {
 			ptr = g_object_get_data(G_OBJECT(mark), "_type_");
 			if (ptr == &tid_block_start) {
@@ -2084,7 +2118,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 		if (BF_TEXTVIEW(widget)->show_blocks) {	/* show block markers */
 			GtkTextMark *mark_begin = NULL, *mark_end = NULL;
 			gpointer b_type, b_folded;
-			block_mark = bftv_get_first_block_at_line(&it, TRUE);
+			block_mark = bftv_get_first_block_at_line(BF_TEXTVIEW(widget),&it, TRUE);
 			if (block_mark) {
 				b_type = g_object_get_data(G_OBJECT(block_mark), "_type_");
 				b_folded = g_object_get_data(G_OBJECT(block_mark), "folded");
@@ -2269,7 +2303,7 @@ static gboolean bf_textview_mouse_cb(GtkWidget * widget, GdkEvent * event, gpoin
 			gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, 0,
 												  event->button.y, &x, &y);
 			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &it, y, &x);
-			block_mark = bftv_get_first_block_at_line(&it, TRUE);
+			block_mark = bftv_get_first_block_at_line(BF_TEXTVIEW(widget),&it, TRUE);
 			if (block_mark)
 				bftv_fold(BF_TEXTVIEW(widget),block_mark, TRUE);
 			return TRUE;
