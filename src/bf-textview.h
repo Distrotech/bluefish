@@ -225,6 +225,9 @@ typedef struct {
 						 widget is not visible to the user, the scanning is then postponed until 
 						 the widget is visible to the user */
 	gulong insert_signal_id; /* needed for blocking */						 
+	GHashTable *bai_cache; /* block at iter cache */
+	GHashTable *fbal_cache; /* first block at line cache */
+	GHashTable *lbal_cache; /* last block at line cache */
 } BfTextView;
 
 /*
