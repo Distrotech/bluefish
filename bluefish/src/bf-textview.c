@@ -1897,7 +1897,8 @@ GtkWidget *bf_textview_new(void)
 
 	o->insert_signal_id = g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "insert-text",
 						   G_CALLBACK(bf_textview_insert_text_cb), o);
-	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "delete-range",
+						   /* not after */
+	g_signal_connect(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "delete-range",
 						   G_CALLBACK(bf_textview_delete_range_cb), o);
 	g_signal_connect_after(G_OBJECT(o), "move-cursor", G_CALLBACK(bf_textview_move_cursor_cb),
 						   NULL);
@@ -1956,7 +1957,8 @@ GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer)
 	g_signal_connect(G_OBJECT(o), "expose-event", G_CALLBACK(bf_textview_expose_cb), NULL);
 	o->insert_signal_id = 	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "insert-text",
 						   G_CALLBACK(bf_textview_insert_text_cb), o);
-	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "delete-range",
+						   /* not after */
+	g_signal_connect(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "delete-range",
 						   G_CALLBACK(bf_textview_delete_range_cb), o);
 /*  g_signal_connect (G_OBJECT (gtk_text_view_get_buffer (GTK_TEXT_VIEW(o))),
   			 "changed", G_CALLBACK(bf_textview_changed_cb), o);*/
@@ -2327,6 +2329,9 @@ static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, 
 
 	if (!view->lang || !view->lang->scan_blocks)
 		return;
+#ifdef HL_PROFILING
+		g_print("bftv_delete_blocks_from_area start\n" );
+#endif		
 	it = *arg1;
 	while (gtk_text_iter_compare(&it, arg2) <= 0) {
 		mark = bftv_get_block_at_iter(&it);
@@ -2377,6 +2382,9 @@ static void bf_textview_delete_range_cb(GtkTextBuffer * textbuffer, GtkTextIter 
 		return;
 	if (GTK_WIDGET_VISIBLE(view)) {
 		p = pomstr = gtk_text_buffer_get_text(textbuffer, arg1, arg2, TRUE);
+#ifdef HL_PROFILING
+	g_print("delete range start[%s]\n",p);
+#endif		
 		len = 0;
 		while (len < g_utf8_strlen(pomstr, -1)) {
 			if (view->lang->as_triggers[(gint) * p] == 1) {
