@@ -289,5 +289,5 @@ GList *bf_lang_get_groups(BfLangConfig * cfg);
 GList *bf_lang_get_blocks_for_group(BfLangConfig * cfg, gchar * group);
 GList *bf_lang_get_tokens_for_group(BfLangConfig * cfg, gchar * group);
 gboolean bf_lang_needs_tags(BfLangConfig * cfg);
-
+void bf_lang_mgr_retag(void); 
 #endif

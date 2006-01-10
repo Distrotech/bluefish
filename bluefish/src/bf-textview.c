@@ -397,7 +397,7 @@ static void bftv_remove_b_tag(gpointer key,gpointer value,gpointer data) {
 }
 
 static gboolean bftv_remove_cache_item(gpointer key,gpointer value,gpointer data) {
-	g_free(key);
+/*	g_free(key);*/
 	return TRUE;
 }
 /**
@@ -417,7 +417,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 	GtkTextIter its, ita, pit;
 	gunichar c;
-	gint iaux, lev;
+	/*gint iaux, lev;*/
 	gboolean block_found = FALSE, token_found = FALSE, recognizing = FALSE;
 	GtkTextMark *mark, *mark2;
 	gboolean magic = FALSE;
@@ -2117,7 +2117,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 		}
 		if (BF_TEXTVIEW(widget)->show_blocks) {	/* show block markers */
 			GtkTextMark *mark_begin = NULL, *mark_end = NULL;
-			gpointer b_type, b_folded;
+			gpointer b_type=NULL, b_folded=NULL;
 			block_mark = bftv_get_first_block_at_line(BF_TEXTVIEW(widget),&it, TRUE);
 			if (block_mark) {
 				b_type = g_object_get_data(G_OBJECT(block_mark), "_type_");
