@@ -106,6 +106,8 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 static gboolean bf_textview_mouse_cb(GtkWidget * widget, GdkEvent * event, gpointer user_data);
 static void bf_textview_delete_range_cb(GtkTextBuffer * textbuffer, GtkTextIter * arg1,
 										GtkTextIter * arg2, gpointer user_data);
+static void bf_textview_delete_range_after_cb(GtkTextBuffer * textbuffer, GtkTextIter * arg1,
+										GtkTextIter * arg2, gpointer user_data);										
 static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, GtkTextIter * arg2);
 static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter * arg1, gchar * arg2,
 									   gint arg3, gpointer user_data);
@@ -200,7 +202,6 @@ static void bf_textview_init(BfTextView * o)
 	o->hl_mode = BFTV_HL_MODE_VISIBLE;
 	o->show_current_line = main_v->props.view_cline;
 	o->tag_autoclose = FALSE;
-	o->bai_cache = g_hash_table_new(g_str_hash,g_str_equal);
 	o->fbal_cache = g_hash_table_new(g_str_hash,g_str_equal);
 	o->lbal_cache = g_hash_table_new(g_str_hash,g_str_equal);
 }
@@ -1900,6 +1901,9 @@ GtkWidget *bf_textview_new(void)
 						   /* not after */
 	g_signal_connect(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "delete-range",
 						   G_CALLBACK(bf_textview_delete_range_cb), o);
+	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "delete-range",
+						   G_CALLBACK(bf_textview_delete_range_after_cb), o);
+						   
 	g_signal_connect_after(G_OBJECT(o), "move-cursor", G_CALLBACK(bf_textview_move_cursor_cb),
 						   NULL);
 
@@ -1960,6 +1964,9 @@ GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer)
 						   /* not after */
 	g_signal_connect(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "delete-range",
 						   G_CALLBACK(bf_textview_delete_range_cb), o);
+	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "delete-range",
+						   G_CALLBACK(bf_textview_delete_range_after_cb), o);
+						   
 /*  g_signal_connect (G_OBJECT (gtk_text_view_get_buffer (GTK_TEXT_VIEW(o))),
   			 "changed", G_CALLBACK(bf_textview_changed_cb), o);*/
 	g_signal_connect_after(G_OBJECT(o), "move-cursor", G_CALLBACK(bf_textview_move_cursor_cb),
@@ -2377,27 +2384,33 @@ static void bf_textview_delete_range_cb(GtkTextBuffer * textbuffer, GtkTextIter 
 	gint len;
 	gchar *p, *pomstr;
 
+	view->delete_rescan = FALSE;
 	DEBUG_MSG("bf_textview_delete_range_cb, started\n");
 	if (!view->lang)
 		return;
-	if (GTK_WIDGET_VISIBLE(view)) {
-		p = pomstr = gtk_text_buffer_get_text(textbuffer, arg1, arg2, TRUE);
-#ifdef HL_PROFILING
-	g_print("delete range start[%s]\n",p);
-#endif		
-		len = 0;
-		while (len < g_utf8_strlen(pomstr, -1)) {
-			if (view->lang->as_triggers[(gint) * p] == 1) {
-				trigger = TRUE;
-				break;
-			}
-			len++;
-			p = g_utf8_next_char(p);
+	p = pomstr = gtk_text_buffer_get_text(textbuffer, arg1, arg2, TRUE);
+	len = 0;
+	while (len < g_utf8_strlen(pomstr, -1)) {
+		if (view->lang->as_triggers[(gint) * p] == 1) {
+			trigger = TRUE;
+			break;
 		}
-	
-		if (!trigger)
-			return;
-	
+		len++;
+		p = g_utf8_next_char(p);
+	}
+	if (trigger) view->delete_rescan = TRUE;
+
+
+}
+
+static void bf_textview_delete_range_after_cb(GtkTextBuffer * textbuffer, GtkTextIter * arg1,
+										GtkTextIter * arg2, gpointer user_data)
+{
+	BfTextView *view = BF_TEXTVIEW(user_data);
+
+	DEBUG_MSG("bf_textview_delete_range_cb, started\n");
+	if (!view->lang)	return;
+	if (GTK_WIDGET_VISIBLE(view) && view->delete_rescan) {
 		if (view->hl_mode == BFTV_HL_MODE_ALL || view->need_rescan) {
 			bf_textview_scan(view);
 		} else {
@@ -2407,6 +2420,7 @@ static void bf_textview_delete_range_cb(GtkTextBuffer * textbuffer, GtkTextIter 
 		view->need_rescan = TRUE;
 	}
 }
+
 
 /* this function does highlight the matching braces (block end and start) */
 static void bf_textview_move_cursor_cb(GtkTextView * widget, GtkMovementStep step, gint count,
