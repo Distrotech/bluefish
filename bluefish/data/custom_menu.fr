@@ -44,7 +44,7 @@ cmenu_insert: /PHP+HTML/Formulaire:<form method="POST" action="<?php echo $SCRIP
 cmenu_insert: /PHP+HTML/Case à cocher:<input type="checkbox" name="%0" value="%1" <?php if (isset($%0)) { echo 'checked'; } ?>>::2:Nom:Valeur à cocher:
 cmenu_insert: /HTML/Script:<script type="application/x-javascript">\n\t<!--\n\n\t-->\n</script>::0:
 cmenu_insert: /HTML/Ancre nommée:<a name="%0">:</a>:1:Nom:
-cmenu_insert: /HTML/Meta/Balise Meta:<meta name="%0" value="%1" />::2:Nom:Contenu:
+cmenu_insert: /HTML/Meta/Balise Meta:<meta name="%0" content="%1" />::2:Nom:Contenu:
 cmenu_insert: /HTML/Meta/Rafraîchissement HTTP:<meta http-equiv="refresh" content="%0; URL=%1">::2:Délai de rafraîchissement (en secondes):URL de destination:
 cmenu_insert: /HTML/Lien relationnel:<link rel="%0" type="%1" href="%2" />::3:Relation:Type:href:
 cmenu_insert: /HTML/Image:<img src="%0" height="%1" width="%2" alt="%3" />::4:Source:Hauteur:Largeur:Texte alternatif:
