@@ -134,6 +134,7 @@ typedef struct {
 typedef struct {
 	/*< private > */
 	BfLangBlock *def;
+	gchar *tagname; /* optionally for tags */
 	GtkTextIter b_start, b_end;
 	GtkTextIter e_start, e_end;
 	GtkTextMark *mark_begin, *mark_end;
@@ -141,8 +142,8 @@ typedef struct {
 	gint b_len, e_len;
 } TBfBlock;
 
-typedef struct {
-	/*< private > */
+/* typedef struct {
+	
 	gchar *name;
 	GtkTextIter b_start, b_end;
 	GtkTextIter e_start, e_end;
@@ -150,11 +151,11 @@ typedef struct {
 
 
 typedef struct {
-	/*< private > */
+	
 	gchar *name, *value;
 	GtkTextIter name_start, name_end;
 	GtkTextIter value_start, value_end;
-} TBfTagAttr;
+} TBfTagAttr;*/
 
 
 
@@ -172,6 +173,7 @@ typedef struct {
 	gint state;
 	gint mins,maxs;
 	GQueue block_stack;
+	GQueue block_stack2; /* separate stack for tag blocks */
 	GQueue tag_stack;
 } TBfScanner;
 
@@ -225,8 +227,8 @@ typedef struct {
 						 widget is not visible to the user, the scanning is then postponed until 
 						 the widget is visible to the user */
 	gulong insert_signal_id; /* needed for blocking */						 
-	GHashTable *fbal_cache; /* first block at line cache */
-	GHashTable *lbal_cache; /* last block at line cache */
+	GHashTable *fbal_cache; /* first block at line - cache */
+	GHashTable *lbal_cache; /* last block at line - cache */
 	gboolean delete_rescan; /* indicates if rescan is done from delete operation */
 	GtkTextMark *last_matched_block; /* last matched block */
 } BfTextView;
