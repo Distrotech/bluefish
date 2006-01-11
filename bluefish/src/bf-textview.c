@@ -202,8 +202,9 @@ static void bf_textview_init(BfTextView * o)
 	o->hl_mode = BFTV_HL_MODE_VISIBLE;
 	o->show_current_line = main_v->props.view_cline;
 	o->tag_autoclose = FALSE;
-	o->fbal_cache = g_hash_table_new(g_str_hash,g_str_equal);
-	o->lbal_cache = g_hash_table_new(g_str_hash,g_str_equal);
+	o->fbal_cache = g_hash_table_new(g_int_hash,g_int_equal);
+	o->lbal_cache = g_hash_table_new(g_int_hash,g_int_equal);
+	o->last_matched_block = NULL;
 }
 
 
@@ -226,9 +227,9 @@ static void bf_textview_class_init(BfTextViewClass * c)
  * so this is a good candidate for speed optimisation, or
  * the calling function should be optimised to cache the
  * calls to this function ???
- *
+ * O. - I've declared this function as inline - should improve efficiency.
  */
-GtkTextMark *bftv_get_block_at_iter(GtkTextIter * it)
+inline GtkTextMark *bftv_get_block_at_iter(GtkTextIter * it)
 {
 	GSList *lst = gtk_text_iter_get_marks(it);
 	gpointer ptr = NULL;
@@ -258,11 +259,13 @@ GtkTextMark *bftv_get_first_block_at_line(BfTextView *view,GtkTextIter * it, gbo
 {
 	GtkTextIter it2, it3;
 	GtkTextMark *mark = NULL;
-	gchar *ln = g_strdup_printf("%d",gtk_text_iter_get_line(it));
+	gint *ln = NULL; 
 	gpointer ptr = NULL;
 	
 
 	if (!it) return NULL;
+	ln = g_new0(gint,1);
+	*ln = gtk_text_iter_get_line(it);
 	ptr = g_hash_table_lookup(view->fbal_cache,ln);	
 	if ( ptr )
 	{
@@ -307,10 +310,12 @@ GtkTextMark *bftv_get_last_block_at_line(BfTextView *view, GtkTextIter * it)
 {
 	GtkTextIter it2, it3;
 	GtkTextMark *mark = NULL, *mark2 = NULL;
-	gchar *ln = g_strdup_printf("%d",gtk_text_iter_get_line(it));
+	gint *ln = NULL;
 	gpointer ptr = NULL;
 
 	if (!it)	return NULL;
+	ln = g_new0(gint,1);
+	*ln = gtk_text_iter_get_line(it);
 	ptr = g_hash_table_lookup(view->lbal_cache,ln);	
 	if ( ptr )
 	{
@@ -333,7 +338,7 @@ GtkTextMark *bftv_get_last_block_at_line(BfTextView *view, GtkTextIter * it)
 			break;
 	}
 	if (mark2) g_hash_table_insert(view->fbal_cache,ln,mark2);
-	g_free(ln);
+	else g_free(ln);
 	return mark2;
 }
 
@@ -398,7 +403,6 @@ static void bftv_remove_b_tag(gpointer key,gpointer value,gpointer data) {
 }
 
 static gboolean bftv_remove_cache_item(gpointer key,gpointer value,gpointer data) {
-/*	g_free(key);*/
 	return TRUE;
 }
 /**
@@ -418,7 +422,6 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 	GtkTextIter its, ita, pit;
 	gunichar c;
-	/*gint iaux, lev;*/
 	gboolean block_found = FALSE, token_found = FALSE, recognizing = FALSE;
 	GtkTextMark *mark, *mark2;
 	gboolean magic = FALSE;
@@ -450,7 +453,31 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	while (g_queue_pop_head(&(self->scanner.tag_stack)) != NULL) {};
 	g_hash_table_foreach_remove(self->fbal_cache,bftv_remove_cache_item,NULL);
 	g_hash_table_foreach_remove(self->lbal_cache,bftv_remove_cache_item,NULL);
-
+	if (self->last_matched_block)
+	{
+		GtkTextIter it,it2;
+		gtk_text_buffer_get_iter_at_mark(buf, &it, self->last_matched_block);
+		gtk_text_buffer_get_iter_at_mark(buf, &it2,
+										 GTK_TEXT_MARK(g_object_get_data(G_OBJECT(self->last_matched_block), "ref")));
+		gtk_text_buffer_remove_tag(buf, self->block_match_tag, &it, &it2);
+		if (g_object_get_data(G_OBJECT(self->last_matched_block), "_type_") == &tid_block_start) {
+			gtk_text_buffer_get_iter_at_mark(buf, &it,
+											 GTK_TEXT_MARK(g_object_get_data
+														   (G_OBJECT(self->last_matched_block), "ref_e1")));
+			gtk_text_buffer_get_iter_at_mark(buf, &it2,
+											 GTK_TEXT_MARK(g_object_get_data
+														   (G_OBJECT(self->last_matched_block), "ref_e2")));
+		} else if (g_object_get_data(G_OBJECT(self->last_matched_block), "_type_") == &tid_block_end) {
+			gtk_text_buffer_get_iter_at_mark(buf, &it,
+											 GTK_TEXT_MARK(g_object_get_data
+														   (G_OBJECT(self->last_matched_block), "ref_b1")));
+			gtk_text_buffer_get_iter_at_mark(buf, &it2,
+											 GTK_TEXT_MARK(g_object_get_data
+														   (G_OBJECT(self->last_matched_block), "ref_b2")));
+		}
+		gtk_text_buffer_remove_tag(buf, self->block_match_tag, &it, &it2);		
+	}
+	self->last_matched_block = NULL;
 	bftv_delete_blocks_from_area(self, start, end);
 	if ( self->lang->tag_begin ) gtk_text_buffer_remove_tag(buf,self->lang->tag_begin,start,end);
 	if ( self->lang->tag_end ) gtk_text_buffer_remove_tag(buf,self->lang->tag_end,start,end);
@@ -637,7 +664,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 									gtk_text_buffer_apply_tag(buf, tag, &bf->b_start, &ita);
 							}
 							/* TAG autoclose */
-							if ( self->tag_autoclose )
+							if ( self->tag_autoclose && !self->delete_rescan)
 							{
 								GtkTextIter it9;
 								gtk_text_buffer_get_iter_at_mark(buf,&it9,gtk_text_buffer_get_insert(buf));
@@ -648,9 +675,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 									gchar **arr = g_strsplit(pc,">",-1);
 									gchar **arr2 = g_strsplit(arr[0]," ",-1);
 									gchar *pp = g_strjoin("","</",arr2[0],">",NULL);
-/*									g_signal_handler_block(self,self->insert_signal_id);*/
 								   gtk_text_buffer_insert(buf,&ita,pp,g_utf8_strlen(pp,-1));								   
-/*									g_signal_handler_unblock(self,self->insert_signal_id);								   */
 								   g_strfreev(arr);
 								   g_strfreev(arr2);
 								   g_free(pp);
@@ -2416,7 +2441,7 @@ static void bf_textview_delete_range_after_cb(GtkTextBuffer * textbuffer, GtkTex
 		} else {
 			bf_textview_scan_visible(view);
 		}
-	} else {
+	} else if (view->delete_rescan) {
 		view->need_rescan = TRUE;
 	}
 }
@@ -2430,9 +2455,32 @@ static void bf_textview_move_cursor_cb(GtkTextView * widget, GtkMovementStep ste
 	GtkTextIter it, it2;
 	GtkTextMark *block = NULL;
 	DEBUG_MSG("bf_textview_move_cursor_cb, started\n");
-	gtk_text_buffer_get_start_iter(buf, &it);
-	gtk_text_buffer_get_end_iter(buf, &it2);
-	gtk_text_buffer_remove_tag(buf, BF_TEXTVIEW(widget)->block_match_tag, &it, &it2);
+	
+	if (BF_TEXTVIEW(widget)->last_matched_block)
+	{
+		block = BF_TEXTVIEW(widget)->last_matched_block;
+		gtk_text_buffer_get_iter_at_mark(buf, &it, block);
+		gtk_text_buffer_get_iter_at_mark(buf, &it2,
+										 GTK_TEXT_MARK(g_object_get_data(G_OBJECT(block), "ref")));
+		gtk_text_buffer_remove_tag(buf, BF_TEXTVIEW(widget)->block_match_tag, &it, &it2);
+		if (g_object_get_data(G_OBJECT(block), "_type_") == &tid_block_start) {
+			gtk_text_buffer_get_iter_at_mark(buf, &it,
+											 GTK_TEXT_MARK(g_object_get_data
+														   (G_OBJECT(block), "ref_e1")));
+			gtk_text_buffer_get_iter_at_mark(buf, &it2,
+											 GTK_TEXT_MARK(g_object_get_data
+														   (G_OBJECT(block), "ref_e2")));
+		} else if (g_object_get_data(G_OBJECT(block), "_type_") == &tid_block_end) {
+			gtk_text_buffer_get_iter_at_mark(buf, &it,
+											 GTK_TEXT_MARK(g_object_get_data
+														   (G_OBJECT(block), "ref_b1")));
+			gtk_text_buffer_get_iter_at_mark(buf, &it2,
+											 GTK_TEXT_MARK(g_object_get_data
+														   (G_OBJECT(block), "ref_b2")));
+		}
+		gtk_text_buffer_remove_tag(buf, BF_TEXTVIEW(widget)->block_match_tag, &it, &it2);		
+		block = NULL;
+	}
 	gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
 	block = bftv_get_block_at_iter(&it);
 	if (block) {
@@ -2456,6 +2504,7 @@ static void bf_textview_move_cursor_cb(GtkTextView * widget, GtkMovementStep ste
 														   (G_OBJECT(block), "ref_b2")));
 		}
 		gtk_text_buffer_apply_tag(buf, BF_TEXTVIEW(widget)->block_match_tag, &it, &it2);
+		BF_TEXTVIEW(widget)->last_matched_block = block;
 	}
 }
 

@@ -227,7 +227,8 @@ typedef struct {
 	gulong insert_signal_id; /* needed for blocking */						 
 	GHashTable *fbal_cache; /* first block at line cache */
 	GHashTable *lbal_cache; /* last block at line cache */
-	gboolean delete_rescan;
+	gboolean delete_rescan; /* indicates if rescan is done from delete operation */
+	GtkTextMark *last_matched_block; /* last matched block */
 } BfTextView;
 
 /*
