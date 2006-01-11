@@ -119,8 +119,8 @@ static void bf_textview_move_cursor_cb(GtkTextView * widget, GtkMovementStep ste
 #define BFTV_BLOCK_IDS		14000
 
 static gshort tid_token = 10;
-static gshort tid_tag_start = 11;
-static gshort tid_tag_end = 12;
+/*static gshort tid_tag_start = 11;*/
+/*static gshort tid_tag_end = 12;*/
 static gshort tid_tag_attr = 13;
 static gshort tid_block_start = 14;
 static gshort tid_block_end = 15;
@@ -181,7 +181,7 @@ static void bf_textview_init(BfTextView * o)
 	o->symbols = g_hash_table_new(g_str_hash, g_str_equal);
 	o->symbol_lines = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
 	o->lang = NULL;
-	g_queue_is_empty(&(o->scanner.block_stack));
+	/* g_queue_is_empty(&(o->scanner.block_stack)); */
 	gdk_color_parse("#FFFFFF", &o->bkg_color);
 	gdk_color_parse("#000000", &o->fg_color);
 	o->fold_menu = gtk_menu_new();
@@ -450,6 +450,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 
 
 	while (g_queue_pop_head(&(self->scanner.block_stack)) != NULL) {};
+	while (g_queue_pop_head(&(self->scanner.block_stack2)) != NULL) {};
 	while (g_queue_pop_head(&(self->scanner.tag_stack)) != NULL) {};
 	g_hash_table_foreach_remove(self->fbal_cache,bftv_remove_cache_item,NULL);
 	g_hash_table_foreach_remove(self->lbal_cache,bftv_remove_cache_item,NULL);
@@ -579,26 +580,89 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 								gtk_text_buffer_apply_tag(buf, t->tag, &its, &ita);
 						} 
 						break;
-					case 1:
+					case 1: /* tag end */
+					{
+						gchar *txt = gtk_text_buffer_get_text(buf, &its, &ita, FALSE);
+						gchar *pc = txt+2;
+						gchar **arr = g_strsplit(pc,">",-1);
+						gchar **arr2 = g_strsplit(arr[0]," ",-1);						
+
 						if (self->scanner.current_context && !self->scanner.current_context->markup)
 							break;
-						if (self->mark_tokens) {
-#ifdef HL_PROFILING
-							bftv_dump_location_info(__LINE__,buf, &its);
-							bftv_dump_location_info(__LINE__,buf, &ita);
-#endif
-							mark = gtk_text_buffer_create_mark(buf, NULL, &its, TRUE);
-							mark2 = gtk_text_buffer_create_mark(buf, NULL, &ita, TRUE);
-							g_object_set_data(G_OBJECT(mark), "_type_", &tid_tag_end);
-							g_object_set_data(G_OBJECT(mark), "info", t);
-							g_object_set_data(G_OBJECT(mark), "ref", mark2);
-						}
-						if (self->highlight /*&& self->tag_styles */ ) {
+	
+						/* mark end of tag */
+						if (!g_queue_is_empty(&(self->scanner.block_stack2)))	
+						{
+							/* Have to get tags from stack, because HTML allows not closed tags */
+							while (!g_queue_is_empty(&(self->scanner.block_stack2)))
+							{
+								bf = g_queue_pop_head(&(self->scanner.block_stack2));							
+								if (bf && strcmp(bf->tagname,arr2[0])==0) break;
+							}
+							if (g_queue_is_empty(&(self->scanner.block_stack2))) bf = NULL;
+							if (bf) {
+								mark = mark2 = NULL;
+								GtkTextMark *mark3, *mark4;
+								gboolean do_mark = TRUE;
+
+								mark3 = bftv_get_block_at_iter(&bf->b_start);
+								if (mark3) {
+									if (g_object_get_data(G_OBJECT(mark3), "_type_") ==
+										&tid_block_start
+										&& strcmp((gchar*)g_object_get_data(G_OBJECT(mark3), "info"),arr2[0])==0)
+										do_mark = FALSE;
+								}
+								
+								if (do_mark) {
+
+									mark =
+										gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, FALSE);
+									g_object_set_data(G_OBJECT(mark), "_type_", &tid_block_start);
+									g_object_set_data(G_OBJECT(mark), "folded", &tid_false);
+									g_object_set_data(G_OBJECT(mark), "info", g_strdup(arr2[0]));
+									mark2 =
+										gtk_text_buffer_create_mark(buf, NULL, &bf->b_end, FALSE);
+									g_object_set_data(G_OBJECT(mark), "ref", mark2);
+									mark3 = gtk_text_buffer_create_mark(buf, NULL, &its, FALSE);
+									g_object_set_data(G_OBJECT(mark), "ref_e1", mark3);
+									mark4 = gtk_text_buffer_create_mark(buf, NULL, &ita, FALSE);
+									g_object_set_data(G_OBJECT(mark), "ref_e2", mark4);
+									g_object_set_data(G_OBJECT(mark3), "_type_", &tid_block_end);
+									g_object_set_data(G_OBJECT(mark3), "folded", &tid_false);
+									g_object_set_data(G_OBJECT(mark3), "info", g_strdup(arr2[0]));
+									g_object_set_data(G_OBJECT(mark3), "ref", mark4);
+									g_object_set_data(G_OBJECT(mark3), "ref_b1", mark);
+									g_object_set_data(G_OBJECT(mark3), "ref_b2", mark2);
+									if (gtk_text_iter_get_line(&bf->b_start) ==
+										gtk_text_iter_get_line(&its)) {
+										g_object_set_data(G_OBJECT(mark), "single-line", &tid_true);
+										g_object_set_data(G_OBJECT(mark3), "single-line",
+														  &tid_true);
+									} else {
+										g_object_set_data(G_OBJECT(mark), "single-line",
+														  &tid_false);
+										g_object_set_data(G_OBJECT(mark3), "single-line",
+														  &tid_false);
+									}
+								}
+
+								gtk_text_buffer_apply_tag(buf, self->block_tag, &bf->b_end, &its);
+								g_free(bf->tagname);
+								g_free(bf);
+							}
+						} /* queue empty */
+					   g_strfreev(arr);
+					   g_strfreev(arr2);
+					   g_free(txt);
+						
+						if (self->highlight ) {
 							/* get this tag from the Tfiletype struct !! */
 							tag = self->lang->tag_end;
 							if (tag)
 								gtk_text_buffer_apply_tag(buf, tag, &its, &ita);
 						}
+						
+						} /* end of case 1 */
 						break;
 					case 2:
 					case 3:
@@ -647,17 +711,21 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						bf = g_queue_pop_head(&(self->scanner.tag_stack));
 						if (bf) {
 							self->scanner.current_context = NULL;
-							if (self->mark_tokens) {
-#ifdef HL_PROFILING
-								bftv_dump_location_info(__LINE__,buf, &bf->b_start);
-								bftv_dump_location_info(__LINE__,buf, &ita);
-#endif
-								mark = gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, TRUE);
-								mark2 = gtk_text_buffer_create_mark(buf, NULL, &ita, TRUE);
-								g_object_set_data(G_OBJECT(mark), "_type_", &tid_tag_start);
-								g_object_set_data(G_OBJECT(mark), "ref", mark2);
-							}
-							if (self->highlight /*&& self->tag_styles */ ) {
+							gchar *txt = gtk_text_buffer_get_text(buf, &bf->b_start, &ita, FALSE);
+							gchar *pc = txt+1;
+							gchar **arr = g_strsplit(pc,">",-1);
+							gchar **arr2 = g_strsplit(arr[0]," ",-1);						
+							TBfBlock *bf_2 = g_new0(TBfBlock, 1);
+							
+							bf_2->tagname = g_strdup(arr2[0]);
+							bf_2->b_start = bf->b_start;
+							bf_2->b_end = ita;
+							g_queue_push_head(&(self->scanner.block_stack2), bf_2);
+						   g_strfreev(arr);
+						   g_strfreev(arr2);
+						   g_free(txt);
+							
+							if (self->highlight ) {
 								/* get tag from Tfiletype struct */
 								tag = self->lang->tag_begin;
 								if (tag)
@@ -670,16 +738,9 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 								gtk_text_buffer_get_iter_at_mark(buf,&it9,gtk_text_buffer_get_insert(buf));
 								if ( gtk_text_iter_equal(&it9,&ita) )
 								{
-									gchar *txt = gtk_text_buffer_get_text(buf, &bf->b_start, &ita, FALSE);
-									gchar *pc = txt+1;
-									gchar **arr = g_strsplit(pc,">",-1);
-									gchar **arr2 = g_strsplit(arr[0]," ",-1);
-									gchar *pp = g_strjoin("","</",arr2[0],">",NULL);
+									gchar *pp = g_strjoin("","</",bf_2->tagname,">",NULL);
 								   gtk_text_buffer_insert(buf,&ita,pp,g_utf8_strlen(pp,-1));								   
-								   g_strfreev(arr);
-								   g_strfreev(arr2);
 								   g_free(pp);
-								   g_free(txt);
 								   return; /* I have to return from scan, because it has been performed after latest insert */
 								}
 							}							
@@ -716,33 +777,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							g_queue_push_head(&(self->scanner.tag_stack), bf);
 							self->scanner.current_context = tmp;
 							currtable = self->lang->tag_scan_table;	/* TABLE CHANGE !!! */
-						} else {
-							/* !!! end of tag begin  - hmmm - this should not be called now .... */
-							bf = g_queue_pop_head(&(self->scanner.tag_stack));
-							if (bf && bf->def == tmp) {
-								self->scanner.current_context = NULL;
-								if (self->mark_tokens) {
-#ifdef HL_PROFILING
-									bftv_dump_location_info(__LINE__,buf, &bf->b_start);
-									bftv_dump_location_info(__LINE__,buf, &ita);
-#endif
-
-									mark =
-										gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, TRUE);
-									mark2 = gtk_text_buffer_create_mark(buf, NULL, &ita, TRUE);
-									g_object_set_data(G_OBJECT(mark), "_type_", &tid_tag_start);
-									g_object_set_data(G_OBJECT(mark), "info", tmp);
-									g_object_set_data(G_OBJECT(mark), "ref", mark2);
-								}
-								if (self->highlight /*&& self->tag_styles */ ) {
-									/* get tag from Tfiletype struct */
-									tag = self->lang->tag_begin;
-									if (tag)
-										gtk_text_buffer_apply_tag(buf, tag, &bf->b_start, &ita);
-								}
-								g_free(bf);
-							}	/* bf */
-						};		/* else */
+						} 
 						break;
 					case 0:
 						if (currstate > 0 && self->scanner.state != BFTV_STATE_DONT_SCAN) {
