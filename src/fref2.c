@@ -4686,7 +4686,7 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 
 	FREFGUI(bfwin->fref)->btn_edit = gtk_button_new();
 	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,FREFGUI(bfwin->fref)->btn_edit , _("Edit"), "");
-	gtk_container_add(GTK_CONTAINER(FREFGUI(bfwin->fref)->btn_edit), new_pixmap(113));	
+	gtk_container_add(GTK_CONTAINER(FREFGUI(bfwin->fref)->btn_edit), new_pixmap(162));	
 	g_signal_connect(G_OBJECT(FREFGUI(bfwin->fref)->btn_edit), "clicked",
 					 G_CALLBACK(frefcb_editbtn_clicked), bfwin);	
 	GTK_WIDGET_SET_FLAGS(FREFGUI(bfwin->fref)->btn_edit, GTK_CAN_DEFAULT);				 

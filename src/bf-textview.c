@@ -404,6 +404,7 @@ static void bftv_remove_b_tag(gpointer key,gpointer value,gpointer data) {
 }
 
 static gboolean bftv_remove_cache_item(gpointer key,gpointer value,gpointer data) {
+	g_free((gint*)key);
 	return TRUE;
 }
 /**
