@@ -363,6 +363,7 @@ void bf_textview_scan(BfTextView * self)
 	g_return_if_fail(buf != NULL);
 	gtk_text_buffer_get_start_iter(buf, &its);
 	gtk_text_buffer_get_end_iter(buf, &ite);
+	
 	if (gtk_text_iter_equal(&its, &ite))
 		return;
 	self->need_rescan = FALSE;
@@ -424,7 +425,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	gunichar c;
 	gboolean block_found = FALSE, token_found = FALSE, recognizing = FALSE;
 	GtkTextMark *mark, *mark2;
-	gboolean magic = FALSE;
+	gshort magic = 0;
 	gshort currstate = 0;
 	TBfBlock *bf = NULL;
 	GtkTextTag *tag = NULL;
@@ -491,24 +492,30 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	g_hash_table_foreach(self->lang->blocks,bftv_remove_b_tag,&rts);
 
 	currtable = self->lang->scan_table;
-
+	magic = 0;
 	while (gtk_text_iter_compare(&ita, end) <= 0) {	/* main loop */
-		if (gtk_text_iter_equal(&ita, end)) {
-			if (!magic) magic = TRUE;
-			else break;
+		 if (gtk_text_iter_equal(&ita, end)) {
+			magic++;
+			if (magic>=2) break;
 		}
 
 		c = gtk_text_iter_get_char(&ita);
+		
+			/* This is a trick. Character of code 3(ETX) is not printable, so will not appear in the text,
+			    but automata has entries for it, so if at the end of text is token - it will 
+			    be recognized */
+		if (magic==1)	c = 3;
+				
 		if ((gint) c < 0 || (gint) c > BFTV_UTF8_RANGE) {
 			recognizing = FALSE;
-			currstate = 0;
+			/* currstate = 0; */
 			c = 0;
 		}
 
 		while (gtk_text_iter_compare(&ita, end) <= 0 && self->lang->escapes[(gint) c]) {	/* remove escapes */
 			gtk_text_iter_forward_char(&ita);
 			gtk_text_iter_forward_char(&ita);
-			c = gtk_text_iter_get_char(&ita);
+			if (magic==0) c = gtk_text_iter_get_char(&ita);
 		}						/* remove escapes */
 
 
@@ -594,12 +601,13 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						if (!g_queue_is_empty(&(self->scanner.block_stack2)))	
 						{
 							/* Have to get tags from stack, because HTML allows not closed tags */
+							bf = NULL;
 							while (!g_queue_is_empty(&(self->scanner.block_stack2)))
 							{
 								bf = g_queue_pop_head(&(self->scanner.block_stack2));							
 								if (bf && strcmp(bf->tagname,arr2[0])==0) break;
+								bf=NULL;
 							}
-							if (g_queue_is_empty(&(self->scanner.block_stack2))) bf = NULL;
 							if (bf) {
 								mark = mark2 = NULL;
 								GtkTextMark *mark3, *mark4;
@@ -971,6 +979,7 @@ void bf_textview_scan_visible(BfTextView * self)
 	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(self), &l_end, rect.y + rect.height, NULL);
 	its = l_start;
 	ite = l_end;
+	gtk_text_iter_forward_to_line_end(&ite);
 
 	if (self->lang->scan_blocks) {
 		mark = bftv_get_first_block_at_line(self,&its, TRUE);
@@ -1900,7 +1909,7 @@ void bf_textview_fold_blocks_area(BfTextView * self, GtkTextIter * start, GtkTex
 	for (i = gtk_text_iter_get_line(start); i <= gtk_text_iter_get_line(end); i++) {
 		gtk_text_iter_set_line(&it, i);
 		mark = bftv_get_first_block_at_line(self,&it, TRUE);
-		if (mark) {
+		if (mark && g_object_get_data(G_OBJECT(mark), "_type_") == &tid_block_start) {
 			ptr = g_object_get_data(G_OBJECT(mark), "_type_");
 			if (ptr == &tid_block_start) {
 				if (fold)
@@ -2243,7 +2252,6 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 	gint len;
 	gboolean trigger = FALSE;
 	gchar *p = arg2;
-									g_print("INSERT\n");	
 	DEBUG_MSG("bf_textview_insert_text_cb, started\n");
 	if (!view->lang)
 		return;
@@ -2293,7 +2301,7 @@ static void bftv_fold(BfTextView * self, GtkTextMark * mark, gboolean move_curso
 	GtkTextIter it1, it2, it3, it4, it5;
 	gpointer br = NULL;
 
-	if (!ptr || single == &tid_true)
+	if (!ptr || single == &tid_true || g_object_get_data(G_OBJECT(mark), "_type_") != &tid_block_start)
 		return;
 
 	if (ptr == &tid_true) {
