@@ -2217,16 +2217,9 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 				pomstr = g_strdup_printf("%d", i + 1);
 				aux = g_hash_table_lookup(BF_TEXTVIEW(widget)->symbol_lines, pomstr);
 				if (aux) {
-					/* BUG: we should only do this once, and cache the gdkpixbug structure */
-					GdkPixbuf *pix =
-						gdk_pixbuf_scale_simple(((BfTextViewSymbol *) aux)->pixmap, 10, 10,
-												GDK_INTERP_BILINEAR);
-					gdk_pixbuf_render_to_drawable(pix, GDK_DRAWABLE(left_win), gc, 0, 0, pt_sym,
+					/* BUG: we should only do this once, and cache the gdkpixbug structure - FIXED */
+					gdk_pixbuf_render_to_drawable(((BfTextViewSymbol *) aux)->pixmap, GDK_DRAWABLE(left_win), gc, 0, 0, pt_sym,
 												  w + 2, 10, 10, GDK_RGB_DITHER_NORMAL, 0, 0);
-					g_free(pix);
-/*		  gdk_draw_drawable (GDK_DRAWABLE (left_win), gc,
-				     GDK_DRAWABLE (((BfTextViewSymbol *)
-						    aux)->pixmap), 0, 0, pt_sym, w + 2, 10, 10);*/
 				}
 				g_free(pomstr);
 			}
@@ -2681,7 +2674,8 @@ gboolean bf_textview_add_symbol(BfTextView * self, gchar * name, GdkPixbuf * pix
 		return FALSE;
 	BfTextViewSymbol *sym = g_new0(BfTextViewSymbol, 1);
 	sym->name = g_strdup(name);
-	sym->pixmap = pix;
+	sym->pixmap = gdk_pixbuf_scale_simple(pix, 10, 10,
+												GDK_INTERP_BILINEAR);
 	g_hash_table_insert(self->symbols, name, sym);
 	return TRUE;
 }
@@ -2710,7 +2704,8 @@ void bf_textview_remove_symbol(BfTextView * self, gchar * name)
 		g_hash_table_foreach_remove(self->symbol_lines, bftv_hash_remove, name);
 		g_hash_table_remove(self->symbols, name);
 		g_free(((BfTextViewSymbol *) ptr)->name);
-		g_free((BfTextView *) ptr);
+		g_free(((BfTextViewSymbol *) ptr)->pixmap);
+		g_free((BfTextViewSymbol *) ptr);
 		gtk_widget_queue_draw(GTK_WIDGET(self));
 	}
 }
