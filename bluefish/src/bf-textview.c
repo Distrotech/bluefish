@@ -628,6 +628,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 										gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, FALSE);
 									g_object_set_data(G_OBJECT(mark), "_type_", &tid_block_start);
 									g_object_set_data(G_OBJECT(mark), "folded", &tid_false);
+									/* BUG: the following line could cause a memory leak !!!!! */
 									g_object_set_data(G_OBJECT(mark), "info", g_strdup(arr2[0]));
 									mark2 =
 										gtk_text_buffer_create_mark(buf, NULL, &bf->b_end, FALSE);
@@ -638,7 +639,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 									g_object_set_data(G_OBJECT(mark), "ref_e2", mark4);
 									g_object_set_data(G_OBJECT(mark3), "_type_", &tid_block_end);
 									g_object_set_data(G_OBJECT(mark3), "folded", &tid_false);
-									g_object_set_data(G_OBJECT(mark3), "info", g_strdup(arr2[0]));
+									g_object_set_data(G_OBJECT(mark3), "info", g_strdup(arr2[0])); /*BUG: Houston, we have a memory leak here! */
 									g_object_set_data(G_OBJECT(mark3), "ref", mark4);
 									g_object_set_data(G_OBJECT(mark3), "ref_b1", mark);
 									g_object_set_data(G_OBJECT(mark3), "ref_b2", mark2);
@@ -724,9 +725,9 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							gchar *pc = txt+1;
 							gchar **arr = g_strsplit(pc,">",-1);
 							gchar **arr2 = g_strsplit(arr[0]," ",-1);						
-							TBfBlock *bf_2 = g_new0(TBfBlock, 1);
+							TBfBlock *bf_2 = g_new0(TBfBlock, 1); /* BUG: valgrind indicates this is never freed... memory leak? */
 							
-							bf_2->tagname = g_strdup(arr2[0]);
+							bf_2->tagname = g_strdup(arr2[0]); /* BUG: valgrind indicates this is never freed... memory leak? */
 							bf_2->b_start = bf->b_start;
 							bf_2->b_end = ita;
 							g_queue_push_head(&(self->scanner.block_stack2), bf_2);
@@ -1389,10 +1390,12 @@ static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * 
 		if (tmps2)
 			xmlFree(tmps2);
 		tmps2 = xmlGetProp(node, (const xmlChar *) "name");
-		if (tmps2 && text == NULL)
+		if (tmps2 && text == NULL) {
 			t->name = tmps2;
-		else
+		} else {
 			t->name = tmps;
+			if (tmps2) xmlFree(tmps2);
+		}
 		t->text = tmps;
 		tmps2 = xmlGetProp(node, (const xmlChar *) "context");
 		if (tmps2) {
@@ -2181,6 +2184,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 				pomstr = g_strdup_printf("%d", i + 1);
 				aux = g_hash_table_lookup(BF_TEXTVIEW(widget)->symbol_lines, pomstr);
 				if (aux) {
+					/* BUG: we should only do this once, and cache the gdkpixbug structure */
 					GdkPixbuf *pix =
 						gdk_pixbuf_scale_simple(((BfTextViewSymbol *) aux)->pixmap, 10, 10,
 												GDK_INTERP_BILINEAR);
@@ -2450,7 +2454,7 @@ static void bf_textview_delete_range_cb(GtkTextBuffer * textbuffer, GtkTextIter 
 {
 	BfTextView *view = BF_TEXTVIEW(user_data);
 	gboolean trigger = FALSE;
-	gint len;
+	gint len, pomlen;
 	gchar *p, *pomstr;
 
 	view->delete_rescan = FALSE;
@@ -2459,7 +2463,8 @@ static void bf_textview_delete_range_cb(GtkTextBuffer * textbuffer, GtkTextIter 
 		return;
 	p = pomstr = gtk_text_buffer_get_text(textbuffer, arg1, arg2, TRUE);
 	len = 0;
-	while (len < g_utf8_strlen(pomstr, -1)) {
+	pomlen = g_utf8_strlen(pomstr, -1);
+	while (len < pomlen) {
 		if (view->lang->as_triggers[(gint) * p] == 1) {
 			trigger = TRUE;
 			break;
@@ -2467,6 +2472,7 @@ static void bf_textview_delete_range_cb(GtkTextBuffer * textbuffer, GtkTextIter 
 		len++;
 		p = g_utf8_next_char(p);
 	}
+	g_free(pomstr);
 	if (trigger) view->delete_rescan = TRUE;
 
 
