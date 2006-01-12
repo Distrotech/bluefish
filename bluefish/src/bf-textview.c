@@ -532,7 +532,22 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 			if ( currstate < self->scanner.mins || currstate > self->scanner.maxs  )
 				currstate = 0;
 		}
-
+		if (currstate>0 && self->lang->token_allowed_states[currstate])
+		{
+			guint ss,i;
+			gboolean ctxok = FALSE;
+			if ( self->lang->token_allowed_states[currstate] == self->scanner.current_context ) ctxok=TRUE;
+			ss = g_queue_get_length(&(self->scanner.block_stack));
+			for (i = 0; i < ss; i++) {
+						bf = (TBfBlock *) g_queue_peek_nth(&(self->scanner.block_stack), i);
+						if (bf->def == self->lang->token_allowed_states[currstate] ) {
+								ctxok = TRUE;
+								break;
+						}
+			}
+			if (!ctxok) currstate = 0;  
+		}	
+		
 		if (self->lang->case_sensitive)
 			currstate = currtable[currstate][(gint) c];
 		else
@@ -605,8 +620,10 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							bf = NULL;
 							while (!g_queue_is_empty(&(self->scanner.block_stack2)))
 							{
-								bf = g_queue_pop_head(&(self->scanner.block_stack2));							
+								bf = g_queue_pop_head(&(self->scanner.block_stack2));
 								if (bf && strcmp(bf->tagname,arr2[0])==0) break;
+								g_free(bf->tagname);
+								g_free(bf);
 								bf=NULL;
 							}
 							if (bf) {
@@ -618,7 +635,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 								if (mark3) {
 									if (g_object_get_data(G_OBJECT(mark3), "_type_") ==
 										&tid_block_start
-										&& strcmp((gchar*)g_object_get_data(G_OBJECT(mark3), "info"),arr2[0])==0)
+										&& strcmp((gchar*)g_object_get_data(G_OBJECT(mark3), "tagname"),arr2[0])==0)
 										do_mark = FALSE;
 								}
 								
@@ -628,8 +645,8 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 										gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, FALSE);
 									g_object_set_data(G_OBJECT(mark), "_type_", &tid_block_start);
 									g_object_set_data(G_OBJECT(mark), "folded", &tid_false);
-									/* BUG: the following line could cause a memory leak !!!!! */
-									g_object_set_data(G_OBJECT(mark), "info", g_strdup(arr2[0]));
+									/* BUG: the following line could cause a memory leak !!!!!  - FIXED:freed when deleting block  */
+									g_object_set_data(G_OBJECT(mark), "tagname", g_strdup(arr2[0]));
 									mark2 =
 										gtk_text_buffer_create_mark(buf, NULL, &bf->b_end, FALSE);
 									g_object_set_data(G_OBJECT(mark), "ref", mark2);
@@ -639,7 +656,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 									g_object_set_data(G_OBJECT(mark), "ref_e2", mark4);
 									g_object_set_data(G_OBJECT(mark3), "_type_", &tid_block_end);
 									g_object_set_data(G_OBJECT(mark3), "folded", &tid_false);
-									g_object_set_data(G_OBJECT(mark3), "info", g_strdup(arr2[0])); /*BUG: Houston, we have a memory leak here! */
+									g_object_set_data(G_OBJECT(mark3), "tagname", g_strdup(arr2[0])); /*BUG: Houston, we have a memory leak here! - FIXED: freed when deleting block */
 									g_object_set_data(G_OBJECT(mark3), "ref", mark4);
 									g_object_set_data(G_OBJECT(mark3), "ref_b1", mark);
 									g_object_set_data(G_OBJECT(mark3), "ref_b2", mark2);
@@ -726,7 +743,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							gchar **arr = g_strsplit(pc,">",-1);
 							gchar **arr2 = g_strsplit(arr[0]," ",-1);						
 							TBfBlock *bf_2 = g_new0(TBfBlock, 1); /* BUG: valgrind indicates this is never freed... memory leak? */
-							
+																						/* O. - freed when recognizing end of tag */
 							bf_2->tagname = g_strdup(arr2[0]); /* BUG: valgrind indicates this is never freed... memory leak? */
 							bf_2->b_start = bf->b_start;
 							bf_2->b_end = ita;
@@ -1071,6 +1088,7 @@ static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, g
 		cfg->tokennum++;
 		regexp = token->regexp;
 		ptr = token->text;
+		mins=maxs=cfg->tabnum;
 		break;
 	case BFTV_DFA_TYPE_BLOCK_BEGIN:
 		block = (BfLangBlock *) data;
@@ -1318,6 +1336,11 @@ static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, g
    			maxs=cfg->tabnum;
    			block->min_state = mins;
    			block->max_state = maxs;
+   } else if ( type == BFTV_DFA_TYPE_TOKEN)
+   {
+     			maxs=cfg->tabnum;
+   			token->min_state = mins;
+   			token->max_state = maxs;
    }
 
 
@@ -1466,6 +1489,15 @@ static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * 
 		break;
 	}
 	return NULL;
+}
+
+static void bftv_fill_token_states(gpointer key,gpointer value,gpointer data)
+{
+	BfLangConfig *cfg = (BfLangConfig*)data;
+	BfLangToken *token = (BfLangToken*)value;
+	gint i;
+	for(i=token->min_state;i<=token->max_state;i++)
+		cfg->token_allowed_states[i] = token->context;
 }
 
 static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_name)
@@ -1789,7 +1821,8 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 
 	}
 
-
+	cfg->token_allowed_states = g_new0(BfLangBlock*,cfg->tabnum+1);
+	g_hash_table_foreach(cfg->tokens,bftv_fill_token_states,cfg);
 	if (doc)
 		xmlFreeDoc(doc);
 	return cfg;
@@ -2260,7 +2293,7 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 	DEBUG_MSG("bf_textview_insert_text_cb, started\n");
 	if (!view->lang)
 		return;
-	
+	view->delete_rescan = FALSE;
 	if (GTK_WIDGET_VISIBLE(view)) {
 		len = 0;
 		while (len < g_utf8_strlen(arg2, -1)) {
@@ -2434,6 +2467,15 @@ static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, 
 #ifdef HL_PROFILING
 						g_print("bftv_delete_blocks_from_area, called for mark %p, %p, %p and %p\n",mark,mark2,mark3,mark4);
 #endif
+						if (g_object_get_data(G_OBJECT(mark), "tagname"))
+							g_free((gchar*)g_object_get_data(G_OBJECT(mark), "tagname"));
+						if (g_object_get_data(G_OBJECT(mark2), "tagname"))
+							g_free((gchar*)g_object_get_data(G_OBJECT(mark2), "tagname"));
+						if (g_object_get_data(G_OBJECT(mark3), "tagname"))
+							g_free((gchar*)g_object_get_data(G_OBJECT(mark3), "tagname"));
+						if (g_object_get_data(G_OBJECT(mark4), "tagname"))
+							g_free((gchar*)g_object_get_data(G_OBJECT(mark4), "tagname"));
+
 						gtk_text_buffer_delete_mark(textbuffer, mark);
 						gtk_text_buffer_delete_mark(textbuffer, mark2);
 						gtk_text_buffer_delete_mark(textbuffer, mark3);
@@ -2486,10 +2528,12 @@ static void bf_textview_delete_range_after_cb(GtkTextBuffer * textbuffer, GtkTex
 	DEBUG_MSG("bf_textview_delete_range_cb, started\n");
 	if (!view->lang)	return;
 	if (GTK_WIDGET_VISIBLE(view) && view->delete_rescan) {
-		if (view->hl_mode == BFTV_HL_MODE_ALL || view->need_rescan) {
+		if (view->hl_mode == BFTV_HL_MODE_ALL || view->need_rescan) {			
 			bf_textview_scan(view);
+			view->delete_rescan = FALSE;
 		} else {
 			bf_textview_scan_visible(view);
+			view->delete_rescan = FALSE;
 		}
 	} else if (view->delete_rescan) {
 		view->need_rescan = TRUE;

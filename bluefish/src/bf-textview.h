@@ -78,6 +78,7 @@ typedef struct {
 	gint tabid;
 	gshort spec_type;			/* 0 - normal block, 1- tag_end, 2 - attr, 3 - attr2, 4 - tag_begin_end in tag context */
 	GtkTextTag *tag;
+	gint min_state,max_state;
 } BfLangToken;
 
 /**
@@ -115,6 +116,7 @@ typedef struct {
 	GtkTextTag *tag_end;
 	GtkTextTag *attr_name;
 	GtkTextTag *attr_val;
+	BfLangBlock **token_allowed_states; /* this table decribes which states are allowed in what context */
 } BfLangConfig;
 
 typedef struct {
