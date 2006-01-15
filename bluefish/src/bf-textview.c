@@ -797,6 +797,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							break;
 						if (currstate > 0) {
 							/* !!! start of tag begin */
+							/* Where and when is the memory from this g_new0() call freed? */
 							bf = g_new0(TBfBlock, 1);
 							bf->def = tmp;
 							bf->b_start = its;
@@ -808,6 +809,8 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						break;
 					case 0:
 						if (currstate > 0 && self->scanner.state != BFTV_STATE_DONT_SCAN) {
+						    /* Where and when is the memory from this g_new0() call freed?
+						    This is showing to be a HUGE memory leak.*/
 							bf = g_new0(TBfBlock, 1);
 							bf->def = tmp;
 							bf->b_start = its;
@@ -2272,6 +2275,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 		/* block markers */
 	}							/* end of lines loop */
 
+    g_object_unref(gc);
 	g_object_unref(G_OBJECT(l));
 	return TRUE;
 }
