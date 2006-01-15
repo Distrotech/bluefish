@@ -1120,10 +1120,13 @@ static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, g
 	}
 	pstates[0] = TRUE;
 
-	if (cfg->case_sensitive || (token && token->spec_type == 5))
+	if (cfg->case_sensitive || (token && token->spec_type == 5)) {
 		inp2 = g_utf8_to_ucs4_fast(ptr, -1, &size);
-	else
-		inp2 = g_utf8_to_ucs4_fast(g_utf8_strup(ptr, -1), -1, &size);
+	} else {
+	    gchar *tmp = g_utf8_strup (ptr, -1);
+		inp2 = g_utf8_to_ucs4_fast (tmp, -1, &size);
+		g_free (tmp);
+	}
 	inp = inp2;
 
 	if (!regexp) {
