@@ -421,7 +421,7 @@ if test "$python" = yes; then
 			if test -f $PY_INC/Python.h; then
 				AC_MSG_RESULT([-I${PY_INC}])
 				AC_MSG_CHECKING(Python link flags)
-				PYSHARED=`$pythonpath -c 'import distutils.sysconfig;print distutils.sysconfig.get_config_var("LINKFORSHARED")'`
+				PYSHARED=`$pythonpath -c 'import distutils.sysconfig;print distutils.sysconfig.get_config_var("LIBS")'`
 				AC_MSG_RESULT([-L${PY_LIB}/config -lpython${PY_VER} ${PYSHARED}])
 				LIBS="$LIBS -L${PY_LIB}/config -lpython${PY_VER} ${PYSHARED}"
 				CFLAGS="$CFLAGS -I$PY_INC"
