@@ -314,6 +314,9 @@ GtkTextMark *bftv_get_last_block_at_line(BfTextView *view, GtkTextIter * it)
 	gpointer ptr = NULL;
 
 	if (!it)	return NULL;
+	/* I see a very intermittent memory leak here.
+	   The memory is being freed inside if() statements.
+	   Is it possible there is occasionally a branch when it is not being freed? */
 	ln = g_new0(gint,1);
 	*ln = gtk_text_iter_get_line(it);
 	ptr = g_hash_table_lookup(view->lbal_cache,ln);	
@@ -743,7 +746,8 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							gchar **arr = g_strsplit(pc,">",-1);
 							gchar **arr2 = g_strsplit(arr[0]," ",-1);						
 							TBfBlock *bf_2 = g_new0(TBfBlock, 1); /* BUG: valgrind indicates this is never freed... memory leak? */
-																						/* O. - freed when recognizing end of tag */
+							                                      /* I'm still seeing a leak here. */
+                                                                  /* O. - freed when recognizing end of tag */
 							bf_2->tagname = g_strdup(arr2[0]); /* BUG: valgrind indicates this is never freed... memory leak? */
 							bf_2->b_start = bf->b_start;
 							bf_2->b_end = ita;
@@ -798,6 +802,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						if (currstate > 0) {
 							/* !!! start of tag begin */
 							/* Where and when is the memory from this g_new0() call freed?  - freed in "case 4" in switch above */
+							/* Hmm, still see an intermittent leak here. */
 							bf = g_new0(TBfBlock, 1);
 							bf->def = tmp;
 							bf->b_start = its;
@@ -809,8 +814,6 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						break;
 					case 0:
 						if (currstate > 0 && self->scanner.state != BFTV_STATE_DONT_SCAN) {
-						    /* Where and when is the memory from this g_new0() call freed?
-						    This is showing to be a HUGE memory leak. - FIXED - freed in else statement */
 							bf = g_new0(TBfBlock, 1);
 							bf->def = tmp;
 							bf->b_start = its;
@@ -1065,6 +1068,7 @@ this function took 63% of the cpu time..
 The pointer gshort *z is allocating memory with g_malloc0 in 
 two different places in this function. This appears to be a 
 large memory leak. Is this freed somewhere else?
+These leaks are still present.
 */
 static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, gint type,
 							  gboolean tag)
