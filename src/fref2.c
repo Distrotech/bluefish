@@ -4565,6 +4565,7 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 	GtkWidget *item,*menu,*wdg;
 	GtkTextBuffer *buff;
 	GdkColor cc;
+	PangoFontDescription *fontdesc;
 
 	bfwin->fref = g_new0(Tfref_gui, 1);
 
@@ -4626,8 +4627,9 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 
 	buff = gtk_text_view_get_buffer(GTK_TEXT_VIEW(FREFGUI(bfwin->fref)->infoview));
 	
-	gtk_widget_modify_font(FREFGUI(bfwin->fref)->infoview,pango_font_description_from_string(main_v->props.bflib_info_font));
-
+	fontdesc = pango_font_description_from_string(main_v->props.bflib_info_font);
+	gtk_widget_modify_font(FREFGUI(bfwin->fref)->infoview, fontdesc);
+    pango_font_description_free (fontdesc);
 
 	FREFGUI(bfwin->fref)->infocheck = gtk_toggle_button_new();
 	gtk_tooltips_set_tip(FREFGUI(bfwin->fref)->argtips,FREFGUI(bfwin->fref)->infocheck , _("Show info window"), "");
