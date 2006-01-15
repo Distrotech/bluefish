@@ -316,7 +316,13 @@ GtkTextMark *bftv_get_last_block_at_line(BfTextView *view, GtkTextIter * it)
 	if (!it)	return NULL;
 	/* I see a very intermittent memory leak here.
 	   The memory is being freed inside if() statements.
-	   Is it possible there is occasionally a branch when it is not being freed? */
+	   Is it possible there is occasionally a branch when it is not being freed? 
+	   
+	   I don't suppose or I'm misunderstanding GHashTable.
+	   "ln" is used as a key, so when inserting into GHashTable, I'm not freeing it (there is no key copying in glib code),
+	   but  it is freed in "remove_item_cache" later.
+	   
+	   */
 	ln = g_new0(gint,1);
 	*ln = gtk_text_iter_get_line(it);
 	ptr = g_hash_table_lookup(view->lbal_cache,ln);	
@@ -747,7 +753,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							gchar **arr2 = g_strsplit(arr[0]," ",-1);						
 							TBfBlock *bf_2 = g_new0(TBfBlock, 1); /* BUG: valgrind indicates this is never freed... memory leak? */
 							                                      /* I'm still seeing a leak here. */
-                                                                  /* O. - freed when recognizing end of tag */
+                                                          /* O. - freed when recognizing end of tag  OR at the end of scanning - I'm cleaning stacks */
 							bf_2->tagname = g_strdup(arr2[0]); /* BUG: valgrind indicates this is never freed... memory leak? */
 							bf_2->b_start = bf->b_start;
 							bf_2->b_end = ita;
@@ -802,7 +808,8 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						if (currstate > 0) {
 							/* !!! start of tag begin */
 							/* Where and when is the memory from this g_new0() call freed?  - freed in "case 4" in switch above */
-							/* Hmm, still see an intermittent leak here. */
+							/* Hmm, still see an intermittent leak here. - Nope - it is pushed on the stack, 
+							if not taken during recognition, freed at the end of   function - stack cleaning. */
 							bf = g_new0(TBfBlock, 1);
 							bf->def = tmp;
 							bf->b_start = its;
@@ -947,6 +954,18 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 			gtk_text_iter_forward_char(&ita);
 	}							/* main loop */
 
+/* Clear stacks */
+while (!g_queue_is_empty(&self->scanner.block_stack))
+{
+	bf = (TBfBlock*)g_queue_pop_head(&self->scanner.block_stack);
+	g_free(bf);
+}
+while (!g_queue_is_empty(&self->scanner.block_stack2))
+{
+	bf = (TBfBlock*)g_queue_pop_head(&self->scanner.block_stack2);
+	g_free(bf);
+}
+
 
 #ifdef HL_PROFILING
 	{
@@ -1069,6 +1088,10 @@ The pointer gshort *z is allocating memory with g_malloc0 in
 two different places in this function. This appears to be a 
 large memory leak. Is this freed somewhere else?
 These leaks are still present.
+
+Hmm, the problem is that there is no code cleaning scanner tables, z is allocating memory for that tables, 
+because their size is unknown until I build DFA.
+I'll think about it, this cleanup should be performed at the very end of Bluefish.
 */
 static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, gint type,
 							  gboolean tag)
