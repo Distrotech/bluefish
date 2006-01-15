@@ -141,6 +141,9 @@ int main(int argc, char *argv[])
 #ifndef NOSPLASH
 	GtkWidget *splash_window=NULL;
 #endif /* #ifndef NOSPLASH */
+#ifdef HAVE_ATLEAST_GNOMEUI_2_6
+	GnomeProgram *bfprogram;
+#endif /* HAVE_ATLEAST_GNOMEUI_2_6 */
 
 #ifdef ENABLE_NLS                                                               
 	setlocale(LC_ALL,"");                                                   
@@ -150,7 +153,8 @@ int main(int argc, char *argv[])
 	textdomain(PACKAGE);                                                    
 #endif
 #ifdef HAVE_ATLEAST_GNOMEUI_2_6
-	gnome_init(PACKAGE, VERSION, argc, argv);
+	bfprogram = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE, 
+                                    argc, argv, GNOME_PARAM_NONE);
 #else
 	gtk_init(&argc, &argv);
 #endif /* HAVE_ATLEAST_GNOMEUI_2_6 */
@@ -276,6 +280,9 @@ int main(int argc, char *argv[])
 	DEBUG_MSG("calling fb2config_cleanup()\n");
 	fb2config_cleanup();
 	DEBUG_MSG("Bluefish: exiting cleanly\n");
+#ifdef HAVE_ATLEAST_GNOMEUI_2_6
+	g_object_unref (bfprogram);
+#endif /* HAVE_ATLEAST_GNOMEUI_2_6 */
 	return 0;
 }
 
