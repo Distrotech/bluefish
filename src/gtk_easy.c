@@ -29,6 +29,7 @@
 #include "bf_lib.h"
 #include "pixmap.h"
 #include "gui.h" /* statusbar_message() */
+#include "stringlist.h" /* count_array() */
 
 #ifdef WIN32
 #define DIRSTR "\\"
@@ -1340,15 +1341,17 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 		GtkFileFilter* ff;
 		ff = gtk_file_filter_new();
 		gtk_file_filter_set_name(ff,_("All files"));
-		gtk_file_filter_add_custom(ff,GTK_FILE_FILTER_DISPLAY_NAME,file_chooser_custom_filter_func,
-								new_fchooser_filter(dialog, viewhidden, viewbackup, NULL),g_free);
+		gtk_file_filter_add_custom(ff, GTK_FILE_FILTER_DISPLAY_NAME, 
+		                           (GtkFileFilterFunc) file_chooser_custom_filter_func,
+                                   new_fchooser_filter(dialog, viewhidden, viewbackup, NULL),g_free);
 		gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
 		for (tmplist=g_list_first(main_v->filefilters);tmplist!=NULL;tmplist=tmplist->next) {
 			Tfilter *filter =tmplist->data;
 			ff = gtk_file_filter_new();
 			gtk_file_filter_set_name(ff,filter->name);
-			gtk_file_filter_add_custom(ff,GTK_FILE_FILTER_DISPLAY_NAME,file_chooser_custom_filter_func,
-									new_fchooser_filter(dialog, viewhidden, viewbackup, filter),g_free);
+			gtk_file_filter_add_custom(ff, GTK_FILE_FILTER_DISPLAY_NAME, 
+			                           (GtkFileFilterFunc) file_chooser_custom_filter_func,
+                                       new_fchooser_filter(dialog, viewhidden, viewbackup, filter),g_free);
 			gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
 		}
 /*		gtk_file_filter_add_pattern(ff, "*");
@@ -1380,35 +1383,35 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 	if (show_encoding) {
 		/* make character encoding widget */
 		GtkWidget *label, *combo;
-		GtkTreeModel *model;
+		GtkListStore *store;
 		GtkTreeIter iter, seliter;
 		gboolean have_seliter=FALSE;
 		GtkCellRenderer *renderer;
 		GList *tmplist;
 
 		hbox = gtk_hbox_new (FALSE, 6);
-		label = gtk_label_new_with_mnemonic(_("_Character Encoding:"));
-		model = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_POINTER);
+		label = gtk_label_new_with_mnemonic(_("Character _Encoding:"));
+		store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_POINTER);
 		for (tmplist=g_list_first(main_v->props.encodings);tmplist;tmplist=tmplist->next){
 			gchar **arr = (gchar **)tmplist->data;
 			if (count_array(arr) == 2) {
-				gtk_list_store_append(GTK_LIST_STORE(model),&iter);
-				gtk_list_store_set(GTK_LIST_STORE(model),&iter,0,arr[0],1,arr,-1);
+				gtk_list_store_append(store,&iter);
+				gtk_list_store_set(store,&iter,0,arr[0],1,arr,-1);
 				if (bfwin->session->encoding && strcmp(arr[1],bfwin->session->encoding)==0) {
 					seliter = iter;
 					have_seliter = TRUE;
 				}
 			}
 		}
-		gtk_list_store_prepend(GTK_LIST_STORE(model),&iter);
-		gtk_list_store_set(GTK_LIST_STORE(model),&iter, 0, _("Automatic detection"),1,NULL,-1);
-		combo = gtk_combo_box_new_with_model(model);
+		gtk_list_store_prepend(store,&iter);
+		gtk_list_store_set(store,&iter, 0, _("Automatic detection"),1,NULL,-1);
+		combo = gtk_combo_box_new_with_model(GTK_TREE_MODEL(store));
 		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(combo),have_seliter ?&seliter:&iter);
 		
 		renderer = gtk_cell_renderer_text_new();
 		gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(combo), renderer, TRUE);
 		gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(combo), renderer, "text", 0, NULL);
-		gtk_label_set_mnemonic_widget(GTK_LABEL(label), GTK_COMBO_BOX(combo));
+		gtk_label_set_mnemonic_widget(GTK_LABEL(label), combo);
 		gtk_box_pack_start (GTK_BOX(hbox), label,FALSE,FALSE, 0);
 		gtk_box_pack_end (GTK_BOX(hbox), combo, TRUE,TRUE,0);
 
