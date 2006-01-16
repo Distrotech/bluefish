@@ -211,13 +211,13 @@ static void fref_search(Tbfwin * bfwin,const gchar *phrase);
 
 static GRand *fref_rand; /* for unique names */
 
-static gchar *fref_unique_name(gint pfx) {
-	gchar *ret;	
+static guchar *fref_unique_name(gint pfx) {
+	guchar *ret;	
 	ret = g_strdup_printf("___%d_%d__",pfx,g_rand_int(fref_rand));
 	return ret;
 }
 
-static Tfref_record *fref_insert_into_commons(Tfref_info *info,gchar *name,gint tp,gpointer data, gboolean def) {
+static Tfref_record *fref_insert_into_commons(Tfref_info *info, guchar *name, gint tp, gpointer data, gboolean def) {
 	Tfref_record *rec = g_new0(Tfref_record,1);
 	gpointer ptr;
 	rec->etype = tp;
@@ -285,12 +285,12 @@ static gboolean fref_ro_for_current(Tbfwin *bfwin)
 
 Tfref_property *fref_parse_property(xmlNodePtr node,xmlDocPtr doc,Tfref_info *info,gboolean common) {
 		Tfref_property  *p = g_new0(Tfref_property,1);  
-		guchar *auxs2,*auxs3;  
+		xmlChar *auxs2, *auxs3;  
 		xmlNodePtr auxn;
 		gpointer auxp;
 
 
-		if ( common) {
+		if (common) {
 			auxs2 = xmlGetProp(node, (const xmlChar *) fref_names[FID_ID]);
 			if (auxs2 == NULL) {
 					g_warning("Definition has to have id attribute!");
@@ -301,11 +301,10 @@ Tfref_property *fref_parse_property(xmlNodePtr node,xmlDocPtr doc,Tfref_info *in
 			p->name = xmlGetProp(node, (const xmlChar *) fref_names[FID_NAME]);
 			if (p->name==NULL)
 			    p->name = p->id;
-		}
-		else {
-			p->name = xmlGetProp(node, (const xmlChar *) fref_names[FID_NAME]);
-			p->id = "";
-		}
+		    } else {
+			    p->name = xmlGetProp(node, (const xmlChar *) fref_names[FID_NAME]);
+			    p->id = (xmlChar *) "";
+		    }
 
 		auxs2 = xmlGetProp(node, (const xmlChar *) fref_names[FID_KIND]);
 		if ( auxs2 == NULL ) {
@@ -664,21 +663,21 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 			g_warning("Definition type not defined");
 			return;
 		}
-		if ( xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_PROPERTY]) == 0 ) {			/* property definition */
+		if (xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_PROPERTY]) == 0) { /* property definition */
 			Tfref_property *pp = fref_parse_property(node,doc,info,TRUE);
-			if ( pp ) {
-				if ( fref_insert_into_commons(info,g_strdup(auxs),pp->ptype,pp,TRUE) == NULL) {				
+			if (pp) {
+				if (fref_insert_into_commons(info,xmlStrdup(auxs),pp->ptype,pp,TRUE) == NULL) {
 					g_free(pp); /* Improve! */
 					xmlFree(auxs);
 				}
 			}	
 		}
 		else if ( xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_DESCRIPTION]) == 0 ) {		/* descr definition */
-			fref_insert_into_commons(info,g_strdup(auxs),FREF_EL_DESCR,xmlNodeListGetString(doc,node->xmlChildrenNode,1),TRUE);	
+			fref_insert_into_commons(info,xmlStrdup(auxs),FREF_EL_DESCR,xmlNodeListGetString(doc,node->xmlChildrenNode,1),TRUE);	
 			xmlFree(auxs);
 		} 
 		else if ( xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_VALUES]) == 0 ) {		/* values definition */
-			fref_insert_into_commons(info,g_strdup(auxs),FREF_EL_VALUES,g_strstrip(xmlNodeListGetString(doc,node->xmlChildrenNode,1)),TRUE);	
+			fref_insert_into_commons(info,xmlStrdup(auxs),FREF_EL_VALUES,g_strstrip(xmlNodeListGetString(doc,node->xmlChildrenNode,1)),TRUE);	
 			xmlFree(auxs);
 		} 		
 		else if ( xmlStrcmp(auxs2, (const xmlChar *) fref_names[FID_PROPLIST]) == 0 ) {		/* property list definition */
@@ -713,36 +712,38 @@ static void fref_parse_node(xmlNodePtr node,GtkWidget * tree, GtkTreeStore * sto
 	else 	if ( xmlStrcmp(node->name, (const xmlChar *) fref_names[FID_ELEMENT]) == 0 ) { /* element */
 		Tfref_element *el = fref_parse_element(node,doc,info,bfwin);
 		Tfref_record *rec; 
-		if ( el ) {
-							rec = fref_insert_into_commons(info,g_strdup(el->name),el->etype,el,FALSE);	
-							if ( rec ) { 
-								gtk_tree_store_append(store, &auxit, parent);
-								gtk_tree_store_set(store, &auxit, STR_COLUMN,el->name, FILE_COLUMN, NULL, 
-								                               PTR_COLUMN,rec, -1);			
-								switch (el->etype)
-								{
-									case FREF_EL_FUNCTION:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
-									FREFDATA(main_v->frefdata)->icon_function, -1);break;
-									case FREF_EL_TAG:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
-									FREFDATA(main_v->frefdata)->icon_tag, -1);break;
-									case FREF_EL_VAR:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
-									FREFDATA(main_v->frefdata)->icon_var, -1);break;
-									case FREF_EL_CSSPROP:
-									case FREF_EL_CSSSELECT:
-									gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
-									FREFDATA(main_v->frefdata)->icon_css, -1);break;
-									case FREF_EL_SNIPPET:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
-									FREFDATA(main_v->frefdata)->icon_snippet, -1);break;
-								}                               
-								path = gtk_tree_model_get_path(GTK_TREE_MODEL(store), &auxit);
-								GtkTreeRowReference *rref = gtk_tree_row_reference_new(GTK_TREE_MODEL(store), path);
-								g_hash_table_replace(info->dictionary, el->name, rref);
-								fref_node_current++;
-								progress_set(FREFGUI(bfwin->fref)->prg,fref_node_current);
-								flush_queue();
-							}	else {
-								g_free(el); /*Improve!*/
-							}
+		if (el) {
+		            xmlChar *tmp = xmlStrdup(el->name);
+                    rec = fref_insert_into_commons(info,tmp,el->etype,el,FALSE);
+                    xmlFree(tmp);
+                    if ( rec ) { 
+                    	gtk_tree_store_append(store, &auxit, parent);
+                    	gtk_tree_store_set(store, &auxit, STR_COLUMN,el->name, FILE_COLUMN, NULL, 
+                    	                               PTR_COLUMN,rec, -1);			
+                    	switch (el->etype)
+                    	{
+                    		case FREF_EL_FUNCTION:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
+                    		FREFDATA(main_v->frefdata)->icon_function, -1);break;
+                    		case FREF_EL_TAG:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
+                    		FREFDATA(main_v->frefdata)->icon_tag, -1);break;
+                    		case FREF_EL_VAR:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
+                    		FREFDATA(main_v->frefdata)->icon_var, -1);break;
+                    		case FREF_EL_CSSPROP:
+                    		case FREF_EL_CSSSELECT:
+                    		gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
+                    		FREFDATA(main_v->frefdata)->icon_css, -1);break;
+                    		case FREF_EL_SNIPPET:gtk_tree_store_set(store, &auxit, PIXMAP_COLUMN,
+                    		FREFDATA(main_v->frefdata)->icon_snippet, -1);break;
+                    	}                               
+                    	path = gtk_tree_model_get_path(GTK_TREE_MODEL(store), &auxit);
+                    	GtkTreeRowReference *rref = gtk_tree_row_reference_new(GTK_TREE_MODEL(store), path);
+                    	g_hash_table_replace(info->dictionary, el->name, rref);
+                    	fref_node_current++;
+                    	progress_set(FREFGUI(bfwin->fref)->prg,fref_node_current);
+                    	flush_queue();
+                    }	else {
+                    	g_free(el); /*Improve!*/
+                    }
 		}
 	} /* element */	
 	/*else {
@@ -776,12 +777,10 @@ gint fref_count_nodes(xmlDocPtr doc, xmlChar *xpath){
 	return ret;
 }
 
-
-
-gchar *fref_load_refname(gchar *filename) {
+guchar *fref_load_refname(gchar *filename) {
 	xmlDocPtr doc;
 	xmlNodePtr cur;
-	gchar *ret;
+	guchar *ret;
 	
 	if (filename == NULL)	return NULL;
 	doc = xmlParseFile(filename);
@@ -893,13 +892,13 @@ gboolean fref_load_from_file(gchar * filename, GtkWidget * tree, GtkTreeStore * 
 	if (xmlStrcmp(cur->name, (const xmlChar *) "ref") == 0) 
 	{
 		fref_names = fref_full;
-		fref_node_count = fref_count_nodes(doc,"//element");
+		fref_node_count = fref_count_nodes(doc, (xmlChar *) "//element");
 		fref_node_current = 0;
 	}	
 	else
 	{
 		fref_names = fref_compact;
-		fref_node_count = fref_count_nodes(doc,"//e");
+		fref_node_count = fref_count_nodes(doc, (xmlChar *) "//e");
 		fref_node_current = 0;
 	}	
 
@@ -1185,7 +1184,7 @@ static void fref_save_property(Tfref_property *prop,xmlNodePtr parent)
 	gchar *tp=NULL;
 	
 	node = xmlNewNode(NULL, (const xmlChar *) "property");
-	if (prop->id && strcmp(prop->id,"")!=0) /* common */
+	if (prop->id && xmlStrcmp(prop->id, (const xmlChar *) "")!=0) /* common */
 	{
 		xmlNewProp(node, (const xmlChar *) "ref", prop->id);
 	}
@@ -1869,8 +1868,8 @@ static void fref_popup_menu_rescan_lcb(GtkWidget * widget, gpointer user_data)
 	fill_toplevels(FREFDATA(main_v->frefdata), TRUE);
 }
 
-static gchar *fref_notnull_str(gchar *str) {
-	if ( str == NULL ) return "";
+static guchar *fref_notnull_str(guchar *str) {
+	if ( str == NULL ) return (guchar *) "";
 	return str;
 }
 
@@ -1887,7 +1886,7 @@ static gchar *fref_get_prop_descr(Tfref_element *el,gint proptype) {
 		if ( proptype == FREFPROPERTY(lst->data)->ptype ) {
 		  switch (proptype) {
 		  		case FREF_EL_RETURN: if ( FREFPROPERTY(lst->data)->type )
-															  			ret = g_strconcat(ret,FREFPROPERTY(lst->data)->type,"\n",NULL);
+                        ret = g_strconcat(ret,FREFPROPERTY(lst->data)->type,"\n",NULL);
 				break;
 		  } /* switch */	
 		  ret = g_strconcat(ret,fref_notnull_str(FREFPROPERTY(lst->data)->description),"\n",NULL);
@@ -2175,7 +2174,7 @@ return ret;
 }
 
 static gchar *fref_prepare_text(Tfref_element *elem) {
-	gchar *p, *prev, *stringdup/*, *tofree*/;
+	guchar *p, *prev, *stringdup;
 	gchar *tmp, *dest, *tmp3 = NULL;
 	GList *lst=NULL;
 	gint d1, d2,cnt;
@@ -2186,9 +2185,9 @@ static gchar *fref_prepare_text(Tfref_element *elem) {
 	gchar *sep="";
 
 	dest = g_strdup("");
-	stringdup = g_strdup(elem->insert);
+	stringdup = xmlStrdup(elem->insert);
 	prev = stringdup;
-	p = strchr(prev, '%');
+	p = xmlStrchr(prev, '%');
 	
 while (p) {
 	tmp = dest;
@@ -2196,7 +2195,7 @@ while (p) {
 	p++;
 	if (*p == '%') 
 	{
-			converted = "%";
+        converted = "%";
 	} else 
 	{
 /*		switch (elem->etype) 
@@ -2654,7 +2653,7 @@ while (p) {
 		if (strcmp(converted,"")!=0)
 			g_free(converted);
 		prev = ++p;
-		p = strchr(p, '%');
+		p = xmlStrchr(p, '%');
 }
 	tmp = dest;
 	dest = g_strconcat(dest, prev, NULL);
@@ -2746,7 +2745,7 @@ static GtkWidget *fref_prepare_dialog(Tbfwin * bfwin, Tfref_element *entry)
 
 	dialog = gtk_dialog_new();
 	if (entry->name != NULL)
-		gtk_window_set_title(GTK_WINDOW(dialog), entry->name);
+		gtk_window_set_title(GTK_WINDOW(dialog), (gchar *) entry->name);
 	vbox = GTK_DIALOG(dialog)->vbox;
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC,
@@ -2788,7 +2787,7 @@ static GtkWidget *fref_prepare_dialog(Tbfwin * bfwin, Tfref_element *entry)
 			}
 			else
 			{
-						gtk_label_set_text(GTK_LABEL(label), FREFPROPERTY(list->data)->name);			
+                gtk_label_set_text(GTK_LABEL(label), (gchar *) FREFPROPERTY(list->data)->name);			
 			}
 			gtk_table_attach(GTK_TABLE(table), label, 0, 1, itnum, itnum + 1,
 								 (GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 5, 6);
@@ -2820,7 +2819,7 @@ static GtkWidget *fref_prepare_dialog(Tbfwin * bfwin, Tfref_element *entry)
 				{
 					input = gtk_entry_new();
 					if (FREFPROPERTY(list->data)->def != NULL)
-						gtk_entry_set_text(GTK_ENTRY(input), FREFPROPERTY(list->data)->def);
+						gtk_entry_set_text(GTK_ENTRY(input), (gchar *) FREFPROPERTY(list->data)->def);
 					gtk_widget_show(input);
 					gtk_table_attach(GTK_TABLE(table), input, 1, 2, itnum, itnum + 1,
 									 (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
@@ -2846,7 +2845,7 @@ static GtkWidget *fref_prepare_dialog(Tbfwin * bfwin, Tfref_element *entry)
 						while (pomgl)
 						{
 								gtk_combo_box_insert_text(GTK_COMBO_BOX(combo),pos,pomgl->data);
-								if (FREFPROPERTY(list->data)->def != NULL && strcmp(FREFPROPERTY(list->data)->def,pomgl->data)==0)
+								if (FREFPROPERTY(list->data)->def != NULL && xmlStrcmp(FREFPROPERTY(list->data)->def,pomgl->data)==0)
 									pos2=pos;
 								pomgl = g_list_next(pomgl);
 								pos++;
@@ -2861,7 +2860,7 @@ static GtkWidget *fref_prepare_dialog(Tbfwin * bfwin, Tfref_element *entry)
 					{
 						 
 						if ( GTK_IS_COMBO_BOX_ENTRY(combo) )
-							gtk_entry_set_text(GTK_ENTRY(GTK_BIN(combo)->child),FREFPROPERTY(list->data)->def);
+							gtk_entry_set_text(GTK_ENTRY(GTK_BIN(combo)->child), (gchar *) FREFPROPERTY(list->data)->def);
 						else
 							gtk_combo_box_set_active(GTK_COMBO_BOX(combo),pos2);	
 					}	
@@ -2875,7 +2874,7 @@ static GtkWidget *fref_prepare_dialog(Tbfwin * bfwin, Tfref_element *entry)
 				{
 					input = gtk_entry_new();
 					if (FREFPROPERTY(list->data)->def != NULL)
-						gtk_entry_set_text(GTK_ENTRY(input), FREFPROPERTY(list->data)->def);
+						gtk_entry_set_text(GTK_ENTRY(input), (gchar *) FREFPROPERTY(list->data)->def);
 					gtk_widget_show(input);
 					gtk_table_attach(GTK_TABLE(table), input, 1, 2, itnum, itnum + 1,
 									 (GtkAttachOptions) (GTK_EXPAND | GTK_FILL),
@@ -2913,7 +2912,7 @@ static GtkWidget *fref_prepare_dialog(Tbfwin * bfwin, Tfref_element *entry)
 									 (GtkAttachOptions) (0), 5, 5);
 					if (FREFPROPERTY(list->data)->def != NULL)
 					{						 
-						gtk_entry_set_text(GTK_ENTRY(GTK_BIN(combo)->child),FREFPROPERTY(list->data)->def);
+						gtk_entry_set_text(GTK_ENTRY(GTK_BIN(combo)->child), (gchar *) FREFPROPERTY(list->data)->def);
 					}	
 					FREFPROPERTY(list->data)->dlgitem = combo;
 					if (FREFPROPERTY(list->data)->description)
@@ -2999,13 +2998,10 @@ static void fref_insert_lcb(GtkButton * button, Tbfwin * bfwin) {
 		case FREF_EL_SNIPPET:{
 			Tfref_element *elem = FREFELEMENT(el->data);
 			if (elem->insert != NULL) {
-				gchar *p = strchr(elem->insert, '%');
-				if ( p ) 
-				{
+				const guchar *p = xmlStrchr(elem->insert, '%');
+				if (p) {
 					fref_dialog_lcb(button,bfwin);
-				}
-				else
-				{
+				} else {
 					doc_insert_two_strings(bfwin->current_document, elem->insert, NULL);
 					gtk_widget_grab_focus(bfwin->current_document->view);
 				}	
@@ -3718,8 +3714,8 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 			{
 				case FREF_EL_NOTE:
 					note = g_new0(Tfref_note,1);
-					note->title = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(e1)));
-					note->text = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(e2)));
+					note->title = xmlCharStrdup(gtk_entry_get_text(GTK_ENTRY(e1)));
+					note->text = xmlCharStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(e2)));
 					if (inf == NULL)			
 					{
 						xmlFree(note->title);
@@ -3752,8 +3748,8 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 				break;
 				case FREF_EL_GROUP:
 					note = g_new0(Tfref_note,1);
-					note->title = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(e1)));
-					note->text = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(e2)));
+					note->title = xmlCharStrdup(gtk_entry_get_text(GTK_ENTRY(e1)));
+					note->text = xmlCharStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(e2)));
 					if (inf == NULL)			
 					{
 						xmlFree(note->title);
@@ -3780,12 +3776,12 @@ static void frefcb_new_td(GtkWidget * widget, Tbfwin *bfwin, gint type, gboolean
 				break;	
 				case FREF_EL_DESCR:
 					if (inf)
-						fref_insert_into_commons(inf,g_strdup(gtk_entry_get_text(GTK_ENTRY(e1))),FREF_EL_DESCR,
+						fref_insert_into_commons(inf,xmlCharStrdup(gtk_entry_get_text(GTK_ENTRY(e1))),FREF_EL_DESCR,
 						         fref_editor_getviewtext(GTK_TEXT_VIEW(e2)),TRUE);
 				break;
 				case FREF_EL_VALUES:
 					if (inf)
-						fref_insert_into_commons(inf,g_strdup(gtk_entry_get_text(GTK_ENTRY(e1))),FREF_EL_VALUES,
+						fref_insert_into_commons(inf,xmlCharStrdup(gtk_entry_get_text(GTK_ENTRY(e1))),FREF_EL_VALUES,
 						         fref_editor_getviewtext(GTK_TEXT_VIEW(e2)),TRUE);				
 				break;								
 			}		
@@ -3842,8 +3838,8 @@ static void frefcb_new_re_prop(GtkWidget * widget, Tbfwin *bfwin) {
 	if (gtk_dialog_run(GTK_DIALOG(dlg)) == GTK_RESPONSE_OK )
 	{
 		
-		xmlChar *name = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_name)));
-		xmlChar *id = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_id)));
+		xmlChar *name = xmlCharStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_name)));
+		xmlChar *id = xmlCharStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_id)));
 		if ( xmlStrcmp(name, (const xmlChar *) "")!=0 || xmlStrcmp(id, (const xmlChar *) "")!=0)
 		{
 			prop = g_new0(Tfref_property,1);
@@ -3864,9 +3860,9 @@ static void frefcb_new_re_prop(GtkWidget * widget, Tbfwin *bfwin) {
 			else
 				prop->required = FALSE;
 			if (strcmp("",gtk_entry_get_text(GTK_ENTRY(data->e_type)))!=0)
-				prop->type = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_type)));
+				prop->type = xmlCharStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_type)));
 			if (strcmp("",gtk_entry_get_text(GTK_ENTRY(data->e_default)))!=0)
-				prop->def = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_default)));
+				prop->def = xmlCharStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_default)));
 			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(data->e_input)) )
 			{
 				case 0: prop->input_type = FREF_INP_ENTRY;break;
@@ -3878,18 +3874,20 @@ static void frefcb_new_re_prop(GtkWidget * widget, Tbfwin *bfwin) {
 			}
 				
 			inf = fref_refinfo_for_current(bfwin);
-			vals = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_values)));
-			if ( xmlStrcmp(vals, (const xmlChar *) "")!=0 )
-				{
-					rec = fref_insert_into_commons(inf,fref_unique_name(-1),FREF_EL_VALUES,vals,FALSE);
-					prop->vlist = vals;
-				} else xmlFree(vals);	
-			vals = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_description)));
-			if ( xmlStrcmp(vals, (const xmlChar *) "")!=0 )
-				{
-					rec = fref_insert_into_commons(inf,fref_unique_name(-1),FREF_EL_DESCR,vals,FALSE);
-					prop->description = vals;
-				} else xmlFree(vals);	
+			vals = xmlCharStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_values)));
+			if (xmlStrcmp(vals, (const xmlChar *) "")!=0)
+			{
+			    rec = fref_insert_into_commons(inf,fref_unique_name(-1),FREF_EL_VALUES,vals,FALSE);
+				prop->vlist = vals;
+			} else xmlFree(vals);	
+			
+			vals = xmlCharStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_description)));
+			if (xmlStrcmp(vals, (const xmlChar *) "")!=0)
+			{
+			    rec = fref_insert_into_commons(inf,fref_unique_name(-1),FREF_EL_DESCR,vals,FALSE);
+				prop->description = vals;
+			} else xmlFree(vals);	
+			
 			rec = fref_insert_into_commons(inf,prop->id,prop->ptype,prop,TRUE);		
 			fref_save_ref(bfwin);		
 		 	frefcb_cursor_changed(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), bfwin);
@@ -4071,7 +4069,7 @@ static void frefcb_new_prop(GtkWidget * widget, Tfref_adddef_data *dt) {
 	if (gtk_dialog_run(GTK_DIALOG(dlg)) == GTK_RESPONSE_OK )
 	{
 		
-		xmlChar *name = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_name)));
+		xmlChar *name = xmlCharStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_name)));
 		if ( xmlStrcmp(name, (const xmlChar *) "")!=0 )
 		{
 			prop = g_new0(Tfref_property,1);
@@ -4092,9 +4090,9 @@ static void frefcb_new_prop(GtkWidget * widget, Tfref_adddef_data *dt) {
 			else
 				prop->required = FALSE;
 			if (strcmp("",gtk_entry_get_text(GTK_ENTRY(data->e_type)))!=0)
-				prop->type = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_type)));
+				prop->type = xmlCharStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_type)));
 			if (strcmp("",gtk_entry_get_text(GTK_ENTRY(data->e_default)))!=0)
-				prop->def = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_default)));
+				prop->def = xmlCharStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_default)));
 			switch (gtk_combo_box_get_active(GTK_COMBO_BOX(data->e_input)) )
 			{
 				case 0: prop->input_type = FREF_INP_ENTRY;break;
@@ -4106,12 +4104,12 @@ static void frefcb_new_prop(GtkWidget * widget, Tfref_adddef_data *dt) {
 			}
 				
 			inf = fref_refinfo_for_current(dt->bfwin);
-			vals = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_values)));
+			vals = xmlCharStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_values)));
 			if ( xmlStrcmp(vals, (const xmlChar *) "")!=0 )
 				{
 					prop->vlist = vals;
 				} else xmlFree(vals);	
-			vals = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_description)));
+			vals = xmlCharStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_description)));
 			if ( xmlStrcmp(vals, (const xmlChar *) "")!=0 )
 				{
 					prop->description = vals;
@@ -4226,7 +4224,7 @@ static void frefcb_new_element(GtkWidget * widget, Tbfwin *bfwin)
 	 	g_signal_connect(G_OBJECT(data->btn_del),"clicked",G_CALLBACK(frefcb_del_prop),defdata);
 	 	if (gtk_dialog_run(GTK_DIALOG(dlg))==GTK_RESPONSE_OK)
 	 	{
-			xmlChar *name = xmlStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_name)));
+			xmlChar *name = xmlCharStrdup(gtk_entry_get_text(GTK_ENTRY(data->e_name)));
 			if ( xmlStrcmp(name, (const xmlChar *) "")!=0 )	 	
 			{
 				Tfref_element *el = g_new0(Tfref_element,1);
@@ -4241,13 +4239,13 @@ static void frefcb_new_element(GtkWidget * widget, Tbfwin *bfwin)
 					case 5: el->etype = FREF_EL_SNIPPET;break;
 				}
 				inf = fref_refinfo_for_current(bfwin);	
-				vals = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_description)));
+				vals = xmlCharStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_description)));
 				if ( xmlStrcmp(vals, (const xmlChar *) "")!=0 )
 				{
 					fref_insert_into_commons(inf,fref_unique_name(-1),FREF_EL_DESCR,vals,FALSE);
 					el->description = vals;
 				} else xmlFree(vals);	
-				vals = xmlStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_insert)));
+				vals = xmlCharStrdup(fref_editor_getviewtext(GTK_TEXT_VIEW(data->e_insert)));
 				if ( xmlStrcmp(vals, (const xmlChar *) "")!=0 )
 				{
 					el->insert = vals;
