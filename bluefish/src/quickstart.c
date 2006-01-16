@@ -460,7 +460,7 @@ quickstart_meta_page_create(TQuickStart *qstart)
 	qstart->metaView = gtk_tree_view_new ();
 	gtk_tree_view_set_headers_visible (GTK_TREE_VIEW (qstart->metaView), FALSE);
 	selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (qstart->metaView));
-	g_signal_connect (G_OBJECT (selection), "changed", G_CALLBACK (quickstart_meta_selection_changed), qstart);
+	
 	gtk_tree_selection_set_mode (selection, GTK_SELECTION_MULTIPLE);
 	gtk_container_add (GTK_CONTAINER (scrolwin), qstart->metaView);
 	renderer = gtk_cell_renderer_text_new ();
@@ -482,6 +482,8 @@ quickstart_meta_page_create(TQuickStart *qstart)
 	gtk_box_pack_start (GTK_BOX (bbox), qstart->removeButton, FALSE, FALSE, 0);
 	gtk_widget_set_sensitive (qstart->removeButton, FALSE);
 	gtk_box_pack_start (GTK_BOX (hbox), bbox, FALSE, FALSE, 0);
+	
+	g_signal_connect (G_OBJECT (selection), "changed", G_CALLBACK (quickstart_meta_selection_changed), qstart);
 	
 	return hbox;
 }
