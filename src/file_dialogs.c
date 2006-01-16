@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file_dialogs.c - file dialogs
  *
- * Copyright (C) 2005 Olivier Sessink
+ * Copyright (C) 2005-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,6 +30,7 @@
 #include "filebrowser2.h"
 #include "gtk_easy.h"
 #include "gui.h"
+#include "snr2.h" /* snr2_run_extern_replace() */
 #include "stringlist.h"
 #include "undo_redo.h"
 
