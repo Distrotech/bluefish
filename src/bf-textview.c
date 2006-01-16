@@ -1097,8 +1097,7 @@ static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, g
 							  gboolean tag)
 {
 	gint i, j, k, m, s;
-	gchar *ptr = NULL;
-	const gchar *end;
+	guchar *ptr = NULL;
 	gunichar *inp, *inp2, *inp3;
 	glong size;
 	BfLangToken *token = NULL;
@@ -1138,7 +1137,7 @@ static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, g
 
 	if (!ptr)
 		return;
-	if (!g_utf8_validate(ptr, -1, &end))
+	if (!xmlCheckUTF8(ptr))
 		return;
 
 	for (m = 0; m < 10000; m++) {
@@ -1157,8 +1156,8 @@ static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, g
 	inp = inp2;
 
 	if (!regexp) {
-		if (g_utf8_strlen(ptr, -1) > cfg->counter)
-			cfg->counter = g_utf8_strlen(ptr, -1);
+		if (xmlUTF8Strlen(ptr) > cfg->counter)
+			cfg->counter = xmlUTF8Strlen(ptr);
 	}
 
 	i = 0;
@@ -1383,7 +1382,7 @@ static void bftv_put_into_dfa(GArray * dfa, BfLangConfig * cfg, gpointer data, g
 static gshort **bftv_make_scan_table(GArray * dfa, BfLangConfig * cfg)
 {
 	gshort **table;
-	gint i, j;
+	gint i/*, j*/;
 /*  glong cnt = 0;*/
 	gint size = cfg->tabnum + 1;
 
@@ -1428,7 +1427,7 @@ static gshort **bftv_make_tag_scan_table(GArray * dfa, BfLangConfig * cfg)
 
 
 static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * cfg, gint type,
-								 gchar * group, const gchar *groupstyle, gchar * text)
+								 guchar * group, const guchar *groupstyle, guchar * text)
 {
 	xmlChar *tmps, *tmps2;
 	gpointer ptr;
@@ -1465,9 +1464,9 @@ static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * 
 			t->context = NULL;
 		
 		tmps2 = xmlGetProp(node, (const xmlChar *) "defaultstyle");
-		t->tag = get_tag_for_scanner_style(cfg->name, "t", t->name, tmps2);
+		t->tag = get_tag_for_scanner_style((gchar *) cfg->name, "t", (gchar *) t->name, (gchar *) tmps2);
 		if (!t->tag) {
-			t->tag = get_tag_for_scanner_style(cfg->name, "g", t->group, groupstyle);
+			t->tag = get_tag_for_scanner_style((gchar *) cfg->name, "g", (gchar *) t->group, (gchar *) groupstyle);
 		}
 		if (tmps2) xmlFree(tmps2);
 		
@@ -1507,9 +1506,9 @@ static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * 
 			/* try to retrieve the tag based on the name of the block, if no tag is found, 
 			   try to retrieve a tag for the group name */
 			tmps2 = xmlGetProp(node, (const xmlChar *) "defaultstyle");
-			b->tag = get_tag_for_scanner_style(cfg->name, "b", b->id, tmps2);
+			b->tag = get_tag_for_scanner_style((gchar *) cfg->name, "b", (gchar *) b->id, (gchar *) tmps2);
 			if (!b->tag) {
-				b->tag = get_tag_for_scanner_style(cfg->name, "g", b->group, groupstyle);
+				b->tag = get_tag_for_scanner_style((gchar *) cfg->name, "g", (gchar *) b->group, (gchar *) groupstyle);
 			}
 			if (tmps2) xmlFree(tmps2);
 			
@@ -1555,10 +1554,10 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 		cfg->tokens = g_hash_table_new(g_int_hash, g_int_equal);
 		cfg->groups = g_hash_table_new(g_str_hash, g_str_equal);
 
-		cfg->tag_begin = get_tag_for_scanner_style(cfg->name, "m", "tag_begin", "tag begin");
-		cfg->tag_end = get_tag_for_scanner_style(cfg->name, "m", "tag_end", "tag end");
-		cfg->attr_name = get_tag_for_scanner_style(cfg->name, "m", "attr_name", "attribute");
-		cfg->attr_val = get_tag_for_scanner_style(cfg->name, "m", "attr_val", "attribute value");
+		cfg->tag_begin = get_tag_for_scanner_style((gchar *) cfg->name, "m", "tag_begin", "tag begin");
+		cfg->tag_end = get_tag_for_scanner_style((gchar *) cfg->name, "m", "tag_end", "tag end");
+		cfg->attr_name = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_name", "attribute");
+		cfg->attr_val = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_val", "attribute value");
 
 		cfg->restricted_tags = g_hash_table_new(g_int_hash, g_int_equal);
 		cfg->line_indent = g_array_new(TRUE, TRUE, sizeof(gint));
@@ -1601,22 +1600,20 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 							else if (xmlStrcmp(tmps, (const xmlChar *) "indent-blocks") == 0)
 								cfg->indent_blocks = bftv_xml_bool(tmps2);
 							else if (xmlStrcmp(tmps, (const xmlChar *) "extensions") == 0)
-								cfg->extensions = g_strdup(tmps2);
+								cfg->extensions = xmlStrdup(tmps2);
 							else if (xmlStrcmp(tmps, (const xmlChar *) "auto-scan-triggers") == 0) {
-								gchar *p = tmps2;
+								const guchar *p = tmps2;
 								i = 0;
-								while (i < g_utf8_strlen(tmps2, -1)) {
+								while (i < xmlUTF8Strlen(tmps2)) {
 									cfg->as_triggers[(gint) * p] = 1;
-									i++;
-									p = g_utf8_next_char(p);
+									p = xmlUTF8Strpos(tmps2, i++);
 								}
 							} else if (xmlStrcmp(tmps, (const xmlChar *) "escape-characters") == 0) {
-								gchar *p = tmps2;
+								const guchar *p = tmps2;
 								i = 0;
-								while (i < g_utf8_strlen(tmps2, -1)) {
+								while (i < xmlUTF8Strlen(tmps2)) {
 									cfg->escapes[(gint) * p] = 1;
-									i++;
-									p = g_utf8_next_char(p);
+									p = xmlUTF8Strpos(tmps2, i++);
 								}
 							}
 							if (tmps)
@@ -1631,7 +1628,7 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 			else if (xmlStrcmp(cur->name, (const xmlChar *) "block-group") == 0) {	/* blocks  */
 				tmps3 = xmlGetProp(cur, (const xmlChar *) "id");
 				tmps4 = xmlGetProp(cur, (const xmlChar *) "defaultstyle");
-				g_hash_table_insert(cfg->groups, g_strdup(tmps3), "b");
+				g_hash_table_insert(cfg->groups, xmlStrdup(tmps3), "b");
 				cur2 = cur->xmlChildrenNode;
 				while (cur2 != NULL) {
 					if (xmlStrcmp(cur2->name, (const xmlChar *) "block") == 0) {
@@ -1643,7 +1640,7 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 			} else if (xmlStrcmp(cur->name, (const xmlChar *) "token-group") == 0) {	/* tokens  */
 				tmps3 = xmlGetProp(cur, (const xmlChar *) "id");
 				tmps4 = xmlGetProp(cur, (const xmlChar *) "defaultstyle");
-				g_hash_table_insert(cfg->groups, g_strdup(tmps3), "t");
+				g_hash_table_insert(cfg->groups, xmlStrdup(tmps3), "t");
 				cur2 = cur->xmlChildrenNode;
 				while (cur2 != NULL) {
 					if (xmlStrcmp(cur2->name, (const xmlChar *) "token") == 0) {
@@ -1705,7 +1702,7 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 							GHashTable *h = g_hash_table_new(g_str_hash, g_str_equal);
 							gchar **arr;
 							gint i = 0;
-							g_hash_table_insert(cfg->restricted_tags, g_strdup(tmps), h);
+							g_hash_table_insert(cfg->restricted_tags, xmlStrdup(tmps), h);
 							xmlFree(tmps);
 							tmps = xmlGetProp(cur2, (const xmlChar *) "attributes");
 							arr = g_strsplit(tmps, ",", -1);
@@ -1729,8 +1726,8 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 	}
 	if (cfg->indent_blocks) {
 		cfg->iblock = g_new0(BfLangBlock, 1);
-		cfg->iblock->id = "Indent block";
-		cfg->iblock->begin = cfg->iblock->end = g_strdup(" ");
+		cfg->iblock->id = (guchar *) "Indent block";
+		cfg->iblock->begin = cfg->iblock->end = xmlCharStrdup(" ");
 		cfg->iblock->group = NULL;
 		cfg->iblock->tabid = cfg->blocknum;
 		cfg->blocknum++;
@@ -1743,19 +1740,19 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 		BfLangToken *t = g_new0(BfLangToken, 1);
 		t->group = NULL;
 		t->regexp = TRUE;
-		t->name = g_strdup("_tag_end_");
-		t->text = g_strdup("</[a-zA-Z][a-zA-Z0-9]*[ ]*>");
+		t->name = xmlCharStrdup("_tag_end_");
+		t->text = xmlCharStrdup("</[a-zA-Z][a-zA-Z0-9]*[ ]*>");
 		t->context = NULL;
 		t->spec_type = 1;
 		bftv_put_into_dfa(cfg->dfa, cfg, t, BFTV_DFA_TYPE_TOKEN, FALSE);
 		g_hash_table_insert(cfg->tokens, &t->tabid, t);
 
 		BfLangBlock *b = g_new0(BfLangBlock, 1);
-		b->id = g_strdup("_tag_begin_");
+		b->id = xmlCharStrdup("_tag_begin_");
 		b->group = NULL;
 		b->regexp = TRUE;
-		b->begin = g_strdup("<[a-zA-Z][a-zA-Z0-9]*[ ]*");
-		b->end = g_strdup("/?>");
+		b->begin = xmlCharStrdup("<[a-zA-Z][a-zA-Z0-9]*[ ]*");
+		b->end = xmlCharStrdup("/?>");
 		b->scanned = TRUE;
 		b->foldable = FALSE;
 		b->case_sensitive = FALSE;
@@ -1769,9 +1766,9 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 		t = g_new0(BfLangToken, 1);
 		t->group = NULL;
 		t->regexp = TRUE;
-		t->name = g_strdup("_attr2_");
+		t->name = xmlCharStrdup("_attr2_");
 		t->spec_type = 3;
-		t->text = g_strdup("[a-zA-Z-]+=\"[^\"]*\"");
+		t->text = xmlCharStrdup("[a-zA-Z-]+=\"[^\"]*\"");
 		t->context = b;
 		bftv_put_into_dfa(cfg->tag_dfa, cfg, t, BFTV_DFA_TYPE_TOKEN, TRUE);
 		g_hash_table_insert(cfg->tokens, &t->tabid, t);
@@ -1780,9 +1777,9 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 		t = g_new0(BfLangToken, 1);
 		t->group = NULL;
 		t->regexp = TRUE;
-		t->name = g_strdup("_attr_");
+		t->name = xmlCharStrdup("_attr_");
 		t->spec_type = 2;
-		t->text = g_strdup("[a-zA-Z-]+=[^\" ><]+");
+		t->text = xmlCharStrdup("[a-zA-Z-]+=[^\" ><]+");
 		t->context = b;
 		bftv_put_into_dfa(cfg->tag_dfa, cfg, t, BFTV_DFA_TYPE_TOKEN, TRUE);
 		g_hash_table_insert(cfg->tokens, &t->tabid, t);
@@ -1790,9 +1787,9 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 		t = g_new0(BfLangToken, 1);
 		t->group = NULL;
 		t->regexp = TRUE;
-		t->name = g_strdup("_attr_tag_begin_end_");
+		t->name = xmlCharStrdup("_attr_tag_begin_end_");
 		t->spec_type = 4;
-		t->text = g_strdup("/?>");
+		t->text = xmlCharStrdup("/?>");
 		t->context = b;
 		bftv_put_into_dfa(cfg->tag_dfa, cfg, t, BFTV_DFA_TYPE_TOKEN, TRUE);
 		g_hash_table_insert(cfg->tokens, &t->tabid, t);
@@ -1845,7 +1842,7 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 		BfLangToken *t = g_new0(BfLangToken, 1);
 		t->group = NULL;
 		t->regexp = TRUE;
-		t->name = g_strdup("_fake_ident_");
+		t->name = xmlCharStrdup("_fake_ident_");
 		t->text = pstr;
 		t->context = NULL;
 		t->spec_type = 5;
@@ -2961,7 +2958,7 @@ BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, const gchar * filenam
 		if (cfg != NULL) {
 			bftv_make_config_tables(cfg);
 			DEBUG_MSG("bf_lang_mgr_load_config, adding %s to hashtable\n", filename);
-			g_hash_table_replace(mgr->languages, filename, cfg);
+			g_hash_table_replace(mgr->languages, (gpointer) filename, cfg);
 		}
 		g_free(fname);
 	}
@@ -2996,7 +2993,7 @@ GList *bf_lang_get_groups(BfLangConfig * cfg)
 
 typedef struct {
 	GList **list;
-	gchar *grpcrit;
+	guchar *grpcrit;
 } Thf;
 
 static void bftv_ins_block(gpointer key, gpointer value, gpointer udata)
@@ -3004,10 +3001,10 @@ static void bftv_ins_block(gpointer key, gpointer value, gpointer udata)
 	Thf *d = (Thf *) udata;
 	BfLangBlock *t = (BfLangBlock *) value;
 	if (d->grpcrit == NULL && t->group == NULL) {
-		if (strcmp(t->id, "_tag_begin_") != 0)
+		if (xmlStrcmp(t->id, (const xmlChar *) "_tag_begin_") != 0)
 			*(d->list) = g_list_append(*(d->list), t->id);
-	} else if (d->grpcrit != NULL && t->group != NULL && strcmp(t->group, d->grpcrit) == 0) {
-		if (strcmp(t->id, "_tag_begin_") != 0)
+	} else if (d->grpcrit != NULL && t->group != NULL && xmlStrcmp(t->group, d->grpcrit) == 0) {
+		if (xmlStrcmp(t->id, (const xmlChar *) "_tag_begin_") != 0)
 			*(d->list) = g_list_append(*(d->list), t->id);
 	}
 }
@@ -3016,7 +3013,7 @@ static void bftv_ins_block(gpointer key, gpointer value, gpointer udata)
 *  i.e. blocks which are defined without a group - 
 *  just use NULL for group param 
 */
-GList *bf_lang_get_blocks_for_group(BfLangConfig * cfg, gchar * group)
+GList *bf_lang_get_blocks_for_group(BfLangConfig * cfg, guchar * group)
 {
 	GList *lst = NULL;
 	Thf *hf = g_new0(Thf, 1);
@@ -3034,14 +3031,14 @@ static void bftv_ins_token(gpointer key, gpointer value, gpointer udata)
 	Thf *d = (Thf *) udata;
 	BfLangToken *t = (BfLangToken *) value;
 	if (d->grpcrit == NULL && t->group == NULL) {
-		if (strcmp(t->name, "_tag_end_") != 0 && strcmp(t->name, "_attr_") != 0
-			&& strcmp(t->name, "_attr2_") != 0 && strcmp(t->name, "_attr_tag_begin_end_") != 0
-			&& strcmp(t->name, "_fake_ident_") != 0)
+		if (xmlStrcmp(t->name, (const xmlChar *) "_tag_end_") != 0 && xmlStrcmp(t->name, (const xmlChar *) "_attr_") != 0
+			&& xmlStrcmp(t->name, (const xmlChar *) "_attr2_") != 0 && xmlStrcmp(t->name, (const xmlChar *) "_attr_tag_begin_end_") != 0
+			&& xmlStrcmp(t->name, (const xmlChar *) "_fake_ident_") != 0)
 			*(d->list) = g_list_append(*(d->list), t->name);
-	} else if (d->grpcrit != NULL && t->group != NULL && strcmp(t->group, d->grpcrit) == 0) {
-		if (strcmp(t->name, "_tag_end_") != 0 && strcmp(t->name, "_attr_") != 0
-			&& strcmp(t->name, "_attr2_") != 0 && strcmp(t->name, "_attr_tag_begin_end_") != 0
-			&& strcmp(t->name, "_fake_ident_") != 0)
+	} else if (d->grpcrit != NULL && t->group != NULL && xmlStrcmp(t->group, d->grpcrit) == 0) {
+		if (xmlStrcmp(t->name, (const xmlChar *) "_tag_end_") != 0 && xmlStrcmp(t->name, (const xmlChar *) "_attr_") != 0
+			&& xmlStrcmp(t->name, (const xmlChar *) "_attr2_") != 0 && xmlStrcmp(t->name, (const xmlChar *) "_attr_tag_begin_end_") != 0
+			&& xmlStrcmp(t->name, (const xmlChar *) "_fake_ident_") != 0)
 			*(d->list) = g_list_append(*(d->list), t->name);
 	}
 }
@@ -3050,7 +3047,7 @@ static void bftv_ins_token(gpointer key, gpointer value, gpointer udata)
 *  i.e. tokens which are defined without a group - 
 *  just use NULL for group param 
 */
-GList *bf_lang_get_tokens_for_group(BfLangConfig * cfg, gchar * group)
+GList *bf_lang_get_tokens_for_group(BfLangConfig * cfg, guchar * group)
 {
 	GList *lst = NULL;
 	Thf *hf = g_new0(Thf, 1);
@@ -3072,9 +3069,9 @@ static void bflang_retag_token(gpointer key, gpointer value, gpointer udata)
 {
 	BfLangToken *t = (BfLangToken*)value;
 	BfLangConfig *cfg = (BfLangConfig*)udata;
-	t->tag = get_tag_for_scanner_style(cfg->name, "t", t->name, NULL);
+	t->tag = get_tag_for_scanner_style((gchar *) cfg->name, "t", (gchar *) t->name, NULL);
 	if (!t->tag) {
-		t->tag = get_tag_for_scanner_style(cfg->name, "g", t->group, NULL);
+		t->tag = get_tag_for_scanner_style((gchar *) cfg->name, "g", (gchar *) t->group, NULL);
 	}
 }
 
@@ -3082,9 +3079,9 @@ static void bflang_retag_block(gpointer key, gpointer value, gpointer udata)
 {
 	BfLangBlock *b = (BfLangBlock *) value;
 	BfLangConfig *cfg = (BfLangConfig*)udata;
-	b->tag = get_tag_for_scanner_style(cfg->name, "b", b->id, NULL);
+	b->tag = get_tag_for_scanner_style((gchar *) cfg->name, "b", (gchar *) b->id, NULL);
 	if (!b->tag) {
-		b->tag = get_tag_for_scanner_style(cfg->name, "g", b->group, NULL);
+		b->tag = get_tag_for_scanner_style((gchar *) cfg->name, "g", (gchar *) b->group, NULL);
 	}
 }
 
@@ -3093,10 +3090,10 @@ static void bf_lang_retag(gpointer key, gpointer value, gpointer udata)
 	BfLangConfig *cfg = (BfLangConfig *)value;
 	g_hash_table_foreach(cfg->tokens, bflang_retag_token, cfg);
 	g_hash_table_foreach(cfg->blocks, bflang_retag_block, cfg);
-	cfg->tag_begin = get_tag_for_scanner_style(cfg->name, "m", "tag_begin", NULL);
-	cfg->tag_end = get_tag_for_scanner_style(cfg->name, "m", "tag_end", NULL);
-	cfg->attr_name = get_tag_for_scanner_style(cfg->name, "m", "attr_name", NULL);
-	cfg->attr_val = get_tag_for_scanner_style(cfg->name, "m", "attr_val", NULL);
+	cfg->tag_begin = get_tag_for_scanner_style((gchar *) cfg->name, "m", "tag_begin", NULL);
+	cfg->tag_end = get_tag_for_scanner_style((gchar *) cfg->name, "m", "tag_end", NULL);
+	cfg->attr_name = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_name", NULL);
+	cfg->attr_val = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_val", NULL);
 
 	/* we should perhaps also retag some of the internal tags such as _block_match_ ? */
 }
