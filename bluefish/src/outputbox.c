@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * outputbox.c - the output box
  *
- * Copyright (C) 2002-2005 Olivier Sessink
+ * Copyright (C) 2002-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,6 +35,7 @@
 #include "document.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"
+#include "gui.h" /* statusbar_message() */
 #include "stringlist.h"
 #include "pixmap.h"
 #include "external_commands.h"
