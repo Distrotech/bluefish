@@ -1800,8 +1800,11 @@ static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdo
 		 * text to be selected or de-selected. */
 		if (kevent->state & GDK_SHIFT_MASK)
 			gtk_text_buffer_move_mark (doc->buffer, imark, &iter);
-		else
+		else {		
 			gtk_text_buffer_place_cursor (doc->buffer, &iter);
+			gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW (doc->view), 
+			                                    gtk_text_buffer_get_insert (doc->buffer));
+		}
 
 		/* Event handled. */
 		return TRUE;
