@@ -291,8 +291,8 @@ void bf_textview_set_fg_color(BfTextView * self, gchar * color);
 for a certain language config. They are used in the preferences panel to build
 the GUI to set textstyles */
 GList *bf_lang_get_groups(BfLangConfig * cfg);
-GList *bf_lang_get_blocks_for_group(BfLangConfig * cfg, gchar * group);
-GList *bf_lang_get_tokens_for_group(BfLangConfig * cfg, gchar * group);
+GList *bf_lang_get_blocks_for_group(BfLangConfig * cfg, guchar * group);
+GList *bf_lang_get_tokens_for_group(BfLangConfig * cfg, guchar * group);
 gboolean bf_lang_needs_tags(BfLangConfig * cfg);
 void bf_lang_mgr_retag(void); 
 #endif
