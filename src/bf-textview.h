@@ -43,8 +43,8 @@
 * Represents language block definition read from configuration file. 
 */
 typedef struct {
-	gchar *id, *begin, *end;
-	gchar *group;
+	guchar *id, *begin, *end;
+	guchar *group;
 	gboolean case_sensitive;
 	gboolean scanned;
 	gboolean foldable;
@@ -69,9 +69,9 @@ typedef struct {
 * Represents language token definition read from configuration file. 
 */
 typedef struct {
-	gchar *text;
-	gchar *name;
-	gchar *group;
+	guchar *text;
+	guchar *name;
+	guchar *group;
 	BfLangBlock *context;
 	gboolean regexp;
 	/*< private > */
@@ -89,7 +89,7 @@ typedef struct {
 
 typedef struct {
 	/*< private > */
-	gchar *name, *extensions, *description;
+	guchar *name, *extensions, *description;
 	gboolean case_sensitive;
 	gboolean scan_tags;
 	gboolean scan_blocks;
