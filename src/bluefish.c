@@ -134,7 +134,7 @@ int main(int argc, char *argv[])
 	GList *filenames = NULL, *projectfiles=NULL;
 	Tbfwin *firstbfwin;
 #ifndef NOSPLASH
-	GtkWidget *splash_window;
+	GtkWidget *splash_window = NULL;
 #endif /* #ifndef NOSPLASH */
 
 #ifdef ENABLE_NLS                                                               
@@ -176,9 +176,11 @@ int main(int argc, char *argv[])
 	}
 #endif /* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
-	/* start splash screen somewhere here */
-	splash_window = start_splash_screen();
-	splash_screen_set_label(_("parsing highlighting file..."));
+	if (main_v->props.show_splash_screen == 1) {
+		/* start splash screen somewhere here */
+		splash_window = start_splash_screen();
+		splash_screen_set_label(_("parsing highlighting file..."));
+	}
 #endif /* #ifndef NOSPLASH */
 
 	{
@@ -189,14 +191,18 @@ int main(int argc, char *argv[])
 	rcfile_parse_global_session();
 	rcfile_parse_highlighting();
 #ifndef NOSPLASH
-	splash_screen_set_label(_("compiling highlighting patterns..."));
+	if (main_v->props.show_splash_screen == 1) {
+		splash_screen_set_label(_("compiling highlighting patterns..."));
+	}
 #endif /* #ifndef NOSPLASH */
 	hl_init();
 	filebrowserconfig_init();
 	filebrowser_filters_rebuild();
 	autoclosing_init();
 #ifndef NOSPLASH
-	splash_screen_set_label(_("parsing custom menu file..."));
+	if (main_v->props.show_splash_screen == 1) {
+		splash_screen_set_label(_("parsing custom menu file..."));
+	}
 #endif /* #ifndef NOSPLASH */
 	rcfile_parse_custom_menu(FALSE,FALSE);
 	main_v->tooltips = gtk_tooltips_new();
@@ -208,7 +214,9 @@ int main(int argc, char *argv[])
 	}
 #endif /* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
-	splash_screen_set_label(_("creating main gui..."));
+	if (main_v->props.show_splash_screen == 1) {
+		splash_screen_set_label(_("creating main gui..."));
+	}
 #endif /* #ifndef NOSPLASH */
 
 	/* create the first window */
@@ -217,9 +225,11 @@ int main(int argc, char *argv[])
 	firstbfwin->bookmarkstore = main_v->bookmarkstore;
 	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
 	gui_create_main(firstbfwin,filenames);
-   bmark_reload(firstbfwin);
+	bmark_reload(firstbfwin);
 #ifndef NOSPLASH
-	splash_screen_set_label(_("showing main gui..."));
+	if (main_v->props.show_splash_screen == 1) {
+		splash_screen_set_label(_("showing main gui..."));
+	}
 #endif /* #ifndef NOSPLASH */
 	/* set GTK settings, must be AFTER the menu is created */
 	{
@@ -286,7 +296,9 @@ int main(int argc, char *argv[])
 		static struct timespec const req = { 0, 10000000};
 		nanosleep(&req, NULL);
 	}
-	gtk_widget_destroy(splash_window);
+	if (main_v->props.show_splash_screen == 1) {
+		gtk_widget_destroy(splash_window);
+	}
 #endif /* #ifndef NOSPLASH */
 	DEBUG_MSG("main, before gtk_main()\n");
 	gtk_main();

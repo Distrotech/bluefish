@@ -150,6 +150,9 @@ typedef struct {
 } Tdocument;
 
 typedef struct {
+#ifndef NOSPLASH
+	gint show_splash_screen;  /* show splash screen at startup */
+#endif /* #ifndef NOSPLASH */
 	gint show_quickbar_tip;
 	gint view_line_numbers; /* view line numbers on the left side by default */
 	gint filebrowser_show_hidden_files;

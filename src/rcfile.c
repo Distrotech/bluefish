@@ -324,6 +324,9 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 static GList *props_init_main(GList * config_rc)
 {
 /* these are used in the gtk-2 port already */
+#ifndef NOSPLASH
+	init_prop_integer   (&config_rc, &main_v->props.show_splash_screen, "show_splash_screen:", 1, TRUE);
+#endif /* #ifndef NOSPLASH */
 	init_prop_integer   (&config_rc, &main_v->props.show_quickbar_tip, "show_quickbar_tip:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_show_hidden_files, "fb_show_hidden_f:", 0, TRUE);
