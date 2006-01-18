@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
 	GList *filenames = NULL, *projectfiles=NULL;
 	Tbfwin *firstbfwin;
 #ifndef NOSPLASH
-	GtkWidget *splash_window=NULL;
+	GtkWidget *splash_window = NULL;
 #endif /* #ifndef NOSPLASH */
 #ifdef HAVE_ATLEAST_GNOMEUI_2_6
 	GnomeProgram *bfprogram;
