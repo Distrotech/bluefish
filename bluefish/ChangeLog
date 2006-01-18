@@ -1,3 +1,74 @@
+2006-01-18  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/es.po: Spanish translation update.
+
+2006-01-16  Olivier Sessink <olivier@bluefish.openoffice.nl>
+
+	* src/quickstart.c: fixes a segfault on newer (> 2.8.0) gtk
+	  releases found by Daniel
+
+2006-01-16  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/document.c: Fix a bug where if you had smart cursor
+	  positioning enabled and hit the HOME key, the cursor could scroll
+	  off the screen and not be visible.
+
+2006-01-16  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: Add missing GtkFileFilterFunc to the C
+	  highlighting pattern.
+
+2006-01-11  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/bluefish.xml: Sync to work with latest GNOME 2.12 and above.
+	  Without the sub-class declaration, the MIME-type is detected as
+	  text/plain and loading the .project file with bluefish fails.
+
+2006-01-11  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/: custom_menu.de.in, custom_menu.fr.in, custom_menu.in: Fix
+	  Bluefish Bug #326597
+
+2005-12-16  Olivier Sessink <olivier@bluefish.openoffice.nl>
+
+	* src/document.c: patch from Michele
+
+2005-12-13  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/ja.po: ja.po translation update.
+
+2005-12-10  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/rcfile.c: Add the fix for Bluefish bug #323408 from CVS HEAD.
+
+2005-12-10  Olivier Sessink <olivier@bluefish.openoffice.nl>
+
+	* src/highlight.c: fixed a segfault if a config file from
+	  bluefish-cvs-tree is parsed by bluefish-1-tree
+
+2005-12-06  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/ja.po: ja.po translation update.
+
+2005-12-06  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/fr.po: fr.po translation update.
+
+2005-12-06  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/it.po: it.po translation update.
+
+2005-12-05  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/: bg.po, cs.po, da.po, de.po, el.po, es.po, eu.po, fi.po,
+	  fr.po, hu.po, it.po, ja.po, nl.po, no.po, pl.po, pt.po, pt_BR.po,
+	  ro.po, ru.po, sr.po, sv.po, ta.po, tr.po, zh_CN.po, zh_TW.po: PO
+	  file update
+
+2005-12-05  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* ChangeLog: Update for 1.0.5
+
 2005-11-24  Jim Hayward <jimhayward@linuxexperience.net>
 
 	* src/bfspell.c: Possible fix for Bluefish bug #322126.
