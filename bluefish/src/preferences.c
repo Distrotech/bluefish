@@ -43,6 +43,8 @@ enum {
 	filebrowser_two_pane_view,
 	filebrowser_unknown_icon,
 	filebrowser_dir_icon,
+	editor_show_splash_screen,    /* show splash screen at start-up */
+	editor_show_quickbar_warning, /* show warning about empty quickbar at startup */
 	editor_font_string,         /* editor font */
 	editor_tab_width,           /* editor tabwidth */
 	editor_indent_wspaces,
@@ -1827,6 +1829,10 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	g_free(pd);
 }
 static void preferences_apply(Tprefdialog *pd) {
+#ifndef NOSPLASH
+	integer_apply(&main_v->props.show_splash_screen, pd->prefs[editor_show_splash_screen], TRUE);
+#endif /* #ifndef NOSPLASH */
+	integer_apply(&main_v->props.show_quickbar_tip, pd->prefs[editor_show_quickbar_warning], TRUE);
 	string_apply(&main_v->props.editor_font_string, pd->prefs[editor_font_string]);
 	integer_apply(&main_v->props.editor_tab_width, pd->prefs[editor_tab_width], FALSE);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
@@ -1992,6 +1998,16 @@ static void preferences_dialog() {
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Editor"),150,TRUE));
 
+	frame = gtk_frame_new(_("Editor startup options"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+
+#ifndef NOSPLASH
+	pd->prefs[editor_show_splash_screen] = boxed_checkbut_with_value(_("Show splash-screen"), main_v->props.show_splash_screen, vbox2);
+#endif /* #ifndef NOSPLASH */
+	pd->prefs[editor_show_quickbar_warning] = boxed_checkbut_with_value(_("Show empty quickbar warning"), main_v->props.show_quickbar_tip, vbox2);
+	
 	frame = gtk_frame_new(_("Editor options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
