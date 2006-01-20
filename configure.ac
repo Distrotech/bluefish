@@ -1,6 +1,6 @@
 # Bluefish HTML Editor
 # configure.ac - the autoconf file
-# Copyright (C) 2002-2005 Olivier Sessink
+# Copyright (C) 2002-2006 Olivier Sessink
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -59,19 +59,19 @@ if test "x$CYGWIN" = "xyes"; then
 	LIBS="$LIBS -lintl.dll"
 fi  
 
-case "${host}" in
-powerpc-apple-darwin*)
-	OSTYPE="DARWIN"
+case "$host_os" in
+	solaris*)
+		AC_DEFINE(PLATFORM_SOLARIS)
+		echo "platform... solaris"
 	;;
 esac
 
-echo -n "checking for Mac OS X... "
-if test "x$OSTYPE" = "xDARWIN";then
-	echo "yes"
+case "${host}" in
+powerpc-apple-darwin*)
 	AC_DEFINE(PLATFORM_DARWIN)
-else
-	echo "no"
-fi
+	echo "platform... Mac OSX"
+	;;
+esac
 
 AC_ARG_ENABLE(auto-optimization, 
 		AC_HELP_STRING([--enable-auto-optimization],
