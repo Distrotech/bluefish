@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * document.c - the document
  *
- * Copyright (C) 1998-2005 Olivier Sessink
+ * Copyright (C) 1998-2006 Olivier Sessink
  * Copyright (C) 1998 Chris Mazuc
  * some additions Copyright (C) 2004 Eugene Morenko(More)
  *
@@ -20,10 +20,14 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include "config.h"
+
 /* this is needed for Solaris to comply with the latest POSIX standard 
  * regarding the ctime_r() function
- * the problem is that it generates a compiler warning on Linux, lstat() undefined.. */
+ */
+#ifdef PLATFORM_SOLARIS
 #define _POSIX_C_SOURCE 200312L
+#endif
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>    /* for the keyboard event codes */
