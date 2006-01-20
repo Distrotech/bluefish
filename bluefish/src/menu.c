@@ -194,6 +194,9 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 		break;
 	case 3:
 		bfwin->current_document->autoclosingtag = GTK_CHECK_MENU_ITEM(widget)->active;
+#ifdef USE_SCANNER
+		BF_TEXTVIEW(bfwin->current_document->view)->tag_autoclose = GTK_CHECK_MENU_ITEM(widget)->active;
+#endif		
 		break;
 	case 4:
 		main_v->props.autoindent = GTK_CHECK_MENU_ITEM(widget)->active;

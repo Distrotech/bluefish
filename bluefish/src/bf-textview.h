@@ -233,6 +233,7 @@ typedef struct {
 	GHashTable *lbal_cache; /* last block at line - cache */
 	gboolean delete_rescan; /* indicates if rescan is done from delete operation */
 	GtkTextMark *last_matched_block; /* last matched block */
+	gboolean paste_operation; /* indicates if we perform paste */
 } BfTextView;
 
 /*
