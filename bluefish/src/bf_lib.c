@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bf_lib.c - non-GUI general functions
  *
- * Copyright (C) 2000-2005 Olivier Sessink
+ * Copyright (C) 2000-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,8 @@
  */
 
 /* #define DEBUG */
+
+#include "config.h"
 
 /* this is needed for Solaris to comply with the latest POSIX standard 
  * regarding the ctime_r() function
