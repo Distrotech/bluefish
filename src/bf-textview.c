@@ -198,7 +198,7 @@ static void bf_textview_init(BfTextView * o)
 	o->highlight = TRUE;
 	o->mark_tokens = FALSE;
 	o->match_blocks = TRUE;
-/*  o->token_styles = o->block_styles = o->tag_styles = o->group_styles = NULL;*/
+   o->paste_operation = FALSE;
 	o->hl_mode = BFTV_HL_MODE_VISIBLE;
 	o->show_current_line = main_v->props.view_cline;
 	o->tag_autoclose = FALSE;
@@ -769,7 +769,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 									gtk_text_buffer_apply_tag(buf, tag, &bf->b_start, &ita);
 							}
 							/* TAG autoclose */
-							if ( self->tag_autoclose && !self->delete_rescan)
+							if ( self->tag_autoclose && !self->delete_rescan && !self->paste_operation)
 							{
 								GtkTextIter it9;
 								gtk_text_buffer_get_iter_at_mark(buf,&it9,gtk_text_buffer_get_insert(buf));

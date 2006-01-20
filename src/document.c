@@ -2070,6 +2070,9 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 			}
 			g_free(doc->paste_operation);
 			doc->paste_operation = NULL;
+#ifdef USE_SCANNER
+		BF_TEXTVIEW(doc->view)->paste_operation = FALSE;
+#endif			
 		}
 		/* now we should update the highlighting for the pasted text, but how long is the pasted text ?? */
 	}
@@ -2121,6 +2124,9 @@ static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *beve
 		doc->paste_operation = g_new(Tpasteoperation,1);
 		PASTEOPERATION(doc->paste_operation)->so = -1;
 		PASTEOPERATION(doc->paste_operation)->eo = -1;
+#ifdef USE_SCANNER
+		BF_TEXTVIEW(doc->view)->paste_operation = TRUE;
+#endif		
 	}
 	if (bevent->button == 3) {
 		GtkTextIter iter;
@@ -2911,6 +2917,9 @@ static void doc_view_drag_end_lcb(GtkWidget *widget,GdkDragContext *drag_context
 		}
 		g_free(doc->paste_operation);
 		doc->paste_operation = NULL;
+#ifdef USE_SCANNER
+		BF_TEXTVIEW(doc->view)->paste_operation = FALSE;
+#endif		
 	}
 }
 static void doc_view_drag_begin_lcb(GtkWidget *widget,GdkDragContext *drag_context,Tdocument *doc) {
@@ -2918,6 +2927,9 @@ static void doc_view_drag_begin_lcb(GtkWidget *widget,GdkDragContext *drag_conte
 		doc->paste_operation = g_new(Tpasteoperation,1);
 		PASTEOPERATION(doc->paste_operation)->so = -1;
 		PASTEOPERATION(doc->paste_operation)->eo = -1;
+#ifdef USE_SCANNER
+		BF_TEXTVIEW(doc->view)->paste_operation = TRUE;
+#endif		
 	}
 }
 
@@ -3707,6 +3719,9 @@ void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 		doc->paste_operation = g_new(Tpasteoperation,1);
 		PASTEOPERATION(doc->paste_operation)->so = -1;
 		PASTEOPERATION(doc->paste_operation)->eo = -1;
+#ifdef USE_SCANNER
+		BF_TEXTVIEW(doc->view)->paste_operation = TRUE;
+#endif		
 	}
 	doc_unre_new_group(doc);
 
@@ -3722,7 +3737,9 @@ void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	}
 	g_free(doc->paste_operation);
 	doc->paste_operation = NULL;
-	
+#ifdef USE_SCANNER
+	BF_TEXTVIEW(doc->view)->paste_operation = FALSE;
+#endif	
 	mark = gtk_text_buffer_get_insert(bfwin->current_document->buffer);
 	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(bfwin->current_document->view), mark); 
 	DEBUG_MSG("edit_paste_cb, finished\n");
