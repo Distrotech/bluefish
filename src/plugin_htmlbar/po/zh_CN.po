@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-15 19:09+0200\n"
+"POT-Creation-Date: 2006-01-20 21:46-0800\n"
 "PO-Revision-Date: 2004-12-08 18:48-0300\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -14,1820 +14,1733 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../html2.c:557
+#: ../html2.c:558
 msgid "Cascading StyleSheet dialog"
 msgstr "连续样式表对话框"
 
-#: ../html2.c:577
+#: ../html2.c:578
 msgid "_Selector:"
 msgstr "选择(_S)："
 
-#: ../html2.c:596
+#: ../html2.c:597
 msgid "_Property:"
 msgstr "属性(_P)："
 
-#: ../html2.c:598 ../html_form.c:650 ../html_form.c:799 ../html_form.c:894
+#: ../html2.c:599 ../html_form.c:650 ../html_form.c:799 ../html_form.c:894
 msgid "_Value:"
 msgstr "值(_V)："
 
-#: ../html2.c:616
+#: ../html2.c:617
 msgid "Selector"
 msgstr "选择器"
 
-#: ../html2.c:616 ../html2.c:619
+#: ../html2.c:617 ../html2.c:620
 msgid "Property"
 msgstr "属性"
 
-#: ../html2.c:616 ../html2.c:619
+#: ../html2.c:617 ../html2.c:620
 msgid "Value"
 msgstr "值"
 
-#: ../html2.c:634
+#: ../html2.c:635
 msgid " _Add "
 msgstr " 添加(_A) "
 
-#: ../html2.c:637
+#: ../html2.c:638
 msgid " _Update "
 msgstr " 更新(_U) "
 
-#: ../html2.c:640
+#: ../html2.c:641
 msgid " _Delete "
 msgstr " 删除(_D) "
 
-#: ../html2.c:896 ../html2.c:933
+#: ../html2.c:897 ../html2.c:934
 msgid "_Style..."
 msgstr "样式(_S)..."
 
-#: ../html2.c:1090
+#: ../html2.c:1091
 msgid "Bluefish: Select color"
 msgstr "Bluefish：选择颜色"
 
-#: ../htmlbar.c:13
+#: ../htmlbar.c:36
 msgid "Edit color"
 msgstr "编辑颜色"
 
-#: ../htmlbar.c:21
+#: ../htmlbar.c:44
 msgid "Edit tag"
 msgstr "编辑标签"
 
-#: ../htmlbar_gui.c:169
+#: ../htmlbar_gui.c:202
 msgid "/_Tags"
 msgstr "/标签(_T)"
 
-#: ../htmlbar_gui.c:170
-msgid "/Tags/Tearoff1"
-msgstr "/标签(T)/Tearoff1"
-
-#: ../htmlbar_gui.c:171
+#: ../htmlbar_gui.c:204
 msgid "/Tags/_Headings"
 msgstr "/标签(T)/标题(_H)"
 
-#: ../htmlbar_gui.c:172
-msgid "/Tags/Headings/Tearoff1"
-msgstr "/标签(T)/标题(H)/Tearoff1"
-
-#: ../htmlbar_gui.c:173
+#: ../htmlbar_gui.c:206
 msgid "/Tags/Headings/H_1"
 msgstr "/标签(T)/标题(H)/H_1"
 
-#: ../htmlbar_gui.c:174
+#: ../htmlbar_gui.c:207
 msgid "/Tags/Headings/H_2"
 msgstr "/标签(T)/标题(H)/H_2"
 
-#: ../htmlbar_gui.c:175
+#: ../htmlbar_gui.c:208
 msgid "/Tags/Headings/H_3"
 msgstr "/标签(T)/标题(H)/H_3"
 
-#: ../htmlbar_gui.c:176
+#: ../htmlbar_gui.c:209
 msgid "/Tags/Headings/H_4"
 msgstr "/标签(T)/标题(H)/H_4"
 
-#: ../htmlbar_gui.c:177
+#: ../htmlbar_gui.c:210
 msgid "/Tags/Headings/H_5"
 msgstr "/标签(T)/标题(H)/H_5"
 
-#: ../htmlbar_gui.c:178
+#: ../htmlbar_gui.c:211
 msgid "/Tags/Headings/H_6"
 msgstr "/标签(T)/标题(H)/H_6"
 
-#: ../htmlbar_gui.c:179
+#: ../htmlbar_gui.c:212
 msgid "/Tags/_Special"
 msgstr "/标签(T)/特殊(_S)"
 
-#: ../htmlbar_gui.c:180
-msgid "/Tags/Special/tearoff1"
-msgstr "/标签(T)/特殊(S)/tearoff1"
-
-#: ../htmlbar_gui.c:181
+#: ../htmlbar_gui.c:214
 msgid "/Tags/Special/_Accent"
 msgstr "/标签(T)/特殊(S)/音标(_A)"
 
-#: ../htmlbar_gui.c:182
-msgid "/Tags/Special/Accent/tearoff1"
-msgstr "/标签(T)/特殊(S)/音标(A)/tearoff1"
-
-#: ../htmlbar_gui.c:183
+#: ../htmlbar_gui.c:216
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(_U)"
 
-#: ../htmlbar_gui.c:184
+#: ../htmlbar_gui.c:217
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/_A-I"
 
-#: ../htmlbar_gui.c:185
-msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/tearoff1"
-
-#: ../htmlbar_gui.c:186
+#: ../htmlbar_gui.c:219
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/À"
 
-#: ../htmlbar_gui.c:187
+#: ../htmlbar_gui.c:220
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Á"
 
-#: ../htmlbar_gui.c:188
+#: ../htmlbar_gui.c:221
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Â"
 
-#: ../htmlbar_gui.c:189
+#: ../htmlbar_gui.c:222
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Ã"
 
-#: ../htmlbar_gui.c:190
+#: ../htmlbar_gui.c:223
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Æ"
 
-#: ../htmlbar_gui.c:191
+#: ../htmlbar_gui.c:224
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Ä"
 
-#: ../htmlbar_gui.c:192
+#: ../htmlbar_gui.c:225
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Å"
 
-#: ../htmlbar_gui.c:193
+#: ../htmlbar_gui.c:226
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Ç"
 
-#: ../htmlbar_gui.c:194
+#: ../htmlbar_gui.c:227
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/È"
 
-#: ../htmlbar_gui.c:195
+#: ../htmlbar_gui.c:228
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/É"
 
-#: ../htmlbar_gui.c:196
+#: ../htmlbar_gui.c:229
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/É"
 
-#: ../htmlbar_gui.c:197
+#: ../htmlbar_gui.c:230
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/É"
 
-#: ../htmlbar_gui.c:198
+#: ../htmlbar_gui.c:231
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Ì"
 
-#: ../htmlbar_gui.c:199
+#: ../htmlbar_gui.c:232
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Í"
 
-#: ../htmlbar_gui.c:200
+#: ../htmlbar_gui.c:233
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Î"
 
-#: ../htmlbar_gui.c:201
+#: ../htmlbar_gui.c:234
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/Ï"
 
-#: ../htmlbar_gui.c:202
+#: ../htmlbar_gui.c:235
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/_J-Z"
 
-#: ../htmlbar_gui.c:203
-msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/tearoff1"
-
-#: ../htmlbar_gui.c:204
+#: ../htmlbar_gui.c:237
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ñ"
 
-#: ../htmlbar_gui.c:205
+#: ../htmlbar_gui.c:238
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ò"
 
-#: ../htmlbar_gui.c:206
+#: ../htmlbar_gui.c:239
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ó"
 
-#: ../htmlbar_gui.c:207
+#: ../htmlbar_gui.c:240
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ô"
 
-#: ../htmlbar_gui.c:208
-msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
+#: ../htmlbar_gui.c:241
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/OE"
 
-#: ../htmlbar_gui.c:209
+#: ../htmlbar_gui.c:242
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Õ"
 
-#: ../htmlbar_gui.c:210
+#: ../htmlbar_gui.c:243
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ö"
 
-#: ../htmlbar_gui.c:211
+#: ../htmlbar_gui.c:244
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ø"
 
-#: ../htmlbar_gui.c:212
+#: ../htmlbar_gui.c:245
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ù"
 
-#: ../htmlbar_gui.c:213
+#: ../htmlbar_gui.c:246
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ú"
 
-#: ../htmlbar_gui.c:214
+#: ../htmlbar_gui.c:247
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Û"
 
-#: ../htmlbar_gui.c:215
+#: ../htmlbar_gui.c:248
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ü"
 
-#: ../htmlbar_gui.c:216
+#: ../htmlbar_gui.c:249
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/Ý"
 
-#: ../htmlbar_gui.c:217
+#: ../htmlbar_gui.c:250
 msgid "/Tags/Special/Accent/_Lowercase"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(_L)"
 
-#: ../htmlbar_gui.c:218
+#: ../htmlbar_gui.c:251
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/_A-I"
 
-#: ../htmlbar_gui.c:219
-msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/tearoff1"
-
-#: ../htmlbar_gui.c:220
+#: ../htmlbar_gui.c:253
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/à"
 
-#: ../htmlbar_gui.c:221
+#: ../htmlbar_gui.c:254
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/á"
 
-#: ../htmlbar_gui.c:222
+#: ../htmlbar_gui.c:255
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/â"
 
-#: ../htmlbar_gui.c:223
+#: ../htmlbar_gui.c:256
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ã"
 
-#: ../htmlbar_gui.c:224
+#: ../htmlbar_gui.c:257
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/å"
 
-#: ../htmlbar_gui.c:225
+#: ../htmlbar_gui.c:258
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/æ"
 
-#: ../htmlbar_gui.c:226
+#: ../htmlbar_gui.c:259
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ä"
 
-#: ../htmlbar_gui.c:227
+#: ../htmlbar_gui.c:260
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ç"
 
-#: ../htmlbar_gui.c:228
+#: ../htmlbar_gui.c:261
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/è"
 
-#: ../htmlbar_gui.c:229
+#: ../htmlbar_gui.c:262
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/é"
 
-#: ../htmlbar_gui.c:230
+#: ../htmlbar_gui.c:263
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ê"
 
-#: ../htmlbar_gui.c:231
+#: ../htmlbar_gui.c:264
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ë"
 
-#: ../htmlbar_gui.c:232
+#: ../htmlbar_gui.c:265
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ì"
 
-#: ../htmlbar_gui.c:233
+#: ../htmlbar_gui.c:266
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/í"
 
-#: ../htmlbar_gui.c:234
+#: ../htmlbar_gui.c:267
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/î"
 
-#: ../htmlbar_gui.c:235
+#: ../htmlbar_gui.c:268
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/ï"
 
-#: ../htmlbar_gui.c:236
+#: ../htmlbar_gui.c:269
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/_J-Z"
 
-#: ../htmlbar_gui.c:237
-msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/tearoff1"
-
-#: ../htmlbar_gui.c:238
+#: ../htmlbar_gui.c:271
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ñ"
 
-#: ../htmlbar_gui.c:239
+#: ../htmlbar_gui.c:272
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ò"
 
-#: ../htmlbar_gui.c:240
+#: ../htmlbar_gui.c:273
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ó"
 
-#: ../htmlbar_gui.c:241
-msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"
+#: ../htmlbar_gui.c:274
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/æ"
 
-#: ../htmlbar_gui.c:242
+#: ../htmlbar_gui.c:275
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ô"
 
-#: ../htmlbar_gui.c:243
+#: ../htmlbar_gui.c:276
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/õ"
 
-#: ../htmlbar_gui.c:244
+#: ../htmlbar_gui.c:277
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ö"
 
-#: ../htmlbar_gui.c:245
+#: ../htmlbar_gui.c:278
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ø"
 
-#: ../htmlbar_gui.c:246
+#: ../htmlbar_gui.c:279
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ù"
 
-#: ../htmlbar_gui.c:247
+#: ../htmlbar_gui.c:280
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ú"
 
-#: ../htmlbar_gui.c:248
+#: ../htmlbar_gui.c:281
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/û"
 
-#: ../htmlbar_gui.c:249
+#: ../htmlbar_gui.c:282
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ü"
 
-#: ../htmlbar_gui.c:250
+#: ../htmlbar_gui.c:283
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ý"
 
-#: ../htmlbar_gui.c:251
+#: ../htmlbar_gui.c:284
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/ÿ"
 
-#: ../htmlbar_gui.c:252
-msgid "/Tags/Special/Accent/separator"
-msgstr "/标签(T)/特殊(S)/音标(A)/Separator"
-
-#: ../htmlbar_gui.c:253
+#: ../htmlbar_gui.c:286
 msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "/标签(T)/特殊(S)/音标(A)/¨(_M)"
 
-#: ../htmlbar_gui.c:254
+#: ../htmlbar_gui.c:287
 msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "/标签(T)/特殊(S)/音标(A)/´(_A)"
 
-#: ../htmlbar_gui.c:255
+#: ../htmlbar_gui.c:288
 msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "/标签(T)/特殊(S)/音标(A)/¸(_C)"
 
-#: ../htmlbar_gui.c:256
+#: ../htmlbar_gui.c:289
 msgid "/Tags/Special/_Currency"
 msgstr "/标签(T)/特殊(S)/货币(_C)"
 
-#: ../htmlbar_gui.c:257
-msgid "/Tags/Special/Currency/tearoff1"
-msgstr "/标签(T)/特殊(S)/货币(C)/tearoff1"
-
-#: ../htmlbar_gui.c:258
+#: ../htmlbar_gui.c:291
 msgid "/Tags/Special/Currency/_Cent sign ¢"
 msgstr "/标签(T)/特殊(S)/货币(C)/¢(_C)"
 
-#: ../htmlbar_gui.c:259
+#: ../htmlbar_gui.c:292
 msgid "/Tags/Special/Currency/_Pound sterling £"
 msgstr "/标签(T)/特殊(S)/货币(C)/£(_P)"
 
-#: ../htmlbar_gui.c:260
+#: ../htmlbar_gui.c:293
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
 msgstr "/标签(T)/特殊(S)/货币(C)/¤(_U)"
 
-#: ../htmlbar_gui.c:261
+#: ../htmlbar_gui.c:294
 msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/标签(T)/特殊(S)/货币(C)/¥(_Y)"
 
-#: ../htmlbar_gui.c:262
+#: ../htmlbar_gui.c:295
 msgid "/Tags/Special/Currency/_Euro "
 msgstr "/标签(T)/特殊(S)/货币(C)/_Euro "
 
-#: ../htmlbar_gui.c:263
+#: ../htmlbar_gui.c:296
 msgid "/Tags/Special/_Math-Science"
 msgstr "/标签(T)/特殊(S)/数学符号(_M)"
 
-#: ../htmlbar_gui.c:264
-msgid "/Tags/Special/Math-Science/tearoff1"
-msgstr "/标签(T)/特殊(S)/数学符号(M)/tearoff1"
-
-#: ../htmlbar_gui.c:265
+#: ../htmlbar_gui.c:298
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
 msgstr "/标签(T)/特殊(S)/数学符号(M)/¬(_N)"
 
-#: ../htmlbar_gui.c:266
+#: ../htmlbar_gui.c:299
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
 msgstr "/标签(T)/特殊(S)/数学符号(M)/×(_M)"
 
-#: ../htmlbar_gui.c:267
+#: ../htmlbar_gui.c:300
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
 msgstr "/标签(T)/特殊(S)/数学符号(M)/÷(_D)"
 
-#: ../htmlbar_gui.c:268
+#: ../htmlbar_gui.c:301
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
 msgstr "/标签(T)/特殊(S)/数学符号(M)/±(_P)"
 
-#: ../htmlbar_gui.c:269
+#: ../htmlbar_gui.c:302
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
 msgstr "/标签(T)/特殊(S)/数学符号(M)/<(_L)"
 
-#: ../htmlbar_gui.c:270
+#: ../htmlbar_gui.c:303
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
 msgstr "/标签(T)/特殊(S)/数学符号(M)/>(_G)"
 
-#: ../htmlbar_gui.c:271
+#: ../htmlbar_gui.c:304
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "/标签(T)/特殊(S)/数学符号(M)/上标 _1 ¹"
 
-#: ../htmlbar_gui.c:272
+#: ../htmlbar_gui.c:305
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "/标签(T)/特殊(S)/数学符号(M)/上标 _2 ²"
 
-#: ../htmlbar_gui.c:273
+#: ../htmlbar_gui.c:306
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "/标签(T)/特殊(S)/数学符号(M)/上标 _3 ³"
 
-#: ../htmlbar_gui.c:274
+#: ../htmlbar_gui.c:307
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
 msgstr "/标签(T)/特殊(S)/数学符号(M)/¼(_Q)"
 
-#: ../htmlbar_gui.c:275
+#: ../htmlbar_gui.c:308
 msgid "/Tags/Special/Math-Science/One _half ½"
 msgstr "/标签(T)/特殊(S)/数学符号(M)/½(_H)"
 
-#: ../htmlbar_gui.c:276
+#: ../htmlbar_gui.c:309
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
 msgstr "/标签(T)/特殊(S)/数学符号(M)/¾(_T)"
 
-#: ../htmlbar_gui.c:277
+#: ../htmlbar_gui.c:310
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
 msgstr "/标签(T)/特殊(S)/数学符号(M)/°(_R)"
 
-#: ../htmlbar_gui.c:278
+#: ../htmlbar_gui.c:311
 msgid "/Tags/Special/_Non Latin"
 msgstr "/标签(T)/特殊(S)/非拉丁(_N)"
 
-#: ../htmlbar_gui.c:279
-msgid "/Tags/Special/Non Latin/tearoff1"
-msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/tearoff1"
-
-#: ../htmlbar_gui.c:280
+#: ../htmlbar_gui.c:313
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/Ð(_E)"
 
-#: ../htmlbar_gui.c:281
+#: ../htmlbar_gui.c:314
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/ Þ(_T)"
 
-#: ../htmlbar_gui.c:282
+#: ../htmlbar_gui.c:315
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/ð(_H)"
 
-#: ../htmlbar_gui.c:283
+#: ../htmlbar_gui.c:316
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/ÿ(_O)"
 
-#: ../htmlbar_gui.c:284
+#: ../htmlbar_gui.c:317
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/ß(_S)"
 
-#: ../htmlbar_gui.c:285
+#: ../htmlbar_gui.c:318
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
 msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/µ(_M)"
 
-#: ../htmlbar_gui.c:286
+#: ../htmlbar_gui.c:319
 msgid "/Tags/Special/_Other"
 msgstr "/标签(T)/特殊(S)/其它(_O)"
 
-#: ../htmlbar_gui.c:287
-msgid "/Tags/Special/Other/tearoff1"
-msgstr "/标签(T)/特殊(S)/其它(O)/tearoff1"
-
-#: ../htmlbar_gui.c:288
+#: ../htmlbar_gui.c:321
 msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "/标签(T)/特殊(S)/其它(O)/不间断空格"
 
-#: ../htmlbar_gui.c:289
+#: ../htmlbar_gui.c:322
 msgid "/Tags/Special/Other/_Section sign §"
 msgstr "/标签(T)/特殊(S)/其它(O)/§(_S)"
 
-#: ../htmlbar_gui.c:290
+#: ../htmlbar_gui.c:323
 msgid "/Tags/Special/Other/_Copyright sign ©"
 msgstr "/标签(T)/特殊(S)/其它(O)/©(_C)"
 
-#: ../htmlbar_gui.c:291
+#: ../htmlbar_gui.c:324
 msgid "/Tags/Special/Other/_Left angle quotes «"
 msgstr "/标签(T)/特殊(S)/其它(O)/«(_L)"
 
-#: ../htmlbar_gui.c:292
+#: ../htmlbar_gui.c:325
 msgid "/Tags/Special/Other/_Right angle quotes »"
 msgstr "/标签(T)/特殊(S)/其它(O)/»(_R)"
 
-#: ../htmlbar_gui.c:293
+#: ../htmlbar_gui.c:326
 msgid "/Tags/Special/Other/Registered _trademark ®"
 msgstr "/标签(T)/特殊(S)/其它(O)/®(_T)"
 
-#: ../htmlbar_gui.c:294
+#: ../htmlbar_gui.c:327
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
 msgstr "/标签(T)/特殊(S)/其它(O)/¡(_E)"
 
-#: ../htmlbar_gui.c:295
+#: ../htmlbar_gui.c:328
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
 msgstr "/标签(T)/特殊(S)/其它(O)/¿(_Q)"
 
-#: ../htmlbar_gui.c:296
+#: ../htmlbar_gui.c:329
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "/标签(T)/特殊(S)/其它(O)/ª(_F)"
 
-#: ../htmlbar_gui.c:297
+#: ../htmlbar_gui.c:330
 msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "/标签(T)/特殊(S)/其它(O)/º(_M)"
 
-#: ../htmlbar_gui.c:298
+#: ../htmlbar_gui.c:331
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
 msgstr "/标签(T)/特殊(S)/其它(O)/¶(_P)"
 
-#: ../htmlbar_gui.c:299
+#: ../htmlbar_gui.c:332
 msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/标签(T)/特殊(S)/其它(O)/¦(_B)"
 
-#: ../htmlbar_gui.c:300
+#: ../htmlbar_gui.c:333
 msgid "/Tags/Special/Other/Soft _hypen -"
 msgstr "/标签(T)/特殊(S)/其它(O)/-(_H)"
 
-#: ../htmlbar_gui.c:301
+#: ../htmlbar_gui.c:334
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
 msgstr "/标签(T)/特殊(S)/其它(O)/¯(_C)"
 
-#: ../htmlbar_gui.c:302
+#: ../htmlbar_gui.c:335
 msgid "/Tags/Special/Other/Middle _dot ·"
 msgstr "/标签(T)/特殊(S)/其它(O)/·(_D)"
 
-#: ../htmlbar_gui.c:303
+#: ../htmlbar_gui.c:336
 msgid "/Tags/_Format by layout"
 msgstr "/标签(T)/布局格式(_F)"
 
-#: ../htmlbar_gui.c:304
-msgid "/Tags/Format by layout/tearoff1"
-msgstr "/标签(T)/布局格式(F)/tearoff1"
-
-#: ../htmlbar_gui.c:305
+#: ../htmlbar_gui.c:338
 msgid "/Tags/Format by layout/_Bold"
 msgstr "/标签(T)/布局格式(F)/粗体(_B)"
 
-#: ../htmlbar_gui.c:306
+#: ../htmlbar_gui.c:339
 msgid "/Tags/Format by layout/_Italic"
 msgstr "/标签(T)/布局格式(F)/斜体(_I)"
 
-#: ../htmlbar_gui.c:307
+#: ../htmlbar_gui.c:340
 msgid "/Tags/Format by layout/_Underline"
 msgstr "/标签(T)/布局格式(F)/下划线(_U)"
 
-#: ../htmlbar_gui.c:308
+#: ../htmlbar_gui.c:341
 msgid "/Tags/Format by layout/_Strikeout"
 msgstr "/标签(T)/布局格式(F)/删除线(_S)"
 
-#: ../htmlbar_gui.c:309
+#: ../htmlbar_gui.c:342
 msgid "/Tags/Format by layout/Sm_all"
 msgstr "/标签(T)/布局格式(F)/斜体(_A)"
 
-#: ../htmlbar_gui.c:310
+#: ../htmlbar_gui.c:343
 msgid "/Tags/Format by layout/Bi_g"
 msgstr "/标签(T)/布局格式(_G)"
 
-#: ../htmlbar_gui.c:311
+#: ../htmlbar_gui.c:344
 msgid "/Tags/F_ormat by context"
 msgstr "/标签(T)/环境格式(_O)"
 
-#: ../htmlbar_gui.c:312
-msgid "/Tags/Format by context/tearoff1"
-msgstr "/标签(T)/环境格式(O)/tearoff1"
-
-#: ../htmlbar_gui.c:313
+#: ../htmlbar_gui.c:346
 msgid "/Tags/Format by context/_Strong"
 msgstr "/标签(T)/环境格式(O)/强壮(_S)"
 
-#: ../htmlbar_gui.c:314
+#: ../htmlbar_gui.c:347
 msgid "/Tags/Format by context/_Emphasis"
 msgstr "/标签(T)/环境格式(O)/强调(_E)"
 
-#: ../htmlbar_gui.c:315
+#: ../htmlbar_gui.c:348
 msgid "/Tags/Format by context/_Define"
 msgstr "/标签(T)/环境格式(O)/定义(_D)"
 
-#: ../htmlbar_gui.c:316
+#: ../htmlbar_gui.c:349
 msgid "/Tags/Format by context/_Code"
 msgstr "/标签(T)/环境格式(O)/代码(_C)"
 
-#: ../htmlbar_gui.c:317
+#: ../htmlbar_gui.c:350
 msgid "/Tags/Format by context/Sa_mple"
 msgstr "/标签(T)/环境格式(O)/例子(_M)"
 
-#: ../htmlbar_gui.c:318
+#: ../htmlbar_gui.c:351
 msgid "/Tags/Format by context/_Keyboard"
 msgstr "/标签(T)/环境格式(O)/键盘(_K)"
 
-#: ../htmlbar_gui.c:319
+#: ../htmlbar_gui.c:352
 msgid "/Tags/Format by context/_Variable"
 msgstr "/标签(T)/环境格式(O)/变量(_V)"
 
-#: ../htmlbar_gui.c:320
+#: ../htmlbar_gui.c:353
 msgid "/Tags/Format by context/Ci_tation"
 msgstr "/标签(T)/环境格式(O)/引用(_T)"
 
-#: ../htmlbar_gui.c:321
+#: ../htmlbar_gui.c:354
 msgid "/Tags/Format by context/_Abbreviation"
 msgstr "/标签(T)/环境格式(O)/缩写(_A)"
 
-#: ../htmlbar_gui.c:322
+#: ../htmlbar_gui.c:355
 msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/标签(T)/环境格式(O)/字头(_R)"
 
-#: ../htmlbar_gui.c:323
+#: ../htmlbar_gui.c:356
 msgid "/Tags/Format _general"
 msgstr "/标签(T)/常规格式(_G)"
 
-#: ../htmlbar_gui.c:324
-msgid "/Tags/Format general/tearoff1"
-msgstr "/标签(T)/常规格式(G)/tearoff1"
-
-#: ../htmlbar_gui.c:325
+#: ../htmlbar_gui.c:358
 msgid "/Tags/Format general/_Paragraph"
 msgstr "/标签(T)/常规格式(G)/段落(_P)"
 
-#: ../htmlbar_gui.c:326
+#: ../htmlbar_gui.c:359
 msgid "/Tags/Format general/_Break"
 msgstr "/标签(T)/常规格式(G)/换行(_B)"
 
-#: ../htmlbar_gui.c:327
+#: ../htmlbar_gui.c:360
 msgid "/Tags/Format general/Break clear _all"
 msgstr "/标签(T)/常规格式(G)/换行回车(_A)"
 
-#: ../htmlbar_gui.c:328
+#: ../htmlbar_gui.c:361
 msgid "/Tags/Format general/_Non-Breaking Space"
 msgstr "/标签(T)/常规格式(G)/不间断空格(_N)"
 
-#: ../htmlbar_gui.c:329 ../htmlbar_gui.c:332 ../htmlbar_gui.c:336
-msgid "/Tags/Format general/<separator>"
-msgstr "/标签(T)/常规格式(G)/<separator>"
-
-#: ../htmlbar_gui.c:330
+#: ../htmlbar_gui.c:363
 msgid "/Tags/Format general/Font Si_ze +1"
 msgstr "/标签(T)/常规格式(G)/字体尺寸 +1"
 
-#: ../htmlbar_gui.c:331
+#: ../htmlbar_gui.c:364
 msgid "/Tags/Format general/Font _Size -1"
 msgstr "/标签(T)/常规格式(G)/字体尺寸 -1"
 
-#: ../htmlbar_gui.c:333
+#: ../htmlbar_gui.c:366
 msgid "/Tags/Format general/Preformatted _Text"
 msgstr "/标签(T)/常规格式(G)/预格式化文本(_T)"
 
-#: ../htmlbar_gui.c:334
+#: ../htmlbar_gui.c:367
 msgid "/Tags/Format general/Su_bscript"
 msgstr "/标签(T)/常规格式(G)/下标(_B)"
 
-#: ../htmlbar_gui.c:335
+#: ../htmlbar_gui.c:368
 msgid "/Tags/Format general/Su_perscript"
 msgstr "/标签(T)/常规格式(G)/上标(_P)"
 
-#: ../htmlbar_gui.c:337
+#: ../htmlbar_gui.c:370
 msgid "/Tags/Format general/_Center"
 msgstr "/标签(T)/常规格式(G)/居中(_C)"
 
-#: ../htmlbar_gui.c:338
+#: ../htmlbar_gui.c:371
 msgid "/Tags/Format general/Align _right"
 msgstr "/标签(T)/常规格式(G)/右对齐(_R)"
 
-#: ../htmlbar_gui.c:339
+#: ../htmlbar_gui.c:372
 msgid "/Tags/_Table"
 msgstr "/标签(T)/表格(_T)"
 
-#: ../htmlbar_gui.c:340
-msgid "/Tags/Table/tearoff1"
-msgstr "/标签(T)/表格(T)/tearoff1"
-
-#: ../htmlbar_gui.c:341
+#: ../htmlbar_gui.c:374
 msgid "/Tags/Table/_Table"
 msgstr "/标签(T)/表格(T)/表格(_T)"
 
-#: ../htmlbar_gui.c:342
+#: ../htmlbar_gui.c:375
 msgid "/Tags/Table/Table _Row"
 msgstr "/标签(T)/表格(T)/表格行(_R)"
 
-#: ../htmlbar_gui.c:343
+#: ../htmlbar_gui.c:376
 msgid "/Tags/Table/Table _Header"
 msgstr "/标签(T)/表格(T)/表格头(_H)"
 
-#: ../htmlbar_gui.c:344
+#: ../htmlbar_gui.c:377
 msgid "/Tags/Table/Table _Data"
 msgstr "/标签(T)/表格(T)/表格数据(_D)"
 
-#: ../htmlbar_gui.c:345
+#: ../htmlbar_gui.c:378
 msgid "/Tags/Table/Table _Caption"
 msgstr "/标签(T)/表格(T)/表格标题(_C)"
 
-#: ../htmlbar_gui.c:346
+#: ../htmlbar_gui.c:379
 msgid "/Tags/_List"
 msgstr "/标签(T)/列表(_L)"
 
-#: ../htmlbar_gui.c:347
-msgid "/Tags/List/tearoff1"
-msgstr "/标签(T)/列表(L)/tearoff1"
-
-#: ../htmlbar_gui.c:348
+#: ../htmlbar_gui.c:381
 msgid "/Tags/List/Unordered _List"
 msgstr "/标签(T)/列表(L)/无序列表(_L)"
 
-#: ../htmlbar_gui.c:349
+#: ../htmlbar_gui.c:382
 msgid "/Tags/List/_Ordered List"
 msgstr "/标签(T)/列表(L)/有序列表(_O)"
 
-#: ../htmlbar_gui.c:350
+#: ../htmlbar_gui.c:383
 msgid "/Tags/List/List Ite_m"
 msgstr "/标签(T)/列表(L)/列表项(_M)"
 
-#: ../htmlbar_gui.c:351
+#: ../htmlbar_gui.c:384
 msgid "/Tags/List/De_finition List"
 msgstr "/标签(T)/列表(L)/定义列表(_F)"
 
-#: ../htmlbar_gui.c:352
+#: ../htmlbar_gui.c:385
 msgid "/Tags/List/Definition _Term"
 msgstr "/标签(T)/列表(L)/定义术语(_T)"
 
-#: ../htmlbar_gui.c:353
+#: ../htmlbar_gui.c:386
 msgid "/Tags/List/_Definition"
 msgstr "/标签(T)/列表(L)/定义(_D)"
 
-#: ../htmlbar_gui.c:354
+#: ../htmlbar_gui.c:387
 msgid "/Tags/List/Men_u"
 msgstr "/标签(T)/列表(L)/菜单(_U)"
 
-#: ../htmlbar_gui.c:355
+#: ../htmlbar_gui.c:388
 msgid "/Tags/Fo_rm"
 msgstr "/标签(T)/表单(_R)"
 
-#: ../htmlbar_gui.c:356
-msgid "/Tags/Form/tearoff1"
-msgstr "/标签(T)/表单(R)/tearoff1"
-
-#: ../htmlbar_gui.c:357
+#: ../htmlbar_gui.c:390
 msgid "/Tags/Form/_Form"
 msgstr "/标签(T)/表单(R)/表单(_F)"
 
-#: ../htmlbar_gui.c:358
+#: ../htmlbar_gui.c:391
 msgid "/Tags/Form/_Button"
 msgstr "/标签(T)/表单(R)/按钮(_B)"
 
-#: ../htmlbar_gui.c:359
+#: ../htmlbar_gui.c:392
 msgid "/Tags/Form/_Input"
 msgstr "/标签(T)/表单(R)/输入(_I)"
 
-#: ../htmlbar_gui.c:360
+#: ../htmlbar_gui.c:393
 msgid "/Tags/Form/_Textarea"
 msgstr "/标签(T)/表单(R)/文本框(_T)"
 
-#: ../htmlbar_gui.c:361
+#: ../htmlbar_gui.c:394
 msgid "/Tags/_Misc"
 msgstr "/标签(T)/其他(_M)"
 
-#: ../htmlbar_gui.c:362
-msgid "/Tags/Misc/tearoff1"
-msgstr "/标签(T)/其他(M)/tearoff1"
-
-#: ../htmlbar_gui.c:363
+#: ../htmlbar_gui.c:396
 msgid "/Tags/Misc/Insert Generator _META-Tag"
 msgstr "/标签(T)/其他(M)/插入 _META 标签"
 
-#: ../htmlbar_gui.c:364
+#: ../htmlbar_gui.c:397
 msgid "/Tags/Misc/_Span"
 msgstr "/标签(T)/其他(M)/_Span"
 
-#: ../htmlbar_gui.c:365
+#: ../htmlbar_gui.c:398
 msgid "/Tags/Misc/_Div"
 msgstr "/标签(T)/其他(M)/_Div"
 
-#: ../htmlbar_gui.c:366
+#: ../htmlbar_gui.c:399
 msgid "/Tags/Misc/_Link"
 msgstr "/标签(T)/其他(M)/链接(_L)"
 
-#: ../htmlbar_gui.c:367
+#: ../htmlbar_gui.c:400
 msgid "/Tags/Misc/S_cript"
 msgstr "/标签(T)/其他(M)/S_cript"
 
-#: ../htmlbar_gui.c:368
+#: ../htmlbar_gui.c:401
 msgid "/Tags/Misc/_Anchor"
 msgstr "/标签(T)/其他(M)/锚点(_A)"
 
-#: ../htmlbar_gui.c:369
+#: ../htmlbar_gui.c:402
 msgid "/Tags/Misc/_Image"
 msgstr "/标签(T)/其他(M)/图像(_I)"
 
-#: ../htmlbar_gui.c:370
+#: ../htmlbar_gui.c:403
 msgid "/Tags/_Comment"
 msgstr "/标签(T)/注释(_C)"
 
-#: ../htmlbar_gui.c:371
+#: ../htmlbar_gui.c:404
 msgid "/Dial_ogs"
 msgstr "/对话(_O)"
 
-#: ../htmlbar_gui.c:372
-msgid "/Dialogs/tearoff1"
-msgstr "/对话(O)/tearoff1"
-
-#: ../htmlbar_gui.c:373
+#: ../htmlbar_gui.c:406
 msgid "/Dialogs/_General"
 msgstr "/对话(O)/常规(_G)"
 
-#: ../htmlbar_gui.c:374
-msgid "/Dialogs/General/tearoff1"
-msgstr "/对话(O)/常规(G)/tearoff1"
-
-#: ../htmlbar_gui.c:375
+#: ../htmlbar_gui.c:408
 msgid "/Dialogs/General/_Quickstart..."
 msgstr "/对话(O)/常规(G)/快速启动(_Q)..."
 
-#: ../htmlbar_gui.c:376
+#: ../htmlbar_gui.c:409
+#, fuzzy
+msgid "/Dialogs/General/_Link Header..."
+msgstr "/对话(O)/常规(G)/_Meta..."
+
+#: ../htmlbar_gui.c:410
 msgid "/Dialogs/General/_Body..."
 msgstr "/对话(O)/常规(G)/主体(_B)..."
 
-#: ../htmlbar_gui.c:377
+#: ../htmlbar_gui.c:411
 msgid "/Dialogs/General/_Anchor..."
 msgstr "/对话(O)/常规(G)/锚点(_A)..."
 
-#: ../htmlbar_gui.c:378
+#: ../htmlbar_gui.c:412
 msgid "/Dialogs/General/_Email..."
 msgstr "/对话(O)/常规(G)/电子邮件(_E)..."
 
-#: ../htmlbar_gui.c:379
+#: ../htmlbar_gui.c:413
 msgid "/Dialogs/General/_Rule..."
 msgstr "/对话(O)/常规(G)/横线(_R)..."
 
-#: ../htmlbar_gui.c:380
+#: ../htmlbar_gui.c:414
 msgid "/Dialogs/General/_Font..."
 msgstr "/对话(O)/常规(G)/字体(_F)..."
 
-#: ../htmlbar_gui.c:381
+#: ../htmlbar_gui.c:415
 msgid "/Dialogs/General/Basef_ont..."
 msgstr "/对话(O)/常规(G)/基础字体(_O).."
 
-#: ../htmlbar_gui.c:382
+#: ../htmlbar_gui.c:416
 msgid "/Dialogs/General/Quick_list..."
 msgstr "/对话(O)/常规(G)/快速列表(_L)..."
 
-#: ../htmlbar_gui.c:383
+#: ../htmlbar_gui.c:417
 msgid "/Dialogs/General/_Meta..."
 msgstr "/对话(O)/常规(G)/_Meta..."
 
-#: ../htmlbar_gui.c:384
+#: ../htmlbar_gui.c:418
 msgid "/Dialogs/General/Embe_d..."
 msgstr "/对话(O)/常规(G)/嵌入(_D)..."
 
-#: ../htmlbar_gui.c:385
+#: ../htmlbar_gui.c:419
 msgid "/Dialogs/General/Select _Color..."
 msgstr "/对话(O)/常规(G)/选择颜色(_C)..."
 
-#: ../htmlbar_gui.c:386
+#: ../htmlbar_gui.c:420
 msgid "/Dialogs/General/Insert _Time..."
 msgstr "/对话(O)/常规(G)/插入时间(_T)..."
 
-#: ../htmlbar_gui.c:387
+#: ../htmlbar_gui.c:421
 msgid "/Dialogs/General/Insert _Image..."
 msgstr "/对话(O)/常规(G)/插入图像(_I)..."
 
-#: ../htmlbar_gui.c:388
+#: ../htmlbar_gui.c:422
 msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "/对话(O)/常规(G)/插入相册(_H)..."
 
-#: ../htmlbar_gui.c:389
+#: ../htmlbar_gui.c:423
 msgid "/Dialogs/_Table"
 msgstr "/对话(O)/表格(_T)"
 
-#: ../htmlbar_gui.c:390
-msgid "/Dialogs/Table/tearoff1"
-msgstr "/对话(O)/表格(T)/tearoff1"
-
-#: ../htmlbar_gui.c:391
+#: ../htmlbar_gui.c:425
 msgid "/Dialogs/Table/Table _Wizard..."
 msgstr "/对话(O)/表格(T)/表格向导(_W)..."
 
-#: ../htmlbar_gui.c:392
+#: ../htmlbar_gui.c:426
 msgid "/Dialogs/Table/_Table..."
 msgstr "/对话(O)/表格(T)/表格(_T)..."
 
-#: ../htmlbar_gui.c:393
+#: ../htmlbar_gui.c:427
 msgid "/Dialogs/Table/Table _Row..."
 msgstr "/对话(O)/表格(T)/表格行(_R)..."
 
-#: ../htmlbar_gui.c:394
+#: ../htmlbar_gui.c:428
 msgid "/Dialogs/Table/Table _Head..."
 msgstr "/对话(O)/表格(T)/表格头(_H)..."
 
-#: ../htmlbar_gui.c:395
+#: ../htmlbar_gui.c:429
 msgid "/Dialogs/Table/Table _Data..."
 msgstr "/对话(O)/表格(T)/表格数据(_D)..."
 
-#: ../htmlbar_gui.c:396
+#: ../htmlbar_gui.c:430
 msgid "/Dialogs/_CSS"
 msgstr "/对话(O)/_CSS"
 
-#: ../htmlbar_gui.c:397
-msgid "/Dialogs/CSS/tearoff1"
-msgstr "对话框/CSS/tearoff1"
-
-#: ../htmlbar_gui.c:398
+#: ../htmlbar_gui.c:432
 msgid "/Dialogs/CSS/_Create Style..."
 msgstr "/对话(O)/CSS/创建样式表(_C)..."
 
-#: ../htmlbar_gui.c:399
+#: ../htmlbar_gui.c:433
 msgid "/Dialogs/CSS/S_pan..."
 msgstr "/对话(O)/CSS/S_pan..."
 
-#: ../htmlbar_gui.c:400
+#: ../htmlbar_gui.c:434
 msgid "/Dialogs/CSS/_Div..."
 msgstr "/对话(O)/CSS/_Div..."
 
-#: ../htmlbar_gui.c:401
+#: ../htmlbar_gui.c:435
 msgid "/Dialogs/CSS/_Style..."
 msgstr "/对话(O)/CSS/样式(_S)..."
 
-#: ../htmlbar_gui.c:402
+#: ../htmlbar_gui.c:436
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
 msgstr "/对话(O)/CSS/链结到样式表(_L)..."
 
-#: ../htmlbar_gui.c:403
+#: ../htmlbar_gui.c:437
 msgid "/Dialogs/_Frame"
 msgstr "/对话(O)/框架(_F)"
 
-#: ../htmlbar_gui.c:404
-msgid "/Dialogs/Frame/tearoff1"
-msgstr "/对话(O)/框架(F)/tearoff1"
-
-#: ../htmlbar_gui.c:405
+#: ../htmlbar_gui.c:439
 msgid "/Dialogs/Frame/Frame _Wizard..."
 msgstr "/对话(O)/框架(F)/框架向导(_W)..."
 
-#: ../htmlbar_gui.c:406
+#: ../htmlbar_gui.c:440
 msgid "/Dialogs/Frame/Frame_set..."
 msgstr "/对话(O)/框架(F)/框架集(_S)..."
 
-#: ../htmlbar_gui.c:407
+#: ../htmlbar_gui.c:441
 msgid "/Dialogs/Frame/_Frame..."
 msgstr "/对话(O)/框架(F)/框架(_F)..."
 
-#: ../htmlbar_gui.c:408
+#: ../htmlbar_gui.c:442
 msgid "/Dialogs/F_orm"
 msgstr "/对话(O)/表单(_O)"
 
-#: ../htmlbar_gui.c:409
-msgid "/Dialogs/Form/tearoff1"
-msgstr "/对话(O)/表单(O)/tearoff1"
-
-#: ../htmlbar_gui.c:410
+#: ../htmlbar_gui.c:444
 msgid "/Dialogs/Form/F_orm..."
 msgstr "/对话(O)/表单(O)/表单(_O)..."
 
-#: ../htmlbar_gui.c:411
+#: ../htmlbar_gui.c:445
 msgid "/Dialogs/Form/_Input..."
 msgstr "/对话(O)/表单(O)/输入(_I)..."
 
-#: ../htmlbar_gui.c:412
+#: ../htmlbar_gui.c:446
 msgid "/Dialogs/Form/Input Buttons..."
 msgstr "/对话(O)/表单(O)/输入按钮..."
 
-#: ../htmlbar_gui.c:413
+#: ../htmlbar_gui.c:447
 msgid "/Dialogs/Form/Input Text..."
 msgstr "/对话(O)/表单(O)/输入文本..."
 
-#: ../htmlbar_gui.c:414
+#: ../htmlbar_gui.c:448
 msgid "/Dialogs/Form/Text_area..."
 msgstr "/对话(O)/表单(O)/文本框(_A)..."
 
-#: ../htmlbar_gui.c:415
+#: ../htmlbar_gui.c:449
 msgid "/Dialogs/Form/_Select..."
 msgstr "/对话(O)/表单(O)/选择(_S)..."
 
-#: ../htmlbar_gui.c:416
+#: ../htmlbar_gui.c:450
 msgid "/Dialogs/Form/O_ption..."
 msgstr "/对话(O)/表单(O)/选项(_O)..."
 
-#: ../htmlbar_gui.c:417
+#: ../htmlbar_gui.c:451
 msgid "/Dialogs/Form/Option _Group..."
 msgstr "/对话(O)/表单(O)/选项组(_G)..."
 
-#: ../htmlbar_gui.c:418
+#: ../htmlbar_gui.c:452
 msgid "/Dialogs/Form/_Button..."
 msgstr "/对话(O)/表单(O)/按钮(_B)..."
 
-#: ../htmlbar_gui.c:419
-msgid "/Dialogs/sep1"
-msgstr "/对话(O)/sep1"
-
-#: ../htmlbar_gui.c:420
+#: ../htmlbar_gui.c:454
 msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/对话(O)/编辑光标处的标签(_E)..."
 
-#: ../htmlbar_gui.c:423
+#: ../htmlbar_gui.c:457
 #, fuzzy
 msgid "/View/View _HTML Toolbar"
 msgstr "/查看(V)/查看主工具栏(_M)"
 
-#: ../htmlbar_gui.c:692
+#: ../htmlbar_gui.c:731
 msgid "QuickStart..."
 msgstr "快速启动..."
 
-#: ../htmlbar_gui.c:693
+#: ../htmlbar_gui.c:732
 msgid "Body..."
 msgstr "主体..."
 
-#: ../htmlbar_gui.c:694
+#: ../htmlbar_gui.c:733
 msgid "Bold"
 msgstr "粗体"
 
-#: ../htmlbar_gui.c:695
+#: ../htmlbar_gui.c:734
 msgid "Italic"
 msgstr "斜体"
 
-#: ../htmlbar_gui.c:696 ../html.c:779
+#: ../htmlbar_gui.c:735 ../html.c:781
 msgid "Paragraph"
 msgstr "段落"
 
-#: ../htmlbar_gui.c:697
+#: ../htmlbar_gui.c:736
 msgid "Break"
 msgstr "换行"
 
-#: ../htmlbar_gui.c:698
+#: ../htmlbar_gui.c:737
 msgid "Break and clear"
 msgstr "换行回车"
 
-#: ../htmlbar_gui.c:699
+#: ../htmlbar_gui.c:738
 msgid "Non-breaking space"
 msgstr "不间断空格"
 
-#: ../htmlbar_gui.c:701
+#: ../htmlbar_gui.c:740
 msgid "Anchor..."
 msgstr "锚点..."
 
-#: ../htmlbar_gui.c:702
+#: ../htmlbar_gui.c:741
 msgid "Rule..."
 msgstr "横线..."
 
-#: ../htmlbar_gui.c:703
+#: ../htmlbar_gui.c:742
 msgid "Center"
 msgstr "居中"
 
-#: ../htmlbar_gui.c:704
+#: ../htmlbar_gui.c:743
 msgid "Right Justify"
 msgstr "右对齐"
 
-#: ../htmlbar_gui.c:705
+#: ../htmlbar_gui.c:744
 msgid "Comment"
 msgstr "注释"
 
-#: ../htmlbar_gui.c:706
-msgid "E-Mail..."
+#: ../htmlbar_gui.c:745
+#, fuzzy
+msgid "E-mail..."
 msgstr "电子邮件..."
 
-#: ../htmlbar_gui.c:707
+#: ../htmlbar_gui.c:746
 msgid "Font..."
 msgstr "字体..."
 
-#: ../htmlbar_gui.c:708
+#: ../htmlbar_gui.c:747
 msgid "Base Font Size..."
 msgstr "基础字体尺寸..."
 
-#: ../htmlbar_gui.c:710
+#: ../htmlbar_gui.c:749
 msgid "Font Size +1"
 msgstr "字体尺寸 +1"
 
-#: ../htmlbar_gui.c:711
+#: ../htmlbar_gui.c:750
 msgid "Font Size -1"
 msgstr "字体尺寸 -1"
 
-#: ../htmlbar_gui.c:712
+#: ../htmlbar_gui.c:751
 msgid "Preformatted Text"
 msgstr "预格式化文本"
 
-#: ../htmlbar_gui.c:713
+#: ../htmlbar_gui.c:752
 msgid "Subscript"
 msgstr "下标"
 
-#: ../htmlbar_gui.c:714
+#: ../htmlbar_gui.c:753
 msgid "Superscript"
 msgstr "上标"
 
-#: ../htmlbar_gui.c:715
+#: ../htmlbar_gui.c:754
 msgid "Strong"
 msgstr "强壮"
 
-#: ../htmlbar_gui.c:716
+#: ../htmlbar_gui.c:755
 msgid "Emphasis"
 msgstr "强调"
 
-#: ../htmlbar_gui.c:718 ../html.c:788
+#: ../htmlbar_gui.c:757 ../html.c:790
 msgid "Heading 1"
 msgstr "标题 1"
 
-#: ../htmlbar_gui.c:719 ../html.c:791
+#: ../htmlbar_gui.c:758 ../html.c:793
 msgid "Heading 2"
 msgstr "标题 2"
 
-#: ../htmlbar_gui.c:720 ../html.c:794
+#: ../htmlbar_gui.c:759 ../html.c:796
 msgid "Heading 3"
 msgstr "标题 3"
 
-#: ../htmlbar_gui.c:721 ../html.c:797
+#: ../htmlbar_gui.c:760 ../html.c:799
 msgid "Heading 4"
 msgstr "标题 4"
 
-#: ../htmlbar_gui.c:722 ../html.c:800
+#: ../htmlbar_gui.c:761 ../html.c:802
 msgid "Heading 5"
 msgstr "标题 5"
 
-#: ../htmlbar_gui.c:723 ../html.c:803
+#: ../htmlbar_gui.c:762 ../html.c:805
 msgid "Heading 6"
 msgstr "标题 6"
 
-#: ../htmlbar_gui.c:724
+#: ../htmlbar_gui.c:763
 msgid "Table Wizard..."
 msgstr "表格向导..."
 
-#: ../htmlbar_gui.c:726
+#: ../htmlbar_gui.c:765
 msgid "Table..."
 msgstr "表格..."
 
-#: ../htmlbar_gui.c:727
+#: ../htmlbar_gui.c:766
 msgid "Table Row..."
 msgstr "表格行..."
 
-#: ../htmlbar_gui.c:728
+#: ../htmlbar_gui.c:767
 msgid "Table Header..."
 msgstr "表格头..."
 
-#: ../htmlbar_gui.c:729
+#: ../htmlbar_gui.c:768
 msgid "Table Data..."
 msgstr "表格数据..."
 
-#: ../htmlbar_gui.c:731 ../html_table.c:78
+#: ../htmlbar_gui.c:770 ../html_table.c:77
 msgid "Table"
 msgstr "表格"
 
-#: ../htmlbar_gui.c:732 ../html_table.c:210
+#: ../htmlbar_gui.c:771 ../html_table.c:209
 msgid "Table Row"
 msgstr "表格行"
 
-#: ../htmlbar_gui.c:733 ../html_table.c:321
+#: ../htmlbar_gui.c:772 ../html_table.c:320
 msgid "Table Header"
 msgstr "表格头"
 
-#: ../htmlbar_gui.c:734 ../html_table.c:319
+#: ../htmlbar_gui.c:773 ../html_table.c:318
 msgid "Table Data"
 msgstr "表格数据"
 
-#: ../htmlbar_gui.c:735
+#: ../htmlbar_gui.c:774
 msgid "Table Caption"
 msgstr "表格标题"
 
-#: ../htmlbar_gui.c:736
+#: ../htmlbar_gui.c:775
 msgid "Frame Wizard..."
 msgstr "框架向导..."
 
-#: ../htmlbar_gui.c:738
+#: ../htmlbar_gui.c:777
 msgid "Frameset..."
 msgstr "框架嵌套..."
 
-#: ../htmlbar_gui.c:739
+#: ../htmlbar_gui.c:778
 msgid "Frame..."
 msgstr "框架..."
 
-#: ../htmlbar_gui.c:741 ../html.c:1536
+#: ../htmlbar_gui.c:780 ../html.c:1590
 msgid "Frameset"
 msgstr "框架嵌套"
 
-#: ../htmlbar_gui.c:742 ../html.c:1620
+#: ../htmlbar_gui.c:781 ../html.c:1674
 msgid "Frame"
 msgstr "框架"
 
-#: ../htmlbar_gui.c:743
+#: ../htmlbar_gui.c:782
 msgid "Noframes"
 msgstr "没有框架"
 
-#: ../htmlbar_gui.c:744
+#: ../htmlbar_gui.c:783
 msgid "Target"
 msgstr "目标"
 
-#: ../htmlbar_gui.c:745
+#: ../htmlbar_gui.c:784
 msgid "Form..."
 msgstr "表单..."
 
-#: ../htmlbar_gui.c:746
+#: ../htmlbar_gui.c:785
 msgid "Input Button..."
 msgstr "输入按钮..."
 
-#: ../htmlbar_gui.c:747
+#: ../htmlbar_gui.c:786
 msgid "Input Text..."
 msgstr "输入文字..."
 
-#: ../htmlbar_gui.c:748
+#: ../htmlbar_gui.c:787
 msgid "Input Hidden..."
 msgstr "隐藏输入..."
 
-#: ../htmlbar_gui.c:749
+#: ../htmlbar_gui.c:788
 msgid "Textarea..."
 msgstr "文本域..."
 
-#: ../htmlbar_gui.c:750
+#: ../htmlbar_gui.c:789
 msgid "Input Radio Button..."
 msgstr "输入单选钮..."
 
-#: ../htmlbar_gui.c:751
+#: ../htmlbar_gui.c:790
 msgid "Input Check Box..."
 msgstr "输入复选框..."
 
-#: ../htmlbar_gui.c:752
+#: ../htmlbar_gui.c:791
 msgid "Select..."
 msgstr "选择..."
 
-#: ../htmlbar_gui.c:753
+#: ../htmlbar_gui.c:792
 msgid "Option..."
 msgstr "选项..."
 
-#: ../htmlbar_gui.c:754
+#: ../htmlbar_gui.c:793
 msgid "Option group..."
 msgstr "选项组..."
 
-#: ../htmlbar_gui.c:755
+#: ../htmlbar_gui.c:794
 msgid "Button..."
 msgstr "按钮..."
 
-#: ../htmlbar_gui.c:756
+#: ../htmlbar_gui.c:795
 msgid "Quick List..."
 msgstr "快速列表..."
 
-#: ../htmlbar_gui.c:757
+#: ../htmlbar_gui.c:796
 msgid "Unordered List"
 msgstr "无序列表"
 
-#: ../htmlbar_gui.c:758
+#: ../htmlbar_gui.c:797
 msgid "Ordered List"
 msgstr "有序列表"
 
-#: ../htmlbar_gui.c:759
+#: ../htmlbar_gui.c:798
 msgid "List Item"
 msgstr "列表项"
 
-#: ../htmlbar_gui.c:760
+#: ../htmlbar_gui.c:799
 msgid "Definition List"
 msgstr "定义列表"
 
-#: ../htmlbar_gui.c:761
+#: ../htmlbar_gui.c:800
 msgid "Definition Term"
 msgstr "定义术语"
 
-#: ../htmlbar_gui.c:762 ../htmlbar_gui.c:771
+#: ../htmlbar_gui.c:801 ../htmlbar_gui.c:810
 msgid "Definition"
 msgstr "定义"
 
-#: ../htmlbar_gui.c:763
+#: ../htmlbar_gui.c:802
 msgid "Create stylesheet..."
 msgstr "创建样式表..."
 
-#: ../htmlbar_gui.c:764
+#: ../htmlbar_gui.c:803
 msgid "Span..."
 msgstr "Span..."
 
-#: ../htmlbar_gui.c:765
+#: ../htmlbar_gui.c:804
 msgid "Div..."
 msgstr "Div..."
 
-#: ../htmlbar_gui.c:766 ../html_form.c:825
+#: ../htmlbar_gui.c:805 ../html_form.c:825
 msgid "Style"
 msgstr "样式"
 
-#: ../htmlbar_gui.c:767
+#: ../htmlbar_gui.c:806
 msgid "Link to stylesheet..."
 msgstr "链接到样式表..."
 
-#: ../htmlbar_gui.c:768
+#: ../htmlbar_gui.c:807
 msgid "Insert image..."
 msgstr "插入图像..."
 
-#: ../htmlbar_gui.c:769
+#: ../htmlbar_gui.c:808
 msgid "Insert thumbnail..."
 msgstr "插入相册..."
 
-#: ../htmlbar_gui.c:770
+#: ../htmlbar_gui.c:809
 msgid "Multi thumbnail..."
 msgstr "多相册..."
 
-#: ../htmlbar_gui.c:772
+#: ../htmlbar_gui.c:811
 msgid "Code"
 msgstr "代码"
 
-#: ../htmlbar_gui.c:773
+#: ../htmlbar_gui.c:812
 msgid "Sample"
 msgstr "示例"
 
-#: ../htmlbar_gui.c:774
+#: ../htmlbar_gui.c:813
 msgid "Keyboard"
 msgstr "键盘"
 
-#: ../htmlbar_gui.c:775
+#: ../htmlbar_gui.c:814
 msgid "Variable"
 msgstr "变量"
 
-#: ../htmlbar_gui.c:776
+#: ../htmlbar_gui.c:815
 msgid "Citation"
 msgstr "引用"
 
-#: ../htmlbar_gui.c:777
+#: ../htmlbar_gui.c:816
 msgid "Abbreviation"
 msgstr "缩写"
 
-#: ../htmlbar_gui.c:778
+#: ../htmlbar_gui.c:817
 msgid "Acronym"
 msgstr "字头"
 
-#: ../htmlbar_gui.c:898
+#: ../htmlbar_gui.c:937
 msgid "Remove from quickbar"
 msgstr "从快捷栏删除"
 
-#: ../htmlbar_gui.c:899
+#: ../htmlbar_gui.c:938
 msgid "Move Left"
 msgstr "左移"
 
-#: ../htmlbar_gui.c:900
+#: ../htmlbar_gui.c:939
 msgid "Move Right"
 msgstr "右移"
 
-#: ../htmlbar_gui.c:940
+#: ../htmlbar_gui.c:979
 msgid "Add to quickbar"
 msgstr "添加到快捷栏"
 
-#: ../htmlbar_gui.c:1043
+#: ../htmlbar_gui.c:1081
 msgid " Quick bar "
 msgstr " 快捷栏 "
 
-#: ../htmlbar_gui.c:1048
+#: ../htmlbar_gui.c:1086
 msgid "Heading"
 msgstr "标题"
 
-#: ../htmlbar_gui.c:1050
+#: ../htmlbar_gui.c:1088
 msgid " Standard bar "
 msgstr " 标准栏 "
 
-#: ../htmlbar_gui.c:1055
+#: ../htmlbar_gui.c:1093
 msgid "Context formatting"
 msgstr "上下文格式化"
 
-#: ../htmlbar_gui.c:1057
+#: ../htmlbar_gui.c:1095
 msgid " Fonts "
 msgstr " 字体 "
 
-#: ../htmlbar_gui.c:1062
+#: ../htmlbar_gui.c:1100
 msgid " Tables "
 msgstr " 表格 "
 
-#: ../htmlbar_gui.c:1067
+#: ../htmlbar_gui.c:1105
 msgid " Frames "
 msgstr " 框架 "
 
-#: ../htmlbar_gui.c:1072
+#: ../htmlbar_gui.c:1110
 msgid " Forms "
 msgstr " 表单 "
 
-#: ../htmlbar_gui.c:1077
+#: ../htmlbar_gui.c:1115
 msgid " List "
 msgstr " 列表 "
 
-#: ../htmlbar_gui.c:1082
+#: ../htmlbar_gui.c:1120
 msgid " CSS "
 msgstr " CSS "
 
-#: ../html.c:391
+#: ../html.c:389
 msgid "Insert Time"
 msgstr "插入时间"
 
-#: ../html.c:399
+#: ../html.c:397
 #, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr "  时间(_T) (%i:%i:%i)"
 
-#: ../html.c:404
+#: ../html.c:402
 msgid "  Day of the _week (Sunday)"
 msgstr "  星期几(_W) (星期日)"
 
-#: ../html.c:407
+#: ../html.c:405
 msgid "  Day of the _week (Monday)"
 msgstr "  星期几(_W) (星期一)"
 
-#: ../html.c:410
+#: ../html.c:408
 msgid "  Day of the _week (Tuesday)"
 msgstr "  星期几(_W) (星期二)"
 
-#: ../html.c:413
+#: ../html.c:411
 msgid "  Day of the _week (Wednesday)"
 msgstr "  星期几(_W) (星期三)"
 
-#: ../html.c:416
+#: ../html.c:414
 msgid "  Day of the _week (Thursday)"
 msgstr "  星期几(_W) (星期四)"
 
-#: ../html.c:419
+#: ../html.c:417
 msgid "  Day of the _week (Friday)"
 msgstr "  星期几(_W) (星期五)"
 
-#: ../html.c:422
+#: ../html.c:420
 msgid "  Day of the _week (Saturday)"
 msgstr "  星期几(_W) (星期六)"
 
-#: ../html.c:425
+#: ../html.c:423
 msgid "You appear to have a non existant day!\n"
 msgstr "日期不存在！\n"
 
-#: ../html.c:433
+#: ../html.c:431
 #, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr "  日期(_D) (%i/%i/%i)"
 
-#: ../html.c:436
+#: ../html.c:434
 #, c-format
 msgid "  _Unix Time (%i)"
 msgstr "  _Unix 时间 (%i)"
 
-#: ../html.c:441
+#: ../html.c:439
 #, c-format
 msgid "  Unix Date _String (%s"
 msgstr "  Unix 日期字符串(_S) (%s"
 
-#: ../html.c:587
+#: ../html.c:447
+#, c-format
+msgid "  ISO-8601 Ti_me (%s)"
+msgstr ""
+
+#: ../html.c:589
 msgid "Quick Anchor"
 msgstr "锚点"
 
-#: ../html.c:593 ../html_form.c:780
+#: ../html.c:595 ../html_form.c:780
 msgid "Attributes"
 msgstr "属性"
 
-#: ../html.c:607
+#: ../html.c:609 ../html.c:1918
 msgid "_HREF:"
 msgstr "_HREF："
 
-#: ../html.c:611 ../html_form.c:183
+#: ../html.c:613 ../html_form.c:183
 msgid "_Target:"
 msgstr "目标(_T)："
 
-#: ../html.c:615 ../html.c:835 ../html.c:1203 ../html.c:1632
+#: ../html.c:617 ../html.c:837 ../html.c:1212 ../html.c:1686
 #: ../html_form.c:231 ../html_form.c:596 ../html_form.c:795 ../html_form.c:890
-#: ../image.c:413
+#: ../image.c:416
 msgid "_Name:"
 msgstr "名称(_N)："
 
-#: ../html.c:621 ../html.c:1068 ../html.c:1779
+#: ../html.c:623 ../html.c:1070 ../html.c:1241 ../html.c:1833
 msgid "_Language:"
 msgstr "语言(_L)："
 
-#: ../html.c:625 ../html.c:843 ../html.c:977 ../html.c:1072 ../html.c:1227
-#: ../html.c:1568 ../html.c:1669 ../html.c:1798 ../html_form.c:187
+#: ../html.c:627 ../html.c:845 ../html.c:979 ../html.c:1074 ../html.c:1249
+#: ../html.c:1622 ../html.c:1723 ../html.c:1852 ../html_form.c:187
 #: ../html_form.c:243 ../html_form.c:609 ../html_form.c:903
-#: ../html_table.c:102 ../html_table.c:254 ../html_table.c:362 ../image.c:421
+#: ../html_table.c:101 ../html_table.c:253 ../html_table.c:361 ../image.c:424
 msgid "Custo_m:"
 msgstr "自定义(_M)："
 
-#: ../html.c:628 ../html.c:1076 ../html_form.c:829
+#: ../html.c:630 ../html.c:1078 ../html_form.c:829
 msgid "Events"
 msgstr "事件"
 
-#: ../html.c:631
+#: ../html.c:633
 msgid "OnClic_k:"
 msgstr "单击(_K)："
 
-#: ../html.c:635
+#: ../html.c:637
 msgid "OnD_blClick:"
 msgstr "双击(_B)："
 
-#: ../html.c:639
+#: ../html.c:641
 msgid "OnMouseO_ver:"
 msgstr "鼠标经过(_V)："
 
-#: ../html.c:643
+#: ../html.c:645
 msgid "OnMouse_Down:"
 msgstr "鼠标按下(_D)："
 
-#: ../html.c:647
+#: ../html.c:649
 msgid "OnMouse_Move:"
 msgstr "鼠标移动(_M)："
 
-#: ../html.c:651
+#: ../html.c:653
 msgid "OnMouseOu_t:"
 msgstr "鼠标移出(_T)："
 
-#: ../html.c:655
+#: ../html.c:657
 msgid "OnMouse_Up:"
 msgstr "鼠标放开(_U)："
 
-#: ../html.c:659
+#: ../html.c:661
 msgid "OnKeyDo_wn:"
 msgstr "键盘按下(_W)："
 
-#: ../html.c:663
+#: ../html.c:665
 msgid "OnKey_Press:"
 msgstr "键盘击键(_P)："
 
-#: ../html.c:667
+#: ../html.c:669
 msgid "OnKe_yUp:"
 msgstr "键盘放开(_Y)："
 
-#: ../html.c:782
+#: ../html.c:784
 msgid "Div"
 msgstr "Div"
 
-#: ../html.c:785
+#: ../html.c:787
 msgid "Span"
 msgstr "Span"
 
-#: ../html.c:820 ../html_table.c:110 ../html_table.c:220 ../html_table.c:334
+#: ../html.c:822 ../html_table.c:109 ../html_table.c:219 ../html_table.c:333
 msgid "Ali_gn:"
 msgstr "对齐(_G)："
 
-#: ../html.c:824 ../html.c:1060 ../html_diag.c:373 ../html_table.c:92
-#: ../html_table.c:238 ../html_table.c:352
+#: ../html.c:826 ../html.c:1062 ../html_diag.c:373 ../html_table.c:91
+#: ../html_table.c:237 ../html_table.c:351
 msgid "Cl_ass:"
 msgstr "Cl_ass："
 
-#: ../html.c:828 ../html.c:1053 ../html_diag.c:381 ../html_table.c:97
-#: ../html_table.c:249 ../html_table.c:357
+#: ../html.c:830 ../html.c:1055 ../html_diag.c:381 ../html_table.c:96
+#: ../html_table.c:248 ../html_table.c:356
 msgid "St_yle:"
 msgstr "样式(_Y)："
 
-#: ../html.c:839 ../html.c:1064 ../html_diag.c:377
+#: ../html.c:841 ../html.c:1066 ../html_diag.c:377
 msgid "_ID:"
 msgstr "_ID:"
 
-#: ../html.c:940
+#: ../html.c:942
 msgid "Horizontal Rule"
 msgstr "水平线"
 
-#: ../html.c:951 ../html.c:1717 ../image.c:439
+#: ../html.c:953 ../html.c:1771 ../image.c:442
 msgid "_Align:"
 msgstr "对齐(_A)："
 
-#: ../html.c:958 ../html.c:1725 ../html_table.c:388
+#: ../html.c:960 ../html.c:1779 ../html_table.c:387
 msgid "_Height:"
 msgstr "高度(_H)："
 
-#: ../html.c:964 ../html.c:1721 ../html_table.c:135 ../html_table.c:381
-#: ../image.c:397
+#: ../html.c:966 ../html.c:1775 ../html_table.c:134 ../html_table.c:380
+#: ../image.c:400
 msgid "_Width:"
 msgstr "宽度(_W)："
 
-#: ../html.c:967
+#: ../html.c:969
 msgid "Is _percent"
 msgstr "百分比(_P)"
 
-#: ../html.c:972
+#: ../html.c:974
 msgid "No _shading"
 msgstr "无阴影(_S)"
 
-#: ../html.c:1037
+#: ../html.c:1039
 msgid "Body"
 msgstr "主体"
 
-#: ../html.c:1045
+#: ../html.c:1047
 msgid "Options"
 msgstr "选项"
 
-#: ../html.c:1083
+#: ../html.c:1085
 msgid "On_Load:"
 msgstr "载入时(_L)："
 
-#: ../html.c:1091
+#: ../html.c:1093
 msgid "On_UnLoad:"
 msgstr "卸载时(_U)："
 
-#: ../html.c:1100
+#: ../html.c:1102
 msgid "Depreciated options"
 msgstr "弃用的选项"
 
-#: ../html.c:1110
+#: ../html.c:1112
 msgid "Background _Image:"
 msgstr "背景图像(_I)："
 
-#: ../html.c:1117
+#: ../html.c:1119
 msgid "Back_ground Color:"
 msgstr "背景颜色(_G)："
 
-#: ../html.c:1123
+#: ../html.c:1125
 msgid "_Text Color:"
 msgstr "文本颜色(_T)："
 
-#: ../html.c:1129
+#: ../html.c:1131
 msgid "_Link Color:"
 msgstr "链接颜色(_L)："
 
-#: ../html.c:1135
+#: ../html.c:1137
 msgid "_Visited Link Color:"
 msgstr "已访问链接颜色(_V)："
 
-#: ../html.c:1141
+#: ../html.c:1143
 msgid "_Active Link Color:"
 msgstr "激活链接颜色(_A)："
 
-#: ../html.c:1189
+#: ../html.c:1194
 msgid "Meta"
 msgstr "Meta"
 
-#: ../html.c:1214
+#: ../html.c:1232
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV："
 
-#: ../html.c:1219
+#: ../html.c:1237
 msgid "Con_tent:"
 msgstr "Con_tent："
 
-#: ../html.c:1223
+#: ../html.c:1245
 msgid "_Scheme:"
 msgstr "_Scheme："
 
-#: ../html.c:1304
+#: ../html.c:1326
 msgid "Font"
 msgstr "字体"
 
-#: ../html.c:1307
+#: ../html.c:1329
 msgid "Base Font"
 msgstr "基础字体"
 
-#: ../html.c:1322
+#: ../html.c:1344
 msgid "Size"
 msgstr "尺寸"
 
-#: ../html.c:1330
+#: ../html.c:1352
 msgid "Color"
 msgstr "颜色"
 
-#: ../html.c:1335
+#: ../html.c:1357
 msgid "Face"
 msgstr "字体"
 
-#: ../html.c:1339
+#: ../html.c:1361
 msgid "Custom"
 msgstr "自定义"
 
-#: ../html.c:1398
-msgid "Email"
+#: ../html.c:1445
+#, fuzzy
+msgid "E-mail"
 msgstr "电子邮件"
 
-#: ../html.c:1406
-msgid "_Email address:"
-msgstr "电子邮件地址(_E)："
+#: ../html.c:1453
+msgid "_Mail to:"
+msgstr ""
 
-#: ../html.c:1411
-msgid "UrlEncoded _subject:"
-msgstr "UrlEncoded 主题(_S)："
+#: ../html.c:1457
+#, fuzzy
+msgid "_Copy to:"
+msgstr "复制"
 
-#: ../html.c:1415
-msgid "UrlEncoded _body:"
-msgstr "主体内容(_B)："
+#: ../html.c:1461
+msgid "Blin_d copy to:"
+msgstr ""
 
-#: ../html.c:1459
+#: ../html.c:1465
+msgid "with _Subject:"
+msgstr ""
+
+#: ../html.c:1469
+msgid "with _Body:"
+msgstr ""
+
+#: ../html.c:1513
 msgid "Quick List"
 msgstr "快速列表"
 
-#: ../html.c:1464 ../html.c:1546 ../html_form.c:236
+#: ../html.c:1518 ../html.c:1600 ../html_form.c:236
 msgid "_Rows:"
 msgstr "行(_R)："
 
-#: ../html.c:1467
+#: ../html.c:1521
 msgid "Or_dered"
 msgstr "有序(_D)"
 
-#: ../html.c:1468
+#: ../html.c:1522
 msgid "_Unordered"
 msgstr "无序(_U)"
 
-#: ../html.c:1470
+#: ../html.c:1524
 msgid "Style:"
 msgstr "样式："
 
-#: ../html.c:1542 ../html_form.c:240
+#: ../html.c:1596 ../html_form.c:240
 msgid "Co_ls:"
 msgstr "列(_L)："
 
-#: ../html.c:1551
+#: ../html.c:1605
 msgid "_Add <frame> elements"
 msgstr "添加 <frame> 元素(_A)"
 
-#: ../html.c:1628 ../html.c:1713 ../html.c:1772
+#: ../html.c:1682 ../html.c:1767 ../html.c:1826
 msgid "_Source:"
 msgstr "源代码(_S)："
 
-#: ../html.c:1636
+#: ../html.c:1690
 msgid "Margin _Width:"
 msgstr "边距宽度(_W)："
 
-#: ../html.c:1640
+#: ../html.c:1694
 msgid "Margin _Height:"
 msgstr "边距高度(_H)："
 
-#: ../html.c:1648
+#: ../html.c:1702
 msgid "Scrollin_g:"
 msgstr "滚动条(_G)："
 
-#: ../html.c:1652
+#: ../html.c:1706
 msgid "_Frameborder:"
 msgstr "框架边框(_F)："
 
-#: ../html.c:1657
+#: ../html.c:1711
 msgid "No _Resize:"
 msgstr "不改变尺寸(_R)："
 
-#: ../html.c:1707
+#: ../html.c:1761
 msgid "Embed"
 msgstr "嵌入"
 
-#: ../html.c:1729 ../html_table.c:141
+#: ../html.c:1783 ../html_table.c:140
 msgid "Bo_rder:"
 msgstr "边框(_R)："
 
-#: ../html.c:1765
+#: ../html.c:1819
 msgid "Script"
 msgstr "脚本"
 
-#: ../html.c:1794 ../html.c:1861 ../html_form.c:789 ../html_form.c:899
+#: ../html.c:1848 ../html.c:1949 ../html_form.c:789 ../html_form.c:899
 msgid "_Type:"
 msgstr "类型(_T)："
 
-#: ../html.c:1836
+#: ../html.c:1907
 msgid "Link"
 msgstr "颜色"
 
-#: ../html.c:1847
-msgid "_Href:"
-msgstr "_Href："
+#: ../html.c:1924
+#, fuzzy
+msgid "HREF_LANG:"
+msgstr "_HREF："
 
-#: ../html.c:1853
-msgid "Href_lang:"
-msgstr "Href_lang："
+#: ../html.c:1928
+#, fuzzy
+msgid "T_itle:"
+msgstr "标题(_T)："
 
-#: ../html.c:1867
+#: ../html.c:1968
 msgid "_Forward Relation:"
 msgstr "前进关系(_F)："
 
-#: ../html.c:1871
+#: ../html.c:1972
 msgid "_Reverse Relation:"
 msgstr "后退关系(_R)："
 
-#: ../html.c:1882
+#: ../html.c:1983
 msgid "Media:"
 msgstr "介质："
 
-#: ../html.c:1886
+#: ../html.c:1987
 msgid "L_ang:"
 msgstr "L_ang："
 
-#: ../html.c:1890
+#: ../html.c:1991
 msgid "_Custom:"
 msgstr "自定义(_C)："
 
@@ -1919,119 +1832,119 @@ msgstr "改变时(_C)："
 msgid "Button"
 msgstr "按钮"
 
-#: ../html_table.c:84
+#: ../html_table.c:83
 msgid "Cell _Padding:"
 msgstr "单元格留空(_P)："
 
-#: ../html_table.c:88
+#: ../html_table.c:87
 msgid "C_ell Spacing:"
 msgstr "单元格间距(_E)："
 
-#: ../html_table.c:124 ../html_table.c:234 ../html_table.c:348
+#: ../html_table.c:123 ../html_table.c:233 ../html_table.c:347
 msgid "_Valign:"
 msgstr "垂直对齐(_V)："
 
-#: ../html_table.c:129 ../html_table.c:243 ../html_table.c:393
+#: ../html_table.c:128 ../html_table.c:242 ../html_table.c:392
 msgid "Backgrou_nd Color:"
 msgstr "背景颜色(_N)："
 
-#: ../html_table.c:155
+#: ../html_table.c:154
 msgid "_Frame:"
 msgstr "框架(_F)："
 
-#: ../html_table.c:166
+#: ../html_table.c:165
 msgid "R_ules:"
 msgstr "横线(_U)："
 
-#: ../html_table.c:366
+#: ../html_table.c:365
 msgid "Co_l Span:"
 msgstr "列合并(_L)："
 
-#: ../html_table.c:370
+#: ../html_table.c:369
 msgid "_Row Span:"
 msgstr "行合并(_R)："
 
-#: ../html_table.c:375
+#: ../html_table.c:374
 msgid "No Wra_p:"
 msgstr "不换行(_P)："
 
-#: ../image.c:361
+#: ../image.c:364
 msgid "Insert thumbnail"
 msgstr "插入相册"
 
-#: ../image.c:363
+#: ../image.c:366
 msgid "Insert image"
 msgstr "插入图像"
 
-#: ../image.c:369
+#: ../image.c:372
 msgid "Preview"
 msgstr "预览"
 
-#: ../image.c:389
+#: ../image.c:392
 msgid "_Image location:"
 msgstr "图像位置(_I)："
 
-#: ../image.c:404
+#: ../image.c:407
 msgid "Hei_ght:"
 msgstr "高度(_G)："
 
-#: ../image.c:409
+#: ../image.c:412
 msgid "_Usemap:"
 msgstr "使用映射(_U)："
 
-#: ../image.c:417
+#: ../image.c:420
 msgid "Alternate _text:"
 msgstr "替代文本(_T)："
 
-#: ../image.c:425
+#: ../image.c:428
 msgid "_Hspace:"
 msgstr "水平距离(_H)："
 
-#: ../image.c:429
+#: ../image.c:432
 msgid "_Vspace:"
 msgstr "垂直距离(_V)："
 
-#: ../image.c:443
+#: ../image.c:446
 msgid "Borde_r:"
 msgstr "边框(_R)："
 
-#: ../image.c:771
+#: ../image.c:774
 msgid "Select files for thumbnail creation"
 msgstr "选择用于生成相册的文件"
 
-#: ../image.c:806
+#: ../image.c:809
 msgid "Scaling (%)"
 msgstr "缩放 (%)"
 
-#: ../image.c:810 ../image.c:818
+#: ../image.c:813 ../image.c:821
 msgid "Width"
 msgstr "宽度"
 
-#: ../image.c:814 ../image.c:846
+#: ../image.c:817 ../image.c:849
 msgid "Height"
 msgstr "高度"
 
-#: ../image.c:835
+#: ../image.c:838
 msgid "Multi thumbnail"
 msgstr "多相册"
 
-#: ../image.c:841
+#: ../image.c:844
 msgid "By scaling"
 msgstr "根据比例"
 
-#: ../image.c:842
+#: ../image.c:845
 msgid "By width, keep aspect ratio"
 msgstr "根据宽度，保持高宽比"
 
-#: ../image.c:843
+#: ../image.c:846
 msgid "By height, keep aspect ratio"
 msgstr "根据高度，保持高宽比"
 
-#: ../image.c:844
+#: ../image.c:847
 msgid "By width and height, ignore aspect ratio"
 msgstr "根据和宽度和高度，忽略高宽比"
 
-#: ../image.c:868
+#: ../image.c:871
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2043,80 +1956,80 @@ msgstr ""
 "%x: 相册宽度  %y: 相册高度\n"
 "%b: 原大小(字节)"
 
-#: ../quickstart.c:504
+#: ../quickstart.c:512
 #, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr "<b>常规</b>"
 
-#: ../quickstart.c:514
+#: ../quickstart.c:522
 #, fuzzy
 msgid "Ty_pe:"
 msgstr "类型(_T)："
 
-#: ../quickstart.c:532
+#: ../quickstart.c:540
 #, fuzzy
-msgid "Hre_f:"
-msgstr "_Href："
+msgid "HRE_F:"
+msgstr "_HREF："
 
-#: ../quickstart.c:536
+#: ../quickstart.c:544
 #, fuzzy
 msgid "_Media:"
 msgstr "介质："
 
-#: ../quickstart.c:540
+#: ../quickstart.c:548
 #, fuzzy
 msgid "Titl_e:"
 msgstr "标题(_T)："
 
-#: ../quickstart.c:546
+#: ../quickstart.c:554
 #, fuzzy
 msgid "<b>Style Area</b>"
 msgstr "<b>常规</b>"
 
-#: ../quickstart.c:550
+#: ../quickstart.c:558
 #, fuzzy
 msgid "Cre_ate empty style area"
 msgstr "创建空项目"
 
-#: ../quickstart.c:572
+#: ../quickstart.c:580
 #, fuzzy
 msgid "<b>Attributes</b>"
 msgstr "属性"
 
-#: ../quickstart.c:587
+#: ../quickstart.c:595
 #, fuzzy
 msgid "_Src:"
 msgstr "源代码(_S)："
 
-#: ../quickstart.c:594
+#: ../quickstart.c:602
 #, fuzzy
 msgid "<b>Script Area</b>"
 msgstr "<b>常规</b>"
 
-#: ../quickstart.c:598
+#: ../quickstart.c:606
 #, fuzzy
 msgid "Cre_ate empty script area"
 msgstr "创建空项目"
 
-#: ../quickstart.c:625
+#: ../quickstart.c:633
 msgid "Quick Start"
 msgstr "快速启动"
 
-#: ../quickstart.c:639
+#: ../quickstart.c:647
 #, fuzzy
 msgid "_DTD:"
 msgstr "使用 _DTD："
 
-#: ../quickstart.c:643 ../wizards.c:186
+#: ../quickstart.c:651 ../wizards.c:186
 msgid "_Title:"
 msgstr "标题(_T)："
 
-#: ../quickstart.c:666
+#: ../quickstart.c:674
 #, fuzzy
 msgid "_Head:"
 msgstr "_Href："
 
-#: ../quickstart.c:683
+#: ../quickstart.c:691
 #, fuzzy
 msgid "Open in _new document."
 msgstr "在文档中(_D)"
@@ -2180,6 +2093,109 @@ msgstr "源代码："
 #: ../wizards.c:223
 msgid "Size:"
 msgstr "大小："
+
+#~ msgid "/Tags/Tearoff1"
+#~ msgstr "/标签(T)/Tearoff1"
+
+#~ msgid "/Tags/Headings/Tearoff1"
+#~ msgstr "/标签(T)/标题(H)/Tearoff1"
+
+#~ msgid "/Tags/Special/tearoff1"
+#~ msgstr "/标签(T)/特殊(S)/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/tearoff1"
+#~ msgstr "/标签(T)/特殊(S)/音标(A)/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
+#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/A-I/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
+#~ msgstr "/标签(T)/特殊(S)/音标(A)/大写(U)/J-Z/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
+#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/A-I/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
+#~ msgstr "/标签(T)/特殊(S)/音标(A)/小写(L)/J-Z/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/separator"
+#~ msgstr "/标签(T)/特殊(S)/音标(A)/Separator"
+
+#~ msgid "/Tags/Special/Currency/tearoff1"
+#~ msgstr "/标签(T)/特殊(S)/货币(C)/tearoff1"
+
+#~ msgid "/Tags/Special/Math-Science/tearoff1"
+#~ msgstr "/标签(T)/特殊(S)/数学符号(M)/tearoff1"
+
+#~ msgid "/Tags/Special/Non Latin/tearoff1"
+#~ msgstr "/标签(T)/特殊(S)/非拉丁字母(N)/tearoff1"
+
+#~ msgid "/Tags/Special/Other/tearoff1"
+#~ msgstr "/标签(T)/特殊(S)/其它(O)/tearoff1"
+
+#~ msgid "/Tags/Format by layout/tearoff1"
+#~ msgstr "/标签(T)/布局格式(F)/tearoff1"
+
+#~ msgid "/Tags/Format by context/tearoff1"
+#~ msgstr "/标签(T)/环境格式(O)/tearoff1"
+
+#~ msgid "/Tags/Format general/tearoff1"
+#~ msgstr "/标签(T)/常规格式(G)/tearoff1"
+
+#~ msgid "/Tags/Format general/<separator>"
+#~ msgstr "/标签(T)/常规格式(G)/<separator>"
+
+#~ msgid "/Tags/Table/tearoff1"
+#~ msgstr "/标签(T)/表格(T)/tearoff1"
+
+#~ msgid "/Tags/List/tearoff1"
+#~ msgstr "/标签(T)/列表(L)/tearoff1"
+
+#~ msgid "/Tags/Form/tearoff1"
+#~ msgstr "/标签(T)/表单(R)/tearoff1"
+
+#~ msgid "/Tags/Misc/tearoff1"
+#~ msgstr "/标签(T)/其他(M)/tearoff1"
+
+#~ msgid "/Dialogs/tearoff1"
+#~ msgstr "/对话(O)/tearoff1"
+
+#~ msgid "/Dialogs/General/tearoff1"
+#~ msgstr "/对话(O)/常规(G)/tearoff1"
+
+#~ msgid "/Dialogs/Table/tearoff1"
+#~ msgstr "/对话(O)/表格(T)/tearoff1"
+
+#~ msgid "/Dialogs/CSS/tearoff1"
+#~ msgstr "对话框/CSS/tearoff1"
+
+#~ msgid "/Dialogs/Frame/tearoff1"
+#~ msgstr "/对话(O)/框架(F)/tearoff1"
+
+#~ msgid "/Dialogs/Form/tearoff1"
+#~ msgstr "/对话(O)/表单(O)/tearoff1"
+
+#~ msgid "/Dialogs/sep1"
+#~ msgstr "/对话(O)/sep1"
+
+#~ msgid "_Email address:"
+#~ msgstr "电子邮件地址(_E)："
+
+#~ msgid "UrlEncoded _subject:"
+#~ msgstr "UrlEncoded 主题(_S)："
+
+#~ msgid "UrlEncoded _body:"
+#~ msgstr "主体内容(_B)："
+
+#~ msgid "_Href:"
+#~ msgstr "_Href："
+
+#~ msgid "Href_lang:"
+#~ msgstr "Href_lang："
+
+#, fuzzy
+#~ msgid "Hre_f:"
+#~ msgstr "_Href："
 
 #, fuzzy
 #~ msgid "/View/View _HTML Bar"
@@ -3271,9 +3287,6 @@ msgstr "大小："
 
 #~ msgid "Cut"
 #~ msgstr "剪切"
-
-#~ msgid "Copy"
-#~ msgstr "复制"
 
 #~ msgid "Paste"
 #~ msgstr "粘贴"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-15 19:09+0200\n"
+"POT-Creation-Date: 2006-01-20 21:46-0800\n"
 "PO-Revision-Date: 2004-12-09 12:11+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team: no team\n"
@@ -16,2084 +16,1987 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: ../html2.c:557
+#: ../html2.c:558
 msgid "Cascading StyleSheet dialog"
 msgstr ""
 
-#: ../html2.c:577
+#: ../html2.c:578
 msgid "_Selector:"
 msgstr "_Επιλογέας:"
 
-#: ../html2.c:596
+#: ../html2.c:597
 msgid "_Property:"
 msgstr "_ιδιότητα:"
 
-#: ../html2.c:598 ../html_form.c:650 ../html_form.c:799 ../html_form.c:894
+#: ../html2.c:599 ../html_form.c:650 ../html_form.c:799 ../html_form.c:894
 msgid "_Value:"
 msgstr "_Τιμή:"
 
-#: ../html2.c:616
+#: ../html2.c:617
 msgid "Selector"
 msgstr "Επιλογέας"
 
-#: ../html2.c:616 ../html2.c:619
+#: ../html2.c:617 ../html2.c:620
 msgid "Property"
 msgstr "Ιδιότητα"
 
-#: ../html2.c:616 ../html2.c:619
+#: ../html2.c:617 ../html2.c:620
 msgid "Value"
 msgstr "Τιμή"
 
-#: ../html2.c:634
+#: ../html2.c:635
 msgid " _Add "
 msgstr " _Προσθήκη "
 
-#: ../html2.c:637
+#: ../html2.c:638
 msgid " _Update "
 msgstr " _Ανανέωση "
 
-#: ../html2.c:640
+#: ../html2.c:641
 msgid " _Delete "
 msgstr " _Διαγραφή "
 
-#: ../html2.c:896 ../html2.c:933
+#: ../html2.c:897 ../html2.c:934
 msgid "_Style..."
 msgstr "_Στυλ..."
 
-#: ../html2.c:1090
+#: ../html2.c:1091
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Επιλογή χρώματος"
 
-#: ../htmlbar.c:13
+#: ../htmlbar.c:36
 msgid "Edit color"
 msgstr "Επεξεργασία χρώματος"
 
-#: ../htmlbar.c:21
+#: ../htmlbar.c:44
 msgid "Edit tag"
 msgstr "Επιξεργασία ετικέτας"
 
-#: ../htmlbar_gui.c:169
+#: ../htmlbar_gui.c:202
 msgid "/_Tags"
 msgstr "/_Ετικέτες"
 
-#: ../htmlbar_gui.c:170
-msgid "/Tags/Tearoff1"
-msgstr "/Ετικέτες/διαχ1"
-
-#: ../htmlbar_gui.c:171
+#: ../htmlbar_gui.c:204
 #, fuzzy
 msgid "/Tags/_Headings"
 msgstr "/Ετικέτες/Κεφαλίδες"
 
-#: ../htmlbar_gui.c:172
-msgid "/Tags/Headings/Tearoff1"
-msgstr "/Ετικέτες/Κεφαλίδες/διαχ1"
-
-#: ../htmlbar_gui.c:173
+#: ../htmlbar_gui.c:206
 #, fuzzy
 msgid "/Tags/Headings/H_1"
 msgstr "/Ετικέτες/Κεφαλίδες/H1"
 
-#: ../htmlbar_gui.c:174
+#: ../htmlbar_gui.c:207
 #, fuzzy
 msgid "/Tags/Headings/H_2"
 msgstr "/Ετικέτες/Κεφαλίδες/H2"
 
-#: ../htmlbar_gui.c:175
+#: ../htmlbar_gui.c:208
 #, fuzzy
 msgid "/Tags/Headings/H_3"
 msgstr "/Ετικέτες/Κεφαλίδες/H3"
 
-#: ../htmlbar_gui.c:176
+#: ../htmlbar_gui.c:209
 #, fuzzy
 msgid "/Tags/Headings/H_4"
 msgstr "/Ετικέτες/Κεφαλίδες/H4"
 
-#: ../htmlbar_gui.c:177
+#: ../htmlbar_gui.c:210
 #, fuzzy
 msgid "/Tags/Headings/H_5"
 msgstr "/Ετικέτες/Κεφαλίδες/H5"
 
-#: ../htmlbar_gui.c:178
+#: ../htmlbar_gui.c:211
 #, fuzzy
 msgid "/Tags/Headings/H_6"
 msgstr "/Ετικέτες/Κεφαλίδες/H6"
 
-#: ../htmlbar_gui.c:179
+#: ../htmlbar_gui.c:212
 #, fuzzy
 msgid "/Tags/_Special"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες"
 
-#: ../htmlbar_gui.c:180
-#, fuzzy
-msgid "/Tags/Special/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/tearoff1"
-
-#: ../htmlbar_gui.c:181
+#: ../htmlbar_gui.c:214
 #, fuzzy
 msgid "/Tags/Special/_Accent"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά"
 
-#: ../htmlbar_gui.c:182
-msgid "/Tags/Special/Accent/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/tearoff1"
-
-#: ../htmlbar_gui.c:183
+#: ../htmlbar_gui.c:216
 #, fuzzy
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase"
 
-#: ../htmlbar_gui.c:184
+#: ../htmlbar_gui.c:217
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I"
 
-#: ../htmlbar_gui.c:185
-msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/tearoff1"
-
-#: ../htmlbar_gui.c:186
+#: ../htmlbar_gui.c:219
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A grave"
 
-#: ../htmlbar_gui.c:187
+#: ../htmlbar_gui.c:220
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A acute"
 
-#: ../htmlbar_gui.c:188
+#: ../htmlbar_gui.c:221
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A circumflex"
 
-#: ../htmlbar_gui.c:189
+#: ../htmlbar_gui.c:222
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A tilde"
 
-#: ../htmlbar_gui.c:190
+#: ../htmlbar_gui.c:223
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/AE ligature"
 
-#: ../htmlbar_gui.c:191
+#: ../htmlbar_gui.c:224
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A diaeresis"
 
-#: ../htmlbar_gui.c:192
+#: ../htmlbar_gui.c:225
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/A ring"
 
-#: ../htmlbar_gui.c:193
+#: ../htmlbar_gui.c:226
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/C cedilla"
 
-#: ../htmlbar_gui.c:194
+#: ../htmlbar_gui.c:227
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/E grave"
 
-#: ../htmlbar_gui.c:195
+#: ../htmlbar_gui.c:228
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/E acute"
 
-#: ../htmlbar_gui.c:196
+#: ../htmlbar_gui.c:229
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/E circumflex"
 
-#: ../htmlbar_gui.c:197
+#: ../htmlbar_gui.c:230
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/E diaeresis"
 
-#: ../htmlbar_gui.c:198
+#: ../htmlbar_gui.c:231
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/I grave"
 
-#: ../htmlbar_gui.c:199
+#: ../htmlbar_gui.c:232
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/I acute"
 
-#: ../htmlbar_gui.c:200
+#: ../htmlbar_gui.c:233
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/I circumflex"
 
-#: ../htmlbar_gui.c:201
+#: ../htmlbar_gui.c:234
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/I diaeresis"
 
-#: ../htmlbar_gui.c:202
+#: ../htmlbar_gui.c:235
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z"
 
-#: ../htmlbar_gui.c:203
-msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/tearoff1"
-
-#: ../htmlbar_gui.c:204
+#: ../htmlbar_gui.c:237
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/N tilde"
 
-#: ../htmlbar_gui.c:205
+#: ../htmlbar_gui.c:238
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O grave"
 
-#: ../htmlbar_gui.c:206
+#: ../htmlbar_gui.c:239
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O acute"
 
-#: ../htmlbar_gui.c:207
+#: ../htmlbar_gui.c:240
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O circumflex"
 
-#: ../htmlbar_gui.c:208
+#: ../htmlbar_gui.c:241
 #, fuzzy
-msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
+msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/AE ligature"
 
-#: ../htmlbar_gui.c:209
+#: ../htmlbar_gui.c:242
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O tilde"
 
-#: ../htmlbar_gui.c:210
+#: ../htmlbar_gui.c:243
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O diaeresis"
 
-#: ../htmlbar_gui.c:211
+#: ../htmlbar_gui.c:244
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/O slash"
 
-#: ../htmlbar_gui.c:212
+#: ../htmlbar_gui.c:245
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/U grave"
 
-#: ../htmlbar_gui.c:213
+#: ../htmlbar_gui.c:246
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/U acute"
 
-#: ../htmlbar_gui.c:214
+#: ../htmlbar_gui.c:247
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/U circumflex"
 
-#: ../htmlbar_gui.c:215
+#: ../htmlbar_gui.c:248
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/U diaeresis"
 
-#: ../htmlbar_gui.c:216
+#: ../htmlbar_gui.c:249
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/Y acute"
 
-#: ../htmlbar_gui.c:217
+#: ../htmlbar_gui.c:250
 #, fuzzy
 msgid "/Tags/Special/Accent/_Lowercase"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Lowercase"
 
-#: ../htmlbar_gui.c:218
+#: ../htmlbar_gui.c:251
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Lowercase/A-I"
 
-#: ../htmlbar_gui.c:219
-msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/tearoff1"
-
-#: ../htmlbar_gui.c:220
+#: ../htmlbar_gui.c:253
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a grave"
 
-#: ../htmlbar_gui.c:221
+#: ../htmlbar_gui.c:254
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a acute"
 
-#: ../htmlbar_gui.c:222
+#: ../htmlbar_gui.c:255
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a circumflex"
 
-#: ../htmlbar_gui.c:223
+#: ../htmlbar_gui.c:256
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a tilde"
 
-#: ../htmlbar_gui.c:224
+#: ../htmlbar_gui.c:257
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a ring"
 
-#: ../htmlbar_gui.c:225
+#: ../htmlbar_gui.c:258
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/ae ligature"
 
-#: ../htmlbar_gui.c:226
+#: ../htmlbar_gui.c:259
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/a diaeresis"
 
-#: ../htmlbar_gui.c:227
+#: ../htmlbar_gui.c:260
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/c cedilla"
 
-#: ../htmlbar_gui.c:228
+#: ../htmlbar_gui.c:261
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/e grave"
 
-#: ../htmlbar_gui.c:229
+#: ../htmlbar_gui.c:262
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/e acute"
 
-#: ../htmlbar_gui.c:230
+#: ../htmlbar_gui.c:263
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/e circumflex"
 
-#: ../htmlbar_gui.c:231
+#: ../htmlbar_gui.c:264
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/e diaeresis"
 
-#: ../htmlbar_gui.c:232
+#: ../htmlbar_gui.c:265
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/i grave"
 
-#: ../htmlbar_gui.c:233
+#: ../htmlbar_gui.c:266
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/i acute"
 
-#: ../htmlbar_gui.c:234
+#: ../htmlbar_gui.c:267
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/i circumflex"
 
-#: ../htmlbar_gui.c:235
+#: ../htmlbar_gui.c:268
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/i diaeresis"
 
-#: ../htmlbar_gui.c:236
+#: ../htmlbar_gui.c:269
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z"
 
-#: ../htmlbar_gui.c:237
-msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/tearoff1"
-
-#: ../htmlbar_gui.c:238
+#: ../htmlbar_gui.c:271
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/n tilde"
 
-#: ../htmlbar_gui.c:239
+#: ../htmlbar_gui.c:272
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o grave"
 
-#: ../htmlbar_gui.c:240
+#: ../htmlbar_gui.c:273
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o acute"
 
-#: ../htmlbar_gui.c:241
+#: ../htmlbar_gui.c:274
 #, fuzzy
-msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"
+msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/ae ligature"
 
-#: ../htmlbar_gui.c:242
+#: ../htmlbar_gui.c:275
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o circumflex"
 
-#: ../htmlbar_gui.c:243
+#: ../htmlbar_gui.c:276
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o tilde"
 
-#: ../htmlbar_gui.c:244
+#: ../htmlbar_gui.c:277
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o diaeresis"
 
-#: ../htmlbar_gui.c:245
+#: ../htmlbar_gui.c:278
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/o slash"
 
-#: ../htmlbar_gui.c:246
+#: ../htmlbar_gui.c:279
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/u grave"
 
-#: ../htmlbar_gui.c:247
+#: ../htmlbar_gui.c:280
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/u acute"
 
-#: ../htmlbar_gui.c:248
+#: ../htmlbar_gui.c:281
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/u circumflex"
 
-#: ../htmlbar_gui.c:249
+#: ../htmlbar_gui.c:282
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/u diaeresis"
 
-#: ../htmlbar_gui.c:250
+#: ../htmlbar_gui.c:283
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/y acute"
 
-#: ../htmlbar_gui.c:251
+#: ../htmlbar_gui.c:284
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/y diaeresis"
 
-#: ../htmlbar_gui.c:252
-msgid "/Tags/Special/Accent/separator"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/διαχ"
-
-#: ../htmlbar_gui.c:253
+#: ../htmlbar_gui.c:286
 #, fuzzy
 msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Umlaut"
 
-#: ../htmlbar_gui.c:254
+#: ../htmlbar_gui.c:287
 #, fuzzy
 msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Acute"
 
-#: ../htmlbar_gui.c:255
+#: ../htmlbar_gui.c:288
 #, fuzzy
 msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Cedilla"
 
-#: ../htmlbar_gui.c:256
+#: ../htmlbar_gui.c:289
 #, fuzzy
 msgid "/Tags/Special/_Currency"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα"
 
-#: ../htmlbar_gui.c:257
-msgid "/Tags/Special/Currency/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/tearoff1"
-
-#: ../htmlbar_gui.c:258
+#: ../htmlbar_gui.c:291
 #, fuzzy
 msgid "/Tags/Special/Currency/_Cent sign ¢"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Σήμα σεντ"
 
-#: ../htmlbar_gui.c:259
+#: ../htmlbar_gui.c:292
 #, fuzzy
 msgid "/Tags/Special/Currency/_Pound sterling £"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Στερλίνα"
 
-#: ../htmlbar_gui.c:260
+#: ../htmlbar_gui.c:293
 #, fuzzy
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Σήμα νομίσματος"
 
-#: ../htmlbar_gui.c:261
+#: ../htmlbar_gui.c:294
 #, fuzzy
 msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/Σήμα γιεν"
 
-#: ../htmlbar_gui.c:262
+#: ../htmlbar_gui.c:295
 #, fuzzy
 msgid "/Tags/Special/Currency/_Euro "
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα"
 
-#: ../htmlbar_gui.c:263
+#: ../htmlbar_gui.c:296
 #, fuzzy
 msgid "/Tags/Special/_Math-Science"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά"
 
-#: ../htmlbar_gui.c:264
-msgid "/Tags/Special/Math-Science/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/tearoff1"
-
-#: ../htmlbar_gui.c:265
+#: ../htmlbar_gui.c:298
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/λογικό όχι"
 
-#: ../htmlbar_gui.c:266
+#: ../htmlbar_gui.c:299
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/πολλαπλασιασμού"
 
-#: ../htmlbar_gui.c:267
+#: ../htmlbar_gui.c:300
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/διαίρεσης"
 
-#: ../htmlbar_gui.c:268
+#: ../htmlbar_gui.c:301
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/συν-πλην"
 
-#: ../htmlbar_gui.c:269
+#: ../htmlbar_gui.c:302
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/μικρότερο από"
 
-#: ../htmlbar_gui.c:270
+#: ../htmlbar_gui.c:303
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/μεγαλύτερο από"
 
-#: ../htmlbar_gui.c:271
+#: ../htmlbar_gui.c:304
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/εκθέτης 1"
 
-#: ../htmlbar_gui.c:272
+#: ../htmlbar_gui.c:305
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/εκθέτης 2"
 
-#: ../htmlbar_gui.c:273
+#: ../htmlbar_gui.c:306
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/εκθέτης 3"
 
-#: ../htmlbar_gui.c:274
+#: ../htmlbar_gui.c:307
 #, fuzzy
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/ένα τέταρτο"
 
-#: ../htmlbar_gui.c:275
+#: ../htmlbar_gui.c:308
 #, fuzzy
 msgid "/Tags/Special/Math-Science/One _half ½"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/ένα δεύτερο"
 
-#: ../htmlbar_gui.c:276
+#: ../htmlbar_gui.c:309
 #, fuzzy
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/τρία τέταρτα"
 
-#: ../htmlbar_gui.c:277
+#: ../htmlbar_gui.c:310
 #, fuzzy
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/σήμα μοιρών"
 
-#: ../htmlbar_gui.c:278
+#: ../htmlbar_gui.c:311
 #, fuzzy
 msgid "/Tags/Special/_Non Latin"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί"
 
-#: ../htmlbar_gui.c:279
-msgid "/Tags/Special/Non Latin/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/tearoff1"
-
-#: ../htmlbar_gui.c:280
+#: ../htmlbar_gui.c:313
 #, fuzzy
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/ETH (Ισλανδικό)"
 
-#: ../htmlbar_gui.c:281
+#: ../htmlbar_gui.c:314
 #, fuzzy
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/THORN (Ισλανδικό)"
 
-#: ../htmlbar_gui.c:282
+#: ../htmlbar_gui.c:315
 #, fuzzy
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/eth (Ισλανδικό)"
 
-#: ../htmlbar_gui.c:283
+#: ../htmlbar_gui.c:316
 #, fuzzy
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/thorn"
 
-#: ../htmlbar_gui.c:284
+#: ../htmlbar_gui.c:317
 #, fuzzy
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/sharp s"
 
-#: ../htmlbar_gui.c:285
+#: ../htmlbar_gui.c:318
 #, fuzzy
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/micro sign"
 
-#: ../htmlbar_gui.c:286
+#: ../htmlbar_gui.c:319
 #, fuzzy
 msgid "/Tags/Special/_Other"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι"
 
-#: ../htmlbar_gui.c:287
-msgid "/Tags/Special/Other/tearoff1"
-msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/tearoff1"
-
-#: ../htmlbar_gui.c:288
+#: ../htmlbar_gui.c:321
 #, fuzzy
 msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Non-breaking space"
 
-#: ../htmlbar_gui.c:289
+#: ../htmlbar_gui.c:322
 #, fuzzy
 msgid "/Tags/Special/Other/_Section sign §"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Section sign"
 
-#: ../htmlbar_gui.c:290
+#: ../htmlbar_gui.c:323
 #, fuzzy
 msgid "/Tags/Special/Other/_Copyright sign ©"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Copyright sign"
 
-#: ../htmlbar_gui.c:291
+#: ../htmlbar_gui.c:324
 #, fuzzy
 msgid "/Tags/Special/Other/_Left angle quotes «"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Left angle quotes"
 
-#: ../htmlbar_gui.c:292
+#: ../htmlbar_gui.c:325
 #, fuzzy
 msgid "/Tags/Special/Other/_Right angle quotes »"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Right angle quotes"
 
-#: ../htmlbar_gui.c:293
+#: ../htmlbar_gui.c:326
 #, fuzzy
 msgid "/Tags/Special/Other/Registered _trademark ®"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Registered trademark"
 
-#: ../htmlbar_gui.c:294
+#: ../htmlbar_gui.c:327
 #, fuzzy
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Inverted exclamation"
 
-#: ../htmlbar_gui.c:295
+#: ../htmlbar_gui.c:328
 #, fuzzy
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Inverted question mark"
 
-#: ../htmlbar_gui.c:296
+#: ../htmlbar_gui.c:329
 #, fuzzy
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Feminine ordinal"
 
-#: ../htmlbar_gui.c:297
+#: ../htmlbar_gui.c:330
 #, fuzzy
 msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Masculine ordinal"
 
-#: ../htmlbar_gui.c:298
+#: ../htmlbar_gui.c:331
 #, fuzzy
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Pilcrow (paragraph sign)"
 
-#: ../htmlbar_gui.c:299
+#: ../htmlbar_gui.c:332
 #, fuzzy
 msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Broken bar"
 
-#: ../htmlbar_gui.c:300
+#: ../htmlbar_gui.c:333
 #, fuzzy
 msgid "/Tags/Special/Other/Soft _hypen -"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Soft hypen"
 
-#: ../htmlbar_gui.c:301
+#: ../htmlbar_gui.c:334
 #, fuzzy
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Spacing macron"
 
-#: ../htmlbar_gui.c:302
+#: ../htmlbar_gui.c:335
 #, fuzzy
 msgid "/Tags/Special/Other/Middle _dot ·"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/Middle dot"
 
-#: ../htmlbar_gui.c:303
+#: ../htmlbar_gui.c:336
 #, fuzzy
 msgid "/Tags/_Format by layout"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
 
-#: ../htmlbar_gui.c:304
-#, fuzzy
-msgid "/Tags/Format by layout/tearoff1"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ1"
-
-#: ../htmlbar_gui.c:305
+#: ../htmlbar_gui.c:338
 #, fuzzy
 msgid "/Tags/Format by layout/_Bold"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Έντονα"
 
-#: ../htmlbar_gui.c:306
+#: ../htmlbar_gui.c:339
 #, fuzzy
 msgid "/Tags/Format by layout/_Italic"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Πλάγια"
 
-#: ../htmlbar_gui.c:307
+#: ../htmlbar_gui.c:340
 #, fuzzy
 msgid "/Tags/Format by layout/_Underline"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Υπογραμμισμένα"
 
-#: ../htmlbar_gui.c:308
+#: ../htmlbar_gui.c:341
 #, fuzzy
 msgid "/Tags/Format by layout/_Strikeout"
 msgstr "/Ετικέτες/Διαμόφωση κειμένου/Διαγεγραμμένα"
 
-#: ../htmlbar_gui.c:309
+#: ../htmlbar_gui.c:342
 #, fuzzy
 msgid "/Tags/Format by layout/Sm_all"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Πλάγια"
 
-#: ../htmlbar_gui.c:310
+#: ../htmlbar_gui.c:343
 #, fuzzy
 msgid "/Tags/Format by layout/Bi_g"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
 
-#: ../htmlbar_gui.c:311
+#: ../htmlbar_gui.c:344
 #, fuzzy
 msgid "/Tags/F_ormat by context"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
 
-#: ../htmlbar_gui.c:312
-#, fuzzy
-msgid "/Tags/Format by context/tearoff1"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ1"
-
-#: ../htmlbar_gui.c:313
+#: ../htmlbar_gui.c:346
 #, fuzzy
 msgid "/Tags/Format by context/_Strong"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Δυνατά"
 
-#: ../htmlbar_gui.c:314
+#: ../htmlbar_gui.c:347
 #, fuzzy
 msgid "/Tags/Format by context/_Emphasis"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Έμφαση"
 
-#: ../htmlbar_gui.c:315
+#: ../htmlbar_gui.c:348
 #, fuzzy
 msgid "/Tags/Format by context/_Define"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
 
-#: ../htmlbar_gui.c:316
+#: ../htmlbar_gui.c:349
 #, fuzzy
 msgid "/Tags/Format by context/_Code"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Σχόλιο"
 
-#: ../htmlbar_gui.c:317
+#: ../htmlbar_gui.c:350
 #, fuzzy
 msgid "/Tags/Format by context/Sa_mple"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Πλάγια"
 
-#: ../htmlbar_gui.c:318
+#: ../htmlbar_gui.c:351
 #, fuzzy
 msgid "/Tags/Format by context/_Keyboard"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Κέντρο"
 
-#: ../htmlbar_gui.c:319
+#: ../htmlbar_gui.c:352
 #, fuzzy
 msgid "/Tags/Format by context/_Variable"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Πλάγια"
 
-#: ../htmlbar_gui.c:320
+#: ../htmlbar_gui.c:353
 #, fuzzy
 msgid "/Tags/Format by context/Ci_tation"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
 
-#: ../htmlbar_gui.c:321
+#: ../htmlbar_gui.c:354
 #, fuzzy
 msgid "/Tags/Format by context/_Abbreviation"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου"
 
-#: ../htmlbar_gui.c:322
+#: ../htmlbar_gui.c:355
 #, fuzzy
 msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Δυνατά"
 
-#: ../htmlbar_gui.c:323
+#: ../htmlbar_gui.c:356
 #, fuzzy
 msgid "/Tags/Format _general"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Κέντρο"
 
-#: ../htmlbar_gui.c:324
-#, fuzzy
-msgid "/Tags/Format general/tearoff1"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ1"
-
-#: ../htmlbar_gui.c:325
+#: ../htmlbar_gui.c:358
 #, fuzzy
 msgid "/Tags/Format general/_Paragraph"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Παράγραφος"
 
-#: ../htmlbar_gui.c:326
+#: ../htmlbar_gui.c:359
 #, fuzzy
 msgid "/Tags/Format general/_Break"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Διακοπή (νέα γραμμή)"
 
-#: ../htmlbar_gui.c:327
+#: ../htmlbar_gui.c:360
 #, fuzzy
 msgid "/Tags/Format general/Break clear _all"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Καθαρισμός διακοπών"
 
-#: ../htmlbar_gui.c:328
+#: ../htmlbar_gui.c:361
 #, fuzzy
 msgid "/Tags/Format general/_Non-Breaking Space"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Κείμενο χωρίς διακοπή"
 
-#: ../htmlbar_gui.c:329 ../htmlbar_gui.c:332 ../htmlbar_gui.c:336
-#, fuzzy
-msgid "/Tags/Format general/<separator>"
-msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ"
-
-#: ../htmlbar_gui.c:330
+#: ../htmlbar_gui.c:363
 #, fuzzy
 msgid "/Tags/Format general/Font Si_ze +1"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Μέγεθος γρ-σειράς +1"
 
-#: ../htmlbar_gui.c:331
+#: ../htmlbar_gui.c:364
 #, fuzzy
 msgid "/Tags/Format general/Font _Size -1"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Μέγεθος γρ-σειράς -1"
 
-#: ../htmlbar_gui.c:333
+#: ../htmlbar_gui.c:366
 #, fuzzy
 msgid "/Tags/Format general/Preformatted _Text"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Προδιαμορφωμένο κείμενο"
 
-#: ../htmlbar_gui.c:334
+#: ../htmlbar_gui.c:367
 #, fuzzy
 msgid "/Tags/Format general/Su_bscript"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Δείκτης"
 
-#: ../htmlbar_gui.c:335
+#: ../htmlbar_gui.c:368
 #, fuzzy
 msgid "/Tags/Format general/Su_perscript"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Εκθέτης"
 
-#: ../htmlbar_gui.c:337
+#: ../htmlbar_gui.c:370
 #, fuzzy
 msgid "/Tags/Format general/_Center"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Κέντρο"
 
-#: ../htmlbar_gui.c:338
+#: ../htmlbar_gui.c:371
 #, fuzzy
 msgid "/Tags/Format general/Align _right"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Δεξιά στοίχηση"
 
-#: ../htmlbar_gui.c:339
+#: ../htmlbar_gui.c:372
 #, fuzzy
 msgid "/Tags/_Table"
 msgstr "/Ετικέτες/Πίνακες"
 
-#: ../htmlbar_gui.c:340
-msgid "/Tags/Table/tearoff1"
-msgstr "/Ετικέτες/Πίνακες/διαχ1"
-
-#: ../htmlbar_gui.c:341
+#: ../htmlbar_gui.c:374
 #, fuzzy
 msgid "/Tags/Table/_Table"
 msgstr "/Ετικέτες/Πίνακες/Πίνακας"
 
-#: ../htmlbar_gui.c:342
+#: ../htmlbar_gui.c:375
 #, fuzzy
 msgid "/Tags/Table/Table _Row"
 msgstr "/Ετικέτες/Πίνακες/Γραμμή"
 
-#: ../htmlbar_gui.c:343
+#: ../htmlbar_gui.c:376
 #, fuzzy
 msgid "/Tags/Table/Table _Header"
 msgstr "/Ετικέτες/Πίνακες/Κεφαλίδα πίνακα"
 
-#: ../htmlbar_gui.c:344
+#: ../htmlbar_gui.c:377
 #, fuzzy
 msgid "/Tags/Table/Table _Data"
 msgstr "/Ετικέτες/Πίνακες/Δεδομένα πίνακα"
 
-#: ../htmlbar_gui.c:345
+#: ../htmlbar_gui.c:378
 #, fuzzy
 msgid "/Tags/Table/Table _Caption"
 msgstr "/Ετικέτες/Πίνακες/Πλαίσιο πίνακα"
 
-#: ../htmlbar_gui.c:346
+#: ../htmlbar_gui.c:379
 #, fuzzy
 msgid "/Tags/_List"
 msgstr "/Ετικέτες/Λίστες"
 
-#: ../htmlbar_gui.c:347
-msgid "/Tags/List/tearoff1"
-msgstr "/Ετικέτες/Λίστες/διαχ1"
-
-#: ../htmlbar_gui.c:348
+#: ../htmlbar_gui.c:381
 #, fuzzy
 msgid "/Tags/List/Unordered _List"
 msgstr "/Ετικέτες/Λίστες/Μη αριθμημένη λίστα"
 
-#: ../htmlbar_gui.c:349
+#: ../htmlbar_gui.c:382
 #, fuzzy
 msgid "/Tags/List/_Ordered List"
 msgstr "/Ετικέτες/Λίστες/Αριθμημένη λίστα"
 
-#: ../htmlbar_gui.c:350
+#: ../htmlbar_gui.c:383
 #, fuzzy
 msgid "/Tags/List/List Ite_m"
 msgstr "/Ετικέτες/Λίστες/Αντικείμενο λίστας"
 
-#: ../htmlbar_gui.c:351
+#: ../htmlbar_gui.c:384
 #, fuzzy
 msgid "/Tags/List/De_finition List"
 msgstr "/Ετικέτες/Λίστες/Λίστα ορισμών"
 
-#: ../htmlbar_gui.c:352
+#: ../htmlbar_gui.c:385
 #, fuzzy
 msgid "/Tags/List/Definition _Term"
 msgstr "/Ετικέτες/Λίστες/Όρος προς ορισμό"
 
-#: ../htmlbar_gui.c:353
+#: ../htmlbar_gui.c:386
 #, fuzzy
 msgid "/Tags/List/_Definition"
 msgstr "/Ετικέτες/Λίστες/Ορισμός"
 
-#: ../htmlbar_gui.c:354
+#: ../htmlbar_gui.c:387
 #, fuzzy
 msgid "/Tags/List/Men_u"
 msgstr "/Ετικέτες/Λίστες/Μενού"
 
-#: ../htmlbar_gui.c:355
+#: ../htmlbar_gui.c:388
 #, fuzzy
 msgid "/Tags/Fo_rm"
 msgstr "/Διάλογοι/Φόρμες"
 
-#: ../htmlbar_gui.c:356
-#, fuzzy
-msgid "/Tags/Form/tearoff1"
-msgstr "/Διάλογοι/Φόρμες/διαχ1"
-
-#: ../htmlbar_gui.c:357
+#: ../htmlbar_gui.c:390
 #, fuzzy
 msgid "/Tags/Form/_Form"
 msgstr "/Διάλογοι/Φόρμες/Φόρμα"
 
-#: ../htmlbar_gui.c:358
+#: ../htmlbar_gui.c:391
 #, fuzzy
 msgid "/Tags/Form/_Button"
 msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
 
-#: ../htmlbar_gui.c:359
+#: ../htmlbar_gui.c:392
 #, fuzzy
 msgid "/Tags/Form/_Input"
 msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
 
-#: ../htmlbar_gui.c:360
+#: ../htmlbar_gui.c:393
 #, fuzzy
 msgid "/Tags/Form/_Textarea"
 msgstr "/Διάλογοι/Φόρμες/Πεδίο κειμένου"
 
-#: ../htmlbar_gui.c:361
+#: ../htmlbar_gui.c:394
 #, fuzzy
 msgid "/Tags/_Misc"
 msgstr "/Ετικέτες/Λίστες"
 
-#: ../htmlbar_gui.c:362
-#, fuzzy
-msgid "/Tags/Misc/tearoff1"
-msgstr "/Ετικέτες/Λίστες/διαχ1"
-
-#: ../htmlbar_gui.c:363
+#: ../htmlbar_gui.c:396
 #, fuzzy
 msgid "/Tags/Misc/Insert Generator _META-Tag"
 msgstr "/Ετικέτες/Εισαγωγή META-ετικέτας"
 
-#: ../htmlbar_gui.c:364
+#: ../htmlbar_gui.c:397
 #, fuzzy
 msgid "/Tags/Misc/_Span"
 msgstr "/Ετικέτες/Ειδικοί χαρακτήρες"
 
-#: ../htmlbar_gui.c:365
+#: ../htmlbar_gui.c:398
 #, fuzzy
 msgid "/Tags/Misc/_Div"
 msgstr "/Ετικέτες/Λίστες/Ορισμός"
 
-#: ../htmlbar_gui.c:366
+#: ../htmlbar_gui.c:399
 #, fuzzy
 msgid "/Tags/Misc/_Link"
 msgstr "/Ετικέτες/Λίστες"
 
-#: ../htmlbar_gui.c:367
+#: ../htmlbar_gui.c:400
 #, fuzzy
 msgid "/Tags/Misc/S_cript"
 msgstr "/Ετικέτες/Λίστες"
 
-#: ../htmlbar_gui.c:368
+#: ../htmlbar_gui.c:401
 #, fuzzy
 msgid "/Tags/Misc/_Anchor"
 msgstr "/Ετικέτες/Λίστες/Ορισμός"
 
-#: ../htmlbar_gui.c:369
+#: ../htmlbar_gui.c:402
 #, fuzzy
 msgid "/Tags/Misc/_Image"
 msgstr "/Ετικέτες/Πίνακες"
 
-#: ../htmlbar_gui.c:370
+#: ../htmlbar_gui.c:403
 #, fuzzy
 msgid "/Tags/_Comment"
 msgstr "/Ετικέτες/Διαμόρφωση κειμένου/Σχόλιο"
 
-#: ../htmlbar_gui.c:371
+#: ../htmlbar_gui.c:404
 #, fuzzy
 msgid "/Dial_ogs"
 msgstr "/_Διάλογοι"
 
-#: ../htmlbar_gui.c:372
-msgid "/Dialogs/tearoff1"
-msgstr "/Διάλογοι/διαχ1"
-
-#: ../htmlbar_gui.c:373
+#: ../htmlbar_gui.c:406
 #, fuzzy
 msgid "/Dialogs/_General"
 msgstr "/Διάλογοι/Γενικοί"
 
-#: ../htmlbar_gui.c:374
-msgid "/Dialogs/General/tearoff1"
-msgstr "/Διάλογοι/Γενικοί/διαχ1"
-
-#: ../htmlbar_gui.c:375
+#: ../htmlbar_gui.c:408
 #, fuzzy
 msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Διάλογοι/Γενικοί/Γρήγορη αρχή"
 
-#: ../htmlbar_gui.c:376
+#: ../htmlbar_gui.c:409
+#, fuzzy
+msgid "/Dialogs/General/_Link Header..."
+msgstr "/Διάλογοι/Γενικοί/Meta"
+
+#: ../htmlbar_gui.c:410
 #, fuzzy
 msgid "/Dialogs/General/_Body..."
 msgstr "/Διάλογοι/Γενικοί/Κορμός"
 
-#: ../htmlbar_gui.c:377
+#: ../htmlbar_gui.c:411
 #, fuzzy
 msgid "/Dialogs/General/_Anchor..."
 msgstr "/Διάλογοι/Γενικοί/Διασύνδεση"
 
-#: ../htmlbar_gui.c:378
+#: ../htmlbar_gui.c:412
 #, fuzzy
 msgid "/Dialogs/General/_Email..."
 msgstr "/Διάλογοι/Γενικοί/Email"
 
-#: ../htmlbar_gui.c:379
+#: ../htmlbar_gui.c:413
 #, fuzzy
 msgid "/Dialogs/General/_Rule..."
 msgstr "/Διάλογοι/Γενικοί/Διαχωρισμός"
 
-#: ../htmlbar_gui.c:380
+#: ../htmlbar_gui.c:414
 #, fuzzy
 msgid "/Dialogs/General/_Font..."
 msgstr "/Διάλογοι/Γενικοί/Γραμματοσειρά"
 
-#: ../htmlbar_gui.c:381
+#: ../htmlbar_gui.c:415
 #, fuzzy
 msgid "/Dialogs/General/Basef_ont..."
 msgstr "/Διάλογοι/Γενικοί/Βασική γρ-σειρά"
 
-#: ../htmlbar_gui.c:382
+#: ../htmlbar_gui.c:416
 #, fuzzy
 msgid "/Dialogs/General/Quick_list..."
 msgstr "/Διάλογοι/Γενικοί/Γρήγορη λίστα"
 
-#: ../htmlbar_gui.c:383
+#: ../htmlbar_gui.c:417
 #, fuzzy
 msgid "/Dialogs/General/_Meta..."
 msgstr "/Διάλογοι/Γενικοί/Meta"
 
-#: ../htmlbar_gui.c:384
+#: ../htmlbar_gui.c:418
 #, fuzzy
 msgid "/Dialogs/General/Embe_d..."
 msgstr "/Διάλογοι/Γενικοί/Ενσωμάτωση"
 
-#: ../htmlbar_gui.c:385
+#: ../htmlbar_gui.c:419
 #, fuzzy
 msgid "/Dialogs/General/Select _Color..."
 msgstr "/Διάλογοι/Γενικοί/Επιλογή χρώματος"
 
-#: ../htmlbar_gui.c:386
+#: ../htmlbar_gui.c:420
 #, fuzzy
 msgid "/Dialogs/General/Insert _Time..."
 msgstr "/Διάλογοι/Γενικοί/Εισαγωγή ώρας"
 
-#: ../htmlbar_gui.c:387
+#: ../htmlbar_gui.c:421
 #, fuzzy
 msgid "/Dialogs/General/Insert _Image..."
 msgstr "/Διάλογοι/Ειδικοί/Εισαγωγή εικόνας"
 
-#: ../htmlbar_gui.c:388
+#: ../htmlbar_gui.c:422
 #, fuzzy
 msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "/Διάλογοι/Ειδικοί/Εισαγωγή προεπισκ. εικόνας"
 
-#: ../htmlbar_gui.c:389
+#: ../htmlbar_gui.c:423
 #, fuzzy
 msgid "/Dialogs/_Table"
 msgstr "/Διάλογοι/Πίνακες"
 
-#: ../htmlbar_gui.c:390
-msgid "/Dialogs/Table/tearoff1"
-msgstr "/Διάλογοι/Πίνακες/διαχ1"
-
-#: ../htmlbar_gui.c:391
+#: ../htmlbar_gui.c:425
 #, fuzzy
 msgid "/Dialogs/Table/Table _Wizard..."
 msgstr "/Διάλογοι/Πίνακες/Κεφαλίδα cber"
 
-#: ../htmlbar_gui.c:392
+#: ../htmlbar_gui.c:426
 #, fuzzy
 msgid "/Dialogs/Table/_Table..."
 msgstr "/Διάλογοι/Πίνακες/Πίνακας"
 
-#: ../htmlbar_gui.c:393
+#: ../htmlbar_gui.c:427
 #, fuzzy
 msgid "/Dialogs/Table/Table _Row..."
 msgstr "/Διάλογοι/Πίνακες/Γραμμή πίνακα"
 
-#: ../htmlbar_gui.c:394
+#: ../htmlbar_gui.c:428
 #, fuzzy
 msgid "/Dialogs/Table/Table _Head..."
 msgstr "/Διάλογοι/Πίνακες/Κεφαλίδα cber"
 
-#: ../htmlbar_gui.c:395
+#: ../htmlbar_gui.c:429
 #, fuzzy
 msgid "/Dialogs/Table/Table _Data..."
 msgstr "/Διάλογοι/Πίνακες/Δεδομένα πίνακα"
 
-#: ../htmlbar_gui.c:396
+#: ../htmlbar_gui.c:430
 #, fuzzy
 msgid "/Dialogs/_CSS"
 msgstr "/Διάλογοι/CSS"
 
-#: ../htmlbar_gui.c:397
-msgid "/Dialogs/CSS/tearoff1"
-msgstr "/Διάλογοι/CSS/tearoff1"
-
-#: ../htmlbar_gui.c:398
+#: ../htmlbar_gui.c:432
 #, fuzzy
 msgid "/Dialogs/CSS/_Create Style..."
 msgstr "/Διάλογοι/CSS/Δημιουργία στυλ"
 
-#: ../htmlbar_gui.c:399
+#: ../htmlbar_gui.c:433
 #, fuzzy
 msgid "/Dialogs/CSS/S_pan..."
 msgstr "/Διάλογοι/CSS/Άνοιγμα"
 
-#: ../htmlbar_gui.c:400
+#: ../htmlbar_gui.c:434
 #, fuzzy
 msgid "/Dialogs/CSS/_Div..."
 msgstr "/Διάλογοι/CSS/Div"
 
-#: ../htmlbar_gui.c:401
+#: ../htmlbar_gui.c:435
 #, fuzzy
 msgid "/Dialogs/CSS/_Style..."
 msgstr "/Διάλογοι/CSS/Στυλ"
 
-#: ../htmlbar_gui.c:402
+#: ../htmlbar_gui.c:436
 #, fuzzy
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
 msgstr "/Διάλογοι/CSS/Σύνδεση σε φύλλο στυλ"
 
-#: ../htmlbar_gui.c:403
+#: ../htmlbar_gui.c:437
 #, fuzzy
 msgid "/Dialogs/_Frame"
 msgstr "/Διάλογοι/Πλαίσια"
 
-#: ../htmlbar_gui.c:404
-msgid "/Dialogs/Frame/tearoff1"
-msgstr "/Διάλογοι/Πλαίσια/διαχ1"
-
-#: ../htmlbar_gui.c:405
+#: ../htmlbar_gui.c:439
 #, fuzzy
 msgid "/Dialogs/Frame/Frame _Wizard..."
 msgstr "/Διάλογοι/Πλαίσια/Πλαίσιο"
 
-#: ../htmlbar_gui.c:406
+#: ../htmlbar_gui.c:440
 #, fuzzy
 msgid "/Dialogs/Frame/Frame_set..."
 msgstr "/Διάλογοι/Πλαίσια/Σετ πλαισίων"
 
-#: ../htmlbar_gui.c:407
+#: ../htmlbar_gui.c:441
 #, fuzzy
 msgid "/Dialogs/Frame/_Frame..."
 msgstr "/Διάλογοι/Πλαίσια/Πλαίσιο"
 
-#: ../htmlbar_gui.c:408
+#: ../htmlbar_gui.c:442
 #, fuzzy
 msgid "/Dialogs/F_orm"
 msgstr "/Διάλογοι/Φόρμες"
 
-#: ../htmlbar_gui.c:409
-msgid "/Dialogs/Form/tearoff1"
-msgstr "/Διάλογοι/Φόρμες/διαχ1"
-
-#: ../htmlbar_gui.c:410
+#: ../htmlbar_gui.c:444
 #, fuzzy
 msgid "/Dialogs/Form/F_orm..."
 msgstr "/Διάλογοι/Φόρμες/Φόρμα"
 
-#: ../htmlbar_gui.c:411
+#: ../htmlbar_gui.c:445
 #, fuzzy
 msgid "/Dialogs/Form/_Input..."
 msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
 
-#: ../htmlbar_gui.c:412
+#: ../htmlbar_gui.c:446
 #, fuzzy
 msgid "/Dialogs/Form/Input Buttons..."
 msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
 
-#: ../htmlbar_gui.c:413
+#: ../htmlbar_gui.c:447
 #, fuzzy
 msgid "/Dialogs/Form/Input Text..."
 msgstr "/Διάλογοι/Φόρμες/Κείμενο"
 
-#: ../htmlbar_gui.c:414
+#: ../htmlbar_gui.c:448
 #, fuzzy
 msgid "/Dialogs/Form/Text_area..."
 msgstr "/Διάλογοι/Φόρμες/Πεδίο κειμένου"
 
-#: ../htmlbar_gui.c:415
+#: ../htmlbar_gui.c:449
 #, fuzzy
 msgid "/Dialogs/Form/_Select..."
 msgstr "/Διάλογοι/Φόρμες/Επιλογή"
 
-#: ../htmlbar_gui.c:416
+#: ../htmlbar_gui.c:450
 #, fuzzy
 msgid "/Dialogs/Form/O_ption..."
 msgstr "/Διάλογοι/Φόρμες/Επιλογή"
 
-#: ../htmlbar_gui.c:417
+#: ../htmlbar_gui.c:451
 #, fuzzy
 msgid "/Dialogs/Form/Option _Group..."
 msgstr "/Διάλογοι/Φόρμες/Επιλογή"
 
-#: ../htmlbar_gui.c:418
+#: ../htmlbar_gui.c:452
 #, fuzzy
 msgid "/Dialogs/Form/_Button..."
 msgstr "/Διάλογοι/Φόρμες/Ραδιο-κουμπί"
 
-#: ../htmlbar_gui.c:419
-#, fuzzy
-msgid "/Dialogs/sep1"
-msgstr "/Διάλογοι/διαχ1"
-
-#: ../htmlbar_gui.c:420
+#: ../htmlbar_gui.c:454
 msgid "/Dialogs/_Edit tag under cursor..."
 msgstr ""
 
-#: ../htmlbar_gui.c:423
+#: ../htmlbar_gui.c:457
 #, fuzzy
 msgid "/View/View _HTML Toolbar"
 msgstr "/Επιλογές/Προβολή κύριας γραμμής εργαλείων"
 
-#: ../htmlbar_gui.c:692
+#: ../htmlbar_gui.c:731
 msgid "QuickStart..."
 msgstr "Γρήγορη αρχή..."
 
-#: ../htmlbar_gui.c:693
+#: ../htmlbar_gui.c:732
 msgid "Body..."
 msgstr "Κορμός..."
 
-#: ../htmlbar_gui.c:694
+#: ../htmlbar_gui.c:733
 msgid "Bold"
 msgstr "Έντονα"
 
-#: ../htmlbar_gui.c:695
+#: ../htmlbar_gui.c:734
 msgid "Italic"
 msgstr "Πλάγια"
 
-#: ../htmlbar_gui.c:696 ../html.c:779
+#: ../htmlbar_gui.c:735 ../html.c:781
 msgid "Paragraph"
 msgstr "Παράγραφος"
 
-#: ../htmlbar_gui.c:697
+#: ../htmlbar_gui.c:736
 msgid "Break"
 msgstr "Αλλαγή γραμμής"
 
-#: ../htmlbar_gui.c:698
+#: ../htmlbar_gui.c:737
 msgid "Break and clear"
 msgstr "Αλλαγή γραμμής και καθάριση"
 
-#: ../htmlbar_gui.c:699
+#: ../htmlbar_gui.c:738
 msgid "Non-breaking space"
 msgstr "Διάστημα χωρίς διακοπή"
 
-#: ../htmlbar_gui.c:701
+#: ../htmlbar_gui.c:740
 msgid "Anchor..."
 msgstr "Διασύνδεση..."
 
-#: ../htmlbar_gui.c:702
+#: ../htmlbar_gui.c:741
 msgid "Rule..."
 msgstr "Διαχωρισμός..."
 
-#: ../htmlbar_gui.c:703
+#: ../htmlbar_gui.c:742
 msgid "Center"
 msgstr "Κέντρο"
 
-#: ../htmlbar_gui.c:704
+#: ../htmlbar_gui.c:743
 msgid "Right Justify"
 msgstr "Στοίχηση δεξιά"
 
-#: ../htmlbar_gui.c:705
+#: ../htmlbar_gui.c:744
 msgid "Comment"
 msgstr "Σχόλιο"
 
-#: ../htmlbar_gui.c:706
-msgid "E-Mail..."
+#: ../htmlbar_gui.c:745
+#, fuzzy
+msgid "E-mail..."
 msgstr "E-mail..."
 
-#: ../htmlbar_gui.c:707
+#: ../htmlbar_gui.c:746
 msgid "Font..."
 msgstr "Γραμματοσειρά..."
 
-#: ../htmlbar_gui.c:708
+#: ../htmlbar_gui.c:747
 msgid "Base Font Size..."
 msgstr "Βασικό μέγεθος γρ/σειράς..."
 
-#: ../htmlbar_gui.c:710
+#: ../htmlbar_gui.c:749
 msgid "Font Size +1"
 msgstr "Μέγεθος γρ/σειράς +1"
 
-#: ../htmlbar_gui.c:711
+#: ../htmlbar_gui.c:750
 msgid "Font Size -1"
 msgstr "Μέγεθος γρ/σειράς -1"
 
-#: ../htmlbar_gui.c:712
+#: ../htmlbar_gui.c:751
 msgid "Preformatted Text"
 msgstr "Προφορμαρισμένο Κείμενο"
 
-#: ../htmlbar_gui.c:713
+#: ../htmlbar_gui.c:752
 msgid "Subscript"
 msgstr "Δείκτης"
 
-#: ../htmlbar_gui.c:714
+#: ../htmlbar_gui.c:753
 msgid "Superscript"
 msgstr "Εκθέτης"
 
-#: ../htmlbar_gui.c:715
+#: ../htmlbar_gui.c:754
 msgid "Strong"
 msgstr "Έντονα"
 
-#: ../htmlbar_gui.c:716
+#: ../htmlbar_gui.c:755
 msgid "Emphasis"
 msgstr "Έμφασις"
 
-#: ../htmlbar_gui.c:718 ../html.c:788
+#: ../htmlbar_gui.c:757 ../html.c:790
 msgid "Heading 1"
 msgstr "Κεφαλίδα 1"
 
-#: ../htmlbar_gui.c:719 ../html.c:791
+#: ../htmlbar_gui.c:758 ../html.c:793
 msgid "Heading 2"
 msgstr "Κεφαλίδα 2"
 
-#: ../htmlbar_gui.c:720 ../html.c:794
+#: ../htmlbar_gui.c:759 ../html.c:796
 msgid "Heading 3"
 msgstr "Κεφαλίδα 3"
 
-#: ../htmlbar_gui.c:721 ../html.c:797
+#: ../htmlbar_gui.c:760 ../html.c:799
 msgid "Heading 4"
 msgstr "Κεφαλίδα 4"
 
-#: ../htmlbar_gui.c:722 ../html.c:800
+#: ../htmlbar_gui.c:761 ../html.c:802
 msgid "Heading 5"
 msgstr "Κεφαλίδα 5"
 
-#: ../htmlbar_gui.c:723 ../html.c:803
+#: ../htmlbar_gui.c:762 ../html.c:805
 msgid "Heading 6"
 msgstr "Κεφαλίδα 6"
 
-#: ../htmlbar_gui.c:724
+#: ../htmlbar_gui.c:763
 msgid "Table Wizard..."
 msgstr "Οδηγός πίνακα..."
 
-#: ../htmlbar_gui.c:726
+#: ../htmlbar_gui.c:765
 msgid "Table..."
 msgstr "Πίνακας..."
 
-#: ../htmlbar_gui.c:727
+#: ../htmlbar_gui.c:766
 msgid "Table Row..."
 msgstr "Γραμμή Πίνακα..."
 
-#: ../htmlbar_gui.c:728
+#: ../htmlbar_gui.c:767
 msgid "Table Header..."
 msgstr "Κεφαλίδα Πίνακα..."
 
-#: ../htmlbar_gui.c:729
+#: ../htmlbar_gui.c:768
 msgid "Table Data..."
 msgstr "Δεδομένα Πίνακα..."
 
-#: ../htmlbar_gui.c:731 ../html_table.c:78
+#: ../htmlbar_gui.c:770 ../html_table.c:77
 msgid "Table"
 msgstr "Πίνακας"
 
-#: ../htmlbar_gui.c:732 ../html_table.c:210
+#: ../htmlbar_gui.c:771 ../html_table.c:209
 msgid "Table Row"
 msgstr "Γραμμή Πίνακα"
 
-#: ../htmlbar_gui.c:733 ../html_table.c:321
+#: ../htmlbar_gui.c:772 ../html_table.c:320
 msgid "Table Header"
 msgstr "Κεφαλίδα Πίνακα"
 
-#: ../htmlbar_gui.c:734 ../html_table.c:319
+#: ../htmlbar_gui.c:773 ../html_table.c:318
 msgid "Table Data"
 msgstr "Δεδομένα Πίνακα"
 
-#: ../htmlbar_gui.c:735
+#: ../htmlbar_gui.c:774
 msgid "Table Caption"
 msgstr "Πλαίσιο πίνακα"
 
-#: ../htmlbar_gui.c:736
+#: ../htmlbar_gui.c:775
 msgid "Frame Wizard..."
 msgstr "Οδηγός Πλαισίων..."
 
-#: ../htmlbar_gui.c:738
+#: ../htmlbar_gui.c:777
 msgid "Frameset..."
 msgstr "Σετ πλαισίου..."
 
-#: ../htmlbar_gui.c:739
+#: ../htmlbar_gui.c:778
 msgid "Frame..."
 msgstr "Πλαίσιο..."
 
-#: ../htmlbar_gui.c:741 ../html.c:1536
+#: ../htmlbar_gui.c:780 ../html.c:1590
 msgid "Frameset"
 msgstr "Frameset"
 
-#: ../htmlbar_gui.c:742 ../html.c:1620
+#: ../htmlbar_gui.c:781 ../html.c:1674
 msgid "Frame"
 msgstr "Πλαίσιο"
 
-#: ../htmlbar_gui.c:743
+#: ../htmlbar_gui.c:782
 msgid "Noframes"
 msgstr "Χωρίς πλαίσια"
 
-#: ../htmlbar_gui.c:744
+#: ../htmlbar_gui.c:783
 msgid "Target"
 msgstr "Στόχος"
 
-#: ../htmlbar_gui.c:745
+#: ../htmlbar_gui.c:784
 msgid "Form..."
 msgstr "Φόρμα..."
 
-#: ../htmlbar_gui.c:746
+#: ../htmlbar_gui.c:785
 #, fuzzy
 msgid "Input Button..."
 msgstr "Ραδιο-κουμπί..."
 
-#: ../htmlbar_gui.c:747
+#: ../htmlbar_gui.c:786
 #, fuzzy
 msgid "Input Text..."
 msgstr "Ραδιο-κουμπί..."
 
-#: ../htmlbar_gui.c:748
+#: ../htmlbar_gui.c:787
 #, fuzzy
 msgid "Input Hidden..."
 msgstr "Κρύφο..."
 
-#: ../htmlbar_gui.c:749
+#: ../htmlbar_gui.c:788
 msgid "Textarea..."
 msgstr "Πεδίο κειμένου..."
 
-#: ../htmlbar_gui.c:750
+#: ../htmlbar_gui.c:789
 #, fuzzy
 msgid "Input Radio Button..."
 msgstr "Ραδιο-κουμπί..."
 
-#: ../htmlbar_gui.c:751
+#: ../htmlbar_gui.c:790
 #, fuzzy
 msgid "Input Check Box..."
 msgstr "Κουμπί τσεκαρίσματος..."
 
-#: ../htmlbar_gui.c:752
+#: ../htmlbar_gui.c:791
 msgid "Select..."
 msgstr "Επιλογή..."
 
-#: ../htmlbar_gui.c:753
+#: ../htmlbar_gui.c:792
 msgid "Option..."
 msgstr "Επιλογή..."
 
-#: ../htmlbar_gui.c:754
+#: ../htmlbar_gui.c:793
 #, fuzzy
 msgid "Option group..."
 msgstr "/Ε_πιλογές..."
 
-#: ../htmlbar_gui.c:755
+#: ../htmlbar_gui.c:794
 msgid "Button..."
 msgstr "Κουμπί..."
 
-#: ../htmlbar_gui.c:756
+#: ../htmlbar_gui.c:795
 msgid "Quick List..."
 msgstr "Γρήγορη λίστα..."
 
-#: ../htmlbar_gui.c:757
+#: ../htmlbar_gui.c:796
 msgid "Unordered List"
 msgstr "Μη αριθμημένη λίστα"
 
-#: ../htmlbar_gui.c:758
+#: ../htmlbar_gui.c:797
 msgid "Ordered List"
 msgstr "Αριθμημένη λίστα"
 
-#: ../htmlbar_gui.c:759
+#: ../htmlbar_gui.c:798
 msgid "List Item"
 msgstr "Αντικείμενο Λίστας"
 
-#: ../htmlbar_gui.c:760
+#: ../htmlbar_gui.c:799
 msgid "Definition List"
 msgstr "Λίστα Ορισμών"
 
-#: ../htmlbar_gui.c:761
+#: ../htmlbar_gui.c:800
 msgid "Definition Term"
 msgstr "Όρος προς ερμηνεία"
 
-#: ../htmlbar_gui.c:762 ../htmlbar_gui.c:771
+#: ../htmlbar_gui.c:801 ../htmlbar_gui.c:810
 msgid "Definition"
 msgstr "Ορισμός"
 
-#: ../htmlbar_gui.c:763
+#: ../htmlbar_gui.c:802
 #, fuzzy
 msgid "Create stylesheet..."
 msgstr "Εισαγωγή στυλ στο φύλλο των στυλ..."
 
-#: ../htmlbar_gui.c:764
+#: ../htmlbar_gui.c:803
 msgid "Span..."
 msgstr "Διάστημα..."
 
-#: ../htmlbar_gui.c:765
+#: ../htmlbar_gui.c:804
 msgid "Div..."
 msgstr "Div..."
 
-#: ../htmlbar_gui.c:766 ../html_form.c:825
+#: ../htmlbar_gui.c:805 ../html_form.c:825
 msgid "Style"
 msgstr "Στυλ"
 
-#: ../htmlbar_gui.c:767
+#: ../htmlbar_gui.c:806
 #, fuzzy
 msgid "Link to stylesheet..."
 msgstr "Διασύνδεση σε φύλλο στυλ"
 
-#: ../htmlbar_gui.c:768
+#: ../htmlbar_gui.c:807
 msgid "Insert image..."
 msgstr "Εισαγωγή εικόνας..."
 
-#: ../htmlbar_gui.c:769
+#: ../htmlbar_gui.c:808
 msgid "Insert thumbnail..."
 msgstr "Εισαγωγή μικρογραφίας..."
 
 # src/configure.c:355		ΝΤΚ
-#: ../htmlbar_gui.c:770
+#: ../htmlbar_gui.c:809
 #, fuzzy
 msgid "Multi thumbnail..."
 msgstr "Τύπος προεπισκόπησης"
 
-#: ../htmlbar_gui.c:772
+#: ../htmlbar_gui.c:811
 msgid "Code"
 msgstr "Κώδικας"
 
-#: ../htmlbar_gui.c:773
+#: ../htmlbar_gui.c:812
 msgid "Sample"
 msgstr "Δείγμα"
 
-#: ../htmlbar_gui.c:774
+#: ../htmlbar_gui.c:813
 msgid "Keyboard"
 msgstr "Πληκρολόγιο"
 
-#: ../htmlbar_gui.c:775
+#: ../htmlbar_gui.c:814
 msgid "Variable"
 msgstr "Μεταβλητή"
 
-#: ../htmlbar_gui.c:776
+#: ../htmlbar_gui.c:815
 #, fuzzy
 msgid "Citation"
 msgstr "Περιεχόμενο"
 
-#: ../htmlbar_gui.c:777
+#: ../htmlbar_gui.c:816
 msgid "Abbreviation"
 msgstr ""
 
-#: ../htmlbar_gui.c:778
+#: ../htmlbar_gui.c:817
 #, fuzzy
 msgid "Acronym"
 msgstr "Ενέργεια"
 
-#: ../htmlbar_gui.c:898
+#: ../htmlbar_gui.c:937
 msgid "Remove from quickbar"
 msgstr ""
 
-#: ../htmlbar_gui.c:899
+#: ../htmlbar_gui.c:938
 msgid "Move Left"
 msgstr "Μετακίνηση Αριστερά"
 
-#: ../htmlbar_gui.c:900
+#: ../htmlbar_gui.c:939
 #, fuzzy
 msgid "Move Right"
 msgstr "Μετακίνηση Δεξιά"
 
-#: ../htmlbar_gui.c:940
+#: ../htmlbar_gui.c:979
 #, fuzzy
 msgid "Add to quickbar"
 msgstr " Γρήγορη μπάρα "
 
-#: ../htmlbar_gui.c:1043
+#: ../htmlbar_gui.c:1081
 msgid " Quick bar "
 msgstr " Γρήγορη μπάρα "
 
-#: ../htmlbar_gui.c:1048
+#: ../htmlbar_gui.c:1086
 msgid "Heading"
 msgstr "Κεφαλίδα"
 
-#: ../htmlbar_gui.c:1050
+#: ../htmlbar_gui.c:1088
 msgid " Standard bar "
 msgstr ""
 
-#: ../htmlbar_gui.c:1055
+#: ../htmlbar_gui.c:1093
 #, fuzzy
 msgid "Context formatting"
 msgstr "διακόσμηση κειμένου"
 
-#: ../htmlbar_gui.c:1057
+#: ../htmlbar_gui.c:1095
 msgid " Fonts "
 msgstr " Γρ/σειρές"
 
-#: ../htmlbar_gui.c:1062
+#: ../htmlbar_gui.c:1100
 msgid " Tables "
 msgstr " Πίνακες "
 
-#: ../htmlbar_gui.c:1067
+#: ../htmlbar_gui.c:1105
 msgid " Frames "
 msgstr " Πλαίσια "
 
-#: ../htmlbar_gui.c:1072
+#: ../htmlbar_gui.c:1110
 msgid " Forms "
 msgstr " Φόρμες "
 
-#: ../htmlbar_gui.c:1077
+#: ../htmlbar_gui.c:1115
 msgid " List "
 msgstr " Λίστα "
 
-#: ../htmlbar_gui.c:1082
+#: ../htmlbar_gui.c:1120
 msgid " CSS "
 msgstr " CSS "
 
-#: ../html.c:391
+#: ../html.c:389
 msgid "Insert Time"
 msgstr "Εισαγωγή Ώρας"
 
-#: ../html.c:399
+#: ../html.c:397
 #, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr " _Ώρα (%i:%i:%i)"
 
-#: ../html.c:404
+#: ../html.c:402
 msgid "  Day of the _week (Sunday)"
 msgstr " Ημέρα της εβ_δομάδας (Κυριακή)"
 
-#: ../html.c:407
+#: ../html.c:405
 msgid "  Day of the _week (Monday)"
 msgstr " Ημέρα της β_δομάδας (Δευτέρα)"
 
-#: ../html.c:410
+#: ../html.c:408
 msgid "  Day of the _week (Tuesday)"
 msgstr " Ημέρα της ε_βδομάδας (Τρίτη)"
 
-#: ../html.c:413
+#: ../html.c:411
 msgid "  Day of the _week (Wednesday)"
 msgstr " Ημέρα της ε_βδομάδας (Τετάρτη)"
 
-#: ../html.c:416
+#: ../html.c:414
 msgid "  Day of the _week (Thursday)"
 msgstr " Ημέρα της ε_βδομάδας (Πέμπτη)"
 
-#: ../html.c:419
+#: ../html.c:417
 msgid "  Day of the _week (Friday)"
 msgstr " Ημέρα της εβ_δομάδας (Παρασκευή)"
 
-#: ../html.c:422
+#: ../html.c:420
 msgid "  Day of the _week (Saturday)"
 msgstr " Ημέρα της ε_βδομάδας (Σάββατο)"
 
-#: ../html.c:425
+#: ../html.c:423
 msgid "You appear to have a non existant day!\n"
 msgstr "Φαίνεται πως έχετε μια μη υπαρκτή μέρα!\n"
 
-#: ../html.c:433
+#: ../html.c:431
 #, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr " _Ημερομηνία (%i/%i/%i)"
 
-#: ../html.c:436
+#: ../html.c:434
 #, c-format
 msgid "  _Unix Time (%i)"
 msgstr " Ώρα _Unix (%i)"
 
-#: ../html.c:441
+#: ../html.c:439
 #, fuzzy, c-format
 msgid "  Unix Date _String (%s"
 msgstr " Ημερομηνία Unix (%s"
 
+#: ../html.c:447
+#, c-format
+msgid "  ISO-8601 Ti_me (%s)"
+msgstr ""
+
 # src/html.c:760		ΝΤΚ
-#: ../html.c:587
+#: ../html.c:589
 msgid "Quick Anchor"
 msgstr "Γρήγορη διασύνδεση"
 
-#: ../html.c:593 ../html_form.c:780
+#: ../html.c:595 ../html_form.c:780
 msgid "Attributes"
 msgstr "Γνωρίσματα"
 
-#: ../html.c:607
+#: ../html.c:609 ../html.c:1918
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: ../html.c:611 ../html_form.c:183
+#: ../html.c:613 ../html_form.c:183
 #, fuzzy
 msgid "_Target:"
 msgstr "Στόχος"
 
-#: ../html.c:615 ../html.c:835 ../html.c:1203 ../html.c:1632
+#: ../html.c:617 ../html.c:837 ../html.c:1212 ../html.c:1686
 #: ../html_form.c:231 ../html_form.c:596 ../html_form.c:795 ../html_form.c:890
-#: ../image.c:413
+#: ../image.c:416
 msgid "_Name:"
 msgstr "_Όνομα:"
 
-#: ../html.c:621 ../html.c:1068 ../html.c:1779
+#: ../html.c:623 ../html.c:1070 ../html.c:1241 ../html.c:1833
 msgid "_Language:"
 msgstr "_Γλώσσα:"
 
-#: ../html.c:625 ../html.c:843 ../html.c:977 ../html.c:1072 ../html.c:1227
-#: ../html.c:1568 ../html.c:1669 ../html.c:1798 ../html_form.c:187
+#: ../html.c:627 ../html.c:845 ../html.c:979 ../html.c:1074 ../html.c:1249
+#: ../html.c:1622 ../html.c:1723 ../html.c:1852 ../html_form.c:187
 #: ../html_form.c:243 ../html_form.c:609 ../html_form.c:903
-#: ../html_table.c:102 ../html_table.c:254 ../html_table.c:362 ../image.c:421
+#: ../html_table.c:101 ../html_table.c:253 ../html_table.c:361 ../image.c:424
 #, fuzzy
 msgid "Custo_m:"
 msgstr "Προσαρμωγή"
 
-#: ../html.c:628 ../html.c:1076 ../html_form.c:829
+#: ../html.c:630 ../html.c:1078 ../html_form.c:829
 msgid "Events"
 msgstr "Γεγονότα"
 
-#: ../html.c:631
+#: ../html.c:633
 msgid "OnClic_k:"
 msgstr ""
 
-#: ../html.c:635
+#: ../html.c:637
 msgid "OnD_blClick:"
 msgstr ""
 
-#: ../html.c:639
+#: ../html.c:641
 msgid "OnMouseO_ver:"
 msgstr ""
 
-#: ../html.c:643
+#: ../html.c:645
 msgid "OnMouse_Down:"
 msgstr ""
 
-#: ../html.c:647
+#: ../html.c:649
 msgid "OnMouse_Move:"
 msgstr ""
 
-#: ../html.c:651
+#: ../html.c:653
 msgid "OnMouseOu_t:"
 msgstr ""
 
-#: ../html.c:655
+#: ../html.c:657
 msgid "OnMouse_Up:"
 msgstr ""
 
-#: ../html.c:659
+#: ../html.c:661
 msgid "OnKeyDo_wn:"
 msgstr ""
 
-#: ../html.c:663
+#: ../html.c:665
 msgid "OnKey_Press:"
 msgstr ""
 
-#: ../html.c:667
+#: ../html.c:669
 msgid "OnKe_yUp:"
 msgstr ""
 
-#: ../html.c:782
+#: ../html.c:784
 msgid "Div"
 msgstr "Div"
 
-#: ../html.c:785
+#: ../html.c:787
 msgid "Span"
 msgstr "Span"
 
-#: ../html.c:820 ../html_table.c:110 ../html_table.c:220 ../html_table.c:334
+#: ../html.c:822 ../html_table.c:109 ../html_table.c:219 ../html_table.c:333
 msgid "Ali_gn:"
 msgstr "Στοί_χηση:"
 
-#: ../html.c:824 ../html.c:1060 ../html_diag.c:373 ../html_table.c:92
-#: ../html_table.c:238 ../html_table.c:352
+#: ../html.c:826 ../html.c:1062 ../html_diag.c:373 ../html_table.c:91
+#: ../html_table.c:237 ../html_table.c:351
 #, fuzzy
 msgid "Cl_ass:"
 msgstr "Κλάση"
 
-#: ../html.c:828 ../html.c:1053 ../html_diag.c:381 ../html_table.c:97
-#: ../html_table.c:249 ../html_table.c:357
+#: ../html.c:830 ../html.c:1055 ../html_diag.c:381 ../html_table.c:96
+#: ../html_table.c:248 ../html_table.c:356
 msgid "St_yle:"
 msgstr "Σ_τυλ:"
 
-#: ../html.c:839 ../html.c:1064 ../html_diag.c:377
+#: ../html.c:841 ../html.c:1066 ../html_diag.c:377
 msgid "_ID:"
 msgstr "_ID:"
 
-#: ../html.c:940
+#: ../html.c:942
 msgid "Horizontal Rule"
 msgstr "Οριζόντια διαχώριση"
 
-#: ../html.c:951 ../html.c:1717 ../image.c:439
+#: ../html.c:953 ../html.c:1771 ../image.c:442
 msgid "_Align:"
 msgstr "Στοί_χηση:"
 
-#: ../html.c:958 ../html.c:1725 ../html_table.c:388
+#: ../html.c:960 ../html.c:1779 ../html_table.c:387
 msgid "_Height:"
 msgstr "_Ύψος:"
 
-#: ../html.c:964 ../html.c:1721 ../html_table.c:135 ../html_table.c:381
-#: ../image.c:397
+#: ../html.c:966 ../html.c:1775 ../html_table.c:134 ../html_table.c:380
+#: ../image.c:400
 msgid "_Width:"
 msgstr "_Πλάτος:"
 
-#: ../html.c:967
+#: ../html.c:969
 msgid "Is _percent"
 msgstr "Είναι _ποσοστό"
 
-#: ../html.c:972
+#: ../html.c:974
 #, fuzzy
 msgid "No _shading"
 msgstr "Χωρίς σκιά"
 
-#: ../html.c:1037
+#: ../html.c:1039
 msgid "Body"
 msgstr "Σώμα"
 
-#: ../html.c:1045
+#: ../html.c:1047
 msgid "Options"
 msgstr "Επιλογές"
 
-#: ../html.c:1083
+#: ../html.c:1085
 msgid "On_Load:"
 msgstr ""
 
-#: ../html.c:1091
+#: ../html.c:1093
 msgid "On_UnLoad:"
 msgstr ""
 
-#: ../html.c:1100
+#: ../html.c:1102
 #, fuzzy
 msgid "Depreciated options"
 msgstr "Ορθογραφία"
 
-#: ../html.c:1110
+#: ../html.c:1112
 msgid "Background _Image:"
 msgstr "Ει_κόνα Παρασκηνίου:"
 
-#: ../html.c:1117
+#: ../html.c:1119
 msgid "Back_ground Color:"
 msgstr "Χρώμα _Παρασκηνίου:"
 
-#: ../html.c:1123
+#: ../html.c:1125
 msgid "_Text Color:"
 msgstr "Χρώμα _Κειμένου:"
 
-#: ../html.c:1129
+#: ../html.c:1131
 msgid "_Link Color:"
 msgstr "Χρώμα _Συνδέσμου:"
 
-#: ../html.c:1135
+#: ../html.c:1137
 #, fuzzy
 msgid "_Visited Link Color:"
 msgstr "Χρώμα ήδη επισκεπτώμενης διασύνδεσης"
 
-#: ../html.c:1141
+#: ../html.c:1143
 #, fuzzy
 msgid "_Active Link Color:"
 msgstr "Χρώμα ενεργής διεύθηνσης"
 
-#: ../html.c:1189
+#: ../html.c:1194
 msgid "Meta"
 msgstr "Meta"
 
-#: ../html.c:1214
+#: ../html.c:1232
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-#: ../html.c:1219
+#: ../html.c:1237
 msgid "Con_tent:"
 msgstr "Περιε_χόμενο:"
 
-#: ../html.c:1223
+#: ../html.c:1245
 #, fuzzy
 msgid "_Scheme:"
 msgstr "Θέμα"
 
-#: ../html.c:1304
+#: ../html.c:1326
 msgid "Font"
 msgstr "Γραμματοσειρά"
 
-#: ../html.c:1307
+#: ../html.c:1329
 msgid "Base Font"
 msgstr "Βασική Γραμματοσειρά"
 
-#: ../html.c:1322
+#: ../html.c:1344
 msgid "Size"
 msgstr "Μέγεθος"
 
-#: ../html.c:1330
+#: ../html.c:1352
 msgid "Color"
 msgstr "Χρώμα"
 
-#: ../html.c:1335
+#: ../html.c:1357
 msgid "Face"
 msgstr ""
 
-#: ../html.c:1339
+#: ../html.c:1361
 msgid "Custom"
 msgstr "Προσαρμοσμένο"
 
-#: ../html.c:1398
-msgid "Email"
+#: ../html.c:1445
+#, fuzzy
+msgid "E-mail"
 msgstr "Email"
 
-#: ../html.c:1406
-msgid "_Email address:"
-msgstr "_Email διεύθυνση:"
-
-#: ../html.c:1411
-msgid "UrlEncoded _subject:"
+#: ../html.c:1453
+msgid "_Mail to:"
 msgstr ""
 
-#: ../html.c:1415
-msgid "UrlEncoded _body:"
+#: ../html.c:1457
+#, fuzzy
+msgid "_Copy to:"
+msgstr "Αντιγραφή"
+
+#: ../html.c:1461
+msgid "Blin_d copy to:"
 msgstr ""
 
-#: ../html.c:1459
+#: ../html.c:1465
+msgid "with _Subject:"
+msgstr ""
+
+#: ../html.c:1469
+msgid "with _Body:"
+msgstr ""
+
+#: ../html.c:1513
 msgid "Quick List"
 msgstr "Γρήγορη λίστα"
 
-#: ../html.c:1464 ../html.c:1546 ../html_form.c:236
+#: ../html.c:1518 ../html.c:1600 ../html_form.c:236
 msgid "_Rows:"
 msgstr "_Γραμμές:"
 
-#: ../html.c:1467
+#: ../html.c:1521
 #, fuzzy
 msgid "Or_dered"
 msgstr "Αριθμημένα"
 
-#: ../html.c:1468
+#: ../html.c:1522
 #, fuzzy
 msgid "_Unordered"
 msgstr "Μη αριθμημένα"
 
-#: ../html.c:1470
+#: ../html.c:1524
 msgid "Style:"
 msgstr "Στυλ:"
 
-#: ../html.c:1542 ../html_form.c:240
+#: ../html.c:1596 ../html_form.c:240
 #, fuzzy
 msgid "Co_ls:"
 msgstr "Στήλες"
 
-#: ../html.c:1551
+#: ../html.c:1605
 msgid "_Add <frame> elements"
 msgstr ""
 
-#: ../html.c:1628 ../html.c:1713 ../html.c:1772
+#: ../html.c:1682 ../html.c:1767 ../html.c:1826
 msgid "_Source:"
 msgstr "_Πηγή:"
 
-#: ../html.c:1636
+#: ../html.c:1690
 #, fuzzy
 msgid "Margin _Width:"
 msgstr " Πλάτος περιθωρίου "
 
-#: ../html.c:1640
+#: ../html.c:1694
 #, fuzzy
 msgid "Margin _Height:"
 msgstr " Ύψος περιθωρίου "
 
 # src/html.c:1073	ΝΤΚ
-#: ../html.c:1648
+#: ../html.c:1702
 #, fuzzy
 msgid "Scrollin_g:"
 msgstr "Ανακύλιση "
 
-#: ../html.c:1652
+#: ../html.c:1706
 #, fuzzy
 msgid "_Frameborder:"
 msgstr "Frameset"
 
-#: ../html.c:1657
+#: ../html.c:1711
 #, fuzzy
 msgid "No _Resize:"
 msgstr "Χωρίς αλλαγή διαστάσεων"
 
-#: ../html.c:1707
+#: ../html.c:1761
 msgid "Embed"
 msgstr "Ενσωμάτωση"
 
-#: ../html.c:1729 ../html_table.c:141
+#: ../html.c:1783 ../html_table.c:140
 #, fuzzy
 msgid "Bo_rder:"
 msgstr "Όριο"
 
-#: ../html.c:1765
+#: ../html.c:1819
 #, fuzzy
 msgid "Script"
 msgstr "Δείκτης"
 
-#: ../html.c:1794 ../html.c:1861 ../html_form.c:789 ../html_form.c:899
+#: ../html.c:1848 ../html.c:1949 ../html_form.c:789 ../html_form.c:899
 msgid "_Type:"
 msgstr "_Τύπος:"
 
-#: ../html.c:1836
+#: ../html.c:1907
 msgid "Link"
 msgstr "Σύνδεσμος"
 
-#: ../html.c:1847
-msgid "_Href:"
-msgstr "_Href:"
+#: ../html.c:1924
+#, fuzzy
+msgid "HREF_LANG:"
+msgstr "_HREF:"
 
-#: ../html.c:1853
-msgid "Href_lang:"
-msgstr ""
+#: ../html.c:1928
+#, fuzzy
+msgid "T_itle:"
+msgstr "_Τίτλος:"
 
-#: ../html.c:1867
+#: ../html.c:1968
 msgid "_Forward Relation:"
 msgstr ""
 
-#: ../html.c:1871
+#: ../html.c:1972
 msgid "_Reverse Relation:"
 msgstr ""
 
-#: ../html.c:1882
+#: ../html.c:1983
 #, fuzzy
 msgid "Media:"
 msgstr "Meta"
 
-#: ../html.c:1886
+#: ../html.c:1987
 msgid "L_ang:"
 msgstr "Γ_λώσσα:"
 
-#: ../html.c:1890
+#: ../html.c:1991
 #, fuzzy
 msgid "_Custom:"
 msgstr "Προσαρμωγή"
@@ -2194,130 +2097,130 @@ msgstr "Γλώσσα"
 msgid "Button"
 msgstr "Κουμπί"
 
-#: ../html_table.c:84
+#: ../html_table.c:83
 #, fuzzy
 msgid "Cell _Padding:"
 msgstr "Βάτα κελύφους"
 
-#: ../html_table.c:88
+#: ../html_table.c:87
 #, fuzzy
 msgid "C_ell Spacing:"
 msgstr "Διάστημα κελύφους"
 
-#: ../html_table.c:124 ../html_table.c:234 ../html_table.c:348
+#: ../html_table.c:123 ../html_table.c:233 ../html_table.c:347
 #, fuzzy
 msgid "_Valign:"
 msgstr "Κάθετη στοίχηση"
 
-#: ../html_table.c:129 ../html_table.c:243 ../html_table.c:393
+#: ../html_table.c:128 ../html_table.c:242 ../html_table.c:392
 msgid "Backgrou_nd Color:"
 msgstr "Χρώμα _Παρασκηνίου:"
 
-#: ../html_table.c:155
+#: ../html_table.c:154
 msgid "_Frame:"
 msgstr "_Πλαίσιο:"
 
-#: ../html_table.c:166
+#: ../html_table.c:165
 #, fuzzy
 msgid "R_ules:"
 msgstr "Διαχωρισμός..."
 
-#: ../html_table.c:366
+#: ../html_table.c:365
 #, fuzzy
 msgid "Co_l Span:"
 msgstr "Άνοιγμα σε στήλες"
 
-#: ../html_table.c:370
+#: ../html_table.c:369
 #, fuzzy
 msgid "_Row Span:"
 msgstr "Άνοιγμα σε γραμμές"
 
-#: ../html_table.c:375
+#: ../html_table.c:374
 #, fuzzy
 msgid "No Wra_p:"
 msgstr "Χωρίς περιτύλιξη"
 
-#: ../image.c:361
+#: ../image.c:364
 msgid "Insert thumbnail"
 msgstr "Εισαγωγή μικρογραφίας"
 
-#: ../image.c:363
+#: ../image.c:366
 msgid "Insert image"
 msgstr "Εισαγωγή εικόνας"
 
-#: ../image.c:369
+#: ../image.c:372
 msgid "Preview"
 msgstr "Προεπισκόπηση"
 
-#: ../image.c:389
+#: ../image.c:392
 msgid "_Image location:"
 msgstr "Τοποθεσία _εικόνας:"
 
-#: ../image.c:404
+#: ../image.c:407
 msgid "Hei_ght:"
 msgstr "Ύ_ψος:"
 
-#: ../image.c:409
+#: ../image.c:412
 msgid "_Usemap:"
 msgstr ""
 
-#: ../image.c:417
+#: ../image.c:420
 msgid "Alternate _text:"
 msgstr "Εναλλακτικό _κείμενο:"
 
-#: ../image.c:425
+#: ../image.c:428
 msgid "_Hspace:"
 msgstr "_Hspace:"
 
-#: ../image.c:429
+#: ../image.c:432
 #, fuzzy
 msgid "_Vspace:"
 msgstr "Vspace"
 
-#: ../image.c:443
+#: ../image.c:446
 #, fuzzy
 msgid "Borde_r:"
 msgstr "Όριο"
 
-#: ../image.c:771
+#: ../image.c:774
 msgid "Select files for thumbnail creation"
 msgstr ""
 
 # src/html.c:1073	ΝΤΚ
-#: ../image.c:806
+#: ../image.c:809
 #, fuzzy
 msgid "Scaling (%)"
 msgstr "Ανακύλιση "
 
-#: ../image.c:810 ../image.c:818
+#: ../image.c:813 ../image.c:821
 msgid "Width"
 msgstr "Πλάτος"
 
-#: ../image.c:814 ../image.c:846
+#: ../image.c:817 ../image.c:849
 msgid "Height"
 msgstr "Ύψος"
 
-#: ../image.c:835
+#: ../image.c:838
 msgid "Multi thumbnail"
 msgstr ""
 
-#: ../image.c:841
+#: ../image.c:844
 msgid "By scaling"
 msgstr ""
 
-#: ../image.c:842
+#: ../image.c:845
 msgid "By width, keep aspect ratio"
 msgstr ""
 
-#: ../image.c:843
+#: ../image.c:846
 msgid "By height, keep aspect ratio"
 msgstr ""
 
-#: ../image.c:844
+#: ../image.c:847
 msgid "By width and height, ignore aspect ratio"
 msgstr ""
 
-#: ../image.c:868
+#: ../image.c:871
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2325,79 +2228,79 @@ msgid ""
 "%b: original size (bytes)"
 msgstr ""
 
-#: ../quickstart.c:504
+#: ../quickstart.c:512
 #, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr "<b>Γενικά</b>"
 
-#: ../quickstart.c:514
+#: ../quickstart.c:522
 #, fuzzy
 msgid "Ty_pe:"
 msgstr "_Τύπος:"
 
-#: ../quickstart.c:532
+#: ../quickstart.c:540
 #, fuzzy
-msgid "Hre_f:"
-msgstr "_Href:"
+msgid "HRE_F:"
+msgstr "_HREF:"
 
-#: ../quickstart.c:536
+#: ../quickstart.c:544
 #, fuzzy
 msgid "_Media:"
 msgstr "Meta"
 
-#: ../quickstart.c:540
+#: ../quickstart.c:548
 #, fuzzy
 msgid "Titl_e:"
 msgstr "_Τίτλος:"
 
-#: ../quickstart.c:546
+#: ../quickstart.c:554
 #, fuzzy
 msgid "<b>Style Area</b>"
 msgstr "<b>Γενικά</b>"
 
-#: ../quickstart.c:550
+#: ../quickstart.c:558
 msgid "Cre_ate empty style area"
 msgstr ""
 
-#: ../quickstart.c:572
+#: ../quickstart.c:580
 #, fuzzy
 msgid "<b>Attributes</b>"
 msgstr "Γνωρίσματα"
 
-#: ../quickstart.c:587
+#: ../quickstart.c:595
 #, fuzzy
 msgid "_Src:"
 msgstr "_Πηγή:"
 
-#: ../quickstart.c:594
+#: ../quickstart.c:602
 #, fuzzy
 msgid "<b>Script Area</b>"
 msgstr "<b>Γενικά</b>"
 
-#: ../quickstart.c:598
+#: ../quickstart.c:606
 msgid "Cre_ate empty script area"
 msgstr ""
 
-#: ../quickstart.c:625
+#: ../quickstart.c:633
 #, fuzzy
 msgid "Quick Start"
 msgstr "Γρήγορη αρχή..."
 
-#: ../quickstart.c:639
+#: ../quickstart.c:647
 #, fuzzy
 msgid "_DTD:"
 msgstr "Χρήση _DTD:"
 
-#: ../quickstart.c:643 ../wizards.c:186
+#: ../quickstart.c:651 ../wizards.c:186
 msgid "_Title:"
 msgstr "_Τίτλος:"
 
-#: ../quickstart.c:666
+#: ../quickstart.c:674
 #, fuzzy
 msgid "_Head:"
 msgstr "_Href:"
 
-#: ../quickstart.c:683
+#: ../quickstart.c:691
 #, fuzzy
 msgid "Open in _new document."
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
@@ -2463,6 +2366,108 @@ msgstr "Πηγή:"
 #: ../wizards.c:223
 msgid "Size:"
 msgstr "Μέγεθος:"
+
+#~ msgid "/Tags/Tearoff1"
+#~ msgstr "/Ετικέτες/διαχ1"
+
+#~ msgid "/Tags/Headings/Tearoff1"
+#~ msgstr "/Ετικέτες/Κεφαλίδες/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/Special/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/A-I/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/Uppercase/J-Z/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/separator"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Προφορά/διαχ"
+
+#~ msgid "/Tags/Special/Currency/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Νόμισμα/tearoff1"
+
+#~ msgid "/Tags/Special/Math-Science/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Επιστημονικά/tearoff1"
+
+#~ msgid "/Tags/Special/Non Latin/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Μη λατινικοί/tearoff1"
+
+#~ msgid "/Tags/Special/Other/tearoff1"
+#~ msgstr "/Ετικέτες/Ειδικοί χαρακτήρες/Άλλοι/tearoff1"
+
+#, fuzzy
+#~ msgid "/Tags/Format by layout/tearoff1"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/Format by context/tearoff1"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/tearoff1"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/Format general/<separator>"
+#~ msgstr "/Ετικέτες/Διαμόρφωση κειμένου/διαχ"
+
+#~ msgid "/Tags/Table/tearoff1"
+#~ msgstr "/Ετικέτες/Πίνακες/διαχ1"
+
+#~ msgid "/Tags/List/tearoff1"
+#~ msgstr "/Ετικέτες/Λίστες/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/Form/tearoff1"
+#~ msgstr "/Διάλογοι/Φόρμες/διαχ1"
+
+#, fuzzy
+#~ msgid "/Tags/Misc/tearoff1"
+#~ msgstr "/Ετικέτες/Λίστες/διαχ1"
+
+#~ msgid "/Dialogs/tearoff1"
+#~ msgstr "/Διάλογοι/διαχ1"
+
+#~ msgid "/Dialogs/General/tearoff1"
+#~ msgstr "/Διάλογοι/Γενικοί/διαχ1"
+
+#~ msgid "/Dialogs/Table/tearoff1"
+#~ msgstr "/Διάλογοι/Πίνακες/διαχ1"
+
+#~ msgid "/Dialogs/CSS/tearoff1"
+#~ msgstr "/Διάλογοι/CSS/tearoff1"
+
+#~ msgid "/Dialogs/Frame/tearoff1"
+#~ msgstr "/Διάλογοι/Πλαίσια/διαχ1"
+
+#~ msgid "/Dialogs/Form/tearoff1"
+#~ msgstr "/Διάλογοι/Φόρμες/διαχ1"
+
+#, fuzzy
+#~ msgid "/Dialogs/sep1"
+#~ msgstr "/Διάλογοι/διαχ1"
+
+#~ msgid "_Email address:"
+#~ msgstr "_Email διεύθυνση:"
+
+#~ msgid "_Href:"
+#~ msgstr "_Href:"
+
+#, fuzzy
+#~ msgid "Hre_f:"
+#~ msgstr "_Href:"
 
 #, fuzzy
 #~ msgid "/View/View _HTML Bar"
@@ -3111,9 +3116,6 @@ msgstr "Μέγεθος:"
 
 #~ msgid "Cut"
 #~ msgstr "Αποκοπή"
-
-#~ msgid "Copy"
-#~ msgstr "Αντιγραφή"
 
 #~ msgid "Paste"
 #~ msgstr "Επικόλληση"

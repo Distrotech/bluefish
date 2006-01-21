@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-15 19:09+0200\n"
+"POT-Creation-Date: 2006-01-20 21:46-0800\n"
 "PO-Revision-Date: 2005-01-21 21:51+0200\n"
 "Last-Translator: Kenderessy Patrik <candy@602.cz>\n"
 "Language-Team: Not a member <cs@li.org>\n"
@@ -15,1820 +15,1733 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../html2.c:557
+#: ../html2.c:558
 msgid "Cascading StyleSheet dialog"
 msgstr "CSS formulář"
 
-#: ../html2.c:577
+#: ../html2.c:578
 msgid "_Selector:"
 msgstr "_Přepínač:"
 
-#: ../html2.c:596
+#: ../html2.c:597
 msgid "_Property:"
 msgstr "_Vlastnost:"
 
-#: ../html2.c:598 ../html_form.c:650 ../html_form.c:799 ../html_form.c:894
+#: ../html2.c:599 ../html_form.c:650 ../html_form.c:799 ../html_form.c:894
 msgid "_Value:"
 msgstr "_Hodnota:"
 
-#: ../html2.c:616
+#: ../html2.c:617
 msgid "Selector"
 msgstr "Výběr"
 
-#: ../html2.c:616 ../html2.c:619
+#: ../html2.c:617 ../html2.c:620
 msgid "Property"
 msgstr "Vlastnost"
 
-#: ../html2.c:616 ../html2.c:619
+#: ../html2.c:617 ../html2.c:620
 msgid "Value"
 msgstr "Hodnota:"
 
-#: ../html2.c:634
+#: ../html2.c:635
 msgid " _Add "
 msgstr " _Přidat "
 
-#: ../html2.c:637
+#: ../html2.c:638
 msgid " _Update "
 msgstr " _Aktualizovat "
 
-#: ../html2.c:640
+#: ../html2.c:641
 msgid " _Delete "
 msgstr " _Smazat "
 
-#: ../html2.c:896 ../html2.c:933
+#: ../html2.c:897 ../html2.c:934
 msgid "_Style..."
 msgstr "_Styl..."
 
-#: ../html2.c:1090
+#: ../html2.c:1091
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Výběr barev"
 
-#: ../htmlbar.c:13
+#: ../htmlbar.c:36
 msgid "Edit color"
 msgstr "Změnit barvu"
 
-#: ../htmlbar.c:21
+#: ../htmlbar.c:44
 msgid "Edit tag"
 msgstr "Upravit tag"
 
-#: ../htmlbar_gui.c:169
+#: ../htmlbar_gui.c:202
 msgid "/_Tags"
 msgstr "/_Tagy"
 
-#: ../htmlbar_gui.c:170
-msgid "/Tags/Tearoff1"
-msgstr "/Tagy/Tearoff1"
-
-#: ../htmlbar_gui.c:171
+#: ../htmlbar_gui.c:204
 msgid "/Tags/_Headings"
 msgstr "/Tagy/Nadpisy"
 
-#: ../htmlbar_gui.c:172
-msgid "/Tags/Headings/Tearoff1"
-msgstr "/Tagy/Nadpisy/Tearoff1"
-
-#: ../htmlbar_gui.c:173
+#: ../htmlbar_gui.c:206
 msgid "/Tags/Headings/H_1"
 msgstr "/Tagy/Nadpisy/H_1"
 
-#: ../htmlbar_gui.c:174
+#: ../htmlbar_gui.c:207
 msgid "/Tags/Headings/H_2"
 msgstr "/Tagy/Nadpisy/H_2"
 
-#: ../htmlbar_gui.c:175
+#: ../htmlbar_gui.c:208
 msgid "/Tags/Headings/H_3"
 msgstr "/Tagy/Nadpisy/H_3"
 
-#: ../htmlbar_gui.c:176
+#: ../htmlbar_gui.c:209
 msgid "/Tags/Headings/H_4"
 msgstr "/Tagy/Nadpisy/H_4"
 
-#: ../htmlbar_gui.c:177
+#: ../htmlbar_gui.c:210
 msgid "/Tags/Headings/H_5"
 msgstr "/Tagy/Nadpisy/H_5"
 
-#: ../htmlbar_gui.c:178
+#: ../htmlbar_gui.c:211
 msgid "/Tags/Headings/H_6"
 msgstr "/Tagy/Nadpisy/H_6"
 
-#: ../htmlbar_gui.c:179
+#: ../htmlbar_gui.c:212
 msgid "/Tags/_Special"
 msgstr "/Tagy/_Speciální"
 
-#: ../htmlbar_gui.c:180
-msgid "/Tags/Special/tearoff1"
-msgstr "/Tagy/Speciální/tearoff1"
-
-#: ../htmlbar_gui.c:181
+#: ../htmlbar_gui.c:214
 msgid "/Tags/Special/_Accent"
 msgstr "/Tagy/Speciální/_Diakritika"
 
-#: ../htmlbar_gui.c:182
-msgid "/Tags/Special/Accent/tearoff1"
-msgstr "/Tagy/Speciální/Diakritika/tearoff1"
-
-#: ../htmlbar_gui.c:183
+#: ../htmlbar_gui.c:216
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "/Tagy/Speciální/Diakritika/_Velká písmena"
 
-#: ../htmlbar_gui.c:184
+#: ../htmlbar_gui.c:217
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I"
 
-#: ../htmlbar_gui.c:185
-msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/tearoff1"
-
-#: ../htmlbar_gui.c:186
+#: ../htmlbar_gui.c:219
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/À "
 
-#: ../htmlbar_gui.c:187
+#: ../htmlbar_gui.c:220
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/Á"
 
-#: ../htmlbar_gui.c:188
+#: ../htmlbar_gui.c:221
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/A se stříškou Â"
 
-#: ../htmlbar_gui.c:189
+#: ../htmlbar_gui.c:222
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/A s tildou Ã"
 
-#: ../htmlbar_gui.c:190
+#: ../htmlbar_gui.c:223
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/Æ"
 
-#: ../htmlbar_gui.c:191
+#: ../htmlbar_gui.c:224
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/A s přehláskou Ä"
 
-#: ../htmlbar_gui.c:192
+#: ../htmlbar_gui.c:225
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/A s kolečkem Å"
 
-#: ../htmlbar_gui.c:193
+#: ../htmlbar_gui.c:226
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/C cédille  Ç"
 
-#: ../htmlbar_gui.c:194
+#: ../htmlbar_gui.c:227
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/È"
 
-#: ../htmlbar_gui.c:195
+#: ../htmlbar_gui.c:228
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/E s čárkou É"
 
-#: ../htmlbar_gui.c:196
+#: ../htmlbar_gui.c:229
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/E se stříškou Ê"
 
-#: ../htmlbar_gui.c:197
+#: ../htmlbar_gui.c:230
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/E s přehláskou Ë"
 
-#: ../htmlbar_gui.c:198
+#: ../htmlbar_gui.c:231
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/Ì"
 
-#: ../htmlbar_gui.c:199
+#: ../htmlbar_gui.c:232
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/I s čárkou Í"
 
-#: ../htmlbar_gui.c:200
+#: ../htmlbar_gui.c:233
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/I se stříškou Î"
 
-#: ../htmlbar_gui.c:201
+#: ../htmlbar_gui.c:234
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/I s přehláskou Ï"
 
-#: ../htmlbar_gui.c:202
+#: ../htmlbar_gui.c:235
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/_J-Z"
 
-#: ../htmlbar_gui.c:203
-msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/tearoff1"
-
-#: ../htmlbar_gui.c:204
+#: ../htmlbar_gui.c:237
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/N s tildou Ñ"
 
-#: ../htmlbar_gui.c:205
+#: ../htmlbar_gui.c:238
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/Ò"
 
-#: ../htmlbar_gui.c:206
+#: ../htmlbar_gui.c:239
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/O s čárkou Ó"
 
-#: ../htmlbar_gui.c:207
+#: ../htmlbar_gui.c:240
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/O se stříškou Ô"
 
-#: ../htmlbar_gui.c:208
-msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature"
+#: ../htmlbar_gui.c:241
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/OE"
 
-#: ../htmlbar_gui.c:209
+#: ../htmlbar_gui.c:242
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/O s tildou Õ"
 
-#: ../htmlbar_gui.c:210
+#: ../htmlbar_gui.c:243
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/O s přehláskou Ö"
 
-#: ../htmlbar_gui.c:211
+#: ../htmlbar_gui.c:244
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/Ø"
 
-#: ../htmlbar_gui.c:212
+#: ../htmlbar_gui.c:245
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/Ù"
 
-#: ../htmlbar_gui.c:213
+#: ../htmlbar_gui.c:246
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/U s čárkou Ú"
 
-#: ../htmlbar_gui.c:214
+#: ../htmlbar_gui.c:247
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/U se stříškou Û"
 
-#: ../htmlbar_gui.c:215
+#: ../htmlbar_gui.c:248
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/U s přehláskou Ü"
 
-#: ../htmlbar_gui.c:216
+#: ../htmlbar_gui.c:249
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/Y s čárkou Ý"
 
-#: ../htmlbar_gui.c:217
+#: ../htmlbar_gui.c:250
 msgid "/Tags/Special/Accent/_Lowercase"
 msgstr "/Tagy/Speciální/Diakritika/Malá pí_smena"
 
-#: ../htmlbar_gui.c:218
+#: ../htmlbar_gui.c:251
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/_A-I"
 
-#: ../htmlbar_gui.c:219
-msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/tearoff1"
-
-#: ../htmlbar_gui.c:220
+#: ../htmlbar_gui.c:253
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/à"
 
-#: ../htmlbar_gui.c:221
+#: ../htmlbar_gui.c:254
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/a s čárkou á"
 
-#: ../htmlbar_gui.c:222
+#: ../htmlbar_gui.c:255
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/a se stříškou â"
 
-#: ../htmlbar_gui.c:223
+#: ../htmlbar_gui.c:256
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/a s tildou ã"
 
-#: ../htmlbar_gui.c:224
+#: ../htmlbar_gui.c:257
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/a s kolečkem å"
 
-#: ../htmlbar_gui.c:225
+#: ../htmlbar_gui.c:258
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/æ"
 
-#: ../htmlbar_gui.c:226
+#: ../htmlbar_gui.c:259
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/a s přehláskou ä"
 
-#: ../htmlbar_gui.c:227
+#: ../htmlbar_gui.c:260
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/c cédille ç"
 
-#: ../htmlbar_gui.c:228
+#: ../htmlbar_gui.c:261
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/è"
 
-#: ../htmlbar_gui.c:229
+#: ../htmlbar_gui.c:262
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/e s čárkou é"
 
-#: ../htmlbar_gui.c:230
+#: ../htmlbar_gui.c:263
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/e se stříškou ê"
 
-#: ../htmlbar_gui.c:231
+#: ../htmlbar_gui.c:264
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/e s přehláskou ë"
 
-#: ../htmlbar_gui.c:232
+#: ../htmlbar_gui.c:265
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/ì"
 
-#: ../htmlbar_gui.c:233
+#: ../htmlbar_gui.c:266
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/i s čárkou í"
 
-#: ../htmlbar_gui.c:234
+#: ../htmlbar_gui.c:267
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/i se stříškou î"
 
-#: ../htmlbar_gui.c:235
+#: ../htmlbar_gui.c:268
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/i s přehláskou ï"
 
-#: ../htmlbar_gui.c:236
+#: ../htmlbar_gui.c:269
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/_J-Z"
 
-#: ../htmlbar_gui.c:237
-msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/tearoff1"
-
-#: ../htmlbar_gui.c:238
+#: ../htmlbar_gui.c:271
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/n s tildou ñ"
 
-#: ../htmlbar_gui.c:239
+#: ../htmlbar_gui.c:272
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/ò"
 
-#: ../htmlbar_gui.c:240
+#: ../htmlbar_gui.c:273
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/o s čárkou ó"
 
-#: ../htmlbar_gui.c:241
-msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature æ"
+#: ../htmlbar_gui.c:274
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/æ"
 
-#: ../htmlbar_gui.c:242
+#: ../htmlbar_gui.c:275
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/o se stříškou ô"
 
-#: ../htmlbar_gui.c:243
+#: ../htmlbar_gui.c:276
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/o s tildou õ"
 
-#: ../htmlbar_gui.c:244
+#: ../htmlbar_gui.c:277
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/o s přehláškou ö"
 
-#: ../htmlbar_gui.c:245
+#: ../htmlbar_gui.c:278
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/ø"
 
-#: ../htmlbar_gui.c:246
+#: ../htmlbar_gui.c:279
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/ù"
 
-#: ../htmlbar_gui.c:247
+#: ../htmlbar_gui.c:280
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/u s čárkou ú"
 
-#: ../htmlbar_gui.c:248
+#: ../htmlbar_gui.c:281
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/u se stříškou û"
 
-#: ../htmlbar_gui.c:249
+#: ../htmlbar_gui.c:282
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/u s přehláskou ü"
 
-#: ../htmlbar_gui.c:250
+#: ../htmlbar_gui.c:283
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/y s čárkou ý"
 
-#: ../htmlbar_gui.c:251
+#: ../htmlbar_gui.c:284
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/y s přehláskou ÿ"
 
-#: ../htmlbar_gui.c:252
-msgid "/Tags/Special/Accent/separator"
-msgstr "/Tagy/Speciální/Diakritika/separator"
-
-#: ../htmlbar_gui.c:253
+#: ../htmlbar_gui.c:286
 msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "/Tagy/Speciální/Diakritika/_Přehláska ¨"
 
-#: ../htmlbar_gui.c:254
+#: ../htmlbar_gui.c:287
 msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "/Tagy/Speciální/Diakritika/Čá_rka ´"
 
-#: ../htmlbar_gui.c:255
+#: ../htmlbar_gui.c:288
 msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "/Tagy/Speciální/Diakritika/_Cédille"
 
-#: ../htmlbar_gui.c:256
+#: ../htmlbar_gui.c:289
 msgid "/Tags/Special/_Currency"
 msgstr "/Tagy/Speciální/Mě_na"
 
-#: ../htmlbar_gui.c:257
-msgid "/Tags/Special/Currency/tearoff1"
-msgstr "/Tagy/Speciální/Měna/tearoff1"
-
-#: ../htmlbar_gui.c:258
+#: ../htmlbar_gui.c:291
 msgid "/Tags/Special/Currency/_Cent sign ¢"
 msgstr "/Tagy/Speciální/Měna/_Cent ¢"
 
-#: ../htmlbar_gui.c:259
+#: ../htmlbar_gui.c:292
 msgid "/Tags/Special/Currency/_Pound sterling £"
 msgstr "/Tagy/Speciální/Měna/_Pence £"
 
-#: ../htmlbar_gui.c:260
+#: ../htmlbar_gui.c:293
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
 msgstr "/Tagy/Speciální/Měna/Znak mě_ny ¤"
 
-#: ../htmlbar_gui.c:261
+#: ../htmlbar_gui.c:294
 msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Tagy/Speciální/Měna/_Yen ¥"
 
-#: ../htmlbar_gui.c:262
+#: ../htmlbar_gui.c:295
 msgid "/Tags/Special/Currency/_Euro "
 msgstr "/Tagy/Speciální/_Euro €"
 
-#: ../htmlbar_gui.c:263
+#: ../htmlbar_gui.c:296
 msgid "/Tags/Special/_Math-Science"
 msgstr "/Tagy/Speciální/_Matematicko-Vědecké"
 
-#: ../htmlbar_gui.c:264
-msgid "/Tags/Special/Math-Science/tearoff1"
-msgstr "/Tagy/Speciální/Matematicko-Vědecké/tearoff1"
-
-#: ../htmlbar_gui.c:265
+#: ../htmlbar_gui.c:298
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
 msgstr "/Tagy/Speciální/Matematicko-Vědecké/Lo_gický zápor ¬"
 
-#: ../htmlbar_gui.c:266
+#: ../htmlbar_gui.c:299
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
 msgstr "/Tagy/Speciální/Matematicko-Vědecké/Znak _multiplikace ×"
 
-#: ../htmlbar_gui.c:267
+#: ../htmlbar_gui.c:300
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
 msgstr "/Tagy/Speciální/Matematicko-Vědecké/_Dělení ÷"
 
-#: ../htmlbar_gui.c:268
+#: ../htmlbar_gui.c:301
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
 msgstr "/Tagy/Speciální/Matematicko-Vědecké/_PlusMínus ±"
 
-#: ../htmlbar_gui.c:269
+#: ../htmlbar_gui.c:302
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
 msgstr "/Tagy/Speciální/Matematicko-Vědecké/Me_nší než <"
 
-#: ../htmlbar_gui.c:270
+#: ../htmlbar_gui.c:303
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
 msgstr "/Tagy/Speciální/Matematicko-Vědecké/Větší než >"
 
-#: ../htmlbar_gui.c:271
+#: ../htmlbar_gui.c:304
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "/Tagy/Speciální/Matematicko-Vědecké/Horní index _1 ¹"
 
-#: ../htmlbar_gui.c:272
+#: ../htmlbar_gui.c:305
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "/Tagy/Speciální/Matematicko-Vědecké/Horní index _2 ²"
 
-#: ../htmlbar_gui.c:273
+#: ../htmlbar_gui.c:306
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "/Tagy/Speciální/Matematicko-Vědecké/Horní index _3 ³"
 
-#: ../htmlbar_gui.c:274
+#: ../htmlbar_gui.c:307
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
 msgstr "/Tagy/Speciální/Matematicko-Vědecké/Č_tvrtina ¼"
 
-#: ../htmlbar_gui.c:275
+#: ../htmlbar_gui.c:308
 msgid "/Tags/Special/Math-Science/One _half ½"
 msgstr "/Tagy/Speciální/Matematicko-Vědecké/Pol_ovina ½"
 
-#: ../htmlbar_gui.c:276
+#: ../htmlbar_gui.c:309
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
 msgstr "/Tagy/Speciální/Matematicko-Vědecké/_Tři čtvrtiny ¾"
 
-#: ../htmlbar_gui.c:277
+#: ../htmlbar_gui.c:310
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
 msgstr "/Tagy/Speciální/Matematicko-Vědecké/_Stupeň °"
 
-#: ../htmlbar_gui.c:278
+#: ../htmlbar_gui.c:311
 msgid "/Tags/Special/_Non Latin"
 msgstr "/Tagy/Speciální/Jiné než _Latin"
 
-#: ../htmlbar_gui.c:279
-msgid "/Tags/Special/Non Latin/tearoff1"
-msgstr "/Tagy/Speciální/Jiné než Latin/tearoff1"
-
-#: ../htmlbar_gui.c:280
+#: ../htmlbar_gui.c:313
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "/Tagy/Speciální/Jiné než Latin/_ETH (Islandské) Ð"
 
-#: ../htmlbar_gui.c:281
+#: ../htmlbar_gui.c:314
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "/Tagy/Speciální/Jiné než Latin/_THORN (Islandské) Þ"
 
-#: ../htmlbar_gui.c:282
+#: ../htmlbar_gui.c:315
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "/Tagy/Speciální/Jiné než Latin/et_h (Islandské) ð"
 
-#: ../htmlbar_gui.c:283
+#: ../htmlbar_gui.c:316
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "/Tagy/Speciální/Jiné než Latin/th_orn ÿ"
 
-#: ../htmlbar_gui.c:284
+#: ../htmlbar_gui.c:317
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "/Tagy/Speciální/Jiné než Latin/Ostré _s ß"
 
-#: ../htmlbar_gui.c:285
+#: ../htmlbar_gui.c:318
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
 msgstr "/Tagy/Speciální/Jiné než Latin/Znak _mikro µ"
 
-#: ../htmlbar_gui.c:286
+#: ../htmlbar_gui.c:319
 msgid "/Tags/Special/_Other"
 msgstr "/Tagy/Speciální/_Jiné"
 
-#: ../htmlbar_gui.c:287
-msgid "/Tags/Special/Other/tearoff1"
-msgstr "/Tagy/Speciální/Jiné/tearoff1"
-
-#: ../htmlbar_gui.c:288
+#: ../htmlbar_gui.c:321
 msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "/Tagy/Speciální/Jiné/_Nedělitelná mezera"
 
-#: ../htmlbar_gui.c:289
+#: ../htmlbar_gui.c:322
 msgid "/Tags/Special/Other/_Section sign §"
 msgstr "/Tagy/Speciální/Jiné/_Paragraf §"
 
-#: ../htmlbar_gui.c:290
+#: ../htmlbar_gui.c:323
 msgid "/Tags/Special/Other/_Copyright sign ©"
 msgstr "/Tagy/Speciální/Jiné/_Coryright ©"
 
-#: ../htmlbar_gui.c:291
+#: ../htmlbar_gui.c:324
 msgid "/Tags/Special/Other/_Left angle quotes «"
 msgstr "/Tagy/Speciální/Jiné/«"
 
-#: ../htmlbar_gui.c:292
+#: ../htmlbar_gui.c:325
 msgid "/Tags/Special/Other/_Right angle quotes »"
 msgstr "/Tagy/Speciální/Jiné/»"
 
-#: ../htmlbar_gui.c:293
+#: ../htmlbar_gui.c:326
 msgid "/Tags/Special/Other/Registered _trademark ®"
 msgstr "/Tagy/Speciální/Jiné/®"
 
-#: ../htmlbar_gui.c:294
+#: ../htmlbar_gui.c:327
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
 msgstr "/Tagy/Speciální/Jiné/Obrácený v_ykřičník ¡"
 
-#: ../htmlbar_gui.c:295
+#: ../htmlbar_gui.c:328
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
 msgstr "/Tagy/Speciální/Jiné/Obrácený otazník ¿"
 
-#: ../htmlbar_gui.c:296
+#: ../htmlbar_gui.c:329
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "/Tagy/Speciální/Jiné/Žen_ské znamení ª"
 
-#: ../htmlbar_gui.c:297
+#: ../htmlbar_gui.c:330
 msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "/Tagy/Speciální/Jiné/Mužské znamení º"
 
-#: ../htmlbar_gui.c:298
+#: ../htmlbar_gui.c:331
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
 msgstr "/Tagy/Speciální/Jiné/_Pilcrow (znak odstavce) ¶"
 
-#: ../htmlbar_gui.c:299
+#: ../htmlbar_gui.c:332
 msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Tagy/Speciální/Jiné/Přerušená roura ¦"
 
-#: ../htmlbar_gui.c:300
+#: ../htmlbar_gui.c:333
 msgid "/Tags/Special/Other/Soft _hypen -"
 msgstr "/Tagy/Speciální/Jiné/Pomlčka -"
 
-#: ../htmlbar_gui.c:301
+#: ../htmlbar_gui.c:334
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
 msgstr "/Tagy/Speciální/Jiné/Nadt_ržítko ¯"
 
-#: ../htmlbar_gui.c:302
+#: ../htmlbar_gui.c:335
 msgid "/Tags/Special/Other/Middle _dot ·"
 msgstr "/Tagy/Speciální/Jiné/Tečka uprostře_d ·"
 
-#: ../htmlbar_gui.c:303
+#: ../htmlbar_gui.c:336
 msgid "/Tags/_Format by layout"
 msgstr "/Tagy/_Formát podle umístění"
 
-#: ../htmlbar_gui.c:304
-msgid "/Tags/Format by layout/tearoff1"
-msgstr "/Tagy/Formát podle umístění/tearoff1"
-
-#: ../htmlbar_gui.c:305
+#: ../htmlbar_gui.c:338
 msgid "/Tags/Format by layout/_Bold"
 msgstr "/Tagy/Formát podle umístění/_Tučné"
 
-#: ../htmlbar_gui.c:306
+#: ../htmlbar_gui.c:339
 msgid "/Tags/Format by layout/_Italic"
 msgstr "/Tagy/Formát podle umístění/_Kurzíva"
 
-#: ../htmlbar_gui.c:307
+#: ../htmlbar_gui.c:340
 msgid "/Tags/Format by layout/_Underline"
 msgstr "/Tagy/Formát podle umístění/_Podtržené"
 
-#: ../htmlbar_gui.c:308
+#: ../htmlbar_gui.c:341
 msgid "/Tags/Format by layout/_Strikeout"
 msgstr "/Tagy/Formát podle umístění/Přešk_rtnuté"
 
-#: ../htmlbar_gui.c:309
+#: ../htmlbar_gui.c:342
 msgid "/Tags/Format by layout/Sm_all"
 msgstr "/Tagy/Formát podle umístění/M_alé"
 
-#: ../htmlbar_gui.c:310
+#: ../htmlbar_gui.c:343
 msgid "/Tags/Format by layout/Bi_g"
 msgstr "/Tagy/Formát podle umístění/_Velké"
 
-#: ../htmlbar_gui.c:311
+#: ../htmlbar_gui.c:344
 msgid "/Tags/F_ormat by context"
 msgstr "/Tagy/Formát podle obsahu"
 
-#: ../htmlbar_gui.c:312
-msgid "/Tags/Format by context/tearoff1"
-msgstr "/Tagy/Formát podle obsahu/tearoff1"
-
-#: ../htmlbar_gui.c:313
+#: ../htmlbar_gui.c:346
 msgid "/Tags/Format by context/_Strong"
 msgstr "/Tagy/Formát podle obsahu/_Silné"
 
-#: ../htmlbar_gui.c:314
+#: ../htmlbar_gui.c:347
 msgid "/Tags/Format by context/_Emphasis"
 msgstr "/Tagy/Formát podle obsahu/_Zdůraznění"
 
-#: ../htmlbar_gui.c:315
+#: ../htmlbar_gui.c:348
 msgid "/Tags/Format by context/_Define"
 msgstr "/Tagy/Formát podle obsahu/_Definice"
 
-#: ../htmlbar_gui.c:316
+#: ../htmlbar_gui.c:349
 msgid "/Tags/Format by context/_Code"
 msgstr "/Tagy/Formát podle obsahu/_Kód"
 
-#: ../htmlbar_gui.c:317
+#: ../htmlbar_gui.c:350
 msgid "/Tags/Format by context/Sa_mple"
 msgstr "/Tagy/Formát podle obsahu/Příkl_ad"
 
-#: ../htmlbar_gui.c:318
+#: ../htmlbar_gui.c:351
 msgid "/Tags/Format by context/_Keyboard"
 msgstr "/Tagy/Formát podle obsahu/Klá_vesnice"
 
-#: ../htmlbar_gui.c:319
+#: ../htmlbar_gui.c:352
 msgid "/Tags/Format by context/_Variable"
 msgstr "/Tagy/Formát podle obsahu/_Proměnné"
 
-#: ../htmlbar_gui.c:320
+#: ../htmlbar_gui.c:353
 msgid "/Tags/Format by context/Ci_tation"
 msgstr "/Tagy/Formát podle obsahu/Ci_tace"
 
-#: ../htmlbar_gui.c:321
+#: ../htmlbar_gui.c:354
 msgid "/Tags/Format by context/_Abbreviation"
 msgstr "/Tagy/Formát podle obsahu/Výta_h"
 
-#: ../htmlbar_gui.c:322
+#: ../htmlbar_gui.c:355
 msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/Tagy/Formát podle obsahu/Akr_onym"
 
-#: ../htmlbar_gui.c:323
+#: ../htmlbar_gui.c:356
 msgid "/Tags/Format _general"
 msgstr "/Tagy/Formát obecný"
 
-#: ../htmlbar_gui.c:324
-msgid "/Tags/Format general/tearoff1"
-msgstr "/Tagy/Formát obecný/tearoff1"
-
-#: ../htmlbar_gui.c:325
+#: ../htmlbar_gui.c:358
 msgid "/Tags/Format general/_Paragraph"
 msgstr "/Tagy/Formát obecný/_Odstavec"
 
-#: ../htmlbar_gui.c:326
+#: ../htmlbar_gui.c:359
 msgid "/Tags/Format general/_Break"
 msgstr "/Tagy/Formát obecný/_Zalomení"
 
-#: ../htmlbar_gui.c:327
+#: ../htmlbar_gui.c:360
 msgid "/Tags/Format general/Break clear _all"
 msgstr "/Tagy/Formát obecný/_Konec řádku (clear all)"
 
-#: ../htmlbar_gui.c:328
+#: ../htmlbar_gui.c:361
 msgid "/Tags/Format general/_Non-Breaking Space"
 msgstr "/Tagy/Formát obecný/_Nedělitelná mezera"
 
-#: ../htmlbar_gui.c:329 ../htmlbar_gui.c:332 ../htmlbar_gui.c:336
-msgid "/Tags/Format general/<separator>"
-msgstr "/Tagy/Formát obecný/<separator>"
-
-#: ../htmlbar_gui.c:330
+#: ../htmlbar_gui.c:363
 msgid "/Tags/Format general/Font Si_ze +1"
 msgstr "/Tagy/Formát obecný/Z_většit Font +1"
 
-#: ../htmlbar_gui.c:331
+#: ../htmlbar_gui.c:364
 msgid "/Tags/Format general/Font _Size -1"
 msgstr "/Tagy/Formát obecný/Z_menšit Fontu -1"
 
-#: ../htmlbar_gui.c:333
+#: ../htmlbar_gui.c:366
 msgid "/Tags/Format general/Preformatted _Text"
 msgstr "/Tagy/Formát obecný/Předformátovaný _Text"
 
-#: ../htmlbar_gui.c:334
+#: ../htmlbar_gui.c:367
 msgid "/Tags/Format general/Su_bscript"
 msgstr "/Tagy/Formát obecný/Do_lní index"
 
-#: ../htmlbar_gui.c:335
+#: ../htmlbar_gui.c:368
 msgid "/Tags/Format general/Su_perscript"
 msgstr "/Tagy/Formát obecný/Ho_rní index"
 
-#: ../htmlbar_gui.c:337
+#: ../htmlbar_gui.c:370
 msgid "/Tags/Format general/_Center"
 msgstr "/Tagy/Formát obecný/Zarovnání na _střed"
 
-#: ../htmlbar_gui.c:338
+#: ../htmlbar_gui.c:371
 msgid "/Tags/Format general/Align _right"
 msgstr "/Tagy/Formát obecný/Zarovnání v_pravo"
 
-#: ../htmlbar_gui.c:339
+#: ../htmlbar_gui.c:372
 msgid "/Tags/_Table"
 msgstr "/Tagy/_Tabulka"
 
-#: ../htmlbar_gui.c:340
-msgid "/Tags/Table/tearoff1"
-msgstr "/Tagy/Tabulka/tearoff1"
-
-#: ../htmlbar_gui.c:341
+#: ../htmlbar_gui.c:374
 msgid "/Tags/Table/_Table"
 msgstr "/Tagy/Tabulka/_Tabulka"
 
-#: ../htmlbar_gui.c:342
+#: ../htmlbar_gui.c:375
 msgid "/Tags/Table/Table _Row"
 msgstr "/Tagy/Tabulka/Řá_dek Tabulky"
 
-#: ../htmlbar_gui.c:343
+#: ../htmlbar_gui.c:376
 msgid "/Tags/Table/Table _Header"
 msgstr "/Tagy/Tabulka/_Hlavička Tabulky"
 
-#: ../htmlbar_gui.c:344
+#: ../htmlbar_gui.c:377
 msgid "/Tags/Table/Table _Data"
 msgstr "/Tagy/Tabulka/_Buňka Tabulky"
 
-#: ../htmlbar_gui.c:345
+#: ../htmlbar_gui.c:378
 msgid "/Tags/Table/Table _Caption"
 msgstr "/Tagy/Tabulka/_Podtitulek Tabulky"
 
-#: ../htmlbar_gui.c:346
+#: ../htmlbar_gui.c:379
 msgid "/Tags/_List"
 msgstr "/Tagy/_Seznam"
 
-#: ../htmlbar_gui.c:347
-msgid "/Tags/List/tearoff1"
-msgstr "/Tagy/Seznam/tearoff1"
-
-#: ../htmlbar_gui.c:348
+#: ../htmlbar_gui.c:381
 msgid "/Tags/List/Unordered _List"
 msgstr "/Tagy/Seznam/_Nečíslovaný Seznam"
 
-#: ../htmlbar_gui.c:349
+#: ../htmlbar_gui.c:382
 msgid "/Tags/List/_Ordered List"
 msgstr "/Tagy/Seznam/Čí_slovaný Seznam"
 
-#: ../htmlbar_gui.c:350
+#: ../htmlbar_gui.c:383
 msgid "/Tags/List/List Ite_m"
 msgstr "/Tagy/Seznam/_Položka Seznamu"
 
-#: ../htmlbar_gui.c:351
+#: ../htmlbar_gui.c:384
 msgid "/Tags/List/De_finition List"
 msgstr "/Tagy/Seznam/Seznam _Definicí"
 
-#: ../htmlbar_gui.c:352
+#: ../htmlbar_gui.c:385
 msgid "/Tags/List/Definition _Term"
 msgstr "/Tagy/Seznam/Definiční _Termín"
 
-#: ../htmlbar_gui.c:353
+#: ../htmlbar_gui.c:386
 msgid "/Tags/List/_Definition"
 msgstr "/Tagy/Seznam/De_finice"
 
-#: ../htmlbar_gui.c:354
+#: ../htmlbar_gui.c:387
 msgid "/Tags/List/Men_u"
 msgstr "/Tagy/Seznam/Na_bídka"
 
-#: ../htmlbar_gui.c:355
+#: ../htmlbar_gui.c:388
 msgid "/Tags/Fo_rm"
 msgstr "/Dialogy/Fo_rmulář"
 
-#: ../htmlbar_gui.c:356
-msgid "/Tags/Form/tearoff1"
-msgstr "/Dialogy/Formulář/tearoff1"
-
-#: ../htmlbar_gui.c:357
+#: ../htmlbar_gui.c:390
 msgid "/Tags/Form/_Form"
 msgstr "/Dialogy/Formulář/_Formulář"
 
-#: ../htmlbar_gui.c:358
+#: ../htmlbar_gui.c:391
 msgid "/Tags/Form/_Button"
 msgstr "/Dialogy/Formulář/_Obecné tlačítko"
 
-#: ../htmlbar_gui.c:359
+#: ../htmlbar_gui.c:392
 msgid "/Tags/Form/_Input"
 msgstr "/Dialogy/Formulář/Fo_rmulářové tlačítko"
 
-#: ../htmlbar_gui.c:360
+#: ../htmlbar_gui.c:393
 msgid "/Tags/Form/_Textarea"
 msgstr "/Dialogy/Formulář/_Textové pole"
 
-#: ../htmlbar_gui.c:361
+#: ../htmlbar_gui.c:394
 msgid "/Tags/_Misc"
 msgstr "/Tagy/_Různé"
 
-#: ../htmlbar_gui.c:362
-msgid "/Tags/Misc/tearoff1"
-msgstr "/Tagy/Různé/tearoff1"
-
-#: ../htmlbar_gui.c:363
+#: ../htmlbar_gui.c:396
 msgid "/Tags/Misc/Insert Generator _META-Tag"
 msgstr "/Tagy/Různé/Vložit Generator _META-Tag"
 
-#: ../htmlbar_gui.c:364
+#: ../htmlbar_gui.c:397
 msgid "/Tags/Misc/_Span"
 msgstr "/Tagy/Různé/_Span"
 
-#: ../htmlbar_gui.c:365
+#: ../htmlbar_gui.c:398
 msgid "/Tags/Misc/_Div"
 msgstr "/Tagy/Různé/_Div"
 
-#: ../htmlbar_gui.c:366
+#: ../htmlbar_gui.c:399
 msgid "/Tags/Misc/_Link"
 msgstr "/Tagy/Různé/_Link"
 
-#: ../htmlbar_gui.c:367
+#: ../htmlbar_gui.c:400
 msgid "/Tags/Misc/S_cript"
 msgstr "/Tagy/Různé/S_kript"
 
-#: ../htmlbar_gui.c:368
+#: ../htmlbar_gui.c:401
 msgid "/Tags/Misc/_Anchor"
 msgstr "/Tagy/Různé/Ko_tva"
 
-#: ../htmlbar_gui.c:369
+#: ../htmlbar_gui.c:402
 msgid "/Tags/Misc/_Image"
 msgstr "/Tagy/Různé/_Obrázek"
 
-#: ../htmlbar_gui.c:370
+#: ../htmlbar_gui.c:403
 msgid "/Tags/_Comment"
 msgstr "/Tagy/_Komentář"
 
-#: ../htmlbar_gui.c:371
+#: ../htmlbar_gui.c:404
 msgid "/Dial_ogs"
 msgstr "/_Dialogy"
 
-#: ../htmlbar_gui.c:372
-msgid "/Dialogs/tearoff1"
-msgstr "/Dialogy/tearoff1"
-
-#: ../htmlbar_gui.c:373
+#: ../htmlbar_gui.c:406
 msgid "/Dialogs/_General"
 msgstr "/Dialogy/_Obecné"
 
-#: ../htmlbar_gui.c:374
-msgid "/Dialogs/General/tearoff1"
-msgstr "/Dialogy/Obecné/tearoff1"
-
-#: ../htmlbar_gui.c:375
+#: ../htmlbar_gui.c:408
 msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Dialogy/Obecné/_Rychlé Začít..."
 
-#: ../htmlbar_gui.c:376
+#: ../htmlbar_gui.c:409
+#, fuzzy
+msgid "/Dialogs/General/_Link Header..."
+msgstr "/Dialogy/Obecné/_Meta..."
+
+#: ../htmlbar_gui.c:410
 msgid "/Dialogs/General/_Body..."
 msgstr "/Dialogy/Obecné/_Body..."
 
-#: ../htmlbar_gui.c:377
+#: ../htmlbar_gui.c:411
 msgid "/Dialogs/General/_Anchor..."
 msgstr "/Dialogy/Obecné/_Kotva..."
 
-#: ../htmlbar_gui.c:378
+#: ../htmlbar_gui.c:412
 msgid "/Dialogs/General/_Email..."
 msgstr "/Dialogy/Obecné/_Email..."
 
-#: ../htmlbar_gui.c:379
+#: ../htmlbar_gui.c:413
 msgid "/Dialogs/General/_Rule..."
 msgstr "/Dialogy/Obecné/_Horizontální Čá_ra..."
 
-#: ../htmlbar_gui.c:380
+#: ../htmlbar_gui.c:414
 msgid "/Dialogs/General/_Font..."
 msgstr "/Dialogy/Obecné/_Písmo..."
 
-#: ../htmlbar_gui.c:381
+#: ../htmlbar_gui.c:415
 msgid "/Dialogs/General/Basef_ont..."
 msgstr "/Dialogy/Obecné/Základní f_ont..."
 
-#: ../htmlbar_gui.c:382
+#: ../htmlbar_gui.c:416
 msgid "/Dialogs/General/Quick_list..."
 msgstr "/Dialogy/Obecné/Rychle _seznam..."
 
-#: ../htmlbar_gui.c:383
+#: ../htmlbar_gui.c:417
 msgid "/Dialogs/General/_Meta..."
 msgstr "/Dialogy/Obecné/_Meta..."
 
-#: ../htmlbar_gui.c:384
+#: ../htmlbar_gui.c:418
 msgid "/Dialogs/General/Embe_d..."
 msgstr "/Dialogy/Obecné/Embe_d..."
 
-#: ../htmlbar_gui.c:385
+#: ../htmlbar_gui.c:419
 msgid "/Dialogs/General/Select _Color..."
 msgstr "/Dialogy/Obecné/Výběr _Barvy..."
 
-#: ../htmlbar_gui.c:386
+#: ../htmlbar_gui.c:420
 msgid "/Dialogs/General/Insert _Time..."
 msgstr "/Dialogy/Obecné/Vložení Č_asu..."
 
-#: ../htmlbar_gui.c:387
+#: ../htmlbar_gui.c:421
 msgid "/Dialogs/General/Insert _Image..."
 msgstr "/Dialogy/Obecné/Vložení _Obrázku..."
 
-#: ../htmlbar_gui.c:388
+#: ../htmlbar_gui.c:422
 msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "/Dialogy/Obecné/Vložení _Náhledu..."
 
-#: ../htmlbar_gui.c:389
+#: ../htmlbar_gui.c:423
 msgid "/Dialogs/_Table"
 msgstr "/Dialogy/_Tabulka"
 
-#: ../htmlbar_gui.c:390
-msgid "/Dialogs/Table/tearoff1"
-msgstr "/Dialogy/Tabulka/tearoff1"
-
-#: ../htmlbar_gui.c:391
+#: ../htmlbar_gui.c:425
 msgid "/Dialogs/Table/Table _Wizard..."
 msgstr "/Dialogy/Tabulka/_Průvodce Tabulkou..."
 
-#: ../htmlbar_gui.c:392
+#: ../htmlbar_gui.c:426
 msgid "/Dialogs/Table/_Table..."
 msgstr "/Dialogy/Tabulka/_Tabulka..."
 
-#: ../htmlbar_gui.c:393
+#: ../htmlbar_gui.c:427
 msgid "/Dialogs/Table/Table _Row..."
 msgstr "/Dialogy/Tabulka/Řá_dek tabulky..."
 
-#: ../htmlbar_gui.c:394
+#: ../htmlbar_gui.c:428
 msgid "/Dialogs/Table/Table _Head..."
 msgstr "/Dialogy/Tabulka/_Hlavička Tabulky..."
 
-#: ../htmlbar_gui.c:395
+#: ../htmlbar_gui.c:429
 msgid "/Dialogs/Table/Table _Data..."
 msgstr "/Dialogy/Tabulka/_Buňka Tabulky..."
 
-#: ../htmlbar_gui.c:396
+#: ../htmlbar_gui.c:430
 msgid "/Dialogs/_CSS"
 msgstr "/Dialogy/_CSS"
 
-#: ../htmlbar_gui.c:397
-msgid "/Dialogs/CSS/tearoff1"
-msgstr "/Dialogy/CSS/tearoff1"
-
-#: ../htmlbar_gui.c:398
+#: ../htmlbar_gui.c:432
 msgid "/Dialogs/CSS/_Create Style..."
 msgstr "/Dialogy/CSS/_Vytvoření stylu..."
 
-#: ../htmlbar_gui.c:399
+#: ../htmlbar_gui.c:433
 msgid "/Dialogs/CSS/S_pan..."
 msgstr "/Dialogy/CSS/S_pan..."
 
-#: ../htmlbar_gui.c:400
+#: ../htmlbar_gui.c:434
 msgid "/Dialogs/CSS/_Div..."
 msgstr "/Dialogy/CSS/_Div..."
 
-#: ../htmlbar_gui.c:401
+#: ../htmlbar_gui.c:435
 msgid "/Dialogs/CSS/_Style..."
 msgstr "/Dialogy/CSS/_Styl..."
 
-#: ../htmlbar_gui.c:402
+#: ../htmlbar_gui.c:436
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
 msgstr "/Dialogy/CSS/_Link na stylopis..."
 
-#: ../htmlbar_gui.c:403
+#: ../htmlbar_gui.c:437
 msgid "/Dialogs/_Frame"
 msgstr "/Dialogy/_Rám"
 
-#: ../htmlbar_gui.c:404
-msgid "/Dialogs/Frame/tearoff1"
-msgstr "/Dialogy/Rám/tearoff1"
-
-#: ../htmlbar_gui.c:405
+#: ../htmlbar_gui.c:439
 msgid "/Dialogs/Frame/Frame _Wizard..."
 msgstr "/Dialogy/Rám/_Průvodce Rámy..."
 
-#: ../htmlbar_gui.c:406
+#: ../htmlbar_gui.c:440
 msgid "/Dialogs/Frame/Frame_set..."
 msgstr "/Dialogy/Rám/_Definice Rám..."
 
-#: ../htmlbar_gui.c:407
+#: ../htmlbar_gui.c:441
 msgid "/Dialogs/Frame/_Frame..."
 msgstr "/Dialogy/Rám/_Rám..."
 
-#: ../htmlbar_gui.c:408
+#: ../htmlbar_gui.c:442
 msgid "/Dialogs/F_orm"
 msgstr "/Dialogy/F_ormulář"
 
-#: ../htmlbar_gui.c:409
-msgid "/Dialogs/Form/tearoff1"
-msgstr "/Dialogy/Formulář/tearoff1"
-
-#: ../htmlbar_gui.c:410
+#: ../htmlbar_gui.c:444
 msgid "/Dialogs/Form/F_orm..."
 msgstr "/Dialogy/Formulář/F_ormulář..."
 
-#: ../htmlbar_gui.c:411
+#: ../htmlbar_gui.c:445
 msgid "/Dialogs/Form/_Input..."
 msgstr "/Dialogy/Formulář/Vstupní _prvek..."
 
-#: ../htmlbar_gui.c:412
+#: ../htmlbar_gui.c:446
 msgid "/Dialogs/Form/Input Buttons..."
 msgstr "/Dialogy/Formulář/Vstupní _tlačítka..."
 
-#: ../htmlbar_gui.c:413
+#: ../htmlbar_gui.c:447
 msgid "/Dialogs/Form/Input Text..."
 msgstr "/Dialogy/Formulář/Text..."
 
-#: ../htmlbar_gui.c:414
+#: ../htmlbar_gui.c:448
 msgid "/Dialogs/Form/Text_area..."
 msgstr "/Dialogy/Formulář/Textové p_ole..."
 
-#: ../htmlbar_gui.c:415
+#: ../htmlbar_gui.c:449
 msgid "/Dialogs/Form/_Select..."
 msgstr "/Dialogy/Formulář/_Výběr..."
 
-#: ../htmlbar_gui.c:416
+#: ../htmlbar_gui.c:450
 msgid "/Dialogs/Form/O_ption..."
 msgstr "/Dialogy/Formulář/Vstup O_ption..."
 
-#: ../htmlbar_gui.c:417
+#: ../htmlbar_gui.c:451
 msgid "/Dialogs/Form/Option _Group..."
 msgstr "/Dialogy/Formulář/Vstup Opt_group..."
 
-#: ../htmlbar_gui.c:418
+#: ../htmlbar_gui.c:452
 msgid "/Dialogs/Form/_Button..."
 msgstr "/Dialogy/Formulář/O_becné Tlačítko..."
 
-#: ../htmlbar_gui.c:419
-msgid "/Dialogs/sep1"
-msgstr "/Dialogy/tearoff1"
-
-#: ../htmlbar_gui.c:420
+#: ../htmlbar_gui.c:454
 msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/Dialogy/_Editovat tag pod kurzorem..."
 
-#: ../htmlbar_gui.c:423
+#: ../htmlbar_gui.c:457
 #, fuzzy
 msgid "/View/View _HTML Toolbar"
 msgstr "/Nastavení/Panel nástrojů HTML"
 
-#: ../htmlbar_gui.c:692
+#: ../htmlbar_gui.c:731
 msgid "QuickStart..."
 msgstr "Rychlé Spouštění..."
 
-#: ../htmlbar_gui.c:693
+#: ../htmlbar_gui.c:732
 msgid "Body..."
 msgstr "Tělo..."
 
-#: ../htmlbar_gui.c:694
+#: ../htmlbar_gui.c:733
 msgid "Bold"
 msgstr "Tučné"
 
-#: ../htmlbar_gui.c:695
+#: ../htmlbar_gui.c:734
 msgid "Italic"
 msgstr "Kurzíva"
 
-#: ../htmlbar_gui.c:696 ../html.c:779
+#: ../htmlbar_gui.c:735 ../html.c:781
 msgid "Paragraph"
 msgstr "Odstavec"
 
-#: ../htmlbar_gui.c:697
+#: ../htmlbar_gui.c:736
 msgid "Break"
 msgstr "Konec řádku"
 
-#: ../htmlbar_gui.c:698
+#: ../htmlbar_gui.c:737
 msgid "Break and clear"
 msgstr "Zalomení načisto"
 
-#: ../htmlbar_gui.c:699
+#: ../htmlbar_gui.c:738
 msgid "Non-breaking space"
 msgstr "Nedělitelná mezera"
 
-#: ../htmlbar_gui.c:701
+#: ../htmlbar_gui.c:740
 msgid "Anchor..."
 msgstr "Odkaz..."
 
-#: ../htmlbar_gui.c:702
+#: ../htmlbar_gui.c:741
 msgid "Rule..."
 msgstr "Čára..."
 
-#: ../htmlbar_gui.c:703
+#: ../htmlbar_gui.c:742
 msgid "Center"
 msgstr "Nastřed"
 
-#: ../htmlbar_gui.c:704
+#: ../htmlbar_gui.c:743
 msgid "Right Justify"
 msgstr "Zarovnávat vpravo"
 
-#: ../htmlbar_gui.c:705
+#: ../htmlbar_gui.c:744
 msgid "Comment"
 msgstr "Komentář"
 
-#: ../htmlbar_gui.c:706
-msgid "E-Mail..."
+#: ../htmlbar_gui.c:745
+#, fuzzy
+msgid "E-mail..."
 msgstr "E-Mail..."
 
-#: ../htmlbar_gui.c:707
+#: ../htmlbar_gui.c:746
 msgid "Font..."
 msgstr "Font..."
 
-#: ../htmlbar_gui.c:708
+#: ../htmlbar_gui.c:747
 msgid "Base Font Size..."
 msgstr "Velikost základního fontu"
 
-#: ../htmlbar_gui.c:710
+#: ../htmlbar_gui.c:749
 msgid "Font Size +1"
 msgstr "Velikost fontu +1"
 
-#: ../htmlbar_gui.c:711
+#: ../htmlbar_gui.c:750
 msgid "Font Size -1"
 msgstr "Velikost fontu -1"
 
-#: ../htmlbar_gui.c:712
+#: ../htmlbar_gui.c:751
 msgid "Preformatted Text"
 msgstr "Předformátovaný text"
 
-#: ../htmlbar_gui.c:713
+#: ../htmlbar_gui.c:752
 msgid "Subscript"
 msgstr "Dolní index"
 
-#: ../htmlbar_gui.c:714
+#: ../htmlbar_gui.c:753
 msgid "Superscript"
 msgstr "Horní index"
 
-#: ../htmlbar_gui.c:715
+#: ../htmlbar_gui.c:754
 msgid "Strong"
 msgstr "Silné"
 
-#: ../htmlbar_gui.c:716
+#: ../htmlbar_gui.c:755
 msgid "Emphasis"
 msgstr "Zvýrazněné"
 
-#: ../htmlbar_gui.c:718 ../html.c:788
+#: ../htmlbar_gui.c:757 ../html.c:790
 msgid "Heading 1"
 msgstr "Nadpis 1"
 
-#: ../htmlbar_gui.c:719 ../html.c:791
+#: ../htmlbar_gui.c:758 ../html.c:793
 msgid "Heading 2"
 msgstr "Nadpis 2"
 
-#: ../htmlbar_gui.c:720 ../html.c:794
+#: ../htmlbar_gui.c:759 ../html.c:796
 msgid "Heading 3"
 msgstr "Nadpis 3"
 
-#: ../htmlbar_gui.c:721 ../html.c:797
+#: ../htmlbar_gui.c:760 ../html.c:799
 msgid "Heading 4"
 msgstr "Nadpis 4"
 
-#: ../htmlbar_gui.c:722 ../html.c:800
+#: ../htmlbar_gui.c:761 ../html.c:802
 msgid "Heading 5"
 msgstr "Nadpis 5"
 
-#: ../htmlbar_gui.c:723 ../html.c:803
+#: ../htmlbar_gui.c:762 ../html.c:805
 msgid "Heading 6"
 msgstr "Nadpis 6"
 
-#: ../htmlbar_gui.c:724
+#: ../htmlbar_gui.c:763
 msgid "Table Wizard..."
 msgstr "Průvodce tabulkou..."
 
-#: ../htmlbar_gui.c:726
+#: ../htmlbar_gui.c:765
 msgid "Table..."
 msgstr "Tabulka..."
 
-#: ../htmlbar_gui.c:727
+#: ../htmlbar_gui.c:766
 msgid "Table Row..."
 msgstr "Řádek tabulky..."
 
-#: ../htmlbar_gui.c:728
+#: ../htmlbar_gui.c:767
 msgid "Table Header..."
 msgstr "Hlavička tabulky..."
 
-#: ../htmlbar_gui.c:729
+#: ../htmlbar_gui.c:768
 msgid "Table Data..."
 msgstr "Buňka tabulky..."
 
-#: ../htmlbar_gui.c:731 ../html_table.c:78
+#: ../htmlbar_gui.c:770 ../html_table.c:77
 msgid "Table"
 msgstr "Tabulka"
 
-#: ../htmlbar_gui.c:732 ../html_table.c:210
+#: ../htmlbar_gui.c:771 ../html_table.c:209
 msgid "Table Row"
 msgstr "Řádek tabulky"
 
-#: ../htmlbar_gui.c:733 ../html_table.c:321
+#: ../htmlbar_gui.c:772 ../html_table.c:320
 msgid "Table Header"
 msgstr "Hlavička tabulky"
 
-#: ../htmlbar_gui.c:734 ../html_table.c:319
+#: ../htmlbar_gui.c:773 ../html_table.c:318
 msgid "Table Data"
 msgstr "Buňka tabulky"
 
-#: ../htmlbar_gui.c:735
+#: ../htmlbar_gui.c:774
 msgid "Table Caption"
 msgstr "Nadpis tabulky"
 
-#: ../htmlbar_gui.c:736
+#: ../htmlbar_gui.c:775
 msgid "Frame Wizard..."
 msgstr "Průvodce rámy..."
 
-#: ../htmlbar_gui.c:738
+#: ../htmlbar_gui.c:777
 msgid "Frameset..."
 msgstr "Nastavení rámů..."
 
-#: ../htmlbar_gui.c:739
+#: ../htmlbar_gui.c:778
 msgid "Frame..."
 msgstr "Rám..."
 
-#: ../htmlbar_gui.c:741 ../html.c:1536
+#: ../htmlbar_gui.c:780 ../html.c:1590
 msgid "Frameset"
 msgstr "Nastavení rámů"
 
-#: ../htmlbar_gui.c:742 ../html.c:1620
+#: ../htmlbar_gui.c:781 ../html.c:1674
 msgid "Frame"
 msgstr "Rám"
 
-#: ../htmlbar_gui.c:743
+#: ../htmlbar_gui.c:782
 msgid "Noframes"
 msgstr "Bez rámů"
 
-#: ../htmlbar_gui.c:744
+#: ../htmlbar_gui.c:783
 msgid "Target"
 msgstr "Cíl"
 
-#: ../htmlbar_gui.c:745
+#: ../htmlbar_gui.c:784
 msgid "Form..."
 msgstr "Formulář..."
 
-#: ../htmlbar_gui.c:746
+#: ../htmlbar_gui.c:785
 msgid "Input Button..."
 msgstr "Tlačítko typu submit, reset..."
 
-#: ../htmlbar_gui.c:747
+#: ../htmlbar_gui.c:786
 msgid "Input Text..."
 msgstr "Text..."
 
-#: ../htmlbar_gui.c:748
+#: ../htmlbar_gui.c:787
 msgid "Input Hidden..."
 msgstr "Skryté pole..."
 
-#: ../htmlbar_gui.c:749
+#: ../htmlbar_gui.c:788
 msgid "Textarea..."
 msgstr "Textové pole..."
 
-#: ../htmlbar_gui.c:750
+#: ../htmlbar_gui.c:789
 msgid "Input Radio Button..."
 msgstr "Přepínač..."
 
-#: ../htmlbar_gui.c:751
+#: ../htmlbar_gui.c:790
 msgid "Input Check Box..."
 msgstr "Zaškrtávací tlačítko..."
 
-#: ../htmlbar_gui.c:752
+#: ../htmlbar_gui.c:791
 msgid "Select..."
 msgstr "Výběr..."
 
-#: ../htmlbar_gui.c:753
+#: ../htmlbar_gui.c:792
 msgid "Option..."
 msgstr "Rozbalovací seznam..."
 
-#: ../htmlbar_gui.c:754
+#: ../htmlbar_gui.c:793
 msgid "Option group..."
 msgstr "Skupina prvků..."
 
-#: ../htmlbar_gui.c:755
+#: ../htmlbar_gui.c:794
 msgid "Button..."
 msgstr "Obecné Tlačítko"
 
-#: ../htmlbar_gui.c:756
+#: ../htmlbar_gui.c:795
 msgid "Quick List..."
 msgstr "Rychlý seznam"
 
-#: ../htmlbar_gui.c:757
+#: ../htmlbar_gui.c:796
 msgid "Unordered List"
 msgstr "Nečíslovaný"
 
-#: ../htmlbar_gui.c:758
+#: ../htmlbar_gui.c:797
 msgid "Ordered List"
 msgstr "Číslovaný"
 
-#: ../htmlbar_gui.c:759
+#: ../htmlbar_gui.c:798
 msgid "List Item"
 msgstr "Položka seznamu"
 
-#: ../htmlbar_gui.c:760
+#: ../htmlbar_gui.c:799
 msgid "Definition List"
 msgstr "Seznam definicí"
 
-#: ../htmlbar_gui.c:761
+#: ../htmlbar_gui.c:800
 msgid "Definition Term"
 msgstr "Definiční termín"
 
-#: ../htmlbar_gui.c:762 ../htmlbar_gui.c:771
+#: ../htmlbar_gui.c:801 ../htmlbar_gui.c:810
 msgid "Definition"
 msgstr "Definice"
 
-#: ../htmlbar_gui.c:763
+#: ../htmlbar_gui.c:802
 msgid "Create stylesheet..."
 msgstr "Vytovřit sešitu stylů..."
 
-#: ../htmlbar_gui.c:764
+#: ../htmlbar_gui.c:803
 msgid "Span..."
 msgstr "Span..."
 
-#: ../htmlbar_gui.c:765
+#: ../htmlbar_gui.c:804
 msgid "Div..."
 msgstr "Div..."
 
-#: ../htmlbar_gui.c:766 ../html_form.c:825
+#: ../htmlbar_gui.c:805 ../html_form.c:825
 msgid "Style"
 msgstr "Styl"
 
-#: ../htmlbar_gui.c:767
+#: ../htmlbar_gui.c:806
 msgid "Link to stylesheet..."
 msgstr "Přiřadit sešit stylů..."
 
-#: ../htmlbar_gui.c:768
+#: ../htmlbar_gui.c:807
 msgid "Insert image..."
 msgstr "Vložit obrázek..."
 
-#: ../htmlbar_gui.c:769
+#: ../htmlbar_gui.c:808
 msgid "Insert thumbnail..."
 msgstr "Vlož obrázek jako náhled"
 
-#: ../htmlbar_gui.c:770
+#: ../htmlbar_gui.c:809
 msgid "Multi thumbnail..."
 msgstr "Vícenásoné náhledy..."
 
-#: ../htmlbar_gui.c:772
+#: ../htmlbar_gui.c:811
 msgid "Code"
 msgstr "Kód"
 
-#: ../htmlbar_gui.c:773
+#: ../htmlbar_gui.c:812
 msgid "Sample"
 msgstr "Ukázka"
 
-#: ../htmlbar_gui.c:774
+#: ../htmlbar_gui.c:813
 msgid "Keyboard"
 msgstr "Klávesnice"
 
-#: ../htmlbar_gui.c:775
+#: ../htmlbar_gui.c:814
 msgid "Variable"
 msgstr "Proměnná"
 
-#: ../htmlbar_gui.c:776
+#: ../htmlbar_gui.c:815
 msgid "Citation"
 msgstr "Citace"
 
-#: ../htmlbar_gui.c:777
+#: ../htmlbar_gui.c:816
 msgid "Abbreviation"
 msgstr "Zkratka"
 
-#: ../htmlbar_gui.c:778
+#: ../htmlbar_gui.c:817
 msgid "Acronym"
 msgstr "Zástupný symbol"
 
-#: ../htmlbar_gui.c:898
+#: ../htmlbar_gui.c:937
 msgid "Remove from quickbar"
 msgstr "Odstranit z lišty Rychlého spouštění"
 
-#: ../htmlbar_gui.c:899
+#: ../htmlbar_gui.c:938
 msgid "Move Left"
 msgstr "Posunout Vlevo"
 
-#: ../htmlbar_gui.c:900
+#: ../htmlbar_gui.c:939
 msgid "Move Right"
 msgstr "Posunout Vpravo"
 
-#: ../htmlbar_gui.c:940
+#: ../htmlbar_gui.c:979
 msgid "Add to quickbar"
 msgstr "Přidat do lišty Rychlého spouštění"
 
-#: ../htmlbar_gui.c:1043
+#: ../htmlbar_gui.c:1081
 msgid " Quick bar "
 msgstr " Rychlé spouštění "
 
-#: ../htmlbar_gui.c:1048
+#: ../htmlbar_gui.c:1086
 msgid "Heading"
 msgstr "Nadpis"
 
-#: ../htmlbar_gui.c:1050
+#: ../htmlbar_gui.c:1088
 msgid " Standard bar "
 msgstr "Standardní lišta"
 
-#: ../htmlbar_gui.c:1055
+#: ../htmlbar_gui.c:1093
 msgid "Context formatting"
 msgstr "Formátování obsahu"
 
-#: ../htmlbar_gui.c:1057
+#: ../htmlbar_gui.c:1095
 msgid " Fonts "
 msgstr "Fonty"
 
-#: ../htmlbar_gui.c:1062
+#: ../htmlbar_gui.c:1100
 msgid " Tables "
 msgstr " Tabulky "
 
-#: ../htmlbar_gui.c:1067
+#: ../htmlbar_gui.c:1105
 msgid " Frames "
 msgstr "Rámy "
 
-#: ../htmlbar_gui.c:1072
+#: ../htmlbar_gui.c:1110
 msgid " Forms "
 msgstr " Formuláře "
 
-#: ../htmlbar_gui.c:1077
+#: ../htmlbar_gui.c:1115
 msgid " List "
 msgstr " Seznam "
 
-#: ../htmlbar_gui.c:1082
+#: ../htmlbar_gui.c:1120
 msgid " CSS "
 msgstr " CSS "
 
-#: ../html.c:391
+#: ../html.c:389
 msgid "Insert Time"
 msgstr "Vložit čas"
 
-#: ../html.c:399
+#: ../html.c:397
 #, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr " _Čas  (%i.%i.%i)"
 
-#: ../html.c:404
+#: ../html.c:402
 msgid "  Day of the _week (Sunday)"
 msgstr " Den v týdnu (Neděle)"
 
-#: ../html.c:407
+#: ../html.c:405
 msgid "  Day of the _week (Monday)"
 msgstr " Den v týdnu (Pondělí)"
 
-#: ../html.c:410
+#: ../html.c:408
 msgid "  Day of the _week (Tuesday)"
 msgstr " Den v týdnu (Úterý)"
 
-#: ../html.c:413
+#: ../html.c:411
 msgid "  Day of the _week (Wednesday)"
 msgstr " Den v týdnu (Středa)"
 
-#: ../html.c:416
+#: ../html.c:414
 msgid "  Day of the _week (Thursday)"
 msgstr " Den v týdnu (Čtvrtek)"
 
-#: ../html.c:419
+#: ../html.c:417
 msgid "  Day of the _week (Friday)"
 msgstr " Den v týdnu (Pátek)"
 
-#: ../html.c:422
+#: ../html.c:420
 msgid "  Day of the _week (Saturday)"
 msgstr " Den v týdnu (Sobota)"
 
-#: ../html.c:425
+#: ../html.c:423
 msgid "You appear to have a non existant day!\n"
 msgstr "Zdž se, že zkoušíte neznámý den!\n"
 
-#: ../html.c:433
+#: ../html.c:431
 #, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr " _Datum  (%i.%i.%i)"
 
-#: ../html.c:436
+#: ../html.c:434
 #, c-format
 msgid "  _Unix Time (%i)"
 msgstr " _Unixový čas (%i)"
 
-#: ../html.c:441
+#: ../html.c:439
 #, c-format
 msgid "  Unix Date _String (%s"
 msgstr " Řetězec unixového data (%s"
 
-#: ../html.c:587
+#: ../html.c:447
+#, c-format
+msgid "  ISO-8601 Ti_me (%s)"
+msgstr ""
+
+#: ../html.c:589
 msgid "Quick Anchor"
 msgstr "Rychlý odkaz"
 
-#: ../html.c:593 ../html_form.c:780
+#: ../html.c:595 ../html_form.c:780
 msgid "Attributes"
 msgstr "Atributy"
 
-#: ../html.c:607
+#: ../html.c:609 ../html.c:1918
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: ../html.c:611 ../html_form.c:183
+#: ../html.c:613 ../html_form.c:183
 msgid "_Target:"
 msgstr "_Cíl:"
 
-#: ../html.c:615 ../html.c:835 ../html.c:1203 ../html.c:1632
+#: ../html.c:617 ../html.c:837 ../html.c:1212 ../html.c:1686
 #: ../html_form.c:231 ../html_form.c:596 ../html_form.c:795 ../html_form.c:890
-#: ../image.c:413
+#: ../image.c:416
 msgid "_Name:"
 msgstr "_Jméno"
 
-#: ../html.c:621 ../html.c:1068 ../html.c:1779
+#: ../html.c:623 ../html.c:1070 ../html.c:1241 ../html.c:1833
 msgid "_Language:"
 msgstr "_Jazyk:"
 
-#: ../html.c:625 ../html.c:843 ../html.c:977 ../html.c:1072 ../html.c:1227
-#: ../html.c:1568 ../html.c:1669 ../html.c:1798 ../html_form.c:187
+#: ../html.c:627 ../html.c:845 ../html.c:979 ../html.c:1074 ../html.c:1249
+#: ../html.c:1622 ../html.c:1723 ../html.c:1852 ../html_form.c:187
 #: ../html_form.c:243 ../html_form.c:609 ../html_form.c:903
-#: ../html_table.c:102 ../html_table.c:254 ../html_table.c:362 ../image.c:421
+#: ../html_table.c:101 ../html_table.c:253 ../html_table.c:361 ../image.c:424
 msgid "Custo_m:"
 msgstr "Vlast_ní:"
 
-#: ../html.c:628 ../html.c:1076 ../html_form.c:829
+#: ../html.c:630 ../html.c:1078 ../html_form.c:829
 msgid "Events"
 msgstr "Události"
 
-#: ../html.c:631
+#: ../html.c:633
 msgid "OnClic_k:"
 msgstr "OnClic_k:"
 
-#: ../html.c:635
+#: ../html.c:637
 msgid "OnD_blClick:"
 msgstr "OnD_blClick:"
 
-#: ../html.c:639
+#: ../html.c:641
 msgid "OnMouseO_ver:"
 msgstr "OnMouseO_ver:"
 
-#: ../html.c:643
+#: ../html.c:645
 msgid "OnMouse_Down:"
 msgstr "OnMouse_Down:"
 
-#: ../html.c:647
+#: ../html.c:649
 msgid "OnMouse_Move:"
 msgstr "OnMouse_Move:"
 
-#: ../html.c:651
+#: ../html.c:653
 msgid "OnMouseOu_t:"
 msgstr "OnMouseOu_t:"
 
-#: ../html.c:655
+#: ../html.c:657
 msgid "OnMouse_Up:"
 msgstr "OnMouse_Up:"
 
-#: ../html.c:659
+#: ../html.c:661
 msgid "OnKeyDo_wn:"
 msgstr "OnKeyDo_wn:"
 
-#: ../html.c:663
+#: ../html.c:665
 msgid "OnKey_Press:"
 msgstr "OnKey_Press:"
 
-#: ../html.c:667
+#: ../html.c:669
 msgid "OnKe_yUp:"
 msgstr "OnKe_yUp:"
 
-#: ../html.c:782
+#: ../html.c:784
 msgid "Div"
 msgstr "Div"
 
-#: ../html.c:785
+#: ../html.c:787
 msgid "Span"
 msgstr "Span"
 
-#: ../html.c:820 ../html_table.c:110 ../html_table.c:220 ../html_table.c:334
+#: ../html.c:822 ../html_table.c:109 ../html_table.c:219 ../html_table.c:333
 msgid "Ali_gn:"
 msgstr "Za_rovnání:"
 
-#: ../html.c:824 ../html.c:1060 ../html_diag.c:373 ../html_table.c:92
-#: ../html_table.c:238 ../html_table.c:352
+#: ../html.c:826 ../html.c:1062 ../html_diag.c:373 ../html_table.c:91
+#: ../html_table.c:237 ../html_table.c:351
 msgid "Cl_ass:"
 msgstr "Tří_da:"
 
-#: ../html.c:828 ../html.c:1053 ../html_diag.c:381 ../html_table.c:97
-#: ../html_table.c:249 ../html_table.c:357
+#: ../html.c:830 ../html.c:1055 ../html_diag.c:381 ../html_table.c:96
+#: ../html_table.c:248 ../html_table.c:356
 msgid "St_yle:"
 msgstr "St_yl:"
 
-#: ../html.c:839 ../html.c:1064 ../html_diag.c:377
+#: ../html.c:841 ../html.c:1066 ../html_diag.c:377
 msgid "_ID:"
 msgstr "_ID:"
 
-#: ../html.c:940
+#: ../html.c:942
 msgid "Horizontal Rule"
 msgstr "Horizontální čára"
 
-#: ../html.c:951 ../html.c:1717 ../image.c:439
+#: ../html.c:953 ../html.c:1771 ../image.c:442
 msgid "_Align:"
 msgstr "Za_rovnání:"
 
-#: ../html.c:958 ../html.c:1725 ../html_table.c:388
+#: ../html.c:960 ../html.c:1779 ../html_table.c:387
 msgid "_Height:"
 msgstr "_Výška:"
 
-#: ../html.c:964 ../html.c:1721 ../html_table.c:135 ../html_table.c:381
-#: ../image.c:397
+#: ../html.c:966 ../html.c:1775 ../html_table.c:134 ../html_table.c:380
+#: ../image.c:400
 msgid "_Width:"
 msgstr "Šíř_ka:"
 
-#: ../html.c:967
+#: ../html.c:969
 msgid "Is _percent"
 msgstr "V _procentech"
 
-#: ../html.c:972
+#: ../html.c:974
 msgid "No _shading"
 msgstr "Bez _stínu"
 
-#: ../html.c:1037
+#: ../html.c:1039
 msgid "Body"
 msgstr "Tělo"
 
-#: ../html.c:1045
+#: ../html.c:1047
 msgid "Options"
 msgstr "Vlastnosti"
 
-#: ../html.c:1083
+#: ../html.c:1085
 msgid "On_Load:"
 msgstr "On_Load:"
 
-#: ../html.c:1091
+#: ../html.c:1093
 msgid "On_UnLoad:"
 msgstr "On_UnLoad:"
 
-#: ../html.c:1100
+#: ../html.c:1102
 msgid "Depreciated options"
 msgstr "Zastaralé volby"
 
-#: ../html.c:1110
+#: ../html.c:1112
 msgid "Background _Image:"
 msgstr "Obrázek v _Pozadí:"
 
-#: ../html.c:1117
+#: ../html.c:1119
 msgid "Back_ground Color:"
 msgstr "_Barva pozadí:"
 
-#: ../html.c:1123
+#: ../html.c:1125
 msgid "_Text Color:"
 msgstr "Barva te_xtu:"
 
-#: ../html.c:1129
+#: ../html.c:1131
 msgid "_Link Color:"
 msgstr "Barva od_kazu:"
 
-#: ../html.c:1135
+#: ../html.c:1137
 msgid "_Visited Link Color:"
 msgstr "Barva navštívené_ho odkazu:"
 
-#: ../html.c:1141
+#: ../html.c:1143
 msgid "_Active Link Color:"
 msgstr "Barva ak_tivního odkazu:"
 
-#: ../html.c:1189
+#: ../html.c:1194
 msgid "Meta"
 msgstr "Meta"
 
-#: ../html.c:1214
+#: ../html.c:1232
 msgid "_HTTP-EQUIV:"
 msgstr "HTTP-E_QUIV:"
 
-#: ../html.c:1219
+#: ../html.c:1237
 msgid "Con_tent:"
 msgstr "Ob_sah:"
 
-#: ../html.c:1223
+#: ../html.c:1245
 msgid "_Scheme:"
 msgstr "S_chéma:"
 
-#: ../html.c:1304
+#: ../html.c:1326
 msgid "Font"
 msgstr "Font"
 
-#: ../html.c:1307
+#: ../html.c:1329
 msgid "Base Font"
 msgstr "Základní font"
 
-#: ../html.c:1322
+#: ../html.c:1344
 msgid "Size"
 msgstr "Velikost"
 
-#: ../html.c:1330
+#: ../html.c:1352
 msgid "Color"
 msgstr "Barva"
 
-#: ../html.c:1335
+#: ../html.c:1357
 msgid "Face"
 msgstr "Typ"
 
-#: ../html.c:1339
+#: ../html.c:1361
 msgid "Custom"
 msgstr "Vlastní"
 
-#: ../html.c:1398
-msgid "Email"
+#: ../html.c:1445
+#, fuzzy
+msgid "E-mail"
 msgstr "Email"
 
-#: ../html.c:1406
-msgid "_Email address:"
-msgstr "_Email adresa:"
+#: ../html.c:1453
+msgid "_Mail to:"
+msgstr ""
 
-#: ../html.c:1411
-msgid "UrlEncoded _subject:"
-msgstr "UrlEncoded _předmět:"
+#: ../html.c:1457
+#, fuzzy
+msgid "_Copy to:"
+msgstr "Kopírovat"
 
-#: ../html.c:1415
-msgid "UrlEncoded _body:"
-msgstr "UrlEncoded _tělo:"
+#: ../html.c:1461
+msgid "Blin_d copy to:"
+msgstr ""
 
-#: ../html.c:1459
+#: ../html.c:1465
+msgid "with _Subject:"
+msgstr ""
+
+#: ../html.c:1469
+msgid "with _Body:"
+msgstr ""
+
+#: ../html.c:1513
 msgid "Quick List"
 msgstr "Rychlý seznam"
 
-#: ../html.c:1464 ../html.c:1546 ../html_form.c:236
+#: ../html.c:1518 ../html.c:1600 ../html_form.c:236
 msgid "_Rows:"
 msgstr "Řádk_y:"
 
-#: ../html.c:1467
+#: ../html.c:1521
 msgid "Or_dered"
 msgstr "Čísl_ovaný"
 
-#: ../html.c:1468
+#: ../html.c:1522
 msgid "_Unordered"
 msgstr "N_ečíslovaný"
 
-#: ../html.c:1470
+#: ../html.c:1524
 msgid "Style:"
 msgstr "Styl:"
 
-#: ../html.c:1542 ../html_form.c:240
+#: ../html.c:1596 ../html_form.c:240
 msgid "Co_ls:"
 msgstr "S_loupce:"
 
-#: ../html.c:1551
+#: ../html.c:1605
 msgid "_Add <frame> elements"
 msgstr "Přid_at prvky <frame>"
 
-#: ../html.c:1628 ../html.c:1713 ../html.c:1772
+#: ../html.c:1682 ../html.c:1767 ../html.c:1826
 msgid "_Source:"
 msgstr "_Zdroj:"
 
-#: ../html.c:1636
+#: ../html.c:1690
 msgid "Margin _Width:"
 msgstr "Šířka _okraje:"
 
-#: ../html.c:1640
+#: ../html.c:1694
 msgid "Margin _Height:"
 msgstr "_Výška okraje:"
 
-#: ../html.c:1648
+#: ../html.c:1702
 msgid "Scrollin_g:"
 msgstr "Sc_rolování:"
 
-#: ../html.c:1652
+#: ../html.c:1706
 msgid "_Frameborder:"
 msgstr "O_kraje rámu:"
 
-#: ../html.c:1657
+#: ../html.c:1711
 msgid "No _Resize:"
 msgstr "Zakázat změnu _Velikosti:"
 
-#: ../html.c:1707
+#: ../html.c:1761
 msgid "Embed"
 msgstr "Zapuštěný"
 
-#: ../html.c:1729 ../html_table.c:141
+#: ../html.c:1783 ../html_table.c:140
 msgid "Bo_rder:"
 msgstr "_Hranice"
 
-#: ../html.c:1765
+#: ../html.c:1819
 msgid "Script"
 msgstr "Skript"
 
-#: ../html.c:1794 ../html.c:1861 ../html_form.c:789 ../html_form.c:899
+#: ../html.c:1848 ../html.c:1949 ../html_form.c:789 ../html_form.c:899
 msgid "_Type:"
 msgstr "_Typ:"
 
-#: ../html.c:1836
+#: ../html.c:1907
 msgid "Link"
 msgstr "Odkaz"
 
-#: ../html.c:1847
-msgid "_Href:"
-msgstr "_Rám:"
+#: ../html.c:1924
+#, fuzzy
+msgid "HREF_LANG:"
+msgstr "_HREF:"
 
-#: ../html.c:1853
-msgid "Href_lang:"
-msgstr "Jaz_yk odkazu:"
+#: ../html.c:1928
+#, fuzzy
+msgid "T_itle:"
+msgstr "_Titulek:"
 
-#: ../html.c:1867
+#: ../html.c:1968
 msgid "_Forward Relation:"
 msgstr "Relace V_před"
 
-#: ../html.c:1871
+#: ../html.c:1972
 msgid "_Reverse Relation:"
 msgstr "Relace V_zad"
 
-#: ../html.c:1882
+#: ../html.c:1983
 msgid "Media:"
 msgstr "Média:"
 
-#: ../html.c:1886
+#: ../html.c:1987
 msgid "L_ang:"
 msgstr "J_azyk:"
 
-#: ../html.c:1890
+#: ../html.c:1991
 msgid "_Custom:"
 msgstr "V_lastní:"
 
@@ -1920,119 +1833,119 @@ msgstr "On_Change:"
 msgid "Button"
 msgstr "Tlačítko"
 
-#: ../html_table.c:84
+#: ../html_table.c:83
 msgid "Cell _Padding:"
 msgstr "Vnitřní odstu_p buňky:"
 
-#: ../html_table.c:88
+#: ../html_table.c:87
 msgid "C_ell Spacing:"
 msgstr "Roz_estup mezi buňkami:"
 
-#: ../html_table.c:124 ../html_table.c:234 ../html_table.c:348
+#: ../html_table.c:123 ../html_table.c:233 ../html_table.c:347
 msgid "_Valign:"
 msgstr "_Verticální zarovnání:"
 
-#: ../html_table.c:129 ../html_table.c:243 ../html_table.c:393
+#: ../html_table.c:128 ../html_table.c:242 ../html_table.c:392
 msgid "Backgrou_nd Color:"
 msgstr "Barva p_ozadí:"
 
-#: ../html_table.c:155
+#: ../html_table.c:154
 msgid "_Frame:"
 msgstr "_Rám:"
 
-#: ../html_table.c:166
+#: ../html_table.c:165
 msgid "R_ules:"
 msgstr "Pos_uvníky:"
 
-#: ../html_table.c:366
+#: ../html_table.c:365
 msgid "Co_l Span:"
 msgstr "S_loučení sloupců:"
 
-#: ../html_table.c:370
+#: ../html_table.c:369
 msgid "_Row Span:"
 msgstr "Sloučení řá_dků:"
 
-#: ../html_table.c:375
+#: ../html_table.c:374
 msgid "No Wra_p:"
 msgstr "Nazalamovat slov_a:"
 
-#: ../image.c:361
+#: ../image.c:364
 msgid "Insert thumbnail"
 msgstr "Vložit náhled"
 
-#: ../image.c:363
+#: ../image.c:366
 msgid "Insert image"
 msgstr "Vlož obrázek"
 
-#: ../image.c:369
+#: ../image.c:372
 msgid "Preview"
 msgstr "Přehled"
 
-#: ../image.c:389
+#: ../image.c:392
 msgid "_Image location:"
 msgstr "_Umístění obrázku:"
 
-#: ../image.c:404
+#: ../image.c:407
 msgid "Hei_ght:"
 msgstr "_Výška:"
 
-#: ../image.c:409
+#: ../image.c:412
 msgid "_Usemap:"
 msgstr "Po_užij mapu:"
 
-#: ../image.c:417
+#: ../image.c:420
 msgid "Alternate _text:"
 msgstr "Alternativní _text:"
 
-#: ../image.c:425
+#: ../image.c:428
 msgid "_Hspace:"
 msgstr "_Horizontální mezera:"
 
-#: ../image.c:429
+#: ../image.c:432
 msgid "_Vspace:"
 msgstr "_Vertikální mezera:"
 
-#: ../image.c:443
+#: ../image.c:446
 msgid "Borde_r:"
 msgstr "Oh_raničení:"
 
-#: ../image.c:771
+#: ../image.c:774
 msgid "Select files for thumbnail creation"
 msgstr "Zvolte soubory k vytvoření náhledů"
 
-#: ../image.c:806
+#: ../image.c:809
 msgid "Scaling (%)"
 msgstr "Změna velikosti (%)"
 
-#: ../image.c:810 ../image.c:818
+#: ../image.c:813 ../image.c:821
 msgid "Width"
 msgstr "Šířka"
 
-#: ../image.c:814 ../image.c:846
+#: ../image.c:817 ../image.c:849
 msgid "Height"
 msgstr "Výška"
 
-#: ../image.c:835
+#: ../image.c:838
 msgid "Multi thumbnail"
 msgstr "Vícenásobné náhledy"
 
-#: ../image.c:841
+#: ../image.c:844
 msgid "By scaling"
 msgstr "Změna velikosti"
 
-#: ../image.c:842
+#: ../image.c:845
 msgid "By width, keep aspect ratio"
 msgstr "Změna šířky, dodržovat poměr stran"
 
-#: ../image.c:843
+#: ../image.c:846
 msgid "By height, keep aspect ratio"
 msgstr "Změna výšky, dodržovat poměr stran"
 
-#: ../image.c:844
+#: ../image.c:847
 msgid "By width and height, ignore aspect ratio"
 msgstr "Změna výšky a šířky, ignorovat poměr stran"
 
-#: ../image.c:868
+#: ../image.c:871
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -2044,80 +1957,80 @@ msgstr ""
 "%x: šířka náhledu  %y: výška náhledu\n"
 "%b: původní velikost (bajtů)"
 
-#: ../quickstart.c:504
+#: ../quickstart.c:512
 #, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr "<b>Obecné</b>"
 
-#: ../quickstart.c:514
+#: ../quickstart.c:522
 #, fuzzy
 msgid "Ty_pe:"
 msgstr "_Typ:"
 
-#: ../quickstart.c:532
+#: ../quickstart.c:540
 #, fuzzy
-msgid "Hre_f:"
-msgstr "_Rám:"
+msgid "HRE_F:"
+msgstr "_HREF:"
 
-#: ../quickstart.c:536
+#: ../quickstart.c:544
 #, fuzzy
 msgid "_Media:"
 msgstr "Média:"
 
-#: ../quickstart.c:540
+#: ../quickstart.c:548
 #, fuzzy
 msgid "Titl_e:"
 msgstr "_Titulek:"
 
-#: ../quickstart.c:546
+#: ../quickstart.c:554
 #, fuzzy
 msgid "<b>Style Area</b>"
 msgstr "<b>Obecné</b>"
 
-#: ../quickstart.c:550
+#: ../quickstart.c:558
 #, fuzzy
 msgid "Cre_ate empty style area"
 msgstr "Vytvořit prázdný projekt"
 
-#: ../quickstart.c:572
+#: ../quickstart.c:580
 #, fuzzy
 msgid "<b>Attributes</b>"
 msgstr "Atributy"
 
-#: ../quickstart.c:587
+#: ../quickstart.c:595
 #, fuzzy
 msgid "_Src:"
 msgstr "_Zdroj:"
 
-#: ../quickstart.c:594
+#: ../quickstart.c:602
 #, fuzzy
 msgid "<b>Script Area</b>"
 msgstr "<b>Obecné</b>"
 
-#: ../quickstart.c:598
+#: ../quickstart.c:606
 #, fuzzy
 msgid "Cre_ate empty script area"
 msgstr "Vytvořit prázdný projekt"
 
-#: ../quickstart.c:625
+#: ../quickstart.c:633
 msgid "Quick Start"
 msgstr "Rychle začít"
 
-#: ../quickstart.c:639
+#: ../quickstart.c:647
 #, fuzzy
 msgid "_DTD:"
 msgstr "Použít _DTD"
 
-#: ../quickstart.c:643 ../wizards.c:186
+#: ../quickstart.c:651 ../wizards.c:186
 msgid "_Title:"
 msgstr "_Titulek:"
 
-#: ../quickstart.c:666
+#: ../quickstart.c:674
 #, fuzzy
 msgid "_Head:"
 msgstr "_Rám:"
 
-#: ../quickstart.c:683
+#: ../quickstart.c:691
 #, fuzzy
 msgid "Open in _new document."
 msgstr "V _dokumentu"
@@ -2181,6 +2094,109 @@ msgstr "Zdroj:"
 #: ../wizards.c:223
 msgid "Size:"
 msgstr "Velikost:"
+
+#~ msgid "/Tags/Tearoff1"
+#~ msgstr "/Tagy/Tearoff1"
+
+#~ msgid "/Tags/Headings/Tearoff1"
+#~ msgstr "/Tagy/Nadpisy/Tearoff1"
+
+#~ msgid "/Tags/Special/tearoff1"
+#~ msgstr "/Tagy/Speciální/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/tearoff1"
+#~ msgstr "/Tagy/Speciální/Diakritika/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
+#~ msgstr "/Tagy/Speciální/Diakritika/Velká písmena/A-I/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
+#~ msgstr "/Tagy/Speciální/Diakritika/Velká písmena/J-Z/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
+#~ msgstr "/Tagy/Speciální/Diakritika/Malá písmena/A-I/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
+#~ msgstr "/Tagy/Speciální/Diakritika/Malá písmena/J-Z/tearoff1"
+
+#~ msgid "/Tags/Special/Accent/separator"
+#~ msgstr "/Tagy/Speciální/Diakritika/separator"
+
+#~ msgid "/Tags/Special/Currency/tearoff1"
+#~ msgstr "/Tagy/Speciální/Měna/tearoff1"
+
+#~ msgid "/Tags/Special/Math-Science/tearoff1"
+#~ msgstr "/Tagy/Speciální/Matematicko-Vědecké/tearoff1"
+
+#~ msgid "/Tags/Special/Non Latin/tearoff1"
+#~ msgstr "/Tagy/Speciální/Jiné než Latin/tearoff1"
+
+#~ msgid "/Tags/Special/Other/tearoff1"
+#~ msgstr "/Tagy/Speciální/Jiné/tearoff1"
+
+#~ msgid "/Tags/Format by layout/tearoff1"
+#~ msgstr "/Tagy/Formát podle umístění/tearoff1"
+
+#~ msgid "/Tags/Format by context/tearoff1"
+#~ msgstr "/Tagy/Formát podle obsahu/tearoff1"
+
+#~ msgid "/Tags/Format general/tearoff1"
+#~ msgstr "/Tagy/Formát obecný/tearoff1"
+
+#~ msgid "/Tags/Format general/<separator>"
+#~ msgstr "/Tagy/Formát obecný/<separator>"
+
+#~ msgid "/Tags/Table/tearoff1"
+#~ msgstr "/Tagy/Tabulka/tearoff1"
+
+#~ msgid "/Tags/List/tearoff1"
+#~ msgstr "/Tagy/Seznam/tearoff1"
+
+#~ msgid "/Tags/Form/tearoff1"
+#~ msgstr "/Dialogy/Formulář/tearoff1"
+
+#~ msgid "/Tags/Misc/tearoff1"
+#~ msgstr "/Tagy/Různé/tearoff1"
+
+#~ msgid "/Dialogs/tearoff1"
+#~ msgstr "/Dialogy/tearoff1"
+
+#~ msgid "/Dialogs/General/tearoff1"
+#~ msgstr "/Dialogy/Obecné/tearoff1"
+
+#~ msgid "/Dialogs/Table/tearoff1"
+#~ msgstr "/Dialogy/Tabulka/tearoff1"
+
+#~ msgid "/Dialogs/CSS/tearoff1"
+#~ msgstr "/Dialogy/CSS/tearoff1"
+
+#~ msgid "/Dialogs/Frame/tearoff1"
+#~ msgstr "/Dialogy/Rám/tearoff1"
+
+#~ msgid "/Dialogs/Form/tearoff1"
+#~ msgstr "/Dialogy/Formulář/tearoff1"
+
+#~ msgid "/Dialogs/sep1"
+#~ msgstr "/Dialogy/tearoff1"
+
+#~ msgid "_Email address:"
+#~ msgstr "_Email adresa:"
+
+#~ msgid "UrlEncoded _subject:"
+#~ msgstr "UrlEncoded _předmět:"
+
+#~ msgid "UrlEncoded _body:"
+#~ msgstr "UrlEncoded _tělo:"
+
+#~ msgid "_Href:"
+#~ msgstr "_Rám:"
+
+#~ msgid "Href_lang:"
+#~ msgstr "Jaz_yk odkazu:"
+
+#, fuzzy
+#~ msgid "Hre_f:"
+#~ msgstr "_Rám:"
 
 #, fuzzy
 #~ msgid "/View/View _HTML Bar"
@@ -3415,9 +3431,6 @@ msgstr "Velikost:"
 
 #~ msgid "Cut"
 #~ msgstr "Vyjmout"
-
-#~ msgid "Copy"
-#~ msgstr "Kopírovat"
 
 #~ msgid "Paste"
 #~ msgstr "Vložit"
