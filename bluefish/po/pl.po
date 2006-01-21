@@ -1,12 +1,12 @@
 # Copyright (C) 2000 Free Software Foundation, Inc.
-# Oskar Świda <swida@aragorn.pb.bialystok.pl>, 2004
+# Oskar Świda <swida@aragorn.pb.bialystok.pl>, 2004-2006
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-12 06:40-0800\n"
-"PO-Revision-Date: 16/4/2005 \n"
+"POT-Creation-Date: 2005-12-05 19:35-0800\n"
+"PO-Revision-Date: 21/1/2006 \n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,6 @@ msgstr ""
 "Ta wersja bluefish została skompilowana z następującymi opcjami:\n"
 
 #: ../src/about.c:57
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -109,14 +108,16 @@ msgstr ""
 "   <olivier@bluefish.openoffice.nl>\n"
 "  Jim Hayward\n"
 "   <jimhayward@linuxexperience.net>\n"
+"  Daniel Leidert\n"
+"   <daniel.leidert@wgdd.de>\n"
 "  Oskar Świda\n"
 "   <swida@aragorn.pb.bialystok.pl>\n"
+"\n"
+"Programiści poprzednich wersji:\n"
 "  Eugene Morenko(More)\n"
 "   <more@irpin.com>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
-"\n"
-"Programiści wersji poprzednich:\n"
+"   <alastair@porter.net.nz>\n"
 "  Chris Mazuc\n"
 "  Neil Millar\n"
 "  Gero Takke\n"
@@ -140,7 +141,7 @@ msgstr ""
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
+"   <alastair@porter.net.nz>\n"
 "  Daniel Blair\n"
 "   <joecamel@realcoders.org>\n"
 "  Olivier Sessink\n"
@@ -148,8 +149,8 @@ msgstr ""
 "  Denny Reeh\n"
 "\n"
 "Pakiety:\n"
-"  Debian:   Davide Puricelli\n"
-"   <evo@debian.org>\n"
+"  Debian:   Daniel Leidert\n"
+"   <daniel.leidert@wgdd.de>\n"
 "  Redhat:   Matthias Haase\n"
 "   <matthias_haase@bennewitz.com>\n"
 "  Mandrake: Todd Lyons\n"
@@ -163,8 +164,8 @@ msgstr ""
 "\n"
 "Dziękujemy wszystkim, którzy pomogli w udostępnianiu tego oprogramowania.\n"
 
+
 #: ../src/about.c:120
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -219,8 +220,11 @@ msgid ""
 "  Serbian: Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
+"  Slovak: Vladimir VASIL\n"
+"   <vvasil@post.sk>\n"
+"\n"
 "  Spanish: Walter Oscar Echarri\n"
-"   <wecharri@arnet.com.ar>\n"
+"   <wecharri@gmail.com>\n"
 "\n"
 "  Swedish: David Smeringe\n"
 "   <david.smeringe@telia.com>\n"
@@ -234,7 +238,10 @@ msgid ""
 msgstr ""
 "Tłumacze:\n"
 "\n"
-"  brazylijski portugalski: Anderson Rocha\n"
+"  baskijski: Hizkuntza Politikarako Sailburuordetza\n"
+"   <hizkpol@ej-gv.es>\n"
+"\n"
+"  portugalski(Brazylia): Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
 "\n"
 "  bułgarski: Peio Popov\n"
@@ -243,7 +250,7 @@ msgstr ""
 "  chiński: Ting Yang (Dormouse)\n"
 "   <mouselinux@163.com>\n"
 "\n"
-"  chiński, Traditional: OLS3\n"
+"  chiński, tradycyjny: OLS3\n"
 "   <ols3@lxer.idv.tw>\n"
 "\n"
 "  duński: Rasmus Toftdahl Olesen\n"
@@ -282,8 +289,11 @@ msgstr ""
 "  serbski: Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
+"  słowacki: Vladimir VASIL\n"
+"   <vvasil@post.sk>\n"
+"\n"
 "  hiszpański: Walter Oscar Echarri\n"
-"   <wecharri@arnet.com.ar>\n"
+"   <wecharri@gmail.com>\n"
 "\n"
 "  szwedzki: David Smeringe\n"
 "   <david.smeringe@telia.com>\n"
@@ -291,28 +301,34 @@ msgstr ""
 "  tamilski: Murugapandian Barathee\n"
 "   <barathee@yahoo.com>\n"
 "\n"
+"  turecki: Oğuz Eren\n"
+"   <ogzeren@gmail.com>\n"
+"\n"
 
-#: ../src/about.c:165
+#: ../src/about.c:167
 msgid "About Bluefish"
 msgstr "O Bluefish"
 
-#: ../src/about.c:195
+#: ../src/about.c:197
 msgid ""
 "\n"
 "\n"
 "Resulting in the detection of:\n"
 msgstr ""
+"\n"
+"\n"
+"Wykryto:\n"
 
-#: ../src/about.c:222 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
+#: ../src/about.c:224 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
 #: ../src/fref.c:1870 ../src/fref.c:2347
 msgid "Info"
 msgstr "Informacja"
 
-#: ../src/about.c:224
+#: ../src/about.c:226
 msgid "Authors"
 msgstr "Autorzy"
 
-#: ../src/about.c:225
+#: ../src/about.c:227
 msgid "Translators"
 msgstr "Tłumacze"
 
@@ -341,71 +357,71 @@ msgstr ""
 "Bluefish nie mógł odczytać nazw plików. Spróbuj ustawić zmienną środowiskową "
 "G_BROKEN_FILENAMES=1\n"
 
-#: ../src/bfspell.c:385
+#: ../src/bfspell.c:387
 msgid "Check Spelling"
 msgstr "Sprawdź pisownię"
 
-#: ../src/bfspell.c:389
+#: ../src/bfspell.c:391
 msgid "Checking"
 msgstr "Sprawdzanie"
 
-#: ../src/bfspell.c:398
+#: ../src/bfspell.c:400
 msgid "_Misspelled word:"
 msgstr "_Niewłaściwe słowo:"
 
-#: ../src/bfspell.c:402
+#: ../src/bfspell.c:404
 msgid "Change _to:"
 msgstr "_Zmień na:"
 
-#: ../src/bfspell.c:405
+#: ../src/bfspell.c:407
 msgid "I_gnore"
 msgstr "I_gnoruj"
 
-#: ../src/bfspell.c:406 ../src/snr2.c:910
+#: ../src/bfspell.c:408 ../src/snr2.c:910
 msgid "_Replace"
 msgstr "_Zamień"
 
-#: ../src/bfspell.c:419
+#: ../src/bfspell.c:421
 msgid "In _document"
 msgstr "W _dokumencie"
 
-#: ../src/bfspell.c:420
+#: ../src/bfspell.c:422
 msgid "I_n selection"
 msgstr "Wewnątrz _zaznaczenia"
 
-#: ../src/bfspell.c:429
+#: ../src/bfspell.c:431
 msgid "personal dictionary"
 msgstr "słownik osobisty"
 
-#: ../src/bfspell.c:432
+#: ../src/bfspell.c:434
 msgid "session dictionary"
 msgstr "słownik sesji"
 
-#: ../src/bfspell.c:438
+#: ../src/bfspell.c:440
 msgid "Dictionary:"
 msgstr "Słownik:"
 
-#: ../src/bfspell.c:442
+#: ../src/bfspell.c:444
 msgid "_Add"
 msgstr "_Dodaj"
 
-#: ../src/bfspell.c:446
+#: ../src/bfspell.c:448
 msgid "Language:"
 msgstr "Język:"
 
-#: ../src/bfspell.c:450
+#: ../src/bfspell.c:452
 msgid "Set defa_ult"
 msgstr "Ustaw d_omyślnie"
 
-#: ../src/bfspell.c:454
+#: ../src/bfspell.c:456
 msgid "Filter:"
 msgstr "Filtr:"
 
-#: ../src/bfspell.c:462
+#: ../src/bfspell.c:464
 msgid "no filter"
 msgstr "brak filtra"
 
-#: ../src/bfspell.c:464
+#: ../src/bfspell.c:466
 msgid "html filter"
 msgstr "filtr HTML"
 
@@ -467,7 +483,6 @@ msgid "showing main gui..."
 msgstr "interfejs graficzny..."
 
 #: ../src/bluefish.c:259
-#, fuzzy
 msgid ""
 "<span weight=\"bold\" size=\"larger\">Bluefish Tip:</span>\n"
 "\n"
@@ -476,15 +491,17 @@ msgid ""
 "To add buttons to the Quickbar, right click on a button in the HTML "
 "toolbars.\n"
 msgstr ""
+"<span weight=\"bold\" size=\"larger\">Podpowiedź:</span>\n"
+"\n"
 "Wyświetlam tę wiadomość ponieważ nie posiadasz \n"
 "żadnych elementów w Pasku podręcznym.\n"
 "\n"
-"Jeżeli naciśniesz prawy przycisk myszy na elemencie w paskach HTML,\n"
-" możesz dodać ten element do paska podręcznego."
+"Jeżeli naciśniesz prawy przycisk myszy na elemencie w paskach HTML "
+" możesz dodać ten element do paska podręcznego. \n"
 
 #: ../src/bluefish.c:263
 msgid "_Don't show this dialog again."
-msgstr ""
+msgstr "_Nie pokazuj więcej tego okna."
 
 #: ../src/bookmark.c:368 ../src/html.c:614 ../src/html.c:834
 #: ../src/html.c:1440 ../src/html.c:1944 ../src/html_form.c:231
@@ -1217,7 +1234,6 @@ msgid "Comment"
 msgstr "Komentarz"
 
 #: ../src/gui.c:608
-#, fuzzy
 msgid "E-mail..."
 msgstr "E-Mail..."
 
@@ -1763,7 +1779,7 @@ msgstr "  Data w formacie UNIX (%s"
 #: ../src/html.c:444
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
-msgstr ""
+msgstr "  _Czas ISO-8601 (%s)"
 
 #: ../src/html.c:586
 msgid "Quick Anchor"
@@ -1987,38 +2003,36 @@ msgid "Custom"
 msgstr "Własne"
 
 #: ../src/html.c:1695
-#, fuzzy
 msgid "E-mail"
-msgstr "Email"
+msgstr "E-mail"
 
 #: ../src/html.c:1703
 msgid "_Mail to:"
-msgstr ""
+msgstr "_Wyślij do:"
 
 #: ../src/html.c:1707
-#, fuzzy
 msgid "_Copy to:"
-msgstr "Kopiuj"
+msgstr "_Kopiuj do:"
 
 #: ../src/html.c:1711
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "Ślepa _kopia do:"
 
 #: ../src/html.c:1716
 msgid "with _Subject:"
-msgstr ""
+msgstr "_Temat:"
 
 #: ../src/html.c:1718
 msgid "with _Subject (URL-encoded):"
-msgstr ""
+msgstr "Te_mat (kodowanie URL):"
 
 #: ../src/html.c:1724
 msgid "with _Body:"
-msgstr ""
+msgstr "T_reść:"
 
 #: ../src/html.c:1726
 msgid "with _Body (URL-encoded):"
-msgstr ""
+msgstr "Treść (kodowanie _URL):"
 
 #: ../src/html.c:1771
 msgid "Quick List"
@@ -2094,12 +2108,10 @@ msgid "Link"
 msgstr "Odnośnik"
 
 #: ../src/html.c:2167
-#, fuzzy
 msgid "HREF_LANG:"
-msgstr "_HREF:"
+msgstr "HREF_LANG:"
 
 #: ../src/html.c:2171
-#, fuzzy
 msgid "T_itle:"
 msgstr "_Tytuł:"
 
@@ -2664,9 +2676,8 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z daszkiem Ô"
 
 #: ../src/menu.c:437
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/OE połączone"
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/OE połączone Œ"
 
 #: ../src/menu.c:438
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
@@ -2789,9 +2800,8 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską w prawo ó"
 
 #: ../src/menu.c:470
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/oe połączone æ"
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/oe połączone œ"
 
 #: ../src/menu.c:471
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
@@ -3262,9 +3272,8 @@ msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Okna dialogowe/Ogólne/Szybki start..."
 
 #: ../src/menu.c:609
-#, fuzzy
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Okna dialogowe/Ogólne/Meta..."
+msgstr "/Okna dialogowe/Ogólne/_Nagłówek odnośnika..."
 
 #: ../src/menu.c:610
 msgid "/Dialogs/General/_Body..."
@@ -3584,8 +3593,7 @@ msgstr "/Okna"
 
 #: ../src/menu.c:1290
 msgid "Could not view file in browser, the file does not yet have a name\n"
-msgstr ""
-"Nie można pokazać pliku w przeglądarce, plik nie posiada jeszcze nazwy\n"
+msgstr "Nie można pokazać pliku w przeglądarce, plik nie posiada jeszcze nazwy\n"
 
 #: ../src/menu.c:1425
 msgid "/External/Outputbox/"
@@ -3969,7 +3977,7 @@ msgstr "Szerokość tabulacji"
 
 #: ../src/preferences.c:2002
 msgid "Smart cursor positioning at line start"
-msgstr ""
+msgstr "Inteligentne ustawianie kursora na początku linii"
 
 #: ../src/preferences.c:2003
 msgid "Use spaces to indent, not tabs"
@@ -3989,7 +3997,7 @@ msgstr "Domyślnie podświetlaj składnię w dokumencie"
 
 #: ../src/preferences.c:2008
 msgid "Enable highlighting PCRE UTF-8 support"
-msgstr ""
+msgstr "Włącz obsługę UTF-8 w podświetlaniu składni"
 
 #: ../src/preferences.c:2010
 msgid "Highlight # lines"
@@ -4048,19 +4056,16 @@ msgid "Use XHTML style tags (<br />)"
 msgstr "Użyj znaczników XHTML (<br />)"
 
 #: ../src/preferences.c:2042
-#, fuzzy
 msgid "Automatically update author meta tag"
 msgstr "Uzupełnij automatycznie informacje o autorze"
 
 #: ../src/preferences.c:2043
-#, fuzzy
 msgid "Automatically update date meta tag"
-msgstr "Uzupełnij automatycznie informacje o autorze"
+msgstr "Uzupełnij automatycznie informacje o dacie"
 
 #: ../src/preferences.c:2044
-#, fuzzy
 msgid "Automatically update generator meta tag"
-msgstr "Uzupełnij automatycznie informacje o autorze"
+msgstr "Uzupełnij automatycznie informacje o generatorze"
 
 #: ../src/preferences.c:2047
 msgid "Files"
@@ -4340,18 +4345,16 @@ msgid "Create empty project"
 msgstr "Utwórz pusty projekt"
 
 #: ../src/quickstart.c:511
-#, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr "<b>Zewnętrzny arkusz stylów</b>"
+msgstr "<b>Z_ewnętrzny arkusz stylów</b>"
 
 #: ../src/quickstart.c:521
 msgid "Ty_pe:"
 msgstr "_Typ:"
 
 #: ../src/quickstart.c:539
-#, fuzzy
 msgid "HRE_F:"
-msgstr "_HREF:"
+msgstr "HRE_F:"
 
 #: ../src/quickstart.c:543
 msgid "_Media:"
@@ -4366,7 +4369,6 @@ msgid "<b>Style Area</b>"
 msgstr "<b>Style Area</b>"
 
 #: ../src/quickstart.c:557
-#, fuzzy
 msgid "Cre_ate empty style area"
 msgstr "Utwórz _pusty obiekt 'style area'"
 
@@ -4383,7 +4385,6 @@ msgid "<b>Script Area</b>"
 msgstr "<b>Skrypt</b>"
 
 #: ../src/quickstart.c:605
-#, fuzzy
 msgid "Cre_ate empty script area"
 msgstr "Utwórz pusty _skrypt"
 
@@ -4396,9 +4397,8 @@ msgid "_Head:"
 msgstr "_Head:"
 
 #: ../src/quickstart.c:690
-#, fuzzy
 msgid "Open in _new document."
-msgstr "W _dokumencie"
+msgstr "Otwórz w _nowym dokumencie."
 
 #: ../src/rcfile.c:500
 msgid "Galeon"
@@ -4590,9 +4590,8 @@ msgid "Replace o_nce"
 msgstr "Zamień tylko _raz"
 
 #: ../src/snr2.c:1483
-#, fuzzy
 msgid "_Bookmark results"
-msgstr "Zakładki"
+msgstr "Wyniki do _zakładek"
 
 #: ../src/stringlist.c:367
 msgid " Add "
