@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish pre1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-20 21:41-0800\n"
-"PO-Revision-Date: 2006-01-21 05:08+0100\n"
+"POT-Creation-Date: 2006-01-21 07:33+0100\n"
+"PO-Revision-Date: 2006-01-21 07:39+0100\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -323,9 +323,22 @@ msgstr "Auteurs"
 msgid "Translators"
 msgstr "Traducteurs"
 
-#: ../src/authen2.c:172 ../src/authen.c:76
+#: ../src/authen.c:76 ../src/authen2.c:172
 msgid "Authentication required"
 msgstr "Autorisation requise"
+
+#: ../src/authen.c:86
+#, c-format
+msgid "Authentication is required for %s."
+msgstr "Une autorisation est requise pour accéder à %s."
+
+#: ../src/authen.c:92
+msgid "Username:"
+msgstr "Nom d'utilisateur :"
+
+#: ../src/authen.c:97
+msgid "Password:"
+msgstr "Mot de passe : "
 
 #: ../src/authen2.c:178
 msgid "Your HTTP Proxy requires you to log in."
@@ -347,18 +360,13 @@ msgstr "_Domaine :"
 msgid "_Pasword:"
 msgstr "Mot de _passe : "
 
-#: ../src/authen.c:86
-#, c-format
-msgid "Authentication is required for %s."
-msgstr "Une autorisation est requise pour accéder à %s."
+#: ../src/bf-textview.c:188
+msgid "Expand all"
+msgstr "Tout déplier"
 
-#: ../src/authen.c:92
-msgid "Username:"
-msgstr "Nom d'utilisateur :"
-
-#: ../src/authen.c:97
-msgid "Password:"
-msgstr "Mot de passe : "
+#: ../src/bf-textview.c:191
+msgid "Collapse all"
+msgstr "Tout replier"
 
 #: ../src/bf_lib.c:182 ../src/bf_lib.c:202
 msgid ""
@@ -436,14 +444,6 @@ msgstr "Aucun filtre"
 #: ../src/bfspell.c:468
 msgid "html filter"
 msgstr "Filtre HTML"
-
-#: ../src/bf-textview.c:188
-msgid "Expand all"
-msgstr "Tout déplier"
-
-#: ../src/bf-textview.c:191
-msgid "Collapse all"
-msgstr "Tout replier"
 
 #: ../src/bluefish.c:102
 #, c-format
@@ -808,7 +808,7 @@ msgstr "_Fermer"
 
 #: ../src/document.c:3525
 msgid "Close all _failed"
-msgstr "Échec de  Tout _fermer"
+msgstr "Échec de Tout _fermer"
 
 #: ../src/document.c:3529
 msgid "File "
@@ -834,88 +834,6 @@ msgstr "Aucun fichier à insérer"
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiques : %d lignes, %d mots, %d caractères"
-
-#: ../src/filebrowser2.c:990
-msgid "Could not rename\n"
-msgstr "Impossible de renommer le fichier\n"
-
-#: ../src/filebrowser2.c:1028
-msgid "New directory"
-msgstr "Nouveau répertoire"
-
-#: ../src/filebrowser2.c:1032
-msgid "New file"
-msgstr "Nouveau fichier"
-
-#: ../src/filebrowser2.c:1117
-#, c-format
-msgid ""
-"Are you sure you want to delete\n"
-"\"%s\"?"
-msgstr ""
-"Voulez-vous vraiment supprimer\n"
-"\"%s\" ?"
-
-#: ../src/filebrowser2.c:1118
-#, c-format
-msgid "If you delete %s, it will be permanently lost."
-msgstr "Si vous supprimez %s, vous le perdrez définitivement."
-
-#: ../src/filebrowser2.c:1229
-msgid "/_Open"
-msgstr "/_Ouvrir un fichier"
-
-#: ../src/filebrowser2.c:1230
-msgid "/Open _Advanced..."
-msgstr "/P_aramétrer l'ouverture..."
-
-#: ../src/filebrowser2.c:1231
-msgid "/Rena_me"
-msgstr "/Reno_mmer"
-
-#: ../src/filebrowser2.c:1232
-msgid "/_Delete"
-msgstr "/_Supprimer "
-
-#: ../src/filebrowser2.c:1234
-msgid "/New _File"
-msgstr "/Nouveau _fichier"
-
-#: ../src/filebrowser2.c:1235
-msgid "/_New Directory"
-msgstr "/Nouveau ré_pertoire"
-
-#: ../src/filebrowser2.c:1237
-msgid "/_Refresh"
-msgstr "/Actualise_r"
-
-#: ../src/filebrowser2.c:1238
-msgid "/Show Full _Tree"
-msgstr "/Afficher toute l'_arborescence"
-
-#: ../src/filebrowser2.c:1239
-msgid "/_Set as basedir"
-msgstr "/_Sélectionner comme répertoire de base"
-
-#: ../src/filebrowser2.c:1241
-msgid "/Follow active document"
-msgstr "/Suivre le document actif"
-
-#: ../src/filebrowser2.c:1242
-msgid "/Show hidden files"
-msgstr "/Afficher les fichiers cachés"
-
-#: ../src/filebrowser2.c:1243
-msgid "/Show backup files"
-msgstr "/Afficher les fichiers de sauvegarde"
-
-#: ../src/filebrowser2.c:1294
-msgid "Filter"
-msgstr "Filtre"
-
-#: ../src/filebrowser2.c:1949 ../src/gtk_easy.c:1343
-msgid "All files"
-msgstr "Tous les fichiers"
 
 #: ../src/file.c:975
 #, c-format
@@ -1109,6 +1027,88 @@ msgstr "Tout enregi_strer"
 #: ../src/file_dialogs.c:792
 msgid "Multiple open files have been changed."
 msgstr "Certains fichiers ont été modifiés."
+
+#: ../src/filebrowser2.c:990
+msgid "Could not rename\n"
+msgstr "Impossible de renommer le fichier\n"
+
+#: ../src/filebrowser2.c:1028
+msgid "New directory"
+msgstr "Nouveau répertoire"
+
+#: ../src/filebrowser2.c:1032
+msgid "New file"
+msgstr "Nouveau fichier"
+
+#: ../src/filebrowser2.c:1117
+#, c-format
+msgid ""
+"Are you sure you want to delete\n"
+"\"%s\"?"
+msgstr ""
+"Voulez-vous vraiment supprimer\n"
+"\"%s\" ?"
+
+#: ../src/filebrowser2.c:1118
+#, c-format
+msgid "If you delete %s, it will be permanently lost."
+msgstr "Si vous supprimez %s, vous le perdrez définitivement."
+
+#: ../src/filebrowser2.c:1229
+msgid "/_Open"
+msgstr "/_Ouvrir un fichier"
+
+#: ../src/filebrowser2.c:1230
+msgid "/Open _Advanced..."
+msgstr "/P_aramétrer l'ouverture..."
+
+#: ../src/filebrowser2.c:1231
+msgid "/Rena_me"
+msgstr "/Reno_mmer"
+
+#: ../src/filebrowser2.c:1232
+msgid "/_Delete"
+msgstr "/_Supprimer "
+
+#: ../src/filebrowser2.c:1234
+msgid "/New _File"
+msgstr "/Nouveau _fichier"
+
+#: ../src/filebrowser2.c:1235
+msgid "/_New Directory"
+msgstr "/Nouveau ré_pertoire"
+
+#: ../src/filebrowser2.c:1237
+msgid "/_Refresh"
+msgstr "/Actualise_r"
+
+#: ../src/filebrowser2.c:1238
+msgid "/Show Full _Tree"
+msgstr "/Afficher toute l'_arborescence"
+
+#: ../src/filebrowser2.c:1239
+msgid "/_Set as basedir"
+msgstr "/_Sélectionner comme répertoire de base"
+
+#: ../src/filebrowser2.c:1241
+msgid "/Follow active document"
+msgstr "/Suivre le document actif"
+
+#: ../src/filebrowser2.c:1242
+msgid "/Show hidden files"
+msgstr "/Afficher les fichiers cachés"
+
+#: ../src/filebrowser2.c:1243
+msgid "/Show backup files"
+msgstr "/Afficher les fichiers de sauvegarde"
+
+#: ../src/filebrowser2.c:1294
+msgid "Filter"
+msgstr "Filtre"
+
+#: ../src/filebrowser2.c:1949 ../src/gtk_easy.c:1343
+msgid "All files"
+msgstr "Tous les fichiers"
 
 #: ../src/fref2.c:788
 #, c-format
@@ -2284,7 +2284,7 @@ msgstr "Mode de fermeture automatique des balises"
 
 #: ../src/preferences.c:864 ../src/preferences.c:866
 msgid "Language file"
-msgstr "Langue"
+msgstr "Fichier de langage"
 
 #: ../src/preferences.c:949
 msgid "Inverse filter"
@@ -2412,7 +2412,7 @@ msgstr ""
 "Ne spécifier aucune option pour lire l'entrée à partir de la sortie "
 "standard\n"
 "%s nom du fichier local (disponible pour les fichiers locaux)\n"
-"%i FIFO temporaire  en entrée, égal à %s si le document est local et n'a pas "
+"%i FIFO temporaire en entrée, égal à %s si le document est local et n'a pas "
 "été modifié\n"
 "%I nom du fichier temporaire en entrée, égal à %s si le fichier est local et "
 "n'a pas été modifié\n"
@@ -2451,7 +2451,7 @@ msgstr ""
 "Ne spécifier aucune option pour lire l'entrée à partir de la sortie "
 "standard\n"
 "%s nom du fichier local (disponible pour les fichiers locaux)\n"
-"%i FIFO temporaire  en entrée, égal à %s si le document est local et n'a pas "
+"%i FIFO temporaire en entrée, égal à %s si le document est local et n'a pas "
 "été modifié\n"
 "%I nom du fichier temporaire en entrée, égal à %s si le fichier est local et "
 "n'a pas été modifié\n"
@@ -2621,7 +2621,7 @@ msgstr "Mise à jour automatique de la méta-balise date"
 
 #: ../src/preferences.c:2826
 msgid "Automatically update generator meta tag"
-msgstr "Mise à jour automatique de la méta-balise  générateur"
+msgstr "Mise à jour automatique de la méta-balise générateur"
 
 #: ../src/preferences.c:2830
 msgid "Files"
@@ -3060,7 +3060,7 @@ msgstr "Étend_ue :"
 
 #: ../src/snr2.c:1556
 msgid "Where to look for the pattern."
-msgstr "Emplacement du modèle."
+msgstr "Zone de recherche du modèle."
 
 #: ../src/snr2.c:1562
 msgid "Found 0 matches, replaced 0"
@@ -3076,11 +3076,11 @@ msgstr "<b>_Options</b>"
 
 #: ../src/snr2.c:1586
 msgid "Match Patter_n: "
-msgstr "Rechercher le _modèle : "
+msgstr "_Modèle de recherche : "
 
 #: ../src/snr2.c:1590
 msgid "How to interpret the pattern."
-msgstr "Interprétation du modèle."
+msgstr "Type d'interprétation du modèle."
 
 #: ../src/snr2.c:1597
 msgid "Replace T_ype: "
@@ -3112,7 +3112,7 @@ msgstr ""
 
 #: ../src/snr2.c:1616
 msgid "_Use escape chars"
-msgstr "_Utilliser des caractères d'échappement"
+msgstr "_Utiliser des caractères d'échappement"
 
 #: ../src/snr2.c:1619
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
@@ -3120,7 +3120,7 @@ msgstr "Supprime la première barre inclinée dans \\n, \\t, etc..."
 
 #: ../src/snr2.c:1621
 msgid "_Bookmark matches"
-msgstr "Création de _signets"
+msgstr "Créer des _signets"
 
 #: ../src/snr2.c:1624
 msgid "Create a bookmark for each match"
