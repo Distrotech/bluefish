@@ -56,12 +56,16 @@ all: ${MAKEMAIN}
 make-nls:
 	cd po/ && $(MAKE) all;
 	cd src/plugin_htmlbar/po/ && $(MAKE) all;
+	cd src/plugin_about/po/ && $(MAKE) all;
+	cd src/plugin_entities/po/ && $(MAKE) all;
 
 clean:
 	rm -f core *~
 	@cd src/ && $(MAKE) clean
 	@cd po/ && $(MAKE) clean
 	@cd src/plugin_htmlbar/po/ && $(MAKE) clean
+	@cd src/plugin_about/po/ && $(MAKE) clean
+	@cd src/plugin_entities/po/ && $(MAKE) clean
 	@cd data/ && $(MAKE) clean
 	@cd man/ && $(MAKE) clean
 
@@ -74,6 +78,7 @@ distclean:
 	@cd po/ && $(MAKE) distclean
 	@cd src/plugin_htmlbar/po/ && $(MAKE) distclean
 	@cd src/plugin_about/po/ && $(MAKE) distclean
+	@cd src/plugin_entities/po/ && $(MAKE) distclean
 	@cd data/ && $(MAKE) distclean
 	@cd man/ && $(MAKE) distclean
 	rm -f Makefile src/Makefile icons/Makefile config.status config.cache config.log libtool 
@@ -92,6 +97,8 @@ install-theme-icon:
 install-nls:
 	cd po/ && $(MAKE) install
 	cd src/plugin_htmlbar/po/ && $(MAKE) install
+	cd src/plugin_about/po/ && $(MAKE) install
+	cd src/plugin_entities/po/ && $(MAKE) install
 
 install: src/bluefish ${INSTALLMAIN}
 	pkgdatadir=@pkgdatadir@
@@ -107,6 +114,8 @@ uninstall:
 	@cd src/ && $(MAKE) uninstall
 	@cd po/ && $(MAKE) uninstall
 	@cd src/plugin_htmlbar/po/ && $(MAKE) uninstall
+	@cd src/plugin_about/po/ && $(MAKE) uninstall
+	@cd src/plugin_entities/po/ && $(MAKE) uninstall
 	@cd data/ && $(MAKE) uninstall
 	@cd man/ && $(MAKE) uninstall
 	rm -f $(DESTDIR)$(pkgdatadir)/bluefish_splash.png
