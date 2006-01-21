@@ -1848,7 +1848,7 @@ static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdo
 	main_v->lastkp_keyval = kevent->keyval;
 	main_v->lastkp_hardware_keycode = kevent->hardware_keycode;
 	
-	if (((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home)) && main_v->props.editor_smart_cursor) {
+	if (!(kevent->state & GDK_CONTROL_MASK) && ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home)) && main_v->props.editor_smart_cursor) {
 		GtkTextMark* imark;
 		GtkTextIter  iter, iterstart, linestart;
 
@@ -1878,9 +1878,9 @@ static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdo
 			gtk_text_buffer_move_mark (doc->buffer, imark, &iter);
 		else {		
 			gtk_text_buffer_place_cursor (doc->buffer, &iter);
-			gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW (doc->view), 
-			                                    gtk_text_buffer_get_insert (doc->buffer));
 		}
+
+        gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW (doc->view), gtk_text_buffer_get_insert (doc->buffer));
 
 		/* Event handled. */
 		return TRUE;
