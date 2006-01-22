@@ -1,5 +1,5 @@
 # Makefile for data files
-# Copyright (C) 2002-2004 Olivier Sessink <olivier@bluefish.openoffice.nl>
+# Copyright (C) 2002-2006 Olivier Sessink <olivier@bluefish.openoffice.nl>
 
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -39,6 +39,7 @@ DEFAULTFILES = \
     html.bflang \
     java.bflang \
     xml.bflang \
+    po.bflang \
     python.bflang
 
 FUNCREFFILES = \
