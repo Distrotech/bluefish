@@ -775,8 +775,11 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 								gtk_text_buffer_get_iter_at_mark(buf,&it9,gtk_text_buffer_get_insert(buf));
 								if ( gtk_text_iter_equal(&it9,&ita) )
 								{
-									gchar *pp = g_strjoin("","</",bf_2->tagname,">",NULL);
-								   gtk_text_buffer_insert(buf,&ita,pp,g_utf8_strlen(pp,-1));								   
+                                   gchar *pp = g_strjoin("","</",bf_2->tagname,">",NULL);
+								   gtk_text_buffer_insert(buf,&ita,pp,g_utf8_strlen(pp,-1));
+								   gtk_text_buffer_get_iter_at_mark (buf, &it9, gtk_text_buffer_get_insert(buf));
+								   gtk_text_iter_backward_chars (&it9, strlen(pp));
+								   gtk_text_buffer_place_cursor (buf, &it9);
 								   g_free(pp);
 								   return; /* I have to return from scan, because it has been performed after latest insert */
 								}
