@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * undo_redo.c - imrpoved undo/redo functionality
  *
- * Copyright (C) 2001-2005 Olivier Sessink
+ * Copyright (C) 2001-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,21 +18,21 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h>
 
 #include "bluefish.h" 
-#include "undo_redo.h"
 #include "dialog_utils.h"
-#include "document.h" /* doc_bind_signals() */
+#include "document.h"    /* doc_bind_signals() */
+#include "undo_redo.h"
 
 typedef struct {
-	char *text;			/* text to be inserted or deleted */
-	int start;			/* starts at this position */
-	int end;				/* ends at this position */
-	undo_op_t op;		/* action to execute */	
+	char *text;    /* text to be inserted or deleted */
+	int start;     /* starts at this position */
+	int end;       /* ends at this position */
+	undo_op_t op;  /* action to execute */	
 } unreentry_t;
 
 static guint action_id_count = 1; /* 0 means it should be auto-generated */
