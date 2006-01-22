@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snr2.c - rewrite of search 'n replace functions
  *
- * Copyright (C) 2000-2005 Olivier Sessink
+ * Copyright (C) 2000-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -157,6 +157,7 @@ static void reset_last_snr2(Tbfwin *bfwin) {
  * @is_case_sens: If the search is case sensitive, #gint
  * @buf: #gchar* to the document buffer
  * @byte_offset: #guint where in the buffer the search should start, in bytes, not characters
+ * @endpos: #gint where in buffer the search should end in bytes, -1 to search to end
  * @want_submatches: #gint
  * 
  * Performs an actual search in a supplied buffer (#gchar*, aka string).
@@ -164,7 +165,7 @@ static void reset_last_snr2(Tbfwin *bfwin) {
  *
  * Return value: #Tsearch_result, contains both character and byte offsets, for wide-char-compatibility. Note values for start/end are set to -1 on error.
  **/
-Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *buf, guint byte_offset, gboolean want_submatches) {
+Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *buf, guint byte_offset, gint endpos, gboolean want_submatches) {
 	Tsearch_result returnvalue;
 	int (*f) ();
 	gint buflen, patlen, match, i;
@@ -287,10 +288,14 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		} else {
 			f = strncmp;
 		}
-		buflen = strlen(buf);
+		
+		if (endpos != -1)
+		    buflen = strlen(doc_get_chars(bfwin->current_document, byte_offset, endpos));
+		else
+		    buflen = strlen(buf);
 		patlen = strlen(search_pattern);
 		
-		for (i = byte_offset; i <= (buflen - patlen); i++) {
+		for (i = byte_offset; i <= ((byte_offset + buflen) - patlen); i++) {
 			match = f(&buf[i], search_pattern, patlen);
 			if (match == 0) {
 				returnvalue.bstart = i;
@@ -357,7 +362,7 @@ Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_patte
 	} else {
 		realpat = search_pattern;
 	}
-	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 0, FALSE);
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 0, -1, FALSE);
 	if (unescape) {
 		g_free(realpat);
 	}
@@ -565,7 +570,7 @@ actions, so the first char in buf is actually number offset in the text widget *
 	} else {
 		realpat = search_pattern;
 	}
-	result = search_backend(bfwin,realpat, matchtype, is_case_sens, buf, byte_offset, (matchtype != match_normal));
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, buf, byte_offset, -1, (matchtype != match_normal));
 	if (unescape) {
 		DEBUG_MSG("replace_backend, free-ing realpat\n");
 		g_free(realpat);
@@ -952,7 +957,7 @@ gint replace_prompt_doc(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types match
 	} else {
 		realpat = search_pattern;
 	}
-	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext,0, 1);
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 0, -1, TRUE);
 	if (unescape) {
 		g_free(realpat);
 	}
@@ -1015,9 +1020,9 @@ void replace_prompt_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matcht
 	}
 }
 
-static void search_doc_bookmark_backend(Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gboolean unescape) {
+static void search_doc_bookmark_backend(Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gboolean unescape) {
 	gchar *fulltext, *realpat;
-	gint buf_byte_offset=0;
+    gint buf_byte_offset = 0;
 	Tsearch_result result;
 	fulltext = doc_get_chars(document, 0, -1);
 	utf8_offset_cache_reset();
@@ -1026,7 +1031,7 @@ static void search_doc_bookmark_backend(Tbfwin *bfwin,Tdocument *document, gchar
 	} else {
 		realpat = search_pattern;
 	}
-	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, 0, FALSE);
+	result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, startpos, endpos, FALSE);
 	while (result.end > 0) {
 		gchar *text = doc_get_chars(document, result.start, result.end);
 		DEBUG_MSG("search_bookmark, adding bookmark '%s' at %d\n", text, result.start);
@@ -1037,7 +1042,7 @@ static void search_doc_bookmark_backend(Tbfwin *bfwin,Tdocument *document, gchar
 		} else {
 			buf_byte_offset = result.bend;
 		}
-		result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, buf_byte_offset, FALSE);
+		result = search_backend(bfwin,realpat, matchtype, is_case_sens, fulltext, buf_byte_offset, endpos, FALSE);
 	}
 	if (unescape) {
 		g_free(realpat);
@@ -1053,16 +1058,16 @@ static void search_doc_bookmark_backend(Tbfwin *bfwin,Tdocument *document, gchar
  * will search, and bookmark all matches
  * 
  */
-static void search_bookmark(Tbfwin *bfwin, gint startat) {
+static void search_bookmark(Tbfwin *bfwin, gint startpos, gint endpos) {
 	DEBUG_MSG("search_bookmark, started\n");
 	if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
 		GList *tmplist = g_list_first(bfwin->documentlist);
 		while (tmplist) {
-			search_doc_bookmark_backend(bfwin,DOCUMENT(tmplist->data), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, 0, LASTSNR2(bfwin->snr2)->unescape);
+			search_doc_bookmark_backend(bfwin,DOCUMENT(tmplist->data), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape);
 			tmplist = g_list_next(tmplist);
 		}
 	} else {
-		search_doc_bookmark_backend(bfwin,DOCUMENT(bfwin->current_document), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startat, LASTSNR2(bfwin->snr2)->unescape);
+		search_doc_bookmark_backend(bfwin,DOCUMENT(bfwin->current_document), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape);
 	}
 	DEBUG_MSG("search_bookmark, done\n");
 }
@@ -1144,7 +1149,7 @@ void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 		}
 	} else { /* find, not replace */
 		if (LASTSNR2(bfwin->snr2)->bookmark_results) {
-			search_bookmark(bfwin, startpos);
+			search_bookmark(bfwin, startpos, endpos);
 		} else {
 			if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
 				DEBUG_MSG("snr2dialog_ok_lcb, search = all\n");
@@ -1691,7 +1696,7 @@ void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfile
 
 	fulltext = doc_get_chars(doc, 0, -1);
 	utf8_offset_cache_reset();
-	result = search_backend(search_pattern, matchtype, is_case_sens, fulltext, 0);
+	result = search_backend(search_pattern, matchtype, is_case_sens, fulltext, -1, FALSE);
 	while (result.end > 0) {
 		if (doc_has_newfilename) {
 			changelen = do_filename_curfile_replace(fulltext, result, cur_offset, olddirname, newfilename, changelen, doc);
@@ -1699,7 +1704,7 @@ void update_filenames_in_file(Tdocument *doc, gchar *oldfilename, gchar *newfile
 			changelen = do_filename_otherfile_replace(fulltext, result, cur_offset, oldfilename, newfilename, changelen, doc);
 		}
 		cur_offset += result.bstart +1;
-		result = search_backend(search_pattern, matchtype, is_case_sens, &fulltext[cur_offset], 0);
+		result = search_backend(search_pattern, matchtype, is_case_sens, &fulltext[cur_offset], -1, FALSE);
 	}
 	g_free(fulltext);
 	if (doc_has_newfilename) {
@@ -1728,7 +1733,7 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 		search_pattern = "<meta[ \t\n]http-equiv[ \t\n]*=[ \t\n]*\"content-type\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"([^;]*);[ \t\n]*charset=[a-z0-9-]*\"[ \t\n]*(/?)>";
 		fulltext = doc_get_chars(doc, 0, -1);
 		utf8_offset_cache_reset();
-		result = search_backend(bfwin,search_pattern, match_posix, 0, fulltext, 0, 1);
+		result = search_backend(bfwin,search_pattern, match_posix, 0, fulltext, 0, -1, TRUE);
 		if (result.end > 0) {
 			gchar *replacestring, *type, *xhtmlend;
 			DEBUG_MSG("update_encoding_meta_in_file, we have a match, nmatch=%d\n",result.nmatch);
@@ -1750,7 +1755,7 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 			DEBUG_MSG("update_encoding_meta_in_file, 1: NO match\n");
 			/* now search for <head>, we can append it to this tag */
 			search_pattern = "<head>";
-			result = search_backend(bfwin,search_pattern, match_posix, 0, fulltext, 0, 0);
+			result = search_backend(bfwin,search_pattern, match_posix, 0, fulltext, 0, -1, FALSE);
 			if (result.end > 0) {
 				gchar *replacestring = g_strconcat("<head>\n<meta http-equiv=\"content-type\" content=\"text/html; charset=",encoding,"\">", NULL);
 				DEBUG_MSG("update_encoding_meta_in_file, 2: we have a match\n");
