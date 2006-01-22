@@ -8,15 +8,448 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 21-11-03_fr\n"
+"Project-Id-Version: bluefish pre1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-20 21:46-0800\n"
-"PO-Revision-Date: 2005-04-18 8:50+0200\n"
+"POT-Creation-Date: 2006-01-22 02:48+0100\n"
+"PO-Revision-Date: 2006-01-22 03:38+0100\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../html.c:389
+msgid "Insert Time"
+msgstr "Insérer l'heure"
+
+#: ../html.c:397
+#, c-format
+msgid "  _Time (%i:%i:%i)"
+msgstr "  _Heure (%i:%i:%i)"
+
+#: ../html.c:402
+msgid "  Day of the _week (Sunday)"
+msgstr "  Jour de la _semaine (Dimanche)"
+
+#: ../html.c:405
+msgid "  Day of the _week (Monday)"
+msgstr "  Jour de la _semaine (Lundi)"
+
+#: ../html.c:408
+msgid "  Day of the _week (Tuesday)"
+msgstr "  Jour de la _semaine (Mardi)"
+
+#: ../html.c:411
+msgid "  Day of the _week (Wednesday)"
+msgstr "  Jour de la _semaine (Mercredi)"
+
+#: ../html.c:414
+msgid "  Day of the _week (Thursday)"
+msgstr "  Jour de la _semaine (Jeudi)"
+
+#: ../html.c:417
+msgid "  Day of the _week (Friday)"
+msgstr "  Jour de la _semaine (Vendredi)"
+
+#: ../html.c:420
+msgid "  Day of the _week (Saturday)"
+msgstr "  Jour de la _semaine (Samedi)"
+
+#: ../html.c:423
+msgid "You appear to have a non existant day!\n"
+msgstr "Il semble que la date fournie n'existe pas !\n"
+
+#: ../html.c:431
+#, c-format
+msgid "  _Date (%i/%i/%i)"
+msgstr "  _Date (%i/%i/%i)"
+
+#: ../html.c:434
+#, c-format
+msgid "  _Unix Time (%i)"
+msgstr "  Heure au format _Unix (%i)"
+
+#: ../html.c:439
+#, c-format
+msgid "  Unix Date _String (%s"
+msgstr "  Date au _format Unix (%s"
+
+#: ../html.c:447
+#, c-format
+msgid "  ISO-8601 Ti_me (%s)"
+msgstr "Date au format _ISO-8601"
+
+#: ../html.c:589
+msgid "Quick Anchor"
+msgstr "Ancre rapide"
+
+#: ../html.c:595 ../html_form.c:780
+msgid "Attributes"
+msgstr "Attributs"
+
+#: ../html.c:609 ../html.c:1918
+msgid "_HREF:"
+msgstr "_HREF :"
+
+#: ../html.c:613 ../html_form.c:183
+msgid "_Target:"
+msgstr "_Cible :"
+
+#: ../html.c:617 ../html.c:837 ../html.c:1212 ../html.c:1686
+#: ../html_form.c:231 ../html_form.c:596 ../html_form.c:795 ../html_form.c:890
+#: ../image.c:416
+msgid "_Name:"
+msgstr "_Nom :"
+
+#: ../html.c:623 ../html.c:1070 ../html.c:1241 ../html.c:1833
+msgid "_Language:"
+msgstr "_Langue :"
+
+#: ../html.c:627 ../html.c:845 ../html.c:979 ../html.c:1074 ../html.c:1249
+#: ../html.c:1622 ../html.c:1723 ../html.c:1852 ../html_form.c:187
+#: ../html_form.c:243 ../html_form.c:609 ../html_form.c:903
+#: ../html_table.c:101 ../html_table.c:253 ../html_table.c:361 ../image.c:424
+msgid "Custo_m:"
+msgstr "Pers_onnaliser :"
+
+#: ../html.c:630 ../html.c:1078 ../html_form.c:829
+msgid "Events"
+msgstr "Évènements"
+
+#: ../html.c:633
+msgid "OnClic_k:"
+msgstr "OnClic_k :"
+
+#: ../html.c:637
+msgid "OnD_blClick:"
+msgstr "OnD_blClick :"
+
+#: ../html.c:641
+msgid "OnMouseO_ver:"
+msgstr "OnMouseO_ver :"
+
+#: ../html.c:645
+msgid "OnMouse_Down:"
+msgstr "OnMouse_Down :"
+
+#: ../html.c:649
+msgid "OnMouse_Move:"
+msgstr "OnMouse_Move :"
+
+#: ../html.c:653
+msgid "OnMouseOu_t:"
+msgstr "OnMouseOu_t :"
+
+#: ../html.c:657
+msgid "OnMouse_Up:"
+msgstr "OnMouse_Up :"
+
+#: ../html.c:661
+msgid "OnKeyDo_wn:"
+msgstr "OnKeyDo_wn :"
+
+#: ../html.c:665
+msgid "OnKey_Press:"
+msgstr "OnKey_Press :"
+
+#: ../html.c:669
+msgid "OnKe_yUp:"
+msgstr "OnKe_yUp :"
+
+#: ../html.c:781 ../htmlbar_gui.c:735
+msgid "Paragraph"
+msgstr "Paragraphe"
+
+#: ../html.c:784
+msgid "Div"
+msgstr "Balise div"
+
+#: ../html.c:787
+msgid "Span"
+msgstr "Balise span"
+
+#: ../html.c:790 ../htmlbar_gui.c:757
+msgid "Heading 1"
+msgstr "Titre 1"
+
+#: ../html.c:793 ../htmlbar_gui.c:758
+msgid "Heading 2"
+msgstr "Titre 2"
+
+#: ../html.c:796 ../htmlbar_gui.c:759
+msgid "Heading 3"
+msgstr "Titre 3"
+
+#: ../html.c:799 ../htmlbar_gui.c:760
+msgid "Heading 4"
+msgstr "Titre 4"
+
+#: ../html.c:802 ../htmlbar_gui.c:761
+msgid "Heading 5"
+msgstr "Titre 5"
+
+#: ../html.c:805 ../htmlbar_gui.c:762
+msgid "Heading 6"
+msgstr "Titre 6"
+
+#: ../html.c:822 ../html_table.c:109 ../html_table.c:219 ../html_table.c:333
+msgid "Ali_gn:"
+msgstr "Ali_gnement horizontal :"
+
+#: ../html.c:826 ../html.c:1062 ../html_diag.c:373 ../html_table.c:91
+#: ../html_table.c:237 ../html_table.c:351
+msgid "Cl_ass:"
+msgstr "Cl_asse :"
+
+#: ../html.c:830 ../html.c:1055 ../html_diag.c:381 ../html_table.c:96
+#: ../html_table.c:248 ../html_table.c:356
+msgid "St_yle:"
+msgstr "St_yle :"
+
+#: ../html.c:841 ../html.c:1066 ../html_diag.c:377
+msgid "_ID:"
+msgstr "_ID :"
+
+#: ../html.c:942
+msgid "Horizontal Rule"
+msgstr "Règle horizontale"
+
+#: ../html.c:953 ../html.c:1771 ../image.c:442
+msgid "_Align:"
+msgstr "_Alignement horizontal :"
+
+#: ../html.c:960 ../html.c:1779 ../html_table.c:387
+msgid "_Height:"
+msgstr "_Hauteur :"
+
+#: ../html.c:966 ../html.c:1775 ../html_table.c:134 ../html_table.c:380
+#: ../image.c:400
+msgid "_Width:"
+msgstr "Lar_geur :"
+
+#: ../html.c:969
+msgid "Is _percent"
+msgstr "En _pourcentage"
+
+#: ../html.c:974
+msgid "No _shading"
+msgstr "San_s ombrage"
+
+#: ../html.c:1039
+msgid "Body"
+msgstr "Balise body"
+
+#: ../html.c:1047
+msgid "Options"
+msgstr "Options"
+
+#: ../html.c:1085
+msgid "On_Load:"
+msgstr "On_Load :"
+
+#: ../html.c:1093
+msgid "On_UnLoad:"
+msgstr "On_UnLoad :"
+
+#: ../html.c:1102
+msgid "Depreciated options"
+msgstr "Options obsolètes"
+
+#: ../html.c:1112
+msgid "Background _Image:"
+msgstr "_Image de fond :"
+
+#: ../html.c:1119
+msgid "Back_ground Color:"
+msgstr "Couleur de _fond :"
+
+#: ../html.c:1125
+msgid "_Text Color:"
+msgstr "Couleur du _texte :"
+
+#: ../html.c:1131
+msgid "_Link Color:"
+msgstr "Couleur de l'hyper_lien :"
+
+#: ../html.c:1137
+msgid "_Visited Link Color:"
+msgstr "Couleur de l'hyperlien _visité :"
+
+#: ../html.c:1143
+msgid "_Active Link Color:"
+msgstr "Couleur du lien _actif :"
+
+#: ../html.c:1194
+msgid "Meta"
+msgstr "Meta"
+
+#: ../html.c:1232
+msgid "_HTTP-EQUIV:"
+msgstr "_HTTP-EQUIV :"
+
+#: ../html.c:1237
+msgid "Con_tent:"
+msgstr "Con_tenu :"
+
+#: ../html.c:1245
+msgid "_Scheme:"
+msgstr "Cla_ssification :"
+
+#: ../html.c:1326
+msgid "Font"
+msgstr "Police"
+
+#: ../html.c:1329
+msgid "Base Font"
+msgstr "Police par défaut"
+
+#: ../html.c:1344
+msgid "Size"
+msgstr "Corps"
+
+#: ../html.c:1352
+msgid "Color"
+msgstr "Couleur"
+
+#: ../html.c:1357
+msgid "Face"
+msgstr "Nom"
+
+#: ../html.c:1361
+msgid "Custom"
+msgstr "Personnaliser"
+
+#: ../html.c:1445
+msgid "E-mail"
+msgstr "Courriel"
+
+#: ../html.c:1453
+msgid "_Mail to:"
+msgstr "Adresse _électronique :"
+
+#: ../html.c:1457
+msgid "_Copy to:"
+msgstr "Copie _à :"
+
+#: ../html.c:1461
+msgid "Blin_d copy to:"
+msgstr "Copie _invisible à :"
+
+#: ../html.c:1465
+msgid "with _Subject:"
+msgstr "_Objet :"
+
+#: ../html.c:1469
+msgid "with _Body:"
+msgstr "Cor_ps :"
+
+#: ../html.c:1513
+msgid "Quick List"
+msgstr "Liste rapide"
+
+#: ../html.c:1518 ../html.c:1600 ../html_form.c:236
+msgid "_Rows:"
+msgstr "_Lignes :"
+
+#: ../html.c:1521
+msgid "Or_dered"
+msgstr "Or_donné"
+
+#: ../html.c:1522
+msgid "_Unordered"
+msgstr "Non-_ordonné"
+
+#: ../html.c:1524
+msgid "Style:"
+msgstr "Style :"
+
+#: ../html.c:1590 ../htmlbar_gui.c:780
+msgid "Frameset"
+msgstr "Encadrement"
+
+#: ../html.c:1596 ../html_form.c:240
+msgid "Co_ls:"
+msgstr "Colo_nnes :"
+
+#: ../html.c:1605
+msgid "_Add <frame> elements"
+msgstr "_Ajouter des éléments <frame>"
+
+#: ../html.c:1674 ../htmlbar_gui.c:781
+msgid "Frame"
+msgstr "Cadre"
+
+#: ../html.c:1682 ../html.c:1767 ../html.c:1826
+msgid "_Source:"
+msgstr "_Source :"
+
+#: ../html.c:1690
+msgid "Margin _Width:"
+msgstr "_Largeur de la marge :"
+
+#: ../html.c:1694
+msgid "Margin _Height:"
+msgstr "_Hauteur de la marge :"
+
+#: ../html.c:1702
+msgid "Scrollin_g:"
+msgstr "_Défilement :"
+
+#: ../html.c:1706
+msgid "_Frameborder:"
+msgstr "_Bordure du cadre :"
+
+#: ../html.c:1711
+msgid "No _Resize:"
+msgstr "Pas de _redimensionnement :"
+
+#: ../html.c:1761
+msgid "Embed"
+msgstr "Incrustation"
+
+#: ../html.c:1783 ../html_table.c:140
+msgid "Bo_rder:"
+msgstr "Bo_rdure :"
+
+#: ../html.c:1819
+msgid "Script"
+msgstr "Script"
+
+#: ../html.c:1848 ../html.c:1949 ../html_form.c:789 ../html_form.c:899
+msgid "_Type:"
+msgstr "_Type :"
+
+#: ../html.c:1907
+msgid "Link"
+msgstr "Lien"
+
+#: ../html.c:1924
+msgid "HREF_LANG:"
+msgstr "HREF_LANG :"
+
+#: ../html.c:1928
+msgid "T_itle:"
+msgstr "_Titre :"
+
+#: ../html.c:1968
+msgid "_Forward Relation:"
+msgstr "Lien pro_gressif :"
+
+#: ../html.c:1972
+msgid "_Reverse Relation:"
+msgstr "Lien _inverse :"
+
+#: ../html.c:1983
+msgid "Media:"
+msgstr "Media :"
+
+#: ../html.c:1987
+msgid "L_ang:"
+msgstr "L_angue :"
+
+#: ../html.c:1991
+msgid "_Custom:"
+msgstr "Pers_onnalisé :"
 
 #: ../html2.c:558
 msgid "Cascading StyleSheet dialog"
@@ -65,6 +498,150 @@ msgstr "_Style..."
 #: ../html2.c:1091
 msgid "Bluefish: Select color"
 msgstr "Bluefish : Sélection de couleurs"
+
+#: ../html_form.c:141
+msgid "Form"
+msgstr "Formulaire"
+
+#: ../html_form.c:159
+msgid "_Action:"
+msgstr "_Action :"
+
+#: ../html_form.c:167
+msgid "Metho_d:"
+msgstr "Métho_de :"
+
+#: ../html_form.c:176
+msgid "_Enctype:"
+msgstr "_Transcodage :"
+
+#: ../html_form.c:225
+msgid "Text area"
+msgstr "Zone de texte"
+
+#: ../html_form.c:590
+msgid "Select"
+msgstr "Sélectionner"
+
+#: ../html_form.c:601 ../html_form.c:808
+msgid "Si_ze:"
+msgstr "_Largeur :"
+
+#: ../html_form.c:605
+msgid "Multiple _Selections:"
+msgstr "_Sélections multiples :"
+
+#: ../html_form.c:644
+msgid "Option"
+msgstr "Option"
+
+#: ../html_form.c:654 ../html_form.c:697
+msgid "_Label:"
+msgstr "Éti_quette :"
+
+#: ../html_form.c:659
+msgid "_Selected:"
+msgstr "_Sélectionné :"
+
+#: ../html_form.c:692
+msgid "Option group"
+msgstr "Groupe d'options"
+
+#: ../html_form.c:775
+msgid "Input"
+msgstr "Saisie"
+
+#: ../html_form.c:803
+msgid "_Checked:"
+msgstr "_Coché :"
+
+#: ../html_form.c:812
+msgid "Max _Length:"
+msgstr "Longueur _maximale :"
+
+#: ../html_form.c:816
+msgid "_Accept:"
+msgstr "_Accepter :"
+
+#: ../html_form.c:820
+msgid "C_ustom:"
+msgstr "Pers_onnaliser :"
+
+#: ../html_form.c:825 ../htmlbar_gui.c:805
+msgid "Style"
+msgstr "Style"
+
+#: ../html_form.c:832
+msgid "On_Focus:"
+msgstr "On_Focus :"
+
+#: ../html_form.c:836
+msgid "On_Blur:"
+msgstr "On_Blur :"
+
+#: ../html_form.c:840
+msgid "On_Select:"
+msgstr "On_Select :"
+
+#: ../html_form.c:844
+msgid "On_Change:"
+msgstr "On_Change :"
+
+#: ../html_form.c:884
+msgid "Button"
+msgstr "Bouton"
+
+#: ../html_table.c:77 ../htmlbar_gui.c:770
+msgid "Table"
+msgstr "Tableau"
+
+#: ../html_table.c:83
+msgid "Cell _Padding:"
+msgstr "_Marge intracellulaire :"
+
+#: ../html_table.c:87
+msgid "C_ell Spacing:"
+msgstr "_Espace intracellulaire :"
+
+#: ../html_table.c:123 ../html_table.c:233 ../html_table.c:347
+msgid "_Valign:"
+msgstr "Alignement _vertical :"
+
+#: ../html_table.c:128 ../html_table.c:242 ../html_table.c:392
+msgid "Backgrou_nd Color:"
+msgstr "Couleur de fo_nd :"
+
+#: ../html_table.c:154
+msgid "_Frame:"
+msgstr "_Cadre :"
+
+#: ../html_table.c:165
+msgid "R_ules:"
+msgstr "_Traits :"
+
+#: ../html_table.c:209 ../htmlbar_gui.c:771
+msgid "Table Row"
+msgstr "Ligne de tableau"
+
+#: ../html_table.c:318 ../htmlbar_gui.c:773
+msgid "Table Data"
+msgstr "Cellule"
+
+#: ../html_table.c:320 ../htmlbar_gui.c:772
+msgid "Table Header"
+msgstr "En-tête de tableau"
+
+#: ../html_table.c:365
+msgid "Co_l Span:"
+msgstr "Co_lspan :"
+
+#: ../html_table.c:369
+msgid "_Row Span:"
+msgstr "_Rowspan :"
+
+#: ../html_table.c:374
+msgid "No Wra_p:"
+msgstr "Sans _césure :"
 
 #: ../htmlbar.c:36
 msgid "Edit color"
@@ -207,9 +784,8 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Balises/Spéciales/Accents/Majuscules/J-Z/O circonflexe Ô"
 
 #: ../htmlbar_gui.c:241
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Balises/Spéciales/Accents/Majuscules/J-Z/OE ligature"
+msgstr "/Balises/Spéciales/Accents/Majuscules/J-Z/OE ligature Œ"
 
 #: ../htmlbar_gui.c:242
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
@@ -332,9 +908,8 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Balises/Spéciales/Accents/Minuscules/J-Z/o aigu ó"
 
 #: ../htmlbar_gui.c:274
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Balises/Spéciales/Accents/Minuscules/J-Z/oe ligature"
+msgstr "/Balises/Spéciales/Accents/Minuscules/J-Z/oe ligature œ"
 
 #: ../htmlbar_gui.c:275
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
@@ -805,9 +1380,8 @@ msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Dialogues/Général/_Démarrage rapide..."
 
 #: ../htmlbar_gui.c:409
-#, fuzzy
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Dialogues/Général/_Meta..."
+msgstr "/Dialogues/Général/En-tête de _Liens..."
 
 #: ../htmlbar_gui.c:410
 msgid "/Dialogs/General/_Body..."
@@ -970,9 +1544,8 @@ msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/Dialogues/É_diter la balise sous le curseur..."
 
 #: ../htmlbar_gui.c:457
-#, fuzzy
 msgid "/View/View _HTML Toolbar"
-msgstr "/Affichage/Afficher la _barre d'outils principale"
+msgstr "/Affichage/Afficher la _barre d'outils HTML"
 
 #: ../htmlbar_gui.c:731
 msgid "QuickStart..."
@@ -989,10 +1562,6 @@ msgstr "Gras"
 #: ../htmlbar_gui.c:734
 msgid "Italic"
 msgstr "Italique"
-
-#: ../htmlbar_gui.c:735 ../html.c:781
-msgid "Paragraph"
-msgstr "Paragraphe"
 
 #: ../htmlbar_gui.c:736
 msgid "Break"
@@ -1027,7 +1596,6 @@ msgid "Comment"
 msgstr "Commentaire"
 
 #: ../htmlbar_gui.c:745
-#, fuzzy
 msgid "E-mail..."
 msgstr "Courriel..."
 
@@ -1067,30 +1635,6 @@ msgstr "Fort"
 msgid "Emphasis"
 msgstr "Emphase"
 
-#: ../htmlbar_gui.c:757 ../html.c:790
-msgid "Heading 1"
-msgstr "Titre 1"
-
-#: ../htmlbar_gui.c:758 ../html.c:793
-msgid "Heading 2"
-msgstr "Titre 2"
-
-#: ../htmlbar_gui.c:759 ../html.c:796
-msgid "Heading 3"
-msgstr "Titre 3"
-
-#: ../htmlbar_gui.c:760 ../html.c:799
-msgid "Heading 4"
-msgstr "Titre 4"
-
-#: ../htmlbar_gui.c:761 ../html.c:802
-msgid "Heading 5"
-msgstr "Titre 5"
-
-#: ../htmlbar_gui.c:762 ../html.c:805
-msgid "Heading 6"
-msgstr "Titre 6"
-
 #: ../htmlbar_gui.c:763
 msgid "Table Wizard..."
 msgstr "Assistant Tableau..."
@@ -1111,22 +1655,6 @@ msgstr "En-tête de tableau..."
 msgid "Table Data..."
 msgstr "Cellules..."
 
-#: ../htmlbar_gui.c:770 ../html_table.c:77
-msgid "Table"
-msgstr "Tableau"
-
-#: ../htmlbar_gui.c:771 ../html_table.c:209
-msgid "Table Row"
-msgstr "Ligne de tableau"
-
-#: ../htmlbar_gui.c:772 ../html_table.c:320
-msgid "Table Header"
-msgstr "En-tête de tableau"
-
-#: ../htmlbar_gui.c:773 ../html_table.c:318
-msgid "Table Data"
-msgstr "Cellule"
-
 #: ../htmlbar_gui.c:774
 msgid "Table Caption"
 msgstr "Légende"
@@ -1142,14 +1670,6 @@ msgstr "Encadrement..."
 #: ../htmlbar_gui.c:778
 msgid "Frame..."
 msgstr "Cadre..."
-
-#: ../htmlbar_gui.c:780 ../html.c:1590
-msgid "Frameset"
-msgstr "Encadrement"
-
-#: ../htmlbar_gui.c:781 ../html.c:1674
-msgid "Frame"
-msgstr "Cadre"
 
 #: ../htmlbar_gui.c:782
 msgid "Noframes"
@@ -1242,10 +1762,6 @@ msgstr "Balise span..."
 #: ../htmlbar_gui.c:804
 msgid "Div..."
 msgstr "Balise div..."
-
-#: ../htmlbar_gui.c:805 ../html_form.c:825
-msgid "Style"
-msgstr "Style"
 
 #: ../htmlbar_gui.c:806
 msgid "Link to stylesheet..."
@@ -1347,531 +1863,6 @@ msgstr " Liste "
 msgid " CSS "
 msgstr " CSS "
 
-#: ../html.c:389
-msgid "Insert Time"
-msgstr "Insérer l'heure"
-
-#: ../html.c:397
-#, c-format
-msgid "  _Time (%i:%i:%i)"
-msgstr "  _Heure (%i:%i:%i)"
-
-#: ../html.c:402
-msgid "  Day of the _week (Sunday)"
-msgstr "  Jour de la _semaine (Dimanche)"
-
-#: ../html.c:405
-msgid "  Day of the _week (Monday)"
-msgstr "  Jour de la _semaine (Lundi)"
-
-#: ../html.c:408
-msgid "  Day of the _week (Tuesday)"
-msgstr "  Jour de la _semaine (Mardi)"
-
-#: ../html.c:411
-msgid "  Day of the _week (Wednesday)"
-msgstr "  Jour de la _semaine (Mercredi)"
-
-#: ../html.c:414
-msgid "  Day of the _week (Thursday)"
-msgstr "  Jour de la _semaine (Jeudi)"
-
-#: ../html.c:417
-msgid "  Day of the _week (Friday)"
-msgstr "  Jour de la _semaine (Vendredi)"
-
-#: ../html.c:420
-msgid "  Day of the _week (Saturday)"
-msgstr "  Jour de la _semaine (Samedi)"
-
-#: ../html.c:423
-msgid "You appear to have a non existant day!\n"
-msgstr "Il semble que la date fournie n'existe pas !\n"
-
-#: ../html.c:431
-#, c-format
-msgid "  _Date (%i/%i/%i)"
-msgstr "  _Date (%i/%i/%i)"
-
-#: ../html.c:434
-#, c-format
-msgid "  _Unix Time (%i)"
-msgstr "  Heure au format _Unix (%i)"
-
-#: ../html.c:439
-#, c-format
-msgid "  Unix Date _String (%s"
-msgstr "  Date au _format Unix (%s"
-
-#: ../html.c:447
-#, c-format
-msgid "  ISO-8601 Ti_me (%s)"
-msgstr ""
-
-#: ../html.c:589
-msgid "Quick Anchor"
-msgstr "Ancre rapide"
-
-#: ../html.c:595 ../html_form.c:780
-msgid "Attributes"
-msgstr "Attributs"
-
-#: ../html.c:609 ../html.c:1918
-msgid "_HREF:"
-msgstr "_HREF :"
-
-#: ../html.c:613 ../html_form.c:183
-msgid "_Target:"
-msgstr "_Cible :"
-
-#: ../html.c:617 ../html.c:837 ../html.c:1212 ../html.c:1686
-#: ../html_form.c:231 ../html_form.c:596 ../html_form.c:795 ../html_form.c:890
-#: ../image.c:416
-msgid "_Name:"
-msgstr "_Nom :"
-
-#: ../html.c:623 ../html.c:1070 ../html.c:1241 ../html.c:1833
-msgid "_Language:"
-msgstr "_Langue :"
-
-#: ../html.c:627 ../html.c:845 ../html.c:979 ../html.c:1074 ../html.c:1249
-#: ../html.c:1622 ../html.c:1723 ../html.c:1852 ../html_form.c:187
-#: ../html_form.c:243 ../html_form.c:609 ../html_form.c:903
-#: ../html_table.c:101 ../html_table.c:253 ../html_table.c:361 ../image.c:424
-msgid "Custo_m:"
-msgstr "Pers_onnaliser :"
-
-#: ../html.c:630 ../html.c:1078 ../html_form.c:829
-msgid "Events"
-msgstr "Évènements"
-
-#: ../html.c:633
-msgid "OnClic_k:"
-msgstr "OnClic_k :"
-
-#: ../html.c:637
-msgid "OnD_blClick:"
-msgstr "OnD_blClick :"
-
-#: ../html.c:641
-msgid "OnMouseO_ver:"
-msgstr "OnMouseO_ver :"
-
-#: ../html.c:645
-msgid "OnMouse_Down:"
-msgstr "OnMouse_Down :"
-
-#: ../html.c:649
-msgid "OnMouse_Move:"
-msgstr "OnMouse_Move :"
-
-#: ../html.c:653
-msgid "OnMouseOu_t:"
-msgstr "OnMouseOu_t :"
-
-#: ../html.c:657
-msgid "OnMouse_Up:"
-msgstr "OnMouse_Up :"
-
-#: ../html.c:661
-msgid "OnKeyDo_wn:"
-msgstr "OnKeyDo_wn :"
-
-#: ../html.c:665
-msgid "OnKey_Press:"
-msgstr "OnKey_Press :"
-
-#: ../html.c:669
-msgid "OnKe_yUp:"
-msgstr "OnKe_yUp :"
-
-#: ../html.c:784
-msgid "Div"
-msgstr "Balise div"
-
-#: ../html.c:787
-msgid "Span"
-msgstr "Balise span"
-
-#: ../html.c:822 ../html_table.c:109 ../html_table.c:219 ../html_table.c:333
-msgid "Ali_gn:"
-msgstr "Ali_gnement horizontal :"
-
-#: ../html.c:826 ../html.c:1062 ../html_diag.c:373 ../html_table.c:91
-#: ../html_table.c:237 ../html_table.c:351
-msgid "Cl_ass:"
-msgstr "Cl_asse :"
-
-#: ../html.c:830 ../html.c:1055 ../html_diag.c:381 ../html_table.c:96
-#: ../html_table.c:248 ../html_table.c:356
-msgid "St_yle:"
-msgstr "St_yle :"
-
-#: ../html.c:841 ../html.c:1066 ../html_diag.c:377
-msgid "_ID:"
-msgstr "_ID :"
-
-#: ../html.c:942
-msgid "Horizontal Rule"
-msgstr "Règle horizontale"
-
-#: ../html.c:953 ../html.c:1771 ../image.c:442
-msgid "_Align:"
-msgstr "_Alignement horizontal :"
-
-#: ../html.c:960 ../html.c:1779 ../html_table.c:387
-msgid "_Height:"
-msgstr "_Hauteur :"
-
-#: ../html.c:966 ../html.c:1775 ../html_table.c:134 ../html_table.c:380
-#: ../image.c:400
-msgid "_Width:"
-msgstr "Lar_geur :"
-
-#: ../html.c:969
-msgid "Is _percent"
-msgstr "En _pourcentage"
-
-#: ../html.c:974
-msgid "No _shading"
-msgstr "San_s ombrage"
-
-#: ../html.c:1039
-msgid "Body"
-msgstr "Balise body"
-
-#: ../html.c:1047
-msgid "Options"
-msgstr "Options"
-
-#: ../html.c:1085
-msgid "On_Load:"
-msgstr "On_Load :"
-
-#: ../html.c:1093
-msgid "On_UnLoad:"
-msgstr "On_UnLoad :"
-
-#: ../html.c:1102
-msgid "Depreciated options"
-msgstr "Options obsolètes"
-
-#: ../html.c:1112
-msgid "Background _Image:"
-msgstr "_Image de fond :"
-
-#: ../html.c:1119
-msgid "Back_ground Color:"
-msgstr "Couleur de _fond :"
-
-#: ../html.c:1125
-msgid "_Text Color:"
-msgstr "Couleur du _texte :"
-
-#: ../html.c:1131
-msgid "_Link Color:"
-msgstr "Couleur de l'hyper_lien :"
-
-#: ../html.c:1137
-msgid "_Visited Link Color:"
-msgstr "Couleur de l'hyperlien _visité :"
-
-#: ../html.c:1143
-msgid "_Active Link Color:"
-msgstr "Couleur du lien _actif :"
-
-#: ../html.c:1194
-msgid "Meta"
-msgstr "Meta"
-
-#: ../html.c:1232
-msgid "_HTTP-EQUIV:"
-msgstr "_HTTP-EQUIV :"
-
-#: ../html.c:1237
-msgid "Con_tent:"
-msgstr "Con_tenu :"
-
-#: ../html.c:1245
-msgid "_Scheme:"
-msgstr "Cla_ssification :"
-
-#: ../html.c:1326
-msgid "Font"
-msgstr "Police"
-
-#: ../html.c:1329
-msgid "Base Font"
-msgstr "Police par défaut"
-
-#: ../html.c:1344
-msgid "Size"
-msgstr "Corps"
-
-#: ../html.c:1352
-msgid "Color"
-msgstr "Couleur"
-
-#: ../html.c:1357
-msgid "Face"
-msgstr "Nom"
-
-#: ../html.c:1361
-msgid "Custom"
-msgstr "Personnaliser"
-
-#: ../html.c:1445
-#, fuzzy
-msgid "E-mail"
-msgstr "Courriel"
-
-#: ../html.c:1453
-msgid "_Mail to:"
-msgstr ""
-
-#: ../html.c:1457
-#, fuzzy
-msgid "_Copy to:"
-msgstr "Copier"
-
-#: ../html.c:1461
-msgid "Blin_d copy to:"
-msgstr ""
-
-#: ../html.c:1465
-msgid "with _Subject:"
-msgstr ""
-
-#: ../html.c:1469
-msgid "with _Body:"
-msgstr ""
-
-#: ../html.c:1513
-msgid "Quick List"
-msgstr "Liste rapide"
-
-#: ../html.c:1518 ../html.c:1600 ../html_form.c:236
-msgid "_Rows:"
-msgstr "_Lignes :"
-
-#: ../html.c:1521
-msgid "Or_dered"
-msgstr "Or_donné"
-
-#: ../html.c:1522
-msgid "_Unordered"
-msgstr "Non-_ordonné"
-
-#: ../html.c:1524
-msgid "Style:"
-msgstr "Style :"
-
-#: ../html.c:1596 ../html_form.c:240
-msgid "Co_ls:"
-msgstr "Colo_nnes :"
-
-#: ../html.c:1605
-msgid "_Add <frame> elements"
-msgstr "_Ajouter des éléments <frame>"
-
-#: ../html.c:1682 ../html.c:1767 ../html.c:1826
-msgid "_Source:"
-msgstr "_Source :"
-
-#: ../html.c:1690
-msgid "Margin _Width:"
-msgstr "_Largeur de la marge :"
-
-#: ../html.c:1694
-msgid "Margin _Height:"
-msgstr "_Hauteur de la marge :"
-
-#: ../html.c:1702
-msgid "Scrollin_g:"
-msgstr "_Défilement :"
-
-#: ../html.c:1706
-msgid "_Frameborder:"
-msgstr "_Bordure du cadre :"
-
-#: ../html.c:1711
-msgid "No _Resize:"
-msgstr "Pas de _redimensionnement :"
-
-#: ../html.c:1761
-msgid "Embed"
-msgstr "Incrustation"
-
-#: ../html.c:1783 ../html_table.c:140
-msgid "Bo_rder:"
-msgstr "Bo_rdure :"
-
-#: ../html.c:1819
-msgid "Script"
-msgstr "Script"
-
-#: ../html.c:1848 ../html.c:1949 ../html_form.c:789 ../html_form.c:899
-msgid "_Type:"
-msgstr "_Type :"
-
-#: ../html.c:1907
-msgid "Link"
-msgstr "Lien"
-
-#: ../html.c:1924
-#, fuzzy
-msgid "HREF_LANG:"
-msgstr "_HREF :"
-
-#: ../html.c:1928
-#, fuzzy
-msgid "T_itle:"
-msgstr "_Titre :"
-
-#: ../html.c:1968
-msgid "_Forward Relation:"
-msgstr "Lien pro_gressif :"
-
-#: ../html.c:1972
-msgid "_Reverse Relation:"
-msgstr "Lien _inverse :"
-
-#: ../html.c:1983
-msgid "Media:"
-msgstr "Media :"
-
-#: ../html.c:1987
-msgid "L_ang:"
-msgstr "L_angue :"
-
-#: ../html.c:1991
-msgid "_Custom:"
-msgstr "Pers_onnalisé :"
-
-#: ../html_form.c:141
-msgid "Form"
-msgstr "Formulaire"
-
-#: ../html_form.c:159
-msgid "_Action:"
-msgstr "_Action :"
-
-#: ../html_form.c:167
-msgid "Metho_d:"
-msgstr "Métho_de :"
-
-#: ../html_form.c:176
-msgid "_Enctype:"
-msgstr "_Transcodage :"
-
-#: ../html_form.c:225
-msgid "Text area"
-msgstr "Zone de texte"
-
-#: ../html_form.c:590
-msgid "Select"
-msgstr "Sélectionner"
-
-#: ../html_form.c:601 ../html_form.c:808
-msgid "Si_ze:"
-msgstr "_Largeur :"
-
-#: ../html_form.c:605
-msgid "Multiple _Selections:"
-msgstr "_Sélections multiples :"
-
-#: ../html_form.c:644
-msgid "Option"
-msgstr "Option"
-
-#: ../html_form.c:654 ../html_form.c:697
-msgid "_Label:"
-msgstr "Éti_quette :"
-
-#: ../html_form.c:659
-msgid "_Selected:"
-msgstr "_Sélectionné :"
-
-#: ../html_form.c:692
-msgid "Option group"
-msgstr "Groupe d'options"
-
-#: ../html_form.c:775
-msgid "Input"
-msgstr "Saisie"
-
-#: ../html_form.c:803
-msgid "_Checked:"
-msgstr "_Coché :"
-
-#: ../html_form.c:812
-msgid "Max _Length:"
-msgstr "Longueur _maximale :"
-
-#: ../html_form.c:816
-msgid "_Accept:"
-msgstr "_Accepter :"
-
-#: ../html_form.c:820
-msgid "C_ustom:"
-msgstr "Pers_onnaliser :"
-
-#: ../html_form.c:832
-msgid "On_Focus:"
-msgstr "On_Focus :"
-
-#: ../html_form.c:836
-msgid "On_Blur:"
-msgstr "On_Blur :"
-
-#: ../html_form.c:840
-msgid "On_Select:"
-msgstr "On_Select :"
-
-#: ../html_form.c:844
-msgid "On_Change:"
-msgstr "On_Change :"
-
-#: ../html_form.c:884
-msgid "Button"
-msgstr "Bouton"
-
-#: ../html_table.c:83
-msgid "Cell _Padding:"
-msgstr "_Marge intracellulaire :"
-
-#: ../html_table.c:87
-msgid "C_ell Spacing:"
-msgstr "_Espace intracellulaire :"
-
-#: ../html_table.c:123 ../html_table.c:233 ../html_table.c:347
-msgid "_Valign:"
-msgstr "Alignement _vertical :"
-
-#: ../html_table.c:128 ../html_table.c:242 ../html_table.c:392
-msgid "Backgrou_nd Color:"
-msgstr "Couleur de fo_nd :"
-
-#: ../html_table.c:154
-msgid "_Frame:"
-msgstr "_Cadre :"
-
-#: ../html_table.c:165
-msgid "R_ules:"
-msgstr "_Traits :"
-
-#: ../html_table.c:365
-msgid "Co_l Span:"
-msgstr "Co_lspan :"
-
-#: ../html_table.c:369
-msgid "_Row Span:"
-msgstr "_Rowspan :"
-
-#: ../html_table.c:374
-msgid "No Wra_p:"
-msgstr "Sans _césure :"
-
 #: ../image.c:364
 msgid "Insert thumbnail"
 msgstr "Insérer une vignette"
@@ -1961,16 +1952,14 @@ msgstr ""
 "%b : taille originale (en octets)"
 
 #: ../quickstart.c:512
-#, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr "<b>Feuille de styles externe</b>"
+msgstr "<b>Feuille de styles _externe</b>"
 
 #: ../quickstart.c:522
 msgid "Ty_pe:"
 msgstr "T_ype :"
 
 #: ../quickstart.c:540
-#, fuzzy
 msgid "HRE_F:"
 msgstr "_HREF :"
 
@@ -2003,7 +1992,6 @@ msgid "<b>Script Area</b>"
 msgstr "<b>Zone de script</b>"
 
 #: ../quickstart.c:606
-#, fuzzy
 msgid "Cre_ate empty script area"
 msgstr "Créer une zone de script _vierge"
 
@@ -2024,9 +2012,8 @@ msgid "_Head:"
 msgstr "_En-tête :"
 
 #: ../quickstart.c:691
-#, fuzzy
 msgid "Open in _new document."
-msgstr "Dans le _document actif"
+msgstr "Ouvrir dans un _nouveau document"
 
 #: ../wizards.c:68
 msgid "Table Wizard"
@@ -2190,7 +2177,6 @@ msgstr "Taille :"
 #~ msgid "Hre_f:"
 #~ msgstr "_Href :"
 
-#, fuzzy
 #~ msgid "/View/View _HTML Bar"
 #~ msgstr "/Affichage/Afficher la barre d'outils _HTML"
 
