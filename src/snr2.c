@@ -2,7 +2,7 @@
  * snr2.c - rewrite of search 'n replace functions
  *
  * Copyright (C) 2000,2001,2002,2003,2004 Olivier Sessink
- * Copyright (C) 2005 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2006 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1608,7 +1608,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	g_signal_connect(snrwin->overlappingMatches, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->overlappingMatches,_("After a match is found, start next search within that match."),NULL);
 
-	snrwin->matchCase = gtk_check_button_new_with_mnemonic(_("_Case sensitive matching"));
+	snrwin->matchCase = gtk_check_button_new_with_mnemonic(_("Case sensitive _matching"));
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->matchCase, FALSE, FALSE, 0);
 	g_signal_connect(snrwin->matchCase, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->matchCase,_("Only match if case (upper/lower) is identical."),NULL);
