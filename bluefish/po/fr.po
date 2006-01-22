@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish pre1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-21 07:33+0100\n"
+"POT-Creation-Date: 2006-01-22 02:48+0100\n"
 "PO-Revision-Date: 2006-01-21 07:39+0100\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
@@ -703,31 +703,31 @@ msgid "Cannot display file, unknown characters found."
 msgstr ""
 "Impossible d'afficher le fichier, des caractères inconnus ont été trouvés."
 
-#: ../src/document.c:2162 ../src/snr2.c:1496
+#: ../src/document.c:2169 ../src/snr2.c:1496
 msgid "Replace"
 msgstr "Remplacer"
 
-#: ../src/document.c:2167 ../src/fref2.c:4737 ../src/snr2.c:1493
+#: ../src/document.c:2174 ../src/fref2.c:4737 ../src/snr2.c:1493
 msgid "Find"
 msgstr "Rechercher"
 
-#: ../src/document.c:2175
+#: ../src/document.c:2182
 msgid "Delete bookmark"
 msgstr "Supprimer le signet"
 
-#: ../src/document.c:2179
+#: ../src/document.c:2186
 msgid "Add bookmark"
 msgstr "Ajouter un signet"
 
-#: ../src/document.c:2327 ../src/file_dialogs.c:337 ../src/file_dialogs.c:377
+#: ../src/document.c:2334 ../src/file_dialogs.c:337 ../src/file_dialogs.c:377
 msgid "_Abort save"
 msgstr "_Abandonner l'enregistrement"
 
-#: ../src/document.c:2327
+#: ../src/document.c:2334
 msgid "_Continue save in UTF-8"
 msgstr "_Continuer l'enregistrement en UTF-8"
 
-#: ../src/document.c:2338
+#: ../src/document.c:2345
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -740,44 +740,44 @@ msgstr ""
 "\n"
 "Continuer l'enregistrement en UTF-8 ?"
 
-#: ../src/document.c:2342
+#: ../src/document.c:2349
 msgid "File encoding conversion failure"
 msgstr "Échec de la conversion d'encodage du fichier"
 
-#: ../src/document.c:2574
+#: ../src/document.c:2581
 msgid "Previously: "
 msgstr "Précédemment : "
 
-#: ../src/document.c:3416
+#: ../src/document.c:3423
 msgid "Unable to open file"
 msgstr "Impossible d'ouvrir le fichier"
 
-#: ../src/document.c:3438
+#: ../src/document.c:3445
 msgid "_Unset file name"
 msgstr "S_upprimer le nom de fichier"
 
-#: ../src/document.c:3438
+#: ../src/document.c:3445
 msgid "_Save"
 msgstr "_Enregistrer"
 
-#: ../src/document.c:3440
+#: ../src/document.c:3447
 #, c-format
 msgid "File name: %s"
 msgstr "Nom du fichier : %s"
 
-#: ../src/document.c:3444
+#: ../src/document.c:3451
 msgid "File disappeared from disk\n"
 msgstr "Le fichier n'est plus sur le disque\n"
 
-#: ../src/document.c:3461
+#: ../src/document.c:3468
 msgid "_Ignore"
 msgstr "_Ignorer"
 
-#: ../src/document.c:3461
+#: ../src/document.c:3468
 msgid "_Reload"
 msgstr "_Recharger"
 
-#: ../src/document.c:3464
+#: ../src/document.c:3471
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -790,47 +790,47 @@ msgstr ""
 "Heure de la nouvelle modification : %s\n"
 "Heure de l'ancienne modification : %s"
 
-#: ../src/document.c:3468
+#: ../src/document.c:3475
 msgid "File has been modified by another process\n"
 msgstr "Le fichier a été modifié par un autre processus\n"
 
-#: ../src/document.c:3525
+#: ../src/document.c:3532
 msgid "_Retry"
 msgstr "_Réessayer"
 
-#: ../src/document.c:3525
+#: ../src/document.c:3532
 msgid "Retry _all failed"
 msgstr "Échec de _Tout réessayer"
 
-#: ../src/document.c:3525
+#: ../src/document.c:3532
 msgid "_Close"
 msgstr "_Fermer"
 
-#: ../src/document.c:3525
+#: ../src/document.c:3532
 msgid "Close all _failed"
 msgstr "Échec de Tout _fermer"
 
-#: ../src/document.c:3529
+#: ../src/document.c:3536
 msgid "File "
 msgstr "Le fichier "
 
-#: ../src/document.c:3529
+#: ../src/document.c:3536
 msgid " failed to load."
 msgstr " n'a pas pu être chargé."
 
-#: ../src/document.c:3533
+#: ../src/document.c:3540
 msgid "File failed to load\n"
 msgstr "Le fichier n'a pas pu être chargé\n"
 
-#: ../src/document.c:3656
+#: ../src/document.c:3663
 msgid "Select file to insert"
 msgstr "Sélectionner le fichier à insérer"
 
-#: ../src/document.c:3664
+#: ../src/document.c:3671
 msgid "No file to insert"
 msgstr "Aucun fichier à insérer"
 
-#: ../src/document.c:3828
+#: ../src/document.c:3835
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiques : %d lignes, %d mots, %d caractères"
@@ -2548,8 +2548,8 @@ msgid "Tab width"
 msgstr "Largeur de tabulation"
 
 #: ../src/preferences.c:2777
-msgid "Smart cursor positioning at line start"
-msgstr "Positionnement du curseur intelligent en début de ligne"
+msgid "Smart cursor positioning"
+msgstr "Positionnement du curseur intelligent"
 
 #: ../src/preferences.c:2778
 msgid "Use spaces to indent, not tabs"
