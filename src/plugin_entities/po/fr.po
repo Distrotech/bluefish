@@ -8,64 +8,72 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: 21-11-03_fr\n"
+"Project-Id-Version: bluefish pre1.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-12-09 23:02+0100\n"
-"PO-Revision-Date: 2005-04-18 8:50+0200\n"
+"POT-Creation-Date: 2006-01-22 02:49+0100\n"
+"PO-Revision-Date: 2006-01-22 03:52+0100\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../entities.c:353
+#: ../entities.c:433
 msgid "Characters to entities"
-msgstr ""
+msgstr "Caractères en entités"
 
-#: ../entities.c:353
+#: ../entities.c:433
 msgid "Entities to characters"
-msgstr ""
+msgstr "Entités en caractères"
 
-#: ../entities.c:366
+#: ../entities.c:446
 msgid "In current document"
-msgstr ""
+msgstr "Dans le document actif"
 
-#: ../entities.c:367
+#: ../entities.c:447
 msgid "In selection"
-msgstr ""
+msgstr "À l'intérieur de la sélection"
 
-#: ../entities.c:368
+#: ../entities.c:448
 msgid "In all documents"
-msgstr ""
+msgstr "Dans tous les documents"
 
-#: ../entities.c:369
+#: ../entities.c:449
 msgid "Sco_pe:"
-msgstr ""
+msgstr "Étend_ue"
 
-#: ../entities.c:373
+#: ../entities.c:453
 msgid "Convert numerical characters"
-msgstr ""
-
-#: ../entities.c:380
-msgid "Convert _iso-8859-1 characters"
-msgstr ""
-
-#: ../entities.c:384
-msgid "Convert _symbol characters"
-msgstr ""
-
-#: ../entities.c:388
-msgid "Convert spe_cial characters"
-msgstr ""
-
-#: ../entities.c:392
-msgid "Convert _xml characters <>&"
-msgstr ""
-
-#: ../entities.c:459
-msgid "/Edit/Replace special/Entities to characters"
-msgstr ""
+msgstr "Convertir les caractères numériques"
 
 #: ../entities.c:460
+msgid "Convert _iso-8859-1 characters"
+msgstr "Convertir les caractères _iso-8859-1"
+
+#: ../entities.c:464
+msgid "Convert _symbol characters"
+msgstr "Convertir les s_ymboles"
+
+#: ../entities.c:468
+msgid "Convert spe_cial characters"
+msgstr "Convertir les caractères _spéciaux"
+
+#: ../entities.c:472
+msgid "Convert _xml characters <>&"
+msgstr "Convertir les caractères _xml <>&"
+
+#: ../entities.c:528
+msgid "/Edit/Replace special/Entities to characters"
+msgstr "/Édition/Remplacement spécial/Entités en caractères"
+
+#: ../entities.c:529
 msgid "/Edit/Replace special/Characters to entities"
-msgstr ""
+msgstr "/Édition/Remplacement spécial/Caractères en entités"
+
+#: ../entities.c:530
+msgid "/Edit/Replace special/URL encode selection"
+msgstr "/Édition/Remplacement spécial/Encodage URL de la sélection"
+
+#: ../entities.c:531
+msgid "/Edit/Replace special/URL decode selection"
+msgstr "/Édition/Remplacement spécial/Décodage URL de la sélection"
