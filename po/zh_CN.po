@@ -1,18 +1,20 @@
+# translation of 17-01-06_zh_CN.po to
 # Chinese(GB) language file for Bluefish.
-# Copyright (C) 2003 Dormouse <mouselinux@163.com>, 2003
-# Funda Wang <fundawang@linux.net.cn>, 2004, 2005.
+# Copyright (C) 2003 Dormouse <mouselinux@163.com>, 2003.
+# Funda Wang <fundawang@linux.net.cn>, 2004, 2005, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish\n"
+"Project-Id-Version: 17-01-06_zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-12 06:40-0800\n"
-"PO-Revision-Date: 2005-08-10 16:42+0800\n"
-"Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
-"Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
+"POT-Creation-Date: 2005-12-05 19:35-0800\n"
+"PO-Revision-Date: 2006-01-21 21:49+0800\n"
+"Last-Translator: \n"
+"Language-Team:  <zh@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.10.2\n"
 
 #: ../src/about.c:56
 msgid ""
@@ -35,7 +37,6 @@ msgstr ""
 "此版本的 Bluefish 以下列选项编译：\n"
 
 #: ../src/about.c:57
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -164,7 +165,6 @@ msgstr ""
 "感谢所有给予本软件帮助的人..\n"
 
 #: ../src/about.c:120
-#, fuzzy
 msgid ""
 "Current translators:\n"
 "\n"
@@ -219,8 +219,11 @@ msgid ""
 "  Serbian: Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
+"  Slovak: Vladimir VASIL\n"
+"   <vvasil@post.sk>\n"
+"\n"
 "  Spanish: Walter Oscar Echarri\n"
-"   <wecharri@arnet.com.ar>\n"
+"   <wecharri@gmail.com>\n"
 "\n"
 "  Swedish: David Smeringe\n"
 "   <david.smeringe@telia.com>\n"
@@ -234,13 +237,19 @@ msgid ""
 msgstr ""
 "当前翻译者：\n"
 "\n"
+"  巴斯克语: Hizkuntza Politikarako Sailburuordetza\n"
+"   <hizkpol@ej-gv.es>\n"
+"\n"
 "  巴西葡萄牙语 - Anderson Rocha\n"
 "   <anderson@maxlinux.com.br>\n"
 "\n"
 "  保加利亚语 - Peio Popov\n"
 "   <peio@peio.org>\n"
 "\n"
-"  中文 - Funda Wang\n"
+"  简休中文 -Ting Young\n"
+"   <dormouse.young@gmail.com>\n"
+"   Funda Wang\n"
+"   <fundawang@linux.net.cn>\n"
 "\n"
 "  繁体中文: OLS3\n"
 "   <ols3@lxer.idv.tw>\n"
@@ -294,11 +303,11 @@ msgstr ""
 "   <ogzeren@gmail.com>\n"
 "\n"
 
-#: ../src/about.c:165
+#: ../src/about.c:167
 msgid "About Bluefish"
 msgstr "关于 Bluefish"
 
-#: ../src/about.c:195
+#: ../src/about.c:197
 msgid ""
 "\n"
 "\n"
@@ -308,16 +317,16 @@ msgstr ""
 "\n"
 "导致检测：\n"
 
-#: ../src/about.c:222 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
+#: ../src/about.c:224 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
 #: ../src/fref.c:1870 ../src/fref.c:2347
 msgid "Info"
 msgstr "信息"
 
-#: ../src/about.c:224
+#: ../src/about.c:226
 msgid "Authors"
 msgstr "作者"
 
-#: ../src/about.c:225
+#: ../src/about.c:227
 msgid "Translators"
 msgstr "翻译者"
 
@@ -344,71 +353,71 @@ msgid ""
 "variable G_BROKEN_FILENAMES=1\n"
 msgstr "Bluefish 读取文件名有问题。请试着设置环境变量 G_BROKEN_FILENAMES=1\n"
 
-#: ../src/bfspell.c:385
+#: ../src/bfspell.c:387
 msgid "Check Spelling"
 msgstr "拼写检查"
 
-#: ../src/bfspell.c:389
+#: ../src/bfspell.c:391
 msgid "Checking"
 msgstr "检查中"
 
-#: ../src/bfspell.c:398
+#: ../src/bfspell.c:400
 msgid "_Misspelled word:"
 msgstr "拼错的单词(_M)："
 
-#: ../src/bfspell.c:402
+#: ../src/bfspell.c:404
 msgid "Change _to:"
 msgstr "更改为(_T)："
 
-#: ../src/bfspell.c:405
+#: ../src/bfspell.c:407
 msgid "I_gnore"
 msgstr "忽略(_G)"
 
-#: ../src/bfspell.c:406 ../src/snr2.c:910
+#: ../src/bfspell.c:408 ../src/snr2.c:910
 msgid "_Replace"
 msgstr "替换(_R)"
 
-#: ../src/bfspell.c:419
+#: ../src/bfspell.c:421
 msgid "In _document"
 msgstr "在文档中(_D)"
 
-#: ../src/bfspell.c:420
+#: ../src/bfspell.c:422
 msgid "I_n selection"
 msgstr "在选择中(_N)"
 
-#: ../src/bfspell.c:429
+#: ../src/bfspell.c:431
 msgid "personal dictionary"
 msgstr "个人字典"
 
-#: ../src/bfspell.c:432
+#: ../src/bfspell.c:434
 msgid "session dictionary"
 msgstr "会话字典"
 
-#: ../src/bfspell.c:438
+#: ../src/bfspell.c:440
 msgid "Dictionary:"
 msgstr "字典："
 
-#: ../src/bfspell.c:442
+#: ../src/bfspell.c:444
 msgid "_Add"
 msgstr "添加(_A)"
 
-#: ../src/bfspell.c:446
+#: ../src/bfspell.c:448
 msgid "Language:"
 msgstr "语言："
 
-#: ../src/bfspell.c:450
+#: ../src/bfspell.c:452
 msgid "Set defa_ult"
 msgstr "设为默认值(_U)"
 
-#: ../src/bfspell.c:454
+#: ../src/bfspell.c:456
 msgid "Filter:"
 msgstr "过滤器："
 
-#: ../src/bfspell.c:462
+#: ../src/bfspell.c:464
 msgid "no filter"
 msgstr "不过滤"
 
-#: ../src/bfspell.c:464
+#: ../src/bfspell.c:466
 msgid "html filter"
 msgstr "html 过滤器"
 
@@ -470,7 +479,6 @@ msgid "showing main gui..."
 msgstr "正在显示主界面..."
 
 #: ../src/bluefish.c:259
-#, fuzzy
 msgid ""
 "<span weight=\"bold\" size=\"larger\">Bluefish Tip:</span>\n"
 "\n"
@@ -479,9 +487,11 @@ msgid ""
 "To add buttons to the Quickbar, right click on a button in the HTML "
 "toolbars.\n"
 msgstr ""
+"<span weight=\"bold\" size=\"larger\">Bluefish 提示:</span>\n"
+"\n"
 "如果您的快捷栏上没有东东就会显示这个信息。\n"
 "\n"
-"您可以用鼠标右键点击工具栏上的按钮来添加快捷栏上的按钮。"
+"您可以用鼠标右键点击工具栏上的按钮来添加快捷栏上的按钮。\n"
 
 #: ../src/bluefish.c:263
 msgid "_Don't show this dialog again."
@@ -762,7 +772,7 @@ msgstr "您选择的文件已经在 Bluefish 中编辑了。"
 #: ../src/document.c:2533 ../src/project.c:208
 #, c-format
 msgid "A file named \"%s\" already exists."
-msgstr "名为“%s”的文件已存在。"
+msgstr "名为 \"%s\" 的文件已存在。"
 
 #: ../src/document.c:2535 ../src/project.c:210
 msgid "Do you want to replace the existing file?"
@@ -2003,7 +2013,6 @@ msgid "with _Subject:"
 msgstr "主题为(_S)："
 
 #: ../src/html.c:1718
-#, fuzzy
 msgid "with _Subject (URL-encoded):"
 msgstr "主题为(_S)："
 
@@ -2012,7 +2021,6 @@ msgid "with _Body:"
 msgstr "内容为(_B)："
 
 #: ../src/html.c:1726
-#, fuzzy
 msgid "with _Body (URL-encoded):"
 msgstr "内容为(_B)："
 
@@ -2094,7 +2102,6 @@ msgid "HREF_LANG:"
 msgstr "HREF_LANG："
 
 #: ../src/html.c:2171
-#, fuzzy
 msgid "T_itle:"
 msgstr "标题(_T)："
 
@@ -3961,7 +3968,7 @@ msgstr "跳格宽度"
 
 #: ../src/preferences.c:2002
 msgid "Smart cursor positioning at line start"
-msgstr ""
+msgstr "智能光标行首定位"
 
 #: ../src/preferences.c:2003
 msgid "Use spaces to indent, not tabs"
@@ -3981,7 +3988,7 @@ msgstr "默认语法高亮"
 
 #: ../src/preferences.c:2008
 msgid "Enable highlighting PCRE UTF-8 support"
-msgstr ""
+msgstr "启用高亮 PCRE UTF-8 支持"
 
 #: ../src/preferences.c:2010
 msgid "Highlight # lines"
@@ -4040,19 +4047,16 @@ msgid "Use XHTML style tags (<br />)"
 msgstr "使用 XHTML 样式标签 (例如<br />)"
 
 #: ../src/preferences.c:2042
-#, fuzzy
 msgid "Automatically update author meta tag"
 msgstr "自动刷新作者 META 标签"
 
 #: ../src/preferences.c:2043
-#, fuzzy
 msgid "Automatically update date meta tag"
-msgstr "自动刷新作者 META 标签"
+msgstr "自动刷新数据 META 标签"
 
 #: ../src/preferences.c:2044
-#, fuzzy
 msgid "Automatically update generator meta tag"
-msgstr "自动刷新作者 META 标签"
+msgstr "自动刷新生成者 META 标签"
 
 #: ../src/preferences.c:2047
 msgid "Files"
@@ -4664,5 +4668,3 @@ msgstr "源代码："
 msgid "Size:"
 msgstr "大小："
 
-#~ msgid "Bluefish tip:"
-#~ msgstr "Bluefish 提示："
