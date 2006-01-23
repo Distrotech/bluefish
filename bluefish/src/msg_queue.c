@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * msg_queue.c - message queue handling
  *
- * Copyright (C) 2003 Olivier Sessink
+ * Copyright (C) 2003-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,19 +27,19 @@
 #ifdef WITH_MSG_QUEUE
 
 #include <sys/types.h>
-#include <sys/ipc.h>			/* msgsnd() */
-#include <sys/msg.h>			/* msgsnd() */
+#include <sys/ipc.h>    /* msgsnd() */
+#include <sys/msg.h>    /* msgsnd() */
 #include <time.h>
-#include <errno.h>				/* errno */
-#include <unistd.h> /* getpid, getuid */
-#include <string.h> /* strncpy */
-#include <stdlib.h> /* exit() */
+#include <errno.h>      /* errno */
+#include <unistd.h>     /* getpid, getuid */
+#include <string.h>     /* strncpy */
+#include <stdlib.h>     /* exit() */
 
-#include "stringlist.h"
-#include "gtk_easy.h" /* *_dialog */
-#include "gui.h" /* notebook_changed() */
 #include "document.h"
+#include "gtk_easy.h"    /* *_dialog */
+#include "gui.h"         /* notebook_changed() */
 #include "project.h"
+#include "stringlist.h"
 
 #define BLUEFISH_MSG_QUEUE 9723475
 #define MSQ_QUEUE_SIZE 1024
@@ -220,8 +220,13 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 				   IPC_NOWAIT);
 		} else if (msgp.mtype == MSG_QUEUE_OPENFILE) {
 			GList *lastlist = g_list_last(main_v->bfwinlist);
+			gboolean delay_activate = TRUE;
+			if (g_list_length(BFWIN(lastlist->data)->documentlist) < 2 && 
+			       doc_is_empty_non_modified_and_nameless(BFWIN(lastlist->data)->current_document)) {
+                       delay_activate = FALSE;
+			}
 			DEBUG_MSG("msg_queue_check, a filename %s is received\n", msgp.mtext);
-			if (!doc_new_with_file(BFWIN(lastlist->data),msgp.mtext, TRUE, FALSE)) {
+			if (!doc_new_with_file(BFWIN(lastlist->data),msgp.mtext, delay_activate, FALSE)) {
 				msg_queue.file_error_list = g_list_append(msg_queue.file_error_list, g_strdup(msgp.mtext));
 			}
 			msg_queue_check(0);	/* call myself again, there may have been multiple files */
