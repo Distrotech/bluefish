@@ -168,7 +168,7 @@ static void reset_last_snr2(Tbfwin *bfwin) {
 Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *buf, guint byte_offset, gint endpos, gboolean want_submatches) {
 	Tsearch_result returnvalue;
 	int (*f) ();
-	gint buflen, patlen, match, i;
+	gint buflen, patlen, searchlen, match, i;
 
 	returnvalue.start = -1;
 	returnvalue.end = -1;
@@ -289,13 +289,16 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			f = strncmp;
 		}
 		
-		if (endpos != -1)
-		    buflen = strlen(doc_get_chars(bfwin->current_document, byte_offset, endpos));
-		else
-		    buflen = strlen(buf);
 		patlen = strlen(search_pattern);
+		if (endpos != -1) {
+		    buflen = strlen(doc_get_chars(bfwin->current_document, byte_offset, endpos));
+		    searchlen = (byte_offset + buflen) - patlen;
+		} else {
+		    buflen = strlen(buf);
+		    searchlen = buflen - patlen;
+		}
 		
-		for (i = byte_offset; i <= ((byte_offset + buflen) - patlen); i++) {
+		for (i = byte_offset; i <= searchlen; i++) {
 			match = f(&buf[i], search_pattern, patlen);
 			if (match == 0) {
 				returnvalue.bstart = i;
@@ -1063,7 +1066,7 @@ static void search_bookmark(Tbfwin *bfwin, gint startpos, gint endpos) {
 	if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
 		GList *tmplist = g_list_first(bfwin->documentlist);
 		while (tmplist) {
-			search_doc_bookmark_backend(bfwin,DOCUMENT(tmplist->data), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape);
+			search_doc_bookmark_backend(bfwin,DOCUMENT(tmplist->data), LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, 0, -1, LASTSNR2(bfwin->snr2)->unescape);
 			tmplist = g_list_next(tmplist);
 		}
 	} else {
