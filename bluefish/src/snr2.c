@@ -886,8 +886,8 @@ void replace_prompt_dialog(Tbfwin *bfwin) {
 	GtkWidget *image, *label;
 
 	DEBUG_MSG("replace_prompt_dialog, start\n");
-	win = window_full(_("Confirm replace"), GTK_WIN_POS_MOUSE, 12, G_CALLBACK(window_close_by_widget_cb), NULL, TRUE);
-	gtk_window_set_resizable (GTK_WINDOW (win), FALSE);	
+	win = window_full(_("Confirm replace"), GTK_WIN_POS_CENTER, 12, G_CALLBACK(window_close_by_widget_cb), NULL, TRUE);
+	gtk_window_set_resizable (GTK_WINDOW (win), FALSE);
 
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_container_add (GTK_CONTAINER (win), vbox);
