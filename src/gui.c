@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gui.c - the main GUI
  *
- * Copyright (C) 2002-2005 Olivier Sessink
+ * Copyright (C) 2002-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <time.h> /* nanosleep() */
@@ -1250,8 +1250,13 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 			DEBUG_MSG("on_drag_data_cb, TARGET_URI_LIST, url=%s\n",url);
 		}
 	}
+	
 	DEBUG_MSG("on_drag_data_cb, filename='%s', url='%s'\n", filename, url);
-	doc_new_with_file(bfwin,url_is_local ? filename : url, FALSE, FALSE);
+	if (g_str_has_suffix (url_is_local ? filename : url, ".bfproject")) {
+	    project_open_from_file(bfwin, url_is_local ? filename : url);
+	} else {
+	    doc_new_with_file(bfwin,url_is_local ? filename : url, FALSE, FALSE);
+	}
 
 	gtk_drag_finish(context, TRUE, (mode == GDK_ACTION_COPY), time);
 	g_free(filename);
