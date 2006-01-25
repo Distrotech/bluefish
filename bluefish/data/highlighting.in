@@ -298,6 +298,39 @@ stylesheet:Charset:1:\\@charset\\s*("[^"]*")\\s*;::2:^top$:#666666::2:1:
 stylesheet:Charset Value:1:1::3:^Charset$:#006699::2:2:
 stylesheet:Import:1:\\@import\\s*url(\\("[^"]*"\\))\\s*(?\:(?\:all|aural|braille|emboss|handheld|print|projection|screen|tty|tv)[\\s,]*)+\\s*;::2:^top$:#666666::2:1:
 stylesheet:Import Value:1:1::3:^Import$:#006699::2:2:
+stylesheet:Media:1:\\@media\\s*(?\:(?\:all|aural|braille|emboss|handheld|print|projection|screen|tty|tv)[\\s,]*)+\\{(.*)\\}:\\}:2:^top$:#666666::2:2:
+stylesheet:Media_brace_contents:1:1::3:^Media$:#666666::2:2:
+stylesheet:Media Selector:1:\\@(?\:page|font\\-face)::2:^top$:#cc0000::2:2:
+stylesheet:Selector:1:\\*|\\+|>|\\b(a|body|abbr|acronym|address|applet|area|b|base(?\:font)?|bdo|big|blockquote|body|br|button|caption|center|cite|code|col(?\:group)?|dd|del|dfn|dir|div|dl|dt|em|fieldset|font|form|frame(?\:set)?|h\\d+|head|hr|html|i|iframe|img|input|ins|isindex|kbd|label|legend|li|link|map|menu|meta|noframes|noscript|object|ol|optgroup|option|p|param|pre|q|s|samp|script|select|small|span|strike|strong|style|sub|sup|table|tbody|td|textarea|tfoot|th|thead|title|tr|tt|u|ul|var)\\b::2:^top|Media_brace_contents$:#cc0000::2:1
+stylesheet:Identifiers:1:[#.][^ ,{<>/\:]+::2:^top|Media_brace_contents$:#cc0000::1:2:
+stylesheet:Attribute Identifiers:1:\\[([a-z0-9\\.\\-_\\\:]+)[\\|~]?=?((?\:[\\w]*|(?\:"[\\w]*")?)?)\\]::2:^top|Media_brace_contents$:#990000::1:1:
+stylesheet:Attribute Identifiers Selector:1:1::3:^Attribute Identifiers$:#006699::2:1:
+stylesheet:Attribute Identifiers Value:1:2::3:^Attribute Identifiers$:#006699::1:1:
+stylesheet:Pseudo-selectors:1:\\\:(?\:lang\\([a-z]{2}(?\:_[A-Z]{2})?\\)|\\b(?\:active|after|before|first(?\:\\-(?\:child|letter|line))|first|focus|hover|lang|left|link|right|visited)\\b)::2:^top|Media_brace_contents$:#990000::2:1:
+stylesheet:Braces:1:\\{:\\}:1:^top|Media_brace_contents$:#0099cc::1:1:
+stylesheet:Comment:1:\\/\\*:\\*\\/:1:^top|Braces|Media_brace_contents$:#888888::1:1:
+stylesheet:Property:0:\\b(azimuth|background(?\:\\-(?\:attachment|color|image|position|repeat))?|border(?\:\\-(?\:(bottom|left|right|top)(?\:\\-(?\:color|style|width))?|collapse|color|spacing|style|width|spacing)?)?|bottom|caption\\-side|center|clear|clip|color|content|counter\\-(?\:increment|reset)|cue(?\:\\-(?\:after|before))?|cursor|direction|display|elevation|empty\\-cells|float|font(?\:\\-(?\:family|size(?\:\\-adjust)?|stretch|style|variant|weight))?|height|left|letter\\-spacing|line\\-height|list\\-style(?\:\\-(?\:image|position|type))?|(?\:margin|padding)(?\:\\-(?\:bottom|left|right|top|offset))?|marker\\-offset|marks|(?\:max|min)\\-(?\:height|width)|orphans|outline(?\:\\-(?\:color|style|width))?|overflow|page\\-break\\-(?\:after|before|inside)|pause(?\:\\-(?\:after|before))?|pitch(?\:\\-range)?|play\\-during|position|quotes|richness|right|scrollbar\\-(?\:3dlight|arrow|base|(?\:dark)?shadow|face|highlight|track)\\-color|size|speak(?\:\\-(?\:header|numeral|punctuation))?|speech\\-rate|src|stress|table\\-layout|text\\-(?\:align|decoration|indent|shadow|transform)?|top|unicode\\-bidi|vertical\\-align|visibility|voice\\-family|volume|white\\-space|widows|width|word\\-spacing|z\\-index)\\b\\s*\:::2:^Braces$:#000099::2:1:
+stylesheet:Azimuth:1:\\b((?\:left|right)wards|(?\:center(?\:\\-(?\:left|right))?|(?\:(?\:far\\-)?(?\:left|right)(?\:\\-side)?))\\s*(?\:behind)?)\\b(?![a-z\\-\:])::2:^Braces$:#663399::1:1:
+stylesheet:Color:1:\\b(activecaption|appworkspace|background|button(?\:face|highlight|shadow|text)?|captiontext|graytext|highlight(?\:text)?|inactivecaption(?\:text)?|info(?\:background|text)?|menu(?\:text)?|scrollbar|threed(?\:(?\:dark|light)?shadow|face|highlight)?|window(?\:frame|text)?)\\b(?![a-z\\-\:])::2:^Braces$:#663399::1:1:
+stylesheet:Color Hex:1:#[0-9A-Fa-f]{3,6}|\\b(rgb|aqua|background|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|face|transparent|white|yellow)\\b(?![a-z\\-\:])::2:^Braces$:#cc0099::1:1:
+stylesheet:Cursor:1:\\b(crosshair|default|help|move|pointer|(?\:e|ne|nw|n|se|sw|s|w)\\-resize|text|wait)\\b(?![a-z\\-\:])::2:^Braces$:#663399::1:1:
+stylesheet:Font Stretch:1:\\b(wider|narrower|(?\:(?\:(?\:extra|semi|ultra)\\-)?(?\:condensed|expanded)))\\b(?![a-z\\-\:])::2:^Braces$:#663399::1:1:
+stylesheet:List:1:\\b(armenian|circle|cjk\\-ideographic|decimal(\\-leading\\-zero)?|disc|georgian|hebrew|(?\:hiragana|katakana)(?\:\\-iroha)?|(?\:lower|upper)\\-(?\:alpha|latin|roman)|lower\\-greek|square)\\b(?![a-z\\-\:])::2:^Braces$:#663399::1:1:
+stylesheet:Misc:1:\\b(above|absolute|always|attr|auto|avoid|(?\:base|in|over|under)line|below|bidi\\-override|blink|block|bold(?\:er)?|both|bottom|capitalize|(?\:small\\-)?caption|center|child|circle|(?\:no\\-)?(?\:open|close)\\-quote|code|collapse|compact|continuous|counter|crop|cross|cursive|dashed|digits|disc|dotted|double|embed|fantasy|faster|(?\:fe)?male|fixed|groove|hebrew|hid(?\:e|den)|(?\:high|low)(?\:er)?|icon|inherit|(?\:in|out)(?\:set|side)|invert|italic|justify|landscape|larger?|left|level|lighter|line\\-through|list\\-item|(?\:lower|upper)case|ltr|marker|medium|message\\-box|middle|mix|monospace|no\\-repeat|none|normal|nowrap|oblique|once|par\\-num|portrait|pre|rect|relative|repeat(?\:\\-(?\:x|y))?|ridge|right|rtl|run\\-in|(?\:sans\\-)?serif|scroll|show|silent|slower|small(?\:er|\\-caps)?|solid|spell\\-out|status\\-bar|sub|super|static|table\\-(?\:caption|cell)|table(?\:\\-(?\:column|footer|header|row)(?\:\\-group)?)?|text\\-(?\:bottom|top)|thick|thin|top|url|visible|(?\:x\\-)?(?\:fast|loud|slow|soft)|x\\-(?\:high|low)|xx?\\-(?\:large|small))\\b(?![a-z\\-\:])::2:^Braces$:#663399::1:1:
+stylesheet:Length:1:\\-?[0-9.](\\%|cm|deg|em|ex|g?rad|in|k?hz|mm|ms|pc|pt|px)?(?![a-z\\-\:])::2:^Braces$:#009966::1:1:
+stylesheet:Unit:1:1::3:Length$:#009966::2:2:
+stylesheet:Reference:1:\\!([\\w\\-]+)::2:^Braces$:#0099cc::1:1:
+stylesheet:Reference Class:1:1::3:^Reference$:#cc0000::1:2:
+stylesheet:Plaintext:1:[a-z]+::2:^Braces$:#000000::1:1:
+stylesheet:Symbols:1:[\\,]::2:^top|Import|Media|Braces$:#000000::1:1:
+stylesheet:String_double_quoted:1:":":1:^top|Braces$:#006699::1:2:
+stylesheet:String_single_quoted:1:':':1:^top|Braces$:#006699::1:2:
+stylesheet:String_escaped:1:\\\\['"]::2:^String_double_quoted|String_single_quoted$:#006699::0:0:
+
+stylesheet:Charset:1:\\@charset\\s*("[^"]*")\\s*;::2:^top$:#666666::2:1:
+stylesheet:Charset Value:1:1::3:^Charset$:#006699::2:2:
+stylesheet:Import:1:\\@import\\s*url(\\("[^"]*"\\))\\s*(?\:(?\:all|aural|braille|emboss|handheld|print|projection|screen|tty|tv)[\\s,]*)+\\s*;::2:^top$:#666666::2:1:
+stylesheet:Import Value:1:1::3:^Import$:#006699::2:2:
 stylesheet:Media:1:\\@media\\s*(?\:(?\:all|aural|braille|emboss|handheld|print|projection|screen|tty|tv)[\\s,]*)+\\{:\\}:1:^top$:#666666::2:1:
 stylesheet:Media Selector:1:\\@(?\:page|font\\-face)::2:^top$:#cc0000::2:2:
 stylesheet:Selector:1:\\*|\\+|>|\\b(a|body|abbr|acronym|address|applet|area|b|base(?\:font)?|bdo|big|blockquote|body|br|button|caption|center|cite|code|col(?\:group)?|dd|del|dfn|dir|div|dl|dt|em|fieldset|font|form|frame(?\:set)?|h\\d+|head|hr|html|i|iframe|img|input|ins|isindex|kbd|label|legend|li|link|map|menu|meta|noframes|noscript|object|ol|optgroup|option|p|param|pre|q|s|samp|script|select|small|span|strike|strong|style|sub|sup|table|tbody|td|textarea|tfoot|th|thead|title|tr|tt|u|ul|var)\\b::2:^top|Media$:#cc0000::2:1:
