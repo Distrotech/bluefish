@@ -306,7 +306,7 @@ stylesheet:Attribute Identifiers:1:\\[([a-z0-9\\.\\-_\\\:]+)[\\|~]?=?((?\:[\\w]*
 stylesheet:Attribute Identifiers Selector:1:1::3:^Attribute Identifiers$:#006699::2:1:
 stylesheet:Attribute Identifiers Value:1:2::3:^Attribute Identifiers$:#006699::1:1:
 stylesheet:Pseudo-selectors:1:\\\:(?\:lang\\([a-z]{2}(?\:_[A-Z]{2})?\\)|\\b(?\:active|after|before|first(?\:\\-(?\:child|letter|line))|first|focus|hover|lang|left|link|right|visited)\\b)::2:^top|Media$:#990000::2:1:
-stylesheet:Braces:1:[\\{][^\\{\\}]*[\\}]::2:^top|Media$:#0099cc::1:1:
+stylesheet:Braces:1:\\{:\\}:1:^top|Media$:#0099cc::1:1:
 stylesheet:Comment:1:\\/\\*:\\*\\/:1:^top|Braces|Media$:#888888::1:1:
 stylesheet:Property:0:\\b(azimuth|background(?\:\\-(?\:attachment|color|image|position|repeat))?|border(?\:\\-(?\:(bottom|left|right|top)(?\:\\-(?\:color|style|width))?|collapse|color|spacing|style|width|spacing)?)?|bottom|caption\\-side|center|clear|clip|color|content|counter\\-(?\:increment|reset)|cue(?\:\\-(?\:after|before))?|cursor|direction|display|elevation|empty\\-cells|float|font(?\:\\-(?\:family|size(?\:\\-adjust)?|stretch|style|variant|weight))?|height|left|letter\\-spacing|line\\-height|list\\-style(?\:\\-(?\:image|position|type))?|(?\:margin|padding)(?\:\\-(?\:bottom|left|right|top|offset))?|marker\\-offset|marks|(?\:max|min)\\-(?\:height|width)|orphans|outline(?\:\\-(?\:color|style|width))?|overflow|page\\-break\\-(?\:after|before|inside)|pause(?\:\\-(?\:after|before))?|pitch(?\:\\-range)?|play\\-during|position|quotes|richness|right|scrollbar\\-(?\:3dlight|arrow|base|(?\:dark)?shadow|face|highlight|track)\\-color|size|speak(?\:\\-(?\:header|numeral|punctuation))?|speech\\-rate|src|stress|table\\-layout|text\\-(?\:align|decoration|indent|shadow|transform)?|top|unicode\\-bidi|vertical\\-align|visibility|voice\\-family|volume|white\\-space|widows|width|word\\-spacing|z\\-index)\\b\\s*\:::2:^Braces$:#000099::2:1:
 stylesheet:Azimuth:1:\\b((?\:left|right)wards|(?\:center(?\:\\-(?\:left|right))?|(?\:(?\:far\\-)?(?\:left|right)(?\:\\-side)?))\\s*(?\:behind)?)\\b(?![a-z\\-\:])::2:^Braces$:#663399::1:1:
@@ -322,5 +322,6 @@ stylesheet:Reference:1:\\!([\\w\\-]+)::2:^Braces$:#0099cc::1:1:
 stylesheet:Reference Class:1:1::3:^Reference$:#cc0000::1:2:
 stylesheet:Plaintext:1:[a-z]+::2:^Braces$:#000000::1:1:
 stylesheet:Symbols:1:[\\,]::2:^top|Import|Media|Braces$:#000000::1:1:
-stylesheet:String (double quoted):1:":[^\\\\]":1:^top|Braces$:#006699::1:2:
-stylesheet:String (single quoted):1:':[^\\\\]':1:^top|Braces$:#006699::1:2:
+stylesheet:String_double_quoted:1:":":1:^top|Braces$:#006699::1:2:
+stylesheet:String_single_quoted:1:':':1:^top|Braces$:#006699::1:2:
+stylesheet:String_escaped:1:\\\\['"]::2:^String_double_quoted|String_single_quoted$:#006699::0:0:
