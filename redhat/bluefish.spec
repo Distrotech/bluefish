@@ -1,11 +1,10 @@
-%define	desktop_vendor 	endur
 %define name  		bluefish
 %define version		1.1
-%define release 	020050629
-%define source		bluefish-CVS-2005-06-29
+%define release 	020060125
+%define source		bluefish-CVS-2006-01-25
 
 
-Summary:	  A GTK2 web development application for experienced users.
+Summary:	  A GTK2 web development application for experienced users
 Name:		  %{name}
 Version:	  %{version}
 Release:	  %{release}
@@ -13,9 +12,9 @@ Source:		  ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{source}.tar.bz2
 URL:		  http://bluefish.openoffice.nl
 License:	  GPL
 Group:            Development/Tools
-Requires:	  gtk2 >= 2.0.6, pcre >= 3.9, aspell >= 0.50, gnome-vfs2 => 2.4.1
-BuildRequires:    gtk2-devel >= 2.0.6, pcre-devel >= 3.9, gnome-vfs2-devel >= 2.4.1
-BuildRequires:    aspell-devel >= 0.50, desktop-file-utils, gettext
+Requires:	  gtk2, pcre, aspell, gnome-vfs2
+BuildRequires:    gtk2-devel, pcre-devel, gnome-vfs2-devel
+BuildRequires:    aspell-devel, desktop-file-utils, gettext
 Requires(post):   desktop-file-utils, shared-mime-info
 Requires(postun): desktop-file-utils, shared-mime-info
 BuildRoot: %{_tmppath}/%{name}-CVS-%{release}-root
@@ -23,7 +22,7 @@ BuildRoot: %{_tmppath}/%{name}-CVS-%{release}-root
 %description
 Bluefish is a powerful editor for experienced web designers and programmers.
 Bluefish supports many programming and markup languages, but it focuses on
-editing dynamic and interactive websites.
+editing dynamic and interactive websites
 
 %prep
 %setup -q -n %{source}
@@ -37,14 +36,18 @@ editing dynamic and interactive websites.
 make install DESTDIR=%{buildroot}
 
 %find_lang %{name}
+%find_lang %{name}_plugin_about
+%find_lang %{name}_plugin_entities
 %find_lang %{name}_plugin_htmlbar
+%{__cat} %{name}_plugin_about.lang >> %{name}.lang
+%{__cat} %{name}_plugin_entities.lang >> %{name}.lang
 %{__cat} %{name}_plugin_htmlbar.lang >> %{name}.lang
 
-desktop-file-install --vendor %{desktop_vendor} --delete-original \
-  --dir %{buildroot}%{_datadir}/applications                      \
-  --add-category X-Fedora                                         \
-  --add-category Application                                      \
-  --add-category Development                                      \
+desktop-file-install --vendor=fedora         \
+  --dir %{buildroot}%{_datadir}/applications \
+  --add-category X-Fedora                    \
+  --add-category Application                 \
+  --add-category Development                 \
   %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %clean
@@ -60,7 +63,7 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 %files -f %{name}.lang
 %defattr(-, root, root)
-%doc AUTHORS COPYING INSTALL README TODO
+%doc AUTHORS COPYING README TODO
 %{_bindir}/*
 %{_libdir}/*
 %dir %{_datadir}/bluefish
@@ -72,8 +75,9 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 %{_datadir}/icons/hicolor/48x48/apps/*
 %{_datadir}/icons/hicolor/48x48/mimetypes/*
 %{_datadir}/pixmaps/*
+%{_mandir}/man1/*
 
 
 %changelog
-* Fri Jul 01 2005 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2005-06-29
+* Thu Jan 26 2006 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2006-01-25
