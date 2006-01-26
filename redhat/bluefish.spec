@@ -43,11 +43,11 @@ make install DESTDIR=%{buildroot}
 %{__cat} %{name}_plugin_entities.lang >> %{name}.lang
 %{__cat} %{name}_plugin_htmlbar.lang >> %{name}.lang
 
-desktop-file-install --vendor=fedora         \
-  --dir %{buildroot}%{_datadir}/applications \
-  --add-category X-Fedora                    \
-  --add-category Application                 \
-  --add-category Development                 \
+desktop-file-install --vendor=fedora --delete-original \
+  --dir %{buildroot}%{_datadir}/applications           \
+  --add-category X-Fedora                              \
+  --add-category Application                           \
+  --add-category Development                           \
   %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %clean
