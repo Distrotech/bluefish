@@ -109,8 +109,8 @@ static void bf_textview_delete_range_cb(GtkTextBuffer * textbuffer, GtkTextIter 
 static void bf_textview_delete_range_after_cb(GtkTextBuffer * textbuffer, GtkTextIter * arg1,
 										GtkTextIter * arg2, gpointer user_data);										
 static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, GtkTextIter * arg2);
-static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter * arg1, gchar * arg2,
-									   gint arg3, gpointer user_data);
+static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter * iter, gchar * string,
+                                       gint stringlen, BfTextView * view);
 static void bftv_fold(BfTextView *self,GtkTextMark * mark, gboolean move_cursor);
 static void bf_textview_move_cursor_cb(GtkTextView * widget, GtkMovementStep step, gint count,
 									   gboolean extend_selection, gpointer user_data);
@@ -2310,20 +2310,19 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 	return TRUE;
 }
 
-static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter * arg1, gchar * arg2,
-									   gint arg3, gpointer user_data)
+static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter * iter, gchar * string,
+                                       gint stringlen, BfTextView * view)
 {
-	BfTextView *view = BF_TEXTVIEW(user_data);
 	gint len;
 	gboolean trigger = FALSE;
-	gchar *p = arg2;
-	DEBUG_MSG("bf_textview_insert_text_cb, started\n");
+	gchar *p = string;
+	DEBUG_MSG("bf_textview_insert_text_cb, started, string=\"%s\", stringlen=%d\n", string, stringlen);
 	if (!view->lang)
 		return;
 	view->delete_rescan = FALSE;
 	if (GTK_WIDGET_VISIBLE(view)) {
 		len = 0;
-		while (len < g_utf8_strlen(arg2, -1)) {
+		while (len < g_utf8_strlen(string, stringlen)) {
 			if (view->lang->as_triggers[(gint) * p] == 1) {
 				trigger = TRUE;
 				break;
