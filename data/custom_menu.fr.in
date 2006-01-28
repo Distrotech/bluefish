@@ -83,7 +83,7 @@ cmenu_insert: /DocBook/Tables/Cellule:<entry align="%0" valign="%1">:</entry>\n:
 cmenu_insert: /DocBook/Sections/Section simple:<sect%0>\n<title>%1</title>\n</sect%0>\n:\n:2:Numéro de la section:Titre:
 cmenu_insert: /DocBook/Sections/Section avec ID:<sect%0 id="%1">\n<title>%2</title>\n</sect%0>\n:\n:3:Numéro de la section:Identifiant de la section:Titre:
 cmenu_insert: /DocBook/Listing de programme:<programlisting>:</programlisting>:0:
-cmenu_insert: /DocBook/Procédures/Substep:<substeps>\n\t<step><para>\n:</para></step>\n</substeps>\n\n\n\n:0:
+cmenu_insert: /DocBook/Procédures/Sous-étapes:<substeps>\n\t<step><para>\n:</para></step>\n</substeps>\n\n\n\n:0:
 cmenu_insert: /DocBook/Procédures/Étapes:<step><para>\n:</para>\n\n\n:0:
 cmenu_insert: /DocBook/Procédures/Procédure:<procedure><title>%0</title>\n\t<step><para>\n:</para>\n</step>\n</procedure>\n\n:1:Titre:
 cmenu_insert: /DocBook/Paragraphe:<para>:</para>:0:
@@ -128,9 +128,9 @@ cmenu_insert: / C /Traverser une GList:GList *tmplist;\ntmplist = g_list_first(%
 cmenu_insert: / C /Commentaire:/*:*/:0:
 cmenu_replace: /Remplacement/Suppression/Espaces en fin de ligne:(?<=\\S)\\s*(?=(\\n|\\r))::2:2:0:0:
 cmenu_replace: /Remplacement/Suppression/Balises Font:(<font[^>]*>|</font>)::0:1:0:0:
-cmenu_replace: /Remplacement/Suppression/Toute balise dans la sélection:(<%0[^>]*>|</%0>)::2:1:0:1:Nom de la balise:
-cmenu_replace: /Remplacement/Conversion dans la sélection/Tabulations en espaces (8):(\t):        :2:1:0:0:
-cmenu_replace: /Remplacement/Conversion dans la sélection/Tabulations en espaces (4):(\t):    :2:1:0:0:
-cmenu_replace: /Remplacement/Conversion dans la sélection/Espaces (8) en tabulation simple:(        ):\t:2:1:0:0:
-cmenu_replace: /Remplacement/Conversion dans la sélection/Espaces (4) en tabulation simple:(    ):\t:2:1:0:0:
-cmenu_replace: /Remplacement/Conversion dans la sélection/<td> to <th>:(<|</)(td)([^>]*)(>):\\0th\\2>:2:1:0:0:
+cmenu_replace: /Remplacement/Suppression/Toute balise à l'intérieur de la sélection:(<%0[^>]*>|</%0>)::2:1:0:1:Nom de la balise:
+cmenu_replace: /Remplacement/Conversion à l'intérieur de la sélection/Tabulations en espaces (8):(\t):        :2:1:0:0:
+cmenu_replace: /Remplacement/Conversion à l'intérieur de la sélection/Tabulations en espaces (4):(\t):    :2:1:0:0:
+cmenu_replace: /Remplacement/Conversion à l'intérieur de la sélection/Espaces (8) en tabulation simple:(        ):\t:2:1:0:0:
+cmenu_replace: /Remplacement/Conversion à l'intérieur de la sélection/Espaces (4) en tabulation simple:(    ):\t:2:1:0:0:
+cmenu_replace: /Remplacement/Conversion à l'intérieur de la sélection/<td> en <th>:(<|</)(td)([^>]*)(>):\\0th\\2>:2:1:0:0:
