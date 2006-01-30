@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * undo_redo.c - improved undo/redo functionality
  *
- * Copyright (C) 2001-2002 Olivier Sessink
+ * Copyright (C) 2001-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,10 +28,10 @@
 #include "document.h" /* doc_bind_signals() */
 
 typedef struct {
-	char *text;			/* text to be inserted or deleted */
-	int start;			/* starts at this position */
-	int end;				/* ends at this position */
-	undo_op_t op;		/* action to execute */	
+	char *text;    /* text to be inserted or deleted */
+	int start;     /* starts at this position */
+	int end;       /* ends at this position */
+	undo_op_t op;  /* action to execute */	
 } unreentry_t;
 
 static unregroup_t *unregroup_new(Tdocument *doc) {
@@ -143,6 +143,7 @@ static gint doc_undo(Tdocument *doc) {
 		/* if the current group has entries we have to undo that one */
 		DEBUG_MSG("doc_undo, undo the entries of the current group, and create a new group\n");
 		curgroup = doc->unre.current;
+		curgroup->changed = 1;
 		/* hmm, when this group is created, the doc->modified is not yet in the 'undo' state
 		because activate is not yet called, so this group will have the wrong 'changed' value*/
 		doc->unre.current = unregroup_new(doc);
@@ -357,6 +358,7 @@ void doc_unre_clear_all(Tdocument *doc) {
 	doc_unre_destroy(doc);
 	doc_unre_init(doc);
 }
+
 /**
  * doc_undo_op_compare:
  * @doc: a #Tdocument
@@ -514,4 +516,23 @@ __inline__
 #endif
 gboolean doc_has_redo_list(Tdocument *doc) {
 	return (doc->unre.redofirst) ? TRUE : FALSE;
+}
+
+void doc_unregroup_reset_changed (Tdocument *doc) {
+    if (doc_has_undo_list(doc)) {
+        GList **list = &doc->unre.first;
+        GList *node = NULL;
+        unregroup_t *curgroup = NULL;
+        
+        DEBUG_MSG("doc_unre_reset_modified started, doc=%p, doc->unre.current=%p\n", doc, doc->unre.current);
+        
+        for (node = g_list_first (*list); node != NULL; node = node->next) {
+            curgroup = node->data;
+            if (curgroup->changed != 1)
+                curgroup->changed = 1;
+        }
+    } else {
+        doc->unre.current->changed = 0;
+    }
+    DEBUG_MSG("doc_unre_reset_modified finished, doc->unre.current=%p, changed=%d\n", doc->unre.current,doc->unre.current->changed);
 }
