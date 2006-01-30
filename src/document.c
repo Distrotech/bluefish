@@ -2695,7 +2695,7 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 				bfwin_filebrowser_refresh_dir(BFWIN(doc->bfwin),tmp);
 				g_free(tmp);
 			}
-
+            doc_unregroup_reset_changed(doc);
 			DEBUG_MSG("doc_save, received return value %d from doc_textbox_to_file\n", retval);
 		break;
 	}
