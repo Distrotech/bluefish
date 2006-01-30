@@ -34,4 +34,5 @@ void redo_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 void undo_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 gboolean doc_has_undo_list(Tdocument *doc);
 gboolean doc_has_redo_list(Tdocument *doc);
+void doc_unregroup_reset_changed(Tdocument *doc);
 #endif /* __UNDO_REDO_H_ */
