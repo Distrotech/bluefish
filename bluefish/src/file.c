@@ -972,7 +972,9 @@ static void openadv_unref(Topenadv *oa) {
 	DEBUG_MSG("openadv_unref, count=%d\n",oa->refcount);
 	if (oa->refcount <= 0 ) {
 		gchar *tmp;
-		tmp = g_strdup_printf(_("Advanced open: finished searching files, %d documents open"), g_list_length(oa->bfwin->documentlist));
+		tmp = g_strdup_printf(ngettext("%d document open.","%d documents open.",g_list_length(oa->bfwin->documentlist)),
+				g_list_length(oa->bfwin->documentlist));
+		tmp = g_strconcat("Advanced open: Finished searching files. ",tmp,NULL);
 		statusbar_message(oa->bfwin,tmp, 4000);
 		g_free(tmp);
 		if (oa->extension_filter) g_free(oa->extension_filter);
