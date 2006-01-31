@@ -1,5 +1,43 @@
 # Release changes
 
+Bluefish 1.0.5 (xx February 2006)
+---------------------------------
+
+- New translations: Basque, Slovak
+- Updated translations: Chinese, French, German, Italian, Japanese, Polish,
+   Portuguese, Spanish, Swedish
+- Fixes a critical feature bug in the Undo/Redo function, which can lead to
+   data loss. Partially closes Bluefish bug #327432.
+- Man-pages are now installed by default in every distribution not only
+   Debian. Closes Bluefish bug #309404.
+- Improves behaviour of font drop down list. Closes Bluefish bug #317974.
+- Improves the "Link to stylesheet" dialog. Closes Bluefish bug #319753.
+- Makes the splash screen a runtime user option. Closes Bluefish bug #324647.
+- Fixes the untitled windows issue, when starting bluefish several times
+   using the -n option. Closes Bluefish bug #317878 and Ubuntu bug #1426.
+- Fixes and updates to C, ChangeLog, CSS, SQL, Perl and PHP highlighting
+   patterns. Closes Bluefish bug #313000, #315324, #317769, #326887 and
+   #329182.
+- Fixes an issue where the "Highlight Syntax" menu entry could show a wrong
+   state. Closes Bluefish bug #324517.
+- Fixes a crash in the spellcheck dialog. Closes Bluefish bug #322126 and
+   Debian bug #340768.
+- Fixes for the quickstart dialog, especially a crash observed with
+   GTK >= 2.8. Closes Bluefish bug #324836 and Debian bug #344435.
+- Fixes for the find dialog. So choosing "Bookmark results" does not longer
+   lead to a search in the whole document even if "Search selection" is used.
+   Closes Bluefish bug #327099.
+- Fixes the moving replace dialog. Closes Bluefish bug #323183.
+- Fixes and improvements for the PCRE UTF-8 support. Closes Bluefish bug
+   #316866.
+- Fixes an inconsistency in the analysis of LC_MESSAGES and LANG leading to
+   menus in different languages. Closes Bluefish bug #323408.
+- Fixes and language additions for GNOME 2.12 (and above) integration and the
+   menu tooltip. Closes Ubuntu bug #1166.
+- Fixes for the <link>, <meta> and <http-equiv> dialogs.
+- Fixes for the custom menu. Closes Bluefish bug #326597.
+- We do not longer ship the Debian packaging files with the source.
+
 Bluefish 1.0.4 (28 August 2005)
 -------------------------------
 
