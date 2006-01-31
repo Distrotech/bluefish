@@ -2581,7 +2581,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	filetype_highlighting_rebuild(TRUE);
 	/*filebrowser_filters_rebuild();*/
 #ifdef USE_SCANNER
-	bf_lang_mgr_retag();
+	bf_lang_mgr_retag();	
 #else
 	highlightpattern_apply_changes(pd);
 #endif	

@@ -3807,6 +3807,9 @@ void all_documents_apply_settings() {
 		Tdocument *doc = tmplist->data;
 		doc_set_tabsize(doc, main_v->props.editor_tab_width);
 		doc_set_font(doc, main_v->props.editor_font_string);
+#ifdef USE_SCANNER
+		bf_textview_recolor(BF_TEXTVIEW(doc->view),main_v->props.editor_fg,main_v->props.editor_bg);
+#endif		
 		tmplist = g_list_next(tmplist);
 	}
 

@@ -81,6 +81,7 @@ characters, changing scanner states according the table. If I find
 #include "bluefish.h"
 #include "textstyle.h"
 #include "bf_lib.h"
+#include "gtk_easy.h" /* gdk_color_to_hexstring */
 
 #include <stdarg.h>
 #include <string.h>
@@ -173,6 +174,7 @@ static void bftv_collapse_all(GtkWidget * widget, BfTextView * view)
 }
 
 
+
 static void bf_textview_init(BfTextView * o)
 {
 	GtkWidget *item;
@@ -182,8 +184,8 @@ static void bf_textview_init(BfTextView * o)
 	o->symbol_lines = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
 	o->lang = NULL;
 	/* g_queue_is_empty(&(o->scanner.block_stack)); */
-	gdk_color_parse("#FFFFFF", &o->bkg_color);
-	gdk_color_parse("#000000", &o->fg_color);
+	g_stpcpy(o->bkg_color,"#FFFFFF");
+	g_stpcpy(o->fg_color,"#000000");
 	o->fold_menu = gtk_menu_new();
 	item = gtk_menu_item_new_with_label(_("Expand all"));
 	gtk_menu_append(GTK_MENU(o->fold_menu), item);
@@ -2077,9 +2079,7 @@ GtkWidget *bf_textview_new(void)
 			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_block_match_",
 									   "background-gdk", &col, NULL);
 
-	gtk_widget_modify_base(GTK_WIDGET(o), GTK_WIDGET(o)->state, &o->bkg_color);
-	gtk_widget_modify_text(GTK_WIDGET(o), GTK_WIDGET(o)->state, &o->fg_color);
-
+	bf_textview_recolor(o,"#000000","#FFFFFF");
 	return (GtkWidget *) o;
 }
 
@@ -2142,9 +2142,7 @@ GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer)
 			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_block_match_",
 									   "background-gdk", &col, NULL);
 
-	gtk_widget_modify_base(GTK_WIDGET(o), GTK_WIDGET(o)->state, &o->bkg_color);
-	gtk_widget_modify_text(GTK_WIDGET(o), GTK_WIDGET(o)->state, &o->fg_color);
-
+	bf_textview_recolor(o,"#000000","#FFFFFF");
 	return (GtkWidget *) o;
 }
 
@@ -2164,9 +2162,9 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 	PangoLayout *l;
 	gchar *pomstr = NULL;
 	gint pt_lines, pt_sym, pt_blocks;
-	GdkGC *gc;
+	GdkGC *gc=NULL;
 	gpointer aux;
-	GdkColor cwhite, cblack;
+	/* GdkColor cwhite, cblack;*/
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
 
 	DEBUG_MSG("bf_textview_expose_cb, started\n");
@@ -2177,7 +2175,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 
 	left_win = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT);
 	
-	if (left_win != event->window) {	/* current line highlighting - from gtksourceview team :) */
+	if (left_win != event->window) {	/* current line highlighting - thanks gtksourceview team :) */
 		if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT)
 			&& BF_TEXTVIEW(widget)->show_current_line) {
 			gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
@@ -2197,9 +2195,9 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 		&& !BF_TEXTVIEW(widget)->show_blocks)
 		return FALSE;
 
-	gc = gdk_gc_new(GDK_DRAWABLE(left_win));
-	gdk_color_parse("#FFFFFF", &cwhite);
-	gdk_color_parse("#000000", &cblack);
+	
+	/*gdk_color_parse("#FFFFFF", &cwhite);
+	gdk_color_parse("#000000", &cblack);*/
 	gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
 	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &l_start, rect.y, &l_top1);
 	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &l_end, rect.y + rect.height, &l_top2);
@@ -2238,7 +2236,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 		if (BF_TEXTVIEW(widget)->show_lines) {	/* show line numbers */
 			DEBUG_MSG("checking for folded tag %p\n", BF_TEXTVIEW(widget)->folded_tag);
 			if (!gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->folded_tag)) {
-				pomstr = g_strdup_printf("<span foreground=\"#7E7979\">%d</span>", i + 1);
+				pomstr = g_strdup_printf("<span foreground=\"%s\">%d</span>",gdk_color_to_hexstring(&widget->style->text_aa[GTK_WIDGET_STATE(widget)],FALSE) ,i + 1);
 				pango_layout_set_markup(l, pomstr, -1);
 				gtk_paint_layout(widget->style, left_win, GTK_WIDGET_STATE(widget), FALSE, NULL,
 								 widget, NULL, pt_lines, w, l);
@@ -2246,6 +2244,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 			}
 		}
 		if (BF_TEXTVIEW(widget)->show_symbols) {	/* show symbols */
+			gc = gdk_gc_new(GDK_DRAWABLE(left_win));
 			if (!gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->folded_tag)) {
 				pomstr = g_strdup_printf("%d", i + 1);
 				aux = g_hash_table_lookup(BF_TEXTVIEW(widget)->symbol_lines, pomstr);
@@ -2256,6 +2255,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 				}
 				g_free(pomstr);
 			}
+			g_object_unref(gc);			
 		}
 		if (BF_TEXTVIEW(widget)->show_blocks) {	/* show block markers */
 			GtkTextMark *mark_begin = NULL, *mark_end = NULL;
@@ -2274,38 +2274,40 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT,
 													  0, w2, NULL, &w2);
 				if (b_type == &tid_block_start) {
-					gdk_gc_set_rgb_fg_color(gc, &cwhite);
-					gdk_draw_rectangle(GDK_DRAWABLE(left_win), gc, TRUE, pt_blocks, w + 2, 10, 10);
-					gdk_gc_set_rgb_fg_color(gc, &cblack);
-					gdk_draw_rectangle(GDK_DRAWABLE(left_win), gc, FALSE, pt_blocks, w + 2, 10, 10);
+					/*gdk_gc_set_rgb_fg_color(gc, &cwhite);*/
+					gdk_draw_rectangle(GDK_DRAWABLE(left_win), widget->style->bg_gc[GTK_WIDGET_STATE(widget)],
+					 TRUE, pt_blocks, w + 2, 10, 10);
+					/*gdk_gc_set_rgb_fg_color(gc, &cblack);*/
+					gdk_draw_rectangle(GDK_DRAWABLE(left_win), widget->style->fg_gc[GTK_WIDGET_STATE(widget)],
+					 FALSE, pt_blocks, w + 2, 10, 10);
 
 					if (b_folded == &tid_true) {
-						gdk_draw_line(GDK_DRAWABLE(left_win), gc, pt_blocks + 3, w + 7,
-									  pt_blocks + 7, w + 7);
-						gdk_draw_line(GDK_DRAWABLE(left_win), gc, pt_blocks + 5, w + 5,
-									  pt_blocks + 5, w + 9);
+						gdk_draw_line(GDK_DRAWABLE(left_win), widget->style->fg_gc[GTK_WIDGET_STATE(widget)],
+						 pt_blocks + 3, w + 7,pt_blocks + 7, w + 7);
+						gdk_draw_line(GDK_DRAWABLE(left_win), widget->style->fg_gc[GTK_WIDGET_STATE(widget)], 
+						pt_blocks + 5, w + 5, pt_blocks + 5, w + 9);
 					} else
-						gdk_draw_line(GDK_DRAWABLE(left_win), gc, pt_blocks + 3, w + 7,
-									  pt_blocks + 7, w + 7);
+						gdk_draw_line(GDK_DRAWABLE(left_win), widget->style->fg_gc[GTK_WIDGET_STATE(widget)], 
+						pt_blocks + 3, w + 7, pt_blocks + 7, w + 7);
 				} else {		/* block end */
-					gdk_draw_line(GDK_DRAWABLE(left_win), gc, pt_blocks + 5, w, pt_blocks + 5,
-								  w + 6);
-					gdk_draw_line(GDK_DRAWABLE(left_win), gc, pt_blocks + 5, w + 6, pt_blocks + 10,
-								  w + 6);
+					gdk_draw_line(GDK_DRAWABLE(left_win), widget->style->fg_gc[GTK_WIDGET_STATE(widget)], 
+					pt_blocks + 5, w, pt_blocks + 5, w + 6);
+					gdk_draw_line(GDK_DRAWABLE(left_win), widget->style->fg_gc[GTK_WIDGET_STATE(widget)], 
+					pt_blocks + 5, w + 6, pt_blocks + 10, w + 6);
 				}
 			} else {			/* not block begin or end, but perhaps inside */
 				DEBUG_MSG("checking if we're in tag %p\n", BF_TEXTVIEW(widget)->block_tag);
 				if (gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->block_tag)
 					&& !gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->folded_tag)) {
-					gdk_draw_line(GDK_DRAWABLE(left_win), gc, pt_blocks + 5, w, pt_blocks + 5,
-								  w + 16);
+					gdk_draw_line(GDK_DRAWABLE(left_win), widget->style->fg_gc[GTK_WIDGET_STATE(widget)], 
+					pt_blocks + 5, w, pt_blocks + 5, w + 16);
 				}
 			}
 		}
 		/* block markers */
 	}							/* end of lines loop */
 
-    g_object_unref(gc);
+    
 	g_object_unref(G_OBJECT(l));
 	return TRUE;
 }
@@ -2798,8 +2800,7 @@ void bf_textview_show_blocks(BfTextView * self, gboolean show)
 */
 void bf_textview_set_bg_color(BfTextView * self, gchar * color)
 {
-	gdk_color_parse(color, &self->bkg_color);
-	gtk_widget_modify_base(GTK_WIDGET(self), GTK_WIDGET(self)->state, &self->bkg_color);
+	bf_textview_recolor(self,self->fg_color,color);
 }
 
 /**
@@ -2812,8 +2813,222 @@ void bf_textview_set_bg_color(BfTextView * self, gchar * color)
 */
 void bf_textview_set_fg_color(BfTextView * self, gchar * color)
 {
-	gdk_color_parse(color, &self->fg_color);
-	gtk_widget_modify_text(GTK_WIDGET(self), GTK_WIDGET(self)->state, &self->fg_color);
+	bf_textview_recolor(self,color,self->bkg_color);
+}
+
+
+/* These functions are taken stright from GTK+ sources (www.gtk.org), because I need to
+compute color shading for line highlight and left window  */
+
+static void
+rgb_to_hls (gdouble *r,
+            gdouble *g,
+            gdouble *b)
+{
+  gdouble min;
+  gdouble max;
+  gdouble red;
+  gdouble green;
+  gdouble blue;
+  gdouble h, l, s;
+  gdouble delta;
+  
+  red = *r;
+  green = *g;
+  blue = *b;
+  
+  if (red > green)
+    {
+      if (red > blue)
+        max = red;
+      else
+        max = blue;
+      
+      if (green < blue)
+        min = green;
+      else
+        min = blue;
+    }
+  else
+    {
+      if (green > blue)
+        max = green;
+      else
+        max = blue;
+      
+      if (red < blue)
+        min = red;
+      else
+        min = blue;
+    }
+  
+  l = (max + min) / 2;
+  s = 0;
+  h = 0;
+  
+  if (max != min)
+    {
+      if (l <= 0.5)
+        s = (max - min) / (max + min);
+      else
+        s = (max - min) / (2 - max - min);
+      
+      delta = max -min;
+      if (red == max)
+        h = (green - blue) / delta;
+      else if (green == max)
+        h = 2 + (blue - red) / delta;
+      else if (blue == max)
+        h = 4 + (red - green) / delta;
+      
+      h *= 60;
+      if (h < 0.0)
+        h += 360;
+    }
+  
+  *r = h;
+  *g = l;
+  *b = s;
+}
+
+static void
+hls_to_rgb (gdouble *h,
+            gdouble *l,
+            gdouble *s)
+{
+  gdouble hue;
+  gdouble lightness;
+  gdouble saturation;
+  gdouble m1, m2;
+  gdouble r, g, b;
+  
+  lightness = *l;
+  saturation = *s;
+  
+  if (lightness <= 0.5)
+    m2 = lightness * (1 + saturation);
+  else
+    m2 = lightness + saturation - lightness * saturation;
+  m1 = 2 * lightness - m2;
+  
+  if (saturation == 0)
+    {
+      *h = lightness;
+      *l = lightness;
+      *s = lightness;
+    }
+  else
+    {
+      hue = *h + 120;
+      while (hue > 360)
+        hue -= 360;
+      while (hue < 0)
+        hue += 360;
+      
+      if (hue < 60)
+        r = m1 + (m2 - m1) * hue / 60;
+      else if (hue < 180)
+        r = m2;
+      else if (hue < 240)
+        r = m1 + (m2 - m1) * (240 - hue) / 60;
+      else
+        r = m1;
+      
+      hue = *h;
+      while (hue > 360)
+        hue -= 360;
+      while (hue < 0)
+        hue += 360;
+      
+      if (hue < 60)
+        g = m1 + (m2 - m1) * hue / 60;
+      else if (hue < 180)
+        g = m2;
+      else if (hue < 240)
+        g = m1 + (m2 - m1) * (240 - hue) / 60;
+      else
+        g = m1;
+      
+      hue = *h - 120;
+      while (hue > 360)
+        hue -= 360;
+      while (hue < 0)
+        hue += 360;
+      
+      if (hue < 60)
+        b = m1 + (m2 - m1) * hue / 60;
+      else if (hue < 180)
+        b = m2;
+      else if (hue < 240)
+        b = m1 + (m2 - m1) * (240 - hue) / 60;
+      else
+        b = m1;
+      
+      *h = r;
+      *l = g;
+      *s = b;
+    }
+}
+
+/* modified function to darken/lighten given color */
+static void
+gdk_color_dl (GdkColor *a,
+                 GdkColor *b,
+                 gdouble   k)
+{
+  gdouble red;
+  gdouble green;
+  gdouble blue;
+  
+  red = (gdouble) a->red / 65535.0;
+  green = (gdouble) a->green / 65535.0;
+  blue = (gdouble) a->blue / 65535.0;
+  rgb_to_hls (&red, &green, &blue);
+    
+  if ( green > 0.5 )
+  		green -= k;
+  else 
+  		green += k;		
+    
+  hls_to_rgb (&red, &green, &blue);
+  
+  b->red = red * 65535.0;
+  b->green = green * 65535.0;
+  b->blue = blue * 65535.0;
+}
+
+
+/**
+*	bf_textview_recolor:
+*	@self:  BfTextView widget 
+*
+*	Apply color changes to view 
+* 	
+*/
+
+
+
+void bf_textview_recolor(BfTextView *view, gchar *fg_color, gchar *bg_color )
+{
+	gchar *str;
+	GtkRcStyle *rc = NULL;
+	GtkStyle *style;
+	gint i;
+	GdkColor c1,c2,c3,c4;
+	
+	g_stpcpy(view->fg_color,fg_color);
+	g_stpcpy(view->bkg_color,bg_color);
+	gdk_color_parse(fg_color,&c1);
+	gdk_color_parse(bg_color,&c2);
+	gdk_color_dl(&c1,&c3,0.07);
+	gdk_color_dl(&c2,&c4,0.07);
+	str = g_strdup_printf(
+	          "style \"bfish\" {\nGtkWidget::cursor_color=\"%s\"\nbase[NORMAL]=\"%s\"\nbase[ACTIVE]=\"%s\"\ntext[NORMAL]=\"%s\"\ntext[ACTIVE]=\"%s\"\nfg[NORMAL]=\"%s\"\nfg[ACTIVE]=\"%s\"\nbg[NORMAL]=\"%s\"\nbg[ACTIVE]=\"%s\"\n}\nclass \"BfTextView\" style \"bfish\"",
+				 view->fg_color, view->bkg_color, view->bkg_color,view->fg_color,view->fg_color,
+				  gdk_color_to_hexstring(&c1,FALSE),gdk_color_to_hexstring(&c3,FALSE),
+				  gdk_color_to_hexstring(&c4,FALSE),gdk_color_to_hexstring(&c4,FALSE));
+	gtk_rc_parse_string(str);			
+	g_free(str);
 }
 
 
