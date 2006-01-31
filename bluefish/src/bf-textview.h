@@ -204,7 +204,7 @@ typedef struct {
 
 typedef struct {
 	GtkTextView __parent__;
-	GdkColor bkg_color, fg_color;
+	gchar bkg_color[8], fg_color[8];
 	gboolean show_lines;
 	gboolean show_blocks;
 	gboolean show_symbols;
@@ -287,6 +287,7 @@ GtkTextMark *bf_textview_get_nearest_block_of_type(BfTextView * self, BfLangBloc
 
 void bf_textview_set_bg_color(BfTextView * self, gchar * color);
 void bf_textview_set_fg_color(BfTextView * self, gchar * color);
+void bf_textview_recolor(BfTextView *view, gchar *fg_color, gchar *bg_color );
 
 /* these functions return the names of groups, blocks and tokens that are defined 
 for a certain language config. They are used in the preferences panel to build
