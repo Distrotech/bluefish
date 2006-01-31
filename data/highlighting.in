@@ -172,7 +172,7 @@ php:Variables:1:\\$?\\$[a-z_][a-z0-9>_$-]*::2:^PHP Block$:#cc0000::2:0:
 php:Variables (special characters):0:(\\[|\\]|->)::2:^Variables$:#0000cc::2:0:
 php:String (single quoted):0:':':1:^PHP Block$:#009900::1:1:
 php:String (single quote escaped):0:\\\\.::2:^String \\(single quoted\\)$:::1:1:
-php:Comment (C):0:/\\*:\\*/:1:^PHP Block$:#7777aa::1:2:
+php:Comment (C):0:/\\*.*?\\*/::2:^PHP Block$:#7777aa::1:2:
 php:Comment (C++/single line):0:(//|#).*?$::2:^PHP Block$:#7777aa::1:2:
 php:Flow Control:0:\\b(if|else|elseif|case|default|switch|break|continue|while|do|for|foreach)\\b::2:^PHP Block$:#000000::2:1:
 php:String (SQL Keywords):0:\\b(SELECT|INSERT|UPDATE|DELETE|DROP|GROUP BY|FROM|INTO|ON|AS|AND|NOT|OR|NULL|SET|VALUES|WHERE|ORDER BY|LIMIT|(LEFT|RIGHT|FULL) JOIN|ASC|DESC)\\b::2:^(PHP Block|String \\(single quoted\\)|String \\(double quoted\\))$:#996699::2:1:
