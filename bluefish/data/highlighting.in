@@ -35,8 +35,7 @@ cfml:CFML Comment:0:<!---:--->:1::#848484::1:2:
 cfml:HTML Comment:0:<!--:-->:1::#AAAAAA::1:2:
 cfml:Special Characters:1:&[^;]*;::2::#999999::2:0:
 cfml:DocType:1:<![a-z0-9]+:[^?-]>:1::#bb8800::0:0:
-gettext po:Untranslated:1:msgstr ""\\n\\n::2::#990000:#ffffff:0:0:
-gettext po:Untranslated Plural:1:msgstr\\[[0-9]+\\] ""\\n\\n::2::#990000:#ffffff:0:0:
+gettext po:Untranslated:1:msgstr(?\:\\[[0-9]+\\])? ""\\n\\n::2::#990000:#ffffff:0:0:
 gettext po:Text:1:":":1::#009900:#ffffff:0:2:
 gettext po:Todo:1:^#,.*?$::2::#ffffff:#990000:2:0:
 gettext po:Source Ref:1:^#\:.*?$::2::#990000:#ffffff:0:0:
