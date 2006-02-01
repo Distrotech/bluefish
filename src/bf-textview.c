@@ -99,6 +99,9 @@ struct tms tms2;
 #endif							/* HL_PROFILING */
 
 
+static char folded_xbm[] = {
+  0x02, 0x01
+};
 
 static void bf_textview_init(BfTextView * o);
 static void bf_textview_class_init(BfTextViewClass * c);
@@ -2032,7 +2035,7 @@ void bf_textview_fold_blocks_lines(BfTextView * self, gint start, gint end, gboo
 GtkWidget *bf_textview_new(void)
 {
 	BfTextView *o = GET_NEW;
-	GdkColor col;
+	GdkBitmap *bmp;
 
 	g_signal_connect(G_OBJECT(o), "expose-event", G_CALLBACK(bf_textview_expose_cb), NULL);
 
@@ -2049,7 +2052,6 @@ GtkWidget *bf_textview_new(void)
 						   NULL);
 
 	g_signal_connect(G_OBJECT(o), "button-press-event", G_CALLBACK(bf_textview_mouse_cb), NULL);
-	gdk_color_parse("#F7F3D2", &col);
 	o->folded_tag =
 		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
 								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_folded_");
@@ -2061,23 +2063,26 @@ GtkWidget *bf_textview_new(void)
 		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
 								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_fold_header_");
 	if (!o->fold_header_tag)
+	{
+		bmp = gdk_bitmap_create_from_data (NULL,folded_xbm, 2,2);
 		o->fold_header_tag =
 			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_fold_header_",
-									   "editable", FALSE, "background-gdk", &col, NULL);
+									   "editable", FALSE, "background", "#F7F3D2", "foreground-stipple",bmp,NULL);
+		g_object_unref(bmp);									   
+	}								   
 	o->block_tag =
 		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
 								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_block_");
 	if (!o->block_tag)
 		o->block_tag =
 			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_block_", NULL);
-/*  gtk_text_tag_set_priority(o->block_tag,0);			  				  */
 	o->block_match_tag =
 		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
 								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_block_match_");
 	if (!o->block_match_tag)
 		o->block_match_tag =
 			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_block_match_",
-									   "background-gdk", &col, NULL);
+									   "background", "#F7F3D2", NULL);
 
 	bf_textview_recolor(o,"#000000","#FFFFFF");
 	return (GtkWidget *) o;
@@ -2095,7 +2100,7 @@ GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer)
 {
 	BfTextView *o = GET_NEW;
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(o), buffer);
-	GdkColor col;
+	GdkBitmap *bmp;
 
 	g_signal_connect(G_OBJECT(o), "expose-event", G_CALLBACK(bf_textview_expose_cb), NULL);
 	o->insert_signal_id = 	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "insert-text",
@@ -2119,28 +2124,30 @@ GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer)
 		o->folded_tag =
 			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_folded_",
 									   "editable", FALSE, "invisible", TRUE, NULL);
-	gdk_color_parse("#F7F3D2", &col);
 	o->fold_header_tag =
 		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
 								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_fold_header_");
 	if (!o->fold_header_tag)
+	{
+		bmp = gdk_bitmap_create_from_data (NULL,folded_xbm, 2,2);
 		o->fold_header_tag =
 			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_fold_header_",
-									   "editable", FALSE, "background-gdk", &col, NULL);
+									   "editable", FALSE, "background", "#F7F3D2","foreground-stipple",bmp,NULL);
+		g_object_unref(bmp);									   
+	}									   
 	o->block_tag =
 		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
 								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_block_");
 	if (!o->block_tag)
 		o->block_tag =
 			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_block_", NULL);
-/*  gtk_text_tag_set_priority(o->block_tag,0);			  */
 	o->block_match_tag =
 		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
 								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_block_match_");
 	if (!o->block_match_tag)
 		o->block_match_tag =
 			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_block_match_",
-									   "background-gdk", &col, NULL);
+									   "background", "#F7F3D2", NULL);
 
 	bf_textview_recolor(o,"#000000","#FFFFFF");
 	return (GtkWidget *) o;
@@ -2274,10 +2281,8 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT,
 													  0, w2, NULL, &w2);
 				if (b_type == &tid_block_start) {
-					/*gdk_gc_set_rgb_fg_color(gc, &cwhite);*/
-					gdk_draw_rectangle(GDK_DRAWABLE(left_win), widget->style->bg_gc[GTK_WIDGET_STATE(widget)],
+					gdk_draw_rectangle(GDK_DRAWABLE(left_win), widget->style->base_gc[GTK_WIDGET_STATE(widget)],
 					 TRUE, pt_blocks, w + 2, 10, 10);
-					/*gdk_gc_set_rgb_fg_color(gc, &cblack);*/
 					gdk_draw_rectangle(GDK_DRAWABLE(left_win), widget->style->fg_gc[GTK_WIDGET_STATE(widget)],
 					 FALSE, pt_blocks, w + 2, 10, 10);
 
@@ -2605,7 +2610,9 @@ static void bf_textview_move_cursor_cb(GtkTextView * widget, GtkMovementStep ste
 	}
 	gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
 	block = bftv_get_block_at_iter(&it);
+	if (block && g_object_get_data(G_OBJECT(block),"folded")==&tid_true) block = NULL;
 	if (block) {
+		
 		gtk_text_buffer_get_iter_at_mark(buf, &it, block);
 		gtk_text_buffer_get_iter_at_mark(buf, &it2,
 										 GTK_TEXT_MARK(g_object_get_data(G_OBJECT(block), "ref")));
@@ -3011,9 +3018,6 @@ gdk_color_dl (GdkColor *a,
 void bf_textview_recolor(BfTextView *view, gchar *fg_color, gchar *bg_color )
 {
 	gchar *str;
-	GtkRcStyle *rc = NULL;
-	GtkStyle *style;
-	gint i;
 	GdkColor c1,c2,c3,c4;
 	
 	g_stpcpy(view->fg_color,fg_color);
