@@ -1249,9 +1249,16 @@ static void realize_combo_set_tooltip(GtkWidget *combo,gpointer   data)
 static void snr_update_count_label(TSNRWin * snrwin) {
 	gchar *text;
 	if (snrwin->dialogType == BF_REPLACE_DIALOG) {
-		text = g_strdup_printf(_("Found %d matches, replaced %d"),LASTSNR2(snrwin->bfwin->snr2)->matches,LASTSNR2(snrwin->bfwin->snr2)->replaces);
+		gchar *text1, *text2;
+		text1 = g_strdup_printf(ngettext("Found %d matches, ","Found %d matches, ", LASTSNR2(snrwin->bfwin->snr2)->matches), LASTSNR2(snrwin->bfwin->snr2)->matches);
+		text2 = g_strdup_printf(ngettext("replaced %d","replaced %d", LASTSNR2(snrwin->bfwin->snr2)->replaces), LASTSNR2(snrwin->bfwin->snr2)->replaces);
+		text = g_strconcat(text1,text2, NULL);
+		g_free(text1);
+		g_free(text2);
 	} else {
-		text = g_strdup_printf(_("Found %d matches"),LASTSNR2(snrwin->bfwin->snr2)->matches);
+		text = g_strdup_printf(ngettext("Found %d matches","Found %d matches",
+					LASTSNR2(snrwin->bfwin->snr2)->matches),
+					LASTSNR2(snrwin->bfwin->snr2)->matches);
 	}
 	gtk_label_set_markup(GTK_LABEL(snrwin->countlabel), text);
 	g_free(text);
