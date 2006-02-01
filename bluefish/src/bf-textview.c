@@ -3019,6 +3019,7 @@ void bf_textview_recolor(BfTextView *view, gchar *fg_color, gchar *bg_color )
 {
 	gchar *str;
 	GdkColor c1,c2,c3,c4;
+	GtkRcStyle *style;
 	
 	g_stpcpy(view->fg_color,fg_color);
 	g_stpcpy(view->bkg_color,bg_color);
@@ -3033,6 +3034,8 @@ void bf_textview_recolor(BfTextView *view, gchar *fg_color, gchar *bg_color )
 				  gdk_color_to_hexstring(&c4,FALSE),gdk_color_to_hexstring(&c4,FALSE));
 	gtk_rc_parse_string(str);			
 	g_free(str);
+	style = gtk_widget_get_modifier_style(GTK_WIDGET(view));
+	gtk_widget_modify_style(GTK_WIDGET(view),style);
 }
 
 
