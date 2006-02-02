@@ -1,6 +1,6 @@
 # Bluefish HTML Editor
 # Makefile.in - the Makefile template
-# Copyright (C) 2002-2005 Olivier Sessink
+# Copyright (C) 2002-2006 Olivier Sessink
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -108,6 +108,7 @@ $(OBJS): bluefish.h
 
 clean:
 	rm -f $(OBJS) bluefish
+	rm -f *.lo
 	@cd plugin_htmlbar/ && $(MAKE) clean
 	@cd plugin_about/ && $(MAKE) clean
 	@cd plugin_entities/ && $(MAKE) clean
