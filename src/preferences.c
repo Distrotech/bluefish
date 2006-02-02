@@ -138,6 +138,8 @@ enum {
    scan_mode,
 	editor_fg,
 	editor_bg,
+	view_rmargin,
+	rmargin_at,
 #endif	
 	property_num_max
 };
@@ -2475,6 +2477,8 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.scan_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[scan_mode]));
 	string_apply(&main_v->props.editor_fg, pd->prefs[editor_fg]);
 	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);	
+	integer_apply(&main_v->props.view_rmargin, pd->prefs[view_rmargin], TRUE);
+	integer_apply(&main_v->props.rmargin_at, pd->prefs[rmargin_at], FALSE);
 #endif
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
@@ -3120,6 +3124,8 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[view_mbhl] = boxed_checkbut_with_value(_("Match block begin-end by default"), main_v->props.view_mbhl, vbox2);
 	pd->prefs[view_cline] = boxed_checkbut_with_value(_("Highlight current line by default"), main_v->props.view_cline, vbox2);
+	pd->prefs[view_rmargin] = boxed_checkbut_with_value(_("Show right margin by default"), main_v->props.view_rmargin, vbox2);
+	pd->prefs[rmargin_at] = prefs_integer(_("Right margin at"), main_v->props.rmargin_at, vbox2, pd,0, 500);
 	{
 		gchar *modes[] = {N_("whole document"), N_("visible area"),  NULL};
 		pd->prefs[scan_mode] = boxed_optionmenu_with_value(_("Scan mode"), main_v->props.scan_mode, vbox2, modes);

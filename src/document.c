@@ -2964,8 +2964,9 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),newdoc->hl->cfg);
 		BF_TEXTVIEW(newdoc->view)->tag_autoclose = newdoc->autoclosingtag;
 	}
-	bf_textview_set_bg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_bg); 
-	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg); 
+	bf_textview_recolor(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg,main_v->props.editor_bg);
+	bf_textview_show_rmargin(BF_TEXTVIEW(newdoc->view),main_v->props.view_rmargin,main_v->props.rmargin_at); 
+/*	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg);*/ 
 	bf_textview_add_symbol(BF_TEXTVIEW(newdoc->view),"bookmark",gdk_pixbuf_new_from_inline(-1,pixmap_bookmarks,FALSE,NULL));	
 #else	
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
