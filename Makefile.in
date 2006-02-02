@@ -1,6 +1,6 @@
 # Bluefish HTML Editor
 # Makefile.in - the Makefile template
-# Copyright (C) 2002 Olivier Sessink
+# Copyright (C) 2002-2006 Olivier Sessink
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -63,9 +63,6 @@ clean:
 	rm -f core *~
 	@cd src/ && $(MAKE) clean
 	@cd po/ && $(MAKE) clean
-	@cd src/plugin_htmlbar/po/ && $(MAKE) clean
-	@cd src/plugin_about/po/ && $(MAKE) clean
-	@cd src/plugin_entities/po/ && $(MAKE) clean
 	@cd data/ && $(MAKE) clean
 	@cd man/ && $(MAKE) clean
 
@@ -76,9 +73,6 @@ patchclean: clean
 distclean:
 	@cd src/ && $(MAKE) distclean
 	@cd po/ && $(MAKE) distclean
-	@cd src/plugin_htmlbar/po/ && $(MAKE) distclean
-	@cd src/plugin_about/po/ && $(MAKE) distclean
-	@cd src/plugin_entities/po/ && $(MAKE) distclean
 	@cd data/ && $(MAKE) distclean
 	@cd man/ && $(MAKE) distclean
 	rm -f Makefile src/Makefile icons/Makefile config.status config.cache config.log libtool 
