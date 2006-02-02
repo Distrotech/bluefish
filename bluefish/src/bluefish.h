@@ -276,12 +276,14 @@ typedef struct {
 #ifdef USE_SCANNER
 	gint view_blocks; /* show blocks on the left side by default */
 	gint view_symbols; /* show symbols on the left side by default */	
-	gint view_mbhl; /* show matching block begin-end */	
-	gint view_cline; /* highlight current line */
+	gint view_mbhl; /* show matching block begin-end by default */	
+	gint view_cline; /* highlight current line by default */
 	gint scan_mode; /* number of lines to autoscan */
 	gchar *editor_fg; /* editor foreground color */
 	gchar *editor_bg; /* editor background color */
 	GList *syntax_styles; /* textstyles (see below) for each detected bit of syntax */
+	gint view_rmargin; /* show right margin by default */
+	gint rmargin_at; /* position of a right margin */
 #endif	
 	GList *textstyles; /* tet styles: name,foreground,background,weight,style */
 } Tproperties;

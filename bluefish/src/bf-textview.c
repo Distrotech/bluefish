@@ -186,7 +186,6 @@ static void bf_textview_init(BfTextView * o)
 	o->symbols = g_hash_table_new(g_str_hash, g_str_equal);
 	o->symbol_lines = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
 	o->lang = NULL;
-	/* g_queue_is_empty(&(o->scanner.block_stack)); */
 	g_stpcpy(o->bkg_color,"#FFFFFF");
 	g_stpcpy(o->fg_color,"#000000");
 	o->fold_menu = gtk_menu_new();
@@ -210,6 +209,8 @@ static void bf_textview_init(BfTextView * o)
 	o->fbal_cache = g_hash_table_new(g_int_hash,g_int_equal);
 	o->lbal_cache = g_hash_table_new(g_int_hash,g_int_equal);
 	o->last_matched_block = NULL;
+	o->show_rmargin = FALSE;
+	o->rmargin_at = 0;
 }
 
 
@@ -2168,10 +2169,10 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 	gint l_top1, numlines, w, l_top2, i, w2;
 	PangoLayout *l;
 	gchar *pomstr = NULL;
-	gint pt_lines, pt_sym, pt_blocks;
+	gint pt_lines, pt_sym, pt_blocks, currline=0;
 	GdkGC *gc=NULL;
 	gpointer aux;
-	/* GdkColor cwhite, cblack;*/
+
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
 
 	DEBUG_MSG("bf_textview_expose_cb, started\n");
@@ -2182,19 +2183,35 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 
 	left_win = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT);
 	
-	if (left_win != event->window) {	/* current line highlighting - thanks gtksourceview team :) */
-		if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT)
-			&& BF_TEXTVIEW(widget)->show_current_line) {
-			gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
-			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
-			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, &w2);
-			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
-												  rect.x, rect.y, &l_top1, &l_top2);
-			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, 0, w,
+	if (left_win != event->window) {	
+	    
+		if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT) )
+		{
+			if ( BF_TEXTVIEW(widget)->show_current_line ) 
+			{
+				/* current line highlighting - thanks gtksourceview team :) */	
+				gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
+				gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+				gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, &w2);
+				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
+												  rect.x, rect.y, &rect.x, &rect.y);
+				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT, 0, w,
 												  NULL, &w);
-			gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)], TRUE,
+				gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)], TRUE,
 							   rect.x, w, rect.width, w2);
-		}
+			}
+			if ( BF_TEXTVIEW(widget)->show_rmargin ) 
+			{
+				l = gtk_widget_create_pango_layout(widget, "x");
+				pango_layout_get_pixel_size(l, &w, NULL);
+				gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
+												  rect.x, rect.y, NULL, &rect.y);									  
+				gdk_draw_line(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)], 
+							   w*BF_TEXTVIEW(widget)->rmargin_at,rect.y,w*BF_TEXTVIEW(widget)->rmargin_at,rect.y+rect.height);
+				g_object_unref(G_OBJECT(l));							   				
+			}			
+		}	
 		return FALSE;
 	}
 	
@@ -2203,8 +2220,6 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 		return FALSE;
 
 	
-	/*gdk_color_parse("#FFFFFF", &cwhite);
-	gdk_color_parse("#000000", &cblack);*/
 	gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
 	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &l_start, rect.y, &l_top1);
 	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &l_end, rect.y + rect.height, &l_top2);
@@ -2216,6 +2231,8 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 		g_free(pomstr);
 		pango_layout_get_pixel_size(l, &w, NULL);
 		BF_TEXTVIEW(widget)->lw_size_lines = w + 4;
+		gtk_text_buffer_get_iter_at_mark(buf,&it,gtk_text_buffer_get_insert(buf));
+		currline = gtk_text_iter_get_line(&it);
 	}
 	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT,
 										 BF_TEXTVIEW(widget)->lw_size_lines +
@@ -2243,7 +2260,12 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 		if (BF_TEXTVIEW(widget)->show_lines) {	/* show line numbers */
 			DEBUG_MSG("checking for folded tag %p\n", BF_TEXTVIEW(widget)->folded_tag);
 			if (!gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->folded_tag)) {
-				pomstr = g_strdup_printf("<span foreground=\"%s\">%d</span>",gdk_color_to_hexstring(&widget->style->text_aa[GTK_WIDGET_STATE(widget)],FALSE) ,i + 1);
+				if ( currline == i )
+					pomstr = g_strdup_printf("<span foreground=\"%s\"><b>%d</b></span>",
+					gdk_color_to_hexstring(&widget->style->text_aa[GTK_WIDGET_STATE(widget)],FALSE) ,i + 1);				
+				else
+					pomstr = g_strdup_printf("<span foreground=\"%s\">%d</span>",
+					gdk_color_to_hexstring(&widget->style->text_aa[GTK_WIDGET_STATE(widget)],FALSE) ,i + 1);
 				pango_layout_set_markup(l, pomstr, -1);
 				gtk_paint_layout(widget->style, left_win, GTK_WIDGET_STATE(widget), FALSE, NULL,
 								 widget, NULL, pt_lines, w, l);
@@ -2794,6 +2816,22 @@ void bf_textview_show_blocks(BfTextView * self, gboolean show)
 	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(self), GTK_TEXT_WINDOW_LEFT,
 										 self->lw_size_lines + self->lw_size_blocks +
 										 self->lw_size_sym);
+}
+
+
+/**
+*	bf_textview_show_rmargin:
+*	@self:  BfTextView widget 
+* @show: TRUE - right margin is shown, FALSE - hidden.
+* @column: number of column after which right margin is placed
+*	Switch right margin visibility on/off.
+*	
+*/
+void bf_textview_show_rmargin(BfTextView * self, gboolean show, gint column)
+{
+	self->show_rmargin = show;
+	if ( column > 0 )
+		self->rmargin_at = column;
 }
 
 

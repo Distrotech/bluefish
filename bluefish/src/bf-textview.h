@@ -208,12 +208,14 @@ typedef struct {
 	gboolean show_lines;
 	gboolean show_blocks;
 	gboolean show_symbols;
+	gboolean show_rmargin;
 	gboolean highlight;			/* TRUE if highlighting should be performed */
 	gboolean mark_tokens;		/* TRUE if tokens should be marked also */
 	gboolean match_blocks;		/* TRUE if matching block begin/end should be shown */
 	gboolean show_current_line;	/* TRUE if current line should be shown */
 	gboolean tag_autoclose;           /* TRUE if tags should be automatically closed */
 	gint hl_mode;				/* highlighting mode */
+	gint rmargin_at;
 	/*< private > */
 	gint lw_size_lines, lw_size_blocks, lw_size_sym;
 	GHashTable *symbols;
@@ -258,6 +260,7 @@ GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer);
 
 void bf_textview_show_lines(BfTextView * self, gboolean show);
 void bf_textview_show_symbols(BfTextView * self, gboolean show);
+void bf_textview_show_rmargin(BfTextView * self, gboolean show, gint column);
 gboolean bf_textview_add_symbol(BfTextView * self, gchar * name, GdkPixbuf * pix);
 void bf_textview_remove_symbol(BfTextView * self, gchar * name);
 void bf_textview_set_symbol(BfTextView * self, gchar * name, gint line, gboolean set);
