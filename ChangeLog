@@ -1,3 +1,186 @@
+2006-02-04  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* NEWS: NEWS update for 1.0.5 release
+
+2006-01-31  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* NEWS: Prepare NEWS for the upcoming release (adjust date when
+	  releasing).
+
+2006-01-31  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/highlighting.in: More work on
+	  http://bugzilla.gnome.org/show_bug.cgi?id=329182.
+
+2006-01-31  Michèle Garoche <michele.garoche@easyconnect.fr>
+
+	* README: Updated README
+
+2006-01-31  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/bluefish.xml: Small fix for the language parameter.
+
+2006-01-31  Michèle Garoche <michele.garoche@easyconnect.fr>
+
+	* data/: bluefish-project.desktop.in, bluefish.desktop.in,
+	  bluefish.keys, bluefish.xml: Added French strings
+
+2006-01-31  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* data/highlighting.in: PHP highlighting change to improve Bluefish
+	  bug #329182
+
+2006-01-31  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/ja.po: Japanese translation update.
+
+2006-01-31  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/highlighting.in: Easier pattern for gettext .po(t) files.
+
+2006-01-30  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/highlighting.in: Update, ease and fix gettext .po(t)
+	  pattern. Fixes include plural forms support.
+
+2006-01-30  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/: document.c, undo_redo.h: Fix for Bluefish bug #327432.
+
+2006-01-30  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/undo_redo.c: Fix for Bluefish bug #327432.
+
+2006-01-28  Michèle Garoche <michele.garoche@easyconnect.fr>
+
+	* data/custom_menu.fr.in: Update custom menu
+
+2006-01-28  Michèle Garoche <michele.garoche@easyconnect.fr>
+
+	* po/fr.po: Small improvement
+
+2006-01-28  Michèle Garoche <michele.garoche@easyconnect.fr>
+
+	* po/fr.po: Removing string no more in po file, document/hightligt
+	  color
+
+2006-01-28  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/document.c: Add smart cursor positioning at end of line.
+
+2006-01-28  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/highlighting.in: Fix a minor inconsisteny in changelog
+	  highlighting pattern (the colon was shown in different colors).
+
+2006-01-28  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/: filetypes.in, highlighting.in: Add highlighting pattern
+	  for GNU ChangeLog files.
+
+2006-01-25  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/highlighting.in: Dumb. I forgot to remove the old pattern.
+
+2006-01-25  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/highlighting.in: Fix a newly introduced bug in CSS pattern.
+
+2006-01-25  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/highlighting.in: Fixed two issues in CSS highlighting. 1) An
+	  Issue reported by Frédéric Falsetti, where braces inside strings
+	  were matched by the Braces rule. 2) An empty string was not
+	  detected as string.
+
+2006-01-25  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/gui.c: Add drag & drop support for opening Bluefish project
+	  files.
+
+2006-01-24  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/document.c: Fixed bluefish bug
+	  http://bugzilla.gnome.org/show_bug.cgi?id=324517.
+
+2006-01-23  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/zh_CN.po: Chinese translation update.
+
+2006-01-23  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/snr2.c: Fix a silly bug introduced with the last changes.
+
+2006-01-23  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/snr2.c: Set the replace prompt dialog to GTK_WIN_POS_CENTER.
+	  Fixes Bluefish bug# 323183
+
+2006-01-23  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/msg_queue.c: Fix Bluefish bug# 317878.
+
+2006-01-22  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/snr2.c: Fix Bluefish bug# 327099
+
+2006-01-21  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/pl.po: Polish translation update.
+
+2006-01-21  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* src/document.c: Disable smart cursor positioning when the CTRL
+	  key is pressed.
+
+2006-01-20  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* configure.ac, src/config.h.in, src/document.c: Add a check for
+	  Solaris operating system.
+
+2006-01-20  Michèle Garoche <michele.garoche@easyconnect.fr>
+
+	* po/fr.po: Some corrections on translation
+
+2006-01-20  Michèle Garoche <michele.garoche@easyconnect.fr>
+
+	* po/fr.po: Updated fr.po for bluefish 1.0.5
+
+2006-01-20  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* po/de.po: German translation update.
+
+2006-01-20  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* po/de.po: German translation update.
+
+2006-01-20  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* po/sk.po: Slovak translation update.
+
+2006-01-18  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/highlighting.in: Fix bluefish bug
+	  http://bugzilla.gnome.org/show_bug.cgi?id=326887.
+
+2006-01-18  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/bluefish.c: Still
+	  http://bugzilla.gnome.org/show_bug.cgi?id=324647. Sync with
+	  development version and use the cleaner code.
+
+2006-01-18  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/: bluefish.c, bluefish.h, preferences.c, rcfile.c: Make the
+	  splash screen a runtime option. Closes Bluefish bug
+	  http://bugzilla.gnome.org/show_bug.cgi?id=324647. Further allow
+	  to change your decision on showing the empty quickbar tip in
+	  prefernces dialog.
+
+2006-01-18  Jim Hayward <jimhayward@linuxexperience.net>
+
+	* ChangeLog: ChangeLog update.
+	
 2006-01-18  Jim Hayward <jimhayward@linuxexperience.net>
 
 	* po/es.po: Spanish translation update.
