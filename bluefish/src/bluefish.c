@@ -2,7 +2,7 @@
  * bluefish.c - the main function
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2004 Olivier Sessink
+ * Copyright (C) 1999-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,9 @@
 /* #define DEBUG */
 
 #include <gtk/gtk.h>
-#include <unistd.h> /* getopt() */
-#include <stdlib.h> /* getopt() exit() and abort() on Solaris */
-#include <time.h> /* nanosleep */
+#include <stdlib.h>    /* getopt() exit() and abort() on Solaris */
+#include <time.h>      /* nanosleep */
+#include <unistd.h>    /* getopt() */
 
 #include "bluefish.h"
 
@@ -39,19 +39,20 @@
 #include <locale.h>
 #endif
 
-#include "document.h" /*  */
-#include "gui.h" /* gui_create_main() */
-#include "fref.h" /* fref_init() */
-#include "bookmark.h"  /* bmark_init() */
-#include "rcfile.h" /* rcfile_parse_main() */
-#include "bf_lib.h" /* create_full_path() */
-#include "highlight.h" /* hl_init() */
-#include "msg_queue.h" /* msg_queue_start()*/
-#include "stringlist.h" /* put_stringlist(), get_stringlist() */
-#include "gtk_easy.h" /* flush_queue() */
-#include "filebrowser.h" /* filters_rebuild() */
+#include "authen.h"        /* set_authen_callbacks() */
+#include "bf_lib.h"        /* create_full_path() */
+#include "bookmark.h"      /* bmark_init() */
+#include "document.h"
+#include "filebrowser.h"   /* filters_rebuild() */
+#include "fref.h"          /* fref_init() */
+#include "gtk_easy.h"      /* flush_queue() */
+#include "gui.h"           /* gui_create_main() */
+#include "highlight.h"     /* hl_init() */
+#include "msg_queue.h"     /* msg_queue_start()*/
+#include "pixmap.h"        /* default_icon_list() */
 #include "project.h"
-#include "authen.h" /* set_authen_callbacks() */
+#include "rcfile.h"        /* rcfile_parse_main() */
+#include "stringlist.h"    /* put_stringlist(), get_stringlist() */
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -219,6 +220,7 @@ int main(int argc, char *argv[])
 	firstbfwin->bookmarkstore = main_v->bookmarkstore;
 	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
 	gui_create_main(firstbfwin,filenames);
+	gtk_window_set_default_icon_list (default_icon_list());
 	bmark_reload(firstbfwin);
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("showing main gui..."));
