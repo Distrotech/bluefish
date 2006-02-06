@@ -38,7 +38,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <para>Menu options are displayed like this: <guimenu>File</guimenu>. However, many of Bluefish's menus are quite complex. When referring to submenus, options are separated by an arrow, like: <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open</guimenuitem></menuchoice>. The default keyboard shortcut is shown in parenthesis.</para>
 </listitem>
 <listitem>
-<para>When referring to user input, like issuing commands to the command prompt, a monotype font is used: <screen>$ foo -bar | bang -l</screen></para>
+<para>When referring to user input, like issuing commands to the command prompt, a monotype font is used: <screen><prompt>$</prompt> foo -bar | bang -l</screen></para>
 <note>
 <para>Do not write the <literal>$</literal> character - it simply identifies the command prompt. For commands requiring root access, the prompt is shown as a <literal>#</literal>.</para>
 </note>
