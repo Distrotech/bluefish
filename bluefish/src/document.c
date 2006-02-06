@@ -532,7 +532,7 @@ void doc_set_title(Tdocument *doc) {
 	doc_set_tooltip(doc);
 	g_free(label_string);
 	g_free(tabmenu_string);
-	if (doc->bfwin == BFWIN(doc->bfwin)->current_document) {
+	if (doc == BFWIN(doc->bfwin)->current_document) {
 		gui_set_title(doc->bfwin, doc);
 	}
 }
