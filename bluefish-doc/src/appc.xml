@@ -32,7 +32,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <para>the Bluefish manual source files via CVS</para>
 </listitem>
 <listitem>
-<para>DocBook 4.4.0</para>
+<para>DocBook 4.4</para>
 </listitem>
 <listitem>
 <para>DocBook XSL style sheets 1.69.1</para>
@@ -80,7 +80,7 @@ co bluefish-doc</screen></para>
 <para>If you wish to build PDF or PostScript versions of the manual, you will need the Formatting Objects Processor (FOP) package from Apache. If it is not already installed on your system, get the latest binary distribution from the <ulink url="http://xml.apache.org/fop/download.html">FOP download</ulink> page on the Apache web site.</para>
 </step>
 <step>
-<para>Unpack it into the <filename>bluefish-doc</filename> directory:
+<para>Unpack it into the <filename class="directory">bluefish-doc</filename> directory:
 <screen>$ tar zxvf fop-0.20.5-bin.tar.gz -C ~/bluefish-doc</screen></para>
 <para>The files will be unpacked to a directory called <literal>fop-0.20.5</literal>.</para>
 </step>
@@ -90,10 +90,10 @@ co bluefish-doc</screen></para>
 <?linebreaka4?>
 </step>
 <step>
-<para>FOP does not yet support embedding PNG images in pdf files. To get PNG support, we need Java Advanced Imageing (JAI) from <ulink url="http://java.sun.com/products/java-media/jai/downloads/download-1_1_2.html">http://java.sun.com/products/java-media/jai/downloads/download-1_1_2.html</ulink>.</para>
-<para>For Linux, download the CLASSPATH version, jai-1_1_2-lib-linux-i586.tar.gz. Unpack and copy the files jai_core.jar and jai_codec.jar files to ~/bluefish-doc/fop/lib.</para>
+<para>FOP does not yet support embedding PNG images in pdf files. To get PNG support, we need Java Advanced Imageing (JAI) from <ulink url="http://java.sun.com/products/java-media/jai/downloads/download-1_1_2.html">http://java.sun.com/products/java-media/jai/downloads/download-1_1_2.html</ulink> or the <ulink url="http://java.sun.com/products/jimi/">JIMI Software Development Kit</ulink> (especially for Debian and Ubuntu users, read /usr/share/doc/fop/README.Debian).</para>
+<para>For Linux, download the CLASSPATH version, <filename>jai-1_1_2-lib-linux-i586.tar.gz</filename>. Unpack and copy the files <filename class="libraryfile">jai_core.jar</filename> and <filename class="libraryfile">jai_codec.jar</filename> files to <filename class="directory">~/bluefish-doc/fop/lib</filename>. Debian and Ubuntu users running <application>fop</application> with JIMI-support download <filename>jimi1_0.(zip|tar.Z)</filename> and place <filename class="libraryfile">jimi-1.0.jar</filename> into <filename class="directory">/usr/share/java</filename>.</para>
 <note>
-<para>JAI support is available for FOP Release 0.20.5 and later.</para>
+<para>JAI and JIMI support are available for FOP release 0.20.5 and later.</para>
 </note>
 </step>
 </procedure>
