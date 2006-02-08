@@ -93,7 +93,7 @@ homepage is <ulink url="http://sourceforge.net/projects/bluefish">http://sourcef
 </step>
 <step>
 <para>Next, log in using the command:
-<screen>$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
+<screen><prompt>$</prompt> cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
 login</screen>
 <note>
 <para>Hit <action>Enter</action> at the password prompt.</para>
@@ -101,7 +101,7 @@ login</screen>
 </step>
 <step>
 <para>The next step is to <emphasis>check out</emphasis> the CVS module containing the source code files:
-<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
+<screen><prompt>$</prompt> cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
 co bluefish-gtk2</screen>
 A lot of files will be downloaded, and listed one by one. If you're on dial-up, this might take a bit of time. When the downloads have completed, you will find the bluefish sources in the subdirectory <literal>bluefish-gtk2</literal>.</para>
 </step>

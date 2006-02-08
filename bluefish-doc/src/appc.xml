@@ -49,14 +49,14 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <procedure id="getting-manual">
 <title>Getting the Bluefish manual source files</title>
 <step><para>First, think about where in the filesystem you would like to build the manual. Let us assume you choose your home directory. So, from your home directory, login to Bluefish's CVS repository by issuing the command:: 
-<screen>$ cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \ 
+<screen><prompt>$</prompt> cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \ 
 login</screen></para>
 </step>
 <step><para>Hit enter at the prompt when asked for your password.</para>
 </step>
 <step>
 <para>Checkout the directory containing the Bluefish documentation: 
-<screen>$ cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
+<screen><prompt>$</prompt> cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
 co bluefish-doc</screen></para>
 <para>This will download the bluefish-doc CVS module, containing the Bluefish manual source files, to your system in a newly created directory <filename>bluefish-doc</filename>.</para>
 </step>
@@ -81,12 +81,12 @@ co bluefish-doc</screen></para>
 </step>
 <step>
 <para>Unpack it into the <filename class="directory">bluefish-doc</filename> directory:
-<screen>$ tar zxvf fop-0.20.5-bin.tar.gz -C ~/bluefish-doc</screen></para>
+<screen><prompt>$</prompt> tar zxvf fop-0.20.5-bin.tar.gz -C ~/bluefish-doc</screen></para>
 <para>The files will be unpacked to a directory called <literal>fop-0.20.5</literal>.</para>
 </step>
 <step>
 <para>Rename <literal>fop-0.20.5</literal> to <literal>fop</literal>:
-<screen>$ mv  ~/bluefish-doc/fop-0.20.5  ~/bluefish-doc/fop</screen></para>
+<screen><prompt>$</prompt> mv  ~/bluefish-doc/fop-0.20.5  ~/bluefish-doc/fop</screen></para>
 <?linebreaka4?>
 </step>
 <step>
@@ -175,7 +175,7 @@ co bluefish-doc</screen></para>
 <title>Conventions for Writing this Manual</title>
 <para>We recommend writing the manual with bluefish. It has most of the tags used in the manual in the <guilabel>DocBook</guilabel> custom menu. By unchecking the <guilabel>Use spaces to indent, not tabs</guilabel> and checking <guilabel>Word wrap default</guilabel> in the Preferences <guilabel>Editor</guilabel> panel, you will ensure that no unnecessary white space will be produced when processing the files.</para>
 <para>The DocBook rules are strict and must be maintained in order for the manual to build using <literal>xsltproc</literal>. Thus, you should always validate the whole book before sending or committing any change. To do it, just issue:</para>
-<screen>$ make validate-all</screen>
+<screen><prompt>$</prompt> make validate-all</screen>
 <para>in the <filename>bluefish-doc/src</filename> directory.</para>
 <para>However, there are some rules we like to follow to make editing the manual more efficient and organized.</para>
 <?linebreaka4?>
@@ -311,7 +311,7 @@ co bluefish-doc</screen></para>
 <para>To emphasize file or directory names, we use:
 <programlisting><![CDATA[<filename>make</filename>]]></programlisting></para>
 <para>For user's instructions, use either:
-<programlisting><![CDATA[<screen>$ make install</screen>]]></programlisting>
+<programlisting><![CDATA[<screen><prompt>$</prompt> make install</screen>]]></programlisting>
 or:
 <programlisting><![CDATA[Run the command <userinput>make</userinput>]]></programlisting>
 Be aware that the former is shown alone on its proper line, while the latter is embedded within the line flow. If you use the <literal>screen</literal> tag, you should prepend either a <literal>$</literal> or a <literal>#</literal> followed by a space before the instruction, depending on how the command should be run, as non root for the former, as root for the latter. Moreover, with the <literal>screen</literal> command, we should check that the line is not too long, split it if needed, and add a backslash to indicate the splitting.</para>

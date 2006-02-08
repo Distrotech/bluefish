@@ -264,6 +264,13 @@ procedure before
   </fo:wrapper>
 </xsl:template>
 
+<!-- Bold face for prompt -->
+<xsl:template match="screen/prompt/"> 
+<fo:wrapper font-weight="bold">
+    <xsl:apply-imports/>
+  </fo:wrapper>
+</xsl:template> 
+
 <!--Term color -->
 <xsl:template match="variablelist/varlistentry/term/">
 <fo:wrapper color="#5e3880">

@@ -26,7 +26,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <para>Indenting can be done with the <command>indent</command> command line tool. Bluefish uses tabs - not spaces, and I'll explain why.</para>
 <para>Some programmers prefer a lot of indenting, 8 characters, some prefer less, 3 characters. If Bluefish code was indented with spaces, these programmers had a problem, they would have to change the files to view it in their favourite layout. But because we use tabs, these programmers can simply set the tab width to a different value, and without changing the files it looks good for both programmers!</para>
 <para>To indent properly with <command>indent</command>, issue this command:</para>
-<screen>$ indent --line-length 100 --k-and-r-style --tab-size 4 \
+<screen><prompt>$</prompt> indent --line-length 100 --k-and-r-style --tab-size 4 \
 -bbo --ignore-newlines bluefishcode.c</screen>
 <para>Comment all public functions like it is done in <filename>bf_lib.c</filename> and <filename>gtk_easy.c</filename> (javadoc style, with some small differences), this can be used to create a function reference.</para>
 </sect1>
