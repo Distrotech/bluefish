@@ -211,6 +211,7 @@ static void bf_textview_init(BfTextView * o)
 	o->last_matched_block = NULL;
 	o->show_rmargin = FALSE;
 	o->rmargin_at = 0;
+	o->tag_ac_state = FALSE;
 }
 
 
@@ -626,8 +627,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						gchar **arr2 = g_strsplit(arr[0]," ",-1);						
 
 						if (self->scanner.current_context && !self->scanner.current_context->markup)
-							break;
-	
+							break;						
 						/* mark end of tag */
 						if (!g_queue_is_empty(&(self->scanner.block_stack2)))	
 						{
@@ -753,20 +753,18 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						bf = g_queue_pop_head(&(self->scanner.tag_stack));
 						if (bf) {
 							self->scanner.current_context = NULL;
-							gchar *txt = gtk_text_buffer_get_text(buf, &bf->b_start, &ita, FALSE);
-							gchar *pc = txt+1;
-							gchar **arr = g_strsplit(pc,">",-1);
-							gchar **arr2 = g_strsplit(arr[0]," ",-1);						
+							gboolean just_ended = FALSE; 				
 							TBfBlock *bf_2 = g_new0(TBfBlock, 1); /* BUG: valgrind indicates this is never freed... memory leak? */
 							                                      /* I'm still seeing a leak here. */
                                                           /* O. - freed when recognizing end of tag  OR at the end of scanning - I'm cleaning stacks */
-							bf_2->tagname = g_strdup(arr2[0]); /* BUG: valgrind indicates this is never freed... memory leak? */
+							bf_2->tagname = g_strdup(bf->tagname); /* BUG: valgrind indicates this is never freed... memory leak? -  freed later */
 							bf_2->b_start = bf->b_start;
 							bf_2->b_end = ita;
 							g_queue_push_head(&(self->scanner.block_stack2), bf_2);
-						   g_strfreev(arr);
-						   g_strfreev(arr2);
-						   g_free(txt);
+							pit = ita;
+							while (gtk_text_iter_get_char(&pit)!='>') gtk_text_iter_backward_char(&pit);
+							gtk_text_iter_backward_char(&pit);
+							if (gtk_text_iter_get_char(&pit) == '/') just_ended = TRUE;
 							
 							if (self->highlight ) {
 								/* get tag from Tfiletype struct */
@@ -775,13 +773,16 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 									gtk_text_buffer_apply_tag(buf, tag, &bf->b_start, &ita);
 							}
 							/* TAG autoclose */
-							if ( self->tag_autoclose && !self->delete_rescan && !self->paste_operation)
+							if ( self->tag_autoclose && !self->delete_rescan && 
+								  !self->paste_operation && self->tag_ac_state &&
+								  !just_ended)
 							{
 								GtkTextIter it9;
 								gtk_text_buffer_get_iter_at_mark(buf,&it9,gtk_text_buffer_get_insert(buf));
 								if ( gtk_text_iter_equal(&it9,&ita) )
 								{
-                                   gchar *pp = g_strjoin("","</",bf_2->tagname,">",NULL);
+                           gchar *pp = g_strjoin("","</",bf_2->tagname,">",NULL);
+                           self->tag_ac_state = FALSE;
 								   gtk_text_buffer_insert(buf,&ita,pp,g_utf8_strlen(pp,-1));
 								   gtk_text_buffer_get_iter_at_mark (buf, &it9, gtk_text_buffer_get_insert(buf));
 								   gtk_text_iter_backward_chars (&it9, strlen(pp));
@@ -789,7 +790,8 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 								   g_free(pp);
 								   return; /* I have to return from scan, because it has been performed after latest insert */
 								}
-							}							
+							}					
+							if (bf->tagname) g_free(bf->tagname);		
 							g_free(bf);
 						}
 						currtable = self->lang->scan_table;	/* TABLE RETURN !!! */
@@ -823,6 +825,10 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							bf->def = tmp;
 							bf->b_start = its;
 							bf->b_end = ita;
+							pit = its;
+							gtk_text_iter_forward_char(&pit);
+							bf->tagname = gtk_text_buffer_get_text(buf, &pit, &ita, FALSE);
+							bf->tagname = g_strstrip(bf->tagname);
 							g_queue_push_head(&(self->scanner.tag_stack), bf);
 							self->scanner.current_context = tmp;
 							currtable = self->lang->tag_scan_table;	/* TABLE CHANGE !!! */
@@ -967,11 +973,13 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 while (!g_queue_is_empty(&self->scanner.block_stack))
 {
 	bf = (TBfBlock*)g_queue_pop_head(&self->scanner.block_stack);
+	if (bf->tagname) g_free(bf->tagname);
 	g_free(bf);
 }
 while (!g_queue_is_empty(&self->scanner.block_stack2))
 {
 	bf = (TBfBlock*)g_queue_pop_head(&self->scanner.block_stack2);
+	if (bf->tagname) g_free(bf->tagname);
 	g_free(bf);
 }
 
@@ -2362,6 +2370,12 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 	
 		if (!trigger)
 			return;
+
+		if (stringlen == 1 && *string == '>')
+			view->tag_ac_state = TRUE;
+		else
+			view->tag_ac_state = FALSE;
+					
 		if (view->hl_mode == BFTV_HL_MODE_ALL || view->need_rescan) {
 			bf_textview_scan(view);
 		} else {
@@ -2370,7 +2384,7 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 	} else {
 		DEBUG_MSG("bf_textview_insert_text_cb, postpone the scanning, setting need_rescan\n");
 		view->need_rescan = TRUE;
-	}
+	}	
 }
 
 /* this function does the actual folding based on a GtkTextMark 

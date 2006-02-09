@@ -236,6 +236,7 @@ typedef struct {
 	gboolean delete_rescan; /* indicates if rescan is done from delete operation */
 	GtkTextMark *last_matched_block; /* last matched block */
 	gboolean paste_operation; /* indicates if we perform paste */
+	gboolean tag_ac_state; /* TRUE if we should perform tag autoclosing - i.e. after inserting '>' sign only */
 } BfTextView;
 
 /*
