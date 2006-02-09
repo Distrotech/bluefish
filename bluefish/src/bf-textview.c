@@ -2267,16 +2267,15 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 
 		if (BF_TEXTVIEW(widget)->show_lines) {	/* show line numbers */
 			DEBUG_MSG("checking for folded tag %p\n", BF_TEXTVIEW(widget)->folded_tag);
-			if (!gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->folded_tag)) {
+			if (!gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->folded_tag)) {		
 				if ( currline == i )
-					pomstr = g_strdup_printf("<span foreground=\"%s\"><b>%d</b></span>",
-					gdk_color_to_hexstring(&widget->style->text_aa[GTK_WIDGET_STATE(widget)],FALSE) ,i + 1);				
+					pomstr = g_strdup_printf("<b>%d</b>",i);		
 				else
-					pomstr = g_strdup_printf("<span foreground=\"%s\">%d</span>",
-					gdk_color_to_hexstring(&widget->style->text_aa[GTK_WIDGET_STATE(widget)],FALSE) ,i + 1);
+					pomstr = g_strdup_printf("%d",i);
 				pango_layout_set_markup(l, pomstr, -1);
-				gtk_paint_layout(widget->style, left_win, GTK_WIDGET_STATE(widget), FALSE, NULL,
-								 widget, NULL, pt_lines, w, l);
+				gdk_draw_layout(GDK_DRAWABLE(left_win),
+													widget->style->text_aa_gc[GTK_WIDGET_STATE(widget)],
+													pt_lines,w,l);
 				g_free(pomstr);
 			}
 		}
@@ -2286,7 +2285,6 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 				pomstr = g_strdup_printf("%d", i + 1);
 				aux = g_hash_table_lookup(BF_TEXTVIEW(widget)->symbol_lines, pomstr);
 				if (aux) {
-					/* BUG: we should only do this once, and cache the gdkpixbug structure - FIXED */
 					gdk_pixbuf_render_to_drawable(((BfTextViewSymbol *) aux)->pixmap, GDK_DRAWABLE(left_win), gc, 0, 0, pt_sym,
 												  w + 2, 10, 10, GDK_RGB_DITHER_NORMAL, 0, 0);
 				}
