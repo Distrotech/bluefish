@@ -162,6 +162,7 @@ int main(int argc, char *argv[])
 #endif /* HAVE_ATLEAST_GNOMEVFS_2_6 */
 #endif /* HAVE_ATLEAST_GNOME_2_6 */
 #endif /* HAVE_GNOME_VFS */
+    gtk_window_set_default_icon_list (default_icon_list());
 	main_v = g_new0(Tmain, 1);
 	main_v->session = g_new0(Tsessionvars,1);
 	main_v->session->view_html_toolbar = main_v->session->view_main_toolbar = main_v->session->view_custom_menu = main_v->session->view_left_panel = 1;
@@ -220,7 +221,6 @@ int main(int argc, char *argv[])
 	firstbfwin->bookmarkstore = main_v->bookmarkstore;
 	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
 	gui_create_main(firstbfwin,filenames);
-	gtk_window_set_default_icon_list (default_icon_list());
 	bmark_reload(firstbfwin);
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("showing main gui..."));
