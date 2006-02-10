@@ -167,6 +167,7 @@ int main(int argc, char *argv[])
 	authen_init();
 #endif /* HAVE_ATLEAST_GNOMEVFS_2_6 */
 #endif /* HAVE_ATLEAST_GNOME_2_6 */
+    set_default_icon();
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
 	g_print("gnome_vfs_async_get_job_limit: %d\n",gnome_vfs_async_get_job_limit());
@@ -238,7 +239,6 @@ int main(int argc, char *argv[])
 	firstbfwin->bmarkdata = main_v->bmarkdata;
 	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
 	gui_create_main(firstbfwin,filenames);
-	set_default_icon();
 	bmark_reload(firstbfwin);
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("showing main gui..."));
