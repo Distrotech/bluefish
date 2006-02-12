@@ -25,19 +25,20 @@
 
 #include <gtk/gtk.h>
 #include <stdio.h>
-#include <stdlib.h>           /* strtod() */
+#include <stdlib.h>        /* strtod() */
 #include <string.h>
 #include <time.h>
-
-#include "html.h"
-#include "html2.h"            /* style_but_new*/
+  
 #include "htmlbar.h"
-#include "html_diag.h"        /* the new html dialog stuff  */
-#include "cap.h"              /* cap() */
-#include "../bf_lib.h"        /* main_v */
-#include "../gtk_easy.h"
+#include "html.h"
+#include "html_diag.h"     /* the new html dialog stuff  */
+#include "html2.h"         /* style_but_new*/
+#include "cap.h"           /* cap() */
+#include "../bf_lib.h"     /* main_v */
 #include "../document.h"
+#include "../gtk_easy.h"
 #include "../stringlist.h"
+
 
 /*****************************************************************************/
 
