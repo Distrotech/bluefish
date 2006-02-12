@@ -2,7 +2,7 @@
  * html2.c - menu/toolbar callbacks, inserting functions, and other cool stuff 
  * otherwise html.c is getting so long ;-)
  *
- * Copyright (C) 1999 Olivier Sessink
+ * Copyright (C) 1999-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,18 +22,18 @@
 /* #define DEBUG */
 
 #include <gtk/gtk.h>
-#include <string.h>  	/* strlen() */
-#include <stdlib.h>	/* strtol() */
+#include <string.h>            /* strlen() */
+#include <stdlib.h>            /* strtol() */
 
 #include "htmlbar.h"
 #include "htmlbar_gui.h"
-#include "../bf_lib.h" /* string_is_color*/
-#include "../gtk_easy.h"
-#include "../bf_lib.h"  /* strip_any_whitespace() */
-#include "../stringlist.h"
-#include "../document.h"
 #include "html2.h"
 #include "cap.h"
+#include "../bf_lib.h"         /* string_is_color(), strip_any_whitespace()*/
+#include "../dialog_utils.h"
+#include "../document.h"
+#include "../gtk_easy.h"
+#include "../stringlist.h"
 
 static GList *glist_with_html_tags(gint with_pseudo_classes) {
 	GList *tmplist;
@@ -490,8 +490,85 @@ static void add_to_row(Tcs3_diag *diag, gint whichrow) {
 	}
 }
 
+static void cs3d_add_to_update(Tcs3_diag *diag, 
+                               const gchar *selector, const gchar *property, 
+                               const gchar *curValue, const gchar *newValue) {
+	/* _DM_ Alert box asking if user would like to change request from add to
+	 * update.
+	 */
+    const gchar *buttons[] = {GTK_STOCK_CANCEL, _("_Update"), NULL};
+    gchar *primaryText = NULL, *secondaryText = NULL; 
+    gint result;
+    
+    if (selector) {
+        primaryText = g_strdup_printf (_("The %s %s property already exists.\n"), selector, property);
+    } else {
+        primaryText = g_strdup_printf (_("The %s property already exists.\n"), property);
+    }
+    
+    secondaryText = g_strdup_printf (_("Update it's value from %s to %s?"), curValue, newValue);
+    
+    result = message_dialog_new_multi(diag->win,
+                                      GTK_MESSAGE_QUESTION,
+                                      buttons,
+                                      primaryText,
+                                      secondaryText);
+
+	g_free (primaryText);
+	g_free (secondaryText);
+
+	if (result == 1) {
+	    add_to_row(diag, diag->selected_row);
+        gtk_clist_unselect_row(GTK_CLIST(diag->clist), diag->selected_row, 0);
+	}
+	
+}
+
 static void cs3d_add_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
-	add_to_row(diag, -1);
+    gint onlist = 0, row = 0, retval = 1;
+    gint col = diag->styletype == onestyle ? 0 : 1;
+    gchar *cmb_selector = NULL, *cmb_property = NULL, *cmb_value = NULL;
+	gchar *lst_selector, *lst_property, *lst_value;
+
+    if (diag->styletype == multistyle) { 
+	    cmb_selector = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->selector)->entry), 0, -1);
+	}
+	cmb_property = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->property)->entry), 0, -1);
+	cmb_value = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(diag->value)->entry), 0, -1);
+	
+	while (retval) {
+	    if (diag->styletype == multistyle) {
+	        retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, 0, &lst_selector);
+	        if (retval && strcmp(lst_selector, cmb_selector) != 0) {
+	            row++;
+	            continue;
+	        }
+	    }
+        retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, col, &lst_property);
+        if (retval && strcmp(lst_property, cmb_property) == 0) {
+            retval = gtk_clist_get_text(GTK_CLIST(diag->clist), row, col + 1, &lst_value);
+            if (retval && strcmp(lst_value, cmb_value) == 0) {
+                onlist = 1;
+                DEBUG_MSG("%s already on list.\n", cmb_property);
+                break;
+			} else {
+                onlist = 1;
+                DEBUG_MSG("%s already on list.\n", cmb_property);
+                diag->selected_row = row;
+                cs3d_add_to_update(diag, cmb_selector, cmb_property, cmb_value, lst_value);
+			    break;
+            }
+         }
+         DEBUG_MSG("clist %d contains: %s, %s\n", retval, lst_selector, lst_property); 
+         row++;
+    }
+    
+	if(!onlist)
+		add_to_row(diag, -1);
+
+	if (cmb_selector)    g_free (cmb_selector);
+	g_free (cmb_property);
+	g_free (cmb_value);
 }
 
 static void cs3d_del_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
@@ -555,8 +632,8 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	gint count=0;
 	
 	diag = g_malloc(sizeof(Tcs3_diag));
-	diag->win = window_full(_("Cascading StyleSheet dialog"), GTK_WIN_POS_MOUSE, 
-			12, G_CALLBACK(cs3d_destroy_lcb), diag, TRUE);
+	diag->win = window_full2(_("Cascading Style Sheet Builder"), GTK_WIN_POS_CENTER_ON_PARENT, 
+			12, G_CALLBACK(cs3d_destroy_lcb), diag, TRUE, transient_win);
 	gtk_window_set_role(GTK_WINDOW(diag->win), "css");
 	diag->dest = dest;
 	diag->styletype = style;
@@ -659,10 +736,7 @@ static Tcs3_diag *css_diag(Tcs3_destination dest, Tcs3_style style, GtkWidget *t
 	gtk_widget_show_all(diag->win);
 	
 	cs3d_prop_activate_lcb(NULL, diag);
-	
-	if (transient_win) {
-		gtk_window_set_transient_for(GTK_WINDOW(diag->win), GTK_WINDOW(transient_win));
-	}
+		
 	if (diag->grab) {
 		gtk_grab_add(diag->win);
 	}
