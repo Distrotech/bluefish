@@ -3,7 +3,7 @@
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
  * modifications Copyright (C) 1999 Antti-Juhani Kaijanaho
- * Copyright (C) 1999-2005 Olivier Sessink
+ * Copyright (C) 1999-2006 Olivier Sessink
  * rewrite November 2000 (C) Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
@@ -25,23 +25,18 @@
 
 #include <gtk/gtk.h>
 #include <stdio.h>
-/* #include <gdk/gdk.h>*/
+#include <stdlib.h>           /* strtod() */
 #include <string.h>
-#include <stdlib.h> /* strtod() */
 #include <time.h>
 
+#include "html.h"
+#include "html2.h"            /* style_but_new*/
 #include "htmlbar.h"
-#include "html.h" 	/* myself */
-#include "html_diag.h" 	/* the new html dialog stuff  */
-#include "html2.h" /* style_but_new*/
-#include "cap.h"	/* cap() */
-#include "../bf_lib.h"	/* main_v */
+#include "html_diag.h"        /* the new html dialog stuff  */
+#include "cap.h"              /* cap() */
+#include "../bf_lib.h"        /* main_v */
 #include "../gtk_easy.h"
-/*#include "coloursel.h"*/ /* color_but_new () */
 #include "../document.h"
-/*#include "images.h"
-#include "callbacks.h"
-#include "wizards.h"*/
 #include "../stringlist.h"
 
 /*****************************************************************************/
@@ -183,7 +178,7 @@ void general_html_menu_cb(Tbfwin* bfwin,guint callback_action, GtkWidget *widget
 		doc_insert_two_strings(bfwin->current_document, cap("<LI>"), cap("</LI>"));
 		break;
 	case 36:
-		doc_insert_two_strings(bfwin->current_document, cap("<DL>\n<DT></DT>\n\t<DD></DD>\n</DL>"), "\n");
+        doc_insert_two_strings(bfwin->current_document, cap("<DL>\n\t<DT></DT>\n\t<DD></DD>\n</DL>"), "\n");
 		break;
 	case 37:
 		doc_insert_two_strings(bfwin->current_document, cap("<DT>"), cap("</DT>"));
