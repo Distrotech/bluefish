@@ -2725,7 +2725,7 @@ static void preferences_dialog() {
 #endif	
 
 	pd = g_new0(Tprefdialog,1);
-	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_NONE, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
+	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
 #ifdef USE_SCANNER
 	rescan_lang_files(pd);
 #endif	
