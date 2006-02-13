@@ -932,7 +932,7 @@ void new_css_dialog(GtkWidget *wid, Tbfwin *bfwin) {
 		dest.doc_end = swap;
 	}
 
-	diag = css_diag(dest, multistyle, NULL, FALSE);
+	diag = css_diag(dest, multistyle, bfwin->main_window, FALSE);
 	if (has_selection) {
 		gchar *data;
 
