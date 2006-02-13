@@ -2586,6 +2586,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
  **/
 gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean window_closing) {
 	gint retval;
+	gchar *ondiskencoding = NULL, *ondiskencodingbckup = NULL;
 #ifdef DEBUG
 	g_assert(doc);
 #endif
@@ -2607,13 +2608,15 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 		}
 		if (doc->filename) {
 			if (do_move) {
-				gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
-#ifdef HAVE_GNOME_VFS
-				gnome_vfs_unlink(ondiskencoding);
-#else
-				unlink(ondiskencoding);
-#endif
-				g_free(ondiskencoding);
+                gchar *backupfilename = NULL;
+                ondiskencoding = get_filename_on_disk_encoding(doc->filename);
+                /* Check for a backup file */
+                backupfilename = g_strconcat (doc->filename, main_v->props.backup_filestring, NULL);
+                if (file_exists_and_readable(backupfilename)) {
+                    ondiskencodingbckup = get_filename_on_disk_encoding(backupfilename);
+                    DEBUG_MSG("doc_save, do_move, backup file exists, backupfilename = %s\n", ondiskencodingbckup);
+                }
+                g_free (backupfilename);
 			}
 			g_free(doc->filename);
 		}
@@ -2699,6 +2702,21 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 				g_free(tmp);
 			}
             doc_unregroup_reset_changed(doc);
+            if (do_move) {
+#ifdef HAVE_GNOME_VFS
+				gnome_vfs_unlink(ondiskencoding);
+				if (ondiskencodingbckup) {
+				    gnome_vfs_unlink(ondiskencodingbckup);
+				}
+#else
+				unlink(ondiskencoding);
+				if (ondiskencodingbckup) {
+				    unlink(ondiskencodingbckup);
+				}				
+#endif
+				g_free(ondiskencoding);
+				if (ondiskencodingbckup)    g_free(ondiskencodingbckup);
+            }
 			DEBUG_MSG("doc_save, received return value %d from doc_textbox_to_file\n", retval);
 		break;
 	}
