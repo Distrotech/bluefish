@@ -184,7 +184,7 @@ static void bf_textview_init(BfTextView * o)
 
 	o->lw_size_lines = o->lw_size_blocks = o->lw_size_sym = 0;
 	o->symbols = g_hash_table_new(g_str_hash, g_str_equal);
-	o->symbol_lines = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
+	o->symbol_lines = g_hash_table_new(g_direct_hash, g_direct_equal);
 	o->lang = NULL;
 	g_stpcpy(o->bkg_color,"#FFFFFF");
 	g_stpcpy(o->fg_color,"#000000");
@@ -2269,7 +2269,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 			DEBUG_MSG("checking for folded tag %p\n", BF_TEXTVIEW(widget)->folded_tag);
 			if (!gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->folded_tag)) {		
 				if ( currline == i )
-					pomstr = g_strdup_printf("<b>%d</b>",i);		
+					pomstr = g_strdup_printf("<u>%d</u>",i);		
 				else
 					pomstr = g_strdup_printf("%d",i);
 				pango_layout_set_markup(l, pomstr, -1);
@@ -2280,17 +2280,24 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 			}
 		}
 		if (BF_TEXTVIEW(widget)->show_symbols) {	/* show symbols */
-			gc = gdk_gc_new(GDK_DRAWABLE(left_win));
+			
 			if (!gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->folded_tag)) {
-				pomstr = g_strdup_printf("%d", i + 1);
-				aux = g_hash_table_lookup(BF_TEXTVIEW(widget)->symbol_lines, pomstr);
+				gc = gdk_gc_new(GDK_DRAWABLE(left_win));
+				GSList *lst3 = gtk_text_iter_get_marks(&it);
+				aux = NULL;
+				while (lst3) {
+										aux = g_hash_table_lookup(BF_TEXTVIEW(widget)->symbol_lines,lst3->data);
+										if ( aux ) break;
+										lst3 = g_slist_next(lst3);
+				}
+				g_slist_free(lst3);
 				if (aux) {
 					gdk_pixbuf_render_to_drawable(((BfTextViewSymbol *) aux)->pixmap, GDK_DRAWABLE(left_win), gc, 0, 0, pt_sym,
 												  w + 2, 10, 10, GDK_RGB_DITHER_NORMAL, 0, 0);
 				}
-				g_free(pomstr);
+				g_object_unref(gc);			
 			}
-			g_object_unref(gc);			
+			
 		}
 		if (BF_TEXTVIEW(widget)->show_blocks) {	/* show block markers */
 			GtkTextMark *mark_begin = NULL, *mark_end = NULL;
@@ -2786,6 +2793,7 @@ void bf_textview_remove_symbol(BfTextView * self, gchar * name)
 	}
 }
 
+
 /**
 *	bf_textview_set_symbol:
 *	@self:  BfTextView widget 
@@ -2799,14 +2807,34 @@ void bf_textview_remove_symbol(BfTextView * self, gchar * name)
 void bf_textview_set_symbol(BfTextView * self, gchar * name, gint line, gboolean set)
 {
 	gpointer ptr = g_hash_table_lookup(self->symbols, name);
-	if (ptr) {
-		if (set)
-			g_hash_table_replace(self->symbol_lines, g_strdup_printf("%d", line), ptr);
-		else {
-			g_hash_table_remove(self->symbol_lines, g_strdup_printf("%d", line));
-		}
-		gtk_widget_queue_draw(GTK_WIDGET(self));
+	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
+	GtkTextIter it;
+	GtkTextMark *mark;
+	GSList *lst;
+	
+	if (!ptr) return;
+	gtk_text_buffer_get_iter_at_line(buf,&it,line);
+	
+	if (set) {			
+			mark = gtk_text_buffer_create_mark(buf,NULL,&it,TRUE);
+			g_hash_table_insert(self->symbol_lines, mark, ptr);
+	}	
+	else {
+			mark = NULL;
+			lst = gtk_text_iter_get_marks(&it);
+			while (lst) {			
+					if (g_hash_table_lookup(self->symbol_lines,lst->data)) {
+						mark = GTK_TEXT_MARK(lst->data);
+						break;
+					}
+					lst = g_slist_next(lst);
+			}
+			g_slist_free(lst);
+			if ( mark )
+				g_hash_table_remove(self->symbol_lines, mark);
 	}
+	gtk_widget_queue_draw(GTK_WIDGET(self));
+
 }
 
 /**

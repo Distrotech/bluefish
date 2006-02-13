@@ -470,10 +470,23 @@ void bmark_add_rename_dialog(Tbfwin * bfwin, gchar * dialogtitle)
 
 static void bmark_popup_menu_goto(Tbfwin *bfwin) {
 	Tbmark *b;
+	GtkTextIter it;
+	
 	b = get_current_bmark(bfwin);
 	if (b) {
+		if ( b->doc && b->mark ) {
+			/* recalculate offset */
+			gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
+			b->offset = gtk_text_iter_get_offset(&it);
+		}
 		DEBUG_MSG("bmark_popup_menu_goto_lcb, calling doc_new_from_uri for %s with goto_offset %d\n",gnome_vfs_uri_get_path(b->filepath),b->offset);
 		doc_new_from_uri(bfwin, b->filepath, NULL, FALSE, FALSE, -1, b->offset);
+		/* remove selection */
+		if ( b->doc ) {
+			gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,gtk_text_buffer_get_insert(b->doc->buffer));
+			gtk_text_buffer_move_mark_by_name(b->doc->buffer, "selection_bound", &it);
+		}
+		gtk_widget_grab_focus(bfwin->current_document->view);
 	}
 }
 /* 
@@ -492,7 +505,7 @@ static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 #ifdef USE_SCANNER
 				if (b->doc) {
 				 	gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
-				 	bf_textview_set_symbol(BF_TEXTVIEW(b->doc->view),"bookmark",gtk_text_iter_get_line(&it)+1,FALSE);
+				 	bf_textview_set_symbol(BF_TEXTVIEW(b->doc->view),"bookmark",gtk_text_iter_get_line(&it),FALSE);
 				} 
 #endif		
 		if (numchild == 1) {
@@ -1005,7 +1018,7 @@ void bmark_set_for_doc(Tdocument * doc) {
 					gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
 					mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
 #ifdef USE_SCANNER
-					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it)+1,TRUE);
+					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it),TRUE);
 #endif					
 					cont2 =
 						gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore),
@@ -1021,7 +1034,7 @@ void bmark_set_for_doc(Tdocument * doc) {
 							mark->mark =
 								gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
 #ifdef USE_SCANNER
-					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it)+1,TRUE);
+					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it),TRUE);
 #endif													
 						}
 						cont2 =
@@ -1142,7 +1155,7 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 		bmark_store(BFWIN(doc->bfwin), m);
 	}
 #ifdef USE_SCANNER
-	bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it)+1,TRUE);
+	bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it),TRUE);
 	gtk_widget_queue_draw(doc->view);
 #endif	
 }
