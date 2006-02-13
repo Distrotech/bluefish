@@ -1334,10 +1334,6 @@ GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfw
 
 #ifdef HAVE_ATLEAST_GTK_2_4
 
-static void viewlocal_toggled_lcb(GtkToggleButton *togglebutton,GtkWidget *dialog) {
-	g_object_set(G_OBJECT(dialog), "show-hidden", togglebutton->active, NULL);
-}
-
 static void file_chooser_set_current_dir(GtkWidget *dialog, gchar *dir) {
 	if (dir) {
 		if (dir[0] == '/') gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog),dir);
@@ -1346,8 +1342,8 @@ static void file_chooser_set_current_dir(GtkWidget *dialog, gchar *dir) {
 }
 
 GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, 
-											gchar *set, gboolean localonly, gboolean multiple, const gchar *filter) {
-	GtkWidget *vbox, *hbox, *dialog, *viewlocal;
+                                gchar *set, gboolean localonly, gboolean multiple, const gchar *filter) {
+	GtkWidget *dialog;
 	dialog = gtk_file_chooser_dialog_new_with_backend(title,bfwin ? GTK_WINDOW(bfwin->main_window) : NULL,
 			action,"gnome-vfs",
 			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -1394,13 +1390,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 			tmplist = g_list_next(tmplist);
 		}
 	}*/
-	vbox = gtk_vbox_new(FALSE, 5);
 
-	hbox = gtk_hbox_new(FALSE, 5);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 5);
-	viewlocal = boxed_checkbut_with_value(_("Show hidden"), 0, hbox);
-	g_signal_connect(G_OBJECT(viewlocal), "toggled", G_CALLBACK(viewlocal_toggled_lcb), dialog);
-	gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(dialog),vbox);
 	if (action == GTK_FILE_CHOOSER_ACTION_OPEN || action == GTK_FILE_CHOOSER_ACTION_SAVE){
 		GList *tmplist;
 		GtkFileFilter* ff;
@@ -1432,7 +1422,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 			tmplist = g_list_next(tmplist);
 		}
 	}
-	gtk_widget_show_all(vbox);
+
 	return dialog;
 }
 
