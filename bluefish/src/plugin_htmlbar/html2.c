@@ -555,7 +555,7 @@ static void cs3d_add_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
                 onlist = 1;
                 DEBUG_MSG("%s already on list.\n", cmb_property);
                 diag->selected_row = row;
-                cs3d_add_to_update(diag, cmb_selector, cmb_property, cmb_value, lst_value);
+                cs3d_add_to_update(diag, cmb_selector, cmb_property, lst_value, cmb_value);
 			    break;
             }
          }
