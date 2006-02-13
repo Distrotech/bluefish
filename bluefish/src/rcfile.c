@@ -31,20 +31,20 @@
 #include <stdio.h>
 #include <time.h>
 
-#include "bluefish.h"
-#include "rcfile.h"
 #include "bf_lib.h"
+#include "bluefish.h"
+#include "document.h"       /* DOCUMENT_BACKUP_ABORT_ASK */
 #include "fref.h"
+#include "highlight.h"      /* hl_reset_to_default()*/
+#include "rcfile.h"
 #include "stringlist.h"
-#include "highlight.h" /* hl_reset_to_default()*/
-#include "document.h" /* DOCUMENT_BACKUP_ABORT_ASK */
 
 typedef struct {
-	void *pointer; /* where should the value be stored ?*/
+	void *pointer;      /* where should the value be stored? */
 	unsigned char type; /* a=arraylist, l=stringlist, s=string, e=string with escape, i=integer, m=limiTed stringlist */
-	gchar *identifier; /* the string that should be in the config file for this entry */
-	gint len; /* used for arrays and limitedstringlists, the length the list should have (only during save)
-						, or the number of items the array should have (during load) */
+	gchar *identifier;  /* the string that should be in the config file for this entry */
+	gint len;           /* used for arrays and limitedstringlists, the length the list should have (only during save),
+	                       or the number of items the array should have (during load) */
 } Tconfig_list_item;
 
 static GList *main_configlist=NULL;
@@ -894,10 +894,10 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_limitedstringlist(&configlist, &session->recent_dirs, "recent_dirs:", main_v->props.max_dir_history, FALSE);
 	init_prop_string_with_escape(&configlist, &session->opendir, "opendir:", NULL);
 	init_prop_string_with_escape(&configlist, &session->savedir, "savedir:", NULL);
-    init_prop_integer(&configlist, &session->view_html_toolbar, "view_html_toolbar:", 1, FALSE);
-    init_prop_integer(&configlist, &session->view_custom_menu, "view_custom_menu:", 1, FALSE);
-    init_prop_integer(&configlist, &session->view_main_toolbar, "view_main_toolbar:", 1, FALSE);
-    init_prop_integer(&configlist, &session->view_left_panel, "view_left_panel:", 1, FALSE);	
+	init_prop_integer(&configlist, &session->view_html_toolbar, "view_html_toolbar:", 1, FALSE);
+	init_prop_integer(&configlist, &session->view_custom_menu, "view_custom_menu:", 1, FALSE);
+	init_prop_integer(&configlist, &session->view_main_toolbar, "view_main_toolbar:", 1, FALSE);
+	init_prop_integer(&configlist, &session->view_left_panel, "view_left_panel:", 1, FALSE);	
 	return configlist;
 }
 
