@@ -1028,7 +1028,7 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_integer   (&configlist, &session->filebrowser_focus_follow, "fb_focus_follow:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->bookmarks_filename_mode,"bookmarks_filename_mode:",1, FALSE);
 #ifdef HAVE_LIBASPELL
-	init_prop_string(&configlist, &session->spell_default_lang, "spell_default_lang:", NULL);
+	init_prop_string(&configlist, &session->spell_default_lang, "spell_default_lang:", "en");
 #endif /* HAVE_LIBASPELL */
 	configlist = bfplugins_register_session_config(configlist,session);
 	return configlist;
