@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gtk_easy.c
  *
- * Copyright (C) 1999-2005 Olivier Sessink
+ * Copyright (C) 1999-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,16 +21,16 @@
 /* #define DEBUG */
 
 #include <gtk/gtk.h>
-#include <stdlib.h> /* strtod() */
-#include <string.h> /* strlen() */
-#include <gdk/gdkkeysyms.h> /* GDK_Return */
+#include <gdk/gdkkeysyms.h>    /* GDK_Return */
+#include <stdlib.h>            /* strtod() */
+#include <string.h>            /* strlen() */
 
 #include "bluefish.h"
 #include "gtk_easy.h"
 #include "bf_lib.h"
+#include "char_table.h"    /* xml_escape() */
+#include "gui.h"           /* statusbar_message() */
 #include "pixmap.h"
-#include "gui.h" /* statusbar_message() */
-#include "char_table.h" /* xml_escape() */
 
 #ifdef WIN32
 #define DIRSTR "\\"
@@ -1365,6 +1365,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 			DEBUG_MSG("file_chooser_dialog, opendir=%s, savedir=%s\n",bfwin->session->opendir,bfwin->session->savedir);
 			if (bfwin->session->savedir) file_chooser_set_current_dir(dialog,bfwin->session->savedir);
 			else if (bfwin->session->opendir) file_chooser_set_current_dir(dialog,bfwin->session->opendir);
+			else if (bfwin->project->basedir) file_chooser_set_current_dir(dialog, bfwin->project->basedir);
 		} else {
 			DEBUG_MSG("file_chooser_dialog, opendir=%s\n",bfwin->session->opendir);
 			file_chooser_set_current_dir(dialog,bfwin->session->opendir);
