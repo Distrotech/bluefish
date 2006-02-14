@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gtk_easy.c
  *
- * Copyright (C) 1999-2005 Olivier Sessink
+ * Copyright (C) 1999-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,6 +19,7 @@
  */
 
 /* #define DEBUG */
+
 #include <gtk/gtk.h>
 #include <stdlib.h> /* strtod() */
 #include <string.h> /* strlen() */
@@ -1237,23 +1238,19 @@ GtkWidget *file_but_new2(GtkWidget * which_entry, gint full_pathname, Tbfwin *bf
 typedef struct {
 	GtkWidget *dialog;
 	GtkWidget *show_backup;
-	GtkWidget *show_hidden;
 	Tfilter *filter;
 } Tfchooser_filter;
 
-static Tfchooser_filter *new_fchooser_filter(GtkWidget *dialog, GtkWidget *show_hidden, GtkWidget *show_backup, Tfilter *filter) {
+static Tfchooser_filter *new_fchooser_filter(GtkWidget *dialog, GtkWidget *show_backup, Tfilter *filter) {
 	Tfchooser_filter *cf = g_new(Tfchooser_filter,1);
 	cf->dialog = dialog;
 	cf->show_backup = show_backup;
-	cf->show_hidden = show_hidden;
 	cf->filter = filter;
 	return cf;
 }
 
 static void refresh_filter_lcb(GtkToggleButton *togglebutton,GtkWidget *dialog) {
 	gchar *uri;
-/*	GtkFileFilter *filter;*/
-	/*g_object_set(G_OBJECT(dialog), "show-hidden", togglebutton->active, NULL);*/
 /*	filter = gtk_file_chooser_get_filter(GTK_FILE_CHOOSER(dialog));
 	gtk_file_chooser_set_filter(GTK_FILE_CHOOSER(dialog), filter);*/
 	/* this successfully triggers the refiltering! */
@@ -1265,7 +1262,6 @@ static gboolean file_chooser_custom_filter_func(GtkFileFilterInfo *filter_info,g
 	GList *tmplist;
 	Tfchooser_filter *cf = data;
 	if (!filter_info->display_name || filter_info->display_name[0] == '\0') return FALSE; /* error condition ?? */
-	if (!GTK_TOGGLE_BUTTON(cf->show_hidden)->active && filter_info->display_name[0] == '.' ) return FALSE;
 	if (!GTK_TOGGLE_BUTTON(cf->show_backup)->active) {
 		gint namelen = strlen(filter_info->display_name);
 		if (filter_info->display_name[namelen-1] == '~' ) return FALSE;
@@ -1280,7 +1276,7 @@ static gboolean file_chooser_custom_filter_func(GtkFileFilterInfo *filter_info,g
 
 GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, 
 											gchar *set, gboolean localonly, gboolean multiple, const gchar *filter, gboolean show_encoding) {
-	GtkWidget *vbox, *hbox, *dialog, *viewhidden, *viewbackup;
+	GtkWidget *vbox, *hbox, *dialog, *viewbackup;
 	dialog = gtk_file_chooser_dialog_new_with_backend(title,bfwin ? GTK_WINDOW(bfwin->main_window) : NULL,
 			action,"gnome-vfs",
 			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
@@ -1326,15 +1322,11 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 
 	hbox = gtk_hbox_new(FALSE, 5);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, TRUE, TRUE, 5);
-	viewhidden = boxed_checkbut_with_value(_("Show hidden files"), 0, hbox);
 	viewbackup = boxed_checkbut_with_value(_("Show backup files"), 0, hbox);
 	if (bfwin && bfwin->session) {
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(viewhidden), bfwin->session->filebrowser_show_hidden_files);
 		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(viewbackup), bfwin->session->filebrowser_show_backup_files);
 	}
-	g_signal_connect(G_OBJECT(viewhidden), "toggled", G_CALLBACK(refresh_filter_lcb), dialog);
 	g_signal_connect(G_OBJECT(viewbackup), "toggled", G_CALLBACK(refresh_filter_lcb), dialog);
-	g_object_set(G_OBJECT(dialog), "show-hidden", TRUE, NULL);
 	
 	if (action == GTK_FILE_CHOOSER_ACTION_OPEN || action == GTK_FILE_CHOOSER_ACTION_SAVE){
 		GList *tmplist;
@@ -1343,7 +1335,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 		gtk_file_filter_set_name(ff,_("All files"));
 		gtk_file_filter_add_custom(ff, GTK_FILE_FILTER_DISPLAY_NAME, 
 		                           (GtkFileFilterFunc) file_chooser_custom_filter_func,
-                                   new_fchooser_filter(dialog, viewhidden, viewbackup, NULL),g_free);
+                                   new_fchooser_filter(dialog, viewbackup, NULL),g_free);
 		gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
 		for (tmplist=g_list_first(main_v->filefilters);tmplist!=NULL;tmplist=tmplist->next) {
 			Tfilter *filter =tmplist->data;
@@ -1351,7 +1343,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 			gtk_file_filter_set_name(ff,filter->name);
 			gtk_file_filter_add_custom(ff, GTK_FILE_FILTER_DISPLAY_NAME, 
 			                           (GtkFileFilterFunc) file_chooser_custom_filter_func,
-                                       new_fchooser_filter(dialog, viewhidden, viewbackup, filter),g_free);
+                                       new_fchooser_filter(dialog, viewbackup, filter),g_free);
 			gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(dialog), ff);
 		}
 /*		gtk_file_filter_add_pattern(ff, "*");
