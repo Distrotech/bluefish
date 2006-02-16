@@ -62,6 +62,7 @@ java:this:0:\\bthis\\.::2::#000099::2:0:
 java:Primitive Types:0:\\b(void|double|boolean|int)\\b::2::#880088::2:0:
 java:Braces:0:[{()}]:::2::#000000::2:0:
 java:String (single quoted):0:':':1::#009900::0:0:
+java:Numbers:1:\\b\\d+\\b::2::#0000FF::0:0:
 javascript:Function Identifier:1:([a-z0-9]+)\\(::2::#000099::2:1:
 javascript:Numbers:1:[0-9]::2::#1B591c::2:1:
 javascript:Array:1:([a-z0-9]+)\\[:\\]:1::navy::2:1:
