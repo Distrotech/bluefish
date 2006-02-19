@@ -21,13 +21,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
 <sect1 id="bluefish-appa-developer">
 <title>Bluefish developers</title>
-<para>Here are the developers for release 1.0:</para>
+<para>Here are the developers for release 1.0.x:</para>
 <itemizedlist spacing="compact">
 <listitem><para>Olivier Sessink</para></listitem>
 <listitem><para>Jim Hayward</para></listitem>
-<listitem><para>Oskar Swida</para></listitem>
+<listitem><para>Oskar Świda</para></listitem>
 <listitem><para>Eugene Morenko</para></listitem>
 <listitem><para>Alastair Porter</para></listitem>
+<listitem><para>Daniel Leidert</para></listitem>
+<listitem><para>Michèle Garoche</para></listitem>
 </itemizedlist>
 <para>Developers for previous releases are:</para>
 <itemizedlist spacing="compact">
@@ -49,8 +51,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <title>Bluefish package maintainers</title>
 <para>The following people maintain bluefish packages for various systems:</para>
 <itemizedlist spacing="compact">
-<listitem><para>Debian:   Davide Puricelli</para></listitem>
-<listitem><para>Redhat:   Matthias Haase</para></listitem>
+<listitem><para>Debian: Daniel Leidert (thanks to Davide Puricelli for the long Debian package maintainership)</para></listitem>
+<listitem><para>Redhat: Matthias Haase</para></listitem>
 <listitem><para>Mandrake: Todd Lyons</para></listitem>
 <listitem><para>Fink: Michèle Garoche</para></listitem>
 </itemizedlist>
@@ -59,25 +61,100 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <sect1 id="bluefish-appa-translators">
 <title>Bluefish translators</title>
 <para>Translators for the 1.0 release are:</para>
-<itemizedlist spacing="compact">
-<listitem><para>Brazilian Portuguese - Anderson Rocha</para></listitem>
-<listitem><para>Bulgarian - Peio Popov</para></listitem>
-<listitem><para>Chinese - Ting Yang (Dormouse)</para></listitem>
-<listitem><para>Danish - Rasmus Toftdahl Olesen</para></listitem>
-<listitem><para>Finnish - Juho Roukala</para></listitem>
-<listitem><para>French - Michèle Garoche</para></listitem>
-<listitem><para>German - Roland Steinbach</para></listitem>
-<listitem><para>Hungarian - Péter Sáska</para></listitem>
-<listitem><para>Italian - Stefano Canepa</para></listitem>
-<listitem><para>Norwegian - Christian Tellefsen</para></listitem>
-<listitem><para>Polish - Oskar Swida</para></listitem>
-<listitem><para>Portuguese - Lopo Pizarro</para></listitem>
-<listitem><para>Russian - Eugene Rupakov</para></listitem>
-<listitem><para>Serbian - Marko Milenovic</para></listitem>
-<listitem><para>Spanish - Walter Oscar Echarri</para></listitem>
-<listitem><para>Swedish - David Smeringe</para></listitem>
-<listitem><para>Tamil - Murugapandian Barathee</para></listitem>
-</itemizedlist>
+<segmentedlist>
+<!-- needs to be styled via CSS -->
+<?dbhtml list-presentation="table"?>
+<segtitle>Language</segtitle>
+<segtitle>Translator</segtitle>
+<seglistitem>
+	<seg>Basque</seg>
+	<seg>Hizkuntza Politikarako Sailburuordetza</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Brazilian Portuguese</seg>
+	<seg>Anderson Rocha</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Bulgarian</seg>
+	<seg>Peio Popov</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Chinese</seg>
+	<seg>Ting Yang (Dormouse)</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Chinese, Traditional</seg>
+	<seg>OLS3</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Danish</seg>
+	<seg>Rasmus Toftdahl Olesen</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Finnish</seg>
+	<seg>Juho Roukala</seg>
+</seglistitem>
+<seglistitem>
+	<seg>French</seg>
+	<seg>Michèle Garoche</seg>
+</seglistitem>
+<seglistitem>
+	<seg>German</seg>
+	<seg>Roland Steinbach</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Hungarian</seg>
+	<seg>Péter Sáska</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Italian</seg>
+	<seg>Stefano Canepa</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Japanese</seg>
+	<seg>Takeshi Hamasaki</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Norwegian</seg>
+	<seg>Christian Tellefsen</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Polish</seg>
+	<seg>Oskar Świda</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Portuguese</seg>
+	<seg>Lopo Pizarro</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Russian</seg>
+	<seg>Eugene Rupakov</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Serbian</seg>
+	<seg>Marko Milenovic</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Slovak</seg>
+	<seg>Vladimir VASIL</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Spanish</seg>
+	<seg>Walter Oscar Echarri</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Swedish</seg>
+	<seg>David Smeringe</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Tamil</seg>
+	<seg>Murugapandian Barathee</seg>
+</seglistitem>
+<seglistitem>
+	<seg>Turkish</seg>
+	<seg>Oğuz Eren</seg>
+</seglistitem>
+</segmentedlist>
 </sect1>
 <?linebreak?>
 <sect1 id="bluefish-appa-supporters">
