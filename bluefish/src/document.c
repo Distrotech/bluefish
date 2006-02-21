@@ -3058,7 +3058,6 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 		image = new_pixmap(101);
 		gtk_container_add(GTK_CONTAINER(but), image);
 		gtk_container_set_border_width(GTK_CONTAINER(but),0);
-		gtk_widget_set_size_request(but, 12,12);
 		gtk_button_set_relief(GTK_BUTTON(but), GTK_RELIEF_NONE);
 		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
 		gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
