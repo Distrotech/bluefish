@@ -1,6 +1,6 @@
 # Bluefish HTML Editor
 # configure.ac - the autoconf file
-# Copyright (C) 2002-2004 Olivier Sessink
+# Copyright (C) 2002-2006 Olivier Sessink
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -255,25 +255,15 @@ else
 	AC_MSG_ERROR([libgtk2.0-dev missing, please install libgtk2.0-dev])
 fi
 
-echo -n "checking for gtk+ >= 2.4... "
-if pkg-config gtk+-2.0 --atleast-version=2.4 ; then
-	AC_DEFINE(HAVE_ATLEAST_GTK_2_2)
-	AC_DEFINE(HAVE_ATLEAST_GTK_2_4)
-	echo "yes"
-else
-	AC_MSG_ERROR([detected gtk $VERSION, but gtk version 2.4 is required])
-fi
-
 echo -n "checking for gtk+ >= 2.6... "
 if pkg-config gtk+-2.0 --atleast-version=2.6 ; then
-	AC_DEFINE(HAVE_ATLEAST_GTK_2_6)
 	echo "yes"
 else
-	echo "no"
+	AC_MSG_ERROR([detected gtk $VERSION, but gtk version >= 2.6 is required])
 fi
 
-echo -n "checking for gmodule >= 2.4... "
-if pkg-config gmodule-2.0 --atleast-version=2.4 ; then
+echo -n "checking for gmodule >= 2.6... "
+if pkg-config gmodule-2.0 --atleast-version=2.6 ; then
 	echo "yes"
 	PKGCONFIGFILES="${PKGCONFIGFILES} gmodule-2.0"
 else
@@ -300,29 +290,25 @@ fi
 echo " done"
 
 echo -n "checking for gnome-vfs-2.0... "
-if pkg-config --exists gnome-vfs-2.0 ; then
+if pkg-config --exists gnome-vfs-2.0 --atleast-version=2.8 ; then
 	PKGCONFIGFILES="${PKGCONFIGFILES} gnome-vfs-2.0"
 	echo "yes, `pkg-config --modversion gnome-vfs-2.0`"
-	HAVE_GNOME_VFS=1
 	BF_APP_EXPECT_URIS="true"
 	BF_APP_SUPPORTED_URI_SCHEMES="file,http,ftp,sftp,smb"
-	AC_DEFINE(HAVE_GNOME_VFS)
-	AC_SUBST(HAVE_GNOME_VFS)
 	AC_SUBST(BF_APP_EXPECT_URIS)
 	AC_SUBST(BF_APP_SUPPORTED_URI_SCHEMES)
 else
-	AC_MSG_ERROR([gnome-vfs2 is required, please install libgnomevfs2-dev])
+	AC_MSG_ERROR([gnome-vfs >= 2.8 is required, please install libgnomevfs2-dev])
 fi
 
-echo -n "checking for gnome-vfs >= 2.6... "
-if pkg-config gnome-vfs-2.0 --atleast-version=2.6 ; then
-	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_2)
-	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_6)
-	echo "yes"
-else
-	echo "no"
-	AC_MSG_ERROR([gnome-vfs 2.6 is required, please upgrade to at least 2.6])
-fi
+#echo -n "checking for gnome-vfs >= 2.8... "
+#if pkg-config gnome-vfs-2.0 --atleast-version=2.8 ; then
+#	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_8)
+#	echo "yes"
+#else
+#	echo "no"
+#	AC_MSG_ERROR([gnome-vfs 2.8 is required, please upgrade to at least 2.8])
+#fi
 
 echo -n "checking for libxml... "
 if pkg-config --exists libxml-2.0 ; then
