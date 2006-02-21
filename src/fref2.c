@@ -3503,11 +3503,7 @@ static void fref_search(Tbfwin * bfwin,const gchar *phrase)
 					}	
 	if (ret != NULL) {
 					GtkTreePath *path2 = gtk_tree_row_reference_get_path(ret);
-#ifndef HAVE_ATLEAST_GTK_2_2
-					gtktreepath_expand_to_root(FREFGUI(bfwin->fref)->tree, path2);
-#else
 					gtk_tree_view_expand_to_path(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), path2);
-#endif
 					gtk_tree_view_set_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), path2,
 											 gtk_tree_view_get_column(GTK_TREE_VIEW
 																	  (FREFGUI(bfwin->fref)->tree),
@@ -4768,4 +4764,3 @@ GtkWidget *fref_gui(Tbfwin * bfwin)
 		
 	return pane;
 }
-

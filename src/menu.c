@@ -223,9 +223,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Open _recent"), NULL, NULL, 0, "<Branch>"},
 	{"/File/Open recent/tearoff1", NULL, NULL, 0, "<Tearoff>"},	
 	{N_("/File/Open Ad_vanced..."), "<shift><control>O", menu_file_operations_cb, 3, "<Item>"},
-#ifdef HAVE_GNOME_VFS
 	{N_("/File/Open _URL..."), NULL, menu_file_operations_cb, 25, "<Item>"},
-#endif /* HAVE_GNOME_VFS */
 	{N_("/File/Open _from selection"), NULL, menu_file_operations_cb, 26, "<Item>"},
 	{"/File/sep1", NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Save"), "<control>S", menu_file_operations_cb, 5, "<StockItem>", GTK_STOCK_SAVE},
