@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * project.c - project functionality
  *
- * Copyright (C) 2003-2004 Olivier Sessink
+ * Copyright (C) 2003-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,20 +21,21 @@
 /* #define DEBUG */
 
 #include <gtk/gtk.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>    /* unlink() */
 
 #include "bluefish.h"
 #include "project.h"
-#include "stringlist.h"
-#include "gui.h"
-#include "document.h"
-#include "gtk_easy.h"
-#include "rcfile.h"
 #include "bf_lib.h"
-#include "filebrowser.h"
-#include "menu.h"
 #include "bookmark.h"
+#include "document.h"
+#include "filebrowser.h"
+#include "gtk_easy.h"
+#include "gui.h"
+#include "menu.h"
+#include "rcfile.h"
+#include "stringlist.h"
 
 static void free_session(Tsessionvars *session) {
 	free_stringlist(session->classlist);
@@ -391,11 +392,26 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 	}
 	/* test if we should save */
 	if (!dont_save) {
+		gchar *backupfile = NULL;
 		if (!project_save(bfwin, FALSE)) {
 			DEBUG_MSG("project_save failed, returning\n");
 			return FALSE;
 		}
 		add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
+		
+        if (main_v->props.backup_cleanuponclose) {
+            backupfile = g_strconcat (bfwin->project->filename, main_v->props.backup_filestring, NULL);
+            if (file_exists_and_readable(backupfile)) {
+                gchar * ondiskencodingbckup = get_filename_on_disk_encoding(backupfile);
+#ifdef HAVE_GNOME_VFS
+                gnome_vfs_unlink(ondiskencodingbckup);
+#else
+		        unlink(ondiskencodingbckup);				
+#endif
+                g_free (ondiskencodingbckup);
+            }
+            g_free (backupfile);
+        }
 	}
 	bfwin_close_all_documents(bfwin, TRUE);
 	if (!test_only_empty_doc_left(bfwin->documentlist)) {
