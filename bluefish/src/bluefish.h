@@ -74,9 +74,7 @@ extern void g_none(gchar *first, ...);
 #include <unistd.h>
 #include <pcre.h>
 
-#ifdef HAVE_GNOME_VFS
 #include <libgnomevfs/gnome-vfs.h>
-#endif
 
 #ifdef USE_SCANNER
 #include "bf-textview.h"

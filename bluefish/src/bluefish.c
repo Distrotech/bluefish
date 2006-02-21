@@ -158,15 +158,12 @@ int main(int argc, char *argv[])
 #else
 	gtk_init(&argc, &argv);
 #endif /* HAVE_ATLEAST_GNOMEUI_2_6 */
-	DEBUG_MSG("main, we have gnome_vfs, so we init it\n");
 	gnome_vfs_init();
 #ifdef HAVE_ATLEAST_GNOMEUI_2_6
 	gnome_authentication_manager_init();
 #else
-#ifdef HAVE_ATLEAST_GNOMEVFS_2_6
 	authen_init();
-#endif /* HAVE_ATLEAST_GNOMEVFS_2_6 */
-#endif /* HAVE_ATLEAST_GNOME_2_6 */
+#endif /* HAVE_ATLEAST_GNOMEUI_2_6 */
     set_default_icon();
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
