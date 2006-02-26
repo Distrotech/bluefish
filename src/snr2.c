@@ -1487,6 +1487,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	GtkListStore *history;
 	GList *list;
 	GtkTreeIter iter;
+	GtkTextIter start, end;
 	unsigned int i = 0;
 
 	const gchar *scope[] = {
@@ -1539,7 +1540,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 		gtk_list_store_set(history, &iter, 0, list->data, -1);
 		list = g_list_next(list);
 	}
-
+    
 	snrwin->search = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
 	g_object_unref(history);
 	dialog_mnemonic_label_in_table(_("_Search for: "), snrwin->search, table, 0, 1, 0, 1);
@@ -1547,7 +1548,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 					 GTK_SHRINK, 0, 0);
 	g_signal_connect(snrwin->search, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
 	g_signal_connect(snrwin->search, "realize",G_CALLBACK(realize_combo_set_tooltip), _("The pattern to look for"));
-	g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))), "activate",G_CALLBACK(snr_combo_activate_lcb), snrwin);
+	g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))), "activate",G_CALLBACK(snr_combo_activate_lcb), snrwin);	
 
 	if (dialogType == BF_REPLACE_DIALOG) {
 		history = gtk_list_store_new(1, G_TYPE_STRING);
@@ -1665,6 +1666,16 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 
 	gtk_widget_show_all(GTK_WIDGET(GTK_BOX(GTK_DIALOG(snrwin->dialog)->vbox)));
 	gtk_widget_hide(snrwin->warninglabel);
+
+    if (gtk_text_buffer_get_selection_bounds(bfwin->current_document->buffer, &start, &end)) {
+        gchar * buffer = gtk_text_buffer_get_text(bfwin->current_document->buffer, &start, &end, FALSE);
+        
+        if (strchr(buffer, '\n') == NULL) {
+            gtk_entry_set_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child), buffer);
+            gtk_editable_select_region(GTK_EDITABLE(GTK_BIN(snrwin->search)->child), 0, -1);
+        }
+        if (buffer)    g_free(buffer);
+    }
 	
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->scope), 0);
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->matchPattern), 0);
@@ -1674,6 +1685,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_FIND);
 	DEBUG_MSG("snr_dialog_real: display the dialog\n");
 	gtk_widget_show(snrwin->dialog);
+	
 	return snrwin;
 }
 
