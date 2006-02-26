@@ -37,36 +37,38 @@
  */
 /*****************************************************/
 
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
+#include <gdk/gdkkeysyms.h>    /* GDK_Return */
 
 #include "config.h"
+
+#include <pcre.h>             /* pcre_compile */
+#include <stdio.h>
+#include <string.h>
+#include <sys/types.h>        /* _before_ regex.h for freeBSD */
+#include <regex.h>            /* regcomp() */
 
 #ifdef HAVE_STRINGS_H
 #include <strings.h>
 #endif /* HAVE_STRINGS_H */
-#include <stdio.h>
-#include <string.h>
-#include <sys/types.h>			/* _before_ regex.h for freeBSD */
-#include <regex.h> 				/* regcomp() */
-#include <pcre.h>					/* pcre_compile */
-#ifndef PCRE_UTF8 /* for compatibility with older libpcre's */
+
+#ifndef PCRE_UTF8             /* for compatibility with older libpcre's */
 #define PCRE_UTF8 0
 #endif /* PCRE_UTF8 */
-#include <gdk/gdkkeysyms.h>	/* GDK_Return */
 
 #include "bluefish.h"
-#include "bookmark.h"			/* bmark_add_extern() */
 #include "bf_lib.h"
+#include "bookmark.h"        /* bmark_add_extern() */
 #include "dialog_utils.h"
-#include "document.h"			/* doc_replace_text() */
-#include "gtk_easy.h"         /* a lot of GUI functions */
-#include "gui.h"					/* switch_to_document_by_pointer() */
-#include "highlight.h"			/* doc_highlight_full() */
+#include "document.h"        /* doc_replace_text() */
+#include "gtk_easy.h"        /* a lot of GUI functions */
+#include "gui.h"             /* switch_to_document_by_pointer() */
+#include "highlight.h"       /* doc_highlight_full() */
 #include "snr2.h"
-#include "stringlist.h"			/* add_to_history_stringlist */
-#include "undo_redo.h"			/* doc_unre_new_group */
+#include "stringlist.h"      /* add_to_history_stringlist */
+#include "undo_redo.h"       /* doc_unre_new_group */
 
 /* Updates, May 2003, by Ruben Dorta */
 
@@ -109,7 +111,7 @@ void snr2_cleanup(Tbfwin *bfwin) {
 	g_free(bfwin->snr2);
 }
 
-static void reset_last_snr2(Tbfwin *bfwin) {
+/* static void reset_last_snr2(Tbfwin *bfwin) {
 	if (LASTSNR2(bfwin->snr2)->search_pattern) {
 		g_free(LASTSNR2(bfwin->snr2)->search_pattern);
 	}
@@ -117,7 +119,7 @@ static void reset_last_snr2(Tbfwin *bfwin) {
 		g_free(LASTSNR2(bfwin->snr2)->replace_pattern);
 	}
 	memset(LASTSNR2(bfwin->snr2), 0, sizeof(Tlast_snr2));
-}
+} */
 
 /***********************************************************/
 
@@ -1264,34 +1266,11 @@ static void snr_update_count_label(TSNRWin * snrwin) {
 	g_free(text);
 }
 
-static void snr_combo_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin)
+static void snr_combo_changed_reset_options(TSNRWin * snrwin)
 {
 	gint scope;
 	DEBUG_MSG("snr_combo_changed, called\n");
-	if (comboboxentry == GTK_COMBO_BOX_ENTRY(snrwin->search)) {
-		if (strlen(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child))) > 0) {
-			gtk_widget_set_sensitive(snrwin->findButton, TRUE);
-			if (snrwin->dialogType == BF_REPLACE_DIALOG) {
-				gtk_widget_set_sensitive(snrwin->replaceAllButton, TRUE);
-				gtk_widget_set_sensitive(snrwin->replaceButton, TRUE);
-			} else {
-				gtk_widget_set_sensitive(snrwin->findAllButton, TRUE);
-			}
-		} else {
-			gtk_widget_set_sensitive(snrwin->findButton, FALSE);
-			if (snrwin->dialogType == BF_REPLACE_DIALOG) {
-				gtk_widget_set_sensitive(snrwin->replaceAllButton, FALSE);
-				gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
-			} else {
-				gtk_widget_set_sensitive(snrwin->findAllButton, FALSE);
-			}
-		}
-	}
 	
-	if (snrwin->dialogType == BF_REPLACE_DIALOG && comboboxentry == GTK_COMBO_BOX_ENTRY(snrwin->replaceType)) {
-		int replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
-		gtk_widget_set_sensitive(snrwin->replace, (replacetype == string));
-	}
 	/* on any change we reset the current set of options */
 	LASTSNR2(snrwin->bfwin->snr2)->result.start = -1;
 	LASTSNR2(snrwin->bfwin->snr2)->matches = 0;
@@ -1306,6 +1285,40 @@ static void snr_combo_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin
 	} else {
 		snr_update_count_label(snrwin);
 	}
+}
+
+static void snr_combobox_changed(GtkComboBox * combobox, TSNRWin * snrwin)
+{
+    if (snrwin->dialogType == BF_REPLACE_DIALOG && combobox == GTK_COMBO_BOX(snrwin->replaceType)) {
+	    int replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
+	    gtk_widget_set_sensitive(snrwin->replace, (replacetype == string));
+	}
+	
+	snr_combo_changed_reset_options(snrwin);
+}
+
+static void snr_comboboxentry_changed(GtkComboBoxEntry * comboboxentry, TSNRWin * snrwin)
+{
+    if (comboboxentry == GTK_COMBO_BOX_ENTRY(snrwin->search)) {
+    	if (strlen(gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child))) > 0) {
+    		gtk_widget_set_sensitive(snrwin->findButton, TRUE);
+    		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
+    			gtk_widget_set_sensitive(snrwin->replaceAllButton, TRUE);
+    		} else {
+    			gtk_widget_set_sensitive(snrwin->findAllButton, TRUE);
+    		}
+    	} else {
+    		gtk_widget_set_sensitive(snrwin->findButton, FALSE);
+    		if (snrwin->dialogType == BF_REPLACE_DIALOG) {
+    			gtk_widget_set_sensitive(snrwin->replaceAllButton, FALSE);
+    			gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
+    		} else {
+    			gtk_widget_set_sensitive(snrwin->findAllButton, FALSE);
+    		}
+    	}
+	}
+	
+	snr_combo_changed_reset_options(snrwin);
 }
 
 static void snr_option_toggled(GtkToggleButton *togglebutton,gpointer user_data) 
@@ -1378,11 +1391,15 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 		} else {
 			if (LASTSNR2(bfwin->snr2)->doc == bfwin->current_document) {
 				if (LASTSNR2(bfwin->snr2)->result.end > 0) {
-					if (LASTSNR2(bfwin->snr2)->overlapping_search) {
-						startpos = LASTSNR2(bfwin->snr2)->result.start + 1;
-					} else {
-						startpos = LASTSNR2(bfwin->snr2)->result.end;
-					}
+				    if (response != SNR_RESPONSE_REPLACE_ALL) {
+					    if (LASTSNR2(bfwin->snr2)->overlapping_search) {
+						    startpos = LASTSNR2(bfwin->snr2)->result.start + 1;
+					    } else {
+						    startpos = LASTSNR2(bfwin->snr2)->result.end;
+					    }
+				    } else {
+				        startpos = LASTSNR2(bfwin->snr2)->result.start;
+				    }
 				}
 			}	
 		}
@@ -1528,7 +1545,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	dialog_mnemonic_label_in_table(_("_Search for: "), snrwin->search, table, 0, 1, 0, 1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->search, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
-	g_signal_connect(snrwin->search, "changed", G_CALLBACK(snr_combo_changed), snrwin);
+	g_signal_connect(snrwin->search, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
 	g_signal_connect(snrwin->search, "realize",G_CALLBACK(realize_combo_set_tooltip), _("The pattern to look for"));
 	g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))), "activate",G_CALLBACK(snr_combo_activate_lcb), snrwin);
 
@@ -1547,7 +1564,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 		dialog_mnemonic_label_in_table(_("Replace _with: "), snrwin->replace, table, 0, 1, 1, 2);
 		gtk_table_attach(GTK_TABLE(table), snrwin->replace, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL,
 						 GTK_SHRINK, 0, 0);
-		g_signal_connect(snrwin->replace, "changed", G_CALLBACK(snr_combo_changed), snrwin);
+		g_signal_connect(snrwin->replace, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
 		g_signal_connect(snrwin->replace, "realize",G_CALLBACK(realize_combo_set_tooltip), _("Replace matching text with"));
 		g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",G_CALLBACK(snr_combo_activate_lcb), snrwin);
 	}
@@ -1559,7 +1576,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	dialog_mnemonic_label_in_table(_("Sco_pe: "), snrwin->scope, table, 0, 1, numrows-2, numrows-1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->scope, 1, 2, numrows-2, numrows-1,
 					 GTK_EXPAND | GTK_FILL, GTK_SHRINK, 0, 0);
-	g_signal_connect(snrwin->scope, "changed", G_CALLBACK(snr_combo_changed), snrwin);
+	g_signal_connect(snrwin->scope, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 	g_signal_connect(snrwin->scope, "realize",G_CALLBACK(realize_combo_set_tooltip), _("Where to look for the pattern."));
 
 	vbox2 = gtk_vbox_new(FALSE,0);
@@ -1593,7 +1610,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	dialog_mnemonic_label_in_table(_("Match Patter_n: "), snrwin->matchPattern, table, 0, 1, 0, 1);
 	gtk_table_attach(GTK_TABLE(table), snrwin->matchPattern, 1, 2, 0, 1, GTK_EXPAND | GTK_FILL,
 					 GTK_SHRINK, 0, 0);
-	g_signal_connect(snrwin->matchPattern, "changed", G_CALLBACK(snr_combo_changed), snrwin);
+	g_signal_connect(snrwin->matchPattern, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 	g_signal_connect(snrwin->matchPattern, "realize",G_CALLBACK(realize_combo_set_tooltip), _("How to interpret the pattern."));
 	
 	if (dialogType == BF_REPLACE_DIALOG) {
@@ -1605,7 +1622,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 									   2);
 		gtk_table_attach(GTK_TABLE(table), snrwin->replaceType, 1, 2, 1, 2, GTK_EXPAND | GTK_FILL,
 						 GTK_SHRINK, 0, 0);
-		g_signal_connect(snrwin->replaceType, "changed", G_CALLBACK(snr_combo_changed), snrwin);
+		g_signal_connect(snrwin->replaceType, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 		g_signal_connect(snrwin->replaceType, "realize",G_CALLBACK(realize_combo_set_tooltip), _("What to replace with."));
 	}
 
@@ -1640,6 +1657,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 		gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_REPLACE, FALSE);
 	} else {
 		snrwin->findAllButton = gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), _("Find _All"), SNR_RESPONSE_FIND_ALL);
+		gtk_dialog_set_response_sensitive(GTK_DIALOG(snrwin->dialog), SNR_RESPONSE_FIND_ALL, FALSE);
 	}
 	snrwin->findButton =
 		gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_FIND, SNR_RESPONSE_FIND);
