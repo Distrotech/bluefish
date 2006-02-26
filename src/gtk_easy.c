@@ -1277,11 +1277,15 @@ static gboolean file_chooser_custom_filter_func(GtkFileFilterInfo *filter_info,g
 GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, 
 											gchar *set, gboolean localonly, gboolean multiple, const gchar *filter, gboolean show_encoding) {
 	GtkWidget *vbox, *hbox, *dialog, *viewbackup;
-	dialog = gtk_file_chooser_dialog_new_with_backend(title,bfwin ? GTK_WINDOW(bfwin->main_window) : NULL,
+	/* dialog = gtk_file_chooser_dialog_new_with_backend(title,bfwin ? GTK_WINDOW(bfwin->main_window) : NULL,
 			action,"gnome-vfs",
 			GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 			(action == GTK_FILE_CHOOSER_ACTION_SAVE) ? GTK_STOCK_SAVE : GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
-			NULL);
+			NULL); */
+	dialog = gtk_file_chooser_dialog_new(title,bfwin ? GTK_WINDOW(bfwin->main_window) : NULL, action,
+                GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                (action == GTK_FILE_CHOOSER_ACTION_SAVE) ? GTK_STOCK_SAVE : GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
+                NULL);
 	gtk_dialog_set_default_response (GTK_DIALOG(dialog), GTK_RESPONSE_ACCEPT);
 	gtk_file_chooser_set_local_only(GTK_FILE_CHOOSER(dialog),localonly);
 	if (set && strlen(set)) {
