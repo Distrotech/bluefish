@@ -207,7 +207,7 @@ Thanks to all who helped making this software available.\n\
 #ifdef HAVE_ATLEAST_GTK_2_4
 			"GTK+ 2.4 or newer\n",
 #endif
-#ifdef HAVE_GNOMEVFS_2_6
+#ifdef HAVE_ATLEAST_GNOMEVFS_2_6
 			"GnomeVFS 2.6 or newer\n",
 #endif
 #ifdef HAVE_ATLEAST_GNOMEUI_2_6
