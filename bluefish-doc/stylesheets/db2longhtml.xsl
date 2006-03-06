@@ -6,6 +6,26 @@
 <xsl:import href="http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl"/>
 <!-- <xsl:import href="../xsl/html/docbook.xsl"/> -->
 <xsl:include href="titlepage-html.xsl"/>
+
+<!--
+this file belongs to bluefish, a web development environment
+Copyright (C) 2005-2006 The Bluefish Project Team
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+-->
+
 <!-- Define the output encoding as UTF-8 -->
 <xsl:output method="html"
 	encoding="UTF-8"
@@ -31,5 +51,30 @@ book      toc,title,figure,example,procedure
 <!-- Remove indentation to admon graphics -->
 <xsl:param name="admon.style">
   <xsl:text>margin-left: 0in; margin-right: 0in;</xsl:text>
+
+<!-- Segmented list as tables workaround for fop-->
+<!-- <xsl:template match="segmentedlist" mode="seglist-table">
+  <xsl:apply-templates select="title" mode="list.title.mode" />
+  <html:table table-layout="fixed">
+    <html:table-column column-number="1" column-width="100px"/>
+    <html:table-column column-number="2" column-width="200px"/>
+    <html:table-header> -->
+ <!--      <html:table-row>
+        <xsl:apply-templates select="segtitle" mode="seglist-table"/>
+      </html:table-row>
+    </html:table-header>
+    <html:table-body>
+      <xsl:apply-templates select="seglistitem" mode="seglist-table"/> -->
+ <!--    </html:table-body>
+  </html:table>
+</xsl:template>
+<xsl:template match="segtitle" mode="seglist-table">
+  <html:table-cell>
+    <html:block font-weight="bold" text-align="center"> -->
+<!--      <xsl:apply-templates/>
+    </html:block>
+  </html:table-cell>
+</xsl:template> -->
+
 </xsl:param>
 </xsl:stylesheet>

@@ -1,6 +1,7 @@
 <!--
 this file belongs to bluefish, a web development environment
 Copyright (C) 2002  Denny Reeh
+Copyright (C) 2005-2006 The Bluefish Project Team
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -14,8 +15,9 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
+
 <preface id="bluefish-preface">
 <title>Preface</title>
 <?linebreaka4?>
@@ -44,7 +46,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 </note>
 </listitem>
 </itemizedlist>
-<para>Finally, if you find errors in this manual or wish to write new sections, join the <link linkend="bluefish-contact">mailing list</link> and let us know. Guidelines for this manual can be found in <xref linkend="bluefish-manual-guide"/>.</para>
+<para>Finally, if you find errors or omissions in this manual, fill in a <link linkend="bluefish-contact">documentation bug report</link>.</para>
 </sect1>
 <?linebreaka4?>
 <sect1 id="bluefish-what-is-bf">
@@ -77,6 +79,7 @@ about boring logos, Neil Millar came up with a cute blue fish. Because this logo
 <itemizedlist spacing="compact">
 <listitem><para>C</para></listitem>
 <listitem><para>cfml</para></listitem>
+<listitem><para>ChangeLog</para></listitem>
 <listitem><para>CSS stylesheet</para></listitem>
 <listitem><para>Gettext po</para></listitem>
 <listitem><para>HTML</para></listitem>
@@ -115,7 +118,7 @@ about boring logos, Neil Millar came up with a cute blue fish. Because this logo
 <para>User-customizable tool bar for quick access to often used functions</para>
 </listitem>
 <listitem>
-<para>Open files based on filename patterns and/or content</para>
+<para>Open files based on filename patterns and/or content, from selection or URIs</para>
 </listitem>
 <listitem>
 <para>Fully featured image insert dialog</para>
@@ -174,7 +177,7 @@ or screen shot pages</para>
 <sect2 id="bluefish-stability">
 <title>How Stable is Bluefish?</title>
 <para>Quite stable! The Bluefish developers aim to produce code that neither crashes nor leaks memory. Of course, that is not always easy to do. Leaks and crashes are often fixed in CVS as soon as they are discovered and hunted down. In addition to Bluefish's large user base, the developers use Bluefish for their daily work. So, fixing bugs and preventing crashes is always a major priority. However, some nags still exist. One example being the issue of slightly sluggish copy/paste functions.</para>
-<para>For an updated list of open bugs, please go to the <ulink url="http://bfwiki.tellefsen.net/?pagename=ToDoList">http://bfwiki.tellefsen.net/?pagename=ToDoList</ulink> page on the Bluefish WiKi.</para>
+<para>For an updated list of open bugs, please go to the <ulink url="http://bugzilla.gnome.org/browse.cgi?product=bluefish">http://bugzilla.gnome.org/browse.cgi?product=bluefish</ulink> page on bugzilla gnome.</para>
 <para>We appreciate any and all contributions! Please tell us if Bluefish crashes on you :-).</para>
 </sect2>
 <sect2 id="bluefish-contact">
@@ -182,16 +185,25 @@ or screen shot pages</para>
 <para>We, the Bluefish development team, welcome all comments, user requests, constructive	criticisms, and contributions. Are you curious or seeking information regarding Bluefish? Would you like to contribute by translating Bluefish or its manual? Here are your options:</para>
 <itemizedlist>
 <listitem>
-<para><ulink url="http://bluefish.openoffice.nl/">http://bluefish.openoffice.nl/</ulink> - The main website where you will find news, updates and more information.</para>
+<para><ulink url="http://bluefish.openoffice.nl/">http://bluefish.openoffice.nl/</ulink> - The main website where you will find news, updates, manual and more information.</para>
 </listitem>
 <listitem>
-<para><ulink url="http://bfwiki.tellefsen.net/">http://bfwiki.tellefsen.net/</ulink> - The Bluefish WiKi is the notebook for the developers, containing a lot of information. This includes, but is not limited to: updated project road maps, status of translations, feature requests, and open bugs.</para>
+<para><ulink url="http://bfwiki.tellefsen.net/">http://bfwiki.tellefsen.net/</ulink> - The Bluefish WiKi is the notebook for the developers, containing a lot of information. This includes, but is not limited to: updated project road maps, status of translations.</para>
 </listitem>
 <listitem>
-<para>You can subscribe to the Bluefish mailing list by sending an email containing <quote>subscribe bluefish-dev</quote> to <email>bluefish-dev-request@lists.ems.ru</email>.</para>
+<para>For bug reports and features requests, related to bluefish, its web site, and its manual, please fill the appropriate bug type at <ulink url="http://bugzilla.gnome.org/browse.cgi?product=bluefish">http://bugzilla.gnome.org/browse.cgi?product=bluefish</ulink>, the bluefish bugzilla page on bugzilla gnome (see <xref linkend="bluefish-filling-bug-report"/> for instructions).</para>
+</listitem>
+<listitem>
+<para>You can subscribe to the users' Bluefish mailing list by sending an email containing <quote>subscribe bluefish-users</quote> to <email>bluefish-users-request@lists.ems.ru</email>.</para>
+</listitem>
+<listitem>
+<para>You can subscribe to the developers' Bluefish mailing list by sending an email containing <quote>subscribe bluefish-dev</quote> to <email>bluefish-dev-request@lists.ems.ru</email>.</para>
 </listitem>
 <listitem>
 <para>Do you want to help translate Bluefish? Please let us know by dropping an email to Walter Echarri <email>wecharri(at)arnet.com.ar</email>, our friendly translation maintainer.</para>
+</listitem>
+<listitem>
+<para>If you want to help improve the manual or write new sections, please send an email to the Bluefish manual maintainer, Michèle Garoche <email>michele.garoche(at)easyconnect.fr</email>. Guidelines for this manual can be found in <xref linkend="bluefish-manual-guide"/></para>
 </listitem>
 <listitem>
 <para>If you have a general question, drop an email to <email>bluefish(at)bluefish.openoffice.nl</email>.</para>

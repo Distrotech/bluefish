@@ -1,6 +1,7 @@
 <!--
 this file belongs to bluefish, a web development environment
 Copyright (C) 2002 Denny Reeh
+Copyright (C) 2005-2006 The Bluefish Project Team
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -14,8 +15,9 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
+
 <appendix id="bluefish-appb">
 <title>Bluefish change history</title>
 
@@ -34,7 +36,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <para>Updated translations: Chinese, French, German, Italian, Japanese, Polish, Portuguese, Spanish, Swedish.</para>
 </listitem>
 <listitem>
-<para>Fixes a critical feature bug in the Undo/Redo function, which can lead to data loss. Partially closes Bluefish bug #327432<ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=327432">Bluefish bug #327432</ulink> and Gentoo bug #119246<ulink url="https://bugs.gentoo.org/show_bug.cgi?id=119246">Gentoo bug #119246</ulink>.</para>
+<para>Fixes a critical feature bug in the Undo/Redo function, which can lead to data loss. Partially closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=327432">Bluefish bug #327432</ulink> and <ulink url="https://bugs.gentoo.org/show_bug.cgi?id=119246">Gentoo bug #119246</ulink>.</para>
 </listitem>
 <listitem>
 <para>Man-pages are now installed by default in every distribution not only Debian. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=309404">Bluefish bug #309404</ulink>.</para>
@@ -121,7 +123,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 <revdescription>
 <itemizedlist>
 <listitem>
-<para>Translation updates: Danish, German, Italian, Japanese, Chinese</para>
+<para>Translation updates: Danish, German, Italian, Japanese, Chinese.</para>
 </listitem>
 <listitem>
 <para>Patch from Eduard Carreras i Nadal: Single-line selected text becomes the search-string in the Find/Replace dialogs.</para>

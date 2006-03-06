@@ -1,6 +1,7 @@
 <!--
 this file belongs to bluefish, a web development environment
 Copyright (C) 2002 Denny Reeh
+Copyright (C) 2005-2006 The Bluefish Project Team
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -14,8 +15,9 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
+
 <appendix id="bluefish-manual-guide">
 <title>Guidelines for Writing this Manual</title>
 
@@ -80,18 +82,18 @@ co bluefish-doc</screen></para>
 <para>If you wish to build PDF or PostScript versions of the manual, you will need the Formatting Objects Processor (FOP) package from Apache. If it is not already installed on your system, get the latest binary distribution from the <ulink url="http://xml.apache.org/fop/download.html">FOP download</ulink> page on the Apache web site.</para>
 </step>
 <step>
-<para>Unpack it into the <filename class="directory">bluefish-doc</filename> directory:
+<para>Unpack it into the <filename>bluefish-doc</filename> directory:
 <screen><prompt>$</prompt> tar zxvf fop-0.20.5-bin.tar.gz -C ~/bluefish-doc</screen></para>
-<para>The files will be unpacked to a directory called <literal>fop-0.20.5</literal>.</para>
+<para>The files will be unpacked to a directory called <filename>fop-0.20.5</filename>.</para>
 </step>
 <step>
-<para>Rename <literal>fop-0.20.5</literal> to <literal>fop</literal>:
+<para>Rename <filename>fop-0.20.5</filename> to <filename>fop</filename>:
 <screen><prompt>$</prompt> mv  ~/bluefish-doc/fop-0.20.5  ~/bluefish-doc/fop</screen></para>
 <?linebreaka4?>
 </step>
 <step>
 <para>FOP does not yet support embedding PNG images in pdf files. To get PNG support, we need Java Advanced Imageing (JAI) from <ulink url="http://java.sun.com/products/java-media/jai/downloads/download-1_1_2.html">http://java.sun.com/products/java-media/jai/downloads/download-1_1_2.html</ulink> or the <ulink url="http://java.sun.com/products/jimi/">JIMI Software Development Kit</ulink> (especially for Debian and Ubuntu users, read /usr/share/doc/fop/README.Debian).</para>
-<para>For Linux, download the CLASSPATH version, <filename>jai-1_1_2-lib-linux-i586.tar.gz</filename>. Unpack and copy the files <filename class="libraryfile">jai_core.jar</filename> and <filename class="libraryfile">jai_codec.jar</filename> files to <filename class="directory">~/bluefish-doc/fop/lib</filename>. Debian and Ubuntu users running <application>fop</application> with JIMI-support download <filename>jimi1_0.(zip|tar.Z)</filename> and place <filename class="libraryfile">jimi-1.0.jar</filename> into <filename class="directory">/usr/share/java</filename>.</para>
+<para>For Linux, download the CLASSPATH version, <filename>jai-1_1_2-lib-linux-i586.tar.gz</filename>. Unpack and copy the files <filename>jai_core.jar</filename> and <filename>jai_codec.jar</filename> files to <filename>~/bluefish-doc/fop/lib</filename>. Debian and Ubuntu users running <application>fop</application> with JIMI-support download <filename>jimi1_0.(zip|tar.Z)</filename> and place <filename>jimi-1.0.jar</filename> into <filename>/usr/share/java</filename>.</para>
 <note>
 <para>JAI and JIMI support are available for FOP release 0.20.5 and later.</para>
 </note>
@@ -277,6 +279,7 @@ co bluefish-doc</screen></para>
 </procedure>
 ]]></programlisting></para>
 <para>If the explanation consists mainly in orders, you may want to use ordered list instead.</para>
+<para>Keep in mind that steps and ordered lists are automatically numbered, thus words such as first, then, etc. are useless.</para>
 </sect2>
 
 <?pagebreaka4?>
@@ -308,7 +311,9 @@ co bluefish-doc</screen></para>
 <title>Others tags</title>
 <para>To highlight command line tools or small applications, we use:
 <programlisting><![CDATA[<command>make</command>]]></programlisting></para>
-<para>To emphasize file or directory names, we use:
+<para>To emphasize file names, we use:
+<programlisting><![CDATA[<filename>make</filename>]]></programlisting></para>
+<para>To emphasize directory names, we use:
 <programlisting><![CDATA[<filename>make</filename>]]></programlisting></para>
 <para>For user's instructions, use either:
 <programlisting><![CDATA[<screen><prompt>$</prompt> make install</screen>]]></programlisting>
@@ -349,7 +354,7 @@ Run the command &lt;userinput>make&lt;/userinput>]]&#62;
 
 <sect2 id="bluefish-manual-guide-error">
 <title>Contact us</title>
-<para>If you find errors in the manual, or just want to add more, please <link linkend="bluefish-contact">contact</link> us. If you have questions on how to edit the manual that are not addressed in this appendix, you can always ask on the <link linkend="bluefish-contact">mailing list</link>. Often, you can look to the chapter source to see how things are done.</para>
+<para>If you find errors in the manual, or just want to add more, please <link linkend="bluefish-contact">contact</link> the manual's maintainer, as well as if you have questions on how to edit the manual that are not addressed in this appendix. Often, you can look to the sources to see how things are done.</para>
 </sect2>
 
 </sect1>

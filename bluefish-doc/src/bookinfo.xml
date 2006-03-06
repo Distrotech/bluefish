@@ -1,6 +1,7 @@
 <!--
 this file belongs to bluefish, a web development environment
 Copyright (C) 2002  Denny Reeh
+Copyright (C) 2005-2006 The Bluefish Project Team
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -14,8 +15,9 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
+
 <bookinfo>
 <!-- Embedding of external image, only for pdf -->
 <mediaobject>
@@ -62,6 +64,11 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <!-- Revision history, do not forget to update it each time -->
 <revhistory>
 <revision>
+<revnumber>1.5</revnumber>
+<date>08/02/2006</date>
+<revremark>Update for bluefish version 1.0.5.</revremark>
+</revision>
+<revision>
 <revnumber>1.4</revnumber>
 <date>15/12/2005</date>
 <revremark>Changed to DocBook XSL style sheets 1.69.1. Improved pdf stylesheets.</revremark>
@@ -88,12 +95,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 </revision>
 </revhistory>
 <copyright>
-<year>2004-2005</year>
+<year>2004-2006</year>
 <holder>The Bluefish Project Team</holder>
 </copyright>
 <!-- Page numbers for pdf-a4 and pfs-us -->
 <!-- If same numbers, just nums, otherwise numsa4-numsus -->
 <pagenums>120-126 pages</pagenums>
 <!-- Date of revision -->
-<pubdate>December, 15th 2005</pubdate>
+<pubdate>February, 8th 2006</pubdate>
 </bookinfo>

@@ -1,6 +1,7 @@
 <!--
 this file belongs to bluefish, a web development environment
 Copyright (C) 2002  Denny Reeh
+Copyright (C) 2005-2006 The Bluefish Project Team
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -14,8 +15,9 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
+
 <chapter id="installing-bluefish">
 <title>Installing Bluefish</title>
 
@@ -50,13 +52,22 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <para>Development files (header files, etc) for the packages above. <emphasis>These are often distributed as separate packages. There is also a high probability you have these installed already.</emphasis></para>
 </listitem>
 <listitem>
-<para>gcc <emphasis>- Bluefish has been tested to compile on the 2.95 and 3.x branches.</emphasis></para>
+<para>gcc <emphasis>- Bluefish has been tested to compile on the 2.95, 3.x, and 4.0.x branches.</emphasis></para>
 </listitem>
 <listitem>
 <para>gmake or BSD make</para>
 </listitem>
 <listitem>
 <para>autoconf <emphasis>- only if you are going to compile from CVS</emphasis></para>
+</listitem>
+<listitem>
+<para>gtk v2.4 at least <emphasis>- only if you are going to compile from CVS</emphasis></para>
+</listitem>
+<listitem>
+<para>gnome_vfs 2.6 <emphasis>- only if you are going to compile from CVS</emphasis></para>
+</listitem>
+<listitem>
+<para>libxml 2.0 <emphasis>- only if you are going to compile from CVS</emphasis></para>
 </listitem>
 </itemizedlist>
 </sect1>
@@ -73,7 +84,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <para>Red Hat, Mandrake (and other Linux distributions that support rpm): Download the latest .rpm from the <ulink url="http://bluefish.openoffice.nl/">Bluefish website</ulink></para>
 </listitem>
 <listitem>
-<para>FreeBSD, NetBSD and OpenBSD distribute Bluefish through their packaging systems.</para>
+<para>FreeBSD, NetBSD, OpenBSD, Fink, and DarwinPorts distribute Bluefish through their packaging systems.</para>
 </listitem>
 <listitem>
 <para>To compile, or install on another platform, see <xref linkend="installing-bluefish-source"></xref>.</para>
@@ -159,6 +170,21 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 <remark>... more nags with Mandrake?</remark>
 </listitem>
 </itemizedlist>
+<para>Fink:</para>
+<itemizedlist>
+<listitem>
+<para>Fink binary distribution for Mac OS X 10.1 has Bluefish 0.7 (unmaintained).</para>
+</listitem>
+<listitem>
+<para>Fink for Mac OS X 10.2 has Bluefish 0.12 in binary or stable source distribution, and Bluefish 0.13 in unstable source branch.</para>
+</listitem>
+<listitem>
+<para>Fink for Mac OS X 10.3 and 10.4-transitional has Bluefish 1.0 in binary distribution, Bluefish 1.0.1 in stable source branch, and Bluefish 1.0.4 in unstable source branch. The source branches have three variants: bluefish, bluefish-gnomevfs2, and bluefish-gnome2.</para>
+</listitem>
+<listitem>
+<para>Fink's latest cvs version is always available from the <ulink url="http://cvs.sourceforge.net/viewcvs.py/fink/experimental/michga/">Fink's maintainer experimental cvs tree</ulink>. It is meant to run on Mac OS X 10.4.</para>
+</listitem>
+</itemizedlist>
 </sect1>
 <?linebreakus?>
 
@@ -237,7 +263,7 @@ the following steps:</para>
 <para>... more trouble to come ;-)</para>
 </listitem>
 </itemizedlist>
-<para>If you're unable to find a solution (or if you think you have a solution others might want), feel free to contact us on the <emphasis>bluefish-dev</emphasis> list (See <xref linkend="bluefish-contact"/>).</para>
+<para>If you're unable to find a solution (or if you think you have a solution others might want), feel free to contact us on the <emphasis>bluefish-dev</emphasis> list (See <xref linkend="bluefish-contact"/>). You may want to contact the bluefish package maintainer for your distribution first when appropriated.</para>
 </sect2>
 </sect1>
 
@@ -505,7 +531,7 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><option>--enable-gcc3-optimization</option></term>
+<term><option>--enable-gcc3-optimization=type</option></term>
 <listitem>
 <para>optimizes the build process for a given architecture if possible</para>
 <para>Machines: i386, i486, pentium, pentium-mmx, pentiumpro, pentium2, pentium3, pentium4, k6, k6-2, k6-3, athlon, athlon-tbird, athlon-4, athlon-xp, athlon-mp, winchip-c6, winchip2, c3</para>
@@ -513,7 +539,7 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><option>--enable-gcc2-optimization</option></term>
+<term><option>--enable-gcc2-optimization=type</option></term>
 <listitem>
 <para>optimizes the build process for a given architecture if possible</para>
 <para>Machines: i386, i486, pentium, pentiumpro, k6</para>
@@ -558,15 +584,15 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><option>--disable-nls</option></term>
-<listitem>
-<para>disables the Native Language Support (might speed up the program)</para>
-</listitem>
-</varlistentry>
-<varlistentry>
 <term><option>--disable-update-databases</option></term>
 <listitem>
 <para>do not run the update-desktop-database or update-mime-database utilities, mostly useful for package maintainers</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><option>--disable-nls</option></term>
+<listitem>
+<para>disables the Native Language Support (might speed up the program)</para>
 </listitem>
 </varlistentry>
 </variablelist>
@@ -576,6 +602,12 @@ the following steps:</para>
 <note>
 <para>This works as is: <option>--with-xxx=foo</option> enables the flag, <option>--without-xxx</option> disables it. When not enabled, the default is used.</para>
 </note>
+<varlistentry>
+<term><option>--without-libgnomeui</option></term>
+<listitem>
+<para>disable libgnomeui detection</para>
+</listitem>
+</varlistentry>
 <varlistentry>
 <term><option>--with-gnome1-menu</option></term>
 <listitem>
@@ -690,6 +722,44 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 </variablelist>
+<variablelist>
+<title>Features specific to the cvs version:</title>
+<varlistentry>
+<term><option>--enable-unstable-install</option></term>
+<listitem>
+<para>enable the installation of a bluefish development version with independent directories and files. Use this for CVS snapshots.</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><option>--enable-scanner</option></term>
+<listitem>
+<para>use the BfTextView scanner for editor widget</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><option>--disable-python</option></term>
+<listitem>
+<para>do not build the python plugin</para>
+</listitem>
+</varlistentry>
+<varlistentry>
+<term><option>--with-theme-path</option></term>
+<listitem>
+<para>customized path for the theme icons.</para>
+<para>Usage:
+<option>--with-theme-path=customizedpath</option> or 
+<option>--without-theme-path</option>
+</para>
+<para>Defaults to auto detection. Autodetection will try:</para>
+<para><itemizedlist>
+<listitem><para><filename>/usr/share/icons/hicolor</filename></para></listitem>
+<listitem><para><filename>PREFIX/share/icons/hicolor</filename></para></listitem>
+<listitem><para><filename>/usr/X11R6/share/gnome/icons/hicolor</filename></para></listitem>
+<listitem><para><filename>PREFIX/share/gnome/icons/hicolor</filename></para></listitem>
+</itemizedlist></para>
+</listitem>
+</varlistentry>
+</variablelist>
 </sect2>
 </sect1>
 
@@ -725,7 +795,7 @@ the following steps:</para>
 <para>Exit Bluefish</para>
 </step>
 <step>
-<para>Move your current highlighting file to highlighting.old</para>
+<para>Move your current <filename>highlighting</filename> file to <filename>highlighting.old</filename></para>
 </step>
 <step>
 <para>Start Bluefish to get the new patterns</para>

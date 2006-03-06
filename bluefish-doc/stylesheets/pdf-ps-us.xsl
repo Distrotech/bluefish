@@ -6,6 +6,25 @@
 <!-- <xsl:import href="../xsl/fo/docbook.xsl"/> -->
 <xsl:import href="titlepage-us.xsl"/>
 
+<!--
+this file belongs to bluefish, a web development environment
+Copyright (C) 2005-2006 The Bluefish Project Team
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+-->
+
 <!-- Allow to use extensions -->
 <xsl:param name="use.extensions" select="'1'"></xsl:param>
 <!-- For bookmarks -->
@@ -276,6 +295,30 @@ procedure before
 <fo:wrapper color="#5e3880">
     <xsl:apply-imports/>
   </fo:wrapper>
+</xsl:template>
+
+<!-- Segmented list as tables workaround for fop-->
+<xsl:template match="segmentedlist" mode="seglist-table">
+  <xsl:apply-templates select="title" mode="list.title.mode" />
+  <fo:table table-layout="fixed">
+    <fo:table-column column-number="1" column-width="100px"/>
+    <fo:table-column column-number="2" column-width="200px"/>
+    <fo:table-header>
+      <fo:table-row>
+        <xsl:apply-templates select="segtitle" mode="seglist-table"/>
+      </fo:table-row>
+    </fo:table-header>
+    <fo:table-body>
+      <xsl:apply-templates select="seglistitem" mode="seglist-table"/>
+    </fo:table-body>
+  </fo:table>
+</xsl:template>
+<xsl:template match="segtitle" mode="seglist-table">
+  <fo:table-cell>
+    <fo:block font-weight="bold" text-align="center">
+     <xsl:apply-templates/>
+    </fo:block>
+  </fo:table-cell>
 </xsl:template>
 
 <!-- First bookmark points to second page of cover -->
