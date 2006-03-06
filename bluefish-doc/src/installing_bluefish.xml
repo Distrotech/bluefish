@@ -1,7 +1,7 @@
 <!--
 this file belongs to bluefish, a web development environment
 Copyright (C) 2002  Denny Reeh
-Copyright (C) 2005-2006 The Bluefish Project Team
+Copyright (C) 2004-2006  The Bluefish Project Team
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -522,7 +522,7 @@ the following steps:</para>
 <para><command>uname -p</command> or <command>grep "model name" /proc/cpuinfo | cut -d: -f2</command> to detect the architecture</para>
 </listitem>
 <listitem>
-<para>the version of gcc to pass the arguments</para>
+<para>the version of <application>gcc</application> to pass the arguments</para>
 </listitem>
 </orderedlist>
 <para>Tested gcc versions: 3.2.*, 3.0.*, 2.95.*</para>
@@ -561,7 +561,7 @@ the following steps:</para>
 <varlistentry>
 <term><option>--enable-highlight-profiling</option></term>
 <listitem>
-<para>outputs statistics on where the program spends most of its time when highlighting patterns.</para>
+<para>outputs statistics on where the program spends most of its time when highlighting patterns</para>
 <para>Usage: for debugging highlight patterns or trying to optimize the program</para>
 </listitem>
 </varlistentry>
@@ -574,19 +574,19 @@ the following steps:</para>
 <varlistentry>
 <term><option>--enable-gprof-profiling</option></term>
 <listitem>
-<para>outputs statistics on where the program spends most of its time by generating extra code to write profile information suitable for the analysis. (slows down the program)</para>
+<para>outputs statistics on where the program spends most of its time by generating extra code to write profile information suitable for the analysis (slows down the program)</para>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term><option>--enable-gcoc-coverage</option></term>
 <listitem>
-<para>Purpose: to be able to collect statistics on how many times each branch is executed and how long it has lasted. Creates data files for the gcov code-coverage utility. (slows down the program)</para>
+<para>Purpose: to be able to collect statistics on how many times each branch is executed and how long it has lasted. Creates data files for the gcov code-coverage utility (slows down the program)</para>
 </listitem>
 </varlistentry>
 <varlistentry>
 <term><option>--disable-update-databases</option></term>
 <listitem>
-<para>do not run the update-desktop-database or update-mime-database utilities, mostly useful for package maintainers</para>
+<para>do not run the <application>update-desktop-database</application> or <application>update-mime-database</application> utilities after installation (mostly useful for package maintainers)</para>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -611,12 +611,12 @@ the following steps:</para>
 <varlistentry>
 <term><option>--with-gnome1-menu</option></term>
 <listitem>
-<para>customized path for the gnome1 menu.</para>
+<para>customized path for the gnome1 menu (disabled by default)</para>
 <para>Usage:
 <option>--with-gnome1-menu=customizedpath</option> or 
 <option>--without-gnome1-menu</option>
 </para>
-<para>By default disabled.</para>
+<para>disabled by default</para>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -627,7 +627,7 @@ the following steps:</para>
 <option>--with-freedesktop_org-menu=customizedpath</option> or 
 <option>--without-freedesktop_org-menu</option>
 </para>
-<para>Defaults to autodetection. Autodetection will try:</para>
+<para>defaults to auto-detection, which tries:</para>
 <para><itemizedlist>
 <listitem><para><filename>/usr/share/applications</filename></para></listitem>
 <listitem><para><filename>PREFIX/share/applications</filename></para></listitem>
@@ -644,7 +644,7 @@ the following steps:</para>
 <option>--with-freedesktop_org-mime=customizedpath</option> or 
 <option>--without-freedesktop_org-mime</option>
 </para>
-<para>Defaults to autodetection. Autodetection will try:</para>
+<para>defaults to auto-detection, which tries:</para>
 <para><itemizedlist>
 <listitem><para><filename>/usr/share/mime</filename></para></listitem>
 <listitem><para><filename>PREFIX/share/mime</filename></para></listitem>
@@ -661,7 +661,7 @@ the following steps:</para>
 <option>--with-gnome2_4-mime=customizedpath</option> or 
 <option>--without-gnome2_4-mime</option>
 </para>
-<para>Defaults to autodetection. Autodetection will try:</para>
+<para>defaults to auto-detection, which tries:</para>
 <para><itemizedlist>
 <listitem><para><filename>/usr/share/mime-info</filename></para></listitem>
 <listitem><para><filename>PREFIX/share/mime-info</filename></para></listitem>
@@ -678,7 +678,7 @@ the following steps:</para>
 <option>--with-gnome2_4-appreg=customizedpath</option> or 
 <option>--without-gnome2_4-appreg</option>
 </para>
-<para>Defaults to autodetection. Autodetection will try:</para>
+<para>defaults to auto-detection, which tries:</para>
 <para><itemizedlist>
 <listitem><para><filename>/usr/share/application-registry</filename></para></listitem>
 <listitem><para><filename>PREFIX/share/application-registry</filename></para></listitem> 
@@ -695,7 +695,7 @@ the following steps:</para>
 <option>--with-icon-path=customizedpath</option> or 
 <option>--without-icon-path</option>
 </para>
-<para>Defaults to auto detection. Autodetection will try:</para>
+<para>defaults to auto-detection, which tries:</para>
 <para><itemizedlist>
 <listitem><para><filename>/usr/share/pixmaps</filename></para></listitem>
 <listitem><para><filename>PREFIX/share/pixmaps</filename></para></listitem>
@@ -718,16 +718,16 @@ the following steps:</para>
 <varlistentry>
 <term><option>--with-included-gettext</option></term>
 <listitem>
-<para>use the GNU gettext library included in the package</para>
+<para>use the <package>GNU gettext</package> library included in the package</para>
 </listitem>
 </varlistentry>
 </variablelist>
 <variablelist>
-<title>Features specific to the cvs version:</title>
+<title>Features specific to the CVS version:</title>
 <varlistentry>
 <term><option>--enable-unstable-install</option></term>
 <listitem>
-<para>enable the installation of a bluefish development version with independent directories and files. Use this for CVS snapshots.</para>
+<para>enable the installation of a bluefish development version with independent directories and files. Use this for CVS snapshots</para>
 </listitem>
 </varlistentry>
 <varlistentry>
@@ -750,7 +750,7 @@ the following steps:</para>
 <option>--with-theme-path=customizedpath</option> or 
 <option>--without-theme-path</option>
 </para>
-<para>Defaults to auto detection. Autodetection will try:</para>
+<para>defaults to auto-detection, which tries:</para>
 <para><itemizedlist>
 <listitem><para><filename>/usr/share/icons/hicolor</filename></para></listitem>
 <listitem><para><filename>PREFIX/share/icons/hicolor</filename></para></listitem>

@@ -1,7 +1,7 @@
 <!--
 this file belongs to bluefish, a web development environment
 Copyright (C) 2002 Denny Reeh
-Copyright (C) 2005-2006 The Bluefish Project Team
+Copyright (C) 2004-2006  The Bluefish Project Team
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -23,7 +23,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 <sect1 id="bluefish-manual-guide-intro">
 <title>Introduction to DocBook</title>
-<para>The Bluefish manual is written in <ulink url="http://www.docbook.org">DocBook</ulink> XML, which is a set of standards for writing documentation. Originally, DocBook was intended for computer software documentation, but is now used for many other document types.</para>
+<para>The Bluefish manual is written in <ulink url="http://www.docbook.org">DocBook XML</ulink>, which is a set of standards for writing documentation. Originally, DocBook was intended for computer software documentation, but is now used for many other document types.</para>
 </sect1>
 
 <sect1 id="bluefish-manual-guide-requirements">
@@ -69,7 +69,7 @@ co bluefish-doc</screen></para>
 <para>Install DocBook 4.4 for your distribution</para>
 </step>
 <step><para>Install DocBook XSL version 1.69.1 if it is available for your distribution</para>
-<para>Otherwise, get them it from the <ulink url="http://sourceforge.net/projects/docbook/">DocBook Project</ulink> page on SourceForge.net and unpack it into the <filename>bluefish-doc</filename> directory.</para>
+<para>Otherwise, get it from the <ulink url="http://sourceforge.net/projects/docbook/">DocBook Project pages</ulink> on SourceForge.net and unpack it into the <filename>bluefish-doc</filename> directory.</para>
 </step>
 </procedure>
 <procedure id="getting-xslt-processors">
@@ -92,7 +92,7 @@ co bluefish-doc</screen></para>
 <?linebreaka4?>
 </step>
 <step>
-<para>FOP does not yet support embedding PNG images in pdf files. To get PNG support, we need Java Advanced Imageing (JAI) from <ulink url="http://java.sun.com/products/java-media/jai/downloads/download-1_1_2.html">http://java.sun.com/products/java-media/jai/downloads/download-1_1_2.html</ulink> or the <ulink url="http://java.sun.com/products/jimi/">JIMI Software Development Kit</ulink> (especially for Debian and Ubuntu users, read /usr/share/doc/fop/README.Debian).</para>
+<para>FOP does not yet support embedding PNG images in pdf files. To get PNG support, we need from <ulink url="http://java.sun.com/products/java-media/jai/downloads/download-1_1_2.html">Java Advanced Imageing (JAI)</ulink> or the <ulink url="http://java.sun.com/products/jimi/">JIMI Software Development Kit</ulink> (especially for Debian and Ubuntu users, read <filename>/usr/share/doc/fop/README.Debian</filename>).</para>
 <para>For Linux, download the CLASSPATH version, <filename>jai-1_1_2-lib-linux-i586.tar.gz</filename>. Unpack and copy the files <filename>jai_core.jar</filename> and <filename>jai_codec.jar</filename> files to <filename>~/bluefish-doc/fop/lib</filename>. Debian and Ubuntu users running <application>fop</application> with JIMI-support download <filename>jimi1_0.(zip|tar.Z)</filename> and place <filename>jimi-1.0.jar</filename> into <filename>/usr/share/java</filename>.</para>
 <note>
 <para>JAI and JIMI support are available for FOP release 0.20.5 and later.</para>
@@ -105,64 +105,40 @@ co bluefish-doc</screen></para>
 <title>Make HTML/PDF/PostScript Versions of the Bluefish manual</title>
 <para>Use the following options to make and remove the various files, which will be output to a newly created <filename>bluefish-doc/built-doc</filename> directory, except for the tarballs which will be ouput in another newly created <filename>bluefish-doc/tarballs</filename> directory :</para>
 <variablelist><title>Options to make the Bluefish manual</title>
-<varlistentry><term>make html</term>
-<listitem><para>Produces the book in html format, with numerous html files.</para></listitem>
+<varlistentry><term><command>make html</command> or <command>make html-one-big</command> or <command>make html-all</command></term>
+<listitem><para>Produces the book in html format, with numerous html files or with a unique html file or with both.</para></listitem>
 </varlistentry>
-<varlistentry><term>make html-one-big</term>
-<listitem><para>Produces the book in html format, with a unique html file.</para></listitem>
+<varlistentry><term><command>make pdf-a4</command> or <command>make pdf-us</command></term>
+<listitem><para>Produces the book in PDF format suitable for A4 or USLetter paper.</para></listitem>
 </varlistentry>
-<varlistentry><term>make html-all</term>
-<listitem><para>Produces the book in html format, both outputs.</para></listitem>
+<varlistentry><term><command>make ps-a4</command> or <command>make ps-us</command></term>
+<listitem><para>Produces the book in PostScript format suitable for A4 or USLetter paper.</para></listitem>
 </varlistentry>
-<varlistentry><term>make pdf-a4</term>
-<listitem><para>Produces the book in PDF format suitable for A4 paper.</para></listitem>
+<varlistentry><term><command>make pspdf-a4</command> or <command>make pspdf-us</command></term>
+<listitem><para>Produces the PDF and PostScript versions for A4 or USLetter paper.</para></listitem>
 </varlistentry>
-<varlistentry><term>make ps-a4</term>
-<listitem><para>Produces the book in PostScript format suitable for A4 paper.</para></listitem>
+<varlistentry><term><command>make all</command></term>
+<listitem><para>Produces all formats of the book.</para></listitem>
 </varlistentry>
-<varlistentry><term>make pspdf-a4</term>
-<listitem><para>Produces the PDF and PostScript versions for A4 paper.</para></listitem>
-</varlistentry>
-<varlistentry><term>make pdf-us</term>
-<listitem><para>Produces the book in PDF format suitable for USLetter paper.</para></listitem>
-</varlistentry>
-<varlistentry><term>make ps-us</term>
-<listitem><para>Produces the book in PostScript  format suitable for USLetter paper.</para></listitem>
-</varlistentry>
-<varlistentry><term>make pspdf-us</term>
-<listitem><para>Produces the PDF and PostScript versions for USLetter paper.</para></listitem>
-</varlistentry>
-<varlistentry><term>make all</term>
-<listitem><para>Produces all versions of the book.</para></listitem>
-</varlistentry>
-<varlistentry><term>clean html</term>
+<varlistentry><term><command>clean html</command></term>
 <listitem><para>Removes the book in html format (both outputs).</para></listitem>
 </varlistentry>
-<varlistentry><term>clean pdf-a4</term>
-<listitem><para>Removes the book in PostScript format suitable for A4 paper.</para></listitem>
+<varlistentry><term><command>clean pdf-a4</command> or <command>clean pdf-us</command></term>
+<listitem><para>Removes the book in PDF format suitable for A4 or USLetter paper.</para></listitem>
 </varlistentry>
-<varlistentry><term>clean ps-a4</term>
-<listitem><para>Removes the book in PDF format suitable for A4 paper.</para></listitem>
+<varlistentry><term><command>clean ps-a4</command> or <command>clean ps-us</command></term>
+<listitem><para>Removes the book in PostScript format suitable for A4 or USLetter paper.</para></listitem>
 </varlistentry>
-<varlistentry><term>clean pdfps-a4</term>
-<listitem><para>Removes the PDF and PostScript versions for A4 paper.</para></listitem>
+<varlistentry><term><command>clean pdfps-a4</command> or <command>clean pspdf-us</command></term>
+<listitem><para>Removes the PDF and PostScript versions for A4 or USLetter paper.</para></listitem>
 </varlistentry>
-<varlistentry><term>clean pdf-us</term>
-<listitem><para>Removes the book in PDF format suitable for USLetter paper.</para></listitem>
-</varlistentry>
-<varlistentry><term>clean ps-us</term>
-<listitem><para>Removes the book in PostScript  format suitable for USLetter paper.</para></listitem>
-</varlistentry>
-<varlistentry><term>clean pspdf-us</term>
-<listitem><para>Removes the PDF and PostScript versions for USLetter paper.</para></listitem>
-</varlistentry>
-<varlistentry><term>clean all</term>
+<varlistentry><term><command>clean all</command></term>
 <listitem><para>Removes all versions of the book.</para><?linebreakus?></listitem>
 </varlistentry>
-<varlistentry><term>make validate-all</term>
+<varlistentry><term><command>make validate-all</command></term>
 <listitem><para>Validate the whole book.</para></listitem>
 </varlistentry>
-<varlistentry><term>make tarball-all</term>
+<varlistentry><term><command>make tarball-all</command></term>
 <listitem><para>Produces tarballs suitable to put on the Bluefish web site or for individual use.</para></listitem>
 </varlistentry>
 </variablelist>
@@ -295,7 +271,7 @@ co bluefish-doc</screen></para>
 <sect2 id="bluefish-manual-guide-links">
 <title>Using links</title>
 <para>To reference an external link, we use:
-<programlisting><![CDATA[<ulink url="http://www.sourceforge.net">http://www.sourceforge.net</ulink>]]></programlisting></para>
+<programlisting><![CDATA[<ulink url="http://www.sourceforge.net"/>]]></programlisting></para>
 <para>Or:
 <programlisting><![CDATA[<ulink url="http://xmlsoft.org/XSLT/">libxslt</ulink>]]></programlisting></para>
 <para>To reference an internal link (i.e. internal to the book), we use:

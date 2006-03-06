@@ -1,7 +1,7 @@
 <!--
 this file belongs to bluefish, a web development environment
 Copyright (C) 2002  Denny Reeh
-Copyright (C) 2005-2006 The Bluefish Project Team
+Copyright (C) 2004-2006  The Bluefish Project Team
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -53,14 +53,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <listitem><para>Mandrake Linux</para></listitem>
 <listitem><para>Red Hat Linux</para></listitem>
 <listitem><para>Fedora Core</para></listitem>
-<listitem><para>Debian Linux</para></listitem>
+<listitem><para>Debian Linux (and derivatives)</para></listitem>
 <listitem><para>FreeBSD</para></listitem>
 </itemizedlist>
 <para>Actually, any GNU/Linux distribution with GTK2 is fine and many distributions include Bluefish. In fact, Bluefish will likely work quite well on any POSIX compatible OS where GTK2 is available. Bluefish has been reported to work on the following:</para>
 <itemizedlist spacing="compact">
 <listitem><para>NetBSD - distributed in pkgsrc</para></listitem>
 <listitem><para>OpenBSD - available through their ports system</para></listitem>
-<listitem><para>SGI IRIX - see <ulink url="http://freeware.sgi.com/">http://freeware.sgi.com/</ulink></para></listitem>
+<listitem><para>SGI IRIX - see <ulink url="http://freeware.sgi.com/"/></para></listitem>
 <listitem><para>Mac OS X via <ulink url="http://fink.sourceforge.net/index.php?">Fink</ulink> or <ulink url="http://darwinports.opendarwin.org/DarwinPorts">Darwin Ports</ulink>.</para></listitem>
 <listitem><para>Sun Solaris</para></listitem>
 <listitem><para>Tru64</para></listitem>
@@ -76,22 +76,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <title>Latest Stable Version</title>
 <para>Many Linux distributions ship a version of Bluefish or make it available through their package systems. For example, Bluefish is available through the Debian apt-system and FreeBSD's ports. You may check if Bluefish is available through your favorite software installer.</para>
 <?linebreakus?>
-<para>However, the main source is the Bluefish website, where the software and a few contributions are available. The download page is reachable at <ulink url="http://bluefish.openoffice.nl/download.html">http://bluefish.openoffice.nl/download.html</ulink>. Here, you may download the source code and binary packages for Debian, Red Hat/Fedora, and Mandrake.</para>
+<para>However, the main source is the Bluefish website, where the software and a few contributions are available. The download page is reachable at <ulink url="http://bluefish.openoffice.nl/download.html"/>. Here, you may download the source code and binary packages for Debian, Red Hat/Fedora, and Mandrake.</para>
 </sect1>
 
 <sect1 id="getting-bluefish-snapshot">
 <title>Latest Snapshot Version</title>
-<para>Snapshots are made regularly to provide users with the latest functionalities without having to deal with CVS. Though often not tested, they may be convenient for evaluation. They are available at <ulink url="http://bluefish.openoffice.nl/download.html">http://bluefish.openoffice.nl/download.html</ulink></para>
+<para>Snapshots are made regularly to provide users with the latest functionalities without having to deal with CVS. Though often not tested, they may be convenient for evaluation. They are available at <ulink url="http://bluefish.openoffice.nl/download.html"/></para>
 </sect1>
 
 <sect1 id="getting-bluefish-cvs">
 <title>Latest Developmental Version</title>
 <para>To get the latest version of Bluefish you will need to download the source files from our CVS repository.</para>
-<para>CVS<footnote><para>Concurrent Versions System</para></footnote>, a version control system, is a widely used software development tool. It keeps track of changes to the source code, and allows for reversion to previous states. If you want to read more about CVS, have a look at the CVS-book by Karl Fogel, available at <ulink url="http://cvsbook.red-bean.com/cvsbook.html">http://cvsbook.red-bean.com/cvsbook.html</ulink>.</para>
+<para>CVS<footnote><para>Concurrent Versions System</para></footnote>, a version control system, is a widely used software development tool. It keeps track of changes to the source code, and allows for reversion to previous states. If you want to read more about CVS, have a look at the CVS-book by Karl Fogel, available at <ulink url="http://cvsbook.red-bean.com/cvsbook.html"/>.</para>
 <para>The Bluefish project's CVS repository is generously hosted by SourceForge.net<footnote>
-<para><ulink url="http://www.sourceforge.net">http://www.sourceforge.net</ulink></para>
+<para><ulink url="http://www.sourceforge.net"/></para>
 </footnote>. For more information about them, see their site. The project 
-homepage is <ulink url="http://sourceforge.net/projects/bluefish">http://sourceforge.net/projects/bluefish</ulink>. Our CVS repository contains the current Bluefish source code, including this manual. The repository is accessible by anyone, and is updated almost daily by the developers.</para>
+homepage is <ulink url="http://sourceforge.net/projects/bluefish"/>. Our CVS repository contains the current Bluefish source code, including this manual. The repository is accessible by anyone, and is updated almost daily by the developers.</para>
 <para>To access the repository, you need a few small utilities. They are likely to be available through your favorite source of software (ports, apt, etc). The above-mentioned CVS book is a great source for information.</para>
 <para>Here's how you get the source.</para>
 <procedure><title>Getting the source</title>

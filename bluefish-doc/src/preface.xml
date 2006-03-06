@@ -1,7 +1,7 @@
 <!--
 this file belongs to bluefish, a web development environment
 Copyright (C) 2002  Denny Reeh
-Copyright (C) 2005-2006 The Bluefish Project Team
+Copyright (C) 2004-2006  The Bluefish Project Team
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <para>The manual targets the <emphasis>end user</emphasis>. To that end, we have tried to use a simple, well-explained approach whenever possible. Some typographic conventions are denoted below:</para>
 <itemizedlist>
 <listitem>
-<para>Any URLs are denoted like this: <ulink url="http://bluefish.openoffice.nl">http://bluefish.openoffice.nl</ulink></para>
+<para>Any URLs are denoted like this: <ulink url="http://bluefish.openoffice.nl"/></para>
 </listitem>
 <listitem>
 <para>Shortcuts look like this: <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></para>
@@ -171,13 +171,13 @@ or screen shot pages</para>
 <para>Projects management.</para>
 </listitem>
 </itemizedlist>
-<para>As Bluefish is a part of a larger desktop environment, we have focused on making the GUI consistent with the Gnome HIG<footnote><para>GNOME Human Interface Guidelines, accessible at <ulink url="http://developer.gnome.org/projects/gup/hig/">http://developer.gnome.org/projects/gup/hig/</ulink></para></footnote>. However, we prefer not following it in every detail, as some parts are intended <emphasis>for the end user</emphasis>, while Bluefish is <emphasis>for the programmer</emphasis>.</para>
+<para>As Bluefish is a part of a larger desktop environment, we have focused on making the GUI consistent with the Gnome HIG<footnote><para>GNOME Human Interface Guidelines, accessible at <ulink url="http://developer.gnome.org/projects/gup/hig/"/></para></footnote>. However, we prefer not following it in every detail, as some parts are intended <emphasis>for the end user</emphasis>, while Bluefish is <emphasis>for the programmer</emphasis>.</para>
 </sect2>
 <?pagebreaka4?>
 <sect2 id="bluefish-stability">
 <title>How Stable is Bluefish?</title>
 <para>Quite stable! The Bluefish developers aim to produce code that neither crashes nor leaks memory. Of course, that is not always easy to do. Leaks and crashes are often fixed in CVS as soon as they are discovered and hunted down. In addition to Bluefish's large user base, the developers use Bluefish for their daily work. So, fixing bugs and preventing crashes is always a major priority. However, some nags still exist. One example being the issue of slightly sluggish copy/paste functions.</para>
-<para>For an updated list of open bugs, please go to the <ulink url="http://bugzilla.gnome.org/browse.cgi?product=bluefish">http://bugzilla.gnome.org/browse.cgi?product=bluefish</ulink> page on bugzilla gnome.</para>
+<para>For an updated list of open bugs, please go to the <ulink url="http://bugzilla.gnome.org/browse.cgi?product=bluefish"/> page on bugzilla gnome.</para>
 <para>We appreciate any and all contributions! Please tell us if Bluefish crashes on you :-).</para>
 </sect2>
 <sect2 id="bluefish-contact">
@@ -185,13 +185,13 @@ or screen shot pages</para>
 <para>We, the Bluefish development team, welcome all comments, user requests, constructive	criticisms, and contributions. Are you curious or seeking information regarding Bluefish? Would you like to contribute by translating Bluefish or its manual? Here are your options:</para>
 <itemizedlist>
 <listitem>
-<para><ulink url="http://bluefish.openoffice.nl/">http://bluefish.openoffice.nl/</ulink> - The main website where you will find news, updates, manual and more information.</para>
+<para><ulink url="http://bluefish.openoffice.nl/"/> - The main website where you will find news, updates, manual and more information.</para>
 </listitem>
 <listitem>
-<para><ulink url="http://bfwiki.tellefsen.net/">http://bfwiki.tellefsen.net/</ulink> - The Bluefish WiKi is the notebook for the developers, containing a lot of information. This includes, but is not limited to: updated project road maps, status of translations.</para>
+<para><ulink url="http://bfwiki.tellefsen.net/"/> - The Bluefish WiKi is the notebook for the developers, containing a lot of information. This includes, but is not limited to: updated project road maps, status of translations.</para>
 </listitem>
 <listitem>
-<para>For bug reports and features requests, related to bluefish, its web site, and its manual, please fill the appropriate bug type at <ulink url="http://bugzilla.gnome.org/browse.cgi?product=bluefish">http://bugzilla.gnome.org/browse.cgi?product=bluefish</ulink>, the bluefish bugzilla page on bugzilla gnome (see <xref linkend="bluefish-filling-bug-report"/> for instructions).</para>
+<para>For bug reports and features requests, related to bluefish, its web site, and its manual, please fill the appropriate bug type at <ulink url="http://bugzilla.gnome.org/browse.cgi?product=bluefish"/>, the bluefish bugzilla page on bugzilla gnome (see <xref linkend="bluefish-filling-bug-report"/> for instructions).</para>
 </listitem>
 <listitem>
 <para>You can subscribe to the users' Bluefish mailing list by sending an email containing <quote>subscribe bluefish-users</quote> to <email>bluefish-users-request@lists.ems.ru</email>.</para>
