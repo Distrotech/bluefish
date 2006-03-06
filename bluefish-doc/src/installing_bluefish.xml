@@ -187,7 +187,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </itemizedlist>
 </sect1>
 <?linebreakus?>
-
 <sect1 id="installing-bluefish-source">
 <title>Installing a Bluefish Source Distribution</title>
 <para>By installing Bluefish from source, you may be able to get a newer version (from CVS) than those distributed as binaries. You may also need to compile from source if no binary is available for your system.</para>
@@ -596,7 +595,7 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 </variablelist>
-<?linebreak?>
+<?linebreaka4?>
 <variablelist>
 <title>Optional Packages:</title>
 <note>
@@ -763,16 +762,23 @@ the following steps:</para>
 </sect2>
 </sect1>
 
-<?pagebreaka4?>
 <sect1 id="installing-bluefish-binary">
 <title>Installing a Binary Distribution</title>
-<para>Different packages -- different installation. We will cover only a few approaches here<footnote>
+<para>Different packages -- different installation.</para>
+<para>We will cover only a few approaches here<footnote>
 <para>If you want to contribute a description on how to install Bluefish on your system, just drop us a note. :-)</para>
 </footnote>, since the installation is very system-specific ;-). Let us have a look at some different systems:</para>
- <para>For Debian users this is very simple. To download, install, and configure bluefish in <quote>One Swift Move</quote>, run: <screen><prompt>$</prompt> su - &amp;&amp; apt-get update &amp;&amp; apt-get install bluefish</screen> You can check if the version available through apt is the latest -- see the Bluefish homepage, and compare the version there with what <userinput>apt-cache show bluefish</userinput> tells you. If there is a newer version on the Bluefish site, download it and install the package like this: <userinput>dpkg -i bluefish-ver.deb</userinput></para>
-<para>For rpm based distributions, first check if your distribution has a recent Bluefish version. If it does not, download the rpm for your distribution from any of the Bluefish mirrors. Installing a downloaded rpm is as simple as pointing and clicking in your favorite GUI package manager, or issuing the following command from the command line (as root): <screen><prompt>#</prompt> rpm -Uvh bluefish-ver.rpm</screen></para>
-<para>If you're using FreeBSD, NetBSD or OpenBSD, we probably do not need to tell <emphasis>you</emphasis> how to use your favorite package system ;-)</para>
-<para>For Mac users, just install it via Fink.</para>
+<itemizedlist>
+<listitem><para>For Debian users this is very simple. To download, install, and configure bluefish in <quote>One Swift Move</quote>, run: <screen><prompt>$</prompt> su - &amp;&amp; apt-get update &amp;&amp; apt-get install bluefish</screen> You can check if the version available through apt is the latest -- see the Bluefish homepage, and compare the version there with what <userinput>apt-cache show bluefish</userinput> tells you. If there is a newer version on the Bluefish site, download it and install the package like this: <userinput>dpkg -i bluefish-ver.deb</userinput></para></listitem>
+<listitem><para>For rpm based distributions, first check if your distribution has a recent Bluefish version. If it does not, download the rpm for your distribution from any of the Bluefish mirrors. Installing a downloaded rpm is as simple as pointing and clicking in your favorite GUI package manager, or issuing the following command from the command line (as root): <screen><prompt>#</prompt> rpm -Uvh bluefish-ver.rpm</screen></para></listitem>
+<listitem><para>If you're using FreeBSD, NetBSD or OpenBSD, we probably do not need to tell <emphasis>you</emphasis> how to use your favorite package system ;-)</para></listitem>
+<listitem><para>For Mac users, just install it via Fink. Depending of you operating system's version you have the choice between:</para>
+<itemizedlist>
+<listitem><para>bluefish v. 0.7 for Mac OS X 10.1</para></listitem>
+<listitem><para>bluefish v. 0.12 for Mac OS X 10.2</para></listitem>
+<listitem><para>bluefish v. 1.0 for Mac OS X 10.3 and above</para></listitem>
+</itemizedlist></listitem>
+</itemizedlist> 
 </sect1>
 
 <sect1 id="installing-bluefish-post-setup">

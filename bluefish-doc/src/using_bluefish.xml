@@ -69,6 +69,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </mediaobject></screenshot>
 </figure></para>
 <?pagebreaka4?>
+<para>Notice that the current document's tab may be raised by the Gtk theme, and if the document has been modified, its name on the tab is coloured in red. The changes are also noted with red on the open document list, accessible by right-clicking on the tab.</para>
+<para><figure id="figure-opendocument-list">
+<title id="figure-opendocument-list-title">List of open documents</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/opendocument_list.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the open documents list</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<?linebreaka4?>
+<?linebreak?>
 <para>The top of the Bluefish interface consists of a menu, a main tool bar, an HTML tool bar, and a Custom menu.
 <figure id="figure-main-menu">
 <title id="figure-main-menu-title">Bluefish Main Menu</title>
@@ -81,8 +95,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreak?>
 <?linebreaka4?>
+<?linebreak?>
 <para>The main tool bar gives you quick access to the basic functionalities of a text editor.
 <figure id="figure-main-toolbar">
 <title id="figure-main-toolbar-title">Bluefish Main Tool Bar</title>
@@ -95,8 +109,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreak?>
 <?linebreaka4?>
+<?linebreak?>
 <para>The HTML tool bar provides access to the most commonly used HTML functionalities.
 <figure id="figure-html-toolbar">
 <title id="figure-html-toolbar-title">Bluefish HTML Tool Bar</title>
@@ -109,8 +123,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreak?>
 <?linebreaka4?>
+<?linebreak?>
 <para>The custom tool bar provides access to languages and replacement functions. It is fully customizable through the preferences panel. 
 <figure id="figure-custom-toolbar">
 <title id="figure-custom-toolbar-title">Bluefish Custom Tool Bar</title>
@@ -123,10 +137,23 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
+<?linebreaka4?>
 <?linebreak?>
+<para>To the left of the editor area is the side panel. If you would prefer that the side bar be on the right side, simply change the setting in the <guilabel>User Interface</guilabel> tab found in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option. The side panel consists of a file browser, a function reference browser, and a bookmark browser, accessible by clicking on the corresponding sidebar notebook tab.</para>
+<para><figure id="figure-notebook-tab">
+<title id="figure-notebook-tab-title">Bluefish Sidebar Notebook Tab</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/notebook_tab.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot of the Bluefish 1.0 custom tool bar</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>You may also customize the location of the sidebar notebook tab via <guilabel>User Interface</guilabel> tab found in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option.</para>
 <?linebreaka4?>
-<para>To the left of the editor area is the side panel. If you would prefer that the side bar be on the right side, simply change the setting in the <guilabel>User Interface</guilabel> tab found in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option. The side panel consists of a file browser, a function reference browser, and a bookmark browser.</para>
-<?linebreaka4?>
+<?pagebreakus?>
 <para>The file browser provides quick access to files and directories.
 <figure id="figure-file-browser">
 <title id="figure-file-browser-title">Bluefish File Browser</title>
@@ -262,7 +289,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <?linebreaka4?>
 If you want to disable any of these items by default, you can set these options in the preferences under <guilabel>User interface</guilabel>.</para>
 <?pagebreak?>
-<para>The <guimenu>Help</guimenu> menu contains the typical About box. As usual, you will find in it developers', maintainers', and translators' details. Plus the configure flags used to compile Bluefish on your system.
+<para>The <guimenu>Help</guimenu> menu contains the typical About box. As usual, you will find in it developers', maintainers', and translators' details. Plus the configure flags used to compile Bluefish on your system and the packages detected automatically.
 <?linebreaka4?>
 <?linebreaka4?>
 <figure id="figure-about-window">
