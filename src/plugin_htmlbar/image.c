@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * image.c - the image/thumbnail dialoges
  *
- * Copyright (C) 2003-2005 Olivier Sessink
+ * Copyright (C) 2003-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,8 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+
+/* #define DEBUG */
 
 #include <string.h>
 
@@ -523,10 +525,13 @@ static void mt_dialog_destroy(GtkWidget *wid, Tmuthudia *mtd) {
 /* needs both pixbufs to get the width !! */
 static void mt_fill_string(Timage2thumb *i2t, GdkPixbuf *image, GdkPixbuf *thumb) {
 	gint tw,th,ow,oh;
-	gchar *relthumb, *tmp, *relimage, *doc_curi;
+	gchar *relthumb, *tmp, *relimage;
+	gchar *doc_curi = NULL;
 
 	relimage = tmp = gnome_vfs_uri_to_string(i2t->imagename,GNOME_VFS_URI_HIDE_PASSWORD);
-	doc_curi = gnome_vfs_uri_to_string(i2t->mtd->document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+	if (i2t->mtd->document->uri) {
+	    doc_curi = gnome_vfs_uri_to_string(i2t->mtd->document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+	}
 	
 	if (i2t->mtd->document->uri) {
 		relimage = create_relative_link_to(doc_curi, tmp);
@@ -537,7 +542,7 @@ static void mt_fill_string(Timage2thumb *i2t, GdkPixbuf *image, GdkPixbuf *thumb
 		relthumb = create_relative_link_to(doc_curi, tmp);
 		g_free(tmp);
 	}
-	g_free(doc_curi);
+	if (doc_curi)    g_free (doc_curi);
 
 	ow = gdk_pixbuf_get_width(image);
 	oh = gdk_pixbuf_get_height(image);
