@@ -823,6 +823,9 @@ void bf_mnemonic_label_tad_with_alignment(const gchar *labeltext, GtkWidget *m_w
 		if (GTK_IS_COMBO(m_widget)) {
 			gtk_label_set_mnemonic_widget(GTK_LABEL(label), (GTK_COMBO(m_widget)->entry));
 			gtk_entry_set_activates_default(GTK_ENTRY(GTK_COMBO(m_widget)->entry), TRUE);
+		} else  if (GTK_IS_ENTRY(m_widget)) {
+		    gtk_label_set_mnemonic_widget(GTK_LABEL(label), m_widget);
+		    gtk_entry_set_activates_default(GTK_ENTRY(m_widget), TRUE);
 		} else gtk_label_set_mnemonic_widget(GTK_LABEL(label), m_widget);
 	}
 }
