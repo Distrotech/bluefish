@@ -1238,12 +1238,27 @@ enum {
 	SNR_RESPONSE_FIND_ALL
 };
 
+static gboolean snr_focus_in_lcb(GtkWidget *widget, GdkEventFocus *event, TSNRWin * snrwin)
+{
+    if (snrwin->bfwin->current_document->uri) {
+        gtk_widget_set_sensitive (snrwin->bookmarks, TRUE);
+        if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (snrwin->bookmarks))) {
+            LASTSNR2(snrwin->bfwin->snr2)->bookmark_results = TRUE;
+        }
+    } else {
+        LASTSNR2(snrwin->bfwin->snr2)->bookmark_results = FALSE;
+        gtk_widget_set_sensitive (snrwin->bookmarks, FALSE);
+    }
+       
+    return FALSE;
+}
+
 /* the following two functions are a trick to get a tooltip working on top of a gtkcombobox */
-static void set_combo_tooltip(GtkWidget *widget, gpointer   data)
+static void set_combo_tooltip(GtkWidget *widget, gpointer data)
 {
 	if (GTK_IS_BUTTON (widget)) gtk_tooltips_set_tip(main_v->tooltips, widget,(gchar *)data, NULL);
 }
-static void realize_combo_set_tooltip(GtkWidget *combo,gpointer   data)
+static void realize_combo_set_tooltip(GtkWidget *combo, gpointer data)
 {
 	gtk_container_forall(GTK_CONTAINER(combo),set_combo_tooltip,data);
 }
@@ -1528,6 +1543,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	gtk_window_set_resizable(GTK_WINDOW(snrwin->dialog), FALSE);
 	window_delete_on_escape(GTK_WINDOW(snrwin->dialog));
 	g_signal_connect(G_OBJECT(snrwin->dialog), "response", G_CALLBACK(snr_response_lcb), snrwin);
+	g_signal_connect_after(G_OBJECT(snrwin->dialog), "focus-in-event", G_CALLBACK(snr_focus_in_lcb), snrwin);
 	g_free(title);
 
 	table = dialog_table_in_vbox(numrows, 2, 6, GTK_DIALOG(snrwin->dialog)->vbox, FALSE, FALSE, 0);
