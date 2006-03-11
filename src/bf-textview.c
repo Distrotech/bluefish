@@ -2269,13 +2269,13 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 			DEBUG_MSG("checking for folded tag %p\n", BF_TEXTVIEW(widget)->folded_tag);
 			if (!gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->folded_tag)) {		
 				if ( currline == i )
-					pomstr = g_strdup_printf("<u>%d</u>",i);		
+					pomstr = g_strdup_printf("<b>%d</b>",i);		
 				else
 					pomstr = g_strdup_printf("%d",i);
 				pango_layout_set_markup(l, pomstr, -1);
 				gdk_draw_layout(GDK_DRAWABLE(left_win),
-													widget->style->text_aa_gc[GTK_WIDGET_STATE(widget)],
-													pt_lines,w,l);
+                                widget->style->text_gc[GTK_WIDGET_STATE(widget)],
+                                pt_lines,w,l);
 				g_free(pomstr);
 			}
 		}
