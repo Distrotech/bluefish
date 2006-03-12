@@ -2269,9 +2269,9 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 			DEBUG_MSG("checking for folded tag %p\n", BF_TEXTVIEW(widget)->folded_tag);
 			if (!gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->folded_tag)) {		
 				if ( currline == i )
-					pomstr = g_strdup_printf("<b>%d</b>",i);		
+					pomstr = g_strdup_printf("<b>%d</b>",1+i); /* line numbers should start at 1 */		
 				else
-					pomstr = g_strdup_printf("%d",i);
+					pomstr = g_strdup_printf("%d",1+i);
 				pango_layout_set_markup(l, pomstr, -1);
 				gdk_draw_layout(GDK_DRAWABLE(left_win),
                                 widget->style->text_gc[GTK_WIDGET_STATE(widget)],
