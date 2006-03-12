@@ -919,7 +919,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, gint startpos, gint 
 		result.end = result_all.end;
 		if (result_all.end > 0) {
 			doc_show_result(result_all.doc, result_all.start, result_all.end);
-			if (LASTSNR2(bfwin->snr2)->bookmark_results) {
+			if (bfwin->current_document->uri && LASTSNR2(bfwin->snr2)->bookmark_results) {
 				gchar *text = doc_get_chars(result_all.doc, result_all.start, result_all.end);
 				DEBUG_MSG("search_single_and_show, adding bookmark '%s' at %d\n", text, result_all.start);
 				bmark_add_extern(result_all.doc, result_all.start, LASTSNR2(bfwin->snr2)->search_pattern, text, !main_v->globses.bookmarks_default_store);
@@ -931,7 +931,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, gint startpos, gint 
 		result = search_doc(bfwin,bfwin->current_document, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
 		if (result.end > 0) {
 			doc_show_result(bfwin->current_document, result.start, result.end);
-			if (LASTSNR2(bfwin->snr2)->bookmark_results) {
+			if (bfwin->current_document->uri && LASTSNR2(bfwin->snr2)->bookmark_results) {
 				gchar *text = doc_get_chars(bfwin->current_document, result.start, result.end);
 				DEBUG_MSG("search_single_and_show, adding bookmark '%s' at %d\n", text, result.start);
 				bmark_add_extern(bfwin->current_document, result.start, LASTSNR2(bfwin->snr2)->search_pattern, text, !main_v->globses.bookmarks_default_store);
