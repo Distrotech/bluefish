@@ -146,9 +146,6 @@ co bluefish-doc</screen></para>
 </sect1>
 <?linebreakus?>
 
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
 <sect1 id="bluefish-manual-guide-conventions">
 <title>Conventions for Writing this Manual</title>
 <para>We recommend writing the manual with bluefish. It has most of the tags used in the manual in the <guilabel>DocBook</guilabel> custom menu. By unchecking the <guilabel>Use spaces to indent, not tabs</guilabel> and checking <guilabel>Word wrap default</guilabel> in the Preferences <guilabel>Editor</guilabel> panel, you will ensure that no unnecessary white space will be produced when processing the files.</para>
@@ -156,8 +153,6 @@ co bluefish-doc</screen></para>
 <screen><prompt>$</prompt> make validate-all</screen>
 <para>in the <filename>bluefish-doc/src</filename> directory.</para>
 <para>However, there are some rules we like to follow to make editing the manual more efficient and organized.</para>
-<?linebreaka4?>
-<?linebreaka4?>
 <sect2 id="bluefish-manual-guide-id-names">
 <title>The <literal>id</literal> Attribute</title>
 <para>We use <literal>id</literal> on chapter, appendix, section, figure, and procedure. This provides a convenient way to reference them in the text as well and to get them listed in the table of contents.</para>
@@ -167,7 +162,6 @@ co bluefish-doc</screen></para>
 <para>The main thing is that all id's must be unique or processing will fail. To ensure that all id's are unique, just run <command>make validate-all</command> before committing the changes.</para>
 <para>Also, be careful when renaming id's, since the name could be used in links within other parts of the manual. It is best to do a global search for an id in all the manual's files before changing an id.</para>
 </sect2>
-<?linebreaka4?>
 <?linebreaka4?>
 <sect2 id="bluefish-manual-guide-screenshots">
 <title>Using Screen shots</title>
@@ -189,7 +183,6 @@ co bluefish-doc</screen></para>
 ]]></programlisting></para>
 <para>Notice that the <literal>figure id</literal>, the <literal>title id</literal>, and the <literal>imagedata fileref</literal> are very similar. The former ones use hyphens, while the later uses underscore to separate the <literal>id</literal> parts. They have in common the significant part. Do not forget to put in the <literal>phrase</literal> tag, a sentence meaningful for blind people.</para>
 </sect2>
-<?pagebreaka4?>
 <?linebreaka4?>
 <sect2 id="bluefish-manual-guide-interface-ref">
 <title>Referencing Bluefish interface elements</title>
@@ -240,7 +233,6 @@ co bluefish-doc</screen></para>
 </variablelist>
 </sect2>
 
-<?linebreaka4?>
 <sect2 id="bluefish-manual-guide-procedure">
 <title>Using procedures</title>
 <para>When you want to explain some process, use procedures; this way, the user benefits of a clear step by step guidance:
@@ -258,7 +250,6 @@ co bluefish-doc</screen></para>
 <para>Keep in mind that steps and ordered lists are automatically numbered, thus words such as first, then, etc. are useless.</para>
 </sect2>
 
-<?pagebreaka4?>
 <sect2 id="bluefish-manual-guide-notes">
 <title>Using notes, tips, warnings</title>
 <para>Be aware that DocBook is picky about their usage inside variable list:  you can put them either just after the title or inside a list item. They are used as follows:
@@ -267,29 +258,27 @@ co bluefish-doc</screen></para>
 </warning>]]></programlisting></para>
 </sect2>
 
-<?linebreaka4?>
 <sect2 id="bluefish-manual-guide-links">
 <title>Using links</title>
 <para>To reference an external link, we use:
 <programlisting><![CDATA[<ulink url="http://www.sourceforge.net"/>]]></programlisting></para>
 <para>Or:
 <programlisting><![CDATA[<ulink url="http://xmlsoft.org/XSLT/">libxslt</ulink>]]></programlisting></para>
+<note><para>Note that the first form produces in html and ps/pdf formats a clickable link with the url as text, while the second form produces in html format a clickable link with the url as underlying url and the text as viewable text, and in ps/pdf formats a clickable link with the text as text and add the url into brackets after the text, so that the url is not lost when printing on paper. Hence it is important to use the second form when the text does not match the url.</para></note>
 <para>To reference an internal link (i.e. internal to the book), we use:
 <programlisting><![CDATA[<xref linkend="getting-bluefish-updates"/>]]></programlisting></para>
 <para>This generates a linked text similar to "the section called ...". This is the preferred form, but it may not be always suitable; in this case, you can use:
 <programlisting><![CDATA[<link linkend="getting-bluefish-updates">here</link>]]></programlisting></para>
+<note><para>Note that when dealing with other languages than English, it may not include the <emphasis>the</emphasis> part before the word <emphasis>section</emphasis>. You may have to insert the appropriated article.</para></note>
 <para>To reference a chapter by number, we use:
 <programlisting><![CDATA[Chapter <xref linkend="getting-bluefish" role="template:%n"/>]]></programlisting></para>
 </sect2>
 
-<?linebreaka4?>
 <sect2 id="bluefish-manual-guide-others">
 <title>Others tags</title>
 <para>To highlight command line tools or small applications, we use:
 <programlisting><![CDATA[<command>make</command>]]></programlisting></para>
-<para>To emphasize file names, we use:
-<programlisting><![CDATA[<filename>make</filename>]]></programlisting></para>
-<para>To emphasize directory names, we use:
+<para>To emphasize file names or directories, we use:
 <programlisting><![CDATA[<filename>make</filename>]]></programlisting></para>
 <para>For user's instructions, use either:
 <programlisting><![CDATA[<screen><prompt>$</prompt> make install</screen>]]></programlisting>
@@ -303,7 +292,6 @@ Be aware that the former is shown alone on its proper line, while the latter is 
 Run the command &lt;userinput>make&lt;/userinput>]]&#62;
 &lt;/programlisting>
 </programlisting></para>
-<?pagebreaka4?>
 <para>As a workaround a bug in <command>fop</command>, we use a special processing instruction to insert page breaks for PDF production. If the break is the same for A4 and USLetter format, the instruction is:
 <programlisting><![CDATA[<?pagebreak?>]]></programlisting></para>
 <para>If it is only for A4 format, the instruction is:

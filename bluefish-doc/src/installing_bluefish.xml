@@ -42,7 +42,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <para>libaspell<emphasis> - spell checker</emphasis></para>
 </listitem>
 <listitem>
-<para>grep &amp; find<emphasis> - used by the <xref linkend="open-advanced"/></emphasis> dialog.</para>
+<para>grep &amp; find - used by the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open advanced...</guimenuitem></menuchoice> dialog.</para>
 </listitem>
 </itemizedlist>
 <?linebreakus?>
@@ -95,7 +95,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <sect1 id="installing-bluefish-specific-issues">
 <title>System Specific Installation Issues</title>
 <para>Different systems have different approaches to solutions and packaging. You might find the information below interesting.</para>
-<?linebreaka4?>
 <para>Cygwin:</para>
 <itemizedlist>
 <listitem>
@@ -183,6 +182,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </listitem>
 <listitem>
 <para>Fink's latest cvs version is always available from the <ulink url="http://cvs.sourceforge.net/viewcvs.py/fink/experimental/michga/">Fink's maintainer experimental cvs tree</ulink>. It is meant to run on Mac OS X 10.4.</para>
+</listitem>
+</itemizedlist>
+<para>DarwinPorts:</para>
+<itemizedlist spacing="compact">
+<listitem>
+<para>Version 1.0.5 is available. Go to <ulink url="http://bluefish.darwinports.com/"/> to find detailed informations about its installation.</para>
 </listitem>
 </itemizedlist>
 </sect1>
@@ -773,7 +778,7 @@ the following steps:</para>
 <listitem><para>For rpm based distributions, first check if your distribution has a recent Bluefish version. If it does not, download the rpm for your distribution from any of the Bluefish mirrors. Installing a downloaded rpm is as simple as pointing and clicking in your favorite GUI package manager, or issuing the following command from the command line (as root): <screen><prompt>#</prompt> rpm -Uvh bluefish-ver.rpm</screen></para></listitem>
 <listitem><para>If you're using FreeBSD, NetBSD or OpenBSD, we probably do not need to tell <emphasis>you</emphasis> how to use your favorite package system ;-)</para></listitem>
 <listitem><para>For Mac users, just install it via Fink. Depending of you operating system's version you have the choice between:</para>
-<itemizedlist>
+<itemizedlist spacing="compact">
 <listitem><para>bluefish v. 0.7 for Mac OS X 10.1</para></listitem>
 <listitem><para>bluefish v. 0.12 for Mac OS X 10.2</para></listitem>
 <listitem><para>bluefish v. 1.0 for Mac OS X 10.3 and above</para></listitem>

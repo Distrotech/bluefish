@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><xsl:stylesheet version="1.0" 
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" 
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 	xmlns:fo="http://www.w3.org/1999/XSL/Format">
 
@@ -26,7 +27,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
 
 <!-- Allow to use extensions -->
-<xsl:param name="use.extensions" select="'1'"></xsl:param>
+<xsl:param name="use.extensions" select="1"></xsl:param>
+
 <!-- For bookmarks -->
 <xsl:param name="fop.extensions" select="1"></xsl:param>
 
@@ -65,15 +67,17 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 book      toc,title,figure,example,procedure
 </xsl:param>
 
-<!-- Chapter autolabelling --><xsl:param name="chapter.autolabel" select="'I'"/>
+<!-- Chapter autolabelling -->
+<xsl:param name="chapter.autolabel" select="'I'"/>
 
-<!-- Section autolabelling --><xsl:param name="section.autolabel" select="'1'"/>
+<!-- Section autolabelling -->
+<xsl:param name="section.autolabel" select="'1'"/>
 
 <!-- Format variable lists as blocks -->
 <xsl:param name="variablelist.as.blocks" select="1"></xsl:param>
 
-<!-- Don't show the url after the text of the link -->
-<xsl:param name="ulink.show" select="0"></xsl:param>
+<!-- Show the url after the text of the link if text is not egal to url -->
+<xsl:param name="ulink.show" select="1"></xsl:param> 
 
 <!-- Size of the headers (a table with three columns) -->
 <xsl:param name="header.column.widths" select="'1 8 1'"></xsl:param>
@@ -90,15 +94,24 @@ book      toc,title,figure,example,procedure
 <!-- Size of footnotes -->
 <xsl:param name="footnote.font.size" select="'8pt'"></xsl:param>
 
-<!-- Customization of chapter, appendix, preface title
-Made here as it really overrides the setting in titlepage -->
-<xsl:attribute-set name="component.title.properties">  <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>  <xsl:attribute name="text-align">    <xsl:choose>      <xsl:when test="((ancestor-or-self::preface[1]) or (ancestor-or-self::chapter[1]) or (ancestor-or-self::appendix[1]))">center</xsl:when>      <xsl:otherwise>left</xsl:otherwise>    </xsl:choose>  </xsl:attribute>  <xsl:attribute name="start-indent"><xsl:value-of select="$title.margin.left"/></xsl:attribute></xsl:attribute-set>
 <!-- Size of body font -->
 <xsl:param name="body.font.master">10</xsl:param>
 <xsl:param name="body.font.size">
  <xsl:value-of select="$body.font.master"/><xsl:text>pt</xsl:text>
 </xsl:param>
 
+<!-- Customization of chapter, appendix, preface title
+Made here as it really overrides the setting in titlepage -->
+<xsl:attribute-set name="component.title.properties">
+  <xsl:attribute name="keep-with-next.within-column">always</xsl:attribute>
+  <xsl:attribute name="text-align">
+    <xsl:choose>
+      <xsl:when test="((ancestor-or-self::preface[1]) or (ancestor-or-self::chapter[1]) or (ancestor-or-self::appendix[1]))">center</xsl:when>
+      <xsl:otherwise>left</xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
+  <xsl:attribute name="start-indent"><xsl:value-of select="$title.margin.left"/></xsl:attribute>
+</xsl:attribute-set>
 <!-- Spaces before title -->
 <xsl:attribute-set name="section.title.properties">
   <xsl:attribute name="font-family">
@@ -148,7 +161,8 @@ Made here as it really overrides the setting in titlepage -->
     <xsl:value-of select="$body.font.master - 1"/>
     <xsl:text>pt</xsl:text>
   </xsl:attribute>
-  <xsl:attribute name="font-style">italic</xsl:attribute>  <xsl:attribute name="space-before.minimum">0.6em</xsl:attribute>
+  <xsl:attribute name="font-style">italic</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.6em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0.6em</xsl:attribute>
   <xsl:attribute name="space-before.maximum">0.6em</xsl:attribute>
 </xsl:attribute-set>
@@ -158,13 +172,19 @@ Made here as it really overrides the setting in titlepage -->
     <xsl:value-of select="$body.font.master - 1"/>
     <xsl:text>pt</xsl:text>
   </xsl:attribute>
-  <xsl:attribute name="font-weight">normal</xsl:attribute>  <xsl:attribute name="font-style">italic</xsl:attribute>  <xsl:attribute name="space-before.minimum">0.6em</xsl:attribute>
+  <xsl:attribute name="font-weight">normal</xsl:attribute>
+  <xsl:attribute name="font-style">italic</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.6em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0.6em</xsl:attribute>
   <xsl:attribute name="space-before.maximum">0.6em</xsl:attribute>
 </xsl:attribute-set>
 
 <!-- Normal paragraph spacing -->
-<xsl:attribute-set name="normal.para.spacing">   <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>   <xsl:attribute name="space-before.minimum">0.5em</xsl:attribute>   <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>	<xsl:attribute name="text-indent">0em</xsl:attribute>
+<xsl:attribute-set name="normal.para.spacing">
+   <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
+   <xsl:attribute name="space-before.minimum">0.5em</xsl:attribute>
+   <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+	<xsl:attribute name="text-indent">0em</xsl:attribute>
 </xsl:attribute-set>
 
 <!-- Spacing before and after lists -->
@@ -210,8 +230,11 @@ table before
 procedure before
 </xsl:param>
 
-<!-- Prohibites hyphenation -->
+<!-- Prohibites hyphenation in text -->
 <xsl:param name="hyphenate">false</xsl:param>
+
+<!-- Allow hyphenation for urls -->
+<xsl:param name="ulink.hyphenate" select="'&#x200B;'"/>
 
 <!-- For figures, procedure, example, table -->
 <xsl:attribute-set name="formal.object.properties">
@@ -251,7 +274,9 @@ procedure before
 </xsl:attribute-set>
 
 <!-- Links color -->
-<xsl:attribute-set name="xref.properties">      <xsl:attribute name="color">blue</xsl:attribute></xsl:attribute-set>
+<xsl:attribute-set name="xref.properties">
+      <xsl:attribute name="color">blue</xsl:attribute>
+</xsl:attribute-set>
 
 <xsl:param name="insert.xref.page.number">yes</xsl:param>
 
@@ -330,7 +355,8 @@ procedure before
 <!-- Customized path for admon.graphics -->
 <xsl:param name="admon.graphics.path" select="'imgs/'"/>
 
-<!-- Just use graphics for admon graphics --><xsl:param name="admon.textlabel" select="'0'"/>
+<!-- Just use graphics for admon graphics -->
+<xsl:param name="admon.textlabel" select="'0'"/>
 
 <!-- Style of admonitions -->
 <xsl:attribute-set name="graphical.admonition.properties">
