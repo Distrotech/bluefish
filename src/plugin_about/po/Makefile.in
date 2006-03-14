@@ -65,7 +65,7 @@ distclean: clean
 	rm -f Makefile tmp.po ${PACKAGE}.po *.rej *.orig *~
 
 ${PACKAGE}.po:
-	$(XGETTEXT) --from-code=UTF-8 --default-domain=${PACKAGE} --keyword=_ --keyword=N_ ../*.c
+	$(XGETTEXT) -c --from-code=UTF-8 --default-domain=${PACKAGE} --keyword=_ --keyword=N_ ../*.c
 
 update-po: ${PACKAGE}.po
 	@for file in $(SRCS) ; do \
