@@ -117,8 +117,9 @@ static void about_dialog_create(gpointer * data, guint * callback_action, GtkWid
 			_("development checks support, "),
 #endif /* DEVELOPMENT */
 #ifdef ENABLE_NLS
-			_("i18n support"),
+			_("i18n support, "),
 #endif /* ENABLE_NLS */
+			"...",
 			NULL);
 
 	/* Translators: This is a special message that shouldn't be translated
