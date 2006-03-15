@@ -341,6 +341,9 @@ If you want to disable any of these items by default, you can set these options 
 </mediaobject></screenshot>
 </figure></para>
 <?linebreak?>
+<note><para>In case you compiled bluefish from source, the <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL...</guimenuitem></menuchoice> menu item is shown only if you installed gnome-vfs2 beforehhand.n'apparaît que si vous aviez installé gnome-vfs2 auparavant.</para>
+<para>For Mac OS X users installing via Fink, choose bluefish-gnomevfs2 or bluefish-gnome2 variant.</para> 
+</note>
 <para>You may also add directories, delete files, and refresh the file browser in the side panel using its contextual menu.
 <figure id="file-browser-cm">
 <title id="file-browser-cm-title">The file browser contextual menu</title>
@@ -353,6 +356,8 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
+<para>You may also open a file using drag and drop from the desktop or from Nautilus to any part of the Bluefish window but the editor part when you are under Gnome2 environment.</para>
+<note><para>If you drap and drop the file to the editor window, the full path of the file is inserted.</para></note>
 
 <?pagebreakus?>
 <sect2 id="creating-files">
@@ -362,7 +367,19 @@ If you want to disable any of these items by default, you can set these options 
 <?linebreakus?>
 <para>Apart from using <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New</guimenuitem></menuchoice> or the <guilabel>New</guilabel> icon to create a new file, you may also use <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice>.</para>
 <?linebreakus?>
-<para>Those methods create an untitled file of type <literal>text</literal> with default permissions and the default character encoding defined in the <guilabel>Files</guilabel> tab in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option. You will further have to <link linkend="saving-files">save</link> it under the desired name.</para>
+<para>Those methods create an untitled file of type <literal>text</literal> with default permissions and the default character encoding defined in the <guilabel>Files</guilabel> tab in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option. You will further have to <link linkend="saving-files">save</link> it under the desired name.
+<figure id="untitled-document">
+<title id="untitled-document-title">Untitled Document Window</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/untitled_document.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>Screen shot of an untitled document window</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<important><para>Note that the document window is titled <quote>Untitled n - Bluefish versionnumber</quote>, which indicates precisely that the file is not saved on the disk. The same applies to the document's tab which shows <quote>Untitled n</quote>. Moreover, if you move the cursor onto the document's tab, you will not see any size or modification date.</para></important>
 <?linebreakus?>
 <para>To spare yourself the bother of saving, right click on the desired directory in the directory list of the file browser in the side panel and select <guilabel>New File</guilabel>. You will be presented with a <guilabel>File name</guilabel> dialog, where you will enter the desired name:
 <?linebreak?>
@@ -382,6 +399,7 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
+<tip><para>You may type a path relative to the clicked directory, provided that the target directory be under the clicked directory and that it exists.</para></tip>
 </sect2>
 
 <?linebreakus?>
