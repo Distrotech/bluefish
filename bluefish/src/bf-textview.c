@@ -1758,7 +1758,7 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 		t->group = NULL;
 		t->regexp = TRUE;
 		t->name = xmlCharStrdup("_tag_end_");
-		t->text = xmlCharStrdup("</[a-zA-Z][a-zA-Z0-9]*[ ]*>");
+		t->text = xmlCharStrdup("</[a-zA-Z:_][a-zA-Z0-9:_-.]*[ ]*>");
 		t->context = NULL;
 		t->spec_type = 1;
 		bftv_put_into_dfa(cfg->dfa, cfg, t, BFTV_DFA_TYPE_TOKEN, FALSE);
@@ -1768,7 +1768,7 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 		b->id = xmlCharStrdup("_tag_begin_");
 		b->group = NULL;
 		b->regexp = TRUE;
-		b->begin = xmlCharStrdup("<[a-zA-Z][a-zA-Z0-9]*[ ]*");
+		b->begin = xmlCharStrdup("<[a-zA-Z:_][a-zA-Z0-9:_-.]*[ ]*");
 		b->end = xmlCharStrdup("/?>");
 		b->scanned = TRUE;
 		b->foldable = FALSE;
