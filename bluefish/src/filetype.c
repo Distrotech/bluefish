@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filetype.c
  *
- * Copyright (C) 2005 Olivier Sessink
+ * Copyright (C) 2005,2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines filetype.c
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include "config.h"
 #ifdef USE_SCANNER
