@@ -33,8 +33,8 @@
 
 static void about_activate_url(GtkAboutDialog *about, const gchar *url, gpointer data) {
 	GnomeVFSResult error = gnome_vfs_url_show(url);	
-	if (result != GNOME_VFS_OK) {
-		g_print("GnomeVFSResult while trying to launch URL in about dialog: error %u\n", result);
+	if (error != GNOME_VFS_OK) {
+		g_print("GnomeVFSResult while trying to launch URL in about dialog: error %u\n", error);
 	}
 }
 
