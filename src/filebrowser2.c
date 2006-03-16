@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filebrowser2.c - the filebrowser v2
  *
- * Copyright (C) 2002-2005 Olivier Sessink
+ * Copyright (C) 2002,2003,2004,2005,2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -902,11 +902,18 @@ static GtkTreePath *fb2_fspath_from_dir_selection(Tfilebrowser2 *fb2) {
 static GnomeVFSURI *fb2_uri_from_file_selection(Tfilebrowser2 *fb2) {
 	GtkTreeModel *sort_model;
 	GtkTreeIter sort_iter;
-	if (gtk_tree_selection_get_selected(gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->file_v)),&sort_model,&sort_iter)) {
+	if (fb2->file_v && gtk_tree_selection_get_selected(gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->file_v)),&sort_model,&sort_iter)) {
+		GnomeVFSURI *uri=NULL;
+		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri, -1);
+		return uri;
+	} else if (!fb2->file_v && fb2->dir_v && gtk_tree_selection_get_selected(gtk_tree_view_get_selection(GTK_TREE_VIEW(fb2->dir_v)),&sort_model,&sort_iter)) {
 		GnomeVFSURI *uri=NULL;
 		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri, -1);
 		return uri;
 	}
+#ifdef DEBUG
+	 else DEBUG_MSG("fb2_uri_from_file_selection, no selection!\n"); 
+#endif
 	return NULL;
 }
 /**
