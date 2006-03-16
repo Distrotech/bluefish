@@ -28,11 +28,15 @@
 
 #include "../config.h"
 #include "../plugins.h"
-#include "../bluefish.h" /* BLUEFISH_SPLASH_FILENAME */
+#include "../bluefish.h" /* BLUEFISH_SPLASH_FILENAME, gnome_vfs_url_show() */
 
+
+static void about_activate_url(GtkAboutDialog *about, const gchar *url, gpointer data) {
+	/* do we need to catch a possible error here using GnomeVFSResult? */
+	gnome_vfs_url_show(url);
+}
 
 static void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * widget) {
-
 	static GtkWidget *about = NULL;
 	GdkPixbuf *logo;
 	
@@ -105,7 +109,7 @@ static void about_dialog_create(gpointer * data, guint * callback_action, GtkWid
 		"MA 02110-1301, USA.";
 	
 	gchar *comments = g_strconcat(
-			_("Bluefish is an editor for experienced web designers and programmers. It supports many programming and markup languages, but focuses on editing dynamic and interactive websites. Bluefish is an open source development project, released under the GPL license."),
+			_("An open-source editor for experienced web designers and programmers, supporting many programming and markup languages, but focusing on creating dynamic and interactive websites."),
 			_("\n\nThis version of Bluefish was built with: "),
 #ifdef HAVE_LIBASPELL
 			_("libaspell support, "),
@@ -141,15 +145,14 @@ static void about_dialog_create(gpointer * data, guint * callback_action, GtkWid
 		}
 	}
 	
-	/* we could use these functions - e.g. instead with gnome_show_url()
-	 * and #include <libgnome/gnome-url.h> with some other function ??
-	 */
-	/* gtk_about_dialog_set_url_hook(); */
+	/* use gnome_vfs_url_show() in activate_url() */
+	gtk_about_dialog_set_url_hook(about_activate_url, NULL, NULL);
 	/* gtk_about_dialog_set_email_hook(); */
 
 	about = g_object_new (GTK_TYPE_ABOUT_DIALOG,
 			"logo", logo,
-			"name", _("Bluefish HTML Editor"),
+			"name", PACKAGE,
+			"version", VERSION,
 			"comments", comments,
 			"copyright", copyright,
 			"license", license,
