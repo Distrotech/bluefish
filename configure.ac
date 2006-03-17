@@ -88,7 +88,7 @@ case "$host_os" in
 esac
 
 case "${host}" in
-powerpc-apple-darwin*)
+*-apple-darwin*)
 	AC_DEFINE(PLATFORM_DARWIN)
 	echo "platform... Mac OSX"
 	;;
