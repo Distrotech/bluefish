@@ -1073,8 +1073,18 @@ static void fb2rpopup_new(Tfilebrowser2 *fb2, gboolean newisdir) {
 			res = gnome_vfs_make_directory_for_uri(newuri, 0755);
 		} else {
 			GnomeVFSHandle *handle;
-			newuri = gnome_vfs_uri_append_file_name(baseuri, _("New file"));
-			res = gnome_vfs_create_uri(&handle,newuri,GNOME_VFS_OPEN_WRITE,FALSE,0644);
+			gint counter = 0;
+			gchar *filename = g_strdup(_("New file"));
+			while (counter < 100) {
+				newuri = gnome_vfs_uri_append_file_name(baseuri, filename);
+				res = gnome_vfs_create_uri(&handle,newuri,GNOME_VFS_OPEN_WRITE,TRUE,0644);
+				if (res == GNOME_VFS_ERROR_FILE_EXISTS) {
+					counter++;
+					filename = g_strdup_printf("%s%d",_("New file"),counter);
+				} else {
+					counter = 100;
+				}
+			}
 			if (res == GNOME_VFS_OK) {
 				res = gnome_vfs_close(handle);
 				rename_not_open_file(fb2->bfwin, newuri);
