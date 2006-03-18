@@ -655,7 +655,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 			if (fb2->basedir && !gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE)) {
 				retval = FALSE;
 			}
-			if (retval)	retval =  name_visible_in_filter(fb2, name);
+			if (retval)	retval = name_visible_in_filter(fb2, name);
 		}
 		g_free(name);
 		return retval;
@@ -728,6 +728,29 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
 	g_free(name);
 	return retval;
 }
+
+gint single_view_dir_sort_func(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpointer user_data) {
+	gchar *namea,*nameb;
+	gint typea, typeb, retval;
+	gtk_tree_model_get(GTK_TREE_MODEL(model), a, FILENAME_COLUMN, &namea, TYPE_COLUMN, &typea, -1);
+	gtk_tree_model_get(GTK_TREE_MODEL(model), b, FILENAME_COLUMN, &nameb, TYPE_COLUMN, &typeb, -1);
+	if ((typea <= -4 && typeb <= -4) || (typea >= -3 && typeb >= -3)) {
+		if (namea == nameb) {
+			retval = 0; /* both NULL */
+		} else if (namea == NULL || nameb == NULL) {
+			retval = (namea - nameb);
+		} else {
+			/* sort by name */
+			retval = strcmp(namea,nameb);
+		}
+	} else {
+		retval = (typeb - typea);
+	}
+	g_free(namea);
+	g_free(nameb);
+	return retval;
+}
+
 /**
  * refilter_dirlist:
  *
@@ -760,8 +783,15 @@ static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 	DEBUG_MSG("refilter_dirlist, newroot=%p, basedir=%s\n",useroot,fb2->basedir ? gnome_vfs_uri_extract_short_path_name(fb2->basedir) : "NULL");
 	fb2->dir_tfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore),useroot);
 	gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),tree_model_filter_func,fb2,NULL);
+	
 	fb2->dir_tsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->dir_tfilter));
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->dir_tsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);
+	if (!main_v->props.filebrowser_two_pane_view) {
+		gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(fb2->dir_tsort), FILENAME_COLUMN,single_view_dir_sort_func, NULL, NULL);
+	}
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->dir_tsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);		
+	
+/*	fb2->dir_tsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->dir_tfilter));
+	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->dir_tsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);*/
 	DEBUG_MSG("refilter_dirlist, connect dir_v to new sort(%p)&filter(%p) model\n", fb2->dir_tsort, fb2->dir_tfilter);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->dir_v),GTK_TREE_MODEL(fb2->dir_tsort));
 	/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
@@ -1526,12 +1556,12 @@ static void fb2_set_basedir_backend(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	if (!iter) {
 		fb2_build_dir(uri);
 		iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
-	#ifdef DEVELOPMENT
+#ifdef DEVELOPMENT
 		if (!iter) {
 			g_print("fb2_set_basedir_backend, uri should have been added, but does not exist in hashtable???\n");
 			exit(222);
 		}
-	#endif
+#endif
 	}
 	basepath = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), iter);
 	refilter_dirlist(fb2, basepath);
@@ -1768,7 +1798,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	gtk_box_pack_start(GTK_BOX(vbox),fb2->dirmenu_v, FALSE, FALSE, 0);
 	fb2->dirmenu_changed_signal = g_signal_connect(fb2->dirmenu_v, "changed", G_CALLBACK(dirmenu_changed_lcb), fb2);
 
-	{	
+	{
 		GtkTreeViewColumn *column;
 		GtkTreeSelection* dirselection;	
 
@@ -1776,8 +1806,11 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),tree_model_filter_func,fb2,NULL);
 
 		fb2->dir_tsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->dir_tfilter));
-		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->dir_tsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);
-		
+		if (!main_v->props.filebrowser_two_pane_view) {
+			gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(fb2->dir_tsort), FILENAME_COLUMN,single_view_dir_sort_func, NULL, NULL);
+		}
+		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->dir_tsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);		
+
 		fb2->dir_v = gtk_tree_view_new_with_model(fb2->dir_tsort);
 		/* we remove our reference, so the only reference is kept by the treeview, if the treeview is destroyed, the models will be destroyed */
 		g_object_unref(G_OBJECT(fb2->dir_tfilter));
