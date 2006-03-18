@@ -640,19 +640,26 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	then the pointer it was given... */
 	DEBUG_MSG("tree_model_filter_func, model=%p and fb2=%p, name=%s and uri=",model,fb2,name);
 	DEBUG_URI(uri, TRUE);
-	if (type != TYPE_DIR) {
-		if (main_v->props.filebrowser_two_pane_view) retval = FALSE;
-		if (retval && !fb2->filebrowser_show_backup_files) {
-			len = strlen(name);
-			if (len > 1 && (name[len-1] == '~')) retval = FALSE;
+	if (type != TYPE_DIR) { /* file */
+		if (main_v->props.filebrowser_two_pane_view) {
+			/* in the two paned view we don't show files in the dir view */
+			retval = FALSE;
+		} else {
+			if (!fb2->filebrowser_show_backup_files) {
+				len = strlen(name);
+				if (len > 1 && (name[len-1] == '~')) retval = FALSE;
+			}
+			if (retval && !fb2->filebrowser_show_hidden_files) {
+				if (name[0] == '.') retval = FALSE;
+			}
+			if (fb2->basedir && !gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE)) {
+				retval = FALSE;
+			}
+			if (retval)	retval =  name_visible_in_filter(fb2, name);
 		}
-		if (retval && !fb2->filebrowser_show_hidden_files) {
-			if (name[0] == '.') retval = FALSE;
-		}
-		if (retval)	retval =  name_visible_in_filter(fb2, name);
 		g_free(name);
 		return retval;
-	} else {
+	} else { /* directory */
 		if (fb2->basedir) {
 			/* show only our basedir on the root level, no other directories at that level */
 			if (!gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE) && !gnome_vfs_uri_equal(fb2->basedir, uri)) {
