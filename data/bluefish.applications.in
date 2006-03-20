@@ -1,6 +1,6 @@
 @PACKAGE@
 	command=@PACKAGE@ -n
-	name=Bluefish @BF_APP_PACKAGE_ADDSTRING@
+	name=Bluefish (CVS)
 	can_open_multiple_files=true
 	expects_uris=@BF_APP_EXPECT_URIS@
 	uses_gnomevfs=@BF_APP_EXPECT_URIS@
@@ -10,7 +10,7 @@
 
 @PACKAGE@project
 	command=@PACKAGE@ -p
-	name=Bluefish project @BF_APP_PACKAGE_ADDSTRING@
+	name=Bluefish project (CVS)
 	can_open_multiple_files=false
 	expects_uris=false
 	uses_gnomevfs=false
