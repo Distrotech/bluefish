@@ -222,9 +222,9 @@ AC_ARG_ENABLE(gcov-coverage,
 	CFLAGS="$CFLAGS -fprofile-arcs -ftest-coverage"],)
 
 AC_ARG_ENABLE(scanner,
-	AC_HELP_STRING([--enable-scanner],[Use BfTextView scanner for editor widget]),
+	AC_HELP_STRING([--disable-scanner],[Do not use BfTextView scanner for editor widget]),
 	scanner=$enableval,
-	scanner=no
+	scanner=yes
 )
 if test "$scanner" != no; then
 	AC_DEFINE(USE_SCANNER)
