@@ -775,7 +775,8 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							/* TAG autoclose */
 							if ( self->tag_autoclose && !self->delete_rescan && 
 								  !self->paste_operation && self->tag_ac_state &&
-								  !just_ended)
+								  !just_ended && 
+								  g_hash_table_lookup(self->lang->dont_autoclose,bf_2->tagname)==NULL)
 							{
 								GtkTextIter it9;
 								gtk_text_buffer_get_iter_at_mark(buf,&it9,gtk_text_buffer_get_insert(buf));
@@ -1577,6 +1578,7 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 		cfg->attr_val = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_val", "attribute value");
 
 		cfg->restricted_tags = g_hash_table_new(g_int_hash, g_int_equal);
+		cfg->dont_autoclose = g_hash_table_new(g_str_hash, g_str_equal);
 		cfg->line_indent = g_array_new(TRUE, TRUE, sizeof(gint));
 
 		cfg->dfa = g_array_new(FALSE, TRUE, sizeof(gshort *));
@@ -1614,6 +1616,17 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 								cfg->scan_blocks = bftv_xml_bool(tmps2);
 							else if (xmlStrcmp(tmps, (const xmlChar *) "restricted-tags-only") == 0)
 								cfg->restricted_tags_only = bftv_xml_bool(tmps2);
+							else if (xmlStrcmp(tmps, (const xmlChar *) "autoclose-exclude") == 0)
+							{
+								gchar **arr=NULL;								
+								gint i=0;
+								arr = g_strsplit(tmps2, ",", -1);
+								while (arr[i]) {
+									g_hash_table_insert(cfg->dont_autoclose,g_strdup(arr[i]),&tid_true);
+									i++;
+								}
+								g_strfreev(arr);
+							}	
 							else if (xmlStrcmp(tmps, (const xmlChar *) "indent-blocks") == 0)
 								cfg->indent_blocks = bftv_xml_bool(tmps2);
 							else if (xmlStrcmp(tmps, (const xmlChar *) "extensions") == 0)

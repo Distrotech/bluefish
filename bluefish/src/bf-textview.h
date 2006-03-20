@@ -117,6 +117,7 @@ typedef struct {
 	GtkTextTag *attr_name;
 	GtkTextTag *attr_val;
 	BfLangBlock **token_allowed_states; /* this table decribes which states are allowed in what context */
+	GHashTable *dont_autoclose;
 } BfLangConfig;
 
 typedef struct {
