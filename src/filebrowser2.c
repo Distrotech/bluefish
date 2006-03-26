@@ -729,21 +729,28 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
 	return retval;
 }
 
-gint single_view_dir_sort_func(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpointer user_data) {
+/*
+ * filebrowser_sort_func
+ *
+ * this function is the sort function, and has the following  features:
+ * - directories go before files
+ * - files are first sorted without extension, only equal names are sorted by extension
+ *
+ */
+gint filebrowser_sort_func(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpointer user_data) {
 	gchar *namea,*nameb;
 	gint typea, typeb, retval;
 	gtk_tree_model_get(GTK_TREE_MODEL(model), a, FILENAME_COLUMN, &namea, TYPE_COLUMN, &typea, -1);
 	gtk_tree_model_get(GTK_TREE_MODEL(model), b, FILENAME_COLUMN, &nameb, TYPE_COLUMN, &typeb, -1);
-	if ((typea <= -4 && typeb <= -4) || (typea >= -3 && typeb >= -3)) {
+	if ((typea <= -4 && typeb <= -4) || (typea >= -3 && typeb >= -3)) { /* two files, or two directories */
 		if (namea == nameb) {
 			retval = 0; /* both NULL */
 		} else if (namea == NULL || nameb == NULL) {
 			retval = (namea - nameb);
-		} else {
-			/* sort by name */
+		} else { /* sort by name */
 			retval = strcmp(namea,nameb);
 		}
-	} else {
+	} else { /* a directory and a file */
 		retval = (typeb - typea);
 	}
 	g_free(namea);
@@ -785,8 +792,8 @@ static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 	gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),tree_model_filter_func,fb2,NULL);
 	
 	fb2->dir_tsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->dir_tfilter));
-	if (!main_v->props.filebrowser_two_pane_view) {
-		gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(fb2->dir_tsort), FILENAME_COLUMN,single_view_dir_sort_func, NULL, NULL);
+	if (main_v->props.filebrowser_two_pane_view) {
+		gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(fb2->dir_tsort), FILENAME_COLUMN,filebrowser_sort_func, NULL, NULL);
 	}
 	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->dir_tsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);		
 	
@@ -1816,8 +1823,8 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 		gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),tree_model_filter_func,fb2,NULL);
 
 		fb2->dir_tsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->dir_tfilter));
-		if (!main_v->props.filebrowser_two_pane_view) {
-			gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(fb2->dir_tsort), FILENAME_COLUMN,single_view_dir_sort_func, NULL, NULL);
+		if (main_v->props.filebrowser_two_pane_view) {
+			gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(fb2->dir_tsort), FILENAME_COLUMN,filebrowser_sort_func, NULL, NULL);
 		}
 		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->dir_tsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);		
 
