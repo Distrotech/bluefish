@@ -89,12 +89,10 @@ typedef struct {
 
 typedef struct {
 	/*< private > */
-	guchar *name, *extensions, *description;
+	guchar *name, *description;
 	gboolean case_sensitive;
 	gboolean scan_tags;
 	gboolean scan_blocks;
-	gboolean restricted_tags_only;
-	gboolean indent_blocks;
 	gunichar as_triggers[BFTV_UTF8_RANGE];
 
 	GHashTable *tokens;
@@ -102,16 +100,13 @@ typedef struct {
 	GHashTable *groups;
 	GHashTable *blocks_id;
 	GArray *dfa, *tag_dfa;
-	GArray *line_indent;
 	gshort **scan_table;
 	gshort **tag_scan_table;
 	gint tabnum, tag_tabnum;
 	gint counter;
 	gchar escapes[BFTV_UTF8_RANGE];
-	GHashTable *restricted_tags;
 	gint tokennum;				/* = BFTV_TOKEN_IDS + 1; */
 	gint blocknum;				/* = BFTV_BLOCK_IDS + 1; */
-	BfLangBlock *iblock;
 	GtkTextTag *tag_begin;
 	GtkTextTag *tag_end;
 	GtkTextTag *attr_name;
@@ -140,7 +135,7 @@ typedef struct {
 	gchar *tagname; /* optionally for tags */
 	GtkTextIter b_start, b_end;
 	GtkTextIter e_start, e_end;
-	GtkTextMark *mark_begin, *mark_end;
+/*	GtkTextMark *mark_begin, *mark_end;*/
 	gboolean single_line;
 	gint b_len, e_len;
 } TBfBlock;
