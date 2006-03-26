@@ -782,11 +782,22 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 								{
                            gchar *pp = g_strjoin("","</",bf_2->tagname,">",NULL);
                            self->tag_ac_state = FALSE;
+									/* Clear stacks */
+									while (!g_queue_is_empty(&self->scanner.block_stack))		{
+											bf = (TBfBlock*)g_queue_pop_head(&self->scanner.block_stack);
+											if (bf->tagname) g_free(bf->tagname);
+											g_free(bf);
+									}
+									while (!g_queue_is_empty(&self->scanner.block_stack2)) {
+											bf = (TBfBlock*)g_queue_pop_head(&self->scanner.block_stack2);
+											if (bf->tagname) g_free(bf->tagname);
+											g_free(bf);
+									}                           
 								   gtk_text_buffer_insert(buf,&ita,pp,g_utf8_strlen(pp,-1));
 								   gtk_text_buffer_get_iter_at_mark (buf, &it9, gtk_text_buffer_get_insert(buf));
 								   gtk_text_iter_backward_chars (&it9, strlen(pp));
 								   gtk_text_buffer_place_cursor (buf, &it9);
-								   g_free(pp);
+								   g_free(pp);								   
 								   return; /* I have to return from scan, because it has been performed after latest insert */
 								}
 							}					
@@ -1025,8 +1036,8 @@ void bf_textview_scan_visible(BfTextView * self)
 {
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 	GtkTextIter its, ite;
-	GtkTextMark *mark = NULL;
-	gpointer ptr;
+	/*GtkTextMark *mark = NULL;
+	gpointer ptr;*/
 	GdkRectangle rect;
 	GtkTextIter l_start, l_end;
 
@@ -1041,7 +1052,9 @@ void bf_textview_scan_visible(BfTextView * self)
 	ite = l_end;
 	gtk_text_iter_forward_to_line_end(&ite);
 
-	if (self->lang->scan_blocks) {
+	/*  I'm removing this block search it does not give so much.... O.S.
+	
+		if (self->lang->scan_blocks) {
 		mark = bftv_get_first_block_at_line(self,&its, TRUE);
 		if (mark && g_object_get_data(G_OBJECT(mark), "_type_") == &tid_block_end) {
 			ptr = g_object_get_data(G_OBJECT(mark), "ref_b1");
@@ -1054,7 +1067,7 @@ void bf_textview_scan_visible(BfTextView * self)
 			if (ptr)
 				gtk_text_buffer_get_iter_at_mark(buf, &ite, GTK_TEXT_MARK(ptr));
 		}
-	}
+	}*/
 
 	bf_textview_scan_area(self, &its, &ite);
 }
