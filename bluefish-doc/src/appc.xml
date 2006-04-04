@@ -267,11 +267,11 @@ co bluefish-doc</screen></para>
 <note><para>Note that the first form produces in html and ps/pdf formats a clickable link with the url as text, while the second form produces in html format a clickable link with the url as underlying url and the text as viewable text, and in ps/pdf formats a clickable link with the text as text and add the url into brackets after the text, so that the url is not lost when printing on paper. Hence it is important to use the second form when the text does not match the url.</para></note>
 <para>To reference an internal link (i.e. internal to the book), we use:
 <programlisting><![CDATA[<xref linkend="getting-bluefish-updates"/>]]></programlisting></para>
-<para>This generates a linked text similar to "the section called ...". This is the preferred form, but it may not be always suitable; in this case, you can use:
+<para>This generates a linked text similar to: Section x.y.z <quote>Getting Bluefish updates</quote>. This is the preferred form, but it may not be always suitable; in this case, you can use:
 <programlisting><![CDATA[<link linkend="getting-bluefish-updates">here</link>]]></programlisting></para>
-<note><para>Note that when dealing with other languages than English, it may not include the <emphasis>the</emphasis> part before the word <emphasis>section</emphasis>. You may have to insert the appropriated article.</para></note>
+<note><para>Note that you may have to prepend the appropriated article if needed.</para></note>
 <para>To reference a chapter by number, we use:
-<programlisting><![CDATA[Chapter <xref linkend="getting-bluefish" role="template:%n"/>]]></programlisting></para>
+<programlisting><![CDATA[Chapter <xref linkend="getting-bluefish" xrefstyle="template:%n"/>]]></programlisting></para>
 </sect2>
 
 <sect2 id="bluefish-manual-guide-others">
