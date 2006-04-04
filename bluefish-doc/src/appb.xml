@@ -21,7 +21,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <appendix id="bluefish-appb">
 <title>Bluefish change history</title>
 
-<para>Release-Changelog for the current 1.0.x series:
+<para>Release-Changelog for the current 1.0.x series:</para>
+<para>
 <revhistory>
 <revision id="bluefish_1_0_5">
 <revnumber>1.0.5</revnumber>
@@ -45,7 +46,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <para>Improves behaviour of font drop down list. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=317974">Bluefish bug #317974</ulink>.</para>
 </listitem>
 <listitem>
-<para>Improves the "Link to stylesheet" dialog. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=319753">Bluefish bug #319753</ulink>.</para>
+<para>Improves the <quote>Link to stylesheet</quote> dialog. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=319753">Bluefish bug #319753</ulink>.</para>
 </listitem>
 <listitem>
 <para>Makes the splash screen a runtime user option. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=324647">Bluefish bug #324647</ulink>.</para>
@@ -57,7 +58,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <para>Fixes and updates to C, ChangeLog, CSS, SQL, Perl and PHP highlighting patterns. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=313000">Bluefish bug #313000</ulink>, <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=315324">#315324</ulink>, <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=317769">#317769</ulink>, <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=326887">#326887</ulink> and <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=329182">#329182</ulink>.</para>
 </listitem>
 <listitem>
-<para>Fixes an issue where the "Highlight Syntax" menu entry could show a wrong state. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=324517">Bluefish bug #324517</ulink>.</para>
+<para>Fixes an issue where the <quote>Highlight Syntax</quote> menu entry could show a wrong state. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=324517">Bluefish bug #324517</ulink>.</para>
 </listitem>
 <listitem>
 <para>Fixes a crash in the spellcheck dialog. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=322126">Bluefish bug #322126</ulink> and <ulink url="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=340768">Debian bug #340768</ulink>.</para>
@@ -66,7 +67,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <para>Fixes for the quickstart dialog, especially a crash observed with GTK >= 2.8. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=324836">Bluefish bug #324836</ulink> and <ulink url="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=344435">Debian bug #344435</ulink>.</para>
 </listitem>
 <listitem>
-<para>Fixes for the find dialog. So choosing "Bookmark results" does not longer lead to a search in the whole document even if "Search selection" is used. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=327099">Bluefish bug #327099</ulink>.</para>
+<para>Fixes for the find dialog. So choosing <quote>Bookmark results</quote> does not longer lead to a search in the whole document even if <quote>Search selection</quote> is used. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=327099">Bluefish bug #327099</ulink>.</para>
 </listitem>
 <listitem>
 <para>Fixes the moving replace dialog. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=323183">Bluefish bug #323183</ulink>.</para>
@@ -237,10 +238,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <para>Fixed improperly opened color dialog when opening the CSS dialog.</para>
 </listitem>
 <listitem>
-<para>Fixed project dialog segmentation fault when clicking the "Browse button". Closes <ulink url="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=295536">Debian bug #295536</ulink>.</para>
+<para>Fixed project dialog segmentation fault when clicking the <quote>Browse</quote> button. Closes <ulink url="http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=295536">Debian bug #295536</ulink>.</para>
 </listitem>
 <listitem>
-<para>Fixed not retained "View" menu item settings after closing/restarting.</para>
+<para>Fixed not retained <quote>View</quote> menu item settings after closing/restarting.</para>
 </listitem>
 <listitem>
 <para>Fixed several build issues (debugging output, configure, ...)</para>
