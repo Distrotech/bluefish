@@ -123,22 +123,22 @@ init-fo-us:
 	fi
 	
 html: clean-html  validate-all builtdoc-create init-html
-	${XSLTPROC} -output ${BOOK_HTML_XSL} ${BOOK_TEMPLATE} ${BOOK_HTML_XML}
-	${XSLTPROC} -output ${OUTPUT_DIR}/ ${XSL_HTML_CHUNK} ${BOOK_XML_SOURCE}	
+	${XSLTPROC} --nonet --output ${BOOK_HTML_XSL} ${BOOK_TEMPLATE} ${BOOK_HTML_XML}
+	${XSLTPROC} --nonet --output ${OUTPUT_DIR}/ ${XSL_HTML_CHUNK} ${BOOK_XML_SOURCE}	
 	${move-pictures}
 	${reinit-html}
 	${hackhtmltoc}
 
 html-one-big: clean-html validate-all builtdoc-create init-big-html
-	${XSLTPROC} -output ${BOOK_HTML_XSL} ${BOOK_TEMPLATE} ${BOOK_HTML_XML}
-	${XSLTPROC} -output ${BOOK_HTML_TARGET} ${XSL_HTML} ${BOOK_XML_SOURCE}
+	${XSLTPROC} --nonet --output ${BOOK_HTML_XSL} ${BOOK_TEMPLATE} ${BOOK_HTML_XML}
+	${XSLTPROC} --nonet --output ${BOOK_HTML_TARGET} ${XSL_HTML} ${BOOK_XML_SOURCE}
 	${move-pictures}
 	${reinit-big-html}
 	
 html-all: clean-html validate-all builtdoc-create init-big-html init-html
-	${XSLTPROC} -output ${BOOK_HTML_XSL} ${BOOK_TEMPLATE} ${BOOK_HTML_XML}
-	${XSLTPROC} -output ${OUTPUT_DIR}/ ${XSL_HTML_CHUNK} ${BOOK_XML_SOURCE}	
-	${XSLTPROC} -output ${BOOK_HTML_TARGET} ${XSL_HTML} ${BOOK_XML_SOURCE}
+	${XSLTPROC} --nonet --output ${BOOK_HTML_XSL} ${BOOK_TEMPLATE} ${BOOK_HTML_XML}
+	${XSLTPROC} --nonet --output ${OUTPUT_DIR}/ ${XSL_HTML_CHUNK} ${BOOK_XML_SOURCE}	
+	${XSLTPROC} --nonet --output ${BOOK_HTML_TARGET} ${XSL_HTML} ${BOOK_XML_SOURCE}
 	${move-pictures}
 	${reinit-html}
 	${reinit-big-html}
@@ -173,17 +173,17 @@ pspdf-us: clean-pspdf-us validate-all fo-us builtdoc-create
 	rm -f ${BOOK_FO_TARGET}
 	
 fo-a4:  init-fo-a4
-	${XSLTPROC} -output ${BOOK_XSL_A4} ${BOOK_TEMPLATE} ${BOOK_XML_A4}
-	${XSLTPROC} -output ${BOOK_FO_TARGET} ${BOOK_LAYER_A4} ${BOOK_XML_SOURCE}
+	${XSLTPROC} --nonet --output ${BOOK_XSL_A4} ${BOOK_TEMPLATE} ${BOOK_XML_A4}
+	${XSLTPROC} --nonet --output ${BOOK_FO_TARGET} ${BOOK_LAYER_A4} ${BOOK_XML_SOURCE}
 	${reinit-fo-a4}
 
 fo-us: init-fo-us
-	${XSLTPROC} -output ${BOOK_XSL_US} ${BOOK_TEMPLATE} ${BOOK_XML_US}
-	${XSLTPROC} -output ${BOOK_FO_TARGET} ${BOOK_LAYER_US} ${BOOK_XML_SOURCE}
+	${XSLTPROC} --nonet --output ${BOOK_XSL_US} ${BOOK_TEMPLATE} ${BOOK_XML_US}
+	${XSLTPROC} --nonet --output ${BOOK_FO_TARGET} ${BOOK_LAYER_US} ${BOOK_XML_SOURCE}
 	${reinit-fo-us}
 
 validate-all:
-	xmllint --noout --valid ${BOOK_XML_SOURCE}
+	xmllint --noout --nonet --valid ${BOOK_XML_SOURCE}
 
 builtdoc-create:
 	mkdir -p ${OUTPUT_DIR}
