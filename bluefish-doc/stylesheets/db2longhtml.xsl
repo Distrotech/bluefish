@@ -32,7 +32,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 	indent="no"/>
 <!-- Insert list of procedures in toc -->
 <xsl:param name="generate.toc">
-book      toc,title,figure,example,procedure
+book      toc,title,figure,example,procedure,table
 </xsl:param>
 <!-- Toc depth -->
 <xsl:variable name="toc.section.depth">3</xsl:variable>
@@ -51,30 +51,5 @@ book      toc,title,figure,example,procedure
 <!-- Remove indentation to admon graphics -->
 <xsl:param name="admon.style">
   <xsl:text>margin-left: 0in; margin-right: 0in;</xsl:text>
-
-<!-- Segmented list as tables workaround for fop-->
-<!-- <xsl:template match="segmentedlist" mode="seglist-table">
-  <xsl:apply-templates select="title" mode="list.title.mode" />
-  <html:table table-layout="fixed">
-    <html:table-column column-number="1" column-width="100px"/>
-    <html:table-column column-number="2" column-width="200px"/>
-    <html:table-header> -->
- <!--      <html:table-row>
-        <xsl:apply-templates select="segtitle" mode="seglist-table"/>
-      </html:table-row>
-    </html:table-header>
-    <html:table-body>
-      <xsl:apply-templates select="seglistitem" mode="seglist-table"/> -->
- <!--    </html:table-body>
-  </html:table>
-</xsl:template>
-<xsl:template match="segtitle" mode="seglist-table">
-  <html:table-cell>
-    <html:block font-weight="bold" text-align="center"> -->
-<!--      <xsl:apply-templates/>
-    </html:block>
-  </html:table-cell>
-</xsl:template> -->
-
 </xsl:param>
 </xsl:stylesheet>

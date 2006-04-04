@@ -30,7 +30,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
  <!-- Insert list of procedures in toc -->
 <xsl:param name="generate.toc">
-book	toc,title,figure,example,procedure
+book	toc,title,figure,example,procedure,table
 chapter		toc
 preface		toc
 appendix	toc
