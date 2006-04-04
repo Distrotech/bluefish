@@ -1,4 +1,4 @@
-<!--
+/*
 this file belongs to bluefish, a web development environment
 Copyright (C) 2005-2006 The Bluefish Project Team
 
@@ -15,7 +15,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
--->
+*/
 
 body {
 	font-size: 12px;
@@ -93,19 +93,23 @@ div.book div.titlepage p.othercredit {
 }
 
 /* Revision history */
+/*Work around a bug in (mozilla based browser?)
+ which does not respect visibility and color of border
+ without border-collapse */
 div.revhistory table {
-	border: 0px hidden;
+	border: 0px hidden white;
+	border-collapse: collapse;
 	padding-top: 1em;
 	padding-bottom: 2em;
-	font-size: 80%;
 }
 div.revhistory > table  > tr > th {
-	border: 0px hidden;
+	border: 0px hidden white;
 	padding: 0px;
 }
-div.revhistory > table > tr > td {
-	border: 0px hidden;
+div.revhistory > table td {
+	border: 0px hidden white;
 	padding-left: 1em;
+	font-size: 75%;
 }
 
 /* Copyright and pubdate */
@@ -125,14 +129,14 @@ hr {
 }
 
 /* Book's Table of contents */
-div.toc p, div.list-of-figures p, div.list-of-examples p, div.list-of-procedures p {
+div.toc p, div.list-of-figures p, div.list-of-examples p, div.list-of-procedures p, div.list-of-tables p {
    font-family: Helvetica, Arial, Verdana, sans-serif;
    font-size: 110%;
    color: #444444;
 	text-align: center;
 }
 
- div.list-of-figures p, div.list-of-examples p, div.list-of-procedures p {
+ div.list-of-figures p, div.list-of-examples p, div.list-of-procedures p, div.list-of-tables p {
    border-top: 1em hidden;
 }
 
@@ -170,7 +174,6 @@ div.sect1 div.titlepage h3.title {
    font-size: 130%;
 	text-align: left;
 }
-	
 div.itemizedlist li {
 	clear: none;
 }
@@ -231,8 +234,8 @@ div.caption {
 	margin-left: 0.7em;
 }
 
-/* For figures, examples and procedures, to get a small font */
-.figure > .title, .procedure > .title, .example > .title {
+/* For figures, examples, procedures, and tables to get a small font */
+.figure > .title, .procedure > .title, .example > .title, .table > .title {
    font-family: Georgia, Times, serif;
    font-size: 112%;
    color: #444444;
@@ -281,4 +284,34 @@ div.note p, div.warning p, div.tip p, div.caution p, div.important p {
 	font-size: 12px;
 	font-family: Verdana, Helvetica, Arial, sans-serif;
 	margin-bottom: 0px;
+}
+
+/* Style of shortcuts tables */
+
+.shortcuts {
+	border: 0px hidden;
+	border-collapse: collapse;
+}
+
+.shortcuts th {
+	border: 1px solid #96a5b8;
+	background-color: #EFF6FF;
+	border-collapse: collapse;
+	font-size: 70%;
+	font-weight: bold;
+}
+
+.shortcuts td {
+	padding: 5px;
+	border: 1px solid #96a5b8;
+	border-collapse: collapse;
+	font-size: 70%;
+}
+
+div.segmentedlist td, th{
+	font-size: 80%;
+}
+
+div.segmentedlist th{
+	font-weight: bold;
 }
