@@ -26,9 +26,6 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
 
-<!-- Allow to use extensions -->
-<xsl:param name="use.extensions" select="1"></xsl:param>
-
 <!-- For bookmarks -->
 <xsl:param name="fop.extensions" select="1"></xsl:param>
 
@@ -64,7 +61,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 <!-- Insert list of procedures in toc -->
 <xsl:param name="generate.toc">
-book      toc,title,figure,example,procedure
+book      toc,title,figure,example,procedure,table
 </xsl:param>
 
 <!-- Chapter autolabelling -->
@@ -247,7 +244,7 @@ procedure before
   <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
 </xsl:attribute-set>
 
-<!-- Style of title for procedure, example, table, figures
+<!-- Style and placement of title for procedure, example, table, figures
  And space after procedure title -->
 <xsl:attribute-set name="formal.title.properties">
   <xsl:attribute name="font-weight">bold</xsl:attribute>
@@ -269,6 +266,12 @@ procedure before
     <xsl:choose>
       <xsl:when test="self::procedure">0em</xsl:when>
       <xsl:otherwise>inherit</xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
+  <xsl:attribute name="text-align">
+    <xsl:choose>
+      <xsl:when test="self::table">center</xsl:when>
+      <xsl:otherwise>left</xsl:otherwise>
     </xsl:choose>
   </xsl:attribute>
 </xsl:attribute-set>
@@ -324,7 +327,7 @@ procedure before
 
 <!-- Segmented list as tables workaround for fop-->
 <xsl:template match="segmentedlist" mode="seglist-table">
-  <xsl:apply-templates select="title" mode="list.title.mode" />
+  <xsl:apply-templates select="title" mode="list.title.mode"/>
   <fo:table table-layout="fixed">
     <fo:table-column column-number="1" column-width="100px"/>
     <fo:table-column column-number="2" column-width="200px"/>
@@ -383,5 +386,13 @@ procedure before
 <xsl:template match="processing-instruction('linebreaka4')">
         <fo:block>&#160;</fo:block>
 </xsl:template>
+
+<!-- For shortcuts table -->
+<xsl:attribute-set name="table.cell.padding">
+    <xsl:attribute name="padding-left">2px</xsl:attribute>
+    <xsl:attribute name="padding-right">1px</xsl:attribute>
+    <xsl:attribute name="padding-top">4px</xsl:attribute>
+    <xsl:attribute name="padding-bottom">4px</xsl:attribute>
+ </xsl:attribute-set>
 
 </xsl:stylesheet>  
