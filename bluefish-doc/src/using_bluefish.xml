@@ -55,7 +55,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 <sect1 id="user-interface">
 <title>The user interface</title>
-<para>The biggest part of the user interface is the editor area. Because Bluefish has a so-called "Multiple Document Interface", there are actually many editor areas in Bluefish, accessible via the tabs. By default the tabs are on the bottom.
+<para>The biggest part of the user interface is the editor area. Because Bluefish has a so-called <quote>Multiple Document Interface</quote>, there are actually many editor areas in Bluefish, accessible via the tabs. By default the tabs are on the bottom.
 <?linebreaka4?>
 <figure id="figure-editor-array">
 <title id="figure-editor-array-title">Bluefish Editor Array</title>
@@ -327,7 +327,6 @@ If you want to disable any of these items by default, you can set these options 
 <sect1 id="working-with-files">
 <title>Working with files and folders</title>
 <para>Most of the file operations are accessible from the <guimenu>File</guimenu> menu. Using this menu, a new file can be created, existing files opened, and opened files saved or renamed.</para>
-<?linebreak?>
 <para>You may also insert a file into another one, and revert a modified file to its previously saved state.	
 <figure id="figure-file-menu">
 <title id="figure-file-menu-title">Bluefish File Menu</title>
@@ -340,8 +339,7 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreak?>
-<note><para>In case you compiled bluefish from source, the <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL...</guimenuitem></menuchoice> menu item is shown only if you installed gnome-vfs2 beforehhand.n'apparaît que si vous aviez installé gnome-vfs2 auparavant.</para>
+<note><para>In case you compiled bluefish from source, the <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL...</guimenuitem></menuchoice> menu item is shown only if you installed gnome-vfs2 beforehand.</para>
 <para>For Mac OS X users installing via Fink, choose bluefish-gnomevfs2 or bluefish-gnome2 variant.</para> 
 </note>
 <para>You may also add directories, delete files, and refresh the file browser in the side panel using its contextual menu.
@@ -357,17 +355,13 @@ If you want to disable any of these items by default, you can set these options 
 </mediaobject></screenshot>
 </figure></para>
 <para>You may also open a file using drag and drop from the desktop or from Nautilus to any part of the Bluefish window but the editor part when you are under Gnome2 environment.</para>
-<note><para>If you drap and drop the file to the editor window, the full path of the file is inserted.</para></note>
+<note><para>If you drag and drop the file to the editor window, the full path of the file is inserted.</para></note>
 
-<?pagebreakus?>
 <sect2 id="creating-files">
 <title>Creating files</title>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
 <para>Apart from using <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New</guimenuitem></menuchoice> or the <guilabel>New</guilabel> icon to create a new file, you may also use <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice>.</para>
-<?linebreakus?>
-<para>Those methods create an untitled file of type <literal>text</literal> with default permissions and the default character encoding defined in the <guilabel>Files</guilabel> tab in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option. You will further have to <link linkend="saving-files">save</link> it under the desired name.
+<para>Those methods create an untitled file of type <literal>text</literal> (except when you are working on a project with defined template file, see <xref linkend="creating-new-project"/>
+ for more info) with default permissions and the default character encoding defined in the <guilabel>Files</guilabel> tab in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option. You will further have to <link linkend="saving-files">save</link> it under the desired name.
 <figure id="untitled-document">
 <title id="untitled-document-title">Untitled Document Window</title>
 <screenshot><mediaobject>
@@ -380,14 +374,8 @@ If you want to disable any of these items by default, you can set these options 
 </mediaobject></screenshot>
 </figure></para>
 <important><para>Note that the document window is titled <quote>Untitled n - Bluefish versionnumber</quote>, which indicates precisely that the file is not saved on the disk. The same applies to the document's tab which shows <quote>Untitled n</quote>. Moreover, if you move the cursor onto the document's tab, you will not see any size or modification date.</para></important>
-<?linebreakus?>
+<tip><para>When creating new files, you may want to create them in a new window. In this case, use <menuchoice><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice> to first open the new window and then create the desired files as usual.</para></tip>
 <para>To spare yourself the bother of saving, right click on the desired directory in the directory list of the file browser in the side panel and select <guilabel>New File</guilabel>. You will be presented with a <guilabel>File name</guilabel> dialog, where you will enter the desired name:
-<?linebreak?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
 <figure id="file-name-dialog">
 <title id="file-name-dialog-title">The File name dialog</title>
 <screenshot><mediaobject>
@@ -402,39 +390,31 @@ If you want to disable any of these items by default, you can set these options 
 <tip><para>You may type a path relative to the clicked directory, provided that the target directory be under the clicked directory and that it exists.</para></tip>
 </sect2>
 
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreak?>
-<?linebreak?>
 <sect2 id="managing-directories">
 <title>Managing directories</title>
+<para>To create a new directory, right click on the desired parent directory in the directory list of the file browser in the side panel and select <guilabel>New Directory</guilabel>. You may also right click on any file in the files part of the file browser.</para>
+<para>Then enter the desired name in the <guilabel>Directory name</guilabel> dialog. Bluefish will create the named directory with the default permissions under the currently selected directory.
+<figure id="directory-name-dialog">
+<title id="directory-name-dialog-title">The Directory name dialog</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/directory_name_dialog.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing the Directory name dialog</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>Note that you cannot delete directories within Bluefish, but you can refresh the view with the <guilabel>Refresh</guilabel> contextual menu item of the directory part of the file browser if you delete them externally. This is especially useful when you add files and directories or delete files.</para>
+<para>If you right click a directory in the file browser within the side panel, you can make this directory the base directory for the file browser using the <guimenuitem>Set as basedir</guimenuitem> option. Then you can access it directly from the pop up menu in the upper part of the file browser.</para>
 <?linebreakus?>
-<para>To create a new directory, right click on the desired parent directory in the directory list of the file browser in the side panel and select <guilabel>New Directory</guilabel>.</para>
-<?linebreakus?>
-<para>Then enter the desired name in the <guilabel>Directory name</guilabel> dialog. Bluefish will create the named directory with the default permissions.</para>
-<?linebreakus?>
-<para>Note that you cannot delete directories within Bluefish, but you can refresh the view with the <guilabel>Refresh</guilabel> contextual menu item of the file browser. This is especially useful when you add files and directories or delete files.</para>
+<para>By default the file browser follows the document focus. If you change to a different document, the file browser will show the contents of the directory where this document is located. This behaviour can be changed by unchecking <guilabel>Follow focus</guilabel> on the bottom of the file browser.</para>
 </sect2>
 
-<?linebreaka4?>
-<?linebreaka4?>
 <?pagebreakus?>
 <sect2 id="opening-files">
 <title>Opening files</title>
-<?linebreakus?>
-<para>Through <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice>, one or more files can be opened. When creating new files, you may want to open the files in a new window. In this case, use <menuchoice><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice> to first open the new window and then open the desired files as usual.
-<?linebreak?>
-<?linebreakus?>
-<?linebreakus?>
+<para>Through the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice> menu item or the <guilabel>Open...</guilabel> icon in the main tool bar, one or more files can be opened. If you want to open them in a new window, use <menuchoice><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice> to first open the new window and then open the desired files as usual.
 <figure id="figure-open-file">
 <title id="figure-open-file-title">Bluefish Open File Dialog</title>
 <screenshot><mediaobject>
@@ -446,20 +426,11 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
 <note>
 <para>The most recently opened directories appear in the upper part of the side panel, while the lower part contains user-defined locations. To add a new directory to the list, click on <guilabel>Add</guilabel>. You can also filter the file list by file type using the pop menu located on the right side. The list of file types in the filter menu is provided through the <guilabel>Filetypes</guilabel> tab found in Bluefish's <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option.</para>
 </note>
-<?linebreakus?>
-<?linebreakus?>
-<?pagebreaka4?>
 <para>Recently opened files can be opened by selecting them from the list within <menuchoice><guimenu>File</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice>. The number of files in this menu can be set in the preferences under <guilabel>Files</guilabel>.</para>
-<?linebreakus?>
-<?linebreakus?>
-<para>The file browser in the side panel can also be used to open files. It supports filtering files, by right clicking the contextual menu in the file browser.
-<?linebreakus?>
+<para>The contextual menus of both parts of the file browser in the side panel can also be used to open files. The file part supports opening a given file by right clicking it, and filtering files via the <guilabel>Filter</guilabel> submenu of its contextual menu. The directory part supports filtering files via the <guilabel>Filter</guilabel> submenu of its contextual menu, and advanced opening explained in the <xref linkend="open-advanced"/>.
 <figure id="figure-file-browser-filtering">
 <title id="figure-file-browser-filtering-title">Filtering Files with the Bluefish File Browser</title>
 <screenshot><mediaobject>
@@ -471,62 +442,49 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreakus?>
 <para>The available filters may be modified in Preferences. For more information, see <xref linkend="modifying-filefilters"/>.</para>
-<?linebreakus?>
-<para>If you right click a directory, you can make this directory the base directory for the file browser using the <guimenuitem>Set as basedir</guimenuitem> option. Then you can access it directly from the pop up menu in the upper part of the file browser.</para>
-<?linebreakus?>
-<para>By default the file browser follows the document focus. If you change to a different document, the file browser will show the contents of the directory where this document is located. This behaviour can be changed on the bottom of the file browser.</para>
-<?linebreak?>
+<para>An interesting feature of Bluefish is the ability to open files by selecting the text of a currently opened file in another application. For example, if a filename is shown in say a terminal application, you can select the filename, and use <menuchoice><guimenu>File</guimenu><guimenuitem>Open from Selection</guimenuitem></menuchoice> to open that file. The file, if it exists, will be opened in another tab within Bluefish.</para>
+<important><para>The selected text should match the full path of an existing file.</para></important>
+<para>Files can also be opened via the command line by feeding filenames to Bluefish as arguments. For example:</para>
+<screen><prompt>$</prompt>bluefish ~/foo1.txt ~/foo2.txt</screen>
+<para>This can even be done while Bluefish is running and the resulting files will then show up in their own tabs.</para>
+<tip>
+<para>If you have installed gnome-vfs or gnome-vfs2 before installing Bluefish, you will be able to open files on remote desktop via the <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL...</guimenuitem></menuchoice> menu item. See more on this in the <xref linkend="remote-files"/>.</para>
+<para>Finally, if the gnome2 environment is installed on your system, you may open files by drag and drop from the desktop or the Nautilus file manager onto any part of the Bluefish interface, but the document's editor.</para></tip>
+<para>Be aware that if the file is huge it may take a very long time to get the rendering if syntax highlighting is enabled in the <guilabel>Editor</guilabel> option of Preferences, in particular if the PCRE UTF-8 support is enabled. The GTK editing widget used in Bluefish, furthermore, is not very good at handling files with very long lines, and that could also slow down Bluefish considerably.</para>
 <para>Information about currently opened files can be seen if you move the mouse over the document tab (by default on the bottom of the screen). A so called tool tip will be shown with information about the full path, size, permissions, file type and encoding of the file.
-<?linebreakus?>
 <figure id="figure-open-file-info">
-<title id="figure-open-file-info-title">Info on open file with the Bluefish File Browser</title>
+<title id="figure-open-file-info-title">Info on open file</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/open_file_info.png" format="PNG"/>
 </imageobject>
 <textobject>
-<phrase>A screen shot showing Info on open file with the Bluefish file browser</phrase>
+<phrase>A screen shot showing Info on open file</phrase>
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
+<note><para>Note that the document's tab is hightlighted in red, because the document has been modified since the last save. Info in the tool tip match the state of the file as it was saved on disk.</para></note>
 <?linebreakus?>
-<para>An interesting feature of Bluefish is the ability to open files by selecting the text of a currently opened file. For example, if a filename is shown in say a terminal application, you can select the filename, and use <menuchoice><guimenu>File</guimenu><guimenuitem>Open from Selection</guimenuitem></menuchoice> to open that file. The file, if it exists, will be opened in another tab within Bluefish.</para>
-<?linebreaka4?>
-<para>Finally, files can be opened via the command line by feeding filenames to Bluefish as arguments. This can even be done while Bluefish is running and the resulting file will then show up in its own tab.</para>
-<?linebreaka4?>
-<para>Files can also be opened by clicking on the <guilabel>Open...</guilabel> icon in the main tool bar.</para>
-<?linebreaka4?>
-<note>
-<para>If you have installed gnome-vfs or gnome-vfs2 before installing Bluefish, you will be able to open files on remote desktop.</para>
-</note>
-<?linebreaka4?>
-<para>Be aware that if the file is huge it may take a very long time to get the rendering if syntax highlighting is enabled. The GTK editing widget used in Bluefish, furthermore, is not very good at handling files with very long lines, and that could also slow down Bluefish considerably.</para>
 </sect2>
 
 <sect2 id="saving-files">
 <title>Saving files</title>
-<?linebreaka4?>
 <para>If a document is modified, the filename is shown in red in the document tabs, and also if you right click on the tabs, the full path is shown in red in the list that will pop up.
-<?linebreaka4?>
 <figure id="figure-modified-file-tooltip">
-<title id="figure-modified-file-tooltip-title">Tool Tip for Modified File</title>
+<title id="figure-modified-file-tooltip-title">A modified document in the documents' list</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/modified_file_tooltip.png" format="PNG"/>
 </imageobject>
 <textobject>
-<phrase>A screen shot showing the tool tip for modified file</phrase>
+<phrase>A screen shot showing a modified document in the documents' list</phrase>
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
 <para>To save a document, you can use the <guimenu>File</guimenu> menu, the <guilabel>Save</guilabel> icon in the tool bar, or press the shortcut key combination <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>. By default a backup is made during save. The original file is copied to the same filename with a tilde <keycap>~</keycap> appended. This suffix and the backup behaviour can be changed in the preferences under <guilabel>Files</guilabel>.</para>
-<?linebreaka4?>
 <para>Before saving the file, Bluefish will check if the original file was changed on disk, using the last modified time and the file size. On some file systems the last modified time is sometimes not very precise (most notably on samba mounts). This makes Bluefish think the file is modified when it is not. This check can be changed in the preferences under <guilabel>Files</guilabel>.</para>
-<?linebreaka4?>
 <para>You can also save a document under a different name, using the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut><guimenuitem>Save As...</guimenuitem></menuchoice> menu entry, or the <guilabel>Save As...</guilabel> icon in the main tool bar. The original file will still exist.
-<?linebreaka4?>
 <figure id="figure-renaming-file">
 <title id="figure-renaming-file-title">Saving a File under a new Name</title>
 <screenshot><mediaobject>
@@ -541,7 +499,6 @@ If you want to disable any of these items by default, you can set these options 
 <para>To save all modified files, you can use the <menuchoice><guimenu>File</guimenu><guimenuitem>Save All</guimenuitem></menuchoice> menu entry. This will save all documents that have been modified and present you with a save dialog if some files are new files.</para>
 </sect2>
 
-<?pagebreaka4?>
 <?linebreakus?>
 <?linebreakus?>
 <sect2 id="renaming">
