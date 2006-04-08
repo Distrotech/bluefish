@@ -101,16 +101,22 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <para>You need to install the following packages:</para>
 <itemizedlist>
 <listitem>
-<para>From the Base section: <command>cygrunsrv</command> (installs a necessary service to Windows)</para>
+<para>From the Admin section: <command>cygrunsrv</command> (installs a necessary service to Windows)</para>
 </listitem>
 <listitem>
-<para>From the Devel section: <command>ORBit2-devel</command>, <command>atk-devel</command>, <command>autoconf2.5</command>, <command>automake1.x</command>, <command>binutils</command>, <command>bison</command>, <command>catgets</command>, <command>cvs</command>, <command>gcc</command>, <command>gettext</command>, <command>gettext-devel</command>, <command>glib2-devel</command>, <command>gtk2-x11-devel</command>, <command>libbonobo2-devel</command>, <command>libfreetype2-devel</command>, <command>libxml2-devel</command>, <command>make</command>, <command>pango-devel</command>, <command>pcre</command>, <command>pcre-devel</command>, <command>pkgconfig</command></para>
+<para>From the Base section: all packages in this section should be installed by default</para>
+</listitem>
+<listitem>
+<para>From the Devel section: <command>ORBit2-devel</command>, <command>atk-devel</command>, <command>autoconf2.5</command>, <command>automake1.x</command> (here we suggest automake1.7), <command>binutils</command>, <command>bison</command>, <command>catgets</command>, <command>cvs</command>, <command>gcc</command>, <command>gettext</command>, <command>gettext-devel</command>, <command>glib2-devel</command>, <command>gtk2-x11-devel</command>, <command>libbonobo2-devel</command>, <command>libfreetype2-devel</command>, <command>libxml2-devel</command>, <command>make</command>, <command>minires-devel</command>, <command>openssl-devel</command>, <command>pango-devel</command>, <command>pcre</command>, <command>pcre-devel</command>, <command>pkgconfig</command></para>
 </listitem>
 <listitem>
 <para>From the Gnome section: <command>gnome-vfs2</command>, <command>libgnome2</command></para>
 </listitem>
 <listitem>
-<para>From the X11 section: <command>xorg-x11-devel</command>, <command>xorg-x11-base</command>, <command>xorg-x11-bin</command>, <command>xorg-x11-bin-dlls</command>, <command>xorg-x11-fenc</command>, <command>xorg-x11-fnts</command>, <command>xorg-x11-fsrc</command>, <command>xorg-x11-100</command>, <command>xorg-x11-fcyr</command>, <command>xorg-x11-fscl</command></para>
+<para>From the Libs section: <command>popt</command></para>
+</listitem>
+<listitem>
+<para>From the X11 section: <command>xorg-x11-devel</command>, <command>xorg-x11-base</command>, <command>xorg-x11-bin</command>, <command>xorg-x11-bin-dlls</command>, <command>xorg-x11-fenc</command>, <command>xorg-x11-fnts</command>, <command>xorg-x11-fsrv</command>, <command>xorg-x11-f100</command>, <command>xorg-x11-fcyr</command>, <command>xorg-x11-fscl</command></para>
 </listitem>
 </itemizedlist>
 </listitem>
@@ -141,11 +147,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </itemizedlist>
 </listitem>
 <listitem>
-<para>To run <application>Bluefish</application>, you need to start the <command>cygrunsrv</command> Service. First log in to a Cygwin-Shell and run <userinput>/usr/bin/cygserver-config</userinput>. Then open a Windows shell (<filename>cmd.exe</filename> or <filename>command.exe</filename>) and type <userinput>net start cygserver</userinput>. To automatically start the service with Windows, set <varname>Starttype</varname> for <command>cygrunsrv</command> to <emphasis>Automatic</emphasis> (see Start > Control Panel > Computer Administration > Services and Applications > Services : CYGWIN cygserver : Properties).</para>
+<para>Fetch the source and compile it as explained in <xref linkend="installing-bluefish-source"></xref>.</para>
+</listitem>
+<listitem>
+<para>To run <application>Bluefish</application>, you need to start the <command>cygrunsrv</command> Service. First log in to a Cygwin-Shell and run <userinput>/usr/bin/cygserver-config</userinput>. Answer Yes to install cygserver as service. Then open a Windows shell with the <guibutton>START</guibutton> button of your Windows box and choose <guilabel>Run</guilabel>. Type <userinput>cmd.exe</userinput> or <userinput>command.exe</userinput>, hit enter and type <userinput>net start cygserver</userinput>. To automatically start the service with Windows, set <varname>Starttype</varname> for <command>cygrunsrv</command> to <emphasis>Automatic</emphasis> (see Start > Control Panel > Computer Administration > Services and Applications > Services : CYGWIN cygserver : Properties). To stop the service, type <userinput>net stop cygserver</userinput>.</para>
 </listitem>
 <listitem>
 <para>To allow Bluefish to use the Cygserver facilities (to use the XSI IPC function calls like <function>msgget</function> successfully) you need to export the <envar>CYGWIN</envar> environment variable. Add the following line to your <filename>~/.bash_profile</filename>:</para>
 <screen><prompt>$</prompt> export CYGWIN=server</screen>
+</listitem>
+<listitem>
+<para>To run Bluefish, first start the X server with <userinput>startx</userinput>, then launch bluefish with <userinput>/usr/bin/bluefish.exe</userinput> (if you have configured bluefish with <userinput>./configure --prefix=/usr</userinput>).</para>
+<note><para>For further details, see the <ulink url="http://bfwiki.tellefsen.net/index.php?pagename=CompilingUnderCygwin">Compile Bluefish for Cygwin</ulink> wiki page.</para></note>
 </listitem>
 </itemizedlist>
 <para>Debian:</para>
@@ -178,10 +191,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <para>Fink for Mac OS X 10.2 has Bluefish 0.12 in binary or stable source distribution, and Bluefish 0.13 in unstable source branch.</para>
 </listitem>
 <listitem>
-<para>Fink for Mac OS X 10.3 and 10.4-transitional has Bluefish 1.0 in binary distribution, Bluefish 1.0.1 in stable source branch, and Bluefish 1.0.4 in unstable source branch. The source branches have three variants: bluefish, bluefish-gnomevfs2, and bluefish-gnome2.</para>
+<para>Fink for Mac OS X 10.3 and 10.4-transitional has Bluefish 1.0 in binary distribution, Bluefish 1.0.4 in stable source branch, and Bluefish 1.0.5 in unstable source branch. The source branches have three variants: bluefish, bluefish-gnomevfs2, and bluefish-gnome2.</para>
 </listitem>
 <listitem>
 <para>Fink's latest cvs version is always available from the <ulink url="http://cvs.sourceforge.net/viewcvs.py/fink/experimental/michga/">Fink's maintainer experimental cvs tree</ulink>. It is meant to run on Mac OS X 10.4.</para>
+<note><para>If you have trouble starting bluefish with fink, first read the <ulink url="http://fink.sourceforge.net/faq/index.php">Fink's Faq page</ulink>. If this does not solve your problem, send an email to the maintainer (<email >michele.garoche(at)easyconnet.fr</email>), finally, as last resort, ask for help on the <ulink url="http://fink.sourceforge.net/lists/index.php">beginners or users Fink mailing lists</ulink>or on the <quote>#fink</quote> channel on <ulink url="irc://irc.freenode.net#fink">freenode.net</ulink>.</para></note>
 </listitem>
 </itemizedlist>
 <para>DarwinPorts:</para>
@@ -513,7 +527,7 @@ the following steps:</para>
 <variablelist>
 <title>Optional Features:</title>
 <note>
-<para>It works as is: <option>--enable-feature</option> enables the feature, <option>--disable-feature</option> or <option>--enable-feature=no</option> disables the feature.</para>
+<para>These work like this: <option>--enable-feature</option> enables the feature, <option>--disable-feature</option> or <option>--enable-feature=no</option> disables the feature.</para>
 <para>By default, the <option>--enable-feature</option> option is not enabled, you should pass it if you want to get it, the <option>--disable-xxx</option> option is not disabled, you should pass it if you want to disable it.</para>
 </note>
 <varlistentry>
@@ -604,7 +618,7 @@ the following steps:</para>
 <variablelist>
 <title>Optional Packages:</title>
 <note>
-<para>This works as is: <option>--with-xxx=foo</option> enables the flag, <option>--without-xxx</option> disables it. When not enabled, the default is used.</para>
+<para>These work like this: <option>--with-xxx=foo</option> enables the flag, <option>--without-xxx</option> disables it. When not enabled, the default is used.</para>
 </note>
 <varlistentry>
 <term><option>--without-libgnomeui</option></term>
