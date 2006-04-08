@@ -78,7 +78,7 @@ cmenu_insert: /DocBook/Messages/Trucs et astuces:<tip><para>:</para></tip>\n\n:0
 cmenu_insert: /DocBook/Messages/Note:<note><para>:</para></note>\n\n:0:
 cmenu_insert: /DocBook/Messages/Important:<important><para>:</para></important>\n\n:0:
 cmenu_insert: /DocBook/Tables/Ligne:<row>\n\t<entry align="%0" valign="%1">:</entry>\n</row>\n:2:Alignement horizontal:Alignement vertical:
-cmenu_insert: /DocBook/Tables/Table informelle:<informaltable><tgroup cols="%0" colsep="%1" rowsep\:"%2">:\n</informaltable>:3:Nombre de colonnes:Séparateur de colonne:Séparateur de ligne:
+cmenu_insert: /DocBook/Tables/Table informelle:<informaltable><tgroup cols="%0" colsep="%1" rowsep="%2">:\n</informaltable>:3:Nombre de colonnes:Séparateur de colonne:Séparateur de ligne:
 cmenu_insert: /DocBook/Tables/Cellule:<entry align="%0" valign="%1">:</entry>\n:2:Alignement horizontal:Alignement vertical:
 cmenu_insert: /DocBook/Sections/Section simple:<sect%0>\n<title>%1</title>\n</sect%0>\n:\n:2:Numéro de la section:Titre:
 cmenu_insert: /DocBook/Sections/Section avec ID:<sect%0 id="%1">\n<title>%2</title>\n</sect%0>\n:\n:3:Numéro de la section:Identifiant de la section:Titre:
@@ -92,8 +92,11 @@ cmenu_insert: /DocBook/Listes/Liste variable:<variablelist><title>%0</title>\n\t
 cmenu_insert: /DocBook/Listes/Liste numérotée:<orderedlist>\n\t  <listitem><para>:</para></listitem>\n</orderedlist>:0:
 cmenu_insert: /DocBook/Listes/Élément de liste:<listitem><para>:</para></listitem>:0:
 cmenu_insert: /DocBook/Listes/Liste non numérotée:<itemizedlist>\n\t  <listitem><para>:</para></listitem>\n</itemizedlist>:0:
-cmenu_insert: /DocBook/Liens/Lien interne:<xref linkend="%0" />\n::1:Identifiant du lien:
-cmenu_insert: /DocBook/Liens/Lien externe:<ulink url="%0">%1</ulink>\n::2:URL du lien:Texte:
+cmenu_insert: /DocBook/Liens/Lien interne/XML:<xref linkend="%0"/>\n::1:Identifiant du lien:
+cmenu_insert: /DocBook/Liens/Lien interne/SGML:<xref linkend="%0">\n::1:Identifiant du lien:
+cmenu_insert: /DocBook/Liens/Lien externe sans texte/XML:<ulink url="%0"/>\n::1:URL du lien:
+cmenu_insert: /DocBook/Liens/Lien externe sans texte/SGML:<ulink url="%0">\n::1:URL du lien:
+cmenu_insert: /DocBook/Liens/Lien externe avec texte:<ulink url="%0">%1</ulink>\n::2:URL du lien:Texte:
 cmenu_insert: /DocBook/Style/Option:<option>:</option>\n:0:
 cmenu_insert: /DocBook/Style/Emphase:<emphasis>:</emphasis>:0:
 cmenu_insert: /DocBook/Style/Sortie ordinateur:<computeroutput>\n:</computeroutput>\n:0:
@@ -115,9 +118,13 @@ cmenu_insert: /DocBook/En-têtes/Article:<article>\n:\n</article>:0:
 cmenu_insert: /DocBook/GUI/Choix de menu:<menuchoice>\n\t<shortcut>\n\t\t<keycombo><keysym>%0</keysym></keycombo>\n\t</shortcut>\n\t<guimenu>%1</guimenu>\n\t<guimenuitem>%2</guimenuitem>\n</menuchoice>\n::3:Symbole de touche:Menu:Article de menu:
 cmenu_insert: /DocBook/GUI/Symbole de touche:<keysym>%0</keysym>::1:Symbole de touche:
 cmenu_insert: /DocBook/GUI/Capitale:<keycap>:</keycap>:0:
-cmenu_insert: /DocBook/Images/Objet image:<imageobject>\n\t<imagedata fileref="%0" format="%1">\n</imageobject>\n::2:Emplacement de l'image:Format:
-cmenu_insert: /DocBook/Images/Image:<para><figure float="0">\n\t<title>%0</title>\n\t<screenshot><mediaobject>\n\t<imageobject>\n\t<imagedata fileref="%1" format="%2">\n\t</imageobject>\n\t<textobject>\n\t<phrase>%3</phrase>\n\t</textobject>\n\t</mediaobject></screenshot>\n</figure></para>\n::4:Titre:Emplacement de l'image:Format:Phrase:
-cmenu_insert: /DocBook/Date:<date>%0\n:</date>:1:Date:
+cmenu_insert: /DocBook/Images/Objet image/XML:<imageobject>\n\t<imagedata fileref="%0" format="%1"/>\n</imageobject>\n::2:Emplacement de l'image:Format:
+cmenu_insert: /DocBook/Images/Objet image/SGML:<imageobject>\n\t<imagedata fileref="%0" format="%1">\n</imageobject>\n::2:Emplacement de l'image:Format:
+cmenu_insert: /DocBook/Images/Image dans le texte/XML:<inlinemediaobject>\n\t<imageobject>\n\t<imagedata fileref="%1" format="%2"/>\n\t</imageobject>\n\t<textobject>\n\t<phrase>%3</phrase>\n\t</textobject>\n</inlinemediaobject>::3:Emplacement de l'image:Format:Phrase:
+cmenu_insert: /DocBook/Images/Image dans le texte/SGML:<inlinemediaobject>\n\t<imageobject>\n\t<imagedata fileref="%1" format="%2">\n\t</imageobject>\n\t<textobject>\n\t<phrase>%3</phrase>\n\t</textobject>\n</inlinemediaobject>::3:Emplacement de l'image:Format:Phrase:
+cmenu_insert: /DocBook/Images/Image/XML:<para><figure float="0">\n\t<title>%0</title>\n\t<screenshot><mediaobject>\n\t<imageobject>\n\t<imagedata fileref="%1" format="%2"/>\n\t</imageobject>\n\t<textobject>\n\t<phrase>%3</phrase>\n\t</textobject>\n\t</mediaobject></screenshot>\n</figure></para>\n::4:Titre:Emplacement de l'image:Format:Phrase:
+cmenu_insert: /DocBook/Images/Image/SGML:<para><figure float="0">\n\t<title>%0</title>\n\t<screenshot><mediaobject>\n\t<imageobject>\n\t<imagedata fileref="%1" format="%2">\n\t</imageobject>\n\t<textobject>\n\t<phrase>%3</phrase>\n\t</textobject>\n\t</mediaobject></screenshot>\n</figure></para>\n::4:Titre:Emplacement de l'image:Format:Phrase:
+cmenu_insert: /DocBook/Date:<date>%0</date>::1:Date:
 cmenu_insert: /DHTML/Image Rollover:<img src="%1" id="%0" onmouseover="this.src='%2';" onmouseout="this.src='%1';" />::3:Identifiant de l'image:Source onmouseout:Source onmouseover:
 cmenu_insert: /DHTML/Boîte de sélection automatique:<form action="%0" method="%1" name="%2">\n\t<select name="%3" onchange="document.%1.submit();">\n\t:</select>\n\t<noscript>\n\t\t<input type="submit" value="Go" />\n\t</noscript>\n</form>:4:Action de formulaire:Méthode du formulaire ("get" ou "post"):Nom du formulaire:Nom de la sélection:
 cmenu_insert: /Apache/Refus d'accès à .inc:<FilesMatch "\\.inc$">\n\tOrder allow,deny\n\tDeny from all\n</FilesMatch>::0:

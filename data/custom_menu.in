@@ -78,7 +78,7 @@ cmenu_insert: /DocBook/Warnings/Tip:<tip><para>:</para></tip>\n\n:0:
 cmenu_insert: /DocBook/Warnings/Note:<note><para>:</para></note>\n\n:0:
 cmenu_insert: /DocBook/Warnings/Important:<important><para>:</para></important>\n\n:0:
 cmenu_insert: /DocBook/Tables/Row:<row>\n\t<entry align="%0" valign="%1">:</entry>\n</row>\n:2:Horizontal Alignment:Vertical Alignment:
-cmenu_insert: /DocBook/Tables/Informal Table:<informaltable><tgroup cols="%0" colsep="%1" rowsep\:"%2">:\n</informaltable>:3:# cols:Column Separator:Row Separator:
+cmenu_insert: /DocBook/Tables/Informal Table:<informaltable><tgroup cols="%0" colsep="%1" rowsep="%2">:\n</informaltable>:3:# cols:Column Separator:Row Separator:
 cmenu_insert: /DocBook/Tables/Entry:<entry align="%0" valign="%1">:</entry>\n:2:Horizontal Alignment:Vertical Alignment:
 cmenu_insert: /DocBook/Sections/Simple Section:<sect%0>\n<title>%1</title>\n</sect%0>\n:\n:2:Section Number:Title:
 cmenu_insert: /DocBook/Sections/Section With ID:<sect%0 id="%1">\n<title>%2</title>\n</sect%0>\n:\n:3:Section Number:Section ID:Title:
@@ -92,8 +92,11 @@ cmenu_insert: /DocBook/Lists/Variable List:<variablelist><title>%0</title>\n\t<v
 cmenu_insert: /DocBook/Lists/Ordered List:<orderedlist>\n\t  <listitem><para>:</para></listitem>\n</orderedlist>:0:
 cmenu_insert: /DocBook/Lists/List Item:<listitem><para>:</para></listitem>:0:
 cmenu_insert: /DocBook/Lists/Itemized List:<itemizedlist>\n\t  <listitem><para>:</para></listitem>\n</itemizedlist>:0:
-cmenu_insert: /DocBook/Links/Internal Link:<xref linkend="%0" />\n::1:Link ID:
-cmenu_insert: /DocBook/Links/External Link:<ulink url="%0">%1</ulink>\n::2:Link URL:Text:
+cmenu_insert: /DocBook/Links/Internal Link/XML:<xref linkend="%0"/>\n::1:Link ID:
+cmenu_insert: /DocBook/Links/Internal Link/SGML:<xref linkend="%0">\n::1:Link ID:
+cmenu_insert: /DocBook/Links/External Link without Text/XML:<ulink url="%0"/>\n::1:Link URL:
+cmenu_insert: /DocBook/Links/External Link without Text/SGML:<ulink url="%0">\n::1:Link URL:
+cmenu_insert: /DocBook/Links/External Link with Text:<ulink url="%0">%1</ulink>\n::2:Link URL:Text:
 cmenu_insert: /DocBook/Layout/Option:<option>:</option>\n:0:
 cmenu_insert: /DocBook/Layout/Emphasis:<emphasis>:</emphasis>:0:
 cmenu_insert: /DocBook/Layout/Computer Output:<computeroutput>\n:</computeroutput>\n:0:
@@ -115,9 +118,13 @@ cmenu_insert: /DocBook/Headers/Article:<article>\n:\n</article>:0:
 cmenu_insert: /DocBook/GUI/Menu Choice:<menuchoice>\n\t<shortcut>\n\t\t<keycombo><keysym>%0</keysym></keycombo>\n\t</shortcut>\n\t<guimenu>%1</guimenu>\n\t<guimenuitem>%2</guimenuitem>\n</menuchoice>\n::3:Key Symbol:Menu:Menu Item:
 cmenu_insert: /DocBook/GUI/Key Symbol:<keysym>%0</keysym>::1:Key Symbol:
 cmenu_insert: /DocBook/GUI/Key Cap:<keycap>:</keycap>:0:
-cmenu_insert: /DocBook/Figures/Image Object:<imageobject>\n\t<imagedata fileref="%0" format="%1">\n</imageobject>\n::2:Image Location:Format:
-cmenu_insert: /DocBook/Figures/Figure:<para><figure float="0">\n\t<title>%0</title>\n\t<screenshot><mediaobject>\n\t<imageobject>\n\t<imagedata fileref="%1" format="%2">\n\t</imageobject>\n\t<textobject>\n\t<phrase>%3</phrase>\n\t</textobject>\n\t</mediaobject></screenshot>\n</figure></para>\n::4:Title:Image Location:Format:Phrase:
-cmenu_insert: /DocBook/Date:<date>%0\n:</date>:1:Date:
+cmenu_insert: /DocBook/Figures/Inline Image/XML:<inlinemediaobject>\n\t<imageobject>\n\t<imagedata fileref="%1" format="%2"/>\n\t</imageobject>\n\t<textobject>\n\t<phrase>%3</phrase>\n\t</textobject>\n</inlinemediaobject>::3:Image Location:Format:Phrase:
+cmenu_insert: /DocBook/Figures/Inline Image/SGML:<inlinemediaobject>\n\t<imageobject>\n\t<imagedata fileref="%1" format="%2">\n\t</imageobject>\n\t<textobject>\n\t<phrase>%3</phrase>\n\t</textobject>\n</inlinemediaobject>::3:Image Location:Format:Phrase:
+cmenu_insert: /DocBook/Figures/Image Object/XML:<imageobject>\n\t<imagedata fileref="%0" format="%1"/>\n</imageobject>\n::2:Image Location:Format:
+cmenu_insert: /DocBook/Figures/Image Object/SGML:<imageobject>\n\t<imagedata fileref="%0" format="%1">\n</imageobject>\n::2:Image Location:Format:
+cmenu_insert: /DocBook/Figures/Figure/XML:<para><figure float="0">\n\t<title>%0</title>\n\t<screenshot><mediaobject>\n\t<imageobject>\n\t<imagedata fileref="%1" format="%2"/>\n\t</imageobject>\n\t<textobject>\n\t<phrase>%3</phrase>\n\t</textobject>\n\t</mediaobject></screenshot>\n</figure></para>\n::4:Title:Image Location:Format:Phrase:
+cmenu_insert: /DocBook/Figures/Figure/SGML:<para><figure float="0">\n\t<title>%0</title>\n\t<screenshot><mediaobject>\n\t<imageobject>\n\t<imagedata fileref="%1" format="%2">\n\t</imageobject>\n\t<textobject>\n\t<phrase>%3</phrase>\n\t</textobject>\n\t</mediaobject></screenshot>\n</figure></para>\n::4:Title:Image Location:Format:Phrase:
+cmenu_insert: /DocBook/Date:<date>%0</date>::1:Date:
 cmenu_insert: /DHTML/Image Rollover:<img src="%1" id="%0" onmouseover="this.src='%2';" onmouseout="this.src='%1';" />::3:<img> ID:onmouseout src:onmouseover src:
 cmenu_insert: /DHTML/Auto-submit Select Box:<form action="%0" method="%1" name="%2">\n\t<select name="%3" onchange="document.%1.submit();">\n\t:</select>\n\t<noscript>\n\t\t<input type="submit" value="Go" />\n\t</noscript>\n</form>:4:Form Action:Form Method ("get" or "post"):Form Name:Select Name:
 cmenu_insert: /Apache/Deny Access to .inc:<FilesMatch "\\.inc$">\n\tOrder allow,deny\n\tDeny from all\n</FilesMatch>::0:
