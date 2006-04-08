@@ -93,7 +93,7 @@ cmenu_insert: /DocBook/Lists/Ordered List:<orderedlist>\n\t  <listitem><para>:</
 cmenu_insert: /DocBook/Lists/List Item:<listitem><para>:</para></listitem>:0:
 cmenu_insert: /DocBook/Lists/Itemized List:<itemizedlist>\n\t  <listitem><para>:</para></listitem>\n</itemizedlist>:0:
 cmenu_insert: /DocBook/Links/Internal Link/XML:<xref linkend="%0"/>\n::1:Link ID:
-cmenu_insert: /DocBook/Links/Internal Link/SGML:<xref linkend="%0>\n::1:Link ID:
+cmenu_insert: /DocBook/Links/Internal Link/SGML:<xref linkend="%0">\n::1:Link ID:
 cmenu_insert: /DocBook/Links/External Link without Text/XML:<ulink url="%0"/>\n::1:Link URL:
 cmenu_insert: /DocBook/Links/External Link without Text/SGML:<ulink url="%0">\n::1:Link URL:
 cmenu_insert: /DocBook/Links/External Link with Text:<ulink url="%0">%1</ulink>\n::2:Link URL:Text:
@@ -124,7 +124,7 @@ cmenu_insert: /DocBook/Figures/Image Object/XML:<imageobject>\n\t<imagedata file
 cmenu_insert: /DocBook/Figures/Image Object/SGML:<imageobject>\n\t<imagedata fileref="%0" format="%1">\n</imageobject>\n::2:Image Location:Format:
 cmenu_insert: /DocBook/Figures/Figure/XML:<para><figure float="0">\n\t<title>%0</title>\n\t<screenshot><mediaobject>\n\t<imageobject>\n\t<imagedata fileref="%1" format="%2"/>\n\t</imageobject>\n\t<textobject>\n\t<phrase>%3</phrase>\n\t</textobject>\n\t</mediaobject></screenshot>\n</figure></para>\n::4:Title:Image Location:Format:Phrase:
 cmenu_insert: /DocBook/Figures/Figure/SGML:<para><figure float="0">\n\t<title>%0</title>\n\t<screenshot><mediaobject>\n\t<imageobject>\n\t<imagedata fileref="%1" format="%2">\n\t</imageobject>\n\t<textobject>\n\t<phrase>%3</phrase>\n\t</textobject>\n\t</mediaobject></screenshot>\n</figure></para>\n::4:Title:Image Location:Format:Phrase:
-cmenu_insert: /DocBook/Date:<date>%0\n:</date>:1:Date:
+cmenu_insert: /DocBook/Date:<date>%0</date>::1:Date:
 cmenu_insert: /DHTML/Image Rollover:<img src="%1" id="%0" onmouseover="this.src='%2';" onmouseout="this.src='%1';" />::3:<img> ID:onmouseout src:onmouseover src:
 cmenu_insert: /DHTML/Auto-submit Select Box:<form action="%0" method="%1" name="%2">\n\t<select name="%3" onchange="document.%1.submit();">\n\t:</select>\n\t<noscript>\n\t\t<input type="submit" value="Go" />\n\t</noscript>\n</form>:4:Form Action:Form Method ("get" or "post"):Form Name:Select Name:
 cmenu_insert: /Apache/Deny Access to .inc:<FilesMatch "\\.inc$">\n\tOrder allow,deny\n\tDeny from all\n</FilesMatch>::0:
