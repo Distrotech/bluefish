@@ -94,8 +94,8 @@ cmenu_insert: /DocBook/Lists/List Item:<listitem><para>:</para></listitem>:0:
 cmenu_insert: /DocBook/Lists/Itemized List:<itemizedlist>\n\t  <listitem><para>:</para></listitem>\n</itemizedlist>:0:
 cmenu_insert: /DocBook/Links/Internal Link/XML:<xref linkend="%0"/>\n::1:Link ID:
 cmenu_insert: /DocBook/Links/Internal Link/SGML:<xref linkend="%0">\n::1:Link ID:
-cmenu_insert: /DocBook/Links/External Link without Text/XML:<ulink url="%0/>\n::1:Link URL:
-cmenu_insert: /DocBook/Links/External Link without Text/SGML:<ulink url="%0>\n::1:Link URL:
+cmenu_insert: /DocBook/Links/External Link without Text/XML:<ulink url="%0"/>\n::1:Link URL:
+cmenu_insert: /DocBook/Links/External Link without Text/SGML:<ulink url="%0">\n::1:Link URL:
 cmenu_insert: /DocBook/Links/External Link with Text:<ulink url="%0">%1</ulink>\n::2:Link URL:Text:
 cmenu_insert: /DocBook/Layout/Option:<option>:</option>\n:0:
 cmenu_insert: /DocBook/Layout/Emphasis:<emphasis>:</emphasis>:0:
