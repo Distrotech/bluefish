@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bf-textview.h - Bluefish text widget
  *
- * Copyright (C) 2005 Oskar Świda swida@aragorn.pb.bialystok.pl
+ * Copyright (C) 2005-2006  Oskar Świda swida@aragorn.pb.bialystok.pl
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,36 +25,55 @@
 #ifndef __BF_TEXTVIEW_H__
 #define __BF_TEXTVIEW_H__
 
+#define BFTV_SCAN_RANGE	128
 
 
-#define BFTV_UTF8_RANGE	128
+enum {
+	ST_NONE,
+	ST_TRANSIT,
+	ST_TOKEN,
+	ST_BLOCK_BEGIN,
+	ST_BLOCK_END,
+	ST_TAG_START_BEGIN,
+	ST_TAG_START_END,
+	ST_TAG_STOP,
+	ST_ATTR_NAME,
+	ST_ATTR_VALUE
+};
+
+typedef struct {
+  guint8 type;		
+  gpointer tv[BFTV_SCAN_RANGE];	
+  gpointer data;		
+} BfState;
 
 /**
 *	BfLangBlock:
-*	@id: block identifier
+*	@name: block identifier
 *	@begin: string which begins this block
 *	@end: string which ends this block
 *	@group: block group
-*	@case_sensitive: are begin and end strings case sensitive
-*	@scanned: should we scan text inside the block
-*	@foldable: can we fold this block
-*	@markup: should we scan markup tags inside block
-*
+*	@regexp: is this regexp block
+*	@scanned, foldable, cs,markup
+*	@tag: tag used for highlighting		
+*  @context: block context
 * Represents language block definition read from configuration file. 
 */
+
+
+enum {
+	BT_NORMAL,
+	BT_TAG_BEGIN
+};
+
 typedef struct {
-	guchar *id, *begin, *end;
+	guchar *name, *begin, *end;
 	guchar *group;
-	gboolean case_sensitive;
-	gboolean scanned;
-	gboolean foldable;
-	gboolean markup;
-	gboolean regexp;
-	/*< private > */
-	gint tabid;
-	gshort spec_type;			/* 0 - normal block, 1- tag_begin */
+	gboolean regexp, scanned, foldable,cs,markup;
+	guint8 type;
 	GtkTextTag *tag;
-	gint min_state,max_state;
+	gpointer context;
+	BfState scan_table;
 } BfLangBlock;
 
 /**
@@ -68,17 +87,23 @@ typedef struct {
 *
 * Represents language token definition read from configuration file. 
 */
+
+enum {	
+	TT_NORMAL,
+	TT_TAG_END,
+	TT_ATTR,
+	TT_ATTR2,
+	TT_FAKE
+}; 
+
 typedef struct {
 	guchar *text;
 	guchar *name;
 	guchar *group;
 	BfLangBlock *context;
 	gboolean regexp;
-	/*< private > */
-	gint tabid;
-	gshort spec_type;			/* 0 - normal block, 1- tag_end, 2 - attr, 3 - attr2, 4 - tag_begin_end in tag context */
+	guint8 type;
 	GtkTextTag *tag;
-	gint min_state,max_state;
 } BfLangToken;
 
 /**
@@ -87,32 +112,29 @@ typedef struct {
 * Represents language configuration file. 
 */
 
+
+
 typedef struct {
-	/*< private > */
 	guchar *name, *description;
 	gboolean case_sensitive;
 	gboolean scan_tags;
 	gboolean scan_blocks;
-	gunichar as_triggers[BFTV_UTF8_RANGE];
-
+	gunichar as_triggers[BFTV_SCAN_RANGE];
+	gchar escapes[BFTV_SCAN_RANGE];
 	GHashTable *tokens;
 	GHashTable *blocks;
 	GHashTable *groups;
-	GHashTable *blocks_id;
-	GArray *dfa, *tag_dfa;
-	gshort **scan_table;
-	gshort **tag_scan_table;
-	gint tabnum, tag_tabnum;
-	gint counter;
-	gchar escapes[BFTV_UTF8_RANGE];
-	gint tokennum;				/* = BFTV_TOKEN_IDS + 1; */
-	gint blocknum;				/* = BFTV_BLOCK_IDS + 1; */
+	BfState scan_table;
+
 	GtkTextTag *tag_begin;
 	GtkTextTag *tag_end;
 	GtkTextTag *attr_name;
 	GtkTextTag *attr_val;
-	BfLangBlock **token_allowed_states; /* this table decribes which states are allowed in what context */
 	GHashTable *dont_autoclose;
+	
+	gint num_states;
+	GList *block_list;	
+	gint max_token_length;
 } BfLangConfig;
 
 typedef struct {
@@ -124,54 +146,16 @@ BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, const gchar * filenam
 BfLangConfig *bf_lang_mgr_get_config(BfLangManager * mgr, const gchar * filename);
 
 typedef struct {
-	/*< private > */
-	BfLangToken *def;
-	GtkTextIter itstart, itend;
-} TBfToken;
-
-typedef struct {
-	/*< private > */
 	BfLangBlock *def;
 	gchar *tagname; /* optionally for tags */
 	GtkTextIter b_start, b_end;
 	GtkTextIter e_start, e_end;
-/*	GtkTextMark *mark_begin, *mark_end;*/
-	gboolean single_line;
-	gint b_len, e_len;
 } TBfBlock;
 
-/* typedef struct {
-	
-	gchar *name;
-	GtkTextIter b_start, b_end;
-	GtkTextIter e_start, e_end;
-} TBfTag;
-
 
 typedef struct {
-	
-	gchar *name, *value;
-	GtkTextIter name_start, name_end;
-	GtkTextIter value_start, value_end;
-} TBfTagAttr;*/
-
-
-
-enum {
-	BFTV_STATE_NORMAL,
-	BFTV_STATE_TOKEN,
-	BFTV_STATE_DONT_SCAN,
-	BFTV_STATE_BLOCK
-};
-
-typedef struct {
-	/*< private > */
-	TBfBlock *current_block;
 	BfLangBlock *current_context;
-	gint state;
-	gint mins,maxs;
 	GQueue block_stack;
-	GQueue block_stack2; /* separate stack for tag blocks */
 	GQueue tag_stack;
 } TBfScanner;
 
@@ -186,7 +170,6 @@ typedef struct {
 
 
 typedef struct {
-	/*< private > */
 	gchar *name;
 	GdkPixbuf *pixmap;
 } BfTextViewSymbol;
@@ -195,8 +178,19 @@ typedef struct {
  * Main object structure
  */
 
-#define BFTV_HL_MODE_ALL					1
-#define BFTV_HL_MODE_VISIBLE			2
+
+enum {
+	BFTV_HL_MODE_ALL,
+	BFTV_HL_MODE_VISIBLE
+};
+
+enum {
+	IT_FOLDED,
+	IT_FOLD_HEADER,
+	IT_BLOCK_MATCH,
+	IT_BLOCK,
+	IT_NUM_OF_TAGS	
+};
 
 typedef struct {
 	GtkTextView __parent__;
@@ -206,27 +200,23 @@ typedef struct {
 	gboolean show_symbols;
 	gboolean show_rmargin;
 	gboolean highlight;			/* TRUE if highlighting should be performed */
-	gboolean mark_tokens;		/* TRUE if tokens should be marked also */
 	gboolean match_blocks;		/* TRUE if matching block begin/end should be shown */
 	gboolean show_current_line;	/* TRUE if current line should be shown */
 	gboolean tag_autoclose;           /* TRUE if tags should be automatically closed */
 	gint hl_mode;				/* highlighting mode */
 	gint rmargin_at;
-	/*< private > */
 	gint lw_size_lines, lw_size_blocks, lw_size_sym;
 	GHashTable *symbols;
 	GHashTable *symbol_lines;
 	BfLangConfig *lang;
 	TBfScanner scanner;
-	GtkTextTag *folded_tag, *block_tag, *fold_header_tag;
-	GtkTextTag *block_match_tag;
-	GHashTable *group_tags, *token_tags, *block_tags;
+	GtkTextTag *internal_tags[IT_NUM_OF_TAGS];
 	GtkWidget *fold_menu;
-/*    GHashTable *token_styles,*block_styles,*tag_styles,*group_styles;*/
 	gboolean need_rescan; /* this is set to true if the buffer is changed, but the
 						 widget is not visible to the user, the scanning is then postponed until 
 						 the widget is visible to the user */
-	gulong insert_signal_id; /* needed for blocking */						 
+	gulong insert_signal_id; /* needed for blocking */
+	gulong markset_signal_id; /* needed for blocking */							 
 	GHashTable *fbal_cache; /* first block at line - cache */
 	GHashTable *lbal_cache; /* last block at line - cache */
 	gboolean delete_rescan; /* indicates if rescan is done from delete operation */
@@ -255,28 +245,29 @@ void bf_textview_scan_visible(BfTextView * self);
 GtkWidget *bf_textview_new(void);
 GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer);
 
-void bf_textview_show_lines(BfTextView * self, gboolean show);
-void bf_textview_show_symbols(BfTextView * self, gboolean show);
-void bf_textview_show_rmargin(BfTextView * self, gboolean show, gint column);
+void bf_textview_set_show_lines(BfTextView * self, gboolean show);
+void bf_textview_set_show_symbols(BfTextView * self, gboolean show);
+void bf_textview_set_show_rmargin(BfTextView * self, gboolean show, gint column);
+void bf_textview_set_show_blocks(BfTextView * self, gboolean show);
+void bf_textview_set_highlight(BfTextView * self, gboolean on);
+void bf_textview_set_match_blocks(BfTextView * self, gboolean on);
+
 gboolean bf_textview_add_symbol(BfTextView * self, gchar * name, GdkPixbuf * pix);
 void bf_textview_remove_symbol(BfTextView * self, gchar * name);
 void bf_textview_set_symbol(BfTextView * self, gchar * name, gint line, gboolean set);
-void bf_textview_show_blocks(BfTextView * self, gboolean show);
-
-void bf_textview_set_highlight(BfTextView * self, gboolean on);
-void bf_textview_set_match_blocks(BfTextView * self, gboolean on);
-void bf_textview_set_mark_tokens(BfTextView * self, gboolean on);
 
 
 void bf_textview_fold_blocks(BfTextView * self, gboolean fold);
 void bf_textview_fold_blocks_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end,
 								  gboolean fold);
-void bf_textview_fold_blocks_lines(BfTextView * self, gint start, gint end, gboolean fold);
 
-#define BF_GNB_CHAR					0
-#define BF_GNB_LINE					1
-#define BF_GNB_DOCUMENT	2
-#define BF_GNB_HERE					3
+
+enum {
+	BF_GNB_CHAR,
+	BF_GNB_LINE,
+	BF_GNB_DOC,
+	BF_GNB_HERE
+};
 
 GtkTextMark *bf_textview_get_nearest_block(BfTextView * self, GtkTextIter * iter, gboolean backward,
 										   gint mode, gboolean not_single);
@@ -285,8 +276,6 @@ GtkTextMark *bf_textview_get_nearest_block_of_type(BfTextView * self, BfLangBloc
 												   gboolean not_single);
 
 
-void bf_textview_set_bg_color(BfTextView * self, gchar * color);
-void bf_textview_set_fg_color(BfTextView * self, gchar * color);
 void bf_textview_recolor(BfTextView *view, gchar *fg_color, gchar *bg_color );
 
 /* these functions return the names of groups, blocks and tokens that are defined 
@@ -296,5 +285,13 @@ GList *bf_lang_get_groups(BfLangConfig * cfg);
 GList *bf_lang_get_blocks_for_group(BfLangConfig * cfg, guchar * group);
 GList *bf_lang_get_tokens_for_group(BfLangConfig * cfg, guchar * group);
 gboolean bf_lang_needs_tags(BfLangConfig * cfg);
-void bf_lang_mgr_retag(void); 
+void bf_lang_mgr_retag(void);
+
+/* For backward compatibility only - will be removed */
+void bf_textview_show_lines(BfTextView * self, gboolean show);
+void bf_textview_show_symbols(BfTextView * self, gboolean show);
+void bf_textview_show_rmargin(BfTextView * self, gboolean show, gint column);
+void bf_textview_show_blocks(BfTextView * self, gboolean show);
+
+
 #endif
