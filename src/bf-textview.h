@@ -27,7 +27,6 @@
 
 #define BFTV_SCAN_RANGE	128
 
-
 enum {
 	ST_NONE,
 	ST_TRANSIT,
@@ -135,6 +134,8 @@ typedef struct {
 	gint num_states;
 	GList *block_list;	
 	gint max_token_length;
+	GCompletion *autocomp;	
+	
 } BfLangConfig;
 
 typedef struct {
@@ -157,6 +158,7 @@ typedef struct {
 	BfLangBlock *current_context;
 	GQueue block_stack;
 	GQueue tag_stack;
+	GString *last_string;	
 } TBfScanner;
 
 
@@ -223,6 +225,12 @@ typedef struct {
 	GtkTextMark *last_matched_block; /* last matched block */
 	gboolean paste_operation; /* indicates if we perform paste */
 	gboolean tag_ac_state; /* TRUE if we should perform tag autoclosing - i.e. after inserting '>' sign only */
+	
+	GtkWidget *acomp_window; /* autocompletion window */
+	GtkListStore *acomp_store; /* List of autocompletion items */
+	GtkWidget *acomp_list;   /* treeview for list of ac items */
+  
+	
 } BfTextView;
 
 /*
@@ -286,6 +294,8 @@ GList *bf_lang_get_blocks_for_group(BfLangConfig * cfg, guchar * group);
 GList *bf_lang_get_tokens_for_group(BfLangConfig * cfg, guchar * group);
 gboolean bf_lang_needs_tags(BfLangConfig * cfg);
 void bf_lang_mgr_retag(void);
+
+void bf_textview_autocomp_show(BfTextView *self);
 
 /* For backward compatibility only - will be removed */
 void bf_textview_show_lines(BfTextView * self, gboolean show);

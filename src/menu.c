@@ -50,6 +50,7 @@
 #include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
 #include "external_commands.h"
 #include "outputbox.h"		/* temporary */
+#include "bf-textview.h"
 
 #ifdef HAVE_PYTHON
 #include "embed_python.h"
@@ -518,7 +519,18 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 		tmplist = g_list_previous(tmplist);
 	}
 }
-
+#ifdef USE_SCANNER
+gboolean   bftv_autocomp_run(GtkAccelGroup *accel_group,GObject *acceleratable,
+                                             guint keyval,GdkModifierType modifier,gpointer data)
+{
+	Tbfwin *bfwin = BFWIN(data);
+	bf_textview_autocomp_show(BF_TEXTVIEW(bfwin->current_document->view));
+	return TRUE;
+}    
+void   bftv_autocomp_done(gpointer data,GClosure *closure)
+{
+}          
+#endif
 /* 
  * menu factory crap, thanks to the gtk tutorial for this
  * both the 1.0 and the 1.2 code is directly from the tutorial
@@ -549,6 +561,12 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	setup_toggle_item(item_factory, "/Document/Auto Indent", main_v->props.autoindent);
 	set_project_menu_widgets(bfwin, FALSE);
 	filetype_menu_rebuild(bfwin, item_factory);
+#ifdef USE_SCANNER
+	{
+		GClosure *cl = g_cclosure_new(G_CALLBACK(bftv_autocomp_run),bfwin,bftv_autocomp_done);
+		gtk_accel_group_connect(accel_group,GDK_F1,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE, cl);
+	}
+#endif	
 }
 
 
