@@ -99,6 +99,7 @@ static struct {
 	{ "XHTML 1.0 Strict", "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">"  },
 	{ "XHTML 1.0 Transitional", "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" },
 	{ "XHTML 1.0 Frameset", "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\">" },
+	{ "XHTML 1.1", "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\" \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">" },
 };
 
 static void
@@ -301,7 +302,11 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 			
 		if (strstr(name, "XHTML")) {
 			xmlstr = g_strconcat ("<?xml version=\"1.0\" encoding=\"", main_v->props.newfile_default_encoding, "\"?>\n", NULL);
-			tmpstr = g_strdup_printf ("%shttp://www.w3.org/1999/xhtml%sen%sen\">\n%s\n", cap("<HTML XMLNS=\""), cap("\" XML:LANG=\""), cap("\" LANG=\""), cap("<HEAD>"));
+			if (strstr(name, "1.1")) { 
+			    tmpstr = g_strdup_printf ("%shttp://www.w3.org/1999/xhtml%sen\">\n%s\n", cap("<HTML XMLNS=\""), cap("\" XML:LANG=\""), cap("<HEAD>"));
+			} else {			    
+			    tmpstr = g_strdup_printf ("%shttp://www.w3.org/1999/xhtml%sen%sen\">\n%s\n", cap("<HTML XMLNS=\""), cap("\" XML:LANG=\""), cap("\" LANG=\""), cap("<HEAD>"));
+			}
 			endstr = g_strdup ("/>\n");
 		} else {
 			xmlstr = g_strdup ("");
