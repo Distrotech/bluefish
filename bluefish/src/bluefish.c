@@ -197,6 +197,7 @@ int main(int argc, char *argv[])
 	if (main_v->session->recent_dirs == NULL) {
 		main_v->session->recent_dirs = g_list_append(main_v->session->recent_dirs, g_strconcat("file://", g_get_home_dir(), NULL));
 	}
+	main_v->autocompletion = ac_init();	
 	textstyle_rebuild();
 #ifndef USE_SCANNER
 	rcfile_parse_highlighting();
@@ -229,7 +230,6 @@ int main(int argc, char *argv[])
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("creating main gui..."));
 #endif /* #ifndef NOSPLASH */
-
 	/* create the first window */
 	firstbfwin = g_new0(Tbfwin,1);
 	firstbfwin->session = main_v->session;
@@ -237,6 +237,7 @@ int main(int argc, char *argv[])
 	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
 	gui_create_main(firstbfwin,filenames);
 	bmark_reload(firstbfwin);
+
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("showing main gui..."));
 #endif /* #ifndef NOSPLASH */
