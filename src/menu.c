@@ -520,16 +520,13 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	}
 }
 #ifdef USE_SCANNER
-gboolean   bftv_autocomp_run(GtkAccelGroup *accel_group,GObject *acceleratable,
+gboolean   menu_autocomp_run(GtkAccelGroup *accel_group,GObject *acceleratable,
                                              guint keyval,GdkModifierType modifier,gpointer data)
 {
 	Tbfwin *bfwin = BFWIN(data);
 	bf_textview_autocomp_show(BF_TEXTVIEW(bfwin->current_document->view));
 	return TRUE;
 }    
-void   bftv_autocomp_done(gpointer data,GClosure *closure)
-{
-}          
 #endif
 /* 
  * menu factory crap, thanks to the gtk tutorial for this
@@ -563,8 +560,8 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	filetype_menu_rebuild(bfwin, item_factory);
 #ifdef USE_SCANNER
 	{
-		GClosure *cl = g_cclosure_new(G_CALLBACK(bftv_autocomp_run),bfwin,bftv_autocomp_done);
-		gtk_accel_group_connect(accel_group,GDK_F1,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE, cl);
+		GClosure *cl = g_cclosure_new(G_CALLBACK(menu_autocomp_run),bfwin,NULL);
+		gtk_accel_group_connect(accel_group,GDK_space,GDK_CONTROL_MASK,GTK_ACCEL_VISIBLE, cl);
 	}
 #endif	
 }

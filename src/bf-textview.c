@@ -82,6 +82,7 @@ characters, changing scanner states according the table. If I find
 #include "textstyle.h"
 #include "bf_lib.h"
 #include "gtk_easy.h" /* gdk_color_to_hexstring */
+#include "autocomp.h"
 
 #include <stdarg.h>
 #include <string.h>
@@ -142,7 +143,6 @@ static void bftv_expand_all(GtkWidget * widget, BfTextView * view);
 static void bftv_collapse_all(GtkWidget * widget, BfTextView * view);
 static void bftv_clear_block_cache(BfTextView *self);
 static void bftv_clear_matched_block(BfTextView *self);
-static void bftv_autocomp_create_window(BfTextView *self);
 /* internal functions */
 
 static void bf_textview_class_init(BfTextViewClass * c)
@@ -257,7 +257,6 @@ GtkWidget *bf_textview_new(void)
 		o->internal_tags[IT_BLOCK] =
 			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_block_", NULL);									   
 	bf_textview_recolor(o,"#000000","#FFFFFF");
-	bftv_autocomp_create_window(o);
 	return (GtkWidget *) o;
 }
 
@@ -313,7 +312,6 @@ GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer)
 		o->internal_tags[IT_BLOCK] =
 			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_block_", NULL);									   
 	bf_textview_recolor(o,"#000000","#FFFFFF");
-	bftv_autocomp_create_window(o);
 	return (GtkWidget *) o;
 }
 
@@ -1528,7 +1526,6 @@ if (xmlStrcmp(cur->name, (const xmlChar *) "bflang") == 0)
 	cfg->attr_name = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_name", "attribute");
 	cfg->attr_val = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_val", "attribute value");
 	cfg->dont_autoclose = g_hash_table_new(g_str_hash, g_str_equal);
-	cfg->autocomp = g_completion_new(NULL);
 	for (i = 0; i < BFTV_SCAN_RANGE; i++) 
 	{
 		cfg->as_triggers[i] = 0;
@@ -1692,6 +1689,7 @@ while ( lst )
 		bftv_update_tables(cfg,bbb);
 	lst = g_list_next(lst);
 }
+
 lst2 = NULL;
 g_hash_table_foreach(cfg->tokens,bftv_make_block_list,&lst2);
 lst = lst2;
@@ -1704,7 +1702,8 @@ while ( lst ) {
 	}
 	lst = g_list_next(lst);
 }
-g_completion_add_items(cfg->autocomp,lst3);
+ac_add_lang_list(main_v->autocompletion, cfg->name,lst3);
+
 
 if (cfg->scan_tags) 
 {
@@ -2969,143 +2968,18 @@ void bf_textview_show_blocks(BfTextView * self, gboolean show)
 
 /*-----------------------      Autocompletion  ---------------------------------------*/
 
-static gint bftv_autocomp_paint(BfTextView *self)
-{
-  if (!self || !self->acomp_window) return FALSE;
-  gtk_paint_flat_box (self->acomp_window->style, self->acomp_window->window,
-                      GTK_STATE_NORMAL, GTK_SHADOW_ETCHED_IN,
-                      NULL, self->acomp_window, "acomp",
-                      0, 0, -1, -1);  
-  gtk_paint_shadow (self->acomp_window->style, self->acomp_window->window,
-                      GTK_STATE_NORMAL, GTK_SHADOW_ETCHED_IN,
-                      NULL, self->acomp_window, "acomp",
-                      0, 0, -1, -1);                        
-  return FALSE;                      
-}
-
-gboolean    bftv_autocomp_press   (GtkWidget *widget,GdkEventKey *event,gpointer user_data)
-{
-	GtkDialog *dlg = GTK_DIALOG(user_data);
-	switch ( event->keyval )
-	{
-		case GDK_Return:gtk_dialog_response(dlg,GTK_RESPONSE_OK);break;
-		case GDK_Escape:gtk_dialog_response(dlg,GTK_RESPONSE_CANCEL);break;
-	}
-	return FALSE;	
-}
-
-
 void bf_textview_autocomp_show(BfTextView *self)
 {
 	GtkTextIter it,it3;
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
-		GdkRectangle rect;
-	gint x,y,w,h,len=0;	
-	GtkTreeIter it2;
-	GList *lst,*items;
-	gchar *tofree;
-	GtkTreeSelection *selection; 
-	PangoLayout *l;
-	GtkTreeModel *model;
-	
-
-	if ( !self->lang ) return;
-	GdkScreen *screen = gtk_widget_get_screen(GTK_WIDGET(self));
-	
 	gtk_text_buffer_get_iter_at_mark(buf,&it,gtk_text_buffer_get_insert(buf));
-	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(self),&it,&rect);
-	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(self), GTK_TEXT_WINDOW_TEXT, rect.x, rect.y,&rect.x, &rect.y);
-	gdk_window_get_origin(
-		gtk_text_view_get_window(GTK_TEXT_VIEW(self),GTK_TEXT_WINDOW_TEXT),
-		&x,&y);
-	
-	l = gtk_widget_create_pango_layout(self->acomp_list, "x");
-	pango_layout_get_pixel_size(l, &w, NULL);
-	
-/* fill store */		
 	it3 = it;
 	gtk_text_iter_set_line(&it3,gtk_text_iter_get_line(&it));
 	gtk_text_iter_backward_char(&it);
 	self->scanner.last_string = g_string_assign(self->scanner.last_string,"");
 	bf_textview_scan_area(self,&it3,&it);
-	if ( strcmp(self->scanner.last_string->str,"") != 0 )
-	{
-		items = g_completion_complete(self->lang->autocomp,self->scanner.last_string->str,NULL);
-		if ( items && g_list_length(items)>0 )
-		{
-			gtk_list_store_clear(self->acomp_store);
-			lst = items;
-			while ( lst )
-			{
-				gtk_list_store_append(self->acomp_store,&it2);
-				if ( strlen((gchar*)lst->data) > len )
-					len = strlen((gchar*)lst->data);
-				gtk_list_store_set(self->acomp_store,&it2,0,(gchar*)lst->data,-1);				
-				lst = g_list_next(lst);
-			}
-			w = MAX(len*w+10,40);
-			h=100;
-			gtk_widget_set_size_request(self->acomp_window,w,h);	
-			x += rect.x;
-			y = y + rect.y + rect.height;
-			if ( x + w > gdk_screen_get_width(screen)	 )
-				x = gdk_screen_get_width(screen)	- x - w;
-			if ( y + h > gdk_screen_get_height(screen)	 )
-				y = gdk_screen_get_height(screen)	- y - h;			 					
-			gtk_window_move(GTK_WINDOW(self->acomp_window),x ,y);
-			if ( gtk_dialog_run(GTK_DIALOG(self->acomp_window)) ==GTK_RESPONSE_OK )
-			{
-				selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(self->acomp_list));
-				if ( selection && gtk_tree_selection_get_selected(selection,&model,&it2))
-				{
-					gtk_tree_model_get(model,&it2,0,&tofree,-1);
-					tofree = tofree+strlen(self->scanner.last_string->str);
-					if ( strcmp(tofree,"")!=0 )
-					{
-						gtk_text_buffer_insert_at_cursor(buf,tofree,strlen(tofree));
-					}
-				}
-			}
-			gtk_widget_hide(self->acomp_window);
-		}
-	}	
+	ac_run_lang(main_v->autocompletion,self->scanner.last_string->str,self->lang->name,GTK_TEXT_VIEW(self));
 }
-
-
-static void bftv_autocomp_create_window(BfTextView *self) 
-{
-	GtkCellRenderer *cell;
-	GtkTreeViewColumn *column;
-	GtkWidget *scroll;
-	PangoFontDescription *fontdesc;
-
-	self->acomp_store = gtk_list_store_new(2,G_TYPE_STRING,G_TYPE_STRING);
-	self->acomp_list = gtk_tree_view_new_with_model(GTK_TREE_MODEL(self->acomp_store));
-	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(self->acomp_list), FALSE);	
-	scroll = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER,
-								   GTK_POLICY_AUTOMATIC);
-	cell = gtk_cell_renderer_text_new();
-	column = gtk_tree_view_column_new_with_attributes("", cell, "markup", 0, NULL);
-	gtk_tree_view_append_column(GTK_TREE_VIEW(self->acomp_list), column);	
-   self->acomp_window = gtk_dialog_new ();
-   gtk_widget_set_app_paintable (self->acomp_window, TRUE);
-   gtk_window_set_resizable (GTK_WINDOW(self->acomp_window), FALSE);
-   gtk_container_set_border_width (GTK_CONTAINER (self->acomp_window), 0); 
-   g_signal_connect_swapped(GTK_WINDOW(self->acomp_window),"expose-event",G_CALLBACK(bftv_autocomp_paint),self);
-   gtk_window_set_position (GTK_WINDOW(self->acomp_window), GTK_WIN_POS_MOUSE);
-   gtk_container_add(GTK_CONTAINER(scroll),self->acomp_list);
-   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(self->acomp_window)->vbox),scroll,TRUE,TRUE,0);
-   gtk_widget_show_all(scroll);   
-	gtk_window_set_decorated(GTK_WINDOW(self->acomp_window),FALSE);
-   gtk_dialog_set_has_separator (GTK_DIALOG(self->acomp_window),FALSE);
-   g_signal_connect(G_OBJECT(self->acomp_window),"key-press-event",G_CALLBACK(bftv_autocomp_press),self->acomp_window);
-	fontdesc = pango_font_description_from_string("Sans 8");
-	gtk_widget_modify_font(self->acomp_list, fontdesc);
-   pango_font_description_free (fontdesc);     
-}
-
-
 
 
 #endif							/* USE_SCANNER */

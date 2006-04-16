@@ -78,6 +78,7 @@ extern void g_none(gchar *first, ...);
 
 #ifdef USE_SCANNER
 #include "bf-textview.h"
+#include "autocomp.h"
 #endif
 /*********************/
 /* undo/redo structs */
@@ -441,6 +442,7 @@ typedef struct {
 	GSList *doc_view_button_press_cbs;
 #ifdef USE_SCANNER
 	BfLangManager *lang_mgr;
+	Tautocomp *autocompletion;
 #endif	
 } Tmain;
 
