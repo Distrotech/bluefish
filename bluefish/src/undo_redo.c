@@ -87,7 +87,7 @@ static void doc_unre_destroy_last_group(Tdocument *doc) {
 	if (doc->unre.last) {
 		unregroup_t *to_remove = doc->unre.last->data;
 		doc->unre.last = g_list_previous(doc->unre.last);
-		g_list_remove (doc->unre.last, to_remove);
+		doc->unre.last = g_list_remove (doc->unre.last, to_remove);
 		doc->unre.num_groups--;
 		unregroup_destroy(to_remove);
 	}
