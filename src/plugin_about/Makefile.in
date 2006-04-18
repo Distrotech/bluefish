@@ -74,5 +74,6 @@ patchclean:
 	rm -f *.orig *.rej
 
 distclean: clean patchclean
+	@cd po/ && make distclean
 	rm -f Makefile
 
