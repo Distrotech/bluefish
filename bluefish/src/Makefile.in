@@ -110,6 +110,7 @@ $(OBJS): bluefish.h
 clean:
 	rm -f $(OBJS) bluefish
 	rm -f *.lo
+	rm -rf .libs
 	@cd plugin_htmlbar/ && $(MAKE) clean
 	@cd plugin_about/ && $(MAKE) clean
 	@cd plugin_entities/ && $(MAKE) clean
