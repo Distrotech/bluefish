@@ -78,6 +78,7 @@ static GtkWidget *ac_create_window(GtkTreeView *tree, GtkListStore *store)
 	fontdesc = pango_font_description_from_string("Sans 8");
 	gtk_widget_modify_font(GTK_WIDGET(tree), fontdesc);
    pango_font_description_free (fontdesc);
+   gtk_widget_hide(GTK_DIALOG(win)->action_area);
    return win;     
 }
 
@@ -93,6 +94,7 @@ Tautocomp *ac_init()
 	return ret;
 }
 
+ 
 
 /* Runs autocomp window with given list and prefix (string from document at cursor position )
 	Returns: only string which has been inserted into document
@@ -196,3 +198,84 @@ void ac_add_dtd_list(Tautocomp *ac, gchar *name, GList *strings)
 {
 	g_hash_table_replace(ac->dtd_lists, name, strings);
 }
+
+
+static gboolean  ac_key_choice_press  (GtkWidget *widget, GdkEventKey *event, gpointer user_data)
+ {
+ 	GtkDialog *dlg = GTK_DIALOG(user_data);
+ 	if (!g_unichar_isalnum((gunichar)event->keyval) 
+ 		&& event->keyval!=GDK_Escape
+ 		&& !g_unichar_isspace((gunichar)event->keyval)
+ 		) return FALSE;
+ 	switch (event->keyval)
+ 	{
+ 		case GDK_Escape:gtk_dialog_response(dlg,GTK_RESPONSE_CANCEL);break;
+ 		default:
+ 			if ( !(event->state & GDK_SHIFT_MASK)
+ 					&& !(event->state & GDK_CONTROL_MASK) 
+ 					&& !(event->state & GDK_MOD1_MASK) )
+ 			gtk_dialog_response(dlg,GTK_RESPONSE_CANCEL);
+ 			else
+ 			{
+ 				g_object_set_data(G_OBJECT(dlg),"keyname",gtk_accelerator_name(event->keyval,event->state));
+ 				gtk_dialog_response(dlg,GTK_RESPONSE_OK);
+ 			}
+ 		 break;
+ 	}
+ 	return FALSE;
+ }
+
+/* Shows a dialog which allows to select accelerator key for autocompletion */
+gchar *ac_key_choice()
+{
+  GtkWidget *dialog1;
+  GtkWidget *dialog_vbox1;
+  GtkWidget *vbox1;
+  GtkWidget *label1;
+  GtkWidget *label2;
+  GtkWidget *dialog_action_area1;
+
+  dialog1 = gtk_dialog_new ();
+  gtk_window_set_title (GTK_WINDOW (dialog1), "Autocompletion accelerator");
+  gtk_window_set_position (GTK_WINDOW (dialog1), GTK_WIN_POS_CENTER);
+  gtk_window_set_modal (GTK_WINDOW (dialog1), TRUE);
+  /*gtk_window_set_decorated (GTK_WINDOW (dialog1), FALSE);*/
+  gtk_window_set_type_hint (GTK_WINDOW (dialog1), GDK_WINDOW_TYPE_HINT_DIALOG);
+  gtk_dialog_set_has_separator (GTK_DIALOG (dialog1), FALSE);
+
+  dialog_vbox1 = GTK_DIALOG (dialog1)->vbox;
+  gtk_widget_show (dialog_vbox1);
+
+  vbox1 = gtk_vbox_new (FALSE, 0);
+  gtk_widget_show (vbox1);
+  gtk_box_pack_start (GTK_BOX (dialog_vbox1), vbox1, FALSE, FALSE, 0);
+
+  label1 = gtk_label_new ("<b>Keystroke choice </b>");
+  gtk_widget_show (label1);
+  gtk_box_pack_start (GTK_BOX (vbox1), label1, FALSE, FALSE, 0);
+  gtk_label_set_use_markup (GTK_LABEL (label1), TRUE);
+  gtk_label_set_justify (GTK_LABEL (label1), GTK_JUSTIFY_CENTER);
+  gtk_misc_set_padding (GTK_MISC (label1), 2, 2);
+
+  label2 = gtk_label_new ("\nPress requested key combination.\nPlease use Ctrl, Shift, Alt key with any other key.\n<i>Esc to cancel.</i>");
+  gtk_widget_show (label2);
+  gtk_box_pack_start (GTK_BOX (vbox1), label2, FALSE, FALSE, 0);
+  gtk_label_set_use_markup (GTK_LABEL (label2), TRUE);
+  gtk_label_set_justify (GTK_LABEL (label2), GTK_JUSTIFY_CENTER);
+  gtk_misc_set_padding (GTK_MISC (label2), 2, 2);
+
+  dialog_action_area1 = GTK_DIALOG (dialog1)->action_area;
+  gtk_widget_show (dialog_action_area1);
+  gtk_button_box_set_layout (GTK_BUTTON_BOX (dialog_action_area1), GTK_BUTTONBOX_END);
+  g_signal_connect(G_OBJECT(dialog1),"key-press-event",G_CALLBACK(ac_key_choice_press),dialog1);
+  if ( gtk_dialog_run(GTK_DIALOG(dialog1)) == GTK_RESPONSE_OK )
+  {
+  		gpointer ptr = g_object_get_data(G_OBJECT(dialog1),"keyname");
+  		gtk_widget_destroy(dialog1);
+  		if (ptr) return (gchar*)ptr;
+  		else return NULL;	
+  }  
+  gtk_widget_destroy(dialog1);
+  return NULL;
+} 
+

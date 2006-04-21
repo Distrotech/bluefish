@@ -2728,19 +2728,11 @@ static void fref_input_button_cb(GtkButton *button,Tfref_property *prop)
 
 static GtkWidget *fref_prepare_dialog(Tbfwin * bfwin, Tfref_element *entry)
 {
-	GtkWidget *dialog;
-	GtkWidget *vbox;
-	GtkWidget *table;
-	GtkWidget *label;
-	GtkWidget *input;
-	GtkWidget *combo;
-	GtkWidget *dialog_action_area;
-	GtkWidget *cancelbutton;
-	GtkWidget *okbutton;
-	GtkWidget *scroll;
+	GtkWidget *dialog,*vbox,*table,*label,*input,
+							 *combo,*dialog_action_area,*cancelbutton,*okbutton,*scroll;
 	GtkRequisition req, req2;
-	GList *list = NULL,*gl=NULL;
-	gint itnum, w, h, pos=0,pos2=0;
+	GList *list = NULL,*gl = NULL;
+	gint itnum, w, h, pos = 0,pos2 = 0;
 	gchar *tofree;
 
 	dialog = gtk_dialog_new();
@@ -2806,7 +2798,7 @@ static GtkWidget *fref_prepare_dialog(Tbfwin * bfwin, Tfref_element *entry)
 						l = g_list_first(pomgl);
 						while (l)
 						{
-							g_list_append(gl,l->data);
+							gl = g_list_append(gl,l->data);
 							l = g_list_next(l);
 						}
 						g_list_free(pomgl);

@@ -38,6 +38,7 @@
 
 #ifdef USE_SCANNER
 #include "bf-textview.h"
+#include "autocomp.h"
 #endif
 
 enum {
@@ -140,6 +141,7 @@ enum {
 	editor_bg,
 	view_rmargin,
 	rmargin_at,
+	autocomp_key,
 #endif	
 	property_num_max
 };
@@ -237,7 +239,8 @@ typedef enum {
 	string_none,
 	string_file,
 	string_font,
-	string_color
+	string_color,
+	string_accel
 } Tprefstringtype;
 
 void pref_click_column  (GtkTreeViewColumn *treeviewcolumn, gpointer user_data) {
@@ -477,6 +480,13 @@ static void color_button_lcb(GtkWidget *wid, GtkWidget *entry) {
 	gtk_widget_show(fsd);
 }
 
+static void accel_button_lcb(GtkWidget *wid, gpointer data) 
+{
+	gchar *name = ac_key_choice();
+	if (name)
+		gtk_button_set_label(GTK_BUTTON(wid),name);
+}
+
 static GtkWidget *prefs_string(const gchar *title, const gchar *curval, GtkWidget *box, Tprefdialog *pd, Tprefstringtype prefstringtype) {
 	GtkWidget *hbox, *return_widget;
 
@@ -486,6 +496,11 @@ static GtkWidget *prefs_string(const gchar *title, const gchar *curval, GtkWidge
 	if (prefstringtype == string_color) {
 		return_widget = boxed_entry_with_text(curval, 8, hbox);
 		gtk_entry_set_width_chars(GTK_ENTRY(return_widget),8);
+	}
+	else if (prefstringtype == string_accel)
+	{
+		return_widget = bf_allbuttons_backend(curval, FALSE, -1, G_CALLBACK(accel_button_lcb), NULL);;
+		gtk_box_pack_start(GTK_BOX(hbox), return_widget, FALSE, FALSE, 3);	
 	}	
 	else
 		return_widget = boxed_entry_with_text(curval, 1023, hbox);
@@ -2479,6 +2494,17 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);	
 	integer_apply(&main_v->props.view_rmargin, pd->prefs[view_rmargin], TRUE);
 	integer_apply(&main_v->props.rmargin_at, pd->prefs[rmargin_at], FALSE);
+	{
+	  	guint key;
+		GdkModifierType mod;
+		g_closure_ref(main_v->autocompletion->closure);		
+		gtk_accel_group_disconnect(main_v->autocompletion->group,main_v->autocompletion->closure);
+		button_apply(&main_v->props.autocomp_key, pd->prefs[autocomp_key]);		
+		gtk_accelerator_parse(main_v->props.autocomp_key,&key,&mod);
+		gtk_accel_group_connect(main_v->autocompletion->group,key,mod,GTK_ACCEL_VISIBLE, main_v->autocompletion->closure);
+		g_closure_unref(main_v->autocompletion->closure);					
+	}
+
 #endif
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
@@ -2720,9 +2746,6 @@ static void preferences_dialog() {
 	GtkTreeViewColumn *column;	
 	GtkTreeIter auxit,iter;
 	GtkTreePath *path;
-#ifdef USE_SCANNER
-	GList *lst;
-#endif	
 
 	pd = g_new0(Tprefdialog,1);
 	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
@@ -3130,7 +3153,7 @@ static void preferences_dialog() {
 		gchar *modes[] = {N_("whole document"), N_("visible area"),  NULL};
 		pd->prefs[scan_mode] = boxed_optionmenu_with_value(_("Scan mode"), main_v->props.scan_mode, vbox2, modes);
 	}
-	
+	pd->prefs[autocomp_key] = prefs_string(_("Autocompletion key"), main_v->props.autocomp_key, vbox2, pd, string_accel);
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);	

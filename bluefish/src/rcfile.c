@@ -458,6 +458,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_arraylist (&config_rc, &main_v->props.syntax_styles, "syntax_styles:", 4, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_rmargin, "view_rmargin:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.rmargin_at, "rmargin_at:", 80, TRUE);
+	init_prop_string    (&config_rc, &main_v->props.autocomp_key, "autocomp_key:", "<Control>space");
 #endif
 	init_prop_arraylist (&config_rc, &main_v->props.textstyles, "textstyles:", 5, TRUE);
 	return config_rc;
