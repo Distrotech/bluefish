@@ -2077,7 +2077,7 @@ gtk_text_buffer_get_end_iter(buf, &ite);
 if (gtk_text_iter_equal(&its, &ite))
 	return;
 self->need_rescan = FALSE;
-bf_textview_scan_area(self, &its, &ite);
+bf_textview_scan_area(self, &its, &ite,TRUE);
 }
 
 void bf_textview_scan_visible(BfTextView * self)
@@ -2096,7 +2096,7 @@ gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(self), &l_end, rect.y + rect.height, N
 its = l_start;
 ite = l_end;
 gtk_text_iter_forward_to_line_end(&ite);
-bf_textview_scan_area(self, &its, &ite);
+bf_textview_scan_area(self, &its, &ite,TRUE);
 }
 
 #ifdef HL_PROFILING
@@ -2172,7 +2172,7 @@ if (self->last_matched_block)
 self->last_matched_block = NULL;
 }
 
-void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end)
+void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end, gboolean apply_hl)
 {
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 	GtkTextIter its, ita, pit;
@@ -2204,16 +2204,19 @@ while (g_queue_pop_head(&(self->scanner.block_stack)) != NULL) {};
 while (g_queue_pop_head(&(self->scanner.tag_stack)) != NULL) {};
 bftv_clear_block_cache(self);
 bftv_clear_matched_block(self);
-bftv_delete_blocks_from_area(self, start, end);
-if ( self->lang->tag_begin ) gtk_text_buffer_remove_tag(buf,self->lang->tag_begin,start,end);
-if ( self->lang->tag_end ) gtk_text_buffer_remove_tag(buf,self->lang->tag_end,start,end);
-if ( self->lang->attr_name ) gtk_text_buffer_remove_tag(buf,self->lang->attr_name,start,end);
-if ( self->lang->attr_val ) gtk_text_buffer_remove_tag(buf,self->lang->attr_val,start,end);		
-rts.buffer = buf;
-rts.start = start;
-rts.end = end;
-g_hash_table_foreach(self->lang->tokens,bftv_remove_t_tag,&rts);
-g_hash_table_foreach(self->lang->blocks,bftv_remove_b_tag,&rts);
+if (apply_hl)
+{
+	bftv_delete_blocks_from_area(self, start, end);
+	if ( self->lang->tag_begin ) gtk_text_buffer_remove_tag(buf,self->lang->tag_begin,start,end);
+	if ( self->lang->tag_end ) gtk_text_buffer_remove_tag(buf,self->lang->tag_end,start,end);
+	if ( self->lang->attr_name ) gtk_text_buffer_remove_tag(buf,self->lang->attr_name,start,end);
+	if ( self->lang->attr_val ) gtk_text_buffer_remove_tag(buf,self->lang->attr_val,start,end);		
+	rts.buffer = buf;
+	rts.start = start;
+	rts.end = end;
+	g_hash_table_foreach(self->lang->tokens,bftv_remove_t_tag,&rts);
+	g_hash_table_foreach(self->lang->blocks,bftv_remove_b_tag,&rts);
+}	
 
 magic = 0;
 while (gtk_text_iter_compare(&ita, end) <= 0) 
@@ -2278,7 +2281,7 @@ while (gtk_text_iter_compare(&ita, end) <= 0)
 				switch (t->type)
 				{
 					case TT_NORMAL:	
-						if (self->highlight && t->tag) 
+						if (self->highlight && t->tag && apply_hl) 
 							gtk_text_buffer_apply_tag(buf, t->tag, &its, &ita);
 					break;
 					case TT_TAG_END:
@@ -2338,7 +2341,8 @@ while (gtk_text_iter_compare(&ita, end) <= 0)
 											bi->single_line = bi2->single_line = FALSE;
 										}
 									}
-									gtk_text_buffer_apply_tag(buf, self->internal_tags[IT_BLOCK], &bf->b_end, &its);
+									if ( apply_hl )
+										gtk_text_buffer_apply_tag(buf, self->internal_tags[IT_BLOCK], &bf->b_end, &its);
 									g_free(bf->tagname);
 									g_free(bf);
 								}
@@ -2349,7 +2353,7 @@ while (gtk_text_iter_compare(&ita, end) <= 0)
 							if (self->highlight ) 
 							{
 								 	tag = self->lang->tag_end;
-									if (tag)	gtk_text_buffer_apply_tag(buf, tag, &its, &ita);
+									if (tag && apply_hl)	gtk_text_buffer_apply_tag(buf, tag, &its, &ita);
 							}														
 						} /* end of tag_end */
 						break;
@@ -2365,9 +2369,9 @@ while (gtk_text_iter_compare(&ita, end) <= 0)
 							if (self->highlight ) 
 							{
 								tag = self->lang->attr_name;
-								if (tag) 	gtk_text_buffer_apply_tag(buf, tag, &its, &pit);
+								if (tag && apply_hl) 	gtk_text_buffer_apply_tag(buf, tag, &its, &pit);
 								tag = self->lang->attr_val;
-								if (tag)	gtk_text_buffer_apply_tag(buf, tag, &pit, &ita);
+								if (tag && apply_hl)	gtk_text_buffer_apply_tag(buf, tag, &pit, &ita);
 							}						
 						}
 						break;	
@@ -2434,7 +2438,7 @@ while (gtk_text_iter_compare(&ita, end) <= 0)
 							if (self->highlight ) 
 							{
 								tag = self->lang->tag_begin;
-								if (tag)	gtk_text_buffer_apply_tag(buf, tag, &bf->b_start, &ita);
+								if (tag && apply_hl)	gtk_text_buffer_apply_tag(buf, tag, &bf->b_start, &ita);
 							}
 							/* TAG autoclose */ 
 							if ( self->tag_autoclose && !self->delete_rescan && 
@@ -2510,10 +2514,11 @@ while (gtk_text_iter_compare(&ita, end) <= 0)
 										bi->single_line = bi2->single_line = FALSE;
 									}
 								}
-								gtk_text_buffer_apply_tag(buf, self->internal_tags[IT_BLOCK], &bf->b_end, &its);
+								if (apply_hl)
+									gtk_text_buffer_apply_tag(buf, self->internal_tags[IT_BLOCK], &bf->b_end, &its);
 								if (self->highlight ) 
 								{
-									if (tmp->tag)	gtk_text_buffer_apply_tag(buf, tmp->tag, &bf->b_start, &ita);
+									if (tmp->tag && apply_hl)	gtk_text_buffer_apply_tag(buf, tmp->tag, &bf->b_start, &ita);
 								}
 							}	 /* default */ 						
 					} /* switch */
@@ -2977,7 +2982,7 @@ void bf_textview_autocomp_show(BfTextView *self)
 	gtk_text_iter_set_line(&it3,gtk_text_iter_get_line(&it));
 	gtk_text_iter_backward_char(&it);
 	self->scanner.last_string = g_string_assign(self->scanner.last_string,"");
-	bf_textview_scan_area(self,&it3,&it);
+	bf_textview_scan_area(self,&it3,&it,FALSE);
 	ac_run_lang(main_v->autocompletion,self->scanner.last_string->str,self->lang->name,GTK_TEXT_VIEW(self));
 }
 
