@@ -136,7 +136,7 @@ static void  bf_textview_mark_set_cb(GtkTextBuffer *buf,GtkTextIter *arg1,GtkTex
 static gboolean bf_textview_mouse_cb(GtkWidget * widget, GdkEvent * event, gpointer user_data);
 inline GtkTextMark *bftv_get_block_at_iter(GtkTextIter * it);
 static GtkTextMark *bftv_get_first_block_at_line(BfTextView *view,GtkTextIter * it, gboolean not_single);
-static GtkTextMark *bftv_get_last_block_at_line(BfTextView *view, GtkTextIter * it);
+/*static GtkTextMark *bftv_get_last_block_at_line(BfTextView *view, GtkTextIter * it);*/
 static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, GtkTextIter * arg2);
 static void bftv_fold(BfTextView *self,GtkTextMark * mark, gboolean move_cursor);
 static void bftv_expand_all(GtkWidget * widget, BfTextView * view);
@@ -795,7 +795,7 @@ g_free(ln);
 return NULL;
 }
 
-static GtkTextMark *bftv_get_last_block_at_line(BfTextView *view, GtkTextIter * it)
+/*static GtkTextMark *bftv_get_last_block_at_line(BfTextView *view, GtkTextIter * it)
 {
 	GtkTextIter it2, it3;
 	GtkTextMark *mark = NULL, *mark2 = NULL;
@@ -831,7 +831,7 @@ while (gtk_text_iter_compare(&it2, &it3) <= 0
 if (mark2) g_hash_table_insert(view->fbal_cache,ln,mark2);
 else g_free(ln);
 return mark2;
-}
+}*/
 
 static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, GtkTextIter * arg2)
 {
@@ -1433,8 +1433,8 @@ switch (type) {
 			{
 				ptr = g_hash_table_lookup(cfg->blocks, tmps2);
 				if (!ptr)
-					g_warning("Token (%s) context defined as %s but such a block does not exists.",
-							  t->text, tmps2);
+					g_warning("Block (%s) context defined as %s but such a block does not exists.",
+							  b->name, tmps2);
 				b->context = ptr;
 				xmlFree(tmps2);
 			} else

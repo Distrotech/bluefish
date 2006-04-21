@@ -29,6 +29,8 @@
 	I need only one of this for whole Bluefish process */
 	
 typedef struct {
+	GtkAccelGroup *group;        /* accelerator group containing activation accel */
+	GClosure *closure;					 /* accel callback */ 	 
 	GtkTreeView *tree;    				 /* this is tree widget keeping ac strings */
 	GtkListStore *store;  				 /* list of strings */
 	GtkWidget *window; 				 /* small window shown when ac is activated */
@@ -47,5 +49,6 @@ gchar *ac_run_dtd(Tautocomp *ac, gchar *prefix, gchar *name, GtkTextView *view);
 void ac_add_lang_list(Tautocomp *ac, gchar *name, GList *strings);
 void ac_add_dtd_list(Tautocomp *ac, gchar *name, GList *strings);
 
+gchar *ac_key_choice();
 
 #endif /* __AUTOCOMP_H__ */

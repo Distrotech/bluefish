@@ -198,6 +198,36 @@ void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state) {
 }
 
 /**
+ * button_apply:
+ * @config_var: # gchar **, a pointer to a gchar pointer with where the content should be placed
+ * 	@entry: the button #GtkWidget * to read
+ *
+ * 	free the old string in **config_var, and replaces it with the new string from button label
+ *   I assume that button is destroyed, so I create copy of a label 
+ *
+ * Return value:	void
+ */
+void button_apply(gchar ** config_var, GtkWidget * entry)
+{
+	const gchar *tmpstring;
+	DEBUG_MSG("button_apply, start\n");
+
+	tmpstring = gtk_button_get_label(GTK_BUTTON(entry));
+	DEBUG_MSG("button_apply, tmpstring(%p)=%s\n", tmpstring, tmpstring);
+	if (tmpstring) {
+		if (config_var != NULL) {
+			g_free(*config_var);
+		}
+		*config_var = g_strdup(tmpstring);  /* copy */ 
+	}
+#ifdef DEBUG
+	else {
+		DEBUG_MSG("button_apply, ***** tmpstring == NULL *****\n");
+	}
+#endif
+}
+
+/**
  * string_apply:
  * @config_var: # gchar **, a pointer to a gchar pointer with where the content should be placed
  * 	@entry: the entry #GtkWidget * to read

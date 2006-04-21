@@ -283,6 +283,7 @@ typedef struct {
 	GList *syntax_styles; /* textstyles (see below) for each detected bit of syntax */
 	gint view_rmargin; /* show right margin by default */
 	gint rmargin_at; /* position of a right margin */
+	gchar *autocomp_key; /* autocompletion accelerator */
 #endif	
 	GList *textstyles; /* tet styles: name,foreground,background,weight,style */
 } Tproperties;
