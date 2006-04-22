@@ -30,7 +30,6 @@
 /* #define DEBUG */
 
 #include "bluefish.h"
-#include "plugin_about/about.h"
 #include "bf_lib.h"			/* append_string_to_file() */
 #include "bfspell.h"
 #include "bookmark.h"
