@@ -336,8 +336,6 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/External/_Outputbox"), NULL, NULL, 0, "<Branch>"},
 	{"/External/Outputbox/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{"/External/sep1", NULL, NULL, 0, "<Separator>"},*/
-/*	{N_("/_Help"), NULL, NULL, 0, "<Branch>"},
-	{N_("/Help/_About..."), NULL, about_dialog_create, 0, "<Item>"},	*/
 };
 
 #ifdef ENABLE_NLS
