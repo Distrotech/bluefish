@@ -1,13 +1,13 @@
-%define name  		bluefish
+%define name  		bluefish-unstable
 %define version		1.1
-%define release 	020060125
-%define source		bluefish-CVS-2006-01-25
+%define release 	020060506
+%define source		bluefish-CVS-2006-05-06
 
 
 Summary:	  A GTK2 web development application for experienced users
 Name:		  %{name}
 Version:	  %{version}
-Release:	  %{release}
+Release:	  %{release}%{?dist}
 Source:		  ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{source}.tar.bz2
 URL:		  http://bluefish.openoffice.nl
 License:	  GPL
@@ -49,6 +49,10 @@ desktop-file-install --vendor=fedora --delete-original \
   --add-category Application                           \
   --add-category Development                           \
   %{buildroot}%{_datadir}/applications/%{name}.desktop
+desktop-file-install --vendor=fedora --delete-original \
+  --dir %{buildroot}%{_datadir}/applications           \
+  --add-category X-Fedora                              \
+  %{buildroot}%{_datadir}/applications/%{name}-project.desktop
 
 %clean
 %{__rm} -rf %{buildroot}
@@ -66,8 +70,8 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 %doc AUTHORS COPYING README TODO
 %{_bindir}/*
 %{_libdir}/*
-%dir %{_datadir}/bluefish
-%{_datadir}/bluefish/*
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/*
 %{_datadir}/applications/*
 %{_datadir}/application-registry/*
 %{_datadir}/mime/packages/*
@@ -79,5 +83,5 @@ update-desktop-database %{_datadir}/applications > /dev/null 2>&1 || :
 
 
 %changelog
-* Thu Jan 26 2006 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2006-01-25
+* Sat May 06 2006 Matthias Haase <matthias_haase@bennewitz.com>
+- Automatic build - snapshot of 2006-05-06
