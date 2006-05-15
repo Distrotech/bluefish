@@ -113,7 +113,7 @@ static void bluefish_scan_dir_load_plugins(GList **oldlist,const gchar *indirnam
 			gchar *path = g_strconcat(dirname, tmp, NULL);
 			gchar *compare[] = {path, NULL}, **arr;
 
-			arr = arraylist_value_exists(*oldlist, compare, 1, FALSE);
+			arr = arraylist_value_exists(*oldlist, (const gchar **) compare, 1, FALSE);
 			if (arr) {
 				GList *link;
 				DEBUG_MSG("bluefish_scan_dir_load_plugins, found %s in configfile (len(oldlist)=%d, len(plugin_config=%d)\n",arr[0],g_list_length(*oldlist),g_list_length(main_v->props.plugin_config));
