@@ -31,11 +31,29 @@
 #include "../bluefish.h" /* BLUEFISH_SPLASH_FILENAME, gnome_vfs_url_show() */
 
 
-static void about_activate_url(GtkAboutDialog *about, const gchar *url, gpointer data) {
-	GnomeVFSResult error = gnome_vfs_url_show(url);	
+static void bluefish_url_show(const gchar *url) {
+	GnomeVFSResult error = gnome_vfs_url_show(url);
 	if (error != GNOME_VFS_OK) {
 		g_print("GnomeVFSResult while trying to launch URL in about dialog: error %u\n", error);
 	}
+}
+
+static void bluefish_url_show_lcb(Tbfwin *bfwin, guint callback_action, GtkWidget *widget) {
+	switch (callback_action) {
+		case 1:
+			bluefish_url_show("http://bluefish.openoffice.nl");
+			break;
+		case 2:
+			bluefish_url_show("http://bugzilla.gnome.org/enter_bug.cgi?product=bluefish");
+			break;
+		default:
+			g_print("bluefish_url_show_cb, unknown action, abort!\n");
+			exit(123);
+	}
+}
+
+static void about_activate_url(GtkAboutDialog *about, const gchar *url, gpointer data) {
+	bluefish_url_show(url);
 }
 
 static void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * widget) {
@@ -191,6 +209,9 @@ static void about_initgui(Tbfwin* bfwin) {
 	GtkItemFactory *ifactory;
 	static GtkItemFactoryEntry menu_items[] = {
 		{N_("/_Help"), NULL, NULL, 0, "<LastBranch>"},
+		{N_("/Help/Bluefish _Homepage"), NULL, bluefish_url_show_lcb, 1, "<Item>"},
+		{N_("/Help/Report a _Bug"), NULL, bluefish_url_show_lcb, 2, "<Item>"},
+		{"/Help/sep1", NULL, NULL, 0, "<Separator>"},
 		{N_("/Help/_About..."), NULL, about_dialog_create, 0, "<StockItem>", GTK_STOCK_ABOUT}
 	};
 	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
