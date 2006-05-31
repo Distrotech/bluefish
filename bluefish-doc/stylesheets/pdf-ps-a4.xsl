@@ -73,9 +73,6 @@ book      toc,title,figure,example,procedure,table
 <!-- Format variable lists as blocks -->
 <xsl:param name="variablelist.as.blocks" select="1"></xsl:param>
 
-<!-- Show the url after the text of the link if text is not egal to url -->
-<xsl:param name="ulink.show" select="1"></xsl:param> 
-
 <!-- Size of the headers (a table with three columns) -->
 <xsl:param name="header.column.widths" select="'1 8 1'"></xsl:param>
 
@@ -233,6 +230,12 @@ procedure before
 <!-- Allow hyphenation for urls -->
 <xsl:param name="ulink.hyphenate" select="'&#x200B;'"/>
 
+<!-- Defined allowed characters for ulink hyphenation -->
+<xsl:param name="ulink.hyphenate.chars">:/@&amp;?.=#</xsl:param>
+
+<!-- Insert page number for ulink -->
+<xsl:param name="insert.link.page.number">yes</xsl:param>
+
 <!-- For figures, procedure, example, table -->
 <xsl:attribute-set name="formal.object.properties">
   <xsl:attribute name="space-before.minimum">0.4em</xsl:attribute>
@@ -283,20 +286,6 @@ procedure before
 
 <xsl:param name="insert.xref.page.number">yes</xsl:param>
 
-<!-- Adding p. before page number in citation for clarity
-       There is a bug in fop: page number appears as a question
-        mark whenever the page number is not on the same line
-        as the citation. No solution at the moment. Note that the
-        link is working though. -->
-<xsl:param name="local.l10n.xml" select="document('')"/> 
-<l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"> 
-  <l:l10n language="en"> 
-    <l:context name="xref"> 
-      <l:template name="page.citation" text="&#160;[p.&#160;%p]&#160;"/> 
-     </l:context>    
-  </l:l10n>
-</l:i18n>
-
 <!-- Guimenu color -->
 <xsl:template match="guimenu/|guimenuitem/|guilabel/|guisubmenu/">
 <fo:wrapper color="#806B38">
@@ -325,30 +314,6 @@ procedure before
   </fo:wrapper>
 </xsl:template>
 
-<!-- Segmented list as tables workaround for fop-->
-<xsl:template match="segmentedlist" mode="seglist-table">
-  <xsl:apply-templates select="title" mode="list.title.mode"/>
-  <fo:table table-layout="fixed">
-    <fo:table-column column-number="1" column-width="100px"/>
-    <fo:table-column column-number="2" column-width="200px"/>
-    <fo:table-header>
-      <fo:table-row>
-        <xsl:apply-templates select="segtitle" mode="seglist-table"/>
-      </fo:table-row>
-    </fo:table-header>
-    <fo:table-body>
-      <xsl:apply-templates select="seglistitem" mode="seglist-table"/>
-    </fo:table-body>
-  </fo:table>
-</xsl:template>
-<xsl:template match="segtitle" mode="seglist-table">
-  <fo:table-cell>
-    <fo:block font-weight="bold" text-align="center">
-     <xsl:apply-templates/>
-    </fo:block>
-  </fo:table-cell>
-</xsl:template>
-
 <!-- First bookmark points to second page of cover -->
 <xsl:template name="book.titlepage.separator"/>
 
@@ -361,14 +326,16 @@ procedure before
 <!-- Just use graphics for admon graphics -->
 <xsl:param name="admon.textlabel" select="'0'"/>
 
-<!-- Style of admonitions -->
+<!-- Style of admonitions
+     Ugly hack on space-after-minimum to at least get
+     a minimal space when admon contents are only one line -->
 <xsl:attribute-set name="graphical.admonition.properties">
   <xsl:attribute name="space-before.minimum">0.3em</xsl:attribute>
-  <xsl:attribute name="space-before.optimum">0.3em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.3em</xsl:attribute>
+  <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
   <xsl:attribute name="space-after.minimum">0.3em</xsl:attribute>
-  <xsl:attribute name="space-after.optimum">0.3em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">0.3em</xsl:attribute>
+  <xsl:attribute name="space-after.optimum">0.8em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">0.8em</xsl:attribute>
 </xsl:attribute-set>
 
 <!-- For page breaks, don't forget to add hardcoded ones when book is finished -->
@@ -394,5 +361,26 @@ procedure before
     <xsl:attribute name="padding-top">4px</xsl:attribute>
     <xsl:attribute name="padding-bottom">4px</xsl:attribute>
  </xsl:attribute-set>
+ 
+<!-- Put each term of a multiple terms variablelistentry on its own line -->
+<xsl:param name="variablelist.term.break.after" select="'1'"/>
+<!-- Remove the separator between terms -->
+<xsl:param name="variablelist.term.separator"></xsl:param>
+
+<!-- Chapters, Preface, Appendixes in toc in bold -->
+<xsl:attribute-set name="toc.line.properties">
+  <xsl:attribute name="font-weight">
+  	<xsl:choose>
+    	<xsl:when test="self::chapter | self::preface | self::appendix">bold</xsl:when>
+    	<xsl:otherwise>normal</xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
+  <xsl:attribute name="font-style">
+  	<xsl:choose>
+    	<xsl:when test="self::sect3">italic</xsl:when>
+    	<xsl:otherwise>normal</xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
+</xsl:attribute-set>
 
 </xsl:stylesheet>  

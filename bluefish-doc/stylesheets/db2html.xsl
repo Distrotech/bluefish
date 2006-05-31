@@ -39,6 +39,14 @@ sect2			toc
 sect3			toc
 section		toc
 </xsl:param>
+<!-- Title placement -->
+<xsl:param name="formal.title.placement">
+figure after
+example before
+equation before
+table before
+procedure before
+</xsl:param>
 <!-- Toc depth -->
 <xsl:variable name="toc.section.depth">3</xsl:variable>
 <!-- Allow toc in section -->
@@ -61,4 +69,10 @@ section		toc
 <xsl:param name="admon.style">
   <xsl:text>margin-left: 0in; margin-right: 0in;</xsl:text>
 </xsl:param>
+<!-- No break after formal object -->
+<xsl:param name="formal.object.break.after" select="'0'"/>
+<!-- Put each term of a multiple terms variablelistentry on its own line -->
+<xsl:param name="variablelist.term.break.after" select="'1'"/>
+<!-- Remove the separator between terms -->
+<xsl:param name="variablelist.term.separator"></xsl:param>
 </xsl:stylesheet>

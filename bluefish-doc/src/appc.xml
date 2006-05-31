@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <para>DocBook 4.4</para>
 </listitem>
 <listitem>
-<para>DocBook XSL style sheets 1.69.1</para>
+<para>DocBook XSL style sheets 1.70.1</para>
 </listitem>
 <listitem>
 <para>XSLT Processors and Parsers: we use <command>xsltproc</command> for HTML production, and <command>fop</command> for PDF and PostScript production.</para>
@@ -68,7 +68,7 @@ co bluefish-doc</screen></para>
 <step>
 <para>Install DocBook 4.4 for your distribution</para>
 </step>
-<step><para>Install DocBook XSL version 1.69.1 if it is available for your distribution</para>
+<step><para>Install DocBook XSL version 1.70.1 if it is available for your distribution</para>
 <para>Otherwise, get it from the <ulink url="http://sourceforge.net/projects/docbook/">DocBook Project pages</ulink> on SourceForge.net and unpack it into the <filename>bluefish-doc</filename> directory.</para>
 </step>
 </procedure>
@@ -156,7 +156,7 @@ co bluefish-doc</screen></para>
 <sect2 id="bluefish-manual-guide-id-names">
 <title>The <literal>id</literal> Attribute</title>
 <para>We use <literal>id</literal> on chapter, appendix, section, figure, and procedure. This provides a convenient way to reference them in the text as well and to get them listed in the table of contents.</para>
-<para>If you need to reference some chunk of text embedded in a tag different from those already mentionned, you can also use an id on this tag, since DocBook allows id on all tags.</para>
+<para>If you need to reference some chunk of text embedded in a tag different from those already mentioned, you can also use an id on this tag, since DocBook allows id on all tags.</para>
 <para>Separate words in the <literal>id</literal> with hyphens.</para>
 <para>Finally, include a word or two describing the content in the section. For example, a chapter entitled <literal>Using Bluefish</literal> would have the id <emphasis>bluefish-using</emphasis>. And, a section within that chapter called <literal>Keyboard Shortcuts</literal> could have the name <emphasis>bluefish-using-shortcuts</emphasis>.</para>
 <para>The main thing is that all id's must be unique or processing will fail. To ensure that all id's are unique, just run <command>make validate-all</command> before committing the changes.</para>

@@ -96,13 +96,13 @@ div.book div.titlepage p.othercredit {
 /*Work around a bug in (mozilla based browser?)
  which does not respect visibility and color of border
  without border-collapse */
-div.revhistory table {
+ div.revhistory  table {
 	border: 0px hidden white;
 	border-collapse: collapse;
 	padding-top: 1em;
 	padding-bottom: 2em;
 }
-div.revhistory > table  > tr > th {
+div.revhistory > table > tr > th {
 	border: 0px hidden white;
 	padding: 0px;
 }
@@ -242,6 +242,18 @@ div.caption {
 	font-weight: bold;
 }
 
+/* No margins for figures' title */
+.figure .title {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+/* Margin for figures */
+.figure-contents {
+	margin-top: 20px;
+	margin-bottom: 0px;
+}
+
 .screenshot {
 	position: relative;
 	top: -0.7em;
@@ -284,6 +296,11 @@ div.note p, div.warning p, div.tip p, div.caution p, div.important p {
 	font-size: 12px;
 	font-family: Verdana, Helvetica, Arial, sans-serif;
 	margin-bottom: 0px;
+}
+
+/* Set a top margin for admonitions */
+.tip, .important, .note, .warning, .caution {
+	margin-top: 15px;
 }
 
 /* Style of shortcuts tables */

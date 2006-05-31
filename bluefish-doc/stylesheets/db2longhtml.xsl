@@ -5,7 +5,7 @@
 	exclude-result-prefixes="#default">
 <xsl:import href="http://docbook.sourceforge.net/release/xsl/current/html/docbook.xsl"/>
 <!-- <xsl:import href="../xsl/html/docbook.xsl"/> -->
-<xsl:include href="titlepage-html.xsl"/>
+<xsl:import href="titlepage-html.xsl"/>
 
 <!--
 this file belongs to bluefish, a web development environment
@@ -34,6 +34,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <xsl:param name="generate.toc">
 book      toc,title,figure,example,procedure,table
 </xsl:param>
+<!-- Title placement -->
+<xsl:param name="formal.title.placement">
+figure after
+example before
+equation before
+table before
+procedure before
+</xsl:param>
 <!-- Toc depth -->
 <xsl:variable name="toc.section.depth">3</xsl:variable>
 <!-- Chapter autolabelling -->
@@ -52,4 +60,10 @@ book      toc,title,figure,example,procedure,table
 <xsl:param name="admon.style">
   <xsl:text>margin-left: 0in; margin-right: 0in;</xsl:text>
 </xsl:param>
+<!-- No break after formal object -->
+<xsl:param name="formal.object.break.after" select="'0'"/>
+<!-- Put each term of a multiple terms variablelistentry on its own line -->
+<xsl:param name="variablelist.term.break.after" select="'1'"/>
+<!-- Remove the separator between terms -->
+<xsl:param name="variablelist.term.separator"></xsl:param>
 </xsl:stylesheet>

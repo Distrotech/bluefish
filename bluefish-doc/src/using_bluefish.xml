@@ -167,7 +167,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </mediaobject></screenshot>
 </figure></para>
 <?pagebreaka4?>
-<para>The function reference browser references CSS2, HTML, PHP, and Python functions with their syntax. Some of them provide dialogs to help you inserting them , 
+<para>The function reference browser references CSS2, HTML, PHP, and Python functions with their syntax. Some of them provide dialogs to help you inserting them. 
 <?linebreakus?>
 <figure id="figure-function-reference-browser">
 <title id="figure-function-reference-browser-title">Bluefish Function Reference Browser</title>
@@ -1735,7 +1735,23 @@ word_wrap: 1
 <?linebreak?>
 <para>For the rendering, you will use the following css style sheet:
 <programlisting><![CDATA[
-.st2 {    font-weight: 900;    color: #e38922;    margin-left: 30px;}dl {    font-weight: 900;    margin-left: 55px;}dt {    margin-top: 6px;}.dd1 {    font-style: normal;    font-weight: 400;}]]></programlisting></para>
+.st2 {
+    font-weight: 900;
+    color: #e38922;
+    margin-left: 30px;
+}
+dl {
+    font-weight: 900;
+    margin-left: 55px;
+}
+dt {
+    margin-top: 6px;
+}
+.dd1 {
+    font-style: normal;
+    font-weight: 400;
+}
+]]></programlisting></para>
 <?pagebreak?>
 <para>The table's source code is the following:
 <programlisting><![CDATA[<table border="1">

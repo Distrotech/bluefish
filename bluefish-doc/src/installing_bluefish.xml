@@ -195,7 +195,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </listitem>
 <listitem>
 <para>Fink's latest cvs version is always available from the <ulink url="http://cvs.sourceforge.net/viewcvs.py/fink/experimental/michga/">Fink's maintainer experimental cvs tree</ulink>. It is meant to run on Mac OS X 10.4.</para>
-<note><para>If you have trouble starting bluefish with fink, first read the <ulink url="http://fink.sourceforge.net/faq/index.php">Fink's Faq page</ulink>. If this does not solve your problem, send an email to the maintainer (<email >michele.garoche(at)easyconnet.fr</email>), finally, as last resort, ask for help on the <ulink url="http://fink.sourceforge.net/lists/index.php">beginners or users Fink mailing lists</ulink>or on the <quote>#fink</quote> channel on <ulink url="irc://irc.freenode.net#fink">freenode.net</ulink>.</para></note>
+<note><para>If you have trouble starting bluefish with fink, first read the <ulink url="http://fink.sourceforge.net/faq/index.php">Fink's Faq page</ulink>. If this does not solve your problem, send an email to the maintainer (<email >michele.garoche(at)easyconnet.fr</email>), finally, as last resort, ask for help on the <ulink url="http://fink.sourceforge.net/lists/index.php">beginners or users Fink mailing lists</ulink> or on the <quote>#fink</quote> channel on <ulink url="irc://irc.freenode.net#fink">freenode.net</ulink>.</para></note>
 </listitem>
 </itemizedlist>
 <para>DarwinPorts:</para>
@@ -294,7 +294,7 @@ the following steps:</para>
 <variablelist>
 <title>Configuration:</title>
 <varlistentry>
-<term><option>-h, --help</option></term>
+<term><option>-h</option></term><term><option>--help</option></term>
 <listitem>
 <para>display this help and exit</para>
 </listitem>
@@ -312,13 +312,13 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><option>-V, --version</option></term>
+<term><option>-V</option></term><term><option>--version</option></term>
 <listitem>
 <para>display version information and exit</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><option>-q, --quiet, --silent</option></term>
+<term><option>-q</option></term><term><option> --quiet</option></term><term><option>--silent</option></term>
 <listitem>
 <para>do not print "checking..." messages</para>
 </listitem>
@@ -330,13 +330,13 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><option>-C, --config-cache</option></term>
+<term><option>-C</option></term><term><option>--config-cache</option></term>
 <listitem>
 <para>alias for <option>--cache-file=config.cache</option></para>
 </listitem>
 </varlistentry>
 <varlistentry>
-<term><option>-n, --no-create</option></term>
+<term><option>-n</option></term><term><option>--no-create</option></term>
 <listitem>
 <para>do not create output files</para>
 </listitem>

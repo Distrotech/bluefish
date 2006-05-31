@@ -117,14 +117,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <sect1 id="developing-bluefish-translations">
 <title>Translations</title>
 
-<sect2>
+<sect2 id="po-files-introduction">
 <title>Introduction</title>
 <para>Bluefish has been translated into more than 15 different languages and this is only the beginning.</para>
 <para>Translation process is not a difficult task but you will need some time because there are more than one thousand strings to be translated. The good news are you don't need to be a programmer to make Bluefish speak your language and the only tool you need is a text editor (<application>Vim</application>, <application>Emacs</application>, <application>bluefish</application>, etc.)</para>
 <para>Bluefish uses po (Portable Object) files. A po file is just a plain text file that you can edit with your favorite text editor.</para>
 </sect2>
 
-<sect2>
+<sect2 id="po-files-basics">
 <title>PO files basics</title>
 <para>In a typical po file there are five major types of entries:</para>
 <orderedlist>
@@ -159,7 +159,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </orderedlist>
 </sect2>
 
-<sect2>
+<sect2 id="po-files-shortcuts">
 <title>Shortcut keys</title>
 <para>Shortcut keys, known as hotkeys or even accelerator keys, are defined as follows (look at the underscore, please):</para>
 <screen>
@@ -174,7 +174,7 @@ msgstr "/_Actualizar"
 </warning>
 </sect2>
 
-<sect2>
+<sect2 id="po-files-contribute">
 <title>How to contribute</title>
 <para>It is really easy. Just drop me a line at <email>wecharri(at)arnet.com.ar</email> and I will send you your po file ready to be translated. When you have finished the translation work, just send it me back (use <application>gzip</application> or <application>bzip2</application> if possible, please). Then I will check it and if everything is right I will add it into <application>CVS</application>.</para>
 <para>About ten days before a new release I will send a new fresh po copy to each translator to repeat this process.</para>
