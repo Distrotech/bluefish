@@ -1,0 +1,55 @@
+2006-05-27  Michèle Garoche <michele.garoche@easyconnect.fr>
+
+	--- Beginning docbook-xsl stylesheets version 1.70.1 ---
+	
+	* stylesheets/db2html.xsl:
+	* stylesheets/dblonghtml.xsl:
+	
+	Changed title placement for figures below the figure
+
+	* stylesheets/db2html.xsl:
+	* stylesheets/dblonghtml.xsl
+	* stylesheets/pdf-ps-a4.xsl:
+	* stylesheets/pdf-ps-us.xsl:
+
+	Disable break after formal objects
+	Split multiple term options per line
+	
+	* src/developing_bluefish.xml:
+	
+	Added missing sect2 ids in po files handling part
+	Warned when running 1.70.1 docbook-xsl stylesheets
+	
+	* stylesheets/manual.css:
+	
+	Removed margins around figures' title
+	Added margins around figures
+	Set top margin for admonitions
+
+	* stylesheets/manual.css:
+	* stylesheets/pdf-ps-a4.xsl:
+	* stylesheets/pdf-ps-us.xsl:
+	
+	Chapters, Preface, Appendixes in bold in toc
+	Sect3 italic in toc
+	
+	* src/installing_bluefish.xml:
+	
+	Changed formatting of multiple terms in variable list
+	
+	* stylesheets/pdf-ps-a4.xsl:
+	* stylesheets/pdf-ps-us.xsl:
+	
+	Added more characters to ulink hyphenation
+	
+	* src/appab.xml src/appac.xml:
+	* src/installing_bluefish.xml:
+	* src/using_bluefish.xml:
+	
+	Corrected some typos
+	
+	* figures/notebook-tab.png:
+	
+	Better croping
+
+creating ChangeLog
