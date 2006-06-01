@@ -4,7 +4,7 @@ html:.html\:.htm\:.shtml\:.shtm:<> \n":@BF_APP_PKGDATADIR@icon_html.png:1:<html[
 python:.py::@BF_APP_PKGDATADIR@icon_python.png:1:^#!/[a-z/]+/python:0:
 c:.c\:.h:(){}'[]\n/#" ;:@BF_APP_PKGDATADIR@icon_c.png:1::0:
 java:.java:(){}'[]\n/" :@BF_APP_PKGDATADIR@icon_java.png:1::0:
-perl:.pl\:.PL\:.cgi:::1:^#!/[a-z/]+perl:0:
+perl:.pl\:.PL\:.cgi\:.pm:::1:^#!/[a-z/]+perl:0:
 objectfile:.o\:.class:::0::0:
 stylesheet:.css:::1::0:
 webimage:.jpg\:.png\:.gif\:.jpeg::@BF_APP_PKGDATADIR@icon_image.png:0::0:
