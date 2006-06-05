@@ -117,6 +117,9 @@ typedef struct {
 #ifdef USE_SCANNER
 	gchar *language_file;
 	BfLangConfig *cfg;
+#endif
+#ifdef GNOMEVFSINT
+	
 #endif	
 } Tfiletype;
 

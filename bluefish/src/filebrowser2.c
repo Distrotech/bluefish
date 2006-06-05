@@ -217,6 +217,16 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 			if (ft && ft->icon) pixmap = ft->icon;
 			else pixmap = FB2CONFIG(main_v->fb2config)->unknown_icon;
 		}
+#ifdef GVFSINT
+		{
+			GnomeVFSResult res;
+			GnomeVFSFileInfo info;
+			res = gnome_vfs_get_file_info_uri(child_uri,GnomeVFSFileInfo &info,GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
+		
+		
+		
+		}
+#endif
 		DEBUG_MSG("fb2_add_filesystem_entry, appending iter for %s\n",display_name);
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);
 		DEBUG_MSG("fb2_add_filesystem_entry, will add ");
