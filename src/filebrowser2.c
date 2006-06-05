@@ -246,6 +246,9 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 				TYPE_COLUMN, type,
 				-1);
 		g_free(display_name); /* a column of type string holds a copy, not the original */
+#ifdef GNOMEVFSINT
+		g_object_unref(pixmap);
+#endif
 /*		DEBUG_MSG("fb2_add_filesystem_entry adding iter %p to hashtable\n",newiter);*/
 		gnome_vfs_uri_ref(child_uri);
 		g_hash_table_insert(FB2CONFIG(main_v->fb2config)->filesystem_itable,child_uri,newiter);

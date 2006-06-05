@@ -21,7 +21,7 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines bf-textview.c
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 /*
 Typical scanner in compiler is an automata. To implement automata you
