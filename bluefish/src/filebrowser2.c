@@ -211,21 +211,23 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 		if (tmp2 && strlen(tmp2)>=2) display_name = gnome_vfs_unescape_string(tmp2+1, "");
 		else display_name = gnome_vfs_uri_to_string(child_uri,GNOME_VFS_URI_HIDE_PASSWORD);
 		g_free(tmp);
-		pixmap = FB2CONFIG(main_v->fb2config)->dir_icon;
+#ifdef GNOMEVFSINT
+		{
+			GnomeVFSFileInfo info;
+			GnomeVFSResult res;
+			res = gnome_vfs_get_file_info_uri(child_uri,&info,GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
+			if (res == GNOME_VFS_OK) {
+				pixmap = get_icon_for_mime_type(gnome_vfs_file_info_get_mime_type(&info));
+			} else {
+				pixmap = FB2CONFIG(main_v->fb2config)->unknown_icon;
+			}
+		}
+#else
 		if (type != TYPE_DIR) {
 			Tfiletype *ft = get_filetype_by_filename_and_content(display_name, NULL);
 			if (ft && ft->icon) pixmap = ft->icon;
 			else pixmap = FB2CONFIG(main_v->fb2config)->unknown_icon;
-		}
-#ifdef GVFSINT
-		{
-			GnomeVFSResult res;
-			GnomeVFSFileInfo info;
-			res = gnome_vfs_get_file_info_uri(child_uri,GnomeVFSFileInfo &info,GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
-		
-		
-		
-		}
+		} else pixmap = FB2CONFIG(main_v->fb2config)->dir_icon;
 #endif
 		DEBUG_MSG("fb2_add_filesystem_entry, appending iter for %s\n",display_name);
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);

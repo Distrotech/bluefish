@@ -19,6 +19,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+/* #define GNOMEVFSINT */
+
 /* if you define DEBUG here you will get debug output from all Bluefish parts */
 /* #define DEBUG */
 

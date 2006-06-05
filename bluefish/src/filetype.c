@@ -21,7 +21,7 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines filetype.c
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include "config.h"
 #ifdef USE_SCANNER
@@ -330,3 +330,47 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 
 
 #endif							/* SCANNER */
+
+#ifdef GNOMEVFSINT
+
+/**
+ * icon_for_mime_type:
+ * @mime_type: a MIME type
+ * @size_hint: the size the caller plans to display the icon at
+ *
+ * Tries to find an icon representing @mime_type that will display
+ * nicely at @size_hint by @size_hint pixels. The returned icon
+ * may or may not actually be that size.
+ *
+ * Return value: a pixbuf, which the caller must unref when it is done
+ **/
+GdkPixbuf *get_icon_for_mime_type (const char *mime_type, gint size_hint) {
+	static GtkIconTheme *icon_theme = NULL;
+	char *icon_name;
+	GdkPixbuf *pixbuf = NULL;
+
+	/* Try the icon theme. (GNOME 2.2 or Sun GNOME 2.0).
+	 * This will also look in GNOME VFS.
+	 */
+	
+	if (!icon_theme)
+		icon_theme = gtk_icon_theme_get_default();	
+	
+	icon_name = gnome_icon_lookup (icon_theme, NULL, NULL, NULL, NULL,
+				       mime_type, 0, NULL);
+	if (icon_name) {
+		GError *error=NULL;
+		DEBUG_MSG("get_icon_for_mime_type, got %s for %s\n",icon_name,mime_type);
+		pixbuf = gtk_icon_theme_load_icon (icon_theme, icon_name, 16, /* size */ GTK_ICON_LOOKUP_USE_BUILTIN,  /* flags */ &error);
+		if (!pixbuf) {
+    		g_warning ("Couldn't load icon: %s", error->message);
+    		g_error_free (error);
+		}
+		g_free (icon_name);
+	} else {
+		return NULL; /* perhaps we shopuld return some default icon ? */
+	}
+	return pixbuf;
+}
+
+#endif
