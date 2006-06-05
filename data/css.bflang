@@ -1,0 +1,42 @@
+<?xml version="1.0" ?>
+
+<bflang name="CSS" description="CSS language file">
+
+<options>
+    <option name="case-sensitive">false</option>
+    <option name="scan-markup-tags">true</option>
+    <option name="scan-blocks">true</option>
+   <option name="auto-scan-triggers">;{} </option>	
+   <option name="escape-characters"></option>   
+</options>
+
+<block-group id="blocks">
+<block id="braces" begin="{" end="}" scanned="true" foldable="true" markup="false" case="true" />
+<block id="comment" begin="/*" end="*/" scanned="false" foldable="true" markup="false" case="true" defaultstyle="comment"/>
+</block-group>
+
+<token-group id="general">
+ <token name="string" regexp="true" defaultstyle="string">&quot;[^&quot;]*&quot;</token>
+ <token name="character" regexp="true" defaultstyle="string">&apos;[^&apos;]&apos;</token>
+ <token name="line comment" regexp="true" defaultstyle="comment">//[^&#x0A;]*</token>
+</token-group>
+
+<token-group id="keywords" defaultstyle="keyword">
+  <token-list name="keywords" separator=",">break,case,continue,default,do,else,for,goto,if,return,sizeof,switch,while</token-list>
+</token-group>
+
+<token-group id="other" defaultstyle="variable">
+ <token-list name="defines" separator=",">NULL,TRUE,FALSE</token-list>
+ <token name="number" regexp="true">[0-9]+.?[0-9]*</token>
+ <token name="hex number" regexp="true">0x[0-9]+</token>
+ <token name="size" regexp="true">[0-9]+(em|pt|px)</token>
+</token-group>
+
+<token-group id="selectors" defaultstyle="keyword-red">
+<token-list name="selectors_block" separator=",">h1,h2,h3,h4,h5,h6,p,div</token-list>
+<token-list name="selectors_list" separator=",">li,ul,ol,</token-list>
+<token-list name="selectors_table" separator=",">table,tr,th,td</token-list>
+</token-group>
+
+
+</bflang>
