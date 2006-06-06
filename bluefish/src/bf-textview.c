@@ -1289,7 +1289,8 @@ static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * 
 {
 	xmlChar *tmps, *tmps2;
 	gpointer ptr;
-
+	
+	if ( text!=NULL && strcmp(text,"")==0 ) return NULL;
 	switch (type) {
 	case ST_TOKEN:
 		if (text == NULL)
