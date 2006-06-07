@@ -2955,6 +2955,7 @@ void bf_textview_autocomp_show(BfTextView * self)
 {
 	GtkTextIter it, it3;
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
+	if ( !self->lang ) return;
 	gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
 	it3 = it;
 	gtk_text_iter_set_line(&it3, gtk_text_iter_get_line(&it));
