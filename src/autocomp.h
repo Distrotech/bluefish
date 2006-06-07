@@ -40,14 +40,22 @@ typedef struct {
 } Tautocomp;
 
 
+/* Data from dtd */
+typedef struct {
+	GList *elements;
+	GStringChunk *attributes;
+	GHashTable *ea;     /* attributes for concrete elements */
+} Tdtd_list; 
+
 Tautocomp *ac_init();
 
-gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view);
+gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view,gboolean empty_allowed);
 gchar *ac_run_lang(Tautocomp *ac, gchar *prefix, gchar *name, GtkTextView *view);
-gchar *ac_run_dtd(Tautocomp *ac, gchar *prefix, gchar *name, GtkTextView *view);
+gchar *ac_run_schema(Tautocomp *ac, gchar *prefix, GList *schemas, GtkTextView *view);
+gchar *ac_run_tag_attributes(Tautocomp *ac, gchar *tag, gchar *prefix, GList *schemas, GtkTextView *view);
 
 void ac_add_lang_list(Tautocomp *ac, gchar *name, GList *strings);
-void ac_add_dtd_list(Tautocomp *ac, gchar *name, GList *strings);
+gchar *ac_add_dtd_list(Tautocomp *ac, gchar *chunk);
 
 gchar *ac_key_choice();
 

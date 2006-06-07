@@ -88,6 +88,7 @@ characters, changing scanner states according the table. If I find
 #include <string.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
+#include <libxml/hash.h>
 #include <gdk/gdkkeysyms.h>
 
 #ifdef HL_PROFILING				/* scanning profiling information, interesting for users making a new pattern */
@@ -183,6 +184,7 @@ static void bf_textview_init(BfTextView * o)
 	o->rmargin_at = 0;
 	o->tag_ac_state = FALSE;
 	o->scanner.last_string = g_string_new("");
+	o->schemas = NULL;
 }
 
 GType bf_textview_get_type(void)
@@ -1487,9 +1489,11 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 							if (xmlStrcmp(tmps, (const xmlChar *) "case-sensitive") == 0)
 								cfg->case_sensitive = bftv_xml_bool(tmps2);
 							else if (xmlStrcmp(tmps, (const xmlChar *) "scan-markup-tags") == 0)
-								cfg->scan_tags = bftv_xml_bool(tmps2);
+								cfg->scan_tags = bftv_xml_bool(tmps2);								
 							else if (xmlStrcmp(tmps, (const xmlChar *) "scan-blocks") == 0)
 								cfg->scan_blocks = bftv_xml_bool(tmps2);
+							else if (xmlStrcmp(tmps, (const xmlChar *) "schema-aware") == 0)
+								cfg->schema_aware = bftv_xml_bool(tmps2);								
 							else if (xmlStrcmp(tmps, (const xmlChar *) "autoclose-exclude") == 0) {
 								gchar **arr = NULL;
 								gint i = 0;
@@ -1677,6 +1681,19 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 */
 
 		}
+
+		if ( cfg->schema_aware )
+		{
+			BfLangToken *t = g_new0(BfLangToken, 1);
+			t->group = NULL;
+			t->regexp = TRUE;
+			t->name = xmlCharStrdup("_doctype_");
+			t->text = xmlCharStrdup("<!DOCTYPE[^>]*>");
+			t->context = NULL;
+			t->type = TT_DOCTYPE;
+			bftv_scantable_insert(&cfg->scan_table, ST_TOKEN, t, cfg);
+			g_hash_table_insert(cfg->tokens, &t->name, t);		
+		}		
 
 		{						/* FAKE IDENTIFIER - Lookahead symbol workaround  */
 			gunichar c;
@@ -1974,6 +1991,8 @@ void bf_textview_fold_blocks_area(BfTextView * self, GtkTextIter * start, GtkTex
 /* -------------------- /FOLDING  -------------------------------*/
 
 /* -------------------- SCANNING  -------------------------------*/
+
+
 void bf_textview_scan(BfTextView * self)
 {
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
@@ -2145,9 +2164,9 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 				break;
 		}
 		c = gtk_text_iter_get_char(&ita);
-		if (!g_unichar_isgraph(c)) {
+		if (!g_unichar_isgraph(c) ) {
 			self->scanner.last_string = g_string_assign(self->scanner.last_string, "");
-		} else {
+		} else if (!block_found) {
 			g_string_append_printf(self->scanner.last_string, "%c", c);
 		}
 
@@ -2291,6 +2310,15 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							}
 						}
 						break;
+					case TT_DOCTYPE:
+						{
+							gchar *txt = gtk_text_buffer_get_text(buf, &its, &ita, FALSE);
+							gchar *sname = ac_add_dtd_list(main_v->autocompletion,txt);
+							if ( sname )
+								self->schemas = g_list_append(self->schemas, sname );
+							g_free(txt);					
+						}	
+						break;	
 					case TT_FAKE:
 						break;
 					}
@@ -2313,8 +2341,14 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						gtk_text_iter_forward_char(&pit);
 						bf->tagname = gtk_text_buffer_get_text(buf, &pit, &ita, FALSE);
 						bf->tagname = g_strstrip(bf->tagname);
+						self->scanner.last_tagname = g_strdup(bf->tagname);
 					} else
+					{
+						if ( self->scanner.last_tagname )
+							g_free(self->scanner.last_tagname);
+						self->scanner.last_tagname=NULL;
 						bf->tagname = NULL;
+					}	
 					current_state = &tmp->scan_table;
 					block_found = TRUE;
 					its = ita;
@@ -2340,6 +2374,9 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						case BT_TAG_BEGIN:
 							{
 								gboolean just_ended = FALSE;
+								if (self->scanner.last_tagname)
+									g_free(self->scanner.last_tagname);
+								self->scanner.last_tagname = NULL;
 								TBfBlock *bf_2 = g_new0(TBfBlock, 1);
 								bf_2->tagname = g_strdup(bf->tagname);
 								bf_2->b_start = bf->b_start;
@@ -2887,8 +2924,25 @@ void bf_textview_autocomp_show(BfTextView * self)
 	gtk_text_iter_backward_char(&it);
 	self->scanner.last_string = g_string_assign(self->scanner.last_string, "");
 	bf_textview_scan_area(self, &it3, &it, FALSE);
-	ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, self->lang->name,
+	if ( self->lang && self->lang->schema_aware )
+	{
+		if ( self->scanner.last_string->str[0] == '<' )
+			ac_run_schema(main_v->autocompletion, self->scanner.last_string->str+1, self->schemas,
 				GTK_TEXT_VIEW(self));
+		else if (self->scanner.current_context && self->scanner.current_context->type == BT_TAG_BEGIN )
+		{
+			ac_run_tag_attributes(main_v->autocompletion, self->scanner.last_tagname,self->scanner.last_string->str, 
+					self->schemas,GTK_TEXT_VIEW(self));
+		}
+		else
+			ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, self->lang->name,
+				GTK_TEXT_VIEW(self));		
+	}
+	else
+	{
+		ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, self->lang->name,
+				GTK_TEXT_VIEW(self));
+	}			
 }
 
 
