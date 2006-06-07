@@ -333,6 +333,11 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 
 #ifdef GNOMEVFSINT
 
+void file_type_add(gchar *mime_type) {
+	/*ft->name = gnome_vfs_mime_get_description(mime_type);
+	ft->icon = get_icon_for_mime_type(mime_type,16);*/
+}
+
 /**
  * icon_for_mime_type:
  * @mime_type: a MIME type
@@ -361,7 +366,7 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type, gint size_hint) {
 	if (icon_name) {
 		GError *error=NULL;
 		DEBUG_MSG("get_icon_for_mime_type, got %s for %s\n",icon_name,mime_type);
-		pixbuf = gtk_icon_theme_load_icon (icon_theme, icon_name, 16, /* size */ GTK_ICON_LOOKUP_USE_BUILTIN,  /* flags */ &error);
+		pixbuf = gtk_icon_theme_load_icon (icon_theme, icon_name, size_hint, /* size */ GTK_ICON_LOOKUP_USE_BUILTIN,  /* flags */ &error);
 		if (!pixbuf) {
     		g_warning ("Couldn't load icon: %s", error->message);
     		g_error_free (error);
