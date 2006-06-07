@@ -366,14 +366,23 @@ static void ac_xmlschema_walk(xmlNodePtr node, Tdtd_list *data)
 	}
 	else if ( xmlStrcmp(node->name,"attribute")==0 )
 	{
-		const gchar *parent = node->parent->name;
+		gchar *pname = xmlGetProp(node->parent,"name");
+		gchar *use = xmlGetProp(node,"use");
+		gchar *aname=NULL;
 		GList *lst=NULL;
-		if ( xmlStrcmp(parent,"complexType")==0 )
+		if ( xmlStrcmp(node->parent->name,"complexType")==0 )
 		{
-			lst = g_hash_table_lookup(data->type_attrs,xmlGetProp(node->parent,"name"));
-			lst = g_list_append(lst,xmlGetProp(node,"name"));
-			g_hash_table_replace(data->type_attrs,xmlGetProp(node->parent,"name"),lst);
+			lst = g_hash_table_lookup(data->type_attrs,pname);
+			aname = xmlGetProp(node,"name");
+			if (use && xmlStrcmp(use,"required")==0)
+				lst = g_list_append(lst,g_strdup_printf("%s$r",aname));
+			else
+				lst = g_list_append(lst,g_strdup(aname));
+			xmlFree(aname);
+			g_hash_table_replace(data->type_attrs,g_strdup(pname),lst);
 		}
+		xmlFree(pname);
+		if ( use ) xmlFree(use);
 	}
 	if ( node->next )
 		ac_xmlschema_walk(node->next,data);
