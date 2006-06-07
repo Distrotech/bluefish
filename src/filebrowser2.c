@@ -247,7 +247,9 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 				-1);
 		g_free(display_name); /* a column of type string holds a copy, not the original */
 #ifdef GNOMEVFSINT
-		g_object_unref(pixmap);
+		/*
+		hmm I think we should unref the pixmap, but I do get errors if I unref it...
+		g_object_unref(pixmap);*/
 #endif
 /*		DEBUG_MSG("fb2_add_filesystem_entry adding iter %p to hashtable\n",newiter);*/
 		gnome_vfs_uri_ref(child_uri);

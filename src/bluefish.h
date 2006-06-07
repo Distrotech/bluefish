@@ -121,7 +121,7 @@ typedef struct {
 	BfLangConfig *cfg;
 #endif
 #ifdef GNOMEVFSINT
-	
+	gchar *mime_type;
 #endif	
 } Tfiletype;
 
@@ -428,6 +428,9 @@ typedef struct {
 	Tproperties props; /* preferences */
 	Tglobalsession globses; /* global session */
 	GList *filetypelist; /* highlighting.c: a list of all filetypes with their icons and highlighting sets */
+#ifdef GNOMEVFSINT
+	GHashTable *filetypetable;
+#endif
 	GList *bfwinlist;
 /*	GList *recent_directories; / * a stringlist with the most recently used directories */
 	Tsessionvars *session; /* holds all session variables for non-project windows */
