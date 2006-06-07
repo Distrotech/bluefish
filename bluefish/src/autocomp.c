@@ -22,6 +22,9 @@
 #include "autocomp.h"
 #include <gdk/gdkkeysyms.h>
 #include <string.h>
+#include <libxml/xmlmemory.h>
+#include <libxml/parser.h>
+#include <libxml/hash.h>
 
 static gint ac_paint(GtkWidget *win)
 {
@@ -100,7 +103,7 @@ Tautocomp *ac_init()
 	Returns: only string which has been inserted into document
 	PERFORMS INSERTION! 
 */
-gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view) 
+gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, gboolean empty_allowed) 
 {
 	GtkTextIter it,it3;
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(view);
@@ -113,19 +116,26 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view)
 	PangoLayout *l;
 	GtkTreeModel *model;
 	
-	if ( !view || !ac || strcmp(prefix,"")==0 ) return NULL;	
+	if ( !view || !ac || (!empty_allowed && strcmp(prefix,"")==0) ) return NULL;	
 	GdkScreen *screen = gtk_widget_get_screen(GTK_WIDGET(view));
 	gtk_text_buffer_get_iter_at_mark(buf,&it,gtk_text_buffer_get_insert(buf));
 	gtk_text_view_get_iter_location(view,&it,&rect);
 	gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, rect.x, rect.y,&rect.x, &rect.y);
 	gdk_window_get_origin(gtk_text_view_get_window(view,GTK_TEXT_WINDOW_TEXT),&x,&y);
-	l = gtk_widget_create_pango_layout(GTK_WIDGET(ac->tree), "x");
+	l = gtk_widget_create_pango_layout(GTK_WIDGET(ac->tree), "W");
 	pango_layout_get_pixel_size(l, &w, NULL);
 	it3 = it;
 	gtk_text_iter_set_line(&it3,gtk_text_iter_get_line(&it));
 	g_completion_clear_items(ac->gc);
-	g_completion_add_items(ac->gc,strings);
-	items = g_completion_complete(ac->gc,prefix,NULL);
+	if ( strcmp(prefix,"")==0 )
+	{
+		items = strings;
+	}
+	else
+	{	
+		g_completion_add_items(ac->gc,strings);
+		items = g_completion_complete(ac->gc,prefix,NULL);
+	}	
 	if ( items && g_list_length(items)>0 )
 	{
 		gtk_list_store_clear(ac->store);
@@ -133,12 +143,12 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view)
 		while ( lst )
 		{
 			gtk_list_store_append(ac->store,&it2);
-			if ( strlen((gchar*)lst->data) > len )
-				len = strlen((gchar*)lst->data);
+			if ( g_utf8_strlen((gchar*)lst->data,-1) > len )
+				len = g_utf8_strlen((gchar*)lst->data,-1);
 			gtk_list_store_set(ac->store,&it2,0,(gchar*)lst->data,-1);				
 			lst = g_list_next(lst);
 		}
-		w = MAX(len*w+10,40);
+		w = MAX(len*w+20,40);
 		h=100;
 		gtk_widget_set_size_request(ac->window,w,h);	
 		x += rect.x;
@@ -172,31 +182,123 @@ gchar *ac_run_lang(Tautocomp *ac, gchar *prefix, gchar *name, GtkTextView *view)
 	gchar *ret=NULL;
 	if ( ptr )
 	{
-		ret = ac_run(ac, (GList*)ptr, prefix, view);
+		ret = ac_run(ac, (GList*)ptr, prefix, view, FALSE);
 	}
 	return ret;
 }
 
-gchar *ac_run_dtd(Tautocomp *ac, gchar *prefix, gchar *name, GtkTextView *view)
+gchar *ac_run_schema(Tautocomp *ac, gchar *prefix, GList *schemas, GtkTextView *view)
 {
-	gpointer ptr = g_hash_table_lookup(ac->dtd_lists, name);
-	gchar *ret=NULL;
-	if ( ptr )
+	gpointer ptr = NULL;
+	GList *lst=NULL,*lst2;
+	gchar *ret=NULL;	
+	lst2 = schemas;
+	while ( lst2 )
 	{
-		ret = ac_run(ac, (GList*)ptr, prefix, view);
+		ptr = g_hash_table_lookup(ac->dtd_lists, (gchar*)lst2->data);
+		if ( ptr ) 
+		{
+			Tdtd_list *l = (Tdtd_list*)ptr;
+			lst = g_list_concat(lst, l->elements);		
+		}
+		lst2 = g_list_next(lst2);
 	}
+	if ( lst ) 
+		ret = ac_run(ac, lst, prefix, view, TRUE);
+
 	return ret;
 }
 
+gchar *ac_run_tag_attributes(Tautocomp *ac, gchar *tag, gchar *prefix, GList *schemas, GtkTextView *view)
+{
+	gpointer ptr = NULL;
+	GList *lst=NULL,*lst2;
+	gchar *ret=NULL;	
+	lst2 = schemas;
+	while ( lst2 )
+	{
+		ptr = g_hash_table_lookup(ac->dtd_lists, (gchar*)lst2->data);
+		if ( ptr ) 
+		{
+			Tdtd_list *l = (Tdtd_list*)ptr;
+			lst = g_hash_table_lookup(l->ea,tag);
+			if ( lst ) break;		
+		}
+		lst2 = g_list_next(lst2);
+	}
+	if ( lst ) 
+		ret = ac_run(ac, lst, prefix, view, TRUE);
+
+	return ret;
+}
 
 void ac_add_lang_list(Tautocomp *ac, gchar *name, GList *strings)
 {
 	g_hash_table_replace(ac->lang_lists, name, strings);
 }
 
-void ac_add_dtd_list(Tautocomp *ac, gchar *name, GList *strings)
+static void ac_scan_xml_hash(void *payload, void *data, xmlChar *name)
 {
-	g_hash_table_replace(ac->dtd_lists, name, strings);
+   Tdtd_list *d = (Tdtd_list*)data;
+   xmlElementPtr el = (xmlElementPtr)payload;
+   xmlAttributePtr attr = el->attributes, ptr=NULL;
+   gchar *nn = g_strdup(name);
+   GList *alist=NULL;
+   ptr = attr;
+   while ( ptr )
+   {   	
+   	gchar *str =NULL;
+   	if ( ptr->prefix )
+   		str = g_string_chunk_insert_const(d->attributes,g_strdup_printf("%s:%s",ptr->prefix,ptr->name));
+   	else
+   	  	str = g_string_chunk_insert_const(d->attributes,g_strdup(ptr->name));
+   	alist = g_list_append(alist, str);
+   	ptr = ptr->nexth;
+   }
+   d->elements = g_list_append(d->elements,nn);
+   g_hash_table_insert(d->ea,nn,alist);
+}
+
+
+/*
+ Parse XML chunk and analyze schema
+ Returns schema name
+*/
+gchar *ac_add_dtd_list(Tautocomp *ac, gchar *chunk)
+{
+	int ret;
+	gchar *name=NULL;
+	xmlParserCtxtPtr ctxt;
+   xmlDtdPtr dtd; /* the resulting document tree */
+	ctxt = xmlCreatePushParserCtxt(NULL, NULL,  NULL, 0, "memory");
+	ret = xmlParseChunk(ctxt, chunk, g_utf8_strlen(chunk,-1), 0);
+	name = g_strdup(ctxt->extSubURI);
+   if ( ctxt->hasExternalSubset && 
+         g_hash_table_lookup(ac->dtd_lists,name)==NULL )
+	{	    
+		dtd = xmlParseDTD(ctxt->extSubSystem,ctxt->extSubURI);
+		if ( dtd )
+		{			
+			if ( dtd->elements )
+			{
+				Tdtd_list *data = g_new0(Tdtd_list,1);
+				data->elements = NULL;
+				data->attributes = g_string_chunk_new(1);
+				data->ea = g_hash_table_new(g_str_hash,g_str_equal);
+				xmlHashScan((xmlHashTablePtr)(dtd->elements),ac_scan_xml_hash,data);
+				g_hash_table_insert(ac->dtd_lists,name, data);
+			}			
+		}
+		xmlFreeDtd(dtd);
+		xmlCleanupParser();
+	}
+	else {
+	   g_free(name);
+	   name=NULL;
+	}
+	xmlFreeParserCtxt(ctxt);
+	xmlMemoryDump();			
+	return name;
 }
 
 

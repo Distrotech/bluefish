@@ -92,6 +92,7 @@ enum {
 	TT_TAG_END,
 	TT_ATTR,
 	TT_ATTR2,
+	TT_DOCTYPE,
 	TT_FAKE
 }; 
 
@@ -118,6 +119,7 @@ typedef struct {
 	gboolean case_sensitive;
 	gboolean scan_tags;
 	gboolean scan_blocks;
+	gboolean schema_aware;
 	gunichar as_triggers[BFTV_SCAN_RANGE];
 	gchar escapes[BFTV_SCAN_RANGE];
 	GHashTable *tokens;
@@ -158,6 +160,7 @@ typedef struct {
 	GQueue block_stack;
 	GQueue tag_stack;
 	GString *last_string;	
+	gchar *last_tagname;
 } TBfScanner;
 
 
@@ -224,7 +227,7 @@ typedef struct {
 	GtkTextMark *last_matched_block; /* last matched block */
 	gboolean paste_operation; /* indicates if we perform paste */
 	gboolean tag_ac_state; /* TRUE if we should perform tag autoclosing - i.e. after inserting '>' sign only */
-
+	GList *schemas;
 } BfTextView;
 
 /*
