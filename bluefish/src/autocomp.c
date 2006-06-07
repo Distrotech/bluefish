@@ -25,6 +25,11 @@
 #include <libxml/xmlmemory.h>
 #include <libxml/parser.h>
 #include <libxml/hash.h>
+#include <libxml/xmlschemas.h>
+#include <libxml/schemasInternals.h>
+#include <libxml/tree.h>
+#include <libxml/xpath.h>
+#include <libxml/xpathInternals.h>
 
 static gint ac_paint(GtkWidget *win)
 {
@@ -56,12 +61,15 @@ static GtkWidget *ac_create_window(GtkTreeView *tree, GtkListStore *store)
 {
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
-	GtkWidget *scroll;
+	GtkWidget *scroll, *vbar;
 	GtkWidget *win;
 	PangoFontDescription *fontdesc;
-
+	GtkRcStyle *rc;
+	
 	gtk_tree_view_set_headers_visible(tree, FALSE);	
 	scroll = gtk_scrolled_window_new(NULL, NULL);
+	vbar = gtk_scrolled_window_get_vscrollbar(GTK_SCROLLED_WINDOW(scroll));
+	gtk_widget_set_size_request(vbar,10,-1);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "markup", 0, NULL);
@@ -79,16 +87,26 @@ static GtkWidget *ac_create_window(GtkTreeView *tree, GtkListStore *store)
    gtk_dialog_set_has_separator (GTK_DIALOG(win),FALSE);
    g_signal_connect(G_OBJECT(win),"key-press-event",G_CALLBACK(ac_press),win);
 	fontdesc = pango_font_description_from_string("Sans 8");
+	gtk_widget_modify_font(GTK_WIDGET(scroll), fontdesc);
 	gtk_widget_modify_font(GTK_WIDGET(tree), fontdesc);
+	
    pango_font_description_free (fontdesc);
-   gtk_widget_hide(GTK_DIALOG(win)->action_area);
+   gtk_widget_hide(GTK_DIALOG(win)->action_area);   
+   rc = gtk_widget_get_modifier_style(GTK_WIDGET(tree));
+   rc->color_flags[3] = GTK_RC_BG | GTK_RC_BASE;
+   rc->color_flags[0] = GTK_RC_BG | GTK_RC_BASE;
+   gdk_color_parse("#F7F3D2",&rc->bg[0]);
+   gdk_color_parse("#F7F3D2",&rc->base[0]);
+   gdk_color_parse("#E6DDB8",&rc->bg[3]);   
+   gdk_color_parse("#E6DDB8",&rc->base[3]);
+   gtk_widget_modify_style(GTK_WIDGET(tree),rc);
    return win;     
 }
 
 Tautocomp *ac_init()
 {
 	Tautocomp *ret = g_new0(Tautocomp,1);
-	ret->store	= gtk_list_store_new(1,G_TYPE_STRING);
+	ret->store	= gtk_list_store_new(2,G_TYPE_STRING,G_TYPE_STRING);
 	ret->tree = GTK_TREE_VIEW(gtk_tree_view_new_with_model(GTK_TREE_MODEL(ret->store)));
 	ret->window = ac_create_window(ret->tree,ret->store);
 	ret->gc = g_completion_new(NULL);	
@@ -115,6 +133,8 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 	GtkTreeSelection *selection; 
 	PangoLayout *l;
 	GtkTreeModel *model;
+	GtkTreePath	*path;
+	gchar **arr;
 	
 	if ( !view || !ac || (!empty_allowed && strcmp(prefix,"")==0) ) return NULL;	
 	GdkScreen *screen = gtk_widget_get_screen(GTK_WIDGET(view));
@@ -122,8 +142,7 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 	gtk_text_view_get_iter_location(view,&it,&rect);
 	gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, rect.x, rect.y,&rect.x, &rect.y);
 	gdk_window_get_origin(gtk_text_view_get_window(view,GTK_TEXT_WINDOW_TEXT),&x,&y);
-	l = gtk_widget_create_pango_layout(GTK_WIDGET(ac->tree), "W");
-	pango_layout_get_pixel_size(l, &w, NULL);
+	l = gtk_widget_create_pango_layout(GTK_WIDGET(ac->tree), NULL);
 	it3 = it;
 	gtk_text_iter_set_line(&it3,gtk_text_iter_get_line(&it));
 	g_completion_clear_items(ac->gc);
@@ -136,6 +155,7 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 		g_completion_add_items(ac->gc,strings);
 		items = g_completion_complete(ac->gc,prefix,NULL);
 	}	
+	w=40; 
 	if ( items && g_list_length(items)>0 )
 	{
 		gtk_list_store_clear(ac->store);
@@ -143,14 +163,31 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 		while ( lst )
 		{
 			gtk_list_store_append(ac->store,&it2);
-			if ( g_utf8_strlen((gchar*)lst->data,-1) > len )
-				len = g_utf8_strlen((gchar*)lst->data,-1);
-			gtk_list_store_set(ac->store,&it2,0,(gchar*)lst->data,-1);				
+			arr = g_strsplit((gchar*)lst->data,"$",-1);						
+			if ( arr[1] )
+			{
+				if (arr[1][0]=='r')
+					tofree = g_strdup_printf("<span foreground=\"#E21111\">%s</span>",arr[0]);
+				else
+					tofree = g_strdup_printf("<span foreground=\"#000000\" >%s</span>",arr[0]);
+				gtk_list_store_set(ac->store,&it2,0,tofree,1,arr[0],-1);
+			}
+			else	
+			{
+				tofree = g_strdup_printf("<span foreground=\"#000000\" >%s</span>",arr[0]);
+				gtk_list_store_set(ac->store,&it2,0,tofree,1,arr[0],-1);
+			}
+			pango_layout_set_markup(l,tofree,-1);
+			pango_layout_get_pixel_size(l, &len, &h);
+			if ( len+20 > w ) 
+				w = len+20;			
+			if ( tofree ) g_free(tofree);					
+			g_strfreev(arr);	
 			lst = g_list_next(lst);
 		}
-		w = MAX(len*w+20,40);
-		h=100;
-		gtk_widget_set_size_request(ac->window,w,h);	
+		/*w = MAX(len*w+15,40);*/
+		h=MIN((g_list_length(items)+1)*h+8,100);
+		gtk_widget_set_size_request(GTK_WIDGET(ac->tree),w,h); /* ac_window */	
 		x += rect.x;
 		y = y + rect.y + rect.height;
 		if ( x + w > gdk_screen_get_width(screen)	 )
@@ -158,12 +195,16 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 		if ( y + h > gdk_screen_get_height(screen)	 )
 			y = gdk_screen_get_height(screen)	- y - h;			 					
 		gtk_window_move(GTK_WINDOW(ac->window),x ,y);
+		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(ac->store),&it2);
+		path = gtk_tree_model_get_path(GTK_TREE_MODEL(ac->store),&it2);
+		gtk_tree_view_set_cursor(ac->tree,path,NULL,FALSE);
+		gtk_tree_path_free(path);
 		if ( gtk_dialog_run(GTK_DIALOG(ac->window)) ==GTK_RESPONSE_OK )
 		{
 			selection = gtk_tree_view_get_selection(ac->tree);
 			if ( selection && gtk_tree_selection_get_selected(selection,&model,&it2))
 			{
-				gtk_tree_model_get(model,&it2,0,&tofree,-1);
+				gtk_tree_model_get(model,&it2,1,&tofree,-1);
 				tofree = tofree+strlen(prefix);
 				if ( strcmp(tofree,"")!=0 )
 				{
@@ -248,16 +289,22 @@ static void ac_scan_xml_hash(void *payload, void *data, xmlChar *name)
    while ( ptr )
    {   	
    	gchar *str =NULL;
-   	if ( ptr->prefix )
-   		str = g_string_chunk_insert_const(d->attributes,g_strdup_printf("%s:%s",ptr->prefix,ptr->name));
+   	gchar *req=NULL;
+   	if (ptr->def == XML_ATTRIBUTE_REQUIRED)
+   		req="$r";
    	else
-   	  	str = g_string_chunk_insert_const(d->attributes,g_strdup(ptr->name));
+   		req="";	
+   	if ( ptr->prefix )
+   		str = g_string_chunk_insert_const(d->attributes,g_strdup_printf("%s:%s%s",ptr->prefix,ptr->name,req));
+   	else
+   	  	str = g_string_chunk_insert_const(d->attributes,g_strdup_printf("%s%s",ptr->name,req));
    	alist = g_list_append(alist, str);
    	ptr = ptr->nexth;
    }
    d->elements = g_list_append(d->elements,nn);
    g_hash_table_insert(d->ea,nn,alist);
 }
+
 
 
 /*
@@ -296,9 +343,95 @@ gchar *ac_add_dtd_list(Tautocomp *ac, gchar *chunk)
 	   g_free(name);
 	   name=NULL;
 	}
-	xmlFreeParserCtxt(ctxt);
-	xmlMemoryDump();			
+	xmlFreeParserCtxt(ctxt);		
 	return name;
+}
+
+static void ac_xmlschema_walk(xmlNodePtr node, Tdtd_list *data)
+{
+	if ( xmlStrcmp(node->name,"element")==0 )
+	{
+		gchar *nn = g_strdup(xmlGetProp(node,"name"));
+		gchar *type=NULL;
+		gchar **arr=NULL;
+		data->elements = g_list_append(data->elements,nn);
+		type = xmlGetProp(node,"type");
+		arr = g_strsplit(type,":",-1);
+		xmlFree(type);
+		if ( arr[1] )
+			g_hash_table_insert(data->element_types,nn,g_strdup(arr[1]));
+		else
+			g_hash_table_insert(data->element_types,nn,g_strdup(arr[0]));
+		g_strfreev(arr);		
+	}
+	else if ( xmlStrcmp(node->name,"attribute")==0 )
+	{
+		const gchar *parent = node->parent->name;
+		GList *lst=NULL;
+		if ( xmlStrcmp(parent,"complexType")==0 )
+		{
+			lst = g_hash_table_lookup(data->type_attrs,xmlGetProp(node->parent,"name"));
+			lst = g_list_append(lst,xmlGetProp(node,"name"));
+			g_hash_table_replace(data->type_attrs,xmlGetProp(node->parent,"name"),lst);
+		}
+	}
+	if ( node->next )
+		ac_xmlschema_walk(node->next,data);
+	if ( node->children )
+		ac_xmlschema_walk(node->children,data);
+}
+
+
+gchar *ac_add_xmlschema_list(Tautocomp *ac, gchar *uri)
+{
+ /* schema implementation is incomplete */
+  xmlSchemaParserCtxtPtr ctx = xmlSchemaNewParserCtxt(uri);
+  gchar *name = g_strdup(uri);
+  xmlSchemaPtr schema =NULL; 
+  if ( g_hash_table_lookup(ac->dtd_lists,name)==NULL )
+  {
+  		schema =   xmlSchemaParse(ctx);
+	  	if ( schema )
+  		{
+  				GList *lst;
+  				gpointer aux=NULL;
+  				gchar *type = NULL;
+				Tdtd_list *data = g_new0(Tdtd_list,1);
+				data->elements = NULL;
+				data->attributes = g_string_chunk_new(1);
+				data->ea = g_hash_table_new(g_str_hash,g_str_equal);
+				data->type_attrs = g_hash_table_new(g_str_hash,g_str_equal);
+				data->element_types = g_hash_table_new(g_str_hash,g_str_equal);
+				ac_xmlschema_walk(schema->doc->children,data);
+				lst = data->elements;
+				while ( lst )
+				{
+					type = g_hash_table_lookup(data->element_types,(gchar*)lst->data);
+					if ( type )
+					{
+						aux = g_hash_table_lookup(data->type_attrs,type);
+						if ( aux )
+						{
+							g_hash_table_insert(data->ea,(gchar*)lst->data,aux);
+						}
+					}
+					lst = g_list_next(lst);
+				}				
+				g_hash_table_insert(ac->dtd_lists,name, data);  		
+	  			xmlSchemaFree(schema);
+  		}
+  		else {
+		   g_free(name);
+		   name=NULL;
+		}
+	}
+	 else
+	{
+		g_free(name);
+		name = NULL;
+	}
+  return name;
+  
 }
 
 

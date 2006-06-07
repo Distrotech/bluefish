@@ -1649,12 +1649,14 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 			bftv_scantable_insert(&cfg->scan_table, ST_BLOCK_BEGIN, b, cfg);
 			bftv_scantable_insert(&b->scan_table, ST_BLOCK_END, b, cfg);
 
+		
+
 			t = g_new0(BfLangToken, 1);
 			t->group = NULL;
 			t->regexp = TRUE;
 			t->name = xmlCharStrdup("_attr2_");
 			t->type = TT_ATTR2;
-			t->text = xmlCharStrdup("[a-zA-Z-]+=\"[^\"]*\"");
+			t->text = xmlCharStrdup("[a-zA-Z-:]+=\"[^\"]*\"");
 			t->context = b;
 			bftv_scantable_insert(&b->scan_table, ST_TOKEN, t, cfg);
 			g_hash_table_insert(cfg->tokens, &t->name, t);
@@ -1664,11 +1666,23 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 			t->regexp = TRUE;
 			t->name = xmlCharStrdup("_attr_");
 			t->type = TT_ATTR;
-			t->text = xmlCharStrdup("[a-zA-Z-]+=[^\" ><]+");
+			t->text = xmlCharStrdup("[a-zA-Z-:]+=[^\" ><]+");
 			t->context = b;
 			bftv_scantable_insert(&b->scan_table, ST_TOKEN, t, cfg);
 			g_hash_table_insert(cfg->tokens, &t->name, t);
 
+	/*if ( cfg->schema_aware )
+			{
+				t = g_new0(BfLangToken, 1);
+				t->group = NULL;
+				t->regexp = TRUE;
+				t->name = xmlCharStrdup("_xmlschema_");
+				t->text = xmlCharStrdup("schemaLocation=\"[^\"]\"");
+				t->context = b;
+				t->type = TT_XMLSCHEMA;
+				bftv_scantable_insert(&b->scan_table, ST_TOKEN, t, cfg);
+				g_hash_table_insert(cfg->tokens, &t->name, t);					
+			}*/
 /*		t = g_new0(BfLangToken, 1);
 		t->group = NULL;
 		t->regexp = TRUE;
@@ -1692,7 +1706,9 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 			t->context = NULL;
 			t->type = TT_DOCTYPE;
 			bftv_scantable_insert(&cfg->scan_table, ST_TOKEN, t, cfg);
-			g_hash_table_insert(cfg->tokens, &t->name, t);		
+			g_hash_table_insert(cfg->tokens, &t->name, t);
+			
+					
 		}		
 
 		{						/* FAKE IDENTIFIER - Lookahead symbol workaround  */
@@ -2296,10 +2312,31 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						{
 							gchar *txt = gtk_text_buffer_get_text(buf, &its, &ita, FALSE);
 							gchar **arr = g_strsplit(txt, "=", -1);
+							gchar *attrname=NULL,*attrval=NULL;
 							pit = its;
 							gtk_text_iter_forward_chars(&pit, g_utf8_strlen(arr[0], -1));
 							g_strfreev(arr);
 							g_free(txt);
+							if (self->lang && self->lang->schema_aware ) /* XMLSchema */								
+							{							
+								attrname = gtk_text_buffer_get_text(buf, &its, &pit, FALSE);
+								attrval = gtk_text_buffer_get_text(buf, &pit, &ita, FALSE);
+								if ( g_str_has_suffix(attrname,"schemaLocation") ) 
+								{
+									gchar **arr = g_strsplit(attrval, " ", -1);
+									gchar *sname = NULL;
+									if ( arr[1] )
+									{									
+										arr[1][g_utf8_strlen(arr[1],-1)-1]='\0';															
+										sname = ac_add_xmlschema_list(main_v->autocompletion,arr[1]);
+										if ( sname )
+											self->schemas = g_list_append(self->schemas, sname );
+									}										
+									g_strfreev(arr);
+								}	
+								g_free(attrname);
+								g_free(attrval);
+							}
 							if (self->highlight) {
 								tag = self->lang->attr_name;
 								if (tag && apply_hl)
@@ -2318,7 +2355,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 								self->schemas = g_list_append(self->schemas, sname );
 							g_free(txt);					
 						}	
-						break;	
+						break;
 					case TT_FAKE:
 						break;
 					}

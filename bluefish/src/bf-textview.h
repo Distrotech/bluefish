@@ -93,6 +93,7 @@ enum {
 	TT_ATTR,
 	TT_ATTR2,
 	TT_DOCTYPE,
+	TT_XMLSCHEMA,
 	TT_FAKE
 }; 
 
