@@ -45,6 +45,8 @@ typedef struct {
 	GList *elements;
 	GStringChunk *attributes;
 	GHashTable *ea;     /* attributes for concrete elements */
+	GHashTable *type_attrs; /* hash table for attributes in types - XMLSchema */
+	GHashTable *element_types; /* XMLSchema element types */
 } Tdtd_list; 
 
 Tautocomp *ac_init();
@@ -56,6 +58,7 @@ gchar *ac_run_tag_attributes(Tautocomp *ac, gchar *tag, gchar *prefix, GList *sc
 
 void ac_add_lang_list(Tautocomp *ac, gchar *name, GList *strings);
 gchar *ac_add_dtd_list(Tautocomp *ac, gchar *chunk);
+gchar *ac_add_xmlschema_list(Tautocomp *ac, gchar *uri);
 
 gchar *ac_key_choice();
 
