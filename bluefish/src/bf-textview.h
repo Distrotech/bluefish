@@ -25,6 +25,8 @@
 #ifndef __BF_TEXTVIEW_H__
 #define __BF_TEXTVIEW_H__
 
+#include "autocomp.h"
+
 #define BFTV_SCAN_RANGE	128
 
 enum {
@@ -62,7 +64,8 @@ typedef struct {
 
 enum {
 	BT_NORMAL,
-	BT_TAG_BEGIN
+	BT_TAG_BEGIN,
+	BT_DOCTYPE_INT
 };
 
 typedef struct {
@@ -229,6 +232,7 @@ typedef struct {
 	gboolean paste_operation; /* indicates if we perform paste */
 	gboolean tag_ac_state; /* TRUE if we should perform tag autoclosing - i.e. after inserting '>' sign only */
 	GList *schemas;
+	Tdtd_list *internal_dtd;
 } BfTextView;
 
 /*

@@ -56,6 +56,15 @@ static gboolean  ac_press(GtkWidget *widget,GdkEventKey *event,gpointer user_dat
 	return FALSE;	
 }
 
+gboolean    ac_tree_search   (GtkTreeModel *model,gint column,const gchar *key,
+                                             GtkTreeIter *iter,gpointer search_data)
+{
+	gchar *txt = NULL;
+	gtk_tree_model_get(model,iter,column,&txt,-1);
+	if (g_str_has_prefix(txt,key)) return FALSE;
+	return TRUE;
+}
+
 /* Creates ac window  */
 static GtkWidget *ac_create_window(GtkTreeView *tree, GtkListStore *store)
 {
@@ -66,6 +75,7 @@ static GtkWidget *ac_create_window(GtkTreeView *tree, GtkListStore *store)
 	PangoFontDescription *fontdesc;
 	GtkRcStyle *rc;
 	
+	
 	gtk_tree_view_set_headers_visible(tree, FALSE);	
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	vbar = gtk_scrolled_window_get_vscrollbar(GTK_SCROLLED_WINDOW(scroll));
@@ -74,6 +84,9 @@ static GtkWidget *ac_create_window(GtkTreeView *tree, GtkListStore *store)
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "markup", 0, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(tree), column);	
+	gtk_tree_view_set_enable_search(GTK_TREE_VIEW(tree),TRUE);
+	gtk_tree_view_set_search_column(GTK_TREE_VIEW(tree),1);
+	gtk_tree_view_set_search_equal_func(GTK_TREE_VIEW(tree),ac_tree_search,NULL,NULL);	
    win = gtk_dialog_new ();
    gtk_widget_set_app_paintable (win, TRUE);
    gtk_window_set_resizable (GTK_WINDOW(win), FALSE);
@@ -106,8 +119,12 @@ static GtkWidget *ac_create_window(GtkTreeView *tree, GtkListStore *store)
 Tautocomp *ac_init()
 {
 	Tautocomp *ret = g_new0(Tautocomp,1);
+	GtkTreeModel *sortmodel;
+	
 	ret->store	= gtk_list_store_new(2,G_TYPE_STRING,G_TYPE_STRING);
-	ret->tree = GTK_TREE_VIEW(gtk_tree_view_new_with_model(GTK_TREE_MODEL(ret->store)));
+	sortmodel = gtk_tree_model_sort_new_with_model (GTK_TREE_MODEL(ret->store));
+	ret->tree = GTK_TREE_VIEW(gtk_tree_view_new_with_model(sortmodel));
+	gtk_tree_sortable_set_sort_column_id (GTK_TREE_SORTABLE (sortmodel),1, GTK_SORT_ASCENDING);
 	ret->window = ac_create_window(ret->tree,ret->store);
 	ret->gc = g_completion_new(NULL);	
 	ret->lang_lists = g_hash_table_new(g_str_hash,g_str_equal);
@@ -121,7 +138,7 @@ Tautocomp *ac_init()
 	Returns: only string which has been inserted into document
 	PERFORMS INSERTION! 
 */
-gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, gboolean empty_allowed) 
+gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, gboolean empty_allowed,gchar *append) 
 {
 	GtkTextIter it,it3;
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(view);
@@ -155,7 +172,8 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 		g_completion_add_items(ac->gc,strings);
 		items = g_completion_complete(ac->gc,prefix,NULL);
 	}	
-	w=40; 
+	w=40;
+	/*items = g_list_sort(items,(GCompareFunc)g_strcasecmp);*/ 
 	if ( items && g_list_length(items)>0 )
 	{
 		gtk_list_store_clear(ac->store);
@@ -209,6 +227,8 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 				if ( strcmp(tofree,"")!=0 )
 				{
 					gtk_text_buffer_insert_at_cursor(buf,tofree,strlen(tofree));
+					if (append)
+						gtk_text_buffer_insert_at_cursor(buf,append,strlen(append));
 				}
 			}
 		}
@@ -217,18 +237,18 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 	return tofree;
 }
 
-gchar *ac_run_lang(Tautocomp *ac, gchar *prefix, gchar *name, GtkTextView *view)
+gchar *ac_run_lang(Tautocomp *ac, gchar *prefix, gchar *name, GtkTextView *view,gchar *append)
 {
 	gpointer ptr = g_hash_table_lookup(ac->lang_lists, name);
 	gchar *ret=NULL;
 	if ( ptr )
 	{
-		ret = ac_run(ac, (GList*)ptr, prefix, view, FALSE);
+		ret = ac_run(ac, (GList*)ptr, prefix, view, FALSE,append);
 	}
 	return ret;
 }
 
-gchar *ac_run_schema(Tautocomp *ac, gchar *prefix, GList *schemas, GtkTextView *view)
+gchar *ac_run_schema(Tautocomp *ac, gchar *prefix, GList *schemas, Tdtd_list *internal, GtkTextView *view,gchar *append)
 {
 	gpointer ptr = NULL;
 	GList *lst=NULL,*lst2;
@@ -244,13 +264,15 @@ gchar *ac_run_schema(Tautocomp *ac, gchar *prefix, GList *schemas, GtkTextView *
 		}
 		lst2 = g_list_next(lst2);
 	}
+	if ( internal )
+		lst = g_list_concat(lst,internal->elements);
 	if ( lst ) 
-		ret = ac_run(ac, lst, prefix, view, TRUE);
+		ret = ac_run(ac, lst, prefix, view, TRUE,append);
 
 	return ret;
 }
 
-gchar *ac_run_tag_attributes(Tautocomp *ac, gchar *tag, gchar *prefix, GList *schemas, GtkTextView *view)
+gchar *ac_run_tag_attributes(Tautocomp *ac, gchar *tag, gchar *prefix, GList *schemas, Tdtd_list *internal, GtkTextView *view,gchar *append)
 {
 	gpointer ptr = NULL;
 	GList *lst=NULL,*lst2;
@@ -267,8 +289,14 @@ gchar *ac_run_tag_attributes(Tautocomp *ac, gchar *tag, gchar *prefix, GList *sc
 		}
 		lst2 = g_list_next(lst2);
 	}
+	if (internal)
+	{
+		lst2 = g_hash_table_lookup(internal->ea,tag);
+		if ( lst2 )
+			lst = g_list_concat(lst,lst2);
+	}
 	if ( lst ) 
-		ret = ac_run(ac, lst, prefix, view, TRUE);
+		ret = ac_run(ac, lst, prefix, view, TRUE,append);
 
 	return ret;
 }
@@ -295,9 +323,11 @@ static void ac_scan_xml_hash(void *payload, void *data, xmlChar *name)
    	else
    		req="";	
    	if ( ptr->prefix )
-   		str = g_string_chunk_insert_const(d->attributes,g_strdup_printf("%s:%s%s",ptr->prefix,ptr->name,req));
+   		str = g_string_chunk_insert_const(d->attributes,g_strstrip(g_strdup_printf("%s:%s%s",ptr->prefix,
+   					ptr->name,req)));
    	else
-   	  	str = g_string_chunk_insert_const(d->attributes,g_strdup_printf("%s%s",ptr->name,req));
+   	  	str = g_string_chunk_insert_const(d->attributes,g_strstrip(g_strdup_printf("%s%s",
+   	  				ptr->name,req)));
    	alist = g_list_append(alist, str);
    	ptr = ptr->nexth;
    }
@@ -311,21 +341,34 @@ static void ac_scan_xml_hash(void *payload, void *data, xmlChar *name)
  Parse XML chunk and analyze schema
  Returns schema name
 */
-gchar *ac_add_dtd_list(Tautocomp *ac, gchar *chunk)
+gchar *ac_add_dtd_list(Tautocomp *ac, gchar *chunk,gboolean internal,Tdtd_list **intptr)
 {
 	int ret;
 	gchar *name=NULL;
 	xmlParserCtxtPtr ctxt;
-   xmlDtdPtr dtd; /* the resulting document tree */
+   xmlDtdPtr dtd=NULL; /* the resulting document tree */
+   
 	ctxt = xmlCreatePushParserCtxt(NULL, NULL,  NULL, 0, "memory");
 	ret = xmlParseChunk(ctxt, chunk, g_utf8_strlen(chunk,-1), 0);
-	name = g_strdup(ctxt->extSubURI);
-   if ( ctxt->hasExternalSubset && 
-         g_hash_table_lookup(ac->dtd_lists,name)==NULL )
-	{	    
-		dtd = xmlParseDTD(ctxt->extSubSystem,ctxt->extSubURI);
-		if ( dtd )
-		{			
+	if ( ret!= 0 ) return NULL;
+	
+	if ( ctxt->hasExternalSubset)
+	{
+		name = g_strdup(ctxt->extSubURI);
+	   if (  g_hash_table_lookup(ac->dtd_lists,name)==NULL )
+		{	   
+			if (ctxt->hasExternalSubset) 
+				dtd = xmlParseDTD(ctxt->extSubSystem,ctxt->extSubURI);
+		}		
+	}	
+	else
+	{
+		if ( ctxt->myDoc )
+			dtd = xmlGetIntSubset(ctxt->myDoc);
+	}	
+		
+	if ( dtd )
+	{			
 			if ( dtd->elements )
 			{
 				Tdtd_list *data = g_new0(Tdtd_list,1);
@@ -333,17 +376,19 @@ gchar *ac_add_dtd_list(Tautocomp *ac, gchar *chunk)
 				data->attributes = g_string_chunk_new(1);
 				data->ea = g_hash_table_new(g_str_hash,g_str_equal);
 				xmlHashScan((xmlHashTablePtr)(dtd->elements),ac_scan_xml_hash,data);
-				g_hash_table_insert(ac->dtd_lists,name, data);
-			}			
-		}
-		xmlFreeDtd(dtd);
-		xmlCleanupParser();
+				if ( !internal )
+					g_hash_table_insert(ac->dtd_lists,name, data);
+				else
+					*intptr = data;	
+			}
+	  	   xmlFreeDtd(dtd);			
 	}
 	else {
 	   g_free(name);
 	   name=NULL;
 	}
-	xmlFreeParserCtxt(ctxt);		
+	xmlCleanupParser();
+	xmlFreeParserCtxt(ctxt);	
 	return name;
 }
 
@@ -359,9 +404,9 @@ static void ac_xmlschema_walk(xmlNodePtr node, Tdtd_list *data)
 		arr = g_strsplit(type,":",-1);
 		xmlFree(type);
 		if ( arr[1] )
-			g_hash_table_insert(data->element_types,nn,g_strdup(arr[1]));
+			g_hash_table_insert(data->element_types,nn,g_strstrip(g_strdup(arr[1])));
 		else
-			g_hash_table_insert(data->element_types,nn,g_strdup(arr[0]));
+			g_hash_table_insert(data->element_types,nn,g_strstrip(g_strdup(arr[0])));
 		g_strfreev(arr);		
 	}
 	else if ( xmlStrcmp(node->name,"attribute")==0 )

@@ -82,7 +82,7 @@ characters, changing scanner states according the table. If I find
 #include "textstyle.h"
 #include "bf_lib.h"
 #include "gtk_easy.h"			/* gdk_color_to_hexstring */
-#include "autocomp.h"
+
 
 #include <stdarg.h>
 #include <string.h>
@@ -185,6 +185,7 @@ static void bf_textview_init(BfTextView * o)
 	o->tag_ac_state = FALSE;
 	o->scanner.last_string = g_string_new("");
 	o->schemas = NULL;
+	o->internal_dtd = NULL;
 }
 
 GType bf_textview_get_type(void)
@@ -1671,18 +1672,7 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 			bftv_scantable_insert(&b->scan_table, ST_TOKEN, t, cfg);
 			g_hash_table_insert(cfg->tokens, &t->name, t);
 
-	/*if ( cfg->schema_aware )
-			{
-				t = g_new0(BfLangToken, 1);
-				t->group = NULL;
-				t->regexp = TRUE;
-				t->name = xmlCharStrdup("_xmlschema_");
-				t->text = xmlCharStrdup("schemaLocation=\"[^\"]\"");
-				t->context = b;
-				t->type = TT_XMLSCHEMA;
-				bftv_scantable_insert(&b->scan_table, ST_TOKEN, t, cfg);
-				g_hash_table_insert(cfg->tokens, &t->name, t);					
-			}*/
+
 /*		t = g_new0(BfLangToken, 1);
 		t->group = NULL;
 		t->regexp = TRUE;
@@ -1698,6 +1688,22 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 
 		if ( cfg->schema_aware )
 		{
+		
+			BfLangBlock *b = g_new0(BfLangBlock, 1);
+			b->name = xmlCharStrdup("_doctype_internal_");
+			b->group = NULL;
+			b->regexp = TRUE;
+			b->begin = xmlCharStrdup("<!DOCTYPE[ a-zA-Z]+[\\[]");
+			b->end = xmlCharStrdup("[\\]]>");
+			b->scanned = FALSE;
+			b->foldable = TRUE;
+			b->cs = FALSE;
+			b->type = BT_DOCTYPE_INT;
+			b->markup = FALSE;
+			g_hash_table_insert(cfg->blocks, b->name, b);
+			bftv_scantable_insert(&cfg->scan_table, ST_BLOCK_BEGIN, b, cfg);
+			bftv_scantable_insert(&b->scan_table, ST_BLOCK_END, b, cfg);
+					
 			BfLangToken *t = g_new0(BfLangToken, 1);
 			t->group = NULL;
 			t->regexp = TRUE;
@@ -2350,7 +2356,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 					case TT_DOCTYPE:
 						{
 							gchar *txt = gtk_text_buffer_get_text(buf, &its, &ita, FALSE);
-							gchar *sname = ac_add_dtd_list(main_v->autocompletion,txt);
+							gchar *sname = ac_add_dtd_list(main_v->autocompletion,txt,FALSE,NULL);
 							if ( sname )
 								self->schemas = g_list_append(self->schemas, sname );
 							g_free(txt);					
@@ -2471,6 +2477,13 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 								}
 							}
 							break;
+						case BT_DOCTYPE_INT:
+							{
+								gchar *txt = gtk_text_buffer_get_text(buf, &bf->b_start, &ita, FALSE);
+								ac_add_dtd_list(main_v->autocompletion,txt,TRUE,&self->internal_dtd);
+								g_free(txt);					
+							}	
+							/* not breaking here - I want next code */	
 						default:
 							{
 								mark = mark2 = NULL;
@@ -2966,20 +2979,20 @@ void bf_textview_autocomp_show(BfTextView * self)
 	{
 		if ( self->scanner.last_string->str[0] == '<' )
 			ac_run_schema(main_v->autocompletion, self->scanner.last_string->str+1, self->schemas,
-				GTK_TEXT_VIEW(self));
+				self->internal_dtd,GTK_TEXT_VIEW(self),NULL);
 		else if (self->scanner.current_context && self->scanner.current_context->type == BT_TAG_BEGIN )
 		{
 			ac_run_tag_attributes(main_v->autocompletion, self->scanner.last_tagname,self->scanner.last_string->str, 
-					self->schemas,GTK_TEXT_VIEW(self));
+					self->schemas,self->internal_dtd,GTK_TEXT_VIEW(self),"=\"\"");
 		}
 		else
 			ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, self->lang->name,
-				GTK_TEXT_VIEW(self));		
+				GTK_TEXT_VIEW(self),NULL);		
 	}
 	else
 	{
 		ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, self->lang->name,
-				GTK_TEXT_VIEW(self));
+				GTK_TEXT_VIEW(self),NULL);
 	}			
 }
 
