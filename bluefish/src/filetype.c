@@ -209,16 +209,16 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 	while (tmplist) {
 		Tfiletype *filetype = (Tfiletype *) tmplist->data;
 		g_free(filetype->type);
+#ifdef GNOMEVFSINT
+		g_free(filetype->mime_type);
+#else
 		g_strfreev(filetype->extensions);
 		g_free(filetype->update_chars);
+		g_free(filetype->content_regex);
+#endif
 		if (filetype->icon) {
 			g_object_unref(filetype->icon);
 		}
-		g_free(filetype->content_regex);
-/*		g_hash_table_foreach_remove(filetype->hl_block,filetype_clear_tags,NULL);
-		g_hash_table_foreach_remove(filetype->hl_token,filetype_clear_tags,NULL);
-		g_hash_table_foreach_remove(filetype->hl_tag,filetype_clear_tags,NULL);
-		g_hash_table_foreach_remove(filetype->hl_group,filetype_clear_tags,NULL);*/
 		/* the highlightpatterns are freed separately, see below */
 		g_free(filetype);
 		tmplist = g_list_next(tmplist);
@@ -237,13 +237,18 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 		arrcount = count_array(strarr);
 		if (arrcount == 8) {
 			filetype = g_new(Tfiletype, 1);
+			filetype->type = g_strdup(strarr[0]);
+#ifdef GNOMEVFSINT
+			filetype->mime_type = g_strdup("text/plain");
+			g_print("filetype_highlighting_rebuild, TODO, add mime-types to filetypes\n");
+#else
 			filetype->editable = (strarr[4][0] != '0');
 			filetype->content_regex = g_strdup(strarr[5]);
-			filetype->type = g_strdup(strarr[0]);
 			filetype->autoclosingtag = atoi(strarr[6]);
 			DEBUG_MSG("extensions for %s loaded from %s\n", strarr[0], strarr[1]);
 			filetype->extensions = g_strsplit(strarr[1], ":", 127);
 			filetype->update_chars = g_strdup(strarr[2]);
+#endif
 			if (strlen(strarr[3])) {
 				GError *error = NULL;
 				filetype->icon = gdk_pixbuf_new_from_file(strarr[3], &error);
@@ -266,6 +271,7 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 					DEBUG_MSG("filetype_highlighting_rebuild, loading %s(%p) from %s\n",filetype->type,filetype,filetype->language_file);
 					filetype->cfg = bf_lang_mgr_load_config(main_v->lang_mgr, filetype->language_file);
 				}
+#ifndef GNOMEVFSINT
 				if (filetype->cfg) {
 					gchar *p = filetype->update_chars;
 					i = 0;
@@ -275,10 +281,13 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 						p = g_utf8_next_char(p);
 					}
 				}
+#endif
 			} else {
 				filetype->cfg = NULL;
 			}
+#ifndef GNOMEVFSINT
 			filetype->highlightlist = NULL;
+#endif
 /*			filetype->hl_block = g_hash_table_new(g_str_hash, g_str_equal);
 			filetype->hl_token = g_hash_table_new(g_str_hash, g_str_equal);
 			filetype->hl_tag = g_hash_table_new(g_str_hash, g_str_equal);

@@ -109,20 +109,21 @@ typedef struct {
 
 typedef struct {
 	gchar *type;
-	gchar **extensions;
 	GdkPixbuf *icon;
+#ifdef GNOMEVFSINT
+	gchar *mime_type;
+#else
+	gchar **extensions;
 	gchar *update_chars;
 	GList *highlightlist;
 	gboolean editable; /* this a type that can be edited by Bluefish */
 	gint autoclosingtag; /* 0=off, 1=xml mode, 2=html mode */
 	gchar *content_regex; /* a regex pattern to test the filetype using the content */
+#endif
 #ifdef USE_SCANNER
 	gchar *language_file;
 	BfLangConfig *cfg;
 #endif
-#ifdef GNOMEVFSINT
-	gchar *mime_type;
-#endif	
 } Tfiletype;
 
 /*****************************************************/
@@ -191,7 +192,9 @@ typedef struct {
 	gboolean symstate; /* does this document show symbols? */	
 #endif	
 	gboolean overwrite_mode; /* is document in overwrite mode */
+#ifndef GNOMEVFSINT
 	gboolean autoclosingtag; /* does the document use autoclosing of tags */
+#endif
 	gpointer floatingview; /* a 2nd textview widget that has its own window */
 	gpointer bfwin;
 	GtkTreeIter *bmark_parent; /* if NULL this document doesn't have bookmarks, if 

@@ -321,6 +321,7 @@ void doc_set_wrap(Tdocument * doc) {
 		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_NONE);
 	}
 }
+#ifndef GNOMEVFSINT
 /**
  * get_filetype_by_name:
  * @name: a #gchar* with the filetype name
@@ -398,6 +399,7 @@ Tfiletype *get_filetype_by_filename_and_content(const gchar *filename, gchar *bu
 	}
 	return NULL;
 }
+#endif
 /**
  * doc_set_tooltip:
  * @doc: #Tdocument*
@@ -476,12 +478,16 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 #endif		
 		doc->hl = ft;
 		doc->need_highlighting = TRUE;
+#ifndef GNOMEVFSINT
 		doc->autoclosingtag = (ft->autoclosingtag > 0);
+#endif
 #ifdef USE_SCANNER
 		DEBUG_MSG("doc_set_filetype, calling bf_textview_set_language_ptr(%p)\n",ft->cfg);
 		bf_textview_set_language_ptr(BF_TEXTVIEW(doc->view),ft->cfg);
+#ifndef GNOMEVFSINT
 		BF_TEXTVIEW(doc->view)->tag_autoclose = doc->autoclosingtag;
-#endif		
+#endif
+#endif
 		gui_set_document_widgets(doc);
 		doc_set_tooltip(doc);
 		return TRUE;
@@ -531,6 +537,9 @@ void doc_set_title(Tdocument *doc) {
  **/
 void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf) {
 	Tfiletype *ft;
+#ifdef GNOMEVFSINT
+	g_print("doc_reset_filetype, TODO\n");
+#else
 	if (buf) {
 		ft = get_filetype_by_filename_and_content(gnome_vfs_uri_get_path(newuri), buf);
 	} else {
@@ -538,6 +547,7 @@ void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf) {
 		ft = get_filetype_by_filename_and_content(gnome_vfs_uri_get_path(newuri), tmp);
 		g_free(tmp);
 	}
+#endif
 	if (!ft) {
 		GList *tmplist;
 		/* if none found return first set (is default set) */
@@ -1900,6 +1910,7 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 	/* if the shift key is released before the '>' key, we get a key release not for '>' but for '.'. We, therefore
 	 have set that in the key_press event, and check if the same hardware keycode was released */
 	if ((kevent->keyval == GDK_greater) || (kevent->hardware_keycode == main_v->lastkp_hardware_keycode && main_v->lastkp_keyval == GDK_greater)) {
+#ifndef GNOMEVFSINT
 		if (doc->autoclosingtag) {
 			/* start the autoclosing! the code is modified from the patch sent by more <more@irpin.com> because that
 			 * patch did not work with php code (the < and > characters can be inside a php block as well with a 
@@ -1962,6 +1973,7 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 			}
 #endif
 		}
+#endif
 	} else if ((kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
 		if (main_v->props.autoindent) {
 			gchar *string, *indenting;
@@ -2944,10 +2956,16 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	newdoc->buffer = gtk_text_buffer_new(textstyle_return_tagtable());
 	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
 	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
+#ifndef GNOMEVFSINT
 	newdoc->autoclosingtag = (newdoc->hl->autoclosingtag > 0);
+#endif
 	if (newdoc->hl->cfg) {
 		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),newdoc->hl->cfg);
+#ifndef GNOMEVFSINT
 		BF_TEXTVIEW(newdoc->view)->tag_autoclose = newdoc->autoclosingtag;
+#else
+		BF_TEXTVIEW(newdoc->view)->tag_autoclose = TRUE;
+#endif
 	}
 	bf_textview_recolor(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg,main_v->props.editor_bg);
 	bf_textview_show_rmargin(BF_TEXTVIEW(newdoc->view),main_v->props.view_rmargin,main_v->props.rmargin_at); 
