@@ -1821,7 +1821,14 @@ BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, const gchar * filenam
 		cfg = bftv_load_config(fname, filename);
 		if (cfg != NULL) {
 			DEBUG_MSG("bf_lang_mgr_load_config, adding %s to hashtable\n", filename);
+			/* hmm can we add them by mime-type instead of filename ? */
 			g_hash_table_replace(mgr->languages, (gpointer) filename, cfg);
+			/* 
+			now this is the place where we add the config to the mime-type hashtable... TODO
+			*/
+#ifdef GNOMEVFSINT
+			g_prtint("bf_lang_mgr_load_config, TODO, add to mime-type table\n");
+#endif
 		}
 		g_free(fname);
 	}
@@ -1830,7 +1837,7 @@ BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, const gchar * filenam
 	return (cfg);
 }
 
-
+/* I would like a function based on mime types.. */
 BfLangConfig *bf_lang_mgr_get_config(BfLangManager * mgr, const gchar * filename)
 {
 	return g_hash_table_lookup(mgr->languages, filename);

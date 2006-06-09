@@ -144,7 +144,13 @@ typedef struct {
 } BfLangConfig;
 
 typedef struct {
-	GHashTable *languages;		/* table of recognized languages - structures BfLangConfig */
+	GHashTable *languages;		/* table of recognized languages - structures BfLangConfig, 
+									indexed by filename, each BfLangConfig exists once */
+#ifdef GNOMEVFSINT
+	GHashTable *mime_lookup; /* table of same language structs, except in this table each
+									 BfLangConfig struct may be present several times for multiple
+									 mime-types. */
+#endif
 } BfLangManager;
 
 BfLangManager *bf_lang_mgr_new();
