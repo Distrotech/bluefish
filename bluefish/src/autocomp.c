@@ -78,7 +78,11 @@ static GtkWidget *ac_create_window(GtkTreeView *tree, GtkListStore *store)
 	
 	gtk_tree_view_set_headers_visible(tree, FALSE);	
 	scroll = gtk_scrolled_window_new(NULL, NULL);
+#ifdef HAVE_ATLEAST_GTK_2_8
 	vbar = gtk_scrolled_window_get_vscrollbar(GTK_SCROLLED_WINDOW(scroll));
+#else
+        vbar  = GTK_SCROLLED_WINDOW(scroll)->vscrollbar;
+#endif
 	gtk_widget_set_size_request(vbar,10,-1);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
 	cell = gtk_cell_renderer_text_new();
