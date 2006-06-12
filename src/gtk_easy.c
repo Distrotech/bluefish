@@ -1296,12 +1296,16 @@ static gboolean file_chooser_custom_filter_func(GtkFileFilterInfo *filter_info,g
 		gint namelen = strlen(filter_info->display_name);
 		if (filter_info->display_name[namelen-1] == '~' ) return FALSE;
 	}
+#ifdef GNOMEVFSINT
+	return TRUE;
+#else
 	if (cf->filter == NULL) return TRUE;
 	if (!cf->filter->filetypes) return !cf->filter->mode;
 	for (tmplist=g_list_first(cf->filter->filetypes);tmplist!=NULL;tmplist=tmplist->next) {
 		if (filename_test_extensions(((Tfiletype *)tmplist->data)->extensions, filter_info->display_name)) return cf->filter->mode;
 	}
 	return !cf->filter->mode;
+#endif
 }
 
 GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, 

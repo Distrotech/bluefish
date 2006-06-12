@@ -500,6 +500,7 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	DEBUG_MSG("filetype_menu_rebuild, adding filetypes in menu\n");
 	bfwin->menu_filetypes = NULL;
 	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Document Type"));
+#ifndef GNOMEVFSINT
 	while (tmplist) {
 		Tfiletype *filetype = (Tfiletype *)tmplist->data;
 		if (filetype->editable) {
@@ -515,6 +516,7 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 		}
 		tmplist = g_list_previous(tmplist);
 	}
+#endif
 }
 #ifdef USE_SCANNER
 gboolean   menu_autocomp_run(GtkAccelGroup *accel_group,GObject *acceleratable,

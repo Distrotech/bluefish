@@ -1827,7 +1827,7 @@ BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, const gchar * filenam
 			now this is the place where we add the config to the mime-type hashtable... TODO
 			*/
 #ifdef GNOMEVFSINT
-			g_prtint("bf_lang_mgr_load_config, TODO, add to mime-type table\n");
+			g_print("bf_lang_mgr_load_config, TODO, add to mime-type table\n");
 #endif
 		}
 		g_free(fname);

@@ -626,12 +626,14 @@ static gboolean name_visible_in_filter(Tfilebrowser2 *fb2, gchar *name) {
 	if (!fb2->curfilter->filetypes) {
 		return !fb2->curfilter->mode;
 	}
+#ifndef GNOMEVFSINT
 	tmplist = g_list_first(fb2->curfilter->filetypes);
 	while (tmplist) {
 		if (filename_test_extensions(((Tfiletype *)tmplist->data)->extensions, name))
 			return fb2->curfilter->mode;
 		tmplist = g_list_next(tmplist);
 	}
+#endif
 	return !fb2->curfilter->mode;
 }
 
@@ -998,9 +1000,12 @@ static GnomeVFSURI *fb2_uri_from_dir_selection(Tfilebrowser2 *fb2) {
  * opens the file, project or inserts the image pointer to by 'uri'
  */
 static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
-	Tfiletype *ft;
+	Tfiletype *ft=NULL;
 	gchar *filename;
 	filename = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
+#ifdef GNOMEVFSINT
+	doc_new_from_uri(fb2->bfwin, uri, NULL, FALSE, FALSE, -1, -1);
+#else /* GNOMEVFSINT */
 	ft = get_filetype_by_filename_and_content(filename, NULL);
 	DEBUG_MSG("handle_activate_on_file, file %s has type %p\n",filename, ft);
 	if (ft == NULL || ft->editable) {
@@ -1021,6 +1026,7 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	} else {
 		DEBUG_MSG("handle_activate_on_file, file %s is not-editable, do something special now?\n",filename);
 	}
+#endif /* GNOMEVFSINT */
 	g_free(filename);
 	DEBUG_MSG("handle_activate_on_file, finished\n");
 }
