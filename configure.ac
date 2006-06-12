@@ -239,18 +239,20 @@ fi
 
 echo -n "checking for gtk+ ... "
 if pkg-config --exists gtk+-2.0 ; then
-	PKGCONFIGFILES="${PKGCONFIGFILES} gtk+-2.0"
-	echo "yes, `pkg-config --modversion gtk+-2.0`"
+	if pkg-config gtk+-2.0 --atleast-version=2.6; then
+		PKGCONFIGFILES="${PKGCONFIGFILES} gtk+-2.0"
+		echo "yes, found version `pkg-config --modversion gtk+-2.0`"
+	else
+		echo "no, version `pkg-config --modversion gtk+-2.0` is too old"
+		AC_MSG_ERROR([libgtk2.0 is too old for this version of Bluefish, 2.6 or newer is required])
+	fi
 else
-	echo "no"
-	AC_MSG_ERROR([libgtk2.0-dev missing, please install libgtk2.0-dev])
+	AC_MSG_ERROR([libgtk2.0-dev missing, please install libgtk2.0-dev (package names may differ for different operating systems)])
 fi
 
-echo -n "checking for gtk+ >= 2.6... "
-if pkg-config gtk+-2.0 --atleast-version=2.6 ; then
-	echo "yes"
-else
-	AC_MSG_ERROR([detected gtk $VERSION, but gtk version >= 2.6 is required])
+if pkg-config gtk+-2.0 --atleast-version=2.8 ; then
+	echo "gtk+ version >= 2.8 ... good"
+	AC_DEFINE(HAVE_ATLEAST_GTK_2_8)
 fi
 
 echo -n "checking for gmodule >= 2.6... "
@@ -306,24 +308,16 @@ if pkg-config --exists libxml-2.0 ; then
 	PKGCONFIGFILES="${PKGCONFIGFILES} libxml-2.0"
 	echo "yes, `pkg-config --modversion libxml-2.0`"
 else
-	AC_MSG_ERROR([libxml2 is required, please install libxml2-dev])
+	AC_MSG_ERROR([libxml2 is required, please install libxml2-dev (package names may differ for different operating systems)])
 fi
 
-AC_ARG_WITH(libgnomeui, 
-	AC_HELP_STRING([--without-libgnomeui],[disable libgnomeui detection]),[
-	LGNOMEUI=$withval
-	],[
-	LGNOMEUI=yes]
-)
-if test "x${LGNOMEUI}" = "xyes" ; then
-	echo -n "checking for libgnomeui >= 2.6... "
-	if pkg-config libgnomeui-2.0 --atleast-version=2.6 ; then
-		AC_DEFINE(HAVE_ATLEAST_GNOMEUI_2_6)
-		PKGCONFIGFILES="${PKGCONFIGFILES} libgnomeui-2.0"
-		echo "yes"
-	else
-		echo "no"
-	fi
+echo -n "checking for libgnomeui >= 2.6... "
+if pkg-config libgnomeui-2.0 --atleast-version=2.6 ; then
+	AC_DEFINE(HAVE_ATLEAST_GNOMEUI_2_6)
+	PKGCONFIGFILES="${PKGCONFIGFILES} libgnomeui-2.0"
+	echo "yes, `pkg-config --modversion libgnomeui-2.0`"
+else
+	AC_MSG_ERROR([libgnomeui >= 2.6 is required, please install libgnomeui-dev (package names may differ for different operating systems)])
 fi
 
 dnl ******************************************************
