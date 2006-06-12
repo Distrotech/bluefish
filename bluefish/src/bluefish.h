@@ -192,9 +192,7 @@ typedef struct {
 	gboolean symstate; /* does this document show symbols? */	
 #endif	
 	gboolean overwrite_mode; /* is document in overwrite mode */
-#ifndef GNOMEVFSINT
 	gboolean autoclosingtag; /* does the document use autoclosing of tags */
-#endif
 	gpointer floatingview; /* a 2nd textview widget that has its own window */
 	gpointer bfwin;
 	GtkTreeIter *bmark_parent; /* if NULL this document doesn't have bookmarks, if 

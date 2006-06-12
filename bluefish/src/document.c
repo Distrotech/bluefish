@@ -321,7 +321,6 @@ void doc_set_wrap(Tdocument * doc) {
 		gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(doc->view),GTK_WRAP_NONE);
 	}
 }
-#ifndef GNOMEVFSINT
 /**
  * get_filetype_by_name:
  * @name: a #gchar* with the filetype name
@@ -341,6 +340,7 @@ Tfiletype *get_filetype_by_name(const gchar * name) {
 	}
 	return NULL;
 }
+#ifndef GNOMEVFSINT
 /**
  * get_filetype_by_filename_and_content:
  * @filename: a #gchar* with the filename or NULL
