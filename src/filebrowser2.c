@@ -217,7 +217,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 			GnomeVFSResult res;
 			res = gnome_vfs_get_file_info_uri(child_uri,&info,GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
 			if (res == GNOME_VFS_OK) {
-				pixmap = get_icon_for_mime_type(gnome_vfs_file_info_get_mime_type(&info));
+				pixmap = get_icon_for_mime_type(gnome_vfs_file_info_get_mime_type(&info),16);
 			} else {
 				pixmap = FB2CONFIG(main_v->fb2config)->unknown_icon;
 			}

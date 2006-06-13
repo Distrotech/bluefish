@@ -205,6 +205,9 @@ typedef struct {
 	gint filebrowser_two_pane_view; /* have one or two panes in the filebrowser */
 	gchar *filebrowser_unknown_icon;
 	gchar *filebrowser_dir_icon;
+#ifdef GNOMEVFSINT
+	gint filebrowser_icon_size;
+#endif
 	gchar *editor_font_string;		/* editor font */
 	gint editor_tab_width;	/* editor tabwidth */
 	gint editor_smart_cursor;
