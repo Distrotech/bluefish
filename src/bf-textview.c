@@ -1480,7 +1480,19 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 		}
 		cur = cur->xmlChildrenNode;
 		while (cur != NULL) {
-			if (xmlStrcmp(cur->name, (const xmlChar *) "options") == 0) {
+#ifdef GNOMEVFSINT
+			if (xmlStrcmp(cur->name, (const xmlChar *) "mimetypes") == 0) {
+				cur2 = cur->xmlChildrenNode;
+				while (cur2 != NULL) {
+					if (xmlStrcmp(cur2->name, (const xmlChar *) "mimetype") == 0) {
+						tmps = xmlGetProp(cur2, (const xmlChar *) "type");
+						if (tmps) cfg->mimetypes = g_list_append(cfg->mimetypes, tmps);
+					}
+				}
+			} /* /mimetypes */
+			 else 
+#endif /* GNOMEVFSINT */
+			 if (xmlStrcmp(cur->name, (const xmlChar *) "options") == 0) {
 				cur2 = cur->xmlChildrenNode;
 				while (cur2 != NULL) {
 					if (xmlStrcmp(cur2->name, (const xmlChar *) "option") == 0) {
@@ -1806,6 +1818,9 @@ BfLangManager *bf_lang_mgr_new()
 {
 	BfLangManager *ret = g_new0(BfLangManager, 1);
 	ret->languages = g_hash_table_new(g_str_hash, g_str_equal);
+#ifdef GNOMEVFSINT
+	ret->mime_lookup = g_hash_table_new(g_str_hash, g_str_equal);
+#endif
 	return ret;
 }
 
@@ -1827,6 +1842,13 @@ BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, const gchar * filenam
 			now this is the place where we add the config to the mime-type hashtable... TODO
 			*/
 #ifdef GNOMEVFSINT
+			{
+				GList *tmplist;
+				tmplist = g_list_first(cfg->mimetypes);
+				while (tmplist) {
+					g_hash_table_replace(mgr->mime_lookup, tmplist->data, cfg);
+				}
+			}
 			g_print("bf_lang_mgr_load_config, TODO, add to mime-type table\n");
 #endif
 		}

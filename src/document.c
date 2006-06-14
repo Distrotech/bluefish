@@ -430,7 +430,6 @@ void doc_set_tooltip(Tdocument *doc) {
 	if (doc->encoding) encoding = doc->encoding;
 	else if (BFWIN(doc->bfwin)->session->encoding) encoding = BFWIN(doc->bfwin)->session->encoding;
 	else encoding = main_v->props.newfile_default_encoding;
-	
 	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
 							,_("\nType: "),doc->hl->type
 							,_("\nEncoding: "), encoding
