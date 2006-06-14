@@ -140,7 +140,9 @@ typedef struct {
 	gint num_states;
 	GList *block_list;	
 	gint max_token_length;
-	
+#ifdef GNOMEVFSINT
+	GList *mimetypes;
+#endif	
 } BfLangConfig;
 
 typedef struct {
