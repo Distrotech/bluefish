@@ -1,5 +1,9 @@
 <?xml version="1.0" ?>
 <bflang name="XML" description="generic XML language file">
+<mimetypes>
+<mimetype type="text/xml" />
+</mimetypes>
+
 <options>
     <option name="case-sensitive">false</option>
     <option name="scan-markup-tags">true</option>

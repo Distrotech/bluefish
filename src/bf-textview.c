@@ -1446,7 +1446,7 @@ static void bftv_update_tables(BfLangConfig * cfg, BfLangBlock * b)
 	}
 }
 
-static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_name)
+static BfLangConfig *bftv_load_config(const gchar * filename)
 {
 	xmlDocPtr doc;
 	xmlNodePtr cur, cur2;
@@ -1457,6 +1457,7 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 
 	g_return_val_if_fail(filename != NULL, (BfLangConfig *) 0);
 	xmlLineNumbersDefault(1);
+	DEBUG_MSG("bftv_load_config, loading %s\n",filename);
 	doc = xmlReadFile(filename, "UTF-8", XML_PARSE_RECOVER | XML_PARSE_NOENT);
 	cur = xmlDocGetRootElement(doc);
 	if (xmlStrcmp(cur->name, (const xmlChar *) "bflang") == 0) {
@@ -1486,8 +1487,10 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 				while (cur2 != NULL) {
 					if (xmlStrcmp(cur2->name, (const xmlChar *) "mimetype") == 0) {
 						tmps = xmlGetProp(cur2, (const xmlChar *) "type");
+						DEBUG_MSG("found mime-type %s\n",tmps);
 						if (tmps) cfg->mimetypes = g_list_append(cfg->mimetypes, tmps);
 					}
+					cur2 = cur2->next;
 				}
 			} /* /mimetypes */
 			 else 
@@ -1817,53 +1820,31 @@ static BfLangConfig *bftv_load_config(gchar * filename, const gchar * filetype_n
 BfLangManager *bf_lang_mgr_new()
 {
 	BfLangManager *ret = g_new0(BfLangManager, 1);
-	ret->languages = g_hash_table_new(g_str_hash, g_str_equal);
-#ifdef GNOMEVFSINT
-	ret->mime_lookup = g_hash_table_new(g_str_hash, g_str_equal);
-#endif
+	ret->languages = NULL;
+/*#ifdef GNOMEVFSINT
+	ret->mimetypes = NULL;
+#endif*/
 	return ret;
 }
 
-BfLangConfig *bf_lang_mgr_load_config(BfLangManager * mgr, const gchar * filename)
+BfLangConfig *bf_lang_mgr_load_config(const gchar * filename)
 {
-	gchar *fname, *fname1, *fname2;
 	BfLangConfig *cfg = NULL;
 
-	fname1 = g_strconcat(PKGDATADIR, filename, NULL);
-	fname2 = g_strconcat(g_get_home_dir(), "/." PACKAGE "/", filename, NULL);
-	fname = return_first_existing_filename(fname1, fname2, NULL);
-	if (fname) {
-		cfg = bftv_load_config(fname, filename);
-		if (cfg != NULL) {
-			DEBUG_MSG("bf_lang_mgr_load_config, adding %s to hashtable\n", filename);
-			/* hmm can we add them by mime-type instead of filename ? */
-			g_hash_table_replace(mgr->languages, (gpointer) filename, cfg);
-			/* 
-			now this is the place where we add the config to the mime-type hashtable... TODO
-			*/
-#ifdef GNOMEVFSINT
-			{
-				GList *tmplist;
-				tmplist = g_list_first(cfg->mimetypes);
-				while (tmplist) {
-					g_hash_table_replace(mgr->mime_lookup, tmplist->data, cfg);
-				}
-			}
-			g_print("bf_lang_mgr_load_config, TODO, add to mime-type table\n");
-#endif
-		}
-		g_free(fname);
+	cfg = bftv_load_config(filename);
+	if (cfg != NULL) {
+		DEBUG_MSG("bf_lang_mgr_load_config, adding %s to hashtable\n", filename);
+		/* hmm can we add them by mime-type instead of filename ? */
+		main_v->lang_mgr->languages = g_list_prepend(main_v->lang_mgr->languages, cfg);
 	}
-	g_free(fname1);
-	g_free(fname2);
 	return (cfg);
 }
 
-/* I would like a function based on mime types.. */
+/* I would like a function based on mime types.. 
 BfLangConfig *bf_lang_mgr_get_config(BfLangManager * mgr, const gchar * filename)
 {
 	return g_hash_table_lookup(mgr->languages, filename);
-}
+}*/
 
 static void bftv_ins_key(gpointer key, gpointer value, gpointer udata)
 {
@@ -1992,7 +1973,8 @@ static void bf_lang_retag(gpointer key, gpointer value, gpointer udata)
 
 void bf_lang_mgr_retag(void)
 {
-	g_hash_table_foreach(main_v->lang_mgr->languages, bf_lang_retag, NULL);
+	g_list_foreach(main_v->lang_mgr->languages,bf_lang_retag,NULL);
+	/*g_hash_table_foreach(main_v->lang_mgr->languages, bf_lang_retag, NULL);*/
 }
 
 
