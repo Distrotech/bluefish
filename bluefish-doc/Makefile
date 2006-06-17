@@ -121,7 +121,7 @@ init-fo-us:
 	mv ${BOOK_LAYER_US} ${BOOK_LAYER_US}-orig; \
 	sed -e 's|http\:\/\/docbook.sourceforge.net\/release\/xsl\/current|..\/docbook-xsl|g' < ${BOOK_LAYER_US}-orig > ${BOOK_LAYER_US}; \
 	fi
-	
+
 html: clean-html  validate-all builtdoc-create init-html
 	${XSLTPROC} --nonet --output ${BOOK_HTML_XSL} ${BOOK_TEMPLATE} ${BOOK_HTML_XML}
 	${XSLTPROC} --nonet --output ${OUTPUT_DIR}/ ${XSL_HTML_CHUNK} ${BOOK_XML_SOURCE}	
@@ -134,7 +134,7 @@ html-one-big: clean-html validate-all builtdoc-create init-big-html
 	${XSLTPROC} --nonet --output ${BOOK_HTML_TARGET} ${XSL_HTML} ${BOOK_XML_SOURCE}
 	${move-pictures}
 	${reinit-big-html}
-	
+
 html-all: clean-html validate-all builtdoc-create init-big-html init-html
 	${XSLTPROC} --nonet --output ${BOOK_HTML_XSL} ${BOOK_TEMPLATE} ${BOOK_HTML_XML}
 	${XSLTPROC} --nonet --output ${OUTPUT_DIR}/ ${XSL_HTML_CHUNK} ${BOOK_XML_SOURCE}	
@@ -144,10 +144,10 @@ html-all: clean-html validate-all builtdoc-create init-big-html init-html
 	${reinit-big-html}
 	${hackhtmltoc}
 
-	
 pdf-a4: clean-pdf-a4 validate-all fo-a4 builtdoc-create
 	${RUN_FOP} ${BOOK_TOP} -fo ${BOOK_FO_TARGET} -pdf ${BOOK_PDF_A4_TARGET}
 	rm -f ${BOOK_FO_TARGET}
+	${reinit-fo-us}
 
 pdf-us: clean-pdf-us validate-all fo-us builtdoc-create
 	${RUN_FOP} ${BOOK_TOP} -fo ${BOOK_FO_TARGET} -pdf ${BOOK_PDF_US_TARGET}
@@ -166,12 +166,12 @@ pspdf-a4: clean-pspdf-a4 validate-all fo-a4 builtdoc-create
 	${RUN_FOP} ${BOOK_TOP} -fo ${BOOK_FO_TARGET} -pdf ${BOOK_PDF_A4_TARGET}
 	${RUN_FOP} ${BOOK_TOP} -fo ${BOOK_FO_TARGET} -ps ${BOOK_PS_A4_TARGET}
 	rm -f ${BOOK_FO_TARGET}
-	
+
 pspdf-us: clean-pspdf-us validate-all fo-us builtdoc-create
 	${RUN_FOP} ${BOOK_TOP} -fo ${BOOK_FO_TARGET} -pdf ${BOOK_PDF_US_TARGET}
 	${RUN_FOP} ${BOOK_TOP} -fo ${BOOK_FO_TARGET} -ps ${BOOK_PS_US_TARGET}
 	rm -f ${BOOK_FO_TARGET}
-	
+
 fo-a4:  init-fo-a4
 	${XSLTPROC} --nonet --output ${BOOK_XSL_A4} ${BOOK_TEMPLATE} ${BOOK_XML_A4}
 	${XSLTPROC} --nonet --output ${BOOK_FO_TARGET} ${BOOK_LAYER_A4} ${BOOK_XML_SOURCE}
@@ -187,13 +187,13 @@ validate-all:
 
 builtdoc-create:
 	mkdir -p ${OUTPUT_DIR}
-	
+
 builtdoc-remove:
 	rm -rf ${OUTPUT_DIR}
 	
 tarballs-remove:
 	rm -rf ${TARBALL_DIR}
-	
+
 clean-html: clean-xsl-html
 	rm -f ${OUTPUT_DIR}/*.html
 	rm -f ${OUTPUT_DIR}/*.css
@@ -202,19 +202,19 @@ clean-html: clean-xsl-html
 
 clean-fo:
 	rm -f ${BOOK_FO_TARGET}
-	
+
 clean-xsl-a4:
 		rm -f ${BOOK_XSL_A4}
-		
+
 clean-xsl-us:
 	rm -f ${BOOK_XSL_US}
-	
+
 clean-xsl-html:
 	rm -f ${BOOK_HTML_XSL}
 
 clean-pdf-a4: clean-fo clean-xsl-a4
 	rm -f ${BOOK_PDF_A4_TARGET}
-	
+
 clean-pdf-us: clean-fo clean-xsl-us
 	rm -f ${BOOK_PDF_US_TARGET}
 
@@ -223,7 +223,7 @@ clean-ps-a4: clean-fo clean-xsl-a4
 
 clean-ps-us:  clean-fo clean-xsl-us
 	rm -f ${BOOK_PS_US_TARGET}
-	
+
 clean-pspdf-a4: clean-fo clean-xsl-a4
 	rm -f ${BOOK_PS_A4_TARGET}
 	rm -f ${BOOK_PDF_A4_TARGET}

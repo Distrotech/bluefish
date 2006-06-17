@@ -45,7 +45,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <para>grep &amp; find - used by the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open advanced...</guimenuitem></menuchoice> dialog.</para>
 </listitem>
 </itemizedlist>
-<?linebreakus?>
 <para>Compiling Bluefish requires a few additional packages. However, binary packages exist for many platforms, so it is likely you will not need to compile. Now, let us assume you want to compile, perhaps to get the latest and greatest from CVS. The requirements are as follows:</para>
 <itemizedlist>
 <listitem>
@@ -75,7 +74,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <sect1 id="installing-bluefish-quick-start">
 <title>Quick Standard Installation</title>
 <para>There are two main methods for installing Bluefish: Compile from source or install a binary package. Binary installation is easiest, so we will cover that first. There are a few different approaches, caused by the differences between systems. We will start off by summarizing a few really quick and simple approaches before dealing with this problem more extensively.</para>
-<?linebreakus?>
 <itemizedlist>
 <listitem>
 <para>Debian: run <userinput>su - &amp;&amp; apt-get update &amp;&amp; apt-get install bluefish</userinput></para>
@@ -194,7 +192,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <para>Fink for Mac OS X 10.3 and 10.4-transitional has Bluefish 1.0 in binary distribution, Bluefish 1.0.4 in stable source branch, and Bluefish 1.0.5 in unstable source branch. The source branches have three variants: bluefish, bluefish-gnomevfs2, and bluefish-gnome2.</para>
 </listitem>
 <listitem>
-<para>Fink's latest cvs version is always available from the <ulink url="http://cvs.sourceforge.net/viewcvs.py/fink/experimental/michga/">Fink's maintainer experimental cvs tree</ulink>. It is meant to run on Mac OS X 10.4.</para>
+<para>Fink's latest cvs version is always available from the <ulink url="http://fink.cvs.sourceforge.net/fink/experimental/michga/">Fink's maintainer experimental cvs tree</ulink>. It is meant to run on Mac OS X 10.4.</para>
 <note><para>If you have trouble starting bluefish with fink, first read the <ulink url="http://fink.sourceforge.net/faq/index.php">Fink's Faq page</ulink>. If this does not solve your problem, send an email to the maintainer (<email >michele.garoche(at)easyconnet.fr</email>), finally, as last resort, ask for help on the <ulink url="http://fink.sourceforge.net/lists/index.php">beginners or users Fink mailing lists</ulink> or on the <quote>#fink</quote> channel on <ulink url="irc://irc.freenode.net#fink">freenode.net</ulink>.</para></note>
 </listitem>
 </itemizedlist>
@@ -205,7 +203,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </listitem>
 </itemizedlist>
 </sect1>
-<?linebreakus?>
 <sect1 id="installing-bluefish-source">
 <title>Installing a Bluefish Source Distribution</title>
 <para>By installing Bluefish from source, you may be able to get a newer version (from CVS) than those distributed as binaries. You may also need to compile from source if no binary is available for your system.</para>
@@ -288,7 +285,6 @@ the following steps:</para>
 <sect1 id="installing-bluefish-configure">
 <title>Configure Options</title>
 <para>This section describes all the configure options available for bluefish.</para>
-<?linebreakus?>
 <sect2 id="installing-bluefish-standard-flags">
 <title>Standard configuration flags</title>
 <variablelist>
@@ -366,7 +362,6 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 </variablelist>
-<?linebreaka4?>
 <variablelist>
 <title>Fine tuning of the installation directories:</title>
 <tip>
@@ -444,7 +439,6 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 </variablelist>
-<?linebreaka4?>
 <variablelist>
 <title>Program names:</title>
 <varlistentry>
@@ -466,7 +460,6 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 </variablelist>
-<?linebreaka4?>
 <variablelist>
 <title>System types:</title>
 <varlistentry>
@@ -482,7 +475,6 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 </variablelist>
-<?linebreaka4?>
 <variablelist>
 <title>Some influential environment variables:</title>
 <tip>
@@ -523,7 +515,6 @@ the following steps:</para>
 
 <sect2 id="installing-bluefish-personal-flags">
 <title>Flags personal to bluefish</title>
-<?linebreaka4?>
 <variablelist>
 <title>Optional Features:</title>
 <note>
@@ -614,7 +605,7 @@ the following steps:</para>
 </listitem>
 </varlistentry>
 </variablelist>
-<?linebreaka4?>
+<?pagebreakus?>
 <variablelist>
 <title>Optional Packages:</title>
 <note>

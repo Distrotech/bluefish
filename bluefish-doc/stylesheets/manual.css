@@ -96,20 +96,46 @@ div.book div.titlepage p.othercredit {
 /*Work around a bug in (mozilla based browser?)
  which does not respect visibility and color of border
  without border-collapse */
- div.revhistory  table {
+ div.revhistory table {
 	border: 0px hidden white;
 	border-collapse: collapse;
 	padding-top: 1em;
 	padding-bottom: 2em;
 }
-div.revhistory > table > tr > th {
+
+/*Book Revision History centered with spaces around it */
+.revhistory table tr th {
 	border: 0px hidden white;
-	padding: 0px;
+	padding: 8px;
+	text-align: center;
+	font-size: 70%;
 }
-div.revhistory > table td {
-	border: 0px hidden white;
-	padding-left: 1em;
+
+/* Appendix Revision History greater font */
+.appendix .revhistory table tr th {
 	font-size: 75%;
+}
+
+/* Book Revision History elements */
+.revhistory > table td {
+	border: 0px hidden white;
+	font-size: 70%;
+}
+
+/* Appendix Revision History elements greater font */
+.appendix .revhistory > table td {
+	font-size: 75%;
+}
+
+/* Revision History numbers line grey background color */
+.revhistory > table td[align="left"] {
+	background-color: #eee;
+}
+
+/* Revision History other lines no background color */
+.revhistory > table td[align="left"][colspan="3"] {
+	padding-left: 1em;
+	background-color: white;
 }
 
 /* Copyright and pubdate */
@@ -331,4 +357,8 @@ div.segmentedlist td, th{
 
 div.segmentedlist th{
 	font-weight: bold;
+}
+
+td .filename, td .varname {
+	font-size: 120%;
 }

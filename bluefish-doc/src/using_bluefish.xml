@@ -20,9 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 <chapter id="using-bluefish">
 <title>Using Bluefish</title>
-<?linebreaka4?>
 <para>In this chapter, most of the functionalities of Bluefish are described. What you can do, how you do it, and how you can customize the default behavior.</para>
-<?linebreaka4?>
 
 <sect1 id="starting-bluefish">
 <title>Starting Bluefish</title>
@@ -48,15 +46,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </varlistentry></variablelist>
 <para>Many programs like browsers, email clients and file managers can be configured to open files in Bluefish. For example, <command>bluefish '%s'</command> will open a file in the current window, <command>bluefish -n '%s'</command> will open a file in a new window, and <command>bluefish -p '%s'</command> will open a project file.</para>
 </sect2>
-
 </sect1>
-
-<?linebreaka4?>
 
 <sect1 id="user-interface">
 <title>The user interface</title>
 <para>The biggest part of the user interface is the editor area. Because Bluefish has a so-called <quote>Multiple Document Interface</quote>, there are actually many editor areas in Bluefish, accessible via the tabs. By default the tabs are on the bottom.
-<?linebreaka4?>
 <figure id="figure-editor-array">
 <title id="figure-editor-array-title">Bluefish Editor Array</title>
 <screenshot><mediaobject>
@@ -68,10 +62,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?pagebreaka4?>
 <para>Notice that the current document's tab may be raised by the Gtk theme, and if the document has been modified, its name on the tab is coloured in red. The changes are also noted with red on the open document list, accessible by right-clicking on the tab.</para>
 <para><figure id="figure-opendocument-list">
-<title id="figure-opendocument-list-title">List of open documents</title>
+<title id="figure-opendocument-list-title">List of open Documents</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/opendocument_list.png" format="PNG"/>
@@ -81,8 +74,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
 <?linebreak?>
+<?linebreaka4?>
 <para>The top of the Bluefish interface consists of a menu, a main tool bar, an HTML tool bar, and a Custom menu.
 <figure id="figure-main-menu">
 <title id="figure-main-menu-title">Bluefish Main Menu</title>
@@ -95,8 +88,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
 <?linebreak?>
+<?linebreaka4?>
 <para>The main tool bar gives you quick access to the basic functionalities of a text editor.
 <figure id="figure-main-toolbar">
 <title id="figure-main-toolbar-title">Bluefish Main Tool Bar</title>
@@ -109,8 +102,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
 <?linebreak?>
+<?linebreaka4?>
 <para>The HTML tool bar provides access to the most commonly used HTML functionalities.
 <figure id="figure-html-toolbar">
 <title id="figure-html-toolbar-title">Bluefish HTML Tool Bar</title>
@@ -123,8 +116,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
 <?linebreak?>
+<?linebreaka4?>
 <para>The custom tool bar provides access to languages and replacement functions. It is fully customizable through the preferences panel. 
 <figure id="figure-custom-toolbar">
 <title id="figure-custom-toolbar-title">Bluefish Custom Tool Bar</title>
@@ -137,8 +130,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
 <?linebreak?>
+<?linebreaka4?>
 <para>To the left of the editor area is the side panel. If you would prefer that the side bar be on the right side, simply change the setting in the <guilabel>User Interface</guilabel> tab found in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option. The side panel consists of a file browser, a function reference browser, and a bookmark browser, accessible by clicking on the corresponding sidebar notebook tab.</para>
 <para><figure id="figure-notebook-tab">
 <title id="figure-notebook-tab-title">Bluefish Sidebar Notebook Tab</title>
@@ -152,8 +145,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </mediaobject></screenshot>
 </figure></para>
 <para>You may also customize the location of the sidebar notebook tab via <guilabel>User Interface</guilabel> tab found in the <menuchoice><guimenu>Edit</guimenu><guimenuitem>Preferences</guimenuitem></menuchoice> menu option.</para>
-<?linebreaka4?>
-<?pagebreakus?>
+<?pagebreak?>
 <para>The file browser provides quick access to files and directories.
 <figure id="figure-file-browser">
 <title id="figure-file-browser-title">Bluefish File Browser</title>
@@ -166,9 +158,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?pagebreaka4?>
 <para>The function reference browser references CSS2, HTML, PHP, and Python functions with their syntax. Some of them provide dialogs to help you inserting them. 
-<?linebreakus?>
 <figure id="figure-function-reference-browser">
 <title id="figure-function-reference-browser-title">Bluefish Function Reference Browser</title>
 <screenshot><mediaobject>
@@ -180,9 +170,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreak?>
+<?pagebreak?>
 <para>The bookmark browser provides access to previously marked positions in a file.
-<?linebreakus?>
 <figure id="figure-bookmark-browser">
 <title id="figure-bookmark-browser-title">Bluefish Bookmark Browser</title>
 <screenshot><mediaobject>
@@ -194,18 +183,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?pagebreakus?>
-<?linebreaka4?>
+<?linebreak8?>
 <para>On the bottom of the Bluefish window is the status bar. Shown here are messages, the current line &amp; column number, the insert (INS) or overwrite (OVR) mode for the cursor, and the file type &amp; character encoding.
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
 <figure id="figure-status-bar">
 <title id="figure-status-bar-title">Bluefish Status Bar</title>
 <screenshot><mediaobject>
@@ -217,41 +196,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?pagebreaka4?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
+<?linebreak8?>
 <para>The visibility of these items can be toggled via the <guimenu>View</guimenu> menu.
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
 <figure id="figure-view-menu">
 <title id="figure-view-menu-title">Bluefish View Menu</title>
 <screenshot><mediaobject>
@@ -263,35 +209,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </textobject>
 </mediaobject></screenshot>
 </figure>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
 If you want to disable any of these items by default, you can set these options in the preferences under <guilabel>User interface</guilabel>.</para>
-<?pagebreak?>
+<?pagebreaka4?>
 <para>The <guimenu>Help</guimenu> menu contains the typical About box. As usual, you will find in it developers', maintainers', and translators' details. Plus the configure flags used to compile Bluefish on your system and the packages detected automatically.
-<?linebreaka4?>
-<?linebreaka4?>
 <figure id="figure-about-window">
 <title id="figure-about-window-title">Bluefish About Window</title>
 <screenshot><mediaobject>
@@ -303,10 +223,7 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
+<?pagebreakus?>
 <para>The other menus are described in the following sections:</para>
 <itemizedlist>
 <listitem>
@@ -344,7 +261,7 @@ If you want to disable any of these items by default, you can set these options 
 </note>
 <para>You may also add directories, delete files, and refresh the file browser in the side panel using its contextual menu.
 <figure id="file-browser-cm">
-<title id="file-browser-cm-title">The file browser contextual menu</title>
+<title id="file-browser-cm-title">The File Browser Contextual Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/file_browser_cm.png" format="PNG"/>
@@ -375,9 +292,11 @@ If you want to disable any of these items by default, you can set these options 
 </figure></para>
 <important><para>Note that the document window is titled <quote>Untitled n - Bluefish versionnumber</quote>, which indicates precisely that the file is not saved on the disk. The same applies to the document's tab which shows <quote>Untitled n</quote>. Moreover, if you move the cursor onto the document's tab, you will not see any size or modification date.</para></important>
 <tip><para>When creating new files, you may want to create them in a new window. In this case, use <menuchoice><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice> to first open the new window and then create the desired files as usual.</para></tip>
+<?pagebreaka4?>
+<?linebreaka45?>
 <para>To spare yourself the bother of saving, right click on the desired directory in the directory list of the file browser in the side panel and select <guilabel>New File</guilabel>. You will be presented with a <guilabel>File name</guilabel> dialog, where you will enter the desired name:
 <figure id="file-name-dialog">
-<title id="file-name-dialog-title">The File name dialog</title>
+<title id="file-name-dialog-title">The File Name Dialog</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/file_name_dialog.png" format="PNG"/>
@@ -389,13 +308,13 @@ If you want to disable any of these items by default, you can set these options 
 </figure></para>
 <tip><para>You may type a path relative to the clicked directory, provided that the target directory be under the clicked directory and that it exists.</para></tip>
 </sect2>
-
+<?linebreaka45?>
 <sect2 id="managing-directories">
 <title>Managing directories</title>
 <para>To create a new directory, right click on the desired parent directory in the directory list of the file browser in the side panel and select <guilabel>New Directory</guilabel>. You may also right click on any file in the files part of the file browser.</para>
 <para>Then enter the desired name in the <guilabel>Directory name</guilabel> dialog. Bluefish will create the named directory with the default permissions under the currently selected directory.
 <figure id="directory-name-dialog">
-<title id="directory-name-dialog-title">The Directory name dialog</title>
+<title id="directory-name-dialog-title">The Directory Name Dialog</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/directory_name_dialog.png" format="PNG"/>
@@ -407,14 +326,13 @@ If you want to disable any of these items by default, you can set these options 
 </figure></para>
 <para>Note that you cannot delete directories within Bluefish, but you can refresh the view with the <guilabel>Refresh</guilabel> contextual menu item of the directory part of the file browser if you delete them externally. This is especially useful when you add files and directories or delete files.</para>
 <para>If you right click a directory in the file browser within the side panel, you can make this directory the base directory for the file browser using the <guimenuitem>Set as basedir</guimenuitem> option. Then you can access it directly from the pop up menu in the upper part of the file browser.</para>
-<?linebreakus?>
 <para>By default the file browser follows the document focus. If you change to a different document, the file browser will show the contents of the directory where this document is located. This behaviour can be changed by unchecking <guilabel>Follow focus</guilabel> on the bottom of the file browser.</para>
 </sect2>
-
-<?pagebreakus?>
+<?pagebreaka4?>
 <sect2 id="opening-files">
 <title>Opening files</title>
 <para>Through the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open...</guimenuitem></menuchoice> menu item or the <guilabel>Open...</guilabel> icon in the main tool bar, one or more files can be opened. If you want to open them in a new window, use <menuchoice><guimenu>File</guimenu><guimenuitem>New Window</guimenuitem></menuchoice> to first open the new window and then open the desired files as usual.
+<?linebreakus8?>
 <figure id="figure-open-file">
 <title id="figure-open-file-title">Bluefish Open File Dialog</title>
 <screenshot><mediaobject>
@@ -454,7 +372,7 @@ If you want to disable any of these items by default, you can set these options 
 <para>Be aware that if the file is huge it may take a very long time to get the rendering if syntax highlighting is enabled in the <guilabel>Editor</guilabel> option of Preferences, in particular if the PCRE UTF-8 support is enabled. The GTK editing widget used in Bluefish, furthermore, is not very good at handling files with very long lines, and that could also slow down Bluefish considerably.</para>
 <para>Information about currently opened files can be seen if you move the mouse over the document tab (by default on the bottom of the screen). A so called tool tip will be shown with information about the full path, size, permissions, file type and encoding of the file.
 <figure id="figure-open-file-info">
-<title id="figure-open-file-info-title">Info on open file</title>
+<title id="figure-open-file-info-title">Info on open File</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/open_file_info.png" format="PNG"/>
@@ -465,14 +383,27 @@ If you want to disable any of these items by default, you can set these options 
 </mediaobject></screenshot>
 </figure></para>
 <note><para>Note that the document's tab is hightlighted in red, because the document has been modified since the last save. Info in the tool tip match the state of the file as it was saved on disk.</para></note>
-<?linebreakus?>
 </sect2>
 
 <sect2 id="saving-files">
 <title>Saving files</title>
-<para>If a document is modified, the filename is shown in red in the document tabs, and also if you right click on the tabs, the full path is shown in red in the list that will pop up.
+<para>To save a document, you can use the <guimenu>File</guimenu> menu, the <guilabel>Save</guilabel> icon in the tool bar, or press the shortcut key combination <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>.</para>
+<para>If the file does not exist already on the disk, you will be presented with the following dialog window:
+<figure id="figure-saving-untitled-file">
+<title id="figure-saving-untitled-file-title">Saving an untitled File</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/saving_untitled_file.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to save an untitled file</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+<para>If the file already exists on the disk, no dialog window pops up. It is assumed that the file name does not change.</para>
+<para>When a document has been modified, the filename is shown in red in the document tabs; morever if you right click on the tabs, the full path is shown in red in the list that will pop up.
 <figure id="figure-modified-file-tooltip">
-<title id="figure-modified-file-tooltip-title">A modified document in the documents' list</title>
+<title id="figure-modified-file-tooltip-title">A modified Document in the Documents' List</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/modified_file_tooltip.png" format="PNG"/>
@@ -482,14 +413,14 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<para>To save a document, you can use the <guimenu>File</guimenu> menu, the <guilabel>Save</guilabel> icon in the tool bar, or press the shortcut key combination <keycombo><keycap>Ctrl</keycap><keycap>S</keycap></keycombo>. By default a backup is made during save. The original file is copied to the same filename with a tilde <keycap>~</keycap> appended. This suffix and the backup behaviour can be changed in the preferences under <guilabel>Files</guilabel>.</para>
+<para>By default a backup is made during save. The original file is copied to the same filename with a tilde <keycap>~</keycap> appended. This suffix and the backup behaviour can be changed in the preferences under <guilabel>Files</guilabel>.</para>
 <para>Before saving the file, Bluefish will check if the original file was changed on disk, using the last modified time and the file size. On some file systems the last modified time is sometimes not very precise (most notably on samba mounts). This makes Bluefish think the file is modified when it is not. This check can be changed in the preferences under <guilabel>Files</guilabel>.</para>
 <para>You can also save a document under a different name, using the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>S</keycap></keycombo></shortcut><guimenuitem>Save As...</guimenuitem></menuchoice> menu entry, or the <guilabel>Save As...</guilabel> icon in the main tool bar. The original file will still exist.
-<figure id="figure-renaming-file">
-<title id="figure-renaming-file-title">Saving a File under a new Name</title>
+<figure id="figure-saving-as-file">
+<title id="figure-saving-as-file-title">Saving a File under a new Name</title>
 <screenshot><mediaobject>
 <imageobject>
-<imagedata fileref="figures/renaming_file.png" format="PNG"/>
+<imagedata fileref="figures/saving_as_file.png" format="PNG"/>
 </imageobject>
 <textobject>
 <phrase>A screen shot showing how to save a file under a new name</phrase>
@@ -499,14 +430,11 @@ If you want to disable any of these items by default, you can set these options 
 <para>To save all modified files, you can use the <menuchoice><guimenu>File</guimenu><guimenuitem>Save All</guimenuitem></menuchoice> menu entry. This will save all documents that have been modified and present you with a save dialog if some files are new files.</para>
 </sect2>
 
-<?linebreakus?>
-<?linebreakus?>
 <sect2 id="renaming">
 <title>Renaming files</title>
 <para>It is also possible to move or rename a document, using the <menuchoice><shortcut><keycap>F2</keycap></shortcut><guimenu>File</guimenu><guimenuitem>Rename...</guimenuitem></menuchoice> menu item, or right-clicking the file name in the side panel and choosing the <guimenuitem>Rename</guimenuitem> item.
-<?linebreaka4?>
 <figure id="figure-moving-file">
-<title id="figure-moving-file-title">Moving a file to another location</title>
+<title id="figure-moving-file-title">Moving a File to another Location</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/moving_file.png" format="PNG"/>
@@ -518,23 +446,27 @@ If you want to disable any of these items by default, you can set these options 
 </figure></para>
 </sect2>
 
-<?linebreaka4?>
+<?pagebreakus?>
 <sect2 id="deleting-files">
 <title>Deleting files</title>
 <para>To delete a file, right click on it in the file browser within the side panel. You will be asked either to confirm the deletion or to cancel the process, if you have the right permissions for it.</para>
 <warning>
 <para>Be cautious with this feature, there is no easy way to recover the deleted file.</para>
+<para>Mac OS X users: this command is not equivalent to putting the file in the trash, but to using the <command>rm</command> command, so that, apart using a specialized commercial tool, you cannot recover the file.</para>
 </warning>
+<para>Combining this feature with the <guilabel>Show hidden files</guilabel> feature accessible via the contextual menu of the Filebrowser side panel allows you to delete hidden files more easily than via the <command>rm</command> tool on some systems.</para>
+<para>Combining it with the <guilabel>Rename</guilabel> feature accessible via the contextual menu of the Filebrowser side panel allows you to delete an original file once you have edited a new file based on the former one, and to give the new file the same name as the original one.</para>
+<tip>
+<para>The first safe usage I can find for this feature is, for example, to remove the backup <filename>.#filename.version</filename> files created by CVS during conflicts after resolving them, particularly on Mac OS X where those files are tricky to access.</para>
+<para>A second usage would be, for example, to save a po file again under its original name after updating it via a shell script under a new name, and editing it manually.</para>
+</tip>
 </sect2>
 
-<?linebreaka4?>
-<?linebreaka4?>
 <sect2 id="closing">
 <title>Closing files</title>
 <para>When you want to close a file quickly, click on the <guilabel>close</guilabel> icon in the document tab. You may also use the <guilabel>Close</guilabel> icon in the main tool bar, or the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Close</guimenuitem></menuchoice> menu item.		
-<?linebreaka4?>
 <figure id="figure-document-tab-icon">
-<title id="figure-document-tab-icon-title">Closing a file with the document tab icon</title>
+<title id="figure-document-tab-icon-title">Closing a File with the Document Tab Icon</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/closing_file_with_tab_icon.png" format="PNG"/>
@@ -544,12 +476,9 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?pagebreaka4?>
-<?linebreaka4?>
 <para>If the file is unchanged, it is merely closed. If the file has been modified, you will be presented with a save dialog.
-<?linebreaka4?>
 <figure id="figure-closing-a-file">
-<title id="figure-closing-a-file-title">Closing a modified file</title>
+<title id="figure-closing-a-file-title">Closing a modified File</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/closing_a_file.png" format="PNG"/>
@@ -564,9 +493,8 @@ If you want to disable any of these items by default, you can set these options 
 </tip>
 <para>When dealing with multiple files, you may want to use the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>W</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Close All</guimenuitem></menuchoice> menu item.</para>
 <para>For each modified file, you will be presented with a save dialog, where you can choose to save the changes, close the file (i.e. discarding any change), or cancel the operation.
-<?linebreaka4?>
 <figure id="figure-closing-all-files">
-<title id="figure-closing-all-files-title">Closing all files</title>
+<title id="figure-closing-all-files-title">Closing all Files</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/closing_all_files.png" format="PNG"/>
@@ -584,7 +512,20 @@ If you want to disable any of these items by default, you can set these options 
 
 <sect2 id="inserting">
 <title>Inserting files</title>
-<para>You can insert any file into the current document with the <menuchoice><guimenu>File</guimenu><guimenuitem>Insert...</guimenuitem></menuchoice> menu item. The file will be inserted at the cursor location.</para>
+<para>You can insert any file into the current document with the <menuchoice><guimenu>File</guimenu><guimenuitem>Insert...</guimenuitem></menuchoice> menu item.
+<figure id="figure-inserting-file">
+<title id="figure-inserting-file-title">Inserting a File</title>
+<screenshot><mediaobject>
+<imageobject>
+<imagedata fileref="figures/inserting_file.png" format="PNG"/>
+</imageobject>
+<textobject>
+<phrase>A screen shot showing how to insert a file</phrase>
+</textobject>
+</mediaobject></screenshot>
+</figure></para>
+ <para>The file will be inserted at the cursor location.</para>
+<warning><para>Always save the file before inserting another one, this will prevent any potential loss of data.</para></warning>
 <para>For more in-depth information about dealing with files, see <xref linkend="more-files"/>.</para>
 </sect2>
 
@@ -593,7 +534,7 @@ If you want to disable any of these items by default, you can set these options 
 
 <sect3 id="undo-redo">
 <title>Undo and Redo</title>
-<para>The undo and redo functionalities are available from the <guimenu>Edit</guimenu> menu,  the main tool bar, and the keyboard shortcuts. </para>
+<para>The undo and redo functionalities are available from the <guimenu>Edit</guimenu> menu,  the main tool bar, and the keyboard shortcuts.</para>
 <itemizedlist>
 <listitem>
 <para><menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>Z</keycap></keycombo></shortcut><guimenuitem>Undo</guimenuitem></menuchoice></para>
@@ -603,8 +544,8 @@ If you want to disable any of these items by default, you can set these options 
 </para>
 </listitem>
 </itemizedlist>
-<?pagebreakus?>
-<para>The functions <guimenuitem>Undo All</guimenuitem> and <guimenuitem>Redo All</guimenuitem> in the <guimenu>Edit</guimenu> menu will undo or redo all of the stored changes. The maximum number of changes can be configured in the preferences, by default Bluefish will remember the last 100 changes per document. It is possible to clear the changes after the document is saved, an option in the preferences which is disabled by default.</para>
+<para>The functions <guimenuitem>Undo All</guimenuitem> and <guimenuitem>Redo All</guimenuitem> in the <guimenu>Edit</guimenu> menu will undo or redo all of the stored changes. The maximum number of changes can be configured in the preferences; by default Bluefish will remember the last 100 changes per document. It is possible to clear the changes after the document is saved by unchecking the <guilabel>Clear undo history on save</guilabel> check box in the <guilabel>Editor</guilabel> tab of Preferences.</para>
+<important><para>Always perform a save on file before making important modifications. This will prevent any loss of data during undoing.</para></important>
 </sect3>
 
 <sect3 id="cut-copy-paste">
@@ -629,7 +570,7 @@ If you want to disable any of these items by default, you can set these options 
 <title>Input methods</title>
 <para>Bluefish handles a number of input methods, available from the contextual menu within a given document.
 <figure id="figure-input-methods-cm">
-<title id="figure-input-methods-cm-title">The Input Methods Contextual menu</title>
+<title id="figure-input-methods-cm-title">The Input Methods Contextual Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/input_methods_cm.png" format="PNG"/>
@@ -664,8 +605,6 @@ If you want to disable any of these items by default, you can set these options 
 </itemizedlist>
 <para>The X Input method relies on a client-server input system, and an input server.</para>
 <para>For Japanese, Chinese, and Korean documents, you may have to install and launch the correct input system, such as canna, and the appropriate input server, such as kinput2.</para>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>Here is how to write a Japanese document on a non-Japanese system.</para>
 <procedure id="japanese-writing"><title>Writing in Japanese with Bluefish on a non-Japanese system</title>
 <step>
@@ -687,9 +626,7 @@ If you want to disable any of these items by default, you can set these options 
 <para>To activate the Xinput method within bluefish, use <keycombo><keycap>Shift</keycap><keycap>Space</keycap></keycombo>. A small window with a Japanese glyph will appear at one of the corner of the Bluefish window. Once the desired glyph has been composed, press <keycap>Space</keycap>, and hit <keycap>enter</keycap> to validate it.</para>
 </step>
 </procedure>
-<?linebreaka4?>
 <para>Here, you can see the small Xinput method window, at the bottom left corner of the window and the first Japanese word not already validated in the Bluefish window launched on a French system.	
-<?linebreaka4?>
 <figure id="figure-japanese-with-bluefish">
 <title id="figure-japanese-with-bluefish-title">Writing in Japanese with Bluefish</title>
 <screenshot><mediaobject>
@@ -705,19 +642,16 @@ If you want to disable any of these items by default, you can set these options 
 </sect3>
 
 </sect2>
-<?linebreaka4?>
 
 <sect2 id="basic-find-replace">
 <title>Basic Find and Replace</title>
 <para>Bluefish offers a wide range of find and replace methods in the <guimenu>Edit</guimenu> menu, also available through the contextual menu within a document. Here we will explore the most basic ones. For advanced find and replace methods, see <xref linkend="find-replace"/>.</para>
-<?pagebreaka4?>
+
 <sect3 id="basic-find">
 <title>Searching for a word within a whole document</title>
 <para>Choose the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find...</guimenuitem></menuchoice> menu item. A <guilabel>Find</guilabel> dialog will be displayed. Enter the word to search for in the <guilabel>Search for:</guilabel> field. Then click <guibutton>OK</guibutton>.
-<?linebreaka4?>
-<?linebreaka4?>
 <figure id="figure-find-word-whole">
-<title id="figure-find-word-whole-title">Finding a word in a document, from start to end</title>
+<title id="figure-find-word-whole-title">Finding a Word in a Document, from Start to End</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_word_whole.png" format="PNG"/>
@@ -727,16 +661,9 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>If the word does not exist in the document, a small window pops up.
-<?linebreaka4?>
-<?linebreaka4?>
 <figure id="figure-search-not-found">
-<title id="figure-search-not-found-title">Unsuccessful search window</title>
+<title id="figure-search-not-found-title">Unsuccessful Search Window</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/search_not_found.png" format="PNG"/>
@@ -746,14 +673,12 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>If the search is successful, the document window scrolls up to the first occurrence of the string in the document and highlights it.</para>
-<?pagebreak?>
+
 <para>Below is an example of a search applied to a shell script.
-<?linebreaka4?>
+
 <figure id="figure-search-found">
-<title id="figure-search-found-title">Highlighted search result in the document window</title>
+<title id="figure-search-found-title">Highlighted Search Result in the Document Window</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/search_found.png" format="PNG"/>
@@ -766,18 +691,18 @@ If you want to disable any of these items by default, you can set these options 
 <para>To find a subsequent occurrence of the string, use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item. If no further occurrence is found, a dialog will be displayed notifying you that no match was found.</para>
 </sect3>
 
-<?linebreak?>
+
 
 <sect3 id="basic-find-selection">
 <title>Setting limits to the search scope</title>
-<?linebreak?>
+
 <para>You may want to search for a string from the cursor location till the end of the document. Here is an example to search all <literal>name ==</literal> occurrences within a python script from a given location.</para>
 <procedure id="search-selection"><title>Searching from selection</title>
 <step>
 <para>Put the cursor where you want to start the search from in the document window
-<?linebreaka4?>
+
 <figure id="figure-find-limited-cursor">
-<title id="figure-find-limited-cursor-title">Setting the cursor location</title>
+<title id="figure-find-limited-cursor-title">Setting the Cursor Location</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_limited_cursor.png" format="PNG"/>
@@ -797,7 +722,7 @@ If you want to disable any of these items by default, you can set these options 
 <step>
 <para>Choose <guilabel>Current position till end</guilabel> from the <guilabel>Starts at:</guilabel> pop up menu
 <figure id="figure-find-limited-dialog">
-<title id="figure-find-limited-dialog-title">Choosing a limited search method</title>
+<title id="figure-find-limited-dialog-title">Choosing a limited Search Method</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_limited_dialog.png" format="PNG"/>
@@ -812,11 +737,9 @@ If you want to disable any of these items by default, you can set these options 
 <para>Click OK.</para>
 </step>
 </procedure>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>Here is the result:
 <figure id="figure-find-limited-result">
-<title id="figure-find-limited-result-title">Limited search result</title>
+<title id="figure-find-limited-result-title">Limited Search Result</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_limited_result.png" format="PNG"/>
@@ -826,18 +749,16 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
 <para>Notice that the search does not take into account the occurrence of the same string at line 50, since it is outside the search scope.</para>
-<?pagebreakus?>
+
 <para>You can also limit the search scope to a selection range. In that case, highlight the selection before the search, and choose <guilabel>Beginning of selection till end of selection</guilabel> from the <guilabel>Starts at:</guilabel> pop up menu in the <guilabel>Find</guilabel> dialog.</para>
 </sect3>
 
-<?pagebreaka4?>
 <sect3 id="find-matching-case">
 <title>Case sensitive search</title>
 <para>By default, the search process is case insensitive. If you want to make it case sensitive, just check the <guilabel>Match case</guilabel> box in the <guilabel>Find dialog</guilabel>.
 <figure id="figure-find-match-case">
-<title id="figure-find-match-case-title">Making the search case sensitive</title>
+<title id="figure-find-match-case-title">Making the Search Case Sensitive</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_match_case.png" format="PNG"/>
@@ -847,10 +768,9 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
 <para>Here is the result applied to a ruby script:
 <figure id="figure-find-match-result-case">
-<title id="figure-find-match-case-result-title">Case sensitive search result</title>
+<title id="figure-find-match-case-result-title">Case Sensitive Search Result</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_match_case_result.png" format="PNG"/>
@@ -863,20 +783,12 @@ If you want to disable any of these items by default, you can set these options 
 <para>Notice again that the result does not catch the XML string at line 45, since the search string was xml and case sensitive search was requested.</para>
 </sect3>
 
-<?linebreaka4?>
-<?linebreaka4?>
-<?pagebreakus?>
 <sect3 id="find-overlap">
 <title>Overlapping searches</title>
 <para>It may occur that the document contains some kind of palindrome you want to search for. The "normal" find process does not retrieve all occurrences of that kind of string.</para>
-<?pagebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>In this case, you have to check the <guilabel>Overlap searches</guilabel> box in the <guilabel>Find</guilabel> dialog to retrieve all occurences of the string.
 <figure id="figure-find-basic-overlap">
-<title id="figure-find-basic-overlap-title">Finding overlapping strings</title>
+<title id="figure-find-basic-overlap-title">Finding overlapping Strings</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_basic_overlap.png" format="PNG"/>
@@ -886,15 +798,9 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>Applied to a shell script, the second search (with <keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo>, then <keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo>) will give the following result:
 <figure id="figure-find-basic-overlap-result">
-<title id="figure-find-basic-overlap-result-title">An overlapping string retrieved with the Find dialog</title>
+<title id="figure-find-basic-overlap-result-title">An overlapping String retrieved with the Find Dialog</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_basic_overlap_result.png" format="PNG"/>
@@ -905,23 +811,12 @@ If you want to disable any of these items by default, you can set these options 
 </mediaobject></screenshot>
 </figure></para>
 </sect3>
-<?pagebreak?>
+
 <sect3 id="find-old-search">
 <title>Retrieving previous search strings</title>
-<?linebreak?>
 <para>Notice that the pop up menu to the right of the <guilabel>Search for</guilabel> field in the <guilabel>Find</guilabel> dialog allows you to retrieve previous search strings. They are listed in reverse order by search history, providing quicker access to the most recent searches.
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreaka4?>
-<?linebreaka4?>
 <figure id="figure-find-recent">
-<title id="figure-find-recent-title">Retrieving recent searches</title>
+<title id="figure-find-recent-title">Retrieving recent Searches</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_recent.png" format="PNG"/>
@@ -933,19 +828,8 @@ If you want to disable any of these items by default, you can set these options 
 </figure></para>
 </sect3>
 
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreaka4?>
-<?linebreaka4?>
-
 <sect3 id="more-on-find">
 <title>More on find</title>
-<?linebreak?>
 <para>For an explanation of the <guilabel>Bookmark results</guilabel> box of the <guilabel>Find</guilabel> dialog, see <xref linkend="generate-bookmark"/>.</para>
 <para>You will find details on <guilabel>Find Again</guilabel> and <guilabel>Find from Selection</guilabel> in <xref linkend="find-replace"/>.</para>
 <para>For a quick way of switching from HTML entities to other types of encoding and changing letter cases, see <xref linkend="find-replace-special"/>.</para>
@@ -953,18 +837,12 @@ If you want to disable any of these items by default, you can set these options 
 
 <sect3 id="basic-replace">
 <title>Replacing features</title>
-<?linebreak?>
 <para>The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Replace...</guimenuitem></menuchoice> menu item works the same way and has all the features, the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find...</guimenuitem></menuchoice> menu item offers.</para>
 <para>The <guilabel>Replace</guilabel> dialog is also accessible through the contextual menu within a document.</para>
 <para>For the features common to the <guilabel>Find</guilabel> dialog, see <xref linkend="basic-find"/>.</para>
 <para>Here we will explain the features unique to the <guilabel>Replace</guilabel> dialog.
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreaka4?>
-<?linebreaka4?>
 <figure id="figure-replace-dialog">
-<title id="figure-replace-dialog-title">The Replace dialog</title>
+<title id="figure-replace-dialog-title">The Replace Dialog</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/replace_dialog.png" format="PNG"/>
@@ -974,19 +852,14 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreak?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
 </sect3>
 
 <sect3 id="replace-old-search">
 <title>Retrieving previous replace strings</title>
-<?linebreak?>
 <para>As for the <guilabel>Search for</guilabel> field's pop up menu, the <guilabel>Replace with</guilabel> field's pop up menu allows you to retrieve previous strings used for replace, the most recent ones being at the top of the list.</para>
 </sect3>
 
-<?pagebreaka4?>
+
 
 <sect3 id="replace-type">
 <title>Changing letter case when replacing</title>
@@ -994,12 +867,8 @@ If you want to disable any of these items by default, you can set these options 
 <para>The default choice is <guilabel>Normal</guilabel>, that is the case is not changed.</para>
 <para>With the <guilabel>Uppercase</guilabel> replace type, the search string will be replaced with its uppercase translation.</para>
 <para>Likewise, with the <guilabel>Lowercase</guilabel> replace type, the search string will be replaced with its lowercase translation.
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
 <figure id="figure-replace-type-dialog">
-<title id="figure-replace-type-dialog-title">Changing letter case when replacing</title>
+<title id="figure-replace-type-dialog-title">Changing letter Case when Replacing</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/replace_type_dialog.png" format="PNG"/>
@@ -1009,21 +878,14 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreakus?>
 <para>Notice that in this case, the <guilabel>Replace with</guilabel> field is deactivated, thus not taken into account even if you have entered some string in it.</para>
 </sect3>
 
-<?pagebreakus?>
 <sect3 id="replace-prompt">
-<?linebreakus?>
 <title>Choosing strings to replace</title>
 <para>It may occur that you do not want to replace all search strings retrieved by the search process, but only some of them. In this case, check the <guilabel>Prompt before replace</guilabel> box. A <guilabel>Confirm replace</guilabel> dialog will appear for each retrieved string where you can choose to <guilabel>Skip</guilabel> this string, i.e. leave it as it is, <guilabel>Replace</guilabel> it, <guilabel>Replace all</guilabel> strings within the search scope, or <guilabel>Close</guilabel> the dialog, i.e. cancel the process.
-<?linebreakus?>
 <figure id="figure-replace-confirm-dialog">
-<title id="figure-replace-confirm-dialog-title">The Replace confirm dialog</title>
+<title id="figure-replace-confirm-dialog-title">The Replace Confirm Dialog</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/replace_confirm_dialog.png" format="PNG"/>
@@ -1038,40 +900,33 @@ If you want to disable any of these items by default, you can set these options 
 
 <sect3 id="more-on-replace">
 <title>More on replace</title>
-<?linebreakus?>
 <para>For further explanation on replace features within Bluefish, see <xref linkend="find-replace"/>.</para>
 </sect3>
 
 </sect2>
 
-<?linebreakus?>
-
 <sect2 id="file-types">
 <title>File types</title>
-<?linebreakus?>
 <para>Different file types can change the behaviour of Bluefish. File types are recognized by their extension, or by the beginning of the file's contents. The current document type is shown in the far right of the status bar. If the type of a file is not properly detected, you can change the type using the <menuchoice><guimenu>Document</guimenu><guisubmenu>Document Type</guisubmenu></menuchoice> menu. See <xref linkend="bluefish-preferences"/> to change these extensions.</para>
 
 <sect3 id="syntax-highlighting">
 <title>Syntax highlighting</title>
-<?linebreakus?>
 <para>Syntax highlighting is the coloring of words that have special meaning for a language. The patterns can vary: for example, "&lt;title&gt;"  means "start of title" in HTML, "function" means "start of function" in PHP.</para>
 <para>While editing, Bluefish will only update the highlighting patterns in the block of text around the cursor. The number of lines (the size) of this block can be adjusted in the preferences under <guilabel>Editor</guilabel>. The syntax highlighting for the total document can be refreshed using the <menuchoice><shortcut><keycap>F5</keycap></shortcut><guimenu>Document</guimenu><guimenuitem>Update Highlighting</guimenuitem></menuchoice> menu. It can be disabled in the preferences under <guilabel>Editor</guilabel>. For more information about adding or modifying syntax highlighting for existent or new languages, see <link linkend="changing-highlighting-patterns">here</link>.</para>
 </sect3>
 
 </sect2>
 
-<?linebreakus?>
-
 <sect2 id="more-files">
 <title>More on files</title>
 
 <sect3 id="remote-files">
 <title>Remote files</title>
-<?linebreakus?>
+
 <para>Assuming a working Internet connection, files can also be opened from the web using <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice>. This feature depends on your gnome_vfs setup. If it is installed and working, http://, sftp://, smb:// and possibly more types of remote services should be supported by Bluefish. Depending on your gnome_vfs version, some of these protocols are not yet fully stable, which can crash Bluefish!
-<?linebreaka4?>
+
 <figure id="figure-open-url">
-<title id="figure-open-url-title">Opening an URL from the web</title>
+<title id="figure-open-url-title">Opening an URL from the Web</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/open_url.png" format="PNG"/>
@@ -1081,10 +936,10 @@ If you want to disable any of these items by default, you can set these options 
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?pagebreaka4?>
+
 <para>Here you can see the style sheet of an Apache web site, nicely highlighted after its opening via the Bluefish <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL</guimenuitem></menuchoice> menu.
 <figure id="figure-open-url-result">
-<title id="figure-open-url-result-title">A style sheet opened via the Open URL menu</title>
+<title id="figure-open-url-result-title">A Style Sheet opened via the Open URL Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/open_url_result.png" format="PNG"/>
@@ -1096,7 +951,7 @@ If you want to disable any of these items by default, you can set these options 
 </figure></para>
 </sect3>
 
-<?linebreakus?>
+
 
 <sect3 id="character-encoding">
 <title>Character encoding</title>
@@ -1105,7 +960,7 @@ If you want to disable any of these items by default, you can set these options 
 <para>The locale also defines a default encoding. If you are using a locale (a local setting, defining language, time format, currency format, number formatting etc.), Bluefish will try to load the file using the encoding defined in the locale.</para>
 <para>Bluefish itself also has a setting for a default encoding. This is the next encoding Bluefish will try. This is also the encoding Bluefish will use for files created by Bluefish (UTF-8 by default).</para>
 <para>If these steps fail, Bluefish will simply try every encoding defined in the Bluefish 
-config file. </para>
+config file.</para>
 <para>Filenames on disk can also contain non ASCII characters. All GNOME and GTK programs (including Bluefish) assume that filenames are in UTF-8 encoding. If you have filenames in the encoding of your locale on your disk, you have to set <userinput>G_BROKEN_FILENAMES=1</userinput> in the environment to make GNOME and GTK programs detect this encoding.</para>
 <para>For information about writing documents in 16-bits encoded languages, such as Japanese, see <xref linkend="input-methods"/>.</para>
 </sect3>
@@ -1115,9 +970,9 @@ config file. </para>
 <para>You can open multiple files at once with the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>O</keycap></keycombo></shortcut><guimenu>File</guimenu><guimenuitem>Open Advanced...</guimenuitem></menuchoice> menu item from a directory based on their extension or their contents. The same functionality is available from the file browser in the side panel by right-clicking a directory. This feature is available only when the find and grep utilities are installed on your system.</para>
 <para>To open all files by extension, enter the extension in the dialog, and leave the search pattern empty. Check the <guilabel>recursive</guilabel> option if you want to include all subdirectories in the search. To open files by content, leave the extension at *, and enter a search pattern in the dialog. You can use regular expression patterns if you check the <guilabel>Is regex</guilabel> option.</para>
 <para>You may also combine both methods. Here we open recursively all Chinese XML files in a given tree, whose contents contain the word packaging.
-<?linebreaka4?>
+
 <figure id="figure-open-advanced">
-<title id="figure-open-advanced-title">Using the Open Advanced dialog</title>
+<title id="figure-open-advanced-title">Using the Open Advanced Dialog</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/open_advanced.png" format="PNG"/>
@@ -1133,7 +988,7 @@ config file. </para>
 
 </sect1>
 
-<?linebreaka4?>
+
 <sect1 id="navigation-managing-documents">
 <title>Navigation and Managing documents</title>
 
@@ -1180,9 +1035,7 @@ config file. </para>
 <sect2 id="navigation-multiple">
 <title>Navigating through many documents</title>
 <para>Navigating through a large list of documents can be difficult. But if you right-click the document notebook tabs, you get a list of all opened documents.</para>
-<?linebreaka4?>
 <para>Navigation between documents can also be done using the <guimenu>Go</guimenu> menu, or its shortcuts.
-<?linebreakus?>
 <figure id="figure-go-menu">
 <title id="figure-go-menu-title">Bluefish Go Menu</title>
 <screenshot><mediaobject>
@@ -1194,8 +1047,6 @@ config file. </para>
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreakus?>
-<?linebreaka4?>
 <para>The shortcuts are the following:</para>
 <itemizedlist spacing="compact">
 <listitem>
@@ -1211,12 +1062,10 @@ config file. </para>
 <para><keycombo><keycap>Shift</keycap><keycap>Ctrl</keycap><keycap>Page-Down</keycap></keycombo> will change to the last document</para>
 </listitem>
 </itemizedlist>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>L</keycap></keycombo></shortcut><guimenu>Go</guimenu><guimenuitem>Goto Line</guimenuitem></menuchoice> offers an interesting feature.</para>
 <para>If there is some number in the document, you may select it, then click the <guilabel>From selection</guilabel> label in the Goto line dialog. Bluefish will fill in the <guilabel>Line number</guilabel> field with that number and go directly to it. The same feature is available from the <menuchoice><guimenu>Go</guimenu><guimenuitem>Goto Selection</guimenuitem></menuchoice>.
 <figure id="figure-goto-line">
-<title id="figure-goto-line-title">Using the Goto Line dialog</title>
+<title id="figure-goto-line-title">Using the Goto Line Dialog</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/goto_line.png" format="PNG"/>
@@ -1226,14 +1075,11 @@ config file. </para>
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
 <tip>
 <para>Check the <guilabel>Keep dialog</guilabel> box to keep the dialog open, when you plan to access several parts of the document by line numbers.</para>
 </tip>
 </sect2>
 
-<?linebreaka4?>
-<?linebreaka4?>
 <sect2 id="projects">
 <title>Projects</title>
 <para>The projects are a sort of <emphasis>saved state</emphasis> of Bluefish. Thus, they are a very convenient way to work with files scattered all over your disks or to pick up only the files you are interested in within a huge tree. Projects features are accessible through the <guimenu>Project</guimenu> menu.
@@ -1248,13 +1094,12 @@ config file. </para>
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
 <procedure id="creating-new-project"><title>Creating a New Project</title>
 <step>
 <para>Click on the <menuchoice><guimenu>Project</guimenu><guimenuitem>New Project</guimenuitem></menuchoice></para>
 <para>If some documents are already opened, check the appropriated box in the <guilabel>Create project</guilabel> dialog.
 <figure id="figure-project-create-dialog">
-<title id="figure-project-create-dialog-title">The Create Project dialog</title>
+<title id="figure-project-create-dialog-title">The Create Project Dialog</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/project_create_dialog.png" format="PNG"/>
@@ -1284,7 +1129,6 @@ config file. </para>
 </step>
 <step>
 <para>Once the project is created, you need to tell Bluefish where you want to save it. An <guilabel>Enter Bluefish project filename</guilabel> dialog will be displayed. Notice that you can save the project in a location different from the files to which the project points.
-<?linebreaka4?>
 <figure id="figure-project-save-dialog">
 <title id="figure-project-save-dialog-title">Entering Bluefish Project Filename</title>
 <screenshot><mediaobject>
@@ -1298,10 +1142,7 @@ config file. </para>
 </figure></para>
 </step>
 </procedure>
-<?linebreaka4?>
-<?linebreak?>
 <para>To open a project, you have the choice between <menuchoice><guimenu>Project</guimenu><guimenuitem>Open Project...</guimenuitem></menuchoice> or <menuchoice><guimenu>Project</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice>. When you choose the former, a <guilabel>Selecting a Bluefish Project</guilabel> dialog is presented to you.
-<?linebreaka4?>
 <figure id="figure-project-open-dialog">
 <title id="figure-project-open-dialog-title">Selecting a Bluefish Project</title>
 <screenshot><mediaobject>
@@ -1313,12 +1154,8 @@ config file. </para>
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?pagebreaka4?>
+
 <para>To save the project under its current name/location, use <menuchoice><guimenu>Project</guimenu><guimenuitem>Save</guimenuitem></menuchoice> or <menuchoice><guimenu>Project</guimenu><guimenuitem>Save &amp; close</guimenuitem></menuchoice>; to save it under a new name/location, use <menuchoice><guimenu>Project</guimenu><guimenuitem>Save as...</guimenuitem></menuchoice>. If any file in the project has changed, a dialog will allow you to save the file, discard the changes, or cancel. All files open when the project is saved are automatically opened the next time you open the project.
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
 <figure id="figure-project-open">
 <title id="figure-project-open-title">Opening a Bluefish Project</title>
 <screenshot><mediaobject>
@@ -1330,13 +1167,8 @@ config file. </para>
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>Notice that the side panel only shows the tree related to the project.</para>
 <para>Also, the recently used files in that project are shown in the <menuchoice><guimenu>File</guimenu><guimenuitem>Open recent</guimenuitem></menuchoice> menu item.</para>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>A project also saves some basic Bluefish settings, giving the project its own customized Bluefish setup. Currently, the word wrap preference and the state of various tool and menu bars are saved in a project file. The project file itself is simply a text file in the standard Bluefish format (same format as the config file). This format is <literal>key: value</literal>. Here is an example:
 <programlisting>name: BluefishDoc
 basedir: ~/bluefishcvs/bluefish-gtk2/doc/
@@ -1350,19 +1182,13 @@ word_wrap: 1
 </programlisting></para>
 </sect2>
 
-<?linebreaka4?>
-
 <sect2 id="bookmarks">
 <title>Bookmarks</title>
-<?linebreaka4?>
 <para>In Bluefish you can add bookmarks to a line in the text, and you can later use the bookmark to quickly jump to this location, or even to open the document referred to by the bookmark at that line.</para>
 <para>Bookmarks can be added to the current cursor location by using the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>D</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Add Bookmark</guimenuitem></menuchoice> menu item; or by right-clicking in the text, and selecting <guilabel>Add bookmark</guilabel>. You can delete a bookmark using the <guilabel>Delete bookmark</guilabel> item in the document contextual menu.</para>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>Each bookmark in a given document is marked by a blue background in the line number margin.
 <figure id="figure-bookmark-marked">
-<title id="figure-bookmark-marked-title">How bookmarks are marked</title>
+<title id="figure-bookmark-marked-title">How Bookmarks are marked</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/bookmark_marked.png" format="PNG"/>
@@ -1372,14 +1198,10 @@ word_wrap: 1
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
 <para>Bookmarks can be temporary or permanent. Permanent bookmarks are stored, and temporary bookmarks are gone after Bluefish is closed.	The default is set in the preferences under <guilabel>Editor</guilabel>.</para>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>Bookmarks can be found in the third tab of the side panel, sorted by document and line number.
-<?linebreaka4?>
 <figure id="figure-bookmark-tab">
-<title id="figure-bookmark-tab-title">Bookmarks in the side panel</title>
+<title id="figure-bookmark-tab-title">Bookmarks in the Side Panel</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/bookmark_tab.png" format="PNG"/>
@@ -1389,12 +1211,9 @@ word_wrap: 1
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>If you right click a bookmark in the bookmark tab of the side panel, you get a pop up menu with several options.
-<?linebreak?>
 <figure id="figure-bookmark-cm">
-<title id="figure-bookmark-cm-title">Contextual menu on bookmark in the side panel</title>
+<title id="figure-bookmark-cm-title">Contextual Menu on Bookmark in the Side Panel</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/bookmark_cm.png" format="PNG"/>
@@ -1404,17 +1223,17 @@ word_wrap: 1
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
+
 <para>The <guilabel>Goto bookmark</guilabel> item allows you to go to the bookmark location in the document, opening it if needed.</para>
-<?pagebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
 <para>The <guilabel>Edit</guilabel> item allows you to change a bookmark from temporary to permanent or the other way around, to name it, and to give it a short description.
-<?linebreakus?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
 <figure id="figure-bookmark-edit">
-<title id="figure-bookmark-edit-title">Editing a bookmark</title>
+<title id="figure-bookmark-edit-title">Editing a Bookmark</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/bookmark_edit.png" format="PNG"/>
@@ -1424,16 +1243,16 @@ word_wrap: 1
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
 <para>Note that after naming a bookmark, the default name - first characters of the bookmarked line - is displayed after the new name.
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <figure id="figure-bookmark-name">
-<title id="figure-bookmark-name-title">A named bookmark</title>
-<?linebreaka4?>
-<?linebreakus?>
+<title id="figure-bookmark-name-title">A named Bookmark</title>
+
+
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/bookmark_name.png" format="PNG"/>
@@ -1443,14 +1262,14 @@ word_wrap: 1
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
 <para>Via this contextual menu, you may also delete a bookmark, delete all bookmarks in the active document, or delete all bookmarks stored in the bookmark tab of the side panel. The latter ones are also available when you right click the name of a document in this tab.
-<?linebreak?>
-<?linebreaka4?>
+
+
 <figure id="figure-bookmark-document-cm">
-<title id="figure-bookmark-document-cm-title">The contextual menu on a document in the bookmark tab</title>
+<title id="figure-bookmark-document-cm-title">The Contextual Menu on a Document in the Bookmark Tab</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/bookmark_document_cm.png" format="PNG"/>
@@ -1460,21 +1279,19 @@ word_wrap: 1
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 
 <sect3 id="generate-bookmark">
 <title>Generating several bookmarks at once</title>
-<?linebreaka4?>
-<?linebreak?>
+
+
 <para>To add many bookmarks at once, use the <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> dialog. Check the <guilabel>Bookmark result</guilabel> option, and all search results will be added to your bookmarks.</para>
-<?pagebreaka4?>
-<?linebreaka?>
-<?linebreaka?>
+
 <para>For example, the XML files for this manual have sections, each identified by a header like <literal>&lt;sect1 id="nameofthesection"&gt;</literal>. A way to automatically get a bookmark to every section is to search for the following posix regular expression pattern: <literal>&lt;sect[0-9]+ id="[^"]+"&gt;</literal> and bookmark all results.
-<?linebreakus?>
+
 <figure id="figure-bookmark-find-posix">
-<title id="figure-bookmark-find-posix-title">Bookmarking with Posix regular expression</title>
+<title id="figure-bookmark-find-posix-title">Bookmarking with Posix Regular Expression</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/bookmark_find_posix.png" format="PNG"/>
@@ -1484,20 +1301,9 @@ word_wrap: 1
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreak?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreak?>
-<?linebreak?>
 <para>Here is the result:
-<?linebreak?>
 <figure id="figure-bookmark-find-posix-result">
-<title id="figure-bookmark-find-posix-result-title">Bookmarks with Posix regular expression</title>
+<title id="figure-bookmark-find-posix-result-title">Bookmarks with Posix Regular Expression</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/bookmark_find_posix_result.png" format="PNG"/>
@@ -1507,10 +1313,10 @@ word_wrap: 1
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?pagebreak?>
+
 <para>Here are two examples which bookmarks all functions in Objective-C and PHP files with POSIX or PERL regular expressions:
 <figure id="figure-bookmark-find-cm">
-<title id="figure-bookmark-find-title">Bookmarking Objective C functions via the Find menu</title>
+<title id="figure-bookmark-find-title">Bookmarking Objective C Functions via the Find Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/bookmark_find.png" format="PNG"/>
@@ -1520,9 +1326,8 @@ word_wrap: 1
 </textobject>
 </mediaobject></screenshot>
 </figure>
-<?linebreaka4?>
 <figure id="figure-bookmark-find-perl">
-<title id="figure-bookmark-find-perl-title">Bookmarking PHP functions via the Find menu</title>
+<title id="figure-bookmark-find-perl-title">Bookmarking PHP Functions via the Find Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/bookmark_find_perl.png" format="PNG"/>
@@ -1537,8 +1342,6 @@ word_wrap: 1
 
 </sect2>
 
-<?linebreaka4?>
-
 <sect2 id="find-replace">
 <title>Find and Replace</title>
 <para>The <guimenu>Edit</guimenu> menu features several options for Find and Replace. The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>F</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find</guimenuitem></menuchoice> and <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>H</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Replace...</guimenuitem></menuchoice> menu items will simply start their corresponding dialogs described in <xref linkend="basic-find-replace"/>.</para>
@@ -1548,7 +1351,7 @@ word_wrap: 1
 <para>The <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Find again</guimenuitem></menuchoice> menu item will repeat the last used search. It will continue the search after the position where the previous search was stopped. If the end of file is reached, it will signaled it if the search operates on a unique file, nevertheless you can continue the search from the top of file with <keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo> after dismissing the <guilabel>Search: no match found</guilabel> dialog. If the search operates on multiple files, it will continue with the next file.</para>
 <para>Here you can see how the <guilabel>Find again</guilabel> process operates on two successive searches for the word "url" in an xml file:
 <figure id="figure-find-again-first">
-<title id="figure-find-again-first-title">Nth occurrence with Find Again</title>
+<title id="figure-find-again-first-title">Nth Occurrence with Find Again</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_again_first.png" format="PNG"/>
@@ -1559,7 +1362,7 @@ word_wrap: 1
 </mediaobject></screenshot>
 </figure></para>
 <para><figure id="figure-find-again-second">
-<title id="figure-find-again-second-title">Nth+1 occurrence with Find Again</title>
+<title id="figure-find-again-second-title">Nth+1 Occurrence with Find Again</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_again_second.png" format="PNG"/>
@@ -1574,15 +1377,9 @@ word_wrap: 1
 <sect3 id="find-from-selection">
 <title>Find from Selection</title>
 <para>The <menuchoice><guimenu>Edit</guimenu><guimenuitem>Find from selection</guimenuitem></menuchoice> menu item will search for the currently selected text. If you select for example the name of a function, in bluefish, or in any other program, and you choose find from selection Bluefish will start a new search for this selected string.</para>
-<?pagebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>Here we have selected a function in a C file:
 <figure id="figure-find-selection-select">
-<title id="figure-find-selection-select-title">Selecting a string for subsequent search</title>
+<title id="figure-find-selection-select-title">Selecting a String for subsequent Search</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_selection_select.png" format="PNG"/>
@@ -1592,15 +1389,9 @@ word_wrap: 1
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
 <para>Clicking on <menuchoice><guimenu>Edit</guimenu><guimenuitem>Find from selection</guimenuitem></menuchoice> gives the following result:
 <figure id="figure-find-selection-search">
-<title id="figure-find-selection-search-title">Finding a string from selection</title>
+<title id="figure-find-selection-search-title">Finding a String from Selection</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_selection_search.png" format="PNG"/>
@@ -1613,11 +1404,11 @@ word_wrap: 1
 <para>Next occurrences of the string can be found with <keycombo><keycap>Ctrl</keycap><keycap>G</keycap></keycombo> as usual.</para>
 </sect3>
 
-<?pagebreaka4?>
+
 <sect3 id="find-replace-regex">
 <title>Find and Replace Using Regular Expressions</title>
 <para>With find and replace you can do incredibly powerful searches. We have already seen some of them in <xref linkend="generate-bookmark"/>, which deserve some explanation here.</para>
-<?linebreakus?>
+
 <example id="retrieve-sections"><title>Retrieving all sections in an xml book</title>
 <para>The regular POSIX expression <literal>&lt;sect[0-9]+ id="[^"]+"&gt;</literal> can be split into:</para>
 <itemizedlist>
@@ -1639,11 +1430,11 @@ word_wrap: 1
 </itemizedlist>
 <para>Therefore, it matches any string of type <literal>&lt;sectn id="nameofthesection"&gt;</literal>, where n is a positive integer.</para>
 </example>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
+
+
+
+
+
 <example id="retrieve-functions-objc"><title>Retrieving all functions in an Objective C file</title>
 <para>In a simplified example, an objective C function may have two forms:</para>
 <orderedlist>
@@ -1679,11 +1470,11 @@ word_wrap: 1
 </itemizedlist>
 <para>Thus the whole POSIX regular expression is: <literal>\- \([a-z]+\) *[a-z]+[:]*</literal>. In the example, we have grouped the parts with parentheses, you may prefer this simplified form, though it is not recommended.</para>
 </example>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
+
+
+
+
+
 <example id="retrieve-functions-php"><title>Retrieving all functions in a PHP file</title>
 <para>A php function has the form <literal>function nameofthefunction(listofparameters)</literal>, where the list of parameters can be empty. To match it with a PERL regular expression, you have to know that <literal>\s matches any white space</literal> and <literal>\w</literal> matches any alphanumerical character as well as white spaces.</para>
 <para>Thus, the matching regular expression is: <literal>function\s+\w+</literal>.</para>
@@ -1701,13 +1492,13 @@ word_wrap: 1
 </itemizedlist>
 <para>The PERL regular expression becomes: <literal>function\s+\w+\([^\)]*\)</literal>.</para>
 </example>
-<?pagebreak?>
+
 <para>Here is a new example which transforms a table into a definition list inside an html file.</para>
-<?linebreaka4?>
+
 <example id="transform-table-deflist"><title>Transforming a table into a definition list</title>
 <para>Say you have the following table:
 <figure id="figure-find-regex-before">
-<title id="figure-find-regex-before-title">The table before transformation</title>
+<title id="figure-find-regex-before-title">The table before Transformation</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_regex_before.png" format="PNG"/>
@@ -1717,11 +1508,11 @@ word_wrap: 1
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreak?>
-<?linebreak?>
+
+
 <para>You want to transform it in the following definition list:
 <figure id="figure-find-regex-after">
-<title id="figure-find-regex-after-title">The table after transformation</title>
+<title id="figure-find-regex-after-title">The table after Transformation</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/find_regex_after.png" format="PNG"/>
@@ -1731,8 +1522,8 @@ word_wrap: 1
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreak?>
+
+
 <para>For the rendering, you will use the following css style sheet:
 <programlisting><![CDATA[
 .st2 {
@@ -1752,7 +1543,7 @@ dt {
     font-weight: 400;
 }
 ]]></programlisting></para>
-<?pagebreak?>
+
 <para>The table's source code is the following:
 <programlisting><![CDATA[<table border="1">
 <tr>
@@ -1776,7 +1567,7 @@ dt {
 ...
 </tr>
 </table>]]></programlisting></para>
-<?linebreaka4?>
+
 <para>The definition list's source code will be the following:
 <programlisting><![CDATA[<p class="st2">BackupSeek 1.8</p>
 <dl>
@@ -1790,7 +1581,7 @@ Prints labels too.</span></dd>
 <p class="st2">Biblioteca v. 1.0</p>
 ...
 </dl>]]></programlisting></para>
-<?linebreaka4?>
+
 <para>Comparing both chunks of code, we see that the variable sequence of characters to capture is the one between one <literal>&lt;td&gt;</literal> tag and its closing <literal>&lt;/td&gt;</literal> tag. That sequence can be interpreted as one or more characters which are not a <literal>&lt;</literal>. We have already seen that. This is expressed as: <literal>[^&lt;]+</literal></para>
 <para>To be able to retrieve it later, we need to embed it into parentheses. Thus, the string becomes: <literal>([^&lt;]+)</literal></para>
 <para>Next, this sequence is embedded into <literal>&lt;td&gt;</literal> and <literal>&lt;/td&gt;</literal>, which is expressed simply concatenating the strings: <literal>&lt;td&gt;([^&lt;]+)&lt;/td&gt;</literal></para>
@@ -1799,8 +1590,8 @@ Prints labels too.</span></dd>
 <para><note>
 <para>Do not type it six times in the search field. Select the string, use the shortcuts <keycombo><keycap>Ctrl</keycap><keycap>C</keycap></keycombo> to copy it, move to the end of the string with the <keysym>right arrow</keysym>, and use <keycombo><keycap>Ctrl</keycap><keycap>V</keycap></keycombo> five times to paste it at the end of the string.</para>
 </note></para>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <para>The regular expression becomes (backslashes are inserted at end of line just for the purpose of not to have too long lines):
 <programlisting><![CDATA[<td>([^<]+)</td>\n \
 <td>([^<]+)</td>\n \
@@ -1808,7 +1599,7 @@ Prints labels too.</span></dd>
 <td>([^<]+)</td>\n \
 <td>([^<]+)</td>\n \
 <td>([^<]+)</td>\n]]></programlisting></para>
-<?pagebreak?>
+
 <para>Those lines are at their turn embedded into <literal>&lt;tr&gt;</literal> and <literal>&lt;/tr&gt;</literal> tags each of them on their own line, which can be expressed as: <literal>&lt;tr&gt;\n</literal> for the first one, and <literal>&lt;/tr&gt;\n</literal> for the second one. We add those strings respectively at the beginning and at the end of our regular expression, which becomes:
 <programlisting><![CDATA[<tr>\n \
 <td>([^<]+)</td>\n \
@@ -1838,7 +1629,7 @@ Prints labels too.</span></dd>
 <note>
 <para>To enable the escaped characters in your searches check the <guilabel>Patterns contain backslash sequences (\n, \t)</guilabel> option.</para>
 </note>
-<para>If you have any search and replace patterns you use often, you can also add them to the Custom Menu. Check <xref linkend="custom-menu"/> for more information. </para>
+<para>If you have any search and replace patterns you use often, you can also add them to the Custom Menu. Check <xref linkend="custom-menu"/> for more information.</para>
 <para>For more information about regular expressions you might want to read man 1 perlre,  man 3 pcrepattern, man 3 regex or man 7 regex, or read any of the great Internet sites about regular expressions. As you become more familiar with regular expressions, you will realize that they make <application>Bluefish</application> a very powerful editor.</para>
 </sect3>
 
@@ -1853,19 +1644,18 @@ Prints labels too.</span></dd>
 <title>Indenting</title>
 <para>To indent large sections of text, simply highlight the section and 
 choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Shift Right</guimenuitem></menuchoice>. To remove an indentation, choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>,</keycap></keycombo></shortcut><guimenu>Edit</guimenu><guimenuitem>Shift Left</guimenuitem></menuchoice>.  There are corresponding buttons in the tool bar for these menu options (see later in this text).</para>
-<?pagebreakus?>
 <para>By default, Bluefish will use tabs for indenting, but can be configured to use spaces if you have <guilabel>Use spaces to indent, not tabs</guilabel> selected in the Editor preferences panel. The number of spaces used is the same as the <guilabel>Tab width</guilabel> option in the same preferences panel.</para>
-<?pagebreaka4?>
+
 <para>Here's an extract of Dante's work indented with the <guilabel>Shift Right</guilabel> button in the main tool bar:
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
+
+
+
+
 <figure id="figure-indenting_right">
-<title id="figure-indenting_right-title">Indenting part of a text</title>
+<title id="figure-indenting_right-title">Indenting Part of a Text</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/indenting_right.png" format="PNG"/>
@@ -1877,12 +1667,12 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </figure></para>
 </sect2>
 
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
+
+
+
 
 <sect2 id="auto-tag-closing">
 <title>Auto tag closing</title>
@@ -1891,7 +1681,7 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 <para>Bluefish will choose the mode based on the file type of the document. In the filetype preferences panel, the default mode for each file type can be set. See <xref linkend="changing-filetypes"/> for more info.</para>
 </sect2>
 
-<?pagebreak?>
+
 
 <sect2 id="spell-checker">
 <title>Spell checker</title>
@@ -1920,7 +1710,7 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 <para>The function reference browser will display an info window on the bottom by checking the <guilabel>Show info window</guilabel> check box. In this window, information about the currently selected item is shown. The type of information shown can be configured in the right-click context menu (see Info Type later in this text).</para>
 <para>In the reference browser's contextual menu, you can simply insert the text for the selected item by choosing <guilabel>Insert</guilabel>. Or, you can get a little help using <guilabel>Dialog</guilabel>, which launches a dialog window containing fields for the currently selected item's attributes or parameters. For a summary of an item's usage, choose <guilabel>Info</guilabel>. The contextual menu is also accessible on a group of functions and at the top level of a reference.
 <figure id="figure-browser-reference-right-click">
-<title id="figure-browser-reference-right-click-title">The reference browser contextual menu</title>
+<title id="figure-browser-reference-right-click-title">The Reference Browser Contextual Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/browser_reference_right_click.png" format="PNG"/>
@@ -1930,15 +1720,15 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreak?>
+
+
+
+
 <para>The <guilabel>Options</guilabel> menu accessible via the contextual menu offers three actions:
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <figure id="figure-browser-reference-options">
-<title id="figure-browser-reference-options-title">The reference browser options menu</title>
+<title id="figure-browser-reference-options-title">The Reference Browser Options Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/browser_reference_options.png" format="PNG"/>
@@ -1948,7 +1738,7 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
+
 <itemizedlist>
 <listitem>
 <para><guilabel>Rescan reference files</guilabel> in case you have customized one of them, so that the new items be available.</para>
@@ -1961,9 +1751,9 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </listitem>
 <listitem>
 <para><guilabel>Dialog</guilabel> to insert the function in the document while filling in the parameters in a dialog window:
-<?linebreaka4?>
+
 <figure id="figure-browser-reference-dialog">
-<title id="figure-browser-reference-dialog-title">A function reference dialog window</title>
+<title id="figure-browser-reference-dialog-title">A Function Reference Dialog Window</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/browser_reference_dialog.png" format="PNG"/>
@@ -1973,12 +1763,12 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
+
 </listitem>
 <listitem>
 <para><guilabel>Info</guilabel> to display a window with all available info about the function:
 <figure id="figure-browser-reference-info-window">
-<title id="figure-browser-reference-info-window-title">Info available for a function</title>
+<title id="figure-browser-reference-info-window-title">Info available for a Function</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/browser_reference_info_window.png" format="PNG"/>
@@ -2008,8 +1798,8 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </itemizedlist>
 </sect2>
 
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 
 <sect2 id="HTML">
 <title>HTML</title>
@@ -2018,7 +1808,7 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 <listitem>
 <para>the <guilabel>Tags</guilabel> menu:
 <figure id="figure-html-tags-menu">
-<title id="figure-html-tags-menu-title">The HTML Tags menu</title>
+<title id="figure-html-tags-menu-title">The HTML Tags Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/html_tags_menu.png" format="PNG"/>
@@ -2031,9 +1821,9 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </listitem>
 <listitem>
 <para>the <guilabel>Dialogs</guilabel> menu:
-<?linebreak?>
+
 <figure id="figure-html-dialogs-menu">
-<title id="figure-html-dialogs-menu-title">The HTML Dialogs menu</title>
+<title id="figure-html-dialogs-menu-title">The HTML Dialogs Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/html_dialogs_menu.png" format="PNG"/>
@@ -2045,18 +1835,18 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </figure></para>
 </listitem>
 </itemizedlist>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
+
+
+
 <para>The preferences have several settings on HTML style under <guilabel>HTML</guilabel>.</para> 
-<?linebreak?>
+
 <para>The HTML tool bar has two types of buttons. You can recognise each type by the tool tip if you move the mouse over the button:</para>
 <itemizedlist>
 <listitem>
 <para>First there are buttons that will open a dialog for some HTML tag. These buttons have a tool tip that ends with three dots.
-<?linebreak?>
+
 <figure id="figure-html-tooltip-dots">
-<title id="figure-html-tooltip-dot-title">An HTML button with a three-dotted tool tip</title>
+<title id="figure-html-tooltip-dot-title">An HTML Button with a three-dotted Tool Tip</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/html_tooltip_dots.png" format="PNG"/>
@@ -2069,9 +1859,9 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </listitem>
 <listitem>
 <para>Second, there are buttons that will directly insert text, these buttons do not have the dots in the tool tip.
-<?linebreak?>
+
 <figure id="figure-html-tooltip-simple">
-<title id="figure-html-tooltip-simple-title">A simple HTML tool tip button</title>
+<title id="figure-html-tooltip-simple-title">A simple HTML Tool Tip Button</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/html_tooltip_simple.png" format="PNG"/>
@@ -2083,19 +1873,19 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </figure></para>
 </listitem>
 </itemizedlist>  
-<?linebreak?>
+
 <para>If you want to add an HTML tag around some block of text, select the block of text, use the HTML tool bar or the Tags or Dialogs menu to insert the tag. The opening tag will be inserted before the selected block, the closing tag after the selected block.</para>
 <para>An existing tag can be edited by right-clicking the tag, and select <guilabel>Edit tag</guilabel> in the context menu. You can also place the cursor in the tag and use <menuchoice><shortcut><keycap>F3</keycap></shortcut><guimenu>Dialogs</guimenu><guimenuitem>Edit tag under cursor...</guimenuitem></menuchoice>. Not all tags, however, have a dialog, so this is not always possible. Colors in the style #RRGGBB can also be edited from the right-click context menu.</para>
 <para>In the reference browser on the left panel there is an HTML reference available. All possible attributes and valid values can be found in this reference. See <xref linkend="function-reference"/> for more info.</para> 
-<?pagebreak?>
+
 
 <sect3 id="find-replace-special">
 <title>Special find and replace features</title>
-<?linebreak?>
+
 <para>There are several special search and replace actions in the menu <menuchoice><guimenu>Edit</guimenu><guisubmenu>Replace special</guisubmenu></menuchoice>. These can be used to convert special characters (like &lt; and &amp;), or ISO characters to their HTML entities, as well as to change the letters case.
-<?linebreak?>
+
 <figure id="figure-replace-special-menu">
-<title id="figure-replace-special-menu-title">The Replace special menu</title>
+<title id="figure-replace-special-menu-title">The Replace Special Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/replace_special_menu.png" format="PNG"/>
@@ -2105,29 +1895,29 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreak?>
+
 <para>In all cases, when you want to replace some part of the text, you should first select the part to replace, then use the appropriated menu item.</para>
 </sect3>
 
-<?linebreak?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
+
 
 <sect3 id="thumbnails">
 <title>Thumbnail generation</title>
-<?linebreak?>
+
 <para>Bluefish can automatically generate thumbnails for images. A thumbnail is a small image, with a link to the larger image. Bluefish will create the small image based on your settings, and insert a &lt;img&gt; tag in the file, and a &lt;a&gt; tag linking the original. The thumbnails are created in the same directory as the original sources.</para>
-<?linebreak?>
+
 <para>The formats used for thumbnails may be png or jpg format. By default, the format used for thumbnails is png. You can change it in the <guilabel>Images</guilabel> panel of Preferences. For jpg images, the thumbnail extension is jpeg.</para>
-<?linebreak?>
+
 <para>There are actually two thumbnail dialogs in Bluefish:</para>
 <itemizedlist>
 <listitem>
 <para>an Insert thumbnail dialog,accessible from the <menuchoice><shortcut><keycombo><keycap>Shift</keycap><keycap>Alt</keycap><keycap>N</keycap></keycombo></shortcut><guimenu>Dialogs</guimenu><guisubmenu>General</guisubmenu><guimenuitem>Insert Thumbnail...</guimenuitem></menuchoice> or from the <guilabel>Standard bar</guilabel> of the HTML toolbar.
-<?linebreak?>
+
 <figure id="figure-thumbnail-simple-icon">
-<title id="figure-thumbnail-simple-icon-title">The Insert thumbnail icon</title>
+<title id="figure-thumbnail-simple-icon-title">The Insert Thumbnail Icon</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/thumbnail_simple_icon.png" format="PNG"/>
@@ -2140,9 +1930,9 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </listitem>
 <listitem>
 <para>a Multi thumbnail dialog, only accessible from the <guilabel>Standard bar</guilabel> of the HTML toolbar.
-<?linebreak?>
+
 <figure id="figure-thumbnail-multi-icon">
-<title id="figure-thumbnail-multi-icon-title">The Multi thumbnail icon</title>
+<title id="figure-thumbnail-multi-icon-title">The Multi Thumbnail Icon</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/thumbnail_multi_icon.png" format="PNG"/>
@@ -2154,10 +1944,10 @@ choose <menuchoice><shortcut><keycombo><keycap>Ctrl</keycap><keycap>.</keycap></
 </figure></para>
 </listitem>
 </itemizedlist>
-<?linebreak?>
+
 <para>The Insert thumbnail dialog is very straightforward. You select the image file, provide some &lt;img&gt; tag attributes, choose the scaling, and press OK. The scaling factor is chosen by moving the slider directly under the image. The resulting image is previewed in the preview frame. Bluefish will create the thumbnail with extension _thumbnail.png or _thumbnail.jpeg (depending of the settings for images in the preferences).
 <figure id="figure-thumbnail-simple-dialog">
-<title id="figure-thumbnail-simple-dialog-title">The Insert thumbnail dialog</title>
+<title id="figure-thumbnail-simple-dialog-title">The Insert Thumbnail Dialog</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/thumbnail_simple_dialog.png" format="PNG"/>
@@ -2186,7 +1976,7 @@ alt="Gamboling in the meadow" align="middle"></a>]]></programlisting></para>
 <para>You can perfectly mix jpg images with png thumbnails or the other way around.</para>
 <para>If the html file exists beforehand, the paths to image and thumbnail are inserted relative to the location of the html file. On the contrary, if the html file does not exist beforehand, the full paths to the image and thumbnail are inserted in the code.</para>
 </note>
-<?linebreaka4?>
+
 <para>In the multi thumbnail dialog, you first choose the scaling method, then you set the corresponding width and/or height parameters. Finally, you may want to adjust the HTML code to be inserted for each image.</para>
 <para>Scaling can be based on a fixed ratio, a fixed width, a fixed height, or a fixed width and fixed height (this last option does not keep the original aspect ratio!).</para>
 <para>In the HTML code for each image, you can use several placeholders, such as:</para>
@@ -2218,7 +2008,7 @@ alt="Gamboling in the meadow" align="middle"></a>]]></programlisting></para>
 <para>Here is an example of two thumbnails created with a non nul border width and middle-aligned, with a fixed height and width, disregarding the aspect ratio.</para>
 <para>The <guilabel>Multi thumbnail</guilabel> window is the following:
 <figure id="figure-thumbnail_multi_dialog">
-<title id="figure-thumbnail-multi-dialog-title">The Multi thumbnail dialog</title>
+<title id="figure-thumbnail-multi-dialog-title">The Multi Thumbnail Dialog</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/thumbnail_multi_dialog.png" format="PNG"/>
@@ -2239,9 +2029,9 @@ height="50" border="5" align="middle"></a>
 <note>
 <para>Full pathnames are always used to reference original image sources. The paths to thumbnails are relative to the html file path if the html file already exists, while they are inserted as full paths when the html file does not exist.</para>
 </note>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
 <para>Below is a full procedure to quickly generate thumbnails from a directory of image files. This example is purposedly made with deprecated tags, so that you have an idea of what can be made with the variables. Feel free to adjust it when using CSS style sheets.</para>
 <procedure id="photo-album">
 <title>Generating a photos album with multi thumbnails</title>
@@ -2279,7 +2069,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <step>
 <para>Use <keycombo><keycap>Ctrl</keycap><keycap>A</keycap></keycombo> to select the file's contents and click on the <guilabel>Table</guilabel> icon located in the <guilabel>Tables</guilabel> tab of the HTML tool bar to embed the code into table tags. 
 <figure id="figure-table-icon">
-<title id="figure-table-icon-title">The Table icon in the html tool bar</title>
+<title id="figure-table-icon-title">The Table Icon in the HTML Tool Bar</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/table_icon.png" format="PNG"/>
@@ -2304,14 +2094,13 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 
 </sect2>
 
-<?pagebreakus?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <sect2 id="quickbar">
 <title>Customizing the Quick bar</title>
 <para>The <guilabel>Quick bar</guilabel> is a user defined tool bar. All HTML tool bar buttons can be added to the Quick bar by simply right-clicking the button and selecting <guilabel>Add to quickbar</guilabel>.
 <figure id="figure-quickbar-add">
-<title id="figure-quickbar-add-title">Adding an element to the Quick bar</title>
+<title id="figure-quickbar-add-title">Adding an Element to the Quick Bar</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/quickbar_add.png" format="PNG"/>
@@ -2323,7 +2112,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </figure></para>
 <para>And automagically you will see the element in the Quick bar:
 <figure id="figure-quickbar-add-result">
-<title id="figure-quickbar-add-result-title">The added element in the Quick bar</title>
+<title id="figure-quickbar-add-result-title">The added Element in the Quick Bar</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/quickbar_add_result.png" format="PNG"/>
@@ -2333,11 +2122,11 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <para>Note that you cannot add a pop up menu. Thus, if the item you want to add is inside a pop up menu (as is the code tag located in the <guilabel>Context formatting</guilabel> pop up menu of the <guilabel>Fonts</guilabel> tool bar), you have to first click on the pop up menu to display its contents, then to right click on the desired element to insert it in the <guilabel>Quick bar</guilabel>.
 <figure id="figure-quickbar-add-popup">
-<title id="figure-quickbar-add-popup-title">Adding a pop up menu element to the Quick bar</title>
+<title id="figure-quickbar-add-popup-title">Adding a Pop Up Menu Element to the Quick Bar</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/quickbar_add_popup.png" format="PNG"/>
@@ -2347,11 +2136,11 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <para>If you want to remove items from the <guilabel>Quick bar</guilabel>, right-click them and select <guilabel>Remove from Quick bar</guilabel>.
 <figure id="figure-quickbar-remove">
-<title id="figure-quickbar-remove-title">Removing an element from the Quick bar</title>
+<title id="figure-quickbar-remove-title">Removing an Element from the Quick Bar</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/quickbar_remove.png" format="PNG"/>
@@ -2361,15 +2150,15 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <para>You can also change the location of an element in the Quick bar. To do so, right-click the element and select <guilabel>Shift left</guilabel> or <guilabel>Shift Right</guilabel> as desired. The element will be moved to the left or to the right of its neighborough. Notice that this is not a drag and drop action; you may have to repeat the process if you want to move the element farther.
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
+
+
+
+
 <figure id="figure-quickbar-move">
-<title id="figure-quickbar-move-title">Moving an element within the Quick bar</title>
+<title id="figure-quickbar-move-title">Moving an Element within the Quick Bar</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/quickbar_move.png" format="PNG"/>
@@ -2381,22 +2170,22 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </figure></para>
 </sect2>
 
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
+
+
+
+
+
 
 <sect2 id="custom-menu">
 <title>Custom menu</title>
-<?linebreakus?>
+
 <para>To customize items in the <guilabel>Custom menu</guilabel> tool bar, you will use the <guilabel>Custom menu</guilabel> element:
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
+
+
+
+
 <figure id="figure-custom-menu-access">
-<title id="figure-custom-menu-access-title">Accessing the custom menu</title>
+<title id="figure-custom-menu-access-title">Accessing the Custom Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/custom_menu_access.png" format="PNG"/>
@@ -2406,11 +2195,11 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreakus?>
+
 <para>The <menuchoice><guimenu>Custom menu</guimenu><guimenuitem>Edit custom menu...</guimenuitem></menuchoice> leads to the <guilabel>Custom Menu Editor</guilabel>. The <guilabel>Load new</guilabel> item allows you to load a new menu in case you have directly changed the <filename>custom_menu</filename> file located in the <filename>.bluefish</filename> directory within your HOME directory, while <guilabel>Reset</guilabel> item allows you to return to the default custom menu under the same circumstances.</para>
-<?linebreakus?>
+
 <para>The <filename>custom_menu</filename> file is created upon install Bluefish and corresponds to some default entries, the ones you can see in the <guilabel>Custom menu</guilabel> tool bar. These will give you an idea what can be done with the custom menu.</para>
-<?linebreakus?>
+
 <para>The custom menu operates <emphasis>only</emphasis> on elements of the <guilabel>Custom menu</guilabel> tool bar, and allows you to:</para>
 <itemizedlist>
 <listitem>
@@ -2422,7 +2211,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <listitem>
 <para>create new menus</para>
 </listitem></itemizedlist>
-<?linebreakus?>
+
 <para>The <guilabel>Custom Menu Editor</guilabel> is the place where you make all changes to the custom menu. The location for entries in the custom menu is defined by their menu path in the <guilabel>Custom Menu Editor</guilabel>:
 <figure id="figure-custom-menu-editor">
 <title id="figure-custom-menu-editor-title">The Custom Menu Editor</title>
@@ -2435,13 +2224,13 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?pagebreaka4?>
+
+
+
+
+
+
+
 <para>It has four parts:</para>
 <itemizedlist>
 <listitem>
@@ -2469,18 +2258,18 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </listitem>
 <listitem>
 <para>The <guilabel>Menu path</guilabel> list on the left side, which lists existing menu paths. A menu path looks like <emphasis>/Main menu/submenu/item</emphasis> or <emphasis>/Main menu/item</emphasis>. Here's an extract of the default custom menu paths:
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
+
+
+
+
+
+
+
+
+
+
 <figure id="figure-custom-menu-default-path">
-<title id="figure-custom-menu-default-path-title">Extract of the default custom menu path</title>
+<title id="figure-custom-menu-default-path-title">Extract of the default Custom Menu Path</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/custom_menu_default_path.png" format="PNG"/>
@@ -2490,16 +2279,16 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </textobject>
 </mediaobject></screenshot>
 </figure>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
+
+
+
+
+
+
+
+
+
+
 </para>
 </listitem>
 <listitem>
@@ -2525,18 +2314,18 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </itemizedlist>
 </listitem>
 </itemizedlist>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreak?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
+
+
+
 
 <sect3 id="custom-menu-dialog">
 <title>Adding a custom menu dialog</title>
 <para>The most simple custom dialog item has a menupath, for example <emphasis>/MySite/author</emphasis>, and a Formatstring before, for example <emphasis>written by Olivier</emphasis>. If you add this item, you can add this string by selecting the menu item.</para>
-<?linebreak?>
-<?linebreak?>
+
+
 <procedure id="custom-menu-dialog-add">
 <title>Adding a custom menu based on custom dialog</title>
 <step>
@@ -2552,7 +2341,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>Click on the <guilabel>Add</guilabel> button at the top.</para>
 <para>Notice that upon adding the new entry, it is listed at the bottom of the <guilabel>Menu path</guilabel> list:
 <figure id="figure-custom-menu-add-basic">
-<title id="figure-custom-menu-add-basic-title">A new custom entry in the Menu path list</title>
+<title id="figure-custom-menu-add-basic-title">A new Custom Entry in the Menu Path List</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/custom_menu_add_basic.png" format="PNG"/>
@@ -2566,7 +2355,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <step>
 <para>Click on the <guilabel>Save</guilabel> button. This will add the menu to the Custom menu tool bar:
 <figure id="figure-custom-menu-basic-result">
-<title id="figure-custom-menu-basic-result-title">A new menu in the custom menu tool bar</title>
+<title id="figure-custom-menu-basic-result-title">A new Menu in the Custom Menu Tool Bar</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/custom_menu_basic_result.png" format="PNG"/>
@@ -2599,7 +2388,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </orderedlist>
 <para>If you select some text:
 <figure id="figure-custom-menu-div-before">
-<title id="figure-custom-menu-div-before-title">A block of selected text before activating the menu</title>
+<title id="figure-custom-menu-div-before-title">A Block of selected Text before Activating the Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/custom_menu_div_before.png" format="PNG"/>
@@ -2611,7 +2400,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </figure></para>
 <para>And activate this menu item, the first bit of text is now added before the selection, and the second bit after the selection:
 <figure id="figure-custom-menu-div-after">
-<title id="figure-custom-menu-div-after-title">A block of text after activating the menu</title>
+<title id="figure-custom-menu-div-after-title">A Block of Text after Activating the Menu</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/custom_menu_div_after.png" format="PNG"/>
@@ -2622,7 +2411,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </mediaobject></screenshot>
 </figure></para>
 <para>Suppose you want to improve this last example. You have both MyClass1 and MyClass2 and want to be able to choose the desired class when activating the menu. Here's how to do it:</para>
-<?pagebreaka4?>
+
 <orderedlist>
 <listitem>
 <para>Open the <guilabel>Custom Menu Editor</guilabel></para>
@@ -2640,11 +2429,11 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>Click on <guilabel>Apply</guilabel> so that your changes will be taken in account, and click on Save to update the menu.</para>
 </listitem>
 </orderedlist> 
-<?linebreakus?>
+
 <para>If you now activate this menu after having selected a block of text, you will be presented with a new dialog asking you for the value of <emphasis>MyClass number</emphasis>:
-<?linebreak?>
+
 <figure id="figure-custom-menu-div-dialog">
-<title id="figure-custom-menu-div-dialog-title">The new div with class dialog</title>
+<title id="figure-custom-menu-div-dialog-title">The new DIV with Class Dialog</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/custom_menu_div_dialog.png" format="PNG"/>
@@ -2654,11 +2443,11 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreak?>
+
 <para>After entering the desired value, the same process as before will occur, using the value you provided. Here we have entered 1 as value:
-<?linebreak?>
+
 <figure id="figure-custom-menu-div-dialog-result">
-<title id="figure-custom-menu-div-dialog-resul-ttitle">The block of text after entering the value</title>
+<title id="figure-custom-menu-div-dialog-resul-ttitle">The Block of Text after Entering the Value</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/custom_menu_div_dialog_result.png" format="PNG"/>
@@ -2668,19 +2457,19 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreakus?>
+
 <tip>
 <para>You can use the <keycap>Return</keycap> and <keycap>Tab</keycap> keys to format the output.</para>
 <para>Any variable can be used any times you want in the dialog.</para>
 </tip>
 </sect3>
 
-<?linebreak?>
+
 
 <sect3 id="custom-menu-replace">
 <title>Adding a custom replace dialog</title>
 <para>Find and replace items are no different. The dialog has some more options, each of these options corresponds to the regular <guilabel>Replace</guilabel> dialog. Again you can use variables like %0, %1 etc. to make a certain menu item more flexible.</para>
-<?linebreakus?>
+
 <para>Say you want to add title tags to a selection in a HTML page so that the user agent could render it either as a tool tip or as spoken words. To ease the discussion we will work on the following snippet of code: <programlisting><![CDATA[<ul>
 <li><a href="progsys01.html">Process scheduling</a> - 26/10/2002</li>
 <li><a href="progsys02.html">Fork and Wait</a> - 02/11/2002</li>
@@ -2691,11 +2480,11 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <li><a href="progsys02.html" title="blah Fork and Wait">Fork and Wait</a> \
 - 02/11/2002</li>
 </ul>]]></programlisting> where blah is any text you want.</para>
-<?pagebreaka4?>
+
 <para>The initial rendering:
-<?linebreaka4?>
+
 <figure id="figure-custom-menu-page-before">
-<title id="figure-custom-menu-page-before-title">The HTML page before the transformation</title>
+<title id="figure-custom-menu-page-before-title">The HTML Page before the Transformation</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/custom_menu_page_before.png" format="PNG"/>
@@ -2705,11 +2494,11 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
+
 <para>will be transformed as is:
-<?linebreaka4?>
+
 <figure id="figure-custom-menu-page-after">
-<title id="figure-custom-menu-page-after-title">The HTML page after the transformation</title>
+<title id="figure-custom-menu-page-after-title">The HTML Page after the Transformation</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/custom_menu_page_after.png" format="PNG"/>
@@ -2719,7 +2508,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
+
 <para>To do this, we need to express the &lt;a href="yoururl"&gt;yourstring&lt;/a&gt; part of the initial snippet of code as a Perl regular expression (see <xref linkend="find-replace-regex"/> for full details):</para>
 <itemizedlist>
 <listitem>
@@ -2741,14 +2530,14 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>&lt;/a&gt; will be expressed as is and embedded into parentheses to retrieve it as \5 variable.</para>
 </listitem>
 </itemizedlist>
-<?linebreaka4?>
+
 <para>Thus, the search string will be: (&lt;a href=")([^"]+)(")(&gt;)([^&gt;]+)(&lt;/a&gt;)</para>
-<?linebreaka4?>
+
 <para>The replace string should be of the form: &lt;a href="yoururl" title="yourvariablestring yourstring"&gt;yourstring&lt;/a&gt;</para>
-<?linebreaka4?>
+
 <para>Expressed as a regular Perl replacement expression, it will be as simple as: \0\1\2 title=\2%0 \4\2\3\4\5 where %0 will match yourvariablestring, that is the value entered in the <guilabel>Title</guilabel> field of the <guilabel>Replace </guilabel> dialog at activating time.</para>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <procedure id="custom-menu-replace-dialog-add">
 <title>Adding a custom menu based on replace dialog</title>
 <step>
@@ -2775,9 +2564,9 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <step>
 <para>Click on the <guilabel>Add</guilabel> button.</para>
 <para>The <guilabel>Custom replace</guilabel> dialog should have the following appearance:
-<?linebreakus?>
+
 <figure id="figure-custom-menu-replace-dialog-new">
-<title id="figure-custom-menu-replace-dialog-new-title">The custom menu replace dialog filled in</title>
+<title id="figure-custom-menu-replace-dialog-new-title">The Custom Menu Replace Dialog filled in</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/custom_menu_replace_dialog_new.png" format="PNG"/>
@@ -2793,9 +2582,9 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </step>
 </procedure>
 <para>To use the new menu item, select the lines to be changed in the HTML file and activate <guilabel>Replace/Anchor/Add Title</guilabel> in the custom menu bar. Fill in the dialog as follows: 
-<?linebreak?>
+
 <figure id="figure-custom-menu-add-title">
-<title id="figure-custom-menu-add-title-title">The Add Title dialog</title>
+<title id="figure-custom-menu-add-title-title">The Add Title Dialog</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/custom_menu_add_title.png" format="PNG"/>
@@ -2849,7 +2638,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <title>Customizing browsers</title>
 <para>The <guilabel>Browsers</guilabel> panel in Preferences shows the items in the same order as in the <guimenu>External</guimenu> menu:
 <figure id="figure-preferences-browsers-panel">
-<title id="figure-preferences-browsers-panel-title">The Browsers panel in Preferences</title>
+<title id="figure-preferences-browsers-panel-title">The Browsers Panel in Preferences</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/preferences_browsers_panel.png" format="PNG"/>
@@ -2874,7 +2663,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <step>
 <para>Click near the left border of the browser's line you want to move. The whole browser's line will be highlighted:
 <figure id="figure-order-browsers-select">
-<title id="figure-order-browsers-select-title">Selecting the browser's line to be moved</title>
+<title id="figure-order-browsers-select-title">Selecting the Browser's Line to be Moved</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/order_browsers_select.png" format="PNG"/>
@@ -2888,7 +2677,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <step>
 <para>While maintaining the click, drag the selected line over another line, until you reach the place you want, so that the selected line covers entirely the latter one. The cursor will change its appearance and the dragged line will be shown as a framed line:
 <figure id="figure-order-browsers-drag">
-<title id="figure-order-browsers-drag-title">Dragging the browser's line</title>
+<title id="figure-order-browsers-drag-title">Dragging the Browser's Line</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/order_browsers_drag.png" format="PNG"/>
@@ -2901,7 +2690,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <note>
 <para>To drag a line to the end of the list, drag it until a thin line appears below the last item:
 <figure id="figure-order-browsers-drag-bottom">
-<title id="figure-order-browsers-drag-bottom-title">Dragging the browser's line to the bottom</title>
+<title id="figure-order-browsers-drag-bottom-title">Dragging the Browser's Line to the Bottom</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/order_browsers_drag_bottom.png" format="PNG"/>
@@ -2922,8 +2711,8 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <step>
 <para>Click on the <guibutton>Apply</guibutton> button to save the change if you plan to make further changes in the panel, otherwise click on the <guibutton>OK</guibutton> button to save the change and close the <guilabel>Edit preferences</guilabel> panel.</para></step>
 </procedure>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <para>If you want to customize one of the browsers supplied by default, use the following procedure:</para>
 <procedure id="external-browsers-customize">
 <title>Customizing an existent browser</title>
@@ -2946,8 +2735,8 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>Click on the <guibutton>OK</guibutton> button to save and close the panel.</para>
 </step>
 </procedure>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <para>To add a new browser, proceed as follows:</para>
 <procedure id="external-browsers-add">
 <title>Adding a new browser</title>
@@ -2971,19 +2760,19 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>Click on the <guibutton>OK</guibutton> button to save and close the panel.</para>
 </step>
 </procedure>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <para>To delete a browser, just click on the <guibutton>Delete</guibutton> button.</para>
 <para>Though nothing impedes you to put any command (not necessary a browser) in the panel for quick access, you may want to avoid to put it at the top range, since it will be somewhat strange to click on <guilabel>View in browser</guilabel> to launch <command>abs</command> for example.</para>
 
 </sect3>
 
-<?pagebreaka4?>
+
 <sect3 id="external-commands">
 <title>Customizing Commands menu</title>
 <para>To add items to the <menuchoice><guimenu>External</guimenu><guisubmenu>Commands</guisubmenu></menuchoice> submenu, you use the <guilabel>External programs</guilabel> tab of the <guilabel>Edit Preferences</guilabel> panel:
 <figure id="figure-preferences-utilities-panel">
-<title id="figure-preferences-utilities-panel-title">Utilities and Filters panel in Preferences</title>
+<title id="figure-preferences-utilities-panel-title">Utilities and Filters Panel in Preferences</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/preferences_utilities_panel.png" format="PNG"/>
@@ -3049,19 +2838,19 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 <para>Items within the <menuchoice><guimenu>External</guimenu><guisubmenu>Outputbox</guisubmenu></menuchoice> submenu allow for programs to give feedback by opening an output box at the bottom of Bluefish's main window.</para>
 <para>Here is an example showing the output box after using the <menuchoice><guimenu>External</guimenu><guisubmenu>Outputbox</guisubmenu><guimenuitem>tidy HTML validator</guimenuitem></menuchoice> item on an html file with an on purpose error:
 <figure id="figure-external-outputbox-example">
-<title id="figure-external-outputbox-example-title">The tidy output box in Bluefish 1.0</title>
+<title id="figure-external-outputbox-example-title">The tidy Output Box</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/external_outputbox_example.png" format="PNG"/>
 </imageobject>
 <textobject>
-<phrase>A screen shot of the tidy output box in bluefish 1.0</phrase>
+<phrase>A screen shot of the tidy output box</phrase>
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
 <para>The contents of the resulting output box are based upon scanning the output of the supplied command, as it appears in an xterm, with a given regular expression and  filling in the various fields of the output box with the desired parts of that regular expression. The <guilabel>Output parsers</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel provides you with a model to do that:
 <figure id="figure-external-outputbox-preferences">
-<title id="figure-external-outputbox-preferences-title">The Output parsers tab in Preferences panel</title>
+<title id="figure-external-outputbox-preferences-title">The Output Parsers Tab in Preferences Panel</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/external_outputbox_preferences.png" format="PNG"/>
@@ -3071,7 +2860,7 @@ width="80" height="53" border="0"&gt;&lt;/a&gt;
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
+
 <para>The <guilabel>Outputbox</guilabel> panel comprises 7 fields:</para>
 <itemizedlist>
 <listitem>
@@ -3165,7 +2954,7 @@ The first part embedded into parentheses will match the script name, i.e. foo.rb
 <para>To add or change a shortcut, move the mouse over the desired menu entry, and press the key combination you would like to use. Immediately this combination will show up on the right of the menu entry.</para>
 <para>Here's a shortcut added to the <menuchoice><guimenu>File</guimenu><guimenuitem>Open URL...</guimenuitem></menuchoice> menu item:
 <figure id="figure-prefs-add-shortcut">
-<title id="figure-prefs-add-shortcut-title">Adding a shortcut to a menu item</title>
+<title id="figure-prefs-add-shortcut-title">Adding a Shortcut to a Menu Item</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/prefs_add_shortcut.png" format="PNG"/>
@@ -3190,10 +2979,10 @@ The first part embedded into parentheses will match the script name, i.e. foo.rb
 <title>Showing hidden files and folders</title>
 <para>By default, invisible files and folders are not shown in the file browser tab of the side panel.</para>
 <para>If you want to see them at a given level of the files system hierarchy, right click on the desired folder name in the file browser within the side panel and toggle <guilabel>Show hidden files</guilabel> in the contextual menu.</para>
-<?pagebreaka4?>
+
 <para>Here is how to view all visible files and folders in the whole system:
 <figure id="figure-prefs-show-visible">
-<title id="figure-prefs-show-visible-title">Turning files and folders visibility on</title>
+<title id="figure-prefs-show-visible-title">Turning Files and Folders Visibility ON</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/prefs_show_invisible.png" format="PNG"/>
@@ -3259,13 +3048,13 @@ class "GtkWidget" style "bluefish"
 <para>You may give any name to the style on the first line, provided that you use the same on the last line.</para>
 <para>The customization applies to any Gtk application.</para>
 </note>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
 <para>It will give this appearance to bluefish:
-<?linebreaka4?>
+
 <figure id="figure-gui-appearance">
-<title id="figure-gui-appearance-title">Bluefish with a customized Gtk theme</title>
+<title id="figure-gui-appearance-title">Bluefish with a customized Gtk Theme</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/gui_appearance.png" format="PNG"/>
@@ -3275,17 +3064,17 @@ class "GtkWidget" style "bluefish"
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?pagebreaka4?>
-<?pagebreakus?>
-<?linebreakus?>
-<?linebreakus?>
+
+
+
+
 <para>Other options for the Editor are available in the <guilabel>Editor</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel accessible via the <guilabel>Edit preferences...</guilabel> button in the main tool bar. In particular you may want to customize the font of the editor, the end of line wrapping, and the undo history size:
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
+
+
+
+
 <figure id="figure-prefs-editor-tab">
-<title id="figure-prefs-editor-tab-title">The Editor tab in Preferences</title>
+<title id="figure-prefs-editor-tab-title">The Editor Tab in Preferences</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/prefs_editor_tab.png" format="PNG"/>
@@ -3297,19 +3086,19 @@ class "GtkWidget" style "bluefish"
 </figure></para>
 </sect2>
 
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
+
+
+
 <sect2 id="bookmark-path">
 <title>Customizing the bookmarks path</title>
-<?linebreakus?>
+
 <para>When you add bookmarks to document, the name of the file it refers to is displayed from the base directory. You can choice another path from the <guilabel>Bookmarks filename display</guilabel> pop up menu in the <guilabel>Editor</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel:
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
+
+
+
+
 <figure id="figure-prefs-bookmarks-path">
-<title id="figure-prefs-bookmarks-path-title">The Bookmarks path pop up menu in Preferences</title>
+<title id="figure-prefs-bookmarks-path-title">The Bookmarks Path Pop up Menu in Preferences</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/prefs_bookmarks_path.png" format="PNG"/>
@@ -3321,12 +3110,12 @@ class "GtkWidget" style "bluefish"
 </figure></para>
 </sect2>
 
-<?pagebreakus?>
+
 <sect2 id="html-tags-style">
 <title>Customizing the html tags style</title>
 <para>The <guilabel>HTML</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel provides you with some options to change the style of the html tags:
 <figure id="figure-prefs-html-tab">
-<title id="figure-prefs-html-tab-title">The HTML tab in Preferences</title>
+<title id="figure-prefs-html-tab-title">The HTML Tab in Preferences</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/prefs_html_tab.png" format="PNG"/>
@@ -3340,21 +3129,21 @@ class "GtkWidget" style "bluefish"
 
 <sect2 id="changing-author-meta">
 <title>Changing the author meta tag on the fly</title>
-<?linebreaka4?>
+
 <para>One interesting feature in the <guilabel>HTML</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel is that you can let <application>bluefish</application> update the author meta tag on save.</para>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <para>Let's say you created an html file with an author meta tag while you were logged in as user <emphasis>foo</emphasis>. On save <application>bluefish</application> will fill up the contents attribute of the author meta tag with the full name associated with the <emphasis>foo</emphasis> user:
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
+
+
+
+
+
 <figure id="figure-author-meta-name1">
-<title id="figure-author-meta-name1-title">The author meta tag filled in on save</title>
+<title id="figure-author-meta-name1-title">The Author Meta Tag filled in on Save</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/author_meta_name1.png" format="PNG"/>
@@ -3364,19 +3153,19 @@ class "GtkWidget" style "bluefish"
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <para>You share this html file with another user <emphasis>bar</emphasis> or you change the owner of the file to <emphasis>bar</emphasis>. When you modify the html file while logged in as user <emphasis>bar</emphasis>, the author meta tag is updated to reflect the new author on save, providing that the user <emphasis>bar</emphasis> has write permission on the file:
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
+
+
+
+
+
 <figure id="figure-author-meta-name2">
-<title id="figure-author-meta-name2-title">Update of the author meta tag on save</title>
+<title id="figure-author-meta-name2-title">Update of the Author Meta Tag on Save</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/author_meta_name2.png" format="PNG"/>
@@ -3386,21 +3175,21 @@ class "GtkWidget" style "bluefish"
 </textobject>
 </mediaobject></screenshot>
 </figure></para>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
 <warning>
 <para>If you do not want that the author meta tag be changed while editing the file under another user's login, uncheck the box.</para>
 </warning>
 </sect2>
 
-<?linebreakus?>
+
 <sect2 id="customizing-files-handling">
 <title>Customizing files handling and browsing</title>
-<?linebreakus?>
+
 <para>The <guilabel>Files</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel allows you to set some options related to the way files are handled and displayed in the file browser.
-<?linebreakus?>
+
 <figure id="figure-prefs-files-tab">
-<title id="figure-prefs-files-tab-title">The Files preference panel</title>
+<title id="figure-prefs-files-tab-title">The Files Preference Panel</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/prefs_files_tab.png" format="PNG"/>
@@ -3411,53 +3200,53 @@ class "GtkWidget" style "bluefish"
 </mediaobject></screenshot>
 </figure></para>
 
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
+
+
+
 <sect3 id="setting-encoding-meta">
 <title>Setting the encoding meta tag on save</title>
-<?linebreakus?>
+
 <para>Apart from setting the default character encoding in the <guilabel>Files</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel, you may also instruct <application>bluefish</application> to set the encoding meta tag when you modify the document character set encoding.</para>
-<?linebreakus?>
+
 <para>Note that, if the encoding meta tag does not exist, it is inserted in the file, otherwise it is changed. Either modification occurs immediately.</para>
 </sect3>
 
-<?pagebreakus?>
+
 <sect3 id="setting-default-basedir">
 <title>Setting the default base directory</title>
-<?linebreakus?>
+
 <para>You can set a default base directory in the <guilabel>Files</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel.</para>
-<?linebreakus?>
+
 <para>This directory will serve as the initial point for the file browser.</para>
 </sect3>
 
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
+
+
+
 <sect3 id="merged-views">
 <title>Merging file browser views</title>
-<?linebreakus?>
+
 <para>By default, the file browser uses separate views for files and directories.</para>
-<?linebreakus?>
+
 <para>You can have a single view by unchecking the <guilabel>Use separate file and directory view</guilabel> option in the <guilabel>Files</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel.</para>
 </sect3>
 
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
+
+
+
 <sect3 id="backups">
 <title>Backup files</title>
-<?linebreakus?>
+
 <para>By default, a backup file is created on save in the same directory as the original file based on the same filename with the exception that a <keycap>~</keycap> suffix is added. This backup file is deleted on closing the file.</para>
-<?linebreakus?>
+
 <para>You can change this behaviour in the <guilabel>Files</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel.</para>
-<?linebreakus?>
-<?pagebreaka4?>
+
+
 <para>When the backup fails to be created, you can choose what to do:
-<?linebreakus?>
-<?linebreakus?>
+
+
 <figure id="figure-prefs-askonbackup">
-<title id="figure-prefs-askonbackup-title">Choosing an action on backup failure</title>
+<title id="figure-prefs-askonbackup-title">Choosing an Action on Backup Failure</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/prefs_askonbackup.png" format="PNG"/>
@@ -3469,30 +3258,30 @@ class "GtkWidget" style "bluefish"
 </figure></para>
 </sect3>
 
-<?linebreakus?>
-<?linebreakus?>
-<?linebreakus?>
+
+
+
 <sect3 id="multiple-file-instances">
 <title>Using multiple instances of a file</title>
-<?linebreakus?>
+
 <para>A nice feature of <application>bluefish</application> is it allows you to open multiple instances of a file. Combined with either launching two instances of bluefish or opening the same file in two windows, it eases the modification of a file in one window while browsing it in another one.</para>
-<?linebreakus?>
+
 <para>This feature can be disabled in the <guilabel>Files</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel.</para>
-<?linebreakus?>
+
 <warning>
-<?linebreakus?>
+
 <para>Be aware that the last closed instance of the file wins. Hence it is important that you remember which instance is the modified one. You can, for example, always open the file to be modified on the left side of your screen, the file to be browsed on the right side.</para>
 </warning>
 </sect3>
 
 </sect2>
 
-<?pagebreakus?>
+
 <sect2 id="prefs-user-interface">
 <title>Customizing the user interface</title>
 <para>The <guilabel>User interface</guilabel> tab of the <guilabel>Edit preferences</guilabel> panel allows you to customize most part of the user interface:
 <figure id="figure-prefs-ui-tab">
-<title id="figure-prefs-files-ui-title">The User interface preference panel</title>
+<title id="figure-prefs-files-ui-title">The User Interface Preference Panel</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/prefs_ui_tab.png" format="PNG"/>
@@ -3537,6 +3326,7 @@ class "GtkWidget" style "bluefish"
 <para>On the other hand, adding them to the xml file type would impede to group them into a stylesheet filter, where they belong from a semantical point of view. And you cannot add them to the provided stylesheet filetype made for css stylesheet, since the highlighting patterns are different.</para>
 <para>To add an xsl stylesheet file type, execute the following steps:</para>
 <orderedlist>
+<?dbfo label-width="0.25in"?>
 <listitem>
 <para>Click on the <guilabel>Preferences...</guilabel> icon in the main tool bar to access the <guilabel>Edit preferences</guilabel> panel.</para>
 </listitem>
@@ -3628,8 +3418,8 @@ class "GtkWidget" style "bluefish"
 </important>
 </sect2>
 
-<?linebreakus?>
-<?linebreakus?>
+
+
 <sect2 id="changing-highlighting-patterns">
 <title>Modifying the highlighting patterns</title>
 <para>The highlight patterns are build from Perl compatible regular expressions. A pattern has options for coloring and styling the text it matches. Within a match other patterns can be used to color parts of that match. There are three types of patterns:
@@ -3646,7 +3436,7 @@ class "GtkWidget" style "bluefish"
 ?&gt;</programlisting></para>
 <para>The first thing the highlighting engine does is finding the pattern that has the lowest match. Using the default patterns for PHP, the pattern named <guilabel>HTML</guilabel>: 
 <figure id="figure-highlighting-pattern1">
-<title id="figure-highlighting-pattern1-title">The HTML pattern</title>
+<title id="figure-highlighting-pattern1-title">The HTML Pattern</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/highlighting_pattern1.png" format="PNG"/>
@@ -3658,13 +3448,13 @@ class "GtkWidget" style "bluefish"
 </figure></para>
 <para>has a match at position 0:
 <programlisting>&lt;p align="center"&gt;</programlisting></para>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?pagebreakus?>
+
+
+
+
 <para>So now the highlighting engine searches for the lowest match in all subpatterns of <guilabel>HTML</guilabel>, in the region matched by a type 2 pattern. Again, the lowest match will count. The pattern named <guilabel>&lt;html&gt; Tags</guilabel>:
 <figure id="figure-highlighting-pattern2">
-<title id="figure-highlighting-pattern2-title">The &lt;html&gt; Tags pattern</title>
+<title id="figure-highlighting-pattern2-title">The &lt;html&gt; Tags Pattern</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/highlighting_pattern2.png" format="PNG"/>
@@ -3675,12 +3465,12 @@ class "GtkWidget" style "bluefish"
 </mediaobject></screenshot>
 </figure></para>
 <para>has a match at position 1. This pattern is a type 3 pattern, so it matches a subpattern of the parent: <programlisting>p</programlisting></para>
-<?linebreaka4?>
-<?linebreak?>
-<?linebreak?>
+
+
+
 <para>The match from subpattern <guilabel>&lt;html&gt; Tags</guilabel> ends at position 2 and it does not have any child patterns, so the highlighting engine continues at position 2 with all subpatterns from <guilabel>HTML</guilabel>. A type 2 pattern named <guilabel>HTML Attributes</guilabel>:
 <figure id="figure-highlighting-pattern3">
-<title id="figure-highlighting-pattern3-title">The HTML Attributes pattern</title>
+<title id="figure-highlighting-pattern3-title">The HTML Attributes Pattern</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/highlighting_pattern3.png" format="PNG"/>
@@ -3691,14 +3481,14 @@ class "GtkWidget" style "bluefish"
 </mediaobject></screenshot>
 </figure></para>
 <para>has the lowest match: <programlisting>align="center"</programlisting></para>
-<?pagebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
-<?pagebreakus?>
+
+
+
+
+
 <para>This pattern does have a child pattern, again a type 3 pattern called <guilabel>HTML Attribute Contents</guilabel>:
 <figure id="figure-highlighting-pattern4">
-<title id="figure-highlighting-pattern4-title">The HTML Attribute Contents pattern</title>
+<title id="figure-highlighting-pattern4-title">The HTML Attribute Contents Pattern</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/highlighting_pattern4.png" format="PNG"/>
@@ -3709,18 +3499,18 @@ class "GtkWidget" style "bluefish"
 </mediaobject></screenshot>
 </figure></para>
 <para>matching: <programlisting>"center"</programlisting></para>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
 <para>The pattern <guilabel>HTML Attribute Contents</guilabel> does not have any child patterns, and subpatterns of <guilabel>HTML Attributes</guilabel> do not have any more matches, and also <guilabel>HTML</guilabel> subpatterns do not have any more matches. So we are back on the main level, the remaining code to highlight is: <programlisting>&lt;?php
 // this is a comment ?&gt;
 ?&gt;</programlisting></para>
-<?linebreaka4?>
-<?linebreaka4?>
-<?linebreaka4?>
+
+
+
 <para>Now a pattern named <guilabel>PHP Block</guilabel>:
 <figure id="figure-highlighting-pattern5">
-<title id="figure-highlighting-pattern5-title">The PHP Block pattern</title>
+<title id="figure-highlighting-pattern5-title">The PHP Block Pattern</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/highlighting_pattern5.png" format="PNG"/>
@@ -3732,7 +3522,7 @@ class "GtkWidget" style "bluefish"
 </figure></para>
 <para>has the lowest match. This is a type 1 pattern, so the highlight engine continues with all the remaining code, but it will not only search for the lowest match of the child patterns of <guilabel>PHP Block</guilabel>, but it will also ue it for the end pattern of <guilabel>PHP Block</guilabel>. The lowest match in this example is a pattern named <guilabel>Comment (C++/single line)</guilabel>:
 <figure id="figure-highlighting-pattern6">
-<title id="figure-highlighting-pattern6-title">The Comment (C++/single line) pattern</title>
+<title id="figure-highlighting-pattern6-title">The Comment (C++/single line) Pattern</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/highlighting_pattern6.png" format="PNG"/>
@@ -3746,7 +3536,7 @@ class "GtkWidget" style "bluefish"
 <para>The pattern <guilabel>Comment (C++/single line)</guilabel> does not have any child patterns, so the remaining code for the <guilabel>PHP</guilabel> subpatterns is: <programlisting>?&gt;</programlisting></para>
 <para>It is very obvious now, the lowest match will be the end pattern of the <guilabel>php</guilabel> pattern, so we're back on the main level, and we have matched all of the code!
 <figure id="figure-syntax-highlighting-example">
-<title id="figure-syntax-highlighting-example-title">Syntax highlighting example</title>
+<title id="figure-syntax-highlighting-example-title">Syntax Highlighting Example</title>
 <screenshot><mediaobject>
 <imageobject>
 <imagedata fileref="figures/syntax_highlighting_example.png" format="PNG"/>

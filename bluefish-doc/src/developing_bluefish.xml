@@ -20,7 +20,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 <chapter id="developing-bluefish">
 <title>Development guidelines</title>
-<?linebreakus?>
 <para>Work hard but have fun!</para>
 
 <sect1 id="developing-bluefish-formating-style">
@@ -36,7 +35,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <sect1 id="developing-bluefish-naming">
 <title>Naming</title>
 <para>For non-local functions, the name should preferably include a prefix that shows the part of bluefish it is used for. There are, furthermore, many often used abbreviations in the bluefish code, such as:</para>
-<?linebreak?>
 <variablelist>
 <title>Abbreviations used in the Bluefish code</title>
 <varlistentry><term>doc</term>
@@ -53,7 +51,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </varlistentry>
 </variablelist>
 <para>Here are such function names that show where they are from, what they handle, and/or what they do</para>
-<?linebreak?>
 <variablelist>
 <title>Examples of function names in Bluefish</title>
 <varlistentry><term>bmark_set_for_doc</term>
@@ -92,19 +89,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 <sect1 id="developing-bluefish-patches">
 <title>Patches</title>
-<?linebreakus?>
 <para>Before starting to code:</para>
 <orderedlist>
 <listitem><para>Update your CVS tree, or alternatively download the latest snapshot</para></listitem>
 <listitem><para>Copy this original tree, so you can make a patch against this tree</para></listitem>
 </orderedlist>
-<?linebreakus?>
 <para>Before creating the patch:</para>
 <orderedlist>
 <listitem><para>Run <userinput>make distclean &amp;&amp; ./configure &amp;&amp; make</userinput> and test if it runs successfully</para></listitem>
 <listitem><para>If you have the possibility do this both with <filename>gcc-2.95</filename> and <filename>gcc-3.x</filename> as compiler</para></listitem>
 </orderedlist>
-<?linebreakus?>
 <para>Now create the patch. Assuming that you have two directories, <filename>original-tree</filename> and <filename>my-tree</filename>:</para>
 <orderedlist>
 <listitem><para>Run <userinput>make distclean</userinput> in both trees</para></listitem>
@@ -113,7 +107,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </orderedlist>
 </sect1>
 
-<?linebreaka4?>
 <sect1 id="developing-bluefish-translations">
 <title>Translations</title>
 

@@ -61,7 +61,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <surname>Lyon</surname>
 <contrib>Logo art</contrib>
 </othercredit>
-<!-- Revision history, do not forget to update it each time -->
+<!-- Revision history, do not forget to update it each time
+	 Ugly hack to allow customization of revhistory via 
+ 	 general properties mechanism -->
+<abstract>
+<title> </title>
+<para>
 <revhistory>
 <revision>
 <revnumber>1.5</revnumber>
@@ -94,6 +99,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <revremark>Initial release for bluefish version 1.0</revremark>
 </revision>
 </revhistory>
+</para>
+</abstract>
 <copyright>
 <year>2004</year>
 <year>2005</year>

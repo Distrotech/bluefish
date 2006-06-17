@@ -64,7 +64,7 @@
 		space-before="0in"
 		space-after="1mm"
 		font-family="{$title.fontset}"/>
-     </t:titlepage-content>
+    </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">
       <title
@@ -79,20 +79,16 @@
       text-align="center"/>
       <author/>
       <othercredit text-align="center"/>
-      <revision font-size="11pt"
-	      space-before="0in"
-	      space-after="0in"
+      <abstract 
+      	space-before="1.4in"
+	    space-after="1.4in"
 	    keep-with-next.within-column="always"/>
-       <revhistory font-size="11pt"
- 	      space-before="1in"
-	      space-after="1in"
-	    keep-with-next.within-column="always"/>
-      <copyright 
-      space-before="4.7in"
+      <revhistory
+      	font-size="11pt"/>
+   	  <copyright 
+      space-before="3.9in"
       space-after="0in"
       text-align="center"/>
-      <abstract/>
-      <legalnotice/>
       <pagenums
       space-before="0in"
       text-align="center"/>
@@ -196,7 +192,7 @@
          space-before.maximum="0em"
          font-family="{$title.fontset}"/>
       <subtitle
-		font-family="{$title.fontset}"/>
+			font-family="{$title.fontset}"/>
     </t:titlepage-content>
 
   <t:titlepage-content t:side="verso">

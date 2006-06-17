@@ -69,13 +69,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <listitem><para>Win32-cygwin - with a few nags.</para></listitem>
 </itemizedlist>			
 </sect2>
-
 </sect1>
 
+<?pagebreaka4?>
 <sect1 id="getting-bluefish-stable">
 <title>Latest Stable Version</title>
 <para>Many Linux distributions ship a version of Bluefish or make it available through their package systems. For example, Bluefish is available through the Debian apt-system and FreeBSD's ports. You may check if Bluefish is available through your favorite software installer.</para>
-<?linebreak?>
 <para>However, the main source is the Bluefish website, where the software and a few contributions are available. The download page is reachable at <ulink url="http://bluefish.openoffice.nl/download.html"/>. Here, you may download the source code and binary packages for Debian, Red Hat/Fedora, and Mandrake.</para>
 </sect1>
 
@@ -101,7 +100,7 @@ homepage is <ulink url="http://sourceforge.net/projects/bluefish"/>. Our CVS rep
 </step>
 <step>
 <para>Log in using the command:
-<screen><prompt>$</prompt> cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
+<screen><prompt>$</prompt> cvs -d :pserver:anonymous@bluefish.cvs.sourceforge.net:/cvsroot/bluefish \
 login</screen>
 <note>
 <para>Hit <action>Enter</action> at the password prompt.</para>
@@ -109,12 +108,12 @@ login</screen>
 </step>
 <step>
 <para><emphasis>Check out</emphasis> the CVS module containing the source code files:
-<screen><prompt>$</prompt> cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
+<screen><prompt>$</prompt> cvs -z3 -d :pserver:anonymous@bluefish.cvs.sourceforge.net:/cvsroot/bluefish \
 co bluefish-gtk2</screen>
 A lot of files will be downloaded, and listed one by one. If you're on dial-up, this might take a bit of time. When the downloads have completed, you will find the bluefish sources in the subdirectory <literal>bluefish-gtk2</literal>.</para>
 </step>
 <step>
-<para>Enter that directory and install bluefish using the instructions in <xref linkend="installing-bluefish-devel-source"/>.</para>
+<para>Enter that directory and install bluefish using the instructions detailed in <xref linkend="installing-bluefish-devel-source"/>.</para>
 </step>
 </procedure>
 </sect1>

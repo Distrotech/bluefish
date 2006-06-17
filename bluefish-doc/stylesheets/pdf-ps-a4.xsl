@@ -53,6 +53,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <!-- No headers on blank pages -->
 <xsl:param name="headers.on.blank.pages" select="0"></xsl:param>
 
+<!-- No header rule on title page -->
+ <xsl:template name="head.sep.rule">
+   <xsl:param name="pageclass"/>
+   <xsl:param name="sequence"/>
+   <xsl:param name="gentext-key"/>
+   <xsl:if test="$header.rule != 0 and $pageclass != 'titlepage' and $sequence != 'first'">
+     <xsl:attribute name="border-bottom-width">0.5pt</xsl:attribute>
+     <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
+     <xsl:attribute name="border-bottom-color">black</xsl:attribute>
+   </xsl:if>
+ </xsl:template>
+
+<!-- No footer rule on book title page -->
+ <xsl:template name="foot.sep.rule">
+   <xsl:param name="pageclass"/>
+   <xsl:param name="sequence"/>
+   <xsl:param name="gentext-key"/>
+   <xsl:if test="$footer.rule != 0 and $pageclass != 'titlepage'">
+     <xsl:attribute name="border-top-width">0.5pt</xsl:attribute>
+     <xsl:attribute name="border-top-style">solid</xsl:attribute>
+     <xsl:attribute name="border-top-color">black</xsl:attribute>
+   </xsl:if>
+ </xsl:template>
+
 <!-- Indentation of the titles for sections -->
 <xsl:param name="title.margin.left" select="'-1pc'"/>
 
@@ -113,31 +137,31 @@ Made here as it really overrides the setting in titlepage -->
   </xsl:attribute>
   <xsl:attribute name="font-weight">bold</xsl:attribute>
   <!-- font size is calculated dynamically by section.heading template -->
-  <xsl:attribute name="space-before.minimum">0.6em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.75em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0.8em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.8em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.85em</xsl:attribute>
   <xsl:attribute name="keep-with-next.within-page">always</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="section.title.level1.properties">
   <xsl:attribute name="font-size">16pt</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0.8em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.75em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0.8em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.8em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.85em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="section.title.level2.properties">
   <xsl:attribute name="font-size">13pt</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0.7em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.65em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0.7em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.7em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.75em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="section.title.level3.properties">
   <xsl:attribute name="font-size">10pt</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0.6em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.55em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0.6em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.6em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.65em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="section.title.level4.properties">
@@ -145,9 +169,9 @@ Made here as it really overrides the setting in titlepage -->
     <xsl:value-of select="$body.font.master -1"/>
     <xsl:text>pt</xsl:text>
   </xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0.6em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.55em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0.6em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.6em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.65em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="section.title.level5.properties">
@@ -156,9 +180,9 @@ Made here as it really overrides the setting in titlepage -->
     <xsl:text>pt</xsl:text>
   </xsl:attribute>
   <xsl:attribute name="font-style">italic</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0.6em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.55em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0.6em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.6em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.65em</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:attribute-set name="section.title.level6.properties">
@@ -168,41 +192,41 @@ Made here as it really overrides the setting in titlepage -->
   </xsl:attribute>
   <xsl:attribute name="font-weight">normal</xsl:attribute>
   <xsl:attribute name="font-style">italic</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0.6em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.55em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0.6em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.6em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.65em</xsl:attribute>
 </xsl:attribute-set>
 
 <!-- Normal paragraph spacing -->
 <xsl:attribute-set name="normal.para.spacing">
+   <xsl:attribute name="space-before.minimum">0.45em</xsl:attribute>
    <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
-   <xsl:attribute name="space-before.minimum">0.5em</xsl:attribute>
-   <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
+   <xsl:attribute name="space-before.maximum">0.55em</xsl:attribute>
 	<xsl:attribute name="text-indent">0em</xsl:attribute>
 </xsl:attribute-set>
 
 <!-- Spacing before and after lists -->
 <xsl:attribute-set name="list.block.spacing">
-  <xsl:attribute name="space-before.optimum">0.4em</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0.4em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.4em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.35em</xsl:attribute>
+  <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.45em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0.35em</xsl:attribute>
   <xsl:attribute name="space-after.optimum">0.4em</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">0.4em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">0.4em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">0.45em</xsl:attribute>
 </xsl:attribute-set>
 
 <!-- Spacing between list items -->
 <xsl:attribute-set name="list.item.spacing">
+   <xsl:attribute name="space-before.minimum">0.25em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0.3em</xsl:attribute>
-  <xsl:attribute name="space-before.minimum">0.3em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.3em</xsl:attribute>
+ <xsl:attribute name="space-before.maximum">0.35em</xsl:attribute>
 </xsl:attribute-set>
 
 <!-- Spacing between compact list items -->
 <xsl:attribute-set name="compact.list.item.spacing">
-  <xsl:attribute name="space-before.optimum">0em</xsl:attribute>
   <xsl:attribute name="space-before.minimum">0em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0em</xsl:attribute>
+  <xsl:attribute name="space-before.optimum">0.1em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.15em</xsl:attribute>
 </xsl:attribute-set>
 
 <!-- Margins for toc -->
@@ -238,12 +262,12 @@ procedure before
 
 <!-- For figures, procedure, example, table -->
 <xsl:attribute-set name="formal.object.properties">
-  <xsl:attribute name="space-before.minimum">0.4em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.35em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0.4em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.4em</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">0.3em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.45em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0.25em</xsl:attribute>
   <xsl:attribute name="space-after.optimum">0.3em</xsl:attribute>
-  <xsl:attribute name="space-after.maximum">0.3em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">0.35em</xsl:attribute>
   <xsl:attribute name="keep-together.within-column">always</xsl:attribute>
 </xsl:attribute-set>
 
@@ -327,16 +351,63 @@ procedure before
 <xsl:param name="admon.textlabel" select="'0'"/>
 
 <!-- Style of admonitions
-     Ugly hack on space-after-minimum to at least get
-     a minimal space when admon contents are only one line -->
+     To get a minimal space when admon contents are only one line -->
 <xsl:attribute-set name="graphical.admonition.properties">
-  <xsl:attribute name="space-before.minimum">0.3em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.45em</xsl:attribute>
   <xsl:attribute name="space-before.optimum">0.5em</xsl:attribute>
-  <xsl:attribute name="space-before.maximum">0.5em</xsl:attribute>
-  <xsl:attribute name="space-after.minimum">0.3em</xsl:attribute>
-  <xsl:attribute name="space-after.optimum">0.8em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.55em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0.7em</xsl:attribute>
+  <xsl:attribute name="space-after.optimum">0.75em</xsl:attribute>
   <xsl:attribute name="space-after.maximum">0.8em</xsl:attribute>
 </xsl:attribute-set>
+
+<xsl:attribute-set name="admonition.properties">
+  <xsl:attribute name="space-before.minimum">0.15em</xsl:attribute>
+  <xsl:attribute name="space-before.optimum">0.2em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.25em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0.15em</xsl:attribute>
+  <xsl:attribute name="space-after.optimum">0.2em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">0.25em</xsl:attribute>
+</xsl:attribute-set>
+
+<!-- To get less space between graphic and text in admonition -->
+<xsl:template name="graphical.admonition">
+  <xsl:variable name="id">
+    <xsl:call-template name="object.id"/>
+  </xsl:variable>
+  <xsl:variable name="graphic.width">
+     <xsl:apply-templates select="." mode="admon.graphic.width"/>
+  </xsl:variable>
+
+  <fo:block id="{$id}"
+            xsl:use-attribute-sets="graphical.admonition.properties">
+    <fo:list-block provisional-distance-between-starts="{$graphic.width}"
+                    provisional-label-separation="0pt">
+      <fo:list-item>
+          <fo:list-item-label end-indent="label-end()">
+            <fo:block>
+              <fo:external-graphic width="auto" height="auto"
+                                         content-width="{$graphic.width}" >
+                <xsl:attribute name="src">
+                  <xsl:call-template name="admon.graphic"/>
+                </xsl:attribute>
+              </fo:external-graphic>
+            </fo:block>
+          </fo:list-item-label>
+          <fo:list-item-body start-indent="body-start()">
+            <xsl:if test="$admon.textlabel != 0 or title">
+              <fo:block xsl:use-attribute-sets="admonition.title.properties">
+                <xsl:apply-templates select="." mode="object.title.markup"/>
+              </fo:block>
+            </xsl:if>
+            <fo:block xsl:use-attribute-sets="admonition.properties">
+              <xsl:apply-templates/>
+            </fo:block>
+          </fo:list-item-body>
+      </fo:list-item>
+    </fo:list-block>
+  </fo:block>
+</xsl:template>
 
 <!-- For page breaks, don't forget to add hardcoded ones when book is finished -->
 <xsl:template match="processing-instruction('pagebreak')">
@@ -353,6 +424,150 @@ procedure before
 <xsl:template match="processing-instruction('linebreaka4')">
         <fo:block>&#160;</fo:block>
 </xsl:template>
+<xsl:template match="processing-instruction('linebreak2')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreaka42')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreak3')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+ </xsl:template>
+<xsl:template match="processing-instruction('linebreaka43')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreak4')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+ </xsl:template>
+<xsl:template match="processing-instruction('linebreaka44')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreak5')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreaka45')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreak6')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreaka46')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreak7')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreaka47')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreak8')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreaka48')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreak9')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreaka49')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+     <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreak10')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+</xsl:template>
+<xsl:template match="processing-instruction('linebreaka410')">
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+      <fo:block>&#160;</fo:block>
+</xsl:template>
 
 <!-- For shortcuts table -->
 <xsl:attribute-set name="table.cell.padding">
@@ -361,7 +576,9 @@ procedure before
     <xsl:attribute name="padding-top">4px</xsl:attribute>
     <xsl:attribute name="padding-bottom">4px</xsl:attribute>
  </xsl:attribute-set>
- 
+ <xsl:param name="table.frame.border.color">#96a5b8</xsl:param>
+<xsl:param name="table.cell.border.color">#96a5b8</xsl:param>
+
 <!-- Put each term of a multiple terms variablelistentry on its own line -->
 <xsl:param name="variablelist.term.break.after" select="'1'"/>
 <!-- Remove the separator between terms -->
@@ -381,6 +598,147 @@ procedure before
     	<xsl:otherwise>normal</xsl:otherwise>
     </xsl:choose>
   </xsl:attribute>
+    <xsl:attribute name="space-before.minimum">
+ 	<xsl:choose>
+    	<xsl:when test="self::chapter | self::preface | self::appendix">0.45em</xsl:when>
+    	<xsl:otherwise>inherit</xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
+    <xsl:attribute name="space-before.maximum">
+ 	<xsl:choose>
+    	<xsl:when test="self::chapter | self::preface | self::appendix">0.55em</xsl:when>
+    	<xsl:otherwise>inherit</xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
+    <xsl:attribute name="space-before.optimum">
+ 	<xsl:choose>
+    	<xsl:when test="self::chapter | self::preface | self::appendix">0.5em</xsl:when>
+    	<xsl:otherwise>inherit</xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
 </xsl:attribute-set>
 
+<!-- Revision history appearance -->
+<xsl:attribute-set name="revhistory.title.properties">
+	<xsl:attribute name="font-weight">bold</xsl:attribute>
+ 	<xsl:attribute name="text-align">center</xsl:attribute>
+ 	<xsl:attribute name="space-after.minimum">0.75em</xsl:attribute>
+  	<xsl:attribute name="space-after.optimum">0.8em</xsl:attribute>
+  	<xsl:attribute name="space-after.maximum">0.85em</xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="revhistory.table.properties">
+	<xsl:attribute name="padding">
+	<xsl:choose>
+	<xsl:when test="ancestor::appendix">0.25em</xsl:when>
+	<xsl:otherwise>0em</xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
+	<xsl:attribute name="background-color">white</xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:attribute-set name="revhistory.table.cell.properties">
+	<xsl:attribute name="background-color">
+	<xsl:choose>
+	<xsl:when test="revnumber | date">#eee</xsl:when>
+	<xsl:otherwise>white</xsl:otherwise>
+    </xsl:choose>
+  </xsl:attribute>
+</xsl:attribute-set>
+
+<xsl:template match="revision/revremark">
+	<fo:block text-indent="1em" background-color="white">
+	<xsl:apply-templates/>
+	</fo:block>
+</xsl:template>
+
+<xsl:template match="revision/revdescription">
+	<fo:block background-color="white">
+	<xsl:apply-templates/>
+	</fo:block>
+</xsl:template>
+
+<!-- Restart the numbering of first chapter to 1 -->
+<xsl:template name="initial.page.number">
+  <xsl:param name="element" select="local-name(.)"/>
+  <xsl:param name="master-reference" select="''"/>
+
+  <!-- Select the first content that the stylesheet places
+       after the TOC -->
+  <xsl:variable name="first.book.content" 
+                select="ancestor::book/*[
+                          not(self::title or
+                              self::subtitle or
+                              self::titleabbrev or
+                              self::bookinfo or
+                              self::info or
+                              self::dedication or
+                              self::toc or
+                              self::preface or
+                              self::lot)][1]"/>
+  <xsl:choose>
+    <!-- double-sided output -->
+    <xsl:when test="$double.sided != 0">
+      <xsl:choose>
+        <xsl:when test="$element = 'toc'">auto-odd</xsl:when>
+        <xsl:when test="$element = 'book'">1</xsl:when>
+        <!-- preface typically continues TOC roman numerals -->
+        <!-- Change page.number.format if not -->
+        <xsl:when test="$element = 'preface'">auto-odd</xsl:when>
+        <xsl:when test="($element = 'dedication' or $element = 'article') 
+                    and not(preceding::chapter
+                            or preceding::preface
+                            or preceding::appendix
+                            or preceding::article
+                            or preceding::dedication
+                            or parent::part
+                            or parent::reference)">1</xsl:when>
+        <xsl:when test="generate-id($first.book.content) =
+                        generate-id(.)">1</xsl:when>
+        <xsl:otherwise>auto-odd</xsl:otherwise>
+      </xsl:choose>
+    </xsl:when>
+
+    <!-- single-sided output -->
+    <xsl:otherwise>
+      <xsl:choose>
+        <xsl:when test="$element = 'toc'">auto</xsl:when>
+        <xsl:when test="$element = 'book'">1</xsl:when>
+        <xsl:when test="$element = 'preface'">auto</xsl:when>
+       <xsl:when test="($element = 'dedication' or $element = 'article') and
+                        not(preceding::chapter
+                            or preceding::preface
+                            or preceding::appendix
+                            or preceding::article
+                            or preceding::dedication
+                            or parent::part
+                            or parent::reference)">1</xsl:when>
+        <xsl:when test="generate-id($first.book.content) =
+                        generate-id(.)">1</xsl:when>
+        <xsl:otherwise>auto</xsl:otherwise>
+      </xsl:choose>
+    </xsl:otherwise>
+  </xsl:choose>
+</xsl:template>
+
+<!-- Indent all lists -->
+<xsl:attribute-set name="list.block.spacing">
+  <xsl:attribute name="margin-left">1em</xsl:attribute>
+</xsl:attribute-set>
+
+<!-- Segmented list as tables workaround for fop--><xsl:template match="segmentedlist" mode="seglist-table">
+ 	<xsl:attribute name="space-before.minimum">0.75em</xsl:attribute>
+  	<xsl:attribute name="space-before.optimum">0.8em</xsl:attribute>
+  	<xsl:attribute name="space-before.maximum">0.85em</xsl:attribute>  <xsl:apply-templates select="title" mode="list.title.mode"/>  <fo:table table-layout="fixed" border-collapse="separate"
+			border-left="solid" 
+			border-top="none" border-bottom="none" 
+			border-right="none" border-left-color="#96a5b8" >    <fo:table-column column-number="1" column-width="96px"/>    <fo:table-column column-number="2" column-width="170px"/>     <fo:table-header>      <fo:table-row>        <xsl:apply-templates select="segtitle" mode="seglist-table"/>      </fo:table-row>    </fo:table-header>    <fo:table-body>      <xsl:apply-templates select="seglistitem" mode="seglist-table"/>    </fo:table-body>  </fo:table></xsl:template><!-- Same colored border as other tables --> 
+<xsl:template match="segtitle" mode="seglist-table">  <fo:table-cell>    <fo:block font-weight="bold" text-align="center" border-right="solid" 
+			border-top="solid" border-bottom="solid" 
+			border-left="none" border-top-color="#96a5b8" 
+			border-bottom-color="#96a5b8" border-right-color="#96a5b8" 
+			padding-top="4px" padding-bottom="4px">     <xsl:apply-templates/>    </fo:block>  </fo:table-cell></xsl:template><xsl:template match="seg" mode="seglist-table">  <fo:table-cell>    <fo:block border-right="solid" border-top="solid" border-bottom="solid" 
+			border-left="none" border-top-color="#96a5b8" 
+			border-bottom-color="#96a5b8" border-right-color="#96a5b8" 
+			text-indent="0.5em" padding-top="4px" padding-bottom="4px">      <xsl:apply-templates/>    </fo:block>  </fo:table-cell></xsl:template>
 </xsl:stylesheet>  

@@ -47,7 +47,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 </listitem>
 </itemizedlist>
 <para>Here are the procedures to install the required files:</para>
-<?linebreak?>
 <procedure id="getting-manual">
 <title>Getting the Bluefish manual source files</title>
 <step><para>First, think about where in the filesystem you would like to build the manual. Let us assume you choose your home directory. So, from your home directory, login to Bluefish's CVS repository by issuing the command:: 
@@ -89,7 +88,6 @@ co bluefish-doc</screen></para>
 <step>
 <para>Rename <filename>fop-0.20.5</filename> to <filename>fop</filename>:
 <screen><prompt>$</prompt> mv  ~/bluefish-doc/fop-0.20.5  ~/bluefish-doc/fop</screen></para>
-<?linebreaka4?>
 </step>
 <step>
 <para>FOP does not yet support embedding PNG images in pdf files. To get PNG support, we need from <ulink url="http://java.sun.com/products/java-media/jai/downloads/download-1_1_2.html">Java Advanced Imageing (JAI)</ulink> or the <ulink url="http://java.sun.com/products/jimi/">JIMI Software Development Kit</ulink> (especially for Debian and Ubuntu users, read <filename>/usr/share/doc/fop/README.Debian</filename>).</para>
@@ -133,7 +131,7 @@ co bluefish-doc</screen></para>
 <listitem><para>Removes the PDF and PostScript versions for A4 or USLetter paper.</para></listitem>
 </varlistentry>
 <varlistentry><term><command>clean all</command></term>
-<listitem><para>Removes all versions of the book.</para><?linebreakus?></listitem>
+<listitem><para>Removes all versions of the book.</para></listitem>
 </varlistentry>
 <varlistentry><term><command>make validate-all</command></term>
 <listitem><para>Validate the whole book.</para></listitem>
@@ -144,7 +142,6 @@ co bluefish-doc</screen></para>
 </variablelist>
 <para>If you want to create a new format, you will have to make a copy of the <filename>titlepage-a4.xml</filename> and <filename>pdf-ps-a4.xsl</filename> files in the <filename>bluefish-doc/stylesheets</filename> directory, rename them according to the new format, and modify them.</para>
 </sect1>
-<?linebreakus?>
 
 <sect1 id="bluefish-manual-guide-conventions">
 <title>Conventions for Writing this Manual</title>
@@ -162,7 +159,6 @@ co bluefish-doc</screen></para>
 <para>The main thing is that all id's must be unique or processing will fail. To ensure that all id's are unique, just run <command>make validate-all</command> before committing the changes.</para>
 <para>Also, be careful when renaming id's, since the name could be used in links within other parts of the manual. It is best to do a global search for an id in all the manual's files before changing an id.</para>
 </sect2>
-<?linebreaka4?>
 <sect2 id="bluefish-manual-guide-screenshots">
 <title>Using Screen shots</title>
 <para>All screen shots are png files. They should be placed in the <filename>bluefish-doc/src/figures</filename> directory. They are inserted in the xml files with the following tags: <programlisting><![CDATA[<para>
@@ -183,7 +179,6 @@ co bluefish-doc</screen></para>
 ]]></programlisting></para>
 <para>Notice that the <literal>figure id</literal>, the <literal>title id</literal>, and the <literal>imagedata fileref</literal> are very similar. The former ones use hyphens, while the later uses underscore to separate the <literal>id</literal> parts. They have in common the significant part. Do not forget to put in the <literal>phrase</literal> tag, a sentence meaningful for blind people.</para>
 </sect2>
-<?linebreaka4?>
 <sect2 id="bluefish-manual-guide-interface-ref">
 <title>Referencing Bluefish interface elements</title>
 <para>We use the following DocBook GUI tags:</para>
@@ -285,7 +280,6 @@ co bluefish-doc</screen></para>
 or:
 <programlisting><![CDATA[Run the command <userinput>make</userinput>]]></programlisting>
 Be aware that the former is shown alone on its proper line, while the latter is embedded within the line flow. If you use the <literal>screen</literal> tag, you should prepend either a <literal>$</literal> or a <literal>#</literal> followed by a space before the instruction, depending on how the command should be run, as non root for the former, as root for the latter. Moreover, with the <literal>screen</literal> command, we should check that the line is not too long, split it if needed, and add a backslash to indicate the splitting.</para>
-<?linebreakus?>
 <para>To embed chunk of code, we use:
 <programlisting>&lt;programlisting>
 &lt;![CDATA[
