@@ -21,7 +21,7 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines filetype.c
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include "config.h"
 #ifdef USE_SCANNER
@@ -172,7 +172,93 @@ gboolean filetype_clear_tags(gpointer key,gpointer value,gpointer data) {
    gtk_text_tag_table_remove(highlight.tagtable,GTK_TEXT_TAG(value));
 	return TRUE;
 }*/
+#ifdef GNOMEVFSINT
 
+/**
+ * icon_for_mime_type:
+ * @mime_type: a MIME type
+ * @size_hint: the size the caller plans to display the icon at
+ *
+ * Tries to find an icon representing @mime_type that will display
+ * nicely at @size_hint by @size_hint pixels. The returned icon
+ * may or may not actually be that size.
+ *
+ * Return value: a pixbuf, which the caller must unref when it is done
+ **/
+static GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
+	static GtkIconTheme *icon_theme = NULL;
+	char *icon_name;
+	GdkPixbuf *pixbuf = NULL;
+
+	/* Try the icon theme. (GNOME 2.2 or Sun GNOME 2.0).
+	 * This will also look in GNOME VFS.
+	 */
+	
+	if (!icon_theme)
+		icon_theme = gtk_icon_theme_get_default();	
+	
+	icon_name = gnome_icon_lookup (icon_theme, NULL, NULL, NULL, NULL,
+				       mime_type, 0, NULL);
+	if (icon_name) {
+		GError *error=NULL;
+		DEBUG_MSG("get_icon_for_mime_type, got %s for %s\n",icon_name,mime_type);
+		pixbuf = gtk_icon_theme_load_icon (icon_theme, icon_name, main_v->props.filebrowser_icon_size, GTK_ICON_LOOKUP_USE_BUILTIN, &error);
+		if (!pixbuf) {
+    		g_warning ("Couldn't load icon: %s", error->message);
+    		g_error_free (error);
+		}
+		g_free (icon_name);
+	} else {
+		return NULL; /* perhaps we shopuld return some default icon ? */
+	}
+	return pixbuf;
+}
+
+static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
+	Tfiletype *filetype;
+	gchar *description;
+	filetype = g_new(Tfiletype, 1);
+	DEBUG_MSG("building filetype for %s\n",mime_type);
+	description = gnome_vfs_mime_get_description(mime_type);
+	filetype->type = g_strdup(description?description:"");
+	filetype->mime_type = g_strdup(mime_type);
+	filetype->icon = get_icon_for_mime_type(mime_type);
+	filetype->cfg = cfg;
+	return filetype;
+}
+#endif
+
+/* scans for all *.bflang files in a directory and parses them */
+static void filetype_scan_langfiles(const gchar * dir) {
+	const gchar *filename;
+	GError *error = NULL;
+	gchar *tofree;
+	GPatternSpec *ps = g_pattern_spec_new("*.bflang"); 
+	GDir *gd = g_dir_open(dir, 0, &error);
+	filename = g_dir_read_name(gd);
+	while (filename) {
+		if (g_pattern_match(ps, strlen(filename), filename, NULL)) {
+			gchar *path = g_strconcat(dir, filename, NULL);
+			bf_lang_mgr_load_config(path);
+			g_free(path);
+		}
+		filename = g_dir_read_name(gd);
+	}
+	g_dir_close(gd);
+	g_pattern_spec_free(ps);
+}
+
+/* retrieves a Tfiletype for the given mime-type, if none is found, a 
+new filetype is created */
+Tfiletype *get_filetype_for_mime_type(const gchar *mime_type) {
+	Tfiletype *ft;
+	ft = g_hash_table_lookup(main_v->filetypetable, mime_type);
+	if (!ft) {
+		ft = filetype_new(mime_type, NULL);
+		g_hash_table_replace(main_v->filetypetable, mime_type, ft);
+	}
+	return ft;
+}
 
 /*
  * This is modifed function for scanner environment.
@@ -183,7 +269,12 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 {
 	GList *tmplist;
 	GList *alldoclist;
-
+	Tfiletype *filetype;
+	
+	if (main_v->filetypetable == NULL) {
+		main_v->filetypetable = g_hash_table_new(g_str_hash,g_str_equal);
+	}
+	
 	alldoclist = return_allwindows_documentlist();
 	/* remove filetypes from documents, but to reconnect them 
 	   again after the rebuild, we temporary put a string with 
@@ -207,7 +298,7 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 	filetype_menus_empty();
 	tmplist = g_list_first(main_v->filetypelist);
 	while (tmplist) {
-		Tfiletype *filetype = (Tfiletype *) tmplist->data;
+		filetype = (Tfiletype *) tmplist->data;
 		g_free(filetype->type);
 #ifdef GNOMEVFSINT
 		g_free(filetype->mime_type);
@@ -228,27 +319,51 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 
 	DEBUG_MSG("filetype_highlighting_rebuild, rebuilding the filetype list\n");
 	/* now rebuild the filetype list */
+#ifdef GNOMEVFSINT
+	/* parse language files */
+	filetype_scan_langfiles(PKGDATADIR);
+	{
+		gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
+		filetype_scan_langfiles(userdir);
+		g_free(userdir);
+	}
+	/* build all mime types */
+/*	filetype = filetype_new("text/plain", NULL);
+	main_v->filetypelist = g_list_append(main_v->filetypelist, filetype);
+	g_hash_table_replace(main_v->filetypetable, "text/plain", filetype);*/
+	tmplist = g_list_first(main_v->lang_mgr->languages);
+	while (tmplist) { /* loop all language configs */
+		GList *tmplist2;
+		BfLangConfig *cfg = tmplist->data;
+		tmplist2 = g_list_first(cfg->mimetypes);
+		while (tmplist2) { /* loop all mime-types in this language config */
+			gpointer tmp; /* test if this mime-type is already known */
+			tmp = g_hash_table_lookup(main_v->filetypetable, (gchar *)tmplist2->data);
+			if (!tmp) { /* not known: register this Tfiletype for this mime-type */
+				filetype = filetype_new(tmplist2->data, cfg);
+				main_v->filetypelist = g_list_append(main_v->filetypelist, filetype);
+				g_hash_table_replace(main_v->filetypetable, (gchar *)tmplist2->data, filetype);
+			}
+			tmplist2 = g_list_next(tmplist2);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+#else
 	tmplist = g_list_first(main_v->props.filetypes);
 	while (tmplist) {
 		gint arrcount;
 		gchar **strarr;
-		Tfiletype *filetype;
 		strarr = (gchar **) tmplist->data;
 		arrcount = count_array(strarr);
 		if (arrcount == 8) {
 			filetype = g_new(Tfiletype, 1);
 			filetype->type = g_strdup(strarr[0]);
-#ifdef GNOMEVFSINT
-			filetype->mime_type = g_strdup("text/plain");
-			g_print("filetype_highlighting_rebuild, TODO, add mime-types to filetypes\n");
-#else
 			filetype->editable = (strarr[4][0] != '0');
 			filetype->content_regex = g_strdup(strarr[5]);
 			filetype->autoclosingtag = atoi(strarr[6]);
 			DEBUG_MSG("extensions for %s loaded from %s\n", strarr[0], strarr[1]);
 			filetype->extensions = g_strsplit(strarr[1], ":", 127);
 			filetype->update_chars = g_strdup(strarr[2]);
-#endif
 			if (strlen(strarr[3])) {
 				GError *error = NULL;
 				filetype->icon = gdk_pixbuf_new_from_file(strarr[3], &error);
@@ -271,7 +386,6 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 					DEBUG_MSG("filetype_highlighting_rebuild, loading %s(%p) from %s\n",filetype->type,filetype,filetype->language_file);
 					filetype->cfg = bf_lang_mgr_load_config(main_v->lang_mgr, filetype->language_file);
 				}
-#ifndef GNOMEVFSINT
 				if (filetype->cfg) {
 					gchar *p = filetype->update_chars;
 					i = 0;
@@ -281,13 +395,10 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 						p = g_utf8_next_char(p);
 					}
 				}
-#endif
 			} else {
 				filetype->cfg = NULL;
 			}
-#ifndef GNOMEVFSINT
 			filetype->highlightlist = NULL;
-#endif
 /*			filetype->hl_block = g_hash_table_new(g_str_hash, g_str_equal);
 			filetype->hl_token = g_hash_table_new(g_str_hash, g_str_equal);
 			filetype->hl_tag = g_hash_table_new(g_str_hash, g_str_equal);
@@ -314,7 +425,7 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 
 		tmplist = g_list_next(tmplist);
 	}
-
+#endif
 
 	/* now we have finished the rebuilding of the filetypes, we 
 	   have to connect all the documents with their filetypes again, we 
@@ -340,51 +451,3 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 
 #endif							/* SCANNER */
 
-#ifdef GNOMEVFSINT
-
-void file_type_add(gchar *mime_type) {
-	/*ft->name = gnome_vfs_mime_get_description(mime_type);
-	ft->icon = get_icon_for_mime_type(mime_type,16);*/
-}
-
-/**
- * icon_for_mime_type:
- * @mime_type: a MIME type
- * @size_hint: the size the caller plans to display the icon at
- *
- * Tries to find an icon representing @mime_type that will display
- * nicely at @size_hint by @size_hint pixels. The returned icon
- * may or may not actually be that size.
- *
- * Return value: a pixbuf, which the caller must unref when it is done
- **/
-GdkPixbuf *get_icon_for_mime_type (const char *mime_type, gint size_hint) {
-	static GtkIconTheme *icon_theme = NULL;
-	char *icon_name;
-	GdkPixbuf *pixbuf = NULL;
-
-	/* Try the icon theme. (GNOME 2.2 or Sun GNOME 2.0).
-	 * This will also look in GNOME VFS.
-	 */
-	
-	if (!icon_theme)
-		icon_theme = gtk_icon_theme_get_default();	
-	
-	icon_name = gnome_icon_lookup (icon_theme, NULL, NULL, NULL, NULL,
-				       mime_type, 0, NULL);
-	if (icon_name) {
-		GError *error=NULL;
-		DEBUG_MSG("get_icon_for_mime_type, got %s for %s\n",icon_name,mime_type);
-		pixbuf = gtk_icon_theme_load_icon (icon_theme, icon_name, size_hint, /* size */ GTK_ICON_LOOKUP_USE_BUILTIN,  /* flags */ &error);
-		if (!pixbuf) {
-    		g_warning ("Couldn't load icon: %s", error->message);
-    		g_error_free (error);
-		}
-		g_free (icon_name);
-	} else {
-		return NULL; /* perhaps we shopuld return some default icon ? */
-	}
-	return pixbuf;
-}
-
-#endif

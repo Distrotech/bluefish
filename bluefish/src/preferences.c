@@ -1953,7 +1953,12 @@ static void fill_hl_tree(Tprefdialog *pd) {
 		if (count_array(strarr)==FILETYPES_ARRAY_LEN) {
 			GtkTreeIter ftiter;
 			BfLangConfig *cfg;
+#ifndef GNOMEVFSINT
 			cfg = bf_lang_mgr_get_config(main_v->lang_mgr,strarr[7]);
+#else
+			cfg = NULL;
+			g_print("NEEDS FINISHING THIS BIT OF CODE\n ");
+#endif
 			if (cfg) {
 				GtkTreeIter giter, iiter;
 				GList *grouplist, *tmplist, *ilist, *tmplist2;

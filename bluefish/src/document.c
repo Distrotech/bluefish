@@ -535,9 +535,14 @@ void doc_set_title(Tdocument *doc) {
  * Return value: void
  **/
 void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf) {
-	Tfiletype *ft;
+	Tfiletype *ft=NULL;
 #ifdef GNOMEVFSINT
-	g_print("doc_reset_filetype, TODO\n");
+	GnomeVFSFileInfo info;
+	GnomeVFSResult res;
+	res = gnome_vfs_get_file_info_uri(newuri,&info,GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
+	if (res == GNOME_VFS_OK) {
+		ft = get_filetype_for_mime_type(gnome_vfs_file_info_get_mime_type(&info));
+	}
 #else
 	if (buf) {
 		ft = get_filetype_by_filename_and_content(gnome_vfs_uri_get_path(newuri), buf);

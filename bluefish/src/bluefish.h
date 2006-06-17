@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define GNOMEVFSINT */
+#define GNOMEVFSINT
 
 /* if you define DEBUG here you will get debug output from all Bluefish parts */
 /* #define DEBUG */
@@ -121,7 +121,9 @@ typedef struct {
 	gchar *content_regex; /* a regex pattern to test the filetype using the content */
 #endif
 #ifdef USE_SCANNER
+#ifndef GNOMEVFSINT
 	gchar *language_file;
+#endif
 	BfLangConfig *cfg;
 #endif
 } Tfiletype;
