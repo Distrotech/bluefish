@@ -398,13 +398,13 @@ gchar *ac_add_dtd_list(Tautocomp *ac, gchar *chunk,gboolean internal,Tdtd_list *
 
 static void ac_xmlschema_walk(xmlNodePtr node, Tdtd_list *data)
 {
-	if ( xmlStrcmp(node->name,"element")==0 )
+	if (xmlStrcmp(node->name, (const xmlChar *) "element") == 0)
 	{
-		gchar *nn = g_strdup(xmlGetProp(node,"name"));
-		gchar *type=NULL;
-		gchar **arr=NULL;
+		gchar *nn = g_strdup(xmlGetProp(node, (const xmlChar *) "name"));
+		guchar *type = NULL;
+		gchar **arr = NULL;
 		data->elements = g_list_append(data->elements,nn);
-		type = xmlGetProp(node,"type");
+		type = xmlGetProp(node, (const xmlChar *) "type");
 		arr = g_strsplit(type,":",-1);
 		xmlFree(type);
 		if ( arr[1] )
@@ -413,17 +413,17 @@ static void ac_xmlschema_walk(xmlNodePtr node, Tdtd_list *data)
 			g_hash_table_insert(data->element_types,nn,g_strstrip(g_strdup(arr[0])));
 		g_strfreev(arr);		
 	}
-	else if ( xmlStrcmp(node->name,"attribute")==0 )
+	else if (xmlStrcmp(node->name, (const xmlChar *) "attribute") == 0)
 	{
-		gchar *pname = xmlGetProp(node->parent,"name");
-		gchar *use = xmlGetProp(node,"use");
-		gchar *aname=NULL;
-		GList *lst=NULL;
-		if ( xmlStrcmp(node->parent->name,"complexType")==0 )
+		gchar *pname = xmlGetProp(node->parent, (const xmlChar *) "name");
+		guchar *use = xmlGetProp(node, (const xmlChar *) "use");
+		gchar *aname = NULL;
+		GList *lst = NULL;
+		if (xmlStrcmp(node->parent->name, (const xmlChar *) "complexType") == 0)
 		{
 			lst = g_hash_table_lookup(data->type_attrs,pname);
-			aname = xmlGetProp(node,"name");
-			if (use && xmlStrcmp(use,"required")==0)
+			aname = xmlGetProp(node, (const xmlChar *) "name");
+			if (use && xmlStrcmp(use, (const xmlChar *) "required") == 0)
 				lst = g_list_append(lst,g_strdup_printf("%s$r",aname));
 			else
 				lst = g_list_append(lst,g_strdup(aname));
@@ -431,11 +431,11 @@ static void ac_xmlschema_walk(xmlNodePtr node, Tdtd_list *data)
 			g_hash_table_replace(data->type_attrs,g_strdup(pname),lst);
 		}
 		xmlFree(pname);
-		if ( use ) xmlFree(use);
+		if (use) xmlFree(use);
 	}
-	if ( node->next )
+	if (node->next)
 		ac_xmlschema_walk(node->next,data);
-	if ( node->children )
+	if (node->children)
 		ac_xmlschema_walk(node->children,data);
 }
 
