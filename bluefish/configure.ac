@@ -313,7 +313,6 @@ fi
 
 echo -n "checking for libgnomeui >= 2.6... "
 if pkg-config libgnomeui-2.0 --atleast-version=2.6 ; then
-	AC_DEFINE(HAVE_ATLEAST_GNOMEUI_2_6)
 	PKGCONFIGFILES="${PKGCONFIGFILES} libgnomeui-2.0"
 	echo "yes, `pkg-config --modversion libgnomeui-2.0`"
 else

@@ -2,7 +2,7 @@
  * bluefish.c - the main function
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2004 Olivier Sessink
+ * Copyright (C) 1999-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,13 +28,8 @@
 
 #include "bluefish.h"
 
-#include <libgnomevfs/gnome-vfs.h>
-
-#ifdef HAVE_ATLEAST_GNOMEUI_2_6
 #include <libgnomeui/libgnomeui.h>
-#else
-#include "authen2.h"			/* authen_init() */
-#endif
+#include <libgnomevfs/gnome-vfs.h>
 
 #ifdef ENABLE_NLS
 #include <locale.h>
@@ -138,12 +133,10 @@ int main(int argc, char *argv[])
 	gboolean root_override=FALSE, open_in_new_window=FALSE;
 	GList *filenames = NULL, *projectfiles=NULL;
 	Tbfwin *firstbfwin;
+	GnomeProgram *bfprogram;
 #ifndef NOSPLASH
 	GtkWidget *splash_window = NULL;
 #endif /* #ifndef NOSPLASH */
-#ifdef HAVE_ATLEAST_GNOMEUI_2_6
-	GnomeProgram *bfprogram;
-#endif /* HAVE_ATLEAST_GNOMEUI_2_6 */
 
 #ifdef ENABLE_NLS                                                               
 	setlocale(LC_ALL,"");                                                   
@@ -152,18 +145,13 @@ int main(int argc, char *argv[])
 	bind_textdomain_codeset(PACKAGE, "UTF-8");
 	textdomain(PACKAGE);                                                    
 #endif
-#ifdef HAVE_ATLEAST_GNOMEUI_2_6
+
 	bfprogram = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE, 
                                     argc, argv, GNOME_PARAM_NONE);
-#else
-	gtk_init(&argc, &argv);
-#endif /* HAVE_ATLEAST_GNOMEUI_2_6 */
+
 	gnome_vfs_init();
-#ifdef HAVE_ATLEAST_GNOMEUI_2_6
 	gnome_authentication_manager_init();
-#else
-	authen_init();
-#endif /* HAVE_ATLEAST_GNOMEUI_2_6 */
+
     set_default_icon();
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
@@ -278,9 +266,8 @@ int main(int argc, char *argv[])
 	DEBUG_MSG("calling fb2config_cleanup()\n");
 	fb2config_cleanup();
 	DEBUG_MSG("Bluefish: exiting cleanly\n");
-#ifdef HAVE_ATLEAST_GNOMEUI_2_6
 	g_object_unref (bfprogram);
-#endif /* HAVE_ATLEAST_GNOMEUI_2_6 */
+
 	return 0;
 }
 
