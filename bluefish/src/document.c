@@ -22,13 +22,10 @@
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h> /* for the keyboard event codes */
-#include <sys/types.h> 	/* stat() */
-#include <sys/stat.h> 	/* stat() */
-#include <unistd.h>		/* stat() */
-#include <stdio.h>		/* fopen() */
-#include <string.h>		/* strchr() */
-#include <regex.h> 		/* regcomp() */
-#include <stdlib.h>		/* system() */
+
+#include <string.h>         /* strchr() */
+#include <regex.h>          /* regcomp() */
+#include <stdlib.h>         /* system() */
 #include <pcre.h>
 
 /* #define DEBUG */
@@ -44,16 +41,17 @@
 #include "document.h"
 #include "file.h"
 #include "filebrowser2.h"
+#include "filetype.h"
 #include "file_dialogs.h"
-#include "gtk_easy.h"		/* *_dialog() */
-#include "gui.h"				/* statusbar_message() */
-#include "highlight.h"		/* all highlight functions */
-#include "menu.h"				/* add_to_recent_list */
+#include "gtk_easy.h"       /* *_dialog() */
+#include "gui.h"            /* statusbar_message() */
+#include "highlight.h"      /* all highlight functions */
+#include "menu.h"           /* add_to_recent_list */
 #include "pixmap.h"
-#include "snr2.h"				/* snr2_run_extern_replace */
-#include "stringlist.h"		/* free_stringlist() */
-#include "undo_redo.h"		/* doc_unre_init() */
+#include "snr2.h"           /* snr2_run_extern_replace */
+#include "stringlist.h"     /* free_stringlist() */
 #include "textstyle.h"
+#include "undo_redo.h"      /* doc_unre_init() */
 
 #ifdef USE_SCANNER
 #include "bf-textview.h"
@@ -1641,7 +1639,9 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 #ifdef DEBUG
 			g_print("doc_buffer_to_textbox, doc->hl=%p, type=%s\n", doc->hl, doc->hl->type);
 			if (doc->hl) {
+#ifndef GNOMEVFSINT			
 				g_print("doc_buffer_to_textbox, doc->hlset->highlightlist=%p\n", doc->hl->highlightlist);
+#endif
 			} else {
 				g_print("doc_buffer_to_textbox, doc does not have a filetype ????\n");
 			}
