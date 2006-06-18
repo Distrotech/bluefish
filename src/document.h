@@ -40,8 +40,8 @@ void doc_set_wrap(Tdocument *doc);
 void doc_set_tooltip(Tdocument *doc);
 gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft);
 void doc_set_title(Tdocument *doc);
-#ifndef GNOMEVFSINT
 Tfiletype *get_filetype_by_name(const gchar *name);
+#ifndef GNOMEVFSINT
 Tfiletype *get_filetype_by_filename_and_content(const gchar *filename, gchar *buf);
 #endif
 void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf);
