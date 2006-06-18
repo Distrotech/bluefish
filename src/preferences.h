@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * preferences.h - the preferences code
  *
- * Copyright (C) 2002-2003 Olivier Sessink
+ * Copyright (C) 2002-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,5 +18,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#ifndef __PREFERENCES_H_
+#define __PREFERENCES_H_
+
 void open_preferences_cb(GtkWidget *wid, gpointer data);
 void open_preferences_menu_cb(gpointer callback_data,guint action,GtkWidget *widget);
+
+#endif /* __PREFERENCES_H_ */
