@@ -46,11 +46,12 @@ alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're 
 #include "dialog_utils.h"
 #include "document.h"
 #include "file.h"
+#include "filetype.h"
 #include "file_dialogs.h"
-#include "gtk_easy.h"		/* destroy_disposable_menu_cb() */
-#include "menu.h"				/* menu_translate() */
+#include "gtk_easy.h"        /* destroy_disposable_menu_cb() */
+#include "menu.h"            /* menu_translate() */
 #include "project.h"
-#include "stringlist.h"		/* count_array() */
+#include "stringlist.h"      /* count_array() */
 
 typedef struct {
 	/* GList *filters;  the compiled filters -> now in main_v->filefilters */

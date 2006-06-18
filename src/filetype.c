@@ -26,8 +26,12 @@
 #include "config.h"
 #ifdef USE_SCANNER
 
+#include <libgnomeui/libgnomeui.h>
+#include <libgnomevfs/gnome-vfs-mime-handlers.h>
+
 #include <string.h>
 
+#include "filetype.h"
 #include "bluefish.h"
 #include "bf-textview.h"
 #include "document.h"
@@ -216,7 +220,7 @@ static GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 
 static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
 	Tfiletype *filetype;
-	gchar *description;
+	const gchar *description;
 	filetype = g_new(Tfiletype, 1);
 	DEBUG_MSG("building filetype for %s\n",mime_type);
 	description = gnome_vfs_mime_get_description(mime_type);
@@ -232,7 +236,6 @@ static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
 static void filetype_scan_langfiles(const gchar * dir) {
 	const gchar *filename;
 	GError *error = NULL;
-	gchar *tofree;
 	GPatternSpec *ps = g_pattern_spec_new("*.bflang"); 
 	GDir *gd = g_dir_open(dir, 0, &error);
 	filename = g_dir_read_name(gd);
@@ -255,7 +258,7 @@ Tfiletype *get_filetype_for_mime_type(const gchar *mime_type) {
 	ft = g_hash_table_lookup(main_v->filetypetable, mime_type);
 	if (!ft) {
 		ft = filetype_new(mime_type, NULL);
-		g_hash_table_replace(main_v->filetypetable, mime_type, ft);
+		g_hash_table_replace(main_v->filetypetable, (const gpointer) mime_type, ft);
 	}
 	return ft;
 }
