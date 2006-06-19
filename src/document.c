@@ -2959,7 +2959,10 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 #ifdef USE_SCANNER
 	newdoc->buffer = gtk_text_buffer_new(textstyle_return_tagtable());
 	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
-	newdoc->hl = (Tfiletype *)((GList *)g_list_first(main_v->filetypelist))->data;
+	/* set the default doc to be plain text for now.
+       we should maybe add a default file type to preferences, projects, and/or session 
+	   or maybe a dialog asking the user what to create */
+	newdoc->hl = get_filetype_for_mime_type("text/plain"); 
 #ifndef GNOMEVFSINT
 	newdoc->autoclosingtag = (newdoc->hl->autoclosingtag > 0);
 #endif
