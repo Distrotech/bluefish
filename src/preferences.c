@@ -2611,12 +2611,16 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.textstyles = duplicate_arraylist(pd->lists[textstyles]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
+#ifndef GNOMEVFSINT
 	textstyle_rebuild();
 	
 	filetype_highlighting_rebuild(TRUE);
+#endif
 	/*filebrowser_filters_rebuild();*/
 #ifdef USE_SCANNER
-	bf_lang_mgr_retag();	
+#ifndef GNOMEVFSINT
+	bf_lang_mgr_retag();
+#endif	
 #else
 	highlightpattern_apply_changes(pd);
 #endif	
@@ -2629,7 +2633,9 @@ static void preferences_apply(Tprefdialog *pd) {
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling encoding_menu_rebuild\n");
 			encoding_menu_rebuild(bfwin);
 			external_menu_rebuild(bfwin); /* browsers is also rebuild here! */
+#ifndef GNOMEVFSINT
 			filetype_menu_rebuild(bfwin,NULL);
+#endif
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling gui_apply_settings\n");
 			gui_apply_settings(bfwin);
 			left_panel_rebuild(bfwin);
