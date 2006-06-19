@@ -21,6 +21,7 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines filetype.c
  */
+
 /* #define DEBUG */
 
 #include "config.h"
@@ -295,7 +296,7 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 			tmplist = g_list_next(tmplist);
 		}
 	}
-
+#ifndef GNOMEVFSINT
 	/* first remove the menu widgets, and delete the filetype structs */
 	DEBUG_MSG("filetype_highlighting_rebuild, testing for filetypelist existance\n");
 	filetype_menus_empty();
@@ -303,13 +304,15 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 	while (tmplist) {
 		filetype = (Tfiletype *) tmplist->data;
 		g_free(filetype->type);
+/*
 #ifdef GNOMEVFSINT
 		g_free(filetype->mime_type);
 #else
+*/
 		g_strfreev(filetype->extensions);
 		g_free(filetype->update_chars);
 		g_free(filetype->content_regex);
-#endif
+
 		if (filetype->icon) {
 			g_object_unref(filetype->icon);
 		}
@@ -319,7 +322,7 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 	}
 	g_list_free(main_v->filetypelist);
 	main_v->filetypelist = NULL;
-
+#endif
 	DEBUG_MSG("filetype_highlighting_rebuild, rebuilding the filetype list\n");
 	/* now rebuild the filetype list */
 #ifdef GNOMEVFSINT
