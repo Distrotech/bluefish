@@ -212,7 +212,6 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 		if (tmp2 && strlen(tmp2)>=2) display_name = gnome_vfs_unescape_string(tmp2+1, "");
 		else display_name = gnome_vfs_uri_to_string(child_uri,GNOME_VFS_URI_HIDE_PASSWORD);
 		g_free(tmp);
-#ifdef GNOMEVFSINT
 		{
 			GnomeVFSFileInfo info;
 			GnomeVFSResult res;
@@ -224,13 +223,6 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 				pixmap = FB2CONFIG(main_v->fb2config)->unknown_icon;
 			}
 		}
-#else
-		if (type != TYPE_DIR) {
-			Tfiletype *ft = get_filetype_by_filename_and_content(display_name, NULL);
-			if (ft && ft->icon) pixmap = ft->icon;
-			else pixmap = FB2CONFIG(main_v->fb2config)->unknown_icon;
-		} else pixmap = FB2CONFIG(main_v->fb2config)->dir_icon;
-#endif
 		DEBUG_MSG("fb2_add_filesystem_entry, appending iter for %s\n",display_name);
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);
 		DEBUG_MSG("fb2_add_filesystem_entry, will add ");
@@ -248,11 +240,10 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 				TYPE_COLUMN, type,
 				-1);
 		g_free(display_name); /* a column of type string holds a copy, not the original */
-#ifdef GNOMEVFSINT
+
 		/*
 		hmm I think we should unref the pixmap, but I do get errors if I unref it...
 		g_object_unref(pixmap);*/
-#endif
 /*		DEBUG_MSG("fb2_add_filesystem_entry adding iter %p to hashtable\n",newiter);*/
 		gnome_vfs_uri_ref(child_uri);
 		g_hash_table_insert(FB2CONFIG(main_v->fb2config)->filesystem_itable,child_uri,newiter);
@@ -628,6 +619,7 @@ static gboolean name_visible_in_filter(Tfilebrowser2 *fb2, gchar *name) {
 	if (!fb2->curfilter->filetypes) {
 		return !fb2->curfilter->mode;
 	}
+	/* TODO: WORK ON THE FILE FILTER */
 #ifndef GNOMEVFSINT
 	tmplist = g_list_first(fb2->curfilter->filetypes);
 	while (tmplist) {
