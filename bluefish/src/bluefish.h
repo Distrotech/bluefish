@@ -110,22 +110,8 @@ typedef struct {
 typedef struct {
 	gchar *type;
 	GdkPixbuf *icon;
-#ifdef GNOMEVFSINT
 	gchar *mime_type;
-#else
-	gchar **extensions;
-	gchar *update_chars;
-	GList *highlightlist;
-	gboolean editable; /* this a type that can be edited by Bluefish */
-	gint autoclosingtag; /* 0=off, 1=xml mode, 2=html mode */
-	gchar *content_regex; /* a regex pattern to test the filetype using the content */
-#endif
-#ifdef USE_SCANNER
-#ifndef GNOMEVFSINT
-	gchar *language_file;
-#endif
 	BfLangConfig *cfg;
-#endif
 } Tfiletype;
 
 /*****************************************************/
@@ -207,9 +193,7 @@ typedef struct {
 	gint filebrowser_two_pane_view; /* have one or two panes in the filebrowser */
 	gchar *filebrowser_unknown_icon;
 	gchar *filebrowser_dir_icon;
-#ifdef GNOMEVFSINT
 	gint filebrowser_icon_size;
-#endif
 	gchar *editor_font_string;		/* editor font */
 	gint editor_tab_width;	/* editor tabwidth */
 	gint editor_smart_cursor;
@@ -434,9 +418,7 @@ typedef struct {
 	Tproperties props; /* preferences */
 	Tglobalsession globses; /* global session */
 	GList *filetypelist; /* highlighting.c: a list of all filetypes with their icons and highlighting sets */
-#ifdef GNOMEVFSINT
 	GHashTable *filetypetable;
-#endif
 	GList *bfwinlist;
 /*	GList *recent_directories; / * a stringlist with the most recently used directories */
 	Tsessionvars *session; /* holds all session variables for non-project windows */

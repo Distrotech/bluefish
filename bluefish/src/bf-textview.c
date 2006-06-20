@@ -1958,7 +1958,7 @@ static void bflang_retag_block(gpointer key, gpointer value, gpointer udata)
 	}
 }
 
-static void bf_lang_retag(gpointer key, gpointer value, gpointer udata)
+static void bf_lang_retag(gpointer value, gpointer udata)
 {
 	BfLangConfig *cfg = (BfLangConfig *) value;
 	g_hash_table_foreach(cfg->tokens, bflang_retag_token, cfg);
@@ -1974,7 +1974,6 @@ static void bf_lang_retag(gpointer key, gpointer value, gpointer udata)
 void bf_lang_mgr_retag(void)
 {
 	g_list_foreach(main_v->lang_mgr->languages,bf_lang_retag,NULL);
-	/*g_hash_table_foreach(main_v->lang_mgr->languages, bf_lang_retag, NULL);*/
 }
 
 
