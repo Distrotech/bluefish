@@ -502,11 +502,7 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Document Type"));
 	while (tmplist) {
 		Tfiletype *filetype = (Tfiletype *)tmplist->data;
-#ifdef GNOMEVFSINT
 		if (filetype->cfg) {
-#else
-		if (filetype->editable) {
-#endif
 			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
 			bdm->data = filetype;
 			bdm->bfwin = bfwin;

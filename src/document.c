@@ -475,15 +475,9 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 #endif		
 		doc->hl = ft;
 		doc->need_highlighting = TRUE;
-#ifndef GNOMEVFSINT
-		doc->autoclosingtag = (ft->autoclosingtag > 0);
-#endif
 #ifdef USE_SCANNER
 		DEBUG_MSG("doc_set_filetype, calling bf_textview_set_language_ptr(%p)\n",ft->cfg);
 		bf_textview_set_language_ptr(BF_TEXTVIEW(doc->view),ft->cfg);
-#ifndef GNOMEVFSINT
-		BF_TEXTVIEW(doc->view)->tag_autoclose = doc->autoclosingtag;
-#endif
 #endif
 		gui_set_document_widgets(doc);
 		doc_set_tooltip(doc);
@@ -534,22 +528,12 @@ void doc_set_title(Tdocument *doc) {
  **/
 void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf) {
 	Tfiletype *ft=NULL;
-#ifdef GNOMEVFSINT
 	GnomeVFSFileInfo info;
 	GnomeVFSResult res;
 	res = gnome_vfs_get_file_info_uri(newuri,&info,GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
 	if (res == GNOME_VFS_OK) {
 		ft = get_filetype_for_mime_type(gnome_vfs_file_info_get_mime_type(&info));
 	}
-#else
-	if (buf) {
-		ft = get_filetype_by_filename_and_content(gnome_vfs_uri_get_path(newuri), buf);
-	} else {
-		gchar *tmp = doc_get_chars(doc, 0, main_v->props.numcharsforfiletype);
-		ft = get_filetype_by_filename_and_content(gnome_vfs_uri_get_path(newuri), tmp);
-		g_free(tmp);
-	}
-#endif
 	if (!ft) {
 		GList *tmplist;
 		/* if none found return first set (is default set) */
@@ -1638,13 +1622,6 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 
 #ifdef DEBUG
 			g_print("doc_buffer_to_textbox, doc->hl=%p, type=%s\n", doc->hl, doc->hl->type);
-			if (doc->hl) {
-#ifndef GNOMEVFSINT			
-				g_print("doc_buffer_to_textbox, doc->hlset->highlightlist=%p\n", doc->hl->highlightlist);
-#endif
-			} else {
-				g_print("doc_buffer_to_textbox, doc does not have a filetype ????\n");
-			}
 #endif
 #ifndef USE_SCANNER
 			doc_highlight_full(doc);
@@ -2963,16 +2940,9 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
        we should maybe add a default file type to preferences, projects, and/or session 
 	   or maybe a dialog asking the user what to create */
 	newdoc->hl = get_filetype_for_mime_type("text/plain"); 
-#ifndef GNOMEVFSINT
-	newdoc->autoclosingtag = (newdoc->hl->autoclosingtag > 0);
-#endif
 	if (newdoc->hl->cfg) {
 		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),newdoc->hl->cfg);
-#ifndef GNOMEVFSINT
-		BF_TEXTVIEW(newdoc->view)->tag_autoclose = newdoc->autoclosingtag;
-#else
 		BF_TEXTVIEW(newdoc->view)->tag_autoclose = TRUE;
-#endif
 	}
 	bf_textview_recolor(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg,main_v->props.editor_bg);
 	bf_textview_show_rmargin(BF_TEXTVIEW(newdoc->view),main_v->props.view_rmargin,main_v->props.rmargin_at); 
