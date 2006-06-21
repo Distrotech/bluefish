@@ -1481,7 +1481,6 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 		}
 		cur = cur->xmlChildrenNode;
 		while (cur != NULL) {
-#ifdef GNOMEVFSINT
 			if (xmlStrcmp(cur->name, (const xmlChar *) "mimetypes") == 0) {
 				cur2 = cur->xmlChildrenNode;
 				while (cur2 != NULL) {
@@ -1492,10 +1491,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 					}
 					cur2 = cur2->next;
 				}
-			} /* /mimetypes */
-			 else 
-#endif /* GNOMEVFSINT */
-			 if (xmlStrcmp(cur->name, (const xmlChar *) "options") == 0) {
+			} /* /mimetypes */ else if (xmlStrcmp(cur->name, (const xmlChar *) "options") == 0) {
 				cur2 = cur->xmlChildrenNode;
 				while (cur2 != NULL) {
 					if (xmlStrcmp(cur2->name, (const xmlChar *) "option") == 0) {

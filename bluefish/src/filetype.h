@@ -22,7 +22,8 @@
 #define __FILETYPE_H_
 
 #include "bluefish.h"
-
 Tfiletype *get_filetype_for_mime_type(const gchar *mime_type);
+const gchar *get_mimetype_for_uri(GnomeVFSURI *uri, gboolean fast);
+Tfiletype *get_filetype_for_uri(GnomeVFSURI *uri, gboolean fast);
 
 #endif /* __FILETYPE_H_ */

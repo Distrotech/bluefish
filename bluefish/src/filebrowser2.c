@@ -213,11 +213,8 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 		else display_name = gnome_vfs_uri_to_string(child_uri,GNOME_VFS_URI_HIDE_PASSWORD);
 		g_free(tmp);
 		{
-			GnomeVFSFileInfo info;
-			GnomeVFSResult res;
-			res = gnome_vfs_get_file_info_uri(child_uri,&info,GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
-			if (res == GNOME_VFS_OK) {
-				Tfiletype *ft = get_filetype_for_mime_type(gnome_vfs_file_info_get_mime_type(&info));
+			Tfiletype *ft = get_filetype_for_uri(child_uri, TRUE);
+			if (ft) {
 				pixmap = ft->icon;
 			} else {
 				pixmap = FB2CONFIG(main_v->fb2config)->unknown_icon;
@@ -995,33 +992,19 @@ static GnomeVFSURI *fb2_uri_from_dir_selection(Tfilebrowser2 *fb2) {
  */
 static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	Tfiletype *ft=NULL;
-	gchar *filename;
-	filename = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
-#ifdef GNOMEVFSINT
+	const gchar *mimetype = get_mimetype_for_uri(uri, FALSE);
+	if (mimetype) {
+		if (strncmp(mimetype,"image",5)==0) {
+			/* image! */
+			g_print("handle_activate_on_file, TODO, handle image activate!\n");
+		} else if (strcmp(mimetype,"application/bluefish-project")==0) {
+			gchar *filename;
+			filename = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
+			project_open_from_file(fb2->bfwin, filename);
+			g_free(filename);
+		}
+	}
 	doc_new_from_uri(fb2->bfwin, uri, NULL, FALSE, FALSE, -1, -1);
-#else /* GNOMEVFSINT */
-	ft = get_filetype_by_filename_and_content(filename, NULL);
-	DEBUG_MSG("handle_activate_on_file, file %s has type %p\n",filename, ft);
-	if (ft == NULL || ft->editable) {
-		doc_new_from_uri(fb2->bfwin, uri, NULL, FALSE, FALSE, -1, -1);
-	}
-#ifndef ENABLEPLUGINS
-	 else if (strcmp(ft->type, "webimage")==0 || strcmp(ft->type, "image")==0) {
-		gchar *relfilename, *curi;
-		curi = gnome_vfs_uri_to_string(fb2->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
-		relfilename = create_relative_link_to(curi, filename);
-		image_insert_from_filename(fb2->bfwin,relfilename);
-		g_free(relfilename);
-		g_free(curi);
-	} 
-#endif /* ENABLEPLUGINS */
-	else if (strcmp(ft->type, "bfproject") == 0) {
-		project_open_from_file(fb2->bfwin, filename);
-	} else {
-		DEBUG_MSG("handle_activate_on_file, file %s is not-editable, do something special now?\n",filename);
-	}
-#endif /* GNOMEVFSINT */
-	g_free(filename);
 	DEBUG_MSG("handle_activate_on_file, finished\n");
 }
 
