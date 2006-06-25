@@ -21,8 +21,6 @@
 #ifndef __HIGHLIGHT_H_
 #define __HIGHLIGHT_H_
 
-#ifdef USE_SCANNER
-
 #include "bf-textview.h"
 void hl_token_slot(BfTextView *view, BfLangToken *tokenDef, GtkTextIter *startIter,GtkTextIter *endIter);
 
@@ -38,14 +36,6 @@ void hl_tag_end_slot(BfTextView * view, gchar * tagName, GtkTextIter * b_startIt
 void hl_tag_attr_slot(BfTextView * view, gchar * attrName, gchar * attrValue,
                       GtkTextIter * n_startIter, GtkTextIter * n_endIter,
                       GtkTextIter * v_startIter, GtkTextIter * v_endIter);
-
-#else    /* USE_SCANNER */
-
-void doc_highlight_region(Tdocument * doc, guint startof, guint endof);
-void doc_highlight_line(Tdocument *doc);
-void doc_remove_highlighting(Tdocument *doc);
-
-#endif    /* USE_SCANNER */
 
 void filetype_highlighting_rebuild(gboolean gui_errors);			   
 void hl_init(void);

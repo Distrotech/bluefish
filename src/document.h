@@ -86,10 +86,8 @@ void document_unset_filename(Tdocument *doc);
 gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name, gboolean is_move);
 gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean window_closing);
 void document_set_line_numbers(Tdocument *doc, gboolean value);
-#ifdef USE_SCANNER
 void document_set_show_blocks(Tdocument *doc, gboolean value);
 void document_set_show_symbols(Tdocument *doc, gboolean value);
-#endif
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
 /* void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename); */
 Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo);

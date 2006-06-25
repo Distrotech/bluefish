@@ -31,12 +31,8 @@ preferences panel.
 */
 GtkTextTag *textstyle_get(const gchar *name);
 
-
 /* returns a widget that can be used in the preferences panel */
 GtkWidget* textstyle_combo_box(GList *configstyles);
-
-#ifdef USE_SCANNER
 GtkTextTag *get_tag_for_scanner_style(const gchar *filetype,const gchar *type,const gchar *name, const gchar *defaultstyle);
-#endif
 
 #endif /* __TEXTSTYLE_H__ */

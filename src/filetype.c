@@ -25,11 +25,9 @@
 /* #define DEBUG */
 
 #include "config.h"
-#ifdef USE_SCANNER
 
 #include <libgnomeui/libgnomeui.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
-
 #include <string.h>
 
 #include "filetype.h"
@@ -231,6 +229,3 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 	}
 	g_list_free(alldoclist);
 }
-
-#endif							/* SCANNER */
-

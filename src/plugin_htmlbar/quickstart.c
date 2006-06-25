@@ -431,9 +431,6 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
 		g_free (finalstr);
 		
 		doc_set_filetype(qstart->bfwin->current_document, get_filetype_by_name("html"));
-#ifndef USE_SCANNER		
-		doc_highlight_full(qstart->bfwin->current_document);	
-#endif		
 	}
 
 	g_free (qstart);
