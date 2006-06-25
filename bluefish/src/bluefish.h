@@ -120,7 +120,7 @@ typedef struct {
 typedef struct {
 	gchar *name;
 	gboolean mode; /* 0= hide matching files, 1=show matching files */
-	GList *filetypes; /* if NULL all files are OK */
+	GHashTable *filetypes; /* hash table with mime types */
 } Tfilter;
 
 /********************************************************************/
