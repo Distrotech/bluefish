@@ -93,9 +93,6 @@ typedef struct {
 } Tconfig_list_item;
 
 static GList *main_configlist=NULL;
-#ifndef USE_SCANNER
-static GList *highlighting_configlist=NULL;
-#endif
 static GList *custom_menu_configlist=NULL;
 
 static void free_configlist(GList *configlist) {
@@ -448,7 +445,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.bflib_info_bkg,"bflib_info_bkg:","#FFFFFF");
 	init_prop_string    (&config_rc, &main_v->props.bflib_info_fg,"bflib_info_fg:","#000000");
 	init_prop_arraylist (&config_rc, &main_v->props.plugin_config, "plugin_config:", 3, TRUE);
-#ifdef USE_SCANNER
 	init_prop_integer   (&config_rc, &main_v->props.view_blocks, "view_blocks:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_symbols, "view_symbols:", 1, TRUE);	
 	init_prop_integer   (&config_rc, &main_v->props.view_mbhl, "view_mbhl:", 1, TRUE);	
@@ -460,7 +456,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.view_rmargin, "view_rmargin:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.rmargin_at, "rmargin_at:", 80, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.autocomp_key, "autocomp_key:", "<Control>space");
-#endif
 	init_prop_arraylist (&config_rc, &main_v->props.textstyles, "textstyles:", 5, TRUE);
 	return config_rc;
 }
@@ -752,46 +747,6 @@ gint rcfile_save_main(void) {
 	return ret;
 }
 
-#ifndef USE_SCANNER	
-void rcfile_parse_highlighting(void) {
-	gchar *filename;
-	gchar *defaultfile;
-	DEBUG_MSG("rcfile_parse_highlighting, started\n");
-
-	highlighting_configlist = NULL;
-	init_prop_arraylist(&highlighting_configlist, &main_v->props.highlight_patterns, "patterns:", 0, TRUE);
-
-	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting", NULL);
-	defaultfile = return_first_existing_filename(PKGDATADIR"highlighting",
-									"data/highlighting",
-									"../data/highlighting",NULL);
-	if (!parse_config_file(highlighting_configlist, filename)) {
-		/* init the highlighting in some way? */
-		if (defaultfile) {
-			main_v->props.highlight_patterns = get_list(defaultfile,NULL,TRUE);
-		} else {
-			g_print("Unable to find '"PKGDATADIR"highlighting'\n");
-		}
-		save_config_file(highlighting_configlist, filename);
-		DEBUG_MSG("rcfile_parse_highlighting, done saving\n");
-	} else {
-		if (defaultfile && config_file_is_newer(main_v->globses.lasttime_highlighting,defaultfile)) {
-			/* HERE WE SHOULD SEND A POPUP TO THE USER, SAYING THERE ARE NEW HIGHLIGHTING PATTERNS AVAILABLE, IF THEY WANT TO HAVE THEM */
-/*			main_v->props.highlight_patterns = arraylist_load_new_identifiers_from_file(main_v->props.highlight_patterns,defaultfile,2);
-			main_v->globses.lasttime_highlighting = TIME_T_TO_GINT(time(NULL));*/
-		}
-	}
-	g_free(filename);
-	g_free(defaultfile);
-}
-gint rcfile_save_highlighting(void) {
-	gint retval;
-	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/highlighting", NULL);
-	retval = save_config_file(highlighting_configlist, filename);
-	g_free(filename);
-	return retval;
-}
-#endif
 static void rcfile_custom_menu_load_new(gchar *defaultfile) {
 	GList *default_insert=NULL, *default_replace=NULL, *tmp_configlist=NULL;
 	DEBUG_MSG("rcfile_custom_menu_load_new, started!\n");
@@ -953,11 +908,6 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 	case 0:
 		rcfile_save_main();
 	break;
-#ifndef USE_SCANNER
-	case 1:
-		rcfile_save_highlighting();
-	break;
-#endif
 	case 2:
 		rcfile_save_custom_menu();
 	break;
@@ -986,9 +936,6 @@ static GList *return_globalsession_configlist(gboolean init_values) {
 	init_prop_integer   (&config_rc, &main_v->globses.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.fref_info_type,"fref_info_type:",0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_cust_menu, "lasttime_cust_menu:", 0, init_values);
-#ifndef USE_SCANNER
-	init_prop_integer   (&config_rc, &main_v->globses.lasttime_highlighting, "lasttime_highlighting:", 0, init_values);
-#endif
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_filetypes, "lasttime_filetypes:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_encodings, "lasttime_encodings:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.bookmarks_default_store,"bookmarks_default_store:",1, init_values);

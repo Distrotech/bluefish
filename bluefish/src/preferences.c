@@ -24,7 +24,9 @@
 #include <string.h> /* strcmp() */
 
 #include "bluefish.h"
+#include "autocomp.h"
 #include "bf_lib.h"		/* list_switch_order() */
+#include "bf-textview.h"
 #include "document.h"
 #include "filebrowser2.h"
 #include "gtk_easy.h"
@@ -35,11 +37,6 @@
 #include "textstyle.h"
 #include "pixmap.h"
 #include "stringlist.h"	/* duplicate_arraylist*/
-
-#ifdef USE_SCANNER
-#include "bf-textview.h"
-#include "autocomp.h"
-#endif
 
 enum {
 	do_periodic_check,
@@ -131,18 +128,16 @@ enum {
 	bflib_info_font,
 	bflib_info_bkg,
 	bflib_info_fg,
-#ifdef USE_SCANNER
 	view_blocks,
 	view_symbols,		
 	view_mbhl,
 	view_cline,
-   scan_mode,
+	scan_mode,
 	editor_fg,
 	editor_bg,
 	view_rmargin,
 	rmargin_at,
-	autocomp_key,
-#endif	
+	autocomp_key,	
 	property_num_max
 };
 
@@ -155,11 +150,7 @@ enum {
 	filefilters,
 	pluginconfig,
 	textstyles,
-#ifdef USE_SCANNER
 	syntax_styles,
-#else
-	highlight_patterns,
-#endif
 	lists_num_max
 };
 
@@ -182,7 +173,6 @@ typedef struct {
 	GtkWidget *italic_radio[3];
 } Ttextstylepref;
 
-#ifdef USE_SCANNER
 typedef struct {
 	GtkTreeStore *tstore;
 	GtkWidget *tview;
@@ -190,18 +180,6 @@ typedef struct {
 	GtkListStore *cstore;
 	gchar **curstrarr;
 } Thldialog;
-#else
-typedef struct {
-	GtkListStore *lstore;
-	GtkWidget *lview;
-	GtkWidget *entry[6];
-	GtkWidget *popmenu;
-	GtkWidget *check;
-	GtkWidget *radio[9];
-	gchar **curstrarr;
-	const gchar *selected_filetype;
-} Thighlightpatterndialog;
-#endif
 
 enum {
 	NAMECOL,
@@ -223,12 +201,8 @@ typedef struct {
 	Tlistpref ftd; /* FileTypeDialog */
 	Tlistpref ffd; /* FileFilterDialog */
 	Ttextstylepref tsd; /* TextStyleDialog */
-#ifdef USE_SCANNER
 	Thldialog hld;
 	GtkListStore *lang_files;
-#else	
-	Thighlightpatterndialog hpd;
-#endif	
 	Tlistpref bd;
 	Tlistpref ed;
 	Tlistpref od;
@@ -936,425 +910,7 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_box_pack_start(GTK_BOX(hbox2),but, FALSE, FALSE, 2);
 }
 
-#ifndef USE_SCANNER
-/***** highlighting patterns (PCRE engine) ****/
-static gchar **highlightpattern_create_strarr(Tprefdialog *pd) {
-	gchar **strarr;
-	strarr = g_malloc(12*sizeof(gchar *));
-	strarr[0] = g_strdup(pd->hpd.selected_filetype);
-	strarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[0]),0,-1);
-	DEBUG_MSG("highlightpattern_create_strarr for %s-%s at %p\n",strarr[0],strarr[1],strarr);
-	if (GTK_TOGGLE_BUTTON(pd->hpd.check)->active){
-		strarr[2] = g_strdup("0");
-	} else {
-		strarr[2] = g_strdup("1");
-	}
-	strarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[1]),0,-1);
-	strarr[4] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[2]),0,-1);
-	if (GTK_TOGGLE_BUTTON(pd->hpd.radio[0])->active){
-		strarr[5] = g_strdup("1");
-	} else if (GTK_TOGGLE_BUTTON(pd->hpd.radio[1])->active) {
-		strarr[5] = g_strdup("2");
-	} else {
-		strarr[5] = g_strdup("3");
-	}
-	strarr[6] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[3]),0,-1);
-	strarr[7] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[4]),0,-1);
-	strarr[8] = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[5]),0,-1);
-	if (GTK_TOGGLE_BUTTON(pd->hpd.radio[3])->active){
-		strarr[9] = g_strdup("0");
-	} else if (GTK_TOGGLE_BUTTON(pd->hpd.radio[4])->active) {
-		strarr[9] = g_strdup("1");
-	} else {
-		strarr[9] = g_strdup("2");
-	}
-	if (GTK_TOGGLE_BUTTON(pd->hpd.radio[6])->active){
-		strarr[10] = g_strdup("0");
-	} else if (GTK_TOGGLE_BUTTON(pd->hpd.radio[7])->active) {
-		strarr[10] = g_strdup("1");
-	} else {
-		strarr[10] = g_strdup("2");
-	}
-	strarr[11] = NULL;
-	DEBUG_MSG("highlightpattern_create_strarr, strarr at %p with count %d\n", strarr, count_array(strarr));
-	return strarr;
-}
-
-static void highlightpattern_apply_changes(Tprefdialog *pd) {
-	DEBUG_MSG("highlightpattern_apply_changes, started\n");
-	if (pd->hpd.curstrarr) {
-		GList *tmplist;
-		tmplist = g_list_first(pd->lists[highlight_patterns]);
-		while (tmplist) {
-			if (tmplist->data == pd->hpd.curstrarr) {
-				DEBUG_MSG("highlightpattern_apply_changes, curstrarr==tmplist->data==%p\n", tmplist->data);
-				g_strfreev(tmplist->data);
-				tmplist->data = highlightpattern_create_strarr(pd);
-				pd->hpd.curstrarr = tmplist->data;
-				DEBUG_MSG("highlightpattern_apply_changes, new strarr for %s-%s\n",pd->hpd.curstrarr[0],pd->hpd.curstrarr[1]);
-				return;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-		DEBUG_MSG("highlightpattern_apply_changes, nothing found for curstrarr %p?!?\n", pd->hpd.curstrarr);
-	}
-	DEBUG_MSG("highlightpattern_apply_changes, no curstrarr, nothing to apply\n");
-}
-
-static void highlightpattern_fill_from_selected_filetype(Tprefdialog *pd) {
-	DEBUG_MSG("highlightpattern_popmenu_activate, applied changes, about to clear liststore\n");
-	gtk_list_store_clear(GTK_LIST_STORE(pd->hpd.lstore));
-	if (pd->hpd.selected_filetype) {
-		GList *tmplist;
-		tmplist = g_list_first(pd->lists[highlight_patterns]);
-		DEBUG_MSG("highlightpattern_popmenu_activate, about to fill for filetype %s (tmplist=%p)\n",pd->hpd.selected_filetype,tmplist);
-		/* fill list model here */
-		while (tmplist) {
-			gchar **strarr =(gchar **)tmplist->data;
-			if (count_array(strarr) ==11 && strarr[0]) {
-				DEBUG_MSG("found entry with filetype %s\n",strarr[0]);
-				if (strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
-					GtkTreeIter iter;
-					DEBUG_MSG("highlightpattern_popmenu_activate, appending pattern %s with filetype %s\n",strarr[1],strarr[0]);
-					gtk_list_store_append(GTK_LIST_STORE(pd->hpd.lstore), &iter);
-					gtk_list_store_set(GTK_LIST_STORE(pd->hpd.lstore), &iter, 0, strarr[1], -1);
-				}
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	}
-	pd->hpd.curstrarr = NULL;
-	gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[0]), "");
-	gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[1]), "");
-	gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[2]), "");
-	gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[3]), "");
-	gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[4]), "");
-	gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[5]), "");
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.check), FALSE);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[0]),TRUE);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[3]),TRUE);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[6]),TRUE);
-}
-
-static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog *pd) {
-	DEBUG_MSG("highlightpattern_popmenu_activate, pd=%p, menuitem=%p\n", pd, menuitem);
-	highlightpattern_apply_changes(pd);
-	pd->hpd.curstrarr = NULL;
-	if (menuitem) {
-		pd->hpd.selected_filetype = gtk_label_get_text(GTK_LABEL(GTK_BIN(menuitem)->child));
-	}
-	highlightpattern_fill_from_selected_filetype(pd);
-}
-
-static void add_new_highlightpattern_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	gchar *pattern = gtk_editable_get_chars(GTK_EDITABLE(pd->hpd.entry[0]),0,-1);
-	if (pattern && pd->hpd.selected_filetype && strlen(pattern) && strlen(pd->hpd.selected_filetype)) {
-		gchar **strarr = highlightpattern_create_strarr(pd);
-		DEBUG_MSG("add_new_highlightpattern_lcb, appending strarr %p to list\n", strarr);
-		pd->lists[highlight_patterns] = g_list_append(pd->lists[highlight_patterns], strarr);
-		pd->hpd.curstrarr = NULL;
-		{
-			GtkTreeIter iter;
-			GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
-			DEBUG_MSG("add_new_highlightpattern_lcb, appending to lview\n");
-			gtk_list_store_append(GTK_LIST_STORE(pd->hpd.lstore), &iter);
-			gtk_list_store_set(GTK_LIST_STORE(pd->hpd.lstore), &iter, 0, strarr[1], -1);
-			gtk_tree_selection_select_iter(selection,&iter);
-		}
-/*		gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[0]), "");*/
-	} else {
-		g_free(pattern);
-	}
-}
-
-static void highlightpattern_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	DEBUG_MSG("highlightpattern_selection_changed_cb, started\n");
-	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-		gchar *pattern;
-		GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
-/*		GtkWidget *menuitem = gtk_menu_get_active(GTK_MENU( gtk_option_menu_get_menu(GTK_OPTION_MENU(pd->hpd.popmenu)) ));*/
-		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
-		DEBUG_MSG("highlightpattern_selection_changed_cb, selected=%s\n",pattern);
-		highlightpattern_apply_changes(pd);
-		pd->hpd.curstrarr = NULL;
-		DEBUG_MSG("changed applied, searching for the data of the new selection\n");
-		while (tmplist) {
-			gchar **strarr =(gchar **)tmplist->data;
-#ifdef DEBUG
-			if (strarr == NULL){
-				DEBUG_MSG("strarr== NULL !!!!!!!!!!!!!!!\n");
-			}
-#endif
-			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
-				DEBUG_MSG("highlightpattern_selection_changed_cb, found strarr=%p\n", strarr);
-				DEBUG_MSG("0=%s, 1=%s, 2=%s, 3=%s, 4=%s\n",strarr[0],strarr[1],strarr[2],strarr[3],strarr[4]);
-				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.check), (strarr[2][0] == '0'));
-				gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[0]), strarr[1]);
-				gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[1]), strarr[3]);
-				gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[2]), strarr[4]);
-				if (strarr[5][0] == '3') {
-					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[2]),TRUE);
-				} else if (strarr[5][0] == '2') {
-					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[1]),TRUE);
-				} else {
-					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[0]),TRUE);
-				}
-				gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[3]), strarr[6]);
-				gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[4]), strarr[7]);
-				gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[5]), strarr[8]);
-				if (strarr[9][0] == '2') {
-					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[5]),TRUE);
-				} else if (strarr[9][0] == '1') {
-					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[4]),TRUE);
-				} else {
-					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[3]),TRUE);
-				}
-				DEBUG_MSG("strarr[10]=%s, \n",strarr[10]);
-				if (strarr[10][0] == '2') {
-					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[8]),TRUE);
-				} else if (strarr[10][0] == '1') {
-					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[7]),TRUE);
-				} else {
-					gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hpd.radio[6]),TRUE);
-				}
-				pd->hpd.curstrarr = strarr;
-				break;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-		g_free(pattern);
-	} else {
-		DEBUG_MSG("no selection, returning..\n");
-	}
-}
-static void highlightpattern_type_toggled(GtkToggleButton *togglebutton,Tprefdialog *pd){
-	DEBUG_MSG("highlightpattern_type_toggled, started\n");
-	if (GTK_TOGGLE_BUTTON(pd->hpd.radio[0])->active) {
-		gtk_widget_set_sensitive(pd->hpd.entry[2], TRUE);
-	} else {
-		gtk_widget_set_sensitive(pd->hpd.entry[2], FALSE);
-	}
-	DEBUG_MSG("highlightpattern_type_toggled, done\n");
-}
-static void highlightpattern_up_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	gchar *pattern;
-
-	GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
-	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-		GList *previous=NULL, *tmplist = g_list_first(pd->lists[highlight_patterns]);
-		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
-		DEBUG_MSG("highlightpattern_up_clicked_lcb, selected=%s\n",pattern);
-		while (tmplist) {
-			gchar **strarr =(gchar **)tmplist->data;
-			if (strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
-				DEBUG_MSG("highlightpattern_up_clicked_lcb, comparing %s+%s for filetype %s\n",strarr[1], pattern,pd->hpd.selected_filetype);
-				if (strcmp(strarr[1], pattern)==0) {
-					DEBUG_MSG("highlightpattern_up_clicked_lcb, found %s, previous=%p, tmplist=%p\n",strarr[1],previous,tmplist);
-					if (previous) {
-						DEBUG_MSG("highlightpattern_up_clicked_lcb, switch list order %s <-> %s\n",((gchar **)tmplist->data)[1], ((gchar **)previous->data)[1]);
-						list_switch_order(tmplist, previous);
-						highlightpattern_popmenu_activate(NULL, pd);
-					}
-					return;
-				}
-				previous = tmplist;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	}
-}
-static void highlightpattern_down_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	gchar *pattern;
-	GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
-	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-		GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
-		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
-		while (tmplist) {
-			gchar **strarr =(gchar **)tmplist->data;
-			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
-				if (tmplist->next) {
-					list_switch_order(tmplist, tmplist->next);
-					highlightpattern_popmenu_activate(NULL, pd);
-					return;
-				}
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	}
-}
-static void highlightpattern_delete_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	gchar *pattern;
-	GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
-	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-		GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
-		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
-		while (tmplist) {
-			gchar **strarr =(gchar **)tmplist->data;
-			if (strcmp(strarr[1], pattern)==0 && strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
-				pd->hpd.curstrarr = NULL;
-				pd->lists[highlight_patterns] = g_list_remove(pd->lists[highlight_patterns], strarr);
-				g_strfreev(strarr);
-				highlightpattern_popmenu_activate(NULL, pd);
-				return;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	}
-}
-
-static void highlightpattern_gui_rebuild_filetype_popup(Tprefdialog *pd) {
-	GList *tmplist;
-	GtkWidget *menu, *menuitem;
-	gtk_option_menu_remove_menu(GTK_OPTION_MENU(pd->hpd.popmenu));
-	menu = gtk_menu_new();
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(pd->hpd.popmenu), menu);
-	gtk_widget_show(menu);
-	tmplist = g_list_first(pd->lists[filetypes]);
-	while (tmplist) {
-		gchar **arr = (gchar **)tmplist->data;
-		if (count_array(arr)>=3) {
-			menuitem = gtk_menu_item_new_with_label(arr[0]);
-			DEBUG_MSG("highlightpattern_gui_rebuild_filetype_popup, menuitem=%p for %s\n", menuitem, arr[0]);
-			g_signal_connect(GTK_OBJECT(menuitem), "activate",G_CALLBACK(highlightpattern_popmenu_activate),pd);
-			gtk_menu_shell_append(GTK_MENU_SHELL(menu), menuitem);
-			gtk_widget_show(menuitem);
-		}
-		tmplist = g_list_next(tmplist);
-	}
-}
-
-static void highlightpattern_reset_clicked_lcb(GtkWidget *button, Tprefdialog *pd) {
-	gchar *defaultfile = return_first_existing_filename(PKGDATADIR"highlighting",
-									"data/highlighting",
-									"../data/highlighting",NULL);
-	if (defaultfile) {
-		/* get current selected filetype && create array to compare to*/
-		gchar **compare = array_from_arglist(pd->hpd.selected_filetype, NULL);
-		DEBUG_MSG("highlightpattern_reset_clicked_lcb, defaultfile=%s\n",defaultfile);
-		/* delete filetype from arraylist */
-		pd->lists[highlight_patterns] = arraylist_delete_identical(pd->lists[highlight_patterns], compare, 1, TRUE);
-		/* load filetype from default file */
-		pd->lists[highlight_patterns] = arraylist_append_identical_from_file(pd->lists[highlight_patterns], defaultfile, compare, 1, TRUE);
-		g_strfreev(compare);
-		/* re-load selected filetype in preferences gui */
-		DEBUG_MSG("highlightpattern_reset_clicked_lcb, about to rebuild gui\n");
-		highlightpattern_fill_from_selected_filetype(pd);
-		g_free (defaultfile);
-	}
-}
-
-static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
-	GtkWidget *hbox, *but, *vbox3;
-	pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
-	
-	DEBUG_MSG("create_highlightpattern_gui, pd=%p, pd->lists[highlight_patterns]=%p\n", pd, pd->lists[highlight_patterns]);
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 3);
-
-	gtk_box_pack_start(GTK_BOX(hbox),gtk_label_new(_("filetype")),FALSE, FALSE, 3);
-	pd->hpd.popmenu = gtk_option_menu_new();
-	gtk_option_menu_set_menu(GTK_OPTION_MENU(pd->hpd.popmenu), gtk_menu_new());
-	highlightpattern_gui_rebuild_filetype_popup(pd);
-	gtk_box_pack_start(GTK_BOX(hbox),pd->hpd.popmenu,TRUE, TRUE, 3);
-	but = gtk_button_new_with_label(_("Reset"));
-	g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(highlightpattern_reset_clicked_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox),but,FALSE, FALSE, 3);
-
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 3);
-	pd->hpd.entry[0] = boxed_full_entry(_("Pattern name"), NULL, 500, hbox);
-
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_highlightpattern_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 3);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(highlightpattern_delete_clicked_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 1);
-	
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
-
-	pd->hpd.lstore = gtk_list_store_new (1, G_TYPE_STRING);
-	pd->hpd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->hpd.lstore));
-	{
-		GtkTreeViewColumn *column;
-		GtkWidget *scrolwin;
-		GtkTreeSelection *select;
-	   GtkCellRenderer *renderer = gtk_cell_renderer_text_new ();
-
-		column = gtk_tree_view_column_new_with_attributes (_("Pattern"), renderer,"text", 0,NULL);
-		gtk_tree_view_append_column (GTK_TREE_VIEW(pd->hpd.lview), column);
-		scrolwin = gtk_scrolled_window_new(NULL, NULL);
-		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-		gtk_container_add(GTK_CONTAINER(scrolwin), pd->hpd.lview);
-		gtk_box_pack_start(GTK_BOX(hbox), scrolwin, FALSE, TRUE, 2);
-		
-		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
-		g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(highlightpattern_selection_changed_cb),pd);
-	}
-
-	vbox3 = gtk_vbox_new(FALSE, 2);
-	gtk_box_pack_start(GTK_BOX(hbox), vbox3, FALSE, FALSE, 2);
-	/* pack up and down buttons here */
-
-	but = bf_gtkstock_button(GTK_STOCK_GO_UP, G_CALLBACK(highlightpattern_up_clicked_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(vbox3), but, FALSE, FALSE, 1);
-	but = bf_gtkstock_button(GTK_STOCK_GO_DOWN, G_CALLBACK(highlightpattern_down_clicked_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(vbox3), but, FALSE, FALSE, 1);
-	
-	vbox3 = gtk_vbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 2);
-
-	pd->hpd.radio[0] = gtk_radio_button_new_with_label(NULL, _("Start pattern and end pattern"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[0], TRUE, TRUE, 0);
-	pd->hpd.radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[0]), _("Only start pattern"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[1], TRUE, TRUE, 0);
-	pd->hpd.radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[0]), _("Subpattern from parent"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[2], TRUE, TRUE, 0);
-	g_signal_connect(G_OBJECT(pd->hpd.radio[0]), "toggled", G_CALLBACK(highlightpattern_type_toggled), pd);
-	g_signal_connect(G_OBJECT(pd->hpd.radio[1]), "toggled", G_CALLBACK(highlightpattern_type_toggled), pd);
-	g_signal_connect(G_OBJECT(pd->hpd.radio[2]), "toggled", G_CALLBACK(highlightpattern_type_toggled), pd);
-
-	pd->hpd.entry[1] = boxed_full_entry(_("Start pattern"), NULL, 4000, vbox3);
-	pd->hpd.entry[2] = boxed_full_entry(_("End pattern"), NULL, 4000, vbox3);
-	pd->hpd.check = boxed_checkbut_with_value(_("Case sensitive matching"), FALSE, vbox3);
-	pd->hpd.entry[3] = boxed_full_entry(_("Parentmatch"), NULL, 300, vbox3);
-	pd->hpd.entry[4] = prefs_string(_("Foreground color"), "", vbox3, pd, string_color);
-	pd->hpd.entry[5] = prefs_string(_("Background color"), "", vbox3, pd, string_color);
-
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
-	
-	vbox3 = gtk_vbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 0);
-	
-	pd->hpd.radio[3] = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[3], TRUE, TRUE, 0);
-	pd->hpd.radio[4] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[3]), _("force non-bold weight"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[4], TRUE, TRUE, 0);
-	pd->hpd.radio[5] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[3]), _("force bold weight"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[5], TRUE, TRUE, 0);
-
-	vbox3 = gtk_vbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 0);
-
-	pd->hpd.radio[6] = gtk_radio_button_new_with_label(NULL, _("don't change style"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[6], TRUE, TRUE, 0);
-	pd->hpd.radio[7] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[6]), _("force non-italic style"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[7], TRUE, TRUE, 0);
-	pd->hpd.radio[8] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[6]), _("force italic style"));
-	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[8], TRUE, TRUE, 0);
-}
-
-#endif
 /************ highlighting, scanner engine ****************/
-#ifdef USE_SCANNER
 /*
 static void bf_ins_key(gpointer key,gpointer value,gpointer udata) {
 	GList **lst = (GList **)udata;
@@ -1933,7 +1489,6 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	g_signal_connect(G_OBJECT(pd->hld.tree),"cursor-changed",G_CALLBACK(hlg_cursor_changed),pd);*/
 /*	pd->hld.filetype_change = FALSE;*/;
 }
-#endif
 
 /************ external commands code ****************/
 
@@ -2187,14 +1742,8 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	free_arraylist(pd->lists[filetypes]);
 	free_arraylist(pd->lists[filefilters]);
 	free_arraylist(pd->lists[textstyles]);
-#ifdef USE_SCANNER
 	free_arraylist(pd->lists[syntax_styles]);
 	pd->lists[syntax_styles] = NULL;
-#else
-	free_arraylist(pd->lists[highlight_patterns]);
-	pd->lists[highlight_patterns] = NULL;
-#endif
-
 	free_arraylist(pd->lists[extcommands]);
 	free_arraylist(pd->lists[extfilters]);
 	free_arraylist(pd->lists[extoutputbox]);
@@ -2211,10 +1760,7 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ffd.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
-
-#ifndef USE_SCANNER
-	g_signal_handlers_destroy(G_OBJECT(pd->hpd.popmenu));
-#endif	
+	
 /*	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->bd.combo)->list));*/
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->bd.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
@@ -2235,8 +1781,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&main_v->props.word_wrap, pd->prefs[word_wrap], TRUE);
-	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);
-#ifdef USE_SCANNER	
+	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);	
 	integer_apply(&main_v->props.view_blocks, pd->prefs[view_blocks], TRUE);
 	integer_apply(&main_v->props.view_symbols, pd->prefs[view_symbols], TRUE);
 	integer_apply(&main_v->props.view_mbhl, pd->prefs[view_mbhl], TRUE);
@@ -2257,7 +1802,6 @@ static void preferences_apply(Tprefdialog *pd) {
 		g_closure_unref(main_v->autocompletion->closure);					
 	}
 
-#endif
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
 
@@ -2335,14 +1879,9 @@ static void preferences_apply(Tprefdialog *pd) {
 */
 	free_arraylist(main_v->props.filefilters);
 	main_v->props.filefilters = duplicate_arraylist(pd->lists[filefilters]);
-#ifdef USE_SCANNER
 	DEBUG_MSG("preferences_apply: free old syntax styles, and building new list\n");
 	free_arraylist(main_v->props.syntax_styles);
 	main_v->props.syntax_styles = duplicate_arraylist(pd->lists[syntax_styles]);
-#else
-	free_arraylist(main_v->props.highlight_patterns);
-	main_v->props.highlight_patterns = duplicate_arraylist(pd->lists[highlight_patterns]);
-#endif
 	
 	free_arraylist(main_v->props.external_command);
 	main_v->props.external_command = duplicate_arraylist(pd->lists[extcommands]);
@@ -2364,12 +1903,8 @@ static void preferences_apply(Tprefdialog *pd) {
 	filetype_highlighting_rebuild(TRUE);
 #endif
 	/*filebrowser_filters_rebuild();*/
-#ifdef USE_SCANNER
 #ifndef GNOMEVFSINT
 	bf_lang_mgr_retag();
-#endif	
-#else
-	highlightpattern_apply_changes(pd);
 #endif	
 	fb2_filters_rebuild();
 	all_documents_apply_settings();
@@ -2392,9 +1927,6 @@ static void preferences_apply(Tprefdialog *pd) {
 		}
 	}
 	rcfile_save_main();
-#ifndef USE_SCANNER
-	rcfile_save_highlighting();
-#endif
 }
 
 static void preferences_cancel_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
@@ -2446,7 +1978,6 @@ void preftree_cursor_changed_cb (GtkTreeView *treeview, gpointer user_data) {
 	}
 }
 
-#ifdef USE_SCANNER
 /* List of language files */
 	
 static void rescan_lang_files(Tprefdialog *pd)
@@ -2491,8 +2022,6 @@ static void rescan_lang_files(Tprefdialog *pd)
 
 }
 
-#endif
-
 static void preferences_dialog() {
 	Tprefdialog *pd;
 	GtkWidget *dvbox, *frame, *vbox1, *vbox2;
@@ -2507,11 +2036,9 @@ static void preferences_dialog() {
 
 	pd = g_new0(Tprefdialog,1);
 	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
-#ifdef USE_SCANNER
 	rescan_lang_files(pd);
-#endif	
+	
 	dvbox = gtk_vbox_new(FALSE, 5);
-
 	dhbox = gtk_hbox_new(FALSE, 5);
 	pd->fixed = gtk_hbox_new(FALSE,5);
 	pd->nstore = gtk_tree_store_new(2,G_TYPE_STRING,G_TYPE_POINTER);
@@ -2553,20 +2080,16 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	
-	pd->prefs[editor_font_string] = prefs_string(_("Font"), main_v->props.editor_font_string, vbox2, pd, string_font);
-#ifdef USE_SCANNER	
+	pd->prefs[editor_font_string] = prefs_string(_("Font"), main_v->props.editor_font_string, vbox2, pd, string_font);	
 	pd->prefs[editor_fg] = prefs_string(_("Foreground color"), main_v->props.editor_fg, vbox2, pd, string_color);
-	pd->prefs[editor_bg] = prefs_string(_("Background color"), main_v->props.editor_bg, vbox2, pd, string_color);
-#endif	
+	pd->prefs[editor_bg] = prefs_string(_("Background color"), main_v->props.editor_bg, vbox2, pd, string_color);	
 	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
 	pd->prefs[editor_smart_cursor] = boxed_checkbut_with_value(_("Smart cursor positioning"), main_v->props.editor_smart_cursor, vbox2);
 	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap default"), main_v->props.word_wrap, vbox2);
-	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);
-#ifdef USE_SCANNER	
+	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);	
 	pd->prefs[view_blocks] = boxed_checkbut_with_value(_("Block folding view by default"), main_v->props.view_blocks, vbox2);
-	pd->prefs[view_symbols] = boxed_checkbut_with_value(_("Symbols view by default"), main_v->props.view_symbols, vbox2);			
-#endif
+	pd->prefs[view_symbols] = boxed_checkbut_with_value(_("Symbols view by default"), main_v->props.view_symbols, vbox2);
 	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
 	pd->prefs[highlight_num_lines_count] = prefs_integer(_("Highlight # lines"), main_v->props.highlight_num_lines_count, vbox2, pd, 1, 8);
 
@@ -2801,22 +2324,6 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_filefilter_gui(pd, vbox2);
-#ifndef USE_SCANNER
-	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);	
-/*
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Syntax highlighting"), 158,TRUE));
-*/
-
-
-	frame = gtk_frame_new(_("Patterns"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 5);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-
-	create_highlightpattern_gui(pd, vbox2);
-#endif
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
@@ -2891,8 +2398,6 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_textstyle_gui(pd,vbox2);
 
-
-#ifdef USE_SCANNER
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	
 	gtk_tree_store_append(pd->nstore, &iter, NULL);
@@ -2922,8 +2427,6 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_hl_gui(pd,vbox2);
-
-#endif
 
 	/* end, create buttons for dialog now */
 	{

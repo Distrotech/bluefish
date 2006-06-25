@@ -194,14 +194,11 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 		break;
 	case 3:
 		bfwin->current_document->autoclosingtag = GTK_CHECK_MENU_ITEM(widget)->active;
-#ifdef USE_SCANNER
 		BF_TEXTVIEW(bfwin->current_document->view)->tag_autoclose = GTK_CHECK_MENU_ITEM(widget)->active;
-#endif		
 		break;
 	case 4:
 		main_v->props.autoindent = GTK_CHECK_MENU_ITEM(widget)->active;
 		break;
-#ifdef USE_SCANNER
 	case 5:
 		bfwin->current_document->blocksstate = GTK_CHECK_MENU_ITEM(widget)->active;
 		document_set_show_blocks(bfwin->current_document, bfwin->current_document->blocksstate);
@@ -210,7 +207,6 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 		bfwin->current_document->symstate = GTK_CHECK_MENU_ITEM(widget)->active;
 		document_set_show_symbols(bfwin->current_document, bfwin->current_document->symstate);
 		break;		
-#endif		
 	}
 }
 
@@ -286,10 +282,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/Auto Close H_TML tags"), "<control>T", toggle_doc_property, 3, "<ToggleItem>"},
 	{N_("/Document/_Wrap"), NULL, toggle_doc_property, 1, "<ToggleItem>"},
 	{N_("/Document/_Line Numbers"), NULL, toggle_doc_property, 2, "<ToggleItem>"},
-#ifdef USE_SCANNER
 	{N_("/Document/Show _blocks"), NULL, toggle_doc_property, 5, "<ToggleItem>"},
 	{N_("/Document/Show _symbols"), NULL, toggle_doc_property, 6, "<ToggleItem>"},	
-#endif	
 	{"/Document/sep2", NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/_Highlight Syntax"), NULL, doc_toggle_highlighting_cb, 1, "<ToggleItem>"},
 	{N_("/Document/_Update Highlighting"), "F5", doc_update_highlighting, 0, "<Item>"},
@@ -463,9 +457,6 @@ static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu
 	DEBUG_MSG("menu_current_document_type_change, started for hlset %p\n", bdm->data);
 	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
 		if (doc_set_filetype(bdm->bfwin->current_document, bdm->data)) {
-#ifndef USE_SCANNER /* the scanner sets the filetype pointer in doc_set_filetype() */
-			doc_highlight_full(bdm->bfwin->current_document);
-#endif			
 		} else {
 			menu_current_document_set_toggle_wo_activate(bdm->bfwin,bdm->bfwin->current_document->hl, NULL);
 		}
@@ -516,7 +507,7 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 		tmplist = g_list_previous(tmplist);
 	}
 }
-#ifdef USE_SCANNER
+
 gboolean   menu_autocomp_run(GtkAccelGroup *accel_group,GObject *acceleratable,
                                              guint keyval,GdkModifierType modifier,gpointer data)
 {
@@ -524,7 +515,7 @@ gboolean   menu_autocomp_run(GtkAccelGroup *accel_group,GObject *acceleratable,
 	bf_textview_autocomp_show(BF_TEXTVIEW(bfwin->current_document->view));
 	return TRUE;
 }    
-#endif
+
 /* 
  * menu factory crap, thanks to the gtk tutorial for this
  * both the 1.0 and the 1.2 code is directly from the tutorial
@@ -555,7 +546,6 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	setup_toggle_item(item_factory, "/Document/Auto Indent", main_v->props.autoindent);
 	set_project_menu_widgets(bfwin, FALSE);
 	filetype_menu_rebuild(bfwin, item_factory);
-#ifdef USE_SCANNER
 	{
 		guint key;	
 		main_v->autocompletion->closure = g_cclosure_new(G_CALLBACK(menu_autocomp_run),bfwin,NULL);
@@ -565,7 +555,6 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 		gtk_accel_group_connect(main_v->autocompletion->group,key,mod,GTK_ACCEL_VISIBLE, main_v->autocompletion->closure);
 		
 	}
-#endif	
 }
 
 

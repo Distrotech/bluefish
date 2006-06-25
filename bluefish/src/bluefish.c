@@ -187,21 +187,15 @@ int main(int argc, char *argv[])
 	}
 	main_v->autocompletion = ac_init();	
 	textstyle_rebuild();
-#ifndef USE_SCANNER
-	rcfile_parse_highlighting();
-#endif
+
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("compiling highlighting patterns..."));
 #endif /* #ifndef NOSPLASH */
-#ifndef USE_SCANNER
-	hl_init();
-#else
+
 	main_v->lang_mgr	= bf_lang_mgr_new();
 	filetype_highlighting_rebuild(FALSE);
-#endif	
+	
 	fb2config_init(); /* filebrowser2config */
-	/*filebrowserconfig_init();*/
-	/*filebrowser_filters_rebuild();*/
 	autoclosing_init();
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("parsing custom menu file..."));

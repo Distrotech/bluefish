@@ -119,7 +119,6 @@ GtkWidget* textstyle_combo_box(GList *configstyles) {
 GtkTextTagTable *textstyle_return_tagtable(void) {
 	return textstyle.tagtable;
 }
-#ifdef USE_SCANNER
 
 static gchar **get_arr_for_scanner_style(const gchar *filetype,const gchar *type,const gchar *name) {
 	const gchar *arr2[] = {filetype, type, name, NULL};
@@ -150,4 +149,3 @@ GtkTextTag *get_tag_for_scanner_style(const gchar *filetype,const gchar *type,co
 	DEBUG_MSG("no config found for %s:%s:%s\n",filetype,type,name);
 	return NULL;
 }
-#endif /* USE_SCANNER */

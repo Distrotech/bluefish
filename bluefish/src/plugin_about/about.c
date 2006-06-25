@@ -134,9 +134,6 @@ static void about_dialog_create(gpointer * data, guint * callback_action, GtkWid
 #ifdef HAVE_LIBASPELL
 			_("libaspell support, "),
 #endif /* HAVE_LIBASPELL */
-#ifdef USE_SCANNER
-			_("scanner support, "),
-#endif /* USE_SCANNER */
 #ifdef DEVELOPMENT
 			_("development checks support, "),
 #endif /* DEVELOPMENT */

@@ -212,16 +212,6 @@ AC_ARG_ENABLE(gcov-coverage,
    echo "With gcov coverage"
 	CFLAGS="$CFLAGS -fprofile-arcs -ftest-coverage"],)
 
-AC_ARG_ENABLE(scanner,
-	AC_HELP_STRING([--disable-scanner],[Do not use BfTextView scanner for editor widget]),
-	scanner=$enableval,
-	scanner=yes
-)
-if test "$scanner" != no; then
-	AC_DEFINE(USE_SCANNER)
-fi
-
-
 dnl ************************
 dnl Check for standard headers
 dnl ************************

@@ -78,10 +78,9 @@ extern void g_none(gchar *first, ...);
 
 #include <libgnomevfs/gnome-vfs.h>
 
-#ifdef USE_SCANNER
 #include "bf-textview.h"
 #include "autocomp.h"
-#endif
+
 /*********************/
 /* undo/redo structs */
 /*********************/
@@ -174,11 +173,9 @@ typedef struct {
 	gint need_highlighting; /* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
 	gboolean highlightstate; /* does this document use highlighting ? */
 	gboolean wrapstate; /* does this document use wrap?*/
-	gboolean linenumberstate; /* does this document use linenumbers? */
-#ifdef USE_SCANNER	
+	gboolean linenumberstate; /* does this document use linenumbers? */	
 	gboolean blocksstate; /* does this document show blocks? */
 	gboolean symstate; /* does this document show symbols? */	
-#endif	
 	gboolean overwrite_mode; /* is document in overwrite mode */
 	gboolean autoclosingtag; /* does the document use autoclosing of tags */
 	gpointer floatingview; /* a 2nd textview widget that has its own window */
@@ -217,9 +214,6 @@ typedef struct {
 	GList *filetypes; /* filetypes for highlighting and filtering */
 	gint numcharsforfiletype; /* maximum number of characters in the file to use to find the filetype */
 	GList *filefilters; /* filebrowser.c filtering */
-#ifndef USE_SCANNER
-	GList *highlight_patterns; /* the highlight patterns */
-#endif
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint restore_dimensions; /* use the dimensions as used the previous run */
 	gint left_panel_left; /* 1 = left, 0 = right */
@@ -267,7 +261,6 @@ typedef struct {
 	gchar *bflib_info_bkg;
 	gchar *bflib_info_fg;
 	GList *plugin_config; /* array, 0=filename, 1=enabled, 2=name*/
-#ifdef USE_SCANNER
 	gint view_blocks; /* show blocks on the left side by default */
 	gint view_symbols; /* show symbols on the left side by default */	
 	gint view_mbhl; /* show matching block begin-end by default */	
@@ -279,7 +272,6 @@ typedef struct {
 	gint view_rmargin; /* show right margin by default */
 	gint rmargin_at; /* position of a right margin */
 	gchar *autocomp_key; /* autocompletion accelerator */
-#endif	
 	GList *textstyles; /* tet styles: name,foreground,background,weight,style */
 } Tproperties;
 
@@ -294,9 +286,6 @@ typedef struct {
 	gint fref_ldoubleclick_action; /* left doubleclick in the function reference */
 	gint fref_info_type; /* type of info shown in a small function reference window */
 	gint lasttime_cust_menu; /* the last time the defaultfile was checked for new entries */
-#ifndef USE_SCANNER
-	gint lasttime_highlighting; /* see above */
-#endif
 	gint lasttime_filetypes; /* see above */
 	gint lasttime_encodings; /* see above */
 	gint bookmarks_default_store; /* 0= temporary by default, 1= permanent by default */
@@ -437,10 +426,8 @@ typedef struct {
 	GSList *plugins;
 	GSList *doc_view_populate_popup_cbs;
 	GSList *doc_view_button_press_cbs;
-#ifdef USE_SCANNER
 	BfLangManager *lang_mgr;
 	Tautocomp *autocompletion;
-#endif	
 } Tmain;
 
 extern Tmain *main_v;
