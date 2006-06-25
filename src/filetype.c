@@ -39,146 +39,6 @@
 #include "stringlist.h"
 #include "menu.h"
 
-/*void hl_token_slot(BfTextView * view, BfLangToken * tokenDef, GtkTextIter * startIter,
-				   GtkTextIter * endIter)
-{
-	GtkTextTag *tag = NULL;
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
-	GList *lst = g_list_first(main_v->bfwinlist);
-	Tdocument *doc = NULL;
-
-	/ * first find current document * /
-	while (lst) {
-		Tbfwin *bf = (Tbfwin *) lst->data;
-		if (bf->current_document->view == GTK_WIDGET(view)) {
-			doc = bf->current_document;
-			break;
-		}
-		lst = g_list_next(lst);
-	}
-	if (doc == NULL)
-		return;
-	tag = g_hash_table_lookup(doc->hl->hl_token, tokenDef->name);
-	if (!tag && tokenDef->group)
-		tag = g_hash_table_lookup(doc->hl->hl_group, tokenDef->group);
-	if (!tag)
-		return;
-	gtk_text_buffer_apply_tag(buffer, tag, startIter, endIter);
-}
-
-void hl_block_slot(BfTextView * view, BfLangBlock * blockDef, GtkTextIter * b_startIter,
-				   GtkTextIter * b_endIter, GtkTextIter * e_startIter, GtkTextIter * e_endIter,
-				   GtkTextMark * startMark, GtkTextMark * endMark)
-{
-	GtkTextTag *tag = NULL;
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
-	GList *lst = g_list_first(main_v->bfwinlist);
-	Tdocument *doc = NULL;
-
-	/ * first find current document * /
-	while (lst) {
-		Tbfwin *bf = (Tbfwin *) lst->data;
-		if (bf->current_document->view == GTK_WIDGET(view)) {
-			doc = bf->current_document;
-			break;
-		}
-		lst = g_list_next(lst);
-	}
-	if (doc == NULL)
-		return;
-	tag = g_hash_table_lookup(doc->hl->hl_block, blockDef->id);
-	if (!tag && blockDef->group)
-		tag = g_hash_table_lookup(doc->hl->hl_group, blockDef->group);
-	if (!tag)
-		return;
-	gtk_text_buffer_apply_tag(buffer, tag, b_startIter, e_endIter);
-}
-
-void hl_tag_begin_slot(BfTextView * view, gchar * tagName, GtkTextIter * startIter,
-					   GtkTextIter * endIter)
-{
-	GtkTextTag *tag = NULL;
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
-	GList *lst = g_list_first(main_v->bfwinlist);
-	Tdocument *doc = NULL;
-
-	/ * first find current document * /
-	while (lst) {
-		Tbfwin *bf = (Tbfwin *) lst->data;
-		if (bf->current_document->view == GTK_WIDGET(view)) {
-			doc = bf->current_document;
-			break;
-		}
-		lst = g_list_next(lst);
-	}
-	if (doc == NULL)
-		return;
-	tag = g_hash_table_lookup(doc->hl->hl_tag, "tag_begin");
-	if (!tag)
-		return;
-	gtk_text_buffer_apply_tag(buffer, tag, startIter, endIter);
-}
-
-void hl_tag_end_slot(BfTextView * view, gchar * tagName, GtkTextIter * b_startIter,
-					 GtkTextIter * b_endIter, GtkTextIter * e_startIter, GtkTextIter * e_endIter)
-{
-	GtkTextTag *tag = NULL;
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
-	GList *lst = g_list_first(main_v->bfwinlist);
-	Tdocument *doc = NULL;
-
-	/ * first find current document * /
-	while (lst) {
-		Tbfwin *bf = (Tbfwin *) lst->data;
-		if (bf->current_document->view == GTK_WIDGET(view)) {
-			doc = bf->current_document;
-			break;
-		}
-		lst = g_list_next(lst);
-	}
-	if (doc == NULL)
-		return;
-	tag = g_hash_table_lookup(doc->hl->hl_tag, "tag_end");
-	if (!tag)
-		return;
-	gtk_text_buffer_apply_tag(buffer, tag, e_startIter, e_endIter);
-}
-
-void hl_tag_attr_slot(BfTextView * view, gchar * attrName, gchar * attrValue,
-					  GtkTextIter * n_startIter, GtkTextIter * n_endIter, GtkTextIter * v_startIter,
-					  GtkTextIter * v_endIter)
-{
-	GtkTextTag *tag = NULL;
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
-	GList *lst = g_list_first(main_v->bfwinlist);
-	Tdocument *doc = NULL;
-
-	/ * first find current document * /
-	while (lst) {
-		Tbfwin *bf = (Tbfwin *) lst->data;
-		if (bf->current_document->view == GTK_WIDGET(view)) {
-			doc = bf->current_document;
-			break;
-		}
-		lst = g_list_next(lst);
-	}
-	if (doc == NULL)
-		return;
-	tag = g_hash_table_lookup(doc->hl->hl_tag, "attr_name");
-	if (tag)
-		gtk_text_buffer_apply_tag(buffer, tag, n_startIter, n_endIter);
-	tag = g_hash_table_lookup(doc->hl->hl_tag, "attr_val");
-	if (tag)
-		gtk_text_buffer_apply_tag(buffer, tag, v_startIter, v_endIter);
-}*/
-
-/*
-gboolean filetype_clear_tags(gpointer key,gpointer value,gpointer data) {
-   gtk_text_tag_table_remove(highlight.tagtable,GTK_TEXT_TAG(value));
-	return TRUE;
-}*/
-
-
 /**
  * icon_for_mime_type:
  * @mime_type: a MIME type
@@ -190,7 +50,7 @@ gboolean filetype_clear_tags(gpointer key,gpointer value,gpointer data) {
  *
  * Return value: a pixbuf, which the caller must unref when it is done
  **/
-static GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
+GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	static GtkIconTheme *icon_theme = NULL;
 	char *icon_name;
 	GdkPixbuf *pixbuf = NULL;
@@ -254,13 +114,17 @@ static void filetype_scan_langfiles(const gchar * dir) {
 /* retrieves a Tfiletype for the given mime-type, if none is found, a 
 new filetype is created */
 Tfiletype *get_filetype_for_mime_type(const gchar *mime_type) {
-	Tfiletype *ft;
-	ft = g_hash_table_lookup(main_v->filetypetable, mime_type);
-	if (!ft) {
-		ft = filetype_new(mime_type, NULL);
-		g_hash_table_replace(main_v->filetypetable, (const gpointer) mime_type, ft);
+	
+	if (!mime_type) return NULL; 
+	else {
+		Tfiletype *ft;
+		ft = g_hash_table_lookup(main_v->filetypetable, mime_type);
+		if (!ft) {
+			ft = filetype_new(mime_type, NULL);
+			g_hash_table_replace(main_v->filetypetable, (const gpointer) mime_type, ft);
+		}
+		return ft;
 	}
-	return ft;
 }
 
 const gchar *get_mimetype_for_uri(GnomeVFSURI *uri, gboolean fast) {

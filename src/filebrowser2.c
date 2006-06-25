@@ -54,9 +54,6 @@ alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're 
 #include "stringlist.h"      /* count_array() */
 
 typedef struct {
-	/* GList *filters;  the compiled filters -> now in main_v->filefilters */
-	GList *filetypes_with_icon; /* name says it all! */
-	
 	GtkTreeStore *filesystem_tstore; /* the directory tree */	
 	GHashTable *filesystem_itable; /* iter to known files and directories */
 	GdkPixbuf *unknown_icon;
@@ -186,7 +183,7 @@ static void fb2_uri_in_refresh_cleanup(Turi_in_refresh *uir) {
  * if there was no iter in the hashtable yet, else it is the existing iter
  *
  */
-static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *child_uri, gint type, gboolean load_subdirs) {
+static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *child_uri, const gchar *mime_type, gboolean load_subdirs, gboolean isdir) {
 	GtkTreeIter *newiter;
 	
 	newiter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, child_uri);
@@ -213,28 +210,23 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 		else display_name = gnome_vfs_uri_to_string(child_uri,GNOME_VFS_URI_HIDE_PASSWORD);
 		g_free(tmp);
 		{
-			Tfiletype *ft = get_filetype_for_uri(child_uri, TRUE);
+			Tfiletype *ft = get_filetype_for_mime_type(mime_type);
 			if (ft) {
 				pixmap = ft->icon;
 			} else {
 				pixmap = FB2CONFIG(main_v->fb2config)->unknown_icon;
 			}
 		}
-		DEBUG_MSG("fb2_add_filesystem_entry, appending iter for %s\n",display_name);
+		DEBUG_MSG("fb2_add_filesystem_entry, appending iter for %s with mime_type %s\n",display_name,mime_type);
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);
 		DEBUG_MSG("fb2_add_filesystem_entry, will add ");
 		DEBUG_URI(uri_dup, TRUE);
-#ifdef DEVELOPMENT
-		if (strcmp(display_name, "test1.html")==0) {
-			DEBUG_MSG("will add test1.html with pointer %p\n",display_name);
-		}
-#endif
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,
 				PIXMAP_COLUMN, pixmap,
 				FILENAME_COLUMN, display_name,
 				URI_COLUMN, uri_dup,
 				REFRESH_COLUMN, 0,
-				TYPE_COLUMN, type,
+				TYPE_COLUMN, mime_type,
 				-1);
 		g_free(display_name); /* a column of type string holds a copy, not the original */
 
@@ -244,11 +236,11 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 /*		DEBUG_MSG("fb2_add_filesystem_entry adding iter %p to hashtable\n",newiter);*/
 		gnome_vfs_uri_ref(child_uri);
 		g_hash_table_insert(FB2CONFIG(main_v->fb2config)->filesystem_itable,child_uri,newiter);
-		if (load_subdirs && type == TYPE_DIR) {
+		if (load_subdirs && isdir) {
 			GnomeVFSURI *dummy_uri;
 			/* add a dummy item so the expander will be shown */
 			dummy_uri = gnome_vfs_uri_append_string(child_uri,"%20");
-			fb2_add_filesystem_entry(newiter, dummy_uri, TYPE_DIR, FALSE);
+			fb2_add_filesystem_entry(newiter, dummy_uri, "x-directory", FALSE, TRUE);
 			gnome_vfs_uri_unref(dummy_uri);
 		}
 	}
@@ -319,15 +311,9 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 		
 		if (strcmp(finfo->name,".")!=0 && strcmp(finfo->name,"..")!=0) {
 			GnomeVFSURI *child_uri;
-			gint type;
-			/*DEBUG_MSG("found %s with type %d\n", finfo->name, finfo->type);*/
-			if (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY) {
-				type = TYPE_DIR;
-			} else {
-				type = TYPE_FILE;
-			}
 			child_uri = gnome_vfs_uri_append_file_name(uir->p_uri,finfo->name);
-			fb2_add_filesystem_entry(uir->parent, child_uri, type, TRUE);
+			DEBUG_MSG("fb2_load_directory_lcb, %s has mime_type %s\n",finfo->name,finfo->mime_type);
+			fb2_add_filesystem_entry(uir->parent, child_uri, finfo->mime_type, TRUE, (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY));
 			gnome_vfs_uri_unref(child_uri);
 		}
 		tmplist = g_list_next(tmplist);
@@ -366,7 +352,7 @@ static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri) {
 		gnome_vfs_uri_ref(uir->uri);
 		DEBUG_MSG("fb2_fill_dir_async, opening ");
 		DEBUG_URI(uir->p_uri, TRUE);
-		gnome_vfs_async_load_directory_uri(&uir->handle,uri,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
+		gnome_vfs_async_load_directory_uri(&uir->handle,uri,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE,
 									100,GNOME_VFS_PRIORITY_MIN,fb2_load_directory_lcb,uir);
 		FB2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_prepend(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
 	}
@@ -483,7 +469,7 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 	if (!parent) {
 		DEBUG_MSG("adding toplevel ");
 		DEBUG_URI(tmp, TRUE);
-		parent = fb2_add_filesystem_entry(NULL, tmp, TYPE_DIR, FALSE);
+		parent = fb2_add_filesystem_entry(NULL, tmp, "x-directory", FALSE, TRUE);
 		parent_uri = tmp;
 	} else {
 		parent_uri = tmp;
@@ -512,7 +498,7 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 				gnome_vfs_uri_unref(tmp2);
 				tmp2 = tmp3;
 			} /* after this loop both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
-			parent = fb2_add_filesystem_entry(parent, tmp2, TYPE_DIR, gnome_vfs_uri_equal(tmp2,uri));
+			parent = fb2_add_filesystem_entry(parent, tmp2, "x-directory", gnome_vfs_uri_equal(tmp2,uri), TRUE);
 			gnome_vfs_uri_unref(parent_uri);
 			parent_uri = tmp2; /* here 'parent_uri'='tmp2' is newly allocated */
 			DEBUG_MSG("new parent_uri=");
@@ -607,6 +593,10 @@ void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc) {
 	}
 }
 
+static gboolean mime_visible_in_filter(Tfilter *filter, const gchar *mime_type) {
+	return (GPOINTER_TO_INT(g_hash_table_lookup(filter->filetypes,mime_type)) ? filter->mode : !filter->mode);
+}
+/*
 static gboolean name_visible_in_filter(Tfilebrowser2 *fb2, gchar *name) {
 	GList *tmplist;
 	
@@ -616,7 +606,7 @@ static gboolean name_visible_in_filter(Tfilebrowser2 *fb2, gchar *name) {
 	if (!fb2->curfilter->filetypes) {
 		return !fb2->curfilter->mode;
 	}
-	/* TODO: WORK ON THE FILE FILTER */
+	/ * TODO: WORK ON THE FILE FILTER * /
 #ifndef GNOMEVFSINT
 	tmplist = g_list_first(fb2->curfilter->filetypes);
 	while (tmplist) {
@@ -626,7 +616,7 @@ static gboolean name_visible_in_filter(Tfilebrowser2 *fb2, gchar *name) {
 	}
 #endif
 	return !fb2->curfilter->mode;
-}
+}*/
 
 /**
  * tree_model_filter_func
@@ -635,24 +625,22 @@ static gboolean name_visible_in_filter(Tfilebrowser2 *fb2, gchar *name) {
  */
 static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpointer data) {
 	Tfilebrowser2 *fb2 = data;
-	gchar *name;
-	gint len, type;
+	gchar *name, *mime_type;
+	gint len;
 	GnomeVFSURI *uri;
 	gboolean retval = TRUE;
 
-	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, TYPE_COLUMN, &type, -1);
+	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri, TYPE_COLUMN, &mime_type, -1);
 	if (!name) {
-		DEBUG_MSG("tree_model_filter_func, model=%p, fb2=%p, item without name!!, uri=%p, type=%d\n",model,fb2,uri,type);
+		DEBUG_MSG("tree_model_filter_func, model=%p, fb2=%p, item without name!!, uri=%p, mime_type=%s\n",model,fb2,uri,mime_type);
 		return TRUE;
 	}
-	/* BUG: ?? valgrind seems to think that 'name' is strdup'ed and thus should be freed here, but I
-	don't know if that is true. Seems weird that gtk_tree_model_get() would return something else
-	then the pointer it was given... */
-	DEBUG_MSG("tree_model_filter_func, model=%p and fb2=%p, name=%s and uri=",model,fb2,name);
+	DEBUG_MSG("tree_model_filter_func, model=%p and fb2=%p, name=%s, mime=%s, and uri=",model,fb2,name,mime_type);
 	DEBUG_URI(uri, TRUE);
-	if (type != TYPE_DIR) { /* file */
+	if (mime_type && strncmp(mime_type, "x-directory",11)!=0) { /* file */
 		if (main_v->props.filebrowser_two_pane_view) {
 			/* in the two paned view we don't show files in the dir view */
+			DEBUG_MSG("two paned view --> return FALSE\n");
 			retval = FALSE;
 		} else {
 			if (!fb2->filebrowser_show_backup_files) {
@@ -665,9 +653,11 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 			if (fb2->basedir && !gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE)) {
 				retval = FALSE;
 			}
-			if (retval)	retval = name_visible_in_filter(fb2, name);
+			if (retval && fb2->curfilter)	retval = mime_visible_in_filter(fb2->curfilter, mime_type);
 		}
 		g_free(name);
+		g_free(mime_type);
+		DEBUG_MSG("file detected, returning %d\n",retval);
 		return retval;
 	} else { /* directory */
 		if (fb2->basedir) {
@@ -709,6 +699,8 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 		}
 	}
 	g_free(name);
+	g_free(mime_type);
+	DEBUG_MSG("returning %d\n",retval);
 	return retval;
 }
 /**
@@ -718,14 +710,14 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
  */
 static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpointer data) {
 	Tfilebrowser2 *fb2 = data;
-	gchar *name;
-	gint len, type;
+	gchar *name, *mime_type;
+	gint len;
 	gboolean retval = TRUE;
 /*	DEBUG_MSG("file_list_filter_func, called for model=%p and fb2=%p\n",model,fb2);*/
-	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &type, -1);
+	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &mime_type, -1);
 	if (!name) return FALSE;
 	
-	if (type != TYPE_FILE) retval = FALSE;
+	if (strncmp(mime_type, "x-directory",11) == 0) retval = FALSE;
 	
 	if (retval && !fb2->filebrowser_show_backup_files) {
 		len = strlen(name);
@@ -734,8 +726,15 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
 	if (retval && !fb2->filebrowser_show_hidden_files) {
 		if (name[0] == '.') retval = FALSE;
 	}
-	if (retval ) retval = name_visible_in_filter(fb2, name);
+	if (retval && fb2->curfilter ) retval = mime_visible_in_filter(fb2->curfilter, mime_type);
+#ifdef DEBUG
+	if (retval == FALSE) {
+		g_print("file_list_filter_func, hiding %s (%s)\n",name,mime_type);
+	}
+#endif
 	g_free(name);
+	g_free(mime_type);
+
 	return retval;
 }
 
@@ -991,7 +990,6 @@ static GnomeVFSURI *fb2_uri_from_dir_selection(Tfilebrowser2 *fb2) {
  * opens the file, project or inserts the image pointer to by 'uri'
  */
 static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
-	Tfiletype *ft=NULL;
 	const gchar *mimetype = get_mimetype_for_uri(uri, FALSE);
 	if (mimetype) {
 		if (strncmp(mimetype,"image",5)==0) {
@@ -1952,27 +1950,17 @@ void fb2_cleanup(Tbfwin *bfwin) {
 	}
 }
 
-static Tfilter *new_filter(gchar *name, gchar *mode, gchar *filetypes) {
+static Tfilter *new_filter(gchar *name, gchar *mode, gchar *mimetypes) {
 	Tfilter *filter = g_new(Tfilter,1);
 	filter->name = g_strdup(name);
 	filter->mode = atoi(mode);
-	filter->filetypes = NULL;
-	if (filetypes){
-		GList *tmplist;
-		gchar **types = g_strsplit(filetypes, ":", 127);
-		
-		tmplist = g_list_first(main_v->filetypelist);
-		while (tmplist) {
-			Tfiletype *filetype = (Tfiletype *)tmplist->data;
-			gchar **type = types;
-			while (*type) {
-				if (filetype->type && strcmp(*type, filetype->type)==0) {
-					filter->filetypes = g_list_prepend(filter->filetypes, filetype);
-					break;
-				}
-				type++;
-			}
-			tmplist = g_list_next(tmplist);
+	filter->filetypes = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
+	if (mimetypes){
+		gchar **types = g_strsplit(mimetypes, ":", 127);
+		gchar **type = types;
+		while (*type) {
+			g_hash_table_replace(filter->filetypes, g_strdup(*type), GINT_TO_POINTER(1));
+			type++;
 		}
 		g_strfreev(types);
 	}
@@ -1981,7 +1969,7 @@ static Tfilter *new_filter(gchar *name, gchar *mode, gchar *filetypes) {
 
 static void filter_destroy(Tfilter *filter) {
 	g_free(filter->name);
-	g_list_free(filter->filetypes);
+	g_hash_table_destroy(filter->filetypes);
 	g_free(filter);
 }
 
@@ -1998,17 +1986,7 @@ void fb2_filters_rebuild(void) {
 	}
 	g_list_free(main_v->filefilters);
 	main_v->filefilters = NULL;
-	g_list_free(FB2CONFIG(main_v->fb2config)->filetypes_with_icon);
-	FB2CONFIG(main_v->fb2config)->filetypes_with_icon = NULL;
-	
-	/* build a list of filetypes with icon */
-	tmplist = g_list_first(main_v->filetypelist);
-	while (tmplist) {
-		if (((Tfiletype *)tmplist->data)->icon) {
-			FB2CONFIG(main_v->fb2config)->filetypes_with_icon = g_list_prepend(FB2CONFIG(main_v->fb2config)->filetypes_with_icon, tmplist->data);
-		}
-		tmplist = g_list_next(tmplist);
-	}
+
 	/* build a list of filters */
 	main_v->filefilters = g_list_prepend(NULL, new_filter(_("All files"), "0", NULL));
 	tmplist = g_list_first(main_v->props.filefilters);
@@ -2037,17 +2015,18 @@ void fb2config_init(void) {
 	main_v->fb2config = fb2config;
 
 	fb2config->filesystem_itable = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,gnome_vfs_uri_hash_destroy,g_free);
-	fb2config->filesystem_tstore = gtk_tree_store_new(N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_POINTER,G_TYPE_BOOLEAN,G_TYPE_INT);
+	fb2config->filesystem_tstore = gtk_tree_store_new(N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_POINTER,G_TYPE_BOOLEAN,G_TYPE_STRING);
 	filename = return_first_existing_filename(main_v->props.filebrowser_unknown_icon,
 					"icon_unknown.png","../icons/icon_unknown.png",
 					"icons/icon_unknown.png",NULL);
 	fb2config->unknown_icon = gdk_pixbuf_new_from_file(filename, NULL);
 	g_free(filename);
-	filename = return_first_existing_filename(main_v->props.filebrowser_dir_icon,
+	/*filename = return_first_existing_filename(main_v->props.filebrowser_dir_icon,
 					"icon_dir.png","../icons/icon_dir.png",
 					"icons/icon_dir.png",NULL);
-	fb2config->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);
-	g_free(filename);
+	fb2config->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);*/
+	fb2config->dir_icon = get_icon_for_mime_type("x-directory/normal");
+	/*g_free(filename);*/
 
 /*	{
 		GtkTreeIter *iter;
