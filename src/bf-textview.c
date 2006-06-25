@@ -22,6 +22,7 @@
  */
 
 /* #define DEBUG */
+#define HL_PROFILING
 
 /*
 Typical scanner in compiler is an automata. To implement automata you
@@ -631,8 +632,9 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 		return;
 	view->delete_rescan = FALSE;
 	if (GTK_WIDGET_VISIBLE(view)) {
+		glong uslen = g_utf8_strlen(string, stringlen);
 		len = 0;
-		while (len < g_utf8_strlen(string, stringlen)) {
+		while (len < uslen) {
 			if (view->lang->as_triggers[(gint) * p] == 1) {
 				trigger = TRUE;
 				break;
@@ -1456,6 +1458,13 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 	gint i;
 
 	g_return_val_if_fail(filename != NULL, (BfLangConfig *) 0);
+
+#ifdef HL_PROFILING
+	struct tms tms1;
+	struct tms tms2;
+	glong tot_ms;
+	times(&tms1);
+#endif
 	xmlLineNumbersDefault(1);
 	DEBUG_MSG("bftv_load_config, loading %s\n",filename);
 	doc = xmlReadFile(filename, "UTF-8", XML_PARSE_RECOVER | XML_PARSE_NOENT);
@@ -1801,6 +1810,9 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 	if (doc)
 		xmlFreeDoc(doc);
 #ifdef HL_PROFILING
+	times(&tms2);
+	tot_ms = (glong) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
+	g_print("bftv_load_config(%s) took %ld ms\n",filename,tot_ms);
 	g_print("NUMBER OF STATES: %d (%s) - table size = %d, max token len: %d\n", cfg->num_states,
 			cfg->name, cfg->num_states * sizeof(BfState), cfg->max_token_length);
 #endif
@@ -2592,7 +2604,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 		GSList *ss = NULL;
 		times(&tms2);
 		tot_ms = (glong) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
-		g_print("PROFILING: total time %ld ms\n", tot_ms);
+		g_print("bf_textview_scan_area, PROFILING: total time %ld ms\n", tot_ms);
 		gtk_text_buffer_get_bounds(buf, &its, &ita);
 		pit = its;
 		while (gtk_text_iter_compare(&pit, &ita) < 0) {
