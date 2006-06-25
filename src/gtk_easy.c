@@ -1289,23 +1289,18 @@ static void refresh_filter_lcb(GtkToggleButton *togglebutton,GtkWidget *dialog) 
 }
 
 static gboolean file_chooser_custom_filter_func(GtkFileFilterInfo *filter_info,gpointer data) {
-	GList *tmplist;
+	gint ret;
 	Tfchooser_filter *cf = data;
 	if (!filter_info->display_name || filter_info->display_name[0] == '\0') return FALSE; /* error condition ?? */
 	if (!GTK_TOGGLE_BUTTON(cf->show_backup)->active) {
 		gint namelen = strlen(filter_info->display_name);
 		if (filter_info->display_name[namelen-1] == '~' ) return FALSE;
 	}
-#ifdef GNOMEVFSINT
-	return TRUE;
-#else
 	if (cf->filter == NULL) return TRUE;
 	if (!cf->filter->filetypes) return !cf->filter->mode;
-	for (tmplist=g_list_first(cf->filter->filetypes);tmplist!=NULL;tmplist=tmplist->next) {
-		if (filename_test_extensions(((Tfiletype *)tmplist->data)->extensions, filter_info->display_name)) return cf->filter->mode;
-	}
-	return !cf->filter->mode;
-#endif
+	
+	ret = GPOINTER_TO_INT(g_hash_table_lookup(cf->filter->filetypes, filter_info->mime_type));
+	return (ret ? cf->filter->mode : !cf->filter->mode);  
 }
 
 GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, 
