@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -83,13 +83,6 @@ enum {
 	DIR_NAME_COLUMN,
 	DIR_URI_COLUMN
 };
-
-#define TYPE_HIDDEN -1
-#define TYPE_HIDDEN_DIR -2
-#define TYPE_DIR -3
-#define TYPE_BACKUP -4
-#define TYPE_FILE -5
-
 
 typedef struct {
 	GtkWidget *dirmenu_v;
@@ -1552,12 +1545,14 @@ static void dir_v_selection_changed_lcb(GtkTreeSelection *treeselection,Tfilebro
 	DEBUG_MSG("dir_v_selection_changed_lcb, treeselection=%p, fb2=%p\n",treeselection,fb2);
 	if (treeselection && gtk_tree_selection_get_selected(treeselection,&sort_model,&sort_iter)) {
 		GnomeVFSURI *uri;
-		gint type;
-		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri,TYPE_COLUMN, &type, -1);
-		if (uri && (type == TYPE_DIR || TYPE_HIDDEN_DIR)) {
+		gchar * mime_type;
+		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri,TYPE_COLUMN, &mime_type, -1);
+		DEBUG_MSG("dir_v_selection_changed_lcb, mime_type=%s\n",mime_type);
+		if (uri && (mime_type && strncmp(mime_type, "x-directory", 11) == 0)) {
 			dirmenu_set_curdir(fb2, uri);
 			fb2_focus_dir(fb2, uri, TRUE);
 		}
+		g_free (mime_type);
 	}
 }
 
@@ -1714,14 +1709,15 @@ static void fb2_dir_v_drag_data_received(GtkWidget * widget, GdkDragContext * co
 		GtkTreeIter iter;
 		if (gtk_tree_model_get_iter(fb2->dir_tsort,&iter,path)) {
 			GnomeVFSURI *uri;
-			gint type;
-			gtk_tree_model_get(fb2->dir_tsort, &iter, TYPE_COLUMN, &type, URI_COLUMN, &uri, -1);
-			if (type == TYPE_DIR || type == TYPE_HIDDEN_DIR) {
+			gchar * mime_type;
+			gtk_tree_model_get(fb2->dir_tsort, &iter, TYPE_COLUMN, &mime_type, URI_COLUMN, &uri, -1);
+			if (mime_type && strncmp(mime_type, "x-directory", 11) == 0) {
 				destdir = uri;
 				gnome_vfs_uri_ref(destdir);
 			} else {
 				destdir = gnome_vfs_uri_get_parent(uri);
 			}
+			g_free (mime_type);
 		}
 	}
 	if (destdir) {
