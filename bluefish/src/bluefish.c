@@ -35,24 +35,24 @@
 #include <locale.h>
 #endif
 
-#include "pixmap.h"			/* set_default_icon() */
-#include "bf_lib.h"			/* create_full_path() */
-#include "bookmark.h"		/* bmark_init() */
-#include "dialog_utils.h"	/* message_dialog_new() */
+#include "pixmap.h"        /* set_default_icon() */
+#include "bf_lib.h"        /* create_full_path() */
+#include "bookmark.h"      /* bmark_init() */
+#include "dialog_utils.h"  /* message_dialog_new() */
 #include "document.h"
-/*#include "filebrowser.h"*/ /* filters_rebuild() */
 #include "filebrowser2.h"
+#include "filetype.h"
 #include "file_dialogs.h"
-#include "fref2.h"				/* fref_init() */
-#include "gtk_easy.h"		/* flush_queue() */
-#include "gui.h"				/* gui_create_main() */
-#include "highlight.h"		/* hl_init() */
-#include "msg_queue.h"		/* msg_queue_start()*/
-#include "project.h"
-#include "rcfile.h"			/* rcfile_parse_main() */
-#include "stringlist.h"		/* put_stringlist(), get_stringlist() */
+#include "fref2.h"         /* fref_init() */
+#include "gtk_easy.h"      /* flush_queue() */
+#include "gui.h"           /* gui_create_main() */
+#include "msg_queue.h"     /* msg_queue_start()*/
 #include "plugins.h"
+#include "project.h"
+#include "rcfile.h"        /* rcfile_parse_main() */
+#include "stringlist.h"    /* put_stringlist(), get_stringlist() */
 #include "textstyle.h"
+
 /*********************************************/
 /* this var is global for all bluefish files */
 /*********************************************/

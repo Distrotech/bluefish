@@ -65,7 +65,6 @@
 #include "document.h"        /* doc_replace_text() */
 #include "gtk_easy.h"        /* a lot of GUI functions */
 #include "gui.h"             /* switch_to_document_by_pointer() */
-#include "highlight.h"       /* doc_highlight_full() */
 #include "snr2.h"
 #include "stringlist.h"      /* add_to_history_stringlist */
 #include "undo_redo.h"       /* doc_unre_new_group */
