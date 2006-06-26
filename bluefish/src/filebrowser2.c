@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -83,11 +83,13 @@ enum {
 	DIR_NAME_COLUMN,
 	DIR_URI_COLUMN
 };
+
 #define TYPE_HIDDEN -1
 #define TYPE_HIDDEN_DIR -2
 #define TYPE_DIR -3
 #define TYPE_BACKUP -4
 #define TYPE_FILE -5
+
 
 typedef struct {
 	GtkWidget *dirmenu_v;
@@ -919,10 +921,15 @@ static GnomeVFSURI *fb2_uri_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *
 static gboolean fb2_isdir_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *sort_path) {
 	GtkTreeIter iter;
 	if (gtk_tree_model_get_iter(fb2->dir_tsort,&iter,sort_path)) {
-		gint type;
-		gtk_tree_model_get(fb2->dir_tsort, &iter, TYPE_COLUMN, &type, -1);
-		DEBUG_MSG("fb2_isdir_from_file_sort_path, type=%d\n",type);
-		return (type == TYPE_DIR || type == TYPE_HIDDEN_DIR);
+		gchar * mime_type = NULL;
+		gboolean is_dir = FALSE;
+		gtk_tree_model_get(fb2->dir_tsort, &iter, TYPE_COLUMN, &mime_type, -1);
+		DEBUG_MSG("fb2_isdir_from_file_sort_path, mime_type=%s\n",mime_type);
+		if (mime_type && strncmp(mime_type, "x-directory", 11) == 0) {
+			is_dir = TRUE;
+		}
+		g_free (mime_type);
+		return (is_dir);
 	} else {
 		DEBUG_MSG("fb2_isdir_from_dir_sort_path, WARNING, sort_path CANNOT be converted into a valid iter!\n");
 	}
