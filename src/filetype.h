@@ -26,5 +26,6 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type);
 Tfiletype *get_filetype_for_mime_type(const gchar *mime_type);
 const gchar *get_mimetype_for_uri(GnomeVFSURI *uri, gboolean fast);
 Tfiletype *get_filetype_for_uri(GnomeVFSURI *uri, gboolean fast);
+void filetype_highlighting_rebuild(gboolean gui_errors);
 
 #endif /* __FILETYPE_H_ */

@@ -46,7 +46,6 @@
 #include "file_dialogs.h"
 #include "gtk_easy.h"       /* *_dialog() */
 #include "gui.h"            /* statusbar_message() */
-#include "highlight.h"      /* all highlight functions */
 #include "menu.h"           /* add_to_recent_list */
 #include "pixmap.h"
 #include "snr2.h"           /* snr2_run_extern_replace */

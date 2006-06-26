@@ -36,19 +36,18 @@
 #include "dialog_utils.h"
 #include "document.h"
 #include "file_dialogs.h"
-#include "gtk_easy.h"		/* window_full, bf_stock_ok_button */
-#include "gui.h"				/* go_to_line_win_cb */
-#include "highlight.h"		/* doc_highlight_full */
-#include "menu.h"				/* my own .h file */
+#include "gtk_easy.h"            /* window_full, bf_stock_ok_button */
+#include "gui.h"                 /* go_to_line_win_cb */
+#include "menu.h"                /* my own .h file */
 #include "pixmap.h"
-#include "preferences.h"	/* open_preferences_menu_cb */
+#include "preferences.h"         /* open_preferences_menu_cb */
 #include "project.h"
-#include "rcfile.h"			/* rcfile_save_configfile_menu_cb */
-#include "snr2.h"				/* search_cb, replace_cb */
-#include "stringlist.h"		/* free_stringlist() */
-#include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
+#include "rcfile.h"              /* rcfile_save_configfile_menu_cb */
+#include "snr2.h"                /* search_cb, replace_cb */
+#include "stringlist.h"          /* free_stringlist() */
+#include "undo_redo.h"           /* undo_cb() redo_cb() etc. */
 #include "external_commands.h"
-#include "outputbox.h"		/* temporary */
+#include "outputbox.h"           /* temporary */
 #include "bf-textview.h"
 
 #ifdef HAVE_PYTHON
