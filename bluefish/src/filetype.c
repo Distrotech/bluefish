@@ -22,7 +22,7 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines filetype.c
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include "config.h"
 
@@ -121,9 +121,11 @@ Tfiletype *get_filetype_for_mime_type(const gchar *mime_type) {
 	else {
 		Tfiletype *ft;
 		ft = g_hash_table_lookup(main_v->filetypetable, mime_type);
-		if (!ft) {
+		if (ft == NULL) {
 			ft = filetype_new(mime_type, NULL);
-			g_hash_table_replace(main_v->filetypetable, (const gpointer) mime_type, ft);
+			DEBUG_MSG("get_filetype_for_mime_type, %s is not in hashtable, creating new filetype %p\n",mime_type,ft);
+			g_hash_table_replace(main_v->filetypetable, ft->mime_type, ft);
+			main_v->filetypelist = g_list_prepend(main_v->filetypelist, ft);
 		}
 		return ft;
 	}

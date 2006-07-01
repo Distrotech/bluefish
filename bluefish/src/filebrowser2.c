@@ -52,6 +52,7 @@ alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're 
 #include "menu.h"            /* menu_translate() */
 #include "project.h"
 #include "stringlist.h"      /* count_array() */
+#include "filefilter.h"
 
 typedef struct {
 	GtkTreeStore *filesystem_tstore; /* the directory tree */	
@@ -235,7 +236,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 			GnomeVFSURI *dummy_uri;
 			/* add a dummy item so the expander will be shown */
 			dummy_uri = gnome_vfs_uri_append_string(child_uri,"%20");
-			fb2_add_filesystem_entry(newiter, dummy_uri, "x-directory", FALSE, TRUE);
+			fb2_add_filesystem_entry(newiter, dummy_uri, "x-directory/normal", FALSE, TRUE);
 			gnome_vfs_uri_unref(dummy_uri);
 		}
 	}
@@ -464,7 +465,7 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 	if (!parent) {
 		DEBUG_MSG("adding toplevel ");
 		DEBUG_URI(tmp, TRUE);
-		parent = fb2_add_filesystem_entry(NULL, tmp, "x-directory", FALSE, TRUE);
+		parent = fb2_add_filesystem_entry(NULL, tmp, "x-directory/normal", FALSE, TRUE);
 		parent_uri = tmp;
 	} else {
 		parent_uri = tmp;
@@ -493,7 +494,7 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 				gnome_vfs_uri_unref(tmp2);
 				tmp2 = tmp3;
 			} /* after this loop both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
-			parent = fb2_add_filesystem_entry(parent, tmp2, "x-directory", gnome_vfs_uri_equal(tmp2,uri), TRUE);
+			parent = fb2_add_filesystem_entry(parent, tmp2, "x-directory/normal", gnome_vfs_uri_equal(tmp2,uri), TRUE);
 			gnome_vfs_uri_unref(parent_uri);
 			parent_uri = tmp2; /* here 'parent_uri'='tmp2' is newly allocated */
 			DEBUG_MSG("new parent_uri=");
@@ -632,7 +633,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	}
 	DEBUG_MSG("tree_model_filter_func, model=%p and fb2=%p, name=%s, mime=%s, and uri=",model,fb2,name,mime_type);
 	DEBUG_URI(uri, TRUE);
-	if (mime_type && strncmp(mime_type, "x-directory",11)!=0) { /* file */
+	if (mime_type && strncmp(mime_type, "x-directory/normal",11)!=0) { /* file */
 		if (main_v->props.filebrowser_two_pane_view) {
 			/* in the two paned view we don't show files in the dir view */
 			DEBUG_MSG("two paned view --> return FALSE\n");
@@ -1301,6 +1302,12 @@ static GtkItemFactoryEntry fb2rpopup_menu_entries[] = {
 	{ N_("/Show hidden files"),	NULL,	fb2rpopup_rpopup_action_lcb,	16,	"<ToggleItem>" },
 	{ N_("/Show backup files"),	NULL,	fb2rpopup_rpopup_action_lcb,	17,	"<ToggleItem>" },
 };
+
+static void edit_filefilter_lcb(GtkMenuItem *menuitem,gpointer data) {
+	Tfilebrowser2 *fb2 = data;
+	filefilter_gui(fb2->curfilter);
+}
+
 /* 
  * what should the menu look like?
  *
@@ -1372,8 +1379,13 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 			gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);
 			tmplist = g_list_previous(tmplist);
 		}
+		menu_item = gtk_menu_item_new_with_label(_("Edit filter"));
+		g_print("edit filter %p with hastable %p\n",fb2->curfilter,fb2->curfilter->filetypes);
+		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(edit_filefilter_lcb), fb2);
+		gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);	
 	}
-
+	
+	
 	gtk_widget_show_all(menu);
 	g_signal_connect_after(G_OBJECT(menu), "destroy", G_CALLBACK(destroy_disposable_menu_cb), menu);
 	return menu;
@@ -1953,55 +1965,6 @@ void fb2_cleanup(Tbfwin *bfwin) {
 	}
 }
 
-static Tfilter *new_filter(gchar *name, gchar *mode, gchar *mimetypes) {
-	Tfilter *filter = g_new(Tfilter,1);
-	filter->name = g_strdup(name);
-	filter->mode = atoi(mode);
-	filter->filetypes = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
-	if (mimetypes){
-		gchar **types = g_strsplit(mimetypes, ":", 127);
-		gchar **type = types;
-		while (*type) {
-			g_hash_table_replace(filter->filetypes, g_strdup(*type), GINT_TO_POINTER(1));
-			type++;
-		}
-		g_strfreev(types);
-	}
-	return filter;
-}
-
-static void filter_destroy(Tfilter *filter) {
-	g_free(filter->name);
-	g_hash_table_destroy(filter->filetypes);
-	g_free(filter);
-}
-
-/* 
- * WARNING: these filter are also used in the filechooser dialog (file->open in the menu)
- */
-void fb2_filters_rebuild(void) {
-	GList *tmplist;
-	/* free any existing filters */
-	tmplist = g_list_first(main_v->filefilters);
-	while (tmplist) {
-		filter_destroy(tmplist->data);
-		tmplist = g_list_next(tmplist);
-	}
-	g_list_free(main_v->filefilters);
-	main_v->filefilters = NULL;
-
-	/* build a list of filters */
-	main_v->filefilters = g_list_prepend(NULL, new_filter(_("All files"), "0", NULL));
-	tmplist = g_list_first(main_v->props.filefilters);
-	while (tmplist) {
-		gchar **strarr = (gchar **) tmplist->data;
-		if (count_array(strarr) == 3) {
-			Tfilter *filter = new_filter(strarr[0], strarr[1], strarr[2]);
-			main_v->filefilters = g_list_prepend(main_v->filefilters, filter);
-		}
-		tmplist = g_list_next(tmplist);
-	}
-}
 
 static void gnome_vfs_uri_hash_destroy(gpointer data) {
 	gnome_vfs_uri_unref((GnomeVFSURI *)data);
