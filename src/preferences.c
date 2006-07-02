@@ -1673,14 +1673,6 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	pd->lists[extcommands] = NULL;
 	pd->lists[extfilters] = NULL;
 	pd->lists[extoutputbox] = NULL;
-
-/*	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview));
-	g_signal_handlers_destroy(G_OBJECT(select));*/
-/*	DEBUG_MSG("preferences_destroy_lcb, destroying handlers for lstore %p\n",pd->ftd.lstore);
-	g_signal_handlers_destroy(G_OBJECT(pd->ftd.lstore));*/
-
-	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ffd.lview));
-	g_signal_handlers_destroy(G_OBJECT(select));
 	
 /*	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->bd.combo)->list));*/
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->bd.lview));
