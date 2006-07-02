@@ -11,6 +11,7 @@
     <option name="case-sensitive">true</option>
     <option name="scan-markup-tags">false</option>
     <option name="scan-blocks">true</option>
+    <option name="auto-scan-triggers">*/(){}'[]\n#";&lt;&gt;&#032;&#013;</option>
     <option name="escape-characters">\</option>
 </options>
 
@@ -61,9 +62,9 @@
 <token-list name="gkeywords11" separator=",">GtkRequisition,GtkResponseType,GtkRcStyle,GtkRuler,GtkScale,GtkScrollbar,GtkScrolledWindow,GtkSeparator,GtkSeparatorMenuItem,GtkSettings</token-list>
 <token-list name="gkeywords12" separator=",">GtkShadowType,GtkSignalFunc,GtkSizeGroup,GtkSocket,GtkSpinButton,GtkStateType,GtkStatusBar,GtkStyle,GtkTable,GtkTearoffMenuItem,GtkText,GtkTextBuffer</token-list>
 <token-list name="gkeywords13" separator=",">GtkTextChildAnchor,GtkTextIter,GtkTextMark,GtkTextTag,GtkTextTagTable,GtkTextView,GtkTextWindowType,GtkTipsQuery,GtkToggleActionEntry</token-list>
-<token-list name="gkeywords14" separator=",">GtkToggleButton,GtkToolbar,GtkToolItem,GtkTooltips,GtkTree,GtkTreeDragDest,GtkTreeDragSource,GtkTreeItem,GtkTreeIter,GtkTreeModel,GtkTreeModelIface</token-list>
-<token-list name="gkeywords15" separator=",">GtkTreeModelSort,GtkTreePath,GtkTreeRowReference,GtkTreeSelection,GtkTreeSortable,GtkTreeStore,GtkTreeView,GtkTreeViewColumn,GtkUIManager,GtkVBox</token-list>
-<token-list name="gkeywords16" separator=",">GtkVButtonBox,GtkViewport,GtkVPaned,GtkVRuler,GtkVScale,GtkVScrollbar,GtkVSeparator,GtkWindow,GtkWindowGroup,GtkWindowPosition,GtkWrapMode</token-list>
+<token-list name="gkeywords14" separator=",">GtkToggleButton,GtkToolbar,GtkToolItem,GtkTooltips,GtkTree,GtkTreeDragDest,GtkTreeDragSource,GtkTreeItem,GtkTreeIter,GtkTreeModel,GtkTreeModelFilter</token-list>
+<token-list name="gkeywords15" separator=",">GtkTreeModelIface,GtkTreeModelSort,GtkTreePath,GtkTreeRowReference,GtkTreeSelection,GtkTreeSortable,GtkTreeStore,GtkTreeView,GtkTreeViewColumn,GtkUIManager</token-list>
+<token-list name="gkeywords16" separator=",">GtkVBox,GtkVButtonBox,GtkViewport,GtkVPaned,GtkVRuler,GtkVScale,GtkVScrollbar,GtkVSeparator,GtkWindow,GtkWindowGroup,GtkWindowPosition,GtkWrapMode</token-list>
 </token-group>
 
 <token-group id="glib types" defaultstyle="keyword-red">
