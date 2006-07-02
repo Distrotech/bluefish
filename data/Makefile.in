@@ -31,7 +31,7 @@ INSTALL_DIR = $(INSTALL) -d -m 755
 INSTALL_DATA = $(INSTALL) -m 644
 
 DEFAULTFILES = \
-    highlighting filetypes encodings \
+    highlighting encodings \
     custom_menu custom_menu.fr custom_menu.de \
     textstyles \
     c.bflang \
@@ -128,7 +128,6 @@ distclean: clean
 		bluefish-project.desktop \
 		bluefish.applications \
 		bluefish.keys \
-		filetypes \
 		*.rej \
 		*.orig \
 		*~
