@@ -28,7 +28,6 @@ void fb2_set_basedir(Tbfwin *bfwin, gchar *curi);
 void fb2_update_settings_from_session(Tbfwin *bfwin);
 GtkWidget *fb2_init(Tbfwin *bfwin);
 void fb2_cleanup(Tbfwin *bfwin);
-void fb2_filters_rebuild(void);
 void fb2config_init(void);
 void fb2config_cleanup(void);
 #endif /* __FILEBROWSER2_H_ */

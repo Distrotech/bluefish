@@ -21,8 +21,8 @@
 #ifndef __FILEFILTER_H_
 #define __FILEFILTER_H_
 
-
-void fb2_filters_rebuild(void);
+void filter_delete(Tfilter *filter);
+void filters_rebuild(void);
 void filefilter_gui(Tfilter *filter);
 
 #endif

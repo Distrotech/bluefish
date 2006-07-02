@@ -62,10 +62,30 @@ static void filter_destroy(Tfilter *filter) {
 	g_free(filter);
 }
 
+void filter_delete(Tfilter *filter) {
+	GList *tmplist;
+	gchar **strarr;
+	/* delete from config */
+	tmplist = g_list_first(main_v->globses.filefilters);
+	while (tmplist) {
+		strarr = (gchar **) tmplist->data;
+		if (strarr && strcmp(strarr[0],filter->name)==0) {
+			/* config string found */
+			main_v->globses.filefilters = g_list_remove(main_v->globses.filefilters, strarr);
+			break;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	/* delete from current list of filters, but we need to 
+	make sure no window is actually using this filter!?!?! */
+	g_print("filter_delete TODO: actually remove the Tfilter struct \n");
+	
+}
+
 /* 
  * WARNING: these filter are also used in the filechooser dialog (file->open in the menu)
  */
-void fb2_filters_rebuild(void) {
+void filters_rebuild(void) {
 	GList *tmplist;
 	/* free any existing filters */
 	tmplist = g_list_first(main_v->filefilters);
@@ -78,7 +98,7 @@ void fb2_filters_rebuild(void) {
 
 	/* build a list of filters */
 	main_v->filefilters = g_list_prepend(NULL, new_filter(_("All files"), "0", NULL));
-	tmplist = g_list_first(main_v->props.filefilters);
+	tmplist = g_list_first(main_v->globses.filefilters);
 	while (tmplist) {
 		gchar **strarr = (gchar **) tmplist->data;
 		if (count_array(strarr) == 3) {
@@ -96,7 +116,7 @@ static void restore_filter_from_config(Tfilter *filter, const gchar *origname) {
 	
 	if (!origname) return;
 	
-	tmplist = g_list_first(main_v->props.filefilters);
+	tmplist = g_list_first(main_v->globses.filefilters);
 	while (tmplist) {
 		strarr = (gchar **) tmplist->data;
 		if (strarr && strcmp(strarr[0],origname)==0) {
@@ -131,7 +151,7 @@ static void apply_filter_to_config(Tfilter *filter, const gchar *origname) {
 	GString *gstr;
 	if (origname) {
 		/* find the config string, if it existed before */
-		tmplist = g_list_first(main_v->props.filefilters);
+		tmplist = g_list_first(main_v->globses.filefilters);
 		while (tmplist) {
 			strarr = (gchar **) tmplist->data;
 			if (strarr && strcmp(strarr[0],origname)==0) {
@@ -142,9 +162,13 @@ static void apply_filter_to_config(Tfilter *filter, const gchar *origname) {
 		}
 	}
 	if (strarr == NULL) {
+		DEBUG_MSG("apply_filter_to_config, prepending new entry in config list\n");
 		/* no config string with this name, */
 		strarr = g_new0(gpointer, 4);
-		main_v->props.filefilters = g_list_prepend(main_v->props.filefilters, strarr);
+		main_v->globses.filefilters = g_list_prepend(main_v->globses.filefilters, strarr);
+	}
+	if (origname == NULL) {
+		main_v->filefilters = g_list_prepend(main_v->filefilters, filter);
 	}
 	/* the config string has three entries: the name, inverse filtering, filetypes */
 	if (strarr[0]) g_free(strarr[0]);
@@ -171,6 +195,8 @@ typedef struct {
 	GtkTreeModelFilter *out_model; /* shows all types OUTside the filter */
 	GtkWidget *in_view;
 	GtkWidget *out_view;
+	GtkWidget *nameentry;
+	GtkWidget *inversecheck;
 	
 	Tfilter *curfilter;
 	gchar *origname;
@@ -193,6 +219,9 @@ static void filefiltergui_cancel_clicked(GtkWidget *widget, gpointer data) {
 
 static void filefiltergui_ok_clicked(GtkWidget *widget, gpointer data) {
 	Tfilefiltergui *ffg = data;
+	g_free(ffg->curfilter->name);
+	ffg->curfilter->name = gtk_editable_get_chars(ffg->nameentry,0,-1);
+	ffg->curfilter->mode = gtk_toggle_button_get_mode(ffg->inversecheck);
 	apply_filter_to_config(ffg->curfilter, ffg->origname);
 	filefiltergui_destroy_lcb(widget, data);
 }
@@ -203,7 +232,6 @@ static gboolean filefiltergui_infilter_visiblefunc(GtkTreeModel *model,GtkTreeIt
 	gchar *mimetype=NULL;
 	gtk_tree_model_get(model, iter, 0, &mimetype, -1);
 	if (mimetype) {
-		DEBUG_MSG("filter %p, lookup %s in hashtable %p\n",ffg->curfilter,mimetype,ffg->curfilter->filetypes);
 		retval = (g_hash_table_lookup(ffg->curfilter->filetypes, mimetype) != NULL);
 		g_free(mimetype);
 	}
@@ -217,7 +245,7 @@ static gboolean filefiltergui_outfilter_visiblefunc(GtkTreeModel *model,GtkTreeI
 static void filefiltergui_add_filetypes(gpointer key,gpointer value,gpointer data) {
 	Tfilefiltergui *ffg = data;
 	
-	if (g_hash_table_lookup(main_v->filetypetable, key) == NULL) {
+	if (strlen(key)>0 && g_hash_table_lookup(main_v->filetypetable, key) == NULL) {
 		GtkTreeIter it;
 		Tfiletype *ft = get_filetype_for_mime_type(key);
 		gtk_list_store_prepend(GTK_LIST_STORE(ffg->lmodel),&it);
@@ -285,6 +313,12 @@ void filefilter_gui(Tfilter *filter) {
 	if (filter) {
 		ffg->origname = g_strdup(filter->name);
 	}
+	if (!filter) {
+		ffg->curfilter = g_new0(Tfilter,1);
+		ffg->curfilter->name = g_strdup("New filter");
+		ffg->curfilter->filetypes = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
+	}
+	
 	DEBUG_MSG("filefilter_gui, editing filter %p\n",ffg->curfilter); 
 	ffg->win = window_full2(_("Edit filter"), GTK_WIN_POS_MOUSE, 10, filefiltergui_destroy_lcb,ffg, TRUE, NULL);
 	ffg->lmodel = gtk_list_store_new(2, G_TYPE_STRING, GDK_TYPE_PIXBUF);
@@ -310,6 +344,12 @@ void filefilter_gui(Tfilter *filter) {
 	gtk_tree_model_filter_set_visible_func(ffg->out_model,filefiltergui_outfilter_visiblefunc,ffg,NULL);
 
 	table = gtk_table_new(4,3,FALSE);
+	
+	ffg->nameentry = entry_with_text(ffg->curfilter->name, 50);
+	gtk_table_attach_defaults(table,ffg->nameentry,0,1,0,1);
+	
+	ffg->inversecheck = checkbut_with_value(_("Show files in filter"), ffg->curfilter->mode);
+	gtk_table_attach_defaults(table,ffg->inversecheck,2,3,0,1);
 	
 	ffg->in_view = gtk_tree_view_new_with_model(ffg->in_model);
 	renderer = gtk_cell_renderer_text_new();
