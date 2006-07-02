@@ -636,84 +636,7 @@ static void create_plugin_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_filetype_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);*/
 }
-	
-/************ filefilter code ****************/
-static void set_filefilter_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
-	gint arrcount;
-	arrcount = count_array(strarr);
-	if (arrcount==3) {
-		gtk_list_store_set(GTK_LIST_STORE(pd->ffd.lstore), iter
-				,0,strarr[0],1,(strarr[1][0] != '0'),2,strarr[2],3,strarr,-1);
-	} else {
-		DEBUG_MSG("ERROR: set_filefilter_strarr_in_list, arraycount != 3 !!!!!!\n");
-	}
-}
-static void filefilter_apply_change(Tprefdialog *pd, gint type, gchar *path, gchar *newval, gint index) {
-	DEBUG_MSG("filefilter_apply_change,lstore=%p,path=%s,newval=%s,index=%d\n",pd->ffd.lstore,path,newval,index);
-	pref_apply_change(pd->ffd.lstore,3,type,path,newval,index);
-}
-static void filefilter_0_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
-	filefilter_apply_change(pd, 1, path, newtext, 0);
-}
-static void filefilter_1_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
-	gchar *val = g_strdup(cellrenderertoggle->active ? "0" : "1");
-	filefilter_apply_change(pd, 2, path, val, 1);
-	g_free(val);
-}
-static void filefilter_2_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
-	filefilter_apply_change(pd, 1, path, newtext, 2);
-}
-static void add_new_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	gchar **strarr;
-	GtkTreeIter iter;
-	strarr = pref_create_empty_strarr(3);
-	gtk_list_store_append(GTK_LIST_STORE(pd->ffd.lstore), &iter);
-	set_filefilter_strarr_in_list(&iter, strarr,pd);
-	pd->lists[filefilters] = g_list_append(pd->lists[filefilters], strarr);
-	pd->ffd.insertloc = -1;
-}
 
-static void delete_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	pref_delete_strarr(pd, &pd->ffd, 3);
-}
-static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
-	GtkWidget *hbox, *but, *scrolwin;
-	pd->lists[filefilters] = duplicate_arraylist(main_v->props.filefilters);
-	pd->ffd.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_STRING,G_TYPE_POINTER);
-	pd->ffd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->ffd.lstore));
-	pref_create_column(GTK_TREE_VIEW(pd->ffd.lview), 1, G_CALLBACK(filefilter_0_edited_lcb), pd, _("Label"), 0);
-	pref_create_column(GTK_TREE_VIEW(pd->ffd.lview), 2, G_CALLBACK(filefilter_1_toggled_lcb), pd, _("Inverse filter"), 1);
-	pref_create_column(GTK_TREE_VIEW(pd->ffd.lview), 1, G_CALLBACK(filefilter_2_edited_lcb), pd, _("Filetypes in filter"), 2);
-	scrolwin = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ffd.lview);
-	gtk_widget_set_size_request(scrolwin, 200, 350);
-	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
-	{
-		GList *tmplist = g_list_first(pd->lists[filefilters]);
-		while (tmplist) {
-			gchar **strarr = (gchar **)tmplist->data;
-			if (count_array(strarr)==3) {
-				GtkTreeIter iter;
-				gtk_list_store_append(GTK_LIST_STORE(pd->ffd.lstore), &iter);
-				set_filefilter_strarr_in_list(&iter, strarr,pd);
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	}
-	gtk_tree_view_set_reorderable(GTK_TREE_VIEW(pd->ffd.lview), TRUE);
-	pd->ffd.thelist = &pd->lists[filefilters];
-	pd->ffd.insertloc = -1;
-	g_signal_connect(G_OBJECT(pd->ffd.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->ffd);
-	g_signal_connect(G_OBJECT(pd->ffd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->ffd);
-
-	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_filefilter_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
-	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_filefilter_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);	
-}
 
 /****** Text style **************/
 
@@ -1875,8 +1798,6 @@ static void preferences_apply(Tprefdialog *pd) {
 	free_arraylist(main_v->props.filetypes);
 	main_v->props.filetypes = duplicate_arraylist(pd->lists[filetypes]);
 */
-	free_arraylist(main_v->props.filefilters);
-	main_v->props.filefilters = duplicate_arraylist(pd->lists[filefilters]);
 	DEBUG_MSG("preferences_apply: free old syntax styles, and building new list\n");
 	free_arraylist(main_v->props.syntax_styles);
 	main_v->props.syntax_styles = duplicate_arraylist(pd->lists[syntax_styles]);
@@ -1895,16 +1816,11 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.textstyles = duplicate_arraylist(pd->lists[textstyles]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
-#ifndef GNOMEVFSINT
 	textstyle_rebuild();
-	
-	filetype_highlighting_rebuild(TRUE);
-#endif
-	/*filebrowser_filters_rebuild();*/
+
 #ifndef GNOMEVFSINT
 	bf_lang_mgr_retag();
 #endif	
-	fb2_filters_rebuild();
 	all_documents_apply_settings();
 	{
 		GList *tmplist = g_list_first(main_v->bfwinlist);
@@ -1913,9 +1829,6 @@ static void preferences_apply(Tprefdialog *pd) {
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling encoding_menu_rebuild\n");
 			encoding_menu_rebuild(bfwin);
 			external_menu_rebuild(bfwin); /* browsers is also rebuild here! */
-#ifndef GNOMEVFSINT
-			filetype_menu_rebuild(bfwin,NULL);
-#endif
 			DEBUG_MSG("preferences_ok_clicked_lcb, calling gui_apply_settings\n");
 			gui_apply_settings(bfwin);
 			left_panel_rebuild(bfwin);
@@ -2310,18 +2223,6 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_filetype_gui(pd, vbox2);
 */
-	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("File filters"), WIDGETCOL,vbox1,-1);	
-/*
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("File filters"), 153,TRUE));
-*/
-	
-	frame = gtk_frame_new(_("File filters"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	create_filefilter_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);

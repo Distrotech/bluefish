@@ -52,6 +52,7 @@
 #include "rcfile.h"        /* rcfile_parse_main() */
 #include "stringlist.h"    /* put_stringlist(), get_stringlist() */
 #include "textstyle.h"
+#include "filefilter.h"
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -196,6 +197,7 @@ int main(int argc, char *argv[])
 	filetype_highlighting_rebuild(FALSE);
 	
 	fb2config_init(); /* filebrowser2config */
+	filters_rebuild();
 	autoclosing_init();
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("parsing custom menu file..."));

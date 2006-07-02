@@ -213,7 +213,6 @@ typedef struct {
 	gint defaulthighlight;		/* highlight documents by default */
 	GList *filetypes; /* filetypes for highlighting and filtering */
 	gint numcharsforfiletype; /* maximum number of characters in the file to use to find the filetype */
-	GList *filefilters; /* filebrowser.c filtering */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint restore_dimensions; /* use the dimensions as used the previous run */
 	gint left_panel_left; /* 1 = left, 0 = right */
@@ -294,6 +293,7 @@ typedef struct {
 	gint image_thumbnailsizing_val1;	/* the width, height or ratio, depending on the value above */
 	gint image_thumbnailsizing_val2; /* height if the type=3 */
 	gchar *image_thumnailformatstring; /* like <a href="%r"><img src="%t"></a> or more advanced */
+	GList *filefilters; /* filefilter.c file filtering */
 	GList *reference_files; /* all reference files */
 	GList *recent_projects;
 } Tglobalsession;

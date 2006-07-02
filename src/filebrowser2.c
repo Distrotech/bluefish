@@ -1308,6 +1308,16 @@ static void edit_filefilter_lcb(GtkMenuItem *menuitem,gpointer data) {
 	filefilter_gui(fb2->curfilter);
 }
 
+static void new_filefilter_lcb(GtkMenuItem *menuitem,gpointer data) {
+	Tfilebrowser2 *fb2 = data;
+	filefilter_gui(NULL);
+}
+static void delete_filefilter_lcb(GtkMenuItem *menuitem,gpointer data) {
+	Tfilebrowser2 *fb2 = data;
+	filter_delete(fb2->curfilter);
+}
+
+
 /* 
  * what should the menu look like?
  *
@@ -1379,10 +1389,17 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 			gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);
 			tmplist = g_list_previous(tmplist);
 		}
+		menu_item = gtk_menu_item_new();
+		gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);
 		menu_item = gtk_menu_item_new_with_label(_("Edit filter"));
-		g_print("edit filter %p with hastable %p\n",fb2->curfilter,fb2->curfilter->filetypes);
 		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(edit_filefilter_lcb), fb2);
-		gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);	
+		gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);
+		menu_item = gtk_menu_item_new_with_label(_("Delete filter"));
+		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(delete_filefilter_lcb), fb2);
+		gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);
+		menu_item = gtk_menu_item_new_with_label(_("New filter"));
+		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(new_filefilter_lcb), fb2);
+		gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);
 	}
 	
 	
@@ -2002,8 +2019,7 @@ void fb2config_init(void) {
 		g_free(home);
 		iter = fb2_build_dir(uri);
 		gnome_vfs_uri_unref(uri);
-	}*/
-	fb2_filters_rebuild();	
+	}*/	
 	DEBUG_MSG("fb2config_init, finished\n");
 }
 /* avoid segfaults during bluefish exit */
