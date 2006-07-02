@@ -750,7 +750,6 @@ AC_CONFIG_FILES(
 	src/Makefile
 	po/Makefile
 	data/Makefile
-	data/filetypes
 	data/bluefish.applications
 	data/bluefish.desktop
 	data/bluefish-project.desktop
