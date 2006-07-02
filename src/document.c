@@ -284,8 +284,8 @@ gint document_return_num_notcomplete(GList *doclist) {
  **/
 void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	if (!bfwin->current_document) return;
-	DEBUG_MSG("doc_update_highlighting, curdoc=%p, highlightstate=%d\n", bfwin->current_document, bfwin->current_document->highlightstate);
-	if (bfwin->current_document->highlightstate == 0) {
+	DEBUG_MSG("doc_update_highlighting, curdoc=%p, highlight=%d\n", bfwin->current_document, BF_TEXTVIEW(bfwin->current_document->view)->highlight);
+	if (BF_TEXTVIEW(bfwin->current_document->view)->highlight == 0) {
 		setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), "/Document/Highlight Syntax", TRUE);
 		DEBUG_MSG("doc_update_highlighting, calling doc_toggle_highlighting_cb\n");
 		doc_toggle_highlighting_cb(bfwin, 0, NULL);
@@ -1004,9 +1004,9 @@ gint doc_get_max_offset(Tdocument *doc) {
 	return gtk_text_buffer_get_char_count(doc->buffer);
 }
 
-static void doc_select_and_scroll(Tdocument *doc
-				, GtkTextIter *it1, GtkTextIter *it2
-				, gboolean select_it1_line, gboolean do_scroll) {
+static void doc_select_and_scroll(Tdocument *doc, GtkTextIter *it1, 
+                                  GtkTextIter *it2, gboolean select_it1_line,
+                                  gboolean do_scroll) {
 	GtkTextIter sit1=*it1, sit2=*it2;
 	GdkRectangle visirect;
 	GtkTextIter visi_so, visi_eo;
@@ -1024,7 +1024,7 @@ static void doc_select_and_scroll(Tdocument *doc
 	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_eo, visirect.x + visirect.width, visirect.y + visirect.height);
 
 	if (do_scroll && !gtk_text_iter_in_range(&sit1,&visi_so,&visi_eo)) {
-		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&sit1,0.0,TRUE,0.5,0.5);
+		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&sit1,0.0,TRUE,0.5,0.10);
 		gtk_widget_grab_focus(doc->view);
 	}
 }
@@ -1602,9 +1602,9 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 	gtk_text_buffer_insert_at_cursor(doc->buffer,newbuf,-1);
 	g_free(newbuf);
 
-	if (doc->highlightstate) {
+	if (BF_TEXTVIEW(doc->view)->highlight) {
 		doc->need_highlighting=TRUE;
-		DEBUG_MSG("doc_buffer_to_textbox, highlightstate=%d, need_highlighting=%d, delay=%d\n",doc->highlightstate,doc->need_highlighting,delay);
+		DEBUG_MSG("doc_buffer_to_textbox, highlight=%d, need_highlighting=%d, delay=%d\n",BF_TEXTVIEW(doc->view)->highlight,doc->need_highlighting,delay);
 		if (!delay) {
 
 #ifdef DEBUG
@@ -2860,8 +2860,8 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	/* for some reason it only works after the document is appended to the notebook */
 	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
 	
-	newdoc->highlightstate = main_v->props.defaulthighlight;
-	DEBUG_MSG("doc_new_backend, need_highlighting=%d, highlightstate=%d\n", newdoc->need_highlighting, newdoc->highlightstate);
+	BF_TEXTVIEW(newdoc->view)->highlight = main_v->props.defaulthighlight;
+	DEBUG_MSG("doc_new_backend, need_highlighting=%d, highlight=%d\n", newdoc->need_highlighting, BF_TEXTVIEW(newdoc->view)->highlight);
 	return newdoc;
 }
 
@@ -3378,7 +3378,7 @@ void doc_activate(Tdocument *doc) {
 	doc_set_statusbar_editmode_encoding(doc);
 
 	/* if highlighting is needed for this document do this now !! */
-	if (doc->need_highlighting && doc->highlightstate) {
+	if (doc->need_highlighting && BF_TEXTVIEW(doc->view)->highlight) {
 		DEBUG_MSG("doc_activate, doc=%p, after doc_highlight_full, need_highlighting=%d\n",doc,doc->need_highlighting);
 	}
 
@@ -3560,8 +3560,9 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
-	bfwin->current_document->highlightstate = 1 - bfwin->current_document->highlightstate;
-	DEBUG_MSG("doc_toggle_highlighting_cb, started, highlightstate now is %d\n", bfwin->current_document->highlightstate);
+	BF_TEXTVIEW(bfwin->current_document->view)->highlight = 
+		BF_TEXTVIEW(bfwin->current_document->view)->highlight ? FALSE : TRUE;
+	DEBUG_MSG("doc_toggle_highlighting_cb, started, highlight is %d\n", BF_TEXTVIEW(bfwin->current_document->view)->highlight);		
 	bf_textview_scan(BF_TEXTVIEW(bfwin->current_document->view));
 }
 
