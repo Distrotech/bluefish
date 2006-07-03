@@ -140,9 +140,9 @@ static void restore_filter_from_config(Tfilter *filter, const gchar *origname) {
 	filter->filetypes = hashtable_from_string(strarr[2]);
 }
 
-static void hashtable_to_string(gpointer key,gpointer value,gpointer data) {
-	g_string_append((GString* )data,(gchar *)key);
-	g_string_append_c((GString* )data,':');
+static void hashtable_to_string(gpointer key, gpointer value, gpointer data) {
+	g_string_append((GString *)data, (gchar *)key);
+	g_string_append_c((GString *)data,':');
 }
 
 static void apply_filter_to_config(Tfilter *filter, const gchar *origname) {
@@ -190,9 +190,9 @@ and two treeviews.
 
 typedef struct {
 	GtkWidget *win;
-	GtkTreeModel *lmodel;
-	GtkTreeModelFilter *in_model; /* shows all the types IN the filter */
-	GtkTreeModelFilter *out_model; /* shows all types OUTside the filter */
+	GtkListStore *lstore;
+	GtkTreeModel *in_model; /* shows all the types IN the filter */
+	GtkTreeModel *out_model; /* shows all types OUTside the filter */
 	GtkWidget *in_view;
 	GtkWidget *out_view;
 	GtkWidget *nameentry;
@@ -202,28 +202,25 @@ typedef struct {
 	gchar *origname;
 } Tfilefiltergui;
 
-static void filefiltergui_destroy_lcb(GtkWidget *widget, gpointer data) {
-	Tfilefiltergui *ffg = data;
+static void filefiltergui_destroy_lcb(GtkWidget *widget, Tfilefiltergui *ffg) {
 	g_free(ffg->origname);
-	g_object_unref(ffg->lmodel);
+	g_object_unref(ffg->lstore);
 	window_destroy(ffg->win);
 	g_free(ffg);
 	DEBUG_MSG("filefiltergui_destroy_lcb, done\n");	
 }
 
-static void filefiltergui_cancel_clicked(GtkWidget *widget, gpointer data) {
-	Tfilefiltergui *ffg = data;
+static void filefiltergui_cancel_clicked(GtkWidget *widget, Tfilefiltergui *ffg) {
 	restore_filter_from_config(ffg->curfilter, ffg->origname);
-	filefiltergui_destroy_lcb(widget, data);
+	filefiltergui_destroy_lcb(widget, ffg);
 }
 
-static void filefiltergui_ok_clicked(GtkWidget *widget, gpointer data) {
-	Tfilefiltergui *ffg = data;
+static void filefiltergui_ok_clicked(GtkWidget *widget, Tfilefiltergui *ffg) {
 	g_free(ffg->curfilter->name);
-	ffg->curfilter->name = gtk_editable_get_chars(ffg->nameentry,0,-1);
-	ffg->curfilter->mode = gtk_toggle_button_get_mode(ffg->inversecheck);
+	ffg->curfilter->name = gtk_editable_get_chars(GTK_EDITABLE(ffg->nameentry),0,-1);
+	ffg->curfilter->mode = gtk_toggle_button_get_mode(GTK_TOGGLE_BUTTON(ffg->inversecheck));
 	apply_filter_to_config(ffg->curfilter, ffg->origname);
-	filefiltergui_destroy_lcb(widget, data);
+	filefiltergui_destroy_lcb(widget, ffg);
 }
 
 static gboolean filefiltergui_infilter_visiblefunc(GtkTreeModel *model,GtkTreeIter *iter,gpointer data) {
@@ -248,13 +245,12 @@ static void filefiltergui_add_filetypes(gpointer key,gpointer value,gpointer dat
 	if (strlen(key)>0 && g_hash_table_lookup(main_v->filetypetable, key) == NULL) {
 		GtkTreeIter it;
 		Tfiletype *ft = get_filetype_for_mime_type(key);
-		gtk_list_store_prepend(GTK_LIST_STORE(ffg->lmodel),&it);
-		gtk_list_store_set(GTK_LIST_STORE(ffg->lmodel),&it,0,ft->mime_type,1,ft->icon,-1);
+		gtk_list_store_prepend(ffg->lstore,&it);
+		gtk_list_store_set(ffg->lstore,&it,0,ft->mime_type,1,ft->icon,-1);
 	}
 }
 
-static void filefiltergui_2right_clicked(GtkWidget *widget, gpointer data) {
-	Tfilefiltergui *ffg = data;
+static void filefiltergui_2right_clicked(GtkWidget *widget, Tfilefiltergui *ffg) {
 	GtkTreeIter iter;
 	GtkTreeSelection *select;
 	GtkTreeModel *model;
@@ -270,15 +266,14 @@ static void filefiltergui_2right_clicked(GtkWidget *widget, gpointer data) {
 
 		DEBUG_MSG("filefiltergui_2right_clicked, refilter\n");
 		/* refilter */
-		gtk_tree_model_filter_refilter(ffg->in_model);
-		gtk_tree_model_filter_refilter(ffg->out_model);
+		gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(ffg->in_model));
+		gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(ffg->out_model));
 	} else {
 		DEBUG_MSG("filefiltergui_2right_clicked, nothing selected\n");
 	}
 }
 
-static void filefiltergui_2left_clicked(GtkWidget *widget, gpointer data) {
-	Tfilefiltergui *ffg = data;
+static void filefiltergui_2left_clicked(GtkWidget *widget, Tfilefiltergui *ffg) {
 	GtkTreeIter iter;
 	GtkTreeSelection *select;
 	GtkTreeModel *model;
@@ -295,8 +290,8 @@ static void filefiltergui_2left_clicked(GtkWidget *widget, gpointer data) {
 		g_free (mime_type);
 		DEBUG_MSG("filefiltergui_2left_clicked, refilter\n");
 		/* refilter */
-		gtk_tree_model_filter_refilter(ffg->in_model);
-		gtk_tree_model_filter_refilter(ffg->out_model);
+		gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(ffg->in_model));
+		gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(ffg->out_model));
 	} else {
 		DEBUG_MSG("filefiltergui_2left_clicked, nothing selected\n");
 	}
@@ -320,8 +315,8 @@ void filefilter_gui(Tfilter *filter) {
 	}
 	
 	DEBUG_MSG("filefilter_gui, editing filter %p\n",ffg->curfilter); 
-	ffg->win = window_full2(_("Edit filter"), GTK_WIN_POS_MOUSE, 10, filefiltergui_destroy_lcb,ffg, TRUE, NULL);
-	ffg->lmodel = gtk_list_store_new(2, G_TYPE_STRING, GDK_TYPE_PIXBUF);
+	ffg->win = window_full2(_("Edit filter"), GTK_WIN_POS_MOUSE, 10, G_CALLBACK(filefiltergui_destroy_lcb),ffg, TRUE, NULL);
+	ffg->lstore = gtk_list_store_new(2, G_TYPE_STRING, GDK_TYPE_PIXBUF);
 	
 	/* fill the list model from the currently known filetypes */
 	tmplist = g_list_first(main_v->filetypelist);
@@ -329,68 +324,65 @@ void filefilter_gui(Tfilter *filter) {
 		GtkTreeIter it;
 		Tfiletype *ft = tmplist->data;
 		if (strncmp(ft->mime_type,"x-directory",11)!=0) {
-			gtk_list_store_prepend(GTK_LIST_STORE(ffg->lmodel),&it);
+			gtk_list_store_prepend(ffg->lstore,&it);
 			DEBUG_MSG("filefilter_gui, adding %s\n",ft->mime_type);
-			gtk_list_store_set(GTK_LIST_STORE(ffg->lmodel),&it,0,ft->mime_type,1,ft->icon,-1);
+			gtk_list_store_set(ffg->lstore,&it,0,ft->mime_type,1,ft->icon,-1);
 		}
 		tmplist = g_list_next(tmplist);
 	}
 	/* make sure that all filetypes that exist in the current filter are shown */
 	g_hash_table_foreach(ffg->curfilter->filetypes,filefiltergui_add_filetypes,ffg);
 	
-	ffg->in_model = gtk_tree_model_filter_new(ffg->lmodel, NULL);
-	gtk_tree_model_filter_set_visible_func(ffg->in_model,filefiltergui_infilter_visiblefunc,ffg,NULL);
-	ffg->out_model = gtk_tree_model_filter_new(ffg->lmodel, NULL);
-	gtk_tree_model_filter_set_visible_func(ffg->out_model,filefiltergui_outfilter_visiblefunc,ffg,NULL);
+	ffg->in_model = gtk_tree_model_filter_new(GTK_TREE_MODEL(ffg->lstore), NULL);
+	gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(ffg->in_model),filefiltergui_infilter_visiblefunc,ffg,NULL);
+	ffg->out_model = gtk_tree_model_filter_new(GTK_TREE_MODEL(ffg->lstore), NULL);
+	gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(ffg->out_model),filefiltergui_outfilter_visiblefunc,ffg,NULL);
 
 	table = gtk_table_new(4,3,FALSE);
 	
 	ffg->nameentry = entry_with_text(ffg->curfilter->name, 50);
-	gtk_table_attach_defaults(table,ffg->nameentry,0,1,0,1);
+	gtk_table_attach_defaults(GTK_TABLE(table),ffg->nameentry,0,1,0,1);
 	
 	ffg->inversecheck = checkbut_with_value(_("Show files in filter"), ffg->curfilter->mode);
-	gtk_table_attach_defaults(table,ffg->inversecheck,2,3,0,1);
+	gtk_table_attach_defaults(GTK_TABLE(table),ffg->inversecheck,2,3,0,1);
 	
-	ffg->in_view = gtk_tree_view_new_with_model(ffg->in_model);
+	ffg->in_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(ffg->in_model));
 	renderer = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes(_("Mime type"),renderer,"text", 0,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(ffg->in_view), column);
 	renderer = gtk_cell_renderer_pixbuf_new();
 	column = gtk_tree_view_column_new_with_attributes(_("Icon"),renderer,"pixbuf", 1,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(ffg->in_view), column);
-	gtk_table_attach_defaults(table,ffg->in_view,2,3,1,2);
+	gtk_table_attach_defaults(GTK_TABLE(table),ffg->in_view,2,3,1,2);
 	
-	ffg->out_view = gtk_tree_view_new_with_model(ffg->out_model);
+	ffg->out_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(ffg->out_model));
 	renderer = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes(_("Mime type"),renderer,"text", 0,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(ffg->out_view), column);
 	renderer = gtk_cell_renderer_pixbuf_new();
 	column = gtk_tree_view_column_new_with_attributes(_("Icon"),renderer,"pixbuf", 1,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(ffg->out_view), column);
-	gtk_table_attach_defaults(table,ffg->out_view,0,1,1,2);
+	gtk_table_attach_defaults(GTK_TABLE(table),ffg->out_view,0,1,1,2);
 	
 	vbox = gtk_vbox_new(TRUE,5);
 	but = gtk_button_new_with_label("->");
-	g_signal_connect(but,"clicked",filefiltergui_2right_clicked,ffg);
-	gtk_box_pack_start(vbox,but,TRUE,TRUE,0);
+	g_signal_connect(but,"clicked",G_CALLBACK(filefiltergui_2right_clicked),ffg);
+	gtk_box_pack_start(GTK_BOX(vbox),but,TRUE,TRUE,0);
 	but = gtk_button_new_with_label("<-");
-	g_signal_connect(but,"clicked",filefiltergui_2left_clicked,ffg);
-	gtk_box_pack_start(vbox,but,TRUE,TRUE,0);
-	gtk_table_attach(table,vbox,1,2,1,2,GTK_EXPAND|GTK_FILL,GTK_EXPAND,5,5);
+	g_signal_connect(but,"clicked",G_CALLBACK(filefiltergui_2left_clicked),ffg);
+	gtk_box_pack_start(GTK_BOX(vbox),but,TRUE,TRUE,0);
+	gtk_table_attach(GTK_TABLE(table),vbox,1,2,1,2,GTK_EXPAND|GTK_FILL,GTK_EXPAND,5,5);
 	
 	hbox = gtk_hbutton_box_new();
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
 	but = bf_stock_cancel_button(G_CALLBACK(filefiltergui_cancel_clicked), ffg);
-	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 0);
+    gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 0);	
 	but = bf_stock_ok_button(G_CALLBACK(filefiltergui_ok_clicked), ffg);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 0);
 	
 	gtk_table_attach_defaults(GTK_TABLE(table), hbox, 0, 3, 3, 4);
 
-
-	gtk_container_add(ffg->win, table);
-	gtk_widget_show_all(ffg->win);
-
-	
+	gtk_container_add(GTK_CONTAINER(ffg->win), table);
+	gtk_widget_show_all(ffg->win);	
 }
