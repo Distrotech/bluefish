@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h>        /* strcmp() */
@@ -1808,11 +1808,11 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.textstyles = duplicate_arraylist(pd->lists[textstyles]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
+/*
 	textstyle_rebuild();
 
-#ifndef GNOMEVFSINT
 	bf_lang_mgr_retag();
-#endif	
+*/	
 	all_documents_apply_settings();
 	{
 		GList *tmplist = g_list_first(main_v->bfwinlist);
