@@ -235,37 +235,6 @@ GtkWidget *bf_textview_new(void)
 	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "delete-range",
 						   G_CALLBACK(bf_textview_delete_range_after_cb), o);
 	g_signal_connect(G_OBJECT(o), "button-press-event", G_CALLBACK(bf_textview_mouse_cb), NULL);
-	o->internal_tags[IT_FOLDED] =
-		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
-								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_folded_");
-	if (!o->internal_tags[IT_FOLDED])
-		o->internal_tags[IT_FOLDED] =
-			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_folded_",
-									   "editable", FALSE, "invisible", TRUE, NULL);
-	o->internal_tags[IT_FOLD_HEADER] =
-		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
-								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_fold_header_");
-	if (!o->internal_tags[IT_FOLD_HEADER]) {
-		bmp = gdk_bitmap_create_from_data(NULL, folded_xbm, 2, 2);
-		o->internal_tags[IT_FOLD_HEADER] =
-			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_fold_header_",
-									   "editable", FALSE, "background", "#F7F3D2",
-									   "foreground-stipple", bmp, NULL);
-		g_object_unref(bmp);
-	}
-	o->internal_tags[IT_BLOCK_MATCH] =
-		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
-								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_block_match_");
-	if (!o->internal_tags[IT_BLOCK_MATCH])
-		o->internal_tags[IT_BLOCK_MATCH] =
-			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_block_match_",
-									   "background", "#F7F3D2", NULL);
-	o->internal_tags[IT_BLOCK] =
-		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
-								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_block_");
-	if (!o->internal_tags[IT_BLOCK])
-		o->internal_tags[IT_BLOCK] =
-			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_block_", NULL);
 	bf_textview_recolor(o, "#000000", "#FFFFFF");
 	return (GtkWidget *) o;
 }
@@ -295,37 +264,6 @@ GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer)
 	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "delete-range",
 						   G_CALLBACK(bf_textview_delete_range_after_cb), o);
 	g_signal_connect(G_OBJECT(o), "button-press-event", G_CALLBACK(bf_textview_mouse_cb), NULL);
-	o->internal_tags[IT_FOLDED] =
-		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
-								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_folded_");
-	if (!o->internal_tags[IT_FOLDED])
-		o->internal_tags[IT_FOLDED] =
-			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_folded_",
-									   "editable", FALSE, "invisible", TRUE, NULL);
-	o->internal_tags[IT_FOLD_HEADER] =
-		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
-								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_fold_header_");
-	if (!o->internal_tags[IT_FOLD_HEADER]) {
-		bmp = gdk_bitmap_create_from_data(NULL, folded_xbm, 2, 2);
-		o->internal_tags[IT_FOLD_HEADER] =
-			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_fold_header_",
-									   "editable", FALSE, "background", "#F7F3D2",
-									   "foreground-stipple", bmp, NULL);
-		g_object_unref(bmp);
-	}
-	o->internal_tags[IT_BLOCK_MATCH] =
-		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
-								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_block_match_");
-	if (!o->internal_tags[IT_BLOCK_MATCH])
-		o->internal_tags[IT_BLOCK_MATCH] =
-			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_block_match_",
-									   "background", "#F7F3D2", NULL);
-	o->internal_tags[IT_BLOCK] =
-		gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table
-								  (gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "_block_");
-	if (!o->internal_tags[IT_BLOCK])
-		o->internal_tags[IT_BLOCK] =
-			gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o)), "_block_", NULL);
 	bf_textview_recolor(o, "#000000", "#FFFFFF");
 	return (GtkWidget *) o;
 }
@@ -389,7 +327,7 @@ static void bf_textview_mark_set_cb(GtkTextBuffer * buf, GtkTextIter * arg1, Gtk
 			bi = (BlockInfo *) g_object_get_data(G_OBJECT(block), "bi");
 			gtk_text_buffer_get_iter_at_mark(buf, &it, block);
 			gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->ref);
-			gtk_text_buffer_remove_tag(buf, BF_TEXTVIEW(widget)->internal_tags[IT_BLOCK_MATCH], &it,
+			gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it,
 									   &it2);
 			if (bi->type == BI_START) {
 				gtk_text_buffer_get_iter_at_mark(buf, &it, bi->refe1);
@@ -398,7 +336,7 @@ static void bf_textview_mark_set_cb(GtkTextBuffer * buf, GtkTextIter * arg1, Gtk
 				gtk_text_buffer_get_iter_at_mark(buf, &it, bi->refb1);
 				gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->refb2);
 			}
-			gtk_text_buffer_remove_tag(buf, BF_TEXTVIEW(widget)->internal_tags[IT_BLOCK_MATCH], &it,
+			gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it,
 									   &it2);
 			block = NULL;
 		}
@@ -413,7 +351,7 @@ static void bf_textview_mark_set_cb(GtkTextBuffer * buf, GtkTextIter * arg1, Gtk
 		if (block) {
 			gtk_text_buffer_get_iter_at_mark(buf, &it, block);
 			gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->ref);
-			gtk_text_buffer_apply_tag(buf, BF_TEXTVIEW(widget)->internal_tags[IT_BLOCK_MATCH], &it,
+			gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it,
 									  &it2);
 			if (bi->type == BI_START) {
 				gtk_text_buffer_get_iter_at_mark(buf, &it, bi->refe1);
@@ -422,14 +360,14 @@ static void bf_textview_mark_set_cb(GtkTextBuffer * buf, GtkTextIter * arg1, Gtk
 				gtk_text_buffer_get_iter_at_mark(buf, &it, bi->refb1);
 				gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->refb2);
 			}
-			gtk_text_buffer_apply_tag(buf, BF_TEXTVIEW(widget)->internal_tags[IT_BLOCK_MATCH], &it,
+			gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it,
 									  &it2);
 			BF_TEXTVIEW(widget)->last_matched_block = block;
 		}
 	} else if (arg2 && arg2 == gtk_text_buffer_get_selection_bound(buf)) {
 		gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
 		gtk_text_buffer_get_iter_at_mark(buf, &it2, arg2);
-		gtk_text_buffer_remove_tag(buf, BF_TEXTVIEW(widget)->internal_tags[IT_BLOCK_MATCH], &it,
+		gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it,
 								   &it2);
 	}
 }
@@ -528,7 +466,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 											  NULL, &w);
 		if (BF_TEXTVIEW(widget)->show_lines) {	/* show line numbers */
 			/*DEBUG_MSG("checking for folded tag %p\n", BF_TEXTVIEW(widget)->folded_tag); */
-			if (!gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->internal_tags[IT_FOLDED])) {
+			if (!gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_FOLDED])) {
 				if (currline == i)
 					pomstr = g_strdup_printf("<b>%d</b>", 1 + i);	/* line numbers should start at 1 */
 				else
@@ -541,7 +479,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 		}
 		if (BF_TEXTVIEW(widget)->show_symbols) {	/* show symbols */
 
-			if (!gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->internal_tags[IT_FOLDED])) {
+			if (!gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_FOLDED])) {
 				gc = gdk_gc_new(GDK_DRAWABLE(left_win));
 				GSList *lst3 = gtk_text_iter_get_marks(&it);
 				aux = NULL;
@@ -570,7 +508,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 			} else
 				bi = NULL;
 			if (block_mark && bi && mark_end && mark_begin
-				&& !gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->internal_tags[IT_FOLDED])) {
+				&& !gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_FOLDED])) {
 				gtk_text_buffer_get_iter_at_mark(buf, &it2, mark_end);
 				gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it2, &w2, NULL);
 				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT,
@@ -603,9 +541,9 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 				}
 			} else {			/* not block begin or end, but perhaps inside */
 				DEBUG_MSG("checking if we're in tag %p\n",
-						  BF_TEXTVIEW(widget)->internal_tags[IT_BLOCK]);
-				if (gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->internal_tags[IT_BLOCK])
-					&& !gtk_text_iter_has_tag(&it, BF_TEXTVIEW(widget)->internal_tags[IT_FOLDED])) {
+						  main_v->lang_mgr->internal_tags[IT_BLOCK]);
+				if (gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_BLOCK])
+					&& !gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_FOLDED])) {
 					gdk_draw_line(GDK_DRAWABLE(left_win),
 								  widget->style->fg_gc[GTK_WIDGET_STATE(widget)], pt_blocks + 5, w,
 								  pt_blocks + 5, w + 16);
@@ -845,10 +783,10 @@ static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, 
 					gtk_text_buffer_get_iter_at_mark(textbuffer, &it3, bi->refe2);
 					if (gtk_text_iter_in_range(&it2, arg1, arg2)
 						&& gtk_text_iter_in_range(&it3, arg1, arg2)) {
-						if (!gtk_text_iter_has_tag(&it2, view->internal_tags[IT_BLOCK])) {
+						if (!gtk_text_iter_has_tag(&it2, main_v->lang_mgr->internal_tags[IT_BLOCK])) {
 							gtk_text_buffer_get_iter_at_mark(textbuffer, &it2, mark2);
 							gtk_text_buffer_get_iter_at_mark(textbuffer, &it3, mark3);
-							gtk_text_buffer_remove_tag(textbuffer, view->internal_tags[IT_BLOCK],
+							gtk_text_buffer_remove_tag(textbuffer, main_v->lang_mgr->internal_tags[IT_BLOCK],
 													   &it2, &it3);
 						}
 						if (bi->tagname)
@@ -1828,9 +1766,7 @@ BfLangManager *bf_lang_mgr_new()
 {
 	BfLangManager *ret = g_new0(BfLangManager, 1);
 	ret->languages = NULL;
-/*#ifdef GNOMEVFSINT
-	ret->mimetypes = NULL;
-#endif*/
+	bf_lang_mgr_build_internal_tags(ret);
 	return ret;
 }
 
@@ -1974,15 +1910,45 @@ static void bf_lang_retag(gpointer value, gpointer udata)
 	cfg->tag_end = get_tag_for_scanner_style((gchar *) cfg->name, "m", "tag_end", NULL);
 	cfg->attr_name = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_name", NULL);
 	cfg->attr_val = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_val", NULL);
-
-	/* we should perhaps also retag some of the internal tags such as _block_match_ ? */
-/*	internal_tags[IT_BLOCK_MATCH] = get_tag_for_scanner_style((gchar *) cfg->name, "m", "_block_match_", NULL);*/
 	
 }
 
-void bf_lang_mgr_retag(void)
-{
+void bf_lang_mgr_build_internal_tags(BfLangManager *mgr) {
+	mgr->internal_tags[IT_BLOCK_MATCH] = textstyle_get("_block_match_");
+	if (mgr->internal_tags[IT_BLOCK_MATCH] == NULL) {
+		mgr->internal_tags[IT_BLOCK_MATCH] = gtk_text_tag_new("_block_match_");
+		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_BLOCK_MATCH]);
+		g_object_set(mgr->internal_tags[IT_FOLD_HEADER], "background", "#F7F3D2");
+	}
+	mgr->internal_tags[IT_BLOCK] = textstyle_get("_block_");
+	if (mgr->internal_tags[IT_BLOCK] == NULL) {
+		mgr->internal_tags[IT_BLOCK] = gtk_text_tag_new("_block_");
+		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_BLOCK]);	
+	}
+	mgr->internal_tags[IT_FOLDED] = textstyle_get("_folded_");
+	if (mgr->internal_tags[IT_FOLDED] == NULL) {
+		mgr->internal_tags[IT_FOLDED] = gtk_text_tag_new("_folded_");
+		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_FOLDED]);
+		g_object_set(mgr->internal_tags[IT_FOLDED], "editable", FALSE, "invisible", TRUE, NULL);
+	}
+	mgr->internal_tags[IT_FOLD_HEADER] = textstyle_get("_fold_header_");
+	if (mgr->internal_tags[IT_FOLD_HEADER] == NULL) {
+		GdkBitmap *bmp;
+		bmp = gdk_bitmap_create_from_data(NULL, folded_xbm, 2, 2);
+		mgr->internal_tags[IT_FOLD_HEADER] = gtk_text_tag_new("_fold_header_");
+		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_FOLD_HEADER]);
+		g_object_set(mgr->internal_tags[IT_FOLD_HEADER], "editable", FALSE, "background", "#F7F3D2", "foreground-stipple", bmp, NULL);
+		g_object_unref(bmp);
+	}
+}
+
+void bf_lang_mgr_retag(void) {
+
 	g_list_foreach(main_v->lang_mgr->languages,bf_lang_retag,NULL);
+	/* we should perhaps also retag some of the internal tags such as _block_match_ ?
+	these tags are stored in each document, so we have to loop through all documents
+	to set them. */
+	bf_lang_mgr_build_internal_tags(main_v->lang_mgr);
 }
 
 
@@ -2129,7 +2095,7 @@ static void bftv_clear_matched_block(BfTextView * self)
 		bi = (BlockInfo *) g_object_get_data(G_OBJECT(self->last_matched_block), "bi");
 		gtk_text_buffer_get_iter_at_mark(buf, &it, self->last_matched_block);
 		gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->ref);
-		gtk_text_buffer_remove_tag(buf, self->internal_tags[IT_BLOCK_MATCH], &it, &it2);
+		gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it, &it2);
 		if (bi->type == BI_START) {
 			gtk_text_buffer_get_iter_at_mark(buf, &it, bi->refe1);
 			gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->refe2);
@@ -2137,7 +2103,7 @@ static void bftv_clear_matched_block(BfTextView * self)
 			gtk_text_buffer_get_iter_at_mark(buf, &it, bi->refb1);
 			gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->refb2);
 		}
-		gtk_text_buffer_remove_tag(buf, self->internal_tags[IT_BLOCK_MATCH], &it, &it2);
+		gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it, &it2);
 	}
 	self->last_matched_block = NULL;
 }
@@ -2317,7 +2283,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 									}
 									if (apply_hl)
 										gtk_text_buffer_apply_tag(buf,
-																  self->internal_tags[IT_BLOCK],
+																  main_v->lang_mgr->internal_tags[IT_BLOCK],
 																  &bf->b_end, &its);
 									g_free(bf->tagname);
 									g_free(bf);
@@ -2547,7 +2513,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 									}
 								}
 								if (apply_hl)
-									gtk_text_buffer_apply_tag(buf, self->internal_tags[IT_BLOCK],
+									gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK],
 															  &bf->b_end, &its);
 								if (self->highlight) {
 									if (tmp->tag && apply_hl)
