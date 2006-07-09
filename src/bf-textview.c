@@ -1976,6 +1976,8 @@ static void bf_lang_retag(gpointer value, gpointer udata)
 	cfg->attr_val = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_val", NULL);
 
 	/* we should perhaps also retag some of the internal tags such as _block_match_ ? */
+/*	internal_tags[IT_BLOCK_MATCH] = get_tag_for_scanner_style((gchar *) cfg->name, "m", "_block_match_", NULL);*/
+	
 }
 
 void bf_lang_mgr_retag(void)
