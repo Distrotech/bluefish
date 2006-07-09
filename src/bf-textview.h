@@ -144,6 +144,15 @@ typedef struct {
 
 } BfLangConfig;
 
+
+enum {
+	IT_FOLDED,
+	IT_FOLD_HEADER,
+	IT_BLOCK_MATCH,
+	IT_BLOCK,
+	IT_NUM_OF_TAGS	
+};
+
 typedef struct {
 	GList *languages;		/* table of recognized languages - structures BfLangConfig, 
 									indexed by filename, each BfLangConfig exists once */
@@ -152,6 +161,7 @@ typedef struct {
 									 BfLangConfig struct may be present several times for multiple
 									 mime-types. * /
 */
+	GtkTextTag *internal_tags[IT_NUM_OF_TAGS];
 } BfLangManager;
 
 BfLangManager *bf_lang_mgr_new();
@@ -199,14 +209,6 @@ enum {
 	BFTV_HL_MODE_VISIBLE
 };
 
-enum {
-	IT_FOLDED,
-	IT_FOLD_HEADER,
-	IT_BLOCK_MATCH,
-	IT_BLOCK,
-	IT_NUM_OF_TAGS	
-};
-
 typedef struct {
 	GtkTextView __parent__;
 	gchar bkg_color[8], fg_color[8];
@@ -225,7 +227,6 @@ typedef struct {
 	GHashTable *symbol_lines;
 	BfLangConfig *lang;
 	TBfScanner scanner;
-	GtkTextTag *internal_tags[IT_NUM_OF_TAGS];
 	GtkWidget *fold_menu;
 	gboolean need_rescan; /* this is set to true if the buffer is changed, but the
 						 widget is not visible to the user, the scanning is then postponed until 
