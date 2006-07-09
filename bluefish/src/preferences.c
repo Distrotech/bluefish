@@ -1169,68 +1169,58 @@ static void retrieve_arr_add_to_model(Tprefdialog *pd, GtkTreeIter *parent, GtkT
 }
 
 static void fill_hl_tree(Tprefdialog *pd) {
-	GList *tmplist1;
-	tmplist1= g_list_first(pd->lists[filetypes]);
-	while (tmplist1) {
-		gchar **strarr = (gchar **)tmplist1->data;
-		/* test if this filetype has a language file defined */
-		if (count_array(strarr)==FILETYPES_ARRAY_LEN) {
-			GtkTreeIter ftiter;
-			BfLangConfig *cfg;
-#ifndef GNOMEVFSINT
-			cfg = bf_lang_mgr_get_config(main_v->lang_mgr,strarr[7]);
-#else
-			cfg = NULL;
-			g_print("NEEDS FINISHING THIS BIT OF CODE\n ");
-#endif
-			if (cfg) {
-				GtkTreeIter giter, iiter;
-				GList *grouplist, *tmplist, *ilist, *tmplist2;
-				/* add the parent entry */
-				gtk_tree_store_append(pd->hld.tstore, &ftiter, NULL);
-				gtk_tree_store_set(pd->hld.tstore, &ftiter
-						,0,strarr[0],1,cfg->name,2, NULL,3,NULL, -1);
+	GList *tmplist;
+	tmplist = g_list_first(main_v->lang_mgr->languages);
+	while (tmplist) {
+		BfLangConfig *cfg = (BfLangConfig *)tmplist->data;
+		GtkTreeIter ftiter;
+		if (cfg) {
+			GtkTreeIter giter, iiter;
+			GList *grouplist, *tmplist, *ilist, *tmplist2;
+			/* add the parent entry */
+			gtk_tree_store_append(pd->hld.tstore, &ftiter, NULL);
+			gtk_tree_store_set(pd->hld.tstore, &ftiter
+					,0,cfg->name,1,cfg->name,2, NULL,3,NULL, -1);
 
-				/* add blocks/tokens/tags to the tree, the user doesn't need to know if something is a block, a token or 
-				a tag, so we insert their groups in the same level for the user */
-				grouplist = bf_lang_get_groups(cfg);
-				for (tmplist = g_list_first(grouplist);tmplist;tmplist = g_list_next(tmplist)) {
-					retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "g", tmplist->data);
-					/* get blocks for this group and add them */
-					ilist = bf_lang_get_blocks_for_group(cfg, tmplist->data);
-					for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
-						retrieve_arr_add_to_model(pd, &giter, &iiter, cfg->name, "b", tmplist2->data);
-					}
-					g_list_free(ilist);
-					/* get tokens for this group and add them */
-					ilist = bf_lang_get_tokens_for_group(cfg, tmplist->data);
-					for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
-						retrieve_arr_add_to_model(pd, &giter, &iiter, cfg->name, "t", tmplist2->data);
-					}
-					g_list_free(ilist);
-				}
-				g_list_free(grouplist);
-				/* now add blocks/tokens that do not have a group */
-				ilist = bf_lang_get_blocks_for_group(cfg, NULL);
+			/* add blocks/tokens/tags to the tree, the user doesn't need to know if something is a block, a token or 
+			a tag, so we insert their groups in the same level for the user */
+			grouplist = bf_lang_get_groups(cfg);
+			for (tmplist = g_list_first(grouplist);tmplist;tmplist = g_list_next(tmplist)) {
+				retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "g", tmplist->data);
+				/* get blocks for this group and add them */
+				ilist = bf_lang_get_blocks_for_group(cfg, tmplist->data);
 				for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
-					retrieve_arr_add_to_model(pd, &ftiter, &iiter, cfg->name, "b", tmplist2->data);
+					retrieve_arr_add_to_model(pd, &giter, &iiter, cfg->name, "b", tmplist2->data);
 				}
 				g_list_free(ilist);
-				ilist = bf_lang_get_tokens_for_group(cfg, NULL);
+				/* get tokens for this group and add them */
+				ilist = bf_lang_get_tokens_for_group(cfg, tmplist->data);
 				for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
-					retrieve_arr_add_to_model(pd, &ftiter, &iiter, cfg->name, "t", tmplist2->data);
+					retrieve_arr_add_to_model(pd, &giter, &iiter, cfg->name, "t", tmplist2->data);
 				}
 				g_list_free(ilist);
-				/* add tags if required */
-				if (bf_lang_needs_tags(cfg)) {
-					retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "m", "tag_begin");
-					retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "m", "tag_end");
-					retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "m", "attr_name");
-					retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "m", "attr_val");
-				}
+			}
+			g_list_free(grouplist);
+			/* now add blocks/tokens that do not have a group */
+			ilist = bf_lang_get_blocks_for_group(cfg, NULL);
+			for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
+				retrieve_arr_add_to_model(pd, &ftiter, &iiter, cfg->name, "b", tmplist2->data);
+			}
+			g_list_free(ilist);
+			ilist = bf_lang_get_tokens_for_group(cfg, NULL);
+			for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
+				retrieve_arr_add_to_model(pd, &ftiter, &iiter, cfg->name, "t", tmplist2->data);
+			}
+			g_list_free(ilist);
+			/* add tags if required */
+			if (bf_lang_needs_tags(cfg)) {
+				retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "m", "tag_begin");
+				retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "m", "tag_end");
+				retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "m", "attr_name");
+				retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "m", "attr_val");
 			}
 		}
-		tmplist1= g_list_next(tmplist1);
+		tmplist = g_list_next(tmplist);
 	}  
 }
 
