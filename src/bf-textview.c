@@ -22,7 +22,7 @@
  */
 
 /* #define DEBUG */
-#define HL_PROFILING
+/* #define HL_PROFILING */
 
 /*
 Typical scanner in compiler is an automata. To implement automata you
