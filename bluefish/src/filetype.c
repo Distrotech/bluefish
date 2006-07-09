@@ -22,7 +22,7 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines filetype.c
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 #include "config.h"
 
@@ -97,12 +97,12 @@ static void filetype_scan_langfiles(const gchar * dir) {
 	GPatternSpec *ps = g_pattern_spec_new("*.bflang"); 
 	GDir *gd = g_dir_open(dir, 0, &error);
 	if (!error) {
-		g_print("filetype_scan_langfiles, scanning %s\n",dir);
+		DEBUG_MSG("filetype_scan_langfiles, scanning %s\n",dir);
 		filename = g_dir_read_name(gd);
 		while (filename) {
 			if (g_pattern_match(ps, strlen(filename), filename, NULL)) {
 				gchar *path = g_strconcat(dir, filename, NULL);
-				g_print("filetype_scan_langfiles, loading %s in dir %s -> %s\n",filename,dir,path);
+				DEBUG_MSG("filetype_scan_langfiles, loading %s in dir %s -> %s\n",filename,dir,path);
 				bf_lang_mgr_load_config(path);
 				g_free(path);
 			}

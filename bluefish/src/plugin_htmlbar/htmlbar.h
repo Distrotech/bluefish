@@ -22,7 +22,7 @@
 #define __HTMLBAR_H_
 
 #define ENABLEPLUGINS
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include "../config.h"
