@@ -759,7 +759,8 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			DEBUG_MSG("file2doc_lcb, status=%d, now we should convert %s data into a GtkTextBuffer and such\n",status, gnome_vfs_uri_get_path(f2d->uri));
 			tmp = f2d->doc->encoding;
 			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
-/*			g_print("AFTER\n"); */
+			/* we should not use the doc_reset_filetype function if we have a filinfo already, but that is
+			also an async call so how do we know for sure that one is finished ? */
 			if (f2d->doc->hl == ((GList *)g_list_first(main_v->filetypelist))->data || f2d->doc->hl == NULL) {
 				doc_reset_filetype(f2d->doc, f2d->doc->uri, buffer);
 			}
