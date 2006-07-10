@@ -873,7 +873,7 @@ void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri) {
 	fi->doc->action.info = fi;
 	gnome_vfs_uri_ref(uri);
 	fi->uris = g_list_append(NULL, uri);
-	gnome_vfs_async_get_file_info(&fi->handle,fi->uris,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS
+	gnome_vfs_async_get_file_info(&fi->handle,fi->uris,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS
 			,GNOME_VFS_PRIORITY_DEFAULT,file_asyncfileinfo_lcb,fi);
 }
 

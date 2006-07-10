@@ -28,7 +28,7 @@
 #include <stdlib.h>         /* system() */
 #include <pcre.h>
 
-/* #define DEBUG */
+#define DEBUG
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -399,54 +399,50 @@ Tfiletype *get_filetype_by_filename_and_content(const gchar *filename, gchar *bu
  * Return value: void
  */
 void doc_set_tooltip(Tdocument *doc) {
-	gchar *text, *tmp;
-	gchar *encoding;
+	GString *retstr;
+	gchar *tmp;
 	gchar *mtimestr=NULL;
-	gchar *modestr=NULL, *sizestr=NULL;
+	gchar *sizestr=NULL;
+	
+	retstr = g_string_new(_("Name: "));
+	retstr = g_string_append(retstr, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
+	
+	if (doc->hl) {
+		retstr = g_string_append(retstr, _("\nUsing config: "));
+		retstr = g_string_append(retstr, doc->hl->type);
+	}
+	if (doc->encoding) {
+		retstr = g_string_append(retstr, _("\nEncoding: "));
+		retstr = g_string_append(retstr, doc->encoding);
+	}
 	DEBUG_MSG("doc_set_tooltip, fileinfo=%p for doc %s\n", doc->fileinfo, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 	if (doc->fileinfo) {
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_PERMISSIONS) {
 			tmp = filemode_to_string(doc->fileinfo->permissions);
-			modestr = g_strdup_printf("%s\nUid: %u Gid: %u",tmp,doc->fileinfo->uid,doc->fileinfo->gid);
+			g_string_append_printf(retstr, _("\nPermissions: %s\nUid: %u Gid: %u"),tmp,doc->fileinfo->uid,doc->fileinfo->gid);
 			g_free(tmp);
-		}
-		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) {
-			mtimestr = bf_portable_time(&doc->fileinfo->mtime);
 		}
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_SIZE) {
 			sizestr = gnome_vfs_format_file_size_for_display(doc->fileinfo->size);
+			retstr = g_string_append(retstr, _("\nSize (on disk): "));
+			retstr = g_string_append(retstr, sizestr);
+			g_free(sizestr);
+		}
+		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) {
+			retstr = g_string_append(retstr, _("\nMime type: "));
+			retstr = g_string_append(retstr, doc->fileinfo->mime_type);
+		}
+		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) {
+			/* this function always appends a newline to the string*/
+			mtimestr = bf_portable_time(&doc->fileinfo->mtime);
+			retstr = g_string_append(retstr, _("\nLast modified: "));
+			retstr = g_string_append(retstr, mtimestr);
+			g_free(mtimestr);
+			retstr = g_string_truncate(retstr,retstr->len-1);
 		}
 	}
-	if (doc->encoding) encoding = doc->encoding;
-	else if (BFWIN(doc->bfwin)->session->encoding) encoding = BFWIN(doc->bfwin)->session->encoding;
-	else encoding = main_v->props.newfile_default_encoding;
-	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
-							,_("\nType: "),doc->hl->type
-							,_("\nEncoding: "), encoding
-							,NULL);
-							
-	if (sizestr) {
-		text = g_strconcat(text, _("\nSize (on disk): "), sizestr, _(" bytes"), NULL);
-		g_free(tmp);
-		g_free(sizestr);
-		tmp = text;
-	}
-	if (modestr) {
-		text = g_strconcat(text, _("\nPermissions: "), modestr, NULL);
-		g_free(tmp);
-		g_free(modestr);
-		tmp = text;
-	}
-	if (mtimestr) {
-		trunc_on_char(mtimestr, '\n');
-		text = g_strconcat(text, _("\nLast modified: "), mtimestr, NULL);
-		g_free(tmp);
-		tmp = text;
-		g_free(mtimestr);
-	}
-
-	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, text, "");
-	g_free(text);
+	
+	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, g_string_free(retstr,FALSE), "");
 }
 /**
  * doc_set_filetype:
@@ -517,6 +513,7 @@ void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf) {
 	Tfiletype *ft=NULL;
 	GnomeVFSFileInfo info;
 	GnomeVFSResult res;
+	DEBUG_MSG("doc_reset_filetype, started\n");
 	res = gnome_vfs_get_file_info_uri(newuri,&info,GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
 	if (res == GNOME_VFS_OK) {
 		ft = get_filetype_for_mime_type(gnome_vfs_file_info_get_mime_type(&info));
@@ -535,6 +532,7 @@ void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf) {
 }
 
 void doc_set_filename(Tdocument *doc, GnomeVFSURI *newuri) {
+	DEBUG_MSG("doc_set_filename, started\n");
 	if (newuri) {
 		if (doc->uri) gnome_vfs_uri_unref(doc->uri);
 		doc->uri = newuri;
@@ -1661,6 +1659,7 @@ void doc_set_fileinfo(Tdocument *doc, GnomeVFSFileInfo *finfo) {
 		gnome_vfs_file_info_unref(doc->fileinfo);
 	}
 	gnome_vfs_file_info_ref(finfo);
+	DEBUG_MSG("doc_set_fileinfo, mime=%s\n",finfo->mime_type);
 	doc->fileinfo = finfo;
 	doc_set_tooltip(doc);
 }

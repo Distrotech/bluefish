@@ -1001,6 +1001,7 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 			filename = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
 			project_open_from_file(fb2->bfwin, filename);
 			g_free(filename);
+			return;
 		}
 	}
 	doc_new_from_uri(fb2->bfwin, uri, NULL, FALSE, FALSE, -1, -1);
