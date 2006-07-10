@@ -513,8 +513,9 @@ void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf) {
 	Tfiletype *ft=NULL;
 	GnomeVFSFileInfo info;
 	GnomeVFSResult res;
-	DEBUG_MSG("doc_reset_filetype, started\n");
-	res = gnome_vfs_get_file_info_uri(newuri,&info,GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE);
+	DEBUG_MSG("doc_reset_filetype, started, BUG, should be async\n");
+	/* BUG: WE SHOULD DO THIS ASYNC, BECAUSE THIS CAN BE VERY SLOW ON A NETWORK FILESYSTEM */
+	res = gnome_vfs_get_file_info_uri(newuri,&info,GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_SLOW_MIME_TYPE);
 	if (res == GNOME_VFS_OK) {
 		ft = get_filetype_for_mime_type(gnome_vfs_file_info_get_mime_type(&info));
 	}
