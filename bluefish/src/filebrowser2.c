@@ -633,7 +633,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	}
 	DEBUG_MSG("tree_model_filter_func, model=%p and fb2=%p, name=%s, mime=%s, and uri=",model,fb2,name,mime_type);
 	DEBUG_URI(uri, TRUE);
-	if (mime_type && strncmp(mime_type, "x-directory/normal",11)!=0) { /* file */
+	if (mime_type && strncmp(mime_type, "x-directory",11)!=0) { /* file */
 		if (main_v->props.filebrowser_two_pane_view) {
 			/* in the two paned view we don't show files in the dir view */
 			DEBUG_MSG("two paned view --> return FALSE\n");
@@ -743,23 +743,38 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
  *
  */
 gint filebrowser_sort_func(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpointer user_data) {
-	gchar *namea,*nameb;
-	gint typea, typeb, retval;
-	gtk_tree_model_get(GTK_TREE_MODEL(model), a, FILENAME_COLUMN, &namea, TYPE_COLUMN, &typea, -1);
-	gtk_tree_model_get(GTK_TREE_MODEL(model), b, FILENAME_COLUMN, &nameb, TYPE_COLUMN, &typeb, -1);
-	if ((typea <= -4 && typeb <= -4) || (typea >= -3 && typeb >= -3)) { /* two files, or two directories */
+	gchar *namea,*nameb,*mimea,*mimeb;
+	gboolean isdira,isdirb;
+	gint retval=0;
+	gtk_tree_model_get(GTK_TREE_MODEL(model), a, FILENAME_COLUMN, &namea, TYPE_COLUMN, &mimea, -1);
+	gtk_tree_model_get(GTK_TREE_MODEL(model), b, FILENAME_COLUMN, &nameb, TYPE_COLUMN, &mimeb, -1);
+	isdira = (mimea && strncmp(mimea,"x-directory",11)==0);
+	isdirb = (mimeb && strncmp(mimeb,"x-directory",11)==0);
+	if (isdira == isdirb) { /* both files, or both directories */
 		if (namea == nameb) {
 			retval = 0; /* both NULL */
 		} else if (namea == NULL || nameb == NULL) {
 			retval = (namea - nameb);
-		} else { /* sort by name */
+		} else { /* sort by name, first without extension */
+			gchar *dota,*dotb;
+			dota = strrchr(namea,'.');
+			dotb = strrchr(nameb,'.');
+			if (dota) *dota = '\0';
+			if (dotb) *dotb = '\0';
 			retval = strcmp(namea,nameb);
+			if (retval == 0) {
+				if (dota) *dota = '.';
+				if (dotb) *dotb = '.';
+				retval = strcmp(namea,nameb);
+			}
 		}
 	} else { /* a directory and a file */
-		retval = (typeb - typea);
+		retval = (isdirb - isdira);
 	}
 	g_free(namea);
 	g_free(nameb);
+	g_free(mimea);
+	g_free(mimeb);
 	return retval;
 }
 
@@ -837,6 +852,7 @@ static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 		DEBUG_MSG("refilter_filelist, set file list filter func, fb2=%p\n",fb2);
 		gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->file_lfilter),file_list_filter_func,fb2,NULL);
 		fb2->file_lsort = gtk_tree_model_sort_new_with_model(GTK_TREE_MODEL(fb2->file_lfilter));
+		gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(fb2->file_lsort), FILENAME_COLUMN,filebrowser_sort_func, NULL, NULL);
 		gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(fb2->file_lsort),FILENAME_COLUMN,GTK_SORT_ASCENDING);
 		DEBUG_MSG("refilter_filelist, connect file_v to new sort(%p)&filter(%p) model\n", fb2->file_lsort, fb2->file_lfilter);
 		gtk_tree_view_set_model(GTK_TREE_VIEW(fb2->file_v),GTK_TREE_MODEL(fb2->file_lsort));

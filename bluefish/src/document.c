@@ -441,8 +441,9 @@ void doc_set_tooltip(Tdocument *doc) {
 			retstr = g_string_truncate(retstr,retstr->len-1);
 		}
 	}
-	
-	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, g_string_free(retstr,FALSE), "");
+	tmp = g_string_free(retstr,FALSE);
+	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, tmp, "");
+	g_free(tmp);
 }
 /**
  * doc_set_filetype:
