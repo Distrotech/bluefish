@@ -392,6 +392,28 @@ static gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProg
 	return 1; 	/* Nautilus returns 1 by default for this callback */
 }
 
+/* we want to implement several backup scheme's, and a 
+restore option that uses the current backup scheme:
+
+* a filename prefix
+* a filename suffix (currently implemented)
+* a relative directory (and check if it exists, if not create it)
+* an absolute directory, here we need to  convert the uri into a form that 
+	is unique for each unique uri, and probably we want to provide 
+	a cleanup option too
+
+*/
+GnomeVFSURI *backup_uri_from_orig_uri(GnomeVFSURI * origuri) {
+	GnomeVFSURI *backupuri;
+	gchar *tmp, *tmp2;
+	tmp = gnome_vfs_uri_to_string(origuri,0);
+	tmp2 = g_strconcat(tmp, main_v->props.backup_filestring, NULL);
+	backupuri = gnome_vfs_uri_new(tmp2);
+	g_free(tmp);
+	g_free(tmp2);
+	return backupuri;
+}
+
 /*
  this function is called in the wrong thread by gnome_vfs, so we have to avoid threading issues:
  <gicmo> Oli4, the first thing is to use gdk_thread_enter () gdk_thread_leave ()
@@ -438,16 +460,11 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 		if (startbackup)  {
 			GList *sourcelist;
 			GList *destlist;
-			gchar *tmp, *tmp2;
 			GnomeVFSURI *dest;
 			GnomeVFSResult ret;
 			DEBUG_MSG("checkNsave_checkmodified_lcb, backup required (%d)\n",main_v->props.backup_file);
 			/* now first create the backup, then start save */
-			tmp = gnome_vfs_uri_to_string(cns->uri,0);
-			tmp2 = g_strconcat(tmp, main_v->props.backup_filestring, NULL);
-			dest = gnome_vfs_uri_new(tmp2);
-			g_free(tmp);
-			g_free(tmp2);
+			dest = backup_uri_from_orig_uri(cns->uri);
 			sourcelist = g_list_append(NULL, cns->uri);
 			gnome_vfs_uri_ref(cns->uri);
 			destlist = g_list_append(NULL, dest);
