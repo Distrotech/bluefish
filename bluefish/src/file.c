@@ -395,9 +395,8 @@ static gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProg
 /* we want to implement several backup scheme's, and a 
 restore option that uses the current backup scheme:
 
-* a filename prefix
+* a filename prefix (can be a relative directory, is currently implemented)
 * a filename suffix (currently implemented)
-* a relative directory (and check if it exists, if not create it)
 * an absolute directory, here we need to  convert the uri into a form that 
 	is unique for each unique uri, and probably we want to provide 
 	a cleanup option too
@@ -405,12 +404,25 @@ restore option that uses the current backup scheme:
 */
 GnomeVFSURI *backup_uri_from_orig_uri(GnomeVFSURI * origuri) {
 	GnomeVFSURI *backupuri;
-	gchar *tmp, *tmp2;
-	tmp = gnome_vfs_uri_to_string(origuri,0);
-	tmp2 = g_strconcat(tmp, main_v->props.backup_filestring, NULL);
-	backupuri = gnome_vfs_uri_new(tmp2);
-	g_free(tmp);
-	g_free(tmp2);
+	gchar *retval, *basedir, *filename;
+	filename = gnome_vfs_uri_extract_short_name(origuri);
+	
+	basedir = gnome_vfs_uri_to_string(origuri,0);
+	basedir[strlen(basedir)-strlen(filename)] = '\0';
+	
+	retval = g_strconcat(basedir,main_v->props.backup_prefix, filename, main_v->props.backup_suffix, NULL);
+	backupuri = gnome_vfs_uri_new(retval);
+	g_free(filename);
+	g_free(basedir);
+	g_free(retval);
+	/* if the prefix contains a slash, it is a separate directory */
+	if (strchr(main_v->props.backup_prefix,GNOME_VFS_URI_PATH_CHR)!=NULL) {
+		GnomeVFSURI *dir;
+		/* make sure that the directory exists */
+		dir = gnome_vfs_uri_get_parent(backupuri);
+		gnome_vfs_make_directory_for_uri(dir, 0770);
+		gnome_vfs_uri_unref(dir);
+	}
 	return backupuri;
 }
 
