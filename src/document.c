@@ -2422,7 +2422,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 
 	if (doc->uri) {
 		if (main_v->props.backup_cleanuponclose) {
-			GnomeVFSURI *backupuri = add_suffix_to_uri(doc->uri, main_v->props.backup_filestring);
+			GnomeVFSURI *backupuri = backup_uri_from_orig_uri(doc->uri);
 			gnome_vfs_unlink_from_uri(backupuri);
 			gnome_vfs_uri_unref(backupuri);
 		}

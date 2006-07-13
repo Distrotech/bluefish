@@ -389,7 +389,6 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.highlight_num_lines_count, "highlight_num_lines_count:", 5, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE);
 	/* old type filetypes have a different count, they are converted below */
-	init_prop_arraylist (&config_rc, &main_v->props.filetypes, "filetypes:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.numcharsforfiletype, "numcharsforfiletype:", 200, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);	
@@ -398,7 +397,8 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 10, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.backup_file,"backup_file:",1, TRUE);
-	init_prop_string    (&config_rc, &main_v->props.backup_filestring,"backup_filestring:","~");
+	init_prop_string    (&config_rc, &main_v->props.backup_suffix,"backup_suffix:","~");
+	init_prop_string    (&config_rc, &main_v->props.backup_prefix,"backup_prefix:","");
 	init_prop_integer   (&config_rc, &main_v->props.backup_abort_action,"backup_abort_action:",DOCUMENT_BACKUP_ABORT_ASK, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.backup_cleanuponclose,"backup_cleanuponclose:",0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.image_thumbnailstring, "image_thumbnailstring:", "_thumbnail");
@@ -651,62 +651,6 @@ void rcfile_parse_main(void)  {
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 	}
 	*/
-	{
-		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"filetypes",
-									"data/filetypes",
-									"../data/filetypes",NULL);
-		if (main_v->props.filetypes == NULL) {
-			/* if the user does not have file-types --> set them to defaults values */
-			if (defaultfile) {
-				main_v->props.filetypes = get_list(defaultfile,NULL,TRUE);
-			} else {
-				g_print("Unable to find '"PKGDATADIR"filetypes'\n");
-			}
-		} else {
-			if (defaultfile && config_file_is_newer(main_v->globses.lasttime_filetypes,defaultfile)) {
-				main_v->props.filetypes = arraylist_load_new_identifiers_from_file(main_v->props.filetypes,defaultfile,1);
-				main_v->globses.lasttime_filetypes = TIME_T_TO_GINT(time(NULL));
-			}
-		}
-		g_free(defaultfile);
-	}
-	/* for backwards compatibility with old filetypes, 
-		before version 0.10 had length 4, 
-		before version 0.13 had length 6
-		after version 0.13 has length 7
-		after version 1.0.* the length is 8  */
-	{
-		GList *tmplist = g_list_first(main_v->props.filetypes);
-		while (tmplist) {
-			gchar **orig = (gchar **)tmplist->data;
-			gchar *bflangname;
-			
-			bflangname = g_strconcat(orig[0],".bflang",NULL);
-			if (count_array(orig)==4) {
-				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], "1", "", "1", bflangname, NULL);
-				tmplist->data = new;
-				g_strfreev(orig);
-			}
-			if (count_array(orig)==6) {
-				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], orig[4], orig[5], "0", bflangname, NULL);
-				tmplist->data = new;
-				if (strcmp(orig[0], "xml")==0) {
-					new[6][0] = '1';
-				} else if (strcmp(orig[0], "html")==0 || strcmp(orig[0], "php")==0 || strcmp(orig[0], "jsp")==0 || strcmp(orig[0], "cfml")==0) {
-					new[6][0] = '2';
-				}
-				g_strfreev(orig);
-			}
-			if (count_array(orig)==7) {
-				gchar **new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], orig[4], orig[5], orig[6], bflangname, NULL);
-				tmplist->data = new;
-				g_strfreev(orig);
-			}
-			g_free(bflangname);
-			
-			tmplist = g_list_next(tmplist);
-		}
-	}
 	
 	/* initialize the default textstyles */
 	if (main_v->props.textstyles == NULL) {

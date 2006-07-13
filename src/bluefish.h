@@ -211,7 +211,6 @@ typedef struct {
 	GList *cmenu_replace; /* custom menu replaces */
 	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */	
 	gint defaulthighlight;		/* highlight documents by default */
-	GList *filetypes; /* filetypes for highlighting and filtering */
 	gint numcharsforfiletype; /* maximum number of characters in the file to use to find the filetype */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint restore_dimensions; /* use the dimensions as used the previous run */
@@ -219,7 +218,8 @@ typedef struct {
 	gint max_recent_files;	/* length of Open Recent list */
 	gint max_dir_history;	/* length of directory history */
 	gint backup_file; 			/* wheather to use a backup file */
-	gchar *backup_filestring;  /* the string to append to the backup file */
+	gchar *backup_suffix;  /* the string to append to the backup filename */
+	gchar *backup_prefix;  /* the string to prepend to the backup filename (between the directory and the filename) */
 	gint backup_abort_action; /* if the backup fails, 0=continue save  , 1=abort save, 2=ask the user */
 	gint backup_cleanuponclose; /* remove the backupfile after close ? */
 	gchar *image_thumbnailstring;	/* string to append to thumbnail filenames */

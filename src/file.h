@@ -88,7 +88,7 @@ typedef enum {
 	CHECKNSAVE_STOP,
 	CHECKNSAVE_CONT
 } TcheckNsave_return;
-
+GnomeVFSURI *backup_uri_from_orig_uri(GnomeVFSURI * origuri);
 typedef TcheckNsave_return (* CheckNsaveAsyncCallback) (TcheckNsave_status status,gint error_info,gpointer callback_data);
 gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data);
 
