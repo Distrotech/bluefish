@@ -249,8 +249,8 @@ GtkWidget *bf_textview_new(void)
 GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer)
 {
 	BfTextView *o = GET_NEW;
-	gtk_text_view_set_buffer(GTK_TEXT_VIEW(o), buffer);
 	GdkBitmap *bmp;
+	gtk_text_view_set_buffer(GTK_TEXT_VIEW(o), buffer);
 
 	g_signal_connect(G_OBJECT(o), "expose-event", G_CALLBACK(bf_textview_expose_cb), NULL);
 	o->markset_signal_id =
@@ -480,8 +480,9 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 		if (BF_TEXTVIEW(widget)->show_symbols) {	/* show symbols */
 
 			if (!gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_FOLDED])) {
+				GSList *lst3;
 				gc = gdk_gc_new(GDK_DRAWABLE(left_win));
-				GSList *lst3 = gtk_text_iter_get_marks(&it);
+				lst3 = gtk_text_iter_get_marks(&it);
 				aux = NULL;
 				while (lst3) {
 					aux = g_hash_table_lookup(BF_TEXTVIEW(widget)->symbol_lines, lst3->data);
@@ -1174,8 +1175,9 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 
 			if (i == size - 1 || (i == size - 2 && *(input + 1) == '+')
 				|| (i == size - 2 && *(input + 1) == '*') || (i == size - 2 && *(input + 1) == '?')) {
+				BfState *final;
 				auxlst = g_list_first(states);
-				BfState *final = g_new0(BfState, 1);
+				final = g_new0(BfState, 1);
 				final->data = data;
 				final->type = type;
 				while (auxlst) {
@@ -1235,11 +1237,13 @@ static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * 
 	if ( text!=NULL && strcmp(text,"")==0 ) return NULL;
 	switch (type) {
 	case ST_TOKEN:
+		{
+		BfLangToken *t;
 		if (text == NULL)
 			tmps = xmlNodeListGetString(doc, node->xmlChildrenNode, 1);
 		else
 			tmps = text;
-		BfLangToken *t = g_new0(BfLangToken, 1);
+		t = g_new0(BfLangToken, 1);
 		t->type = TT_NORMAL;
 		t->group = group;
 		tmps2 = xmlGetProp(node, (const xmlChar *) "regexp");
@@ -1282,6 +1286,7 @@ static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * 
 			bftv_scantable_insert(&cfg->scan_table, ST_TOKEN, t, cfg);
 		g_hash_table_insert(cfg->tokens, &t->name, t);
 		return t;
+		}
 		break;
 	case ST_BLOCK_BEGIN:
 		tmps = xmlGetProp(node, (const xmlChar *) "id");
@@ -1508,8 +1513,9 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 					} else if (xmlStrcmp(cur2->name, (const xmlChar *) "token-list") == 0) {
 						tmps2 = xmlGetProp(cur2, (const xmlChar *) "separator");
 						if (tmps2) {
+							gchar **arr;
 							tmps = xmlNodeListGetString(doc, cur2->xmlChildrenNode, 1);
-							gchar **arr = g_strsplit(tmps, tmps2, -1);
+							arr = g_strsplit(tmps, tmps2, -1);
 							xmlFree(tmps2);
 							if (arr) {
 								gint i = 0;
@@ -1537,8 +1543,9 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 			else if (xmlStrcmp(cur->name, (const xmlChar *) "token-list") == 0) {	/* token  * list  * without  * a  * group  */
 				tmps2 = xmlGetProp(cur, (const xmlChar *) "separator");
 				if (tmps2) {
+					gchar **arr;
 					tmps = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-					gchar **arr = g_strsplit(tmps, tmps2, -1);
+					arr = g_strsplit(tmps, tmps2, -1);
 					xmlFree(tmps2);
 					if (arr) {
 						gint i = 0;
@@ -1582,6 +1589,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 
 
 		if (cfg->scan_tags) {
+			BfLangBlock *b;
 			BfLangToken *t = g_new0(BfLangToken, 1);
 			t->group = NULL;
 			t->regexp = TRUE;
@@ -1592,7 +1600,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 			bftv_scantable_insert(&cfg->scan_table, ST_TOKEN, t, cfg);
 			g_hash_table_insert(cfg->tokens, &t->name, t);
 
-			BfLangBlock *b = g_new0(BfLangBlock, 1);
+			b = g_new0(BfLangBlock, 1);
 			b->name = xmlCharStrdup("_tag_begin_");
 			b->group = NULL;
 			b->regexp = TRUE;
@@ -1645,7 +1653,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 
 		if ( cfg->schema_aware )
 		{
-		
+			BfLangToken *t;
 			BfLangBlock *b = g_new0(BfLangBlock, 1);
 			b->name = xmlCharStrdup("_doctype_internal_");
 			b->group = NULL;
@@ -1661,7 +1669,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 			bftv_scantable_insert(&cfg->scan_table, ST_BLOCK_BEGIN, b, cfg);
 			bftv_scantable_insert(&b->scan_table, ST_BLOCK_END, b, cfg);
 					
-			BfLangToken *t = g_new0(BfLangToken, 1);
+			t = g_new0(BfLangToken, 1);
 			t->group = NULL;
 			t->regexp = TRUE;
 			t->name = xmlCharStrdup("_doctype_");
@@ -1678,6 +1686,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 			gunichar c;
 			gchar *pstr, *tofree, *pstr2;
 			gchar out[6];
+			BfLangToken *t;
 
 			pstr = g_strdup("");
 			for (c = 0; c < BFTV_SCAN_RANGE; c++) {
@@ -1714,7 +1723,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 			pstr = g_strdup_printf("%s[%s]*", pstr, pstr2);
 			g_free(tofree);
 			g_free(pstr2);
-			BfLangToken *t = g_new0(BfLangToken, 1);
+			t = g_new0(BfLangToken, 1);
 			t->group = NULL;
 			t->regexp = TRUE;
 			t->name = xmlCharStrdup("_fake_ident_");
@@ -2236,9 +2245,9 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 									bf = NULL;
 								}
 								if (bf) {
-									mark = mark2 = NULL;
 									GtkTextMark *mark3, *mark4;
 									gboolean do_mark = TRUE;
+									mark = mark2 = NULL;
 
 									mark3 = bftv_get_block_at_iter(&bf->b_start);
 
@@ -2250,6 +2259,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 											do_mark = FALSE;
 									}
 									if (do_mark) {
+										BlockInfo *bi2;
 										mark =
 											gtk_text_buffer_create_mark(buf, NULL, &bf->b_start,
 																		FALSE);
@@ -2266,7 +2276,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 										bi->refe1 = mark3;
 										bi->refe2 = mark4;
 										g_object_set_data(G_OBJECT(mark), "bi", bi);
-										BlockInfo *bi2 = g_new0(BlockInfo, 1);
+										bi2 = g_new0(BlockInfo, 1);
 										bi2->type = BI_END;
 										bi2->folded = FALSE;
 										bi2->tagname = g_strdup(arr2[0]);
@@ -2388,8 +2398,9 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 					BfLangBlock *tmp = (BfLangBlock *) current_state->data;
 					bf = g_queue_peek_head(&(self->scanner.block_stack));
 					if (bf && bf->def == tmp) {
+						TBfBlock *aux;
 						g_queue_pop_head(&(self->scanner.block_stack));
-						TBfBlock *aux =
+						aux =
 							(TBfBlock *) g_queue_peek_head(&(self->scanner.block_stack));
 						if (aux)
 							self->scanner.current_context = aux->def;
@@ -2402,11 +2413,12 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 						switch (tmp->type) {
 						case BT_TAG_BEGIN:
 							{
+								TBfBlock *bf_2;
 								gboolean just_ended = FALSE;
 								if (self->scanner.last_tagname)
 									g_free(self->scanner.last_tagname);
 								self->scanner.last_tagname = NULL;
-								TBfBlock *bf_2 = g_new0(TBfBlock, 1);
+								bf_2 = g_new0(TBfBlock, 1);
 								bf_2->tagname = g_strdup(bf->tagname);
 								bf_2->b_start = bf->b_start;
 								bf_2->b_end = ita;
@@ -2472,9 +2484,9 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 							/* not breaking here - I want next code */	
 						default:
 							{
-								mark = mark2 = NULL;
 								GtkTextMark *mark3, *mark4;
 								gboolean do_mark = TRUE;
+								mark = mark2 = NULL;
 
 								mark3 = bftv_get_block_at_iter(&bf->b_start);
 								if (mark3) {
@@ -2483,6 +2495,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 										do_mark = FALSE;
 								}
 								if (do_mark) {
+									BlockInfo *bi2;
 									mark =
 										gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, FALSE);
 									mark2 =
@@ -2497,7 +2510,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 									bi->refe1 = mark3;
 									bi->refe2 = mark4;
 									g_object_set_data(G_OBJECT(mark), "bi", bi);
-									BlockInfo *bi2 = g_new0(BlockInfo, 1);
+									bi2 = g_new0(BlockInfo, 1);
 									bi2->type = BI_END;
 									bi2->folded = FALSE;
 									bi2->data = tmp;
@@ -2678,10 +2691,11 @@ void bf_textview_set_match_blocks(BfTextView * self, gboolean on)
 
 gboolean bf_textview_add_symbol(BfTextView * self, gchar * name, GdkPixbuf * pix)
 {
+	BfTextViewSymbol *sym;
 	gpointer ptr = g_hash_table_lookup(self->symbols, name);
 	if (ptr)
 		return FALSE;
-	BfTextViewSymbol *sym = g_new0(BfTextViewSymbol, 1);
+	sym = g_new0(BfTextViewSymbol, 1);
 	sym->name = g_strdup(name);
 	sym->pixmap = gdk_pixbuf_scale_simple(pix, 10, 10, GDK_INTERP_BILINEAR);
 	g_hash_table_insert(self->symbols, name, sym);

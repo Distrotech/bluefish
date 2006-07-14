@@ -322,10 +322,10 @@ void doc_entities_to_utf8(Tdocument *doc, gint start, gint end, gboolean numeric
 
 gchar *utf8_to_entities(const gchar *inbuf, gboolean iso8859_1, gboolean symbols, gboolean specials, gboolean xml) {
 	gchar *outbuf;
-	/* we use a lot of memory for this function, but it makes the code simple */
-	outbuf = g_malloc0(8 * strlen(inbuf)*sizeof(gchar));
 	const gchar *srcp = inbuf;
 	gunichar unichar = g_utf8_get_char(inbuf);
+	/* we use a lot of memory for this function, but it makes the code simple */
+	outbuf = g_malloc0(8 * strlen(inbuf)*sizeof(gchar));
 	while (unichar) {
 		gchar *entity;
 		entity = entity_for_unichar(unichar, iso8859_1, symbols, specials, xml);

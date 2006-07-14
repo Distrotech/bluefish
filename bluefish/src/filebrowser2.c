@@ -1156,10 +1156,11 @@ static void rcpopup_async_delete_lcb(gpointer data) {
 	GnomeVFSURI *uri = data;
 	if (uri) {
 		GList *alldocs;
+		Tdocument *exdoc;
 		fb2_refresh_parent_of_uri(uri);
 		
 		alldocs = return_allwindows_documentlist();
-		Tdocument *exdoc = documentlist_return_document_from_uri(alldocs, uri);
+		exdoc = documentlist_return_document_from_uri(alldocs, uri);
 		if (exdoc) {
 			document_unset_filename(exdoc);
 		}
