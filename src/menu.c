@@ -547,9 +547,9 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	filetype_menu_rebuild(bfwin, item_factory);
 	{
 		guint key;	
+		GdkModifierType mod;
 		main_v->autocompletion->closure = g_cclosure_new(G_CALLBACK(menu_autocomp_run),bfwin,NULL);
 		main_v->autocompletion->group = accel_group;
-		GdkModifierType mod;
 		gtk_accelerator_parse(main_v->props.autocomp_key,&key,&mod);
 		gtk_accel_group_connect(main_v->autocompletion->group,key,mod,GTK_ACCEL_VISIBLE, main_v->autocompletion->closure);
 		

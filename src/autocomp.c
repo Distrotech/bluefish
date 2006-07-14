@@ -145,6 +145,7 @@ Tautocomp *ac_init()
 gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, gboolean empty_allowed,gchar *append) 
 {
 	GtkTextIter it,it3;
+	GdkScreen *screen;
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(view);
 	GdkRectangle rect;
 	gint x,y,w,h,len=0;	
@@ -158,7 +159,7 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 	gchar **arr;
 	
 	if ( !view || !ac || (!empty_allowed && strcmp(prefix,"")==0) ) return NULL;	
-	GdkScreen *screen = gtk_widget_get_screen(GTK_WIDGET(view));
+	screen = gtk_widget_get_screen(GTK_WIDGET(view));
 	gtk_text_buffer_get_iter_at_mark(buf,&it,gtk_text_buffer_get_insert(buf));
 	gtk_text_view_get_iter_location(view,&it,&rect);
 	gtk_text_view_buffer_to_window_coords(view, GTK_TEXT_WINDOW_TEXT, rect.x, rect.y,&rect.x, &rect.y);
