@@ -64,8 +64,8 @@ enum {
 	max_recent_files,             /* length of Open Recent list */
 	max_dir_history,              /* length of directory history */
 	backup_file,                  /* wheather to use a backup file */
-	backup_suffix,            /* the string to append to the backup file */
-	backup_prefix,            /* the string to prepend to the backup file */
+	backup_suffix,                /* the string to append to the backup file */
+	backup_prefix,                /* the string to prepend to the backup file */
 	backup_abort_action,          /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
 	backup_cleanuponclose,        /* remove the backupfile after close ? */
 	image_thumbnailstring,        /* string to append to thumbnail filenames */
@@ -1835,8 +1835,10 @@ static void restore_dimensions_toggled_lcb(GtkToggleButton *togglebutton,Tprefdi
 	gtk_widget_set_sensitive(pd->prefs[main_window_w], !togglebutton->active);
 }
 static void create_backup_toggled_lcb(GtkToggleButton *togglebutton,Tprefdialog *pd) {
-	gtk_widget_set_sensitive(pd->prefs[backup_file], togglebutton->active);
-	gtk_widget_set_sensitive(pd->prefs[backup_abort_action], togglebutton->active);
+    gtk_widget_set_sensitive(pd->prefs[backup_prefix], togglebutton->active);
+    gtk_widget_set_sensitive(pd->prefs[backup_suffix], togglebutton->active);
+    gtk_widget_set_sensitive(pd->prefs[backup_abort_action], togglebutton->active);
+    gtk_widget_set_sensitive(pd->prefs[backup_cleanuponclose], togglebutton->active);
 }
 
 void preftree_cursor_changed_cb (GtkTreeView *treeview, gpointer user_data) {
