@@ -51,8 +51,7 @@ enum {
 	editor_tab_width,             /* editor tabwidth */
 	editor_indent_wspaces,
 	editor_smart_cursor,
-	tab_font_string,              /* notebook tabs font */
-	highlight_num_lines_count,    /* number of lines to highlight in continous highlighting */	
+	tab_font_string,              /* notebook tabs font */	
 	defaulthighlight,             /* highlight documents by default */
 	transient_htdialogs,          /* set html dialogs transient ro the main window */
 	restore_dimensions,
@@ -1700,7 +1699,6 @@ static void preferences_apply(Tprefdialog *pd) {
 	}
 
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
-	integer_apply(&main_v->props.highlight_num_lines_count, pd->prefs[highlight_num_lines_count], FALSE);
 
 /*	integer_apply(&main_v->props.bookmarks_default_store, pd->prefs[bookmarks_default_store], TRUE);
 	main_v->props.bookmarks_filename_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[bookmarks_filename_mode]));*/
@@ -1980,7 +1978,6 @@ static void preferences_dialog() {
 	pd->prefs[view_blocks] = boxed_checkbut_with_value(_("Block folding view by default"), main_v->props.view_blocks, vbox2);
 	pd->prefs[view_symbols] = boxed_checkbut_with_value(_("Symbols view by default"), main_v->props.view_symbols, vbox2);
 	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
-	pd->prefs[highlight_num_lines_count] = prefs_integer(_("Highlight # lines"), main_v->props.highlight_num_lines_count, vbox2, pd, 1, 8);
 
 	frame = gtk_frame_new(_("Undo options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
