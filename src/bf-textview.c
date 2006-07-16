@@ -1771,6 +1771,35 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 
 
 /* --------------------   LANGUAGE MANAGER -------------------------------*/
+static void bf_lang_mgr_build_internal_tags(BfLangManager *mgr) {
+	mgr->internal_tags[IT_BLOCK_MATCH] = textstyle_get("_block_match_");
+	if (mgr->internal_tags[IT_BLOCK_MATCH] == NULL) {
+		mgr->internal_tags[IT_BLOCK_MATCH] = gtk_text_tag_new("_block_match_");
+		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_BLOCK_MATCH]);
+		g_object_set(mgr->internal_tags[IT_FOLD_HEADER], "background", "#F7F3D2", NULL);
+	}
+	mgr->internal_tags[IT_BLOCK] = textstyle_get("_block_");
+	if (mgr->internal_tags[IT_BLOCK] == NULL) {
+		mgr->internal_tags[IT_BLOCK] = gtk_text_tag_new("_block_");
+		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_BLOCK]);	
+	}
+	mgr->internal_tags[IT_FOLDED] = textstyle_get("_folded_");
+	if (mgr->internal_tags[IT_FOLDED] == NULL) {
+		mgr->internal_tags[IT_FOLDED] = gtk_text_tag_new("_folded_");
+		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_FOLDED]);
+		g_object_set(mgr->internal_tags[IT_FOLDED], "editable", FALSE, "invisible", TRUE, NULL);
+	}
+	mgr->internal_tags[IT_FOLD_HEADER] = textstyle_get("_fold_header_");
+	if (mgr->internal_tags[IT_FOLD_HEADER] == NULL) {
+		GdkBitmap *bmp;
+		bmp = gdk_bitmap_create_from_data(NULL, folded_xbm, 2, 2);
+		mgr->internal_tags[IT_FOLD_HEADER] = gtk_text_tag_new("_fold_header_");
+		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_FOLD_HEADER]);
+		g_object_set(mgr->internal_tags[IT_FOLD_HEADER], "editable", FALSE, "background", "#F7F3D2", "foreground-stipple", bmp, NULL);
+		g_object_unref(bmp);
+	}
+}
+
 BfLangManager *bf_lang_mgr_new()
 {
 	BfLangManager *ret = g_new0(BfLangManager, 1);
@@ -1884,7 +1913,6 @@ GList *bf_lang_get_tokens_for_group(BfLangConfig * cfg, guchar * group)
 	return lst;
 }
 
-
 gboolean bf_lang_needs_tags(BfLangConfig * cfg)
 {
 	return cfg->scan_tags;
@@ -1922,35 +1950,6 @@ static void bf_lang_retag(gpointer value, gpointer udata)
 	
 }
 
-void bf_lang_mgr_build_internal_tags(BfLangManager *mgr) {
-	mgr->internal_tags[IT_BLOCK_MATCH] = textstyle_get("_block_match_");
-	if (mgr->internal_tags[IT_BLOCK_MATCH] == NULL) {
-		mgr->internal_tags[IT_BLOCK_MATCH] = gtk_text_tag_new("_block_match_");
-		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_BLOCK_MATCH]);
-		g_object_set(mgr->internal_tags[IT_FOLD_HEADER], "background", "#F7F3D2");
-	}
-	mgr->internal_tags[IT_BLOCK] = textstyle_get("_block_");
-	if (mgr->internal_tags[IT_BLOCK] == NULL) {
-		mgr->internal_tags[IT_BLOCK] = gtk_text_tag_new("_block_");
-		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_BLOCK]);	
-	}
-	mgr->internal_tags[IT_FOLDED] = textstyle_get("_folded_");
-	if (mgr->internal_tags[IT_FOLDED] == NULL) {
-		mgr->internal_tags[IT_FOLDED] = gtk_text_tag_new("_folded_");
-		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_FOLDED]);
-		g_object_set(mgr->internal_tags[IT_FOLDED], "editable", FALSE, "invisible", TRUE, NULL);
-	}
-	mgr->internal_tags[IT_FOLD_HEADER] = textstyle_get("_fold_header_");
-	if (mgr->internal_tags[IT_FOLD_HEADER] == NULL) {
-		GdkBitmap *bmp;
-		bmp = gdk_bitmap_create_from_data(NULL, folded_xbm, 2, 2);
-		mgr->internal_tags[IT_FOLD_HEADER] = gtk_text_tag_new("_fold_header_");
-		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_FOLD_HEADER]);
-		g_object_set(mgr->internal_tags[IT_FOLD_HEADER], "editable", FALSE, "background", "#F7F3D2", "foreground-stipple", bmp, NULL);
-		g_object_unref(bmp);
-	}
-}
-
 void bf_lang_mgr_retag(void) {
 
 	g_list_foreach(main_v->lang_mgr->languages,bf_lang_retag,NULL);
@@ -1959,8 +1958,6 @@ void bf_lang_mgr_retag(void) {
 	to set them. */
 	bf_lang_mgr_build_internal_tags(main_v->lang_mgr);
 }
-
-
 /* -------------------- /LANGUAGE MANAGER  -------------------------------*/
 
 /* -------------------- FOLDING  -------------------------------*/
