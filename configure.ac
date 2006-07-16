@@ -227,6 +227,7 @@ if test "x$PKG_CONFIG" = "xno" ; then
 	AC_MSG_ERROR([pkg-config not found please install pkg-config])
 fi
 
+# gtk-2.6 was released with gnome-2.10
 echo -n "checking for gtk+ ... "
 if pkg-config --exists gtk+-2.0 ; then
 	if pkg-config gtk+-2.0 --atleast-version=2.6; then
@@ -271,9 +272,9 @@ if pkg-config --exists gdk-2.0; then
 	PKGCONFIGFILES="${PKGCONFIGFILES} gdk-2.0"
 fi
 echo " done"
-
+# gnome-2.10 and gtk-2.6 were released with gnome_vfs 2.10
 echo -n "checking for gnome-vfs-2.0... "
-if pkg-config --exists gnome-vfs-2.0 --atleast-version=2.8 ; then
+if pkg-config --exists gnome-vfs-2.0 --atleast-version=2.10 ; then
 	PKGCONFIGFILES="${PKGCONFIGFILES} gnome-vfs-2.0"
 	echo "yes, `pkg-config --modversion gnome-vfs-2.0`"
 	BF_APP_EXPECT_URIS="true"
@@ -281,17 +282,16 @@ if pkg-config --exists gnome-vfs-2.0 --atleast-version=2.8 ; then
 	AC_SUBST(BF_APP_EXPECT_URIS)
 	AC_SUBST(BF_APP_SUPPORTED_URI_SCHEMES)
 else
-	AC_MSG_ERROR([gnome-vfs >= 2.8 is required, please install libgnomevfs2-dev])
+	AC_MSG_ERROR([gnome-vfs >= 2.10 is required, please install libgnomevfs2-dev])
 fi
 
-#echo -n "checking for gnome-vfs >= 2.8... "
-#if pkg-config gnome-vfs-2.0 --atleast-version=2.8 ; then
-#	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_8)
-#	echo "yes"
-#else
-#	echo "no"
-#	AC_MSG_ERROR([gnome-vfs 2.8 is required, please upgrade to at least 2.8])
-#fi
+echo -n "checking for gnome-vfs >= 2.14... "
+if pkg-config gnome-vfs-2.0 --atleast-version=2.14 ; then
+	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_14)
+	echo "yes"
+else
+	echo "no"
+fi
 
 echo -n "checking for libxml... "
 if pkg-config --exists libxml-2.0 ; then
