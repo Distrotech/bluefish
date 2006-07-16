@@ -44,7 +44,7 @@ Tfiletype *get_filetype_by_name(const gchar *name);
 #ifndef GNOMEVFSINT
 Tfiletype *get_filetype_by_filename_and_content(const gchar *filename, gchar *buf);
 #endif
-void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf);
+void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gconstpointer buf, gssize buflen);
 void doc_set_font(Tdocument *doc, gchar *fontstring);
 void doc_set_tabsize(Tdocument *doc, gint tabsize);
 void gui_change_tabsize(Tbfwin *bfwin,guint action,GtkWidget *widget);
