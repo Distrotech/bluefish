@@ -38,6 +38,7 @@ DEFAULTFILES = \
     css.bflang \
     html.bflang \
     java.bflang \
+    perl.bflang \
     php.bflang \
     plain.bflang \
     po.bflang \
@@ -131,4 +132,3 @@ distclean: clean
 		*.rej \
 		*.orig \
 		*~
-
