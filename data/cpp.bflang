@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+
+<bflang name="C++" description="C++ Programming Language">
+
+<mimetypes>
+<mimetype type="text/x-c++hdr" />
+<mimetype type="text/x-c++src" />
+</mimetypes>
+
+<options>
+    <option name="case-sensitive">true</option>
+    <option name="scan-markup-tags">false</option>
+    <option name="scan-blocks">true</option>
+    <option name="auto-scan-triggers">*/(){}'[]\n#";&lt;&gt;&#032;&#013;</option>
+    <option name="escape-characters">\</option>
+</options>
+
+<block-group id="blocks">
+<block id="braces" begin="{" end="}" scanned="true" foldable="true" markup="false" case="true" />
+<block id="square braces" begin="[" end="]" scanned="true" foldable="false" markup="false" case="true" />
+<block id="round braces" begin="(" end=")" scanned="true" foldable="false" markup="false" case="true" />
+<block id="comment" begin="/*" end="*/" scanned="false" foldable="true" markup="false" case="true" defaultstyle="comment"/>
+</block-group>
+
+<token-group id="general">
+ <token name="string" regexp="true" defaultstyle="string">&quot;[^&quot;]*&quot;</token>
+ <token name="character" regexp="true" defaultstyle="string">&apos;[^&apos;]&apos;</token>
+ <token name="line comment" regexp="true" defaultstyle="comment">//[^&#x0A;]*</token>
+</token-group>
+
+
+<token-group id="preprocessor" defaultstyle="preprocessor">
+ <token-list name="directives" separator=",">#include,#define,#ifdef,#ifndef,#else,#elif,#endif,#undef</token-list>
+</token-group>
+
+
+<token-group id="keywords" defaultstyle="keyword">
+  <token-list name="keywords" separator=",">asm,break,case,catch,continue,default,do,else,for</token-list>
+  <token-list name="keywords2" separator=",">goto,if,inline,return,sizeof,switch,throw,try,while</token-list>
+</token-group>
+
+<token-group id="storage keywords" defaultstyle="keyword-blue">
+ <token-list name="skeywords" separator=",">auto,bool,char,class,const,double,enum,extern,float,friend,int,long,mutable</token-list>
+ <token-list name="skeywords2" separator=",">register,short,signed,static,struct,typedef,union,unsigned,void,volatile,wchar_t</token-list>
+</token-group>
+
+<token-group id="c++ keywords" defaultstyle="keyword-red">
+<token-list name="c++keywords" separator=",">delete,explicit,namespace,new,operator,private,protected,public,template,this,typeid,typename,using,virtual</token-list>
+<token-list name="c++keywords2" separator=",">const_cast,dynamic_cast,reinterpret_cast,static_cast</token-list>
+</token-group>
+
+<token-group id="other" defaultstyle="variable">
+ <token-list name="defines" separator=",">NULL,false,true</token-list>
+ <token name="number" regexp="true">[0-9]+.?[0-9]*</token>
+ <token name="hex number" regexp="true">0x[0-9]+</token>
+</token-group>
+
+</bflang>
