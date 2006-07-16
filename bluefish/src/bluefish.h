@@ -207,8 +207,7 @@ typedef struct {
 	
 	GList *cust_menu; 		/* DEPRECATED entries in the custom menu */
 	GList *cmenu_insert; /* custom menu inserts */
-	GList *cmenu_replace; /* custom menu replaces */
-	gint highlight_num_lines_count; /* number of lines to highlight in continous highlighting */	
+	GList *cmenu_replace; /* custom menu replaces */	
 	gint defaulthighlight;		/* highlight documents by default */
 	gint numcharsforfiletype; /* maximum number of characters in the file to use to find the filetype */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
