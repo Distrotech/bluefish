@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+
+<bflang name="Perl" description="Perl Programming Language">
+
+<mimetypes>
+<mimetype type="application/x-perl" />
+</mimetypes>
+
+<options>
+    <option name="case-sensitive">true</option>
+    <option name="scan-markup-tags">false</option>
+    <option name="scan-blocks">true</option>
+</options>
+
+<block-group id="blocks">
+<block id="braces" begin="{" end="}" scanned="true" foldable="true" markup="false" case="true" />
+<block id="perldoc" begin="=head" end="=cut" scanned="false" foldable="true" markup="false" case="true" defaultstyle="doc"/>
+</block-group>
+
+<token-group id="general">
+ <token name="line comment" regexp="true" defaultstyle="comment">#[^&#x0A;]*</token>
+</token-group>
+
+<token-group id="Pragma" defaultstyle="preprocessor">
+ <token-list name="pragma1" separator=",">attributes,attrs,autouse,base,blib,caller,charnames,constant,diagnostics,fields,filetest</token-list>
+ <token-list name="pragma2" separator=",">integer,less,lib,locale,ops,overload,re,sigtrap,strict,subs,utf8,vars,warnings</token-list>
+</token-group>
+
+<token-group id="keywords" defaultstyle="keyword">
+  <token-list name="keywords" separator=",">do,each,else,elsif,for,foreach,if,local,my,our,print,printf,unless,until,values,while</token-list>
+</token-group>
+
+<token-group id="core language" defaultstyle="keyword-red">
+<token-list name="corelang" separator=",">AUTOLOAD,BEGIN,CORE,DESTROY,ISA,__BEGIN__,__END__,__PACKAGE__,bless,carp,closedir</token-list>
+<token-list name="corelang2" separator=",">,confess,croak,die,eval,exit,grep,map,no,opendir,package,require,return</token-list>
+<token-list name="corelang3" separator=",">,splice,split,sprintf,sub,sysopen,use,warn</token-list>
+</token-group>
+
+</bflang>
