@@ -28,7 +28,7 @@
 #include <stdlib.h>         /* system() */
 #include <pcre.h>
 
-#define DEBUG
+/* #define DEBUG */
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -503,32 +503,47 @@ void doc_set_title(Tdocument *doc) {
  * doc_reset_filetype:
  * @doc: #Tdocument to reset
  * @newfilename: a #gchar* with the new filename
- * @buf: a #gchar* with the contents of the file, or NULL if the function should get that from the TextBuffer
+ * @buf: the contents of the file
+ * @buflen: the size of the contents
  *
  * sets the new filetype based on newfilename and content, updates the widgets and highlighting
  * (using doc_set_filetype())
  *
  * Return value: void
  **/
-void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf) {
+#ifndef HAVE_ATLEAST_GNOMEVFS_2_14
+const char *gnome_vfs_mime_type_from_name (const gchar * filename);
+#endif
+void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gconstpointer buf, gssize buflen) {
+	const gchar *mimetype = NULL;
 	Tfiletype *ft=NULL;
-	GnomeVFSFileInfo info;
-	GnomeVFSResult res;
-	DEBUG_MSG("doc_reset_filetype, started, BUG, should be async\n");
-	/* BUG: WE SHOULD DO THIS ASYNC, BECAUSE THIS CAN BE VERY SLOW ON A NETWORK FILESYSTEM */
-	res = gnome_vfs_get_file_info_uri(newuri,&info,GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_SLOW_MIME_TYPE);
-	if (res == GNOME_VFS_OK) {
-		ft = get_filetype_for_mime_type(gnome_vfs_file_info_get_mime_type(&info));
+#ifdef HAVE_ATLEAST_GNOMEVFS_2_14
+	const gchar *curi;
+	
+	curi = gnome_vfs_uri_get_path(newuri);
+	mimetype = gnome_vfs_get_mime_type_for_name_and_data(curi, buf, buflen);
+
+#else
+	/* this is a workaround, we first do 'fast' mime-type guessing, and if that
+	returns something useless we try it from the content..
+	 this is truly fixed with the API function in gnome_vfs 2.14 */
+	
+	mimetype = gnome_vfs_mime_type_from_name(gnome_vfs_uri_get_path(newuri));
+	DEBUG_MSG("doc_reset_filetype, got %s as mimetype from the filename\n",mimetype);
+	if (!mimetype || strcmp(mimetype,"application/octet-stream")==0) {
+		DEBUG_MSG("doc_reset_filetype, testing %d bytes of data for mimetype\n",buflen);
+		mimetype = gnome_vfs_get_mime_type_for_data(buf,buflen);
+		DEBUG_MSG("doc_reset_filetype, got %s as mimetype after content checking\n",mimetype);
 	}
-	if (!ft) {
+#endif
+	
+	if (mimetype) {
+		ft = get_filetype_for_mime_type(mimetype);
+		 
+	} else {
 		GList *tmplist;
-		/* if none found return first set (is default set) */
 		tmplist = g_list_first(main_v->filetypelist);
-		if (!tmplist) {
-			DEBUG_MSG("doc_reset_filetype, no default filetype? huh?\n");
-			return;
-		}
-		ft = (Tfiletype *)tmplist->data;
+		ft = (Tfiletype *)tmplist->data;	
 	}
 	doc_set_filetype(doc, ft);
 }
@@ -536,11 +551,14 @@ void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gchar *buf) {
 void doc_set_filename(Tdocument *doc, GnomeVFSURI *newuri) {
 	DEBUG_MSG("doc_set_filename, started\n");
 	if (newuri) {
+		gchar *buf;
 		if (doc->uri) gnome_vfs_uri_unref(doc->uri);
 		doc->uri = newuri;
 		gnome_vfs_uri_ref(newuri);
 		doc_set_title(doc);
-		doc_reset_filetype(doc, doc->uri, NULL);
+		buf = doc_get_chars(doc, 0, -1);
+		doc_reset_filetype(doc, doc->uri, buf, strlen(buf));
+		g_free(buf);
 	}
 }
 

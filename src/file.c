@@ -683,18 +683,13 @@ static void fileintodoc_cleanup(Tfileintodoc *fid) {
 
 static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffer,GnomeVFSFileSize buflen ,gpointer data) {
 	Tfileintodoc *fid = data;
-	gchar *tmp;
 	switch (status) {
 		case OPENFILE_FINISHED:
 			if (fid->isTemplate) {
-				tmp = fid->doc->encoding;
 				doc_buffer_to_textbox(fid->doc, buffer, buflen, FALSE, TRUE);
 	/*			DEBUG_MSG("fileintodoc_lcb, fid->doc->hl=%p, %s, first=%p\n",fid->doc->hl,fid->doc->hl->type,((GList *)g_list_first(main_v->filetypelist))->data);*/
-				if (fid->doc->hl == ((GList *)g_list_first(main_v->filetypelist))->data || fid->doc->hl == NULL) {
-					doc_reset_filetype(fid->doc, fid->doc->uri, buffer);
-				} else if (tmp != fid->doc->encoding) { /* the pointer only changes if the encoding changes */
-					doc_set_tooltip(fid->doc);
-				}
+				doc_reset_filetype(fid->doc, fid->doc->uri, buffer, buflen);
+				doc_set_tooltip(fid->doc);
 				doc_set_status(fid->doc, DOC_STATUS_COMPLETE);
 				bfwin_docs_not_complete(fid->doc->bfwin, FALSE);
 				fid->doc->action.load = NULL;
@@ -781,21 +776,13 @@ void file2doc_cancel(gpointer f2d) {
 
 static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,GnomeVFSFileSize buflen ,gpointer data) {
 	Tfile2doc *f2d = data;
-	gchar *tmp;
 	DEBUG_MSG("file2doc_lcb, status=%d, f2d=%p\n",status,f2d);
 	switch (status) {
 		case OPENFILE_FINISHED:
 			DEBUG_MSG("file2doc_lcb, status=%d, now we should convert %s data into a GtkTextBuffer and such\n",status, gnome_vfs_uri_get_path(f2d->uri));
-			tmp = f2d->doc->encoding;
 			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
-			/* we should not use the doc_reset_filetype function if we have a filinfo already, but that is
-			also an async call so how do we know for sure that one is finished ? */
-			if (f2d->doc->hl == ((GList *)g_list_first(main_v->filetypelist))->data || f2d->doc->hl == NULL) {
-				doc_reset_filetype(f2d->doc, f2d->doc->uri, buffer);
-			}
-			if (tmp != f2d->doc->encoding) { /* the pointer only changes if the encoding changes */
-				doc_set_tooltip(f2d->doc);
-			}
+			doc_reset_filetype(f2d->doc, f2d->doc->uri, buffer,buflen);
+			doc_set_tooltip(f2d->doc);
 			doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
 			bfwin_docs_not_complete(f2d->doc->bfwin, FALSE);
 			bmark_set_for_doc(f2d->doc);
@@ -903,7 +890,7 @@ void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri) {
 	fi->doc->action.info = fi;
 	gnome_vfs_uri_ref(uri);
 	fi->uris = g_list_append(NULL, uri);
-	gnome_vfs_async_get_file_info(&fi->handle,fi->uris,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS
+	gnome_vfs_async_get_file_info(&fi->handle,fi->uris,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS
 			,GNOME_VFS_PRIORITY_DEFAULT,file_asyncfileinfo_lcb,fi);
 }
 
