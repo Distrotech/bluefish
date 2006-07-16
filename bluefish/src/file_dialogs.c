@@ -638,7 +638,7 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 	doc->action.save = file_checkNsave_uri_async(doc->uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, dsb);
 
 	if (do_save_as) {
-		doc_reset_filetype(doc, doc->uri, buffer->data);
+		doc_reset_filetype(doc, doc->uri, buffer->data, strlen(buffer->data));
 		doc_set_title(doc);
 	}
 	refcpointer_unref(buffer);
