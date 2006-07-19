@@ -408,7 +408,7 @@ void doc_set_tooltip(Tdocument *doc) {
 	retstr = g_string_append(retstr, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 	
 	if (doc->hl) {
-		retstr = g_string_append(retstr, _("\nUsing config: "));
+		retstr = g_string_append(retstr, _("\nFile type: "));
 		retstr = g_string_append(retstr, doc->hl->type);
 	}
 	if (doc->encoding) {
@@ -428,9 +428,9 @@ void doc_set_tooltip(Tdocument *doc) {
 			retstr = g_string_append(retstr, sizestr);
 			g_free(sizestr);
 		}
-		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MIME_TYPE) {
+		if (doc->hl && doc->hl->mime_type) {
 			retstr = g_string_append(retstr, _("\nMime type: "));
-			retstr = g_string_append(retstr, doc->fileinfo->mime_type);
+			retstr = g_string_append(retstr, doc->hl->mime_type);
 		}
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_MTIME) {
 			/* this function always appends a newline to the string*/

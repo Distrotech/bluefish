@@ -758,7 +758,7 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *vbox, *hbox2, *but, *scrolwin, *label;
 	GtkTreeSelection *select;
 	DEBUG_MSG("create_textstyle_gui\n");
-	label = gtk_label_new(_("Text styles are applied on top of each other. If multiple styles are applied to the same text, the top-most style has the highest priority. Use drag and drop to re-order the text styles."));
+	label = gtk_label_new(_("Text styles are applied on top of each other. If multiple styles are applied to the same text, the top-most style in this list has the highest priority. Use drag and drop to re-order the text styles."));
 	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
 	gtk_box_pack_start(GTK_BOX(vbox1),label, FALSE, TRUE, 2);
 
@@ -1914,8 +1914,8 @@ static void preferences_dialog() {
 	GtkWidget *dvbox, *frame, *vbox1, *vbox2;
 	gchar *notebooktabpositions[] = {N_("left"), N_("right"), N_("top"), N_("bottom"), NULL};
 	gchar *panellocations[] = {N_("right"), N_("left"), NULL};
-	gchar *modified_check_types[] = {N_("no check"), N_("check mtime and size"), N_("check mtime"), N_("check size"), NULL};
-	GtkWidget *dhbox;	
+	gchar *modified_check_types[] = {N_("Nothing"), N_("Modified time and file size"), N_("Modified time"), N_("File size"), NULL};
+	GtkWidget *dhbox, *label;	
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;	
 	GtkTreeIter auxit,iter;
@@ -2038,23 +2038,26 @@ static void preferences_dialog() {
 			poplist = g_list_append(poplist, strarr[1]);
 			tmplist = g_list_next(tmplist);
 		}
-		pd->prefs[newfile_default_encoding] = prefs_combo(_("Default character set"),main_v->props.newfile_default_encoding, vbox2, pd, poplist, TRUE);
+		pd->prefs[newfile_default_encoding] = prefs_combo(_("Default character set for new files"),main_v->props.newfile_default_encoding, vbox2, pd, poplist, TRUE);
 		g_list_free(poplist);
 	}	
-	pd->prefs[auto_set_encoding_meta] = boxed_checkbut_with_value(_("Auto set <meta> encoding tag on change"), main_v->props.auto_set_encoding_meta, vbox2);
+	pd->prefs[auto_set_encoding_meta] = boxed_checkbut_with_value(_("Auto set <meta> HTML tag on encoding change"), main_v->props.auto_set_encoding_meta, vbox2);
 
 	frame = gtk_frame_new(_("Backup"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	pd->prefs[backup_file] = boxed_checkbut_with_value(_("Create backup on save"), main_v->props.backup_file, vbox2);
+	pd->prefs[backup_file] = boxed_checkbut_with_value(_("Create backup file during file save"), main_v->props.backup_file, vbox2);
+	label = gtk_label_new(_("The backup prefix may contain a slash to indicate a directory component, for example \".backup/\""));
+	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
+	gtk_box_pack_start(GTK_BOX(vbox2),label, TRUE, TRUE, 2);
 	pd->prefs[backup_prefix] = prefs_string(_("Backup file prefix"), main_v->props.backup_prefix, vbox2, pd, string_none);
 	pd->prefs[backup_suffix] = prefs_string(_("Backup file suffix"), main_v->props.backup_suffix, vbox2, pd, string_none);
 	{
-		gchar *failureactions[] = {N_("save"), N_("abort"), N_("ask"), NULL};
-		pd->prefs[backup_abort_action] = boxed_optionmenu_with_value(_("Action on backup failure"), main_v->props.backup_abort_action, vbox2, failureactions);
+		gchar *failureactions[] = {N_("Continue save"), N_("Abort save"), N_("Ask what to do"), NULL};
+		pd->prefs[backup_abort_action] = boxed_optionmenu_with_value(_("If the backup fails"), main_v->props.backup_abort_action, vbox2, failureactions);
 	}
-	pd->prefs[backup_cleanuponclose] = boxed_checkbut_with_value(_("Remove backupfile on close"), main_v->props.backup_cleanuponclose, vbox2);
+	pd->prefs[backup_cleanuponclose] = boxed_checkbut_with_value(_("Remove backup file on close"), main_v->props.backup_cleanuponclose, vbox2);
 	create_backup_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[backup_file]), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[backup_file]), "toggled", G_CALLBACK(create_backup_toggled_lcb), pd);
 
@@ -2066,17 +2069,9 @@ static void preferences_dialog() {
 #ifdef WITH_MSG_QUEUE
 	pd->prefs[open_in_running_bluefish] = boxed_checkbut_with_value(_("Open files in already running bluefish window"),main_v->props.open_in_running_bluefish, vbox2);
 #endif /* WITH_MSG_QUEUE */		
-	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(_("File modified on disk check "), main_v->props.modified_check_type, vbox2, modified_check_types);
-	pd->prefs[do_periodic_check] = boxed_checkbut_with_value(_("Periodically check file on disk"), main_v->props.do_periodic_check, vbox2);
-	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent'"), main_v->props.max_recent_files, vbox2, pd, 3, 100);
-
-	frame = gtk_frame_new(_("File browser"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-/*	pd->prefs[default_basedir] = prefs_string(_("Default basedir"), main_v->props.default_basedir, vbox2, pd, string_none);*/
-	pd->prefs[filebrowser_two_pane_view] = boxed_checkbut_with_value(_("Use separate file and directory view"), main_v->props.filebrowser_two_pane_view, vbox2);
-	pd->prefs[filebrowser_unknown_icon] = prefs_string(_("Unknown icon"), main_v->props.filebrowser_unknown_icon, vbox2, pd, string_file);
+	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(_("File properties to check on disk for modifications"), main_v->props.modified_check_type, vbox2, modified_check_types);
+	pd->prefs[do_periodic_check] = boxed_checkbut_with_value(_("Periodically check if file is modified on disk"), main_v->props.do_periodic_check, vbox2);
+	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent' menu"), main_v->props.max_recent_files, vbox2, pd, 3, 100);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 
@@ -2122,7 +2117,19 @@ static void preferences_dialog() {
 	pd->prefs[bflib_info_bkg] = prefs_string(_("Info background color"), main_v->props.bflib_info_bkg, vbox2, pd, string_color);
 	pd->prefs[bflib_info_fg] = prefs_string(_("Info foreground color"), main_v->props.bflib_info_fg, vbox2, pd, string_color);
 
-		
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_tree_store_append(pd->nstore, &auxit, &iter);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("File and directory view"), WIDGETCOL,vbox1,-1);	
+
+	frame = gtk_frame_new(_("File and directory view"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+/*	pd->prefs[default_basedir] = prefs_string(_("Default basedir"), main_v->props.default_basedir, vbox2, pd, string_none);*/
+	pd->prefs[filebrowser_two_pane_view] = boxed_checkbut_with_value(_("Use separate file and directory view"), main_v->props.filebrowser_two_pane_view, vbox2);
+	pd->prefs[filebrowser_unknown_icon] = prefs_string(_("Unknown icon"), main_v->props.filebrowser_unknown_icon, vbox2, pd, string_file);
+	
+	
 /*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("User interface"), 156,TRUE));
 
