@@ -22,8 +22,7 @@
 /* #define DEBUG */
 
 #include <gtk/gtk.h>
-#include <unistd.h> /* getopt() */
-#include <stdlib.h> /* getopt() exit() and abort() on Solaris */
+#include <stdlib.h> /* exit() on Solaris */
 #include <time.h> /* nanosleep */
 
 #include "bluefish.h"
@@ -68,62 +67,17 @@ void g_none(gchar *first, ...) {
 }
 #endif
 
-static gint parse_commandline(int argc, char **argv
-		, gboolean *root_override
-		, GList **load_filenames
-		, GList **load_projects
-		, gboolean *open_in_new_win) {
-	int c;
-	gchar *tmpname;
-
-	opterr = 0;
-	DEBUG_MSG("parse_commandline, started\n");
-	while ((c = getopt(argc, argv, "hsvnp:?")) != -1) {
-		switch (c) {
-		case 's':
-			*root_override = 1;
-			break;
-		case 'v':
-			g_print(CURRENT_VERSION_NAME);
-			g_print("\n");
-			exit(1);
-			break;
-		case 'p':
-			tmpname = create_full_path(optarg, NULL);
-			*load_projects = g_list_append(*load_projects, tmpname);
-			break;
-		case 'h':
-		case '?':
-			g_print(CURRENT_VERSION_NAME);
-			g_print(_("\nUsage: %s [options] [filenames ...]\n"), argv[0]);
-			g_print(_("\nCurrently accepted options are:\n"));
-			g_print(_("-s           skip root check\n"));
-			g_print(_("-v           current version\n"));
-			g_print(_("-n           open new window\n"));
-			g_print(_("-p filename  open project\n"));
-			g_print(_("-h           this help screen\n"));
-			exit(1);
-			break;
-		case 'n':
-			*open_in_new_win = 1;
-		break;
-		default:
-			DEBUG_MSG("parse_commandline, abort, option %c not known??\n",c);
-			abort();
-		}
-	}
-	DEBUG_MSG("parse_commandline, optind=%d, argc=%d\n", optind, argc);
-	while (optind < argc) {
-		tmpname = create_full_path(argv[optind], NULL);
-		DEBUG_MSG("parse_commandline, argv[%d]=%s, tmpname=%s\n", optind, argv[optind], tmpname);
-		*load_filenames = g_list_append(*load_filenames, tmpname);
-		optind++;
-	}
-	DEBUG_MSG("parse_commandline, finished, num files=%d, num projects=%d\n"
-		, g_list_length(*load_filenames), g_list_length(*load_projects));
-	return 0;
+void cb_print_version (const gchar *option_name, const gchar *value, gpointer data, GError **error)
+{
+	char *version;
+	
+	version = g_strconcat(_("Bluefish Editor"), " ", VERSION, "\n",
+	                      _("Visit us at http://bluefish.openoffice.nl"), "\n",
+	                      NULL);
+	g_print(version);
+	g_free(version);
+	exit(0);
 }
-
 
 /*********************/
 /* the main function */
@@ -131,24 +85,59 @@ static gint parse_commandline(int argc, char **argv
 
 int main(int argc, char *argv[])
 {
-	gboolean root_override=FALSE, open_in_new_window=FALSE;
+	gboolean newwindow = FALSE, skiprootcheck = FALSE, root_override=FALSE, open_in_new_window=FALSE;
+	gchar **files = NULL, *project = NULL, *tmpname;
+	gint filearray, i;
 	GList *filenames = NULL, *projectfiles=NULL;
 	Tbfwin *firstbfwin;
 	GnomeProgram *bfprogram;
+
 #ifndef NOSPLASH
 	GtkWidget *splash_window = NULL;
 #endif /* #ifndef NOSPLASH */
 
-#ifdef ENABLE_NLS                                                               
+#ifdef GNOME_PARAM_GOPTION_CONTEXT
+	GOptionContext *context;
+	const GOptionEntry options[] = {
+		{"newwindow", 'n', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &newwindow, N_("Open in new window."), NULL},
+		{"project", 'p', G_OPTION_FLAG_FILENAME, G_OPTION_ARG_FILENAME, &project, N_("Open a project from the specified projectfile."), N_("PROJECTFILE")},
+		{"skiprootcheck", 's', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &skiprootcheck, N_("Skip root check."), NULL},
+		{"version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void*) cb_print_version, N_("Print version information."), NULL},
+		{G_OPTION_REMAINING, 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_FILENAME_ARRAY, &files, "Special option that collects any remaining arguments for us"},
+		{NULL}
+};
+#else /* #ifdef GNOME_PARAM_GOPTION_CONTEXT */
+	poptContext pcontext;	
+	const struct poptOption options[] = {
+		{"newwindow", 'n', POPT_ARG_NONE, &newwindow, 0, N_("Open in new window."), NULL},
+		{"project", 'p', POPT_ARG_STRING, &project, 0, N_("Open a project from the specified projectfile."), N_("PROJECTFILE")},
+		{"skiproot", 's', POPT_ARG_NONE, &skiproot, 0, N_("Skip root check."), NULL},
+		{"version", 'v', POPT_ARG_CALLBACK, (void*) cb_print_version, 0, N_("Print version information."), NULL},
+		{NULL, '\0', 0, NULL, 0, NULL, NULL }
+	};
+#endif /* #ifdef GNOME_PARAM_GOPTION_CONTEXT */
+
+#ifdef ENABLE_NLS
 	setlocale(LC_ALL,"");                                                   
 	bindtextdomain(PACKAGE,LOCALEDIR);
 	DEBUG_MSG("set bindtextdomain for %s to %s\n",PACKAGE,LOCALEDIR);
 	bind_textdomain_codeset(PACKAGE, "UTF-8");
 	textdomain(PACKAGE);                                                    
-#endif
+#endif /* ENABLE_NLS */
+
+#ifdef GNOME_PARAM_GOPTION_CONTEXT
+	context = g_option_context_new (_(" [FILE(S)]"));
+	g_option_context_add_main_entries (context, options, NULL);
+#endif /* #ifdef GNOME_PARAM_GOPTION_CONTEXT */
 
 	bfprogram = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE, 
-                                    argc, argv, GNOME_PARAM_NONE);
+	                                argc, argv,
+#ifdef GNOME_PARAM_GOPTION_CONTEXT
+	                                GNOME_PARAM_GOPTION_CONTEXT, context,
+#else /* #ifdef GNOME_PARAM_GOPTION_CONTEXT */
+	                                GNOME_PARAM_POPT_TABLE, options,
+#endif /* #ifdef GNOME_PARAM_GOPTION_CONTEXT */
+	                                NULL);
 
 	gnome_vfs_init();
 	gnome_authentication_manager_init();
@@ -156,11 +145,68 @@ int main(int argc, char *argv[])
 	set_default_icon();
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
-	g_print("gnome_vfs_async_get_job_limit: %d\n",gnome_vfs_async_get_job_limit());
+	g_print("gnome_vfs_async_get_job_limit: %d\n", gnome_vfs_async_get_job_limit());
 	rcfile_check_directory();
 	rcfile_parse_main();
 	
-	parse_commandline(argc, argv, &root_override, &filenames, &projectfiles, &open_in_new_window);
+	if (newwindow) {
+		open_in_new_window = 1;
+	}
+
+	if (skiprootcheck) {
+		root_override = 1;
+	}
+
+	if (project) {
+		/* 
+		  TODO: --project=~/path/to/whatever is not handled correctly -
+		            it is not expanded to be a full path and it is set
+		            to $current_dir/~/path/to/whatever, see the DEBUG output
+		        replacing '~' with the full path works
+		*/
+		tmpname = create_full_path(project, NULL);
+		/*
+			TODO 1: Check if given file is a project-file.
+			Maybe using gnome-vfs API and checking for application/bluefish-project.
+			If not at least one project file was given, fail or print a warning?
+			
+			ATM: Nothing happens.
+			
+
+			TODO 2: suggestion, on what should happen using the following command:
+			
+			bluefish(-unstable) -p foo.bfproject bar.html foo.bar
+			bluefish(-unstable) --project=foo.bfproject bar.html foo.bar
+			
+			or in general:
+			
+			bluefish(-unstable) [-p |--project=]projectfile [file(s)]
+			
+			1) first open project
+			2) open the other files in the project
+			
+			this could be a good starting poitn, when you want to open a file inside the project,
+			without seeing the whole tree (just see the project)
+		*/
+		projectfiles = g_list_append(projectfiles, tmpname);
+		DEBUG_MSG("main, project=%s, tmpname=%s\n", project, tmpname);
+	}
+	
+#ifndef GNOME_PARAM_GOPTION_CONTEXT
+	g_object_get(G_OBJECT(bfprogram), GNOME_PARAM_POPT_CONTEXT, &pcontext, NULL);
+	files = poptGetArgs(pcontext);
+#endif /* #ifndef GNOME_PARAM_GOPTION_CONTEXT */
+
+	if (files != NULL) {
+		filearray = g_strv_length(files);
+		for (i = 0; i < filearray; ++i) {
+			tmpname = create_full_path(files[i], NULL);
+			filenames = g_list_append(filenames, tmpname);
+			DEBUG_MSG("main, files[%d]=%s, tmpname=%s\n", i, files[i], tmpname);
+		}
+		g_strfreev(files);
+	}
+		
 #ifdef WITH_MSG_QUEUE	
 	if (((filenames || projectfiles) && main_v->props.open_in_running_bluefish) ||  open_in_new_window) {
 		msg_queue_start(filenames, projectfiles, open_in_new_window);
