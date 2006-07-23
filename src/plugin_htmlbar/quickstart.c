@@ -42,6 +42,7 @@
 #include "../config.h"
 #include "../dialog_utils.h"
 #include "../document.h"
+#include "../filetype.h"
 #include "../gtk_easy.h"
 #include "../gui.h"
 #include "../stringlist.h"
@@ -429,7 +430,7 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
                                 is_frameset_dtd ? cap("\n</FRAMESET>\n</HTML>") : cap("\n</BODY>\n</HTML>"));
 		g_free (finalstr);
 		
-		doc_set_filetype(qstart->bfwin->current_document, get_filetype_by_name("html"));
+		doc_set_filetype(qstart->bfwin->current_document, get_filetype_for_mime_type("text/html"));
 	}
 
 	g_free (qstart);
