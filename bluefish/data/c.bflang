@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 
-<bflang name="C" description="C programming language">
+<bflang name="C" description="C Programming Language">
 
 <mimetypes>
 <mimetype type="text/x-chdr" />
@@ -74,7 +74,7 @@
 
 <token-group id="glib keywords" defaultstyle="keyword-red">
 <token-list name="glibk" separator=",">GArray,GCallback,GClassInitFunc,GClosure,GCompareDataFunc,GCompareFunc,GDate,GDir</token-list>
-<token-list name="glibk2" separator=",">GEnumValue,GError,GFlagsValue,GHashTable,GInstanceInitFunc,GIOChannel,GIOFunc,GIOStatus,GList,GMarkupParseFlags</token-list>
+<token-list name="glibk2" separator=",">GEnumValue,GError,GFlagsValue,GFunc,GHashTable,GInstanceInitFunc,GIOChannel,GIOFunc,GIOStatus,GList,GMarkupParseFlags</token-list>
 <token-list name="glibk3" separator=",">GMarkupParser,GMarkupParseContext,GObject,GObjectClass,GObjectConstructParam,GParamSpec,GPatternSpec,GPid</token-list>
 <token-list name="glibk4" separator=",">GPtrArray,GQuark,GSignalAccumulator,GSList,GString,GTimer,GTree,GType,GTypeInfo,GValue</token-list>
 </token-group>
