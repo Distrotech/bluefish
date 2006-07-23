@@ -36,7 +36,7 @@
 
 <token-group id="keywords" defaultstyle="keyword">
   <token-list name="keywords" separator=",">asm,break,case,catch,continue,default,do,else,for</token-list>
-  <token-list name="keywords2" separator=",">goto,if,inline,return,sizeof,switch,throw,try,while</token-list>
+  <token-list name="keywords2" separator=",">goto,if,inline,namespace,return,sizeof,switch,throw,try,while</token-list>
 </token-group>
 
 <token-group id="storage keywords" defaultstyle="keyword-blue">
@@ -45,7 +45,7 @@
 </token-group>
 
 <token-group id="c++ keywords" defaultstyle="keyword-red">
-<token-list name="c++keywords" separator=",">delete,explicit,namespace,new,operator,private,protected,public,template,this,typeid,typename,using,virtual</token-list>
+<token-list name="c++keywords" separator=",">delete,explicit,new,operator,private,protected,public,template,this,typeid,typename,using,virtual</token-list>
 <token-list name="c++keywords2" separator=",">const_cast,dynamic_cast,reinterpret_cast,static_cast</token-list>
 </token-group>
 
