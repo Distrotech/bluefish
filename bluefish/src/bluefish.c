@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
 	gnome_vfs_init();
 	gnome_authentication_manager_init();
 
-    set_default_icon();
+	set_default_icon();
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
 	g_print("gnome_vfs_async_get_job_limit: %d\n",gnome_vfs_async_get_job_limit());

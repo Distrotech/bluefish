@@ -58,14 +58,23 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	 */
 	
 	if (!icon_theme)
-		icon_theme = gtk_icon_theme_get_default();	
+		icon_theme = gtk_icon_theme_get_default();
+		/*icon_theme = gtk_icon_theme_get_for_screen(widget));*/	
 	
 	icon_name = gnome_icon_lookup (icon_theme, NULL, NULL, NULL, NULL,
-				       mime_type, 0, NULL);
+				mime_type, 0, NULL);
+	if (!icon_name) {
+		/* fall back to the default icon */
+		if (strncmp(mime_type,"x-directory",11)==0) {
+			icon_name = g_strdup(GTK_STOCK_DIRECTORY);
+		} else {
+			icon_name = g_strdup(GTK_STOCK_FILE);
+		}
+	}
 	if (icon_name) {
 		GError *error=NULL;
 		DEBUG_MSG("get_icon_for_mime_type, got %s for %s\n",icon_name,mime_type);
-		pixbuf = gtk_icon_theme_load_icon (icon_theme, icon_name, main_v->props.filebrowser_icon_size, GTK_ICON_LOOKUP_USE_BUILTIN, &error);
+		pixbuf = gtk_icon_theme_load_icon(icon_theme, icon_name, main_v->props.filebrowser_icon_size, GTK_ICON_LOOKUP_USE_BUILTIN, &error);
 		if (!pixbuf) {
     		g_warning ("Couldn't load icon: %s", error->message);
     		g_error_free (error);
