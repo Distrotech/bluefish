@@ -158,12 +158,6 @@ int main(int argc, char *argv[])
 	}
 
 	if (project) {
-		/* 
-		  TODO: --project=~/path/to/whatever is not handled correctly -
-		            it is not expanded to be a full path and it is set
-		            to $current_dir/~/path/to/whatever, see the DEBUG output
-		        replacing '~' with the full path works
-		*/
 		tmpname = create_full_path(project, NULL);
 		/*
 			TODO 1: Check if given file is a project-file.

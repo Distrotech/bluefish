@@ -1175,6 +1175,7 @@ gchar *create_full_path(const gchar * filename, const gchar *basedir) {
 	gchar *tmpcdir;
 
 	if (!filename) return NULL;
+	filename = gnome_vfs_expand_initial_tilde(filename);
 	DEBUG_MSG("create_full_path, filename=%s, basedir=%s\n", filename, basedir);
 	if (strchr(filename, ':') != NULL) { /* it is an URI!! */
 		DEBUG_MSG("create_full_path, %s is an URI\n",filename);
