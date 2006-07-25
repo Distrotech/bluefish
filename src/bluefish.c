@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
 #ifdef GNOME_PARAM_GOPTION_CONTEXT
 	GOptionContext *context;
 	const GOptionEntry options[] = {
-		{"newwindow", 'n', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &newwindow, N_("Open in new window."), NULL},
+		{"newwindow", 'n', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &newwindow, N_("Open in a new window."), NULL},
 		{"project", 'p', G_OPTION_FLAG_FILENAME, G_OPTION_ARG_FILENAME, &project, N_("Open a project from the specified projectfile."), N_("PROJECTFILE")},
 		{"skiprootcheck", 's', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &skiprootcheck, N_("Skip root check."), NULL},
 		{"version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void*) cb_print_version, N_("Print version information."), NULL},
@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
 #else /* #ifdef GNOME_PARAM_GOPTION_CONTEXT */
 	poptContext pcontext;	
 	const struct poptOption options[] = {
-		{"newwindow", 'n', POPT_ARG_NONE, &newwindow, 0, N_("Open in new window."), NULL},
+		{"newwindow", 'n', POPT_ARG_NONE, &newwindow, 0, N_("Open in a new window."), NULL},
 		{"project", 'p', POPT_ARG_STRING, &project, 0, N_("Open a project from the specified projectfile."), N_("PROJECTFILE")},
 		{"skiproot", 's', POPT_ARG_NONE, &skiproot, 0, N_("Skip root check."), NULL},
 		{"version", 'v', POPT_ARG_CALLBACK, (void*) cb_print_version, 0, N_("Print version information."), NULL},
