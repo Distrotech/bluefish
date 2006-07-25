@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl"
+	href="http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl"?>
+<!DOCTYPE refentry PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+	"/usr/share/xml/docbook/schema/dtd/4.4/docbookx.dtd" [
+
+<!--
+	$Id: bluefish.1.xml,v 1.1 2006-07-25 02:08:08 dleidert Exp $
+	
+	TODO: Add copyright and licensing information.
+-->
+
+	<!ENTITY dhdate      "$Date: 2006-07-25 02:08:08 $">
+	<!ENTITY dhsection   "1">
+
+	<!ENTITY % _bf_entities SYSTEM "bf_entities.dtd">
+	%_bf_entities;
+]>
+
+<refentry>
+	<refentryinfo>
+		<title>&dhtpackage;</title>
+		<productname>&dhulpackage;</productname>
+		<edition>&dhedition;</edition>
+		<date>&dhdate;</date>
+		<authorgroup>
+			<author>
+				<firstname>Daniel</firstname>
+				<surname>Leidert</surname>
+				<contrib>Author and editor.</contrib>
+				<affiliation>
+					<address>
+						<email>daniel.leidert@wgdd.de</email>
+					</address>
+				</affiliation>
+			</author>
+			<author>
+				<firstname>Michèle</firstname>
+				<surname>Garoche</surname>
+				<affiliation>
+					<address>
+						<email>michele.garoche@easyconnect.fr</email>
+					</address>
+				</affiliation>
+			</author>
+			<author>
+				<firstname>Davide</firstname>
+				<surname>Puricelli</surname>
+				<contrib>Original author of the manpage written for the Debian system.</contrib>
+				<affiliation>
+					<address>
+						<email>evo@debian.org</email>
+					</address>
+				</affiliation>
+			</author>
+		</authorgroup>
+	</refentryinfo>
+	<refmeta>
+		<refentrytitle>&dhpackage;</refentrytitle>
+		<manvolnum>&dhsection;</manvolnum>
+	</refmeta>
+	<refnamediv>
+		<refname>&dhpackage;</refname>
+		<refpurpose>editor for experienced web designers and programmers</refpurpose>
+	</refnamediv>
+	<refsynopsisdiv>
+		<cmdsynopsis>
+			<command>&dhpackage;</command>
+			<group choice="opt">
+				<arg choice="plain"><option>-s</option></arg>
+				<arg choice="plain"><option>--skiprootcheck</option></arg>
+			</group>
+			<group choice="opt">
+				<arg choice="plain"><option>-n</option></arg>
+				<arg choice="plain"><option>--newwindow</option></arg>
+			</group>
+			<group choice="opt">
+				<arg choice="plain"><option>-p</option> <replaceable>PROJECTFILE</replaceable></arg>
+				<arg choice="plain"><option>--project=<replaceable>PROJECTFILE</replaceable></option></arg>
+			</group>
+			<arg choice="opt" rep="repeat"><replaceable class="parameter">FILE(S)</replaceable></arg>
+		</cmdsynopsis>
+		<cmdsynopsis>
+			<command>&dhpackage;</command>
+			<group choice="req">
+				<arg choice="plain">
+					<group choice="opt">
+						<arg choice="plain"><option>-?</option></arg>
+						<arg choice="plain"><option>--help</option></arg>
+					</group>
+				</arg>
+				<arg choice="plain"><option>--help-all</option></arg>
+				<arg choice="plain"><option>--help-*</option></arg>
+				<arg choice="plain">
+					<group choice="opt">
+						<arg choice="plain"><option>-v</option></arg>
+						<arg choice="plain"><option>--version</option></arg>
+					</group>
+				</arg>
+			</group>
+		</cmdsynopsis>
+	</refsynopsisdiv>
+	<refsect1 id="description">
+		<title>DESCRIPTION</title>
+		<para>
+			<command>&dhpackage;</command> is an open-source editor for experienced
+			web designers and programmers, supporting many programming and markup
+			languages, but focusing on creating dynamic and interactive websites.
+		</para>
+	</refsect1>
+	<refsect1 id="options">
+		<title>OPTIONS</title>
+		<para>
+			<command>&dhpackage;</command> currently supports the following options:
+		</para>
+		<variablelist>
+			<varlistentry>
+				<term><option>-n</option></term>
+				<term><option>--newwindow</option></term>
+				<listitem>
+					<para>Open in a new window.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><option>-p <replaceable>PROJECTFILE</replaceable></option></term>
+				<term><option>--project=<replaceable>PROJECTFILE</replaceable></option></term>
+				<listitem>
+					<para>Open a project.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><option>-s</option></term>
+				<term><option>--skiprootcheck</option></term>
+				<listitem>
+					<para>Skip root check.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><option>-?</option></term>
+				<term><option>--help</option></term>
+				<listitem>
+					<para>Print application help screen.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><option>--help-all</option></term>
+				<listitem>
+					<para>Print all help options. These options are not documented here.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><option>--help-*</option></term>
+				<listitem>
+					<para>Print grouped help options, depending on what is <quote>*</quote>. These options are not documented here.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term><option>-v</option></term>
+				<term><option>--version</option></term>
+				<listitem>
+					<para>Print version information.</para>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+	</refsect1>
+</refentry>
+
