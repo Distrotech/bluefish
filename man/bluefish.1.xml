@@ -5,12 +5,12 @@
 	"/usr/share/xml/docbook/schema/dtd/4.4/docbookx.dtd" [
 
 <!--
-	$Id: bluefish.1.xml,v 1.2 2006-07-25 02:14:21 dleidert Exp $
+	$Id: bluefish.1.xml,v 1.3 2006-07-25 02:41:25 dleidert Exp $
 	
 	TODO: Add copyright and licensing information.
 -->
 
-	<!ENTITY dhdate      "$Date: 2006-07-25 02:14:21 $">
+	<!ENTITY dhdate      "$Date: 2006-07-25 02:41:25 $">
 	<!ENTITY dhsection   "1">
 
 	<!-- this is necessary in the completely automatic build environemnt -->
@@ -103,7 +103,7 @@
 				<arg choice="plain">
 					<group choice="opt">
 						<arg choice="plain"><option>-v</option></arg>
-						<arg choice="plain"><option>--version</option></arg>
+						<arg choice="plain"><option>--Version</option></arg>
 					</group>
 				</arg>
 			</group>
@@ -165,7 +165,7 @@
 			</varlistentry>
 			<varlistentry>
 				<term><option>-v</option></term>
-				<term><option>--version</option></term>
+				<term><option>--Version</option></term>
 				<listitem>
 					<para>Print version information.</para>
 				</listitem>
