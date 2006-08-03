@@ -111,7 +111,7 @@ int main(int argc, char *argv[])
 	const struct poptOption options[] = {
 		{"newwindow", 'n', POPT_ARG_NONE, &newwindow, 0, N_("Open in a new window."), NULL},
 		{"project", 'p', POPT_ARG_STRING, &project, 0, N_("Open a project from the specified projectfile."), N_("PROJECTFILE")},
-		{"skiproot", 's', POPT_ARG_NONE, &skiproot, 0, N_("Skip root check."), NULL},
+		{"skiproot", 's', POPT_ARG_NONE, &skiprootcheck, 0, N_("Skip root check."), NULL},
 		{"Version", 'v', POPT_ARG_CALLBACK, (void*) cb_print_version, 0, N_("Print version information."), NULL},
 		{NULL, '\0', 0, NULL, 0, NULL, NULL }
 	};
