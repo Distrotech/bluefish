@@ -191,7 +191,7 @@ python:String Double Escape:0:\\\\.::2:^string-double$:#009900::0:0:
 python:String Single:0:':':1::#009900::0:0:
 python:String Single Escape:0:\\\\.::2:^string-single$:#009900::0:0:
 python:Special Values:0:\\bNone\\b::2::#999900::0:0:
-python:Include:0:^(import|from).*?$::2::#990099::0:0:
+python:Include:0:^(import |from ).*?$::2::#990099::0:0:
 python:Braces:0:[{()}\\[\\]]::2::#000000::2:
 R:Operators:0:[\\~\\%\\^\\&\\,\\.\\\:\\|\\+\\/\\*\\$\\!]::2::#8b2323::0:0:
 R:Assignment:1:(->>|<<-|->|<-|=|_)::2::#FF0000::2:0:
