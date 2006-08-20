@@ -729,7 +729,7 @@ static gint replace_doc_multiple(Tbfwin *bfwin,const gchar *search_pattern, Tmat
 		if (replacetype == string) {
 			offset += replacelen - (result.end - result.start);
 		}
-		if (LASTSNR2(bfwin->snr2)->overlapping_search) {
+		if (LASTSNR2(bfwin->snr2)->overlapping_search || result.start == result.end) {
 			buf_b_offset = result.bstart + 1;
 			/* BUG: if the first following character is a multibute character, we should perhaps 
 			add 2 or 3 to result.bstart */
