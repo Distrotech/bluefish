@@ -1357,16 +1357,18 @@ static gboolean search_entry_key_press_event_lcb(GtkWidget *widget,GdkEventKey *
 
 static gboolean snr_focus_in_lcb(GtkWidget *widget, GdkEventFocus *event, Tsnr2_win *snr2win)
 {
-    if (snr2win->bfwin->current_document->filename) {
-        gtk_widget_set_sensitive (snr2win->bookmark_results, TRUE);
-        if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (snr2win->bookmark_results))) {
-            LASTSNR2(snr2win->bfwin->snr2)->bookmark_results = TRUE;
+    if (snr2win->replace == 0) {
+        if (snr2win->bfwin->current_document->filename) {
+            gtk_widget_set_sensitive (snr2win->bookmark_results, TRUE);
+            if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (snr2win->bookmark_results))) {
+                LASTSNR2(snr2win->bfwin->snr2)->bookmark_results = TRUE;
+            }
+        } else {
+            LASTSNR2(snr2win->bfwin->snr2)->bookmark_results = FALSE;
+            gtk_widget_set_sensitive (snr2win->bookmark_results, FALSE);
         }
-    } else {
-        LASTSNR2(snr2win->bfwin->snr2)->bookmark_results = FALSE;
-        gtk_widget_set_sensitive (snr2win->bookmark_results, FALSE);
     }
-       
+
     return FALSE;
 }
 
