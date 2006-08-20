@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * fref.c - function reference file
  *
- * Copyright (C) 2003 Oliver Sessink and Oskar Swida
+ * Copyright (C) 2003-2006 Oliver Sessink and Oskar Swida
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@
 #include <gdk/gdkkeysyms.h>
 
 /* #define DEBUG */
+
 #include "bluefish.h"
 #include "fref.h"
 #include "rcfile.h"				/* array_from_arglist() */
@@ -55,12 +56,12 @@ enum {
 	N_COLUMNS
 };
 
-#define FR_TYPE_TAG				   1
-#define FR_TYPE_FUNCTION			2
-#define FR_TYPE_CLASS				3
-#define FR_TYPE_GROUP				4
+#define FR_TYPE_TAG         1
+#define FR_TYPE_FUNCTION    2
+#define FR_TYPE_CLASS       3
+#define FR_TYPE_GROUP       4
 
-#define MAX_NEST_LEVEL			20
+#define MAX_NEST_LEVEL      20
 
 typedef struct {
 	gpointer data;
@@ -139,15 +140,15 @@ typedef struct {
 #define FR_LOADER_STATE_RETURN          13
 #define FR_LOADER_STATE_GROUPDESC       14
 
-#define FR_INFO_TITLE			1
-#define FR_INFO_DESC			  2
-#define FR_INFO_ATTRS			3
-#define FR_INFO_NOTES			4
+#define FR_INFO_TITLE    1
+#define FR_INFO_DESC     2
+#define FR_INFO_ATTRS    3
+#define FR_INFO_NOTES    4
 
-#define FR_COL_1 			"#4B6983"
-#define FR_COL_2 			"#7590AE"
-#define FR_COL_3 			"#666666"
-#define FR_COL_4 			"#FFFFFF"
+#define FR_COL_1    "#4B6983"
+#define FR_COL_2    "#7590AE"
+#define FR_COL_3    "#666666"
+#define FR_COL_4    "#FFFFFF"
 
 GtkWidget *fref_prepare_dialog(Tbfwin * bfwin, FRInfo * entry);
 
@@ -613,7 +614,6 @@ gchar *fref_xml_get_refname(gchar * filename)
 	gchar *config;
 	gsize len;
 	Tfref_name_data *aux = NULL;
-	gchar *tmps;
 
 	if (filename == NULL)
 		return NULL;
@@ -636,15 +636,13 @@ gchar *fref_xml_get_refname(gchar * filename)
 		g_free(config);
 		return NULL;
 	}
+
 	g_markup_parse_context_free(ctx);
-	tmps = aux->name;
 	g_free(aux->description);
 	g_free(aux);
 	g_free(config);
-	return tmps;
+	return aux->name;
 }
-
-
 
 void fref_loader_load_ref_xml(gchar * filename, GtkWidget * tree, GtkTreeStore * store,
 							  GtkTreeIter * parent, GHashTable * dict)
@@ -681,6 +679,8 @@ void fref_loader_load_ref_xml(gchar * filename, GtkWidget * tree, GtkTreeStore *
 	g_markup_parse_context_free(ctx);
 	if (aux->act_info)
 		fref_free_info(aux->act_info);
+    if (aux->act_grp)
+        fref_free_info(aux->act_grp);
 	if (aux->act_attr) {
 		g_free(aux->act_attr->name);
 		g_free(aux->act_attr->title);
@@ -1270,24 +1270,29 @@ static FRInfo *get_current_entry(Tbfwin * bfwin)
 {
 	GtkTreePath *path;
 	GtkTreeViewColumn *col;
+	gint depth;
+	
 	gtk_tree_view_get_cursor(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree), &path, &col);
-	if (path != NULL) {
-		FRInfo *retval = NULL;
-		GValue *val;
-		GtkTreeIter iter;
-		gtk_tree_model_get_iter(gtk_tree_view_get_model(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree)),
-								&iter, path);
-		gtk_tree_path_free(path);
-		val = g_new0(GValue, 1);
-		gtk_tree_model_get_value(gtk_tree_view_get_model(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree)),
-								 &iter, 1, val);
-		if (G_IS_VALUE(val) && g_value_fits_pointer(val)) {
-			retval = (FRInfo *) g_value_peek_pointer(val);
-		}
-		g_value_unset(val);
-		g_free(val);
-		return retval;
-	}
+	depth = gtk_tree_path_get_depth (path);
+	if (depth > 1) {
+        if (path != NULL) {
+    	    FRInfo *retval = NULL;
+    	    GValue *val;
+    	    GtkTreeIter iter;
+    	    gtk_tree_model_get_iter(gtk_tree_view_get_model(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree)),
+    	    						&iter, path);
+    	    gtk_tree_path_free(path);
+    	    val = g_new0(GValue, 1);
+    	    gtk_tree_model_get_value(gtk_tree_view_get_model(GTK_TREE_VIEW(FREFGUI(bfwin->fref)->tree)),
+    	    						 &iter, 1, val);
+    	    if (G_IS_VALUE(val) && g_value_fits_pointer(val)) {
+    	    	retval = (FRInfo *) g_value_peek_pointer(val);
+    	    }
+    	    g_value_unset(val);
+    	    g_free(val);
+    	    return retval;
+        }
+    }
 	return NULL;
 }
 
@@ -2031,8 +2036,9 @@ static void frefcb_full_info(GtkButton * button, Tbfwin * bfwin)
 {
 	FRInfo *entry;
 	entry = get_current_entry(bfwin);
-	if (entry == NULL)
+	if (entry == NULL || entry->type == FR_TYPE_GROUP)
 		return;
+
 	fref_show_info(bfwin, entry, FALSE, NULL);
 }
 
