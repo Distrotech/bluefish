@@ -775,7 +775,6 @@ static void refresh_dir_by_path_and_filename(Tfilebrowser *filebrowser, GtkTreeP
 		gtk_tree_store_remove(filebrowser->store,&remove_dot_iter);
 	}
 	free_dir_entries(direntrylist);
-	gtk_tree_view_columns_autosize(GTK_TREE_VIEW(filebrowser->tree));
 }
 
 /* can return NULL if for example the filepath is not in the basedir */
