@@ -1355,6 +1355,21 @@ static gboolean search_entry_key_press_event_lcb(GtkWidget *widget,GdkEventKey *
 	return FALSE;
 }*/
 
+static gboolean snr_focus_in_lcb(GtkWidget *widget, GdkEventFocus *event, Tsnr2_win *snr2win)
+{
+    if (snr2win->bfwin->current_document->filename) {
+        gtk_widget_set_sensitive (snr2win->bookmark_results, TRUE);
+        if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (snr2win->bookmark_results))) {
+            LASTSNR2(snr2win->bfwin->snr2)->bookmark_results = TRUE;
+        }
+    } else {
+        LASTSNR2(snr2win->bfwin->snr2)->bookmark_results = FALSE;
+        gtk_widget_set_sensitive (snr2win->bookmark_results, FALSE);
+    }
+       
+    return FALSE;
+}
+
 static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	Tsnr2_win *snr2win;
 	GtkWidget *vbox, *hbox, *button, *table;
@@ -1380,6 +1395,7 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 	}
 	snr2win->window = window_full(tmptext, GTK_WIN_POS_MOUSE, 12, G_CALLBACK(snr2dialog_destroy_lcb), snr2win, TRUE);
 	gtk_window_set_role(GTK_WINDOW(snr2win->window), "snr");
+	g_signal_connect_after(G_OBJECT(snr2win->window), "focus-in-event", G_CALLBACK(snr_focus_in_lcb), snr2win);
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(snr2win->window), vbox);
 
