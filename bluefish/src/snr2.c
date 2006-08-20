@@ -722,7 +722,7 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 		if (replacetype == string) {
 			buf_text_offset += replacelen - (result.end - result.start);
 		}
-		if (LASTSNR2(bfwin->snr2)->overlapping_search) {
+		if (LASTSNR2(bfwin->snr2)->overlapping_search || result.start == result.end) {
 			buf_byte_offset = result.bstart + 1;
 			/* buf_text_offset += result.start + 1; */
 		} else {
