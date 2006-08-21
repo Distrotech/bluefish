@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>    /* GDK_Return */
@@ -1016,7 +1016,7 @@ gint multi_button_dialog_backend(GtkWidget *win, gchar *primary, gchar *secondar
 	hig_dialog_backend (GTK_DIALOG (dialog), primary, secondary, icon);
 	gtk_widget_show_all (dialog);
 	retval = gtk_dialog_run (GTK_DIALOG (dialog));
-	if (retval != GTK_RESPONSE_DELETE_EVENT) {
+	if (retval != GTK_RESPONSE_NONE) {
 	    gtk_widget_destroy (dialog);
 	}
 
