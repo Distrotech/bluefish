@@ -1284,7 +1284,7 @@ void doc_replace_text(Tdocument * doc, const gchar * newstring, gint start, gint
 	doc_replace_text_backend(doc, newstring, start, end);
 	doc_unre_new_group(doc);
 }
-
+/*
 static void doc_convert_case_in_selection(Tdocument *doc, gboolean toUpper) {
 	gint start, end;
 	if (doc_get_selection(doc, &start, &end)) {
@@ -1299,7 +1299,7 @@ static void doc_convert_case_in_selection(Tdocument *doc, gboolean toUpper) {
 		}
 	}
 }
-
+*/
 
 /**
  * doc_insert_two_strings:
@@ -1738,6 +1738,7 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 	doc_set_modified(doc, 1);	
 	DEBUG_MSG("doc_buffer_insert_text_lcb, done\n");
 }
+/*
 static gboolean find_char(gunichar ch,gchar *data) {
 #ifdef DEBUG
 	if (ch < 127) {
@@ -1752,6 +1753,7 @@ static gboolean find_char(gunichar ch,gchar *data) {
 static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIter *iter) {	
 	return NULL;
 }
+*/
 static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
 	DEBUG_MSG("doc_buffer_insert_text_after_lcb, started for string '%s'\n",string);
 	if (!doc->paste_operation) {		
@@ -3479,6 +3481,7 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 		return;
 	} else {
 		GnomeVFSURI *uri;
+		doc_unre_new_group(bfwin->current_document);
 		uri = gnome_vfs_uri_new(tmpfilename);
 		file_into_doc(bfwin->current_document, uri, FALSE);
 		gnome_vfs_uri_unref(uri);
