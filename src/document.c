@@ -1679,7 +1679,7 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 		if (pos < PASTEOPERATION(doc->paste_operation)->so || PASTEOPERATION(doc->paste_operation)->so == -1) PASTEOPERATION(doc->paste_operation)->so = pos;
 	} else if (len == 1) {
 		/* undo_redo stuff */
-		if (	!doc_unre_test_last_entry(doc, UndoInsert, -1, pos)
+		if (!doc_unre_test_last_entry(doc, UndoInsert, -1, pos)
 				|| string[0] == ' ' 
 				|| string[0] == '\n' 
 				|| string[0] == '\t'
@@ -1983,7 +1983,7 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 					DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
 					doc_unre_new_group(doc);
 				}			
-			} else {
+			} else if (!doc->paste_operation) {
 				doc_unre_new_group(doc);
 			}
 			doc_unre_add(doc, string, start, end, UndoDelete);
