@@ -3791,6 +3791,7 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 		return;
 	} else {
 		/* do we need to set the insert point in some way ?? */
+        doc_unre_new_group(bfwin->current_document);
 		doc_file_to_textbox(bfwin->current_document, tmpfilename, TRUE, FALSE);
 		g_free(tmpfilename);
 		doc_set_modified(bfwin->current_document, 1);
