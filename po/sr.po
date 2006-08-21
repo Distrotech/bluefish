@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: last_sr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-12 06:40-0800\n"
+"POT-Creation-Date: 2006-08-20 22:03-0700\n"
 "PO-Revision-Date: 2005-04-17 12:26+0200\n"
 "Last-Translator:  <(null)>\n"
 "Language-Team:  <en@li.org>\n"
@@ -215,8 +215,11 @@ msgid ""
 "  Serbian: Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
 "\n"
+"  Slovak: Vladimir VASIL\n"
+"   <vvasil@post.sk>\n"
+"\n"
 "  Spanish: Walter Oscar Echarri\n"
-"   <wecharri@arnet.com.ar>\n"
+"   <wecharri@gmail.com>\n"
 "\n"
 "  Swedish: David Smeringe\n"
 "   <david.smeringe@telia.com>\n"
@@ -288,27 +291,27 @@ msgstr ""
 "   <barathee@yahoo.com>\n"
 "\n"
 
-#: ../src/about.c:165
+#: ../src/about.c:167
 msgid "About Bluefish"
 msgstr "U vezi Bluefish-a"
 
-#: ../src/about.c:195
+#: ../src/about.c:197
 msgid ""
 "\n"
 "\n"
 "Resulting in the detection of:\n"
 msgstr ""
 
-#: ../src/about.c:222 ../src/fref.c:1464 ../src/fref.c:1748 ../src/fref.c:1835
-#: ../src/fref.c:1870 ../src/fref.c:2347
+#: ../src/about.c:224 ../src/fref.c:1469 ../src/fref.c:1753 ../src/fref.c:1840
+#: ../src/fref.c:1875 ../src/fref.c:2353
 msgid "Info"
 msgstr "Info"
 
-#: ../src/about.c:224
+#: ../src/about.c:226
 msgid "Authors"
 msgstr "Autori"
 
-#: ../src/about.c:225
+#: ../src/about.c:227
 msgid "Translators"
 msgstr "Prevodioci"
 
@@ -337,75 +340,75 @@ msgstr ""
 "Bluefish ima problema da pročita imena datoteka. Pokušajte da podesite "
 "okruženje za promenljivu G_BROKEN_FILENAMES=1\n"
 
-#: ../src/bfspell.c:385
+#: ../src/bfspell.c:387
 msgid "Check Spelling"
 msgstr "Proveri pravopis"
 
-#: ../src/bfspell.c:389
+#: ../src/bfspell.c:391
 msgid "Checking"
 msgstr "Provera"
 
-#: ../src/bfspell.c:398
+#: ../src/bfspell.c:400
 msgid "_Misspelled word:"
 msgstr "Pogrešne reči"
 
-#: ../src/bfspell.c:402
+#: ../src/bfspell.c:404
 msgid "Change _to:"
 msgstr "Promeni_u"
 
-#: ../src/bfspell.c:405
+#: ../src/bfspell.c:407
 msgid "I_gnore"
 msgstr "Ignoriši"
 
-#: ../src/bfspell.c:406 ../src/snr2.c:910
+#: ../src/bfspell.c:408 ../src/snr2.c:918
 msgid "_Replace"
 msgstr "Zameni"
 
-#: ../src/bfspell.c:419
+#: ../src/bfspell.c:421
 msgid "In _document"
 msgstr "U_dokumentu"
 
-#: ../src/bfspell.c:420
+#: ../src/bfspell.c:422
 msgid "I_n selection"
 msgstr "U_izboru"
 
-#: ../src/bfspell.c:429
+#: ../src/bfspell.c:431
 msgid "personal dictionary"
 msgstr "lični rečnik"
 
-#: ../src/bfspell.c:432
+#: ../src/bfspell.c:434
 msgid "session dictionary"
 msgstr "rečnik sesije"
 
-#: ../src/bfspell.c:438
+#: ../src/bfspell.c:440
 msgid "Dictionary:"
 msgstr "Rečnik"
 
-#: ../src/bfspell.c:442
+#: ../src/bfspell.c:444
 msgid "_Add"
 msgstr "_Dodaj"
 
-#: ../src/bfspell.c:446
+#: ../src/bfspell.c:448
 msgid "Language:"
 msgstr "Jezik:"
 
-#: ../src/bfspell.c:450
+#: ../src/bfspell.c:452
 msgid "Set defa_ult"
 msgstr "Postavi kao osnovno"
 
-#: ../src/bfspell.c:454
+#: ../src/bfspell.c:456
 msgid "Filter:"
 msgstr "Filter:"
 
-#: ../src/bfspell.c:462
+#: ../src/bfspell.c:464
 msgid "no filter"
 msgstr "bez filtera"
 
-#: ../src/bfspell.c:464
+#: ../src/bfspell.c:466
 msgid "html filter"
 msgstr "html filter"
 
-#: ../src/bluefish.c:97
+#: ../src/bluefish.c:98
 #, c-format
 msgid ""
 "\n"
@@ -414,7 +417,7 @@ msgstr ""
 "\n"
 "Svrha:%s [opcije] [imena datoteka ...] \n"
 
-#: ../src/bluefish.c:98
+#: ../src/bluefish.c:99
 msgid ""
 "\n"
 "Currently accepted options are:\n"
@@ -422,47 +425,47 @@ msgstr ""
 "\n"
 "Trenutno prihvaćene opcije su: \n"
 
-#: ../src/bluefish.c:99
+#: ../src/bluefish.c:100
 msgid "-s           skip root check\n"
 msgstr "-s          preskoči root proveru\n"
 
-#: ../src/bluefish.c:100
+#: ../src/bluefish.c:101
 msgid "-v           current version\n"
 msgstr "-v          trenutna verzija\n"
 
-#: ../src/bluefish.c:101
+#: ../src/bluefish.c:102
 msgid "-n           open new window\n"
 msgstr "-n          otvori nov prozor\n"
 
-#: ../src/bluefish.c:102
+#: ../src/bluefish.c:103
 msgid "-p filename  open project\n"
 msgstr "-p ime datoteke  otvori projekat\n"
 
-#: ../src/bluefish.c:103
+#: ../src/bluefish.c:104
 msgid "-h           this help screen\n"
 msgstr "-h           ovaj pomoćni ekran\n"
 
-#: ../src/bluefish.c:181
+#: ../src/bluefish.c:184
 msgid "parsing highlighting file..."
 msgstr "raščlanjujem označenu datoteku..."
 
-#: ../src/bluefish.c:192
+#: ../src/bluefish.c:196
 msgid "compiling highlighting patterns..."
 msgstr "kompiliram označen uzor"
 
-#: ../src/bluefish.c:199
+#: ../src/bluefish.c:203
 msgid "parsing custom menu file..."
 msgstr "raščlanjujem meni datoteku"
 
-#: ../src/bluefish.c:211
+#: ../src/bluefish.c:215
 msgid "creating main gui..."
 msgstr "pravim glavni GUI"
 
-#: ../src/bluefish.c:222
+#: ../src/bluefish.c:226
 msgid "showing main gui..."
 msgstr "prikazujem glavni GUI"
 
-#: ../src/bluefish.c:259
+#: ../src/bluefish.c:263
 #, fuzzy
 msgid ""
 "<span weight=\"bold\" size=\"larger\">Bluefish Tip:</span>\n"
@@ -476,12 +479,12 @@ msgstr ""
 "\n"
 "Ako desnim dugmetom kliknete na HTML menije možete dodati dugmiće u Quickbar"
 
-#: ../src/bluefish.c:263
+#: ../src/bluefish.c:267
 msgid "_Don't show this dialog again."
 msgstr ""
 
-#: ../src/bookmark.c:368 ../src/html.c:614 ../src/html.c:834
-#: ../src/html.c:1440 ../src/html.c:1944 ../src/html_form.c:231
+#: ../src/bookmark.c:368 ../src/html.c:609 ../src/html.c:829
+#: ../src/html.c:1435 ../src/html.c:1939 ../src/html_form.c:231
 #: ../src/html_form.c:596 ../src/html_form.c:795 ../src/html_form.c:890
 #: ../src/image.c:334
 msgid "_Name:"
@@ -547,7 +550,7 @@ msgid "Delete all"
 msgstr " Obriši sve"
 
 #: ../src/bookmark.c:1281 ../src/bookmark.c:1298 ../src/bookmark.c:1334
-#: ../src/document.c:2077
+#: ../src/document.c:2098
 msgid "Add bookmark"
 msgstr "Dodaj marker"
 
@@ -575,15 +578,11 @@ msgstr "Veličina datoteke je promenjena\n"
 msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
 msgstr "Pozicije markera su možda pogrešne. Obrisati marker?"
 
-#: ../src/document.c:259
-msgid "/Document/Highlight Syntax"
-msgstr "/Dokument/Obeležavanje-Sintaksa"
-
-#: ../src/document.c:699
+#: ../src/document.c:707
 msgid "Name: "
 msgstr "Ime: "
 
-#: ../src/document.c:700
+#: ../src/document.c:708
 msgid ""
 "\n"
 "Type: "
@@ -591,7 +590,7 @@ msgstr ""
 "\n"
 "_Tip:"
 
-#: ../src/document.c:701
+#: ../src/document.c:709
 msgid ""
 "\n"
 "Encoding: "
@@ -599,7 +598,7 @@ msgstr ""
 "\n"
 "Kodni raspored"
 
-#: ../src/document.c:704
+#: ../src/document.c:712
 msgid ""
 "\n"
 "Size (on disk): "
@@ -607,11 +606,11 @@ msgstr ""
 "\n"
 "Veličina(na disku): "
 
-#: ../src/document.c:704
+#: ../src/document.c:712
 msgid " bytes"
 msgstr "bajti"
 
-#: ../src/document.c:710
+#: ../src/document.c:718
 msgid ""
 "\n"
 "Permissions: "
@@ -619,7 +618,7 @@ msgstr ""
 "\n"
 "Dozvole: "
 
-#: ../src/document.c:717
+#: ../src/document.c:725
 msgid ""
 "\n"
 "Last modified: "
@@ -627,66 +626,66 @@ msgstr ""
 "\n"
 "Poslednji put promenjeno: "
 
-#: ../src/document.c:742
+#: ../src/document.c:750
 #, c-format
 msgid "Untitled %d"
 msgstr "Neimenovan %d"
 
-#: ../src/document.c:1091
+#: ../src/document.c:1099
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " Ln: %d, Kol: %d"
 
-#: ../src/document.c:1124 ../src/document.c:1125
+#: ../src/document.c:1132 ../src/document.c:1133
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-#: ../src/document.c:1418 ../src/document.c:1439
+#: ../src/document.c:1426 ../src/document.c:1447
 msgid "Could not read file:\n"
 msgstr "Nemoguće je pročitati datoteku: \n"
 
-#: ../src/document.c:1470
+#: ../src/document.c:1478
 msgid "Opening file "
 msgstr "Otvaram datoteku "
 
-#: ../src/document.c:1585
+#: ../src/document.c:1593
 msgid "Cannot display file, unknown characters found."
 msgstr "Nemoguće je prikazati datoteku, otkriveni nepoznati karakteri ."
 
-#: ../src/document.c:2060 ../src/snr2.c:1360
+#: ../src/document.c:2081 ../src/snr2.c:1385
 msgid "Replace"
 msgstr "Zameni"
 
-#: ../src/document.c:2065 ../src/snr2.c:1363
+#: ../src/document.c:2086 ../src/snr2.c:1388
 msgid "Find"
 msgstr "Nađi"
 
-#: ../src/document.c:2073
+#: ../src/document.c:2094
 msgid "Delete bookmark"
 msgstr "Obriši marker."
 
-#: ../src/document.c:2084
+#: ../src/document.c:2105
 msgid "Edit color"
 msgstr "Uredi boju"
 
-#: ../src/document.c:2092
+#: ../src/document.c:2113
 msgid "Edit tag"
 msgstr "Uredi marker"
 
-#: ../src/document.c:2235
+#: ../src/document.c:2256
 msgid "Saving file"
 msgstr "Čuvam datoteku"
 
-#: ../src/document.c:2281 ../src/document.c:2305
+#: ../src/document.c:2302 ../src/document.c:2326
 msgid "_Abort save"
 msgstr "_Prekini čuvanje"
 
-#: ../src/document.c:2281
+#: ../src/document.c:2302
 msgid "_Continue save"
 msgstr "_Nastavi čuvanje"
 
-#: ../src/document.c:2283
+#: ../src/document.c:2304
 #, c-format
 msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
@@ -695,15 +694,15 @@ msgstr ""
 "Rezervna kopija datoteke %s nije mogla biti napravljena. Ako nastavite ,  "
 "ova datoteka će biti prepisana."
 
-#: ../src/document.c:2284
+#: ../src/document.c:2305
 msgid "File backup failure"
 msgstr "Neuspelo pravljenje rezervne kopije"
 
-#: ../src/document.c:2305
+#: ../src/document.c:2326
 msgid "_Continue save in UTF-8"
 msgstr "_Nastavi čuvanje u UTF-8"
 
-#: ../src/document.c:2316
+#: ../src/document.c:2337
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -716,57 +715,57 @@ msgstr ""
 "\n"
 "Nastavi čuvanje u UTF-8 kodnom rasporedu?"
 
-#: ../src/document.c:2317
+#: ../src/document.c:2338
 msgid "File encoding conversion failure"
 msgstr "Neuspelo konvertovanje kodnog rasporeda datoteke"
 
-#: ../src/document.c:2449
+#: ../src/document.c:2470
 msgid "Previously: "
 msgstr "Prethodni: "
 
-#: ../src/document.c:2481
+#: ../src/document.c:2502
 #, c-format
 msgid "Move/rename %s to"
 msgstr "Pomeri/preimenuj %s u"
 
-#: ../src/document.c:2481
+#: ../src/document.c:2502
 #, c-format
 msgid "Save %s as"
 msgstr "Sačuvaj %s kao..."
 
-#: ../src/document.c:2515 ../src/document.c:2531 ../src/document.c:2627
-#: ../src/document.c:3803 ../src/project.c:207
+#: ../src/document.c:2536 ../src/document.c:2552 ../src/document.c:2651
+#: ../src/document.c:3843 ../src/project.c:208
 msgid "_Cancel"
 msgstr "_Poništi"
 
-#: ../src/document.c:2515 ../src/document.c:2531 ../src/document.c:2627
-#: ../src/project.c:207
+#: ../src/document.c:2536 ../src/document.c:2552 ../src/document.c:2651
+#: ../src/project.c:208
 msgid "_Overwrite"
 msgstr "_Prepiši"
 
-#: ../src/document.c:2517
+#: ../src/document.c:2538
 #, c-format
 msgid "File %s exists and is opened, overwrite?"
 msgstr "Datoteka %s postoji i otvorena je, prepisati?"
 
-#: ../src/document.c:2519
+#: ../src/document.c:2540
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "Datoteka koju ste izabrali se uređuje u Bluefish-u."
 
-#: ../src/document.c:2533 ../src/project.c:208
+#: ../src/document.c:2554 ../src/project.c:209
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "Datoteka pod imenom \"%s\" već postoji."
 
-#: ../src/document.c:2535 ../src/project.c:210
+#: ../src/document.c:2556 ../src/project.c:211
 msgid "Do you want to replace the existing file?"
 msgstr "Želite li da zamenite postojeću datoteku?"
 
-#: ../src/document.c:2582
+#: ../src/document.c:2604
 msgid "Save as..."
 msgstr "Sačuvaj kao..."
 
-#: ../src/document.c:2631
+#: ../src/document.c:2655
 #, c-format
 msgid ""
 "File: %s\n"
@@ -779,16 +778,16 @@ msgstr ""
 "Vreme nove prepravke: %s\n"
 "Staro vreme prepravke: %s"
 
-#: ../src/document.c:2632
+#: ../src/document.c:2656
 msgid "File has been modified by another process."
 msgstr "Datoteka se uređuje u drugom procesu."
 
-#: ../src/document.c:2645
+#: ../src/document.c:2669
 #, c-format
 msgid "Saving %s"
 msgstr "Čuvam %s"
 
-#: ../src/document.c:2659
+#: ../src/document.c:2683
 msgid ""
 "Could not backup file:\n"
 "\""
@@ -796,11 +795,11 @@ msgstr ""
 "Nisam mogao da napravim rezervnu kopiju:\n"
 "\""
 
-#: ../src/document.c:2660
+#: ../src/document.c:2684
 msgid "File save aborted.\n"
 msgstr "Čuvanje datoteke prekinuto:\n"
 
-#: ../src/document.c:2665
+#: ../src/document.c:2689
 msgid ""
 "Could not write file:\n"
 "\""
@@ -808,32 +807,32 @@ msgstr ""
 "Nemoguće pisanje u datoteku:\n"
 "\" "
 
-#: ../src/document.c:2666
+#: ../src/document.c:2690
 msgid "File save error"
 msgstr "Greška u čuvanju datoteke"
 
-#: ../src/document.c:2716
+#: ../src/document.c:2755
 #, c-format
 msgid "Save changes to \"%s\" before closing?."
 msgstr "Sačuvajte promene u \"%s\" pre zatvaranja?"
 
-#: ../src/document.c:2723 ../src/project.c:363
+#: ../src/document.c:2762 ../src/project.c:364
 msgid "Do_n't save"
 msgstr "Ne_čuvaj"
 
-#: ../src/document.c:2725 ../src/document.c:3805 ../src/project.c:372
+#: ../src/document.c:2764 ../src/document.c:3845 ../src/project.c:373
 msgid "If you don't save your changes they will be lost."
 msgstr "Izmene će biti izgubljene ukoliko ih ne sačuvate."
 
-#: ../src/document.c:3005
+#: ../src/document.c:3044
 msgid "No filename"
 msgstr "Datoteka nema ime"
 
-#: ../src/document.c:3142
+#: ../src/document.c:3181
 msgid "Loading files..."
 msgstr "Učitavam datoteke"
 
-#: ../src/document.c:3160
+#: ../src/document.c:3199
 msgid ""
 "These files could not opened:\n"
 "\n"
@@ -841,23 +840,23 @@ msgstr ""
 "Ove datoteke nisu mogle biti otvorene:\n"
 "\n"
 
-#: ../src/document.c:3162 ../src/msg_queue.c:236
+#: ../src/document.c:3201 ../src/msg_queue.c:241
 msgid "Unable to open file(s)\n"
 msgstr "Nisam mogao da otvorim datoteku/e\n"
 
-#: ../src/document.c:3194
+#: ../src/document.c:3233
 msgid "Unable to open file"
 msgstr "Datoteku nije moguće otvoriti"
 
-#: ../src/document.c:3256
+#: ../src/document.c:3295
 msgid "_Reload"
 msgstr "_Ponovo učitaj"
 
-#: ../src/document.c:3256
+#: ../src/document.c:3295
 msgid "_Ignore"
 msgstr "_Ignoriši"
 
-#: ../src/document.c:3260
+#: ../src/document.c:3299
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -870,276 +869,272 @@ msgstr ""
 "Vreme nove izmene: %s\n"
 "Vreme stare izmene: %s "
 
-#: ../src/document.c:3261
+#: ../src/document.c:3300
 msgid "File has been modified by another process\n"
 msgstr "Datoteka se uređuje u drugom procesu\n"
 
-#: ../src/document.c:3368
+#: ../src/document.c:3407
 msgid "searching files..."
 msgstr "tražim datoteke..."
 
-#: ../src/document.c:3392 ../src/document.c:3399
+#: ../src/document.c:3431 ../src/document.c:3438
 msgid "Select basedir"
 msgstr "Izaberite osnovni direktorijum"
 
-#: ../src/document.c:3418
+#: ../src/document.c:3457
 msgid "Advanced open file selector"
 msgstr "Napredni odabir datoteka za otvaranje"
 
-#: ../src/document.c:3429
+#: ../src/document.c:3468
 msgid "grep {contains} `find {basedir} -name '{file type}'`"
 msgstr "grep {sadrži} traži {osnovni direktorijum} -ime {vrsta datoteke} "
 
-#: ../src/document.c:3434
+#: ../src/document.c:3473
 msgid "<b>General</b>"
 msgstr "<b>Opšti</b>"
 
-#: ../src/document.c:3436
+#: ../src/document.c:3475
 msgid "Base_dir:"
 msgstr "Osnovni_direktorijum:"
 
-#: ../src/document.c:3438 ../src/gtk_easy.c:1325
+#: ../src/document.c:3477 ../src/gtk_easy.c:1330
 msgid "_Browse..."
 msgstr "_Pretraži..."
 
-#: ../src/document.c:3456
+#: ../src/document.c:3495
 msgid "_File Type:"
 msgstr "_Vrsta datoteke:"
 
-#: ../src/document.c:3462
+#: ../src/document.c:3501
 msgid "_Recursive:"
 msgstr "_Rekurziv:"
 
-#: ../src/document.c:3467
+#: ../src/document.c:3506
 msgid "<b>Contains</b>"
 msgstr "<b>Sadrži</b>"
 
-#: ../src/document.c:3470
+#: ../src/document.c:3509
 msgid "Pa_ttern:"
 msgstr "Uzor:"
 
-#: ../src/document.c:3474
+#: ../src/document.c:3513
 msgid "Is rege_x:"
 msgstr "Je rege_x:"
 
-#: ../src/document.c:3609
+#: ../src/document.c:3648
 msgid "Open URL"
 msgstr "Otvori URL"
 
-#: ../src/document.c:3613
+#: ../src/document.c:3652
 msgid "<b>Open URL</b>"
 msgstr "<b>Otvori URL</b>"
 
-#: ../src/document.c:3659 ../src/gtk_easy.c:1627
+#: ../src/document.c:3698 ../src/gtk_easy.c:1627
 msgid "Select files"
 msgstr "Izaberi datoteke"
 
-#: ../src/document.c:3679 ../src/document.c:3698 ../src/document.c:3715
+#: ../src/document.c:3718 ../src/document.c:3737 ../src/document.c:3754
 #, c-format
 msgid "Loading %d file(s)..."
 msgstr "Učitavam %d datoteke..."
 
-#: ../src/document.c:3741 ../src/document.c:3748
+#: ../src/document.c:3780 ../src/document.c:3787
 msgid "Select file to insert"
 msgstr "Izaberite datoteke za ubacivanje"
 
-#: ../src/document.c:3751
+#: ../src/document.c:3790
 msgid "No file to insert"
 msgstr "Nema datoteke za ubacivanje"
 
-#: ../src/document.c:3803
+#: ../src/document.c:3843
 msgid "_Save All"
 msgstr "_Sačuvaj sve"
 
-#: ../src/document.c:3803
+#: ../src/document.c:3843
 msgid "Close _All"
 msgstr "Zatvori _sve"
 
-#: ../src/document.c:3803
+#: ../src/document.c:3843
 msgid "Choose per _File"
 msgstr "Biraj po _datoteci"
 
-#: ../src/document.c:3804
+#: ../src/document.c:3844
 msgid "Multiple open files have been changed."
 msgstr "Više otvorenih dateoteka je promenjeno."
 
-#: ../src/document.c:4052
+#: ../src/document.c:4092
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistika: %d redova, %d reči, %d karaktera"
 
-#: ../src/filebrowser.c:1064
+#: ../src/filebrowser.c:1063
 msgid "Error creating path"
 msgstr "Greška pri pravljenju putanje"
 
-#: ../src/filebrowser.c:1064
+#: ../src/filebrowser.c:1063
 msgid "The specified pathname already exists."
 msgstr "Izabrana putanja već postoji."
 
-#: ../src/filebrowser.c:1134
+#: ../src/filebrowser.c:1133
 msgid "File name"
 msgstr "Ime datoteke"
 
-#: ../src/filebrowser.c:1136
+#: ../src/filebrowser.c:1135
 msgid "Directory name"
 msgstr "Ime direktorijuma"
 
-#: ../src/filebrowser.c:1167
+#: ../src/filebrowser.c:1166
 msgid "Opening directory..."
 msgstr "Otvaram direktorijum..."
 
-#: ../src/filebrowser.c:1256 ../src/filebrowser.c:1260
+#: ../src/filebrowser.c:1255 ../src/filebrowser.c:1259
 msgid "Could not rename\n"
 msgstr "Nemoguće je preimenovati\n"
 
-#: ../src/filebrowser.c:1303
+#: ../src/filebrowser.c:1302
 #, c-format
 msgid "Are you sure you want to delete \"%s\" ?"
 msgstr "Jeste li sigurni da želite da obrišete \"%s\" ?"
 
-#: ../src/filebrowser.c:1304
+#: ../src/filebrowser.c:1303
 msgid "If you delete this file, it will be permanently lost."
 msgstr "Ako obrišete ovu datoteku ona će biti trajno izgubljena."
 
-#: ../src/filebrowser.c:1313 ../src/filebrowser.c:1317
+#: ../src/filebrowser.c:1312 ../src/filebrowser.c:1316
 msgid "Could not delete \n"
 msgstr "Nemoguće je izbrisati \n"
 
-#: ../src/filebrowser.c:1456
+#: ../src/filebrowser.c:1455
 msgid "/Open _Advanced..."
 msgstr "/Napredno _otvaranje"
 
-#: ../src/filebrowser.c:1460
+#: ../src/filebrowser.c:1459
 msgid "/_Refresh"
 msgstr "/_Osveži"
 
-#: ../src/filebrowser.c:1461
+#: ../src/filebrowser.c:1460
 msgid "/_Set as basedir"
 msgstr "/_Označi kao osnovni direktorijum"
 
-#: ../src/filebrowser.c:1465
+#: ../src/filebrowser.c:1464
 msgid "/New _File"
 msgstr "/Nova_datoteka"
 
-#: ../src/filebrowser.c:1466
+#: ../src/filebrowser.c:1465
 msgid "/_New Directory"
 msgstr "/_Novi direktorijum"
 
-#: ../src/filebrowser.c:1471
+#: ../src/filebrowser.c:1470
 msgid "/_Open"
 msgstr "/_Otvori"
 
-#: ../src/filebrowser.c:1472
+#: ../src/filebrowser.c:1471
 msgid "/Rena_me"
 msgstr "/Preimenuj"
 
-#: ../src/filebrowser.c:1473
+#: ../src/filebrowser.c:1472
 msgid "/_Delete"
 msgstr "/_Obriši"
 
-#: ../src/filebrowser.c:1495
+#: ../src/filebrowser.c:1494
 msgid "Show hidden files"
 msgstr "Prikazuj skrivene datoteke"
 
-#: ../src/filebrowser.c:1500
+#: ../src/filebrowser.c:1499
 msgid "Show backup files"
 msgstr "Prikazuj rezervne kopije"
 
-#: ../src/filebrowser.c:1506
+#: ../src/filebrowser.c:1505
 msgid "Filter"
 msgstr "Filter"
 
-#: ../src/filebrowser.c:1706 ../src/gtk_easy.c:1408
+#: ../src/filebrowser.c:1705 ../src/gtk_easy.c:1408
 msgid "All files"
 msgstr "Sve datoteke"
 
-#: ../src/filebrowser.c:1978
+#: ../src/filebrowser.c:1977
 msgid "Show full tree"
 msgstr "Prikaži celokupno stablo"
 
-#: ../src/filebrowser.c:1979
+#: ../src/filebrowser.c:1978
 msgid "Follow focus"
 msgstr "Sledi fokus"
 
-#: ../src/fref.c:1483 ../src/gui.c:1092
+#: ../src/fref.c:1488 ../src/gui.c:1092
 msgid "Close"
 msgstr "Zatvori"
 
-#: ../src/fref.c:1487 ../src/fref.c:1829 ../src/fref.c:1865 ../src/fref.c:2346
+#: ../src/fref.c:1492 ../src/fref.c:1834 ../src/fref.c:1870 ../src/fref.c:2352
 msgid "Dialog"
 msgstr "Upit"
 
-#: ../src/fref.c:1488 ../src/fref.c:1832 ../src/fref.c:1859
+#: ../src/fref.c:1493 ../src/fref.c:1837 ../src/fref.c:1864
 msgid "Insert"
 msgstr "Ubaci"
 
-#: ../src/fref.c:1841 ../src/html.c:1274
+#: ../src/fref.c:1846 ../src/html.c:1269
 msgid "Options"
 msgstr "Opcije"
 
-#: ../src/fref.c:1849
+#: ../src/fref.c:1854
 msgid "Rescan reference files"
 msgstr "Ponovo skeniraj referentne datoteke"
 
-#: ../src/fref.c:1853
+#: ../src/fref.c:1858
 msgid "Left doubleclick action"
 msgstr "Levi dupli klik"
 
-#: ../src/fref.c:1875
+#: ../src/fref.c:1880
 msgid "Info type"
 msgstr "Vrsta informacije"
 
-#: ../src/fref.c:1880
+#: ../src/fref.c:1885
 msgid "Description"
 msgstr "Opis"
 
-#: ../src/fref.c:1885
+#: ../src/fref.c:1890
 msgid "Attributes/Parameters"
 msgstr "Atributi/Parametri"
 
-#: ../src/fref.c:1890
+#: ../src/fref.c:1895
 msgid "Notes"
 msgstr "Beleške"
 
-#: ../src/fref.c:2066 ../src/fref.c:2080
+#: ../src/fref.c:2072 ../src/fref.c:2086
 msgid "Reference search"
 msgstr "Pretraga referenci"
 
-#: ../src/fref.c:2081
+#: ../src/fref.c:2087
 msgid "Reference not found"
 msgstr "Reference nisu pronađene"
 
-#: ../src/fref.c:2098
+#: ../src/fref.c:2104
 msgid "Error"
 msgstr "Greška"
 
-#: ../src/fref.c:2100
+#: ../src/fref.c:2106
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
 msgstr ""
 "Možda niste učitali reference ili niste izabrali referencu za pretragu."
 
-#: ../src/fref.c:2332
+#: ../src/fref.c:2338
 msgid "Show info window"
 msgstr "Prikaži info prozor"
 
-#: ../src/fref.c:2348
+#: ../src/fref.c:2354
 msgid "Search"
 msgstr "Traži"
 
-#: ../src/gtk_easy.c:1165
+#: ../src/gtk_easy.c:1170
 #, c-format
 msgid "%d of %d"
 msgstr "%d od %d "
 
-#: ../src/gtk_easy.c:1268
+#: ../src/gtk_easy.c:1273
 msgid "Select File"
 msgstr "Izaberi datoteku "
-
-#: ../src/gtk_easy.c:1401
-msgid "Show hidden"
-msgstr "Prikaži skrivene datoteke"
 
 #: ../src/gtk_easy.c:1600
 msgid "Select file"
@@ -1173,7 +1168,7 @@ msgstr "Bold"
 msgid "Italic"
 msgstr "Italik"
 
-#: ../src/gui.c:598 ../src/html.c:778
+#: ../src/gui.c:598 ../src/html.c:773
 msgid "Paragraph"
 msgstr "Paragraf"
 
@@ -1250,27 +1245,27 @@ msgstr "Jako"
 msgid "Emphasis"
 msgstr "Uveličavanje"
 
-#: ../src/gui.c:620 ../src/html.c:787
+#: ../src/gui.c:620 ../src/html.c:782
 msgid "Heading 1"
 msgstr "Zaglavlje 1"
 
-#: ../src/gui.c:621 ../src/html.c:790
+#: ../src/gui.c:621 ../src/html.c:785
 msgid "Heading 2"
 msgstr "Zaglavlje 2"
 
-#: ../src/gui.c:622 ../src/html.c:793
+#: ../src/gui.c:622 ../src/html.c:788
 msgid "Heading 3"
 msgstr "Zaglavlje 3"
 
-#: ../src/gui.c:623 ../src/html.c:796
+#: ../src/gui.c:623 ../src/html.c:791
 msgid "Heading 4"
 msgstr "Zaglavlje 4"
 
-#: ../src/gui.c:624 ../src/html.c:799
+#: ../src/gui.c:624 ../src/html.c:794
 msgid "Heading 5"
 msgstr "Zaglavlje 5"
 
-#: ../src/gui.c:625 ../src/html.c:802
+#: ../src/gui.c:625 ../src/html.c:797
 msgid "Heading 6"
 msgstr "Zaglavlje 6"
 
@@ -1326,11 +1321,11 @@ msgstr "Okviri..."
 msgid "Frame..."
 msgstr "Okvir..."
 
-#: ../src/gui.c:643 ../src/html.c:1848
+#: ../src/gui.c:643 ../src/html.c:1843
 msgid "Frameset"
 msgstr "Okviri"
 
-#: ../src/gui.c:644 ../src/html.c:1932
+#: ../src/gui.c:644 ../src/html.c:1927
 msgid "Frame"
 msgstr "Okvir"
 
@@ -1566,7 +1561,7 @@ msgstr "Nađi..."
 msgid "Replace..."
 msgstr "Zameni..."
 
-#: ../src/gui.c:1107 ../src/preferences.c:2012
+#: ../src/gui.c:1107 ../src/preferences.c:2028
 msgid "Undo"
 msgstr "Poništi"
 
@@ -1594,31 +1589,31 @@ msgstr "Pogledaj u pretraživaču"
 msgid "Preferences..."
 msgstr "Osobine..."
 
-#: ../src/gui.c:1325
+#: ../src/gui.c:1330
 msgid "New Bluefish Window"
 msgstr "Novi Bluefish prozor"
 
-#: ../src/gui.c:1382
+#: ../src/gui.c:1387
 msgid "Stand by..."
 msgstr "Čekaj..."
 
-#: ../src/gui.c:1566
+#: ../src/gui.c:1571
 msgid "Goto line"
 msgstr "Idi na liniju"
 
-#: ../src/gui.c:1574
+#: ../src/gui.c:1579
 msgid "_Line number:"
 msgstr "_Broj linije:"
 
-#: ../src/gui.c:1580
+#: ../src/gui.c:1585
 msgid "From _selection"
 msgstr "Iz _izbora"
 
-#: ../src/gui.c:1583
+#: ../src/gui.c:1588
 msgid "Keep _dialog"
 msgstr "Zadrži _meni"
 
-#: ../src/gui.c:1649
+#: ../src/gui.c:1653
 msgid "starting bluefish"
 msgstr "pokrećem bluefish"
 
@@ -1696,422 +1691,422 @@ msgstr " _Stil..."
 msgid "Bluefish: Select color"
 msgstr "Bluefish birač boja"
 
-#: ../src/html.c:390
+#: ../src/html.c:385
 msgid "Insert Time"
 msgstr "Ubaci vreme"
 
-#: ../src/html.c:398
+#: ../src/html.c:393
 #, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr "  _Vreme (%i:%i:%i)"
 
-#: ../src/html.c:403
+#: ../src/html.c:398
 msgid "  Day of the _week (Sunday)"
 msgstr "  Dan u _nedelji (Nedelja)"
 
-#: ../src/html.c:406
+#: ../src/html.c:401
 msgid "  Day of the _week (Monday)"
 msgstr "  Dan u _nedelji (Ponedeljak)"
 
-#: ../src/html.c:409
+#: ../src/html.c:404
 msgid "  Day of the _week (Tuesday)"
 msgstr "  Dan u _nedelji (Utorak)"
 
-#: ../src/html.c:412
+#: ../src/html.c:407
 msgid "  Day of the _week (Wednesday)"
 msgstr "  Dan u _nedelji (Sreda)"
 
-#: ../src/html.c:415
+#: ../src/html.c:410
 msgid "  Day of the _week (Thursday)"
 msgstr "  Dan u _nedelji (Četvrtak)"
 
-#: ../src/html.c:418
+#: ../src/html.c:413
 msgid "  Day of the _week (Friday)"
 msgstr "  Dan u _nedelji (Petak)"
 
-#: ../src/html.c:421
+#: ../src/html.c:416
 msgid "  Day of the _week (Saturday)"
 msgstr "  Dan u _nedelji (Subota)"
 
-#: ../src/html.c:424
+#: ../src/html.c:419
 msgid "You appear to have a non existant day!\n"
 msgstr "Izgleda da imate nepostojeći dan!\n"
 
-#: ../src/html.c:432
+#: ../src/html.c:427
 #, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr "  _Datum (%i/%i/%i)"
 
-#: ../src/html.c:435
+#: ../src/html.c:430
 #, c-format
 msgid "  _Unix Time (%i)"
 msgstr "  _Unix vreme (%i)"
 
-#: ../src/html.c:438
+#: ../src/html.c:433
 #, c-format
 msgid "  Unix Date _String (%s"
 msgstr "  Unix datum _string (%s"
 
-#: ../src/html.c:444
+#: ../src/html.c:439
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
 msgstr ""
 
-#: ../src/html.c:586
+#: ../src/html.c:581
 msgid "Quick Anchor"
 msgstr "Brzo sidro"
 
-#: ../src/html.c:592 ../src/html_form.c:780
+#: ../src/html.c:587 ../src/html_form.c:780
 msgid "Attributes"
 msgstr "Atributi"
 
-#: ../src/html.c:606 ../src/html.c:2161
+#: ../src/html.c:601 ../src/html.c:2156
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: ../src/html.c:610 ../src/html_form.c:183
+#: ../src/html.c:605 ../src/html_form.c:183
 msgid "_Target:"
 msgstr "_Meta:"
 
-#: ../src/html.c:620 ../src/html.c:1297 ../src/html.c:1469 ../src/html.c:2091
+#: ../src/html.c:615 ../src/html.c:1292 ../src/html.c:1464 ../src/html.c:2086
 msgid "_Language:"
 msgstr "_Jezik:"
 
-#: ../src/html.c:624 ../src/html.c:842 ../src/html.c:976 ../src/html.c:1301
-#: ../src/html.c:1477 ../src/html.c:1880 ../src/html.c:1981 ../src/html.c:2110
+#: ../src/html.c:619 ../src/html.c:837 ../src/html.c:971 ../src/html.c:1296
+#: ../src/html.c:1472 ../src/html.c:1875 ../src/html.c:1976 ../src/html.c:2105
 #: ../src/html_form.c:187 ../src/html_form.c:243 ../src/html_form.c:609
 #: ../src/html_form.c:903 ../src/html_table.c:104 ../src/html_table.c:256
 #: ../src/html_table.c:364 ../src/image.c:342
 msgid "Custo_m:"
 msgstr "Lični:"
 
-#: ../src/html.c:627 ../src/html.c:1305 ../src/html_form.c:829
+#: ../src/html.c:622 ../src/html.c:1300 ../src/html_form.c:829
 msgid "Events"
 msgstr "Događaji"
 
-#: ../src/html.c:630
+#: ../src/html.c:625
 msgid "OnClic_k:"
 msgstr "NaKlik:"
 
-#: ../src/html.c:634
+#: ../src/html.c:629
 msgid "OnD_blClick:"
 msgstr "Na Dupli Klik:"
 
-#: ../src/html.c:638
+#: ../src/html.c:633
 msgid "OnMouseO_ver:"
 msgstr "Na Miš preko:"
 
-#: ../src/html.c:642
+#: ../src/html.c:637
 msgid "OnMouse_Down:"
 msgstr "On Miš dole:"
 
-#: ../src/html.c:646
+#: ../src/html.c:641
 msgid "OnMouse_Move:"
 msgstr "Na Pomeranje miša:"
 
-#: ../src/html.c:650
+#: ../src/html.c:645
 msgid "OnMouseOu_t:"
 msgstr "Na Sklonjenog miša:"
 
-#: ../src/html.c:654
+#: ../src/html.c:649
 msgid "OnMouse_Up:"
 msgstr "Na Miš gore:"
 
-#: ../src/html.c:658
+#: ../src/html.c:653
 msgid "OnKeyDo_wn:"
 msgstr "Na Dugme dole:"
 
-#: ../src/html.c:662
+#: ../src/html.c:657
 msgid "OnKey_Press:"
 msgstr "Na Pritisak dugmeta:"
 
-#: ../src/html.c:666
+#: ../src/html.c:661
 msgid "OnKe_yUp:"
 msgstr "Na Dugme gore:"
 
-#: ../src/html.c:781
+#: ../src/html.c:776
 msgid "Div"
 msgstr "Div"
 
-#: ../src/html.c:784
+#: ../src/html.c:779
 msgid "Span"
 msgstr "Raširi"
 
-#: ../src/html.c:819 ../src/html_table.c:112 ../src/html_table.c:222
+#: ../src/html.c:814 ../src/html_table.c:112 ../src/html_table.c:222
 #: ../src/html_table.c:336
 msgid "Ali_gn:"
 msgstr "Poravnaj:"
 
-#: ../src/html.c:823 ../src/html.c:1289 ../src/html_diag.c:372
+#: ../src/html.c:818 ../src/html.c:1284 ../src/html_diag.c:372
 #: ../src/html_table.c:94 ../src/html_table.c:240 ../src/html_table.c:354
 msgid "Cl_ass:"
 msgstr "Klasa:"
 
-#: ../src/html.c:827 ../src/html.c:1190 ../src/html.c:1282
+#: ../src/html.c:822 ../src/html.c:1185 ../src/html.c:1277
 #: ../src/html_diag.c:380 ../src/html_table.c:99 ../src/html_table.c:251
 #: ../src/html_table.c:359
 msgid "St_yle:"
 msgstr "Stil:"
 
-#: ../src/html.c:838 ../src/html.c:1293 ../src/html_diag.c:376
+#: ../src/html.c:833 ../src/html.c:1288 ../src/html_diag.c:376
 msgid "_ID:"
 msgstr "_ID:"
 
-#: ../src/html.c:939
+#: ../src/html.c:934
 msgid "Horizontal Rule"
 msgstr "Horizontalno pravilo"
 
-#: ../src/html.c:950 ../src/html.c:2029 ../src/image.c:360
+#: ../src/html.c:945 ../src/html.c:2024 ../src/image.c:360
 msgid "_Align:"
 msgstr "_Poravnjaj:"
 
-#: ../src/html.c:957 ../src/html.c:2037 ../src/html_table.c:390
+#: ../src/html.c:952 ../src/html.c:2032 ../src/html_table.c:390
 msgid "_Height:"
 msgstr "_Visina:"
 
-#: ../src/html.c:963 ../src/html.c:2033 ../src/html_table.c:137
+#: ../src/html.c:958 ../src/html.c:2028 ../src/html_table.c:137
 #: ../src/html_table.c:383 ../src/image.c:318
 msgid "_Width:"
 msgstr "_Širina:"
 
-#: ../src/html.c:966
+#: ../src/html.c:961
 msgid "Is _percent"
 msgstr "Je _procenata"
 
-#: ../src/html.c:971
+#: ../src/html.c:966
 msgid "No _shading"
 msgstr "Bez _senčenja"
 
-#: ../src/html.c:1063 ../src/quickstart.c:632
+#: ../src/html.c:1058 ../src/quickstart.c:639
 msgid "Quick Start"
 msgstr "Brzi početak"
 
-#: ../src/html.c:1112
+#: ../src/html.c:1107
 msgid "_Doctype:"
 msgstr "_Tip dokumenta:"
 
-#: ../src/html.c:1118
+#: ../src/html.c:1113
 msgid "Header tags:"
 msgstr "Markeri zaglavlja:"
 
-#: ../src/html.c:1176 ../src/quickstart.c:650 ../src/wizards.c:188
+#: ../src/html.c:1171 ../src/quickstart.c:657 ../src/wizards.c:188
 msgid "_Title:"
 msgstr "_Naslov:"
 
-#: ../src/html.c:1266
+#: ../src/html.c:1261
 msgid "Body"
 msgstr "Telo"
 
-#: ../src/html.c:1312
+#: ../src/html.c:1307
 msgid "On_Load:"
 msgstr "Pri_učitavanju:"
 
-#: ../src/html.c:1320
+#: ../src/html.c:1315
 msgid "On_UnLoad:"
 msgstr "Pri_iščitavanju:"
 
-#: ../src/html.c:1329
+#: ../src/html.c:1324
 msgid "Depreciated options"
 msgstr "Snižene opcije"
 
-#: ../src/html.c:1339
+#: ../src/html.c:1334
 msgid "Background _Image:"
 msgstr "Pozadinska _slika:"
 
-#: ../src/html.c:1346
+#: ../src/html.c:1341
 msgid "Back_ground Color:"
 msgstr "Pozadinska boja:"
 
-#: ../src/html.c:1352
+#: ../src/html.c:1347
 msgid "_Text Color:"
 msgstr "_Boja teksta:"
 
-#: ../src/html.c:1358
+#: ../src/html.c:1353
 msgid "_Link Color:"
 msgstr "_Boja veze:"
 
-#: ../src/html.c:1364
+#: ../src/html.c:1359
 msgid "_Visited Link Color:"
 msgstr "_Boja posećene veze:"
 
-#: ../src/html.c:1370
+#: ../src/html.c:1365
 msgid "_Active Link Color:"
 msgstr "_Boja aktivne veze:"
 
-#: ../src/html.c:1422
+#: ../src/html.c:1417
 msgid "Meta"
 msgstr "Meta"
 
-#: ../src/html.c:1460
+#: ../src/html.c:1455
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-#: ../src/html.c:1465
+#: ../src/html.c:1460
 msgid "Con_tent:"
 msgstr "Sadr_žaj:"
 
-#: ../src/html.c:1473
+#: ../src/html.c:1468
 msgid "_Scheme:"
 msgstr "_Šema:"
 
-#: ../src/html.c:1556 ../src/preferences.c:2000
+#: ../src/html.c:1551 ../src/preferences.c:2016
 msgid "Font"
 msgstr "Slova"
 
-#: ../src/html.c:1559
+#: ../src/html.c:1554
 msgid "Base Font"
 msgstr "Osnovna slova"
 
-#: ../src/html.c:1574
+#: ../src/html.c:1569
 msgid "Size"
 msgstr "Veličina"
 
-#: ../src/html.c:1582
+#: ../src/html.c:1577
 msgid "Color"
 msgstr "Boja"
 
-#: ../src/html.c:1587
+#: ../src/html.c:1582
 msgid "Face"
 msgstr "Lice"
 
-#: ../src/html.c:1591
+#: ../src/html.c:1586
 msgid "Custom"
 msgstr "Domaći"
 
-#: ../src/html.c:1695
+#: ../src/html.c:1690
 #, fuzzy
 msgid "E-mail"
 msgstr "E-pošta"
 
-#: ../src/html.c:1703
+#: ../src/html.c:1698
 msgid "_Mail to:"
 msgstr ""
 
-#: ../src/html.c:1707
+#: ../src/html.c:1702
 #, fuzzy
 msgid "_Copy to:"
 msgstr "Kopiraj"
 
-#: ../src/html.c:1711
+#: ../src/html.c:1706
 msgid "Blin_d copy to:"
 msgstr ""
 
-#: ../src/html.c:1716
+#: ../src/html.c:1711
 msgid "with _Subject:"
 msgstr ""
 
-#: ../src/html.c:1718
+#: ../src/html.c:1713
 msgid "with _Subject (URL-encoded):"
 msgstr ""
 
-#: ../src/html.c:1724
+#: ../src/html.c:1719
 msgid "with _Body:"
 msgstr ""
 
-#: ../src/html.c:1726
+#: ../src/html.c:1721
 msgid "with _Body (URL-encoded):"
 msgstr ""
 
-#: ../src/html.c:1771
+#: ../src/html.c:1766
 msgid "Quick List"
 msgstr "Brza lista"
 
-#: ../src/html.c:1776 ../src/html.c:1858 ../src/html_form.c:236
+#: ../src/html.c:1771 ../src/html.c:1853 ../src/html_form.c:236
 msgid "_Rows:"
 msgstr "_Redovi:"
 
-#: ../src/html.c:1779
+#: ../src/html.c:1774
 msgid "Or_dered"
 msgstr "Poređano"
 
-#: ../src/html.c:1780
+#: ../src/html.c:1775
 msgid "_Unordered"
 msgstr "_Bez reda"
 
-#: ../src/html.c:1782
+#: ../src/html.c:1777
 msgid "Style:"
 msgstr "Stil:"
 
-#: ../src/html.c:1854 ../src/html_form.c:240
+#: ../src/html.c:1849 ../src/html_form.c:240
 msgid "Co_ls:"
 msgstr "Kolone:"
 
-#: ../src/html.c:1863
+#: ../src/html.c:1858
 msgid "_Add <frame> elements"
 msgstr "_Dodaj<frame> elemente"
 
-#: ../src/html.c:1940 ../src/html.c:2025 ../src/html.c:2084
+#: ../src/html.c:1935 ../src/html.c:2020 ../src/html.c:2079
 msgid "_Source:"
 msgstr "_Izvorni kod:"
 
-#: ../src/html.c:1948
+#: ../src/html.c:1943
 msgid "Margin _Width:"
 msgstr "Dužine _margine:"
 
-#: ../src/html.c:1952
+#: ../src/html.c:1947
 msgid "Margin _Height:"
 msgstr "Visina _margine:"
 
-#: ../src/html.c:1960
+#: ../src/html.c:1955
 msgid "Scrollin_g:"
 msgstr "Skrolovanje:"
 
-#: ../src/html.c:1964
+#: ../src/html.c:1959
 msgid "_Frameborder:"
 msgstr "_Ivica okvira:"
 
-#: ../src/html.c:1969
+#: ../src/html.c:1964
 msgid "No _Resize:"
 msgstr "Bez _menjanja veličine:"
 
-#: ../src/html.c:2019
+#: ../src/html.c:2014
 msgid "Embed"
 msgstr "Utisnuti"
 
-#: ../src/html.c:2041 ../src/html_table.c:143
+#: ../src/html.c:2036 ../src/html_table.c:143
 msgid "Bo_rder:"
 msgstr "Ivica:"
 
-#: ../src/html.c:2077
+#: ../src/html.c:2072
 msgid "Script"
 msgstr "Skripta"
 
-#: ../src/html.c:2106 ../src/html.c:2193 ../src/html_form.c:789
+#: ../src/html.c:2101 ../src/html.c:2188 ../src/html_form.c:789
 #: ../src/html_form.c:899
 msgid "_Type:"
 msgstr "_Tip:"
 
-#: ../src/html.c:2150
+#: ../src/html.c:2145
 msgid "Link"
 msgstr "Veza"
 
-#: ../src/html.c:2167
+#: ../src/html.c:2162
 #, fuzzy
 msgid "HREF_LANG:"
 msgstr "_HREF:"
 
-#: ../src/html.c:2171
+#: ../src/html.c:2166
 #, fuzzy
 msgid "T_itle:"
 msgstr "_Naslov:"
 
-#: ../src/html.c:2212
+#: ../src/html.c:2207
 msgid "_Forward Relation:"
 msgstr "_Odnos u napred:"
 
-#: ../src/html.c:2216
+#: ../src/html.c:2211
 msgid "_Reverse Relation:"
 msgstr "_Odnos u nazad:"
 
-#: ../src/html.c:2227
+#: ../src/html.c:2222
 msgid "Media:"
 msgstr "Medija:"
 
-#: ../src/html.c:2231
+#: ../src/html.c:2226
 msgid "L_ang:"
 msgstr "Jezik:"
 
-#: ../src/html.c:2235
+#: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "_Lični:"
 
@@ -3752,137 +3747,137 @@ msgstr "perl regularni izrazi"
 msgid "Case Se_nsitive"
 msgstr "Osetljiv na veličinu slova"
 
-#: ../src/msg_queue.c:234
+#: ../src/msg_queue.c:239
 msgid "These files were not opened:\n"
 msgstr "Ove datoteke nisu otvorene:\n"
 
-#: ../src/preferences.c:208
+#: ../src/preferences.c:210
 msgid "Untitled"
 msgstr "Neimenovan"
 
-#: ../src/preferences.c:308
+#: ../src/preferences.c:310
 msgid "Select font"
 msgstr "Izaberi slova"
 
-#: ../src/preferences.c:631 ../src/preferences.c:815 ../src/preferences.c:1406
-#: ../src/preferences.c:1564
+#: ../src/preferences.c:633 ../src/preferences.c:817 ../src/preferences.c:1408
+#: ../src/preferences.c:1566
 msgid "Label"
 msgstr "Etiketa"
 
-#: ../src/preferences.c:632
+#: ../src/preferences.c:634
 msgid "Extensions"
 msgstr "Ekstenzije"
 
-#: ../src/preferences.c:633
+#: ../src/preferences.c:635
 msgid "Update chars"
 msgstr "Ažuriraj karaktere"
 
-#: ../src/preferences.c:634
+#: ../src/preferences.c:636
 msgid "Icon"
 msgstr "Ikona"
 
-#: ../src/preferences.c:635
+#: ../src/preferences.c:637
 msgid "Editable"
 msgstr "Uredivo"
 
-#: ../src/preferences.c:636
+#: ../src/preferences.c:638
 msgid "Content regex"
 msgstr "Sadržaj regex"
 
-#: ../src/preferences.c:637
+#: ../src/preferences.c:639
 msgid "Auto close tags mode"
 msgstr "Auto zatvaranje markerskog režima"
 
-#: ../src/preferences.c:816
+#: ../src/preferences.c:818
 msgid "Inverse filter"
 msgstr "Obrnuti filter"
 
-#: ../src/preferences.c:817
+#: ../src/preferences.c:819
 msgid "Filetypes in filter"
 msgstr "Vrste datoteka u filteru"
 
-#: ../src/preferences.c:1174
+#: ../src/preferences.c:1176
 msgid "filetype"
 msgstr "tip datoteke"
 
-#: ../src/preferences.c:1179
+#: ../src/preferences.c:1181
 msgid "Reset"
 msgstr "Povrati"
 
-#: ../src/preferences.c:1185
+#: ../src/preferences.c:1187
 msgid "Pattern name"
 msgstr "Ime uzorka"
 
-#: ../src/preferences.c:1203 ../src/preferences.c:1752
+#: ../src/preferences.c:1205 ../src/preferences.c:1754
 msgid "Pattern"
 msgstr "Uzorak"
 
-#: ../src/preferences.c:1226
+#: ../src/preferences.c:1228
 msgid "Start pattern and end pattern"
 msgstr "Početni i završni uzorak"
 
-#: ../src/preferences.c:1228
+#: ../src/preferences.c:1230
 msgid "Only start pattern"
 msgstr "Samo početni uzorak"
 
-#: ../src/preferences.c:1230
+#: ../src/preferences.c:1232
 msgid "Subpattern from parent"
 msgstr "Pod-uzorak uzorka"
 
-#: ../src/preferences.c:1236
+#: ../src/preferences.c:1238
 msgid "Start pattern"
 msgstr "Početni uzorak"
 
-#: ../src/preferences.c:1237
+#: ../src/preferences.c:1239
 msgid "End pattern"
 msgstr "Završni uzorak"
 
-#: ../src/preferences.c:1238
+#: ../src/preferences.c:1240
 msgid "Case sensitive matching"
 msgstr "Slaganje osetljivo na veličinu slova"
 
-#: ../src/preferences.c:1239
+#: ../src/preferences.c:1241
 msgid "Parentmatch"
 msgstr "Odgovarajući parovi"
 
-#: ../src/preferences.c:1240
+#: ../src/preferences.c:1242
 msgid "Foreground color"
 msgstr "Prednja boja"
 
-#: ../src/preferences.c:1241
+#: ../src/preferences.c:1243
 msgid "Background color"
 msgstr "Pozadinska boja"
 
-#: ../src/preferences.c:1249
+#: ../src/preferences.c:1251
 msgid "don't change weight"
 msgstr "ne menjaj jačinu"
 
-#: ../src/preferences.c:1251
+#: ../src/preferences.c:1253
 msgid "force non-bold weight"
 msgstr "nateraj nepodebljanu jačinu"
 
-#: ../src/preferences.c:1253
+#: ../src/preferences.c:1255
 msgid "force bold weight"
 msgstr "nateraj podebljanu jačinu"
 
-#: ../src/preferences.c:1259
+#: ../src/preferences.c:1261
 msgid "don't change style"
 msgstr "ne menjaj stil"
 
-#: ../src/preferences.c:1261
+#: ../src/preferences.c:1263
 msgid "force non-italic style"
 msgstr "nateraj ne-italik stil"
 
-#: ../src/preferences.c:1263
+#: ../src/preferences.c:1265
 msgid "force italic style"
 msgstr "nateraj italik stil"
 
-#: ../src/preferences.c:1407 ../src/preferences.c:1565
-#: ../src/preferences.c:1756
+#: ../src/preferences.c:1409 ../src/preferences.c:1567
+#: ../src/preferences.c:1758
 msgid "Command"
 msgstr "Komanda"
 
-#: ../src/preferences.c:1586
+#: ../src/preferences.c:1588
 #, c-format
 msgid ""
 "%s for current filename (any command)\n"
@@ -3891,698 +3886,711 @@ msgstr ""
 "%s = trenutno ime datoteke(bilo koja komanda)\n"
 "%i za ulazno i %f za izlazno ime datoteke (filteri)"
 
-#: ../src/preferences.c:1751
+#: ../src/preferences.c:1753
 msgid "Name"
 msgstr "Ime"
 
-#: ../src/preferences.c:1753
+#: ../src/preferences.c:1755
 msgid "File #"
 msgstr "Datoteka #"
 
-#: ../src/preferences.c:1754
+#: ../src/preferences.c:1756
 msgid "Line #"
 msgstr "Red #"
 
-#: ../src/preferences.c:1755
+#: ../src/preferences.c:1757
 msgid "Output #"
 msgstr "Izlaz #"
 
-#: ../src/preferences.c:1757
+#: ../src/preferences.c:1759
 msgid "Show all output"
 msgstr "Prikaži sve izlaze"
 
-#: ../src/preferences.c:1977 ../src/preferences.c:1978
+#: ../src/preferences.c:1983 ../src/preferences.c:1984
 msgid "left"
 msgstr "levo"
 
-#: ../src/preferences.c:1977 ../src/preferences.c:1978
+#: ../src/preferences.c:1983 ../src/preferences.c:1984
 msgid "right"
 msgstr "desno"
 
-#: ../src/preferences.c:1977
+#: ../src/preferences.c:1983
 msgid "top"
 msgstr "vrh"
 
-#: ../src/preferences.c:1977
+#: ../src/preferences.c:1983
 msgid "bottom"
 msgstr "dno"
 
-#: ../src/preferences.c:1979
+#: ../src/preferences.c:1985
 msgid "no check"
 msgstr "bez provere"
 
-#: ../src/preferences.c:1979
+#: ../src/preferences.c:1985
 msgid "check mtime and size"
 msgstr "proveri mtime i veličinu"
 
-#: ../src/preferences.c:1979
+#: ../src/preferences.c:1985
 msgid "check mtime"
 msgstr "proveri mtime"
 
-#: ../src/preferences.c:1979
+#: ../src/preferences.c:1985
 msgid "check size"
 msgstr "proveri veličinu"
 
-#: ../src/preferences.c:1982
+#: ../src/preferences.c:1988
 msgid "Edit preferences"
 msgstr "Uredi podešavanja"
 
-#: ../src/preferences.c:1993
+#: ../src/preferences.c:1999
 msgid "Editor"
 msgstr "Uređivač"
 
-#: ../src/preferences.c:1995
+#: ../src/preferences.c:2001
+#, fuzzy
+msgid "Editor startup options"
+msgstr "Podešavanja uređivača"
+
+#: ../src/preferences.c:2007
+msgid "Show splash-screen"
+msgstr ""
+
+#: ../src/preferences.c:2009
+msgid "Show empty quickbar warning"
+msgstr ""
+
+#: ../src/preferences.c:2011
 msgid "Editor options"
 msgstr "Podešavanja uređivača"
 
-#: ../src/preferences.c:2001
+#: ../src/preferences.c:2017
 msgid "Tab width"
 msgstr "Širina tab-a"
 
-#: ../src/preferences.c:2002
-msgid "Smart cursor positioning at line start"
+#: ../src/preferences.c:2018
+msgid "Smart cursor positioning"
 msgstr ""
 
-#: ../src/preferences.c:2003
+#: ../src/preferences.c:2019
 msgid "Use spaces to indent, not tabs"
 msgstr "Koristi space za uvlačenje teksta, a ne tab-ove"
 
-#: ../src/preferences.c:2004
+#: ../src/preferences.c:2020
 msgid "Word wrap default"
 msgstr "Osnovno slaganje teksta"
 
-#: ../src/preferences.c:2005
+#: ../src/preferences.c:2021
 msgid "Line numbers by default"
 msgstr "Brojevi reda"
 
-#: ../src/preferences.c:2006
+#: ../src/preferences.c:2022
 msgid "Highlight syntax by default"
 msgstr "Obeležavaj sintaksu"
 
-#: ../src/preferences.c:2008
+#: ../src/preferences.c:2024
 msgid "Enable highlighting PCRE UTF-8 support"
 msgstr ""
 
-#: ../src/preferences.c:2010
+#: ../src/preferences.c:2026
 msgid "Highlight # lines"
 msgstr "Obeležavaj # redove"
 
-#: ../src/preferences.c:2017
+#: ../src/preferences.c:2033
 msgid "Undo history size"
 msgstr "Poništi veličinu istorijata"
 
-#: ../src/preferences.c:2018
+#: ../src/preferences.c:2034
 msgid "Clear undo history on save"
 msgstr "Očisti 'Poništi istorijat' pri čuvanju"
 
-#: ../src/preferences.c:2020
+#: ../src/preferences.c:2036
 msgid "Bookmark options"
 msgstr "Opcije markera"
 
-#: ../src/preferences.c:2025
+#: ../src/preferences.c:2041
 msgid "Make permanent by default"
 msgstr "Učini stalnim kao osnovno"
 
-#: ../src/preferences.c:2027
+#: ../src/preferences.c:2043
 msgid "full path"
 msgstr "cela putanja"
 
-#: ../src/preferences.c:2027
+#: ../src/preferences.c:2043
 msgid "path from basedir"
 msgstr "putanja do osnovnog direktorijuma"
 
-#: ../src/preferences.c:2027
+#: ../src/preferences.c:2043
 msgid "filename"
 msgstr "ime datoteke"
 
-#: ../src/preferences.c:2028
+#: ../src/preferences.c:2044
 msgid "Bookmarks filename display"
 msgstr "Prikaz imena datoteke markera"
 
-#: ../src/preferences.c:2032
+#: ../src/preferences.c:2048
 msgid "HTML"
 msgstr "HTML"
 
-#: ../src/preferences.c:2034
+#: ../src/preferences.c:2050
 msgid "HTML options"
 msgstr "HTML podešavanja"
 
-#: ../src/preferences.c:2039
+#: ../src/preferences.c:2055
 msgid "Lowercase HTML tags"
 msgstr "Mala slova markera HTML-a"
 
-#: ../src/preferences.c:2040
+#: ../src/preferences.c:2056
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "Koristi ublažene markere (npr. <font> i <nobr>)"
 
-#: ../src/preferences.c:2041
+#: ../src/preferences.c:2057
 msgid "Use XHTML style tags (<br />)"
 msgstr "Koristi XHTML markere(<br />)"
 
-#: ../src/preferences.c:2042
+#: ../src/preferences.c:2058
 #, fuzzy
 msgid "Automatically update author meta tag"
 msgstr "Automatski ažuriraj autora meta"
 
-#: ../src/preferences.c:2043
+#: ../src/preferences.c:2059
 #, fuzzy
 msgid "Automatically update date meta tag"
 msgstr "Automatski ažuriraj autora meta"
 
-#: ../src/preferences.c:2044
+#: ../src/preferences.c:2060
 #, fuzzy
 msgid "Automatically update generator meta tag"
 msgstr "Automatski ažuriraj autora meta"
 
-#: ../src/preferences.c:2047
+#: ../src/preferences.c:2063
 msgid "Files"
 msgstr "Datoteke"
 
-#: ../src/preferences.c:2049
+#: ../src/preferences.c:2065
 msgid "Encoding"
 msgstr "Kodni raspored"
 
-#: ../src/preferences.c:2061
+#: ../src/preferences.c:2077
 msgid "Default character set"
 msgstr "Osnovni kodni raspored"
 
-#: ../src/preferences.c:2064
+#: ../src/preferences.c:2080
 msgid "Auto set <meta> encoding tag on change"
 msgstr "Auto postavljanje <meta> markera kodnog rasporeda na izmenu"
 
-#: ../src/preferences.c:2066
+#: ../src/preferences.c:2082
 msgid "Backup"
 msgstr "Rezervna kopija"
 
-#: ../src/preferences.c:2070
+#: ../src/preferences.c:2086
 msgid "Create backup on save"
 msgstr "Napravi rezervnu kopiju pri čuvanju"
 
-#: ../src/preferences.c:2071
+#: ../src/preferences.c:2087
 msgid "Backup file suffix"
 msgstr "Sufiks  datoteke rezervne kopije"
 
-#: ../src/preferences.c:2073
+#: ../src/preferences.c:2089
 msgid "save"
 msgstr "sačuvaj"
 
-#: ../src/preferences.c:2073
+#: ../src/preferences.c:2089
 msgid "abort"
 msgstr "prekini"
 
-#: ../src/preferences.c:2073
+#: ../src/preferences.c:2089
 msgid "ask"
 msgstr "pitaj"
 
-#: ../src/preferences.c:2074
+#: ../src/preferences.c:2090
 msgid "Action on backup failure"
 msgstr "Postupak pri neuspehu rezervnog kopiranja"
 
-#: ../src/preferences.c:2076
+#: ../src/preferences.c:2092
 msgid "Remove backupfile on close"
 msgstr "Obriši rezervnu kopiju pri zatvaranju"
 
-#: ../src/preferences.c:2080
+#: ../src/preferences.c:2096
 msgid "Misc"
 msgstr "Razno"
 
-#: ../src/preferences.c:2085
+#: ../src/preferences.c:2101
 msgid "Allow multi instances of a file"
 msgstr "Dozvoli više primeraka datoteke"
 
-#: ../src/preferences.c:2087
+#: ../src/preferences.c:2103
 msgid "Open files in already running bluefish window"
 msgstr "Otvori datoteke u već postojećem Bluefish prozoru"
 
-#: ../src/preferences.c:2089
+#: ../src/preferences.c:2105
 msgid "File modified on disk check "
 msgstr "Provera datoteke izmenjene na disku"
 
-#: ../src/preferences.c:2090
+#: ../src/preferences.c:2106
 msgid "Number of files in 'Open recent'"
 msgstr "Broj datoteka u ' Otvori skorašnje' "
 
-#: ../src/preferences.c:2092
+#: ../src/preferences.c:2108
 msgid "File browser"
 msgstr "Pretraživač datoteka"
 
-#: ../src/preferences.c:2096
+#: ../src/preferences.c:2112
 msgid "Default basedir"
 msgstr "Osnovni direktorijum"
 
-#: ../src/preferences.c:2097
+#: ../src/preferences.c:2113
 msgid "Use separate file and directory view"
 msgstr "Posebno prikazuj datoteke i direktorijuma"
 
-#: ../src/preferences.c:2098
+#: ../src/preferences.c:2114
 msgid "Unknown icon"
 msgstr "Nepoznata ikona"
 
-#: ../src/preferences.c:2099
+#: ../src/preferences.c:2115
 msgid "Directory icon"
 msgstr "Ikona direktorijuma"
 
-#: ../src/preferences.c:2102
+#: ../src/preferences.c:2118
 msgid "User interface"
 msgstr "Korisničko okruženje"
 
-#: ../src/preferences.c:2104
+#: ../src/preferences.c:2120
 msgid "Dimensions"
 msgstr "Dimenzije"
 
-#: ../src/preferences.c:2108
+#: ../src/preferences.c:2124
 msgid "Restore last used dimensions"
 msgstr "Povrati poslednje korišćene dimenzije"
 
-#: ../src/preferences.c:2109
+#: ../src/preferences.c:2125
 msgid "Initial sidebar width"
 msgstr "Osnovna širina bočnog menija"
 
-#: ../src/preferences.c:2110
+#: ../src/preferences.c:2126
 msgid "Initial window height"
 msgstr "Osnovna visina prozora"
 
-#: ../src/preferences.c:2111
+#: ../src/preferences.c:2127
 msgid "Initial window width"
 msgstr "Osnovna širina prozora"
 
-#: ../src/preferences.c:2115
+#: ../src/preferences.c:2131
 msgid "General"
 msgstr "Opšte"
 
-#: ../src/preferences.c:2124
+#: ../src/preferences.c:2140
 msgid "Make HTML dialogs transient"
 msgstr "Učini HTML opcije prelaznim"
 
-#: ../src/preferences.c:2126
+#: ../src/preferences.c:2142
 msgid "External browsers in submenu"
 msgstr "Spoljni pretraživači u podmeniju"
 
-#: ../src/preferences.c:2127
+#: ../src/preferences.c:2143
 msgid "External commands in submenu"
 msgstr "Spoljne komande u meniju"
 
-#: ../src/preferences.c:2128
+#: ../src/preferences.c:2144
 msgid "External outputbox in submenu"
 msgstr "Spoljni izlazu podmeniju"
 
-#: ../src/preferences.c:2130
+#: ../src/preferences.c:2146
 msgid "Notebook tab font (leave empty for gtk default)"
 msgstr "Slova tab beležnice (ostavite prazno ako želite gtk kao osnovni)"
 
-#: ../src/preferences.c:2132
+#: ../src/preferences.c:2148
 msgid "Document notebook tab position"
 msgstr "Pozicija tab bležnice dokumenta"
 
-#: ../src/preferences.c:2133
+#: ../src/preferences.c:2149
 msgid "Sidebar notebook tab position"
 msgstr "Pozicija beležnice u bočnom meniju"
 
-#: ../src/preferences.c:2134
+#: ../src/preferences.c:2150
 msgid "Sidebar location"
 msgstr "Lokacija slike:"
 
-#: ../src/preferences.c:2137 ../src/rcfile.c:576
+#: ../src/preferences.c:2153 ../src/rcfile.c:579
 msgid "Images"
 msgstr "Slike"
 
-#: ../src/preferences.c:2139
+#: ../src/preferences.c:2155
 msgid "Thumbnails"
 msgstr "Umanjen prikaz"
 
-#: ../src/preferences.c:2143
+#: ../src/preferences.c:2159
 msgid "Thumbnail suffix"
 msgstr "Sufiks umanjenog prikaza"
 
-#: ../src/preferences.c:2147
+#: ../src/preferences.c:2163
 msgid "Thumbnail filetype"
 msgstr "Tip datoteke umanjenog prikaza"
 
-#: ../src/preferences.c:2152 ../src/preferences.c:2154
+#: ../src/preferences.c:2168 ../src/preferences.c:2170
 msgid "Filetypes"
 msgstr "Tip datoteke"
 
-#: ../src/preferences.c:2161
+#: ../src/preferences.c:2177
 msgid "Filefilters"
 msgstr "Filter datoteka"
 
-#: ../src/preferences.c:2169
+#: ../src/preferences.c:2185
 msgid "Syntax highlighting"
 msgstr "Obeležavanje sintaksi"
 
-#: ../src/preferences.c:2171
+#: ../src/preferences.c:2187
 msgid "Patterns"
 msgstr "Uzori"
 
-#: ../src/preferences.c:2179
+#: ../src/preferences.c:2195
 msgid "External programs"
 msgstr "Spoljni programi"
 
-#: ../src/preferences.c:2181
+#: ../src/preferences.c:2197
 msgid "Browsers"
 msgstr "Pretraživači"
 
-#: ../src/preferences.c:2188
+#: ../src/preferences.c:2204
 msgid "Utilities and filters"
 msgstr "Alatke i filteri"
 
-#: ../src/preferences.c:2196
+#: ../src/preferences.c:2212
 msgid "Output parsers"
 msgstr "Izlazni raščlanjivači"
 
-#: ../src/preferences.c:2198
+#: ../src/preferences.c:2214
 msgid "Outputbox"
 msgstr "Izlaz"
 
-#: ../src/preferences.c:2207
+#: ../src/preferences.c:2223
 msgid "Servers"
 msgstr "Serveri"
 
-#: ../src/preferences.c:2209
+#: ../src/preferences.c:2225
 msgid "Remote servers"
 msgstr "Udaljeni serveri"
 
-#: ../src/preferences.c:2214
+#: ../src/preferences.c:2230
 msgid "Zope compatibility mode"
 msgstr "Režim Zope kompatibilnosti"
 
-#: ../src/project.c:96
+#: ../src/project.c:97
 msgid "New project"
 msgstr "Novi projekat"
 
-#: ../src/project.c:190 ../src/project.c:197
+#: ../src/project.c:191 ../src/project.c:198
 msgid "Enter Bluefish project filename"
 msgstr "Unesite ime Bluefish datoteke"
 
-#: ../src/project.c:313 ../src/project.c:320
+#: ../src/project.c:314 ../src/project.c:321
 msgid "Select Bluefish project filename"
 msgstr "Izaberi ime datoteke projekta Bluefish"
 
-#: ../src/project.c:370
+#: ../src/project.c:371
 msgid "Do you want to save the project?"
 msgstr "Želite li da sačuvate projektat?"
 
-#: ../src/project.c:499
+#: ../src/project.c:515
 msgid "Create New Project"
 msgstr "Napravi novi projekat"
 
-#: ../src/project.c:502
+#: ../src/project.c:518
 msgid "Edit Project"
 msgstr "Uredi Projekat"
 
-#: ../src/project.c:525
+#: ../src/project.c:541
 #, c-format
 msgid "This project contains %d files"
 msgstr "Ovaj projekat sadrži %d datoteke"
 
-#: ../src/project.c:537
+#: ../src/project.c:553
 msgid "Project _Name:"
 msgstr "Ime _projekta:"
 
-#: ../src/project.c:541
+#: ../src/project.c:557
 msgid "Base _Dir:"
 msgstr "Osnovni_direktorijum:"
 
-#: ../src/project.c:545
+#: ../src/project.c:561
 msgid "_Preview URL:"
 msgstr "_Pregled URL-a:"
 
-#: ../src/project.c:549
+#: ../src/project.c:565
 msgid "_Template:"
 msgstr "_Model:"
 
-#: ../src/project.c:555
+#: ../src/project.c:571
 msgid "_Word wrap by default"
 msgstr "_Uređivanje teksta"
 
-#: ../src/project.c:566
+#: ../src/project.c:582
 msgid "Create _Project"
 msgstr "Napravi _projekat"
 
-#: ../src/project.c:606
+#: ../src/project.c:622
 msgid "Create project"
 msgstr "Napravi projekat"
 
-#: ../src/project.c:610
+#: ../src/project.c:626
 msgid "Create project with currently opened documents"
 msgstr "Napravi projekat od trenutno  otvorenih dokumenata"
 
-#: ../src/project.c:611
+#: ../src/project.c:627
 msgid "Create empty project"
 msgstr "Napravi prazan projekat"
 
-#: ../src/quickstart.c:511
+#: ../src/quickstart.c:518
 #, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr "<b>Externa datoteka stila</b>"
 
-#: ../src/quickstart.c:521
+#: ../src/quickstart.c:528
 msgid "Ty_pe:"
 msgstr "Ti_p:"
 
-#: ../src/quickstart.c:539
+#: ../src/quickstart.c:546
 #, fuzzy
 msgid "HRE_F:"
 msgstr "_HREF:"
 
-#: ../src/quickstart.c:543
+#: ../src/quickstart.c:550
 msgid "_Media:"
 msgstr "_Medija:"
 
-#: ../src/quickstart.c:547
+#: ../src/quickstart.c:554
 #, fuzzy
 msgid "Titl_e:"
 msgstr "_Naslov:"
 
-#: ../src/quickstart.c:553
+#: ../src/quickstart.c:560
 msgid "<b>Style Area</b>"
 msgstr "<b>Polje stila</b>"
 
-#: ../src/quickstart.c:557
+#: ../src/quickstart.c:564
 #, fuzzy
 msgid "Cre_ate empty style area"
 msgstr "Napravi prazno polje za stil"
 
-#: ../src/quickstart.c:579
+#: ../src/quickstart.c:586
 msgid "<b>Attributes</b>"
 msgstr "<b>Atributi</b>"
 
-#: ../src/quickstart.c:594
+#: ../src/quickstart.c:601
 msgid "_Src:"
 msgstr "_Src:"
 
-#: ../src/quickstart.c:601
+#: ../src/quickstart.c:608
 msgid "<b>Script Area</b>"
 msgstr "<b>Polje za skriptu</b>"
 
-#: ../src/quickstart.c:605
+#: ../src/quickstart.c:612
 #, fuzzy
 msgid "Cre_ate empty script area"
 msgstr "Napravi prazno polje za skriptu"
 
-#: ../src/quickstart.c:646
+#: ../src/quickstart.c:653
 msgid "_DTD:"
 msgstr "_DTD:"
 
-#: ../src/quickstart.c:673
+#: ../src/quickstart.c:680
 msgid "_Head:"
 msgstr "_Head:"
 
-#: ../src/quickstart.c:690
+#: ../src/quickstart.c:697
 #, fuzzy
 msgid "Open in _new document."
 msgstr "U_dokumentu"
 
-#: ../src/rcfile.c:500
+#: ../src/rcfile.c:503
 msgid "Galeon"
 msgstr "Galeon"
 
-#: ../src/rcfile.c:502
+#: ../src/rcfile.c:505
 msgid "Mozilla"
 msgstr "Mozilla"
 
-#: ../src/rcfile.c:504
+#: ../src/rcfile.c:507
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:506
+#: ../src/rcfile.c:509
 msgid "Netscape"
 msgstr "Netscape"
 
-#: ../src/rcfile.c:508
+#: ../src/rcfile.c:511
 msgid "Gnome default"
 msgstr "Gnome po osnovu"
 
-#: ../src/rcfile.c:532
+#: ../src/rcfile.c:535
 msgid "make"
 msgstr "napravi"
 
-#: ../src/rcfile.c:533
+#: ../src/rcfile.c:536
 msgid "weblint HTML checker"
 msgstr "weblint HTML provera"
 
-#: ../src/rcfile.c:534
+#: ../src/rcfile.c:537
 msgid "tidy HTML validator"
 msgstr "uredan HTML proveravač"
 
-#: ../src/rcfile.c:535
+#: ../src/rcfile.c:538
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:536
+#: ../src/rcfile.c:539
 msgid "xmllint XML checker"
 msgstr "xmllint XML provera"
 
-#: ../src/rcfile.c:537
+#: ../src/rcfile.c:540
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:543
+#: ../src/rcfile.c:546
 msgid "Dos2Unix filter"
 msgstr "Dos2Unix filter"
 
-#: ../src/rcfile.c:545
+#: ../src/rcfile.c:548
 msgid "Tidy cleanup filter"
 msgstr "Uredan filter za čišćenje"
 
-#: ../src/rcfile.c:570
+#: ../src/rcfile.c:573
 msgid "C programming"
 msgstr "C programiranje"
 
-#: ../src/rcfile.c:572
+#: ../src/rcfile.c:575
 msgid "All web files"
 msgstr "Sve web datoteke"
 
-#: ../src/rcfile.c:574
+#: ../src/rcfile.c:577
 msgid "Java programming"
 msgstr "java programiranje"
 
-#: ../src/rcfile.c:578
+#: ../src/rcfile.c:581
 msgid "Hide objectfiles"
 msgstr "Sakrij datoteke objekata"
 
-#: ../src/rcfile.c:890
+#: ../src/rcfile.c:906
 msgid "Untitled Project"
 msgstr "Neimenovan projekat"
 
-#: ../src/snr2.c:196
+#: ../src/snr2.c:197
 msgid "Regular expression error: "
 msgstr "Regularni izraz greške: "
 
-#: ../src/snr2.c:197 ../src/snr2.c:248
+#: ../src/snr2.c:198 ../src/snr2.c:249
 msgid "Search failed"
 msgstr "Neuspela pretraga"
 
-#: ../src/snr2.c:247
+#: ../src/snr2.c:248
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Regularni izraz greške: %s kod ofseta %d"
 
-#: ../src/snr2.c:884
+#: ../src/snr2.c:892
 msgid "Confirm replace"
 msgstr "Potvrdi zamenu"
 
-#: ../src/snr2.c:896
+#: ../src/snr2.c:904
 msgid "Replace selected text?"
 msgstr "Zameni izabran tekst?"
 
-#: ../src/snr2.c:909
+#: ../src/snr2.c:917
 msgid "_Skip"
 msgstr "_Preskoči"
 
-#: ../src/snr2.c:911
+#: ../src/snr2.c:919
 msgid "Replace _all"
 msgstr "Zameni sve"
 
-#: ../src/snr2.c:1156 ../src/snr2.c:1163
+#: ../src/snr2.c:1164 ../src/snr2.c:1171
 msgid "Search: no match found"
 msgstr "Pretraga: bez rezultata"
 
-#: ../src/snr2.c:1389
+#: ../src/snr2.c:1415
 msgid "_Search for: "
 msgstr "_Traži: "
 
-#: ../src/snr2.c:1409
+#: ../src/snr2.c:1435
 msgid "_Replace with: "
 msgstr "_Zameni sa: "
 
-#: ../src/snr2.c:1419
+#: ../src/snr2.c:1445
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 se odnosi na prvi pod pretragu_uzorka, \\1na drugi itd."
 
-#: ../src/snr2.c:1434
+#: ../src/snr2.c:1460
 msgid "Beginning of document till end"
 msgstr "Od početka dokumenta do kraja"
 
-#: ../src/snr2.c:1434
+#: ../src/snr2.c:1460
 msgid "Current position till end"
 msgstr "Od trenutne pozicije do kraja"
 
-#: ../src/snr2.c:1434
+#: ../src/snr2.c:1460
 msgid "Beginning of selection till end of selection"
 msgstr "Od početka izabranog do kraja izbora"
 
-#: ../src/snr2.c:1434
+#: ../src/snr2.c:1460
 msgid "All opened files begin till end"
 msgstr "Od početka svih otvorenih datoteka do kraja"
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1461
 msgid "Disabled"
 msgstr "Onemogućeno"
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1461
 msgid "POSIX type"
 msgstr "POSIX tip"
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1461
 msgid "PERL type"
 msgstr "PERL tip"
 
-#: ../src/snr2.c:1436
+#: ../src/snr2.c:1462
 msgid "Starts at:"
 msgstr "Počinje kod:"
 
-#: ../src/snr2.c:1448
+#: ../src/snr2.c:1474
 msgid "Regular expression:"
 msgstr "Regularni izraz:"
 
-#: ../src/snr2.c:1462
+#: ../src/snr2.c:1488
 msgid "Normal"
 msgstr "Normalno"
 
-#: ../src/snr2.c:1462
+#: ../src/snr2.c:1488
 msgid "Uppercase"
 msgstr "Velika slova"
 
-#: ../src/snr2.c:1462
+#: ../src/snr2.c:1488
 msgid "Lowercase"
 msgstr "Mala slova"
 
-#: ../src/snr2.c:1463
+#: ../src/snr2.c:1489
 msgid "Replace type:"
 msgstr "Zameni tip:"
 
-#: ../src/snr2.c:1476
+#: ../src/snr2.c:1502
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "_Uzor sadrži kosu crtu izlazne sekvence (\\n, \\t)"
 
-#: ../src/snr2.c:1477
+#: ../src/snr2.c:1503
 msgid "_Match case"
 msgstr "_Podudara se"
 
-#: ../src/snr2.c:1478
+#: ../src/snr2.c:1504
 msgid "O_verlap searches"
 msgstr "Preklopi pretrage"
 
-#: ../src/snr2.c:1480
+#: ../src/snr2.c:1506
 msgid "Prompt _before replace"
 msgstr "Pitaj pre zamene"
 
-#: ../src/snr2.c:1481
+#: ../src/snr2.c:1507
 msgid "Replace o_nce"
 msgstr "Zameni_jednom"
 
-#: ../src/snr2.c:1483
+#: ../src/snr2.c:1509
 #, fuzzy
 msgid "_Bookmark results"
 msgstr "Rezultati markera"
@@ -4670,6 +4678,12 @@ msgstr "Kod:"
 #: ../src/wizards.c:225
 msgid "Size:"
 msgstr "Veličina:"
+
+#~ msgid "/Document/Highlight Syntax"
+#~ msgstr "/Dokument/Obeležavanje-Sintaksa"
+
+#~ msgid "Show hidden"
+#~ msgstr "Prikaži skrivene datoteke"
 
 #~ msgid "Bluefish tip:"
 #~ msgstr "Bluefish savet:"
