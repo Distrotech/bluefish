@@ -1958,7 +1958,7 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 					DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
 					doc_unre_new_group(doc);
 				}			
-			} else {
+			} else if (!doc->paste_operation) {
 				doc_unre_new_group(doc);
 			}
 			doc_unre_add(doc, string, start, end, UndoDelete);
