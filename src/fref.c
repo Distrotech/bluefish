@@ -611,7 +611,7 @@ static GMarkupParser FRNameParser = {
 gchar *fref_xml_get_refname(gchar * filename)
 {
 	GMarkupParseContext *ctx;
-	gchar *config;
+	gchar *config, *refname;
 	gsize len;
 	Tfref_name_data *aux = NULL;
 
@@ -638,10 +638,11 @@ gchar *fref_xml_get_refname(gchar * filename)
 	}
 
 	g_markup_parse_context_free(ctx);
+	refname = aux->name;
 	g_free(aux->description);
 	g_free(aux);
 	g_free(config);
-	return aux->name;
+	return refname;
 }
 
 void fref_loader_load_ref_xml(gchar * filename, GtkWidget * tree, GtkTreeStore * store,
