@@ -590,7 +590,8 @@ void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc) {
 }
 
 static gboolean mime_visible_in_filter(Tfilter *filter, const gchar *mime_type) {
-	return (GPOINTER_TO_INT(g_hash_table_lookup(filter->filetypes,mime_type)) ? filter->mode : !filter->mode);
+	if (filter)	return (GPOINTER_TO_INT(g_hash_table_lookup(filter->filetypes,mime_type)) ? filter->mode : !filter->mode);
+	return TRUE;
 }
 /*
 static gboolean name_visible_in_filter(Tfilebrowser2 *fb2, gchar *name) {
@@ -1211,6 +1212,12 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 	}
 }
 
+static void fb2_refilter(Tfilebrowser2 *fb2) {
+	gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
+	gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
+}
+
+
 static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action, GtkWidget *widget) {
 	DEBUG_MSG("fb2rpopup_rpopup_action_lcb, called with action %d and widget %p\n",callback_action,widget);
 	switch (callback_action) {
@@ -1266,27 +1273,13 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 		break;
 		case 16:
 			fb2->filebrowser_show_hidden_files = fb2->bfwin->session->filebrowser_show_hidden_files = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
-			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
-			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
+			fb2_refilter(fb2);
 		break;
 		case 17:
 			fb2->filebrowser_show_backup_files = fb2->bfwin->session->filebrowser_show_backup_files = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
-			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
-			gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
+			fb2_refilter(fb2);
 		break;
 	}
-}
-
-static Tfilter *find_filter_by_name(const gchar *name) {
-	GList *tmplist = g_list_first(main_v->filefilters);
-	while(tmplist) {
-		Tfilter *filter = (Tfilter *)tmplist->data;
-		if (strcmp(filter->name, name)==0) {
-			return filter;
-		}
-		tmplist = g_list_next(tmplist);
-	}
-	return NULL;
 }
 
 static void fb2rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilebrowser2 *fb2) {
@@ -1296,10 +1289,11 @@ static void fb2rpopup_filter_toggled_lcb(GtkWidget *widget, Tfilebrowser2 *fb2) 
 		Tfilter *filter = find_filter_by_name(name);
 		DEBUG_MSG("fb2rpopup_filter_toggled_lcb, setting curfilter to %p from name %s\n", filter, name);
 		fb2->curfilter = filter;
-		if (fb2->bfwin->session->last_filefilter) g_free(fb2->bfwin->session->last_filefilter);
-		fb2->bfwin->session->last_filefilter = g_strdup(filter->name);
-		gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
-		gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
+		if (filter) {
+			if (fb2->bfwin->session->last_filefilter) g_free(fb2->bfwin->session->last_filefilter);
+			fb2->bfwin->session->last_filefilter = g_strdup(filter->name);
+		}
+		fb2_refilter(fb2);
 	}
 }
 
@@ -1327,7 +1321,6 @@ static void edit_filefilter_lcb(GtkMenuItem *menuitem,gpointer data) {
 }
 
 static void new_filefilter_lcb(GtkMenuItem *menuitem,gpointer data) {
-	Tfilebrowser2 *fb2 = data;
 	filefilter_gui(NULL);
 }
 static void delete_filefilter_lcb(GtkMenuItem *menuitem,gpointer data) {
@@ -1409,12 +1402,14 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 		}
 		menu_item = gtk_menu_item_new();
 		gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);
-		menu_item = gtk_menu_item_new_with_label(_("Edit filter"));
-		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(edit_filefilter_lcb), fb2);
-		gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);
-		menu_item = gtk_menu_item_new_with_label(_("Delete filter"));
-		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(delete_filefilter_lcb), fb2);
-		gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);
+		if (fb2->curfilter) {
+			menu_item = gtk_menu_item_new_with_label(_("Edit filter"));
+			g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(edit_filefilter_lcb), fb2);
+			gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);
+			menu_item = gtk_menu_item_new_with_label(_("Delete filter"));
+			g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(delete_filefilter_lcb), fb2);
+			gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);
+		}
 		menu_item = gtk_menu_item_new_with_label(_("New filter"));
 		g_signal_connect(GTK_OBJECT(menu_item), "activate", G_CALLBACK(new_filefilter_lcb), fb2);
 		gtk_menu_shell_append(GTK_MENU_SHELL(fmenu), menu_item);
@@ -2000,6 +1995,14 @@ void fb2_cleanup(Tbfwin *bfwin) {
 	}
 }
 
+/* if a filter is deleted, this function is called to make sure
+the current filebrowser isn't actually using the filter */
+void fb2_unset_filter(Tbfwin *bfwin, Tfilter *filter) {
+	if (bfwin->fb2 && FILEBROWSER2(bfwin->fb2)->curfilter == filter) {
+		FILEBROWSER2(bfwin->fb2)->curfilter = NULL;
+		fb2_refilter(FILEBROWSER2(bfwin->fb2));
+	}
+}
 
 static void gnome_vfs_uri_hash_destroy(gpointer data) {
 	gnome_vfs_uri_unref((GnomeVFSURI *)data);

@@ -20,7 +20,7 @@
 
 #ifndef __FILEFILTER_H_
 #define __FILEFILTER_H_
-
+Tfilter *find_filter_by_name(const gchar *name);
 void filter_delete(Tfilter *filter);
 void filters_rebuild(void);
 void filefilter_gui(Tfilter *filter);

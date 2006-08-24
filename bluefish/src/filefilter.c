@@ -25,6 +25,7 @@
 #include <string.h>
 
 #include "bluefish.h"
+#include "filebrowser2.h"
 #include "bf_lib.h"
 #include "dialog_utils.h"
 #include "document.h"
@@ -33,6 +34,18 @@
 #include "file_dialogs.h"
 #include "gtk_easy.h"        /* destroy_disposable_menu_cb() */
 #include "stringlist.h"      /* count_array() */
+
+Tfilter *find_filter_by_name(const gchar *name) {
+	GList *tmplist = g_list_first(main_v->filefilters);
+	while(tmplist) {
+		Tfilter *filter = (Tfilter *)tmplist->data;
+		if (strcmp(filter->name, name)==0) {
+			return filter;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	return NULL;
+}
 
 static GHashTable *hashtable_from_string(const gchar *mimetypes) {
 	GHashTable *filetypes = g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
@@ -77,9 +90,23 @@ void filter_delete(Tfilter *filter) {
 		tmplist = g_list_next(tmplist);
 	}
 	/* delete from current list of filters, but we need to 
-	make sure no window is actually using this filter!?!?! */
-	g_print("filter_delete TODO: actually remove the Tfilter struct \n");
-	
+	make sure no window is actually using this filter! */
+	tmplist = g_list_first(main_v->bfwinlist);
+	while (tmplist) {
+		Tbfwin *bfwin = BFWIN(tmplist->data);
+		/* test if the filter is named in the current session */
+		if (bfwin->session->last_filefilter && strcmp(bfwin->session->last_filefilter,filter->name)==0) {
+			g_free(bfwin->session->last_filefilter);
+			bfwin->session->last_filefilter = NULL;
+		}
+		if (bfwin->fb2) {
+			fb2_unset_filter(bfwin, filter);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	/* now really remove the filter */
+	main_v->filefilters = g_list_remove(main_v->filefilters, filter);
+	filter_destroy(filter);
 }
 
 /* 
@@ -164,7 +191,7 @@ static void apply_filter_to_config(Tfilter *filter, const gchar *origname) {
 	if (strarr == NULL) {
 		DEBUG_MSG("apply_filter_to_config, prepending new entry in config list\n");
 		/* no config string with this name, */
-		strarr = g_new0(gpointer, 4);
+		strarr = (gchar **)g_new0(gpointer, 4);
 		main_v->globses.filefilters = g_list_prepend(main_v->globses.filefilters, strarr);
 	}
 	if (origname == NULL) {
@@ -219,6 +246,7 @@ static void filefiltergui_ok_clicked(GtkWidget *widget, Tfilefiltergui *ffg) {
 	g_free(ffg->curfilter->name);
 	ffg->curfilter->name = gtk_editable_get_chars(GTK_EDITABLE(ffg->nameentry),0,-1);
 	ffg->curfilter->mode = gtk_toggle_button_get_mode(GTK_TOGGLE_BUTTON(ffg->inversecheck));
+	DEBUG_MSG("filefiltergui_ok_clicked, filter %s has mode %d\n",ffg->curfilter->name,ffg->curfilter->mode);
 	apply_filter_to_config(ffg->curfilter, ffg->origname);
 	filefiltergui_destroy_lcb(widget, ffg);
 }
@@ -301,7 +329,7 @@ void filefilter_gui(Tfilter *filter) {
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
 	GList *tmplist;
-	GtkWidget *table,*hbox,*but,*vbox;
+	GtkWidget *table,*hbox,*but,*vbox,*scrolwin;
 
 	Tfilefiltergui *ffg = g_new0(Tfilefiltergui,1);
 	ffg->curfilter = filter;
@@ -316,6 +344,7 @@ void filefilter_gui(Tfilter *filter) {
 	
 	DEBUG_MSG("filefilter_gui, editing filter %p\n",ffg->curfilter); 
 	ffg->win = window_full2(_("Edit filter"), GTK_WIN_POS_MOUSE, 10, G_CALLBACK(filefiltergui_destroy_lcb),ffg, TRUE, NULL);
+	gtk_window_set_default_size(GTK_WINDOW(ffg->win),400,400);
 	ffg->lstore = gtk_list_store_new(2, G_TYPE_STRING, GDK_TYPE_PIXBUF);
 	
 	/* fill the list model from the currently known filetypes */
@@ -341,10 +370,10 @@ void filefilter_gui(Tfilter *filter) {
 	table = gtk_table_new(4,3,FALSE);
 	
 	ffg->nameentry = entry_with_text(ffg->curfilter->name, 50);
-	gtk_table_attach_defaults(GTK_TABLE(table),ffg->nameentry,0,1,0,1);
+	gtk_table_attach(GTK_TABLE(table),ffg->nameentry,0,1,0,1,GTK_FILL,GTK_FILL,0,0);
 	
 	ffg->inversecheck = checkbut_with_value(_("Show files in filter"), ffg->curfilter->mode);
-	gtk_table_attach_defaults(GTK_TABLE(table),ffg->inversecheck,2,3,0,1);
+	gtk_table_attach(GTK_TABLE(table),ffg->inversecheck,2,3,0,1,GTK_FILL,GTK_FILL,0,0);
 	
 	ffg->in_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(ffg->in_model));
 	renderer = gtk_cell_renderer_text_new();
@@ -353,7 +382,10 @@ void filefilter_gui(Tfilter *filter) {
 	renderer = gtk_cell_renderer_pixbuf_new();
 	column = gtk_tree_view_column_new_with_attributes(_("Icon"),renderer,"pixbuf", 1,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(ffg->in_view), column);
-	gtk_table_attach_defaults(GTK_TABLE(table),ffg->in_view,2,3,1,2);
+	scrolwin = 	gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_container_add(GTK_CONTAINER(scrolwin),ffg->in_view);
+	gtk_table_attach_defaults(GTK_TABLE(table),scrolwin,2,3,1,2);
 	
 	ffg->out_view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(ffg->out_model));
 	renderer = gtk_cell_renderer_text_new();
@@ -362,7 +394,10 @@ void filefilter_gui(Tfilter *filter) {
 	renderer = gtk_cell_renderer_pixbuf_new();
 	column = gtk_tree_view_column_new_with_attributes(_("Icon"),renderer,"pixbuf", 1,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(ffg->out_view), column);
-	gtk_table_attach_defaults(GTK_TABLE(table),ffg->out_view,0,1,1,2);
+	scrolwin = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_container_add(GTK_CONTAINER(scrolwin),ffg->out_view);
+	gtk_table_attach_defaults(GTK_TABLE(table),scrolwin,0,1,1,2);
 	
 	vbox = gtk_vbox_new(TRUE,5);
 	but = gtk_button_new_with_label("->");
@@ -377,11 +412,11 @@ void filefilter_gui(Tfilter *filter) {
 	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
 	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
 	but = bf_stock_cancel_button(G_CALLBACK(filefiltergui_cancel_clicked), ffg);
-    gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 0);	
+   gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 0);	
 	but = bf_stock_ok_button(G_CALLBACK(filefiltergui_ok_clicked), ffg);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 0);
 	
-	gtk_table_attach_defaults(GTK_TABLE(table), hbox, 0, 3, 3, 4);
+	gtk_table_attach(GTK_TABLE(table), hbox, 0, 3, 3, 4,GTK_FILL,GTK_FILL,0,0);
 
 	gtk_container_add(GTK_CONTAINER(ffg->win), table);
 	gtk_widget_show_all(ffg->win);	
