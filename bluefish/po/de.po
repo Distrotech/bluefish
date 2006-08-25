@@ -1,16 +1,16 @@
 # German language file for Bluefish.
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Knud Franzkowiak <knud.franzkowiak@gmx.net>, 2000.
-# Roland Steinbach <roland@netzblick.de>, 2001-2004
+# Roland Steinbach <roland@netzblick.de>, 2001-2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 1.0.5\n"
-"Report-Msgid-Bugs-To: \n"
+"Project-Id-Version: bluefish 1.0.6\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2006-08-25 15:46+0200\n"
-"PO-Revision-Date: 2006-01-20 05:29+0100\n"
+"PO-Revision-Date: 2006-08-25 16:59+0200\n"
 "Last-Translator: Roland Steinbach <roland@netzblick.de>\n"
-"Language-Team: Not a member <LL@li.org>\n"
+"Language-Team: None\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
@@ -38,7 +38,6 @@ msgstr ""
 "Diese Bluefish-Version wurde mit folgenden Optionen kompiliert:\n"
 
 #: ../src/about.c:57
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -119,6 +118,12 @@ msgstr ""
 "   <jimhayward@linuxexperience.net>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
+"  Oskar Świda\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"  David Marrs\n"
+"   <David.Marrs@myrealbox.com>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "Entwickler bei älteren Releases:\n"
 "  Oskar Świda\n"
@@ -143,14 +148,14 @@ msgstr ""
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Dokumentation:\n"
-"  Scott White\n"
-"   <wwsw3@earthlink.net>\n"
 "  Michèle Garoche\n"
 "   <michele.garoche@easyconnect.fr>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
-"   <alastair@linuxexperience.com>\n"
+"   <alastair@porter.net.nz>\n"
 "  Daniel Blair\n"
 "   <joecamel@realcoders.org>\n"
 "  Olivier Sessink\n"
@@ -3984,9 +3989,8 @@ msgid "Tab width"
 msgstr "Tablulatorbreite"
 
 #: ../src/preferences.c:2018
-#, fuzzy
 msgid "Smart cursor positioning"
-msgstr "Smart-Cursor-Positionierung am Zeilenanfang"
+msgstr "Smart-Cursor-Positionierung"
 
 #: ../src/preferences.c:2019
 msgid "Use spaces to indent, not tabs"
