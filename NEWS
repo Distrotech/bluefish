@@ -7,25 +7,48 @@ Bluefish 1.0.6 (25 August 2006)
 - Configure: fixes host recognition for new Mac Intel.
 - Custom menu: fixed a typo in docbook informal table rowsep, added distinct 
    tags for XML and SGML images and links.
-- Data filetypes: adding the .pm extension for Perl files   
+- Data filetypes: adding the .pm extension for Perl files. 
+   Closes Bluefish bug #343569.  
 - Highlighting: small fix to XML highlighting (adding general support for 
    namespaces). Highlight numbers in Java.
 - Man-pages: fixes distclean target.
+- Added XTHTM 1.1 DOCTYPE in creators. Closes Bluefish bug #338586.
 - Fixes the recognition of GNOME_VFS >= 2.6.
 - Fixes a bug where the Bluefish icon was not displayed if the splash screen was 
    disabled.
-- Fixes a bug in smart cursor positionning.
+- Fixes a bug in smart cursor positioning.
 - Fixes a bug where the old file was deleted before the new file was saved 
    successfully.
-- Fix a memory leak/data corruption issue.
-- Fix a pointer being double freed.
-- Remove redundant show hidden checkbox from file chooser dialog.
-- Fix Definition list formatting.
-- Fixes:
-   Bluefish bug #316298, #323634, #324788, #330544, #330575, #330781, 
-   #337564, #337739, #338586, #340262, #343569, #344698, #349662,
-   #349743, #350721, #350754.
-   Ubuntu bug #45927, #55256.
+- Removes redundant show hidden checkbox from file chooser dialog. 
+   Closes Bluefish bug #316298.
+- Fixes Definition list formatting.
+- Fixes a bug where icons were missing in open/save dialogs. 
+   Closes Bluefish bug #323634.
+- Fixes a bug where the backup file was not deleted after renaming it. 
+   Closes Bluefish bug #324788.
+- Fixes a critical bug where Bluefish crashed when closing and saving a project. 
+   Closes Bluefish bug #330544.
+- Fixes a bug where backup project file was not deleted when closing a project. 
+   Closes Bluefish #330575. 
+- Fixes a bug where savedir was not initialized correctly when creating a new 
+   project on a remote server. Closes Bluefish #330781. 
+- Fixes a bug where syntax highlighting was not refreshed after executing an 
+   external command. Closes Bluefish bug #337564.
+- Fixes a critical bug where Bluefish crashed when pressing the Esc key in the 
+   Search:no match found dialog. Closes Bluefish bug #337739.
+- Fixes a bug where undoing did not behave correctly for text pasted from the 
+   clipboard over other text. Closes Bluefish bug #340262.
+- Fixes a critical bug where undoing after inserting a file into an unsaved file lead 
+   to loss of data. Closes Bluefish bug #344698.
+- Fixes a bug in python syntax highlighting. Closes Bluefish bug #349662.
+- Fixes a critical bug where Bluefish crashed when pressing the green info dialog 
+   button. Closes Bluefish bug #349743 and Ubuntu bug #55256.
+- Fixes a critical bug where Bluefish used a high CPU load when searching for 
+   empty lines with Perl regexp syntax. Closes Bluefish bug #350721.
+- Fixes a critical bug where Bluefish crashed when performing search with 
+   bookmark on unsaved document. Closes Bluefish bug #350754.
+- Fixes a bug where clicking in folder browser did not draw new selection bar 
+   until a file from that folder was loaded. Closes Ubuntu bug #45927.
 
 Bluefish 1.0.5 (04 February 2006)
 ---------------------------------
