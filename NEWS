@@ -1,5 +1,32 @@
 # Release changes
 
+Bluefish 1.0.6 (25 August 2006)
+---------------------------------
+
+- Updated translations: Finnish, French, Swedish
+- Configure: fixes host recognition for new Mac Intel.
+- Custom menu: fixed a typo in docbook informal table rowsep, added distinct 
+   tags for XML and SGML images and links.
+- Data filetypes: adding the .pm extension for Perl files   
+- Highlighting: small fix to XML highlighting (adding general support for 
+   namespaces). Highlight numbers in Java.
+- Man-pages: fixes distclean target.
+- Fixes the recognition of GNOME_VFS >= 2.6.
+- Fixes a bug where the Bluefish icon was not displayed if the splash screen was 
+   disabled.
+- Fixes a bug in smart cursor positionning.
+- Fixes a bug where the old file was deleted before the new file was saved 
+   successfully.
+- Fix a memory leak/data corruption issue.
+- Fix a pointer being double freed.
+- Remove redundant show hidden checkbox from file chooser dialog.
+- Fix Definition list formatting.
+- Fixes:
+   Bluefish bug #316298, #323634, #324788, #330544, #330575, #330781, 
+   #337564, #337739, #338586, #340262, #343569, #344698, #349662,
+   #349743, #350721, #350754.
+   Ubuntu bug #45927, #55256.
+
 Bluefish 1.0.5 (04 February 2006)
 ---------------------------------
 

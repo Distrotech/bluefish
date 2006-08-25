@@ -64,6 +64,12 @@ Developers for this release:\n\
    <jimhayward@linuxexperience.net>\n\
   Daniel Leidert\n\
    <daniel.leidert@wgdd.de>\n\
+  Oskar Świda\n\
+   <swida@aragorn.pb.bialystok.pl>\n\
+  David Marrs\n\
+   <David.Marrs@myrealbox.com>\n\
+  Michèle Garoche\n\
+   <michele.garoche@easyconnect.fr>\n\
 \n\
 Developers for previous releases:\n\
   Oskar Świda\n\
@@ -88,10 +94,10 @@ Developers for previous releases:\n\
   Antti-Juhani Kaijanaho\n\
 \n\
 Documentation:\n\
-  Scott White\n\
-   <wwsw3@earthlink.net>\n\
   Michèle Garoche\n\
    <michele.garoche@easyconnect.fr>\n\
+  Scott White\n\
+   <wwsw3@earthlink.net>\n\
   Anita Lewis\n\
    <ajreiki@highstream.net>\n\
   Alastair Porter\n\

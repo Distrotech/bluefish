@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-20 22:03-0700\n"
+"POT-Creation-Date: 2006-08-25 15:46+0200\n"
 "PO-Revision-Date: 2004-12-09 12:11+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team: no team\n"
@@ -41,6 +41,12 @@ msgid ""
 "   <jimhayward@linuxexperience.net>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
+"  Oskar Świda\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"  David Marrs\n"
+"   <David.Marrs@myrealbox.com>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "Developers for previous releases:\n"
 "  Oskar Świda\n"
@@ -65,10 +71,10 @@ msgid ""
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Documentation:\n"
-"  Scott White\n"
-"   <wwsw3@earthlink.net>\n"
 "  Michèle Garoche\n"
 "   <michele.garoche@easyconnect.fr>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
@@ -95,7 +101,7 @@ msgid ""
 "Thanks to all who helped making this software available.\n"
 msgstr ""
 
-#: ../src/about.c:120
+#: ../src/about.c:126
 msgid ""
 "Current translators:\n"
 "\n"
@@ -167,28 +173,28 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../src/about.c:167
+#: ../src/about.c:173
 msgid "About Bluefish"
 msgstr "Περί Bluefish"
 
-#: ../src/about.c:197
+#: ../src/about.c:203
 msgid ""
 "\n"
 "\n"
 "Resulting in the detection of:\n"
 msgstr ""
 
-#: ../src/about.c:224 ../src/fref.c:1469 ../src/fref.c:1753 ../src/fref.c:1840
-#: ../src/fref.c:1875 ../src/fref.c:2353
+#: ../src/about.c:230 ../src/fref.c:1470 ../src/fref.c:1754 ../src/fref.c:1841
+#: ../src/fref.c:1876 ../src/fref.c:2354
 #, fuzzy
 msgid "Info"
 msgstr "Μη αριθμημένα"
 
-#: ../src/about.c:226
+#: ../src/about.c:232
 msgid "Authors"
 msgstr ""
 
-#: ../src/about.c:227
+#: ../src/about.c:233
 msgid "Translators"
 msgstr "Μεταφραστές"
 
@@ -942,72 +948,72 @@ msgstr ""
 msgid "Follow focus"
 msgstr ""
 
-#: ../src/fref.c:1488 ../src/gui.c:1092
+#: ../src/fref.c:1489 ../src/gui.c:1092
 msgid "Close"
 msgstr "Κλείσιμο"
 
-#: ../src/fref.c:1492 ../src/fref.c:1834 ../src/fref.c:1870 ../src/fref.c:2352
+#: ../src/fref.c:1493 ../src/fref.c:1835 ../src/fref.c:1871 ../src/fref.c:2353
 msgid "Dialog"
 msgstr "Διάλογος"
 
-#: ../src/fref.c:1493 ../src/fref.c:1837 ../src/fref.c:1864
+#: ../src/fref.c:1494 ../src/fref.c:1838 ../src/fref.c:1865
 msgid "Insert"
 msgstr "Εισαγωγή"
 
-#: ../src/fref.c:1846 ../src/html.c:1269
+#: ../src/fref.c:1847 ../src/html.c:1269
 msgid "Options"
 msgstr "Επιλογές"
 
-#: ../src/fref.c:1854
+#: ../src/fref.c:1855
 #, fuzzy
 msgid "Rescan reference files"
 msgstr "Προεπισκόπηση του Bluefish:"
 
-#: ../src/fref.c:1858
+#: ../src/fref.c:1859
 msgid "Left doubleclick action"
 msgstr ""
 
-#: ../src/fref.c:1880
+#: ../src/fref.c:1881
 #, fuzzy
 msgid "Info type"
 msgstr "Μη αριθμημένα"
 
-#: ../src/fref.c:1885
+#: ../src/fref.c:1886
 msgid "Description"
 msgstr "Περιγραφή"
 
-#: ../src/fref.c:1890
+#: ../src/fref.c:1891
 msgid "Attributes/Parameters"
 msgstr ""
 
-#: ../src/fref.c:1895
+#: ../src/fref.c:1896
 msgid "Notes"
 msgstr "Σημειώσεις"
 
-#: ../src/fref.c:2072 ../src/fref.c:2086
+#: ../src/fref.c:2073 ../src/fref.c:2087
 #, fuzzy
 msgid "Reference search"
 msgstr "Ανανέωση εγγράφου"
 
-#: ../src/fref.c:2087
+#: ../src/fref.c:2088
 msgid "Reference not found"
 msgstr ""
 
-#: ../src/fref.c:2104
+#: ../src/fref.c:2105
 msgid "Error"
 msgstr "Σφάλμα"
 
-#: ../src/fref.c:2106
+#: ../src/fref.c:2107
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
 msgstr ""
 
-#: ../src/fref.c:2338
+#: ../src/fref.c:2339
 msgid "Show info window"
 msgstr ""
 
-#: ../src/fref.c:2354
+#: ../src/fref.c:2355
 msgid "Search"
 msgstr "Αναζήτηση"
 
@@ -1546,55 +1552,6 @@ msgstr ""
 msgid "studying 2nd pattern '%s': %s"
 msgstr ""
 
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr ""
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "_Επιλογέας:"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "_ιδιότητα:"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Τιμή:"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "Επιλογέας"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "Ιδιότητα"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Τιμή"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr " _Προσθήκη "
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " _Ανανέωση "
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " _Διαγραφή "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "_Στυλ..."
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Επιλογή χρώματος"
-
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "Εισαγωγή Ώρας"
@@ -2038,6 +1995,55 @@ msgstr "Γ_λώσσα:"
 #, fuzzy
 msgid "_Custom:"
 msgstr "Προσαρμωγή"
+
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr ""
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "_Επιλογέας:"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "_ιδιότητα:"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Τιμή:"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "Επιλογέας"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "Ιδιότητα"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Τιμή"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr " _Προσθήκη "
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " _Ανανέωση "
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " _Διαγραφή "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "_Στυλ..."
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Επιλογή χρώματος"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -3808,205 +3814,205 @@ msgstr ""
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr ""
 
-#: ../src/menu.c:1425
+#: ../src/menu.c:1430
 #, fuzzy
 msgid "/External/Outputbox/"
 msgstr "/Εξωτερικά/διαχ11"
 
-#: ../src/menu.c:1428
+#: ../src/menu.c:1433
 msgid "/External/Commands/"
 msgstr "/Εξωτερικά/Εντολές/"
 
-#: ../src/menu.c:1431
+#: ../src/menu.c:1436
 #, fuzzy
 msgid "/External/Browsers/"
 msgstr "/Εξωτερικά/Φίλτρα/"
 
-#: ../src/menu.c:1436 ../src/menu.c:1451 ../src/menu.c:1470 ../src/menu.c:1486
-#: ../src/menu.c:1499 ../src/menu.c:1521
+#: ../src/menu.c:1441 ../src/menu.c:1456 ../src/menu.c:1475 ../src/menu.c:1491
+#: ../src/menu.c:1504 ../src/menu.c:1526
 #, fuzzy
 msgid "/External"
 msgstr "/_Εξωτερικά"
 
-#: ../src/menu.c:1449
+#: ../src/menu.c:1454
 #, fuzzy
 msgid "/External/Browsers"
 msgstr "/Εξωτερικά/Φίλτρα/"
 
-#: ../src/menu.c:1484
+#: ../src/menu.c:1489
 #, fuzzy
 msgid "/External/Commands"
 msgstr "/Εξωτερικά/Εντολές/"
 
-#: ../src/menu.c:1519
+#: ../src/menu.c:1524
 #, fuzzy
 msgid "/External/Outputbox"
 msgstr "/Εξωτερικά/διαχ11"
 
-#: ../src/menu.c:1565
+#: ../src/menu.c:1570
 #, fuzzy
 msgid "/Document/Character Encoding"
 msgstr "/Σχέδιο/διαχ1"
 
-#: ../src/menu.c:1841
+#: ../src/menu.c:1846
 msgid "This custom search and replace requires a selection"
 msgstr ""
 
-#: ../src/menu.c:1938
+#: ../src/menu.c:1943
 msgid "/_Custom menu"
 msgstr "/_Προσαρμοσμένο μενού"
 
 # src/html.c:736		ΝΤΚ
-#: ../src/menu.c:1940
+#: ../src/menu.c:1945
 #, fuzzy
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Προσαρμοσμένο μενού/Διόρθωση"
 
 # src/html.c:736		ΝΤΚ
-#: ../src/menu.c:1941
+#: ../src/menu.c:1946
 #, fuzzy
 msgid "/Custom menu/Reset"
 msgstr "/Προσαρμοσμένο μενού/διαχ"
 
 # src/html.c:736		ΝΤΚ
-#: ../src/menu.c:1942
+#: ../src/menu.c:1947
 #, fuzzy
 msgid "/Custom menu/Load new"
 msgstr "/Προσαρμοσμένο μενού/διαχ"
 
-#: ../src/menu.c:2158
+#: ../src/menu.c:2163
 #, fuzzy
 msgid "Search Pattern"
 msgstr "Εύρεση"
 
-#: ../src/menu.c:2159
+#: ../src/menu.c:2164
 #, fuzzy
 msgid "Replace String"
 msgstr "Αντικατάσταση"
 
-#: ../src/menu.c:2162
+#: ../src/menu.c:2167
 #, fuzzy
 msgid "Formatstring Before"
 msgstr "Κείμενο διαμόρφωσης πριν"
 
-#: ../src/menu.c:2163
+#: ../src/menu.c:2168
 #, fuzzy
 msgid "Formatstring After"
 msgstr "Κείμενο διαμόρφωσης μετά"
 
-#: ../src/menu.c:2210
+#: ../src/menu.c:2215
 msgid "The menupath you want to update does not exist yet"
 msgstr ""
 
-#: ../src/menu.c:2210
+#: ../src/menu.c:2215
 msgid "Try 'add' instead."
 msgstr ""
 
-#: ../src/menu.c:2212
+#: ../src/menu.c:2217
 msgid "The menupath you want to add already exists."
 msgstr ""
 
-#: ../src/menu.c:2217
+#: ../src/menu.c:2222
 msgid "The menupath should start with a / character"
 msgstr ""
 
-#: ../src/menu.c:2379
+#: ../src/menu.c:2384
 #, fuzzy
 msgid "Custom Menu Editor"
 msgstr "/_Προσαρμοσμένο μενού"
 
-#: ../src/menu.c:2390
+#: ../src/menu.c:2395
 msgid "Add New Menu Entry"
 msgstr ""
 
-#: ../src/menu.c:2392
+#: ../src/menu.c:2397
 msgid "Apply Changes"
 msgstr ""
 
-#: ../src/menu.c:2394
+#: ../src/menu.c:2399
 msgid "Delete Menu Entry"
 msgstr ""
 
-#: ../src/menu.c:2397
+#: ../src/menu.c:2402
 msgid "Close Discards Changes"
 msgstr ""
 
-#: ../src/menu.c:2399
+#: ../src/menu.c:2404
 msgid "Save Changes and Exit"
 msgstr ""
 
-#: ../src/menu.c:2409
+#: ../src/menu.c:2414
 #, fuzzy
 msgid "_Menu Path:"
 msgstr "Θέση μενού"
 
-#: ../src/menu.c:2430
+#: ../src/menu.c:2435
 msgid "Menu path"
 msgstr "Θέση μενού"
 
-#: ../src/menu.c:2450
+#: ../src/menu.c:2455
 #, fuzzy
 msgid "Number of _Variables:"
 msgstr "Αριθμός μεταβλητών"
 
-#: ../src/menu.c:2458
+#: ../src/menu.c:2463
 msgid "Variables"
 msgstr "Μεταβλητές"
 
-#: ../src/menu.c:2477
+#: ../src/menu.c:2482
 #, fuzzy
 msgid "Custom Dialo_g"
 msgstr "Διάλογος Πήγαινε"
 
-#: ../src/menu.c:2479
+#: ../src/menu.c:2484
 #, fuzzy
 msgid "Custom Replace"
 msgstr "Εύρεση και Αντικατάσταση"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2496
 #, fuzzy
 msgid "_Replace:"
 msgstr "Αντικατάσταση"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 #, fuzzy
 msgid "in current document"
 msgstr "/Σχέδιο/Πρόσθεση παρόντος εγγράφου"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "from cursor"
 msgstr ""
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 #, fuzzy
 msgid "in selection"
 msgstr "Στην επιλογή"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 #, fuzzy
 msgid "in all open documents"
 msgstr "/Σχέδιο/Πρόσθεση όλων των εγγράφων"
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2507
 #, fuzzy
 msgid "Matc_hing:"
 msgstr "Διάστημα"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "normal"
 msgstr ""
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 #, fuzzy
 msgid "posix regular expressions"
 msgstr "Έκδοση HTML"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 #, fuzzy
 msgid "perl regular expressions"
 msgstr "Έκδοση HTML"
 
-#: ../src/menu.c:2511
+#: ../src/menu.c:2516
 #, fuzzy
 msgid "Case Se_nsitive"
 msgstr "Διαφορά πεζών-κεφαλαίων"
