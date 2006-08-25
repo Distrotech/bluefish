@@ -1388,6 +1388,11 @@ static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 		DEBUG_MSG("external_command_lcb, about to start %s\n", arr[1]);
 		system(arr[1]);
 	}
+	
+	if (bdm->bfwin->current_document->need_highlighting) {
+	    DEBUG_MSG("external_command_lcb, need_highlighting = %d\n", bdm->bfwin->current_document->need_highlighting);
+	    doc_highlight_full(bdm->bfwin->current_document);
+	}
 }
 /**
  * external_menu_rebuild:
