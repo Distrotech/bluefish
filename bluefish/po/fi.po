@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-20 22:03-0700\n"
+"POT-Creation-Date: 2006-08-25 15:46+0200\n"
 "PO-Revision-Date: 2003-12-06 14:24+0100\n"
 "Last-Translator: Juho Roukala <j.mr@luukku.com>\n"
 "Language-Team: Not a memeber <LL@li.org>\n"
@@ -38,6 +38,7 @@ msgstr ""
 "Tämä Bluefish-versio käännettiin seuraavien valintojen kanssa:\n"
 
 #: ../src/about.c:57
+#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -49,6 +50,12 @@ msgid ""
 "   <jimhayward@linuxexperience.net>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
+"  Oskar Świda\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"  David Marrs\n"
+"   <David.Marrs@myrealbox.com>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "Developers for previous releases:\n"
 "  Oskar Świda\n"
@@ -73,10 +80,10 @@ msgid ""
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Documentation:\n"
-"  Scott White\n"
-"   <wwsw3@earthlink.net>\n"
 "  Michèle Garoche\n"
 "   <michele.garoche@easyconnect.fr>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
@@ -165,7 +172,7 @@ msgstr ""
 "\n"
 "Kiitos kaikille jotka auttoivat tämän ohjelman luomisessa.\n"
 
-#: ../src/about.c:120
+#: ../src/about.c:126
 msgid ""
 "Current translators:\n"
 "\n"
@@ -305,11 +312,11 @@ msgstr ""
 "   <rupakov@jet.msk.su>\n"
 "\n"
 
-#: ../src/about.c:167
+#: ../src/about.c:173
 msgid "About Bluefish"
 msgstr "Tietoja: Bluefish"
 
-#: ../src/about.c:197
+#: ../src/about.c:203
 msgid ""
 "\n"
 "\n"
@@ -319,16 +326,16 @@ msgstr ""
 "\n"
 "Seuraa havainnosta:\n"
 
-#: ../src/about.c:224 ../src/fref.c:1469 ../src/fref.c:1753 ../src/fref.c:1840
-#: ../src/fref.c:1875 ../src/fref.c:2353
+#: ../src/about.c:230 ../src/fref.c:1470 ../src/fref.c:1754 ../src/fref.c:1841
+#: ../src/fref.c:1876 ../src/fref.c:2354
 msgid "Info"
 msgstr "Info"
 
-#: ../src/about.c:226
+#: ../src/about.c:232
 msgid "Authors"
 msgstr "Tekijät"
 
-#: ../src/about.c:227
+#: ../src/about.c:233
 msgid "Translators"
 msgstr "Kääntäjät"
 
@@ -1079,69 +1086,69 @@ msgstr "Näytä koko puu"
 msgid "Follow focus"
 msgstr "Seuraa kohdistinta"
 
-#: ../src/fref.c:1488 ../src/gui.c:1092
+#: ../src/fref.c:1489 ../src/gui.c:1092
 msgid "Close"
 msgstr "Sulje"
 
-#: ../src/fref.c:1492 ../src/fref.c:1834 ../src/fref.c:1870 ../src/fref.c:2352
+#: ../src/fref.c:1493 ../src/fref.c:1835 ../src/fref.c:1871 ../src/fref.c:2353
 msgid "Dialog"
 msgstr "Dialogi"
 
-#: ../src/fref.c:1493 ../src/fref.c:1837 ../src/fref.c:1864
+#: ../src/fref.c:1494 ../src/fref.c:1838 ../src/fref.c:1865
 msgid "Insert"
 msgstr "Lisää"
 
-#: ../src/fref.c:1846 ../src/html.c:1269
+#: ../src/fref.c:1847 ../src/html.c:1269
 msgid "Options"
 msgstr "Valinnat"
 
-#: ../src/fref.c:1854
+#: ../src/fref.c:1855
 msgid "Rescan reference files"
 msgstr "Lue viitetiedostot uudelleen"
 
-#: ../src/fref.c:1858
+#: ../src/fref.c:1859
 msgid "Left doubleclick action"
 msgstr "Vasemman kaksoisnapsautuksen toiminta"
 
-#: ../src/fref.c:1880
+#: ../src/fref.c:1881
 msgid "Info type"
 msgstr "Infotyyppi"
 
-#: ../src/fref.c:1885
+#: ../src/fref.c:1886
 msgid "Description"
 msgstr "Kuvaus"
 
-#: ../src/fref.c:1890
+#: ../src/fref.c:1891
 msgid "Attributes/Parameters"
 msgstr "Attribuutit/Määritteet"
 
-#: ../src/fref.c:1895
+#: ../src/fref.c:1896
 msgid "Notes"
 msgstr "Huomautukset"
 
-#: ../src/fref.c:2072 ../src/fref.c:2086
+#: ../src/fref.c:2073 ../src/fref.c:2087
 msgid "Reference search"
 msgstr "Viittaushaku"
 
-#: ../src/fref.c:2087
+#: ../src/fref.c:2088
 msgid "Reference not found"
 msgstr "Viittausta ei löytynyt"
 
-#: ../src/fref.c:2104
+#: ../src/fref.c:2105
 msgid "Error"
 msgstr "Virhe"
 
-#: ../src/fref.c:2106
+#: ../src/fref.c:2107
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
 msgstr "Et tainnut ladata viittausta tai et valinnut viittausta josta hakea."
 
-#: ../src/fref.c:2338
+#: ../src/fref.c:2339
 msgid "Show info window"
 msgstr "Näytä info-ikkuna"
 
-#: ../src/fref.c:2354
+#: ../src/fref.c:2355
 msgid "Search"
 msgstr "Etsi"
 
@@ -1659,55 +1666,6 @@ msgstr "kääntää toista mallia '%s': %s paikassa %d"
 msgid "studying 2nd pattern '%s': %s"
 msgstr "lukee toista mallia '%s': %s"
 
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "Limitetty tyylisivu -dialogi"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "_Valitsija:"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "_Ominaisuus:"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Arvo:"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "Valitsija:"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "Ominaisuus"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Arvo"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr " _Lisää "
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " _Päivitä "
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " P_oista "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "_Tyyli..."
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Valitse väri"
-
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "Lisää aika"
@@ -2122,6 +2080,55 @@ msgstr "K_ieli:"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "_Mukautettu:"
+
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "Limitetty tyylisivu -dialogi"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "_Valitsija:"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "_Ominaisuus:"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Arvo:"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "Valitsija:"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "Ominaisuus"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Arvo"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr " _Lisää "
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " _Päivitä "
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " P_oista "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "_Tyyli..."
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Valitse väri"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -3620,176 +3627,176 @@ msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr ""
 "Ei voitu esikatsella tiedostoa selaimessa, tiedostolla ei ole vielä nimeä\n"
 
-#: ../src/menu.c:1425
+#: ../src/menu.c:1430
 msgid "/External/Outputbox/"
 msgstr "/Ulkopuolinen/Tulostelaatikko/"
 
-#: ../src/menu.c:1428
+#: ../src/menu.c:1433
 msgid "/External/Commands/"
 msgstr "/Ulkopuolinen/Komennot/"
 
-#: ../src/menu.c:1431
+#: ../src/menu.c:1436
 msgid "/External/Browsers/"
 msgstr "/Ulkopuolinen/Selaimet/"
 
-#: ../src/menu.c:1436 ../src/menu.c:1451 ../src/menu.c:1470 ../src/menu.c:1486
-#: ../src/menu.c:1499 ../src/menu.c:1521
+#: ../src/menu.c:1441 ../src/menu.c:1456 ../src/menu.c:1475 ../src/menu.c:1491
+#: ../src/menu.c:1504 ../src/menu.c:1526
 msgid "/External"
 msgstr "/Ulkopuolinen"
 
-#: ../src/menu.c:1449
+#: ../src/menu.c:1454
 msgid "/External/Browsers"
 msgstr "/Ulkopuolinen/Selaimet"
 
-#: ../src/menu.c:1484
+#: ../src/menu.c:1489
 msgid "/External/Commands"
 msgstr "/Ulkopuolinen/Komennot"
 
-#: ../src/menu.c:1519
+#: ../src/menu.c:1524
 msgid "/External/Outputbox"
 msgstr "/Ulkopuolinen/Tulostelaatikko"
 
-#: ../src/menu.c:1565
+#: ../src/menu.c:1570
 msgid "/Document/Character Encoding"
 msgstr "/Dokumentti/Merkistökoodaus"
 
-#: ../src/menu.c:1841
+#: ../src/menu.c:1846
 msgid "This custom search and replace requires a selection"
 msgstr "Tämä muotoiltava Etsi ja korvaa vaatii valinnan"
 
-#: ../src/menu.c:1938
+#: ../src/menu.c:1943
 msgid "/_Custom menu"
 msgstr "/Muotoilta_va valikko"
 
-#: ../src/menu.c:1940
+#: ../src/menu.c:1945
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Muotoiltava valikko/_Editoi muotoiltavaa valikkoa"
 
-#: ../src/menu.c:1941
+#: ../src/menu.c:1946
 msgid "/Custom menu/Reset"
 msgstr "/Muotoiltava valikko/Nollaa"
 
-#: ../src/menu.c:1942
+#: ../src/menu.c:1947
 msgid "/Custom menu/Load new"
 msgstr "/Muotoiltava valikko/Lataa uusi"
 
-#: ../src/menu.c:2158
+#: ../src/menu.c:2163
 msgid "Search Pattern"
 msgstr "Etsi malli"
 
-#: ../src/menu.c:2159
+#: ../src/menu.c:2164
 msgid "Replace String"
 msgstr "Korvaa merkkijono"
 
-#: ../src/menu.c:2162
+#: ../src/menu.c:2167
 msgid "Formatstring Before"
 msgstr "Muotoilumerkkijono ennen"
 
-#: ../src/menu.c:2163
+#: ../src/menu.c:2168
 msgid "Formatstring After"
 msgstr "Muotoilumerkkijono jälkeen"
 
-#: ../src/menu.c:2210
+#: ../src/menu.c:2215
 msgid "The menupath you want to update does not exist yet"
 msgstr "Valikkohakemistoa, jonka haluat päivittää, ei ole vielä olemassa"
 
-#: ../src/menu.c:2210
+#: ../src/menu.c:2215
 msgid "Try 'add' instead."
 msgstr "Yritä sen sijaan 'lisää'."
 
-#: ../src/menu.c:2212
+#: ../src/menu.c:2217
 msgid "The menupath you want to add already exists."
 msgstr "Valikkohakemisto, jonka haluat lisätä, on jo olemassa."
 
-#: ../src/menu.c:2217
+#: ../src/menu.c:2222
 msgid "The menupath should start with a / character"
 msgstr "Valikkohakemiston tulisi alkaa / merkillä"
 
-#: ../src/menu.c:2379
+#: ../src/menu.c:2384
 msgid "Custom Menu Editor"
 msgstr "Muotoiltavan valikon editori"
 
-#: ../src/menu.c:2390
+#: ../src/menu.c:2395
 msgid "Add New Menu Entry"
 msgstr "Lisää uusi valikon kohta"
 
-#: ../src/menu.c:2392
+#: ../src/menu.c:2397
 msgid "Apply Changes"
 msgstr "Hyväksy muutokset"
 
-#: ../src/menu.c:2394
+#: ../src/menu.c:2399
 msgid "Delete Menu Entry"
 msgstr "Poista valikon kohta"
 
-#: ../src/menu.c:2397
+#: ../src/menu.c:2402
 msgid "Close Discards Changes"
 msgstr "Sulkeminen hylkää muutokset"
 
-#: ../src/menu.c:2399
+#: ../src/menu.c:2404
 msgid "Save Changes and Exit"
 msgstr "Tallenna muutokset ja lopeta"
 
-#: ../src/menu.c:2409
+#: ../src/menu.c:2414
 msgid "_Menu Path:"
 msgstr "_Valikon hakemisto:"
 
-#: ../src/menu.c:2430
+#: ../src/menu.c:2435
 msgid "Menu path"
 msgstr "Valikon hakemisto"
 
-#: ../src/menu.c:2450
+#: ../src/menu.c:2455
 msgid "Number of _Variables:"
 msgstr "_Muuttujien lukumäärä:"
 
-#: ../src/menu.c:2458
+#: ../src/menu.c:2463
 msgid "Variables"
 msgstr "Muuttujat"
 
-#: ../src/menu.c:2477
+#: ../src/menu.c:2482
 msgid "Custom Dialo_g"
 msgstr "Muokattu dialo_gi"
 
-#: ../src/menu.c:2479
+#: ../src/menu.c:2484
 msgid "Custom Replace"
 msgstr "Muokattu korvaus"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2496
 msgid "_Replace:"
 msgstr "_Korvaa:"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in current document"
 msgstr "tämänhetkisessä dokumentissa"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "from cursor"
 msgstr "kursorista"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in selection"
 msgstr "valinnasta"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in all open documents"
 msgstr "kaikista avoimista dokumenteista"
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2507
 msgid "Matc_hing:"
 msgstr "Va_staavat:"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "normal"
 msgstr "normaali"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "posix regular expressions"
 msgstr "posix säännölliset lausekkeet"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "perl regular expressions"
 msgstr "perl säännölliset lausekkeet"
 
-#: ../src/menu.c:2511
+#: ../src/menu.c:2516
 msgid "Case Se_nsitive"
 msgstr "Ta_rkka kirjainmuoto"
 

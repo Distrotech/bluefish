@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-20 22:03-0700\n"
+"POT-Creation-Date: 2006-08-25 15:46+0200\n"
 "PO-Revision-Date: 2005-08-10 15:05+0200\n"
 "Last-Translator: Rasmus Toftdahl Olesen <halfdan@halfdans.net>\n"
 "Language-Team: None\n"
@@ -49,6 +49,12 @@ msgid ""
 "   <jimhayward@linuxexperience.net>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
+"  Oskar Świda\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"  David Marrs\n"
+"   <David.Marrs@myrealbox.com>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "Developers for previous releases:\n"
 "  Oskar Świda\n"
@@ -73,10 +79,10 @@ msgid ""
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Documentation:\n"
-"  Scott White\n"
-"   <wwsw3@earthlink.net>\n"
 "  Michèle Garoche\n"
 "   <michele.garoche@easyconnect.fr>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
@@ -166,7 +172,7 @@ msgstr ""
 "\n"
 "Tak til alle som har hjulpet med at gøre dette program til virkelighed.\n"
 
-#: ../src/about.c:120
+#: ../src/about.c:126
 #, fuzzy
 msgid ""
 "Current translators:\n"
@@ -300,11 +306,11 @@ msgstr ""
 "  Ungarsk: Péter Sáska\n"
 "   <sasek@ccsystem.hu>\n"
 
-#: ../src/about.c:167
+#: ../src/about.c:173
 msgid "About Bluefish"
 msgstr "Om Bluefish"
 
-#: ../src/about.c:197
+#: ../src/about.c:203
 msgid ""
 "\n"
 "\n"
@@ -314,16 +320,16 @@ msgstr ""
 "\n"
 "Resulterede i detektionen af:\n"
 
-#: ../src/about.c:224 ../src/fref.c:1469 ../src/fref.c:1753 ../src/fref.c:1840
-#: ../src/fref.c:1875 ../src/fref.c:2353
+#: ../src/about.c:230 ../src/fref.c:1470 ../src/fref.c:1754 ../src/fref.c:1841
+#: ../src/fref.c:1876 ../src/fref.c:2354
 msgid "Info"
 msgstr "Info"
 
-#: ../src/about.c:226
+#: ../src/about.c:232
 msgid "Authors"
 msgstr "Forfattere"
 
-#: ../src/about.c:227
+#: ../src/about.c:233
 msgid "Translators"
 msgstr "Oversættere"
 
@@ -1071,59 +1077,59 @@ msgstr "Vis fuldt træ"
 msgid "Follow focus"
 msgstr "Følg fokus"
 
-#: ../src/fref.c:1488 ../src/gui.c:1092
+#: ../src/fref.c:1489 ../src/gui.c:1092
 msgid "Close"
 msgstr "Luk"
 
-#: ../src/fref.c:1492 ../src/fref.c:1834 ../src/fref.c:1870 ../src/fref.c:2352
+#: ../src/fref.c:1493 ../src/fref.c:1835 ../src/fref.c:1871 ../src/fref.c:2353
 msgid "Dialog"
 msgstr "Dialog"
 
-#: ../src/fref.c:1493 ../src/fref.c:1837 ../src/fref.c:1864
+#: ../src/fref.c:1494 ../src/fref.c:1838 ../src/fref.c:1865
 msgid "Insert"
 msgstr "Indsæt"
 
-#: ../src/fref.c:1846 ../src/html.c:1269
+#: ../src/fref.c:1847 ../src/html.c:1269
 msgid "Options"
 msgstr "Indstillinger"
 
-#: ../src/fref.c:1854
+#: ../src/fref.c:1855
 msgid "Rescan reference files"
 msgstr "Opdatér reference filer"
 
-#: ../src/fref.c:1858
+#: ../src/fref.c:1859
 msgid "Left doubleclick action"
 msgstr "Venstre dobbeltklik handling"
 
-#: ../src/fref.c:1880
+#: ../src/fref.c:1881
 msgid "Info type"
 msgstr "Info type"
 
-#: ../src/fref.c:1885
+#: ../src/fref.c:1886
 msgid "Description"
 msgstr "Beskrivelse"
 
-#: ../src/fref.c:1890
+#: ../src/fref.c:1891
 msgid "Attributes/Parameters"
 msgstr "Attributer/Parametre"
 
-#: ../src/fref.c:1895
+#: ../src/fref.c:1896
 msgid "Notes"
 msgstr "Noter"
 
-#: ../src/fref.c:2072 ../src/fref.c:2086
+#: ../src/fref.c:2073 ../src/fref.c:2087
 msgid "Reference search"
 msgstr "Reference søgning"
 
-#: ../src/fref.c:2087
+#: ../src/fref.c:2088
 msgid "Reference not found"
 msgstr "Reference ikke fundet"
 
-#: ../src/fref.c:2104
+#: ../src/fref.c:2105
 msgid "Error"
 msgstr "Fejl"
 
-#: ../src/fref.c:2106
+#: ../src/fref.c:2107
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
@@ -1131,11 +1137,11 @@ msgstr ""
 "Måske hentede du ikke en regerence, eller du valgte ikke en reference at "
 "søge i."
 
-#: ../src/fref.c:2338
+#: ../src/fref.c:2339
 msgid "Show info window"
 msgstr "Vis info vindue"
 
-#: ../src/fref.c:2354
+#: ../src/fref.c:2355
 msgid "Search"
 msgstr "Søg"
 
@@ -1653,55 +1659,6 @@ msgstr "kompilerer 2. mønster '%s': %s ved position %d"
 msgid "studying 2nd pattern '%s': %s"
 msgstr "studerer 2. mænster '%s': %s"
 
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "Cascading StyleSheet dialog"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "_Vælger:"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "_Egenskab:"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Værdi:"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "Vælger"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "Egenskab"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Værdi"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr " _Tilføj "
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " _Opdatér "
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " _Slet "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "_Stil"
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Vælg farve"
-
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "Indsæt tid"
@@ -2119,6 +2076,55 @@ msgstr "_Sprog:"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "_Bruger:"
+
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "Cascading StyleSheet dialog"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "_Vælger:"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "_Egenskab:"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Værdi:"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "Vælger"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "Egenskab"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Værdi"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr " _Tilføj "
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " _Opdatér "
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " _Slet "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "_Stil"
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Vælg farve"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -3580,176 +3586,176 @@ msgstr "/Vindue"
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr "Kunne ikke vise fil i browser, filen har endnu ikke et navn\n"
 
-#: ../src/menu.c:1425
+#: ../src/menu.c:1430
 msgid "/External/Outputbox/"
 msgstr "/Eksterne/Uddata-box"
 
-#: ../src/menu.c:1428
+#: ../src/menu.c:1433
 msgid "/External/Commands/"
 msgstr "/Eksterne/Kommandoer/"
 
-#: ../src/menu.c:1431
+#: ../src/menu.c:1436
 msgid "/External/Browsers/"
 msgstr "/Eksterne/Browsere/"
 
-#: ../src/menu.c:1436 ../src/menu.c:1451 ../src/menu.c:1470 ../src/menu.c:1486
-#: ../src/menu.c:1499 ../src/menu.c:1521
+#: ../src/menu.c:1441 ../src/menu.c:1456 ../src/menu.c:1475 ../src/menu.c:1491
+#: ../src/menu.c:1504 ../src/menu.c:1526
 msgid "/External"
 msgstr "/Eksterne"
 
-#: ../src/menu.c:1449
+#: ../src/menu.c:1454
 msgid "/External/Browsers"
 msgstr "/Eksterne/Browsere"
 
-#: ../src/menu.c:1484
+#: ../src/menu.c:1489
 msgid "/External/Commands"
 msgstr "/Eksterne/Kommandoer"
 
-#: ../src/menu.c:1519
+#: ../src/menu.c:1524
 msgid "/External/Outputbox"
 msgstr "/Eksterne/Uddata-box"
 
-#: ../src/menu.c:1565
+#: ../src/menu.c:1570
 msgid "/Document/Character Encoding"
 msgstr "/Dokument/Karakter Kodning"
 
-#: ../src/menu.c:1841
+#: ../src/menu.c:1846
 msgid "This custom search and replace requires a selection"
 msgstr "Denne brugerdefinerede søg og erstatning kræver et valg"
 
-#: ../src/menu.c:1938
+#: ../src/menu.c:1943
 msgid "/_Custom menu"
 msgstr "/_Bruger menu"
 
-#: ../src/menu.c:1940
+#: ../src/menu.c:1945
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Bruger menu/Redigér bruger menu..."
 
-#: ../src/menu.c:1941
+#: ../src/menu.c:1946
 msgid "/Custom menu/Reset"
 msgstr "/Bruger menu/Nulstil"
 
-#: ../src/menu.c:1942
+#: ../src/menu.c:1947
 msgid "/Custom menu/Load new"
 msgstr "/Bruger menu/Hent ny"
 
-#: ../src/menu.c:2158
+#: ../src/menu.c:2163
 msgid "Search Pattern"
 msgstr "Søge Mønster"
 
-#: ../src/menu.c:2159
+#: ../src/menu.c:2164
 msgid "Replace String"
 msgstr "Erstat Streng"
 
-#: ../src/menu.c:2162
+#: ../src/menu.c:2167
 msgid "Formatstring Before"
 msgstr "Formaterings-streng Før"
 
-#: ../src/menu.c:2163
+#: ../src/menu.c:2168
 msgid "Formatstring After"
 msgstr "Formaterings-streng Efter"
 
-#: ../src/menu.c:2210
+#: ../src/menu.c:2215
 msgid "The menupath you want to update does not exist yet"
 msgstr "Menustien du vil opdatere eksisterer ikke endnu"
 
-#: ../src/menu.c:2210
+#: ../src/menu.c:2215
 msgid "Try 'add' instead."
 msgstr "Prøv 'tilføj' istedet."
 
-#: ../src/menu.c:2212
+#: ../src/menu.c:2217
 msgid "The menupath you want to add already exists."
 msgstr "Menustien du ville tilføje eksisterer allerede."
 
-#: ../src/menu.c:2217
+#: ../src/menu.c:2222
 msgid "The menupath should start with a / character"
 msgstr "Menustien skal starte med en / karakter"
 
-#: ../src/menu.c:2379
+#: ../src/menu.c:2384
 msgid "Custom Menu Editor"
 msgstr "Bruger Menu Redigéring"
 
-#: ../src/menu.c:2390
+#: ../src/menu.c:2395
 msgid "Add New Menu Entry"
 msgstr "Tilføj Nyt Menu Punkt"
 
-#: ../src/menu.c:2392
+#: ../src/menu.c:2397
 msgid "Apply Changes"
 msgstr "Anvend Ændringer"
 
-#: ../src/menu.c:2394
+#: ../src/menu.c:2399
 msgid "Delete Menu Entry"
 msgstr "Slet Menu Punkt"
 
-#: ../src/menu.c:2397
+#: ../src/menu.c:2402
 msgid "Close Discards Changes"
 msgstr "Luk Forkaster Ændringer"
 
-#: ../src/menu.c:2399
+#: ../src/menu.c:2404
 msgid "Save Changes and Exit"
 msgstr "Gem Ændrenger og Afslut"
 
-#: ../src/menu.c:2409
+#: ../src/menu.c:2414
 msgid "_Menu Path:"
 msgstr "_Menu Sti:"
 
-#: ../src/menu.c:2430
+#: ../src/menu.c:2435
 msgid "Menu path"
 msgstr "Menu sti"
 
-#: ../src/menu.c:2450
+#: ../src/menu.c:2455
 msgid "Number of _Variables:"
 msgstr "Antal _Variable:"
 
-#: ../src/menu.c:2458
+#: ../src/menu.c:2463
 msgid "Variables"
 msgstr "Variable"
 
-#: ../src/menu.c:2477
+#: ../src/menu.c:2482
 msgid "Custom Dialo_g"
 msgstr "Brugerdefineret Dialo_g"
 
-#: ../src/menu.c:2479
+#: ../src/menu.c:2484
 msgid "Custom Replace"
 msgstr "Brugerdefineret Søg or Erstat"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2496
 msgid "_Replace:"
 msgstr "_Erstat:"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in current document"
 msgstr "i nuværende dokument"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "from cursor"
 msgstr "fra markør"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in selection"
 msgstr "i det markerede"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in all open documents"
 msgstr "i alle åbne dokumenter"
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2507
 msgid "Matc_hing:"
 msgstr "Sam_menligning"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "normal"
 msgstr "normal"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "posix regular expressions"
 msgstr "posix regulære udtryk"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "perl regular expressions"
 msgstr "perl regulære udtryk"
 
-#: ../src/menu.c:2511
+#: ../src/menu.c:2516
 msgid "Case Se_nsitive"
 msgstr "Case Se_nsitive"
 

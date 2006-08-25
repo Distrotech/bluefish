@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-20 22:03-0700\n"
+"POT-Creation-Date: 2006-08-25 15:46+0200\n"
 "PO-Revision-Date: 2003-12-09 11:07+0200\n"
 "Last-Translator: Peio Popov <peio@peio.org>\n"
 "Language-Team: Not a member <bg@li.org>\n"
@@ -50,6 +50,12 @@ msgid ""
 "   <jimhayward@linuxexperience.net>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
+"  Oskar Świda\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"  David Marrs\n"
+"   <David.Marrs@myrealbox.com>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "Developers for previous releases:\n"
 "  Oskar Świda\n"
@@ -74,10 +80,10 @@ msgid ""
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Documentation:\n"
-"  Scott White\n"
-"   <wwsw3@earthlink.net>\n"
 "  Michèle Garoche\n"
 "   <michele.garoche@easyconnect.fr>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
@@ -141,7 +147,7 @@ msgstr ""
 "\n"
 "Благодарности на всички, които помогнаха при създаването на този продукт.\n"
 
-#: ../src/about.c:120
+#: ../src/about.c:126
 #, fuzzy
 msgid ""
 "Current translators:\n"
@@ -267,27 +273,27 @@ msgstr ""
 "   <barathee@yahoo.com>\n"
 "\n"
 
-#: ../src/about.c:167
+#: ../src/about.c:173
 msgid "About Bluefish"
 msgstr "За Bluefish"
 
-#: ../src/about.c:197
+#: ../src/about.c:203
 msgid ""
 "\n"
 "\n"
 "Resulting in the detection of:\n"
 msgstr ""
 
-#: ../src/about.c:224 ../src/fref.c:1469 ../src/fref.c:1753 ../src/fref.c:1840
-#: ../src/fref.c:1875 ../src/fref.c:2353
+#: ../src/about.c:230 ../src/fref.c:1470 ../src/fref.c:1754 ../src/fref.c:1841
+#: ../src/fref.c:1876 ../src/fref.c:2354
 msgid "Info"
 msgstr "Информация"
 
-#: ../src/about.c:226
+#: ../src/about.c:232
 msgid "Authors"
 msgstr "Автори"
 
-#: ../src/about.c:227
+#: ../src/about.c:233
 msgid "Translators"
 msgstr "Преводачи"
 
@@ -1055,59 +1061,59 @@ msgstr "Показване на пълното дърво"
 msgid "Follow focus"
 msgstr ""
 
-#: ../src/fref.c:1488 ../src/gui.c:1092
+#: ../src/fref.c:1489 ../src/gui.c:1092
 msgid "Close"
 msgstr "Затваряне"
 
-#: ../src/fref.c:1492 ../src/fref.c:1834 ../src/fref.c:1870 ../src/fref.c:2352
+#: ../src/fref.c:1493 ../src/fref.c:1835 ../src/fref.c:1871 ../src/fref.c:2353
 msgid "Dialog"
 msgstr "Диалог"
 
-#: ../src/fref.c:1493 ../src/fref.c:1837 ../src/fref.c:1864
+#: ../src/fref.c:1494 ../src/fref.c:1838 ../src/fref.c:1865
 msgid "Insert"
 msgstr "Вкарване"
 
-#: ../src/fref.c:1846 ../src/html.c:1269
+#: ../src/fref.c:1847 ../src/html.c:1269
 msgid "Options"
 msgstr "Възможности"
 
-#: ../src/fref.c:1854
+#: ../src/fref.c:1855
 msgid "Rescan reference files"
 msgstr "Прочети отново справочниците"
 
-#: ../src/fref.c:1858
+#: ../src/fref.c:1859
 msgid "Left doubleclick action"
 msgstr "Left doubleclick action"
 
-#: ../src/fref.c:1880
+#: ../src/fref.c:1881
 msgid "Info type"
 msgstr "Info type"
 
-#: ../src/fref.c:1885
+#: ../src/fref.c:1886
 msgid "Description"
 msgstr "Описание"
 
-#: ../src/fref.c:1890
+#: ../src/fref.c:1891
 msgid "Attributes/Parameters"
 msgstr "Атрибути/Параметри"
 
-#: ../src/fref.c:1895
+#: ../src/fref.c:1896
 msgid "Notes"
 msgstr "Бележки"
 
-#: ../src/fref.c:2072 ../src/fref.c:2086
+#: ../src/fref.c:2073 ../src/fref.c:2087
 msgid "Reference search"
 msgstr "Търсене в справочника"
 
-#: ../src/fref.c:2087
+#: ../src/fref.c:2088
 msgid "Reference not found"
 msgstr "Няма резултат"
 
-#: ../src/fref.c:2104
+#: ../src/fref.c:2105
 msgid "Error"
 msgstr "Грешка"
 
-#: ../src/fref.c:2106
+#: ../src/fref.c:2107
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
@@ -1115,11 +1121,11 @@ msgstr ""
 "Може би не сте заредили справочник или не сте избрали справочник,в който да "
 "търсите ."
 
-#: ../src/fref.c:2338
+#: ../src/fref.c:2339
 msgid "Show info window"
 msgstr "Показване на прозореца с информация"
 
-#: ../src/fref.c:2354
+#: ../src/fref.c:2355
 msgid "Search"
 msgstr "Търсене"
 
@@ -1644,55 +1650,6 @@ msgstr ""
 msgid "studying 2nd pattern '%s': %s"
 msgstr ""
 
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "Диалог за създаване на CSS"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "_Selector:"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "_Property:"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Стойност"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "Selector"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "Property"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Стойност"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr "_Добавяне"
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr "_Обновяване"
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr "_Изтриване"
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "_Стил"
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: избери цвят"
-
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "Добави време"
@@ -2111,6 +2068,55 @@ msgstr "Език:"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "_Custo_m:"
+
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "Диалог за създаване на CSS"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "_Selector:"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "_Property:"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Стойност"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "Selector"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "Property"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Стойност"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr "_Добавяне"
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr "_Обновяване"
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr "_Изтриване"
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "_Стил"
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: избери цвят"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -3598,181 +3604,181 @@ msgstr "/Прозорци"
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr "Не успя да отвори файла в браузъра. Файлът още няма име\n"
 
-#: ../src/menu.c:1425
+#: ../src/menu.c:1430
 msgid "/External/Outputbox/"
 msgstr "/Външни/Резултат"
 
-#: ../src/menu.c:1428
+#: ../src/menu.c:1433
 msgid "/External/Commands/"
 msgstr "/Външни/Команди"
 
-#: ../src/menu.c:1431
+#: ../src/menu.c:1436
 msgid "/External/Browsers/"
 msgstr "/Външни/Браузъри"
 
-#: ../src/menu.c:1436 ../src/menu.c:1451 ../src/menu.c:1470 ../src/menu.c:1486
-#: ../src/menu.c:1499 ../src/menu.c:1521
+#: ../src/menu.c:1441 ../src/menu.c:1456 ../src/menu.c:1475 ../src/menu.c:1491
+#: ../src/menu.c:1504 ../src/menu.c:1526
 msgid "/External"
 msgstr "/Външни"
 
-#: ../src/menu.c:1449
+#: ../src/menu.c:1454
 msgid "/External/Browsers"
 msgstr "/Външни/Браузъри"
 
-#: ../src/menu.c:1484
+#: ../src/menu.c:1489
 msgid "/External/Commands"
 msgstr "/Външни/Команди"
 
-#: ../src/menu.c:1519
+#: ../src/menu.c:1524
 msgid "/External/Outputbox"
 msgstr "/Външни/Резултат"
 
-#: ../src/menu.c:1565
+#: ../src/menu.c:1570
 msgid "/Document/Character Encoding"
 msgstr "/Документ/Кодиране на символите"
 
-#: ../src/menu.c:1841
+#: ../src/menu.c:1846
 msgid "This custom search and replace requires a selection"
 msgstr "Този вид търсене и замяна изисква да бъде избран текст"
 
-#: ../src/menu.c:1938
+#: ../src/menu.c:1943
 msgid "/_Custom menu"
 msgstr "/_Лично меню"
 
-#: ../src/menu.c:1940
+#: ../src/menu.c:1945
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Лично меню/Редактиране ..."
 
-#: ../src/menu.c:1941
+#: ../src/menu.c:1946
 #, fuzzy
 msgid "/Custom menu/Reset"
 msgstr "/Лично меню/sep"
 
-#: ../src/menu.c:1942
+#: ../src/menu.c:1947
 #, fuzzy
 msgid "/Custom menu/Load new"
 msgstr "/Лично меню/sep"
 
-#: ../src/menu.c:2158
+#: ../src/menu.c:2163
 msgid "Search Pattern"
 msgstr "Шаблон за търсене"
 
-#: ../src/menu.c:2159
+#: ../src/menu.c:2164
 msgid "Replace String"
 msgstr "Низ за заместване"
 
-#: ../src/menu.c:2162
+#: ../src/menu.c:2167
 msgid "Formatstring Before"
 msgstr "Форматиращ низ преди"
 
-#: ../src/menu.c:2163
+#: ../src/menu.c:2168
 msgid "Formatstring After"
 msgstr "Форматиращ низ след"
 
-#: ../src/menu.c:2210
+#: ../src/menu.c:2215
 msgid "The menupath you want to update does not exist yet"
 msgstr "Менюто, което искате да редактиране още не съществува"
 
-#: ../src/menu.c:2210
+#: ../src/menu.c:2215
 msgid "Try 'add' instead."
 msgstr "Опитайте с 'Добавяне'."
 
-#: ../src/menu.c:2212
+#: ../src/menu.c:2217
 msgid "The menupath you want to add already exists."
 msgstr "Менюто, което искате да добавите вече съществува"
 
-#: ../src/menu.c:2217
+#: ../src/menu.c:2222
 msgid "The menupath should start with a / character"
 msgstr "Менюто трябва да започва с / "
 
-#: ../src/menu.c:2379
+#: ../src/menu.c:2384
 msgid "Custom Menu Editor"
 msgstr "Редактор за личното меню"
 
-#: ../src/menu.c:2390
+#: ../src/menu.c:2395
 msgid "Add New Menu Entry"
 msgstr "Добави нов елемент в менюто"
 
-#: ../src/menu.c:2392
+#: ../src/menu.c:2397
 msgid "Apply Changes"
 msgstr "Прилагане на промените"
 
-#: ../src/menu.c:2394
+#: ../src/menu.c:2399
 msgid "Delete Menu Entry"
 msgstr "Изтриване на елемент от менюто"
 
-#: ../src/menu.c:2397
+#: ../src/menu.c:2402
 msgid "Close Discards Changes"
 msgstr "Затварянето ще загуби промените"
 
-#: ../src/menu.c:2399
+#: ../src/menu.c:2404
 msgid "Save Changes and Exit"
 msgstr "Запазване промените и изход"
 
-#: ../src/menu.c:2409
+#: ../src/menu.c:2414
 msgid "_Menu Path:"
 msgstr "_Път на менюто"
 
-#: ../src/menu.c:2430
+#: ../src/menu.c:2435
 msgid "Menu path"
 msgstr "Път на менюто"
 
-#: ../src/menu.c:2450
+#: ../src/menu.c:2455
 msgid "Number of _Variables:"
 msgstr "Брой променливи"
 
-#: ../src/menu.c:2458
+#: ../src/menu.c:2463
 msgid "Variables"
 msgstr "Променливи"
 
-#: ../src/menu.c:2477
+#: ../src/menu.c:2482
 msgid "Custom Dialo_g"
 msgstr "Собствен диалог"
 
-#: ../src/menu.c:2479
+#: ../src/menu.c:2484
 #, fuzzy
 msgid "Custom Replace"
 msgstr "Собствено търсене и замяна"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2496
 msgid "_Replace:"
 msgstr "Замяна"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in current document"
 msgstr "в настоящия документ"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "from cursor"
 msgstr "от курсора"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in selection"
 msgstr "в избрания текст"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in all open documents"
 msgstr "във всички отворени документи"
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2507
 msgid "Matc_hing:"
 msgstr "Съвпадащи:"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "normal"
 msgstr "нормално"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 #, fuzzy
 msgid "posix regular expressions"
 msgstr "posix регулярни изрази"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 #, fuzzy
 msgid "perl regular expressions"
 msgstr "perl регулярни изрази"
 
-#: ../src/menu.c:2511
+#: ../src/menu.c:2516
 msgid "Case Se_nsitive"
 msgstr "Чувствително към малки и големи букви"
 

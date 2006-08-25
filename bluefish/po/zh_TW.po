@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-20 22:03-0700\n"
+"POT-Creation-Date: 2006-08-25 15:46+0200\n"
 "PO-Revision-Date: 2005-08-10 17:40+0800\n"
 "Last-Translator: OLS3 <ols3@lxer.idv.tw>\n"
 "Language-Team: zh_TW <i18n-translation@b2d.org.tw>\n"
@@ -44,6 +44,12 @@ msgid ""
 "   <jimhayward@linuxexperience.net>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
+"  Oskar Świda\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"  David Marrs\n"
+"   <David.Marrs@myrealbox.com>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "Developers for previous releases:\n"
 "  Oskar Świda\n"
@@ -68,10 +74,10 @@ msgid ""
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Documentation:\n"
-"  Scott White\n"
-"   <wwsw3@earthlink.net>\n"
 "  Michèle Garoche\n"
 "   <michele.garoche@easyconnect.fr>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
@@ -134,7 +140,7 @@ msgstr ""
 "\n"
 "感謝所有對本軟體有貢獻的人..\n"
 
-#: ../src/about.c:120
+#: ../src/about.c:126
 #, fuzzy
 msgid ""
 "Current translators:\n"
@@ -263,11 +269,11 @@ msgstr ""
 "   <barathee@yahoo.com>\n"
 "\n"
 
-#: ../src/about.c:167
+#: ../src/about.c:173
 msgid "About Bluefish"
 msgstr "關於 Bluefish"
 
-#: ../src/about.c:197
+#: ../src/about.c:203
 msgid ""
 "\n"
 "\n"
@@ -277,16 +283,16 @@ msgstr ""
 "\n"
 "偵測結果:\n"
 
-#: ../src/about.c:224 ../src/fref.c:1469 ../src/fref.c:1753 ../src/fref.c:1840
-#: ../src/fref.c:1875 ../src/fref.c:2353
+#: ../src/about.c:230 ../src/fref.c:1470 ../src/fref.c:1754 ../src/fref.c:1841
+#: ../src/fref.c:1876 ../src/fref.c:2354
 msgid "Info"
 msgstr "訊息"
 
-#: ../src/about.c:226
+#: ../src/about.c:232
 msgid "Authors"
 msgstr "作者"
 
-#: ../src/about.c:227
+#: ../src/about.c:233
 msgid "Translators"
 msgstr "翻譯者"
 
@@ -1033,69 +1039,69 @@ msgstr "顯示全部目錄樹"
 msgid "Follow focus"
 msgstr "跟著焦點"
 
-#: ../src/fref.c:1488 ../src/gui.c:1092
+#: ../src/fref.c:1489 ../src/gui.c:1092
 msgid "Close"
 msgstr "關閉"
 
-#: ../src/fref.c:1492 ../src/fref.c:1834 ../src/fref.c:1870 ../src/fref.c:2352
+#: ../src/fref.c:1493 ../src/fref.c:1835 ../src/fref.c:1871 ../src/fref.c:2353
 msgid "Dialog"
 msgstr "對話"
 
-#: ../src/fref.c:1493 ../src/fref.c:1837 ../src/fref.c:1864
+#: ../src/fref.c:1494 ../src/fref.c:1838 ../src/fref.c:1865
 msgid "Insert"
 msgstr "插入"
 
-#: ../src/fref.c:1846 ../src/html.c:1269
+#: ../src/fref.c:1847 ../src/html.c:1269
 msgid "Options"
 msgstr "選項"
 
-#: ../src/fref.c:1854
+#: ../src/fref.c:1855
 msgid "Rescan reference files"
 msgstr "重新掃描參考檔案"
 
-#: ../src/fref.c:1858
+#: ../src/fref.c:1859
 msgid "Left doubleclick action"
 msgstr "左鍵雙擊動作"
 
-#: ../src/fref.c:1880
+#: ../src/fref.c:1881
 msgid "Info type"
 msgstr "訊息類型"
 
-#: ../src/fref.c:1885
+#: ../src/fref.c:1886
 msgid "Description"
 msgstr "描述"
 
-#: ../src/fref.c:1890
+#: ../src/fref.c:1891
 msgid "Attributes/Parameters"
 msgstr "屬性/參數"
 
-#: ../src/fref.c:1895
+#: ../src/fref.c:1896
 msgid "Notes"
 msgstr "筆記"
 
-#: ../src/fref.c:2072 ../src/fref.c:2086
+#: ../src/fref.c:2073 ../src/fref.c:2087
 msgid "Reference search"
 msgstr "搜尋參考"
 
-#: ../src/fref.c:2087
+#: ../src/fref.c:2088
 msgid "Reference not found"
 msgstr "找不到參考"
 
-#: ../src/fref.c:2104
+#: ../src/fref.c:2105
 msgid "Error"
 msgstr "錯誤"
 
-#: ../src/fref.c:2106
+#: ../src/fref.c:2107
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
 msgstr "或許您沒有載入參考, 或沒有選擇一個要搜尋的參考."
 
-#: ../src/fref.c:2338
+#: ../src/fref.c:2339
 msgid "Show info window"
 msgstr "顯示訊息視窗"
 
-#: ../src/fref.c:2354
+#: ../src/fref.c:2355
 msgid "Search"
 msgstr "搜尋"
 
@@ -1613,55 +1619,6 @@ msgstr "編譯第二個樣式 '%s': %s 在偏移 %d"
 msgid "studying 2nd pattern '%s': %s"
 msgstr "研究第二個樣式 '%s': %s"
 
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "串列樣式表對話框"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "選擇(_S):"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "屬性(_P):"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "值(_V):"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "選擇器"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "屬性"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "值"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr " 新增(_A) "
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " 更新(_U) "
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " 刪除(_D) "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "樣式(_S)..."
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: 選擇顏色"
-
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "插入時間"
@@ -2079,6 +2036,55 @@ msgstr "語言(_L):"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "自定(_C):"
+
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "串列樣式表對話框"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "選擇(_S):"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "屬性(_P):"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "值(_V):"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "選擇器"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "屬性"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "值"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr " 新增(_A) "
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " 更新(_U) "
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " 刪除(_D) "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "樣式(_S)..."
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: 選擇顏色"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -3540,176 +3546,176 @@ msgstr "/視窗"
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr "這個檔案尚未命名, 無法在瀏覽器中顯示\n"
 
-#: ../src/menu.c:1425
+#: ../src/menu.c:1430
 msgid "/External/Outputbox/"
 msgstr "/外部(X)/輸出視窗/"
 
-#: ../src/menu.c:1428
+#: ../src/menu.c:1433
 msgid "/External/Commands/"
 msgstr "/外部(X)/命令/"
 
-#: ../src/menu.c:1431
+#: ../src/menu.c:1436
 msgid "/External/Browsers/"
 msgstr "/外部(X)/瀏覽器/"
 
-#: ../src/menu.c:1436 ../src/menu.c:1451 ../src/menu.c:1470 ../src/menu.c:1486
-#: ../src/menu.c:1499 ../src/menu.c:1521
+#: ../src/menu.c:1441 ../src/menu.c:1456 ../src/menu.c:1475 ../src/menu.c:1491
+#: ../src/menu.c:1504 ../src/menu.c:1526
 msgid "/External"
 msgstr "/外部程式(X)"
 
-#: ../src/menu.c:1449
+#: ../src/menu.c:1454
 msgid "/External/Browsers"
 msgstr "/外部(X)/瀏覽器"
 
-#: ../src/menu.c:1484
+#: ../src/menu.c:1489
 msgid "/External/Commands"
 msgstr "/外部(X)/命令"
 
-#: ../src/menu.c:1519
+#: ../src/menu.c:1524
 msgid "/External/Outputbox"
 msgstr "/外部(X)/輸出視窗"
 
-#: ../src/menu.c:1565
+#: ../src/menu.c:1570
 msgid "/Document/Character Encoding"
 msgstr "/檔案(D)/字元編碼"
 
-#: ../src/menu.c:1841
+#: ../src/menu.c:1846
 msgid "This custom search and replace requires a selection"
 msgstr "自定搜尋和取代需要先做選擇"
 
-#: ../src/menu.c:1938
+#: ../src/menu.c:1943
 msgid "/_Custom menu"
 msgstr "/自定選單(_C)"
 
-#: ../src/menu.c:1940
+#: ../src/menu.c:1945
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/自定選單(C)/編輯自定選單..."
 
-#: ../src/menu.c:1941
+#: ../src/menu.c:1946
 msgid "/Custom menu/Reset"
 msgstr "/自定選單(C)/重置"
 
-#: ../src/menu.c:1942
+#: ../src/menu.c:1947
 msgid "/Custom menu/Load new"
 msgstr "/自定選單(C)/載入新的"
 
-#: ../src/menu.c:2158
+#: ../src/menu.c:2163
 msgid "Search Pattern"
 msgstr "搜尋樣式"
 
-#: ../src/menu.c:2159
+#: ../src/menu.c:2164
 msgid "Replace String"
 msgstr "取代字元串"
 
-#: ../src/menu.c:2162
+#: ../src/menu.c:2167
 msgid "Formatstring Before"
 msgstr "在格式字串前"
 
-#: ../src/menu.c:2163
+#: ../src/menu.c:2168
 msgid "Formatstring After"
 msgstr "在格式字串後"
 
-#: ../src/menu.c:2210
+#: ../src/menu.c:2215
 msgid "The menupath you want to update does not exist yet"
 msgstr "您要更新的選單路徑並未存在"
 
-#: ../src/menu.c:2210
+#: ../src/menu.c:2215
 msgid "Try 'add' instead."
 msgstr "試著換用“新增”."
 
-#: ../src/menu.c:2212
+#: ../src/menu.c:2217
 msgid "The menupath you want to add already exists."
 msgstr "您要新增的選單路徑已存在."
 
-#: ../src/menu.c:2217
+#: ../src/menu.c:2222
 msgid "The menupath should start with a / character"
 msgstr "選單路徑要以 / 開頭"
 
-#: ../src/menu.c:2379
+#: ../src/menu.c:2384
 msgid "Custom Menu Editor"
 msgstr "編輯自定選單"
 
-#: ../src/menu.c:2390
+#: ../src/menu.c:2395
 msgid "Add New Menu Entry"
 msgstr "新增新的選單項次"
 
-#: ../src/menu.c:2392
+#: ../src/menu.c:2397
 msgid "Apply Changes"
 msgstr "套用變動"
 
-#: ../src/menu.c:2394
+#: ../src/menu.c:2399
 msgid "Delete Menu Entry"
 msgstr "刪除選單項"
 
-#: ../src/menu.c:2397
+#: ../src/menu.c:2402
 msgid "Close Discards Changes"
 msgstr "不儲存並關閉"
 
-#: ../src/menu.c:2399
+#: ../src/menu.c:2404
 msgid "Save Changes and Exit"
 msgstr "儲存變動後離開"
 
-#: ../src/menu.c:2409
+#: ../src/menu.c:2414
 msgid "_Menu Path:"
 msgstr "選單路徑(_M):"
 
-#: ../src/menu.c:2430
+#: ../src/menu.c:2435
 msgid "Menu path"
 msgstr "選單路徑"
 
-#: ../src/menu.c:2450
+#: ../src/menu.c:2455
 msgid "Number of _Variables:"
 msgstr "變數個數(_V):"
 
-#: ../src/menu.c:2458
+#: ../src/menu.c:2463
 msgid "Variables"
 msgstr "變數"
 
-#: ../src/menu.c:2477
+#: ../src/menu.c:2482
 msgid "Custom Dialo_g"
 msgstr "自定對話框(_G)"
 
-#: ../src/menu.c:2479
+#: ../src/menu.c:2484
 msgid "Custom Replace"
 msgstr "自定取代(_S)"
 
-#: ../src/menu.c:2491
+#: ../src/menu.c:2496
 msgid "_Replace:"
 msgstr "取代(_R):"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in current document"
 msgstr "在目前文件"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "from cursor"
 msgstr "從游標開始"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in selection"
 msgstr "在選中內容"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in all open documents"
 msgstr "在所有開啟的文件中"
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2507
 msgid "Matc_hing:"
 msgstr "比對(_H):"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "normal"
 msgstr "正常的"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "posix regular expressions"
 msgstr "posix 正規式"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "perl regular expressions"
 msgstr "perl 正規式"
 
-#: ../src/menu.c:2511
+#: ../src/menu.c:2516
 msgid "Case Se_nsitive"
 msgstr "區分大小寫(_N)"
 

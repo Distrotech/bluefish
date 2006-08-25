@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-20 22:03-0700\n"
+"POT-Creation-Date: 2006-08-25 15:46+0200\n"
 "PO-Revision-Date: 2006-01-17 19:03-0300\n"
 "Last-Translator: Walter Echarri <wecharri@yahoo.com>\n"
 "Language-Team: español <es@li.org>\n"
@@ -38,6 +38,7 @@ msgstr ""
 "La presente versión de Bluefish fue compilada con las siguientes opciones:\n"
 
 #: ../src/about.c:57
+#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -49,6 +50,12 @@ msgid ""
 "   <jimhayward@linuxexperience.net>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
+"  Oskar Świda\n"
+"   <swida@aragorn.pb.bialystok.pl>\n"
+"  David Marrs\n"
+"   <David.Marrs@myrealbox.com>\n"
+"  Michèle Garoche\n"
+"   <michele.garoche@easyconnect.fr>\n"
 "\n"
 "Developers for previous releases:\n"
 "  Oskar Świda\n"
@@ -73,10 +80,10 @@ msgid ""
 "  Antti-Juhani Kaijanaho\n"
 "\n"
 "Documentation:\n"
-"  Scott White\n"
-"   <wwsw3@earthlink.net>\n"
 "  Michèle Garoche\n"
 "   <michele.garoche@easyconnect.fr>\n"
+"  Scott White\n"
+"   <wwsw3@earthlink.net>\n"
 "  Anita Lewis\n"
 "   <ajreiki@highstream.net>\n"
 "  Alastair Porter\n"
@@ -159,7 +166,7 @@ msgstr ""
 "\n"
 "Gracias a todos los que han ayudado a crear este programa.\n"
 
-#: ../src/about.c:120
+#: ../src/about.c:126
 msgid ""
 "Current translators:\n"
 "\n"
@@ -299,11 +306,11 @@ msgstr ""
 "   <ogzeren@gmail.com>\n"
 "\n"
 
-#: ../src/about.c:167
+#: ../src/about.c:173
 msgid "About Bluefish"
 msgstr "Sobre Bluefish"
 
-#: ../src/about.c:197
+#: ../src/about.c:203
 msgid ""
 "\n"
 "\n"
@@ -312,16 +319,16 @@ msgstr ""
 
 # src/html.c:1847
 # src/html.c:1131
-#: ../src/about.c:224 ../src/fref.c:1469 ../src/fref.c:1753 ../src/fref.c:1840
-#: ../src/fref.c:1875 ../src/fref.c:2353
+#: ../src/about.c:230 ../src/fref.c:1470 ../src/fref.c:1754 ../src/fref.c:1841
+#: ../src/fref.c:1876 ../src/fref.c:2354
 msgid "Info"
 msgstr "Info"
 
-#: ../src/about.c:226
+#: ../src/about.c:232
 msgid "Authors"
 msgstr "Autores"
 
-#: ../src/about.c:227
+#: ../src/about.c:233
 msgid "Translators"
 msgstr "Traductores"
 
@@ -1247,72 +1254,72 @@ msgstr "Conservar foco"
 
 # src/callbacks.c:1290 src/toolbars.c:156
 # src/callbacks.c:313 src/toolbars.c:158
-#: ../src/fref.c:1488 ../src/gui.c:1092
+#: ../src/fref.c:1489 ../src/gui.c:1092
 msgid "Close"
 msgstr "Cerrar"
 
 # src/menu.c:393
 # src/menu.c:397
-#: ../src/fref.c:1492 ../src/fref.c:1834 ../src/fref.c:1870 ../src/fref.c:2352
+#: ../src/fref.c:1493 ../src/fref.c:1835 ../src/fref.c:1871 ../src/fref.c:2353
 msgid "Dialog"
 msgstr "Diálogo"
 
 # src/toolbars.c:465
 # src/toolbars.c:510
-#: ../src/fref.c:1493 ../src/fref.c:1837 ../src/fref.c:1864
+#: ../src/fref.c:1494 ../src/fref.c:1838 ../src/fref.c:1865
 msgid "Insert"
 msgstr "Insertar"
 
 # src/menu.c:475
-#: ../src/fref.c:1846 ../src/html.c:1269
+#: ../src/fref.c:1847 ../src/html.c:1269
 msgid "Options"
 msgstr "Opciones"
 
-#: ../src/fref.c:1854
+#: ../src/fref.c:1855
 msgid "Rescan reference files"
 msgstr "Volver a leer archivos de refencia"
 
-#: ../src/fref.c:1858
+#: ../src/fref.c:1859
 msgid "Left doubleclick action"
 msgstr "Acción del doble clic izquierdo"
 
 # src/html.c:1847
 # src/html.c:1131
-#: ../src/fref.c:1880
+#: ../src/fref.c:1881
 msgid "Info type"
 msgstr "Info tipo"
 
 # src/toolbars.c:417
 # src/toolbars.c:421
-#: ../src/fref.c:1885
+#: ../src/fref.c:1886
 msgid "Description"
 msgstr "Descripción"
 
-#: ../src/fref.c:1890
+#: ../src/fref.c:1891
 msgid "Attributes/Parameters"
 msgstr "Atributos/Parámetros"
 
 # src/toolbars.c:356
 # src/toolbars.c:360
-#: ../src/fref.c:1895
+#: ../src/fref.c:1896
 msgid "Notes"
 msgstr "Notas"
 
 # src/toolbars.c:469
 # src/toolbars.c:514
-#: ../src/fref.c:2072 ../src/fref.c:2086
+#: ../src/fref.c:2073 ../src/fref.c:2087
 msgid "Reference search"
 msgstr "Buscar referencia"
 
-#: ../src/fref.c:2087
+#: ../src/fref.c:2088
 msgid "Reference not found"
 msgstr "No se encontró referencia"
 
-#: ../src/fref.c:2104
+#: ../src/fref.c:2105
 msgid "Error"
 msgstr "Error"
 
-#: ../src/fref.c:2106
+#: ../src/fref.c:2107
 msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
@@ -1320,13 +1327,13 @@ msgstr ""
 "Quizás no haya cargado una referencia, o no seleccionó una referencia para "
 "buscar."
 
-#: ../src/fref.c:2338
+#: ../src/fref.c:2339
 msgid "Show info window"
 msgstr "Mostrar ventana info"
 
 # src/snr.c:124 src/snr.c:172 src/toolbars.c:165
 # src/snr2.c:563 src/toolbars.c:167
-#: ../src/fref.c:2354
+#: ../src/fref.c:2355
 msgid "Search"
 msgstr "Buscar"
 
@@ -2059,79 +2066,6 @@ msgstr "compilación segundo patrón '%s': %s en la posición %d"
 msgid "studying 2nd pattern '%s': %s"
 msgstr "análisis del segundo patrón '%s': %s"
 
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "Diálogo de hojas de estilo CSS"
-
-# src/html.c:1797
-# src/html_form.c:398
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "_Selector:"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "_Propiedad:"
-
-# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
-# src/html.c:1667 src/html.c:1719 src/html.c:1763
-# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
-# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
-# src/html_form.c:364 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Valor:"
-
-# src/html.c:1797
-# src/html_form.c:398
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "Selector"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "Propiedad"
-
-# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
-# src/html.c:1667 src/html.c:1719 src/html.c:1763
-# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
-# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
-# src/html_form.c:364 src/wml.c:171 src/wml.c:211
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Valor"
-
-# src/stringlist.c:146
-# src/stringlist.c:142
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr "_Agregar "
-
-# src/stringlist.c:147
-# src/stringlist.c:143
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr "_Actualizar "
-
-# src/stringlist.c:148
-# src/stringlist.c:144
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr "_Borrar "
-
-# src/html.c:1844 src/toolbars.c:440
-# src/html.c:1128 src/toolbars.c:444
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "_Estilo..."
-
-# src/callbacks.c:647
-# src/project.c:56
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish - Selector de colores"
-
 # src/toolbars.c:465
 # src/toolbars.c:510
 #: ../src/html.c:385
@@ -2730,6 +2664,79 @@ msgstr "_Idioma:"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "_Personalizar:"
+
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "Diálogo de hojas de estilo CSS"
+
+# src/html.c:1797
+# src/html_form.c:398
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "_Selector:"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "_Propiedad:"
+
+# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
+# src/html.c:1667 src/html.c:1719 src/html.c:1763
+# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
+# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
+# src/html_form.c:364 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Valor:"
+
+# src/html.c:1797
+# src/html_form.c:398
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "Selector"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "Propiedad"
+
+# src/html.c:1525 src/html.c:1545 src/html.c:1579 src/html.c:1630
+# src/html.c:1667 src/html.c:1719 src/html.c:1763
+# src/html_form.c:126 src/html_form.c:146 src/html_form.c:180
+# src/html_form.c:231 src/html_form.c:268 src/html_form.c:320
+# src/html_form.c:364 src/wml.c:171 src/wml.c:211
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Valor"
+
+# src/stringlist.c:146
+# src/stringlist.c:142
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr "_Agregar "
+
+# src/stringlist.c:147
+# src/stringlist.c:143
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr "_Actualizar "
+
+# src/stringlist.c:148
+# src/stringlist.c:144
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr "_Borrar "
+
+# src/html.c:1844 src/toolbars.c:440
+# src/html.c:1128 src/toolbars.c:444
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "_Estilo..."
+
+# src/callbacks.c:647
+# src/project.c:56
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish - Selector de colores"
 
 # src/html.c:1478
 # src/html_form.c:79
@@ -4870,225 +4877,225 @@ msgstr ""
 
 # src/menu.c:445
 # src/menu.c:470
-#: ../src/menu.c:1425
+#: ../src/menu.c:1430
 msgid "/External/Outputbox/"
 msgstr "/Externo/Caja de salida/"
 
 # src/init.c:480
 # src/init.c:444
-#: ../src/menu.c:1428
+#: ../src/menu.c:1433
 msgid "/External/Commands/"
 msgstr "/Externo/Comandos/"
 
 # src/init.c:474
 # src/init.c:438
-#: ../src/menu.c:1431
+#: ../src/menu.c:1436
 msgid "/External/Browsers/"
 msgstr "/Externo/Navegadores/"
 
 # src/menu.c:442
 # src/menu.c:467
-#: ../src/menu.c:1436 ../src/menu.c:1451 ../src/menu.c:1470 ../src/menu.c:1486
-#: ../src/menu.c:1499 ../src/menu.c:1521
+#: ../src/menu.c:1441 ../src/menu.c:1456 ../src/menu.c:1475 ../src/menu.c:1491
+#: ../src/menu.c:1504 ../src/menu.c:1526
 msgid "/External"
 msgstr "/Externo"
 
 # src/init.c:474
 # src/init.c:438
-#: ../src/menu.c:1449
+#: ../src/menu.c:1454
 msgid "/External/Browsers"
 msgstr "/Externo/Navegadores"
 
 # src/init.c:480
 # src/init.c:444
-#: ../src/menu.c:1484
+#: ../src/menu.c:1489
 msgid "/External/Commands"
 msgstr "/Externo/Comandos"
 
 # src/menu.c:445
 # src/menu.c:470
-#: ../src/menu.c:1519
+#: ../src/menu.c:1524
 msgid "/External/Outputbox"
 msgstr "/Externo/Caja de salida"
 
-#: ../src/menu.c:1565
+#: ../src/menu.c:1570
 msgid "/Document/Character Encoding"
 msgstr "/Documento/Codificación"
 
-#: ../src/menu.c:1841
+#: ../src/menu.c:1846
 msgid "This custom search and replace requires a selection"
 msgstr "Esta búsqueda y reemplazo personalizados requiere de una selección"
 
 # src/menu.c:603
 # src/menu.c:684
-#: ../src/menu.c:1938
+#: ../src/menu.c:1943
 msgid "/_Custom menu"
 msgstr "/_Menú personalizado"
 
 # src/html.c:793
 # src/html.c:735
-#: ../src/menu.c:1940
+#: ../src/menu.c:1945
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Menú personalizado/Editar menú..."
 
 # src/html.c:793
 # src/html.c:735
-#: ../src/menu.c:1941
+#: ../src/menu.c:1946
 msgid "/Custom menu/Reset"
 msgstr "/Menú personalizado/Volver a valores predeterminados"
 
 # src/html.c:793
 # src/html.c:735
-#: ../src/menu.c:1942
+#: ../src/menu.c:1947
 msgid "/Custom menu/Load new"
 msgstr "/Menú personalizado/Cargar nuevo"
 
-#: ../src/menu.c:2158
+#: ../src/menu.c:2163
 msgid "Search Pattern"
 msgstr "Patrón de búsqueda"
 
 # src/snr.c:209
 # src/snr2.c:615
-#: ../src/menu.c:2159
+#: ../src/menu.c:2164
 msgid "Replace String"
 msgstr "Reemplazar Cadena"
 
-#: ../src/menu.c:2162
+#: ../src/menu.c:2167
 msgid "Formatstring Before"
 msgstr "Cadena Anterior"
 
 # src/menu.c:373
 # src/menu.c:375
-#: ../src/menu.c:2163
+#: ../src/menu.c:2168
 msgid "Formatstring After"
 msgstr "Cadena Posterior"
 
-#: ../src/menu.c:2210
+#: ../src/menu.c:2215
 msgid "The menupath you want to update does not exist yet"
 msgstr "La ruta al menú que desea actualizar aún no existe"
 
-#: ../src/menu.c:2210
+#: ../src/menu.c:2215
 msgid "Try 'add' instead."
 msgstr "Pruebe con 'añadir'."
 
-#: ../src/menu.c:2212
+#: ../src/menu.c:2217
 msgid "The menupath you want to add already exists."
 msgstr "La ruta al menú que desea añadir ya existe"
 
-#: ../src/menu.c:2217
+#: ../src/menu.c:2222
 msgid "The menupath should start with a / character"
 msgstr "La ruta al menú debe comenzar con /"
 
 # src/menu.c:603
 # src/menu.c:684
-#: ../src/menu.c:2379
+#: ../src/menu.c:2384
 msgid "Custom Menu Editor"
 msgstr "Editor Menú Personalizado"
 
-#: ../src/menu.c:2390
+#: ../src/menu.c:2395
 msgid "Add New Menu Entry"
 msgstr "Añadir Nueva Entrada al Menú"
 
-#: ../src/menu.c:2392
+#: ../src/menu.c:2397
 msgid "Apply Changes"
 msgstr "Aplicar Cambios"
 
-#: ../src/menu.c:2394
+#: ../src/menu.c:2399
 msgid "Delete Menu Entry"
 msgstr "Eliminar Entrada del Menú"
 
-#: ../src/menu.c:2397
+#: ../src/menu.c:2402
 msgid "Close Discards Changes"
 msgstr "Descartar Cambios y Cerrar"
 
-#: ../src/menu.c:2399
+#: ../src/menu.c:2404
 msgid "Save Changes and Exit"
 msgstr "Guardar Cambios y Salir"
 
 # src/menu.c:803 src/toolbars.c:421
 # src/menu.c:884 src/toolbars.c:425
-#: ../src/menu.c:2409
+#: ../src/menu.c:2414
 msgid "_Menu Path:"
 msgstr "_Ruta del menú:"
 
 # src/menu.c:803 src/toolbars.c:421
 # src/menu.c:884 src/toolbars.c:425
-#: ../src/menu.c:2430
+#: ../src/menu.c:2435
 msgid "Menu path"
 msgstr "Ruta del menú"
 
 # src/wizards.c:143
 # src/wizards.c:138
-#: ../src/menu.c:2450
+#: ../src/menu.c:2455
 msgid "Number of _Variables:"
 msgstr "Número de _Variables"
 
 # src/wml.c:196
-#: ../src/menu.c:2458
+#: ../src/menu.c:2463
 msgid "Variables"
 msgstr "Variables"
 
 # src/menu.c:393
 # src/wml.c:239
-#: ../src/menu.c:2477
+#: ../src/menu.c:2482
 msgid "Custom Dialo_g"
 msgstr "_Diálogo Personalizado"
 
 # src/snr.c:142 src/snr.c:175 src/toolbars.c:168
 # src/toolbars.c:170
-#: ../src/menu.c:2479
+#: ../src/menu.c:2484
 msgid "Custom Replace"
 msgstr "Personalizar Reemplazar"
 
 # src/snr.c:209
 # src/snr2.c:560 src/snr2.c:597
-#: ../src/menu.c:2491
+#: ../src/menu.c:2496
 msgid "_Replace:"
 msgstr "_Reemplazar:"
 
 # src/menu.c:152
 # src/menu.c:154
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in current document"
 msgstr "en el documento actual"
 
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "from cursor"
 msgstr "desde el cursor"
 
 # src/configure.c:161
 # src/snr2.c:590
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in selection"
 msgstr "en la selección"
 
 # src/menu.c:153
 # src/menu.c:155
-#: ../src/menu.c:2494
+#: ../src/menu.c:2499
 msgid "in all open documents"
 msgstr "en todos los documentos abiertos"
 
-#: ../src/menu.c:2502
+#: ../src/menu.c:2507
 msgid "Matc_hing:"
 msgstr "_Coincidencia:"
 
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "normal"
 msgstr "normal"
 
 # src/snr2.c:594
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "posix regular expressions"
 msgstr "expresiones regulares posix"
 
 # src/snr2.c:594
-#: ../src/menu.c:2505
+#: ../src/menu.c:2510
 msgid "perl regular expressions"
 msgstr "expresiones regulares en perl"
 
 # src/snr.c:205
 # src/snr2.c:593
-#: ../src/menu.c:2511
+#: ../src/menu.c:2516
 msgid "Case Se_nsitive"
 msgstr "_Distinguir May./Min."
 
