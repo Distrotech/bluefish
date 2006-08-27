@@ -1,3 +1,212 @@
+2006-08-27  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/snr2.c: Fix Bluefish Bug #352762
+
+2006-08-25  Michèle Garoche <michele.garoche@easyconnect.fr>
+
+	* AUTHORS, ChangeLog, NEWS: Updated AUTHORS and ChangeLog, reworked
+	  NEWS
+
+2006-08-25  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* po/de.po: Updated German translation.
+
+2006-08-25  Michèle Garoche <michele.garoche@easyconnect.fr>
+ 
+    * NEWS: Updated NEWS (adjust date when releasing).
+    
+    * AUTHORS: Updated authors for this release
+ 
+    * src/author.c: Updated authors for this release
+ 
+    * po/: bg.po, cs.po, da.po, de.po, el.po, es.po, eu.po, fi.po,
+      fr.po, hu.po, it.po, ja.po, nl.po, no.po, pl.po, pt.po, pt_BR.po,
+      ro.po, ru.po, sr.po, sv.po, ta.po, tr.po, zh_CN.po, zh_TW.po: PO
+      file update
+
+2006-08-25  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/menu.c: Fix Bluefish Bug #337564
+
+2006-08-22  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/: fref.c, gtk_easy.c: Disable debugging.	Don't double free a
+	  pointer.
+
+2006-08-21  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* po/: bg.po, cs.po, da.po, de.po, el.po, es.po, eu.po, fi.po,
+	  fr.po, hu.po, it.po, ja.po, nl.po, no.po, pl.po, pt_BR.po, pt.po,
+	  ro.po, ru.po, sk.po, sr.po, sv.po, ta.po, tr.po, zh_CN.po,
+	  zh_TW.po: po file update
+
+2006-08-21  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/gtk_easy.c: OK this is the REAL fix for Bluefish Bug #337739
+
+2006-08-21  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/gtk_easy.c: Sigh... fix Bluefish Bug #337739 correctly this
+	  time
+
+2006-08-21  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/gtk_easy.c: Fix Bluefish Bug #337739
+
+2006-08-21  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/document.c: Fix Bluefish bug #340262
+
+2006-08-21  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/document.c: Fix Bluefish bug #344698
+
+2006-08-20  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/snr2.c: Fix Bluefish bug #350721
+
+2006-08-20  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/snr2.c: Oops, fix a segfault
+
+2006-08-20  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/snr2.c: Fix Bluefish bug #350754
+
+2006-08-20  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* images/bluefish_splash.png: Update to version 1.0.6
+
+2006-08-20  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/filebrowser.c: Fix Ubuntu Bug #45927
+
+2006-08-20  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/fref.c: Fix Bluefish bug #349743 Ubuntu bug #55256 Fix a
+	  memory leak/data corruption issue
+
+2006-08-19  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* data/highlighting.in: Fix Bluefish bug #349662
+
+2006-06-01  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/filetypes.in: Adding the .pm extension for Perl files
+	  (closes http://bugzilla.gnome.org/show_bug.cgi?id=343569).
+
+2006-04-16  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/quickstart.c: Fix Bluefish bug #338586
+
+2006-04-08  Michèle Garoche <michele.garoche@easyconnect.fr>
+
+	* data/: custom_menu.de.in, custom_menu.fr.in, custom_menu.in:
+	  Fixed a typo in docbook informal table rowsep, added distinct
+	  tags for XML and SGML images and links
+
+2006-04-06  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* po/fi.po: Finnish translation update.
+
+2006-03-17  Michèle Garoche <michele.garoche@easyconnect.fr>
+
+	* configure.ac: Make Mac Intel happy; actually host can have
+	  powerpc-apple-darwin... or i386-apple-darwin...
+
+2006-03-09  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/gtk_easy.c: ENTER now activates the default button in the
+	  custom menu dialogs.
+
+2006-03-04  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/about.c: Fixed a minor bug.
+
+2006-02-26  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/gtk_easy.c: Possible fix for Bluefish bug #323634.
+
+2006-02-21  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/project.c: Fix Bluefish bug #330575
+
+2006-02-21  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* po/ta.po: Tamil translation update.
+
+2006-02-17  Michèle Garoche <michele.garoche@easyconnect.fr>
+
+	* po/fr.po: Updated fr.po smart cursor positioning string changed
+
+2006-02-16  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* data/highlighting.in: Highlight numbers in Java.
+
+2006-02-16  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/highlighting.in: Small fix to XML highlighting (adding
+	  general support for namespaces).
+
+2006-02-14  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/gtk_easy.c: Fix Bluefish bug #330781.
+
+2006-02-13  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* src/rcfile.c: Small fix for the code style.
+
+2006-02-13  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/gtk_easy.c: Remove redundant show hidden checkbox from file
+	  chooser dialog.  Closes Bluefish bug #316298.
+
+2006-02-13  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/document.c: Fix Bluefish bug #324788.  Fix another bug where
+	  the old file was deleted before the new file was saved
+	  successfully.
+
+2006-02-13  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/preferences.c: Update string for smart cursor positioning
+
+2006-02-12  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/html.c: Fix Definition list formatting from David Marrs
+	  <David.Marrs@myrealbox.com> #include file cleanup.
+
+2006-02-10  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/bluefish.c: Fix for Bluefish bug# 330544
+
+2006-02-10  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* po/sv.po: Swedish translation update.
+
+2006-02-06  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* configure.ac: Post release version bump to 1.0.6.
+
+2006-02-05  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/: bluefish.c, gui.c: Fix a bug where the Bluefish icon was
+	  not displayed if the splash screen was disabled.
+
+2006-02-05  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/document.c: Fix a bug in smart cursor positioning.
+
+2006-02-04  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* man/Makefile.in: Argh. Fix distclean target. Makefile must be
+	  removed during distclean.
+
+2006-02-04  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* ChangeLog: ChangeLog update for 1.0.5 release
+
+=======
 2006-08-25  Michèle Garoche <michele.garoche@easyconnect.fr>
 
 	* NEWS: Updated NEWS (adjust date when releasing).
@@ -12,6 +221,7 @@
 	  ro.po, ru.po, sr.po, sv.po, ta.po, tr.po, zh_CN.po, zh_TW.po: PO
 	  file update
 
+>>>>>>> 1.1.2.22
 2006-02-04  Jim Hayward <jimhayward@linuxexperience.net>
 
 	* NEWS: NEWS update for 1.0.5 release
