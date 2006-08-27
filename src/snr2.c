@@ -649,6 +649,7 @@ Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_type
 	Tsearch_result result;
 
 	doc_unre_new_group(doc);
+	utf8_offset_cache_reset();
 	fulltext = doc_get_chars(doc, startpos, endpos);
 	result = replace_backend(bfwin,search_pattern, matchtype, is_case_sens, fulltext, 0, replace_pattern, doc, startpos, replacetype, &replacelen, unescape);
 	if ( result.end > 0) {
@@ -717,6 +718,7 @@ void replace_doc_multiple(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matc
 		realunesc = unescape;
 	}
 	fulltext = doc_get_chars(doc, startpos, endpos);
+	utf8_offset_cache_reset();
 	result = replace_backend(bfwin,realpats, matchtype, is_case_sens, fulltext, 0, realpatr, doc, buf_text_offset, replacetype, &replacelen, realunesc);
 	while (result.end > 0) {
 		if (replacetype == string) {
