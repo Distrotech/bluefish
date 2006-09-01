@@ -1,35 +1,37 @@
-bluefish for Debian
--------------------
+bluefish-unstable or bluefish-cvs for Debian
+--------------------------------------------
 
-This is a short TODO list for future bluefish Debian packages, regarding the
-work in progress in upstream.
+! Remove this file, if everything is done !
 
- * split package into bluefish and bluefish-data
-   - bluefish-data should contain all bflib_* files (architecture
-     independent), which are optional, but not necessary
-   - bluefish should suggest, but not depend on bluefish-data
-   - adjust control and add package as 'Architecture: all'
-   - adjust rules and add necessary debhelper-scripts to binary-indep target
-     and move bflib_* files to bluefish-data package
+This is a short TODO list for future bluefish-unstable Debian packages,
+regarding the work in progress in upstream.
+
+ * Important: Add a -dbg package for backtraces(!) and add a note to
+   presubj that people should install this package and make a backtrace
+   if they observe a crash (see e.g. evolution source for the -dbg package)
+   - bluefish-cvs should suggest the -dbg package (or better recommend?)
+
+ * split package into bluefish-cvs and bluefish-cvs-data
+   - bluefish-cvs-data should contain all optional (e.g. bflib) files
+     (architecture independent!)
+   - bluefish-cvs should suggest, but not depend on bluefish-cvs-data
  -> decreases package size for bluefish, divides optional/necessary and
     considers architecture-dependent packing praxis
  
  * possible: if more plugins are added, optional plugins should go into an
-   bluefish-plugins package
+   bluefish-cvs-plugins package
  
  * after scanner is ready, data files should go into an bluefish-common
    package (also architecture independent)
-   - bluefish-data should contain all data files, which are _necessary_ to run
-     bluefish, but architecture independent (encodings, filetypes,
-     highlighting, bflang, ...)
-   - bluefish needs to depend on bluefish-common
-   - adjust control and add package as 'Architecture: all'
-   - adjust rules and add necessary debhelper-scripts to binary-indep target
-     and move bflib_* files to bluefish-data package
+   - bluefish-cvs-data should contain all necessary data (e.g. bflang) files
+     (architecture independent!)
+   - bluefish-cvs needs to depend on bluefish-cvs-common
  -> decreases package size for bluefish, divides optional/necessary and
     considers architecture-dependent packing praxis
 
  * package splits need to be advertised in the NEWS.Debian file
+
+ * manpages are now shipped by upstream, so remove dh_installman stuff
 
  -- Daniel Leidert (dale) <daniel.leidert@wgdd.de>
 
