@@ -901,17 +901,24 @@ void rename_window_entry_in_all_windows(Tbfwin *tobfwin, gchar *newtitle) {
 }*/
 
 void browser_toolbar_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	GList *tmplist = g_list_first(main_v->props.browsers);
-	if (tmplist && tmplist->data) {
-		gchar **arr = tmplist->data;
-		if (count_array(arr)==3) {
-			if (arr[2][0]=='1') {
-				external_command(bfwin, arr[1]);
-				return;
-			}
-		}
-	}
-	/* BUG: give user a message that no default browser is found */
+    GList *tmplist = g_list_first(main_v->props.external_command);
+    if (tmplist && tmplist->data) {
+        while (tmplist) {
+            gchar **arr = tmplist->data;
+            if (arr[2][0] == '1') { /* This is the default browser */
+                external_command(bfwin, arr[1]);
+                return;
+            }
+            tmplist = g_list_next(tmplist);
+        }
+    }
+    
+    message_dialog_new(bfwin->main_window, 
+                       GTK_MESSAGE_INFO,
+                       GTK_BUTTONS_CLOSE,
+                       _("No default browser found"),
+                       _("You can set a default browser by going to:\n" 
+                         "Edit->Preferences->External Commands"));
 }
 
 /*static void browser_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
