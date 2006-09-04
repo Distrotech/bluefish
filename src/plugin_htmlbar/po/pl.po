@@ -202,9 +202,8 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/O z daszkiem Ô"
 
 #: ../htmlbar_gui.c:241
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/OE połączone"
+msgstr "/Znaczniki/Specjalne/Akcent/Duże/J-Z/OE połączone Œ"
 
 #: ../htmlbar_gui.c:242
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
@@ -327,9 +326,8 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/o z kreską w prawo ó"
 
 #: ../htmlbar_gui.c:274
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/oe połączone æ"
+msgstr "/Znaczniki/Specjalne/Akcent/Małe/J-Z/oe połączone œ"
 
 #: ../htmlbar_gui.c:275
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
@@ -800,9 +798,8 @@ msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Okna dialogowe/Ogólne/Szybki start..."
 
 #: ../htmlbar_gui.c:409
-#, fuzzy
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Okna dialogowe/Ogólne/Meta..."
+msgstr "/Okna dialogowe/Ogólne/_Nagłówek odnośnika..."
 
 #: ../htmlbar_gui.c:410
 msgid "/Dialogs/General/_Body..."
@@ -965,9 +962,8 @@ msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/Okna dialogowe/_Edytuj znacznik przy kursorze..."
 
 #: ../htmlbar_gui.c:457
-#, fuzzy
 msgid "/View/View _HTML Toolbar"
-msgstr "/Widok/Pokaż pasek _główny"
+msgstr "/Widok/Pokaż pasek _HTML"
 
 #: ../htmlbar_gui.c:731
 msgid "QuickStart..."
@@ -1022,9 +1018,8 @@ msgid "Comment"
 msgstr "Komentarz"
 
 #: ../htmlbar_gui.c:745
-#, fuzzy
 msgid "E-mail..."
-msgstr "E-Mail..."
+msgstr "Poczta elektroniczna..."
 
 #: ../htmlbar_gui.c:746
 msgid "Font..."
@@ -1401,7 +1396,7 @@ msgstr "  Data w formacie UNIX (%s"
 #: ../html.c:447
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
-msgstr ""
+msgstr " Czas w formacie ISO-8601 Ti_me (%s)"
 
 #: ../html.c:589
 msgid "Quick Anchor"
@@ -1616,30 +1611,28 @@ msgid "Custom"
 msgstr "Własne"
 
 #: ../html.c:1445
-#, fuzzy
 msgid "E-mail"
-msgstr "Email"
+msgstr "Poczta elektroniczna"
 
 #: ../html.c:1453
 msgid "_Mail to:"
-msgstr ""
+msgstr "_Wyślij do:"
 
 #: ../html.c:1457
-#, fuzzy
 msgid "_Copy to:"
-msgstr "Kopiuj"
+msgstr "_Kopiuj do:"
 
 #: ../html.c:1461
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "'Śle_pa' kopia do:"
 
 #: ../html.c:1465
 msgid "with _Subject:"
-msgstr ""
+msgstr "_Temat:"
 
 #: ../html.c:1469
 msgid "with _Body:"
-msgstr ""
+msgstr "T_reść:"
 
 #: ../html.c:1513
 msgid "Quick List"
@@ -1714,12 +1707,10 @@ msgid "Link"
 msgstr "Odnośnik"
 
 #: ../html.c:1924
-#, fuzzy
 msgid "HREF_LANG:"
-msgstr "_HREF:"
+msgstr "HREF _LANG:"
 
 #: ../html.c:1928
-#, fuzzy
 msgid "T_itle:"
 msgstr "_Tytuł:"
 
@@ -1956,82 +1947,68 @@ msgstr ""
 "%b: rozmiar oryginalny (bajty)"
 
 #: ../quickstart.c:512
-#, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr "<b>Ogólne</b>"
+msgstr "<b>_Zewnętrzny arkusz stylów</b>"
 
 #: ../quickstart.c:522
-#, fuzzy
 msgid "Ty_pe:"
-msgstr "_Typ:"
+msgstr "T_yp:"
 
 #: ../quickstart.c:540
-#, fuzzy
 msgid "HRE_F:"
-msgstr "_HREF:"
+msgstr "HRE_F:"
 
 #: ../quickstart.c:544
-#, fuzzy
 msgid "_Media:"
-msgstr "Media:"
+msgstr "_Media:"
 
 #: ../quickstart.c:548
-#, fuzzy
 msgid "Titl_e:"
 msgstr "_Tytuł:"
 
 #: ../quickstart.c:554
-#, fuzzy
 msgid "<b>Style Area</b>"
-msgstr "<b>Ogólne</b>"
+msgstr "<b>Blok definicji stylu</b>"
 
 #: ../quickstart.c:558
-#, fuzzy
 msgid "Cre_ate empty style area"
-msgstr "Utwórz pusty projekt"
+msgstr "Utwórz pusty blok definicji stylu"
 
 #: ../quickstart.c:580
-#, fuzzy
 msgid "<b>Attributes</b>"
-msgstr "Atrybuty/Parametry"
+msgstr "<b>Atrybuty</b>"
 
 #: ../quickstart.c:595
-#, fuzzy
 msgid "_Src:"
 msgstr "Źró_dło:"
 
 #: ../quickstart.c:602
-#, fuzzy
 msgid "<b>Script Area</b>"
-msgstr "<b>Ogólne</b>"
+msgstr "<b>Blok skryptu</b>"
 
 #: ../quickstart.c:606
-#, fuzzy
 msgid "Cre_ate empty script area"
-msgstr "Utwórz pusty projekt"
+msgstr "Utwórz pusty blok skryptu"
 
 #: ../quickstart.c:633
 msgid "Quick Start"
 msgstr "Szybki start"
 
 #: ../quickstart.c:647
-#, fuzzy
 msgid "_DTD:"
-msgstr "Użyj _DTD"
+msgstr "_DTD:"
 
 #: ../quickstart.c:651 ../wizards.c:186
 msgid "_Title:"
 msgstr "_Tytuł:"
 
 #: ../quickstart.c:674
-#, fuzzy
 msgid "_Head:"
-msgstr "_Href:"
+msgstr "_Nagłówek:"
 
 #: ../quickstart.c:691
-#, fuzzy
 msgid "Open in _new document."
-msgstr "W _dokumencie"
+msgstr "Otwórz w _nowym dokumencie"
 
 #: ../wizards.c:68
 msgid "Table Wizard"
