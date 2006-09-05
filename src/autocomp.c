@@ -155,7 +155,6 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 	GtkTreeModel *model;
 	GtkTreePath *path;
 	gchar **arr;
-
 	if ( !view || !ac || (!empty_allowed && strcmp(prefix,"")==0) ) return NULL;
 	screen = gtk_widget_get_screen(GTK_WIDGET(view));
 	gtk_text_buffer_get_iter_at_mark(buf,&it,gtk_text_buffer_get_insert(buf));
