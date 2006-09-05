@@ -2983,12 +2983,26 @@ void bf_textview_autocomp_show(BfTextView * self)
 					self->schemas,self->internal_dtd,GTK_TEXT_VIEW(self),"=\"\"");
 		}
 		else
-			ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, self->lang->name,
-				GTK_TEXT_VIEW(self),NULL);		
+		{
+		 if (self->lang->case_sensitive)
+				ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, self->lang->name,GTK_TEXT_VIEW(self),NULL);
+		 else 
+		  {
+		  		gchar *upper = g_utf8_strup(self->scanner.last_string->str,self->scanner.last_string->len);
+		 		ac_run_lang(main_v->autocompletion, upper, self->lang->name,GTK_TEXT_VIEW(self),NULL);
+		 		g_free(upper);
+		  }		  		
+		}				
 	}
 	else
 	{
-		ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, self->lang->name,
-				GTK_TEXT_VIEW(self),NULL);
+		 if (self->lang->case_sensitive)
+				ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, self->lang->name,GTK_TEXT_VIEW(self),NULL);
+		 else 
+		  {
+		  		gchar *upper = g_utf8_strup(self->scanner.last_string->str,self->scanner.last_string->len);
+		 		ac_run_lang(main_v->autocompletion, upper, self->lang->name,GTK_TEXT_VIEW(self),NULL);
+		 		g_free(upper);
+		  }		  		
 	}			
 }
