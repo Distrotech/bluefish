@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-25 15:46+0200\n"
+"POT-Creation-Date: 2006-09-05 21:29+0200\n"
 "PO-Revision-Date: 2004-05-25 12:59+0200\n"
 "Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
@@ -368,7 +368,7 @@ msgstr "_Ordeztu honekin:"
 msgid "I_gnore"
 msgstr "_Ez ikusi egin"
 
-#: ../src/bfspell.c:408 ../src/snr2.c:918
+#: ../src/bfspell.c:408 ../src/snr2.c:920
 msgid "_Replace"
 msgstr "Orde_ztu"
 
@@ -663,11 +663,11 @@ msgstr "Fitxategia ireki "
 msgid "Cannot display file, unknown characters found."
 msgstr "Ezin da bistaratu fitxategia, karaktere ezezagunak aurkitu direlako."
 
-#: ../src/document.c:2081 ../src/snr2.c:1385
+#: ../src/document.c:2081 ../src/snr2.c:1387
 msgid "Replace"
 msgstr "Ordeztu"
 
-#: ../src/document.c:2086 ../src/snr2.c:1388
+#: ../src/document.c:2086 ../src/snr2.c:1390
 msgid "Find"
 msgstr "Bilatu"
 
@@ -1653,6 +1653,55 @@ msgstr "'%s' 2. eredua konpilatzen: %s %d desplazamenduan"
 msgid "studying 2nd pattern '%s': %s"
 msgstr "'%s' 2. eredua aztertzen: %s"
 
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "CSS elkarrizketa-koadroa"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "_Hautatzailea:"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "_Propietatea:"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Balioa:"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "Hautatzailea"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "Propietatea"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Balioa"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr " _Gehitu "
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " _Eguneratu "
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " Ez_abatu "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "_Estiloa..."
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Hautatu kolorea"
+
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "Txertatu ordua"
@@ -2071,55 +2120,6 @@ msgstr "_Hizkuntza:"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "_Pertsonalizatua:"
-
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "CSS elkarrizketa-koadroa"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "_Hautatzailea:"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "_Propietatea:"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Balioa:"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "Hautatzailea"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "Propietatea"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Balioa"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr " _Gehitu "
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " _Eguneratu "
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " Ez_abatu "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "_Estiloa..."
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Hautatu kolorea"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -4505,111 +4505,111 @@ msgstr "Bilaketak huts egin du"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Adierazpen erregularraren errorea: %s %d posizioan"
 
-#: ../src/snr2.c:892
+#: ../src/snr2.c:894
 msgid "Confirm replace"
 msgstr "Berretsi ordeztea"
 
-#: ../src/snr2.c:904
+#: ../src/snr2.c:906
 msgid "Replace selected text?"
 msgstr "Ordeztu nahi duzu hautatutako testua?"
 
-#: ../src/snr2.c:917
+#: ../src/snr2.c:919
 msgid "_Skip"
 msgstr "_Saltatu"
 
-#: ../src/snr2.c:919
+#: ../src/snr2.c:921
 msgid "Replace _all"
 msgstr "Ordeztu _guztiak"
 
-#: ../src/snr2.c:1164 ../src/snr2.c:1171
+#: ../src/snr2.c:1166 ../src/snr2.c:1173
 msgid "Search: no match found"
 msgstr "Bilaketa: ez da bat datorrenik aurkitu"
 
-#: ../src/snr2.c:1415
+#: ../src/snr2.c:1417
 msgid "_Search for: "
 msgstr "_Bilatu hau: "
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1437
 msgid "_Replace with: "
 msgstr "Ordeztu ho_nekin: "
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1447
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 = lehen azpibilaketako eredua, \\1 = bigarrena, etab."
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of document till end"
 msgstr "Dokumentuaren hasieratik amaieraraino"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Current position till end"
 msgstr "Uneko kokalekutik amaieraraino"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of selection till end of selection"
 msgstr "Hautapenaren hasieratik hautapenaren amaieraraino"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "All opened files begin till end"
 msgstr "Irekitako fitxategi guztien hasieratik amaieraraino"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "Disabled"
 msgstr "Desgaituta"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "POSIX type"
 msgstr "POSIX mota"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "PERL type"
 msgstr "PERL mota"
 
-#: ../src/snr2.c:1462
+#: ../src/snr2.c:1464
 msgid "Starts at:"
 msgstr "Hemen hasi:"
 
-#: ../src/snr2.c:1474
+#: ../src/snr2.c:1476
 msgid "Regular expression:"
 msgstr "Adierazpen erregularra:"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Normal"
 msgstr "Normala"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Uppercase"
 msgstr "Maiuskulak"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Lowercase"
 msgstr "Minuskulak"
 
-#: ../src/snr2.c:1489
+#: ../src/snr2.c:1491
 msgid "Replace type:"
 msgstr "Ordeztu mota:"
 
-#: ../src/snr2.c:1502
+#: ../src/snr2.c:1504
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "_Ereduak alderantzizko barradun ihes-sekuentziak dauzka (\\n, \\t)"
 
-#: ../src/snr2.c:1503
+#: ../src/snr2.c:1505
 msgid "_Match case"
 msgstr "_Bereizi maiuskula/minuskulak"
 
-#: ../src/snr2.c:1504
+#: ../src/snr2.c:1506
 msgid "O_verlap searches"
 msgstr "_Teilakatu bilaketak"
 
-#: ../src/snr2.c:1506
+#: ../src/snr2.c:1508
 msgid "Prompt _before replace"
 msgstr "_Galdetu ordeztu aurretik"
 
-#: ../src/snr2.c:1507
+#: ../src/snr2.c:1509
 msgid "Replace o_nce"
 msgstr "_Ordeztu behin"
 
-#: ../src/snr2.c:1509
+#: ../src/snr2.c:1511
 #, fuzzy
 msgid "_Bookmark results"
 msgstr "Sortu emaitzaren laster-marka"

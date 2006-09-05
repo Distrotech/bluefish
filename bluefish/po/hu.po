@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-25 15:46+0200\n"
+"POT-Creation-Date: 2006-09-05 21:29+0200\n"
 "PO-Revision-Date: 2000-12-01 21:48+0100\n"
 "Last-Translator: Sáska, Péter <sasek@webmail.acolyte.hu>\n"
 "Language-Team: madgyar <hu@li.org>\n"
@@ -341,7 +341,7 @@ msgstr "_Cserélje erre:"
 msgid "I_gnore"
 msgstr "F_igyelmen kívül hagy"
 
-#: ../src/bfspell.c:408 ../src/snr2.c:918
+#: ../src/bfspell.c:408 ../src/snr2.c:920
 msgid "_Replace"
 msgstr "Cse_réli"
 
@@ -643,11 +643,11 @@ msgstr "Fájl megnyitása"
 msgid "Cannot display file, unknown characters found."
 msgstr "A fájlt nem lehet megjeleníteni, ismeretlen karakter(eke)t tartalmaz."
 
-#: ../src/document.c:2081 ../src/snr2.c:1385
+#: ../src/document.c:2081 ../src/snr2.c:1387
 msgid "Replace"
 msgstr "Cserél"
 
-#: ../src/document.c:2086 ../src/snr2.c:1388
+#: ../src/document.c:2086 ../src/snr2.c:1390
 msgid "Find"
 msgstr "Keres"
 
@@ -1645,6 +1645,55 @@ msgstr ""
 msgid "studying 2nd pattern '%s': %s"
 msgstr ""
 
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "Stíluslap párbeszédablak"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "_Szelektor"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "_Tulajdonság"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "É_rték"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "Szelektor"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "Tulajdonság"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Érték"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr " _Hozzáad "
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " _Frissít "
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " _Töröl "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "_Stílus..."
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Színválasztás"
+
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "Idő beszúrása"
@@ -2063,55 +2112,6 @@ msgstr "L_ang:"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "_Egyéb"
-
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "Stíluslap párbeszédablak"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "_Szelektor"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "_Tulajdonság"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "É_rték"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "Szelektor"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "Tulajdonság"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Érték"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr " _Hozzáad "
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " _Frissít "
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " _Töröl "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "_Stílus..."
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Színválasztás"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -4613,116 +4613,116 @@ msgstr "Sikertelen keresés"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Regex hiba: %s (offset %d)"
 
-#: ../src/snr2.c:892
+#: ../src/snr2.c:894
 msgid "Confirm replace"
 msgstr "Csere jóváhagyása"
 
-#: ../src/snr2.c:904
+#: ../src/snr2.c:906
 msgid "Replace selected text?"
 msgstr "Cserélje a kijelölt szöveget?"
 
-#: ../src/snr2.c:917
+#: ../src/snr2.c:919
 msgid "_Skip"
 msgstr "_Kihagyja"
 
-#: ../src/snr2.c:919
+#: ../src/snr2.c:921
 msgid "Replace _all"
 msgstr "_Mindet cseréli"
 
-#: ../src/snr2.c:1164 ../src/snr2.c:1171
+#: ../src/snr2.c:1166 ../src/snr2.c:1173
 msgid "Search: no match found"
 msgstr "Keresés: nincs találat"
 
-#: ../src/snr2.c:1415
+#: ../src/snr2.c:1417
 #, fuzzy
 msgid "_Search for: "
 msgstr "Kere_sse: "
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1437
 #, fuzzy
 msgid "_Replace with: "
 msgstr "M_ire cserélje: "
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1447
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 jelenti az első almintát, \\1 a másodikat stb."
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of document till end"
 msgstr "A _dokumentum elejétől a végéig"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Current position till end"
 msgstr "_Kurzortól a dokumentum végéig"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of selection till end of selection"
 msgstr "Kijelölés elejétől a kijelölés végéig"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "All opened files begin till end"
 msgstr "Minden megnyitott fájl elejétől a végéig"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "Disabled"
 msgstr "Nem engedélyezett"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "POSIX type"
 msgstr "POSIX típusú"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "PERL type"
 msgstr "PERL típusú"
 
-#: ../src/snr2.c:1462
+#: ../src/snr2.c:1464
 msgid "Starts at:"
 msgstr "Kezdje:"
 
-#: ../src/snr2.c:1474
+#: ../src/snr2.c:1476
 msgid "Regular expression:"
 msgstr "Reguláris kifejezés:"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Normal"
 msgstr "Normál"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Uppercase"
 msgstr "Cserélje nagybetűsre"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Lowercase"
 msgstr "Cserélje kisbetűsre"
 
-#: ../src/snr2.c:1489
+#: ../src/snr2.c:1491
 msgid "Replace type:"
 msgstr "Csere típusa:"
 
-#: ../src/snr2.c:1502
+#: ../src/snr2.c:1504
 #, fuzzy
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "A minták escape szekvenciákat (\\n, \\t) tartalmaznak"
 
-#: ../src/snr2.c:1503
+#: ../src/snr2.c:1505
 #, fuzzy
 msgid "_Match case"
 msgstr "Ki_sbetű/nagybetű egyezés"
 
-#: ../src/snr2.c:1504
+#: ../src/snr2.c:1506
 msgid "O_verlap searches"
 msgstr "Át_fedő keresés"
 
-#: ../src/snr2.c:1506
+#: ../src/snr2.c:1508
 msgid "Prompt _before replace"
 msgstr "Csere _előtt megerősítés"
 
-#: ../src/snr2.c:1507
+#: ../src/snr2.c:1509
 #, fuzzy
 msgid "Replace o_nce"
 msgstr "Egyszer cseré_lje"
 
-#: ../src/snr2.c:1509
+#: ../src/snr2.c:1511
 #, fuzzy
 msgid "_Bookmark results"
 msgstr "Könyvjelzők"

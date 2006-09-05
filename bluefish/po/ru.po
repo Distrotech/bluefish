@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru.po\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-25 15:46+0200\n"
+"POT-Creation-Date: 2006-09-05 21:29+0200\n"
 "PO-Revision-Date: 2004-12-02 10:42+0300\n"
 "Last-Translator: Eugene Rupakov <taurus_1@mail.ru>\n"
 "Language-Team:  <ru@li.org>\n"
@@ -368,7 +368,7 @@ msgstr "_Изменить на:"
 msgid "I_gnore"
 msgstr "И_гнорировать"
 
-#: ../src/bfspell.c:408 ../src/snr2.c:918
+#: ../src/bfspell.c:408 ../src/snr2.c:920
 msgid "_Replace"
 msgstr "_Заменить"
 
@@ -662,11 +662,11 @@ msgstr "Открытие файла"
 msgid "Cannot display file, unknown characters found."
 msgstr "Невозможно отобразить файл - найдены неизвестные символы."
 
-#: ../src/document.c:2081 ../src/snr2.c:1385
+#: ../src/document.c:2081 ../src/snr2.c:1387
 msgid "Replace"
 msgstr "Заменить"
 
-#: ../src/document.c:2086 ../src/snr2.c:1388
+#: ../src/document.c:2086 ../src/snr2.c:1390
 msgid "Find"
 msgstr "Найти"
 
@@ -1651,6 +1651,55 @@ msgstr "компиляция второго шаблона '%s':%s по смещ
 msgid "studying 2nd pattern '%s': %s"
 msgstr "изучение второго шаблона '%s':%s"
 
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "диалог Cascading Style Sheet"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "Панель в_ыбора:"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "_Свойство:"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Значение:"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "Панель выбора"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "Свойство"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Значение"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr " _Добавить "
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " О_бновить  "
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " _Удалить "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "_Стиль..."
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Выберите цвет"
+
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "Вставить время"
@@ -2069,55 +2118,6 @@ msgstr "_Язык:"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "Про_чее:"
-
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "диалог Cascading Style Sheet"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "Панель в_ыбора:"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "_Свойство:"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Значение:"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "Панель выбора"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "Свойство"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Значение"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr " _Добавить "
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " О_бновить  "
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " _Удалить "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "_Стиль..."
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Выберите цвет"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -4504,113 +4504,113 @@ msgstr "Поиск не удался"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Ошибка в регулярном выражении: %s по смещению %d"
 
-#: ../src/snr2.c:892
+#: ../src/snr2.c:894
 msgid "Confirm replace"
 msgstr "Подтвердите замену"
 
-#: ../src/snr2.c:904
+#: ../src/snr2.c:906
 msgid "Replace selected text?"
 msgstr "Заменить выделенный текст?"
 
-#: ../src/snr2.c:917
+#: ../src/snr2.c:919
 msgid "_Skip"
 msgstr "_Пропустить"
 
-#: ../src/snr2.c:919
+#: ../src/snr2.c:921
 msgid "Replace _all"
 msgstr "Заменить вс_е"
 
-#: ../src/snr2.c:1164 ../src/snr2.c:1171
+#: ../src/snr2.c:1166 ../src/snr2.c:1173
 msgid "Search: no match found"
 msgstr "Поиск: вхождений не найдено"
 
-#: ../src/snr2.c:1415
+#: ../src/snr2.c:1417
 msgid "_Search for: "
 msgstr "_Искать: "
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1437
 msgid "_Replace with: "
 msgstr "Заменить _на: "
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1447
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr ""
 "\\0 указывает на первый шаблон вложенного поиска, \\1 на второй, и т.д."
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of document till end"
 msgstr "От начала до конца документа"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Current position till end"
 msgstr "С текущей позиции курсора до конца"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of selection till end of selection"
 msgstr "От начала до конца выделения"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "All opened files begin till end"
 msgstr "Все открытые-файлы с начала до конца"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "Disabled"
 msgstr "Отключен"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "POSIX type"
 msgstr "Тип POSIX"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "PERL type"
 msgstr "тип PERL"
 
-#: ../src/snr2.c:1462
+#: ../src/snr2.c:1464
 msgid "Starts at:"
 msgstr "Начинать с:"
 
-#: ../src/snr2.c:1474
+#: ../src/snr2.c:1476
 msgid "Regular expression:"
 msgstr "Регулярное выражение:"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Normal"
 msgstr "Обычный"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Uppercase"
 msgstr "Прописные буквы"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Lowercase"
 msgstr "Строчные буквы"
 
-#: ../src/snr2.c:1489
+#: ../src/snr2.c:1491
 msgid "Replace type:"
 msgstr "Тип замены:"
 
-#: ../src/snr2.c:1502
+#: ../src/snr2.c:1504
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr ""
 "Шаблоны содержат escape-последовательности с обратной _дробью (\\n, \\t)"
 
-#: ../src/snr2.c:1503
+#: ../src/snr2.c:1505
 msgid "_Match case"
 msgstr "Размер _букв должен совпадать"
 
-#: ../src/snr2.c:1504
+#: ../src/snr2.c:1506
 msgid "O_verlap searches"
 msgstr "Пере_секающийся поиск"
 
-#: ../src/snr2.c:1506
+#: ../src/snr2.c:1508
 msgid "Prompt _before replace"
 msgstr "Спросить подтверждение _перед заменой"
 
-#: ../src/snr2.c:1507
+#: ../src/snr2.c:1509
 msgid "Replace o_nce"
 msgstr "За_менить единожды"
 
-#: ../src/snr2.c:1509
+#: ../src/snr2.c:1511
 #, fuzzy
 msgid "_Bookmark results"
 msgstr "Закладки"

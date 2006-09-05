@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 1.0.6\n"
-"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2006-08-25 15:46+0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-09-05 21:29+0200\n"
 "PO-Revision-Date: 2006-08-25 16:59+0200\n"
 "Last-Translator: Roland Steinbach <roland@netzblick.de>\n"
 "Language-Team: None\n"
@@ -389,7 +389,7 @@ msgstr "Ändern _zu:"
 msgid "I_gnore"
 msgstr "I_gnorieren"
 
-#: ../src/bfspell.c:408 ../src/snr2.c:918
+#: ../src/bfspell.c:408 ../src/snr2.c:920
 msgid "_Replace"
 msgstr "E_rsetzen"
 
@@ -685,11 +685,11 @@ msgstr "Öffne Datei"
 msgid "Cannot display file, unknown characters found."
 msgstr "Kann Datei nicht anzeigen, ungültige Zeichen gefunden"
 
-#: ../src/document.c:2081 ../src/snr2.c:1385
+#: ../src/document.c:2081 ../src/snr2.c:1387
 msgid "Replace"
 msgstr "Ersetzen"
 
-#: ../src/document.c:2086 ../src/snr2.c:1388
+#: ../src/document.c:2086 ../src/snr2.c:1390
 msgid "Find"
 msgstr "Suchen"
 
@@ -1672,6 +1672,55 @@ msgstr "Kompiliere 2. Muster '%s': %s bei Offset %d"
 msgid "studying 2nd pattern '%s': %s"
 msgstr "Prüfe 2. Muster '%s': %s"
 
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "CSS Dialog"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "Au_swahl:"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "Ei_genschaft:"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Wert:"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "Auswahl"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "Eigenschaft"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Wert"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr " Hin_zufügen "
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " Akt_ualisieren "
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " _Löschen "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "_Stil..."
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Farbe auswählen"
+
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "Zeit einfügen"
@@ -2086,55 +2135,6 @@ msgstr "S_prache:"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "_Benutzerdefiniert:"
-
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "CSS Dialog"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "Au_swahl:"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "Ei_genschaft:"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Wert:"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "Auswahl"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "Eigenschaft"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Wert"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr " Hin_zufügen "
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " Akt_ualisieren "
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " _Löschen "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "_Stil..."
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Farbe auswählen"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -4498,111 +4498,111 @@ msgstr "Suche fehlgeschlagen"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Fehler im regulären Ausdruck: %s bei Offset %d"
 
-#: ../src/snr2.c:892
+#: ../src/snr2.c:894
 msgid "Confirm replace"
 msgstr "Ersetzen bestätigen"
 
-#: ../src/snr2.c:904
+#: ../src/snr2.c:906
 msgid "Replace selected text?"
 msgstr "Ausgewählten Text ersetzen?"
 
-#: ../src/snr2.c:917
+#: ../src/snr2.c:919
 msgid "_Skip"
 msgstr "Ü_berspringen"
 
-#: ../src/snr2.c:919
+#: ../src/snr2.c:921
 msgid "Replace _all"
 msgstr "_Alles ersetzen"
 
-#: ../src/snr2.c:1164 ../src/snr2.c:1171
+#: ../src/snr2.c:1166 ../src/snr2.c:1173
 msgid "Search: no match found"
 msgstr "Suche: nicht gefunden"
 
-#: ../src/snr2.c:1415
+#: ../src/snr2.c:1417
 msgid "_Search for: "
 msgstr "_Suchen nach: "
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1437
 msgid "_Replace with: "
 msgstr "_Ersetze durch: "
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1447
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 bezieht sich auf das erste Untermuster, \\1 auf das zweite usw."
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of document till end"
 msgstr "Dokumentanfang bis -ende"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Current position till end"
 msgstr "Aktuelle Position bis Ende"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of selection till end of selection"
 msgstr "Anfang bis Ende der Auswahl"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "All opened files begin till end"
 msgstr "Alle offenen Dateien von Anfang bis Ende"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "Disabled"
 msgstr "Ausgeschaltet"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "POSIX type"
 msgstr "POSIX Typ"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "PERL type"
 msgstr "PERL Typ"
 
-#: ../src/snr2.c:1462
+#: ../src/snr2.c:1464
 msgid "Starts at:"
 msgstr "Startet bei:"
 
-#: ../src/snr2.c:1474
+#: ../src/snr2.c:1476
 msgid "Regular expression:"
 msgstr "Regulärer Ausdruck:"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Uppercase"
 msgstr "Großschrift"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Lowercase"
 msgstr "Kleinschrift"
 
-#: ../src/snr2.c:1489
+#: ../src/snr2.c:1491
 msgid "Replace type:"
 msgstr "Ersetzungstyp:"
 
-#: ../src/snr2.c:1502
+#: ../src/snr2.c:1504
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "_Muster enthalten Escapesequenzen (\\n, \\t)"
 
-#: ../src/snr2.c:1503
+#: ../src/snr2.c:1505
 msgid "_Match case"
 msgstr "Groß- und Kleinschreibung _beachten"
 
-#: ../src/snr2.c:1504
+#: ../src/snr2.c:1506
 msgid "O_verlap searches"
 msgstr "Ü_berlappende Suche"
 
-#: ../src/snr2.c:1506
+#: ../src/snr2.c:1508
 msgid "Prompt _before replace"
 msgstr "_Fragen vor Ersetzen"
 
-#: ../src/snr2.c:1507
+#: ../src/snr2.c:1509
 msgid "Replace o_nce"
 msgstr "Ersetze e_inmal"
 
-#: ../src/snr2.c:1509
+#: ../src/snr2.c:1511
 msgid "_Bookmark results"
 msgstr "_Lesezeichenergebnis"
 

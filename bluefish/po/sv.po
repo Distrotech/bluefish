@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-25 15:46+0200\n"
+"POT-Creation-Date: 2006-09-05 21:29+0200\n"
 "PO-Revision-Date: 2006-02-02 23:01+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -376,7 +376,7 @@ msgstr "Ändra _till:"
 msgid "I_gnore"
 msgstr "I_gnorera"
 
-#: ../src/bfspell.c:408 ../src/snr2.c:918
+#: ../src/bfspell.c:408 ../src/snr2.c:920
 msgid "_Replace"
 msgstr "_Ersätt"
 
@@ -671,11 +671,11 @@ msgstr "Öppnar fil "
 msgid "Cannot display file, unknown characters found."
 msgstr "Kan inte visa filen på grund av okända tecken."
 
-#: ../src/document.c:2081 ../src/snr2.c:1385
+#: ../src/document.c:2081 ../src/snr2.c:1387
 msgid "Replace"
 msgstr "Ersätt"
 
-#: ../src/document.c:2086 ../src/snr2.c:1388
+#: ../src/document.c:2086 ../src/snr2.c:1390
 msgid "Find"
 msgstr "Sök"
 
@@ -1660,6 +1660,55 @@ msgstr "Kompilerar andra mönstret '%s': %s vid offset %d"
 msgid "studying 2nd pattern '%s': %s"
 msgstr "Undersöker andra mönstret '%s': %s"
 
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "Stilmallsdialog"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "V_äljare:"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "Egenskaper:"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Värde:"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "Välj"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "Egenskaper"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Värde"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr " L_ägg till "
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " _Uppdatera "
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " _Ta bort "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "_Stil..."
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Välj färg"
+
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "Sätt in tid"
@@ -2077,55 +2126,6 @@ msgstr "Spr_åk:"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "A_npassad:"
-
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "Stilmallsdialog"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "V_äljare:"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "Egenskaper:"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Värde:"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "Välj"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "Egenskaper"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Värde"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr " L_ägg till "
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " _Uppdatera "
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " _Ta bort "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "_Stil..."
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Välj färg"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -4493,111 +4493,111 @@ msgstr "Sökning misslyckades"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Fel i reguljärt uttryck: %s vid avstånd %d"
 
-#: ../src/snr2.c:892
+#: ../src/snr2.c:894
 msgid "Confirm replace"
 msgstr "Bekräfta ersättning"
 
-#: ../src/snr2.c:904
+#: ../src/snr2.c:906
 msgid "Replace selected text?"
 msgstr "Ersätt markerad text?"
 
-#: ../src/snr2.c:917
+#: ../src/snr2.c:919
 msgid "_Skip"
 msgstr "_Hoppa över"
 
-#: ../src/snr2.c:919
+#: ../src/snr2.c:921
 msgid "Replace _all"
 msgstr "Ersätt alla"
 
-#: ../src/snr2.c:1164 ../src/snr2.c:1171
+#: ../src/snr2.c:1166 ../src/snr2.c:1173
 msgid "Search: no match found"
 msgstr "Sökning: hittade inget"
 
-#: ../src/snr2.c:1415
+#: ../src/snr2.c:1417
 msgid "_Search for: "
 msgstr "_Sök efter: "
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1437
 msgid "_Replace with: "
 msgstr "E_rsätt med: "
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1447
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 refererar till det första undermönstret, \\1 till det andra osv."
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of document till end"
 msgstr "Början av _dokumentet tills slutet"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Current position till end"
 msgstr "Nuvarande position tills slutet"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of selection till end of selection"
 msgstr "Början av u_rvalet tills slutet av urvalet"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "All opened files begin till end"
 msgstr "Alla öppnade filer tills slutet"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "Disabled"
 msgstr "Avstängd"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "POSIX type"
 msgstr "POSIX-typ"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "PERL type"
 msgstr "PERL-typ"
 
-#: ../src/snr2.c:1462
+#: ../src/snr2.c:1464
 msgid "Starts at:"
 msgstr "Börjar vid:"
 
-#: ../src/snr2.c:1474
+#: ../src/snr2.c:1476
 msgid "Regular expression:"
 msgstr "Reguljärt uttryck:"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Uppercase"
 msgstr "Versaler"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Lowercase"
 msgstr "Gemener"
 
-#: ../src/snr2.c:1489
+#: ../src/snr2.c:1491
 msgid "Replace type:"
 msgstr "Ersättningstyp:"
 
-#: ../src/snr2.c:1502
+#: ../src/snr2.c:1504
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "Mönster innehåller bakåtstreckssekvenser (\\n, \\t)"
 
-#: ../src/snr2.c:1503
+#: ../src/snr2.c:1505
 msgid "_Match case"
 msgstr "Matcha versaler/gemener"
 
-#: ../src/snr2.c:1504
+#: ../src/snr2.c:1506
 msgid "O_verlap searches"
 msgstr "Ö_verlappande sökningar"
 
-#: ../src/snr2.c:1506
+#: ../src/snr2.c:1508
 msgid "Prompt _before replace"
 msgstr "Fråga _före ersättning"
 
-#: ../src/snr2.c:1507
+#: ../src/snr2.c:1509
 msgid "Replace o_nce"
 msgstr "Ers_ätt en gång"
 
-#: ../src/snr2.c:1509
+#: ../src/snr2.c:1511
 msgid "_Bookmark results"
 msgstr "_Bokmärkningsresultat"
 

@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-25 15:46+0200\n"
+"POT-Creation-Date: 2006-09-05 21:29+0200\n"
 "PO-Revision-Date: 2005-08-10 17:40+0800\n"
 "Last-Translator: OLS3 <ols3@lxer.idv.tw>\n"
 "Language-Team: zh_TW <i18n-translation@b2d.org.tw>\n"
@@ -340,7 +340,7 @@ msgstr "更改為(_T):"
 msgid "I_gnore"
 msgstr "忽略(_G)"
 
-#: ../src/bfspell.c:408 ../src/snr2.c:918
+#: ../src/bfspell.c:408 ../src/snr2.c:920
 msgid "_Replace"
 msgstr "取代(_R)"
 
@@ -633,11 +633,11 @@ msgstr "開啟檔案 "
 msgid "Cannot display file, unknown characters found."
 msgstr "無法顯示檔案, 發現不明的字元集."
 
-#: ../src/document.c:2081 ../src/snr2.c:1385
+#: ../src/document.c:2081 ../src/snr2.c:1387
 msgid "Replace"
 msgstr "取代"
 
-#: ../src/document.c:2086 ../src/snr2.c:1388
+#: ../src/document.c:2086 ../src/snr2.c:1390
 msgid "Find"
 msgstr "尋找"
 
@@ -1619,6 +1619,55 @@ msgstr "編譯第二個樣式 '%s': %s 在偏移 %d"
 msgid "studying 2nd pattern '%s': %s"
 msgstr "研究第二個樣式 '%s': %s"
 
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "串列樣式表對話框"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "選擇(_S):"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "屬性(_P):"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "值(_V):"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "選擇器"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "屬性"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "值"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr " 新增(_A) "
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " 更新(_U) "
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " 刪除(_D) "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "樣式(_S)..."
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: 選擇顏色"
+
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "插入時間"
@@ -2036,55 +2085,6 @@ msgstr "語言(_L):"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "自定(_C):"
-
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "串列樣式表對話框"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "選擇(_S):"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "屬性(_P):"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "值(_V):"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "選擇器"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "屬性"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "值"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr " 新增(_A) "
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " 更新(_U) "
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " 刪除(_D) "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "樣式(_S)..."
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: 選擇顏色"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -4453,111 +4453,111 @@ msgstr "搜尋失敗"
 msgid "Regular expression error: %s at offset %d"
 msgstr "正規式錯誤: %s 位於偏移 %d"
 
-#: ../src/snr2.c:892
+#: ../src/snr2.c:894
 msgid "Confirm replace"
 msgstr "確認取代"
 
-#: ../src/snr2.c:904
+#: ../src/snr2.c:906
 msgid "Replace selected text?"
 msgstr "要取代選定的字文嗎?"
 
-#: ../src/snr2.c:917
+#: ../src/snr2.c:919
 msgid "_Skip"
 msgstr "跳過(_S)"
 
-#: ../src/snr2.c:919
+#: ../src/snr2.c:921
 msgid "Replace _all"
 msgstr "全部取代(_A)"
 
-#: ../src/snr2.c:1164 ../src/snr2.c:1171
+#: ../src/snr2.c:1166 ../src/snr2.c:1173
 msgid "Search: no match found"
 msgstr "搜尋: 找不到符合的"
 
-#: ../src/snr2.c:1415
+#: ../src/snr2.c:1417
 msgid "_Search for: "
 msgstr "搜尋(_S):"
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1437
 msgid "_Replace with: "
 msgstr "取代以(_R):"
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1447
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 參考第一個子搜尋樣式,\\1 到第二個,依此類推."
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of document till end"
 msgstr "從檔案開始到結束"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Current position till end"
 msgstr "從目前位置到結束"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of selection till end of selection"
 msgstr "從選擇區開始到選擇區結束"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "All opened files begin till end"
 msgstr "從所有已開啟的檔案開始到結束"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "Disabled"
 msgstr "關閉"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "POSIX type"
 msgstr "POSIX 類型"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "PERL type"
 msgstr "PERL 類型"
 
-#: ../src/snr2.c:1462
+#: ../src/snr2.c:1464
 msgid "Starts at:"
 msgstr "開始於:"
 
-#: ../src/snr2.c:1474
+#: ../src/snr2.c:1476
 msgid "Regular expression:"
 msgstr "正規式:"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Normal"
 msgstr "一般"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Uppercase"
 msgstr "大寫"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Lowercase"
 msgstr "小寫"
 
-#: ../src/snr2.c:1489
+#: ../src/snr2.c:1491
 msgid "Replace type:"
 msgstr "取代類型:"
 
-#: ../src/snr2.c:1502
+#: ../src/snr2.c:1504
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "樣式包含反斜線跳脫字元 (\\n、\\t)"
 
-#: ../src/snr2.c:1503
+#: ../src/snr2.c:1505
 msgid "_Match case"
 msgstr "區分大小寫(_M)"
 
-#: ../src/snr2.c:1504
+#: ../src/snr2.c:1506
 msgid "O_verlap searches"
 msgstr "重覆搜尋(_O)"
 
-#: ../src/snr2.c:1506
+#: ../src/snr2.c:1508
 msgid "Prompt _before replace"
 msgstr "取代前提示(_B)"
 
-#: ../src/snr2.c:1507
+#: ../src/snr2.c:1509
 msgid "Replace o_nce"
 msgstr "取代一次(_N)"
 
-#: ../src/snr2.c:1509
+#: ../src/snr2.c:1511
 msgid "_Bookmark results"
 msgstr "結果存入書籤"
 
