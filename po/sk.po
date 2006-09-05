@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 17-01-06_sk-2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-25 15:46+0200\n"
+"POT-Creation-Date: 2006-09-05 21:29+0200\n"
 "PO-Revision-Date: 2006-01-18 14:51+0100\n"
 "Last-Translator: Vladimir VASIL <vvasil@post.sk>\n"
 "Language-Team:  <sk@li.org>\n"
@@ -377,7 +377,7 @@ msgstr "Z_meniť na:"
 msgid "I_gnore"
 msgstr "I_gnorovať"
 
-#: ../src/bfspell.c:408 ../src/snr2.c:918
+#: ../src/bfspell.c:408 ../src/snr2.c:920
 msgid "_Replace"
 msgstr "_Nahradiť"
 
@@ -673,11 +673,11 @@ msgstr "Otváraníe súboru"
 msgid "Cannot display file, unknown characters found."
 msgstr "Nemôžem zobraziť súbor kvôli neznámym znakom."
 
-#: ../src/document.c:2081 ../src/snr2.c:1385
+#: ../src/document.c:2081 ../src/snr2.c:1387
 msgid "Replace"
 msgstr "Nahradiť"
 
-#: ../src/document.c:2086 ../src/snr2.c:1388
+#: ../src/document.c:2086 ../src/snr2.c:1390
 msgid "Find"
 msgstr "Nájsť"
 
@@ -1662,6 +1662,55 @@ msgstr "kompilujem druhú vzorku '%s': %s ofset %d"
 msgid "studying 2nd pattern '%s': %s"
 msgstr "študujem druhú vzorku '%s': %s"
 
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "CSS formulár"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "_Prepínač:"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "_Vlastnosť:"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Hodnota:"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "Výber"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "Vlastnosť"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Hodnota"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr " _Pridať "
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " _Aktualizovať "
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " _Zmazať "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "Š_tyl..."
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Výber farby"
+
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "Vložiť čas"
@@ -2076,55 +2125,6 @@ msgstr "J_azyk:"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "V_lastni:"
-
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "CSS formulár"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "_Prepínač:"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "_Vlastnosť:"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Hodnota:"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "Výber"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "Vlastnosť"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Hodnota"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr " _Pridať "
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " _Aktualizovať "
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " _Zmazať "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "Š_tyl..."
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Výber farby"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -4492,111 +4492,111 @@ msgstr "Hľadanie neúspešné"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Chyba v regulárnom výraze: %s ofset %d"
 
-#: ../src/snr2.c:892
+#: ../src/snr2.c:894
 msgid "Confirm replace"
 msgstr "Potvrďte nahradeníe"
 
-#: ../src/snr2.c:904
+#: ../src/snr2.c:906
 msgid "Replace selected text?"
 msgstr "Nahradiť vybraný text?"
 
-#: ../src/snr2.c:917
+#: ../src/snr2.c:919
 msgid "_Skip"
 msgstr "Pre_skočiť"
 
-#: ../src/snr2.c:919
+#: ../src/snr2.c:921
 msgid "Replace _all"
 msgstr "Nahr_adiť všetko"
 
-#: ../src/snr2.c:1164 ../src/snr2.c:1171
+#: ../src/snr2.c:1166 ../src/snr2.c:1173
 msgid "Search: no match found"
 msgstr "Hľadanie: nič nenájdené"
 
-#: ../src/snr2.c:1415
+#: ../src/snr2.c:1417
 msgid "_Search for: "
 msgstr "Čo _hľadať:"
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1437
 msgid "_Replace with: "
 msgstr "Nahra_diť čím:"
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1447
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 odkazuje na prví podvzorek hľadania, \\1 na druhý atd."
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of document till end"
 msgstr "Od začiatku dokumentu do jeho konca"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Current position till end"
 msgstr "Od pozície kurzoru do konca dokumentu"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of selection till end of selection"
 msgstr "Od začiatku výberu do konce výberu"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "All opened files begin till end"
 msgstr "Vo všetkých otvorených súboroch od začiatku do konca"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "Disabled"
 msgstr "Vypnute"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "POSIX type"
 msgstr "POSIXový typ"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "PERL type"
 msgstr "PERLovský typ"
 
-#: ../src/snr2.c:1462
+#: ../src/snr2.c:1464
 msgid "Starts at:"
 msgstr "Kde začať:"
 
-#: ../src/snr2.c:1474
+#: ../src/snr2.c:1476
 msgid "Regular expression:"
 msgstr "Regulárni výraz:"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Normal"
 msgstr "Normálni"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Uppercase"
 msgstr "Nahradiť velkými písmenami"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Lowercase"
 msgstr "Nahradiť malými písmenami"
 
-#: ../src/snr2.c:1489
+#: ../src/snr2.c:1491
 msgid "Replace type:"
 msgstr "Zpôsob nahradenia:"
 
-#: ../src/snr2.c:1502
+#: ../src/snr2.c:1504
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "Re_ťazec obsahuje backslash escape sekvencie (\\n, \\t)"
 
-#: ../src/snr2.c:1503
+#: ../src/snr2.c:1505
 msgid "_Match case"
 msgstr "_Rozlišovať velké/malé písmena"
 
-#: ../src/snr2.c:1504
+#: ../src/snr2.c:1506
 msgid "O_verlap searches"
 msgstr "_Viac kolové hľadanie"
 
-#: ../src/snr2.c:1506
+#: ../src/snr2.c:1508
 msgid "Prompt _before replace"
 msgstr "Opítať sa _pred nahradením"
 
-#: ../src/snr2.c:1507
+#: ../src/snr2.c:1509
 msgid "Replace o_nce"
 msgstr "_Nahradiť iba raz"
 
-#: ../src/snr2.c:1509
+#: ../src/snr2.c:1511
 msgid "_Bookmark results"
 msgstr "Výsle_dky záložiek"
 

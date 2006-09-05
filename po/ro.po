@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-25 15:46+0200\n"
+"POT-Creation-Date: 2006-09-05 21:29+0200\n"
 "PO-Revision-Date: 2001-11-17 15:24+0100\n"
 "Last-Translator: Unknown <unk@unk.org>\n"
 "Language-Team: no team <LL@li.org>\n"
@@ -244,7 +244,7 @@ msgstr ""
 msgid "I_gnore"
 msgstr "Neordonat"
 
-#: ../src/bfspell.c:408 ../src/snr2.c:918
+#: ../src/bfspell.c:408 ../src/snr2.c:920
 #, fuzzy
 msgid "_Replace"
 msgstr "Inlocuieste:"
@@ -545,12 +545,12 @@ msgstr "Deschid fisierul"
 msgid "Cannot display file, unknown characters found."
 msgstr ""
 
-#: ../src/document.c:2081 ../src/snr2.c:1385
+#: ../src/document.c:2081 ../src/snr2.c:1387
 #, fuzzy
 msgid "Replace"
 msgstr "Inlocuieste:"
 
-#: ../src/document.c:2086 ../src/snr2.c:1388
+#: ../src/document.c:2086 ../src/snr2.c:1390
 msgid "Find"
 msgstr ""
 
@@ -1601,6 +1601,65 @@ msgstr ""
 msgid "studying 2nd pattern '%s': %s"
 msgstr ""
 
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr ""
+
+#: ../src/html2.c:578
+#, fuzzy
+msgid "_Selector:"
+msgstr "Selectie"
+
+#: ../src/html2.c:597
+#, fuzzy
+msgid "_Property:"
+msgstr "/_Proiect"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+#, fuzzy
+msgid "_Value:"
+msgstr "Valoare"
+
+#: ../src/html2.c:617
+#, fuzzy
+msgid "Selector"
+msgstr "Selectie"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+#, fuzzy
+msgid "Property"
+msgstr "/_Proiect"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Valoare"
+
+#: ../src/html2.c:635
+#, fuzzy
+msgid " _Add "
+msgstr " Adauga "
+
+#: ../src/html2.c:638
+#, fuzzy
+msgid " _Update "
+msgstr " Actualizeaza "
+
+#: ../src/html2.c:641
+#, fuzzy
+msgid " _Delete "
+msgstr " Sterge "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+#, fuzzy
+msgid "_Style..."
+msgstr "Stil"
+
+#: ../src/html2.c:1091
+#, fuzzy
+msgid "Bluefish: Select color"
+msgstr "Selectati culoarea"
+
 #: ../src/html.c:385
 #, fuzzy
 msgid "Insert Time"
@@ -2067,65 +2126,6 @@ msgstr ""
 #, fuzzy
 msgid "_Custom:"
 msgstr "Taie"
-
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr ""
-
-#: ../src/html2.c:578
-#, fuzzy
-msgid "_Selector:"
-msgstr "Selectie"
-
-#: ../src/html2.c:597
-#, fuzzy
-msgid "_Property:"
-msgstr "/_Proiect"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-#, fuzzy
-msgid "_Value:"
-msgstr "Valoare"
-
-#: ../src/html2.c:617
-#, fuzzy
-msgid "Selector"
-msgstr "Selectie"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-#, fuzzy
-msgid "Property"
-msgstr "/_Proiect"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Valoare"
-
-#: ../src/html2.c:635
-#, fuzzy
-msgid " _Add "
-msgstr " Adauga "
-
-#: ../src/html2.c:638
-#, fuzzy
-msgid " _Update "
-msgstr " Actualizeaza "
-
-#: ../src/html2.c:641
-#, fuzzy
-msgid " _Delete "
-msgstr " Sterge "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-#, fuzzy
-msgid "_Style..."
-msgstr "Stil"
-
-#: ../src/html2.c:1091
-#, fuzzy
-msgid "Bluefish: Select color"
-msgstr "Selectati culoarea"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -4896,125 +4896,125 @@ msgstr "Cauta"
 msgid "Regular expression error: %s at offset %d"
 msgstr ""
 
-#: ../src/snr2.c:892
+#: ../src/snr2.c:894
 msgid "Confirm replace"
 msgstr ""
 
-#: ../src/snr2.c:904
+#: ../src/snr2.c:906
 msgid "Replace selected text?"
 msgstr ""
 
-#: ../src/snr2.c:917
+#: ../src/snr2.c:919
 msgid "_Skip"
 msgstr ""
 
-#: ../src/snr2.c:919
+#: ../src/snr2.c:921
 #, fuzzy
 msgid "Replace _all"
 msgstr "Inlocuieste:"
 
-#: ../src/snr2.c:1164 ../src/snr2.c:1171
+#: ../src/snr2.c:1166 ../src/snr2.c:1173
 msgid "Search: no match found"
 msgstr ""
 
-#: ../src/snr2.c:1415
+#: ../src/snr2.c:1417
 #, fuzzy
 msgid "_Search for: "
 msgstr "Cauta"
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1437
 #, fuzzy
 msgid "_Replace with: "
 msgstr "Inlocuieste:"
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1447
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
-msgstr ""
-
-#: ../src/snr2.c:1460
-#, fuzzy
-msgid "Beginning of document till end"
-msgstr "Porneste cautarea de la inceputul documentului"
-
-#: ../src/snr2.c:1460
-#, fuzzy
-msgid "Current position till end"
-msgstr "Porneste cautarea de la pozitia cursorului"
-
-#: ../src/snr2.c:1460
-#, fuzzy
-msgid "Beginning of selection till end of selection"
-msgstr "Selectarea fontului"
-
-#: ../src/snr2.c:1460
-msgid "All opened files begin till end"
-msgstr ""
-
-#: ../src/snr2.c:1461
-#, fuzzy
-msgid "Disabled"
-msgstr "Numele fisierului este necunoscut"
-
-#: ../src/snr2.c:1461
-#, fuzzy
-msgid "POSIX type"
-msgstr "Neordonat"
-
-#: ../src/snr2.c:1461
-msgid "PERL type"
 msgstr ""
 
 #: ../src/snr2.c:1462
 #, fuzzy
+msgid "Beginning of document till end"
+msgstr "Porneste cautarea de la inceputul documentului"
+
+#: ../src/snr2.c:1462
+#, fuzzy
+msgid "Current position till end"
+msgstr "Porneste cautarea de la pozitia cursorului"
+
+#: ../src/snr2.c:1462
+#, fuzzy
+msgid "Beginning of selection till end of selection"
+msgstr "Selectarea fontului"
+
+#: ../src/snr2.c:1462
+msgid "All opened files begin till end"
+msgstr ""
+
+#: ../src/snr2.c:1463
+#, fuzzy
+msgid "Disabled"
+msgstr "Numele fisierului este necunoscut"
+
+#: ../src/snr2.c:1463
+#, fuzzy
+msgid "POSIX type"
+msgstr "Neordonat"
+
+#: ../src/snr2.c:1463
+msgid "PERL type"
+msgstr ""
+
+#: ../src/snr2.c:1464
+#, fuzzy
 msgid "Starts at:"
 msgstr "Cauta"
 
-#: ../src/snr2.c:1474
+#: ../src/snr2.c:1476
 msgid "Regular expression:"
 msgstr ""
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 #, fuzzy
 msgid "Normal"
 msgstr "Formular"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 #, fuzzy
 msgid "Uppercase"
 msgstr "Inlocuieste:"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 #, fuzzy
 msgid "Lowercase"
 msgstr "Inlocuieste:"
 
-#: ../src/snr2.c:1489
+#: ../src/snr2.c:1491
 #, fuzzy
 msgid "Replace type:"
 msgstr "Inlocuieste:"
 
-#: ../src/snr2.c:1502
+#: ../src/snr2.c:1504
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr ""
 
-#: ../src/snr2.c:1503
+#: ../src/snr2.c:1505
 msgid "_Match case"
 msgstr ""
 
-#: ../src/snr2.c:1504
+#: ../src/snr2.c:1506
 msgid "O_verlap searches"
 msgstr ""
 
-#: ../src/snr2.c:1506
+#: ../src/snr2.c:1508
 msgid "Prompt _before replace"
 msgstr ""
 
-#: ../src/snr2.c:1507
+#: ../src/snr2.c:1509
 #, fuzzy
 msgid "Replace o_nce"
 msgstr "Inlocuieste:"
 
-#: ../src/snr2.c:1509
+#: ../src/snr2.c:1511
 #, fuzzy
 msgid "_Bookmark results"
 msgstr "Extern"

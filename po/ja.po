@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish 1.0.5rc3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-25 15:46+0200\n"
+"POT-Creation-Date: 2006-09-05 21:29+0200\n"
 "PO-Revision-Date: 2006-01-25 18:03+0900\n"
 "Last-Translator: Takeshi HAMASAKI <hma@syd.odn.ne.jp>\n"
 "MIME-Version: 1.0\n"
@@ -387,7 +387,7 @@ msgstr "修正した語(_T):"
 msgid "I_gnore"
 msgstr "無視(_G)"
 
-#: ../src/bfspell.c:408 ../src/snr2.c:918
+#: ../src/bfspell.c:408 ../src/snr2.c:920
 msgid "_Replace"
 msgstr "置換(_R)"
 
@@ -683,11 +683,11 @@ msgstr "ファイル読み込み中"
 msgid "Cannot display file, unknown characters found."
 msgstr "ファイルを表示できません、不明な文字が見つかりました。"
 
-#: ../src/document.c:2081 ../src/snr2.c:1385
+#: ../src/document.c:2081 ../src/snr2.c:1387
 msgid "Replace"
 msgstr "置換"
 
-#: ../src/document.c:2086 ../src/snr2.c:1388
+#: ../src/document.c:2086 ../src/snr2.c:1390
 msgid "Find"
 msgstr "検索"
 
@@ -1672,6 +1672,55 @@ msgstr "2番目のパターン %s をコンパイル中 : %s (オフセット %d
 msgid "studying 2nd pattern '%s': %s"
 msgstr "2番目のパターン %s を調査中 : %s"
 
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "カスケーディング・スタイルシート ダイアログ"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "セレクタ(_S):"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "プロパティ(_P):"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "値(_V):"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "セレクタ"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "プロパティ"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "値"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr " 追加(_A) "
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " 更新(_U) "
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " 削除(_D) "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "スタイルシート(_S)..."
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: 色の選択"
+
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "日時の挿入"
@@ -2086,55 +2135,6 @@ msgstr "言語(_A):"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "カスタム(_C):"
-
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "カスケーディング・スタイルシート ダイアログ"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "セレクタ(_S):"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "プロパティ(_P):"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "値(_V):"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "セレクタ"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "プロパティ"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "値"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr " 追加(_A) "
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " 更新(_U) "
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " 削除(_D) "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "スタイルシート(_S)..."
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: 色の選択"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -4499,111 +4499,111 @@ msgstr "検索に失敗"
 msgid "Regular expression error: %s at offset %d"
 msgstr "正規表現エラー: %s at offset %d"
 
-#: ../src/snr2.c:892
+#: ../src/snr2.c:894
 msgid "Confirm replace"
 msgstr "置換の確認"
 
-#: ../src/snr2.c:904
+#: ../src/snr2.c:906
 msgid "Replace selected text?"
 msgstr "選択したテキストを置換しますか?"
 
-#: ../src/snr2.c:917
+#: ../src/snr2.c:919
 msgid "_Skip"
 msgstr "スキップ(_S)"
 
-#: ../src/snr2.c:919
+#: ../src/snr2.c:921
 msgid "Replace _all"
 msgstr "すべて置換(_A)"
 
-#: ../src/snr2.c:1164 ../src/snr2.c:1171
+#: ../src/snr2.c:1166 ../src/snr2.c:1173
 msgid "Search: no match found"
 msgstr "検索: マッチするものは見つかりませんでした"
 
-#: ../src/snr2.c:1415
+#: ../src/snr2.c:1417
 msgid "_Search for: "
 msgstr "検索対象(_F):"
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1437
 msgid "_Replace with: "
 msgstr "置換文字列(_H): "
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1447
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 は1番目のサブ検索パターンを指し、\\1 は2番目... と続きます."
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of document till end"
 msgstr "文書の最初から最後まで"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Current position till end"
 msgstr "現在位置から最後まで"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of selection till end of selection"
 msgstr "選択範囲"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "All opened files begin till end"
 msgstr "開いている全ファイルの先頭から最後まで"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "Disabled"
 msgstr "無効"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "POSIX type"
 msgstr "POSIX 形式"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "PERL type"
 msgstr "PERL 形式"
 
-#: ../src/snr2.c:1462
+#: ../src/snr2.c:1464
 msgid "Starts at:"
 msgstr "開始点"
 
-#: ../src/snr2.c:1474
+#: ../src/snr2.c:1476
 msgid "Regular expression:"
 msgstr "正規表現: "
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Normal"
 msgstr "通常"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Uppercase"
 msgstr "大文字"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Lowercase"
 msgstr "小文字"
 
-#: ../src/snr2.c:1489
+#: ../src/snr2.c:1491
 msgid "Replace type:"
 msgstr "置換の種類:"
 
-#: ../src/snr2.c:1502
+#: ../src/snr2.c:1504
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "パターンはバックスラッシュ文字を含む(\\n, \\t)"
 
-#: ../src/snr2.c:1503
+#: ../src/snr2.c:1505
 msgid "_Match case"
 msgstr "大文字小文字を区別する(_S)"
 
-#: ../src/snr2.c:1504
+#: ../src/snr2.c:1506
 msgid "O_verlap searches"
 msgstr "折り返して検索(_V)"
 
-#: ../src/snr2.c:1506
+#: ../src/snr2.c:1508
 msgid "Prompt _before replace"
 msgstr "置換前に確認(_B)"
 
-#: ../src/snr2.c:1507
+#: ../src/snr2.c:1509
 msgid "Replace o_nce"
 msgstr "最初に見つかったものだけ置換(_L)"
 
-#: ../src/snr2.c:1509
+#: ../src/snr2.c:1511
 msgid "_Bookmark results"
 msgstr "検索結果をブックマークする(_B)"
 

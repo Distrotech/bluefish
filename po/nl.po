@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-25 15:46+0200\n"
+"POT-Creation-Date: 2006-09-05 21:29+0200\n"
 "PO-Revision-Date: 2003-04-01 20:03+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <nl@li.org>\n"
@@ -243,7 +243,7 @@ msgstr ""
 msgid "I_gnore"
 msgstr "Negeren"
 
-#: ../src/bfspell.c:408 ../src/snr2.c:918
+#: ../src/bfspell.c:408 ../src/snr2.c:920
 #, fuzzy
 msgid "_Replace"
 msgstr "Vervangen"
@@ -551,11 +551,11 @@ msgstr "Bezig met bestand te openen"
 msgid "Cannot display file, unknown characters found."
 msgstr "Kan file niet laten zien. Onbekend karakter"
 
-#: ../src/document.c:2081 ../src/snr2.c:1385
+#: ../src/document.c:2081 ../src/snr2.c:1387
 msgid "Replace"
 msgstr "Vervangen"
 
-#: ../src/document.c:2086 ../src/snr2.c:1388
+#: ../src/document.c:2086 ../src/snr2.c:1390
 #, fuzzy
 msgid "Find"
 msgstr "Zoek: "
@@ -1602,6 +1602,62 @@ msgstr ""
 msgid "studying 2nd pattern '%s': %s"
 msgstr ""
 
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "Cascading StyleSheet dialoog"
+
+#: ../src/html2.c:578
+#, fuzzy
+msgid "_Selector:"
+msgstr "Keuze"
+
+#: ../src/html2.c:597
+#, fuzzy
+msgid "_Property:"
+msgstr "Eigenschap"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+#, fuzzy
+msgid "_Value:"
+msgstr "Waarde"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "Keuze"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "Eigenschap"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Waarde"
+
+#: ../src/html2.c:635
+#, fuzzy
+msgid " _Add "
+msgstr " Toevoegen "
+
+#: ../src/html2.c:638
+#, fuzzy
+msgid " _Update "
+msgstr " Vernieuwen"
+
+#: ../src/html2.c:641
+#, fuzzy
+msgid " _Delete "
+msgstr "Verwijderen"
+
+#: ../src/html2.c:897 ../src/html2.c:934
+#, fuzzy
+msgid "_Style..."
+msgstr "Stijl"
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Selecteer kleur"
+
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "Voeg tijd in"
@@ -2079,62 +2135,6 @@ msgstr "Taal"
 #, fuzzy
 msgid "_Custom:"
 msgstr "Aangepast"
-
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "Cascading StyleSheet dialoog"
-
-#: ../src/html2.c:578
-#, fuzzy
-msgid "_Selector:"
-msgstr "Keuze"
-
-#: ../src/html2.c:597
-#, fuzzy
-msgid "_Property:"
-msgstr "Eigenschap"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-#, fuzzy
-msgid "_Value:"
-msgstr "Waarde"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "Keuze"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "Eigenschap"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Waarde"
-
-#: ../src/html2.c:635
-#, fuzzy
-msgid " _Add "
-msgstr " Toevoegen "
-
-#: ../src/html2.c:638
-#, fuzzy
-msgid " _Update "
-msgstr " Vernieuwen"
-
-#: ../src/html2.c:641
-#, fuzzy
-msgid " _Delete "
-msgstr "Verwijderen"
-
-#: ../src/html2.c:897 ../src/html2.c:934
-#, fuzzy
-msgid "_Style..."
-msgstr "Stijl"
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish: Selecteer kleur"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -4888,128 +4888,128 @@ msgstr "Zoek patroon"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Reguliere expressie error: "
 
-#: ../src/snr2.c:892
+#: ../src/snr2.c:894
 msgid "Confirm replace"
 msgstr "Bevestig vervangen"
 
-#: ../src/snr2.c:904
+#: ../src/snr2.c:906
 msgid "Replace selected text?"
 msgstr ""
 
-#: ../src/snr2.c:917
+#: ../src/snr2.c:919
 msgid "_Skip"
 msgstr ""
 
-#: ../src/snr2.c:919
+#: ../src/snr2.c:921
 #, fuzzy
 msgid "Replace _all"
 msgstr "Vervangen"
 
-#: ../src/snr2.c:1164 ../src/snr2.c:1171
+#: ../src/snr2.c:1166 ../src/snr2.c:1173
 msgid "Search: no match found"
 msgstr ""
 
-#: ../src/snr2.c:1415
+#: ../src/snr2.c:1417
 #, fuzzy
 msgid "_Search for: "
 msgstr "Zoeken"
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1437
 #, fuzzy
 msgid "_Replace with: "
 msgstr "Vervang met: "
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1447
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
-msgstr ""
-
-#: ../src/snr2.c:1460
-#, fuzzy
-msgid "Beginning of document till end"
-msgstr "Start aan het begin van het document"
-
-#: ../src/snr2.c:1460
-#, fuzzy
-msgid "Current position till end"
-msgstr "Start op de cursor positie"
-
-#: ../src/snr2.c:1460
-#, fuzzy
-msgid "Beginning of selection till end of selection"
-msgstr "in de selectie"
-
-#: ../src/snr2.c:1460
-msgid "All opened files begin till end"
-msgstr ""
-
-#: ../src/snr2.c:1461
-#, fuzzy
-msgid "Disabled"
-msgstr "Variabelen"
-
-#: ../src/snr2.c:1461
-#, fuzzy
-msgid "POSIX type"
-msgstr "Negeren"
-
-#: ../src/snr2.c:1461
-msgid "PERL type"
 msgstr ""
 
 #: ../src/snr2.c:1462
 #, fuzzy
+msgid "Beginning of document till end"
+msgstr "Start aan het begin van het document"
+
+#: ../src/snr2.c:1462
+#, fuzzy
+msgid "Current position till end"
+msgstr "Start op de cursor positie"
+
+#: ../src/snr2.c:1462
+#, fuzzy
+msgid "Beginning of selection till end of selection"
+msgstr "in de selectie"
+
+#: ../src/snr2.c:1462
+msgid "All opened files begin till end"
+msgstr ""
+
+#: ../src/snr2.c:1463
+#, fuzzy
+msgid "Disabled"
+msgstr "Variabelen"
+
+#: ../src/snr2.c:1463
+#, fuzzy
+msgid "POSIX type"
+msgstr "Negeren"
+
+#: ../src/snr2.c:1463
+msgid "PERL type"
+msgstr ""
+
+#: ../src/snr2.c:1464
+#, fuzzy
 msgid "Starts at:"
 msgstr "Zoek patroon"
 
-#: ../src/snr2.c:1474
+#: ../src/snr2.c:1476
 #, fuzzy
 msgid "Regular expression:"
 msgstr "Reguliere expressie error: "
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 #, fuzzy
 msgid "Normal"
 msgstr "normaal"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 #, fuzzy
 msgid "Uppercase"
 msgstr "Vervang hoofdletters"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 #, fuzzy
 msgid "Lowercase"
 msgstr "Vervang kleine letters"
 
-#: ../src/snr2.c:1489
+#: ../src/snr2.c:1491
 #, fuzzy
 msgid "Replace type:"
 msgstr "Vervang tekst"
 
-#: ../src/snr2.c:1502
+#: ../src/snr2.c:1504
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr ""
 
-#: ../src/snr2.c:1503
+#: ../src/snr2.c:1505
 msgid "_Match case"
 msgstr ""
 
-#: ../src/snr2.c:1504
+#: ../src/snr2.c:1506
 #, fuzzy
 msgid "O_verlap searches"
 msgstr "Overlappend zoeken"
 
-#: ../src/snr2.c:1506
+#: ../src/snr2.c:1508
 #, fuzzy
 msgid "Prompt _before replace"
 msgstr "Waarschuwen voor het vervangen"
 
-#: ../src/snr2.c:1507
+#: ../src/snr2.c:1509
 #, fuzzy
 msgid "Replace o_nce"
 msgstr "Eenmalig vervangen"
 
-#: ../src/snr2.c:1509
+#: ../src/snr2.c:1511
 #, fuzzy
 msgid "_Bookmark results"
 msgstr "/Opties/tearoff1"

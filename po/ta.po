@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-25 15:46+0200\n"
+"POT-Creation-Date: 2006-09-05 21:29+0200\n"
 "PO-Revision-Date: 2006-02-10 23:32+0530\n"
 "Last-Translator: Murugapandian barathee <barathee@gmail.com>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -386,7 +386,7 @@ msgstr "மாற்றவேண்டிய சொல் _t:"
 msgid "I_gnore"
 msgstr "புறக்கணி _g"
 
-#: ../src/bfspell.c:408 ../src/snr2.c:918
+#: ../src/bfspell.c:408 ../src/snr2.c:920
 msgid "_Replace"
 msgstr "மாற்று _R"
 
@@ -681,11 +681,11 @@ msgstr "கோப்பு திறக்கப்படுகிறது "
 msgid "Cannot display file, unknown characters found."
 msgstr "கோப்பினைக் காட்ட முடியவில்லை, அறியமுடியாத குறியீடுகள் உள்ளன."
 
-#: ../src/document.c:2081 ../src/snr2.c:1385
+#: ../src/document.c:2081 ../src/snr2.c:1387
 msgid "Replace"
 msgstr "மாற்று"
 
-#: ../src/document.c:2086 ../src/snr2.c:1388
+#: ../src/document.c:2086 ../src/snr2.c:1390
 msgid "Find"
 msgstr "தேடு"
 
@@ -1668,6 +1668,55 @@ msgstr "compiling 2nd pattern '%s': %s at offset %d"
 msgid "studying 2nd pattern '%s': %s"
 msgstr "studying 2nd pattern '%s': %s"
 
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "தொடரும் வடிவத்தாள் வசனம்"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "தேர்வாளன் _S:"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "தன்மை _P:"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "மதிப்பு _V:"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "தேர்வாளன்"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "தன்மை"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "மதிப்பு"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr "சேர் _A"
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " புதுப்பி _U"
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " நீக்கு _D"
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "_Style..."
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "நீலமீன்: வர்ணத்தைத் தேர்ந்தெடு"
+
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "காலத்தைச் செருகு"
@@ -2082,55 +2131,6 @@ msgstr "L_ang:"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "தனிப்பயன் _C:"
-
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "தொடரும் வடிவத்தாள் வசனம்"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "தேர்வாளன் _S:"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "தன்மை _P:"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "மதிப்பு _V:"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "தேர்வாளன்"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "தன்மை"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "மதிப்பு"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr "சேர் _A"
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " புதுப்பி _U"
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " நீக்கு _D"
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "_Style..."
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "நீலமீன்: வர்ணத்தைத் தேர்ந்தெடு"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -4496,111 +4496,111 @@ msgstr "தேடுதல் தோல்வியடைந்தது"
 msgid "Regular expression error: %s at offset %d"
 msgstr "பொதுவான பொதி பிழை: %s at offser %d"
 
-#: ../src/snr2.c:892
+#: ../src/snr2.c:894
 msgid "Confirm replace"
 msgstr "மாற்றத்தை உறுதிப்படுத்து"
 
-#: ../src/snr2.c:904
+#: ../src/snr2.c:906
 msgid "Replace selected text?"
 msgstr "தேர்ந்தெடுத்த உரையினை மாற்றவா?"
 
-#: ../src/snr2.c:917
+#: ../src/snr2.c:919
 msgid "_Skip"
 msgstr "தவிர்_S"
 
-#: ../src/snr2.c:919
+#: ../src/snr2.c:921
 msgid "Replace _all"
 msgstr "அனைத்தையும் மாற்று_a"
 
-#: ../src/snr2.c:1164 ../src/snr2.c:1171
+#: ../src/snr2.c:1166 ../src/snr2.c:1173
 msgid "Search: no match found"
 msgstr "தேடு: பொறுத்தம் கிடைக்கவில்லை"
 
-#: ../src/snr2.c:1415
+#: ../src/snr2.c:1417
 msgid "_Search for: "
 msgstr "தேடவேண்டிய சொல்_S:"
 
-#: ../src/snr2.c:1435
+#: ../src/snr2.c:1437
 msgid "_Replace with: "
 msgstr "மாற்றவேண்டிய சொல்_R:"
 
-#: ../src/snr2.c:1445
+#: ../src/snr2.c:1447
 msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
 msgstr "\\0 முதல் துணைதேடல்உருவகையைக் குறிக்கிறது, \\1 என்பது இரண்டாவது இன்னும்பல."
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of document till end"
 msgstr "ஆவணத்தின் ஆரம்பம் முதல் இறுதி வரை"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Current position till end"
 msgstr "தற்போதைய இடத்திலிருந்து இறுதி வரை"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "Beginning of selection till end of selection"
 msgstr "Beginning of selection till end of selection"
 
-#: ../src/snr2.c:1460
+#: ../src/snr2.c:1462
 msgid "All opened files begin till end"
 msgstr "All opened files begin till end"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "Disabled"
 msgstr "முடக்கப்பட்டது"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "POSIX type"
 msgstr "POSIX வகை"
 
-#: ../src/snr2.c:1461
+#: ../src/snr2.c:1463
 msgid "PERL type"
 msgstr "PERL வகை"
 
-#: ../src/snr2.c:1462
+#: ../src/snr2.c:1464
 msgid "Starts at:"
 msgstr "தொடக்கம்:"
 
-#: ../src/snr2.c:1474
+#: ../src/snr2.c:1476
 msgid "Regular expression:"
 msgstr "வழக்கமான கோவை:"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Normal"
 msgstr "சாதாரணம்"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Uppercase"
 msgstr "Uppercase"
 
-#: ../src/snr2.c:1488
+#: ../src/snr2.c:1490
 msgid "Lowercase"
 msgstr "Lowercase"
 
-#: ../src/snr2.c:1489
+#: ../src/snr2.c:1491
 msgid "Replace type:"
 msgstr "மாறுதல் வகை:"
 
-#: ../src/snr2.c:1502
+#: ../src/snr2.c:1504
 msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
 msgstr "உருவகைகள் பின்சாய்வு தப்பித்தல் தொடர்களை உள்ளடக்கியுள்ளன_P (\\n, \\t)"
 
-#: ../src/snr2.c:1503
+#: ../src/snr2.c:1505
 msgid "_Match case"
 msgstr "_Match case"
 
-#: ../src/snr2.c:1504
+#: ../src/snr2.c:1506
 msgid "O_verlap searches"
 msgstr "தேடுதல்களை உடன்நிகழ்த்து_v"
 
-#: ../src/snr2.c:1506
+#: ../src/snr2.c:1508
 msgid "Prompt _before replace"
 msgstr "மாற்றுவதற்கு முன் அனுமதிபெறு_b"
 
-#: ../src/snr2.c:1507
+#: ../src/snr2.c:1509
 msgid "Replace o_nce"
 msgstr "ஒருமுறை மாற்று_n"
 
-#: ../src/snr2.c:1509
+#: ../src/snr2.c:1511
 msgid "_Bookmark results"
 msgstr "புத்தகக்குறி முடிவுகள்_B"
 
