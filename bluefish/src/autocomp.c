@@ -30,6 +30,7 @@
 #include <libxml/tree.h>
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
+#include <libxml/catalog.h>
 
 static gint ac_paint(GtkWidget *win)
 {
@@ -123,6 +124,7 @@ Tautocomp *ac_init()
 {
 	Tautocomp *ret = g_new0(Tautocomp,1);
 	GtkTreeModel *sortmodel;
+	gchar *catdir = g_strconcat(PKGDATADIR, "/catalog", NULL);
 
 	ret->store = gtk_list_store_new(2,G_TYPE_STRING,G_TYPE_STRING);
 	sortmodel = gtk_tree_model_sort_new_with_model (GTK_TREE_MODEL(ret->store));
@@ -132,6 +134,9 @@ Tautocomp *ac_init()
 	ret->gc = g_completion_new(NULL);
 	ret->lang_lists = g_hash_table_new(g_str_hash,g_str_equal);
 	ret->dtd_lists = g_hash_table_new(g_str_hash,g_str_equal);
+	xmlInitializeCatalog();
+	xmlLoadCatalog(catdir);
+	g_free(catdir);
 	return ret;
 }
 
