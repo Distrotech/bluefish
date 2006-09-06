@@ -47,6 +47,8 @@ Bluefish 1.0.6 (25 August 2006)
    empty lines with Perl regexp syntax. Closes Bluefish bug #350721.
 - Fixes a critical bug where Bluefish crashed when performing search with 
    bookmark on unsaved document. Closes Bluefish bug #350754.
+- Fixes a bug in syntax highlighting where escaped quotes were not highlighted 
+   correctly. Closes Bluefish Bug #352701.
 - Fixes a bug where clicking in folder browser did not draw new selection bar 
    until a file from that folder was loaded. Closes Ubuntu bug #45927.
 
