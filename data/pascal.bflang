@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bflang PUBLIC "Bluefish/DTD/Bflang" "http://bluefish.openoffice.nl/DTD/bflang.dtd">
+
+<bflang name="Pascal" description="Pascal language file" >
+
+<mimetypes>
+	<mimetype type="text/x-pascal" />
+</mimetypes>
+
+
+<options>
+    <option name="case-sensitive">false</option>
+    <option name="scan-markup-tags">false</option>
+    <option name="scan-blocks">true</option>    
+   <option name="auto-scan-triggers">{}&#x0A;[](),;</option>
+
+</options>
+
+<block-group id="blocks" >
+<block id="braces" begin="(" end=")" scanned="true" foldable="true" markup="false" case="false"  />
+<block id="braces2" begin="[" end="]" scanned="true" foldable="true" markup="false" case="false"  />
+</block-group>
+
+<token-group id="general">
+ <token name="string" regexp="true" defaultstyle="string">&quot;[^&quot;]*&quot;</token>
+ <token name="single-string" regexp="true"  defaultstyle="string">&apos;[^&apos;]*&apos;</token> 
+ <token name="comment" regexp="true" defaultstyle="comment">{[^}]*}</token>
+ <token name="number" regexp="true" >[0-9]+.?[0-9]*</token>
+</token-group>
+
+<token-group id="structures">
+	<token name="procedure" regexp="true" >proc[a-z0-9]*;</token>
+</token-group>
+
+<token-group id="reserved-keywords" defaultstyle="keyword">
+ <token-list separator="|" name="keywords">text|string|longint|boolean|byte|char|word|integer|real</token-list>
+ <token-list separator="|" name="keywords2">program|var|procedure|uses|unit|object|type|const</token-list>
+ <token-list separator="|" name="keywords3">while|for|to|downto|do|with|case|of|repeat|until|if|then|else|goto|and|not|or</token-list>
+ <token-list separator="|" name="keywords4">array</token-list>
+ <token-list separator="|" name="keywords5">append|reset|assign|close|rewrite|writeln|readln|write|read</token-list>
+ <token-list separator="|" name="keywords6">begin|end</token-list>
+</token-group>
+
+
+</bflang>
