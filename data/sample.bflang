@@ -1,5 +1,11 @@
-<bflang name="Testlang" description="Test language file">
+<?xml version="1.0" ?>
+<!DOCTYPE bflang PUBLIC "Bluefish/DTD/Bflang" "http://bluefish.openoffice.nl/DTD/bflang.dtd">
 
+<mimetypes>
+	<mimetype type="text/x-sql" />
+</mimetypes>
+
+<bflang name="Testlang" description="Test language file">
 <options>
     <option name="case-sensitive">false</option>
     <option name="scan-markup-tags">true</option>
