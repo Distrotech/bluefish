@@ -106,13 +106,7 @@ install: all $(INSTALLDATA)
 	for file in $(FUNCREFFILES) ; do \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
 	done
-	echo -e "<?xml version=\"1.0\"?>\n \
-	<!DOCTYPE catalog PUBLIC \"-//OASIS//DTD Entity Resolution XML Catalog V1.0//EN\" \
-	\"http://www.oasis-open.org/committees/entity/release/1.0/catalog.dtd\">\n \
-	<catalog xmlns=\"urn:oasis:names:tc:entity:xmlns:xml:catalog\">\n \
-	<rewriteURI uriStartString=\"http://bluefish.openoffice.nl/DTD\" \
-	rewritePrefix=\"$(DESTDIR)$(pkgdatadir)\"/>\n</catalog>" \
-	> $(DESTDIR)$(pkgdatadir)/catalog
+	xmlcatalog --noout --add 'rewriteURI'  'http://bluefish.openoffice.nl/DTD' '$(DESTDIR)$(pkgdatadir)' /etc/xml/catalog
 
 uninstall:
 	rm -f $(DESTDIR)$(FDMIME)/packages/$(PACKAGE).xml
