@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filebrowser.c - the filebrowser
  *
- * Copyright (C) 2002-2003 Olivier Sessink
+ * Copyright (C) 2002-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -20,44 +20,6 @@
 
 /* #define DEBUG */
 
-/* ******* NEW FILEBROWSER DESIGN ********
-I'm thinking about a new design for the filebrowser, the 
-code is too complicated right now. For now I'll just write some thoughts, so 
-after we have the next stable releae we can implement it.
-
-we'll drop the one-pane-view, we'll only have the files and directories separate
-
-the public API:
---------------
-GtkWidget *fb2_init(Tbfwin *bfwin);
-void fb2_cleanup(Tbfwin *bfwin);
-void fb2_set_basedir(Tbfwin *bfwin, gchar *basedir);
-void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc);
---------------
-
-in the treemodel for the directories, we'll have two columns. A visible column (with the name), 
-and a column with the full path,  so if a click on an item is done, it is very easy to see which 
-full path corresponds to that item.
-
-to make 'focus document' very easy, each document can have a GtkTreeIter 
-pointing to the directory where the file located. If it does not have the treeiter, the 
-document has not been focused before (so it is not required to have a treeiter for 
-every document).
-
-the most difficult thing to code now is when we for example open a new file, we'll have to 
-find which directory item corresponds to that filename, and if it is not yet there, we'll 
-have to find where we should add it. Same for a document that has not been focused before.
-A possibility to do this is to have a hashtable with TreeIters to each directory that is already 
-in the tree. If you then want to open some directory, you check the full path in the hashtable, 
-if not exists you remove the last directory component, check again etc. until you have found a
-position in the tree where you can add things.
-
-USER INTERFACE NOTES:
-
-each directory should be expandable by default (so have a dummy item) unless we know there are 
-no subdirectories (and not the other way around like it is right now)
-
-*/
 #include <gtk/gtk.h>
 #include <sys/types.h>	/* stat() getuid */
 #include <sys/stat.h>	/* stat() */
@@ -71,12 +33,12 @@ no subdirectories (and not the other way around like it is right now)
 #include "filebrowser.h"
 #include "bf_lib.h"
 #include "document.h"
-#include "gtk_easy.h"	/* *_dialog(), flush_queue() */
-#include "gui.h"			/* statusbar_message() */
-#include "image.h" 		/* image_insert_from_filename() */
-#include "menu.h" 		/* translation */
-#include "project.h" 	/* project_open_from_file() */
-#include "stringlist.h" /* count_array() */
+#include "gtk_easy.h"      /* *_dialog(), flush_queue() */
+#include "gui.h"           /* statusbar_message() */
+#include "image.h"         /* image_insert_from_filename() */
+#include "menu.h"          /* translation */
+#include "project.h"       /* project_open_from_file() */
+#include "stringlist.h"    /* count_array() */
 
 /*#define DEBUG_SORTING
 #define DEBUG_FILTER
@@ -97,8 +59,8 @@ enum {
 
 typedef struct {
 	gchar *name;
-	gboolean mode; /* 0= hide matching files, 1=show matching files */
-	GList *filetypes; /* if NULL all files are OK */
+	gboolean mode;       /* 0= hide matching files, 1=show matching files */
+	GList *filetypes;    /* if NULL all files are OK */
 } Tfilter;
 
 typedef struct {
@@ -659,14 +621,14 @@ static GtkTreeIter add_tree_item(GtkTreeIter *parent, Tfilebrowser *filebrowser,
 					-1);
 	} else {
 		if (get_iter_at_correct_position(GTK_TREE_MODEL(filebrowser->store),parent,&iter2,text,type,(filebrowser->store2 != NULL))) {
-	#ifdef DEBUG
-			DEBUG_MSG("add_tree_item, inserting %s in store1\n", text);
-	#endif
+#ifdef DEBUG
+    DEBUG_MSG("add_tree_item, inserting %s in store1\n", text);
+#endif
 			gtk_tree_store_insert_before(GTK_TREE_STORE(filebrowser->store),&iter1,parent,&iter2);
 		} else {
-	#ifdef DEBUG
-			DEBUG_MSG("add_tree_item, appending %s in store1\n", text);
-	#endif
+#ifdef DEBUG
+    DEBUG_MSG("add_tree_item, appending %s in store1\n", text);
+#endif
 			gtk_tree_store_append(GTK_TREE_STORE(filebrowser->store), &iter1, parent);
 		}
 		gtk_tree_store_set(GTK_TREE_STORE(filebrowser->store), &iter1,
@@ -832,13 +794,13 @@ static GtkTreePath *build_tree_from_path(Tfilebrowser *filebrowser, const gchar 
 		}
 		while (p) {
 			curlen = strlen(p);
-	#ifdef DEBUG_ADDING_TO_TREE
-			DEBUG_MSG("build_tree_from_path, curlen=%d\n", curlen);
-	#endif
+#ifdef DEBUG_ADDING_TO_TREE
+    DEBUG_MSG("build_tree_from_path, curlen=%d\n", curlen);
+#endif
 			tmpstr = g_strndup(&filepath[prevlen], (totlen - curlen - prevlen));
-	#ifdef DEBUG_ADDING_TO_TREE
-			DEBUG_MSG("build_tree_from_path, tmpstr='%s'\n", tmpstr);
-	#endif
+#ifdef DEBUG_ADDING_TO_TREE
+    DEBUG_MSG("build_tree_from_path, tmpstr='%s'\n", tmpstr);
+#endif
 			if (!get_iter_by_filename_from_parent(filebrowser->store, &iter, &iter, tmpstr)) {
 				iter = add_tree_item(&iter, filebrowser, tmpstr, TYPE_DIR, NULL);
 			}
@@ -1452,24 +1414,24 @@ static void filebrowser_rpopup_sbf_toggled_lcb(GtkWidget *widget, Tfilebrowser *
 static GtkItemFactoryEntry filebrowser_dirmenu_entries[] = {
 #ifdef EXTERNAL_GREP
 #ifdef EXTERNAL_FIND	
-	{ N_("/Open _Advanced..."),			NULL,	filebrowser_rpopup_action_lcb,		7,	"<Item>" },
+	{ N_("/Open _Advanced..."), NULL, filebrowser_rpopup_action_lcb, 7, "<Item>" },
 #endif
 #endif
 	
-	{ N_("/_Refresh"),			NULL,	filebrowser_rpopup_action_lcb,		6,	"<Item>" },
-	{ N_("/_Set as basedir"),			NULL,	filebrowser_rpopup_action_lcb,		8,	"<Item>" }
+	{ N_("/_Refresh"), NULL, filebrowser_rpopup_action_lcb, 6, "<Item>" },
+	{ N_("/_Set as basedir"), NULL,	filebrowser_rpopup_action_lcb, 8, "<Item>" }
 };
 
 static GtkItemFactoryEntry filebrowser_bothmenu_entries[] = {
-	{ N_("/New _File"),			NULL,	filebrowser_rpopup_action_lcb,	4,	"<Item>" },
-	{ N_("/_New Directory"),	NULL,	filebrowser_rpopup_action_lcb,		5,	"<Item>" },
-	{ "/sep",	NULL,	NULL,		0,	"<Separator>" }
+	{ N_("/New _File"),	NULL, filebrowser_rpopup_action_lcb, 4,	"<StockItem>", GTK_STOCK_NEW },
+	{ N_("/_New Directory"), NULL, filebrowser_rpopup_action_lcb, 5, "<Item>" },
+	{ "/sep", NULL,	NULL, 0, "<Separator>" }
 };
 
 static GtkItemFactoryEntry filebrowser_filemenu_entries[] = {
-	{ N_("/_Open"),			NULL,	filebrowser_rpopup_action_lcb,		1,	"<Item>" },
-	{ N_("/Rena_me"),		NULL,	filebrowser_rpopup_action_lcb,			2,	"<Item>" },
-	{ N_("/_Delete"),		NULL,	filebrowser_rpopup_action_lcb,			3,	"<Item>" }
+	{ N_("/_Open"),	NULL, filebrowser_rpopup_action_lcb, 1, "<StockItem>", GTK_STOCK_OPEN },
+	{ N_("/Rena_me"), NULL,	filebrowser_rpopup_action_lcb, 2, "<Item>" },
+	{ N_("/_Delete"), NULL,	filebrowser_rpopup_action_lcb, 3, "<StockItem>", GTK_STOCK_DELETE }
 };
 
 static GtkWidget *filebrowser_rpopup_create_menu(Tfilebrowser *filebrowser, gboolean is_directory) {
@@ -2110,4 +2072,3 @@ void filebrowserconfig_init() {
 	fc->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);
 	g_free(filename);
 }
-
