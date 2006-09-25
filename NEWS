@@ -1,9 +1,10 @@
 # Release changes
 
-Bluefish 1.0.6 (25 August 2006)
+Bluefish 1.0.6 (25 September 2006)
 ---------------------------------
 
-- Updated translations: Finnish, French, Swedish
+- Updated translations: Finnish, French, German, Japanese, 
+   Norwegian, Polish, Swedish.
 - Configure: fixes host recognition for new Mac Intel.
 - Custom menu: fixed a typo in docbook informal table rowsep, added distinct 
    tags for XML and SGML images and links.
@@ -49,6 +50,9 @@ Bluefish 1.0.6 (25 August 2006)
    bookmark on unsaved document. Closes Bluefish bug #350754.
 - Fixes a bug in syntax highlighting where escaped quotes were not highlighted 
    correctly. Closes Bluefish Bug #352701.
+- Fixes a critical bug in the replace dialog which caused data corruption when 
+   replacing text in "all open files" with files that contained UTF-8 characters.
+   Closes Bluefish Bug #352762. 
 - Fixes a bug where clicking in folder browser did not draw new selection bar 
    until a file from that folder was loaded. Closes Ubuntu bug #45927.
 
