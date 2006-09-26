@@ -6,14 +6,14 @@ Bluefish 1.0.6 (25 September 2006)
 - Updated translations: Finnish, French, German, Japanese, 
    Norwegian, Polish, Swedish.
 - Configure: fixes host recognition for new Mac Intel.
-- Custom menu: fixed a typo in docbook informal table rowsep, added distinct 
+- Custom menu: fixes a typo in docbook informal table rowsep, adds distinct 
    tags for XML and SGML images and links.
-- Data filetypes: adding the .pm extension for Perl files. 
+- Data filetypes: adds the .pm extension for Perl files. 
    Closes Bluefish bug #343569.  
 - Highlighting: small fix to XML highlighting (adding general support for 
    namespaces). Highlight numbers in Java.
 - Man-pages: fixes distclean target.
-- Added XTHTM 1.1 DOCTYPE in creators. Closes Bluefish bug #338586.
+- Adds XTHTM 1.1 DOCTYPE in creators. Closes Bluefish bug #338586.
 - Fixes the recognition of GNOME_VFS >= 2.6.
 - Fixes a bug where the Bluefish icon was not displayed if the splash screen was 
    disabled.
@@ -30,9 +30,9 @@ Bluefish 1.0.6 (25 September 2006)
 - Fixes a critical bug where Bluefish crashed when closing and saving a project. 
    Closes Bluefish bug #330544.
 - Fixes a bug where backup project file was not deleted when closing a project. 
-   Closes Bluefish #330575. 
+   Closes Bluefish bug #330575. 
 - Fixes a bug where savedir was not initialized correctly when creating a new 
-   project on a remote server. Closes Bluefish #330781. 
+   project on a remote server. Closes Bluefish bug #330781. 
 - Fixes a bug where syntax highlighting was not refreshed after executing an 
    external command. Closes Bluefish bug #337564.
 - Fixes a critical bug where Bluefish crashed when pressing the Esc key in the 
