@@ -23,10 +23,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <sect1 id="bluefish-about">
 <title>About this Manual</title>
 <para>Bluefish has a large feature set, allowing the user to customize the editing experience in numerous ways. This manual targets both novice and advanced users, providing a full resource for everyone.</para>
-<para>Chapters <xref linkend="getting-bluefish" xrefstyle="select: labelnumber nopage"/>, <xref linkend="installing-bluefish" xrefstyle="select: labelnumber nopage"/>, <xref linkend="using-bluefish" xrefstyle="select: labelnumber nopage"/>, and <xref linkend="shortcuts-bluefish" xrefstyle="select: labelnumber nopage"/>  are highly recommended for anyone new to Bluefish. They present general information, installation instructions, an introduction to the main features of Bluefish, and available shortcuts.</para>
-<para>Chapter <xref linkend="debugging-bluefish" xrefstyle="select: labelnumber nopage"/> explains how to debug Bluefish.</para>
-<para>Chapter <xref linkend="reference-bluefish" xrefstyle="select: labelnumber nopage"/> contains a nearly complete feature reference, useful for advanced users interested in customizing Bluefish. </para>
-<para>Chapter <xref linkend="developing-bluefish" xrefstyle="select: labelnumber nopage"/> provides guidance for developers, including code formatting styles and a reference for all the source files.</para>
+<para><xref linkend="part1-getting-installing"/> and <xref linkend="part2-using"/> are highly recommended for anyone new to Bluefish. They present general information, installation instructions, an introduction to the main features of Bluefish, and available shortcuts.</para>
+<para><xref linkend="part3-developing"/> is oriented towards developers and testers. It explains how to debug Bluefish, contains the list of features, includes code formatting styles and a reference for all source files.</para>
 <para>The manual targets the <emphasis>end user</emphasis>. To that end, we have tried to use a simple, well-explained approach whenever possible. Some typographic conventions are denoted below:</para>
 <itemizedlist>
 <listitem>

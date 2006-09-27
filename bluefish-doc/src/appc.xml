@@ -37,7 +37,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <para>DocBook 4.4</para>
 </listitem>
 <listitem>
-<para>DocBook XSL style sheets 1.70.1</para>
+<para>DocBook XSL style sheets 1.71.0</para>
 </listitem>
 <listitem>
 <para>XSLT Processors and Parsers: we use <command>xsltproc</command> for HTML production, and <command>fop</command> for PDF and PostScript production.</para>
@@ -50,14 +50,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <procedure id="getting-manual">
 <title>Getting the Bluefish manual source files</title>
 <step><para>First, think about where in the filesystem you would like to build the manual. Let us assume you choose your home directory. So, from your home directory, login to Bluefish's CVS repository by issuing the command:: 
-<screen><prompt>$</prompt> cvs -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \ 
+<screen><prompt>$</prompt> cvs -d :pserver:anonymous@bluefish.cvs.sourceforge.net:/cvsroot/bluefish \ 
 login</screen></para>
 </step>
 <step><para>Hit enter at the prompt when asked for your password.</para>
 </step>
 <step>
 <para>Checkout the directory containing the Bluefish documentation: 
-<screen><prompt>$</prompt> cvs -z3 -d :pserver:anonymous@cvs.sourceforge.net:/cvsroot/bluefish \
+<screen><prompt>$</prompt> cvs -z3 -d :pserver:anonymous@bluefish.cvs.sourceforge.net:/cvsroot/bluefish \
 co bluefish-doc</screen></para>
 <para>This will download the bluefish-doc CVS module, containing the Bluefish manual source files, to your system in a newly created directory <filename>bluefish-doc</filename>.</para>
 </step>
@@ -67,7 +67,7 @@ co bluefish-doc</screen></para>
 <step>
 <para>Install DocBook 4.4 for your distribution</para>
 </step>
-<step><para>Install DocBook XSL version 1.70.1 if it is available for your distribution</para>
+<step><para>Install DocBook XSL version 1.71.0 if it is available for your distribution</para>
 <para>Otherwise, get it from the <ulink url="http://sourceforge.net/projects/docbook/">DocBook Project pages</ulink> on SourceForge.net and unpack it into the <filename>bluefish-doc</filename> directory.</para>
 </step>
 </procedure>
@@ -192,7 +192,7 @@ co bluefish-doc</screen></para>
 <varlistentry><term>Isolated menu</term>
 <listitem><para>
 <programlisting><![CDATA[<guimenu>File</guimenu>]]>
-</programlisting></para></listitem>
+</programlisting></para><?linebreaka42?></listitem>
 </varlistentry>
 <varlistentry><term>Menu with submenuitem</term>
 <listitem><para>
@@ -252,7 +252,7 @@ co bluefish-doc</screen></para>
 <para>You have to keep in mind...</para>
 </warning>]]></programlisting></para>
 </sect2>
-
+<?pagebreakus?>
 <sect2 id="bluefish-manual-guide-links">
 <title>Using links</title>
 <para>To reference an external link, we use:

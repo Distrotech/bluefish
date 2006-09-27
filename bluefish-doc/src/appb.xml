@@ -24,6 +24,44 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <para>Release-Changelog for the current 1.0.x series:</para>
 <para>
 <revhistory>
+<revision id="bluefish_1_0_6">
+<revnumber>1.0.6</revnumber>
+<date>2006-09-26</date>
+<authorinitials>oli4, jimh6583, dleidert, michga</authorinitials>
+<revdescription>
+<itemizedlist>
+<listitem><para>Updated translations: Finnish, French, German, Japanese, Norwegian, Polish, Swedish.</para></listitem>
+<listitem><para>Configure: fixes host recognition for new Mac Intel.</para></listitem>
+<listitem><para>Custom menu: fixes a typo in docbook informal table rowsep, adds distinct tags for XML and SGML images and links.</para></listitem>
+<listitem><para>Data filetypes: adds the .pm extension for Perl files. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=343569">Bluefish bug #343569</ulink>.</para></listitem>  
+<listitem><para>Highlighting: small fix to XML highlighting (adding general support for namespaces). Highlight numbers in Java.</para></listitem>
+<listitem><para>Man-pages: fixes distclean target.</para></listitem>
+<listitem><para>Adds XTHTM 1.1 DOCTYPE in creators. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=338586">Bluefish bug #338586</ulink>.</para></listitem>
+<listitem><para>Fixes the recognition of GNOME_VFS >= 2.6.</para></listitem>
+<listitem><para>Fixes a bug where the Bluefish icon was not displayed if the splash screen was disabled.</para></listitem>
+<listitem><para>Fixes a bug in smart cursor positioning.</para></listitem>
+<listitem><para>Fixes a bug where the old file was deleted before the new file was saved successfully.</para></listitem>
+<listitem><para>Removes redundant show hidden checkbox from file chooser dialog. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=316298">Bluefish bug #316298</ulink>.</para></listitem>
+<listitem><para>Fixes Definition list formatting.</para></listitem>
+<listitem><para>Fixes a bug where icons were missing in open/save dialogs. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=323634">Bluefish bug #323634</ulink>.</para></listitem>
+<listitem><para>Fixes a bug where the backup file was not deleted after renaming it. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=324788">Bluefish bug #324788</ulink>.</para></listitem>
+<listitem><para>Fixes a critical bug where Bluefish crashed when closing and saving a project. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=330544">Bluefish bug #330544</ulink>.</para></listitem>
+<listitem><para>Fixes a bug where backup project file was not deleted when closing a project. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=330575">Bluefish bug #330575</ulink>.</para></listitem> 
+<listitem><para>Fixes a bug where savedir was not initialized correctly when creating a new project on a remote server. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=33078">Bluefish bug #330781</ulink>.</para></listitem>
+<listitem><para>Fixes a bug where syntax highlighting was not refreshed after executing an external command. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=337564">Bluefish bug #337564</ulink>.</para></listitem>
+<listitem><para>Fixes a critical bug where Bluefish crashed when pressing the Esc key in the Search:no match found dialog. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=337739">Bluefish bug #337739</ulink>.</para></listitem>
+<listitem><para>Fixes a bug where undoing did not behave correctly for text pasted from the clipboard over other text. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=340262">Bluefish bug #340262</ulink>.</para></listitem>
+<listitem><para>Fixes a critical bug where undoing after inserting a file into an unsaved file lead to loss of data. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=344698">Bluefish bug #344698</ulink>.</para></listitem>
+<listitem><para>Fixes a bug in python syntax highlighting. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=349662">Bluefish bug #349662</ulink>.</para></listitem>
+<listitem><para>Fixes a critical bug where Bluefish crashed when pressing the green info dialog button. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=349743">Bluefish bug #349743</ulink> and <ulink url="https://launchpad.net/distros/ubuntu/+source/bluefish/+bug/55256">Ubuntu bug #55256</ulink>.</para></listitem>
+<listitem><para>Fixes a critical bug where Bluefish used a high CPU load when searching for empty lines with Perl regexp syntax. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=350721">Bluefish bug #350721</ulink>.</para></listitem>
+<listitem><para>Fixes a critical bug where Bluefish crashed when performing search with bookmark on unsaved document. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=350754">Bluefish bug #350754</ulink>.</para></listitem>
+<listitem><para>Fixes a bug in syntax highlighting where escaped quotes were not highlighted correctly. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=352701">Bluefish Bug #352701</ulink>.</para></listitem>
+<listitem><para>Fixes a critical bug in the replace dialog which caused data corruption when replacing text in "all open files" with files that contained UTF-8 characters. Closes <ulink url="http://bugzilla.gnome.org/show_bug.cgi?id=352762">Bluefish Bug #352762</ulink>.</para></listitem>
+<listitem><para>Fixes a bug where clicking in folder browser did not draw new selection bar until a file from that folder was loaded. Closes <ulink url="https://launchpad.net/distros/ubuntu/+source/bluefish/+bug/45927">Ubuntu bug #45927</ulink>.</para><?linebreaka42?></listitem>
+</itemizedlist>		
+</revdescription>
+</revision>
 <revision id="bluefish_1_0_5">
 <revnumber>1.0.5</revnumber>
 <date>2006-02-04</date>

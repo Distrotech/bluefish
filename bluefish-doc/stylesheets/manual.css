@@ -61,6 +61,13 @@ div.book, div.preface, div.chapter, div.sect1, div.sect2, div.sect3, div.appendi
 	margin: 2em;
 }
 
+/* Contents of part margins */
+.partintro .sidebar p {
+	text-align:center;
+	margin:2em;
+	line-height: 16px;
+}
+
 /* Book, preface, chapter, appendix titles */
 div.titlepage h1.title, div.titlepage h2.title {
     text-align: center;

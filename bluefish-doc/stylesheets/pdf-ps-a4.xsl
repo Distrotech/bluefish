@@ -29,6 +29,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 <!-- For bookmarks -->
 <xsl:param name="fop.extensions" select="1"></xsl:param>
 
+<!-- Get rid of draft mode -->
+<!-- Actually it does not output error when using fop.sh, but does it when using fop, so that it is needed -->
+<xsl:param name="draft.mode" select="'no'"></xsl:param>
+
 <!-- Ensure the page orientation is portrait -->
 <xsl:param name="page.orientation" select="portrait"></xsl:param>
 
@@ -305,7 +309,12 @@ procedure before
 
 <!-- Links color -->
 <xsl:attribute-set name="xref.properties">
-      <xsl:attribute name="color">blue</xsl:attribute>
+	<xsl:attribute name="color">
+			<xsl:choose>
+			<xsl:when test="(ancestor-or-self::glossterm[1])">red</xsl:when>
+			<xsl:otherwise>blue</xsl:otherwise>
+			</xsl:choose>
+	</xsl:attribute>
 </xsl:attribute-set>
 
 <xsl:param name="insert.xref.page.number">yes</xsl:param>
@@ -588,7 +597,7 @@ procedure before
 <xsl:attribute-set name="toc.line.properties">
   <xsl:attribute name="font-weight">
   	<xsl:choose>
-    	<xsl:when test="self::chapter | self::preface | self::appendix">bold</xsl:when>
+    	<xsl:when test="self::part | self::chapter | self::preface | self::appendix">bold</xsl:when>
     	<xsl:otherwise>normal</xsl:otherwise>
     </xsl:choose>
   </xsl:attribute>
@@ -600,18 +609,21 @@ procedure before
   </xsl:attribute>
     <xsl:attribute name="space-before.minimum">
  	<xsl:choose>
+    	<xsl:when test="self::part">0.7em</xsl:when>
     	<xsl:when test="self::chapter | self::preface | self::appendix">0.45em</xsl:when>
     	<xsl:otherwise>inherit</xsl:otherwise>
     </xsl:choose>
   </xsl:attribute>
     <xsl:attribute name="space-before.maximum">
  	<xsl:choose>
+    	<xsl:when test="self::part">0.75em</xsl:when>
     	<xsl:when test="self::chapter | self::preface | self::appendix">0.55em</xsl:when>
     	<xsl:otherwise>inherit</xsl:otherwise>
     </xsl:choose>
   </xsl:attribute>
     <xsl:attribute name="space-before.optimum">
  	<xsl:choose>
+    	<xsl:when test="self::part">0.8em</xsl:when>
     	<xsl:when test="self::chapter | self::preface | self::appendix">0.5em</xsl:when>
     	<xsl:otherwise>inherit</xsl:otherwise>
     </xsl:choose>
@@ -658,87 +670,83 @@ procedure before
 	</fo:block>
 </xsl:template>
 
-<!-- Restart the numbering of first chapter to 1 -->
-<xsl:template name="initial.page.number">
-  <xsl:param name="element" select="local-name(.)"/>
-  <xsl:param name="master-reference" select="''"/>
-
-  <!-- Select the first content that the stylesheet places
-       after the TOC -->
-  <xsl:variable name="first.book.content" 
-                select="ancestor::book/*[
-                          not(self::title or
-                              self::subtitle or
-                              self::titleabbrev or
-                              self::bookinfo or
-                              self::info or
-                              self::dedication or
-                              self::toc or
-                              self::preface or
-                              self::lot)][1]"/>
-  <xsl:choose>
-    <!-- double-sided output -->
-    <xsl:when test="$double.sided != 0">
-      <xsl:choose>
-        <xsl:when test="$element = 'toc'">auto-odd</xsl:when>
-        <xsl:when test="$element = 'book'">1</xsl:when>
-        <!-- preface typically continues TOC roman numerals -->
-        <!-- Change page.number.format if not -->
-        <xsl:when test="$element = 'preface'">auto-odd</xsl:when>
-        <xsl:when test="($element = 'dedication' or $element = 'article') 
-                    and not(preceding::chapter
-                            or preceding::preface
-                            or preceding::appendix
-                            or preceding::article
-                            or preceding::dedication
-                            or parent::part
-                            or parent::reference)">1</xsl:when>
-        <xsl:when test="generate-id($first.book.content) =
-                        generate-id(.)">1</xsl:when>
-        <xsl:otherwise>auto-odd</xsl:otherwise>
-      </xsl:choose>
-    </xsl:when>
-
-    <!-- single-sided output -->
-    <xsl:otherwise>
-      <xsl:choose>
-        <xsl:when test="$element = 'toc'">auto</xsl:when>
-        <xsl:when test="$element = 'book'">1</xsl:when>
-        <xsl:when test="$element = 'preface'">auto</xsl:when>
-       <xsl:when test="($element = 'dedication' or $element = 'article') and
-                        not(preceding::chapter
-                            or preceding::preface
-                            or preceding::appendix
-                            or preceding::article
-                            or preceding::dedication
-                            or parent::part
-                            or parent::reference)">1</xsl:when>
-        <xsl:when test="generate-id($first.book.content) =
-                        generate-id(.)">1</xsl:when>
-        <xsl:otherwise>auto</xsl:otherwise>
-      </xsl:choose>
-    </xsl:otherwise>
-  </xsl:choose>
-</xsl:template>
+<!-- Part autolabelling -->
+<xsl:param name="part.autolabel" select="'1'"/>
 
 <!-- Indent all lists -->
 <xsl:attribute-set name="list.block.spacing">
   <xsl:attribute name="margin-left">1em</xsl:attribute>
 </xsl:attribute-set>
 
-<!-- Segmented list as tables workaround for fop--><xsl:template match="segmentedlist" mode="seglist-table">
+<!-- Collate copyright years into range -->
+<xsl:param name="make.year.ranges" select="1"></xsl:param>        
+
+<!-- Segmented list as tables workaround for fop-->
+<xsl:template match="segmentedlist" mode="seglist-table">
  	<xsl:attribute name="space-before.minimum">0.75em</xsl:attribute>
   	<xsl:attribute name="space-before.optimum">0.8em</xsl:attribute>
-  	<xsl:attribute name="space-before.maximum">0.85em</xsl:attribute>  <xsl:apply-templates select="title" mode="list.title.mode"/>  <fo:table table-layout="fixed" border-collapse="separate"
+  	<xsl:attribute name="space-before.maximum">0.85em</xsl:attribute>
+  <xsl:apply-templates select="title" mode="list.title.mode"/>
+  <fo:table table-layout="fixed" border-collapse="separate"
 			border-left="solid" 
 			border-top="none" border-bottom="none" 
-			border-right="none" border-left-color="#96a5b8" >    <fo:table-column column-number="1" column-width="96px"/>    <fo:table-column column-number="2" column-width="170px"/>     <fo:table-header>      <fo:table-row>        <xsl:apply-templates select="segtitle" mode="seglist-table"/>      </fo:table-row>    </fo:table-header>    <fo:table-body>      <xsl:apply-templates select="seglistitem" mode="seglist-table"/>    </fo:table-body>  </fo:table></xsl:template><!-- Same colored border as other tables --> 
-<xsl:template match="segtitle" mode="seglist-table">  <fo:table-cell>    <fo:block font-weight="bold" text-align="center" border-right="solid" 
+			border-right="none" border-left-color="#96a5b8" >
+    <fo:table-column column-number="1" column-width="96px"/>
+    <fo:table-column column-number="2" column-width="170px"/> 
+    <fo:table-header>
+      <fo:table-row>
+        <xsl:apply-templates select="segtitle" mode="seglist-table"/>
+      </fo:table-row>
+    </fo:table-header>
+    <fo:table-body>
+      <xsl:apply-templates select="seglistitem" mode="seglist-table"/>
+    </fo:table-body>
+  </fo:table>
+</xsl:template>
+<!-- Same colored border as other tables --> 
+<xsl:template match="segtitle" mode="seglist-table">
+  <fo:table-cell>
+    <fo:block font-weight="bold" text-align="center" border-right="solid" 
 			border-top="solid" border-bottom="solid" 
 			border-left="none" border-top-color="#96a5b8" 
 			border-bottom-color="#96a5b8" border-right-color="#96a5b8" 
-			padding-top="4px" padding-bottom="4px">     <xsl:apply-templates/>    </fo:block>  </fo:table-cell></xsl:template><xsl:template match="seg" mode="seglist-table">  <fo:table-cell>    <fo:block border-right="solid" border-top="solid" border-bottom="solid" 
+			padding-top="4px" padding-bottom="4px">
+     <xsl:apply-templates/>
+    </fo:block>
+  </fo:table-cell>
+</xsl:template>
+<xsl:template match="seg" mode="seglist-table">
+  <fo:table-cell>
+    <fo:block border-right="solid" border-top="solid" border-bottom="solid" 
 			border-left="none" border-top-color="#96a5b8" 
 			border-bottom-color="#96a5b8" border-right-color="#96a5b8" 
-			text-indent="0.5em" padding-top="4px" padding-bottom="4px">      <xsl:apply-templates/>    </fo:block>  </fo:table-cell></xsl:template>
+			text-indent="0.5em" padding-top="4px" padding-bottom="4px">
+      <xsl:apply-templates/>
+    </fo:block>
+  </fo:table-cell>
+</xsl:template>
+
+<!-- Only for use with docbook-snapshot after 0.70.1 -->
+<!-- Put delimiters around email address -->
+<xsl:param name="email.delimiters.enabled">1</xsl:param>
+
+<!-- Sidebar for parts -->
+<xsl:attribute-set name="sidebar.properties">
+  <xsl:attribute name="border-style">solid</xsl:attribute>
+  <xsl:attribute name="border-width">0.25pt</xsl:attribute>
+  <xsl:attribute name="border-left-color">black</xsl:attribute>
+  <xsl:attribute name="border-top-color">white</xsl:attribute>
+  <xsl:attribute name="border-bottom-color">white</xsl:attribute>
+  <xsl:attribute name="border-right-color">white</xsl:attribute>
+   <xsl:attribute name="background-color">white</xsl:attribute>
+  <xsl:attribute name="padding-left">12pt</xsl:attribute>
+  <xsl:attribute name="padding-right">12pt</xsl:attribute>
+  <xsl:attribute name="padding-top">0pt</xsl:attribute>
+  <xsl:attribute name="padding-bottom">0pt</xsl:attribute>
+  <xsl:attribute name="margin-left">4cm</xsl:attribute>
+  <xsl:attribute name="margin-right">0pt</xsl:attribute> 
+  <xsl:attribute name="font-size">14pt</xsl:attribute> 
+</xsl:attribute-set>
+
+<xsl:param name="glossterm.auto.link">1</xsl:param>
 </xsl:stylesheet>  

@@ -26,13 +26,13 @@
      ******************************************************************** -->
 
 <!-- Customization for bluefish manual
-		Removed set, part, article, bibliograpy, glossary, reference, 
+		Removed set, article, bibliograpy, glossary, reference, 
 		index and their associated templates
-		Removed table, equation in toc template
+		Removed equation in toc template
 		Removed author in chapter and section templates
 		Customized the remaining parts 
 		Made by Michèle Garoche on 09/12/2004 
-		Updated on 08/12/2005
+		Updated on 26/09/2006
 -->
 
 <!-- ==================================================================== -->
@@ -80,8 +80,8 @@
       <author/>
       <othercredit text-align="center"/>
       <abstract 
-      	space-before="1.4in"
-	    space-after="1.4in"
+      	space-before="1.1in"
+	    space-after="1.1in"
 	    keep-with-next.within-column="always"/>
       <revhistory
       	font-size="11pt"/>
@@ -109,6 +109,56 @@
   </t:titlepage-before>
 </t:titlepage>
 
+<!-- ==================================================================== -->
+
+<t:titlepage t:element="part" t:wrapper="fo:block">
+  <t:titlepage-content t:side="recto">
+      <title
+	     t:named-template="division.title"
+	     param:node="ancestor-or-self::part[1]"
+	     text-align="center"
+	     font-size="36pt"
+	     space-before="1in"
+        space-after="1.5in"
+	     font-weight="bold"
+	     font-family="{$title.fontset}"/>
+    </t:titlepage-content>
+
+  <t:titlepage-content t:side="verso">
+  </t:titlepage-content>
+
+  <t:titlepage-separator>
+  </t:titlepage-separator>
+
+  <t:titlepage-before t:side="recto">
+  </t:titlepage-before>
+
+  <t:titlepage-before t:side="verso">
+  </t:titlepage-before>
+</t:titlepage>
+
+<t:titlepage t:element="partintro" t:wrapper="fo:block">
+  <t:titlepage-content t:side="recto">
+    <title
+	   text-align="center"
+	   font-size="&hsize5;"
+	   font-weight="bold"
+	   space-before="1in"
+	   font-family="{$title.fontset}"/>
+    </t:titlepage-content>
+
+  <t:titlepage-content t:side="verso">
+  </t:titlepage-content>
+
+  <t:titlepage-separator>
+  </t:titlepage-separator>
+
+  <t:titlepage-before t:side="recto">
+  </t:titlepage-before>
+
+  <t:titlepage-before t:side="verso">
+  </t:titlepage-before>
+</t:titlepage>
 <!-- ==================================================================== -->
 
   <t:titlepage t:element="preface" t:wrapper="fo:block">

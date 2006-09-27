@@ -3,7 +3,7 @@ HAVE_XSL_DIR=1
 
 ## You shouldn't normally need to edit anything below here.
 SHELL = /bin/sh
-VERSION=1.0-4
+VERSION=1.0-6
 BOOK_PREFIX=bluefish-doc
 BOOK_TOP=.
 BOOK_DIR=${BOOK_TOP}/src
@@ -144,15 +144,14 @@ html-all: clean-html validate-all builtdoc-create init-big-html init-html
 	${reinit-big-html}
 	${hackhtmltoc}
 
+	
 pdf-a4: clean-pdf-a4 validate-all fo-a4 builtdoc-create
 	${RUN_FOP} ${BOOK_TOP} -fo ${BOOK_FO_TARGET} -pdf ${BOOK_PDF_A4_TARGET}
 	rm -f ${BOOK_FO_TARGET}
-	${reinit-fo-us}
 
 pdf-us: clean-pdf-us validate-all fo-us builtdoc-create
 	${RUN_FOP} ${BOOK_TOP} -fo ${BOOK_FO_TARGET} -pdf ${BOOK_PDF_US_TARGET}
 	rm -f ${BOOK_FO_TARGET}
-	${reinit-fo-us}
 
 ps-a4: clean-ps-a4 validate-all fo-a4 builtdoc-create
 	${RUN_FOP} ${BOOK_TOP} -fo ${BOOK_FO_TARGET} -ps ${BOOK_PS_A4_TARGET}
@@ -242,7 +241,7 @@ clean: clean-all
 
 distclean: clean
 
-tarball-all: all
+tarball-all: tarballs-remove all
 	mkdir -p ${TARBALL_DIR}/${BOOK_PREFIX}-html-chunked-${VERSION}/imgs
 	mkdir -p ${TARBALL_DIR}/${BOOK_PREFIX}-html-chunked-${VERSION}/figures
 	mkdir -p ${TARBALL_DIR}/${BOOK_PREFIX}-html-bigfile-${VERSION}/imgs

@@ -51,6 +51,8 @@ procedure before
 <xsl:variable name="toc.section.depth">3</xsl:variable>
 <!-- Allow toc in section -->
 <xsl:param name="generate.section.toc.level" select="2"/>
+<!-- Part autolabelling -->
+<xsl:param name="part.autolabel" select="'1'"/>
 <!-- Chapter autolabelling -->
 <xsl:param name="chapter.autolabel" select="'I'"/>
 <!-- Section autolabelling -->
@@ -75,4 +77,12 @@ procedure before
 <xsl:param name="variablelist.term.break.after" select="'1'"/>
 <!-- Remove the separator between terms -->
 <xsl:param name="variablelist.term.separator"></xsl:param>
+<!-- Collate copyright years into range -->
+<xsl:param name="make.year.ranges" select="1"></xsl:param> 
+       
+<!-- New in docbook-xsl 1.71.0 -->
+<!-- Othercredits contributions inline -->
+<xsl:param name="contrib.inline.enabled">1</xsl:param>
+<!-- Same style for othercredits as authors style -->
+<xsl:param name="othercredit.like.author.enabled">1</xsl:param>
 </xsl:stylesheet>
