@@ -78,7 +78,7 @@ install-gnome-2.4-appreg:
 
 install-icon:
 	$(INSTALL_DIR) $(DESTDIR)$(ICONPATH)
-	$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-application-bluefish-project.png
+	$(INSTALL_DATA) gnome-application-bluefish.png $(DESTDIR)$(ICONPATH)/gnome-mime-application-bluefish-project.png
 
 install: all $(INSTALLDATA)
 	$(INSTALL_DIR) $(DESTDIR)$(pkgdatadir)
