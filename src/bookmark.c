@@ -1436,6 +1436,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 															 buttons,
 															 _("Bookmarks positions could be incorrect. Delete bookmarks?"),
 															 str);
+				g_free(str);
 				if (retval==1) {
 					bmark_del_for_document(bfwin, doc);
 				} else {
