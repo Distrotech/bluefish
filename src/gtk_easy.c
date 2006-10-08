@@ -1339,7 +1339,7 @@ GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfw
 
 #ifdef HAVE_ATLEAST_GTK_2_4
 
-static void file_chooser_set_current_dir(GtkWidget *dialog, gchar *dir) {
+static void file_chooser_set_current_dir(GtkWidget *dialog, const gchar *dir) {
 	if (dir) {
 		if (dir[0] == '/') gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(dialog),dir);
 		else gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),dir);
@@ -1374,7 +1374,8 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 			DEBUG_MSG("file_chooser_dialog, opendir=%s, savedir=%s\n",bfwin->session->opendir,bfwin->session->savedir);
 			if (bfwin->session->savedir) file_chooser_set_current_dir(dialog,bfwin->session->savedir);
 			else if (bfwin->session->opendir) file_chooser_set_current_dir(dialog,bfwin->session->opendir);
-			else if (bfwin->project->basedir) file_chooser_set_current_dir(dialog, bfwin->project->basedir);
+			else if (bfwin->project && bfwin->project->basedir) file_chooser_set_current_dir(dialog, bfwin->project->basedir);
+			else file_chooser_set_current_dir(dialog, g_get_home_dir());
 		} else {
 			DEBUG_MSG("file_chooser_dialog, opendir=%s\n",bfwin->session->opendir);
 			file_chooser_set_current_dir(dialog,bfwin->session->opendir);
