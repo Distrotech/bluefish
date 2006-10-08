@@ -250,6 +250,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	
 	DEBUG_MSG("project_save, saving project %p to file %s\n",bfwin->project,bfwin->project->filename);
 	retval = rcfile_save_project(bfwin->project, bfwin->project->filename);
+	DEBUG_MSG("project_save, retval=%d\n",retval);
 	add_to_recent_list(bfwin,bfwin->project->filename, FALSE, TRUE);
 	return retval;
 }

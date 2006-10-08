@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 /*
  * This module deals with the GUI dialog used in bluefish to manage
@@ -803,7 +803,8 @@ GList *get_stringlist(const gchar * filename, GList * which_list) {
  * Return value: #gboolean TRUE on success, FALSE on failure
  */
 gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxentries) {
-	FILE *fd;
+	GnomeVFSResult result;
+	GnomeVFSHandle *handle=NULL;
 	GList *tmplist;
 
 	DEBUG_MSG("put_stringlist_limited, started with filename=%s\n", filename);
@@ -814,8 +815,8 @@ gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxen
 	}*/
 
 	DEBUG_MSG("put_stringlist_limited, opening %s for saving list(%p)\n", filename, which_list);
-	fd = fopen(filename, "w");
-	if (fd == NULL) {
+	result = gnome_vfs_open(&handle,filename,GNOME_VFS_OPEN_WRITE);
+	if (result != GNOME_VFS_OK) {
 		return FALSE;
 	}
 	if (maxentries > 0) {
@@ -826,14 +827,15 @@ gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxen
 		tmplist = g_list_first(which_list);
 	}
 	while (tmplist) {
+		GnomeVFSFileSize bytes_written=0;
 		gchar *tmpstr = g_strndup((char *) tmplist->data, STRING_MAX_SIZE - 1);
 		DEBUG_MSG("put_stringlist_limited, tmplist(%p), adding string(%p)=%s (strlen=%d)the file\n", tmplist, tmpstr, tmpstr, strlen(tmpstr));
-		fputs(tmpstr, fd);
+		result = gnome_vfs_write(handle,tmpstr,strlen(tmpstr),&bytes_written);
 		g_free(tmpstr);
-		fputs("\n", fd);
+		result = gnome_vfs_write(handle,"\n",1,&bytes_written);
 		tmplist = g_list_next(tmplist);
 	}
-	fclose(fd);
+	result = gnome_vfs_close(handle);
 	DEBUG_MSG("put_stringlist_limited, finished, filedescriptor closed\n");
 	return TRUE;
 }
