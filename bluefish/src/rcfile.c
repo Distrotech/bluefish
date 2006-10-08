@@ -60,7 +60,7 @@
  * 
  */
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <sys/stat.h>
@@ -233,7 +233,7 @@ static gint save_config_file(GList * config_list, gchar * filename)
 				tmplist2 = g_list_previous(tmplist2);
 				max--;
 #ifdef DEBUG
-				if (max ==0 && tmplist2 != NULL) DEBUG_MSG("save_config_file, limit reached!, next item would have been %s\n",tmplist2->data);
+				if (max ==0 && tmplist2 != NULL) DEBUG_MSG("save_config_file, limit reached!, next item would have been %s\n",(gchar *)tmplist2->data);
 #endif
 			}
 			} break;
