@@ -246,6 +246,11 @@ if pkg-config gtk+-2.0 --atleast-version=2.8 ; then
 	AC_DEFINE(HAVE_ATLEAST_GTK_2_8)
 fi
 
+if pkg-config gtk+-2.0 --atleast-version=2.10 ; then
+	echo "gtk+ version >= 2.10 ... good"
+	AC_DEFINE(HAVE_ATLEAST_GTK_2_10)
+fi
+
 echo -n "checking for gmodule >= 2.6... "
 if pkg-config gmodule-2.0 --atleast-version=2.6 ; then
 	echo "yes"
