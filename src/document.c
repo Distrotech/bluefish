@@ -2877,7 +2877,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
 		gtk_widget_show_all(hbox);
 		gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->notebook), scroll ,hbox, newdoc->tab_menu);
-#ifdef HAVE_ATLEAST_GTK_2_10		
+#if GTK_CHECK_VERSION(2,10,0)
 		gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(bfwin->notebook), scroll, TRUE);
 #endif
 	}
