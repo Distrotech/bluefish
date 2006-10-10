@@ -328,7 +328,7 @@ static void bmark_store(Tbfwin * bfwin, Tbmark * b) {
 	strarr[0] = g_strdup(b->name);
 	strarr[1] = g_strdup(b->description);
 
-	if (b->doc) b->len = b->doc->fileinfo->size;
+	if (b->doc) b->len = gtk_text_buffer_get_char_count(b->doc->buffer);
 	
 	strarr[3] = g_strdup_printf("%d", b->offset);
 	DEBUG_MSG("bmark_store, offset string=%s, offset int=%d\n",strarr[3],b->offset);
@@ -953,7 +953,7 @@ void bmark_clean_for_doc(Tdocument * doc) {
 			bmark_update_offset_from_textmark(b);
 			DEBUG_MSG("bmark_clean_for_doc, bookmark=%p, new offset=%d, now deleting GtkTextMark from TextBuffer\n",b,b->offset);
 			gtk_text_buffer_delete_mark(doc->buffer, b->mark);
-			if (doc->fileinfo) b->len = doc->fileinfo->size;
+			if (doc->fileinfo) b->len = gtk_text_buffer_get_char_count(doc->buffer);
 			b->mark = NULL;
 			b->doc = NULL;
 			if (!b->is_temp) {
@@ -1424,7 +1424,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 						   &mark, -1);
 		if (mark) {
 			glong size;
-			size = doc->fileinfo->size;
+			size = gtk_text_buffer_get_char_count(doc->buffer);
 			DEBUG_MSG("bmark_check_length, bmark has %d, file has %ld\n",mark->len, size);
 			if (mark->len != size) {
 				gint retval;
