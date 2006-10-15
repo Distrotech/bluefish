@@ -269,7 +269,7 @@ fi
 echo " done"
 # gnome-2.10 and gtk-2.6 were released with gnome_vfs 2.10
 echo -n "checking for gnome-vfs-2.0... "
-if pkg-config --exists gnome-vfs-2.0 --atleast-version=2.10 ; then
+if pkg-config gnome-vfs-2.0 --atleast-version=2.10 ; then
 	PKGCONFIGFILES="${PKGCONFIGFILES} gnome-vfs-2.0"
 	echo "yes, `pkg-config --modversion gnome-vfs-2.0`"
 	BF_APP_EXPECT_URIS="true"
