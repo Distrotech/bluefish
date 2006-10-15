@@ -212,8 +212,7 @@ TOOLBAR = \
 #	wml_var wml_var.png
 
 GENERAL = \
-	pixmap_close_small close_small.png \
-	pixmap_edit_tag edit_tag.png
+	pixmap_close_small close_small.png
 
 all:
 	gdk-pixbuf-csource --raw --extern --build-list $(TOOLBAR_ENABLEPLUGINS) > toolbar_icons.c
