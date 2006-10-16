@@ -13,7 +13,8 @@ prefix = @prefix@
 exec_prefix = @exec_prefix@
 bindir = @bindir@
 pkgdatadir = @pkgdatadir@
-datadir = @datadir@
+datadir=@datadir@
+datarootdir = @datarootdir@
 localedir = $(datadir)/locale
 ALL_LINGUAS = @ALL_LINGUAS@
 
