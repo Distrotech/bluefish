@@ -108,7 +108,7 @@ install: all $(INSTALLDATA)
 	for file in $(FUNCREFFILES) ; do \
 		$(INSTALL_DATA) $$file $(DESTDIR)$(pkgdatadir) ;\
 	done
-	xmlcatalog --noout --add 'rewriteURI'  'http://bluefish.openoffice.nl/DTD' '$(DESTDIR)$(pkgdatadir)' /etc/xml/catalog
+	xmlcatalog --noout --add 'rewriteURI' 'http://bluefish.openoffice.nl/DTD' '$(pkgdatadir)' /etc/xml/catalog
 
 uninstall:
 	rm -f $(DESTDIR)$(FDMIME)/packages/$(PACKAGE).xml
