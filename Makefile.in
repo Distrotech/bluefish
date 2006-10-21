@@ -1,6 +1,6 @@
 # Bluefish HTML Editor
 # Makefile.in - the Makefile template
-# Copyright (C) 2002 Olivier Sessink
+# Copyright (C) 2002-2006 Olivier Sessink
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@ prefix=@prefix@
 exec_prefix=@exec_prefix@
 bindir=@bindir@
 datadir=@datadir@
+datarootdir = @datarootdir@
 pkgdatadir=$(datadir)/$(PACKAGE)
 pixmapsdir=@prefix@/share/pixmaps
 
@@ -100,4 +101,3 @@ uninstall:
 	rm -f $(pkgdatadir)/bluefish_splash.png
 	rm -f $(iconpath)/bluefish-icon.png
 	/bin/rmdir $(DESTDIR)$(pkgdatadir)
-

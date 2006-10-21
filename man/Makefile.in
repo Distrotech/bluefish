@@ -1,6 +1,6 @@
 # Bluefish HTML Editor
 # Makefile.in - the Makefile template
-# Copyright (C) 2005 Bluefish Development Team
+# Copyright (C) 2005-2006 Bluefish Development Team
 # 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -18,6 +18,8 @@
 
 prefix=@prefix@
 exec_prefix=@exec_prefix@
+datadir = @datadir@
+datarootdir = @datarootdir@
 mandir = @mandir@
 
 INSTALL = @INSTALL@
