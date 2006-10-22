@@ -1,6 +1,38 @@
-2006-09-27  Michèle Garoche <michele.garoche@easyconnect.fr>
+2006-10-21  Jim Hayward <jim@bluefish.openoffice.nl>
 
-	* README, NEWS: Fix some typos.
+	* images/bluefish_splash.png: Update to 1.0.7
+
+2006-10-21  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* Makefile.in, data/Makefile.in, icons/Makefile.in,
+	  man/Makefile.in, po/Makefile.in, src/Makefile.in: Add datarootdir
+	  to all Makefile.in to avoid warnings with autoconf 2.60
+
+2006-10-09  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* configure.ac: Post-release version bump.
+
+2006-10-08  Jim Hayward <jim@bluefish.openoffice.nl>
+
+	* src/: gtk_easy.c, rcfile.c: Fix a bug when trying to save a file
+	  with a new install and a file has never been opened or a project
+	  is not open.
+
+2006-10-02  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/Makefile.in, data/bluefish.keys, redhat/bluefish.spec: Fix
+	  application/bluefish-project MIME type icon name. Update the
+	  RedHat spec file too. Thanks to Matthias Haase for discovering
+	  the icon issue and the updated spec file.
+
+2006-10-01  Daniel Leidert <daniel.leidert.spam@gmx.net>
+
+	* data/bluefish.keys: Fix the name of the icon associated with the
+	  application/bluefish-project MIME type.
+
+2006-09-26  Michèle Garoche <michele.garoche@easyconnect.fr>
+
+	* ChangeLog, NEWS, README: Fixes some typos in NEWS and README
 
 2006-09-26  Michèle Garoche <michele.garoche@easyconnect.fr>
 
