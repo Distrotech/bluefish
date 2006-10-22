@@ -61,7 +61,7 @@ Developers for this release:\n\
   Olivier Sessink\n\
    <olivier@bluefish.openoffice.nl>\n\
   Jim Hayward\n\
-   <jimhayward@linuxexperience.net>\n\
+   <jim@bluefish.openoffice.nl>\n\
   Daniel Leidert\n\
    <daniel.leidert@wgdd.de>\n\
   Oskar Świda\n\
