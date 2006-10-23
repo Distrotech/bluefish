@@ -98,7 +98,7 @@ uninstall:
 	rm -f $(GNOME1MENU)/bluefish.desktop
 	rm -f $(FDMENU)/bluefish.desktop
 	rm -f $(FDMENU)/bluefish-project.desktop
-	rm -f $(ICONPATH)/gnome-application-bluefish-project.png
+	rm -f $(ICONPATH)/gnome-mime-application-bluefish-project.png
 	@for file in $(DEFAULTFILES) ; do \
 		rm -f $(pkgdatadir)$$file ;\
 	done
