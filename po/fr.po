@@ -8,10 +8,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 1.0.6\n"
+"Project-Id-Version: bluefish 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-05 21:29+0200\n"
-"PO-Revision-Date: 2006-08-25 15:47+0100\n"
+"POT-Creation-Date: 2006-10-23 08:46+0200\n"
+"PO-Revision-Date: 2006-10-23 08:47+0100\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,7 @@ msgstr ""
 "Cette version de Bluefish a été compilée avec les options suivantes :\n"
 
 #: ../src/about.c:57
+#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -50,7 +51,7 @@ msgid ""
 "  Olivier Sessink\n"
 "   <olivier@bluefish.openoffice.nl>\n"
 "  Jim Hayward\n"
-"   <jimhayward@linuxexperience.net>\n"
+"   <jim@bluefish.openoffice.nl>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
 "  Oskar Świda\n"
@@ -119,7 +120,7 @@ msgstr ""
 "  Olivier Sessink\n"
 "   <olivier@bluefish.openoffice.nl>\n"
 "  Jim Hayward\n"
-"   <jimhayward@linuxexperience.net>\n"
+"   <jim@bluefish.openoffice.nl>\n"
 "  Daniel Leidert\n"
 "   <daniel.leidert@wgdd.de>\n"
 "  Oskar Świda\n"
@@ -971,7 +972,7 @@ msgstr "Ouvrir une URL"
 msgid "<b>Open URL</b>"
 msgstr "<b>Ouvrir une URL</b>"
 
-#: ../src/document.c:3698 ../src/gtk_easy.c:1627
+#: ../src/document.c:3698 ../src/gtk_easy.c:1628
 msgid "Select files"
 msgstr "Sélectionner des fichiers"
 
@@ -1009,98 +1010,98 @@ msgstr "Certains fichiers ont été modifiés."
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Statistiques : %d lignes, %d mots, %d caractères"
 
-#: ../src/filebrowser.c:1063
+#: ../src/filebrowser.c:1025
 msgid "Error creating path"
 msgstr "Erreur de création du chemin"
 
-#: ../src/filebrowser.c:1063
+#: ../src/filebrowser.c:1025
 msgid "The specified pathname already exists."
 msgstr "Le chemin de fichier spécifié existe déjà."
 
-#: ../src/filebrowser.c:1133
+#: ../src/filebrowser.c:1095
 msgid "File name"
 msgstr "Nom du fichier"
 
-#: ../src/filebrowser.c:1135
+#: ../src/filebrowser.c:1097
 msgid "Directory name"
 msgstr "Nom du répertoire"
 
-#: ../src/filebrowser.c:1166
+#: ../src/filebrowser.c:1128
 msgid "Opening directory..."
 msgstr "Ouverture du répertoire en cours..."
 
-#: ../src/filebrowser.c:1255 ../src/filebrowser.c:1259
+#: ../src/filebrowser.c:1217 ../src/filebrowser.c:1221
 msgid "Could not rename\n"
 msgstr "Impossible de renommer le fichier\n"
 
-#: ../src/filebrowser.c:1302
+#: ../src/filebrowser.c:1264
 #, c-format
 msgid "Are you sure you want to delete \"%s\" ?"
 msgstr ""
 "Êtes-vous certain(e) de vouloir\n"
 "supprimer \"%s\" ?"
 
-#: ../src/filebrowser.c:1303
+#: ../src/filebrowser.c:1265
 msgid "If you delete this file, it will be permanently lost."
 msgstr "Le fichier sera définitivement effacé."
 
-#: ../src/filebrowser.c:1312 ../src/filebrowser.c:1316
+#: ../src/filebrowser.c:1274 ../src/filebrowser.c:1278
 msgid "Could not delete \n"
 msgstr "Impossible d'effacer le fichier\n"
 
-#: ../src/filebrowser.c:1455
+#: ../src/filebrowser.c:1417
 msgid "/Open _Advanced..."
 msgstr "/P_aramétrer l'ouverture..."
 
-#: ../src/filebrowser.c:1459
+#: ../src/filebrowser.c:1421
 msgid "/_Refresh"
 msgstr "/Actualise_r"
 
-#: ../src/filebrowser.c:1460
+#: ../src/filebrowser.c:1422
 msgid "/_Set as basedir"
 msgstr "/_Sélectionner comme répertoire de travail"
 
-#: ../src/filebrowser.c:1464
+#: ../src/filebrowser.c:1426
 msgid "/New _File"
 msgstr "/Créer un _fichier"
 
-#: ../src/filebrowser.c:1465
+#: ../src/filebrowser.c:1427
 msgid "/_New Directory"
 msgstr "/Créer u_n répertoire"
 
-#: ../src/filebrowser.c:1470
+#: ../src/filebrowser.c:1432
 msgid "/_Open"
 msgstr "/_Ouvrir un fichier"
 
-#: ../src/filebrowser.c:1471
+#: ../src/filebrowser.c:1433
 msgid "/Rena_me"
 msgstr "/Reno_mmer"
 
-#: ../src/filebrowser.c:1472
+#: ../src/filebrowser.c:1434
 msgid "/_Delete"
 msgstr "/_Supprimer"
 
-#: ../src/filebrowser.c:1494
+#: ../src/filebrowser.c:1456
 msgid "Show hidden files"
 msgstr "Afficher les fichiers cachés"
 
-#: ../src/filebrowser.c:1499
+#: ../src/filebrowser.c:1461
 msgid "Show backup files"
 msgstr "Afficher les fichiers de sauvegarde"
 
-#: ../src/filebrowser.c:1505
+#: ../src/filebrowser.c:1467
 msgid "Filter"
 msgstr "Filtre"
 
-#: ../src/filebrowser.c:1705 ../src/gtk_easy.c:1408
+#: ../src/filebrowser.c:1667 ../src/gtk_easy.c:1409
 msgid "All files"
 msgstr "Tous les fichiers"
 
-#: ../src/filebrowser.c:1977
+#: ../src/filebrowser.c:1939
 msgid "Show full tree"
 msgstr "Afficher toute l'arborescence"
 
-#: ../src/filebrowser.c:1978
+#: ../src/filebrowser.c:1940
 msgid "Follow focus"
 msgstr "Suivre le focus"
 
@@ -1181,7 +1182,7 @@ msgstr "%d sur %d"
 msgid "Select File"
 msgstr "Sélectionner un fichier"
 
-#: ../src/gtk_easy.c:1600
+#: ../src/gtk_easy.c:1601
 msgid "Select file"
 msgstr "Sélectionner un fichier"
 
@@ -1686,55 +1687,6 @@ msgstr "compilation du second modèle '%s' : %s à la position %d"
 msgid "studying 2nd pattern '%s': %s"
 msgstr "vérification du second modèle '%s' : %s"
 
-#: ../src/html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "Dialogue des feuilles de style CSS"
-
-#: ../src/html2.c:578
-msgid "_Selector:"
-msgstr "_Sélecteur :"
-
-#: ../src/html2.c:597
-msgid "_Property:"
-msgstr "_Propriété :"
-
-#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
-#: ../src/html_form.c:894
-msgid "_Value:"
-msgstr "_Valeur :"
-
-#: ../src/html2.c:617
-msgid "Selector"
-msgstr "Sélecteur"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Property"
-msgstr "Propriété"
-
-#: ../src/html2.c:617 ../src/html2.c:620
-msgid "Value"
-msgstr "Valeur"
-
-#: ../src/html2.c:635
-msgid " _Add "
-msgstr " _Ajouter "
-
-#: ../src/html2.c:638
-msgid " _Update "
-msgstr " _Mettre à jour "
-
-#: ../src/html2.c:641
-msgid " _Delete "
-msgstr " _Supprimer "
-
-#: ../src/html2.c:897 ../src/html2.c:934
-msgid "_Style..."
-msgstr "_Style..."
-
-#: ../src/html2.c:1091
-msgid "Bluefish: Select color"
-msgstr "Bluefish : Sélection de couleurs"
-
 #: ../src/html.c:385
 msgid "Insert Time"
 msgstr "Insérer l'heure"
@@ -2149,6 +2101,55 @@ msgstr "L_angue :"
 #: ../src/html.c:2230
 msgid "_Custom:"
 msgstr "_Personnalisé :"
+
+#: ../src/html2.c:558
+msgid "Cascading StyleSheet dialog"
+msgstr "Dialogue des feuilles de style CSS"
+
+#: ../src/html2.c:578
+msgid "_Selector:"
+msgstr "_Sélecteur :"
+
+#: ../src/html2.c:597
+msgid "_Property:"
+msgstr "_Propriété :"
+
+#: ../src/html2.c:599 ../src/html_form.c:650 ../src/html_form.c:799
+#: ../src/html_form.c:894
+msgid "_Value:"
+msgstr "_Valeur :"
+
+#: ../src/html2.c:617
+msgid "Selector"
+msgstr "Sélecteur"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Property"
+msgstr "Propriété"
+
+#: ../src/html2.c:617 ../src/html2.c:620
+msgid "Value"
+msgstr "Valeur"
+
+#: ../src/html2.c:635
+msgid " _Add "
+msgstr " _Ajouter "
+
+#: ../src/html2.c:638
+msgid " _Update "
+msgstr " _Mettre à jour "
+
+#: ../src/html2.c:641
+msgid " _Delete "
+msgstr " _Supprimer "
+
+#: ../src/html2.c:897 ../src/html2.c:934
+msgid "_Style..."
+msgstr "_Style..."
+
+#: ../src/html2.c:1091
+msgid "Bluefish: Select color"
+msgstr "Bluefish : Sélection de couleurs"
 
 #: ../src/html_form.c:141
 msgid "Form"

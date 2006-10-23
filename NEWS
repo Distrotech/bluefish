@@ -1,5 +1,16 @@
 # Release changes
 
+Bluefish 1.0.7 (23 October 2006)
+---------------------------------
+
+- Updated translations: French.
+- Adds datarootdir to all Makefile.in to avoid warnings with autoconf 2.60
+- Fixes application/bluefish-project MIME type icon name
+- Fixes Tcl highlighting
+- Fixes a bug when trying to save a file with a new install and a file has
+  never been opened or a project is not open. Closes bug #360401.
+- README: more complete README
+
 Bluefish 1.0.6 (25 September 2006)
 ---------------------------------
 
