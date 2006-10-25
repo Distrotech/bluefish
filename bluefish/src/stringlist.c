@@ -807,16 +807,17 @@ gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxen
 	GnomeVFSHandle *handle=NULL;
 	GList *tmplist;
 
-	DEBUG_MSG("put_stringlist_limited, started with filename=%s\n", filename);
+	DEBUG_MSG("put_stringlist_limited, started with filename=%s, limit=%d\n", filename, maxentries);
 /*	{
 		gchar *backupfilename = g_strconcat(filename, main_v->props.backup_filestring,NULL);
 		file_copy(filename, backupfilename);
 		g_free(backupfilename);
 	}*/
 
-	DEBUG_MSG("put_stringlist_limited, opening %s for saving list(%p)\n", filename, which_list);
-	result = gnome_vfs_open(&handle,filename,GNOME_VFS_OPEN_WRITE);
+	DEBUG_MSG("put_stringlist_limited, opening %s for saving list(%p) with length %d\n", filename, which_list, g_list_length(which_list));
+	result = gnome_vfs_create(&handle,filename,GNOME_VFS_OPEN_WRITE,FALSE,0644);
 	if (result != GNOME_VFS_OK) {
+		DEBUG_MSG("put_stringlist_limited, failed to open file for writing: %s\n",gnome_vfs_result_to_string(result));
 		return FALSE;
 	}
 	if (maxentries > 0) {
