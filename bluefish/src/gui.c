@@ -292,6 +292,7 @@ void left_panel_rebuild(Tbfwin *bfwin) {
 }
 
 void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show, gboolean sync_menu) {
+	DEBUG_MSG("left_panel_show_hide_toggle, bfwin=%p, first_time=%d, show=%d, sync_menu=%d\n",bfwin,first_time,show,sync_menu);
 	if (sync_menu) {
 		DEBUG_MSG("left_panel_show_hide_toggle, trying to sync menu\n");
 		setup_toggle_item_from_widget(bfwin->menubar, "/View/View Sidebar", show);

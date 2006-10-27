@@ -24,7 +24,6 @@
 void fb2_refresh_dir_from_uri(GnomeVFSURI *dir);
 void fb2_refresh_parent_of_uri(GnomeVFSURI *child_uri);
 void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc);
-void fb2_set_basedir(Tbfwin *bfwin, gchar *curi);
 void fb2_update_settings_from_session(Tbfwin *bfwin);
 GtkWidget *fb2_init(Tbfwin *bfwin);
 void fb2_cleanup(Tbfwin *bfwin);

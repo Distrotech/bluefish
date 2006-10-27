@@ -299,7 +299,7 @@ static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIt
 static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,GList *list,guint entries_read,gpointer data) {
 	GList *tmplist;
 	Turi_in_refresh *uir = data;
-	DEBUG_MSG("fb2_load_directory_lcb, result=%d, appending %d childs to ",result,entries_read);
+	DEBUG_MSG("fb2_load_directory_lcb, result=%d (%s), appending %d childs to ",result,gnome_vfs_result_to_string(result),entries_read);
 	DEBUG_URI(uir->p_uri, TRUE);
 	tmplist = g_list_first(list);
 	while (tmplist) {
@@ -319,6 +319,7 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 		fb2_treestore_delete_children_refresh1(FB2CONFIG(main_v->fb2config)->filesystem_tstore, uir->parent);
 		FB2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_remove(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
 		fb2_uri_in_refresh_cleanup(uir);
+		
 	} 
 }
 
@@ -1623,9 +1624,11 @@ static void fb2_set_basedir_backend(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 #endif
 	}
 	basepath = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), iter);
-	refilter_dirlist(fb2, basepath);
-	gtk_tree_path_free(basepath);
-	fb2_focus_dir(fb2, fb2->basedir, FALSE);
+	if (basepath) {
+		refilter_dirlist(fb2, basepath);
+		gtk_tree_path_free(basepath);
+		fb2_focus_dir(fb2, fb2->basedir, FALSE);
+	}
 }
 
 /**
@@ -1781,17 +1784,32 @@ static void fb2_dir_v_drag_data_received(GtkWidget * widget, GdkDragContext * co
 
 void fb2_update_settings_from_session(Tbfwin *bfwin) {
 	if (bfwin->fb2) {
+		gboolean need_refilter=FALSE;
 		Tfilebrowser2 *fb2 = bfwin->fb2;
+		DEBUG_MSG("fb2_update_settings_from_session, started, bfwin=%p, fb2=%p\n",bfwin,fb2);
 		if (bfwin->session->last_filefilter) {
-			fb2->curfilter = find_filter_by_name(bfwin->session->last_filefilter);
+			Tfilter *newfilter = find_filter_by_name(bfwin->session->last_filefilter);
+			if (!(newfilter == fb2->curfilter || strcmp(newfilter->name, fb2->curfilter->name)==0)) {
+				fb2->curfilter = newfilter;
+				need_refilter = TRUE;
+			} 
 		}
-		fb2->filebrowser_show_hidden_files = bfwin->session->filebrowser_show_hidden_files;
-		fb2->filebrowser_show_backup_files = bfwin->session->filebrowser_show_backup_files;
-		if (fb2->dir_tfilter) gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
-		if (fb2->file_lfilter) gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
+		if (fb2->filebrowser_show_hidden_files != bfwin->session->filebrowser_show_hidden_files) {
+			fb2->filebrowser_show_hidden_files = bfwin->session->filebrowser_show_hidden_files;
+			need_refilter = TRUE;
+		}
+		if(fb2->filebrowser_show_backup_files != bfwin->session->filebrowser_show_backup_files) {
+			fb2->filebrowser_show_backup_files = bfwin->session->filebrowser_show_backup_files;
+			need_refilter = TRUE;
+		}
+		if (need_refilter) {
+			if (fb2->dir_tfilter) gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
+			if (fb2->file_lfilter) gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
+		}
 		if (bfwin->session->recent_dirs 
 					&& ((GList *)g_list_first(bfwin->session->recent_dirs))->data 
 					&& strlen(((GList *)g_list_first(bfwin->session->recent_dirs))->data)>0) {
+			/* the fb2_set_basedir function tests itself if  the basedir if changed, if not it does not refresh */
 			fb2_set_basedir(bfwin, ((GList *)g_list_first(bfwin->session->recent_dirs))->data);
 		} else if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>0) {
 			fb2_set_basedir(bfwin, bfwin->project->basedir);
