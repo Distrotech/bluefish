@@ -256,8 +256,9 @@ static gint save_config_file(GList * config_list, gchar * filename)
 		tmplist = g_list_next(tmplist);
 
 	}
-
+	DEBUG_MSG("save_config_file, will save list with len %d to file %s\n",g_list_length(rclist),filename);
 	put_stringlist(filename, rclist);
+	/* BUG: use the return value to check if the file was stored successfully! */
 	free_stringlist(rclist);
 	return 1;
 }
