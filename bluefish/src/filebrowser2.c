@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -1789,7 +1789,8 @@ void fb2_update_settings_from_session(Tbfwin *bfwin) {
 		DEBUG_MSG("fb2_update_settings_from_session, started, bfwin=%p, fb2=%p\n",bfwin,fb2);
 		if (bfwin->session->last_filefilter) {
 			Tfilter *newfilter = find_filter_by_name(bfwin->session->last_filefilter);
-			if (!(newfilter == fb2->curfilter || strcmp(newfilter->name, fb2->curfilter->name)==0)) {
+			if (fb2->curfilter == NULL 
+			        || !(newfilter == fb2->curfilter || strcmp(newfilter->name, fb2->curfilter->name)==0)) {
 				fb2->curfilter = newfilter;
 				need_refilter = TRUE;
 			} 
