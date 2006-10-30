@@ -490,8 +490,11 @@ static void bmark_popup_menu_goto(Tbfwin *bfwin) {
 /* 
  * removes the bookmark from the treestore, and if it is the last remaining bookmark
  * for the document, it will remove the parent iter (the filename) from the treestore as well
+ *
+ * if the parent is not removed it will return TRUE
+ * if the parent is removed, it will return FALSE
  */
-static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
+static gboolean bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 	GtkTreeIter parent;
 	GtkTextIter it;
 	
@@ -517,6 +520,7 @@ static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 				g_free(ptr);
 				if (b->doc) b->doc->bmark_parent = NULL;
 			}
+			return FALSE;
 		}
 	}
 #ifdef DEVELOPMENT	
@@ -529,16 +533,19 @@ static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 	}
 #endif
   	DEBUG_MSG("bmark_check_remove, finished\n");
+  	return TRUE;
 }
 
+/* *parent should be a valid GtkTreeIter pointing to a filename.  */
 static void bmark_del_children_backend(Tbfwin *bfwin, GtkTreeIter *parent) {
 	GtkTreeIter tmpiter;
-	while (gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter, parent)) {
+	gboolean have_parent = TRUE;
+	while (have_parent && gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter, parent)) {
 		Tbmark *b;
 		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter, PTR_COLUMN,&b,-1);
 		if (b) {
 			DEBUG_MSG("bmark_del_children_backend, found b=%p\n",b);
-			bmark_check_remove(bfwin,b);
+			have_parent = bmark_check_remove(bfwin,b);
 			if (!b->is_temp)
 				bmark_unstore(bfwin, b);
 			bmark_free(b);
