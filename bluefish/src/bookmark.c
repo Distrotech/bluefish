@@ -2,7 +2,7 @@
  * bookmark.c - bookmarks
  *
  * Copyright (C) 2003 Oskar Swida
- * modifications (C) 2004 Olivier Sessink
+ * modifications (C) 2004-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -508,8 +508,11 @@ static void bmark_popup_menu_goto_lcb(GtkWidget * widget, gpointer user_data)
 /* 
  * removes the bookmark from the treestore, and if it is the last remaining bookmark
  * for the document, it will remove the parent iter (the filename) from the treestore as well
+ *
+ * if the parent is not removed it will return TRUE
+ * if the parent is removed, it will return FALSE
  */
-static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
+static gboolean bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 	GtkTreeIter parent;
 	if (gtk_tree_model_iter_parent(GTK_TREE_MODEL(bfwin->bookmarkstore),&parent,&b->iter)) {
 		gint numchild = gtk_tree_model_iter_n_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &parent);
@@ -527,6 +530,7 @@ static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 				g_free(ptr);
 				if (b->doc) b->doc->bmark_parent = NULL;
 			}
+			return FALSE;
 		}
 	} else {
 		gchar *name;
@@ -563,16 +567,18 @@ static void bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 		if (b->doc) b->doc->bmark_parent = NULL;
   	}*/
   	DEBUG_MSG("bmark_check_remove, finished\n");
+  	return TRUE;
 }
 
+/* *parent should be a valid GtkTreeIter pointing to a filename.  */
 static void bmark_del_children_backend(Tbfwin *bfwin, GtkTreeIter *parent) {
 	GtkTreeIter tmpiter;
-	while (gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, parent)) {
-		Tbmark *b;
+    gboolean have_parent = TRUE;
+    while (have_parent && gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, parent)) {		Tbmark *b;
 		gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, PTR_COLUMN,&b,-1);
 		if (b) {
 			DEBUG_MSG("bmark_del_children_backend, found b=%p\n",b);
-			bmark_check_remove(bfwin,b);
+			have_parent = bmark_check_remove(bfwin,b);
 			if (!b->is_temp)
 				bmark_unstore(bfwin, b);
 			bmark_free(b);
@@ -1414,6 +1420,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 				gchar *str;
 				str = g_strconcat(_("File size changed in file\n"),doc->filename,NULL);
 				ret = multi_query_dialog(bfwin->main_window,_("Bookmarks positions could be incorrect. Delete bookmarks?"), str, 0, 0, btns);
+				g_free (str);
 				if (ret==1) {
 					bmark_del_for_document(bfwin, doc);
 				}
