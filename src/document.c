@@ -627,7 +627,7 @@ void doc_move_to_window(Tdocument *doc, Tbfwin *newwin) {
 	Tbfwin *oldwin = BFWIN(doc->bfwin);
 	GtkWidget *tab_widget, *scroll;
 	DEBUG_MSG("doc_move_to_window, oldwin=%p, newwin=%p, doc=%p\n",oldwin,newwin,doc);
-	tab_widget = doc->tab_label->parent;
+	tab_widget = doc->tab_eventbox->parent;
 	scroll = doc->view->parent;
 	gtk_widget_ref(scroll);
 	gtk_widget_ref(tab_widget);
