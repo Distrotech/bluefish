@@ -760,6 +760,7 @@ typedef struct {
 	Tbfwin *bfwin;
 	Tdocument *doc;
 	GnomeVFSURI *uri;
+	gboolean readonly;
 } Tfile2doc;
 
 static void file2doc_cleanup(Tfile2doc *f2d) {
@@ -931,14 +932,15 @@ void file_doc_fill_from_uri(Tdocument *doc, GnomeVFSURI *uri, GnomeVFSFileInfo *
 }
 
 /* this funcion is usually used to load documents */
-void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line, gint goto_offset) {
+void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line, gint goto_offset, gboolean readonly) {
 	Tfile2doc *f2d;
 	f2d = g_new(Tfile2doc,1);
 	DEBUG_MSG("file_doc_from_uri, open %s, f2d=%p\n", gnome_vfs_uri_get_path(uri), f2d);
 	f2d->bfwin = bfwin;
 	f2d->uri = uri;
+	f2d->readonly = readonly;
 	gnome_vfs_uri_ref(uri);
-	f2d->doc = doc_new_loading_in_background(bfwin, uri, finfo);
+	f2d->doc = doc_new_loading_in_background(bfwin, uri, finfo, readonly);
 	f2d->doc->action.load = f2d;
 	f2d->doc->action.goto_line = goto_line;
 	f2d->doc->action.goto_offset = goto_offset;
@@ -1032,7 +1034,7 @@ static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info,
 				f2d->uri = oau->uri;
 				gnome_vfs_uri_ref(oau->uri);
 				f2d->bfwin = oau->oa->bfwin;
-				f2d->doc = doc_new_loading_in_background(oau->oa->bfwin, oau->uri, oau->finfo);
+				f2d->doc = doc_new_loading_in_background(oau->oa->bfwin, oau->uri, oau->finfo, FALSE);
 				file2doc_lcb(status,error_info,buffer,buflen,f2d);
 			}
 			open_adv_open_uri_cleanup(data);

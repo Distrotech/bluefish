@@ -90,7 +90,7 @@ void document_set_show_blocks(Tdocument *doc, gboolean value);
 void document_set_show_symbols(Tdocument *doc, gboolean value);
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
 /* void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename); */
-Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo);
+Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gboolean readonly);
 void doc_new_from_uri(Tbfwin *bfwin, GnomeVFSURI *opturi, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset);
 void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gboolean move_to_this_win, gint goto_line);
 void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_win);

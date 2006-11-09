@@ -2761,7 +2761,7 @@ static void doc_view_drag_begin_lcb(GtkWidget *widget,GdkDragContext *drag_conte
 	}
 }
 
-static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
+static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly) {
 	GtkWidget *scroll;
 	Tdocument *newdoc;
 	
@@ -2774,10 +2774,12 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
 	
 	newdoc = g_new0(Tdocument, 1);
 	DEBUG_MSG("doc_new_backend, main_v is at %p, bfwin at %p, newdoc at %p\n", main_v, bfwin, newdoc);
+	newdoc->readonly = readonly;
 	newdoc->bfwin = (gpointer)bfwin;
 	newdoc->status = DOC_STATUS_COMPLETE; /* if we don't set this default we will get problems for new empty files */
 	newdoc->buffer = gtk_text_buffer_new(textstyle_return_tagtable());
 	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
+	g_object_set(G_OBJECT(newdoc->view), "editable", readonly, NULL);
 	/* set the default doc to be plain text for now.
        we should maybe add a default file type to preferences, projects, and/or session 
 	   or maybe a dialog asking the user what to create */
@@ -2895,8 +2897,8 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new) {
  *
  * creates a new document, which will be loaded in the background
  */
-Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo) {
-	Tdocument *doc = doc_new_backend(bfwin, FALSE);
+Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gboolean readonly) {
+	Tdocument *doc = doc_new_backend(bfwin, FALSE, readonly);
 	DEBUG_MSG("doc_new_loading_in_background, bfwin=%p, doc=%p, for uri %s\n",bfwin,doc,gnome_vfs_uri_get_path(uri));
 	if (finfo) {
 		doc->fileinfo = gnome_vfs_file_info_dup(finfo);
@@ -2921,7 +2923,7 @@ Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeV
  * Return value: a #Tdocument* pointer to the just created document.
  **/
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
-	Tdocument *doc = doc_new_backend(bfwin, TRUE);
+	Tdocument *doc = doc_new_backend(bfwin, TRUE, FALSE);
 	doc_set_status(doc, DOC_STATUS_COMPLETE);
 	DEBUG_MSG("doc_new, status=%d\n",doc->status);
 	if(!delay_activate) gtk_widget_show(doc->view); /* Delay _show() if neccessary */
@@ -2987,6 +2989,7 @@ void doc_new_from_uri(Tbfwin *bfwin, GnomeVFSURI *opturi, GnomeVFSFileInfo *finf
 	Tdocument *tmpdoc;
 	gchar *tmpcuri;
 	GnomeVFSURI *uri;
+	gboolean open_readonly=FALSE;
 	if (!bfwin || !opturi) {
 		return;
 	}
@@ -3003,6 +3006,7 @@ void doc_new_from_uri(Tbfwin *bfwin, GnomeVFSURI *opturi, GnomeVFSFileInfo *finf
 		if (move_to_this_win) {
 			/* we should aks the user if it is OK to move the document */
 			doc_move_to_window_dialog(tmpdoc, bfwin);
+			/* TODO: or open the document readonly */
 		} else if (!delay_activate) { /* switch to window, only if we should */
 			switch_to_document_by_pointer(BFWIN(tmpdoc->bfwin),tmpdoc);
 			if (bfwin != tmpdoc->bfwin) gtk_window_present(GTK_WINDOW(BFWIN(tmpdoc->bfwin)->main_window));
@@ -3014,7 +3018,7 @@ void doc_new_from_uri(Tbfwin *bfwin, GnomeVFSURI *opturi, GnomeVFSFileInfo *finf
 	} else { /* document is not yet opened */
 		if (!delay_activate)	bfwin->focus_next_new_doc = TRUE;
 		DEBUG_MSG("doc_new_from_uri, uri=%p, delay_activate=%d, focus_next_new_doc=%d\n",uri,delay_activate, bfwin->focus_next_new_doc);
-		file_doc_from_uri(bfwin, uri, finfo, goto_line, goto_offset);
+		file_doc_from_uri(bfwin, uri, finfo, goto_line, goto_offset, open_readonly);
 	}
 	add_filename_to_history(bfwin, tmpcuri);
 	session_set_opendir(bfwin, tmpcuri);
