@@ -156,6 +156,7 @@ typedef struct {
 	Tdocstatus status; /* can be DOC_STATUS_ERROR, DOC_STATUS_LOADING, DOC_STATUS_COMPLETE, DOC_CLOSING */
 	gchar *encoding;
 	gint modified;
+	gint readonly;
 	GnomeVFSFileInfo *fileinfo;
 	gint is_symlink; /* file is a symbolic link */
 	gulong del_txt_id; /* text delete signal */
