@@ -452,6 +452,19 @@ void gui_set_document_widgets(Tdocument *doc) {
 /*#ifndef USE_SCANNER	why did we not set the encoding and filetype with the scanner enabled????*/
 	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),doc->hl, doc->encoding);
 /*#endif	*/
+
+	/* we should also disable certain menu's if the document is readonly */
+	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/File/Save", !doc->readonly);
+	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/File/Insert...", !doc->readonly);
+	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/File/Rename...", !doc->readonly);
+	
+	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Cut", !doc->readonly);
+	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Paste", !doc->readonly);
+	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Replace...", !doc->readonly);
+	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Replace Again", !doc->readonly);
+	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Shift Right", !doc->readonly);
+	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Shift Left", !doc->readonly);
+
 }
 
 void gui_notebook_bind_signals(Tbfwin *bfwin) {
