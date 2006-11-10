@@ -797,8 +797,13 @@ typedef struct {
 
 static void doc_move_to_window_dialog_response_lcb(GtkDialog *dialog,gint response,gpointer user_data) {
 	Tdmwd *dmwd = (Tdmwd *)user_data;
-	if (response == GTK_RESPONSE_YES) {
+	if (response == 1) {
 		doc_move_to_window(dmwd->doc, dmwd->oldwin, dmwd->newwin);
+	} else if (response == 2) {
+		/* open readonly */
+		file_doc_from_uri(dmwd->newwin, dmwd->doc->uri, NULL, -1, -1, TRUE);
+	} else {
+		/* do not open */
 	}
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 	g_free(dmwd);
@@ -811,9 +816,10 @@ void doc_move_to_window_dialog(Tdocument *doc, Tbfwin *newwin) {
 	dmwd->newwin = newwin;
 	dmwd->oldwin = doc->bfwin;
 	dialog = gtk_message_dialog_new(GTK_WINDOW(newwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT
-			,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO
-			,_("Document %s is already open in another Bluefish window. Move it to this window?")
+			,GTK_MESSAGE_QUESTION,GTK_BUTTONS_NONE
+			,_("Document %s is already open in another Bluefish window.")
 			,gtk_label_get_text(GTK_LABEL(doc->tab_label)) );
+	gtk_dialog_add_buttons(GTK_DIALOG(dialog),_("Move to this window"),1,_("Open readonly"),2,_("Do not open"),3,NULL);
 	g_signal_connect(dialog, "response", G_CALLBACK(doc_move_to_window_dialog_response_lcb), dmwd);
 	gtk_widget_show_all(dialog);
 }
@@ -1192,7 +1198,10 @@ static void doc_set_statusbar_lncol(Tdocument *doc) {
 void doc_set_statusbar_insovr(Tdocument *doc)
 {
 	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0);
-	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0, (doc->overwrite_mode ? " OVR" : " INS"));
+	if (!doc->readonly)
+		gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0, (doc->overwrite_mode ? _(" OVR") : _(" INS")));
+	else
+		gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_insovr), 0, _(" RO"));
 }
 /**
  * doc_set_statusbar_editmode_encoding:
@@ -2779,7 +2788,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->status = DOC_STATUS_COMPLETE; /* if we don't set this default we will get problems for new empty files */
 	newdoc->buffer = gtk_text_buffer_new(textstyle_return_tagtable());
 	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
-	g_object_set(G_OBJECT(newdoc->view), "editable", readonly, NULL);
+	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
 	/* set the default doc to be plain text for now.
        we should maybe add a default file type to preferences, projects, and/or session 
 	   or maybe a dialog asking the user what to create */
@@ -2981,6 +2990,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
  * doc_new_from_uri:
  *
  * uri should be set !
+ * finfo may be NULL
  *
  * and goto_line and goto_offset should not BOTH be >= 0 (if so, offset is ignored)
  */
@@ -3005,6 +3015,7 @@ void doc_new_from_uri(Tbfwin *bfwin, GnomeVFSURI *opturi, GnomeVFSFileInfo *finf
 	if (tmpdoc) { /* document is already open */
 		if (move_to_this_win) {
 			/* we should aks the user if it is OK to move the document */
+			if (!delay_activate)	bfwin->focus_next_new_doc = TRUE;
 			doc_move_to_window_dialog(tmpdoc, bfwin);
 			/* TODO: or open the document readonly */
 		} else if (!delay_activate) { /* switch to window, only if we should */
