@@ -114,7 +114,7 @@ typedef struct {
 #define FILEBROWSER2(var) ((Tfilebrowser2 *)(var))
 static void refilter_filelist(Tfilebrowser2 *fb2, GtkTreePath *newroot);
 static GnomeVFSURI *fb2_uri_from_fspath(Tfilebrowser2 *fb2, GtkTreePath *fs_path);
-
+static void fb2_set_basedir_backend(Tfilebrowser2 *fb2, GnomeVFSURI *uri);
 /**************/
 
 void DEBUG_URI(const GnomeVFSURI *uri, gboolean newline) {
@@ -526,6 +526,11 @@ static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri, gboolean noselec
 		return;
 	}
 	gnome_vfs_uri_ref(uri);
+	if (fb2->basedir) {
+		if (!gnome_vfs_uri_is_parent(fb2->basedir,uri,TRUE)) {
+			fb2_set_basedir_backend(fb2,NULL);
+		}
+	}	
 	dir = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
 	DEBUG_MSG("fb2_focus_dir, fb2=%p\n",fb2);
 	if (!dir) {
@@ -660,7 +665,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 	} else { /* directory */
 		if (fb2->basedir) {
 			/* show only our basedir on the root level, no other directories at that level */
-			if (!gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE) && !gnome_vfs_uri_equal(fb2->basedir, uri)) {
+			if (!gnome_vfs_uri_is_parent(fb2			->basedir, uri, TRUE) && !gnome_vfs_uri_equal(fb2->basedir, uri)) {
 #ifdef DEBUG1
 				DEBUG_MSG("tree_model_filter_func, not showing because is_parent=%d, equal=%d, for ",gnome_vfs_uri_is_parent(fb2->basedir,uri,TRUE),gnome_vfs_uri_equal(fb2->basedir,uri));
 				DEBUG_URI(uri,FALSE);
@@ -1599,8 +1604,9 @@ static void dir_v_selection_changed_lcb(GtkTreeSelection *treeselection,Tfilebro
 	}
 }
 
+/* use NULL to unset the basedir */
 static void fb2_set_basedir_backend(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
-	GtkTreePath *basepath;
+	GtkTreePath *basepath=NULL;
 	GtkTreeIter *iter;
 	
 	if (uri && fb2->basedir && (fb2->basedir == uri || gnome_vfs_uri_equal(fb2->basedir, uri))) {
@@ -1612,23 +1618,24 @@ static void fb2_set_basedir_backend(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	fb2->file_lfilter = NULL; /* this is required, because the refilter_filelist function tries to check if the virtual root did change for the file filter */
 	DEBUG_MSG("fb2_set_basedir_backend, disconnected current filter/sort models, lfilter=%p\n",fb2->file_lfilter);
 	
-	iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
-	if (!iter) {
-		fb2_build_dir(uri);
+	if (uri) {
 		iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
-#ifdef DEVELOPMENT
 		if (!iter) {
-			g_print("fb2_set_basedir_backend, uri should have been added, but does not exist in hashtable???\n");
-			exit(222);
-		}
+			fb2_build_dir(uri);
+			iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, uri);
+#ifdef DEVELOPMENT
+			if (!iter) {
+				g_print("fb2_set_basedir_backend, uri should have been added, but does not exist in hashtable???\n");
+				exit(222);
+			}
 #endif
+		}
+		basepath = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), iter);
 	}
-	basepath = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), iter);
-	if (basepath) {
-		refilter_dirlist(fb2, basepath);
-		gtk_tree_path_free(basepath);
-		fb2_focus_dir(fb2, fb2->basedir, FALSE);
-	}
+	refilter_dirlist(fb2, basepath);
+	if (basepath) gtk_tree_path_free(basepath);
+	fb2_focus_dir(fb2, fb2->basedir, FALSE);
+
 }
 
 /**
