@@ -21,6 +21,6 @@
 #ifndef __ABOUT_H_
 #define __ABOUT_H_
 
-void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * widget);
+void about_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget *widget);
 
 #endif							/* __ABOUT_H_  */

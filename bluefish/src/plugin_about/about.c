@@ -56,8 +56,7 @@ static void about_activate_url(GtkAboutDialog *about, const gchar *url, gpointer
 	bluefish_url_show(url);
 }
 
-static void about_dialog_create(gpointer * data, guint * callback_action, GtkWidget * widget) {
-	static GtkWidget *about = NULL;
+static void about_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget *widget) {
 	GdkPixbuf *logo;
 	
 	const gchar *artists[] = {
@@ -161,28 +160,22 @@ static void about_dialog_create(gpointer * data, guint * callback_action, GtkWid
 			g_error_free(error);
 		}
 	}
-	
-	/* use gnome_vfs_url_show() in activate_url() */
+
 	gtk_about_dialog_set_url_hook(about_activate_url, NULL, NULL);
-	/* gtk_about_dialog_set_email_hook(); */
 
-	about = g_object_new (GTK_TYPE_ABOUT_DIALOG,
-			"logo", logo,
-			"name", PACKAGE,
-			"version", VERSION,
-			"comments", comments,
-			"copyright", copyright,
-			"license", license,
-			"website", "http://bluefish.openoffice.nl",
-			"authors", authors,
-			"artists", artists,
-			"documenters", documenters,
-			"translator_credits", translator_credits,
-			NULL);
-
-	gtk_window_set_destroy_with_parent(GTK_WINDOW(about), TRUE);
-
-	gtk_window_present(GTK_WINDOW(about));
+	gtk_show_about_dialog (GTK_WINDOW (bfwin->main_window),
+							"logo", logo,
+							"name", PACKAGE,
+							"version", VERSION,
+							"comments", comments,
+							"copyright", copyright,
+							"license", license,
+							"website", "http://bluefish.openoffice.nl",
+							"authors", authors,
+							"artists", artists,
+							"documenters", documenters,
+							"translator_credits", translator_credits,
+							NULL);
 
 	if (logo) g_object_unref(logo);
 	g_free (comments);
@@ -260,5 +253,3 @@ static TBluefishPlugin bfplugin = {
 G_MODULE_EXPORT TBluefishPlugin *getplugin(void) {
 	return &bfplugin;
 }
-
-
