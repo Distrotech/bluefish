@@ -36,6 +36,7 @@
 #include "bf_lib.h"        /* append_string_to_file() */
 #include "bfspell.h"
 #include "bookmark.h"
+#include "dialog_utils.h"
 #include "document.h"      /* file_open etc. */
 #include "gtk_easy.h"      /* window_full, bf_stock_ok_button */
 #include "gui.h"           /* go_to_line_win_cb */
@@ -1000,7 +1001,11 @@ static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	success = (doc_new_with_file(bfwin,filename, FALSE, FALSE) != NULL);
 	if (!success) {
 		gchar *message = g_strconcat(_("The filename was:\n"), filename, NULL);
-		warning_dialog(bfwin->main_window,_("Could not open file\n"), message);
+		message_dialog_new(bfwin->main_window,
+							GTK_MESSAGE_WARNING,
+							GTK_BUTTONS_OK,
+							_("Could not open file\n"),
+							message);
 		g_free(message);
 		return;
 	}
@@ -1272,7 +1277,11 @@ static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
 		system(command);
 		g_free(command);
 	} else {
-		warning_dialog(bfwin->main_window,_("Could not view file in browser, the file does not yet have a name\n"), NULL);
+		message_dialog_new(bfwin->main_window,
+							GTK_MESSAGE_WARNING,
+							GTK_BUTTONS_OK,
+							_("Could not view file in browser, the file does not yet have a name\n"),
+							NULL);
 	}
 }
 
@@ -1828,7 +1837,11 @@ static void cust_menu_lcb(Tcmenu_entry *cmentry,guint callback_action,GtkWidget 
 	} else {
 		DEBUG_MSG("cust_menu_lcb, a custom replace!, cmentry->array[6]=%s\n", cmentry->array[6]);
 		if (strcmp(cmentry->array[3], "2")==0 && !doc_has_selection(cmentry->bfwin->current_document)) {
-			warning_dialog(cmentry->bfwin->main_window,_("This custom search and replace requires a selection"), NULL);
+			message_dialog_new(cmentry->bfwin->main_window,
+								GTK_MESSAGE_WARNING,
+								GTK_BUTTONS_OK,
+								_("This custom search and replace requires a selection"),
+								NULL);
 			return;
 		}
 		if (atoi(cmentry->array[6]) > 0) {
@@ -2197,14 +2210,26 @@ static gchar **cme_create_array(Tcmenu_editor *cme, gboolean is_update) {
 		}
 		if (invalid) {
 			if (is_update) {
-				warning_dialog(cme->bfwin->main_window,_("The menupath you want to update does not exist yet"), _("Try 'add' instead."));
+				message_dialog_new(cme->bfwin->main_window,
+									GTK_MESSAGE_WARNING,
+									GTK_BUTTONS_OK,
+									_("The menupath you want to update does not exist yet"),
+									_("Try 'add' instead."));
 			} else {
-				warning_dialog(cme->bfwin->main_window,_("The menupath you want to add already exists."), NULL);
+				message_dialog_new(cme->bfwin->main_window,
+									GTK_MESSAGE_WARNING,
+									GTK_BUTTONS_OK,
+									_("The menupath you want to add already exists."),
+									NULL);
 			}
 		}
 		if (newarray[0][0] != '/') {
 			DEBUG_MSG("cme_create_array, menupath does not start with slash, returning NULL\n");
-			warning_dialog(cme->bfwin->main_window,_("The menupath should start with a / character"), NULL);
+			message_dialog_new(cme->bfwin->main_window,
+								GTK_MESSAGE_WARNING,
+								GTK_BUTTONS_OK,
+								_("The menupath should start with a / character"),
+								NULL);
 			invalid = TRUE;
 		}
 		if (invalid) {
