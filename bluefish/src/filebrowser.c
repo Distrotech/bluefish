@@ -32,6 +32,7 @@
 
 #include "filebrowser.h"
 #include "bf_lib.h"
+#include "dialog_utils.h"
 #include "document.h"
 #include "gtk_easy.h"      /* *_dialog(), flush_queue() */
 #include "gui.h"           /* statusbar_message() */
@@ -982,7 +983,11 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 			newname = g_strconcat(ws->basedir,name, NULL);
 			DEBUG_MSG("create_file_or_dir_ok_clicked_lcb, newname=%s\n", newname);
 			if (file_exists_and_readable(newname)) {
-				error_dialog(ws->filebrowser->bfwin->main_window,_("Error creating path"),_("The specified pathname already exists."));
+				message_dialog_new(ws->filebrowser->bfwin->main_window,
+									GTK_MESSAGE_ERROR,
+									GTK_BUTTONS_OK,
+									_("Error creating path"),
+									_("The specified pathname already exists."));
 			} else {
 				if (ws->is_file) {
 					doc_new_with_new_file(ws->filebrowser->bfwin,newname);
@@ -1176,7 +1181,11 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 		} /* if(oldfilename is open) */
 	
 		if (errmessage) {
-			error_dialog(filebrowser->bfwin->main_window,errmessage, NULL);
+			message_dialog_new(filebrowser->bfwin->main_window,
+								GTK_MESSAGE_ERROR,
+								GTK_BUTTONS_OK,
+								errmessage,
+								NULL);
 			g_free(errmessage);
 		} else {
 			/* Refresh the appropriate parts of the filebrowser-> */
@@ -1207,12 +1216,17 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 	gchar *filename = get_selected_filename(filebrowser, FALSE);
 	if (filename) {
-		gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
+		const gchar *buttons[] = {GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL};
 		gchar *label;
 		gint retval;
+		
 		label = g_strdup_printf(_("Are you sure you want to delete \"%s\" ?"), filename);
-		retval = multi_query_dialog(filebrowser->bfwin->main_window,label, _("If you delete this file, it will be permanently lost."), 0, 0, buttons);
-		g_free(label);
+		retval = message_dialog_new_multi(filebrowser->bfwin->main_window,
+											GTK_MESSAGE_QUESTION,
+											buttons,
+											label,
+											 _("If you delete this file, it will be permanently lost."));
+		g_free (label);
 		if (retval == 1) {
 			gchar *errmessage = NULL;
 			gchar *tmp, *dir, *ondiskenc;
@@ -1225,7 +1239,11 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 
 			g_free(ondiskenc);
 			if (errmessage) {
-				error_dialog(filebrowser->bfwin->main_window,errmessage, NULL);
+				message_dialog_new(filebrowser->bfwin->main_window,
+									GTK_MESSAGE_ERROR,
+									GTK_BUTTONS_OK,
+									errmessage,
+									NULL);
 				g_free(errmessage);
 			} else {
 				GList *alldocs = return_allwindows_documentlist();
