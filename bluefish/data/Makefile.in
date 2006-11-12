@@ -26,7 +26,6 @@ GMIMEINFO=@GMIMEINFO@
 GAPPREG=@GAPPREG@
 ICONPATH=@ICONPATH@
 INSTALLDATA=@INSTALLDATA@
-HAVE_GNOME_VFS=@HAVE_GNOME_VFS@
 
 INSTALL = @INSTALL@
 INSTALL_DIR = $(INSTALL) -d -m 755 
@@ -42,11 +41,7 @@ FUNCREFFILES = funcref_html.xml funcref_php.xml funcref_css.xml funcref_python.x
 all: $(DEFAULTFILES)
 	sed -e 's!ICONDIR!$(ICONPATH)!' < bluefish.desktop.in > bluefish.desktop
 	sed -e 's!ICONDIR!$(ICONPATH)!' < bluefish-project.desktop.in > bluefish-project.desktop
-	if test "x${HAVE_GNOME_VFS}" = "x1" ; then \
-		sed -e 's!EXPECT_URIS!true!' -e 's!SUPPORTED_URI_SCHEMES!file,http,ftp,sftp,smb!' < bluefish.applications.in > bluefish.applications ;\
-	else \
-		sed -e 's!EXPECT_URIS!false!' -e 's!SUPPORTED_URI_SCHEMES!!' < bluefish.applications.in > bluefish.applications ;\
-	fi
+	sed -e 's!EXPECT_URIS!true!' -e 's!SUPPORTED_URI_SCHEMES!file,http,ftp,sftp,smb!' < bluefish.applications.in > bluefish.applications ;\
 
 install-gnome1-menu:
 	$(INSTALL_DIR) $(DESTDIR)$(GNOME1MENU)
