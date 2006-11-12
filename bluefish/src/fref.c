@@ -29,12 +29,13 @@
 
 #include "bluefish.h"
 #include "fref.h"
-#include "rcfile.h"				/* array_from_arglist() */
-#include "stringlist.h"
-#include "document.h"
 #include "bf_lib.h"
-#include "gtk_easy.h"
 #include "char_table.h"
+#include "dialog_utils.h"
+#include "document.h"
+#include "gtk_easy.h"
+#include "rcfile.h"			/* array_from_arglist() */
+#include "stringlist.h"
 #include "treetips.h"
 
 enum {
@@ -2084,8 +2085,11 @@ static void frefcb_search(GtkButton * button, Tbfwin * bfwin)
 					ret = g_hash_table_lookup(dict, stf);
 					g_free(stf);
 					if (!ret)
-						error_dialog(bfwin->main_window, _("Reference search"),
-									 _("Reference not found"));
+						message_dialog_new(bfwin->main_window,
+											GTK_MESSAGE_WARNING,
+											GTK_BUTTONS_OK,
+											_("Reference search error"),
+											_("Reference not found."));
 				}
 				gtk_widget_destroy(dlg);
 
@@ -2098,9 +2102,11 @@ static void frefcb_search(GtkButton * button, Tbfwin * bfwin)
 																	  0), FALSE);
 				}
 			} else
-				error_dialog(bfwin->main_window, _("Error"),
-							 _
-							 ("Perhaps you didn't load a reference, or you did not select a reference to search in."));
+				message_dialog_new(bfwin->main_window,
+									GTK_MESSAGE_WARNING,
+									GTK_BUTTONS_OK,
+									_("Reference search error"),
+									_("Perhaps you didn't load a reference, or you did not select a reference to search in."));
 		}
 		g_value_unset(val);
 		g_free(val);
