@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * highlight.c - the syntax highlighting with perl compatible regular expressions
  *
- * Copyright (C) 2002-2005 Olivier Sessink
+ * Copyright (C) 2002-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -57,8 +57,8 @@
 
 #include "bluefish.h"
 #include "bf_lib.h"       /* filename_test_extensions() */
+#include "dialog_utils.h" /* message_dialog_new() */
 #include "document.h"     /* doc_get_chars() */
-#include "gtk_easy.h"     /* error_dialog() */
 #include "highlight.h"
 #include "menu.h"         /* menu_current_document_set_toggle_wo_activate */
 #include "rcfile.h"       /* array_from_arglist() */
@@ -311,7 +311,11 @@ static void timing_stop(gint id) {
 
 static void highlight_error(gboolean gui_errors, gchar *str1, gchar *str2) {
 	if (gui_errors) {
-		error_dialog(NULL,str1, str2);
+		message_dialog_new(NULL,
+							GTK_MESSAGE_ERROR,
+							GTK_BUTTONS_OK,
+							str1,
+							str2);
 	} else {
 		gchar *message = g_strconcat(str1, ", ", str2, "\n", NULL);
 		g_print(message);
