@@ -63,6 +63,7 @@
 #include "bluefish.h"
 #include "bookmark.h"    /* bmark_add_extern() */
 #include "bf_lib.h"
+#include "dialog_utils.h"
 #include "document.h"    /* doc_replace_text() */
 #include "gtk_easy.h"    /* a lot of GUI functions */
 #include "gui.h"         /* switch_to_document_by_pointer() */
@@ -195,7 +196,11 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			
 			regerror(retval,  &reg_pat, errorstr, ERRORSTR_SIZE);
 			errorstr2 = g_strconcat(_("Regular expression error: "), errorstr, NULL);
-			warning_dialog(bfwin->main_window,_("Search failed"), errorstr2);
+			message_dialog_new(bfwin->main_window,
+								GTK_MESSAGE_WARNING,
+								GTK_BUTTONS_OK,
+								_("Search failed"),
+								errorstr2);
 			g_free(errorstr2);
 			/* error compiling the search_pattern, returning the default result set,
 			which is the 'nothing found' set */
@@ -246,7 +251,11 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		if (err) {
 			gchar *errstring;
 			errstring = g_strdup_printf(_("Regular expression error: %s at offset %d"), err, erroffset);
-			warning_dialog(bfwin->main_window,_("Search failed"), errstring);
+			message_dialog_new(bfwin->main_window,
+								GTK_MESSAGE_WARNING,
+								GTK_BUTTONS_OK,
+								_("Search failed"),
+								errstring);
 			g_free(errstring);
 			return returnvalue;/* error compiling the search_pattern, returning the default result set,which is the 'nothing found' set */
 		}
@@ -1163,14 +1172,22 @@ void snr2_run(Tbfwin *bfwin, Tdocument *doc) {
 				if (result_all.end > 0) {
 					doc_show_result(result_all.doc, result_all.start, result_all.end);
 				} else {
-					info_dialog(bfwin->main_window,_("Search: no match found"), NULL);
+					message_dialog_new(bfwin->main_window,
+										GTK_MESSAGE_INFO,
+										GTK_BUTTONS_OK,
+										_("Search: no match found"),
+										NULL);
 				}
 			} else {
 				result = search_doc(bfwin,doc, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, LASTSNR2(bfwin->snr2)->unescape);
 				if (result.end > 0) {
 					doc_show_result(doc, result.start, result.end);
 				} else {
-					info_dialog(bfwin->main_window,_("Search: no match found"), NULL);
+					message_dialog_new(bfwin->main_window,
+										GTK_MESSAGE_INFO,
+										GTK_BUTTONS_OK,
+										_("Search: no match found"),
+										NULL);
 				}
 			}
 		}
