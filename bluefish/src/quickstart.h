@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * quickstart.h - quickstart dialog
  *
- * Copyright (C) 2005 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2006 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,8 +23,6 @@
 
 #include "config.h"
 
-#ifdef HAVE_ATLEAST_GTK_2_4
 void quickstart_dialog_new(Tbfwin *bfwin);
-#endif /* HAVE_ATLEAST_GTK_2_4 */
 
 #endif /* __QUICKSTART_H_ */

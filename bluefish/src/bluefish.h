@@ -2,7 +2,7 @@
  * bluefish.h - global prototypes
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2005 Olivier Sessink
+ * Copyright (C) 1999-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -68,9 +68,7 @@ extern void g_none(gchar *first, ...);
 #include <unistd.h>
 #include <pcre.h>
 
-#ifdef HAVE_GNOME_VFS
 #include <libgnomevfs/gnome-vfs.h>
-#endif
 
 
 /*********************/
@@ -119,11 +117,7 @@ typedef struct {
 	gchar *encoding;
 	gint modified;
 /*	time_t mtime; */ /* from stat() */
-#ifdef HAVE_GNOME_VFS
 	GnomeVFSFileInfo *fileinfo;
-#else /* HAVE_GNOME_VFS */
-	struct stat statbuf;
-#endif /* HAVE_GNOME_VFS */
 	gint is_symlink; /* file is a symbolic link */
 	gulong del_txt_id; /* text delete signal */
 	gulong ins_txt_id; /* text insert signal */
@@ -240,9 +234,7 @@ typedef struct {
 	gint cont_highlight_update;	/* update the syntax highlighting continuous */
 	/* key conversion */
 	gint open_in_running_bluefish; /* open commandline documents in already running session*/
-#ifdef HAVE_GNOME_VFS
 	gint server_zope_compat;        /* add 'document_src' to uri when reading remote files */
-#endif
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 

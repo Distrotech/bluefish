@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * dialog_utils.h - dialog utility functions
  *
- * Copyright (C) 2005 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2006 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,7 +23,6 @@
 
 #include "config.h"
 
-#ifdef HAVE_ATLEAST_GTK_2_4
 void dialog_mnemonic_label_in_table(const gchar *labeltext,
 												GtkWidget *m_widget,
 												GtkWidget *table,
@@ -47,7 +46,5 @@ void message_dialog_new(GtkWidget *parent,
 gint message_dialog_new_multi(GtkWidget *parent, 
 										GtkMessageType type, const gchar *buttons[],
 										const gchar *primaryText, const gchar *secondaryText);
-
-#endif /* HAVE_ATLEAST_GTK_2_4 */
 
 #endif /* __DIALOG_UTILS_H_ */

@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gtk_easy.h
  *
- * Copyright (C) 1999-2005 Olivier Sessink
+ * Copyright (C) 1999-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -96,26 +96,10 @@ GtkWidget *bf_label_with_markup(const gchar *labeltext);
 void bf_label_tad_with_markup(const gchar *labeltext, gfloat xalign, gfloat yalign,
 								GtkWidget *table, guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);						
 GtkWidget *file_but_new(GtkWidget * which_entry, gint full_pathname, Tbfwin *bfwin);
-#ifdef HAVE_ATLEAST_GTK_2_4
+
 GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserAction action, 
 											gchar *set, gboolean localonly, gboolean multiple, const gchar *filter);
-#else
-void close_modal_window_lcb(GtkWidget * widget, gpointer window);
-gchar *return_file_w_title(gchar * setfile, gchar *title);
-gchar *return_file(gchar * setfile);
-GList *return_files_w_title(gchar * setfile, gchar *title);
-GList *return_files(gchar * setfile);
-gchar *return_dir(gchar *setdir, gchar *title);
-#endif
-void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu);
 
-#ifndef HAVE_ATLEAST_GTK_2_2
-void gtktreepath_expand_to_root(GtkWidget *tree, const GtkTreePath *this_path);
-#endif
-#ifdef HAVE_GNOME_VFS
-#ifndef HAVE_ATLEAST_GNOMEVFS_2_2
-GnomeVFSResult gnome_vfs_read_entire_file (const char *uri,int *file_size,char **file_contents);
-#endif
-#endif /* HAVE_GNOME_VFS */
+void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu);
 
 #endif

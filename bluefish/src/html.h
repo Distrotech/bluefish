@@ -2,6 +2,7 @@
  * html.h - menu/toolbar callback prototypes
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
+ * Copyright (C) 2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,9 +56,5 @@ void frame_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void embed_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void script_dialog(Tbfwin *bfwin, Ttagpopup *data);
 void linkdialog_dialog(Tbfwin *bfwin, Ttagpopup *data, Tlinkdialog_mode mode);
-
-#ifndef HAVE_ATLEAST_GTK_2_4
-void quickstart_dialog(Tbfwin *bfwin, Ttagpopup *data);
-#endif /* HAVE_ATLEAST_GTK_2_4 */
 
 #endif							/* __HTML_H_ */
