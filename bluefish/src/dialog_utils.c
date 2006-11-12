@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * dialog_utils.c - dialog utility functions
  *
- * Copyright (C) 2005 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2006 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,8 +19,6 @@
  */
 
 /* #define DEBUG */
-
-#include "config.h"
 
 #include <gtk/gtk.h>
 
@@ -66,8 +64,8 @@ dialog_mnemonic_label_in_table(const gchar *labeltext,
  *
  * Return value: #GtkWidget * The new GtkLabel widget.
  */
-static GtkWidget *
-dialog_vbox_label_new(const gchar *labeltext, gfloat xalign, gfloat yalign, GtkWidget *box)
+GtkWidget *
+dialog_box_label_new(const gchar *labeltext, gfloat xalign, gfloat yalign, GtkWidget *box)
 {
 	GtkWidget *label;
 	
@@ -87,7 +85,7 @@ dialog_vbox_label_new(const gchar *labeltext, gfloat xalign, gfloat yalign, GtkW
  *
  * Return value: #GtkWidget * The new GtkVBox widget.
  */
-static GtkWidget *
+GtkWidget *
 dialog_vbox_new(GtkWidget *box)
 {
 	GtkWidget *alignment, *vbox;
@@ -115,7 +113,7 @@ dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box)
 {
 	GtkWidget *label;
 
-	label = dialog_vbox_label_new(labeltext, 0, 0, box);
+	label = dialog_box_label_new(labeltext, 0, 0, box);
 		
 	return dialog_vbox_new(box);
 }
@@ -138,7 +136,7 @@ dialog_vbox_labeled_checkbutton(const gchar *labeltext, GtkWidget *checkbutton, 
 	hbox = gtk_hbox_new (FALSE, 2);
 	gtk_box_pack_start (GTK_BOX (hbox), checkbutton, FALSE, FALSE, 0);
 	
-	label = dialog_vbox_label_new(labeltext, 0, 0.5, hbox);
+	label = dialog_box_label_new(labeltext, 0, 0.5, hbox);
 	gtk_label_set_mnemonic_widget (GTK_LABEL (label), checkbutton);
 	gtk_box_pack_start (GTK_BOX (box), hbox, FALSE, FALSE, 0);
 			

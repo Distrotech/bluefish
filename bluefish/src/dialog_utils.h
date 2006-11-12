@@ -21,13 +21,14 @@
 #ifndef __DIALOG_UTILS_H_
 #define __DIALOG_UTILS_H_
 
-#include "config.h"
 
 void dialog_mnemonic_label_in_table(const gchar *labeltext,
 												GtkWidget *m_widget,
 												GtkWidget *table,
 												guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);
-												
+
+GtkWidget * dialog_vbox_new(GtkWidget *box);
+GtkWidget * dialog_box_label_new(const gchar *labeltext, gfloat xalign, gfloat yalign, GtkWidget *box);												
 GtkWidget * dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box);
 GtkWidget * dialog_vbox_labeled_checkbutton(const gchar *labeltext, GtkWidget *checkbutton, GtkWidget *box);
 
