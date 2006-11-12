@@ -35,6 +35,7 @@
 #include <string.h>     /* strncpy */
 #include <stdlib.h>     /* exit() */
 
+#include "dialog_utils.h"
 #include "document.h"
 #include "gtk_easy.h"    /* *_dialog */
 #include "gui.h"         /* notebook_changed() */
@@ -238,7 +239,11 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 					msg_queue.file_error_list = NULL;
 					message = g_strconcat(_("These files were not opened:\n"), tmp, NULL);
 					g_free(tmp);
-					warning_dialog(BFWIN(main_v->bfwinlist->data)->main_window,_("Unable to open file(s)\n"), message);
+					message_dialog_new(BFWIN(main_v->bfwinlist->data)->main_window,
+										GTK_MESSAGE_WARNING,
+										GTK_BUTTONS_OK,
+										_("Unable to open file(s)\n"),
+										message);
 					g_free(message);
 				}
 /*				gtk_notebook_set_page(GTK_NOTEBOOK(main_v->notebook),g_list_length(main_v->documentlist) - 1);
