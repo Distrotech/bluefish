@@ -206,8 +206,6 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 				gint retval;
 				const gchar *buttons[] = {_("_Cancel"), _("_Overwrite"), NULL};
 				tmpstr = g_strdup_printf(_("A file named \"%s\" already exists."), filename);
-				/*retval = multi_warning_dialog(bfwin->main_window,tmpstr, 
-												_("Do you want to replace the existing file?"), 1, 0, options);*/
 				retval = message_dialog_new_multi(bfwin->main_window,
 													GTK_MESSAGE_WARNING,
 													buttons,
@@ -371,8 +369,6 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 		/* dialog */
 
 		text = g_strdup(_("Save current project?"));
-		/*retval = multi_query_dialog(bfwin->main_window, text, 
-			_("If you don't save your changes they will be lost."), 2, 1, buttons);*/
 		retval = message_dialog_new_multi(bfwin->main_window,
 											GTK_MESSAGE_QUESTION,
 											buttons,

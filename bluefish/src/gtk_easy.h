@@ -32,16 +32,7 @@ typedef enum { none, file, font } Textra_but;
 void flush_queue(void);
 gint widget_get_string_size(GtkWidget *widget, gchar *string);
 void widget_set_visible(GtkWidget *widget, gboolean visible);
-void hig_dialog_backend (GtkDialog *dialog, gchar *primary, gchar *secondary, gchar *icon);
-/* Single-button dialogs*/
-void single_button_dialog_backend(GtkWidget *win,gchar * primary, gchar * secondary, gchar * icon);
-void error_dialog(GtkWidget *win,gchar * primary, gchar * secondary);
-void warning_dialog(GtkWidget *win,gchar * primary, gchar * secondary);
-void info_dialog(GtkWidget *win,gchar * primary, gchar * secondary);
-/* Multi-button dialogs */
-gint multi_error_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
-gint multi_warning_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
-gint multi_query_dialog(GtkWidget *win,gchar *primary, gchar *secondary, gint defval, gint cancelval, gchar **buttons);
+
 /* Progress bar */
 void progress_set(gpointer gp, guint value);
 gpointer progress_popup(GtkWidget *win,gchar *title, guint maxvalue);
