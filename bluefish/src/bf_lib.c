@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bf_lib.c - non-GUI general functions
  *
- * Copyright (C) 2000-2004 Olivier Sessink
+ * Copyright (C) 2000-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,14 +53,12 @@ gchar *get_filename_on_disk_encoding(const gchar *utf8filename) {
 			g_print(_("Bluefish has trouble reading the filenames. Try to set the environment variable G_BROKEN_FILENAMES=1\n"));
 			ondiskencoding = g_strdup(utf8filename);
 		}
-#ifdef HAVE_GNOME_VFS
 		/* convert local path's */
 		if (ondiskencoding[0] == '/') {
 			gchar *tmp = gnome_vfs_escape_path_string(ondiskencoding);
 			g_free(ondiskencoding);
 			ondiskencoding = tmp;
 		}
-#endif /* HAVE_GNOME_VFS */
 		return ondiskencoding;
 	}
 	return NULL;
@@ -209,7 +207,6 @@ void list_switch_order(GList *first, GList *second) {
  * 
  * Return value: gboolean, TRUE if the function succeeds
  **/
-#ifdef HAVE_GNOME_VFS
 #define BYTES_TO_PROCESS 8196
 gboolean file_copy(gchar *source, gchar *dest) {
 	GnomeVFSHandle *read_handle, *write_handle;
@@ -244,37 +241,6 @@ gboolean file_copy(gchar *source, gchar *dest) {
 	gnome_vfs_close(read_handle);
 	return TRUE;
 }
-#else  /* HAVE_GNOME_VFS */
-gboolean file_copy(gchar *source, gchar *dest) {
-#ifdef DEVELOPMENT
-	g_assert(source);
-	g_assert(dest);
-#endif
-	int c;
-	FILE *in, *out;
-	gchar *OnDiEn_source, *OnDiEn_dest;
-	OnDiEn_source = get_filename_on_disk_encoding(source);
-	OnDiEn_dest = get_filename_on_disk_encoding(dest);
-
-	in = fopen(OnDiEn_source, "r");
-	g_free(OnDiEn_source);
-	if (!in) {
-		return FALSE;
-	}
-	out = fopen(OnDiEn_dest, "w");
-	g_free(OnDiEn_dest);
-	if (!out) {
-		fclose(in);
-		return FALSE;
-	}
-	while((c=fgetc(in)) != EOF) {
-		fputc(c,out);
-	}
-	fclose(in);
-	fclose(out);
-	return TRUE;
-}
-#endif /* HAVE_GNOME_VFS */
 
 static gint length_common_prefix(gchar *first, gchar *second) {
 	gint i=0;
@@ -1049,12 +1015,9 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
 	g_free(eff_link_to_filepath);
 	return returnstring;
 }
-#ifdef HAVE_GNOME_VFS
+
 #define STRIP_FILE_URI
-#endif
-#ifdef HAVE_ATLEAST_GTK_2_4
-#define STRIP_FILE_URI
-#endif
+
 /**
  * create_full_path:
  * @filename: a gchar * with the (relative or not) filename
@@ -1083,17 +1046,11 @@ gchar *create_full_path(const gchar * filename, const gchar *basedir) {
 	if (strchr(filename, ':') != NULL) { /* it is an URI!! */
 		DEBUG_MSG("create_full_path, %s is an URI\n",filename);
 		if (strncmp(filename, "file://", 7)==0) {
-#ifdef HAVE_GNOME_VFS
 			return gnome_vfs_get_local_path_from_uri(filename);
-#else
-			/* THIS IS A BUG, IF YOU DON'T HAVE GNOME_VFS BUT YOU DO HAVE 
-			GTK-2.4 A %21 OR SOMETHING LIKE THAT IS NOW NOT CONVERTED !!!!!!!!! */
-			return g_strdup(filename+7); /* file:// URI's are never relative paths */
-#endif
 		}
 		return g_strdup(filename); /* cannot do this on remote paths */
 	}
-#endif /* HAVE_GNOME_VFS */
+#endif
 	if (g_path_is_absolute(filename)) {
 		absolute_filename = g_strdup(filename);
 	} else {
@@ -1177,7 +1134,6 @@ gboolean file_exists_and_readable(const gchar * filename) {
 	ondiskencoding = get_filename_on_disk_encoding(filename);
 	DEBUG_MSG("file_exists_and_readable, ondiskencoding='%s'\n",ondiskencoding);
 #ifndef WIN32
-#ifdef HAVE_GNOME_VFS
 	{
 		GnomeVFSURI* uri;
 		uri = gnome_vfs_uri_new(ondiskencoding);
@@ -1186,14 +1142,6 @@ gboolean file_exists_and_readable(const gchar * filename) {
 		gnome_vfs_uri_unref(uri);
 		DEBUG_MSG("file_exists_and_readable, return %d for %s\n",retval,filename);
 	}
-#else /* HAVE_GNOME_VFS */
-	{
-		struct stat naamstat;
-		errno = 0;
-		retval = ((stat(ondiskencoding, &naamstat) == 0) && (errno == 0));
-		DEBUG_MSG("file_exists_and_readable, retval=%d (ernno=%d) for %s\n",retval,errno,ondiskencoding);
-	}
-#endif /* HAVE_GNOME_VFS */
 	g_free(ondiskencoding);
 #endif /* WIN32 */
 	return retval;

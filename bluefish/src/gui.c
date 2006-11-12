@@ -46,14 +46,11 @@
 #include "pixmap.h"        /* new_pixmap(); */
 #include "preferences.h"   /* open_preferences_cb */
 #include "project.h"
+#include "quickstart.h"
 #include "snr2.h"          /* search_cb, replace_cb */
 #include "stringlist.h"
 #include "undo_redo.h"     /* undo_cb() redo_cb() etc. */
 #include "wizards.h"
-
-#ifdef HAVE_ATLEAST_GTK_2_4
-#include "quickstart.h"
-#endif /* HAVE_ATLEAST_GTK_2_4 */
 
 #ifdef HAVE_LIBASPELL
 #include "bfspell.h"
@@ -485,11 +482,7 @@ static void acronym_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 }
 
 static void quickstart_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-#ifdef HAVE_ATLEAST_GTK_2_4
 	quickstart_dialog_new(bfwin);
-#else
-	quickstart_dialog(bfwin,NULL);
-#endif
 }
 static void body_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	body_dialog(bfwin,NULL);
@@ -1109,17 +1102,10 @@ void make_main_toolbar(Tbfwin *bfwin) {
 	bfwin->toolbar_redo = gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_REDO, _("Redo"),	
 								"", G_CALLBACK(redo_cb), bfwin, -1);
 	gtk_toolbar_append_space (GTK_TOOLBAR(toolbar));
-#ifdef HAVE_ATLEAST_GTK_2_4
    gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_UNINDENT, _("Shift Left"), 
                         "", G_CALLBACK (doc_unindent_lcb), bfwin, -1);
    gtk_toolbar_insert_stock (GTK_TOOLBAR( toolbar), GTK_STOCK_INDENT, _("Shift Right"),
                         "", G_CALLBACK (doc_indent_lcb), bfwin, -1);
-#else
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Shift Left"),
-                        "", new_pixmap(111), G_CALLBACK(doc_unindent_lcb), bfwin);
-	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Shift Right"),
-                        "", new_pixmap(110), G_CALLBACK(doc_indent_lcb), bfwin);
-#endif
 /*
 	gtk_toolbar_append_item(GTK_TOOLBAR(toolbar), NULL, _("Print..."), "",
 							new_pixmap(015), G_CALLBACK(file_print_cb), NULL);*/

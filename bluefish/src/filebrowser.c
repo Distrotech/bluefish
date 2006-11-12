@@ -292,7 +292,7 @@ static gboolean find_name_in_dir_entries(GList *list, gchar *name) {
 	}
 	return FALSE;
 }
-#ifdef HAVE_GNOME_VFS
+
 static GList *return_dir_entries(Tfilebrowser *filebrowser,const gchar *dirname) {
 	GList *tmplist=NULL;
 	GnomeVFSResult result;
@@ -337,42 +337,6 @@ static GList *return_dir_entries(Tfilebrowser *filebrowser,const gchar *dirname)
 	DEBUG_MSG("return_dir_entries, done\n");
 	return tmplist;
 }
-#else /* HAVE_GNOME_VFS */
-static GList *return_dir_entries(Tfilebrowser *filebrowser,gchar *dirname) {
-	GDir *dir;
-	GList *tmplist=NULL;
-	Tdir_entry *entry;
-	const gchar *name;
-	gchar *ode_dirname = get_filename_on_disk_encoding(dirname);
-	dir = g_dir_open(ode_dirname, 0, NULL);
-	while ((name = g_dir_read_name(dir))) {
-		gchar *fullpath;
-		entry = g_new(Tdir_entry,1);
-		entry->icon = NULL;
-		entry->name = get_utf8filename_from_on_disk_encoding(name);
-		fullpath = g_strconcat(ode_dirname, "/", entry->name, NULL);
-		stat(fullpath, &entry->stat);
-		g_free(fullpath);
-		if (S_ISDIR(entry->stat.st_mode)) {
-			entry->type = TYPE_DIR;
-		} else {
-			entry->type = TYPE_FILE;
-			
-		}
-		if (!view_filter(filebrowser,entry)) {
-			/* free entry */
-			g_free(entry->name);
-			g_free(entry);
-		} else {
-			entry->has_widget = FALSE;
-			tmplist = g_list_append(tmplist, entry);
-		}
-	}
-	g_dir_close(dir);
-	g_free(ode_dirname);
-	return tmplist;
-}
-#endif /* HAVE_GNOME_VFS */
 
 static void free_dir_entries(GList *direntrylist) {
 	GList *tmplist = g_list_first(direntrylist);
@@ -891,12 +855,8 @@ void bfwin_filebrowser_refresh_dir(Tbfwin *bfwin, gchar *dir) {
 static void filebrowser_expand_to_root(Tfilebrowser *filebrowser, const GtkTreePath *this_path) {
 	GtkTreePath *path = gtk_tree_path_copy(this_path);
 	g_signal_handlers_block_matched(G_OBJECT(filebrowser->tree), G_SIGNAL_MATCH_FUNC,
-					0, 0, NULL, row_expanded_lcb, NULL);
-#ifndef HAVE_ATLEAST_GTK_2_2
-	gtktreepath_expand_to_root(filebrowser->tree, path);
-#else 
+					0, 0, NULL, row_expanded_lcb, NULL); 
 	gtk_tree_view_expand_to_path(GTK_TREE_VIEW(filebrowser->tree), path);
-#endif
 	g_signal_handlers_unblock_matched(G_OBJECT(filebrowser->tree), G_SIGNAL_MATCH_FUNC,
 					0, 0, NULL, row_expanded_lcb, NULL);
 	gtk_tree_path_free(path);
@@ -1029,13 +989,7 @@ static void create_file_or_dir_ok_clicked_lcb(GtkWidget *widget, Tcfod *ws) {
 				} else {
 					gchar *ondiskencoding;
 					ondiskencoding = get_filename_on_disk_encoding(newname);
-#ifdef HAVE_GNOME_VFS
 					gnome_vfs_make_directory(ondiskencoding,0755);
-#else
-					if(mkdir(ondiskencoding, 0755)== -1) {
-/*						error_dialog(_("Error creating directory"),strerror(errno));*/
-					}
-#endif
 					g_free(ondiskencoding);
 				}
 			}
@@ -1212,15 +1166,10 @@ static void filebrowser_rpopup_rename(Tfilebrowser *filebrowser) {
 				gchar *old_OnDiEn, *new_OnDiEn; /* OnDiskEncoding */
 				old_OnDiEn = get_filename_on_disk_encoding(oldfilename);
 				new_OnDiEn = get_filename_on_disk_encoding(newfilename);
-#ifdef HAVE_GNOME_VFS
 				if (gnome_vfs_move(old_OnDiEn,new_OnDiEn,TRUE) != GNOME_VFS_OK) {
 					errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
 				}
-#else
-				if(rename(old_OnDiEn, new_OnDiEn) != 0) {
-					errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
-				}
-#endif
+
 				g_free(old_OnDiEn);
 				g_free(new_OnDiEn);
 			}
@@ -1269,15 +1218,11 @@ static void filebrowser_rpopup_delete(Tfilebrowser *filebrowser) {
 			gchar *tmp, *dir, *ondiskenc;
 			DEBUG_MSG("file_list_rpopup_file_delete %s\n", filename);
 			ondiskenc = get_filename_on_disk_encoding(filename);
-#ifdef HAVE_GNOME_VFS
+
 			if (gnome_vfs_unlink(ondiskenc) != GNOME_VFS_OK) {
 				errmessage = g_strconcat(_("Could not delete \n"), filename, NULL);
 			}
-#else
-			if( unlink(ondiskenc) != 0) {
-				errmessage = g_strconcat(_("Could not delete \n"), filename, NULL);
-			}
-#endif
+
 			g_free(ondiskenc);
 			if (errmessage) {
 				error_dialog(filebrowser->bfwin->main_window,errmessage, NULL);

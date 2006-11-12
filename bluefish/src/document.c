@@ -679,7 +679,7 @@ static void doc_set_tooltip(Tdocument *doc) {
 	gchar *text, *tmp;
 	gchar mtimestr[128], *modestr=NULL, *sizestr=NULL;
 	mtimestr[0] = '\0';
-#ifdef HAVE_GNOME_VFS
+
 	DEBUG_MSG("doc_set_tooltip, fileinfo=%p\n", doc->fileinfo);
 	if (doc->fileinfo) {
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_PERMISSIONS) {
@@ -692,18 +692,7 @@ static void doc_set_tooltip(Tdocument *doc) {
 			sizestr = gnome_vfs_format_file_size_for_display(doc->fileinfo->size);
 		}
 	}
-#else
-	if (doc->statbuf.st_mode != 0 || doc->statbuf.st_size != 0) {
-		modestr = filemode_to_string(doc->statbuf.st_mode);
-		ctime_r(&doc->statbuf.st_mtime,mtimestr);
-		/*sizestr = g_strdup_printf("%ld", doc->statbuf.st_size);*/
-		if (sizeof(off_t) == sizeof(unsigned long long int)) {
-			sizestr = g_strdup_printf("%llu", (unsigned long long int )doc->statbuf.st_size);
-		} else {
-			sizestr = g_strdup_printf("%lu", doc->statbuf.st_size);
-        }
-	}
-#endif
+
 	tmp = text = g_strconcat(_("Name: "),gtk_label_get_text(GTK_LABEL(doc->tab_menu))
 							,_("\nType: "),doc->hl->type
 							,_("\nEncoding: "), (doc->encoding != NULL) ? doc->encoding : main_v->props.newfile_default_encoding
@@ -815,7 +804,6 @@ void doc_set_modified(Tdocument *doc, gint value) {
 #endif
 }
 
-#ifdef HAVE_GNOME_VFS
 /* returns 1 if the file is modified on disk, returns 0 
 if the file is modified by another process, returns
 0 if there was no previous mtime information available 
@@ -859,64 +847,19 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 	}
 	return FALSE;
 }
-#else /* HAVE_GNOME_VFS */
-/* returns 1 if the file is modified on disk, returns 0 
-if the file is modified by another process, returns
-0 if there was no previous mtime information available 
-if newstatbuf is not NULL, it will be filled with the new statbuf from the file IF IT WAS CHANGED!!!
-leave NULL if you do not need this information, if the file is not changed, this field will not be set!!
-*/
-static gboolean doc_check_modified_on_disk(Tdocument *doc, struct stat *newstatbuf) {
-	if (main_v->props.modified_check_type == 0 || !doc->filename || doc->statbuf.st_mtime == 0 || doc->statbuf.st_size == 0) {
-		return FALSE;
-	} else if (main_v->props.modified_check_type < 4) {
-		struct stat statbuf;
-		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
-		if (stat(ondiskencoding, &statbuf) == 0) {
-			g_free(ondiskencoding);
-			*newstatbuf = statbuf;
-			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
-				if (doc->statbuf.st_mtime < statbuf.st_mtime) {
-					return TRUE;
-				}
-			}
-			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 3) {
-				if (doc->statbuf.st_size != statbuf.st_size) {
-					return TRUE;
-				}
-			}
-		} else g_free(ondiskencoding);
-	} else {
-		DEBUG_MSG("doc_check_mtime, type %d checking not yet implemented\n", main_v->props.modified_check_type);
-	}
-	return FALSE;
-}
-#endif /* HAVE_GNOME_VFS */
 
 /* doc_set_stat_info() includes setting the mtime field, so there is no need
 to call doc_update_mtime() as well */
 static void doc_set_stat_info(Tdocument *doc) {
 	if (doc->filename) {
 		gchar *ondiskencoding = get_filename_on_disk_encoding(doc->filename);
-#ifdef HAVE_GNOME_VFS
 		if (doc->fileinfo == NULL) {
 			doc->fileinfo = gnome_vfs_file_info_new();
 		}
 		gnome_vfs_get_file_info(ondiskencoding, doc->fileinfo
 				,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 		doc->is_symlink = GNOME_VFS_FILE_INFO_SYMLINK(doc->fileinfo);
-#else
-		struct stat statbuf;
-		if (lstat(ondiskencoding, &statbuf) == 0) {
-			if (S_ISLNK(statbuf.st_mode)) {
-				doc->is_symlink = 1;
-				stat(ondiskencoding, &statbuf);
-			} else {
-				doc->is_symlink = 0;
-			}
-			doc->statbuf = statbuf;
-		}
-#endif
+
 		g_free(ondiskencoding);
 		doc_set_tooltip(doc);
 	}
@@ -1348,7 +1291,6 @@ static void add_encoding_to_list(gchar *encoding) {
 	}
 }
 
-#ifdef HAVE_GNOME_VFS
 #define STARTING_BUFFER_SIZE 8192
 static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *returnsize) {
 	GnomeVFSResult result= GNOME_VFS_NUM_ERRORS;
@@ -1395,13 +1337,10 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 			gchar const *scheme=gnome_vfs_uri_get_scheme(uri);
 			if (scheme && (strcmp(scheme, "http")==0 || strcmp(scheme, "https")==0)) {
 				GnomeVFSURI* sourceuri;
-#ifdef HAVE_ATLEAST_GNOME_2_6
 				/* TODO */
 				/* use metadata to get source property */
 				sourceuri=gnome_vfs_uri_append_file_name(uri, "document_src");
-#else
-				sourceuri=gnome_vfs_uri_append_file_name(uri, "document_src");
-#endif
+
 				if (sourceuri) {
 					gchar *sourcefilename=gnome_vfs_uri_to_string(sourceuri, 0);
 					if (sourcefilename) {
@@ -1434,25 +1373,6 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 	buffer[*returnsize] = '\0';
 	return buffer;
 }
-#else /* no gnome-vfs */
-static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *returnsize) {
-	gboolean result;
-	gchar *buffer;
-	GError *error=NULL;
-	gsize length;
-	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
-	result = g_file_get_contents(ondiskencoding,&buffer,&length,&error);
-	g_free(ondiskencoding);
-	if (result == FALSE) {
-		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
-		warning_dialog(bfwin->main_window,errmessage, NULL);
-		g_free(errmessage);
-		return NULL;
-	}
-	*returnsize = length;
-	return buffer;
-}
-#endif
 
 /**
  * doc_file_to_textbox:
@@ -1652,16 +1572,11 @@ static gint doc_check_backup(Tdocument *doc) {
 		backupfilename = g_strconcat(doc->filename, main_v->props.backup_filestring, NULL);
 		ondiskencoding = get_filename_on_disk_encoding(backupfilename);
 		res = file_copy(doc->filename, backupfilename);
-#ifdef HAVE_GNOME_VFS
+
 		if (doc->fileinfo) {
 			gnome_vfs_set_file_info(ondiskencoding, doc->fileinfo, GNOME_VFS_SET_FILE_INFO_PERMISSIONS|GNOME_VFS_SET_FILE_INFO_OWNER);
 		}
-#else
-		if (doc->statbuf.st_uid != -1 && !doc->is_symlink) {
-			chmod(ondiskencoding, doc->statbuf.st_mode);
-			chown(ondiskencoding, doc->statbuf.st_uid, doc->statbuf.st_gid);
-		}
-#endif
+
 		g_free(ondiskencoding);
 		g_free(backupfilename);
 	}
@@ -2181,7 +2096,7 @@ void doc_unbind_signals(Tdocument *doc) {
 		doc->ins_txt_id = 0;
 	}
 }
-#ifdef HAVE_GNOME_VFS
+
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	GnomeVFSHandle *handle;
 	GnomeVFSFileSize bytes_written=0;
@@ -2213,21 +2128,6 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	}
 	return TRUE;
 }
-#else /* HAVE_GNOME_VFS */
-gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
-	FILE *fd;
-	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
-	fd = fopen(ondiskencoding, "w");
-	g_free(ondiskencoding);
-	if (fd == NULL) {
-		DEBUG_MSG("buffer_to_file, cannot open file %s\n", filename);
-		return FALSE;
-	}
-	fputs(buffer, fd);
-	fclose(fd);
-	return TRUE;
-}
-#endif /* HAVE_GNOME_VFS */
 
 /**
  * gint doc_textbox_to_file
@@ -2438,11 +2338,9 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	if (doc->encoding)
 		g_free(doc->encoding);
 
-#ifdef HAVE_GNOME_VFS
 	if (doc->fileinfo) {
 		gnome_vfs_file_info_unref (doc->fileinfo);
 	}
-#endif	/* HAVE_GNOME_VFS */
 
 	g_object_unref(doc->buffer);
 	doc_unre_destroy(doc);
@@ -2500,7 +2398,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
 	gchar *dialogtext;
 	
 	dialogtext = g_strdup_printf((is_move) ? _("Move/rename %s to"): _("Save %s as"), gui_name);
-#ifdef HAVE_ATLEAST_GTK_2_4
+
 	{
 		GtkWidget *dialog;
 		dialog = file_chooser_dialog(bfwin, dialogtext, GTK_FILE_CHOOSER_ACTION_SAVE, oldfilename, FALSE, FALSE, NULL);
@@ -2509,9 +2407,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
 		}
 		gtk_widget_destroy(dialog);
 	}
-#else
-	newfilename = return_file_w_title(ondisk,dialogtext);
-#endif
+
 	g_free(ondisk);
 	g_free(dialogtext);
 	
@@ -2630,7 +2526,7 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 	} else /* (!do_save_as) */ {
 		gboolean modified;
 		time_t oldmtime, newmtime;
-#ifdef HAVE_GNOME_VFS
+
 		GnomeVFSFileInfo *fileinfo;
 		fileinfo = gnome_vfs_file_info_new();
 		modified = doc_check_modified_on_disk(doc,&fileinfo);
@@ -2639,12 +2535,7 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 			oldmtime = doc->fileinfo->mtime;
 		}
 		gnome_vfs_file_info_unref(fileinfo);
-#else
-		struct stat statbuf;
-		modified = doc_check_modified_on_disk(doc,&statbuf);
-		newmtime = statbuf.st_mtime;
-		oldmtime = doc->statbuf.st_mtime;
-#endif
+
 		if (modified) {
 			gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 			gint retval;
@@ -2703,17 +2594,11 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 			}
             doc_unregroup_reset_changed(doc);
             if (do_move) {
-#ifdef HAVE_GNOME_VFS
 				gnome_vfs_unlink(ondiskencoding);
 				if (ondiskencodingbckup) {
 				    gnome_vfs_unlink(ondiskencodingbckup);
 				}
-#else
-				unlink(ondiskencoding);
-				if (ondiskencodingbckup) {
-				    unlink(ondiskencodingbckup);
-				}				
-#endif
+
 				g_free(ondiskencoding);
 				if (ondiskencodingbckup)    g_free(ondiskencodingbckup);
             }
@@ -2942,14 +2827,8 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	doc_set_title(newdoc);
 	/*newdoc->filename = NULL;*/
 	newdoc->need_highlighting = 0;
-#ifdef HAVE_GNOME_VFS
 	/*newdoc->fileinfo = NULL;*/
-#else
-	newdoc->statbuf.st_mtime = 0;
-	newdoc->statbuf.st_size = 0;
-	newdoc->statbuf.st_uid = -1;
-	newdoc->statbuf.st_gid = -1;
-#endif
+
 	newdoc->is_symlink = 0;
 	newdoc->encoding = g_strdup(main_v->props.newfile_default_encoding);
 	newdoc->overwrite_mode = FALSE;
@@ -2995,9 +2874,6 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 		image = new_pixmap(101);
 		gtk_container_add(GTK_CONTAINER(but), image);
 		gtk_container_set_border_width(GTK_CONTAINER(but),0);
-#ifndef HAVE_ATLEAST_GTK_2_4
-		gtk_widget_set_size_request(but, 12,12);
-#endif
 		gtk_button_set_relief(GTK_BUTTON(but), GTK_RELIEF_NONE);
 		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
 		gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
@@ -3270,7 +3146,7 @@ void doc_activate(Tdocument *doc) {
 	}
 	BFWIN(doc->bfwin)->last_activated_doc = doc;
 	gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
-#ifdef HAVE_GNOME_VFS
+
 	{
 		GnomeVFSFileInfo *fileinfo;
 		fileinfo = gnome_vfs_file_info_new();
@@ -3281,14 +3157,7 @@ void doc_activate(Tdocument *doc) {
 		}
 		gnome_vfs_file_info_unref(fileinfo);
 	}
-#else
-	{
-		struct stat statbuf;
-		modified = doc_check_modified_on_disk(doc,&statbuf);
-		newmtime = statbuf.st_mtime;
-		oldmtime = doc->statbuf.st_mtime;
-	}
-#endif
+
 	if (modified) {
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
@@ -3425,7 +3294,7 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 	*/
 	gchar *tmpdir = g_strconcat(olddir, "/", NULL);
 	gchar *newdir = NULL;
-#ifdef HAVE_ATLEAST_GTK_2_4
+
 	{
 		GtkWidget *dialog;
 		dialog = file_chooser_dialog(tfs->bfwin, _("Select basedir"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, NULL, TRUE, FALSE, NULL);
@@ -3434,9 +3303,7 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 		}
 		gtk_widget_destroy(dialog);
 	}
-#else
-	newdir = return_dir(tmpdir, _("Select basedir"));
-#endif
+
 	g_free(tmpdir);
 	if (newdir) {
 		gtk_entry_set_text(GTK_ENTRY(tfs->basedir),newdir);
@@ -3610,7 +3477,6 @@ void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	doc_save(bfwin->current_document, TRUE, TRUE, FALSE);
 }
 
-#ifdef HAVE_GNOME_VFS
 typedef struct {
 	Tbfwin *bfwin;
 	GtkWidget *win;
@@ -3673,7 +3539,7 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	gtk_window_set_default(GTK_WINDOW(ou->win), but);
 	gtk_widget_show_all(ou->win);
 }
-#endif /* HAVE_GNOME_VFS */
+
 /**
  * file_open_cb:
  * @widget: unused #GtkWidget
@@ -3686,30 +3552,21 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 void file_open_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GList *tmplist = NULL;
 	DEBUG_MSG("file_open_cb, started, calling return_files()\n");
-#ifdef HAVE_ATLEAST_GTK_2_4
+
 	{
 		GtkWidget *dialog;
 		GSList *slist;
-#ifdef HAVE_GNOME_VFS
 		gboolean localonly = FALSE;
-#else
-	gboolean localonly = TRUE;
-#endif /* HAVE_GNOME_VFS */
+
 		dialog = file_chooser_dialog(bfwin, _("Select files"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, localonly, TRUE, NULL);
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-#ifdef HAVE_GNOME_VFS
 			slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
-#else
-			slist = gtk_file_chooser_get_filenames(GTK_FILE_CHOOSER(dialog));
-#endif /* HAVE_GNOME_VFS */
 			tmplist = glist_from_gslist(slist);
 			g_slist_free(slist);
 		}
 		gtk_widget_destroy(dialog);
 	}
-#else
-	tmplist = return_files(NULL);
-#endif
+
 	if (!tmplist) {
 		return;
 	}
@@ -3774,7 +3631,7 @@ void open_advanced_from_filebrowser(Tbfwin *bfwin, gchar *path) {
  **/
 void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	gchar *tmpfilename=NULL;
-#ifdef HAVE_ATLEAST_GTK_2_4
+
 	{
 		GtkWidget *dialog;
 		dialog = file_chooser_dialog(bfwin, _("Select file to insert"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, FALSE, FALSE, NULL);
@@ -3783,9 +3640,7 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 		}
 		gtk_widget_destroy(dialog);
 	}
-#else 
-	tmpfilename = return_file_w_title(NULL, _("Select file to insert"));
-#endif
+
 	if (tmpfilename == NULL) {
 		statusbar_message(bfwin,_("No file to insert"), 2000);
 		return;

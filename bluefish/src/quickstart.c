@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * quickstart.c - quickstart dialog
  *
- * Copyright (C) 2005 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2006 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,26 +17,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
- 
-/*
- * Initial work on a new dialog.
- * A lot more work to do still. some features are still missing
- *
- * DTD's now have an easily readable name
- *
- * meta tags can now be edited by double clicking on them in the list
- *
- * all meta tags displayed in the list are now added to the new quickstart
- * document. the remove button is used to remove tags you don't want 
- *
- * new dialog resizes better then the old one.
- */
+
  
 /* #define DEBUG */
 
 #include "config.h"
 
-#ifdef HAVE_ATLEAST_GTK_2_4
 #include <gtk/gtk.h>
 #include <string.h>
 
@@ -706,5 +692,3 @@ quickstart_dialog_new(Tbfwin *bfwin)
 	
 	gtk_widget_show_all (dialog);
 }
-
-#endif /* HAVE_ATLEAST_GTK_2_4 */

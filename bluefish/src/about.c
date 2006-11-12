@@ -2,6 +2,7 @@
  * about.c - the About dialog
  *
  * Copyright (C) 2004 Eugene Morenko(More) more@irpin.com
+ * Copyright (C) 2005-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -209,15 +210,6 @@ Thanks to all who helped making this software available.\n\
 #endif
 #ifdef ENABLE_NLS
 			"i18n request\n",
-#endif
-#ifdef HAVE_ATLEAST_GTK_2_4
-			"GTK+ 2.4 or newer\n",
-#endif
-#ifdef HAVE_ATLEAST_GNOMEVFS_2_6
-			"GnomeVFS 2.6 or newer\n",
-#endif
-#ifdef HAVE_ATLEAST_GNOMEUI_2_6
-			"libgnomeui 2.6 or newer\n",
 #endif
 #ifdef PLATFORM_DARWIN
 			"Platform Darwin",

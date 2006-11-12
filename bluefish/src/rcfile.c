@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * rcfile.c - loading and parsing of the configfiles
  *
- * Copyright (C) 2000-2005 Olivier Sessink
+ * Copyright (C) 2000-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -412,9 +412,8 @@ static GList *props_init_main(GList * config_rc)
 #ifdef WITH_MSG_QUEUE
 	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1, TRUE);
 #endif
-#ifdef HAVE_GNOME_VFS
 	init_prop_integer (&config_rc, &main_v->props.server_zope_compat,"server_zope_compat:", 0, TRUE); 
-#endif
+
 	return config_rc;
 }
 

@@ -180,7 +180,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	if (save_as || bfwin->project->filename == NULL) {
 		gint suflen,filen;
 		gchar *filename = NULL;
-#ifdef HAVE_ATLEAST_GTK_2_4
+
 		{
 			GtkWidget *dialog;
 /*			dialog = gtk_file_chooser_dialog_new(_("Enter Bluefish project filename"),NULL,
@@ -194,9 +194,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 			}
 			gtk_widget_destroy(dialog);
 		}
-#else
-		filename = return_file_w_title(NULL, _("Enter Bluefish project filename"));
-#endif
+
 		if (!filename) {
 			return FALSE;
 		}
@@ -303,7 +301,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 static void project_open(Tbfwin *bfwin) {
 	/* first we ask for a filename */
 	gchar *filename = NULL;
-#ifdef HAVE_ATLEAST_GTK_2_4
+
 	{
 		GtkWidget *dialog;
 		/*dialog = gtk_file_chooser_dialog_new(_("Select Bluefish project filename"),NULL,
@@ -317,9 +315,7 @@ static void project_open(Tbfwin *bfwin) {
 		}
 		gtk_widget_destroy(dialog);
 	}
-#else
-	filename = return_file_w_title(NULL, _("Select Bluefish project filename"));
-#endif
+
 	if (filename) {
 		DEBUG_MSG("project_open, for filename %s\n",filename);
 		project_open_from_file(bfwin,filename);
@@ -403,11 +399,7 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
             backupfile = g_strconcat (bfwin->project->filename, main_v->props.backup_filestring, NULL);
             if (file_exists_and_readable(backupfile)) {
                 gchar * ondiskencodingbckup = get_filename_on_disk_encoding(backupfile);
-#ifdef HAVE_GNOME_VFS
                 gnome_vfs_unlink(ondiskencodingbckup);
-#else
-		        unlink(ondiskencodingbckup);				
-#endif
                 g_free (ondiskencodingbckup);
             }
             g_free (backupfile);

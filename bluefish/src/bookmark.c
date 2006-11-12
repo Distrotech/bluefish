@@ -246,13 +246,10 @@ static void bmark_store(Tbfwin * bfwin, Tbmark * b) {
 	}
 	strarr[0] = g_strdup(b->name);
 	strarr[1] = g_strdup(b->description);
-#ifdef HAVE_GNOME_VFS
+
 	if (b->doc)
 		b->len = b->doc->fileinfo->size;
-#else
-	if (b->doc)
-		b->len = b->doc->statbuf.st_size;
-#endif
+
 	strarr[3] = g_strdup_printf("%d", b->offset);
 	DEBUG_MSG("bmark_store, offset string=%s, offset int=%d\n",strarr[3],b->offset);
 	strarr[5] = g_strdup_printf("%d", b->len);
@@ -1408,11 +1405,8 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 						   &mark, -1);
 		if (mark) {
 			glong size;
-#ifdef HAVE_GNOME_VFS
 			size = doc->fileinfo->size;
-#else
-			size = doc->statbuf.st_size;
-#endif
+
 			DEBUG_MSG("bmark_check_length, bmark has %d, file has %ld\n",mark->len, size);
 			if (mark->len != size) {
 				gint ret;

@@ -22,7 +22,6 @@
 
 #include "config.h"
 
-#ifdef HAVE_ATLEAST_GTK_2_4
 #include <gtk/gtk.h>
 
 #include "dialog_utils.h"
@@ -323,5 +322,3 @@ message_dialog_new_multi(GtkWidget *parent,
 	
 	return response;
 }
-
-#endif /* HAVE_ATLEAST_GTK_2_4 */

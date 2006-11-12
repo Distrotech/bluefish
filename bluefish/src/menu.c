@@ -6,7 +6,7 @@
  *
  * Copyright (C) 1998-2000 Olivier Sessink, Chris Mazuc and Roland Steinbach
  * Copyright (C) 2000-2002 Olivier Sessink and Roland Steinbach
- * Copyright (C) 2002-2005 Olivier Sessink
+ * Copyright (C) 2002-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -49,6 +49,7 @@
 #include "pixmap.h"
 #include "preferences.h"   /* open_preferences_menu_cb */
 #include "project.h"
+#include "quickstart.h"
 #include "rcfile.h"        /* rcfile_save_configfile_menu_cb */
 #include "rpopup.h"
 #include "snr2.h"          /* search_cb, replace_cb */
@@ -56,9 +57,6 @@
 #include "undo_redo.h"     /* undo_cb() redo_cb() etc. */
 #include "wizards.h"
 
-#ifdef HAVE_ATLEAST_GTK_2_4
-#include "quickstart.h"
-#endif /* HAVE_ATLEAST_GTK_2_4 */
 
 /*
 The callback for an ItemFactory entry can take two forms. If callback_action is zero, it is of the following form:
@@ -141,11 +139,9 @@ static void menu_file_operations_cb(Tbfwin *bfwin, guint callback_action, GtkWid
 	case 24:
 		file_close_all_cb(NULL,bfwin);
 	break;
-#ifdef HAVE_GNOME_VFS
 	case 25:
 		file_open_url_cb(NULL, bfwin);
 	break;
-#endif
 	case 26:
 		file_open_from_selection(bfwin);
 	break;
@@ -248,11 +244,7 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin, guint callback_action, GtkWidge
 		optgroupdialog_dialog(bfwin,NULL);
 	break;
 	case 32:
-#ifdef HAVE_ATLEAST_GTK_2_4
 		quickstart_dialog_new(bfwin);
-#else
-		quickstart_dialog(bfwin,NULL);
-#endif
 	break;
 	case 33:
 		inputdialog_dialog(bfwin, NULL, NULL);
@@ -331,9 +323,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Open Ad_vanced..."), "<shift><control>O", menu_file_operations_cb, 3, "<Item>"},
 #endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
-#ifdef HAVE_GNOME_VFS
 	{N_("/File/Open _URL..."), NULL, menu_file_operations_cb, 25, "<Item>"},
-#endif /* HAVE_GNOME_VFS */
 	{N_("/File/Open _from selection"), NULL, menu_file_operations_cb, 26, "<Item>"},
 	{"/File/sep1", NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Save"), "<control>S", menu_file_operations_cb, 5, "<StockItem>", GTK_STOCK_SAVE},
@@ -375,13 +365,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Replace special/To _Uppercase"), NULL, doc_convert_asciichars_in_selection, 4, "<Item>"},
 	{N_("/Edit/Replace special/To _Lowercase"), NULL, doc_convert_asciichars_in_selection, 5, "<Item>"},
 	{"/Edit/sep4", NULL, NULL, 0, "<Separator>"},
-#ifdef HAVE_ATLEAST_GTK_2_4
    {N_("/Edit/S_hift Right"), NULL, menu_indent_cb, 2, "<StockItem>", GTK_STOCK_INDENT},
    {N_("/Edit/Shift _Left"), NULL, menu_indent_cb, 1, "<StockItem>", GTK_STOCK_UNINDENT},
-#else
-	{N_("/Edit/S_hift Right"), NULL, menu_indent_cb, 2, "<ImageItem>", pixmap_indent},
-	{N_("/Edit/Shift _Left"), NULL, menu_indent_cb, 1, "<ImageItem>", pixmap_unindent},
-#endif
 	{"/Edit/sep5", NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/Add _Bookmark"), "<control>d", menu_bmark_operations_cb, 1, "<Item>"},	
 	{"/Edit/sep6", NULL, NULL, 0, "<Separator>"},

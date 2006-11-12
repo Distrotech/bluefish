@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * image.c - the image/thumbnail dialoges
  *
- * Copyright (C) 2001-2002 Olivier Sessink
+ * Copyright (C) 2001-2006 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -424,7 +424,7 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 			main_v->props.image_thumnailformatstring = tmp;
 		}
 	}
-#ifdef HAVE_ATLEAST_GTK_2_4
+
 	{
 		GtkWidget *dialog;
 		/*dialog = gtk_file_chooser_dialog_new (_("Select files for thumbnail creation"),NULL,
@@ -441,9 +441,7 @@ static void multi_thumbnail_ok_clicked(GtkWidget *widget, Tmuthudia *mtd) {
 		}
 		gtk_widget_destroy (dialog);
 	}
-#else
-	files = return_files_w_title(NULL, _("Select files for thumbnail creation"));
-#endif
+
 	tmplist = g_list_first(files);
 	while (tmplist) {
 		GdkPixbuf *tmp_im1, *tmp_im2;
