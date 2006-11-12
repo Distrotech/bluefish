@@ -51,9 +51,6 @@
 /* libaspell */
 #undef HAVE_LIBASPELL
 
-/* gnome-vfs-2.0 */
-#undef HAVE_GNOME_VFS
-
 /* Define if you have the ANSI C header files.  */
 #undef STDC_HEADERS
 
@@ -90,21 +87,6 @@
 
 /* highlighting pattern profiling */
 #undef HL_PROFILING
-
-/* have atleast gtk-2.2 */
-#undef HAVE_ATLEAST_GTK_2_2
-
-/* have atleast gtk-2.4 */
-#undef HAVE_ATLEAST_GTK_2_4
-
-/* have atleast gnome-vfs-2.2 */
-#undef HAVE_ATLEAST_GNOMEVFS_2_2
-
-/* have atleast gnome-vfs-2.6 */
-#undef HAVE_ATLEAST_GNOMEVFS_2_6
-
-/* have atleast libgnome-2.6 */
-#undef HAVE_ATLEAST_GNOMEUI_2_6
 
 #undef PLATFORM_DARWIN
 #undef PLATFORM_SOLARIS

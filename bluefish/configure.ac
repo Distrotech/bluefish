@@ -21,7 +21,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADER(src/config.h)
 
 PACKAGE=bluefish
-VERSION=1.0.7
+VERSION=1.0.8
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 AC_DEFINE_UNQUOTED(PACKAGE, "$PACKAGE")
@@ -215,78 +215,46 @@ if test "x$PKG_CONFIG" = "xno" ; then
 	AC_MSG_ERROR(pkg-config not found please install pkg-config)
 fi
 
-echo -n "checking for gtk+-2.0... "
+echo -n "checking for gtk+ ... "
 if pkg-config --exists gtk+-2.0 ; then
-	LIBS="$LIBS `pkg-config --libs gtk+-2.0`"
-	CFLAGS="$CFLAGS `pkg-config --cflags gtk+-2.0`"
-	echo "yes"
+	if pkg-config gtk+-2.0 --atleast-version=2.4; then
+        LIBS="$LIBS `pkg-config --libs gtk+-2.0`"
+        CFLAGS="$CFLAGS `pkg-config --cflags gtk+-2.0`"
+		echo "yes, found version `pkg-config --modversion gtk+-2.0`"
+    else
+        echo "no, version `pkg-config --modversion gtk+-2.0` is too old"
+        AC_MSG_ERROR([libgtk2.0 is too old for this version of Bluefish, 2.4 or newer is required])
+	fi
 else
-	echo "no"
-	AC_MSG_ERROR(libgtk2.0-dev missing please install libgtk2.0-dev)
+	AC_MSG_ERROR([libgtk2.0-dev is required, please install libgtk2.0-dev (package names may differ for different operating systems)])
 fi
 
-echo -n "checking for gtk+-2.2... "
-if pkg-config gtk+-2.0 --atleast-version=2.2 ; then
-	AC_DEFINE(HAVE_ATLEAST_GTK_2_2)
-	echo "yes"
-else
-	echo "no"
-fi
-
-echo -n "checking for gtk+-2.4... "
-if pkg-config gtk+-2.0 --atleast-version=2.4 ; then
-	AC_DEFINE(HAVE_ATLEAST_GTK_2_4)
-	echo "yes"
-else
-	echo "no"
-fi
-
-echo -n "checking for gnome-vfs-2.0... "
+echo -n "checking for gnome-vfs... "
 if pkg-config --exists gnome-vfs-2.0 ; then
-	LIBS="$LIBS `pkg-config --libs gnome-vfs-2.0`"
-	CFLAGS="$CFLAGS `pkg-config --cflags gnome-vfs-2.0`"
-	echo "yes"
-	HAVE_GNOME_VFS=1
-	AC_DEFINE(HAVE_GNOME_VFS)
-	AC_SUBST(HAVE_GNOME_VFS)
+    if pkg-config gnome-vfs-2.0 --atleast-version=2.8; then
+	    LIBS="$LIBS `pkg-config --libs gnome-vfs-2.0`"
+	    CFLAGS="$CFLAGS `pkg-config --cflags gnome-vfs-2.0`"
+        echo "yes, found version `pkg-config --modversion gnome-vfs-2.0`"
+    else
+        echo "no, version `pkg-config --modversion gnome-vfs-2.0` is too old"
+        AC_MSG_ERROR([libgnomevfs2 is too old for this version of Bluefish, 2.8 or newer is required])
+   fi        
 else
-	echo "no"
-	echo "gnome-vfs-2.0 not found, opening remote files will be disabled"
-	HAVE_GNOME_VFS=0
+	AC_MSG_ERROR([gnome-vfs2 >= 2.8 is required, please install libgnomevfs2-dev (package names may differ for different operating systems)])
 fi
 
-echo -n "checking for gnome-vfs >= 2.2... "
-if pkg-config gnome-vfs-2.0 --atleast-version=2.2 ; then
-	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_2)
-	echo "yes"
-else
-	echo "no"
-fi
-
-echo -n "checking for gnome-vfs >= 2.6... "
-if pkg-config gnome-vfs-2.0 --atleast-version=2.6 ; then
-	AC_DEFINE(HAVE_ATLEAST_GNOMEVFS_2_6)
-	echo "yes"
-else
-	echo "no"
-fi
-
-AC_ARG_WITH(libgnomeui, 
-	AC_HELP_STRING([--without-libgnomeui],[disable libgnomeui detection]),[
-	LGNOMEUI=$withval
-	],[
-	LGNOMEUI=yes]
-)
-if test "x${LGNOMEUI}" = "xyes" ; then
-	echo -n "checking for libgnomeui >= 2.6... "
-	if pkg-config libgnomeui-2.0 --atleast-version=2.6 ; then
-		AC_DEFINE(HAVE_ATLEAST_GNOMEUI_2_6)
+echo -n "checking for libgnomeui... "
+if pkg-config --exists libgnomeui-2.0 ; then
+    if pkg-config libgnomeui-2.0 --atleast-version=2.8 ; then
 		LIBS="$LIBS `pkg-config --libs libgnomeui-2.0`"
 		CFLAGS="$CFLAGS `pkg-config --cflags libgnomeui-2.0`"
-		echo "yes"
-	else
-		echo "no"
-	fi
+        echo "yes, found version `pkg-config --modversion libgnomeui-2.0`"
+    else
+        echo "no, version `pkg-config --modversion libgnomeui-2.0` is too old"
+        AC_MSG_ERROR([libgnomeui is too old for this version of Bluefish, 2.8 or newer is required])
+    fi
+else
+	AC_MSG_ERROR([libgnomeui >= 2.8 is required, please install libgnomeui-dev (package names may differ for different operating systems)])
 fi
 
 AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
