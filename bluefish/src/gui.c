@@ -221,8 +221,8 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	fref = fref_gui(bfwin);
 	bmarks = bmark_gui(bfwin);
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105),gtk_label_new(_("Filebrowser")));
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),bmarks,new_pixmap(104),gtk_label_new(_("Bookmarks")));	
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fref,new_pixmap(106),gtk_label_new(_("Function reference")));
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),bmarks,new_pixmap(104),gtk_label_new(_("Bookmarks")));
 	gtk_widget_show_all(left_notebook);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(left_notebook),0);
 	return left_notebook;
