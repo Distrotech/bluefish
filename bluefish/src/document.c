@@ -53,6 +53,7 @@
 #include "bookmark.h"
 #include "cap.h"
 #include "char_table.h"    /* convert_utf8...() */
+#include "dialog_utils.h"
 #include "filebrowser.h"
 #include "gtk_easy.h"      /* *_dialog() */
 #include "gui.h"           /* statusbar_message() */
@@ -1363,7 +1364,11 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 	}
 	if (GNOME_VFS_OK != result) {
 		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
-		warning_dialog(bfwin->main_window,errmessage, NULL);
+		message_dialog_new(bfwin->main_window,
+							GTK_MESSAGE_WARNING,
+							GTK_BUTTONS_OK,
+							errmessage,
+							NULL);
 		g_free(errmessage);
 		DEBUG_MSG("get_buffer_from_filename, GNOME_VFS ERROR (result=%d), returning NULL\n",result);
 		DEBUG_MSG("get_buffer_from_filename, gnome_vfs error was: %s\n", gnome_vfs_result_to_string(result));
@@ -1510,7 +1515,11 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 			}
 		}
 		if (!newbuf) {
-			error_dialog(BFWIN(doc->bfwin)->main_window,_("Cannot display file, unknown characters found."), NULL);
+			message_dialog_new(BFWIN(doc->bfwin)->main_window,
+								GTK_MESSAGE_ERROR,
+								GTK_BUTTONS_OK,
+								_("Cannot display file, unknown characters found."),
+								NULL);
 		} else {
 			g_free(buffer);
 			buffer = newbuf;
@@ -2199,10 +2208,14 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 			DEBUG_MSG("doc_textbox_to_file, backup failure, abort!\n");
 			return -1;
 		} else if (main_v->props.backup_abort_action == DOCUMENT_BACKUP_ABORT_ASK) {
-			gchar *options[] = {_("_Abort save"), _("_Continue save"), NULL};
+			const gchar *buttons[] = {_("_Abort save"), _("_Continue save"), NULL};
 			gint retval;
 			gchar *tmpstr = g_strdup_printf(_("A backupfile for %s could not be created. If you continue, this file will be overwritten."), filename);
-			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File backup failure"), tmpstr, 1, 0, options);
+			retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+												GTK_MESSAGE_WARNING,
+												buttons,
+												_("File backup failure"),
+												tmpstr);
 			g_free(tmpstr);
 			if (retval == 0) {
 				DEBUG_MSG("doc_textbox_to_file, backup failure, user aborted!\n");
@@ -2223,7 +2236,7 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 			g_free(buffer);
 			buffer = newbuf;
 		} else {
-			gchar *options[] = {_("_Abort save"), _("_Continue save in UTF-8"), NULL};
+			const gchar *buttons[] = {_("_Abort save"), _("_Continue save in UTF-8"), NULL};
 			gint retval, line, column;
 			glong position;
 			gchar *tmpstr, failed[6];
@@ -2235,7 +2248,11 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 			failed[0]='\0';
 			g_utf8_strncpy(failed,buffer+bytes_read,1);
 			tmpstr = g_strdup_printf(_("Failed to convert %s to character encoding %s. Encoding failed on character '%s' at line %d column %d\n\nContinue saving in UTF-8 encoding?"), filename, doc->encoding, failed, line+1, column+1);
-			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File encoding conversion failure"), tmpstr, 1, 0, options);
+			retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+												GTK_MESSAGE_WARNING,
+												buttons,
+												_("File encoding conversion failure"),
+												tmpstr);
 			g_free(tmpstr);
 			if (retval == 0) {
 				DEBUG_MSG("doc_textbox_to_file, character set conversion failed, user aborted!\n");
@@ -2429,11 +2446,14 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
 	if (exdoc) {
 		gchar *tmpstr;
 		gint retval;
-		gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
+		const gchar *buttons[] = {_("_Cancel"), _("_Overwrite"), NULL};
 
 		tmpstr = g_strdup_printf(_("File %s exists and is opened, overwrite?"), newfilename);
-		retval = multi_warning_dialog(bfwin->main_window, tmpstr, 
-		                              _("The file you have selected is being edited in Bluefish."), 1, 0, options);
+		retval = message_dialog_new_multi(bfwin->main_window,
+											GTK_MESSAGE_WARNING,
+											buttons,
+											tmpstr, 
+											_("The file you have selected is being edited in Bluefish."));
 		g_free(tmpstr);
 		if (retval == 0) {
 			g_free(newfilename);
@@ -2445,11 +2465,14 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *oldfilename, const gchar *gui_name,
       if (file_exists_and_readable(newfilename)) {      
 			gchar *tmpstr;
 			gint retval;
-			gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
+			const gchar *buttons[] = {_("_Cancel"), _("_Overwrite"), NULL};
 			
 			tmpstr = g_strdup_printf(_("A file named \"%s\" already exists."), newfilename);
-			retval = multi_warning_dialog(bfwin->main_window, tmpstr, 
-                                       _("Do you want to replace the existing file?"), 1, 0, options);
+			retval = message_dialog_new_multi(bfwin->main_window,
+												GTK_MESSAGE_WARNING,
+												buttons,
+												tmpstr, 
+												_("Do you want to replace the existing file?"));
 			g_free (tmpstr);
 			if (retval == 0) {
 				g_free (newfilename);
@@ -2539,12 +2562,16 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 		if (modified) {
 			gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 			gint retval;
-			gchar *options[] = {_("_Cancel"), _("_Overwrite"), NULL};
+			const gchar *buttons[] = {_("_Cancel"), _("_Overwrite"), NULL};
 	
 			ctime_r(&newmtime,newtimestr);
 			ctime_r(&oldmtime,oldtimestr);
 			tmpstr = g_strdup_printf(_("File: %s\n\nNew modification time: %s\nOld modification time: %s"), doc->filename, newtimestr, oldtimestr);
-			retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File has been modified by another process."), tmpstr, 1, 0, options);
+			retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+												GTK_MESSAGE_WARNING,
+												buttons,
+												_("File has been modified by another process."),
+												tmpstr);
 			g_free(tmpstr);
 			if (retval == 0) {
 				return -5;
@@ -2572,13 +2599,21 @@ gint doc_save(Tdocument * doc, gboolean do_save_as, gboolean do_move, gboolean w
 		case -1:
 			/* backup failed and aborted */
 			errmessage = g_strconcat(_("Could not backup file:\n\""), doc->filename, "\"", NULL);
-			error_dialog(BFWIN(doc->bfwin)->main_window,_("File save aborted.\n"), errmessage);
+			message_dialog_new(BFWIN(doc->bfwin)->main_window,
+								GTK_MESSAGE_ERROR,
+								GTK_BUTTONS_OK,
+								_("File save aborted.\n"),
+								errmessage);
 			g_free(errmessage);
 		break;
 		case -2:
 			/* could not open the file pointer */
 			errmessage = g_strconcat(_("Could not write file:\n\""), doc->filename, "\"", NULL);
-			error_dialog(BFWIN(doc->bfwin)->main_window,_("File save error"), errmessage);
+			message_dialog_new(BFWIN(doc->bfwin)->main_window,
+								GTK_MESSAGE_ERROR,
+								GTK_BUTTONS_OK,
+								_("File save error"),
+								errmessage);
 			g_free(errmessage);
 		break;
 		case -3:
@@ -2644,9 +2679,12 @@ gint doc_close(Tdocument * doc, gint warn_only)
 		}*/
 	
 		{
-			gchar *buttons[] = {_("Do_n't save"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
-			retval = multi_query_dialog(BFWIN(doc->bfwin)->main_window, text, 
-						_("If you don't save your changes they will be lost."), 2, 1, buttons);
+			const gchar *buttons[] = {_("Continue _Without Saving"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
+			retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+												GTK_MESSAGE_QUESTION,
+												buttons,
+												text, 
+												_("If you don't save your changes they will be lost."));
 		}
 		g_free(text);
 
@@ -3074,7 +3112,11 @@ void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this
 		tmp = stringlist_to_string(errorlist, "\n");
 		message = g_strconcat(_("These files could not opened:\n\n"), tmp, NULL);
 		g_free(tmp);
-		warning_dialog(bfwin->main_window,_("Unable to open file(s)\n"), message);
+		message_dialog_new(bfwin->main_window,
+							GTK_MESSAGE_WARNING,
+							GTK_BUTTONS_OK,
+							_("Unable to open file(s)\n"),
+							message);
 		g_free(message);
 	}
 	free_stringlist(errorlist);
@@ -3161,12 +3203,16 @@ void doc_activate(Tdocument *doc) {
 	if (modified) {
 		gchar *tmpstr, oldtimestr[128], newtimestr[128];/* according to 'man ctime_r' this should be at least 26, so 128 should do ;-)*/
 		gint retval;
-		gchar *options[] = {_("_Reload"), _("_Ignore"), NULL};
+		const gchar *buttons[] = {_("_Reload"), _("_Ignore"), NULL};
 
 		ctime_r(&newmtime,newtimestr);
 		ctime_r(&oldmtime,oldtimestr);
 		tmpstr = g_strdup_printf(_("Filename: %s\n\nNew modification time is: %s\nOld modification time is: %s"), doc->filename, newtimestr, oldtimestr);
-		retval = multi_warning_dialog(BFWIN(doc->bfwin)->main_window,_("File has been modified by another process\n"), tmpstr, 0, 1, options);
+		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+											GTK_MESSAGE_WARNING,
+											buttons,
+											_("File has been modified by another process\n"),
+											tmpstr);
 		g_free(tmpstr);
 		if (retval == 1) {
 			doc_set_stat_info(doc);
@@ -3695,9 +3741,12 @@ void bfwin_close_all_documents(Tbfwin *bfwin, gboolean window_closing) {
 	/* first a warning loop */
 	if (test_docs_modified(bfwin->documentlist)) {
 		if (g_list_length (bfwin->documentlist) > 1) {
-			gchar *options[] = {_("_Save All"), _("Close _All"), _("Choose per _File"), _("_Cancel"), NULL};
-			retval = multi_query_dialog(bfwin->main_window,_("Multiple open files have been changed."), 
-										_("If you don't save your changes they will be lost."), 3, 3, options);
+			const gchar *buttons[] = {_("_Save All"), _("Close _All"), _("Choose per _File"), _("_Cancel"), NULL};
+			retval = message_dialog_new_multi(bfwin->main_window,
+												GTK_MESSAGE_QUESTION,
+												buttons,
+												_("Multiple open files have been changed."),
+												_("If you don't save your changes they will be lost."));
 			if (retval == 3) {
 			DEBUG_MSG("file_close_all_cb, cancel clicked, returning 0\n");
 			return;
