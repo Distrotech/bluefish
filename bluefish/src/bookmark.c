@@ -28,7 +28,9 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "bluefish.h"
+#include "dialog_utils.h"
 #include "gtk_easy.h"
 #include "gui.h"
 #include "document.h"
@@ -470,8 +472,11 @@ static void bmark_popup_menu_goto_lcb(GtkWidget * widget, gpointer user_data)
 		if (tmpdoc == NULL) {
 			if (!g_file_test(b->filepath, G_FILE_TEST_EXISTS)) {
 				gchar *string = g_strdup_printf(_("Could not find the file \"%s\"."), b->filepath);
-				error_dialog(BFWIN(user_data)->main_window, string,
-							 _("This bookmark is set in a file that no longer exists."));
+				message_dialog_new(BFWIN(user_data)->main_window,
+									GTK_MESSAGE_INFO,
+									GTK_BUTTONS_OK,
+									string,
+									_("This bookmark is set in a file that no longer exists."));
 				g_free(string);
 				return;
 			}
@@ -594,9 +599,9 @@ static void bmark_popup_menu_deldoc_lcb(GtkWidget * widget, Tbfwin *bfwin) {
 		if (path != NULL) {
 			gchar *name;
 			gchar *pstr;
-			gchar *btns[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
+			const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
 			GtkTreeIter iter;
-			gint depth, ret;
+			gint depth, retval;
 			depth = gtk_tree_path_get_depth(path);
 			if (depth == 2) {
 				/* go up to parent */
@@ -613,10 +618,13 @@ static void bmark_popup_menu_deldoc_lcb(GtkWidget * widget, Tbfwin *bfwin) {
 			gtk_tree_model_get(GTK_TREE_MODEL(bfwin->bookmarkstore), &iter, NAME_COLUMN,&name, -1);
 		
 			pstr = g_strdup_printf(_("Do you really want to delete all bookmarks for %s?"), name);
-			ret =	multi_query_dialog(bfwin->main_window, _("Delete bookmarks?"), pstr,
-							   0, 0, btns);
+			retval = message_dialog_new_multi(bfwin->main_window,
+												GTK_MESSAGE_QUESTION,
+												buttons,
+												_("Delete all bookmarks?"),
+												pstr);
 			g_free(pstr);
-			if (ret == 0)
+			if (retval == 0)
 				return;
 			bmark_del_children_backend(bfwin, &iter);
 		}
@@ -627,9 +635,9 @@ static void bmark_popup_menu_deldoc_lcb(GtkWidget * widget, Tbfwin *bfwin) {
 static void bmark_popup_menu_del_lcb(GtkWidget * widget, gpointer user_data)
 {
 	Tbmark *b;
-	gint ret;
+	gint retval;
 	gchar *pstr;
-	gchar *btns[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
+	const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
 
 	if (!user_data)
 		return;
@@ -644,11 +652,13 @@ static void bmark_popup_menu_del_lcb(GtkWidget * widget, gpointer user_data)
 		bmark_free(b);
 	} else {
 		pstr = g_strdup_printf(_("Do you really want to delete %s?"), b->name);
-		ret =
-			multi_query_dialog(BFWIN(user_data)->main_window, _("Delete permanent bookmark."), pstr,
-							   0, 0, btns);
+		retval = message_dialog_new_multi(BFWIN(user_data)->main_window,
+											GTK_MESSAGE_QUESTION,
+											buttons,
+											_("Delete permanent bookmark."),
+											pstr);
 		g_free(pstr);
-		if (ret == 0)
+		if (retval == 0)
 			return;
 		bmark_check_remove(BFWIN(user_data),b); /* check  if we should remove a filename too */	
 		bmark_unstore(BFWIN(user_data), b);
@@ -1281,8 +1291,11 @@ void bmark_add(Tbfwin * bfwin) {
 	gint offset;
 	/* check for unnamed document */
 	if (!DOCUMENT(bfwin->current_document)->filename) {
-		error_dialog(bfwin->main_window, _("Add bookmark"),
-					 _("Cannot add bookmarks in unnamed files."));
+		message_dialog_new(bfwin->main_window, 
+							GTK_MESSAGE_ERROR, 
+							GTK_BUTTONS_CLOSE, 
+							_("Error adding bookmark"), 
+							_("Cannot add bookmarks to unsaved files."));
 					 /*\nPlease save the file first. A Save button in this dialog would be cool -- Alastair*/
 		return;
 	}
@@ -1298,8 +1311,11 @@ void bmark_add(Tbfwin * bfwin) {
 		/* check for existing bookmark in this place */
 		has_mark = (bmark_get_bmark_at_line(DOCUMENT(bfwin->current_document), offset) != NULL);
 		if (has_mark) {
-			info_dialog(bfwin->main_window, _("Add bookmark"),
-						_("You already have a bookmark here!"));
+			message_dialog_new(bfwin->main_window, 
+								GTK_MESSAGE_ERROR,
+								GTK_BUTTONS_CLOSE, 
+								_("Can't add bookmark"), 
+								_("You already have a bookmark here!"));
 			return;
 		}
 		bmark_add_current_doc_backend(bfwin, "", offset, !main_v->props.bookmarks_default_store);
@@ -1334,8 +1350,11 @@ void bmark_del_at_bevent(Tdocument *doc) {
 void bmark_add_at_bevent(Tdocument *doc) {
 		/* check for unnamed document */
 	if (!doc->filename) {
-		error_dialog(BFWIN(doc->bfwin)->main_window, _("Add bookmark"),
-					 _("Cannot add bookmarks in unnamed files."));
+		message_dialog_new(BFWIN(doc->bfwin)->main_window, 
+								 GTK_MESSAGE_ERROR, 
+								 GTK_BUTTONS_CLOSE, 
+								 _("Error adding bookmark"), 
+								 _("Cannot add bookmarks to unsaved files."));
 		return;
 	}
 	if (BMARKDATA(main_v->bmarkdata)->bevent_doc == doc) {
@@ -1365,15 +1384,19 @@ void bmark_del_for_document(Tbfwin *bfwin, Tdocument *doc) {
 }
 
 void bmark_del_all(Tbfwin *bfwin,gboolean ask) {
-	gint ret;
-	gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
+	gint retval;
+	const gchar *buttons[] = {GTK_STOCK_NO, GTK_STOCK_YES, NULL};
 	GtkTreeIter tmpiter;
 
 	if (bfwin==NULL) return;
 			
-	if (ask)	{
-	  ret = multi_query_dialog(bfwin->main_window,_("Delete all bookmarks."), _("Are you sure?"), 0, 0, btns);
-	  if (ret==0) return;
+	if (ask) {
+	  retval = message_dialog_new_multi(bfwin->main_window,
+										GTK_MESSAGE_QUESTION,
+										buttons,
+										_("Delete all bookmarks."),
+										NULL);
+	  if (retval == 0) return;
 	}
 	DEBUG_MSG("bmark_del_all, deleting all bookmarks!\n");
 	while (gtk_tree_model_iter_children(GTK_TREE_MODEL(bfwin->bookmarkstore), &tmpiter, NULL) ) {
@@ -1409,13 +1432,17 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 
 			DEBUG_MSG("bmark_check_length, bmark has %d, file has %ld\n",mark->len, size);
 			if (mark->len != size) {
-				gint ret;
-				gchar *btns[]={GTK_STOCK_NO,GTK_STOCK_YES,NULL};
+				gint retval;
+				const gchar *buttons[] = {GTK_STOCK_NO, GTK_STOCK_YES, NULL};
 				gchar *str;
 				str = g_strconcat(_("File size changed in file\n"),doc->filename,NULL);
-				ret = multi_query_dialog(bfwin->main_window,_("Bookmarks positions could be incorrect. Delete bookmarks?"), str, 0, 0, btns);
+				retval = message_dialog_new_multi(bfwin->main_window,
+													GTK_MESSAGE_QUESTION,
+													buttons,
+													_("Bookmarks positions could be incorrect. Delete bookmarks?"),
+													str);
 				g_free (str);
-				if (ret==1) {
+				if (retval == 1) {
 					bmark_del_for_document(bfwin, doc);
 				}
 				return;
