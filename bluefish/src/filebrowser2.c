@@ -527,7 +527,7 @@ static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri, gboolean noselec
 	}
 	gnome_vfs_uri_ref(uri);
 	if (fb2->basedir) {
-		if (!gnome_vfs_uri_is_parent(fb2->basedir,uri,TRUE)) {
+		if (!gnome_vfs_uri_is_parent(fb2->basedir,uri,TRUE) && !gnome_vfs_uri_equal(fb2->basedir,uri)) {
 			fb2_set_basedir_backend(fb2,NULL);
 		}
 	}	
@@ -1610,6 +1610,7 @@ static void fb2_set_basedir_backend(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	GtkTreeIter *iter;
 	
 	if (uri && fb2->basedir && (fb2->basedir == uri || gnome_vfs_uri_equal(fb2->basedir, uri))) {
+		DEBUG_MSG("fb2_set_basedir_backend, basedir did not change ?!?\n");
 		return;
 	}
 	/* disconnect the dir_v and file_v for higher performance */
@@ -1632,10 +1633,12 @@ static void fb2_set_basedir_backend(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 		}
 		basepath = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), iter);
 	}
+	DEBUG_MSG("fb2_set_basedir_backend, refilter, basepath=%p\n",basepath);
 	refilter_dirlist(fb2, basepath);
-	if (basepath) gtk_tree_path_free(basepath);
-	fb2_focus_dir(fb2, fb2->basedir, FALSE);
-
+	if (basepath) {
+		/*fb2_focus_dir(fb2, fb2->basedir, FALSE);*/
+		gtk_tree_path_free(basepath);
+	}
 }
 
 /**
