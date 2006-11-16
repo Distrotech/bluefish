@@ -1636,7 +1636,7 @@ static void fb2_set_basedir_backend(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	DEBUG_MSG("fb2_set_basedir_backend, refilter, basepath=%p\n",basepath);
 	refilter_dirlist(fb2, basepath);
 	if (basepath) {
-		/*fb2_focus_dir(fb2, fb2->basedir, FALSE);*/
+		fb2_focus_dir(fb2, fb2->basedir, FALSE);
 		gtk_tree_path_free(basepath);
 	}
 }
