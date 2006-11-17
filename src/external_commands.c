@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -318,6 +318,9 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 		/*  BUG: give a warning that you cannot have multiple outputs */
 		return NULL;
 	}
+	if (!need_tmpin && !need_fifoin && !need_inplace && !need_filename && !need_preview_uri) {
+		ep->pipe_in = TRUE;
+	}
 	if (!discard_output && !need_tmpout && !need_fifoout && !need_inplace) {
 		ep->pipe_out = TRUE;
 	}
@@ -367,21 +370,13 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 	}
 	if (need_tmpin) {
 		table[cur].my_int = 'I';
-		if (is_local_non_modified) {
-			table[cur].my_char = gnome_vfs_get_local_path_from_uri(curi);
-		} else {
-			ep->tmp_in = create_secure_dir_return_filename();
-			table[cur].my_char = g_strdup(ep->tmp_in);
-		}
+		ep->tmp_in = create_secure_dir_return_filename();
+		table[cur].my_char = g_strdup(ep->tmp_in);
 		cur++;
 	} else if (need_fifoin) {
 		table[cur].my_int = 'i';
-		if (is_local_non_modified) {
-			table[cur].my_char = gnome_vfs_get_local_path_from_uri(curi);
-		} else {
-			ep->fifo_in = create_secure_dir_return_filename();
-			table[cur].my_char = g_strdup(ep->fifo_in);
-		}
+		ep->fifo_in = create_secure_dir_return_filename();
+		table[cur].my_char = g_strdup(ep->fifo_in);
 		DEBUG_MSG("create_commandstring, %%i will be at %s\n",table[cur].my_char);
 		cur++;
 	} else if (need_inplace) {
