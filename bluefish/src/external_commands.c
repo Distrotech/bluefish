@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -41,6 +41,9 @@
 typedef struct {
 	gint refcount;
 	Tbfwin *bfwin;
+	Tdocument *doc;
+	gint begin; /* 0 for begin of the file */
+	gint end; /* -1 for end of the file */
 	const gchar *formatstring;
 	gchar *commandstring;
 
@@ -141,7 +144,7 @@ static void spawn_setup_lcb(gpointer data) {
 }
 static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	Texternalp *ep = data;
-	DEBUG_MSG("child_watch_lcb, status=%d\n",status);
+	DEBUG_MSG("child_watch_lcb, child exited with status=%d\n",status);
 	/* if there was a temporary output file, we should now open it and start to read it */
 	if (ep->tmp_out) {
 		ep->channel_out = g_io_channel_new_file(ep->tmp_out,"r",NULL);
@@ -174,7 +177,7 @@ static void start_command_backend(Texternalp *ep) {
 			g_print("some error happened creating fifo %s??\n",ep->fifo_in);
 			return;
 		}
-		DEBUG_MSG("start_command, created fifo %s\n",ep->fifo_in);
+		DEBUG_MSG("start_command_backend, created fifo %s\n",ep->fifo_in);
 	}
 	if (ep->fifo_out) {
 		if (mkfifo(ep->fifo_out, 0600) != 0) {
@@ -185,8 +188,8 @@ static void start_command_backend(Texternalp *ep) {
 #ifdef WIN32
 	ep->include_stderr = FALSE;
 #endif
-	DEBUG_MSG("start_command, pipe_in=%d, pipe_out=%d, fifo_in=%s, fifo_out=%s,include_stderr=%d\n",ep->pipe_in,ep->pipe_out,ep->fifo_in,ep->fifo_out,ep->include_stderr);
-	DEBUG_MSG("start_command, about to spawn process /bin/sh -c %s\n",argv[2]);
+	DEBUG_MSG("start_command_backend, pipe_in=%d, pipe_out=%d, fifo_in=%s, fifo_out=%s,include_stderr=%d\n",ep->pipe_in,ep->pipe_out,ep->fifo_in,ep->fifo_out,ep->include_stderr);
+	DEBUG_MSG("start_command_backend, about to spawn process /bin/sh -c %s\n",argv[2]);
 	g_spawn_async_with_pipes(NULL,argv,NULL,G_SPAWN_DO_NOT_REAP_CHILD,(ep->include_stderr)?spawn_setup_lcb:NULL,ep,&ep->child_pid,
 				(ep->pipe_in) ? &standard_input : NULL,
 				(ep->pipe_out) ? &standard_output : NULL,
@@ -195,33 +198,34 @@ static void start_command_backend(Texternalp *ep) {
 	g_child_watch_add(ep->child_pid,child_watch_lcb,ep);
 	
 	if (error) {
-		DEBUG_MSG("start_command, there is an error!!\n");
+		DEBUG_MSG("start_command_backend, there is an error!!\n");
 	}
 	if (ep->pipe_in) {
+		DEBUG_MSG("start_command_backend, creating channel_in from pipe\n");
 		ep->channel_in = g_io_channel_unix_new(standard_input);
 	} else if (ep->fifo_in) {
-		DEBUG_MSG("start_command, connecting channel_in to fifo %s\n",ep->fifo_in);
+		DEBUG_MSG("start_command_backend, connecting channel_in to fifo %s\n",ep->fifo_in);
 		ep->channel_in = g_io_channel_new_file(ep->fifo_in,"w",NULL);
 	}
 	if (ep->pipe_in || ep->fifo_in) {
 		ep->refcount++;
-		ep->buffer_out = ep->buffer_out_position = doc_get_chars(ep->bfwin->current_document,0,-1);
+		ep->buffer_out = ep->buffer_out_position = doc_get_chars(ep->bfwin->current_document,ep->begin,ep->end);
 		g_io_channel_set_flags(ep->channel_in,G_IO_FLAG_NONBLOCK,NULL);
 		/* now we should start writing, correct ? */
-		DEBUG_MSG("start_command, add watch for channel_in\n");
+		DEBUG_MSG("start_command_backend, begin=%d, end=%d, add watch for channel_in\n",ep->begin, ep->end);
 		g_io_add_watch(ep->channel_in,G_IO_OUT,start_command_write_lcb,ep);
 	}
 	if (ep->pipe_out) {
 		ep->channel_out = g_io_channel_unix_new(standard_output);
-		DEBUG_MSG("start_command, created channel_out from pipe\n");
+		DEBUG_MSG("start_command_backend, created channel_out from pipe\n");
 	} else if (ep->fifo_out) {
 		ep->channel_out = g_io_channel_new_file(ep->fifo_out,"r",NULL);
-		DEBUG_MSG("start_command, created channel_out from fifo %s\n",ep->fifo_out);
+		DEBUG_MSG("start_command_backend, created channel_out from fifo %s\n",ep->fifo_out);
 	}
 	if (ep->channel_out_lcb && (ep->pipe_out || ep->fifo_out)) {
 		ep->refcount++;
 		g_io_channel_set_flags(ep->channel_out,G_IO_FLAG_NONBLOCK,NULL);
-		DEBUG_MSG("start_command, add watch for channel_out\n");
+		DEBUG_MSG("start_command_backend, add watch for channel_out\n");
 		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,ep->channel_out_lcb,ep->channel_out_data);
 	}
 	
@@ -231,7 +235,7 @@ static void start_command(Texternalp *ep) {
 	if (ep->tmp_in) {
 		/* first create tmp_in, then start the real command in the callback */
 		ep->channel_in = g_io_channel_new_file(ep->tmp_in,"w",NULL);
-		ep->buffer_out = ep->buffer_out_position = doc_get_chars(ep->bfwin->current_document,0,-1);
+		ep->buffer_out = ep->buffer_out_position = doc_get_chars(ep->bfwin->current_document,ep->begin,ep->end);
 		g_io_channel_set_flags(ep->channel_in,G_IO_FLAG_NONBLOCK,NULL);
 		DEBUG_MSG("start_command, add watch for channel_in\n");
 		g_io_add_watch(ep->channel_in,G_IO_OUT,start_command_write_lcb,ep);
@@ -239,81 +243,14 @@ static void start_command(Texternalp *ep) {
 		start_command_backend(ep);
 	}
 }
-/*
-static void start_command_alt2(Texternalp *ep, gboolean include_stderr, GIOFunc channel_out_lcb,gpointer out_data) {
-	int out_pipe[2],in_pipe[2]; / * in pipes, 0 is for reading, 1 is for writing * /
-	
-	if (ep->pipe_in) {
-		if (pipe(in_pipe) != 0) {
-			g_print("some error happened creating a pipe??\n");
-			return;
-		}
-	} else if (ep->fifo_in) {
-		if (mkfifo(ep->fifo_in, 0600) != 0) {
-			g_print("some error happened creating fifo %s??\n",ep->fifo_in);
-			return;
-		}
-		DEBUG_MSG("start_command, created fifo %s\n",ep->fifo_in);
-	}
-	if (ep->pipe_out) {
-		if (pipe(out_pipe) != 0) {
-			g_print("some error happened ??\n");
-			return;
-		}
-	} else if (ep->fifo_out) {
-		if (mkfifo(ep->fifo_out, 0600) != 0) {
-			g_print("some error happened creating fifo %s??\n",ep->fifo_out);
-			return;
-		}
-	}
-	
-	DEBUG_MSG("start_command, before fork(), commandstring='%s'\n",ep->commandstring);
-	if ((ep->child_process = fork()) == 0) {
-		if (ep->pipe_out) {
-			close(out_pipe[0]);
-			dup2(out_pipe[1],STDOUT_FILENO);
-			close(out_pipe[1]);
-		}
-		if (ep->pipe_in) {
-			close(in_pipe[1]);
-			dup2(in_pipe[0],STDIN_FILENO);
-			close(in_pipe[0]);
-		}
-		if (include_stderr) {
-			dup2(STDOUT_FILENO,STDERR_FILENO);
-		}
-		execlp("/bin/sh", "sh", "-c", ep->commandstring, NULL);
-		exit(127);
-	}
-	if (ep->pipe_in) {
-		close(in_pipe[0]);
-		ep->channel_in = g_io_channel_unix_new(in_pipe[1]);
-	} else if (ep->fifo_in) {
-		ep->channel_in = g_io_channel_new_file(ep->fifo_in,"w",NULL);
-	}
-	if (ep->pipe_in || ep->fifo_in) {
-		ep->refcount++;
-		ep->buffer_out = ep->buffer_out_position = doc_get_chars(ep->bfwin->current_document,0,-1);
-		g_io_channel_set_flags(ep->channel_in,G_IO_FLAG_NONBLOCK,NULL);
-		DEBUG_MSG("start_command, add watch for channel_in\n");
-		g_io_add_watch(ep->channel_in,G_IO_OUT,start_command_write_lcb,ep);
-	}
-	if (ep->pipe_out) {
-		close(out_pipe[1]);
-		ep->channel_out = g_io_channel_unix_new(out_pipe[0]);
-		DEBUG_MSG("start_command, created channel_out from pipe\n");
-	} else if (ep->fifo_out) {
-		ep->channel_out = g_io_channel_new_file(ep->fifo_out,"r",NULL);
-		DEBUG_MSG("start_command, created channel_out from fifo %s\n",ep->fifo_out);
-	}
-	if (ep->pipe_out || ep->fifo_out) {
-		ep->refcount++;
-		g_io_channel_set_flags(ep->channel_out,G_IO_FLAG_NONBLOCK,NULL);
-		DEBUG_MSG("start_command, add watch for channel_out\n");
-		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,channel_out_lcb,out_data);
-	}
-}*/
 
+gboolean operatable_on_selection(const gchar *formatstring) {
+
+	return (strstr(formatstring, "%s") == NULL && strstr(formatstring, "%c") == NULL 
+		&& strstr(formatstring, "%n") == NULL && strstr(formatstring, "%u") == NULL
+		&& strstr(formatstring, "%p") == NULL);
+
+} 
 
 /* The format string should have new options:
     * %s local full path (function should abort for remote files)
@@ -533,24 +470,6 @@ static gboolean outputbox_io_watch_lcb(GIOChannel *channel,GIOCondition conditio
 	return TRUE;
 }
 
-void outputbox_command(Tbfwin *bfwin, const gchar *formatstring) {
-	Texternalp *ep;
-	
-	ep = g_new0(Texternalp,1);
-	ep->bfwin = bfwin;
-	ep->formatstring = formatstring;
-	ep->commandstring = create_commandstring(ep, formatstring, FALSE);
-	if (!ep->commandstring) {
-		g_free(ep);
-		/* BUG: is the user notified of the error ?*/
-		return;
-	}
-	ep->include_stderr = TRUE;
-	ep->channel_out_lcb = outputbox_io_watch_lcb;
-	ep->channel_out_data = ep;
-	start_command(ep);
-}
-
 static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,gpointer data) {
 	Texternalp *ep = data;
 	DEBUG_MSG("filter_io_watch_lcb, started with condition=%d\n",condition);
@@ -562,11 +481,13 @@ static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,g
 		
 		status = g_io_channel_read_to_end(channel,&str_return,&length,&error);
 		if (status == G_IO_STATUS_NORMAL && str_return) {
-			gint end;
+			gint end=ep->end;
 			GError *error=NULL;
 			DEBUG_MSG("filter_io_watch_lcb, received '%s'\n",str_return);
-			end = doc_get_max_offset(ep->bfwin->current_document);
-			doc_replace_text(ep->bfwin->current_document, str_return, 0, end);
+			if (ep->end == -1) {
+				end = doc_get_max_offset(ep->bfwin->current_document);
+			}
+			doc_replace_text(ep->bfwin->current_document, str_return, ep->begin, end);
 			g_io_channel_shutdown(channel,TRUE,&error);
 			externalp_unref(ep);
 			g_free(str_return);
@@ -598,41 +519,56 @@ static gboolean filter_io_watch_lcb(GIOChannel *channel,GIOCondition condition,g
 	return TRUE;
 }
 
-void filter_command(Tbfwin *bfwin, const gchar *formatstring) {
+typedef enum {
+	mode_filter,
+	mode_outputbox,
+	mode_command
+} Tcommandmode;
+
+static void command_backend(Tbfwin *bfwin, gint begin, gint end, 
+								const gchar *formatstring, Tcommandmode commandmode) {
 	Texternalp *ep;
 	
-	DEBUG_MSG("filter_command, started\n");
+	DEBUG_MSG("command_backend, started\n");
 	ep = g_new0(Texternalp,1);
 	ep->bfwin = bfwin;
+	ep->doc = bfwin->current_document;
+	ep->begin = begin;
+	ep->end = end;
 	ep->formatstring = formatstring;
-	ep->commandstring = create_commandstring(ep, formatstring, FALSE);
+	ep->commandstring = create_commandstring(ep, formatstring, (commandmode==mode_command));
 	if (!ep->commandstring) {
-		DEBUG_MSG("filter_command, failed to create commandstring\n");
+		DEBUG_MSG("command_backend, failed to create commandstring\n");
 		g_free(ep);
 		/* BUG: is the user notified of the error ?*/
 		return;
 	}
-	ep->include_stderr = FALSE;
-	ep->channel_out_lcb = filter_io_watch_lcb;
-	ep->channel_out_data = ep;
+	if (commandmode == mode_filter)	{
+		ep->include_stderr = FALSE;
+		ep->channel_out_lcb = filter_io_watch_lcb;
+		ep->channel_out_data = ep;
+	} else if (commandmode == mode_outputbox)	{
+		ep->include_stderr = TRUE;
+		ep->channel_out_lcb = outputbox_io_watch_lcb;
+		ep->channel_out_data = ep;
+	} else if (commandmode == mode_command) {
+		ep->include_stderr = FALSE;
+		ep->channel_out_lcb = NULL;
+		ep->channel_out_data = NULL;
+	}
+
 	start_command(ep);
 }
 
+void outputbox_command(Tbfwin *bfwin, const gchar *formatstring) {
+	command_backend(bfwin, 0, -1,formatstring, mode_outputbox);
+}
+
+
+void filter_command(Tbfwin *bfwin, const gchar *formatstring, gint begin, gint end) {
+	command_backend(bfwin, begin, end,formatstring, mode_filter);
+}
+
 void external_command(Tbfwin *bfwin, const gchar *formatstring) {
-	Texternalp *ep;
-	
-	ep = g_new0(Texternalp,1);
-	ep->bfwin = bfwin;
-	ep->formatstring = formatstring;
-	ep->commandstring = create_commandstring(ep, formatstring, TRUE);
-	if (!ep->commandstring) {
-		g_free(ep);
-		/* BUG: is the user notified of the error ?*/
-		return;
-	}
-	ep->include_stderr = FALSE;
-	ep->channel_out_lcb = NULL;
-	ep->channel_out_data = NULL;
-	
-	start_command(ep);
+	command_backend(bfwin, 0, -1,formatstring, mode_command);
 }

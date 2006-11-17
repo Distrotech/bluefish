@@ -930,97 +930,28 @@ void browser_toolbar_cb(GtkWidget *widget, Tbfwin *bfwin) {
 }*/
 static void external_filter_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	gchar **arr = (gchar **)bdm->data;
+	gint begin=0,end=-1;
+	/* if we have a selection, and the filter can be used on a selection,
+	 we should ask if it should be the complete file or the selection */
+	 
+	if (operatable_on_selection(arr[1]) && (doc_has_selection(bdm->bfwin->current_document))) {
+		GtkWidget *dialog;
+		dialog = gtk_message_dialog_new(GTK_WINDOW(bdm->bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Operate filter only on selection?"));
+		
+		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES) {
+			doc_get_selection(bdm->bfwin->current_document,&begin,&end);
+			g_print("get selection\n");
+		}
+		g_print("external_filter_lcb, begin=%d, end=%d\n",begin,end);
+		gtk_widget_destroy(dialog);
+	} 
 	DEBUG_MSG("external_filter_lcb, calling external_command for %s\n",arr[1]);
-	filter_command(bdm->bfwin, arr[1]);
+	filter_command(bdm->bfwin, arr[1],begin,end);
 }
 
 static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	gchar **arr = (gchar **)bdm->data;
 	external_command(bdm->bfwin, arr[1]);
-/*
-	gchar *secure_tempname = NULL, *secure_tempname2 = NULL;
-	gboolean need_s=FALSE, need_f=FALSE, need_i=FALSE;
-	gchar **arr = (gchar **)bdm->data;
-	/ * now check if
-	 * %s - current document filename
-	 * %f - output filename that we need to read after the command has finished (filter)
-	 * %i - input filename for the filter
-	 * /
-	need_f = (strstr(arr[1], "%f") != NULL);
-	need_i = (strstr(arr[1], "%i") != NULL);
-	need_s = (strstr(arr[1], "%s") != NULL);
-
-	if (need_s) {
-		file_save_cb(NULL, bdm->bfwin);
-		if (!bdm->bfwin->current_document->uri) {
-			return;
-		}
-		if (gnome_vfs_uri_is_local(bdm->bfwin->current_document->uri)) {
-			/ * for local files we chdir() to their directory * /
-			gchar *tmpstring = gnome_vfs_uri_extract_dirname(bdm->bfwin->current_document->uri);
-			chdir(tmpstring);
-			g_free(tmpstring);
-		}
-	}
-	if (need_f || need_s || need_i) {
-		gchar *command;
-		Tconvert_table *table, *tmpt;
-		table = tmpt = g_new(Tconvert_table, 4);
-		if (need_s) {
-			DEBUG_MSG("adding 's' to table\n");
-			tmpt->my_int = 's';
-			tmpt->my_char = gnome_vfs_uri_to_string(bdm->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
-			tmpt++;
-		}
-		if (need_f) {
-			secure_tempname = create_secure_dir_return_filename();
-			DEBUG_MSG("adding 'f' to table\n");
-			tmpt->my_int = 'f';
-			tmpt->my_char = secure_tempname;
-			tmpt++;
-		}
-		if (need_i) {
-			gchar *buffer;
-			GtkTextIter itstart, itend;
-			gtk_text_buffer_get_bounds(bdm->bfwin->current_document->buffer,&itstart,&itend);
-			secure_tempname2 = create_secure_dir_return_filename();
-			DEBUG_MSG("adding 'i' to table\n");
-			tmpt->my_int = 'i';
-			tmpt->my_char = secure_tempname2;
-			tmpt++;
-			/ * now we also save the current filename (or in the future the selection) to this file * /
-			buffer = gtk_text_buffer_get_text(bdm->bfwin->current_document->buffer,&itstart,&itend,FALSE);
-			buffer_to_file(BFWIN(bdm->bfwin), buffer, secure_tempname2);
-			g_free(buffer);
-		}
-		tmpt->my_char = NULL;
-		command = replace_string_printflike(arr[1], table);
-		/ * BUG: there is a memory leak here !!!!!!!! some entries of the table have newly
-		allocated strings which should be freed !!!!!!!!!!!* /
-		g_free(table);
-		system(command);
-		g_free(command);
-		if (need_f) {
-			gint end;
-			gchar *buf = NULL;
-			gboolean suc6;
-			/ * empty textbox and fill from file secure_tempname * /
-			end = doc_get_max_offset(bdm->bfwin->current_document);
-			suc6 = g_file_get_contents(secure_tempname, &buf, NULL, NULL);
-			if (suc6 && buf) {
-				if (strlen(buf)) {
-					doc_replace_text(bdm->bfwin->current_document, buf, 0, end);
-				}
-				g_free(buf);
-			}
-		}
-		if (secure_tempname) remove_secure_dir_and_filename(secure_tempname);
-		if (secure_tempname2) remove_secure_dir_and_filename(secure_tempname2);
-	} else {
-		DEBUG_MSG("external_command_lcb, about to start %s\n", arr[1]);
-		system(arr[1]);
-	}
-*/
 }
 /**
  * external_menu_rebuild:
