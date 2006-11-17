@@ -940,9 +940,8 @@ static void external_filter_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 		
 		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES) {
 			doc_get_selection(bdm->bfwin->current_document,&begin,&end);
-			g_print("get selection\n");
 		}
-		g_print("external_filter_lcb, begin=%d, end=%d\n",begin,end);
+		DEBUG_MSG("external_filter_lcb, begin=%d, end=%d\n",begin,end);
 		gtk_widget_destroy(dialog);
 	} 
 	DEBUG_MSG("external_filter_lcb, calling external_command for %s\n",arr[1]);
