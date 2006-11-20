@@ -423,8 +423,14 @@ typedef struct {
 	pcre *autoclosingtag_regc; /* the regular expression to check for a valid tag in tag autoclosing*/
 	gchar *securedir; /* temporary rwx------ directory for secure file creation */
 	GSList *plugins;
-	GSList *doc_view_populate_popup_cbs;
-	GSList *doc_view_button_press_cbs;
+	GSList *doc_view_populate_popup_cbs; /* plugins can register functions here that need to 
+						be called when the right-click menu in the document is populated */
+	GSList *doc_view_button_press_cbs; /* plugins can register functions here that are called on a button press
+							in a document */
+	GSList *sidepanel_initgui; /* plugins can register a function here that is called when the side pane
+							is initialized */
+	GSList *sidepanel_destroygui; /* plugins can register a function here that is called when the side pane
+							is destroyed */
 	BfLangManager *lang_mgr;
 	Tautocomp *autocompletion;
 } Tmain;

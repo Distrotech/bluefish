@@ -242,30 +242,53 @@ static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpo
 }
 
 GtkWidget *left_panel_build(Tbfwin *bfwin) {
-/*	GtkWidget *fileb;*/
-	GtkWidget *left_notebook = gtk_notebook_new();
 	GtkWidget *fref;
 	GtkWidget *bmarks;
 	GtkWidget *fb2g;
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(left_notebook),main_v->props.leftpanel_tabposition);
-	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(left_notebook), TRUE);
-	gtk_notebook_set_show_border(GTK_NOTEBOOK(left_notebook), FALSE);
-	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(left_notebook), 0);
-	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(left_notebook), 0);
-	gtk_notebook_popup_enable(GTK_NOTEBOOK(left_notebook));
+	bfwin->leftpanel_notebook = gtk_notebook_new();
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->leftpanel_notebook),main_v->props.leftpanel_tabposition);
+	gtk_notebook_set_show_tabs(GTK_NOTEBOOK(bfwin->leftpanel_notebook), TRUE);
+	gtk_notebook_set_show_border(GTK_NOTEBOOK(bfwin->leftpanel_notebook), FALSE);
+	gtk_notebook_set_tab_hborder(GTK_NOTEBOOK(bfwin->leftpanel_notebook), 0);
+	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(bfwin->leftpanel_notebook), 0);
+	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->leftpanel_notebook));
 	DEBUG_MSG("left_panel_build, building left panel for bfwin %p\n",bfwin);
 /*	fileb = filebrowser_init(bfwin);*/
 	fref = fref_gui(bfwin);
 	bmarks = bmark_gui(bfwin);
 	fb2g = fb2_init(bfwin);
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fb2g,new_pixmap(105),gtk_label_new(_("Filebrowser")));
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),bmarks,new_pixmap(104),gtk_label_new(_("Bookmarks")));
-/*	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fileb,new_pixmap(105),gtk_label_new(_("Filebrowser")));*/
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(left_notebook),fref,new_pixmap(106),gtk_label_new(_("Function reference")));
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),fb2g,new_pixmap(105),gtk_label_new(_("Filebrowser")));
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),bmarks,new_pixmap(104),gtk_label_new(_("Bookmarks")));
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),fref,new_pixmap(106),gtk_label_new(_("Function reference")));
+	
+	if (main_v->sidepanel_initgui) {
+		GSList *tmplist = main_v->sidepanel_initgui;
+		while (tmplist) {
+			void *(* func)() = tmplist->data;
+			DEBUG_MSG("left_panel_build, calling plugin func %p\n", tmplist->data);
+			func(bfwin);
+			tmplist = g_slist_next(tmplist);
+		}
+	}
+	
+	gtk_widget_show_all(bfwin->leftpanel_notebook);
+	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->leftpanel_notebook),0);
+	return bfwin->leftpanel_notebook;
+}
 
-	gtk_widget_show_all(left_notebook);
-	gtk_notebook_set_current_page(GTK_NOTEBOOK(left_notebook),0);
-	return left_notebook;
+static void left_panel_cleanup(Tbfwin *bfwin) {
+	fref_cleanup(bfwin);
+	bmark_cleanup(bfwin);
+	fb2_cleanup(bfwin);
+	if (main_v->sidepanel_destroygui) {
+		GSList *tmplist = main_v->sidepanel_destroygui;
+		while (tmplist) {
+			void *(* func)() = tmplist->data;
+			DEBUG_MSG("left_panel_rebuild, calling plugin func %p\n", tmplist->data);
+			func(bfwin);
+			tmplist = g_slist_next(tmplist);
+		}
+	}
 }
 
 /**
@@ -276,12 +299,9 @@ void left_panel_rebuild(Tbfwin *bfwin) {
 		DEBUG_MSG("left_panel_rebuild, destroying widgets\n");
 		gtk_widget_destroy(bfwin->leftpanel_notebook);
 		DEBUG_MSG("left_panel_rebuild, cleanup\n");
-/*		filebrowser_cleanup(bfwin);*/
-		fref_cleanup(bfwin);
-		bmark_cleanup(bfwin);
-		fb2_cleanup(bfwin);
+		left_panel_cleanup(bfwin);
 		DEBUG_MSG("left_panel_rebuild, re-init\n");
-		bfwin->leftpanel_notebook = left_panel_build(bfwin);
+		left_panel_build(bfwin);
 		if (main_v->props.left_panel_left) {
 			gtk_paned_add1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook);
 		} else {
@@ -309,10 +329,7 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 		} else {
 			gtk_container_remove(GTK_CONTAINER(bfwin->hpane), bfwin->notebook_box);
 			gtk_widget_destroy(bfwin->hpane);
-			/*filebrowser_cleanup(bfwin);*/
-			fb2_cleanup(bfwin);
-			fref_cleanup(bfwin);
-			bmark_cleanup(bfwin); 
+			left_panel_cleanup(bfwin); 
 		}
 	}
 	if (show) {
