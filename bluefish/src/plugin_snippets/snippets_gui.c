@@ -28,6 +28,9 @@
 
 void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	Tsnippetswin *snw;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+
 	DEBUG_MSG("snippets_sidepanel_initgui, bfwin=%p\n",bfwin);
 	
 	snw = g_new0(Tsnippetswin,1);
@@ -35,6 +38,11 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	g_hash_table_insert(snippets_v.lookup,bfwin,snw);	
 	DEBUG_MSG("snippets_sidepanel_initgui, snw=%p, store=%p\n",snw,snippets_v.store);
 	snw->view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(snippets_v.store));
+	
+	renderer = gtk_cell_renderer_text_new();
+	column = gtk_tree_view_column_new_with_attributes("Title",renderer,"text", 0,NULL);
+	gtk_tree_view_append_column(GTK_TREE_VIEW(snw->view), column);
+	
 	gtk_notebook_append_page(bfwin->leftpanel_notebook,snw->view,gtk_label_new(_("snippets")));
 }
 

@@ -32,12 +32,12 @@ leaves are of some type:
 I'll start implementing just the branches to get a feel for libXML, 
 I want to parse something like this:
 <snippets>
-<branch name="myname">
-	<branch name="child of myname">
+<branch title="myname">
+	<branch title="child of myname">
 
 	</branch> 
 </branch> 
-<branch name="myname2">
+<branch title="myname2">
 
 </branch> 
 </snippets>
@@ -49,11 +49,24 @@ I want to parse something like this:
 #include "snippets.h"
 #include "snippets_load.h"
 
-static void walk_tree(xmlNodePtr cur) {
+static void add_tree_item(GtkTreeIter *parent, GtkTreeIter *child, const gchar *name, gpointer ptr) {
+	DEBUG_MSG("add_tree_item, adding %s\n",name);
+	gtk_tree_store_append(snippets_v.store, child, parent);
+	gtk_tree_store_set(snippets_v.store, child, 0, name,1, ptr,-1);
+}
+
+static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
-		if ((!xmlStrcmp(cur->name, (const xmlChar *)"branch"))){
-			walk_tree(cur);
+		xmlChar *title;
+		GtkTreeIter iter;
+		if ((!xmlStrcmp(cur->name, (const xmlChar *)"branch"))) {
+			title = xmlGetProp(cur, (const xmlChar *)"title");
+			add_tree_item(parent, &iter, (const gchar *)title, cur);
+			walk_tree(cur, &iter);
+		} else if ((!xmlStrcmp(cur->name, (const xmlChar *)"leaf"))) {
+			title = xmlGetProp(cur, (const xmlChar *)"title");
+			add_tree_item(parent, &iter, (const gchar *)title, cur);
 		}
 		cur = cur->next;
 	}
@@ -82,5 +95,7 @@ void snippets_load(const gchar *filename) {
 		snippets_v.doc = NULL;
 		return;
 	}
+	
+	walk_tree(cur, NULL);
 }
 

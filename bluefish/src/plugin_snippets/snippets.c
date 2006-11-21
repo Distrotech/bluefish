@@ -27,6 +27,7 @@
 #include "../document.h"
 #include "../gtk_easy.h"
 #include "snippets_gui.h"
+#include "snippets_load.h"
 Tsnippets snippets_v;
 
 static void snippets_init(void) {
@@ -38,11 +39,12 @@ static void snippets_init(void) {
 	snippets_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,
 					NULL /* == g_direct_equal() */,
 					NULL,NULL);
-	snippets_v.data = g_hash_table_new_full(g_str_hash,g_str_equal,NULL,NULL);
-	snippets_v.store = gtk_tree_store_new(1 /* Total number of columns */, G_TYPE_STRING   /* title */);
+	snippets_v.store = gtk_tree_store_new(2 /* Total number of columns */, G_TYPE_STRING, G_TYPE_POINTER);
 	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,snippets_sidepanel_initgui);
 	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);
-	DEBUG_MSG("snippets_init, finished, data=%p, store=%p, lookup=%p\n",snippets_v.data, snippets_v.store, snippets_v.lookup);
+	
+	snippets_load("/home/olivier/.bluefish-unstable/snippettest");
+	DEBUG_MSG("snippets_init, finished, store=%p, lookup=%p\n",snippets_v.store, snippets_v.lookup);
 }
 static void snippets_initgui(Tbfwin* bfwin) {
 
