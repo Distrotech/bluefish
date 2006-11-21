@@ -41,7 +41,6 @@
 
 typedef struct {
 	GHashTable* lookup; /* pointers are stored here */
-	GHashTable* data; /* xml data is stored here */
 	xmlDocPtr doc;
 	GtkTreeStore *store;
 } Tsnippets;
