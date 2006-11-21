@@ -25,6 +25,34 @@
 
 #include "snippets_gui.h"
 
+static gboolean snippetview_get_path_if_leaf(GtkTreePath *path) {
+	GtkTreeIter iter;
+	if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&iter,path)) {
+		xmlNodePtr cur;
+		gtk_tree_model_get(GTK_TREE_MODEL(snippets_v.store), &iter, 1, &cur, -1);
+		if (xmlStrcmp(cur->name, (const xmlChar *)"leaf")==0) {
+			DEBUG_MSG("snippetview_path_is_leaf, return TRUE, found a leaf!\n");
+			return cur;
+		}
+		DEBUG_MSG("snippetview_path_is_leaf, iter is not a leaf!\n");
+	}
+	DEBUG_MSG("snippetview_path_is_leaf, not a leaf or no iter\n");
+	return NULL;
+}
+
+static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tsnippetswin *snw) {
+	if (event->button==1 && event->type == GDK_2BUTTON_PRESS) { /* active it! */
+		GtkTreePath *path;
+		xmlNodePtr cur;
+		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(snw->view), event->x, event->y, &path, NULL, NULL, NULL);
+		cur = snippetview_get_path_if_leaf(path); 
+		if (cur) {
+			DEBUG_MSG("snippetview_button_press_lcb, found leaf, activate!\n");
+			/* based on the type of leaf we call different actions */
+		}
+	}
+	return FALSE; /* pass the event on */
+}
 
 void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	Tsnippetswin *snw;
@@ -42,6 +70,8 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	renderer = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("Title",renderer,"text", 0,NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(snw->view), column);
+	
+	g_signal_connect(G_OBJECT(snw->view), "button_press_event",G_CALLBACK(snippetview_button_press_lcb),snw);
 	
 	gtk_notebook_append_page(bfwin->leftpanel_notebook,snw->view,gtk_label_new(_("snippets")));
 }

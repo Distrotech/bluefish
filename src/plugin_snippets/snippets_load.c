@@ -65,8 +65,18 @@ static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
 			add_tree_item(parent, &iter, (const gchar *)title, cur);
 			walk_tree(cur, &iter);
 		} else if ((!xmlStrcmp(cur->name, (const xmlChar *)"leaf"))) {
+			xmlChar *hotkey;
 			title = xmlGetProp(cur, (const xmlChar *)"title");
 			add_tree_item(parent, &iter, (const gchar *)title, cur);
+			
+			/* if there are shortcut keys defined for this leaf we should register them */
+			hotkey = xmlGetProp(cur, (const xmlChar *)"hotkey");
+			if (hotkey) {
+			
+				/* now parse the hotkey, and make it active for this item */
+			
+			}
+			
 		}
 		cur = cur->next;
 	}
