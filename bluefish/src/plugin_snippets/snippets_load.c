@@ -72,9 +72,7 @@ static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
 			/* if there are shortcut keys defined for this leaf we should register them */
 			hotkey = xmlGetProp(cur, (const xmlChar *)"hotkey");
 			if (hotkey) {
-			
-				/* now parse the hotkey, and make it active for this item */
-			
+				
 			}
 			
 		}
@@ -84,7 +82,7 @@ static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
 
 void snippets_load(const gchar *filename) {
 	xmlNodePtr cur=NULL;
-
+	DEBUG_MSG("snippets_load, filename=%s\n",filename);
 	snippets_v.doc = xmlParseFile(filename);
 	
 	if (snippets_v.doc == NULL ) {

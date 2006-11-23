@@ -25,12 +25,13 @@
 #include "../plugins.h"
 #include "../rcfile.h"
 #include "../document.h"
-#include "../gtk_easy.h"
+#include "../bf_lib.h"
 #include "snippets_gui.h"
 #include "snippets_load.h"
 Tsnippets snippets_v;
 
 static void snippets_init(void) {
+	gchar *snipfile;
 #ifdef ENABLE_NLS
 	DEBUG_MSG("snippets_init, gettext domain-name=%s\n",PACKAGE"_plugin_snippets");
 	bindtextdomain(PACKAGE"_plugin_snippets", LOCALEDIR);
@@ -43,8 +44,10 @@ static void snippets_init(void) {
 	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,snippets_sidepanel_initgui);
 	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);
 	
+	snipfile = user_bfdir("snippets");
 	snippets_load("/home/olivier/.bluefish-unstable/snippettest");
 	DEBUG_MSG("snippets_init, finished, store=%p, lookup=%p\n",snippets_v.store, snippets_v.lookup);
+	g_free(snipfile);
 }
 static void snippets_initgui(Tbfwin* bfwin) {
 
