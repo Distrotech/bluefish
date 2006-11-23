@@ -645,6 +645,7 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 	if (do_save_as) {
 		doc->readonly = FALSE;
 		doc_reset_filetype(doc, doc->uri, buffer->data, strlen(buffer->data));
+		doc_set_title(doc);
 		doc_force_activate(doc);
 	}
 	refcpointer_unref(buffer);
