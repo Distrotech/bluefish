@@ -25,7 +25,7 @@
 
 #include "snippets_gui.h"
 
-static gboolean snippetview_get_path_if_leaf(GtkTreePath *path) {
+static xmlNodePtr snippetview_get_path_if_leaf(GtkTreePath *path) {
 	GtkTreeIter iter;
 	if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&iter,path)) {
 		xmlNodePtr cur;
@@ -54,10 +54,55 @@ static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *
 	return FALSE; /* pass the event on */
 }
 
+typedef struct {
+	Tsnippetswin *snw;
+	xmlNodePtr cur;
+} Thotkey_cbdata;
+
+gboolean testfunc(GtkAccelGroup *accel_group,GObject *acceleratable,guint keyval,GdkModifierType modifier,gpointer data) {
+	Thotkey_cbdata *hcbdata = (Thotkey_cbdata *)data;
+	xmlChar *title = xmlGetProp(hcbdata->cur, (const xmlChar *)"title");
+	if (title) {
+		DEBUG_MSG("testfunc called for %s\n",(const gchar *)title);
+	}
+		
+	return TRUE;
+}
+
+static void snippets_connect_hotkeys_from_doc(Tsnippetswin *snw, xmlNodePtr cur, GtkAccelGroup *accel_group) {
+	cur = cur->xmlChildrenNode;
+	while (cur != NULL) {
+		if ((!xmlStrcmp(cur->name, (const xmlChar *)"branch"))) {
+			snippets_connect_hotkeys_from_doc(snw, cur, accel_group);
+		} else if ((!xmlStrcmp(cur->name, (const xmlChar *)"leaf"))) {
+			xmlChar *hotkey;
+			/* if there are shortcut keys defined for this leaf we should register them */
+			hotkey = xmlGetProp(cur, (const xmlChar *)"hotkey");
+			if (hotkey) {
+				guint key;	
+				GdkModifierType mod;
+				gtk_accelerator_parse((const gchar *)hotkey,&key,&mod);
+				if (key!=0 && mod!=0 && gtk_accelerator_valid(key,mod)) {
+					GClosure *closure;
+					Thotkey_cbdata *hcbdata;
+					hcbdata = g_new(Thotkey_cbdata,1);
+					hcbdata->snw = snw;
+					hcbdata->cur = cur;
+					DEBUG_MSG("snippets_connect_hotkeys_from_doc, connecting hotkey %s\n",hotkey);
+					closure = g_cclosure_new(G_CALLBACK(testfunc),hcbdata,g_free);
+					gtk_accel_group_connect(accel_group,key,mod,GTK_ACCEL_VISIBLE, closure);
+				}
+			}
+		}
+		cur = cur->next;
+	}
+}
+
 void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	Tsnippetswin *snw;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
+	GtkAccelGroup *accel_group;
 
 	DEBUG_MSG("snippets_sidepanel_initgui, bfwin=%p\n",bfwin);
 	
@@ -73,7 +118,19 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	
 	g_signal_connect(G_OBJECT(snw->view), "button_press_event",G_CALLBACK(snippetview_button_press_lcb),snw);
 	
-	gtk_notebook_append_page(bfwin->leftpanel_notebook,snw->view,gtk_label_new(_("snippets")));
+	gtk_notebook_append_page(GTK_NOTEBOOK(bfwin->leftpanel_notebook),snw->view,gtk_label_new(_("snippets")));
+		
+	/* now parse the hotkey, and make it active for this item */
+	accel_group = gtk_accel_group_new();
+	gtk_window_add_accel_group(GTK_WINDOW(snw->bfwin->main_window), accel_group);
+	DEBUG_MSG("snippets_sidepanel_initgui, connect hotkeys\n");
+	if (snippets_v.doc) {
+		xmlNodePtr cur = xmlDocGetRootElement(snippets_v.doc);
+		if (cur) {
+			snippets_connect_hotkeys_from_doc(snw, cur, accel_group);
+		}
+	}
+	DEBUG_MSG("snippets_sidepanel_initgui, finished\n");
 }
 
 void snippets_sidepanel_destroygui(Tbfwin *bfwin) {
