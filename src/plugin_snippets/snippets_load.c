@@ -60,21 +60,15 @@ static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
 	while (cur != NULL) {
 		xmlChar *title;
 		GtkTreeIter iter;
-		if ((!xmlStrcmp(cur->name, (const xmlChar *)"branch"))) {
+		if ((xmlStrEqual(cur->name, (const xmlChar *)"branch"))) {
 			title = xmlGetProp(cur, (const xmlChar *)"title");
 			add_tree_item(parent, &iter, (const gchar *)title, cur);
 			walk_tree(cur, &iter);
-		} else if ((!xmlStrcmp(cur->name, (const xmlChar *)"leaf"))) {
+		} else if ((xmlStrEqual(cur->name, (const xmlChar *)"leaf"))) {
 			xmlChar *hotkey;
 			title = xmlGetProp(cur, (const xmlChar *)"title");
 			add_tree_item(parent, &iter, (const gchar *)title, cur);
-			
-			/* if there are shortcut keys defined for this leaf we should register them */
-			hotkey = xmlGetProp(cur, (const xmlChar *)"hotkey");
-			if (hotkey) {
-				
-			}
-			
+		
 		}
 		cur = cur->next;
 	}
@@ -97,7 +91,7 @@ void snippets_load(const gchar *filename) {
 		snippets_v.doc = NULL;
 		return;
 	}
-	if (xmlStrcmp(cur->name, (const xmlChar *) "snippets")) {
+	if (!xmlStrEqual(cur->name, (const xmlChar *) "snippets")) {
 		DEBUG_MSG("snippets_load, wrong type of document, root is called %s\n",cur->name);
 		xmlFreeDoc(snippets_v.doc);
 		snippets_v.doc = NULL;

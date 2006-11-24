@@ -22,15 +22,15 @@
 #include <string.h>
 
 #include "snippets.h"
-
 #include "snippets_gui.h"
+#include "../document.h"
 
 static xmlNodePtr snippetview_get_path_if_leaf(GtkTreePath *path) {
 	GtkTreeIter iter;
 	if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&iter,path)) {
 		xmlNodePtr cur;
 		gtk_tree_model_get(GTK_TREE_MODEL(snippets_v.store), &iter, 1, &cur, -1);
-		if (xmlStrcmp(cur->name, (const xmlChar *)"leaf")==0) {
+		if (xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
 			DEBUG_MSG("snippetview_path_is_leaf, return TRUE, found a leaf!\n");
 			return cur;
 		}
@@ -38,6 +38,39 @@ static xmlNodePtr snippetview_get_path_if_leaf(GtkTreePath *path) {
 	}
 	DEBUG_MSG("snippetview_path_is_leaf, not a leaf or no iter\n");
 	return NULL;
+}
+
+static void snippet_activate_leaf_insert(Tsnippetswin *snw, xmlNodePtr parent) {
+	xmlChar *before=NULL;
+	xmlChar *after=NULL;
+	xmlNodePtr cur = parent->xmlChildrenNode;
+	while (cur != NULL && (before == NULL || after == NULL)) {
+		if (xmlStrEqual(cur->name, (const xmlChar *)"before")) {
+			before = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+		} else if (xmlStrEqual(cur->name, (const xmlChar *)"after")) {
+			after = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+		}
+		cur = cur->next;
+	}
+	
+	if (before || after) {
+		doc_insert_two_strings(snw->bfwin->current_document, (const gchar *)before, (const gchar *)after);
+		if (before) xmlFree(before);
+		if (after) xmlFree(after);
+	}
+}
+
+static void snippet_activate_leaf(Tsnippetswin *snw, xmlNodePtr cur) {
+	xmlChar *type = xmlGetProp(cur, (const xmlChar *)"type");
+	if (!type) {
+		DEBUG_MSG("snippet_activate_leaf, no type\n");
+		return;
+	}
+	if (xmlStrEqual(type, (const xmlChar *)"insert")) {
+		snippet_activate_leaf_insert(snw, cur);
+	} else {
+		DEBUG_MSG("snippet_activate_leaf, unknown type %s\n",(const gchar *)type);
+	}
 }
 
 static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tsnippetswin *snw) {
@@ -48,7 +81,7 @@ static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *
 		cur = snippetview_get_path_if_leaf(path); 
 		if (cur) {
 			DEBUG_MSG("snippetview_button_press_lcb, found leaf, activate!\n");
-			/* based on the type of leaf we call different actions */
+			snippet_activate_leaf(snw, cur);
 		}
 	}
 	return FALSE; /* pass the event on */
@@ -59,22 +92,18 @@ typedef struct {
 	xmlNodePtr cur;
 } Thotkey_cbdata;
 
-gboolean testfunc(GtkAccelGroup *accel_group,GObject *acceleratable,guint keyval,GdkModifierType modifier,gpointer data) {
+gboolean snippets_hotkey_activated_lcb(GtkAccelGroup *accel_group,GObject *acceleratable,guint keyval,GdkModifierType modifier,gpointer data) {
 	Thotkey_cbdata *hcbdata = (Thotkey_cbdata *)data;
-	xmlChar *title = xmlGetProp(hcbdata->cur, (const xmlChar *)"title");
-	if (title) {
-		DEBUG_MSG("testfunc called for %s\n",(const gchar *)title);
-	}
-		
+	snippet_activate_leaf(hcbdata->snw, hcbdata->cur);
 	return TRUE;
 }
 
 static void snippets_connect_hotkeys_from_doc(Tsnippetswin *snw, xmlNodePtr cur, GtkAccelGroup *accel_group) {
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
-		if ((!xmlStrcmp(cur->name, (const xmlChar *)"branch"))) {
+		if ((xmlStrEqual(cur->name, (const xmlChar *)"branch"))) {
 			snippets_connect_hotkeys_from_doc(snw, cur, accel_group);
-		} else if ((!xmlStrcmp(cur->name, (const xmlChar *)"leaf"))) {
+		} else if ((xmlStrEqual(cur->name, (const xmlChar *)"leaf"))) {
 			xmlChar *hotkey;
 			/* if there are shortcut keys defined for this leaf we should register them */
 			hotkey = xmlGetProp(cur, (const xmlChar *)"hotkey");
@@ -89,7 +118,7 @@ static void snippets_connect_hotkeys_from_doc(Tsnippetswin *snw, xmlNodePtr cur,
 					hcbdata->snw = snw;
 					hcbdata->cur = cur;
 					DEBUG_MSG("snippets_connect_hotkeys_from_doc, connecting hotkey %s\n",hotkey);
-					closure = g_cclosure_new(G_CALLBACK(testfunc),hcbdata,g_free);
+					closure = g_cclosure_new(G_CALLBACK(snippets_hotkey_activated_lcb),hcbdata,g_free);
 					gtk_accel_group_connect(accel_group,key,mod,GTK_ACCEL_VISIBLE, closure);
 				}
 			}
