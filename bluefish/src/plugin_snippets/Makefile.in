@@ -49,7 +49,9 @@ PLUGIN=snippets.la
 PLUGINDIR=${pkglibdir}
 
 OBJECTS= snippets.o \
-	snippets_gui.o
+	snippets_gui.o \
+	snippets_load.o \
+	snippets_leaf_insert.o
 
 LOBJECTS = $(OBJECTS:.o=.lo)
 

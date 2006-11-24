@@ -23,41 +23,22 @@
 
 #include "snippets.h"
 #include "snippets_gui.h"
+#include "snippets_leaf_insert.h"
 #include "../document.h"
 
 static xmlNodePtr snippetview_get_path_if_leaf(GtkTreePath *path) {
-	GtkTreeIter iter;
-	if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&iter,path)) {
-		xmlNodePtr cur;
-		gtk_tree_model_get(GTK_TREE_MODEL(snippets_v.store), &iter, 1, &cur, -1);
-		if (xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
-			DEBUG_MSG("snippetview_path_is_leaf, return TRUE, found a leaf!\n");
-			return cur;
+	if (path) {
+		GtkTreeIter iter;
+		if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&iter,path)) {
+			xmlNodePtr cur;
+			gtk_tree_model_get(GTK_TREE_MODEL(snippets_v.store), &iter, 1, &cur, -1);
+			if (xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
+				DEBUG_MSG("snippetview_path_is_leaf, return TRUE, found a leaf!\n");
+				return cur;
+			}
 		}
-		DEBUG_MSG("snippetview_path_is_leaf, iter is not a leaf!\n");
 	}
-	DEBUG_MSG("snippetview_path_is_leaf, not a leaf or no iter\n");
 	return NULL;
-}
-
-static void snippet_activate_leaf_insert(Tsnippetswin *snw, xmlNodePtr parent) {
-	xmlChar *before=NULL;
-	xmlChar *after=NULL;
-	xmlNodePtr cur = parent->xmlChildrenNode;
-	while (cur != NULL && (before == NULL || after == NULL)) {
-		if (xmlStrEqual(cur->name, (const xmlChar *)"before")) {
-			before = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
-		} else if (xmlStrEqual(cur->name, (const xmlChar *)"after")) {
-			after = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
-		}
-		cur = cur->next;
-	}
-	
-	if (before || after) {
-		doc_insert_two_strings(snw->bfwin->current_document, (const gchar *)before, (const gchar *)after);
-		if (before) xmlFree(before);
-		if (after) xmlFree(after);
-	}
 }
 
 static void snippet_activate_leaf(Tsnippetswin *snw, xmlNodePtr cur) {
@@ -67,10 +48,11 @@ static void snippet_activate_leaf(Tsnippetswin *snw, xmlNodePtr cur) {
 		return;
 	}
 	if (xmlStrEqual(type, (const xmlChar *)"insert")) {
-		snippet_activate_leaf_insert(snw, cur);
+		snippets_activate_leaf_insert(snw, cur);
 	} else {
 		DEBUG_MSG("snippet_activate_leaf, unknown type %s\n",(const gchar *)type);
 	}
+	xmlFree(type);
 }
 
 static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tsnippetswin *snw) {
@@ -121,10 +103,27 @@ static void snippets_connect_hotkeys_from_doc(Tsnippetswin *snw, xmlNodePtr cur,
 					closure = g_cclosure_new(G_CALLBACK(snippets_hotkey_activated_lcb),hcbdata,g_free);
 					gtk_accel_group_connect(accel_group,key,mod,GTK_ACCEL_VISIBLE, closure);
 				}
+				xmlFree(hotkey);
 			}
 		}
 		cur = cur->next;
 	}
+}
+
+static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint x, gint y) {
+	GtkTreePath *path;
+	xmlNodePtr cur;
+	gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(tree), x, y, &path, NULL, NULL, NULL);
+	cur = snippetview_get_path_if_leaf(path); 
+	if (cur) {
+		xmlChar *tooltip;
+		gchar *tooltip2;
+		tooltip = xmlGetProp(cur, (const xmlChar *)"tooltip");
+		tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
+		g_free(tooltip);
+		return tooltip2;
+	}
+	return NULL;
 }
 
 void snippets_sidepanel_initgui(Tbfwin *bfwin) {
@@ -148,7 +147,9 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	g_signal_connect(G_OBJECT(snw->view), "button_press_event",G_CALLBACK(snippetview_button_press_lcb),snw);
 	
 	gtk_notebook_append_page(GTK_NOTEBOOK(bfwin->leftpanel_notebook),snw->view,gtk_label_new(_("snippets")));
-		
+	
+	snw->ttips = tree_tips_new_full(snw->bfwin,snw->view,snippets_treetip_lcb);
+	
 	/* now parse the hotkey, and make it active for this item */
 	accel_group = gtk_accel_group_new();
 	gtk_window_add_accel_group(GTK_WINDOW(snw->bfwin->main_window), accel_group);
@@ -164,4 +165,5 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 
 void snippets_sidepanel_destroygui(Tbfwin *bfwin) {
 	/* the widget is auto destroyed, and there is nothing more to destroy */
+	
 }

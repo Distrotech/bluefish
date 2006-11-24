@@ -45,7 +45,7 @@ static void snippets_init(void) {
 	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);
 	
 	snipfile = user_bfdir("snippets");
-	snippets_load("/home/olivier/.bluefish-unstable/snippettest");
+	snippets_load(snipfile);
 	DEBUG_MSG("snippets_init, finished, store=%p, lookup=%p\n",snippets_v.store, snippets_v.lookup);
 	g_free(snipfile);
 }

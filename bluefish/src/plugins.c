@@ -159,13 +159,13 @@ void bluefish_load_plugins(void) {
 	main_v->props.plugin_config = NULL;
 
 	bluefish_scan_dir_load_plugins(&oldlist,PKGLIBDIR);
-#ifdef DEVELOPMENT
+/*#ifdef DEVELOPMENT*/
 	{
 		gchar*dir = user_bfdir(NULL);
 		bluefish_scan_dir_load_plugins(&oldlist,dir);
 		g_free(dir);
 	}
-#endif /* DEVELOPMENT */
+/* #endif /* DEVELOPMENT */
 	free_arraylist(oldlist);
 }
 
