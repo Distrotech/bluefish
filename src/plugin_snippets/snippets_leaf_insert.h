@@ -1,5 +1,5 @@
 /* Bluefish HTML Editor
- * snippets.h - plugin for snippets sidebar
+ * snippets_leaf_insert.h
  *
  * Copyright (C) 2006 Olivier Sessink
  *
@@ -17,40 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef __SNIPPETS_H_
-#define __SNIPPETS_H_
 
-#define ENABLEPLUGINS
-/* #define DEBUG */
+#ifndef SNIPPETS_LEAF_INSERT_H
+#define SNIPPETS_LEAF_INSERT_H
 
-#include <gtk/gtk.h>
-
-#include <libxml/xmlmemory.h>
-#include <libxml/parser.h>
-#include <libxml/xpath.h>
-#include <libxml/xmlwriter.h>
+void snippets_activate_leaf_insert(Tsnippetswin *snw, xmlNodePtr parent);
 
 
-#include "../config.h"
-#include "../bluefish.h"
-#include "../treetips.h"
-#ifdef ENABLE_NLS
-#undef _
-#define _(String) dgettext(PACKAGE"_plugin_snippets", String)
-#endif    
-
-typedef struct {
-	GHashTable* lookup; /* pointers are stored here */
-	xmlDocPtr doc;
-	GtkTreeStore *store;
-} Tsnippets;
-
-typedef struct {
-	Tbfwin *bfwin;
-	GtkWidget *view;
-	TreeTips *ttips;
-} Tsnippetswin;
-
-extern Tsnippets snippets_v;
-
-#endif /* __SNIPPETS_H_ */
+#endif /* SNIPPETS_LEAF_INSERT_H */
