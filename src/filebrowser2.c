@@ -2050,13 +2050,13 @@ void fb2config_init(void) {
 	fb2config->filesystem_itable = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,gnome_vfs_uri_hash_destroy,g_free);
 	fb2config->filesystem_tstore = gtk_tree_store_new(N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_POINTER,G_TYPE_BOOLEAN,G_TYPE_STRING);
 	filename = return_first_existing_filename(main_v->props.filebrowser_unknown_icon,
-					"icon_unknown.png","../icons/icon_unknown.png",
-					"icons/icon_unknown.png",NULL);
+					"icon_unknown.png","../images/icon_unknown.png",
+					"images/icon_unknown.png",NULL);
 	fb2config->unknown_icon = gdk_pixbuf_new_from_file(filename, NULL);
 	g_free(filename);
 	/*filename = return_first_existing_filename(main_v->props.filebrowser_dir_icon,
-					"icon_dir.png","../icons/icon_dir.png",
-					"icons/icon_dir.png",NULL);
+					"icon_dir.png","../images/icon_dir.png",
+					"images/icon_dir.png",NULL);
 	fb2config->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);*/
 	fb2config->dir_icon = get_icon_for_mime_type("x-directory/normal");
 	/*g_free(filename);*/
