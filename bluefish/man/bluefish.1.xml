@@ -5,25 +5,16 @@
 	"/usr/share/xml/docbook/schema/dtd/4.4/docbookx.dtd" [
 
 <!--
-	$Id: bluefish.1.xml,v 1.4 2006-08-03 17:48:22 dleidert Exp $
+	$Id: bluefish.1.xml,v 1.5 2006-11-25 17:35:47 dleidert Exp $
 	
 	TODO: Add copyright and licensing information.
 -->
 
-	<!ENTITY dhdate      "$Date: 2006-08-03 17:48:22 $">
 	<!ENTITY dhsection   "1">
 
-	<!-- this is necessary in the completely automatic build environemnt -->
-	<!--
 	<!ENTITY % _bf_entities SYSTEM "bf_entities.dtd">
 	%_bf_entities;
-	-->
 
-	<!-- remove this in the completely automatic build environemnt -->
-	<!ENTITY dhpackage   "bluefish-unstable">
-	<!ENTITY dhtpackage  "Bluefish Documentation">
-	<!ENTITY dhulpackage "Bluefish Editor">
-	<!ENTITY dhedition   "1.1">
 ]>
 
 <refentry>
@@ -31,7 +22,6 @@
 		<title>&dhtpackage;</title>
 		<productname>&dhulpackage;</productname>
 		<edition>&dhedition;</edition>
-		<date>&dhdate;</date>
 		<authorgroup>
 			<author>
 				<firstname>Daniel</firstname>
