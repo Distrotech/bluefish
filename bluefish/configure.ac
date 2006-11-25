@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.135 2006-11-25 21:57:29 dleidert Exp $
+dnl $Id: configure.ac,v 1.136 2006-11-25 22:54:56 dleidert Exp $
 dnl
 dnl Copyright (C) 2002-2006 Olivier Sessink
 dnl Copyright (C) 2006 Daniel Leidert
@@ -15,7 +15,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.135 $)
+AC_REVISION($Revision: 1.136 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -331,7 +331,7 @@ else
 fi
 	
 AC_SUBST([XML_CATALOG_FILE])
-AM_CONDITIONAL([REGISTER_XML_CATALOG], [test "$enable_xml_catalog_update" != "xno" -a -n "x$XML_CATALOG_FILE" ])
+AM_CONDITIONAL([REGISTER_XML_CATALOG], [test "x$enable_xml_catalog_update" != "xno" -a -n "x$XML_CATALOG_FILE" ])
 AC_SUBST([fdomenupath])
 AM_CONDITIONAL(INSTALL_FDOMENU, [test "x$fdomenupath" != "xno"])
 AC_SUBST([fdomimepath])
