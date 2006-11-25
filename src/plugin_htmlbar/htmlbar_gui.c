@@ -35,7 +35,8 @@
 #include "rpopup.h"
 #include "wizards.h"
 
-#include "htmlbar_icons.c"
+#include "pixmaps/htmlbar_icons.c"
+
 GtkWidget *htmlbar_pixmap(const guint8 *data) {
 	GtkWidget *widget;
 	GdkPixbuf *pixbuf;
