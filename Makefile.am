@@ -32,5 +32,5 @@ MAINTAINERCLEANFILES = \
 	ABOUT-NLS \
 	Makefile.in
 
-DISTCHECK_CONFIGURE_FLAGS = --disable-update-databases
+DISTCHECK_CONFIGURE_FLAGS = --disable-update-databases --disable-xml-catalog-update
 
