@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.134 2006-11-25 19:53:23 dleidert Exp $
+dnl $Id: configure.ac,v 1.135 2006-11-25 21:57:29 dleidert Exp $
 dnl
 dnl Copyright (C) 2002-2006 Olivier Sessink
 dnl Copyright (C) 2006 Daniel Leidert
@@ -15,7 +15,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.134 $)
+AC_REVISION($Revision: 1.135 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -207,6 +207,27 @@ AC_ARG_ENABLE(
 	[AC_DEFINE([USE_SCANNER], [1], [Define to 1 if you want to use BfTextView scanner for editor widget.])]
 )
 
+dnl To create our catalog and maybe update the systems XML catalog, we need xmlcatalog.
+dnl But because several systems like Debian or Mac use their own system, so let the user
+dnl decide, if he wants to update the sytems catalog.
+AC_PATH_PROG([XMLCATALOG], [xmlcatalog], [no])
+if test "x$XMLCATALOG" = "xno"; then
+	AC_MSG_ERROR([Instal the xmlcatalog application, which is delivered with the GNOME xml-library.])
+fi
+
+AC_ARG_ENABLE(
+	[xml-catalog-update],
+	AC_HELP_STRING(
+		[--enable-xml-catalog-update],
+		[
+		 enable (or disable) the running of xmlcatalog after installation -
+		 some distributions like Debian use their own system for registering
+		 catalogs, so be careful here and also check the `--with-xml-catalog'
+		 option @<:@default=yes@:>@
+		]
+	),
+)
+
 AC_ARG_ENABLE(
 	[update-databases],
 	AC_HELP_STRING(
@@ -233,10 +254,23 @@ AM_CONDITIONAL([HAVE_UPDATE_DESKTOP_DATABASE], [test -n "$UPDATE_DESKTOP_DATABAS
 AC_SUBST([UPDATE_MIME_DATABASE])
 AM_CONDITIONAL([HAVE_UPDATE_MIME_DATABASE], [test -n "$UPDATE_MIME_DATABASE"])
 
-
 dnl ************************
 dnl   Configure options w/wo
 dnl ************************
+
+AC_ARG_WITH(
+	[xml-catalog],
+	AC_HELP_STRING(
+		[--with-xml-catalog=@<:@FILE@:>@],
+		[
+		 the specified file is the systems XML catalog (/etc/xml/catalog for most systems),
+		 that shall be updated after installation running
+		 xmlcatalog @<:@default=${sysconfir}/xml/catalog@:>@
+		]
+	),
+	[xmlcatalog="$withval"],
+	[xmlcatalog="/etc/xml/catalog"]
+)
 
 AC_ARG_WITH(
 	[freedesktop_org-menu],
@@ -288,6 +322,16 @@ AC_ARG_WITH(
 	[iconpath="${datadir}/pixmaps"]
 )
 
+if ! test -f "$xmlcatalog" ; then
+	AC_MSG_NOTICE([The given systems XML catalog $xmlcatalog seems to be unavailable.])
+	AC_MSG_NOTICE([We will not try to update it after installation.])
+	XML_CATALOG_FILE=""
+else
+	XML_CATALOG_FILE="$xmlcatalog"
+fi
+	
+AC_SUBST([XML_CATALOG_FILE])
+AM_CONDITIONAL([REGISTER_XML_CATALOG], [test "$enable_xml_catalog_update" != "xno" -a -n "x$XML_CATALOG_FILE" ])
 AC_SUBST([fdomenupath])
 AM_CONDITIONAL(INSTALL_FDOMENU, [test "x$fdomenupath" != "xno"])
 AC_SUBST([fdomimepath])
