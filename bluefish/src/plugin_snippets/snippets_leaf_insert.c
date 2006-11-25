@@ -72,11 +72,14 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	for (cur = leaf->xmlChildrenNode;cur != NULL;cur = cur->next) {
 		if (xmlStrEqual(cur->name, (const xmlChar *)"param")) {
 			xmlChar *name;
+			gchar *final_name;
 			name =  xmlGetProp(cur, (const xmlChar *)"name");
+			final_name = g_markup_escape_text((gchar *)name,-1);
 			sid->textentry[i] = gtk_entry_new();
-			bf_mnemonic_label_tad_with_alignment((gchar*)name, sid->textentry[i], 0, 0.5, table, 0, 1, i, i+1);
+			bf_mnemonic_label_tad_with_alignment(final_name, sid->textentry[i], 0, 0.5, table, 0, 1, i, i+1);
 			gtk_table_attach(GTK_TABLE (table), sid->textentry[i], 1, 2, i, i+1, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
 			xmlFree(name);
+			g_free(final_name);
 			i++;
 		} else if (xmlStrEqual(cur->name, (const xmlChar *)"before")) {
 			before = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
