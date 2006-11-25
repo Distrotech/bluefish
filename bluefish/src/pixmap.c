@@ -23,8 +23,8 @@
 
 #include "bluefish.h"
 
-#include "../inline_images/toolbar_icons.c"
-#include "../inline_images/general_icons.c"
+#include "pixmaps/toolbar_icons.c"
+#include "pixmaps/general_icons.c"
 
 typedef struct {
 	const guint id;
@@ -61,15 +61,15 @@ static Tpixmap tp[] = {
 /*	{110, pixmap_indent},
 	{111, pixmap_unindent},*/
 	{112, pixmap_open_small},
-	{150,pixmap_prefseditor},
-	{151,pixmap_prefsexternal},
-	{152,pixmap_prefsfiles},
-	{153,pixmap_prefsfiletypes},
-	{154,pixmap_prefshtml},
-	{155,pixmap_prefsimages},
-	{156,pixmap_prefsinterface},
-	{157,pixmap_prefsoutputparser},
-	{158,pixmap_prefssyntax},
+	{150, pixmap_prefseditor},
+	{151, pixmap_prefsexternal},
+	{152, pixmap_prefsfiles},
+	{153, pixmap_prefsfiletypes},
+	{154, pixmap_prefshtml},
+	{155, pixmap_prefsimages},
+	{156, pixmap_prefsinterface},
+	{157, pixmap_prefsoutputparser},
+	{158, pixmap_prefssyntax},
 	{159, pixmap_nothing},
 	{160, pixmap_frhide},
 	{161, pixmap_frdialog2},
@@ -89,7 +89,7 @@ static Tstockpixmap tsp[] = {
 	{1001, GTK_STOCK_FIND_AND_REPLACE},
 	{1002, GTK_STOCK_PREFERENCES},
 	{1003, GTK_STOCK_GO_UP},
-	{1004,GTK_STOCK_GO_DOWN}	
+	{1004, GTK_STOCK_GO_DOWN}	
 };
 
 GtkWidget *new_pixmap(gint type) {
