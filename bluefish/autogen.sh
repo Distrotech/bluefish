@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: autogen.sh,v 1.1 2006-11-25 19:53:23 dleidert Exp $
+# $Id: autogen.sh,v 1.2 2006-11-25 23:27:13 dleidert Exp $
 
 set -e
 
@@ -25,12 +25,27 @@ if [ -z `which $LIBTOOLIZE` ] ; then echo "Error. LIBTOOLIZE=$LIBTOOLIZE not fou
 ## find where automake is installed and get the version
 AUTOMAKE_PATH=${AUTOMAKE_PATH:-`which $AUTOMAKE | sed 's|\/bin\/automake.*||'`}
 AUTOMAKE_VERSION=`$AUTOMAKE --version | grep automake | awk '{print $4}' | awk -F. '{print $1"."$2}'`
+ACLOCAL_VERSION=`$ACLOCAL --version | grep aclocal | awk '{print $4}' | awk -F. '{print $1"."$2}'`
 
 ## check if automake is new enough and fail with error 2 if not
-if [[ $AUTOMAKE_VERSION = "1.4|1.5|1.6" ]] ; then
-	echo "Your automake version $AUTOMAKE_VERSION is not new enough. automake 1.7 and above are required." >&2
-	exit 2
-fi
+case $AUTOMAKE_VERSION in
+	"1.4"|"1.5"|"1.6")
+		echo "Your automake version $AUTOMAKE_VERSION is not new enough." >&2
+		echo "automake 1.7 and above are required." >&2
+		exit 2
+	;;
+	*)
+	;;
+esac
+case $ACLOCAL_VERSION in
+	"1.4"|"1.5"|"1.6")
+		echo "Your aclocal version $ACLOCAL_VERSION is not new enough." >&2
+		echo "automake 1.7 and above are required." >&2
+		exit 2
+	;;
+	*)
+	;;
+esac
 
 ## automake files we need to have inside our source
 AUTOMAKE_FILES="
