@@ -1,14 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
 Version=1.0
-Name=Bluefish Editor (CVS)
-Name[de]=Bluefish Editor (CVS)
-Name[fr]=Éditeur Bluefish (CVS)
-Comment=Web Development Editor (CVS)
-Comment[de]=Editor für Web-Entwickler (CVS)
-Comment[fr]=Éditeur pour développeurs web (CVS)
+_Name=Bluefish Editor (CVS)
+_Comment=Web Development Editor (CVS)
 Exec=@PACKAGE@ %F
-Icon=@BF_APP_ICON@
+Icon=@PACKAGE@
 Terminal=false
 Type=Application
 StartupNotify=true

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+_Name=Bluefish Editor (CVS)
+_Comment=Web Development Editor (CVS)
+Exec=@PACKAGE@ -n -p %f
+Icon=@PACKAGE@
+Terminal=false
+Type=Application
+StartupNotify=true
+NoDisplay=true
+MimeType=application/bluefish-project;
