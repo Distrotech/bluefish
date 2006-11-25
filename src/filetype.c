@@ -193,7 +193,7 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 	DEBUG_MSG("filetype_highlighting_rebuild, rebuilding the filetype list\n");
 	/* now rebuild the filetype list */
 	/* parse language files */
-	filetype_scan_langfiles(PKGDATADIR);
+	filetype_scan_langfiles(PKGDATADIR"bflang/");
 	{
 		gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 		filetype_scan_langfiles(userdir);
