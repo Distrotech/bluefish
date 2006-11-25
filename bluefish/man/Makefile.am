@@ -1,6 +1,6 @@
 
 EXTRA_DIST = \
-	bluefish-unstable.1 \
+	$(PACKAGE).1 \
 	bluefish.1.xml \
 	bf_entities.dtd.in
 
@@ -13,13 +13,13 @@ VPATH += @builddir@
 XMLLINT_FLAGS  += --path "$(VPATH)" --noout --valid
 XSLTPROC_FLAGS += --path "$(VPATH)" --param man.charmap.use.subset "0"
 
-man1_MANS = bluefish-unstable.1
+man1_MANS = $(PACKAGE).1
 
-bluefish-unstable.1 : bluefish.1.xml
+$(PACKAGE).1 : bluefish.1.xml
 if HAVE_XSLTPROC
 	$(XSLTPROC) $(XSLTPROC_FLAGS) $<
 else
-	$(warning "Install 'xsltproc', if you want to update the manpage."
+	@echo  -e "\033[1mInstall 'xsltproc', if you want to update the manpage.\033[0m"
 endif
 
 check-local:
@@ -30,7 +30,7 @@ else
 	@echo  -e "\033[1mCannot check the XML sources because 'xmllint' is missing.\033[0m"
 endif
 if HAVE_MAN
-	LANG=C MANWIDTH=80 $(MAN) $(addprefix $(srcdir)/,bluefish-unstable.1) > /dev/null
+	LANG=C MANWIDTH=80 $(MAN) $(srcdir)/$(PACKAGE).1 > /dev/null
 else
 	@echo -e "\033[1mCannot check the manpages because 'man' is missing.\033[0m"
 endif
