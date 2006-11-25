@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 1.1.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-20 01:11+0200\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2006-11-25 14:27-0800\n"
 "PO-Revision-Date: 2002-12-13 23:02+0100\n"
 "Last-Translator: Roland Steinbach <roland@netzblick.de>\n"
 "Language-Team: none\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: ../about.c:75
+#: src/plugin_about/about.c:74
 msgid ""
 "\n"
 "Developers of previous releases:"
@@ -24,7 +24,7 @@ msgstr ""
 "\n"
 "Entwickler früherer Versionen:"
 
-#: ../about.c:87
+#: src/plugin_about/about.c:86
 msgid ""
 "\n"
 "Package maintainers:"
@@ -32,7 +32,7 @@ msgstr ""
 "\n"
 "Paket-Maintainer:"
 
-#: ../about.c:92
+#: src/plugin_about/about.c:91
 msgid ""
 "\n"
 "If you know of anyone missing from this list,\n"
@@ -42,7 +42,7 @@ msgstr ""
 "Falls wir jemanden vergesssen haben sollten,\n"
 "lass es uns wissen unter <bluefish@bluefish.openoffice.nl>."
 
-#: ../about.c:93
+#: src/plugin_about/about.c:92
 msgid ""
 "\n"
 "Thanks to all who helped making this software available."
@@ -50,14 +50,14 @@ msgstr ""
 "\n"
 "Eine Dankeschön an alle, die uns bei dieser Software geholfen haben."
 
-#: ../about.c:132
+#: src/plugin_about/about.c:131
 msgid ""
 "An open-source editor for experienced web designers and programmers, "
 "supporting many programming and markup languages, but focusing on creating "
 "dynamic and interactive websites."
 msgstr ""
 
-#: ../about.c:133
+#: src/plugin_about/about.c:132
 msgid ""
 "\n"
 "\n"
@@ -67,15 +67,15 @@ msgstr ""
 "\n"
 "Diese Version von Bluefish wurde gebaut mit: "
 
-#: ../about.c:135
+#: src/plugin_about/about.c:134
 msgid "libaspell support, "
 msgstr "libaspell Unterstützung, "
 
-#: ../about.c:138
+#: src/plugin_about/about.c:137
 msgid "development checks support, "
 msgstr "Unterstützung für spezielle Checks, "
 
-#: ../about.c:141
+#: src/plugin_about/about.c:140
 msgid "i18n support, "
 msgstr "I18N Unterstützung, "
 
@@ -87,26 +87,25 @@ msgstr "I18N Unterstützung, "
 #. * to this translation (in general: this special locale). Please
 #. * use a separate line for every translator ending with a newlines (\n).
 #.
-#: ../about.c:154
+#: src/plugin_about/about.c:153
 msgid "translator-credits"
 msgstr ""
 "Knud Franzkowiak <knud.franzkowiak@gmx.net>\n"
 "Roland Steinbach <roland@netzblick.de>\n"
 "Daniel Leidert <daniel.leidert@wgdd.de>"
 
-#: ../about.c:208
+#: src/plugin_about/about.c:201
 msgid "/_Help"
 msgstr "/_Hilfe"
 
-#: ../about.c:209
+#: src/plugin_about/about.c:202
 msgid "/Help/Bluefish _Homepage"
 msgstr "/Help/Bluefis_h Projektseite"
 
-#: ../about.c:210
+#: src/plugin_about/about.c:203
 msgid "/Help/Report a _Bug"
 msgstr "/Help/_Fehler melden"
 
-#: ../about.c:212
+#: src/plugin_about/about.c:205
 msgid "/Help/_About..."
 msgstr "/Hilfe/Ü_ber..."
-

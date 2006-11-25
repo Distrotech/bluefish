@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ru.po\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-20 21:46-0800\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2006-11-25 14:39-0800\n"
 "PO-Revision-Date: 2004-12-02 10:42+0300\n"
 "Last-Translator: Eugene Rupakov <taurus_1@mail.ru>\n"
 "Language-Team:  <ru@li.org>\n"
@@ -16,1937 +16,1990 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: ../html2.c:558
-msgid "Cascading StyleSheet dialog"
+#. _DM_ Alert box asking if user would like to change request from add to
+#. * update.
+#.
+#: src/plugin_htmlbar/html2.c:499
+#, fuzzy
+msgid "_Update"
+msgstr " О_бновить  "
+
+#: src/plugin_htmlbar/html2.c:504
+#, fuzzy, c-format
+msgid "The %s %s property already exists.\n"
+msgstr "Указанный путь уже существует."
+
+#: src/plugin_htmlbar/html2.c:506
+#, fuzzy, c-format
+msgid "The %s property already exists.\n"
+msgstr "Указанный путь уже существует."
+
+#: src/plugin_htmlbar/html2.c:509
+#, c-format
+msgid "Update it's value from %s to %s?"
+msgstr ""
+
+#: src/plugin_htmlbar/html2.c:635
+#, fuzzy
+msgid "Cascading Style Sheet Builder"
 msgstr "диалог Cascading Style Sheet"
 
-#: ../html2.c:578
+#: src/plugin_htmlbar/html2.c:655
 msgid "_Selector:"
 msgstr "Панель в_ыбора:"
 
-#: ../html2.c:597
+#: src/plugin_htmlbar/html2.c:674
 msgid "_Property:"
 msgstr "_Свойство:"
 
-#: ../html2.c:599 ../html_form.c:650 ../html_form.c:799 ../html_form.c:894
+#: src/plugin_htmlbar/html2.c:676 src/plugin_htmlbar/html_form.c:650
+#: src/plugin_htmlbar/html_form.c:799 src/plugin_htmlbar/html_form.c:894
 msgid "_Value:"
 msgstr "_Значение:"
 
-#: ../html2.c:617
+#: src/plugin_htmlbar/html2.c:694
 msgid "Selector"
 msgstr "Панель выбора"
 
-#: ../html2.c:617 ../html2.c:620
+#: src/plugin_htmlbar/html2.c:694 src/plugin_htmlbar/html2.c:697
 msgid "Property"
 msgstr "Свойство"
 
-#: ../html2.c:617 ../html2.c:620
+#: src/plugin_htmlbar/html2.c:694 src/plugin_htmlbar/html2.c:697
 msgid "Value"
 msgstr "Значение"
 
-#: ../html2.c:635
+#: src/plugin_htmlbar/html2.c:712
 msgid " _Add "
 msgstr " _Добавить "
 
-#: ../html2.c:638
+#: src/plugin_htmlbar/html2.c:715
 msgid " _Update "
 msgstr " О_бновить  "
 
-#: ../html2.c:641
+#: src/plugin_htmlbar/html2.c:718
 msgid " _Delete "
 msgstr " _Удалить "
 
-#: ../html2.c:897 ../html2.c:934
+#: src/plugin_htmlbar/html2.c:971 src/plugin_htmlbar/html2.c:1008
 msgid "_Style..."
 msgstr "_Стиль..."
 
-#: ../html2.c:1091
+#: src/plugin_htmlbar/html2.c:1165
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Выберите цвет"
 
-#: ../htmlbar.c:36
+#: src/plugin_htmlbar/htmlbar.c:36
 msgid "Edit color"
 msgstr "Редактировать цвет"
 
-#: ../htmlbar.c:44
+#: src/plugin_htmlbar/htmlbar.c:44
 msgid "Edit tag"
 msgstr "Редактировать метку"
 
-#: ../htmlbar_gui.c:202
+#: src/plugin_htmlbar/htmlbar_gui.c:203
 msgid "/_Tags"
 msgstr "/_Тэги"
 
-#: ../htmlbar_gui.c:204
+#: src/plugin_htmlbar/htmlbar_gui.c:205
 msgid "/Tags/_Headings"
 msgstr "/Тэги/Заголовки _H"
 
-#: ../htmlbar_gui.c:206
+#: src/plugin_htmlbar/htmlbar_gui.c:207
 msgid "/Tags/Headings/H_1"
 msgstr "/Тэги/Заголовки/H_1"
 
-#: ../htmlbar_gui.c:207
+#: src/plugin_htmlbar/htmlbar_gui.c:208
 msgid "/Tags/Headings/H_2"
 msgstr "/Тэги/Заголовки/H_2"
 
-#: ../htmlbar_gui.c:208
+#: src/plugin_htmlbar/htmlbar_gui.c:209
 msgid "/Tags/Headings/H_3"
 msgstr "/Тэги/Заголовки/H_3"
 
-#: ../htmlbar_gui.c:209
+#: src/plugin_htmlbar/htmlbar_gui.c:210
 msgid "/Tags/Headings/H_4"
 msgstr "/Тэги/Заголовки/H_4"
 
-#: ../htmlbar_gui.c:210
+#: src/plugin_htmlbar/htmlbar_gui.c:211
 msgid "/Tags/Headings/H_5"
 msgstr "/Тэги/Заголовки/H_5"
 
-#: ../htmlbar_gui.c:211
+#: src/plugin_htmlbar/htmlbar_gui.c:212
 msgid "/Tags/Headings/H_6"
 msgstr "/Тэги/Заголовки/H_6"
 
-#: ../htmlbar_gui.c:212
+#: src/plugin_htmlbar/htmlbar_gui.c:213
 msgid "/Tags/_Special"
 msgstr "/Тэги/Особые _S"
 
-#: ../htmlbar_gui.c:214
+#: src/plugin_htmlbar/htmlbar_gui.c:215
 msgid "/Tags/Special/_Accent"
 msgstr "/Тэги/Особые/_Accent"
 
-#: ../htmlbar_gui.c:216
+#: src/plugin_htmlbar/htmlbar_gui.c:217
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "/Тэги/Особые/Accent/Прописные _U"
 
-#: ../htmlbar_gui.c:217
+#: src/plugin_htmlbar/htmlbar_gui.c:218
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr "/Тэги/Особые/Accent/Прописные/_A-I"
 
-#: ../htmlbar_gui.c:219
+#: src/plugin_htmlbar/htmlbar_gui.c:220
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/A штрих влево À"
 
-#: ../htmlbar_gui.c:220
+#: src/plugin_htmlbar/htmlbar_gui.c:221
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/A штрих вправо Á"
 
-#: ../htmlbar_gui.c:221
+#: src/plugin_htmlbar/htmlbar_gui.c:222
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/A с крышкой Â"
 
-#: ../htmlbar_gui.c:222
+#: src/plugin_htmlbar/htmlbar_gui.c:223
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/A с тильдой Ã"
 
-#: ../htmlbar_gui.c:223
+#: src/plugin_htmlbar/htmlbar_gui.c:224
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/Лигатура AE Æ"
 
-#: ../htmlbar_gui.c:224
+#: src/plugin_htmlbar/htmlbar_gui.c:225
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/A с двумя точками Ä"
 
-#: ../htmlbar_gui.c:225
+#: src/plugin_htmlbar/htmlbar_gui.c:226
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/A с кольцом Å"
 
-#: ../htmlbar_gui.c:226
+#: src/plugin_htmlbar/htmlbar_gui.c:227
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/C cedilla Ç"
 
-#: ../htmlbar_gui.c:227
+#: src/plugin_htmlbar/htmlbar_gui.c:228
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/E штрих влево È"
 
-#: ../htmlbar_gui.c:228
+#: src/plugin_htmlbar/htmlbar_gui.c:229
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/E штрих вправо É"
 
-#: ../htmlbar_gui.c:229
+#: src/plugin_htmlbar/htmlbar_gui.c:230
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/E с крышкой Ê"
 
-#: ../htmlbar_gui.c:230
+#: src/plugin_htmlbar/htmlbar_gui.c:231
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/E с двумя точками Ë"
 
-#: ../htmlbar_gui.c:231
+#: src/plugin_htmlbar/htmlbar_gui.c:232
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/I штрих влево Ì"
 
-#: ../htmlbar_gui.c:232
+#: src/plugin_htmlbar/htmlbar_gui.c:233
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/I штрих вправо Í"
 
-#: ../htmlbar_gui.c:233
+#: src/plugin_htmlbar/htmlbar_gui.c:234
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/I с крышкой Î"
 
-#: ../htmlbar_gui.c:234
+#: src/plugin_htmlbar/htmlbar_gui.c:235
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr "/Тэги/Особые/Accent/Прописные/A-I/I с двумя точками Ï"
 
-#: ../htmlbar_gui.c:235
+#: src/plugin_htmlbar/htmlbar_gui.c:236
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
 msgstr "/Тэги/Особые/Accent/Прописные/_J-Z"
 
-#: ../htmlbar_gui.c:237
+#: src/plugin_htmlbar/htmlbar_gui.c:238
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/N с тильдой Ñ"
 
-#: ../htmlbar_gui.c:238
+#: src/plugin_htmlbar/htmlbar_gui.c:239
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O штрих влево Ò"
 
-#: ../htmlbar_gui.c:239
+#: src/plugin_htmlbar/htmlbar_gui.c:240
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O штрих вправо Ó"
 
-#: ../htmlbar_gui.c:240
+#: src/plugin_htmlbar/htmlbar_gui.c:241
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O с крышкой Ô"
 
-#: ../htmlbar_gui.c:241
+#: src/plugin_htmlbar/htmlbar_gui.c:242
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/Лигатура OE Œ"
 
-#: ../htmlbar_gui.c:242
+#: src/plugin_htmlbar/htmlbar_gui.c:243
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O с тильдой Õ"
 
-#: ../htmlbar_gui.c:243
+#: src/plugin_htmlbar/htmlbar_gui.c:244
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O с двумя точками Ö"
 
-#: ../htmlbar_gui.c:244
+#: src/plugin_htmlbar/htmlbar_gui.c:245
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/O перечеркнутое Ø"
 
-#: ../htmlbar_gui.c:245
+#: src/plugin_htmlbar/htmlbar_gui.c:246
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/U штрих влево Ù"
 
-#: ../htmlbar_gui.c:246
+#: src/plugin_htmlbar/htmlbar_gui.c:247
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/U штрих вправо Ú"
 
-#: ../htmlbar_gui.c:247
+#: src/plugin_htmlbar/htmlbar_gui.c:248
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/U с крышкой Û"
 
-#: ../htmlbar_gui.c:248
+#: src/plugin_htmlbar/htmlbar_gui.c:249
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/U с двумя точками Ü"
 
-#: ../htmlbar_gui.c:249
+#: src/plugin_htmlbar/htmlbar_gui.c:250
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr "/Тэги/Особые/Accent/Прописные/J-Z/Y штрих вправо Ý"
 
-#: ../htmlbar_gui.c:250
+#: src/plugin_htmlbar/htmlbar_gui.c:251
 msgid "/Tags/Special/Accent/_Lowercase"
 msgstr "/Тэги/Особые/Accent/Строчные _L"
 
-#: ../htmlbar_gui.c:251
+#: src/plugin_htmlbar/htmlbar_gui.c:252
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
 msgstr "/Тэги/Особые/Accent/Строчные/_A-I"
 
-#: ../htmlbar_gui.c:253
+#: src/plugin_htmlbar/htmlbar_gui.c:254
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/a штрих влево à"
 
-#: ../htmlbar_gui.c:254
+#: src/plugin_htmlbar/htmlbar_gui.c:255
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/a штрих вправо á"
 
-#: ../htmlbar_gui.c:255
+#: src/plugin_htmlbar/htmlbar_gui.c:256
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/a с крышкой â"
 
-#: ../htmlbar_gui.c:256
+#: src/plugin_htmlbar/htmlbar_gui.c:257
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/a с тильдой ã"
 
-#: ../htmlbar_gui.c:257
+#: src/plugin_htmlbar/htmlbar_gui.c:258
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/a с кольцом å"
 
-#: ../htmlbar_gui.c:258
+#: src/plugin_htmlbar/htmlbar_gui.c:259
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/Лигатура ae æ"
 
-#: ../htmlbar_gui.c:259
+#: src/plugin_htmlbar/htmlbar_gui.c:260
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/a с двумя точками ä"
 
-#: ../htmlbar_gui.c:260
+#: src/plugin_htmlbar/htmlbar_gui.c:261
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/c cedilla ç"
 
-#: ../htmlbar_gui.c:261
+#: src/plugin_htmlbar/htmlbar_gui.c:262
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/e штрих влево è"
 
-#: ../htmlbar_gui.c:262
+#: src/plugin_htmlbar/htmlbar_gui.c:263
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/e штрих вправо é"
 
-#: ../htmlbar_gui.c:263
+#: src/plugin_htmlbar/htmlbar_gui.c:264
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/e с крышкой ê"
 
-#: ../htmlbar_gui.c:264
+#: src/plugin_htmlbar/htmlbar_gui.c:265
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/e с двумя точками ë"
 
-#: ../htmlbar_gui.c:265
+#: src/plugin_htmlbar/htmlbar_gui.c:266
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/i штрих влево ì"
 
-#: ../htmlbar_gui.c:266
+#: src/plugin_htmlbar/htmlbar_gui.c:267
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/i штрих вправо í"
 
-#: ../htmlbar_gui.c:267
+#: src/plugin_htmlbar/htmlbar_gui.c:268
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/i с крышкой î"
 
-#: ../htmlbar_gui.c:268
+#: src/plugin_htmlbar/htmlbar_gui.c:269
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr "/Тэги/Особые/Accent/Строчные/A-I/i с двумя точками ï"
 
-#: ../htmlbar_gui.c:269
+#: src/plugin_htmlbar/htmlbar_gui.c:270
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr "/Тэги/Особые/Accent/Строчные/_J-Z"
 
-#: ../htmlbar_gui.c:271
+#: src/plugin_htmlbar/htmlbar_gui.c:272
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/n с тильдой ñ"
 
-#: ../htmlbar_gui.c:272
+#: src/plugin_htmlbar/htmlbar_gui.c:273
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o штрих влево ò"
 
-#: ../htmlbar_gui.c:273
+#: src/plugin_htmlbar/htmlbar_gui.c:274
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o штрих вправо ó"
 
-#: ../htmlbar_gui.c:274
+#: src/plugin_htmlbar/htmlbar_gui.c:275
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/Лигатура oe œ"
 
-#: ../htmlbar_gui.c:275
+#: src/plugin_htmlbar/htmlbar_gui.c:276
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o с крышкой ô"
 
-#: ../htmlbar_gui.c:276
+#: src/plugin_htmlbar/htmlbar_gui.c:277
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o с тильдой õ"
 
-#: ../htmlbar_gui.c:277
+#: src/plugin_htmlbar/htmlbar_gui.c:278
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o с двумя точками ö"
 
-#: ../htmlbar_gui.c:278
+#: src/plugin_htmlbar/htmlbar_gui.c:279
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/o перечеркнутое ø"
 
-#: ../htmlbar_gui.c:279
+#: src/plugin_htmlbar/htmlbar_gui.c:280
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/u штрих влево ù"
 
-#: ../htmlbar_gui.c:280
+#: src/plugin_htmlbar/htmlbar_gui.c:281
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/u штрих вправо ú"
 
-#: ../htmlbar_gui.c:281
+#: src/plugin_htmlbar/htmlbar_gui.c:282
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/u с крышкой û"
 
-#: ../htmlbar_gui.c:282
+#: src/plugin_htmlbar/htmlbar_gui.c:283
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/u с двумя точками ü"
 
-#: ../htmlbar_gui.c:283
+#: src/plugin_htmlbar/htmlbar_gui.c:284
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/y штрих вправо ý"
 
-#: ../htmlbar_gui.c:284
+#: src/plugin_htmlbar/htmlbar_gui.c:285
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr "/Тэги/Особые/Accent/Строчные/J-Z/y с двумя точками ÿ"
 
-#: ../htmlbar_gui.c:286
+#: src/plugin_htmlbar/htmlbar_gui.c:287
 msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "/Тэги/Особые/Accent/U_mlaut ¨"
 
-#: ../htmlbar_gui.c:287
+#: src/plugin_htmlbar/htmlbar_gui.c:288
 msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "/Тэги/Особые/Accent/Штрих впр_аво ´"
 
-#: ../htmlbar_gui.c:288
+#: src/plugin_htmlbar/htmlbar_gui.c:289
 msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "/Тэги/Особые/Accent/Засечка _снизу ¸"
 
-#: ../htmlbar_gui.c:289
+#: src/plugin_htmlbar/htmlbar_gui.c:290
 msgid "/Tags/Special/_Currency"
 msgstr "/Тэги/Особые/Денежные единицы _C"
 
-#: ../htmlbar_gui.c:291
+#: src/plugin_htmlbar/htmlbar_gui.c:292
 msgid "/Tags/Special/Currency/_Cent sign ¢"
 msgstr "/Тэги/Особые/Денежные единицы/Цент _C ¢"
 
-#: ../htmlbar_gui.c:292
+#: src/plugin_htmlbar/htmlbar_gui.c:293
 msgid "/Tags/Special/Currency/_Pound sterling £"
 msgstr "/Тэги/Особые/Денежные единицы/Фунт стерлингов _P £"
 
-#: ../htmlbar_gui.c:293
+#: src/plugin_htmlbar/htmlbar_gui.c:294
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
 msgstr "/Тэги/Особые/Денежные единицы/Знак валюты _u ¤"
 
-#: ../htmlbar_gui.c:294
+#: src/plugin_htmlbar/htmlbar_gui.c:295
 msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Тэги/Особые/Денежные единицы/Иена _Y ¥"
 
-#: ../htmlbar_gui.c:295
+#: src/plugin_htmlbar/htmlbar_gui.c:296
 msgid "/Tags/Special/Currency/_Euro "
 msgstr "/Тэги/Особые/Денежные единицы/Евро _E"
 
-#: ../htmlbar_gui.c:296
+#: src/plugin_htmlbar/htmlbar_gui.c:297
 msgid "/Tags/Special/_Math-Science"
 msgstr "/Тэги/Особые/Математика и наука"
 
-#: ../htmlbar_gui.c:298
+#: src/plugin_htmlbar/htmlbar_gui.c:299
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
 msgstr "/Тэги/Особые/Математика и наука/Знак 'логическое НЕТ'_n ¬"
 
-#: ../htmlbar_gui.c:299
+#: src/plugin_htmlbar/htmlbar_gui.c:300
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
 msgstr "/Тэги/Особые/Математика и наука/Знак умножения _M ×"
 
-#: ../htmlbar_gui.c:300
+#: src/plugin_htmlbar/htmlbar_gui.c:301
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
 msgstr "/Тэги/Особые/Математика и наука/Знак деления _D ÷"
 
-#: ../htmlbar_gui.c:301
+#: src/plugin_htmlbar/htmlbar_gui.c:302
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
 msgstr "/Тэги/Особые/Математика и наука/Знак 'плюс-минус' ±"
 
-#: ../htmlbar_gui.c:302
+#: src/plugin_htmlbar/htmlbar_gui.c:303
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
 msgstr "/Тэги/Особые/Математика и наука/Знак 'меньше' <"
 
-#: ../htmlbar_gui.c:303
+#: src/plugin_htmlbar/htmlbar_gui.c:304
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
 msgstr "/Тэги/Особые/Математика и наука/Знак 'больше' >"
 
-#: ../htmlbar_gui.c:304
+#: src/plugin_htmlbar/htmlbar_gui.c:305
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "/Тэги/Особые/Математика и наука/Верхний индекс _1 ¹"
 
-#: ../htmlbar_gui.c:305
+#: src/plugin_htmlbar/htmlbar_gui.c:306
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "/Тэги/Особые/Математика и наука/Верхний индекс _2 ²"
 
-#: ../htmlbar_gui.c:306
+#: src/plugin_htmlbar/htmlbar_gui.c:307
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "/Тэги/Особые/Математика и наука/Верхний индекс _3 ³"
 
-#: ../htmlbar_gui.c:307
+#: src/plugin_htmlbar/htmlbar_gui.c:308
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
 msgstr "/Тэги/Особые/Математика и наука/Четверть _q ¼"
 
-#: ../htmlbar_gui.c:308
+#: src/plugin_htmlbar/htmlbar_gui.c:309
 msgid "/Tags/Special/Math-Science/One _half ½"
 msgstr "/Тэги/Особые/Математика и наука/Одна вторая _h ½"
 
-#: ../htmlbar_gui.c:309
+#: src/plugin_htmlbar/htmlbar_gui.c:310
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
 msgstr "/Тэги/Особые/Математика и наука/Три четверти _T ¾"
 
-#: ../htmlbar_gui.c:310
+#: src/plugin_htmlbar/htmlbar_gui.c:311
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
 msgstr "/Тэги/Особые/Математика и наука/Знак 'градус' _r °"
 
-#: ../htmlbar_gui.c:311
+#: src/plugin_htmlbar/htmlbar_gui.c:312
 msgid "/Tags/Special/_Non Latin"
 msgstr "/Тэги/Особые/Нелатинские символы _N"
 
-#: ../htmlbar_gui.c:313
+#: src/plugin_htmlbar/htmlbar_gui.c:314
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "/Тэги/Особые/Нелатинские символы/_ETH (Исландия) Ð"
 
-#: ../htmlbar_gui.c:314
+#: src/plugin_htmlbar/htmlbar_gui.c:315
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "/Тэги/Особые/Нелатинские символы/_THORN (Исландия) Þ"
 
-#: ../htmlbar_gui.c:315
+#: src/plugin_htmlbar/htmlbar_gui.c:316
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "/Тэги/Особые/Нелатинские символы/et_h (Icelandic) ð"
 
-#: ../htmlbar_gui.c:316
+#: src/plugin_htmlbar/htmlbar_gui.c:317
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "/Тэги/Особые/Нелатинские символы/th_orn ÿ"
 
-#: ../htmlbar_gui.c:317
+#: src/plugin_htmlbar/htmlbar_gui.c:318
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "/Тэги/Особые/Нелатинские символы/Sharp _s ß"
 
-#: ../htmlbar_gui.c:318
+#: src/plugin_htmlbar/htmlbar_gui.c:319
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
 msgstr "/Тэги/Особые/Нелатинские символы/Знак '_микро' µ"
 
-#: ../htmlbar_gui.c:319
+#: src/plugin_htmlbar/htmlbar_gui.c:320
 msgid "/Tags/Special/_Other"
 msgstr "/Тэги/Особые/Прочие _O"
 
-#: ../htmlbar_gui.c:321
+#: src/plugin_htmlbar/htmlbar_gui.c:322
 msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "/Тэги/Особые/Прочие/Неразделяемый пробел"
 
-#: ../htmlbar_gui.c:322
+#: src/plugin_htmlbar/htmlbar_gui.c:323
 msgid "/Tags/Special/Other/_Section sign §"
 msgstr "/Тэги/Особые/Прочие/Знак параграфа §"
 
-#: ../htmlbar_gui.c:323
+#: src/plugin_htmlbar/htmlbar_gui.c:324
 msgid "/Tags/Special/Other/_Copyright sign ©"
 msgstr "/Тэги/Особые/Прочие/Знак Copyright ©"
 
-#: ../htmlbar_gui.c:324
+#: src/plugin_htmlbar/htmlbar_gui.c:325
 msgid "/Tags/Special/Other/_Left angle quotes «"
 msgstr "/Тэги/Особые/Прочие/Левые угловые скобки «"
 
-#: ../htmlbar_gui.c:325
+#: src/plugin_htmlbar/htmlbar_gui.c:326
 msgid "/Tags/Special/Other/_Right angle quotes »"
 msgstr "/Тэги/Особые/Прочие/Правые угловые скобки »"
 
-#: ../htmlbar_gui.c:326
+#: src/plugin_htmlbar/htmlbar_gui.c:327
 msgid "/Tags/Special/Other/Registered _trademark ®"
 msgstr "/Тэги/Особые/Прочие/Знак TM ®"
 
-#: ../htmlbar_gui.c:327
+#: src/plugin_htmlbar/htmlbar_gui.c:328
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
 msgstr "/Тэги/Особые/Прочие/Перевернутый восклицательные знак ¡"
 
-#: ../htmlbar_gui.c:328
+#: src/plugin_htmlbar/htmlbar_gui.c:329
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
 msgstr "/Тэги/Особые/Прочие/Перевернутый вопросительный знак ¿"
 
-#: ../htmlbar_gui.c:329
+#: src/plugin_htmlbar/htmlbar_gui.c:330
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "/Тэги/Особые/Прочие/_Feminine ordinal ª"
 
-#: ../htmlbar_gui.c:330
+#: src/plugin_htmlbar/htmlbar_gui.c:331
 msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "/Тэги/Особые/Прочие/_Masculine ordinal º"
 
-#: ../htmlbar_gui.c:331
+#: src/plugin_htmlbar/htmlbar_gui.c:332
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
 msgstr "/Тэги/Особые/Прочие/_Pilcrow (знак параграфа) ¶"
 
-#: ../htmlbar_gui.c:332
+#: src/plugin_htmlbar/htmlbar_gui.c:333
 msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Тэги/Особые/Прочие/Черта с разрывом ¦"
 
-#: ../htmlbar_gui.c:333
+#: src/plugin_htmlbar/htmlbar_gui.c:334
 msgid "/Tags/Special/Other/Soft _hypen -"
 msgstr "/Тэги/Особые/Прочие/Мягкий перенос -"
 
-#: ../htmlbar_gui.c:334
+#: src/plugin_htmlbar/htmlbar_gui.c:335
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
 msgstr "/Тэги/Особые/Прочие/Spa_cing macron ¯"
 
-#: ../htmlbar_gui.c:335
+#: src/plugin_htmlbar/htmlbar_gui.c:336
 msgid "/Tags/Special/Other/Middle _dot ·"
 msgstr "/Тэги/Особые/Прочие/Точка посередине ·"
 
-#: ../htmlbar_gui.c:336
+#: src/plugin_htmlbar/htmlbar_gui.c:337
 msgid "/Tags/_Format by layout"
 msgstr "/Теги/Форматирование _F"
 
-#: ../htmlbar_gui.c:338
+#: src/plugin_htmlbar/htmlbar_gui.c:339
 msgid "/Tags/Format by layout/_Bold"
 msgstr "/Теги/Форматирование/Жирный шрифт _B"
 
-#: ../htmlbar_gui.c:339
+#: src/plugin_htmlbar/htmlbar_gui.c:340
 msgid "/Tags/Format by layout/_Italic"
 msgstr "/Теги/Форматирование/Наклонный шрифт _I"
 
-#: ../htmlbar_gui.c:340
+#: src/plugin_htmlbar/htmlbar_gui.c:341
 msgid "/Tags/Format by layout/_Underline"
 msgstr "/Теги/Форматирование/Подчеркнутый шрифт _U"
 
-#: ../htmlbar_gui.c:341
+#: src/plugin_htmlbar/htmlbar_gui.c:342
 msgid "/Tags/Format by layout/_Strikeout"
 msgstr "/Теги/Форматирование/Перечеркнутый шрифт _S"
 
-#: ../htmlbar_gui.c:342
+#: src/plugin_htmlbar/htmlbar_gui.c:343
 msgid "/Tags/Format by layout/Sm_all"
 msgstr "/Теги/Форматирование/Малый шрифт _a"
 
-#: ../htmlbar_gui.c:343
+#: src/plugin_htmlbar/htmlbar_gui.c:344
 msgid "/Tags/Format by layout/Bi_g"
 msgstr "/Теги/Форматирование/Большой шрифт _g"
 
-#: ../htmlbar_gui.c:344
+#: src/plugin_htmlbar/htmlbar_gui.c:345
 msgid "/Tags/F_ormat by context"
 msgstr "/Теги/Контекстное форматирование _o"
 
-#: ../htmlbar_gui.c:346
+#: src/plugin_htmlbar/htmlbar_gui.c:347
 msgid "/Tags/Format by context/_Strong"
 msgstr "/Теги/Контекстное форматирование/Усиление _S"
 
-#: ../htmlbar_gui.c:347
+#: src/plugin_htmlbar/htmlbar_gui.c:348
 msgid "/Tags/Format by context/_Emphasis"
 msgstr "/Теги/Контекстное форматирование/Выделение _E"
 
-#: ../htmlbar_gui.c:348
+#: src/plugin_htmlbar/htmlbar_gui.c:349
 msgid "/Tags/Format by context/_Define"
 msgstr "/Теги/Контекстное форматирование/Определение _D"
 
-#: ../htmlbar_gui.c:349
+#: src/plugin_htmlbar/htmlbar_gui.c:350
 msgid "/Tags/Format by context/_Code"
 msgstr "/Теги/Контекстное форматирование/Код _C"
 
-#: ../htmlbar_gui.c:350
+#: src/plugin_htmlbar/htmlbar_gui.c:351
 msgid "/Tags/Format by context/Sa_mple"
 msgstr "/Теги/Контекстное форматирование/Пример _m"
 
-#: ../htmlbar_gui.c:351
+#: src/plugin_htmlbar/htmlbar_gui.c:352
 msgid "/Tags/Format by context/_Keyboard"
 msgstr "/Теги/Контекстное форматирование/Ввод с клавиатуры _K"
 
-#: ../htmlbar_gui.c:352
+#: src/plugin_htmlbar/htmlbar_gui.c:353
 msgid "/Tags/Format by context/_Variable"
 msgstr "/Теги/Контекстное форматирование/Переменная _V"
 
-#: ../htmlbar_gui.c:353
+#: src/plugin_htmlbar/htmlbar_gui.c:354
 msgid "/Tags/Format by context/Ci_tation"
 msgstr "/Теги/Контекстное форматирование/Цитата _t"
 
-#: ../htmlbar_gui.c:354
+#: src/plugin_htmlbar/htmlbar_gui.c:355
 msgid "/Tags/Format by context/_Abbreviation"
 msgstr "/Теги/Контекстное форматирование/Аббревиатура _A"
 
-#: ../htmlbar_gui.c:355
+#: src/plugin_htmlbar/htmlbar_gui.c:356
 msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/Теги/Контекстное форматирование/Акроним _r"
 
-#: ../htmlbar_gui.c:356
+#: src/plugin_htmlbar/htmlbar_gui.c:357
 msgid "/Tags/Format _general"
 msgstr "/Теги/Общее форматирование _g"
 
-#: ../htmlbar_gui.c:358
+#: src/plugin_htmlbar/htmlbar_gui.c:359
 msgid "/Tags/Format general/_Paragraph"
 msgstr "/Теги/Общее форматирование/Параграф _P"
 
-#: ../htmlbar_gui.c:359
+#: src/plugin_htmlbar/htmlbar_gui.c:360
 msgid "/Tags/Format general/_Break"
 msgstr "/Теги/Общее форматирование/Абзац _B"
 
-#: ../htmlbar_gui.c:360
+#: src/plugin_htmlbar/htmlbar_gui.c:361
 msgid "/Tags/Format general/Break clear _all"
 msgstr "/Теги/Общее форматирование/Абзац с очисткой _a"
 
-#: ../htmlbar_gui.c:361
+#: src/plugin_htmlbar/htmlbar_gui.c:362
 msgid "/Tags/Format general/_Non-Breaking Space"
 msgstr "/Теги/Общее форматирование/Неразрывний пробел _N"
 
-#: ../htmlbar_gui.c:363
+#: src/plugin_htmlbar/htmlbar_gui.c:364
 msgid "/Tags/Format general/Font Si_ze +1"
 msgstr "/Теги/Общее форматирование/Размер шрифта+1"
 
-#: ../htmlbar_gui.c:364
+#: src/plugin_htmlbar/htmlbar_gui.c:365
 msgid "/Tags/Format general/Font _Size -1"
 msgstr "/Теги/Общее форматирование/Размер шрифта-1"
 
-#: ../htmlbar_gui.c:366
+#: src/plugin_htmlbar/htmlbar_gui.c:367
 msgid "/Tags/Format general/Preformatted _Text"
 msgstr "/Теги/Общее форматирование/Отформатированный текст"
 
-#: ../htmlbar_gui.c:367
+#: src/plugin_htmlbar/htmlbar_gui.c:368
 msgid "/Tags/Format general/Su_bscript"
 msgstr "/Теги/Общее форматирование/Нижний индекс"
 
-#: ../htmlbar_gui.c:368
+#: src/plugin_htmlbar/htmlbar_gui.c:369
 msgid "/Tags/Format general/Su_perscript"
 msgstr "/Теги/Общее форматирование/Верхний индекс"
 
-#: ../htmlbar_gui.c:370
+#: src/plugin_htmlbar/htmlbar_gui.c:371
 msgid "/Tags/Format general/_Center"
 msgstr "/Теги/Общее форматирование/Выровнять По центру"
 
-#: ../htmlbar_gui.c:371
+#: src/plugin_htmlbar/htmlbar_gui.c:372
 msgid "/Tags/Format general/Align _right"
 msgstr "/Теги/Общее форматирование/Выровнять по правому краю"
 
-#: ../htmlbar_gui.c:372
+#: src/plugin_htmlbar/htmlbar_gui.c:373
 msgid "/Tags/_Table"
 msgstr "/Теги/Таблица _T"
 
-#: ../htmlbar_gui.c:374
+#: src/plugin_htmlbar/htmlbar_gui.c:375
 msgid "/Tags/Table/_Table"
 msgstr "/Теги/Таблица/Таблица _T"
 
-#: ../htmlbar_gui.c:375
+#: src/plugin_htmlbar/htmlbar_gui.c:376
 msgid "/Tags/Table/Table _Row"
 msgstr "/Теги/Таблица/Ст_рока таблицы"
 
-#: ../htmlbar_gui.c:376
+#: src/plugin_htmlbar/htmlbar_gui.c:377
 msgid "/Tags/Table/Table _Header"
 msgstr "/Теги/Таблица/За_головок таблицы"
 
-#: ../htmlbar_gui.c:377
+#: src/plugin_htmlbar/htmlbar_gui.c:378
 msgid "/Tags/Table/Table _Data"
 msgstr "/Теги/Таблица/_Ячейка таблицы"
 
-#: ../htmlbar_gui.c:378
+#: src/plugin_htmlbar/htmlbar_gui.c:379
 msgid "/Tags/Table/Table _Caption"
 msgstr "/Теги/Таблица/Наз_вание таблицы"
 
-#: ../htmlbar_gui.c:379
+#: src/plugin_htmlbar/htmlbar_gui.c:380
 msgid "/Tags/_List"
 msgstr "/Теги/С_писок"
 
-#: ../htmlbar_gui.c:381
+#: src/plugin_htmlbar/htmlbar_gui.c:382
 msgid "/Tags/List/Unordered _List"
 msgstr "/Теги/Список/Не_упорядоченный список"
 
-#: ../htmlbar_gui.c:382
+#: src/plugin_htmlbar/htmlbar_gui.c:383
 msgid "/Tags/List/_Ordered List"
 msgstr "/Теги/Список/У_порядоченный список"
 
-#: ../htmlbar_gui.c:383
+#: src/plugin_htmlbar/htmlbar_gui.c:384
 msgid "/Tags/List/List Ite_m"
 msgstr "/Теги/Список/_Элемент списка"
 
-#: ../htmlbar_gui.c:384
+#: src/plugin_htmlbar/htmlbar_gui.c:385
 msgid "/Tags/List/De_finition List"
 msgstr "/Теги/Список/Список опре_делений"
 
-#: ../htmlbar_gui.c:385
+#: src/plugin_htmlbar/htmlbar_gui.c:386
 msgid "/Tags/List/Definition _Term"
 msgstr "/Теги/Список/_Термин определения"
 
-#: ../htmlbar_gui.c:386
+#: src/plugin_htmlbar/htmlbar_gui.c:387
 msgid "/Tags/List/_Definition"
 msgstr "/Теги/Список/Опреде_ление"
 
-#: ../htmlbar_gui.c:387
+#: src/plugin_htmlbar/htmlbar_gui.c:388
 msgid "/Tags/List/Men_u"
 msgstr "/Теги/Список/_Меню"
 
-#: ../htmlbar_gui.c:388
+#: src/plugin_htmlbar/htmlbar_gui.c:389
 msgid "/Tags/Fo_rm"
 msgstr "/Тэги/Ф_орма"
 
-#: ../htmlbar_gui.c:390
+#: src/plugin_htmlbar/htmlbar_gui.c:391
 msgid "/Tags/Form/_Form"
 msgstr "/Тэги/Форма/Форма _o"
 
-#: ../htmlbar_gui.c:391
+#: src/plugin_htmlbar/htmlbar_gui.c:392
 msgid "/Tags/Form/_Button"
 msgstr "/Тэги/Форма/_Кнопка"
 
-#: ../htmlbar_gui.c:392
+#: src/plugin_htmlbar/htmlbar_gui.c:393
 msgid "/Tags/Form/_Input"
 msgstr "/Тэги/Форма/_Элемент ввода"
 
-#: ../htmlbar_gui.c:393
+#: src/plugin_htmlbar/htmlbar_gui.c:394
 msgid "/Tags/Form/_Textarea"
 msgstr "/Тэги/Форма/Область _ввода"
 
-#: ../htmlbar_gui.c:394
+#: src/plugin_htmlbar/htmlbar_gui.c:395
 msgid "/Tags/_Misc"
 msgstr "/Теги/Ра_зное"
 
-#: ../htmlbar_gui.c:396
+#: src/plugin_htmlbar/htmlbar_gui.c:397
 msgid "/Tags/Misc/Insert Generator _META-Tag"
 msgstr "/Теги/Разное/Вставить МЕТА-таг Generator"
 
-#: ../htmlbar_gui.c:397
+#: src/plugin_htmlbar/htmlbar_gui.c:398
 msgid "/Tags/Misc/_Span"
 msgstr "/Тэги/Разное/_Span"
 
-#: ../htmlbar_gui.c:398
+#: src/plugin_htmlbar/htmlbar_gui.c:399
 msgid "/Tags/Misc/_Div"
 msgstr "/Теги/Разное/_Div"
 
-#: ../htmlbar_gui.c:399
+#: src/plugin_htmlbar/htmlbar_gui.c:400
 msgid "/Tags/Misc/_Link"
 msgstr "/Теги/Разное/С_вязь"
 
-#: ../htmlbar_gui.c:400
+#: src/plugin_htmlbar/htmlbar_gui.c:401
 msgid "/Tags/Misc/S_cript"
 msgstr "/Теги/Разное/С_крипт"
 
-#: ../htmlbar_gui.c:401
+#: src/plugin_htmlbar/htmlbar_gui.c:402
 msgid "/Tags/Misc/_Anchor"
 msgstr "/Теги/Разное/Ссылк_а"
 
-#: ../htmlbar_gui.c:402
+#: src/plugin_htmlbar/htmlbar_gui.c:403
 msgid "/Tags/Misc/_Image"
 msgstr "/Теги/Разное/_Рисунок"
 
-#: ../htmlbar_gui.c:403
+#: src/plugin_htmlbar/htmlbar_gui.c:404
 msgid "/Tags/_Comment"
 msgstr "/Теги/Комментарий _C"
 
-#: ../htmlbar_gui.c:404
+#: src/plugin_htmlbar/htmlbar_gui.c:405
 msgid "/Dial_ogs"
 msgstr "/Диало_ги"
 
-#: ../htmlbar_gui.c:406
+#: src/plugin_htmlbar/htmlbar_gui.c:407
 msgid "/Dialogs/_General"
 msgstr "/Диалоги/Общие _G"
 
-#: ../htmlbar_gui.c:408
+#: src/plugin_htmlbar/htmlbar_gui.c:409
 msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Диалоги/Общие/Заготовка документа... _Q"
 
-#: ../htmlbar_gui.c:409
+#: src/plugin_htmlbar/htmlbar_gui.c:410
 #, fuzzy
 msgid "/Dialogs/General/_Link Header..."
 msgstr "/Диалоги/Общие/Мета тэг... _M"
 
-#: ../htmlbar_gui.c:410
+#: src/plugin_htmlbar/htmlbar_gui.c:411
 msgid "/Dialogs/General/_Body..."
 msgstr "/Диалоги/Общие/Тело документа... _B"
 
-#: ../htmlbar_gui.c:411
+#: src/plugin_htmlbar/htmlbar_gui.c:412
 msgid "/Dialogs/General/_Anchor..."
 msgstr "/Диалоги/Общие/Ссылка... _A"
 
-#: ../htmlbar_gui.c:412
+#: src/plugin_htmlbar/htmlbar_gui.c:413
 msgid "/Dialogs/General/_Email..."
 msgstr "/Диалоги/Общие/_EMail..."
 
-#: ../htmlbar_gui.c:413
+#: src/plugin_htmlbar/htmlbar_gui.c:414
 msgid "/Dialogs/General/_Rule..."
 msgstr "/Диалоги/Общие/Разделитель _R"
 
-#: ../htmlbar_gui.c:414
+#: src/plugin_htmlbar/htmlbar_gui.c:415
 msgid "/Dialogs/General/_Font..."
 msgstr "/Диалоги/Общие/Шрифт... _F"
 
-#: ../htmlbar_gui.c:415
+#: src/plugin_htmlbar/htmlbar_gui.c:416
 msgid "/Dialogs/General/Basef_ont..."
 msgstr "/Диалоги/Общие/Базовый шрифт... _o"
 
-#: ../htmlbar_gui.c:416
+#: src/plugin_htmlbar/htmlbar_gui.c:417
 msgid "/Dialogs/General/Quick_list..."
 msgstr "/Диалоги/Общие/Заготовка списка... _l"
 
-#: ../htmlbar_gui.c:417
+#: src/plugin_htmlbar/htmlbar_gui.c:418
 msgid "/Dialogs/General/_Meta..."
 msgstr "/Диалоги/Общие/Мета тэг... _M"
 
-#: ../htmlbar_gui.c:418
+#: src/plugin_htmlbar/htmlbar_gui.c:419
 msgid "/Dialogs/General/Embe_d..."
 msgstr "/Диалоги/Общие/Внедрить... _d"
 
-#: ../htmlbar_gui.c:419
+#: src/plugin_htmlbar/htmlbar_gui.c:420
 msgid "/Dialogs/General/Select _Color..."
 msgstr "/Диалоги/Общие/Выбор _цвета..."
 
-#: ../htmlbar_gui.c:420
+#: src/plugin_htmlbar/htmlbar_gui.c:421
 msgid "/Dialogs/General/Insert _Time..."
 msgstr "/Диалоги/Общие/Вставить _время..."
 
-#: ../htmlbar_gui.c:421
+#: src/plugin_htmlbar/htmlbar_gui.c:422
 msgid "/Dialogs/General/Insert _Image..."
 msgstr "/Диалоги/Общие/Вставить _картинку..."
 
-#: ../htmlbar_gui.c:422
+#: src/plugin_htmlbar/htmlbar_gui.c:423
 msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "/Диалоги/Общие/Вставить _эскиз..."
 
-#: ../htmlbar_gui.c:423
+#: src/plugin_htmlbar/htmlbar_gui.c:424
 msgid "/Dialogs/_Table"
 msgstr "/Диалоги/Таблица _T"
 
-#: ../htmlbar_gui.c:425
+#: src/plugin_htmlbar/htmlbar_gui.c:426
 msgid "/Dialogs/Table/Table _Wizard..."
 msgstr "/Диалоги/Таблица/_Мастер Таблиц..."
 
-#: ../htmlbar_gui.c:426
+#: src/plugin_htmlbar/htmlbar_gui.c:427
 msgid "/Dialogs/Table/_Table..."
 msgstr "/Диалоги/Таблица/_Таблица..."
 
-#: ../htmlbar_gui.c:427
+#: src/plugin_htmlbar/htmlbar_gui.c:428
 msgid "/Dialogs/Table/Table _Row..."
 msgstr "/Диалоги/Таблица/Ст_рока таблицы..."
 
-#: ../htmlbar_gui.c:428
+#: src/plugin_htmlbar/htmlbar_gui.c:429
 msgid "/Dialogs/Table/Table _Head..."
 msgstr "/Диалоги/Таблица/За_головок таблицы..."
 
-#: ../htmlbar_gui.c:429
+#: src/plugin_htmlbar/htmlbar_gui.c:430
 msgid "/Dialogs/Table/Table _Data..."
 msgstr "/Диалоги/Таблица/_Ячейка таблицы..."
 
-#: ../htmlbar_gui.c:430
+#: src/plugin_htmlbar/htmlbar_gui.c:431
 msgid "/Dialogs/_CSS"
 msgstr "/Диалоги/_CSS"
 
-#: ../htmlbar_gui.c:432
+#: src/plugin_htmlbar/htmlbar_gui.c:433
 msgid "/Dialogs/CSS/_Create Style..."
 msgstr "/Диалоги/CSS/Со_здать стиль..."
 
-#: ../htmlbar_gui.c:433
+#: src/plugin_htmlbar/htmlbar_gui.c:434
 msgid "/Dialogs/CSS/S_pan..."
 msgstr "/Диалоги/CSS/S_pan..."
 
-#: ../htmlbar_gui.c:434
+#: src/plugin_htmlbar/htmlbar_gui.c:435
 msgid "/Dialogs/CSS/_Div..."
 msgstr "/Диалоги/CSS/_Div..."
 
-#: ../htmlbar_gui.c:435
+#: src/plugin_htmlbar/htmlbar_gui.c:436
 msgid "/Dialogs/CSS/_Style..."
 msgstr "/Диалоги/CSS/_Стиль..."
 
-#: ../htmlbar_gui.c:436
+#: src/plugin_htmlbar/htmlbar_gui.c:437
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
 msgstr "/Диалоги/CSS/Ссы_лка на таблицу стилей..."
 
-#: ../htmlbar_gui.c:437
+#: src/plugin_htmlbar/htmlbar_gui.c:438
 msgid "/Dialogs/_Frame"
 msgstr "/Диалоги/_Врезка..."
 
-#: ../htmlbar_gui.c:439
+#: src/plugin_htmlbar/htmlbar_gui.c:440
 msgid "/Dialogs/Frame/Frame _Wizard..."
 msgstr "/Диалоги/Врезка/_Мастер врезок..."
 
-#: ../htmlbar_gui.c:440
+#: src/plugin_htmlbar/htmlbar_gui.c:441
 msgid "/Dialogs/Frame/Frame_set..."
 msgstr "/Диалоги/Врезка/_Набор врезок..."
 
-#: ../htmlbar_gui.c:441
+#: src/plugin_htmlbar/htmlbar_gui.c:442
 msgid "/Dialogs/Frame/_Frame..."
 msgstr "/Диалоги/Врезка/_Врезка..."
 
-#: ../htmlbar_gui.c:442
+#: src/plugin_htmlbar/htmlbar_gui.c:443
 msgid "/Dialogs/F_orm"
 msgstr "/Диалоги/Ф_орма"
 
-#: ../htmlbar_gui.c:444
+#: src/plugin_htmlbar/htmlbar_gui.c:445
 msgid "/Dialogs/Form/F_orm..."
 msgstr "/Диалоги/Форма/Форма... _o"
 
-#: ../htmlbar_gui.c:445
+#: src/plugin_htmlbar/htmlbar_gui.c:446
 msgid "/Dialogs/Form/_Input..."
 msgstr "/Диалоги/Форма/_Элемент ввода..."
 
-#: ../htmlbar_gui.c:446
+#: src/plugin_htmlbar/htmlbar_gui.c:447
 msgid "/Dialogs/Form/Input Buttons..."
 msgstr "/Диалоги/Форма/_Кнопки..."
 
-#: ../htmlbar_gui.c:447
+#: src/plugin_htmlbar/htmlbar_gui.c:448
 msgid "/Dialogs/Form/Input Text..."
 msgstr "/Диалоги/Форма/Текстовое поле... _T"
 
-#: ../htmlbar_gui.c:448
+#: src/plugin_htmlbar/htmlbar_gui.c:449
 msgid "/Dialogs/Form/Text_area..."
 msgstr "/Диалоги/Форма/Область _ввода..."
 
-#: ../htmlbar_gui.c:449
+#: src/plugin_htmlbar/htmlbar_gui.c:450
 msgid "/Dialogs/Form/_Select..."
 msgstr "/Диалоги/Форма/Поле выбора... _S"
 
-#: ../htmlbar_gui.c:450
+#: src/plugin_htmlbar/htmlbar_gui.c:451
 msgid "/Dialogs/Form/O_ption..."
 msgstr "/Диалоги/Форма/Вариант выбора... _p"
 
-#: ../htmlbar_gui.c:451
+#: src/plugin_htmlbar/htmlbar_gui.c:452
 msgid "/Dialogs/Form/Option _Group..."
 msgstr "/Диалоги/Форма/_Группа вариантов выбора..."
 
-#: ../htmlbar_gui.c:452
+#: src/plugin_htmlbar/htmlbar_gui.c:453
 msgid "/Dialogs/Form/_Button..."
 msgstr "/Диалоги/Форма/_Кнопка..."
 
-#: ../htmlbar_gui.c:454
+#: src/plugin_htmlbar/htmlbar_gui.c:455
 msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/Диалоги/Редактировать тэг под курсором..."
 
-#: ../htmlbar_gui.c:457
+#: src/plugin_htmlbar/htmlbar_gui.c:458
 #, fuzzy
 msgid "/View/View _HTML Toolbar"
 msgstr "/Вид/Показывать _основную панель инструментов"
 
-#: ../htmlbar_gui.c:731
+#: src/plugin_htmlbar/htmlbar_gui.c:732
 msgid "QuickStart..."
 msgstr "Быстрый старт..."
 
-#: ../htmlbar_gui.c:732
+#: src/plugin_htmlbar/htmlbar_gui.c:733
 msgid "Body..."
 msgstr "Тело документа..."
 
-#: ../htmlbar_gui.c:733
+#: src/plugin_htmlbar/htmlbar_gui.c:734
 msgid "Bold"
 msgstr "Жирный"
 
-#: ../htmlbar_gui.c:734
+#: src/plugin_htmlbar/htmlbar_gui.c:735
 msgid "Italic"
 msgstr "Наклонный"
 
-#: ../htmlbar_gui.c:735 ../html.c:781
+#: src/plugin_htmlbar/htmlbar_gui.c:736 src/plugin_htmlbar/html.c:777
 msgid "Paragraph"
 msgstr "Параграф"
 
-#: ../htmlbar_gui.c:736
+#: src/plugin_htmlbar/htmlbar_gui.c:737
 msgid "Break"
 msgstr "Перенос строки"
 
-#: ../htmlbar_gui.c:737
+#: src/plugin_htmlbar/htmlbar_gui.c:738
 msgid "Break and clear"
 msgstr "Перенос строки с очисткой"
 
-#: ../htmlbar_gui.c:738
+#: src/plugin_htmlbar/htmlbar_gui.c:739
 msgid "Non-breaking space"
 msgstr "Неразрывный пробел"
 
-#: ../htmlbar_gui.c:740
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:741
 msgid "Anchor..."
 msgstr "Ссылка..."
 
-#: ../htmlbar_gui.c:741
+#: src/plugin_htmlbar/htmlbar_gui.c:742
 msgid "Rule..."
 msgstr "Разделитель..."
 
-#: ../htmlbar_gui.c:742
+#: src/plugin_htmlbar/htmlbar_gui.c:743
 msgid "Center"
 msgstr "Выровнять по центру"
 
-#: ../htmlbar_gui.c:743
+#: src/plugin_htmlbar/htmlbar_gui.c:744
 msgid "Right Justify"
 msgstr "Выровнять по правому полю"
 
-#: ../htmlbar_gui.c:744
+#: src/plugin_htmlbar/htmlbar_gui.c:745
 msgid "Comment"
 msgstr "Комментарий"
 
-#: ../htmlbar_gui.c:745
+#: src/plugin_htmlbar/htmlbar_gui.c:746
 #, fuzzy
 msgid "E-mail..."
 msgstr "E-Mail..."
 
-#: ../htmlbar_gui.c:746
+#: src/plugin_htmlbar/htmlbar_gui.c:747
 msgid "Font..."
 msgstr "Шрифт..."
 
-#: ../htmlbar_gui.c:747
+#: src/plugin_htmlbar/htmlbar_gui.c:748
 msgid "Base Font Size..."
 msgstr "Базовый размер шрифта..."
 
-#: ../htmlbar_gui.c:749
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:750
 msgid "Font Size +1"
 msgstr "Размер шрифта+1"
 
-#: ../htmlbar_gui.c:750
+#: src/plugin_htmlbar/htmlbar_gui.c:751
 msgid "Font Size -1"
 msgstr "Размер шрифта-1"
 
-#: ../htmlbar_gui.c:751
+#: src/plugin_htmlbar/htmlbar_gui.c:752
 msgid "Preformatted Text"
 msgstr "Отформатированный текст"
 
-#: ../htmlbar_gui.c:752
+#: src/plugin_htmlbar/htmlbar_gui.c:753
 msgid "Subscript"
 msgstr "Нижний индекс"
 
-#: ../htmlbar_gui.c:753
+#: src/plugin_htmlbar/htmlbar_gui.c:754
 msgid "Superscript"
 msgstr "Верхний индекс"
 
-#: ../htmlbar_gui.c:754
+#: src/plugin_htmlbar/htmlbar_gui.c:755
 msgid "Strong"
 msgstr "Выделенный шрифт"
 
-#: ../htmlbar_gui.c:755
+#: src/plugin_htmlbar/htmlbar_gui.c:756
 msgid "Emphasis"
 msgstr "Шрифт акцента"
 
-#: ../htmlbar_gui.c:757 ../html.c:790
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:758 src/plugin_htmlbar/html.c:786
 msgid "Heading 1"
 msgstr "Заголовок 1"
 
-#: ../htmlbar_gui.c:758 ../html.c:793
+#: src/plugin_htmlbar/htmlbar_gui.c:759 src/plugin_htmlbar/html.c:789
 msgid "Heading 2"
 msgstr "Заголовок 2"
 
-#: ../htmlbar_gui.c:759 ../html.c:796
+#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:792
 msgid "Heading 3"
 msgstr "Заголовок 3"
 
-#: ../htmlbar_gui.c:760 ../html.c:799
+#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:795
 msgid "Heading 4"
 msgstr "Заголовок 4"
 
-#: ../htmlbar_gui.c:761 ../html.c:802
+#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:798
 msgid "Heading 5"
 msgstr "Заголовок 5"
 
-#: ../htmlbar_gui.c:762 ../html.c:805
+#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:801
 msgid "Heading 6"
 msgstr "Заголовок 6"
 
-#: ../htmlbar_gui.c:763
+#: src/plugin_htmlbar/htmlbar_gui.c:764
 msgid "Table Wizard..."
 msgstr "Мастер таблиц..."
 
-#: ../htmlbar_gui.c:765
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:766
 msgid "Table..."
 msgstr "Таблица..."
 
-#: ../htmlbar_gui.c:766
+#: src/plugin_htmlbar/htmlbar_gui.c:767
 msgid "Table Row..."
 msgstr "Строка таблицы..."
 
-#: ../htmlbar_gui.c:767
+#: src/plugin_htmlbar/htmlbar_gui.c:768
 msgid "Table Header..."
 msgstr "Заголовок таблицы..."
 
-#: ../htmlbar_gui.c:768
+#: src/plugin_htmlbar/htmlbar_gui.c:769
 msgid "Table Data..."
 msgstr "Ячейка таблицы..."
 
-#: ../htmlbar_gui.c:770 ../html_table.c:77
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:771 src/plugin_htmlbar/html_table.c:77
 msgid "Table"
 msgstr "Таблица"
 
-#: ../htmlbar_gui.c:771 ../html_table.c:209
+#: src/plugin_htmlbar/htmlbar_gui.c:772 src/plugin_htmlbar/html_table.c:209
 msgid "Table Row"
 msgstr "Строка таблицы"
 
-#: ../htmlbar_gui.c:772 ../html_table.c:320
+#: src/plugin_htmlbar/htmlbar_gui.c:773 src/plugin_htmlbar/html_table.c:320
 msgid "Table Header"
 msgstr "Заголовок таблицы"
 
-#: ../htmlbar_gui.c:773 ../html_table.c:318
+#: src/plugin_htmlbar/htmlbar_gui.c:774 src/plugin_htmlbar/html_table.c:318
 msgid "Table Data"
 msgstr "Ячейка таблицы"
 
-#: ../htmlbar_gui.c:774
+#: src/plugin_htmlbar/htmlbar_gui.c:775
 msgid "Table Caption"
 msgstr "Название таблицы"
 
-#: ../htmlbar_gui.c:775
+#: src/plugin_htmlbar/htmlbar_gui.c:776
 msgid "Frame Wizard..."
 msgstr "Мастер врезок..."
 
-#: ../htmlbar_gui.c:777
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:778
 msgid "Frameset..."
 msgstr "Набор врезок..."
 
-#: ../htmlbar_gui.c:778
+#: src/plugin_htmlbar/htmlbar_gui.c:779
 msgid "Frame..."
 msgstr "Врезка..."
 
-#: ../htmlbar_gui.c:780 ../html.c:1590
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:781 src/plugin_htmlbar/html.c:1586
 msgid "Frameset"
 msgstr "Набор врезок"
 
-#: ../htmlbar_gui.c:781 ../html.c:1674
+#: src/plugin_htmlbar/htmlbar_gui.c:782 src/plugin_htmlbar/html.c:1670
 msgid "Frame"
 msgstr "Врезка"
 
-#: ../htmlbar_gui.c:782
+#: src/plugin_htmlbar/htmlbar_gui.c:783
 msgid "Noframes"
 msgstr "Код для браузера без врезок"
 
-#: ../htmlbar_gui.c:783
+#: src/plugin_htmlbar/htmlbar_gui.c:784
 msgid "Target"
 msgstr "Цель"
 
-#: ../htmlbar_gui.c:784
+#: src/plugin_htmlbar/htmlbar_gui.c:785
 msgid "Form..."
 msgstr "Форма..."
 
-#: ../htmlbar_gui.c:785
+#: src/plugin_htmlbar/htmlbar_gui.c:786
 msgid "Input Button..."
 msgstr "Кнопка..."
 
-#: ../htmlbar_gui.c:786
+#: src/plugin_htmlbar/htmlbar_gui.c:787
 msgid "Input Text..."
 msgstr "Текстовое поле..."
 
-#: ../htmlbar_gui.c:787
+#: src/plugin_htmlbar/htmlbar_gui.c:788
 msgid "Input Hidden..."
 msgstr "Скрытое поле..."
 
-#: ../htmlbar_gui.c:788
+#: src/plugin_htmlbar/htmlbar_gui.c:789
 msgid "Textarea..."
 msgstr "Поле ввода..."
 
-#: ../htmlbar_gui.c:789
+#: src/plugin_htmlbar/htmlbar_gui.c:790
 msgid "Input Radio Button..."
 msgstr "Переключатель..."
 
-#: ../htmlbar_gui.c:790
+#: src/plugin_htmlbar/htmlbar_gui.c:791
 msgid "Input Check Box..."
 msgstr "Флажок..."
 
-#: ../htmlbar_gui.c:791
+#: src/plugin_htmlbar/htmlbar_gui.c:792
 msgid "Select..."
 msgstr "Поле выбора..."
 
-#: ../htmlbar_gui.c:792
+#: src/plugin_htmlbar/htmlbar_gui.c:793
 msgid "Option..."
 msgstr "Вариант выбора..."
 
-#: ../htmlbar_gui.c:793
+#: src/plugin_htmlbar/htmlbar_gui.c:794
 msgid "Option group..."
 msgstr "Группа вариантов выбора..."
 
-#: ../htmlbar_gui.c:794
+#: src/plugin_htmlbar/htmlbar_gui.c:795
 msgid "Button..."
 msgstr "Кнопка..."
 
-#: ../htmlbar_gui.c:795
+#: src/plugin_htmlbar/htmlbar_gui.c:796
 msgid "Quick List..."
 msgstr "Заготовка списка..."
 
-#: ../htmlbar_gui.c:796
+#: src/plugin_htmlbar/htmlbar_gui.c:797
 msgid "Unordered List"
 msgstr "Неупорядоченный список"
 
-#: ../htmlbar_gui.c:797
+#: src/plugin_htmlbar/htmlbar_gui.c:798
 msgid "Ordered List"
 msgstr "Упорядоченный список"
 
-#: ../htmlbar_gui.c:798
+#: src/plugin_htmlbar/htmlbar_gui.c:799
 msgid "List Item"
 msgstr "Элемент списка"
 
-#: ../htmlbar_gui.c:799
+#: src/plugin_htmlbar/htmlbar_gui.c:800
 msgid "Definition List"
 msgstr "Список определений"
 
-#: ../htmlbar_gui.c:800
+#: src/plugin_htmlbar/htmlbar_gui.c:801
 msgid "Definition Term"
 msgstr "Термин"
 
-#: ../htmlbar_gui.c:801 ../htmlbar_gui.c:810
+#: src/plugin_htmlbar/htmlbar_gui.c:802 src/plugin_htmlbar/htmlbar_gui.c:811
 msgid "Definition"
 msgstr "Определение термина"
 
-#: ../htmlbar_gui.c:802
+#: src/plugin_htmlbar/htmlbar_gui.c:803
 msgid "Create stylesheet..."
 msgstr "Создать таблицу стилей..."
 
-#: ../htmlbar_gui.c:803
+#: src/plugin_htmlbar/htmlbar_gui.c:804
 msgid "Span..."
 msgstr "Span..."
 
-#: ../htmlbar_gui.c:804
+#: src/plugin_htmlbar/htmlbar_gui.c:805
 msgid "Div..."
 msgstr "Div..."
 
-#: ../htmlbar_gui.c:805 ../html_form.c:825
+#: src/plugin_htmlbar/htmlbar_gui.c:806 src/plugin_htmlbar/html_form.c:825
 msgid "Style"
 msgstr "Стиль"
 
-#: ../htmlbar_gui.c:806
+#: src/plugin_htmlbar/htmlbar_gui.c:807
 msgid "Link to stylesheet..."
 msgstr "Ссылка на таблицу стилей..."
 
-#: ../htmlbar_gui.c:807
+#: src/plugin_htmlbar/htmlbar_gui.c:808
 msgid "Insert image..."
 msgstr "Вставить картинку..."
 
-#: ../htmlbar_gui.c:808
+#: src/plugin_htmlbar/htmlbar_gui.c:809
 msgid "Insert thumbnail..."
 msgstr "Вставить эскиз..."
 
-#: ../htmlbar_gui.c:809
+#: src/plugin_htmlbar/htmlbar_gui.c:810
 msgid "Multi thumbnail..."
 msgstr "Альбом эскизов..."
 
-#: ../htmlbar_gui.c:811
+#: src/plugin_htmlbar/htmlbar_gui.c:812
 msgid "Code"
 msgstr "Код"
 
-#: ../htmlbar_gui.c:812
+#: src/plugin_htmlbar/htmlbar_gui.c:813
 msgid "Sample"
 msgstr "Пример"
 
-#: ../htmlbar_gui.c:813
+#: src/plugin_htmlbar/htmlbar_gui.c:814
 msgid "Keyboard"
 msgstr "Клавиатура"
 
-#: ../htmlbar_gui.c:814
+#: src/plugin_htmlbar/htmlbar_gui.c:815
 msgid "Variable"
 msgstr "Переменная"
 
-#: ../htmlbar_gui.c:815
+#: src/plugin_htmlbar/htmlbar_gui.c:816
 msgid "Citation"
 msgstr "Цитата"
 
-#: ../htmlbar_gui.c:816
+#: src/plugin_htmlbar/htmlbar_gui.c:817
 msgid "Abbreviation"
 msgstr "Аббревиатура"
 
-#: ../htmlbar_gui.c:817
+#: src/plugin_htmlbar/htmlbar_gui.c:818
 msgid "Acronym"
 msgstr "Акроним"
 
-#: ../htmlbar_gui.c:937
+#: src/plugin_htmlbar/htmlbar_gui.c:938
 msgid "Remove from quickbar"
 msgstr "Убрать с панели быстрого доступа"
 
-#: ../htmlbar_gui.c:938
+#: src/plugin_htmlbar/htmlbar_gui.c:939
 msgid "Move Left"
 msgstr "Сдвинуть влево"
 
-#: ../htmlbar_gui.c:939
+#: src/plugin_htmlbar/htmlbar_gui.c:940
 msgid "Move Right"
 msgstr "Сдвинуть вправо"
 
-#: ../htmlbar_gui.c:979
+#: src/plugin_htmlbar/htmlbar_gui.c:980
 msgid "Add to quickbar"
 msgstr "Добавить на панель быстрого доступа"
 
-#: ../htmlbar_gui.c:1081
+#: src/plugin_htmlbar/htmlbar_gui.c:1082
 msgid " Quick bar "
 msgstr " Панель быстрого доступа "
 
-#: ../htmlbar_gui.c:1086
+#: src/plugin_htmlbar/htmlbar_gui.c:1087
 msgid "Heading"
 msgstr "Заголовок"
 
-#: ../htmlbar_gui.c:1088
+#: src/plugin_htmlbar/htmlbar_gui.c:1089
 msgid " Standard bar "
 msgstr " Стандартная панель "
 
-#: ../htmlbar_gui.c:1093
+#: src/plugin_htmlbar/htmlbar_gui.c:1094
 msgid "Context formatting"
 msgstr "Контекстное форматирование"
 
-#: ../htmlbar_gui.c:1095
+#: src/plugin_htmlbar/htmlbar_gui.c:1096
 msgid " Fonts "
 msgstr " Шрифты "
 
-#: ../htmlbar_gui.c:1100
+#: src/plugin_htmlbar/htmlbar_gui.c:1101
 msgid " Tables "
 msgstr " Таблицы  "
 
-#: ../htmlbar_gui.c:1105
+#: src/plugin_htmlbar/htmlbar_gui.c:1106
 msgid " Frames "
 msgstr " Врезки "
 
-#: ../htmlbar_gui.c:1110
+#: src/plugin_htmlbar/htmlbar_gui.c:1111
 msgid " Forms "
 msgstr " Формы "
 
-#: ../htmlbar_gui.c:1115
+#: src/plugin_htmlbar/htmlbar_gui.c:1116
 msgid " List "
 msgstr " Список "
 
-#: ../htmlbar_gui.c:1120
+#: src/plugin_htmlbar/htmlbar_gui.c:1121
 msgid " CSS "
 msgstr " CSS "
 
-#: ../html.c:389
+#: src/plugin_htmlbar/html.c:385
 msgid "Insert Time"
 msgstr "Вставить время"
 
-#: ../html.c:397
+#: src/plugin_htmlbar/html.c:393
 #, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr "  _Время (%i.%i.%i)"
 
-#: ../html.c:402
+#: src/plugin_htmlbar/html.c:398
 msgid "  Day of the _week (Sunday)"
 msgstr "  День _недели (Воскресенье)"
 
-#: ../html.c:405
+#: src/plugin_htmlbar/html.c:401
 msgid "  Day of the _week (Monday)"
 msgstr "  День _недели (Понедельник)"
 
-#: ../html.c:408
+#: src/plugin_htmlbar/html.c:404
 msgid "  Day of the _week (Tuesday)"
 msgstr "  День _недели (Вторник) "
 
-#: ../html.c:411
+#: src/plugin_htmlbar/html.c:407
 msgid "  Day of the _week (Wednesday)"
 msgstr "  День _недели (Среда) "
 
-#: ../html.c:414
+#: src/plugin_htmlbar/html.c:410
 msgid "  Day of the _week (Thursday)"
 msgstr "  День _недели (Четверг)"
 
-#: ../html.c:417
+#: src/plugin_htmlbar/html.c:413
 msgid "  Day of the _week (Friday)"
 msgstr "  День _недели (Пятница) "
 
-#: ../html.c:420
+#: src/plugin_htmlbar/html.c:416
 msgid "  Day of the _week (Saturday)"
 msgstr "  День _недели (Суббота) "
 
-#: ../html.c:423
+#: src/plugin_htmlbar/html.c:419
 msgid "You appear to have a non existant day!\n"
 msgstr "Похоже, Вы указали несуществующий день!\n"
 
-#: ../html.c:431
+#: src/plugin_htmlbar/html.c:427
 #, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr "  _Дата (%i/%i/%i)"
 
-#: ../html.c:434
+#: src/plugin_htmlbar/html.c:430
 #, c-format
 msgid "  _Unix Time (%i)"
 msgstr "  Время _UNIX (%i)"
 
-#: ../html.c:439
+#: src/plugin_htmlbar/html.c:435
 #, c-format
 msgid "  Unix Date _String (%s"
 msgstr "  Дата в _формате UNIX (%s"
 
-#: ../html.c:447
+#: src/plugin_htmlbar/html.c:443
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
 msgstr ""
 
-#: ../html.c:589
+#: src/plugin_htmlbar/html.c:585
 msgid "Quick Anchor"
 msgstr "Заготовка ссылки"
 
-#: ../html.c:595 ../html_form.c:780
+#: src/plugin_htmlbar/html.c:591 src/plugin_htmlbar/html_form.c:780
 msgid "Attributes"
 msgstr "Атрибуты"
 
-#: ../html.c:609 ../html.c:1918
+#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1914
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: ../html.c:613 ../html_form.c:183
+#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/html_form.c:183
 msgid "_Target:"
 msgstr "_Цель:"
 
-#: ../html.c:617 ../html.c:837 ../html.c:1212 ../html.c:1686
-#: ../html_form.c:231 ../html_form.c:596 ../html_form.c:795 ../html_form.c:890
-#: ../image.c:416
+#: src/plugin_htmlbar/html.c:613 src/plugin_htmlbar/html.c:833
+#: src/plugin_htmlbar/html.c:1208 src/plugin_htmlbar/html.c:1682
+#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
+#: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
+#: src/plugin_htmlbar/image.c:418
 msgid "_Name:"
 msgstr "_Имя:"
 
-#: ../html.c:623 ../html.c:1070 ../html.c:1241 ../html.c:1833
+#: src/plugin_htmlbar/html.c:619 src/plugin_htmlbar/html.c:1066
+#: src/plugin_htmlbar/html.c:1237 src/plugin_htmlbar/html.c:1829
 msgid "_Language:"
 msgstr "_Язык:"
 
-#: ../html.c:627 ../html.c:845 ../html.c:979 ../html.c:1074 ../html.c:1249
-#: ../html.c:1622 ../html.c:1723 ../html.c:1852 ../html_form.c:187
-#: ../html_form.c:243 ../html_form.c:609 ../html_form.c:903
-#: ../html_table.c:101 ../html_table.c:253 ../html_table.c:361 ../image.c:424
+#: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:841
+#: src/plugin_htmlbar/html.c:975 src/plugin_htmlbar/html.c:1070
+#: src/plugin_htmlbar/html.c:1245 src/plugin_htmlbar/html.c:1618
+#: src/plugin_htmlbar/html.c:1719 src/plugin_htmlbar/html.c:1848
+#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
+#: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
+#: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:426
 msgid "Custo_m:"
 msgstr "Про_чее:"
 
-#: ../html.c:630 ../html.c:1078 ../html_form.c:829
+#: src/plugin_htmlbar/html.c:626 src/plugin_htmlbar/html.c:1074
+#: src/plugin_htmlbar/html_form.c:829
 msgid "Events"
 msgstr "События"
 
-#: ../html.c:633
+#: src/plugin_htmlbar/html.c:629
 msgid "OnClic_k:"
 msgstr "OnClic_k:"
 
-#: ../html.c:637
+#: src/plugin_htmlbar/html.c:633
 msgid "OnD_blClick:"
 msgstr "OnD_blClick:"
 
-#: ../html.c:641
+#: src/plugin_htmlbar/html.c:637
 msgid "OnMouseO_ver:"
 msgstr "OnMouseO_ver:"
 
-#: ../html.c:645
+#: src/plugin_htmlbar/html.c:641
 msgid "OnMouse_Down:"
 msgstr "OnMouse_Down:"
 
-#: ../html.c:649
+#: src/plugin_htmlbar/html.c:645
 msgid "OnMouse_Move:"
 msgstr "OnMouse_Move:"
 
-#: ../html.c:653
+#: src/plugin_htmlbar/html.c:649
 msgid "OnMouseOu_t:"
 msgstr "OnMouseOu_t:"
 
-#: ../html.c:657
+#: src/plugin_htmlbar/html.c:653
 msgid "OnMouse_Up:"
 msgstr "OnMouse_Up:"
 
-#: ../html.c:661
+#: src/plugin_htmlbar/html.c:657
 msgid "OnKeyDo_wn:"
 msgstr "OnKeyDo_wn:"
 
-#: ../html.c:665
+#: src/plugin_htmlbar/html.c:661
 msgid "OnKey_Press:"
 msgstr "OnKey_Press:"
 
-#: ../html.c:669
+#: src/plugin_htmlbar/html.c:665
 msgid "OnKe_yUp:"
 msgstr "OnKe_yUp:"
 
-#: ../html.c:784
+#: src/plugin_htmlbar/html.c:780
 msgid "Div"
 msgstr "Div"
 
-#: ../html.c:787
+#: src/plugin_htmlbar/html.c:783
 msgid "Span"
 msgstr "Span"
 
-#: ../html.c:822 ../html_table.c:109 ../html_table.c:219 ../html_table.c:333
+#: src/plugin_htmlbar/html.c:818 src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
 msgid "Ali_gn:"
 msgstr "_Выравнивание:"
 
-#: ../html.c:826 ../html.c:1062 ../html_diag.c:373 ../html_table.c:91
-#: ../html_table.c:237 ../html_table.c:351
+#: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
+#: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
+#: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
 msgid "Cl_ass:"
 msgstr "_Класс:"
 
-#: ../html.c:830 ../html.c:1055 ../html_diag.c:381 ../html_table.c:96
-#: ../html_table.c:248 ../html_table.c:356
+#: src/plugin_htmlbar/html.c:826 src/plugin_htmlbar/html.c:1051
+#: src/plugin_htmlbar/html_diag.c:381 src/plugin_htmlbar/html_table.c:96
+#: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
 msgid "St_yle:"
 msgstr "Ст_иль:"
 
-#: ../html.c:841 ../html.c:1066 ../html_diag.c:377
+#: src/plugin_htmlbar/html.c:837 src/plugin_htmlbar/html.c:1062
+#: src/plugin_htmlbar/html_diag.c:377
 msgid "_ID:"
 msgstr "_ID:"
 
-#: ../html.c:942
+#: src/plugin_htmlbar/html.c:938
 msgid "Horizontal Rule"
 msgstr "Горизонтальный разделитель"
 
-#: ../html.c:953 ../html.c:1771 ../image.c:442
+#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1767
+#: src/plugin_htmlbar/image.c:444
 msgid "_Align:"
 msgstr "В_ыравнивание"
 
-#: ../html.c:960 ../html.c:1779 ../html_table.c:387
+#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1775
+#: src/plugin_htmlbar/html_table.c:387
 msgid "_Height:"
 msgstr "Вы_сота:"
 
-#: ../html.c:966 ../html.c:1775 ../html_table.c:134 ../html_table.c:380
-#: ../image.c:400
+#. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
+#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1771
+#: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
+#: src/plugin_htmlbar/image.c:402
 msgid "_Width:"
 msgstr "_Ширина:"
 
-#: ../html.c:969
+#: src/plugin_htmlbar/html.c:965
 msgid "Is _percent"
 msgstr "В _процентах"
 
-#: ../html.c:974
+#: src/plugin_htmlbar/html.c:970
 msgid "No _shading"
 msgstr "Без _тени"
 
-#: ../html.c:1039
+#: src/plugin_htmlbar/html.c:1035
 msgid "Body"
 msgstr "Тело документа"
 
-#: ../html.c:1047
+#: src/plugin_htmlbar/html.c:1043
 msgid "Options"
 msgstr "Параметры"
 
-#: ../html.c:1085
+#: src/plugin_htmlbar/html.c:1081
 msgid "On_Load:"
 msgstr "On_Load:"
 
-#: ../html.c:1093
+#: src/plugin_htmlbar/html.c:1089
 msgid "On_UnLoad:"
 msgstr "On_UnLoad:"
 
-#: ../html.c:1102
+#: src/plugin_htmlbar/html.c:1098
 msgid "Depreciated options"
 msgstr "Устаревшие опции"
 
-#: ../html.c:1112
+#: src/plugin_htmlbar/html.c:1108
 msgid "Background _Image:"
 msgstr "Фоновый _рисунок:"
 
-#: ../html.c:1119
+#: src/plugin_htmlbar/html.c:1115
 msgid "Back_ground Color:"
 msgstr "Цвет _фона:"
 
-#: ../html.c:1125
+#: src/plugin_htmlbar/html.c:1121
 msgid "_Text Color:"
 msgstr "Цвет _текста:"
 
-#: ../html.c:1131
+#: src/plugin_htmlbar/html.c:1127
 msgid "_Link Color:"
 msgstr "Цвет _ссылки:"
 
-#: ../html.c:1137
+#: src/plugin_htmlbar/html.c:1133
 msgid "_Visited Link Color:"
 msgstr "Цвет _посещенной ссылки:"
 
-#: ../html.c:1143
+#: src/plugin_htmlbar/html.c:1139
 msgid "_Active Link Color:"
 msgstr "Цвет ссылки под _указателем:"
 
-#: ../html.c:1194
+#: src/plugin_htmlbar/html.c:1190
 msgid "Meta"
 msgstr "Meta"
 
-#: ../html.c:1232
+#: src/plugin_htmlbar/html.c:1228
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV"
 
-#: ../html.c:1237
+#: src/plugin_htmlbar/html.c:1233
 msgid "Con_tent:"
 msgstr "Содер_жимое:"
 
-#: ../html.c:1245
+#: src/plugin_htmlbar/html.c:1241
 msgid "_Scheme:"
 msgstr "_Схема:"
 
-#: ../html.c:1326
+#: src/plugin_htmlbar/html.c:1322
 msgid "Font"
 msgstr "Шрифт"
 
-#: ../html.c:1329
+#: src/plugin_htmlbar/html.c:1325
 msgid "Base Font"
 msgstr "Базовый шрифт"
 
-#: ../html.c:1344
+#: src/plugin_htmlbar/html.c:1340
 msgid "Size"
 msgstr "Размер"
 
-#: ../html.c:1352
+#: src/plugin_htmlbar/html.c:1348
 msgid "Color"
 msgstr "Цвет"
 
-#: ../html.c:1357
+#: src/plugin_htmlbar/html.c:1353
 msgid "Face"
 msgstr "Гарнитура шрифта"
 
-#: ../html.c:1361
+#: src/plugin_htmlbar/html.c:1357
 msgid "Custom"
 msgstr "Прочее"
 
-#: ../html.c:1445
+#: src/plugin_htmlbar/html.c:1441
 #, fuzzy
 msgid "E-mail"
 msgstr "Email"
 
-#: ../html.c:1453
+#: src/plugin_htmlbar/html.c:1449
 msgid "_Mail to:"
 msgstr ""
 
-#: ../html.c:1457
+#: src/plugin_htmlbar/html.c:1453
 #, fuzzy
 msgid "_Copy to:"
 msgstr "Копировать"
 
-#: ../html.c:1461
+#: src/plugin_htmlbar/html.c:1457
 msgid "Blin_d copy to:"
 msgstr ""
 
-#: ../html.c:1465
+#: src/plugin_htmlbar/html.c:1461
 msgid "with _Subject:"
 msgstr ""
 
-#: ../html.c:1469
+#: src/plugin_htmlbar/html.c:1465
 msgid "with _Body:"
 msgstr ""
 
-#: ../html.c:1513
+#: src/plugin_htmlbar/html.c:1509
 msgid "Quick List"
 msgstr "Заготовка списка"
 
-#: ../html.c:1518 ../html.c:1600 ../html_form.c:236
+#: src/plugin_htmlbar/html.c:1514 src/plugin_htmlbar/html.c:1596
+#: src/plugin_htmlbar/html_form.c:236
 msgid "_Rows:"
 msgstr "Ст_рок"
 
-#: ../html.c:1521
+#: src/plugin_htmlbar/html.c:1517
 msgid "Or_dered"
 msgstr "_Упорядоченный"
 
-#: ../html.c:1522
+#: src/plugin_htmlbar/html.c:1518
 msgid "_Unordered"
 msgstr "_Неупорядоченный"
 
-#: ../html.c:1524
+#: src/plugin_htmlbar/html.c:1520
 msgid "Style:"
 msgstr "Стиль:"
 
-#: ../html.c:1596 ../html_form.c:240
+#: src/plugin_htmlbar/html.c:1592 src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
 msgstr "С_толбцов"
 
-#: ../html.c:1605
+#: src/plugin_htmlbar/html.c:1601
 msgid "_Add <frame> elements"
 msgstr "_Добавить элементы <frame>"
 
-#: ../html.c:1682 ../html.c:1767 ../html.c:1826
+#: src/plugin_htmlbar/html.c:1678 src/plugin_htmlbar/html.c:1763
+#: src/plugin_htmlbar/html.c:1822
 msgid "_Source:"
 msgstr "_Источник:"
 
-#: ../html.c:1690
+#: src/plugin_htmlbar/html.c:1686
 msgid "Margin _Width:"
 msgstr "_Ширина отступа:"
 
-#: ../html.c:1694
+#: src/plugin_htmlbar/html.c:1690
 msgid "Margin _Height:"
 msgstr "_Высота Отступа:"
 
-#: ../html.c:1702
+#: src/plugin_htmlbar/html.c:1698
 msgid "Scrollin_g:"
 msgstr "Скро_ллинг:"
 
-#: ../html.c:1706
+#: src/plugin_htmlbar/html.c:1702
 msgid "_Frameborder:"
 msgstr "_Рамка врезки:"
 
-#: ../html.c:1711
+#: src/plugin_htmlbar/html.c:1707
 msgid "No _Resize:"
 msgstr "Не позволять _менять размер:"
 
-#: ../html.c:1761
+#: src/plugin_htmlbar/html.c:1757
 msgid "Embed"
 msgstr "В_недрить"
 
-#: ../html.c:1783 ../html_table.c:140
+#: src/plugin_htmlbar/html.c:1779 src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
 msgstr "_Рамка"
 
-#: ../html.c:1819
+#: src/plugin_htmlbar/html.c:1815
 msgid "Script"
 msgstr "Скрипт"
 
-#: ../html.c:1848 ../html.c:1949 ../html_form.c:789 ../html_form.c:899
+#: src/plugin_htmlbar/html.c:1844 src/plugin_htmlbar/html.c:1945
+#: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
 msgstr "_Тип:"
 
-#: ../html.c:1907
+#: src/plugin_htmlbar/html.c:1903
 msgid "Link"
 msgstr "Ссылка"
 
-#: ../html.c:1924
+#: src/plugin_htmlbar/html.c:1920
 #, fuzzy
 msgid "HREF_LANG:"
 msgstr "_HREF:"
 
-#: ../html.c:1928
+#: src/plugin_htmlbar/html.c:1924
 #, fuzzy
 msgid "T_itle:"
 msgstr "Название _T"
 
-#: ../html.c:1968
+#: src/plugin_htmlbar/html.c:1964
 msgid "_Forward Relation:"
 msgstr "Ссылка вперед:"
 
-#: ../html.c:1972
+#: src/plugin_htmlbar/html.c:1968
 msgid "_Reverse Relation:"
 msgstr "_Ссылка назад:"
 
-#: ../html.c:1983
+#: src/plugin_htmlbar/html.c:1979
 msgid "Media:"
 msgstr "Носитель:"
 
-#: ../html.c:1987
+#: src/plugin_htmlbar/html.c:1983
 msgid "L_ang:"
 msgstr "_Язык:"
 
-#: ../html.c:1991
+#: src/plugin_htmlbar/html.c:1987
 msgid "_Custom:"
 msgstr "Про_чее:"
 
-#: ../html_form.c:141
+#: src/plugin_htmlbar/html_form.c:141
 msgid "Form"
 msgstr "Форма"
 
-#: ../html_form.c:159
+#: src/plugin_htmlbar/html_form.c:159
 msgid "_Action:"
 msgstr "_Действие:"
 
-#: ../html_form.c:167
+#: src/plugin_htmlbar/html_form.c:167
 msgid "Metho_d:"
 msgstr "_Метод:"
 
-#: ../html_form.c:176
+#: src/plugin_htmlbar/html_form.c:176
 msgid "_Enctype:"
 msgstr "Тип _кодирования:"
 
-#: ../html_form.c:225
+#: src/plugin_htmlbar/html_form.c:225
 msgid "Text area"
 msgstr "Область ввода текста"
 
-#: ../html_form.c:590
+#: src/plugin_htmlbar/html_form.c:590
 msgid "Select"
 msgstr "Поле выбора"
 
-#: ../html_form.c:601 ../html_form.c:808
+#: src/plugin_htmlbar/html_form.c:601 src/plugin_htmlbar/html_form.c:808
 msgid "Si_ze:"
 msgstr "Ра_змер:"
 
-#: ../html_form.c:605
+#: src/plugin_htmlbar/html_form.c:605
 msgid "Multiple _Selections:"
 msgstr "Многократный в_ыбор:"
 
-#: ../html_form.c:644
+#: src/plugin_htmlbar/html_form.c:644
 msgid "Option"
 msgstr "Параметр"
 
-#: ../html_form.c:654 ../html_form.c:697
+#: src/plugin_htmlbar/html_form.c:654 src/plugin_htmlbar/html_form.c:697
 msgid "_Label:"
 msgstr "_Ярлык:"
 
-#: ../html_form.c:659
+#: src/plugin_htmlbar/html_form.c:659
 msgid "_Selected:"
 msgstr "В_ыбранное значение:"
 
-#: ../html_form.c:692
+#: src/plugin_htmlbar/html_form.c:692
 msgid "Option group"
 msgstr "Группа параметров"
 
-#: ../html_form.c:775
+#: src/plugin_htmlbar/html_form.c:775
 msgid "Input"
 msgstr "Ввод"
 
-#: ../html_form.c:803
+#: src/plugin_htmlbar/html_form.c:803
 msgid "_Checked:"
 msgstr "В_ключен:"
 
-#: ../html_form.c:812
+#: src/plugin_htmlbar/html_form.c:812
 msgid "Max _Length:"
 msgstr "Максимальная _длина:"
 
-#: ../html_form.c:816
+#: src/plugin_htmlbar/html_form.c:816
 msgid "_Accept:"
 msgstr "_Принимать:"
 
-#: ../html_form.c:820
+#: src/plugin_htmlbar/html_form.c:820
 msgid "C_ustom:"
 msgstr "Про_чее:"
 
-#: ../html_form.c:832
+#: src/plugin_htmlbar/html_form.c:832
 msgid "On_Focus:"
 msgstr "On_Focus:"
 
-#: ../html_form.c:836
+#: src/plugin_htmlbar/html_form.c:836
 msgid "On_Blur:"
 msgstr "On_Blur:"
 
-#: ../html_form.c:840
+#: src/plugin_htmlbar/html_form.c:840
 msgid "On_Select:"
 msgstr "On_Select:"
 
-#: ../html_form.c:844
+#: src/plugin_htmlbar/html_form.c:844
 msgid "On_Change:"
 msgstr "On_Change:"
 
-#: ../html_form.c:884
+#: src/plugin_htmlbar/html_form.c:884
 msgid "Button"
 msgstr "Кнопка"
 
-#: ../html_table.c:83
+#: src/plugin_htmlbar/html_table.c:83
 msgid "Cell _Padding:"
 msgstr "_Заполнение ячейки:"
 
-#: ../html_table.c:87
+#: src/plugin_htmlbar/html_table.c:87
 msgid "C_ell Spacing:"
 msgstr "_Просвет между ячейками:"
 
-#: ../html_table.c:123 ../html_table.c:233 ../html_table.c:347
+#: src/plugin_htmlbar/html_table.c:123 src/plugin_htmlbar/html_table.c:233
+#: src/plugin_htmlbar/html_table.c:347
 msgid "_Valign:"
 msgstr "Выравнивание по _вертикали:"
 
-#: ../html_table.c:128 ../html_table.c:242 ../html_table.c:392
+#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:392
 msgid "Backgrou_nd Color:"
 msgstr "Цвет _фона:"
 
-#: ../html_table.c:154
+#: src/plugin_htmlbar/html_table.c:154
 msgid "_Frame:"
 msgstr "В_резка:"
 
-#: ../html_table.c:165
+#: src/plugin_htmlbar/html_table.c:165
 msgid "R_ules:"
 msgstr "С_кроллеры:"
 
-#: ../html_table.c:365
+#: src/plugin_htmlbar/html_table.c:365
 msgid "Co_l Span:"
 msgstr "Расстояние между с_толбцами:"
 
-#: ../html_table.c:369
+#: src/plugin_htmlbar/html_table.c:369
 msgid "_Row Span:"
 msgstr "Расстояние между ст_роками:"
 
-#: ../html_table.c:374
+#: src/plugin_htmlbar/html_table.c:374
 msgid "No Wra_p:"
 msgstr "Не _переносить слова:"
 
-#: ../image.c:364
+#: src/plugin_htmlbar/image.c:366
 msgid "Insert thumbnail"
 msgstr "Вставить эскиз"
 
-#: ../image.c:366
+#: src/plugin_htmlbar/image.c:368
 msgid "Insert image"
 msgstr "Вставить изображение"
 
-#: ../image.c:372
+#: src/plugin_htmlbar/image.c:374
 msgid "Preview"
 msgstr "Просмотр"
 
-#: ../image.c:392
+#: src/plugin_htmlbar/image.c:394
 msgid "_Image location:"
 msgstr "Ссылка на _изображение:"
 
-#: ../image.c:407
+#: src/plugin_htmlbar/image.c:409
 msgid "Hei_ght:"
 msgstr "В_ысота:"
 
-#: ../image.c:412
+#: src/plugin_htmlbar/image.c:414
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
-#: ../image.c:420
+#: src/plugin_htmlbar/image.c:422
 msgid "Alternate _text:"
 msgstr "Альтернативный _текст:"
 
-#: ../image.c:428
+#: src/plugin_htmlbar/image.c:430
 msgid "_Hspace:"
 msgstr "_Hspace:"
 
-#: ../image.c:432
+#: src/plugin_htmlbar/image.c:434
 msgid "_Vspace:"
 msgstr "_Vspace:"
 
-#: ../image.c:446
+#: src/plugin_htmlbar/image.c:448
 msgid "Borde_r:"
 msgstr "_Рамка:"
 
-#: ../image.c:774
+#: src/plugin_htmlbar/image.c:779
 msgid "Select files for thumbnail creation"
 msgstr "Выберите файлы для которых следует создать эскизы"
 
-#: ../image.c:809
+#: src/plugin_htmlbar/image.c:814
 msgid "Scaling (%)"
 msgstr "Масштабирование (%)"
 
-#: ../image.c:813 ../image.c:821
+#: src/plugin_htmlbar/image.c:818 src/plugin_htmlbar/image.c:826
 msgid "Width"
 msgstr "Ширина"
 
-#: ../image.c:817 ../image.c:849
+#: src/plugin_htmlbar/image.c:822 src/plugin_htmlbar/image.c:854
 msgid "Height"
 msgstr "Высота"
 
-#: ../image.c:838
+#: src/plugin_htmlbar/image.c:843
 msgid "Multi thumbnail"
 msgstr "Альбом эскизов"
 
-#: ../image.c:844
+#: src/plugin_htmlbar/image.c:849
 msgid "By scaling"
 msgstr "По масштабу"
 
-#: ../image.c:845
+#: src/plugin_htmlbar/image.c:850
 msgid "By width, keep aspect ratio"
 msgstr "По ширине, сохранять пропорции"
 
-#: ../image.c:846
+#: src/plugin_htmlbar/image.c:851
 msgid "By height, keep aspect ratio"
 msgstr "По высоте, сохранять пропорции"
 
-#: ../image.c:847
+#: src/plugin_htmlbar/image.c:852
 msgid "By width and height, ignore aspect ratio"
 msgstr "По ширине и высоте, игнорировать пропорцию"
 
-#: ../image.c:871
+#: src/plugin_htmlbar/image.c:876
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -1958,141 +2011,145 @@ msgstr ""
 "%x: ширина эскиза  %y: высота эскиза\n"
 "%b: размер исходного файла (в байтах)"
 
-#: ../quickstart.c:512
+#: src/plugin_htmlbar/quickstart.c:512
 #, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr "<b>Общие</b>"
 
-#: ../quickstart.c:522
+#: src/plugin_htmlbar/quickstart.c:522
 #, fuzzy
 msgid "Ty_pe:"
 msgstr "_Тип:"
 
-#: ../quickstart.c:540
+#: src/plugin_htmlbar/quickstart.c:540
 #, fuzzy
 msgid "HRE_F:"
 msgstr "_HREF:"
 
-#: ../quickstart.c:544
+#: src/plugin_htmlbar/quickstart.c:544
 #, fuzzy
 msgid "_Media:"
 msgstr "Носитель:"
 
-#: ../quickstart.c:548
+#: src/plugin_htmlbar/quickstart.c:548
 #, fuzzy
 msgid "Titl_e:"
 msgstr "Название _T"
 
-#: ../quickstart.c:554
+#. TODO: add an option to place content in the style area
+#. * Possibly from a code snippet library
+#.
+#: src/plugin_htmlbar/quickstart.c:554
 #, fuzzy
 msgid "<b>Style Area</b>"
 msgstr "<b>Общие</b>"
 
-#: ../quickstart.c:558
+#: src/plugin_htmlbar/quickstart.c:558
 #, fuzzy
 msgid "Cre_ate empty style area"
 msgstr "Создать пустой проект"
 
-#: ../quickstart.c:580
+#: src/plugin_htmlbar/quickstart.c:580
 #, fuzzy
 msgid "<b>Attributes</b>"
 msgstr "Атрибуты"
 
-#: ../quickstart.c:595
+#: src/plugin_htmlbar/quickstart.c:595
 #, fuzzy
 msgid "_Src:"
 msgstr "_Источник:"
 
-#: ../quickstart.c:602
+#. TODO: add an option to place content in the script area
+#: src/plugin_htmlbar/quickstart.c:602
 #, fuzzy
 msgid "<b>Script Area</b>"
 msgstr "<b>Общие</b>"
 
-#: ../quickstart.c:606
+#: src/plugin_htmlbar/quickstart.c:606
 #, fuzzy
 msgid "Cre_ate empty script area"
 msgstr "Создать пустой проект"
 
-#: ../quickstart.c:633
+#: src/plugin_htmlbar/quickstart.c:633
 msgid "Quick Start"
 msgstr "Заготовка страницы"
 
-#: ../quickstart.c:647
+#: src/plugin_htmlbar/quickstart.c:647
 #, fuzzy
 msgid "_DTD:"
 msgstr "Использовать _DTD:"
 
-#: ../quickstart.c:651 ../wizards.c:186
+#: src/plugin_htmlbar/quickstart.c:651 src/plugin_htmlbar/wizards.c:186
 msgid "_Title:"
 msgstr "Название _T"
 
-#: ../quickstart.c:674
+#: src/plugin_htmlbar/quickstart.c:674
 #, fuzzy
 msgid "_Head:"
 msgstr "_Href:"
 
-#: ../quickstart.c:691
+#: src/plugin_htmlbar/quickstart.c:691
 #, fuzzy
 msgid "Open in _new document."
 msgstr "В _документе"
 
-#: ../wizards.c:68
+#: src/plugin_htmlbar/wizards.c:68
 msgid "Table Wizard"
 msgstr "Мастер Таблиц"
 
-#: ../wizards.c:76
+#: src/plugin_htmlbar/wizards.c:76
 msgid "Number of _rows:"
 msgstr "Число ст_рок:"
 
-#: ../wizards.c:80
+#: src/plugin_htmlbar/wizards.c:80
 msgid "Number of colu_mns:"
 msgstr "Число сто_лбцов:"
 
-#: ../wizards.c:84
+#: src/plugin_htmlbar/wizards.c:84
 msgid "Table rows on one _line:"
 msgstr "Число строк таблицы в одной ст_роке файла:"
 
-#: ../wizards.c:88
+#: src/plugin_htmlbar/wizards.c:88
 msgid "_Indent table code:"
 msgstr "От_форматировать код таблицы"
 
-#: ../wizards.c:175
+#: src/plugin_htmlbar/wizards.c:175
 msgid "Frame Wizard"
 msgstr "Мастер Врезок"
 
-#: ../wizards.c:190
+#: src/plugin_htmlbar/wizards.c:190
 msgid "Use _DTD:"
 msgstr "Использовать _DTD:"
 
-#: ../wizards.c:193
+#: src/plugin_htmlbar/wizards.c:193
 msgid "Orientation:"
 msgstr "Ориентация:"
 
-#: ../wizards.c:196
+#: src/plugin_htmlbar/wizards.c:196
 msgid "_Horizontal"
 msgstr "_Горизонтально"
 
-#: ../wizards.c:197
+#: src/plugin_htmlbar/wizards.c:197
 msgid "_Vertical"
 msgstr "_Вертикально"
 
-#: ../wizards.c:202
+#: src/plugin_htmlbar/wizards.c:202
 msgid "Number of _Frames:"
 msgstr "Число В_резок:"
 
-#: ../wizards.c:205
+#: src/plugin_htmlbar/wizards.c:205
 msgid "Frame's"
 msgstr "Врезка"
 
-#: ../wizards.c:217
+#: src/plugin_htmlbar/wizards.c:217
 msgid "Name:"
 msgstr "Имя:"
 
-#: ../wizards.c:219
+#: src/plugin_htmlbar/wizards.c:219
 msgid "Source:"
 msgstr "Источник:"
 
-#: ../wizards.c:223
+#: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
 msgstr "Размер:"
 
@@ -2868,9 +2925,6 @@ msgstr "Размер:"
 
 #~ msgid "Error creating path"
 #~ msgstr "Ошибка при создании пути"
-
-#~ msgid "The specified pathname already exists."
-#~ msgstr "Указанный путь уже существует."
 
 #~ msgid "File name"
 #~ msgstr "Имя файла"
