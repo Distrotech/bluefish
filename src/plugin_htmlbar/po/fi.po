@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-20 21:46-0800\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2006-11-25 14:39-0800\n"
 "PO-Revision-Date: 2003-12-06 14:24+0100\n"
 "Last-Translator: Juho Roukala <j.mr@luukku.com>\n"
 "Language-Team: Not a memeber <LL@li.org>\n"
@@ -14,1973 +14,2026 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../html2.c:558
-msgid "Cascading StyleSheet dialog"
+#. _DM_ Alert box asking if user would like to change request from add to
+#. * update.
+#.
+#: src/plugin_htmlbar/html2.c:499
+#, fuzzy
+msgid "_Update"
+msgstr " _Päivitä "
+
+#: src/plugin_htmlbar/html2.c:504
+#, fuzzy, c-format
+msgid "The %s %s property already exists.\n"
+msgstr "Annettu hakemistopolku on jo olemassa."
+
+#: src/plugin_htmlbar/html2.c:506
+#, fuzzy, c-format
+msgid "The %s property already exists.\n"
+msgstr "Annettu hakemistopolku on jo olemassa."
+
+#: src/plugin_htmlbar/html2.c:509
+#, c-format
+msgid "Update it's value from %s to %s?"
+msgstr ""
+
+#: src/plugin_htmlbar/html2.c:635
+#, fuzzy
+msgid "Cascading Style Sheet Builder"
 msgstr "Limitetty tyylisivu -dialogi"
 
-#: ../html2.c:578
+#: src/plugin_htmlbar/html2.c:655
 msgid "_Selector:"
 msgstr "_Valitsija:"
 
-#: ../html2.c:597
+#: src/plugin_htmlbar/html2.c:674
 msgid "_Property:"
 msgstr "_Ominaisuus:"
 
-#: ../html2.c:599 ../html_form.c:650 ../html_form.c:799 ../html_form.c:894
+#: src/plugin_htmlbar/html2.c:676 src/plugin_htmlbar/html_form.c:650
+#: src/plugin_htmlbar/html_form.c:799 src/plugin_htmlbar/html_form.c:894
 msgid "_Value:"
 msgstr "_Arvo:"
 
-#: ../html2.c:617
+#: src/plugin_htmlbar/html2.c:694
 msgid "Selector"
 msgstr "Valitsija:"
 
-#: ../html2.c:617 ../html2.c:620
+#: src/plugin_htmlbar/html2.c:694 src/plugin_htmlbar/html2.c:697
 msgid "Property"
 msgstr "Ominaisuus"
 
-#: ../html2.c:617 ../html2.c:620
+#: src/plugin_htmlbar/html2.c:694 src/plugin_htmlbar/html2.c:697
 msgid "Value"
 msgstr "Arvo"
 
-#: ../html2.c:635
+#: src/plugin_htmlbar/html2.c:712
 msgid " _Add "
 msgstr " _Lisää "
 
-#: ../html2.c:638
+#: src/plugin_htmlbar/html2.c:715
 msgid " _Update "
 msgstr " _Päivitä "
 
-#: ../html2.c:641
+#: src/plugin_htmlbar/html2.c:718
 msgid " _Delete "
 msgstr " P_oista "
 
-#: ../html2.c:897 ../html2.c:934
+#: src/plugin_htmlbar/html2.c:971 src/plugin_htmlbar/html2.c:1008
 msgid "_Style..."
 msgstr "_Tyyli..."
 
-#: ../html2.c:1091
+#: src/plugin_htmlbar/html2.c:1165
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Valitse väri"
 
-#: ../htmlbar.c:36
+#: src/plugin_htmlbar/htmlbar.c:36
 msgid "Edit color"
 msgstr "Muokkaa väriä"
 
-#: ../htmlbar.c:44
+#: src/plugin_htmlbar/htmlbar.c:44
 msgid "Edit tag"
 msgstr "Muokkaa tagia"
 
-#: ../htmlbar_gui.c:202
+#: src/plugin_htmlbar/htmlbar_gui.c:203
 msgid "/_Tags"
 msgstr "/T_agit"
 
-#: ../htmlbar_gui.c:204
+#: src/plugin_htmlbar/htmlbar_gui.c:205
 msgid "/Tags/_Headings"
 msgstr "/Tagit/_Otsikot"
 
-#: ../htmlbar_gui.c:206
+#: src/plugin_htmlbar/htmlbar_gui.c:207
 msgid "/Tags/Headings/H_1"
 msgstr "/Tagit/Otsikot/H_1"
 
-#: ../htmlbar_gui.c:207
+#: src/plugin_htmlbar/htmlbar_gui.c:208
 msgid "/Tags/Headings/H_2"
 msgstr "/Tagit/Otsikot/H_2"
 
-#: ../htmlbar_gui.c:208
+#: src/plugin_htmlbar/htmlbar_gui.c:209
 msgid "/Tags/Headings/H_3"
 msgstr "/Tagit/Otsikot/H_3"
 
-#: ../htmlbar_gui.c:209
+#: src/plugin_htmlbar/htmlbar_gui.c:210
 msgid "/Tags/Headings/H_4"
 msgstr "/Tagit/Otsikot/H_4"
 
-#: ../htmlbar_gui.c:210
+#: src/plugin_htmlbar/htmlbar_gui.c:211
 msgid "/Tags/Headings/H_5"
 msgstr "/Tagit/Otsikot/H_5"
 
-#: ../htmlbar_gui.c:211
+#: src/plugin_htmlbar/htmlbar_gui.c:212
 msgid "/Tags/Headings/H_6"
 msgstr "/Tagit/Otsikot/H_6"
 
-#: ../htmlbar_gui.c:212
+#: src/plugin_htmlbar/htmlbar_gui.c:213
 msgid "/Tags/_Special"
 msgstr "/Tagit/_Erikoiset"
 
-#: ../htmlbar_gui.c:214
+#: src/plugin_htmlbar/htmlbar_gui.c:215
 msgid "/Tags/Special/_Accent"
 msgstr "/Tagit/Erikoiset/_Vierasmerkit"
 
-#: ../htmlbar_gui.c:216
+#: src/plugin_htmlbar/htmlbar_gui.c:217
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/_Isot kirjaimet"
 
-#: ../htmlbar_gui.c:217
+#: src/plugin_htmlbar/htmlbar_gui.c:218
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr "Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/_A-I"
 
-#: ../htmlbar_gui.c:219
+#: src/plugin_htmlbar/htmlbar_gui.c:220
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Pilkullinen A (vasen); À"
 
-#: ../htmlbar_gui.c:220
+#: src/plugin_htmlbar/htmlbar_gui.c:221
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Pilkullinen A (oikea); Á"
 
-#: ../htmlbar_gui.c:221
+#: src/plugin_htmlbar/htmlbar_gui.c:222
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Hatullinen A; Â"
 
-#: ../htmlbar_gui.c:222
+#: src/plugin_htmlbar/htmlbar_gui.c:223
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Matoviivallinen A; Ã"
 
-#: ../htmlbar_gui.c:223
+#: src/plugin_htmlbar/htmlbar_gui.c:224
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/AE-sidos; Æ"
 
-#: ../htmlbar_gui.c:224
+#: src/plugin_htmlbar/htmlbar_gui.c:225
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Kaksoispisteellinen A; Ä"
 
-#: ../htmlbar_gui.c:225
+#: src/plugin_htmlbar/htmlbar_gui.c:226
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Ympyrällinen A; Å"
 
-#: ../htmlbar_gui.c:226
+#: src/plugin_htmlbar/htmlbar_gui.c:227
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Väkäsellinen C; Ç"
 
-#: ../htmlbar_gui.c:227
+#: src/plugin_htmlbar/htmlbar_gui.c:228
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Pilkullinen E (vasen); È"
 
-#: ../htmlbar_gui.c:228
+#: src/plugin_htmlbar/htmlbar_gui.c:229
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Pilkullinen E (oikea); É"
 
-#: ../htmlbar_gui.c:229
+#: src/plugin_htmlbar/htmlbar_gui.c:230
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Hatullinen E; Ê"
 
-#: ../htmlbar_gui.c:230
+#: src/plugin_htmlbar/htmlbar_gui.c:231
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Kaksoispisteellinen E; Ë"
 
-#: ../htmlbar_gui.c:231
+#: src/plugin_htmlbar/htmlbar_gui.c:232
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Pilkullinen I (vasen); Ì"
 
-#: ../htmlbar_gui.c:232
+#: src/plugin_htmlbar/htmlbar_gui.c:233
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Pilkullinen I (oikea); Í"
 
-#: ../htmlbar_gui.c:233
+#: src/plugin_htmlbar/htmlbar_gui.c:234
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Hatullinen I; Î"
 
-#: ../htmlbar_gui.c:234
+#: src/plugin_htmlbar/htmlbar_gui.c:235
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/A-I/Kaksoispisteellinen I; Ï"
 
-#: ../htmlbar_gui.c:235
+#: src/plugin_htmlbar/htmlbar_gui.c:236
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/_J-Z"
 
-#: ../htmlbar_gui.c:237
+#: src/plugin_htmlbar/htmlbar_gui.c:238
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Matoviivallinen N; Ñ"
 
-#: ../htmlbar_gui.c:238
+#: src/plugin_htmlbar/htmlbar_gui.c:239
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Pilkullinen O (vasen); Ò"
 
-#: ../htmlbar_gui.c:239
+#: src/plugin_htmlbar/htmlbar_gui.c:240
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Pilkullinen O (oikea); Ó"
 
-#: ../htmlbar_gui.c:240
+#: src/plugin_htmlbar/htmlbar_gui.c:241
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Hatullinen O; Ô"
 
-#: ../htmlbar_gui.c:241
+#: src/plugin_htmlbar/htmlbar_gui.c:242
 #, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/OE-sidos"
 
-#: ../htmlbar_gui.c:242
+#: src/plugin_htmlbar/htmlbar_gui.c:243
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Matoviivallinen O; Õ"
 
-#: ../htmlbar_gui.c:243
+#: src/plugin_htmlbar/htmlbar_gui.c:244
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Kaksoispisteellinen O; Ö"
 
-#: ../htmlbar_gui.c:244
+#: src/plugin_htmlbar/htmlbar_gui.c:245
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Yliviivattu O; Ø"
 
-#: ../htmlbar_gui.c:245
+#: src/plugin_htmlbar/htmlbar_gui.c:246
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Pilkullinen U (vasen); Ù"
 
-#: ../htmlbar_gui.c:246
+#: src/plugin_htmlbar/htmlbar_gui.c:247
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Pilkullinen U (oikea); Ú"
 
-#: ../htmlbar_gui.c:247
+#: src/plugin_htmlbar/htmlbar_gui.c:248
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Hatullinen U; Û"
 
-#: ../htmlbar_gui.c:248
+#: src/plugin_htmlbar/htmlbar_gui.c:249
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Kaksoispisteellinen U; Ü"
 
-#: ../htmlbar_gui.c:249
+#: src/plugin_htmlbar/htmlbar_gui.c:250
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Isot kirjaimet/J-Z/Pilkullinen Y; Ý"
 
-#: ../htmlbar_gui.c:250
+#: src/plugin_htmlbar/htmlbar_gui.c:251
 msgid "/Tags/Special/Accent/_Lowercase"
 msgstr "/Tagit/Eroikoiset/Vierasmerkit/_Pienet kirjaimet"
 
-#: ../htmlbar_gui.c:251
+#: src/plugin_htmlbar/htmlbar_gui.c:252
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/_A-I"
 
-#: ../htmlbar_gui.c:253
+#: src/plugin_htmlbar/htmlbar_gui.c:254
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Pilkullinen a (vasen); à"
 
-#: ../htmlbar_gui.c:254
+#: src/plugin_htmlbar/htmlbar_gui.c:255
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Pilkullinen a (oikea); á"
 
-#: ../htmlbar_gui.c:255
+#: src/plugin_htmlbar/htmlbar_gui.c:256
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Hatullinen a; â "
 
-#: ../htmlbar_gui.c:256
+#: src/plugin_htmlbar/htmlbar_gui.c:257
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Matoviivallinen a; ã"
 
-#: ../htmlbar_gui.c:257
+#: src/plugin_htmlbar/htmlbar_gui.c:258
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Ympyrällinen a; å"
 
-#: ../htmlbar_gui.c:258
+#: src/plugin_htmlbar/htmlbar_gui.c:259
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/ae-sidos; æ"
 
-#: ../htmlbar_gui.c:259
+#: src/plugin_htmlbar/htmlbar_gui.c:260
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Kaksoispisteellinen a; ä"
 
-#: ../htmlbar_gui.c:260
+#: src/plugin_htmlbar/htmlbar_gui.c:261
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Väkäsellinen c; ç"
 
-#: ../htmlbar_gui.c:261
+#: src/plugin_htmlbar/htmlbar_gui.c:262
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Pilkullinen e (vasen); è"
 
-#: ../htmlbar_gui.c:262
+#: src/plugin_htmlbar/htmlbar_gui.c:263
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Pilkullinen e (oikea); é"
 
-#: ../htmlbar_gui.c:263
+#: src/plugin_htmlbar/htmlbar_gui.c:264
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Hatullinen e; ê"
 
-#: ../htmlbar_gui.c:264
+#: src/plugin_htmlbar/htmlbar_gui.c:265
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Kaksoispisteellinen e; ë"
 
-#: ../htmlbar_gui.c:265
+#: src/plugin_htmlbar/htmlbar_gui.c:266
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Kaksoispisteellinen i "
 "(vasen); ì"
 
-#: ../htmlbar_gui.c:266
+#: src/plugin_htmlbar/htmlbar_gui.c:267
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Kaksoispisteellinen i "
 "(oikea); í"
 
-#: ../htmlbar_gui.c:267
+#: src/plugin_htmlbar/htmlbar_gui.c:268
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Hatullinen i; î"
 
-#: ../htmlbar_gui.c:268
+#: src/plugin_htmlbar/htmlbar_gui.c:269
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/A-I/Kaksoispisteellinen i; ï"
 
-#: ../htmlbar_gui.c:269
+#: src/plugin_htmlbar/htmlbar_gui.c:270
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/_J-Z"
 
-#: ../htmlbar_gui.c:271
+#: src/plugin_htmlbar/htmlbar_gui.c:272
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Matoviivallinen n; ñ"
 
-#: ../htmlbar_gui.c:272
+#: src/plugin_htmlbar/htmlbar_gui.c:273
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Pilkullinen o (vasen); ò"
 
-#: ../htmlbar_gui.c:273
+#: src/plugin_htmlbar/htmlbar_gui.c:274
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Pilkullinen o (oikea); ó"
 
-#: ../htmlbar_gui.c:274
+#: src/plugin_htmlbar/htmlbar_gui.c:275
 #, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/oe-sidos"
 
-#: ../htmlbar_gui.c:275
+#: src/plugin_htmlbar/htmlbar_gui.c:276
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Hatullinen o; ô"
 
-#: ../htmlbar_gui.c:276
+#: src/plugin_htmlbar/htmlbar_gui.c:277
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Matoviivallinen o; õ"
 
-#: ../htmlbar_gui.c:277
+#: src/plugin_htmlbar/htmlbar_gui.c:278
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Kaksoispisteellinen o; ö"
 
-#: ../htmlbar_gui.c:278
+#: src/plugin_htmlbar/htmlbar_gui.c:279
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Yliviivattu o; ø"
 
-#: ../htmlbar_gui.c:279
+#: src/plugin_htmlbar/htmlbar_gui.c:280
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Pilkullinen u (vasen); ù"
 
-#: ../htmlbar_gui.c:280
+#: src/plugin_htmlbar/htmlbar_gui.c:281
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Pilkullinen u (oikea); ú"
 
-#: ../htmlbar_gui.c:281
+#: src/plugin_htmlbar/htmlbar_gui.c:282
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Hatullinen u; û"
 
-#: ../htmlbar_gui.c:282
+#: src/plugin_htmlbar/htmlbar_gui.c:283
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Kaksoispisteellinen u; ü"
 
-#: ../htmlbar_gui.c:283
+#: src/plugin_htmlbar/htmlbar_gui.c:284
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Pilkullinen y; ý"
 
-#: ../htmlbar_gui.c:284
+#: src/plugin_htmlbar/htmlbar_gui.c:285
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr ""
 "/Tagit/Erikoiset/Vierasmerkit/Pienet kirjaimet/J-Z/Kaksoispisteellinen y; ÿ"
 
-#: ../htmlbar_gui.c:286
+#: src/plugin_htmlbar/htmlbar_gui.c:287
 msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/U_mlaut ¨"
 
-#: ../htmlbar_gui.c:287
+#: src/plugin_htmlbar/htmlbar_gui.c:288
 msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/_Heittomerkki ´"
 
-#: ../htmlbar_gui.c:288
+#: src/plugin_htmlbar/htmlbar_gui.c:289
 msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "/Tagit/Erikoiset/Vierasmerkit/V_äkänen ¸"
 
-#: ../htmlbar_gui.c:289
+#: src/plugin_htmlbar/htmlbar_gui.c:290
 msgid "/Tags/Special/_Currency"
 msgstr "/Tagit/Erikoiset/V_aluutta"
 
-#: ../htmlbar_gui.c:291
+#: src/plugin_htmlbar/htmlbar_gui.c:292
 msgid "/Tags/Special/Currency/_Cent sign ¢"
 msgstr "/Tagit/Erikoiset/Valuutta/_Sentti ¢"
 
-#: ../htmlbar_gui.c:292
+#: src/plugin_htmlbar/htmlbar_gui.c:293
 msgid "/Tags/Special/Currency/_Pound sterling £"
 msgstr "/Tagit/Erikoiset/Valuutta/P_unta £"
 
-#: ../htmlbar_gui.c:293
+#: src/plugin_htmlbar/htmlbar_gui.c:294
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
 msgstr "/Tagit/Erikoiset/Valuutta/Va_luuttamerkki ¤"
 
-#: ../htmlbar_gui.c:294
+#: src/plugin_htmlbar/htmlbar_gui.c:295
 msgid "/Tags/Special/Currency/_Yen sign ¥"
 msgstr "/Tagit/Erikoiset/Valuutta/_Jeni ¥"
 
-#: ../htmlbar_gui.c:295
+#: src/plugin_htmlbar/htmlbar_gui.c:296
 msgid "/Tags/Special/Currency/_Euro "
 msgstr "/Tagit/Erikoiset/Valuutta/Eu_ro €"
 
-#: ../htmlbar_gui.c:296
+#: src/plugin_htmlbar/htmlbar_gui.c:297
 msgid "/Tags/Special/_Math-Science"
 msgstr "/Tagit/Erikoiset/_Matemaattinen-Tiede"
 
-#: ../htmlbar_gui.c:298
+#: src/plugin_htmlbar/htmlbar_gui.c:299
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
 msgstr "/Tagit/Erikoiset/Matemaattinen-Tiede/Loogisesti _epätosi ¬"
 
-#: ../htmlbar_gui.c:299
+#: src/plugin_htmlbar/htmlbar_gui.c:300
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
 msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Tulo ×"
 
-#: ../htmlbar_gui.c:300
+#: src/plugin_htmlbar/htmlbar_gui.c:301
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
 msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Osamäärä ÷"
 
-#: ../htmlbar_gui.c:301
+#: src/plugin_htmlbar/htmlbar_gui.c:302
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
 msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Plus-miinus ±"
 
-#: ../htmlbar_gui.c:302
+#: src/plugin_htmlbar/htmlbar_gui.c:303
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
 msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Vähemmän kuin <"
 
-#: ../htmlbar_gui.c:303
+#: src/plugin_htmlbar/htmlbar_gui.c:304
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
 msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Enemmän kuin >"
 
-#: ../htmlbar_gui.c:304
+#: src/plugin_htmlbar/htmlbar_gui.c:305
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_1. Potenssi ¹"
 
-#: ../htmlbar_gui.c:305
+#: src/plugin_htmlbar/htmlbar_gui.c:306
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_2. Potenssi ²"
 
-#: ../htmlbar_gui.c:306
+#: src/plugin_htmlbar/htmlbar_gui.c:307
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_3. Potenssi ³"
 
-#: ../htmlbar_gui.c:307
+#: src/plugin_htmlbar/htmlbar_gui.c:308
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
 msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Neljäsosa ¼"
 
-#: ../htmlbar_gui.c:308
+#: src/plugin_htmlbar/htmlbar_gui.c:309
 msgid "/Tags/Special/Math-Science/One _half ½"
 msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/P_uoli ½"
 
-#: ../htmlbar_gui.c:309
+#: src/plugin_htmlbar/htmlbar_gui.c:310
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
 msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Kolme neljäsosaa ¾"
 
-#: ../htmlbar_gui.c:310
+#: src/plugin_htmlbar/htmlbar_gui.c:311
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
 msgstr "/Tagit/Erikoiset/Matematiikka-Tiede/_Astemerkki °"
 
-#: ../htmlbar_gui.c:311
+#: src/plugin_htmlbar/htmlbar_gui.c:312
 msgid "/Tags/Special/_Non Latin"
 msgstr "/Tagit/Erikoiset/_Ei-latina"
 
-#: ../htmlbar_gui.c:313
+#: src/plugin_htmlbar/htmlbar_gui.c:314
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "/Tagit/Erikoiset/Ei-Latina/_ETH (islantilainen) Ð"
 
-#: ../htmlbar_gui.c:314
+#: src/plugin_htmlbar/htmlbar_gui.c:315
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "/Tagit/Erikoiset/Ei-Latina/_THORN (islantilainen) Þ"
 
-#: ../htmlbar_gui.c:315
+#: src/plugin_htmlbar/htmlbar_gui.c:316
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "/Tagit/Erikoiset/Ei-Latina/et_h (islantilainen) ð"
 
-#: ../htmlbar_gui.c:316
+#: src/plugin_htmlbar/htmlbar_gui.c:317
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "/Tagit/Erikoiset/Ei-Latina/th_orn ÿ"
 
-#: ../htmlbar_gui.c:317
+#: src/plugin_htmlbar/htmlbar_gui.c:318
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "/Tagit/Erikoiset/Ei-Latina/Kaksois-ä_ssä ß"
 
-#: ../htmlbar_gui.c:318
+#: src/plugin_htmlbar/htmlbar_gui.c:319
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
 msgstr "/Tagit/Erikoiset/Ei-Latina/_Mikro µ"
 
-#: ../htmlbar_gui.c:319
+#: src/plugin_htmlbar/htmlbar_gui.c:320
 msgid "/Tags/Special/_Other"
 msgstr "/Tagit/Erikoiset/M_uut"
 
-#: ../htmlbar_gui.c:321
+#: src/plugin_htmlbar/htmlbar_gui.c:322
 msgid "/Tags/Special/Other/_Non-breaking space"
 msgstr "/Tagit/Erikoiset/Muut/_Rikkumaton väli"
 
-#: ../htmlbar_gui.c:322
+#: src/plugin_htmlbar/htmlbar_gui.c:323
 msgid "/Tags/Special/Other/_Section sign §"
 msgstr "/Tagit/Erikoiset/Muut/_Pykälä §"
 
-#: ../htmlbar_gui.c:323
+#: src/plugin_htmlbar/htmlbar_gui.c:324
 msgid "/Tags/Special/Other/_Copyright sign ©"
 msgstr "/Tagit/Erikoiset/Muut/_Kopio-oikeudet ©"
 
-#: ../htmlbar_gui.c:324
+#: src/plugin_htmlbar/htmlbar_gui.c:325
 msgid "/Tags/Special/Other/_Left angle quotes «"
 msgstr "/Tagit/Erikoiset/Muut/Lainausmerkki (_vasen) «"
 
-#: ../htmlbar_gui.c:325
+#: src/plugin_htmlbar/htmlbar_gui.c:326
 msgid "/Tags/Special/Other/_Right angle quotes »"
 msgstr "/Tagit/Erikoiset/Muut/Lainausmerkki (o_ikea) »"
 
-#: ../htmlbar_gui.c:326
+#: src/plugin_htmlbar/htmlbar_gui.c:327
 msgid "/Tags/Special/Other/Registered _trademark ®"
 msgstr "/Tagit/Erikoiset/Muut/R_ekisteröity tavaramerkki ®"
 
-#: ../htmlbar_gui.c:327
+#: src/plugin_htmlbar/htmlbar_gui.c:328
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
 msgstr "/Tagit/Erikoiset/Muut/_Huutomerkki väärinpäin ¡"
 
-#: ../htmlbar_gui.c:328
+#: src/plugin_htmlbar/htmlbar_gui.c:329
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
 msgstr "/Tagit/Erikoiset/Muut/K_ysymysmerkki väärinpäin ¿"
 
-#: ../htmlbar_gui.c:329
+#: src/plugin_htmlbar/htmlbar_gui.c:330
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "/Tagit/Erikoiset/Muut/_Feminiiniordinaali ª"
 
-#: ../htmlbar_gui.c:330
+#: src/plugin_htmlbar/htmlbar_gui.c:331
 msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "/Tagit/Erikoiset/Muut/M_askuliiniordinaali º"
 
-#: ../htmlbar_gui.c:331
+#: src/plugin_htmlbar/htmlbar_gui.c:332
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
 msgstr "/Tagit/Erikoiset/Muut/Ka_ppaleenvaihto ¶"
 
-#: ../htmlbar_gui.c:332
+#: src/plugin_htmlbar/htmlbar_gui.c:333
 msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Tagit/Erikoiset/Muut/Pys_tykatkoviiva ¦"
 
-#: ../htmlbar_gui.c:333
+#: src/plugin_htmlbar/htmlbar_gui.c:334
 msgid "/Tags/Special/Other/Soft _hypen -"
 msgstr "/Tagit/Erikoiset/Muut/Pehmeä _yhdysviiva -"
 
-#: ../htmlbar_gui.c:334
+#: src/plugin_htmlbar/htmlbar_gui.c:335
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
 msgstr "/Tagit/Erikoiset/Muut/Yl_äviiva ¯"
 
-#: ../htmlbar_gui.c:335
+#: src/plugin_htmlbar/htmlbar_gui.c:336
 msgid "/Tags/Special/Other/Middle _dot ·"
 msgstr "/Tagit/Erikoiset/Muut/Kes_kipiste ·"
 
-#: ../htmlbar_gui.c:336
+#: src/plugin_htmlbar/htmlbar_gui.c:337
 msgid "/Tags/_Format by layout"
 msgstr "/Tagit/_Ulkoasumuotoilu"
 
-#: ../htmlbar_gui.c:338
+#: src/plugin_htmlbar/htmlbar_gui.c:339
 msgid "/Tags/Format by layout/_Bold"
 msgstr "/Tagit/Ulkoasumuotoilu/_Lihavoitu"
 
-#: ../htmlbar_gui.c:339
+#: src/plugin_htmlbar/htmlbar_gui.c:340
 msgid "/Tags/Format by layout/_Italic"
 msgstr "/Tagit/Ulkoasumuotoilu/_Kursivoitu"
 
-#: ../htmlbar_gui.c:340
+#: src/plugin_htmlbar/htmlbar_gui.c:341
 msgid "/Tags/Format by layout/_Underline"
 msgstr "/Tagit/Ulkoasumuotoilu/_Alleviivattu"
 
-#: ../htmlbar_gui.c:341
+#: src/plugin_htmlbar/htmlbar_gui.c:342
 msgid "/Tags/Format by layout/_Strikeout"
 msgstr "/Tagit/Ulkoasumuotoilu/_Yliviivattu"
 
-#: ../htmlbar_gui.c:342
+#: src/plugin_htmlbar/htmlbar_gui.c:343
 msgid "/Tags/Format by layout/Sm_all"
 msgstr "/Tagit/Ulkoasumuotoilu/_Pieni"
 
-#: ../htmlbar_gui.c:343
+#: src/plugin_htmlbar/htmlbar_gui.c:344
 msgid "/Tags/Format by layout/Bi_g"
 msgstr "/Tagit/_Ulkoasumuotoilu/_Suuri"
 
-#: ../htmlbar_gui.c:344
+#: src/plugin_htmlbar/htmlbar_gui.c:345
 msgid "/Tags/F_ormat by context"
 msgstr "/Tagit/A_siayhteysmuotoilu"
 
-#: ../htmlbar_gui.c:346
+#: src/plugin_htmlbar/htmlbar_gui.c:347
 msgid "/Tags/Format by context/_Strong"
 msgstr "/Tagit/Asiayhteysmuotoilu/_Vahvennettu"
 
-#: ../htmlbar_gui.c:347
+#: src/plugin_htmlbar/htmlbar_gui.c:348
 msgid "/Tags/Format by context/_Emphasis"
 msgstr "/Tagit/Asiayhteysmuotoilu/V_ierasmerkit"
 
-#: ../htmlbar_gui.c:348
+#: src/plugin_htmlbar/htmlbar_gui.c:349
 msgid "/Tags/Format by context/_Define"
 msgstr "/Tagit/Asiayhteysmuotoilu/_Määrittely"
 
-#: ../htmlbar_gui.c:349
+#: src/plugin_htmlbar/htmlbar_gui.c:350
 msgid "/Tags/Format by context/_Code"
 msgstr "/Tagit/Asiayhteysmuotoilu/_Koodi"
 
-#: ../htmlbar_gui.c:350
+#: src/plugin_htmlbar/htmlbar_gui.c:351
 msgid "/Tags/Format by context/Sa_mple"
 msgstr "/Tagit/Asiayhteysmuotoilu/M_alli"
 
-#: ../htmlbar_gui.c:351
+#: src/plugin_htmlbar/htmlbar_gui.c:352
 msgid "/Tags/Format by context/_Keyboard"
 msgstr "/Tagit/Asiayhteysmuotoilu/_Näppäimistö"
 
-#: ../htmlbar_gui.c:352
+#: src/plugin_htmlbar/htmlbar_gui.c:353
 msgid "/Tags/Format by context/_Variable"
 msgstr "/Tagit/Asiayhteysmuotoilu/M_uuttuja"
 
-#: ../htmlbar_gui.c:353
+#: src/plugin_htmlbar/htmlbar_gui.c:354
 msgid "/Tags/Format by context/Ci_tation"
 msgstr "/Tagit/Asiayhteysmuotoilu/_Sitaatti"
 
-#: ../htmlbar_gui.c:354
+#: src/plugin_htmlbar/htmlbar_gui.c:355
 msgid "/Tags/Format by context/_Abbreviation"
 msgstr "/Tagit/Asiayhteysmuotoilu/_Lyhenne"
 
-#: ../htmlbar_gui.c:355
+#: src/plugin_htmlbar/htmlbar_gui.c:356
 msgid "/Tags/Format by context/Ac_ronym"
 msgstr "/Tagit/Asiayhteysmuotoilu/_Akronyymi"
 
-#: ../htmlbar_gui.c:356
+#: src/plugin_htmlbar/htmlbar_gui.c:357
 msgid "/Tags/Format _general"
 msgstr "/Tagit/_Yleismuotoilu"
 
-#: ../htmlbar_gui.c:358
+#: src/plugin_htmlbar/htmlbar_gui.c:359
 msgid "/Tags/Format general/_Paragraph"
 msgstr "/Tagit/Yleismuotoilu/_Kappale"
 
-#: ../htmlbar_gui.c:359
+#: src/plugin_htmlbar/htmlbar_gui.c:360
 msgid "/Tags/Format general/_Break"
 msgstr "/Tagit/Yleismuotoilu/_Rivivaihto"
 
-#: ../htmlbar_gui.c:360
+#: src/plugin_htmlbar/htmlbar_gui.c:361
 msgid "/Tags/Format general/Break clear _all"
 msgstr "/Tagit/Yleismuotoilu/R_ivivaihto ja tyhjennys"
 
-#: ../htmlbar_gui.c:361
+#: src/plugin_htmlbar/htmlbar_gui.c:362
 msgid "/Tags/Format general/_Non-Breaking Space"
 msgstr "/Tagit/Yleismuotoilu/Ri_kkumaton väli"
 
-#: ../htmlbar_gui.c:363
+#: src/plugin_htmlbar/htmlbar_gui.c:364
 msgid "/Tags/Format general/Font Si_ze +1"
 msgstr "/Tagit/Yleismuotoilu/_Fontin koko +1"
 
-#: ../htmlbar_gui.c:364
+#: src/plugin_htmlbar/htmlbar_gui.c:365
 msgid "/Tags/Format general/Font _Size -1"
 msgstr "/Tagit/Yleismuotoilu/Fontin k_oko -1"
 
-#: ../htmlbar_gui.c:366
+#: src/plugin_htmlbar/htmlbar_gui.c:367
 msgid "/Tags/Format general/Preformatted _Text"
 msgstr "/Tagit/Yleismuotoilu/_Esimuotoiltu teksti"
 
-#: ../htmlbar_gui.c:367
+#: src/plugin_htmlbar/htmlbar_gui.c:368
 msgid "/Tags/Format general/Su_bscript"
 msgstr "/Tagit/Yleismuotoilu/Ala_viite"
 
-#: ../htmlbar_gui.c:368
+#: src/plugin_htmlbar/htmlbar_gui.c:369
 msgid "/Tags/Format general/Su_perscript"
 msgstr "/Tagit/Yleismuotoilu/Y_läviite"
 
-#: ../htmlbar_gui.c:370
+#: src/plugin_htmlbar/htmlbar_gui.c:371
 msgid "/Tags/Format general/_Center"
 msgstr "/Tagit/Yleismuotoilu/K_eskitä"
 
-#: ../htmlbar_gui.c:371
+#: src/plugin_htmlbar/htmlbar_gui.c:372
 msgid "/Tags/Format general/Align _right"
 msgstr "/Tagit/Yleismuotoilu/Tasaus oike_alle"
 
-#: ../htmlbar_gui.c:372
+#: src/plugin_htmlbar/htmlbar_gui.c:373
 msgid "/Tags/_Table"
 msgstr "/Tagit/Ta_ulukko"
 
-#: ../htmlbar_gui.c:374
+#: src/plugin_htmlbar/htmlbar_gui.c:375
 msgid "/Tags/Table/_Table"
 msgstr "/Tagit/Taulukko/_Taulukko"
 
-#: ../htmlbar_gui.c:375
+#: src/plugin_htmlbar/htmlbar_gui.c:376
 msgid "/Tags/Table/Table _Row"
 msgstr "/Tagit/Taulukko/Taulukon _rivi"
 
-#: ../htmlbar_gui.c:376
+#: src/plugin_htmlbar/htmlbar_gui.c:377
 msgid "/Tags/Table/Table _Header"
 msgstr "/Tagit/Taulukko/Taulukon _otsake"
 
-#: ../htmlbar_gui.c:377
+#: src/plugin_htmlbar/htmlbar_gui.c:378
 msgid "/Tags/Table/Table _Data"
 msgstr "/Tagit/Taulukko/Taulukon _data"
 
-#: ../htmlbar_gui.c:378
+#: src/plugin_htmlbar/htmlbar_gui.c:379
 msgid "/Tags/Table/Table _Caption"
 msgstr "/Tagit/Taulukko/Taulukon o_tsikko"
 
-#: ../htmlbar_gui.c:379
+#: src/plugin_htmlbar/htmlbar_gui.c:380
 msgid "/Tags/_List"
 msgstr "/Tagit/_Lista"
 
-#: ../htmlbar_gui.c:381
+#: src/plugin_htmlbar/htmlbar_gui.c:382
 msgid "/Tags/List/Unordered _List"
 msgstr "/Tagit/Lista/_Järjestämätön lista"
 
-#: ../htmlbar_gui.c:382
+#: src/plugin_htmlbar/htmlbar_gui.c:383
 msgid "/Tags/List/_Ordered List"
 msgstr "/Tagit/Lista/J_ärjestetty lista"
 
-#: ../htmlbar_gui.c:383
+#: src/plugin_htmlbar/htmlbar_gui.c:384
 msgid "/Tags/List/List Ite_m"
 msgstr "/Tagit/Lista/Listan _kohta"
 
-#: ../htmlbar_gui.c:384
+#: src/plugin_htmlbar/htmlbar_gui.c:385
 msgid "/Tags/List/De_finition List"
 msgstr "/Tagit/Lista/_Määrittelylista"
 
-#: ../htmlbar_gui.c:385
+#: src/plugin_htmlbar/htmlbar_gui.c:386
 msgid "/Tags/List/Definition _Term"
 msgstr "/Tagit/Lista/Määrittely_termi"
 
-#: ../htmlbar_gui.c:386
+#: src/plugin_htmlbar/htmlbar_gui.c:387
 msgid "/Tags/List/_Definition"
 msgstr "/Tagit/Lista/Mää_ritelmä"
 
-#: ../htmlbar_gui.c:387
+#: src/plugin_htmlbar/htmlbar_gui.c:388
 msgid "/Tags/List/Men_u"
 msgstr "/Tagit/Lista/_Valikko"
 
-#: ../htmlbar_gui.c:388
+#: src/plugin_htmlbar/htmlbar_gui.c:389
 msgid "/Tags/Fo_rm"
 msgstr "/Tagit/L_omake"
 
-#: ../htmlbar_gui.c:390
+#: src/plugin_htmlbar/htmlbar_gui.c:391
 msgid "/Tags/Form/_Form"
 msgstr "/Tagit/Lomake/Lo_make"
 
-#: ../htmlbar_gui.c:391
+#: src/plugin_htmlbar/htmlbar_gui.c:392
 msgid "/Tags/Form/_Button"
 msgstr "/Tagit/Lomake/Pa_inike"
 
-#: ../htmlbar_gui.c:392
+#: src/plugin_htmlbar/htmlbar_gui.c:393
 msgid "/Tags/Form/_Input"
 msgstr "/Tagit/Lomake/Sy_öte"
 
-#: ../htmlbar_gui.c:393
+#: src/plugin_htmlbar/htmlbar_gui.c:394
 msgid "/Tags/Form/_Textarea"
 msgstr "/Tagit/Lomake/Teksti_alue"
 
-#: ../htmlbar_gui.c:394
+#: src/plugin_htmlbar/htmlbar_gui.c:395
 msgid "/Tags/_Misc"
 msgstr "/Tagit/_Sekalaiset"
 
-#: ../htmlbar_gui.c:396
+#: src/plugin_htmlbar/htmlbar_gui.c:397
 msgid "/Tags/Misc/Insert Generator _META-Tag"
 msgstr "/Tagit/Sekalaiset/Lisää Generator _META-tagi"
 
-#: ../htmlbar_gui.c:397
+#: src/plugin_htmlbar/htmlbar_gui.c:398
 msgid "/Tags/Misc/_Span"
 msgstr "/Tagit/Sekalaiset/_Span"
 
-#: ../htmlbar_gui.c:398
+#: src/plugin_htmlbar/htmlbar_gui.c:399
 msgid "/Tags/Misc/_Div"
 msgstr "/Tagit/Sekalaiset/_Div"
 
-#: ../htmlbar_gui.c:399
+#: src/plugin_htmlbar/htmlbar_gui.c:400
 msgid "/Tags/Misc/_Link"
 msgstr "/Tagit/Sekalaiset/_Linkki"
 
-#: ../htmlbar_gui.c:400
+#: src/plugin_htmlbar/htmlbar_gui.c:401
 msgid "/Tags/Misc/S_cript"
 msgstr "/Tagit/Sekalaiset/S_kripti"
 
-#: ../htmlbar_gui.c:401
+#: src/plugin_htmlbar/htmlbar_gui.c:402
 msgid "/Tags/Misc/_Anchor"
 msgstr "/Tagit/Sekalaiset/_Ankkuri"
 
-#: ../htmlbar_gui.c:402
+#: src/plugin_htmlbar/htmlbar_gui.c:403
 msgid "/Tags/Misc/_Image"
 msgstr "/Tagit/Sekalaiset/_Kuva"
 
-#: ../htmlbar_gui.c:403
+#: src/plugin_htmlbar/htmlbar_gui.c:404
 msgid "/Tags/_Comment"
 msgstr "/Tagit/_Kommentti"
 
-#: ../htmlbar_gui.c:404
+#: src/plugin_htmlbar/htmlbar_gui.c:405
 msgid "/Dial_ogs"
 msgstr "/D_ialogit"
 
-#: ../htmlbar_gui.c:406
+#: src/plugin_htmlbar/htmlbar_gui.c:407
 msgid "/Dialogs/_General"
 msgstr "/Dialogit/_Yleiset"
 
-#: ../htmlbar_gui.c:408
+#: src/plugin_htmlbar/htmlbar_gui.c:409
 msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Dialogit/Yleiset/_Pika-aloitus..."
 
-#: ../htmlbar_gui.c:409
+#: src/plugin_htmlbar/htmlbar_gui.c:410
 #, fuzzy
 msgid "/Dialogs/General/_Link Header..."
 msgstr "/Dialogit/Yleiset/M_eta..."
 
-#: ../htmlbar_gui.c:410
+#: src/plugin_htmlbar/htmlbar_gui.c:411
 msgid "/Dialogs/General/_Body..."
 msgstr "/Dialogit/Yleiset/_Runko..."
 
-#: ../htmlbar_gui.c:411
+#: src/plugin_htmlbar/htmlbar_gui.c:412
 msgid "/Dialogs/General/_Anchor..."
 msgstr "/Dialogit/Yleiset/_Ankkuri..."
 
-#: ../htmlbar_gui.c:412
+#: src/plugin_htmlbar/htmlbar_gui.c:413
 msgid "/Dialogs/General/_Email..."
 msgstr "/Dialogit/Yleiset/E_mail..."
 
-#: ../htmlbar_gui.c:413
+#: src/plugin_htmlbar/htmlbar_gui.c:414
 msgid "/Dialogs/General/_Rule..."
 msgstr "/Dialogit/Yleiset/V_iiva..."
 
-#: ../htmlbar_gui.c:414
+#: src/plugin_htmlbar/htmlbar_gui.c:415
 msgid "/Dialogs/General/_Font..."
 msgstr "/Dialogit/Yleiset/_Fontti..."
 
-#: ../htmlbar_gui.c:415
+#: src/plugin_htmlbar/htmlbar_gui.c:416
 msgid "/Dialogs/General/Basef_ont..."
 msgstr "/Dialogit/Yleiset/Perus_fontti..."
 
-#: ../htmlbar_gui.c:416
+#: src/plugin_htmlbar/htmlbar_gui.c:417
 msgid "/Dialogs/General/Quick_list..."
 msgstr "/Dialogit/Yleiset/Pika_lista..."
 
-#: ../htmlbar_gui.c:417
+#: src/plugin_htmlbar/htmlbar_gui.c:418
 msgid "/Dialogs/General/_Meta..."
 msgstr "/Dialogit/Yleiset/M_eta..."
 
-#: ../htmlbar_gui.c:418
+#: src/plugin_htmlbar/htmlbar_gui.c:419
 msgid "/Dialogs/General/Embe_d..."
 msgstr "/Dialogit/Yleiset/_Upotettu..."
 
-#: ../htmlbar_gui.c:419
+#: src/plugin_htmlbar/htmlbar_gui.c:420
 msgid "/Dialogs/General/Select _Color..."
 msgstr "/Dialogit/Yleiset/Valitse _väri..."
 
-#: ../htmlbar_gui.c:420
+#: src/plugin_htmlbar/htmlbar_gui.c:421
 msgid "/Dialogs/General/Insert _Time..."
 msgstr "/Dialogit/Yleiset/Lisää _aika..."
 
-#: ../htmlbar_gui.c:421
+#: src/plugin_htmlbar/htmlbar_gui.c:422
 msgid "/Dialogs/General/Insert _Image..."
 msgstr "/Dialogit/Yleiset/Lisää k_uva..."
 
-#: ../htmlbar_gui.c:422
+#: src/plugin_htmlbar/htmlbar_gui.c:423
 msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "/Dialogit/Yleiset/Lisää e_sikatselukuva..."
 
-#: ../htmlbar_gui.c:423
+#: src/plugin_htmlbar/htmlbar_gui.c:424
 msgid "/Dialogs/_Table"
 msgstr "/Dialogit/Ta_ulukko"
 
-#: ../htmlbar_gui.c:425
+#: src/plugin_htmlbar/htmlbar_gui.c:426
 msgid "/Dialogs/Table/Table _Wizard..."
 msgstr "/Dialogit/Taulukko/_Taulukkovelho..."
 
-#: ../htmlbar_gui.c:426
+#: src/plugin_htmlbar/htmlbar_gui.c:427
 msgid "/Dialogs/Table/_Table..."
 msgstr "/Dialogit/Taulukko/T_aulukko..."
 
-#: ../htmlbar_gui.c:427
+#: src/plugin_htmlbar/htmlbar_gui.c:428
 msgid "/Dialogs/Table/Table _Row..."
 msgstr "/Dialogit/Taulukko/Taulukon _rivi..."
 
-#: ../htmlbar_gui.c:428
+#: src/plugin_htmlbar/htmlbar_gui.c:429
 msgid "/Dialogs/Table/Table _Head..."
 msgstr "/Dialogit/Taulukko/Taulukon _otsake..."
 
-#: ../htmlbar_gui.c:429
+#: src/plugin_htmlbar/htmlbar_gui.c:430
 msgid "/Dialogs/Table/Table _Data..."
 msgstr "/Dialogit/Taulukko/Taulukon _data..."
 
-#: ../htmlbar_gui.c:430
+#: src/plugin_htmlbar/htmlbar_gui.c:431
 msgid "/Dialogs/_CSS"
 msgstr "/Dialogit/_CSS"
 
-#: ../htmlbar_gui.c:432
+#: src/plugin_htmlbar/htmlbar_gui.c:433
 msgid "/Dialogs/CSS/_Create Style..."
 msgstr "/Dialogit/CSS/_Luo tyyli..."
 
-#: ../htmlbar_gui.c:433
+#: src/plugin_htmlbar/htmlbar_gui.c:434
 msgid "/Dialogs/CSS/S_pan..."
 msgstr "/Dialogit/CSS/_Span..."
 
-#: ../htmlbar_gui.c:434
+#: src/plugin_htmlbar/htmlbar_gui.c:435
 msgid "/Dialogs/CSS/_Div..."
 msgstr "/Dialogit/CSS/_Div..."
 
-#: ../htmlbar_gui.c:435
+#: src/plugin_htmlbar/htmlbar_gui.c:436
 msgid "/Dialogs/CSS/_Style..."
 msgstr "/Dialogit/CSS/_Tyyli..."
 
-#: ../htmlbar_gui.c:436
+#: src/plugin_htmlbar/htmlbar_gui.c:437
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
 msgstr "/Dialogit/CSS/L_inkki tyylisivuun..."
 
-#: ../htmlbar_gui.c:437
+#: src/plugin_htmlbar/htmlbar_gui.c:438
 msgid "/Dialogs/_Frame"
 msgstr "/Dialogit/_Kehys"
 
-#: ../htmlbar_gui.c:439
+#: src/plugin_htmlbar/htmlbar_gui.c:440
 msgid "/Dialogs/Frame/Frame _Wizard..."
 msgstr "/Dialogit/Kehys/Kehys_velho..."
 
-#: ../htmlbar_gui.c:440
+#: src/plugin_htmlbar/htmlbar_gui.c:441
 msgid "/Dialogs/Frame/Frame_set..."
 msgstr "/Dialogit/Kehys/Kehyk_set..."
 
-#: ../htmlbar_gui.c:441
+#: src/plugin_htmlbar/htmlbar_gui.c:442
 msgid "/Dialogs/Frame/_Frame..."
 msgstr "/Dialogit/Kehys/K_ehys..."
 
-#: ../htmlbar_gui.c:442
+#: src/plugin_htmlbar/htmlbar_gui.c:443
 msgid "/Dialogs/F_orm"
 msgstr "/Dialogit/L_omake"
 
-#: ../htmlbar_gui.c:444
+#: src/plugin_htmlbar/htmlbar_gui.c:445
 msgid "/Dialogs/Form/F_orm..."
 msgstr "/Dialogit/Lomake/Lo_make..."
 
-#: ../htmlbar_gui.c:445
+#: src/plugin_htmlbar/htmlbar_gui.c:446
 msgid "/Dialogs/Form/_Input..."
 msgstr "/Dialogit/Lomake/Sy_öte..."
 
-#: ../htmlbar_gui.c:446
+#: src/plugin_htmlbar/htmlbar_gui.c:447
 msgid "/Dialogs/Form/Input Buttons..."
 msgstr "/Dialogit/Lomake/Syötepainikkeita..."
 
-#: ../htmlbar_gui.c:447
+#: src/plugin_htmlbar/htmlbar_gui.c:448
 msgid "/Dialogs/Form/Input Text..."
 msgstr "/Dialogit/Lomake/Tekstisyöte..."
 
-#: ../htmlbar_gui.c:448
+#: src/plugin_htmlbar/htmlbar_gui.c:449
 msgid "/Dialogs/Form/Text_area..."
 msgstr "/Dialogit/Lomake/Teksti_alue..."
 
-#: ../htmlbar_gui.c:449
+#: src/plugin_htmlbar/htmlbar_gui.c:450
 msgid "/Dialogs/Form/_Select..."
 msgstr "/Dialogit/Lomake/Va_lintalista..."
 
-#: ../htmlbar_gui.c:450
+#: src/plugin_htmlbar/htmlbar_gui.c:451
 msgid "/Dialogs/Form/O_ption..."
 msgstr "/Dialogit/Lomake/Vali_nta..."
 
-#: ../htmlbar_gui.c:451
+#: src/plugin_htmlbar/htmlbar_gui.c:452
 msgid "/Dialogs/Form/Option _Group..."
 msgstr "/Dialogit/Lomake/Valin_taryhmä..."
 
-#: ../htmlbar_gui.c:452
+#: src/plugin_htmlbar/htmlbar_gui.c:453
 msgid "/Dialogs/Form/_Button..."
 msgstr "/Dialogit/Lomake/Pa_inike..."
 
-#: ../htmlbar_gui.c:454
+#: src/plugin_htmlbar/htmlbar_gui.c:455
 msgid "/Dialogs/_Edit tag under cursor..."
 msgstr "/Dialogit/_Muokkaa tagia kursorin alla..."
 
-#: ../htmlbar_gui.c:457
+#: src/plugin_htmlbar/htmlbar_gui.c:458
 #, fuzzy
 msgid "/View/View _HTML Toolbar"
 msgstr "/Näytä/Näytä _päätyökalurivi"
 
-#: ../htmlbar_gui.c:731
+#: src/plugin_htmlbar/htmlbar_gui.c:732
 msgid "QuickStart..."
 msgstr "Pika-aloitus"
 
-#: ../htmlbar_gui.c:732
+#: src/plugin_htmlbar/htmlbar_gui.c:733
 msgid "Body..."
 msgstr "Runko..."
 
-#: ../htmlbar_gui.c:733
+#: src/plugin_htmlbar/htmlbar_gui.c:734
 msgid "Bold"
 msgstr "Lihavoitu"
 
-#: ../htmlbar_gui.c:734
+#: src/plugin_htmlbar/htmlbar_gui.c:735
 msgid "Italic"
 msgstr "Kursivoitu"
 
-#: ../htmlbar_gui.c:735 ../html.c:781
+#: src/plugin_htmlbar/htmlbar_gui.c:736 src/plugin_htmlbar/html.c:777
 msgid "Paragraph"
 msgstr "Kappale"
 
-#: ../htmlbar_gui.c:736
+#: src/plugin_htmlbar/htmlbar_gui.c:737
 msgid "Break"
 msgstr "Rivinvaihto"
 
-#: ../htmlbar_gui.c:737
+#: src/plugin_htmlbar/htmlbar_gui.c:738
 msgid "Break and clear"
 msgstr "Rivinvaihto ja tyhjennys"
 
-#: ../htmlbar_gui.c:738
+#: src/plugin_htmlbar/htmlbar_gui.c:739
 msgid "Non-breaking space"
 msgstr "Rikkumaton väli"
 
-#: ../htmlbar_gui.c:740
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:741
 msgid "Anchor..."
 msgstr "Ankkuri..."
 
-#: ../htmlbar_gui.c:741
+#: src/plugin_htmlbar/htmlbar_gui.c:742
 msgid "Rule..."
 msgstr "Väliviiva..."
 
-#: ../htmlbar_gui.c:742
+#: src/plugin_htmlbar/htmlbar_gui.c:743
 msgid "Center"
 msgstr "Keskitä"
 
-#: ../htmlbar_gui.c:743
+#: src/plugin_htmlbar/htmlbar_gui.c:744
 msgid "Right Justify"
 msgstr "Tasaus oikealle"
 
-#: ../htmlbar_gui.c:744
+#: src/plugin_htmlbar/htmlbar_gui.c:745
 msgid "Comment"
 msgstr "Kommentti"
 
-#: ../htmlbar_gui.c:745
+#: src/plugin_htmlbar/htmlbar_gui.c:746
 #, fuzzy
 msgid "E-mail..."
 msgstr "E-Mail..."
 
-#: ../htmlbar_gui.c:746
+#: src/plugin_htmlbar/htmlbar_gui.c:747
 msgid "Font..."
 msgstr "Fontti..."
 
-#: ../htmlbar_gui.c:747
+#: src/plugin_htmlbar/htmlbar_gui.c:748
 msgid "Base Font Size..."
 msgstr "Perusfonttikoko..."
 
-#: ../htmlbar_gui.c:749
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:750
 msgid "Font Size +1"
 msgstr "Fontin koko +1"
 
-#: ../htmlbar_gui.c:750
+#: src/plugin_htmlbar/htmlbar_gui.c:751
 msgid "Font Size -1"
 msgstr "Fontin koko -1"
 
-#: ../htmlbar_gui.c:751
+#: src/plugin_htmlbar/htmlbar_gui.c:752
 msgid "Preformatted Text"
 msgstr "Esimuotoiltu teksti"
 
-#: ../htmlbar_gui.c:752
+#: src/plugin_htmlbar/htmlbar_gui.c:753
 msgid "Subscript"
 msgstr "Alaviite"
 
-#: ../htmlbar_gui.c:753
+#: src/plugin_htmlbar/htmlbar_gui.c:754
 msgid "Superscript"
 msgstr "Yläviite"
 
-#: ../htmlbar_gui.c:754
+#: src/plugin_htmlbar/htmlbar_gui.c:755
 msgid "Strong"
 msgstr "Vahvennettu"
 
-#: ../htmlbar_gui.c:755
+#: src/plugin_htmlbar/htmlbar_gui.c:756
 msgid "Emphasis"
 msgstr "Vierasmerkit"
 
-#: ../htmlbar_gui.c:757 ../html.c:790
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:758 src/plugin_htmlbar/html.c:786
 msgid "Heading 1"
 msgstr "Otsikko 1"
 
-#: ../htmlbar_gui.c:758 ../html.c:793
+#: src/plugin_htmlbar/htmlbar_gui.c:759 src/plugin_htmlbar/html.c:789
 msgid "Heading 2"
 msgstr "Otsikko 2"
 
-#: ../htmlbar_gui.c:759 ../html.c:796
+#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:792
 msgid "Heading 3"
 msgstr "Otsikko 3"
 
-#: ../htmlbar_gui.c:760 ../html.c:799
+#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:795
 msgid "Heading 4"
 msgstr "Otsikko 4"
 
-#: ../htmlbar_gui.c:761 ../html.c:802
+#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:798
 msgid "Heading 5"
 msgstr "Otsikko 5"
 
-#: ../htmlbar_gui.c:762 ../html.c:805
+#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:801
 msgid "Heading 6"
 msgstr "Otsikko 6"
 
-#: ../htmlbar_gui.c:763
+#: src/plugin_htmlbar/htmlbar_gui.c:764
 msgid "Table Wizard..."
 msgstr "Taulukkovelho..."
 
-#: ../htmlbar_gui.c:765
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:766
 msgid "Table..."
 msgstr "Taulukko..."
 
-#: ../htmlbar_gui.c:766
+#: src/plugin_htmlbar/htmlbar_gui.c:767
 msgid "Table Row..."
 msgstr "Taulukon rivi..."
 
-#: ../htmlbar_gui.c:767
+#: src/plugin_htmlbar/htmlbar_gui.c:768
 msgid "Table Header..."
 msgstr "Taulukon otsake..."
 
-#: ../htmlbar_gui.c:768
+#: src/plugin_htmlbar/htmlbar_gui.c:769
 msgid "Table Data..."
 msgstr "Taulukon data..."
 
-#: ../htmlbar_gui.c:770 ../html_table.c:77
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:771 src/plugin_htmlbar/html_table.c:77
 msgid "Table"
 msgstr "Taulukko"
 
-#: ../htmlbar_gui.c:771 ../html_table.c:209
+#: src/plugin_htmlbar/htmlbar_gui.c:772 src/plugin_htmlbar/html_table.c:209
 msgid "Table Row"
 msgstr "Taulukon rivi"
 
-#: ../htmlbar_gui.c:772 ../html_table.c:320
+#: src/plugin_htmlbar/htmlbar_gui.c:773 src/plugin_htmlbar/html_table.c:320
 msgid "Table Header"
 msgstr "Taulukon otsake"
 
-#: ../htmlbar_gui.c:773 ../html_table.c:318
+#: src/plugin_htmlbar/htmlbar_gui.c:774 src/plugin_htmlbar/html_table.c:318
 msgid "Table Data"
 msgstr "Taulukon data"
 
-#: ../htmlbar_gui.c:774
+#: src/plugin_htmlbar/htmlbar_gui.c:775
 msgid "Table Caption"
 msgstr "Taulukon otsikko"
 
-#: ../htmlbar_gui.c:775
+#: src/plugin_htmlbar/htmlbar_gui.c:776
 msgid "Frame Wizard..."
 msgstr "Kehysvelho"
 
-#: ../htmlbar_gui.c:777
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:778
 msgid "Frameset..."
 msgstr "Kehykset..."
 
-#: ../htmlbar_gui.c:778
+#: src/plugin_htmlbar/htmlbar_gui.c:779
 msgid "Frame..."
 msgstr "Kehys..."
 
-#: ../htmlbar_gui.c:780 ../html.c:1590
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:781 src/plugin_htmlbar/html.c:1586
 msgid "Frameset"
 msgstr "Kehykset"
 
-#: ../htmlbar_gui.c:781 ../html.c:1674
+#: src/plugin_htmlbar/htmlbar_gui.c:782 src/plugin_htmlbar/html.c:1670
 msgid "Frame"
 msgstr "Kehys"
 
-#: ../htmlbar_gui.c:782
+#: src/plugin_htmlbar/htmlbar_gui.c:783
 msgid "Noframes"
 msgstr "Ei kehyksiä"
 
-#: ../htmlbar_gui.c:783
+#: src/plugin_htmlbar/htmlbar_gui.c:784
 msgid "Target"
 msgstr "Kohde"
 
-#: ../htmlbar_gui.c:784
+#: src/plugin_htmlbar/htmlbar_gui.c:785
 msgid "Form..."
 msgstr "Lomake..."
 
-#: ../htmlbar_gui.c:785
+#: src/plugin_htmlbar/htmlbar_gui.c:786
 msgid "Input Button..."
 msgstr "Syötepainike..."
 
-#: ../htmlbar_gui.c:786
+#: src/plugin_htmlbar/htmlbar_gui.c:787
 msgid "Input Text..."
 msgstr "Tekstisyöte..."
 
-#: ../htmlbar_gui.c:787
+#: src/plugin_htmlbar/htmlbar_gui.c:788
 msgid "Input Hidden..."
 msgstr "Piilosyöte..."
 
-#: ../htmlbar_gui.c:788
+#: src/plugin_htmlbar/htmlbar_gui.c:789
 msgid "Textarea..."
 msgstr "Tekstialue..."
 
-#: ../htmlbar_gui.c:789
+#: src/plugin_htmlbar/htmlbar_gui.c:790
 msgid "Input Radio Button..."
 msgstr "Radiosyöte..."
 
-#: ../htmlbar_gui.c:790
+#: src/plugin_htmlbar/htmlbar_gui.c:791
 msgid "Input Check Box..."
 msgstr "Valintaruutusyöte..."
 
-#: ../htmlbar_gui.c:791
+#: src/plugin_htmlbar/htmlbar_gui.c:792
 msgid "Select..."
 msgstr "Valinta..."
 
-#: ../htmlbar_gui.c:792
+#: src/plugin_htmlbar/htmlbar_gui.c:793
 msgid "Option..."
 msgstr "Valinnat..."
 
-#: ../htmlbar_gui.c:793
+#: src/plugin_htmlbar/htmlbar_gui.c:794
 msgid "Option group..."
 msgstr "Valintaryhmä"
 
-#: ../htmlbar_gui.c:794
+#: src/plugin_htmlbar/htmlbar_gui.c:795
 msgid "Button..."
 msgstr "Painike..."
 
-#: ../htmlbar_gui.c:795
+#: src/plugin_htmlbar/htmlbar_gui.c:796
 msgid "Quick List..."
 msgstr "Pikalista"
 
-#: ../htmlbar_gui.c:796
+#: src/plugin_htmlbar/htmlbar_gui.c:797
 msgid "Unordered List"
 msgstr "Järjestämätön lista"
 
-#: ../htmlbar_gui.c:797
+#: src/plugin_htmlbar/htmlbar_gui.c:798
 msgid "Ordered List"
 msgstr "Järjestetty lista"
 
-#: ../htmlbar_gui.c:798
+#: src/plugin_htmlbar/htmlbar_gui.c:799
 msgid "List Item"
 msgstr "Listan kohta"
 
-#: ../htmlbar_gui.c:799
+#: src/plugin_htmlbar/htmlbar_gui.c:800
 msgid "Definition List"
 msgstr "Määrittelylista"
 
-#: ../htmlbar_gui.c:800
+#: src/plugin_htmlbar/htmlbar_gui.c:801
 msgid "Definition Term"
 msgstr "Määrittelytermi"
 
-#: ../htmlbar_gui.c:801 ../htmlbar_gui.c:810
+#: src/plugin_htmlbar/htmlbar_gui.c:802 src/plugin_htmlbar/htmlbar_gui.c:811
 msgid "Definition"
 msgstr "Määritelmä"
 
-#: ../htmlbar_gui.c:802
+#: src/plugin_htmlbar/htmlbar_gui.c:803
 msgid "Create stylesheet..."
 msgstr "Luo tyylisivu"
 
-#: ../htmlbar_gui.c:803
+#: src/plugin_htmlbar/htmlbar_gui.c:804
 msgid "Span..."
 msgstr "Span..."
 
-#: ../htmlbar_gui.c:804
+#: src/plugin_htmlbar/htmlbar_gui.c:805
 msgid "Div..."
 msgstr "Div..."
 
-#: ../htmlbar_gui.c:805 ../html_form.c:825
+#: src/plugin_htmlbar/htmlbar_gui.c:806 src/plugin_htmlbar/html_form.c:825
 msgid "Style"
 msgstr "Tyyli"
 
-#: ../htmlbar_gui.c:806
+#: src/plugin_htmlbar/htmlbar_gui.c:807
 msgid "Link to stylesheet..."
 msgstr "Linkki tyylisivuun..."
 
-#: ../htmlbar_gui.c:807
+#: src/plugin_htmlbar/htmlbar_gui.c:808
 msgid "Insert image..."
 msgstr "Lisää kuva..."
 
-#: ../htmlbar_gui.c:808
+#: src/plugin_htmlbar/htmlbar_gui.c:809
 msgid "Insert thumbnail..."
 msgstr "Lisää esikatselukuva..."
 
-#: ../htmlbar_gui.c:809
+#: src/plugin_htmlbar/htmlbar_gui.c:810
 msgid "Multi thumbnail..."
 msgstr "Useita esikatselukuvia..."
 
-#: ../htmlbar_gui.c:811
+#: src/plugin_htmlbar/htmlbar_gui.c:812
 msgid "Code"
 msgstr "Koodi"
 
-#: ../htmlbar_gui.c:812
+#: src/plugin_htmlbar/htmlbar_gui.c:813
 msgid "Sample"
 msgstr "Näyte"
 
-#: ../htmlbar_gui.c:813
+#: src/plugin_htmlbar/htmlbar_gui.c:814
 msgid "Keyboard"
 msgstr "Näppäimistö"
 
-#: ../htmlbar_gui.c:814
+#: src/plugin_htmlbar/htmlbar_gui.c:815
 msgid "Variable"
 msgstr "Muuttuja"
 
-#: ../htmlbar_gui.c:815
+#: src/plugin_htmlbar/htmlbar_gui.c:816
 msgid "Citation"
 msgstr "Sitaatti"
 
-#: ../htmlbar_gui.c:816
+#: src/plugin_htmlbar/htmlbar_gui.c:817
 msgid "Abbreviation"
 msgstr "Lyhenne"
 
-#: ../htmlbar_gui.c:817
+#: src/plugin_htmlbar/htmlbar_gui.c:818
 msgid "Acronym"
 msgstr "Akronyymi"
 
-#: ../htmlbar_gui.c:937
+#: src/plugin_htmlbar/htmlbar_gui.c:938
 msgid "Remove from quickbar"
 msgstr "Poista pikatyökaluriviltä"
 
-#: ../htmlbar_gui.c:938
+#: src/plugin_htmlbar/htmlbar_gui.c:939
 msgid "Move Left"
 msgstr "Siirrä vasemmalle"
 
-#: ../htmlbar_gui.c:939
+#: src/plugin_htmlbar/htmlbar_gui.c:940
 msgid "Move Right"
 msgstr "Siirrä oikealle"
 
-#: ../htmlbar_gui.c:979
+#: src/plugin_htmlbar/htmlbar_gui.c:980
 msgid "Add to quickbar"
 msgstr "Lisää pikatyökaluriville"
 
-#: ../htmlbar_gui.c:1081
+#: src/plugin_htmlbar/htmlbar_gui.c:1082
 msgid " Quick bar "
 msgstr " Pikatyökalurivi "
 
-#: ../htmlbar_gui.c:1086
+#: src/plugin_htmlbar/htmlbar_gui.c:1087
 msgid "Heading"
 msgstr "Otsikko"
 
-#: ../htmlbar_gui.c:1088
+#: src/plugin_htmlbar/htmlbar_gui.c:1089
 msgid " Standard bar "
 msgstr " Normaalityökalurivi"
 
-#: ../htmlbar_gui.c:1093
+#: src/plugin_htmlbar/htmlbar_gui.c:1094
 msgid "Context formatting"
 msgstr "Asiayhteysmuotoilu"
 
-#: ../htmlbar_gui.c:1095
+#: src/plugin_htmlbar/htmlbar_gui.c:1096
 msgid " Fonts "
 msgstr " Fontit "
 
-#: ../htmlbar_gui.c:1100
+#: src/plugin_htmlbar/htmlbar_gui.c:1101
 msgid " Tables "
 msgstr " Taulukot "
 
-#: ../htmlbar_gui.c:1105
+#: src/plugin_htmlbar/htmlbar_gui.c:1106
 msgid " Frames "
 msgstr " Kehykset "
 
-#: ../htmlbar_gui.c:1110
+#: src/plugin_htmlbar/htmlbar_gui.c:1111
 msgid " Forms "
 msgstr " Lomakkeet "
 
-#: ../htmlbar_gui.c:1115
+#: src/plugin_htmlbar/htmlbar_gui.c:1116
 msgid " List "
 msgstr " Lista "
 
-#: ../htmlbar_gui.c:1120
+#: src/plugin_htmlbar/htmlbar_gui.c:1121
 msgid " CSS "
 msgstr " CSS "
 
-#: ../html.c:389
+#: src/plugin_htmlbar/html.c:385
 msgid "Insert Time"
 msgstr "Lisää aika"
 
-#: ../html.c:397
+#: src/plugin_htmlbar/html.c:393
 #, c-format
 msgid "  _Time (%i:%i:%i)"
 msgstr "  _Aika (%i:%i:%i)"
 
-#: ../html.c:402
+#: src/plugin_htmlbar/html.c:398
 msgid "  Day of the _week (Sunday)"
 msgstr "  _Viikonpäivä (sunnuntai)"
 
-#: ../html.c:405
+#: src/plugin_htmlbar/html.c:401
 msgid "  Day of the _week (Monday)"
 msgstr "  _Viikonpäivä (maanantai)"
 
-#: ../html.c:408
+#: src/plugin_htmlbar/html.c:404
 msgid "  Day of the _week (Tuesday)"
 msgstr "  _Viikonpäivä (tiistai)"
 
-#: ../html.c:411
+#: src/plugin_htmlbar/html.c:407
 msgid "  Day of the _week (Wednesday)"
 msgstr "  _Viikonpäivä (keskiviikko)"
 
-#: ../html.c:414
+#: src/plugin_htmlbar/html.c:410
 msgid "  Day of the _week (Thursday)"
 msgstr "  _Viikonpäivä (torstai)"
 
-#: ../html.c:417
+#: src/plugin_htmlbar/html.c:413
 msgid "  Day of the _week (Friday)"
 msgstr "  _Viikonpäivä (perjantai)"
 
-#: ../html.c:420
+#: src/plugin_htmlbar/html.c:416
 msgid "  Day of the _week (Saturday)"
 msgstr "  _Viikonpäivä (lauantai)"
 
-#: ../html.c:423
+#: src/plugin_htmlbar/html.c:419
 msgid "You appear to have a non existant day!\n"
 msgstr "Ilmoitit päivän, jota ei ole olemassa!\n"
 
-#: ../html.c:431
+#: src/plugin_htmlbar/html.c:427
 #, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr "  _Päivämäärä (%i/%i/%i)"
 
-#: ../html.c:434
+#: src/plugin_htmlbar/html.c:430
 #, c-format
 msgid "  _Unix Time (%i)"
 msgstr "  _Unix-aika (%i)"
 
-#: ../html.c:439
+#: src/plugin_htmlbar/html.c:435
 #, c-format
 msgid "  Unix Date _String (%s"
 msgstr "  Unix-ajan me_rkkijono (%s"
 
-#: ../html.c:447
+#: src/plugin_htmlbar/html.c:443
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
 msgstr ""
 
-#: ../html.c:589
+#: src/plugin_htmlbar/html.c:585
 msgid "Quick Anchor"
 msgstr "Pika-ankkuri"
 
-#: ../html.c:595 ../html_form.c:780
+#: src/plugin_htmlbar/html.c:591 src/plugin_htmlbar/html_form.c:780
 msgid "Attributes"
 msgstr "Attribuutit"
 
-#: ../html.c:609 ../html.c:1918
+#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1914
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: ../html.c:613 ../html_form.c:183
+#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/html_form.c:183
 msgid "_Target:"
 msgstr "_Kohde:"
 
-#: ../html.c:617 ../html.c:837 ../html.c:1212 ../html.c:1686
-#: ../html_form.c:231 ../html_form.c:596 ../html_form.c:795 ../html_form.c:890
-#: ../image.c:416
+#: src/plugin_htmlbar/html.c:613 src/plugin_htmlbar/html.c:833
+#: src/plugin_htmlbar/html.c:1208 src/plugin_htmlbar/html.c:1682
+#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
+#: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
+#: src/plugin_htmlbar/image.c:418
 msgid "_Name:"
 msgstr "_Nimi:"
 
-#: ../html.c:623 ../html.c:1070 ../html.c:1241 ../html.c:1833
+#: src/plugin_htmlbar/html.c:619 src/plugin_htmlbar/html.c:1066
+#: src/plugin_htmlbar/html.c:1237 src/plugin_htmlbar/html.c:1829
 msgid "_Language:"
 msgstr "Kie_li:"
 
-#: ../html.c:627 ../html.c:845 ../html.c:979 ../html.c:1074 ../html.c:1249
-#: ../html.c:1622 ../html.c:1723 ../html.c:1852 ../html_form.c:187
-#: ../html_form.c:243 ../html_form.c:609 ../html_form.c:903
-#: ../html_table.c:101 ../html_table.c:253 ../html_table.c:361 ../image.c:424
+#: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:841
+#: src/plugin_htmlbar/html.c:975 src/plugin_htmlbar/html.c:1070
+#: src/plugin_htmlbar/html.c:1245 src/plugin_htmlbar/html.c:1618
+#: src/plugin_htmlbar/html.c:1719 src/plugin_htmlbar/html.c:1848
+#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
+#: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
+#: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:426
 msgid "Custo_m:"
 msgstr "_Mukautettu:"
 
-#: ../html.c:630 ../html.c:1078 ../html_form.c:829
+#: src/plugin_htmlbar/html.c:626 src/plugin_htmlbar/html.c:1074
+#: src/plugin_htmlbar/html_form.c:829
 msgid "Events"
 msgstr "Tapahtumat"
 
-#: ../html.c:633
+#: src/plugin_htmlbar/html.c:629
 msgid "OnClic_k:"
 msgstr "Na_psautettaessa:"
 
-#: ../html.c:637
+#: src/plugin_htmlbar/html.c:633
 msgid "OnD_blClick:"
 msgstr "Ka_ksoisnapsautettaessa:"
 
-#: ../html.c:641
+#: src/plugin_htmlbar/html.c:637
 msgid "OnMouseO_ver:"
 msgstr "Hiiri_Päällä:"
 
-#: ../html.c:645
+#: src/plugin_htmlbar/html.c:641
 msgid "OnMouse_Down:"
 msgstr "H_iirenPainikePainetaan:"
 
-#: ../html.c:649
+#: src/plugin_htmlbar/html.c:645
 msgid "OnMouse_Move:"
 msgstr "Hiiren_Liikkuessa:"
 
-#: ../html.c:653
+#: src/plugin_htmlbar/html.c:649
 msgid "OnMouseOu_t:"
 msgstr "HiirenPois_tuessaPäältä:"
 
-#: ../html.c:657
+#: src/plugin_htmlbar/html.c:653
 msgid "OnMouse_Up:"
 msgstr "HiirenPainikeN_ostetaan"
 
-#: ../html.c:661
+#: src/plugin_htmlbar/html.c:657
 msgid "OnKeyDo_wn:"
 msgstr "_NappiPainetaan"
 
-#: ../html.c:665
+#: src/plugin_htmlbar/html.c:661
 msgid "OnKey_Press:"
 msgstr "NappiaPai_nettaessa"
 
-#: ../html.c:669
+#: src/plugin_htmlbar/html.c:665
 msgid "OnKe_yUp:"
 msgstr "NappiNo_stetaan"
 
-#: ../html.c:784
+#: src/plugin_htmlbar/html.c:780
 msgid "Div"
 msgstr "Div"
 
-#: ../html.c:787
+#: src/plugin_htmlbar/html.c:783
 msgid "Span"
 msgstr "Span"
 
-#: ../html.c:822 ../html_table.c:109 ../html_table.c:219 ../html_table.c:333
+#: src/plugin_htmlbar/html.c:818 src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
 msgid "Ali_gn:"
 msgstr "Tasau_s:"
 
-#: ../html.c:826 ../html.c:1062 ../html_diag.c:373 ../html_table.c:91
-#: ../html_table.c:237 ../html_table.c:351
+#: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
+#: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
+#: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
 msgid "Cl_ass:"
 msgstr "Luokk_a:"
 
-#: ../html.c:830 ../html.c:1055 ../html_diag.c:381 ../html_table.c:96
-#: ../html_table.c:248 ../html_table.c:356
+#: src/plugin_htmlbar/html.c:826 src/plugin_htmlbar/html.c:1051
+#: src/plugin_htmlbar/html_diag.c:381 src/plugin_htmlbar/html_table.c:96
+#: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
 msgid "St_yle:"
 msgstr "T_yyli:"
 
-#: ../html.c:841 ../html.c:1066 ../html_diag.c:377
+#: src/plugin_htmlbar/html.c:837 src/plugin_htmlbar/html.c:1062
+#: src/plugin_htmlbar/html_diag.c:377
 msgid "_ID:"
 msgstr "_ID:"
 
-#: ../html.c:942
+#: src/plugin_htmlbar/html.c:938
 msgid "Horizontal Rule"
 msgstr "Vaakasuora viiva"
 
-#: ../html.c:953 ../html.c:1771 ../image.c:442
+#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1767
+#: src/plugin_htmlbar/image.c:444
 msgid "_Align:"
 msgstr "_Tasaus:"
 
-#: ../html.c:960 ../html.c:1779 ../html_table.c:387
+#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1775
+#: src/plugin_htmlbar/html_table.c:387
 msgid "_Height:"
 msgstr "_Korkeus:"
 
-#: ../html.c:966 ../html.c:1775 ../html_table.c:134 ../html_table.c:380
-#: ../image.c:400
+#. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
+#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1771
+#: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
+#: src/plugin_htmlbar/image.c:402
 msgid "_Width:"
 msgstr "_Leveys:"
 
-#: ../html.c:969
+#: src/plugin_htmlbar/html.c:965
 msgid "Is _percent"
 msgstr "On _prosenttia"
 
-#: ../html.c:974
+#: src/plugin_htmlbar/html.c:970
 msgid "No _shading"
 msgstr "Ei _varjostusta"
 
-#: ../html.c:1039
+#: src/plugin_htmlbar/html.c:1035
 msgid "Body"
 msgstr "Runko"
 
-#: ../html.c:1047
+#: src/plugin_htmlbar/html.c:1043
 msgid "Options"
 msgstr "Valinnat"
 
-#: ../html.c:1085
+#: src/plugin_htmlbar/html.c:1081
 msgid "On_Load:"
 msgstr "La_dattaessa:"
 
-#: ../html.c:1093
+#: src/plugin_htmlbar/html.c:1089
 msgid "On_UnLoad:"
 msgstr "P_oistuttaessa:"
 
-#: ../html.c:1102
+#: src/plugin_htmlbar/html.c:1098
 msgid "Depreciated options"
 msgstr "Alemmat valinnat"
 
-#: ../html.c:1112
+#: src/plugin_htmlbar/html.c:1108
 msgid "Background _Image:"
 msgstr "Tausta_kuva:"
 
-#: ../html.c:1119
+#: src/plugin_htmlbar/html.c:1115
 msgid "Back_ground Color:"
 msgstr "Taustav_äri:"
 
-#: ../html.c:1125
+#: src/plugin_htmlbar/html.c:1121
 msgid "_Text Color:"
 msgstr "T_ekstin väri:"
 
-#: ../html.c:1131
+#: src/plugin_htmlbar/html.c:1127
 msgid "_Link Color:"
 msgstr "L_inkin väri:"
 
-#: ../html.c:1137
+#: src/plugin_htmlbar/html.c:1133
 msgid "_Visited Link Color:"
 msgstr "Käytet_yn linkin väri:"
 
-#: ../html.c:1143
+#: src/plugin_htmlbar/html.c:1139
 msgid "_Active Link Color:"
 msgstr "_Aktiivisen linkin väri:"
 
-#: ../html.c:1194
+#: src/plugin_htmlbar/html.c:1190
 msgid "Meta"
 msgstr "Meta"
 
-#: ../html.c:1232
+#: src/plugin_htmlbar/html.c:1228
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-#: ../html.c:1237
+#: src/plugin_htmlbar/html.c:1233
 msgid "Con_tent:"
 msgstr "_Sisältö:"
 
-#: ../html.c:1245
+#: src/plugin_htmlbar/html.c:1241
 msgid "_Scheme:"
 msgstr "L_uonnos:"
 
-#: ../html.c:1326
+#: src/plugin_htmlbar/html.c:1322
 msgid "Font"
 msgstr "Fontti"
 
-#: ../html.c:1329
+#: src/plugin_htmlbar/html.c:1325
 msgid "Base Font"
 msgstr "Perusfontti"
 
-#: ../html.c:1344
+#: src/plugin_htmlbar/html.c:1340
 msgid "Size"
 msgstr "Koko"
 
-#: ../html.c:1352
+#: src/plugin_htmlbar/html.c:1348
 msgid "Color"
 msgstr "Väri"
 
-#: ../html.c:1357
+#: src/plugin_htmlbar/html.c:1353
 msgid "Face"
 msgstr "Ulkoasu"
 
-#: ../html.c:1361
+#: src/plugin_htmlbar/html.c:1357
 msgid "Custom"
 msgstr "Mukautettu"
 
-#: ../html.c:1445
+#: src/plugin_htmlbar/html.c:1441
 #, fuzzy
 msgid "E-mail"
 msgstr "Email"
 
-#: ../html.c:1453
+#: src/plugin_htmlbar/html.c:1449
 msgid "_Mail to:"
 msgstr ""
 
-#: ../html.c:1457
+#: src/plugin_htmlbar/html.c:1453
 #, fuzzy
 msgid "_Copy to:"
 msgstr "Kopioi"
 
-#: ../html.c:1461
+#: src/plugin_htmlbar/html.c:1457
 msgid "Blin_d copy to:"
 msgstr ""
 
-#: ../html.c:1465
+#: src/plugin_htmlbar/html.c:1461
 msgid "with _Subject:"
 msgstr ""
 
-#: ../html.c:1469
+#: src/plugin_htmlbar/html.c:1465
 msgid "with _Body:"
 msgstr ""
 
-#: ../html.c:1513
+#: src/plugin_htmlbar/html.c:1509
 msgid "Quick List"
 msgstr "Pikalista"
 
-#: ../html.c:1518 ../html.c:1600 ../html_form.c:236
+#: src/plugin_htmlbar/html.c:1514 src/plugin_htmlbar/html.c:1596
+#: src/plugin_htmlbar/html_form.c:236
 msgid "_Rows:"
 msgstr "_Rivit:"
 
-#: ../html.c:1521
+#: src/plugin_htmlbar/html.c:1517
 msgid "Or_dered"
 msgstr "_Järjestetty"
 
-#: ../html.c:1522
+#: src/plugin_htmlbar/html.c:1518
 msgid "_Unordered"
 msgstr "Jär_jestämätön"
 
-#: ../html.c:1524
+#: src/plugin_htmlbar/html.c:1520
 msgid "Style:"
 msgstr "Tyyli:"
 
-#: ../html.c:1596 ../html_form.c:240
+#: src/plugin_htmlbar/html.c:1592 src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
 msgstr "Sarakkeet_:"
 
-#: ../html.c:1605
+#: src/plugin_htmlbar/html.c:1601
 msgid "_Add <frame> elements"
 msgstr "_Lisää <frame> elementtejä"
 
-#: ../html.c:1682 ../html.c:1767 ../html.c:1826
+#: src/plugin_htmlbar/html.c:1678 src/plugin_htmlbar/html.c:1763
+#: src/plugin_htmlbar/html.c:1822
 msgid "_Source:"
 msgstr "L_ähde:"
 
-#: ../html.c:1690
+#: src/plugin_htmlbar/html.c:1686
 msgid "Margin _Width:"
 msgstr "Reunan _leveys:"
 
-#: ../html.c:1694
+#: src/plugin_htmlbar/html.c:1690
 msgid "Margin _Height:"
 msgstr "Reunan _korkeus:"
 
-#: ../html.c:1702
+#: src/plugin_htmlbar/html.c:1698
 msgid "Scrollin_g:"
 msgstr "Vierit_ys:"
 
-#: ../html.c:1706
+#: src/plugin_htmlbar/html.c:1702
 msgid "_Frameborder:"
 msgstr "_Kehysreuna:"
 
-#: ../html.c:1711
+#: src/plugin_htmlbar/html.c:1707
 msgid "No _Resize:"
 msgstr "E_i koonmuutosta"
 
-#: ../html.c:1761
+#: src/plugin_htmlbar/html.c:1757
 msgid "Embed"
 msgstr "Upotettu"
 
-#: ../html.c:1783 ../html_table.c:140
+#: src/plugin_htmlbar/html.c:1779 src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
 msgstr "_Reuna:"
 
-#: ../html.c:1819
+#: src/plugin_htmlbar/html.c:1815
 msgid "Script"
 msgstr "Skripti"
 
-#: ../html.c:1848 ../html.c:1949 ../html_form.c:789 ../html_form.c:899
+#: src/plugin_htmlbar/html.c:1844 src/plugin_htmlbar/html.c:1945
+#: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
 msgstr "_Tyyppi"
 
-#: ../html.c:1907
+#: src/plugin_htmlbar/html.c:1903
 msgid "Link"
 msgstr "Linkki"
 
-#: ../html.c:1924
+#: src/plugin_htmlbar/html.c:1920
 #, fuzzy
 msgid "HREF_LANG:"
 msgstr "_HREF:"
 
-#: ../html.c:1928
+#: src/plugin_htmlbar/html.c:1924
 #, fuzzy
 msgid "T_itle:"
 msgstr "O_tsikko:"
 
-#: ../html.c:1968
+#: src/plugin_htmlbar/html.c:1964
 msgid "_Forward Relation:"
 msgstr "_Suora suhde"
 
-#: ../html.c:1972
+#: src/plugin_htmlbar/html.c:1968
 msgid "_Reverse Relation:"
 msgstr "_Käänteinen suhde"
 
-#: ../html.c:1983
+#: src/plugin_htmlbar/html.c:1979
 msgid "Media:"
 msgstr "Media:"
 
-#: ../html.c:1987
+#: src/plugin_htmlbar/html.c:1983
 msgid "L_ang:"
 msgstr "K_ieli:"
 
-#: ../html.c:1991
+#: src/plugin_htmlbar/html.c:1987
 msgid "_Custom:"
 msgstr "_Mukautettu:"
 
-#: ../html_form.c:141
+#: src/plugin_htmlbar/html_form.c:141
 msgid "Form"
 msgstr "Lomake"
 
-#: ../html_form.c:159
+#: src/plugin_htmlbar/html_form.c:159
 msgid "_Action:"
 msgstr "_Toiminto:"
 
-#: ../html_form.c:167
+#: src/plugin_htmlbar/html_form.c:167
 msgid "Metho_d:"
 msgstr "Mene_telmä:"
 
-#: ../html_form.c:176
+#: src/plugin_htmlbar/html_form.c:176
 msgid "_Enctype:"
 msgstr "Koo_daustapa:"
 
-#: ../html_form.c:225
+#: src/plugin_htmlbar/html_form.c:225
 msgid "Text area"
 msgstr "Tekstialue"
 
-#: ../html_form.c:590
+#: src/plugin_htmlbar/html_form.c:590
 msgid "Select"
 msgstr "Valitse"
 
-#: ../html_form.c:601 ../html_form.c:808
+#: src/plugin_htmlbar/html_form.c:601 src/plugin_htmlbar/html_form.c:808
 msgid "Si_ze:"
 msgstr "Ko_ko:"
 
-#: ../html_form.c:605
+#: src/plugin_htmlbar/html_form.c:605
 msgid "Multiple _Selections:"
 msgstr "Useita _Valintoja:"
 
-#: ../html_form.c:644
+#: src/plugin_htmlbar/html_form.c:644
 msgid "Option"
 msgstr "Valinta"
 
-#: ../html_form.c:654 ../html_form.c:697
+#: src/plugin_htmlbar/html_form.c:654 src/plugin_htmlbar/html_form.c:697
 msgid "_Label:"
 msgstr "_Etiketti:"
 
-#: ../html_form.c:659
+#: src/plugin_htmlbar/html_form.c:659
 msgid "_Selected:"
 msgstr "V_alittu:"
 
-#: ../html_form.c:692
+#: src/plugin_htmlbar/html_form.c:692
 msgid "Option group"
 msgstr "Valintaryhmä"
 
-#: ../html_form.c:775
+#: src/plugin_htmlbar/html_form.c:775
 msgid "Input"
 msgstr "Syöte"
 
-#: ../html_form.c:803
+#: src/plugin_htmlbar/html_form.c:803
 msgid "_Checked:"
 msgstr "Va_littu:"
 
-#: ../html_form.c:812
+#: src/plugin_htmlbar/html_form.c:812
 msgid "Max _Length:"
 msgstr "Maksimi_pituus:"
 
-#: ../html_form.c:816
+#: src/plugin_htmlbar/html_form.c:816
 msgid "_Accept:"
 msgstr "_Hyväksy:"
 
-#: ../html_form.c:820
+#: src/plugin_htmlbar/html_form.c:820
 msgid "C_ustom:"
 msgstr "_Mukautettu:"
 
-#: ../html_form.c:832
+#: src/plugin_htmlbar/html_form.c:832
 msgid "On_Focus:"
 msgstr "KunK_ohdistetaan:"
 
-#: ../html_form.c:836
+#: src/plugin_htmlbar/html_form.c:836
 msgid "On_Blur:"
 msgstr "Kun_Deaktivoidaan:"
 
-#: ../html_form.c:840
+#: src/plugin_htmlbar/html_form.c:840
 msgid "On_Select:"
 msgstr "Kun_Valitaan:"
 
-#: ../html_form.c:844
+#: src/plugin_htmlbar/html_form.c:844
 msgid "On_Change:"
 msgstr "KunVaihde_taan:"
 
-#: ../html_form.c:884
+#: src/plugin_htmlbar/html_form.c:884
 msgid "Button"
 msgstr "Painike"
 
-#: ../html_table.c:83
+#: src/plugin_htmlbar/html_table.c:83
 msgid "Cell _Padding:"
 msgstr "Solun t_äyte:"
 
-#: ../html_table.c:87
+#: src/plugin_htmlbar/html_table.c:87
 msgid "C_ell Spacing:"
 msgstr "Solun väli_stys:"
 
-#: ../html_table.c:123 ../html_table.c:233 ../html_table.c:347
+#: src/plugin_htmlbar/html_table.c:123 src/plugin_htmlbar/html_table.c:233
+#: src/plugin_htmlbar/html_table.c:347
 msgid "_Valign:"
 msgstr "P_ystyryhmitys:"
 
-#: ../html_table.c:128 ../html_table.c:242 ../html_table.c:392
+#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:392
 msgid "Backgrou_nd Color:"
 msgstr "Tausta_väri:"
 
-#: ../html_table.c:154
+#: src/plugin_htmlbar/html_table.c:154
 msgid "_Frame:"
 msgstr "_Kehys:"
 
-#: ../html_table.c:165
+#: src/plugin_htmlbar/html_table.c:165
 msgid "R_ules:"
 msgstr "V_iivat:"
 
-#: ../html_table.c:365
+#: src/plugin_htmlbar/html_table.c:365
 msgid "Co_l Span:"
 msgstr "_Sarakkeen span:"
 
-#: ../html_table.c:369
+#: src/plugin_htmlbar/html_table.c:369
 msgid "_Row Span:"
 msgstr "_Rivin span:"
 
-#: ../html_table.c:374
+#: src/plugin_htmlbar/html_table.c:374
 msgid "No Wra_p:"
 msgstr "Ei ka_tkaisua:"
 
-#: ../image.c:364
+#: src/plugin_htmlbar/image.c:366
 msgid "Insert thumbnail"
 msgstr "Lisää esikatselukuva"
 
-#: ../image.c:366
+#: src/plugin_htmlbar/image.c:368
 msgid "Insert image"
 msgstr "Lisää kuva"
 
-#: ../image.c:372
+#: src/plugin_htmlbar/image.c:374
 msgid "Preview"
 msgstr "Esikatsele"
 
-#: ../image.c:392
+#: src/plugin_htmlbar/image.c:394
 msgid "_Image location:"
 msgstr "K_uvan sijainti:"
 
-#: ../image.c:407
+#: src/plugin_htmlbar/image.c:409
 msgid "Hei_ght:"
 msgstr "Ko_rkeus:"
 
-#: ../image.c:412
+#: src/plugin_htmlbar/image.c:414
 msgid "_Usemap:"
 msgstr "Käytä k_arttaa:"
 
-#: ../image.c:420
+#: src/plugin_htmlbar/image.c:422
 msgid "Alternate _text:"
 msgstr "V_aihtoehtoinen teksti:"
 
-#: ../image.c:428
+#: src/plugin_htmlbar/image.c:430
 msgid "_Hspace:"
 msgstr "_Vaakavälistys:"
 
-#: ../image.c:432
+#: src/plugin_htmlbar/image.c:434
 msgid "_Vspace:"
 msgstr "_Pystyvälistys"
 
-#: ../image.c:446
+#: src/plugin_htmlbar/image.c:448
 msgid "Borde_r:"
 msgstr "Reu_na"
 
-#: ../image.c:774
+#: src/plugin_htmlbar/image.c:779
 msgid "Select files for thumbnail creation"
 msgstr "Valitse tiedostot esikatselun luomista varten"
 
-#: ../image.c:809
+#: src/plugin_htmlbar/image.c:814
 msgid "Scaling (%)"
 msgstr "Skaalaus (%)"
 
-#: ../image.c:813 ../image.c:821
+#: src/plugin_htmlbar/image.c:818 src/plugin_htmlbar/image.c:826
 msgid "Width"
 msgstr "Leveys"
 
-#: ../image.c:817 ../image.c:849
+#: src/plugin_htmlbar/image.c:822 src/plugin_htmlbar/image.c:854
 msgid "Height"
 msgstr "Korkeus"
 
-#: ../image.c:838
+#: src/plugin_htmlbar/image.c:843
 msgid "Multi thumbnail"
 msgstr "Monta esikatselukuvaa"
 
-#: ../image.c:844
+#: src/plugin_htmlbar/image.c:849
 msgid "By scaling"
 msgstr "Skaalaamalla"
 
-#: ../image.c:845
+#: src/plugin_htmlbar/image.c:850
 msgid "By width, keep aspect ratio"
 msgstr "Leveydellä, pidä muotosuhde"
 
-#: ../image.c:846
+#: src/plugin_htmlbar/image.c:851
 msgid "By height, keep aspect ratio"
 msgstr "Korkeudella, pidä muotosuhde"
 
-#: ../image.c:847
+#: src/plugin_htmlbar/image.c:852
 msgid "By width and height, ignore aspect ratio"
 msgstr "Leveydellä ja korkeudella, älä huomioi muotosuhdetta"
 
-#: ../image.c:871
+#: src/plugin_htmlbar/image.c:876
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -1992,141 +2045,145 @@ msgstr ""
 "%x: esikatselukuvan leveys  %g: esikatselukuvan korkeus\n"
 "%b: alkuperäinen koko (tavua)"
 
-#: ../quickstart.c:512
+#: src/plugin_htmlbar/quickstart.c:512
 #, fuzzy
 msgid "<b>E_xternal Style Sheet</b>"
 msgstr "<b>Yleistä</b>"
 
-#: ../quickstart.c:522
+#: src/plugin_htmlbar/quickstart.c:522
 #, fuzzy
 msgid "Ty_pe:"
 msgstr "_Tyyppi"
 
-#: ../quickstart.c:540
+#: src/plugin_htmlbar/quickstart.c:540
 #, fuzzy
 msgid "HRE_F:"
 msgstr "_HREF:"
 
-#: ../quickstart.c:544
+#: src/plugin_htmlbar/quickstart.c:544
 #, fuzzy
 msgid "_Media:"
 msgstr "Media:"
 
-#: ../quickstart.c:548
+#: src/plugin_htmlbar/quickstart.c:548
 #, fuzzy
 msgid "Titl_e:"
 msgstr "O_tsikko:"
 
-#: ../quickstart.c:554
+#. TODO: add an option to place content in the style area
+#. * Possibly from a code snippet library
+#.
+#: src/plugin_htmlbar/quickstart.c:554
 #, fuzzy
 msgid "<b>Style Area</b>"
 msgstr "<b>Yleistä</b>"
 
-#: ../quickstart.c:558
+#: src/plugin_htmlbar/quickstart.c:558
 #, fuzzy
 msgid "Cre_ate empty style area"
 msgstr "Luo tyhjä projekti"
 
-#: ../quickstart.c:580
+#: src/plugin_htmlbar/quickstart.c:580
 #, fuzzy
 msgid "<b>Attributes</b>"
 msgstr "Attribuutit"
 
-#: ../quickstart.c:595
+#: src/plugin_htmlbar/quickstart.c:595
 #, fuzzy
 msgid "_Src:"
 msgstr "L_ähde:"
 
-#: ../quickstart.c:602
+#. TODO: add an option to place content in the script area
+#: src/plugin_htmlbar/quickstart.c:602
 #, fuzzy
 msgid "<b>Script Area</b>"
 msgstr "<b>Yleistä</b>"
 
-#: ../quickstart.c:606
+#: src/plugin_htmlbar/quickstart.c:606
 #, fuzzy
 msgid "Cre_ate empty script area"
 msgstr "Luo tyhjä projekti"
 
-#: ../quickstart.c:633
+#: src/plugin_htmlbar/quickstart.c:633
 msgid "Quick Start"
 msgstr "Pika-aloitus"
 
-#: ../quickstart.c:647
+#: src/plugin_htmlbar/quickstart.c:647
 #, fuzzy
 msgid "_DTD:"
 msgstr "Käytä _DTD:"
 
-#: ../quickstart.c:651 ../wizards.c:186
+#: src/plugin_htmlbar/quickstart.c:651 src/plugin_htmlbar/wizards.c:186
 msgid "_Title:"
 msgstr "O_tsikko:"
 
-#: ../quickstart.c:674
+#: src/plugin_htmlbar/quickstart.c:674
 #, fuzzy
 msgid "_Head:"
 msgstr "_Linkki:"
 
-#: ../quickstart.c:691
+#: src/plugin_htmlbar/quickstart.c:691
 #, fuzzy
 msgid "Open in _new document."
 msgstr "D_okumentissa"
 
-#: ../wizards.c:68
+#: src/plugin_htmlbar/wizards.c:68
 msgid "Table Wizard"
 msgstr "Taulukkovelho"
 
-#: ../wizards.c:76
+#: src/plugin_htmlbar/wizards.c:76
 msgid "Number of _rows:"
 msgstr "Ri_vien lukumäärä:"
 
-#: ../wizards.c:80
+#: src/plugin_htmlbar/wizards.c:80
 msgid "Number of colu_mns:"
 msgstr "Sarak_keiden lukumäärä:"
 
-#: ../wizards.c:84
+#: src/plugin_htmlbar/wizards.c:84
 msgid "Table rows on one _line:"
 msgstr "Taulukon rivit _yhdellä rivillä:"
 
-#: ../wizards.c:88
+#: src/plugin_htmlbar/wizards.c:88
 msgid "_Indent table code:"
 msgstr "Si_sennä taulukon koodi:"
 
-#: ../wizards.c:175
+#: src/plugin_htmlbar/wizards.c:175
 msgid "Frame Wizard"
 msgstr "Kehysvelho"
 
-#: ../wizards.c:190
+#: src/plugin_htmlbar/wizards.c:190
 msgid "Use _DTD:"
 msgstr "Käytä _DTD:"
 
-#: ../wizards.c:193
+#: src/plugin_htmlbar/wizards.c:193
 msgid "Orientation:"
 msgstr "Suuntautuminen:"
 
-#: ../wizards.c:196
+#: src/plugin_htmlbar/wizards.c:196
 msgid "_Horizontal"
 msgstr "_Vaakasuuntainen"
 
-#: ../wizards.c:197
+#: src/plugin_htmlbar/wizards.c:197
 msgid "_Vertical"
 msgstr "Pys_tysuuntainen"
 
-#: ../wizards.c:202
+#: src/plugin_htmlbar/wizards.c:202
 msgid "Number of _Frames:"
 msgstr "Kehysten Lukum_äärä:"
 
-#: ../wizards.c:205
+#: src/plugin_htmlbar/wizards.c:205
 msgid "Frame's"
 msgstr "Kehyksen"
 
-#: ../wizards.c:217
+#: src/plugin_htmlbar/wizards.c:217
 msgid "Name:"
 msgstr "Nimi:"
 
-#: ../wizards.c:219
+#: src/plugin_htmlbar/wizards.c:219
 msgid "Source:"
 msgstr "Lähde:"
 
-#: ../wizards.c:223
+#: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
 msgstr "Koko:"
 
@@ -2902,9 +2959,6 @@ msgstr "Koko:"
 
 #~ msgid "Error creating path"
 #~ msgstr "Virhe luotaessa hakemistoa"
-
-#~ msgid "The specified pathname already exists."
-#~ msgstr "Annettu hakemistopolku on jo olemassa."
 
 #~ msgid "File name"
 #~ msgstr "Tiedoston nimi"
