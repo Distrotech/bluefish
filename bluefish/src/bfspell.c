@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include "config.h"
 
@@ -47,6 +47,7 @@ typedef struct {
 	GtkWidget *filter;
 	GList *langs;
 	GtkWidget *dict;
+	GtkWidget *addbut;
 	GtkWidget *runbut;
 	GtkWidget *repbut;
 	GtkWidget *ignbut;
@@ -68,6 +69,7 @@ static void spell_gui_set_button_status(Tbfspell *bfspell, gboolean is_running) 
 	gtk_widget_set_sensitive(bfspell->lang,!is_running);
 	gtk_widget_set_sensitive(bfspell->repbut,is_running);
 	gtk_widget_set_sensitive(bfspell->ignbut,is_running);
+	gtk_widget_set_sensitive(bfspell->addbut, is_running);
 }
 
 static gboolean test_unichar(gunichar ch,gpointer data) {
@@ -441,8 +443,10 @@ void spell_gui(Tbfspell *bfspell) {
 	gtk_table_attach_defaults(GTK_TABLE(table), label,0,1,2,3);
 	gtk_misc_set_alignment(GTK_MISC(label), 1, 0.5);
 	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->dict,1,2,2,3);
-	but = bf_generic_mnemonic_button(_("_Add"), G_CALLBACK(spell_gui_add_clicked), bfspell);
-	gtk_table_attach_defaults(GTK_TABLE(table), but,2,3,2,3);
+	bfspell->addbut = bf_generic_mnemonic_button(_("_Add Word"), G_CALLBACK(spell_gui_add_clicked), bfspell);
+	gtk_table_attach_defaults(GTK_TABLE(table), bfspell->addbut,2,3,2,3);
+	
+	gtk_widget_set_sensitive(bfspell->addbut, FALSE);
 
 	bfspell->lang = gtk_option_menu_new();
 	label = gtk_label_new(_("Language:"));
