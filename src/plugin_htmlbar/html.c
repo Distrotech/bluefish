@@ -432,7 +432,7 @@ void insert_time_dialog(Tbfwin *bfwin) {
 		case 5:
 			{
 				gchar *tmpstrtime = bf_portable_time(&time_var);
-				temp = g_strdup_printf(_("  Unix Date _String (%s"), tmpstrtime);
+				temp = g_strdup_printf(_("  Unix Date _String (%s)"), tmpstrtime);
 				g_free(tmpstrtime);
 			}
 			/* Replace \n on ')' */
