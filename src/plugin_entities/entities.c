@@ -1,5 +1,6 @@
 #include <gtk/gtk.h>
 #include <string.h>
+#include "entities.h"
 #include "../config.h"
 #include "../plugins.h"
 #include "../bluefish.h"

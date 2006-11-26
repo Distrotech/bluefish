@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>      /* getopt() */
+#include "about.h"
 
 #include "../config.h"
 #include "../plugins.h"
@@ -184,6 +185,7 @@ static void about_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget
 
 static void about_init(void) {
 #ifdef ENABLE_NLS
+	DEBUG_MSG("about_init, gettext domain-name=%s\n",PACKAGE"_plugin_about");
 	bindtextdomain(PACKAGE"_plugin_about", LOCALEDIR);
 	bind_textdomain_codeset(PACKAGE"_plugin_about", "UTF-8");
 #endif /* ENABLE_NLS */
