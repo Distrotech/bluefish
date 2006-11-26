@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * entities.h - Entity/ASCII replace dialog
  *
- * Copyright (C) 2006 Daniel leider <daniel.leidert@wgdd.de>.
+ * Copyright (C) 2006 Daniel Leidert <daniel.leidert@wgdd.de>.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
