@@ -30,7 +30,7 @@
 #define ENABLEPLUGINS
 
 #include "config.h"
-#define BLUEFISH_SPLASH_FILENAME PKGDATADIR"bluefish_splash.png"
+#define BLUEFISH_SPLASH_FILENAME PKGDATADIR"/bluefish_splash.png"
 
 #ifdef HAVE_SYS_MSG_H
 #ifdef HAVE_MSGRCV
