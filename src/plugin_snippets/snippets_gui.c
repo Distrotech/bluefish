@@ -54,6 +54,17 @@ static void snippet_activate_leaf(Tsnippetswin *snw, xmlNodePtr cur) {
 	xmlFree(type);
 }
 
+typedef struct {
+	Tsnippetswin *snw;
+	xmlNodePtr cur;
+} Taccelerator_cbdata;
+
+gboolean snippets_accelerator_activated_lcb(GtkAccelGroup *accel_group,GObject *acceleratable,guint keyval,GdkModifierType modifier,gpointer data) {
+	Taccelerator_cbdata *hcbdata = (Taccelerator_cbdata *)data;
+	snippet_activate_leaf(hcbdata->snw, hcbdata->cur);
+	return TRUE;
+}
+
 static void snippets_connect_accelerators_from_doc(Tsnippetswin *snw, xmlNodePtr cur, GtkAccelGroup *accel_group) {
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
@@ -83,11 +94,24 @@ static void snippets_connect_accelerators_from_doc(Tsnippetswin *snw, xmlNodePtr
 		cur = cur->next;
 	}
 }
+static void snippets_window_rebuild_accelerators_lcb(gpointer key,gpointer value,gpointer user_data) {
+	Tsnippetswin *snw = (Tsnippetswin *)value;
+	gtk_window_remove_accel_group(GTK_WINDOW(snw->bfwin->main_window),snw->accel_group);
+	g_object_unref(G_OBJECT(snw->accel_group));
+	
+	snw->accel_group = gtk_accel_group_new();
+	gtk_window_add_accel_group(GTK_WINDOW(snw->bfwin->main_window), snw->accel_group);
+	if (snippets_v.doc) {
+		xmlNodePtr cur = xmlDocGetRootElement(snippets_v.doc);
+		if (cur) {
+			snippets_connect_accelerators_from_doc(snw, cur, snw->accel_group);
+		}
+	}
+}
 
 static void snippets_rebuild_accelerators(void) {
 	/* loop over all windows and rebuild the accelerators */
-	
-	
+	 g_hash_table_foreach(snippets_v.lookup,snippets_window_rebuild_accelerators_lcb,NULL);
 }
 
 
@@ -102,6 +126,7 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 			gchar *accel = ask_accelerator_dialog(_("set accelerator key"));
 			if (accel) {
 				xmlSetProp(snw->lastclickednode, (const xmlChar *)"accelerator", (const xmlChar *)accel);
+				snippets_rebuild_accelerators();
 				snippets_store();
 			}
 		}
@@ -159,17 +184,6 @@ static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *
 	return FALSE; /* pass the event on */
 }
 
-typedef struct {
-	Tsnippetswin *snw;
-	xmlNodePtr cur;
-} Taccelerator_cbdata;
-
-gboolean snippets_accelerator_activated_lcb(GtkAccelGroup *accel_group,GObject *acceleratable,guint keyval,GdkModifierType modifier,gpointer data) {
-	Taccelerator_cbdata *hcbdata = (Taccelerator_cbdata *)data;
-	snippet_activate_leaf(hcbdata->snw, hcbdata->cur);
-	return TRUE;
-}
-
 static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint x, gint y) {
 	GtkTreePath *path;
 	xmlNodePtr cur;
@@ -209,7 +223,6 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	Tsnippetswin *snw;
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
-	GtkAccelGroup *accel_group;
 
 	DEBUG_MSG("snippets_sidepanel_initgui, bfwin=%p\n",bfwin);
 	
@@ -230,19 +243,25 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	snw->ttips = tree_tips_new_full(snw->bfwin,snw->view,snippets_treetip_lcb);
 	
 	/* now parse the accelerator, and make it active for this item */
-	accel_group = gtk_accel_group_new();
-	gtk_window_add_accel_group(GTK_WINDOW(snw->bfwin->main_window), accel_group);
+	snw->accel_group = gtk_accel_group_new();
+	gtk_window_add_accel_group(GTK_WINDOW(snw->bfwin->main_window), snw->accel_group);
 	DEBUG_MSG("snippets_sidepanel_initgui, connect accelerators\n");
 	if (snippets_v.doc) {
 		xmlNodePtr cur = xmlDocGetRootElement(snippets_v.doc);
 		if (cur) {
-			snippets_connect_accelerators_from_doc(snw, cur, accel_group);
+			snippets_connect_accelerators_from_doc(snw, cur, snw->accel_group);
 		}
 	}
 	DEBUG_MSG("snippets_sidepanel_initgui, finished\n");
 }
 
 void snippets_sidepanel_destroygui(Tbfwin *bfwin) {
+	Tsnippetswin *snw;
 	/* the widget is auto destroyed, and there is nothing more to destroy */
-	
+	snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
+	if (snw) {
+		tree_tips_destroy(snw->ttips);
+		gtk_window_remove_accel_group(GTK_WINDOW(snw->bfwin->main_window),snw->accel_group);
+		g_object_unref(G_OBJECT(snw->accel_group));
+	}	
 }
