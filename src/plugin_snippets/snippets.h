@@ -49,6 +49,7 @@ typedef struct {
 	Tbfwin *bfwin;
 	GtkWidget *view;
 	TreeTips *ttips;
+	xmlNodePtr lastclickednode;
 } Tsnippetswin;
 
 extern Tsnippets snippets_v;
