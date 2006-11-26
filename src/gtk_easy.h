@@ -107,5 +107,5 @@ GnomeVFSResult gnome_vfs_read_entire_file (const char *uri,int *file_size,char *
 #endif
 
 gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe);
-
+gchar *ask_accelerator_dialog(const gchar *title);
 #endif
