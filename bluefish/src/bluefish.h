@@ -53,21 +53,22 @@ extern void g_none(gchar *first, ...);
 #endif /* DEBUG */
 
 #ifdef ENABLE_NLS
-
 #include <libintl.h>
 #define _(String) gettext (String)
 #define N_(String) (String)
-
-#else                                                                           
-
+#else /* ENABLE_NLS */                                                                           
 #define _(String)(String)
 #define N_(String)(String)
+#endif /* ENABLE_NLS */
 
-#endif    
 
-
+#ifdef WIN32
+#define DIRSTR "\\"
+#define DIRCHR 92
+#else /* WIN32 */
 #define DIRSTR "/"
 #define DIRCHR '/'
+#endif /* WIN32 */
 
 #include <sys/types.h>
 #include <regex.h>
