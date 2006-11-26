@@ -54,21 +54,21 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	xmlNodePtr cur;
 	int i=0;
 	GtkWidget *table;
-	gchar *title_final;
 	
 	title = xmlGetProp(leaf, (const xmlChar *)"title");
 	sid = g_new0(Tsnippet_insert_dialog,1);
-	title_final = g_markup_escape_text((gchar *)title,-1);
-	DEBUG_MSG("snippets_insert_dialog, started for %s\n",title_final);
-	xmlFree(title);
-	sid->dialog = gtk_dialog_new_with_buttons(title_final,GTK_WINDOW(snw->bfwin->main_window),
+	DEBUG_MSG("snippets_insert_dialog, started for %s\n",(gchar *)title);
+	sid->dialog = gtk_dialog_new_with_buttons((gchar *)title,GTK_WINDOW(snw->bfwin->main_window),
 							GTK_DIALOG_DESTROY_WITH_PARENT,
 							GTK_STOCK_OK,GTK_RESPONSE_ACCEPT,
 							GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,
 							NULL);
-	g_free(title_final);
+	xmlFree(title);
+	gtk_dialog_set_default_response (GTK_DIALOG(sid->dialog),GTK_RESPONSE_ACCEPT);
+	gtk_box_set_spacing(GTK_BOX(GTK_DIALOG(sid->dialog)->vbox),6);
 	table = gtk_table_new (num_vars, 2, FALSE);
-	
+	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
+	gtk_table_set_row_spacings(GTK_TABLE(table), 6);
 	for (cur = leaf->xmlChildrenNode;cur != NULL;cur = cur->next) {
 		if (xmlStrEqual(cur->name, (const xmlChar *)"param")) {
 			xmlChar *name;
@@ -76,6 +76,7 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 			name =  xmlGetProp(cur, (const xmlChar *)"name");
 			final_name = g_markup_escape_text((gchar *)name,-1);
 			sid->textentry[i] = gtk_entry_new();
+			gtk_entry_set_activates_default(GTK_ENTRY(sid->textentry[i]),TRUE);
 			bf_mnemonic_label_tad_with_alignment(final_name, sid->textentry[i], 0, 0.5, table, 0, 1, i, i+1);
 			gtk_table_attach(GTK_TABLE (table), sid->textentry[i], 1, 2, i, i+1, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
 			xmlFree(name);
