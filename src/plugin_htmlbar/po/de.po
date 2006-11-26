@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2006-11-25 14:39-0800\n"
-"PO-Revision-Date: 2002-12-13 23:02+0100\n"
+"POT-Creation-Date: 2006-11-25 19:58+0100\n"
+"PO-Revision-Date: 2006-11-25 19:58+0100\n"
 "Last-Translator: Roland Steinbach <roland@netzblick.de>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,19 +19,18 @@ msgstr ""
 #. * update.
 #.
 #: src/plugin_htmlbar/html2.c:499
-#, fuzzy
 msgid "_Update"
 msgstr " Akt_ualisieren "
 
 #: src/plugin_htmlbar/html2.c:504
-#, fuzzy, c-format
+#, c-format
 msgid "The %s %s property already exists.\n"
-msgstr "Das Verzeichnis existiert bereits."
+msgstr ""
 
 #: src/plugin_htmlbar/html2.c:506
-#, fuzzy, c-format
+#, c-format
 msgid "The %s property already exists.\n"
-msgstr "Das Verzeichnis existiert bereits."
+msgstr ""
 
 #: src/plugin_htmlbar/html2.c:509
 #, c-format
@@ -39,9 +38,8 @@ msgid "Update it's value from %s to %s?"
 msgstr ""
 
 #: src/plugin_htmlbar/html2.c:635
-#, fuzzy
 msgid "Cascading Style Sheet Builder"
-msgstr "CSS Dialog"
+msgstr "CSS-Baukasten"
 
 #: src/plugin_htmlbar/html2.c:655
 msgid "_Selector:"
@@ -229,9 +227,8 @@ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/Tags/Spezial/Akzent/Großbuchstaben/J-Z/Ô"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:242
-#, fuzzy
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Tags/Spezial/Akzent/Großbuchstaben/A-I/."
+msgstr "/Tags/Spezial/Akzent/Großbuchstaben/J-Z/Œ."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:243
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
@@ -354,9 +351,8 @@ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/Tags/Spezial/Akzent/Kleinbuchstaben/J-Z/ó"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:275
-#, fuzzy
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Tags/Spezial/Akzent/Kleinbuchstaben/A-I/."
+msgstr "/Tags/Spezial/Akzent/Kleinbuchstaben/J-Z/œ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:276
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
@@ -827,9 +823,8 @@ msgid "/Dialogs/General/_Quickstart..."
 msgstr "/Dialoge/Allgemein/_Schnellstart..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:410
-#, fuzzy
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Dialoge/Allgemein/_Meta..."
+msgstr "/Dialoge/Allgemein/_Link Kopfdaten..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:411
 msgid "/Dialogs/General/_Body..."
@@ -1049,9 +1044,8 @@ msgid "Comment"
 msgstr "Kommentar"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:746
-#, fuzzy
 msgid "E-mail..."
-msgstr "E-Mail..."
+msgstr "eMail..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:747
 msgid "Font..."
@@ -1429,12 +1423,12 @@ msgstr "  _Unixzeit (%i)"
 #: src/plugin_htmlbar/html.c:435
 #, c-format
 msgid "  Unix Date _String (%s"
-msgstr "  Unixdatum (%s"
+msgstr "  _Unixdatum (%s)"
 
 #: src/plugin_htmlbar/html.c:443
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
-msgstr ""
+msgstr "  ISO-8601 Zei_t (%s)"
 
 #: src/plugin_htmlbar/html.c:585
 msgid "Quick Anchor"
@@ -1665,30 +1659,28 @@ msgid "Custom"
 msgstr "Benutzerdefiniert"
 
 #: src/plugin_htmlbar/html.c:1441
-#, fuzzy
 msgid "E-mail"
-msgstr "Email"
+msgstr "eMail"
 
 #: src/plugin_htmlbar/html.c:1449
 msgid "_Mail to:"
-msgstr ""
+msgstr "e_Mail an:"
 
 #: src/plugin_htmlbar/html.c:1453
-#, fuzzy
 msgid "_Copy to:"
-msgstr "Kopieren"
+msgstr "_Kopie an:"
 
 #: src/plugin_htmlbar/html.c:1457
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "Blin_dkopie an:"
 
 #: src/plugin_htmlbar/html.c:1461
 msgid "with _Subject:"
-msgstr ""
+msgstr "_Betreff:"
 
 #: src/plugin_htmlbar/html.c:1465
 msgid "with _Body:"
-msgstr ""
+msgstr "_Nachricht:"
 
 #: src/plugin_htmlbar/html.c:1509
 msgid "Quick List"
@@ -1766,14 +1758,12 @@ msgid "Link"
 msgstr "Link"
 
 #: src/plugin_htmlbar/html.c:1920
-#, fuzzy
 msgid "HREF_LANG:"
-msgstr "_HREF"
+msgstr "HREF_LANG"
 
 #: src/plugin_htmlbar/html.c:1924
-#, fuzzy
 msgid "T_itle:"
-msgstr "_Titel:"
+msgstr "T_itel:"
 
 #: src/plugin_htmlbar/html.c:1964
 msgid "_Forward Relation:"
@@ -2015,12 +2005,11 @@ msgstr "<b>E_xternes Stylesheet</b>"
 
 #: src/plugin_htmlbar/quickstart.c:522
 msgid "Ty_pe:"
-msgstr "_Typ:"
+msgstr "Ty_p:"
 
 #: src/plugin_htmlbar/quickstart.c:540
-#, fuzzy
 msgid "HRE_F:"
-msgstr "_HREF"
+msgstr "HRE_F"
 
 #: src/plugin_htmlbar/quickstart.c:544
 msgid "_Media:"
