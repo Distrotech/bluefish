@@ -118,53 +118,6 @@ TOOLBAR = \
 	pixmap_unindent unindent.png \
 	pixmap_var var.png \
 	pixmap_view_in_browser view_in_browser.png
-#	cancel cancel.png \
-#	copy copy.png \
-#	cssclass cssclass.png \
-#	cut cut.png \
-#	dtd dtd.png \
-#	help help.png \
-#	image_map image_map.png \
-#	javascript_mouseover javascript_mouseover.png \
-#	javascript_netscape javascript_netscape.png \
-#	javascript_preload javascript_preload.png \
-#	jscript jscript.png \
-#	linkjscript linkjscript.png \
-#	list_menu list_menu.png \
-#	netscape netscape.png \
-#	no no.png \
-#	ok ok.png \
-#	open open.png \
-#	paste paste.png \
-#	preferences preferences.png \
-#	print print.png \
-#	redo redo.png \
-#	rxml rxml.png \
-#	ssi ssi.png \
-#	save save.png \
-#	save_as save_as.png \
-#	search search.png \
-#	search_replace search_replace.png \
-#	spellcheck spellcheck.png \
-#	strikeout strikeout.png \
-#	undo undo.png \
-#	wml_a wml_a.png \
-#	wml_access wml_access.png \
-#	wml_bold wml_bold.png \
-#	wml_break wml_break.png \
-#	wml_card wml_card.png \
-#	wml_do wml_do.png \
-#	wml_go wml_go.png \
-#	wml_italic wml_italic.png \
-#	wml_nbsp wml_nbsp.png \
-#	wml_noop wml_noop.png \
-#	wml_paragraph wml_paragraph.png \
-#	wml_postfield wml_postfield.png \
-#	wml_prev wml_prev.png \
-#	wml_refresh wml_refresh.png \
-#	wml_standard_document wml_standard_document.png \
-#	wml_timer wml_timer.png \
-#	wml_var wml_var.png
 
 GENERAL = \
 	pixmap_close_small close_small.png \
