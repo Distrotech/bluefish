@@ -49,6 +49,7 @@ typedef struct {
 	Tbfwin *bfwin;
 	GtkWidget *view;
 	TreeTips *ttips;
+	GtkAccelGroup *accel_group;
 	xmlNodePtr lastclickednode;
 } Tsnippetswin;
 

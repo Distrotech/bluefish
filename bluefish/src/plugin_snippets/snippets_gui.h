@@ -17,7 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+#ifndef SNIPPET_GUI_H
+#define SNIPPET_GUI_H
 
 void snippets_sidepanel_initgui(Tbfwin *bfwin);
 void snippets_sidepanel_destroygui(Tbfwin *bfwin);
 
+#endif /* SNIPPET_GUI_H */
