@@ -13,7 +13,8 @@ entitiesdir = $(pkglibdir)
 entities_LTLIBRARIES = entities.la
 
 entities_la_SOURCES = \
-	entities.c
+	entities.c \
+	entities.h
 
 entities_la_LDFLAGS = -module -avoid-version
 

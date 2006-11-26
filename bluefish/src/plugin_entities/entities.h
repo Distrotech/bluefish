@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
- * about.h - the About dialog
+ * entities.h - Entity/ASCII replace dialog
  *
- * Copyright (C) 2004 Eugene Morenko(More) more@irpin.com
+ * Copyright (C) 2006 Daniel leider <daniel.leidert@wgdd.de>.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#ifndef __ABOUT_H_
-#define __ABOUT_H_
+#ifndef __ENTITIES_H_
+#define __ENTITIES_H_
 
 #define ENABLEPLUGINS
 
@@ -27,7 +27,7 @@
 
 #ifdef ENABLE_NLS
 #undef _
-#define _(String) dgettext(PACKAGE"_plugin_about", String)
+#define _(String) dgettext(PACKAGE"_plugin_entities", String)
 #endif
 
-#endif /* __ABOUT_H_  */
+#endif /* __ENTITIES_H_  */
