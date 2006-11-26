@@ -18,5 +18,10 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-void snippets_load(const gchar *filename);
+#ifndef SNIPPETS_LOAD_H
+#define SNIPPETS_LOAD_H
 
+void snippets_load(const gchar *filename);
+void snippets_store(void);
+
+#endif /* SNIPPETS_LOAD_H */

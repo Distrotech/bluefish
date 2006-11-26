@@ -48,6 +48,7 @@ I want to parse something like this:
 
 #include "snippets.h"
 #include "snippets_load.h"
+#include "../bf_lib.h"
 
 static void add_tree_item(GtkTreeIter *parent, GtkTreeIter *child, const gchar *name, gpointer ptr) {
 	DEBUG_MSG("add_tree_item, adding %s\n",name);
@@ -65,10 +66,8 @@ static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
 			add_tree_item(parent, &iter, (const gchar *)title, cur);
 			walk_tree(cur, &iter);
 		} else if ((xmlStrEqual(cur->name, (const xmlChar *)"leaf"))) {
-			xmlChar *hotkey;
 			title = xmlGetProp(cur, (const xmlChar *)"title");
 			add_tree_item(parent, &iter, (const gchar *)title, cur);
-		
 		}
 		cur = cur->next;
 	}
@@ -101,3 +100,8 @@ void snippets_load(const gchar *filename) {
 	walk_tree(cur, NULL);
 }
 
+void snippets_store(void) {
+	gchar *snipfile = user_bfdir("snippets");
+	xmlSaveFormatFile(snipfile, snippets_v.doc, 1);
+	g_free(snipfile);
+}

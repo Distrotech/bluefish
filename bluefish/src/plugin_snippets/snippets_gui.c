@@ -23,8 +23,10 @@
 
 #include "snippets.h"
 #include "snippets_gui.h"
+#include "snippets_load.h"
 #include "snippets_leaf_insert.h"
 #include "../document.h"
+#include "../gtk_easy.h"
 
 static xmlNodePtr snippetview_get_node_at_path(GtkTreePath *path) {
 	if (path) {
@@ -52,6 +54,43 @@ static void snippet_activate_leaf(Tsnippetswin *snw, xmlNodePtr cur) {
 	xmlFree(type);
 }
 
+static void snippets_connect_accelerators_from_doc(Tsnippetswin *snw, xmlNodePtr cur, GtkAccelGroup *accel_group) {
+	cur = cur->xmlChildrenNode;
+	while (cur != NULL) {
+		if ((xmlStrEqual(cur->name, (const xmlChar *)"branch"))) {
+			snippets_connect_accelerators_from_doc(snw, cur, accel_group);
+		} else if ((xmlStrEqual(cur->name, (const xmlChar *)"leaf"))) {
+			xmlChar *accelerator;
+			/* if there are shortcut keys defined for this leaf we should register them */
+			accelerator = xmlGetProp(cur, (const xmlChar *)"accelerator");
+			if (accelerator) {
+				guint key;	
+				GdkModifierType mod;
+				gtk_accelerator_parse((const gchar *)accelerator,&key,&mod);
+				if (key!=0 && mod!=0 && gtk_accelerator_valid(key,mod)) {
+					GClosure *closure;
+					Taccelerator_cbdata *hcbdata;
+					hcbdata = g_new(Taccelerator_cbdata,1);
+					hcbdata->snw = snw;
+					hcbdata->cur = cur;
+					DEBUG_MSG("snippets_connect_accelerators_from_doc, connecting accelerator %s\n",accelerator);
+					closure = g_cclosure_new(G_CALLBACK(snippets_accelerator_activated_lcb),hcbdata,g_free);
+					gtk_accel_group_connect(accel_group,key,mod,GTK_ACCEL_VISIBLE, closure);
+				}
+				xmlFree(accelerator);
+			}
+		}
+		cur = cur->next;
+	}
+}
+
+static void snippets_rebuild_accelerators(void) {
+	/* loop over all windows and rebuild the accelerators */
+	
+	
+}
+
+
 static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_action, GtkWidget *widget) {
 	DEBUG_MSG("snip_rpopup_rpopup_action_lcb, called with action %d and widget %p\n",callback_action,widget);
 	switch (callback_action) {
@@ -59,7 +98,13 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 		DEBUG_MSG("edit not yet implemented\n");
 	break;
 	case 2:
-		DEBUG_MSG("set hotkey not yet implemented\n");
+		if (snw->lastclickednode && xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
+			gchar *accel = ask_accelerator_dialog(_("set accelerator key"));
+			if (accel) {
+				xmlSetProp(snw->lastclickednode, (const xmlChar *)"accelerator", (const xmlChar *)accel);
+				snippets_store();
+			}
+		}
 	break;
 	}
 }
@@ -67,7 +112,7 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 static GtkItemFactoryEntry snip_rpopup_menu_entries[] = {
 	{ N_("/_Edit"),		NULL,	snip_rpopup_rpopup_action_lcb,		1,	"<Item>" },
 	{ "/sep1",						NULL,	NULL,									0,	"<Separator>" },
-	{ N_("/Set _hotkey"),			NULL,	snip_rpopup_rpopup_action_lcb,	2,	"<Item>" }
+	{ N_("/Set _accelerator"),			NULL,	snip_rpopup_rpopup_action_lcb,	2,	"<Item>" }
 };
 
 #ifdef ENABLE_NLS
@@ -97,6 +142,7 @@ static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *
 		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(snw->view), event->x, event->y, &path, NULL, NULL, NULL);
 		cur = snippetview_get_node_at_path(path);
 		if (cur) {
+			snw->lastclickednode = cur;
 			if (event->button==1 && event->type == GDK_2BUTTON_PRESS) { /* left mouse button double-clicked */
 				if (xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
 					snippet_activate_leaf(snw, cur);
@@ -106,6 +152,8 @@ static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *
 				menu = snip_rpopup_create_menu(snw, cur);
 				gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);	
 			}
+		} else {
+			snw->lastclickednode = NULL;
 		}
 	}
 	return FALSE; /* pass the event on */
@@ -114,42 +162,12 @@ static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *
 typedef struct {
 	Tsnippetswin *snw;
 	xmlNodePtr cur;
-} Thotkey_cbdata;
+} Taccelerator_cbdata;
 
-gboolean snippets_hotkey_activated_lcb(GtkAccelGroup *accel_group,GObject *acceleratable,guint keyval,GdkModifierType modifier,gpointer data) {
-	Thotkey_cbdata *hcbdata = (Thotkey_cbdata *)data;
+gboolean snippets_accelerator_activated_lcb(GtkAccelGroup *accel_group,GObject *acceleratable,guint keyval,GdkModifierType modifier,gpointer data) {
+	Taccelerator_cbdata *hcbdata = (Taccelerator_cbdata *)data;
 	snippet_activate_leaf(hcbdata->snw, hcbdata->cur);
 	return TRUE;
-}
-
-static void snippets_connect_hotkeys_from_doc(Tsnippetswin *snw, xmlNodePtr cur, GtkAccelGroup *accel_group) {
-	cur = cur->xmlChildrenNode;
-	while (cur != NULL) {
-		if ((xmlStrEqual(cur->name, (const xmlChar *)"branch"))) {
-			snippets_connect_hotkeys_from_doc(snw, cur, accel_group);
-		} else if ((xmlStrEqual(cur->name, (const xmlChar *)"leaf"))) {
-			xmlChar *hotkey;
-			/* if there are shortcut keys defined for this leaf we should register them */
-			hotkey = xmlGetProp(cur, (const xmlChar *)"hotkey");
-			if (hotkey) {
-				guint key;	
-				GdkModifierType mod;
-				gtk_accelerator_parse((const gchar *)hotkey,&key,&mod);
-				if (key!=0 && mod!=0 && gtk_accelerator_valid(key,mod)) {
-					GClosure *closure;
-					Thotkey_cbdata *hcbdata;
-					hcbdata = g_new(Thotkey_cbdata,1);
-					hcbdata->snw = snw;
-					hcbdata->cur = cur;
-					DEBUG_MSG("snippets_connect_hotkeys_from_doc, connecting hotkey %s\n",hotkey);
-					closure = g_cclosure_new(G_CALLBACK(snippets_hotkey_activated_lcb),hcbdata,g_free);
-					gtk_accel_group_connect(accel_group,key,mod,GTK_ACCEL_VISIBLE, closure);
-				}
-				xmlFree(hotkey);
-			}
-		}
-		cur = cur->next;
-	}
 }
 
 static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint x, gint y) {
@@ -158,27 +176,27 @@ static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint
 	gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(tree), x, y, &path, NULL, NULL, NULL);
 	cur = snippetview_get_node_at_path(path); 
 	if (cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
-		xmlChar *tooltip, *hotkey;
-		gchar *tooltip2=NULL, *hotkey2=NULL;
+		xmlChar *tooltip, *accelerator;
+		gchar *tooltip2=NULL, *accelerator2=NULL;
 		tooltip = xmlGetProp(cur, (const xmlChar *)"tooltip");
-		hotkey = xmlGetProp(cur, (const xmlChar *)"hotkey");
+		accelerator = xmlGetProp(cur, (const xmlChar *)"accelerator");
 		if (tooltip) {
 			tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
 			xmlFree(tooltip);
 		}
-		if (hotkey) {
-			hotkey2 = g_markup_escape_text((gchar *)hotkey,-1);
-			xmlFree(hotkey);
+		if (accelerator) {
+			accelerator2 = g_markup_escape_text((gchar *)accelerator,-1);
+			xmlFree(accelerator);
 		}
-		if (tooltip && !hotkey) {
+		if (tooltip && !accelerator) {
 			return tooltip2;
-		} else if (hotkey && !tooltip) {
-			return hotkey2;
-		} else if (tooltip && hotkey) {
+		} else if (accelerator && !tooltip) {
+			return accelerator2;
+		} else if (tooltip && accelerator) {
 			gchar *tmp;
-			tmp = g_strconcat(tooltip2, "\n", hotkey2, NULL);
+			tmp = g_strconcat(tooltip2, "\n", accelerator2, NULL);
 			g_free(tooltip2);
-			g_free(hotkey2);
+			g_free(accelerator2);
 			return tmp;
 		} else {
 			return NULL;
@@ -211,14 +229,14 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	
 	snw->ttips = tree_tips_new_full(snw->bfwin,snw->view,snippets_treetip_lcb);
 	
-	/* now parse the hotkey, and make it active for this item */
+	/* now parse the accelerator, and make it active for this item */
 	accel_group = gtk_accel_group_new();
 	gtk_window_add_accel_group(GTK_WINDOW(snw->bfwin->main_window), accel_group);
-	DEBUG_MSG("snippets_sidepanel_initgui, connect hotkeys\n");
+	DEBUG_MSG("snippets_sidepanel_initgui, connect accelerators\n");
 	if (snippets_v.doc) {
 		xmlNodePtr cur = xmlDocGetRootElement(snippets_v.doc);
 		if (cur) {
-			snippets_connect_hotkeys_from_doc(snw, cur, accel_group);
+			snippets_connect_accelerators_from_doc(snw, cur, accel_group);
 		}
 	}
 	DEBUG_MSG("snippets_sidepanel_initgui, finished\n");
