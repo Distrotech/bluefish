@@ -116,12 +116,31 @@ static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint
 	gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(tree), x, y, &path, NULL, NULL, NULL);
 	cur = snippetview_get_path_if_leaf(path); 
 	if (cur) {
-		xmlChar *tooltip;
-		gchar *tooltip2;
+		xmlChar *tooltip, *hotkey;
+		gchar *tooltip2=NULL, *hotkey2=NULL;
 		tooltip = xmlGetProp(cur, (const xmlChar *)"tooltip");
-		tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
-		g_free(tooltip);
-		return tooltip2;
+		hotkey = xmlGetProp(cur, (const xmlChar *)"hotkey");
+		if (tooltip) {
+			tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
+			xmlFree(tooltip);
+		}
+		if (hotkey) {
+			hotkey2 = g_markup_escape_text((gchar *)hotkey,-1);
+			xmlFree(hotkey);
+		}
+		if (tooltip && !hotkey) {
+			return tooltip2;
+		} else if (hotkey && !tooltip) {
+			return hotkey2;
+		} else if (tooltip && hotkey) {
+			gchar *tmp;
+			tmp = g_strconcat(tooltip2, "\n", hotkey2, NULL);
+			g_free(tooltip2);
+			g_free(hotkey2);
+			return tmp;
+		} else {
+			return NULL;
+		}
 	}
 	return NULL;
 }
