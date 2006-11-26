@@ -29,18 +29,30 @@ leaves are of some type:
 - custom insert
 - custom dialog
 
-I'll start implementing just the branches to get a feel for libXML, 
-I want to parse something like this:
+<?xml version="1.0"?>
 <snippets>
-<branch title="myname">
-	<branch title="child of myname">
-
-	</branch> 
-</branch> 
-<branch title="myname2">
-
-</branch> 
+<branch title="html">
+<branch title="form">
+<leaf title="html form" type="insert" tooltip="html form" accelerator="&lt;Control&gt;F1">
+<param name="action"/>
+<param name="method"/>
+<before>&lt;form method="%1" action="%0"&gt;</before>
+<after>&lt;/form&gt;</after>
+</leaf>
+<leaf title="input type text" type="insert" tooltip="input type is text">
+<param name="name"/>
+<param name="value"/>
+<before>&lt;input type="text" name="%0" value="%1" /&gt;</before>
+</leaf>
+<leaf title="input type submit" type="insert" tooltip="input type is submit" accelerator="&lt;Control&gt;F1">
+<param name="name"/>
+<param name="value"/>
+<before>&lt;input type="submit" name="%0" value="%1" /&gt;</before>
+</leaf>
+</branch>
+</branch>
 </snippets>
+
 */
 #define DEBUG
 

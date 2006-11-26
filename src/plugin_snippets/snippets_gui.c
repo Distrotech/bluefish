@@ -122,7 +122,7 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 	break;
 	case 2:
 		if (snw->lastclickednode && xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
-			gchar *accel = ask_accelerator_dialog(_("set accelerator key"));
+			gchar *accel = ask_accelerator_dialog(_("Set accelerator key"));
 			if (accel) {
 				if (accel[0]=='\0') {
 					xmlAttrPtr prop = xmlHasProp(snw->lastclickednode, (const xmlChar *)"accelerator");
@@ -132,6 +132,7 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 				}
 				snippets_rebuild_accelerators();
 				snippets_store();
+				g_free(accel);
 			}
 		}
 	break;
