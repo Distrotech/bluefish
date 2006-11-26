@@ -1483,17 +1483,34 @@ gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe) {
 
 static gboolean accelerator_key_press_lcb(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
 	GtkDialog *dlg = GTK_DIALOG(user_data);
-	if (!g_unichar_isalnum((gunichar)event->keyval) && event->keyval!=GDK_Escape && !g_unichar_isspace((gunichar)event->keyval))
-		return FALSE;
+/*	if (!g_unichar_isalnum((gunichar)event->keyval) && event->keyval!=GDK_Escape && !g_unichar_isspace((gunichar)event->keyval))
+		return FALSE;*/
 	switch (event->keyval) {
-	case GDK_Escape:gtk_dialog_response(dlg,GTK_RESPONSE_CANCEL);
+	case GDK_Escape:
+		gtk_dialog_response(dlg,GTK_RESPONSE_CANCEL);
+		break;
+	case GDK_Delete:
+   case GDK_KP_Delete:
+   case GDK_BackSpace:
+   	gtk_dialog_response(dlg,GTK_RESPONSE_REJECT);
 		break;
 	default:
-		if ( !(event->state & GDK_SHIFT_MASK) && !(event->state & GDK_CONTROL_MASK) && !(event->state & GDK_MOD1_MASK))
-			gtk_dialog_response(dlg,GTK_RESPONSE_CANCEL);
-		else {
-			g_object_set_data(G_OBJECT(dlg),"keyname",gtk_accelerator_name(event->keyval,event->state));
-			gtk_dialog_response(dlg,GTK_RESPONSE_OK);
+		{
+			guint accel_mods, accel_key;
+			GdkDisplay *display;
+			GdkModifierType consumed_modifiers;
+
+			display = gtk_widget_get_display(widget);
+			gdk_keymap_translate_keyboard_state(gdk_keymap_get_for_display(display),event->hardware_keycode, event->state, event->group,NULL, NULL, NULL, &consumed_modifiers);
+			accel_mods = event->state & gtk_accelerator_get_default_mod_mask() & ~consumed_modifiers;
+			accel_key = gdk_keyval_to_lower(event->keyval);
+			if (accel_key != event->keyval) accel_mods |= GDK_SHIFT_MASK;
+			if (gtk_accelerator_valid (accel_key, accel_mods)) {
+				g_object_set_data(G_OBJECT(dlg),"keyname",gtk_accelerator_name(event->keyval,event->state));
+				gtk_dialog_response(dlg,GTK_RESPONSE_OK);
+			} else {
+				DEBUG_MSG("accelerator_key_press_lcb, not valid..\n");
+			}
 		}
 		break;
 	}
@@ -1504,6 +1521,8 @@ gchar *ask_accelerator_dialog(const gchar *title) {
 	GtkWidget *dialog1;
 	GtkWidget *label1;
 	GtkWidget *label2;
+	gint response;
+	gchar *retval=NULL;
 	
 	dialog1 = gtk_dialog_new();
 	gtk_window_set_title(GTK_WINDOW(dialog1), title);
@@ -1519,7 +1538,7 @@ gchar *ask_accelerator_dialog(const gchar *title) {
 	gtk_label_set_justify(GTK_LABEL(label1), GTK_JUSTIFY_CENTER);
 	gtk_misc_set_padding(GTK_MISC(label1), 2, 2);
 	
-	label2 = gtk_label_new("\nPress requested key combination.\nPlease use Ctrl, Shift, Alt key with any other key.\n<i>Esc to cancel.</i>");
+	label2 = gtk_label_new("\nPress requested key combination.\nPlease use Ctrl, Shift, Alt key with any other key.\n<i>Esc to cancel, Delete to remove the accelerator.</i>");
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialog1)->vbox), label2, FALSE, FALSE, 0);
 	gtk_label_set_use_markup(GTK_LABEL(label2), TRUE);
 	gtk_label_set_justify(GTK_LABEL(label2), GTK_JUSTIFY_CENTER);
@@ -1529,13 +1548,13 @@ gchar *ask_accelerator_dialog(const gchar *title) {
 	g_signal_connect(G_OBJECT(dialog1),"key-press-event",G_CALLBACK(accelerator_key_press_lcb),dialog1);
 	
 	gtk_widget_show_all(dialog1);
-	if (gtk_dialog_run(GTK_DIALOG(dialog1)) == GTK_RESPONSE_OK) {
-		gpointer ptr = g_object_get_data(G_OBJECT(dialog1),"keyname");
-		gtk_widget_destroy(dialog1);
-		if (ptr) return(gchar*)ptr;
-		else return NULL;
+	response = gtk_dialog_run(GTK_DIALOG(dialog1));
+	if (response == GTK_RESPONSE_OK) {
+		retval = g_object_get_data(G_OBJECT(dialog1),"keyname");
+	} else if (response == GTK_RESPONSE_REJECT) {
+		retval = g_strdup("");
 	}
 	gtk_widget_destroy(dialog1);
-	return NULL;
+	return retval;
 }
  

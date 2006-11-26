@@ -114,7 +114,6 @@ static void snippets_rebuild_accelerators(void) {
 	 g_hash_table_foreach(snippets_v.lookup,snippets_window_rebuild_accelerators_lcb,NULL);
 }
 
-
 static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_action, GtkWidget *widget) {
 	DEBUG_MSG("snip_rpopup_rpopup_action_lcb, called with action %d and widget %p\n",callback_action,widget);
 	switch (callback_action) {
@@ -125,7 +124,12 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 		if (snw->lastclickednode && xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
 			gchar *accel = ask_accelerator_dialog(_("set accelerator key"));
 			if (accel) {
-				xmlSetProp(snw->lastclickednode, (const xmlChar *)"accelerator", (const xmlChar *)accel);
+				if (accel[0]=='\0') {
+					xmlAttrPtr prop = xmlHasProp(snw->lastclickednode, (const xmlChar *)"accelerator");
+					if (prop) xmlRemoveProp(prop);
+				} else {
+					xmlSetProp(snw->lastclickednode, (const xmlChar *)"accelerator", (const xmlChar *)accel);
+				}
 				snippets_rebuild_accelerators();
 				snippets_store();
 			}
