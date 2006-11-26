@@ -430,7 +430,7 @@ void insert_time_dialog(Tbfwin *bfwin) {
 			temp = g_strdup_printf(_("  _Unix Time (%i)"), (int) time_var);
 			break;
 		case 5:
-			temp = g_strdup_printf(_("  Unix Date _String (%s"), ctime(&time_var));
+			temp = g_strdup_printf(_("  Unix Date _String (%s)"), ctime(&time_var));
 			/* Replace \n on ')' */
 			temp[strlen(temp) - 1] = ')';
 			break;
