@@ -372,7 +372,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_two_pane_view, "fb_two_pane_view:", 1, TRUE);
-	init_prop_string    (&config_rc, &main_v->props.filebrowser_unknown_icon, "fb_unknown_icon:", PKGDATADIR"icon_unknown.png");
+	init_prop_string    (&config_rc, &main_v->props.filebrowser_unknown_icon, "fb_unknown_icon:", PKGDATADIR"/icon_unknown.png");
 	init_prop_integer   (&config_rc, &main_v->props.filebrowser_icon_size, "fb_icon_size:", 16, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.editor_font_string, "editor_font_string:", "courier 11");
 	init_prop_integer   (&config_rc, &main_v->props.editor_tab_width, "editor_tab_width:", 3, TRUE);
@@ -612,7 +612,7 @@ void rcfile_parse_main(void)  {
 	
 	
 	{
-		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"encodings",
+		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"/encodings",
 											"data/encodings",
 										"../data/encodings",NULL);
 		if (main_v->props.encodings == NULL) {
@@ -620,7 +620,7 @@ void rcfile_parse_main(void)  {
 			if (defaultfile) {
 				main_v->props.encodings = get_list(defaultfile,NULL,TRUE);
 			} else {
-				g_print("Unable to find '"PKGDATADIR"encodings'\n");
+				g_print("Unable to find '"PKGDATADIR"/encodings'\n");
 			}
 		} else {
 			if (defaultfile && config_file_is_newer(main_v->globses.lasttime_encodings,defaultfile)) {
@@ -653,14 +653,14 @@ void rcfile_parse_main(void)  {
 	
 	/* initialize the default textstyles */
 	if (main_v->props.textstyles == NULL) {
-		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"textstyles",
+		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"/textstyles",
 									"data/textstyles",
 									"../data/textstyles",NULL);
 		
 		if (defaultfile) {
 				main_v->props.textstyles = get_list(defaultfile,NULL,TRUE);
 		} else {
-			g_print("Unable to find '"PKGDATADIR"textsyles'\n");
+			g_print("Unable to find '"PKGDATADIR"/textsyles'\n");
 		}
 	}
 }
@@ -703,7 +703,7 @@ static void rcfile_custom_menu_load_all(gboolean full_reset, gchar *defaultfile)
 		if (defaultfile) {
 			parse_config_file(custom_menu_configlist, defaultfile);
 		} else {
-			g_print("Unable to find '"PKGDATADIR"custom_menu'\n");
+			g_print("Unable to find '"PKGDATADIR"/custom_menu'\n");
 		}
 	}
 	g_free(filename);
@@ -777,20 +777,20 @@ void rcfile_parse_custom_menu(gboolean full_reset, gboolean load_new) {
 	if (tmp && strlen(tmp)>0) {
 		tmp = trunc_on_char(tmp, '.');
 		tmp = trunc_on_char(tmp, '@');
-		langdefaultfile1 = g_strconcat(PKGDATADIR"custom_menu.",tmp,".default", NULL);
+		langdefaultfile1 = g_strconcat(PKGDATADIR"/custom_menu.",tmp,".default", NULL);
 		DEBUG_MSG("rcfile_parse_custom_menu, langdefaultfile1 is: %s", langdefaultfile1);
 		tmp = trunc_on_char(tmp, '_');
-		langdefaultfile2 = g_strconcat(PKGDATADIR"custom_menu.",tmp,".default", NULL);
+		langdefaultfile2 = g_strconcat(PKGDATADIR"/custom_menu.",tmp,".default", NULL);
 		DEBUG_MSG("rcfile_parse_custom_menu, langdefaultfile2 is: %s", langdefaultfile2);
 		g_free(tmp);
 	}
 	if (langdefaultfile1) {
 		defaultfile = return_first_existing_filename(langdefaultfile1, langdefaultfile2,
-									PKGDATADIR"custom_menu",
+									PKGDATADIR"/custom_menu",
 									"data/custom_menu",
 									"../data/custom_menu",NULL);
 	} else {
-		defaultfile = return_first_existing_filename(PKGDATADIR"custom_menu",
+		defaultfile = return_first_existing_filename(PKGDATADIR"/custom_menu",
 									"data/custom_menu",
 									"../data/custom_menu",NULL);
 	}
