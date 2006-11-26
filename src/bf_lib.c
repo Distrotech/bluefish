@@ -41,14 +41,6 @@
 #include "bluefish.h"  /* for DEBUG_MSG and stuff like that */
 #include "bf_lib.h"    /* myself */
 
-#ifdef WIN32
-#define DIRSTR "\\"
-#define DIRCHR 92
-#else
-#define DIRSTR "/"
-#define DIRCHR '/'
-#endif
-
 Trefcpointer *refcpointer_new(gpointer data) {
 	Trefcpointer *rp = g_new(Trefcpointer,1);
 	rp->data = data;
