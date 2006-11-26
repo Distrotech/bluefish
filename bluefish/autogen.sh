@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: autogen.sh,v 1.2 2006-11-25 23:27:13 dleidert Exp $
+# $Id: autogen.sh,v 1.3 2006-11-26 00:45:32 dleidert Exp $
 
 set -e
 
@@ -28,24 +28,11 @@ AUTOMAKE_VERSION=`$AUTOMAKE --version | grep automake | awk '{print $4}' | awk -
 ACLOCAL_VERSION=`$ACLOCAL --version | grep aclocal | awk '{print $4}' | awk -F. '{print $1"."$2}'`
 
 ## check if automake is new enough and fail with error 2 if not
-case $AUTOMAKE_VERSION in
-	"1.4"|"1.5"|"1.6")
-		echo "Your automake version $AUTOMAKE_VERSION is not new enough." >&2
-		echo "automake 1.7 and above are required." >&2
-		exit 2
-	;;
-	*)
-	;;
-esac
-case $ACLOCAL_VERSION in
-	"1.4"|"1.5"|"1.6")
-		echo "Your aclocal version $ACLOCAL_VERSION is not new enough." >&2
-		echo "automake 1.7 and above are required." >&2
-		exit 2
-	;;
-	*)
-	;;
-esac
+if [[ $AUTOMAKE_VERSION =~ "1.4|1.5|1.6" ]] || [[ $ACLOCAL_VERSION =~ "1.4|1.5|1.6" ]] ; then
+	echo "Your automake ($AUTOMAKE_VERSION) or aclocal ($ACLOCAL_VERSION) version" >&2
+	echo "is not new enough. automake 1.7 and above are required." >&2
+	exit 2
+fi
 
 ## automake files we need to have inside our source
 AUTOMAKE_FILES="
@@ -109,8 +96,9 @@ autogen_help() {
 	echo "    -c, --copy      Copy files instead to link them."
 	echo "    -h, --help      Print this message."
 	echo
-	echo "  You can overwrite the automatically determined location of aclocal, automake,"
-	echo "  autoheader, autoconf, libtoolize, intltoolize and gettextize using:"
+	echo "  You can overwrite the automatically determined location of aclocal (>= 1.7),"
+	echo "  automake (>= 1.7), autoheader, autoconf, libtoolize, intltoolize and"
+	echo "  gettextize using:"
 	echo
 	echo "    ACLOCAL=/foo/bin/aclocal-1.8 AUTOMAKE=automake-1.8 ./autogen.sh"
 	echo
