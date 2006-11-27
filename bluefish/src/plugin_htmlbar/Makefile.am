@@ -41,7 +41,7 @@ htmlbar_la_SOURCES = \
 htmlbar_la_LDFLAGS = -module -avoid-version
 
 if OS_WIN32
-htmlbar_la_LDFLAGS += -no-undefined -export-symbols htmlbar.def
+htmlbar_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/htmlbar.def
 endif
 
 maintainer-clean-local:
