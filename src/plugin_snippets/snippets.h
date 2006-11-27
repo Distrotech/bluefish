@@ -51,6 +51,7 @@ typedef struct {
 	TreeTips *ttips;
 	GtkAccelGroup *accel_group;
 	xmlNodePtr lastclickednode;
+	GtkTreePath *lastclickedpath;
 } Tsnippetswin;
 
 extern Tsnippets snippets_v;

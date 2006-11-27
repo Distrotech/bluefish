@@ -74,11 +74,42 @@ static void snippets_delete_page1(Tsnippetswin *snw, gpointer data) {
 static gint snippets_test_page1(Tsnippetswin *snw, gpointer data) {
 	Tpage1 *p1 = (Tpage1 *)data;
 	gchar *name;
+	GtkTreePath *parentp=NULL;
+	xmlNodePtr parent=NULL, child;
+	GtkTreeIter piter, citer;	
 	/* lets build the branch! */
 	name = gtk_editable_get_chars(GTK_EDITABLE(p1->entry),0,-1);
-	
+	if (snw->lastclickedpath) {
+		parentp = gtk_tree_path_copy(snw->lastclickedpath);
+	}
+	if (snw->lastclickednode) {
+		if (xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
+			DEBUG_MSG("clicked node was a leaf\n");
+			parent = snw->lastclickednode->parent;
+			if (parentp) {
+				if (!gtk_tree_path_up(parentp)) {
+					DEBUG_MSG("could not go up, set parentp NULL\n");
+					gtk_tree_path_free(parentp);
+					parentp = NULL;
+				}
+			}
+		} else {
+			parent = snw->lastclickednode;
+			DEBUG_MSG("clicked node was a branch\n");
+		}
+	} 
+	child = xmlNewChild(parent,NULL,(const xmlChar *)"branch",NULL);
+	xmlSetProp(child, (const xmlChar *)"title", (const xmlChar *)name);
+	/* add this branch to the treestore */
+
+	if ((parentp && gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&piter,parentp)) 
+						|| gtk_tree_model_get_iter_first(GTK_TREE_MODEL(snippets_v.store),&piter)) {
+		gtk_tree_store_append(snippets_v.store, &citer, &piter);
+		gtk_tree_store_set(snippets_v.store, &citer, 0, name,1, child,-1);
+	}
 	DEBUG_MSG("add branch with title %s\n",name);
 	g_free(name);
+	snippets_store();
 	return page_finished;
 }
 
@@ -119,7 +150,7 @@ static gint snippets_test_page0(Tsnippetswin *snw, gpointer data) {
 	return page_type;
 }
 
-static void snippets_new_item_dialog(Tsnippetswin *snw, xmlNodePtr parent) {
+static void snippets_new_item_dialog(Tsnippetswin *snw) {
 	GtkWidget* dialog;
 	gboolean cont=TRUE;
 	gint response;
@@ -257,15 +288,7 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 	break;
 	case 3: /* new */
 		{
-		xmlNodePtr parent=NULL;
-		if (snw->lastclickednode) {
-			if (xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
-				parent = snw->lastclickednode->parent;
-			} else {
-				parent = snw->lastclickednode;
-			}
-		} 
-		snippets_new_item_dialog(snw, parent);
+		snippets_new_item_dialog(snw);
 		}
 	break;
 	case 2: /* set accelerator */
@@ -323,6 +346,8 @@ static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *
 		cur = snippetview_get_node_at_path(path);
 		if (cur) {
 			snw->lastclickednode = cur;
+			if (snw->lastclickedpath) gtk_tree_path_free(snw->lastclickedpath);   
+			snw->lastclickedpath = path;
 			if (event->button==1 && event->type == GDK_2BUTTON_PRESS) { /* left mouse button double-clicked */
 				if (xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
 					snippet_activate_leaf(snw, cur);
@@ -334,6 +359,9 @@ static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *
 			}
 		} else {
 			snw->lastclickednode = NULL;
+			if (snw->lastclickedpath) gtk_tree_path_free(snw->lastclickedpath);   
+			snw->lastclickedpath = NULL;
+			gtk_tree_path_free(path);
 		}
 	}
 	return FALSE; /* pass the event on */
