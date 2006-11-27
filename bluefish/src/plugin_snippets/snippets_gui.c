@@ -43,15 +43,52 @@ static xmlNodePtr snippetview_get_node_at_path(GtkTreePath *path) {
 typedef enum {
 	page_type,
 	page_branch,
-	page_insert
+	page_insert,
+	page_finished
 } Tpagenum;
+
+typedef struct {
+	GtkWidget *entry;
+	GtkWidget *vbox;
+} Tpage1;
+
+static gpointer snippets_build_page1(Tsnippetswin *snw, GtkWidget *dialog_action) {
+	GtkWidget *label;
+	Tpage1 *p1 = g_new(Tpage1,1);
+	p1->vbox = gtk_vbox_new(TRUE,5);
+	gtk_container_add(GTK_CONTAINER(dialog_action),p1->vbox);
+	label = gtk_label_new(_("Enter the name of the branch:"));
+	gtk_box_pack_start(GTK_BOX(p1->vbox),label,TRUE,TRUE,5);
+	p1->entry = gtk_entry_new();
+	gtk_box_pack_start(GTK_BOX(p1->vbox),p1->entry,TRUE,TRUE,5);
+	
+	gtk_widget_show_all(p1->vbox);
+	return p1;
+}
+
+static void snippets_delete_page1(Tsnippetswin *snw, gpointer data) {
+	Tpage1 *p1 = (Tpage1 *)data;
+	gtk_widget_destroy(p1->vbox);
+}
+
+static gint snippets_test_page1(Tsnippetswin *snw, gpointer data) {
+	Tpage1 *p1 = (Tpage1 *)data;
+	gchar *name;
+	/* lets build the branch! */
+	name = gtk_editable_get_chars(GTK_EDITABLE(p1->entry),0,-1);
+	
+	DEBUG_MSG("add branch with title %s\n",name);
+	g_free(name);
+	return page_finished;
+}
+
 
 typedef struct {
 	GtkWidget *radio[2];
 	GtkWidget *vbox;
 } Tpage0;
 
-static gpointer snippets_build_page0(GtkWidget *dialog_action) {
+static gpointer snippets_build_page0(Tsnippetswin *snw, GtkWidget *dialog_action) {
 	GtkWidget *label;
 	Tpage0 *p0 = g_new(Tpage0,1);
 	p0->vbox = gtk_vbox_new(TRUE,5);
@@ -66,12 +103,12 @@ static gpointer snippets_build_page0(GtkWidget *dialog_action) {
 	return p0;
 }
 
-static void snippets_delete_page0(gpointer data) {
+static void snippets_delete_page0(Tsnippetswin *snw, gpointer data) {
 	Tpage0 *p0 = (Tpage0 *)data;
 	gtk_widget_destroy(p0->vbox);
 }
 
-static gint snippets_test_page0(gpointer data) {
+static gint snippets_test_page0(Tsnippetswin *snw, gpointer data) {
 	Tpage0 *p0 = (Tpage0 *)data;
 	int i;
 	for (i=0;i<2;i++) {
@@ -94,7 +131,7 @@ static void snippets_new_item_dialog(Tsnippetswin *snw, xmlNodePtr parent) {
 					GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,
 					GTK_STOCK_GO_FORWARD,1,
 					NULL);
-	pagestruct = snippets_build_page0(GTK_DIALOG(dialog)->vbox);
+	pagestruct = snippets_build_page0(snw,GTK_DIALOG(dialog)->vbox);
 	gtk_widget_show_all(dialog);
 	while (cont) {
 		response = gtk_dialog_run(dialog);
@@ -104,12 +141,16 @@ static void snippets_new_item_dialog(Tsnippetswin *snw, xmlNodePtr parent) {
 		} 
 		switch (pagenum) { /* test the current results */
 			case page_type:
-				newpagenum = snippets_test_page0(pagestruct);
+				newpagenum = snippets_test_page0(snw,pagestruct);
 				if (newpagenum != page_type) {
-					snippets_delete_page0(pagestruct);
+					snippets_delete_page0(snw,pagestruct);
 				}
 			break;
 			case page_branch:
+				newpagenum = snippets_test_page1(snw,pagestruct);
+				if (newpagenum != page_type) {
+					snippets_delete_page1(snw,pagestruct);
+				}
 			break;
 			case page_insert:
 			break;
@@ -117,14 +158,18 @@ static void snippets_new_item_dialog(Tsnippetswin *snw, xmlNodePtr parent) {
 		if (pagenum != newpagenum) {
 			switch (newpagenum) { /* build a new page */
 				case page_type:
-					pagestruct = snippets_page0(GTK_DIALOG(dialog)->vbox);
+					pagestruct = snippets_build_page0(snw,GTK_DIALOG(dialog)->vbox);
 				break;
 				case page_branch:
-					DEBUG_MSG("build a branch page\n");
+					pagestruct = snippets_build_page1(snw,GTK_DIALOG(dialog)->vbox);
 				break;
 				case page_insert:
 				break;
+				case page_finished:
+					cont = FALSE;
+				break;
 			}
+			pagenum = newpagenum;
 		}
 	}
 	gtk_widget_destroy(dialog);
