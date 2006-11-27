@@ -19,7 +19,7 @@ entities_la_SOURCES = \
 entities_la_LDFLAGS = -module -avoid-version
 
 if OS_WIN32
-entities_la_LDFLAGS += -no-undefined -export-symbols entities.def
+entities_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/entities.def
 endif
 
 maintainer-clean-local:
