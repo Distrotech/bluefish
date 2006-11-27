@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2006-11-25 14:35-0800\n"
+"POT-Creation-Date: 2006-11-27 17:24+0100\n"
 "PO-Revision-Date: 2002-12-13 23:02+0100\n"
 "Last-Translator: Roland Steinbach <roland@netzblick.de>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -18,19 +18,19 @@ msgstr ""
 #: ../desktop-data/bluefish.desktop.in.h:1
 #: ../desktop-data/bluefish-project.desktop.in.h:1
 msgid "Bluefish Editor (CVS)"
-msgstr ""
+msgstr "Bluefish Editor (CVS)"
 
 #: ../desktop-data/bluefish.desktop.in.h:2
 #: ../desktop-data/bluefish-project.desktop.in.h:2
 msgid "Web Development Editor (CVS)"
-msgstr ""
+msgstr "Webentwicklungseditor (CVS)"
 
+#
 #: ../desktop-data/bluefish.xml.in.h:1
-#, fuzzy
 msgid "Bluefish project file"
-msgstr "Bluefish Projektdateinamen eingeben"
+msgstr "Bluefish Projektdatei"
 
-#: ../src/bf_lib.c:182 ../src/bf_lib.c:202
+#: ../src/bf_lib.c:174 ../src/bf_lib.c:194
 msgid ""
 "Bluefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
@@ -82,10 +82,10 @@ msgstr "Sessionwörterbuch"
 msgid "Dictionary:"
 msgstr "Wörterbuch:"
 
+#
 #: ../src/bfspell.c:448
-#, fuzzy
 msgid "_Add Word"
-msgstr " Hin_zufügen "
+msgstr "Wort Hin_zufügen "
 
 #: ../src/bfspell.c:454
 msgid "Language:"
@@ -116,38 +116,36 @@ msgid "Collapse all"
 msgstr "Alle verbergen"
 
 #: ../src/bluefish.c:74
-#, fuzzy
 msgid "Bluefish Editor"
-msgstr "Bluefish Tipp:"
+msgstr "Bluefish Editor"
 
 #: ../src/bluefish.c:75
 msgid "Visit us at http://bluefish.openoffice.nl"
-msgstr ""
+msgstr "Besuchen Sie uns auf http://bluefish.openoffice.nl"
 
 #: ../src/bluefish.c:102 ../src/bluefish.c:112
 msgid "Open in a new window."
-msgstr ""
+msgstr "In neuem Fenster öffnen"
 
 #: ../src/bluefish.c:103 ../src/bluefish.c:113
 msgid "Open a project from the specified projectfile."
-msgstr ""
+msgstr "Ein Projekt aus dem Projektfile öffnen"
 
 #: ../src/bluefish.c:103 ../src/bluefish.c:113
 msgid "PROJECTFILE"
-msgstr ""
+msgstr "PROJEKTDATEI"
 
 #: ../src/bluefish.c:104 ../src/bluefish.c:114
-#, fuzzy
 msgid "Skip root check."
-msgstr "-s          überspringe root Überprfung\n"
+msgstr "Überspringe root Überprüfung."
 
 #: ../src/bluefish.c:105 ../src/bluefish.c:115
 msgid "Print version information."
-msgstr ""
+msgstr "Version anzeigen"
 
 #: ../src/bluefish.c:129
 msgid " [FILE(S)]"
-msgstr ""
+msgstr " [DATEI(EN)]"
 
 #: ../src/bluefish.c:212
 msgid "parsing highlighting file..."
@@ -228,43 +226,36 @@ msgid "/Permanent by default"
 msgstr "/Standardmäßig permanent"
 
 #: ../src/bookmark.c:704
-#, fuzzy
 msgid "/Show file"
-msgstr "/Nach Dateinamen sortiert"
+msgstr "/Datei anzeigen"
 
 #: ../src/bookmark.c:705
-#, fuzzy
 msgid "/Show file/By name"
-msgstr "/Nach Dateinamen sortiert"
+msgstr "/Datei anzeigen/Nach Namen"
 
 #: ../src/bookmark.c:706
-#, fuzzy
 msgid "/Show file/By full path"
-msgstr "/Nach gesamten Pfad"
+msgstr "/Datei anzeigen/Nach komplettem Pfad"
 
 #: ../src/bookmark.c:707
-#, fuzzy
 msgid "/Show file/By full uri"
-msgstr "/Nach kompletter URI"
+msgstr "/Datei anzeigen/Nach kompletter URI"
 
 #: ../src/bookmark.c:708
-#, fuzzy
 msgid "/Show bookmark"
-msgstr "Alle Lesezeichen anzeigen"
+msgstr "/Lesezeichen anzeigen"
 
 #: ../src/bookmark.c:709
 msgid "/Show bookmark/Name & Content"
-msgstr ""
+msgstr "/Lesezeichen anzeigen/Name und Inhalt"
 
 #: ../src/bookmark.c:710
-#, fuzzy
 msgid "/Show bookmark/Content"
-msgstr "Alle Lesezeichen anzeigen"
+msgstr "/Lesezeichen anzeigen/Inhalt"
 
 #: ../src/bookmark.c:711
-#, fuzzy
 msgid "/Show bookmark/Name"
-msgstr "Alle Lesezeichen anzeigen"
+msgstr "/Lesezeichen anzeigen/Name"
 
 #: ../src/bookmark.c:1304 ../src/bookmark.c:1363
 msgid "Error adding bookmark"
@@ -299,11 +290,12 @@ msgid "Name: "
 msgstr "Name: "
 
 #: ../src/document.c:411
-#, fuzzy
 msgid ""
 "\n"
 "File type: "
-msgstr "Dateitypen"
+msgstr ""
+"\n"
+"Dateityp: "
 
 #: ../src/document.c:415
 msgid ""
@@ -314,14 +306,15 @@ msgstr ""
 "Encoding: "
 
 #: ../src/document.c:422
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "\n"
 "Permissions: %s\n"
 "Uid: %u Gid: %u"
 msgstr ""
 "\n"
-"Berechtigungen: "
+"Berechtigungen: %s\n"
+"Uid: %u Gid: %u"
 
 #: ../src/document.c:427
 msgid ""
@@ -332,11 +325,12 @@ msgstr ""
 "Größe (auf Platte): "
 
 #: ../src/document.c:432
-#, fuzzy
 msgid ""
 "\n"
 "Mime type: "
-msgstr "Dateitypen"
+msgstr ""
+"\n"
+"MIME-Typ: "
 
 #: ../src/document.c:438
 msgid ""
@@ -352,22 +346,21 @@ msgid "Untitled %d"
 msgstr "Ohne Titel %d"
 
 #: ../src/document.c:820
-#, fuzzy, c-format
+#, c-format
 msgid "Document %s is already open in another Bluefish window."
-msgstr "Öffne Dateien in bereits laufendem Programm"
+msgstr "Dokument %s bereits in einem anderen Fenster geöffnet."
 
 #: ../src/document.c:822
 msgid "Move to this window"
-msgstr ""
+msgstr "In dieses Fenster bewegen"
 
 #: ../src/document.c:822
 msgid "Open readonly"
-msgstr ""
+msgstr "Read-only Öffnen"
 
 #: ../src/document.c:822
-#, fuzzy
 msgid "Do not open"
-msgstr "Datei konnte nicht geöffnet werden:\n"
+msgstr "Nicht öffnen"
 
 #: ../src/document.c:1182
 #, c-format
@@ -376,15 +369,15 @@ msgstr "Z: %d, S: %d"
 
 #: ../src/document.c:1202
 msgid " OVR"
-msgstr ""
+msgstr " ÜBR"
 
 #: ../src/document.c:1202
 msgid " INS"
-msgstr ""
+msgstr " EIN"
 
 #: ../src/document.c:1204
 msgid " RO"
-msgstr ""
+msgstr " RO"
 
 #: ../src/document.c:1218 ../src/document.c:1219
 #, c-format
@@ -497,16 +490,15 @@ msgstr "_Wiederholen"
 
 #: ../src/document.c:3362
 msgid "Retry _all failed"
-msgstr ""
+msgstr "Alles neu versuchen fehlgeschlagen"
 
 #: ../src/document.c:3362
 msgid "_Close"
 msgstr "S_chliessen"
 
 #: ../src/document.c:3362
-#, fuzzy
 msgid "Close all _failed"
-msgstr "Speichern fehlgeschlagen.\n"
+msgstr "Alles schließen fehlgeschlagen"
 
 #: ../src/document.c:3366
 msgid "File "
@@ -621,26 +613,23 @@ msgid "Filter"
 msgstr "Filter"
 
 #: ../src/filebrowser2.c:1412 ../src/filefilter.c:346
-#, fuzzy
 msgid "Edit filter"
-msgstr "HTML Filter"
+msgstr "Filter bearbeiten"
 
 #: ../src/filebrowser2.c:1415
-#, fuzzy
 msgid "Delete filter"
-msgstr "Datei _löschen"
+msgstr "Filter löschen"
 
 #: ../src/filebrowser2.c:1419
-#, fuzzy
 msgid "New filter"
-msgstr "Neue Datei"
+msgstr "Neuer Filter"
 
 #: ../src/file.c:994
-#, fuzzy, c-format
+#, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
-msgstr[0] "Im _Dokument"
-msgstr[1] "Im _Dokument"
+msgstr[0] "%d Dokument offen."
+msgstr[1] "%d Dokumente offen."
 
 #. BUG: we should ask the user what to do ?
 #: ../src/file.c:1239
@@ -834,14 +823,12 @@ msgid "All files"
 msgstr "Alle Dateien"
 
 #: ../src/filefilter.c:375
-#, fuzzy
 msgid "Show files in filter"
-msgstr "Dateitypen im Filter"
+msgstr "Dateien im Filter anzeigen"
 
 #: ../src/filefilter.c:380 ../src/filefilter.c:392
-#, fuzzy
 msgid "Mime type"
-msgstr "Dateitypen"
+msgstr "MIME-Typ"
 
 #: ../src/filefilter.c:383 ../src/filefilter.c:395
 msgid "Icon"
@@ -1312,14 +1299,12 @@ msgid "Show backup files"
 msgstr "Sicherungsdateien anzeigen"
 
 #: ../src/gtk_easy.c:1418
-#, fuzzy
 msgid "Character _Encoding:"
-msgstr "/Dokument/Zeichenkodierung"
+msgstr "Zeichensatz_kodierung:"
 
 #: ../src/gtk_easy.c:1432
-#, fuzzy
 msgid "Automatic detection"
-msgstr "Automatisch Author Meta-Tag updaten"
+msgstr "Automatisch erkennen"
 
 #: ../src/gui.c:260
 msgid "Filebrowser"
@@ -1760,19 +1745,20 @@ msgid "/Windows"
 msgstr "/Fenster"
 
 #: ../src/menu.c:919
-#, fuzzy
 msgid "No default browser found"
-msgstr "Standardbrowser"
+msgstr "Kein Standardbrowser gefunden"
 
 #: ../src/menu.c:920
 msgid ""
 "You can set a default browser by going to:\n"
 "Edit->Preferences->External Commands"
 msgstr ""
+"Unter Bearbeiten->Einstellungen->Externe Befehle kann\n"
+"ein Standardbrowser gesetzt werden"
 
 #: ../src/menu.c:939
 msgid "Operate filter only on selection?"
-msgstr ""
+msgstr "Filter nur auf Auswahl anwenden?"
 
 #: ../src/menu.c:987
 msgid "/External/Outputbox/"
@@ -1949,7 +1935,7 @@ msgstr "Groß- Kleinschreibung beachten"
 #: ../src/outputbox.c:248
 #, c-format
 msgid "failed to compile outputbox pattern %s\n"
-msgstr ""
+msgstr "Konnte Muster %s nicht kompilieren\n"
 
 #: ../src/preferences.c:315
 msgid "Untitled"
@@ -1965,12 +1951,11 @@ msgstr "Farbauswahl"
 
 #: ../src/preferences.c:606
 msgid "Message"
-msgstr ""
+msgstr "Nachricht"
 
 #: ../src/preferences.c:607
-#, fuzzy
 msgid "Enabled"
-msgstr "Änderbar"
+msgstr "Aktiv"
 
 #: ../src/preferences.c:608
 #, fuzzy
@@ -1983,6 +1968,9 @@ msgid ""
 "to the same text, the top-most style in this list has the highest priority. "
 "Use drag and drop to re-order the text styles."
 msgstr ""
+"Textstile werden aufeinander angewendet. Falls meherere Stile auf den selben "
+"Text angewendet werden, hat der oberste Stil diese Liste Priorität. Benutze "
+"Drag-and-drop um die Stile neu anzuordnen."
 
 #: ../src/preferences.c:770 ../src/preferences.c:1438
 #: ../src/preferences.c:1508
@@ -2061,7 +2049,6 @@ msgstr ""
 "Projekteinstellungengesetzt sind, ansonsten gleich %u</small>"
 
 #: ../src/preferences.c:1512
-#, fuzzy
 msgid ""
 "<small><b>Input options</b>\n"
 "specify no options to read the input from the standard output\n"
@@ -2084,10 +2071,7 @@ msgstr ""
 "<small><b>Eingabeoptionen</b>\n"
 "Keine Optionen um von STDOUT zu lesen\n"
 "%s lokaler Dateiname (für lokale Dateien)\n"
-"%i Temporärer FIFO für die Eingabe. Ist gleich %s falls die Datei nicht "
-"geändert und lokal ist\n"
-"%I Temporärer Dateiname für die Eingabe. Ist gleich %s falls die Datei nicht "
-"geändert und lokal ist\n"
+"%i Temporärer FIFO für die Eingabe.%I Temporärer Dateiname für die Eingabe."
 "<b>Ausgabeoptionen</b>\n"
 "Keine Eingabe um STDOUT auszugeben\n"
 "%o temporärer FIFO\n"
@@ -2178,23 +2162,20 @@ msgid "bottom"
 msgstr "unten"
 
 #: ../src/preferences.c:1917
-#, fuzzy
 msgid "Nothing"
-msgstr "Ohne _Schatten"
+msgstr "Nichts"
 
 #: ../src/preferences.c:1917
-#, fuzzy
 msgid "Modified time and file size"
 msgstr "mtime und Größe prüfen"
 
 #: ../src/preferences.c:1917
 msgid "Modified time"
-msgstr ""
+msgstr "mtime prüfen"
 
 #: ../src/preferences.c:1917
-#, fuzzy
 msgid "File size"
-msgstr "Datei "
+msgstr "Dateigröße"
 
 #: ../src/preferences.c:1925
 msgid "Edit preferences"
@@ -2205,13 +2186,12 @@ msgid "Editor"
 msgstr "Editor"
 
 #: ../src/preferences.c:1957
-#, fuzzy
 msgid "Editor startup options"
-msgstr "Editoroptionen"
+msgstr "Editor Startoptionen"
 
 #: ../src/preferences.c:1962
 msgid "Show splash-screen"
-msgstr ""
+msgstr "Splash-Screen anzeigen"
 
 #: ../src/preferences.c:1965
 msgid "Editor options"
@@ -2227,7 +2207,7 @@ msgstr "Tablulatorbreite"
 
 #: ../src/preferences.c:1974
 msgid "Smart cursor positioning"
-msgstr ""
+msgstr "Intelligente Cursorpositionierung"
 
 #: ../src/preferences.c:1975
 msgid "Use spaces to indent, not tabs"
@@ -2288,20 +2268,20 @@ msgstr "Alte Tags (z.B. <font> und <nobr>) benutzen"
 msgid "Use XHTML style tags (<br />)"
 msgstr "Benutze XHTML syntax (z.B. <br />)"
 
+#
 #: ../src/preferences.c:2018
-#, fuzzy
 msgid "Automatically update author meta tag"
-msgstr "Automatisch Author Meta-Tag updaten"
+msgstr "Automatisch Autor Meta-Tag updaten"
 
+#
 #: ../src/preferences.c:2019
-#, fuzzy
 msgid "Automatically update date meta tag"
-msgstr "Automatisch Author Meta-Tag updaten"
+msgstr "Automatisch Datums-Meta-Tag updaten"
 
+#
 #: ../src/preferences.c:2020
-#, fuzzy
 msgid "Automatically update generator meta tag"
-msgstr "Automatisch Author Meta-Tag updaten"
+msgstr "Automatisch Generator Meta-Tag updaten"
 
 #: ../src/preferences.c:2024
 msgid "Files"
@@ -2314,22 +2294,22 @@ msgstr "Dateien"
 msgid "Encoding"
 msgstr "Encoding"
 
+#
 #: ../src/preferences.c:2041
-#, fuzzy
 msgid "Default character set for new files"
-msgstr "Standardzeichensatz"
+msgstr "Standardzeichensatz für neue Dateien"
 
+#
 #: ../src/preferences.c:2044
-#, fuzzy
 msgid "Auto set <meta> HTML tag on encoding change"
-msgstr "<meta>-tag automatisch bei Änderungen setzen"
+msgstr "<meta>-tag automatisch bei Encodingänderungen setzen"
 
 #: ../src/preferences.c:2046
 msgid "Backup"
 msgstr "Sicherungskopie"
 
+#
 #: ../src/preferences.c:2050
-#, fuzzy
 msgid "Create backup file during file save"
 msgstr "Sicherungskopie beim Speichern erstellen"
 
@@ -2338,39 +2318,41 @@ msgid ""
 "The backup prefix may contain a slash to indicate a directory component, for "
 "example \".backup/\""
 msgstr ""
+"Das Sicherungskopie-Präfix kann einen Slash enthalten um ein Verzeichnis "
+"anzugeben z.B. \".backup/\""
 
+#
 #: ../src/preferences.c:2054
-#, fuzzy
 msgid "Backup file prefix"
-msgstr "Sicherungsdatei Erweiterung"
+msgstr "Sicherungsdatei Präfix"
 
 #: ../src/preferences.c:2055
 msgid "Backup file suffix"
 msgstr "Sicherungsdatei Erweiterung"
 
+#
 #: ../src/preferences.c:2057
-#, fuzzy
 msgid "Continue save"
-msgstr "Sichern _fortsetzen"
+msgstr "Sichern fortsetzen"
 
+#
 #: ../src/preferences.c:2057
-#, fuzzy
 msgid "Abort save"
-msgstr "Sichern _abbrechen"
+msgstr "Sichern abbrechen"
 
 #: ../src/preferences.c:2057
 msgid "Ask what to do"
-msgstr ""
+msgstr "Nachfragen"
 
+#
 #: ../src/preferences.c:2058
-#, fuzzy
 msgid "If the backup fails"
-msgstr "Sicherungsdateien anzeigen"
+msgstr "Falls das Backup fehlschlägt"
 
+#
 #: ../src/preferences.c:2060
-#, fuzzy
 msgid "Remove backup file on close"
-msgstr "Sicherungskopie beim Schließen erstellen"
+msgstr "Sicherungskopie beim Schließen löschen"
 
 #: ../src/preferences.c:2064
 msgid "Misc"
@@ -2382,15 +2364,15 @@ msgstr "Öffne Dateien in bereits laufendem Programm"
 
 #: ../src/preferences.c:2072
 msgid "File properties to check on disk for modifications"
-msgstr ""
+msgstr "Dateieigenschaften überprüfen für Dateiveränderungen"
 
+#
 #: ../src/preferences.c:2073
-#, fuzzy
 msgid "Periodically check if file is modified on disk"
-msgstr "Datei regelmäßig auf Platte prüfen"
+msgstr "Datei auf Platte regelmäßif auf Änderungen prüfen"
 
+#
 #: ../src/preferences.c:2074
-#, fuzzy
 msgid "Number of files in 'Open recent' menu"
 msgstr "Anzahl Dateien im 'Vorherige öffnen'-Menü"
 
@@ -2458,10 +2440,10 @@ msgstr "Info Hintergrundfarbe"
 msgid "Info foreground color"
 msgstr "Info Vordergrundfarbe"
 
+#
 #: ../src/preferences.c:2122 ../src/preferences.c:2124
-#, fuzzy
 msgid "File and directory view"
-msgstr "Separate Datei- und Verzeichnisansicht"
+msgstr "Datei- und Verzeichnisansicht"
 
 #. pd->prefs[default_basedir] = prefs_string(_("Default basedir"), main_v->props.default_basedir, vbox2, pd, string_none);
 #: ../src/preferences.c:2129
@@ -2524,7 +2506,7 @@ msgstr "Ausgabe-Parser"
 
 #: ../src/preferences.c:2255 ../src/preferences.c:2256
 msgid "Plugins"
-msgstr ""
+msgstr "Plugins"
 
 #: ../src/preferences.c:2264
 msgid "Servers"
@@ -2540,53 +2522,53 @@ msgstr "Zope Kompatibilitätscode"
 
 #: ../src/preferences.c:2275 ../src/preferences.c:2276
 msgid "Text styles"
-msgstr ""
+msgstr "Textstile"
 
+#
 #: ../src/preferences.c:2285
-#, fuzzy
 msgid "Syntax scanning"
-msgstr "Durch Skalieren"
+msgstr "Syntax scannen"
 
 #: ../src/preferences.c:2288
 msgid "Advanced syntax scanning options"
-msgstr ""
+msgstr "Erweiterte Syntax-Scan Optionen"
 
+#
 #: ../src/preferences.c:2292
-#, fuzzy
 msgid "Match block begin-end by default"
-msgstr "Ansicht mit Wortumbruch als Standard"
+msgstr "Standardmäßig Block Anfang-Ende finden"
 
+#
 #: ../src/preferences.c:2293
-#, fuzzy
 msgid "Highlight current line by default"
-msgstr "Syntaxhighlight"
+msgstr "Standardmäßig Syntaxhighlight in aktueller Zeile"
 
+#
 #: ../src/preferences.c:2294
-#, fuzzy
 msgid "Show right margin by default"
-msgstr "Linkes Panel standardmäßig anzeigen"
+msgstr "Rechten Rand standardmäßig anzeigen"
 
 #: ../src/preferences.c:2295
 msgid "Right margin at"
-msgstr ""
+msgstr "Rechter Rand bei"
 
+#
 #: ../src/preferences.c:2297
-#, fuzzy
 msgid "whole document"
-msgstr "Im _Dokument"
+msgstr "Gesamtes Dokument"
 
 #: ../src/preferences.c:2297
 msgid "visible area"
-msgstr ""
+msgstr "Sichtbarer Bereich"
 
+#
 #: ../src/preferences.c:2298
-#, fuzzy
 msgid "Scan mode"
-msgstr "Scanner"
+msgstr "Scanmodus"
 
 #: ../src/preferences.c:2300
 msgid "Autocompletion key"
-msgstr ""
+msgstr "Autovervollständigen-Taste"
 
 #: ../src/preferences.c:2303 ../src/preferences.c:2306
 msgid "Syntax highlighting"
@@ -2666,10 +2648,10 @@ msgstr "Ohne Titel"
 msgid "C programming"
 msgstr "C-Programmierung"
 
+#
 #: ../src/rcfile.c:992
-#, fuzzy
 msgid "Web files"
-msgstr "Alle Webdateien"
+msgstr "Webdateien"
 
 #: ../src/rcfile.c:998
 msgid "Hide objectfiles"
@@ -2696,18 +2678,18 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../src/snr2.c:1270
-#, fuzzy, c-format
+#, c-format
 msgid "replaced %d"
 msgid_plural "replaced %d"
-msgstr[0] "Ersetzen"
-msgstr[1] "Ersetzen"
+msgstr[0] "ersetzte &d"
+msgstr[1] "ersetzte %d"
 
 #: ../src/snr2.c:1275
 #, c-format
 msgid "Found %d matches"
 msgid_plural "Found %d matches"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d Treffer gefunden"
+msgstr[1] "%d Treffer gefunden"
 
 #. display warning that not all documents have yet finished loading
 #: ../src/snr2.c:1296
@@ -2715,31 +2697,33 @@ msgid ""
 "<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</"
 "span>"
 msgstr ""
+"<span foreground=\"red\" weight=\"bold\">Noch nicht alle Dokumente geladen</"
+"span>"
 
 #: ../src/snr2.c:1433 ../src/snr2.c:1785
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
 "will continue at the beginning.</span>"
 msgstr ""
+"<span foreground=\"red\" weight=\"bold\">Keine weiiteren Treffer gefunden, "
+"nächste Suche beginnt am Anfang.</span>"
 
+#
 #: ../src/snr2.c:1508
-#, fuzzy
 msgid "Entire document"
-msgstr "Im _Dokument"
+msgstr "Gesamtes Dokument"
 
 #: ../src/snr2.c:1509
 msgid "Forward from cursor position"
-msgstr ""
+msgstr "Von Cursorposition vorwärts"
 
 #: ../src/snr2.c:1510
-#, fuzzy
 msgid "Selection"
-msgstr "Schriftartauswahl"
+msgstr "Auswahl"
 
 #: ../src/snr2.c:1511
-#, fuzzy
 msgid "All open files"
-msgstr "Alle Webdateien"
+msgstr "Alle offenen Dateien"
 
 #: ../src/snr2.c:1515 ../src/snr2.c:1522
 msgid "Normal"
@@ -2747,17 +2731,17 @@ msgstr "Normal"
 
 #: ../src/snr2.c:1516
 msgid "Entire word only"
-msgstr ""
+msgstr "Nur ganzes Wort"
 
+#
 #: ../src/snr2.c:1517
-#, fuzzy
 msgid "POSIX"
-msgstr "POSIX Typ"
+msgstr "POSIX"
 
+#
 #: ../src/snr2.c:1518
-#, fuzzy
 msgid "PERL"
-msgstr "PERL Typ"
+msgstr "PERL"
 
 #: ../src/snr2.c:1523
 msgid "Uppercase"
@@ -2773,102 +2757,97 @@ msgstr "_Suchen nach: "
 
 #: ../src/snr2.c:1565
 msgid "The pattern to look for"
-msgstr ""
+msgstr "Suchmuster"
 
+#
 #: ../src/snr2.c:1580
-#, fuzzy
 msgid "Replace _with: "
-msgstr "_Ersetze durch: "
+msgstr "_Ersetzen durch: "
 
 #: ../src/snr2.c:1584
 msgid "Replace matching text with"
-msgstr ""
+msgstr "Ersetze gefundenen Text mit"
 
 #: ../src/snr2.c:1592
 msgid "Sco_pe: "
-msgstr ""
+msgstr "Bereich: "
 
 #: ../src/snr2.c:1596
 msgid "Where to look for the pattern."
-msgstr ""
+msgstr "Wo soll gesucht werden"
 
 #: ../src/snr2.c:1602
 msgid "Found 0 matches, replaced 0"
-msgstr ""
+msgstr "0 Treffer, 0 Ersetzungen"
 
 #: ../src/snr2.c:1602
 msgid "Found 0 matches"
-msgstr ""
+msgstr "0 Treffer"
 
+#
 #: ../src/snr2.c:1612
-#, fuzzy
 msgid "<b>_Options</b>"
-msgstr "<b>enthält</b>"
+msgstr "<b>_Optionen</b>"
 
 #: ../src/snr2.c:1626
-#, fuzzy
 msgid "Match Patter_n: "
-msgstr "Suchmuster"
+msgstr "Such_muster: "
 
 #: ../src/snr2.c:1630
 msgid "How to interpret the pattern."
-msgstr ""
+msgstr "Suchmusterübersetzung"
 
+#
 #: ../src/snr2.c:1637
-#, fuzzy
 msgid "Replace T_ype: "
-msgstr "Ersetzeungstyp:"
+msgstr "Ersetzeungst_yp:"
 
 #: ../src/snr2.c:1642
-#, fuzzy
 msgid "What to replace with."
-msgstr "_Ersetze durch: "
+msgstr "Was ersetzt werden soll"
 
+#
 #: ../src/snr2.c:1646
-#, fuzzy
 msgid "Allow o_verlapping matches"
-msgstr "Ü_berlappende Suche"
+msgstr "Ü_berlappende Treffer erlauben"
 
 #: ../src/snr2.c:1649
 msgid "After a match is found, start next search within that match."
-msgstr ""
+msgstr "Nach einem Treffer nächste Suche in diesem Treffer beginnen"
 
+#
 #: ../src/snr2.c:1651
-#, fuzzy
 msgid "Case sensitive _matching"
-msgstr "Groß- Kleinschreibung beachten"
+msgstr "Groß- Kleinschreibung be_achten"
 
 #: ../src/snr2.c:1654
 msgid "Only match if case (upper/lower) is identical."
-msgstr ""
+msgstr "Nur finden falls Groß-/Kleinschreibung identisch ist"
 
 #: ../src/snr2.c:1656
-#, fuzzy
 msgid "_Use escape chars"
-msgstr "Zeichen aktualisieren"
+msgstr "Escape-Zeichen ben_utzen"
 
 #: ../src/snr2.c:1659
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
-msgstr ""
+msgstr "Backslash-Escapte Zeichen wie \\n usw. unescapen"
 
 #: ../src/snr2.c:1661
-#, fuzzy
 msgid "_Bookmark matches"
-msgstr "Lesezeichen"
+msgstr "Treffer _bookmarken"
 
 #: ../src/snr2.c:1664
 msgid "Create a bookmark for each match"
-msgstr ""
+msgstr "Erzeuge Lesezeichen für jeden Treffer"
 
+#
 #: ../src/snr2.c:1669
-#, fuzzy
 msgid "Replace _All"
 msgstr "_Alles ersetzen"
 
 #: ../src/snr2.c:1675
-#, fuzzy
 msgid "Find _All"
-msgstr "Suchen"
+msgstr "_Alles finden"
 
 #: ../src/stringlist.c:367
 msgid " Add "
@@ -2895,22 +2874,20 @@ msgid " Sort "
 msgstr " Sortieren "
 
 #: ../src/undo_redo.c:463
-#, fuzzy
 msgid "Undo in _all documents"
-msgstr "in allen offenen Dokumenten"
+msgstr "In allen Dokumenten rückgängig machen"
 
 #: ../src/undo_redo.c:463
-#, fuzzy
 msgid "Undo only _this document"
-msgstr "Im _Dokument"
+msgstr "Nur in _diesem Dokument rückgängig"
 
 #: ../src/undo_redo.c:466
 msgid "Undo this change in all documents?"
-msgstr ""
+msgstr "In allen Dokumenten rückgängig machen?"
 
 #: ../src/undo_redo.c:466
 msgid "This change concerns multiple documents."
-msgstr ""
+msgstr "Diese Änderung betrifft mehrere Dokumente"
 
 #~ msgid ""
 #~ "Bluefish is an editor for experienced web designers and programmers. It "
