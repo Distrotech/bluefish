@@ -187,7 +187,7 @@ int main(int argc, char *argv[])
 	
 #ifndef GNOME_PARAM_GOPTION_CONTEXT
 	g_object_get(G_OBJECT(bfprogram), GNOME_PARAM_POPT_CONTEXT, &pcontext, NULL);
-	files = poptGetArgs(pcontext);
+	files = (char**) poptGetArgs(pcontext);
 #endif /* #ifndef GNOME_PARAM_GOPTION_CONTEXT */
 
 	if (files != NULL) {
