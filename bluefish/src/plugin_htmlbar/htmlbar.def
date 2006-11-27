@@ -1,57 +1,56 @@
 IMPORTS
-	add_to_stringlist = bluefish-unstable.exe.add_to_stringlist
-	bf_allbuttons_backend = bluefish-unstable.exe.bf_allbuttons_backend
-	bf_generic_frame_new = bluefish-unstable.exe.bf_generic_frame_new
-	bf_gtkstock_button = bluefish-unstable.exe.bf_gtkstock_button
-	bf_mnemonic_label_tad_with_alignment = bluefish-unstable.exe.bf_mnemonic_label_tad_with_alignment
-	bf_portable_time = bluefish-unstable.exe.bf_portable_time
-	bf_str_repeat = bluefish-unstable.exe.bf_str_repeat
-	boxed_combo_with_popdown = bluefish-unstable.exe.boxed_combo_with_popdown
-	boxed_entry_with_text = bluefish-unstable.exe.boxed_entry_with_text
-	combo_with_popdown = bluefish-unstable.exe.combo_with_popdown
-	combo_with_popdown_sized = bluefish-unstable.exe.combo_with_popdown_sized
-	create_relative_link_to = bluefish-unstable.exe.create_relative_link_to
-	dialog_mnemonic_label_in_table = bluefish-unstable.exe.dialog_mnemonic_label_in_table
-	dialog_table_in_vbox = bluefish-unstable.exe.dialog_table_in_vbox
-	dialog_table_in_vbox_defaults = bluefish-unstable.exe.dialog_table_in_vbox_defaults
-	dialog_vbox_labeled = bluefish-unstable.exe.dialog_vbox_labeled
-	dialog_vbox_labeled_checkbutton = bluefish-unstable.exe.dialog_vbox_labeled_checkbutton
-	doc_get_chars = bluefish-unstable.exe.doc_get_chars
-	doc_get_iter_at_bevent = bluefish-unstable.exe.doc_get_iter_at_bevent
-	doc_get_selection = bluefish-unstable.exe.doc_get_selection
-	doc_insert_two_strings = bluefish-unstable.exe.doc_insert_two_strings
-	doc_is_empty_non_modified_and_nameless = bluefish-unstable.exe.doc_is_empty_non_modified_and_nameless
-	doc_new = bluefish-unstable.exe.doc_new
-	doc_replace_text = bluefish-unstable.exe.doc_replace_text
-	doc_set_filetype = bluefish-unstable.exe.doc_set_filetype
-	duplicate_stringlist = bluefish-unstable.exe.duplicate_stringlist
-	entry_with_text = bluefish-unstable.exe.entry_with_text
-	file_but_new = bluefish-unstable.exe.file_but_new
-	file_but_new2 = bluefish-unstable.exe.file_but_new2
-	file_chooser_dialog = bluefish-unstable.exe.file_chooser_dialog
-	file_openfile_uri_async = bluefish-unstable.exe.file_openfile_uri_async
-	file_savefile_uri_async = bluefish-unstable.exe.file_savefile_uri_async
-	free_stringlist = bluefish-unstable.exe.free_stringlist
-	get_filetype_by_name = bluefish-unstable.exe.get_filetype_by_name
-	list_from_arglist = bluefish-unstable.exe.list_from_arglist
-	list_relative_document_filenames = bluefish-unstable.exe.list_relative_document_filenames
-	list_switch_order = bluefish-unstable.exe.list_switch_order
-	main_v = bluefish-unstable.exe.main_v
-	make_config_list_item = bluefish-unstable.exe.make_config_list_item
-	message_dialog_new_multi = bluefish-unstable.exe.message_dialog_new_multi
-	openfile_cancel = bluefish-unstable.exe.openfile_cancel
-	radiobut_with_value = bluefish-unstable.exe.radiobut_with_value
-	refcpointer_new = bluefish-unstable.exe.refcpointer_new
-	refcpointer_unref = bluefish-unstable.exe.refcpointer_unref
-	remove_from_stringlist = bluefish-unstable.exe.remove_from_stringlist
-	replace_string_printflike = bluefish-unstable.exe.replace_string_printflike
-	setup_toggle_item = bluefish-unstable.exe.setup_toggle_item
-	spinbut_with_value = bluefish-unstable.exe.spinbut_with_value
-	string_is_color = bluefish-unstable.exe.string_is_color
-	stringlist_to_string = bluefish-unstable.exe.stringlist_to_string
-	strip_any_whitespace = bluefish-unstable.exe.strip_any_whitespace
-	switch_to_document_by_pointer = bluefish-unstable.exe.switch_to_document_by_pointer
-	textview_buffer_in_scrolwin = bluefish-unstable.exe.textview_buffer_in_scrolwin
-	trunc_on_char = bluefish-unstable.exe.trunc_on_char
-	window_destroy = bluefish-unstable.exe.window_destroy
-	window_full2 = bluefish-unstable.exe.window_full2
+	bluefish-unstable.exe.add_to_stringlist
+	bluefish-unstable.exe.bf_allbuttons_backend
+	bluefish-unstable.exe.bf_generic_frame_new
+	bluefish-unstable.exe.bf_gtkstock_button
+	bluefish-unstable.exe.bf_mnemonic_label_tad_with_alignment
+	bluefish-unstable.exe.bf_portable_time
+	bluefish-unstable.exe.bf_str_repeat
+	bluefish-unstable.exe.boxed_combo_with_popdown
+	bluefish-unstable.exe.boxed_entry_with_text
+	bluefish-unstable.exe.combo_with_popdown
+	bluefish-unstable.exe.combo_with_popdown_sized
+	bluefish-unstable.exe.create_relative_link_to
+	bluefish-unstable.exe.dialog_mnemonic_label_in_table
+	bluefish-unstable.exe.dialog_table_in_vbox
+	bluefish-unstable.exe.dialog_table_in_vbox_defaults
+	bluefish-unstable.exe.dialog_vbox_labeled
+	bluefish-unstable.exe.dialog_vbox_labeled_checkbutton
+	bluefish-unstable.exe.doc_get_chars
+	bluefish-unstable.exe.doc_get_iter_at_bevent
+	bluefish-unstable.exe.doc_get_selection
+	bluefish-unstable.exe.doc_insert_two_strings
+	bluefish-unstable.exe.doc_is_empty_non_modified_and_nameless
+	bluefish-unstable.exe.doc_new
+	bluefish-unstable.exe.doc_replace_text
+	bluefish-unstable.exe.doc_set_filetype
+	bluefish-unstable.exe.duplicate_stringlist
+	bluefish-unstable.exe.entry_with_text
+	bluefish-unstable.exe.file_but_new2
+	bluefish-unstable.exe.file_chooser_dialog
+	bluefish-unstable.exe.file_openfile_uri_async
+	bluefish-unstable.exe.file_savefile_uri_async
+	bluefish-unstable.exe.free_stringlist
+	bluefish-unstable.exe.get_filetype_for_mime_type
+	bluefish-unstable.exe.list_from_arglist
+	bluefish-unstable.exe.list_relative_document_filenames
+	bluefish-unstable.exe.list_switch_order
+	bluefish-unstable.exe.main_v
+	bluefish-unstable.exe.make_config_list_item
+	bluefish-unstable.exe.message_dialog_new_multi
+	bluefish-unstable.exe.openfile_cancel
+	bluefish-unstable.exe.radiobut_with_value
+	bluefish-unstable.exe.refcpointer_new
+	bluefish-unstable.exe.refcpointer_unref
+	bluefish-unstable.exe.remove_from_stringlist
+	bluefish-unstable.exe.replace_string_printflike
+	bluefish-unstable.exe.setup_toggle_item
+	bluefish-unstable.exe.spinbut_with_value
+	bluefish-unstable.exe.string_is_color
+	bluefish-unstable.exe.stringlist_to_string
+	bluefish-unstable.exe.strip_any_whitespace
+	bluefish-unstable.exe.switch_to_document_by_pointer
+	bluefish-unstable.exe.textview_buffer_in_scrolwin
+	bluefish-unstable.exe.trunc_on_char
+	bluefish-unstable.exe.window_destroy
+	bluefish-unstable.exe.window_full2
