@@ -1,6 +1,5 @@
 
-## Must be created if necessary!
-##EXTRA_DIST = snippets.def
+EXTRA_DIST = snippets.def
 
 MAINTAINERCLEANFILES = Makefile.in
 
@@ -21,7 +20,7 @@ snippets_la_SOURCES = \
 
 snippets_la_LDFLAGS = -module -avoid-version
 
-#if OS_WIN32
-#snippets_la_LDFLAGS += -no-undefined -export-symbols snippets.def
-#endif
+if OS_WIN32
+snippets_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/snippets.def
+endif
 
