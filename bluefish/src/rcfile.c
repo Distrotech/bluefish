@@ -979,7 +979,7 @@ gboolean rcfile_parse_global_session(void) {
 		gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 		/* if the user does not yet have any function reference files, set them to default values */
 		DEBUG_MSG("rcfile_parse_global_session, no reference files yet, scan directories!\n");
-		fref_rescan_dir(PKGDATADIR);
+		fref_rescan_dir(PKGDATADIR"/bflib/");
 		fref_rescan_dir(userdir);
 		g_free(userdir);
 	}
