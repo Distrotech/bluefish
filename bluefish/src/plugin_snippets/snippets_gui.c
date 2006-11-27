@@ -40,6 +40,96 @@ static xmlNodePtr snippetview_get_node_at_path(GtkTreePath *path) {
 	return NULL;
 }
 
+typedef enum {
+	page_type,
+	page_branch,
+	page_insert
+} Tpagenum;
+
+typedef struct {
+	GtkWidget *radio[2];
+	GtkWidget *vbox;
+} Tpage0;
+
+static gpointer snippets_build_page0(GtkWidget *dialog_action) {
+	GtkWidget *label;
+	Tpage0 *p0 = g_new(Tpage0,1);
+	p0->vbox = gtk_vbox_new(TRUE,5);
+	gtk_container_add(GTK_CONTAINER(dialog_action),p0->vbox);
+	label = gtk_label_new(_("Select what you want to add"));
+	gtk_box_pack_start(GTK_BOX(p0->vbox),label,TRUE,TRUE,5);
+	p0->radio[0] = gtk_radio_button_new_with_label(NULL, _("Branch"));
+	gtk_box_pack_start(GTK_BOX(p0->vbox),p0->radio[0],TRUE,TRUE,5);
+	p0->radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(p0->radio[0]),_("Insert string"));
+	gtk_box_pack_start(GTK_BOX(p0->vbox),p0->radio[1],TRUE,TRUE,5);
+	gtk_widget_show_all(p0->vbox);
+	return p0;
+}
+
+static void snippets_delete_page0(gpointer data) {
+	Tpage0 *p0 = (Tpage0 *)data;
+	gtk_widget_destroy(p0->vbox);
+}
+
+static gint snippets_test_page0(gpointer data) {
+	Tpage0 *p0 = (Tpage0 *)data;
+	int i;
+	for (i=0;i<2;i++) {
+		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(p0->radio[i]))) {
+			return i+1; /* branch =1, insert=2 */
+		}
+	}
+	return page_type;
+}
+
+static void snippets_new_item_dialog(Tsnippetswin *snw, xmlNodePtr parent) {
+	GtkWidget* dialog;
+	gboolean cont=TRUE;
+	gint response;
+	gpointer pagestruct;
+	Tpagenum pagenum = page_type, newpagenum = page_type; 
+	
+	dialog = gtk_dialog_new_with_buttons(_("New snippet"),GTK_WINDOW(snw->bfwin->main_window),
+					GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
+					GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,
+					GTK_STOCK_GO_FORWARD,1,
+					NULL);
+	pagestruct = snippets_build_page0(GTK_DIALOG(dialog)->vbox);
+	gtk_widget_show_all(dialog);
+	while (cont) {
+		response = gtk_dialog_run(dialog);
+		if (response == GTK_RESPONSE_REJECT) {
+			cont = FALSE;
+			break;
+		} 
+		switch (pagenum) { /* test the current results */
+			case page_type:
+				newpagenum = snippets_test_page0(pagestruct);
+				if (newpagenum != page_type) {
+					snippets_delete_page0(pagestruct);
+				}
+			break;
+			case page_branch:
+			break;
+			case page_insert:
+			break;
+		}
+		if (pagenum != newpagenum) {
+			switch (newpagenum) { /* build a new page */
+				case page_type:
+					pagestruct = snippets_page0(GTK_DIALOG(dialog)->vbox);
+				break;
+				case page_branch:
+					DEBUG_MSG("build a branch page\n");
+				break;
+				case page_insert:
+				break;
+			}
+		}
+	}
+	gtk_widget_destroy(dialog);
+}
+
 static void snippet_activate_leaf(Tsnippetswin *snw, xmlNodePtr cur) {
 	xmlChar *type = xmlGetProp(cur, (const xmlChar *)"type");
 	if (!type) {
@@ -117,10 +207,23 @@ static void snippets_rebuild_accelerators(void) {
 static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_action, GtkWidget *widget) {
 	DEBUG_MSG("snip_rpopup_rpopup_action_lcb, called with action %d and widget %p\n",callback_action,widget);
 	switch (callback_action) {
-	case 1:
+	case 1: /* edit */
 		DEBUG_MSG("edit not yet implemented\n");
 	break;
-	case 2:
+	case 3: /* new */
+		{
+		xmlNodePtr parent=NULL;
+		if (snw->lastclickednode) {
+			if (xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
+				parent = snw->lastclickednode->parent;
+			} else {
+				parent = snw->lastclickednode;
+			}
+		} 
+		snippets_new_item_dialog(snw, parent);
+		}
+	break;
+	case 2: /* set accelerator */
 		if (snw->lastclickednode && xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
 			gchar *accel = ask_accelerator_dialog(_("Set accelerator key"));
 			if (accel) {
@@ -136,11 +239,13 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 			}
 		}
 	break;
+	
 	}
 }
 
 static GtkItemFactoryEntry snip_rpopup_menu_entries[] = {
 	{ N_("/_Edit"),		NULL,	snip_rpopup_rpopup_action_lcb,		1,	"<Item>" },
+	{ N_("/_New"),		NULL,	snip_rpopup_rpopup_action_lcb,		3,	"<Item>" },
 	{ "/sep1",						NULL,	NULL,									0,	"<Separator>" },
 	{ N_("/Set _accelerator"),			NULL,	snip_rpopup_rpopup_action_lcb,	2,	"<Item>" }
 };
