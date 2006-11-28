@@ -53,7 +53,8 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	xmlChar *after=NULL;
 	xmlNodePtr cur;
 	int i=0;
-	GtkWidget *table;
+	GtkWidget *table, *label;
+	gchar *tmpstr;
 	
 	title = xmlGetProp(leaf, (const xmlChar *)"title");
 	sid = g_new0(Tsnippet_insert_dialog,1);
@@ -66,7 +67,7 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 	xmlFree(title);
 	gtk_dialog_set_default_response (GTK_DIALOG(sid->dialog),GTK_RESPONSE_ACCEPT);
 	gtk_box_set_spacing(GTK_BOX(GTK_DIALOG(sid->dialog)->vbox),6);
-	table = gtk_table_new (num_vars, 2, FALSE);
+	table = gtk_table_new(num_vars+1, 2, FALSE);
 	gtk_table_set_col_spacings(GTK_TABLE(table), 12);
 	gtk_table_set_row_spacings(GTK_TABLE(table), 6);
 	for (cur = leaf->xmlChildrenNode;cur != NULL;cur = cur->next) {
@@ -77,8 +78,8 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 			final_name = g_markup_escape_text((gchar *)name,-1);
 			sid->textentry[i] = gtk_entry_new();
 			gtk_entry_set_activates_default(GTK_ENTRY(sid->textentry[i]),TRUE);
-			bf_mnemonic_label_tad_with_alignment(final_name, sid->textentry[i], 0, 0.5, table, 0, 1, i, i+1);
-			gtk_table_attach(GTK_TABLE (table), sid->textentry[i], 1, 2, i, i+1, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
+			bf_mnemonic_label_tad_with_alignment(final_name, sid->textentry[i], 0, 0.5, table, 0, 1, i+1, i+2);
+			gtk_table_attach(GTK_TABLE (table), sid->textentry[i], 1, 2, i+1, i+2, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
 			xmlFree(name);
 			g_free(final_name);
 			i++;
@@ -87,8 +88,21 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 		} else if (xmlStrEqual(cur->name, (const xmlChar *)"after")) {
 			after = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
 		}
-
 	}
+	if (before && after) {
+		tmpstr = g_strconcat(before,_("[cursor position or selection]"),after,NULL);
+	} else if (before) {
+		tmpstr = g_strdup(before);
+	} else if (after) {
+		tmpstr = g_strdup(after);
+	} else {
+		tmpstr = g_strdup("An error has occurred with this item");
+	}
+	label = gtk_label_new(tmpstr);
+	g_free(tmpstr);
+	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
+	gtk_table_attach(GTK_TABLE (table), label, 0, 2, 0, 1, GTK_FILL, GTK_FILL, 0, 0);
+	
 	sid->textentry[i] = NULL;
 	gtk_container_add(GTK_CONTAINER(GTK_DIALOG(sid->dialog)->vbox),table);
 	
