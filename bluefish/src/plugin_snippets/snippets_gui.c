@@ -196,6 +196,11 @@ static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *
 			if (snw->lastclickedpath) gtk_tree_path_free(snw->lastclickedpath);   
 			snw->lastclickedpath = NULL;
 			gtk_tree_path_free(path);
+			if (event->button==3) { /* right mouse button clicked */
+				GtkWidget *menu;
+				menu = snip_rpopup_create_menu(snw, NULL);
+				gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);	
+			}
 		}
 	}
 	return FALSE; /* pass the event on */
