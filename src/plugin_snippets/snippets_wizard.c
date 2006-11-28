@@ -94,6 +94,19 @@ static gpointer snippets_build_page2(Tsnippetswin *snw, GtkWidget *dialog_action
 	return p2;
 }
 
+static void snippets_delete_page2(Tsnippetswin *snw, gpointer data) {
+	Tpage2 *p2 = (Tpage2 *)data;
+	gtk_widget_destroy(p2->table);
+}
+
+static gint snippets_test_page2(Tsnippetswin *snw, gpointer data) {
+	Tpage2 *p2 = (Tpage2 *)data;
+	
+	/* do something */
+	
+	return page_finished;
+}
+
 typedef struct {
 	GtkWidget *entry;
 	GtkWidget *vbox;
@@ -144,16 +157,25 @@ static gint snippets_test_page1(Tsnippetswin *snw, gpointer data) {
 			parent = snw->lastclickednode;
 			DEBUG_MSG("clicked node was a branch\n");
 		}
-	} 
-	child = xmlNewChild(parent,NULL,(const xmlChar *)"branch",NULL);
+	} else { /* parent must be the root element <snippets> */
+		parent = xmlDocGetRootElement(snippets_v.doc);
+	}
+	DEBUG_MSG("snippets_test_page1, xml-adding %s to parent %s\n",name,(gchar *)parent->name); 
+	child = xmlNewChild(parent,NULL,(const xmlChar *)"branch",NULL);	
 	xmlSetProp(child, (const xmlChar *)"title", (const xmlChar *)name);
 	/* add this branch to the treestore */
-
-	if ((parentp && gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&piter,parentp)) 
-						|| gtk_tree_model_get_iter_first(GTK_TREE_MODEL(snippets_v.store),&piter)) {
-		gtk_tree_store_append(snippets_v.store, &citer, &piter);
-		gtk_tree_store_set(snippets_v.store, &citer, 0, name,1, child,-1);
+	DEBUG_MSG("snippets_test_page1, store-adding %s to parentp=%p\n",name,parentp);
+	if (parentp) {
+		if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&piter,parentp)) {
+			gtk_tree_store_append(snippets_v.store, &citer, &piter);
+		} else {
+			g_print("hmm weird error!?!\n");
+		}
+	} else {
+		gtk_tree_store_append(snippets_v.store, &citer, NULL);
 	}
+	gtk_tree_store_set(snippets_v.store, &citer, 0, name,1, child,-1);
+	
 	DEBUG_MSG("add branch with title %s\n",name);
 	g_free(name);
 	snippets_store();
@@ -232,6 +254,12 @@ void snippets_new_item_dialog(Tsnippetswin *snw) {
 				}
 			break;
 			case page_insert:
+				newpagenum = snippets_test_page2(snw,pagestruct);
+				if (newpagenum != page_type) {
+					snippets_delete_page2(snw,pagestruct);
+				}
+			break;
+			case page_finished: /* avoid compiler warning */
 			break;
 		}
 		if (pagenum != newpagenum) {
