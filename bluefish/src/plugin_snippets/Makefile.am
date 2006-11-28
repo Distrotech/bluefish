@@ -16,11 +16,12 @@ snippets_la_SOURCES = \
 	snippets_leaf_insert.c \
 	snippets_leaf_insert.h \
 	snippets_load.c \
-	snippets_load.h
+	snippets_load.h \
+	snippets_wizard.c \
+	snippets_wizard.h
 
 snippets_la_LDFLAGS = -module -avoid-version
 
 if OS_WIN32
 snippets_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/snippets.def
 endif
-
