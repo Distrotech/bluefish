@@ -25,6 +25,7 @@
 #include "snippets_gui.h"
 #include "snippets_load.h"
 #include "snippets_leaf_insert.h"
+#include "snippets_leaf_snr.h"
 #include "../document.h"
 #include "../gtk_easy.h"
 
@@ -48,6 +49,8 @@ static void snippet_activate_leaf(Tsnippetswin *snw, xmlNodePtr cur) {
 	}
 	if (xmlStrEqual(type, (const xmlChar *)"insert")) {
 		snippets_activate_leaf_insert(snw, cur);
+	} else if (xmlStrEqual(type, (const xmlChar *)"snr")) {
+		snippets_activate_leaf_snr(snw, cur);
 	} else {
 		DEBUG_MSG("snippet_activate_leaf, unknown type %s\n",(const gchar *)type);
 	}
