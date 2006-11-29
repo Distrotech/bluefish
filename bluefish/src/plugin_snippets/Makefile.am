@@ -15,6 +15,8 @@ snippets_la_SOURCES = \
 	snippets_gui.h \
 	snippets_leaf_insert.c \
 	snippets_leaf_insert.h \
+	snippets_leaf_snr.c \
+	snippets_leaf_snr.h \
 	snippets_load.c \
 	snippets_load.h \
 	snippets_wizard.c \
