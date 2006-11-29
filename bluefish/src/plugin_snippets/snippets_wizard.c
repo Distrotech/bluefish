@@ -26,6 +26,44 @@
 #include "snippets_leaf_insert.h"
 #include "../gtk_easy.h"
 
+static void get_parentbranch(Tsnippetswin *snw, GtkTreePath **parentp, xmlNodePtr *parentn) {
+	if (snw->lastclickedpath) {
+		*parentp = gtk_tree_path_copy(snw->lastclickedpath);
+	} else {
+		*parentp = NULL;
+	}
+	if (snw->lastclickednode) {
+		if (xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
+			*parentn = snw->lastclickednode->parent;
+			if (*parentp) {
+				if (!gtk_tree_path_up(*parentp)) {
+					gtk_tree_path_free(*parentp);
+					*parentp = NULL;
+				}
+			}
+		} else {
+			*parentn = snw->lastclickednode;
+		}
+	} else { /* parent must be the root element <snippets> */
+		*parentn = xmlDocGetRootElement(snippets_v.doc);
+	}
+} 
+
+static void add_item_to_tree(GtkTreePath *parentp, gchar *name, gpointer ptr) {
+	GtkTreeIter citer;
+	if (parentp) {
+		GtkTreeIter piter;
+		if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&piter,parentp)) {
+			gtk_tree_store_append(snippets_v.store, &citer, &piter);
+		} else {
+			g_print("hmm weird error!?!\n");
+		}
+	} else {
+		gtk_tree_store_append(snippets_v.store, &citer, NULL);
+	}
+	gtk_tree_store_set(snippets_v.store, &citer, 0, name,1, ptr,-1);
+}
+
 typedef enum {
 	page_type, /* 0 */
 	page_branch, /* 1 */
@@ -35,6 +73,7 @@ typedef enum {
 
 typedef struct {
 	GtkWidget *table;
+	GtkWidget *title;
 	GtkWidget *entries[10];
 	GtkWidget *before_v;
 	GtkWidget *after_v;
@@ -60,27 +99,34 @@ static gpointer snippets_build_page2(Tsnippetswin *snw, GtkWidget *dialog_action
 	gtk_table_attach(GTK_TABLE(p2->table),label, 0,3,0,1
 					,GTK_FILL,GTK_FILL,0,0);
 	
-	label = gtk_label_new(_("<i>Before</i> text:"));
+	label = gtk_label_new(_("Item title"));
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
 	gtk_misc_set_alignment(GTK_MISC(label),0,0.5);
 	gtk_table_attach(GTK_TABLE(p2->table),label, 0,1,1,2,GTK_FILL,GTK_FILL,0,0);
+	p2->title = gtk_entry_new();
+	gtk_table_attach(GTK_TABLE(p2->table), p2->title, 0,1,2,3,GTK_EXPAND|GTK_FILL,GTK_FILL,0,0);
+	
+	label = gtk_label_new(_("<i>Before</i> text"));
+	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
+	gtk_misc_set_alignment(GTK_MISC(label),0,0.5);
+	gtk_table_attach(GTK_TABLE(p2->table),label, 0,1,3,4,GTK_FILL,GTK_FILL,0,0);
 	scrolwin = textview_buffer_in_scrolwin(&p2->before_v, -1, -1, NULL, GTK_WRAP_NONE);
-	gtk_table_attach(GTK_TABLE(p2->table), scrolwin, /*left*/0,/*right*/1,/*top*/2,/*bottom*/6
+	gtk_table_attach(GTK_TABLE(p2->table), scrolwin, /*left*/0,/*right*/1,/*top*/4,/*bottom*/7
 				,/*xoptions*/GTK_EXPAND|GTK_FILL,/*yoptions*/GTK_EXPAND|GTK_FILL
 				,/*xpadding*/0,/*ypadding*/0);
 	p2->before = gtk_text_view_get_buffer(GTK_TEXT_VIEW(p2->before_v));
 	
-	label = gtk_label_new(_("<i>After</i> text:"));
+	label = gtk_label_new(_("<i>After</i> text"));
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
 	gtk_misc_set_alignment(GTK_MISC(label),0,0.5);
-	gtk_table_attach(GTK_TABLE(p2->table),label, 0,1,6,7,GTK_FILL,GTK_FILL,0,0);
+	gtk_table_attach(GTK_TABLE(p2->table),label, 0,1,7,8,GTK_FILL,GTK_FILL,0,0);
 	scrolwin = textview_buffer_in_scrolwin(&p2->after_v, -1, -1, NULL, GTK_WRAP_NONE);
-	gtk_table_attach(GTK_TABLE(p2->table), scrolwin, 0,1,7,11
+	gtk_table_attach(GTK_TABLE(p2->table), scrolwin, 0,1,8,11
 				,GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,0,0);
 	p2->after = gtk_text_view_get_buffer(GTK_TEXT_VIEW(p2->after_v));
 	
 	for (i = 0; i <  10; i++) {
-		tmpstr = g_strdup_printf("%%%d: ", i);
+		tmpstr = g_strdup_printf("%%%d ", i);
 		label = gtk_label_new(tmpstr);
 		gtk_misc_set_alignment(GTK_MISC(label),1,0.5);
 		gtk_table_attach(GTK_TABLE(p2->table),label, 1,2,i+1,i+2
@@ -101,9 +147,32 @@ static void snippets_delete_page2(Tsnippetswin *snw, gpointer data) {
 
 static gint snippets_test_page2(Tsnippetswin *snw, gpointer data) {
 	Tpage2 *p2 = (Tpage2 *)data;
+	GtkTreePath *parentp;
+	xmlNodePtr parentn, childn, tmpn;
+	gchar *title, *before, *after;
+	gint i;
 	
-	/* do something */
-	
+	/* find the branch to add this leaf to */
+	get_parentbranch(snw, &parentp, &parentn);
+	/* build the leaf */
+	title = gtk_editable_get_chars(GTK_EDITABLE(p2->title),0,-1);
+	before = textbuffer_get_all_chars(p2->before);	
+	after = textbuffer_get_all_chars(p2->after);
+	childn = xmlNewChild(parentn,NULL,(const xmlChar *)"leaf",NULL);	
+	xmlSetProp(childn, (const xmlChar *)"title", (const xmlChar *)title);
+	xmlSetProp(childn, (const xmlChar *)"type", (const xmlChar *)"insert");
+	tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"before",(const xmlChar *)before);
+	tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"after",(const xmlChar *)after);
+	for (i = 0; i <  10; i++) {
+		gchar *tmpstr;
+		tmpstr = gtk_editable_get_chars(GTK_EDITABLE(p2->entries[i]),0,-1);
+		if (strlen(tmpstr)>0) {
+			tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"param", NULL);
+			xmlSetProp(tmpn, (const xmlChar *)"name", (const xmlChar *)tmpstr);
+		}
+	}
+	/* now add this item to the treestore */
+	add_item_to_tree(parentp, title, childn);
 	return page_finished;
 }
 
