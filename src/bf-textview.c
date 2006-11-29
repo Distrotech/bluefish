@@ -221,7 +221,7 @@ GType bf_textview_get_type(void)
 GtkWidget *bf_textview_new(void)
 {
 	BfTextView *o = GET_NEW;
-	GdkBitmap *bmp;
+	/*GdkBitmap *bmp;*/
 
 	g_signal_connect(G_OBJECT(o), "expose-event", G_CALLBACK(bf_textview_expose_cb), NULL);
 	o->markset_signal_id =
@@ -249,7 +249,7 @@ GtkWidget *bf_textview_new(void)
 GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer)
 {
 	BfTextView *o = GET_NEW;
-	GdkBitmap *bmp;
+	/*GdkBitmap *bmp;*/
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(o), buffer);
 
 	g_signal_connect(G_OBJECT(o), "expose-event", G_CALLBACK(bf_textview_expose_cb), NULL);
@@ -1034,9 +1034,9 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 	if (!ptr || !xmlCheckUTF8(ptr))
 		return;
 	if (cfg->case_sensitive || (type == ST_TOKEN && token && token->type == TT_FAKE)) {
-		ptr2 = g_utf8_to_ucs4_fast(ptr, -1, &size);
+		ptr2 = g_utf8_to_ucs4_fast((const gchar*)ptr, -1, &size);
 	} else {
-		gchar *tmp = g_utf8_strup(ptr, -1);
+		gchar *tmp = g_utf8_strup((const gchar*)ptr, -1);
 		ptr2 = g_utf8_to_ucs4_fast(tmp, -1, &size);
 		g_free(tmp);
 	}
@@ -1234,7 +1234,7 @@ static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * 
 	xmlChar *tmps, *tmps2;
 	gpointer ptr;
 	
-	if ( text!=NULL && strcmp(text,"")==0 ) return NULL;
+	if ( text!=NULL && text[0]=='\0' ) return NULL;
 	switch (type) {
 	case ST_TOKEN:
 		{
@@ -1460,7 +1460,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 							else if (xmlStrcmp(tmps, (const xmlChar *) "autoclose-exclude") == 0) {
 								gchar **arr = NULL;
 								gint i = 0;
-								arr = g_strsplit(tmps2, ",", -1);
+								arr = g_strsplit((const gchar*)tmps2, ",", -1);
 								while (arr[i]) {
 									g_hash_table_insert(cfg->dont_autoclose, g_strdup(arr[i]),
 														&const_true);
@@ -1471,15 +1471,18 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 								const guchar *p = tmps2;
 								i = 0;
 								while (i < xmlUTF8Strlen(tmps2)) {
+									p = xmlUTF8Strpos(tmps2, i);
 									cfg->as_triggers[(gint) * p] = 1;
-									p = xmlUTF8Strpos(tmps2, i++);
+									i++; 
+									/* p = xmlUTF8Strpos(tmps2, i++); does not take last character */
 								}
 							} else if (xmlStrcmp(tmps, (const xmlChar *) "escape-characters") == 0) {
 								const guchar *p = tmps2;
 								i = 0;
 								while (i < xmlUTF8Strlen(tmps2)) {
+									p = xmlUTF8Strpos(tmps2,i);
 									cfg->escapes[(gint) * p] = 1;
-									p = xmlUTF8Strpos(tmps2, i++);
+									i++;
 								}
 							}
 							if (tmps)
@@ -1515,13 +1518,13 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 						if (tmps2) {
 							gchar **arr;
 							tmps = xmlNodeListGetString(doc, cur2->xmlChildrenNode, 1);
-							arr = g_strsplit(tmps, tmps2, -1);
+							arr = g_strsplit((const gchar*)tmps, (const gchar*)tmps2, -1);
 							xmlFree(tmps2);
 							if (arr) {
 								gint i = 0;
 								while (arr[i] != NULL) {
 									bftv_make_entity(doc, cur2, cfg, ST_TOKEN, tmps3, tmps4,
-													 g_strdup(arr[i]));
+													 (guchar*)g_strdup(arr[i]));
 									i++;
 								}	/* while */
 								g_strfreev(arr);
@@ -1545,12 +1548,12 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 				if (tmps2) {
 					gchar **arr;
 					tmps = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-					arr = g_strsplit(tmps, tmps2, -1);
+					arr = g_strsplit((const gchar*)tmps, (const gchar*)tmps2, -1);
 					xmlFree(tmps2);
 					if (arr) {
 						gint i = 0;
 						while (arr[i] != NULL) {
-							bftv_make_entity(doc, cur, cfg, ST_TOKEN, NULL, NULL, g_strdup(arr[i]));
+							bftv_make_entity(doc, cur, cfg, ST_TOKEN, NULL, NULL, (guchar*)g_strdup(arr[i]));
 							i++;
 						}
 						g_strfreev(arr);
@@ -1581,11 +1584,11 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 		while (lst) {
 			BfLangToken *t = (BfLangToken *) lst->data;
 			if (!t->regexp) {
-				lst3 = g_list_append(lst3, g_strstrip(t->text));
+				lst3 = g_list_append(lst3, g_strstrip((gchar*)(t->text)));
 			}
 			lst = g_list_next(lst);
 		}
-		ac_add_lang_list(main_v->autocompletion, cfg->name, lst3);
+		ac_add_lang_list(main_v->autocompletion, (gchar*)cfg->name, lst3);
 
 
 		if (cfg->scan_tags) {
@@ -1727,7 +1730,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 			t->group = NULL;
 			t->regexp = TRUE;
 			t->name = xmlCharStrdup("_fake_ident_");
-			t->text = pstr;
+			t->text = (guchar*)pstr;
 			t->context = NULL;
 			t->type = TT_FAKE;
 			bftv_scantable_insert(&cfg->scan_table, ST_TOKEN, t, cfg);
@@ -2441,7 +2444,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 																	 gtk_text_buffer_get_insert
 																	 (buf));
 									if (gtk_text_iter_equal(&it9, &ita)) {
-										gchar *pp = g_strjoin("", "</", bf_2->tagname, ">", NULL);
+										gchar *pp = g_strjoin("", "\n</", bf_2->tagname, ">", NULL);
 										self->tag_ac_state = FALSE;
 										/* Clear stacks */
 										while (!g_queue_is_empty(&self->scanner.block_stack)) {
@@ -2985,11 +2988,11 @@ void bf_textview_autocomp_show(BfTextView * self)
 		else
 		{
 		 if (self->lang->case_sensitive)
-				ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, self->lang->name,GTK_TEXT_VIEW(self),NULL);
+				ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, (gchar*)(self->lang->name),GTK_TEXT_VIEW(self),NULL);
 		 else 
 		  {
 		  		gchar *upper = g_utf8_strup(self->scanner.last_string->str,self->scanner.last_string->len);
-		 		ac_run_lang(main_v->autocompletion, upper, self->lang->name,GTK_TEXT_VIEW(self),NULL);
+		 		ac_run_lang(main_v->autocompletion, upper, (gchar*)(self->lang->name),GTK_TEXT_VIEW(self),NULL);
 		 		g_free(upper);
 		  }		  		
 		}				
@@ -2997,11 +3000,11 @@ void bf_textview_autocomp_show(BfTextView * self)
 	else
 	{
 		 if (self->lang->case_sensitive)
-				ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, self->lang->name,GTK_TEXT_VIEW(self),NULL);
+				ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, (gchar*)(self->lang->name),GTK_TEXT_VIEW(self),NULL);
 		 else 
 		  {
 		  		gchar *upper = g_utf8_strup(self->scanner.last_string->str,self->scanner.last_string->len);
-		 		ac_run_lang(main_v->autocompletion, upper, self->lang->name,GTK_TEXT_VIEW(self),NULL);
+		 		ac_run_lang(main_v->autocompletion, upper, (gchar*)(self->lang->name),GTK_TEXT_VIEW(self),NULL);
 		 		g_free(upper);
 		  }		  		
 	}			
