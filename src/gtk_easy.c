@@ -721,6 +721,11 @@ GtkWidget *textview_buffer_in_scrolwin(GtkWidget **textview, gint width, gint he
 	}
 	return scrolwin;
 }
+gchar *textbuffer_get_all_chars(GtkTextBuffer *buffer) {
+	GtkTextIter start, end;
+	gtk_text_buffer_get_bounds(buffer,&start,&end);
+	return gtk_text_buffer_get_text(buffer,&start,&end,TRUE);
+}
 
 /**
  * apply_font_style:

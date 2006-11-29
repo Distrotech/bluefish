@@ -74,6 +74,7 @@ GtkWidget *window_full2(const gchar * title, GtkWindowPosition position, gint bo
 					   gpointer close_data, gboolean delete_on_escape, GtkWidget *transientforparent);
 
 GtkWidget *textview_buffer_in_scrolwin(GtkWidget **textview, gint width, gint height, const gchar *contents, GtkWrapMode wrapmode);
+gchar *textbuffer_get_all_chars(GtkTextBuffer *buffer);
 void window_destroy(GtkWidget * windowname);
 void window_close_by_widget_cb(GtkWidget * widget, gpointer data);
 void window_close_by_data_cb(GtkWidget * widget, gpointer data);
