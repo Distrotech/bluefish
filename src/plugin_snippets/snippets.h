@@ -39,6 +39,14 @@
 #define _(String) dgettext(PACKAGE"_plugin_snippets", String)
 #endif    
 
+enum {
+	PIXMAP_COLUMN,
+	TITLE_COLUMN,
+	NODE_COLUMN,
+	NUM_COLUMNS
+
+};
+
 typedef struct {
 	GHashTable* lookup; /* pointers are stored here */
 	xmlDocPtr doc;
