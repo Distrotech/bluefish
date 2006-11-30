@@ -40,7 +40,7 @@ static void snippets_init(void) {
 	snippets_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,
 					NULL /* == g_direct_equal() */,
 					NULL,NULL);
-	snippets_v.store = gtk_tree_store_new(2 /* Total number of columns */, G_TYPE_STRING, G_TYPE_POINTER);
+	snippets_v.store = gtk_tree_store_new(NUM_COLUMNS /* Total number of columns */,GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER);
 	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,snippets_sidepanel_initgui);
 	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);
 	

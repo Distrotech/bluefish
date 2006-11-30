@@ -257,8 +257,18 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	DEBUG_MSG("snippets_sidepanel_initgui, snw=%p, store=%p\n",snw,snippets_v.store);
 	snw->view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(snippets_v.store));
 	
+	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(snw->view), FALSE);
+	renderer = gtk_cell_renderer_pixbuf_new();
+	column = gtk_tree_view_column_new();
+	gtk_tree_view_column_pack_start(column, renderer, FALSE);
+	gtk_tree_view_column_set_attributes(column,renderer
+			,"pixbuf",PIXMAP_COLUMN
+			,"pixbuf_expander_closed",PIXMAP_COLUMN
+			,"pixbuf_expander_open",PIXMAP_COLUMN
+			,NULL);
 	renderer = gtk_cell_renderer_text_new();
-	column = gtk_tree_view_column_new_with_attributes("Title",renderer,"text", 0,NULL);
+	gtk_tree_view_column_pack_start(column, renderer, TRUE);
+	gtk_tree_view_column_set_attributes(column,renderer,"text", TITLE_COLUMN,NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(snw->view), column);
 	
 	g_signal_connect(G_OBJECT(snw->view), "button_press_event",G_CALLBACK(snippetview_button_press_lcb),snw);
