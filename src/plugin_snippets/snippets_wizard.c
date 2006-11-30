@@ -61,7 +61,7 @@ static void add_item_to_tree(GtkTreePath *parentp, gchar *name, gpointer ptr) {
 	} else {
 		gtk_tree_store_append(snippets_v.store, &citer, NULL);
 	}
-	gtk_tree_store_set(snippets_v.store, &citer, 0, name,1, ptr,-1);
+	gtk_tree_store_set(snippets_v.store, &citer, 0, NULL, 1, name,2, ptr,-1);
 }
 
 typedef enum {
@@ -243,7 +243,7 @@ static gint snippets_test_page1(Tsnippetswin *snw, gpointer data) {
 	} else {
 		gtk_tree_store_append(snippets_v.store, &citer, NULL);
 	}
-	gtk_tree_store_set(snippets_v.store, &citer, 0, name,1, child,-1);
+	gtk_tree_store_set(snippets_v.store, &citer, 0,NULL,1, name,2, child,-1);
 	
 	DEBUG_MSG("add branch with title %s\n",name);
 	g_free(name);

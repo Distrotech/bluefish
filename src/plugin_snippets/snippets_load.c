@@ -245,26 +245,22 @@ void snippets_load(const gchar *filename) {
 	DEBUG_MSG("snippets_load, filename=%s\n",filename);
 	snippets_v.doc = xmlParseFile(filename);
 	
-	if (snippets_v.doc == NULL ) {
-		DEBUG_MSG("snippets_load, parse error\n");
-		return;
-	}
-
-	cur = xmlDocGetRootElement(snippets_v.doc);
-	if (cur == NULL) {
-		DEBUG_MSG("snippets_load, empty document\n");
+	if (snippets_v.doc) {
+		cur = xmlDocGetRootElement(snippets_v.doc);
+		if (cur) {
+			if (xmlStrEqual(cur->name, (const xmlChar *) "snippets")) {
+				walk_tree(cur, NULL);
+				return;
+			}
+		}
 		xmlFreeDoc(snippets_v.doc);
 		snippets_v.doc = NULL;
-		return;
 	}
-	if (!xmlStrEqual(cur->name, (const xmlChar *) "snippets")) {
-		DEBUG_MSG("snippets_load, wrong type of document, root is called %s\n",cur->name);
-		xmlFreeDoc(snippets_v.doc);
-		snippets_v.doc = NULL;
-		return;
+	if (snippets_v.doc == NULL) {
+		snippets_v.doc = xmlNewDoc("1.0");
+		cur = xmlNewDocNode(snippets_v.doc,NULL, (const xmlChar *)"snippets",NULL);
+		xmlDocSetRootElement(snippets_v.doc, cur);	
 	}
-	
-	walk_tree(cur, NULL);
 }
 
 void snippets_store(void) {
