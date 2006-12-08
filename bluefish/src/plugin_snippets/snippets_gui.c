@@ -34,7 +34,7 @@ static xmlNodePtr snippetview_get_node_at_path(GtkTreePath *path) {
 		GtkTreeIter iter;
 		if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&iter,path)) {
 			xmlNodePtr cur=NULL;
-			gtk_tree_model_get(GTK_TREE_MODEL(snippets_v.store), &iter, 1, &cur, -1);
+			gtk_tree_model_get(GTK_TREE_MODEL(snippets_v.store), &iter, NODE_COLUMN, &cur, -1);
 			return cur;
 		}
 	}
@@ -210,35 +210,36 @@ static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *
 }
 
 static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint x, gint y) {
-	GtkTreePath *path;
-	xmlNodePtr cur;
-	gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(tree), x, y, &path, NULL, NULL, NULL);
-	cur = snippetview_get_node_at_path(path); 
-	if (cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
-		xmlChar *tooltip, *accelerator;
-		gchar *tooltip2=NULL, *accelerator2=NULL;
-		tooltip = xmlGetProp(cur, (const xmlChar *)"tooltip");
-		accelerator = xmlGetProp(cur, (const xmlChar *)"accelerator");
-		if (tooltip) {
-			tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
-			xmlFree(tooltip);
-		}
-		if (accelerator) {
-			accelerator2 = g_markup_escape_text((gchar *)accelerator,-1);
-			xmlFree(accelerator);
-		}
-		if (tooltip && !accelerator) {
-			return tooltip2;
-		} else if (accelerator && !tooltip) {
-			return accelerator2;
-		} else if (tooltip && accelerator) {
-			gchar *tmp;
-			tmp = g_strconcat(tooltip2, "\n", accelerator2, NULL);
-			g_free(tooltip2);
-			g_free(accelerator2);
-			return tmp;
-		} else {
-			return NULL;
+	GtkTreePath *path;	
+	if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(tree), x, y, &path, NULL, NULL, NULL)) {
+		xmlNodePtr cur = snippetview_get_node_at_path(path);
+		DEBUG_MSG("snippets_treetip_lcb, found node %p for path %p\n",cur,path); 
+		if (cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
+			xmlChar *tooltip, *accelerator;
+			gchar *tooltip2=NULL, *accelerator2=NULL;
+			tooltip = xmlGetProp(cur, (const xmlChar *)"tooltip");
+			accelerator = xmlGetProp(cur, (const xmlChar *)"accelerator");
+			if (tooltip) {
+				tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
+				xmlFree(tooltip);
+			}
+			if (accelerator) {
+				accelerator2 = g_markup_escape_text((gchar *)accelerator,-1);
+				xmlFree(accelerator);
+			}
+			if (tooltip && !accelerator) {
+				return tooltip2;
+			} else if (accelerator && !tooltip) {
+				return accelerator2;
+			} else if (tooltip && accelerator) {
+				gchar *tmp;
+				tmp = g_strconcat(tooltip2, "\n", accelerator2, NULL);
+				g_free(tooltip2);
+				g_free(accelerator2);
+				return tmp;
+			} else {
+				return NULL;
+			}
 		}
 	}
 	return NULL;
