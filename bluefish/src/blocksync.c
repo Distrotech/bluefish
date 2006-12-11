@@ -51,6 +51,27 @@ static gboolean single_occurence(gchar *allcontent, gchar *string) {
 	return TRUE;
 }
 
+static gchar *pcre_escape_string(const gchar *orig) {
+	gint len,i=0,o=0;
+	gchar *new;
+	
+	len = strlen(orig);
+	new = g_new(gchar,len*2+1);
+	while (i<len) {
+		if (orig[i] == '.' || orig[i] == '?' || orig[i] == '+' || orig[i] == '*'
+				|| orig[i] == '(' || orig[i] == ')' || orig[i] == '[' || orig[i] == ']'
+				|| orig[i] == '\\') {
+			new[o] = '\\';
+			o++;
+		}
+		new[o] = orig[i];
+		i++;
+		o++;
+	}
+	DEBUG_MSG("pcre_escape_string, orig=%s, new=%s\n",orig,new);
+	return new;
+}
+
 static void bs_page_no_selection(Tbsdialog *bsdialog) {
 	GtkWidget *label = gtk_label_new(_("Select the block to sync to other pages. Include the start-of-block and end-of-block markers in your selection."));
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
@@ -148,9 +169,14 @@ static void bs_dialog_response_lcb(GtkDialog *dialog, gint response, Tbsdialog *
 			}
 		} /* else do nothing */
 	} else if (bsdialog->curpage == page_summary && response == 1) {
-		gchar *searchpat;
+		gchar *searchpat, *tmp1, *tmp2;
 		/* GO */
-		searchpat = g_strconcat(bsdialog->startmarker, ".*", bsdialog->endmarker, NULL);
+		tmp1 = pcre_escape_string(bsdialog->startmarker);
+		tmp2 = pcre_escape_string(bsdialog->endmarker);
+		searchpat = g_strconcat(tmp1, ".*?",tmp2 , NULL);
+		DEBUG_MSG("searchpat=%s\n",searchpat);
+		g_free(tmp1);
+		g_free(tmp2);
 		/* BUG: what if the start or endmarkers contain special pcre patterns ? */
 		snr2_run_extern_replace(bsdialog->bfwin->current_document, searchpat, 3,2,1, bsdialog->allblock,FALSE);
 		g_free(searchpat);
