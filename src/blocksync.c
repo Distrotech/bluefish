@@ -20,7 +20,7 @@
 #define DEBUG
 
 #include <gtk/gtk.h>
-
+#include <string.h>
 #include "config.h"
 
 #include "bluefish.h"
@@ -46,9 +46,18 @@ typedef struct {
 	gchar *endmarker;
 } Tbsdialog;
 
-static gboolean single_occurence(gchar *allcontent, gchar *string) {
-	/* TODO */
-	return TRUE;
+static gboolean single_occurence(gchar *allcontent, gchar *needle) {
+	gchar *first;
+	/* the string should be only once in allcontent */
+	first = strstr(allcontent, needle);
+	if (first) {
+		gchar *second = strstr(first+1, needle);
+		if (second == NULL) {
+			return TRUE;
+		}
+		DEBUG_MSG("single_occurence, error, needle %s exists twice!, first=%p, second=%p\n",needle,first,second);
+	}
+	return FALSE;
 }
 
 static gchar *pcre_escape_string(const gchar *orig) {
@@ -85,6 +94,9 @@ static void bs_page_no_selection(Tbsdialog *bsdialog) {
 
 static void bs_page_start_marker(Tbsdialog *bsdialog, const gchar *text) {
 	GtkWidget *vbox, *label, *scrolwin;
+	GtkTextBuffer *buffer;
+	GtkTextIter start,end;
+	GtkTextMark *mark;
 	vbox = gtk_vbox_new(FALSE,6);
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(bsdialog->dialog)->vbox), vbox, TRUE,TRUE,5);
 	
@@ -97,12 +109,23 @@ static void bs_page_start_marker(Tbsdialog *bsdialog, const gchar *text) {
 	gtk_box_pack_start(GTK_BOX(vbox),scrolwin,TRUE,TRUE,6);
 	gtk_widget_show_all(bsdialog->dialog);
 	
+	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bsdialog->textview));
+	gtk_text_buffer_get_start_iter(buffer,&start);
+	end = start;
+	gtk_text_iter_forward_to_line_end(&end);
+	gtk_text_buffer_select_range(buffer,&start,&end);
+	mark = gtk_text_buffer_get_selection_bound(buffer);
+	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(bsdialog->textview),mark);
+	
 	bsdialog->child = vbox;
 	bsdialog->curpage = page_start_marker;
 }
 
 static void bs_page_end_marker(Tbsdialog *bsdialog, const gchar *text) {
 	GtkWidget *vbox, *label, *scrolwin;
+	GtkTextBuffer *buffer;
+	GtkTextIter start,end;
+	GtkTextMark *mark;
 	vbox = gtk_vbox_new(FALSE,6);
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(bsdialog->dialog)->vbox), vbox, TRUE,TRUE,5);
 	
@@ -114,7 +137,15 @@ static void bs_page_end_marker(Tbsdialog *bsdialog, const gchar *text) {
 	scrolwin = textview_buffer_in_scrolwin(&bsdialog->textview, 400, 300, text, GTK_WRAP_NONE);
 	gtk_box_pack_start(GTK_BOX(vbox),scrolwin,TRUE,TRUE,6);
 	gtk_widget_show_all(bsdialog->dialog);
-
+	
+	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bsdialog->textview));
+	gtk_text_buffer_get_end_iter(buffer,&end);
+	start = end;
+	gtk_text_iter_set_line_offset(&start,0);
+	gtk_text_buffer_select_range(buffer,&start,&end);
+	mark = gtk_text_buffer_get_selection_bound(buffer);
+	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(bsdialog->textview),mark);
+	
 	bsdialog->child = vbox;
 	bsdialog->curpage = page_end_marker;
 }
@@ -128,8 +159,16 @@ static void bs_page_summary(Tbsdialog *bsdialog) {
 
 	bsdialog->child = label;
 	bsdialog->curpage = page_summary;
-	
 }
+
+static void bsdialog_cleanup(Tbsdialog *bsdialog) {
+	gtk_widget_destroy(bsdialog->dialog);
+	if (bsdialog->startmarker) g_free(bsdialog->startmarker);
+	if (bsdialog->endmarker) g_free(bsdialog->endmarker);
+	if (bsdialog->allblock) g_free(bsdialog->allblock);
+	g_free(bsdialog);
+}
+
 
 static void bs_dialog_response_lcb(GtkDialog *dialog, gint response, Tbsdialog *bsdialog) {
 	if (bsdialog->curpage == page_no_selection && response == 1) {
@@ -182,21 +221,18 @@ static void bs_dialog_response_lcb(GtkDialog *dialog, gint response, Tbsdialog *
 		g_free(searchpat);
 		
 		/* cleanup */
-		gtk_widget_destroy(bsdialog->dialog);
-		g_free(bsdialog->startmarker);
-		g_free(bsdialog->endmarker);
-		g_free(bsdialog->allblock);
-		g_free(bsdialog);
-	} else {
+		bsdialog_cleanup(bsdialog);
+	} else if (response == -2 || response == -4){
+		bsdialog_cleanup(bsdialog);
+	} else{
 		DEBUG_MSG("flow broken, response=%d, page=%d\n",response,bsdialog->curpage);
 	}
 }
 
-
 void blocksync_dialog(Tbfwin *bfwin) {
 	Tbsdialog *bsdialog;
 	
-	bsdialog = g_new(Tbsdialog,1);
+	bsdialog = g_new0(Tbsdialog,1);
 	bsdialog->bfwin = bfwin;
 	bsdialog->curpage = page_no_selection;
 	bsdialog->dialog = gtk_dialog_new_with_buttons(_("Block synchronisation"),GTK_WINDOW(bfwin->main_window),
@@ -211,6 +247,3 @@ void blocksync_dialog(Tbfwin *bfwin) {
 	gtk_widget_show_all(bsdialog->dialog);
 	g_signal_connect(bsdialog->dialog, "response", G_CALLBACK(bs_dialog_response_lcb), bsdialog);
 }
-
-
-
