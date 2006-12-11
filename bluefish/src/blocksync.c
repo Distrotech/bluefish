@@ -98,7 +98,7 @@ static void bs_page_no_selection(Tbsdialog *bsdialog) {
 	gtk_box_pack_start(GTK_BOX(vbox), bsdialog->warnlabel, TRUE,TRUE,5);
 	gtk_widget_show_all(bsdialog->dialog);
 	
-	bsdialog->child = label;
+	bsdialog->child = vbox;
 	bsdialog->curpage = page_no_selection;
 }
 
@@ -161,9 +161,7 @@ static void bs_page_end_marker(Tbsdialog *bsdialog, const gchar *text) {
 	if (gtk_text_iter_equal(&start,&end)) {
 		/* if the last line is just a newline, we select the line before */
 		gtk_text_iter_backward_line(&start);
-		end = start;
 		gtk_text_iter_set_line_offset(&start,0);
-		gtk_text_iter_forward_to_line_end(&end);
 	}
 	gtk_text_buffer_select_range(buffer,&start,&end);
 	mark = gtk_text_buffer_get_selection_bound(buffer);
