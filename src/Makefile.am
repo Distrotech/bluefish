@@ -16,6 +16,8 @@ bluefish_unstable_SOURCES = \
 	bfspell.h \
 	bf-textview.c \
 	bf-textview.h \
+	blocksync.c \
+	blocksync.h \
 	bluefish.c \
 	bluefish.h \
 	bookmark.c \

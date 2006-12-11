@@ -49,6 +49,8 @@
 #include "external_commands.h"
 #include "outputbox.h"           /* temporary */
 #include "bf-textview.h"
+#include "blocksync.h" 
+
 
 #ifdef HAVE_PYTHON
 #include "embed_python.h"
@@ -111,11 +113,7 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		search_again_cb(NULL, bfwin);
 	break;
 	case 17:
-#ifdef SNRDIALOG2
 		snr_dialog_new(bfwin, 1);
-#else
-		replace_cb(NULL, bfwin);
-#endif
 	break;
 	case 19:
 		replace_again_cb(NULL, bfwin);
@@ -143,6 +141,9 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	break;
 	case 27:
 		search_from_selection(bfwin);
+	break;
+	case 28:
+		blocksync_dialog(bfwin);
 	break;
 #ifdef HAVE_PYTHON
 	case 99:
@@ -258,6 +259,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Replace Agai_n"), "<shift><control>h", menu_file_operations_cb, 19, "<Item>"},
 	{N_("/Edit/Replace special"), NULL, NULL, 0, "<Branch>"},
 	{"/Edit/Replace special/tearoff1", NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Edit/Replace special/Block sync"), NULL, menu_file_operations_cb, 28, "<Item>"},
 	{"/Edit/sep4", NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/S_hift Right"), NULL, menu_indent_cb, 2, "<StockItem>", GTK_STOCK_INDENT},
 	{N_("/Edit/Shift _Left"), NULL, menu_indent_cb, 1, "<StockItem>", GTK_STOCK_UNINDENT},
