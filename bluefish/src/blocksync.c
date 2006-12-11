@@ -37,6 +37,7 @@ typedef enum {
 
 typedef struct {
 	GtkWidget *dialog;
+	GtkWidget *warnlabel;
 	Tbspage curpage;
 	Tbfwin *bfwin;
 	GtkWidget *child;
@@ -66,7 +67,7 @@ static gchar *pcre_escape_string(const gchar *orig) {
 	
 	len = strlen(orig);
 	new = g_new(gchar,len*2+1);
-	while (i<len) {
+	while (i<=len) {
 		if (orig[i] == '.' || orig[i] == '?' || orig[i] == '+' || orig[i] == '*'
 				|| orig[i] == '(' || orig[i] == ')' || orig[i] == '[' || orig[i] == ']'
 				|| orig[i] == '\\') {
@@ -82,10 +83,19 @@ static gchar *pcre_escape_string(const gchar *orig) {
 }
 
 static void bs_page_no_selection(Tbsdialog *bsdialog) {
-	GtkWidget *label = gtk_label_new(_("Select the block to sync to other pages. Include the start-of-block and end-of-block markers in your selection."));
+	GtkWidget *label, *vbox;
+	
+	vbox = gtk_vbox_new(FALSE,6);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(bsdialog->dialog)->vbox), vbox, TRUE,TRUE,5);
+
+	label = gtk_label_new(_("Select the block to sync to other pages. Include the start-of-block and end-of-block markers in your selection."));
+	
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(bsdialog->dialog)->vbox), label, TRUE,TRUE,5);
+	gtk_box_pack_start(GTK_BOX(vbox), label, TRUE,TRUE,5);
+	
+	bsdialog->warnlabel = gtk_label_new("");	
+	gtk_box_pack_start(GTK_BOX(vbox), bsdialog->warnlabel, TRUE,TRUE,5);
 	gtk_widget_show_all(bsdialog->dialog);
 	
 	bsdialog->child = label;
@@ -104,6 +114,9 @@ static void bs_page_start_marker(Tbsdialog *bsdialog, const gchar *text) {
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
 	gtk_box_pack_start(GTK_BOX(vbox),label,TRUE,TRUE,6);
+	
+	bsdialog->warnlabel = gtk_label_new("");	
+	gtk_box_pack_start(GTK_BOX(vbox), bsdialog->warnlabel, TRUE,TRUE,5);	
 	
 	scrolwin = textview_buffer_in_scrolwin(&bsdialog->textview, 400, 300, text, GTK_WRAP_NONE);
 	gtk_box_pack_start(GTK_BOX(vbox),scrolwin,TRUE,TRUE,6);
@@ -134,6 +147,9 @@ static void bs_page_end_marker(Tbsdialog *bsdialog, const gchar *text) {
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
 	gtk_box_pack_start(GTK_BOX(vbox),label,TRUE,TRUE,6);
 	
+	bsdialog->warnlabel = gtk_label_new("");	
+	gtk_box_pack_start(GTK_BOX(vbox), bsdialog->warnlabel, TRUE,TRUE,5);
+	
 	scrolwin = textview_buffer_in_scrolwin(&bsdialog->textview, 400, 300, text, GTK_WRAP_NONE);
 	gtk_box_pack_start(GTK_BOX(vbox),scrolwin,TRUE,TRUE,6);
 	gtk_widget_show_all(bsdialog->dialog);
@@ -142,6 +158,13 @@ static void bs_page_end_marker(Tbsdialog *bsdialog, const gchar *text) {
 	gtk_text_buffer_get_end_iter(buffer,&end);
 	start = end;
 	gtk_text_iter_set_line_offset(&start,0);
+	if (gtk_text_iter_equal(&start,&end)) {
+		/* if the last line is just a newline, we select the line before */
+		gtk_text_iter_backward_line(&start);
+		end = start;
+		gtk_text_iter_set_line_offset(&start,0);
+		gtk_text_iter_forward_to_line_end(&end);
+	}
 	gtk_text_buffer_select_range(buffer,&start,&end);
 	mark = gtk_text_buffer_get_selection_bound(buffer);
 	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(bsdialog->textview),mark);
@@ -169,7 +192,6 @@ static void bsdialog_cleanup(Tbsdialog *bsdialog) {
 	g_free(bsdialog);
 }
 
-
 static void bs_dialog_response_lcb(GtkDialog *dialog, gint response, Tbsdialog *bsdialog) {
 	if (bsdialog->curpage == page_no_selection && response == 1) {
 		gint start,end;
@@ -178,7 +200,9 @@ static void bs_dialog_response_lcb(GtkDialog *dialog, gint response, Tbsdialog *
 			bsdialog->allblock = doc_get_chars(bsdialog->bfwin->current_document,start,end);
 			gtk_widget_destroy(bsdialog->child);
 			bs_page_start_marker(bsdialog, bsdialog->allblock);
-		} /* else do nothing */
+		} else {
+			gtk_label_set_text(GTK_LABEL(bsdialog->warnlabel), _("Please select the block of text"));
+		}
 	} else if (bsdialog->curpage == page_start_marker && response == 1) {
 		GtkTextBuffer *buffer;
 		GtkTextIter start,end;
@@ -190,7 +214,7 @@ static void bs_dialog_response_lcb(GtkDialog *dialog, gint response, Tbsdialog *
 				gtk_widget_destroy(bsdialog->child);
 				bs_page_end_marker(bsdialog, bsdialog->allblock);
 			} else {
-				/* TODO: show warning */
+				gtk_label_set_text(GTK_LABEL(bsdialog->warnlabel), _("This marker exists more than once in the block."));
 			}
 		} /* else do nothing */
 	} else if (bsdialog->curpage == page_end_marker && response == 1) {
@@ -204,7 +228,7 @@ static void bs_dialog_response_lcb(GtkDialog *dialog, gint response, Tbsdialog *
 				gtk_widget_destroy(bsdialog->child);
 				bs_page_summary(bsdialog);
 			} else {
-				/* TODO: show warning */
+				gtk_label_set_text(GTK_LABEL(bsdialog->warnlabel), _("This marker exists more than once in the block."));
 			}
 		} /* else do nothing */
 	} else if (bsdialog->curpage == page_summary && response == 1) {
