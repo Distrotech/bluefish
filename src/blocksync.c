@@ -84,19 +84,28 @@ static gchar *pcre_escape_string(const gchar *orig) {
 
 static void bs_page_no_selection(Tbsdialog *bsdialog) {
 	GtkWidget *label, *vbox;
+	gchar *tmp1;
+	const gchar *stext = _("Select the block to sync to other pages. Include the start-of-block and end-of-block markers in your selection.");	
 	
 	vbox = gtk_vbox_new(FALSE,6);
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(bsdialog->dialog)->vbox), vbox, TRUE,TRUE,5);
-
-	label = gtk_label_new(_("Select the block to sync to other pages. Include the start-of-block and end-of-block markers in your selection."));
+	if (doc_has_selection(bsdialog->bfwin->current_document)) {
+		tmp1 = g_strconcat(stext, " ", _("To proceed with the current selection click forward."), NULL);
+	} else {
+		tmp1 = g_strdup(stext);
+	}
+	
+	label = gtk_label_new(tmp1);
+	g_free(tmp1);
 	
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
-	gtk_box_pack_start(GTK_BOX(vbox), label, TRUE,TRUE,5);
+	gtk_box_pack_start(GTK_BOX(vbox), label, FALSE,TRUE,5);
 	
-	bsdialog->warnlabel = gtk_label_new("");	
-	gtk_box_pack_start(GTK_BOX(vbox), bsdialog->warnlabel, TRUE,TRUE,5);
 	gtk_widget_show_all(bsdialog->dialog);
+	bsdialog->warnlabel = gtk_label_new("");	
+	gtk_box_pack_start(GTK_BOX(vbox), bsdialog->warnlabel, FALSE,TRUE,5);
+	
 	
 	bsdialog->child = vbox;
 	bsdialog->curpage = page_no_selection;
@@ -113,14 +122,17 @@ static void bs_page_start_marker(Tbsdialog *bsdialog, const gchar *text) {
 	label	= gtk_label_new(_("Below is the block, including start and end marker. Please <b>select the start marker</b> in the text below."));
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
-	gtk_box_pack_start(GTK_BOX(vbox),label,TRUE,TRUE,6);
+	gtk_box_pack_start(GTK_BOX(vbox),label,FALSE,TRUE,6);
 	
 	bsdialog->warnlabel = gtk_label_new("");	
-	gtk_box_pack_start(GTK_BOX(vbox), bsdialog->warnlabel, TRUE,TRUE,5);	
+	gtk_box_pack_start(GTK_BOX(vbox), bsdialog->warnlabel, FALSE,TRUE,6);	
 	
-	scrolwin = textview_buffer_in_scrolwin(&bsdialog->textview, 400, 300, text, GTK_WRAP_NONE);
+	scrolwin = textview_buffer_in_scrolwin(&bsdialog->textview, -1, -1, text, GTK_WRAP_NONE);
 	gtk_box_pack_start(GTK_BOX(vbox),scrolwin,TRUE,TRUE,6);
-	gtk_widget_show_all(bsdialog->dialog);
+	gtk_widget_show(bsdialog->textview);
+	gtk_widget_show(label);
+	gtk_widget_show(scrolwin);
+	gtk_widget_show(vbox);
 	
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bsdialog->textview));
 	gtk_text_buffer_get_start_iter(buffer,&start);
@@ -145,14 +157,17 @@ static void bs_page_end_marker(Tbsdialog *bsdialog, const gchar *text) {
 	label	= gtk_label_new(_("Please <b>select the end marker</b> in the text below."));
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
-	gtk_box_pack_start(GTK_BOX(vbox),label,TRUE,TRUE,6);
+	gtk_box_pack_start(GTK_BOX(vbox),label,FALSE,TRUE,6);
 	
 	bsdialog->warnlabel = gtk_label_new("");	
-	gtk_box_pack_start(GTK_BOX(vbox), bsdialog->warnlabel, TRUE,TRUE,5);
+	gtk_box_pack_start(GTK_BOX(vbox), bsdialog->warnlabel, FALSE,TRUE,6);
 	
-	scrolwin = textview_buffer_in_scrolwin(&bsdialog->textview, 400, 300, text, GTK_WRAP_NONE);
+	scrolwin = textview_buffer_in_scrolwin(&bsdialog->textview, -1, -1, text, GTK_WRAP_NONE);
 	gtk_box_pack_start(GTK_BOX(vbox),scrolwin,TRUE,TRUE,6);
-	gtk_widget_show_all(bsdialog->dialog);
+	gtk_widget_show(bsdialog->textview);
+	gtk_widget_show(label);
+	gtk_widget_show(scrolwin);
+	gtk_widget_show(vbox);
 	
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bsdialog->textview));
 	gtk_text_buffer_get_end_iter(buffer,&end);
@@ -172,7 +187,16 @@ static void bs_page_end_marker(Tbsdialog *bsdialog, const gchar *text) {
 }
 
 static void bs_page_summary(Tbsdialog *bsdialog) {
-	GtkWidget *label = gtk_label_new(_("<b>Sync this block to all opened documents?</b>"));
+	gchar *tmp, *tmp1, *tmp2;
+	GtkWidget *label;
+
+	tmp1 = g_markup_escape_text(bsdialog->startmarker,-1);
+	tmp2 = g_markup_escape_text(bsdialog->endmarker,-1);
+	tmp = g_strdup_printf("Will replace the text between <i>%s</i> and <i>%s</i> in all documents opened in this window.\n<b>Proceed?</b>", tmp1,tmp2);
+	label = gtk_label_new(tmp);
+	g_free(tmp);
+	g_free(tmp1);
+	g_free(tmp2);
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(bsdialog->dialog)->vbox), label, TRUE,TRUE,5);
@@ -199,7 +223,8 @@ static void bs_dialog_response_lcb(GtkDialog *dialog, gint response, Tbsdialog *
 			gtk_widget_destroy(bsdialog->child);
 			bs_page_start_marker(bsdialog, bsdialog->allblock);
 		} else {
-			gtk_label_set_text(GTK_LABEL(bsdialog->warnlabel), _("Please select the block of text"));
+			gtk_label_set_markup(GTK_LABEL(bsdialog->warnlabel), _("<span foreground=\"red\" weight=\"bold\">Please select the block of text to synchronize.</span>"));
+			gtk_widget_show(bsdialog->warnlabel);
 		}
 	} else if (bsdialog->curpage == page_start_marker && response == 1) {
 		GtkTextBuffer *buffer;
@@ -212,9 +237,15 @@ static void bs_dialog_response_lcb(GtkDialog *dialog, gint response, Tbsdialog *
 				gtk_widget_destroy(bsdialog->child);
 				bs_page_end_marker(bsdialog, bsdialog->allblock);
 			} else {
-				gtk_label_set_text(GTK_LABEL(bsdialog->warnlabel), _("This marker exists more than once in the block."));
+				gtk_label_set_markup(GTK_LABEL(bsdialog->warnlabel), _("<span foreground=\"red\" weight=\"bold\">This marker exists more than once in the block.</span>"));
+				gtk_widget_show(bsdialog->warnlabel);
+				g_free(bsdialog->startmarker);
+				bsdialog->startmarker = NULL;
 			}
-		} /* else do nothing */
+		} else {
+			gtk_label_set_markup(GTK_LABEL(bsdialog->warnlabel), _("<span foreground=\"red\" weight=\"bold\">Select the text that marks the start of the block.</span>"));
+			gtk_widget_show(bsdialog->warnlabel);
+		}
 	} else if (bsdialog->curpage == page_end_marker && response == 1) {
 		GtkTextBuffer *buffer;
 		GtkTextIter start,end;
@@ -222,13 +253,19 @@ static void bs_dialog_response_lcb(GtkDialog *dialog, gint response, Tbsdialog *
 		buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bsdialog->textview));
 		if (gtk_text_buffer_get_selection_bounds(buffer,&start,&end)) {
 			bsdialog->endmarker = gtk_text_buffer_get_text(buffer,&start,&end,FALSE);
-			if (single_occurence(bsdialog->allblock, bsdialog->startmarker)) {
+			if (single_occurence(bsdialog->allblock, bsdialog->endmarker)) {
 				gtk_widget_destroy(bsdialog->child);
 				bs_page_summary(bsdialog);
 			} else {
-				gtk_label_set_text(GTK_LABEL(bsdialog->warnlabel), _("This marker exists more than once in the block."));
+				gtk_label_set_markup(GTK_LABEL(bsdialog->warnlabel), _("<span foreground=\"red\" weight=\"bold\">This marker exists more than once in the block.</span>"));
+				gtk_widget_show(bsdialog->warnlabel);
+				g_free(bsdialog->endmarker);
+				bsdialog->endmarker = NULL;
 			}
-		} /* else do nothing */
+		}  else {
+			gtk_label_set_markup(GTK_LABEL(bsdialog->warnlabel), _("<span foreground=\"red\" weight=\"bold\">Select the text that marks the end of the block.</span>"));
+			gtk_widget_show(bsdialog->warnlabel);
+		}
 	} else if (bsdialog->curpage == page_summary && response == 1) {
 		gchar *searchpat, *tmp1, *tmp2;
 		/* GO */
@@ -262,7 +299,7 @@ void blocksync_dialog(Tbfwin *bfwin) {
 					GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,
 					GTK_STOCK_GO_FORWARD,1,
 					NULL);
-	gtk_window_set_default_size(GTK_WINDOW(bsdialog->dialog),500,400);
+	gtk_window_set_default_size(GTK_WINDOW(bsdialog->dialog),400,300);
 
 	bs_page_no_selection(bsdialog);
 	
