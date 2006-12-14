@@ -1225,7 +1225,7 @@ static void fb2_refilter(Tfilebrowser2 *fb2) {
 
 
 static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action, GtkWidget *widget) {
-	DEBUG_MSG("fb2rpopup_rpopup_action_lcb, called with action %d and widget %p\n",callback_action,widget);
+	DEBUG_MSG("fb2rpopup_rpopup_action_lcb, called with action %d and widget %p, fb2=%p\n",callback_action,widget,fb2);
 	switch (callback_action) {
 		case 1:
 			{
@@ -1471,7 +1471,7 @@ static gboolean dir_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event,
 }
 
 static gboolean file_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tfilebrowser2 *fb2) {
-	DEBUG_MSG("file_v_button_press_lcb, called\n");
+	DEBUG_MSG("file_v_button_press_lcb, called for fb2=%p\n",fb2);
 	if (event->button == 3) {
 		GtkWidget *menu = NULL;
 		GtkTreePath *path;
