@@ -70,7 +70,7 @@ static gchar *pcre_escape_string(const gchar *orig) {
 	while (i<=len) {
 		if (orig[i] == '.' || orig[i] == '?' || orig[i] == '+' || orig[i] == '*'
 				|| orig[i] == '(' || orig[i] == ')' || orig[i] == '[' || orig[i] == ']'
-				|| orig[i] == '\\') {
+				|| orig[i] == '\\' || orig[i] == '^' || orig[i] == '$') {
 			new[o] = '\\';
 			o++;
 		}
