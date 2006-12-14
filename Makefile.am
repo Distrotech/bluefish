@@ -1,5 +1,5 @@
 
-AUTOMAKE_OPTIONS = dist-bzip2
+AUTOMAKE_OPTIONS = dist-bzip2 1.7
 
 SUBDIRS = data desktop-data images man po src
 
