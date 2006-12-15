@@ -141,15 +141,19 @@ Tfiletype *get_filetype_for_mime_type(const gchar *mime_type) {
 }
 
 const gchar *get_mimetype_for_uri(GnomeVFSURI *uri, gboolean fast) {
-	GnomeVFSFileInfo info;
+	GnomeVFSFileInfo *info;
 	GnomeVFSResult res;
+	const gchar *retval=NULL;
+	
+	info = gnome_vfs_file_info_new();
 	DEBUG_MSG("get_mimetype_for_uri, uri(%p)=%s\n",uri,gnome_vfs_uri_extract_short_name(uri));
-	res = gnome_vfs_get_file_info_uri(uri,&info,fast?GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE:GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+	res = gnome_vfs_get_file_info_uri(uri,info,fast?GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE:GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
 	DEBUG_MSG("get_mimetype_for_uri, res=%d\n",res);
 	if (res == GNOME_VFS_OK) {
-		return gnome_vfs_file_info_get_mime_type(&info);
+		retval = gnome_vfs_file_info_get_mime_type(info);
 	}
-	return NULL;
+	gnome_vfs_file_info_unref(info);
+	return retval;
 }
 
 Tfiletype *get_filetype_for_uri(GnomeVFSURI *uri, gboolean fast) {
