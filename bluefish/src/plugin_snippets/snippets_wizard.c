@@ -26,6 +26,20 @@
 #include "snippets_leaf_insert.h"
 #include "../gtk_easy.h"
 
+typedef enum {
+	page_type, /* 0 */
+	page_branch, /* 1 */
+	page_insert, /* 2 */
+	page_finished
+} Tpagenum;
+
+typedef struct {
+	Tsnippetswin *snw;
+	GtkWidget *dialog;
+	gpointer pagestruct;
+	Tpagenum pagenum;
+} Tsnipwiz;
+
 static void get_parentbranch(Tsnippetswin *snw, GtkTreePath **parentp, xmlNodePtr *parentn) {
 	if (snw->lastclickedpath) {
 		*parentp = gtk_tree_path_copy(snw->lastclickedpath);
@@ -63,13 +77,6 @@ static void add_item_to_tree(GtkTreePath *parentp, gchar *name, gpointer ptr) {
 	}
 	gtk_tree_store_set(snippets_v.store, &citer, PIXMAP_COLUMN, NULL, TITLE_COLUMN, name,NODE_COLUMN, ptr,-1);
 }
-
-typedef enum {
-	page_type, /* 0 */
-	page_branch, /* 1 */
-	page_insert, /* 2 */
-	page_finished
-} Tpagenum;
 
 typedef struct {
 	GtkWidget *table;
@@ -255,11 +262,11 @@ static gint snippets_test_page1(Tsnippetswin *snw, gpointer data) {
 typedef struct {
 	GtkWidget *radio[2];
 	GtkWidget *vbox;
-} Tpage0;
+} TpageType;
 
-static gpointer snippets_build_page0(Tsnippetswin *snw, GtkWidget *dialog_action) {
+static gpointer snippets_build_pageType(Tsnippetswin *snw, GtkWidget *dialog_action) {
 	GtkWidget *label;
-	Tpage0 *p0 = g_new(Tpage0,1);
+	TpageType *p0 = g_new(TpageType,1);
 	p0->vbox = gtk_vbox_new(FALSE,12);
 	gtk_container_add(GTK_CONTAINER(dialog_action),p0->vbox);
 	label = gtk_label_new(_("Select what you want to add"));
@@ -269,17 +276,20 @@ static gpointer snippets_build_page0(Tsnippetswin *snw, GtkWidget *dialog_action
 	p0->radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(p0->radio[0]),_("Insert string"));
 	gtk_box_pack_start(GTK_BOX(p0->vbox),p0->radio[1],TRUE,TRUE,12);
 	gtk_widget_show_all(p0->vbox);
+	DEBUG_MSG("snippets_build_pageType, created pageType at %p\n",p0);
 	return p0;
 }
 
-static void snippets_delete_page0(Tsnippetswin *snw, gpointer data) {
-	Tpage0 *p0 = (Tpage0 *)data;
+static void snippets_delete_pageType(Tsnippetswin *snw, gpointer data) {
+	TpageType *p0 = (TpageType *)data;
+	DEBUG_MSG("snippets_delete_pageType, destroy pageType at %p\n",p0);
 	gtk_widget_destroy(p0->vbox);
 }
 
-static gint snippets_test_page0(Tsnippetswin *snw, gpointer data) {
-	Tpage0 *p0 = (Tpage0 *)data;
+static gint snippets_test_pageType(Tsnippetswin *snw, gpointer data) {
+	TpageType *p0 = (TpageType *)data;
 	int i;
+	DEBUG_MSG("snippets_delete_pageType, test pageType at %p\n",p0);
 	for (i=0;i<2;i++) {
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(p0->radio[i]))) {
 			return i+1; /* branch =1, insert=2 */
@@ -288,66 +298,72 @@ static gint snippets_test_page0(Tsnippetswin *snw, gpointer data) {
 	return page_type;
 }
 
+static void snipwiz_dialog_response_lcb(GtkDialog *dialog, gint response, Tsnipwiz *snwiz) {
+	Tpagenum newpagenum;
+	if (response == GTK_RESPONSE_REJECT) {
+		gtk_widget_destroy(snwiz->dialog);
+		g_free(snwiz);
+		return;
+	}
+	switch (snwiz->pagenum) { /* test the current results */
+		case page_type:
+			newpagenum = snippets_test_pageType(snwiz->snw,snwiz->pagestruct);
+			if (newpagenum != page_type) {
+				snippets_delete_pageType(snwiz->snw,snwiz->pagestruct);
+			}
+		break;
+		case page_branch:
+			newpagenum = snippets_test_page1(snwiz->snw,snwiz->pagestruct);
+			if (newpagenum != page_branch) {
+				snippets_delete_page1(snwiz->snw,snwiz->pagestruct);
+			}
+		break;
+		case page_insert:
+			newpagenum = snippets_test_page2(snwiz->snw,snwiz->pagestruct);
+			if (newpagenum != page_insert) {
+				snippets_delete_page2(snwiz->snw,snwiz->pagestruct);
+			}
+		break;
+		case page_finished: /* avoid compiler warning */
+		break;
+	}
+	if (snwiz->pagenum != newpagenum) {
+		switch (newpagenum) { /* build a new page */
+			case page_type:
+				snwiz->pagestruct = snippets_build_pageType(snwiz->snw,GTK_DIALOG(snwiz->dialog)->vbox);
+			break;
+			case page_branch:
+				snwiz->pagestruct = snippets_build_page1(snwiz->snw,GTK_DIALOG(snwiz->dialog)->vbox);
+			break;
+			case page_insert:
+				snwiz->pagestruct = snippets_build_page2(snwiz->snw,GTK_DIALOG(snwiz->dialog)->vbox);
+			break;
+			case page_finished:
+				gtk_widget_destroy(snwiz->dialog);
+				g_free(snwiz);
+				return;
+			break;
+		}
+		snwiz->pagenum = newpagenum;
+	}
+}
+
+
 void snippets_new_item_dialog(Tsnippetswin *snw) {
-	GtkWidget* dialog;
-	gboolean cont=TRUE;
-	gint response;
-	gpointer pagestruct;
-	Tpagenum pagenum = page_type, newpagenum = page_type; 
+	Tsnipwiz *snwiz;
 	
-	dialog = gtk_dialog_new_with_buttons(_("New snippet"),GTK_WINDOW(snw->bfwin->main_window),
+	snwiz = g_new0(Tsnipwiz,1);
+	snwiz->snw = snw;
+	snwiz->dialog = gtk_dialog_new_with_buttons(_("New snippet"),GTK_WINDOW(snw->bfwin->main_window),
 					GTK_DIALOG_MODAL|GTK_DIALOG_DESTROY_WITH_PARENT,
 					GTK_STOCK_CANCEL,GTK_RESPONSE_REJECT,
 					GTK_STOCK_GO_FORWARD,1,
 					NULL);
-	gtk_window_set_default_size(GTK_WINDOW(dialog),500,400);
-	pagestruct = snippets_build_page0(snw,GTK_DIALOG(dialog)->vbox);
-	gtk_widget_show_all(dialog);
-	while (cont) {
-		response = gtk_dialog_run(GTK_DIALOG(dialog));
-		if (response == GTK_RESPONSE_REJECT) {
-			cont = FALSE;
-			break;
-		} 
-		switch (pagenum) { /* test the current results */
-			case page_type:
-				newpagenum = snippets_test_page0(snw,pagestruct);
-				if (newpagenum != page_type) {
-					snippets_delete_page0(snw,pagestruct);
-				}
-			break;
-			case page_branch:
-				newpagenum = snippets_test_page1(snw,pagestruct);
-				if (newpagenum != page_type) {
-					snippets_delete_page1(snw,pagestruct);
-				}
-			break;
-			case page_insert:
-				newpagenum = snippets_test_page2(snw,pagestruct);
-				if (newpagenum != page_type) {
-					snippets_delete_page2(snw,pagestruct);
-				}
-			break;
-			case page_finished: /* avoid compiler warning */
-			break;
-		}
-		if (pagenum != newpagenum) {
-			switch (newpagenum) { /* build a new page */
-				case page_type:
-					pagestruct = snippets_build_page0(snw,GTK_DIALOG(dialog)->vbox);
-				break;
-				case page_branch:
-					pagestruct = snippets_build_page1(snw,GTK_DIALOG(dialog)->vbox);
-				break;
-				case page_insert:
-					pagestruct = snippets_build_page2(snw,GTK_DIALOG(dialog)->vbox);
-				break;
-				case page_finished:
-					cont = FALSE;
-				break;
-			}
-			pagenum = newpagenum;
-		}
-	}
-	gtk_widget_destroy(dialog);
+	gtk_window_set_default_size(GTK_WINDOW(snwiz->dialog),500,400);
+	snwiz->pagestruct = snippets_build_pageType(snw,GTK_DIALOG(snwiz->dialog)->vbox);
+	snwiz->pagenum = page_type;
+
+	g_signal_connect(G_OBJECT(snwiz->dialog), "response", G_CALLBACK(snipwiz_dialog_response_lcb), snwiz);	
+	
+	gtk_widget_show_all(snwiz->dialog);	
 }
