@@ -15,6 +15,7 @@ DISTCLEANFILES = \
 	intltool-update
 
 MAINTAINERCLEANFILES = \
+	ABOUT-NLS \
 	aclocal.m4 \
 	compile \
 	config.guess \
@@ -29,8 +30,10 @@ MAINTAINERCLEANFILES = \
 	ltmain.sh \
 	missing \
 	mkinstalldirs \
-	ABOUT-NLS \
 	Makefile.in
 
 DISTCHECK_CONFIGURE_FLAGS = --disable-update-databases --disable-xml-catalog-update
+
+#maintainer-clean-local:
+#	find $(top_srcdir) -name "*~" -exec rm "{}" ";"
 
