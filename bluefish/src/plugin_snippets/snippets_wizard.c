@@ -215,11 +215,14 @@ static gint snippets_test_pageSnr(Tsnipwiz *snwiz, gpointer data) {
 	TpageSnr *p = (TpageSnr *)data;
 	GtkTreePath *parentp;
 	xmlNodePtr parentn, childn, tmpn;
-	gchar *before, *after;
+	gchar *tmp, *search,*replace;
 	gint i;
-	
-	/* find the branch to add this leaf to */
-	get_parentbranch(snwiz->snw, &parentp, &parentn);
+	gint scope,casesens,matchtype,escapechars;
+
+	scope = gtk_combo_box_get_active(GTK_COMBO_BOX(p->scope));
+	matchtype = gtk_combo_box_get_active(GTK_COMBO_BOX(p->matchtype));
+	casesens = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(p->casesens));
+	escapechars = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(p->escapechars));
 	
 	if (snwiz->node) {
 		xmlNodePtr cur;
@@ -232,6 +235,8 @@ static gint snippets_test_pageSnr(Tsnipwiz *snwiz, gpointer data) {
 			cur = childn->xmlChildrenNode;
 		}
 	} else {
+		/* find the branch to add this leaf to */
+		get_parentbranch(snwiz->snw, &parentp, &parentn);
 		/* build a new one */
 		childn = xmlNewChild(parentn,NULL,(const xmlChar *)"leaf",NULL);
 		xmlSetProp(childn, (const xmlChar *)"type", (const xmlChar *)"snr");
@@ -243,9 +248,45 @@ static gint snippets_test_pageSnr(Tsnipwiz *snwiz, gpointer data) {
 		xmlSetProp(childn, (const xmlChar *)"tooltip", (const xmlChar *)snwiz->description);
 	}
 	
-	tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"searchpat",(const xmlChar *)before);
-	tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"replacepat",(const xmlChar *)after);
-	for (i = 0; i <  10; i++) {
+	switch (scope) {
+		case 1:
+			tmp = "c";
+		break;
+		case 2:
+			tmp = "s";
+		break;
+		case 3:
+			tmp = "a";
+		break;
+		case 0:
+			tmp = "b";
+		break;
+	}
+	xmlSetProp(childn, (const xmlChar *)"region", (const xmlChar *) tmp);
+	switch (matchtype) {
+		case 0:
+			tmp = "normal";
+		break;
+		case 1:
+			tmp = "word";
+		break;
+		case 2:
+			tmp = "posix";
+		break;
+		case 3:
+			tmp = "perl";
+		break;
+	}
+	xmlSetProp(childn, (const xmlChar *)"matchtype", (const xmlChar *) tmp);
+	
+	xmlSetProp(childn, (const xmlChar *)"casesens", casesens ? (const xmlChar *)"1": (const xmlChar *)"0");
+	xmlSetProp(childn, (const xmlChar *)"escapechars", escapechars ? (const xmlChar *)"1": (const xmlChar *)"0");
+	
+	search = gtk_editable_get_chars(GTK_EDITABLE(p->searchpat),0,-1);
+	replace = gtk_editable_get_chars(GTK_EDITABLE(p->replace),0,-1);
+	tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"searchpat",(const xmlChar *)search);
+	tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"replacepat",(const xmlChar *)replace);
+	for (i = 0; i <  6; i++) {
 		gchar *tmpstr;
 		tmpstr = gtk_editable_get_chars(GTK_EDITABLE(p->entries[i]),0,-1);
 		if (strlen(tmpstr)>0) {
@@ -360,9 +401,6 @@ static gint snippets_test_pageInsert(Tsnipwiz *snwiz, gpointer data) {
 	gchar *before, *after;
 	gint i;
 	
-	/* find the branch to add this leaf to */
-	get_parentbranch(snwiz->snw, &parentp, &parentn);
-	
 	if (snwiz->node) {
 		xmlNodePtr cur;
 		/* clean the old one */
@@ -374,6 +412,8 @@ static gint snippets_test_pageInsert(Tsnipwiz *snwiz, gpointer data) {
 			cur = childn->xmlChildrenNode;
 		}
 	} else {
+		/* find the branch to add this leaf to */
+		get_parentbranch(snwiz->snw, &parentp, &parentn);
 		/* build a new one */
 		childn = xmlNewChild(parentn,NULL,(const xmlChar *)"leaf",NULL);
 		xmlSetProp(childn, (const xmlChar *)"type", (const xmlChar *)"insert");
@@ -623,7 +663,10 @@ static void snipwiz_dialog_response_lcb(GtkDialog *dialog, gint response, Tsnipw
 			}
 		break;
 		case page_snr:
-			/* TODO */
+			newpagenum = snippets_test_pageSnr(snwiz,snwiz->pagestruct);
+			if (newpagenum != page_snr) {
+				snippets_delete_pageSnr(snwiz,snwiz->pagestruct);
+			}
 		break;
 		case page_finished: /* avoid compiler warning */
 		break;
