@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: autogen.sh,v 1.5 2006-12-22 22:19:14 dleidert Exp $
+# $Id: autogen.sh,v 1.6 2006-12-22 23:01:25 dleidert Exp $
 
 set -e
 
@@ -127,14 +127,14 @@ autogen_if_missing() {
 
 ## link/copy the necessary files to our source to prepare for a build
 autogen() {
-	$LIBTOOLIZE ${DEBUG} -f $COPYOPTION
-	$INTLTOOLIZE ${DEBUG} -f $COPYOPTION
+	$LIBTOOLIZE $DEBUG -f $COPYOPTION
+	$INTLTOOLIZE $DEBUG -f $COPYOPTION
 	prepare_gettext
-	$ACLOCAL ${VERBOSE}
-	$AUTOHEADER ${DEBUG} ${VERBOSE}
-	$AUTOMAKE --gnu -a ${VERBOSE} $COPYOPTION
+	$ACLOCAL $VERBOSE
+	$AUTOHEADER $DEBUG $VERBOSE
+	$AUTOMAKE --gnu -a $VERBOSE $COPYOPTION
 	autogen_if_missing
-	$AUTOCONF ${DEBUG} ${VERBOSE}
+	$AUTOCONF $DEBUG $VERBOSE
 }
 
 ## the main function
