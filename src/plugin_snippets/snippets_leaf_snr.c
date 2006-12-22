@@ -27,6 +27,7 @@
 #include "../gtk_easy.h"
 #include "../bf_lib.h"
 
+
 gint snippets_snr_region_from_char(const xmlChar *region) {
 	if (region) {
 		switch (region[0]) {  /* beginning, cursor, selection, allopenfiles */
