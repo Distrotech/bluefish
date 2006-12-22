@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: autogen.sh,v 1.4 2006-12-14 20:12:24 dleidert Exp $
+# $Id: autogen.sh,v 1.5 2006-12-22 22:19:14 dleidert Exp $
 
 set -e
 
@@ -27,11 +27,11 @@ AUTOMAKE_PATH=${AUTOMAKE_PATH:-`which $AUTOMAKE | sed 's|\/bin\/automake.*||'`}
 AUTOMAKE_VERSION=`$AUTOMAKE --version | grep automake | awk '{print $4}' | awk -F. '{print $1"."$2}'`
 
 ## automake files we need to have inside our source
-AUTOMAKE_FILES="
-missing
-mkinstalldirs
-install-sh
-"
+if [ $AUTOMAKE_VERSION = "1.7" ] ; then
+        AUTOMAKE_FILES="missing mkinstalldirs install-sh"
+else
+        AUTOMAKE_FILES="missing install-sh"
+fi
 
 ## the directories which will contain the $GETTEXT_FILES
 GETTEXT_PO_DIRS="
@@ -85,8 +85,10 @@ autogen_help() {
 	echo "  Produces all files necessary to build the bluefish project files."
 	echo "  The files are linked by default, if you run ./autogen.sh without an option."
 	echo
-	echo "    -c, --copy      Copy files instead to link them."
-	echo "    -h, --help      Print this message."
+	echo "    -v        Be more verbose about every step (debugging)."
+	echo "    -f FILE   Output everything to FILE (debugging). Useful for debug output."
+	echo "    -c        Copy files instead to link them."
+	echo "    -h        Print this message."
 	echo
 	echo "  You can overwrite the automatically determined location of aclocal (>= 1.7),"
 	echo "  automake (>= 1.7), autoheader, autoconf, libtoolize, intltoolize and"
@@ -97,23 +99,15 @@ autogen_help() {
 }
 
 ## copy $GETTEXT_FILES from $GETTEXT_DIR into $GETTEXT_PO_DIRS
+## this will probably become obsolete with gettext 0.16.2, which adds the
+## necessary functionality to gettextize - we should prefer this way then
 prepare_gettext() {
-	case "$1" in
-		copy)
-			command="cp"
-		;;
-		link)
-			command="ln -s"
-		;;
-		*)
-			echo "Error. autogen_if_missing() was called with unknown parameter $1." >&2
-		;;
-	esac
-	
 	for dir in $GETTEXT_PO_DIRS ; do
 		for file in $GETTEXT_FILES ; do
-			# echo "DEBUG: $command -f $GETTEXT_DIR/$file `pwd`/$dir" >&2
-			$command -f $GETTEXT_DIR/$file `pwd`/$dir
+			if [ -n "$VERBOSE" ]; then
+				echo "DEBUG: $COPYACTION -f $GETTEXT_DIR/$file `pwd`/$dir" >&2
+			fi
+			$COPYACTION -f $GETTEXT_DIR/$file `pwd`/$dir
 		done
 	done
 }
@@ -121,60 +115,54 @@ prepare_gettext() {
 ## check if $AUTOMAKE_FILES were copied to our source
 ## link/copy them if not - necessary for e.g. gettext, which seems to always need mkinstalldirs
 autogen_if_missing() {
-	case "$1" in
-		copy)
-			command="cp"
-		;;
-		link)
-			command="ln -s"
-		;;
-		*)
-			echo "Error. autogen_if_missing() was called with unknown parameter $1." >&2
-		;;
-	esac
-	
 	for file in $AUTOMAKE_FILES ; do
 		if [ ! -e "$file" ] ; then
-			$command -f $AUTOMAKE_PATH/share/automake-$AUTOMAKE_VERSION/$file .
+			if [ -n "$VERBOSE" ]; then
+				echo "DEBUG: $COPYACTION -f $AUTOMAKE_PATH/share/automake-$AUTOMAKE_VERSION/$file ." >&2
+			fi
+			$COPYACTION -f $AUTOMAKE_PATH/share/automake-$AUTOMAKE_VERSION/$file .
 		fi
 	done
 }
 
 ## link/copy the necessary files to our source to prepare for a build
 autogen() {
-	case "$1" in
-		copy)
-			copyoption="-c"
-		;;
-		link)
-		;;
-		*)
-			echo "Error. autogen() was called with unknown parameter $1." >&2
-		;;
-	esac
-	$LIBTOOLIZE -f $copyoption
-	$INTLTOOLIZE -f $copyoption
-	$AUTOHEADER
-	prepare_gettext $1
-	$ACLOCAL
-	$AUTOMAKE --gnu -a $copyoption
-	autogen_if_missing $1
-	$AUTOCONF
+	$LIBTOOLIZE ${DEBUG} -f $COPYOPTION
+	$INTLTOOLIZE ${DEBUG} -f $COPYOPTION
+	prepare_gettext
+	$ACLOCAL ${VERBOSE}
+	$AUTOHEADER ${DEBUG} ${VERBOSE}
+	$AUTOMAKE --gnu -a ${VERBOSE} $COPYOPTION
+	autogen_if_missing
+	$AUTOCONF ${DEBUG} ${VERBOSE}
 }
 
 ## the main function
-case "$1" in
-	-h | --help)
-		autogen_help
-		exit 0
-	;;
-	-c | --copy)
-		autogen copy
-	;;
-	*)
-		autogen link
-	;;
-esac
+COPYACTION="ln -s"
+while getopts "chvf:" options; do
+	case "$options" in
+		h)
+			autogen_help
+			exit 0
+		;;
+		c)
+			COPYACTION="cp"
+			COPYOPTION="-c"
+		;;
+		f)
+			OUTPUTFILE=$OPTARG
+		;;
+		v)
+			DEBUG="--debug"
+			VERBOSE="--verbose"
+		;;
+	esac
+done
+
+if [ -n "$OUTPUTFILE" ]; then
+	exec &>$OUTPUTFILE
+fi
+autogen
 
 ## ready to rumble
 echo "Run ./configure with the appropriate options, then make and enjoy."
