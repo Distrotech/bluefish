@@ -28,8 +28,8 @@
 #include "../bf_lib.h"
 
 static void snippets_snr_run_from_strings(Tdocument *doc, const xmlChar *searchpat,const xmlChar *region, 
-					const xmlChar *matchtype,const xmlChar *casesens, const xmlChar *replacepat) {
-	gint regionnum,matchtypenum,casesensnum;
+					const xmlChar *matchtype,const xmlChar *casesens, const xmlChar *replacepat, const xmlChar *useescapechars) {
+	gint regionnum,matchtypenum,casesensnum,escape;
 	if (region) {
 		switch (region[0]) {  /* beginning, cursor, selection, allopenfiles */
 			case 'c':
@@ -51,8 +51,10 @@ static void snippets_snr_run_from_strings(Tdocument *doc, const xmlChar *searchp
 	
 	if (matchtype) {
 		if (xmlStrEqual(matchtype, (const xmlChar *)"perl"))
-			matchtypenum = 2;
+			matchtypenum = 3;
 		else if (xmlStrEqual(matchtype, (const xmlChar *)"posix"))
+			matchtypenum = 2;
+		else if (xmlStrEqual(matchtype, (const xmlChar *)"word"))
 			matchtypenum = 1;
 		else 
 			matchtypenum = 0;
@@ -60,6 +62,7 @@ static void snippets_snr_run_from_strings(Tdocument *doc, const xmlChar *searchp
 		matchtypenum = 0;
 	
 	casesensnum = (casesens && casesens[0] == '1');
+	escape = (useescapechars && useescapechars[0]=='1');
 	/* snr2_run_extern_replace
 	 * doc: a #Tdocument
 	 * search_pattern: #gchar* to search pattern
@@ -67,8 +70,7 @@ static void snippets_snr_run_from_strings(Tdocument *doc, const xmlChar *searchp
 	 * matchtype: #gint, 0 = normal, 1 = posix, 2 = perl
 	 * is_case_sens: #gint
 	 * replace_pattern: #gchar* to replace pattern.
-	 * store_as_last_snr2: Set to FALSE to keep the old last_snr2 after the snr has been completed.
-	 */
+	 * */
 	snr2_run_extern_replace(doc, (gchar *)searchpat, 
 						regionnum,matchtypenum, casesensnum, (gchar *)replacepat,FALSE);
 }
@@ -152,7 +154,7 @@ static void snippets_snr_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_var
 	
 	
 	if (gtk_dialog_run(GTK_DIALOG(sid->dialog))==GTK_RESPONSE_ACCEPT) {
-		xmlChar *region=NULL, *matchtype=NULL, *casesens=NULL;
+		xmlChar *region=NULL, *matchtype=NULL, *casesens=NULL, *escapechars=NULL;
 		Tconvert_table *ctable;
 		gchar *search_final=NULL, *replace_final=NULL;
 		DEBUG_MSG("snippets_insert_dialog, building convert table, num_vars=%d\n",num_vars);
@@ -179,7 +181,8 @@ static void snippets_snr_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_var
 		region = xmlGetProp(leaf, (const xmlChar *)"region");
 		matchtype = xmlGetProp(leaf, (const xmlChar *)"matchtype");
 		casesens = xmlGetProp(leaf, (const xmlChar *)"casesens");
-		snippets_snr_run_from_strings(snw->bfwin->current_document, (const xmlChar *)search_final,region,matchtype,casesens, (const xmlChar *)replace_final);
+		escapechars = xmlGetProp(leaf, (const xmlChar *)"escapechars");
+		snippets_snr_run_from_strings(snw->bfwin->current_document, (const xmlChar *)search_final,region,matchtype,casesens, (const xmlChar *)replace_final, escapechars);
 	}
 	gtk_widget_destroy(sid->dialog);
 	g_free(sid);
@@ -191,7 +194,7 @@ void snippets_activate_leaf_snr(Tsnippetswin *snw, xmlNodePtr parent) {
 	if (num_vars == 0) {
 		xmlChar *searchpat=NULL;
 		xmlChar *replacepat=NULL;
-		xmlChar *region=NULL, *matchtype=NULL, *casesens=NULL;
+		xmlChar *region=NULL, *matchtype=NULL, *casesens=NULL, *escapechars=NULL;
 		
 		xmlNodePtr cur = parent->xmlChildrenNode;
 		while (cur != NULL && (searchpat == NULL || replacepat == NULL)) {
@@ -205,7 +208,8 @@ void snippets_activate_leaf_snr(Tsnippetswin *snw, xmlNodePtr parent) {
 		region = xmlGetProp(cur, (const xmlChar *)"region");
 		matchtype = xmlGetProp(cur, (const xmlChar *)"matchtype");
 		casesens = xmlGetProp(cur, (const xmlChar *)"casesens");
-		snippets_snr_run_from_strings(snw->bfwin->current_document, searchpat,region,matchtype,casesens, replacepat);
+		escapechars = xmlGetProp(cur, (const xmlChar *)"escapechars");
+		snippets_snr_run_from_strings(snw->bfwin->current_document, searchpat,region,matchtype,casesens, replacepat,escapechars);
 	} else {
 		snippets_snr_dialog(snw, parent, num_vars);
 	}

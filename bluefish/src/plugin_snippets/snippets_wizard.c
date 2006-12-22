@@ -31,7 +31,7 @@ typedef enum {
 	page_name,
 	page_branch,
 	page_insert,
-	page_replace,
+	page_snr,
 	page_finished
 } Tpagenum;
 
@@ -87,6 +87,91 @@ static void add_item_to_tree(GtkTreePath *parentp, gchar *name, gpointer ptr) {
 typedef struct {
 	GtkWidget *table;
 	GtkWidget *entries[10];
+	GtkWidget *matchtype;
+	GtkWidget *scope;
+	GtkWidget *casesens;
+	GtkWidget *searchpat;
+	GtkWidget *replace;
+} TpageSnr;
+
+static gpointer snippets_build_pageSnr(Tsnipwiz *snwiz, GtkWidget *dialog_action) {
+	const gchar *scope[] = {
+		N_("Entire document"),
+		N_("Forward from cursor position"),
+		N_("Selection"),
+		N_("All open files"),
+	};
+
+	const gchar *matchPattern[] = {
+		N_("Normal"),
+		N_("Entire word only"),
+		N_("POSIX"),
+		N_("PERL"),
+	};
+	GtkWidget *label;
+	gint i;
+	TpageSnr *p = g_new(TpageSnr,1);
+
+	p->table = gtk_table_new(8, 4, FALSE);
+	gtk_table_set_row_spacings(GTK_TABLE (p->table), 6);
+	gtk_table_set_col_spacings(GTK_TABLE (p->table), 12);
+	gtk_box_pack_start(GTK_BOX(dialog_action), p->table, TRUE, TRUE, 0);
+	
+	label = gtk_label_new(_("Specify a search and a replace pattern. You may use %0, %1, ...%4 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right."));
+	/*gtk_label_set_use_markup(GTK_LABEL(label),TRUE);*/
+	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
+	gtk_table_attach(GTK_TABLE(p->table),label, 0,4,0,1
+					,GTK_FILL,GTK_FILL,0,0);
+	
+	p->searchpat = gtk_entry_new();
+	dialog_mnemonic_label_in_table(_("_Search for: "), p->searchpat, p->table, 0, 1, 1, 2);
+	gtk_table_attach(GTK_TABLE(p->table),p->searchpat, 1,4,1,2,GTK_FILL|GTK_EXPAND,GTK_FILL,0,0);
+	
+	p->replace = gtk_entry_new();
+	dialog_mnemonic_label_in_table(_("Replace _with: "), p->replace, p->table, 0, 1, 2, 3);
+	gtk_table_attach(GTK_TABLE(p->table),p->replace, 1,4,2,3,GTK_FILL|GTK_EXPAND,GTK_FILL,0,0);
+	
+	p->scope = gtk_combo_box_new_text();
+	for (i = 0; i < G_N_ELEMENTS(scope); i++) {
+		gtk_combo_box_append_text(GTK_COMBO_BOX(p->scope), scope[i]);
+	}
+	dialog_mnemonic_label_in_table(_("Sco_pe: "), p->scope, p->table, 0, 1, 3, 4);
+	gtk_table_attach(GTK_TABLE(p->table),p->scope, 1,2,3,4,GTK_FILL|GTK_EXPAND,GTK_SHRINK,0,0);
+	
+	p->matchtype = gtk_combo_box_new_text();
+	for (i = 0; i < G_N_ELEMENTS(matchPattern); i++) {
+		gtk_combo_box_append_text(GTK_COMBO_BOX(p->matchtype), matchPattern[i]);
+	}
+	dialog_mnemonic_label_in_table(_("Match Patter_n: "), p->matchtype, p->table, 0, 1, 4, 5);
+	gtk_table_attach(GTK_TABLE(p->table), p->matchtype, 1, 2, 4, 5, GTK_EXPAND|GTK_FILL,GTK_SHRINK, 0, 0);
+	
+	p->casesens = gtk_check_button_new_with_mnemonic(_("Case sensitive _matching"));
+	gtk_table_attach(GTK_TABLE(p->table), p->casesens, 0, 2, 5, 6, GTK_EXPAND|GTK_FILL,GTK_SHRINK, 0, 0);
+	
+	p->casesens = gtk_check_button_new_with_mnemonic(_("_Use escape chars"));
+	gtk_table_attach(GTK_TABLE(p->table), p->casesens, 0, 2, 6, 7, GTK_EXPAND|GTK_FILL,GTK_SHRINK, 0, 0);
+	
+	for (i = 0; i <  4; i++) {
+		gchar *tmpstr;
+		tmpstr = g_strdup_printf("%%%d ", i);
+		label = gtk_label_new(tmpstr);
+		gtk_misc_set_alignment(GTK_MISC(label),1,0.5);
+		gtk_table_attach(GTK_TABLE(p->table),label, 2,3,i+3,i+4
+					,GTK_FILL,GTK_FILL,0,0);
+		g_free(tmpstr);
+		p->entries[i] = gtk_entry_new();
+		gtk_table_attach(GTK_TABLE(p->table),p->entries[i], 3,4,i+3,i+4
+					,GTK_FILL,GTK_FILL,0,0);
+	}
+	
+	gtk_widget_show_all(p->table);
+	return p;
+}
+
+
+typedef struct {
+	GtkWidget *table;
+	GtkWidget *entries[10];
 	GtkWidget *before_v;
 	GtkWidget *after_v;
 	GtkTextBuffer *before;
@@ -98,7 +183,6 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 	GtkWidget *scrolwin, *label;
 	gint i;
 	gchar *tmpstr;
-	gchar *beforeval=NULL,*afterval=NULL;
 	TpageInsert *p2 = g_new(TpageInsert,1);
 
 	p2->table = gtk_table_new(12, 4, FALSE);
@@ -117,7 +201,7 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 	gtk_misc_set_alignment(GTK_MISC(label),0,0.5);
 	gtk_table_attach(GTK_TABLE(p2->table),label, 0,1,1,2,GTK_FILL,GTK_FILL,0,0);
 	scrolwin = textview_buffer_in_scrolwin(&p2->before_v, -1, -1, NULL, GTK_WRAP_NONE);
-	gtk_table_attach(GTK_TABLE(p2->table), scrolwin, /*left*/0,/*right*/1,/*top*/2,/*bottom*/4
+	gtk_table_attach(GTK_TABLE(p2->table), scrolwin, /*left*/0,/*right*/1,/*top*/2,/*bottom*/6
 				,/*xoptions*/GTK_EXPAND|GTK_FILL,/*yoptions*/GTK_EXPAND|GTK_FILL
 				,/*xpadding*/0,/*ypadding*/0);
 	p2->before = gtk_text_view_get_buffer(GTK_TEXT_VIEW(p2->before_v));
@@ -125,7 +209,7 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 	label = gtk_label_new(_("<i>After</i> text"));
 	gtk_label_set_use_markup(GTK_LABEL(label),TRUE);
 	gtk_misc_set_alignment(GTK_MISC(label),0,0.5);
-	gtk_table_attach(GTK_TABLE(p2->table),label, 0,1,5,6,GTK_FILL,GTK_FILL,0,0);
+	gtk_table_attach(GTK_TABLE(p2->table),label, 0,1,6,7,GTK_FILL,GTK_FILL,0,0);
 	scrolwin = textview_buffer_in_scrolwin(&p2->after_v, -1, -1, NULL, GTK_WRAP_NONE);
 	gtk_table_attach(GTK_TABLE(p2->table), scrolwin, 0,1,7,11
 				,GTK_EXPAND|GTK_FILL,GTK_EXPAND|GTK_FILL,0,0);
@@ -151,7 +235,7 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 			if (xmlStrEqual(cur->name, (const xmlChar *)"param")) {
 				xmlChar *name;
 				name = xmlGetProp(cur, (const xmlChar *)"name");
-				gtk_entry_set_text(p2->entries[i], (gchar *)name);
+				gtk_entry_set_text(GTK_ENTRY(p2->entries[i]), (gchar *)name);
 				g_free(name);
 				i++;
 			} else if (xmlStrEqual(cur->name, (const xmlChar *)"before")) {
@@ -356,7 +440,7 @@ static gint snippets_test_pageName(Tsnipwiz *snwiz, gpointer data) {
 		if (snwiz->choice == 1) {
 			return page_insert;
 		} else {
-			return page_replace;
+			return page_snr;
 		}
 	} else {
 		/* warn */
@@ -401,7 +485,7 @@ static gint snippets_test_pageType(Tsnipwiz *snwiz, gpointer data) {
 	TpageType *p0 = (TpageType *)data;
 	int i;
 	DEBUG_MSG("snippets_delete_pageType, test pageType at %p\n",p0);
-	for (i=0;i<2;i++) {
+	for (i=0;i<3;i++) {
 		if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(p0->radio[i]))) {
 			snwiz->choice = i;
 			if (i==0) return page_branch;
@@ -444,7 +528,7 @@ static void snipwiz_dialog_response_lcb(GtkDialog *dialog, gint response, Tsnipw
 				snippets_delete_pageInsert(snwiz,snwiz->pagestruct);
 			}
 		break;
-		case page_replace:
+		case page_snr:
 			/* TODO */
 		break;
 		case page_finished: /* avoid compiler warning */
@@ -464,8 +548,8 @@ static void snipwiz_dialog_response_lcb(GtkDialog *dialog, gint response, Tsnipw
 			case page_insert:
 				snwiz->pagestruct = snippets_build_pageInsert(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
 			break;
-			case page_replace:
-				/* TODO */
+			case page_snr:
+				snwiz->pagestruct = snippets_build_pageSnr(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
 			break;
 			case page_finished:
 				gtk_widget_destroy(snwiz->dialog);

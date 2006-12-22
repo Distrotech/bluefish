@@ -959,7 +959,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, gint startpos, gint 
 
 void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint region,
 							gint matchtype, gint is_case_sens, const gchar *replace_pattern,
-							gboolean store_as_last_snr2) {
+							gboolean unescape) {
 	DEBUG_MSG("snr2_run_extern_replace, pattern=%s\n",search_pattern);
 	if (region == 3) { /* in all open files */
 		replace_all(BFWIN(doc->bfwin),search_pattern
@@ -967,7 +967,7 @@ void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
 					, is_case_sens
 					, replace_pattern
 					, string
-					, 0 /* unescape is disabled */);
+					, unescape);
 	} else {
 		gint startpos=0,endpos=-1;
 		if (region == 1) {
@@ -983,10 +983,7 @@ void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
 					, startpos, endpos, replace_pattern
 					, BFWIN(doc->bfwin)->current_document
 					, string
-					, 0 /* unescape is disabled */, 0);	
-	}
-	if (store_as_last_snr2) {
-		g_print("the option store_as_last_snr2 in function snr2_run_extern_replace is currently broken\n");
+					, unescape, 0 /* unre_id */);	
 	}
 }
 
