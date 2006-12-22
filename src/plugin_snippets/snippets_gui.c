@@ -122,11 +122,13 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 	DEBUG_MSG("snip_rpopup_rpopup_action_lcb, called with action %d and widget %p\n",callback_action,widget);
 	switch (callback_action) {
 	case 1: /* edit */
-		DEBUG_MSG("edit not yet implemented\n");
+		if (snw->lastclickednode) {
+			snippets_new_item_dialog(snw,snw->lastclickednode);
+		}
 	break;
 	case 3: /* new */
 		{
-		snippets_new_item_dialog(snw);
+		snippets_new_item_dialog(snw,NULL);
 		}
 	break;
 	case 2: /* set accelerator */

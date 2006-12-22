@@ -21,6 +21,6 @@
 #ifndef SNIPPETS_WIZARD_H
 #define SNIPPETS_WIZARD_H
 
-void snippets_new_item_dialog(Tsnippetswin *snw);
+void snippets_new_item_dialog(Tsnippetswin *snw, xmlNodePtr node);
 
 #endif /* SNIPPETS_WIZARD_H */
