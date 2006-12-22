@@ -21,6 +21,8 @@
 #ifndef SNIPPETS_LEAF_SNR_H
 #define SNIPPETS_LEAF_SNR_H
 
+gint snippets_snr_region_from_char(const xmlChar *region);
+gint snippets_snr_matchtype_from_char(const xmlChar *matchtype);
 void snippets_activate_leaf_snr(Tsnippetswin *snw, xmlNodePtr parent);
 
 

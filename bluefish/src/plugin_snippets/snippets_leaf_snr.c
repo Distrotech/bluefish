@@ -27,40 +27,47 @@
 #include "../gtk_easy.h"
 #include "../bf_lib.h"
 
-static void snippets_snr_run_from_strings(Tdocument *doc, const xmlChar *searchpat,const xmlChar *region, 
-					const xmlChar *matchtype,const xmlChar *casesens, const xmlChar *replacepat, const xmlChar *useescapechars) {
-	gint regionnum,matchtypenum,casesensnum,escape;
+gint snippets_snr_region_from_char(const xmlChar *region) {
 	if (region) {
 		switch (region[0]) {  /* beginning, cursor, selection, allopenfiles */
 			case 'c':
-				regionnum = 1;
+				return 1;
 			break;
 			case 's':
-				regionnum = 2;
+				return 2;
 			break;
 			case 'a':
-				regionnum = 3;
+				return 3;
 			break;
 			case 'b':
 			default:
-				regionnum = 0;
+				return 0;
 			break;
 		}
-	} else 
-		regionnum = 0;
-	
+	} 
+	return 0;
+}
+
+gint snippets_snr_matchtype_from_char(const xmlChar *matchtype) {
 	if (matchtype) {
 		if (xmlStrEqual(matchtype, (const xmlChar *)"perl"))
-			matchtypenum = 3;
+			return 3;
 		else if (xmlStrEqual(matchtype, (const xmlChar *)"posix"))
-			matchtypenum = 2;
+			return 2;
 		else if (xmlStrEqual(matchtype, (const xmlChar *)"word"))
-			matchtypenum = 1;
+			return 1;
 		else 
-			matchtypenum = 0;
-	} else 
-		matchtypenum = 0;
+			return 0;
+	}  
+	return 0;
+}
+
+static void snippets_snr_run_from_strings(Tdocument *doc, const xmlChar *searchpat,const xmlChar *region, 
+					const xmlChar *matchtype,const xmlChar *casesens, const xmlChar *replacepat, const xmlChar *useescapechars) {
+	gint regionnum,matchtypenum,casesensnum,escape;
 	
+	regionnum = snippets_snr_region_from_char(region);
+	matchtypenum = snippets_snr_matchtype_from_char(matchtype);
 	casesensnum = (casesens && casesens[0] == '1');
 	escape = (useescapechars && useescapechars[0]=='1');
 	/* snr2_run_extern_replace

@@ -24,7 +24,9 @@
 #include "snippets.h"
 #include "snippets_load.h"
 #include "snippets_leaf_insert.h"
+#include "snippets_leaf_snr.h"
 #include "../gtk_easy.h"
+#include "../dialog_utils.h"
 
 typedef enum {
 	page_type, /* 0 */
@@ -86,10 +88,11 @@ static void add_item_to_tree(GtkTreePath *parentp, gchar *name, gpointer ptr) {
 
 typedef struct {
 	GtkWidget *table;
-	GtkWidget *entries[10];
+	GtkWidget *entries[6];
 	GtkWidget *matchtype;
 	GtkWidget *scope;
 	GtkWidget *casesens;
+	GtkWidget *escapechars;
 	GtkWidget *searchpat;
 	GtkWidget *replace;
 } TpageSnr;
@@ -117,7 +120,7 @@ static gpointer snippets_build_pageSnr(Tsnipwiz *snwiz, GtkWidget *dialog_action
 	gtk_table_set_col_spacings(GTK_TABLE (p->table), 12);
 	gtk_box_pack_start(GTK_BOX(dialog_action), p->table, TRUE, TRUE, 0);
 	
-	label = gtk_label_new(_("Specify a search and a replace pattern. You may use %0, %1, ...%4 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right."));
+	label = gtk_label_new(_("Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right."));
 	/*gtk_label_set_use_markup(GTK_LABEL(label),TRUE);*/
 	gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
 	gtk_table_attach(GTK_TABLE(p->table),label, 0,4,0,1
@@ -148,10 +151,10 @@ static gpointer snippets_build_pageSnr(Tsnipwiz *snwiz, GtkWidget *dialog_action
 	p->casesens = gtk_check_button_new_with_mnemonic(_("Case sensitive _matching"));
 	gtk_table_attach(GTK_TABLE(p->table), p->casesens, 0, 2, 5, 6, GTK_EXPAND|GTK_FILL,GTK_SHRINK, 0, 0);
 	
-	p->casesens = gtk_check_button_new_with_mnemonic(_("_Use escape chars"));
-	gtk_table_attach(GTK_TABLE(p->table), p->casesens, 0, 2, 6, 7, GTK_EXPAND|GTK_FILL,GTK_SHRINK, 0, 0);
+	p->escapechars = gtk_check_button_new_with_mnemonic(_("_Use escape chars"));
+	gtk_table_attach(GTK_TABLE(p->table), p->escapechars, 0, 2, 6, 7, GTK_EXPAND|GTK_FILL,GTK_SHRINK, 0, 0);
 	
-	for (i = 0; i <  4; i++) {
+	for (i = 0; i <  6; i++) {
 		gchar *tmpstr;
 		tmpstr = g_strdup_printf("%%%d ", i);
 		label = gtk_label_new(tmpstr);
@@ -164,10 +167,101 @@ static gpointer snippets_build_pageSnr(Tsnipwiz *snwiz, GtkWidget *dialog_action
 					,GTK_FILL,GTK_FILL,0,0);
 	}
 	
+	if (snwiz->node) {
+		xmlNodePtr cur;
+		xmlChar *tmpstr;
+		xmlChar *region,*matchtype,*casesens,*escapechars;
+		gint i=0;
+		for (cur = snwiz->node->xmlChildrenNode;cur != NULL;cur = cur->next) {
+			if (i < 6 && xmlStrEqual(cur->name, (const xmlChar *)"param")) {
+				xmlChar *name;
+				name = xmlGetProp(cur, (const xmlChar *)"name");
+				gtk_entry_set_text(GTK_ENTRY(p->entries[i]), (gchar *)name);
+				g_free(name);
+				i++;
+			} else if (xmlStrEqual(cur->name, (const xmlChar *)"searchpat")) {
+				tmpstr = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+				gtk_entry_set_text(GTK_ENTRY(p->searchpat),(gchar *)tmpstr);
+				g_free(tmpstr);
+			} else if (xmlStrEqual(cur->name, (const xmlChar *)"replacepat")) {
+				tmpstr = xmlNodeListGetString(snippets_v.doc, cur->xmlChildrenNode, 1);
+				gtk_entry_set_text(GTK_ENTRY(p->replace),(gchar *)tmpstr);
+				g_free(tmpstr);
+			}
+		}
+		region = xmlGetProp(snwiz->node, (const xmlChar *)"region");
+		matchtype = xmlGetProp(snwiz->node, (const xmlChar *)"matchtype");
+		casesens = xmlGetProp(snwiz->node, (const xmlChar *)"casesens");
+		escapechars = xmlGetProp(snwiz->node, (const xmlChar *)"escapechars");
+		gtk_combo_box_set_active(GTK_COMBO_BOX(p->scope),snippets_snr_region_from_char(region));
+		gtk_combo_box_set_active(GTK_COMBO_BOX(p->matchtype),snippets_snr_matchtype_from_char(matchtype));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(p->casesens), (casesens && casesens[0] == '1'));
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(p->escapechars), (escapechars && escapechars[0] == '1'));
+	} else {
+		gtk_combo_box_set_active(GTK_COMBO_BOX(p->scope),0);
+		gtk_combo_box_set_active(GTK_COMBO_BOX(p->matchtype),0);
+	}
+	
 	gtk_widget_show_all(p->table);
 	return p;
 }
+static void snippets_delete_pageSnr(Tsnipwiz *snwiz, gpointer data) {
+	TpageSnr *p = (TpageSnr *)data;
+	gtk_widget_destroy(p->table);
+	g_free(p);
+}
 
+static gint snippets_test_pageSnr(Tsnipwiz *snwiz, gpointer data) {
+	TpageSnr *p = (TpageSnr *)data;
+	GtkTreePath *parentp;
+	xmlNodePtr parentn, childn, tmpn;
+	gchar *before, *after;
+	gint i;
+	
+	/* find the branch to add this leaf to */
+	get_parentbranch(snwiz->snw, &parentp, &parentn);
+	
+	if (snwiz->node) {
+		xmlNodePtr cur;
+		/* clean the old one */
+		childn = snwiz->node;
+		cur = childn->xmlChildrenNode;
+		while (cur) {
+			xmlUnlinkNode(cur);
+			xmlFreeNode(cur);
+			cur = childn->xmlChildrenNode;
+		}
+	} else {
+		/* build a new one */
+		childn = xmlNewChild(parentn,NULL,(const xmlChar *)"leaf",NULL);
+		xmlSetProp(childn, (const xmlChar *)"type", (const xmlChar *)"snr");
+	}
+	
+	/* build the leaf */
+	xmlSetProp(childn, (const xmlChar *)"title", (const xmlChar *)snwiz->name);
+	if (strlen(snwiz->description)) {
+		xmlSetProp(childn, (const xmlChar *)"tooltip", (const xmlChar *)snwiz->description);
+	}
+	
+	tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"searchpat",(const xmlChar *)before);
+	tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"replacepat",(const xmlChar *)after);
+	for (i = 0; i <  10; i++) {
+		gchar *tmpstr;
+		tmpstr = gtk_editable_get_chars(GTK_EDITABLE(p->entries[i]),0,-1);
+		if (strlen(tmpstr)>0) {
+			tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"param", NULL);
+			xmlSetProp(tmpn, (const xmlChar *)"name", (const xmlChar *)tmpstr);
+		}
+	}
+	if (!snwiz->node) {
+		/* now add this item to the treestore */
+		add_item_to_tree(parentp, snwiz->name, childn);
+	} else {
+		/* TODO: update the name in the treestore */
+	
+	}
+	return page_finished;
+}
 
 typedef struct {
 	GtkWidget *table;
@@ -232,7 +326,7 @@ static gpointer snippets_build_pageInsert(Tsnipwiz *snwiz, GtkWidget *dialog_act
 		xmlChar *tmpstr; 
 		gint i=0;
 		for (cur = snwiz->node->xmlChildrenNode;cur != NULL;cur = cur->next) {
-			if (xmlStrEqual(cur->name, (const xmlChar *)"param")) {
+			if (i<10 && xmlStrEqual(cur->name, (const xmlChar *)"param")) {
 				xmlChar *name;
 				name = xmlGetProp(cur, (const xmlChar *)"name");
 				gtk_entry_set_text(GTK_ENTRY(p2->entries[i]), (gchar *)name);
