@@ -6,8 +6,7 @@ SUBDIRS = data desktop-data images man po src
 EXTRA_DIST = \
 	intltool-extract.in \
 	intltool-merge.in \
-	intltool-update.in \
-	mkinstalldirs
+	intltool-update.in
 
 DISTCLEANFILES = \
 	intltool-extract \
