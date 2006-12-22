@@ -26,6 +26,7 @@
 #include "snippets_load.h"
 #include "snippets_leaf_insert.h"
 #include "snippets_leaf_snr.h"
+#include "snippets_wizard.h"
 #include "../document.h"
 #include "../gtk_easy.h"
 
