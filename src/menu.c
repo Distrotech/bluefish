@@ -1281,7 +1281,7 @@ static void cust_con_struc_dialog_ok_lcb(GtkWidget *widget, Tcust_con_struc *ccs
 			replace = g_strdup("");
 		}
 		snr2_run_extern_replace(ccs->bfwin->current_document, search, atoi(ccs->array[3]),
-				atoi(ccs->array[4]), atoi(ccs->array[5]), replace, TRUE);
+				atoi(ccs->array[4]), atoi(ccs->array[5]), replace, FALSE);
 		
 		tmpt = table;
 		while (tmpt->my_char) {
@@ -1385,7 +1385,7 @@ static void cust_menu_lcb(Tcmenu_entry *cmentry,guint callback_action,GtkWidget 
 			cust_con_struc_dialog(cmentry->bfwin,cmentry->array, 1);
 		} else {
 		     snr2_run_extern_replace(cmentry->bfwin->current_document,cmentry->array[1], atoi(cmentry->array[3]),
-							atoi(cmentry->array[4]), atoi(cmentry->array[5]), cmentry->array[2],TRUE);
+							atoi(cmentry->array[4]), atoi(cmentry->array[5]), cmentry->array[2],FALSE);
 		}
 	}
 }
