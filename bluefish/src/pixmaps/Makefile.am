@@ -38,44 +38,43 @@ CLEANFILES = general_icons.c toolbar_icons.c
 
 MAINTAINERCLEANFILES = Makefile.in
 
-vpath %.png $(top_srcdir)/src/pixmaps
 
 GENERAL = \
-	pixmap_close_small $(top_srcdir)/src/pixmaps/close_small.png
+	pixmap_close_small $(srcdir)/close_small.png
 
 TOOLBAR = \
-	pixmap_bluefish_icon1 $(top_srcdir)/src/pixmaps/bluefish_icon1.png \
-	pixmap_bookmarks $(top_srcdir)/src/pixmaps/bookmarks.png \
-	pixmap_close $(top_srcdir)/src/pixmaps/close.png \
-	pixmap_filetree $(top_srcdir)/src/pixmaps/filetree.png \
-	pixmap_frcss $(top_srcdir)/src/pixmaps/frcss.png \
-	pixmap_frdialog $(top_srcdir)/src/pixmaps/frdialog.png \
-	pixmap_frdialog2 $(top_srcdir)/src/pixmaps/frdialog2.png \
-	pixmap_fref $(top_srcdir)/src/pixmaps/fref.png \
-	pixmap_frfunction $(top_srcdir)/src/pixmaps/frfunction.png \
-	pixmap_frgroup $(top_srcdir)/src/pixmaps/frgroup.png \
-	pixmap_frhide $(top_srcdir)/src/pixmaps/frhide.png \
-	pixmap_frinfo $(top_srcdir)/src/pixmaps/frinfo.png \
-	pixmap_frlibrary $(top_srcdir)/src/pixmaps/frlibrary.png \
-	pixmap_frlibrary_ro $(top_srcdir)/src/pixmaps/frlibrary_ro.png \
-	pixmap_frnote $(top_srcdir)/src/pixmaps/frnote.png \
-	pixmap_frsearch $(top_srcdir)/src/pixmaps/frsearch.png \
-	pixmap_frsnippet $(top_srcdir)/src/pixmaps/frsnippet.png \
-	pixmap_frtag $(top_srcdir)/src/pixmaps/frtag.png \
-	pixmap_frvar $(top_srcdir)/src/pixmaps/frvar.png \
-	pixmap_new $(top_srcdir)/src/pixmaps/new.png \
-	pixmap_nothing $(top_srcdir)/src/pixmaps/nothing.png \
-	pixmap_open_small $(top_srcdir)/src/pixmaps/open_small.png \
-	pixmap_prefseditor $(top_srcdir)/src/pixmaps/prefs-editor.png \
-	pixmap_prefsexternal $(top_srcdir)/src/pixmaps/prefs-external.png \
-	pixmap_prefsfiles $(top_srcdir)/src/pixmaps/prefs-files.png \
-	pixmap_prefsfiletypes $(top_srcdir)/src/pixmaps/prefs-filetypes.png \
-	pixmap_prefshtml $(top_srcdir)/src/pixmaps/prefs-html.png \
-	pixmap_prefsimages $(top_srcdir)/src/pixmaps/prefs-images.png \
-	pixmap_prefsinterface $(top_srcdir)/src/pixmaps/prefs-interface.png \
-	pixmap_prefsoutputparser $(top_srcdir)/src/pixmaps/prefs-outputparser.png \
- 	pixmap_prefssyntax $(top_srcdir)/src/pixmaps/prefs-syntax.png \
-	pixmap_view_in_browser $(top_srcdir)/src/pixmaps/view_in_browser.png
+	pixmap_bluefish_icon1 $(srcdir)/bluefish_icon1.png \
+	pixmap_bookmarks $(srcdir)/bookmarks.png \
+	pixmap_close $(srcdir)/close.png \
+	pixmap_filetree $(srcdir)/filetree.png \
+	pixmap_frcss $(srcdir)/frcss.png \
+	pixmap_frdialog $(srcdir)/frdialog.png \
+	pixmap_frdialog2 $(srcdir)/frdialog2.png \
+	pixmap_fref $(srcdir)/fref.png \
+	pixmap_frfunction $(srcdir)/frfunction.png \
+	pixmap_frgroup $(srcdir)/frgroup.png \
+	pixmap_frhide $(srcdir)/frhide.png \
+	pixmap_frinfo $(srcdir)/frinfo.png \
+	pixmap_frlibrary $(srcdir)/frlibrary.png \
+	pixmap_frlibrary_ro $(srcdir)/frlibrary_ro.png \
+	pixmap_frnote $(srcdir)/frnote.png \
+	pixmap_frsearch $(srcdir)/frsearch.png \
+	pixmap_frsnippet $(srcdir)/frsnippet.png \
+	pixmap_frtag $(srcdir)/frtag.png \
+	pixmap_frvar $(srcdir)/frvar.png \
+	pixmap_new $(srcdir)/new.png \
+	pixmap_nothing $(srcdir)/nothing.png \
+	pixmap_open_small $(srcdir)/open_small.png \
+	pixmap_prefseditor $(srcdir)/prefs-editor.png \
+	pixmap_prefsexternal $(srcdir)/prefs-external.png \
+	pixmap_prefsfiles $(srcdir)/prefs-files.png \
+	pixmap_prefsfiletypes $(srcdir)/prefs-filetypes.png \
+	pixmap_prefshtml $(srcdir)/prefs-html.png \
+	pixmap_prefsimages $(srcdir)/prefs-images.png \
+	pixmap_prefsinterface $(srcdir)/prefs-interface.png \
+	pixmap_prefsoutputparser $(srcdir)/prefs-outputparser.png \
+ 	pixmap_prefssyntax $(srcdir)/prefs-syntax.png \
+	pixmap_view_in_browser $(srcdir)/view_in_browser.png
 
 
 general_icons.c:
