@@ -693,6 +693,7 @@ static void snipwiz_dialog_response_lcb(GtkDialog *dialog, gint response, Tsnipw
 				if (snwiz->name) g_free(snwiz->name);
 				if (snwiz->description) g_free(snwiz->description);
 				g_free(snwiz);
+				snippets_store();
 				return;
 			break;
 		}
