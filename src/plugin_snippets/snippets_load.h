@@ -21,6 +21,14 @@
 #ifndef SNIPPETS_LOAD_H
 #define SNIPPETS_LOAD_H
 
+enum {
+	pixmap_type_none,
+	pixmap_type_insert,
+	pixmap_type_snr
+};
+
+void snippets_add_tree_item(GtkTreeIter *parent, GtkTreeIter *child, gint pixmaptype, const gchar *name, gpointer ptr);
+
 void snippets_load(const gchar *filename);
 void snippets_store(void);
 

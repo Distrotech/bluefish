@@ -71,19 +71,27 @@ static void get_parentbranch(Tsnippetswin *snw, GtkTreePath **parentp, xmlNodePt
 	}
 } 
 
-static void add_item_to_tree(GtkTreePath *parentp, gchar *name, gpointer ptr) {
+static void add_item_to_tree(GtkTreePath *parentp, gint pixmaptype, const gchar *name, gpointer ptr) {
 	GtkTreeIter citer;
 	if (parentp) {
 		GtkTreeIter piter;
 		if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&piter,parentp)) {
-			gtk_tree_store_append(snippets_v.store, &citer, &piter);
+			snippets_add_tree_item(&piter, &citer, pixmap_type_insert, name, ptr);
 		} else {
 			g_print("hmm weird error!?!\n");
 		}
 	} else {
-		gtk_tree_store_append(snippets_v.store, &citer, NULL);
+		snippets_add_tree_item(NULL, &citer, pixmap_type_insert, name, ptr);
 	}
-	gtk_tree_store_set(snippets_v.store, &citer, PIXMAP_COLUMN, NULL, TITLE_COLUMN, name,NODE_COLUMN, ptr,-1);
+}
+
+static void update_name_in_tree(Tsnippetswin *snw, const gchar *name) {
+	if (snw->lastclickedpath) {
+		GtkTreeIter citer;
+		if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&citer,snw->lastclickedpath)) {
+			gtk_tree_store_set(snippets_v.store, &citer, TITLE_COLUMN, name,-1);
+		}
+	}
 }
 
 typedef struct {
@@ -215,7 +223,7 @@ static gint snippets_test_pageSnr(Tsnipwiz *snwiz, gpointer data) {
 	TpageSnr *p = (TpageSnr *)data;
 	GtkTreePath *parentp;
 	xmlNodePtr parentn, childn, tmpn;
-	gchar *tmp, *search,*replace;
+	gchar *tmp="",*search,*replace;
 	gint i;
 	gint scope,casesens,matchtype,escapechars;
 
@@ -296,10 +304,9 @@ static gint snippets_test_pageSnr(Tsnipwiz *snwiz, gpointer data) {
 	}
 	if (!snwiz->node) {
 		/* now add this item to the treestore */
-		add_item_to_tree(parentp, snwiz->name, childn);
+		add_item_to_tree(parentp, pixmap_type_snr, snwiz->name, childn);
 	} else {
-		/* TODO: update the name in the treestore */
-	
+		update_name_in_tree(snwiz->snw, snwiz->name);
 	}
 	return page_finished;
 }
@@ -439,10 +446,9 @@ static gint snippets_test_pageInsert(Tsnipwiz *snwiz, gpointer data) {
 	}
 	if (!snwiz->node) {
 		/* now add this item to the treestore */
-		add_item_to_tree(parentp, snwiz->name, childn);
+		add_item_to_tree(parentp, pixmap_type_insert, snwiz->name, childn);
 	} else {
-		/* TODO: update the name in the treestore */
-	
+		update_name_in_tree(snwiz->snw, snwiz->name);
 	}
 	return page_finished;
 }
@@ -630,7 +636,7 @@ static gint snippets_test_pageType(Tsnipwiz *snwiz, gpointer data) {
 }
 
 static void snipwiz_dialog_response_lcb(GtkDialog *dialog, gint response, Tsnipwiz *snwiz) {
-	Tpagenum newpagenum;
+	Tpagenum newpagenum=page_type;
 	DEBUG_MSG("snipwiz_dialog_response_lcb, response=%d\n",response);
 	if (response == GTK_RESPONSE_REJECT) {
 		gtk_widget_destroy(snwiz->dialog);
@@ -725,7 +731,7 @@ void snippets_new_item_dialog(Tsnippetswin *snw, xmlNodePtr node) {
 		snwiz->pagestruct = snippets_build_pageName(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
 		snwiz->pagenum = page_name;
 	} else {
-		snwiz->pagestruct = snippets_build_pageType(snw,GTK_DIALOG(snwiz->dialog)->vbox);
+		snwiz->pagestruct = snippets_build_pageType(snwiz,GTK_DIALOG(snwiz->dialog)->vbox);
 		snwiz->pagenum = page_type;
 	}
 	gtk_widget_show_all(snwiz->dialog);	

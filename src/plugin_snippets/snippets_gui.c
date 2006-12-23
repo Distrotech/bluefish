@@ -89,7 +89,7 @@ static void snippets_connect_accelerators_from_doc(Tsnippetswin *snw, xmlNodePtr
 					hcbdata->snw = snw;
 					hcbdata->cur = cur;
 					DEBUG_MSG("snippets_connect_accelerators_from_doc, connecting accelerator %s\n",accelerator);
-					closure = g_cclosure_new(G_CALLBACK(snippets_accelerator_activated_lcb),hcbdata,g_free);
+					closure = g_cclosure_new(G_CALLBACK(snippets_accelerator_activated_lcb),hcbdata,(GClosureNotify)g_free);
 					gtk_accel_group_connect(accel_group,key,mod,GTK_ACCEL_VISIBLE, closure);
 				}
 				xmlFree(accelerator);

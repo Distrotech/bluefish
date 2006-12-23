@@ -90,11 +90,11 @@ static void snippets_insert_dialog(Tsnippetswin *snw, xmlNodePtr leaf, gint num_
 		}
 	}
 	if (before && after) {
-		tmpstr = g_strconcat(before,_("[cursor position or selection]"),after,NULL);
+		tmpstr = g_strconcat((gchar *)before,_("[cursor position or selection]"),(gchar *)after,NULL);
 	} else if (before) {
-		tmpstr = g_strdup(before);
+		tmpstr = g_strdup((gchar *)before);
 	} else if (after) {
-		tmpstr = g_strdup(after);
+		tmpstr = g_strdup((gchar *)after);
 	} else {
 		tmpstr = g_strdup("An error has occurred with this item");
 	}
