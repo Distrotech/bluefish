@@ -192,13 +192,7 @@ static const guint8 pixmap_insert[] =
   "\377\212\206\204\377\212\206\204\377\212\206\204\377\234\234\231\377"
   "_`[\0"};
 
-enum {
-	pixmap_type_none,
-	pixmap_type_insert,
-	pixmap_type_snr
-};
-
-static void add_tree_item(GtkTreeIter *parent, GtkTreeIter *child, gint pixmaptype, const gchar *name, gpointer ptr) {
+void snippets_add_tree_item(GtkTreeIter *parent, GtkTreeIter *child, gint pixmaptype, const gchar *name, gpointer ptr) {
 	GdkPixbuf* pixmap=NULL; 
 	DEBUG_MSG("add_tree_item, adding %s\n",name);
 	gtk_tree_store_append(snippets_v.store, child, parent);
@@ -222,7 +216,7 @@ static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
 		GtkTreeIter iter;
 		if ((xmlStrEqual(cur->name, (const xmlChar *)"branch"))) {
 			title = xmlGetProp(cur, (const xmlChar *)"title");
-			add_tree_item(parent, &iter, pixmap_type_none, (const gchar *)title, cur);
+			snippets_add_tree_item(parent, &iter, pixmap_type_none, (const gchar *)title, cur);
 			walk_tree(cur, &iter);
 		} else if ((xmlStrEqual(cur->name, (const xmlChar *)"leaf"))) {
 			xmlChar *type;
@@ -234,7 +228,7 @@ static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
 			} else if (xmlStrEqual(type, (const xmlChar *)"snr")) {
 				pixtype=pixmap_type_snr;
 			}
-			add_tree_item(parent, &iter, pixtype, (const gchar *)title, cur);
+			snippets_add_tree_item(parent, &iter, pixtype, (const gchar *)title, cur);
 		}
 		cur = cur->next;
 	}
@@ -257,7 +251,7 @@ void snippets_load(const gchar *filename) {
 		snippets_v.doc = NULL;
 	}
 	if (snippets_v.doc == NULL) {
-		snippets_v.doc = xmlNewDoc("1.0");
+		snippets_v.doc = xmlNewDoc((const xmlChar *)"1.0");
 		cur = xmlNewDocNode(snippets_v.doc,NULL, (const xmlChar *)"snippets",NULL);
 		xmlDocSetRootElement(snippets_v.doc, cur);	
 	}
