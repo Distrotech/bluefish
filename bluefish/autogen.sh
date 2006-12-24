@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: autogen.sh,v 1.6 2006-12-22 23:01:25 dleidert Exp $
+# $Id: autogen.sh,v 1.7 2006-12-24 10:44:52 oli4 Exp $
 
 set -e
 
@@ -38,6 +38,7 @@ GETTEXT_PO_DIRS="
 src/plugin_about/po
 src/plugin_entities/po
 src/plugin_htmlbar/po
+src/plugin_snippets/po
 "
 
 ## the gettext files we need to copy to $GETTEXT_PO_DIRS

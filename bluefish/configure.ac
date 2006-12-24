@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.137 2006-12-22 16:32:22 dleidert Exp $
+dnl $Id: configure.ac,v 1.138 2006-12-24 10:44:52 oli4 Exp $
 dnl
 dnl Copyright (C) 2002-2006 Olivier Sessink
 dnl Copyright (C) 2006 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.137 $)
+AC_REVISION($Revision: 1.138 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -585,6 +585,7 @@ AC_CONFIG_FILES([
 	src/plugin_htmlbar/pixmaps/Makefile
 	src/plugin_htmlbar/po/Makefile.in
 	src/plugin_snippets/Makefile
+	src/plugin_snippets/po/Makefile.in
 ])
 AC_OUTPUT
 
@@ -595,5 +596,5 @@ dnl *******************************
 AC_MSG_NOTICE([
 -----------
 If you like this program, please let me know and send me
-a postcard and tell me what city/country you're from:
+a postcard and tell me what city/country you're from
 -----------])
