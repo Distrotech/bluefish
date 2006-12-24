@@ -1,4 +1,6 @@
 
+SUBDIRS = po
+
 EXTRA_DIST = snippets.def
 
 MAINTAINERCLEANFILES = Makefile.in
@@ -27,3 +29,7 @@ snippets_la_LDFLAGS = -module -avoid-version
 if OS_WIN32
 snippets_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/snippets.def
 endif
+
+maintainer-clean-local:
+	cd $(srcdir)/po && rm -f boldquot.sed en@boldquot.header en@quot.header insert-header.sin Makefile.in.in quot.sed remove-potcdate.sin Rules-quot
+        
