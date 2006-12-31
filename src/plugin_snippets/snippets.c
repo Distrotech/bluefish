@@ -31,7 +31,6 @@
 Tsnippets snippets_v;
 
 static void snippets_init(void) {
-	gchar *snipfile;
 #ifdef ENABLE_NLS
 	DEBUG_MSG("snippets_init, gettext domain-name=%s\n",PACKAGE"_plugin_snippets");
 	bindtextdomain(PACKAGE"_plugin_snippets", LOCALEDIR);
@@ -43,11 +42,9 @@ static void snippets_init(void) {
 	snippets_v.store = gtk_tree_store_new(NUM_COLUMNS /* Total number of columns */,GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER);
 	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,snippets_sidepanel_initgui);
 	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);
-	DEBUG_MSG("snippets_init, starting load\n");
-	snipfile = user_bfdir("snippets");
-	snippets_load(snipfile);
-	g_free(snipfile);
-	DEBUG_MSG("snippets_init, finished loading, store=%p, lookup=%p\n",snippets_v.store, snippets_v.lookup);	
+	snippets_load();
+	
+	DEBUG_MSG("snippets_init finished, store=%p, lookup=%p\n",snippets_v.store, snippets_v.lookup);
 }
 static void snippets_initgui(Tbfwin* bfwin) {
 

@@ -29,7 +29,7 @@ enum {
 
 void snippets_add_tree_item(GtkTreeIter *parent, GtkTreeIter *child, gint pixmaptype, const gchar *name, gpointer ptr);
 
-void snippets_load(const gchar *filename);
+void snippets_load(void);
 void snippets_store(void);
 
 #endif /* SNIPPETS_LOAD_H */
