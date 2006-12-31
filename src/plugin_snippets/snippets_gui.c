@@ -195,6 +195,23 @@ static void snippets_rebuild_accelerators(void) {
 	 g_hash_table_foreach(snippets_v.lookup,snippets_window_rebuild_accelerators_lcb,NULL);
 }
 
+static gboolean snippets_delete(xmlNodePtr node, GtkTreePath *path) {
+	if (node && path) {
+		GtkTreeIter iter;
+		if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&iter,path)) {
+			/* delete from the treestore */
+			DEBUG_MSG("snippets_delete, removing from tree store\n");
+			gtk_tree_store_remove(GTK_TREE_STORE(snippets_v.store),&iter);
+			/* delete from the xmldoc */
+			DEBUG_MSG("snippets_delete, removing from xmldoc\n");
+			xmlUnlinkNode(node);
+			xmlFreeNode(node);
+			return TRUE;
+		}
+	}
+	return FALSE;
+}
+
 static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_action, GtkWidget *widget) {
 	DEBUG_MSG("snip_rpopup_rpopup_action_lcb, called with action %d and widget %p\n",callback_action,widget);
 	switch (callback_action) {
@@ -224,15 +241,24 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 			}
 		}
 	break;
-	
+	case 4:
+		if (snippets_delete(snw->lastclickednode, snw->lastclickedpath)) {
+			snw->lastclickednode = NULL;
+			gtk_tree_path_free(snw->lastclickedpath);
+			snw->lastclickedpath = NULL;
+			snippets_store();
+		}
+	break;
 	}
 }
 
 static GtkItemFactoryEntry snip_rpopup_menu_entries[] = {
-	{ N_("/_Edit"),		NULL,	snip_rpopup_rpopup_action_lcb,		1,	"<Item>" },
-	{ N_("/_New"),		NULL,	snip_rpopup_rpopup_action_lcb,		3,	"<Item>" },
+	{ N_("/_New snippet"),		NULL,	snip_rpopup_rpopup_action_lcb,		3,	"<Item>" },
+	{ N_("/_Edit snippet"),		NULL,	snip_rpopup_rpopup_action_lcb,		1,	"<Item>" },
+	{ N_("/_Delete snippet"),		NULL,	snip_rpopup_rpopup_action_lcb,		4,	"<Item>" },
+	{ N_("/Delete branch"),		NULL,	snip_rpopup_rpopup_action_lcb,		4,	"<Item>" },
 	{ "/sep1",						NULL,	NULL,									0,	"<Separator>" },
-	{ N_("/Set _accelerator"),			NULL,	snip_rpopup_rpopup_action_lcb,	2,	"<Item>" }
+	{ N_("/Set snippet _accelerator"),			NULL,	snip_rpopup_rpopup_action_lcb,	2,	"<Item>" }
 };
 
 #ifdef ENABLE_NLS
@@ -251,6 +277,16 @@ static GtkWidget *snip_rpopup_create_menu(Tsnippetswin *snw, xmlNodePtr cur) {
 #endif
 	gtk_item_factory_create_items(menumaker, sizeof(snip_rpopup_menu_entries)/sizeof(GtkItemFactoryEntry), snip_rpopup_menu_entries, snw);
 	menu = gtk_item_factory_get_widget(menumaker, "<snippets_rpopup>");
+	
+	if (!snw->lastclickednode || !xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit snippet"), FALSE);
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete snippet"), FALSE);
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit snippet"), FALSE);
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Set snippet accelerator"), FALSE);
+	} else {
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/New snippet"), FALSE);
+		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete branch"), FALSE);
+	}
 
 	return menu;
 }
