@@ -367,6 +367,7 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	GtkTreeViewColumn *column;
 	GdkPixbuf *pixbuf;
 	GtkWidget *image;
+	GtkWidget *scrolwin;
 
 	DEBUG_MSG("snippets_sidepanel_initgui, bfwin=%p\n",bfwin);
 	
@@ -394,7 +395,10 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	pixbuf = gdk_pixbuf_new_from_inline(-1,snippet_icon,FALSE,NULL);
 	image = gtk_image_new_from_pixbuf(pixbuf);
 	g_object_unref(pixbuf);
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),snw->view,image,gtk_label_new(_("snippets")));
+	scrolwin = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_container_add(GTK_CONTAINER(scrolwin), snw->view);
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),scrolwin,image,gtk_label_new(_("snippets")));
 		
 	snw->ttips = tree_tips_new_full(snw->bfwin,GTK_TREE_VIEW(snw->view),snippets_treetip_lcb);
 	
