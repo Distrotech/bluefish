@@ -234,17 +234,16 @@ static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
 	}
 }
 
-void snippets_load(const gchar *filename) {
+static gboolean snippets_load_finished_lcb(gpointer data) {
 	xmlNodePtr cur=NULL;
-	DEBUG_MSG("snippets_load, filename=%s\n",filename);
-	snippets_v.doc = xmlParseFile(filename);
-	
+	DEBUG_MSG("snippets_load_finished_lcb, starting to load xml data into treestore\n");
 	if (snippets_v.doc) {
 		cur = xmlDocGetRootElement(snippets_v.doc);
 		if (cur) {
 			if (xmlStrEqual(cur->name, (const xmlChar *) "snippets")) {
 				walk_tree(cur, NULL);
-				return;
+				DEBUG_MSG("snippets_load_finished_lcb, finished walking tree\n");
+				return FALSE;
 			}
 		}
 		xmlFreeDoc(snippets_v.doc);
@@ -255,6 +254,22 @@ void snippets_load(const gchar *filename) {
 		cur = xmlNewDocNode(snippets_v.doc,NULL, (const xmlChar *)"snippets",NULL);
 		xmlDocSetRootElement(snippets_v.doc, cur);	
 	}
+	DEBUG_MSG("snippets_load_finished_lcb, finished empty tree\n");
+	return FALSE;
+}
+
+static gpointer snippets_load_async(gpointer data) {
+	gchar *filename;
+	filename = user_bfdir("snippets");
+	DEBUG_MSG("snippets_load, filename=%s\n",filename);
+	snippets_v.doc = xmlParseFile(filename);
+	g_free(filename);
+	g_idle_add(snippets_load_finished_lcb, NULL);	
+	return NULL;
+}
+
+void snippets_load(void) {
+	g_thread_create(snippets_load_async, NULL, FALSE, NULL);
 }
 
 void snippets_store(void) {

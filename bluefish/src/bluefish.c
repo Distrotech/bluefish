@@ -26,7 +26,7 @@
 #include <time.h> /* nanosleep */
 
 #include "bluefish.h"
-
+#include <libxml/parser.h>
 #include <libgnomeui/libgnomeui.h>
 #include <libgnomevfs/gnome-vfs.h>
 
@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
 	                                GNOME_PARAM_POPT_TABLE, options,
 #endif /* #ifdef GNOME_PARAM_GOPTION_CONTEXT */
 	                                NULL);
-
+	xmlInitParser();
 	gnome_vfs_init();
 	gnome_authentication_manager_init();
 
