@@ -85,13 +85,12 @@ typedef struct {
 	gchar *replace_pattern;
 	gint unescape;
 	gint overlapping_search;
-	/* gint prompt_before_replace; deprecated in new dialog */
 	gint is_case_sens;
-	/* gint replace_once; deprecated in new dialog */
 	gint bookmark_results;
 	Treplace_types replacetype_option;
 	Tmatch_types matchtype_option;
 	Tplace_types placetype_option;
+	gint endpos; /* if placetype==selection, this is used to mark the end of the block */
 	gint matches; /* number of matches found */
 	gint replaces; /* number of matches replaced */
 } Tlast_snr2;
@@ -326,9 +325,9 @@ Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_patte
 	gchar *fulltext, *realpat;
 	Tsearch_result result;
 	
-	DEBUG_MSG("search_doc, started on document %p, startpos=%d\n", document, startpos);
+	DEBUG_MSG("search_doc, started on document %p, startpos=%d, endpos=%d\n", document, startpos, endpos);
 	utf8_offset_cache_reset();
-	fulltext = doc_get_chars(document, startpos, -1);
+	fulltext = doc_get_chars(document, startpos, endpos);
 	DEBUG_MSG("search_doc, fulltext=%p, search_pattern=%p\n", fulltext, search_pattern);
 	if (unescape) {
 		realpat = unescape_string(search_pattern, FALSE);
@@ -844,6 +843,9 @@ static gboolean replace_current_match(Tbfwin *bfwin) {
 		if (!LASTSNR2(bfwin->snr2)->overlapping_search && lenadded > 0) {
 			LASTSNR2(bfwin->snr2)->result.end += lenadded;
 		}
+		if (LASTSNR2(bfwin->snr2)->placetype_option == selection) {
+			LASTSNR2(bfwin->snr2)->endpos += lenadded;
+		}
 		return TRUE;
 	}
 	return FALSE;
@@ -927,6 +929,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, gint startpos, gint 
 		}
 		return result;
 	} else {
+		DEBUG_MSG("search_single_and_show, startpos=%d, endpos=%d\n",startpos,endpos);
 		result = search_doc(bfwin,bfwin->current_document, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
 		if (result.end > 0) {
 			doc_show_result(bfwin->current_document, result.start, result.end);
@@ -1395,8 +1398,11 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 				if (!doc_get_selection(bfwin->current_document,&startpos,&endpos)) {
 					/* BUG: what to do if there was no selection ?*/
 					DEBUG_MSG("snr2_run, no selection found, returning\n");
+					gtk_label_set_markup(GTK_LABEL(snrwin->warninglabel),_("<span foreground=\"red\" weight=\"bold\">No selection. Please select a block of text first.</span>"));
+					gtk_widget_show(snrwin->warninglabel);
 					return;
 				}
+				LASTSNR2(bfwin->snr2)->endpos = endpos;
 				DEBUG_MSG("snr2_run, from selection: startpos=%d, endpos=%d\n", startpos, endpos);
 			}
 		} else {
@@ -1412,7 +1418,11 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 				        startpos = LASTSNR2(bfwin->snr2)->result.start;
 				    }
 				}
-			}	
+			}
+			if (LASTSNR2(bfwin->snr2)->placetype_option==selection) {
+				endpos = LASTSNR2(bfwin->snr2)->endpos;
+			}
+			DEBUG_MSG("snr2_run, continue search, startpos=%d, endpos=%d\n", startpos, endpos);
 		}
 		DEBUG_MSG("snr_response_lcb, startpos=%d, result.start=%d\n",startpos,LASTSNR2(snrwin->bfwin->snr2)->result.start);
 	}
