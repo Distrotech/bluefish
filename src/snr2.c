@@ -1197,6 +1197,7 @@ static void setup_new_snr2(Tbfwin *bfwin, const gchar *search_pattern, gboolean 
 	LASTSNR2(bfwin->snr2)->placetype_option = place_type;
 	LASTSNR2(bfwin->snr2)->matchtype_option = match_type;
 	LASTSNR2(bfwin->snr2)->replacetype_option = replace_type;
+	LASTSNR2(bfwin->snr2)->endpos = -1;
 	if (replace_pattern) {
 		LASTSNR2(bfwin->snr2)->replace_pattern = g_strdup(replace_pattern);
 		bfwin->session->replacelist = add_to_history_stringlist(bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,TRUE,TRUE);
