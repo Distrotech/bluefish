@@ -43,11 +43,11 @@ static void snippets_init(void) {
 	snippets_v.store = gtk_tree_store_new(NUM_COLUMNS /* Total number of columns */,GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER);
 	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,snippets_sidepanel_initgui);
 	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,snippets_sidepanel_destroygui);
-	
+	DEBUG_MSG("snippets_init, starting load\n");
 	snipfile = user_bfdir("snippets");
 	snippets_load(snipfile);
-	DEBUG_MSG("snippets_init, finished, store=%p, lookup=%p\n",snippets_v.store, snippets_v.lookup);
 	g_free(snipfile);
+	DEBUG_MSG("snippets_init, finished loading, store=%p, lookup=%p\n",snippets_v.store, snippets_v.lookup);	
 }
 static void snippets_initgui(Tbfwin* bfwin) {
 
