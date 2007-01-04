@@ -249,6 +249,12 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 			snippets_store();
 		}
 	break;
+	case 5:
+		gtk_tree_view_expand_all(GTK_TREE_VIEW(snw->view));
+	break;
+	case 6:
+		gtk_tree_view_collapse_all(GTK_TREE_VIEW(snw->view));
+	break;
 	}
 }
 
@@ -258,7 +264,10 @@ static GtkItemFactoryEntry snip_rpopup_menu_entries[] = {
 	{ N_("/_Delete snippet"),		NULL,	snip_rpopup_rpopup_action_lcb,		4,	"<Item>" },
 	{ N_("/Delete branch"),		NULL,	snip_rpopup_rpopup_action_lcb,		4,	"<Item>" },
 	{ "/sep1",						NULL,	NULL,									0,	"<Separator>" },
-	{ N_("/Set snippet _accelerator"),			NULL,	snip_rpopup_rpopup_action_lcb,	2,	"<Item>" }
+	{ N_("/Set snippet _accelerator"),			NULL,	snip_rpopup_rpopup_action_lcb,	2,	"<Item>" },
+	{ "/sep2",						NULL,	NULL,									0,	"<Separator>" },
+	{ N_("/Expand all"),			NULL,	snip_rpopup_rpopup_action_lcb,	5,	"<Item>" },
+	{ N_("/Collapse all"),			NULL,	snip_rpopup_rpopup_action_lcb,	6,	"<Item>" },
 };
 
 #ifdef ENABLE_NLS
@@ -270,6 +279,7 @@ static gchar *snippets_menu_translate(const gchar * path, gpointer data) {
 static GtkWidget *snip_rpopup_create_menu(Tsnippetswin *snw, xmlNodePtr cur) {
 	GtkWidget *menu;
 	GtkItemFactory *menumaker;
+	gint state=0; /* 0= nothing clicked, 1=branch, 2\=leaf */
 
 	menumaker = gtk_item_factory_new(GTK_TYPE_MENU, "<snippets_rpopup>", NULL);
 #ifdef ENABLE_NLS
@@ -278,15 +288,20 @@ static GtkWidget *snip_rpopup_create_menu(Tsnippetswin *snw, xmlNodePtr cur) {
 	gtk_item_factory_create_items(menumaker, sizeof(snip_rpopup_menu_entries)/sizeof(GtkItemFactoryEntry), snip_rpopup_menu_entries, snw);
 	menu = gtk_item_factory_get_widget(menumaker, "<snippets_rpopup>");
 	
-	if (!snw->lastclickednode || !xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit snippet"), FALSE);
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete snippet"), FALSE);
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit snippet"), FALSE);
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Set snippet accelerator"), FALSE);
-	} else {
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/New snippet"), FALSE);
-		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete branch"), FALSE);
+	if (snw->lastclickednode) {
+		if (xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
+			state = 2;
+		} else {
+			state = 1;
+		}
 	}
+
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit snippet"), (state==2));
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete snippet"), (state==2));
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Edit snippet"), (state==2));
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Set snippet accelerator"), (state==2));
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/New snippet"), (state!=2));
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete branch"), (state==1));
 
 	return menu;
 }
@@ -353,12 +368,10 @@ static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint
 				g_free(tooltip2);
 				g_free(accelerator2);
 				return tmp;
-			} else {
-				return NULL;
 			}
 		}
 	}
-	return NULL;
+	return g_strdup(_("Click the right mouse button to add, edit or delete snippets."));
 }
 
 void snippets_sidepanel_initgui(Tbfwin *bfwin) {
