@@ -44,7 +44,7 @@ endif #REGISTER_XML_CATALOG
 
 uninstall-hook:
 if REGISTER_XML_CATALOG
-	$(XMLCATALOG) --noout del 'bflang.dtd'
-	$(XMLCATALOG) --noout del 'http://bluefish.openoffice.nl/DTD'
+	$(XMLCATALOG) --noout --del 'bflang.dtd'
+	$(XMLCATALOG) --noout --del 'http://bluefish.openoffice.nl/DTD'
 endif #REGISTER_XML_CATALOG
 
