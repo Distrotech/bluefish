@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.138 2006-12-24 10:44:52 oli4 Exp $
+dnl $Id: configure.ac,v 1.139 2007-01-05 02:53:16 dleidert Exp $
 dnl
 dnl Copyright (C) 2002-2006 Olivier Sessink
 dnl Copyright (C) 2006 Daniel Leidert
@@ -9,14 +9,14 @@ dnl This file is free software. The copyright owner gives unlimited
 dnl permission to copy, distribute and modify it.
 dnl ************************
 
-AC_INIT([bluefish-unstable],[1.1.0],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
+AC_INIT([bluefish-unstable],[1.1.3],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 dnl The `-Wno-portability' value will suppress the GNU make warnings. Add it if necessary.
 AM_INIT_AUTOMAKE([-Wall])
 AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.138 $)
+AC_REVISION($Revision: 1.139 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -567,9 +567,6 @@ AC_CONFIG_FILES([
 	data/Makefile
 	data/bflang/Makefile
 	data/bflib/Makefile
-	desktop-data/bluefish.desktop.in
-	desktop-data/bluefish-project.desktop.in
-	desktop-data/bluefish.keys
 	desktop-data/Makefile
 	images/Makefile
 	man/bf_entities.dtd

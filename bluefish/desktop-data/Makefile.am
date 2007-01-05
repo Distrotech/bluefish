@@ -2,21 +2,20 @@
 EXTRA_DIST = \
 	$(fdomenu_in_files) \
 	$(fdomime_in_files) \
-	$(oldgmime_DATA)
+	$(oldgmime_in_files) \
+	bluefish-unstable.mime
 
 CLEANFILES = \
 	$(fdomenu_DATA) \
-	$(fdomime_DATA)
-
-DISTCLEANFILES = \
-	bluefish.desktop.in \
-	bluefish-project.desktop.in \
-	bluefish.keys
+	$(fdomime_DATA) \
+	bluefish-unstable.keys
 
 MAINTAINERCLEANFILES = Makefile.in
 
-fdomenu_in_files = bluefish.desktop.in bluefish-project.desktop.in
-fdomime_in_files = bluefish.xml.in
+
+fdomenu_in_files  = bluefish-unstable.desktop.in bluefish-unstable-project.desktop.in
+fdomime_in_files  = bluefish-unstable.xml.in
+oldgmime_in_files = bluefish-unstable.keys.in
 
 
 if INSTALL_FDOMENU
@@ -31,7 +30,7 @@ endif
 
 if INSTALL_GMIME
 oldgmimedir = $(oldgmimepath)
-oldgmime_DATA = bluefish.keys bluefish.mime
+oldgmime_DATA = $(oldgmime_in_files:.keys.in=.keys) bluefish-unstable.mime
 endif
 
 
