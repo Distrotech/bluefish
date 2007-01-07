@@ -307,33 +307,35 @@ static GtkWidget *snip_rpopup_create_menu(Tsnippetswin *snw, xmlNodePtr cur) {
 }
 
 static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *event, Tsnippetswin *snw) {
-	if (event->button==3 || (event->button==1 && event->type == GDK_2BUTTON_PRESS)) {
-		xmlNodePtr cur;
-		GtkTreePath *path;
-		gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(snw->view), event->x, event->y, &path, NULL, NULL, NULL);
-		cur = snippetview_get_node_at_path(path);
-		if (cur) {
-			snw->lastclickednode = cur;
-			if (snw->lastclickedpath) gtk_tree_path_free(snw->lastclickedpath);   
-			snw->lastclickedpath = path;
-			if (event->button==1 && event->type == GDK_2BUTTON_PRESS) { /* left mouse button double-clicked */
-				if (xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
-					snippet_activate_leaf(snw, cur);
+	if (snippets_v.doc) {
+		if (event->button==3 || (event->button==1 && event->type == GDK_2BUTTON_PRESS)) {
+			xmlNodePtr cur;
+			GtkTreePath *path;
+			gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(snw->view), event->x, event->y, &path, NULL, NULL, NULL);
+			cur = snippetview_get_node_at_path(path);
+			if (cur) {
+				snw->lastclickednode = cur;
+				if (snw->lastclickedpath) gtk_tree_path_free(snw->lastclickedpath);   
+				snw->lastclickedpath = path;
+				if (event->button==1 && event->type == GDK_2BUTTON_PRESS) { /* left mouse button double-clicked */
+					if (xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
+						snippet_activate_leaf(snw, cur);
+					}
+				} else if (event->button==3) { /* right mouse button clicked */
+					GtkWidget *menu;
+					menu = snip_rpopup_create_menu(snw, cur);
+					gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);	
 				}
-			} else if (event->button==3) { /* right mouse button clicked */
-				GtkWidget *menu;
-				menu = snip_rpopup_create_menu(snw, cur);
-				gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);	
-			}
-		} else {
-			snw->lastclickednode = NULL;
-			if (snw->lastclickedpath) gtk_tree_path_free(snw->lastclickedpath);   
-			snw->lastclickedpath = NULL;
-			gtk_tree_path_free(path);
-			if (event->button==3) { /* right mouse button clicked */
-				GtkWidget *menu;
-				menu = snip_rpopup_create_menu(snw, NULL);
-				gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);	
+			} else {
+				snw->lastclickednode = NULL;
+				if (snw->lastclickedpath) gtk_tree_path_free(snw->lastclickedpath);   
+				snw->lastclickedpath = NULL;
+				gtk_tree_path_free(path);
+				if (event->button==3) { /* right mouse button clicked */
+					GtkWidget *menu;
+					menu = snip_rpopup_create_menu(snw, NULL);
+					gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);	
+				}
 			}
 		}
 	}
@@ -341,37 +343,40 @@ static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *
 }
 
 static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint x, gint y) {
-	GtkTreePath *path;	
-	if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(tree), x, y, &path, NULL, NULL, NULL)) {
-		xmlNodePtr cur = snippetview_get_node_at_path(path);
-		DEBUG_MSG("snippets_treetip_lcb, found node %p for path %p\n",cur,path); 
-		if (cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
-			xmlChar *tooltip, *accelerator;
-			gchar *tooltip2=NULL, *accelerator2=NULL;
-			tooltip = xmlGetProp(cur, (const xmlChar *)"tooltip");
-			accelerator = xmlGetProp(cur, (const xmlChar *)"accelerator");
-			if (tooltip) {
-				tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
-				xmlFree(tooltip);
-			}
-			if (accelerator) {
-				accelerator2 = g_markup_escape_text((gchar *)accelerator,-1);
-				xmlFree(accelerator);
-			}
-			if (tooltip && !accelerator) {
-				return tooltip2;
-			} else if (accelerator && !tooltip) {
-				return accelerator2;
-			} else if (tooltip && accelerator) {
-				gchar *tmp;
-				tmp = g_strconcat(tooltip2, "\n", accelerator2, NULL);
-				g_free(tooltip2);
-				g_free(accelerator2);
-				return tmp;
+	if (snippets_v.doc) {
+		GtkTreePath *path;	
+		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(tree), x, y, &path, NULL, NULL, NULL)) {
+			xmlNodePtr cur = snippetview_get_node_at_path(path);
+			DEBUG_MSG("snippets_treetip_lcb, found node %p for path %p\n",cur,path); 
+			if (cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
+				xmlChar *tooltip, *accelerator;
+				gchar *tooltip2=NULL, *accelerator2=NULL;
+				tooltip = xmlGetProp(cur, (const xmlChar *)"tooltip");
+				accelerator = xmlGetProp(cur, (const xmlChar *)"accelerator");
+				if (tooltip) {
+					tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
+					xmlFree(tooltip);
+				}
+				if (accelerator) {
+					accelerator2 = g_markup_escape_text((gchar *)accelerator,-1);
+					xmlFree(accelerator);
+				}
+				if (tooltip && !accelerator) {
+					return tooltip2;
+				} else if (accelerator && !tooltip) {
+					return accelerator2;
+				} else if (tooltip && accelerator) {
+					gchar *tmp;
+					tmp = g_strconcat(tooltip2, "\n", accelerator2, NULL);
+					g_free(tooltip2);
+					g_free(accelerator2);
+					return tmp;
+				}
 			}
 		}
+		return g_strdup(_("Click the right mouse button to add, edit or delete snippets."));
 	}
-	return g_strdup(_("Click the right mouse button to add, edit or delete snippets."));
+	return NULL;
 }
 
 void snippets_sidepanel_initgui(Tbfwin *bfwin) {
