@@ -236,7 +236,7 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 					xmlSetProp(snw->lastclickednode, (const xmlChar *)"accelerator", (const xmlChar *)accel);
 				}
 				snippets_rebuild_accelerators();
-				snippets_store();
+				g_idle_add(snippets_store_lcb, NULL);
 				g_free(accel);
 			}
 		}
@@ -246,7 +246,7 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 			snw->lastclickednode = NULL;
 			gtk_tree_path_free(snw->lastclickedpath);
 			snw->lastclickedpath = NULL;
-			snippets_store();
+			g_idle_add(snippets_store_lcb, NULL);
 		}
 	break;
 	case 5:

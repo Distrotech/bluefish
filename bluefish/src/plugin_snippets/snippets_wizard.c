@@ -524,7 +524,7 @@ static gint snippets_test_pageBranch(Tsnipwiz *snwiz, gpointer data) {
 	
 	DEBUG_MSG("add branch with title %s\n",name);
 	g_free(name);
-	snippets_store();
+	g_idle_add(snippets_store_lcb, NULL);
 	return page_finished;
 }
 
@@ -699,7 +699,7 @@ static void snipwiz_dialog_response_lcb(GtkDialog *dialog, gint response, Tsnipw
 				if (snwiz->name) g_free(snwiz->name);
 				if (snwiz->description) g_free(snwiz->description);
 				g_free(snwiz);
-				snippets_store();
+				g_idle_add(snippets_store_lcb, NULL);
 				return;
 			break;
 		}
