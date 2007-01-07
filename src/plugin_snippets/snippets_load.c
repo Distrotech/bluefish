@@ -235,21 +235,23 @@ static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
 }
 
 static gboolean snippets_load_finished_lcb(gpointer data) {
+	xmlDocPtr doc = (xmlDocPtr)data;
 	xmlNodePtr cur=NULL;
-	DEBUG_MSG("snippets_load_finished_lcb, starting to load xml data into treestore\n");
-	if (snippets_v.doc) {
-		cur = xmlDocGetRootElement(snippets_v.doc);
+	DEBUG_MSG("snippets_load_finished_lcb, doc=%p, starting to load xml data into treestore\n", doc);
+	if (doc) {
+		cur = xmlDocGetRootElement(doc);
 		if (cur) {
 			if (xmlStrEqual(cur->name, (const xmlChar *) "snippets")) {
+				snippets_v.doc = doc;
 				walk_tree(cur, NULL);
 				DEBUG_MSG("snippets_load_finished_lcb, finished walking tree\n");
 				return FALSE;
 			}
 		}
-		xmlFreeDoc(snippets_v.doc);
-		snippets_v.doc = NULL;
+		xmlFreeDoc(doc);
+		doc = NULL;
 	}
-	if (snippets_v.doc == NULL) {
+	if (doc == NULL) {
 		snippets_v.doc = xmlNewDoc((const xmlChar *)"1.0");
 		cur = xmlNewDocNode(snippets_v.doc,NULL, (const xmlChar *)"snippets",NULL);
 		xmlDocSetRootElement(snippets_v.doc, cur);	
@@ -260,11 +262,12 @@ static gboolean snippets_load_finished_lcb(gpointer data) {
 
 static gpointer snippets_load_async(gpointer data) {
 	gchar *filename;
+	xmlDocPtr doc;
 	filename = user_bfdir("snippets");
 	DEBUG_MSG("snippets_load, filename=%s\n",filename);
-	snippets_v.doc = xmlParseFile(filename);
+	doc = xmlParseFile(filename);
 	g_free(filename);
-	g_idle_add(snippets_load_finished_lcb, NULL);	
+	g_idle_add(snippets_load_finished_lcb, doc);	
 	return NULL;
 }
 
@@ -272,8 +275,12 @@ void snippets_load(void) {
 	g_thread_create(snippets_load_async, NULL, FALSE, NULL);
 }
 
-void snippets_store(void) {
-	gchar *snipfile = user_bfdir("snippets");
-	xmlSaveFormatFile(snipfile, snippets_v.doc, 1);
-	g_free(snipfile);
+gboolean snippets_store_lcb(gpointer data) {
+	DEBUG_MSG("snippets_store_lcb, started\n");
+	if (snippets_v.doc) {
+		gchar *snipfile = user_bfdir("snippets");
+		xmlSaveFormatFile(snipfile, snippets_v.doc, 1);
+		g_free(snipfile);
+	}
+	return FALSE;
 }
