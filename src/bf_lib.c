@@ -26,6 +26,7 @@
  * regarding the ctime_r() function
  */
 #ifdef PLATFORM_SOLARIS
+#define __EXTENSIONS__
 #define _POSIX_C_SOURCE 200312L
 #endif
 
