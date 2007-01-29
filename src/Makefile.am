@@ -1,4 +1,6 @@
 
+AUTOMAKE_OPTIONS = std-options
+
 SUBDIRS = pixmaps plugin_about plugin_entities plugin_htmlbar plugin_snippets
 
 MAINTAINERCLEANFILES = Makefile.in config.h.in
