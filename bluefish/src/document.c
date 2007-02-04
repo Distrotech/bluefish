@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * document.c - the document
  *
- * Copyright (C) 1998-2006 Olivier Sessink
+ * Copyright (C) 1998-2007 Olivier Sessink
  * Copyright (C) 1998 Chris Mazuc
  * some additions Copyright (C) 2004 Eugene Morenko(More)
  *
@@ -26,6 +26,7 @@
  * regarding the ctime_r() function
  */
 #ifdef PLATFORM_SOLARIS
+#define __EXTENSIONS__
 #define _POSIX_C_SOURCE 200312L
 #endif
 
