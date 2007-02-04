@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * dialog_utils.h - dialog utility functions
  *
- * Copyright (C) 2005-2006 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2007 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,30 +22,81 @@
 #define __DIALOG_UTILS_H_
 
 
-void dialog_mnemonic_label_in_table(const gchar *labeltext,
-												GtkWidget *m_widget,
-												GtkWidget *table,
-												guint left_attach, guint right_attach, guint top_attach, guint bottom_attach);
+GtkWidget * 
+dialog_stock_button_new_in_table(const gchar *stockID,
+								 GtkWidget *table,
+								 guint left_attach, guint right_attach, 
+								 guint top_attach, guint bottom_attach);
 
-GtkWidget * dialog_vbox_new(GtkWidget *box);
-GtkWidget * dialog_box_label_new(const gchar *labeltext, gfloat xalign, gfloat yalign, GtkWidget *box);												
-GtkWidget * dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box);
-GtkWidget * dialog_vbox_labeled_checkbutton(const gchar *labeltext, GtkWidget *checkbutton, GtkWidget *box);
+GtkWidget * 
+dialog_button_new_in_table(const gchar *labeltext,
+						   GtkWidget *table,
+						   guint left_attach, guint right_attach, 
+						   guint top_attach, guint bottom_attach);
 
-GtkWidget * dialog_table_in_vbox(gint rows, gint cols, 
-											gint borderWidth, 
-											GtkWidget *box, 
-											gboolean expand, gboolean fill, guint padding);
+GtkWidget *
+dialog_button_new_with_image(const gchar *labeltext,
+							 gint pixmap,
+							 const gchar *stockID,
+							 GtkIconSize iconSize);
+
+GtkWidget * 
+dialog_button_new_with_image_in_table(const gchar *labeltext,
+									  gint pixmap,
+									  const gchar *stockID,
+									  GtkIconSize iconSize,
+									  GtkWidget *table,
+									  guint left_attach, guint right_attach, 
+									  guint top_attach, guint bottom_attach);
+
+void 
+dialog_mnemonic_label_in_table(const gchar *labeltext,
+							   GtkWidget *m_widget,
+							   GtkWidget *table,
+							   guint left_attach, guint right_attach, 
+							   guint top_attach, guint bottom_attach);
+
+GtkWidget * 
+dialog_vbox_new(GtkWidget *box);
+
+GtkWidget * 
+dialog_box_label_new(const gchar *labeltext, 
+					 gfloat xalign, gfloat yalign, 
+					 GtkWidget *box,
+					 guint padding);
+
+GtkWidget * 
+dialog_vbox_labeled(const gchar *labeltext, GtkWidget *box);
+
+GtkWidget * 
+dialog_vbox_labeled_checkbutton(const gchar *labeltext, 
+								GtkWidget *checkbutton, 
+								GtkWidget *box);
+
+GtkWidget * 
+dialog_table_in_vbox(gint rows, gint cols, 
+					 gint borderWidth, 
+					 GtkWidget *box, 
+					 gboolean expand, 
+					 gboolean fill, guint padding);
 											
-GtkWidget * dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget *box);
+GtkWidget * 
+dialog_table_in_vbox_defaults(gint rows, gint cols, 
+							  gint borderWidth, 
+							  GtkWidget *box);
 
-void message_dialog_new(GtkWidget *parent, 
-								GtkMessageType type, 
-								GtkButtonsType button, 
-								const gchar *primaryText, const gchar *secondaryText);
+void 
+message_dialog_new(GtkWidget *parent, 
+				   GtkMessageType type, 
+				   GtkButtonsType button, 
+				   const gchar *primaryText, 
+				   const gchar *secondaryText);
 								
-gint message_dialog_new_multi(GtkWidget *parent, 
-										GtkMessageType type, const gchar *buttons[],
-										const gchar *primaryText, const gchar *secondaryText);
+gint 
+message_dialog_new_multi(GtkWidget *parent, 
+					     GtkMessageType type, 
+					     const gchar *buttons[],
+					     const gchar *primaryText, 
+					     const gchar *secondaryText);
 
 #endif /* __DIALOG_UTILS_H_ */
