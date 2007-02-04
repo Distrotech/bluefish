@@ -1,6 +1,6 @@
 # Release changes
 
-Bluefish 1.0.7 (30 October 2006)
+Bluefish 1.0.7 (05 November 2006)
 ---------------------------------
 
 - Updated translations: French, Japanese.
@@ -10,7 +10,9 @@ Bluefish 1.0.7 (30 October 2006)
 - Fixes a bug when trying to save a file with a new install and a file has
   never been opened or a project is not open. Closes bug #360401.
 - Fix a bug where Bluefish would crash when deleting multiple bookmarks.
-- Fix a bookmark memory leak 
+- Fix a bookmark memory leak
+- Fix a bug where the editor tab was incorrectly displayed when moving a
+  document to another window.  
 - README: more complete README
 
 Bluefish 1.0.6 (25 September 2006)
@@ -26,7 +28,7 @@ Bluefish 1.0.6 (25 September 2006)
 - Highlighting: small fix to XML highlighting (adding general support for 
    namespaces). Highlight numbers in Java.
 - Man-pages: fixes distclean target.
-- Adds XTHTM 1.1 DOCTYPE in creators. Closes Bluefish bug #338586.
+- Adds XHTML 1.1 DOCTYPE in creators. Closes Bluefish bug #338586.
 - Fixes the recognition of GNOME_VFS >= 2.6.
 - Fixes a bug where the Bluefish icon was not displayed if the splash screen was 
    disabled.
