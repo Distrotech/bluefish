@@ -1,6 +1,6 @@
 # Bluefish HTML Editor
 # configure.ac - the autoconf file
-# Copyright (C) 2002-2006 Olivier Sessink
+# Copyright (C) 2002-2007 Olivier Sessink
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ AC_DEFINE_UNQUOTED(CURRENT_VERSION_NAME, "$PACKAGE $VERSION HTML editor")
 AC_DEFINE_UNQUOTED(CONFIGURE_OPTIONS, "$0 $*")
 
 # these are the languages that will be installed, so these should be finished
-ALL_LINGUAS="bg cs da de es eu fi fr hu it ja no pl pt pt_BR ru sk sr sv ta tr zh_CN zh_TW"
+ALL_LINGUAS="bg cs da de es eu fi fr hu it ja nb pl pt pt_BR ru sk sr sv ta tr zh_CN zh_TW"
 AC_SUBST(ALL_LINGUAS)
 
 dnl ************************
