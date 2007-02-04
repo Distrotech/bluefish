@@ -232,7 +232,7 @@ shell:Exec String Escape Command:0:\\b(awk|cat|chgrp|chmod|chown|cp|date|echo|ex
 shell:String escape:1:\\\\.::2:^String \\([^)]+\\)$:#000099::0:0:
 shell:Variable:1:\\$[a-z][a-z0-9_]*::2:^(top|String \\([^)]+\\))$:#bb00bb::0:0:
 shell:Variable2:1:\\$(\\([^)]+\\)|{[^}]+})::2:^(top|String \\([^)]+\\))$:#bb00bb::0:0:
-shell:Variable (sys):1:\\$[\\$\\?\\*0-9]::2:^(top|String \\([^)]+\\))$:#ff0000::2:0:
+shell:Variable (sys):1:\\$[#\\$\\?\\*0-9]::2:^(top|String \\([^)]+\\))$:#ff0000::2:0:
 shell:Assignment:1:[a-z][a-z0-9_]*=::2::#424086::0:0:
 shell:Brackets:1:[\\[\\]]::2::#0000ff::2:0:
 shell:Braces:1:[{}]::2::#0000ff::2:0:
