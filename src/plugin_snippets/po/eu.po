@@ -1,0 +1,200 @@
+# translation of bluefish.po to Basque
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: bluefish\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2007-01-14 08:08-0800\n"
+"PO-Revision-Date: 2004-05-25 12:59+0200\n"
+"Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>\n"
+"Language-Team: Basque <itzulpena@euskalgnu.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.2\n"
+
+#: src/plugin_snippets/snippets_gui.c:230
+msgid "Set accelerator key"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:262
+#, fuzzy
+msgid "/_New snippet"
+msgstr "/_Direktorio berria"
+
+#: src/plugin_snippets/snippets_gui.c:263
+msgid "/_Edit snippet"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:264
+#, fuzzy
+msgid "/_Delete snippet"
+msgstr "/E_zabatu"
+
+#: src/plugin_snippets/snippets_gui.c:265
+#, fuzzy
+msgid "/Delete branch"
+msgstr " Ezabatu guztiak"
+
+#: src/plugin_snippets/snippets_gui.c:267
+msgid "/Set snippet _accelerator"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:269
+msgid "/Expand all"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:270
+#, fuzzy
+msgid "/Collapse all"
+msgstr "_Itxi dena"
+
+#: src/plugin_snippets/snippets_gui.c:377
+msgid "Click the right mouse button to add, edit or delete snippets."
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:419
+msgid "snippets"
+msgstr ""
+
+#: src/plugin_snippets/snippets_leaf_insert.c:93
+msgid "[cursor position or selection]"
+msgstr ""
+
+#: src/plugin_snippets/snippets_leaf_snr.c:152
+#, fuzzy
+msgid "Search for: '"
+msgstr "_Bilatu hau: "
+
+#: src/plugin_snippets/snippets_leaf_snr.c:152
+#, fuzzy
+msgid "', replace with: '"
+msgstr "Ordeztu ho_nekin: "
+
+#: src/plugin_snippets/snippets_wizard.c:110
+#, fuzzy
+msgid "Entire document"
+msgstr "_Dokumentuan"
+
+#: src/plugin_snippets/snippets_wizard.c:111
+msgid "Forward from cursor position"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:112
+#, fuzzy
+msgid "Selection"
+msgstr "Hautatzailea"
+
+#: src/plugin_snippets/snippets_wizard.c:113
+#, fuzzy
+msgid "All open files"
+msgstr "Web fitxategi guztiak"
+
+#: src/plugin_snippets/snippets_wizard.c:117
+msgid "Normal"
+msgstr "Normala"
+
+#: src/plugin_snippets/snippets_wizard.c:118
+msgid "Entire word only"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:119
+#, fuzzy
+msgid "POSIX"
+msgstr "POSIX mota"
+
+#: src/plugin_snippets/snippets_wizard.c:120
+#, fuzzy
+msgid "PERL"
+msgstr "PERL mota"
+
+#: src/plugin_snippets/snippets_wizard.c:131
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:138
+msgid "_Search for: "
+msgstr "_Bilatu hau: "
+
+#: src/plugin_snippets/snippets_wizard.c:142
+#, fuzzy
+msgid "Replace _with: "
+msgstr "Ordeztu ho_nekin: "
+
+#: src/plugin_snippets/snippets_wizard.c:149
+msgid "Sco_pe: "
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:156
+#, fuzzy
+msgid "Match Patter_n: "
+msgstr "Bilatu eredua"
+
+#: src/plugin_snippets/snippets_wizard.c:159
+#, fuzzy
+msgid "Case sensitive _matching"
+msgstr "Bereizi maiuskulak eta minuskulak"
+
+#: src/plugin_snippets/snippets_wizard.c:162
+#, fuzzy
+msgid "_Use escape chars"
+msgstr "Eguneratu karaktereak"
+
+#: src/plugin_snippets/snippets_wizard.c:335
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:341
+msgid "<i>Before</i> text"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:351
+msgid "<i>After</i> text"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:466
+msgid "Enter the name of the branch:"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:549
+msgid "Name of the new item:"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:554
+#, fuzzy
+msgid "Description:"
+msgstr "_Azalpena:"
+
+#: src/plugin_snippets/snippets_wizard.c:604
+msgid "Select what you want to add"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:606
+msgid "Branch"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:608
+#, fuzzy
+msgid "Insert string"
+msgstr "Txertatu irudia"
+
+#: src/plugin_snippets/snippets_wizard.c:610
+#, fuzzy
+msgid "Search and replace pattern"
+msgstr "Bilatu eta ordeztu..."
+
+#: src/plugin_snippets/snippets_wizard.c:717
+#, fuzzy
+msgid "New snippet"
+msgstr "Proiektu berria"
