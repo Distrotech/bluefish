@@ -1,0 +1,2151 @@
+# translation of bluefish.po to Basque
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: bluefish\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2007-02-04 15:44-0800\n"
+"PO-Revision-Date: 2004-05-25 12:59+0200\n"
+"Last-Translator: Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>\n"
+"Language-Team: Basque <itzulpena@euskalgnu.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.2\n"
+
+#. _DM_ Alert box asking if user would like to change request from add to
+#. * update.
+#.
+#: src/plugin_htmlbar/html2.c:499
+#, fuzzy
+msgid "_Update"
+msgstr " _Eguneratu "
+
+#: src/plugin_htmlbar/html2.c:504
+#, fuzzy, c-format
+msgid "The %s %s property already exists.\n"
+msgstr "Zehaztutako bide-izena badago lehendik."
+
+#: src/plugin_htmlbar/html2.c:506
+#, fuzzy, c-format
+msgid "The %s property already exists.\n"
+msgstr "Zehaztutako bide-izena badago lehendik."
+
+#: src/plugin_htmlbar/html2.c:509
+#, c-format
+msgid "Update it's value from %s to %s?"
+msgstr ""
+
+#: src/plugin_htmlbar/html2.c:635
+#, fuzzy
+msgid "Cascading Style Sheet Builder"
+msgstr "CSS elkarrizketa-koadroa"
+
+#: src/plugin_htmlbar/html2.c:655
+msgid "_Selector:"
+msgstr "_Hautatzailea:"
+
+#: src/plugin_htmlbar/html2.c:674
+msgid "_Property:"
+msgstr "_Propietatea:"
+
+#: src/plugin_htmlbar/html2.c:676 src/plugin_htmlbar/html_form.c:650
+#: src/plugin_htmlbar/html_form.c:799 src/plugin_htmlbar/html_form.c:894
+msgid "_Value:"
+msgstr "_Balioa:"
+
+#: src/plugin_htmlbar/html2.c:694
+msgid "Selector"
+msgstr "Hautatzailea"
+
+#: src/plugin_htmlbar/html2.c:694 src/plugin_htmlbar/html2.c:697
+msgid "Property"
+msgstr "Propietatea"
+
+#: src/plugin_htmlbar/html2.c:694 src/plugin_htmlbar/html2.c:697
+msgid "Value"
+msgstr "Balioa"
+
+#: src/plugin_htmlbar/html2.c:712
+msgid " _Add "
+msgstr " _Gehitu "
+
+#: src/plugin_htmlbar/html2.c:715
+msgid " _Update "
+msgstr " _Eguneratu "
+
+#: src/plugin_htmlbar/html2.c:718
+msgid " _Delete "
+msgstr " Ez_abatu "
+
+#: src/plugin_htmlbar/html2.c:971 src/plugin_htmlbar/html2.c:1008
+msgid "_Style..."
+msgstr "_Estiloa..."
+
+#: src/plugin_htmlbar/html2.c:1165
+msgid "Bluefish: Select color"
+msgstr "Bluefish: Hautatu kolorea"
+
+#: src/plugin_htmlbar/htmlbar.c:36
+msgid "Edit color"
+msgstr "Editatu kolorea"
+
+#: src/plugin_htmlbar/htmlbar.c:44
+msgid "Edit tag"
+msgstr "Editatu etiketa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:203
+msgid "/_Tags"
+msgstr "/E_tiketak"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:205
+msgid "/Tags/_Headings"
+msgstr "/Etiketak/_Izenburuak"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:207
+msgid "/Tags/Headings/H_1"
+msgstr "/Etiketak/Izenburuak/H_1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:208
+msgid "/Tags/Headings/H_2"
+msgstr "/Etiketak/Izenburuak/H_2"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:209
+msgid "/Tags/Headings/H_3"
+msgstr "/Etiketak/Izenburuak/H_3"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:210
+msgid "/Tags/Headings/H_4"
+msgstr "/Etiketak/Izenburuak/H_4"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:211
+msgid "/Tags/Headings/H_5"
+msgstr "/Etiketak/Izenburuak/H_5"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:212
+msgid "/Tags/Headings/H_6"
+msgstr "/Etiketak/Izenburuak/H_6"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:213
+msgid "/Tags/_Special"
+msgstr "/Etiketak/_Berezia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:215
+msgid "/Tags/Special/_Accent"
+msgstr "/Etiketak/Berezia/_Azentua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:217
+msgid "/Tags/Special/Accent/_Uppercase"
+msgstr "/Etiketak/Berezia/Azentua/_Maiuskula"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:218
+msgid "/Tags/Special/Accent/Uppercase/_A-I"
+msgstr "/Etiketak/Berezia/Azentua/_Maiuskula/_A-I"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:220
+msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/A kamutsa À"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:221
+msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/A zorrotza Á"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:222
+msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/A zirkunflexua Â"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:223
+msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/A tildeduna Ã"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:224
+msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/AE lotura Æ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:225
+msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/A dieresiduna Ä"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:226
+msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/A eraztunduna Å"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:227
+msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/Ze hautsia Ç"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:228
+msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/E kamutsa È"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:229
+msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/E zorrotza É"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:230
+msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/E zirkunflexua Ê"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:231
+msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/A dieresiduna Ë"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:232
+msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/I kamutsa Ì"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:233
+msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/I zorrotza Í"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:234
+msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/I zirkunflexua Î"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:235
+msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/A-I/I dieresiduna Ï"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:236
+msgid "/Tags/Special/Accent/Uppercase/_J-Z"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/_J-Z"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:238
+msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/N tildeduna Ñ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:239
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/O kamutsa Ò"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:240
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/O zorrotza Ó"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:241
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/O zirkunflexua Ô"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:242
+#, fuzzy
+msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/OE lotura"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:243
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/O tildeduna Õ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:244
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/O dieresiduna Ö"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:245
+msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/O barraduna Ø"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:246
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/U kamutsa Ù"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:247
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/U zorrotza Ú"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:248
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/U zirkunflexua Û"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:249
+msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/U dieresiduna Ü"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:250
+msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
+msgstr "/Etiketak/Berezia/Azentua/Maiuskula/J-Z/Y zorrotza Ý"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:251
+msgid "/Tags/Special/Accent/_Lowercase"
+msgstr "/Etiketak/Berezia/Azentua/M_inuskula"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:252
+msgid "/Tags/Special/Accent/Lowercase/_A-I"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/_A-I"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:254
+msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/a kamutsa à"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:255
+msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/a zorrotza á"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:256
+msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/a zirkunflexua â"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:257
+msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/a tildeduna ã"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:258
+msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/a eraztunduna å"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:259
+msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/ae lotura æ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:260
+msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/a dieresiduna ä"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:261
+msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/ze hautsia ç"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:262
+msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/e kamutsa è"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:263
+msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/e kamutsa é"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:264
+msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/e zirkunflexua ê"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:265
+msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/e dieresiduna ë"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:266
+msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/i kamutsa ì"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:267
+msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/i zorrotza í"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:268
+msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/i zirkunflexua î"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:269
+msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/A-I/i dieresiduna ï"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:270
+msgid "/Tags/Special/Accent/Lowercase/_J-Z"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/_J-Z"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:272
+msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/n tildeduna ñ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:273
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/o kamutsa ò"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:274
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/o zorrotza ó"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:275
+#, fuzzy
+msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/oe lotura æ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:276
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/o zirkunflexua ô"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:277
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/o tildeduna õ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:278
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/o dieresiduna ö"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:279
+msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/o barraduna ø"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:280
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/u kamutsa ù"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:281
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/u zorrotza ú"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:282
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/u zirkunflexua û"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:283
+msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/u dieresiduna ü"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:284
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/y zorrotza ý"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:285
+msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
+msgstr "/Etiketak/Berezia/Azentua/Minuskula/J-Z/y dieresiduna ÿ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:287
+msgid "/Tags/Special/Accent/U_mlaut ¨"
+msgstr "/Etiketak/Berezia/Azentua/_Dieresia ¨"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:288
+msgid "/Tags/Special/Accent/_Acute ´"
+msgstr "/Etiketak/Berezia/Azentua/_Zorrotza ´"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:289
+msgid "/Tags/Special/Accent/_Cedilla ¸"
+msgstr "/Etiketak/Berezia/Azentua/Z_e hautsia ¸"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:290
+msgid "/Tags/Special/_Currency"
+msgstr "/Etiketak/Berezia/Dibi_sa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:292
+msgid "/Tags/Special/Currency/_Cent sign ¢"
+msgstr "/Etiketak/Berezia/Dibisa/Ze_ntimoaren ikurra ¢"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:293
+msgid "/Tags/Special/Currency/_Pound sterling £"
+msgstr "/Etiketak/Berezia/Dibisa/_Libera esterlina £"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:294
+msgid "/Tags/Special/Currency/C_urrency sign ¤"
+msgstr "/Etiketak/Berezia/Dibisa/_Dibisaren ikurra ¤"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:295
+msgid "/Tags/Special/Currency/_Yen sign ¥"
+msgstr "/Etiketak/Berezia/Dibisa/_Yen ikurra ¥"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:296
+msgid "/Tags/Special/Currency/_Euro "
+msgstr "/Etiketak/Berezia/Dibisa/_Euroa "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:297
+msgid "/Tags/Special/_Math-Science"
+msgstr "/Etiketak/Berezia/_Matematika"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:299
+msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
+msgstr "/Etiketak/Berezia/Matematika/_Ez logikoa ¬"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:300
+msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
+msgstr "/Etiketak/Berezia/Matematika/_Bider ikurra ×"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:301
+msgid "/Tags/Special/Math-Science/_Division sign ÷"
+msgstr "/Etiketak/Berezia/Matematika/_Zati ikurra ÷"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:302
+msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
+msgstr "/Etiketak/Berezia/Matematika/_Plus-minus ikurra ±"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:303
+msgid "/Tags/Special/Math-Science/_Less-than sign <"
+msgstr "/Etiketak/Berezia/Matematika/_Txikiago ikurra <"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:304
+msgid "/Tags/Special/Math-Science/_Greater-than sign >"
+msgstr "/Etiketak/Berezia/Matematika/_Handiago ikurra >"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:305
+msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
+msgstr "/Etiketak/Berezia/Matematika/Goi-indizea _1 ¹"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:306
+msgid "/Tags/Special/Math-Science/Superscript _2 ²"
+msgstr "/Etiketak/Berezia/Matematika/Goi-indizea _2 ²"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:307
+msgid "/Tags/Special/Math-Science/Superscript _3 ³"
+msgstr "/Etiketak/Berezia/Matematika/Goi-indizea _3 ³"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:308
+msgid "/Tags/Special/Math-Science/One _quarter ¼"
+msgstr "/Etiketak/Berezia/Matematika/_Laurdena ¼"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:309
+msgid "/Tags/Special/Math-Science/One _half ½"
+msgstr "/Etiketak/Berezia/Matematika/_Erdia ½"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:310
+msgid "/Tags/Special/Math-Science/_Three quarters ¾"
+msgstr "/Etiketak/Berezia/Matematika/_Hiru laurden ¾"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:311
+msgid "/Tags/Special/Math-Science/Deg_ree sign °"
+msgstr "/Etiketak/Berezia/Matematika/_Graduaren ikurra °"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:312
+msgid "/Tags/Special/_Non Latin"
+msgstr "/Etiketak/Berezia/_Ez-latinoa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:314
+msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
+msgstr "/Etiketak/Berezia/Ez-latinoa/_ETH (islandiera) Ð"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:315
+msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
+msgstr "/Etiketak/Berezia/Ez-latinoa/_THORN (islandiera) Þ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:316
+msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
+msgstr "/Etiketak/Berezia/Ez-latinoa/et_h (islandiera) ð"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:317
+msgid "/Tags/Special/Non Latin/th_orn ÿ"
+msgstr "/Etiketak/Berezia/Ez-latinoa/th_orn ÿ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:318
+msgid "/Tags/Special/Non Latin/Sharp _s ß"
+msgstr "/Etiketak/Berezia/Ez-latinoa/_s alemana ß"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:319
+msgid "/Tags/Special/Non Latin/_Micro sign µ"
+msgstr "/Etiketak/Berezia/Ez-latinoa/_Mikraren ikurra µ"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:320
+msgid "/Tags/Special/_Other"
+msgstr "/Etiketak/Berezia/_Bestelakoak"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:322
+msgid "/Tags/Special/Other/_Non-breaking space"
+msgstr "/Etiketak/Berezia/Bestelakoak/_Zuriune zatiezina"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:323
+msgid "/Tags/Special/Other/_Section sign §"
+msgstr "/Etiketak/Berezia/Bestelakoak/_Sekzioaren ikurra §"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:324
+msgid "/Tags/Special/Other/_Copyright sign ©"
+msgstr "/Etiketak/Berezia/Bestelakoak/_Copyright-aren ikurra (c)"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:325
+msgid "/Tags/Special/Other/_Left angle quotes «"
+msgstr "/Etiketak/Berezia/Bestelakoak/_Irekitzeko komatxoak "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:326
+msgid "/Tags/Special/Other/_Right angle quotes »"
+msgstr "/Etiketak/Berezia/Bestelakoak/I_xteko komatxoak "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:327
+msgid "/Tags/Special/Other/Registered _trademark ®"
+msgstr "/Etiketak/Berezia/Bestelakoak/_Marka erregistratua ®"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:328
+msgid "/Tags/Special/Other/Inverted _exclamation ¡"
+msgstr "/Etiketak/Berezia/Bestelakoak/_Irekitzeko harridura-marka ¡"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:329
+msgid "/Tags/Special/Other/Inverted _question mark ¿"
+msgstr "/Etiketak/Berezia/Bestelakoak/I_rekitzeko galdera-marka ¿"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:330
+msgid "/Tags/Special/Other/_Feminine ordinal ª"
+msgstr "/Etiketak/Berezia/Bestelakoak/_Ordinal femeninoa ª"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:331
+msgid "/Tags/Special/Other/_Masculine ordinal º"
+msgstr "/Etiketak/Berezia/Bestelakoak/O_rdinal maskulinoa º"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:332
+msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
+msgstr "/Etiketak/Berezia/Bestelakoak/_Paragrafoaren ikurra ¶"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:333
+msgid "/Tags/Special/Other/_Broken bar ¦"
+msgstr "/Etiketak/Berezia/Bestelakoak/_Barra hautsia ¦"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:334
+msgid "/Tags/Special/Other/Soft _hypen -"
+msgstr "/Etiketak/Berezia/Bestelakoak/_Marratxoa -"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:335
+msgid "/Tags/Special/Other/Spa_cing macron ¯"
+msgstr "/Etiketak/Berezia/Bestelakoak/_Marra altua ¯"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:336
+msgid "/Tags/Special/Other/Middle _dot ·"
+msgstr "/Etiketak/Berezia/Bestelakoak/_Erdiko puntua ·"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:337
+msgid "/Tags/_Format by layout"
+msgstr "/Etiketak/_Estiloaren formatua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:339
+msgid "/Tags/Format by layout/_Bold"
+msgstr "/Etiketak/Estiloaren formatua/_Lodia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:340
+msgid "/Tags/Format by layout/_Italic"
+msgstr "/Etiketak/Estiloaren formatua/_Etzana"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:341
+msgid "/Tags/Format by layout/_Underline"
+msgstr "/Etiketak/Estiloaren formatua/_Azpimarratua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:342
+msgid "/Tags/Format by layout/_Strikeout"
+msgstr "/Etiketak/Estiloaren formatua/_Marratua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:343
+msgid "/Tags/Format by layout/Sm_all"
+msgstr "/Etiketak/Estiloaren formatua/_Txikia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:344
+msgid "/Tags/Format by layout/Bi_g"
+msgstr "/Etiketak/Estiloaren formatua/_Handia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:345
+msgid "/Tags/F_ormat by context"
+msgstr "/Etiketak/_Testuinguruaren formatua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:347
+msgid "/Tags/Format by context/_Strong"
+msgstr "/Etiketak/Testuinguruaren formatua/_Sendoa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:348
+msgid "/Tags/Format by context/_Emphasis"
+msgstr "/Etiketak/Testuinguruaren formatua/_Enfasia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:349
+msgid "/Tags/Format by context/_Define"
+msgstr "/Etiketak/Testuinguruaren formatua/_Definitu"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:350
+msgid "/Tags/Format by context/_Code"
+msgstr "/Etiketak/Testuinguruaren formatua/_Kodea"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:351
+msgid "/Tags/Format by context/Sa_mple"
+msgstr "/Etiketak/Testuinguruaren formatua/_Adibidea"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:352
+msgid "/Tags/Format by context/_Keyboard"
+msgstr "/Etiketak/Testuinguruaren formatua/_Teklatua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:353
+msgid "/Tags/Format by context/_Variable"
+msgstr "/Etiketak/Testuinguruaren formatua/_Aldagaia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:354
+msgid "/Tags/Format by context/Ci_tation"
+msgstr "/Etiketak/Testuinguruaren formatua/A_ipua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:355
+msgid "/Tags/Format by context/_Abbreviation"
+msgstr "/Etiketak/Testuinguruaren formatua/_Laburdura"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:356
+msgid "/Tags/Format by context/Ac_ronym"
+msgstr "/Etiketak/Testuinguruaren formatua/Ak_ronimoa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:357
+msgid "/Tags/Format _general"
+msgstr "/Etiketak/_Formatu orokorra"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:359
+msgid "/Tags/Format general/_Paragraph"
+msgstr "/Etiketak/Formatu orokorra/_Paragrafoa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:360
+msgid "/Tags/Format general/_Break"
+msgstr "/Etiketak/Formatu orokorra/_Lerro-jauzia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:361
+msgid "/Tags/Format general/Break clear _all"
+msgstr "/Etiketak/Formatu orokorra/L_erro-jauzia eta garbitu"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:362
+msgid "/Tags/Format general/_Non-Breaking Space"
+msgstr "/Etiketak/Formatu orokorra/_Zuriune zatiezina"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:364
+msgid "/Tags/Format general/Font Si_ze +1"
+msgstr "/Etiketak/Formatu orokorra/Le_tra-tamaina +1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:365
+msgid "/Tags/Format general/Font _Size -1"
+msgstr "/Etiketak/Formatu orokorra/Let_ra-tamaina -1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:367
+msgid "/Tags/Format general/Preformatted _Text"
+msgstr "/Etiketak/Formatu orokorra/_Aurrez formateatutako testua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:368
+msgid "/Tags/Format general/Su_bscript"
+msgstr "/Etiketak/Formatu orokorra/Azp_iindizea"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:369
+msgid "/Tags/Format general/Su_perscript"
+msgstr "/Etiketak/Formatu orokorra/_Goi-indizea"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:371
+msgid "/Tags/Format general/_Center"
+msgstr "/Etiketak/Formatu orokorra/Er_dian"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:372
+msgid "/Tags/Format general/Align _right"
+msgstr "/Etiketak/Formatu orokorra/Lerr_okatu eskuinean"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:373
+msgid "/Tags/_Table"
+msgstr "/Etiketak/T_aula"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:375
+msgid "/Tags/Table/_Table"
+msgstr "/Etiketak/Taula/_Taula"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:376
+msgid "/Tags/Table/Table _Row"
+msgstr "/Etiketak/Taula/T_aulako errenkada"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:377
+msgid "/Tags/Table/Table _Header"
+msgstr "/Etiketak/Taula/Ta_ularen goiburua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:378
+msgid "/Tags/Table/Table _Data"
+msgstr "/Etiketak/Taula/Tau_lako datuak"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:379
+msgid "/Tags/Table/Table _Caption"
+msgstr "/Etiketak/Taula/Taularen _epigrafea"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:380
+msgid "/Tags/_List"
+msgstr "/Etiketak/_Zerrenda"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:382
+msgid "/Tags/List/Unordered _List"
+msgstr "/Etiketak/Zerrenda/_Ordenatu gabeko zerrenda"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:383
+msgid "/Tags/List/_Ordered List"
+msgstr "/Etiketak/Zerrenda/O_rdenatutako zerrenda"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:384
+msgid "/Tags/List/List Ite_m"
+msgstr "/Etiketak/Zerrenda/_Zerrendako elementua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:385
+msgid "/Tags/List/De_finition List"
+msgstr "/Etiketak/Zerrenda/_Definizioen zerrenda"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:386
+msgid "/Tags/List/Definition _Term"
+msgstr "/Etiketak/Zerrenda/De_finizio-terminoa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:387
+msgid "/Tags/List/_Definition"
+msgstr "/Etiketak/Zerrenda/D_efinizioa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:388
+msgid "/Tags/List/Men_u"
+msgstr "/Etiketak/Zerrenda/_Menua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:389
+msgid "/Tags/Fo_rm"
+msgstr "/Elkarrizketak/_Inprimakia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:391
+msgid "/Tags/Form/_Form"
+msgstr "/Elkarrizketak/Inprimakia/_Inprimakia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:392
+msgid "/Tags/Form/_Button"
+msgstr "/Elkarrizketak/Inprimakia/_Botoia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:393
+msgid "/Tags/Form/_Input"
+msgstr "/Elkarrizketak/Inprimakia/_Sarrera"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:394
+msgid "/Tags/Form/_Textarea"
+msgstr "/Elkarrizketak/Inprimakia/_Testu-area"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:395
+msgid "/Tags/_Misc"
+msgstr "/Etiketak/_Hainbat"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:397
+msgid "/Tags/Misc/Insert Generator _META-Tag"
+msgstr "/Etiketak/Hainbat/Txertatu _META etiketen sortzailea"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:398
+msgid "/Tags/Misc/_Span"
+msgstr "/Etiketak/Hainbat/_Span"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:399
+msgid "/Tags/Misc/_Div"
+msgstr "/Etiketak/Hainbat/_Div"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:400
+msgid "/Tags/Misc/_Link"
+msgstr "/Etiketak/Hainbat/_Esteka"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:401
+msgid "/Tags/Misc/S_cript"
+msgstr "/Etiketak/Hainbat/S_cript-a"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:402
+msgid "/Tags/Misc/_Anchor"
+msgstr "/Etiketak/Hainbat/_Aingura"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:403
+msgid "/Tags/Misc/_Image"
+msgstr "/Etiketak/Hainbat/_Irudia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:404
+msgid "/Tags/_Comment"
+msgstr "/Etiketak/I_ruzkina"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:405
+msgid "/Dial_ogs"
+msgstr "/Elk_arrizketak"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:407
+msgid "/Dialogs/_General"
+msgstr "/Elkarrizketak/_Orokorra"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:409
+msgid "/Dialogs/General/_Quickstart..."
+msgstr "/Elkarrizketak/Orokorra/_Abiarazte bizkorra..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:410
+#, fuzzy
+msgid "/Dialogs/General/_Link Header..."
+msgstr "/Elkarrizketak/Orokorra/M_eta..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:411
+msgid "/Dialogs/General/_Body..."
+msgstr "/Elkarrizketak/Orokorra/_Testua..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:412
+msgid "/Dialogs/General/_Anchor..."
+msgstr "/Elkarrizketak/Orokorra/A_inguratu..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:413
+msgid "/Dialogs/General/_Email..."
+msgstr "/Elkarrizketak/Orokorra/_Posta elektronikoa..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:414
+msgid "/Dialogs/General/_Rule..."
+msgstr "/Elkarrizketak/Orokorra/_Marra..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:415
+msgid "/Dialogs/General/_Font..."
+msgstr "/Elkarrizketak/Orokorra/_Letra-tipoak..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:416
+msgid "/Dialogs/General/Basef_ont..."
+msgstr "/Elkarrizketak/Orokorra/_Oinarrizko letra-tipoa..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:417
+msgid "/Dialogs/General/Quick_list..."
+msgstr "/Elkarrizketak/Orokorra/_Zerrenda bizkorra..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:418
+msgid "/Dialogs/General/_Meta..."
+msgstr "/Elkarrizketak/Orokorra/M_eta..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:419
+msgid "/Dialogs/General/Embe_d..."
+msgstr "/Elkarrizketak/Orokorra/_Kapsulatu..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:420
+msgid "/Dialogs/General/Select _Color..."
+msgstr "/Elkarrizketak/Orokorra/_Hautatu kolorea..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:421
+msgid "/Dialogs/General/Insert _Time..."
+msgstr "/Elkarrizketak/Orokorra/T_xertatu ordua..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:422
+msgid "/Dialogs/General/Insert _Image..."
+msgstr "/Elkarrizketak/Orokorra/Txertat_u irudia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:423
+msgid "/Dialogs/General/Insert T_humbnail..."
+msgstr "/Elkarrizketak/Orokorra/Txertatu koa_dro txikia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:424
+msgid "/Dialogs/_Table"
+msgstr "/Elkarrizketak/_Taula"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:426
+msgid "/Dialogs/Table/Table _Wizard..."
+msgstr "/Elkarrizketak/Taula/_Taulen morroia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:427
+msgid "/Dialogs/Table/_Table..."
+msgstr "/Elkarrizketak/Taula/Ta_ula..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:428
+msgid "/Dialogs/Table/Table _Row..."
+msgstr "/Elkarrizketak/Taula/T_aulako errenkada..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:429
+msgid "/Dialogs/Table/Table _Head..."
+msgstr "/Elkarrizketak/Taula/Taularen _goiburua..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:430
+msgid "/Dialogs/Table/Table _Data..."
+msgstr "/Elkarrizketak/Taula/Tau_laren datuak..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:431
+msgid "/Dialogs/_CSS"
+msgstr "/Elkarrizketak/_CSS"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:433
+msgid "/Dialogs/CSS/_Create Style..."
+msgstr "/Elkarrizketak/CSS/_Sortu estiloa..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:434
+msgid "/Dialogs/CSS/S_pan..."
+msgstr "/Elkarrizketak/CSS/S_pan..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:435
+msgid "/Dialogs/CSS/_Div..."
+msgstr "/Elkarrizketak/CSS/_Div..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:436
+msgid "/Dialogs/CSS/_Style..."
+msgstr "/Elkarrizketak/CSS/_Estiloa..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:437
+msgid "/Dialogs/CSS/_Link to Stylesheet..."
+msgstr "/Elkarrizketak/CSS/Es_tekatu estilo-orriarekin..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:438
+msgid "/Dialogs/_Frame"
+msgstr "/Elkarrizketak/_Markoa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:440
+msgid "/Dialogs/Frame/Frame _Wizard..."
+msgstr "/Elkarrizketak/Markoa/_Markoaren morroia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:441
+msgid "/Dialogs/Frame/Frame_set..."
+msgstr "/Elkarrizketak/Markoa/Markoen _egitura..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:442
+msgid "/Dialogs/Frame/_Frame..."
+msgstr "/Elkarrizketak/Markoa/Mar_koa..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:443
+msgid "/Dialogs/F_orm"
+msgstr "/Elkarrizketak/_Inprimakia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:445
+msgid "/Dialogs/Form/F_orm..."
+msgstr "/Elkarrizketak/Inprimakia/_Inprimakia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:446
+msgid "/Dialogs/Form/_Input..."
+msgstr "/Elkarrizketak/Inprimakia/_Sarrera..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:447
+msgid "/Dialogs/Form/Input Buttons..."
+msgstr "/Elkarrizketak/Inprimakia/_Sarrera-botoia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:448
+msgid "/Dialogs/Form/Input Text..."
+msgstr "/Elkarrizketak/Inprimakia/_Sarrera-testua..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:449
+msgid "/Dialogs/Form/Text_area..."
+msgstr "/Elkarrizketak/Inprimakia/_Testu-area..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:450
+msgid "/Dialogs/Form/_Select..."
+msgstr "/Elkarrizketak/Inprimakia/_Hautatu..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:451
+msgid "/Dialogs/Form/O_ption..."
+msgstr "/Elkarrizketak/Inprimakia/_Aukera..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:452
+msgid "/Dialogs/Form/Option _Group..."
+msgstr "/Elkarrizketak/Inprimakia/A_ukera-taldea..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:453
+msgid "/Dialogs/Form/_Button..."
+msgstr "/Elkarrizketak/Inprimakia/_Botoia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:455
+msgid "/Dialogs/_Edit tag under cursor..."
+msgstr "/Elkarrizketak/_Editatu etiketa kurtsorearen azpian..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:458
+msgid "/View/View _HTML Toolbar"
+msgstr "/Ikusi/Ikusi _HTML tresna-barra"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:732
+msgid "QuickStart..."
+msgstr "Bizkor hasteko..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:733
+msgid "Body..."
+msgstr "Gorputza..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:734
+msgid "Bold"
+msgstr "Lodia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:735
+msgid "Italic"
+msgstr "Etzana"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:736 src/plugin_htmlbar/html.c:777
+msgid "Paragraph"
+msgstr "Paragrafoa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:737
+msgid "Break"
+msgstr "Lerro-jauzia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:738
+msgid "Break and clear"
+msgstr "Lerro-jauzia eta garbitu"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:739
+msgid "Non-breaking space"
+msgstr "Zuriune zatiezina"
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:741
+msgid "Anchor..."
+msgstr "Ainguratu..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:742
+msgid "Rule..."
+msgstr "Araua..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:743
+msgid "Center"
+msgstr "Erdian"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:744
+msgid "Right Justify"
+msgstr "Justifikatu eskuinean"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:745
+msgid "Comment"
+msgstr "Iruzkina"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:746
+#, fuzzy
+msgid "E-mail..."
+msgstr "Helbide elektronikoa...."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:747
+msgid "Font..."
+msgstr "Letra-tipoa..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:748
+msgid "Base Font Size..."
+msgstr "Oinarrizko letra-tamaina..."
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:750
+msgid "Font Size +1"
+msgstr "Letra-tamaina +1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:751
+msgid "Font Size -1"
+msgstr "Letra-tamaina -1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:752
+msgid "Preformatted Text"
+msgstr "Aurrez formateatutako testua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:753
+msgid "Subscript"
+msgstr "Azpiindizea"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:754
+msgid "Superscript"
+msgstr "Goi-indizea"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:755
+msgid "Strong"
+msgstr "Sendoa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:756
+msgid "Emphasis"
+msgstr "Enfasia"
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:758 src/plugin_htmlbar/html.c:786
+msgid "Heading 1"
+msgstr "Izenburua 1"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:759 src/plugin_htmlbar/html.c:789
+msgid "Heading 2"
+msgstr "Izenburua 2"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:792
+msgid "Heading 3"
+msgstr "Izenburua 3"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:795
+msgid "Heading 4"
+msgstr "Izenburua 4"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:798
+msgid "Heading 5"
+msgstr "Izenburua 5"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:801
+msgid "Heading 6"
+msgstr "Izenburua 6"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:764
+msgid "Table Wizard..."
+msgstr "Taulen morroia..."
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:766
+msgid "Table..."
+msgstr "Taula..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:767
+msgid "Table Row..."
+msgstr "Taulako errenkada..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:768
+msgid "Table Header..."
+msgstr "Taularen goiburua..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:769
+msgid "Table Data..."
+msgstr "Taulako datuak..."
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:771 src/plugin_htmlbar/html_table.c:77
+msgid "Table"
+msgstr "Taula"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:772 src/plugin_htmlbar/html_table.c:209
+msgid "Table Row"
+msgstr "Taulako errenkada"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:773 src/plugin_htmlbar/html_table.c:320
+msgid "Table Header"
+msgstr "Taularen goiburua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:774 src/plugin_htmlbar/html_table.c:318
+msgid "Table Data"
+msgstr "Taulako datuak"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:775
+msgid "Table Caption"
+msgstr "Taularen epigrafea"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:776
+msgid "Frame Wizard..."
+msgstr "Markoen morroia..."
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:778
+msgid "Frameset..."
+msgstr "Markoen egitura..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:779
+msgid "Frame..."
+msgstr "Markoa..."
+
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:781 src/plugin_htmlbar/html.c:1586
+msgid "Frameset"
+msgstr "Markoen egitura"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:782 src/plugin_htmlbar/html.c:1670
+msgid "Frame"
+msgstr "Markoa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:783
+msgid "Noframes"
+msgstr "Markorik ez"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:784
+msgid "Target"
+msgstr "Helburua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:785
+msgid "Form..."
+msgstr "Inprimakia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:786
+msgid "Input Button..."
+msgstr "Sarrera-botoia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:787
+msgid "Input Text..."
+msgstr "Testu-sarrera..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:788
+msgid "Input Hidden..."
+msgstr "Ezkutuko sarrera..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:789
+msgid "Textarea..."
+msgstr "Testu-area..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:790
+msgid "Input Radio Button..."
+msgstr "Aukera-botoia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:791
+msgid "Input Check Box..."
+msgstr "Kontrol-laukia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:792
+msgid "Select..."
+msgstr "Hautatu..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:793
+msgid "Option..."
+msgstr "Aukera..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:794
+msgid "Option group..."
+msgstr "Aukera-taldea..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:795
+msgid "Button..."
+msgstr "Botoia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:796
+msgid "Quick List..."
+msgstr "Zerrenda bizkorra..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:797
+msgid "Unordered List"
+msgstr "Ordenatu gabeko zerrenda"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:798
+msgid "Ordered List"
+msgstr "Ordenatutako zerrenda"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:799
+msgid "List Item"
+msgstr "Zerrendako elementua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:800
+msgid "Definition List"
+msgstr "Definizioen zerrenda"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:801
+msgid "Definition Term"
+msgstr "Definizio-terminoa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:802 src/plugin_htmlbar/htmlbar_gui.c:811
+msgid "Definition"
+msgstr "Definizioa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:803
+msgid "Create stylesheet..."
+msgstr "Sortu estilo-orria..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:804
+msgid "Span..."
+msgstr "Span..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:805
+msgid "Div..."
+msgstr "Div..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:806 src/plugin_htmlbar/html_form.c:825
+msgid "Style"
+msgstr "Estiloa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:807
+msgid "Link to stylesheet..."
+msgstr "Estekatu estilo-orriarekin..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:808
+msgid "Insert image..."
+msgstr "Txertatu irudia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:809
+msgid "Insert thumbnail..."
+msgstr "Txertatu koadro txikia..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:810
+msgid "Multi thumbnail..."
+msgstr "Koadro txiki anitzak..."
+
+#: src/plugin_htmlbar/htmlbar_gui.c:812
+msgid "Code"
+msgstr "Kodea"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:813
+msgid "Sample"
+msgstr "Adibidea"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:814
+msgid "Keyboard"
+msgstr "Teklatua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:815
+msgid "Variable"
+msgstr "Aldagaia"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:816
+msgid "Citation"
+msgstr "Aipua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:817
+msgid "Abbreviation"
+msgstr "Laburdura"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:818
+msgid "Acronym"
+msgstr "Akronimoa"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:938
+msgid "Remove from quickbar"
+msgstr "Kendu barra bizkorretik"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:939
+msgid "Move Left"
+msgstr "Eraman ezkerrera"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:940
+msgid "Move Right"
+msgstr "Eraman eskuinera"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:980
+msgid "Add to quickbar"
+msgstr "Gehitu barra bizkorrean"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1082
+msgid " Quick bar "
+msgstr " Barra bizkorra "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1087
+msgid "Heading"
+msgstr "Izenburua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1089
+msgid " Standard bar "
+msgstr " Barra estandarra "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1094
+msgid "Context formatting"
+msgstr "Testuinguruaren formatua"
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1096
+msgid " Fonts "
+msgstr " Letra-tipoak "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1101
+msgid " Tables "
+msgstr " Taulak "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1106
+msgid " Frames "
+msgstr " Markoak "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1111
+msgid " Forms "
+msgstr " Inprimakiak "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1116
+msgid " List "
+msgstr " Zerrenda "
+
+#: src/plugin_htmlbar/htmlbar_gui.c:1121
+msgid " CSS "
+msgstr " CSS "
+
+#: src/plugin_htmlbar/html.c:385
+msgid "Insert Time"
+msgstr "Txertatu ordua"
+
+#: src/plugin_htmlbar/html.c:393
+#, c-format
+msgid "  _Time (%i:%i:%i)"
+msgstr "  _Ordua (%i:%i:%i)"
+
+#: src/plugin_htmlbar/html.c:398
+msgid "  Day of the _week (Sunday)"
+msgstr "  A_steko eguna (igandea)"
+
+#: src/plugin_htmlbar/html.c:401
+msgid "  Day of the _week (Monday)"
+msgstr "  A_steko eguna (astelehena)"
+
+#: src/plugin_htmlbar/html.c:404
+msgid "  Day of the _week (Tuesday)"
+msgstr "  A_steko eguna (asteartea)"
+
+#: src/plugin_htmlbar/html.c:407
+msgid "  Day of the _week (Wednesday)"
+msgstr "  A_steko eguna (asteazkena)"
+
+#: src/plugin_htmlbar/html.c:410
+msgid "  Day of the _week (Thursday)"
+msgstr "  A_steko eguna (osteguna)"
+
+#: src/plugin_htmlbar/html.c:413
+msgid "  Day of the _week (Friday)"
+msgstr "  A_steko eguna (ostirala)"
+
+#: src/plugin_htmlbar/html.c:416
+msgid "  Day of the _week (Saturday)"
+msgstr "  A_steko eguna (larunbata)"
+
+#: src/plugin_htmlbar/html.c:419
+msgid "You appear to have a non existant day!\n"
+msgstr "Badirudi zure eguna ez dagoela!\n"
+
+#: src/plugin_htmlbar/html.c:427
+#, c-format
+msgid "  _Date (%i/%i/%i)"
+msgstr "  _Data (%i/%i/%i)"
+
+#: src/plugin_htmlbar/html.c:430
+#, c-format
+msgid "  _Unix Time (%i)"
+msgstr "  _Unix ordua (%i)"
+
+#: src/plugin_htmlbar/html.c:435
+#, fuzzy, c-format
+msgid "  Unix Date _String (%s)"
+msgstr "  Unix dataren _katea (%s"
+
+#: src/plugin_htmlbar/html.c:443
+#, c-format
+msgid "  ISO-8601 Ti_me (%s)"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:585
+msgid "Quick Anchor"
+msgstr "Aingura bizkorra"
+
+#: src/plugin_htmlbar/html.c:591 src/plugin_htmlbar/html_form.c:780
+msgid "Attributes"
+msgstr "Atributuak"
+
+#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1914
+msgid "_HREF:"
+msgstr "_HREF:"
+
+#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/html_form.c:183
+msgid "_Target:"
+msgstr "_Helburua:"
+
+#: src/plugin_htmlbar/html.c:613 src/plugin_htmlbar/html.c:833
+#: src/plugin_htmlbar/html.c:1208 src/plugin_htmlbar/html.c:1682
+#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
+#: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
+#: src/plugin_htmlbar/image.c:418
+msgid "_Name:"
+msgstr "_Izena:"
+
+#: src/plugin_htmlbar/html.c:619 src/plugin_htmlbar/html.c:1066
+#: src/plugin_htmlbar/html.c:1237 src/plugin_htmlbar/html.c:1829
+msgid "_Language:"
+msgstr "_Hizkuntza:"
+
+#: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:841
+#: src/plugin_htmlbar/html.c:975 src/plugin_htmlbar/html.c:1070
+#: src/plugin_htmlbar/html.c:1245 src/plugin_htmlbar/html.c:1618
+#: src/plugin_htmlbar/html.c:1719 src/plugin_htmlbar/html.c:1848
+#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
+#: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
+#: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:426
+msgid "Custo_m:"
+msgstr "_Pertsonalizatu:"
+
+#: src/plugin_htmlbar/html.c:626 src/plugin_htmlbar/html.c:1074
+#: src/plugin_htmlbar/html_form.c:829
+msgid "Events"
+msgstr "Gertaerak"
+
+#: src/plugin_htmlbar/html.c:629
+msgid "OnClic_k:"
+msgstr "OnClic_k:"
+
+#: src/plugin_htmlbar/html.c:633
+msgid "OnD_blClick:"
+msgstr "OnD_blClick:"
+
+#: src/plugin_htmlbar/html.c:637
+msgid "OnMouseO_ver:"
+msgstr "OnMouseO_ver:"
+
+#: src/plugin_htmlbar/html.c:641
+msgid "OnMouse_Down:"
+msgstr "OnMouse_Down:"
+
+#: src/plugin_htmlbar/html.c:645
+msgid "OnMouse_Move:"
+msgstr "OnMouse_Move:"
+
+#: src/plugin_htmlbar/html.c:649
+msgid "OnMouseOu_t:"
+msgstr "OnMouseOu_t:"
+
+#: src/plugin_htmlbar/html.c:653
+msgid "OnMouse_Up:"
+msgstr "OnMouse_Up:"
+
+#: src/plugin_htmlbar/html.c:657
+msgid "OnKeyDo_wn:"
+msgstr "OnKeyDo_wn:"
+
+#: src/plugin_htmlbar/html.c:661
+msgid "OnKey_Press:"
+msgstr "OnKey_Press:"
+
+#: src/plugin_htmlbar/html.c:665
+msgid "OnKe_yUp:"
+msgstr "OnKe_yUp:"
+
+#: src/plugin_htmlbar/html.c:780
+msgid "Div"
+msgstr "Div"
+
+#: src/plugin_htmlbar/html.c:783
+msgid "Span"
+msgstr "Span"
+
+#: src/plugin_htmlbar/html.c:818 src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
+msgid "Ali_gn:"
+msgstr "_Lerrokatu:"
+
+#: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
+#: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
+#: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
+msgid "Cl_ass:"
+msgstr "_Klasea:"
+
+#: src/plugin_htmlbar/html.c:826 src/plugin_htmlbar/html.c:1051
+#: src/plugin_htmlbar/html_diag.c:381 src/plugin_htmlbar/html_table.c:96
+#: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
+msgid "St_yle:"
+msgstr "Es_tiloa:"
+
+#: src/plugin_htmlbar/html.c:837 src/plugin_htmlbar/html.c:1062
+#: src/plugin_htmlbar/html_diag.c:377
+msgid "_ID:"
+msgstr "_IDa:"
+
+#: src/plugin_htmlbar/html.c:938
+msgid "Horizontal Rule"
+msgstr "Marra horizontala"
+
+#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1767
+#: src/plugin_htmlbar/image.c:444
+msgid "_Align:"
+msgstr "_Lerrokatu:"
+
+#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1775
+#: src/plugin_htmlbar/html_table.c:387
+msgid "_Height:"
+msgstr "_Altuera:"
+
+#. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
+#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1771
+#: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
+#: src/plugin_htmlbar/image.c:402
+msgid "_Width:"
+msgstr "_Zabalera:"
+
+#: src/plugin_htmlbar/html.c:965
+msgid "Is _percent"
+msgstr "_Ehunekoa da:"
+
+#: src/plugin_htmlbar/html.c:970
+msgid "No _shading"
+msgstr "_Itzaldurarik ez"
+
+#: src/plugin_htmlbar/html.c:1035
+msgid "Body"
+msgstr "Gorputza"
+
+#: src/plugin_htmlbar/html.c:1043
+msgid "Options"
+msgstr "Aukerak"
+
+#: src/plugin_htmlbar/html.c:1081
+msgid "On_Load:"
+msgstr "On_Load:"
+
+#: src/plugin_htmlbar/html.c:1089
+msgid "On_UnLoad:"
+msgstr "On_UnLoad:"
+
+#: src/plugin_htmlbar/html.c:1098
+msgid "Depreciated options"
+msgstr "Aukera zaharkituak"
+
+#: src/plugin_htmlbar/html.c:1108
+msgid "Background _Image:"
+msgstr "Atze_ko planoko irudia:"
+
+#: src/plugin_htmlbar/html.c:1115
+msgid "Back_ground Color:"
+msgstr "A_tzeko planoko kolorea:"
+
+#: src/plugin_htmlbar/html.c:1121
+msgid "_Text Color:"
+msgstr "_Testuaren kolorea:"
+
+#: src/plugin_htmlbar/html.c:1127
+msgid "_Link Color:"
+msgstr "_Estekaren kolorea:"
+
+#: src/plugin_htmlbar/html.c:1133
+msgid "_Visited Link Color:"
+msgstr "_Bisitatutako esteken kolorea:"
+
+#: src/plugin_htmlbar/html.c:1139
+msgid "_Active Link Color:"
+msgstr "Esteka _aktiboen kolorea:"
+
+#: src/plugin_htmlbar/html.c:1190
+msgid "Meta"
+msgstr "Meta"
+
+#: src/plugin_htmlbar/html.c:1228
+msgid "_HTTP-EQUIV:"
+msgstr "_HTTP-EQUIV:"
+
+#: src/plugin_htmlbar/html.c:1233
+msgid "Con_tent:"
+msgstr "_Edukia:"
+
+#: src/plugin_htmlbar/html.c:1241
+msgid "_Scheme:"
+msgstr "E_skema:"
+
+#: src/plugin_htmlbar/html.c:1322
+msgid "Font"
+msgstr "Letra-tipoa"
+
+#: src/plugin_htmlbar/html.c:1325
+msgid "Base Font"
+msgstr "Oinarrizko letra-tipoa"
+
+#: src/plugin_htmlbar/html.c:1340
+msgid "Size"
+msgstr "Tamaina"
+
+#: src/plugin_htmlbar/html.c:1348
+msgid "Color"
+msgstr "Kolorea"
+
+#: src/plugin_htmlbar/html.c:1353
+msgid "Face"
+msgstr "Tipoa"
+
+#: src/plugin_htmlbar/html.c:1357
+msgid "Custom"
+msgstr "Pertsonalizatu"
+
+#: src/plugin_htmlbar/html.c:1441
+#, fuzzy
+msgid "E-mail"
+msgstr "Posta elektronikoa"
+
+#: src/plugin_htmlbar/html.c:1449
+msgid "_Mail to:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:1453
+#, fuzzy
+msgid "_Copy to:"
+msgstr "Kopiatu"
+
+#: src/plugin_htmlbar/html.c:1457
+msgid "Blin_d copy to:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:1461
+msgid "with _Subject:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:1465
+msgid "with _Body:"
+msgstr ""
+
+#: src/plugin_htmlbar/html.c:1509
+msgid "Quick List"
+msgstr "Zerrenda bizkorra"
+
+#: src/plugin_htmlbar/html.c:1514 src/plugin_htmlbar/html.c:1596
+#: src/plugin_htmlbar/html_form.c:236
+msgid "_Rows:"
+msgstr "_Errenkadak:"
+
+#: src/plugin_htmlbar/html.c:1517
+msgid "Or_dered"
+msgstr "O_rdenatuta"
+
+#: src/plugin_htmlbar/html.c:1518
+msgid "_Unordered"
+msgstr "Or_denatu gabe"
+
+#: src/plugin_htmlbar/html.c:1520
+msgid "Style:"
+msgstr "Estiloa:"
+
+#: src/plugin_htmlbar/html.c:1592 src/plugin_htmlbar/html_form.c:240
+msgid "Co_ls:"
+msgstr "_Zutabeak:"
+
+#: src/plugin_htmlbar/html.c:1601
+msgid "_Add <frame> elements"
+msgstr "_Gehitu <frame> elementuak"
+
+#: src/plugin_htmlbar/html.c:1678 src/plugin_htmlbar/html.c:1763
+#: src/plugin_htmlbar/html.c:1822
+msgid "_Source:"
+msgstr "_Iturburua:"
+
+#: src/plugin_htmlbar/html.c:1686
+msgid "Margin _Width:"
+msgstr "_Marjina-zabalera:"
+
+#: src/plugin_htmlbar/html.c:1690
+msgid "Margin _Height:"
+msgstr "M_arjina-altuera:"
+
+#: src/plugin_htmlbar/html.c:1698
+msgid "Scrollin_g:"
+msgstr "_Korritzea:"
+
+#: src/plugin_htmlbar/html.c:1702
+msgid "_Frameborder:"
+msgstr "Ma_rkoaren ertza:"
+
+#: src/plugin_htmlbar/html.c:1707
+msgid "No _Resize:"
+msgstr "_Ez aldatu tamaina:"
+
+#: src/plugin_htmlbar/html.c:1757
+msgid "Embed"
+msgstr "Kapsulatu"
+
+#: src/plugin_htmlbar/html.c:1779 src/plugin_htmlbar/html_table.c:140
+msgid "Bo_rder:"
+msgstr "_Ertza:"
+
+#: src/plugin_htmlbar/html.c:1815
+msgid "Script"
+msgstr "Script-a"
+
+#: src/plugin_htmlbar/html.c:1844 src/plugin_htmlbar/html.c:1945
+#: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
+msgid "_Type:"
+msgstr "_Mota:"
+
+#: src/plugin_htmlbar/html.c:1903
+msgid "Link"
+msgstr "Esteka"
+
+#: src/plugin_htmlbar/html.c:1920
+#, fuzzy
+msgid "HREF_LANG:"
+msgstr "_HREF:"
+
+#: src/plugin_htmlbar/html.c:1924
+#, fuzzy
+msgid "T_itle:"
+msgstr "_Titulua:"
+
+#: src/plugin_htmlbar/html.c:1964
+msgid "_Forward Relation:"
+msgstr "_Forward Relation:"
+
+#: src/plugin_htmlbar/html.c:1968
+msgid "_Reverse Relation:"
+msgstr "_Reverse Relation:"
+
+#: src/plugin_htmlbar/html.c:1979
+msgid "Media:"
+msgstr "Media:"
+
+#: src/plugin_htmlbar/html.c:1983
+msgid "L_ang:"
+msgstr "_Hizkuntza:"
+
+#: src/plugin_htmlbar/html.c:1987
+msgid "_Custom:"
+msgstr "_Pertsonalizatua:"
+
+#: src/plugin_htmlbar/html_form.c:141
+msgid "Form"
+msgstr "Inprimakia"
+
+#: src/plugin_htmlbar/html_form.c:159
+msgid "_Action:"
+msgstr "_Ekintza:"
+
+#: src/plugin_htmlbar/html_form.c:167
+msgid "Metho_d:"
+msgstr "_Metodoa:"
+
+#: src/plugin_htmlbar/html_form.c:176
+msgid "_Enctype:"
+msgstr "_Enctype:"
+
+#: src/plugin_htmlbar/html_form.c:225
+msgid "Text area"
+msgstr "Testu-area"
+
+#: src/plugin_htmlbar/html_form.c:590
+msgid "Select"
+msgstr "Hautatu"
+
+#: src/plugin_htmlbar/html_form.c:601 src/plugin_htmlbar/html_form.c:808
+msgid "Si_ze:"
+msgstr "Ta_maina:"
+
+#: src/plugin_htmlbar/html_form.c:605
+msgid "Multiple _Selections:"
+msgstr "_Hautapen anizkoitzak:"
+
+#: src/plugin_htmlbar/html_form.c:644
+msgid "Option"
+msgstr "Aukera"
+
+#: src/plugin_htmlbar/html_form.c:654 src/plugin_htmlbar/html_form.c:697
+msgid "_Label:"
+msgstr "_Etiketa:"
+
+#: src/plugin_htmlbar/html_form.c:659
+msgid "_Selected:"
+msgstr "_Hautatutakoa:"
+
+#: src/plugin_htmlbar/html_form.c:692
+msgid "Option group"
+msgstr "Aukera-taldea"
+
+#: src/plugin_htmlbar/html_form.c:775
+msgid "Input"
+msgstr "Sarrera"
+
+#: src/plugin_htmlbar/html_form.c:803
+msgid "_Checked:"
+msgstr "_Hautatuta:"
+
+#: src/plugin_htmlbar/html_form.c:812
+msgid "Max _Length:"
+msgstr "_Gehienezko luzera:"
+
+#: src/plugin_htmlbar/html_form.c:816
+msgid "_Accept:"
+msgstr "_Onartu:"
+
+#: src/plugin_htmlbar/html_form.c:820
+msgid "C_ustom:"
+msgstr "_Pertsonalizatu:"
+
+#: src/plugin_htmlbar/html_form.c:832
+msgid "On_Focus:"
+msgstr "On_Focus:"
+
+#: src/plugin_htmlbar/html_form.c:836
+msgid "On_Blur:"
+msgstr "On_Blur:"
+
+#: src/plugin_htmlbar/html_form.c:840
+msgid "On_Select:"
+msgstr "On_Select:"
+
+#: src/plugin_htmlbar/html_form.c:844
+msgid "On_Change:"
+msgstr "On_Change:"
+
+#: src/plugin_htmlbar/html_form.c:884
+msgid "Button"
+msgstr "Botoia"
+
+#: src/plugin_htmlbar/html_table.c:83
+msgid "Cell _Padding:"
+msgstr "_Gelaxken betegarria:"
+
+#: src/plugin_htmlbar/html_table.c:87
+msgid "C_ell Spacing:"
+msgstr "_Gelaxken arteko tartea:"
+
+#: src/plugin_htmlbar/html_table.c:123 src/plugin_htmlbar/html_table.c:233
+#: src/plugin_htmlbar/html_table.c:347
+msgid "_Valign:"
+msgstr "_Lerrokatze bertikala:"
+
+#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:392
+msgid "Backgrou_nd Color:"
+msgstr "A_tzeko planoaren kolorea:"
+
+#: src/plugin_htmlbar/html_table.c:154
+msgid "_Frame:"
+msgstr "_Markoa:"
+
+#: src/plugin_htmlbar/html_table.c:165
+msgid "R_ules:"
+msgstr "Marra_k:"
+
+#: src/plugin_htmlbar/html_table.c:365
+msgid "Co_l Span:"
+msgstr "Co_l Span:"
+
+#: src/plugin_htmlbar/html_table.c:369
+msgid "_Row Span:"
+msgstr "_Row Span:"
+
+#: src/plugin_htmlbar/html_table.c:374
+msgid "No Wra_p:"
+msgstr "_Ez itzulbiratu:"
+
+#: src/plugin_htmlbar/image.c:366
+msgid "Insert thumbnail"
+msgstr "Txertatu koadro txikia"
+
+#: src/plugin_htmlbar/image.c:368
+msgid "Insert image"
+msgstr "Txertatu irudia"
+
+#: src/plugin_htmlbar/image.c:374
+msgid "Preview"
+msgstr "Aurrebista"
+
+#: src/plugin_htmlbar/image.c:394
+msgid "_Image location:"
+msgstr "_Irudiaren kokalekua:"
+
+#: src/plugin_htmlbar/image.c:409
+msgid "Hei_ght:"
+msgstr "_Altuera:"
+
+#: src/plugin_htmlbar/image.c:414
+msgid "_Usemap:"
+msgstr "_Usemap:"
+
+#: src/plugin_htmlbar/image.c:422
+msgid "Alternate _text:"
+msgstr "_Ordezko testua:"
+
+#: src/plugin_htmlbar/image.c:430
+msgid "_Hspace:"
+msgstr "_Tarte horizontala:"
+
+#: src/plugin_htmlbar/image.c:434
+msgid "_Vspace:"
+msgstr "T_arte bertikala:"
+
+#: src/plugin_htmlbar/image.c:448
+msgid "Borde_r:"
+msgstr "_Ertza:"
+
+#: src/plugin_htmlbar/image.c:779
+msgid "Select files for thumbnail creation"
+msgstr "Hautatu koadro txikiak sortzeko fitxategiak"
+
+#: src/plugin_htmlbar/image.c:814
+msgid "Scaling (%)"
+msgstr "Eskala (%)"
+
+#: src/plugin_htmlbar/image.c:818 src/plugin_htmlbar/image.c:826
+msgid "Width"
+msgstr "Zabalera"
+
+#: src/plugin_htmlbar/image.c:822 src/plugin_htmlbar/image.c:854
+msgid "Height"
+msgstr "Altuera"
+
+#: src/plugin_htmlbar/image.c:843
+msgid "Multi thumbnail"
+msgstr "Koadro txiki anitz"
+
+#: src/plugin_htmlbar/image.c:849
+msgid "By scaling"
+msgstr "Eskalaren arabera"
+
+#: src/plugin_htmlbar/image.c:850
+msgid "By width, keep aspect ratio"
+msgstr "Zabaleraren arabera; mantendu proportzioa"
+
+#: src/plugin_htmlbar/image.c:851
+msgid "By height, keep aspect ratio"
+msgstr "Altueraren arabera; mantendu proportzioa"
+
+#: src/plugin_htmlbar/image.c:852
+msgid "By width and height, ignore aspect ratio"
+msgstr "Zabaleraren eta altueraren arabera; ez mantendu proportzioa"
+
+#: src/plugin_htmlbar/image.c:876
+msgid ""
+"%r: original filename  %t: thumbnail filename\n"
+"%w: original width  %h: original height\n"
+"%x: thumbnail width  %y: thumbnail height\n"
+"%b: original size (bytes)"
+msgstr ""
+"%r: jatorrizko fitxategi-izena  %t: koadro txikiaren fitxategi-izena\n"
+"%w: jatorrizko zabalera  %h: jatorrizko altuera\n"
+"%x: koadro txikiaren zabalera  %y: koadro txikiaren altuera\n"
+"%b: jatorrizko tamaina (byteak)"
+
+#: src/plugin_htmlbar/quickstart.c:512
+msgid "<b>E_xternal Style Sheet</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/quickstart.c:522
+#, fuzzy
+msgid "Ty_pe:"
+msgstr "_Mota:"
+
+#: src/plugin_htmlbar/quickstart.c:540
+#, fuzzy
+msgid "HRE_F:"
+msgstr "_HREF:"
+
+#: src/plugin_htmlbar/quickstart.c:544
+#, fuzzy
+msgid "_Media:"
+msgstr "Media:"
+
+#: src/plugin_htmlbar/quickstart.c:548
+#, fuzzy
+msgid "Titl_e:"
+msgstr "_Titulua:"
+
+#. TODO: add an option to place content in the style area
+#. * Possibly from a code snippet library
+#.
+#: src/plugin_htmlbar/quickstart.c:554
+#, fuzzy
+msgid "<b>Style Area</b>"
+msgstr "<b>Orokorra</b>"
+
+#: src/plugin_htmlbar/quickstart.c:558
+#, fuzzy
+msgid "Cre_ate empty style area"
+msgstr "Sortu proiektu hutsa"
+
+#: src/plugin_htmlbar/quickstart.c:580
+#, fuzzy
+msgid "<b>Attributes</b>"
+msgstr "Atributuak"
+
+#: src/plugin_htmlbar/quickstart.c:595
+#, fuzzy
+msgid "_Src:"
+msgstr "_Iturburua:"
+
+#. TODO: add an option to place content in the script area
+#: src/plugin_htmlbar/quickstart.c:602
+msgid "<b>Script Area</b>"
+msgstr ""
+
+#: src/plugin_htmlbar/quickstart.c:606
+#, fuzzy
+msgid "Cre_ate empty script area"
+msgstr "Sortu proiektu hutsa"
+
+#: src/plugin_htmlbar/quickstart.c:633
+msgid "Quick Start"
+msgstr "Abiarazte bizkorra"
+
+#: src/plugin_htmlbar/quickstart.c:647
+#, fuzzy
+msgid "_DTD:"
+msgstr "Erabili _DTD:"
+
+#: src/plugin_htmlbar/quickstart.c:651 src/plugin_htmlbar/wizards.c:186
+msgid "_Title:"
+msgstr "_Titulua:"
+
+#: src/plugin_htmlbar/quickstart.c:674
+#, fuzzy
+msgid "_Head:"
+msgstr "_Href:"
+
+#: src/plugin_htmlbar/quickstart.c:691
+#, fuzzy
+msgid "Open in _new document."
+msgstr "_Dokumentuan"
+
+#: src/plugin_htmlbar/wizards.c:68
+msgid "Table Wizard"
+msgstr "Taulen morroia"
+
+#: src/plugin_htmlbar/wizards.c:76
+msgid "Number of _rows:"
+msgstr "_Errenkada-kopurua:"
+
+#: src/plugin_htmlbar/wizards.c:80
+msgid "Number of colu_mns:"
+msgstr "_Zutabe-kopurua:"
+
+#: src/plugin_htmlbar/wizards.c:84
+msgid "Table rows on one _line:"
+msgstr "_Taula-errenkadak lerro bakoitzeko:"
+
+#: src/plugin_htmlbar/wizards.c:88
+msgid "_Indent table code:"
+msgstr "_Koskatu taularen kodea:"
+
+#: src/plugin_htmlbar/wizards.c:175
+msgid "Frame Wizard"
+msgstr "Markoen morroia"
+
+#: src/plugin_htmlbar/wizards.c:190
+msgid "Use _DTD:"
+msgstr "Erabili _DTD:"
+
+#: src/plugin_htmlbar/wizards.c:193
+msgid "Orientation:"
+msgstr "Orientazioa:"
+
+#: src/plugin_htmlbar/wizards.c:196
+msgid "_Horizontal"
+msgstr "_Horizontala"
+
+#: src/plugin_htmlbar/wizards.c:197
+msgid "_Vertical"
+msgstr "_Bertikala"
+
+#: src/plugin_htmlbar/wizards.c:202
+msgid "Number of _Frames:"
+msgstr "Marko-kopurua:"
+
+#: src/plugin_htmlbar/wizards.c:205
+msgid "Frame's"
+msgstr "Markoak"
+
+#: src/plugin_htmlbar/wizards.c:217
+msgid "Name:"
+msgstr "Izena:"
+
+#: src/plugin_htmlbar/wizards.c:219
+msgid "Source:"
+msgstr "Iturburua:"
+
+#: src/plugin_htmlbar/wizards.c:223
+msgid "Size:"
+msgstr "Tamaina:"

@@ -1,0 +1,5166 @@
+# translation of 17-01-06_sk-2.po to
+# Blue Fish - HTML Editor pre programátorov.
+# Copyright (C) 2000, 2006 Free Software Foundation, Inc.
+# FIRST AUTHOR Vladimir VASIL <vvasil@post.sk>, 2005.
+# Vladimir VASIL <vlado@localhost.localdomain>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 17-01-06_sk-2\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2007-02-04 15:42-0800\n"
+"PO-Revision-Date: 2006-01-18 14:51+0100\n"
+"Last-Translator: Vladimir VASIL <vvasil@post.sk>\n"
+"Language-Team:  <sk@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"First-Translator: Vladimir VASIL <vvasil@post.sk>\n"
+"X-Generator: KBabel 1.10\n"
+
+#: ../desktop-data/bluefish-unstable.desktop.in.h:1
+#: ../desktop-data/bluefish-unstable-project.desktop.in.h:1
+msgid "Bluefish Editor (CVS)"
+msgstr ""
+
+#: ../desktop-data/bluefish-unstable.desktop.in.h:2
+#: ../desktop-data/bluefish-unstable-project.desktop.in.h:2
+msgid "Web Development Editor (CVS)"
+msgstr ""
+
+#: ../desktop-data/bluefish-unstable.keys.in.h:1
+#, fuzzy
+msgid "Bluefish Project"
+msgstr "Upraviť Projekt"
+
+#: ../desktop-data/bluefish-unstable.xml.in.h:1
+#, fuzzy
+msgid "Bluefish project file"
+msgstr "Zadejte meno súboru projektu Bluefish"
+
+#: ../src/bf_lib.c:175 ../src/bf_lib.c:195
+msgid ""
+"Bluefish has trouble reading the filenames. Try to set the environment "
+"variable G_BROKEN_FILENAMES=1\n"
+msgstr ""
+"Bluefish má problém s načítáním súboru. Skúste nastaviť promennú prostredia "
+"G_BROKEN_FILENAMES=1\n"
+
+#: ../src/bfspell.c:391
+msgid "Check Spelling"
+msgstr "Kontrola Pravopisu"
+
+#: ../src/bfspell.c:395
+msgid "Checking"
+msgstr "Kontrola"
+
+#: ../src/bfspell.c:404
+msgid "_Misspelled word:"
+msgstr "_Chybné slovo:"
+
+#: ../src/bfspell.c:408
+msgid "Change _to:"
+msgstr "Z_meniť na:"
+
+#: ../src/bfspell.c:411
+msgid "I_gnore"
+msgstr "I_gnorovať"
+
+#: ../src/bfspell.c:412 ../src/snr2.c:1680
+msgid "_Replace"
+msgstr "_Nahradiť"
+
+#: ../src/bfspell.c:425
+msgid "In _document"
+msgstr "V _dokumente"
+
+#: ../src/bfspell.c:426
+msgid "I_n selection"
+msgstr "Vo _výbere"
+
+#: ../src/bfspell.c:435
+msgid "personal dictionary"
+msgstr "osobný slovník"
+
+#: ../src/bfspell.c:438
+msgid "session dictionary"
+msgstr "iba v tomto sedení"
+
+#: ../src/bfspell.c:444
+msgid "Dictionary:"
+msgstr "Slovník:"
+
+#: ../src/bfspell.c:448
+#, fuzzy
+msgid "_Add Word"
+msgstr " _Pridať "
+
+#: ../src/bfspell.c:454
+msgid "Language:"
+msgstr "Jazyk:"
+
+#: ../src/bfspell.c:458
+msgid "Set defa_ult"
+msgstr "Nastaviť _ako východzí"
+
+#: ../src/bfspell.c:462
+msgid "Filter:"
+msgstr "Filter :"
+
+#: ../src/bfspell.c:470
+msgid "no filter"
+msgstr "bez filtru"
+
+#: ../src/bfspell.c:472
+msgid "html filter"
+msgstr "html filter"
+
+#: ../src/bf-textview.c:167
+msgid "Expand all"
+msgstr ""
+
+#: ../src/bf-textview.c:170
+#, fuzzy
+msgid "Collapse all"
+msgstr "Zavri_eť všetko"
+
+#: ../src/bluefish.c:74
+#, fuzzy
+msgid "Bluefish Editor"
+msgstr "Bluefish: Výber farby"
+
+#: ../src/bluefish.c:75
+msgid "Visit us at http://bluefish.openoffice.nl"
+msgstr ""
+
+#: ../src/bluefish.c:102 ../src/bluefish.c:112
+#, fuzzy
+msgid "Open in a new window."
+msgstr "Otvoryť v novom _dokumente."
+
+#: ../src/bluefish.c:103 ../src/bluefish.c:113
+msgid "Open a project from the specified projectfile."
+msgstr ""
+
+#: ../src/bluefish.c:103 ../src/bluefish.c:113
+msgid "PROJECTFILE"
+msgstr ""
+
+#: ../src/bluefish.c:104 ../src/bluefish.c:114
+#, fuzzy
+msgid "Skip root check."
+msgstr "-s          nekontroluje SUID root\n"
+
+#: ../src/bluefish.c:105 ../src/bluefish.c:115
+msgid "Print version information."
+msgstr ""
+
+#: ../src/bluefish.c:129
+msgid " [FILE(S)]"
+msgstr ""
+
+#: ../src/bluefish.c:212
+msgid "parsing highlighting file..."
+msgstr "analýza syntaxu zvýrazňovaného súboru..."
+
+#: ../src/bluefish.c:232
+msgid "compiling highlighting patterns..."
+msgstr "kompilácia zvýrazňovaného súboru..."
+
+#: ../src/bluefish.c:242
+msgid "parsing custom menu file..."
+msgstr "analýza syntaxu súboru vlastného menu..."
+
+#: ../src/bluefish.c:254
+msgid "creating main gui..."
+msgstr "vytváram hlavné gui..."
+
+#: ../src/bluefish.c:265
+msgid "showing main gui..."
+msgstr "aktivujem hlavní gui..."
+
+#: ../src/bookmark.c:431
+msgid "_Name:"
+msgstr "_Meno:"
+
+#: ../src/bookmark.c:436
+msgid "_Description:"
+msgstr "_Popis:"
+
+#: ../src/bookmark.c:438
+msgid "Temporary"
+msgstr "Dočasná"
+
+#: ../src/bookmark.c:584
+#, c-format
+msgid "Do you really want to delete all bookmarks for %s?"
+msgstr "Skutočne chcete zmazať všetky záložky v %s?"
+
+#: ../src/bookmark.c:588
+msgid "Delete bookmarks?"
+msgstr "Zmazať záložky?"
+
+#: ../src/bookmark.c:613 ../src/fref2.c:4382
+#, c-format
+msgid "Do you really want to delete %s?"
+msgstr "Skutočne zmazať %s?"
+
+#: ../src/bookmark.c:617
+msgid "Delete permanent bookmark."
+msgstr "Zmazať natrvalo uloženú záložku."
+
+#: ../src/bookmark.c:638
+msgid "Edit bookmark"
+msgstr "Editácia záložky"
+
+#: ../src/bookmark.c:695
+#, fuzzy
+msgid "/Goto"
+msgstr "/_Akcia"
+
+#: ../src/bookmark.c:696
+#, fuzzy
+msgid "/Edit"
+msgstr "/Ú_pravy"
+
+#: ../src/bookmark.c:697
+#, fuzzy
+msgid "/Delete"
+msgstr "/_Zmazať"
+
+#: ../src/bookmark.c:699
+#, fuzzy
+msgid "/Delete All in document"
+msgstr "Zmazať všetko v dokumente"
+
+#: ../src/bookmark.c:700
+#, fuzzy
+msgid "/Delete All"
+msgstr "Zmazať všetko"
+
+#: ../src/bookmark.c:702
+#, fuzzy
+msgid "/Permanent by default"
+msgstr "Štandardne vytvárať trvalé záložky"
+
+#: ../src/bookmark.c:704
+#, fuzzy
+msgid "/Show file"
+msgstr "Zobraziť skryté súbory"
+
+#: ../src/bookmark.c:705
+#, fuzzy
+msgid "/Show file/By name"
+msgstr "Bez mena"
+
+#: ../src/bookmark.c:706
+msgid "/Show file/By full path"
+msgstr ""
+
+#: ../src/bookmark.c:707
+#, fuzzy
+msgid "/Show file/By full uri"
+msgstr "Zobraziť celý strom"
+
+#: ../src/bookmark.c:708
+#, fuzzy
+msgid "/Show bookmark"
+msgstr "Presun na záložku"
+
+#: ../src/bookmark.c:709
+msgid "/Show bookmark/Name & Content"
+msgstr ""
+
+#: ../src/bookmark.c:710
+msgid "/Show bookmark/Content"
+msgstr ""
+
+#: ../src/bookmark.c:711
+#, fuzzy
+msgid "/Show bookmark/Name"
+msgstr "Presun na záložku"
+
+#: ../src/bookmark.c:1304 ../src/bookmark.c:1363
+#, fuzzy
+msgid "Error adding bookmark"
+msgstr "Editácia záložky"
+
+#: ../src/bookmark.c:1305 ../src/bookmark.c:1364
+#, fuzzy
+msgid "Cannot add bookmarks to unsaved files."
+msgstr "Nieje možné pridať záložky v nepomenovaných súboroch."
+
+#: ../src/bookmark.c:1324
+#, fuzzy
+msgid "Can't add bookmark"
+msgstr "Pridať záložku"
+
+#: ../src/bookmark.c:1325
+msgid "You already have a bookmark here!"
+msgstr "Na tomto mieste už záložku máte!"
+
+#: ../src/bookmark.c:1400
+msgid "Delete all bookmarks."
+msgstr "Zmazať všetky záložky."
+
+#: ../src/bookmark.c:1440
+#, fuzzy
+msgid "File size changed in file \n"
+msgstr "Veľkosť súboru bola zmenená\n"
+
+#: ../src/bookmark.c:1444
+msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
+msgstr "Pozície záložiek sú už asi chybné. Zmazať tieto záložky?"
+
+#: ../src/document.c:407
+msgid "Name: "
+msgstr "Meno: "
+
+#: ../src/document.c:411
+#, fuzzy
+msgid ""
+"\n"
+"File type: "
+msgstr "_Typ Súbor:"
+
+#: ../src/document.c:415
+msgid ""
+"\n"
+"Encoding: "
+msgstr ""
+"\n"
+"Kódovaníe: "
+
+#: ../src/document.c:422
+#, fuzzy, c-format
+msgid ""
+"\n"
+"Permissions: %s\n"
+"Uid: %u Gid: %u"
+msgstr ""
+"\n"
+"Práva: "
+
+#: ../src/document.c:427
+msgid ""
+"\n"
+"Size (on disk): "
+msgstr ""
+"\n"
+"Veľkosť (na disku): "
+
+#: ../src/document.c:432
+#, fuzzy
+msgid ""
+"\n"
+"Mime type: "
+msgstr ""
+"\n"
+"Typ: "
+
+#: ../src/document.c:438
+msgid ""
+"\n"
+"Last modified: "
+msgstr ""
+"\n"
+"Naposledy zmenené: "
+
+#: ../src/document.c:489
+#, c-format
+msgid "Untitled %d"
+msgstr "Nepomenovaný %d"
+
+#: ../src/document.c:820
+#, fuzzy, c-format
+msgid "Document %s is already open in another Bluefish window."
+msgstr "Otvárať súbory v už bežiacom bluefish"
+
+#: ../src/document.c:822
+msgid "Move to this window"
+msgstr ""
+
+#: ../src/document.c:822
+msgid "Open readonly"
+msgstr ""
+
+#: ../src/document.c:822
+#, fuzzy
+msgid "Do not open"
+msgstr "Nemôžem otvoríť súbor:\n"
+
+#: ../src/document.c:1182
+#, c-format
+msgid " Ln: %d, Col: %d"
+msgstr " Ria: %d, Slo: %d"
+
+#: ../src/document.c:1202
+msgid " OVR"
+msgstr ""
+
+#: ../src/document.c:1202
+msgid " INS"
+msgstr ""
+
+#: ../src/document.c:1204
+msgid " RO"
+msgstr ""
+
+#: ../src/document.c:1218 ../src/document.c:1219
+#, c-format
+msgid "  %s, %s"
+msgstr "  %s, %s"
+
+#: ../src/document.c:1621
+msgid "Cannot display file, unknown characters found."
+msgstr "Nemôžem zobraziť súbor kvôli neznámym znakom."
+
+#: ../src/document.c:2075 ../src/snr2.c:1543
+msgid "Replace"
+msgstr "Nahradiť"
+
+#: ../src/document.c:2080 ../src/fref2.c:4732 ../src/snr2.c:1540
+msgid "Find"
+msgstr "Nájsť"
+
+#: ../src/document.c:2088
+msgid "Delete bookmark"
+msgstr "Zmazať záložku"
+
+#: ../src/document.c:2092
+msgid "Add bookmark"
+msgstr "Pridať záložku"
+
+#. if (main_v->props.backup_abort_action == 2)
+#. we have to ask the user
+#. we have to ask the user what to do
+#: ../src/document.c:2240 ../src/file_dialogs.c:337 ../src/file_dialogs.c:377
+msgid "_Abort save"
+msgstr "_Prerušiť ukladaníe"
+
+#: ../src/document.c:2240
+msgid "_Continue save in UTF-8"
+msgstr "Pokračovať v _ukladaní v UTF-8"
+
+#: ../src/document.c:2251
+#, c-format
+msgid ""
+"Failed to convert %s to character encoding %s. Encoding failed on character "
+"'%s' at line %d column %d\n"
+"\n"
+"Continue saving in UTF-8 encoding?"
+msgstr ""
+"Konverzia %s na kódovanie %s sa nepodarila. Konverzia zlihala na znaku'%s' "
+"na riadku %d znak %d\n"
+"\n"
+"Pokračovať v ukladaní v UTF-8?"
+
+#: ../src/document.c:2255
+msgid "File encoding conversion failure"
+msgstr "Konverzia kódovania súboru sa nepodarila"
+
+#: ../src/document.c:2487
+msgid "Previously: "
+msgstr "Predchadzajúci: "
+
+#. || (!file_exists_and_readable(doc->uri))
+#: ../src/document.c:3253
+msgid "Unable to open file"
+msgstr "Nemôžem otvoríť súbor"
+
+#: ../src/document.c:3275
+#, fuzzy
+msgid "_Unset file name"
+msgstr "Bez mena"
+
+#: ../src/document.c:3275
+#, fuzzy
+msgid "_Save"
+msgstr "Uložiť"
+
+#. file is deleted on disk, what do we do now ?
+#: ../src/document.c:3277
+#, fuzzy, c-format
+msgid "File name: %s"
+msgstr "Název súboru"
+
+#: ../src/document.c:3281
+msgid "File disappeared from disk\n"
+msgstr ""
+
+#: ../src/document.c:3298
+msgid "_Ignore"
+msgstr "_Ignorovať"
+
+#: ../src/document.c:3298
+msgid "_Reload"
+msgstr "Načístať z_nova"
+
+#: ../src/document.c:3301
+#, c-format
+msgid ""
+"Filename: %s\n"
+"\n"
+"New modification time is: %s\n"
+"Old modification time is: %s"
+msgstr ""
+"Súbor: %s\n"
+"\n"
+"Nový čas modifikácie je: %s\n"
+"Starý čas modifikácie je: %s"
+
+#: ../src/document.c:3305
+msgid "File has been modified by another process\n"
+msgstr "Súbor bol modifikovaný iným procesom.\n"
+
+#: ../src/document.c:3362
+msgid "_Retry"
+msgstr ""
+
+#: ../src/document.c:3362
+msgid "Retry _all failed"
+msgstr ""
+
+#: ../src/document.c:3362
+#, fuzzy
+msgid "_Close"
+msgstr "Zavrieť"
+
+#: ../src/document.c:3362
+#, fuzzy
+msgid "Close all _failed"
+msgstr "Vybrať _po súbore"
+
+#: ../src/document.c:3366
+#, fuzzy
+msgid "File "
+msgstr "Súbor #"
+
+#: ../src/document.c:3366
+msgid " failed to load."
+msgstr ""
+
+#: ../src/document.c:3370
+msgid "File failed to load\n"
+msgstr ""
+
+#: ../src/document.c:3490
+msgid "Select file to insert"
+msgstr "Vyberte súbor k vloženiu"
+
+#: ../src/document.c:3498
+msgid "No file to insert"
+msgstr "Žiadný súbor k vloženiu"
+
+#: ../src/document.c:3647
+#, c-format
+msgid "Statistics: %d lines, %d words, %d characters"
+msgstr "Štatistika: %d riadkov, %d slov, %d znakov"
+
+#: ../src/filebrowser2.c:1064
+msgid "Could not rename\n"
+msgstr "Nemôžem premenovať\n"
+
+#: ../src/filebrowser2.c:1102
+#, fuzzy
+msgid "New directory"
+msgstr "/_Vytvoriť adresár"
+
+#: ../src/filebrowser2.c:1107 ../src/filebrowser2.c:1113
+#, fuzzy
+msgid "New file"
+msgstr "/Nový _Súbor"
+
+#. Do we really need to display the full path here?
+#. *
+#. * Having the filename in the both the primary and secondary text seems to be redundant.
+#. * Set back to just the primary text for now.
+#. *
+#. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
+#. * and then this might give you more indication if this is indeed the file you wanted to delete
+#.
+#: ../src/filebrowser2.c:1202
+#, fuzzy, c-format
+msgid ""
+"Are you sure you want to delete\n"
+"\"%s\"?"
+msgstr "Skutočne chcete zmazať \"%s\" ?"
+
+#: ../src/filebrowser2.c:1203
+#, fuzzy, c-format
+msgid "If you delete %s, it will be permanently lost."
+msgstr "Ak zmažete tento súbor, bude fyzicky odstránený."
+
+#: ../src/filebrowser2.c:1307
+msgid "/_Open"
+msgstr "/_Otvoríť"
+
+#: ../src/filebrowser2.c:1308
+msgid "/Open _Advanced..."
+msgstr "/Otevoríť _Rozšírene..."
+
+#: ../src/filebrowser2.c:1309
+msgid "/Rena_me"
+msgstr "/Pre_menovať"
+
+#: ../src/filebrowser2.c:1310
+msgid "/_Delete"
+msgstr "/_Zmazať"
+
+#: ../src/filebrowser2.c:1312
+msgid "/New _File"
+msgstr "/Nový _Súbor"
+
+#: ../src/filebrowser2.c:1313
+msgid "/_New Directory"
+msgstr "/_Vytvoriť adresár"
+
+#: ../src/filebrowser2.c:1315
+msgid "/_Refresh"
+msgstr "/_Obnovenie"
+
+#: ../src/filebrowser2.c:1316
+#, fuzzy
+msgid "/Show Full _Tree"
+msgstr "Zobraziť celý strom"
+
+#: ../src/filebrowser2.c:1317
+msgid "/_Set as basedir"
+msgstr "/Na_staviť ako koreňový adresár"
+
+#: ../src/filebrowser2.c:1319
+#, fuzzy
+msgid "/Follow active document"
+msgstr "/Akce/P_oslední dokument"
+
+#: ../src/filebrowser2.c:1320
+#, fuzzy
+msgid "/Show hidden files"
+msgstr "Zobraziť skryté súbory"
+
+#: ../src/filebrowser2.c:1321
+#, fuzzy
+msgid "/Show backup files"
+msgstr "Zobraziť záložné súbory"
+
+#. Add filter submenu
+#: ../src/filebrowser2.c:1387
+msgid "Filter"
+msgstr "Filter"
+
+#: ../src/filebrowser2.c:1412 ../src/filefilter.c:346
+#, fuzzy
+msgid "Edit filter"
+msgstr "html filter"
+
+#: ../src/filebrowser2.c:1415
+#, fuzzy
+msgid "Delete filter"
+msgstr "Vyberte súbor"
+
+#: ../src/filebrowser2.c:1419
+#, fuzzy
+msgid "New filter"
+msgstr "bez filtru"
+
+#: ../src/file.c:994
+#, fuzzy, c-format
+msgid "%d document open."
+msgid_plural "%d documents open."
+msgstr[0] "V _dokumente"
+msgstr[1] "V _dokumente"
+
+#. BUG: we should ask the user what to do ?
+#: ../src/file.c:1239
+msgid "_Skip"
+msgstr "Pre_skočiť"
+
+#: ../src/file.c:1239 ../src/file_dialogs.c:501 ../src/file_dialogs.c:524
+#: ../src/project.c:225
+msgid "_Overwrite"
+msgstr "_Prepísať"
+
+#: ../src/file.c:1244
+#, fuzzy, c-format
+msgid "%s already exists, overwrite?"
+msgstr "Súbor %s existuje a je práve otvorený, prepísať?"
+
+#: ../src/file.c:1248
+#, fuzzy
+msgid "Overwrite file?"
+msgstr "_Prepísať"
+
+#: ../src/file_dialogs.c:85
+msgid "Select basedir"
+msgstr "Vyberte adresár"
+
+#: ../src/file_dialogs.c:122
+msgid "Advanced open file selector"
+msgstr "Rozšírený výber súboru"
+
+#: ../src/file_dialogs.c:131
+msgid "<b>General</b>"
+msgstr "<b>Obecné</b>"
+
+#: ../src/file_dialogs.c:137
+msgid "Base _Dir:"
+msgstr "Základný A_dresár:"
+
+#: ../src/file_dialogs.c:139 ../src/gtk_easy.c:1263
+msgid "_Browse..."
+msgstr "_Precházať..."
+
+#: ../src/file_dialogs.c:148
+#, fuzzy
+msgid "_Pattern:"
+msgstr "Vz_or:"
+
+#: ../src/file_dialogs.c:153
+msgid "_Recursive:"
+msgstr "Rek_urzívne:"
+
+#: ../src/file_dialogs.c:156
+msgid "<b>Contains</b>"
+msgstr "<b>Obsahuje</b>"
+
+#: ../src/file_dialogs.c:160
+msgid "Pa_ttern:"
+msgstr "Vz_or:"
+
+#: ../src/file_dialogs.c:164
+msgid "Is rege_x:"
+msgstr "_Regulárni výraz:"
+
+#: ../src/file_dialogs.c:224
+msgid "Select files"
+msgstr "Vyberte súbory"
+
+#: ../src/file_dialogs.c:272
+msgid "Open URL"
+msgstr "Otvoríť URL"
+
+#: ../src/file_dialogs.c:276
+msgid "<b>Open URL</b>"
+msgstr "<b>Otvoríť URL</b>"
+
+#: ../src/file_dialogs.c:337 ../src/file_dialogs.c:377
+msgid "_Continue save"
+msgstr "P_okračovať v ukladaní"
+
+#: ../src/file_dialogs.c:339
+#, c-format
+msgid ""
+"A backupfile for %s could not be created. If you continue, this file will be "
+"overwritten."
+msgstr ""
+"Zálohu súboru %s nieje možné vytvoriť. Ak budete pokračovať, súbor bude "
+"prepísaný."
+
+#: ../src/file_dialogs.c:343
+msgid "File backup failure"
+msgstr "Zálohovanie súboru se nepodarylo"
+
+#: ../src/file_dialogs.c:361
+#, fuzzy
+msgid ""
+"Could not save file:\n"
+"\""
+msgstr ""
+"Nemôžem zapísať do súboru:\n"
+"\""
+
+#: ../src/file_dialogs.c:365
+#, fuzzy
+msgid "File save failed!\n"
+msgstr "Ukladaníe súboru prerušené.\n"
+
+#: ../src/file_dialogs.c:382
+#, fuzzy, c-format
+msgid "File %s has been modified on disk, overwrite?"
+msgstr "Súbor %s existuje a je práve otvorený, prepísať?"
+
+#: ../src/file_dialogs.c:384
+#, c-format
+msgid "Failed to check if %s has been modified on disk"
+msgstr ""
+
+#: ../src/file_dialogs.c:477
+#, c-format
+msgid "Move/rename %s to"
+msgstr "Presunúť/premenovať %s ako"
+
+#: ../src/file_dialogs.c:477
+#, c-format
+msgid "Save %s as"
+msgstr "Uložiť %s ako"
+
+#: ../src/file_dialogs.c:501 ../src/file_dialogs.c:524
+#: ../src/file_dialogs.c:795 ../src/project.c:225
+msgid "_Cancel"
+msgstr "_Zrušiť"
+
+#: ../src/file_dialogs.c:502
+#, fuzzy, c-format
+msgid "File %s exists and is open, overwrite?"
+msgstr "Súbor %s existuje a je práve otvorený, prepísať?"
+
+#: ../src/file_dialogs.c:507
+msgid "The file you have selected is being edited in Bluefish."
+msgstr "Súbor, ktorý vyberáte, je práve editovaný v Bluefish."
+
+#: ../src/file_dialogs.c:525 ../src/project.c:226
+#, c-format
+msgid "A file named \"%s\" already exists."
+msgstr "Súbor pomenovaný \"%s\" už existuje."
+
+#: ../src/file_dialogs.c:530 ../src/project.c:231
+msgid "Do you want to replace the existing file?"
+msgstr "Chcete prepísat existujúcí súbor?"
+
+#. this message is not in very nice english I'm afraid
+#: ../src/file_dialogs.c:593
+#, fuzzy
+msgid ""
+"File:\n"
+"\""
+msgstr "Filter :"
+
+#: ../src/file_dialogs.c:597
+msgid "Save in progress!"
+msgstr ""
+
+#: ../src/file_dialogs.c:741 ../src/project.c:393
+msgid "Close _Without Saving"
+msgstr ""
+
+#: ../src/file_dialogs.c:744
+#, fuzzy, c-format
+msgid "Save changes to \"%s\" before closing?"
+msgstr "Uložiť zmeny do \"%s\" pred uzavrením?."
+
+#: ../src/file_dialogs.c:749 ../src/file_dialogs.c:800 ../src/project.c:405
+msgid "If you don't save your changes they will be lost."
+msgstr "Ak neuložíte zmeny, budú ztratené."
+
+#: ../src/file_dialogs.c:795
+msgid "Choose per _File"
+msgstr "Vybrať _po súbore"
+
+#: ../src/file_dialogs.c:795
+msgid "Close _All"
+msgstr "Zavri_eť všetko"
+
+#: ../src/file_dialogs.c:795
+msgid "_Save All"
+msgstr "Uložiť vš_etko"
+
+#: ../src/file_dialogs.c:799
+msgid "Multiple open files have been changed."
+msgstr "Viacero otvorených súborov bylo zmenených."
+
+#. build a list of filters
+#: ../src/filefilter.c:127 ../src/gtk_easy.c:1373
+msgid "All files"
+msgstr "Všetky súbory"
+
+#: ../src/filefilter.c:375
+#, fuzzy
+msgid "Show files in filter"
+msgstr "Typy súborov vo filtri"
+
+#: ../src/filefilter.c:380 ../src/filefilter.c:392
+#, fuzzy
+msgid "Mime type"
+msgstr "typ súboru"
+
+#: ../src/filefilter.c:383 ../src/filefilter.c:395
+msgid "Icon"
+msgstr "Ikona"
+
+#: ../src/fref2.c:793
+#, fuzzy, c-format
+msgid "Cannot load reference file %s\n"
+msgstr "Znovu prskenovať súbory referencií"
+
+#: ../src/fref2.c:798
+#, c-format
+msgid ""
+"Bad root element in reference file %s\n"
+"Should be <ref> or <r> and found %s"
+msgstr ""
+
+#: ../src/fref2.c:875
+msgid "Load error"
+msgstr ""
+
+#: ../src/fref2.c:876
+msgid "Cannot load reference file, perhaps it is not well-formed."
+msgstr ""
+
+#: ../src/fref2.c:889
+#, fuzzy
+msgid "Bad root element in reference file"
+msgstr "Znovu prskenovať súbory referencií"
+
+#: ../src/fref2.c:890
+msgid ""
+" \n"
+"Should be <ref> or <r> "
+msgstr ""
+
+#: ../src/fref2.c:915
+#, fuzzy
+msgid "Bad reference"
+msgstr "Predvoľby"
+
+#: ../src/fref2.c:916
+msgid ""
+"This is probably an old reference file. \n"
+"Please update it to the new format."
+msgstr ""
+
+#: ../src/fref2.c:929
+#, fuzzy
+msgid "Loading reference"
+msgstr "Predvoľby"
+
+#: ../src/fref2.c:1028
+#, fuzzy
+msgid "Unloading reference"
+msgstr "Referencie funkcií"
+
+#: ../src/fref2.c:1029
+msgid " Freeing reference memory "
+msgstr ""
+
+#: ../src/fref2.c:1549 ../src/fref2.c:3683 ../src/fref2.c:3691
+#, fuzzy
+msgid "Identifier"
+msgstr "Nastřed"
+
+#: ../src/fref2.c:1569 ../src/fref2.c:1719
+#, fuzzy
+msgid "Kind"
+msgstr "Nájsť"
+
+#: ../src/fref2.c:1575 ../src/fref2.c:1710 ../src/fref2.c:3676
+#: ../src/preferences.c:1327 ../src/preferences.c:1599
+msgid "Name"
+msgstr "Méno"
+
+#: ../src/fref2.c:1586
+#, fuzzy
+msgid "Type"
+msgstr "_Typ:"
+
+#: ../src/fref2.c:1597
+#, fuzzy
+msgid "Default value"
+msgstr "Výchozí adresár"
+
+#: ../src/fref2.c:1608
+#, fuzzy
+msgid "Input type"
+msgstr "Typ informácie"
+
+#: ../src/fref2.c:1626
+msgid "Required"
+msgstr ""
+
+#: ../src/fref2.c:1630 ../src/fref2.c:1757 ../src/fref2.c:3530
+#: ../src/fref2.c:3676 ../src/fref2.c:4647
+msgid "Description"
+msgstr "Popis"
+
+#: ../src/fref2.c:1649
+#, fuzzy
+msgid "Values"
+msgstr "Hodnota"
+
+#: ../src/fref2.c:1679
+#, fuzzy
+msgid "Insert syntax"
+msgstr "Vlož obrázok"
+
+#: ../src/fref2.c:1680
+msgid ""
+"All elements:\n"
+"%0,%1,... - value of parameter number 0,1,...%* - values of all parameters\n"
+"Tag element:\n"
+"%_ - only non-empty attributes\n"
+"%! - only required attributes\n"
+"%~ - only non-empty OR required attributes."
+msgstr ""
+
+#: ../src/fref2.c:1737
+#, fuzzy
+msgid "Insert text"
+msgstr "Vložiť čas"
+
+#: ../src/fref2.c:1742
+msgid " ? "
+msgstr ""
+
+#: ../src/fref2.c:1744
+#, fuzzy
+msgid "Help"
+msgstr "/_Nápoveda"
+
+#: ../src/fref2.c:1774
+#, fuzzy
+msgid "Properties"
+msgstr "Vlastnosť"
+
+#: ../src/fref2.c:1805
+#, fuzzy
+msgid "Add property"
+msgstr "Vlastnosť"
+
+#: ../src/fref2.c:1809
+#, fuzzy
+msgid "Add ref definition"
+msgstr "Definicia"
+
+#: ../src/fref2.c:1813
+msgid "Delete"
+msgstr "Zmazať"
+
+#: ../src/fref2.c:2002
+msgid "TAG: "
+msgstr ""
+
+#: ../src/fref2.c:2008
+msgid "PARENT TAGS: "
+msgstr ""
+
+#: ../src/fref2.c:2013
+msgid "FUNCTION: "
+msgstr ""
+
+#: ../src/fref2.c:2019
+msgid "RETURNS: "
+msgstr ""
+
+#: ../src/fref2.c:2024 ../src/fref2.c:2035 ../src/fref2.c:2046
+msgid "DEPENDENCIES: "
+msgstr ""
+
+#: ../src/fref2.c:2029
+msgid "PROPERTY: "
+msgstr ""
+
+#: ../src/fref2.c:2040
+msgid "SELECTOR: "
+msgstr ""
+
+#: ../src/fref2.c:2051
+msgid "VAR: "
+msgstr ""
+
+#: ../src/fref2.c:2057
+msgid "SNIPPET: "
+msgstr ""
+
+#: ../src/fref2.c:2069 ../src/fref2.c:2108
+msgid "PARAMS:\n"
+msgstr ""
+
+#: ../src/fref2.c:2081
+msgid "ATTRIBUTES:\n"
+msgstr ""
+
+#: ../src/fref2.c:2129
+msgid ""
+"\n"
+"NOTES:\n"
+msgstr ""
+
+#: ../src/fref2.c:2152
+msgid ""
+"\n"
+"EXAMPLES:\n"
+msgstr ""
+
+#: ../src/fref2.c:2169
+msgid ""
+"SEE ALSO:\n"
+" "
+msgstr ""
+
+#: ../src/fref2.c:2699
+msgid "Choose colour"
+msgstr ""
+
+#: ../src/fref2.c:3484 ../src/fref2.c:3556 ../src/fref2.c:3575
+#: ../src/fref2.c:3608 ../src/fref2.c:3629 ../src/fref2.c:3642
+#: ../src/fref2.c:3789 ../src/fref2.c:3823 ../src/fref2.c:4185
+#: ../src/fref2.c:4348 ../src/fref2.c:4400 ../src/fref2.c:4421
+msgid "Error"
+msgstr "Chyba"
+
+#: ../src/fref2.c:3485
+#, fuzzy
+msgid ""
+"Perhaps you didn't load a library, or you did not select a library to search "
+"in."
+msgstr ""
+"Pravdepodobně nebola nenahraná referencia, alebo nebola vybrána referencia k "
+"hľadaniu."
+
+#: ../src/fref2.c:3493
+#, fuzzy, c-format
+msgid "Element %s not found"
+msgstr "Referencie nenájdené"
+
+#: ../src/fref2.c:3497
+#, fuzzy
+msgid "Element search"
+msgstr "Hľadať v referenciach"
+
+#: ../src/fref2.c:3530 ../src/fref2.c:4690
+#, fuzzy
+msgid "New library"
+msgstr "/_Vytvoriť adresár"
+
+#: ../src/fref2.c:3530
+#, fuzzy
+msgid "Library name"
+msgstr "Názov adresára"
+
+#: ../src/fref2.c:3557
+msgid "Library has to have a name."
+msgstr ""
+
+#: ../src/fref2.c:3576 ../src/fref2.c:3630 ../src/fref2.c:3824
+#: ../src/fref2.c:4186 ../src/fref2.c:4349 ../src/fref2.c:4422
+msgid "This library is readonly."
+msgstr ""
+
+#: ../src/fref2.c:3594
+#, fuzzy
+msgid "Delete library?"
+msgstr "Zmazať záložky?"
+
+#: ../src/fref2.c:3609
+msgid "You have to select a reference."
+msgstr ""
+
+#: ../src/fref2.c:3643
+#, fuzzy
+msgid "Reference not loaded."
+msgstr "Referencie nenájdené"
+
+#: ../src/fref2.c:3658 ../src/fref2.c:3672 ../src/fref2.c:4198
+#: ../src/fref2.c:4434
+msgid "Bad element"
+msgstr ""
+
+#: ../src/fref2.c:3659
+msgid "You can define notes for: library, group or element."
+msgstr ""
+
+#: ../src/fref2.c:3662
+#, fuzzy
+msgid "New note"
+msgstr "Nový projekt"
+
+#: ../src/fref2.c:3662
+#, fuzzy
+msgid "Title"
+msgstr "_Titulok:"
+
+#: ../src/fref2.c:3662
+#, fuzzy
+msgid "Text"
+msgstr "Textové pole"
+
+#: ../src/fref2.c:3673
+msgid "You can define group for: library or group."
+msgstr ""
+
+#: ../src/fref2.c:3676
+msgid "New group"
+msgstr ""
+
+#: ../src/fref2.c:3683
+#, fuzzy
+msgid "New description def"
+msgstr "Popis"
+
+#: ../src/fref2.c:3683
+#, fuzzy
+msgid "Description text"
+msgstr "Popis"
+
+#: ../src/fref2.c:3691
+#, fuzzy
+msgid "New values def"
+msgstr "Nové Okno Bluefish"
+
+#: ../src/fref2.c:3691
+msgid "Values separated by comma"
+msgstr ""
+
+#: ../src/fref2.c:3790 ../src/fref2.c:4296
+msgid "Element has to have a name."
+msgstr ""
+
+#: ../src/fref2.c:3891 ../src/fref2.c:4122
+msgid "Missing value"
+msgstr ""
+
+#: ../src/fref2.c:3892 ../src/fref2.c:4123
+msgid "Property has to have a name."
+msgstr ""
+
+#: ../src/fref2.c:4014 ../src/fref2.c:4356
+#, fuzzy
+msgid "Definitions"
+msgstr "Definicia"
+
+#: ../src/fref2.c:4061
+#, fuzzy
+msgid "New property"
+msgstr "Nový projekt"
+
+#: ../src/fref2.c:4199
+msgid "Please select library or group."
+msgstr ""
+
+#: ../src/fref2.c:4202
+msgid "New element"
+msgstr ""
+
+#: ../src/fref2.c:4295
+#, fuzzy
+msgid "No name"
+msgstr "Bez mena"
+
+#: ../src/fref2.c:4386
+#, fuzzy
+msgid "Delete definition?"
+msgstr "Definicia"
+
+#: ../src/fref2.c:4401
+msgid "This property is used by some elements. Cannot delete."
+msgstr ""
+
+#: ../src/fref2.c:4435
+msgid "Please use delete library instead."
+msgstr ""
+
+#: ../src/fref2.c:4441
+#, fuzzy
+msgid "Delete group"
+msgstr " Smazať "
+
+#: ../src/fref2.c:4442
+msgid "Not implemented yet"
+msgstr ""
+
+#: ../src/fref2.c:4456
+#, fuzzy
+msgid "Delete group?"
+msgstr " Smazať "
+
+#: ../src/fref2.c:4457
+#, fuzzy
+msgid "Do you really want to delete current entity?"
+msgstr "Skutočne zmazať %s?"
+
+#: ../src/fref2.c:4628
+msgid "Show info window"
+msgstr "Zobraziť informačné okno"
+
+#: ../src/fref2.c:4636
+msgid "Insert"
+msgstr "Vložiť"
+
+#: ../src/fref2.c:4639 ../src/fref2.c:4646
+msgid "Show"
+msgstr ""
+
+#: ../src/fref2.c:4652
+msgid "Attributes/Parameters"
+msgstr "Atributy/Parametry"
+
+#: ../src/fref2.c:4657
+msgid "Notes"
+msgstr "Poznámky"
+
+#: ../src/fref2.c:4662
+#, fuzzy
+msgid "Examples"
+msgstr "Ukážka"
+
+#: ../src/fref2.c:4667
+#, fuzzy
+msgid "Links"
+msgstr "Odkaz"
+
+#: ../src/fref2.c:4676
+#, fuzzy
+msgid "Rescan directories"
+msgstr "Znovu prskenovať súbory referencií"
+
+#: ../src/fref2.c:4683 ../src/fref2.c:4689
+msgid "Edit"
+msgstr "Editovat"
+
+#: ../src/fref2.c:4693
+#, fuzzy
+msgid "Delete library"
+msgstr "Zmazať záložku"
+
+#: ../src/fref2.c:4697
+msgid "New entity"
+msgstr ""
+
+#: ../src/fref2.c:4700
+#, fuzzy
+msgid "Note"
+msgstr "Poznámky"
+
+#: ../src/fref2.c:4703
+msgid "Group"
+msgstr ""
+
+#: ../src/fref2.c:4706
+#, fuzzy
+msgid "Property definition"
+msgstr "Definicia"
+
+#: ../src/fref2.c:4709
+#, fuzzy
+msgid "Description definition"
+msgstr "Popis"
+
+#: ../src/fref2.c:4712
+#, fuzzy
+msgid "Values definition"
+msgstr "Definicia"
+
+#: ../src/fref2.c:4716
+#, fuzzy
+msgid "Element"
+msgstr "Udalosti"
+
+#: ../src/fref2.c:4720
+#, fuzzy
+msgid "Delete definition"
+msgstr "Definicia"
+
+#: ../src/fref2.c:4723
+#, fuzzy
+msgid "Delete entity"
+msgstr "Zmazať Položku"
+
+#: ../src/gtk_easy.c:1092
+#, c-format
+msgid "%d of %d"
+msgstr "%d z %d"
+
+#: ../src/gtk_easy.c:1198
+msgid "Select File"
+msgstr "Vyberte súbor"
+
+#: ../src/gtk_easy.c:1363
+msgid "Show backup files"
+msgstr "Zobraziť záložné súbory"
+
+#: ../src/gtk_easy.c:1423
+#, fuzzy
+msgid "Character _Encoding:"
+msgstr "/Dokument/_Kódovánie"
+
+#: ../src/gtk_easy.c:1437
+msgid "Automatic detection"
+msgstr ""
+
+#: ../src/gui.c:260
+msgid "Filebrowser"
+msgstr "Prehliadač súborov"
+
+#: ../src/gui.c:261
+msgid "Bookmarks"
+msgstr "Záložky"
+
+#: ../src/gui.c:262
+msgid "Function reference"
+msgstr "Referencie funkcií"
+
+#: ../src/gui.c:395
+msgid "New"
+msgstr "Nový"
+
+#: ../src/gui.c:397
+msgid "Open..."
+msgstr "Otvoríť..."
+
+#: ../src/gui.c:399
+msgid "Save"
+msgstr "Uložiť"
+
+#: ../src/gui.c:401
+msgid "Save As..."
+msgstr "Uložiť ako..."
+
+#: ../src/gui.c:403
+msgid "Close"
+msgstr "Zavrieť"
+
+#: ../src/gui.c:406
+msgid "Cut"
+msgstr "Vyňať"
+
+#: ../src/gui.c:408
+msgid "Copy"
+msgstr "Kopírovať"
+
+#: ../src/gui.c:410
+msgid "Paste"
+msgstr "Vložiť"
+
+#: ../src/gui.c:413
+msgid "Find..."
+msgstr "Hľadať..."
+
+#: ../src/gui.c:415
+msgid "Replace..."
+msgstr "Nahradiť..."
+
+#: ../src/gui.c:418
+msgid "Undo"
+msgstr "Krok speť (Undo)"
+
+#: ../src/gui.c:420
+msgid "Redo"
+msgstr "Vrátiť späť"
+
+#: ../src/gui.c:423
+msgid "Shift Left"
+msgstr "Posunuť Blok Vľavo"
+
+#: ../src/gui.c:425
+msgid "Shift Right"
+msgstr "Posunuť Blok Vpravo"
+
+#: ../src/gui.c:432
+msgid "Spellcheck..."
+msgstr "Kontrola pravopisu..."
+
+#: ../src/gui.c:437
+msgid "View in browser"
+msgstr "Zobraziť v prehľadači"
+
+#: ../src/gui.c:440
+msgid "Preferences..."
+msgstr "Predvoľby..."
+
+#: ../src/gui.c:641
+msgid "New Bluefish Window"
+msgstr "Nové Okno Bluefish"
+
+#. Fake-label (for notebook_hide() and _show() ;)
+#: ../src/gui.c:703
+msgid "Stand by..."
+msgstr "V pohotovosti..."
+
+#: ../src/gui.c:899
+msgid "Goto line"
+msgstr "Ísť na riadok"
+
+#: ../src/gui.c:907
+msgid "_Line number:"
+msgstr "Číslo ria_dku:"
+
+#. mnemonic for label
+#: ../src/gui.c:913
+msgid "From _selection"
+msgstr "Z _výberu"
+
+#: ../src/gui.c:916
+msgid "Keep _dialog"
+msgstr "Ponechať _dotaz"
+
+#: ../src/gui.c:980
+msgid "starting bluefish"
+msgstr "štartuje bluefish"
+
+#: ../src/menu.c:214
+msgid "/_File"
+msgstr "/_Súbor"
+
+#: ../src/menu.c:216
+msgid "/File/_New"
+msgstr "/Súbor/_Nový"
+
+#: ../src/menu.c:217
+msgid "/File/New _Window"
+msgstr "/Súbor/No_vé Okno"
+
+#: ../src/menu.c:218
+msgid "/File/_Open..."
+msgstr "/Súbor/_Otvoriť..."
+
+#: ../src/menu.c:219
+msgid "/File/Open _recent"
+msgstr "/Súbor/Otvoriť ne_dávné"
+
+#: ../src/menu.c:221
+msgid "/File/Open Ad_vanced..."
+msgstr "/Súbor/Otvoriť _Rozšírené..."
+
+#: ../src/menu.c:222
+msgid "/File/Open _URL..."
+msgstr "/Súbor/Otvoriť _URL..."
+
+#: ../src/menu.c:223
+msgid "/File/Open _from selection"
+msgstr "/Súbor/Otvoriť z v_ýberu"
+
+#: ../src/menu.c:225
+msgid "/File/_Save"
+msgstr "/Súbor/Ulož_iť"
+
+#: ../src/menu.c:226
+msgid "/File/Save _As..."
+msgstr "/Súbor/Uložiť _ako..."
+
+#: ../src/menu.c:227
+msgid "/File/Sav_e All"
+msgstr "/Súbor/Uložiť vš_etko"
+
+#: ../src/menu.c:228
+msgid "/File/Rever_t to Saved"
+msgstr "/Súbor/Vrá_tiť k Uloženému"
+
+#: ../src/menu.c:230
+msgid "/File/_Insert..."
+msgstr "/Súbor/V_ložiť..."
+
+#: ../src/menu.c:231
+msgid "/File/Rena_me..."
+msgstr "/Súbor/Pre_menovať..."
+
+#: ../src/menu.c:233
+msgid "/File/_Close"
+msgstr "/Súbor/Z_avrieť"
+
+#: ../src/menu.c:234
+msgid "/File/Close A_ll"
+msgstr "/Súbor/Zavrieť v_šetko"
+
+#: ../src/menu.c:235
+msgid "/File/Close Win_dow"
+msgstr "/Súbor/_Zavrieť Okno"
+
+#: ../src/menu.c:237
+msgid "/File/_Quit"
+msgstr "/Súbor/U_končiť"
+
+#: ../src/menu.c:240
+msgid "/File/Run Python Script"
+msgstr ""
+
+#: ../src/menu.c:242
+msgid "/_Edit"
+msgstr "/Ú_pravy"
+
+#: ../src/menu.c:244
+msgid "/Edit/_Undo"
+msgstr "/Úpravy/_Zpäť"
+
+#: ../src/menu.c:245
+msgid "/Edit/_Redo"
+msgstr "/Úpravy/_Vrátiť"
+
+#: ../src/menu.c:246
+msgid "/Edit/Undo All"
+msgstr "/Úpravy/Zpäť vš_etko"
+
+#: ../src/menu.c:247
+msgid "/Edit/Redo All"
+msgstr "/Úpravy/Vrátiť v_šetko"
+
+#: ../src/menu.c:249
+msgid "/Edit/Cu_t"
+msgstr "/Úpravy/Vys_tryhnuť"
+
+#: ../src/menu.c:250
+msgid "/Edit/_Copy"
+msgstr "/Úpravy/_Kopírovať"
+
+#: ../src/menu.c:251
+msgid "/Edit/_Paste"
+msgstr "/Úpravy/Vloži_ť"
+
+#: ../src/menu.c:253
+msgid "/Edit/Select _All"
+msgstr "/Úpravy/V_ybrať všetko"
+
+#: ../src/menu.c:255
+msgid "/Edit/_Find..."
+msgstr "/Úpravy/_Nájsť..."
+
+#: ../src/menu.c:256
+msgid "/Edit/Find A_gain"
+msgstr "/Úpravy/N_ájsť Ďalšie"
+
+#: ../src/menu.c:257
+msgid "/Edit/Find from selection"
+msgstr "/Úpravy/Nájsť vo výbere"
+
+#: ../src/menu.c:258
+msgid "/Edit/R_eplace..."
+msgstr "/Úpravy/Na_hradiť..."
+
+#: ../src/menu.c:259
+msgid "/Edit/Replace Agai_n"
+msgstr "/Úpravy/Prepísať _Další"
+
+#: ../src/menu.c:260
+msgid "/Edit/Replace special"
+msgstr "/Úpravy/Prepísať špeciálne"
+
+#: ../src/menu.c:262
+#, fuzzy
+msgid "/Edit/Replace special/Block sync"
+msgstr "/Úpravy/Prepísať špeciálne"
+
+#: ../src/menu.c:264
+msgid "/Edit/S_hift Right"
+msgstr "/Úpravy/Posun bloku V_pravo"
+
+#: ../src/menu.c:265
+msgid "/Edit/Shift _Left"
+msgstr "/Úpravy/Posun bloku V_ľavo"
+
+#: ../src/menu.c:267
+msgid "/Edit/Add _Bookmark"
+msgstr "/Úpravy/Pridať Zál_ožku"
+
+#: ../src/menu.c:269
+msgid "/Edit/Save Sett_ings"
+msgstr "/Úpravy/Uložiť Na_stavenie"
+
+#: ../src/menu.c:270
+msgid "/Edit/Save Shortcut _Keys"
+msgstr "/Úpravy/Uložiť Klávesové Zk_ratky"
+
+#: ../src/menu.c:271
+msgid "/Edit/Preference_s"
+msgstr "/Úpravy/Predvoľ_by"
+
+#: ../src/menu.c:272
+msgid "/_View"
+msgstr "/_Zobraziť"
+
+#: ../src/menu.c:274
+msgid "/View/View _Main Toolbar"
+msgstr "/Zobraziť/Hlav_ná lišta"
+
+#: ../src/menu.c:275
+msgid "/View/View _Custom Menu"
+msgstr "/Zobraziť/_Vlastná lišta"
+
+#: ../src/menu.c:276
+msgid "/View/View _Sidebar"
+msgstr "/Zobraziť/Postranní _Panel"
+
+#: ../src/menu.c:277
+msgid "/_Document"
+msgstr "/D_okument"
+
+#: ../src/menu.c:279
+msgid "/Document/_Increase Tabsize"
+msgstr "/Dokument/Z_väčšiť odsadenie TABu"
+
+#: ../src/menu.c:280
+msgid "/Document/_Decrease Tabsize"
+msgstr "/Dokument/Z_menšiť odsazenie TABu"
+
+#: ../src/menu.c:281
+msgid "/Document/_Auto Indent"
+msgstr "/Dokument/_Automaticky Odsazovať"
+
+#: ../src/menu.c:283
+msgid "/Document/Auto Close H_TML tags"
+msgstr "/Dokument/Automaticky uzavírať H_TML tagy"
+
+#: ../src/menu.c:284
+msgid "/Document/_Wrap"
+msgstr "/Dokument/Za_lamovať"
+
+#: ../src/menu.c:285
+msgid "/Document/_Line Numbers"
+msgstr "/Dokument/Čí_sla Riádkov"
+
+#: ../src/menu.c:286
+#, fuzzy
+msgid "/Document/Show _blocks"
+msgstr "/Dokument/Poč_et Slov"
+
+#: ../src/menu.c:287
+#, fuzzy
+msgid "/Document/Show _symbols"
+msgstr "/Dokument/Poč_et Slov"
+
+#: ../src/menu.c:289
+msgid "/Document/_Highlight Syntax"
+msgstr "/Dokument/Zvýraznení synta_x"
+
+#: ../src/menu.c:290
+msgid "/Document/_Update Highlighting"
+msgstr "/Dokument/Aktualizovať zvý_razneníe"
+
+#: ../src/menu.c:292
+msgid "/Document/Document Ty_pe"
+msgstr "/Dokument/T_yp Dokumentu"
+
+#: ../src/menu.c:294
+msgid "/Document/Character _Encoding"
+msgstr "/Dokument/_Kódovánie"
+
+#: ../src/menu.c:298
+msgid "/Document/Check _Spelling..."
+msgstr "/Dokument/Kontrola _Pravopisu..."
+
+#: ../src/menu.c:300
+msgid "/Document/_Floating window"
+msgstr "/Dokument/Plávajúce ok_no"
+
+#: ../src/menu.c:301
+msgid "/Document/Word _Count"
+msgstr "/Dokument/Poč_et Slov"
+
+#: ../src/menu.c:303
+#, fuzzy
+msgid "/Document/Move left"
+msgstr "/Dokument/_Automaticky Odsazovať"
+
+#: ../src/menu.c:304
+#, fuzzy
+msgid "/Document/Move right"
+msgstr "/Dokument/Aktualizovať zvý_razneníe"
+
+#: ../src/menu.c:305
+msgid "/_Go"
+msgstr "/_Akcia"
+
+#: ../src/menu.c:307
+msgid "/Go/_Previous document"
+msgstr "/Akce/_Predchadzajúci dokument"
+
+#: ../src/menu.c:308
+msgid "/Go/_Next document"
+msgstr "/Akce/_Následujúcí dokument"
+
+#: ../src/menu.c:310
+msgid "/Go/_First document"
+msgstr "/Akce/P_rví dokument"
+
+#: ../src/menu.c:311
+msgid "/Go/L_ast document"
+msgstr "/Akce/P_oslední dokument"
+
+#: ../src/menu.c:313
+msgid "/Go/Goto _Line"
+msgstr "Skok na ria_dok"
+
+#: ../src/menu.c:314
+msgid "/Go/Goto _Selection"
+msgstr "/Akce/Skok na _Výber"
+
+#: ../src/menu.c:315
+msgid "/_Project"
+msgstr "/_Projekt"
+
+#: ../src/menu.c:317
+msgid "/Project/_New Project"
+msgstr "/Projekt/_Nový Projekt"
+
+#: ../src/menu.c:318
+msgid "/Project/_Open Project..."
+msgstr "/Projekt/_Otvoríť Projekt..."
+
+#: ../src/menu.c:319
+msgid "/Project/Open _recent"
+msgstr "/Projekt/Otvoríť ne_dávné"
+
+#: ../src/menu.c:322
+msgid "/Project/_Save"
+msgstr "/Projekt/_Uložiť"
+
+#: ../src/menu.c:323
+msgid "/Project/Save _as..."
+msgstr "/Projekt/Uložiť _ako..."
+
+#: ../src/menu.c:324
+msgid "/Project/Save & _close"
+msgstr "/Projekt/Uložiť & za_vrieť"
+
+#: ../src/menu.c:326
+msgid "/Project/E_dit Project Options..."
+msgstr "/Projekt/Nastaviť Pr_edvoľby Projektu..."
+
+#: ../src/menu.c:327
+msgid "/E_xternal"
+msgstr "/E_xterní"
+
+#: ../src/menu.c:494
+msgid "/Document/Document Type"
+msgstr "/Dokument/T_yp Dokumentu"
+
+#: ../src/menu.c:645
+msgid "/Project/Open recent"
+msgstr "/Projekt/Otvoríť nedávne"
+
+#: ../src/menu.c:649
+msgid "/File/Open recent"
+msgstr "/Soubor/Otvoríť nedávne"
+
+#: ../src/menu.c:828
+msgid "/Windows"
+msgstr "/Okna"
+
+#: ../src/menu.c:921
+msgid "No default browser found"
+msgstr ""
+
+#: ../src/menu.c:922
+msgid ""
+"You can set a default browser by going to:\n"
+"Edit->Preferences->External Commands"
+msgstr ""
+
+#: ../src/menu.c:941
+msgid "Operate filter only on selection?"
+msgstr ""
+
+#: ../src/menu.c:989
+msgid "/External/Outputbox/"
+msgstr "/Externé/Výstup"
+
+#: ../src/menu.c:990
+msgid "/External/Commands/"
+msgstr "/Externé/Príkazy"
+
+#: ../src/menu.c:991
+#, fuzzy
+msgid "/External/Filters/"
+msgstr "/Externé/Prehladače"
+
+#: ../src/menu.c:1004
+#, fuzzy
+msgid "/External/Filters"
+msgstr "/Externe/Prehliadače"
+
+#: ../src/menu.c:1027
+msgid "/External"
+msgstr "/E_xterne"
+
+#: ../src/menu.c:1029
+msgid "/External/Commands"
+msgstr "/Externe/Príkazy"
+
+#: ../src/menu.c:1057
+msgid "/External/Outputbox"
+msgstr "/Externe/Výstup"
+
+#: ../src/menu.c:1101
+msgid "/Document/Character Encoding"
+msgstr "/Dokument/Kódovanie"
+
+#: ../src/menu.c:1380
+msgid "This custom search and replace requires a selection"
+msgstr "Toto vlastné hľadanie a nahradenie vyžaduje výber"
+
+#: ../src/menu.c:1478
+msgid "/_Custom menu"
+msgstr "/_Vlastné menu"
+
+#: ../src/menu.c:1480
+msgid "/Custom menu/Edit custom menu..."
+msgstr "/Vlastné menu/Editovať vlastné menu..."
+
+#: ../src/menu.c:1481
+msgid "/Custom menu/Reset"
+msgstr "/Vlastné menu/Reset"
+
+#: ../src/menu.c:1482
+msgid "/Custom menu/Load new"
+msgstr "/Vlastné menu/Nahráť nové"
+
+#: ../src/menu.c:1699
+msgid "Search Pattern"
+msgstr "Najsť Vzorku"
+
+#: ../src/menu.c:1700
+msgid "Replace String"
+msgstr "Nahradiť Reťacom"
+
+#: ../src/menu.c:1703
+msgid "Formatstring Before"
+msgstr "Formát reťazca Pred"
+
+#: ../src/menu.c:1704
+msgid "Formatstring After"
+msgstr "Formát reťazca Po"
+
+#: ../src/menu.c:1754
+msgid "The menupath you want to update does not exist yet"
+msgstr "Cesta v ponuke, kterú chcete aktualizovať, pokiaľ neexistuje"
+
+#: ../src/menu.c:1755
+msgid "Try 'add' instead."
+msgstr "Zkúste miesto toho 'Pridať'."
+
+#: ../src/menu.c:1760
+msgid "The menupath you want to add already exists."
+msgstr "Cesta v ponuke, kterú chcete pridať, už existuje."
+
+#: ../src/menu.c:1769
+msgid "The menupath should start with a / character"
+msgstr "Cesta v ponuke by mala začínať znakom / (lomítko)"
+
+#: ../src/menu.c:1932
+msgid "Custom Menu Editor"
+msgstr "Editor Vlastného menu"
+
+#: ../src/menu.c:1943
+msgid "Add New Menu Entry"
+msgstr "Pridať Novú Položku"
+
+#: ../src/menu.c:1945
+msgid "Apply Changes"
+msgstr "Aplikovat Zmeny"
+
+#: ../src/menu.c:1947
+msgid "Delete Menu Entry"
+msgstr "Zmazať Položku"
+
+#: ../src/menu.c:1950
+msgid "Close Discards Changes"
+msgstr "Zavrieť Bez Uloženia"
+
+#: ../src/menu.c:1952
+msgid "Save Changes and Exit"
+msgstr "Uložiť Zmeny a Zavrieť"
+
+#: ../src/menu.c:1962
+msgid "_Menu Path:"
+msgstr "_Cesta v Ponuke:"
+
+#: ../src/menu.c:1983
+msgid "Menu path"
+msgstr "Cesta v Ponuke"
+
+#: ../src/menu.c:2003
+msgid "Number of _Variables:"
+msgstr "Počet _Premenných:"
+
+#: ../src/menu.c:2011
+msgid "Variables"
+msgstr "Premenné"
+
+#: ../src/menu.c:2030
+msgid "Custom Dialo_g"
+msgstr "Vlastní Dialó_g"
+
+#: ../src/menu.c:2032
+msgid "Custom Replace"
+msgstr "Vlastné Nahradenie"
+
+#: ../src/menu.c:2044
+msgid "_Replace:"
+msgstr "_Nahraďovať:"
+
+#: ../src/menu.c:2047
+msgid "in current document"
+msgstr "v súčastnom dokumente"
+
+#: ../src/menu.c:2047
+msgid "from cursor"
+msgstr "od kurzoru"
+
+#: ../src/menu.c:2047
+msgid "in selection"
+msgstr "vo výbere"
+
+#: ../src/menu.c:2047
+msgid "in all open documents"
+msgstr "vo všetkých otvorených dokumentoch"
+
+#: ../src/menu.c:2055
+msgid "Matc_hing:"
+msgstr "Porovná_vaníe:"
+
+#: ../src/menu.c:2058
+msgid "normal"
+msgstr "normálne"
+
+#: ../src/menu.c:2058
+msgid "posix regular expressions"
+msgstr "posixový regulární výraz"
+
+#: ../src/menu.c:2058
+msgid "perl regular expressions"
+msgstr "perlovský regulární výraz"
+
+#: ../src/menu.c:2064
+msgid "Case Se_nsitive"
+msgstr "Rozlišovať malé/velké písmena"
+
+#: ../src/outputbox.c:248
+#, c-format
+msgid "failed to compile outputbox pattern %s\n"
+msgstr ""
+
+#: ../src/preferences.c:315
+msgid "Untitled"
+msgstr "Nepomenovaný"
+
+#: ../src/preferences.c:415
+msgid "Select font"
+msgstr "Výber písma"
+
+#: ../src/preferences.c:440
+#, fuzzy
+msgid "Select color"
+msgstr "Výber"
+
+#: ../src/preferences.c:606
+msgid "Message"
+msgstr ""
+
+#: ../src/preferences.c:607
+#, fuzzy
+msgid "Enabled"
+msgstr "Tabuľka"
+
+#: ../src/preferences.c:608
+#, fuzzy
+msgid "File"
+msgstr "Súbory"
+
+#: ../src/preferences.c:761
+msgid ""
+"Text styles are applied on top of each other. If multiple styles are applied "
+"to the same text, the top-most style in this list has the highest priority. "
+"Use drag and drop to re-order the text styles."
+msgstr ""
+
+#: ../src/preferences.c:770 ../src/preferences.c:1438
+#: ../src/preferences.c:1508
+msgid "Label"
+msgstr "Typ"
+
+#: ../src/preferences.c:782 ../src/preferences.c:1971
+msgid "Foreground color"
+msgstr "Farba popredia"
+
+#: ../src/preferences.c:783 ../src/preferences.c:1972
+msgid "Background color"
+msgstr "Farba pozadia"
+
+#: ../src/preferences.c:784
+msgid "don't change weight"
+msgstr "nemeniť hrúbku fontu"
+
+#: ../src/preferences.c:786
+msgid "force non-bold weight"
+msgstr "zakázať tučný font"
+
+#: ../src/preferences.c:788
+msgid "force bold weight"
+msgstr "vynútiť tučný font"
+
+#: ../src/preferences.c:790
+msgid "don't change style"
+msgstr "nemeniť štyl"
+
+#: ../src/preferences.c:792
+msgid "force non-italic style"
+msgstr "zakázať štyl kurzívu"
+
+#: ../src/preferences.c:794
+msgid "force italic style"
+msgstr "vynutiť štyl kurzívu"
+
+#: ../src/preferences.c:1439 ../src/preferences.c:1509
+#: ../src/preferences.c:1604
+msgid "Command"
+msgstr "Príkaz"
+
+#: ../src/preferences.c:1440
+#, fuzzy
+msgid "Default browser"
+msgstr "Výchozí adresár"
+
+#: ../src/preferences.c:1442
+msgid ""
+"<small><b>Input options</b>\n"
+"specify no options to read the input from the standard output\n"
+"%s local filename (available for local files)\n"
+"%i temporary fifo for input, equals %s if the document is not modified and "
+"local\n"
+"%I temporary filename for input, equals %s if the document is not modified "
+"and local\n"
+"<b>Other options</b>\n"
+"%c local directory of file (available for local files)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else "
+"identical to %u</small>"
+msgstr ""
+
+#: ../src/preferences.c:1512
+msgid ""
+"<small><b>Input options</b>\n"
+"specify no options to read the input from the standard output\n"
+"%s local filename (requires local file, cannot operate on selection)\n"
+"%i temporary fifo for input\n"
+"%I temporary filename for input\n"
+"<b>Output options</b>\n"
+"specify no options to read the output from the standard output\n"
+"%o temporary fifo\n"
+"%O temporary filename\n"
+"%t temporary filename for both input and output (for in-place-editing "
+"filters, cannot operate on selection)\n"
+"<b>Other options</b>\n"
+"%c local directory of file (requires local file)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else "
+"identical to %u</small>"
+msgstr ""
+
+#: ../src/preferences.c:1600
+msgid "Pattern"
+msgstr "Vzorka"
+
+#: ../src/preferences.c:1601
+msgid "File #"
+msgstr "Súbor #"
+
+#: ../src/preferences.c:1602
+msgid "Line #"
+msgstr "Riadok #"
+
+#: ../src/preferences.c:1603
+msgid "Output #"
+msgstr "Výstup #"
+
+#: ../src/preferences.c:1605
+msgid "Show all output"
+msgstr "Zobraziť všetký výstupy"
+
+#: ../src/preferences.c:1607
+msgid ""
+"<small><b>Input options</b>\n"
+"specify no options to read the input from the standard output\n"
+"%s local filename (available for local files)\n"
+"%i temporary fifo for input, equals %s if the document is not modified and "
+"local\n"
+"%I temporary filename for input, equals %s if the document is not modified "
+"and local\n"
+"<b>Output options</b>\n"
+"specify no options to read the output from the standard output\n"
+"%o temporary fifo\n"
+"%O temporary filename\n"
+"%t temporary filename for both input and output (for in-place-editing "
+"filters)\n"
+"<b>Other options</b>\n"
+"%c local directory of file (available for local files)\n"
+"%n filename without path (available for all titled files)\n"
+"%u URL (available for all titled files)\n"
+"%p preview URL if basedir and preview dir are set in project settings, else "
+"identical to %u</small>"
+msgstr ""
+
+#: ../src/preferences.c:1915 ../src/preferences.c:1916
+msgid "left"
+msgstr "vľavo"
+
+#: ../src/preferences.c:1915 ../src/preferences.c:1916
+msgid "right"
+msgstr "vpravo"
+
+#: ../src/preferences.c:1915
+msgid "top"
+msgstr "vrch"
+
+#: ../src/preferences.c:1915
+msgid "bottom"
+msgstr "dole"
+
+#: ../src/preferences.c:1917
+#, fuzzy
+msgid "Nothing"
+msgstr "Bez _tieňa"
+
+#: ../src/preferences.c:1917
+#, fuzzy
+msgid "Modified time and file size"
+msgstr "kontrolovať čas modifikace a veľkosť súboru"
+
+#: ../src/preferences.c:1917
+msgid "Modified time"
+msgstr ""
+
+#: ../src/preferences.c:1917
+#, fuzzy
+msgid "File size"
+msgstr "Súbory"
+
+#: ../src/preferences.c:1925
+msgid "Edit preferences"
+msgstr "Predvoľby"
+
+#: ../src/preferences.c:1951
+msgid "Editor"
+msgstr "Editor"
+
+#: ../src/preferences.c:1957
+#, fuzzy
+msgid "Editor startup options"
+msgstr "Vlastnosti editoru"
+
+#: ../src/preferences.c:1962
+msgid "Show splash-screen"
+msgstr ""
+
+#: ../src/preferences.c:1965
+msgid "Editor options"
+msgstr "Vlastnosti editoru"
+
+#: ../src/preferences.c:1970 ../src/preferences.c:2116
+msgid "Font"
+msgstr "Font"
+
+#: ../src/preferences.c:1973
+msgid "Tab width"
+msgstr "Dĺžka tabulátoru"
+
+#: ../src/preferences.c:1974
+#, fuzzy
+msgid "Smart cursor positioning"
+msgstr "Nastavenie kurzora na začiatku riadka"
+
+#: ../src/preferences.c:1975
+msgid "Use spaces to indent, not tabs"
+msgstr "K odsadení používať medzery miesto tabelatoru"
+
+#: ../src/preferences.c:1976
+msgid "Word wrap default"
+msgstr "Zalamovanie"
+
+#: ../src/preferences.c:1977
+msgid "Line numbers by default"
+msgstr "Číslovať riadky"
+
+#: ../src/preferences.c:1978
+msgid "Block folding view by default"
+msgstr ""
+
+#: ../src/preferences.c:1979
+#, fuzzy
+msgid "Symbols view by default"
+msgstr "_Zalámovanie slov"
+
+#: ../src/preferences.c:1980
+msgid "Highlight syntax by default"
+msgstr "Zvýrazňovať syntax"
+
+#: ../src/preferences.c:1982
+#, fuzzy
+msgid "Undo options"
+msgstr "Vlastnosti editoru"
+
+#: ../src/preferences.c:1987
+msgid "Undo history size"
+msgstr "Veľkosť histórie"
+
+#: ../src/preferences.c:1988
+msgid "Clear undo history on save"
+msgstr "Zmazať históriu pri uložení"
+
+#: ../src/preferences.c:2004
+msgid "HTML"
+msgstr "HTML"
+
+#.
+#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("HTML"),154,TRUE));
+#.
+#: ../src/preferences.c:2009
+msgid "HTML options"
+msgstr "HTML parametre"
+
+#: ../src/preferences.c:2014
+msgid "Lowercase HTML tags"
+msgstr "HTML tagy malými písmenamy"
+
+#: ../src/preferences.c:2015
+msgid "Use deprecated tags (e.g. <font> and <nobr>)"
+msgstr "Používať zastaralé tagy (napr. <font> and <nobr>)"
+
+#: ../src/preferences.c:2016
+msgid "Use XHTML style tags (<br />)"
+msgstr "Používať XHTML syntax (napr. <br />)"
+
+#: ../src/preferences.c:2018
+msgid "Automatically update author meta tag"
+msgstr "Automaticky aktualizovať author meta tag "
+
+#: ../src/preferences.c:2019
+msgid "Automatically update date meta tag"
+msgstr "Automaticky aktualizovať dátumový meta tag "
+
+#: ../src/preferences.c:2020
+msgid "Automatically update generator meta tag"
+msgstr "Automaticky aktualizovať generátor meta tágu"
+
+#: ../src/preferences.c:2024
+msgid "Files"
+msgstr "Súbory"
+
+#.
+#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Files"),152,TRUE));
+#.
+#: ../src/preferences.c:2029
+msgid "Encoding"
+msgstr "Kódovanie"
+
+#: ../src/preferences.c:2041
+#, fuzzy
+msgid "Default character set for new files"
+msgstr "Predvolené nastavenie kódovania"
+
+#: ../src/preferences.c:2044
+#, fuzzy
+msgid "Auto set <meta> HTML tag on encoding change"
+msgstr "Automaticky aktualizovať <meta> tag pri zmene kódovania"
+
+#: ../src/preferences.c:2046
+msgid "Backup"
+msgstr "Zálohy"
+
+#: ../src/preferences.c:2050
+#, fuzzy
+msgid "Create backup file during file save"
+msgstr "Vytvárať zálohu pri ukladaní"
+
+#: ../src/preferences.c:2051
+msgid ""
+"The backup prefix may contain a slash to indicate a directory component, for "
+"example \".backup/\""
+msgstr ""
+
+#: ../src/preferences.c:2054
+#, fuzzy
+msgid "Backup file prefix"
+msgstr "Prípona záložného súboru"
+
+#: ../src/preferences.c:2055
+msgid "Backup file suffix"
+msgstr "Prípona záložného súboru"
+
+#: ../src/preferences.c:2057
+#, fuzzy
+msgid "Continue save"
+msgstr "P_okračovať v ukladaní"
+
+#: ../src/preferences.c:2057
+#, fuzzy
+msgid "Abort save"
+msgstr "_Prerušiť ukladaníe"
+
+#: ../src/preferences.c:2057
+msgid "Ask what to do"
+msgstr ""
+
+#: ../src/preferences.c:2058
+#, fuzzy
+msgid "If the backup fails"
+msgstr "Zobraziť záložné súbory"
+
+#: ../src/preferences.c:2060
+#, fuzzy
+msgid "Remove backup file on close"
+msgstr "Odstraňovať záložné súbory pri uzavrení"
+
+#: ../src/preferences.c:2064
+msgid "Misc"
+msgstr "Rôzné"
+
+#: ../src/preferences.c:2070
+msgid "Open files in already running bluefish window"
+msgstr "Otvárať súbory v už bežiacom bluefish"
+
+#: ../src/preferences.c:2072
+msgid "File properties to check on disk for modifications"
+msgstr ""
+
+#: ../src/preferences.c:2073
+msgid "Periodically check if file is modified on disk"
+msgstr ""
+
+#: ../src/preferences.c:2074
+#, fuzzy
+msgid "Number of files in 'Open recent' menu"
+msgstr "Počet súborov v 'Otvoriť nedávne'"
+
+#: ../src/preferences.c:2079
+msgid "User interface"
+msgstr "Rozhranie"
+
+#: ../src/preferences.c:2081
+msgid "General"
+msgstr "Obecné"
+
+#: ../src/preferences.c:2086
+msgid "Make HTML dialogs transient"
+msgstr "Držať všetky HTML dialógy na vrchu"
+
+#: ../src/preferences.c:2087
+#, fuzzy
+msgid ""
+"Notebook tab font \n"
+"(leave empty for gtk default)"
+msgstr "Písmo tabu editoru (nechajte prázdne pokiaľ chcte výchozí pro gtk)"
+
+#: ../src/preferences.c:2088
+msgid "Document notebook tab position"
+msgstr "Pozicia tabu editoru"
+
+#: ../src/preferences.c:2089
+msgid "Sidebar notebook tab position"
+msgstr "Pozicia tabu postranného panelu"
+
+#: ../src/preferences.c:2090
+msgid "Sidebar location"
+msgstr "Umíestnenie postranného panelu"
+
+#: ../src/preferences.c:2094 ../src/preferences.c:2096
+msgid "Dimensions"
+msgstr "Dimenzia"
+
+#: ../src/preferences.c:2100
+msgid "Restore last used dimensions"
+msgstr "Obnoviť naposledy použité dimenzie"
+
+#: ../src/preferences.c:2101
+msgid "Initial sidebar width"
+msgstr "Počiatočná šírka postranného panelu"
+
+#: ../src/preferences.c:2102
+msgid "Initial window height"
+msgstr "Počiatočná výška okna"
+
+#: ../src/preferences.c:2103
+msgid "Initial window width"
+msgstr "Počiatočná šířka okna"
+
+#: ../src/preferences.c:2109 ../src/preferences.c:2111
+#, fuzzy
+msgid "Reference library"
+msgstr "Hľadať v referenciach"
+
+#: ../src/preferences.c:2117
+#, fuzzy
+msgid "Info background color"
+msgstr "Farba pozadia"
+
+#: ../src/preferences.c:2118
+#, fuzzy
+msgid "Info foreground color"
+msgstr "Farba popredia"
+
+#: ../src/preferences.c:2122 ../src/preferences.c:2124
+#, fuzzy
+msgid "File and directory view"
+msgstr "Oddeliť súbory a adresáre v prehliadači súborov"
+
+#. pd->prefs[default_basedir] = prefs_string(_("Default basedir"), main_v->props.default_basedir, vbox2, pd, string_none);
+#: ../src/preferences.c:2129
+msgid "Use separate file and directory view"
+msgstr "Oddeliť súbory a adresáre v prehliadači súborov"
+
+#: ../src/preferences.c:2130
+msgid "Unknown icon"
+msgstr "Ikona neznámy"
+
+#. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
+#. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
+#: ../src/preferences.c:2179 ../src/rcfile.c:996
+msgid "Images"
+msgstr "Obrázky"
+
+#.
+#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Images"), 155,TRUE));
+#.
+#: ../src/preferences.c:2184
+msgid "Thumbnails"
+msgstr "Náhľady"
+
+#: ../src/preferences.c:2188
+msgid "Thumbnail suffix"
+msgstr "Označenie náhľadu"
+
+#: ../src/preferences.c:2192
+msgid "Thumbnail filetype"
+msgstr "Typ súboru náhľadu"
+
+#: ../src/preferences.c:2211
+#, fuzzy
+msgid "External commands"
+msgstr "/Externe/Príkazy"
+
+#.
+#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External commands"), 151,TRUE));
+#.
+#: ../src/preferences.c:2218
+#, fuzzy
+msgid "Commands"
+msgstr "Príkaz"
+
+#: ../src/preferences.c:2226
+#, fuzzy
+msgid "External filters"
+msgstr "html filter"
+
+#.
+#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External filters"), 151,TRUE));
+#.
+#: ../src/preferences.c:2231
+#, fuzzy
+msgid "Filters"
+msgstr "Filter"
+
+#.
+#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Output parsers"), 157,TRUE));
+#.
+#: ../src/preferences.c:2239 ../src/preferences.c:2244
+msgid "Output parsers"
+msgstr "Výstupné parsery"
+
+#: ../src/preferences.c:2255 ../src/preferences.c:2256
+msgid "Plugins"
+msgstr ""
+
+#: ../src/preferences.c:2264
+msgid "Servers"
+msgstr "Servery"
+
+#: ../src/preferences.c:2266
+msgid "Remote servers"
+msgstr "Vzdialené servery"
+
+#: ../src/preferences.c:2271
+msgid "Zope compatibility mode"
+msgstr "Zope kompatibilita "
+
+#: ../src/preferences.c:2275 ../src/preferences.c:2276
+msgid "Text styles"
+msgstr ""
+
+#: ../src/preferences.c:2285
+#, fuzzy
+msgid "Syntax scanning"
+msgstr "Zmena veľkosti"
+
+#: ../src/preferences.c:2288
+msgid "Advanced syntax scanning options"
+msgstr ""
+
+#: ../src/preferences.c:2292
+#, fuzzy
+msgid "Match block begin-end by default"
+msgstr "Štandardne vytvárať trvalé záložky"
+
+#: ../src/preferences.c:2293
+#, fuzzy
+msgid "Highlight current line by default"
+msgstr "Zvýrazňovať syntax"
+
+#: ../src/preferences.c:2294
+#, fuzzy
+msgid "Show right margin by default"
+msgstr "Zvýrazňovať syntax"
+
+#: ../src/preferences.c:2295
+msgid "Right margin at"
+msgstr ""
+
+#: ../src/preferences.c:2297
+#, fuzzy
+msgid "whole document"
+msgstr "V _dokumente"
+
+#: ../src/preferences.c:2297
+msgid "visible area"
+msgstr ""
+
+#: ../src/preferences.c:2298
+msgid "Scan mode"
+msgstr ""
+
+#: ../src/preferences.c:2300
+msgid "Autocompletion key"
+msgstr ""
+
+#: ../src/preferences.c:2303 ../src/preferences.c:2306
+msgid "Syntax highlighting"
+msgstr "Zvýrazneníe syntaxe"
+
+#: ../src/project.c:125
+msgid "New project"
+msgstr "Nový projekt"
+
+#: ../src/project.c:212
+msgid "Enter Bluefish project filename"
+msgstr "Zadejte meno súboru projektu Bluefish"
+
+#: ../src/project.c:338
+msgid "Select Bluefish project filename"
+msgstr "Vyberte súbor projektu Bluefish"
+
+#. dialog
+#: ../src/project.c:400
+#, fuzzy
+msgid "Save current project?"
+msgstr "Vytvorit prázdný projekt"
+
+#: ../src/project.c:536
+msgid "Create New Project"
+msgstr "Vytvoriť Nový Projekt"
+
+#: ../src/project.c:539
+msgid "Edit Project"
+msgstr "Upraviť Projekt"
+
+#: ../src/project.c:562
+#, c-format
+msgid "This project contains %d files"
+msgstr "Projekt obsahuje %d súbory"
+
+#: ../src/project.c:574
+msgid "Project _Name:"
+msgstr "Me_no:"
+
+#: ../src/project.c:578
+#, fuzzy
+msgid "_Basedir:"
+msgstr "Základný a_dresár:"
+
+#: ../src/project.c:582
+msgid "_Preview URL:"
+msgstr "URL Náhľ_adu:"
+
+#: ../src/project.c:586
+msgid "_Template:"
+msgstr "Ša_blona:"
+
+#: ../src/project.c:592
+msgid "_Word wrap by default"
+msgstr "_Zalámovanie slov"
+
+#: ../src/project.c:603
+msgid "Create _Project"
+msgstr "Vytvoriť _Projekt"
+
+#: ../src/project.c:643
+msgid "Create project"
+msgstr "Vytvoriť Projekt"
+
+#: ../src/project.c:647
+msgid "Create project with currently opened documents"
+msgstr "Vytvoriť nový projekt s práve otvorenými dokumentami"
+
+#: ../src/project.c:648
+msgid "Create empty project"
+msgstr "Vytvorit prázdný projekt"
+
+#: ../src/rcfile.c:915
+msgid "Untitled Project"
+msgstr "Nepomenovaný Projekt"
+
+#: ../src/rcfile.c:990
+msgid "C programming"
+msgstr "C programovanie"
+
+#: ../src/rcfile.c:992
+#, fuzzy
+msgid "Web files"
+msgstr "Všetky webové súbory"
+
+#: ../src/rcfile.c:998
+msgid "Hide objectfiles"
+msgstr "Skrýť objektové súbory"
+
+#: ../src/snr2.c:169
+msgid "Regular expression error: "
+msgstr "Chyba v regulárnom výraze:"
+
+#: ../src/snr2.c:173 ../src/snr2.c:222
+msgid "Search failed"
+msgstr "Hľadanie neúspešné"
+
+#: ../src/snr2.c:218
+#, c-format
+msgid "Regular expression error: %s at offset %d"
+msgstr "Chyba v regulárnom výraze: %s ofset %d"
+
+#: ../src/snr2.c:1270
+#, c-format
+msgid "Found %d matches, "
+msgid_plural "Found %d matches, "
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../src/snr2.c:1271
+#, fuzzy, c-format
+msgid "replaced %d"
+msgid_plural "replaced %d"
+msgstr[0] "Nahradiť"
+msgstr[1] "Nahradiť"
+
+#: ../src/snr2.c:1276
+#, c-format
+msgid "Found %d matches"
+msgid_plural "Found %d matches"
+msgstr[0] ""
+msgstr[1] ""
+
+#. display warning that not all documents have yet finished loading
+#: ../src/snr2.c:1297
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</"
+"span>"
+msgstr ""
+
+#: ../src/snr2.c:1402
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">No selection. Please select a block "
+"of text first.</span>"
+msgstr ""
+
+#: ../src/snr2.c:1441 ../src/snr2.c:1793
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
+"will continue at the beginning.</span>"
+msgstr ""
+
+#: ../src/snr2.c:1516
+#, fuzzy
+msgid "Entire document"
+msgstr "V _dokumente"
+
+#: ../src/snr2.c:1517
+#, fuzzy
+msgid "Forward from cursor position"
+msgstr "Nastavenie kurzora na začiatku riadka"
+
+#: ../src/snr2.c:1518
+#, fuzzy
+msgid "Selection"
+msgstr "Výber"
+
+#: ../src/snr2.c:1519
+#, fuzzy
+msgid "All open files"
+msgstr "Všetky webové súbory"
+
+#: ../src/snr2.c:1523 ../src/snr2.c:1530
+msgid "Normal"
+msgstr "Normálni"
+
+#: ../src/snr2.c:1524
+msgid "Entire word only"
+msgstr ""
+
+#: ../src/snr2.c:1525
+#, fuzzy
+msgid "POSIX"
+msgstr "POSIXový typ"
+
+#: ../src/snr2.c:1526
+#, fuzzy
+msgid "PERL"
+msgstr "PERLovský typ"
+
+#: ../src/snr2.c:1531
+msgid "Uppercase"
+msgstr "Nahradiť velkými písmenami"
+
+#: ../src/snr2.c:1532
+msgid "Lowercase"
+msgstr "Nahradiť malými písmenami"
+
+#: ../src/snr2.c:1569
+msgid "_Search for: "
+msgstr "Čo _hľadať:"
+
+#: ../src/snr2.c:1573
+msgid "The pattern to look for"
+msgstr ""
+
+#: ../src/snr2.c:1588
+#, fuzzy
+msgid "Replace _with: "
+msgstr "Nahra_diť čím:"
+
+#: ../src/snr2.c:1592
+msgid "Replace matching text with"
+msgstr ""
+
+#: ../src/snr2.c:1600
+msgid "Sco_pe: "
+msgstr ""
+
+#: ../src/snr2.c:1604
+msgid "Where to look for the pattern."
+msgstr ""
+
+#: ../src/snr2.c:1610
+msgid "Found 0 matches, replaced 0"
+msgstr ""
+
+#: ../src/snr2.c:1610
+msgid "Found 0 matches"
+msgstr ""
+
+#: ../src/snr2.c:1620
+#, fuzzy
+msgid "<b>_Options</b>"
+msgstr "<b>Obsahuje</b>"
+
+#: ../src/snr2.c:1634
+#, fuzzy
+msgid "Match Patter_n: "
+msgstr "Najsť Vzorku"
+
+#: ../src/snr2.c:1638
+msgid "How to interpret the pattern."
+msgstr ""
+
+#: ../src/snr2.c:1645
+#, fuzzy
+msgid "Replace T_ype: "
+msgstr "Zpôsob nahradenia:"
+
+#: ../src/snr2.c:1650
+#, fuzzy
+msgid "What to replace with."
+msgstr "Nahra_diť čím:"
+
+#: ../src/snr2.c:1654
+#, fuzzy
+msgid "Allow o_verlapping matches"
+msgstr "_Viac kolové hľadanie"
+
+#: ../src/snr2.c:1657
+msgid "After a match is found, start next search within that match."
+msgstr ""
+
+#: ../src/snr2.c:1659
+#, fuzzy
+msgid "Case sensitive _matching"
+msgstr "Rozlišovať malé/velké písmena"
+
+#: ../src/snr2.c:1662
+msgid "Only match if case (upper/lower) is identical."
+msgstr ""
+
+#: ../src/snr2.c:1664
+#, fuzzy
+msgid "_Use escape chars"
+msgstr "Aktualizovať znaky"
+
+#: ../src/snr2.c:1667
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+msgstr ""
+
+#: ../src/snr2.c:1669
+#, fuzzy
+msgid "_Bookmark matches"
+msgstr "Výsle_dky záložiek"
+
+#: ../src/snr2.c:1672
+msgid "Create a bookmark for each match"
+msgstr ""
+
+#: ../src/snr2.c:1677
+#, fuzzy
+msgid "Replace _All"
+msgstr "Nahr_adiť všetko"
+
+#: ../src/snr2.c:1683
+#, fuzzy
+msgid "Find _All"
+msgstr "Nájsť"
+
+#: ../src/stringlist.c:367
+msgid " Add "
+msgstr " Pridať "
+
+#: ../src/stringlist.c:369
+msgid " Update "
+msgstr " Obnoviť "
+
+#: ../src/stringlist.c:371
+msgid " Delete "
+msgstr " Smazať "
+
+#: ../src/stringlist.c:373
+msgid " Up "
+msgstr " Nahor "
+
+#: ../src/stringlist.c:375
+msgid " Down "
+msgstr " Dole "
+
+#: ../src/stringlist.c:377
+msgid " Sort "
+msgstr " Triediť"
+
+#: ../src/undo_redo.c:463
+#, fuzzy
+msgid "Undo in _all documents"
+msgstr "vo všetkých otvorených dokumentoch"
+
+#: ../src/undo_redo.c:463
+#, fuzzy
+msgid "Undo only _this document"
+msgstr "V _dokumente"
+
+#: ../src/undo_redo.c:466
+msgid "Undo this change in all documents?"
+msgstr ""
+
+#: ../src/undo_redo.c:466
+msgid "This change concerns multiple documents."
+msgstr ""
+
+#~ msgid ""
+#~ "Bluefish is an editor for experienced web designers and programmers. It "
+#~ "supports many programming and markup languages, but focuses on editing "
+#~ "dynamic and interactive websites. Bluefish is an open source development "
+#~ "project, released under the GPL license.\n"
+#~ "\n"
+#~ "For more information, visit the Bluefish Website at http://bluefish."
+#~ "openoffice.nl/\n"
+#~ "\n"
+#~ "This version of bluefish was compiled with the following options:\n"
+#~ msgstr ""
+#~ "Bluefish je editor pre skusených web dizajnérov a programátorov.Podporuje "
+#~ "mnoho programovacích a značkovacích jazykov, ale zameriava sa na editáciu "
+#~ "dynamických a interaktivních webov. Bluefish je vyvíjaný ako open source "
+#~ "projekt, vydávaný pod GPL licencí.\n"
+#~ "\n"
+#~ "Pre viac informácií, navštívte Bluefish na adrese  http://bluefish."
+#~ "openoffice.nl/\n"
+#~ "\n"
+#~ "Táto verzia bluefish bola zkompilovaná s následujúcimi parametrami:\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "Project leader:\n"
+#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Developers for this release:\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Jim Hayward\n"
+#~ "   <jimhayward@linuxexperience.net>\n"
+#~ "  Daniel Leidert\n"
+#~ "   <daniel.leidert@wgdd.de>\n"
+#~ "  Oskar Świda\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "  David Marrs\n"
+#~ "   <David.Marrs@myrealbox.com>\n"
+#~ "  Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "Developers for previous releases:\n"
+#~ "  Oskar Świda\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "  Eugene Morenko(More)\n"
+#~ "   <more@irpin.com>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@porter.net.nz>\n"
+#~ "  Chris Mazuc\n"
+#~ "  Neil Millar\n"
+#~ "  Gero Takke\n"
+#~ "  Bo Forslund\n"
+#~ "  David Arno\n"
+#~ "  Pablo De Napoli\n"
+#~ "  Santiago Capel Torres\n"
+#~ "  Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "  Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "  Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "  Antti-Juhani Kaijanaho\n"
+#~ "\n"
+#~ "Documentation:\n"
+#~ "  Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "  Scott White\n"
+#~ "   <wwsw3@earthlink.net>\n"
+#~ "  Anita Lewis\n"
+#~ "   <ajreiki@highstream.net>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@porter.net.nz>\n"
+#~ "  Daniel Blair\n"
+#~ "   <joecamel@realcoders.org>\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Denny Reeh\n"
+#~ "\n"
+#~ "Package Maintainers:\n"
+#~ "  Debian:   Daniel Leidert\n"
+#~ "   <daniel.leidert@wgdd.de>\n"
+#~ "  Redhat:   Matthias Haase\n"
+#~ "   <matthias_haase@bennewitz.com>\n"
+#~ "  Mandrake: Todd Lyons\n"
+#~ "   <todd@mrball.net>\n"
+#~ "  Fink: Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "If you know of anyone missing from this list, please let us know\n"
+#~ "<bluefish@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Thanks to all who helped making this software available.\n"
+#~ msgstr ""
+#~ "Vedúcí projektu:\n"
+#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Vyvojáry pre túto verziu:\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Jim Hayward\n"
+#~ "   <jimhayward@linuxexperience.net>\n"
+#~ "  Oskar Świda\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "  Eugene Morenko(More)\n"
+#~ "   <more@irpin.com>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@linuxexperience.com>\n"
+#~ "\n"
+#~ "Vyvojári predchadzajúceho vydánia:\n"
+#~ "  Chris Mazuc\n"
+#~ "  Neil Millar\n"
+#~ "  Gero Takke\n"
+#~ "  Bo Forslund\n"
+#~ "  David Arno\n"
+#~ "  Pablo De Napoli\n"
+#~ "  Santiago Capel Torres\n"
+#~ "  Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "  Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "  Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "  Antti-Juhani Kaijanaho\n"
+#~ "\n"
+#~ "Dokumentácia:\n"
+#~ "  Scott White\n"
+#~ "   <wwsw3@earthlink.net>\n"
+#~ "  Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "  Anita Lewis\n"
+#~ "   <ajreiki@highstream.net>\n"
+#~ "  Alastair Porter\n"
+#~ "   <alastair@linuxexperience.com>\n"
+#~ "  Daniel Blair\n"
+#~ "   <joecamel@realcoders.org>\n"
+#~ "  Olivier Sessink\n"
+#~ "   <olivier@bluefish.openoffice.nl>\n"
+#~ "  Denny Reeh\n"
+#~ "\n"
+#~ "Zostavenie balíkov:\n"
+#~ "  Debian:   Davide Puricelli\n"
+#~ "   <evo@debian.org>\n"
+#~ "  Redhat:   Matthias Haase\n"
+#~ "   <matthias_haase@bennewitz.com>\n"
+#~ "  Mandrake: Todd Lyons\n"
+#~ "   <todd@mrball.net>\n"
+#~ "  Fink: Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "Pokiaľ viete o niekom, kto v tomto zozname chýba, dajte nám vedieť\n"
+#~ "<bluefish@bluefish.openoffice.nl>\n"
+#~ "\n"
+#~ "Ďakujeme všetkým, ktorí pomáhajú tento software sprístupniť.\n"
+
+#~ msgid ""
+#~ "Current translators:\n"
+#~ "\n"
+#~ "  Basque: Hizkuntza Politikarako Sailburuordetza\n"
+#~ "   <hizkpol@ej-gv.es>\n"
+#~ "\n"
+#~ "  Brazilian Portuguese: Anderson Rocha\n"
+#~ "   <anderson@maxlinux.com.br>\n"
+#~ "\n"
+#~ "  Bulgarian: Peio Popov\n"
+#~ "   <peio@peio.org>\n"
+#~ "\n"
+#~ "  Chinese: Ting Yang (Dormouse)\n"
+#~ "   <mouselinux@163.com>\n"
+#~ "\n"
+#~ "  Chinese, Traditional: OLS3\n"
+#~ "   <ols3@lxer.idv.tw>\n"
+#~ "\n"
+#~ "  Danish: Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "\n"
+#~ "  Finnish: Juho Roukala\n"
+#~ "   <j.mr@luukku.com>\n"
+#~ "\n"
+#~ "  French: Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "  German: Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "\n"
+#~ "  Hungarian: Péter Sáska\n"
+#~ "   <sasek@ccsystem.hu>\n"
+#~ "\n"
+#~ "  Italian: Stefano Canepa\n"
+#~ "   <sc@linux.it>\n"
+#~ "\n"
+#~ "  Japanese: Takeshi Hamasaki\n"
+#~ "   <hma@syd.odn.ne.jp>\n"
+#~ "\n"
+#~ "  Norwegian: Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "\n"
+#~ "  Polish: Oskar Swida\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "\n"
+#~ "  Portuguese: Lopo Pizarro\n"
+#~ "   <lopopizarro@netcabo.pt>\n"
+#~ "\n"
+#~ "  Russian: Eugene Rupakov\n"
+#~ "   <rupakov@jet.msk.su>\n"
+#~ "\n"
+#~ "  Serbian: Marko Milenović\n"
+#~ "   <raven@sbb.co.yu>\n"
+#~ "\n"
+#~ "  Slovak: Vladimir VASIL\n"
+#~ "   <vvasil@post.sk>\n"
+#~ "\n"
+#~ "  Spanish: Walter Oscar Echarri\n"
+#~ "   <wecharri@gmail.com>\n"
+#~ "\n"
+#~ "  Swedish: David Smeringe\n"
+#~ "   <david.smeringe@telia.com>\n"
+#~ "\n"
+#~ "  Tamil: Murugapandian Barathee\n"
+#~ "   <barathee@yahoo.com>\n"
+#~ "\n"
+#~ "  Turkish: Oğuz Eren\n"
+#~ "   <ogzeren@gmail.com>\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Súčastný prekladatelia:\n"
+#~ " \n"
+#~ "  Basque: Hizkuntza Politikarako Sailburuordetza\n"
+#~ "   <hizkpol@ej-gv.es>\n"
+#~ "\n"
+#~ "  Brazilská Portugalština - Anderson Rocha\n"
+#~ "   <anderson@maxlinux.com.br>\n"
+#~ "\n"
+#~ "  Bulharština - Peio Popov\n"
+#~ "   <peio@peio.org>\n"
+#~ "\n"
+#~ "  Čínština - Ting Yang (Dormouse)\n"
+#~ "   <mouselinux@163.com>\n"
+#~ "\n"
+#~ "  Čeština - Patrik Kenderessy (CandySan)   <candy@602.cz>\n"
+#~ "  Dánština - Rasmus Toftdahl Olesen\n"
+#~ "   <rto@pohldata.dk>\n"
+#~ "\n"
+#~ "  Finština - Juho Roukala\n"
+#~ "   <j.mr@luukku.com>\n"
+#~ "\n"
+#~ "  Francúzština - Michèle Garoche\n"
+#~ "   <michele.garoche@easyconnect.fr>\n"
+#~ "\n"
+#~ "  Němčina - Roland Steinbach\n"
+#~ "   <roland@netzblick.de>\n"
+#~ "\n"
+#~ "  Maďarština - Péter Sáska\n"
+#~ "   <sasek@ccsystem.hu>\n"
+#~ "\n"
+#~ "  Italština - Stefano Canepa\n"
+#~ "   <sc@linux.it>\n"
+#~ "\n"
+#~ "  Norština - Christian Tellefsen\n"
+#~ "   <chris@tellefsen.net>\n"
+#~ "\n"
+#~ "  Polština - Oskar Swida\n"
+#~ "   <swida@aragorn.pb.bialystok.pl>\n"
+#~ "\n"
+#~ "  Portugalština - Lopo Pizarro\n"
+#~ "   <lopopizarro@netcabo.pt>\n"
+#~ "\n"
+#~ "  Ruština - Eugene Rupakov\n"
+#~ "   <rupakov@jet.msk.su>\n"
+#~ "\n"
+#~ "  Slovenčina - Vladimír Vasil\n"
+#~ "   <vvasil@post.sk>\n"
+#~ "\n"
+#~ "  Srbština - Marko Milenović\n"
+#~ "   <raven@sbb.co.yu>\n"
+#~ "\n"
+#~ "  Španělština - Walter Oscar Echarri\n"
+#~ "   <wecharri@arnet.com.ar>\n"
+#~ "\n"
+#~ "  Švédětina - David Smeringe\n"
+#~ "   <david.smeringe@telia.com>\n"
+#~ "\n"
+#~ "  Tamilština - Murugapandian Barathee\n"
+#~ "   <barathee@yahoo.com>\n"
+#~ "\n"
+
+#~ msgid "About Bluefish"
+#~ msgstr "O Bluefis"
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "Resulting in the detection of:\n"
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Výsledok hľadania z :\n"
+
+#~ msgid "Info"
+#~ msgstr "Informácie"
+
+#~ msgid "Authors"
+#~ msgstr "Autori"
+
+#~ msgid "Translators"
+#~ msgstr "Prekladatelia"
+
+#~ msgid "Authentication required"
+#~ msgstr "Prihláseníe požadováné"
+
+#~ msgid "Authentication is required for %s."
+#~ msgstr "Prihlásení je požadované pre %s."
+
+#~ msgid "Username:"
+#~ msgstr "Užívateľ:"
+
+#~ msgid "Password:"
+#~ msgstr "Heslo:"
+
+#~ msgid "_Add"
+#~ msgstr "_Pridať"
+
+#~ msgid ""
+#~ "\n"
+#~ "Usage: %s [options] [filenames ...]\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Použitie: %s [voťby] [súbory ...]\n"
+
+#~ msgid ""
+#~ "\n"
+#~ "Currently accepted options are:\n"
+#~ msgstr ""
+#~ "\n"
+#~ "V súčasnosti dostupné vlastnosti sú:\n"
+
+#~ msgid "-v           current version\n"
+#~ msgstr "-v          táto verzia\n"
+
+#~ msgid "-n           open new window\n"
+#~ msgstr "-v          otvoriť nové okno\n"
+
+#~ msgid "-p filename  open project\n"
+#~ msgstr "-p soubor  otvoriť projekt\n"
+
+#~ msgid "-h           this help screen\n"
+#~ msgstr "-h          táto nápoveda\n"
+
+#~ msgid ""
+#~ "<span weight=\"bold\" size=\"larger\">Bluefish Tip:</span>\n"
+#~ "\n"
+#~ "This message is shown if you do not have any items in the Quickbar.\n"
+#~ "\n"
+#~ "To add buttons to the Quickbar, right click on a button in the HTML "
+#~ "toolbars.\n"
+#~ msgstr ""
+#~ "<span weight=\"bold\" size=\"larger\">Bluefish Tip:</span>\n"
+#~ "\n"
+#~ "Tato zpráva sa bude zobrazovať pokiaľ nebudete mať žiadné tlačítka v "
+#~ "Quickbare.\n"
+#~ "\n"
+#~ "Kliknitím pravého tlačítka myši na tlačítko v HTML lište ho môžete pridať "
+#~ "do Quickbaru.\n"
+
+#~ msgid "_Don't show this dialog again."
+#~ msgstr "_Nezobrazovať opäť tento dialóg."
+
+#~ msgid "Could not find the file \"%s\"."
+#~ msgstr "Nebol nájdený súbor \"%s\"."
+
+#~ msgid "This bookmark is set in a file that no longer exists."
+#~ msgstr "Táto záložka bola nastavená v súbore, ktorý už neexistuje."
+
+#~ msgid "Are you sure?"
+#~ msgstr "Skutočne to mám urobyť?"
+
+#~ msgid " bytes"
+#~ msgstr " bajtov"
+
+#~ msgid "Could not read file:\n"
+#~ msgstr "Nemôžem otvoríť súbor:\n"
+
+#~ msgid "Opening file "
+#~ msgstr "Otváraníe súboru"
+
+#~ msgid "Edit color"
+#~ msgstr "Zmeniť farbu"
+
+#~ msgid "Edit tag"
+#~ msgstr "Upraviť tag"
+
+#~ msgid "Saving file"
+#~ msgstr "Uloženíe súboru"
+
+#~ msgid "Save as..."
+#~ msgstr "Uložit ako..."
+
+#~ msgid ""
+#~ "File: %s\n"
+#~ "\n"
+#~ "New modification time: %s\n"
+#~ "Old modification time: %s"
+#~ msgstr ""
+#~ "Súbor: %s\n"
+#~ "\n"
+#~ "Nový čas modifikacie: %s\n"
+#~ "Starý čas modifikacie: %s"
+
+#~ msgid "File has been modified by another process."
+#~ msgstr "Súbor bol modifikovaný iným procesom."
+
+#~ msgid "Saving %s"
+#~ msgstr "Ukladanie %s"
+
+#~ msgid ""
+#~ "Could not backup file:\n"
+#~ "\""
+#~ msgstr ""
+#~ "Nemôžem zazálohovať súbor:\n"
+#~ "\""
+
+#~ msgid "File save error"
+#~ msgstr "Chyba pri ukladaní súboru"
+
+#~ msgid "Do_n't save"
+#~ msgstr "Za_hodiť zmeny"
+
+#~ msgid "Loading files..."
+#~ msgstr "Otváranie súborov..."
+
+#~ msgid ""
+#~ "These files could not opened:\n"
+#~ "\n"
+#~ msgstr ""
+#~ "Tieto súbory se nepodarilo otvoríť:\n"
+#~ "\n"
+
+#~ msgid "Unable to open file(s)\n"
+#~ msgstr "Nemôžem otvoríť súbor(y)\n"
+
+#~ msgid "searching files..."
+#~ msgstr "hľadám súbory..."
+
+#~ msgid "grep {contains} `find {basedir} -name '{file type}'`"
+#~ msgstr "grep {obsahuje} `find {adresár} -name '{typ súboru}'`"
+
+#~ msgid "Loading %d file(s)..."
+#~ msgstr "Načítavam %d súbor(y)..."
+
+#~ msgid "Error creating path"
+#~ msgstr "Chyba pri vytváraní cesty"
+
+#~ msgid "The specified pathname already exists."
+#~ msgstr "Uvedená cesta už existuje."
+
+#~ msgid "Opening directory..."
+#~ msgstr "Otváraníe adresára..."
+
+#~ msgid "Could not delete \n"
+#~ msgstr "Nemôžem smazať \n"
+
+#~ msgid "Follow focus"
+#~ msgstr "Následuj aktivované"
+
+#~ msgid "Dialog"
+#~ msgstr "Dialóg"
+
+#~ msgid "Options"
+#~ msgstr "Vlastnosti"
+
+#~ msgid "Left doubleclick action"
+#~ msgstr "Akcia na dvojklik ľavého tlačítka"
+
+#~ msgid "Search"
+#~ msgstr "Hľadať"
+
+#~ msgid "QuickStart..."
+#~ msgstr "Rýchle Spúšťanie..."
+
+#~ msgid "Body..."
+#~ msgstr "Telo..."
+
+#~ msgid "Bold"
+#~ msgstr "Tučné"
+
+#~ msgid "Italic"
+#~ msgstr "Kurzivá"
+
+#~ msgid "Paragraph"
+#~ msgstr "Odstavec"
+
+#~ msgid "Break"
+#~ msgstr "Konec riadku"
+
+#~ msgid "Break and clear"
+#~ msgstr "Zalomenie načístané"
+
+#~ msgid "Non-breaking space"
+#~ msgstr "Nedelitelná medzera"
+
+#~ msgid "Anchor..."
+#~ msgstr "Odkaz..."
+
+#~ msgid "Rule..."
+#~ msgstr "Čiara..."
+
+#~ msgid "Right Justify"
+#~ msgstr "Zarovnavať vpravo"
+
+#~ msgid "Comment"
+#~ msgstr "Komentár"
+
+#~ msgid "E-mail..."
+#~ msgstr "E-mail..."
+
+#~ msgid "Font..."
+#~ msgstr "Font..."
+
+#~ msgid "Base Font Size..."
+#~ msgstr "Veľkosť základného fontu..."
+
+#~ msgid "Font Size +1"
+#~ msgstr "Veľkosť fontu +1"
+
+#~ msgid "Font Size -1"
+#~ msgstr "Veľkosť fontu -1"
+
+#~ msgid "Preformatted Text"
+#~ msgstr "Predformatovaný text"
+
+#~ msgid "Subscript"
+#~ msgstr "Dolní index"
+
+#~ msgid "Superscript"
+#~ msgstr "Horní index"
+
+#~ msgid "Strong"
+#~ msgstr "Silné"
+
+#~ msgid "Emphasis"
+#~ msgstr "Zvýraznené"
+
+#~ msgid "Heading 1"
+#~ msgstr "Nádpis 1"
+
+#~ msgid "Heading 2"
+#~ msgstr "Nádpis 2"
+
+#~ msgid "Heading 3"
+#~ msgstr "Nádpis 3"
+
+#~ msgid "Heading 4"
+#~ msgstr "Nádpis 4"
+
+#~ msgid "Heading 5"
+#~ msgstr "Nádpis 5"
+
+#~ msgid "Heading 6"
+#~ msgstr "Nádpis 6"
+
+#~ msgid "Table Wizard..."
+#~ msgstr "Sprievodca tabuľkou..."
+
+#~ msgid "Table..."
+#~ msgstr "Tabuľka..."
+
+#~ msgid "Table Row..."
+#~ msgstr "Riadok tabuľky..."
+
+#~ msgid "Table Header..."
+#~ msgstr "Hlavička tabuľky..."
+
+#~ msgid "Table Data..."
+#~ msgstr "Bunka tabuľky..."
+
+#~ msgid "Table Row"
+#~ msgstr "Riadok tabuľky"
+
+#~ msgid "Table Header"
+#~ msgstr "Hlavička tabuľky"
+
+#~ msgid "Table Data"
+#~ msgstr "Bunka tabuľky"
+
+#~ msgid "Table Caption"
+#~ msgstr "Nádpis tabuľky"
+
+#~ msgid "Frame Wizard..."
+#~ msgstr "Sprievodca rámov..."
+
+#~ msgid "Frameset..."
+#~ msgstr "Nastavenie rámov..."
+
+#~ msgid "Frame..."
+#~ msgstr "Rám..."
+
+#~ msgid "Frameset"
+#~ msgstr "Nastavenie rámov"
+
+#~ msgid "Frame"
+#~ msgstr "Rám"
+
+#~ msgid "Noframes"
+#~ msgstr "Bez rámov"
+
+#~ msgid "Target"
+#~ msgstr "Cieľ"
+
+#~ msgid "Form..."
+#~ msgstr "Formulár..."
+
+#~ msgid "Input Button..."
+#~ msgstr "Tlačítko typu submit, reset..."
+
+#~ msgid "Input Text..."
+#~ msgstr "Text..."
+
+#~ msgid "Input Hidden..."
+#~ msgstr "Skryté pole..."
+
+#~ msgid "Textarea..."
+#~ msgstr "Textové pole..."
+
+#~ msgid "Input Radio Button..."
+#~ msgstr "Prepínač..."
+
+#~ msgid "Input Check Box..."
+#~ msgstr "Zaškrtávacie tlačítko..."
+
+#~ msgid "Select..."
+#~ msgstr "Výber..."
+
+#~ msgid "Option..."
+#~ msgstr "Rozbalovací zoznam..."
+
+#~ msgid "Option group..."
+#~ msgstr "Skupina prvkov..."
+
+#~ msgid "Button..."
+#~ msgstr "Tlačítko..."
+
+#~ msgid "Quick List..."
+#~ msgstr "Rychlý zoznam..."
+
+#~ msgid "Unordered List"
+#~ msgstr "Nečíslovaný"
+
+#~ msgid "Ordered List"
+#~ msgstr "Číslovaný"
+
+#~ msgid "List Item"
+#~ msgstr "Položka zoznamu"
+
+#~ msgid "Definition List"
+#~ msgstr "Zoznam definícií"
+
+#~ msgid "Definition Term"
+#~ msgstr "Definičný termín"
+
+#~ msgid "Create stylesheet..."
+#~ msgstr "Vytovriť zošit štylov..."
+
+#~ msgid "Span..."
+#~ msgstr "Span..."
+
+#~ msgid "Div..."
+#~ msgstr "Div..."
+
+#~ msgid "Style"
+#~ msgstr "Štýl"
+
+#~ msgid "Link to stylesheet..."
+#~ msgstr "Priradiť zošitu štyl..."
+
+#~ msgid "Insert image..."
+#~ msgstr "Vložiť obrázok..."
+
+#~ msgid "Insert thumbnail..."
+#~ msgstr "Vlož obrázok ako náhľad..."
+
+#~ msgid "Multi thumbnail..."
+#~ msgstr "Viacnásobné náhľady..."
+
+#~ msgid "Code"
+#~ msgstr "Kód"
+
+#~ msgid "Keyboard"
+#~ msgstr "Klávesnica"
+
+#~ msgid "Variable"
+#~ msgstr "Premenná"
+
+#~ msgid "Citation"
+#~ msgstr "Citácia"
+
+#~ msgid "Abbreviation"
+#~ msgstr "Zkratka"
+
+#~ msgid "Acronym"
+#~ msgstr "Zástupný symbol"
+
+#~ msgid "Remove from quickbar"
+#~ msgstr "Odstrániť z lišty Rýchleho spúšťania"
+
+#~ msgid "Move Left"
+#~ msgstr "Posunúť Vľavo"
+
+#~ msgid "Move Right"
+#~ msgstr "Posunúť Vpravo"
+
+#~ msgid "Add to quickbar"
+#~ msgstr "Pridať do lišty Rýchleho spúšťania"
+
+#~ msgid " Quick bar "
+#~ msgstr " Rýchle spúšťanie "
+
+#~ msgid "Heading"
+#~ msgstr "Nádpis"
+
+#~ msgid " Standard bar "
+#~ msgstr "Štandardná lišta"
+
+#~ msgid "Context formatting"
+#~ msgstr "Formatovanie obsahu"
+
+#~ msgid " Fonts "
+#~ msgstr "Fonty"
+
+#~ msgid " Tables "
+#~ msgstr " Tabuľky "
+
+#~ msgid " Frames "
+#~ msgstr "Rámy "
+
+#~ msgid " Forms "
+#~ msgstr " Formuláre "
+
+#~ msgid " List "
+#~ msgstr " Zoznam "
+
+#~ msgid " CSS "
+#~ msgstr " CSS "
+
+#~ msgid "Syntax highlighting error for "
+#~ msgstr "Chyba zvýraznenia syntaxu v "
+
+#~ msgid "compiling pattern '%s': %s at offset %d"
+#~ msgstr "kompilácia vzorky '%s': %s ofset %d"
+
+#~ msgid "studying pattern '%s': %s"
+#~ msgstr "študujem vzorku '%s': %s"
+
+#~ msgid "compiling 2nd pattern '%s': %s at offset %d"
+#~ msgstr "kompilujem druhú vzorku '%s': %s ofset %d"
+
+#~ msgid "studying 2nd pattern '%s': %s"
+#~ msgstr "študujem druhú vzorku '%s': %s"
+
+#~ msgid "Cascading StyleSheet dialog"
+#~ msgstr "CSS formulár"
+
+#~ msgid "_Selector:"
+#~ msgstr "_Prepínač:"
+
+#~ msgid "_Property:"
+#~ msgstr "_Vlastnosť:"
+
+#~ msgid "_Value:"
+#~ msgstr "_Hodnota:"
+
+#~ msgid " _Update "
+#~ msgstr " _Aktualizovať "
+
+#~ msgid " _Delete "
+#~ msgstr " _Zmazať "
+
+#~ msgid "_Style..."
+#~ msgstr "Š_tyl..."
+
+#~ msgid "  _Time (%i:%i:%i)"
+#~ msgstr " _Čas  (%i.%i.%i)"
+
+#~ msgid "  Day of the _week (Sunday)"
+#~ msgstr " Deň v týždni (Nedeľa)"
+
+#~ msgid "  Day of the _week (Monday)"
+#~ msgstr " Deň v týždni (Pondelok)"
+
+#~ msgid "  Day of the _week (Tuesday)"
+#~ msgstr " Deň v týždni (Utorok)"
+
+#~ msgid "  Day of the _week (Wednesday)"
+#~ msgstr " Deň v týždni (Streda)"
+
+#~ msgid "  Day of the _week (Thursday)"
+#~ msgstr " Deň v týždni (Štvrtok)"
+
+#~ msgid "  Day of the _week (Friday)"
+#~ msgstr " Deň v týždni (Piatok)"
+
+#~ msgid "  Day of the _week (Saturday)"
+#~ msgstr " Deň v týždni (Sobota)"
+
+#~ msgid "You appear to have a non existant day!\n"
+#~ msgstr "Zdž sa, že zkúšate neznámý deň!\n"
+
+#~ msgid "  _Date (%i/%i/%i)"
+#~ msgstr " _Dátum  (%i.%i.%i)"
+
+#~ msgid "  _Unix Time (%i)"
+#~ msgstr " _Unixový čas (%i)"
+
+#~ msgid "  Unix Date _String (%s"
+#~ msgstr " Reťazec unixového data (%s"
+
+#~ msgid "  ISO-8601 Ti_me (%s)"
+#~ msgstr "  ISO-8601 Č_as (%s)"
+
+#~ msgid "Quick Anchor"
+#~ msgstr "Rýchlz odkaz"
+
+#~ msgid "Attributes"
+#~ msgstr "Atributy"
+
+#~ msgid "_HREF:"
+#~ msgstr "_HREF:"
+
+#~ msgid "_Target:"
+#~ msgstr "_Cieľ:"
+
+#~ msgid "_Language:"
+#~ msgstr "_Jazyk:"
+
+#~ msgid "Custo_m:"
+#~ msgstr "Vlast_né:"
+
+#~ msgid "OnClic_k:"
+#~ msgstr "OnClic_k:"
+
+#~ msgid "OnD_blClick:"
+#~ msgstr "OnD_blClick:"
+
+#~ msgid "OnMouseO_ver:"
+#~ msgstr "OnMouseO_ver:"
+
+#~ msgid "OnMouse_Down:"
+#~ msgstr "OnMouse_Down:"
+
+#~ msgid "OnMouse_Move:"
+#~ msgstr "OnMouse_Move:"
+
+#~ msgid "OnMouseOu_t:"
+#~ msgstr "OnMouseOu_t:"
+
+#~ msgid "OnMouse_Up:"
+#~ msgstr "OnMouse_Up:"
+
+#~ msgid "OnKeyDo_wn:"
+#~ msgstr "OnKeyDo_wn:"
+
+#~ msgid "OnKey_Press:"
+#~ msgstr "OnKey_Press:"
+
+#~ msgid "OnKe_yUp:"
+#~ msgstr "OnKe_yUp:"
+
+#~ msgid "Div"
+#~ msgstr "Div"
+
+#~ msgid "Span"
+#~ msgstr "Span"
+
+#~ msgid "Ali_gn:"
+#~ msgstr "Za_rovnanie:"
+
+#~ msgid "Cl_ass:"
+#~ msgstr "Trie_da:"
+
+#~ msgid "St_yle:"
+#~ msgstr "Š_týl:"
+
+#~ msgid "_ID:"
+#~ msgstr "_ID:"
+
+#~ msgid "Horizontal Rule"
+#~ msgstr "Horizontálna čiara"
+
+#~ msgid "_Align:"
+#~ msgstr "Za_rovnanie:"
+
+#~ msgid "_Height:"
+#~ msgstr "_Výška:"
+
+#~ msgid "_Width:"
+#~ msgstr "Šír_ka:"
+
+#~ msgid "Is _percent"
+#~ msgstr "V _percentách"
+
+#~ msgid "Quick Start"
+#~ msgstr "Rýchle začať"
+
+#~ msgid "_Doctype:"
+#~ msgstr "Typ _dokumentu:"
+
+#~ msgid "Header tags:"
+#~ msgstr "Tagy hlavičky:"
+
+#~ msgid "Body"
+#~ msgstr "Telo"
+
+#~ msgid "On_Load:"
+#~ msgstr "On_Load:"
+
+#~ msgid "On_UnLoad:"
+#~ msgstr "On_UnLoad:"
+
+#~ msgid "Depreciated options"
+#~ msgstr "Zastaralé voľby"
+
+#~ msgid "Background _Image:"
+#~ msgstr "Obrázok v _Pozadí:"
+
+#~ msgid "Back_ground Color:"
+#~ msgstr "_Farba pozadia:"
+
+#~ msgid "_Text Color:"
+#~ msgstr "Farba te_xtu:"
+
+#~ msgid "_Link Color:"
+#~ msgstr "Farba od_kazu:"
+
+#~ msgid "_Visited Link Color:"
+#~ msgstr "Farba navštivené_ho odkazu:"
+
+#~ msgid "_Active Link Color:"
+#~ msgstr "Farba ak_tivního odkazu:"
+
+#~ msgid "Meta"
+#~ msgstr "Meta"
+
+#~ msgid "_HTTP-EQUIV:"
+#~ msgstr "HTTP-E_QUIV:"
+
+#~ msgid "Con_tent:"
+#~ msgstr "Ob_sah:"
+
+#~ msgid "_Scheme:"
+#~ msgstr "S_chéma:"
+
+#~ msgid "Base Font"
+#~ msgstr "Základni font"
+
+#~ msgid "Size"
+#~ msgstr "Veľkosť"
+
+#~ msgid "Color"
+#~ msgstr "Farba"
+
+#~ msgid "Face"
+#~ msgstr "Typ"
+
+#~ msgid "Custom"
+#~ msgstr "Vlastni"
+
+#~ msgid "E-mail"
+#~ msgstr "E-mail"
+
+#~ msgid "_Mail to:"
+#~ msgstr "Email pre:"
+
+#~ msgid "_Copy to:"
+#~ msgstr "Kopírovať do:"
+
+#~ msgid "Blin_d copy to:"
+#~ msgstr "Skrité kopírovať _do:"
+
+#~ msgid "with _Subject:"
+#~ msgstr "so _Subjektom:"
+
+#~ msgid "with _Subject (URL-encoded):"
+#~ msgstr " _Subjekt (URL-kódovanie):"
+
+#~ msgid "with _Body:"
+#~ msgstr "s _Body:"
+
+#~ msgid "with _Body (URL-encoded):"
+#~ msgstr "s _Body (URL-kódovanie):"
+
+#~ msgid "Quick List"
+#~ msgstr "Rýchlz zoznam"
+
+#~ msgid "_Rows:"
+#~ msgstr "Riadk_y:"
+
+#~ msgid "Or_dered"
+#~ msgstr "Čísl_ovaný"
+
+#~ msgid "_Unordered"
+#~ msgstr "N_ečíslovaný"
+
+#~ msgid "Style:"
+#~ msgstr "Štyl:"
+
+#~ msgid "Co_ls:"
+#~ msgstr "S_tĺpce:"
+
+#~ msgid "_Add <frame> elements"
+#~ msgstr "Prid_ať <frame> prvky "
+
+#~ msgid "_Source:"
+#~ msgstr "_Zdroj:"
+
+#~ msgid "Margin _Width:"
+#~ msgstr "Šířka _okraja:"
+
+#~ msgid "Margin _Height:"
+#~ msgstr "_Výška okraja:"
+
+#~ msgid "Scrollin_g:"
+#~ msgstr "Sc_rolovanie:"
+
+#~ msgid "_Frameborder:"
+#~ msgstr "O_kraje rámu:"
+
+#~ msgid "No _Resize:"
+#~ msgstr "Zakázať zmenu _Veľkosti:"
+
+#~ msgid "Embed"
+#~ msgstr "Zapustený"
+
+#~ msgid "Bo_rder:"
+#~ msgstr "_Hranice:"
+
+#~ msgid "Script"
+#~ msgstr "Skript"
+
+#~ msgid "HREF_LANG:"
+#~ msgstr "_HREF jazyk:"
+
+#~ msgid "T_itle:"
+#~ msgstr "_Titulok:"
+
+#~ msgid "_Forward Relation:"
+#~ msgstr "Relacia V_pred:"
+
+#~ msgid "_Reverse Relation:"
+#~ msgstr "Relacia V_zad:"
+
+#~ msgid "Media:"
+#~ msgstr "Média:"
+
+#~ msgid "L_ang:"
+#~ msgstr "J_azyk:"
+
+#~ msgid "_Custom:"
+#~ msgstr "V_lastni:"
+
+#~ msgid "Form"
+#~ msgstr "Formulár"
+
+#~ msgid "_Action:"
+#~ msgstr "_Akcia:"
+
+#~ msgid "Metho_d:"
+#~ msgstr "Metó_da:"
+
+#~ msgid "_Enctype:"
+#~ msgstr "_Enctype:"
+
+#~ msgid "Select"
+#~ msgstr "Výber"
+
+#~ msgid "Si_ze:"
+#~ msgstr "Veľ_kosť:"
+
+#~ msgid "Multiple _Selections:"
+#~ msgstr "Násobný _výber:"
+
+#~ msgid "Option"
+#~ msgstr "Vlastnosť"
+
+#~ msgid "_Label:"
+#~ msgstr "Štít_ok:"
+
+#~ msgid "_Selected:"
+#~ msgstr "V_ybrané:"
+
+#~ msgid "Option group"
+#~ msgstr "Skupina prvkov Option"
+
+#~ msgid "Input"
+#~ msgstr "Vstup"
+
+#~ msgid "_Checked:"
+#~ msgstr "_Zaškrtnutý:"
+
+#~ msgid "Max _Length:"
+#~ msgstr "Max dĺž_ka:"
+
+#~ msgid "_Accept:"
+#~ msgstr "_Akceptuje:"
+
+#~ msgid "C_ustom:"
+#~ msgstr "Vl_astne:"
+
+#~ msgid "On_Focus:"
+#~ msgstr "On_Focus:"
+
+#~ msgid "On_Blur:"
+#~ msgstr "On_Blur:"
+
+#~ msgid "On_Select:"
+#~ msgstr "On_Select:"
+
+#~ msgid "On_Change:"
+#~ msgstr "On_Change:"
+
+#~ msgid "Button"
+#~ msgstr "Tlačítko"
+
+#~ msgid "Cell _Padding:"
+#~ msgstr "Vnútorný odstu_p bunky:"
+
+#~ msgid "C_ell Spacing:"
+#~ msgstr "Roz_ostup mezi bunkami:"
+
+#~ msgid "_Valign:"
+#~ msgstr "_Vertikálne zarovnávanie:"
+
+#~ msgid "Backgrou_nd Color:"
+#~ msgstr "Farba p_ozadia:"
+
+#~ msgid "_Frame:"
+#~ msgstr "_Rám:"
+
+#~ msgid "R_ules:"
+#~ msgstr "Po_súvníky:"
+
+#~ msgid "Co_l Span:"
+#~ msgstr "Z_lúčenie stĺpcov:"
+
+#~ msgid "_Row Span:"
+#~ msgstr "Zlúčenie ria_dkov:"
+
+#~ msgid "No Wra_p:"
+#~ msgstr "Nazalamovať slo_vá:"
+
+#~ msgid "Insert thumbnail"
+#~ msgstr "Vložit náhľad"
+
+#~ msgid "Preview"
+#~ msgstr "Prehľad"
+
+#~ msgid "_Image location:"
+#~ msgstr "_Umíestnenie obrázku:"
+
+#~ msgid "Hei_ght:"
+#~ msgstr "_Výška:"
+
+#~ msgid "_Usemap:"
+#~ msgstr "Po_uži mapu:"
+
+#~ msgid "Alternate _text:"
+#~ msgstr "Alternativní _text:"
+
+#~ msgid "_Hspace:"
+#~ msgstr "_Horizontálna medzera:"
+
+#~ msgid "_Vspace:"
+#~ msgstr "_Vertikálna medzera:"
+
+#~ msgid "Borde_r:"
+#~ msgstr "Oh_raničenie:"
+
+#~ msgid "Select files for thumbnail creation"
+#~ msgstr "Zvoľte súbory k vytvoreniu náhľadu"
+
+#~ msgid "Scaling (%)"
+#~ msgstr "Zmena veľkosti (%)"
+
+#~ msgid "Width"
+#~ msgstr "Šířka"
+
+#~ msgid "Height"
+#~ msgstr "Výška"
+
+#~ msgid "Multi thumbnail"
+#~ msgstr "Viacnásobné náhľady"
+
+#~ msgid "By width, keep aspect ratio"
+#~ msgstr "Zmena šírky, dodržovať pomer strán"
+
+#~ msgid "By height, keep aspect ratio"
+#~ msgstr "Zmena výšky, dodržovať pomer strán"
+
+#~ msgid "By width and height, ignore aspect ratio"
+#~ msgstr "Zmena výšky a šírky, ignorovať pomer strán"
+
+#~ msgid ""
+#~ "%r: original filename  %t: thumbnail filename\n"
+#~ "%w: original width  %h: original height\n"
+#~ "%x: thumbnail width  %y: thumbnail height\n"
+#~ "%b: original size (bytes)"
+#~ msgstr ""
+#~ "%r: pôvodné méno  %t: méno náhľadu\n"
+#~ "%w: pôvodná šírka  %h: pôvodná výška\n"
+#~ "%x: šírka náhľadu  %y: výška náhľadu\n"
+#~ "%b: pôvodná veľkosť (bajtov)"
+
+#~ msgid "/Edit/Replace special/_ASCII to HTML Entities"
+#~ msgstr "/Úpravy/Nahradiť špecil./_ASCII na HTML Entity"
+
+#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
+#~ msgstr "/Úpravy/Nahradiť špecial./_ISO8859 na HTML Entity"
+
+#~ msgid "/Edit/Replace special/_Both Types to HTML Entities"
+#~ msgstr "/Úpravy/Nahradiť specil./O_ba typy na HTML Entity"
+
+#~ msgid "/Edit/Replace special/To _Uppercase"
+#~ msgstr "/Úpravy/Prepísať špeciálne/Na _Veľké písmena"
+
+#~ msgid "/Edit/Replace special/To _Lowercase"
+#~ msgstr "/Úpravy/Prepísať špeciálne/Na _Malé písmena"
+
+#~ msgid "/View/View _HTML Toolbar"
+#~ msgstr "/Zobraziť/_HTML lišta"
+
+#~ msgid "/_Tags"
+#~ msgstr "/_Tagy"
+
+#~ msgid "/Tags/_Headings"
+#~ msgstr "/Tagy/Nadpisy"
+
+#~ msgid "/Tags/Headings/H_1"
+#~ msgstr "/Tagy/Nadpisy/H_1"
+
+#~ msgid "/Tags/Headings/H_2"
+#~ msgstr "/Tagy/Nadpisy/H_2"
+
+#~ msgid "/Tags/Headings/H_3"
+#~ msgstr "/Tagy/Nadpisy/H_3"
+
+#~ msgid "/Tags/Headings/H_4"
+#~ msgstr "/Tagy/Nadpisy/H_4"
+
+#~ msgid "/Tags/Headings/H_5"
+#~ msgstr "/Tagy/Nadpisy/H_5"
+
+#~ msgid "/Tags/Headings/H_6"
+#~ msgstr "/Tagy/Nadpisy/H_6"
+
+#~ msgid "/Tags/_Special"
+#~ msgstr "/Tagy/Š_peciálne"
+
+#~ msgid "/Tags/Special/_Accent"
+#~ msgstr "/Tagy/Špeciálne/_Diakritika"
+
+#~ msgid "/Tags/Special/Accent/_Uppercase"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/_Velké písmena"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/_A-I"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/À "
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/Á"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/A zo strieškou Â"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/A s tildou Ã"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/Æ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/A s prehláskou Ä"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/A s kolečkom Å"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/C cédille  Ç"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/È"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
+#~ msgstr "/Tagy/Špeciální/Diakritika/Velké písmena/A-I/E s čárkou É"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/E zo strieškou Ê"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/E s prehláskou Ë"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/Ì"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/I s čiarkou Í"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/I do strieškou Î"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/I s prehláskou Ï"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/_J-Z"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/_J-Z"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/N s tildou Ñ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/Ò"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/O s čiarkou Ó"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/O so strieškou Ô"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/OE ligatúra Œ "
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/O s tildou Õ"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/O s prehláskou Ö"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/Ø"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/Ù"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/U s čisrkou Ú"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/U so strieškou Û"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/U s prehláskou Ü"
+
+#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/Y s čisrkou Ý"
+
+#~ msgid "/Tags/Special/Accent/_Lowercase"
+#~ msgstr "/Tagy/Špeciálné/Diakritika/Malé pí_smena"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/_A-I"
+#~ msgstr "/Tagy/Šeciálne/Diakritika/Malé písmena/_A-I"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/à"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/a s čiarkou á"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/a so strieškou â"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/a s tildou ã"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/a s kolečkem å"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/æ"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/a s prehláskou ä"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/c cédille ç"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/è"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/e s čiarkou é"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/e se strieškou ê"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/e s prehláskou ë"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/ì"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/i s čiarkou í"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/i se strieškou î"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/i s prehláskou ï"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/_J-Z"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/_J-Z"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/n s tildou ñ"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
+#~ msgstr "/Tagy/Śpeciálne/Diakritika/Malé písmena/J-Z/ò"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Mal= písmena/J-Z/o s čisrkou ó"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/oe ligatúra œ "
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malá písmena/J-Z/o so strieškou ô"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/o s tildou õ"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/o s prehláškou ö"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/ø"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/ù"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/u s čiarkou ú"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/u so strieškou û"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/u s prehláskou ü"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/y s čiarkou ý"
+
+#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/y s prehláskou ÿ"
+
+#~ msgid "/Tags/Special/Accent/U_mlaut ¨"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/_Prehláska ¨"
+
+#~ msgid "/Tags/Special/Accent/_Acute ´"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/Čia_rka ´"
+
+#~ msgid "/Tags/Special/Accent/_Cedilla ¸"
+#~ msgstr "/Tagy/Špeciálne/Diakritika/_Cédille"
+
+#~ msgid "/Tags/Special/_Currency"
+#~ msgstr "/Tagy/Špeciálne/Me_na"
+
+#~ msgid "/Tags/Special/Currency/_Cent sign ¢"
+#~ msgstr "/Tagy/Špeciálne/Mena/_Cent ¢"
+
+#~ msgid "/Tags/Special/Currency/_Pound sterling £"
+#~ msgstr "/Tagy/Špeciálne/Mena/_Pence £"
+
+#~ msgid "/Tags/Special/Currency/C_urrency sign ¤"
+#~ msgstr "/Tagy/Špeciálne/Mena/Znak me_ny ¤"
+
+#~ msgid "/Tags/Special/Currency/_Yen sign ¥"
+#~ msgstr "/Tagy/Špeciálne/Mena/_Yen ¥"
+
+#~ msgid "/Tags/Special/Currency/_Euro "
+#~ msgstr "/Tagy/Špeciálne/_Euro €"
+
+#~ msgid "/Tags/Special/_Math-Science"
+#~ msgstr "/Tagy/Špeciálne/_Matematicko-Vedecké"
+
+#~ msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
+#~ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Lo_gický zápor ¬"
+
+#~ msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
+#~ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Znak _multiplikacie ×"
+
+#~ msgid "/Tags/Special/Math-Science/_Division sign ÷"
+#~ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/_Delenie ÷"
+
+#~ msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
+#~ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/_PlusMínus ±"
+
+#~ msgid "/Tags/Special/Math-Science/_Less-than sign <"
+#~ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Me_nšie než <"
+
+#~ msgid "/Tags/Special/Math-Science/_Greater-than sign >"
+#~ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Večšíe než >"
+
+#~ msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
+#~ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Horni index _1 ¹"
+
+#~ msgid "/Tags/Special/Math-Science/Superscript _2 ²"
+#~ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Horni index _2 ²"
+
+#~ msgid "/Tags/Special/Math-Science/Superscript _3 ³"
+#~ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Horni index _3 ³"
+
+#~ msgid "/Tags/Special/Math-Science/One _quarter ¼"
+#~ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Š_tvrtina ¼"
+
+#~ msgid "/Tags/Special/Math-Science/One _half ½"
+#~ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Pol_ovica ½"
+
+#~ msgid "/Tags/Special/Math-Science/_Three quarters ¾"
+#~ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/_Tri štvrtiny ¾"
+
+#~ msgid "/Tags/Special/Math-Science/Deg_ree sign °"
+#~ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/_Stupeň °"
+
+#~ msgid "/Tags/Special/_Non Latin"
+#~ msgstr "/Tagy/Špeciálne/Iné ako _Latin"
+
+#~ msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
+#~ msgstr "/Tagy/Špeciálne/Iné ako Latin/_ETH (Islandské) Ð"
+
+#~ msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
+#~ msgstr "/Tagy/Špeciálne/Iné ako Latin/_THORN (Islandské) Þ"
+
+#~ msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
+#~ msgstr "/Tagy/Špeciálne/Iné ako Latin/et_h (Islandské) ð"
+
+#~ msgid "/Tags/Special/Non Latin/th_orn ÿ"
+#~ msgstr "/Tagy/Špeciálne/Iné ako Latin/th_orn ÿ"
+
+#~ msgid "/Tags/Special/Non Latin/Sharp _s ß"
+#~ msgstr "/Tagy/Špeciálne/Iné ako Latin/Ostré _s ß"
+
+#~ msgid "/Tags/Special/Non Latin/_Micro sign µ"
+#~ msgstr "/Tagy/Špeciálne/Iné ako Latin/Znak _mikro µ"
+
+#~ msgid "/Tags/Special/_Other"
+#~ msgstr "/Tagy/Špeciálne/_Iné"
+
+#~ msgid "/Tags/Special/Other/_Non-breaking space"
+#~ msgstr "/Tagy/Špeciálne/Iné/_Nedelitelná mezera"
+
+#~ msgid "/Tags/Special/Other/_Section sign §"
+#~ msgstr "/Tagy/Špeciálne/Iné/_Paragraf §"
+
+#~ msgid "/Tags/Special/Other/_Copyright sign ©"
+#~ msgstr "/Tagy/Špeciálne/Iné/_Coryright ©"
+
+#~ msgid "/Tags/Special/Other/_Left angle quotes «"
+#~ msgstr "/Tagy/Špeciálne/Iné/«"
+
+#~ msgid "/Tags/Special/Other/_Right angle quotes »"
+#~ msgstr "/Tagy/Špeciálne/Iné/»"
+
+#~ msgid "/Tags/Special/Other/Registered _trademark ®"
+#~ msgstr "/Tagy/Špeciálne/Iné/®"
+
+#~ msgid "/Tags/Special/Other/Inverted _exclamation ¡"
+#~ msgstr "/Tagy/Špeciálne/Iné/Obrátený v_ykričník ¡"
+
+#~ msgid "/Tags/Special/Other/Inverted _question mark ¿"
+#~ msgstr "/Tagy/Špeciálne/Iné/Obrátený otazník ¿"
+
+#~ msgid "/Tags/Special/Other/_Feminine ordinal ª"
+#~ msgstr "/Tagy/Špeciálne/Iné/Žen_ské znameníe ª"
+
+#~ msgid "/Tags/Special/Other/_Masculine ordinal º"
+#~ msgstr "/Tagy/Špeciálne/Iné/Mužské znamenie º"
+
+#~ msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
+#~ msgstr "/Tagy/Špeciálne/Iné/_Pilcrow (znak odstavca) ¶"
+
+#~ msgid "/Tags/Special/Other/_Broken bar ¦"
+#~ msgstr "/Tagy/Špeciálne/Iné/Prerušená rura ¦"
+
+#~ msgid "/Tags/Special/Other/Soft _hypen -"
+#~ msgstr "/Tagy/Špeciálne/Iné/Pomlčka -"
+
+#~ msgid "/Tags/Special/Other/Spa_cing macron ¯"
+#~ msgstr "/Tagy/Špeciálne/Iné/Nadt_ržítko ¯"
+
+#~ msgid "/Tags/Special/Other/Middle _dot ·"
+#~ msgstr "/Tagy/Špeciálne/Iné/Bodka uprostre_d ·"
+
+#~ msgid "/Tags/_Format by layout"
+#~ msgstr "/Tagy/_Formát podľa umiestnenia"
+
+#~ msgid "/Tags/Format by layout/_Bold"
+#~ msgstr "/Tagy/Formát podľa umíestnenia/_Tučné"
+
+#~ msgid "/Tags/Format by layout/_Italic"
+#~ msgstr "/Tagy/Formát podľa umíestnenia/_Kurzívá"
+
+#~ msgid "/Tags/Format by layout/_Underline"
+#~ msgstr "/Tagy/Formát podľa umíestnenia/_Podčiarknuté"
+
+#~ msgid "/Tags/Format by layout/_Strikeout"
+#~ msgstr "/Tagy/Formát podľa umíestnenia/Prešk_rtnuté"
+
+#~ msgid "/Tags/Format by layout/Sm_all"
+#~ msgstr "/Tagy/Formát podľa umíestnenia/M_alé"
+
+#~ msgid "/Tags/Format by layout/Bi_g"
+#~ msgstr "/Tagy/Formát podľa umíestnenia/_Veľké"
+
+#~ msgid "/Tags/F_ormat by context"
+#~ msgstr "/Tagy/Formát podľa obsahu"
+
+#~ msgid "/Tags/Format by context/_Strong"
+#~ msgstr "/Tagy/Formát podľa obsahu/_Silné"
+
+#~ msgid "/Tags/Format by context/_Emphasis"
+#~ msgstr "/Tagy/Formát podľa obsahu/_Zvýraznené"
+
+#~ msgid "/Tags/Format by context/_Define"
+#~ msgstr "/Tagy/Formát podľa obsahu/_Definícia"
+
+#~ msgid "/Tags/Format by context/_Code"
+#~ msgstr "/Tagy/Formát podľa obsahu/_Kód"
+
+#~ msgid "/Tags/Format by context/Sa_mple"
+#~ msgstr "/Tagy/Formát podľa obsahu/Príkl_ad"
+
+#~ msgid "/Tags/Format by context/_Keyboard"
+#~ msgstr "/Tagy/Formát podľa obsahu/Klá_vesnica"
+
+#~ msgid "/Tags/Format by context/_Variable"
+#~ msgstr "/Tagy/Formát podľa obsahu/_Premenná"
+
+#~ msgid "/Tags/Format by context/Ci_tation"
+#~ msgstr "/Tagy/Formát podľa obsahu/Ci_tácia"
+
+#~ msgid "/Tags/Format by context/_Abbreviation"
+#~ msgstr "/Tagy/Formát podľa obsahu/Výťa_h"
+
+#~ msgid "/Tags/Format by context/Ac_ronym"
+#~ msgstr "/Tagy/Formát podľa obsahu/Akr_onym"
+
+#~ msgid "/Tags/Format _general"
+#~ msgstr "/Tagy/Formát obecný"
+
+#~ msgid "/Tags/Format general/_Paragraph"
+#~ msgstr "/Tagy/Formát obecný/_Odstavec"
+
+#~ msgid "/Tags/Format general/_Break"
+#~ msgstr "/Tagy/Formát obecný/_Zalomenie"
+
+#~ msgid "/Tags/Format general/Break clear _all"
+#~ msgstr "/Tagy/Formát obecný/_Konec riadku (clear all)"
+
+#~ msgid "/Tags/Format general/_Non-Breaking Space"
+#~ msgstr "/Tagy/Formát obecný/_Nedelitelná mezera"
+
+#~ msgid "/Tags/Format general/Font Si_ze +1"
+#~ msgstr "/Tagy/Formát obecný/Z_väčšiť Font +1"
+
+#~ msgid "/Tags/Format general/Font _Size -1"
+#~ msgstr "/Tagy/Formát obecný/Z_väčšiť Fontu -1"
+
+#~ msgid "/Tags/Format general/Preformatted _Text"
+#~ msgstr "/Tagy/Formát obecný/Predformátovaný _Text"
+
+#~ msgid "/Tags/Format general/Su_bscript"
+#~ msgstr "/Tagy/Formát obecný/Do_lní index"
+
+#~ msgid "/Tags/Format general/Su_perscript"
+#~ msgstr "/Tagy/Formát obecný/Ho_rní index"
+
+#~ msgid "/Tags/Format general/_Center"
+#~ msgstr "/Tagy/Formát obecný/Zarovnaníe na _stred"
+
+#~ msgid "/Tags/Format general/Align _right"
+#~ msgstr "/Tagy/Formát obecný/Zarovnwníe v_pravo"
+
+#~ msgid "/Tags/_Table"
+#~ msgstr "/Tagy/_Tabuľka"
+
+#~ msgid "/Tags/Table/_Table"
+#~ msgstr "/Tagy/Tabuľka/_Tabuľka"
+
+#~ msgid "/Tags/Table/Table _Row"
+#~ msgstr "/Tagy/Tabuľka/Riá_dok Tabuľky"
+
+#~ msgid "/Tags/Table/Table _Header"
+#~ msgstr "/Tagy/Tabuľka/_Hlavička Tabuľky"
+
+#~ msgid "/Tags/Table/Table _Data"
+#~ msgstr "/Tagy/Tabuľka/_Bunka Tabuľky"
+
+#~ msgid "/Tags/Table/Table _Caption"
+#~ msgstr "/Tagy/Tabuľka/_Podtitulok Tabuľky"
+
+#~ msgid "/Tags/_List"
+#~ msgstr "/Tagy/_Zoznam"
+
+#~ msgid "/Tags/List/Unordered _List"
+#~ msgstr "/Tagy/Zoznam/_Nečíslovaný Zoznam"
+
+#~ msgid "/Tags/List/_Ordered List"
+#~ msgstr "/Tagy/Zoznam/Čí_slovaný Zoznam"
+
+#~ msgid "/Tags/List/List Ite_m"
+#~ msgstr "/Tagy/Zoznam/_Položka Zoznamu"
+
+#~ msgid "/Tags/List/De_finition List"
+#~ msgstr "/Tagy/Zoznam/Zoznam _Definícia"
+
+#~ msgid "/Tags/List/Definition _Term"
+#~ msgstr "/Tagy/Zoznam/Definiční _Termín"
+
+#~ msgid "/Tags/List/_Definition"
+#~ msgstr "/Tagy/Zoznam/De_finície"
+
+#~ msgid "/Tags/List/Men_u"
+#~ msgstr "/Tagy/Zoznam/Po_nuka"
+
+#~ msgid "/Tags/Fo_rm"
+#~ msgstr "/Dialogy/Fo_rmulár"
+
+#~ msgid "/Tags/Form/_Form"
+#~ msgstr "/Dialogy/Formulár/_Formulár"
+
+#~ msgid "/Tags/Form/_Button"
+#~ msgstr "/Dialogy/Formulár/_Obecné tlačítko"
+
+#~ msgid "/Tags/Form/_Input"
+#~ msgstr "/Dialogy/Formulár/Fo_rmulárové tlačítko"
+
+#~ msgid "/Tags/Form/_Textarea"
+#~ msgstr "/Dialogy/Formulár/_Textové pole"
+
+#~ msgid "/Tags/_Misc"
+#~ msgstr "/Tagy/_Rôzné"
+
+#~ msgid "/Tags/Misc/Insert Generator _META-Tag"
+#~ msgstr "/Tagy/Rôzné/Vložiť Generator _META-Tag"
+
+#~ msgid "/Tags/Misc/_Span"
+#~ msgstr "/Tagy/Rôzné/_Span"
+
+#~ msgid "/Tags/Misc/_Div"
+#~ msgstr "/Tagy/Rôzné/_Div"
+
+#~ msgid "/Tags/Misc/_Link"
+#~ msgstr "/Tagy/Rôzné/_Link"
+
+#~ msgid "/Tags/Misc/S_cript"
+#~ msgstr "/Tagy/Rôzné/S_kript"
+
+#~ msgid "/Tags/Misc/_Anchor"
+#~ msgstr "/Tagy/Rôzné/Ko_tva"
+
+#~ msgid "/Tags/Misc/_Image"
+#~ msgstr "/Tagy/Rôzné/_Obrázok"
+
+#~ msgid "/Tags/_Comment"
+#~ msgstr "/Tagy/_Komentár"
+
+#~ msgid "/Dial_ogs"
+#~ msgstr "/_Dialogy"
+
+#~ msgid "/Dialogs/_General"
+#~ msgstr "/Dialogy/_Obecné"
+
+#~ msgid "/Dialogs/General/_Quickstart..."
+#~ msgstr "/Dialogy/Obecné/_Rýchle Začať..."
+
+#~ msgid "/Dialogs/General/_Link Header..."
+#~ msgstr "/Dialogy/General/_Link Hlavičky... "
+
+#~ msgid "/Dialogs/General/_Body..."
+#~ msgstr "/Dialogy/Obecné/_Body..."
+
+#~ msgid "/Dialogs/General/_Anchor..."
+#~ msgstr "/Dialogy/Obecné/_Kotva..."
+
+#~ msgid "/Dialogs/General/_Email..."
+#~ msgstr "/Dialogy/Obecné/_Email..."
+
+#~ msgid "/Dialogs/General/_Rule..."
+#~ msgstr "/Dialogy/Obecné/_Horizontálna Čia_ra..."
+
+#~ msgid "/Dialogs/General/_Font..."
+#~ msgstr "/Dialogy/Obecné/_Písmo..."
+
+#~ msgid "/Dialogs/General/Basef_ont..."
+#~ msgstr "/Dialogy/Obecné/Základný f_ont..."
+
+#~ msgid "/Dialogs/General/Quick_list..."
+#~ msgstr "/Dialogy/Obecné/Rýchle _zoznam..."
+
+#~ msgid "/Dialogs/General/_Meta..."
+#~ msgstr "/Dialogy/Obecné/_Meta..."
+
+#~ msgid "/Dialogs/General/Embe_d..."
+#~ msgstr "/Dialogy/Obecné/Embe_d..."
+
+#~ msgid "/Dialogs/General/Select _Color..."
+#~ msgstr "/Dialogy/Obecné/Výber _Farby..."
+
+#~ msgid "/Dialogs/General/Insert _Time..."
+#~ msgstr "/Dialogy/Obecné/Vložennie Č_asu..."
+
+#~ msgid "/Dialogs/General/Insert _Image..."
+#~ msgstr "/Dialogy/Obecné/Vloženíe _Obrázku..."
+
+#~ msgid "/Dialogs/General/Insert T_humbnail..."
+#~ msgstr "/Dialogy/Obecné/Vloženíe _Náhľadu..."
+
+#~ msgid "/Dialogs/_Table"
+#~ msgstr "/Dialogy/_Tabuľka"
+
+#~ msgid "/Dialogs/Table/Table _Wizard..."
+#~ msgstr "/Dialogy/Tabuľka/_Sprievodca Tabuľkou..."
+
+#~ msgid "/Dialogs/Table/_Table..."
+#~ msgstr "/Dialogy/Tabuľka/_Tabuľka..."
+
+#~ msgid "/Dialogs/Table/Table _Row..."
+#~ msgstr "/Dialogy/Tabuľka/Riá_dok tabuľky..."
+
+#~ msgid "/Dialogs/Table/Table _Head..."
+#~ msgstr "/Dialogy/Tabuľka/_Hlavička Tabuľky..."
+
+#~ msgid "/Dialogs/Table/Table _Data..."
+#~ msgstr "/Dialogy/Tabuľka/_Bunka Tabuľky..."
+
+#~ msgid "/Dialogs/_CSS"
+#~ msgstr "/Dialogy/_CSS"
+
+#~ msgid "/Dialogs/CSS/_Create Style..."
+#~ msgstr "/Dialogy/CSS/_Vytvoreníe štylu..."
+
+#~ msgid "/Dialogs/CSS/S_pan..."
+#~ msgstr "/Dialogy/CSS/S_pan..."
+
+#~ msgid "/Dialogs/CSS/_Div..."
+#~ msgstr "/Dialogy/CSS/_Div..."
+
+#~ msgid "/Dialogs/CSS/_Style..."
+#~ msgstr "/Dialogy/CSS/_Štyl..."
+
+#~ msgid "/Dialogs/CSS/_Link to Stylesheet..."
+#~ msgstr "/Dialogy/CSS/_Link na štylopis..."
+
+#~ msgid "/Dialogs/_Frame"
+#~ msgstr "/Dialogy/_Rám"
+
+#~ msgid "/Dialogs/Frame/Frame _Wizard..."
+#~ msgstr "/Dialogy/Rám/_Sprievodca Rámy..."
+
+#~ msgid "/Dialogs/Frame/Frame_set..."
+#~ msgstr "/Dialogy/Rám/_Definicia Rámu..."
+
+#~ msgid "/Dialogs/Frame/_Frame..."
+#~ msgstr "/Dialogy/Rám/_Rám..."
+
+#~ msgid "/Dialogs/F_orm"
+#~ msgstr "/Dialogy/F_ormulár"
+
+#~ msgid "/Dialogs/Form/F_orm..."
+#~ msgstr "/Dialogy/Formulár/F_ormulár..."
+
+#~ msgid "/Dialogs/Form/_Input..."
+#~ msgstr "/Dialogy/Formulár/Vstupný _prvok..."
+
+#~ msgid "/Dialogs/Form/Input Buttons..."
+#~ msgstr "/Dialogy/Formulár/Vstupné _tlačítka..."
+
+#~ msgid "/Dialogs/Form/Input Text..."
+#~ msgstr "/Dialogy/Formulár/Text..."
+
+#~ msgid "/Dialogs/Form/Text_area..."
+#~ msgstr "/Dialogy/Formulár/Textové p_ole..."
+
+#~ msgid "/Dialogs/Form/_Select..."
+#~ msgstr "/Dialogy/Formulár/_Výber..."
+
+#~ msgid "/Dialogs/Form/O_ption..."
+#~ msgstr "/Dialogy/Formulár/Vstup O_ption..."
+
+#~ msgid "/Dialogs/Form/Option _Group..."
+#~ msgstr "/Dialogy/Formulár/Vstup Opt_group..."
+
+#~ msgid "/Dialogs/Form/_Button..."
+#~ msgstr "/Dialogy/Formulár/O_becné Tlačítko..."
+
+#~ msgid "/Dialogs/_Edit tag under cursor..."
+#~ msgstr "/Dialogy/_Editovať tag pod kurzorom..."
+
+#~ msgid "/Help/_About..."
+#~ msgstr "/Nápoveda/_O Bluefish..."
+
+#~ msgid "Loading file(s)..."
+#~ msgstr "Načítanie súboru(ov)..."
+
+#~ msgid "The filename was:\n"
+#~ msgstr "Soubor sa menoval:\n"
+
+#~ msgid "Could not view file in browser, the file does not yet have a name\n"
+#~ msgstr ""
+#~ "Nemôžem zobraziť súbor v prehliadači, protože doposiaľ nebol pomenováný a "
+#~ "uložený\n"
+
+#~ msgid "These files were not opened:\n"
+#~ msgstr "Tieto súbory neboly otvorené:\n"
+
+#~ msgid "Extensions"
+#~ msgstr "Koncovka"
+
+#~ msgid "Editable"
+#~ msgstr "Editovateľný"
+
+#~ msgid "Content regex"
+#~ msgstr "Obsah reg. výraz"
+
+#~ msgid "Auto close tags mode"
+#~ msgstr "Režim Automatického uzatvárania tagov "
+
+#~ msgid "Inverse filter"
+#~ msgstr "Inverzní filter"
+
+#~ msgid "Reset"
+#~ msgstr "Reset"
+
+#~ msgid "Pattern name"
+#~ msgstr "Méno vzorky"
+
+#~ msgid "Start pattern and end pattern"
+#~ msgstr "Počiatoční reťazec a koncový reťazec"
+
+#~ msgid "Only start pattern"
+#~ msgstr "Iba počiatoční reťazec"
+
+#~ msgid "Subpattern from parent"
+#~ msgstr "Podreťazec z reťazca"
+
+#~ msgid "Start pattern"
+#~ msgstr "Štartovní reťazec"
+
+#~ msgid "End pattern"
+#~ msgstr "Koncový reťazec"
+
+#~ msgid "Parentmatch"
+#~ msgstr "Rodičovský"
+
+#~ msgid ""
+#~ "%s for current filename (any command)\n"
+#~ "%i for input and %f for output filename (filters)"
+#~ msgstr ""
+#~ "%s pre tento súbor (akýkoľvek príkaz)\n"
+#~ "%i pre vstupní a %f pre výstupní soubor (filtre)"
+
+#~ msgid "no check"
+#~ msgstr "nekontrolovať"
+
+#~ msgid "check mtime"
+#~ msgstr "kontrolovať čas modifikácie súboru"
+
+#~ msgid "check size"
+#~ msgstr "kontrolovať veľkosť súboru"
+
+#~ msgid "Enable highlighting PCRE UTF-8 support"
+#~ msgstr "Povoliť podporu zvýrazňovania PCRE UTF-8"
+
+#~ msgid "Highlight # lines"
+#~ msgstr "Zvýrazňovať # riadky"
+
+#~ msgid "Bookmark options"
+#~ msgstr "Predvoľby záložiek"
+
+#~ msgid "full path"
+#~ msgstr "celá cesta"
+
+#~ msgid "path from basedir"
+#~ msgstr "relatívna cesta"
+
+#~ msgid "filename"
+#~ msgstr "iba meno súboru"
+
+#~ msgid "Bookmarks filename display"
+#~ msgstr "Názvy súborov v záložkách"
+
+#~ msgid "save"
+#~ msgstr "uložiť"
+
+#~ msgid "abort"
+#~ msgstr "ukončiť"
+
+#~ msgid "ask"
+#~ msgstr "spítať sa"
+
+#~ msgid "Action on backup failure"
+#~ msgstr "Akcia pri skolabovaní zálohy"
+
+#~ msgid "Allow multi instances of a file"
+#~ msgstr "Povoliť niekoľkonásobné otvorenie rovnakého súboru"
+
+#~ msgid "File modified on disk check "
+#~ msgstr "Kontrola modifikace súborů na disku"
+
+#~ msgid "File browser"
+#~ msgstr "Prehliadač súborov"
+
+#~ msgid "Directory icon"
+#~ msgstr "Ikona adresár"
+
+#~ msgid "External browsers in submenu"
+#~ msgstr "Externí prehliadač v submenu"
+
+#~ msgid "External commands in submenu"
+#~ msgstr "Externé príkazy v submenu"
+
+#~ msgid "External outputbox in submenu"
+#~ msgstr "Esterní výstup v submenu"
+
+#~ msgid "Filetypes"
+#~ msgstr "Typy súborů"
+
+#~ msgid "Filefilters"
+#~ msgstr "Súborové filtre"
+
+#~ msgid "Patterns"
+#~ msgstr "Vzorky"
+
+#~ msgid "External programs"
+#~ msgstr "Externé programy"
+
+#~ msgid "Browsers"
+#~ msgstr "Prehliadače"
+
+#~ msgid "Utilities and filters"
+#~ msgstr "Nástroje a filtre"
+
+#~ msgid "Outputbox"
+#~ msgstr "Výstupné okno"
+
+#~ msgid "Do you want to save the project?"
+#~ msgstr "Chcete projekt uložit?"
+
+#~ msgid "<b>E_xternal Style Sheet</b>"
+#~ msgstr "<b>E_xterná štýlova mapa</b>"
+
+#~ msgid "Ty_pe:"
+#~ msgstr "_Typ: "
+
+#~ msgid "HRE_F:"
+#~ msgstr "_HREF: "
+
+#~ msgid "_Media:"
+#~ msgstr "_Média:"
+
+#~ msgid "Titl_e:"
+#~ msgstr "_Titulok:"
+
+#~ msgid "<b>Style Area</b>"
+#~ msgstr "<b>Oblasť štýlu</b>"
+
+#~ msgid "Cre_ate empty style area"
+#~ msgstr "Vytvoriť prázdnu štýlovú oblasť"
+
+#~ msgid "<b>Attributes</b>"
+#~ msgstr "<b>Atribúty</b>"
+
+#~ msgid "_Src:"
+#~ msgstr "_Zdroj:"
+
+#~ msgid "<b>Script Area</b>"
+#~ msgstr "Priestor Scriptu"
+
+#~ msgid "Cre_ate empty script area"
+#~ msgstr "Vytvoriť prázdnu skriptovú oblasť"
+
+#~ msgid "_DTD:"
+#~ msgstr "_DTD:"
+
+#~ msgid "_Head:"
+#~ msgstr "_Hlavička:"
+
+#~ msgid "Galeon"
+#~ msgstr "Galeon"
+
+#~ msgid "Mozilla"
+#~ msgstr "Mozilla"
+
+#~ msgid "Opera"
+#~ msgstr "Opera"
+
+#~ msgid "Netscape"
+#~ msgstr "Netscape"
+
+#~ msgid "Gnome default"
+#~ msgstr "Výchozí pre Gnome"
+
+#~ msgid "make"
+#~ msgstr "make"
+
+#~ msgid "weblint HTML checker"
+#~ msgstr "weblint HTML parser"
+
+#~ msgid "tidy HTML validator"
+#~ msgstr "tidy HTML validátor"
+
+#~ msgid "javac"
+#~ msgstr "javac"
+
+#~ msgid "xmllint XML checker"
+#~ msgstr "xmllint XML parser"
+
+#~ msgid "php"
+#~ msgstr "php"
+
+#~ msgid "Dos2Unix filter"
+#~ msgstr "Dos2Unix filtr"
+
+#~ msgid "Tidy cleanup filter"
+#~ msgstr "Tidy čistiací filter"
+
+#~ msgid "Java programming"
+#~ msgstr "Java programovanie"
+
+#~ msgid "Confirm replace"
+#~ msgstr "Potvrďte nahradeníe"
+
+#~ msgid "Replace selected text?"
+#~ msgstr "Nahradiť vybraný text?"
+
+#~ msgid "Search: no match found"
+#~ msgstr "Hľadanie: nič nenájdené"
+
+#~ msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
+#~ msgstr "\\0 odkazuje na prví podvzorek hľadania, \\1 na druhý atd."
+
+#~ msgid "Beginning of document till end"
+#~ msgstr "Od začiatku dokumentu do jeho konca"
+
+#~ msgid "Current position till end"
+#~ msgstr "Od pozície kurzoru do konca dokumentu"
+
+#~ msgid "Beginning of selection till end of selection"
+#~ msgstr "Od začiatku výberu do konce výberu"
+
+#~ msgid "All opened files begin till end"
+#~ msgstr "Vo všetkých otvorených súboroch od začiatku do konca"
+
+#~ msgid "Disabled"
+#~ msgstr "Vypnute"
+
+#~ msgid "Starts at:"
+#~ msgstr "Kde začať:"
+
+#~ msgid "Regular expression:"
+#~ msgstr "Regulárni výraz:"
+
+#~ msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
+#~ msgstr "Re_ťazec obsahuje backslash escape sekvencie (\\n, \\t)"
+
+#~ msgid "_Match case"
+#~ msgstr "_Rozlišovať velké/malé písmena"
+
+#~ msgid "Prompt _before replace"
+#~ msgstr "Opítať sa _pred nahradením"
+
+#~ msgid "Replace o_nce"
+#~ msgstr "_Nahradiť iba raz"
+
+#~ msgid "Table Wizard"
+#~ msgstr "Sprievodca tabuľkou"
+
+#~ msgid "Number of _rows:"
+#~ msgstr "Počet ria_dkov:"
+
+#~ msgid "Number of colu_mns:"
+#~ msgstr "Počet _stĺpcov:"
+
+#~ msgid "Table rows on one _line:"
+#~ msgstr "Tabuľkové riadky vkládať do _jednej riadky:"
+
+#~ msgid "_Indent table code:"
+#~ msgstr "_Odsazovať kód tabuľky:"
+
+#~ msgid "Frame Wizard"
+#~ msgstr "Sprievodca Ramov"
+
+#~ msgid "Use _DTD:"
+#~ msgstr "Použíť _DTD:"
+
+#~ msgid "Orientation:"
+#~ msgstr "Orientácia:"
+
+#~ msgid "_Horizontal"
+#~ msgstr "_Horizontálne"
+
+#~ msgid "_Vertical"
+#~ msgstr "_Vertikálne"
+
+#~ msgid "Number of _Frames:"
+#~ msgstr "Počet ré_mov:"
+
+#~ msgid "Frame's"
+#~ msgstr "Rámy"
+
+#~ msgid "Name:"
+#~ msgstr "Meno:"
+
+#~ msgid "Source:"
+#~ msgstr "Zdroj:"
+
+#~ msgid "Size:"
+#~ msgstr "Velikosť:"
+
+#~ msgid "/Document/Highlight Syntax"
+#~ msgstr "/Dokument/Zvýrazneníe syntaxu"
+
+#~ msgid "Show hidden"
+#~ msgstr "Zobraziť skryté"

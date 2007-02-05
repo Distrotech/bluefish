@@ -1,0 +1,204 @@
+# translation of 17-01-06_sk-2.po to
+# Blue Fish - HTML Editor pre programátorov.
+# Copyright (C) 2000, 2006 Free Software Foundation, Inc.
+# FIRST AUTHOR Vladimir VASIL <vvasil@post.sk>, 2005.
+# Vladimir VASIL <vlado@localhost.localdomain>, 2006.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 17-01-06_sk-2\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2007-01-14 08:08-0800\n"
+"PO-Revision-Date: 2006-01-18 14:51+0100\n"
+"Last-Translator: Vladimir VASIL <vvasil@post.sk>\n"
+"Language-Team:  <sk@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"First-Translator: Vladimir VASIL <vvasil@post.sk>\n"
+"X-Generator: KBabel 1.10\n"
+
+#: src/plugin_snippets/snippets_gui.c:230
+msgid "Set accelerator key"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:262
+#, fuzzy
+msgid "/_New snippet"
+msgstr "/_Vytvoriť adresár"
+
+#: src/plugin_snippets/snippets_gui.c:263
+msgid "/_Edit snippet"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:264
+#, fuzzy
+msgid "/_Delete snippet"
+msgstr "/_Zmazať"
+
+#: src/plugin_snippets/snippets_gui.c:265
+#, fuzzy
+msgid "/Delete branch"
+msgstr "Zmazať všetko"
+
+#: src/plugin_snippets/snippets_gui.c:267
+msgid "/Set snippet _accelerator"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:269
+msgid "/Expand all"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:270
+#, fuzzy
+msgid "/Collapse all"
+msgstr "Zavri_eť všetko"
+
+#: src/plugin_snippets/snippets_gui.c:377
+msgid "Click the right mouse button to add, edit or delete snippets."
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:419
+msgid "snippets"
+msgstr ""
+
+#: src/plugin_snippets/snippets_leaf_insert.c:93
+#, fuzzy
+msgid "[cursor position or selection]"
+msgstr "Nastavenie kurzora na začiatku riadka"
+
+#: src/plugin_snippets/snippets_leaf_snr.c:152
+#, fuzzy
+msgid "Search for: '"
+msgstr "Čo _hľadať:"
+
+#: src/plugin_snippets/snippets_leaf_snr.c:152
+#, fuzzy
+msgid "', replace with: '"
+msgstr "Nahra_diť čím:"
+
+#: src/plugin_snippets/snippets_wizard.c:110
+#, fuzzy
+msgid "Entire document"
+msgstr "V _dokumente"
+
+#: src/plugin_snippets/snippets_wizard.c:111
+#, fuzzy
+msgid "Forward from cursor position"
+msgstr "Nastavenie kurzora na začiatku riadka"
+
+#: src/plugin_snippets/snippets_wizard.c:112
+#, fuzzy
+msgid "Selection"
+msgstr "Výber"
+
+#: src/plugin_snippets/snippets_wizard.c:113
+#, fuzzy
+msgid "All open files"
+msgstr "Všetky webové súbory"
+
+#: src/plugin_snippets/snippets_wizard.c:117
+msgid "Normal"
+msgstr "Normálni"
+
+#: src/plugin_snippets/snippets_wizard.c:118
+msgid "Entire word only"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:119
+#, fuzzy
+msgid "POSIX"
+msgstr "POSIXový typ"
+
+#: src/plugin_snippets/snippets_wizard.c:120
+#, fuzzy
+msgid "PERL"
+msgstr "PERLovský typ"
+
+#: src/plugin_snippets/snippets_wizard.c:131
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:138
+msgid "_Search for: "
+msgstr "Čo _hľadať:"
+
+#: src/plugin_snippets/snippets_wizard.c:142
+#, fuzzy
+msgid "Replace _with: "
+msgstr "Nahra_diť čím:"
+
+#: src/plugin_snippets/snippets_wizard.c:149
+msgid "Sco_pe: "
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:156
+#, fuzzy
+msgid "Match Patter_n: "
+msgstr "Najsť Vzorku"
+
+#: src/plugin_snippets/snippets_wizard.c:159
+#, fuzzy
+msgid "Case sensitive _matching"
+msgstr "Rozlišovať malé/velké písmena"
+
+#: src/plugin_snippets/snippets_wizard.c:162
+#, fuzzy
+msgid "_Use escape chars"
+msgstr "Aktualizovať znaky"
+
+#: src/plugin_snippets/snippets_wizard.c:335
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:341
+msgid "<i>Before</i> text"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:351
+msgid "<i>After</i> text"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:466
+msgid "Enter the name of the branch:"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:549
+msgid "Name of the new item:"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:554
+#, fuzzy
+msgid "Description:"
+msgstr "_Popis:"
+
+#: src/plugin_snippets/snippets_wizard.c:604
+msgid "Select what you want to add"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:606
+msgid "Branch"
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:608
+#, fuzzy
+msgid "Insert string"
+msgstr "Vlož obrázok"
+
+#: src/plugin_snippets/snippets_wizard.c:610
+#, fuzzy
+msgid "Search and replace pattern"
+msgstr "Najsť Vzorku"
+
+#: src/plugin_snippets/snippets_wizard.c:717
+#, fuzzy
+msgid "New snippet"
+msgstr "Nový projekt"
