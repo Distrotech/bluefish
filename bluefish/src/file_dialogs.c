@@ -559,7 +559,7 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 		const gchar *realname = g_get_real_name();
 		if (realname && strlen(realname) > 0)  {
 			gchar *author_tmp;
-			author_tmp = g_strconcat("<meta name=\"author\" content=\"",realname,"\"",NULL);
+			author_tmp = g_strconcat("<meta name=\"author\" content=\"",realname,"\" ",NULL);
 			snr2_run_extern_replace(doc,"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"author\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",0,1,0,author_tmp,TRUE);
 			g_free(author_tmp);
 		}
@@ -576,14 +576,14 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 		time_struct = localtime(&time_var);
 		strftime(isotime, 30, "%Y-%m-%dT%H:%M:%S%z", time_struct);
 		
-		date_tmp = g_strconcat("<meta name=\"date\" content=\"",isotime,"\"",NULL);
+		date_tmp = g_strconcat("<meta name=\"date\" content=\"",isotime,"\" ",NULL);
 		snr2_run_extern_replace(doc,"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"date\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",0,1,0,date_tmp,TRUE);
 		g_free(date_tmp);
 	}
 	
 	/* update generator meta tag */
 	if (main_v->props.auto_update_meta_generator) {
-		snr2_run_extern_replace(doc,"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",0,1,0,"<meta name=\"generator\" content=\"Bluefish "VERSION"\"", TRUE);
+		snr2_run_extern_replace(doc,"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",0,1,0,"<meta name=\"generator\" content=\"Bluefish "VERSION"\" ", TRUE);
 	}
 
 	if (doc->uri) curi = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
