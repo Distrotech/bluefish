@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.141 2007-02-05 00:04:17 jimh6583 Exp $
+dnl $Id: configure.ac,v 1.142 2007-02-05 06:01:32 jimh6583 Exp $
 dnl
 dnl Copyright (C) 2002-2006 Olivier Sessink
 dnl Copyright (C) 2006 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.141 $)
+AC_REVISION($Revision: 1.142 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -194,19 +194,6 @@ AC_ARG_ENABLE(
 dnl if splash-screen is disabled, we don't need to install the icon
 AM_CONDITIONAL([INSTALL_SPLASH], [test "x$enable_splash_screen" != "xno"])
 
-AC_ARG_ENABLE(
-	[scanner],
-	AC_HELP_STRING(
-		[--enable-scanner],
-		[enable the BfTextView scanner for the editor widget @<:@default=yes (and obsolete)@:>@]
-	),
-	[
-	 if test "x$enableval" != "xno"; then
-		 AC_DEFINE([USE_SCANNER], [1], [Define to 1 if you want to use BfTextView scanner for editor widget.])
-	 fi
-	],
-	[AC_DEFINE([USE_SCANNER], [1], [Define to 1 if you want to use BfTextView scanner for editor widget.])]
-)
 
 dnl To create our catalog and maybe update the systems XML catalog, we need xmlcatalog.
 dnl But because several systems like Debian or Mac use their own system, so let the user
@@ -359,10 +346,6 @@ dnl ************************
 PKG_PROG_PKG_CONFIG
 BFVAR_required="gtk+-2.0 >= 2.6 gmodule-2.0 >= 2.6 gobject-2.0 glib-2.0 pango gdk-pixbuf-2.0 gdk-2.0 gnome-vfs-2.0 >= 2.10 libxml-2.0 libgnomeui-2.0 >= 2.6"
 PKG_CHECK_MODULES([BFVAR], [$BFVAR_required])
-
-if pkg-config libgnome-2.0 --atleast-version=2.5 ; then
-	AC_DEFINE([HAVE_ATLEAST_GNOME_2_5], [1], [Define to 1 if you have Gnome-2.0 >= 2.5.])
-fi
 
 if pkg-config gnome-vfs-2.0 --atleast-version=2.14 ; then
 	AC_DEFINE([HAVE_ATLEAST_GNOMEVFS_2_14], [1], [Define to 1 if you have Gnome-VFS-2.0 >= 2.14.])
