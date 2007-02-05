@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: autogen.sh,v 1.7 2006-12-24 10:44:52 oli4 Exp $
+# $Id: autogen.sh,v 1.8 2007-02-05 05:27:05 jimh6583 Exp $
 
 set -e
 
@@ -26,8 +26,11 @@ if [ -z `which $LIBTOOLIZE` ] ; then echo "Error. LIBTOOLIZE=$LIBTOOLIZE not fou
 AUTOMAKE_PATH=${AUTOMAKE_PATH:-`which $AUTOMAKE | sed 's|\/bin\/automake.*||'`}
 AUTOMAKE_VERSION=`$AUTOMAKE --version | grep automake | awk '{print $4}' | awk -F. '{print $1"."$2}'`
 
+## find gettext version. Use GETTEXTIZE since it is already initialized
+GETTEXT_VERSION=`$GETTEXTIZE --version | grep gettextize | awk '{print $4}' | awk -F. '{print $1"."$2}'`
+
 ## automake files we need to have inside our source
-if [ $AUTOMAKE_VERSION = "1.7" ] ; then
+if [[ $AUTOMAKE_VERSION = "1.7" || $GETTEXT_VERSION < "0.15" ]] ; then
         AUTOMAKE_FILES="missing mkinstalldirs install-sh"
 else
         AUTOMAKE_FILES="missing install-sh"
