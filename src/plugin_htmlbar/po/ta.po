@@ -5,1962 +5,1994 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-20 21:46-0800\n"
-"PO-Revision-Date: 2004-01-14 f03:59+0000\n"
-"Last-Translator: Murugapandian Barathee <barathee@users.sourceforge.net>\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2007-02-04 15:44-0800\n"
+"PO-Revision-Date: 2006-02-10 23:32+0530\n"
+"Last-Translator: Murugapandian barathee <barathee@gmail.com>\n"
 "Language-Team: Not a member <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Tamil\n"
+"X-Poedit-Country: INDIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-Bookmarks: -1,-1,-1,94,-1,-1,-1,-1,-1,-1\n"
 
-#: ../html2.c:558
-msgid "Cascading StyleSheet dialog"
+#. _DM_ Alert box asking if user would like to change request from add to
+#. * update.
+#.
+#: src/plugin_htmlbar/html2.c:499
+#, fuzzy
+msgid "_Update"
+msgstr " புதுப்பி _U"
+
+#: src/plugin_htmlbar/html2.c:504
+#, fuzzy, c-format
+msgid "The %s %s property already exists.\n"
+msgstr "குறிப்பிட்ட வழி ஏற்கனவே உள்ளது."
+
+#: src/plugin_htmlbar/html2.c:506
+#, fuzzy, c-format
+msgid "The %s property already exists.\n"
+msgstr "குறிப்பிட்ட வழி ஏற்கனவே உள்ளது."
+
+#: src/plugin_htmlbar/html2.c:509
+#, c-format
+msgid "Update it's value from %s to %s?"
+msgstr ""
+
+#: src/plugin_htmlbar/html2.c:635
+#, fuzzy
+msgid "Cascading Style Sheet Builder"
 msgstr "தொடரும் வடிவத்தாள் வசனம்"
 
-#: ../html2.c:578
+#: src/plugin_htmlbar/html2.c:655
 msgid "_Selector:"
-msgstr "_தேர்வாளன்:"
+msgstr "தேர்வாளன் _S:"
 
-#: ../html2.c:597
+#: src/plugin_htmlbar/html2.c:674
 msgid "_Property:"
-msgstr "_தன்மை:"
+msgstr "தன்மை _P:"
 
-#: ../html2.c:599 ../html_form.c:650 ../html_form.c:799 ../html_form.c:894
+#: src/plugin_htmlbar/html2.c:676 src/plugin_htmlbar/html_form.c:650
+#: src/plugin_htmlbar/html_form.c:799 src/plugin_htmlbar/html_form.c:894
 msgid "_Value:"
-msgstr "_மதிப்பு:"
+msgstr "மதிப்பு _V:"
 
-#: ../html2.c:617
+#: src/plugin_htmlbar/html2.c:694
 msgid "Selector"
 msgstr "தேர்வாளன்"
 
-#: ../html2.c:617 ../html2.c:620
+#: src/plugin_htmlbar/html2.c:694 src/plugin_htmlbar/html2.c:697
 msgid "Property"
 msgstr "தன்மை"
 
-#: ../html2.c:617 ../html2.c:620
+#: src/plugin_htmlbar/html2.c:694 src/plugin_htmlbar/html2.c:697
 msgid "Value"
 msgstr "மதிப்பு"
 
-#: ../html2.c:635
+#: src/plugin_htmlbar/html2.c:712
 msgid " _Add "
-msgstr "_சேர்"
+msgstr "சேர் _A"
 
-#: ../html2.c:638
+#: src/plugin_htmlbar/html2.c:715
 msgid " _Update "
-msgstr " _புதுப்பி"
+msgstr " புதுப்பி _U"
 
-#: ../html2.c:641
+#: src/plugin_htmlbar/html2.c:718
 msgid " _Delete "
-msgstr " _நீக்கு"
+msgstr " நீக்கு _D"
 
-#: ../html2.c:897 ../html2.c:934
+#: src/plugin_htmlbar/html2.c:971 src/plugin_htmlbar/html2.c:1008
 msgid "_Style..."
-msgstr "_ஸ்டைல்"
+msgstr "_Style..."
 
-#: ../html2.c:1091
+#: src/plugin_htmlbar/html2.c:1165
 msgid "Bluefish: Select color"
 msgstr "நீலமீன்: வர்ணத்தைத் தேர்ந்தெடு"
 
-#: ../htmlbar.c:36
+#: src/plugin_htmlbar/htmlbar.c:36
 msgid "Edit color"
 msgstr "வர்ணத்தை மாற்று"
 
-#: ../htmlbar.c:44
+#: src/plugin_htmlbar/htmlbar.c:44
 msgid "Edit tag"
-msgstr "ஒட்டு மாற்று"
+msgstr "ஒட்டினைத் தொகு"
 
-#: ../htmlbar_gui.c:202
+#: src/plugin_htmlbar/htmlbar_gui.c:203
 msgid "/_Tags"
-msgstr "/_ஒட்டுகள்"
+msgstr "/ஒட்டுகள் _T"
 
-#: ../htmlbar_gui.c:204
+#: src/plugin_htmlbar/htmlbar_gui.c:205
 msgid "/Tags/_Headings"
-msgstr "/ஒட்டுகள்/_தலைப்புகள்"
+msgstr "/ஒட்டுகள்/தலைப்புகள் _H"
 
-#: ../htmlbar_gui.c:206
+#: src/plugin_htmlbar/htmlbar_gui.c:207
 msgid "/Tags/Headings/H_1"
 msgstr "/ஒட்டுகள்/தலைப்புகள்/H_1"
 
-#: ../htmlbar_gui.c:207
+#: src/plugin_htmlbar/htmlbar_gui.c:208
 msgid "/Tags/Headings/H_2"
 msgstr "/ஒட்டுகள்/தலைப்புகள்/H_2"
 
-#: ../htmlbar_gui.c:208
+#: src/plugin_htmlbar/htmlbar_gui.c:209
 msgid "/Tags/Headings/H_3"
 msgstr "/ஒட்டுகள்/தலைப்புகள்/H_3"
 
-#: ../htmlbar_gui.c:209
+#: src/plugin_htmlbar/htmlbar_gui.c:210
 msgid "/Tags/Headings/H_4"
 msgstr "/ஒட்டுகள்/தலைப்புகள்/H_4"
 
-#: ../htmlbar_gui.c:210
+#: src/plugin_htmlbar/htmlbar_gui.c:211
 msgid "/Tags/Headings/H_5"
 msgstr "/ஒட்டுகள்/தலைப்புகள்/H_5"
 
-#: ../htmlbar_gui.c:211
+#: src/plugin_htmlbar/htmlbar_gui.c:212
 msgid "/Tags/Headings/H_6"
 msgstr "/ஒட்டுகள்/தலைப்புகள்/H_6"
 
-#: ../htmlbar_gui.c:212
+#: src/plugin_htmlbar/htmlbar_gui.c:213
 msgid "/Tags/_Special"
-msgstr "/ஒட்டுகள்/_சிறப்பு"
+msgstr "/ஒட்டுகள்/சிறப்பு _S"
 
-#: ../htmlbar_gui.c:214
+#: src/plugin_htmlbar/htmlbar_gui.c:215
 msgid "/Tags/Special/_Accent"
-msgstr "/ஒட்டுகள்/சிறப்பு/_அசையழுத்தம்"
+msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம் _A"
 
-#: ../htmlbar_gui.c:216
+#: src/plugin_htmlbar/htmlbar_gui.c:217
 msgid "/Tags/Special/Accent/_Uppercase"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/_Uppercase"
 
-#: ../htmlbar_gui.c:217
+#: src/plugin_htmlbar/htmlbar_gui.c:218
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I"
 
-#: ../htmlbar_gui.c:219
+#: src/plugin_htmlbar/htmlbar_gui.c:220
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/A grave À"
 
-#: ../htmlbar_gui.c:220
+#: src/plugin_htmlbar/htmlbar_gui.c:221
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/A acute Á"
 
-#: ../htmlbar_gui.c:221
+#: src/plugin_htmlbar/htmlbar_gui.c:222
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/A circumflex Â"
 
-#: ../htmlbar_gui.c:222
+#: src/plugin_htmlbar/htmlbar_gui.c:223
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/A tilde Ã"
 
-#: ../htmlbar_gui.c:223
+#: src/plugin_htmlbar/htmlbar_gui.c:224
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/AE ligature Æ"
 
-#: ../htmlbar_gui.c:224
+#: src/plugin_htmlbar/htmlbar_gui.c:225
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/A diaeresis Ä"
 
-#: ../htmlbar_gui.c:225
+#: src/plugin_htmlbar/htmlbar_gui.c:226
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/A ring Å"
 
-#: ../htmlbar_gui.c:226
+#: src/plugin_htmlbar/htmlbar_gui.c:227
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/C cedilla Ç"
 
-#: ../htmlbar_gui.c:227
+#: src/plugin_htmlbar/htmlbar_gui.c:228
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/E grave È"
 
-#: ../htmlbar_gui.c:228
+#: src/plugin_htmlbar/htmlbar_gui.c:229
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/E acute É"
 
-#: ../htmlbar_gui.c:229
+#: src/plugin_htmlbar/htmlbar_gui.c:230
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/E circumflex Ê"
 
-#: ../htmlbar_gui.c:230
+#: src/plugin_htmlbar/htmlbar_gui.c:231
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/E diaeresis Ë"
 
-#: ../htmlbar_gui.c:231
+#: src/plugin_htmlbar/htmlbar_gui.c:232
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/I grave Ì"
 
-#: ../htmlbar_gui.c:232
+#: src/plugin_htmlbar/htmlbar_gui.c:233
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/I acute Í"
 
-#: ../htmlbar_gui.c:233
+#: src/plugin_htmlbar/htmlbar_gui.c:234
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/I circumflex Î"
 
-#: ../htmlbar_gui.c:234
+#: src/plugin_htmlbar/htmlbar_gui.c:235
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/I diaeresis Ï"
 
-#: ../htmlbar_gui.c:235
+#: src/plugin_htmlbar/htmlbar_gui.c:236
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_J-Z/"
 
-#: ../htmlbar_gui.c:237
+#: src/plugin_htmlbar/htmlbar_gui.c:238
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/N tilde Ñ"
 
-#: ../htmlbar_gui.c:238
+#: src/plugin_htmlbar/htmlbar_gui.c:239
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/O grave Ò"
 
-#: ../htmlbar_gui.c:239
+#: src/plugin_htmlbar/htmlbar_gui.c:240
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/O acute Ó"
 
-#: ../htmlbar_gui.c:240
+#: src/plugin_htmlbar/htmlbar_gui.c:241
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/O circumflex Ô"
 
-#: ../htmlbar_gui.c:241
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:242
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/OE ligature"
+msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/OE ligature Œ"
 
-#: ../htmlbar_gui.c:242
+#: src/plugin_htmlbar/htmlbar_gui.c:243
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/O tilde Õ"
 
-#: ../htmlbar_gui.c:243
+#: src/plugin_htmlbar/htmlbar_gui.c:244
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/O diaeresis Ö"
 
-#: ../htmlbar_gui.c:244
+#: src/plugin_htmlbar/htmlbar_gui.c:245
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/O slash Ø"
 
-#: ../htmlbar_gui.c:245
+#: src/plugin_htmlbar/htmlbar_gui.c:246
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/U grave Ù"
 
-#: ../htmlbar_gui.c:246
+#: src/plugin_htmlbar/htmlbar_gui.c:247
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/U acute Ú"
 
-#: ../htmlbar_gui.c:247
+#: src/plugin_htmlbar/htmlbar_gui.c:248
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/U circumflex Û"
 
-#: ../htmlbar_gui.c:248
+#: src/plugin_htmlbar/htmlbar_gui.c:249
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/U diaeresis Ü"
 
-#: ../htmlbar_gui.c:249
+#: src/plugin_htmlbar/htmlbar_gui.c:250
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/Y acute Ý"
 
-#: ../htmlbar_gui.c:250
+#: src/plugin_htmlbar/htmlbar_gui.c:251
 msgid "/Tags/Special/Accent/_Lowercase"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/_Lowercase"
 
-#: ../htmlbar_gui.c:251
+#: src/plugin_htmlbar/htmlbar_gui.c:252
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/_A-I"
 
-#: ../htmlbar_gui.c:253
+#: src/plugin_htmlbar/htmlbar_gui.c:254
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/a grave à"
 
-#: ../htmlbar_gui.c:254
+#: src/plugin_htmlbar/htmlbar_gui.c:255
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/a acute á"
 
-#: ../htmlbar_gui.c:255
+#: src/plugin_htmlbar/htmlbar_gui.c:256
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/a circumflex â"
 
-#: ../htmlbar_gui.c:256
+#: src/plugin_htmlbar/htmlbar_gui.c:257
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/a tilde ã"
 
-#: ../htmlbar_gui.c:257
+#: src/plugin_htmlbar/htmlbar_gui.c:258
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/a ring å"
 
-#: ../htmlbar_gui.c:258
+#: src/plugin_htmlbar/htmlbar_gui.c:259
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/ae ligature æ"
 
-#: ../htmlbar_gui.c:259
+#: src/plugin_htmlbar/htmlbar_gui.c:260
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/a diaeresis ä"
 
-#: ../htmlbar_gui.c:260
+#: src/plugin_htmlbar/htmlbar_gui.c:261
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/c cedilla ç"
 
-#: ../htmlbar_gui.c:261
+#: src/plugin_htmlbar/htmlbar_gui.c:262
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/e grave è"
 
-#: ../htmlbar_gui.c:262
+#: src/plugin_htmlbar/htmlbar_gui.c:263
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/e acute é"
 
-#: ../htmlbar_gui.c:263
+#: src/plugin_htmlbar/htmlbar_gui.c:264
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/e circumflex ê"
 
-#: ../htmlbar_gui.c:264
+#: src/plugin_htmlbar/htmlbar_gui.c:265
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/e diaeresis ë"
 
-#: ../htmlbar_gui.c:265
+#: src/plugin_htmlbar/htmlbar_gui.c:266
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/i grave ì"
 
-#: ../htmlbar_gui.c:266
+#: src/plugin_htmlbar/htmlbar_gui.c:267
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/i acute í"
 
-#: ../htmlbar_gui.c:267
+#: src/plugin_htmlbar/htmlbar_gui.c:268
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/i circumflex î"
 
-#: ../htmlbar_gui.c:268
+#: src/plugin_htmlbar/htmlbar_gui.c:269
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/i diaeresis ï"
 
-#: ../htmlbar_gui.c:269
+#: src/plugin_htmlbar/htmlbar_gui.c:270
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/_J-Z"
 
-#: ../htmlbar_gui.c:271
+#: src/plugin_htmlbar/htmlbar_gui.c:272
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/n tilde ñ"
 
-#: ../htmlbar_gui.c:272
+#: src/plugin_htmlbar/htmlbar_gui.c:273
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/o grave ò"
 
-#: ../htmlbar_gui.c:273
+#: src/plugin_htmlbar/htmlbar_gui.c:274
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/o acute ó"
 
-#: ../htmlbar_gui.c:274
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:275
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/oe ligature æ"
+msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/oe ligature œ"
 
-#: ../htmlbar_gui.c:275
+#: src/plugin_htmlbar/htmlbar_gui.c:276
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/o circumflex ô"
 
-#: ../htmlbar_gui.c:276
+#: src/plugin_htmlbar/htmlbar_gui.c:277
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/o tilde õ"
 
-#: ../htmlbar_gui.c:277
+#: src/plugin_htmlbar/htmlbar_gui.c:278
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/o diaeresis ö"
 
-#: ../htmlbar_gui.c:278
+#: src/plugin_htmlbar/htmlbar_gui.c:279
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/o slash ø"
 
-#: ../htmlbar_gui.c:279
+#: src/plugin_htmlbar/htmlbar_gui.c:280
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/u grave ù"
 
-#: ../htmlbar_gui.c:280
+#: src/plugin_htmlbar/htmlbar_gui.c:281
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/u acute ú"
 
-#: ../htmlbar_gui.c:281
+#: src/plugin_htmlbar/htmlbar_gui.c:282
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/u circumflex û"
 
-#: ../htmlbar_gui.c:282
+#: src/plugin_htmlbar/htmlbar_gui.c:283
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/u diaeresis ü"
 
-#: ../htmlbar_gui.c:283
+#: src/plugin_htmlbar/htmlbar_gui.c:284
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/y acute ý"
 
-#: ../htmlbar_gui.c:284
+#: src/plugin_htmlbar/htmlbar_gui.c:285
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/y diaeresis ÿ"
 
-#: ../htmlbar_gui.c:286
+#: src/plugin_htmlbar/htmlbar_gui.c:287
 msgid "/Tags/Special/Accent/U_mlaut ¨"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/U_mlaut ¨"
 
-#: ../htmlbar_gui.c:287
+#: src/plugin_htmlbar/htmlbar_gui.c:288
 msgid "/Tags/Special/Accent/_Acute ´"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/_Acute ´"
 
-#: ../htmlbar_gui.c:288
+#: src/plugin_htmlbar/htmlbar_gui.c:289
 msgid "/Tags/Special/Accent/_Cedilla ¸"
 msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/_Cedilla ¸"
 
-#: ../htmlbar_gui.c:289
+#: src/plugin_htmlbar/htmlbar_gui.c:290
 msgid "/Tags/Special/_Currency"
-msgstr "/ஒட்டுகள்/சிறப்பு/_பணம்"
+msgstr "/ஒட்டுகள்/சிறப்பு/பணம் _C"
 
-#: ../htmlbar_gui.c:291
+#: src/plugin_htmlbar/htmlbar_gui.c:292
 msgid "/Tags/Special/Currency/_Cent sign ¢"
-msgstr "/ஒட்டுகள்/சிறப்பு/பணம்/_செண்ட் குறி ¢"
+msgstr "/ஒட்டுகள்/சிறப்பு/பணம்/செண்ட் குறி ¢ _C"
 
-#: ../htmlbar_gui.c:292
+#: src/plugin_htmlbar/htmlbar_gui.c:293
 msgid "/Tags/Special/Currency/_Pound sterling £"
-msgstr "/ஒட்டுகள்/சிறப்பு/பணம்/_பவுண்டு ஸ்டெர்லிங் £"
+msgstr "/ஒட்டுகள்/சிறப்பு/பணம்/பவுண்டு ஸ்டெர்லிங் £ _P"
 
-#: ../htmlbar_gui.c:293
+#: src/plugin_htmlbar/htmlbar_gui.c:294
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
-msgstr "/ஒட்டுகள்/சிறப்பு/பணம்/_கரண்சி குறி ¤"
+msgstr "/ஒட்டுகள்/சிறப்பு/பணம்/கரண்சி குறி ¤ _u"
 
-#: ../htmlbar_gui.c:294
+#: src/plugin_htmlbar/htmlbar_gui.c:295
 msgid "/Tags/Special/Currency/_Yen sign ¥"
-msgstr "/ஒட்டுகள்/சிறப்பு/பணம்/_யென் குறி ¥"
+msgstr "/ஒட்டுகள்/சிறப்பு/பணம்/யென் குறி ¥ _Y"
 
-#: ../htmlbar_gui.c:295
+#: src/plugin_htmlbar/htmlbar_gui.c:296
 msgid "/Tags/Special/Currency/_Euro "
-msgstr "/ஒட்டுகள்/சிறப்பு/பணம்/யூ_ரோ குறி "
+msgstr "/ஒட்டுகள்/சிறப்பு/பணம்/யூரோ குறி _E"
 
-#: ../htmlbar_gui.c:296
+#: src/plugin_htmlbar/htmlbar_gui.c:297
 msgid "/Tags/Special/_Math-Science"
-msgstr "/ஒட்டுகள்/சிறப்பு/_கணித-அறிவியல்"
+msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல் _M"
 
-#: ../htmlbar_gui.c:298
+#: src/plugin_htmlbar/htmlbar_gui.c:299
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
-msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/லாஜிகல் _நாட் குறி ¬"
+msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/லாஜிகல் நாட் குறி ¬ _n"
 
-#: ../htmlbar_gui.c:299
+#: src/plugin_htmlbar/htmlbar_gui.c:300
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
-msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/_பெருக்கல் குறி ×"
+msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/பெருக்கல் குறி × _M"
 
-#: ../htmlbar_gui.c:300
+#: src/plugin_htmlbar/htmlbar_gui.c:301
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
-msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/_வகுத்தல் குறி ÷"
+msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/வகுத்தல் குறி ÷ _D"
 
-#: ../htmlbar_gui.c:301
+#: src/plugin_htmlbar/htmlbar_gui.c:302
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
-msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/_கூட்டல்-கழித்தல் குறி ±"
+msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/கூட்டல்-கழித்தல் குறி ± _P"
 
-#: ../htmlbar_gui.c:302
+#: src/plugin_htmlbar/htmlbar_gui.c:303
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
-msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/_குறைவு குறி <"
+msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/குறைவு குறி < _L"
 
-#: ../htmlbar_gui.c:303
+#: src/plugin_htmlbar/htmlbar_gui.c:304
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
-msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/_கூடுதல் குறி >"
+msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/கூடுதல் குறி > _G"
 
-#: ../htmlbar_gui.c:304
+#: src/plugin_htmlbar/htmlbar_gui.c:305
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
 msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/மேல்ஒட்டு_1 ¹"
 
-#: ../htmlbar_gui.c:305
+#: src/plugin_htmlbar/htmlbar_gui.c:306
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
 msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/மேல்ஒட்டு_2 ²"
 
-#: ../htmlbar_gui.c:306
+#: src/plugin_htmlbar/htmlbar_gui.c:307
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
 msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/மேல்ஒட்டு_3 ³"
 
-#: ../htmlbar_gui.c:307
+#: src/plugin_htmlbar/htmlbar_gui.c:308
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
-msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/கால் ¼"
+msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/கால் ¼ _q"
 
-#: ../htmlbar_gui.c:308
+#: src/plugin_htmlbar/htmlbar_gui.c:309
 msgid "/Tags/Special/Math-Science/One _half ½"
-msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/அரை ½"
+msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/அரை ½ _h"
 
-#: ../htmlbar_gui.c:309
+#: src/plugin_htmlbar/htmlbar_gui.c:310
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
-msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/முக்கால் ¾"
+msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/முக்கால் ¾ _T"
 
-#: ../htmlbar_gui.c:310
+#: src/plugin_htmlbar/htmlbar_gui.c:311
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
-msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/டிகிரி குறி °"
+msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/டிகிரி குறி ° _r"
 
-#: ../htmlbar_gui.c:311
+#: src/plugin_htmlbar/htmlbar_gui.c:312
 msgid "/Tags/Special/_Non Latin"
-msgstr "/ஒட்டுகள்/சிறப்பு/_லத்தீன் அல்லாதது"
+msgstr "/ஒட்டுகள்/சிறப்பு/லத்தீன் அல்லாதது _N"
 
-#: ../htmlbar_gui.c:313
+#: src/plugin_htmlbar/htmlbar_gui.c:314
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
 msgstr "/ஒட்டுகள்/சிறப்பு/லத்தீன் அல்லாதது/_ETH (ஐஸ்லாந்து) Ð"
 
-#: ../htmlbar_gui.c:314
+#: src/plugin_htmlbar/htmlbar_gui.c:315
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
 msgstr "/ஒட்டுகள்/சிறப்பு/லத்தீன் அல்லாதது/_THORN (ஐஸ்லாந்து) Þ"
 
-#: ../htmlbar_gui.c:315
+#: src/plugin_htmlbar/htmlbar_gui.c:316
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
 msgstr "/ஒட்டுகள்/சிறப்பு/லத்தீன் அல்லாதது/et_h (ஐஸ்லாந்து) ð"
 
-#: ../htmlbar_gui.c:316
+#: src/plugin_htmlbar/htmlbar_gui.c:317
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
 msgstr "/ஒட்டுகள்/சிறப்பு/லத்தீன் அல்லாதது/th_orn ÿ"
 
-#: ../htmlbar_gui.c:317
+#: src/plugin_htmlbar/htmlbar_gui.c:318
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
 msgstr "/ஒட்டுகள்/சிறப்பு/லத்தீன் அல்லாதது/ஷார்ப் _s ß"
 
-#: ../htmlbar_gui.c:318
+#: src/plugin_htmlbar/htmlbar_gui.c:319
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
-msgstr "/ஒட்டுகள்/சிறப்பு/லத்தீன் அல்லாதது/_மைக்ரோ குறி µ"
+msgstr "/ஒட்டுகள்/சிறப்பு/லத்தீன் அல்லாதது/மைக்ரோ குறி µ _M"
 
-#: ../htmlbar_gui.c:319
+#: src/plugin_htmlbar/htmlbar_gui.c:320
 msgid "/Tags/Special/_Other"
-msgstr "/ஒட்டுகள்/சிறப்பு/_இதர"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர _O"
 
-#: ../htmlbar_gui.c:321
+#: src/plugin_htmlbar/htmlbar_gui.c:322
 msgid "/Tags/Special/Other/_Non-breaking space"
-msgstr "/ஒட்டுகள்/சிறப்பு/இதர/_உடையாத இடைவெளி"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர/உடையாத இடைவெளி _N"
 
-#: ../htmlbar_gui.c:322
+#: src/plugin_htmlbar/htmlbar_gui.c:323
 msgid "/Tags/Special/Other/_Section sign §"
-msgstr "/ஒட்டுகள்/சிறப்பு/இதர/_தேர்வு குறி §"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர/தேர்வு குறி § _S"
 
-#: ../htmlbar_gui.c:323
+#: src/plugin_htmlbar/htmlbar_gui.c:324
 msgid "/Tags/Special/Other/_Copyright sign ©"
-msgstr "/ஒட்டுகள்/சிறப்பு/இதர/_காப்புரிமை குறி ©"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர/காப்புரிமை குறி © _C"
 
-#: ../htmlbar_gui.c:324
+#: src/plugin_htmlbar/htmlbar_gui.c:325
 msgid "/Tags/Special/Other/_Left angle quotes «"
-msgstr "/ஒட்டுகள்/சிறப்பு/இதர/_இடது மேற்கோள்கள் «"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர/இடது மேற்கோள்கள் « _L"
 
-#: ../htmlbar_gui.c:325
+#: src/plugin_htmlbar/htmlbar_gui.c:326
 msgid "/Tags/Special/Other/_Right angle quotes »"
-msgstr "/ஒட்டுகள்/சிறப்பு/இதர/_வலது மேற்கோள்கள் »"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர/வலது மேற்கோள்கள் » _R"
 
-#: ../htmlbar_gui.c:326
+#: src/plugin_htmlbar/htmlbar_gui.c:327
 msgid "/Tags/Special/Other/Registered _trademark ®"
-msgstr "/ஒட்டுகள்/சிறப்பு/இதர/_பதிப்புரிமை குறி ®"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர/பதிப்புரிமை குறி ® _t"
 
-#: ../htmlbar_gui.c:327
+#: src/plugin_htmlbar/htmlbar_gui.c:328
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
-msgstr "/ஒட்டுகள்/சிறப்பு/இதர/தலைகீழ் _ஆச்சரியக்குறி ¡"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர/தலைகீழ் ஆச்சரியக்குறி ¡ _e"
 
-#: ../htmlbar_gui.c:328
+#: src/plugin_htmlbar/htmlbar_gui.c:329
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
-msgstr "/ஒட்டுகள்/சிறப்பு/இதர/தலைகீழ் கே_ள்விக்குறி"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர/தலைகீழ் கேள்விக்குறி _q"
 
-#: ../htmlbar_gui.c:329
+#: src/plugin_htmlbar/htmlbar_gui.c:330
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
 msgstr "/ஒட்டுகள்/சிறப்பு/இதர/_Feminine ordinal ª"
 
-#: ../htmlbar_gui.c:330
+#: src/plugin_htmlbar/htmlbar_gui.c:331
 msgid "/Tags/Special/Other/_Masculine ordinal º"
 msgstr "/ஒட்டுகள்/சிறப்பு/இதர/_Masculine ordinal º"
 
-#: ../htmlbar_gui.c:331
+#: src/plugin_htmlbar/htmlbar_gui.c:332
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
-msgstr "/ஒட்டுகள்/சிறப்பு/இதர/பி_ல்க்ரோ (பத்தி) குறி ¶"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர/பில்க்ரோ (பத்தி) குறி ¶ _P"
 
-#: ../htmlbar_gui.c:332
+#: src/plugin_htmlbar/htmlbar_gui.c:333
 msgid "/Tags/Special/Other/_Broken bar ¦"
-msgstr "/ஒட்டுகள்/சிறப்பு/இதர/_உடைந்த கோடு ¦"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர/உடைந்த கோடு ¦ _B"
 
-#: ../htmlbar_gui.c:333
+#: src/plugin_htmlbar/htmlbar_gui.c:334
 msgid "/Tags/Special/Other/Soft _hypen -"
-msgstr "/ஒட்டுகள்/சிறப்பு/இதர/மெல்லிய_ஹைஃபன் -"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர/மெல்லிய ஹைஃபன் - _h"
 
-#: ../htmlbar_gui.c:334
+#: src/plugin_htmlbar/htmlbar_gui.c:335
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
-msgstr "/ஒட்டுகள்/சிறப்பு/இதர/_இடைவெளி மைக்ரான் ¯"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர/இடைவெளி மைக்ரான் ¯ _c"
 
-#: ../htmlbar_gui.c:335
+#: src/plugin_htmlbar/htmlbar_gui.c:336
 msgid "/Tags/Special/Other/Middle _dot ·"
-msgstr "/ஒட்டுகள்/சிறப்பு/இதர/நடுப்புள்ளி ·"
+msgstr "/ஒட்டுகள்/சிறப்பு/இதர/நடுப்புள்ளி · _d"
 
-#: ../htmlbar_gui.c:336
+#: src/plugin_htmlbar/htmlbar_gui.c:337
 msgid "/Tags/_Format by layout"
-msgstr "/ஒட்டுகள்/_திட்டமிட்ட வடிவமைப்பு"
+msgstr "/ஒட்டுகள்/திட்டமிட்ட வடிவமைப்பு _F"
 
-#: ../htmlbar_gui.c:338
+#: src/plugin_htmlbar/htmlbar_gui.c:339
 msgid "/Tags/Format by layout/_Bold"
-msgstr "/ஒட்டுகள்/_திட்டமிட்ட வடிவமைப்பு/_தடிப்பு"
+msgstr "/ஒட்டுகள்/_திட்டமிட்ட வடிவமைப்பு/தடிப்பு _B"
 
-#: ../htmlbar_gui.c:339
+#: src/plugin_htmlbar/htmlbar_gui.c:340
 msgid "/Tags/Format by layout/_Italic"
-msgstr "/ஒட்டுகள்/_திட்டமிட்ட வடிவமைப்பு/_சாய்வெழுத்து"
+msgstr "/ஒட்டுகள்/_திட்டமிட்ட வடிவமைப்பு/சாய்வெழுத்து _I"
 
-#: ../htmlbar_gui.c:340
+#: src/plugin_htmlbar/htmlbar_gui.c:341
 msgid "/Tags/Format by layout/_Underline"
-msgstr "/ஒட்டுகள்/_திட்டமிட்ட வடிவமைப்பு/_அடிக்கோடு"
+msgstr "/ஒட்டுகள்/_திட்டமிட்ட வடிவமைப்பு/அடிக்கோடு _U"
 
-#: ../htmlbar_gui.c:341
+#: src/plugin_htmlbar/htmlbar_gui.c:342
 msgid "/Tags/Format by layout/_Strikeout"
-msgstr "/ஒட்டுகள்/_திட்டமிட்ட வடிவமைப்பு/_குறுக்குக்கோடு"
+msgstr "/ஒட்டுகள்/_திட்டமிட்ட வடிவமைப்பு/குறுக்குக்கோடு _S"
 
-#: ../htmlbar_gui.c:342
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:343
 msgid "/Tags/Format by layout/Sm_all"
-msgstr "/ஒட்டுகள்/_திட்டமிட்ட வடிவமைப்பு/_சாய்வெழுத்து"
+msgstr "/ஒட்டுகள்/_திட்டமிட்ட வடிவமைப்பு/சிறியது _a"
 
-#: ../htmlbar_gui.c:343
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:344
 msgid "/Tags/Format by layout/Bi_g"
-msgstr "/ஒட்டுகள்/_திட்டமிட்ட வடிவமைப்பு"
+msgstr "/ஒட்டுகள்/திட்டமிட்ட வடிவமைப்பு/பெரியது _g"
 
-#: ../htmlbar_gui.c:344
+#: src/plugin_htmlbar/htmlbar_gui.c:345
 msgid "/Tags/F_ormat by context"
-msgstr "/ஒட்டுகள்/_சந்தர்ப்ப வடிவமைப்பு"
+msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு _o"
 
-#: ../htmlbar_gui.c:346
+#: src/plugin_htmlbar/htmlbar_gui.c:347
 msgid "/Tags/Format by context/_Strong"
-msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/_வலிமையானது"
+msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/வலிமையானது _S"
 
-#: ../htmlbar_gui.c:347
+#: src/plugin_htmlbar/htmlbar_gui.c:348
 msgid "/Tags/Format by context/_Emphasis"
-msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/_அழுத்தமானது"
+msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/அழுத்தமானது _E"
 
-#: ../htmlbar_gui.c:348
+#: src/plugin_htmlbar/htmlbar_gui.c:349
 msgid "/Tags/Format by context/_Define"
-msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/_விளக்கம்"
+msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/விளக்கம் _D"
 
-#: ../htmlbar_gui.c:349
+#: src/plugin_htmlbar/htmlbar_gui.c:350
 msgid "/Tags/Format by context/_Code"
-msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/_மூலநிரல்"
+msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/மூலநிரல் _C"
 
-#: ../htmlbar_gui.c:350
+#: src/plugin_htmlbar/htmlbar_gui.c:351
 msgid "/Tags/Format by context/Sa_mple"
-msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/மா_திரி"
+msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/மாதிரி _m"
 
-#: ../htmlbar_gui.c:351
+#: src/plugin_htmlbar/htmlbar_gui.c:352
 msgid "/Tags/Format by context/_Keyboard"
-msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/விசை_ப்பலகை"
+msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/விசைப்பலகை _K"
 
-#: ../htmlbar_gui.c:352
+#: src/plugin_htmlbar/htmlbar_gui.c:353
 msgid "/Tags/Format by context/_Variable"
-msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/மா_றி"
+msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/மாறி _V"
 
-#: ../htmlbar_gui.c:353
+#: src/plugin_htmlbar/htmlbar_gui.c:354
 msgid "/Tags/Format by context/Ci_tation"
-msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/எடுத்துரைத்தல்"
+msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/எடுத்துரைத்தல் _t"
 
-#: ../htmlbar_gui.c:354
+#: src/plugin_htmlbar/htmlbar_gui.c:355
 msgid "/Tags/Format by context/_Abbreviation"
-msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/_குறுக்கம்"
+msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/குறுக்கம் _A"
 
-#: ../htmlbar_gui.c:355
+#: src/plugin_htmlbar/htmlbar_gui.c:356
 msgid "/Tags/Format by context/Ac_ronym"
-msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/அக்ரோ_நிம்"
+msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/அக்ரோநிம் _r"
 
-#: ../htmlbar_gui.c:356
+#: src/plugin_htmlbar/htmlbar_gui.c:357
 msgid "/Tags/Format _general"
-msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு"
+msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு _g"
 
-#: ../htmlbar_gui.c:358
+#: src/plugin_htmlbar/htmlbar_gui.c:359
 msgid "/Tags/Format general/_Paragraph"
-msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/_பத்தி"
+msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/பத்தி _P"
 
-#: ../htmlbar_gui.c:359
+#: src/plugin_htmlbar/htmlbar_gui.c:360
 msgid "/Tags/Format general/_Break"
-msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/_தடை"
+msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/தடை _B"
 
-#: ../htmlbar_gui.c:360
+#: src/plugin_htmlbar/htmlbar_gui.c:361
 msgid "/Tags/Format general/Break clear _all"
-msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/அனைத்திலும் தடை துடைப்பு"
+msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/அனைத்திலும் உள்ள தடைகளை துடை _a"
 
-#: ../htmlbar_gui.c:361
+#: src/plugin_htmlbar/htmlbar_gui.c:362
 msgid "/Tags/Format general/_Non-Breaking Space"
-msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/_உடையாத இடைவெளி"
+msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/உடையாத இடைவெளி _N"
 
-#: ../htmlbar_gui.c:363
+#: src/plugin_htmlbar/htmlbar_gui.c:364
 msgid "/Tags/Format general/Font Si_ze +1"
-msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/எழுத்துரு அளவு +1"
+msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/எழுத்துரு அளவு +1 _z"
 
-#: ../htmlbar_gui.c:364
+#: src/plugin_htmlbar/htmlbar_gui.c:365
 msgid "/Tags/Format general/Font _Size -1"
-msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/எழுத்துரு அளவு +2"
+msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/எழுத்துரு அளவு +2 _S"
 
-#: ../htmlbar_gui.c:366
+#: src/plugin_htmlbar/htmlbar_gui.c:367
 msgid "/Tags/Format general/Preformatted _Text"
-msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/முன்னரே வடிவமைத்த _உரை"
+msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/முன்னரே வடிவமைத்த உரை _T"
 
-#: ../htmlbar_gui.c:367
+#: src/plugin_htmlbar/htmlbar_gui.c:368
 msgid "/Tags/Format general/Su_bscript"
-msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/_கீழ்ஒட்டு"
+msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/கீழ்ஒட்டு _b"
 
-#: ../htmlbar_gui.c:368
+#: src/plugin_htmlbar/htmlbar_gui.c:369
 msgid "/Tags/Format general/Su_perscript"
-msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/மேல்ஒட்டு"
+msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/மேல்ஒட்டு _p"
 
-#: ../htmlbar_gui.c:370
+#: src/plugin_htmlbar/htmlbar_gui.c:371
 msgid "/Tags/Format general/_Center"
-msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/_மையம்"
+msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/மையம் _C"
 
-#: ../htmlbar_gui.c:371
+#: src/plugin_htmlbar/htmlbar_gui.c:372
 msgid "/Tags/Format general/Align _right"
-msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/_வலது இசைவு"
+msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/வலது இசைவு _r"
 
-#: ../htmlbar_gui.c:372
+#: src/plugin_htmlbar/htmlbar_gui.c:373
 msgid "/Tags/_Table"
-msgstr "/ஒட்டுகள்/_அட்டவணை"
+msgstr "/ஒட்டுகள்/அட்டவணை _T"
 
-#: ../htmlbar_gui.c:374
+#: src/plugin_htmlbar/htmlbar_gui.c:375
 msgid "/Tags/Table/_Table"
-msgstr "/ஒட்டுகள்/அட்டவணை/_அட்டவணை"
+msgstr "/ஒட்டுகள்/அட்டவணை/அட்டவணை _T"
 
-#: ../htmlbar_gui.c:375
+#: src/plugin_htmlbar/htmlbar_gui.c:376
 msgid "/Tags/Table/Table _Row"
-msgstr "/ஒட்டுகள்/அட்டவணை/அட்டவணை _நிரல் ரோ"
+msgstr "/ஒட்டுகள்/அட்டவணை/அட்டவணை நிரல் ரோ _R"
 
-#: ../htmlbar_gui.c:376
+#: src/plugin_htmlbar/htmlbar_gui.c:377
 msgid "/Tags/Table/Table _Header"
-msgstr "/ஒட்டுகள்/அட்டவணை/அட்டவணை _மேல்தலைப்பு"
+msgstr "/ஒட்டுகள்/அட்டவணை/அட்டவணை மேல்தலைப்பு _H"
 
-#: ../htmlbar_gui.c:377
+#: src/plugin_htmlbar/htmlbar_gui.c:378
 msgid "/Tags/Table/Table _Data"
-msgstr "/ஒட்டுகள்/அட்டவணை/அட்டவணை _தரவு"
+msgstr "/ஒட்டுகள்/அட்டவணை/அட்டவணை தரவு _D"
 
-#: ../htmlbar_gui.c:378
+#: src/plugin_htmlbar/htmlbar_gui.c:379
 msgid "/Tags/Table/Table _Caption"
-msgstr "/ஒட்டுகள்/அட்டவணை/அட்டவணை _தலைப்பு"
+msgstr "/ஒட்டுகள்/அட்டவணை/அட்டவணை தலைப்பு _C"
 
-#: ../htmlbar_gui.c:379
+#: src/plugin_htmlbar/htmlbar_gui.c:380
 msgid "/Tags/_List"
-msgstr "/ஒட்டுகள்/_பட்டியல்"
+msgstr "/ஒட்டுகள்/பட்டியல் _L"
 
-#: ../htmlbar_gui.c:381
+#: src/plugin_htmlbar/htmlbar_gui.c:382
 msgid "/Tags/List/Unordered _List"
-msgstr "/ஒட்டுகள்/பட்டியல்/அடுக்கப்ப_டாத பட்டியல்"
+msgstr "/ஒட்டுகள்/பட்டியல்/அடுக்கப்படாத பட்டியல் _L"
 
-#: ../htmlbar_gui.c:382
+#: src/plugin_htmlbar/htmlbar_gui.c:383
 msgid "/Tags/List/_Ordered List"
-msgstr "/ஒட்டுகள்/பட்டியல்/_அடுக்கப்பட்ட பட்டியல்"
+msgstr "/ஒட்டுகள்/பட்டியல்/அடுக்கப்பட்ட பட்டியல் _O"
 
-#: ../htmlbar_gui.c:383
+#: src/plugin_htmlbar/htmlbar_gui.c:384
 msgid "/Tags/List/List Ite_m"
-msgstr "/ஒட்டுகள்/பட்டியல்/பட்டியல் _இனம்"
+msgstr "/ஒட்டுகள்/பட்டியல்/பட்டியல் இனம் _m"
 
-#: ../htmlbar_gui.c:384
+#: src/plugin_htmlbar/htmlbar_gui.c:385
 msgid "/Tags/List/De_finition List"
-msgstr "/ஒட்டுகள்/பட்டியல்/விளக்கப் _பட்டியல்"
+msgstr "/ஒட்டுகள்/பட்டியல்/விளக்கப் பட்டியல் _f"
 
-#: ../htmlbar_gui.c:385
+#: src/plugin_htmlbar/htmlbar_gui.c:386
 msgid "/Tags/List/Definition _Term"
-msgstr "/ஒட்டுகள்/பட்டியல்/விளக்கச் _சொற்கள்"
+msgstr "/ஒட்டுகள்/பட்டியல்/விளக்கச் சொற்கள் _T"
 
-#: ../htmlbar_gui.c:386
+#: src/plugin_htmlbar/htmlbar_gui.c:387
 msgid "/Tags/List/_Definition"
-msgstr "/ஒட்டுகள்/பட்டியல்/_விளக்கம்"
+msgstr "/ஒட்டுகள்/பட்டியல்/விளக்கம் _D"
 
-#: ../htmlbar_gui.c:387
+#: src/plugin_htmlbar/htmlbar_gui.c:388
 msgid "/Tags/List/Men_u"
-msgstr "/ஒட்டுகள்/பட்டியல்/_மெனு"
+msgstr "/ஒட்டுகள்/பட்டியல்/மெனு _u"
 
-#: ../htmlbar_gui.c:388
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:389
 msgid "/Tags/Fo_rm"
-msgstr "/வசனங்கள்/_படிவம்"
+msgstr "/வசனங்கள்/படிவம் _r"
 
-#: ../htmlbar_gui.c:390
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:391
 msgid "/Tags/Form/_Form"
-msgstr "/வசனங்கள்/படிவம்/_படிவம்..."
+msgstr "/வசனங்கள்/படிவம்/படிவம் _F"
 
-#: ../htmlbar_gui.c:391
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:392
 msgid "/Tags/Form/_Button"
-msgstr "/வசனங்கள்/படிவம்/_பொத்தான்..."
+msgstr "/வசனங்கள்/படிவம்/பொத்தான் _B"
 
-#: ../htmlbar_gui.c:392
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:393
 msgid "/Tags/Form/_Input"
-msgstr "/வசனங்கள்/படிவம்/_உள்ளீடு..."
+msgstr "/வசனங்கள்/படிவம்/உள்ளீடு _I"
 
-#: ../htmlbar_gui.c:393
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:394
 msgid "/Tags/Form/_Textarea"
-msgstr "/வசனங்கள்/படிவம்/உரை_க்கான இடம்"
+msgstr "/வசனங்கள்/படிவம்/உரைக்கான இடம்_T"
 
-#: ../htmlbar_gui.c:394
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:395
 msgid "/Tags/_Misc"
-msgstr "/ஒட்டுகள்/_பட்டியல்"
+msgstr "/ஒட்டுகள்/இதர _M"
 
-#: ../htmlbar_gui.c:396
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:397
 msgid "/Tags/Misc/Insert Generator _META-Tag"
-msgstr "/ஒட்டுகள்/_META-Tag ஆக்கியைச் செருகு"
+msgstr "/ஒட்டுகள்/இதர/_META-Tag ஆக்கியைச் செருகு"
 
-#: ../htmlbar_gui.c:397
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:398
 msgid "/Tags/Misc/_Span"
-msgstr "/ஒட்டுகள்/_சிறப்பு"
+msgstr "/ஒட்டுகள்/இதர/_Span"
 
-#: ../htmlbar_gui.c:398
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:399
 msgid "/Tags/Misc/_Div"
-msgstr "/ஒட்டுகள்/பட்டியல்/_விளக்கம்"
+msgstr "/ஒட்டுகள்/இதர/_Div"
 
-#: ../htmlbar_gui.c:399
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:400
 msgid "/Tags/Misc/_Link"
-msgstr "/ஒட்டுகள்/_பட்டியல்"
+msgstr "/ஒட்டுகள்/இதர/_Link"
 
-#: ../htmlbar_gui.c:400
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:401
 msgid "/Tags/Misc/S_cript"
-msgstr "/ஒட்டுகள்/_பட்டியல்"
+msgstr "/ஒட்டுகள்/இதர/S_cript"
 
-#: ../htmlbar_gui.c:401
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:402
 msgid "/Tags/Misc/_Anchor"
-msgstr "/ஒட்டுகள்/பட்டியல்/_விளக்கம்"
+msgstr "/ஒட்டுகள்/இதர/நங்கூரம் _A"
 
-#: ../htmlbar_gui.c:402
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:403
 msgid "/Tags/Misc/_Image"
-msgstr "/ஒட்டுகள்/_அட்டவணை"
+msgstr "/ஒட்டுகள்/இதர/சித்திரம் _I"
 
-#: ../htmlbar_gui.c:403
+#: src/plugin_htmlbar/htmlbar_gui.c:404
 msgid "/Tags/_Comment"
-msgstr "/ஒட்டுகள்/_கருத்து"
+msgstr "/ஒட்டுகள்/கருத்து_C"
 
-#: ../htmlbar_gui.c:404
+#: src/plugin_htmlbar/htmlbar_gui.c:405
 msgid "/Dial_ogs"
-msgstr "/வசனங்கள்"
+msgstr "/வசனங்கள் _o"
 
-#: ../htmlbar_gui.c:406
+#: src/plugin_htmlbar/htmlbar_gui.c:407
 msgid "/Dialogs/_General"
-msgstr "/வசனங்கள்/_பொதுவானது"
+msgstr "/வசனங்கள்/பொது _G "
 
-#: ../htmlbar_gui.c:408
+#: src/plugin_htmlbar/htmlbar_gui.c:409
 msgid "/Dialogs/General/_Quickstart..."
-msgstr "/வசனங்கள்/பொதுவானது/_விரைவுத்தொடக்கம்"
+msgstr "/வசனங்கள்/பொது/விரைவுத்தொடக்கம் _Q"
 
-#: ../htmlbar_gui.c:409
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:410
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/வசனங்கள்/பொதுவானது/_மெட்டா..."
+msgstr "/வசனங்கள்/பொது/சுட்டி மெட்டா_L..."
 
-#: ../htmlbar_gui.c:410
+#: src/plugin_htmlbar/htmlbar_gui.c:411
 msgid "/Dialogs/General/_Body..."
-msgstr "/வசனங்கள்/பொதுவானது/_மையஉரை..."
+msgstr "/வசனங்கள்/பொது/மையஉரை... _B"
 
-#: ../htmlbar_gui.c:411
+#: src/plugin_htmlbar/htmlbar_gui.c:412
 msgid "/Dialogs/General/_Anchor..."
-msgstr "/வசனங்கள்/பொதுவானது/_நங்கூரம்..."
+msgstr "/வசனங்கள்/பொது/நங்கூரம்... _A"
 
-#: ../htmlbar_gui.c:412
+#: src/plugin_htmlbar/htmlbar_gui.c:413
 msgid "/Dialogs/General/_Email..."
-msgstr "/வசனங்கள்/பொதுவானது/_மின்னஞ்சல்"
+msgstr "/வசனங்கள்/பொது/மின்னஞ்சல்... _E"
 
-#: ../htmlbar_gui.c:413
+#: src/plugin_htmlbar/htmlbar_gui.c:414
 msgid "/Dialogs/General/_Rule..."
-msgstr "/வசனங்கள்/பொதுவானது/_கோடு"
+msgstr "/வசனங்கள்/பொது/கோடு... _R"
 
-#: ../htmlbar_gui.c:414
+#: src/plugin_htmlbar/htmlbar_gui.c:415
 msgid "/Dialogs/General/_Font..."
-msgstr "/வசனங்கள்/பொதுவானது/_எழுத்துரு"
+msgstr "/வசனங்கள்/பொது/எழுத்துரு... _F"
 
-#: ../htmlbar_gui.c:415
+#: src/plugin_htmlbar/htmlbar_gui.c:416
 msgid "/Dialogs/General/Basef_ont..."
-msgstr "/வசனங்கள்/பொதுவானது/_அடிப்படை எழுத்துரு"
+msgstr "/வசனங்கள்/பொது/அடிப்படை எழுத்துரு... _o"
 
-#: ../htmlbar_gui.c:416
+#: src/plugin_htmlbar/htmlbar_gui.c:417
 msgid "/Dialogs/General/Quick_list..."
-msgstr "/வசனங்கள்/பொதுவானது/விரைவு_ப்பட்டியல்"
+msgstr "/வசனங்கள்/பொது/விரைவுப்பட்டியல்_l"
 
-#: ../htmlbar_gui.c:417
+#: src/plugin_htmlbar/htmlbar_gui.c:418
 msgid "/Dialogs/General/_Meta..."
-msgstr "/வசனங்கள்/பொதுவானது/_மெட்டா..."
+msgstr "/வசனங்கள்/பொது/மெட்டா_M..."
 
-#: ../htmlbar_gui.c:418
+#: src/plugin_htmlbar/htmlbar_gui.c:419
 msgid "/Dialogs/General/Embe_d..."
-msgstr "/வசனங்கள்/பொதுவானது/_உட்பொதி..."
+msgstr "/வசனங்கள்/பொது/உட்பொதி... _d"
 
-#: ../htmlbar_gui.c:419
+#: src/plugin_htmlbar/htmlbar_gui.c:420
 msgid "/Dialogs/General/Select _Color..."
-msgstr "/வசனங்கள்/பொதுவானது/_வர்ணத்தைத் தேர்ந்தெடு"
+msgstr "/வசனங்கள்/பொது/வர்ணத்தைத் தேர்ந்தெடு... _C"
 
-#: ../htmlbar_gui.c:420
+#: src/plugin_htmlbar/htmlbar_gui.c:421
 msgid "/Dialogs/General/Insert _Time..."
-msgstr "/வசனங்கள்/பொதுவானது/நேரத்தைச் செருகு"
+msgstr "/வசனங்கள்/பொது/நேரத்தைச் செருகு... _T"
 
-#: ../htmlbar_gui.c:421
+#: src/plugin_htmlbar/htmlbar_gui.c:422
 msgid "/Dialogs/General/Insert _Image..."
-msgstr "/வசனங்கள்/பொதுவானது/_சித்திரத்தைச் செருகு..."
+msgstr "/வசனங்கள்/பொது/சித்திரத்தைச் செருகு... _I"
 
-#: ../htmlbar_gui.c:422
+#: src/plugin_htmlbar/htmlbar_gui.c:423
 msgid "/Dialogs/General/Insert T_humbnail..."
-msgstr "/வசனங்கள்/பொதுவானது/_குறுகிய சித்திரத்தைச் செருகு..."
+msgstr "/வசனங்கள்/பொது/குறுகிய சித்திரத்தைச் செருகு... _h"
 
-#: ../htmlbar_gui.c:423
+#: src/plugin_htmlbar/htmlbar_gui.c:424
 msgid "/Dialogs/_Table"
-msgstr "/வசனங்கள்/_அட்டவணை"
+msgstr "/வசனங்கள்/அட்டவணை _T"
 
-#: ../htmlbar_gui.c:425
+#: src/plugin_htmlbar/htmlbar_gui.c:426
 msgid "/Dialogs/Table/Table _Wizard..."
-msgstr "/வசனங்கள்/அட்டவணை/அட்டவணை மாயாவி..."
+msgstr "/வசனங்கள்/அட்டவணை/அட்டவணை மாயாவி... _W"
 
-#: ../htmlbar_gui.c:426
+#: src/plugin_htmlbar/htmlbar_gui.c:427
 msgid "/Dialogs/Table/_Table..."
-msgstr "/வசனங்கள்/அட்டவணை/_அட்டவணை..."
+msgstr "/வசனங்கள்/அட்டவணை/அட்டவணை... _T"
 
-#: ../htmlbar_gui.c:427
+#: src/plugin_htmlbar/htmlbar_gui.c:428
 msgid "/Dialogs/Table/Table _Row..."
-msgstr "/வசனங்கள்/அட்டவணை/அட்டவணை _நிரல் ரோ..."
+msgstr "/வசனங்கள்/அட்டவணை/அட்டவணை நிரல் ரோ... _R"
 
-#: ../htmlbar_gui.c:428
+#: src/plugin_htmlbar/htmlbar_gui.c:429
 msgid "/Dialogs/Table/Table _Head..."
-msgstr "/வசனங்கள்/அட்டவணை/அட்டவணை _மேல்தலைப்பு..."
+msgstr "/வசனங்கள்/அட்டவணை/அட்டவணை மேல்தலைப்பு... _H"
 
-#: ../htmlbar_gui.c:429
+#: src/plugin_htmlbar/htmlbar_gui.c:430
 msgid "/Dialogs/Table/Table _Data..."
-msgstr "/வசனங்கள்/அட்டவணை/அட்டவணைத் _தரவு"
+msgstr "/வசனங்கள்/அட்டவணை/அட்டவணைத் தரவு _D"
 
-#: ../htmlbar_gui.c:430
+#: src/plugin_htmlbar/htmlbar_gui.c:431
 msgid "/Dialogs/_CSS"
 msgstr "/வசனங்கள்/_CSS"
 
-#: ../htmlbar_gui.c:432
+#: src/plugin_htmlbar/htmlbar_gui.c:433
 msgid "/Dialogs/CSS/_Create Style..."
-msgstr "/வசனங்கள்/CSS/_ஸ்டைல் உருவாக்கு"
+msgstr "/வசனங்கள்/CSS/ஸ்டைல் உருவாக்கு _C"
 
-#: ../htmlbar_gui.c:433
+#: src/plugin_htmlbar/htmlbar_gui.c:434
 msgid "/Dialogs/CSS/S_pan..."
-msgstr "/வசனங்கள்/CSS/_நீட்டம்..."
+msgstr "/வசனங்கள்/CSS/S_pan..."
 
-#: ../htmlbar_gui.c:434
+#: src/plugin_htmlbar/htmlbar_gui.c:435
 msgid "/Dialogs/CSS/_Div..."
 msgstr "/வசனங்கள்/CSS/_Div"
 
-#: ../htmlbar_gui.c:435
+#: src/plugin_htmlbar/htmlbar_gui.c:436
 msgid "/Dialogs/CSS/_Style..."
-msgstr "/வசனங்கள்/CSS/_வடிவம்"
+msgstr "/வசனங்கள்/CSS/_Style..."
 
-#: ../htmlbar_gui.c:436
+#: src/plugin_htmlbar/htmlbar_gui.c:437
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
-msgstr "/வசனங்கள்/CSS/வடிவத்தாள்களுக்கான _தொடர்பு..."
+msgstr "/வசனங்கள்/CSS/வடிவத்தாள்களுக்கான தொடர்பு... _L"
 
-#: ../htmlbar_gui.c:437
+#: src/plugin_htmlbar/htmlbar_gui.c:438
 msgid "/Dialogs/_Frame"
-msgstr "/வசனங்கள்/_சட்டகங்கள்"
+msgstr "/வசனங்கள்/சட்டகங்கள் _F"
 
-#: ../htmlbar_gui.c:439
+#: src/plugin_htmlbar/htmlbar_gui.c:440
 msgid "/Dialogs/Frame/Frame _Wizard..."
-msgstr "/வசனங்கள்/சட்டகங்கள்/சட்டக _மாயாவி..."
+msgstr "/வசனங்கள்/சட்டகங்கள்/சட்டக மாயாவி... _W"
 
-#: ../htmlbar_gui.c:440
+#: src/plugin_htmlbar/htmlbar_gui.c:441
 msgid "/Dialogs/Frame/Frame_set..."
-msgstr "/வசனங்கள்/சட்டகங்கள்/சட்டக_கணம்"
+msgstr "/வசனங்கள்/சட்டகங்கள்/சட்டக கணம் _s"
 
-#: ../htmlbar_gui.c:441
+#: src/plugin_htmlbar/htmlbar_gui.c:442
 msgid "/Dialogs/Frame/_Frame..."
-msgstr "/வசனங்கள்/சட்டகங்கள்/_சட்டகம்..."
+msgstr "/வசனங்கள்/சட்டகங்கள்/சட்டகம்... _F"
 
-#: ../htmlbar_gui.c:442
+#: src/plugin_htmlbar/htmlbar_gui.c:443
 msgid "/Dialogs/F_orm"
-msgstr "/வசனங்கள்/_படிவம்"
+msgstr "/வசனங்கள்/படிவம் _o"
 
-#: ../htmlbar_gui.c:444
+#: src/plugin_htmlbar/htmlbar_gui.c:445
 msgid "/Dialogs/Form/F_orm..."
-msgstr "/வசனங்கள்/படிவம்/_படிவம்..."
+msgstr "/வசனங்கள்/படிவம்/படிவம்... _o"
 
-#: ../htmlbar_gui.c:445
+#: src/plugin_htmlbar/htmlbar_gui.c:446
 msgid "/Dialogs/Form/_Input..."
-msgstr "/வசனங்கள்/படிவம்/_உள்ளீடு..."
+msgstr "/வசனங்கள்/படிவம்/உள்ளீடு... _I"
 
-#: ../htmlbar_gui.c:446
+#: src/plugin_htmlbar/htmlbar_gui.c:447
 msgid "/Dialogs/Form/Input Buttons..."
-msgstr "/வசனங்கள்/படிவம்/_உள்ளீட்டு பொத்தான்கள்..."
+msgstr "/வசனங்கள்/படிவம்/உள்ளீட்டு பொத்தான்கள்..."
 
-#: ../htmlbar_gui.c:447
+#: src/plugin_htmlbar/htmlbar_gui.c:448
 msgid "/Dialogs/Form/Input Text..."
-msgstr "/வசனங்கள்/படிவம்/_உள்ளீட்டு உரை..."
+msgstr "/வசனங்கள்/படிவம்/உள்ளீட்டு உரை..."
 
-#: ../htmlbar_gui.c:448
+#: src/plugin_htmlbar/htmlbar_gui.c:449
 msgid "/Dialogs/Form/Text_area..."
-msgstr "/வசனங்கள்/படிவம்/உரை_க்கான இடம்"
+msgstr "/வசனங்கள்/படிவம்/உரைக்கான இடம் _a"
 
-#: ../htmlbar_gui.c:449
+#: src/plugin_htmlbar/htmlbar_gui.c:450
 msgid "/Dialogs/Form/_Select..."
-msgstr "/வசனங்கள்/படிவம்/_தேர்வு..."
+msgstr "/வசனங்கள்/படிவம்/தேர்வு... _S"
 
-#: ../htmlbar_gui.c:450
+#: src/plugin_htmlbar/htmlbar_gui.c:451
 msgid "/Dialogs/Form/O_ption..."
-msgstr "/வசனங்கள்/படிவம்/_விருப்பம்"
+msgstr "/வசனங்கள்/படிவம்/விருப்பம் _p"
 
-#: ../htmlbar_gui.c:451
+#: src/plugin_htmlbar/htmlbar_gui.c:452
 msgid "/Dialogs/Form/Option _Group..."
-msgstr "/வசனங்கள்/படிவம்/விருப்பத்_தொகுப்பு"
+msgstr "/வசனங்கள்/படிவம்/விருப்பத் தொகுப்பு _G"
 
-#: ../htmlbar_gui.c:452
+#: src/plugin_htmlbar/htmlbar_gui.c:453
 msgid "/Dialogs/Form/_Button..."
-msgstr "/வசனங்கள்/படிவம்/_பொத்தான்..."
+msgstr "/வசனங்கள்/படிவம்/பொத்தான்... _B"
 
-#: ../htmlbar_gui.c:454
+#: src/plugin_htmlbar/htmlbar_gui.c:455
 msgid "/Dialogs/_Edit tag under cursor..."
-msgstr "/வசனங்கள்/_கர்ஸரின் கீழ் உள்ள ஒட்டினை மாற்று..."
+msgstr "/வசனங்கள்/_கர்ஸரின் கீழ் உள்ள ஒட்டினை மாற்று... _E"
 
-#: ../htmlbar_gui.c:457
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:458
 msgid "/View/View _HTML Toolbar"
-msgstr "/பார்வை/HTML கருவிப்பட்டையைக் காட்டு"
+msgstr "/பார்வை/_HTML கருவிப்பட்டையைக் காட்டு"
 
-#: ../htmlbar_gui.c:731
+#: src/plugin_htmlbar/htmlbar_gui.c:732
 msgid "QuickStart..."
 msgstr "விரைவுத் தொடக்கம்..."
 
-#: ../htmlbar_gui.c:732
+#: src/plugin_htmlbar/htmlbar_gui.c:733
 msgid "Body..."
 msgstr "உடல்..."
 
-#: ../htmlbar_gui.c:733
+#: src/plugin_htmlbar/htmlbar_gui.c:734
 msgid "Bold"
-msgstr "தடிப்பு"
+msgstr "தடியெழுத்து"
 
-#: ../htmlbar_gui.c:734
+#: src/plugin_htmlbar/htmlbar_gui.c:735
 msgid "Italic"
 msgstr "சாய்வெழுத்து"
 
-#: ../htmlbar_gui.c:735 ../html.c:781
+#: src/plugin_htmlbar/htmlbar_gui.c:736 src/plugin_htmlbar/html.c:777
 msgid "Paragraph"
 msgstr "பத்தி"
 
-#: ../htmlbar_gui.c:736
+#: src/plugin_htmlbar/htmlbar_gui.c:737
 msgid "Break"
 msgstr "தடை"
 
-#: ../htmlbar_gui.c:737
+#: src/plugin_htmlbar/htmlbar_gui.c:738
 msgid "Break and clear"
 msgstr "தடை மற்றும் துடைப்பு"
 
-#: ../htmlbar_gui.c:738
+#: src/plugin_htmlbar/htmlbar_gui.c:739
 msgid "Non-breaking space"
 msgstr "தடையில்லாத வெற்றிடம்"
 
-#: ../htmlbar_gui.c:740
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:741
 msgid "Anchor..."
 msgstr "நங்கூரம்..."
 
-#: ../htmlbar_gui.c:741
+#: src/plugin_htmlbar/htmlbar_gui.c:742
 msgid "Rule..."
 msgstr "கோடு..."
 
-#: ../htmlbar_gui.c:742
+#: src/plugin_htmlbar/htmlbar_gui.c:743
 msgid "Center"
 msgstr "மையம்"
 
-#: ../htmlbar_gui.c:743
+#: src/plugin_htmlbar/htmlbar_gui.c:744
 msgid "Right Justify"
 msgstr "வலது இசைவு"
 
-#: ../htmlbar_gui.c:744
+#: src/plugin_htmlbar/htmlbar_gui.c:745
 msgid "Comment"
 msgstr "கருத்து"
 
-#: ../htmlbar_gui.c:745
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:746
 msgid "E-mail..."
-msgstr "மின்னஞ்சல்..."
+msgstr "மின்-அஞ்சல்..."
 
-#: ../htmlbar_gui.c:746
+#: src/plugin_htmlbar/htmlbar_gui.c:747
 msgid "Font..."
 msgstr "எழுத்துரு..."
 
-#: ../htmlbar_gui.c:747
+#: src/plugin_htmlbar/htmlbar_gui.c:748
 msgid "Base Font Size..."
 msgstr "அடிப்படை எழுத்துரு அளவு"
 
-#: ../htmlbar_gui.c:749
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:750
 msgid "Font Size +1"
 msgstr "எழுத்துரு அளவு +1"
 
-#: ../htmlbar_gui.c:750
+#: src/plugin_htmlbar/htmlbar_gui.c:751
 msgid "Font Size -1"
 msgstr "எழுத்துரு அளவு -1"
 
-#: ../htmlbar_gui.c:751
+#: src/plugin_htmlbar/htmlbar_gui.c:752
 msgid "Preformatted Text"
 msgstr "முன்னரே வடிவமைக்கப்பட்ட உரை"
 
-#: ../htmlbar_gui.c:752
+#: src/plugin_htmlbar/htmlbar_gui.c:753
 msgid "Subscript"
 msgstr "கீழ் ஒட்டு"
 
-#: ../htmlbar_gui.c:753
+#: src/plugin_htmlbar/htmlbar_gui.c:754
 msgid "Superscript"
 msgstr "மேல் ஒட்டு"
 
-#: ../htmlbar_gui.c:754
+#: src/plugin_htmlbar/htmlbar_gui.c:755
 msgid "Strong"
 msgstr "வலிமையானது"
 
-#: ../htmlbar_gui.c:755
+#: src/plugin_htmlbar/htmlbar_gui.c:756
 msgid "Emphasis"
 msgstr "அழுத்தமானது"
 
-#: ../htmlbar_gui.c:757 ../html.c:790
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:758 src/plugin_htmlbar/html.c:786
 msgid "Heading 1"
 msgstr "தலைப்பு 1"
 
-#: ../htmlbar_gui.c:758 ../html.c:793
+#: src/plugin_htmlbar/htmlbar_gui.c:759 src/plugin_htmlbar/html.c:789
 msgid "Heading 2"
 msgstr "தலைப்பு 2"
 
-#: ../htmlbar_gui.c:759 ../html.c:796
+#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:792
 msgid "Heading 3"
 msgstr "தலைப்பு 3"
 
-#: ../htmlbar_gui.c:760 ../html.c:799
+#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:795
 msgid "Heading 4"
 msgstr "தலைப்பு 4"
 
-#: ../htmlbar_gui.c:761 ../html.c:802
+#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:798
 msgid "Heading 5"
 msgstr "தலைப்பு 5"
 
-#: ../htmlbar_gui.c:762 ../html.c:805
+#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:801
 msgid "Heading 6"
 msgstr "தலைப்பு 6"
 
-#: ../htmlbar_gui.c:763
+#: src/plugin_htmlbar/htmlbar_gui.c:764
 msgid "Table Wizard..."
 msgstr "அட்டவணை மாயாவி..."
 
-#: ../htmlbar_gui.c:765
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:766
 msgid "Table..."
 msgstr "அட்டவணை..."
 
-#: ../htmlbar_gui.c:766
+#: src/plugin_htmlbar/htmlbar_gui.c:767
 msgid "Table Row..."
 msgstr "அட்டவணை கிடைவரிசை..."
 
-#: ../htmlbar_gui.c:767
+#: src/plugin_htmlbar/htmlbar_gui.c:768
 msgid "Table Header..."
 msgstr "அட்டவணை மேற்தலைப்பு..."
 
-#: ../htmlbar_gui.c:768
+#: src/plugin_htmlbar/htmlbar_gui.c:769
 msgid "Table Data..."
 msgstr "அட்டவணைத் தரவு..."
 
-#: ../htmlbar_gui.c:770 ../html_table.c:77
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:771 src/plugin_htmlbar/html_table.c:77
 msgid "Table"
 msgstr "அட்டவணை"
 
-#: ../htmlbar_gui.c:771 ../html_table.c:209
+#: src/plugin_htmlbar/htmlbar_gui.c:772 src/plugin_htmlbar/html_table.c:209
 msgid "Table Row"
 msgstr "அட்டவணை கிடைவரிசை"
 
-#: ../htmlbar_gui.c:772 ../html_table.c:320
+#: src/plugin_htmlbar/htmlbar_gui.c:773 src/plugin_htmlbar/html_table.c:320
 msgid "Table Header"
 msgstr "அட்டவணை மேற்தலைப்பு"
 
-#: ../htmlbar_gui.c:773 ../html_table.c:318
+#: src/plugin_htmlbar/htmlbar_gui.c:774 src/plugin_htmlbar/html_table.c:318
 msgid "Table Data"
 msgstr "அட்டவணை தரவு"
 
-#: ../htmlbar_gui.c:774
+#: src/plugin_htmlbar/htmlbar_gui.c:775
 msgid "Table Caption"
 msgstr "அட்டவணை தலைப்பு"
 
-#: ../htmlbar_gui.c:775
+#: src/plugin_htmlbar/htmlbar_gui.c:776
 msgid "Frame Wizard..."
 msgstr "சட்டக மாயாவி..."
 
-#: ../htmlbar_gui.c:777
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:778
 msgid "Frameset..."
 msgstr "சட்டகத் தொகுப்பு"
 
-#: ../htmlbar_gui.c:778
+#: src/plugin_htmlbar/htmlbar_gui.c:779
 msgid "Frame..."
 msgstr "சட்டகம்..."
 
-#: ../htmlbar_gui.c:780 ../html.c:1590
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:781 src/plugin_htmlbar/html.c:1586
 msgid "Frameset"
 msgstr "சட்டகத் தொகுப்பு"
 
-#: ../htmlbar_gui.c:781 ../html.c:1674
+#: src/plugin_htmlbar/htmlbar_gui.c:782 src/plugin_htmlbar/html.c:1670
 msgid "Frame"
 msgstr "சட்டகம்"
 
-#: ../htmlbar_gui.c:782
+#: src/plugin_htmlbar/htmlbar_gui.c:783
 msgid "Noframes"
 msgstr "சட்டகங்கள் இல்லை"
 
-#: ../htmlbar_gui.c:783
+#: src/plugin_htmlbar/htmlbar_gui.c:784
 msgid "Target"
 msgstr "இலக்கு"
 
-#: ../htmlbar_gui.c:784
+#: src/plugin_htmlbar/htmlbar_gui.c:785
 msgid "Form..."
 msgstr "படிவம்..."
 
-#: ../htmlbar_gui.c:785
+#: src/plugin_htmlbar/htmlbar_gui.c:786
 msgid "Input Button..."
 msgstr "உள்ளிடும் பொத்தான்..."
 
-#: ../htmlbar_gui.c:786
+#: src/plugin_htmlbar/htmlbar_gui.c:787
 msgid "Input Text..."
 msgstr "உள்ளிடும் பொத்தான்..."
 
-#: ../htmlbar_gui.c:787
+#: src/plugin_htmlbar/htmlbar_gui.c:788
 msgid "Input Hidden..."
 msgstr "ஒளித்துவைக்கப்பட்ட உள்ளீடு..."
 
-#: ../htmlbar_gui.c:788
+#: src/plugin_htmlbar/htmlbar_gui.c:789
 msgid "Textarea..."
 msgstr "உரைப்பகுதி..."
 
-#: ../htmlbar_gui.c:789
+#: src/plugin_htmlbar/htmlbar_gui.c:790
 msgid "Input Radio Button..."
 msgstr "உள்ளீட்டு ரேடியோ பொத்தான்..."
 
-#: ../htmlbar_gui.c:790
+#: src/plugin_htmlbar/htmlbar_gui.c:791
 msgid "Input Check Box..."
 msgstr "உள்ளீட்டுக் குறியிடும் பெட்டி"
 
-#: ../htmlbar_gui.c:791
+#: src/plugin_htmlbar/htmlbar_gui.c:792
 msgid "Select..."
 msgstr "தேர்ந்தெடு..."
 
-#: ../htmlbar_gui.c:792
+#: src/plugin_htmlbar/htmlbar_gui.c:793
 msgid "Option..."
 msgstr "விருப்பம்..."
 
-#: ../htmlbar_gui.c:793
+#: src/plugin_htmlbar/htmlbar_gui.c:794
 msgid "Option group..."
 msgstr "விருப்பத் தொகுப்பு..."
 
-#: ../htmlbar_gui.c:794
+#: src/plugin_htmlbar/htmlbar_gui.c:795
 msgid "Button..."
 msgstr "பொத்தான்..."
 
-#: ../htmlbar_gui.c:795
+#: src/plugin_htmlbar/htmlbar_gui.c:796
 msgid "Quick List..."
 msgstr "விரைவுப் பட்டியல்..."
 
-#: ../htmlbar_gui.c:796
+#: src/plugin_htmlbar/htmlbar_gui.c:797
 msgid "Unordered List"
 msgstr "அடுக்கப்படாத பட்டியல்"
 
-#: ../htmlbar_gui.c:797
+#: src/plugin_htmlbar/htmlbar_gui.c:798
 msgid "Ordered List"
 msgstr "அடுக்கப்பட்ட பட்டியல்"
 
-#: ../htmlbar_gui.c:798
+#: src/plugin_htmlbar/htmlbar_gui.c:799
 msgid "List Item"
 msgstr "பட்டியல் இனம்"
 
-#: ../htmlbar_gui.c:799
+#: src/plugin_htmlbar/htmlbar_gui.c:800
 msgid "Definition List"
 msgstr "விளக்கப் பட்டியல்"
 
-#: ../htmlbar_gui.c:800
+#: src/plugin_htmlbar/htmlbar_gui.c:801
 msgid "Definition Term"
 msgstr "விளக்கச் சொல்"
 
-#: ../htmlbar_gui.c:801 ../htmlbar_gui.c:810
+#: src/plugin_htmlbar/htmlbar_gui.c:802 src/plugin_htmlbar/htmlbar_gui.c:811
 msgid "Definition"
 msgstr "விளக்கம்"
 
-#: ../htmlbar_gui.c:802
+#: src/plugin_htmlbar/htmlbar_gui.c:803
 msgid "Create stylesheet..."
 msgstr "வடிவத்தாளை உருவாக்கு"
 
-#: ../htmlbar_gui.c:803
+#: src/plugin_htmlbar/htmlbar_gui.c:804
 msgid "Span..."
 msgstr "Span..."
 
-#: ../htmlbar_gui.c:804
+#: src/plugin_htmlbar/htmlbar_gui.c:805
 msgid "Div..."
 msgstr "Div..."
 
-#: ../htmlbar_gui.c:805 ../html_form.c:825
+#: src/plugin_htmlbar/htmlbar_gui.c:806 src/plugin_htmlbar/html_form.c:825
 msgid "Style"
-msgstr "வடிவம்"
+msgstr "Style"
 
-#: ../htmlbar_gui.c:806
+#: src/plugin_htmlbar/htmlbar_gui.c:807
 msgid "Link to stylesheet..."
 msgstr "வடிவத்தாளிற்கான தொடர்பு"
 
-#: ../htmlbar_gui.c:807
+#: src/plugin_htmlbar/htmlbar_gui.c:808
 msgid "Insert image..."
 msgstr "சித்திரத்தைச் செருகு..."
 
-#: ../htmlbar_gui.c:808
+#: src/plugin_htmlbar/htmlbar_gui.c:809
 msgid "Insert thumbnail..."
 msgstr "நகக்கண் சித்திரத்தைச் செருகு..."
 
-#: ../htmlbar_gui.c:809
+#: src/plugin_htmlbar/htmlbar_gui.c:810
 msgid "Multi thumbnail..."
 msgstr "பல்முனை நகக்கண் சித்திரம்..."
 
-#: ../htmlbar_gui.c:811
+#: src/plugin_htmlbar/htmlbar_gui.c:812
 msgid "Code"
 msgstr "நிரல்"
 
-#: ../htmlbar_gui.c:812
+#: src/plugin_htmlbar/htmlbar_gui.c:813
 msgid "Sample"
 msgstr "மாதிரி"
 
-#: ../htmlbar_gui.c:813
+#: src/plugin_htmlbar/htmlbar_gui.c:814
 msgid "Keyboard"
 msgstr "விசைப்பலகை"
 
-#: ../htmlbar_gui.c:814
+#: src/plugin_htmlbar/htmlbar_gui.c:815
 msgid "Variable"
 msgstr "மாறி"
 
-#: ../htmlbar_gui.c:815
+#: src/plugin_htmlbar/htmlbar_gui.c:816
 msgid "Citation"
 msgstr "எடுத்துரைத்தல்"
 
-#: ../htmlbar_gui.c:816
+#: src/plugin_htmlbar/htmlbar_gui.c:817
 msgid "Abbreviation"
 msgstr "குறுக்கம்"
 
-#: ../htmlbar_gui.c:817
+#: src/plugin_htmlbar/htmlbar_gui.c:818
 msgid "Acronym"
 msgstr "அக்ரோநிம்"
 
-#: ../htmlbar_gui.c:937
+#: src/plugin_htmlbar/htmlbar_gui.c:938
 msgid "Remove from quickbar"
 msgstr "விரைவுச்சட்டத்திலிந்து நீக்கு"
 
-#: ../htmlbar_gui.c:938
+#: src/plugin_htmlbar/htmlbar_gui.c:939
 msgid "Move Left"
-msgstr ""
+msgstr "இடதுபுறம் நகர்"
 
-#: ../htmlbar_gui.c:939
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:940
 msgid "Move Right"
-msgstr "உயரம்"
+msgstr "வலதுபக்கம் நகர்"
 
-#: ../htmlbar_gui.c:979
+#: src/plugin_htmlbar/htmlbar_gui.c:980
 msgid "Add to quickbar"
 msgstr "விரைவுச்சட்டத்தில் சேர்"
 
-#: ../htmlbar_gui.c:1081
+#: src/plugin_htmlbar/htmlbar_gui.c:1082
 msgid " Quick bar "
 msgstr " விரைவுச் சட்டம் "
 
-#: ../htmlbar_gui.c:1086
+#: src/plugin_htmlbar/htmlbar_gui.c:1087
 msgid "Heading"
 msgstr "தலைப்பு"
 
-#: ../htmlbar_gui.c:1088
+#: src/plugin_htmlbar/htmlbar_gui.c:1089
 msgid " Standard bar "
 msgstr " வழக்கமான சட்டம் "
 
-#: ../htmlbar_gui.c:1093
+#: src/plugin_htmlbar/htmlbar_gui.c:1094
 msgid "Context formatting"
 msgstr "இட வடிவமைப்பு"
 
-#: ../htmlbar_gui.c:1095
+#: src/plugin_htmlbar/htmlbar_gui.c:1096
 msgid " Fonts "
 msgstr " எழுத்துருக்கள் "
 
-#: ../htmlbar_gui.c:1100
+#: src/plugin_htmlbar/htmlbar_gui.c:1101
 msgid " Tables "
 msgstr " அட்டவணைகள் "
 
-#: ../htmlbar_gui.c:1105
+#: src/plugin_htmlbar/htmlbar_gui.c:1106
 msgid " Frames "
 msgstr " சட்டகங்கள் "
 
-#: ../htmlbar_gui.c:1110
+#: src/plugin_htmlbar/htmlbar_gui.c:1111
 msgid " Forms "
 msgstr " படிவங்கள் "
 
-#: ../htmlbar_gui.c:1115
+#: src/plugin_htmlbar/htmlbar_gui.c:1116
 msgid " List "
 msgstr " பட்டியல் "
 
-#: ../htmlbar_gui.c:1120
+#: src/plugin_htmlbar/htmlbar_gui.c:1121
 msgid " CSS "
 msgstr " CSS "
 
-#: ../html.c:389
+#: src/plugin_htmlbar/html.c:385
 msgid "Insert Time"
 msgstr "காலத்தைச் செருகு"
 
-#: ../html.c:397
+#: src/plugin_htmlbar/html.c:393
 #, c-format
 msgid "  _Time (%i:%i:%i)"
-msgstr "  _காலம் (%i:%i:%i)"
+msgstr "  காலம் (%i:%i:%i) _T"
 
-#: ../html.c:402
+#: src/plugin_htmlbar/html.c:398
 msgid "  Day of the _week (Sunday)"
-msgstr "  _வாரநாள் (ஞாயிறு)"
+msgstr "  வாரநாள் (ஞாயிறு) _w"
 
-#: ../html.c:405
+#: src/plugin_htmlbar/html.c:401
 msgid "  Day of the _week (Monday)"
-msgstr "  _வாரநாள் (திங்கள்)"
+msgstr "  வாரநாள் (திங்கள்) _w"
 
-#: ../html.c:408
+#: src/plugin_htmlbar/html.c:404
 msgid "  Day of the _week (Tuesday)"
-msgstr "  _வாரநாள் (செவ்வாய்)"
+msgstr "  வாரநாள் (செவ்வாய்) _w"
 
-#: ../html.c:411
+#: src/plugin_htmlbar/html.c:407
 msgid "  Day of the _week (Wednesday)"
-msgstr "  _வாரநாள் (புதன்)"
+msgstr "  வாரநாள் (புதன்) _w"
 
-#: ../html.c:414
+#: src/plugin_htmlbar/html.c:410
 msgid "  Day of the _week (Thursday)"
-msgstr "  _வாரநாள் (வியாழன்)"
+msgstr "  வாரநாள் (வியாழன்) _w"
 
-#: ../html.c:417
+#: src/plugin_htmlbar/html.c:413
 msgid "  Day of the _week (Friday)"
-msgstr "  _வாரநாள் (வெள்ளி)"
+msgstr "  வாரநாள் (வெள்ளி) _w"
 
-#: ../html.c:420
+#: src/plugin_htmlbar/html.c:416
 msgid "  Day of the _week (Saturday)"
-msgstr "  _வாரநாள் (சனி)"
+msgstr "  வாரநாள் (சனி) _w"
 
-#: ../html.c:423
+#: src/plugin_htmlbar/html.c:419
 msgid "You appear to have a non existant day!\n"
 msgstr "வழக்கில் இல்லாத நாளை நீங்கள் வைத்திருப்பதாகத் தெரிகிறது!\n"
 
-#: ../html.c:431
+#: src/plugin_htmlbar/html.c:427
 #, c-format
 msgid "  _Date (%i/%i/%i)"
-msgstr "  _தேதி (%i/%i/%i)"
+msgstr "  தேதி (%i/%i/%i) _D"
 
-#: ../html.c:434
+#: src/plugin_htmlbar/html.c:430
 #, c-format
 msgid "  _Unix Time (%i)"
-msgstr "  _யுனிக்ஸ் நேரம் (%i)"
+msgstr "  யுனிக்ஸ் நேரம் (%i) _U"
 
-#: ../html.c:439
-#, c-format
-msgid "  Unix Date _String (%s"
-msgstr "  யுனிக்ஸ் தேதி _சொல் (%s"
+#: src/plugin_htmlbar/html.c:435
+#, fuzzy, c-format
+msgid "  Unix Date _String (%s)"
+msgstr "  யுனிக்ஸ் தேதி சொல் _S(%s"
 
-#: ../html.c:447
+#: src/plugin_htmlbar/html.c:443
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
-msgstr ""
+msgstr "  ISO-8601 Ti_me (%s)"
 
-#: ../html.c:589
+#: src/plugin_htmlbar/html.c:585
 msgid "Quick Anchor"
 msgstr "விரைவு நங்கூரம்"
 
-#: ../html.c:595 ../html_form.c:780
+#: src/plugin_htmlbar/html.c:591 src/plugin_htmlbar/html_form.c:780
 msgid "Attributes"
 msgstr "தன்மைகள்"
 
-#: ../html.c:609 ../html.c:1918
+#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1914
 msgid "_HREF:"
 msgstr "_HREF:"
 
-#: ../html.c:613 ../html_form.c:183
+#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/html_form.c:183
 msgid "_Target:"
 msgstr "_Target:"
 
-#: ../html.c:617 ../html.c:837 ../html.c:1212 ../html.c:1686
-#: ../html_form.c:231 ../html_form.c:596 ../html_form.c:795 ../html_form.c:890
-#: ../image.c:416
+#: src/plugin_htmlbar/html.c:613 src/plugin_htmlbar/html.c:833
+#: src/plugin_htmlbar/html.c:1208 src/plugin_htmlbar/html.c:1682
+#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
+#: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
+#: src/plugin_htmlbar/image.c:418
 msgid "_Name:"
-msgstr "_பெயர்:"
+msgstr "பெயர் _N:"
 
-#: ../html.c:623 ../html.c:1070 ../html.c:1241 ../html.c:1833
+#: src/plugin_htmlbar/html.c:619 src/plugin_htmlbar/html.c:1066
+#: src/plugin_htmlbar/html.c:1237 src/plugin_htmlbar/html.c:1829
 msgid "_Language:"
-msgstr "_மொழி:"
+msgstr "மொழி _L:"
 
-#: ../html.c:627 ../html.c:845 ../html.c:979 ../html.c:1074 ../html.c:1249
-#: ../html.c:1622 ../html.c:1723 ../html.c:1852 ../html_form.c:187
-#: ../html_form.c:243 ../html_form.c:609 ../html_form.c:903
-#: ../html_table.c:101 ../html_table.c:253 ../html_table.c:361 ../image.c:424
+#: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:841
+#: src/plugin_htmlbar/html.c:975 src/plugin_htmlbar/html.c:1070
+#: src/plugin_htmlbar/html.c:1245 src/plugin_htmlbar/html.c:1618
+#: src/plugin_htmlbar/html.c:1719 src/plugin_htmlbar/html.c:1848
+#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
+#: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
+#: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:426
 msgid "Custo_m:"
-msgstr "தனிப்பய_ன்"
+msgstr "தனிப்பயன் _m"
 
-#: ../html.c:630 ../html.c:1078 ../html_form.c:829
+#: src/plugin_htmlbar/html.c:626 src/plugin_htmlbar/html.c:1074
+#: src/plugin_htmlbar/html_form.c:829
 msgid "Events"
 msgstr "நிகழ்வுகள்"
 
-#: ../html.c:633
+#: src/plugin_htmlbar/html.c:629
 msgid "OnClic_k:"
 msgstr "OnClic_k:"
 
-#: ../html.c:637
+#: src/plugin_htmlbar/html.c:633
 msgid "OnD_blClick:"
 msgstr "OnD_blClick:"
 
-#: ../html.c:641
+#: src/plugin_htmlbar/html.c:637
 msgid "OnMouseO_ver:"
 msgstr "OnMouseO_ver:"
 
-#: ../html.c:645
+#: src/plugin_htmlbar/html.c:641
 msgid "OnMouse_Down:"
 msgstr "OnMouse_Down:"
 
-#: ../html.c:649
+#: src/plugin_htmlbar/html.c:645
 msgid "OnMouse_Move:"
 msgstr "OnMouse_Move:"
 
-#: ../html.c:653
+#: src/plugin_htmlbar/html.c:649
 msgid "OnMouseOu_t:"
 msgstr "OnMouseOu_t:"
 
-#: ../html.c:657
+#: src/plugin_htmlbar/html.c:653
 msgid "OnMouse_Up:"
 msgstr "OnMouse_Up:"
 
-#: ../html.c:661
+#: src/plugin_htmlbar/html.c:657
 msgid "OnKeyDo_wn:"
 msgstr "OnKeyDo_wn:"
 
-#: ../html.c:665
+#: src/plugin_htmlbar/html.c:661
 msgid "OnKey_Press:"
 msgstr "OnKey_Press:"
 
-#: ../html.c:669
+#: src/plugin_htmlbar/html.c:665
 msgid "OnKe_yUp:"
 msgstr "OnKe_yUp:"
 
-#: ../html.c:784
+#: src/plugin_htmlbar/html.c:780
 msgid "Div"
 msgstr "Div"
 
-#: ../html.c:787
+#: src/plugin_htmlbar/html.c:783
 msgid "Span"
 msgstr "Span"
 
-#: ../html.c:822 ../html_table.c:109 ../html_table.c:219 ../html_table.c:333
+#: src/plugin_htmlbar/html.c:818 src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
 msgid "Ali_gn:"
-msgstr "இசைவு:"
+msgstr "இசைவு _g:"
 
-#: ../html.c:826 ../html.c:1062 ../html_diag.c:373 ../html_table.c:91
-#: ../html_table.c:237 ../html_table.c:351
+#: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
+#: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
+#: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
 msgid "Cl_ass:"
 msgstr "Cl_ass:"
 
-#: ../html.c:830 ../html.c:1055 ../html_diag.c:381 ../html_table.c:96
-#: ../html_table.c:248 ../html_table.c:356
+#: src/plugin_htmlbar/html.c:826 src/plugin_htmlbar/html.c:1051
+#: src/plugin_htmlbar/html_diag.c:381 src/plugin_htmlbar/html_table.c:96
+#: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
 msgid "St_yle:"
-msgstr "ஸ்டை_ல்:"
+msgstr "St_yle:"
 
-#: ../html.c:841 ../html.c:1066 ../html_diag.c:377
+#: src/plugin_htmlbar/html.c:837 src/plugin_htmlbar/html.c:1062
+#: src/plugin_htmlbar/html_diag.c:377
 msgid "_ID:"
 msgstr "_ID:"
 
-#: ../html.c:942
+#: src/plugin_htmlbar/html.c:938
 msgid "Horizontal Rule"
 msgstr "கிடைக்கோடு"
 
-#: ../html.c:953 ../html.c:1771 ../image.c:442
+#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1767
+#: src/plugin_htmlbar/image.c:444
 msgid "_Align:"
-msgstr "_இசைவு:"
+msgstr "இசைவு _A:"
 
-#: ../html.c:960 ../html.c:1779 ../html_table.c:387
+#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1775
+#: src/plugin_htmlbar/html_table.c:387
 msgid "_Height:"
-msgstr "_உயரம்:"
+msgstr "உயரம் _H:"
 
-#: ../html.c:966 ../html.c:1775 ../html_table.c:134 ../html_table.c:380
-#: ../image.c:400
+#. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
+#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1771
+#: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
+#: src/plugin_htmlbar/image.c:402
 msgid "_Width:"
-msgstr "_அகலம்:"
+msgstr "அகலம் _W:"
 
-#: ../html.c:969
+#: src/plugin_htmlbar/html.c:965
 msgid "Is _percent"
 msgstr "Is _percent"
 
-#: ../html.c:974
+#: src/plugin_htmlbar/html.c:970
 msgid "No _shading"
-msgstr "நிழலி_டாதே"
+msgstr "நிழலிடாதே _s"
 
-#: ../html.c:1039
+#: src/plugin_htmlbar/html.c:1035
 msgid "Body"
 msgstr "மையஉரை (உடல்)"
 
-#: ../html.c:1047
+#: src/plugin_htmlbar/html.c:1043
 msgid "Options"
 msgstr "விருப்பங்கள்"
 
-#: ../html.c:1085
+#: src/plugin_htmlbar/html.c:1081
 msgid "On_Load:"
 msgstr "On_Load:"
 
-#: ../html.c:1093
+#: src/plugin_htmlbar/html.c:1089
 msgid "On_UnLoad:"
 msgstr "On_UnLoad:"
 
-#: ../html.c:1102
+#: src/plugin_htmlbar/html.c:1098
 msgid "Depreciated options"
 msgstr "நலிந்த விருப்பங்கள்"
 
-#: ../html.c:1112
+#: src/plugin_htmlbar/html.c:1108
 msgid "Background _Image:"
-msgstr "பின்புலச் _சித்திரங்கள்:"
+msgstr "பின்புலச் சித்திரங்கள் _I:"
 
-#: ../html.c:1119
+#: src/plugin_htmlbar/html.c:1115
 msgid "Back_ground Color:"
-msgstr "பின்புல வர்ணம்:"
+msgstr "பின்புல வர்ணம் _g:"
 
-#: ../html.c:1125
+#: src/plugin_htmlbar/html.c:1121
 msgid "_Text Color:"
-msgstr "_உரை வர்ணம்:"
+msgstr "உரை வர்ணம் _T:"
 
-#: ../html.c:1131
+#: src/plugin_htmlbar/html.c:1127
 msgid "_Link Color:"
-msgstr "_சுட்டி வர்ணம்:"
+msgstr "சுட்டி வர்ணம் _L:"
 
-#: ../html.c:1137
+#: src/plugin_htmlbar/html.c:1133
 msgid "_Visited Link Color:"
-msgstr "_பார்த்த சுட்டி வர்ணம்:"
+msgstr "பார்த்த சுட்டி வர்ணம் _V:"
 
-#: ../html.c:1143
+#: src/plugin_htmlbar/html.c:1139
 msgid "_Active Link Color:"
-msgstr "_நடப்பு சுட்டி வர்ணம்:"
+msgstr "நடப்பு சுட்டி வர்ணம் _A:"
 
-#: ../html.c:1194
+#: src/plugin_htmlbar/html.c:1190
 msgid "Meta"
 msgstr "மெட்டா"
 
-#: ../html.c:1232
+#: src/plugin_htmlbar/html.c:1228
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-#: ../html.c:1237
+#: src/plugin_htmlbar/html.c:1233
 msgid "Con_tent:"
-msgstr "உள்ளடக்கம்:"
+msgstr "உள்ளடக்கம் _t:"
 
-#: ../html.c:1245
+#: src/plugin_htmlbar/html.c:1241
 msgid "_Scheme:"
-msgstr "_திட்டமுறை"
+msgstr "திட்டமுறை _S:"
 
-#: ../html.c:1326
+#: src/plugin_htmlbar/html.c:1322
 msgid "Font"
 msgstr "எழுத்துரு"
 
-#: ../html.c:1329
+#: src/plugin_htmlbar/html.c:1325
 msgid "Base Font"
 msgstr "அடித்தள எழுத்துரு"
 
-#: ../html.c:1344
+#: src/plugin_htmlbar/html.c:1340
 msgid "Size"
 msgstr "அளவு"
 
-#: ../html.c:1352
+#: src/plugin_htmlbar/html.c:1348
 msgid "Color"
 msgstr "வர்ணம்"
 
-#: ../html.c:1357
+#: src/plugin_htmlbar/html.c:1353
 msgid "Face"
 msgstr "முகப்பு"
 
-#: ../html.c:1361
+#: src/plugin_htmlbar/html.c:1357
 msgid "Custom"
 msgstr "தனிப்பயன்"
 
-#: ../html.c:1445
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1441
 msgid "E-mail"
-msgstr "மின்னஞ்சல்"
+msgstr "மின்-அஞ்சல்"
 
-#: ../html.c:1453
+#: src/plugin_htmlbar/html.c:1449
 msgid "_Mail to:"
-msgstr ""
+msgstr "_Mail to:"
 
-#: ../html.c:1457
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1453
 msgid "_Copy to:"
-msgstr "நகல்"
+msgstr "நகல் _C"
 
-#: ../html.c:1461
+#: src/plugin_htmlbar/html.c:1457
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "Blin_d copy to:"
 
-#: ../html.c:1465
+#: src/plugin_htmlbar/html.c:1461
 msgid "with _Subject:"
-msgstr ""
+msgstr "with _Subject:"
 
-#: ../html.c:1469
+#: src/plugin_htmlbar/html.c:1465
 msgid "with _Body:"
-msgstr ""
+msgstr "with _Body:"
 
-#: ../html.c:1513
+#: src/plugin_htmlbar/html.c:1509
 msgid "Quick List"
 msgstr "விரைவுப் பட்டியல்"
 
-#: ../html.c:1518 ../html.c:1600 ../html_form.c:236
+#: src/plugin_htmlbar/html.c:1514 src/plugin_htmlbar/html.c:1596
+#: src/plugin_htmlbar/html_form.c:236
 msgid "_Rows:"
-msgstr "_கிடைவரிசைகள்:"
+msgstr "கிடைவரிசைகள் _R:"
 
-#: ../html.c:1521
+#: src/plugin_htmlbar/html.c:1517
 msgid "Or_dered"
-msgstr "_அடுக்கப்பட்டது"
+msgstr "அடுக்கப்பட்டது _d"
 
-#: ../html.c:1522
+#: src/plugin_htmlbar/html.c:1518
 msgid "_Unordered"
-msgstr "அடுக்கப்ப_டாதது"
+msgstr "அடுக்கப்படாதது _U"
 
-#: ../html.c:1524
+#: src/plugin_htmlbar/html.c:1520
 msgid "Style:"
-msgstr "ஸ்டைல்:"
+msgstr "Style:"
 
-#: ../html.c:1596 ../html_form.c:240
+#: src/plugin_htmlbar/html.c:1592 src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
-msgstr "_நெடுவரிசைகள்:"
+msgstr "நெடுவரிசைகள் _l:"
 
-#: ../html.c:1605
+#: src/plugin_htmlbar/html.c:1601
 msgid "_Add <frame> elements"
-msgstr "<frame> தன்மைகளைச் _சேர்"
+msgstr "<frame> தன்மைகளைச் சேர் _A"
 
-#: ../html.c:1682 ../html.c:1767 ../html.c:1826
+#: src/plugin_htmlbar/html.c:1678 src/plugin_htmlbar/html.c:1763
+#: src/plugin_htmlbar/html.c:1822
 msgid "_Source:"
-msgstr "_மூலநிரல்:"
+msgstr "மூலநிரல் _S:"
 
-#: ../html.c:1690
+#: src/plugin_htmlbar/html.c:1686
 msgid "Margin _Width:"
-msgstr "ஓர _அகலம்:"
+msgstr "மார்ஜின் அகலம் _W:"
 
-#: ../html.c:1694
+#: src/plugin_htmlbar/html.c:1690
 msgid "Margin _Height:"
-msgstr "மார்ஜின் _உயரம்"
+msgstr "மார்ஜின் உயரம் _H"
 
-#: ../html.c:1702
+#: src/plugin_htmlbar/html.c:1698
 msgid "Scrollin_g:"
-msgstr "திரை உருளல்"
+msgstr "திரை உருளல் _g"
 
-#: ../html.c:1706
+#: src/plugin_htmlbar/html.c:1702
 msgid "_Frameborder:"
-msgstr "_சட்டகபார்டர்:"
+msgstr "சட்டகபார்டர் _F:"
 
-#: ../html.c:1711
+#: src/plugin_htmlbar/html.c:1707
 msgid "No _Resize:"
-msgstr "அளவு மாற்றாதே:"
+msgstr "அளவு மாற்றாதே _R:"
 
-#: ../html.c:1761
+#: src/plugin_htmlbar/html.c:1757
 msgid "Embed"
 msgstr "உட்பொதி"
 
-#: ../html.c:1783 ../html_table.c:140
+#: src/plugin_htmlbar/html.c:1779 src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
-msgstr "_பார்டர்"
+msgstr "பார்டர் _r"
 
-#: ../html.c:1819
+#: src/plugin_htmlbar/html.c:1815
 msgid "Script"
 msgstr "கட்டளைத்தொடர்"
 
-#: ../html.c:1848 ../html.c:1949 ../html_form.c:789 ../html_form.c:899
+#: src/plugin_htmlbar/html.c:1844 src/plugin_htmlbar/html.c:1945
+#: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
 msgstr "_Type:"
 
-#: ../html.c:1907
+#: src/plugin_htmlbar/html.c:1903
 msgid "Link"
 msgstr "சுட்டி"
 
-#: ../html.c:1924
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1920
 msgid "HREF_LANG:"
-msgstr "_HREF:"
+msgstr "HREF_LANG:"
 
-#: ../html.c:1928
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1924
 msgid "T_itle:"
-msgstr "_தலைப்பு:"
+msgstr "தலைப்பு _i:"
 
-#: ../html.c:1968
+#: src/plugin_htmlbar/html.c:1964
 msgid "_Forward Relation:"
 msgstr "_Forward Relation:"
 
-#: ../html.c:1972
+#: src/plugin_htmlbar/html.c:1968
 msgid "_Reverse Relation:"
 msgstr "_Reverse Relation:"
 
-#: ../html.c:1983
+#: src/plugin_htmlbar/html.c:1979
 msgid "Media:"
 msgstr "மீடியா:"
 
-#: ../html.c:1987
+#: src/plugin_htmlbar/html.c:1983
 msgid "L_ang:"
 msgstr "L_ang:"
 
-#: ../html.c:1991
+#: src/plugin_htmlbar/html.c:1987
 msgid "_Custom:"
-msgstr "_தனிப்பயன்:"
+msgstr "தனிப்பயன் _C:"
 
-#: ../html_form.c:141
+#: src/plugin_htmlbar/html_form.c:141
 msgid "Form"
 msgstr "படிவம்"
 
-#: ../html_form.c:159
+#: src/plugin_htmlbar/html_form.c:159
 msgid "_Action:"
 msgstr "_Action:"
 
-#: ../html_form.c:167
+#: src/plugin_htmlbar/html_form.c:167
 msgid "Metho_d:"
 msgstr "Metho_d:"
 
-#: ../html_form.c:176
+#: src/plugin_htmlbar/html_form.c:176
 msgid "_Enctype:"
 msgstr "_Enctype:"
 
-#: ../html_form.c:225
+#: src/plugin_htmlbar/html_form.c:225
 msgid "Text area"
 msgstr "உரை பரப்பு"
 
-#: ../html_form.c:590
+#: src/plugin_htmlbar/html_form.c:590
 msgid "Select"
 msgstr "தேர்ந்தெடு"
 
-#: ../html_form.c:601 ../html_form.c:808
+#: src/plugin_htmlbar/html_form.c:601 src/plugin_htmlbar/html_form.c:808
 msgid "Si_ze:"
-msgstr "அ_ளவு:"
+msgstr "அளவு _z:"
 
-#: ../html_form.c:605
+#: src/plugin_htmlbar/html_form.c:605
 msgid "Multiple _Selections:"
 msgstr "பல்முனை _தேர்வுகள்:"
 
-#: ../html_form.c:644
+#: src/plugin_htmlbar/html_form.c:644
 msgid "Option"
 msgstr "விருப்பம்"
 
-#: ../html_form.c:654 ../html_form.c:697
+#: src/plugin_htmlbar/html_form.c:654 src/plugin_htmlbar/html_form.c:697
 msgid "_Label:"
-msgstr "_அடையாளம்"
+msgstr "அடையாளம் _L:"
 
-#: ../html_form.c:659
+#: src/plugin_htmlbar/html_form.c:659
 msgid "_Selected:"
-msgstr "_தேர்வுசெய்யப்பட்டது"
+msgstr "தேர்வுசெய்யப்பட்டது _S:"
 
-#: ../html_form.c:692
+#: src/plugin_htmlbar/html_form.c:692
 msgid "Option group"
 msgstr "விருப்பத் தொகுப்பு"
 
-#: ../html_form.c:775
+#: src/plugin_htmlbar/html_form.c:775
 msgid "Input"
 msgstr "உள்ளீடு"
 
-#: ../html_form.c:803
+#: src/plugin_htmlbar/html_form.c:803
 msgid "_Checked:"
-msgstr "_குறியிடப்பட்டது:"
+msgstr "குறியிடப்பட்டது _C:"
 
-#: ../html_form.c:812
+#: src/plugin_htmlbar/html_form.c:812
 msgid "Max _Length:"
-msgstr "அதிக. _நீளம்:"
+msgstr "அதிக நீளம் _L:"
 
-#: ../html_form.c:816
+#: src/plugin_htmlbar/html_form.c:816
 msgid "_Accept:"
-msgstr "_ஏற்றுக்கொள்:"
+msgstr "ஏற்றுக்கொள் _A:"
 
-#: ../html_form.c:820
+#: src/plugin_htmlbar/html_form.c:820
 msgid "C_ustom:"
-msgstr "தனிப்பய_ன்"
+msgstr "தனிப்பயன் _u:"
 
-#: ../html_form.c:832
+#: src/plugin_htmlbar/html_form.c:832
 msgid "On_Focus:"
 msgstr "On_Focus:"
 
-#: ../html_form.c:836
+#: src/plugin_htmlbar/html_form.c:836
 msgid "On_Blur:"
 msgstr "On_Blur:"
 
-#: ../html_form.c:840
+#: src/plugin_htmlbar/html_form.c:840
 msgid "On_Select:"
 msgstr "On_Select:"
 
-#: ../html_form.c:844
+#: src/plugin_htmlbar/html_form.c:844
 msgid "On_Change:"
 msgstr "On_Change:"
 
-#: ../html_form.c:884
+#: src/plugin_htmlbar/html_form.c:884
 msgid "Button"
 msgstr "பொத்தான்"
 
-#: ../html_table.c:83
+#: src/plugin_htmlbar/html_table.c:83
 msgid "Cell _Padding:"
-msgstr "செல் நிரப்புதல்:"
+msgstr "செல் நிரப்புதல் _P:"
 
-#: ../html_table.c:87
+#: src/plugin_htmlbar/html_table.c:87
 msgid "C_ell Spacing:"
-msgstr "செல் இடைவெளி:"
+msgstr "செல் இடைவெளி _e:"
 
-#: ../html_table.c:123 ../html_table.c:233 ../html_table.c:347
+#: src/plugin_htmlbar/html_table.c:123 src/plugin_htmlbar/html_table.c:233
+#: src/plugin_htmlbar/html_table.c:347
 msgid "_Valign:"
-msgstr "_குத்துஇசைவு"
+msgstr "_Valign:"
 
-#: ../html_table.c:128 ../html_table.c:242 ../html_table.c:392
+#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:392
 msgid "Backgrou_nd Color:"
-msgstr "பின்புல _வர்ணம்"
+msgstr "பின்புல வர்ணம் _n"
 
-#: ../html_table.c:154
+#: src/plugin_htmlbar/html_table.c:154
 msgid "_Frame:"
-msgstr "_சட்டகம்:"
+msgstr "சட்டகம் _F:"
 
-#: ../html_table.c:165
+#: src/plugin_htmlbar/html_table.c:165
 msgid "R_ules:"
-msgstr "வி_திகள்:"
+msgstr "விதிகள் _u:"
 
-#: ../html_table.c:365
+#: src/plugin_htmlbar/html_table.c:365
 msgid "Co_l Span:"
-msgstr "_நெடுவரிசை நீட்டம்:"
+msgstr "Co_l Span:"
 
-#: ../html_table.c:369
+#: src/plugin_htmlbar/html_table.c:369
 msgid "_Row Span:"
-msgstr "_கிடைவரிசை _நீட்டம்:"
+msgstr "_Row Span:"
 
-#: ../html_table.c:374
+#: src/plugin_htmlbar/html_table.c:374
 msgid "No Wra_p:"
-msgstr "_மடிக்காதே:"
+msgstr "No Wra_p:"
 
-#: ../image.c:364
+#: src/plugin_htmlbar/image.c:366
 msgid "Insert thumbnail"
 msgstr "நகக்கண் சித்திரத்தைச் செருகு"
 
-#: ../image.c:366
+#: src/plugin_htmlbar/image.c:368
 msgid "Insert image"
 msgstr "சித்திரத்தைச் செருகு"
 
-#: ../image.c:372
+#: src/plugin_htmlbar/image.c:374
 msgid "Preview"
 msgstr "முன்னோட்டம்"
 
-#: ../image.c:392
+#: src/plugin_htmlbar/image.c:394
 msgid "_Image location:"
-msgstr "_சித்திர அமைவிடம்"
+msgstr "சித்திர அமைவிடம் _I"
 
-#: ../image.c:407
+#: src/plugin_htmlbar/image.c:409
 msgid "Hei_ght:"
-msgstr "உ_யரம்:"
+msgstr "உயரம் _g:"
 
-#: ../image.c:412
+#: src/plugin_htmlbar/image.c:414
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
-#: ../image.c:420
+#: src/plugin_htmlbar/image.c:422
 msgid "Alternate _text:"
-msgstr "மாற்று _உரை:"
+msgstr "மாற்று உரை _t:"
 
-#: ../image.c:428
+#: src/plugin_htmlbar/image.c:430
 msgid "_Hspace:"
 msgstr "_Hspace:"
 
-#: ../image.c:432
+#: src/plugin_htmlbar/image.c:434
 msgid "_Vspace:"
 msgstr "_Vspace:"
 
-#: ../image.c:446
+#: src/plugin_htmlbar/image.c:448
 msgid "Borde_r:"
-msgstr "பார்ட_ர்"
+msgstr "பார்டர் _r"
 
-#: ../image.c:774
+#: src/plugin_htmlbar/image.c:779
 msgid "Select files for thumbnail creation"
-msgstr "நகக்கண் சித்திர உருவாக்கத்திற்கான கோப்புகளைத் தேர்ந்தெடு"
+msgstr "நகக்கண் சித்திரத்திற்கான கோப்புகளைத் தேர்ந்தெடு"
 
-#: ../image.c:809
+#: src/plugin_htmlbar/image.c:814
 msgid "Scaling (%)"
 msgstr "அளவீடு (%)"
 
-#: ../image.c:813 ../image.c:821
+#: src/plugin_htmlbar/image.c:818 src/plugin_htmlbar/image.c:826
 msgid "Width"
 msgstr "அகலம்"
 
-#: ../image.c:817 ../image.c:849
+#: src/plugin_htmlbar/image.c:822 src/plugin_htmlbar/image.c:854
 msgid "Height"
 msgstr "உயரம்"
 
-#: ../image.c:838
+#: src/plugin_htmlbar/image.c:843
 msgid "Multi thumbnail"
 msgstr "பலமுனை நகக்கண் சித்திரம்"
 
-#: ../image.c:844
+#: src/plugin_htmlbar/image.c:849
 msgid "By scaling"
 msgstr "அளவீட்டால்"
 
-#: ../image.c:845
+#: src/plugin_htmlbar/image.c:850
 msgid "By width, keep aspect ratio"
 msgstr "அகலத்தால், வடிவவிகிதத்தை மாற்றாதே"
 
-#: ../image.c:846
+#: src/plugin_htmlbar/image.c:851
 msgid "By height, keep aspect ratio"
 msgstr "உயரத்தால், வடிவவிகிதத்தை மாற்றாதே"
 
-#: ../image.c:847
+#: src/plugin_htmlbar/image.c:852
 msgid "By width and height, ignore aspect ratio"
 msgstr "அகலம் மற்றும் உயரத்தால், வடிவவிகிதத்தை மாற்றாதே"
 
-#: ../image.c:871
+#: src/plugin_htmlbar/image.c:876
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -1972,2722 +2004,130 @@ msgstr ""
 "%x: நகக்கண் சித்திர அகலம்  %y: நகக்கண் சித்திர உயரம்\n"
 "%b: அசல் அளவு (பைட்டுகள்)"
 
-#: ../quickstart.c:512
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:512
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr "<b>பொது</b>"
+msgstr "<b>வெளி வடிவமைப்புத்தாள்_x</b>"
 
-#: ../quickstart.c:522
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:522
 msgid "Ty_pe:"
-msgstr "_Type:"
+msgstr "வகை_p:"
 
-#: ../quickstart.c:540
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:540
 msgid "HRE_F:"
-msgstr "_HREF:"
+msgstr "HRE_F:"
 
-#: ../quickstart.c:544
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:544
 msgid "_Media:"
-msgstr "மீடியா:"
+msgstr "மீடியா_M:"
 
-#: ../quickstart.c:548
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:548
 msgid "Titl_e:"
-msgstr "_தலைப்பு:"
+msgstr "தலைப்பு_e:"
 
-#: ../quickstart.c:554
-#, fuzzy
+#. TODO: add an option to place content in the style area
+#. * Possibly from a code snippet library
+#.
+#: src/plugin_htmlbar/quickstart.c:554
 msgid "<b>Style Area</b>"
-msgstr "<b>பொது</b>"
+msgstr "<b>ஸ்டைல் ஏரியா</b>"
 
-#: ../quickstart.c:558
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:558
 msgid "Cre_ate empty style area"
-msgstr "வெற்று செயல்திட்டத்தை உருவாக்கு"
+msgstr "வெற்று ஸ்டைல் ஏரியாவை உருவாக்கு_a"
 
-#: ../quickstart.c:580
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:580
 msgid "<b>Attributes</b>"
-msgstr "தன்மைகள்"
+msgstr "<b>தன்மைகள்</b>"
 
-#: ../quickstart.c:595
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:595
 msgid "_Src:"
-msgstr "_மூலநிரல்:"
+msgstr "_Src:"
 
-#: ../quickstart.c:602
-#, fuzzy
+#. TODO: add an option to place content in the script area
+#: src/plugin_htmlbar/quickstart.c:602
 msgid "<b>Script Area</b>"
-msgstr "<b>பொது</b>"
+msgstr "<b>Script Area</b>"
 
-#: ../quickstart.c:606
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:606
 msgid "Cre_ate empty script area"
-msgstr "வெற்று செயல்திட்டத்தை உருவாக்கு"
+msgstr "வெற்று வரைவு ஏரியாவை உருவாக்கு_a"
 
-#: ../quickstart.c:633
+#: src/plugin_htmlbar/quickstart.c:633
 msgid "Quick Start"
 msgstr "விரைவுத் தொடக்கம்"
 
-#: ../quickstart.c:647
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:647
 msgid "_DTD:"
-msgstr "_DTDஐ உபயோகி:"
+msgstr "_DTD:"
 
-#: ../quickstart.c:651 ../wizards.c:186
+#: src/plugin_htmlbar/quickstart.c:651 src/plugin_htmlbar/wizards.c:186
 msgid "_Title:"
-msgstr "_தலைப்பு:"
+msgstr "தலைப்பு _T:"
 
-#: ../quickstart.c:674
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:674
 msgid "_Head:"
-msgstr "_Href:"
+msgstr "_Head:"
 
-#: ../quickstart.c:691
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:691
 msgid "Open in _new document."
-msgstr "_ஆவணத்தில்"
+msgstr "புதிய ஆவணத்தில் திற_n"
 
-#: ../wizards.c:68
+#: src/plugin_htmlbar/wizards.c:68
 msgid "Table Wizard"
 msgstr "அட்டவணை மாயாவி"
 
-#: ../wizards.c:76
+#: src/plugin_htmlbar/wizards.c:76
 msgid "Number of _rows:"
-msgstr "_கிடைவரிசைகளின் எண்ணிக்கை:"
+msgstr "கிடைவரிசைகளின் எண்ணிக்கை_r:"
 
-#: ../wizards.c:80
+#: src/plugin_htmlbar/wizards.c:80
 msgid "Number of colu_mns:"
-msgstr "_நெடுவரிசைகளின் எண்ணிக்கை:"
+msgstr "நெடுவரிசைகளின் எண்ணிக்கை_m:"
 
-#: ../wizards.c:84
+#: src/plugin_htmlbar/wizards.c:84
 msgid "Table rows on one _line:"
-msgstr "ஓர் _வரியில் அட்டவணை கிடைவரிசைகள்:"
+msgstr "ஓர் வரியில் அட்டவணை கிடைவரிசைகள்_l:"
 
-#: ../wizards.c:88
+#: src/plugin_htmlbar/wizards.c:88
 msgid "_Indent table code:"
-msgstr "அட்டவணை நிரலை உள்ளே தள்ளு:"
+msgstr "அட்டவணை நிரலை உள்ளே தள்ளு_I:"
 
-#: ../wizards.c:175
+#: src/plugin_htmlbar/wizards.c:175
 msgid "Frame Wizard"
 msgstr "சட்டக மாயாவி"
 
-#: ../wizards.c:190
+#: src/plugin_htmlbar/wizards.c:190
 msgid "Use _DTD:"
 msgstr "_DTDஐ உபயோகி:"
 
-#: ../wizards.c:193
+#: src/plugin_htmlbar/wizards.c:193
 msgid "Orientation:"
 msgstr "நோக்கு:"
 
-#: ../wizards.c:196
+#: src/plugin_htmlbar/wizards.c:196
 msgid "_Horizontal"
-msgstr "_படுக்கைவசம்"
+msgstr "_படுக்கைவசம்_H"
 
-#: ../wizards.c:197
+#: src/plugin_htmlbar/wizards.c:197
 msgid "_Vertical"
-msgstr "_குத்துவசம்"
+msgstr "குத்துவசம்_V"
 
-#: ../wizards.c:202
+#: src/plugin_htmlbar/wizards.c:202
 msgid "Number of _Frames:"
-msgstr "_சட்டகங்களின் எண்ணிக்கை:"
+msgstr "சட்டகங்களின் எண்ணிக்கை _F:"
 
-#: ../wizards.c:205
+#: src/plugin_htmlbar/wizards.c:205
 msgid "Frame's"
 msgstr "சட்டகங்களுடையது"
 
-#: ../wizards.c:217
+#: src/plugin_htmlbar/wizards.c:217
 msgid "Name:"
 msgstr "பெயர்:"
 
-#: ../wizards.c:219
+#: src/plugin_htmlbar/wizards.c:219
 msgid "Source:"
 msgstr "மூலநிரல்:"
 
-#: ../wizards.c:223
+#: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
 msgstr "அளவு:"
-
-#~ msgid "/Tags/Tearoff1"
-#~ msgstr "/ஒட்டுகள்/Tearoff1"
-
-#~ msgid "/Tags/Headings/Tearoff1"
-#~ msgstr "/ஒட்டுகள்/_தலைப்புகள்/Tearoff1"
-
-#~ msgid "/Tags/Special/tearoff1"
-#~ msgstr "/ஒட்டுகள்/சிறப்பு/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/tearoff1"
-#~ msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-#~ msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/_A-I/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-#~ msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Uppercase/J-Z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-#~ msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/A-I/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-#~ msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/Lowercase/J-Z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/separator"
-#~ msgstr "/ஒட்டுகள்/சிறப்பு/அசையழுத்தம்/separator"
-
-#~ msgid "/Tags/Special/Currency/tearoff1"
-#~ msgstr "/ஒட்டுகள்/சிறப்பு/பணம்/tearoff1"
-
-#~ msgid "/Tags/Special/Math-Science/tearoff1"
-#~ msgstr "/ஒட்டுகள்/சிறப்பு/கணித-அறிவியல்/tearoff1"
-
-#~ msgid "/Tags/Special/Non Latin/tearoff1"
-#~ msgstr "/ஒட்டுகள்/சிறப்பு/லத்தீன் அல்லாதது/tearoff1"
-
-#~ msgid "/Tags/Special/Other/tearoff1"
-#~ msgstr "/ஒட்டுகள்/சிறப்பு/இதர/tearoff1"
-
-#~ msgid "/Tags/Format by layout/tearoff1"
-#~ msgstr "/ஒட்டுகள்/திட்டமிட்ட வடிவமைப்பு/tearoff1"
-
-#~ msgid "/Tags/Format by context/tearoff1"
-#~ msgstr "/ஒட்டுகள்/சந்தர்ப்ப வடிவமைப்பு/tearoff1"
-
-#~ msgid "/Tags/Format general/tearoff1"
-#~ msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/tearoff1"
-
-#~ msgid "/Tags/Format general/<separator>"
-#~ msgstr "/ஒட்டுகள்/பொதுவான வடிவமைப்பு/<separator>"
-
-#~ msgid "/Tags/Table/tearoff1"
-#~ msgstr "/ஒட்டுகள்/அட்டவணை/tearoff1"
-
-#~ msgid "/Tags/List/tearoff1"
-#~ msgstr "/ஒட்டுகள்/பட்டியல்/tearoff1"
-
-#, fuzzy
-#~ msgid "/Tags/Form/tearoff1"
-#~ msgstr "/வசனங்கள்/படிவம்/tearoff1"
-
-#, fuzzy
-#~ msgid "/Tags/Misc/tearoff1"
-#~ msgstr "/ஒட்டுகள்/பட்டியல்/tearoff1"
-
-#~ msgid "/Dialogs/tearoff1"
-#~ msgstr "/வசனங்கள்/tearoff1"
-
-#~ msgid "/Dialogs/General/tearoff1"
-#~ msgstr "/வசனங்கள்/பொதுவானது/tearoff1"
-
-#~ msgid "/Dialogs/Table/tearoff1"
-#~ msgstr "/வசனங்கள்/அட்டவணை/tearoff1"
-
-#~ msgid "/Dialogs/CSS/tearoff1"
-#~ msgstr "/வசனங்கள்/CSS/tearoff1"
-
-#~ msgid "/Dialogs/Frame/tearoff1"
-#~ msgstr "/வசனங்கள்/சட்டகங்கள்/tearoff1"
-
-#~ msgid "/Dialogs/Form/tearoff1"
-#~ msgstr "/வசனங்கள்/படிவம்/tearoff1"
-
-#~ msgid "/Dialogs/sep1"
-#~ msgstr "/வசனங்கள்/sep1"
-
-#~ msgid "_Email address:"
-#~ msgstr "_மின்னஞ்சல் முகவரி:"
-
-#~ msgid "UrlEncoded _subject:"
-#~ msgstr "URLகுறியீட்டு _தலைப்பு"
-
-#~ msgid "UrlEncoded _body:"
-#~ msgstr "URLகுறியீட்டு _மையஉரை"
-
-#~ msgid "_Href:"
-#~ msgstr "_Href:"
-
-#~ msgid "Href_lang:"
-#~ msgstr "Href_lang:"
-
-#, fuzzy
-#~ msgid "Hre_f:"
-#~ msgstr "_Href:"
-
-#, fuzzy
-#~ msgid "/View/View _HTML Bar"
-#~ msgstr "/பார்வை/_HTML கருவிப்பட்டையைக் காட்டு"
-
-#~ msgid ""
-#~ "Bluefish is an editor for experienced web designers and programmers. It "
-#~ "supports many programming and markup languages, but focuses on editing "
-#~ "dynamic and interactive websites. Bluefish is an open source development "
-#~ "project, released under the GPL license.\n"
-#~ "\n"
-#~ "For more information, visit the Bluefish Website at http://bluefish."
-#~ "openoffice.nl/\n"
-#~ "\n"
-#~ "This version of bluefish was compiled with the following options:\n"
-#~ msgstr ""
-#~ "இந்த நீலமீன் அனுபவம் மிக்க இணையதள வடிவமைப்பாளர்கள் மற்றும்நிரலாளர்களுக்கான தொகுப்பி "
-#~ "ஆகும். இது பல நிரல் மற்றும் குறியீட்டு மொழிகளுக்கும் ஆதரவு தருகிறது. சக்தி வாய்ந்த "
-#~ "மற்றும் எளிதான தகவல் பரிமாற்ற இணையதளங்களைத் தொகுக்கவும் பயன்படுகிறது.நீலமீன் என்பது "
-#~ "GPL உரிமத்தின் கீழ் வளரும் ஒரு திறந்தஆணைமூல செயல்திட்டமாகும்.\n"
-#~ "\n"
-#~ "மேற்கொண்ட தகவலுக்கு நீலமீன் இணையதளத்தைப் பார்க்கவும் http://bluefish.openoffice.nl/\n"
-#~ "\n"
-#~ "நீலமீனின் இந்தப் பதிப்பு பின்வரும் விருப்பங்களுடன் தொகுக்கப்பட்டது:\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Project leader:\n"
-#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "Developers for this release:\n"
-#~ "  Olivier Sessink\n"
-#~ "   <olivier@bluefish.openoffice.nl>\n"
-#~ "  Jim Hayward\n"
-#~ "   <jimhayward@linuxexperience.net>\n"
-#~ "  Oskar Świda\n"
-#~ "   <swida@aragorn.pb.bialystok.pl>\n"
-#~ "  Eugene Morenko(More)\n"
-#~ "   <more@irpin.com>\n"
-#~ "  Alastair Porter\n"
-#~ "   <alastair@linuxexperience.com>\n"
-#~ "\n"
-#~ "Developers for previous releases:\n"
-#~ "  Chris Mazuc\n"
-#~ "  Neil Millar\n"
-#~ "  Gero Takke\n"
-#~ "  Bo Forslund\n"
-#~ "  David Arno\n"
-#~ "  Pablo De Napoli\n"
-#~ "  Santiago Capel Torres\n"
-#~ "  Rasmus Toftdahl Olesen\n"
-#~ "   <rto@pohldata.dk>\n"
-#~ "  Roland Steinbach\n"
-#~ "   <roland@netzblick.de>\n"
-#~ "  Christian Tellefsen\n"
-#~ "   <chris@tellefsen.net>\n"
-#~ "  Antti-Juhani Kaijanaho\n"
-#~ "\n"
-#~ "Documentation:\n"
-#~ "  Scott White\n"
-#~ "   <wwsw3@earthlink.net>\n"
-#~ "  Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "  Anita Lewis\n"
-#~ "   <ajreiki@highstream.net>\n"
-#~ "  Alastair Porter\n"
-#~ "   <alastair@linuxexperience.com>\n"
-#~ "  Daniel Blair\n"
-#~ "   <joecamel@realcoders.org>\n"
-#~ "  Olivier Sessink\n"
-#~ "   <olivier@bluefish.openoffice.nl>\n"
-#~ "  Denny Reeh\n"
-#~ "\n"
-#~ "Package Maintainers:\n"
-#~ "  Debian:   Davide Puricelli\n"
-#~ "   <evo@debian.org>\n"
-#~ "  Redhat:   Matthias Haase\n"
-#~ "   <matthias_haase@bennewitz.com>\n"
-#~ "  Mandrake: Todd Lyons\n"
-#~ "   <todd@mrball.net>\n"
-#~ "  Fink: Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "\n"
-#~ "If you know of anyone missing from this list, please let us know\n"
-#~ "<bluefish@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "Thanks to all who helped making this software available.\n"
-#~ msgstr ""
-#~ "செயல்திட்ட தலைவர்:\n"
-#~ "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "இந்தப் பதிப்பிற்கான வளர்ச்சிப் பணியாளர்கள்:\n"
-#~ "  Jim Hayward <jimhayward@linuxexperience.com>\n"
-#~ "  Oskar Świda <swida@aragorn.pb.bialystok.pl>\n"
-#~ "  Christian Tellefsen <christian@tellefsen.net>\n"
-#~ "  Eugene Morenko(More) <more@irpin.com>\n"
-#~ "\n"
-#~ "முந்தைய பதிப்பிற்கான வளர்ச்சிப் பணியாளர்கள்:\n"
-#~ "  Chris Mazuc\n"
-#~ "  Neil Millar\n"
-#~ "  Gero Takke\n"
-#~ "  Bo Forslund\n"
-#~ "  David Arno\n"
-#~ "  Pablo De Napoli\n"
-#~ "  Santiago Capel Torres\n"
-#~ "  Rasmus Toftdahl Olesen <rto@pohldata.dk>\n"
-#~ "  Roland Steinbach <roland@netzblick.de>\n"
-#~ "  Christian Tellefsen <chris@tellefsen.net>\n"
-#~ "  Antti-Juhani Kaijanaho\n"
-#~ "\n"
-#~ "ஆவணமாக்கல்:\n"
-#~ "  Alastair Porter <alastair@linuxexperience.com>\n"
-#~ "  Daniel Blair <joecamel@realcoders.org>\n"
-#~ "  Denny Reeh\n"
-#~ "\n"
-#~ "பொதி மேலாளர்கள்:\n"
-#~ "  டெபியன்:   Davide Puricelli <evo@debian.org>\n"
-#~ "  ரெட்ஹாட்:   Matthias Haase <matthias_haase@bennewitz.com>\n"
-#~ "  மாண்ட்ரேக்: Todd Lyons <todd@mrball.net>\n"
-#~ "\n"
-#~ "யார் பெயராவது விட்டுப் போயிருந்தால் தயவுசெய்து எங்களுக்குத் தெரியப்படுத்தவும்\n"
-#~ "<bluefish@bluefish.openoffice.nl>\n"
-#~ "\n"
-#~ "இந்த மென்பொருளை சமைக்க உதவிய அனைவருக்கும் எங்கள் மனமார்ந்த நன்றிகளும் வாழ்த்துக்களும்.\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Current translators:\n"
-#~ "\n"
-#~ "  Brazilian Portuguese: Anderson Rocha\n"
-#~ "   <anderson@maxlinux.com.br>\n"
-#~ "\n"
-#~ "  Bulgarian: Peio Popov\n"
-#~ "   <peio@peio.org>\n"
-#~ "\n"
-#~ "  Chinese: Ting Yang (Dormouse)\n"
-#~ "   <mouselinux@163.com>\n"
-#~ "\n"
-#~ "  Chinese, Traditional: OLS3\n"
-#~ "   <ols3@lxer.idv.tw>\n"
-#~ "\n"
-#~ "  Danish: Rasmus Toftdahl Olesen\n"
-#~ "   <rto@pohldata.dk>\n"
-#~ "\n"
-#~ "  Finnish: Juho Roukala\n"
-#~ "   <j.mr@luukku.com>\n"
-#~ "\n"
-#~ "  French: Michèle Garoche\n"
-#~ "   <michele.garoche@easyconnect.fr>\n"
-#~ "\n"
-#~ "  German: Roland Steinbach\n"
-#~ "   <roland@netzblick.de>\n"
-#~ "\n"
-#~ "  Hungarian: Péter Sáska\n"
-#~ "   <sasek@ccsystem.hu>\n"
-#~ "\n"
-#~ "  Italian: Stefano Canepa\n"
-#~ "   <sc@linux.it>\n"
-#~ "\n"
-#~ "  Japanese: Takeshi Hamasaki\n"
-#~ "   <hma@syd.odn.ne.jp>\n"
-#~ "\n"
-#~ "  Norwegian: Christian Tellefsen\n"
-#~ "   <chris@tellefsen.net>\n"
-#~ "\n"
-#~ "  Polish: Oskar Swida\n"
-#~ "   <swida@aragorn.pb.bialystok.pl>\n"
-#~ "\n"
-#~ "  Portuguese: Lopo Pizarro\n"
-#~ "   <lopopizarro@netcabo.pt>\n"
-#~ "\n"
-#~ "  Russian: Eugene Rupakov\n"
-#~ "   <rupakov@jet.msk.su>\n"
-#~ "\n"
-#~ "  Serbian: Marko Milenović\n"
-#~ "   <raven@sbb.co.yu>\n"
-#~ "\n"
-#~ "  Spanish: Walter Oscar Echarri\n"
-#~ "   <wecharri@arnet.com.ar>\n"
-#~ "\n"
-#~ "  Swedish: David Smeringe\n"
-#~ "   <david.smeringe@telia.com>\n"
-#~ "\n"
-#~ "  Tamil: Murugapandian Barathee\n"
-#~ "   <barathee@yahoo.com>\n"
-#~ "\n"
-#~ "  Turkish: Oğuz Eren\n"
-#~ "   <ogzeren@gmail.com>\n"
-#~ "\n"
-#~ msgstr ""
-#~ "நடப்பு மொழிபெயர்ப்பாளர்கள்:\n"
-#~ "\n"
-#~ "  பிரேரிலிய போர்ச்சுகீஸ் - Anderson Rocha\n"
-#~ "   <anderson@maxlinux.com.br>\n"
-#~ "\n"
-#~ "  பல்கேரியன் - Peio Popov\n"
-#~ "   <peio@peio.org>\n"
-#~ "\n"
-#~ "  சீனம் - Ting Yang (Dormouse)\n"
-#~ "   <mouselinux@163.com>\n"
-#~ "\n"
-#~ "  டனிஷ் - Rasmus Toftdahl Olesen\n"
-#~ "   <rto@pohldata.dk>\n"
-#~ "\n"
-#~ "  ஃபினிஷ் - Juho Roukala\n"
-#~ "   <j.mr@luukku.com>\n"
-#~ "\n"
-#~ "  ஃபிரெஞ்சு - Roméo Viu-Berges\n"
-#~ "   <apostledemencia@free.fr>\n"
-#~ "\n"
-#~ "  ஜெர்மன் - Roland Steinbach\n"
-#~ "   <roland@netzblick.de>\n"
-#~ "\n"
-#~ "  ஹங்கேரியன் - Péter Sáska\n"
-#~ "   <sasek@ccsystem.hu>\n"
-#~ "\n"
-#~ "  இத்தாலியன் - Stefano Canepa\n"
-#~ "   <sc@linux.it>\n"
-#~ "\n"
-#~ "  நார்வேஜியன் - Christian Tellefsen\n"
-#~ "   <chris@tellefsen.net>\n"
-#~ "\n"
-#~ "  போலிஷ் - Oskar Swida\n"
-#~ "   <swida@aragorn.pb.bialystok.pl>\n"
-#~ "\n"
-#~ "  போர்ச்சுகீஸ் - Lopo Pizarro\n"
-#~ "   <lopopizarro@netcabo.pt>\n"
-#~ "\n"
-#~ "  ரஷ்யன் - Eugene Rupakov\n"
-#~ "   <rupakov@jet.msk.su>\n"
-#~ "\n"
-#~ "  செர்பியன் - Marko Milenović\n"
-#~ "   <raven@sbb.co.yu>\n"
-#~ "\n"
-#~ "  ஸ்பானிஷ் - Walter Oscar Echarri\n"
-#~ "   <wecharri@infovia.com.ar>\n"
-#~ "\n"
-#~ "  ஸ்வீடிஷ் - David Smeringe\n"
-#~ "   <david.smeringe@telia.com>\n"
-#~ "\n"
-#~ "  தமிழ் - Murugapandian Barathee\n"
-#~ "   <barathee@yahoo.com>\n"
-#~ "\n"
-
-#~ msgid "About Bluefish"
-#~ msgstr "நீலமீன் பற்றி"
-
-#~ msgid "Info"
-#~ msgstr "விபரம்"
-
-#~ msgid "Authors"
-#~ msgstr "ஆசிரியர்கள்"
-
-#~ msgid "Translators"
-#~ msgstr "மொழிபெயர்ப்பாளர்கள்"
-
-#~ msgid "Authentication required"
-#~ msgstr "அனுமதி தேவை"
-
-#, fuzzy
-#~ msgid "Authentication is required for %s."
-#~ msgstr ""
-#~ "%sக்கு அனுமதி தேவை\n"
-#~ "\n"
-#~ "Realm is %s"
-
-#~ msgid "Username:"
-#~ msgstr "பயனாளர் பெயர்:"
-
-#~ msgid "Password:"
-#~ msgstr "சங்கேதச்சொல்"
-
-#~ msgid ""
-#~ "Bluefish has trouble reading the filenames. Try to set the environment "
-#~ "variable G_BROKEN_FILENAMES=1\n"
-#~ msgstr ""
-#~ "கோப்பின் பெயர்களைப் படிப்பதில் நீலமீனுக்குச் சிக்கல் நேர்ந்துள்ளது. பின்வரும்  சூழ்நிலை "
-#~ "மாறியை அமைக்கவும் G_BROKEN_FILENAMES=1\n"
-
-#~ msgid "Check Spelling"
-#~ msgstr "எழுத்துப்பிழை சோதி"
-
-#~ msgid "Checking"
-#~ msgstr "சோதிக்கப்படுகிறது "
-
-#~ msgid "_Misspelled word:"
-#~ msgstr "_பிழையான சொல்"
-
-#~ msgid "Change _to:"
-#~ msgstr "_மாற்றவேண்டிய சொல்"
-
-#~ msgid "I_gnore"
-#~ msgstr "_புறக்கணி"
-
-#~ msgid "_Replace"
-#~ msgstr "_மாற்று"
-
-#~ msgid "I_n selection"
-#~ msgstr "_தேர்ந்தெடுத்ததில்"
-
-#~ msgid "personal dictionary"
-#~ msgstr "தனிப்பட்ட அகராதி"
-
-#~ msgid "session dictionary"
-#~ msgstr "அமர்வு அகராதி"
-
-#~ msgid "Dictionary:"
-#~ msgstr "அகராதி:"
-
-#~ msgid "_Add"
-#~ msgstr "_சேர்"
-
-#~ msgid "Language:"
-#~ msgstr "மொழி:"
-
-#~ msgid "Set defa_ult"
-#~ msgstr "_கொடாநிலையாக அமை"
-
-#~ msgid "Filter:"
-#~ msgstr "வடிகட்டி:"
-
-#~ msgid "no filter"
-#~ msgstr "வடிகட்டி இல்லை"
-
-#~ msgid "html filter"
-#~ msgstr "html வடிகட்டி"
-
-#~ msgid ""
-#~ "\n"
-#~ "Usage: %s [options] [filenames ...]\n"
-#~ msgstr ""
-#~ "\n"
-#~ "உபயோகம்: %s [விருப்பங்கள்] [கோப்பின் பெயர்கள் ...]\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Currently accepted options are:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "தற்போது ஏற்றுக்கொள்ளப்படும் விருப்பங்களாவன:\n"
-
-#~ msgid "-s           skip root check\n"
-#~ msgstr "-s           root சோதனையைத் தவிர்\n"
-
-#~ msgid "-v           current version\n"
-#~ msgstr "-v           தற்போதைய பதிப்பு\n"
-
-#~ msgid "-n           open new window\n"
-#~ msgstr "-n           புதிய சாளரத்தைத் திற\n"
-
-#~ msgid "-p filename  open project\n"
-#~ msgstr "-p கோப்பின் பெயர்  செயல்திட்டத்தைத் திற\n"
-
-#~ msgid "-h           this help screen\n"
-#~ msgstr "-h           இந்த உதவித் திரை\n"
-
-#~ msgid "parsing highlighting file..."
-#~ msgstr "உயர்த்திக் காட்டப்பட்ட கோப்பினை அலகிடல்"
-
-#~ msgid "compiling highlighting patterns..."
-#~ msgstr "உயர்த்திக்காட்டப்பட்ட உருவகைகளைத் தொகு"
-
-#~ msgid "parsing custom menu file..."
-#~ msgstr "தனிப்பயனாக்கப்பட்ட மெனு கோப்பினை அலகிடு"
-
-#~ msgid "creating main gui..."
-#~ msgstr "பிரதான guiஐ உருவாக்குதல்..."
-
-#~ msgid "showing main gui..."
-#~ msgstr "பிரதான guiஐக் காட்டுதல்..."
-
-#~ msgid "Bluefish tip:"
-#~ msgstr "நீலமீன் டிப்ஸ்:"
-
-#~ msgid ""
-#~ "This message is shown since you do not have any items in the Quickbar.\n"
-#~ "\n"
-#~ "If you right-click a button in the HTML toolbars you can add buttons to "
-#~ "the Quickbar."
-#~ msgstr ""
-#~ "விரைவுப்பட்டையில் யாதொரு இனமும் இல்லை என்பதை இச்செய்தி தெரிவிக்கிறது.\n"
-#~ "\n"
-#~ "HTML பட்டைகளில் உள்ள பொத்தான்களில் வலது மவுஸ் பொத்தானைத் தட்டி விரைவுப்பட்டியில் "
-#~ "சேர்க்கலாம்."
-
-#~ msgid "_Description:"
-#~ msgstr "_விளக்கம்:"
-
-#~ msgid "Temporary"
-#~ msgstr "தற்காலிகம்"
-
-#, fuzzy
-#~ msgid "Do you really want to delete all bookmarks for %s?"
-#~ msgstr "%s ஐ நீக்க வேண்டுமா?"
-
-#, fuzzy
-#~ msgid "Delete bookmarks?"
-#~ msgstr "நிரந்தரப் புத்தகக்குறியைச் சேர்."
-
-#~ msgid "Do you really want to delete %s?"
-#~ msgstr "%s ஐ நீக்க வேண்டுமா?"
-
-#~ msgid "Delete permanent bookmark."
-#~ msgstr "நிரந்தரப் புத்தகக்குறியைச் சேர்."
-
-#~ msgid "Edit bookmark"
-#~ msgstr "புத்தகக்குறியைத் தொகு"
-
-#~ msgid "Goto bookmark"
-#~ msgstr "புத்தகக்குறிக்குச் செல்"
-
-#~ msgid "Edit"
-#~ msgstr "_தொகு"
-
-#~ msgid "Delete"
-#~ msgstr "நீக்கு"
-
-#, fuzzy
-#~ msgid "Delete all in document"
-#~ msgstr "திறந்திருக்கும் அனைத்து ஆவணங்களிலும்"
-
-#, fuzzy
-#~ msgid "Delete all"
-#~ msgstr " நீக்கு "
-
-#, fuzzy
-#~ msgid "Error adding bookmark"
-#~ msgstr "புத்தகக்குறியைத் தொகு"
-
-#, fuzzy
-#~ msgid "Cannot add bookmarks to unsaved files."
-#~ msgstr "பெயரில்லாத கோப்புகளுக்கு புத்தகக்குறி வைக்க இயலாது."
-
-#, fuzzy
-#~ msgid "Can't add bookmark"
-#~ msgstr "புத்தகக்குறியைச் சேர்"
-
-#~ msgid "You already have a bookmark here!"
-#~ msgstr "இங்கே ஏற்கனவே ஒரு புத்தகக்குறியை வைத்திருக்கிறீர்!"
-
-#, fuzzy
-#~ msgid "Delete all bookmarks."
-#~ msgstr "நிரந்தரப் புத்தகக்குறியைச் சேர்."
-
-#, fuzzy
-#~ msgid "File size changed in file\n"
-#~ msgstr ""
-#~ "குறியீடு எண்ணிக்கை பின்வரும் கோப்பில் மாற்றப்பட்டது\n"
-#~ " %s."
-
-#, fuzzy
-#~ msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
-#~ msgstr "புத்தகக்குறிகளின்  அமைவிடம் தவறாக இருக்கும்.."
-
-#~ msgid "/Document/Highlight Syntax"
-#~ msgstr "/ஆவணம்/தொடரியல் உயர்த்திக்காட்டல்"
-
-#~ msgid "Name: "
-#~ msgstr "பெயர்:"
-
-#~ msgid ""
-#~ "\n"
-#~ "Type: "
-#~ msgstr ""
-#~ "\n"
-#~ "வகை: "
-
-#~ msgid ""
-#~ "\n"
-#~ "Encoding: "
-#~ msgstr ""
-#~ "\n"
-#~ "குறியீட்டுமுறை"
-
-#~ msgid ""
-#~ "\n"
-#~ "Size (on disk): "
-#~ msgstr ""
-#~ "\n"
-#~ "அளவு (வட்டில் உள்ளது): "
-
-#~ msgid " bytes"
-#~ msgstr " பைட்டுகள்"
-
-#~ msgid ""
-#~ "\n"
-#~ "Permissions: "
-#~ msgstr ""
-#~ "\n"
-#~ "அனுமதிகள்: "
-
-#~ msgid ""
-#~ "\n"
-#~ "Last modified: "
-#~ msgstr ""
-#~ "\n"
-#~ "கடைசியாக மாற்றப்பட்டது: "
-
-#~ msgid "Untitled %d"
-#~ msgstr "பெயரில்லாதது %d"
-
-#, fuzzy
-#~ msgid " Ln: %d, Col: %d"
-#~ msgstr " வரி %d, பத்தி %d"
-
-#~ msgid "  %s, %s"
-#~ msgstr "  %s, %s"
-
-#~ msgid "Cannot display file, unknown characters found."
-#~ msgstr "கோப்பினைக் காட்ட முடியவில்லை, அறியமுடியாத குறியீடுகள் உள்ளன."
-
-#~ msgid "Replace"
-#~ msgstr "மாற்று"
-
-#~ msgid "Find"
-#~ msgstr "தேடு"
-
-#, fuzzy
-#~ msgid "Delete bookmark"
-#~ msgstr "நிரந்தரப் புத்தகக்குறியைச் சேர்."
-
-#~ msgid "Add bookmark"
-#~ msgstr "புத்தகக்குறியைச் சேர்"
-
-#~ msgid "_Abort save"
-#~ msgstr "_சேமித்தலை முறி"
-
-#~ msgid "_Continue save in UTF-8"
-#~ msgstr "UTF-8 ல் சேமிப்பைத் _தொடர்"
-
-#~ msgid ""
-#~ "Failed to convert %s to character encoding %s. Encoding failed on "
-#~ "character '%s' at line %d column %d\n"
-#~ "\n"
-#~ "Continue saving in UTF-8 encoding?"
-#~ msgstr ""
-#~ "%s ஐ %s குறியீட்டு முறைக்கு மாற்ற இயலவில்லை. . %d வரியில்   %d பத்தியில் உள்ள '%"
-#~ "s'  குறியில் குறியீட்டு முறை தோல்வியடைந்தது. \n"
-#~ "\n"
-#~ "UTF-8 ல் சேமிப்பைத் தொடரவா?"
-
-#~ msgid "File encoding conversion failure"
-#~ msgstr "கோப்பின் குறியீட்டுமுறை மாற்றுதல் தோல்வியடைந்தது"
-
-#~ msgid "Previously: "
-#~ msgstr "கடந்தமுறை: "
-
-#~ msgid "No filename"
-#~ msgstr "கோப்பின் பெயர் இல்லை"
-
-#~ msgid "Unable to open file"
-#~ msgstr "கோப்பினைத் திறக்க இயலவில்லை"
-
-#~ msgid "_Reload"
-#~ msgstr "_மீளேற்று"
-
-#~ msgid "_Ignore"
-#~ msgstr "_புறக்கணி"
-
-#~ msgid ""
-#~ "Filename: %s\n"
-#~ "\n"
-#~ "New modification time is: %s\n"
-#~ "Old modification time is: %s"
-#~ msgstr ""
-#~ "கோப்பின் பெயர்: %s\n"
-#~ "\n"
-#~ "புதிதாக மாற்றப்பட்ட காலம்: %s\n"
-#~ "முன்பு மாற்றப்பட்ட காலம்: %s"
-
-#~ msgid "File has been modified by another process\n"
-#~ msgstr "கோப்பு மற்றதொரு செயலியால் மாற்றப்பட்டது\n"
-
-#, fuzzy
-#~ msgid "_Close"
-#~ msgstr "மூடு"
-
-#, fuzzy
-#~ msgid "File "
-#~ msgstr "கோப்பு #"
-
-#~ msgid "Select file to insert"
-#~ msgstr "செருகுவதற்கான கோப்பினைத் தேர்ந்தெடு"
-
-#~ msgid "No file to insert"
-#~ msgstr "செருகுவதற்கு யாதொரு கோப்புமில்லை"
-
-#~ msgid "Statistics: %d lines, %d words, %d characters"
-#~ msgstr "புள்ளிவிபரம்: %d வரிகள், %d சொற்கள், %d எழுத்துக்கள்"
-
-#, fuzzy
-#~ msgid "New directory"
-#~ msgstr "/_புதிய அடைவு"
-
-#, fuzzy
-#~ msgid "New file"
-#~ msgstr "/புதிய _கோப்பு"
-
-#~ msgid "Could not rename\n"
-#~ msgstr "இக்கோப்பிற்கு மறுபெயரிட இயலவில்லை \n"
-
-#, fuzzy
-#~ msgid "Are you sure you want to delete \"%s\" ?"
-#~ msgstr ""
-#~ "\"%s\" ஐ\n"
-#~ " உறுதியாக அழிக்க விரும்புகிறீர்களா ?"
-
-#, fuzzy
-#~ msgid "If you delete this file, it will be permanently lost."
-#~ msgstr "கோப்பு நிரந்தரமாக அழிக்கப்பட்டுவிடும்."
-
-#~ msgid "Could not delete \n"
-#~ msgstr "அழிக்க இயலவில்லை \n"
-
-#~ msgid "/_Open"
-#~ msgstr "/_திற"
-
-#, fuzzy
-#~ msgid "/Open _Advanced..."
-#~ msgstr "/_உயர்வகை திறப்பு"
-
-#~ msgid "/Rena_me"
-#~ msgstr "/மறு_பெயரிடு"
-
-#~ msgid "/_Delete"
-#~ msgstr "/_நீக்கு"
-
-#~ msgid "/New _File"
-#~ msgstr "/புதிய _கோப்பு"
-
-#~ msgid "/_New Directory"
-#~ msgstr "/_புதிய அடைவு"
-
-#~ msgid "/_Refresh"
-#~ msgstr "/_மீளேற்று"
-
-#, fuzzy
-#~ msgid "/Show Full _Tree"
-#~ msgstr "முழுதான மரம் போன்ற வடிவைக் காட்டு"
-
-#~ msgid "/_Set as basedir"
-#~ msgstr "/_அடித்தள அடைவாக வை"
-
-#, fuzzy
-#~ msgid "/Follow active document"
-#~ msgstr "/செல்/_இறுதி ஆவணம்"
-
-#, fuzzy
-#~ msgid "/Show hidden files"
-#~ msgstr "ஒளித்துவைக்கப்பட்ட கோப்புகளையும் காட்டு"
-
-#, fuzzy
-#~ msgid "/Show backup files"
-#~ msgstr "காப்பு ஆவணங்களைக் காட்டு"
-
-#~ msgid "Filter"
-#~ msgstr "வடிகட்டி"
-
-#~ msgid "All files"
-#~ msgstr "அனைத்துக் கோப்புகள்"
-
-#~ msgid "Error creating path"
-#~ msgstr "வழியை ஏற்படுத்துவதில் பிழை"
-
-#~ msgid "The specified pathname already exists."
-#~ msgstr "குறிப்பிட்ட வழி ஏற்கனவே உள்ளது."
-
-#~ msgid "File name"
-#~ msgstr "கோப்பின் பெயர்"
-
-#~ msgid "Directory name"
-#~ msgstr "அடைவின் பெயர்"
-
-#~ msgid "Opening directory..."
-#~ msgstr "அடைவு திறக்கப்படுகிறது..."
-
-#~ msgid "Show hidden files"
-#~ msgstr "ஒளித்துவைக்கப்பட்ட கோப்புகளையும் காட்டு"
-
-#~ msgid "Show backup files"
-#~ msgstr "காப்பு ஆவணங்களைக் காட்டு"
-
-#~ msgid "Show full tree"
-#~ msgstr "முழுதான மரம் போன்ற வடிவைக் காட்டு"
-
-#~ msgid "_Skip"
-#~ msgstr "_தவிர்"
-
-#~ msgid "_Overwrite"
-#~ msgstr "_மேல் எழுது"
-
-#, fuzzy
-#~ msgid "%s already exists, overwrite?"
-#~ msgstr "%s கோப்பு ஏற்கனவே இருக்கிறது மேலும் திறந்திருக்கிறது. மேலெழுதவா?"
-
-#, fuzzy
-#~ msgid "Overwrite file?"
-#~ msgstr "_மேல் எழுது"
-
-#~ msgid "Select basedir"
-#~ msgstr "அடித்தள அடைவைத் தேர்ந்தெடு"
-
-#~ msgid "Advanced open file selector"
-#~ msgstr "உயர்வகை கோப்புத் திறப்பாளன்"
-
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>பொது</b>"
-
-#~ msgid "Base_dir:"
-#~ msgstr "அடித்தள _அடைவு"
-
-#~ msgid "_Browse..."
-#~ msgstr "_உலாவு..."
-
-#, fuzzy
-#~ msgid "_Pattern:"
-#~ msgstr "உரு_வகை:"
-
-#~ msgid "_Recursive:"
-#~ msgstr "_மறுசுழல்வு:"
-
-#~ msgid "<b>Contains</b>"
-#~ msgstr "<b>Contains</b>"
-
-#~ msgid "Pa_ttern:"
-#~ msgstr "உரு_வகை:"
-
-#~ msgid "Is rege_x:"
-#~ msgstr "Is rege_x:"
-
-#~ msgid "Select files"
-#~ msgstr "கோப்புகளைத் தேர்ந்தெடு"
-
-#~ msgid "Open URL"
-#~ msgstr "URLஐத் திற"
-
-#, fuzzy
-#~ msgid "<b>Open URL</b>"
-#~ msgstr "URLஐத் திற"
-
-#~ msgid "_Continue save"
-#~ msgstr "சேமிப்பைத் _தொடர்"
-
-#~ msgid ""
-#~ "A backupfile for %s could not be created. If you continue, this file will "
-#~ "be overwritten."
-#~ msgstr ""
-#~ "%sக்காக காப்புக்கோப்பினை உருவாக்க இயலவில்லை. நீங்கள் மேலும் தொடர்ந்தால் இந்தக் கோப்பு "
-#~ "மேலெழுதப்படும்"
-
-#~ msgid "File backup failure"
-#~ msgstr "கோப்பினைக் காப்பெடுத்தல் தோல்வியடைந்தது"
-
-#, fuzzy
-#~ msgid ""
-#~ "Could not save file:\n"
-#~ "\""
-#~ msgstr ""
-#~ "பின்வரும் கோப்பினை எழுதஇயலவில்லை:\n"
-#~ "\""
-
-#, fuzzy
-#~ msgid "File save failed!\n"
-#~ msgstr "கோப்பினைச் சேமித்தல் முறிக்கப்பட்டது\n"
-
-#, fuzzy
-#~ msgid "File %s is modified on disk, overwrite?"
-#~ msgstr "%s கோப்பு ஏற்கனவே இருக்கிறது மேலும் திறந்திருக்கிறது. மேலெழுதவா?"
-
-#, fuzzy
-#~ msgid "Failed to check if %s is modified on disk"
-#~ msgstr "மாற்றப்பட்ட கோப்பு தட்டு சோதனையில் உள்ளது "
-
-#, fuzzy
-#~ msgid "File modified on disk"
-#~ msgstr "மாற்றப்பட்ட கோப்பு தட்டு சோதனையில் உள்ளது "
-
-#, fuzzy
-#~ msgid "Move/rename %s to"
-#~ msgstr "நகர்த்து/ஆவணத்தை மறுபெயரிடு:"
-
-#, fuzzy
-#~ msgid "Save %s as"
-#~ msgstr "புதிதாகச் சேமி"
-
-#~ msgid "_Cancel"
-#~ msgstr "_இரத்து"
-
-#~ msgid "File %s exists and is opened, overwrite?"
-#~ msgstr "%s கோப்பு ஏற்கனவே இருக்கிறது மேலும் திறந்திருக்கிறது. மேலெழுதவா?"
-
-#~ msgid "The file you have selected is being edited in Bluefish."
-#~ msgstr "தேர்ந்தெடுத்துள்ள கோப்பு நீலமீனில் தொகுக்கப்பட்டுக்கொண்டிருக்கிறது."
-
-#~ msgid "A file named \"%s\" already exists."
-#~ msgstr "\"%s\" பெயருள்ள கோப்பு எற்கனவே இருக்கிறது."
-
-#~ msgid "Do you want to replace the existing file?"
-#~ msgstr "இருக்கும் கோப்பினை மாற்றி எழுதவிரும்புகிறீர்களா?"
-
-#, fuzzy
-#~ msgid ""
-#~ "File:\n"
-#~ "\""
-#~ msgstr "வடிகட்டி:"
-
-#~ msgid "Do_n't save"
-#~ msgstr "சேமி_க்காதே"
-
-#~ msgid "Choose per _File"
-#~ msgstr "Choose per _File"
-
-#~ msgid "Close _All"
-#~ msgstr "அனைத்தையும் _மூடு"
-
-#~ msgid "_Save All"
-#~ msgstr "_அனைத்தையும் சேமி"
-
-#~ msgid "Multiple open files have been changed."
-#~ msgstr "பலகோப்புகள் திறப்பு மாற்றப்பட்டது."
-
-#, fuzzy
-#~ msgid "Cannot load reference file %s\n"
-#~ msgstr "ஆலோசனைக் கோப்புகளை மறுஆய்வுசெய்"
-
-#, fuzzy
-#~ msgid "Bad root element in reference file"
-#~ msgstr "ஆலோசனைக் கோப்புகளை மறுஆய்வுசெய்"
-
-#, fuzzy
-#~ msgid "Bad reference"
-#~ msgstr "விருப்பங்களைத் தொகு"
-
-#, fuzzy
-#~ msgid "Loading reference"
-#~ msgstr "விருப்பங்களைத் தொகு"
-
-#, fuzzy
-#~ msgid "Unloading reference"
-#~ msgstr "இயக்க ஆலோசனைகள்"
-
-#, fuzzy
-#~ msgid "Identifier"
-#~ msgstr "மையம்"
-
-#, fuzzy
-#~ msgid "Kind"
-#~ msgstr "தேடு"
-
-#~ msgid "Name"
-#~ msgstr "பெயர்"
-
-#, fuzzy
-#~ msgid "Type"
-#~ msgstr "_Type:"
-
-#, fuzzy
-#~ msgid "Default value"
-#~ msgstr "கொடாநிலை அடிப்படைஅடைவு"
-
-#, fuzzy
-#~ msgid "Input type"
-#~ msgstr "தகவல் வகை"
-
-#~ msgid "Description"
-#~ msgstr "விளக்கம்"
-
-#, fuzzy
-#~ msgid "Values"
-#~ msgstr "மதிப்பு"
-
-#, fuzzy
-#~ msgid "Insert syntax"
-#~ msgstr "சித்திரத்தைச் செருகு"
-
-#, fuzzy
-#~ msgid "Insert text"
-#~ msgstr "காலத்தைச் செருகு"
-
-#, fuzzy
-#~ msgid "Help"
-#~ msgstr "/_உதவி"
-
-#, fuzzy
-#~ msgid "Properties"
-#~ msgstr "தன்மை"
-
-#, fuzzy
-#~ msgid "Add property"
-#~ msgstr "தன்மை"
-
-#, fuzzy
-#~ msgid "Add definition ref"
-#~ msgstr "விளக்கச் சொல்"
-
-#, fuzzy
-#~ msgid "Select font for reference view"
-#~ msgstr "ஆலோசனைக் கோப்புகளை மறுஆய்வுசெய்"
-
-#, fuzzy
-#~ msgid "Set reference colors"
-#~ msgstr "விருப்பங்களைத் தொகு"
-
-#~ msgid "Attributes/Parameters"
-#~ msgstr "தன்மைகள்/வழியலகு"
-
-#~ msgid "Notes"
-#~ msgstr "குறிப்புகள்"
-
-#, fuzzy
-#~ msgid "Examples"
-#~ msgstr "மாதிரி"
-
-#, fuzzy
-#~ msgid "Links"
-#~ msgstr "சுட்டி"
-
-#~ msgid "Error"
-#~ msgstr "பிழை"
-
-#, fuzzy
-#~ msgid ""
-#~ "Perhaps you didn't load a library, or you did not select a library to "
-#~ "search in."
-#~ msgstr "நீங்கள் ஆலோசனையை ஏற்றவில்லை, அல்லது தேடுவதற்காக ஆலோசனையைத் தேர்ந்தெடுக்க இல்லை"
-
-#, fuzzy
-#~ msgid "Element %s not found"
-#~ msgstr "ஆலோசனையைக் காணோம்"
-
-#, fuzzy
-#~ msgid "Element search"
-#~ msgstr "ஆலோசனை தேடல்"
-
-#, fuzzy
-#~ msgid "New library"
-#~ msgstr "/_புதிய அடைவு"
-
-#, fuzzy
-#~ msgid "Library name"
-#~ msgstr "அடைவின் பெயர்"
-
-#, fuzzy
-#~ msgid "Delete library?"
-#~ msgstr "நிரந்தரப் புத்தகக்குறியைச் சேர்."
-
-#, fuzzy
-#~ msgid "Reference not loaded."
-#~ msgstr "ஆலோசனையைக் காணோம்"
-
-#, fuzzy
-#~ msgid "New note"
-#~ msgstr "புதிய செயல்திட்டம்"
-
-#, fuzzy
-#~ msgid "Title"
-#~ msgstr "_தலைப்பு:"
-
-#, fuzzy
-#~ msgid "Text"
-#~ msgstr "உரை பரப்பு"
-
-#, fuzzy
-#~ msgid "New group"
-#~ msgstr "புதிய செயல்திட்டம்"
-
-#, fuzzy
-#~ msgid "New description def"
-#~ msgstr "விளக்கம்"
-
-#, fuzzy
-#~ msgid "Description text"
-#~ msgstr "விளக்கம்"
-
-#, fuzzy
-#~ msgid "New values def"
-#~ msgstr "புதிய நீலமீன் சாளரம்"
-
-#, fuzzy
-#~ msgid "Definitions"
-#~ msgstr "விளக்கம்"
-
-#, fuzzy
-#~ msgid "New property"
-#~ msgstr "புதிய செயல்திட்டம்"
-
-#, fuzzy
-#~ msgid "No name"
-#~ msgstr "கோப்பின் பெயர் இல்லை"
-
-#, fuzzy
-#~ msgid "Delete definition?"
-#~ msgstr "விளக்கம்"
-
-#, fuzzy
-#~ msgid "Delete group"
-#~ msgstr " நீக்கு "
-
-#, fuzzy
-#~ msgid "Delete group?"
-#~ msgstr " நீக்கு "
-
-#, fuzzy
-#~ msgid "Do you really want to delete current entity?"
-#~ msgstr "%s ஐ நீக்க வேண்டுமா?"
-
-#~ msgid "Show info window"
-#~ msgstr "தகவல் சாளரத்தைக் காட்டு"
-
-#~ msgid "Insert"
-#~ msgstr "செருகு"
-
-#~ msgid "Rescan reference files"
-#~ msgstr "ஆலோசனைக் கோப்புகளை மறுஆய்வுசெய்"
-
-#, fuzzy
-#~ msgid "Set view font"
-#~ msgstr "எழுத்துருவைத் தேர்ந்தெடு"
-
-#, fuzzy
-#~ msgid "Delete library"
-#~ msgstr "நிரந்தரப் புத்தகக்குறியைச் சேர்."
-
-#, fuzzy
-#~ msgid "Note"
-#~ msgstr "குறிப்புகள்"
-
-#, fuzzy
-#~ msgid "Property definition"
-#~ msgstr "விளக்கம்"
-
-#, fuzzy
-#~ msgid "Description definition"
-#~ msgstr "விளக்கம்"
-
-#, fuzzy
-#~ msgid "Values definition"
-#~ msgstr "விளக்கம்"
-
-#, fuzzy
-#~ msgid "Element"
-#~ msgstr "நிகழ்வுகள்"
-
-#, fuzzy
-#~ msgid "Delete definition"
-#~ msgstr "விளக்கம்"
-
-#, fuzzy
-#~ msgid "Delete entity"
-#~ msgstr "மெனுப் பதிவை நீக்கு"
-
-#~ msgid "Close"
-#~ msgstr "மூடு"
-
-#~ msgid "Dialog"
-#~ msgstr "வசனம்"
-
-#~ msgid "Left doubleclick action"
-#~ msgstr "இடது இருசொடுக்கு செயல்"
-
-#~ msgid "Info type"
-#~ msgstr "தகவல் வகை"
-
-#~ msgid "Reference search"
-#~ msgstr "ஆலோசனை தேடல்"
-
-#~ msgid "Reference not found"
-#~ msgstr "ஆலோசனையைக் காணோம்"
-
-#~ msgid ""
-#~ "Perhaps you didn't load a reference, or you did not select a reference to "
-#~ "search in."
-#~ msgstr "நீங்கள் ஆலோசனையை ஏற்றவில்லை, அல்லது தேடுவதற்காக ஆலோசனையைத் தேர்ந்தெடுக்க இல்லை"
-
-#~ msgid "Search"
-#~ msgstr "தேடு"
-
-#~ msgid "%d of %d"
-#~ msgstr "%d - %dக்கு"
-
-#, fuzzy
-#~ msgid "Select File"
-#~ msgstr "கோப்பினைத் தேர்ந்தெடு"
-
-#, fuzzy
-#~ msgid "Show hidden"
-#~ msgstr "ஒளித்துவைக்கப்பட்ட கோப்புகளையும் காட்டு"
-
-#~ msgid "Filebrowser"
-#~ msgstr "கோப்பு உலாவி"
-
-#~ msgid "Function reference"
-#~ msgstr "இயக்க ஆலோசனைகள்"
-
-#~ msgid "Bookmarks"
-#~ msgstr "புத்தகக்குறிகள்"
-
-#~ msgid "New"
-#~ msgstr "புதிய"
-
-#, fuzzy
-#~ msgid "Open..."
-#~ msgstr "திற.."
-
-#~ msgid "Save"
-#~ msgstr "சேமி"
-
-#~ msgid "Save As..."
-#~ msgstr "புதிதாகச் சேமி.."
-
-#~ msgid "Cut"
-#~ msgstr "வெட்டு"
-
-#~ msgid "Paste"
-#~ msgstr "ஒட்டு"
-
-#, fuzzy
-#~ msgid "Find..."
-#~ msgstr "தேடு"
-
-#, fuzzy
-#~ msgid "Replace..."
-#~ msgstr "மாற்று"
-
-#~ msgid "Undo"
-#~ msgstr "வாபஸ்"
-
-#~ msgid "Redo"
-#~ msgstr "மறுசெயல்"
-
-#~ msgid "Shift Left"
-#~ msgstr "இடப்பக்கம் தூக்கு"
-
-#~ msgid "Shift Right"
-#~ msgstr "வலப்பக்கம் தூக்கு"
-
-#~ msgid "Spellcheck..."
-#~ msgstr "எழுத்துப்பிழை சோதி..."
-
-#~ msgid "View in browser"
-#~ msgstr "மேலோடியில் பார்"
-
-#~ msgid "Preferences..."
-#~ msgstr "விருப்பங்கள்..."
-
-#~ msgid "New Bluefish Window"
-#~ msgstr "புதிய நீலமீன் சாளரம்"
-
-#~ msgid "Stand by..."
-#~ msgstr "இயக்கத்திலிரு..."
-
-#~ msgid "Goto line"
-#~ msgstr "வரிக்குச் செல்"
-
-#~ msgid "_Line number:"
-#~ msgstr "_வரிசை எண்"
-
-#~ msgid "From _selection"
-#~ msgstr "_தேர்விலிருந்து"
-
-#~ msgid "Keep _dialog"
-#~ msgstr "வசனத்தை _வைத்திரு"
-
-#~ msgid "starting bluefish"
-#~ msgstr "நீலமீனைத் தொடங்குகிறது"
-
-#, fuzzy
-#~ msgid "Syntax highlighting error for "
-#~ msgstr "தொடரியல் உயர்த்திக்காட்டல்"
-
-#~ msgid "/_File"
-#~ msgstr "/_கோப்பு"
-
-#~ msgid "/File/tearoff1"
-#~ msgstr "/கோப்பு/tearoff1"
-
-#~ msgid "/File/_New"
-#~ msgstr "/கோப்பு/_புதியது"
-
-#~ msgid "/File/New _Window"
-#~ msgstr "/கோப்பு/புதிய _சாளரம்"
-
-#~ msgid "/File/_Open..."
-#~ msgstr "/கோப்பு/_திற"
-
-#, fuzzy
-#~ msgid "/File/Open _recent"
-#~ msgstr "/கோப்பு/சமீபத்தைத் திற"
-
-#~ msgid "/File/Open recent/tearoff1"
-#~ msgstr "/கோப்பு/சமீபத்தைத் திற/tearoff1"
-
-#~ msgid "/File/Open Ad_vanced..."
-#~ msgstr "/கோப்பு/_உயர்வகை திறப்பு..."
-
-#~ msgid "/File/Open _URL..."
-#~ msgstr "/கோப்பு/URLஐத் திற..."
-
-#~ msgid "/File/Open _from selection"
-#~ msgstr "/கோப்பு/_தேர்விலிருந்து திற"
-
-#~ msgid "/File/sep1"
-#~ msgstr "/கோப்பு/sep1"
-
-#~ msgid "/File/_Save"
-#~ msgstr "/கோப்பு/_சேமி"
-
-#~ msgid "/File/Save _As..."
-#~ msgstr "/கோப்பு/_புதிதாகச் சேமி..."
-
-#~ msgid "/File/Sav_e All"
-#~ msgstr "/கோப்பு/அ_னைத்தையும் சேமி"
-
-#, fuzzy
-#~ msgid "/File/Rever_t to Saved"
-#~ msgstr "/கோப்பு/_முந்தைய சேமிப்புக்குத் திரும்பு"
-
-#~ msgid "/File/sep2"
-#~ msgstr "/கோப்பு/sep2"
-
-#~ msgid "/File/_Insert..."
-#~ msgstr "/கோப்பு/_செருகு"
-
-#~ msgid "/File/Rena_me..."
-#~ msgstr "/கோப்பு/ம_றுபெயரிடு..."
-
-#~ msgid "/File/sep3"
-#~ msgstr "/கோப்பு/sep3"
-
-#~ msgid "/File/_Close"
-#~ msgstr "/கோப்பு/_மூடு"
-
-#~ msgid "/File/Close A_ll"
-#~ msgstr "/கோப்பு/அனைத்தை_யும் மூடு"
-
-#~ msgid "/File/Close Win_dow"
-#~ msgstr "/கோப்பு/_சாளரத்தை மூடு"
-
-#~ msgid "/File/sep4"
-#~ msgstr "/கோப்பு/sep4"
-
-#~ msgid "/File/_Quit"
-#~ msgstr "/கோப்பு/_வெளியேறு"
-
-#, fuzzy
-#~ msgid "/File/sep5"
-#~ msgstr "/கோப்பு/sep1"
-
-#~ msgid "/_Edit"
-#~ msgstr "_தொகு"
-
-#~ msgid "/Edit/Tearoff1"
-#~ msgstr "/தொகு/Tealoff1"
-
-#~ msgid "/Edit/_Undo"
-#~ msgstr "/தொகு/வாபஸ்"
-
-#~ msgid "/Edit/_Redo"
-#~ msgstr "/தொகு/_மறுசெயல்"
-
-#~ msgid "/Edit/Undo All"
-#~ msgstr "/எடிட்/அனைத்தும் வாபஸ்"
-
-#~ msgid "/Edit/Redo All"
-#~ msgstr "/எடிட்/அனைத்தும் மறுசெயல்"
-
-#~ msgid "/Edit/sep1"
-#~ msgstr "/தொகு/sep1"
-
-#~ msgid "/Edit/Cu_t"
-#~ msgstr "/தொகு/_வெட்டு"
-
-#~ msgid "/Edit/_Copy"
-#~ msgstr "/தொகு/_நகல்"
-
-#~ msgid "/Edit/_Paste"
-#~ msgstr "/தொகு/_ஒட்டு"
-
-#~ msgid "/Edit/sep2"
-#~ msgstr "/தொகு/sep2"
-
-#~ msgid "/Edit/Select _All"
-#~ msgstr "/தொகு/அனைத்தையும் _தேர்ந்தெடு"
-
-#~ msgid "/Edit/sep3"
-#~ msgstr "/தொகு/sep3"
-
-#~ msgid "/Edit/_Find..."
-#~ msgstr "/தொகு/_தேடு..."
-
-#~ msgid "/Edit/Find A_gain"
-#~ msgstr "/தொகு/_மீண்டும் தேடு"
-
-#~ msgid "/Edit/Find from selection"
-#~ msgstr "/தொகு/தேர்வில் தேடு"
-
-#~ msgid "/Edit/R_eplace..."
-#~ msgstr "/தொகு/மா_ற்று"
-
-#~ msgid "/Edit/Replace Agai_n"
-#~ msgstr "/தொகு/மீ_ண்டும் மாற்று"
-
-#~ msgid "/Edit/Replace special"
-#~ msgstr "/தொகு/_சிறப்பு மாற்றம்"
-
-#~ msgid "/Edit/Replace special/Tearoff1"
-#~ msgstr "/தொகு/சிறப்பு மாற்றம்/Tearoff1"
-
-#~ msgid "/Edit/Replace special/_ASCII to HTML Entities"
-#~ msgstr "/தொகு/சிறப்பு மாற்றம்/_ASCIIயிலிருந்து HTML பொருள்"
-
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
-#~ msgstr "/தொகு/சிறப்பு மாற்றம்/_ISO8859லிருந்து HTML பொருள்"
-
-#~ msgid "/Edit/Replace special/_Both Types to HTML Entities"
-#~ msgstr "/தொகு/சிறப்பு மாற்றம்/_இரண்டு வகைகளிலிருந்து HTML பொருள்"
-
-#~ msgid "/Edit/Replace special/To _Uppercase"
-#~ msgstr "/தொகு/சிறப்பு மாற்றம்/To _Uppercase"
-
-#~ msgid "/Edit/Replace special/To _Lowercase"
-#~ msgstr "/தொகு/சிறப்பு மாற்றம்/To _Lowercase"
-
-#~ msgid "/Edit/sep4"
-#~ msgstr "/தொகு/sep4"
-
-#, fuzzy
-#~ msgid "/Edit/S_hift Right"
-#~ msgstr "/தொகு/Sh_ift Right"
-
-#, fuzzy
-#~ msgid "/Edit/Shift _Left"
-#~ msgstr "/தொகு/S_hift Left"
-
-#~ msgid "/Edit/sep5"
-#~ msgstr "/தொகு/sep5"
-
-#~ msgid "/Edit/Add _Bookmark"
-#~ msgstr "/தொகு/புத்தகக்குறியைச் சேர்"
-
-#~ msgid "/Edit/sep6"
-#~ msgstr "/தொகு/sep6"
-
-#, fuzzy
-#~ msgid "/Edit/Save Sett_ings"
-#~ msgstr "/தொகு/_அமைவுகளைச் சேமி"
-
-#~ msgid "/Edit/Save Shortcut _Keys"
-#~ msgstr "/தொகு/_குறுக்குவழிகளைச் சேமி"
-
-#, fuzzy
-#~ msgid "/Edit/Preference_s"
-#~ msgstr "/தொகு/_விருப்பங்கள்"
-
-#~ msgid "/_View"
-#~ msgstr "/_பார்வை"
-
-#~ msgid "/View/tearoff1"
-#~ msgstr "/பார்வை/tearoff1"
-
-#~ msgid "/View/View _Main Toolbar"
-#~ msgstr "/பார்வை/_பிரதான கருவிப்பட்டியைக் காட்டு"
-
-#~ msgid "/View/View _Custom Menu"
-#~ msgstr "/பார்வை/தனிப்பயனாக்கப்பட்ட மெனுவைக் காட்டு"
-
-#, fuzzy
-#~ msgid "/View/View _Sidebar"
-#~ msgstr "/பார்வை/_பிரதான கருவிப்பட்டியைக் காட்டு"
-
-#~ msgid "/_Document"
-#~ msgstr "/_ஆவணம்"
-
-#~ msgid "/Document/tearoff1"
-#~ msgstr "/ஆவணம்/tearoff1"
-
-#~ msgid "/Document/_Increase Tabsize"
-#~ msgstr "/ஆவணம்/_நிறுத்துநிலை அளவை அதிகரி"
-
-#~ msgid "/Document/_Decrease Tabsize"
-#~ msgstr "/ஆவணம்/நிறுத்துநிலை அளவைக் _குறை"
-
-#~ msgid "/Document/_Auto Indent"
-#~ msgstr "/ஆவணம்/_தானியக்க தள்ளுதல்"
-
-#~ msgid "/Document/sep1"
-#~ msgstr "/ஆவணம்/sep1"
-
-#~ msgid "/Document/Auto Close H_TML tags"
-#~ msgstr "/ஆவணம்/தானியக்க HTML ஒட்டு மூடல்"
-
-#~ msgid "/Document/_Wrap"
-#~ msgstr "/ஆவணம்/_மடி"
-
-#~ msgid "/Document/_Line Numbers"
-#~ msgstr "/ஆவணம்/_வரிசை எண்கள்"
-
-#~ msgid "/Document/sep2"
-#~ msgstr "/ஆவணம்/sep2"
-
-#~ msgid "/Document/_Highlight Syntax"
-#~ msgstr "/ஆவணம்/_தொடரியல் உயர்த்திக்காட்டல்"
-
-#~ msgid "/Document/_Update Highlighting"
-#~ msgstr "/ஆவணம்/_உயர்த்திக்காட்டலை புதுப்பி"
-
-#~ msgid "/Document/sep3"
-#~ msgstr "/ஆவணம்/sep3"
-
-#~ msgid "/Document/Document Ty_pe"
-#~ msgstr "/ஆவணம்/ஆவணவகை"
-
-#~ msgid "/Document/Document Type/tearoff1"
-#~ msgstr "/ஆவணம்/ஆவண வகை/tearoff1"
-
-#~ msgid "/Document/Character _Encoding"
-#~ msgstr "/ஆவணம்/குறியீட்டுமுறை"
-
-#~ msgid "/Document/Character Encoding/tearoff1"
-#~ msgstr "/ஆவணம்/குறியீட்டுமுறை/tearoff1"
-
-#~ msgid "/Document/sep4"
-#~ msgstr "/ஆவணம்/sep4"
-
-#~ msgid "/Document/Check _Spelling..."
-#~ msgstr "/ஆவணம்/எழுத்துப்பிழை சோதி..."
-
-#~ msgid "/Document/_Floating window"
-#~ msgstr "/ஆவணம்/_மிதக்கும் சாளரம்"
-
-#~ msgid "/Document/Word _Count"
-#~ msgstr "/ஆவணம்/சொற்களின் எண்ணிக்கை"
-
-#, fuzzy
-#~ msgid "/Document/sep5"
-#~ msgstr "/ஆவணம்/sep1"
-
-#, fuzzy
-#~ msgid "/Document/Move left"
-#~ msgstr "/ஆவணம்/தானியக்கத் தள்ளுதல்"
-
-#, fuzzy
-#~ msgid "/Document/Move right"
-#~ msgstr "/ஆவணம்/sep1"
-
-#~ msgid "/_Go"
-#~ msgstr "/_செல்"
-
-#~ msgid "/Go/tearoff1"
-#~ msgstr "/செல்/tearoff1"
-
-#~ msgid "/Go/_Previous document"
-#~ msgstr "/செல்/_முந்தைய ஆவணம்"
-
-#~ msgid "/Go/_Next document"
-#~ msgstr "/செல்/_அடுத்த ஆவணம்"
-
-#~ msgid "/Go/sep1"
-#~ msgstr "/செல்/sep1"
-
-#~ msgid "/Go/_First document"
-#~ msgstr "/செல்/_முதல் ஆவணம்"
-
-#~ msgid "/Go/L_ast document"
-#~ msgstr "/செல்/_இறுதி ஆவணம்"
-
-#~ msgid "/Go/Goto _Line"
-#~ msgstr "/செல்/_வரிக்குச் செல்"
-
-#~ msgid "/Go/Goto _Selection"
-#~ msgstr "/செல்/_தேர்விற்குச் செல்"
-
-#~ msgid "/_Project"
-#~ msgstr "/_செயல்திட்டம்"
-
-#~ msgid "/Project/tearoff1"
-#~ msgstr "/செயல்திட்டம்/tearoff1"
-
-#~ msgid "/Project/_New Project"
-#~ msgstr "/செயல்திட்டம்/_புதிய செயல்திட்டம்"
-
-#~ msgid "/Project/_Open Project..."
-#~ msgstr "/செயல்திட்டம்/_செயல்திட்டத்தைத் திற..."
-
-#, fuzzy
-#~ msgid "/Project/Open _recent"
-#~ msgstr "/செயல்திட்டம்/சமீபத்தைத் திற"
-
-#~ msgid "/Project/Open recent/tearoff1"
-#~ msgstr "/செயல்திட்டம்/சமீபத்தைத் திற/tearoff1"
-
-#~ msgid "/Project/sep1"
-#~ msgstr "/செயல்திட்டம்/sep1"
-
-#~ msgid "/Project/_Save"
-#~ msgstr "/செயல்திட்டம்/_சேமி"
-
-#~ msgid "/Project/Save _as..."
-#~ msgstr "/செயல்திட்டம்/_புதிதாகச் சேமி"
-
-#~ msgid "/Project/Save & _close"
-#~ msgstr "/செயல்திட்டம்/_சேமித்து மூடு"
-
-#~ msgid "/Project/sep2"
-#~ msgstr "/செயல்திட்டம்/sep2"
-
-#~ msgid "/Project/E_dit Project Options..."
-#~ msgstr "/செயல்திட்டம்/செ_யல்திட்ட விருப்பங்களை மாற்று"
-
-#~ msgid "/E_xternal"
-#~ msgstr "/_வெளியுறவு"
-
-#~ msgid "/External/tearoff1"
-#~ msgstr "/வெளியுறவு/tearoff1"
-
-#~ msgid "/_Help"
-#~ msgstr "/_உதவி"
-
-#~ msgid "/Help/_About..."
-#~ msgstr "/_உதவி/_பற்றி"
-
-#~ msgid "/Document/Document Type"
-#~ msgstr "/ஆவணம்/ஆவணவகை"
-
-#~ msgid "/Project/Open recent"
-#~ msgstr "/செயல்திட்டம்/சமீபத்தைத் திற"
-
-#~ msgid "/File/Open recent"
-#~ msgstr "/கோப்பு/சமீபத்தைத் திற"
-
-#~ msgid "/Windows"
-#~ msgstr "/சாளரங்கள்"
-
-#, fuzzy
-#~ msgid "Could not view file in browser."
-#~ msgstr "\"%s\" கோப்பினைக் காணவில்லை:"
-
-#, fuzzy
-#~ msgid "File has not been saved\n"
-#~ msgstr "இந்தக் கோப்பு சேமிக்கப்படவில்லை"
-
-#~ msgid "/External/Outputbox/"
-#~ msgstr "/வெளியுறவு/வெளியீட்டுப்பெட்டி/"
-
-#~ msgid "/External/Commands/"
-#~ msgstr "/வெளியுறவு/கட்டளைகள்/"
-
-#~ msgid "/External/Browsers/"
-#~ msgstr "/வெளியுறவு/மேலோடிகள்/"
-
-#~ msgid "/External"
-#~ msgstr "/வெளியுறவு"
-
-#~ msgid "/External/Browsers"
-#~ msgstr "/வெளியுறவு/மேலோடிகள்"
-
-#~ msgid "/External/Commands"
-#~ msgstr "/வெளியுறவு/கட்டளைகள்"
-
-#~ msgid "/External/Outputbox"
-#~ msgstr "/வெளியுறவு/கட்டளைப்பெட்டி"
-
-#~ msgid "/Document/Character Encoding"
-#~ msgstr "/ஆவணம்/குறியீட்டு முறை"
-
-#~ msgid "This custom search and replace requires a selection"
-#~ msgstr "இந்தத் தனிப்பயன் தேடி மாற்றுதலுக்கு எதையாவது தேர்ந்தெடுத்திருக்க வேண்டும்."
-
-#~ msgid "/_Custom menu"
-#~ msgstr "/_தனிப்பயன் மெனு"
-
-#~ msgid "/Custom menu/sep"
-#~ msgstr "/தனிப்பயன் மெனு/sep"
-
-#~ msgid "/Custom menu/Edit custom menu..."
-#~ msgstr "/தனிப்பயன் மெனு/தனிப்பயன் மெனுவை மாற்று..."
-
-#, fuzzy
-#~ msgid "/Custom menu/Reset"
-#~ msgstr "/தனிப்பயன் மெனு/sep"
-
-#, fuzzy
-#~ msgid "/Custom menu/Load new"
-#~ msgstr "/தனிப்பயன் மெனு/sep"
-
-#~ msgid "Search Pattern"
-#~ msgstr "உருவகை தேடல்"
-
-#~ msgid "Replace String"
-#~ msgstr "சொல்லை மாற்று"
-
-#~ msgid "Formatstring Before"
-#~ msgstr "Formatstring Before"
-
-#~ msgid "Formatstring After"
-#~ msgstr "Formatstring After"
-
-#~ msgid "The menupath you want to update does not exist yet"
-#~ msgstr "நீங்கள் புதுப்பிக்கும் மெனுவழி இன்னும் உருவாக்கப்படவில்லை"
-
-#~ msgid "Try 'add' instead."
-#~ msgstr "இதை விடுத்து 'சேர்' என்பதை முயலவும்"
-
-#~ msgid "The menupath you want to add already exists."
-#~ msgstr "நீங்கள் சேர்க்கும் மெனுவழி ஏற்கனவே உள்ளது."
-
-#~ msgid "The menupath should start with a / character"
-#~ msgstr "மெனுவழி கண்டிப்பாக / குறியுடன் துவங்க வேண்டும்"
-
-#~ msgid "Custom Menu Editor"
-#~ msgstr "தனிப்பயன் மெனு எடிட்டர்"
-
-#~ msgid "Add New Menu Entry"
-#~ msgstr "புதிய மெனு பதிவினைச் சேர்"
-
-#~ msgid "Apply Changes"
-#~ msgstr "மாற்றங்களை அமல்படுத்து"
-
-#~ msgid "Delete Menu Entry"
-#~ msgstr "மெனுப் பதிவை நீக்கு"
-
-#~ msgid "Close Discards Changes"
-#~ msgstr "மூடுதல் மாறுதல்களை கவனத்தில் கொள்ளாது"
-
-#~ msgid "Save Changes and Exit"
-#~ msgstr "சேமித்து வெளியேறு"
-
-#~ msgid "_Menu Path:"
-#~ msgstr "_மெனு வழி:"
-
-#~ msgid "Menu path"
-#~ msgstr "_மெனு வழி"
-
-#~ msgid "Number of _Variables:"
-#~ msgstr "_மாறிகளின் எண்ணிக்கை:"
-
-#~ msgid "Variables"
-#~ msgstr "மாறிகள்"
-
-#~ msgid "Custom Dialo_g"
-#~ msgstr "தனிப்பயன் வசன_ம்"
-
-#, fuzzy
-#~ msgid "Custom Replace"
-#~ msgstr "தனிப்பயன் _தேடி மாற்றுதல்"
-
-#~ msgid "_Replace:"
-#~ msgstr "_மாற்று"
-
-#~ msgid "in current document"
-#~ msgstr "நடப்பு ஆவணத்தில் உள்ளது"
-
-#~ msgid "from cursor"
-#~ msgstr "கர்ஸரிலிருந்து"
-
-#~ msgid "in selection"
-#~ msgstr "தேர்வில் உள்ளது"
-
-#~ msgid "in all open documents"
-#~ msgstr "திறந்திருக்கும் அனைத்து ஆவணங்களிலும்"
-
-#~ msgid "Matc_hing:"
-#~ msgstr "_பொறுத்துதல்:"
-
-#~ msgid "normal"
-#~ msgstr "பொதுவானது"
-
-#, fuzzy
-#~ msgid "posix regular expressions"
-#~ msgstr "posix பொதுவான கோவைகள்"
-
-#, fuzzy
-#~ msgid "perl regular expressions"
-#~ msgstr "perl பொதுவான கோவைகள்"
-
-#~ msgid "Case Se_nsitive"
-#~ msgstr "Case Se_nsitive"
-
-#, fuzzy
-#~ msgid "Untitled"
-#~ msgstr "பெயரில்லாதது %d"
-
-#~ msgid "Select font"
-#~ msgstr "எழுத்துருவைத் தேர்ந்தெடு"
-
-#~ msgid "Label"
-#~ msgstr "அடையாளம்"
-
-#~ msgid "Extensions"
-#~ msgstr "விரிவாக்கங்கள்"
-
-#~ msgid "Update chars"
-#~ msgstr "குறிகளை புதுப்பி"
-
-#~ msgid "Icon"
-#~ msgstr "குறும்படம்"
-
-#~ msgid "Editable"
-#~ msgstr "மாற்றத்தக்கது"
-
-#~ msgid "Content regex"
-#~ msgstr "Content regex"
-
-#~ msgid "Auto close tags mode"
-#~ msgstr "தானியங்கி ஒட்டு மூடும் முறை"
-
-#, fuzzy
-#~ msgid "Inverse filter"
-#~ msgstr "தலைகீழ் வடிகட்டி"
-
-#~ msgid "Filetypes in filter"
-#~ msgstr "வடிகட்டிகளில் கோப்புவகைகள்"
-
-#~ msgid "filetype"
-#~ msgstr "கோப்புவகை"
-
-#, fuzzy
-#~ msgid "Reset"
-#~ msgstr "சட்டகத் தொகுப்பு"
-
-#~ msgid "Pattern name"
-#~ msgstr "உருவகை பெயர்"
-
-#~ msgid "Pattern"
-#~ msgstr "உருவகை"
-
-#~ msgid "Start pattern and end pattern"
-#~ msgstr "துவக்க உருவகை மற்றும் இறுதி உருவகை"
-
-#~ msgid "Only start pattern"
-#~ msgstr "துவக்க உருவகை மட்டும்"
-
-#~ msgid "Subpattern from parent"
-#~ msgstr "பெற்றோரிடமிருந்து துணைஉருவகை"
-
-#~ msgid "Start pattern"
-#~ msgstr "உருவகையைத் துவக்குதல்"
-
-#~ msgid "End pattern"
-#~ msgstr "உருவகையை முடி"
-
-#~ msgid "Case sensitive matching"
-#~ msgstr "Case sensitive பொறுத்தம்"
-
-#~ msgid "Parentmatch"
-#~ msgstr "பெற்றோர் பொறுத்தம்"
-
-#~ msgid "Foreground color"
-#~ msgstr "முன்புல வர்ணம்"
-
-#~ msgid "Background color"
-#~ msgstr "பின்புல வர்ணம்"
-
-#~ msgid "don't change weight"
-#~ msgstr "எடையை மாற்றாதே"
-
-#~ msgid "force non-bold weight"
-#~ msgstr "தடிப்பில்லாத எடைக்கு நிர்பந்தி"
-
-#~ msgid "force bold weight"
-#~ msgstr "தடிப்பான எடைக்கு நிர்பந்தி"
-
-#~ msgid "don't change style"
-#~ msgstr "வடிவத்தை மாற்றாதே"
-
-#~ msgid "force non-italic style"
-#~ msgstr "சாய்வில்லாத வடிவத்திற்கு நிர்பந்தி"
-
-#~ msgid "force italic style"
-#~ msgstr "சாய்வெழுத்து வடிவத்திற்கு நிர்பந்தி"
-
-#~ msgid "Command"
-#~ msgstr "கட்டளை"
-
-#, fuzzy
-#~ msgid ""
-#~ "%s for current filename (any command)\n"
-#~ "%i for input and %f for output filename (filters)"
-#~ msgstr ""
-#~ "%s = நடப்பு கோப்பின் பெயர்\n"
-#~ "%f = வெளியீட்டு கோப்பின் பெயர் (வடிகட்டிகளுக்கு)"
-
-#~ msgid "File #"
-#~ msgstr "கோப்பு #"
-
-#~ msgid "Line #"
-#~ msgstr "வரி #"
-
-#~ msgid "Output #"
-#~ msgstr "வெளியீடு #"
-
-#~ msgid "Show all output"
-#~ msgstr "அனைத்து வெளியீடுகளையும் காட்டு"
-
-#~ msgid "left"
-#~ msgstr "இடது"
-
-#~ msgid "right"
-#~ msgstr "வலது"
-
-#~ msgid "top"
-#~ msgstr "மேல்"
-
-#~ msgid "bottom"
-#~ msgstr "கீழ்"
-
-#~ msgid "no check"
-#~ msgstr "சோதிக்காதே"
-
-#~ msgid "check mtime and size"
-#~ msgstr "mகாலத்தையும் அளவையும் சோதி"
-
-#~ msgid "check mtime"
-#~ msgstr "mகாலத்தைச் சோதி"
-
-#~ msgid "check size"
-#~ msgstr "அளவிற்காகச் சோதி"
-
-#~ msgid "Edit preferences"
-#~ msgstr "விருப்பங்களைத் தொகு"
-
-#~ msgid "Editor"
-#~ msgstr "தொகுப்பான்"
-
-#~ msgid "Editor options"
-#~ msgstr "தொகுப்பான் விருப்பங்கள்"
-
-#~ msgid "Tab width"
-#~ msgstr "நிறுத்துநிலைகளின் அகலம்"
-
-#~ msgid "Use spaces to indent, not tabs"
-#~ msgstr "உட்தள்ளலுக்கு இடைவெளியை உபயோகி, நிறுத்துநிலைகள் வேண்டாம்"
-
-#~ msgid "Word wrap default"
-#~ msgstr "கொடாநிலை உரை மடிப்பு"
-
-#~ msgid "Line numbers by default"
-#~ msgstr "கொடாநிலையாக வரிசை எண்கள்"
-
-#~ msgid "Highlight syntax by default"
-#~ msgstr "கொடாநிலையாக தொடரியலை உயர்த்திக்காட்டு"
-
-#~ msgid "Highlight # lines"
-#~ msgstr "# வரிகளை உயர்த்திக்காட்டு"
-
-#~ msgid "Undo history size"
-#~ msgstr "சுவடுகள் அளவை வாபஸ்பெறு"
-
-#~ msgid "Clear undo history on save"
-#~ msgstr "சேமிக்கையில் சுவடுகள் அளவு வாபஸ்பெற்றதை துடை"
-
-#~ msgid "Bookmark options"
-#~ msgstr "_புத்தகக்குறி விருப்பங்கள்"
-
-#~ msgid "Make permanent by default"
-#~ msgstr "கொடாநிலையில் நிலையானதாக மாற்று"
-
-#~ msgid "full path"
-#~ msgstr "முழு வழி"
-
-#~ msgid "path from basedir"
-#~ msgstr "basedir இலிருந்து வழி"
-
-#~ msgid "filename"
-#~ msgstr "கோப்பின் பெயர்"
-
-#~ msgid "Bookmarks filename display"
-#~ msgstr "கோப்புப் பெயர் காட்சிகளின் புத்தகக்குறி"
-
-#~ msgid "HTML"
-#~ msgstr "HTML"
-
-#~ msgid "HTML options"
-#~ msgstr "HTML விருப்பங்கள்"
-
-#~ msgid "Lowercase HTML tags"
-#~ msgstr "Lowercase HTML ஒட்டுகள்"
-
-#~ msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-#~ msgstr "எதிர் ஒட்டுக்களை உபயோகி (உதா. <font> மற்றும் <nobr>)"
-
-#~ msgid "Use XHTML style tags (<br />)"
-#~ msgstr "XHTML வடிவ ஒட்டுக்களை உபயோகி (<br />)"
-
-#~ msgid "Automatic update author meta"
-#~ msgstr "எழுத்தாளர் மெட்டாவை தானாகவே மாற்று"
-
-#~ msgid "Files"
-#~ msgstr "கோப்புகள்"
-
-#~ msgid "Encoding"
-#~ msgstr "குறியீட்டுமுறை"
-
-#~ msgid "Default character set"
-#~ msgstr "கொடாநிலை குறியீட்டு கணம்"
-
-#~ msgid "Auto set <meta> encoding tag on change"
-#~ msgstr "மாறுதலின்போது <meta> குறியீட்டு ஒட்டினை தானாகவே ஏற்படுத்து"
-
-#~ msgid "Backup"
-#~ msgstr "காப்பு"
-
-#~ msgid "Create backup on save"
-#~ msgstr "சேமிக்கையில் காப்பினை உருவாக்கு"
-
-#~ msgid "Backup file suffix"
-#~ msgstr "காப்பு ஆவணத்தின் பின்ஒட்டு"
-
-#~ msgid "save"
-#~ msgstr "சேமி"
-
-#~ msgid "abort"
-#~ msgstr "கைவிடு"
-
-#~ msgid "ask"
-#~ msgstr "கேள்"
-
-#~ msgid "Action on backup failure"
-#~ msgstr "காப்பெடுத்தல் தோல்வியடைந்தால் எடுக்கப்படும் நடவடிக்கை"
-
-#~ msgid "Remove backupfile on close"
-#~ msgstr "மூடுகையில் காப்பு ஆவணத்தை அழி"
-
-#~ msgid "Misc"
-#~ msgstr "இதர"
-
-#~ msgid "Allow multi instances of a file"
-#~ msgstr "ஒரு கோப்பினை பலமுறை திறக்க அனுமதி"
-
-#~ msgid "Open files in already running bluefish window"
-#~ msgstr "ஏற்கனவே இயங்கும் நீலமீன் சாளரத்தில் கோப்புக்களைத் திற"
-
-#~ msgid "File modified on disk check "
-#~ msgstr "மாற்றப்பட்ட கோப்பு தட்டு சோதனையில் உள்ளது "
-
-#~ msgid "Number of files in 'Open recent'"
-#~ msgstr "சமீபத்திய திறப்பில் காட்டவேண்டிய கோப்புகளின் எண்ணிக்கை"
-
-#~ msgid "File browser"
-#~ msgstr "கோப்பு உலாவி"
-
-#~ msgid "Default basedir"
-#~ msgstr "கொடாநிலை அடிப்படைஅடைவு"
-
-#~ msgid "Use separate file and directory view"
-#~ msgstr "தனித்தனி கோப்பு மற்றும் அடைவுப் பார்வையை உபயோகி"
-
-#~ msgid "Unknown icon"
-#~ msgstr "அறியமுடியாத குறும்படம்"
-
-#~ msgid "Directory icon"
-#~ msgstr "அடைவு குறும்படம்"
-
-#~ msgid "User interface"
-#~ msgstr "பயனாளர் இடைமுகம்"
-
-#~ msgid "Dimensions"
-#~ msgstr "பரிமாணங்கள்"
-
-#~ msgid "Restore last used dimensions"
-#~ msgstr "கடந்தமுறை பயன்படுத்திய பரிமாணங்களை திரும்பப் பெறு"
-
-#, fuzzy
-#~ msgid "Initial sidebar width"
-#~ msgstr "ஆரம்ப சாளர அகலம்"
-
-#~ msgid "Initial window height"
-#~ msgstr "ஆரம்ப சாளர உயரம்"
-
-#~ msgid "Initial window width"
-#~ msgstr "ஆரம்ப சாளர அகலம்"
-
-#~ msgid "General"
-#~ msgstr "பொதுவானது"
-
-#~ msgid "Make HTML dialogs transient"
-#~ msgstr "HTML வசனங்கள் மாறுநிலையை உருவாக்கு"
-
-#~ msgid "External browsers in submenu"
-#~ msgstr "துணைமெனுவில் வெளியுறவு மேலோடிகள்"
-
-#~ msgid "External commands in submenu"
-#~ msgstr "துணைமெனுவில் வெளியுறவு கட்டளைகள்"
-
-#~ msgid "External outputbox in submenu"
-#~ msgstr "துணைமெனுவில் வெளியுறவு வெளியீட்டுப்பெட்டிகள்"
-
-#~ msgid "Notebook tab font (leave empty for gtk default)"
-#~ msgstr "நோட்டுப்புத்தக நிலைநிறுத்த எழுத்துரு (கொடாநிலை gtkக்கு ஏதும் அளிக்கவேண்டாம்)"
-
-#~ msgid "Document notebook tab position"
-#~ msgstr "ஆவணத்தில் நோட்டுப்புத்தக நிலைநிறுத்தத்தின் அமைவிடம்"
-
-#, fuzzy
-#~ msgid "Sidebar notebook tab position"
-#~ msgstr "இடது சட்டத்தில் நோட்டுப்புத்தக நிலைநிறுத்தத்தின் அமைவிடம்"
-
-#, fuzzy
-#~ msgid "Sidebar location"
-#~ msgstr "_சித்திர அமைவிடம்"
-
-#~ msgid "Images"
-#~ msgstr "சித்திரங்கள்"
-
-#~ msgid "Thumbnails"
-#~ msgstr "குறுகியசித்திரங்கள்"
-
-#~ msgid "Thumbnail suffix"
-#~ msgstr "குறுகியசித்திரங்களின் பின்னொட்டு"
-
-#~ msgid "Thumbnail filetype"
-#~ msgstr "குறுகியசித்திரங்களின் கோப்புவகை"
-
-#~ msgid "Filetypes"
-#~ msgstr "கோப்புவகைகள்"
-
-#~ msgid "Filefilters"
-#~ msgstr "கோப்பு வடிகட்டிகள்"
-
-#~ msgid "Syntax highlighting"
-#~ msgstr "தொடரியல் உயர்த்திக்காட்டல்"
-
-#~ msgid "Patterns"
-#~ msgstr "உருவகைகள்"
-
-#~ msgid "External programs"
-#~ msgstr "வெளியுறவு செயலிகள்"
-
-#~ msgid "Browsers"
-#~ msgstr "மேலோடிகள்"
-
-#~ msgid "Utilities and filters"
-#~ msgstr "பயன்பாடுகள் மற்றும் வடிகட்டிகள்"
-
-#~ msgid "Output parsers"
-#~ msgstr "வெளியீட்டு அலகிடுவான்கள்"
-
-#~ msgid "Outputbox"
-#~ msgstr "வெளியீட்டுப் பெட்டி"
-
-#~ msgid "Servers"
-#~ msgstr "பகிர்விகள்"
-
-#~ msgid "Remote servers"
-#~ msgstr "தொலை பகிர்விகள்"
-
-#~ msgid "Zope compatibility mode"
-#~ msgstr "Zope ஏற்பு முறை"
-
-#~ msgid "New project"
-#~ msgstr "புதிய செயல்திட்டம்"
-
-#~ msgid "Enter Bluefish project filename"
-#~ msgstr "நீலமீன் செயல்திட்ட கோப்பின் பெயரை அளிக்கவும்"
-
-#~ msgid "Select Bluefish project filename"
-#~ msgstr "நீலமீன் செயல்திட்ட கோப்பின் பெயர்களைத் தேர்ந்தெடு"
-
-#, fuzzy
-#~ msgid "Save current project?"
-#~ msgstr "நடப்புச் செயல்திட்டத்தை சேமிப்பது தோல்வியடைந்தது"
-
-#~ msgid "Create New Project"
-#~ msgstr "புதிய செயல்திட்டத்தை உருவாக்கு"
-
-#~ msgid "Edit Project"
-#~ msgstr "செயல்திட்டத்தை மாற்றியமை"
-
-#~ msgid "This project contains %d files"
-#~ msgstr "இந்த செயல்திட்டம் %d கோப்புக்களை உள்ளடக்கியது"
-
-#~ msgid "Project _Name:"
-#~ msgstr "செயல்திட்டத்தின் _பெயர்:"
-
-#~ msgid "_Basedir:"
-#~ msgstr "_Basedir:"
-
-#~ msgid "_Preview URL:"
-#~ msgstr "_URL முன்னோட்டம்"
-
-#~ msgid "_Template:"
-#~ msgstr "_படிமஅச்சு:"
-
-#~ msgid "_Word wrap by default"
-#~ msgstr "கொடாநிலையாக _உரையை மடி"
-
-#~ msgid "Create _Project"
-#~ msgstr "_செயல்திட்டத்தை உருவாக்கு"
-
-#~ msgid "Create project"
-#~ msgstr "செயல்திட்டத்தை உருவாக்கு"
-
-#~ msgid "Create project with currently opened documents"
-#~ msgstr "நடப்பு ஆவணங்களை வைத்து செயல்திட்டத்தை உருவாக்கு"
-
-#~ msgid "Create empty project"
-#~ msgstr "வெற்று செயல்திட்டத்தை உருவாக்கு"
-
-#~ msgid "Galeon"
-#~ msgstr "கேலியன்"
-
-#~ msgid "Mozilla"
-#~ msgstr "மோஸில்லா"
-
-#~ msgid "Opera"
-#~ msgstr "ஓபெரா"
-
-#~ msgid "Netscape"
-#~ msgstr "நெட்ஸ்கேப்"
-
-#~ msgid "Gnome default"
-#~ msgstr "க்னோமின் கொடாநிலை"
-
-#~ msgid "make"
-#~ msgstr "make"
-
-#~ msgid "weblint HTML checker"
-#~ msgstr "வெப்லிண்ட் HTML சோதிப்பான்"
-
-#~ msgid "tidy HTML validator"
-#~ msgstr "டைடி HTML மதிப்பீட்டாளன்"
-
-#~ msgid "javac"
-#~ msgstr "javac"
-
-#, fuzzy
-#~ msgid "xmllint XML checker"
-#~ msgstr "வெப்லிண்ட் HTML சோதிப்பான்"
-
-#~ msgid "Dos2Unix filter"
-#~ msgstr "Dos2Unix வடிகட்டி"
-
-#~ msgid "Tidy cleanup filter"
-#~ msgstr "டைடி cleanup வடிகட்டி"
-
-#~ msgid "C programming"
-#~ msgstr "C நிரலாக்கம்"
-
-#~ msgid "All web files"
-#~ msgstr "அனைத்து இணையக் கோப்புகள்"
-
-#~ msgid "Java programming"
-#~ msgstr "ஜாவா நிரலாக்கம்"
-
-#~ msgid "Hide objectfiles"
-#~ msgstr "ஆப்ஜெக்ட் கோப்புக்களை மறை"
-
-#~ msgid "Untitled Project"
-#~ msgstr "பெயரிடப்படா ஆவணம்"
-
-#~ msgid "Regular expression error: "
-#~ msgstr "வழக்கமான பொதி பிழை:"
-
-#~ msgid "Search failed"
-#~ msgstr "தேடுதல் தோல்வியடைந்தது"
-
-#~ msgid "Regular expression error: %s at offset %d"
-#~ msgstr "பொதுவான பொதி பிழை: %s at offser %d"
-
-#~ msgid "Confirm replace"
-#~ msgstr "மாற்றத்தை உறுதிப்படுத்து"
-
-#~ msgid "Replace selected text?"
-#~ msgstr "தேர்ந்தெடுத்த உரையினை மாற்றவா?"
-
-#~ msgid "Replace _all"
-#~ msgstr "_அனைத்தையும் மாற்று"
-
-#~ msgid "Search: no match found"
-#~ msgstr "தேடு: பொறுத்தம் கிடைக்கவில்லை"
-
-#, fuzzy
-#~ msgid "_Search for: "
-#~ msgstr "தேடல் _சொல்:"
-
-#, fuzzy
-#~ msgid "_Replace with: "
-#~ msgstr "மாற்றவேண்டியது:"
-
-#~ msgid "\\0 refers to the first subsearch_pattern, \\1 to the second etc."
-#~ msgstr "\\0 முதல் துணைதேடல்உருவகையைக் குறிக்கிறது, \\1 என்பது இரண்டாவது இன்னும்பல."
-
-#~ msgid "Beginning of document till end"
-#~ msgstr "ஆவணத்தின் ஆரம்பம் முதல் இறுதி வரை"
-
-#~ msgid "Current position till end"
-#~ msgstr "தற்போதைய இடத்திலிருந்து இறுதி வரை"
-
-#~ msgid "Beginning of selection till end of selection"
-#~ msgstr "தேர்வின் தொடக்கத்திலிருந்து தேர்வின் இறுதிவரை"
-
-#~ msgid "All opened files begin till end"
-#~ msgstr "திறந்த கோப்புகளில் கடைசிவரை தொடங்கு"
-
-#~ msgid "Disabled"
-#~ msgstr "முடக்கப்பட்டது"
-
-#~ msgid "POSIX type"
-#~ msgstr "POSIX வகை"
-
-#~ msgid "PERL type"
-#~ msgstr "PERL வகை"
-
-#~ msgid "Starts at:"
-#~ msgstr "தொடக்கம்:"
-
-#~ msgid "Regular expression:"
-#~ msgstr "வழக்கமான கோவை:"
-
-#~ msgid "Normal"
-#~ msgstr "சாதாரணம்"
-
-#~ msgid "Uppercase"
-#~ msgstr "Uppercase"
-
-#~ msgid "Lowercase"
-#~ msgstr "Lowercase"
-
-#~ msgid "Replace type:"
-#~ msgstr "மாறுதல் வகை:"
-
-#, fuzzy
-#~ msgid "_Patterns contain backslash escape sequences (\\n, \\t)"
-#~ msgstr "உருவகைகள் பின்சாய்வு தப்பித்தல் தொடர்களை உள்ளடக்கியுள்ளன (\\n, \\t)"
-
-#, fuzzy
-#~ msgid "_Match case"
-#~ msgstr "Match ca_se"
-
-#~ msgid "O_verlap searches"
-#~ msgstr "தேடுதல்களை _உடன்நிகழ்த்து"
-
-#~ msgid "Prompt _before replace"
-#~ msgstr "மாற்றுவதற்கு _முன் அனுமதிபெறு"
-
-#, fuzzy
-#~ msgid "Replace o_nce"
-#~ msgstr "ஒருமுறை _மாற்று"
-
-#, fuzzy
-#~ msgid "Bookmark results"
-#~ msgstr "புத்தகக்குறிகள்"
-
-#~ msgid " Add "
-#~ msgstr " சேர் "
-
-#~ msgid " Update "
-#~ msgstr " புதுப்பி "
-
-#~ msgid " Delete "
-#~ msgstr " நீக்கு "
-
-#~ msgid " Up "
-#~ msgstr " மேல் "
-
-#~ msgid " Down "
-#~ msgstr " கீழ் "
-
-#~ msgid " Sort "
-#~ msgstr " அடுக்கு "
-
-#~ msgid "This bookmark is set in a file that no longer exists."
-#~ msgstr "இல்லாத ஒரு கோப்பிற்கு இந்தப் புத்தகக்குறி அமைக்கப்பட்டுள்ளது"
-
-#~ msgid "Could not read file:\n"
-#~ msgstr "கோப்பினைப் படிக்க இயலவில்லை:\n"
-
-#~ msgid "Opening file "
-#~ msgstr "கோப்பு திறக்கப்படுகிறது "
-
-#~ msgid "Saving file"
-#~ msgstr "கோப்பு சேமிக்கப்படுகிறது"
-
-#~ msgid "Save as..."
-#~ msgstr "புதிதாகச் சேமி"
-
-#~ msgid ""
-#~ "File: %s\n"
-#~ "\n"
-#~ "New modification time: %s\n"
-#~ "Old modification time: %s"
-#~ msgstr ""
-#~ "கோப்பு: %s\n"
-#~ "\n"
-#~ "புதிதாக மாற்றப்பட்ட காலம்: %s\n"
-#~ "முன்பு மாற்றப்பட்ட காலம்: %s"
-
-#~ msgid "File has been modified by another process."
-#~ msgstr "மற்றொரு செயலியால் இந்தக் கோப்பு மாற்றப்படுகிறது."
-
-#~ msgid "Saving %s"
-#~ msgstr "%sஐச் சேமித்தல்"
-
-#~ msgid ""
-#~ "Could not backup file:\n"
-#~ "\""
-#~ msgstr ""
-#~ "கோப்பினைக் காப்பெடுக்க இயலவில்லை:\n"
-#~ "\""
-
-#~ msgid "File save error"
-#~ msgstr "கோப்பினைச் சேமிப்பதில் பிழை"
-
-#~ msgid "Loading files..."
-#~ msgstr "கோப்புகள் ஏற்றப்படுகின்றன"
-
-#~ msgid ""
-#~ "These files could not opened:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "இந்தக் கோப்புகளைத் திறக்க இயலாது:\n"
-#~ "\n"
-
-#~ msgid "Unable to open file(s)\n"
-#~ msgstr "கோப்பு(கள்)ஐத் திறக்க இயலவில்லை\n"
-
-#~ msgid "searching files..."
-#~ msgstr "கோப்புகள் தேடப்படுகின்றன"
-
-#~ msgid "grep {contains} `find {basedir} -name '{file type}'`"
-#~ msgstr "grep {contains} `find {basedir} -name '{file type}'`"
-
-#~ msgid "_File Type:"
-#~ msgstr "_கோப்பு வகை:"
-
-#~ msgid "Loading %d file(s)..."
-#~ msgstr "%d கோப்பு(கள்) திறக்கப்படுகின்றன..."
-
-#~ msgid "Select file"
-#~ msgstr "கோப்பினைத் தேர்ந்தெடு"
-
-#~ msgid "_Doctype:"
-#~ msgstr "_Doctype:"
-
-#~ msgid "Header tags:"
-#~ msgstr "தலைப்பு ஒட்டுக்கள்:"
-
-#~ msgid "Loading file(s)..."
-#~ msgstr "கோப்பு(கள்) ஏற்றப்படுகின்றது(ன)..."
-
-#~ msgid "The filename was:\n"
-#~ msgstr "கோப்பின் பெயர்:\n"
-
-#~ msgid "Could not open file\n"
-#~ msgstr "கோப்பினைத் திறக்க இயலவில்லை\n"
-
-#~ msgid "Could not view file in browser, the file does not yet have a name\n"
-#~ msgstr "கோப்பினை மேலோடியில் காட்ட முடியவில்லை. கோப்பிற்குப் பெயரிடவில்லை\n"
-
-#~ msgid "These files were not opened:\n"
-#~ msgstr "இந்தக் கோப்புகள் திறக்கப்படவில்லை:\n"
-
-#~ msgid "Show main toolbar by default"
-#~ msgstr "கொடாநிலையாக பிரதான கருவிப்பட்டையைக் காட்டு"
-
-#, fuzzy
-#~ msgid "Show sidebar by default"
-#~ msgstr "கொடாநிலையாக பிரதான கருவிப்பட்டையைக் காட்டு"
-
-#~ msgid "Show custom menu by default"
-#~ msgstr "கொடாநிலையாக தனிப்பயன் மெனுவைக் காட்டு"
-
-#~ msgid "Show HTML toolbar by default"
-#~ msgstr "கொடாநிலையாக HTML கருவிப்பட்டையைக் காட்டு"
-
-#, fuzzy
-#~ msgid "Do you want to save the project?"
-#~ msgstr ""
-#~ "பின்வருவதில் மாறுதல்களைச் சேமிக்க விரும்புகிறீர்களா\n"
-#~ "\"%s\"?."
-
-#~ msgid "Save document as"
-#~ msgstr "ஆவணத்தைப் பின்வருமாறு சேமி"
-
-#, fuzzy
-#~ msgid "Save changes to this untitled file before closing?"
-#~ msgstr "பெயரிடப்படாத இந்தக் கோப்பின் மாறுதல்களைச் சேமிக்கவிரும்புகிறீர்களா?"
-
-#~ msgid "Search..."
-#~ msgstr "தேடு..."
-
-#~ msgid "Search and Replace..."
-#~ msgstr "தேடி மாற்று..."
-
-#~ msgid "Do_n't Save"
-#~ msgstr "சேமி_க்காதே"
-
-#~ msgid "default"
-#~ msgstr "கொடாநிலை"
-
-#~ msgid "temp"
-#~ msgstr "தற்காலிகம்"
-
-#, fuzzy
-#~ msgid "/View/View Sidebar"
-#~ msgstr "/பார்வை/பிரதான கருவிப்பட்டையைக் காட்டு"
-
-#~ msgid "/Edit/Undo"
-#~ msgstr "/எடிட்/வாபஸ்"
-
-#~ msgid "/Edit/Redo"
-#~ msgstr "/எடிட்/மறுசெயல்"
-
-#~ msgid "/Document/Wrap"
-#~ msgstr "/ஆவணம்/மடிப்பு"
-
-#~ msgid "/Document/Line Numbers"
-#~ msgstr "/ஆவணம்/வரிசை எண்கள்"
-
-#~ msgid "/Document/Auto Close HTML tags"
-#~ msgstr "/ஆவணம்/தானியக்க HTML ஒட்டு மூடல்"
-
-#~ msgid "/View/View Main Toolbar"
-#~ msgstr "/பார்வை/பிரதான கருவிப்பட்டையைக் காட்டு"
-
-#~ msgid "/View/View Custom Menu"
-#~ msgstr "/பார்வை/தனிப்பயனாக்க மெனுவைக் காட்டு"
-
-#~ msgid "Sort by line number"
-#~ msgstr "_வரிசை எண் கொண்டு அடுக்கு"
-
-#~ msgid "/Project/Save"
-#~ msgstr "/செயல்திட்டம்/சேமி"
-
-#~ msgid "/Project/Save as..."
-#~ msgstr "/செயல்திட்டம்/புதிதாகச் சேமி..."
-
-#~ msgid "/Project/Save & close"
-#~ msgstr "/செயல்திட்டம்/சேமி & மூடு"
-
-#~ msgid "/Project/Edit Project Options..."
-#~ msgstr "/செயல்திட்டம்/செயல்திட்ட விருப்பங்களை மாற்றுக"
-
-#~ msgid "/View/View Left Panel"
-#~ msgstr "/பார்வை/இடது பட்டியைக் காட்டு"
-
-#~ msgid "/View/View _Left Panel"
-#~ msgstr "/பார்வை/இடது சட்டத்தைக்காட்டு"
-
-#~ msgid "Initial left panel width"
-#~ msgstr "இடது சட்டத்தின் ஆரம்ப அகலம்"
-
-#~ msgid "Show left panel by default"
-#~ msgstr "கொடாநிலையாக இடதுபட்டையைக் காட்டு"
-
-#~ msgid "/File/Open recen_t"
-#~ msgstr "/கோப்பு/சமீபத்திய கோப்புகள்"
-
-#~ msgid "/Project/Open r_ecent"
-#~ msgstr "/செயல்திட்டம்/_சமீபத்தைத் திற"
-
-#~ msgid "Your changes will be lost if you don't save them."
-#~ msgstr "சேமிக்காவிட்டால் நீங்கள் ஏற்படுத்திய மாற்றங்கள் அழிந்துவிடும்."
-
-#~ msgid "Filetype"
-#~ msgstr "கோப்பு வகை"
-
-#~ msgid "Filefilter"
-#~ msgstr "கோப்புவடிகட்டி"
-
-#~ msgid "Filetypes (colon separated)"
-#~ msgstr "கோப்பு வகைகள் (கோலன் வைத்துப் பிரிக்கப்பட்டது)"
-
-#~ msgid "Browser"
-#~ msgstr "மேலோடி"
-
-#~ msgid "%s = current filename"
-#~ msgstr "%s = நடப்பு கோப்பின் பெயர்"
-
-#~ msgid "File subpattern #"
-#~ msgstr "கோப்பு துணைஉருவகை #"
-
-#~ msgid "Line subpattern #"
-#~ msgstr "வரி துணைஉருவகை #"
-
-#~ msgid "Output subpattern #"
-#~ msgstr "வெளியீட்டு துணைஉருவகை #"

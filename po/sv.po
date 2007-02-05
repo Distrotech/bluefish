@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2006-11-27 17:24+0100\n"
+"POT-Creation-Date: 2007-02-04 15:42-0800\n"
 "PO-Revision-Date: 2004-11-27 21:02+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -15,22 +15,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../desktop-data/bluefish.desktop.in.h:1
-#: ../desktop-data/bluefish-project.desktop.in.h:1
+#: ../desktop-data/bluefish-unstable.desktop.in.h:1
+#: ../desktop-data/bluefish-unstable-project.desktop.in.h:1
 msgid "Bluefish Editor (CVS)"
 msgstr ""
 
-#: ../desktop-data/bluefish.desktop.in.h:2
-#: ../desktop-data/bluefish-project.desktop.in.h:2
+#: ../desktop-data/bluefish-unstable.desktop.in.h:2
+#: ../desktop-data/bluefish-unstable-project.desktop.in.h:2
 msgid "Web Development Editor (CVS)"
 msgstr ""
 
-#: ../desktop-data/bluefish.xml.in.h:1
+#: ../desktop-data/bluefish-unstable.keys.in.h:1
+#, fuzzy
+msgid "Bluefish Project"
+msgstr "Skriv in Bluefish-projektfilnamn"
+
+#: ../desktop-data/bluefish-unstable.xml.in.h:1
 #, fuzzy
 msgid "Bluefish project file"
 msgstr "Skriv in Bluefish-projektfilnamn"
 
-#: ../src/bf_lib.c:174 ../src/bf_lib.c:194
+#: ../src/bf_lib.c:175 ../src/bf_lib.c:195
 msgid ""
 "Bluefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
@@ -58,7 +63,7 @@ msgstr "Ändra _till:"
 msgid "I_gnore"
 msgstr "I_gnorera"
 
-#: ../src/bfspell.c:412 ../src/snr2.c:1672
+#: ../src/bfspell.c:412 ../src/snr2.c:1680
 msgid "_Replace"
 msgstr "_Ersätt"
 
@@ -405,11 +410,11 @@ msgstr "  %s, %s"
 msgid "Cannot display file, unknown characters found."
 msgstr "Kan inte visa filen på grund av okända tecken."
 
-#: ../src/document.c:2075 ../src/snr2.c:1535
+#: ../src/document.c:2075 ../src/snr2.c:1543
 msgid "Replace"
 msgstr "Ersätt"
 
-#: ../src/document.c:2080 ../src/fref2.c:4732 ../src/snr2.c:1532
+#: ../src/document.c:2080 ../src/fref2.c:4732 ../src/snr2.c:1540
 msgid "Find"
 msgstr "Sök"
 
@@ -698,7 +703,7 @@ msgstr "<b>Vanlig</b>"
 msgid "Base _Dir:"
 msgstr "Start_katalog:"
 
-#: ../src/file_dialogs.c:139 ../src/gtk_easy.c:1258
+#: ../src/file_dialogs.c:139 ../src/gtk_easy.c:1263
 msgid "_Browse..."
 msgstr "_Bläddra..."
 
@@ -851,7 +856,7 @@ msgid "Multiple open files have been changed."
 msgstr "Flera öppna filer har ändrats."
 
 #. build a list of filters
-#: ../src/filefilter.c:127 ../src/gtk_easy.c:1368
+#: ../src/filefilter.c:127 ../src/gtk_easy.c:1373
 msgid "All files"
 msgstr "Alla filer"
 
@@ -1348,25 +1353,25 @@ msgstr "Definition"
 msgid "Delete entity"
 msgstr "Ta bort menyval"
 
-#: ../src/gtk_easy.c:1087
+#: ../src/gtk_easy.c:1092
 #, c-format
 msgid "%d of %d"
 msgstr "%d av %d"
 
-#: ../src/gtk_easy.c:1193
+#: ../src/gtk_easy.c:1198
 msgid "Select File"
 msgstr "Välj fil"
 
-#: ../src/gtk_easy.c:1358
+#: ../src/gtk_easy.c:1363
 msgid "Show backup files"
 msgstr "Visa säkerhetskopior"
 
-#: ../src/gtk_easy.c:1418
+#: ../src/gtk_easy.c:1423
 #, fuzzy
 msgid "Character _Encoding:"
 msgstr "/Dokument/T_eckenkodning"
 
-#: ../src/gtk_easy.c:1432
+#: ../src/gtk_easy.c:1437
 #, fuzzy
 msgid "Automatic detection"
 msgstr "Uppdatera automatiskt META-taggen \"author\""
@@ -1481,524 +1486,529 @@ msgstr "Behåll _dialogrutan"
 msgid "starting bluefish"
 msgstr "startar bluefish"
 
-#: ../src/menu.c:213
+#: ../src/menu.c:214
 msgid "/_File"
 msgstr "/_Arkiv"
 
-#: ../src/menu.c:215
+#: ../src/menu.c:216
 msgid "/File/_New"
 msgstr "/Arkiv/_Nytt"
 
-#: ../src/menu.c:216
+#: ../src/menu.c:217
 msgid "/File/New _Window"
 msgstr "/Arkiv/Nytt _Fönster"
 
-#: ../src/menu.c:217
+#: ../src/menu.c:218
 msgid "/File/_Open..."
 msgstr "/Arkiv/_Öppna..."
 
-#: ../src/menu.c:218
+#: ../src/menu.c:219
 msgid "/File/Open _recent"
 msgstr "/Arkiv/Öppna senaste"
 
-#: ../src/menu.c:220
+#: ../src/menu.c:221
 msgid "/File/Open Ad_vanced..."
 msgstr "/Arkiv/Öppna A_vancerat..."
 
-#: ../src/menu.c:221
+#: ../src/menu.c:222
 msgid "/File/Open _URL..."
 msgstr "/Arkiv/Öppna _URL..."
 
-#: ../src/menu.c:222
+#: ../src/menu.c:223
 msgid "/File/Open _from selection"
 msgstr "/Arkiv/Öppna _från markering"
 
-#: ../src/menu.c:224
+#: ../src/menu.c:225
 msgid "/File/_Save"
 msgstr "/Arkiv/_Spara"
 
-#: ../src/menu.c:225
+#: ../src/menu.c:226
 msgid "/File/Save _As..."
 msgstr "/Arkiv/Sp_ara som..."
 
-#: ../src/menu.c:226
+#: ../src/menu.c:227
 msgid "/File/Sav_e All"
 msgstr "/Arkiv/S_para alla"
 
-#: ../src/menu.c:227
+#: ../src/menu.c:228
 msgid "/File/Rever_t to Saved"
 msgstr "/Arkiv/_Återgå till sparat"
 
-#: ../src/menu.c:229
+#: ../src/menu.c:230
 msgid "/File/_Insert..."
 msgstr "/Arkiv/_Infoga..."
 
-#: ../src/menu.c:230
+#: ../src/menu.c:231
 msgid "/File/Rena_me..."
 msgstr "/Arkiv/_Döp om..."
 
-#: ../src/menu.c:232
+#: ../src/menu.c:233
 msgid "/File/_Close"
 msgstr "/Arkiv/S_täng"
 
-#: ../src/menu.c:233
+#: ../src/menu.c:234
 msgid "/File/Close A_ll"
 msgstr "/Arkiv/Stäng alla"
 
-#: ../src/menu.c:234
+#: ../src/menu.c:235
 msgid "/File/Close Win_dow"
 msgstr "/Arkiv/Stäng Föns_ter"
 
-#: ../src/menu.c:236
+#: ../src/menu.c:237
 msgid "/File/_Quit"
 msgstr "/Arkiv/_Avsluta"
 
-#: ../src/menu.c:239
+#: ../src/menu.c:240
 msgid "/File/Run Python Script"
 msgstr ""
 
-#: ../src/menu.c:241
+#: ../src/menu.c:242
 msgid "/_Edit"
 msgstr "/_Redigera"
 
-#: ../src/menu.c:243
+#: ../src/menu.c:244
 msgid "/Edit/_Undo"
 msgstr "/Redigera/_Ångra"
 
-#: ../src/menu.c:244
+#: ../src/menu.c:245
 msgid "/Edit/_Redo"
 msgstr "/Redigera/_Gör om"
 
-#: ../src/menu.c:245
+#: ../src/menu.c:246
 msgid "/Edit/Undo All"
 msgstr "/Redigera/Ångra allt"
 
-#: ../src/menu.c:246
+#: ../src/menu.c:247
 msgid "/Edit/Redo All"
 msgstr "/Redigera/Gör om allt"
 
-#: ../src/menu.c:248
+#: ../src/menu.c:249
 msgid "/Edit/Cu_t"
 msgstr "/Redigera/Klipp _ut"
 
-#: ../src/menu.c:249
+#: ../src/menu.c:250
 msgid "/Edit/_Copy"
 msgstr "/Redigera/_Kopiera"
 
-#: ../src/menu.c:250
+#: ../src/menu.c:251
 msgid "/Edit/_Paste"
 msgstr "/Redigera/Klistra _in"
 
-#: ../src/menu.c:252
+#: ../src/menu.c:253
 msgid "/Edit/Select _All"
 msgstr "/Redigera/Markera _allt"
 
-#: ../src/menu.c:254
+#: ../src/menu.c:255
 msgid "/Edit/_Find..."
 msgstr "/Redigera/_Sök..."
 
-#: ../src/menu.c:255
+#: ../src/menu.c:256
 msgid "/Edit/Find A_gain"
 msgstr "/Redigera/Sök ige_n"
 
-#: ../src/menu.c:256
+#: ../src/menu.c:257
 msgid "/Edit/Find from selection"
 msgstr "/Redigera/Sök utifrån markering"
 
-#: ../src/menu.c:257
+#: ../src/menu.c:258
 msgid "/Edit/R_eplace..."
 msgstr "/Redigera/_Ersätt..."
 
-#: ../src/menu.c:258
+#: ../src/menu.c:259
 msgid "/Edit/Replace Agai_n"
 msgstr "/Redigera/Ersätt _igen"
 
-#: ../src/menu.c:259
+#: ../src/menu.c:260
 msgid "/Edit/Replace special"
 msgstr "/Redigera/Ersätt special"
 
 #: ../src/menu.c:262
+#, fuzzy
+msgid "/Edit/Replace special/Block sync"
+msgstr "/Redigera/Ersätt special"
+
+#: ../src/menu.c:264
 msgid "/Edit/S_hift Right"
 msgstr "/Edit/Flytta åt _höger"
 
-#: ../src/menu.c:263
+#: ../src/menu.c:265
 msgid "/Edit/Shift _Left"
 msgstr "/Redigera/Flytta åt _vänster"
 
-#: ../src/menu.c:265
+#: ../src/menu.c:267
 msgid "/Edit/Add _Bookmark"
 msgstr "/Redigera/Lägg till _Bokmärke"
 
-#: ../src/menu.c:267
+#: ../src/menu.c:269
 msgid "/Edit/Save Sett_ings"
 msgstr "/Redigera/_Spara inställningar"
 
-#: ../src/menu.c:268
+#: ../src/menu.c:270
 msgid "/Edit/Save Shortcut _Keys"
 msgstr "/Redigera/Spara _kortkomandon"
 
-#: ../src/menu.c:269
+#: ../src/menu.c:271
 msgid "/Edit/Preference_s"
 msgstr "/Redigera/_Inställningar"
 
-#: ../src/menu.c:270
+#: ../src/menu.c:272
 msgid "/_View"
 msgstr "/_Visa"
 
-#: ../src/menu.c:272
+#: ../src/menu.c:274
 msgid "/View/View _Main Toolbar"
 msgstr "/Visa/Visa h_uvudverktygsraden"
 
-#: ../src/menu.c:273
+#: ../src/menu.c:275
 msgid "/View/View _Custom Menu"
 msgstr "/Visa/Visa _anpassad meny"
 
-#: ../src/menu.c:274
+#: ../src/menu.c:276
 msgid "/View/View _Sidebar"
 msgstr "/Visa/Visa sidolist"
 
-#: ../src/menu.c:275
+#: ../src/menu.c:277
 msgid "/_Document"
 msgstr "/_Dokument"
 
-#: ../src/menu.c:277
+#: ../src/menu.c:279
 msgid "/Document/_Increase Tabsize"
 msgstr "/Dokument/_Öka tabulatorsteg"
 
-#: ../src/menu.c:278
+#: ../src/menu.c:280
 msgid "/Document/_Decrease Tabsize"
 msgstr "/Dokument/_Minska tabulatorsteg"
 
-#: ../src/menu.c:279
+#: ../src/menu.c:281
 msgid "/Document/_Auto Indent"
 msgstr "/Dokument/_Automatisk indentering"
 
-#: ../src/menu.c:281
+#: ../src/menu.c:283
 msgid "/Document/Auto Close H_TML tags"
 msgstr "/Dokument/Stäng H_TML-taggar Automatiskt"
 
-#: ../src/menu.c:282
+#: ../src/menu.c:284
 msgid "/Document/_Wrap"
 msgstr "/Dokument/_Radbrytning"
 
-#: ../src/menu.c:283
+#: ../src/menu.c:285
 msgid "/Document/_Line Numbers"
 msgstr "/Dokument/R_adnummer"
 
-#: ../src/menu.c:284
+#: ../src/menu.c:286
 #, fuzzy
 msgid "/Document/Show _blocks"
 msgstr "/Dokument/Räkna _ord"
 
-#: ../src/menu.c:285
+#: ../src/menu.c:287
 #, fuzzy
 msgid "/Document/Show _symbols"
 msgstr "/Dokument/Räkna _ord"
 
-#: ../src/menu.c:287
+#: ../src/menu.c:289
 msgid "/Document/_Highlight Syntax"
 msgstr "/Dokument/_Färgkoda syntax"
 
-#: ../src/menu.c:288
+#: ../src/menu.c:290
 msgid "/Document/_Update Highlighting"
 msgstr "/Dokument/_Uppdatera färgkodning"
 
-#: ../src/menu.c:290
+#: ../src/menu.c:292
 msgid "/Document/Document Ty_pe"
 msgstr "/Dokument/Dokumentty_p"
 
-#: ../src/menu.c:292
+#: ../src/menu.c:294
 msgid "/Document/Character _Encoding"
 msgstr "/Dokument/T_eckenkodning"
 
-#: ../src/menu.c:296
+#: ../src/menu.c:298
 msgid "/Document/Check _Spelling..."
 msgstr "/Dokument/Kontrollera _Stavning..."
 
-#: ../src/menu.c:298
+#: ../src/menu.c:300
 msgid "/Document/_Floating window"
 msgstr "/Dokument/_Flytande fönster"
 
-#: ../src/menu.c:299
+#: ../src/menu.c:301
 msgid "/Document/Word _Count"
 msgstr "/Dokument/Räkna _ord"
 
-#: ../src/menu.c:301
+#: ../src/menu.c:303
 #, fuzzy
 msgid "/Document/Move left"
 msgstr "/Dokument/Automatisk indentering"
 
-#: ../src/menu.c:302
+#: ../src/menu.c:304
 #, fuzzy
 msgid "/Document/Move right"
 msgstr "/Dokument/sep1"
 
-#: ../src/menu.c:303
+#: ../src/menu.c:305
 msgid "/_Go"
 msgstr "/_Gå"
 
-#: ../src/menu.c:305
+#: ../src/menu.c:307
 msgid "/Go/_Previous document"
 msgstr "/Gå/_Föregående dokument"
 
-#: ../src/menu.c:306
+#: ../src/menu.c:308
 msgid "/Go/_Next document"
 msgstr "/Gå/_Nästa dokument"
 
-#: ../src/menu.c:308
+#: ../src/menu.c:310
 msgid "/Go/_First document"
 msgstr "/Gå/_Första dokumentet"
 
-#: ../src/menu.c:309
+#: ../src/menu.c:311
 msgid "/Go/L_ast document"
 msgstr "/Gå/Sist_a dokumentet"
 
-#: ../src/menu.c:311
+#: ../src/menu.c:313
 msgid "/Go/Goto _Line"
 msgstr "/Gå/Gå ti_ll rad"
 
-#: ../src/menu.c:312
+#: ../src/menu.c:314
 msgid "/Go/Goto _Selection"
 msgstr "/Gå/Gå till _markering"
 
-#: ../src/menu.c:313
+#: ../src/menu.c:315
 msgid "/_Project"
 msgstr "/Projekt"
 
-#: ../src/menu.c:315
+#: ../src/menu.c:317
 msgid "/Project/_New Project"
 msgstr "/Projekt/_Nytt Projekt"
 
-#: ../src/menu.c:316
+#: ../src/menu.c:318
 msgid "/Project/_Open Project..."
 msgstr "/Projekt/_Öppna Projekt..."
 
-#: ../src/menu.c:317
+#: ../src/menu.c:319
 msgid "/Project/Open _recent"
 msgstr "/Projekt/Öppna s_enaste"
 
-#: ../src/menu.c:320
+#: ../src/menu.c:322
 msgid "/Project/_Save"
 msgstr "/Projekt/_Spara"
 
-#: ../src/menu.c:321
+#: ../src/menu.c:323
 msgid "/Project/Save _as..."
 msgstr "/Projekt/Sp_ara _som..."
 
-#: ../src/menu.c:322
+#: ../src/menu.c:324
 msgid "/Project/Save & _close"
 msgstr "/Projekt/Sp_ara & stäng"
 
-#: ../src/menu.c:324
+#: ../src/menu.c:326
 msgid "/Project/E_dit Project Options..."
 msgstr "/Projekt/Re_digera Projektinställningar..."
 
-#: ../src/menu.c:325
+#: ../src/menu.c:327
 msgid "/E_xternal"
 msgstr "/E_xterna"
 
-#: ../src/menu.c:492
+#: ../src/menu.c:494
 msgid "/Document/Document Type"
 msgstr "/Dokument/Dokumenttyp"
 
-#: ../src/menu.c:643
+#: ../src/menu.c:645
 msgid "/Project/Open recent"
 msgstr "/Projekt/Öppna senaste"
 
-#: ../src/menu.c:647
+#: ../src/menu.c:649
 msgid "/File/Open recent"
 msgstr "/Arkiv/Öppna senaste"
 
-#: ../src/menu.c:826
+#: ../src/menu.c:828
 msgid "/Windows"
 msgstr "/Fönster"
 
-#: ../src/menu.c:919
+#: ../src/menu.c:921
 #, fuzzy
 msgid "No default browser found"
 msgstr "Standardstartkatalog"
 
-#: ../src/menu.c:920
+#: ../src/menu.c:922
 msgid ""
 "You can set a default browser by going to:\n"
 "Edit->Preferences->External Commands"
 msgstr ""
 
-#: ../src/menu.c:939
+#: ../src/menu.c:941
 msgid "Operate filter only on selection?"
 msgstr ""
 
-#: ../src/menu.c:987
+#: ../src/menu.c:989
 msgid "/External/Outputbox/"
 msgstr "/Externa/Utskriftsfönster/"
 
-#: ../src/menu.c:988
+#: ../src/menu.c:990
 msgid "/External/Commands/"
 msgstr "/Externa/Kommandon/"
 
-#: ../src/menu.c:989
+#: ../src/menu.c:991
 #, fuzzy
 msgid "/External/Filters/"
 msgstr "/Externa/Webbläsare/"
 
-#: ../src/menu.c:1002
+#: ../src/menu.c:1004
 #, fuzzy
 msgid "/External/Filters"
 msgstr "/Externa/tearoff1"
 
-#: ../src/menu.c:1025
+#: ../src/menu.c:1027
 msgid "/External"
 msgstr "/Externa"
 
-#: ../src/menu.c:1027
+#: ../src/menu.c:1029
 msgid "/External/Commands"
 msgstr "/Externa/Kommandon"
 
-#: ../src/menu.c:1055
+#: ../src/menu.c:1057
 msgid "/External/Outputbox"
 msgstr "/Externa/Utskriftsfönster"
 
-#: ../src/menu.c:1099
+#: ../src/menu.c:1101
 msgid "/Document/Character Encoding"
 msgstr "/Dokument/Teckenkodning"
 
-#: ../src/menu.c:1378
+#: ../src/menu.c:1380
 msgid "This custom search and replace requires a selection"
 msgstr "Den här sök- och ersättfunktionen kräver en  markering"
 
-#: ../src/menu.c:1476
+#: ../src/menu.c:1478
 msgid "/_Custom menu"
 msgstr "/_Egen meny"
 
-#: ../src/menu.c:1478
+#: ../src/menu.c:1480
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Egen meny/Redigera egen meny..."
 
-#: ../src/menu.c:1479
+#: ../src/menu.c:1481
 msgid "/Custom menu/Reset"
 msgstr "/Egen meny/Återställ"
 
-#: ../src/menu.c:1480
+#: ../src/menu.c:1482
 msgid "/Custom menu/Load new"
 msgstr "/Egen meny/Öppna ny"
 
-#: ../src/menu.c:1697
+#: ../src/menu.c:1699
 msgid "Search Pattern"
 msgstr "Sökmönster"
 
-#: ../src/menu.c:1698
+#: ../src/menu.c:1700
 msgid "Replace String"
 msgstr "Ersätt sträng"
 
-#: ../src/menu.c:1701
+#: ../src/menu.c:1703
 msgid "Formatstring Before"
 msgstr "Formatsträng Före"
 
-#: ../src/menu.c:1702
+#: ../src/menu.c:1704
 msgid "Formatstring After"
 msgstr "Formatsträng Efter"
 
-#: ../src/menu.c:1752
+#: ../src/menu.c:1754
 msgid "The menupath you want to update does not exist yet"
 msgstr "Menysökvägen som du vill uppdatera finns inte ännu"
 
-#: ../src/menu.c:1753
+#: ../src/menu.c:1755
 msgid "Try 'add' instead."
 msgstr "Försök 'lägg till' istället."
 
-#: ../src/menu.c:1758
+#: ../src/menu.c:1760
 msgid "The menupath you want to add already exists."
 msgstr "menysökvägen som du vill lägga till finns redan."
 
-#: ../src/menu.c:1767
+#: ../src/menu.c:1769
 msgid "The menupath should start with a / character"
 msgstr "Menysökvägen bör börja med ett /-tecken"
 
-#: ../src/menu.c:1930
+#: ../src/menu.c:1932
 msgid "Custom Menu Editor"
 msgstr "Redigerare för Egen meny"
 
-#: ../src/menu.c:1941
+#: ../src/menu.c:1943
 msgid "Add New Menu Entry"
 msgstr "Lägg till Nytt Menyval"
 
-#: ../src/menu.c:1943
+#: ../src/menu.c:1945
 msgid "Apply Changes"
 msgstr "Verkställ Ändringarna"
 
-#: ../src/menu.c:1945
+#: ../src/menu.c:1947
 msgid "Delete Menu Entry"
 msgstr "Ta bort menyval"
 
-#: ../src/menu.c:1948
+#: ../src/menu.c:1950
 msgid "Close Discards Changes"
 msgstr "Stäng och Ignorera Ändringarna"
 
-#: ../src/menu.c:1950
+#: ../src/menu.c:1952
 msgid "Save Changes and Exit"
 msgstr "Spara Ändringarna och Avsluta"
 
-#: ../src/menu.c:1960
+#: ../src/menu.c:1962
 msgid "_Menu Path:"
 msgstr "Menysökväg:"
 
-#: ../src/menu.c:1981
+#: ../src/menu.c:1983
 msgid "Menu path"
 msgstr "Menysökväg"
 
-#: ../src/menu.c:2001
+#: ../src/menu.c:2003
 msgid "Number of _Variables:"
 msgstr "Antal variabler:"
 
-#: ../src/menu.c:2009
+#: ../src/menu.c:2011
 msgid "Variables"
 msgstr "Variabler"
 
-#: ../src/menu.c:2028
+#: ../src/menu.c:2030
 msgid "Custom Dialo_g"
 msgstr "egen dialogruta"
 
-#: ../src/menu.c:2030
+#: ../src/menu.c:2032
 msgid "Custom Replace"
 msgstr "egen Ersätt"
 
-#: ../src/menu.c:2042
+#: ../src/menu.c:2044
 msgid "_Replace:"
 msgstr "_Ersätt:"
 
-#: ../src/menu.c:2045
+#: ../src/menu.c:2047
 msgid "in current document"
 msgstr "i aktuellt dokument"
 
-#: ../src/menu.c:2045
+#: ../src/menu.c:2047
 msgid "from cursor"
 msgstr "från markören"
 
-#: ../src/menu.c:2045
+#: ../src/menu.c:2047
 msgid "in selection"
 msgstr "i urval"
 
-#: ../src/menu.c:2045
+#: ../src/menu.c:2047
 msgid "in all open documents"
 msgstr "i alla öppna dokument"
 
-#: ../src/menu.c:2053
+#: ../src/menu.c:2055
 msgid "Matc_hing:"
 msgstr "Matchar:"
 
-#: ../src/menu.c:2056
+#: ../src/menu.c:2058
 msgid "normal"
 msgstr "normal"
 
-#: ../src/menu.c:2056
+#: ../src/menu.c:2058
 msgid "posix regular expressions"
 msgstr "posix reguljära uttryck"
 
-#: ../src/menu.c:2056
+#: ../src/menu.c:2058
 msgid "perl regular expressions"
 msgstr "perl reguljärt uttryck"
 
-#: ../src/menu.c:2062
+#: ../src/menu.c:2064
 msgid "Case Se_nsitive"
 msgstr "Känslig för _versaler/gemener"
 
@@ -2692,34 +2702,34 @@ msgstr "Alla webbfiler"
 msgid "Hide objectfiles"
 msgstr "Dölj objektfiler"
 
-#: ../src/snr2.c:170
+#: ../src/snr2.c:169
 msgid "Regular expression error: "
 msgstr "Fel i regjulärt uttryck: "
 
-#: ../src/snr2.c:174 ../src/snr2.c:223
+#: ../src/snr2.c:173 ../src/snr2.c:222
 msgid "Search failed"
 msgstr "Sökning misslyckades"
 
-#: ../src/snr2.c:219
+#: ../src/snr2.c:218
 #, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Fel i reguljärt uttryck: %s vid avstånd %d"
 
-#: ../src/snr2.c:1269
+#: ../src/snr2.c:1270
 #, c-format
 msgid "Found %d matches, "
 msgid_plural "Found %d matches, "
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/snr2.c:1270
+#: ../src/snr2.c:1271
 #, fuzzy, c-format
 msgid "replaced %d"
 msgid_plural "replaced %d"
 msgstr[0] "Ersätt"
 msgstr[1] "Ersätt"
 
-#: ../src/snr2.c:1275
+#: ../src/snr2.c:1276
 #, c-format
 msgid "Found %d matches"
 msgid_plural "Found %d matches"
@@ -2727,162 +2737,168 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr2.c:1296
+#: ../src/snr2.c:1297
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</"
 "span>"
 msgstr ""
 
-#: ../src/snr2.c:1433 ../src/snr2.c:1785
+#: ../src/snr2.c:1402
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">No selection. Please select a block "
+"of text first.</span>"
+msgstr ""
+
+#: ../src/snr2.c:1441 ../src/snr2.c:1793
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
 "will continue at the beginning.</span>"
 msgstr ""
 
-#: ../src/snr2.c:1508
+#: ../src/snr2.c:1516
 #, fuzzy
 msgid "Entire document"
 msgstr "I _dokumentet"
 
-#: ../src/snr2.c:1509
+#: ../src/snr2.c:1517
 msgid "Forward from cursor position"
 msgstr ""
 
-#: ../src/snr2.c:1510
+#: ../src/snr2.c:1518
 #, fuzzy
 msgid "Selection"
 msgstr "Välj typsnitt"
 
-#: ../src/snr2.c:1511
+#: ../src/snr2.c:1519
 #, fuzzy
 msgid "All open files"
 msgstr "Alla webbfiler"
 
-#: ../src/snr2.c:1515 ../src/snr2.c:1522
+#: ../src/snr2.c:1523 ../src/snr2.c:1530
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/snr2.c:1516
+#: ../src/snr2.c:1524
 msgid "Entire word only"
 msgstr ""
 
-#: ../src/snr2.c:1517
+#: ../src/snr2.c:1525
 #, fuzzy
 msgid "POSIX"
 msgstr "POSIX-typ"
 
-#: ../src/snr2.c:1518
+#: ../src/snr2.c:1526
 #, fuzzy
 msgid "PERL"
 msgstr "PERL-typ"
 
-#: ../src/snr2.c:1523
+#: ../src/snr2.c:1531
 msgid "Uppercase"
 msgstr "Versaler"
 
-#: ../src/snr2.c:1524
+#: ../src/snr2.c:1532
 msgid "Lowercase"
 msgstr "Gemener"
 
-#: ../src/snr2.c:1561
+#: ../src/snr2.c:1569
 msgid "_Search for: "
 msgstr "_Sök efter: "
 
-#: ../src/snr2.c:1565
+#: ../src/snr2.c:1573
 msgid "The pattern to look for"
 msgstr ""
 
-#: ../src/snr2.c:1580
+#: ../src/snr2.c:1588
 #, fuzzy
 msgid "Replace _with: "
 msgstr "E_rsätt med: "
 
-#: ../src/snr2.c:1584
+#: ../src/snr2.c:1592
 msgid "Replace matching text with"
 msgstr ""
 
-#: ../src/snr2.c:1592
+#: ../src/snr2.c:1600
 msgid "Sco_pe: "
 msgstr ""
 
-#: ../src/snr2.c:1596
+#: ../src/snr2.c:1604
 msgid "Where to look for the pattern."
 msgstr ""
 
-#: ../src/snr2.c:1602
+#: ../src/snr2.c:1610
 msgid "Found 0 matches, replaced 0"
 msgstr ""
 
-#: ../src/snr2.c:1602
+#: ../src/snr2.c:1610
 msgid "Found 0 matches"
 msgstr ""
 
-#: ../src/snr2.c:1612
+#: ../src/snr2.c:1620
 #, fuzzy
 msgid "<b>_Options</b>"
 msgstr "<b>Innehåller</b>"
 
-#: ../src/snr2.c:1626
+#: ../src/snr2.c:1634
 #, fuzzy
 msgid "Match Patter_n: "
 msgstr "Sökmönster"
 
-#: ../src/snr2.c:1630
+#: ../src/snr2.c:1638
 msgid "How to interpret the pattern."
 msgstr ""
 
-#: ../src/snr2.c:1637
+#: ../src/snr2.c:1645
 #, fuzzy
 msgid "Replace T_ype: "
 msgstr "Ersättningstyp:"
 
-#: ../src/snr2.c:1642
+#: ../src/snr2.c:1650
 #, fuzzy
 msgid "What to replace with."
 msgstr "E_rsätt med: "
 
-#: ../src/snr2.c:1646
+#: ../src/snr2.c:1654
 #, fuzzy
 msgid "Allow o_verlapping matches"
 msgstr "Ö_verlappande sökningar"
 
-#: ../src/snr2.c:1649
+#: ../src/snr2.c:1657
 msgid "After a match is found, start next search within that match."
 msgstr ""
 
-#: ../src/snr2.c:1651
+#: ../src/snr2.c:1659
 #, fuzzy
 msgid "Case sensitive _matching"
 msgstr "Storlekskänslig matchning"
 
-#: ../src/snr2.c:1654
+#: ../src/snr2.c:1662
 msgid "Only match if case (upper/lower) is identical."
 msgstr ""
 
-#: ../src/snr2.c:1656
+#: ../src/snr2.c:1664
 #, fuzzy
 msgid "_Use escape chars"
 msgstr "Uppdatera tecken"
 
-#: ../src/snr2.c:1659
+#: ../src/snr2.c:1667
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
-msgstr ""
-
-#: ../src/snr2.c:1661
-#, fuzzy
-msgid "_Bookmark matches"
-msgstr "Bokmärken"
-
-#: ../src/snr2.c:1664
-msgid "Create a bookmark for each match"
 msgstr ""
 
 #: ../src/snr2.c:1669
 #, fuzzy
+msgid "_Bookmark matches"
+msgstr "Bokmärken"
+
+#: ../src/snr2.c:1672
+msgid "Create a bookmark for each match"
+msgstr ""
+
+#: ../src/snr2.c:1677
+#, fuzzy
 msgid "Replace _All"
 msgstr "Ersätt alla"
 
-#: ../src/snr2.c:1675
+#: ../src/snr2.c:1683
 #, fuzzy
 msgid "Find _All"
 msgstr "Sök"

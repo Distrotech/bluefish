@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2006-11-27 17:24+0100\n"
+"POT-Creation-Date: 2007-02-04 15:42-0800\n"
 "PO-Revision-Date: 2005-04-11 22:07+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -26,22 +26,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9\n"
 
-#: ../desktop-data/bluefish.desktop.in.h:1
-#: ../desktop-data/bluefish-project.desktop.in.h:1
+#: ../desktop-data/bluefish-unstable.desktop.in.h:1
+#: ../desktop-data/bluefish-unstable-project.desktop.in.h:1
 msgid "Bluefish Editor (CVS)"
 msgstr ""
 
-#: ../desktop-data/bluefish.desktop.in.h:2
-#: ../desktop-data/bluefish-project.desktop.in.h:2
+#: ../desktop-data/bluefish-unstable.desktop.in.h:2
+#: ../desktop-data/bluefish-unstable-project.desktop.in.h:2
 msgid "Web Development Editor (CVS)"
 msgstr ""
 
-#: ../desktop-data/bluefish.xml.in.h:1
+#: ../desktop-data/bluefish-unstable.keys.in.h:1
+#, fuzzy
+msgid "Bluefish Project"
+msgstr "Bluefish projesi adını giriniz"
+
+#: ../desktop-data/bluefish-unstable.xml.in.h:1
 #, fuzzy
 msgid "Bluefish project file"
 msgstr "Bluefish projesi adını giriniz"
 
-#: ../src/bf_lib.c:174 ../src/bf_lib.c:194
+#: ../src/bf_lib.c:175 ../src/bf_lib.c:195
 msgid ""
 "Bluefish has trouble reading the filenames. Try to set the environment "
 "variable G_BROKEN_FILENAMES=1\n"
@@ -69,7 +74,7 @@ msgstr "D_eğiştir:"
 msgid "I_gnore"
 msgstr "_Geç"
 
-#: ../src/bfspell.c:412 ../src/snr2.c:1672
+#: ../src/bfspell.c:412 ../src/snr2.c:1680
 msgid "_Replace"
 msgstr "_Değiştir"
 
@@ -415,11 +420,11 @@ msgstr "  %s, %s"
 msgid "Cannot display file, unknown characters found."
 msgstr "Dosya bilinmeyen karakterler içerdiği için gösterilemiyor."
 
-#: ../src/document.c:2075 ../src/snr2.c:1535
+#: ../src/document.c:2075 ../src/snr2.c:1543
 msgid "Replace"
 msgstr "Değiştir"
 
-#: ../src/document.c:2080 ../src/fref2.c:4732 ../src/snr2.c:1532
+#: ../src/document.c:2080 ../src/fref2.c:4732 ../src/snr2.c:1540
 msgid "Find"
 msgstr "Bul"
 
@@ -699,7 +704,7 @@ msgstr "<b>Genel</b>"
 msgid "Base _Dir:"
 msgstr "Çalışma_dizini:"
 
-#: ../src/file_dialogs.c:139 ../src/gtk_easy.c:1258
+#: ../src/file_dialogs.c:139 ../src/gtk_easy.c:1263
 msgid "_Browse..."
 msgstr "_Gözat..."
 
@@ -850,7 +855,7 @@ msgid "Multiple open files have been changed."
 msgstr "Açık dosyaların birden fazlası değiştirilmiş."
 
 #. build a list of filters
-#: ../src/filefilter.c:127 ../src/gtk_easy.c:1368
+#: ../src/filefilter.c:127 ../src/gtk_easy.c:1373
 msgid "All files"
 msgstr "Tüm dosyalar"
 
@@ -1359,25 +1364,25 @@ msgstr "Tanım"
 msgid "Delete entity"
 msgstr "Madde sil"
 
-#: ../src/gtk_easy.c:1087
+#: ../src/gtk_easy.c:1092
 #, c-format
 msgid "%d of %d"
 msgstr "%d / %d"
 
-#: ../src/gtk_easy.c:1193
+#: ../src/gtk_easy.c:1198
 msgid "Select File"
 msgstr "Dosya seç"
 
-#: ../src/gtk_easy.c:1358
+#: ../src/gtk_easy.c:1363
 msgid "Show backup files"
 msgstr "Yedek dosyalarını göster"
 
-#: ../src/gtk_easy.c:1418
+#: ../src/gtk_easy.c:1423
 #, fuzzy
 msgid "Character _Encoding:"
 msgstr "/Doküman/_Yazıtipi Düzeni"
 
-#: ../src/gtk_easy.c:1432
+#: ../src/gtk_easy.c:1437
 #, fuzzy
 msgid "Automatic detection"
 msgstr "Yazar meta etiketini otomatik olarak güncelle"
@@ -1492,522 +1497,527 @@ msgstr "Diyalog Kutusunu _Kapatma"
 msgid "starting bluefish"
 msgstr "bluefish başlatılıyor"
 
-#: ../src/menu.c:213
+#: ../src/menu.c:214
 msgid "/_File"
 msgstr "/_Dosya"
 
-#: ../src/menu.c:215
+#: ../src/menu.c:216
 msgid "/File/_New"
 msgstr "/Dosya/_Yeni"
 
-#: ../src/menu.c:216
+#: ../src/menu.c:217
 msgid "/File/New _Window"
 msgstr "/Dosya/Yeni _Pencere"
 
-#: ../src/menu.c:217
+#: ../src/menu.c:218
 msgid "/File/_Open..."
 msgstr "/Dosya/_Aç..."
 
-#: ../src/menu.c:218
+#: ../src/menu.c:219
 msgid "/File/Open _recent"
 msgstr "/Dosya/Son _Kullanılanlar"
 
-#: ../src/menu.c:220
+#: ../src/menu.c:221
 msgid "/File/Open Ad_vanced..."
 msgstr "/Dosya/A_rama ile aç..."
 
-#: ../src/menu.c:221
+#: ../src/menu.c:222
 msgid "/File/Open _URL..."
 msgstr "/Dosya/_URL aç..."
 
-#: ../src/menu.c:222
+#: ../src/menu.c:223
 msgid "/File/Open _from selection"
 msgstr "/Dosya/_Seçili yerde aç"
 
-#: ../src/menu.c:224
+#: ../src/menu.c:225
 msgid "/File/_Save"
 msgstr "/Dosya/_Kaydet"
 
-#: ../src/menu.c:225
+#: ../src/menu.c:226
 msgid "/File/Save _As..."
 msgstr "/Dosya/_Farklı Kaydet"
 
-#: ../src/menu.c:226
+#: ../src/menu.c:227
 msgid "/File/Sav_e All"
 msgstr "/Dosya/Tümünü Kaydet"
 
-#: ../src/menu.c:227
+#: ../src/menu.c:228
 msgid "/File/Rever_t to Saved"
 msgstr "/Dosya/Kaydedilene _Dön"
 
-#: ../src/menu.c:229
+#: ../src/menu.c:230
 msgid "/File/_Insert..."
 msgstr "/Dosya/_Ekle..."
 
-#: ../src/menu.c:230
+#: ../src/menu.c:231
 msgid "/File/Rena_me..."
 msgstr "/Dosya/Yeniden _Adlandır..."
 
-#: ../src/menu.c:232
+#: ../src/menu.c:233
 msgid "/File/_Close"
 msgstr "/Dosya/Ka_pat"
 
-#: ../src/menu.c:233
+#: ../src/menu.c:234
 msgid "/File/Close A_ll"
 msgstr "/Dosya/Tümünü Kapa_t"
 
-#: ../src/menu.c:234
+#: ../src/menu.c:235
 msgid "/File/Close Win_dow"
 msgstr "/Dosya/Pen_cereyi Kapat"
 
-#: ../src/menu.c:236
+#: ../src/menu.c:237
 msgid "/File/_Quit"
 msgstr "/Dosya/_Çık"
 
-#: ../src/menu.c:239
+#: ../src/menu.c:240
 msgid "/File/Run Python Script"
 msgstr "/Dosya/Python _Betiği Çalıştır"
 
-#: ../src/menu.c:241
+#: ../src/menu.c:242
 msgid "/_Edit"
 msgstr "/Dü_zenle"
 
-#: ../src/menu.c:243
+#: ../src/menu.c:244
 msgid "/Edit/_Undo"
 msgstr "/Düzenle/_Geri Al"
 
-#: ../src/menu.c:244
+#: ../src/menu.c:245
 msgid "/Edit/_Redo"
 msgstr "/Düzenle/_Yinele"
 
-#: ../src/menu.c:245
+#: ../src/menu.c:246
 msgid "/Edit/Undo All"
 msgstr "/Düzenle/Tümünü Ge_ri Al"
 
-#: ../src/menu.c:246
+#: ../src/menu.c:247
 msgid "/Edit/Redo All"
 msgstr "/Düzenle/Tümünü Yi_nele"
 
-#: ../src/menu.c:248
+#: ../src/menu.c:249
 msgid "/Edit/Cu_t"
 msgstr "/Düzenle/Ke_s"
 
-#: ../src/menu.c:249
+#: ../src/menu.c:250
 msgid "/Edit/_Copy"
 msgstr "/Düzenle/_Kopyala"
 
-#: ../src/menu.c:250
+#: ../src/menu.c:251
 msgid "/Edit/_Paste"
 msgstr "/Düzenle/Ya_pıştır"
 
-#: ../src/menu.c:252
+#: ../src/menu.c:253
 msgid "/Edit/Select _All"
 msgstr "/Düzenle/Tümünü _Seç"
 
-#: ../src/menu.c:254
+#: ../src/menu.c:255
 msgid "/Edit/_Find..."
 msgstr "/Düzenle/_Bul"
 
-#: ../src/menu.c:255
+#: ../src/menu.c:256
 msgid "/Edit/Find A_gain"
 msgstr "/Düzenle/Sonrekini Bu_l"
 
-#: ../src/menu.c:256
+#: ../src/menu.c:257
 msgid "/Edit/Find from selection"
 msgstr "/Düzenle/Seçili Ala_nda Bul"
 
-#: ../src/menu.c:257
+#: ../src/menu.c:258
 msgid "/Edit/R_eplace..."
 msgstr "/Düzenle/_Değiştir..."
 
-#: ../src/menu.c:258
+#: ../src/menu.c:259
 msgid "/Edit/Replace Agai_n"
 msgstr "/Düzenle/Sonrakini Değiş_tir"
 
-#: ../src/menu.c:259
+#: ../src/menu.c:260
 msgid "/Edit/Replace special"
 msgstr "/Düzenle/Özel Değiştirme"
 
 #: ../src/menu.c:262
+#, fuzzy
+msgid "/Edit/Replace special/Block sync"
+msgstr "/Düzenle/Özel Değiştirme"
+
+#: ../src/menu.c:264
 msgid "/Edit/S_hift Right"
 msgstr "/Düzenle/Sa_ğa Kaydır"
 
-#: ../src/menu.c:263
+#: ../src/menu.c:265
 msgid "/Edit/Shift _Left"
 msgstr "/Düzenle/So_la Kaydır"
 
-#: ../src/menu.c:265
+#: ../src/menu.c:267
 msgid "/Edit/Add _Bookmark"
 msgstr "/Düzenle/_Yerimi Ekle"
 
-#: ../src/menu.c:267
+#: ../src/menu.c:269
 msgid "/Edit/Save Sett_ings"
 msgstr "/Düzenle/A_yarları Kaydet"
 
-#: ../src/menu.c:268
+#: ../src/menu.c:270
 msgid "/Edit/Save Shortcut _Keys"
 msgstr "/Düzenle/Kısayo_l Tuşlarını Kaydet"
 
-#: ../src/menu.c:269
+#: ../src/menu.c:271
 msgid "/Edit/Preference_s"
 msgstr "/Düzenle/_Tercihler"
 
-#: ../src/menu.c:270
+#: ../src/menu.c:272
 msgid "/_View"
 msgstr "/_Görünüm"
 
-#: ../src/menu.c:272
+#: ../src/menu.c:274
 msgid "/View/View _Main Toolbar"
 msgstr "/Görünüm/_Ana Araç Çubuğunu Göster"
 
-#: ../src/menu.c:273
+#: ../src/menu.c:275
 msgid "/View/View _Custom Menu"
 msgstr "/Görünüm/_Özel Menüyü Göster"
 
-#: ../src/menu.c:274
+#: ../src/menu.c:276
 msgid "/View/View _Sidebar"
 msgstr "/Görünüm/Kenar _Paneli Göster"
 
-#: ../src/menu.c:275
+#: ../src/menu.c:277
 msgid "/_Document"
 msgstr "/_Doküman"
 
-#: ../src/menu.c:277
+#: ../src/menu.c:279
 msgid "/Document/_Increase Tabsize"
 msgstr "/Doküman/Sekme Aralığını _Büyült"
 
-#: ../src/menu.c:278
+#: ../src/menu.c:280
 msgid "/Document/_Decrease Tabsize"
 msgstr "/Doküman/Sekme Aralığını _Küçült"
 
-#: ../src/menu.c:279
+#: ../src/menu.c:281
 msgid "/Document/_Auto Indent"
 msgstr "/Doküman/Kodları _Hizala"
 
-#: ../src/menu.c:281
+#: ../src/menu.c:283
 msgid "/Document/Auto Close H_TML tags"
 msgstr "/Doküman/Etiketleri _Kapat"
 
-#: ../src/menu.c:282
+#: ../src/menu.c:284
 msgid "/Document/_Wrap"
 msgstr "/Doküman/Met_ni Kaydır"
 
-#: ../src/menu.c:283
+#: ../src/menu.c:285
 msgid "/Document/_Line Numbers"
 msgstr "/Doküman/Satır _Numaraları"
 
-#: ../src/menu.c:284
+#: ../src/menu.c:286
 #, fuzzy
 msgid "/Document/Show _blocks"
 msgstr "/Doküman/Kelime _Sayısı"
 
-#: ../src/menu.c:285
+#: ../src/menu.c:287
 #, fuzzy
 msgid "/Document/Show _symbols"
 msgstr "/Doküman/Kelime _Sayısı"
 
-#: ../src/menu.c:287
+#: ../src/menu.c:289
 msgid "/Document/_Highlight Syntax"
 msgstr "/Doküman/_Vurgulama Uygula"
 
-#: ../src/menu.c:288
+#: ../src/menu.c:290
 msgid "/Document/_Update Highlighting"
 msgstr "/Doküman/_Vurgulamayı Güncelle"
 
-#: ../src/menu.c:290
+#: ../src/menu.c:292
 msgid "/Document/Document Ty_pe"
 msgstr "/Doküman/Doküman _Tipi"
 
-#: ../src/menu.c:292
+#: ../src/menu.c:294
 msgid "/Document/Character _Encoding"
 msgstr "/Doküman/_Yazıtipi Düzeni"
 
-#: ../src/menu.c:296
+#: ../src/menu.c:298
 msgid "/Document/Check _Spelling..."
 msgstr "/Doküman/Yazım _Denetimi..."
 
-#: ../src/menu.c:298
+#: ../src/menu.c:300
 msgid "/Document/_Floating window"
 msgstr "/Doküman/_Uçan Pencereler (Bu ne ya?)"
 
-#: ../src/menu.c:299
+#: ../src/menu.c:301
 msgid "/Document/Word _Count"
 msgstr "/Doküman/Kelime _Sayısı"
 
-#: ../src/menu.c:301
+#: ../src/menu.c:303
 msgid "/Document/Move left"
 msgstr "/Doküman/So_la kay"
 
-#: ../src/menu.c:302
+#: ../src/menu.c:304
 msgid "/Document/Move right"
 msgstr "/Doküman/Sa_ğa Kay"
 
-#: ../src/menu.c:303
+#: ../src/menu.c:305
 msgid "/_Go"
 msgstr "/_Git"
 
-#: ../src/menu.c:305
+#: ../src/menu.c:307
 msgid "/Go/_Previous document"
 msgstr "/Git/Bir _Önceki Doküman"
 
-#: ../src/menu.c:306
+#: ../src/menu.c:308
 msgid "/Go/_Next document"
 msgstr "/Git/Bir _Sonraki Doküman"
 
-#: ../src/menu.c:308
+#: ../src/menu.c:310
 msgid "/Go/_First document"
 msgstr "/Git/_İlk Doküman"
 
-#: ../src/menu.c:309
+#: ../src/menu.c:311
 msgid "/Go/L_ast document"
 msgstr "/Git/So_n Doküman"
 
-#: ../src/menu.c:311
+#: ../src/menu.c:313
 msgid "/Go/Goto _Line"
 msgstr "/Git/_Satır"
 
-#: ../src/menu.c:312
+#: ../src/menu.c:314
 msgid "/Go/Goto _Selection"
 msgstr "/Git/Se_çili Alan"
 
-#: ../src/menu.c:313
+#: ../src/menu.c:315
 msgid "/_Project"
 msgstr "/_Proje"
 
-#: ../src/menu.c:315
+#: ../src/menu.c:317
 msgid "/Project/_New Project"
 msgstr "/Proje/_Yeni Proje"
 
-#: ../src/menu.c:316
+#: ../src/menu.c:318
 msgid "/Project/_Open Project..."
 msgstr "/Proje/Proje _Aç..."
 
-#: ../src/menu.c:317
+#: ../src/menu.c:319
 msgid "/Project/Open _recent"
 msgstr "/Proje/_Son kullanılanlar"
 
-#: ../src/menu.c:320
+#: ../src/menu.c:322
 msgid "/Project/_Save"
 msgstr "/Proje/_Kaydet"
 
-#: ../src/menu.c:321
+#: ../src/menu.c:323
 msgid "/Project/Save _as..."
 msgstr "/Proje/_Farklı Kaydet..."
 
-#: ../src/menu.c:322
+#: ../src/menu.c:324
 msgid "/Project/Save & _close"
 msgstr "/Proje/Kaydet ve Ka_pat"
 
-#: ../src/menu.c:324
+#: ../src/menu.c:326
 msgid "/Project/E_dit Project Options..."
 msgstr "/Proje/Proje _Ayarları..."
 
-#: ../src/menu.c:325
+#: ../src/menu.c:327
 msgid "/E_xternal"
 msgstr "/_Harici"
 
-#: ../src/menu.c:492
+#: ../src/menu.c:494
 msgid "/Document/Document Type"
 msgstr "/Doküman/Doküman _Tipi"
 
-#: ../src/menu.c:643
+#: ../src/menu.c:645
 msgid "/Project/Open recent"
 msgstr "/Proje/_Son kullanılanlar"
 
-#: ../src/menu.c:647
+#: ../src/menu.c:649
 msgid "/File/Open recent"
 msgstr "/Dosya/Son _Kullanılanlar"
 
-#: ../src/menu.c:826
+#: ../src/menu.c:828
 msgid "/Windows"
 msgstr "/Pencereler"
 
-#: ../src/menu.c:919
+#: ../src/menu.c:921
 #, fuzzy
 msgid "No default browser found"
 msgstr "Varsayılan çalışma dizini"
 
-#: ../src/menu.c:920
+#: ../src/menu.c:922
 msgid ""
 "You can set a default browser by going to:\n"
 "Edit->Preferences->External Commands"
 msgstr ""
 
-#: ../src/menu.c:939
+#: ../src/menu.c:941
 msgid "Operate filter only on selection?"
 msgstr ""
 
-#: ../src/menu.c:987
+#: ../src/menu.c:989
 msgid "/External/Outputbox/"
 msgstr "/Harici/Giden Kutusu/"
 
-#: ../src/menu.c:988
+#: ../src/menu.c:990
 msgid "/External/Commands/"
 msgstr "/Harici/Komutlar/"
 
-#: ../src/menu.c:989
+#: ../src/menu.c:991
 #, fuzzy
 msgid "/External/Filters/"
 msgstr "/Harici/Tarayıcılar/"
 
-#: ../src/menu.c:1002
+#: ../src/menu.c:1004
 #, fuzzy
 msgid "/External/Filters"
 msgstr "/Harici/tearoff1"
 
-#: ../src/menu.c:1025
+#: ../src/menu.c:1027
 msgid "/External"
 msgstr "/Harici"
 
-#: ../src/menu.c:1027
+#: ../src/menu.c:1029
 msgid "/External/Commands"
 msgstr "/Harici/Komutlar"
 
-#: ../src/menu.c:1055
+#: ../src/menu.c:1057
 msgid "/External/Outputbox"
 msgstr "/Harici/Giden Kutusu"
 
-#: ../src/menu.c:1099
+#: ../src/menu.c:1101
 msgid "/Document/Character Encoding"
 msgstr "/Doküman/Yazıtipi Düzeni"
 
-#: ../src/menu.c:1378
+#: ../src/menu.c:1380
 msgid "This custom search and replace requires a selection"
 msgstr "Bu değiştirme aracı seçili alan üzerinde çalışır"
 
-#: ../src/menu.c:1476
+#: ../src/menu.c:1478
 msgid "/_Custom menu"
 msgstr "/_Kişisel Menü"
 
-#: ../src/menu.c:1478
+#: ../src/menu.c:1480
 msgid "/Custom menu/Edit custom menu..."
 msgstr "/Kişisel Menü/Düzenle..."
 
-#: ../src/menu.c:1479
+#: ../src/menu.c:1481
 msgid "/Custom menu/Reset"
 msgstr "/Kişisel Menü/Sıfırla"
 
-#: ../src/menu.c:1480
+#: ../src/menu.c:1482
 msgid "/Custom menu/Load new"
 msgstr "/Kişisel Menü/Yeni yükle"
 
-#: ../src/menu.c:1697
+#: ../src/menu.c:1699
 msgid "Search Pattern"
 msgstr "Şablon ara"
 
-#: ../src/menu.c:1698
+#: ../src/menu.c:1700
 msgid "Replace String"
 msgstr "Değiştir"
 
-#: ../src/menu.c:1701
+#: ../src/menu.c:1703
 msgid "Formatstring Before"
 msgstr "Önünde"
 
-#: ../src/menu.c:1702
+#: ../src/menu.c:1704
 msgid "Formatstring After"
 msgstr "Ardında"
 
-#: ../src/menu.c:1752
+#: ../src/menu.c:1754
 msgid "The menupath you want to update does not exist yet"
 msgstr "Güncellemek istediğiniz menü adresi bulunamadı"
 
-#: ../src/menu.c:1753
+#: ../src/menu.c:1755
 msgid "Try 'add' instead."
 msgstr "Ekle tuşunu deneyin."
 
-#: ../src/menu.c:1758
+#: ../src/menu.c:1760
 msgid "The menupath you want to add already exists."
 msgstr "Eklemek istediğiniz menü adresi zaten vardır."
 
-#: ../src/menu.c:1767
+#: ../src/menu.c:1769
 msgid "The menupath should start with a / character"
 msgstr "Menü adresi / karakteri ile başlamalıdır."
 
-#: ../src/menu.c:1930
+#: ../src/menu.c:1932
 msgid "Custom Menu Editor"
 msgstr "Kişisel Menü Editörü"
 
-#: ../src/menu.c:1941
+#: ../src/menu.c:1943
 msgid "Add New Menu Entry"
 msgstr "Yeni Madde Ekle"
 
-#: ../src/menu.c:1943
+#: ../src/menu.c:1945
 msgid "Apply Changes"
 msgstr "Uygula"
 
-#: ../src/menu.c:1945
+#: ../src/menu.c:1947
 msgid "Delete Menu Entry"
 msgstr "Maddeyi Sil"
 
-#: ../src/menu.c:1948
+#: ../src/menu.c:1950
 msgid "Close Discards Changes"
 msgstr "Saklamadan Çık"
 
-#: ../src/menu.c:1950
+#: ../src/menu.c:1952
 msgid "Save Changes and Exit"
 msgstr "Sakla ve Çık"
 
-#: ../src/menu.c:1960
+#: ../src/menu.c:1962
 msgid "_Menu Path:"
 msgstr "_Menü Adresi:"
 
-#: ../src/menu.c:1981
+#: ../src/menu.c:1983
 msgid "Menu path"
 msgstr "Menü adresi"
 
-#: ../src/menu.c:2001
+#: ../src/menu.c:2003
 msgid "Number of _Variables:"
 msgstr "Değişken Adedi:"
 
-#: ../src/menu.c:2009
+#: ../src/menu.c:2011
 msgid "Variables"
 msgstr "Değişkenler"
 
-#: ../src/menu.c:2028
+#: ../src/menu.c:2030
 msgid "Custom Dialo_g"
 msgstr "Özel _Düzenleme Aracı"
 
-#: ../src/menu.c:2030
+#: ../src/menu.c:2032
 msgid "Custom Replace"
 msgstr "Özel De_ğiştirme Aracı"
 
-#: ../src/menu.c:2042
+#: ../src/menu.c:2044
 msgid "_Replace:"
 msgstr "De_ğiştir:"
 
-#: ../src/menu.c:2045
+#: ../src/menu.c:2047
 msgid "in current document"
 msgstr "seçili dokümanda"
 
-#: ../src/menu.c:2045
+#: ../src/menu.c:2047
 msgid "from cursor"
 msgstr "imleçten sonrası"
 
-#: ../src/menu.c:2045
+#: ../src/menu.c:2047
 msgid "in selection"
 msgstr "seçili alanda"
 
-#: ../src/menu.c:2045
+#: ../src/menu.c:2047
 msgid "in all open documents"
 msgstr "tüm açık dokümanlarda"
 
-#: ../src/menu.c:2053
+#: ../src/menu.c:2055
 msgid "Matc_hing:"
 msgstr "A_ranan:"
 
-#: ../src/menu.c:2056
+#: ../src/menu.c:2058
 msgid "normal"
 msgstr "normal"
 
-#: ../src/menu.c:2056
+#: ../src/menu.c:2058
 msgid "posix regular expressions"
 msgstr "posix düzenli ifadeleri"
 
-#: ../src/menu.c:2056
+#: ../src/menu.c:2058
 msgid "perl regular expressions"
 msgstr "perl düzenli ifadeleri"
 
-#: ../src/menu.c:2062
+#: ../src/menu.c:2064
 msgid "Case Se_nsitive"
 msgstr "Büyük / Küçük Harf Duyarlı"
 
@@ -2702,34 +2712,34 @@ msgstr "Tüm ağ dosyaları"
 msgid "Hide objectfiles"
 msgstr "Nesne dosyalarını gizle"
 
-#: ../src/snr2.c:170
+#: ../src/snr2.c:169
 msgid "Regular expression error: "
 msgstr "Düzenli ifade hatası: "
 
-#: ../src/snr2.c:174 ../src/snr2.c:223
+#: ../src/snr2.c:173 ../src/snr2.c:222
 msgid "Search failed"
 msgstr "Arama başarısız"
 
-#: ../src/snr2.c:219
+#: ../src/snr2.c:218
 #, fuzzy, c-format
 msgid "Regular expression error: %s at offset %d"
 msgstr "Düzenli ifade hatası: %s - %d"
 
-#: ../src/snr2.c:1269
+#: ../src/snr2.c:1270
 #, c-format
 msgid "Found %d matches, "
 msgid_plural "Found %d matches, "
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/snr2.c:1270
+#: ../src/snr2.c:1271
 #, fuzzy, c-format
 msgid "replaced %d"
 msgid_plural "replaced %d"
 msgstr[0] "Değiştir"
 msgstr[1] "Değiştir"
 
-#: ../src/snr2.c:1275
+#: ../src/snr2.c:1276
 #, c-format
 msgid "Found %d matches"
 msgid_plural "Found %d matches"
@@ -2737,162 +2747,168 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr2.c:1296
+#: ../src/snr2.c:1297
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</"
 "span>"
 msgstr ""
 
-#: ../src/snr2.c:1433 ../src/snr2.c:1785
+#: ../src/snr2.c:1402
+msgid ""
+"<span foreground=\"red\" weight=\"bold\">No selection. Please select a block "
+"of text first.</span>"
+msgstr ""
+
+#: ../src/snr2.c:1441 ../src/snr2.c:1793
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
 "will continue at the beginning.</span>"
 msgstr ""
 
-#: ../src/snr2.c:1508
+#: ../src/snr2.c:1516
 #, fuzzy
 msgid "Entire document"
 msgstr "D_okümanda"
 
-#: ../src/snr2.c:1509
+#: ../src/snr2.c:1517
 msgid "Forward from cursor position"
 msgstr ""
 
-#: ../src/snr2.c:1510
+#: ../src/snr2.c:1518
 #, fuzzy
 msgid "Selection"
 msgstr "Yazıtipi seçiniz"
 
-#: ../src/snr2.c:1511
+#: ../src/snr2.c:1519
 #, fuzzy
 msgid "All open files"
 msgstr "Tüm ağ dosyaları"
 
-#: ../src/snr2.c:1515 ../src/snr2.c:1522
+#: ../src/snr2.c:1523 ../src/snr2.c:1530
 msgid "Normal"
 msgstr "Normal"
 
-#: ../src/snr2.c:1516
+#: ../src/snr2.c:1524
 msgid "Entire word only"
 msgstr ""
 
-#: ../src/snr2.c:1517
+#: ../src/snr2.c:1525
 #, fuzzy
 msgid "POSIX"
 msgstr "POSIX tipi"
 
-#: ../src/snr2.c:1518
+#: ../src/snr2.c:1526
 #, fuzzy
 msgid "PERL"
 msgstr "PERL tipi"
 
-#: ../src/snr2.c:1523
+#: ../src/snr2.c:1531
 msgid "Uppercase"
 msgstr "Büyük harf"
 
-#: ../src/snr2.c:1524
+#: ../src/snr2.c:1532
 msgid "Lowercase"
 msgstr "Küçük harf"
 
-#: ../src/snr2.c:1561
+#: ../src/snr2.c:1569
 msgid "_Search for: "
 msgstr "_Aranan:"
 
-#: ../src/snr2.c:1565
+#: ../src/snr2.c:1573
 msgid "The pattern to look for"
 msgstr ""
 
-#: ../src/snr2.c:1580
+#: ../src/snr2.c:1588
 #, fuzzy
 msgid "Replace _with: "
 msgstr "_Değiştir: "
 
-#: ../src/snr2.c:1584
+#: ../src/snr2.c:1592
 msgid "Replace matching text with"
 msgstr ""
 
-#: ../src/snr2.c:1592
+#: ../src/snr2.c:1600
 msgid "Sco_pe: "
 msgstr ""
 
-#: ../src/snr2.c:1596
+#: ../src/snr2.c:1604
 msgid "Where to look for the pattern."
 msgstr ""
 
-#: ../src/snr2.c:1602
+#: ../src/snr2.c:1610
 msgid "Found 0 matches, replaced 0"
 msgstr ""
 
-#: ../src/snr2.c:1602
+#: ../src/snr2.c:1610
 msgid "Found 0 matches"
 msgstr ""
 
-#: ../src/snr2.c:1612
+#: ../src/snr2.c:1620
 #, fuzzy
 msgid "<b>_Options</b>"
 msgstr "<b>İçerik Araması</b>"
 
-#: ../src/snr2.c:1626
+#: ../src/snr2.c:1634
 #, fuzzy
 msgid "Match Patter_n: "
 msgstr "Şablon ara"
 
-#: ../src/snr2.c:1630
+#: ../src/snr2.c:1638
 msgid "How to interpret the pattern."
 msgstr ""
 
-#: ../src/snr2.c:1637
+#: ../src/snr2.c:1645
 #, fuzzy
 msgid "Replace T_ype: "
 msgstr "Değiştirme tipi:"
 
-#: ../src/snr2.c:1642
+#: ../src/snr2.c:1650
 #, fuzzy
 msgid "What to replace with."
 msgstr "_Değiştir: "
 
-#: ../src/snr2.c:1646
+#: ../src/snr2.c:1654
 #, fuzzy
 msgid "Allow o_verlapping matches"
 msgstr "Aramaları _örtüştür"
 
-#: ../src/snr2.c:1649
+#: ../src/snr2.c:1657
 msgid "After a match is found, start next search within that match."
 msgstr ""
 
-#: ../src/snr2.c:1651
+#: ../src/snr2.c:1659
 #, fuzzy
 msgid "Case sensitive _matching"
 msgstr "Büyük/küçük harf duyarlı"
 
-#: ../src/snr2.c:1654
+#: ../src/snr2.c:1662
 msgid "Only match if case (upper/lower) is identical."
 msgstr ""
 
-#: ../src/snr2.c:1656
+#: ../src/snr2.c:1664
 #, fuzzy
 msgid "_Use escape chars"
 msgstr "Güncelleme karakterleri"
 
-#: ../src/snr2.c:1659
+#: ../src/snr2.c:1667
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
-msgstr ""
-
-#: ../src/snr2.c:1661
-#, fuzzy
-msgid "_Bookmark matches"
-msgstr "Yerimleri"
-
-#: ../src/snr2.c:1664
-msgid "Create a bookmark for each match"
 msgstr ""
 
 #: ../src/snr2.c:1669
 #, fuzzy
+msgid "_Bookmark matches"
+msgstr "Yerimleri"
+
+#: ../src/snr2.c:1672
+msgid "Create a bookmark for each match"
+msgstr ""
+
+#: ../src/snr2.c:1677
+#, fuzzy
 msgid "Replace _All"
 msgstr "_Tümünü değiştir"
 
-#: ../src/snr2.c:1675
+#: ../src/snr2.c:1683
 #, fuzzy
 msgid "Find _All"
 msgstr "Bul"
