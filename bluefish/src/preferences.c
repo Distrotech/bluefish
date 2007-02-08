@@ -627,7 +627,7 @@ static void create_plugin_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		}
 	}
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox, FALSE, FALSE, 2);
 /*	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_filetype_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_filetype_lcb), pd);
@@ -782,17 +782,17 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->tsd.fg_color = prefs_string(_("Foreground color"), "", vbox, pd, string_color);
 	pd->tsd.bg_color = prefs_string(_("Background color"), "", vbox, pd, string_color);
 	pd->tsd.bold_radio[0] = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
-	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.bold_radio[0], TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.bold_radio[0], FALSE, FALSE, 0);
 	pd->tsd.bold_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.bold_radio[0]), _("force non-bold weight"));
-	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.bold_radio[1], TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.bold_radio[1], FALSE, FALSE, 0);
 	pd->tsd.bold_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.bold_radio[0]), _("force bold weight"));
-	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.bold_radio[2], TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.bold_radio[2], FALSE, FALSE, 0);
 	pd->tsd.italic_radio[0] = gtk_radio_button_new_with_label(NULL, _("don't change style"));
-	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.italic_radio[0], TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.italic_radio[0], FALSE, FALSE, 0);
 	pd->tsd.italic_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.italic_radio[0]), _("force non-italic style"));
-	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.italic_radio[1], TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.italic_radio[1], FALSE, FALSE, 0);
 	pd->tsd.italic_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.italic_radio[0]), _("force italic style"));
-	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.italic_radio[2], TRUE, TRUE, 0);
+	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.italic_radio[2], FALSE, FALSE, 0);
 	{
 		GList *tmplist = g_list_first(pd->lists[textstyles]);
 		while (tmplist) {
@@ -821,7 +821,7 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	g_signal_connect(G_OBJECT(pd->tsd.italic_radio[2]),"toggled",G_CALLBACK(textstyle_radio_changed),pd);
 
 	hbox2 = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1),hbox2, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox2, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_textstyle_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox2),but, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_textstyle_lcb), pd);
@@ -1440,7 +1440,7 @@ static void create_extcommands_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 2, G_CALLBACK(extcommands_2_edited_lcb), pd, _("Default browser"), 2);
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label), _("<small><b>Input options</b>\nspecify no options to read the input from the standard output\n%s local filename (available for local files)\n%i temporary fifo for input, equals %s if the document is not modified and local\n%I temporary filename for input, equals %s if the document is not modified and local\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
-	gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),label, FALSE, FALSE, 2);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->bd.lview);
@@ -1464,7 +1464,7 @@ static void create_extcommands_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	g_signal_connect(G_OBJECT(pd->bd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->bd);
 
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_extcommands_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_extcommands_lcb), pd);
@@ -1533,7 +1533,7 @@ static void create_filters_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	g_signal_connect(G_OBJECT(pd->ed.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->ed);
 	
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_external_filter_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_external_filter_lcb), pd);
@@ -1605,7 +1605,7 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 2, G_CALLBACK(outputbox_6_toggled_lcb), pd, _("Show all output"), 6);
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label), _("<small><b>Input options</b>\nspecify no options to read the input from the standard output\n%s local filename (available for local files)\n%i temporary fifo for input, equals %s if the document is not modified and local\n%I temporary filename for input, equals %s if the document is not modified and local\n<b>Output options</b>\nspecify no options to read the output from the standard output\n%o temporary fifo\n%O temporary filename\n%t temporary filename for both input and output (for in-place-editing filters)\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
-	gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),label, FALSE, FALSE, 2);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->od.lview);
@@ -1632,7 +1632,7 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	g_signal_connect(G_OBJECT(pd->od.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->od);
 
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_outputbox_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_outputbox_lcb), pd);
@@ -2216,7 +2216,7 @@ static void preferences_dialog() {
 */
 	
 	frame = gtk_frame_new(_("Commands"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_extcommands_gui(pd, vbox2);
@@ -2229,7 +2229,7 @@ static void preferences_dialog() {
 */
 	
 	frame = gtk_frame_new(_("Filters"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_filters_gui(pd, vbox2);
@@ -2242,7 +2242,7 @@ static void preferences_dialog() {
 */
 	
 	frame = gtk_frame_new(_("Output parsers"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_outputbox_gui(pd, vbox2);
@@ -2254,7 +2254,7 @@ static void preferences_dialog() {
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Plugins"), WIDGETCOL,vbox1,-1);
 	frame = gtk_frame_new(_("Plugins"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_plugin_gui(pd, vbox2);
@@ -2274,7 +2274,7 @@ static void preferences_dialog() {
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Text styles"), WIDGETCOL,vbox1,-1);
 	frame = gtk_frame_new(_("Text styles"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);	
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);	
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_textstyle_gui(pd,vbox2);
