@@ -21,10 +21,10 @@
 #ifndef INFB_WIZARD_H
 #define INFB_WIZARD_H
 
-#include <gtk/gtk.h>
+/* #include <gtk/gtk.h>
 #include "../bluefish.h"
 
 void infb_add_item(Tbfwin *bfwin);
-void infb_del_item(Tbfwin *bfwin);
+void infb_del_item(Tbfwin *bfwin);*/
 
 #endif /* INFB_WIZARD_H */

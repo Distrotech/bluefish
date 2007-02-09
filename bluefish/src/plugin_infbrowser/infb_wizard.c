@@ -18,6 +18,8 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+/*
+
 #include <string.h>
 #include <stdio.h>
 #include <libxml/xmlmemory.h>
@@ -386,11 +388,10 @@ void infb_add_item(Tbfwin *bfwin) {
 	if (!assistant)
     {	
 		assistant = gtk_assistant_new ();
-		/*gtk_window_set_default_size (GTK_WINDOW (dlg), -1, 300);*/
 		create_page_type(assistant,edata);
 		create_page_info(assistant,edata);
-		create_page_dtd_file(assistant,edata); /* page number 2 */
-		create_page_dtd_remote(assistant,edata); /* page number 3 */		
+		create_page_dtd_file(assistant,edata);  page number 2 
+		create_page_dtd_remote(assistant,edata);  page number 3 		
 		g_signal_connect (G_OBJECT (assistant), "cancel",G_CALLBACK (infbw_close_cancel), &assistant);
    	g_signal_connect (G_OBJECT (assistant), "close",G_CALLBACK (infbw_close_cancel), &assistant);
    	gtk_assistant_set_forward_page_func (GTK_ASSISTANT(assistant),infbw_next_page,assistant,NULL);
@@ -401,7 +402,7 @@ void infb_add_item(Tbfwin *bfwin) {
 	gtk_window_set_position(GTK_WINDOW(assistant),GTK_WIN_POS_CENTER_ON_PARENT);
   	gtk_widget_show_all(assistant);
 
-   /*gtk_widget_destroy(assistant);*/ 
+
 }
 
 
@@ -579,3 +580,4 @@ void infb_del_item(Tbfwin *bfwin) {
   	gtk_widget_show_all(assistant);
 }
 
+*/

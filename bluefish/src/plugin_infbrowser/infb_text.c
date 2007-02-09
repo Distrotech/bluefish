@@ -650,14 +650,14 @@ void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root) {
 	view = GTK_TEXT_VIEW(((Tinfbwin*)auxp)->view);
 	if ( infb_v.currentDoc == NULL || view==NULL ) return;
 	if ( infb_v.currentDoc != infb_v.homeDoc ) {
-		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_add,FALSE);
-		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_del,FALSE);
+		/*gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_add,FALSE);
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_del,FALSE);*/
 		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_home,TRUE);
 		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->sentry,TRUE);
 	} else
 	{
-		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_add,TRUE);
-		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_del,TRUE);
+		/*gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_add,TRUE);
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_del,TRUE);*/
 		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_home,FALSE);
 		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->sentry,FALSE);
 	}
