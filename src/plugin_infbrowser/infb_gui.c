@@ -236,6 +236,7 @@ static void infb_midx_clicked(GtkButton *button, gpointer data) {
 	infb_fill_doc(BFWIN(data),NULL);
 }
 
+/*
 static void infb_add_clicked(GtkButton *button, gpointer data) {
 	Tbfwin *bfwin;
 	if ( !data ) return;
@@ -249,7 +250,7 @@ static void infb_del_clicked(GtkButton *button, gpointer data) {
 	bfwin = BFWIN(data);
 	infb_del_item(bfwin);
 }
-
+*/
 
 gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwin) {
 	gchar *txt,*str;
@@ -346,12 +347,13 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	g_signal_connect (win->btn_home, "clicked",G_CALLBACK (infb_midx_clicked), bfwin);
 	gtk_tooltips_set_tip(main_v->tooltips, win->btn_home, _("Documentation index"), "");
 	gtk_box_pack_start(GTK_BOX(box3), win->btn_home, FALSE, FALSE, 2);					
+	
 	win->btn_up = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(win->btn_up), gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU));
 	g_signal_connect (win->btn_up, "clicked",G_CALLBACK (infb_idx_clicked), bfwin);
 	gtk_tooltips_set_tip(main_v->tooltips, win->btn_up, _("Up to main document"), "");
 	gtk_box_pack_start(GTK_BOX(box3), win->btn_up, FALSE, FALSE, 2);	
-	win->btn_add = gtk_button_new();
+	/*win->btn_add = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(win->btn_add), gtk_image_new_from_stock(GTK_STOCK_NEW,GTK_ICON_SIZE_MENU));
 	g_signal_connect (win->btn_add, "clicked",G_CALLBACK (infb_add_clicked), bfwin);
 	gtk_tooltips_set_tip(main_v->tooltips, win->btn_add, _("Add document"), "");
@@ -360,7 +362,7 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	gtk_container_add(GTK_CONTAINER(win->btn_del), gtk_image_new_from_stock(GTK_STOCK_DELETE,GTK_ICON_SIZE_MENU));
 	g_signal_connect (win->btn_del, "clicked",G_CALLBACK (infb_del_clicked), bfwin);
 	gtk_tooltips_set_tip(main_v->tooltips, win->btn_del, _("Remove document"), "");
-	gtk_box_pack_end(GTK_BOX(box3), win->btn_del, FALSE, FALSE, 2);	
+	gtk_box_pack_end(GTK_BOX(box3), win->btn_del, FALSE, FALSE, 2);*/	
 
 	
 	gtk_box_pack_start(GTK_BOX(box), scrolwin, TRUE, TRUE, 2);
