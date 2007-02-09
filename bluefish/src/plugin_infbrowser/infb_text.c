@@ -1,0 +1,691 @@
+/* Bluefish HTML Editor
+ * infb_text.c - plugin for information browser
+ *
+ * Copyright (C) 2007 Oskar Świda
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
+#include <libxml/xmlmemory.h>
+#include <libxml/parser.h>
+#include <libxml/hash.h>
+#include <libxml/xmlschemas.h>
+#include <libxml/schemasInternals.h>
+#include <libxml/tree.h>
+
+#include "infb_text.h"
+#include "infbrowser.h"
+
+
+
+void infb_set_current_type(xmlDocPtr doc) {
+	xmlChar *txt;
+	xmlNodePtr root;
+	infb_v.currentType = INFB_DOCTYPE_UNKNOWN;
+	root = xmlDocGetRootElement(doc);
+	if ( xmlStrcmp(root->name,BAD_CAST "ref")!= 0 ) return;
+	txt = xmlGetProp(root,BAD_CAST "type");
+	if (!txt) infb_v.currentType = INFB_DOCTYPE_FREF2;
+	else {
+		if ( xmlStrcmp(txt,BAD_CAST "dtd")== 0 )
+			infb_v.currentType = INFB_DOCTYPE_DTD;
+		else if ( xmlStrcmp(txt,BAD_CAST "index")== 0 )
+			infb_v.currentType = INFB_DOCTYPE_INDEX;
+		else 
+			infb_v.currentType = INFB_DOCTYPE_FREF2;					
+		xmlFree(txt);
+	}	
+} 
+
+xmlXPathObjectPtr getnodeset (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start){
+	xmlXPathContextPtr context;
+	xmlXPathObjectPtr result;
+	context = xmlXPathNewContext(doc);
+	if (context == NULL) return NULL;
+	if (start!=NULL)
+		context->node = start;
+	result = xmlXPathEvalExpression(xpath, context);
+	xmlXPathFreeContext(context);
+	if (result == NULL) return NULL;
+	if(xmlXPathNodeSetIsEmpty(result->nodesetval)){
+		xmlXPathFreeObject(result);
+   	return NULL;
+	}
+	return result;
+}
+
+xmlNodePtr getnode (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start){
+	xmlXPathContextPtr context;
+	xmlXPathObjectPtr result;
+	xmlNodePtr ret=NULL;
+	
+	context = xmlXPathNewContext(doc);
+	if (context == NULL) return NULL;
+	if (start!=NULL)
+		context->node = start;
+	result = xmlXPathEvalExpression(xpath, context);
+	xmlXPathFreeContext(context);
+	if (result == NULL) return NULL;
+	if(xmlXPathNodeSetIsEmpty(result->nodesetval)){
+		xmlXPathFreeObject(result);
+   	return NULL;
+	}
+	if ( result->nodesetval->nodeNr > 0 )
+	{
+		ret = result->nodesetval->nodeTab[0];
+		xmlXPathFreeObject(result);
+	}
+	return ret;
+}
+
+
+static void infb_insert_line(GtkTextBuffer *buff, xmlChar *text, gchar *prepend) {
+	if ( prepend )
+		gtk_text_buffer_insert_at_cursor(buff,prepend,-1);
+	gtk_text_buffer_insert_at_cursor(buff,(const gchar*)text,xmlStrlen(text));	
+	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
+}
+
+
+
+static void infb_insert_small_line(GtkTextBuffer *buff,xmlChar *text) {
+	GtkTextTag *tag;
+	GtkTextIter iter;
+	if (!text) return;
+	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_SMALL,NULL);
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
+	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
+}
+
+/*static void infb_insert_bold_line(GtkTextBuffer *buff,xmlChar *text) {
+	GtkTextTag *tag;
+	GtkTextIter iter;
+	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_BOLD,NULL);
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
+	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
+}*/
+
+
+static void infb_insert_title(GtkTextBuffer *buff,xmlChar *text) {
+	GtkTextTag *tag;
+	GtkTextIter iter;
+	if (!text) return;
+	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_TITLE,NULL);
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
+	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
+}
+
+static void infb_insert_desc(GtkTextBuffer *buff,xmlChar *text) {
+	GtkTextTag *tag;
+	GtkTextIter iter;
+	if (!text) return;
+	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_DESC,NULL);
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
+	gtk_text_buffer_insert_at_cursor(buff,"\n\n",2);
+}
+
+static void infb_insert_section(GtkTextBuffer *buff,xmlChar *text) {
+	GtkTextTag *tag;
+	GtkTextIter iter;
+	if (!text) return;
+	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_SECTION,NULL);
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
+	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
+}
+
+
+
+static void infb_insert_icon(GtkTextView *view, GtkWidget *icon, gchar *prepend) {
+	GtkTextChildAnchor *anchor;
+	GtkTextIter iter;
+	GtkTextBuffer *buff = gtk_text_view_get_buffer(view);
+	if ( prepend )
+		gtk_text_buffer_insert_at_cursor(buff,prepend,-1);	
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
+	anchor = gtk_text_buffer_create_child_anchor (buff, &iter);
+	gtk_text_buffer_insert(buff,&iter,"  ",-1);
+	gtk_text_view_add_child_at_anchor (view,icon,anchor);
+	gtk_widget_show_all(icon);									
+}
+
+static void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname) {
+	GtkTextTag *tag;
+	GtkTextIter iter;
+	if (!text) return;
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));	
+	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_FILEREF,NULL);
+	g_object_set_data (G_OBJECT (tag), "type", &infb_v.nt_fileref);
+	g_object_set_data (G_OBJECT (tag), "file", g_strdup((const gchar*)fname));					
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
+	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
+}
+
+static void infb_insert_fileref_loaded(GtkTextBuffer *buff, xmlChar *text, xmlDocPtr doc ) {
+	GtkTextTag *tag;
+	GtkTextIter iter;
+	if (!text) return;
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));	
+	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_FILEREF,NULL);
+	g_object_set_data (G_OBJECT (tag), "type", &infb_v.nt_fileref);
+	g_object_set_data (G_OBJECT (tag), "loaded", doc);					
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
+	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
+}
+
+
+static void infb_insert_node(GtkTextBuffer *buff, xmlChar *text, xmlNodePtr node) {
+	GtkTextTag *tag;
+	GtkTextIter iter;
+	if (!text) return;
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));	
+	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_NODE,NULL);
+	g_object_set_data (G_OBJECT (tag), "type", &infb_v.nt_node);
+	g_object_set_data (G_OBJECT (tag), "node", node);					
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
+	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
+}
+
+static void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node) {
+	GtkTextTag *tag;
+	GtkTextIter iter;
+	GtkTextBuffer *buff = gtk_text_view_get_buffer(view);
+	xmlChar *text2;
+	if (!text) return;
+	text2 = xmlGetProp(node,BAD_CAST "expanded");
+	if ( text2 && xmlStrcmp(text2,BAD_CAST "1")==0 )
+		infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_ogroup),NULL);
+	else
+		infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_cgroup),NULL);	
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));	
+	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_GROUP,NULL);
+	g_object_set_data (G_OBJECT (tag), "type", &infb_v.nt_group);
+	g_object_set_data (G_OBJECT (tag), "node", node);					
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
+	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
+}
+
+
+
+static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint level) {
+	GtkTextBuffer *buff;
+	gchar *levstr=NULL;
+	xmlChar *text,*text2;
+	xmlNodePtr auxn;
+
+	
+ 	if ( view==NULL || doc==NULL || node==NULL ) return;
+ 	buff = gtk_text_view_get_buffer(view);
+	if ( level > 0 ) 
+		levstr = g_strnfill(2*level,' ');
+	else
+		levstr = "";	
+	switch ( infb_v.currentType ) { 
+		case INFB_DOCTYPE_INDEX:
+			if ( xmlStrcmp(node->name,BAD_CAST "ref") ==0 ) {  /* reference index */
+				text = xmlGetProp(node,BAD_CAST "name");
+				if ( text ) {
+						infb_insert_title(buff,text);
+						xmlFree(text);
+				}
+				auxn = node->xmlChildrenNode;
+				while ( auxn ) {
+					infb_fill_node(view,doc,auxn,level+1);
+					auxn = auxn->next;
+				}
+			} /* reference index */	
+			else	if ( xmlStrcmp(node->name,BAD_CAST "fileref") ==0 ) { /* fileref  - this will link child */
+				text = xmlGetProp(node,BAD_CAST "name");
+				if ( text ) {
+					infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_doc),NULL);
+					text2 = xmlNodeGetContent(node);
+					infb_insert_fileref(buff,text,text2);					
+					xmlFree(text2);
+					xmlFree(text);
+				}	
+			} /* fileref */				
+		break; /* index document */
+		
+	
+		default: /* fref2 document */
+			if ( xmlStrcmp(node->name,BAD_CAST "ref") ==0 ) { /* reference top */
+				text = xmlGetProp(node,BAD_CAST "name");
+				if ( text ) {
+					infb_insert_title(buff,text);
+					xmlFree(text);
+				}
+				text = xmlGetProp(node,BAD_CAST "description");
+				if ( text ) {
+					infb_insert_desc(buff,text);
+					xmlFree(text);
+				}
+				
+				auxn = node->xmlChildrenNode;
+				while ( auxn ) {
+					infb_fill_node(view,doc,auxn,level+1);
+					auxn = auxn->next;
+				}
+			}
+			else	if ( xmlStrcmp(node->name,BAD_CAST "note") ==0 ) { /* note */
+				if ( level == 0 ) {
+					/*infb_insert_icon(view, new_pixmap(164),NULL);*/
+					text = xmlGetProp(node,BAD_CAST "title");
+					if ( text ) {
+						infb_insert_title(buff,text);
+						xmlFree(text);
+					}	
+					text = xmlNodeGetContent(node);
+					if (text) {
+						infb_insert_line(buff,text,NULL);
+						xmlFree(text);
+					}	
+				}
+				else 
+				{
+					text = xmlGetProp(node,BAD_CAST "title");
+					if ( text ) {
+						infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_note),levstr);
+						infb_insert_node(buff,text,node);											
+						xmlFree(text);
+					}
+				}		
+			} /* note */
+			else	if ( xmlStrcmp(node->name,BAD_CAST "group") ==0 ) { /* group */
+				text = xmlGetProp(node,BAD_CAST "name");
+				text2 = xmlGetProp(node,BAD_CAST "expanded");
+				if ( text ) {
+					if (level>0) gtk_text_buffer_insert_at_cursor(buff,levstr,2*level);
+					infb_insert_group(view,text,node);																					
+					xmlFree(text);
+				}						
+				if ( text2 && xmlStrcmp(text2,BAD_CAST "1")==0 ) {
+					auxn = node->xmlChildrenNode;
+					while ( auxn ) {
+						infb_fill_node(view,doc,auxn,level+1);
+						auxn = auxn->next;
+					}
+				}			
+				if (text2) xmlFree(text2);
+			} /* group */
+/* ************************** ELEMENT **************************************/			
+			else	if ( xmlStrcmp(node->name,BAD_CAST "element") ==0 ) { /* element */
+			  if ( level == 0 ){
+			  		xmlNodeSetPtr nodeset,nodeset2;
+					xmlXPathObjectPtr result,result2;
+					gint i,j;
+					gchar *str;
+					xmlNodePtr an,an2;
+					gboolean attr_section=FALSE, param_section = FALSE, ret_section=FALSE;
+					xmlChar *text3;
+											  
+					text = xmlGetProp(node,BAD_CAST "name");
+					infb_insert_title(buff,text);
+					xmlFree(text);					
+					
+					result = getnodeset(doc,BAD_CAST "child::description",node);
+					if (result) {
+							nodeset = result->nodesetval;
+							if ( nodeset->nodeNr > 0 ) {
+								text = xmlNodeGetContent(nodeset->nodeTab[0]);
+								infb_insert_desc(buff,text);
+								xmlFree(text);
+							}
+							xmlXPathFreeObject (result);
+					}
+					
+					/* PROPLISTS */
+					result = getnodeset(doc,BAD_CAST "child::properties/proplist",node);
+					if (result && result->nodesetval->nodeNr > 0) {
+							nodeset = result->nodesetval;
+							for (i=0;i< nodeset->nodeNr;i++  ) {
+								text = xmlGetProp(nodeset->nodeTab[i],BAD_CAST "ref");
+								if (text) {
+									str = g_strdup_printf("//def[@deftype='proplist' and @id='%s']",text);
+									an = getnode(doc,BAD_CAST str,NULL);
+									g_free(str);
+									xmlFree(text);									
+									if (an) {
+										/* attributes */
+										result2 = getnodeset(doc,BAD_CAST "child::property[@kind='attribute']",an);
+										if (result2 && result2->nodesetval->nodeNr > 0) {
+												if (!attr_section) {
+													infb_insert_section(buff,BAD_CAST "Attributes");
+													attr_section = TRUE;
+												}	
+												nodeset2 = result2->nodesetval;
+												for (j=0;j< nodeset2->nodeNr;j++  ) {
+													text = xmlGetProp(nodeset2->nodeTab[j],BAD_CAST "name");
+													text2 = xmlGetProp(nodeset2->nodeTab[j],BAD_CAST "type");
+													if (text) {
+														if ( text2 && xmlStrcmp(text2,BAD_CAST "")!=0) 
+															str = g_strconcat((gchar*)text," (",(gchar*)text2,")",NULL);
+														else 
+															str = g_strdup((gchar*)text);
+														infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_point),NULL);											
+														infb_insert_line(buff,BAD_CAST str,NULL);
+														g_free(str);
+														xmlFree(text);
+													}	
+													if (text2) xmlFree(text2);
+													an2 = getnode(doc,BAD_CAST "child::description",nodeset2->nodeTab[j]);
+													if ( an2 ) {
+														text = xmlNodeGetContent(an2);
+														if (text) {
+															infb_insert_small_line(buff,text);
+															xmlFree(text);
+														}	
+													}
+												}
+												xmlXPathFreeObject (result2);
+										} /* attributes */
+										/* parameters */
+										result2 = getnodeset(doc,BAD_CAST "child::property[@kind='parameter']",an);
+										if (result2 && result2->nodesetval->nodeNr > 0) {
+												if (!param_section) {
+													infb_insert_section(buff,BAD_CAST "Parameters");
+													param_section = TRUE;
+												}	
+												nodeset2 = result2->nodesetval;
+												for (j=0;j< nodeset2->nodeNr;j++  ) {
+													text = xmlGetProp(nodeset2->nodeTab[j],BAD_CAST "name");
+													text2 = xmlGetProp(nodeset2->nodeTab[j],BAD_CAST "type");
+													if (text) {
+														if ( text2 && xmlStrcmp(text2,BAD_CAST "")!=0) 
+															str = g_strconcat((gchar*)text," (",(gchar*)text2,")",NULL);
+														else 
+															str = g_strdup((gchar*)text);			
+														infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_point),NULL);								
+														infb_insert_line(buff,BAD_CAST str,NULL);
+														g_free(str);
+														xmlFree(text);
+													}	
+													if (text2) xmlFree(text2);
+													an2 = getnode(doc,BAD_CAST "child::description",nodeset2->nodeTab[j]);
+													if ( an2 ) {
+														text = xmlNodeGetContent(an2);
+														if (text) {
+															infb_insert_small_line(buff,text);
+															xmlFree(text);
+														}	
+													}
+												}
+												xmlXPathFreeObject (result2);
+										} /* parameters */
+										
+									} /* proplist found */
+								}
+							}						
+					} /* proplist */
+					
+					/* SINGLE PROPERTY REF */
+					result = getnodeset(doc,BAD_CAST "child::properties/property[@ref]",node);
+					if (result && result->nodesetval->nodeNr > 0) {
+							nodeset = result->nodesetval;
+							for (i=0;i< nodeset->nodeNr;i++  ) {
+								text = xmlGetProp(nodeset->nodeTab[i],BAD_CAST "ref");
+								if (text) {
+									str = g_strdup_printf("//def[@deftype='property' and @id='%s']",text);
+									an = getnode(doc,BAD_CAST str,NULL);
+									g_free(str);
+									xmlFree(text);		
+									text = xmlGetProp(an,BAD_CAST "kind");
+									if (text) {
+										if (xmlStrcmp(text,BAD_CAST "attribute")==0) {
+												if (!attr_section) {
+													infb_insert_section(buff,BAD_CAST "Attributes");
+													attr_section = TRUE;
+												}	
+												text2 = xmlGetProp(an,BAD_CAST "name");
+												text3 = xmlGetProp(an,BAD_CAST "type");
+												if (text2) {
+														if ( text3 && xmlStrcmp(text3,BAD_CAST "")!=0) 
+															str = g_strconcat((gchar*)text2," (",(gchar*)text3,")",NULL);
+														else 
+															str = g_strdup((gchar*)text2);		
+														infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_point),NULL);									
+														infb_insert_line(buff,BAD_CAST str,NULL);
+														g_free(str);
+														xmlFree(text2);
+													}	
+													if (text3) xmlFree(text3);
+													an2 = getnode(doc,BAD_CAST "child::description",an);
+													if ( an2 ) {
+														text2 = xmlNodeGetContent(an2);
+														if (text2) {
+															infb_insert_small_line(buff,text2);
+															xmlFree(text2);
+														}	
+													}
+										} /* attribute */
+										else if (xmlStrcmp(text,BAD_CAST "parameter")==0) {
+												if (!param_section) {
+													infb_insert_section(buff,BAD_CAST "Parameters");
+													param_section = TRUE;
+												}	
+												text2 = xmlGetProp(an,BAD_CAST "name");
+												text3 = xmlGetProp(an,BAD_CAST "type");
+												if (text2) {
+														if ( text3 && xmlStrcmp(text3,BAD_CAST "")!=0) 
+															str = g_strconcat((gchar*)text2," (",(gchar*)text3,")",NULL);
+														else 
+															str = g_strdup((gchar*)text2);		
+														infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_point),NULL);									
+														infb_insert_line(buff,BAD_CAST str,NULL);
+														g_free(str);
+														xmlFree(text2);
+													}	
+													if (text3) xmlFree(text3);
+													an2 = getnode(doc,BAD_CAST "child::description",an);
+													if ( an2 ) {
+														text2 = xmlNodeGetContent(an2);
+														if (text2) {
+															infb_insert_small_line(buff,text2);
+															xmlFree(text2);
+														}	
+													}
+										} /* parameter */
+										else if (xmlStrcmp(text,BAD_CAST "return")==0) {
+												if (!ret_section) {
+													text2 = xmlGetProp(an,BAD_CAST "type");
+													if ( text2 ) {
+														str = g_strconcat("Returned type: ",(gchar*)text2,NULL);
+														infb_insert_section(buff,BAD_CAST str);
+														g_free(str);
+														ret_section = TRUE;
+														xmlFree(text2);
+														infb_insert_line(buff,BAD_CAST "",NULL);
+													}	
+												}	
+										} /* return */										
+																				
+									}							
+								}
+							}						
+					} /* single property */											
+					
+					/* ATTRIBUTES */
+					result = getnodeset(doc,BAD_CAST "child::properties/property[@kind='attribute']",node);
+					if (result && result->nodesetval->nodeNr > 0) {
+							if (!attr_section) {
+								infb_insert_section(buff,BAD_CAST "Attributes");
+								attr_section = TRUE;	
+							}	
+							nodeset = result->nodesetval;
+							for (i=0;i< nodeset->nodeNr;i++  ) {
+								text = xmlGetProp(nodeset->nodeTab[i],BAD_CAST "name");
+								text2 = xmlGetProp(nodeset->nodeTab[i],BAD_CAST "type");
+								if ( text2 && xmlStrcmp(text2,BAD_CAST "")!=0) 
+									str = g_strconcat((gchar*)text," (",(gchar*)text2,")",NULL);
+								else 
+									str = g_strdup((gchar*)text);
+								infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_point),NULL);											
+								infb_insert_line(buff,BAD_CAST str,NULL);
+								g_free(str);
+								xmlFree(text);
+								if (text2) xmlFree(text2);
+								an = getnode(doc,BAD_CAST "child::description",nodeset->nodeTab[i]);
+								if ( an ) {
+									text = xmlNodeGetContent(an);
+									infb_insert_small_line(buff,text);
+									xmlFree(text);
+								}
+							}
+							xmlXPathFreeObject (result);
+					} /* attributes */
+					/* PARAMETERS */
+					result = getnodeset(doc,BAD_CAST "child::properties/property[@kind='parameter']",node);
+					if (result && result->nodesetval->nodeNr > 0) {
+							if (!param_section) {
+								infb_insert_section(buff,BAD_CAST "Parameters");
+								param_section = TRUE;	
+							}	
+							nodeset = result->nodesetval;
+							for (i=0;i< nodeset->nodeNr;i++  ) {
+								text = xmlGetProp(nodeset->nodeTab[i],BAD_CAST "name");
+								text2 = xmlGetProp(nodeset->nodeTab[i],BAD_CAST "type");
+								if ( text2 && xmlStrcmp(text2,BAD_CAST "")!=0) 
+									str = g_strconcat((gchar*)text," (",(gchar*)text2,")",NULL);
+								else 
+									str = g_strdup((gchar*)text);			
+								infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_point),NULL);								
+								infb_insert_line(buff,BAD_CAST str,NULL);
+								g_free(str);
+								xmlFree(text);
+								if (text2) xmlFree(text2);
+								an = getnode(doc,BAD_CAST "child::description",nodeset->nodeTab[i]);
+								if ( an ) {
+									text = xmlNodeGetContent(an);
+									infb_insert_small_line(buff,text);
+									xmlFree(text);
+								}
+							}
+							xmlXPathFreeObject (result);
+					} /* parameters */
+					/* RETURN */
+					an = getnode(doc,BAD_CAST "child::properties/property[@kind='return']",node);
+					if ( an ) {
+						if (!ret_section) {
+							text2 = xmlGetProp(an,BAD_CAST "type");
+							if ( text2 ) {
+								str = g_strconcat("Returned type: ",(gchar*)text2,NULL);
+								infb_insert_section(buff,BAD_CAST str);
+								g_free(str);
+								ret_section = TRUE;
+								xmlFree(text2);
+								infb_insert_line(buff,BAD_CAST "",NULL);
+							}	
+						}						
+					} /* return */
+					/* EXAMPLES */
+					result = getnodeset(doc,BAD_CAST "child::properties/property[@kind='example']",node);
+					if (result && result->nodesetval->nodeNr > 0) {							
+							nodeset = result->nodesetval;
+							for (i=0;i< nodeset->nodeNr;i++  ) {
+								infb_insert_section(buff,BAD_CAST "Example");
+								an = getnode(doc,BAD_CAST "child::description",nodeset->nodeTab[i]);
+								if ( an ) {
+									text = xmlNodeGetContent(an);
+									infb_insert_small_line(buff,text);
+									xmlFree(text);
+								}
+							}
+							xmlXPathFreeObject (result);
+					} /* examples */
+					/* NOTES */
+					result = getnodeset(doc,BAD_CAST "child::note",node);
+					if (result && result->nodesetval->nodeNr > 0) {							
+							nodeset = result->nodesetval;
+							for (i=0;i< nodeset->nodeNr;i++  ) {
+								text = xmlGetProp(nodeset->nodeTab[i],BAD_CAST "title");
+								infb_insert_section(buff,text);
+								xmlFree(text);
+								text = xmlNodeGetContent(nodeset->nodeTab[i]);
+								infb_insert_small_line(buff,text);
+								xmlFree(text);
+							}
+							xmlXPathFreeObject (result);
+					} /* notes */
+										
+			  }
+			  else {
+				text = xmlGetProp(node,BAD_CAST "name");
+				if ( text ) {
+					infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_node),levstr);
+					infb_insert_node(buff,text,node);					
+					xmlFree(text);
+				}
+			  } 			
+			} /* element */
+		
+		break;
+	} /* switch */ 
+	if ( level > 0 ) g_free(levstr);	
+}
+
+
+
+void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root) {
+	GtkTextView *view;
+	gpointer auxp;
+	GtkTextBuffer *buff;
+	GtkTextIter it1,it2;
+	xmlNodePtr node;
+	
+	auxp = g_hash_table_lookup(infb_v.windows,bfwin);
+	if ( !auxp ) return;
+	view = GTK_TEXT_VIEW(((Tinfbwin*)auxp)->view);
+	if ( infb_v.currentDoc == NULL || view==NULL ) return;
+	if ( infb_v.currentDoc != infb_v.homeDoc ) {
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_add,FALSE);
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_del,FALSE);
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_home,TRUE);
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->sentry,TRUE);
+	} else
+	{
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_add,TRUE);
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_del,TRUE);
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_home,FALSE);
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->sentry,FALSE);
+	}
+	buff = gtk_text_view_get_buffer(view);	
+	gtk_text_buffer_get_bounds(buff,&it1,&it2);
+	gtk_text_buffer_remove_all_tags (buff,&it1,&it2);
+	gtk_text_buffer_delete(buff,&it1,&it2);
+	infb_set_current_type(infb_v.currentDoc);	
+	if ( root == NULL ){
+		node = xmlDocGetRootElement(infb_v.currentDoc);
+		infb_fill_node(view,infb_v.currentDoc,node,0);
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_up,FALSE);
+	} else 
+	{
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_up,TRUE);		
+		infb_fill_node(view,infb_v.currentDoc,root,0);
+	}	
+	/* specials */
+	if ( infb_v.currentDoc == infb_v.homeDoc ) {
+		infb_insert_line(buff,BAD_CAST "","");
+		infb_insert_title(buff,BAD_CAST _("Specials"));
+		if ( infb_v.lastSearch != NULL ) {
+			infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_doc),NULL);
+			infb_insert_fileref_loaded(buff,BAD_CAST _("Last search"),infb_v.lastSearch);							
+		}	
+	}
+}
+
+
