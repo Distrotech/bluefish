@@ -29,127 +29,6 @@
 #include "infb_gui.h"
 #include "infb_load.h"
 
-static const char *frnote_xpm[] = {
-"11 12 5 1",
-" 	c None",
-".	c #000000",
-"+	c #FFFFC0",
-"@	c #FFFFFF",
-"#	c #303030",
-"........   ",
-".++++++..  ",
-".++++++.@. ",
-".++++++....",
-".+++++++++.",
-".++...#.++.",
-".+++++++++.",
-".+++....++.",
-".+++++++++.",
-".++....+++.",
-".+++++++++.",
-"..........."};
-
-static const char *frlibrary_xpm[] = {
-"12 12 6 1",
-" 	c None",
-".	c #000000",
-"+	c #0000FF",
-"@	c #C0C0C0",
-"#	c #808080",
-"$	c #FFFFFF",
-"     ..     ",
-"   ..++.    ",
-" ..+++++.   ",
-"..+++++++.  ",
-".@.+++++++. ",
-".+@.++++++..",
-" .+@.+++..#$",
-"  .+@...##@$",
-"   .+@.#@@..",
-"    .+.#..  ",
-"     ...    ",
-"            "};
-
-static const char *cgroup_xpm[] = {
-"15 12 12 1",
-" 	c None",
-".	c #000000",
-"+	c #FFFFFF",
-"@	c #CDD2AC",
-"#	c #CACFAA",
-"$	c #CCD1AB",
-"%	c #CED3AE",
-"&	c #CED3AF",
-"*	c #C9CEA9",
-"=	c #C8CDA8",
-"-	c #CDD2AD",
-";	c #C8CDA9",
-"  ....         ",
-" .++++.        ",
-"............   ",
-".@@@@@@@@@@@.  ",
-".@@@@@@@@@@@.  ",
-".@#$%&%@@@@@.  ",
-".@*$&@@@@@@@.  ",
-".@=@-@@@@@@@.  ",
-".@;-@@@@@@@@.  ",
-".@@@@@@@@@@@.  ",
-".@@@@@@@@@@@.  ",
-" ...........   "};
-
-static const char *ogroup_xpm[] = {
-"15 12 5 1",
-" 	c None",
-".	c #000000",
-"+	c #FFFFFF",
-"@	c #CDD2AC",
-"#	c #979B84",
-"  ....         ",
-" .++++.        ",
-".@#####.....   ",
-".@##########.  ",
-".@##.......... ",
-".##.@@@@@@@@@@.",
-".##.@@@@@@@@@@.",
-".#.@@@@@@@@@@. ",
-".#.@@@@@@@@@@. ",
-"..@@@@@@@@@@.  ",
-"..@@@@@@@@@@.  ",
-" ...........   "};
-
-
-static const char * frnode_xpm[] = {
-"12 12 3 1",
-" 	c None",
-".	c #000000",
-"+	c #4B6983",
-"            ",
-"     ..     ",
-"    .++.    ",
-"    .++.    ",
-"   .++++.   ",
-"  .++++++.  ",
-"  .++++++.  ",
-" .++++++++. ",
-"..++++++++..",
-".++++++++++.",
-"............",
-"            "};
-
-static const char * frpoint_xpm[] = {
-"8 8 3 1",
-" 	c None",
-".	c #000000",
-"+	c #4B6983",
-"  ....  ",
-" .++++. ",
-".++++++.",
-".++++++.",
-".++++++.",
-".++++++.",
-" .++++. ",
-"  ....  "};
-
 
 
 Tinfb infb_v;
@@ -171,13 +50,7 @@ static void infb_init(void) {
 	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,infb_sidepanel_initgui);
 	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,infb_sidepanel_destroygui);
 	
-	infb_v.icon_note = gdk_pixbuf_new_from_xpm_data(frnote_xpm);
-	infb_v.icon_doc = gdk_pixbuf_new_from_xpm_data(frlibrary_xpm);
-	infb_v.icon_ogroup = gdk_pixbuf_new_from_xpm_data(ogroup_xpm);
-	infb_v.icon_cgroup = gdk_pixbuf_new_from_xpm_data(cgroup_xpm);
-	infb_v.icon_node = gdk_pixbuf_new_from_xpm_data(frnode_xpm);
-	infb_v.icon_point = gdk_pixbuf_new_from_xpm_data(frpoint_xpm);
-		
+	
 	DEBUG_MSG("infb_init finished \n");
 }
 

@@ -209,10 +209,7 @@ static void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node)
 	xmlChar *text2;
 	if (!text) return;
 	text2 = xmlGetProp(node,BAD_CAST "expanded");
-	if ( text2 && xmlStrcmp(text2,BAD_CAST "1")==0 )
-		infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_ogroup),NULL);
-	else
-		infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_cgroup),NULL);	
+	infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_DIRECTORY,GTK_ICON_SIZE_MENU),NULL);		
 	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));	
 	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_GROUP,NULL);
 	g_object_set_data (G_OBJECT (tag), "type", &infb_v.nt_group);
@@ -243,6 +240,7 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 				if ( text ) {
 						infb_insert_title(buff,text);
 						xmlFree(text);
+						infb_insert_line(buff,"",NULL);
 				}
 				auxn = node->xmlChildrenNode;
 				while ( auxn ) {
@@ -253,7 +251,7 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 			else	if ( xmlStrcmp(node->name,BAD_CAST "fileref") ==0 ) { /* fileref  - this will link child */
 				text = xmlGetProp(node,BAD_CAST "name");
 				if ( text ) {
-					infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_doc),NULL);
+					infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_FILE,GTK_ICON_SIZE_MENU),NULL);
 					text2 = xmlNodeGetContent(node);
 					infb_insert_fileref(buff,text,text2);					
 					xmlFree(text2);
@@ -300,7 +298,7 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 				{
 					text = xmlGetProp(node,BAD_CAST "title");
 					if ( text ) {
-						infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_note),levstr);
+						infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_EDIT,GTK_ICON_SIZE_MENU),levstr);
 						infb_insert_node(buff,text,node);											
 						xmlFree(text);
 					}
@@ -377,7 +375,7 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 															str = g_strconcat((gchar*)text," (",(gchar*)text2,")",NULL);
 														else 
 															str = g_strdup((gchar*)text);
-														infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_point),NULL);											
+														infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_ABOUT,GTK_ICON_SIZE_MENU),NULL);											
 														infb_insert_line(buff,BAD_CAST str,NULL);
 														g_free(str);
 														xmlFree(text);
@@ -410,7 +408,7 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 															str = g_strconcat((gchar*)text," (",(gchar*)text2,")",NULL);
 														else 
 															str = g_strdup((gchar*)text);			
-														infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_point),NULL);								
+														infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_ABOUT,GTK_ICON_SIZE_MENU),NULL);								
 														infb_insert_line(buff,BAD_CAST str,NULL);
 														g_free(str);
 														xmlFree(text);
@@ -458,7 +456,7 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 															str = g_strconcat((gchar*)text2," (",(gchar*)text3,")",NULL);
 														else 
 															str = g_strdup((gchar*)text2);		
-														infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_point),NULL);									
+														infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_ABOUT,GTK_ICON_SIZE_MENU),NULL);									
 														infb_insert_line(buff,BAD_CAST str,NULL);
 														g_free(str);
 														xmlFree(text2);
@@ -485,7 +483,7 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 															str = g_strconcat((gchar*)text2," (",(gchar*)text3,")",NULL);
 														else 
 															str = g_strdup((gchar*)text2);		
-														infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_point),NULL);									
+														infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_ABOUT,GTK_ICON_SIZE_MENU),NULL);									
 														infb_insert_line(buff,BAD_CAST str,NULL);
 														g_free(str);
 														xmlFree(text2);
@@ -534,7 +532,7 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 									str = g_strconcat((gchar*)text," (",(gchar*)text2,")",NULL);
 								else 
 									str = g_strdup((gchar*)text);
-								infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_point),NULL);											
+								infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_ABOUT,GTK_ICON_SIZE_MENU),NULL);											
 								infb_insert_line(buff,BAD_CAST str,NULL);
 								g_free(str);
 								xmlFree(text);
@@ -563,7 +561,7 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 									str = g_strconcat((gchar*)text," (",(gchar*)text2,")",NULL);
 								else 
 									str = g_strdup((gchar*)text);			
-								infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_point),NULL);								
+								infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_ABOUT,GTK_ICON_SIZE_MENU),NULL);								
 								infb_insert_line(buff,BAD_CAST str,NULL);
 								g_free(str);
 								xmlFree(text);
@@ -626,7 +624,7 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 			  else {
 				text = xmlGetProp(node,BAD_CAST "name");
 				if ( text ) {
-					infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_node),levstr);
+					infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_ABOUT,GTK_ICON_SIZE_MENU),levstr);
 					infb_insert_node(buff,text,node);					
 					xmlFree(text);
 				}
@@ -681,8 +679,9 @@ void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root) {
 	if ( infb_v.currentDoc == infb_v.homeDoc ) {
 		infb_insert_line(buff,BAD_CAST "","");
 		infb_insert_title(buff,BAD_CAST _("Specials"));
+		infb_insert_line(buff,BAD_CAST "",NULL);
 		if ( infb_v.lastSearch != NULL ) {
-			infb_insert_icon(view,gtk_image_new_from_pixbuf(infb_v.icon_doc),NULL);
+			infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_FILE,GTK_ICON_SIZE_MENU),NULL);
 			infb_insert_fileref_loaded(buff,BAD_CAST _("Last search"),infb_v.lastSearch);							
 		}	
 	}

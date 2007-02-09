@@ -367,7 +367,9 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	gtk_box_pack_start(GTK_BOX(box), box3, FALSE, FALSE, 2);
 	gtk_box_pack_end(GTK_BOX(box), box2, FALSE, FALSE, 2);
 	
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),box,image,gtk_label_new(_("info browser")));
+	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),box,
+											gtk_image_new_from_stock(GTK_STOCK_INFO,GTK_ICON_SIZE_LARGE_TOOLBAR),
+											gtk_label_new(_("info browser")));
 	infb_load();
 	infb_v.currentDoc = infb_v.homeDoc;
 	infb_fill_doc(bfwin,NULL);		

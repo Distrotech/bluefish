@@ -51,8 +51,7 @@ typedef struct {
 	xmlDocPtr homeDoc;
 	xmlDocPtr lastSearch;
 	guchar nt_fileref, nt_node, nt_group; 	/* node types */
-	GHashTable *windows; /* list of windows - concerning several instances of bfish ? */
-	GdkPixbuf *icon_note,*icon_doc, *icon_ogroup, *icon_cgroup, *icon_node, *icon_point;		
+	GHashTable *windows; /* list of windows - concerning several instances of bfish ? */	
 } Tinfb;
 
 typedef struct {
