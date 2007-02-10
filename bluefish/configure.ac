@@ -1,8 +1,8 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.143 2007-02-09 01:09:31 swida Exp $
+dnl $Id: configure.ac,v 1.144 2007-02-10 20:22:05 jimh6583 Exp $
 dnl
-dnl Copyright (C) 2002-2006 Olivier Sessink
+dnl Copyright (C) 2002-2007 Olivier Sessink
 dnl Copyright (C) 2006 Daniel Leidert
 dnl
 dnl This file is free software. The copyright owner gives unlimited
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.143 $)
+AC_REVISION($Revision: 1.144 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -564,9 +564,10 @@ AC_CONFIG_FILES([
 	src/plugin_htmlbar/Makefile
 	src/plugin_htmlbar/pixmaps/Makefile
 	src/plugin_htmlbar/po/Makefile.in
+	src/plugin_infbrowser/Makefile
+	src/plugin_infbrowser/po/Makefile.in
 	src/plugin_snippets/Makefile
 	src/plugin_snippets/po/Makefile.in
-	src/plugin_infbrowser/Makefile
 ])
 AC_OUTPUT
 

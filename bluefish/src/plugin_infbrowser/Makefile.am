@@ -1,5 +1,5 @@
 
-#SUBDIRS = po
+SUBDIRS = po
 
 EXTRA_DIST = infbrowser.def
 

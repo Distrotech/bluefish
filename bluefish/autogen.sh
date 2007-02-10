@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: autogen.sh,v 1.8 2007-02-05 05:27:05 jimh6583 Exp $
+# $Id: autogen.sh,v 1.9 2007-02-10 20:22:05 jimh6583 Exp $
 
 set -e
 
@@ -41,6 +41,7 @@ GETTEXT_PO_DIRS="
 src/plugin_about/po
 src/plugin_entities/po
 src/plugin_htmlbar/po
+src/plugin_infbrowser/po
 src/plugin_snippets/po
 "
 
