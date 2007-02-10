@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * rcfile.c - loading and parsing of the configfiles
  *
- * Copyright (C) 2000-2006 Olivier Sessink
+ * Copyright (C) 2000-2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -77,7 +77,6 @@
 #include "rcfile.h"
 #include "bf_lib.h"
 #include "document.h"    /* DOCUMENT_BACKUP_ABORT_ASK */
-#include "fref2.h"
 #include "plugins.h"
 #include "stringlist.h"
 
@@ -437,9 +436,6 @@ static GList *props_init_main(GList * config_rc)
 #ifndef NOSPLASH
 	init_prop_integer(&config_rc, &main_v->props.show_splash_screen, "show_splash_screen:", 1, TRUE);
 #endif
-	init_prop_string    (&config_rc, &main_v->props.bflib_info_font,"bflib_info_font:","Sans 9");
-	init_prop_string    (&config_rc, &main_v->props.bflib_info_bkg,"bflib_info_bkg:","#FFFFFF");
-	init_prop_string    (&config_rc, &main_v->props.bflib_info_fg,"bflib_info_fg:","#000000");
 	init_prop_arraylist (&config_rc, &main_v->props.plugin_config, "plugin_config:", 3, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_blocks, "view_blocks:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_symbols, "view_symbols:", 1, TRUE);	
@@ -859,8 +855,6 @@ static GList *return_globalsession_configlist(gboolean init_values) {
 	init_prop_integer   (&config_rc, &main_v->globses.main_window_w, "main_window_width:", 600, init_values); /* negative width means maximized */
 	init_prop_integer   (&config_rc, &main_v->globses.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.left_panel_width, "left_panel_width:", 150, init_values);
-	init_prop_integer   (&config_rc, &main_v->globses.fref_ldoubleclick_action,"fref_ldoubleclick_action:",0, init_values);
-	init_prop_integer   (&config_rc, &main_v->globses.fref_info_type,"fref_info_type:",0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_cust_menu, "lasttime_cust_menu:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_filetypes, "lasttime_filetypes:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_encodings, "lasttime_encodings:", 0, init_values);
@@ -979,8 +973,6 @@ gboolean rcfile_parse_global_session(void) {
 		gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 		/* if the user does not yet have any function reference files, set them to default values */
 		DEBUG_MSG("rcfile_parse_global_session, no reference files yet, scan directories!\n");
-		fref_rescan_dir(PKGDATADIR"/bflib/");
-		fref_rescan_dir(userdir);
 		g_free(userdir);
 	}
 	

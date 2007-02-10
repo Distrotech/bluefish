@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gui.c - the main GUI
  *
- * Copyright (C) 2002-2005 Olivier Sessink
+ * Copyright (C) 2002-2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,31 +21,29 @@
 /* #define DEBUG */
 
 #include <gtk/gtk.h>
-#include <time.h>		/* nanosleep() */
-#include <string.h>	/* strchr() */
-#include <unistd.h>	/* exit() */
-#include <stdlib.h>	/* exit() on Solaris */
+#include <time.h>      /* nanosleep() */
+#include <string.h>    /* strchr() */
+#include <unistd.h>    /* exit() */
+#include <stdlib.h>    /* exit() on Solaris */
 
 #include "config.h"
 
 #include "bluefish.h"
-#include "bf_lib.h"			/* get_int_from_string() */
+#include "bf_lib.h"         /* get_int_from_string() */
 #include "bookmark.h"
-#include "document.h"		/* file_new_cb() */
-/* #include "filebrowser.h" */
+#include "document.h"       /* file_new_cb() */
 #include "filebrowser2.h"
 #include "file_dialogs.h"
-#include "fref2.h"
 #include "gtk_easy.h"
 #include "gui.h"
-#include "menu.h"				/* menu_create_main(), recent_menu_init() */
-#include "outputbox.h"		/* init_outputbox() */
-#include "pixmap.h"			/* new_pixmap(); */
-#include "preferences.h"	/* open_preferences_cb */
+#include "menu.h"           /* menu_create_main(), recent_menu_init() */
+#include "outputbox.h"      /* init_outputbox() */
+#include "pixmap.h"         /* new_pixmap(); */
+#include "preferences.h"    /* open_preferences_cb */
 #include "project.h"
-#include "snr2.h"				/* search_cb, replace_cb */
+#include "snr2.h"           /* search_cb, replace_cb */
 #include "stringlist.h"
-#include "undo_redo.h"		/* undo_cb() redo_cb() etc. */
+#include "undo_redo.h"      /* undo_cb() redo_cb() etc. */
 #include "plugins.h"
 
 #ifdef HAVE_LIBASPELL
@@ -242,7 +240,6 @@ static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpo
 }
 
 GtkWidget *left_panel_build(Tbfwin *bfwin) {
-	GtkWidget *fref;
 	GtkWidget *bmarks;
 	GtkWidget *fb2g;
 	bfwin->leftpanel_notebook = gtk_notebook_new();
@@ -253,13 +250,10 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 	gtk_notebook_set_tab_vborder(GTK_NOTEBOOK(bfwin->leftpanel_notebook), 0);
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->leftpanel_notebook));
 	DEBUG_MSG("left_panel_build, building left panel for bfwin %p\n",bfwin);
-/*	fileb = filebrowser_init(bfwin);*/
-	fref = fref_gui(bfwin);
 	bmarks = bmark_gui(bfwin);
 	fb2g = fb2_init(bfwin);
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),fb2g,new_pixmap(105),gtk_label_new(_("Filebrowser")));
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),bmarks,new_pixmap(104),gtk_label_new(_("Bookmarks")));
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),fref,new_pixmap(106),gtk_label_new(_("Function reference")));
 	
 	if (main_v->sidepanel_initgui) {
 		GSList *tmplist = main_v->sidepanel_initgui;
@@ -277,7 +271,6 @@ GtkWidget *left_panel_build(Tbfwin *bfwin) {
 }
 
 static void left_panel_cleanup(Tbfwin *bfwin) {
-	fref_cleanup(bfwin);
 	bmark_cleanup(bfwin);
 	fb2_cleanup(bfwin);
 	if (main_v->sidepanel_destroygui) {

@@ -2,7 +2,7 @@
  * bluefish.c - the main function
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2006 Olivier Sessink
+ * Copyright (C) 1999-2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,7 +42,6 @@
 #include "filebrowser2.h"
 #include "filetype.h"
 #include "file_dialogs.h"
-#include "fref2.h"         /* fref_init() */
 #include "gtk_easy.h"      /* flush_queue() */
 #include "gui.h"           /* gui_create_main() */
 #include "msg_queue.h"     /* msg_queue_start()*/
@@ -243,7 +242,6 @@ int main(int argc, char *argv[])
 #endif /* #ifndef NOSPLASH */
 	rcfile_parse_custom_menu(FALSE,FALSE);
 	main_v->tooltips = gtk_tooltips_new();
-	fref_init();
 	main_v->bmarkdata = bookmark_data_new();
 #ifdef WITH_MSG_QUEUE
 	if (!filenames && !projectfiles && main_v->props.open_in_running_bluefish) {
