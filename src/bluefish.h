@@ -2,7 +2,7 @@
  * bluefish.h - global prototypes
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2006 Olivier Sessink
+ * Copyright (C) 1999-2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -256,9 +256,6 @@ typedef struct {
 	gint open_in_running_bluefish; /* open commandline documents in already running session*/
 	gint server_zope_compat;        /* add 'document_src' to uri when reading remote files */
 	gint show_splash_screen;
-	gchar *bflib_info_font;
-	gchar *bflib_info_bkg;
-	gchar *bflib_info_fg;
 	GList *plugin_config; /* array, 0=filename, 1=enabled, 2=name*/
 	gint view_blocks; /* show blocks on the left side by default */
 	gint view_symbols; /* show symbols on the left side by default */	
@@ -282,8 +279,6 @@ typedef struct {
 	gint main_window_w;			/* main window width */
 	gint two_pane_filebrowser_height; /* position of the pane separater on the two paned file browser */
 	gint left_panel_width; 	/* width of filelist */
-	gint fref_ldoubleclick_action; /* left doubleclick in the function reference */
-	gint fref_info_type; /* type of info shown in a small function reference window */
 	gint lasttime_cust_menu; /* the last time the defaultfile was checked for new entries */
 	gint lasttime_filetypes; /* see above */
 	gint lasttime_encodings; /* see above */
@@ -394,7 +389,6 @@ typedef struct {
 /*	gpointer filebrowser;*/
 	gpointer fb2; /* filebrowser2 gui */
 	gpointer snr2;
-	gpointer fref;
 	gpointer bmark;
 	gpointer bmarkdata; /* a link to the global main_v->bmarkdata, OR project->bmarkdata */
 /*	GtkTreeStore *bookmarkstore; / * this is a link to project->bookmarkstore OR main_v->bookmarkstore
@@ -414,7 +408,6 @@ typedef struct {
 	gpointer filebrowserconfig;
 	gpointer fb2config; /* filebrowser2config */
 	GList *filefilters; /* initialized by fb2config functions */
-	gpointer frefdata;
 	gpointer bmarkdata;
 /* 	GtkTreeStore *bookmarkstore; the global bookmarks from the global session */
 	gint num_untitled_documents;

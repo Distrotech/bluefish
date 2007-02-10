@@ -1,7 +1,7 @@
 
 AUTOMAKE_OPTIONS = std-options
 
-SUBDIRS = pixmaps plugin_about plugin_entities plugin_htmlbar plugin_snippets plugin_infbrowser
+SUBDIRS = pixmaps plugin_about plugin_entities plugin_htmlbar plugin_infbrowser plugin_snippets
 
 MAINTAINERCLEANFILES = Makefile.in config.h.in
 
@@ -44,8 +44,6 @@ bluefish_unstable_SOURCES = \
 	filefilter.h \
 	filetype.c \
 	filetype.h \
-	fref2.c \
-	fref2.h \
 	gtk_easy.c \
 	gtk_easy.h \
 	gui.c \
@@ -76,4 +74,3 @@ bluefish_unstable_SOURCES = \
 	treetips.h \
 	undo_redo.c \
 	undo_redo.h
-

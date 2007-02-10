@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * preferences.c - the preferences code
  *
- * Copyright (C) 2002-2006 Olivier Sessink
+ * Copyright (C) 2002-2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -122,9 +122,6 @@ enum {
 	open_in_running_bluefish,     /* open commandline documents in already running session*/
 #endif /* WITH_MSG_QUEUE */
 	server_zope_compat,
-	bflib_info_font,
-	bflib_info_bkg,
-	bflib_info_fg,
 	view_blocks,
 	view_symbols,		
 	view_mbhl,
@@ -1740,10 +1737,6 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.document_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[document_tabposition]));
 	main_v->props.leftpanel_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[leftpanel_tabposition]));
 	main_v->props.left_panel_left = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[left_panel_left]));
-
-	string_apply(&main_v->props.bflib_info_font, pd->prefs[bflib_info_font]);
-	string_apply(&main_v->props.bflib_info_bkg, pd->prefs[bflib_info_bkg]);
-	string_apply(&main_v->props.bflib_info_fg, pd->prefs[bflib_info_fg]);
 	
 /*	integer_apply(&main_v->props.view_main_toolbar, pd->prefs[view_main_toolbar], TRUE);
 	integer_apply(&main_v->props.view_left_panel, pd->prefs[view_left_panel], TRUE);
@@ -2103,19 +2096,6 @@ static void preferences_dialog() {
 	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->globses.main_window_w, vbox2, pd, 1, 4000);
 	restore_dimensions_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions]), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[restore_dimensions]), "toggled", G_CALLBACK(restore_dimensions_toggled_lcb), pd);
-
-	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_tree_store_append(pd->nstore, &auxit, &iter);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Reference library"), WIDGETCOL,vbox1,-1);	
-
-	frame = gtk_frame_new(_("Reference library"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-
-	pd->prefs[bflib_info_font] = prefs_string(_("Font"), main_v->props.bflib_info_font, vbox2, pd, string_font);
-	pd->prefs[bflib_info_bkg] = prefs_string(_("Info background color"), main_v->props.bflib_info_bkg, vbox2, pd, string_color);
-	pd->prefs[bflib_info_fg] = prefs_string(_("Info foreground color"), main_v->props.bflib_info_fg, vbox2, pd, string_color);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
