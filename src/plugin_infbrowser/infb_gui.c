@@ -21,6 +21,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h> 
 #include <string.h>
+#include <time.h>
 #include "../dialog_utils.h"
 #include "infbrowser.h"
 #include "infb_gui.h"
@@ -28,40 +29,6 @@
 #include "infb_load.h"
 #include "infb_dtd.h"
 #include "infb_wizard.h"
-
-static const char *infb_xpm[] = {
-"24 24 6 1",
-" 	c None",
-".	c #000000",
-"+	c #525DC8",
-"@	c #FFFFFF",
-"#	c #838080",
-"$	c #989A9F",
-"                        ",
-"       .....            ",
-"     ...+++...          ",
-"   ...+++++++...        ",
-"   .+++++@@++++.        ",
-"  ..+++++@@++++..       ",
-"  .+++++++++++++.       ",
-" ..+++++@@@+++++..      ",
-" .+++++++@@++++++.      ",
-" .+++++++@@++++++.      ",
-" .+++++++@@++++++.      ",
-" ..++++++@@+++++..      ",
-"  .++++++@@+++++.       ",
-"  ..++++@@@++++..       ",
-"   .+++++++++++..       ",
-"   ...+++++++.....      ",
-"     ...+++....#$..     ",
-"       .....  ..#$..    ",
-"               ..#$..   ",
-"                ..#$.   ",
-"                 ..#.   ",
-"                  ...   ",
-"                        ",
-"                        "};
-
 
 
 /*
@@ -140,7 +107,8 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       	tag = tagp->data;
       	aux = g_object_get_data(G_OBJECT(tag),"type");
       	if ( aux && aux == &infb_v.nt_fileref) { /* fileref */
-      		if (infb_v.currentDoc!=NULL && infb_v.currentDoc!=infb_v.homeDoc && infb_v.currentDoc!=infb_v.lastSearch)
+      		infb_v.currentNode = NULL;
+      		if (infb_v.currentDoc!=NULL && infb_v.currentDoc!=infb_v.homeDoc)
       			xmlFreeDoc(infb_v.currentDoc);
       		aux = g_object_get_data(G_OBJECT(tag),"loaded");
       		if ( aux ) {
@@ -182,6 +150,7 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       							} else xmlFree(text);
       						}
       					}
+      					infb_v.currentNode = auxnode;
 		      			infb_v.currentDoc = doc;
 							infb_fill_doc(bfwin,NULL);      				
       				}				
@@ -192,6 +161,7 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       	else if ( aux == &infb_v.nt_group ) { /* group */
 				aux = g_object_get_data(G_OBJECT(tag),"node");
 				if ( aux ) {
+					infb_v.currentNode = NULL;
 					auxnode = (xmlNodePtr)aux;
 					text = xmlGetProp(auxnode,BAD_CAST "expanded");
 					if ( !text ) {
@@ -213,6 +183,7 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       	else if ( aux == &infb_v.nt_node ) { /* node */
 				aux = g_object_get_data(G_OBJECT(tag),"node");
 				if ( aux ) {
+					infb_v.currentNode = (xmlNodePtr)aux;
 					infb_fill_doc( bfwin, (xmlNodePtr)aux );
 				}
 			} /* node */
@@ -230,10 +201,62 @@ static void infb_idx_clicked(GtkButton *button, gpointer data) {
 
 static void infb_midx_clicked(GtkButton *button, gpointer data) {
 	if ( !data ) return;
-	if (infb_v.currentDoc!=NULL && infb_v.currentDoc!=infb_v.homeDoc && infb_v.currentDoc!=infb_v.lastSearch)
+	if (infb_v.currentDoc!=NULL && infb_v.currentDoc!=infb_v.homeDoc)
 		xmlFreeDoc(infb_v.currentDoc);
 	infb_v.currentDoc = infb_v.homeDoc;
+	infb_v.currentNode = NULL;
 	infb_fill_doc(BFWIN(data),NULL);
+}
+
+static void infb_save_clicked(GtkButton *button, gpointer data) {
+	gchar *pstr;
+	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
+	FILE *f;
+	xmlBufferPtr buff;
+	xmlChar *text; 
+	
+	if ( !data ) return;
+	if (infb_v.currentNode!=NULL) {
+		if ( xmlStrcmp(infb_v.currentNode->name,BAD_CAST "element")==0 ||
+			  xmlStrcmp(infb_v.currentNode->name,BAD_CAST "ref")==0 )
+			text = xmlGetProp(infb_v.currentNode,BAD_CAST "name");
+		else 	if ( xmlStrcmp(infb_v.currentNode->name,BAD_CAST "note")==0 ||
+					  xmlStrcmp(infb_v.currentNode->name,BAD_CAST "search_result")==0	  )
+			text = xmlGetProp(infb_v.currentNode,BAD_CAST "title");
+		else 
+			text = xmlStrdup(BAD_CAST "unknown");	
+		pstr = g_strdup_printf("%s/bfrag_%s_%ld",userdir,
+										(gchar*)text,(long int)time(NULL));
+		xmlFree(text);									
+		f = fopen(pstr,"w");
+		buff = xmlBufferCreate();
+		xmlNodeDump(buff,infb_v.currentDoc,infb_v.currentNode,1,1);
+		xmlBufferDump(f,buff);
+		xmlBufferFree(buff);
+		fclose(f);
+		g_free(pstr);
+		infb_load_fragments();
+	}
+	g_free(userdir);
+}
+
+static void infb_save_changed(GtkComboBox *widget,gpointer data) {
+	GtkTreeIter iter;
+	gchar *val;
+	xmlDocPtr doc;
+	
+	if ( !infb_v.saved_store || !data) return;
+	if ( gtk_combo_box_get_active_iter(widget,&iter)) {
+		gtk_tree_model_get(GTK_TREE_MODEL(infb_v.saved_store), &iter, 1, &val,-1);
+		if ( val ) {
+			doc = xmlParseFile(val);
+			if (doc) {
+				infb_v.currentDoc = doc;
+				infb_v.currentNode = NULL;
+				infb_fill_doc(BFWIN(data),NULL);
+			}
+		}	
+	}
 }
 
 /*
@@ -256,28 +279,28 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 	gchar *txt,*str;
 	xmlXPathObjectPtr result;	
 	gint i;
-	xmlDocPtr doc; /* returned document */
 	xmlNodePtr node,node2;
+	gboolean found = FALSE;
 	
 	if ( event->keyval != GDK_Return )	return FALSE;
 	if (infb_v.currentDoc == NULL ) return FALSE; 
 	txt = (gchar*)gtk_entry_get_text(GTK_ENTRY(widget));
 	if ( txt && strcmp(txt,"")!=0) {
 	
-		doc = xmlNewDoc(BAD_CAST "1.0");	
-		node = xmlNewDocNode(infb_v.homeDoc,NULL,BAD_CAST "ref",NULL);
-		xmlNewProp(node,BAD_CAST "name",BAD_CAST _("Search results"));
-		xmlNewProp(node,BAD_CAST "type",BAD_CAST "search");
-		xmlDocSetRootElement(doc,node);	
-	
+		node = xmlNewDocNode(infb_v.currentDoc,NULL,BAD_CAST "search_result",NULL);
+		str = g_strconcat("Search: ",txt,NULL);
+		xmlNewProp(node,BAD_CAST "title",BAD_CAST str);
+		g_free(str);
+
 		switch (infb_v.currentType) {
 			default: /* fref2 */
 				str = g_strconcat("/descendant::element[contains(@name,\"",txt,"\")]",NULL);
 				result = getnodeset(infb_v.currentDoc,BAD_CAST str,NULL);
 				g_free(str);
 				if (result) {
+					found = TRUE;
 					for(i=0;i<result->nodesetval->nodeNr;i++) {						
-						node2 = xmlDocCopyNode(result->nodesetval->nodeTab[i],doc,1);
+						node2 = xmlDocCopyNode(result->nodesetval->nodeTab[i],infb_v.currentDoc,1);
 						xmlAddChild(node,node2);
 					}
 				}
@@ -285,19 +308,25 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 				result = getnodeset(infb_v.currentDoc,BAD_CAST str,NULL);
 				g_free(str);
 				if (result) {
+					found = TRUE;
 					for(i=0;i<result->nodesetval->nodeNr;i++) {
-						node2 = xmlDocCopyNode(result->nodesetval->nodeTab[i],doc,1);
+						node2 = xmlDocCopyNode(result->nodesetval->nodeTab[i],infb_v.currentDoc,1);
 						xmlAddChild(node,node2);
 					}
 				}				
 								
 			break;
-		} /* switch */		
-		if (infb_v.lastSearch!=NULL)
-			xmlFreeDoc(infb_v.lastSearch);
-		infb_v.lastSearch = doc;	
-		infb_v.currentDoc = doc;
-		infb_fill_doc(bfwin,NULL);		
+		} /* switch */
+		
+		if ( found ) {		
+			node2 = xmlDocGetRootElement(infb_v.currentDoc);
+			xmlAddChild(node2,node);	
+			infb_fill_doc(bfwin,node);
+		}	
+		else {
+			message_dialog_new(bfwin->main_window,GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Nothing found"),"");
+			xmlFreeNode(node);
+		}	 
 	}
 	return FALSE;
 } 
@@ -307,8 +336,9 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	Tinfbwin *win;
 	GtkWidget *scrolwin,*box,*box2,*box3;
-	GdkPixbuf *pixbuf;
-	GtkWidget *image;
+	GtkCellRenderer *rend = gtk_cell_renderer_text_new();
+	GtkStyle *style;
+	PangoFontDescription *fd;
 	
 	box = gtk_vbox_new(FALSE, 1);
 	box2 = gtk_hbox_new(FALSE, 1);
@@ -333,9 +363,6 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), win->view);
-	pixbuf = gdk_pixbuf_new_from_xpm_data(infb_xpm);
-	image = gtk_image_new_from_pixbuf(pixbuf);
-	g_object_unref(pixbuf);
 
 	win->sentry = gtk_entry_new();	
 	gtk_box_pack_start(GTK_BOX(box2), gtk_label_new(_("Find")), FALSE, TRUE, 2);
@@ -351,8 +378,26 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	win->btn_up = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(win->btn_up), gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU));
 	g_signal_connect (win->btn_up, "clicked",G_CALLBACK (infb_idx_clicked), bfwin);
-	gtk_tooltips_set_tip(main_v->tooltips, win->btn_up, _("Up to main document"), "");
+	gtk_tooltips_set_tip(main_v->tooltips, win->btn_up, _("Up to main index"), "");
 	gtk_box_pack_start(GTK_BOX(box3), win->btn_up, FALSE, FALSE, 2);	
+	win->saved = gtk_combo_box_new_with_model(GTK_TREE_MODEL(infb_v.saved_store));
+	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (win->saved), rend, FALSE);
+	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(win->saved),rend,"text",0,NULL);
+	g_signal_connect (win->saved, "changed",G_CALLBACK (infb_save_changed), bfwin);
+	gtk_tooltips_set_tip(main_v->tooltips, win->saved, _("Saved fragments"), "");
+	gtk_box_pack_start(GTK_BOX(box3), win->saved, FALSE, FALSE, 2);
+	style = gtk_widget_get_style(win->saved);
+	fd = pango_font_description_copy(style->font_desc);	
+	pango_font_description_set_size(fd,8);
+	
+	
+		
+	win->btn_copy = gtk_button_new();
+	gtk_container_add(GTK_CONTAINER(win->btn_copy), gtk_image_new_from_stock(GTK_STOCK_COPY,GTK_ICON_SIZE_MENU));
+	g_signal_connect (win->btn_copy, "clicked",G_CALLBACK (infb_save_clicked), win);
+	gtk_tooltips_set_tip(main_v->tooltips, win->btn_copy, _("Save current view"), "");
+	gtk_box_pack_start(GTK_BOX(box3), win->btn_copy, FALSE, FALSE, 2);	
+	
 	/*win->btn_add = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(win->btn_add), gtk_image_new_from_stock(GTK_STOCK_NEW,GTK_ICON_SIZE_MENU));
 	g_signal_connect (win->btn_add, "clicked",G_CALLBACK (infb_add_clicked), bfwin);
@@ -372,7 +417,9 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),box,
 											gtk_image_new_from_stock(GTK_STOCK_INFO,GTK_ICON_SIZE_LARGE_TOOLBAR),
 											gtk_label_new(_("info browser")));
+	gtk_widget_modify_font(win->saved,fd);										
 	infb_load();
+	infb_load_fragments();
 	infb_v.currentDoc = infb_v.homeDoc;
 	infb_fill_doc(bfwin,NULL);		
 }
