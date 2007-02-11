@@ -49,16 +49,17 @@ typedef struct {
 	xmlNodePtr currentNode;
 	guchar currentType;
 	xmlDocPtr homeDoc;
-	xmlDocPtr lastSearch;
 	guchar nt_fileref, nt_node, nt_group; 	/* node types */
-	GHashTable *windows; /* list of windows - concerning several instances of bfish ? */	
+	GHashTable *windows; /* list of windows - concerning several instances of bfish ? */
+	GtkListStore *saved_store;	
 } Tinfb;
 
 typedef struct {
 	Tbfwin *bfwin;
 	GtkWidget *view;
 	GtkWidget *sentry; /* search entry */
-	GtkWidget *btn_add,*btn_del,*btn_home,*btn_up;
+	GtkWidget *btn_add,*btn_del,*btn_home,*btn_up,*btn_copy;
+	GtkWidget *saved;
 	GdkCursor *hand_cursor;
 	GdkCursor *regular_cursor;
 	gboolean hovering_over_link;	

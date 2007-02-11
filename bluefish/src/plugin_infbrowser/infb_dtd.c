@@ -20,6 +20,9 @@
 
 #include "infb_dtd.h"
 
+static GList *dtd_groups[6];
+
+
 static gchar *infb_dtd_str_content(xmlElementContentPtr ct,gchar *sofar) {
 	gchar *ret = sofar,*tofree;
 	if (ct==NULL) return ret;
@@ -78,17 +81,38 @@ static gchar *infb_dtd_str_content(xmlElementContentPtr ct,gchar *sofar) {
 	return ret;
 }
 
-static void infb_dtd_element(void *payload, void *data, xmlChar *name) {
-	xmlDocPtr doc = (xmlDocPtr)data;
+static void infb_dtd_element_to_group(void *payload, void *data, xmlChar *name) {
 	xmlElementPtr el = (xmlElementPtr)payload;
+	switch(name[0]) {
+		case 'a':case 'b':case 'c':case 'd':case 'e':
+		case 'A':case 'B':case 'C':case 'D':case 'E':
+			dtd_groups[0] = g_list_append(dtd_groups[0],el);break;
+		case 'f':case 'g':case 'h':case 'i':case 'j':
+		case 'F':case 'G':case 'H':case 'I':case 'J':
+			dtd_groups[1] = g_list_append(dtd_groups[1],el);break;
+		case 'k':case 'l':case 'm':case 'n':case 'o':
+		case 'K':case 'L':case 'M':case 'N':case 'O':
+			dtd_groups[2] = g_list_append(dtd_groups[2],el);break;
+		case 'p':case 'q':case 'r':case 's':case 't':
+		case 'P':case 'Q':case 'R':case 'S':case 'T':
+			dtd_groups[3] = g_list_append(dtd_groups[3],el);break;
+		case 'u':case 'v':case 'w':case 'x':case 'y': case 'z':
+		case 'U':case 'V':case 'W':case 'X':case 'Y': case 'Z':
+			dtd_groups[4] = g_list_append(dtd_groups[4],el);break;
+		default:			
+			dtd_groups[5] = g_list_append(dtd_groups[5],el);break;
+	}
+}
+
+
+static void infb_dtd_element(xmlDocPtr doc, xmlElementPtr el, xmlNodePtr root) {
 	xmlAttributePtr attr = el->attributes, ptr=NULL;
-	xmlNodePtr root = xmlDocGetRootElement(doc);
 	xmlNodePtr node,node2,node3,txt,enode;
 	gchar *pstr,*tofree;
 	
 	enode = xmlNewNode(NULL,BAD_CAST "element");
 	xmlNewProp(enode, BAD_CAST "kind", BAD_CAST "tag");
-	xmlNewProp(enode, BAD_CAST "name", name);
+	xmlNewProp(enode, BAD_CAST "name", el->name);
 	xmlAddChild(root,enode);
 	node2 = xmlNewNode(NULL,BAD_CAST "properties");
 	xmlAddChild(enode,node2);
@@ -153,14 +177,16 @@ static void infb_dtd_element(void *payload, void *data, xmlChar *name) {
 			xmlAddChild(node3,txt);
 		}	
 		xmlAddChild(enode,node3);
-	}
-			
+	}			
 }
 
 void infb_convert_dtd(xmlDocPtr ref) {
-	xmlNodePtr node;
+	xmlNodePtr node,node2;
 	xmlChar *text;
 	xmlDtdPtr dtd;
+	gint i;
+	GList *lst=NULL;
+	
 	if (ref==NULL) return;
 	node = xmlDocGetRootElement(ref);
 	if (xmlStrcmp(node->name,BAD_CAST "ref")!=0) return;
@@ -174,7 +200,28 @@ void infb_convert_dtd(xmlDocPtr ref) {
 		xmlFree(text);
 		if (dtd) {
 			xmlSetProp(node,BAD_CAST "type",BAD_CAST "fref2");
-			xmlHashScan((xmlHashTablePtr)(dtd->elements),infb_dtd_element,ref);
+			for(i=0;i<6;i++) dtd_groups[i] = NULL;	
+			xmlHashScan((xmlHashTablePtr)(dtd->elements),infb_dtd_element_to_group,ref);
+			for(i=0;i<6;i++) {
+				if (dtd_groups[i]!=NULL) {
+					node2 = xmlNewNode(NULL,BAD_CAST "group");
+					switch (i) {
+						case 0: xmlNewProp(node2, BAD_CAST "name", BAD_CAST "A..E");break;
+						case 1: xmlNewProp(node2, BAD_CAST "name", BAD_CAST "F..J");break;
+						case 2: xmlNewProp(node2, BAD_CAST "name", BAD_CAST "K..O");break;
+						case 3: xmlNewProp(node2, BAD_CAST "name", BAD_CAST "P..T");break;
+						case 4: xmlNewProp(node2, BAD_CAST "name", BAD_CAST "U..Z");break;
+						case 5: xmlNewProp(node2, BAD_CAST "name", BAD_CAST "Other");break;
+						default:break;
+					}
+					xmlAddChild(node,node2);
+					lst = dtd_groups[i];
+					while (lst) {
+						infb_dtd_element(ref,(xmlElementPtr)lst->data,node2);
+						lst = g_list_next(lst);
+					}
+				}
+			}
 			xmlFreeDtd(dtd);
 		}		
 	}	

@@ -282,7 +282,6 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 			}
 			else	if ( xmlStrcmp(node->name,BAD_CAST "note") ==0 ) { /* note */
 				if ( level == 0 ) {
-					/*infb_insert_icon(view, new_pixmap(164),NULL);*/
 					text = xmlGetProp(node,BAD_CAST "title");
 					if ( text ) {
 						infb_insert_title(buff,text);
@@ -304,6 +303,29 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 					}
 				}		
 			} /* note */
+			else	if ( xmlStrcmp(node->name,BAD_CAST "search_result") ==0 ) { /* search result */
+				if ( level == 0 ) {
+					text = xmlGetProp(node,BAD_CAST "title");
+					if ( text ) {
+						infb_insert_title(buff,text);
+						xmlFree(text);
+					}
+					auxn = node->xmlChildrenNode;
+					while ( auxn ) {
+						infb_fill_node(view,doc,auxn,level+1);
+						auxn = auxn->next;
+					}
+				}
+				else 
+				{
+					text = xmlGetProp(node,BAD_CAST "title");
+					if ( text ) {
+						infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_DIALOG_QUESTION,GTK_ICON_SIZE_MENU),levstr);
+						infb_insert_node(buff,text,node);											
+						xmlFree(text);
+					}
+				}		
+			} /* search result */			
 			else	if ( xmlStrcmp(node->name,BAD_CAST "group") ==0 ) { /* group */
 				text = xmlGetProp(node,BAD_CAST "name");
 				text2 = xmlGetProp(node,BAD_CAST "expanded");
@@ -649,6 +671,10 @@ void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root) {
 	if ( !auxp ) return;
 	view = GTK_TEXT_VIEW(((Tinfbwin*)auxp)->view);
 	if ( infb_v.currentDoc == NULL || view==NULL ) return;
+	if ( infb_v.currentNode !=NULL )
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_copy,TRUE);
+	else
+		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_copy,FALSE);	
 	if ( infb_v.currentDoc != infb_v.homeDoc ) {
 		/*gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_add,FALSE);
 		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_del,FALSE);*/
@@ -672,10 +698,11 @@ void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root) {
 		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_up,FALSE);
 	} else 
 	{
+		infb_v.currentNode = root;
 		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_up,TRUE);		
 		infb_fill_node(view,infb_v.currentDoc,root,0);
 	}	
-	/* specials */
+	/* specials 
 	if ( infb_v.currentDoc == infb_v.homeDoc ) {
 		infb_insert_line(buff,BAD_CAST "","");
 		infb_insert_title(buff,BAD_CAST _("Specials"));
@@ -684,7 +711,7 @@ void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root) {
 			infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_FILE,GTK_ICON_SIZE_MENU),NULL);
 			infb_insert_fileref_loaded(buff,BAD_CAST _("Last search"),infb_v.lastSearch);							
 		}	
-	}
+	} */
 }
 
 

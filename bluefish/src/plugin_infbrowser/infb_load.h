@@ -24,6 +24,7 @@
 #include <gtk/gtk.h>
 
 void infb_load(void);
+void infb_load_fragments();
 void infb_reload_home(Tbfwin *win);
 GList *infb_user_files();
 

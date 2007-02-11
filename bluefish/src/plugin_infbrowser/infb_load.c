@@ -170,3 +170,35 @@ GList *infb_user_files() {
 	g_free(userdir);
 	return NULL;
 }
+
+
+void infb_load_fragments() {
+	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
+	const gchar *filename;
+	GError *error = NULL;
+	GPatternSpec *ps = g_pattern_spec_new("bfrag_*");
+	GDir *gd; 
+	GtkTreeIter iter;
+		
+	if ( infb_v.saved_store!=NULL ) {
+		gtk_list_store_clear(infb_v.saved_store);
+		gd = g_dir_open(userdir, 0, &error);
+		filename = g_dir_read_name(gd);
+		while (filename) {
+			if (g_pattern_match(ps, strlen(filename), filename, NULL) ) {
+				gchar *path = g_strconcat(userdir, filename, NULL);
+				gchar **arr = g_strsplit(filename, "_", -1);
+				if (arr && arr[1]) {
+					gtk_list_store_append(infb_v.saved_store, &iter);
+					gtk_list_store_set(infb_v.saved_store, &iter, 0, arr[1], 1, path, -1);
+				}
+				g_strfreev(arr);				
+				/*g_free(path);*/
+			}
+			filename = g_dir_read_name(gd);
+		}
+		g_dir_close(gd);
+		g_pattern_spec_free(ps);		
+	} 
+	g_free(userdir);
+}
