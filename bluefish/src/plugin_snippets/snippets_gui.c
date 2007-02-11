@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snippets_gui.c - plugin for snippets sidebar
  *
- * Copyright (C) 2006 Olivier Sessink
+ * Copyright (C) 2006-2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -416,7 +416,7 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), snw->view);
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),scrolwin,image,gtk_label_new(_("snippets")));
+	gtk_notebook_insert_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),scrolwin,image,gtk_label_new(_("snippets")),2);
 		
 	snw->ttips = tree_tips_new_full(snw->bfwin,GTK_TREE_VIEW(snw->view),snippets_treetip_lcb);
 	
