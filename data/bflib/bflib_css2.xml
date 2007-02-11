@@ -9,7 +9,7 @@ http://jigsaw.w3.org/css-validator/
 </note>
 
 <def deftype="proplist" kind="parameter" id="color">
-<property kind="parameter" name="color" input="color+list">
+<property kind="parameter" name="color" >
 <values>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime, maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,
 ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,
 ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,
@@ -45,42 +45,37 @@ ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</va
 <element kind="css_selector" name="quick selectors">
 <description>insert selectors, using Dialog</description>
 <properties>
-<property kind="parameter" name="selectors" input="list+entry">
+<property kind="parameter" name="selectors" >
 <values>,a:link,a:visited,a:active,a,abbr,acronym,address,applet,area,b,bdo,blockquote,body,br,button,caption,cite,code,col,colgroup,dd,del,dfn,div,dl,dt,em,embed,fieldset,form,h1,h2,h3,h4,h5,h6,hr,i,iframe,img,input,ins,kbd,label,legend,li,map,noframes,noscript,object,ol,optgroup,option,p,pre,q,samp,select,small,span,strong,table,tbody,td,textarea,tfoot,th,thead,tr,tt,ul,var</values>
 <description>insert selector, using Dialog
 </description>
 </property>
 </properties>
-<insert>%0 {
-
-    }
-</insert> 
+ 
 </element>
  
 <element kind="css_property" name="quick properties">
 <description>insert properties, using Dialog</description>
 <properties>
-<property kind="parameter" name="properties" input="list">
+<property kind="parameter" name="properties" >
 <values>,azimuth,background,background-attachment,background-color,background-image,background-position,background-repeat,border,border-bottom,border-bottom-color,border-bottom-style,border-bottom-width,'border-collapse',border-color,border-left,border-left-color,border-left-style,border-left-width,border-right,border-right-color,border-right-style,border-right-width,'border-spacing',border-style,border-top,border-top-color,border-top-style,border-top-width,border-width,bottom,caption-side,clear,clip,color,content,counter-increment,counter-reset,cue,cue-after,cue-before,cursor,direction,display,elevation,empty-cells,float,font,font-family,font-size,font-size-adjust,font-stretch,font-style,font-variant,font-weight,height,left,letter-spacing,line-height,list-style,list-style-image,list-style-position,list-style-type,margin,margin-bottom,margin-left,margin-right,margin-top,marker-offset,marks,max-height,max-width,min-height,min-width,orphans,outline,outline-color,outline-style,outline-width,overflow,padding,padding-bottom,padding-left,padding-right,padding-top,page,page-break-after,page-break-before,page-break-inside,pause,pause-after,pause-before,pitch,pitch-range,play-during,position,quotes,richness,right,size,speak,speak-header,speak-numeral,speak-punctuation,speech-rate,stress,table-layout,text-align,text-decoration,text-indent,text-shadow,text-transform,top,unicode-bidi,vertical-align,visibility,voice-family,volume,white-space,widows,width,word-spacing,z-index</values>
 <description>insert property, using Dialog
 </description>
 </property>
 </properties>
-<insert>%0: ;
-</insert> 
+ 
 </element>
  
 <element kind="css_property" name="property: inherit;">
 <description>insert inherit value for selected property, using Dialog.</description>
 <properties>
-<property kind="parameter" name="properties" input="list">
+<property kind="parameter" name="properties" >
 <values>,azimuth,background,background-attachment,background-color,background-image,background-position,background-repeat,border,border-bottom,border-bottom-color,border-bottom-style,border-bottom-width,border-collapse,border-color,border-left,border-left-color,border-left-style,border-left-width,border-right,border-right-color,border-right-style,border-right-width,border-spacing,border-style,border-top,border-top-color,border-top-style,border-top-width,border-width,bottom,caption-side,clear,clip,color,content,counter-increment,counter-reset,cue,cue-after,cue-before,cursor,direction,display,elevation,empty-cells,float,font,font-family,font-size,font-size-adjust,font-stretch,font-style,font-variant,font-weight,height,left,letter-spacing,line-height,list-style,list-style-image,list-style-position,list-style-type,margin,margin-bottom,margin-left,margin-right,margin-top,marker-offset,marks,max-height,max-width,min-height,min-width,orphans,outline,outline-color,outline-style,outline-width,overflow,padding,padding-bottom,padding-left,padding-right,padding-top,page-break-after,page-break-before,page-break-inside,pause,pause-after,pause-before,pitch,pitch-range,play-during,position,quotes,richness,right,size,speak,speak-header,speak-numeral,speak-punctuation,speech-rate,stress,table-layout,text-align,text-decoration,text-indent,text-shadow,text-transform,top,unicode-bidi,vertical-align,visibility,voice-family,volume,white-space,widows,width,word-spacing,z-index</values>
 <description>insert inherit value  for selected property, using Dialog.
 </description>
 </property>
 </properties>
-<insert>%0: inherit;
-</insert> 
+ 
 </element>
 
 
@@ -88,26 +83,25 @@ ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</va
 <description>insert length values and units, using Dialog.
 </description>
 <properties>
-<property kind="parameter" name="property" input="list">
+<property kind="parameter" name="property" >
 <values>,background-position,border-spacing,bottom,font-size,height,left,letter-spacing,line-height,marker-offset,max-height,max-width,min-width,right,size,text-indent,top,vertical-align,width,word-spacing</values>
 </property>
-<property kind="parameter" name="number" input="entry">
+<property kind="parameter" name="number" >
 <description> &lt;number&gt;</description>   
 </property>
-<property kind="parameter" name="unit" input="list">
+<property kind="parameter" name="unit" >
 <values>,%,em,ex,px,in,cm,mm,pt,pc</values>
 <description> % | em | ex | px | in | cm | mm | pt | pc</description>
 </property>
-<property kind="parameter" name="number 2" input="entry">
+<property kind="parameter" name="number 2" >
 <description> &lt;number&gt;</description>   
 </property>
-<property kind="parameter" name="unit 2" input="list">
+<property kind="parameter" name="unit 2" >
 <values>,%,em,ex,px,in,cm,mm,pt,pc</values>
 <description> % | em | ex | px | in | cm | mm | pt | pc</description>
 </property>
 </properties>
-<insert>%0: %1%2 %3%4;
-</insert>
+
 <note title="Valid units are :">for: letter-spacing, marker-offset, word-spacing:
  em | ex | px | in | cm | mm | pt | pc
 for: bottom, font-size, height, left, max-height, max-width, min-width,
@@ -146,35 +140,34 @@ The absolute units are:
 <description>http://www.w3.org/TR/REC-CSS2/colors.html#propdef-background</description>
 </property>
 <proplist ref="color" /> 
-<property kind="parameter" name="image" input="list+entry">
+<property kind="parameter" name="image" >
 <values>none,url()</values>
 <description>
 &lt;uri&gt; | none</description>
 </property>
-<property kind="parameter" name="repeat" input="list">
+<property kind="parameter" name="repeat" >
 <values>,repeat,repeat-x,repeat-y,no-repeat,inherit</values>
 <description>
 repeat | repeat-x | repeat-y | no-repeat</description>
 </property>
-<property kind="parameter" name="attachment" input="list">
+<property kind="parameter" name="attachment" >
 <values>,scroll,fixed,inherit</values>
 <description>
 scroll | fixed</description>
 </property>
-<property kind="parameter" name="vertical position" input="list+entry">
+<property kind="parameter" name="vertical position" >
 <values> %,top,center,bottom</values>
 <description>
 &lt;percentage&gt; | &lt;length&gt; | top | center | bottom</description>
 </property>
-<property kind="parameter" name="horizontal position" input="list+entry">
+<property kind="parameter" name="horizontal position" >
 <values> %,left,center,right</values>
 <description>
 &lt;percentage&gt; | &lt;length&gt;| left | center | right
 </description>
 </property>
 </properties>
-<insert>background: %_;
-</insert>
+
 <note title="background">[&lt;'background-color'&gt; || &lt;'background-image'&gt; || &lt;'background-repeat'&gt; || &lt;'background-attachment'&gt; || &lt;'background-position'&gt;] | inherit
 Initial:  	not defined for shorthand properties
 Applies to:  	all elements
@@ -186,7 +179,7 @@ Percentages:  	allowed on 'background-position'
 <element kind="css_property" name="background-attachment">
 <description>Specifies if the background is fixed to the viewport or if it scrolls, which is the default.</description>
 <properties>
-<property kind="parameter" name="attachment" input="list">
+<property kind="parameter" name="attachment" >
 <values>,scroll,fixed,inherit</values>
 <description> scroll | fixed | inherit
 Initial:  	scroll
@@ -196,8 +189,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>background-attachment: %0;
-</insert>
+
 <note title="background-attachment">
 If a background image is specified, this property specifies whether it is fixed with regard to the viewport ('fixed') or scrolls along with the document ('scroll').
 
@@ -208,7 +200,7 @@ Even if the image is fixed, it is still only visible when it is in the backgroun
 <element kind="css_property" name="background-color">
 <description>Sets the background colour.</description>
 <properties>
-<property kind="parameter" name="color" input="color+list">
+<property kind="parameter" name="color" >
 <values>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | transparent | inherit
 Initial:  	transparent
@@ -218,8 +210,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>background-color: %0;
-</insert>
+
 <note title="background-color">
 This property sets the background color of an element, either a &lt;color&gt; value or the keyword 'transparent', to make the underlying colors shine through.
 </note>
@@ -228,7 +219,7 @@ This property sets the background color of an element, either a &lt;color&gt; va
 <element kind="css_property" name="background-image">
 <description>Sets an image to use as the background.</description>
 <properties>
-<property kind="parameter" name="image" input="list+entry">
+<property kind="parameter" name="image" >
 <values>none,url(),inherit</values>
 <description> &lt;uri&gt; | none | inherit
 Initial:  	none
@@ -238,8 +229,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>background-image: %0;
-</insert>
+
 <note title="Background-image">When setting a background image, authors should also specify a background color that will be used when the image is unavailable. When the image is available, it is rendered on top of the background color. (Thus, the color is visible in the transparent parts of the image).
 
 Values for this property are either &lt;uri&gt;, to specify the image, or 'none', when no image is used.</note>
@@ -248,7 +238,7 @@ Values for this property are either &lt;uri&gt;, to specify the image, or 'none'
 <element kind="css_property" name="background-position">
 <description>Specifies the position of a background image if one is given.</description>
 <properties>
-<property kind="parameter" name="position" input="list+entry">
+<property kind="parameter" name="position" >
 <values> 0% 0%, ,top left,top,top right,left,center,right,bottom left,bottom,bottom right,inherit</values>
 <description> [ [&lt;percentage&gt; | &lt;length&gt; ]{1,2} | [ [top | center | bottom] || [left | center | right] ] ] | inherit
 Initial:  	0% 0%
@@ -258,8 +248,7 @@ Percentages:  	refer to the size of the box itself
 </description>
 </property>
 </properties>
-<insert>background-position: %0;
-</insert>
+
 <note title="Background-position"> If a background image has been specified, this property specifies its initial position.
  If only one percentage or length value is given, it sets the horizontal position only, the vertical position will be 50%. If two values are given, the horizontal position comes first. Combinations of length and percentage values are allowed, (e.g., '50% 2cm'). Negative positions are allowed. Keywords cannot be combined with percentage values or length values
 </note>
@@ -268,7 +257,7 @@ Percentages:  	refer to the size of the box itself
 <element kind="css_property" name="background-repeat">
 <description>Controls tiling of background images.</description>
 <properties>
-<property kind="parameter" name="repeat" input="list">
+<property kind="parameter" name="repeat" >
 <values>,repeat,repeat-x,repeat-y,no-repeat,inherit</values>
 <description>repeat | repeat-x | repeat-y | no-repeat | inherit
 Initial:  	repeat
@@ -278,8 +267,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>background-repeat: %0;
-</insert>
+
 <note title="background-repeat">
 If a background image is specified, this property specifies whether the image is repeated (tiled), and how. All tiling covers the content and padding areas of a box. Values have the following meanings:
 
@@ -298,24 +286,23 @@ http://www.w3.org/TR/REC-CSS2/box.html</description>
 <element kind="css_property" name="border">
 <description>Shorthand for setting the individual border properties on all four borders.</description>
 <properties>
-<property kind="parameter" name="border-color" input="color+list">
+<property kind="parameter" name="border-color" >
 <values>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | transparent
 </description>
 </property>
-<property kind="parameter" name="border-style" input="list">
+<property kind="parameter" name="border-style" >
 <values>,none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 <description>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
 </description>
 </property>
-<property kind="parameter" name="border-width" input="list+entry">
+<property kind="parameter" name="border-width" >
 <values>thin,medium,thick,0, %</values>
 <description>thin | medium | thick | &lt;length&gt;
 </description>
 </property>
 </properties>
-<insert>border: %_;
-</insert>
+
 <note title="border">
 [ &lt;border-width&gt; || &lt;border-style&gt; || [ &lt;color&gt; | transparent ] ] | inherit
  The 'border' property is a shorthand property for setting the same width, color, and style for all four borders of a box. Unlike the shorthand 'margin' and 'padding' properties, the 'border' property cannot set different values on the four borders. To do so, one or more of the other border properties must be used.
@@ -325,7 +312,7 @@ http://www.w3.org/TR/REC-CSS2/box.html</description>
 <element kind="css_property" name="border-collapse">
 <description>Controls how borders are handled in tables.</description>
 <properties>
-<property kind="parameter" name="collapse" input="list">
+<property kind="parameter" name="collapse" >
 <values>,collapse,separate,inherit</values>
 <description>collapse | separate | inherit
 Initial:  	collapse
@@ -335,8 +322,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-collapse: %0;
-</insert>
+
 <note title="collapse">
 This property selects a table's border model. The value 'separate' selects the separated borders border model. The value 'collapse' selects the collapsing borders model. The models are described at http://www.w3.org/TR/REC-CSS2/tables.html#propdef-border-collapse
 </note>
@@ -345,7 +331,7 @@ This property selects a table's border model. The value 'separate' selects the s
 <element kind="css_property" name="border-color">
 <description>Shorthand for setting the colour of all four borders.</description>
 <properties>
-<property kind="parameter" name="color1" input="color+list">
+<property kind="parameter" name="color1" >
 <values>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> [&lt;color&gt; | transparent]{1,4} | inherit
 Initial:  	depends on user agent
@@ -354,24 +340,23 @@ Inherited:  	no
 Percentages:  	N/A
 </description>
 </property>
-<property kind="parameter" name="color2" input="color+list">
+<property kind="parameter" name="color2" >
 <values>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | transparent
 </description>
 </property>
-<property kind="parameter" name="color3" input="color+list">
+<property kind="parameter" name="color3" >
 <values>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | transparent
 </description>
 </property>
-<property kind="parameter" name="color4" input="color+list">
+<property kind="parameter" name="color4" >
 <values>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | transparent
 </description>
 </property>
 </properties>
-<insert>border-color: %_;
-</insert>
+
 <note title="color">
 The 'border-color' property sets the color of the four borders. Values have the following meanings:
 &lt;color&gt;: Specifies a color value. 
@@ -386,7 +371,7 @@ If an element's border color is not specified with a border property, user agent
 <element kind="css_property" name="border-spacing">
 <description>Controls the spacing between cell borders in tables.</description>
 <properties>
-<property kind="parameter" name="spacing" input="list+entry">
+<property kind="parameter" name="spacing" >
 <values>0,inherit</values>
 <description> &lt;length&gt; &lt;length&gt;? | inherit
 Initial:  	0
@@ -396,8 +381,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-spacing: %0;
-</insert>
+
 <note title="spacing">
 The lengths specify the distance that separates adjacent cell borders. If one length is specified, it gives both the horizontal and vertical spacing. If two are specified, the first gives the horizontal spacing and the second the vertical spacing. Lengths may not be negative.
 </note>
@@ -406,7 +390,7 @@ The lengths specify the distance that separates adjacent cell borders. If one le
 <element kind="css_property" name="border-style">
 <description>Shorthand for setting the style of all four borders.</description>
 <properties>
-<property kind="parameter" name="style" input="list">
+<property kind="parameter" name="style" >
 <values>,none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 <description> [none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset]{1,4}
 Initial:  	see individual properties
@@ -415,18 +399,17 @@ Inherited:  	no
 Percentages:  	N/A
 </description>
 </property>
-<property kind="parameter" name="style2" input="list">
+<property kind="parameter" name="style2" >
 <values>,none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 </property>
-<property kind="parameter" name="style3" input="list">
+<property kind="parameter" name="style3" >
 <values>,none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 </property>
-<property kind="parameter" name="style4" input="list">
+<property kind="parameter" name="style4" >
 <values>,none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 </property>
 </properties>
-<insert>border-style: %_;
-</insert>
+
 <note title="border-style">
  The 'border-style' property sets the style of the four borders. It can have from one to four values, and the values are set on the different sides as for 'border-width' above.
   Since the initial value of the border styles is 'none', no borders will be visible unless the border style is set.
@@ -451,24 +434,23 @@ Conforming HTML user agents may interpret 'dotted', 'dashed', 'double', 'groove'
 <element kind="css_property" name="border-top">
 <description>Shorthand for setting the style, colour and width of the top border.</description>
 <properties>
-<property kind="parameter" name="style" input="list">
+<property kind="parameter" name="style" >
 <values>,none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 <description>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
 </description>
 </property>
-<property kind="parameter" name="colour" input="list+entry">
+<property kind="parameter" name="colour" >
 <values>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | transparent
 </description>
 </property>
-<property kind="parameter" name="width" input="list+entry">
+<property kind="parameter" name="width" >
 <values>thin,medium,thick,0, %</values>
 <description>thin | medium | thick | &lt;length&gt;
 </description>
 </property> 
 </properties>
-<insert>border-top: %_;
-</insert>
+
 <note title="border-top">
 Value:  	[ &lt;'border-width'&gt; || &lt;'border-style'&gt; || &lt;color&gt; ] | inherit
 Initial:  	see individual properties
@@ -481,24 +463,23 @@ Percentages:  	N/A
 <element kind="css_property" name="border-right">
 <description>Shorthand for setting the style, colour and width of the right hand border.</description>
 <properties>
-<property kind="parameter" name="style" input="list" >
+<property kind="parameter" name="style"  >
 <values>none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 <description>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
 </description>
 </property>
-<property kind="parameter" name="colour" input="list+entry">
+<property kind="parameter" name="colour" >
 <values>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | transparent
 </description>
 </property>
-<property kind="parameter" name="width" input="list+entry">
+<property kind="parameter" name="width" >
 <values>thin,medium,thick,0, %</values>
 <description>thin | medium | thick | &lt;length&gt;
 </description>
 </property>
 </properties>
-<insert>border-right: %_;
-</insert>
+
 <note title="border-right">
 Value:  	[ &lt;'border-width'&gt; || &lt;'border-style'&gt; || &lt;color&gt; ] | inherit
 Initial:  	see individual properties
@@ -511,24 +492,23 @@ Percentages:  	N/A
 <element kind="css_property" name="border-bottom">
 <description>Shorthand for setting the style, colour and width of the bottom border.</description>
 <properties>
-<property kind="parameter" name="style" input="list">
+<property kind="parameter" name="style" >
 <values>,none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 <description>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
 </description>
 </property>
-<property kind="parameter" name="colour" input="list+entry">
+<property kind="parameter" name="colour" >
 <values>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | transparent
 </description>
 </property>
-<property kind="parameter" name="width" input="list+entry">
+<property kind="parameter" name="width" >
 <values>thin,medium,thick,0, %</values>
 <description>thin | medium | thick | &lt;length&gt;
 </description>
 </property>
 </properties>
-<insert>border-bottom: %_;
-</insert>
+
 <note title="border-bottom">
 Value:  	[ &lt;'border-width'&gt; || &lt;'border-style'&gt; || &lt;color&gt; ] | inherit
 Initial:  	see individual properties
@@ -541,24 +521,23 @@ Percentages:  	N/A
 <element kind="css_property" name="border-left">
 <description>Shorthand for setting the style, colour and width of the left hand border.</description>
 <properties>
-<property kind="parameter" name="style" input="list">
+<property kind="parameter" name="style" >
 <values>,none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 <description>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
 </description>
 </property>
-<property kind="parameter" name="colour" input="list+entry">
+<property kind="parameter" name="colour" >
 <values>transparent,#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | transparent
 </description>
 </property>
-<property kind="parameter" name="width" input="list+entry">
+<property kind="parameter" name="width" >
 <values>thin,medium,thick,0, %</values>
 <description>thin | medium | thick | &lt;length&gt;
 </description>
 </property>
 </properties>
-<insert>border-left: %_;
-</insert>
+
 <note title="border-left">
 Value:  	[ &lt;'border-width'&gt; || &lt;'border-style'&gt; || &lt;color&gt; ] | inherit
 Initial:  	see individual properties
@@ -571,7 +550,7 @@ Percentages:  	N/A
 <element kind="css_property" name="border-top-color">
 <description>Sets the colour of the top border.</description>
 <properties>
-<property kind="parameter" name="color" input="color+list">
+<property kind="parameter" name="color" >
 <values>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | inherit
 Initial:  	the value of the 'color' property
@@ -581,8 +560,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-top-color: %0;
-</insert>
+
 <note title="top-color">
 
 </note>
@@ -591,7 +569,7 @@ Percentages:  	N/A
 <element kind="css_property" name="border-right-color">
 <description>Sets the colour of the right hand border.</description>
 <properties>
-<property kind="parameter" name="color" input="color+list">
+<property kind="parameter" name="color" >
 <values>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | inherit
 Initial:  	the value of the 'color' property
@@ -601,8 +579,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-right-color: %0;
-</insert>
+
 <note title="right-color">
 
 </note>
@@ -611,7 +588,7 @@ Percentages:  	N/A
 <element kind="css_property" name="border-bottom-color">
 <description>Sets the colour of the bottom border.</description>
 <properties>
-<property kind="parameter" name="color" input="color+list">
+<property kind="parameter" name="color" >
 <values>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | inherit
 Initial:  	the value of the 'color' property
@@ -621,8 +598,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-bottom-color: %0;
-</insert>
+
 <note title="bottom-color">
 
 </note>
@@ -631,7 +607,7 @@ Percentages:  	N/A
 <element kind="css_property" name="border-left-color">
 <description>Sets the colour of the left hand border.</description>
 <properties>
-<property kind="parameter" name="color" input="color+list">
+<property kind="parameter" name="color" >
 <values>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | inherit
 Initial:  	the value of the 'color' property
@@ -641,8 +617,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-left-color: %0;
-</insert>
+
 <note title="left-color">
 
 </note>
@@ -651,7 +626,7 @@ Percentages:  	N/A
 <element kind="css_property" name="border-top-style">
 <description>Sets the style of the top border.</description>
 <properties>
-<property kind="parameter" name="" input="list">
+<property kind="parameter" name="" >
 <values>,none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 <description>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
 Initial:  	none
@@ -661,8 +636,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-top-style: %0;
-</insert>
+
 <note title="">
 see please border-style.
 </note>
@@ -671,7 +645,7 @@ see please border-style.
 <element kind="css_property" name="border-right-style">
 <description>Sets the style of the right hand border.</description>
 <properties>
-<property kind="parameter" name="right-style" input="list">
+<property kind="parameter" name="right-style" >
 <values>,none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 <description>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
 Initial:  	none
@@ -681,8 +655,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-right-style: %0;
-</insert>
+
 <note title="right-style">
 see please border-style.
 </note>
@@ -691,7 +664,7 @@ see please border-style.
 <element kind="css_property" name="border-bottom-style">
 <description>Sets the style of the bottom border.</description>
 <properties>
-<property kind="parameter" name="bottom-style" input="list">
+<property kind="parameter" name="bottom-style" >
 <values>,none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 <description>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
 Initial:  	none
@@ -701,8 +674,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-bottom-style: %0;
-</insert>
+
 <note title="bottom-style">
 see please border-style.
 </note>
@@ -711,7 +683,7 @@ see please border-style.
 <element kind="css_property" name="border-left-style">
 <description>Sets the style of the left hand border.</description>
 <properties>
-<property kind="parameter" name="left-style" input="list">
+<property kind="parameter" name="left-style" >
 <values>,none,hidden,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 <description>none|hidden|dotted|dashed|solid|double|groove|ridge|inset|outset
 Initial:  	none
@@ -721,8 +693,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-left-style: %0;
-</insert>
+
 <note title="border-left-style">
 see please border-style.
 </note>
@@ -731,7 +702,7 @@ see please border-style.
 <element kind="css_property" name="border-top-width">
 <description>Sets the width of the top border.</description>
 <properties>
-<property kind="parameter" name="width" input="list+entry">
+<property kind="parameter" name="width" >
 <values>thin,medium,thick,0, %,inherit</values>
 <description>thin | medium | thick | &lt;length&gt; | inherit
 Initial:  	medium
@@ -741,8 +712,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-top-width: %0;
-</insert>
+
 <note title="border-top-width">
 see please border-width.
 </note>
@@ -751,7 +721,7 @@ see please border-width.
 <element kind="css_property" name="border-right-width">
 <description>Sets the width of the right hand border.</description>
 <properties>
-<property kind="parameter" name="width" input="list+entry">
+<property kind="parameter" name="width" >
 <values>thin,medium,thick,0, %,inherit</values>
 <description>thin | medium | thick | &lt;length&gt; | inherit
 Initial:  	medium
@@ -761,8 +731,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-right-width: %0;
-</insert>
+
 <note title="right-width">
 see please border-width.
 </note>
@@ -771,7 +740,7 @@ see please border-width.
 <element kind="css_property" name="border-bottom-width">
 <description>Sets the width of the bottom border.</description>
 <properties>
-<property kind="parameter" name="width" input="list+entry">
+<property kind="parameter" name="width" >
 <values>thin,medium,thick,0, %,inherit</values>
 <description>thin | medium | thick | &lt;length&gt; | inherit
 Initial:  	medium
@@ -781,8 +750,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-bottom-width: %0;
-</insert>
+
 <note title="bottom-width">
 see please border-width.
 </note>
@@ -791,7 +759,7 @@ see please border-width.
 <element kind="css_property" name="border-left-width">
 <description>Sets the width of the left hand border.</description>
 <properties>
-<property kind="parameter" name="width" input="list+entry">
+<property kind="parameter" name="width" >
 <values>thin,medium,thick,0 %,inherit</values>
 <description>thin | medium | thick | &lt;length&gt; | inherit
 Initial:  	medium
@@ -801,8 +769,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>border-left-width: %0;
-</insert>
+
 <note title="left-width">
 see please border-width.
 </note>
@@ -811,29 +778,28 @@ see please border-width.
 <element kind="css_property" name="border-width">
 <description>Shorthand for setting the width of all four borders.</description>
 <properties>
-<property kind="parameter" name="width 1" input="list+entry">
+<property kind="parameter" name="width 1" >
 <values>thin,medium,thick,0, %</values>
 <description>thin | medium | thick | &lt;length&gt;
 </description>
 </property>
-<property kind="parameter" name="width 2" input="list+entry">
+<property kind="parameter" name="width 2" >
 <values>thin,medium,thick,0, %</values>
 <description>thin | medium | thick | &lt;length&gt; 
 </description>
 </property>
-<property kind="parameter" name="width 3" input="list+entry">
+<property kind="parameter" name="width 3" >
 <values>thin,medium,thick,0, %</values>
 <description>thin | medium | thick | &lt;length&gt; 
 </description>
 </property>
-<property kind="parameter" name="width 4" input="list+entry">
+<property kind="parameter" name="width 4" >
 <values>thin,medium,thick,0, %</values>
 <description>thin | medium | thick | &lt;length&gt; 
 </description>
 </property>
 </properties>
-<insert>border-width: %_;
-</insert>
+
 <note title="border-width"> This property is a shorthand property for setting 'border-top-width', 'border-right-width', 'border-bottom-width', and 'border-left-width' at the same place in the style sheet.
 
 If there is only one value, it applies to all sides. If there are two values, the top and bottom borders are set to the first value and the right and left are set to the second. If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom is set to the third. If there are four values, they apply to the top, right, bottom, and left, respectively. 
@@ -848,7 +814,7 @@ The interpretation of the first three values depends on the user agent. The foll
 <element kind="css_property" name="bottom">
 <description>Specifies the offset from the bottom edge of the containing block.</description>
 <properties>
-<property kind="parameter" name="bottom"  input="list+entry">
+<property kind="parameter" name="bottom"  >
 <values>0, %,auto,inherit</values>
 <description> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
 Initial:  	auto
@@ -858,8 +824,7 @@ Percentages:  	refer to height of containing block
 </description>
 </property>
 </properties>
-<insert>bottom: %0;
-</insert>
+
 <note title="bottom">
 &lt;length&gt;: The offset is a fixed distance from the reference edge. 
 &lt;percentage&gt;: The offset is a percentage of the containing block's width (for 'left' or 'right') or height (for 'top' and 'bottom'). For 'top' and 'bottom', if the height of the containing block is not specified explicitly (i.e., it depends on content height), the percentage value is interpreted like 'auto'. 
@@ -872,7 +837,7 @@ For absolutely positioned boxes, the offsets are with respect to the box's conta
 <element kind="css_property" name="caption-side">
 <description>Specifies where a table caption will appear.</description>
 <properties>
-<property kind="parameter" name="caption-side" input="list">
+<property kind="parameter" name="caption-side" >
 <values>,top,bottom,left,right,inherit</values>
 <description>top | bottom | left | right | inherit
 Initial:  	top
@@ -882,8 +847,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>caption-side: %0;
-</insert>
+
 <note title="caption-side">
 This property specifies the position of the caption box with respect to the table box. Values have the following meanings:
 
@@ -905,7 +869,7 @@ To align caption content horizontally within the caption box, use the 'text-alig
 <element kind="css_property" name="clear">
 <description>Specifies which sides of an element may not have a earlier floating element next to them.</description>
 <properties>
-<property kind="parameter" name="clear" input="list">
+<property kind="parameter" name="clear" >
 <values>,none,left,right,both,inherit</values>
 <description>none | left | right | both | inherit
 Initial:  	none
@@ -915,8 +879,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>clear: %0;
-</insert>
+
 <note title="clear">
 This property may only be specified for block-level elements (including floats). For compact and run-in boxes, this property applies to the final block box to which the compact or run-in box belongs.
 
@@ -934,7 +897,7 @@ When the property is set on floating elements, it results in a modification of t
 <element kind="css_property" name="clip">
 <description>Specifies the clipping rectangle for the element.</description>
 <properties>
-<property kind="parameter" name="clip"  input="list+entry">
+<property kind="parameter" name="clip"  >
 <values>rect( ),auto,inherit</values>
 <description> &lt;shape&gt; | auto | inherit
 Initial:  	auto
@@ -944,8 +907,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>clip: %0;
-</insert>
+
 <note title="clip">
 The 'clip' property applies to elements that have a 'overflow' property with a value other than 'visible'. Values have the following meanings:
 
@@ -965,7 +927,7 @@ If the clipping region exceeds the bounds of the UA's document window, content m
 <element kind="css_property" name="color">
 <description>Specifies the foreground colour to be used for text.</description>
 <properties>
-<property kind="parameter" name="color" input="color+list">
+<property kind="parameter" name="color" >
 <values>#,rgb( ),aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,inherit,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | inherit
 Initial:  	depends on user agent
@@ -975,8 +937,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>color: %0;
-</insert>
+
 <note title="color">
 The following lists additional values for color-related CSS attributes and their general meaning. Any color property (e.g., 'color' or 'background-color') can take one of the following names. Although these are case-insensitive, it is recommended that the mixed capitalization shown below be used, to make the names more legible.
 ActiveBorder: Active window border. 
@@ -1013,7 +974,7 @@ WindowText: Text in windows.
 <element kind="css_property" name="content">
 <description>Provides a way of inserting extra content into the document.</description>
 <properties>
-<property kind="parameter" name="content"  input="list+entry">
+<property kind="parameter" name="content"  >
 <values>"",url(),counter(),attr(),open-quote,close-quote,no-open-quote,no-close-quote,inherit</values>
 <description> [ &lt;string&gt; | &lt;uri&gt; | &lt;counter&gt; | attr(X) | open-quote | close-quote | no-open-quote | no-close-quote ]+ | inherit
  Initial:  	empty string
@@ -1024,8 +985,7 @@ WindowText: Text in windows.
 </description>
 </property>
 </properties>
-<insert>content: %0;
-</insert>
+
 <note title="content">
 &lt;string&gt;: Text content (see the section on strings). 
 &lt;uri&gt;: The value is a URI that designates an external resource. If a user agent cannot support the resource because of the media types it supports, it must ignore the resource. Note. CSS2 offers no mechanism to change the size of the embedded object, or to provide a textual description, like the &quot;alt&quot; or &quot;longdesc&quot; attributes do for images in HTML. This may change in future levels of CSS. 
@@ -1042,7 +1002,7 @@ see: http://www.w3.org/TR/REC-CSS2/generate.html#propdef-content
 <element kind="css_property" name="counter-increment">
 <description>Increment a named counter.</description>
 <properties>
-<property kind="parameter" name="counter-increment"  input="list+entry">
+<property kind="parameter" name="counter-increment"  >
 <values>,none,inherit</values>
 <description> [ &lt;identifier&gt; &lt;integer&gt;? ]+ | none | inherit
 Initial:  	none
@@ -1052,8 +1012,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>counter-increment: %0;
-</insert>
+
 <note title="counter-increment">
 The 'counter-increment' property accepts one or more names of counters (identifiers), each one optionally followed by an integer. The integer indicates by how much the counter is incremented for every occurrence of the element. The default increment is 1. Zero and negative integers are allowed.
 
@@ -1067,7 +1026,7 @@ see http://www.w3.org/TR/REC-CSS2/generate.html
 <element kind="css_property" name="counter-reset">
 <description>Reset a named counter to 0, or a specified value.</description>
 <properties>
-<property kind="parameter" name="counter-reset"  input="list+entry">
+<property kind="parameter" name="counter-reset"  >
 <values>,none,inherit</values> [ &lt;identifier&gt; &lt;integer>? ]+ | none | inherit
 Initial:  	none
 Applies to:  	all elements
@@ -1075,8 +1034,7 @@ Inherited:  	no
 Percentages:  	N/A
 </property>
 </properties>
-<insert>counter-reset: %0;
-</insert>
+
 <note title="counter-reset">
 The 'counter-increment' property accepts one or more names of counters (identifiers), each one optionally followed by an integer. The integer indicates by how much the counter is incremented for every occurrence of the element. The default increment is 1. Zero and negative integers are allowed.
 
@@ -1090,24 +1048,23 @@ see http://www.w3.org/TR/REC-CSS2/generate.html
 <element kind="css_property" name="cursor">
 <description>Set the mouse pointer to the specified type.</description>
 <properties>
-<property kind="parameter" name="url"  input="list+entry">
+<property kind="parameter" name="url"  >
 <values>url(),</values>
 <description> [ [&lt;uri&gt; ,]* [ auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize| text | wait | help ] ] | inherit
 </description>
 </property>
-<property kind="parameter" name="url 2" input="list+entry">
+<property kind="parameter" name="url 2" >
 <values>url(),</values>
 <description> [ [&lt;uri&gt; ,]* [ auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize| text | wait | help ] ] | inherit
 </description>
 </property>
-<property kind="parameter" name="cursor " input="list+entry">
+<property kind="parameter" name="cursor " >
 <values>auto,crosshair,default,pointer,move,e-resize,ne-resize,nw-resize,n-resize,se-resize,sw-resize,s-resize,w-resize, text,wait,help</values>
 <description> [ [&lt;uri&gt; ,]* [ auto | crosshair | default | pointer | move | e-resize | ne-resize | nw-resize | n-resize | se-resize | sw-resize | s-resize | w-resize| text | wait | help ] ] | inherit
 </description>
 </property>
 </properties>
-<insert>cursor: %_;
-</insert>
+
 <note title="cursor">
 This property specifies the type of cursor to be displayed for the pointing device. Values have the following meanings:
 
@@ -1129,7 +1086,7 @@ help
 <element kind="css_property" name="direction">
 <description>Sets the text direction, left to right, right to left, etc.</description>
 <properties>
-<property kind="parameter" name="direction" input="list">
+<property kind="parameter" name="direction" >
 <values>,ltr,rtl,inherit</values>
 <description> ltr | rtl | inherit
 Initial:  	ltr
@@ -1139,8 +1096,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>direction: %0;
-</insert>
+
 <note title="direction">
 This property specifies the base writing direction of blocks and the direction of embeddings and overrides (see 'unicode-bidi') for the Unicode bidirectional algorithm. In addition, it specifies the direction of table column layout, the direction of horizontal overflow, and the position of an incomplete last line in a block in case of 'text-align: justify'.
 
@@ -1156,7 +1112,7 @@ For the 'direction' property to have any effect on inline-level elements, the 'u
 <element kind="css_property" name="display">
 <description>Controls how an element is rendered, if at all.</description>
 <properties>
-<property kind="parameter" name="display" input="list">
+<property kind="parameter" name="display" >
 <values>,inline,block,list-item,run-in,compact,marker,table,inline-table,table-row-group,table-header-group,table-footer-group,table-row,table-column-group,table-column,table-cell,table-caption,none,inherit</values>
 <description>inline | block | list-item | run-in | compact | marker | table | inline-table | table-row-group | table-header-group | table-footer-group | table-row | table-column-group | table-column | table-cell | table-caption | none | inherit
 Initial:  	inline
@@ -1167,8 +1123,7 @@ Media:  	all
 </description>
 </property>
 </properties>
-<insert>display: %0;
-</insert>
+
 <note title="display">
 The values of this property have the following meanings:
 
@@ -1189,7 +1144,7 @@ Note that although the initial value of 'display' is 'inline', rules in the user
 <element kind="css_property" name="empty-cells">
 <description>Controls if empty cells in tables should be shown or not.</description>
 <properties>
-<property kind="parameter" name="empty-cells" input="list">
+<property kind="parameter" name="empty-cells" >
 <values>,show,hide,inherit</values>
 <description>show | hide | inherit
 Initial:  	show
@@ -1199,8 +1154,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>empty-cells: %0;
-</insert>
+
 <note title="empty-cells">
 In the separated borders model, this property controls the rendering of borders around cells that have no visible content. Empty cells and cells with the 'visibility' property set to 'hidden' are considered to have no visible content. Visible content includes "&amp;nbsp;" and other whitespace except ASCII CR ("\0D"), LF ("\0A"), tab ("\09"), and space ("\20").
 
@@ -1213,7 +1167,7 @@ A value of 'hide' means that no borders are drawn around empty cells. Furthermor
 <element kind="css_property" name="float">
 <description>Specifies if an element should float to the left or right, or not at all.</description>
 <properties>
-<property kind="parameter" name="float" input="list">
+<property kind="parameter" name="float" >
 <values>,left,right,none,inherit</values>
 <description> left | right | none | inherit
 Initial:  	none
@@ -1223,8 +1177,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>float: %0;
-</insert>
+
 <note title="float">
 This property specifies whether a box should float to the left, right, or not at all. It may be set for elements that generate boxes that are not absolutely positioned. The values of this property have the following meanings:
 
@@ -1254,39 +1207,38 @@ http://www.w3.org/TR/REC-CSS2/fonts.html</description>
 <element kind="css_property" name="font">
 <description>Shorthand for setting the individual font properties.</description>
 <properties>
-<property kind="parameter" name="font-style" input="list">
+<property kind="parameter" name="font-style" >
 <values>,,normal,italic,oblique</values>
 <description> normal | italic | oblique 
 </description>
 </property>
-<property kind="parameter" name="font-variant" input="list">
+<property kind="parameter" name="font-variant" >
 <values>,,normal,small-caps</values>
 <description> normal | small-caps
 </description>
 </property>
-<property kind="parameter" name="font-weight" input="list">
+<property kind="parameter" name="font-weight" >
 <values>,,normal,bold,bolder,lighter,100,200,300,400,500,600,700,800,900</values>
 <description> normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
 </description>
 </property>
-<property kind="parameter" name="font-size"  input="list+entry">
+<property kind="parameter" name="font-size"  >
 <values>,%,xx-small,x-small,small,medium,large,x-large,xx-large,larger,smaller</values>
 <description> &lt;absolute-size&gt; | &lt;relative-size&gt; | &lt;length&gt; | &lt;percentage&gt;
 </description>
 </property>
-<property kind="parameter" name="line-height"  input="list+entry">
+<property kind="parameter" name="line-height"  >
 <values>/</values>
 <description> / &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt; see Notes
 </description>
 </property>
-<property kind="parameter" name="font-family"  input="list+entry">
+<property kind="parameter" name="font-family"  >
 <values></values>
 <description> [[ &lt;family-name&gt; | &lt;generic-family&gt; ],]* [&lt;family-name&gt; | &lt;generic-family&gt;]
 </description>
 </property>
 </properties>
-<insert>font: %_;
-</insert>
+
 <note title="font">Value:  	[ [ &lt;'font-style'&gt; || &lt;'font-variant'&gt; || &lt;'font-weight'&gt; ]? &lt;'font-size'&gt; [ / &lt;'line-height'&gt; ]? &lt;'font-family'&gt; ] | caption | icon | menu | message-box | small-caption | status-bar | inherit
 Initial:  	see individual properties
 Applies to:  	all elements
@@ -1309,27 +1261,27 @@ status-bar: The font used in window status bars.
 <element kind="css_property" name="font system">
 <description>Shorthand for setting the individual font properties.</description>
 <properties>
-<property kind="parameter" name="font-style" input="list">
+<property kind="parameter" name="font-style" >
 <values>,,normal,italic,oblique</values>
 <description> normal | italic | oblique 
 </description>
 </property>
-<property kind="parameter" name="font-variant" input="list">
+<property kind="parameter" name="font-variant" >
 <values>,,normal,small-caps</values>
 <description> normal | small-caps
 </description>
 </property>
-<property kind="parameter" name="font-weight" input="list">
+<property kind="parameter" name="font-weight" >
 <values>,,normal,bold,bolder,lighter,100,200,300,400,500,600,700,800,900</values>
 <description> normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900
 </description>
 </property>
-<property kind="parameter" name="font-size"  input="list+entry">
+<property kind="parameter" name="font-size"  >
 <values>,%,xx-small,x-small,small,medium,large,x-large,xx-large,larger,smaller</values>
 <description> 	&lt;absolute-size&gt; | &lt;relative-size&gt; | &lt;length&gt; | &lt;percentage&gt;
 </description>
 </property>
-<property kind="parameter" name="line-height"  input="list+entry">
+<property kind="parameter" name="line-height"  >
 <values>/</values>
 <description> / &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt; see Notes
 </description>
@@ -1340,8 +1292,7 @@ status-bar: The font used in window status bars.
 </description>
 </property>
 </properties>
-<insert>font: %_;
-</insert>
+
 <note title="font">Value:  	[ [ &lt;'font-style'&gt; || &lt;'font-variant'&gt; || &lt;'font-weight'&gt; ]? &lt;'font-size'&gt; [ / &lt;'line-height'&gt; ]? &lt;'font-family'&gt; ] | caption | icon | menu | message-box | small-caption | status-bar | inherit
 Initial:  	see individual properties
 Applies to:  	all elements
@@ -1364,12 +1315,12 @@ status-bar: The font used in window status bars.
 <element kind="css_property" name="font-family">
 <description>The name of the font, or font family to use.</description>
 <properties>
-<property kind="parameter" name="family-name"  input="list+entry">
+<property kind="parameter" name="family-name"  >
 <values>,arial, helvetica,verdana,Georgia,"Trebuchet MS","new century schoolbook",roman,"times new roman",times,courier, fixed,western,"Commic Sans MS",Zapf-Chancery,Baskerville,"Heisi Mincho W3",Symbol</values>
 <description> &lt;family-name&gt; 
 </description>
 </property>
-<property kind="parameter" name="generic-family" input="list">
+<property kind="parameter" name="generic-family" >
 <values>,serif,sans-serif,cursive,fantasy,monospace</values>
 <description> &lt;generic-family&gt;
 Value:  	[[ &lt;family-name&gt; | &lt;generic-family&gt; ],]* [&lt;family-name&gt; | &lt;generic-family&gt;] | inherit
@@ -1380,8 +1331,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>font-family: %0,%1;
-</insert>
+
 <note title="font-family">
 The generic font family will be used if one or more of the other fonts in a font set is unavailable. Although many fonts provide the "missing character" glyph, typically an open box, as its name implies this should not be considered a match except for the last font in a font set.
 
@@ -1400,7 +1350,7 @@ http://www.w3.org/TR/REC-CSS2/fonts.html#propdef-font-family
 <element kind="css_property" name="font-size">
 <description>Specifies how big the font should be.</description>
 <properties>
-<property kind="parameter" name="font-size"  input="list+entry">
+<property kind="parameter" name="font-size"  >
 <values>,%,xx-small,x-small,small,medium,large,x-large,xx-large,larger,smaller,inherit</values>
 <description> &lt;absolute-size&gt; | &lt;relative-size&gt; | &lt;length&gt; | &lt;percentage&gt; | inherit
 Initial:  	medium
@@ -1410,8 +1360,7 @@ Percentages:  	refer to parent element's font size
 </description>
 </property>
 </properties>
-<insert>font-size: %0;
-</insert>
+
 <note title="font-size">
     The font size refers to the size of the font from baseline to baseline, when set solid (in CSS terms, this is when the 'font-size' and 'line-height' properties have the same value).
 </note>
@@ -1420,7 +1369,7 @@ Percentages:  	refer to parent element's font size
 <element kind="css_property" name="font-size-adjust">
 <description>Set the aspect ratio of the font.</description>
 <properties>
-<property kind="parameter" name="font-size-adjust"  input="list+entry">
+<property kind="parameter" name="font-size-adjust"  >
 <values>,none,inherit</values>
 <description> &lt;number&gt; | none | inherit
 Initial:  	none
@@ -1430,8 +1379,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>font-size-adjust: %0;
-</insert>
+
 <note title="font-size-adjust">
 http://www.w3.org/TR/REC-CSS2/fonts.html#propdef-font-size-adjust
 </note>
@@ -1440,7 +1388,7 @@ http://www.w3.org/TR/REC-CSS2/fonts.html#propdef-font-size-adjust
 <element kind="css_property" name="font-stretch">
 <description>Provides a way to stretch / squash the font.</description>
 <properties>
-<property kind="parameter" name="font-stretch" input="list">
+<property kind="parameter" name="font-stretch" >
 <values>,normal,wider,narrower,ultra-condensed,extra-condensed,condensed,semi-condensed,semi-expanded,expanded,extra-expanded,ultra-expanded,inherit</values>
 <description> normal | wider | narrower | ultra-condensed | extra-condensed | condensed | semi-condensed | semi-expanded | expanded | extra-expanded | ultra-expanded | inherit
 Initial:  	normal
@@ -1450,8 +1398,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>font-stretch: %0;
-</insert>
+
 <note title="font-stretch">
 The font stretch indicates the desired amount of condensing or expansion in the glyphs used to render the text, relative to other fonts in the same font family.
 </note>
@@ -1460,7 +1407,7 @@ The font stretch indicates the desired amount of condensing or expansion in the 
 <element kind="css_property" name="font-style">
 <description>Specifies if the font should be italic, oblique, etc.</description>
 <properties>
-<property kind="parameter" name="font-style" input="list">
+<property kind="parameter" name="font-style" >
 <values>,normal,italic,oblique,inherit</values>
 <description> normal | italic | oblique | inherit
 Initial:  	normal
@@ -1470,8 +1417,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>font-style: %0;
-</insert>
+
 <note title="font-style">
 The font style specifies whether the text is to be rendered using a normal, italic, or oblique face. Italic is a more cursive companion face to the normal face, but not so cursive as to make it a script face. Oblique is a slanted form of the normal face, and is more commonly used as a companion face to sans-serif. This definition avoids having to label slightly slanted normal faces as oblique, or normal Greek faces as italic.
 </note>
@@ -1480,7 +1426,7 @@ The font style specifies whether the text is to be rendered using a normal, ital
 <element kind="css_property" name="font-variant">
 <description>Enables a variant of the font to be used, such as small-caps.</description>
 <properties>
-<property kind="parameter" name="font-variant" input="list">
+<property kind="parameter" name="font-variant" >
 <values>,normal,small-caps,inherit</values>
 <description> normal | small-caps | inherit
 Initial:  	normal
@@ -1490,8 +1436,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>font-variant: %0;
-</insert>
+
 <note title="font-variant">
 The font variant indicates whether the text is to be rendered using the normal glyphs for lowercase characters or using small-caps glyphs for lowercase characters. A particular font may contain only normal, only small-caps, or both types of glyph; this property is used to request an appropriate font and, if the font contains both variants, the appropriate glyphs.
 </note>
@@ -1500,7 +1445,7 @@ The font variant indicates whether the text is to be rendered using the normal g
 <element kind="css_property" name="font-weight">
 <description>Specifies the weight of the font.</description>
 <properties>
-<property kind="parameter" name="font-weight" input="list">
+<property kind="parameter" name="font-weight" >
 <values>,normal,bold,bolder,lighter,100,200,300,400,500,600,700,800,900,inherit</values>
 <description> normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | inherit
 Initial:  	normal
@@ -1510,8 +1455,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>font-weight: %0;
-</insert>
+
 <note title="font-weight">
 The font weight refers to the boldness or lightness of the glyphs used to render the text, relative to other fonts in the same font family
 </note>
@@ -1523,7 +1467,7 @@ The font weight refers to the boldness or lightness of the glyphs used to render
 <element kind="css_property" name="height">
 <description>Provides a height for an element.</description>
 <properties>
-<property kind="parameter" name="height"  input="list+entry">
+<property kind="parameter" name="height"  >
 <values>0, %,auto,inherit</values>
 <description> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
 Initial:  	auto
@@ -1533,8 +1477,7 @@ Percentages:  	see Notes
 </description>
 </property>
 </properties>
-<insert>height: %0;
-</insert>
+
 <note title="height">
 This property specifies the content height of boxes generated by block-level and replaced elements.
 
@@ -1554,7 +1497,7 @@ see http://www.w3.org/TR/REC-CSS2/visudet.html#propdef-height
 <element kind="css_property" name="left">
 <description>Specifies the offset of the left hand side of a positioned element.</description>
 <properties>
-<property kind="parameter" name="left" input="list+entry">
+<property kind="parameter" name="left" >
 <values>0, %,auto,inherit</values>
 <description> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
 Initial:  	auto
@@ -1564,8 +1507,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>left: %0;
-</insert>
+
 <note title="left">
 &lt;length&gt;: The offset is a fixed distance from the reference edge. 
 &lt;percentage&gt;: The offset is a percentage of the containing block's width (for 'left' or 'right') or height (for 'top' and 'bottom'). For 'top' and 'bottom', if the height of the containing block is not specified explicitly (i.e., it depends on content height), the percentage value is interpreted like 'auto'. 
@@ -1578,7 +1520,7 @@ For absolutely positioned boxes, the offsets are with respect to the box's conta
 <element kind="css_property" name="letter-spacing">
 <description>Specifies the spacing between letters.</description>
 <properties>
-<property kind="parameter" name="letter-spacing"  input="list+entry">
+<property kind="parameter" name="letter-spacing"  >
 <values>normal,0,inherit</values>
 <description>normal | &lt;length&gt; | inherit
 Initial:  	normal
@@ -1588,8 +1530,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>letter-spacing: %0;
-</insert>
+
 <note title="letter-spacing">
 This property specifies spacing behavior between words. Values have the following meanings:
 
@@ -1603,7 +1544,7 @@ Word spacing algorithms are user agent-dependent. Word spacing is also influence
 <element kind="css_property" name="line-height">
 <description>Specifies the minimal height of each generated inline box.</description>
 <properties>
-<property kind="parameter" name="line-height"  input="list+entry">
+<property kind="parameter" name="line-height"  >
 <values>normal,0, %,inherit</values>
 <description>normal | &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt; | inherit
 Initial:  	normal
@@ -1613,8 +1554,7 @@ Percentages:  	refer to the font size of the element itself
 </description>
 </property>
 </properties>
-<insert>line-height: %0;
-</insert>
+
 <note title="line-height">
 If the property is set on a block-level element whose content is composed of inline-level elements, it specifies the minimal height of each generated inline box.
 
@@ -1635,24 +1575,23 @@ normal: Tells user agents to set the computed value to a "reasonable" value base
 <element kind="css_property" name="list-style">
 <description>Shorthand method of applying the list-style properties.</description>
 <properties>
-<property kind="parameter" name="style-type" input="list">
+<property kind="parameter" name="style-type" >
 <values>,,disc,circle,square,decimal,decimal-leading-zero,lower-roman,upper-roman,lower-greek,lower-alpha,lower-latin,upper-alpha,upper-latin,hebrew,armenian,georgian,cjk-ideographic,hiragana,katakana,hiragana-iroha,katakana-iroha,none</values>
 <description> disc | circle | square | decimal | decimal-leading-zero | lower-roman | upper-roman | lower-greek | lower-alpha | lower-latin | upper-alpha | upper-latin | hebrew | armenian | georgian | cjk-ideographic | hiragana | katakana | hiragana-iroha | katakana-iroha | none
 </description>
 </property>
-<property kind="parameter" name="style-position" input="list">
+<property kind="parameter" name="style-position" >
 <values>,,inside,outside</values>
 <description> inside | outside
 </description>
 </property>
-<property kind="parameter" name="style-image" input="list+entry">
+<property kind="parameter" name="style-image" >
 <values>,url(""),none,inherit</values>
 <description> &lt;uri&gt; | none
 </description>
 </property>
 </properties>
-<insert>list-style: %_;
-</insert>
+
 <note title="list-style">
     Value:  	[ &lt;'list-style-type'&gt; || &lt;'list-style-position'&gt; || &lt;'list-style-image'&gt; ] | inherit
     Initial:  	not defined for shorthand properties
@@ -1667,7 +1606,7 @@ The 'list-style' property is a shorthand notation for setting the three properti
 <element kind="css_property" name="list-style-image">
 <description>Specifies an image that should be used as the marker in a list or list item.</description>
 <properties>
-<property kind="parameter" name="style-image" input="list+entry">
+<property kind="parameter" name="style-image" >
 <values>url(),none,inherit</values>
 <description> &lt;uri&gt; | none | inherit
 Initial:  	none
@@ -1677,8 +1616,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>list-style-image: %0;
-</insert>
+
 <note title="list-style-image">
  This property sets the image that will be used as the list item marker. When the image is available, it will replace the marker set with the 'list-style-type' marker.
 </note>
@@ -1687,7 +1625,7 @@ Percentages:  	N/A
 <element kind="css_property" name="list-style-position">
 <description>Used to control if the list marker is rendered inside or outside the actual list item.</description>
 <properties>
-<property kind="parameter" name="style-position" input="list">
+<property kind="parameter" name="style-position" >
 <values>,inside,outside,inherit</values>
 <description> inside | outside | inherit
 Initial:  	outside
@@ -1697,8 +1635,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>list-style-position: %0;
-</insert>
+
 <note title="list-style-position">
  This property specifies the position of the marker box in the principal block box. Values have the following meanings:
 outside: The marker box is outside the principal block box. Note. CSS1 did not specify the precise location of the marker box and for reasons of compatibility, CSS2 remains equally ambiguous. For more precise control of marker boxes, please use markers. 
@@ -1709,7 +1646,7 @@ inside: The marker box is the first inline box in the principal block box, after
 <element kind="css_property" name="list-style-type">
 <description>Specifies the type of marker to display, circle, square etc.</description>
 <properties>
-<property kind="parameter" name="style-type" input="list">
+<property kind="parameter" name="style-type" >
 <values>,disc,circle,square,decimal,decimal-leading-zero,lower-roman,upper-roman,lower-greek,lower-alpha,lower-latin,upper-alpha,upper-latin,hebrew,armenian,georgian,cjk-ideographic,hiragana,katakana,hiragana-iroha,katakana-iroha,none,inherit</values>
 <description> disc | circle | square | decimal | decimal-leading-zero | lower-roman | upper-roman | lower-greek | lower-alpha | lower-latin | upper-alpha | upper-latin | hebrew | armenian | georgian | cjk-ideographic | hiragana | katakana | hiragana-iroha | katakana-iroha | none | inherit
 Initial:  	disc
@@ -1719,8 +1656,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>list-style-type: %0;
-</insert>
+
 <note title="list-style-type">
 see please http://www.w3.org/TR/REC-CSS2/generate.html#propdef-list-style-type
 </note>
@@ -1734,7 +1670,7 @@ http://www.w3.org/TR/REC-CSS2/box.html</description>
 <element kind="css_property" name="margin">
 <description>Shorthand method for specifying the top, right, bottom, left margin widths / heights.</description>
 <properties>
-<property kind="parameter" name="margin" input="list+entry">
+<property kind="parameter" name="margin" >
 <values>0,auto,inherit</values>
 <description> &lt;margin-width&gt;{1,4} | inherit
 Initial:  	not defined for shorthand properties
@@ -1745,8 +1681,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>margin: %0;
-</insert>
+
 <note title="margin">
  The 'margin' property is a shorthand property for setting 'margin-top', 'margin-right', 'margin-bottom', and 'margin-left' at the same place in the style sheet.
 
@@ -1757,7 +1692,7 @@ If there is only one value, it applies to all sides. If there are two values, th
 <element kind="css_property" name="margin-top">
 <description>Specifies the height of the top margin on an element.</description>
 <properties>
-<property kind="parameter" name="margin-top" input="list+entry">
+<property kind="parameter" name="margin-top" >
 <values>0,auto,inherit</values>
 <description> &lt;margin-width&gt; | inherit
 Initial:  	0
@@ -1767,8 +1702,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>margin-top: %0;
-</insert>
+
 <note title="margin-top">
 Margin properties specify the width of the margin area of a box. The 'margin' shorthand property sets the margin for all four sides while the other margin properties only set their respective side.
 The properties defined in this section refer to the &lt;margin-width&gt; value type, which may take one of the following values:
@@ -1786,7 +1720,7 @@ Negative values for margin properties are allowed, but there may be implementati
 <element kind="css_property" name="margin-right">
 <description>Specifies the width of the right hand margin on an element.</description>
 <properties>
-<property kind="parameter" name="margin-right" input="list+entry">
+<property kind="parameter" name="margin-right" >
 <values>0,auto,inherit</values>
 <description> &lt;margin-width&gt; | inherit
 Initial:  	0
@@ -1796,8 +1730,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>margin-right: %0;
-</insert>
+
 <note title="margin-right">
 see please margin-top
 </note>
@@ -1806,7 +1739,7 @@ see please margin-top
 <element kind="css_property" name="margin-bottom">
 <description>Specifies the height of the bottom margin on an element.</description>
 <properties>
-<property kind="parameter" name="margin-bottom" input="list+entry">
+<property kind="parameter" name="margin-bottom" >
 <values>0,auto,inherit</values>
 <description> &lt;margin-width&gt; | inherit
 Initial:  	0
@@ -1816,8 +1749,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>margin-bottom: %0;
-</insert>
+
 <note title="margin-bottom">
 see please margin-top
 </note>
@@ -1826,7 +1758,7 @@ see please margin-top
 <element kind="css_property" name="margin-left">
 <description>Specifies the width of the left hand margin on an element.</description>
 <properties>
-<property kind="parameter" name="margin-left" input="list+entry">
+<property kind="parameter" name="margin-left" >
 <values>0,auto,inherit</values>
 <description> &lt;margin-width&gt; | inherit
 Initial:  	0
@@ -1836,8 +1768,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>margin-left: %0;
-</insert>
+
 <note title="margin-left">
 see please margin-top
 </note>
@@ -1850,7 +1781,7 @@ see please margin-top
 <description>Specifies the distance between the nearest border edges of a marker box and its associated principal box
 		 .</description>
 <properties>
-<property kind="parameter" name="marker-offset" input="list+entry">
+<property kind="parameter" name="marker-offset" >
 <values>0,auto,inherit</values>
 <description> &lt;length&gt; | auto | inherit
 Initial:  	auto
@@ -1860,8 +1791,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>marker-offset: %0;
-</insert>
+
 <note title="marker-offset">
 This property specifies the distance between the nearest border edges of a marker box and its associated principal box. The offset may either be a user-specified (&lt;length&gt;) or chosen by the UA ('auto'). Lengths may be negative, but there may be implementation-specific limits.
 </note>
@@ -1871,7 +1801,7 @@ This property specifies the distance between the nearest border edges of a marke
 <description>Specifies whether cross marks or crop marks or both should be rendered just outside the page box edge
 		 .</description>
 <properties>
-<property kind="parameter" name="marks" input="list">
+<property kind="parameter" name="marks" >
 <values>,crop,cross,crop cross,none,inherit</values>
 <description> [ crop || cross ] | none | inherit
 Initial:  	none
@@ -1882,8 +1812,7 @@ Media:  	visual, paged
 </description>
 </property>
 </properties>
-<insert>marks: %0;
-</insert>
+
 <note title="marks">
 In high-quality printing, marks are often added outside the page box. This property specifies whether cross marks or crop marks or both should be rendered just outside the page box edge.
 
@@ -1898,7 +1827,7 @@ The size, style, and position of cross marks depend on the user agent.
 <element kind="css_property" name="max-height">
 <description>Specifies a maximum height for an element, does not apply to table elements.</description>
 <properties>
-<property kind="parameter" name="max-height" input="list+entry">
+<property kind="parameter" name="max-height" >
 <values>0, %,none,inherit</values>
 <description> &lt;length&gt; | &lt;percentage&gt; | none | inherit
 Initial:  	none
@@ -1908,8 +1837,7 @@ Percentages:  	refer to height of containing block
 </description>
 </property>
 </properties>
-<insert>max-height: %0;
-</insert>
+
 <note title="max-height">
 allow authors to constrain box heights to a certain range. Values have the following meanings:
 
@@ -1930,7 +1858,7 @@ The following algorithm describes how the two properties influence the computed 
 <element kind="css_property" name="max-width">
 <description>Specifies a maximum width for an element, does not apply to table elements.</description>
 <properties>
-<property kind="parameter" name="max-width" input="list+entry">
+<property kind="parameter" name="max-width" >
 <values>0, %,none,inherit</values>
 <description> &lt;length&gt; | &lt;percentage&gt; | none | inherit
 Initial:  	none
@@ -1940,8 +1868,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>max-width: %0;
-</insert>
+
 <note title="max-width">
 allow authors to constrain box widths to a certain range. Values have the following meanings:
 
@@ -1963,7 +1890,7 @@ The user agent may define a non-negative minimum value for the 'min-width' prope
 <element kind="css_property" name="min-height">
 <description>Specifies a minimum height for an element, does not apply to table elements.</description>
 <properties>
-<property kind="parameter" name="min-height" input="list+entry">
+<property kind="parameter" name="min-height" >
 <values>0, %,inherit</values>
 <description> &lt;length&gt; | &lt;percentage&gt; | inherit
 Initial:  	0
@@ -1973,8 +1900,7 @@ Percentages:  	refer to height of containing block
 </description>
 </property>
 </properties>
-<insert>min-height: %0;
-</insert>
+
 <note title="min-height">
 allow authors to constrain box heights to a certain range. Values have the following meanings:
 
@@ -1995,7 +1921,7 @@ The following algorithm describes how the two properties influence the computed 
 <element kind="css_property" name="min-width">
 <description>Specifies a minimum width for an element, does not apply to table elements.</description>
 <properties>
-<property kind="parameter" name="min-width" input="list+entry">
+<property kind="parameter" name="min-width" >
 <values>0, %,inherit</values>
 <description> &lt;length&gt; | &lt;percentage&gt; | inherit
 Initial:  	UA dependent
@@ -2005,8 +1931,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>min-width: %0;
-</insert>
+
 <note title="min-width">
 allow authors to constrain box widths to a certain range. Values have the following meanings:
 
@@ -2029,7 +1954,7 @@ The user agent may define a non-negative minimum value for the 'min-width' prope
 <description>Specifies the minimum number of lines of a paragraph that must be left at the bottom of a page.
 		</description>
 <properties>
-<property kind="parameter" name="orphans" input="list">
+<property kind="parameter" name="orphans" >
 <values>,2,inherit</values>
 <description> &lt;integer&gt; | inherit
 Initial:  	2
@@ -2040,8 +1965,7 @@ Media:  	visual, paged
 </description>
 </property>
 </properties>
-<insert>orphans: %0;
-</insert>
+
 <note title="orphans">
 The 'orphans' property specifies the minimum number of lines of a paragraph that must be left at the bottom of a page. The 'widows' property specifies the minimum number of lines of a paragraph that must be left at the top of a page. Examples of how they are used to control page breaks are given below.
 
@@ -2052,24 +1976,23 @@ For information about paragraph formatting, please consult the section on line b
 <element kind="css_property" name="outline">
 <description>Shorthand for setting the individual outline properties on all sides of the box.</description>
 <properties>
-<property kind="parameter" name="outline-color" input="color+list">
+<property kind="parameter" name="outline-color" >
 <values>#,rgb( ),invert,aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText</values>
 <description> &lt;color&gt; | invert 
 </description>
 </property>
-<property kind="parameter" name="outline-style" input="list">
+<property kind="parameter" name="outline-style" >
 <values>,none,dotted,dashed,solid,double,groove,ridge,inset,outset</values>
 <description> none | dotted | dashed | solid | double | groove | ridge | inset | outset
 </description>
 </property>
-<property kind="parameter" name="outline-width" input="list+entry">
+<property kind="parameter" name="outline-width" >
 <values>thin,medium,thick,0</values>
 <description> thin | medium | thick | &lt;lenght&gt;
 </description>
 </property> 
 </properties>
-<insert>outline: %_;
-</insert>
+
 <note title="outline">
 At times, style sheet authors may want to create outlines around visual objects such as buttons, active form fields, image maps, etc., to make them stand out. CSS2 outlines differ from borders in the following ways:
 
@@ -2085,7 +2008,7 @@ http://www.w3.org/TR/REC-CSS2/ui.html#propdef-outline
 <element kind="css_property" name="outline-color">
 <description>Sets the colour of the outline on all sides of the box.</description>
 <properties>
-<property kind="parameter" name="outline-color" input="color+list">
+<property kind="parameter" name="outline-color" >
 <values>#,rgb( ),invert,aqua,black,blue,fuchsia,gray,green,lime,maroon,navy,olive,purple,red,silver,teal,white,yellow,ActiveBorder,ActiveCaption,AppWorkspace,Background,ButtonFace,ButtonHighlight,ButtonShadow,ButtonText,CaptionText,GrayText,Highlight,HighlightText,InactiveBorder,InactiveCaption,InactiveCaptionText,InfoBackground,InfoText,Menu,MenuText,Scrollbar,ThreeDDarkShadow,ThreeDFace,ThreeDHighlight,ThreeDLightShadow,ThreeDShadow,Window,WindowFrame,WindowText,inherit</values>
 <description> &lt;color&gt; | invert | inherit
 Initial:  	invert
@@ -2096,8 +2019,7 @@ Media:  	visual, interactive
 </description>
 </property>
 </properties>
-<insert>outline-color: %0;
-</insert>
+
 <note title="outline-color">
 The 'outline-color' accepts all colors, as well as the keyword 'invert'. 'Invert' is expected to perform a color inversion on the pixels on the screen. This is a common trick to ensure the focus border is visible, regardless of color background.
 sea please outline.
@@ -2107,7 +2029,7 @@ sea please outline.
 <element kind="css_property" name="outline-style">
 <description>Sets the style of the outline on all sides of the box.</description>
 <properties>
-<property kind="parameter" name="outline-style" input="list">
+<property kind="parameter" name="outline-style" >
 <values>,none,dotted,dashed,solid,double,groove,ridge,inset,outset,inherit</values>
 <description> &lt;border-style&gt; | inherit
 Initial:  	none
@@ -2118,8 +2040,7 @@ Media:  	visual, interactive
 </description>
 </property>
 </properties>
-<insert>outline-style: %0;
-</insert>
+
 <note title="outline-style">
 The 'outline-style' property accepts the same values as 'border-style', except that 'hidden' is not a legal outline style.
 sea please outline.
@@ -2129,7 +2050,7 @@ sea please outline.
 <element kind="css_property" name="outline-width">
 <description>Sets the width of the outline on all sides of the box.</description>
 <properties>
-<property kind="parameter" name="outline-width" input="list+entry">
+<property kind="parameter" name="outline-width" >
 <values>thin,medium,thick,0,inherit</values>
 <description>  thin | medium | thick | &lt;lenght&gt; | inherit
 Initial:  	medium
@@ -2140,8 +2061,7 @@ Media:  	visual, interactive
 </description>
 </property>
 </properties>
-<insert>outline-width: %0;
-</insert>
+
 <note title="outline-width">
 The 'outline-width' property accepts the same values as 'border-width'.
 sea please outline.
@@ -2151,7 +2071,7 @@ sea please outline.
 <element kind="css_property" name="overflow">
 <description>Controls how content that does not fit inside its element should be handled.</description>
 <properties>
-<property kind="parameter" name="overflow" input="list">
+<property kind="parameter" name="overflow" >
 <values>,visible,hidden,scroll,auto,inherit</values>
 <description>visible | hidden | scroll | auto | inherit
 Initial:  	visible
@@ -2161,8 +2081,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>overflow: %0;
-</insert>
+
 <note title="overflow">
 This property specifies whether the content of a block-level element is clipped when it overflows the element's box (which is acting as a containing block for the content). Values have the following meanings:
 
@@ -2184,7 +2103,7 @@ http://www.w3.org/TR/REC-CSS2/box.html</description>
 <description>Specifies the width of the padding area of a box. The 'padding' shorthand property sets the padding for all four sides while the other padding properties only set their respective side. 
         If there is only one value, it applies to all sides. If there are two values, the top and bottom paddings are set to the first value and the right and left paddings are set to the second. If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom is set to the third. If there are four values, they apply to the top, right, bottom, and left, respectively.</description>
 <properties>
-<property kind="parameter" name="padding" input="list+entry">
+<property kind="parameter" name="padding" >
 <values>0, %</values>
 <description> &lt;padding-width&gt;{1,4} | inherit
 Initial:  	not defined for shorthand properties
@@ -2193,24 +2112,23 @@ Inherited:  	no
 Percentages:  	refer to width of containing block
 </description>
 </property>
-<property kind="parameter" name="padding 1" input="list+entry">
+<property kind="parameter" name="padding 1" >
 <values>0, %</values>
 <description> &lt;length&gt; | &lt;percentage&gt;
 </description>
 </property>
-<property kind="parameter" name="padding 2" input="list+entry">
+<property kind="parameter" name="padding 2" >
 <values>0, %</values>
 <description> &lt;length&gt; | &lt;percentage&gt;
 </description>
 </property>
-<property kind="parameter" name="padding 3" input="list+entry">
+<property kind="parameter" name="padding 3" >
 <values>0, %</values>
 <description> &lt;length&gt; | &lt;percentage&gt;
 </description>
 </property>
 </properties>
-<insert>padding: %_;
-</insert>
+
 <note title="padding">
 The padding properties specify the width of the padding area of a box. The 'padding' shorthand property sets the padding for all four sides while the other padding properties only set their respective side.
 
@@ -2233,7 +2151,7 @@ The surface color or image of the padding area is specified via the 'background'
 <element kind="css_property" name="padding-top">
 <description>Set the top padding of a box.</description>
 <properties>
-<property kind="parameter" name="padding-top" input="list+entry">
+<property kind="parameter" name="padding-top" >
 <values>0, %,inherit</values>
 <description> &lt;padding-width&gt; | inherit
 Initial:  	0
@@ -2243,8 +2161,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>padding-top: %0;
-</insert>
+
 <note title="padding-top">
 see please padding
 </note>
@@ -2253,7 +2170,7 @@ see please padding
 <element kind="css_property" name="padding-right">
 <description>Set the right padding of a box.</description>
 <properties>
-<property kind="parameter" name="padding-right" input="list+entry">
+<property kind="parameter" name="padding-right" >
 <values>0, %,inherit</values>
 <description> &lt;padding-width&gt; | inherit
 Initial:  	0
@@ -2263,8 +2180,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>padding-right: %0;
-</insert>
+
 <note title="padding-right">
 see please padding
 </note>
@@ -2273,7 +2189,7 @@ see please padding
 <element kind="css_property" name="padding-bottom">
 <description>Set the bottom padding of a box.</description>
 <properties>
-<property kind="parameter" name="padding-bottom" input="list+entry">
+<property kind="parameter" name="padding-bottom" >
 <values>0, %,inherit</values>
 <description> &lt;padding-width&gt; | inherit
 Initial:  	0
@@ -2283,8 +2199,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>padding-bottom: %0;
-</insert>
+
 <note title="padding-bottom">
 see please padding
 </note>
@@ -2293,7 +2208,7 @@ see please padding
 <element kind="css_property" name="padding-left">
 <description>Set the left padding of a box.</description>
 <properties>
-<property kind="parameter" name="padding-left" input="list+entry">
+<property kind="parameter" name="padding-left" >
 <values>0, %,inherit</values>
 <description> &lt;padding-width&gt; | inherit
 Initial:  	0
@@ -2303,8 +2218,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>padding-left: %0;
-</insert>
+
 <note title="padding-left">
 see please padding
 </note>
@@ -2318,7 +2232,7 @@ http://www.w3.org/TR/REC-CSS2/page.html</description>
 <element kind="css_property" name="page">
 <description>Specifies a particular type of page where an element should be displayed.</description>
 <properties>
-<property kind="parameter" name="page" input="list+entry">
+<property kind="parameter" name="page" >
 <values>,auto</values>
 <description> &lt;identifier&gt; | auto
 Initial:  	auto
@@ -2329,8 +2243,7 @@ Media:  	visual, paged
 </description>
 </property>
 </properties>
-<insert>page: %0;
-</insert>
+
 <note title="page">
 The 'page' property can be used to specify a particular type of page where an element should be displayed.
 
@@ -2347,7 +2260,7 @@ See http://www.w3.org/TR/REC-CSS2/page.html#propdef-page
 <element kind="css_property" name="page-break-after">
 <description>Page break after.</description>
 <properties>
-<property kind="parameter" name="page-break-after" input="list">
+<property kind="parameter" name="page-break-after" >
 <values>,auto,always,avoid,left,right,inherit</values>
 <description> auto | always | avoid | left | right | inherit
 Initial:  	auto
@@ -2358,8 +2271,7 @@ Media:  	visual, paged
 </description>
 </property>
 </properties>
-<insert>page-break-after: %0;
-</insert>
+
 <note title="page-break-after">
 auto: Neither force nor forbid a page break before (after, inside) the generated box. 
 always: Always force a page break before (after) the generated box.
@@ -2372,7 +2284,7 @@ right: Force one or two page breaks before (after) the generated box so that the
 <element kind="css_property" name="page-break-before">
 <description>Page break before.</description>
 <properties>
-<property kind="parameter" name="page-break-before" input="list">
+<property kind="parameter" name="page-break-before" >
 <values>,auto,always,avoid,left,right,inherit</values>
 <description> auto | always | avoid | left | right | inherit
 Initial:  	auto
@@ -2383,8 +2295,7 @@ Media:  	visual, paged
 </description>
 </property>
 </properties>
-<insert>page-break-before: %0;
-</insert>
+
 <note title="page-break-before">
 see please page-break-after
 </note>
@@ -2393,7 +2304,7 @@ see please page-break-after
 <element kind="css_property" name="page-break-inside">
 <description>Page break inside.</description>
 <properties>
-<property kind="parameter" name="page-break-inside" input="list">
+<property kind="parameter" name="page-break-inside" >
 <values>,avoid,auto,inherit</values>
 <description> avoid | auto | inherit
 Initial:  	auto
@@ -2404,8 +2315,7 @@ Media:  	visual, paged
 </description>
 </property>
 </properties>
-<insert>page-break-inside: %0;
-</insert>
+
 <note title="page-break-inside">
 see please page-break-after
 </note>
@@ -2417,7 +2327,7 @@ see please page-break-after
 <element kind="css_property" name="position">
 <description>The 'position' and 'float' properties determine which of the CSS2 positioning algorithms is used to calculate the position of a box.</description>
 <properties>
-<property kind="parameter" name="position" input="list">
+<property kind="parameter" name="position" >
 <values>,static,relative,absolute,fixed,inherit</values>
 <description>static | relative | absolute | fixed | inherit
 Initial:  	static
@@ -2427,8 +2337,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>position: %0;
-</insert>
+
 <note title="position">
 The values of this property have the following meanings:
 
@@ -2446,7 +2355,7 @@ fixed: The box's position is calculated according to the 'absolute' model, but i
 <element kind="css_property" name="quotes">
 <description>Specifies pairs of quotation marks for each level of embedded quotation. The 'content' property gives access to those quotation marks and causes them to be inserted before and after a quotation.</description>
 <properties>
-<property kind="parameter" name="quotes" input="list+entry">
+<property kind="parameter" name="quotes" >
 <values>"",none,inherit</values>
 <description> [&lt;string&gt; &lt;string&gt;]+ | none | inherit
 Initial:  	depends on user agent
@@ -2456,8 +2365,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>quotes: %0;
-</insert>
+
 <note title="quotes">
 This property specifies quotation marks for any number of embedded quotations. Values have the following meanings:
 
@@ -2470,7 +2378,7 @@ none
 <element kind="css_property" name="right">
 <description>Specifies how far a box's right content edge is offset to the left of the right edge of the box's containing block.</description>
 <properties>
-<property kind="parameter" name="right" input="list+entry">
+<property kind="parameter" name="right" >
 <values>0, %,auto,inherit</values>
 <description> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
 Initial:  	auto
@@ -2480,8 +2388,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>right: %0;
-</insert>
+
 <note title="right">
 &lt;length&gt;: The offset is a fixed distance from the reference edge. 
 &lt;percentage&gt;: The offset is a percentage of the containing block's width (for 'left' or 'right') or height (for 'top' and 'bottom'). For 'top' and 'bottom', if the height of the containing block is not specified explicitly (i.e., it depends on content height), the percentage value is interpreted like 'auto'. 
@@ -2494,7 +2401,7 @@ For absolutely positioned boxes, the offsets are with respect to the box's conta
 <element kind="css_property" name="size">
 <description>Specifies the size and orientation of a page box.</description>
 <properties>
-<property kind="parameter" name="size" input="list+entry">
+<property kind="parameter" name="size" >
 <values>0,auto,portrait,landscape,inherit</values>
 <description> &lt;length&gt;{1,2} | auto | portrait | landscape | inherit
 Initial:  	auto
@@ -2505,8 +2412,7 @@ Media:  	visual, paged
 </description>
 </property>
 </properties>
-<insert>size: %0;
-</insert>
+
 <note title="size">
 This property specifies the size and orientation of a page box.
 
@@ -2524,7 +2430,7 @@ see http://www.w3.org/TR/REC-CSS2/page.html#propdef-size
 <element kind="css_property" name="table-layout">
 <description>Controls the algorithm used to lay out the table cells, rows, and columns.</description>
 <properties>
-<property kind="parameter" name="table-layout" input="list">
+<property kind="parameter" name="table-layout" >
 <values>,auto,fixed,inherit</values>
 <description> auto | fixed | inherit
 Initial:  	auto
@@ -2534,8 +2440,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>table-layout: %0;
-</insert>
+
 <note title="table-layout">
 The 'table-layout' property controls the algorithm used to lay out the table cells, rows, and columns. Values have the following meaning:
 
@@ -2554,7 +2459,7 @@ http://www.w3.org/TR/REC-CSS2/text.html</description>
 <element kind="css_property" name="text-align">
 <description>Describes how inline content of a block is aligned.</description>
 <properties>
-<property kind="parameter" name="text-align" input="list+entry">
+<property kind="parameter" name="text-align" >
 <values>"",left,right,center,justify,inherit</values>
 <description>left | right | center | justify | &lt;string&gt; | inherit
 Initial:  	depends on user agent and writing direction
@@ -2564,8 +2469,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>text-align: %0;
-</insert>
+
 <note title="text-align">
 This property describes how inline content of a block is aligned. Values have the following meanings:
 
@@ -2579,7 +2483,7 @@ A block of text is a stack of line boxes. In the case of 'left', 'right' and 'ce
 <element kind="css_property" name="text-decoration">
 <description>Describes decorations that are added to the text of an element.</description>
 <properties>
-<property kind="parameter" name="text-decoration" input="list">
+<property kind="parameter" name="text-decoration" >
 <values>,none,underline,overline,underline overline,line-through,blink,inherit</values>
 <description>none | [ underline || overline || line-through || blink ] | inherit
 Initial:  	none
@@ -2589,8 +2493,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>text-decoration: %0;
-</insert>
+
 <note title="text-decoration">
  This property describes decorations that are added to the text of an element. If the property is specified for a block-level element, it affects all inline-level descendants of the element. If it is specified for (or affects) an inline-level element, it affects all boxes generated by the element. If the element has no content or no text content (e.g., the IMG element in HTML), user agents must ignore this property.
 
@@ -2611,7 +2514,7 @@ This property is not inherited, but descendant boxes of a block box should be fo
 <element kind="css_property" name="text-indent">
 <description>Specifies the indentation of the first line of text in a block.</description>
 <properties>
-<property kind="parameter" name="text-indent" input="list+entry">
+<property kind="parameter" name="text-indent" >
 <values>0, %,inherit</values>
 <description> &lt;length&gt; | &lt;percentage&gt; | inherit
 Initial:  	0
@@ -2621,8 +2524,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>: %0;
-</insert>
+
 <note title="text-indent">
 This property specifies the indentation of the first line of text in a block. More precisely, it specifies the indentation of the first box that flows into the block's first line box. The box is indented with respect to the left (or right, for right-to-left layout) edge of the line box. User agents should render this indentation as blank space.
 
@@ -2638,7 +2540,7 @@ The value of 'text-indent' may be negative, but there may be implementation-spec
 <element kind="css_property" name="text-shadow">
 <description>Accepts a comma-separated list of shadow effects to be applied to the text of the element.</description>
 <properties>
-<property kind="parameter" name="text-shadow" input="color+list">
+<property kind="parameter" name="text-shadow" >
 <values>,none,inherit</values>
 <description>none | [&lt;color&gt; || &lt;length&gt; &lt;length&gt; &lt;length&gt;? ,]* [&lt;color&gt; || &lt;length&gt; &lt;length&gt; &lt;length&gt;?] | inherit
 Initial:  	none
@@ -2648,8 +2550,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>text-shadow: %0;
-</insert>
+
 <note title="text-shadow">
 This property accepts a comma-separated list of shadow effects to be applied to the text of the element. The shadow effects are applied in the order specified and may thus overlay each other, but they will never overlay the text itself. Shadow effects do not alter the size of a box, but may extend beyond its boundaries. The stack level of the shadow effects is the same as for the element itself.
 
@@ -2668,7 +2569,7 @@ Text shadows may be used with the :first-letter and :first-line pseudo-elements.
 <element kind="css_property" name="text-transform">
 <description>Controls capitalization effects of an element's text.</description>
 <properties>
-<property kind="parameter" name="text-transform" input="list">
+<property kind="parameter" name="text-transform" >
 <values>,capitalize,uppercase,lowercase,none,inherit</values>
 <description>capitalize | uppercase | lowercase | none | inherit
 Initial:  	none
@@ -2678,8 +2579,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>text-transform: %0;
-</insert>
+
 <note title="text-transform">
 This property controls capitalization effects of an element's text. Values have the following meanings:
 
@@ -2696,7 +2596,7 @@ none: No capitalization effects.
 <element kind="css_property" name="top">
 <description>Specifies how far a box's top content edge is offset below the top edge of the box's containing block.</description>
 <properties>
-<property kind="parameter" name="top" input="list+entry">
+<property kind="parameter" name="top" >
 <values>0, %,auto,inherit</values>
 <description> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
 Initial:  	auto
@@ -2706,8 +2606,7 @@ Percentages:  	refer to heigth of containing block
 </description>
 </property>
 </properties>
-<insert>top: %0;
-</insert>
+
 <note title="top">
 &lt;length&gt;: The offset is a fixed distance from the reference edge. 
 &lt;percentage&gt;: The offset is a percentage of the containing block's width (for 'left' or 'right') or height (for 'top' and 'bottom'). For 'top' and 'bottom', if the height of the containing block is not specified explicitly (i.e., it depends on content height), the percentage value is interpreted like 'auto'. 
@@ -2720,7 +2619,7 @@ For absolutely positioned boxes, the offsets are with respect to the box's conta
 <element kind="css_property" name="unicode-bidi">
 <description>For the 'direction' property to have any effect on inline-level elements, the 'unicode-bidi' property's value must be 'embed' or 'override'.</description>
 <properties>
-<property kind="parameter" name="unicode-bidi" input="list">
+<property kind="parameter" name="unicode-bidi" >
 <values>,normal,embed,bidi-override,inherit</values>
 <description>normal | embed | bidi-override | inherit
 Initial:  	normal
@@ -2730,8 +2629,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>unicode-bidi: %0;
-</insert>
+
 <note title="unicode-bidi">
 Values for this property have the following meanings:
 
@@ -2745,7 +2643,7 @@ see http://www.w3.org/TR/REC-CSS2/visuren.html#propdef-unicode-bidi
 <element kind="css_property" name="vertical-align">
 <description>Affects the vertical positioning inside a line box of the boxes generated by an inline-level element.</description>
 <properties>
-<property kind="parameter" name="vertical-align" input="list+entry">
+<property kind="parameter" name="vertical-align" >
 <values>baseline,sub,super,top,text-top,middle,bottom,text-bottom, %,0,inherit</values>
 <description>baseline | sub | super | top | text-top | middle | bottom | text-bottom | &lt;percentage&gt; | &lt;length&gt; | inherit
 Initial:  	baseline
@@ -2755,8 +2653,7 @@ Percentages:  	refer to the 'line-height' of the element itself
 </description>
 </property>
 </properties>
-<insert>vertical-align: %0;
-</insert>
+
 <note title="vertical-align">
 This property affects the vertical positioning inside a line box of the boxes generated by an inline-level element. The following values only have meaning with respect to a parent inline-level element, or to a parent block-level element, if that element generates anonymous inline boxes; they have no effect if no such parent exists.
 
@@ -2782,7 +2679,7 @@ bottom: Align the bottom of the box with the bottom of the line box.
 <element kind="css_property" name="visibility">
 <description>Specifies whether the boxes generated by an element are rendered.</description>
 <properties>
-<property kind="parameter" name="visibility" input="list">
+<property kind="parameter" name="visibility" >
 <values>,visible,hidden,collapse,inherit</values>
 <description>visible | hidden | collapse | inherit
 Initial:  	inherit
@@ -2792,8 +2689,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>visibility: %0;
-</insert>
+
 <note title="visibility">
 The 'visibility' property specifies whether the boxes generated by an element are rendered. Invisible boxes still affect layout (set the 'display' property to 'none' to suppress box generation altogether). Values have the following meanings:
 
@@ -2808,7 +2704,7 @@ This property may be used in conjunction with scripts to create dynamic effects.
 <element kind="css_property" name="white-space">
 <description>Declares how whitespace inside the element is handled.</description>
 <properties>
-<property kind="parameter" name="white-space" input="list">
+<property kind="parameter" name="white-space" >
 <values>,normal,pre,nowrap,inherit</values>
 <description>normal | pre | nowrap | inherit
 Initial:  	normal
@@ -2818,8 +2714,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>white-space: %0;
-</insert>
+
 <note title="white-space">
  This property declares how whitespace inside the element is handled. Values have the following meanings:
 
@@ -2832,7 +2727,7 @@ nowrap: This value collapses whitespace as for 'normal', but suppresses line bre
 <element kind="css_property" name="widows">
 <description>Specifies the minimum number of lines of a paragraph that must be left at the top of a page.</description>
 <properties>
-<property kind="parameter" name="widows" input="list+entry">
+<property kind="parameter" name="widows" >
 <values>2,inherit</values>
 <description> &lt;integer&gt; | inherit
 Initial:  	2
@@ -2843,8 +2738,7 @@ Media:  	visual, paged
 </description>
 </property>
 </properties>
-<insert>:widows %0;
-</insert>
+
 <note title="widows">
 The 'orphans' property specifies the minimum number of lines of a paragraph that must be left at the bottom of a page. The 'widows' property specifies the minimum number of lines of a paragraph that must be left at the top of a page. Examples of how they are used to control page breaks are given below.
 
@@ -2855,7 +2749,7 @@ For information about paragraph formatting, please consult the section on line b
 <element kind="css_property" name="width">
 <description>Specifies the content width of boxes generated by block-level and replaced elements.</description>
 <properties>
-<property kind="parameter" name="width" input="list+entry">
+<property kind="parameter" name="width" >
 <values>0, %,auto,inherit</values>
 <description> &lt;length&gt; | &lt;percentage&gt; | auto | inherit
 Initial:  	auto
@@ -2865,8 +2759,7 @@ Percentages:  	refer to width of containing block
 </description>
 </property>
 </properties>
-<insert>width: %0;
-</insert>
+
 <note title="width">
 &lt;length&gt;: Specifies a fixed width. 
 &lt;percentage&gt;: Specifies a percentage width. The percentage is calculated with respect to the width of the generated box's containing block. 
@@ -2880,7 +2773,7 @@ Negative values for 'width' are illegal.
 <element kind="css_property" name="word-spacing">
 <description>Specifies spacing behavior between words.</description>
 <properties>
-<property kind="parameter" name="word-spacing" input="list+entry">
+<property kind="parameter" name="word-spacing" >
 <values>normal,0,inherit</values>
 <description>normal | &lt;length&gt; | inherit
 Initial:  	normal
@@ -2890,8 +2783,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>word-spacing: %0;
-</insert>
+
 <note title="word-spacing">
 This property specifies spacing behavior between words. Values have the following meanings:
 
@@ -2905,7 +2797,7 @@ Word spacing algorithms are user agent-dependent. Word spacing is also influence
 <element kind="css_property" name="z-index">
 <description>Specifies the stack level.</description>
 <properties>
-<property kind="parameter" name="z-index" input="list+entry">
+<property kind="parameter" name="z-index" >
 <values>auto,0,inherit</values>
 <description>auto | &lt;integer&gt; | inherit
 Initial:  	auto
@@ -2915,8 +2807,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>z-index: %0;
-</insert>
+
 <note title="z-index">
 For a positioned box, the 'z-index' property specifies:
 
@@ -2937,7 +2828,7 @@ http://www.w3.org/TR/REC-CSS2/aural.html</description>
 <element kind="css_property" name="azimuth">
 <description>This property is most likely to be implemented by mixing the same signal into different channels at differing volumes.</description>
 <properties>
-<property kind="parameter" name="azimuth" input="list+entry">
+<property kind="parameter" name="azimuth" >
 <values> deg,left-side,far-left,left,center-left,center,center-right,right,far-right,right-side,left-side behind,far-left behind,left behind,center-left behind,center behind,center-right behind,right behind,far-right behind,right-side behind,leftwards,rightwards,inherit</values>
 <description> &lt;angle&gt; | [[ left-side | far-left | left | center-left | center | center-right | right | far-right | right-side ] || behind ] | leftwards | rightwards | inherit
 Initial:  	center
@@ -2947,8 +2838,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>azimuth: %0;
-</insert>
+
 <note title="azimuth">
 &lt;angle&gt;: Position is described in terms of an angle within the range '-360deg' to '360deg'. The value '0deg' means directly ahead in the center of the sound stage. '90deg' is to the right, '180deg' behind, and '270deg' (or, equivalently and more conveniently, '-90deg') to the left. 
 left-side: Same as '270deg'. With 'behind', '270deg'. 
@@ -2970,7 +2860,7 @@ This property is most likely to be implemented by mixing the same signal into di
 <element kind="css_property" name="cue">
 <description>Shorthand for setting 'cue-before' and 'cue-after'. If two values are given, the first value is 'cue-before' and the second is 'cue-after'. If only one value is given, it applies to both properties.</description>
 <properties>
-<property kind="parameter" name="cue" input="list+entry">
+<property kind="parameter" name="cue" >
 <values>url(),url() url(),inherit</values>
 <description>	[ &lt;'cue-before'&gt; || &lt;'cue-after'&gt; ] | inherit
 Initial:  	not defined for shorthand properties
@@ -2980,8 +2870,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>cue: %0;
-</insert>
+
 <note title="cue">
  The 'cue' property is a shorthand for setting 'cue-before' and 'cue-after'. If two values are given, the first value is 'cue-before' and the second is 'cue-after'. If only one value is given, it applies to both properties.
 </note>
@@ -2990,7 +2879,7 @@ Percentages:  	N/A
 <element kind="css_property" name="cue-after">
 <description>Sounds may be played after the element to delimit it.</description>
 <properties>
-<property kind="parameter" name="cue-after" input="list+entry">
+<property kind="parameter" name="cue-after" >
 <values>url(),none,inherit</values>
 <description> &lt;uri&gt; | none | inherit
 Initial:  	none
@@ -3000,8 +2889,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>cue-after: %0;
-</insert>
+
 <note title="cue-after">
 Auditory icons are another way to distinguish semantic elements. Sounds may be played before and/or after the element to delimit it. Values have the following meanings:
 
@@ -3013,7 +2901,7 @@ none: No auditory icon is specified.
 <element kind="css_property" name="cue-before">
 <description>Sounds may be played before the element to delimit it.</description>
 <properties>
-<property kind="parameter" name="cue-before" input="list+entry">
+<property kind="parameter" name="cue-before" >
 <values>url(),none,inherit</values>
 <description> &lt;uri&gt; | none | inherit
 Initial:  	none
@@ -3023,8 +2911,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>cue-before: %0;
-</insert>
+
 <note title="cue-before">
 Auditory icons are another way to distinguish semantic elements. Sounds may be played before and/or after the element to delimit it. Values have the following meanings:
 
@@ -3036,7 +2923,7 @@ none: No auditory icon is specified.
 <element kind="css_property" name="elevation">
 <description>The precise means used to achieve this effect and the number of speakers used to do so are undefined. This property merely identifies the desired end result.</description>
 <properties>
-<property kind="parameter" name="elevation" input="list+entry">
+<property kind="parameter" name="elevation" >
 <values> deg,below,level,above,higher,lower,inherit</values>
 <description> &lt;angle&gt; | below | level | above | higher | lower | inherit
 Initial:  	level
@@ -3047,8 +2934,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>elevation: %0;
-</insert>
+
 <note title="elevation">
 </note>
 </element>
@@ -3056,7 +2942,7 @@ Percentages:  	N/A
 <element kind="css_property" name="pause">
 <description>Shorthand for setting 'pause-before' and 'pause-after'. If two values are given, the first value is 'pause-before' and the second is 'pause-after'. If only one value is given, it applies to both properties.</description>
 <properties>
-<property kind="parameter" name="pause" input="list+entry">
+<property kind="parameter" name="pause" >
 <values> ms, %, ms ms, % %, ms %, % ms,inherit</values>
 <description> [ [&lt;time&gt; | &lt;percentage&gt;]{1,2} ] | inherit
 Initial:  	depends on user agent
@@ -3066,8 +2952,7 @@ Percentages:  	see Notess of 'pause-before' and 'pause-after'
 </description>
 </property>
 </properties>
-<insert>pause: %0;
-</insert>
+
 <note title="pause">
  The 'pause' property is a shorthand for setting 'pause-before' and 'pause-after'. If two values are given, the first value is 'pause-before' and the second is 'pause-after'. If only one value is given, it applies to both properties.
  Time unit identifiers are: ms: milliseconds, s: seconds
@@ -3079,7 +2964,7 @@ Time values may not be negative.
 <element kind="css_property" name="pause-after">
 <description>Specifies a pause to be observed after speaking an element's content.</description>
 <properties>
-<property kind="parameter" name="pause-after" input="list+entry">
+<property kind="parameter" name="pause-after" >
 <values> ms, %,inherit</values>
 <description> &lt;time&gt; | &lt;percentage&gt; | inherit
 Initial:  	depends on user agent
@@ -3089,8 +2974,7 @@ Percentages:  	see Notes
 </description>
 </property>
 </properties>
-<insert>pause-after: %0;
-</insert>
+
 <note title="pause-after">
  specify a pause to be observed after speaking an element's content. Values have the following meanings:
 
@@ -3109,7 +2993,7 @@ Authors should use relative units to create more robust style sheets in the face
 <element kind="css_property" name="pause-before">
 <description>Specifies a pause to be observed before speaking an element's content.</description>
 <properties>
-<property kind="parameter" name="pause-before" input="list+entry">
+<property kind="parameter" name="pause-before" >
 <values> ms, %,inherit</values>
 <description> &lt;time&gt; | &lt;percentage&gt; | inherit
 Initial:  	depends on user agent
@@ -3119,8 +3003,7 @@ Percentages:  	see Notes
 </description>
 </property>
 </properties>
-<insert>pause-before: %0;
-</insert>
+
 <note title="pause-before">
   specify a pause to be observed before speaking an element's content. Values have the following meanings:
 
@@ -3139,7 +3022,7 @@ Authors should use relative units to create more robust style sheets in the face
 <element kind="css_property" name="pitch">
 <description>Specifies the average pitch (a frequency) of the speaking voice. The average pitch of a voice depends on the voice family. For example, the average pitch for a standard male voice is around 120Hz, but for a female voice, it's around 210Hz.</description>
 <properties>
-<property kind="parameter" name="pitch" input="list+entry">
+<property kind="parameter" name="pitch" >
 <values> Hz, kHz,x-low,low,medium,high,x-high,inherit</values>
 <description> &lt;frequency&gt; | x-low | low | medium | high | x-high | inherit
 Initial:  	medium
@@ -3149,8 +3032,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>pitch: %0;
-</insert>
+
 <note title="pitch">
  Specifies the average pitch (a frequency) of the speaking voice. The average pitch of a voice depends on the voice family. For example, the average pitch for a standard male voice is around 120Hz, but for a female voice, it's around 210Hz.
 
@@ -3164,7 +3046,7 @@ x-low, low, medium, high, x-high: These values do not map to absolute frequencie
 <element kind="css_property" name="pitch-range">
 <description>Specifies variation in average pitch.</description>
 <properties>
-<property kind="parameter" name="pitch-range" input="list+entry">
+<property kind="parameter" name="pitch-range" >
 <values>50,inherit</values>
 <description> &lt;number&gt; | inherit
 Initial:  	50
@@ -3174,8 +3056,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>pitch-range: %0;
-</insert>
+
 <note title="pitch-range">
 Specifies variation in average pitch. The perceived pitch of a human voice is determined by the fundamental frequency and typically has a value of 120Hz for a male voice and 210Hz for a female voice. Human languages are spoken with varying inflection and pitch; these variations convey additional meaning and emphasis. Thus, a highly animated voice, i.e., one that is heavily inflected, displays a high pitch range. This property specifies the range over which these variations occur, i.e., how much the fundamental frequency may deviate from the average pitch.
 
@@ -3188,7 +3069,7 @@ Values have the following meanings:
 <element kind="css_property" name="play-during">
 <description>Specifies a sound to be played as a background while an element's content is spoken.</description>
 <properties>
-<property kind="parameter" name="play-during" input="list+entry">
+<property kind="parameter" name="play-during" >
 <values>url(),url() mix,url() repeat,url() mix repeat,auto,none,inherit</values>
 <description> &lt;uri&gt; mix? repeat? | auto | none | inherit
 Initial:  	auto
@@ -3198,8 +3079,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>play-during: %0;
-</insert>
+
 <note title="play-during">
 Similar to the 'cue-before' and 'cue-after' properties, this property specifies a sound to be played as a background while an element's content is spoken. Values have the following meanings:
 
@@ -3214,7 +3094,7 @@ none: This keyword means that there is silence. The sound of the parent element 
 <element kind="css_property" name="richness">
 <description>Specifies the richness, or brightness, of the speaking voice.</description>
 <properties>
-<property kind="parameter" name="richness" input="list+entry">
+<property kind="parameter" name="richness" >
 <values>50,inherit</values>
 <description> &lt;number&gt; | inherit
 Initial:  	50
@@ -3224,8 +3104,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>richness: %0;
-</insert>
+
 <note title="richness">
  Specifies the richness, or brightness, of the speaking voice. A rich voice will "carry" in a large room, a smooth voice will not. (The term "smooth" refers to how the wave form looks when drawn.)
 
@@ -3236,7 +3115,7 @@ Percentages:  	N/A
 <element kind="css_property" name="speak">
 <description>Specifies whether text will be rendered aurally and if so, in what manner (somewhat analogous to the 'display' property).</description>
 <properties>
-<property kind="parameter" name="speak" input="list">
+<property kind="parameter" name="speak" >
 <values>,normal,none,spell-out,inherit</values>
 <description>normal | none | spell-out | inherit
 Initial:  	normal
@@ -3246,8 +3125,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>speak: %0;
-</insert>
+
 <note title="speak">
  his property specifies whether text will be rendered aurally and if so, in what manner (somewhat analogous to the 'display' property). The possible values are:
 
@@ -3262,7 +3140,7 @@ Note the difference between an element whose 'volume' property has a value of 's
 <element kind="css_property" name="speak-header">
 <description>Specifies whether table headers are spoken before every cell, or only before a cell when that cell is associated with a different header than the previous cell.</description>
 <properties>
-<property kind="parameter" name="speak-header" input="list">
+<property kind="parameter" name="speak-header" >
 <values>,once,always,inherit</values>
 <description>once | always | inherit
 Initial:  	once
@@ -3272,8 +3150,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>speak-header: %0;
-</insert>
+
 <note title="speak-header">
 This property specifies whether table headers are spoken before every cell, or only before a cell when that cell is associated with a different header than the previous cell. Values have the following meanings:
 
@@ -3287,7 +3164,7 @@ Each document language may have different mechanisms that allow authors to speci
 <element kind="css_property" name="speak-numeral">
 <description>Controls how numerals are spoken.</description>
 <properties>
-<property kind="parameter" name="speak-numeral" input="list">
+<property kind="parameter" name="speak-numeral" >
 <values>,digits,continuous,inherit</values>
 <description>digits | continuous | inherit
 Initial:  	continuous
@@ -3297,8 +3174,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>speak-numeral: %0;
-</insert>
+
 <note title="speak-numeral">
 This property controls how numerals are spoken. Values have the following meanings:
 
@@ -3310,7 +3186,7 @@ continuous: Speak the numeral as a full number. Thus, "237" is spoken "Two hundr
 <element kind="css_property" name="speak-punctuation">
 <description>Specifies how punctuation is spoken.</description>
 <properties>
-<property kind="parameter" name="speak-punctuation" input="list">
+<property kind="parameter" name="speak-punctuation" >
 <values>,code,none,inherit</values>
 <description>code | none | inherit
 Initial:  	none
@@ -3320,8 +3196,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>speak-punctuation: %0;
-</insert>
+
 <note title="speak-punctuation">
 This property specifies how punctuation is spoken. Values have the following meanings:
 
@@ -3333,7 +3208,7 @@ none: Punctuation is not to be spoken, but instead rendered naturally as various
 <element kind="css_property" name="speech-rate">
 <description>Specifies the speaking rate.</description>
 <properties>
-<property kind="parameter" name="speech-rate" input="list+entry">
+<property kind="parameter" name="speech-rate" >
 <values>10,x-slow,slow,medium,fast,x-fast,faster,slower,inherit</values>
 <description> &lt;number&gt; | x-slow | slow | medium | fast | x-fast | faster | slower | inherit
 Initial:  	medium
@@ -3343,8 +3218,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>speech-rate: %0;
-</insert>
+
 <note title="speech-rate">
 &lt;number&gt;: Specifies the speaking rate in words per minute, a quantity that varies somewhat by language but is nevertheless widely supported by speech synthesizers. 
 x-slow: Same as 80 words per minute. 
@@ -3360,7 +3234,7 @@ slower: Subtracts 40 words per minutes from the current speech rate.
 <element kind="css_property" name="stress">
 <description>Specifies the richness, or brightness, of the speaking voice.</description>
 <properties>
-<property kind="parameter" name="stress" input="list+entry">
+<property kind="parameter" name="stress" >
 <values>50,inherit</values>
 <description> &lt;number&gt; | inherit
 Initial:  	50
@@ -3370,8 +3244,7 @@ Percentages:  	N/A
 </description>
 </property>
 </properties>
-<insert>stress: %0;
-</insert>
+
 <note title="stress">
 Specifies the height of "local peaks" in the intonation contour of a voice. For example, English is a stressed language, and different parts of a sentence are assigned primary, secondary, or tertiary stress. The value of 'stress' controls the amount of inflection that results from these stress markers. This property is a companion to the 'pitch-range' property and is provided to allow developers to exploit higher-end auditory displays.
 
@@ -3384,19 +3257,18 @@ Values have the following meanings:
 <element kind="css_property" name="voice-family">
 <description>Comma-separated, prioritized list of voice family names (compare with 'font-family').</description>
 <properties>
-<property kind="parameter" name="specific-voice" input="list+entry">
+<property kind="parameter" name="specific-voice" >
 <values>'',comedian, trinoids, carlos, lani,romeo,juliet</values>
 <description> &lt;specific-voice&gt;
 </description>
 </property>
-<property kind="parameter" name="generic-voice" input="list">
+<property kind="parameter" name="generic-voice" >
 <values>,male,female,child</values>
 <description> &lt;generic-voice&gt;
 </description>
 </property>
 </properties>
-<insert>voice-family: %_;
-</insert>
+
 <note title="voice-family">
 	[[&lt;specific-voice&gt; | &lt;generic-voice&gt; ],]* [&lt;specific-voice&gt; | &lt;generic-voice&gt; ] | inherit
 Initial:  	depends on user agent
@@ -3410,7 +3282,7 @@ Names of specific voices may be quoted, and indeed must be quoted if any of the 
 <element kind="css_property" name="volume">
 <description>Refers to the median volume of the waveform.</description>
 <properties>
-<property kind="parameter" name="volume" input="list+entry">
+<property kind="parameter" name="volume" >
 <values>10, %,silent,x-soft,soft,medium,loud,x-loud,inherit</values>
 <description> &lt;number&gt; | &lt;percentage&gt; | silent | x-soft | soft | medium | loud | x-loud | inherit
 Initial:  	medium
@@ -3420,8 +3292,7 @@ Percentages:  	refer to inherited value
 </description>
 </property>
 </properties>
-<insert>volume: %0;
-</insert>
+
 <note title="volume">
 Volume refers to the median volume of the waveform. In other words, a highly inflected voice at a volume of 50 might peak well above that. The overall values are likely to be human adjustable for comfort, for example with a physical volume control (which would increase both the 0 and 100 values proportionately); what this property does is adjust the dynamic range.
 
