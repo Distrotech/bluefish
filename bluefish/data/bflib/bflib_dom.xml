@@ -10,22 +10,21 @@ falsetti@clansco.org
 http://bluefish.clansco.org/ref/bflib_dom.xml
 </note>
 <element kind="var" name="getElementById()">
-<insert>.getElementById("%0")</insert>
+
 <description>Returns the element whose ID is specified.
 Syntax: element = document.getElementById(id);
 Implementations that do not know whether attributes are of type ID or not are expected to return null.
 getElementById was introduced in DOM Level 2. 
 Specification: http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-getElBId</description>
 <properties>
-	<property kind="parameter" name="id" input="entry"/>
+	<property kind="parameter" name="id" />
 </properties>
 </element>
 <element kind="var" name="style">
-<insert>document.getElementById("%0").style.%1="";
-</insert>
+
 <properties>
-	<property kind="parameter" name="id" input="entry"/>
-	<property kind="parameter" name="style" input="list">	<values>,visibility,zIndex,accelerator,azimuth,background,backgroundAttachment,backgroundColor,backgroundImage,backgroundPosition,
+	<property kind="parameter" name="id" />
+	<property kind="parameter" name="style" >	<values>,visibility,zIndex,accelerator,azimuth,background,backgroundAttachment,backgroundColor,backgroundImage,backgroundPosition,
 backgroundRepeat,border,borderBottom,borderBottomColor,borderBottomStyle,borderBottomWidth,borderCollapse,
 borderColor,borderLeft,borderLeftColor,borderLeftStyle,borderLeftWidth,borderRight,borderRightColor,
 borderRightStyle,borderRightWidth,borderSpacing,borderStyle,borderTop,borderTopColor,borderTopStyle,
@@ -48,11 +47,11 @@ The window object represents the window itself. Typically, window contains the d
 In a tabbed browser, such as Firefox, each tab contains its own window object. That is, the window object is not shared between tabs in the same window. There are exceptions to this, namely the window.resizeTo and window.resizeBy methods. Generally, anything that can't reasonably pertain to a tab pertains to the window instead. </note>
 <group name="Properties">
 <element kind="var" name="window.content and window._content">
-<insert>.content</insert>
+
 <description>Returns a reference to the content element in the current window. The variant with underscore is deprecated</description>
 </element>
 <element kind="var" name="window.closed">
-<insert>.closed</insert>
+
 <note title="Specification">DOM Level 0. window.closed is not part of any W3C specification or technical recommendation.</note>
 <note title="Additional Reference">MSDN window.closed http://msdn.microsoft.com/library/default.asp?url=/workshop/author/dhtml/reference/properties/closed.asp</note>
 <description>This property indicates whether the current window is closed or not</description>
@@ -87,7 +86,7 @@ function refreshPopupWindow() {
 </properties>
 </element>
 <element kind="var" name="window.Components">
-<insert>.Components</insert>
+
 <note title=""> Mozilla/Netscape only, </note>
 <note title="Specification">DOM Level 0. Not part of specification.</note>
 <description>Returns an array of the XPCOM components installed in the Gecko browser</description>
@@ -99,18 +98,18 @@ function refreshPopupWindow() {
 </properties>
 </element>
 <element kind="var" name="window.controllers">
-<insert>.controllers</insert>
+
 <description>Returns the XUL controller objects for the current chrome window</description>
 </element>
 <element kind="var" name="window.crypto">
-<insert>.crypto</insert>
+
 <note title="">Returns the browser crypto object, which can then be used to manipulate various browser security features.
 See JavaScript crypto http://developer.mozilla.org/en/docs/JavaScript_crypto for details. </note>
 <note title="Specification">DOM Level 0. Not part of specification.</note>
 <description>Returns the browser crypto object</description>
 </element>
 <element kind="var" name="window.defaultStatus">
-<insert>.defaultStatus</insert>
+
 <note title="">To set the status once the window has been opened, use window.status.</note>
 <note title="Specification">DOM Level 0. Not part of specification.</note>
 <description>Gets/sets the status bar text for the given window</description>
@@ -126,7 +125,7 @@ See JavaScript crypto http://developer.mozilla.org/en/docs/JavaScript_crypto for
 </properties>
 </element>
 <element kind="var" name="window.directories">
-<insert>.directories</insert>
+
 <note title="">Gecko only</note>
 <note title="Specification">DOM Level 0. Not part of specification.
 Syntax : dirBar = window.directories 
@@ -144,7 +143,7 @@ Parameters : dirBar is an object of the type barProp. </note>
 </properties>
 </element>
 <element kind="var" name="window.document">
-<insert>.document</insert>
+
 <note title=""></note>
 <note title="Specification">DOM Level 0. Not part of specification.</note>
 <description>Returns a reference to the document that the window contains
@@ -160,7 +159,7 @@ window.dump(doc.title);
 </properties>
 </element>
 <element kind="var" name="window.frames">
-<insert>.frames</insert>
+
 <description>Returns an array of the subframes in the current window.
 Syntax: frameList = window.frames;
 DOM Level 0. Not part of specification. </description>
@@ -175,7 +174,7 @@ for (var i = 0; i < frames.length; i++) {
 </properties>
 </element>
 <element kind="var" name="window.history">
-<insert>.history</insert>
+
 <description>Returns a reference to the history object, which provides an interface for manipulating the browser history.
 Syntax: historyObj = window.history
 Parameters: historyObject is an object reference.
@@ -193,7 +192,7 @@ if ( h.length ) { // if there is a history
 </properties>
 </element>
 <element kind="var" name="window.innerHeight">
-<insert>.innerHeight</insert>
+
 <description>Height of the browser window viewport including, if rendered, the horizontal scrollbar.
 Syntax: var intViewportHeight = window.innerHeight;
 Value: intViewportHeight stores the window.innerHeight property value.
@@ -218,7 +217,7 @@ See also window.innerWidth, window.outerHeight and window.outerWidth. ]]></descr
 </properties>
 </element>
 <element kind="var" name="window.innerWidth">
-<insert>.innerWidth</insert>
+
 <description>Width of the browser window viewport including, if rendered, the vertical scrollbar.
 Syntax: var intViewportWidth = window.innerWidth;
 Value: intViewportWidth stores the window.innerWidth property value.
@@ -244,7 +243,7 @@ See also window.outerWidth, window.innerHeight and window.outerHeight. ]]></desc
 </properties>
 </element>
 <element kind="var" name="window.length">
-<insert>.length</insert>
+
 <description>Returns the number of frames in the window.
 Syntax: ifrms = window.length
 Parameters: ifrms is the number of frames as an integer.
@@ -259,7 +258,7 @@ if ( window.length )
 </properties>
 </element>
 <element kind="var" name="window.location">
-<insert>.location</insert>
+
 <description>Gets/sets the location, or current URL, of the window object.
 Syntax: url = window.location window.location = url
 Parameters: url is a string containing the URL for the specified location.
@@ -276,7 +275,7 @@ function getNews() {
 </properties>
 </element>
 <element kind="var" name="window.locationbar">
-<insert>.locationbar</insert>
+
 <description>Returns the locationbar object, whose visibility can be toggled in the window.
 Syntax: objRef = window.locationbar
 When you load the example page above, the browser displays the following dialog: Image:window.locationbar example dialog.png To toggle the visibility of these bars, you must either sign your scripts or enable the appropriate privileges, as in the example above. Also be aware that dynamically updating the visibilty of the various toolbars can change the size of the window rather dramatically, and may affect the layout of your page. See also: window.locationbar, window.menubar, window.personalbar, window.scrollbars, window.statusbar, window.toolbar
@@ -303,7 +302,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.menubar">
-<insert>.menubar</insert>
+
 <description>Returns the menubar object, whose visibility can be toggled in the window.
 Syntax: objRef = window.menubar
 When you load the example page above, the browser displays the following dialog:
@@ -330,7 +329,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.name">
-<insert>.name</insert>
+
 <description>Gets/sets the name of the window.
 Syntax: string = window.name window.name = string
 The name of the window is used primarily for setting targets for hyperlinks and forms. Windows do not need to have names.
@@ -343,7 +342,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.navigator">
-<insert>navigator</insert>
+
 <description>Returns a reference to the navigator object.
 Syntax: nav = window.navigator
 Parameters: nav is a navigator object reference.
@@ -361,7 +360,7 @@ if ( nav.language != en ) {
 </properties>
 </element>
 <element kind="var" name="window.navigator.appCodeName">
-<insert>navigator.appCodeName</insert>
+
 <description>Returns the internal "code" name of the current browser.
 Syntax: codeName = window.navigator.appCodeName
 Parameters: codeName is the internal name of the browser as a string.
@@ -376,7 +375,7 @@ dump(window.navigator.appCodeName);
 </properties>
 </element>
 <element kind="var" name="window.navigator.appName">
-<insert>navigator.appName</insert>
+
 <description>Returns the official name of the browser.
 Syntax: appName = window.navigator.appName
 Parameters: appName is the name of the browser as a string.
@@ -391,7 +390,7 @@ dump(window.navigator.appName);
 </properties>
 </element>
 <element kind="var" name="window.navigator.appVersion">
-<insert>navigator.appVersion</insert>
+
 <description>Returns the version of the browser as a string.
 Syntax: ver = window.navigator.appVersion
 Parameters: ver is the version number of the browser as a string.
@@ -408,7 +407,7 @@ if ( navigator.appVersion.charAt(0) == "5" ) {
 </properties>
 </element>
 <element kind="var" name="window.navigator.cookieEnabled">
-<insert>navigator.cookieEnabled</insert>
+
 <description>Returns a boolean value indicating whether cookies are enabled or not.
 Syntax: res = window.navigator.cookieEnabled
 Parameters: res is a boolean True or False.
@@ -424,7 +423,7 @@ if (window.navigator.cookieEnabled) {
 </properties>
 </element>
 <element kind="var" name="window.navigator.language">
-<insert>navigator.language</insert>
+
 <description>Returns a string representing the language version of the browser.
 Syntax: lang = window.navigator.language
 Parameters: lang is a two character string (e.g., "en" or "ja") representing the language version.
@@ -441,12 +440,12 @@ if ( window.navigator.language != "en") {
 </properties>
 </element>
 <element kind="var" name="window.navigator.mimeTypes">
-<insert>navigator.mimeTypes</insert>
+
 <description>Returns a list of the MIME types supported by the browser
 DOM Level 0. Not part of specification.</description>
 </element>
 <element kind="var" name="window.navigator.oscpu">
-<insert>navigator.oscpu</insert>
+
 <description>Returns a string that identifies the current operating system.
 Syntax: oscpuInfo = window.navigator.oscpu
 Parameters: oscpu is a string that takes the following form.
@@ -464,7 +463,7 @@ alert(window.navigator.oscpu);
 </properties>
 </element>
 <element kind="var" name="window.navigator.platform">
-<insert>navigator.platform</insert>
+
 <description>Returns a string representing the platform of the browser.
 Syntax: plat = window.navigator.platform
 Parameters: plat is a string with one of the following values:
@@ -482,7 +481,7 @@ alert(window.navigator.platform);
 </properties>
 </element>
 <element kind="var" name="window.navigator.plugins">
-<insert>navigator.plugins</insert>
+
 <description>Returns an array of the plugins installed in the browser.
 Syntax: plugins = window.navigator.plugins
 Parameters: plugins is an array of plugin objects.
@@ -500,7 +499,7 @@ function pluginInfo() {
 </properties>
 </element>
 <element kind="var" name="window.navigator.product">
-<insert>navigator.product</insert>
+
 <description>This property returns the product name of the current browser.
 Syntax: productName = window.navigator.product
 Parameters: productName is a string.
@@ -523,7 +522,7 @@ function prod() {
 </properties>
 </element>
 <element kind="var" name="window.navigator.productSub">
-<insert>navigator.productSub</insert>
+
 <description>productSub returns the build number of the current browser.
 Syntax: prodSub = window.navigator.productSub
 Parameters: prodSub is a string.
@@ -545,7 +544,7 @@ function prodsub() {
 </properties>
 </element>
 <element kind="var" name="window.navigator.userAgent">
-<insert>navigator.userAgent</insert>
+
 <description>Returns the user agent string for the current browser.
 Syntax: var <var>strUserAgent</var> = window.navigator.userAgent;
 strUserAgent stores the user agent string value of the current browser.
@@ -577,7 +576,7 @@ window.navigator.userAgent
 </properties>
 </element>
 <element kind="var" name="window.navigator.vendor">
-<insert>navigator.vendor</insert>
+
 <description>Returns the name of the browser vendor for the current browser.
 Syntax: venString = window.navigator.vendor
 Parameters: venString is a string.
@@ -593,7 +592,7 @@ window.navigator.vendor
 </properties>
 </element>
 <element kind="var" name="window.navigator.vendorSub">
-<insert>navigator.vendorSub</insert>
+
 <description>vendorSub is the substring of the vendor having to do with the vendor version number.
 Syntax: venSub = window.navigator.vendorSub
 Parameters: venSub is a string.
@@ -610,7 +609,7 @@ window.navigator.vendorSub
 </properties>
 </element>
 <element kind="var" name="window.opener">
-<insert>.opener</insert>
+
 <description>Returns a reference to the window that opened this current window.
 Syntax: objRef = window.opener
 When a window is opened from another window, it maintains a reference to that first window as window.opener. If the current window has no opener, this method returns NULL.
@@ -626,7 +625,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.outerHeight">
-<insert>.outerHeight</insert>
+
 <description>Gets the height of the outside of the browser window. window.outerHeight represents the height of the whole browser window including toolbars and window chrome.
 Syntax: var intWindowHeight = window.outerHeight;
 Value: intWindowHeight stores the window.outerHeight property value.
@@ -636,7 +635,7 @@ See also window.innerHeight, window.innerWidth and window.outerWidth
 DOM Level 0. Not part of any W3C technical specification or recommendation.</description>
 </element>
 <element kind="var" name="window.outerWidth">
-<insert>.outerWidth</insert>
+
 <description>Gets the width of the outside of the browser window. window.outerWidth represents the width of the whole browser window including sidebar (if expanded), window chrome and window [re-]sizing borders/handles.
 Syntax: var intWindowWidth = window.outerWidth; 
 Value: intWindowWidth stores the window.outerWidth property value.
@@ -647,7 +646,7 @@ DOM Level 0. Not part of any W3C technical specification or recommendation.
 </description>
 </element>
 <element kind="var" name="window.pageXOffset">
-<insert>.pageXOffset</insert>
+
 <description>Gets the amount of content that has been hidden by scrolling to the right.
 Syntax: hScroll = window.pageXOffset
 Parameters: hScroll is the number of pixels scrolled as an integer.
@@ -663,7 +662,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.pageYOffset">
-<insert>.pageYOffset</insert>
+
 <description>Gets the amount of content that has been hidden by scrolling down.
 Syntax: vScroll = window.pageYOffset
 Parameters: vScroll is the number of pixels as an integer.
@@ -679,7 +678,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.parent">
-<insert>.parent</insert>
+
 <description>Returns a reference to the parent of the current window or subframe.
 Syntax: objRef = window.parent
 If a window does not have a parent, its parent property is a reference to itself.
@@ -693,7 +692,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.personalbar">
-<insert>.personalbar</insert>
+
 <description>Returns the personalbar object, whose visibility can be toggled in the window.
 Syntax: objRef = window.menubar
 To toggle the visibility of these bars, you must either sign your scripts or enable the appropriate privileges, as in the example above. Also be aware that dynamically updating the visibilty of the various toolbars can change the size of the window rather dramatically, and may affect the layout of your page. See also: window.locationbar, window.menubar, window.scrollbars, window.statusbar, window.toolbar
@@ -719,7 +718,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.pkcs11">
-<insert>.pkcs11</insert>
+
 <description>Returns the pkcs11 object , which can be used to install drivers and other software associated with the pkcs11 protocol.
 Syntax: objRef = window.pkcs11
 See nsIDOMPkcs11 for more information about how to manipulate pkcs11 objects.
@@ -734,7 +733,7 @@ DOM Level 0. Not part of specification. </description>
 <note title=""></note>
 </element>
 <element kind="var" name="window.prompter">
-<insert>.prompter</insert>
+
 <description>Returns a reference to an nsIPrompt instance, allowing to show dialogs parented to the current window.
 Syntax: objRef = window.prompter
 DOM Level 0. Not part of specification. </description>
@@ -746,7 +745,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.screen">
-<insert>.screen</insert>
+
 <description>Returns a reference to the screen object associated with the window.
 Syntax: screenObj = window.screen
 The screen object is a special JavaScript object for controlling aspects of the screen on which the current 
@@ -766,7 +765,7 @@ if ( s.colorDepth < 8) {
 </properties>
 </element>
 <element kind="var" name="window.screen.availHeight">
-<insert>.screen.availHeight</insert>
+
 <description>Returns the amount of vertical space available to the window on the screen.
 Syntax: iAvail = window.screen.availHeight
 DOM Level 0. Not part of specification. </description>
@@ -781,7 +780,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.screenavailLeft">
-<insert>.screenavailLeft</insert>
+
 <description>Syntax: iAvail = window.screen.availLeft
 In most cases, this property returns 0.
 DOM Level 0. Not part of specification. </description>
@@ -795,7 +794,7 @@ window.moveTo(setX, setY);
 </properties>
 </element>
 <element kind="var" name="window.screen.availTop">
-<insert>.screen.availTop</insert>
+
 <description>Specifies the y-coordinate of the first pixel that is not allocated to permanent or semipermanent user interface features.
 Syntax: iAvail = window.screen.availTop
 In most cases, this property returns 0.
@@ -810,14 +809,14 @@ window.moveTo(setX, setY);
 </properties>
 </element>
 <element kind="var" name="window.screen.availWidth">
-<insert>.screen.availWidth</insert>
+
 <description>Returns the amount of horizontal space in pixels available to the window.
 Syntax: iAvail = window.screen.availWidth
 no notes
 DOM Level 0. Not part of specification. </description>
 </element>
 <element kind="var" name="window.screen.colorDepth">
-<insert>.screen.colorDepth</insert>
+
 <description>Returns the color depth of the screen.
 Syntax: bitDepth = window.screen.colorDepth
 See also window.screen.pixelDepth.
@@ -835,7 +834,7 @@ if ( window.screen.colorDepth < 8) {
 </properties>
 </element>
 <element kind="var" name="window.screen.height">
-<insert>.screen.height</insert>
+
 <description>Returns the height of the screen in pixels.
 Syntax: iHeight = window.screen.height
 Note that not all of the height given by this property may be available to the window itself. Widgets such as taskbars or other special application windows that integrate with the OS (e.g., the Spinner player minimized to act like an additional toolbar on windows) may reduce the amount of space available to browser windows and other applications.
@@ -850,7 +849,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.screen.left">
-<insert>.screen.left</insert>
+
 <description>Gets/sets the current distance in pixels from the left side of the screen.
 Syntax: lLeft = window.screen.left window.screen.left = lLeft
 See also window.screen.top.
@@ -865,7 +864,7 @@ window.screen.left = 1;
 </properties>
 </element>
 <element kind="var" name="window.screen.pixelDepth">
-<insert>.screen.pixelDepth</insert>
+
 <description>Returns the bit depth of the screen.
 Syntax: depth = window.screen.pixelDepth
 See also window.screen.colorDepth.
@@ -884,7 +883,7 @@ if ( window.screen.pixelDepth > 8 ) {
 </properties>
 </element>
 <element kind="var" name="window.screen.top">
-<insert>.screen.top</insert>
+
 <description>Gets/sets the distance from the top of the screen.
 Syntax: lTop = window.screen.top window.screen.top = lTop
 See also window.screen.left.
@@ -900,7 +899,7 @@ window.screen.top = 0;
 </properties>
 </element>
 <element kind="var" name="window.screen.width">
-<insert>.screen.width</insert>
+
 <description>Returns the width of the screen.
 Syntax: lWidth = window.screen.width
 Note that not all of the width given by this property may be available to the window itself. When other widgets occupy space that cannot be used by the window object, there is a difference in window.screen.width and window.screen.availWidth. See also window.screen.height.
@@ -916,7 +915,7 @@ if (window.screen.width > 1000) {
 </properties>
 </element>
 <element kind="var" name="window.screenX">
-<insert>.screenX</insert>
+
 <description>Returns the horizontal distance of the left border of the user's browser from the left side of the screen.
 Syntax: lLoc = window.screenX
 Parameters: lLoc is the number of pixels from the left side the screen.
@@ -924,7 +923,7 @@ See also window.screenY.
 DOM Level 0. Not part of specification. </description>
 </element>
 <element kind="var" name="window.screenY">
-<insert>.screenY</insert>
+
 <description>Returns the vertical distance of the top border of the user's browser from the top side of the screen.
 Syntax: lLoc = window.screenY
 Parameters: lLoc is the number of pixels from the top of the screen.
@@ -932,7 +931,7 @@ See also window.screenX.
 DOM Level 0. Not part of specification. </description>
 </element>
 <element kind="var" name="window.scrollbars">
-<insert>.scrollbars</insert>
+
 <description>Returns the scrollbars object, whose visibility can be toggled in the window.
 Syntax: objRef = window.scrollbars
 Note that scrollbars is not an array of the scrollbars. The visibility of these objects can only be controlled as 
@@ -963,7 +962,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.scrollX">
-<insert>.scrollX</insert>
+
 <description>Returns the number of pixels that the document has already been scrolled horizontally.
 Syntax: xpix = window.scrollX
 Parameters: xpix is the number of pixels.
@@ -981,7 +980,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.scrollY">
-<insert>.scrollY</insert>
+
 <description>Returns the number of pixels that the document has already been scrolled vertically.
 Syntax: ypix = window.scrollY
 Parameters: ypix is the number of pixels.
@@ -1000,7 +999,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.self">
-<insert>.self</insert>
+
 <description>Returns an object reference to the window object.
 Syntax: objRef = window.self
 window.self is almost always used in comparisons like in the example above, which finds out if the current window is the first subframe in the parent frameset.
@@ -1016,7 +1015,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.sidebar">
-<insert>.sidebar</insert>
+
 <description>Returns a reference to the window object of the sidebar.
 Syntax: sidebar = window.sidebar
 Parameters: sidebar is a window object.
@@ -1033,7 +1032,7 @@ if (sbar) {
 </properties>
 </element>
 <element kind="var" name="window.status">
-<insert>.status</insert>
+
 <description>Gets/sets the text in the statusbar at the bottom of the browser.
 Syntax: string = window.status window.status = string
 DOM Level 0. Not part of specification. </description>
@@ -1047,7 +1046,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.statusbar">
-<insert>.statusbar</insert>
+
 <description>Returns the statusbar object, whose visibility can be toggled in the window.
 Syntax: objRef = window.menubar
 When you load the example page above, the browser displays the following dialog:
@@ -1074,7 +1073,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.toolbar">
-<insert>.toolbar</insert>
+
 <description>Returns the toolbar object, whose visibility can be toggled in the window.
 Syntax: objRef = window.menubar
 To toggle the visibility of these bars, you must either sign your scripts or enable the appropriate privileges, 
@@ -1101,7 +1100,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.top">
-<insert>.top</insert>
+
 <description>Returns a reference to the topmost window in the window hierarchy.
 Syntax: objRef = window.top
 Where the window.parent property returns the immediate parent of the current window, window.top 
@@ -1111,7 +1110,7 @@ of a parent or parents, and you want to get to the top-level frameset.
 DOM Level 0. Not part of specification. </description>
 </element>
 <element kind="var" name="window.window">
-<insert>.window</insert>
+
 <description><![CDATA[The window property of a window object points to the window object itself. Thus the following expressions all return the same window object:
 
 window.window
@@ -1138,7 +1137,7 @@ Another reason is that without this property you wouldn't be able to write, for 
 </group>
 <group name="Methods">
 <element kind="var" name="window.alert()">
-<insert>.alert()</insert>
+
 <description>Display an alert dialog with the specified text.
 Syntax: window.alert(text)
 Parameters: text is a string of the text you want displayed in the alert dialog.
@@ -1151,11 +1150,11 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.atob()">
-<insert>.atob()</insert>
+
 <description></description>
 </element>
 <element kind="var" name="window.back()">
-<insert>.back()</insert>
+
 <description>Returns the window to the previous item in the history.
 Syntax: window.back()
 DOM Level 0. Not part of specification. </description>
@@ -1169,7 +1168,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.blur()">
-<insert>.blur()</insert>
+
 <description>Shifts focus away from the window.
 Syntax: window.blur()
 The window.blur() method is the programmatic equivalent of the user shifting focus away from the current window.
@@ -1181,11 +1180,11 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.btoa()">
-<insert>.btoa()</insert>
+
 <description></description>
 </element>
 <element kind="var" name="window.captureEvents()">
-<insert>.captureEvents()</insert>
+
 <description>Registers the window to capture all events of the specified type.
 Syntax: window.captureEvents(Event.eventType)
 Parameters: eventType is a string with one of the following values: Abort, Blur, Click, Change, DblClick, DragDrop, Error, Focus, KeyDown, KeyPress, KeyUp, Load, MouseDown, MouseMove, MouseOut, MouseOver, MouseUp, Move, Reset, Resize, Select, Submit, Unload.
@@ -1212,7 +1211,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.clearInterval()">
-<insert>.clearInterval()</insert>
+
 <description>Clears a delay that's been set for a specific function.
 Syntax: window.clearInterval(intervalID)
 Parameters: intervalID is the ID of the specific interval you want to clear, which is the return value of a call to the setInterval method.
@@ -1224,7 +1223,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.clearTimeout()">
-<insert>.clearTimeout()</insert>
+
 <description>Clears the delay set by window.setTimeout().
 Syntax: window.clearTimeout(timeoutID)
 Passing an invalid ID to clearTimeout does not have any effect (and doesn't throw an exception).
@@ -1255,13 +1254,13 @@ window.onclick = function() { alarm.setup() };]]></description>
 </properties>
 </element>
 <element kind="var" name="window.close()">
-<insert>.close()</insert>
+
 <description>Closes the referenced window.
 Syntax: window.close();
 DOM Level 0. window.close() is not part of any W3C specification or technical recommendation. </description>
 </element>
 <element kind="var" name="window.confirm()">
-<insert>.confirm()</insert>
+
 <description>Displays a dialog with a message that the user needs to respond to.
 Syntax: result = window.confirm(text)
 Parameters: text is a string. result is a boolean value indicating whether OK or Cancel was selected.
@@ -1276,7 +1275,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.dump()">
-<insert>.dump()</insert>
+
 <description>Prints messages to the console.
 Syntax: window.dump(text)
 Parameters: text is a string.
@@ -1291,7 +1290,7 @@ window.dump(doc.title);
 </properties>
 </element>
 <element kind="var" name="window.escape()">
-<insert>.escape()</insert>
+
 <description>Encodes a string.
 Syntax: sEscaped = window.escape(sRegular)
 Parameters: sEscaped is the endoded string. sRegular is a regular string
@@ -1304,7 +1303,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.focus()">
-<insert>.focus()</insert>
+
 <description>Sets focus on the window.
 Syntax: window.focus()
 DOM Level 0. Not part of specification. </description>
@@ -1315,7 +1314,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.forward()">
-<insert>.forward()</insert>
+
 <description>Moves the window one document forward in the history.
 Syntax: window.forward()
 DOM Level 0. Not part of specification. </description>
@@ -1327,7 +1326,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.getAttention()">
-<insert>.getAttention()</insert>
+
 <description>Flashes the application icon to get the user's attention.
 Syntax: window.getAttention()
 On windows and linux, the icon flashes in the system tray. On macintosh, the icon in the upper right corner of the desktop flashes.
@@ -1359,7 +1358,7 @@ function notifyAttention (source)
 </properties>
 </element>
 <element kind="var" name="window.getSelection()">
-<insert>.getSelection()</insert>
+
 <description>Returns a selection object representing the selected item(s).
 Syntax: selection = window.getSelection()
 Parameters: selection is a Selection object.
@@ -1377,7 +1376,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.home()">
-<insert>.home()</insert>
+
 <description>Returns the window to the home page.
 Syntax: window.home()
 DOM Level 0. Not part of specification. </description>
@@ -1392,7 +1391,7 @@ function goHome() {
 </properties>
 </element>
 <element kind="var" name="window.moveBy()">
-<insert>.moveBy()</insert>
+
 <description>Moves the current window by a specified amount.
 Syntax: window.moveBy(deltaX, deltaY)
 Parameters: deltaX is the amount of pixels to move the window horizontally. deltaY is the amount of pixels to move the window vertically.
@@ -1409,7 +1408,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.moveTo()">
-<insert>.moveTo()</insert>
+
 <description>Moves the window to the specified coordinates.
 Syntax: window.moveTo(x, y)
 Parameters: x is the horizontal coordinate to be moved to. y is the vertical coordinate to be moved to.
@@ -1427,7 +1426,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.navigator.javaEnabled()">
-<insert>navigator.javaEnabled()</insert>
+
 <description>This method indicates whether the current browser is Java-enabled or not.
 Syntax: result = window.navigator.javaEnabled()
 The return value for this method indicates whether the preference that controls Java is on or off - not whether the browser offers Java support in general.
@@ -1442,7 +1441,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.open()">
-<insert>.open()</insert>
+
 <description>Creates a new secondary browser window and loads the referenced resource.
 Syntax: WindowObjectReference = window.open(strUrl, strWindowName [, strWindowFeatures]);
 Return value and parameters: 
@@ -1543,11 +1542,11 @@ window, that you want to be enabled or rendered; the others (except titlebar and
 </properties>
 </element>
 <element kind="var" name="window.openDialog()">
-<insert>.openDialog()</insert>
+
 <description>Opens a new dialog window</description>
 </element>
 <element kind="var" name="window.print()">
-<insert>.window.print()</insert>
+
 <description>Prints the current document.
 Syntax: window.print()
 DOM Level 0. Not part of specification. </description>
@@ -1558,7 +1557,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.prompt()">
-<insert>.prompt()</insert>
+
 <description>Displays a dialog with a message that prompts the user for a text response.
 Syntax: result = window.prompt(text)
 Parameters: text is a string of the text to be displayed to the user. result is a string containing the text the user entered.
@@ -1574,7 +1573,7 @@ if (sign.toLowerCase() == "scorpio") {
 </properties>
 </element>
 <element kind="var" name="window.releaseEvents()">
-<insert>.releaseEvents()</insert>
+
 <description>Releases the window from trapping events of a specific type.
 Syntax: window.releaseEvents(eventType)
 Parameters: eventType is a string with one of the following values:
@@ -1588,7 +1587,7 @@ DOM Level 0. Not part of specification. </description>
 
 </element>
 <element kind="var" name="window.resizeBy()">
-<insert>.resizeBy()</insert>
+
 <description>Resizes the current window by a certain amount.
 Syntax: window.resizeBy(xDelta, yDelta)
 Parameters: xDelta is the number of pixels to grow the window horizontally. yDelta is the number of pixels to grow the window vertically.
@@ -1604,7 +1603,7 @@ window.resizeBy(-200, -200);
 </properties>
 </element>
 <element kind="var" name="window.resizeTo()">
-<insert>.resizeTo()</insert>
+
 <description>Dynamically resizes window.
 Syntax: window.resizeTo(iWidth, iHeight)
 Parameters: iWidth is an integer representing the new width in pixels. iHeight is an integer value representing the new height in pixels.
@@ -1624,7 +1623,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.scroll()">
-<insert>.scroll()</insert>
+
 <description>Scrolls the window to a particular place in the document.
 Syntax: window.scroll(x-coord, y-coord)
 Parameters: x-coord is the pixel along the horizontal axis of the document that you want displayed in the upper left. y-coord is the pixel along the vertical axis of the document that you want displayed in the upper left.
@@ -1642,7 +1641,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.scrollBy()">
-<insert>.scrollBy()</insert>
+
 <description>Scrolls the document in the window by the given amount.
 Syntax: window.scrollBy(xDelta, yDelta)
 Parameters: xDelta is the amount of pixels to scroll horizontally. yDelta is the amount of pixels to scroll vertically.
@@ -1658,7 +1657,7 @@ window.scrollBy(0, window.innerHeight);
 </properties>
 </element>
 <element kind="var" name="window.scrollByLines()">
-<insert>.scrollByLines()</insert>
+
 <description>Scrolls the document by the given number of lines.
 Syntax: window.scrollByLines(lines)
 Parameters: lines is the number of lines.
@@ -1672,7 +1671,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.scrollByPages()">
-<insert>.scrollByPages()</insert>
+
 <description>Scrolls the current document by the specified number of pages.
 Syntax: window.scrollByPages(pages)
 Parameters: pages is the number of pages to scroll.
@@ -1688,7 +1687,7 @@ window.scrollByPages(1);
 </properties>
 </element>
 <element kind="var" name="window.scrollTo()">
-<insert>.scrollTo()</insert>
+
 <description>Scrolls to a particular set of coordinates in the document.
 Syntax: window.scrollTo(x-coord, y-coord)
 Parameters: x-coord is the pixel along the horizontal axis of the document that you want displayed in the upper left. y-coord is the pixel along the vertical axis of the document that you want displayed in the upper left.
@@ -1703,7 +1702,7 @@ window.scrollTo(0, 1000);
 </properties>
 </element>
 <element kind="var" name="window.setInterval()">
-<insert>.setInterval()</insert>
+
 <description>Set a delay for a specific function.
 Syntax: ID = window.setInterval(funcName, delay)
 Parameters: funcName is the name of the function for which you want to set a delay. delay is the number of milliseconds (thousandths of a second) that the function should be delayed. ID is the interval ID.
@@ -1717,7 +1716,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.setTimeout()">
-<insert>.setTimeout()</insert>
+
 <description>Executes a code snippet or a function after specified delay.
 Syntax: timeoutID = window.setTimeout(func, delay[, param1, param2, ...]); timeoutID = window.setTimeout(code, delay);
 You can cancel the timeout using window.clearTimeout().
@@ -1737,7 +1736,7 @@ window.setTimeout(generateOutput, 1000, true);
 </properties>
 </element>
 <element kind="var" name="window.sizeToContent()">
-<insert>.sizeToContent()</insert>
+
 <description>Sizes the window according to its content.
 Syntax: window.sizeToContent()
 DOM Level 0. Not part of specification. </description>
@@ -1749,7 +1748,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.stop()">
-<insert>.stop()</insert>
+
 <description>This method stops window loading.
 Syntax: window.stop()
 The stop() method is exactly equivalent to clicking the stop button in the browser. Because of the order in which scripts are loaded, the stop() method cannot stop the document in which it is contained from loading, but it will stop the loading of large images, new windows, and other objects whose loading is deferred.
@@ -1762,7 +1761,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.unescape()">
-<insert>.unescape()</insert>
+
 <description>Unencodes a value that has been encoded in hexadecimal (e.g., a cookie).
 Syntax: window.unescape(sValue)
 Parameters: sValue is an encoded string.
@@ -1776,7 +1775,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="window.updateCommands()">
-<insert>.updateCommands()</insert>
+
 <description>Updates the state of commands of the current chrome window (UI).
 Syntax: window.updateCommands("sCommandName")
 Parameters: sCommandName is a particular string which describes what kind of update event this is (e.g. whether we are in bold right now).
@@ -1786,99 +1785,99 @@ DOM Level 0. Not part of specification. </description>
 </group>
 <group name="Event Handlers">
 <element kind="var" name="window.onabort">
-<insert>.onabort</insert>
+
 <description>abort events on the window</description>
 </element>
 <element kind="var" name="window.onblur">
-<insert>.onblur</insert>
+
 <description>blur events on the window</description>
 </element>
 <element kind="var" name="window.onchange">
-<insert>.onchange</insert>
+
 <description>change events on the window</description>
 </element>
 <element kind="var" name="window.onclick">
-<insert>.onclick</insert>
+
 <description>click events on the window</description>
 </element>
 <element kind="var" name="window.onclose">
-<insert>.onclose</insert>
+
 <description>handling the window close event</description>
 </element>
 <element kind="var" name="window.ondragdrop">
-<insert>.ondragdrop</insert>
+
 <description>drag and drop events on the window</description>
 </element>
 <element kind="var" name="window.onerror">
-<insert>.onerror</insert>
+
 <description>errors raised on the window</description>
 </element>
 <element kind="var" name="window.onfocus">
-<insert>.onfocus</insert>
+
 <description>focus events on the window</description>
 </element>
 <element kind="var" name="window.onkeydown">
-<insert>.onkeydown</insert>
+
 <description>keydown events on the window</description>
 </element>
 <element kind="var" name="window.onkeypress">
-<insert>.onkeypress</insert>
+
 <description>keypress events on the window</description>
 </element>
 <element kind="var" name="window.onkeyup">
-<insert>.onkeyup</insert>
+
 <description>keyup events on the window</description>
 </element>
 <element kind="var" name="window.onload">
-<insert>.onload</insert>
+
 <description>window loading</description>
 </element>
 <element kind="var" name="window.onmousedown">
-<insert>.onmousedown</insert>
+
 <description>mousedown events on the window</description>
 </element>
 <element kind="var" name="window.onmousemove">
-<insert>.onmousemove</insert>
+
 <description>mousemove events on the window</description>
 </element>
 <element kind="var" name="window.onmouseout">
-<insert>.onmouseout</insert>
+
 <description>mouseout events on the window</description>
 </element>
 <element kind="var" name="window.onmouseover">
-<insert>.onmouseover</insert>
+
 <description>mouseover events on the window</description>
 </element>
 <element kind="var" name="window.onmouseup">
-<insert>.onmouseup</insert>
+
 <description>mouseup events on the window</description>
 </element>
 <element kind="var" name="window.onpaint">
-<insert>.onpaint</insert>
+
 <description>paint events on the window</description>
 </element>
 <element kind="var" name="window.onreset">
-<insert>.onreset</insert>
+
 <description>reset events on the window</description>
 </element>
 <element kind="var" name="window.onresize">
-<insert>.onresize</insert>
+
 <description>window resizing</description>
 </element>
 <element kind="var" name="window.onscroll">
-<insert>.onscroll</insert>
+
 <description>window scrolling</description>
 </element>
 <element kind="var" name="window.onselect">
-<insert>.onselect</insert>
+
 <description>window selection</description>
 </element>
 <element kind="var" name="window.onsubmit">
-<insert>.onsubmit</insert>
+
 <description>submits on window forms</description>
 </element>
 <element kind="var" name="window.onunload">
-<insert>.onunload</insert>
+
 <description>unload events on the window</description>
 </element>
 </group>
@@ -1893,11 +1892,11 @@ The document is contained by the window object (see window) and may contain any 
 As you can see from the lists below, the interfaces on document deal with such things as the document type, features of the document such as its color and formatting, the plugins and applets that are exposed to the user in the document, as well as methods for creating all of the document's child nodes, or elements that typically live in the structural representation of the whole document, such as the &lt;BODY&gt; element, a &lt;TABLE&gt; and so forth. </note>
 <group name="Properties">
 <element kind="var" name="document.alinkColor">
-<insert>.alinkColor</insert>
+
 
 </element>
 <element kind="var" name="document.anchors">
-<insert>.anchors</insert>
+
 <description>anchors returns a list of all of the anchors in the document.
 Syntax: nodeList = document.anchors
 For reasons of backwards compatibility, the returned set of anchors only contains those anchors created with the name attribute, not those created with the id attribute.
@@ -1913,7 +1912,7 @@ Specification:  http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html
 </properties>
 </element>
 <element kind="var" name="document.applets">
-<insert>.applets</insert>
+
 <description>applets returns an ordered list of the applets within a document.
 Syntax: nodeList = document.applets
 Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#ID-85113862</description>
@@ -1927,7 +1926,7 @@ my_java_app = document.applets[1];
 </properties>
 </element>
 <element kind="var" name="document.bgColor">
-<insert>.bgColor</insert>
+
 <description>bgColor gets/sets the background color of the current document.
 Syntax: color = document.bgColor document.bgColor = color
 Parameters: color is a string representing the color as a word (e.g., "red') or as an octal value, as in HTML (e.g., "#eee")
@@ -1940,7 +1939,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="document.body">
-<insert>.body</insert>
+
 <description>body returns the BODY or FRAMESET node of the current document.
 Syntax: objRef = document.body 
 document.body = objRef
@@ -1962,7 +1961,7 @@ alert(document.body.id); // "newBodyElement"
 </properties>
 </element>
 <element kind="var" name="document.characterSet">
-<insert>.characterSet</insert>
+
 <description>Returns the character encoding of the current document. This is the character encoding used 
 for rendering the document, which may be different from the encoding specified by the page (the user can 
 override the encoding).
@@ -1981,7 +1980,7 @@ DOM Level "0". Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="document.compatMode">
-<insert>.compatMode</insert>
+
 <description>Indicates whether the document is rendered in Quirks mode or Strict mode.
 Syntax: mode = document.compatMode
 Parameters: mode is a string containing "BackCompat" for Quirks mode or "CSS1Compat" for Strict mode.
@@ -1996,7 +1995,7 @@ mode is a string containing "BackCompat" for Quirks mode or "CSS1Compat" for Str
 </properties>
 </element>
 <element kind="var" name="document.contentWindow">
-<insert>.contentWindow</insert>
+
 <description>Returns the containing window of the current document.
 Syntax: objRef = document.contentWindow
 </description>
@@ -2011,7 +2010,7 @@ browserWindow.home();
 </properties>
 </element>
 <element kind="var" name="document.cookie">
-<insert>.cookie</insert>
+
 <description>Gets/sets a list of the cookies associated with the current document.
 Syntax: cookie_list = document.cookie document.cookie = cookie_list
 Parameters: cookie_list is a string containing a semicolon-separated list of cookies.
@@ -2033,11 +2032,11 @@ function sgCookie() {
 </properties>
 </element>
 <element kind="var" name="document.defaultView">
-<insert>.defaultView</insert>
+
 
 </element>
 <element kind="var" name="document.doctype">
-<insert>.doctype</insert>
+
 <description>Returns the Document Type Definition (DTD) of the current document.
 Syntax: string = document.DocumentType
 DocumentType attribute is a read-only property. 
@@ -2046,7 +2045,7 @@ Specification: http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html
 </description>
 </element>
 <element kind="var" name="document.documentElement">
-<insert>.documentElement</insert>
+
 <description>Returns the Element that is a direct child of document, which in most cases is the HTML element.
 Syntax: node = document.documentElement
 This property is a read-only convenience for getting the HTML element associated with all valid HTML documents. 
@@ -2069,7 +2068,7 @@ for (var i = 0; i < first_tier.length; i++) {
 </properties>
 </element>
 <element kind="var" name="document.domain">
-<insert>.domain</insert>
+
 <description>domain gets/sets the domain of the current document.
 Syntax: string = document.domain 
 document.domain = string
@@ -2089,13 +2088,13 @@ if ( document.domain == bad_domain ) {
 </properties>
 </element>
 <element kind="var" name="document.embeds">
-<insert>.embeds</insert>
+
 <description>embeds returns a list of the embedded OBJECTS within the current document.
 Syntax: nodeList = document.embeds
 DOM Level 0. Not part of specification. </description>
 </element>
 <element kind="var" name="document.fgColor">
-<insert>.fgColor</insert>
+
 <description>fgColor gets/sets the foreground color, or text color, of the current document.
 Syntax: color = document.fgColor document.fgColor = color
 Parameters: color is a string representing the color as a word (e.g., "red") or as an octal value, as in HTML (e.g., "#eee").
@@ -2109,7 +2108,7 @@ document.bgColor = "darkblue";
 </properties>
 </element>
 <element kind="var" name="document.firstChild">
-<insert>.firstChild</insert>
+
 <description>document.firstChild returns the first node in the list of direct children of the document.
 Syntax: child = document.firstChild
 Parameters: child is a node of the type element.
@@ -2130,7 +2129,7 @@ function fChild() {
 </properties>
 </element>
 <element kind="var" name="document.forms">
-<insert>s</insert>
+
 <description>forms returns a list of the FORM elements within the current document.
 Syntax: nodeList = document.forms
 Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#ID-1689064</description>
@@ -2145,7 +2144,7 @@ Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#
 </properties>
 </element>
 <element kind="var" name="document.height">
-<insert>.height</insert>
+
 <description>height gets/sets the height of the current document.
 Syntax: height_value = document.height 
 document.height = height_value
@@ -2163,7 +2162,7 @@ function onLoad() {
 </properties>
 </element>
 <element kind="var" name="document.images">
-<insert>.images</insert>
+
 <description>document.images returns a collection of the images in the current HTML document.
 Syntax: htmlCollection = document.images
 document.images is part of DOM HTML, and it only works for HTML documents.
@@ -2181,7 +2180,7 @@ for(var i = 0; i < ilist.length; i++) {
 </properties>
 </element>
 <element kind="var" name="document.implementation">
-<insert>.implementation</insert>
+
 <description>Returns the DOM implementation associated with the current document.
 Syntax: DOMImplementationObj = document.DOMImplentation
 If available, the DOMImplementation is a special object that provides services for controlling things outside 
@@ -2190,7 +2189,7 @@ method with which DTDs can be created for one or more documents managed by the i
 Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#ID-90379117</description>
 </element>
 <element kind="var" name="document.lastModified">
-<insert>.lastModified</insert>
+
 <description>Returns the date and time on which the current document was last modified.
 Syntax: string = document.lastModified
 Note that as a string, lastModified cannot easily be used for comparisions between the modified dates of documents.</description>
@@ -2203,7 +2202,7 @@ Note that as a string, lastModified cannot easily be used for comparisions betwe
 </properties>
 </element>
 <element kind="var" name="document.linkColor">
-<insert>.linkColor</insert>
+
 <description>linkcolor gets/sets the color of links within the document.
 Syntax: color = document.linkColor document.linkColor = color
 Parameters: color is a string representing the color as a word (e.g., "red') or as an octal value, as in HTML (e.g., "#eee")
@@ -2216,7 +2215,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="document.links">
-<insert>.links</insert>
+
 <description>The links property returns a collection of all AREA elements and anchor elements in a document with a value for the href attribute.
 Syntax: nodeList = document.links
 Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#ID-7068919</description>
@@ -2234,7 +2233,7 @@ for(var i = 0; i < links.length; i++) {
 </properties>
 </element>
 <element kind="var" name="document.location">
-<insert>.location</insert>
+
 <description>Gets the URL of the current document.
 Syntax: string = document.location
 document.location works the same as document.URL. Both are read-only properties unlike window.location, which can be set. Since the document object represents a single document or URL, its location cannot be changed.
@@ -2249,7 +2248,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="document.namespaceURI">
-<insert>.namespaceURI</insert>
+
 <description>namespaceURI returns the XML namespace for the current document.
 Syntax: NSURI = document.namespaceURI
 Parameters: NSURI is a string containing the namespace.
@@ -2258,7 +2257,7 @@ Note too that the namespace prefix, once it is associated with a particular node
 Specification: http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#Namespaces-Considerations</description>
 </element>
 <element kind="var" name="document.plugins">
-<insert>.plugins</insert>
+
 <description>Returns a list of the plugins currently installed.
 Syntax: PluginArrayObj = document.plugins
 DOM Level 0. Not part of specification. </description>
@@ -2271,7 +2270,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="document.referrer">
-<insert>.referrer</insert>
+
 <description>Returns the URI of the page that linked to this page.
 Syntax: string = document.referrer
 The value is an empty string if the user navigated to the page directly (not through a link, but, for example, via a bookmark). 
@@ -2279,13 +2278,13 @@ Note that since this property returns only a string it does not give you DOM acc
 Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#ID-95229140</description>
 </element>
 <element kind="var" name="document.styleSheets">
-<insert>.styleSheets</insert>
+
 <description>The styleSheets property returns a list of the stylesheet objects on the current document.
 Syntax: nodeList = document.styleSheets
 DOM Level 0. Not part of specification. </description>
 </element>
 <element kind="var" name="document.title">
-<insert>.title</insert>
+
 <description>document.title returns the title of the document.
 Syntax: sTitle = document.title
 Parameters: sTitle is a string that contains the title of the current document.
@@ -2303,7 +2302,7 @@ Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#
 </properties>
 </element>
 <element kind="var" name="document.URL">
-<insert>.document.URL</insert>
+
 <description>Returns the URL of the current document.
 Syntax: string = document.URL
 URL is a replacement for the DOM Level 0 document.location.href property. 
@@ -2317,7 +2316,7 @@ Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#
 </properties>
 </element>
 <element kind="var" name="document.vlinkColor">
-<insert>.vlinkColor</insert>
+
 <description>Returns the color of links that the user has visited in the document.
 Syntax: color = document.vlinkColor document.vlinkColor = color
 Parameters: color is a string representing the color as a word (e.g., "red') or as an octal value, as in HTML (e.g., "#eee")
@@ -2325,7 +2324,7 @@ The default for this property is purple.
 DOM Level 0. Not part of specification. </description>
 </element>
 <element kind="var" name="document.width">
-<insert>.width</insert>
+
 <description>Returns the width of the current document in pixels.
 Syntax: pixels = document.width;
 DOM Level 0. Not part of specification. </description>
@@ -2343,7 +2342,7 @@ DOM Level 0. Not part of specification. </description>
 </group>
 <group name="Methods">
 <element kind="var" name="document.clear()">
-<insert>.clear()</insert>
+
 <description>The clear method clears the current document of all its content.
 Syntax: document.clear()
 DOM Level 0. Not part of specification. </description>
@@ -2356,7 +2355,7 @@ DOM Level 0. Not part of specification. </description>
 </properties>
 </element>
 <element kind="var" name="document.close()">
-<insert>.close()</insert>
+
 <description>The document.close() method finishes writing to a document, opened with document.open().
 Syntax: document.close();
 Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#ID-98948567</description>
@@ -2373,7 +2372,7 @@ document.close();
 </properties>
 </element>
 <element kind="var" name="document.createAttribute()">
-<insert>.createAttribute()</insert>
+
 <description>createAttribute creates a new attribute node, and returns it.
 Syntax: attribute = document.createAttribute(name)
 Parameters: attribute is an attribute node. name is a string containing the name of the attribute.
@@ -2391,7 +2390,7 @@ alert(node.proportion); // "100"
 </properties>
 </element>
 <element kind="var" name="document.createDocumentFragment()">
-<insert>.createDocumentFragment()</insert>
+
 <description>document.createDocumentFragment creates an empty document fragment
 Syntax: documentFragment = document.createDocumentFragment()
 Parameters: documentFragment is an object.
@@ -2413,7 +2412,7 @@ frag.appendChild(document.createTextNode('<div>Moveable Div</div>'));
 </properties>
 </element>
 <element kind="var" name="document.createElement()">
-<insert>.createElement()</insert>
+
 <description>Creates an element of the type specified. Note that the instance returned implements the Element interface, so attributes can be specified directly on the returned object.
 Syntax: element = element.createElement(type)
 Parameters: element is an object. type is a string that represents the type of element to be created.
@@ -2430,7 +2429,7 @@ document.insertBefore(div, preface);
 </properties>
 </element>
 <element kind="var" name="document.createEvent()">
-<insert>.createEvent()</insert>
+
 <description>Creates an event of the type specified. Note that the instance returned implements the Event interface and can be passed to element.dispatchEvent
 Syntax: event = document.createEvent(type)
 Parameters: event is an object. type is a string that represents the type of event to be created. Common ones include KeyEvent and MouseEvent.
@@ -2448,7 +2447,7 @@ res = b.dispatchEvent(evt);
 </properties>
 </element>
 <element kind="var" name="document.createRange()">
-<insert>.createRange()</insert>
+
 <description>Returns a new Range object.
 Syntax: range = document.createRange();
 Once a Range is created, you need to set its boundary points before you can make use of most of its methods.
@@ -2463,7 +2462,7 @@ range.setEnd(endNode,endOffset);
 </properties>
 </element>
 <element kind="var" name="document.createTextNode()">
-<insert>.createTextNode()</insert>
+
 <description>Creates a new Text node.
 Syntax: text = document.createTextNode(data)
 Parameters: text is a Text node. data is a string containing the data to be put in the text node.
@@ -2479,7 +2478,7 @@ p.appendChild(t);
 </properties>
 </element>
 <element kind="var" name="document.evaluate()">
-<insert>.evaluate()</insert>
+
 <description>Returns an XPathResult based on an XPath expression and other given parameters.
 Syntax: var xpathResult = document.evaluate( xpathExpression, contextNode, namespaceResolver, resultType, result);
 Parameters: xpathExpression is a string representing the XPath to be evaluated. 
@@ -2522,7 +2521,7 @@ alert(alertText); // Alerts the text of all h2 elements
 </properties>
 </element>
 <element kind="var" name="document.getElementById()">
-<insert>.getElementById()</insert>
+
 <description>Returns the element whose ID is specified.
 Syntax: element = document.getElementById(id);
 getElementById is an absolute mainstay of the DOM. One of the most important notions in DOM 
@@ -2543,7 +2542,7 @@ attribList = first_p.attributes;
 </properties>
 </element>
 <element kind="var" name="document.getElementsByName()">
-<insert>.getElementsByName()</insert>
+
 <description>Returns a list of elements with a given name in the (X)HTML document.
 Syntax: elements = document.getElementsByName(name)
 Parameters: elements is a NodeList of elements. name is a string representing the value of the name attribute on the element.
@@ -2567,14 +2566,14 @@ dump(up_divs.item(0).tagName); // returns "div"
 </properties>
 </element>
 <element kind="var" name="document.getElementsByTagName()">
-<insert>.getElementsByTagName()</insert>
+
 <description>Returns a list of elements with the given tag name in the document.
 Syntax: elements = document.getElementsByTagName(name)
 where name is either the local name of elements to look for or the special value "*", which matches all tags.
 Specification: http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-A6C9094</description> 
 </element>
 <element kind="var" name="document.importNode()">
-<insert>.importNode()</insert>
+
 <description>createAttribute creates a new attribute node, and returns it.
 Syntax: node = document.importNode(externalNode, deep)
 Parameters: node is the new node that is imported into the document. The new node's parentNode is null 
@@ -2595,7 +2594,7 @@ document.getElementById("container").appendChild(newNode);
 </properties>
 </element>
 <element kind="var" name="document.loadOverlay()">
-<insert>.loadOverlay()</insert>
+
 <description>Loads a XUL overlay and merges it with the current document, notifying an observer when the merge is complete. 
 Usage: document.loadOverlay(url, observer);
 url: A string containing the absolute URL of the overlay to load. 
@@ -2606,7 +2605,7 @@ This API is not frozen and will change in 2.0 timeframe.
 XUL-specific method. Not part of any specification. Defined in nsIDOMXULDocument.idl. </description>
 </element>
 <element kind="var" name="document.open()">
-<insert>.open()</insert>
+
 <description>The document.open() method opens a document for writing.
 Syntax: document.open();
 If a document exists in the target, this method clears it (see the example above).
@@ -2631,7 +2630,7 @@ document.open();
 </properties>
 </element>
 <element kind="var" name="document.write()">
-<insert>.write()</insert>
+
 <description>Writes a string of text to a document stream opened by document.open().
 Syntax: document.write(markup);
 Writing to a document that has already loaded without calling document.open() will automatically perform a document.open call. Once you have finished writing, it is recommended to call document.close(), to tell the browser to finish loading the page. The text you write is parsed into the document's structure model. In the example above, the h1 element becomes a node in the document.
@@ -2654,7 +2653,7 @@ document.close();
 </properties>
 </element>
 <element kind="var" name="document.writeln()">
-<insert>.writeln()</insert>
+
 <description>Writes a string of text followed by a newline character to a document.
 Syntax: document.writeln(line)
 Parameters: line is string containing a line of text.
@@ -2678,11 +2677,11 @@ These DOM interfaces cross the various specification levels, but tend to concent
 Here, "Elements" refers to the interface that all HTML and XML elements have available to them from the DOM. There are more specialized interfaces for particular objects-the BODY element, for example, has extra functions and properties you can use, as do tables. This chapter refers to the interface that all elements share. </note>
 <group name="Properties">
 <element kind="var" name="attributes">
-<insert>.attributes</insert>
+
 
 </element>
 <element kind="var" name="childNodes">
-<insert>.childNodes</insert>
+
 <description>Returns an array of child nodes on the given element node.
 Syntax: var ndList = elementNodeReference.childNodes;
 The document object itself has 2 children: the Doctype declaration and the HTML element. The items in the array are objects and not strings. To get data from those node objects, you must use their attributes (e.g. elementNodeReference.childNodes[1].nodeName to get the name, etc.).
@@ -2712,7 +2711,7 @@ while( box.firstChild ) {
 </properties>
 </element>
 <element kind="var" name="className">
-<insert>.className</insert>
+
 <description>This attribute gets/sets the class attribute of the specified element.
 Syntax: var cName = elementNodeReference.className; elementNodeReference.className = cName;
 The name className is used for this property instead of class because of conflicts with the "class" keyword in many languages which are used to manipulate the DOM.
@@ -2731,7 +2730,7 @@ if (elementNodeReference.className == "fixed")
 </properties>
 </element>
 <element kind="var" name="clientHeight">
-<insert>.clientHeight</insert>
+
 <description>DHTML property that represents the inner height of an element. 
 This includes possible padding but not horizontal scrollbar (if present, if rendered), not border nor margin. 
 If the element has an horizontal scrollbar, then its height value is substracted from the css height property 
@@ -2745,7 +2744,7 @@ http://msdn.microsoft.com/workshop/author/om/measuring.asp
 http://www.mozilla.org/docs/dom/domref/clientHeight.html</description>
 </element>
 <element kind="var" name="clientLeft">
-<insert>.clientLeft</insert>
+
 <description> clientLeft is a property of the DHTML object model which was first introduced by MSIE. 
 It represents the width of the left border (and the width of the vertical scrollbar if rendered on the left side) of an element. 
 Syntax: var intElemClientLeft = document.getElementById(id_attribute_value).clientLeft;
@@ -2757,7 +2756,7 @@ http://msdn.microsoft.com/workshop/author/om/measuring.asp
 </description> 
 </element>
 <element kind="var" name="clientTop">
-<insert>.clientTop</insert>
+
 <description>clientTop is a property of the DHTML object model which was first introduced by MSIE. 
 It represents the height of the top border of an element. 
 Syntax: var intElemClientTop = document.getElementById(id_attribute_value).clientTop;
@@ -2768,7 +2767,7 @@ http://msdn.microsoft.com/workshop/author/dhtml/reference/properties/clienttop.a
 http://msdn.microsoft.com/workshop/author/om/measuring.asp</description>
 </element>
 <element kind="var" name="clientWidth">
-<insert>.clientWidth</insert>
+
 <description> clientWidth is a property of the DHTML object model which was first introduced by MSIE.
 It represents the inner width of an element. Syntax: var intElemClientWidth = document.getElementById(id_attribute_value).clientWidth;
 Specification: clientWidth is part of the MSIE's DHTML object model. clientWidth is not part of any W3C specification or technical recommendation. 
@@ -2779,7 +2778,7 @@ http://www.mozilla.org/docs/dom/domref/clientWidth.html
 </description>
 </element>
 <element kind="var" name="dir">
-<insert>.dir</insert>
+
 <description>The dir attribute gets or sets the text writing directionality of the content of the current element.
 Syntax: var CurrentWritingDirection = elementNodeReference.dir; elementNodeReference.dir = NewWritingDirection;
 The text writing directionality of an element is which direction that text goes (for support of different language systems). Arabic languages and Hebrew are typical languages using the rtl directionality.
@@ -2795,7 +2794,7 @@ parg.dir = "rtl";
 </properties>
 </element>
 <element kind="var" name="firstChild">
-<insert>.firstChild</insert>
+
 <description>firstChild returns the first child element of the current element
 Syntax: element = element.firstChild
 Parameters: The element parameter returned is a node of type element.
@@ -2811,7 +2810,7 @@ left_cell = trow.firstChild;
 </properties>
 </element>
 <element kind="var" name="id">
-<insert>.id</insert>
+
 <description>The id property uniquely identifies the current element.
 Syntax: id_str = element.id element.id = id_str
 Parameters: id_str is a string representing the id of the current element.
@@ -2831,7 +2830,7 @@ if (element.id&nbsp;!= "main_loop")
 </properties>
 </element>
 <element kind="var" name="innerHTML">
-<insert>.innerHTML</insert>
+
 <description>innerHTML sets or gets all of the markup and content within a given element.
 Syntax: var markup = element.innerHTML; element.innerHTML = markup;
 Though not actually a part of the W3C DOM specification, this property provides a simple way to completely replace the contents of an element. For example, the entire contents of the document body can be deleted by:
@@ -2856,7 +2855,7 @@ javascript:x=document.body.innerHTML.replace(/</g,'&amp;lt;').replace(/\n/g,'<br
 </properties>
 </element>
 <element kind="var" name="lang">
-<insert>.lang</insert>
+
 <description>This property gets or sets the base language of an element's attribute values and text content.
 Syntax: var languageUsed = elementNodeReference.lang; elementNodeReference.lang = NewLanguage;
 The language code returned by this property is defined in RFC 1766. 
@@ -2881,7 +2880,7 @@ else if(document.documentElement.lang == "ru")
 </properties>
 </element>
 <element kind="var" name="lastChild">
-<insert>.lastChild</insert>
+
 <description>lastChild returns the last child of the current element.
 Syntax: last_child = element.lastChild
 Parameters: last_child is the final element node in the nodeList of children on the current element.
@@ -2897,7 +2896,7 @@ corner_td = tr.lastChild;
 </properties>
 </element>
 <element kind="var" name="length">
-<insert>.length</insert>
+
 <description>length returns the number of items in a list.
 Syntax: no_of_items = nodeList.length
 no_of_items is an integer value representing the number of items in a list. 
@@ -2921,7 +2920,7 @@ if ( items.length ) {
 </properties>
 </element>
 <element kind="var" name="localName">
-<insert>.localName</insert>
+
 <description>localName returns the local part of the qualified name of this node.
 Syntax: name = element.localName
 Parameters: name is the local name as a string.
@@ -2947,7 +2946,7 @@ text_field.setAttribute("value", d.localName);
 </properties>
 </element>
 <element kind="var" name="namespaceURI">
-<insert>.namespaceURI</insert>
+
 <description>The namespace URI of this node, or NULL if it is unspecified.
 Syntax: namespace = element.namespaceURI
 Parameters: namespace is a string that represents the namespace URI of the current node.
@@ -2968,7 +2967,7 @@ this.viewee = node.webNavigation.document;
 </properties>
 </element>
 <element kind="var" name="nextSibling">
-<insert>.nextSibling</insert>
+
 <description>Returns the node immediately following the current one in the tree.
 Syntax: next_element = element.nextSibling
 Parameters: next_element is the element node directly after the current element in the list of siblings (i.e., the list of children for the parentNode).
@@ -2985,7 +2984,7 @@ cell2 = cell1.nextSibling;
 </properties>
 </element>
 <element kind="var" name="nodeName">
-<insert>.nodeName</insert>
+
 <description>Returns the name of the current node as a string.
 Syntax: var nName = elementNodeReference.nodeName;
 Here are the returned values for different types of node.
@@ -3004,7 +3003,7 @@ text_field.value = div1.nodeName;
 </properties>
 </element>
 <element kind="var" name="nodeType">
-<insert>.nodeType</insert>
+
 <description>Returns a code representing the type of the underlying node.
 Syntax: type = node.nodeType
 Parameters: type is an unsigned short with one of the following values:
@@ -3019,7 +3018,7 @@ if(node.nodeType != Node.COMMENT_NODE)
 </properties>
 </element>
 <element kind="var" name="nodeValue">
-<insert>.nodeValue</insert>
+
 <description>Returns the value of the current node.
 Syntax: value = document.nodeValue
 For the document itself, nodeValue returns null. For text, comment, and CDATA nodes, nodeValue returns the content of the node. For attribute nodes, the value of the attribute is returned.
@@ -3039,7 +3038,7 @@ Text 	content of the text node
 Specification: http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-F68D080</description>
 </element>
 <element kind="var" name="offsetHeight">
-<insert>.offsetHeight</insert>
+
 <description>offsetHeight is a property of the DHTML object model which was first introduced by MSIE. It is sometimes referred as an element physical/graphical dimensions or an element's box height. 
 Syntax: var intElemOffsetHeight = document.getElementById(id_attribute_value).offsetHeight;
 Specification: offsetHeight is part of the MSIE's DHTML object model. offsetHeight is not part of any W3C specification or technical recommendation. 
@@ -3048,7 +3047,7 @@ http://msdn.microsoft.com/workshop/author/om/measuring.asp
 http://www.mozilla.org/docs/dom/domref/dom_el_ref18.html</description>
 </element>
 <element kind="var" name="offsetLeft">
-<insert>.offsetLeft</insert>
+
 <description>Gets/sets the number of pixels that the current element is offset to the left within the offsetParent node.
 Syntax: left = element.offsetLeft
 Parameters: left is an integer representing the offset to the left in pixels.
@@ -3070,14 +3069,14 @@ if ( tOLeft > 5 ) {
 </properties>
 </element>
 <element kind="var" name="offsetParent">
-<insert>.offsetParent</insert>
+
 <description>offsetParent returns a reference to the object which is the closest (nearest in the containment hierarchy) positioned containing element. If the element is non-positioned, the root element (html in standards compliant mode; body in quirks rendering mode) is the offsetParent.
 Syntax: parentObj = element.offsetParent
 Parameters: parentObj is an object reference to the element in which the current element is offset.
 Specification: DOM Level 0. Not part of specification. </description>
 </element>
 <element kind="var" name="offsetTop">
-<insert>.offsetTop</insert>
+
 <description>offsetTop returns the position of the current element relative to the top of the offsetParent node.
 Syntax: topPos = element.offsetTop
 Parameters: topPos is the number of pixels from the top of the parent element.
@@ -3101,7 +3100,7 @@ if (topPos > 10 ) {
 </properties>
 </element>
 <element kind="var" name="offsetWidth">
-<insert>.offsetWidth</insert>
+
 <description> offsetWidth is a property of the DHTML object model which was first introduced by MSIE.
 It is sometimes referred as an element physical/graphical dimensions or an element's box width. 
 Syntax: var intElemOffsetWidth = document.getElementById(id_attribute_value).offsetWidth;
@@ -3112,7 +3111,7 @@ http://msdn.microsoft.com/workshop/author/om/measuring.asp
 http://www.mozilla.org/docs/dom/domref/dom_el_ref22.html</description>
 </element>
 <element kind="var" name="ownerDocument">
-<insert>.</insert>
+
 <description>The ownerDocumenturns the top-level document object for this node.
 Syntax: document = element.ownerDocument
 Parameters: he document object parent of the current element.
@@ -3129,7 +3128,7 @@ html = d.documentElemeniption>
 </properties>
 </element>
 <element kind="var" name="parentNode">
-<insert>.parentNode</insert>
+
 <description>The parentNode property returns the parent of the current element.
 Syntax: pElement = element.parentNode
 Parameters: pElement is the element parent of the current node.
@@ -3148,7 +3147,7 @@ if ( div1.parentNode == document ){
 </properties>
 </element>
 <element kind="var" name="prefix">
-<insert>.prefix</insert>
+
 <description>prefix returns the namespace prefix of the specified node, or null if no prefix is specified.
 Syntax: string = element.prefix element.prefix = string
 This will only work when a namespace-aware parser is used, i.e. when a document is served with an XML mime-type. This will not work for HTML documents.
@@ -3161,7 +3160,7 @@ Specification: http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html
 </properties>
 </element>
 <element kind="var" name="previousSibling">
-<insert>.previousSibling</insert>
+
 <description>Returns the node immediately previous to the current one in the tree.
 Syntax: pNode = elementNode.previousSibling
 Parameters: pNode is the node prior to this one in the ordered list.
@@ -3176,7 +3175,7 @@ n1 = n2.previousSibling;
 </properties>
 </element>
 <element kind="var" name="scrollHeight">
-<insert>.scrollHeight</insert>
+
 <description> scrollHeight is a property of the DHTML object model which was first introduced by MSIE. 
 It is referred as the height of an element physical scrolling view.
 Syntax: var intElemScrollHeight = document.getElementById(id_attribute_value).scrollHeight;
@@ -3187,7 +3186,7 @@ http://msdn.microsoft.com/workshop/author/om/measuring.asp
 http://www.mozilla.org/docs/dom/domref/scrollHeight.html</description>
 </element>
 <element kind="var" name="scrollLeft">
-<insert>.scrollLeft</insert>
+
 <description>scrollTop is a property of the DHTML object model which was first introduced by MSIE. 
 It is referred as the distance to the top of an element physical  scrolling view. 
 Syntax: var intElemScrollTop = document.getElementById(id_attribute_value).scrollTop;
@@ -3199,15 +3198,15 @@ http://www.mozilla.org/docs/dom/domref/scrollTop.html
 </description>
 </element>
 <element kind="var" name="scrollTop">
-<insert>.scrollTop</insert>
+
 
 </element>
 <element kind="var" name="scrollWidth">
-<insert>.scrollWidth</insert>
+
 
 </element>
 <element kind="var" name="style">
-<insert>.style</insert>
+
 <description>style returns the block of style rules on the current element.
 Syntax: styleBlock = element.style ( element.style.styleAttr = value ) 
 Parameters: styleBlock is a string containing the style rules on the current element. 
@@ -3226,7 +3225,7 @@ div.style.marginTop = ".25in";]]></description>
 
 </element>
 <element kind="var" name="tabIndex">
-<insert>.tabIndex</insert>
+
 <description>Gets/sets the tab order of the current element.
 Syntax: element.tabIndex = iIndex
 Parameters: iIndex is a number
@@ -3241,7 +3240,7 @@ b1.tabIndex = 1;
 </properties>
 </element>
 <element kind="var" name="tagName">
-<insert>.tagName</insert>
+
 <description>tagName returns the name of the element.
 Syntax: elementName = element.tagName
 Parameters: elementName is a string containing the name of the current element.
@@ -3261,7 +3260,7 @@ alert(span.tagName);
 </properties>
 </element>
 <element kind="var" name="textContent">
-<insert>.textContent</insert>
+
 <description>Returns the text contents of this node and its descendants, if any.
 Syntax: text = element.textContent element.textContent = "this is some sample text"
 textContent returns null if the element is a document, a document type, or a notation. 
@@ -3288,7 +3287,7 @@ will result in the following fragment&nbsp;:
 </group>
 <group name="Methods">
 <element kind="var" name="addEventListener()">
-<insert>.addEventListener()</insert>
+
 <description>addEventListener allows the registration of event listeners on the event target.
 Syntax: element.addEventListener(type, listener, useCapture);
 Parameters: type  A string representing the event type being registered. listener
@@ -3338,7 +3337,7 @@ Specification: http://www.w3.org/TR/2000/REC-DOM-Level-2-Events-20001113/events.
 </properties>
 </element>
 <element kind="var" name="appendChild()">
-<insert>.appendChild()</insert>
+
 <description>The appendChild method inserts the specified node into the list of nodes on the current document, returning the created node.
 Syntax: element.appendChild(newChild)
 Parameters: newChild is a node.
@@ -3359,20 +3358,20 @@ element.appendChild(p);
 </properties>
 </element>
 <element kind="var" name="blur()">
-<insert>.blur()</insert>
+
 <description>The blur method removes keyboard focus from the current element.
 Syntax: element.blur()
 Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#ID-28216144</description>
 </element>
 <element kind="var" name="click()">
-<insert>.click()</insert>
+
 <description>The click method excecutes a click on the current element.
 Syntax: element.click()
 The click method simulates a click event on the current element. This is frequently used to execute event handlers that have been placed on the current element or on elements above it in the "event chain."
 Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#ID-2651361</description>
 </element>
 <element kind="var" name="cloneNode()">
-<insert>.cloneNode()</insert>
+
 <description>The cloneNode method returns a duplicate of the current node.
 Syntax: dupNode = element.cloneNode(deep)
 Parameters: deep is a boolean value indicating whether the clone is a deep clone or not (see notes below).
@@ -3389,7 +3388,7 @@ p_prime = p.cloneNode(true);
 </properties>
 </element>
 <element kind="var" name="dispatchEvent()">
-<insert>.dispatchEvent()</insert>
+
 <description>The dispatchEvent method allows the dispatch of events into the implementation's event model.
 Syntax: boolean = element.dispatchEvent(event)
 Parameters: event is an event object that contains information about the type, behavior, and contextual information of the event to be dispatched.
@@ -3413,14 +3412,14 @@ if ( res ) {
 </properties>
 </element>
 <element kind="var" name="focus()">
-<insert>.focus()</insert>
+
 <description>focus sets focus on the current element.
 Syntax: element.focus()
 Calling the focus method on an element is equivalent to selecting that element in the user interface.
 Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#ID-32130014</description>
 </element>
 <element kind="var" name="getAttribute()">
-<insert>.getAttribute()</insert>
+
 <description>getAttribute returns the value of the named attribute on the specified element.
 Syntax: attribute = element.getAttribute(attributeName)
 Parameters: attributeName is the name of the attribute whose value you want to get.
@@ -3437,7 +3436,7 @@ alert(align); // shows the value of align for the element with id="div1"
 </properties>
 </element>
 <element kind="var" name="getAttributeNode()">
-<insert>.getAttributeNode()</insert>
+
 <description>Returns the attribute of the current element as a separate node.
 Syntax: attributeNode = element.getAttributeNode(nodeName)
 Parameters: nodeName is a string containing the name of the node. attributeNode is a separate Attribute node.
@@ -3455,7 +3454,7 @@ iNode = t.getAttributeNode("id");
 </properties>
 </element>
 <element kind="var" name="getAttributeNodeNS()">
-<insert>.getAttributeNodeNS()</insert>
+
 <description>Returns Node for the attribute with the given namespace and name as a separate node.
 Syntax: attributeNode = element.getAttributeNodeNS(namespace, nodeName)
 Parameters: namespace is a string specifying the namespace of the attribute. nodeName is a string specifying 
@@ -3468,11 +3467,11 @@ attributes that are part of a particular namespace. The corresponding setter met
 Specification: http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-217A91B8</description>
 </element>
 <element kind="var" name="getAttributeNS()">
-<insert>.getAttributeNS()</insert>
+
 
 </element>
 <element kind="var" name="getElementsByTagName()">
-<insert>.getElementsByTagName()</insert>
+
 <description>Returns a list of the descendant elements of a given name on the current element.
 Syntax: elements = element.getElementsByTagName(tagName)
 Parameters: elements is a nodeList of elements. tagName is a string representing the name of the elements. The special string "*" represents all elements.
@@ -3495,7 +3494,7 @@ for (var i = 0; i < cells.length; i++) {
 </properties>
 </element>
 <element kind="var" name="hasAttribute()">
-<insert>.hasAttribute()</insert>
+
 <description>hasAttribute is a boolean value indicating whether the current element has the specified attribute or not.
 Syntax: [ true | false ] = element.hasAttribute(attName)
 Parameters: attName is a string representing the name of the attribute
@@ -3514,7 +3513,7 @@ if d.hasAttribute("align") {
 </properties>
 </element>
 <element kind="var" name="hasAttributeNS()">
-<insert>.hasAttributeNS()</insert>
+
 <description>hasAttributeNS is a boolean value indicating whether the current element has an attribute with the specified name and namespace.
 Syntax: [ true | false ] = element.hasAttribute(namespace, localName)
 Parameters: namespace is a string representing the namespace you are looking for localName is a string representing the name of the attribute
@@ -3535,7 +3534,7 @@ if d.hasAttributeNS(
 </properties>
 </element>
 <element kind="var" name="hasAttributes()">
-<insert>.hasAttributes()</insert>
+
 <description>hasAttributes is a boolean value indicating whether the current element has any attributes.
 Syntax: [ true | false ] = element.hasAttributes
 Specification: http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-NodeHasAttrs</description>
@@ -3552,7 +3551,7 @@ if ( t1.hasAttributes ) {
 </properties>
 </element>
 <element kind="var" name="hasChildNodes()">
-<insert>.hasChildNodes()</insert>
+
 <description>hasChildNodes is a method that returns a boolean value indicating whether the current element has children or not.
 Syntax: [ true | false ] = element.hasChildNodes()
 Note that element.hasChildNodes, without the parentheses, is the incorrect usage of this method, and always returns a true value indicating that the method is available on the object. Do not be fooled.
@@ -3568,7 +3567,7 @@ if ( t1.hasChildNodes() ) {
 </properties>
 </element>
 <element kind="var" name="insertBefore()">
-<insert>.insertBefore()</insert>
+
 <description>The insertBefore method allows you to insert a node before a reference element as a child of the current node.
 Syntax: insertedElement = element.insertBefore(newElement, targetElement)
 Parameters: insertedElement The node being inserted. newElement The node to insert. targetElement The node before which newElement is inserted.
@@ -3585,18 +3584,18 @@ parentDiv.insertBefore(sp1, sp2);
 </properties>
 </element>
 <element kind="var" name="item()">
-<insert>.item()</insert>
+
 
 </element>
 <element kind="var" name="normalize()">
-<insert>.normalize()</insert>
+
 <description>The normalize method puts the current node and all of its subtree into a "normalized" form (see below).
 Syntax: element.normalize()
 The normalized form of a subtree is that subtree's nodelist cleansed of extranous and adjacent Text nodes.
 Specification: http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-normalize</description>
 </element>
 <element kind="var" name="removeAttribute()">
-<insert>.removeAttribute()</insert>
+
 <description>The removeAttribute() method removes an attribute from the current element.
 Syntax: element.removeAttribute(attName)
 Parameters: attName is a string that names the attribute to be removed from the current node.
@@ -3614,7 +3613,7 @@ d.removeAttribute("align");
 </properties>
 </element>
 <element kind="var" name="removeAttributeNode()">
-<insert>.removeAttributeNode()</insert>
+
 <description>removeAttributeNode removes the specified attribute from the current element.
 Syntax: remove_attr = element.removeAttributeNode(attribute)
 Parameters: attribute is the Attribute node that needs to be removed. remove_attr is an Attribute node.
@@ -3635,7 +3634,7 @@ d.removeAttributeNode(d_align);
 </properties>
 </element>
 <element kind="var" name="removeAttributeNS()">
-<insert>.removeAttributeNS()</insert>
+
 <description>The removeAttributeNS method removes an attribute with the specified namespace and name.
 Syntax: element.removeAttributeNS(namespace, attrName);
 Parameters: namespace is a string that contains the namespace of the attribute. attName is a string that names the attribute to be removed from the current node.
@@ -3654,7 +3653,7 @@ d.removeAttributeNS("http://www.mozilla.org/ns/specialspace", "specialAlign");
 </properties>
 </element>
 <element kind="var" name="removeChild()">
-<insert>.removeChild()</insert>
+
 <description>The removeChild method removes a child node from the current element.
 Syntax: oldChild = element.removeChild(child)
 Parameters: oldChild is the node that needs to be removed. child is a node.
@@ -3677,7 +3676,7 @@ while (element.firstChild) {
 </properties>
 </element>
 <element kind="var" name="removeEventListener()">
-<insert>.removeEventListener()</insert>
+
 <description>removeEventListener allows the removal of event listeners from the event target.
 Syntax: element.removeEventListener(type, listener, useCapture)
 Parameters: type  A string representing the event type being registered. listener  The listener parameter 
@@ -3693,7 +3692,7 @@ See also addEventListener.
 Specification: http://www.w3.org/TR/2000/REC-DOM-Level-2-Events-20001113/events.html#Events-EventTarget-removeEventListener</description>
 </element>
 <element kind="var" name="replaceChild()">
-<insert>.replaceChild()</insert>
+
 <description>The replaceChild() method replaces one child node on the current element with another.
 Syntax: element.replaceChild(newChild, oldChild)
 Parameters: newChild is a node. oldChild is the existing child node to be replaced.
@@ -3725,11 +3724,11 @@ Specification: http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html
 </properties>
 </element>
 <element kind="var" name="scrollIntoView()">
-<insert>.scrollIntoView()</insert>
+
 
 </element>
 <element kind="var" name="setAttribute()">
-<insert>.setAttribute()</insert>
+
 <description>setAttribute adds a new attribute or changes the value of an existing attribute on the current element.
 Syntax: element.setAttribute(name, value)
 Parameters: name is the name of the new attribute as a string. value is the desired value of the new attribute.
@@ -3745,7 +3744,7 @@ d.setAttribute("align", "center");
 </properties>
 </element>
 <element kind="var" name="setAttributeNode()">
-<insert>.setAttributeNode()</insert>
+
 <description>setAttributeNode adds a new attribute node to the current element.
 Syntax: replaced_attr = element.setAttributeNode(attribute)
 Parameters: attribute is a node of type Attribute replaced_attr is the replaced attribute node, if any, returned by this function
@@ -3767,7 +3766,7 @@ alert(d2.attributes[1].value)
 </properties>
 </element>
 <element kind="var" name="setAttributeNodeNS()">
-<insert>.setAttributeNodeNS()</insert>
+
 <description>setAttributeNodeNS adds a new attribute node with the specified namespace and name.
 Syntax: replaced_attr=element.setAttributeNodeNS(namespace, attribute)
 Parameters: namespace is the namespace of the attribute as a string. attribute is a node of type Attribute. replaced_attr is the replaced attribute node, if any, returned by this function.
@@ -3794,7 +3793,7 @@ alert(d2.attributes[1].value)
 </properties>
 </element>
 <element kind="var" name="setAttributeNS()">
-<insert>.setAttributeNS()</insert>
+
 <description>setAttributeNS adds a new attribute or changes the value of an attribute with the given namespace and name.
 Syntax: element.setAttribute(namespace, name, value)
 Parameters: namespace is the namespace of the new attribute as a string. name is the name of the new attribute as a string. value is the desired value of the new attribute.
@@ -3810,7 +3809,7 @@ d.setAttributeNS("http://www.mozilla.org/ns/specialspace", "align", "center");
 </properties>
 </element>
 <element kind="var" name="supports()">
-<insert>.supports()</insert>
+
 <description>The supports method tests if this DOM implementation supports a particular feature.
 Syntax: boolean = element.supports(feature[, version])
 Parameters: feature is a string that contains the name of the feature (e.g., "") version is a string containing the version number of the feature.
@@ -3828,7 +3827,7 @@ if ( document.supports("package", "4.0") ) {     // do something that only packa
 </group>
 <group name="Event Handlers">
 <element kind="var" name="onblur">
-<insert>.onblur</insert>
+
 <description>The onblur property returns the onBlur event handler code, if any, that exists on the current element.
 Syntax: event handling code = element.onblur
 The blur event is raised when an element loses focus.
@@ -3842,7 +3841,7 @@ warnFunc = window.onblur;
 </properties>
 </element>
 <element kind="var" name="onclick">
-<insert>.onclick</insert>
+
 <description>The onclick property returns the onClick event handler code on the current element.
 Syntax: event handling code = element.onclick
 The click event is raised when the user clicks on an element.
@@ -3873,7 +3872,7 @@ function showPopup()
 </properties>
 </element>
 <element kind="var" name="ondblclick">
-<insert>.ondblclick</insert>
+
 <description>The ondblclick property returns the onDblClick event handler code on the current element.
 Syntax: event handling code = element.ondblclick
 The dblclick event is raised when the user double clicks an element.
@@ -3892,70 +3891,70 @@ function pawnClick() {
 </properties>
 </element>
 <element kind="var" name="onfocus">
-<insert>.onfocus</insert>
+
 <description>The onfocus property returns the onFocus event handler code on the current element.
 Syntax: event handling code = element.onfocus
 The focus event is raised when the user sets focus on the given element.
 Specification: Not part of specification. </description>
 </element>
 <element kind="var" name="onkeydown">
-<insert>.onkeydown</insert>
+
 <description>The onkeydown property returns the onKeyDown event handler code on the current element.
 Syntax: event handling code = element.onkeydown
 The keydown event is raised when the user presses a keyboard key.
 Specification: Not part of specification. </description>
 </element>
 <element kind="var" name="onkeypress">
-<insert>.onkeypress</insert>
+
 <description>The onkeypress property returns the onKeyPress event handler code for the current element.
 Syntax: event handling code = element.onkeypress
 The keypress event is raised when the user presses a key on the keyboard.
 Specification: Not part of specification. </description>
 </element>
 <element kind="var" name="onkeyup">
-<insert>.onkeyup</insert>
+
 <description>The onkeyup property returns the onKeyUp event handler code for the current element.
 Syntax: event handling code = element.onclick
 The keyup event is raised when the user releases a key that's been pressed.
 Specification: Not part of specification. </description>
 </element>
 <element kind="var" name="onmousedown">
-<insert>.onmousedown</insert>
+
 <description>The onmousedown property returns the onMouseDown event handler code on the current element.
 Syntax: event handling code = element.onMouseDown
 The mousedown event is raised when the user presses the left button button.
 Specification: DOM Level 0. Not part of specification. </description>
 </element>
 <element kind="var" name="onmousemove">
-<insert>.onmousemove</insert>
+
 <description>The onmousemove propety returns the onMouseDown event handler code on the current element.
 Syntax: event handling code = element.onMouseMove
 The mousemove event is raised when the user moves the mouse.
 Specification: DOM Level 0. Not part of specification. </description>
 </element>
 <element kind="var" name="onmouseout">
-<insert>.onmouseout</insert>
+
 <description>The onmouseout property returns the onMouseOut event handler code on the current element.
 Syntax: event handling code = element.onMouseOut
 The mouseout event is raised when the mouse leaves an element (e.g, when the mouse moves off of an image in the web page, the mouseout event is raised for that image element).
 Specification: DOM Level 0. Not part of specification. </description>
 </element>
 <element kind="var" name="onmouseover">
-<insert>.onmouseover</insert>
+
 <description>The onmouseover property returns the onMouseOver event handler code on the current element.
 Syntax: event handling code = element.onmouseover
 The mouseover event is raised when the user moves the mouse over a particular element.
 Specification: Not part of specification. </description>
 </element>
 <element kind="var" name="onmouseup">
-<insert>.onmouseup</insert>
+
 <description>The onmouseup property returns the onMouseUp event handler code on the current element.
 Syntax: event handling code = element.onMouseUp
 The mouseup event is raised when the user releases the left mouse button.
 Specification: DOM Level 0. Not part of specification. </description>
 </element>
 <element kind="var" name="onresize">
-<insert>.onresize</insert>
+
 <description>The onResize property returns the onResize event handler code on the current element.
 Syntax: event handling code = element.onresize
 The resize event is raised when the user resizes a resizable element (such as a window).
@@ -3983,10 +3982,10 @@ Those interfaces contain members like insertRule, selectorText, and parentStyleS
 To get to the style objects from the document, you can use the document.styleSheets property and access the individual objects by index (e.g., document.styleSheets[0] is the first stylesheet defined for the document, etc.). 
 Though there are various syntaxes for expressing stylesheets for a document, Netscape supports CSS exclusively, so the style object retrieved from this array implements both the StyleSheet and CSSStyleSheet interfaces. </note>
 <group name="Properties">
-<element kind="var" name="style.media"> <insert>.style.media</insert>
+<element kind="var" name="style.media"> 
    <description> Specifies the intended destination medium for style information.</description>
 </element> 
-<element kind="var" name="style.type "><insert>.style.type</insert>
+<element kind="var" name="style.type ">
     <description>Returns the type of style being applied by this statement.</description>
 </element>
  </group>
@@ -4003,48 +4002,48 @@ Specification: http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-ElementCSSInl
 Using the stylesheet object, you can add and delete style rules. You can also travel the hierarchy of stylesheets that can be associated with a particular document using the parentStyleSheet property. </note>
 <group name="Properties">
 <element kind="var" name="stylesheet.cssRules">
-<insert>.stylesheet.cssRules</insert>
+
 <description>Returns all of the CSS rules in the stylesheet as an array.</description>
 </element>
 <element kind="var" name="stylesheet.disabled">
-<insert>.stylesheet.disabled</insert>
+
 <description>This property indicates whether the current stylesheet has been applied or not.</description>
 </element> 
 <element kind="var" name="stylesheet.href">
-<insert>.stylesheet.href</insert>
+
 <description>Returns the location of the stylesheet.</description>
 </element> 
 <element kind="var" name="stylesheet.media">
-<insert>.stylesheet.media</insert>
+
 <description>Specifies the intended destination medium for style information.</description>
 </element> 
 <element kind="var" name="stylesheet.ownerNode">
-<insert>.stylesheet.ownerNode</insert>
+
 <description>Returns the node that associates this style sheet with the document.</description>
 </element> 
 <element kind="var" name="stylesheet.ownerRule">
-<insert>.stylesheet.ownerRule</insert>
+
 <description>If this style sheet comes from an @import rule, the ownerRule property will contain the CSSImportRule. </description>
 </element>
 <element kind="var" name="stylesheet.parentStyleSheet">
-<insert>.stylesheet.parentStyleSheet</insert>
+
 <description>Returns the stylesheet that is including this one, if any.</description>
 </element> 
 <element kind="var" name="stylesheet.title">
-<insert>.stylesheet.title</insert>
+
 <description>Returns the advisory title of the current style sheet.</description>
 </element> 
 <element kind="var" name="stylesheet.type">
-<insert>.stylesheet.type</insert>
+
 <description>Specifies the style sheet language for this style sheet.</description>
 </element></group>
 <group name="Methods">
 <element kind="var" name="stylesheet.deleteRule()">
-<insert>.stylesheet.deleteRule()</insert>
+
 <description>Deletes a rule from the stylesheet.</description>
 </element> 
 <element kind="var" name="stylesheet.insertRule()">
-<insert>.stylesheet.insertRule()</insert>
+
 <description>Inserts a new style rule into the current style sheet.</description>
 </element>
 </group>
@@ -4054,19 +4053,19 @@ Using the stylesheet object, you can add and delete style rules. You can also tr
 Each stylesheet object exposes an array of the cssRules that make it up, and you can also get to the rules on individual elements by using the element.style property.</note>
 <group name="Properties">
 <element kind="var" name="cssRule.cssText">
-<insert>.cssRule.cssText</insert>
+
 <description>cssText returns the actual text of the style rule.</description>
 </element>
 <element kind="var" name="cssRule.parentStyleSheet">
-<insert>.cssRule.parentStyleSheet</insert>
+
 <description>parentStyleSheet returns the stylesheet object in which the current rule is defined.</description>
 </element>
 <element kind="var" name="cssRule.selectorText">
-<insert>.cssRule.selectorText</insert>
+
 <description>selectorText gets/sets the textual representation of the selector for the rule set.</description>
 </element>
 <element kind="var" name="cssRule.style">
-<insert>.cssRule.style</insert>
+
 <description>style returns the declaration block for the current style.</description>
 </element>
 </group>
@@ -4083,388 +4082,388 @@ See also: the Element style property. You can check the syntax for the values of
 </note>
 
 <element kind="var" name="accelerator">
-<insert>.style.accelerator</insert>
+
 </element>
 <element kind="var" name="azimuth">
-<insert>.style.azimuth</insert>
+
 </element>
 <element kind="var" name="background">
-<insert>.style.background</insert>
+
 </element>
 <element kind="var" name="backgroundAttachment">
-<insert>.style.backgroundAttachment</insert>
+
 </element>
 <element kind="var" name="backgroundColor">
-<insert>.style.backgroundColor</insert>
+
 </element>
 <element kind="var" name="backgroundImage">
-<insert>.style.backgroundImage</insert>
+
 </element>
 <element kind="var" name="backgroundPosition">
-<insert>.style.backgroundPosition</insert>
+
 </element>
 <element kind="var" name="backgroundRepeat">
-<insert>.style.backgroundRepeat</insert>
+
 </element>
 <element kind="var" name="border">
-<insert>.style.border</insert>
+
 </element>
 <element kind="var" name="borderBottom">
-<insert>.style.borderBottom</insert>
+
 </element>
 <element kind="var" name="borderBottomColor">
-<insert>.style.borderBottomColor</insert>
+
 </element>
 <element kind="var" name="borderBottomStyle">
-<insert>.style.borderBottomStyle</insert>
+
 </element>
 <element kind="var" name="borderBottomWidth">
-<insert>.style.borderBottomWidth</insert>
+
 </element>
 <element kind="var" name="borderCollapse">
-<insert>.style.borderCollapse</insert>
+
 </element>
 <element kind="var" name="borderColor">
-<insert>.style.borderColor</insert>
+
 </element>
 <element kind="var" name="borderLeft">
-<insert>.style.borderLeft</insert>
+
 </element>
 <element kind="var" name="borderLeftColor">
-<insert>.style.borderLeftColor</insert>
+
 </element>
 <element kind="var" name="borderLeftStyle">
-<insert>.style.borderLeftStyle</insert>
+
 </element>
 <element kind="var" name="borderLeftWidth">
-<insert>.style.borderLeftWidth</insert>
+
 </element>
 <element kind="var" name="borderRight">
-<insert>.style.borderRight</insert>
+
 </element>
 <element kind="var" name="borderRightColor">
-<insert>.style.borderRightColor</insert>
+
 </element>
 <element kind="var" name="borderRightStyle">
-<insert>.style.borderRightStyle</insert>
+
 </element>
 <element kind="var" name="borderRightWidth">
-<insert>.style.borderRightWidth</insert>
+
 </element>
 <element kind="var" name="borderSpacing">
-<insert>.style.borderSpacing</insert>
+
 </element>
 <element kind="var" name="borderStyle">
-<insert>.style.borderStyle</insert>
+
 </element>
 <element kind="var" name="borderTop">
-<insert>.style.borderTop</insert>
+
 </element>
 <element kind="var" name="borderTopColor">
-<insert>.style.borderTopColor</insert>
+
 </element>
 <element kind="var" name="borderTopStyle">
-<insert>.style.borderTopStyle</insert>
+
 </element>
 <element kind="var" name="borderTopWidth">
-<insert>.style.borderTopWidth</insert>
+
 </element>
 <element kind="var" name="borderWidth">
-<insert>.style.borderWidth</insert>
+
 </element>
 <element kind="var" name="bottom">
-<insert>.style.bottom</insert>
+
 </element>
 <element kind="var" name="captionSide">
-<insert>.style.captionSide</insert>
+
 </element>
 <element kind="var" name="clear">
-<insert>.style.clear</insert>
+
 </element>
 <element kind="var" name="clip">
-<insert>.style.clip</insert>
+
 </element>
 <element kind="var" name="color">
-<insert>.style.color</insert>
+
 </element>
 <element kind="var" name="content">
-<insert>.style.content</insert>
+
 </element>
 <element kind="var" name="counterIncrement">
-<insert>.style.counterIncrement</insert>
+
 </element>
 <element kind="var" name="counterReset">
-<insert>.style.counterReset</insert>
+
 </element>
 <element kind="var" name="cssFloat">
-<insert>.style.cssFloat</insert>
+
 </element>
 <element kind="var" name="cssText">
-<insert>.style.cssText</insert>
+
 </element>
 <element kind="var" name="cue">
-<insert>.style.cue</insert>
+
 </element>
 <element kind="var" name="cueAfter">
-<insert>.style.cueAfter</insert>
+
 </element>
 <element kind="var" name="onBefore">
-<insert>.style.onBefore</insert>
+
 </element>
 <element kind="var" name="cursor">
-<insert>.style.cursor</insert>
+
 </element>
 <element kind="var" name="direction">
-<insert>.style.direction</insert>
+
 </element>
 <element kind="var" name="displays">
-<insert>.style.displays</insert>
+
 </element>
 <element kind="var" name="elevation">
-<insert>.style.elevation</insert>
+
 </element>
 <element kind="var" name="emptyCells">
-<insert>.style.emptyCells</insert>
+
 </element>
 <element kind="var" name="font">
-<insert>.style.font</insert>
+
 </element>
 <element kind="var" name="fontFamily">
-<insert>.style.fontFamily</insert>
+
 </element>
 <element kind="var" name="fontSize">
-<insert>.style.fontSize</insert>
+
 </element>
 <element kind="var" name="fontSizeAdjust">
-<insert>.style.fontSizeAdjust</insert>
+
 </element>
 <element kind="var" name="fontStretch">
-<insert>.style.fontStretch</insert>
+
 </element>
 <element kind="var" name="fontStyle">
-<insert>.style.fontStyle</insert>
+
 </element>
 <element kind="var" name="fontVariant">
-<insert>.style.fonVariant</insert>
+
 </element>
 <element kind="var" name="fontWeight">
-<insert>.style.fontWeight</insert>
+
 </element>
 <element kind="var" name="height">
-<insert>.style.height</insert>
+
 </element>
 <element kind="var" name="left">
-<insert>.style.left</insert>
+
 </element>
 <element kind="var" name="length">
-<insert>.style.length</insert>
+
 </element>
 <element kind="var" name="letterSpacing">
-<insert>.style.letterSpacing</insert>
+
 </element>
 <element kind="var" name="lineHeight">
-<insert>.style.lineHeight</insert>
+
 </element>
 <element kind="var" name="listStyle">
-<insert>.style.listStyle</insert>
+
 </element>
 <element kind="var" name="listStyleImage">
-<insert>.style.listStyleImage</insert>
+
 </element>
 <element kind="var" name="listStylePosition">
-<insert>.style.listStylePosition</insert>
+
 </element>
 <element kind="var" name="listStyleType">
-<insert>.style.listStyleType</insert>
+
 </element>
 <element kind="var" name="margin">
-<insert>.style.margin</insert>
+
 </element>
 <element kind="var" name="marginBottom">
-<insert>.style.marginBottom</insert>
+
 </element>
 <element kind="var" name="marginLeft">
-<insert>.style.marginLeft</insert>
+
 </element>
 <element kind="var" name="marginRight">
-<insert>.style.marginRight</insert>
+
 </element>
 <element kind="var" name="marginTop">
-<insert>.style.marginTop</insert>
+
 </element>
 <element kind="var" name="markerOffset">
-<insert>.style.markerOffset</insert>
+
 </element>
 <element kind="var" name="marks">
-<insert>.style.marks</insert>
+
 </element>
 <element kind="var" name="maxHeight">
-<insert>.style.maxHeight</insert>
+
 </element>
 <element kind="var" name="maxWidth">
-<insert>.style.maxWidth</insert>
+
 </element>
 <element kind="var" name="minHeight">
-<insert>.style.minHeight</insert>
+
 </element>
 <element kind="var" name="minWidth">
-<insert>.style.minWidth</insert>
+
 </element>
 <element kind="var" name="MozBinding">
-<insert>.style.MozBinding</insert>
+
 </element>
 <element kind="var" name="MozOpacity">
-<insert>.style.MozOpacity</insert>
+
 </element>
 <element kind="var" name="orphans">
-<insert>.style.orphans</insert>
+
 </element>
 <element kind="var" name="outline">
-<insert>.style.outline</insert>
+
 </element>
 <element kind="var" name="outlineColor">
-<insert>.style.outlineColor</insert>
+
 </element>
 <element kind="var" name="outlineStyle">
-<insert>.style.outlineStyle</insert>
+
 </element>
 <element kind="var" name="outlineWidth">
-<insert>.style.outlineWidth</insert>
+
 </element>
 <element kind="var" name="overflow">
-<insert>.style.overflow</insert>
+
 </element>
 <element kind="var" name="padding">
-<insert>.style.padding</insert>
+
 </element>
 <element kind="var" name="paddingBottom">
-<insert>.style.paddingBottom</insert>
+
 </element>
 <element kind="var" name="paddingLeft">
-<insert>.style.paddingLeft</insert>
+
 </element>
 <element kind="var" name="paddingRight">
-<insert>.style.paddingRight</insert>
+
 </element>
 <element kind="var" name="paddingTop">
-<insert>.style.paddingTop</insert>
+
 </element>
 <element kind="var" name="page">
-<insert>.style.page</insert>
+
 </element>
 <element kind="var" name="pageBreakAfter">
-<insert>.style.pageBreakAfter</insert>
+
 </element>
 <element kind="var" name="pageBreakBefore">
-<insert>.style.pageBreakBefore</insert>
+
 </element>
 <element kind="var" name="pageBreakInside">
-<insert>.style.pageBreakInside</insert>
+
 </element>
 <element kind="var" name="parentRule">
-<insert>.style.parentRule</insert>
+
 </element>
 <element kind="var" name="pause">
-<insert>.style.pause</insert>
+
 </element>
 <element kind="var" name="pauseAfter">
-<insert>.style.pauseAfter</insert>
+
 </element>
 <element kind="var" name="pauseBefore">
-<insert>.style.pauseBefore</insert>
+
 </element>
 <element kind="var" name="pitch">
-<insert>.style.pitch</insert>
+
 </element>
 <element kind="var" name="pitchRange">
-<insert>.style.pitchRange</insert>
+
 </element>
 <element kind="var" name="playDuring">
-<insert>.style.playDuring</insert>
+
 </element>
 <element kind="var" name="position">
-<insert>.style.position</insert>
+
 </element>
 <element kind="var" name="quotes">
-<insert>.style.quotes</insert>
+
 </element>
 <element kind="var" name="richness">
-<insert>.style.richness</insert>
+
 </element>
 <element kind="var" name="right">
-<insert>.style.right</insert>
+
 </element>
 <element kind="var" name="size">
-<insert>.style.size</insert>
+
 </element>
 <element kind="var" name="speak">
-<insert>.style.speak</insert>
+
 </element>
 <element kind="var" name="speakHeader">
-<insert>.style.speakHeader</insert>
+
 </element>
 <element kind="var" name="speakNumeral">
-<insert>.style.speakNumeral</insert>
+
 </element>
 <element kind="var" name="speakPunctuation">
-<insert>.style.speakPunctuation</insert>
+
 </element>
 <element kind="var" name="speechRate">
-<insert>.style.speechRate</insert>
+
 </element>
 <element kind="var" name="stress">
-<insert>.style.stress</insert>
+
 </element>
 <element kind="var" name="tableLayout">
-<insert>.style.tableLayout</insert>
+
 </element>
 <element kind="var" name="textAlign">
-<insert>.style.textAlign</insert>
+
 </element>
 <element kind="var" name="textDecoration">
-<insert>.style.textDecoration</insert>
+
 </element>
 <element kind="var" name="textIndent">
-<insert>.style.textIndent</insert>
+
 </element>
 <element kind="var" name="textShadow">
-<insert>.style.textShadow</insert>
+
 </element>
 <element kind="var" name="textTransform">
-<insert>.style.textTransform</insert>
+
 </element>
 <element kind="var" name="top">
-<insert>.style.top</insert>
+
 </element>
 <element kind="var" name="unicodeBidi">
-<insert>.style.unicodeBidi</insert>
+
 </element>
 <element kind="var" name="verticalAlign">
-<insert>.style.verticalAlign</insert>
+
 </element>
 <element kind="var" name="visibility">
-<insert>.style.visibility</insert>
+
 </element>
 <element kind="var" name="voiceFamily">
-<insert>.style.voiceFamily</insert>
+
 </element>
 <element kind="var" name="volume">
-<insert>.style.volume</insert>
+
 </element>
 <element kind="var" name="whiteSpace">
-<insert>.style.whiteSpace</insert>
+
 </element>
 <element kind="var" name="widows">
-<insert>.style.widows</insert>
+
 </element>
 <element kind="var" name="width">
-<insert>.style.width</insert>
+
 </element>
 <element kind="var" name="wordSpacing">
-<insert>.style.wordSpacing</insert>
+
 </element>
 <element kind="var" name="zIndex">
-<insert>.style.zIndex</insert>
+
 </element>
 
 </group> 
@@ -4476,134 +4475,134 @@ The event object itself is described, as well as the interfaces for event regist
 event handers and event listeners, and several longer examples that show how the various event interfaces relate to one another.</note>
 <group name="Properties">
 <element kind="var" name="event.altKey">
-<insert>.event.altKey</insert>
+
 
 </element>
 <element kind="var" name="event.bubbles">
-<insert>.event.bubbles</insert>
+
 
 </element>
 <element kind="var" name="event.cancelable">
-<insert>.event.cancelable</insert>
+
 
 </element>
 <element kind="var" name="event.cancelBubble">
-<insert>.event.cancelBubble</insert>
+
 
 </element>
 <element kind="var" name="event.charCode">
-<insert>.event.charCode</insert>
+
 
 </element>
 <element kind="var" name="event.clientX">
-<insert>.event.clientX</insert>
+
 
 </element>
 <element kind="var" name="event.clientY">
-<insert>.event.clientY</insert>
+
 
 </element>
 <element kind="var" name="event.ctrlKey">
-<insert>.event.ctrlKey</insert>
+
 
 </element>
 <element kind="var" name="event.currentTarget">
-<insert>.event.currentTarget</insert>
+
 
 </element>
 <element kind="var" name="event.detail">
-<insert>.event.detail</insert>
+
 
 </element>
 <element kind="var" name="event.eventPhase">
-<insert>.event.eventPhase</insert>
+
 
 </element>
 <element kind="var" name="event.isChar">
-<insert>.event.isChar</insert>
+
 
 </element>
 <element kind="var" name="event.keyCode">
-<insert>.event.keyCode</insert>
+
 
 </element>
 <element kind="var" name="event.layerX">
-<insert>.event.layerX</insert>
+
 
 </element>
 <element kind="var" name="event.layerY">
-<insert>.event.layerY</insert>
+
 
 </element>
 <element kind="var" name="event.metaKey">
-<insert>.event.metaKey</insert>
+
 
 </element>
 <element kind="var" name="event.pageX">
-<insert>.event.pageX</insert>
+
 
 </element>
 <element kind="var" name="event.pageY">
-<insert>.event.pageY</insert>
+
 
 </element>
 <element kind="var" name="event.relatedTarget">
-<insert>.event.relatedTarget</insert>
+
 
 </element>
 <element kind="var" name="event.screenX">
-<insert>.event.screenX</insert>
+
 
 </element>
 <element kind="var" name="event.screenY">
-<insert>.event.screenY</insert>
+
 
 </element>
 <element kind="var" name="event.shiftKey">
-<insert>.event.shiftKey</insert>
+
 
 </element>
 <element kind="var" name="event.target">
-<insert>.event.target</insert>
+
 
 </element>
 <element kind="var" name="event.timeStamp">
-<insert>.event.timeStamp</insert>
+
 
 </element>
 <element kind="var" name="event.type">
-<insert>.event.type</insert>
+
 
 </element>
 <element kind="var" name="event.view">
-<insert>.event.view</insert>
+
 
 </element>
 <element kind="var" name="event.which">
-<insert>.event.which</insert>
+
 
 </element>
 
 </group>
 <group name="Methods">
 <element kind="var" name="event.initEvent()">
-<insert>.event.initEvent()</insert>
+
 
 </element>
 <element kind="var" name="event.initMouseEvent()">
-<insert>.event.initMouseEvent()</insert>
+
 
 </element>
 <element kind="var" name="event.initUIEvent()">
-<insert>.event.initUIEvent()</insert>
+
 
 </element>
 <element kind="var" name="event.preventDefault()">
-<insert>.event.preventDefault()</insert>
+
 
 </element>
 <element kind="var" name="event.stopPropagation()">
-<insert>.event.stopPropagation()</insert>
+
 
 </element></group>
 </group>
@@ -4614,7 +4613,7 @@ They also expose the specialized interface described here.
 </note>
 <group name="Properties">
 <element kind="var" name="form.elements ">
-<insert>.elements </insert>
+
 <description>elements returns an array of all the form controls contained in the FORM element.
 Syntax: nodeList = form.elements
 Specification: http://www.w3.org/TR/2001/WD-DOM-Level-2-HTML-20011025/html.html#ID-76728479</description>
@@ -4628,7 +4627,7 @@ var inputByName = inputs["login"];
 </properties>
 </element>
 <element kind="var" name="form.length">
-<insert>.length</insert>
+
 <description>length returns the number of controls in the FORM element.
 Syntax: integer = form.length
 Specification: http://www.w3.org/TR/2001/WD-DOM-Level-2-HTML-20011025/html.html#ID-40002357</description>
@@ -4641,7 +4640,7 @@ Specification: http://www.w3.org/TR/2001/WD-DOM-Level-2-HTML-20011025/html.html#
 </properties> 
 </element>
 <element kind="var" name="form.name">
-<insert>.name</insert>
+
 <description>name returns the name of the current FORM element as a string.
 Syntax: string = form.name form.name = string
 Note that this property is read/write, which means that you can change the name of a form or set it if it hasn't been set already.
@@ -4657,7 +4656,7 @@ if (form1&nbsp;!= document.form.form1) {
 </properties>
 </element>
 <element kind="var" name="form.acceptCharset">
-<insert>.acceptCharset</insert>
+
 <description>acceptCharset returns a list of the supported character encodings for the given FORM element. This list can be comma- or space-separated.
 Syntax: string = form.acceptCharset;
 Specification: http://www.w3.org/TR/2001/WD-DOM-Level-2-HTML-20011025/html.html#ID-40002357</description>
@@ -4669,14 +4668,14 @@ Specification: http://www.w3.org/TR/2001/WD-DOM-Level-2-HTML-20011025/html.html#
 </properties>
 </element>
 <element kind="var" name="form.action">
-<insert>.action</insert>
+
 <description>action gets/sets the action of the FORM element.
 Syntax: string = form.action form.action = string
 The action of a form is the program that is executed on the server when the form is submitted. This property can be retrieved or set.
 Specification: http://www.w3.org/TR/2001/WD-DOM-Level-2-HTML-20011025/html.html#ID-40002357</description>
 </element>
 <element kind="var" name="form.enctype">
-<insert>.enctype</insert>
+
 <description>enctype gets/sets the content type of the FORM element.
 Syntax: string = form.enctype form.enctype = string
 The encoding type is generally "application/x-www-form-urlencoded".
@@ -4689,11 +4688,11 @@ Specification: http://www.w3.org/TR/2001/WD-DOM-Level-2-HTML-20011025/html.html#
 </properties>
 </element>
 <element kind="var" name="form.encoding">
-<insert>.encoding</insert>
+
 <description>encoding is an alternative name for the enctype element on the DOM FormElement object.</description>
 </element>
 <element kind="var" name="form.method">
-<insert>.method</insert>
+
 <description>method gets/sets the HTTP method used to submit the form.
 Syntax: string = form.method form.method = string
 Specification: http://www.w3.org/TR/2001/WD-DOM-Level-2-HTML-20011025/html.html#ID-40002357</description>
@@ -4705,7 +4704,7 @@ Specification: http://www.w3.org/TR/2001/WD-DOM-Level-2-HTML-20011025/html.html#
 </properties>
 </element>
 <element kind="var" name="form.target"> 
-<insert>.target</insert>
+
 <description>target gets/sets the target of the action (i.e., the frame to render its output in).
 Syntax: string = form.target form.target = string
 Specification: http://www.w3.org/TR/2001/WD-DOM-Level-2-HTML-20011025/html.html#ID-40002357</description>
@@ -4719,7 +4718,7 @@ Specification: http://www.w3.org/TR/2001/WD-DOM-Level-2-HTML-20011025/html.html#
 </group>
 <group name="Methods">
 <element kind="var" name="form.submit()">
-<insert>.submit()</insert>
+
 <description>submit submits the form.
 Syntax: form.submit()
 This method does the same thing as clicking the form submit button.
@@ -4732,7 +4731,7 @@ Specification: http://www.w3.org/TR/2001/WD-DOM-Level-2-HTML-20011025/html.html#
 </properties>
 </element>
 <element kind="var" name="form.reset()">
-<insert>.reset()</insert>
+
 <description>reset resets the form to its initial state.
 Syntax: form.reset()
 This method is the same as the form reset button.
@@ -4752,7 +4751,7 @@ which provides special properties and methods (beyond the regular element object
 for manipulating the layout and presentation of tables in HTML.</note>
 <group name="Properties">
 <element kind="var" name="table.align">
-<insert>.align</insert>
+
 <description>align gets/sets the alignment of the table.
 Syntax: alignment = table.align table.align = alignment
 Parameters: alignment is a string with one of the following values: left center right
@@ -4765,7 +4764,7 @@ The align attribute is deprecated in HTML4.0.</description>
 </properties>
 </element>
 <element kind="var" name="table.bgColor">
-<insert>.bgColor</insert>
+
 <description>bgcolor gets/sets the background color of the table.
 Syntax: color = table.bgColor table.bgColor = color
 Parameters: color is a string representing a color value.
@@ -4778,7 +4777,7 @@ The bgColor attribute is deprecated in HTML 4.0.</description>
 </properties>
 </element>
 <element kind="var" name="table.border">
-<insert>.border</insert>
+
 <description>border gets/sets the border width.
 Syntax: table.border = pixel_string pixel_string = table.border
 This attribute is deprecated in HTML 4.0.</description>
@@ -4790,7 +4789,7 @@ This attribute is deprecated in HTML 4.0.</description>
 </properties>
 </element>
 <element kind="var" name=" table.caption">
-<insert>. table.caption</insert>
+
 <description>caption returns the table caption.
 Syntax: string = table.caption
 This property returns void if no caption exists on the table.</description>
@@ -4804,7 +4803,7 @@ This property returns void if no caption exists on the table.</description>
 </properties>
 </element>
 <element kind="var" name="table.cellPadding">
-<insert>.cellPadding</insert>
+
 <description>cellPadding gets/sets the padding around the individual cells of the table.
 Syntax: table.cellPadding = pixel_string pixel_string = table.cellPadding</description>
 <properties>
@@ -4815,7 +4814,7 @@ Syntax: table.cellPadding = pixel_string pixel_string = table.cellPadding</descr
 </properties>
 </element>
 <element kind="var" name="table.cellSpacing">
-<insert>.cellSpacing</insert>
+
 <description>cellSpacing gets/sets the spacing around the individual cells of the table.
 Syntax: table.cellSpacing = pixel_string pixel_string = table.cellSpacing</description>
 <properties>
@@ -4826,7 +4825,7 @@ Syntax: table.cellSpacing = pixel_string pixel_string = table.cellSpacing</descr
 </properties>
 </element>
 <element kind="var" name="table.frame">
-<insert>.frame</insert>
+
 <description>frame specifies which external table borders to render.
 Syntax: table.frame = side side = table.frame
 Parameters: side is a string with one of the following values:
@@ -4857,7 +4856,7 @@ mytable.border = "2px";
 </properties>
 </element>
 <element kind="var" name="table.rows">
-<insert>.rows</insert>
+
 <description>rows returns a collection of the rows in the table.
 Syntax: HTMLCollectionObject = table.rows
 The collection returned by this property includes the THEAD and TFOOT and TBODY elements, if any, on the current table.</description>
@@ -4869,7 +4868,7 @@ The collection returned by this property includes the THEAD and TFOOT and TBODY 
 </properties>
 </element>
 <element kind="var" name="table.rules">
-<insert>.rules</insert>
+
 <description>rules specifies which cell borders to render in the table.
 Syntax: table.rules = rules rules = table.rules
 Parameters: rules is a string with one of the following values:
@@ -4893,7 +4892,7 @@ t.rules = "all";
 </properties>
 </element>
 <element kind="var" name="table.summary">
-<insert>.summary</insert>
+
 <description>summary gets/sets a table description.
 Syntax: table.summary = string string = table.summary</description>
 <properties>
@@ -4905,7 +4904,7 @@ t.summary = "removed internal borders";
 </properties>
 </element>
 <element kind="var" name="table.tBodies">
-<insert>.tBodies</insert>
+
 <description>tBodies returns a collection of the table bodies.
 Syntax: HTMLCollectionObject = table.tBodies</description>
 <properties>
@@ -4916,7 +4915,7 @@ Syntax: HTMLCollectionObject = table.tBodies</description>
 </properties>
 </element>
 <element kind="var" name="table.tFoot">
-<insert>.tFoot</insert>
+
 <description>tFoot returns the table's TFOOT element.
 Syntax: HTMLTableSectionElementObject = table.tFoot
 This property returns VOID if no TFOOT element exists.</description>
@@ -4930,7 +4929,7 @@ This property returns VOID if no TFOOT element exists.</description>
 </properties>
 </element>
 <element kind="var" name="table.tHead">
-<insert>.tHead</insert>
+
 <description>tHead returns the table's THEAD.
 Syntax: th_el = table.tHead
 Parameters: th_el is a HTMLTableSectionElement.
@@ -4945,7 +4944,7 @@ This property returns VOID if no THEAD element exists.</description>
 </properties>
 </element>
 <element kind="var" name="table.width">
-<insert>.width</insert>
+
 <description>width specifies the desired width of the table.
 Syntax: table.width = width width = table.width
 Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#ID-77447361</description>
@@ -4959,7 +4958,7 @@ Specification: http://www.w3.org/TR/2000/WD-DOM-Level-2-HTML-20001113/html.html#
 </group>
 <group name="Methods">
 <element kind="var" name="table.createTHead()">
-<insert>.createTHead()</insert>
+
 <description>createTHead creates a new THEAD for the table.
 Syntax: HTMLElementObject = table.createTHead()
 If the element already exists on the table, then this method returns that element.</description>
@@ -4972,7 +4971,7 @@ If the element already exists on the table, then this method returns that elemen
 </properties>
 </element>
 <element kind="var" name="table.deleteTHead()">
-<insert>.deleteTHead()</insert>
+
 <description>deleteTHead removes a THEAD from the table.
 Syntax: table.deleteTHead()</description>
 <properties>
@@ -4983,7 +4982,7 @@ Syntax: table.deleteTHead()</description>
 </properties>
 </element>
 <element kind="var" name="table.createTFoot()">
-<insert>.createTFoot()</insert>
+
 <description>createTFoot creates a new TFOOT for the table.
 Syntax: HTMLElementObject = table.createTFoot()
 If the element already exists on the table, then this method returns that element</description>
@@ -4996,7 +4995,7 @@ If the element already exists on the table, then this method returns that elemen
 </properties>
 </element>
 <element kind="var" name="table.deleteTFoot()">
-<insert>.deleteTFoot()</insert>
+
 <description>deleteTFoot removes a TFOOT from the table.
 Syntax: table.deleteTFoot()</description>
 <properties>
@@ -5007,7 +5006,7 @@ Syntax: table.deleteTFoot()</description>
 </properties>
 </element>
 <element kind="var" name="table.createCaption()">
-<insert>.createCaption()</insert>
+
 <description>createCaption creates a new caption for the table.
 Syntax: HTMLElementObj = table.createCaption()
 If the element already exists on the table, then this method returns that element.</description>
@@ -5019,12 +5018,12 @@ If the element already exists on the table, then this method returns that elemen
 </properties>
 </element>
 <element kind="var" name="table.deleteCaption()">
-<insert>.deleteCaption()</insert>
+
 <description>deleteCaption removes the caption from the table.
 Syntax: table.deleteCaption()</description>
 </element>
 <element kind="var" name="table.insertRow()">
-<insert>.insertRow()</insert>
+
 <description>insertRow inserts a new row in the table.
 Syntax: row = table.insertRow(index)
 Parameters: index is a number representing where in the table to insert the new row. 
@@ -5038,7 +5037,7 @@ row is an HTMLElement.</description>
 </properties>
 </element>
 <element kind="var" name="table.deleteRow()">
-<insert>.deleteRow()</insert>
+
 <description>deleteRow removes a row from the table.
 Syntax: table.deleteRow(index)
 Parameters: index is a number representing the row that should be deleted.</description>
@@ -5058,7 +5057,7 @@ A range can be created using the createRange method of the document object.
 Range objects can also be retrieved by using the getRangeAt method of the selection object.</note>
 <group name="Properties">
 <element kind="var" name="collapsed">
-<insert>.collapsed</insert>
+
 <description>Returns a boolean indicating whether the range's start and end points are at the same position.
 Syntax: isCollapsed = range.collapsed;
 Returns a boolean of true if the start and end boundary points of the Range are the same point in the DOM, false if not.
@@ -5074,7 +5073,7 @@ isCollapsed = range.collapsed;
 </properties>
 </element>
 <element kind="var" name="commonAncestorContainer">
-<insert>.commonAncestorContainer</insert>
+
 <description>Returns the deepest Node that contains the startContainer and endContainer Nodes.
 Syntax: rangeAncestor = range.commonAncestorContainer;
 Returns the deepest, or further down the document tree, Node that contains both the startContainer and endContainer nodes. Since a Range need not be continuous, and may also partially select Nodes, this is a convenient way to find a Node which encloses a Range.
@@ -5091,7 +5090,7 @@ rangeAncestor = range.commonAncestorContainer;
 </properties>
 </element>
 <element kind="var" name="endContainer">
-<insert>.endContainer</insert>
+
 <description>Returns the Node within which the Range ends.
 Syntax: endRangeNode = range.endContainer;
 Returns a reference to the Node in the document within which the Range ends. This property is read-only. To change the end position of a node, use the setEnd method or a similar method.
@@ -5107,7 +5106,7 @@ endRangeNode = range.endContainer;
 </properties>
 </element>
 <element kind="var" name="endOffset">
-<insert>.endOffset</insert>
+
 <description>Returns a number representing where in the endContainer the Range ends.
 Syntax: endRangeOffset = range.endOffset;
 endOffset has two meanings. If the endContainer is a Node of type Text, Comment, or CDATASection, then the offset is the number of characters from the start of the endContainer to the boundary point of the Range. For other Node types, the endOffset is the number of child nodes between the start of the endContainer and the boundary point of the Range. This property is read-only. To change the endOffset of a Range, use one of the setEnd methods.
@@ -5123,7 +5122,7 @@ endRangeOffset = range.endOffset;
 </properties>
 </element>
 <element kind="var" name="startContainer">
-<insert>.startContainer</insert>
+
 <description>Returns the Node within which the Range starts.
 Syntax: startRangeNode = range.startContainer;
 Returns a reference to the Node in the document within which the Range starts. This property is read-only. To change the start position of a node, use one of the setStart methods.
@@ -5139,7 +5138,7 @@ startRangeNode = range.startContainer;
 </properties>
 </element>
 <element kind="var" name="startOffset">
-<insert>.startOffset</insert>
+
 <description>Returns a number representing where in the startContainer the Range starts.
 Syntax: startRangeOffset = range.startOffset;
 startOffset has two meanings. If the startContainer is a Node of type Text, Comment, or CDATASection, then the offset is the number of characters from the start of the startContainer to the boundary point of the Range. For other Node types, the startOffset is the number of child nodes between the start of the startContainer and the boundary point of the Range. This property is read-only. To change the startOffset of a Range, use one of the setStart methods.
@@ -5157,7 +5156,7 @@ startRangeOffset = range.startOffset;
 </group>
 <group name="Positioning Methods">
 <element kind="var" name="setStart()">
-<insert>.setStart()</insert>
+
 <description>Sets the start position of a Range.
 Syntax: range.setStart(startNode,startOffset);
 Parameters: startNode  The Node to start the Range startOffset  An integer greater than or equal to zero representing the offset for the start of the Range from the start of startNode.
@@ -5174,7 +5173,7 @@ range.setStart(startNode,startOffset);
 </properties>
 </element>
 <element kind="var" name="setEnd()">
-<insert>.setEnd()</insert>
+
 <description>Sets the end position of a Range.
 Syntax: range.setEnd(endNode,endOffset);
 Parameters: endNode  The Node to end the Range endOffset  An integer greater than or equal to zero representing the offset for the end of the Range from the start of endNode.
@@ -5191,7 +5190,7 @@ range.setEnd(endNode,endOffset);
 </properties>
 </element>
 <element kind="var" name="setStartBefore()">
-<insert>.setStartBefore()</insert>
+
 <description>Sets the start position of a Range relative to another Node.
 Syntax: range.setStartBefore(referenceNode);
 Parameters: referenceNode The Node to start the Range before
@@ -5207,7 +5206,7 @@ range.setStartBefore(referenceNode);
 </properties>
 </element>
 <element kind="var" name="setStartAfter()">
-<insert>.setStartAfter()</insert>
+
 <description>Sets the start position of a Range relative to another Node.
 Syntax: range.setStartAfter(referenceNode);
 Parameters: referenceNode The Node to start the Range after
@@ -5223,7 +5222,7 @@ range.setStartAfter(referenceNode);
 </properties>
 </element>
 <element kind="var" name="setEndBefore()">
-<insert>.setEndBefore()</insert>
+
 <description>Sets the end position of a Range relative to another Node.
 Syntax: range.setEndBefore(referenceNode);
 Parameters: referenceNode The Node to end the Range before
@@ -5239,7 +5238,7 @@ range.setEndBefore(referenceNode);
 </properties>
 </element>
 <element kind="var" name="setEndAfter()">
-<insert>.setEndAfter()</insert>
+
 <description>Sets the end position of a Range relative to another Node.
 Syntax: range.setEndAfter(referenceNode);
 Parameters: referenceNode The Node to end the Range after
@@ -5255,7 +5254,7 @@ range.setEndAfter(referenceNode);
 </properties>
 </element>
 <element kind="var" name="selectNode()">
-<insert>.selectNode()</insert>
+
 <description>Sets the Range to contain the node and its contents.
 Syntax: range.selectNode(referenceNode);
 Parameters: referenceNode The Node to select within a Range
@@ -5271,7 +5270,7 @@ range.selectNode(referenceNode);
 </properties>
 </element>
 <element kind="var" name="selectNodeContents()">
-<insert>.selectNodeContents()</insert>
+
 <description>Sets the Range to contain the contents of a Node.
 Syntax: range.selectNodeContents(referenceNode);
 Parameters: referenceNode The Node whose contents will be selected within a Range
@@ -5287,7 +5286,7 @@ range.selectNodeContents(referenceNode);
 </properties>
 </element>
 <element kind="var" name="collapse()">
-<insert>.collapse()</insert>
+
 <description>Collapses the Range to one of its boundary points.
 Syntax: range.collapse(toStart);
 Parameters: toStart A boolean, true collapses the Range to its start, false to its end.
@@ -5306,7 +5305,7 @@ range.collapse(true);
 </group>
 <group name="Editing Methods">
 <element kind="var" name="cloneContents()">
-<insert>.cloneContents()</insert>
+
 <description>Returns a document fragment copying the nodes of a Range.
 Syntax: documentFragment = range.cloneContents();
 Event Listeners added using DOM Events are not copied during cloning. HTML attribute events are duplicated as they are for the DOM Core cloneNode method. HTML id attributes are also cloned, which can lead to an invalid document through cloning.
@@ -5322,7 +5321,7 @@ document.body.appendChild(documentFragment);
 </properties>
 </element>
 <element kind="var" name="deleteContents()">
-<insert>.deleteContents()</insert>
+
 <description>Removes the contents of a Range from the document.
 Syntax: range.deleteContents()
 Unlike extractContents, this method does not return a documentFragment containing the deleted content.
@@ -5337,7 +5336,7 @@ range.deleteContents();
 </properties>
 </element>
 <element kind="var" name="extractContents()">
-<insert>.extractContents()</insert>
+
 <description>Moves contents of a Range from the document tree into a document fragment.
 Syntax: documentFragment = range.extractContents();
 Event Listeners added using DOM Events are not retained during extraction. HTML attribute events are retained or duplicated as they are for the DOM Core cloneNode method. HTML id attributes are also cloned, which can lead to an invalid document if a partially-selected node is extracted and appened to the document.
@@ -5353,7 +5352,7 @@ document.body.appendChild(documentFragment);
 </properties>
 </element>
 <element kind="var" name="insertNode()">
-<insert>.insertNode()</insert>
+
 <description>Insert a node at the start of a Range.
 Syntax: range.insertNode(newNode);
 Parameters: newNode is a Node.
@@ -5372,7 +5371,7 @@ range.insertNode(newNode);
 </properties>
 </element>
 <element kind="var" name="surroundContents()">
-<insert>.surroundContents()</insert>
+
 <description>Moves content of a Range into a new node.
 Syntax: range.surroundContents(newNode);
 Parameters: newNode a Node
@@ -5391,7 +5390,7 @@ range.surroundContents(newNode);
 </group>
 <group name="Other Methods">
 <element kind="var" name="compareBoundaryPoints()">
-<insert>.compareBoundaryPoints()</insert>
+
 <description>Compares the boundary points of two Ranges.
 Syntax: compare = range.compareBoundaryPoints(how, sourceRange);
 Any of the following constants can be passed as the value of how parameter:
@@ -5413,7 +5412,7 @@ compare = range.compareBoundaryPoints(START_TO_END, sourceRange);
 </properties>
 </element>
 <element kind="var" name="cloneRange()">
-<insert>.cloneRange()</insert>
+
 <description>Returns a Range object with boundary points identical to the cloned Range.
 Syntax: clone = range.cloneRange();
 clone is copied by value, not reference, so a change in either Range does not effect the other.
@@ -5428,7 +5427,7 @@ clone = range.cloneRange();
 </properties>
 </element>
 <element kind="var" name="detach()">
-<insert>.detach()</insert>
+
 <description>Releases Range from use to improve performance.
 Syntax: range.detach();
 Allows mozilla to relinquish resources associated with this Range. Subsequent attempts to use the detached range will result in a DOMException being thrown with an error code of INVALID_STATE_ERR.
@@ -5443,7 +5442,7 @@ range.detach();
 </properties>
 </element>
 <element kind="var" name="toString()">
-<insert>.toString()</insert>
+
 <description>Returns the text of the Range.
 Syntax: text = range.toString();
 Alerting the contents of a Range makes an implicit toString() call, so comparing range and text through an alert dialog is ineffective
@@ -5460,7 +5459,7 @@ text = range.toString();
 </group>
 <group name="Gecko Methods">
 <element kind="var" name="compareNode()">
-<insert>.compareNode()</insert>
+
 <description>Returns a constant (see notes).
 Syntax: returnValue = range.compareNode( referenceNode );
 Parameters: referenceNode The Node to compare with the Range.
@@ -5476,7 +5475,7 @@ returnValue = range.compareNode(document.getElementsByTagName("p").item(0));
 </properties>
 </element>
 <element kind="var" name="comparePoint()">
-<insert>.comparePoint()</insert>
+
 <description>Returns -1, 0, or 1 depending on whether the referenceNode is before, the same as, or after the range.
 Syntax: returnValue = range.comparePoint( referenceNode, offset )
 Parameters: referenceNode  The Node to compare with the Range. offset  An integer greater than or equal to zero representing the offset inside the referenceNode.
@@ -5492,7 +5491,7 @@ returnValue = range.comparePoint(document.getElementsByTagName("p").item(0),1);
 </properties>
 </element>
 <element kind="var" name="createContextualFragment()">
-<insert>.createContextualFragment()</insert>
+
 <description>Returns a document fragment.
 Syntax: documentFragment = range.createContextualFragment( tagString )
 Parameters: tagString  Text that contains text and tags to be converted to a document fragment.
@@ -5510,7 +5509,7 @@ document.body.appendChild(documentFragment);
 </properties>
 </element>
 <element kind="var" name="intersectsNode()">
-<insert>.intersectsNode()</insert>
+
 <description>Returns a boolean indicating whether the given node intersects the range.
 Syntax: bool = range.intersectsNode( referenceNode )
 Parameters: referenceNode  The Node to compare with the Range.
@@ -5526,7 +5525,7 @@ bool = range.intersectsNode(document.getElementsByTagName("p").item(0),1);
 </properties>
 </element>
 <element kind="var" name="isPointInRange()">
-<insert>.isPointInRange()</insert>
+
 <description>Returns a boolean indicating whether the given point is in the range.
 Syntax: bool = range.intersectsNode( referenceNode )
 Parameters: referenceNode  The Node to compare with the Range.

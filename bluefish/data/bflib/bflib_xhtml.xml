@@ -11,7 +11,7 @@ http://www.w3.org/TR/REC-html40/</note>
 Any number of elements may be assigned the same class name or names.
 Multiple class names must be separated by white space characters.</description>
 		</property>
-		<property kind="attribute" name="dir" type="(ltr|rtl)" input="list">
+		<property kind="attribute" name="dir" type="(ltr|rtl)" >
 			<description>specifies the base direction of directionally neutral text. It also specifies the directionality of tables.</description>
         <values>,ltr,rtl</values>
 		</property>
@@ -79,7 +79,7 @@ This name must be unique in a document.</description>
 		</property>
 </def>
 <def deftype="proplist" id="common_cell">
-		<property kind="attribute" name="align" input="list">
+		<property kind="attribute" name="align" >
 			<description>only in COL, COLGROUP, TBODY, TD, TFOOT, TH, THEAD, TR 
 in other elements align attribute is deprecated</description>
         <values>,left,center,right,justify,char</values>
@@ -90,7 +90,7 @@ in other elements align attribute is deprecated</description>
 		<property kind="attribute" type="%Length;" name="charoff">
 			<description>offset for alignment char</description>
 		</property>
-		<property kind="attribute" type="" name="valign" input="list">
+		<property kind="attribute" type="" name="valign" >
 			<description>vertical alignment in cells</description>
         <values>,top,middle,bottom,baseline</values>
 		</property>
@@ -195,7 +195,7 @@ In the example that follows, the A element defines a link. The source anchor is 
 		<property kind="attribute" type="" name="rev">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="shape" input="list">
+		<property kind="attribute" type="" name="shape" >
         <values>,rect,circle,poly,default</values>
 		</property>
       <property kind="attribute" type="" name="type"/>
@@ -215,7 +215,7 @@ For more information about W3C, please consult the
 			<description>http://www.w3.org/TR/html401/struct/links.html#edef-A</description>
 		</property>
 	</properties>
-	<insert>&lt;a%~&gt;&lt;/a&gt;</insert>
+	
 </element>
 <element kind="tag" name="abbr">
 	<description>abbreviated form (e.g., WWW, HTTP, etc.)</description>
@@ -236,7 +236,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;abbr%~&gt;&lt;/abbr&gt;</insert>
+	
 </element>
 <element kind="tag" name="acronym">
 	<description>Indicates an acronym (e.g., WAC, radar, etc.).</description>
@@ -250,7 +250,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;acronym%~&gt;&lt;/acronym&gt;</insert>
+	
 </element>
 <element kind="tag" name="address">
 	<description>information on author</description>
@@ -264,7 +264,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;address%~&gt;&lt;/address&gt;</insert>
+	
 </element>
 <element kind="tag" name="area">
 	<description>client-side image map area</description>
@@ -280,10 +280,10 @@ For more information about W3C, please consult the
 		<property kind="attribute" type="" name="href">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="nohref" input="list">
+		<property kind="attribute" type="" name="nohref" >
         <values>,nohref</values>
       </property>
-		<property kind="attribute" type="" name="shape" input="list">
+		<property kind="attribute" type="" name="shape" >
         <values>,rect,circle,poly,default</values>
 		</property>
 		<proplist ref="common_evt"/>
@@ -318,7 +318,7 @@ For more information about W3C, please consult the
 			<description>http://www.w3.org/TR/REC-html40/struct/objects.html#edef-AREA</description>
 		</property>
 	</properties>
-	<insert>&lt;area%~&gt;&lt;/area&gt;</insert>
+	
 </element>
 <element kind="tag" name="b">
 	<description>bold text style</description>
@@ -332,7 +332,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;b%~&gt;&lt;/b&gt;</insert>
+	
 </element>
 <element kind="tag" name="base">
 	<description>document base URI</description>
@@ -353,7 +353,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;base%~&gt;&lt;/base&gt;</insert>
+	
 </element>
 <element kind="tag" name="bdo">
 	<description>I18N BiDi over-ride</description>
@@ -367,7 +367,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;bdo%~&gt;&lt;/bdo&gt;</insert>
+	
 </element>
 <element kind="tag" name="big">
 	<description>large text style</description>
@@ -381,7 +381,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;big%~&gt;&lt;/big&gt;</insert>
+	
 </element>
 <element kind="tag" name="blockquote">
 	<description>long quotation</description>
@@ -398,7 +398,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;blockquote%~&gt;&lt;/blockquote&gt;</insert>
+	
 </element>
 <element kind="tag" name="body">
 	<description>document body</description>
@@ -436,7 +436,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;body%~&gt;&lt;/body&gt;</insert>
+	
 </element>
 <element kind="tag" name="br">
 	<description>forced line break</description>
@@ -463,7 +463,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;br%~ /&gt;</insert>
+	
 </element>
 <element kind="tag" name="button">
 	<description>push button</description>
@@ -472,13 +472,13 @@ For more information about W3C, please consult the
 		<proplist ref="common_attrs"/>
 		<proplist ref="common_evt"/>
 		<proplist ref="common_focus"/>
-		<property kind="attribute" type="" name="disabled" input="list">
+		<property kind="attribute" type="" name="disabled" >
         <values>,disabled</values>
 		</property>
 		<property kind="attribute" type="" name="name">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="type" input="list">
+		<property kind="attribute" type="" name="type" >
         <values>,button,submit,reset</values>
       </property>
 		<property kind="attribute" type="" name="value">
@@ -490,7 +490,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;button%~&gt;&lt;/button&gt;</insert>
+	
 </element>
 <element kind="tag" name="caption">
 	<description>table caption</description>
@@ -507,7 +507,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;caption%~&gt;&lt;/caption&gt;</insert>
+	
 </element>
 <element kind="tag" name="cite">
 	<description>citation</description>
@@ -521,7 +521,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;cite%~&gt;&lt;/cite&gt;</insert>
+	
 </element>
 <element kind="tag" name="code">
 	<description>computer code fragment</description>
@@ -535,7 +535,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;code%~&gt;&lt;/code&gt;</insert>
+	
 </element>
 <element kind="tag" name="col">
 	<description>table column</description>
@@ -556,7 +556,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;col%~&gt;&lt;/col&gt;</insert>
+	
 </element>
 <element kind="tag" name="colgroup">
 	<description>table column group</description>
@@ -577,7 +577,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;colgroup%~&gt;&lt;/colgroup&gt;</insert>
+	
 </element>
 <element kind="tag" name="dd">
 	<description>definition description</description>
@@ -591,7 +591,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;dd%~&gt;&lt;/dd&gt;</insert>
+	
 </element>
 <element kind="tag" name="del">
 	<description>deleted text</description>
@@ -611,7 +611,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;del%~&gt;&lt;/del&gt;</insert>
+	
 </element>
 <element kind="tag" name="dfn">
 	<description>instance definition</description>
@@ -625,7 +625,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;dfn%~&gt;&lt;/dfn&gt;</insert>
+	
 </element>
 <element kind="tag" name="div">
 	<description>generic language/style container</description>
@@ -642,7 +642,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;div%~&gt;&lt;/div&gt;</insert>
+	
 </element>
 <element kind="tag" name="dl">
 	<description>definition list</description>
@@ -659,7 +659,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;dl%~&gt;&lt;/dl&gt;</insert>
+	
 </element>
 <element kind="tag" name="dt">
 	<description>definition term</description>
@@ -673,7 +673,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;dt%~&gt;&lt;/dt&gt;</insert>
+	
 </element>
 <element kind="tag" name="em">
 	<description>emphasis</description>
@@ -687,7 +687,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;em%~&gt;&lt;/em&gt;</insert>
+	
 </element>
 <element kind="tag" name="fieldset">
 	<description>form control group</description>
@@ -701,7 +701,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;fieldset%~&gt;&lt;/fieldset&gt;</insert>
+	
 </element>
 <element kind="tag" name="form">
 	<description>interactive form</description>
@@ -719,7 +719,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 		<property kind="attribute" type="%ContentType" name="enctype" default="application/x-www-form-urlencoded"/>
-		<property kind="attribute" type="(GET | POST)" name="method" input="list">
+		<property kind="attribute" type="(GET | POST)" name="method" >
         <values>,get,post</values>
       </property>
 		<property kind="attribute" type="%Script" name="onreset">
@@ -739,7 +739,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;form%~&gt;&lt;/form&gt;</insert>
+	
 </element>
 <element kind="tag" name="h1">
 	<description>heading</description>
@@ -756,7 +756,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;h1%~&gt;&lt;/h1&gt;</insert>
+	
 </element>
 <element kind="tag" name="h2">
 	<description>heading</description>
@@ -773,7 +773,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;h2%~&gt;&lt;/h2&gt;</insert>
+	
 </element>
 <element kind="tag" name="h3">
 	<description>heading</description>
@@ -790,7 +790,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;h3%~&gt;&lt;/h3&gt;</insert>
+	
 </element>
 <element kind="tag" name="h4">
 	<description>heading</description>
@@ -807,7 +807,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;h4%~&gt;&lt;/h4&gt;</insert>
+	
 </element>
 <element kind="tag" name="h5">
 	<description>heading</description>
@@ -824,7 +824,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;h5%~&gt;&lt;/h5&gt;</insert>
+	
 </element>
 <element kind="tag" name="h6">
 	<description>heading</description>
@@ -841,13 +841,13 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;h6%~&gt;&lt;/h6&gt;</insert>
+	
 </element>
 <element kind="tag" name="head">
 	<description>document head</description>
 	<note></note>
 	<properties>
-		<property kind="attribute" type="" name="dir" input="list">
+		<property kind="attribute" type="" name="dir" >
         <values>,ltr,rtl</values>
 		</property>
 		<property kind="attribute" type="ID" name="id">
@@ -868,7 +868,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;head%~&gt;&lt;/head&gt;</insert>
+	
 </element>
 <element kind="tag" name="hr">
 	<description>horizontal rule</description>
@@ -894,13 +894,13 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;hr%~ /&gt;</insert>
+	
 </element>
 <element kind="tag" name="html">
 	<description>document root element</description>
 	<note></note>
 	<properties>
-		<property kind="attribute" type="" name="dir" input="list">
+		<property kind="attribute" type="" name="dir" >
         <values>,ltr,rtl</values>
 		</property>
 		<property kind="attribute" type="ID" name="id">
@@ -912,7 +912,7 @@ For more information about W3C, please consult the
 		<property kind="attribute" type="NMTOKEN" name="xml:lang">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="xmlns" default="http://www.w3.org/1999/xhtml" input="list+entry">
+		<property kind="attribute" type="" name="xmlns" default="http://www.w3.org/1999/xhtml" >
         <values>,http://www.w3.org/1999/xhtml</values>
 		<property kind="attribute" type="" name="VERSION">
 			<description>???</description>
@@ -924,7 +924,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;html%~&gt;&lt;/html&gt;</insert>
+	
 </element>
 <element kind="tag" name="i">
 	<description>italic text style</description>
@@ -938,7 +938,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;i%~&gt;&lt;/i&gt;</insert>
+	
 </element>
 <element kind="tag" name="img">
 	<description>Embedded image</description>
@@ -952,7 +952,7 @@ For more information about W3C, please consult the
 		<property kind="attribute" type="" name="height">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="ismap" input="list">
+		<property kind="attribute" type="" name="ismap" >
         <values>,ismap</values>
       </property>
 		<property kind="attribute" type="" name="longdesc">
@@ -988,7 +988,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;img%~ /&gt;</insert>
+	
 </element>
 <element kind="tag" name="input">
 	<description>form control</description>
@@ -1003,10 +1003,10 @@ For more information about W3C, please consult the
 		<property kind="attribute" type="" name="alt">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="checked" input="list">
+		<property kind="attribute" type="" name="checked" >
         <values>,checked</values>
       </property>
-		<property kind="attribute" type="" name="disabled" input="list">
+		<property kind="attribute" type="" name="disabled" >
         <values>,disabled</values>
 		</property>
 		<property kind="attribute" type="" name="maxlength">
@@ -1021,7 +1021,7 @@ For more information about W3C, please consult the
 		<property kind="attribute" type="%Script" name="onselect">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="readonly" input="list">
+		<property kind="attribute" type="" name="readonly" >
         <values>,readonly</values>
 		</property>
 		<property kind="attribute" type="" name="size">
@@ -1030,7 +1030,7 @@ For more information about W3C, please consult the
 		<property kind="attribute" type="" name="src">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="type" input="list">
+		<property kind="attribute" type="" name="type" >
         <values>,text,password,checkbox,radio,submit,reset,file,hidden,image,button</values>
       </property>
 		<property kind="attribute" type="" name="usemap">
@@ -1048,7 +1048,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;input%~&gt;&lt;/input&gt;</insert>
+	
 </element>
 <element kind="tag" name="ins">
 	<description>inserted text</description>
@@ -1068,7 +1068,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;ins%~&gt;&lt;/ins&gt;</insert>
+	
 </element>
 <element kind="tag" name="kbd">
 	<description>text to be entered by the user</description>
@@ -1082,7 +1082,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;kbd%~&gt;&lt;/kbd&gt;</insert>
+	
 </element>
 <element kind="tag" name="label">
 	<description>form field label text</description>
@@ -1100,7 +1100,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;label%~&gt;&lt;/label&gt;</insert>
+	
 </element>
 <element kind="tag" name="legend">
 	<description>fieldset legend</description>
@@ -1118,7 +1118,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;legend%~&gt;&lt;/legend&gt;</insert>
+	
 </element>
 <element kind="tag" name="li">
 	<description>list item</description>
@@ -1138,7 +1138,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;li%~&gt;&lt;/li&gt;</insert>
+	
 </element>
 <element kind="tag" name="link">
 	<description>a media-independent link</description>
@@ -1164,7 +1164,7 @@ For more information about W3C, please consult the
 		<property kind="attribute" type="" name="rev">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="type" input="list">
+		<property kind="attribute" type="" name="type" >
 		<values>,Alternate,Stylesheet,Start,Next,Prev,Contents,Index,Glossary,Copyright,Chapter,Section,Subsection,Appendix,Help,Bookmark</values>
 		</property>
 		<property kind="attribute" type="" name="TARGET">
@@ -1176,7 +1176,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;link%~ /&gt;</insert>
+	
 </element>
 <element kind="tag" name="map">
 	<description>client-side image map</description>
@@ -1209,7 +1209,7 @@ For more information about W3C, please consult the
 			<description>http://www.w3.org/TR/REC-html40/struct/objects.html#edef-MAP</description>
 		</property>
 	</properties>
-	<insert>&lt;map%~&gt;&lt;/map&gt;</insert>
+	
 </element>
 <element kind="tag" name="meta">
 	<description>generic metainformation</description>
@@ -1218,7 +1218,7 @@ For more information about W3C, please consult the
 		<property kind="attribute" type="" name="content" required="1">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="dir" input="list">
+		<property kind="attribute" type="" name="dir" >
         <values>,ltr,rtl</values>
 		</property>
 		<property kind="attribute" type="" name="http-equiv">
@@ -1245,7 +1245,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;meta%~ /&gt;</insert>
+	
 </element>
 <element kind="tag" name="noscript">
 	<description>alternate content container for non script-based rendering</description>
@@ -1259,7 +1259,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;noscript%~&gt;&lt;/noscript&gt;</insert>
+	
 </element>
 <element kind="tag" name="object">
 	<description>generic embedded object</description>
@@ -1282,7 +1282,7 @@ For more information about W3C, please consult the
 		<property kind="attribute" type="" name="data">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="declare" input="list">
+		<property kind="attribute" type="" name="declare" >
         <values>,declare</values>
       </property>
 		<property kind="attribute" type="" name="height">
@@ -1321,7 +1321,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;object%~&gt;&lt;/object&gt;</insert>
+	
 </element>
 <element kind="tag" name="ol">
 	<description>ordered list</description>
@@ -1344,7 +1344,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;ol%~&gt;&lt;/ol&gt;</insert>
+	
 </element>
 <element kind="tag" name="optgroup">
 	<description>option group</description>
@@ -1352,7 +1352,7 @@ For more information about W3C, please consult the
 	<properties>
 		<proplist ref="common_attrs"/>
 		<proplist ref="common_evt"/>
-		<property kind="attribute" type="" name="disabled" input="list">
+		<property kind="attribute" type="" name="disabled" >
         <values>,disabled</values>
 		</property>
 		<property kind="attribute" type="" name="label" required="1">
@@ -1364,7 +1364,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;optgroup%~&gt;&lt;/optgroup&gt;</insert>
+	
 </element>
 <element kind="tag" name="option">
 	<description>selectable choice</description>
@@ -1372,13 +1372,13 @@ For more information about W3C, please consult the
 	<properties>
 		<proplist ref="common_attrs"/>
 		<proplist ref="common_evt"/>
-		<property kind="attribute" type="" name="disabled" input="list">
+		<property kind="attribute" type="" name="disabled" >
         <values>,disabled</values>
 		</property>
 		<property kind="attribute" type="" name="label">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="selected" input="list">
+		<property kind="attribute" type="" name="selected" >
         <values>,selected</values>
 		</property>
 		<property kind="attribute" type="" name="value">
@@ -1390,7 +1390,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;option%~&gt;&lt;/option&gt;</insert>
+	
 </element>
 <element kind="tag" name="p">
 	<description>paragraph</description>
@@ -1407,7 +1407,7 @@ For more information about W3C, please consult the
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;p%~&gt;&lt;/p&gt;</insert>
+	
 </element>
 <element kind="tag" name="param">
 	<description>named property value</description>
@@ -1429,7 +1429,7 @@ We return to the clock example to illustrate the use of PARAM: suppose that the 
 		<property kind="attribute" type="" name="value">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="valuetype" input="list">
+		<property kind="attribute" type="" name="valuetype" >
         <values>,data,ref,object</values>
       </property>
 		<property  kind="example"><description><![CDATA[<P><OBJECT classid="http://www.miamachina.it/analogclock.py">
@@ -1442,7 +1442,7 @@ This user agent cannot render Python applications.
 			<description>http://www.w3.org/TR/REC-html40/struct/objects.html#edef-PARAM</description>
 		</property>
 	</properties>
-	<insert>&lt;param%~&gt;&lt;/param&gt;</insert>
+	
 </element>
 <element kind="tag" name="pre">
 	<description>preformatted text</description>
@@ -1451,7 +1451,7 @@ IMG|OBJECT|BIG|SMALL|SUB|SUP</note>
 	<properties>
 		<proplist ref="common_attrs"/>
 		<proplist ref="common_evt"/>
-		<property kind="attribute" type="" name="xml:space" input="list">
+		<property kind="attribute" type="" name="xml:space" >
         <values>,preserve</values>
 		</property>
 		<property kind="attribute" type="" name="WIDTH">
@@ -1463,7 +1463,7 @@ IMG|OBJECT|BIG|SMALL|SUB|SUP</note>
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;pre%~&gt;&lt;/pre&gt;</insert>
+	
 </element>
 <element kind="tag" name="q">
 	<description>short inline quotation</description>
@@ -1480,7 +1480,7 @@ IMG|OBJECT|BIG|SMALL|SUB|SUP</note>
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;q%~&gt;&lt;/q&gt;</insert>
+	
 </element>
 <element kind="tag" name="samp">
 	<description>sample program output, scripts, etc.</description>
@@ -1494,7 +1494,7 @@ IMG|OBJECT|BIG|SMALL|SUB|SUP</note>
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;samp%~&gt;&lt;/samp&gt;</insert>
+	
 </element>
 <element kind="tag" name="script">
 	<description>script statements</description>
@@ -1503,7 +1503,7 @@ IMG|OBJECT|BIG|SMALL|SUB|SUP</note>
 		<property kind="attribute" type="" name="charset">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="defer" input="list">
+		<property kind="attribute" type="" name="defer" >
         <values>,defer</values>
       </property>
 		<property kind="attribute" type="ID" name="id">
@@ -1515,7 +1515,7 @@ IMG|OBJECT|BIG|SMALL|SUB|SUP</note>
 		<property kind="attribute" type="" name="type" required="1">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="xml:space" input="list">
+		<property kind="attribute" type="" name="xml:space" >
         <values>,preserve</values>
 		</property>
 		<property kind="attribute" type="" name="LANGUAGE">
@@ -1527,7 +1527,7 @@ IMG|OBJECT|BIG|SMALL|SUB|SUP</note>
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;script%~&gt;&lt;/script&gt;</insert>
+	
 </element>
 <element kind="tag" name="select">
 	<description>option selector</description>
@@ -1535,10 +1535,10 @@ IMG|OBJECT|BIG|SMALL|SUB|SUP</note>
 	<properties>
 		<proplist ref="common_attrs"/>
 		<proplist ref="common_evt"/>
-		<property kind="attribute" type="" name="disabled" input="list">
+		<property kind="attribute" type="" name="disabled" >
         <values>,disabled</values>
 		</property>
-		<property kind="attribute" type="" name="multiple" input="list">
+		<property kind="attribute" type="" name="multiple" >
         <values>,multiple</values>
       </property>
 		<property kind="attribute" type="" name="name">
@@ -1556,7 +1556,7 @@ IMG|OBJECT|BIG|SMALL|SUB|SUP</note>
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;select%~&gt;&lt;/select&gt;</insert>
+	
 </element>
 <element kind="tag" name="small">
 	<description>small text style</description>
@@ -1570,7 +1570,7 @@ IMG|OBJECT|BIG|SMALL|SUB|SUP</note>
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;small%~&gt;&lt;/small&gt;</insert>
+	
 </element>
 <element kind="tag" name="span">
 	<description>generic language/style container</description>
@@ -1584,7 +1584,7 @@ IMG|OBJECT|BIG|SMALL|SUB|SUP</note>
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;span%~&gt;&lt;/span&gt;</insert>
+	
 </element>
 <element kind="tag" name="strong">
 	<description>strong emphasis</description>
@@ -1598,7 +1598,7 @@ IMG|OBJECT|BIG|SMALL|SUB|SUP</note>
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;strong%~&gt;&lt;/strong&gt;</insert>
+	
 </element>
 <element kind="tag" name="style">
 	<description>style info</description>
@@ -1616,7 +1616,7 @@ Some style sheet implementations may allow a wider variety of rules in the STYLE
 
 Rules for style rule precedences and inheritance depend on the style sheet language.</note>
 	<properties>
-		<property kind="attribute" type="" name="dir" input="list">
+		<property kind="attribute" type="" name="dir" >
         <values>,ltr,rtl</values>
 		</property>
 		<property kind="attribute" type="ID" name="id">
@@ -1637,7 +1637,7 @@ Rules for style rule precedences and inheritance depend on the style sheet langu
 		<property kind="attribute" type="NMTOKEN" name="xml:lang">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="xml:space" input="list">
+		<property kind="attribute" type="" name="xml:space" >
         <values>,preserve</values>
 		</property>
 		<property kind="example"><description><![CDATA[<HEAD>
@@ -1660,7 +1660,7 @@ Rules for style rule precedences and inheritance depend on the style sheet langu
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;style%~&gt;&lt;/style&gt;</insert>
+	
 </element>
 <element kind="tag" name="sub">
 	<description>subscript</description>
@@ -1674,7 +1674,7 @@ Rules for style rule precedences and inheritance depend on the style sheet langu
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;sub%~&gt;&lt;/sub&gt;</insert>
+	
 </element>
 <element kind="tag" name="sup">
 	<description>superscript</description>
@@ -1688,7 +1688,7 @@ Rules for style rule precedences and inheritance depend on the style sheet langu
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;sup%~&gt;&lt;/sup&gt;</insert>
+	
 </element>
 <element kind="tag" name="table">
 	<description>???</description>
@@ -1705,10 +1705,10 @@ Rules for style rule precedences and inheritance depend on the style sheet langu
 		<property kind="attribute" type="" name="cellspacing">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="frame" input="list">
+		<property kind="attribute" type="" name="frame" >
         <values>,void,above,below,hsides,lhs,rhs,vsides,box,border</values>
       </property>
-		<property kind="attribute" type="" name="rules" input="list">
+		<property kind="attribute" type="" name="rules" >
         <values>,none,groups,rows,cols,all</values>
       </property>
 		<property kind="attribute" type="" name="summary">
@@ -1729,7 +1729,7 @@ Rules for style rule precedences and inheritance depend on the style sheet langu
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;table%~&gt;&lt;/table&gt;</insert>
+	
 </element>
 <element kind="tag" name="tbody">
 	<description>table body</description>
@@ -1773,7 +1773,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;tbody%~&gt;&lt;/tbody&gt;</insert>
+	
 </element>
 <element kind="tag" name="td">
 	<description>table data cell</description>
@@ -1797,7 +1797,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 		<property kind="attribute" type="" name="rowspan" default="1">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="scope" input="list">
+		<property kind="attribute" type="" name="scope" >
         <values>,row,col,rowgroup,colgroup</values>
 		</property>
 		<property kind="attribute" type="" name="BGCOLOR">
@@ -1818,7 +1818,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;td%~&gt;&lt;/td&gt;</insert>
+	
 </element>
 <element kind="tag" name="textarea">
 	<description>multi-line text field</description>
@@ -1830,7 +1830,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 		<property kind="attribute" type="" name="cols" required="1">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="disabled" input="list">
+		<property kind="attribute" type="" name="disabled" >
         <values>,disabled</values>
 		</property>
 		<property kind="attribute" type="" name="name">
@@ -1842,7 +1842,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 		<property kind="attribute" type="%Script" name="onselect">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="readonly" input="list">
+		<property kind="attribute" type="" name="readonly" >
         <values>,readonly</values>
 		</property>
 		<property kind="attribute" type="" name="rows" required="1">
@@ -1854,7 +1854,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;textarea%~&gt;&lt;/textarea&gt;</insert>
+	
 </element>
 <element kind="tag" name="tfoot">
 	<description>table footer</description>
@@ -1869,7 +1869,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>tbody</description>
 		</property>
 	</properties>
-	<insert>&lt;tfoot%~&gt;&lt;/tfoot&gt;</insert>
+	
 </element>
 <element kind="tag" name="th">
 	<description>table header cell</description>
@@ -1893,7 +1893,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 		<property kind="attribute" type="" name="rowspan" default="1">
 			<description>???</description>
 		</property>
-		<property kind="attribute" type="" name="scope" input="list">
+		<property kind="attribute" type="" name="scope" >
         <values>,row,col,rowgroup,colgroup</values>
 		</property>
 		<property kind="attribute" type="" name="BGCOLOR">
@@ -1914,7 +1914,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;th%~&gt;&lt;/th&gt;</insert>
+	
 </element>
 <element kind="tag" name="thead">
 	<description>table header</description>
@@ -1929,13 +1929,13 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>tbody</description>
 		</property>
 	</properties>
-	<insert>&lt;thead%~&gt;&lt;/thead&gt;</insert>
+	
 </element>
 <element kind="tag" name="title">
 	<description>document title</description>
 	<note></note>
 	<properties>
-		<property kind="attribute" type="" name="dir" input="list">
+		<property kind="attribute" type="" name="dir" >
         <values>,ltr,rtl</values>
 		</property>
 		<property kind="attribute" type="ID" name="id">
@@ -1953,7 +1953,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;title%~&gt;&lt;/title&gt;</insert>
+	
 </element>
 <element kind="tag" name="tr">
 	<description>table row</description>
@@ -1968,7 +1968,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;tr%~&gt;&lt;/tr&gt;</insert>
+	
 </element>
 <element kind="tag" name="tt">
 	<description>teletype or monospaced text style</description>
@@ -1982,7 +1982,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;tt%~&gt;&lt;/tt&gt;</insert>
+	
 </element>
 <element kind="tag" name="ul">
 	<description>unordered list</description>
@@ -2002,7 +2002,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;ul%~&gt;&lt;/ul&gt;</insert>
+	
 </element>
 <element kind="tag" name="var">
 	<description>instance of a variable or program argument</description>
@@ -2016,7 +2016,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;var%~&gt;&lt;/var&gt;</insert>
+	
 </element>
 
 <group name="Transitionnal">
@@ -2064,7 +2064,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;applet%~&gt;&lt;/applet&gt;</insert>
+	
 </element>
 <element kind="tag" name="basefont">
 	<description>base font size</description>
@@ -2084,7 +2084,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;basefont%~&gt;&lt;/basefont&gt;</insert>
+	
 </element>
 <element kind="tag" name="center">
 	<description>shorthand for div align=center</description>
@@ -2098,7 +2098,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;center&gt;&lt;/center&gt;</insert>
+	
 </element>
 <element kind="tag" name="dir">
 	<description>directory list</description>
@@ -2114,7 +2114,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;dir%~&gt;&lt;/dir&gt;</insert>
+	
 </element>
 <element kind="tag" name="font">
 	<description>local change to font</description>
@@ -2135,7 +2135,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;font%~&gt;&lt;/font&gt;</insert>
+	
 </element>
 <element kind="tag" name="iframe">
 	<description>inline subwindow</description>
@@ -2162,7 +2162,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;iframe%~&gt;&lt;/iframe&gt;</insert>
+	
 </element>
 <element kind="tag" name="isindex">
 	<description>single line prompt</description>
@@ -2174,7 +2174,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;isindex%~&gt;&lt;/isindex&gt;</insert>
+	
 </element>
 <element kind="tag" name="menu">
 	<description>menu list</description>
@@ -2190,7 +2190,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;menu%~&gt;&lt;/menu&gt;</insert>
+	
 </element>
 <element kind="tag" name="s">
 	<description>strike-through text style</description>
@@ -2203,7 +2203,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;s%~&gt;&lt;/s&gt;</insert>
+	
 </element>
 <element kind="tag" name="strike">
 	<description>strike-through text</description>
@@ -2216,7 +2216,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;strike%~&gt;&lt;/&gt;strike</insert>
+	
 </element>
 <element kind="tag" name="u">
 	<description>underlined text style</description>
@@ -2229,7 +2229,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;u%~&gt;&lt;/u&gt;</insert>
+	
 </element>
 </group>
 
@@ -2258,7 +2258,7 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 		<property kind="attribute" type="%URI" name="SRC">
 		<description>source of frame content</description>
 		</property>
-		<property kind="attribute" type="(1|0)" name="FRAMEBORDER" input="list">
+		<property kind="attribute" type="(1|0)" name="FRAMEBORDER" >
 		<description>request frame borders?</description>
 			<values>,1,0</values>
 		</property>
@@ -2268,11 +2268,11 @@ TFOOT must appear before TBODY within a TABLE definition so that user agents can
 		<property kind="attribute" type="%Pixels" name="MARGINHEIGHT">
 		<description>margin height in pixels</description>
 		</property>
-		<property kind="attribute" type="(noresize)" name="NORESIZE" input="list">
+		<property kind="attribute" type="(noresize)" name="NORESIZE" >
 		<description>When present, this boolean attribute tells the user agent that the frame window must not be resizeable.</description>
 			<values>,noresize</values>
 		</property>
-		<property kind="attribute" type="(yes|no|auto)" name="SCROLLING" input="list">
+		<property kind="attribute" type="(yes|no|auto)" name="SCROLLING" >
 		<description>allow users to resize frames?</description>
 			<values>,yes,no,auto</values>
 		</property>
@@ -2318,7 +2318,7 @@ should create a frame layout something like this:
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;frame%~&gt;&lt;/frame&gt;</insert>
+	
 </element>
 <element kind="tag" name="frameset">
 	<description>window subdivision</description>
@@ -2361,7 +2361,7 @@ should create a frame layout something like this:
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;frameset%~&gt;&lt;/frameset&gt;</insert>
+	
 </element>
 <element kind="tag" name="noframes">
 	<description>alternate content container for non frame-based rendering</description>
@@ -2392,7 +2392,7 @@ should create a frame layout something like this:
 			<description>???</description>
 		</property>
 	</properties>
-	<insert>&lt;noframes%~&gt;&lt;/noframes&gt;</insert>
+	
 </element>
 
 </group>
