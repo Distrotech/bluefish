@@ -104,6 +104,11 @@ static void infb_dtd_element_to_group(void *payload, void *data, xmlChar *name) 
 	}
 }
 
+gint infb_dtd_sort(gconstpointer a,gconstpointer b) {
+	xmlElementPtr e1 = (xmlElementPtr)a;
+	xmlElementPtr e2 = (xmlElementPtr)b;
+	return (gint)xmlStrcmp(e1->name,e2->name);
+}
 
 static void infb_dtd_element(xmlDocPtr doc, xmlElementPtr el, xmlNodePtr root) {
 	xmlAttributePtr attr = el->attributes, ptr=NULL;
@@ -202,6 +207,9 @@ void infb_convert_dtd(xmlDocPtr ref) {
 			xmlSetProp(node,BAD_CAST "type",BAD_CAST "fref2");
 			for(i=0;i<6;i++) dtd_groups[i] = NULL;	
 			xmlHashScan((xmlHashTablePtr)(dtd->elements),infb_dtd_element_to_group,ref);
+			for(i=0;i<6;i++) {
+				dtd_groups[i] = g_list_sort(dtd_groups[i],infb_dtd_sort);
+			}	
 			for(i=0;i<6;i++) {
 				if (dtd_groups[i]!=NULL) {
 					node2 = xmlNewNode(NULL,BAD_CAST "group");
