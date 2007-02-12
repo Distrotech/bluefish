@@ -27,6 +27,7 @@
 
 #include "infb_text.h"
 #include "infbrowser.h"
+#include "infb_docbook.h"
 
 
 
@@ -60,6 +61,8 @@ xmlXPathObjectPtr getnodeset (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start){
 	if (context == NULL) return NULL;
 	if (start!=NULL)
 		context->node = start;
+	else 
+		context->node = xmlDocGetRootElement(doc);	
 	result = xmlXPathEvalExpression(xpath, context);
 	xmlXPathFreeContext(context);
 	if (result == NULL) return NULL;
@@ -79,6 +82,8 @@ xmlNodePtr getnode (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start){
 	if (context == NULL) return NULL;
 	if (start!=NULL)
 		context->node = start;
+	else
+		context->node = xmlDocGetRootElement(doc);
 	result = xmlXPathEvalExpression(xpath, context);
 	xmlXPathFreeContext(context);
 	if (result == NULL) return NULL;
@@ -95,7 +100,7 @@ xmlNodePtr getnode (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start){
 }
 
 
-static void infb_insert_line(GtkTextBuffer *buff, xmlChar *text, gchar *prepend) {
+void infb_insert_line(GtkTextBuffer *buff, xmlChar *text, gchar *prepend) {
 	if ( prepend )
 		gtk_text_buffer_insert_at_cursor(buff,prepend,-1);
 	gtk_text_buffer_insert_at_cursor(buff,(const gchar*)text,xmlStrlen(text));	
@@ -104,7 +109,7 @@ static void infb_insert_line(GtkTextBuffer *buff, xmlChar *text, gchar *prepend)
 
 
 
-static void infb_insert_small_line(GtkTextBuffer *buff,xmlChar *text) {
+void infb_insert_small_line(GtkTextBuffer *buff,xmlChar *text) {
 	GtkTextTag *tag;
 	GtkTextIter iter;
 	if (!text) return;
@@ -114,17 +119,7 @@ static void infb_insert_small_line(GtkTextBuffer *buff,xmlChar *text) {
 	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
 }
 
-/*static void infb_insert_bold_line(GtkTextBuffer *buff,xmlChar *text) {
-	GtkTextTag *tag;
-	GtkTextIter iter;
-	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_BOLD,NULL);
-	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
-	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
-	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
-}*/
-
-
-static void infb_insert_title(GtkTextBuffer *buff,xmlChar *text) {
+void infb_insert_title(GtkTextBuffer *buff,xmlChar *text) {
 	GtkTextTag *tag;
 	GtkTextIter iter;
 	if (!text) return;
@@ -134,7 +129,7 @@ static void infb_insert_title(GtkTextBuffer *buff,xmlChar *text) {
 	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
 }
 
-static void infb_insert_desc(GtkTextBuffer *buff,xmlChar *text) {
+void infb_insert_desc(GtkTextBuffer *buff,xmlChar *text) {
 	GtkTextTag *tag;
 	GtkTextIter iter;
 	if (!text) return;
@@ -144,7 +139,7 @@ static void infb_insert_desc(GtkTextBuffer *buff,xmlChar *text) {
 	gtk_text_buffer_insert_at_cursor(buff,"\n\n",2);
 }
 
-static void infb_insert_section(GtkTextBuffer *buff,xmlChar *text) {
+void infb_insert_section(GtkTextBuffer *buff,xmlChar *text) {
 	GtkTextTag *tag;
 	GtkTextIter iter;
 	if (!text) return;
@@ -156,7 +151,7 @@ static void infb_insert_section(GtkTextBuffer *buff,xmlChar *text) {
 
 
 
-static void infb_insert_icon(GtkTextView *view, GtkWidget *icon, gchar *prepend) {
+void infb_insert_icon(GtkTextView *view, GtkWidget *icon, gchar *prepend) {
 	GtkTextChildAnchor *anchor;
 	GtkTextIter iter;
 	GtkTextBuffer *buff = gtk_text_view_get_buffer(view);
@@ -169,7 +164,7 @@ static void infb_insert_icon(GtkTextView *view, GtkWidget *icon, gchar *prepend)
 	gtk_widget_show_all(icon);									
 }
 
-static void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname) {
+void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname) {
 	GtkTextTag *tag;
 	GtkTextIter iter;
 	if (!text) return;
@@ -181,7 +176,7 @@ static void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fna
 	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
 }
 
-static void infb_insert_fileref_loaded(GtkTextBuffer *buff, xmlChar *text, xmlDocPtr doc ) {
+/*static void infb_insert_fileref_loaded(GtkTextBuffer *buff, xmlChar *text, xmlDocPtr doc ) {
 	GtkTextTag *tag;
 	GtkTextIter iter;
 	if (!text) return;
@@ -191,10 +186,10 @@ static void infb_insert_fileref_loaded(GtkTextBuffer *buff, xmlChar *text, xmlDo
 	g_object_set_data (G_OBJECT (tag), "loaded", doc);					
 	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
 	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
-}
+}*/
 
 
-static void infb_insert_node(GtkTextBuffer *buff, xmlChar *text, xmlNodePtr node) {
+void infb_insert_node(GtkTextBuffer *buff, xmlChar *text, xmlNodePtr node) {
 	GtkTextTag *tag;
 	GtkTextIter iter;
 	if (!text) return;
@@ -206,7 +201,7 @@ static void infb_insert_node(GtkTextBuffer *buff, xmlChar *text, xmlNodePtr node
 	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
 }
 
-static void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node) {
+void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node) {
 	GtkTextTag *tag;
 	GtkTextIter iter;
 	GtkTextBuffer *buff = gtk_text_view_get_buffer(view);
@@ -265,7 +260,7 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 				}	
 			} /* fileref */				
 		break; /* index document */
-		
+/**************************  DOCBOOK file ******************************/		
 		case INFB_DOCTYPE_DOCBOOK: { /* DOCBOOK file */
 			xmlNodeSetPtr nodeset;
 			xmlXPathObjectPtr result;
@@ -273,6 +268,21 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 			gint i;
 			
 			if ( xmlStrcmp(node->name,BAD_CAST "book") ==0 ) {
+				text = infb_db_get_title(doc,FALSE);
+				if (text) {
+					infb_insert_title(buff,text);
+					xmlFree(text);
+				}
+				text = infb_db_get_title(doc,TRUE);
+				if (text) {
+					infb_insert_desc(buff,text);
+					xmlFree(text);
+				}				
+				an = infb_db_get_info_node(doc); 
+				if (an) {
+					infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_EDIT,GTK_ICON_SIZE_MENU),levstr);
+					infb_insert_node(buff,BAD_CAST _("Book info"),an);											
+				}																
 				result = getnodeset(infb_v.currentDoc, BAD_CAST "child::chapter",node);
 				if (result) {
 					nodeset = result->nodesetval;
@@ -288,7 +298,10 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 					xmlXPathFreeObject(result);
 				}	
 			}
-			else  if ( xmlStrcmp(node->name,BAD_CAST "chapter") ==0 ) {
+			else if ( xmlStrcmp(node->name,BAD_CAST "bookinfo") ==0 || xmlStrcmp(node->name,BAD_CAST "info") ==0) {
+				infb_db_prepare_info(view,doc,node);
+			}
+			else if ( xmlStrcmp(node->name,BAD_CAST "chapter") ==0 ) {
 				an = getnode(infb_v.currentDoc,BAD_CAST "child::title",node);
 				if (an) {
 					text = xmlNodeGetContent(an);
@@ -297,20 +310,50 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 						xmlFree(text);
 					}
 				}
+				an = getnode(infb_v.currentDoc,BAD_CAST "child::subtitle",node);
+				if (an) {
+					text = xmlNodeGetContent(an);
+					if (text) {
+						infb_insert_desc(buff,text);
+						xmlFree(text);
+					}
+				}				
 				auxn = node->xmlChildrenNode;
 				while ( auxn ) {
 					infb_fill_node(view,doc,auxn,level+1);						
 					auxn = auxn->next;
 				} 				
 			}
-			else  if ( xmlStrcmp(node->name,BAD_CAST "para") ==0 ) {
+			else  if ( xmlStrcmp(node->name,BAD_CAST "para") ==0 ||
+						  xmlStrcmp(node->name,BAD_CAST "simpara") ==0 ) {
 				text = xmlNodeGetContent(node);
 				if (text) {
 					infb_insert_line(buff,text,NULL);
 					xmlFree(text);
 				}
 			}
-			else  if ( xmlStrcmp(node->name,BAD_CAST "sect1") ==0 ) {
+			else  if ( xmlStrcmp(node->name,BAD_CAST "formalpara") ==0 ) {
+				an = getnode(infb_v.currentDoc,BAD_CAST "child::title",node);
+				if (an) {
+					text = xmlNodeGetContent(an);
+					if (text) {
+						infb_insert_section(buff,text);
+						xmlFree(text);
+					}
+				}
+				auxn = node->xmlChildrenNode;
+				while ( auxn ) {
+					infb_fill_node(view,doc,auxn,level+1);						
+					auxn = auxn->next;
+				} 							
+			}			
+			else  if ( xmlStrcmp(node->name,BAD_CAST "sect1") ==0 ||
+						  xmlStrcmp(node->name,BAD_CAST "sect2") ==0	||
+						  xmlStrcmp(node->name,BAD_CAST "sect3") ==0 ||
+						  xmlStrcmp(node->name,BAD_CAST "sect4") ==0 ||
+						  xmlStrcmp(node->name,BAD_CAST "sect5") ==0 ||
+						  xmlStrcmp(node->name,BAD_CAST "section") ==0 ) 
+			{
 			 if ( level == 0 ) {
 				an = getnode(infb_v.currentDoc,BAD_CAST "child::title",node);
 				if (an) {
@@ -320,6 +363,14 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 						xmlFree(text);
 					}
 				}
+				an = getnode(infb_v.currentDoc,BAD_CAST "child::subtitle",node);
+				if (an) {
+					text = xmlNodeGetContent(an);
+					if (text) {
+						infb_insert_desc(buff,text);
+						xmlFree(text);
+					}
+				}				
 				auxn = node->xmlChildrenNode;
 				while ( auxn ) {
 					infb_fill_node(view,doc,auxn,level+1);
@@ -337,11 +388,11 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 						}
 					}
 			 }
-			}
+			} /*sections */
 			
 		}	 
-		break;/* DOCBOOK file */
-	
+		break;
+/**************************  DOCBOOK file END ******************************/	
 		default: /* fref2 document */
 			if ( xmlStrcmp(node->name,BAD_CAST "ref") ==0 ) { /* reference top */
 				text = xmlGetProp(node,BAD_CAST "name");
@@ -777,14 +828,14 @@ void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root) {
 		node = xmlDocGetRootElement(infb_v.currentDoc);
 		infb_v.currentNode = node;
 		infb_fill_node(view,infb_v.currentDoc,node,0);
-		gtk_widget_set_sensitive(GTK_WIDGET(((Tinfbwin*)auxp)->btn_up),FALSE);
 	} else 
 	{
-		infb_v.currentNode = root;
-		gtk_widget_set_sensitive(GTK_WIDGET(((Tinfbwin*)auxp)->btn_up),TRUE);		
+		infb_v.currentNode = root;	
 		infb_fill_node(view,infb_v.currentDoc,root,0);
 	}
-	
+	gtk_widget_set_sensitive(GTK_WIDGET(((Tinfbwin*)auxp)->btn_up),
+									 (infb_v.currentNode->parent != NULL && 
+									  (void*)infb_v.currentNode->parent != (void*)infb_v.currentNode->doc ) );
 }
 
 
