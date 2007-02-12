@@ -40,16 +40,25 @@ gchar *infb_load_refname(gchar *filename) {
 		g_warning(_("Cannot load reference file %s\n"),filename);
 		return NULL;
 	}	
-	cur = xmlDocGetRootElement(doc);	
-	if ( xmlStrcmp(cur->name, (const xmlChar *) "ref") != 0  && xmlStrcmp(cur->name, (const xmlChar *) "r") != 0) {
-		g_warning(_("Bad root element in reference file %s\nShould be <ref> or <r> and found %s"),filename,cur->name);
-		xmlFreeDoc(doc);
-		return NULL;
-	}
+	cur = xmlDocGetRootElement(doc);
 	if (xmlStrcmp(cur->name, (const xmlChar *) "ref")==0)
 		ret = (gchar*)xmlGetProp(cur, (const xmlChar *) "name");
+	else if (xmlStrcmp(cur->name, (const xmlChar *) "book")==0) /* docbook? */
+	{
+		xmlNodePtr node = getnode(doc, BAD_CAST "//bookinfo/title",NULL);
+		xmlChar *text;
+		if ( node ) {
+			text = xmlNodeGetContent(node);
+			if (text)
+				ret = (gchar*)text;
+			else
+				ret = g_strdup((gchar*)cur->name);
+		}	
+		else
+			ret = g_strdup((gchar*)cur->name);
+	}	
 	else
-		ret = (gchar*)xmlGetProp(cur, (const xmlChar *) "n");	
+		ret = g_strdup((gchar*)cur->name);	
    xmlFreeDoc(doc);
    return ret;
 }

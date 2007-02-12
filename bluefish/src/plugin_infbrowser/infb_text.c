@@ -35,18 +35,22 @@ void infb_set_current_type(xmlDocPtr doc) {
 	xmlNodePtr root;
 	infb_v.currentType = INFB_DOCTYPE_UNKNOWN;
 	root = xmlDocGetRootElement(doc);
-	if ( xmlStrcmp(root->name,BAD_CAST "ref")!= 0 ) return;
-	txt = xmlGetProp(root,BAD_CAST "type");
-	if (!txt) infb_v.currentType = INFB_DOCTYPE_FREF2;
-	else {
-		if ( xmlStrcmp(txt,BAD_CAST "dtd")== 0 )
-			infb_v.currentType = INFB_DOCTYPE_DTD;
-		else if ( xmlStrcmp(txt,BAD_CAST "index")== 0 )
-			infb_v.currentType = INFB_DOCTYPE_INDEX;
-		else 
-			infb_v.currentType = INFB_DOCTYPE_FREF2;					
-		xmlFree(txt);
+	if ( xmlStrcmp(root->name,BAD_CAST "ref")== 0 )
+	{
+		txt = xmlGetProp(root,BAD_CAST "type");
+		if (!txt) infb_v.currentType = INFB_DOCTYPE_FREF2;
+		else {
+			if ( xmlStrcmp(txt,BAD_CAST "dtd")== 0 )
+				infb_v.currentType = INFB_DOCTYPE_DTD;
+			else if ( xmlStrcmp(txt,BAD_CAST "index")== 0 )
+				infb_v.currentType = INFB_DOCTYPE_INDEX;
+			else 
+				infb_v.currentType = INFB_DOCTYPE_FREF2;					
+			xmlFree(txt);
+		}
 	}	
+	else if ( xmlStrcmp(root->name,BAD_CAST "book")== 0 ) 
+		infb_v.currentType = INFB_DOCTYPE_DOCBOOK;
 } 
 
 xmlXPathObjectPtr getnodeset (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start){
@@ -262,6 +266,81 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 			} /* fileref */				
 		break; /* index document */
 		
+		case INFB_DOCTYPE_DOCBOOK: { /* DOCBOOK file */
+			xmlNodeSetPtr nodeset;
+			xmlXPathObjectPtr result;
+			xmlNodePtr an;
+			gint i;
+			
+			if ( xmlStrcmp(node->name,BAD_CAST "book") ==0 ) {
+				result = getnodeset(infb_v.currentDoc, BAD_CAST "child::chapter",node);
+				if (result) {
+					nodeset = result->nodesetval;
+					for(i=0;i<nodeset->nodeNr;i++) {
+						an = getnode(infb_v.currentDoc,BAD_CAST "child::title",nodeset->nodeTab[i]);
+						if (an) {
+							text = xmlNodeGetContent(an);
+							infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_ABOUT,GTK_ICON_SIZE_MENU),NULL);
+							infb_insert_node(buff,text,nodeset->nodeTab[i]);
+							xmlFree(text);
+						}
+					}
+					xmlXPathFreeObject(result);
+				}	
+			}
+			else  if ( xmlStrcmp(node->name,BAD_CAST "chapter") ==0 ) {
+				an = getnode(infb_v.currentDoc,BAD_CAST "child::title",node);
+				if (an) {
+					text = xmlNodeGetContent(an);
+					if (text) {
+						infb_insert_title(buff,text);
+						xmlFree(text);
+					}
+				}
+				auxn = node->xmlChildrenNode;
+				while ( auxn ) {
+					infb_fill_node(view,doc,auxn,level+1);						
+					auxn = auxn->next;
+				} 				
+			}
+			else  if ( xmlStrcmp(node->name,BAD_CAST "para") ==0 ) {
+				text = xmlNodeGetContent(node);
+				if (text) {
+					infb_insert_line(buff,text,NULL);
+					xmlFree(text);
+				}
+			}
+			else  if ( xmlStrcmp(node->name,BAD_CAST "sect1") ==0 ) {
+			 if ( level == 0 ) {
+				an = getnode(infb_v.currentDoc,BAD_CAST "child::title",node);
+				if (an) {
+					text = xmlNodeGetContent(an);
+					if (text) {
+						infb_insert_title(buff,text);
+						xmlFree(text);
+					}
+				}
+				auxn = node->xmlChildrenNode;
+				while ( auxn ) {
+					infb_fill_node(view,doc,auxn,level+1);
+					auxn = auxn->next;
+				} 								
+			 }
+			 else {
+			 		an = getnode(infb_v.currentDoc,BAD_CAST "child::title",node);
+					if (an) {
+						text = xmlNodeGetContent(an);
+						if (text) {
+							infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_ABOUT,GTK_ICON_SIZE_MENU),NULL);
+							infb_insert_node(buff,text,node);
+							xmlFree(text);
+						}
+					}
+			 }
+			}
+			
+		}	 
+		break;/* DOCBOOK file */
 	
 		default: /* fref2 document */
 			if ( xmlStrcmp(node->name,BAD_CAST "ref") ==0 ) { /* reference top */
