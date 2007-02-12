@@ -240,7 +240,7 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 				if ( text ) {
 						infb_insert_title(buff,text);
 						xmlFree(text);
-						infb_insert_line(buff,"",NULL);
+						infb_insert_line(buff,BAD_CAST "",NULL);
 				}
 				auxn = node->xmlChildrenNode;
 				while ( auxn ) {
