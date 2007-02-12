@@ -331,19 +331,13 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 	return FALSE;
 } 
 
-
-
 void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	Tinfbwin *win;
-	GtkWidget *scrolwin,*box,*box2,*box3;
-	GtkCellRenderer *rend = gtk_cell_renderer_text_new();
+	GtkWidget *scrolwin, *hbox, *vbox;
+	GtkCellRenderer *rend;
 	GtkStyle *style;
 	PangoFontDescription *fd;
-	
-	box = gtk_vbox_new(FALSE, 1);
-	box2 = gtk_hbox_new(FALSE, 1);
-	box3 = gtk_hbox_new(FALSE, 1);
-		
+
 	win = g_new0(Tinfbwin,1);
 	win->bfwin = bfwin;
 	g_hash_table_insert(infb_v.windows,bfwin,win);
@@ -351,53 +345,38 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	win->regular_cursor = gdk_cursor_new (GDK_XTERM);
 	win->hovering_over_link = FALSE;		
 
-		
-	win->view = gtk_text_view_new();
-	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(win->view),GTK_WRAP_WORD_CHAR);
-	gtk_text_view_set_editable(GTK_TEXT_VIEW(win->view),FALSE);
-	gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(win->view),FALSE);
-	gtk_text_view_set_left_margin(GTK_TEXT_VIEW(win->view),8);
-	gtk_text_view_set_right_margin(GTK_TEXT_VIEW(win->view),8);
-	g_signal_connect (win->view, "motion-notify-event",G_CALLBACK (infb_motion_notify_event), bfwin);
-	g_signal_connect (win->view, "button-release-event",G_CALLBACK (infb_button_release_event), bfwin);
-	scrolwin = gtk_scrolled_window_new(NULL, NULL);
-	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	gtk_container_add(GTK_CONTAINER(scrolwin), win->view);
+    vbox = gtk_vbox_new(FALSE, 1);		
 
-	win->sentry = gtk_entry_new();	
-	gtk_box_pack_start(GTK_BOX(box2), gtk_label_new(_("Find")), FALSE, TRUE, 2);
-	gtk_box_pack_start(GTK_BOX(box2), win->sentry, TRUE, TRUE, 2);
-	g_signal_connect(win->sentry, "key-press-event",G_CALLBACK(infb_search_keypress), bfwin);	
-	
+	hbox = gtk_hbox_new(FALSE, 1);
 	win->btn_home = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(win->btn_home), gtk_image_new_from_stock(GTK_STOCK_HOME,GTK_ICON_SIZE_MENU));
 	g_signal_connect (win->btn_home, "clicked",G_CALLBACK (infb_midx_clicked), bfwin);
 	gtk_tooltips_set_tip(main_v->tooltips, win->btn_home, _("Documentation index"), "");
-	gtk_box_pack_start(GTK_BOX(box3), win->btn_home, FALSE, FALSE, 2);					
+	gtk_box_pack_start(GTK_BOX(hbox), win->btn_home, FALSE, FALSE, 2);					
 	
 	win->btn_up = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(win->btn_up), gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU));
 	g_signal_connect (win->btn_up, "clicked",G_CALLBACK (infb_idx_clicked), bfwin);
 	gtk_tooltips_set_tip(main_v->tooltips, win->btn_up, _("Up to main index"), "");
-	gtk_box_pack_start(GTK_BOX(box3), win->btn_up, FALSE, FALSE, 2);	
+	gtk_box_pack_start(GTK_BOX(hbox), win->btn_up, FALSE, FALSE, 2);
+	
 	win->saved = gtk_combo_box_new_with_model(GTK_TREE_MODEL(infb_v.saved_store));
+	rend = gtk_cell_renderer_text_new();
 	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (win->saved), rend, FALSE);
 	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(win->saved),rend,"text",0,NULL);
 	g_signal_connect (win->saved, "changed",G_CALLBACK (infb_save_changed), bfwin);
 	gtk_tooltips_set_tip(main_v->tooltips, win->saved, _("Saved fragments"), "");
-	gtk_box_pack_start(GTK_BOX(box3), win->saved, FALSE, FALSE, 2);
+	gtk_box_pack_start(GTK_BOX(hbox), win->saved, FALSE, FALSE, 2);
 	style = gtk_widget_get_style(win->saved);
 	fd = pango_font_description_copy(style->font_desc);	
 	pango_font_description_set_size(fd,8);
-	
-	
 		
 	win->btn_copy = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(win->btn_copy), gtk_image_new_from_stock(GTK_STOCK_COPY,GTK_ICON_SIZE_MENU));
 	g_signal_connect (win->btn_copy, "clicked",G_CALLBACK (infb_save_clicked), win);
 	gtk_tooltips_set_tip(main_v->tooltips, win->btn_copy, _("Save current view"), "");
-	gtk_box_pack_start(GTK_BOX(box3), win->btn_copy, FALSE, FALSE, 2);	
-	
+	gtk_box_pack_start(GTK_BOX(hbox), win->btn_copy, FALSE, FALSE, 2);
+
 	/*win->btn_add = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(win->btn_add), gtk_image_new_from_stock(GTK_STOCK_NEW,GTK_ICON_SIZE_MENU));
 	g_signal_connect (win->btn_add, "clicked",G_CALLBACK (infb_add_clicked), bfwin);
@@ -409,15 +388,34 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	gtk_tooltips_set_tip(main_v->tooltips, win->btn_del, _("Remove document"), "");
 	gtk_box_pack_end(GTK_BOX(box3), win->btn_del, FALSE, FALSE, 2);*/	
 
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
+
+	win->view = gtk_text_view_new();
+	gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(win->view),GTK_WRAP_WORD_CHAR);
+	gtk_text_view_set_editable(GTK_TEXT_VIEW(win->view),FALSE);
+	gtk_text_view_set_cursor_visible(GTK_TEXT_VIEW(win->view),FALSE);
+	gtk_text_view_set_left_margin(GTK_TEXT_VIEW(win->view),8);
+	gtk_text_view_set_right_margin(GTK_TEXT_VIEW(win->view),8);
+	g_signal_connect (win->view, "motion-notify-event",G_CALLBACK (infb_motion_notify_event), bfwin);
+	g_signal_connect (win->view, "button-release-event",G_CALLBACK (infb_button_release_event), bfwin);
 	
-	gtk_box_pack_start(GTK_BOX(box), scrolwin, TRUE, TRUE, 2);
-	gtk_box_pack_start(GTK_BOX(box), box3, FALSE, FALSE, 2);
-	gtk_box_pack_end(GTK_BOX(box), box2, FALSE, FALSE, 2);
+	scrolwin = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+	gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(scrolwin), GTK_SHADOW_IN);
+	gtk_container_add(GTK_CONTAINER(scrolwin), win->view);	
+	gtk_box_pack_start(GTK_BOX(vbox), scrolwin, TRUE, TRUE, 4);
+
+    hbox = gtk_hbox_new(FALSE, 1);
+	win->sentry = gtk_entry_new();	
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Find")), FALSE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(hbox), win->sentry, TRUE, TRUE, 2);
+	g_signal_connect(win->sentry, "key-press-event",G_CALLBACK(infb_search_keypress), bfwin);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
 	
-	gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),box,
-											gtk_image_new_from_stock(GTK_STOCK_INFO,GTK_ICON_SIZE_LARGE_TOOLBAR),
-											gtk_label_new(_("info browser")));
-	gtk_widget_modify_font(win->saved,fd);										
+	gtk_notebook_insert_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),vbox,
+									gtk_image_new_from_stock(GTK_STOCK_INFO,GTK_ICON_SIZE_LARGE_TOOLBAR),
+									gtk_label_new(_("Info Browser")),-1);
+
 	infb_load();
 	infb_load_fragments();
 	infb_v.currentDoc = infb_v.homeDoc;
@@ -427,5 +425,3 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 void infb_sidepanel_destroygui(Tbfwin *bfwin) {
 
 }
-
-
