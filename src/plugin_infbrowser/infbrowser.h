@@ -43,6 +43,7 @@
 #define INFB_DOCTYPE_INDEX		1
 #define INFB_DOCTYPE_FREF2		2
 #define INFB_DOCTYPE_DTD		3
+#define INFB_DOCTYPE_DOCBOOK	4
 
 typedef struct {
 	xmlDocPtr currentDoc;
