@@ -107,7 +107,6 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       	tag = tagp->data;
       	aux = g_object_get_data(G_OBJECT(tag),"type");
       	if ( aux && aux == &infb_v.nt_fileref) { /* fileref */
-      		infb_v.currentNode = NULL;
       		if (infb_v.currentDoc!=NULL && infb_v.currentDoc!=infb_v.homeDoc)
       			xmlFreeDoc(infb_v.currentDoc);
       		aux = g_object_get_data(G_OBJECT(tag),"loaded");
@@ -118,7 +117,7 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       		else {	
       			aux = g_object_get_data(G_OBJECT(tag),"file");
       			if ( aux ) {
-      				doc = xmlParseFile(aux);
+      				doc = xmlReadFile(aux,NULL,XML_PARSE_RECOVER | XML_PARSE_NOENT | XML_PARSE_NOBLANKS | XML_PARSE_XINCLUDE);
       				if ( doc ) {
       					g_object_set_data (G_OBJECT (tag), "loaded", doc);
       					/* check for conversion */
@@ -150,7 +149,6 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       							} else xmlFree(text);
       						}
       					}
-      					infb_v.currentNode = auxnode;
 		      			infb_v.currentDoc = doc;
 							infb_fill_doc(bfwin,NULL);      				
       				}				
@@ -161,7 +159,6 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       	else if ( aux == &infb_v.nt_group ) { /* group */
 				aux = g_object_get_data(G_OBJECT(tag),"node");
 				if ( aux ) {
-					infb_v.currentNode = NULL;
 					auxnode = (xmlNodePtr)aux;
 					text = xmlGetProp(auxnode,BAD_CAST "expanded");
 					if ( !text ) {
@@ -183,7 +180,6 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       	else if ( aux == &infb_v.nt_node ) { /* node */
 				aux = g_object_get_data(G_OBJECT(tag),"node");
 				if ( aux ) {
-					infb_v.currentNode = (xmlNodePtr)aux;
 					infb_fill_doc( bfwin, (xmlNodePtr)aux );
 				}
 			} /* node */
@@ -196,7 +192,11 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
 
 static void infb_idx_clicked(GtkButton *button, gpointer data) {
 	if ( !infb_v.currentDoc || !data) return;
-	infb_fill_doc(BFWIN(data),NULL);
+	if (infb_v.currentNode && infb_v.currentNode->parent && 
+		 (void*)infb_v.currentNode->parent!=(void*)infb_v.currentNode->doc )
+		infb_fill_doc(BFWIN(data),infb_v.currentNode->parent);
+	else 	
+		infb_fill_doc(BFWIN(data),NULL);
 }
 
 static void infb_midx_clicked(GtkButton *button, gpointer data) {
@@ -204,7 +204,6 @@ static void infb_midx_clicked(GtkButton *button, gpointer data) {
 	if (infb_v.currentDoc!=NULL && infb_v.currentDoc!=infb_v.homeDoc)
 		xmlFreeDoc(infb_v.currentDoc);
 	infb_v.currentDoc = infb_v.homeDoc;
-	infb_v.currentNode = NULL;
 	infb_fill_doc(BFWIN(data),NULL);
 }
 
@@ -339,7 +338,7 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 
 	win->btn_up = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU),"");
 	g_signal_connect(G_OBJECT(win->btn_up),"clicked",G_CALLBACK(infb_idx_clicked),bfwin);
-	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->btn_up),main_v->tooltips,_("Up to document index"),"");
+	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->btn_up),main_v->tooltips,_("Upper level"),"");
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->btn_up,1);
 	
 	win->saved = gtk_menu_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_FLOPPY,GTK_ICON_SIZE_MENU),"");

@@ -27,6 +27,7 @@
 #include "infb_load.h"
 #include "infbrowser.h"
 #include "infb_text.h"
+#include "infb_docbook.h"
 
 
 gchar *infb_load_refname(gchar *filename) {
@@ -41,25 +42,23 @@ gchar *infb_load_refname(gchar *filename) {
 		return NULL;
 	}	
 	cur = xmlDocGetRootElement(doc);
-	if (xmlStrcmp(cur->name, (const xmlChar *) "ref")==0)
-		ret = (gchar*)xmlGetProp(cur, (const xmlChar *) "name");
-	else if (xmlStrcmp(cur->name, (const xmlChar *) "book")==0) /* docbook? */
+	if (xmlStrcmp(cur->name, BAD_CAST "ref")==0)
 	{
-		xmlNodePtr node = getnode(doc, BAD_CAST "//bookinfo/title",NULL);
-		xmlChar *text;
-		if ( node ) {
-			text = xmlNodeGetContent(node);
-			if (text)
-				ret = (gchar*)text;
-			else
-				ret = g_strdup((gchar*)cur->name);
-		}	
+		ret = (gchar*)xmlGetProp(cur, BAD_CAST "name");
+	}	
+	else if (xmlStrcmp(cur->name, BAD_CAST "book")==0) /* docbook? */
+	{
+		xmlChar *text = infb_db_get_title(doc,FALSE);
+		if (text) {
+				ret = g_strdup((gchar*)text);
+				xmlFree(text);
+		}		
 		else
-			ret = g_strdup((gchar*)cur->name);
+				ret = g_strdup((gchar*)cur->name);
 	}	
 	else
-		ret = g_strdup((gchar*)cur->name);	
-   xmlFreeDoc(doc);
+		ret = g_strdup((gchar*)cur->name);
+   xmlFreeDoc(doc);   
    return ret;
 }
 

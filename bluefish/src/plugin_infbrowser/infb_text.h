@@ -36,12 +36,12 @@
 
 #define INFB_STYLE_SMALL		"scale",PANGO_SCALE_SMALL
 #define INFB_STYLE_BOLD			"weight",PANGO_WEIGHT_BOLD
-#define INFB_STYLE_TITLE		"weight",PANGO_WEIGHT_BOLD,"paragraph-background","#E3D1AD","indent",8
-#define INFB_STYLE_DESC			"scale",PANGO_SCALE_SMALL,"paragraph-background","#EAD8B3","indent",8
+#define INFB_STYLE_TITLE		"weight",PANGO_WEIGHT_BOLD,"paragraph-background","#E3D1AD","justification",GTK_JUSTIFY_CENTER
+#define INFB_STYLE_DESC			"scale",PANGO_SCALE_SMALL,"paragraph-background","#EAD8B3","justification",GTK_JUSTIFY_CENTER
 #define INFB_STYLE_FILEREF		"weight",PANGO_WEIGHT_BOLD
 #define INFB_STYLE_NODE			"style",PANGO_STYLE_ITALIC
 #define INFB_STYLE_GROUP		"style",PANGO_STYLE_ITALIC,"weight",PANGO_WEIGHT_BOLD
-#define INFB_STYLE_SECTION		"paragraph-background","#E5E5E5","indent",8
+#define INFB_STYLE_SECTION		"paragraph-background","#E5E5E5","justification",GTK_JUSTIFY_CENTER
 
 
 
@@ -49,5 +49,15 @@
 void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root);
 xmlXPathObjectPtr getnodeset (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start);
 xmlNodePtr getnode (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start);
+void infb_insert_line(GtkTextBuffer *buff, xmlChar *text, gchar *prepend);
+void infb_insert_small_line(GtkTextBuffer *buff,xmlChar *text);
+void infb_insert_title(GtkTextBuffer *buff,xmlChar *text);
+void infb_insert_desc(GtkTextBuffer *buff,xmlChar *text);
+void infb_insert_section(GtkTextBuffer *buff,xmlChar *text);
+void infb_insert_icon(GtkTextView *view, GtkWidget *icon, gchar *prepend);
+void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname);
+void infb_insert_node(GtkTextBuffer *buff, xmlChar *text, xmlNodePtr node);
+void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node);
+
 
 #endif /* INFB_TEXT_H */
