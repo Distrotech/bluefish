@@ -68,7 +68,8 @@ typedef struct {
 void autoclosing_init(void) {
 	const char *error;
 	int erroffset;
-	main_v->autoclosingtag_regc = pcre_compile("^<([a-z][a-z0-9]*)([\n\t ][^<>]*)?>$", PCRE_CASELESS, &error,&erroffset,NULL);
+	main_v->autoclosingtag_regc = pcre_compile("^<(([a-z_:]+)?[a-z0-9._:-]*)([\t\n ][^<>]*)?>$",
+	                                           PCRE_CASELESS, &error, &erroffset, NULL);
 #ifdef DEBUG
 	if (!main_v->autoclosingtag_regc) {
 		DEBUG_MSG("autoclosing_init, ERROR, %s\n",error);
