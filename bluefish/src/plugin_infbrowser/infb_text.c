@@ -677,20 +677,16 @@ void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root) {
 	if ( !auxp ) return;
 	view = GTK_TEXT_VIEW(((Tinfbwin*)auxp)->view);
 	if ( infb_v.currentDoc == NULL || view==NULL ) return;
-	if ( infb_v.currentNode !=NULL )
-		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_copy,TRUE);
-	else
-		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_copy,FALSE);	
 	if ( infb_v.currentDoc != infb_v.homeDoc ) {
 		/*gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_add,FALSE);
-		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_del,FALSE);*/
-		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_home,TRUE);
+		gtk_widget_set_sensitive(GTK_WIDGET(((Tinfbwin*)auxp)->btn_del),FALSE);*/
+		gtk_widget_set_sensitive(GTK_WIDGET(((Tinfbwin*)auxp)->btn_home),TRUE);
 		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->sentry,TRUE);
 	} else
 	{
 		/*gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_add,TRUE);
 		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_del,TRUE);*/
-		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_home,FALSE);
+		gtk_widget_set_sensitive(GTK_WIDGET(((Tinfbwin*)auxp)->btn_home),FALSE);
 		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->sentry,FALSE);
 	}
 	buff = gtk_text_view_get_buffer(view);	
@@ -700,24 +696,16 @@ void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root) {
 	infb_set_current_type(infb_v.currentDoc);	
 	if ( root == NULL ){
 		node = xmlDocGetRootElement(infb_v.currentDoc);
+		infb_v.currentNode = node;
 		infb_fill_node(view,infb_v.currentDoc,node,0);
-		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_up,FALSE);
+		gtk_widget_set_sensitive(GTK_WIDGET(((Tinfbwin*)auxp)->btn_up),FALSE);
 	} else 
 	{
 		infb_v.currentNode = root;
-		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->btn_up,TRUE);		
+		gtk_widget_set_sensitive(GTK_WIDGET(((Tinfbwin*)auxp)->btn_up),TRUE);		
 		infb_fill_node(view,infb_v.currentDoc,root,0);
-	}	
-	/* specials 
-	if ( infb_v.currentDoc == infb_v.homeDoc ) {
-		infb_insert_line(buff,BAD_CAST "","");
-		infb_insert_title(buff,BAD_CAST _("Specials"));
-		infb_insert_line(buff,BAD_CAST "",NULL);
-		if ( infb_v.lastSearch != NULL ) {
-			infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_FILE,GTK_ICON_SIZE_MENU),NULL);
-			infb_insert_fileref_loaded(buff,BAD_CAST _("Last search"),infb_v.lastSearch);							
-		}	
-	} */
+	}
+	
 }
 
 

@@ -172,33 +172,53 @@ GList *infb_user_files() {
 }
 
 
-void infb_load_fragments() {
+static void infb_fragment_activated(GtkMenuItem *menuitem,gpointer data) {
+	xmlDocPtr doc;
+	gpointer ptr;
+	
+	ptr = g_object_get_data(G_OBJECT(menuitem),"file");
+	if ( !data || !ptr ) return;
+	doc = xmlParseFile((gchar*)ptr);
+	if (doc) {
+		infb_v.currentDoc = doc;
+		infb_v.currentNode = NULL;
+		infb_fill_doc(BFWIN(data),NULL);
+	}
+}
+
+void infb_load_fragments(Tinfbwin *win) {
 	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 	const gchar *filename;
 	GError *error = NULL;
 	GPatternSpec *ps = g_pattern_spec_new("bfrag_*");
 	GDir *gd; 
-	GtkTreeIter iter;
+	GtkWidget *menu,*item;
+	gint pos=0;
+
 		
-	if ( infb_v.saved_store!=NULL ) {
-		gtk_list_store_clear(infb_v.saved_store);
-		gd = g_dir_open(userdir, 0, &error);
-		filename = g_dir_read_name(gd);
-		while (filename) {
-			if (g_pattern_match(ps, strlen(filename), filename, NULL) ) {
-				gchar *path = g_strconcat(userdir, filename, NULL);
-				gchar **arr = g_strsplit(filename, "_", -1);
-				if (arr && arr[1]) {
-					gtk_list_store_append(infb_v.saved_store, &iter);
-					gtk_list_store_set(infb_v.saved_store, &iter, 0, arr[1], 1, path, -1);
-				}
-				g_strfreev(arr);				
-				/*g_free(path);*/
+	menu = gtk_menu_tool_button_get_menu(GTK_MENU_TOOL_BUTTON(win->saved));
+	if ( menu ) gtk_widget_destroy(menu);
+	menu = gtk_menu_new();	
+	gd = g_dir_open(userdir, 0, &error);
+	filename = g_dir_read_name(gd);
+	while (filename) {
+		if (g_pattern_match(ps, strlen(filename), filename, NULL) ) {
+			gchar *path = g_strconcat(userdir, filename, NULL);
+			gchar **arr = g_strsplit(filename, "_", -1);
+			if (arr && arr[1]) {
+				item = gtk_menu_item_new_with_label(arr[1]);
+				g_object_set_data(G_OBJECT(item),"file",path); 
+				g_signal_connect(G_OBJECT(item),"activate",G_CALLBACK(infb_fragment_activated),win->bfwin);
+				gtk_menu_shell_insert(GTK_MENU_SHELL(menu),item,pos);
+				pos++;
 			}
-			filename = g_dir_read_name(gd);
+			g_strfreev(arr);				
 		}
-		g_dir_close(gd);
-		g_pattern_spec_free(ps);		
-	} 
+		filename = g_dir_read_name(gd);
+	}
+	g_dir_close(gd);
+	g_pattern_spec_free(ps);		
 	g_free(userdir);
+	gtk_menu_tool_button_set_menu(GTK_MENU_TOOL_BUTTON(win->saved),menu);
+	gtk_widget_show_all(menu);
 }

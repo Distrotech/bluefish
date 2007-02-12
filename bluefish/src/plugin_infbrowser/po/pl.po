@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2007-02-11 21:48+0100\n"
+"POT-Creation-Date: 2007-02-12 11:26+0100\n"
 "PO-Revision-Date: 2004-11-30 01:14-0300\n"
 "Last-Translator: Oskar Świda (swida@aragorn.pb.bialystok.pl)\n"
 "Language-Team: None\n"
@@ -13,37 +13,45 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8 bit\n"
 
-#: src/plugin_infbrowser/infb_gui.c:169
+#: src/plugin_infbrowser/infb_gui.c:137
 #: src/plugin_infbrowser/infb_wizard.c:125
 msgid "Remote DTD file"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:170
+#: src/plugin_infbrowser/infb_gui.c:138
 msgid ""
 "It seems this is remote DTD.\n"
 "It can take some time to load.\n"
 "Continue?"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:269
-msgid "Search results"
-msgstr ""
-
-#: src/plugin_infbrowser/infb_gui.c:341
-msgid "Find"
-msgstr ""
-
-#: src/plugin_infbrowser/infb_gui.c:348
-msgid "Documentation index"
+#: src/plugin_infbrowser/infb_gui.c:327
+msgid "Nothing found"
 msgstr ""
 
 #: src/plugin_infbrowser/infb_gui.c:354
+msgid "Documentation index"
+msgstr ""
+
+#: src/plugin_infbrowser/infb_gui.c:360
 #, fuzzy
-msgid "Up to main document"
+msgid "Up to main index"
 msgstr "W bieżącym dokumencie"
 
-#: src/plugin_infbrowser/infb_gui.c:374
-msgid "info browser"
+#: src/plugin_infbrowser/infb_gui.c:368
+msgid "Saved fragments"
+msgstr ""
+
+#: src/plugin_infbrowser/infb_gui.c:377
+msgid "Save current view"
+msgstr ""
+
+#: src/plugin_infbrowser/infb_gui.c:410
+msgid "Find"
+msgstr ""
+
+#: src/plugin_infbrowser/infb_gui.c:417
+msgid "Info Browser"
 msgstr ""
 
 #: src/plugin_infbrowser/infb_load.c:40
@@ -60,14 +68,6 @@ msgstr ""
 
 #: src/plugin_infbrowser/infb_load.c:117
 msgid "Documentation entries"
-msgstr ""
-
-#: src/plugin_infbrowser/infb_text.c:681
-msgid "Specials"
-msgstr ""
-
-#: src/plugin_infbrowser/infb_text.c:685
-msgid "Last search"
 msgstr ""
 
 #: src/plugin_infbrowser/infb_wizard.c:117

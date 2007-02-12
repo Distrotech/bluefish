@@ -21,10 +21,11 @@
 #ifndef INFB_LOAD_H
 #define INFB_LOAD_H
 #include "../bluefish.h"
+#include "infbrowser.h"
 #include <gtk/gtk.h>
 
 void infb_load(void);
-void infb_load_fragments();
+void infb_load_fragments(Tinfbwin *win);
 void infb_reload_home(Tbfwin *win);
 GList *infb_user_files();
 
