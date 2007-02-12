@@ -96,6 +96,8 @@ static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
 	filetype->mime_type = g_strdup(mime_type);
 	filetype->icon = get_icon_for_mime_type(mime_type);
 	filetype->cfg = cfg;
+	g_free (description);
+
 	return filetype;
 }
 

@@ -177,7 +177,7 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
 					/*gtk_text_buffer_get_iter_at_line (buffer, &iter, offset);
 					gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(gui->docview),&iter,0.0,FALSE,0.0,0.0);
 					gtk_widget_grab_focus(gui->docview);*/
-	
+					xmlFree(text);
 				}
       	} /* group */
       	else if ( aux == &infb_v.nt_node ) { /* node */

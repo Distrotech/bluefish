@@ -208,6 +208,7 @@ static void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node)
 	GtkTextBuffer *buff = gtk_text_view_get_buffer(view);
 	xmlChar *text2;
 	if (!text) return;
+	/* text2 doesn't appear to be used. Can it be removed? */
 	text2 = xmlGetProp(node,BAD_CAST "expanded");
 	infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_DIRECTORY,GTK_ICON_SIZE_MENU),NULL);		
 	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));	
@@ -216,6 +217,7 @@ static void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node)
 	g_object_set_data (G_OBJECT (tag), "node", node);					
 	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
 	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
+	xmlFree(text2);
 }
 
 
@@ -452,6 +454,7 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 								}
 							}						
 					} /* proplist */
+					if (result)	xmlXPathFreeObject(result);
 					
 					/* SINGLE PROPERTY REF */
 					result = getnodeset(doc,BAD_CAST "child::properties/property[@ref]",node);
@@ -536,8 +539,9 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 																				
 									}							
 								}
-							}						
+							}			
 					} /* single property */											
+					if (result)	xmlXPathFreeObject(result);
 					
 					/* ATTRIBUTES */
 					result = getnodeset(doc,BAD_CAST "child::properties/property[@kind='attribute']",node);
@@ -566,8 +570,9 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 									xmlFree(text);
 								}
 							}
-							xmlXPathFreeObject (result);
 					} /* attributes */
+					if (result)	xmlXPathFreeObject(result);
+					
 					/* PARAMETERS */
 					result = getnodeset(doc,BAD_CAST "child::properties/property[@kind='parameter']",node);
 					if (result && result->nodesetval->nodeNr > 0) {
@@ -595,8 +600,9 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 									xmlFree(text);
 								}
 							}
-							xmlXPathFreeObject (result);
 					} /* parameters */
+					if (result)	xmlXPathFreeObject(result);
+					
 					/* RETURN */
 					an = getnode(doc,BAD_CAST "child::properties/property[@kind='return']",node);
 					if ( an ) {
@@ -625,8 +631,9 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 									xmlFree(text);
 								}
 							}
-							xmlXPathFreeObject (result);
 					} /* examples */
+					if (result)	xmlXPathFreeObject(result);
+					
 					/* NOTES */
 					result = getnodeset(doc,BAD_CAST "child::note",node);
 					if (result && result->nodesetval->nodeNr > 0) {							
@@ -639,9 +646,8 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 								infb_insert_small_line(buff,text);
 								xmlFree(text);
 							}
-							xmlXPathFreeObject (result);
 					} /* notes */
-										
+					if (result)	xmlXPathFreeObject(result);					
 			  }
 			  else {
 				text = xmlGetProp(node,BAD_CAST "name");
