@@ -58,7 +58,7 @@ typedef struct {
 	Tbfwin *bfwin;
 	GtkWidget *view;
 	GtkWidget *sentry; /* search entry */
-	GtkToolItem *btn_add,*btn_del,*btn_home,*btn_up;
+	GtkToolItem *btn_add,*btn_del,*btn_home,*btn_up,*btn_idx;
 	GtkToolItem *saved;
 	GdkCursor *hand_cursor;
 	GdkCursor *regular_cursor;

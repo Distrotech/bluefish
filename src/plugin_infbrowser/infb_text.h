@@ -42,6 +42,7 @@
 #define INFB_STYLE_NODE			"style",PANGO_STYLE_ITALIC
 #define INFB_STYLE_GROUP		"style",PANGO_STYLE_ITALIC,"weight",PANGO_WEIGHT_BOLD
 #define INFB_STYLE_SECTION		"paragraph-background","#E5E5E5","justification",GTK_JUSTIFY_CENTER
+#define INFB_STYLE_ITALIC		"style",PANGO_STYLE_ITALIC
 
 
 
@@ -58,6 +59,8 @@ void infb_insert_icon(GtkTextView *view, GtkWidget *icon, gchar *prepend);
 void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname);
 void infb_insert_node(GtkTextBuffer *buff, xmlChar *text, xmlNodePtr node);
 void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node);
-
+void infb_insert_italic(GtkTextBuffer *buff, xmlChar *text);
+void infb_insert_bold(GtkTextBuffer *buff, xmlChar *text);
+void infb_insert_text(GtkTextBuffer *buff, xmlChar *text);
 
 #endif /* INFB_TEXT_H */

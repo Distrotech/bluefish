@@ -107,6 +107,9 @@ void infb_insert_line(GtkTextBuffer *buff, xmlChar *text, gchar *prepend) {
 	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
 }
 
+void infb_insert_text(GtkTextBuffer *buff, xmlChar *text) {
+	gtk_text_buffer_insert_at_cursor(buff,(const gchar*)text,xmlStrlen(text));	
+}
 
 
 void infb_insert_small_line(GtkTextBuffer *buff,xmlChar *text) {
@@ -128,6 +131,26 @@ void infb_insert_title(GtkTextBuffer *buff,xmlChar *text) {
 	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
 	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
 }
+
+void infb_insert_italic(GtkTextBuffer *buff, xmlChar *text) {
+	GtkTextTag *tag;
+	GtkTextIter iter;
+	if (!text) return;
+	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_ITALIC,NULL);
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);	
+}
+
+void infb_insert_bold(GtkTextBuffer *buff, xmlChar *text) {
+	GtkTextTag *tag;
+	GtkTextIter iter;
+	if (!text) return;
+	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_BOLD,NULL);
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);	
+}
+
+
 
 void infb_insert_desc(GtkTextBuffer *buff,xmlChar *text) {
 	GtkTextTag *tag;
@@ -262,46 +285,77 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 		break; /* index document */
 /**************************  DOCBOOK file ******************************/		
 		case INFB_DOCTYPE_DOCBOOK: { /* DOCBOOK file */
-			xmlNodeSetPtr nodeset;
-			xmlXPathObjectPtr result;
 			xmlNodePtr an;
-			gint i;
 			
-			if ( xmlStrcmp(node->name,BAD_CAST "book") ==0 ) {
-				text = infb_db_get_title(doc,FALSE);
+			if ( xmlStrcmp(node->name,BAD_CAST "book") ==0 ||
+				  xmlStrcmp(node->name,BAD_CAST "part") ==0	) {
+				text = infb_db_get_title(doc,FALSE,node);
 				if (text) {
 					infb_insert_title(buff,text);
 					xmlFree(text);
 				}
-				text = infb_db_get_title(doc,TRUE);
+				text = infb_db_get_title(doc,TRUE,node);
 				if (text) {
 					infb_insert_desc(buff,text);
 					xmlFree(text);
-				}				
-				an = infb_db_get_info_node(doc); 
+				}
+				an = infb_db_get_info_node(doc,node); 
 				if (an) {
 					infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_EDIT,GTK_ICON_SIZE_MENU),levstr);
-					infb_insert_node(buff,BAD_CAST _("Book info"),an);											
-				}																
-				result = getnodeset(infb_v.currentDoc, BAD_CAST "child::chapter",node);
-				if (result) {
-					nodeset = result->nodesetval;
-					for(i=0;i<nodeset->nodeNr;i++) {
-						an = getnode(infb_v.currentDoc,BAD_CAST "child::title",nodeset->nodeTab[i]);
-						if (an) {
-							text = xmlNodeGetContent(an);
+					infb_insert_node(buff,BAD_CAST _("Info"),an);											
+				}
+								
+				auxn = node->xmlChildrenNode;
+				while (auxn) {
+					if (xmlStrcmp(auxn->name,BAD_CAST "preface")==0) {
+						infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_EDIT,GTK_ICON_SIZE_MENU),levstr);
+						infb_insert_node(buff,BAD_CAST _("Preface"),auxn);																		
+					}
+					else if (xmlStrcmp(auxn->name,BAD_CAST "abstract")==0) {
+						infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_EDIT,GTK_ICON_SIZE_MENU),levstr);
+						infb_insert_node(buff,BAD_CAST _("Abstract"),auxn);																		
+					} 
+					else if (xmlStrcmp(auxn->name,BAD_CAST "chapter")==0 ||
+								xmlStrcmp(auxn->name,BAD_CAST "part")==0	||
+								xmlStrcmp(auxn->name,BAD_CAST "article")==0 ) {
+						text = infb_db_get_title(doc,FALSE,auxn);
+						if (text) {
 							infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_ABOUT,GTK_ICON_SIZE_MENU),NULL);
-							infb_insert_node(buff,text,nodeset->nodeTab[i]);
-							xmlFree(text);
+							infb_insert_node(buff,text,auxn);
+							xmlFree(text);						
 						}
 					}
-					xmlXPathFreeObject(result);
-				}	
+					else if (xmlStrcmp(auxn->name,BAD_CAST "partintro")==0) {
+							infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_EDIT,GTK_ICON_SIZE_MENU),NULL);
+							infb_insert_node(buff,BAD_CAST _("Intro"),auxn);
+					}					
+					auxn = auxn->next;
+				}				
+									
 			}
 			else if ( xmlStrcmp(node->name,BAD_CAST "bookinfo") ==0 || xmlStrcmp(node->name,BAD_CAST "info") ==0) {
 				infb_db_prepare_info(view,doc,node);
 			}
-			else if ( xmlStrcmp(node->name,BAD_CAST "chapter") ==0 ) {
+			else if ( xmlStrcmp(node->name,BAD_CAST "itemizedlist") ==0 ||
+						 xmlStrcmp(node->name,BAD_CAST "orderedlist") ==0 ||
+						 xmlStrcmp(node->name,BAD_CAST "procedure") ==0 ) {
+				auxn = node->xmlChildrenNode;
+				while (auxn) {
+					infb_insert_text(buff,BAD_CAST "•");
+					infb_fill_node(view,doc,auxn,level+1);
+					auxn = auxn->next;
+				}
+				infb_insert_text(buff,BAD_CAST "\n");
+			}			
+			else if ( xmlStrcmp(node->name,BAD_CAST "chapter") ==0 ||
+						 xmlStrcmp(node->name,BAD_CAST "preface") ==0 ||
+						 xmlStrcmp(node->name,BAD_CAST "abstract") ==0 ||
+						 xmlStrcmp(node->name,BAD_CAST "partintro") ==0 ||
+						 xmlStrcmp(node->name,BAD_CAST "step") ==0 ||
+						 xmlStrcmp(node->name,BAD_CAST "note") ==0 ||
+						 xmlStrcmp(node->name,BAD_CAST "variablelist") ==0 ||
+						 xmlStrcmp(node->name,BAD_CAST "varlistentry") ==0 ||
+						 xmlStrcmp(node->name,BAD_CAST "listitem") ==0 /* v4? */) {
 				an = getnode(infb_v.currentDoc,BAD_CAST "child::title",node);
 				if (an) {
 					text = xmlNodeGetContent(an);
@@ -323,17 +377,19 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 					infb_fill_node(view,doc,auxn,level+1);						
 					auxn = auxn->next;
 				} 				
+				infb_insert_text(buff,BAD_CAST "\n");
 			}
-			else  if ( xmlStrcmp(node->name,BAD_CAST "para") ==0 ||
-						  xmlStrcmp(node->name,BAD_CAST "simpara") ==0 ) {
+			else  if ( xmlStrcmp(node->name,BAD_CAST "simpara") ==0 ) {
 				text = xmlNodeGetContent(node);
 				if (text) {
-					infb_insert_line(buff,text,NULL);
+					infb_insert_line(buff,text," ");
 					xmlFree(text);
 				}
 			}
-			else  if ( xmlStrcmp(node->name,BAD_CAST "formalpara") ==0 ) {
-				an = getnode(infb_v.currentDoc,BAD_CAST "child::title",node);
+			else  if ( xmlStrcmp(node->name,BAD_CAST "formalpara") ==0  ||
+						  xmlStrcmp(node->name,BAD_CAST "term") ==0  || 	
+						  xmlStrcmp(node->name,BAD_CAST "para") ==0) {
+				an = getnode(infb_v.currentDoc,BAD_CAST "title",node);
 				if (an) {
 					text = xmlNodeGetContent(an);
 					if (text) {
@@ -345,7 +401,8 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 				while ( auxn ) {
 					infb_fill_node(view,doc,auxn,level+1);						
 					auxn = auxn->next;
-				} 							
+				} 						
+				infb_insert_text(buff,BAD_CAST "\n");	
 			}			
 			else  if ( xmlStrcmp(node->name,BAD_CAST "sect1") ==0 ||
 						  xmlStrcmp(node->name,BAD_CAST "sect2") ==0	||
@@ -375,7 +432,8 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 				while ( auxn ) {
 					infb_fill_node(view,doc,auxn,level+1);
 					auxn = auxn->next;
-				} 								
+				} 			
+				infb_insert_text(buff,BAD_CAST "\n");					
 			 }
 			 else {
 			 		an = getnode(infb_v.currentDoc,BAD_CAST "child::title",node);
@@ -387,9 +445,11 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 							xmlFree(text);
 						}
 					}
-			 }
-			} /*sections */
-			
+			  }
+			 } /*sections */
+			 else { /* other elements */
+			 	infb_db_format_element(view,doc,node);
+			 }			
 		}	 
 		break;
 /**************************  DOCBOOK file END ******************************/	
@@ -836,6 +896,8 @@ void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root) {
 	gtk_widget_set_sensitive(GTK_WIDGET(((Tinfbwin*)auxp)->btn_up),
 									 (infb_v.currentNode->parent != NULL && 
 									  (void*)infb_v.currentNode->parent != (void*)infb_v.currentNode->doc ) );
+	node = xmlDocGetRootElement(infb_v.currentDoc);
+	gtk_widget_set_sensitive(GTK_WIDGET(((Tinfbwin*)auxp)->btn_idx),(node!=infb_v.currentNode));								  
 }
 
 
