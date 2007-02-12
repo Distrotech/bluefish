@@ -51,15 +51,14 @@ typedef struct {
 	xmlDocPtr homeDoc;
 	guchar nt_fileref, nt_node, nt_group; 	/* node types */
 	GHashTable *windows; /* list of windows - concerning several instances of bfish ? */
-	GtkListStore *saved_store;	
 } Tinfb;
 
 typedef struct {
 	Tbfwin *bfwin;
 	GtkWidget *view;
 	GtkWidget *sentry; /* search entry */
-	GtkWidget *btn_add,*btn_del,*btn_home,*btn_up,*btn_copy;
-	GtkWidget *saved;
+	GtkToolItem *btn_add,*btn_del,*btn_home,*btn_up;
+	GtkToolItem *saved;
 	GdkCursor *hand_cursor;
 	GdkCursor *regular_cursor;
 	gboolean hovering_over_link;	

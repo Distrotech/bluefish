@@ -235,29 +235,13 @@ static void infb_save_clicked(GtkButton *button, gpointer data) {
 		xmlBufferFree(buff);
 		fclose(f);
 		g_free(pstr);
-		infb_load_fragments();
+		infb_load_fragments((Tinfbwin*)data);
+		message_dialog_new(((Tinfbwin*)data)->bfwin->main_window,GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Fragment saved"),"");
 	}
 	g_free(userdir);
 }
 
-static void infb_save_changed(GtkComboBox *widget,gpointer data) {
-	GtkTreeIter iter;
-	gchar *val;
-	xmlDocPtr doc;
-	
-	if ( !infb_v.saved_store || !data) return;
-	if ( gtk_combo_box_get_active_iter(widget,&iter)) {
-		gtk_tree_model_get(GTK_TREE_MODEL(infb_v.saved_store), &iter, 1, &val,-1);
-		if ( val ) {
-			doc = xmlParseFile(val);
-			if (doc) {
-				infb_v.currentDoc = doc;
-				infb_v.currentNode = NULL;
-				infb_fill_doc(BFWIN(data),NULL);
-			}
-		}	
-	}
-}
+
 
 /*
 static void infb_add_clicked(GtkButton *button, gpointer data) {
@@ -334,9 +318,6 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	Tinfbwin *win;
 	GtkWidget *scrolwin, *hbox, *vbox;
-	GtkCellRenderer *rend;
-	GtkStyle *style;
-	PangoFontDescription *fd;
 
 	win = g_new0(Tinfbwin,1);
 	win->bfwin = bfwin;
@@ -347,36 +328,28 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 
     vbox = gtk_vbox_new(FALSE, 1);		
 
-	hbox = gtk_hbox_new(FALSE, 1);
-	win->btn_home = gtk_button_new();
-	gtk_container_add(GTK_CONTAINER(win->btn_home), gtk_image_new_from_stock(GTK_STOCK_HOME,GTK_ICON_SIZE_MENU));
-	g_signal_connect (win->btn_home, "clicked",G_CALLBACK (infb_midx_clicked), bfwin);
-	gtk_tooltips_set_tip(main_v->tooltips, win->btn_home, _("Documentation index"), "");
-	gtk_box_pack_start(GTK_BOX(hbox), win->btn_home, FALSE, FALSE, 2);					
+	hbox = gtk_toolbar_new();
+	gtk_toolbar_set_icon_size(GTK_TOOLBAR(hbox),GTK_ICON_SIZE_MENU);
+	gtk_toolbar_set_style(GTK_TOOLBAR(hbox),GTK_TOOLBAR_ICONS);
 	
-	win->btn_up = gtk_button_new();
-	gtk_container_add(GTK_CONTAINER(win->btn_up), gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU));
-	g_signal_connect (win->btn_up, "clicked",G_CALLBACK (infb_idx_clicked), bfwin);
-	gtk_tooltips_set_tip(main_v->tooltips, win->btn_up, _("Up to main index"), "");
-	gtk_box_pack_start(GTK_BOX(hbox), win->btn_up, FALSE, FALSE, 2);
-	
-	win->saved = gtk_combo_box_new_with_model(GTK_TREE_MODEL(infb_v.saved_store));
-	rend = gtk_cell_renderer_text_new();
-	gtk_cell_layout_pack_start (GTK_CELL_LAYOUT (win->saved), rend, FALSE);
-	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(win->saved),rend,"text",0,NULL);
-	g_signal_connect (win->saved, "changed",G_CALLBACK (infb_save_changed), bfwin);
-	gtk_tooltips_set_tip(main_v->tooltips, win->saved, _("Saved fragments"), "");
-	gtk_box_pack_start(GTK_BOX(hbox), win->saved, FALSE, FALSE, 2);
-	style = gtk_widget_get_style(win->saved);
-	fd = pango_font_description_copy(style->font_desc);	
-	pango_font_description_set_size(fd,8);
-		
-	win->btn_copy = gtk_button_new();
-	gtk_container_add(GTK_CONTAINER(win->btn_copy), gtk_image_new_from_stock(GTK_STOCK_COPY,GTK_ICON_SIZE_MENU));
-	g_signal_connect (win->btn_copy, "clicked",G_CALLBACK (infb_save_clicked), win);
-	gtk_tooltips_set_tip(main_v->tooltips, win->btn_copy, _("Save current view"), "");
-	gtk_box_pack_start(GTK_BOX(hbox), win->btn_copy, FALSE, FALSE, 2);
+	win->btn_home = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_HOME,GTK_ICON_SIZE_MENU),"");
+	g_signal_connect(G_OBJECT(win->btn_home),"clicked",G_CALLBACK(infb_midx_clicked),bfwin);
+	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->btn_home),main_v->tooltips,_("Documentation index"),"");
+	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->btn_home,0);
 
+	win->btn_up = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU),"");
+	g_signal_connect(G_OBJECT(win->btn_up),"clicked",G_CALLBACK(infb_idx_clicked),bfwin);
+	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->btn_up),main_v->tooltips,_("Up to document index"),"");
+	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->btn_up,1);
+	
+	win->saved = gtk_menu_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_FLOPPY,GTK_ICON_SIZE_MENU),"");
+	g_signal_connect(G_OBJECT(win->saved),"clicked",G_CALLBACK(infb_save_clicked),win);
+	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->saved),main_v->tooltips,_("Save current view"),"");
+	gtk_menu_tool_button_set_arrow_tooltip(GTK_MENU_TOOL_BUTTON(win->saved),main_v->tooltips,_("Go to sekected fragment"),"");
+	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->saved,2);
+
+
+		
 	/*win->btn_add = gtk_button_new();
 	gtk_container_add(GTK_CONTAINER(win->btn_add), gtk_image_new_from_stock(GTK_STOCK_NEW,GTK_ICON_SIZE_MENU));
 	g_signal_connect (win->btn_add, "clicked",G_CALLBACK (infb_add_clicked), bfwin);
@@ -417,7 +390,7 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 									gtk_label_new(_("Info Browser")),-1);
 
 	infb_load();
-	infb_load_fragments();
+	infb_load_fragments(win);
 	infb_v.currentDoc = infb_v.homeDoc;
 	infb_fill_doc(bfwin,NULL);		
 }

@@ -45,7 +45,6 @@ static void infb_init(void) {
 	infb_v.currentNode = NULL;
 	infb_v.currentType = 0;
 	infb_v.homeDoc = NULL;
-	infb_v.saved_store = gtk_list_store_new(2,G_TYPE_STRING,G_TYPE_STRING);
 	infb_v.windows = g_hash_table_new_full(NULL,NULL,NULL,NULL);
 	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,infb_sidepanel_initgui);
 	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,infb_sidepanel_destroygui);
