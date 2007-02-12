@@ -6,7 +6,15 @@ EXTRA_DIST = \
 	bflib_php5_with_examples.xml \
 	bflib_php5.xml \
 	bflib_python_2.3.xml \
-	bflib_xhtml.xml
+	bflib_xhtml.xml \
+	bflib_XHTML_1_0_Strict.xml \
+	bflib_XHTML_1_0_Transitional.xml \
+	bflib_XHTML_1_0_Frameset.xml \
+	bflib_XHTML_1_1.xml \
+	bflib_SVG_1_0.xml \
+	bflib_SVG_1_1_Full.xml \
+	bflib_SVG_1_1_Basic.xml \
+	bflib_SVG_1_1_Tiny.xml
 
 CLEANFILES = $(bflib_DATA)
 
