@@ -29,9 +29,9 @@
 
 
 void infb_db_prepare_info(GtkTextView *view,xmlDocPtr doc, xmlNodePtr node);
-
-xmlChar *infb_db_get_title(xmlDocPtr doc,gboolean subtitle);
-xmlNodePtr infb_db_get_info_node(xmlDocPtr doc);
+void infb_db_format_element(GtkTextView *view,xmlDocPtr doc, xmlNodePtr node);
+xmlChar *infb_db_get_title(xmlDocPtr doc,gboolean subtitle,xmlNodePtr root);
+xmlNodePtr infb_db_get_info_node(xmlDocPtr doc,xmlNodePtr root);
 
 
 #endif /* INFB_DOCBOOK_H */

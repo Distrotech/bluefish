@@ -48,7 +48,7 @@ gchar *infb_load_refname(gchar *filename) {
 	}	
 	else if (xmlStrcmp(cur->name, BAD_CAST "book")==0) /* docbook? */
 	{
-		xmlChar *text = infb_db_get_title(doc,FALSE);
+		xmlChar *text = infb_db_get_title(doc,FALSE,NULL);
 		if (text) {
 				ret = g_strdup((gchar*)text);
 				xmlFree(text);

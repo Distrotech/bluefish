@@ -29,6 +29,7 @@
 #include "infb_load.h"
 #include "infb_dtd.h"
 #include "infb_wizard.h"
+#include "infb_docbook.h"
 
 
 /*
@@ -190,7 +191,7 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
 	return FALSE;
 }  
 
-static void infb_idx_clicked(GtkButton *button, gpointer data) {
+static void infb_up_clicked(GtkButton *button, gpointer data) {
 	if ( !infb_v.currentDoc || !data) return;
 	if (infb_v.currentNode && infb_v.currentNode->parent && 
 		 (void*)infb_v.currentNode->parent!=(void*)infb_v.currentNode->doc )
@@ -198,6 +199,13 @@ static void infb_idx_clicked(GtkButton *button, gpointer data) {
 	else 	
 		infb_fill_doc(BFWIN(data),NULL);
 }
+
+static void infb_idx_clicked(GtkButton *button, gpointer data) {
+	if ( !data ) return;
+	if (infb_v.currentDoc!=NULL)
+		infb_fill_doc(BFWIN(data),NULL);
+}
+
 
 static void infb_midx_clicked(GtkButton *button, gpointer data) {
 	if ( !data ) return;
@@ -212,29 +220,40 @@ static void infb_save_clicked(GtkButton *button, gpointer data) {
 	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 	FILE *f;
 	xmlBufferPtr buff;
-	xmlChar *text; 
+	xmlChar *text;
+	xmlNodePtr fnode; 
 	
 	if ( !data ) return;
 	if (infb_v.currentNode!=NULL) {
-		if ( xmlStrcmp(infb_v.currentNode->name,BAD_CAST "element")==0 ||
-			  xmlStrcmp(infb_v.currentNode->name,BAD_CAST "ref")==0 )
-			text = xmlGetProp(infb_v.currentNode,BAD_CAST "name");
-		else 	if ( xmlStrcmp(infb_v.currentNode->name,BAD_CAST "note")==0 ||
-					  xmlStrcmp(infb_v.currentNode->name,BAD_CAST "search_result")==0	  )
-			text = xmlGetProp(infb_v.currentNode,BAD_CAST "title");
-		else 
-			text = xmlStrdup(BAD_CAST "unknown");	
+		if (infb_v.currentType == INFB_DOCTYPE_DOCBOOK) {
+			text = infb_db_get_title(infb_v.currentDoc,FALSE,NULL);
+			fnode = xmlNewDocNode(infb_v.currentDoc,NULL,BAD_CAST "book",NULL);
+			xmlAddChild(fnode,xmlCopyNode(infb_v.currentNode,1));
+		}
+		else {
+			if ( xmlStrcmp(infb_v.currentNode->name,BAD_CAST "element")==0 ||
+				  xmlStrcmp(infb_v.currentNode->name,BAD_CAST "ref")==0 )
+				text = xmlGetProp(infb_v.currentNode,BAD_CAST "name");
+			else 	if ( xmlStrcmp(infb_v.currentNode->name,BAD_CAST "note")==0 ||
+						  xmlStrcmp(infb_v.currentNode->name,BAD_CAST "search_result")==0	  )
+				text = xmlGetProp(infb_v.currentNode,BAD_CAST "title");
+			else 
+				text = xmlStrdup(BAD_CAST "unknown");
+			fnode = infb_v.currentNode;	
+		}		
 		pstr = g_strdup_printf("%s/bfrag_%s_%ld",userdir,
 										(gchar*)text,(long int)time(NULL));
 		xmlFree(text);									
 		f = fopen(pstr,"w");
 		buff = xmlBufferCreate();
-		xmlNodeDump(buff,infb_v.currentDoc,infb_v.currentNode,1,1);
+		xmlNodeDump(buff,infb_v.currentDoc,fnode,1,1);
 		xmlBufferDump(f,buff);
 		xmlBufferFree(buff);
 		fclose(f);
 		g_free(pstr);
 		infb_load_fragments((Tinfbwin*)data);
+		if (infb_v.currentNode != fnode)
+			xmlFreeNode(fnode);
 		message_dialog_new(((Tinfbwin*)data)->bfwin->main_window,GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Fragment saved"),"");
 	}
 	g_free(userdir);
@@ -336,16 +355,22 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->btn_home),main_v->tooltips,_("Documentation index"),"");
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->btn_home,0);
 
+	win->btn_idx = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_INDEX,GTK_ICON_SIZE_MENU),"");
+	g_signal_connect(G_OBJECT(win->btn_idx),"clicked",G_CALLBACK(infb_idx_clicked),bfwin);
+	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->btn_idx),main_v->tooltips,_("Document index"),"");
+	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->btn_idx,1);
+
 	win->btn_up = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU),"");
-	g_signal_connect(G_OBJECT(win->btn_up),"clicked",G_CALLBACK(infb_idx_clicked),bfwin);
+	g_signal_connect(G_OBJECT(win->btn_up),"clicked",G_CALLBACK(infb_up_clicked),bfwin);
 	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->btn_up),main_v->tooltips,_("Upper level"),"");
-	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->btn_up,1);
+	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->btn_up,2);
+
 	
 	win->saved = gtk_menu_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_FLOPPY,GTK_ICON_SIZE_MENU),"");
 	g_signal_connect(G_OBJECT(win->saved),"clicked",G_CALLBACK(infb_save_clicked),win);
 	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->saved),main_v->tooltips,_("Save current view"),"");
 	gtk_menu_tool_button_set_arrow_tooltip(GTK_MENU_TOOL_BUTTON(win->saved),main_v->tooltips,_("Go to sekected fragment"),"");
-	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->saved,2);
+	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->saved,3);
 
 
 		

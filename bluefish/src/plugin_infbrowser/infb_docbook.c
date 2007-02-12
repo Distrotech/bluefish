@@ -21,13 +21,16 @@
 #include "infb_docbook.h"
 #include "infb_text.h"
 
-xmlChar *infb_db_get_title(xmlDocPtr doc,gboolean subtitle) {
+xmlChar *infb_db_get_title(xmlDocPtr doc,gboolean subtitle,xmlNodePtr root) {
 	xmlNodePtr an = NULL,node;
 	gchar *path[3];
 	gint i=0;
 	xmlChar *text;
 	
-	node = xmlDocGetRootElement(doc);
+	if (!root)
+		node = xmlDocGetRootElement(doc);
+	else
+		node = root;	
 	if (subtitle) {
 		path[0] = "info/subtitle"; /* v5 */
 		path[1] = "bookinfo/subtitle"; /* v4 */
@@ -52,10 +55,10 @@ xmlChar *infb_db_get_title(xmlDocPtr doc,gboolean subtitle) {
 	return NULL;
 }
 
-xmlNodePtr infb_db_get_info_node(xmlDocPtr doc) {
+xmlNodePtr infb_db_get_info_node(xmlDocPtr doc,xmlNodePtr root) {
 	xmlNodePtr an = NULL;
-	an = getnode(doc,BAD_CAST "info",NULL); /* v5 */
-	if (!an) an = getnode(doc,BAD_CAST "bookinfo",NULL); /* v4 */
+	an = getnode(doc,BAD_CAST "info",root); /* v5 */
+	if (!an) an = getnode(doc,BAD_CAST "bookinfo",root); /* v4 */
 	return an;
 }
 
@@ -133,10 +136,8 @@ static GList *infb_db_get_authors(xmlDocPtr doc,xmlNodePtr node) {
 
 
 void infb_db_prepare_info(GtkTextView *view,xmlDocPtr doc, xmlNodePtr node) {
-	xmlNodePtr auxn;
 	GtkTextBuffer *buff = gtk_text_view_get_buffer(view);
-	xmlChar *text;
-	gchar *str=NULL,*tofree;
+	/*xmlChar *text;*/
 	GList *lst=NULL,*p;
 	
 	if (!node) return;
@@ -146,6 +147,39 @@ void infb_db_prepare_info(GtkTextView *view,xmlDocPtr doc, xmlNodePtr node) {
 	while (p) {
 		infb_insert_line(buff,BAD_CAST p->data,NULL);
 		p = g_list_next(p);
+	}
+}
+
+
+void infb_db_format_element(GtkTextView *view,xmlDocPtr doc, xmlNodePtr node) {
+	GtkTextBuffer *buff = gtk_text_view_get_buffer(view);
+	xmlChar *text;
+	 
+	if (xmlStrcmp(node->name,BAD_CAST "command")==0 ||
+		 xmlStrcmp(node->name,BAD_CAST "option")==0 ||
+		 xmlStrcmp(node->name,BAD_CAST "emphasis")==0 ) {
+		text = xmlNodeGetContent(node);
+		if (text) {
+			infb_insert_italic(buff,text);
+			xmlFree(text);
+		}
+	}
+	else 	if (xmlStrcmp(node->name,BAD_CAST "application")==0 ||
+		 		 xmlStrcmp(node->name,BAD_CAST "userinput")==0 ) 
+	{
+		text = xmlNodeGetContent(node);
+		if (text) {
+			infb_insert_bold(buff,text);
+			xmlFree(text);
+		}
+	}
+	else if (xmlStrcmp(node->name,BAD_CAST "title")!=0 &&
+				xmlStrcmp(node->name,BAD_CAST "subtitle")!=0 ) {
+		text = xmlNodeGetContent(node);
+		if (text) {
+			infb_insert_text(buff,text);
+			xmlFree(text);
+		}
 	}
 }
 
