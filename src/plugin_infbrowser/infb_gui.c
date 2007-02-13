@@ -239,7 +239,7 @@ static void infb_save_clicked(GtkButton *button, gpointer data) {
 	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 	FILE *f;
 	xmlBufferPtr buff;
-	xmlChar *text;
+	xmlChar *text=NULL;
 	xmlNodePtr fnode; 
 	
 	if ( !data ) return;
@@ -250,8 +250,15 @@ static void infb_save_clicked(GtkButton *button, gpointer data) {
 			pstr = g_strconcat(pstr,":",infb_db_get_title(infb_v.currentDoc,FALSE,infb_v.currentNode),NULL);
 			g_free(tofree);
 			text = BAD_CAST pstr;
-			fnode = xmlNewDocNode(infb_v.currentDoc,NULL,BAD_CAST "book",NULL);
-			xmlAddChild(fnode,xmlCopyNode(infb_v.currentNode,1));
+		
+ 		   if (xmlStrcmp(infb_v.currentNode->name,BAD_CAST "book")==0) {
+		  		fnode = xmlCopyNode(infb_v.currentNode,1);
+		   }
+		   else 
+		   { 
+				fnode = xmlNewDocNode(infb_v.currentDoc,NULL,BAD_CAST "book",NULL);
+				xmlAddChild(fnode,xmlCopyNode(infb_v.currentNode,1));
+		   } 	
 		}
 		else {
 			if ( xmlStrcmp(infb_v.currentNode->name,BAD_CAST "element")==0 ||
