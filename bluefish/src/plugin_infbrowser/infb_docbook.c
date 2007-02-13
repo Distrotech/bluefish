@@ -157,6 +157,7 @@ void infb_db_format_element(GtkTextView *view,xmlDocPtr doc, xmlNodePtr node) {
 	 
 	if (xmlStrcmp(node->name,BAD_CAST "command")==0 ||
 		 xmlStrcmp(node->name,BAD_CAST "option")==0 ||
+		 xmlStrcmp(node->name,BAD_CAST "type")==0 ||
 		 xmlStrcmp(node->name,BAD_CAST "emphasis")==0 ) {
 		text = xmlNodeGetContent(node);
 		if (text) {
@@ -174,7 +175,9 @@ void infb_db_format_element(GtkTextView *view,xmlDocPtr doc, xmlNodePtr node) {
 		}
 	}
 	else if (xmlStrcmp(node->name,BAD_CAST "title")!=0 &&
-				xmlStrcmp(node->name,BAD_CAST "subtitle")!=0 ) {
+				xmlStrcmp(node->name,BAD_CAST "subtitle")!=0 &&
+				xmlStrcmp(node->name,BAD_CAST "refpurpose")!=0 &&	
+				xmlStrcmp(node->name,BAD_CAST "refname")!=0 ) {
 		text = xmlNodeGetContent(node);
 		if (text) {
 			infb_insert_text(buff,text);
