@@ -30,8 +30,20 @@
 #include "infb_load.h"
 
 
+static GdkCursor *hand_cursor;
+static GdkCursor *regular_cursor;
+
 
 Tinfb infb_v;
+
+inline void set_normal_cursor(GtkTextView *view) {
+	gdk_window_set_cursor (gtk_text_view_get_window (GTK_TEXT_VIEW(view), GTK_TEXT_WINDOW_TEXT), regular_cursor);
+}
+
+inline void set_link_cursor(GtkTextView *view) {
+	gdk_window_set_cursor (gtk_text_view_get_window (GTK_TEXT_VIEW(view), GTK_TEXT_WINDOW_TEXT), hand_cursor);
+}
+
 
 
 static void infb_init(void) {
@@ -48,7 +60,8 @@ static void infb_init(void) {
 	infb_v.windows = g_hash_table_new_full(NULL,NULL,NULL,NULL);
 	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,infb_sidepanel_initgui);
 	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,infb_sidepanel_destroygui);
-	
+	hand_cursor = gdk_cursor_new (GDK_HAND2);
+	regular_cursor = gdk_cursor_new (GDK_XTERM);
 	
 	DEBUG_MSG("infb_init finished \n");
 }

@@ -32,6 +32,7 @@
 #include "infb_docbook.h"
 
 
+
 /*
 *		Mouse motion and link discovery
 */
@@ -49,34 +50,48 @@ static gboolean infb_motion_notify_event (GtkWidget  *text_view,  GdkEventMotion
 	if (!auxp) return FALSE;
 	win = (Tinfbwin*)auxp;
 	
+
+	
  	gtk_text_view_window_to_buffer_coords (GTK_TEXT_VIEW (text_view),GTK_TEXT_WINDOW_WIDGET,
                                          event->x, event->y, &x, &y);
  	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(text_view));
  	gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW(text_view), &iter, x, y);
  	tags = gtk_text_iter_get_tags (&iter);
- 
+   if (!tags)
+   	gtk_widget_hide_all(win->tip_window); 
 	 for (tagp = tags;  tagp != NULL;  tagp = tagp->next)
     {    	
       GtkTextTag *tag = tagp->data;
-      gpointer type = g_object_get_data (G_OBJECT (tag), "type");
+		gpointer type,tipv;
+		
+		tipv = g_object_get_data (G_OBJECT (tag), "tip");
+		if (tipv) {
+			gtk_label_set_markup(GTK_LABEL(win->tip_label),(gchar*)tipv);
+	  		gdk_window_get_pointer (NULL, &x, &y, NULL);		
+  			gtk_window_move (GTK_WINDOW(win->tip_window), x + 8, y + 16); 			
+			gtk_widget_show_all(win->tip_window);
+		} 
+		    
+      type = g_object_get_data (G_OBJECT (tag), "type");
       if (type == &infb_v.nt_fileref || type == &infb_v.nt_node || type == &infb_v.nt_group) 
         {
           hovering = TRUE;
           
           break;
         }
+    }    
+	 if (hovering != win->hovering_over_link)
+   	 {
+      	win->hovering_over_link = hovering;
+     		if (win->hovering_over_link)
+        			set_link_cursor(GTK_TEXT_VIEW(text_view));
+     		else
+       		 	set_normal_cursor(GTK_TEXT_VIEW(text_view));
     }
-  if (hovering != win->hovering_over_link)
-    {
-      win->hovering_over_link = hovering;
-      if (win->hovering_over_link)
-        gdk_window_set_cursor (gtk_text_view_get_window (GTK_TEXT_VIEW(text_view), GTK_TEXT_WINDOW_TEXT), win->hand_cursor);
-      else
-        gdk_window_set_cursor (gtk_text_view_get_window (GTK_TEXT_VIEW(text_view), GTK_TEXT_WINDOW_TEXT), win->regular_cursor);
-    }
-  if (tags) g_slist_free (tags);
-  gdk_window_get_pointer (text_view->window, NULL, NULL, NULL);
-  return FALSE;
+   
+  	if (tags) g_slist_free (tags);
+  	gdk_window_get_pointer (text_view->window, NULL, NULL, NULL);
+  	return FALSE;
 }
 
 
@@ -151,7 +166,7 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       						}
       					}
 		      			infb_v.currentDoc = doc;
-							infb_fill_doc(bfwin,NULL);      				
+		      			infb_fill_doc(bfwin,NULL);      				
       				}				
       			}
       		}
@@ -195,15 +210,19 @@ static void infb_up_clicked(GtkButton *button, gpointer data) {
 	if ( !infb_v.currentDoc || !data) return;
 	if (infb_v.currentNode && infb_v.currentNode->parent && 
 		 (void*)infb_v.currentNode->parent!=(void*)infb_v.currentNode->doc )
+	{
 		infb_fill_doc(BFWIN(data),infb_v.currentNode->parent);
-	else 	
+	}	
+	else {	
 		infb_fill_doc(BFWIN(data),NULL);
+	}	
 }
 
 static void infb_idx_clicked(GtkButton *button, gpointer data) {
 	if ( !data ) return;
-	if (infb_v.currentDoc!=NULL)
+	if (infb_v.currentDoc!=NULL) {
 		infb_fill_doc(BFWIN(data),NULL);
+	}	
 }
 
 
@@ -281,7 +300,7 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 	gchar *txt,*str;
 	xmlXPathObjectPtr result;	
 	gint i;
-	xmlNodePtr node,node2;
+	xmlNodePtr node,node2,node3,node4;
 	gboolean found = FALSE;
 	
 	if ( event->keyval != GDK_Return )	return FALSE;
@@ -289,13 +308,32 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 	txt = (gchar*)gtk_entry_get_text(GTK_ENTRY(widget));
 	if ( txt && strcmp(txt,"")!=0) {
 	
-		node = xmlNewDocNode(infb_v.currentDoc,NULL,BAD_CAST "search_result",NULL);
-		str = g_strconcat("Search: ",txt,NULL);
-		xmlNewProp(node,BAD_CAST "title",BAD_CAST str);
-		g_free(str);
+	
 
 		switch (infb_v.currentType) {
+			case INFB_DOCTYPE_DOCBOOK:
+				node = xmlNewDocNode(infb_v.currentDoc,NULL,BAD_CAST "appendix",NULL);
+				node3 = xmlNewDocNode(infb_v.currentDoc,NULL,BAD_CAST "title",NULL);
+				str = g_strconcat("Search: ",txt,NULL);
+				node4 = xmlNewText(BAD_CAST str);
+				xmlAddChild(node3,node4);
+				xmlAddChild(node,node3);			
+				str = g_strconcat("/descendant::title[contains(child::text(),\"",txt,"\")]",NULL);
+				result = getnodeset(infb_v.currentDoc,BAD_CAST str,NULL);
+				g_free(str);
+				if (result) {
+					found = TRUE;
+					for(i=0;i<result->nodesetval->nodeNr;i++) {						
+						node2 = xmlDocCopyNode(result->nodesetval->nodeTab[i]->parent,infb_v.currentDoc,1);
+						xmlAddChild(node,node2);
+					}
+				}			
+			break;
 			default: /* fref2 */
+				node = xmlNewDocNode(infb_v.currentDoc,NULL,BAD_CAST "search_result",NULL);
+				str = g_strconcat("Search: ",txt,NULL);
+				xmlNewProp(node,BAD_CAST "title",BAD_CAST str);
+				g_free(str);			
 				str = g_strconcat("/descendant::element[contains(@name,\"",txt,"\")]",NULL);
 				result = getnodeset(infb_v.currentDoc,BAD_CAST str,NULL);
 				g_free(str);
@@ -314,34 +352,47 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 					for(i=0;i<result->nodesetval->nodeNr;i++) {
 						node2 = xmlDocCopyNode(result->nodesetval->nodeTab[i],infb_v.currentDoc,1);
 						xmlAddChild(node,node2);
-					}
-				}				
-								
+					}					
+				}	
 			break;
 		} /* switch */
-		
 		if ( found ) {		
 			node2 = xmlDocGetRootElement(infb_v.currentDoc);
-			xmlAddChild(node2,node);	
+			xmlAddChild(node2,node);
 			infb_fill_doc(bfwin,node);
 		}	
 		else {
 			message_dialog_new(bfwin->main_window,GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Nothing found"),"");
 			xmlFreeNode(node);
-		}	 
+		}	 															
 	}
 	return FALSE;
 } 
 
+static gint infb_tip_paint(GtkWidget *tip)
+{
+  if (!tip) return FALSE;
+  if (!GTK_WIDGET_VISIBLE(tip)) return FALSE;
+  gtk_paint_flat_box (tip->style, tip->window,
+                      GTK_STATE_NORMAL, GTK_SHADOW_ETCHED_IN,
+                      NULL, tip, "",
+                      0, 0, -1, -1);  
+  gtk_paint_shadow (tip->style, tip->window,
+                      GTK_STATE_NORMAL, GTK_SHADOW_ETCHED_IN,
+                      NULL, tip, "",
+                      0, 0, -1, -1);                        
+  return FALSE;                      
+}
+
+
+
 void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	Tinfbwin *win;
-	GtkWidget *scrolwin, *hbox, *vbox;
+	GtkWidget *scrolwin, *hbox, *vbox ;
 
 	win = g_new0(Tinfbwin,1);
 	win->bfwin = bfwin;
 	g_hash_table_insert(infb_v.windows,bfwin,win);
-	win->hand_cursor = gdk_cursor_new (GDK_HAND2);
-	win->regular_cursor = gdk_cursor_new (GDK_XTERM);
 	win->hovering_over_link = FALSE;		
 
     vbox = gtk_vbox_new(FALSE, 1);		
@@ -413,10 +464,27 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 									gtk_image_new_from_stock(GTK_STOCK_INFO,GTK_ICON_SIZE_LARGE_TOOLBAR),
 									gtk_label_new(_("Info Browser")),-1);
 
+/* ---- tip window ----*/
+	win->tip_window = gtk_window_new (GTK_WINDOW_POPUP);
+   gtk_widget_set_app_paintable (win->tip_window, TRUE);
+   gtk_window_set_resizable (GTK_WINDOW(win->tip_window), FALSE);
+   gtk_container_set_border_width (GTK_CONTAINER (win->tip_window), 4); 
+   g_signal_connect_swapped(GTK_WINDOW(win->tip_window),"expose-event",G_CALLBACK(infb_tip_paint),win->tip_window);
+   win->tip_label = gtk_label_new (NULL);  
+   gtk_label_set_markup(GTK_LABEL(win->tip_label),"xx");
+   gtk_misc_set_alignment (GTK_MISC (win->tip_label), 0.5, 0.5);
+   gtk_container_add (GTK_CONTAINER (win->tip_window), GTK_WIDGET (win->tip_label));  
+   gtk_widget_hide_all(win->tip_window);
+   
+   g_object_set_data(G_OBJECT(win->view),"tip",win->tip_window);
+   gtk_widget_show_all(win->tip_window);       
+
 	infb_load();
 	infb_load_fragments(win);
 	infb_v.currentDoc = infb_v.homeDoc;
-	infb_fill_doc(bfwin,NULL);		
+	infb_fill_doc(bfwin,NULL);
+	
+			
 }
 
 void infb_sidepanel_destroygui(Tbfwin *bfwin) {
