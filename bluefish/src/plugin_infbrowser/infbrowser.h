@@ -29,6 +29,7 @@
 #include <libxml/parser.h>
 #include <libxml/xpath.h>
 #include <libxml/xmlwriter.h>
+#include <libxml/HTMLparser.h>
 
 
 #include "../config.h"
@@ -44,6 +45,7 @@
 #define INFB_DOCTYPE_FREF2		2
 #define INFB_DOCTYPE_DTD		3
 #define INFB_DOCTYPE_DOCBOOK	4
+#define INFB_DOCTYPE_HTML		5
 
 
 

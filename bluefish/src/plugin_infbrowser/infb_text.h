@@ -61,4 +61,5 @@ void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname);
 void infb_insert_node(GtkTextBuffer *buff, xmlChar *text, xmlNodePtr node,gboolean endline);
 void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node);
 void infb_insert_text(GtkTextBuffer *buff, xmlChar *text, gint type, gboolean eol);
+void infb_insert_label(GtkTextView *view, xmlChar *text);
 #endif /* INFB_TEXT_H */

@@ -28,6 +28,7 @@
 #include "infbrowser.h"
 #include "infb_text.h"
 #include "infb_docbook.h"
+#include "infb_html.h"
 
 
 gchar *infb_load_refname(gchar *filename) {
@@ -36,7 +37,7 @@ gchar *infb_load_refname(gchar *filename) {
 	gchar *ret;
 	
 	if (filename == NULL)	return NULL;
-	doc = xmlParseFile(filename);
+	doc = xmlReadFile(filename,NULL,XML_PARSE_RECOVER | XML_PARSE_NOENT | XML_PARSE_NOBLANKS | XML_PARSE_XINCLUDE);
 	if (doc==NULL) {
 		g_warning(_("Cannot load reference file %s\n"),filename);
 		return NULL;
@@ -55,7 +56,27 @@ gchar *infb_load_refname(gchar *filename) {
 		}		
 		else
 				ret = g_strdup((gchar*)cur->name);
-	}	
+	}
+	else if (xmlStrcmp(cur->name, BAD_CAST "html")==0) /* html? */
+	{
+		xmlErrorPtr err = xmlGetLastError();
+		xmlChar *text;
+		if (err) {
+			if (strcmp(err->file,filename)==0) {
+			/* try to reload */
+				xmlFreeDoc(doc);
+      		doc = htmlParseFile(filename,NULL);
+      		if (!doc) return g_strdup("Unknown");
+      	}
+      }
+		text = infb_html_get_title(doc);
+		if (text) {
+				ret = g_strdup((gchar*)text);
+				xmlFree(text);
+		}		
+		else
+				ret = g_strdup((gchar*)cur->name);		
+	}			
 	else
 		ret = g_strdup((gchar*)cur->name);
    xmlFreeDoc(doc);   

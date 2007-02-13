@@ -24,7 +24,9 @@ infbrowser_la_SOURCES = \
 	infb_wizard.h \
 	infb_wizard.c \
 	infb_docbook.h \
-	infb_docbook.c
+	infb_docbook.c \
+	infb_html.h \
+	infb_html.c
 
 infbrowser_la_LDFLAGS = -module -avoid-version
 
