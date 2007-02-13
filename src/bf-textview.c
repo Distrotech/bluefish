@@ -1224,7 +1224,7 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 			cfg->max_token_length = counter;
 	}
 
-
+	g_free (ptr2);
 }								/* bftv_scantable_insert */
 
 
@@ -2918,7 +2918,7 @@ static void gdk_color_dl(GdkColor * a, GdkColor * b, gdouble k)
 
 void bf_textview_recolor(BfTextView * view, gchar * fg_color, gchar * bg_color)
 {
-	gchar *str;
+	gchar *str, *fgn, *fga, *bgn, *bga;
 	GdkColor c1, c2, c3, c4;
 	GtkRcStyle *style;
 
@@ -2928,16 +2928,25 @@ void bf_textview_recolor(BfTextView * view, gchar * fg_color, gchar * bg_color)
 	gdk_color_parse(bg_color, &c2);
 	gdk_color_dl(&c1, &c3, 0.07);
 	gdk_color_dl(&c2, &c4, 0.07);
-	str =
-		g_strdup_printf
-		("style \"bfish\" {\nGtkWidget::cursor_color=\"%s\"\nbase[NORMAL]=\"%s\"\nbase[ACTIVE]=\"%s\"\ntext[NORMAL]=\"%s\"\ntext[ACTIVE]=\"%s\"\nfg[NORMAL]=\"%s\"\nfg[ACTIVE]=\"%s\"\nbg[NORMAL]=\"%s\"\nbg[ACTIVE]=\"%s\"\n}\nclass \"BfTextView\" style \"bfish\"",
-		 view->fg_color, view->bkg_color, view->bkg_color, view->fg_color, view->fg_color,
-		 gdk_color_to_hexstring(&c1, FALSE), gdk_color_to_hexstring(&c3, FALSE),
-		 gdk_color_to_hexstring(&c4, FALSE), gdk_color_to_hexstring(&c4, FALSE));
+	fgn = gdk_color_to_hexstring(&c1, FALSE);
+	fga = gdk_color_to_hexstring(&c3, FALSE);
+	bgn = gdk_color_to_hexstring(&c4, FALSE);
+	bga = gdk_color_to_hexstring(&c4, FALSE);
+		
+	str = g_strdup_printf
+			("style \"bfish\" {\nGtkWidget::cursor_color=\"%s\"\nbase[NORMAL]=\"%s\"\nbase[ACTIVE]=\"%s\"\ntext[NORMAL]=\"%s\"\ntext[ACTIVE]=\"%s\"\nfg[NORMAL]=\"%s\"\nfg[ACTIVE]=\"%s\"\nbg[NORMAL]=\"%s\"\nbg[ACTIVE]=\"%s\"\n}\nclass \"BfTextView\" style \"bfish\"",
+			view->fg_color, view->bkg_color, view->bkg_color, view->fg_color, view->fg_color,
+			fgn, fga, bgn, bga);
+
 	gtk_rc_parse_string(str);
-	g_free(str);
 	style = gtk_widget_get_modifier_style(GTK_WIDGET(view));
 	gtk_widget_modify_style(GTK_WIDGET(view), style);
+	
+	g_free(fgn);
+	g_free(fga);
+	g_free(bgn);
+	g_free(bga);
+	g_free(str);
 }
 
 /* -------------------- /MISC  -------------------------------*/
