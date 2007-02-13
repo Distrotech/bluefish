@@ -57,7 +57,7 @@ void infb_insert_desc(GtkTextBuffer *buff,xmlChar *text);
 void infb_insert_section(GtkTextBuffer *buff,xmlChar *text);
 void infb_insert_icon(GtkTextView *view, GtkWidget *icon, gchar *prepend);
 void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname);
-void infb_insert_node(GtkTextBuffer *buff, xmlChar *text, xmlNodePtr node);
+void infb_insert_node(GtkTextBuffer *buff, xmlChar *text, xmlNodePtr node,gboolean endline);
 void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node);
 void infb_insert_italic(GtkTextBuffer *buff, xmlChar *text);
 void infb_insert_bold(GtkTextBuffer *buff, xmlChar *text);

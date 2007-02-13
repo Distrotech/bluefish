@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2007-02-12 11:26+0100\n"
+"POT-Creation-Date: 2007-02-12 22:50+0100\n"
 "PO-Revision-Date: 2005-01-19 11:34+0800\n"
 "Last-Translator: OLS3 <ols3@lxer.idv.tw>\n"
 "Language-Team: zh_TW <i18n-translation@b2d.org.tw>\n"
@@ -23,48 +23,65 @@ msgid ""
 "Continue?"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:327
+#: src/plugin_infbrowser/infb_gui.c:257
+msgid "Fragment saved"
+msgstr ""
+
+#: src/plugin_infbrowser/infb_gui.c:329
 msgid "Nothing found"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:354
+#: src/plugin_infbrowser/infb_gui.c:355
 msgid "Documentation index"
 msgstr ""
 
 #: src/plugin_infbrowser/infb_gui.c:360
-msgid "Up to main index"
+msgid "Document index"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:368
-msgid "Saved fragments"
+#: src/plugin_infbrowser/infb_gui.c:365
+msgid "Upper level"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:377
+#: src/plugin_infbrowser/infb_gui.c:371
 msgid "Save current view"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:410
+#: src/plugin_infbrowser/infb_gui.c:372
+msgid "Go to sekected fragment"
+msgstr ""
+
+#: src/plugin_infbrowser/infb_gui.c:407
 msgid "Find"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:417
+#: src/plugin_infbrowser/infb_gui.c:414
 msgid "Info Browser"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_load.c:40
+#: src/plugin_infbrowser/infb_load.c:41
 #, c-format
 msgid "Cannot load reference file %s\n"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_load.c:45
-#, c-format
-msgid ""
-"Bad root element in reference file %s\n"
-"Should be <ref> or <r> and found %s"
+#: src/plugin_infbrowser/infb_load.c:125
+msgid "Documentation entries"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_load.c:117
-msgid "Documentation entries"
+#: src/plugin_infbrowser/infb_text.c:305
+msgid "Info"
+msgstr ""
+
+#: src/plugin_infbrowser/infb_text.c:312
+msgid "Preface"
+msgstr ""
+
+#: src/plugin_infbrowser/infb_text.c:316
+msgid "Abstract"
+msgstr ""
+
+#: src/plugin_infbrowser/infb_text.c:330
+msgid "Intro"
 msgstr ""
 
 #: src/plugin_infbrowser/infb_wizard.c:117
