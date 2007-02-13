@@ -22,6 +22,7 @@
 #include <gdk/gdkkeysyms.h> 
 #include <string.h>
 #include <time.h>
+
 #include "../dialog_utils.h"
 #include "infbrowser.h"
 #include "infb_gui.h"
@@ -163,6 +164,18 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       									xmlFree(text);
       								}	
       							} else xmlFree(text);
+      						}
+      					}
+      					else if (xmlStrcmp(auxnode->name,BAD_CAST "html")==0) {
+      						/* bad trick - but HTML files can be non well-formed */
+      						xmlErrorPtr err = xmlGetLastError();
+      						if (err) {
+      							if (strcmp(err->file,(gchar*)aux)==0) {
+      								/* try to reload */
+      								xmlFreeDoc(doc);
+      								doc = htmlParseFile((gchar*)aux,NULL);
+      								if (!doc) break;
+      							}
       						}
       					}
 		      			infb_v.currentDoc = doc;

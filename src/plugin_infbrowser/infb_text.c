@@ -28,7 +28,7 @@
 #include "infb_text.h"
 #include "infbrowser.h"
 #include "infb_docbook.h"
-
+#include "infb_html.h"
 
 
 void infb_set_current_type(xmlDocPtr doc) {
@@ -52,6 +52,9 @@ void infb_set_current_type(xmlDocPtr doc) {
 	}	
 	else if ( xmlStrcmp(root->name,BAD_CAST "book")== 0 ) 
 		infb_v.currentType = INFB_DOCTYPE_DOCBOOK;
+	else if ( xmlStrcmp(root->name,BAD_CAST "html")== 0 ) 
+		infb_v.currentType = INFB_DOCTYPE_HTML;
+		
 } 
 
 xmlXPathObjectPtr getnodeset (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start){
@@ -156,6 +159,18 @@ void infb_insert_icon(GtkTextView *view, GtkWidget *icon, gchar *prepend) {
 	gtk_widget_show_all(icon);									
 }
 
+void infb_insert_label(GtkTextView *view, xmlChar *text) {
+	GtkTextChildAnchor *anchor;
+	GtkTextBuffer *buff = gtk_text_view_get_buffer(view);
+	GtkTextIter iter;
+	GtkWidget *label = gtk_label_new((gchar*)text);
+	
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
+	anchor = gtk_text_buffer_create_child_anchor (buff, &iter);
+	gtk_text_view_add_child_at_anchor (view,label,anchor);
+	gtk_widget_show_all(label);									
+}
+
 void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname) {
 	GtkTextTag *tag;
 	GtkTextIter iter;
@@ -244,7 +259,13 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 		case INFB_DOCTYPE_DOCBOOK:  /* DOCBOOK file */
 			infb_db_fill_node(view,doc,node,level);
 		break;
-/**************************  DOCBOOK file END ******************************/	
+/**************************  DOCBOOK file END ******************************/
+/**************************  HTML file ******************************/		
+		case INFB_DOCTYPE_HTML:  
+			infb_html_fill_node(view,doc,node,level);
+		break;
+/**************************  HTML file END ******************************/	
+	
 		default: /* fref2 document */
 			if ( xmlStrcmp(node->name,BAD_CAST "ref") ==0 ) { /* reference top */
 				text = xmlGetProp(node,BAD_CAST "name");
