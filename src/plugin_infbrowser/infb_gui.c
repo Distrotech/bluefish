@@ -235,7 +235,7 @@ static void infb_midx_clicked(GtkButton *button, gpointer data) {
 }
 
 static void infb_save_clicked(GtkButton *button, gpointer data) {
-	gchar *pstr;
+	gchar *pstr,*tofree;
 	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 	FILE *f;
 	xmlBufferPtr buff;
@@ -245,7 +245,11 @@ static void infb_save_clicked(GtkButton *button, gpointer data) {
 	if ( !data ) return;
 	if (infb_v.currentNode!=NULL) {
 		if (infb_v.currentType == INFB_DOCTYPE_DOCBOOK) {
-			text = infb_db_get_title(infb_v.currentDoc,FALSE,NULL);
+			pstr = (gchar*)infb_db_get_title(infb_v.currentDoc,FALSE,NULL);
+			tofree = pstr;
+			pstr = g_strconcat(pstr,":",infb_db_get_title(infb_v.currentDoc,FALSE,infb_v.currentNode),NULL);
+			g_free(tofree);
+			text = BAD_CAST pstr;
 			fnode = xmlNewDocNode(infb_v.currentDoc,NULL,BAD_CAST "book",NULL);
 			xmlAddChild(fnode,xmlCopyNode(infb_v.currentNode,1));
 		}
@@ -477,7 +481,7 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
    gtk_widget_hide_all(win->tip_window);
    
    g_object_set_data(G_OBJECT(win->view),"tip",win->tip_window);
-   gtk_widget_show_all(win->tip_window);       
+   gtk_widget_hide_all(win->tip_window);       
 
 	infb_load();
 	infb_load_fragments(win);

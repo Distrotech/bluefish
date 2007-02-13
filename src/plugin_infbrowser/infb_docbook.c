@@ -24,7 +24,7 @@
 
 xmlChar *infb_db_get_title(xmlDocPtr doc,gboolean subtitle,xmlNodePtr root) {
 	xmlNodePtr an = NULL,node;
-	gchar *path[3];
+	gchar *path[4];
 	gint i=0;
 	xmlChar *text;
 	
@@ -36,14 +36,16 @@ xmlChar *infb_db_get_title(xmlDocPtr doc,gboolean subtitle,xmlNodePtr root) {
 		path[0] = "info/subtitle"; /* v5 */
 		path[1] = "bookinfo/subtitle"; /* v4 */
 		path[2] = "subtitle"; /* inside book */
+		path[3] = "refnamediv/refname"; /* refentry */
 	} else {
 		path[0] = "info/title"; /* v5 */
 		path[1] = "bookinfo/title"; /* v4 */
 		path[2] = "title"; /* inside book */	
+		path[3] = "refnamediv/refname"; /* refentry */
 	}	
 	i = 1;
 	an = getnode(doc,BAD_CAST path[0],node);
-	while (!an && i<3) {
+	while (!an && i<4) {
 		an = getnode(doc,BAD_CAST path[i],node);
 		i++;
 	}	
