@@ -44,23 +44,21 @@
 #define INFB_STYLE_SECTION		"paragraph-background","#E5E5E5","justification",GTK_JUSTIFY_CENTER
 #define INFB_STYLE_ITALIC		"style",PANGO_STYLE_ITALIC
 
-
+#define INFB_TT_NONE			0
+#define INFB_TT_SMALL		1
+#define INFB_TT_BOLD			2
+#define INFB_TT_ITALIC		3
+#define INFB_TT_TITLE		4
+#define INFB_TT_DESC			5
+#define INFB_TT_SECTION		6
 
 
 void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root);
 xmlXPathObjectPtr getnodeset (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start);
 xmlNodePtr getnode (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start);
-void infb_insert_line(GtkTextBuffer *buff, xmlChar *text, gchar *prepend);
-void infb_insert_small_line(GtkTextBuffer *buff,xmlChar *text);
-void infb_insert_title(GtkTextBuffer *buff,xmlChar *text);
-void infb_insert_desc(GtkTextBuffer *buff,xmlChar *text);
-void infb_insert_section(GtkTextBuffer *buff,xmlChar *text);
 void infb_insert_icon(GtkTextView *view, GtkWidget *icon, gchar *prepend);
 void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname);
 void infb_insert_node(GtkTextBuffer *buff, xmlChar *text, xmlNodePtr node,gboolean endline);
 void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node);
-void infb_insert_italic(GtkTextBuffer *buff, xmlChar *text);
-void infb_insert_bold(GtkTextBuffer *buff, xmlChar *text);
-void infb_insert_text(GtkTextBuffer *buff, xmlChar *text);
-
+void infb_insert_text(GtkTextBuffer *buff, xmlChar *text, gint type, gboolean eol);
 #endif /* INFB_TEXT_H */

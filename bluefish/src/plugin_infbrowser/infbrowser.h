@@ -45,6 +45,8 @@
 #define INFB_DOCTYPE_DTD		3
 #define INFB_DOCTYPE_DOCBOOK	4
 
+
+
 typedef struct {
 	xmlDocPtr currentDoc;
 	xmlNodePtr currentNode;
@@ -60,13 +62,14 @@ typedef struct {
 	GtkWidget *sentry; /* search entry */
 	GtkToolItem *btn_add,*btn_del,*btn_home,*btn_up,*btn_idx;
 	GtkToolItem *saved;
-	GdkCursor *hand_cursor;
-	GdkCursor *regular_cursor;
 	gboolean hovering_over_link;	
+	GtkWidget *tip_window,*tip_label;
 } Tinfbwin;
 
 extern Tinfb infb_v;
 
+void set_normal_cursor(GtkTextView *view);
+void set_link_cursor(GtkTextView *view);
  	
 
 #endif /* __INFB_H_ */
