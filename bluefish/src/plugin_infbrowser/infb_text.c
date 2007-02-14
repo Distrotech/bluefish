@@ -102,6 +102,38 @@ xmlNodePtr getnode (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start){
 	return ret;
 }
 
+gint getcount (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start) {
+	xmlXPathContextPtr context;
+	xmlXPathObjectPtr result;
+	gint ret=0;
+	
+	context = xmlXPathNewContext(doc);
+	if (context == NULL) return 0;
+	if (start!=NULL)
+		context->node = start;
+	else
+		context->node = xmlDocGetRootElement(doc);
+	result = xmlXPathEvalExpression(BAD_CAST xpath, context);
+	xmlXPathFreeContext(context);
+	if (result == NULL) return 0;
+	if(xmlXPathNodeSetIsEmpty(result->nodesetval)){
+		xmlXPathFreeObject(result);
+   	return 0;
+	}	
+	ret = result->nodesetval->nodeNr;
+	xmlXPathFreeObject(result);
+	return ret;
+}
+
+
+void infb_insert_text_tag(GtkTextBuffer *buff, xmlChar *text, GtkTextTag *tag, gboolean eol) {
+	GtkTextIter iter;
+	if (!text || !tag) return;
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
+	if (eol)
+		gtk_text_buffer_insert_at_cursor(buff,"\n",1);
+}
 
 void infb_insert_text(GtkTextBuffer *buff, xmlChar *text, gint type, gboolean eol) {
 	GtkTextTag *tag;
@@ -159,16 +191,25 @@ void infb_insert_icon(GtkTextView *view, GtkWidget *icon, gchar *prepend) {
 	gtk_widget_show_all(icon);									
 }
 
-void infb_insert_label(GtkTextView *view, xmlChar *text) {
+void infb_insert_widget(GtkTextView *view, GtkWidget *widget,gint size) {
 	GtkTextChildAnchor *anchor;
 	GtkTextBuffer *buff = gtk_text_view_get_buffer(view);
 	GtkTextIter iter;
-	GtkWidget *label = gtk_label_new((gchar*)text);
+	GdkColor gc;
 	
+	gdk_color_parse("#FF0000",&gc);
+	gtk_widget_modify_bg(widget,GTK_STATE_NORMAL,&gc);
+	
+/*	gtk_misc_set_alignment(GTK_MISC(label), 0, 0.5);
+	gtk_misc_set_padding(GTK_MISC(label), 2, 2);*/
+	if (size>0)
+		gtk_widget_set_size_request(widget,size,-1);
+	/*gtk_label_set_line_wrap(GTK_LABEL(label),TRUE);
+	gtk_label_set_line_wrap(GTK_LABEL(label),PANGO_WRAP_CHAR);*/ 
 	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
 	anchor = gtk_text_buffer_create_child_anchor (buff, &iter);
-	gtk_text_view_add_child_at_anchor (view,label,anchor);
-	gtk_widget_show_all(label);									
+	gtk_text_view_add_child_at_anchor (view,widget,anchor);
+	gtk_widget_show_all(widget);									
 }
 
 void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname) {
@@ -261,8 +302,9 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 		break;
 /**************************  DOCBOOK file END ******************************/
 /**************************  HTML file ******************************/		
-		case INFB_DOCTYPE_HTML:  
-			infb_html_fill_node(view,doc,node,level);
+		case INFB_DOCTYPE_HTML: {
+			infb_html_fill_node(view,doc,node,level,NULL,FALSE);
+		}	
 		break;
 /**************************  HTML file END ******************************/	
 	

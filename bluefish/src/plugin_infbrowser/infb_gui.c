@@ -31,7 +31,7 @@
 #include "infb_dtd.h"
 #include "infb_wizard.h"
 #include "infb_docbook.h"
-
+#include <libxml/nanohttp.h>
 
 
 /*
@@ -124,8 +124,6 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       	tag = tagp->data;
       	aux = g_object_get_data(G_OBJECT(tag),"type");
       	if ( aux && aux == &infb_v.nt_fileref) { /* fileref */
-      		if (infb_v.currentDoc!=NULL && infb_v.currentDoc!=infb_v.homeDoc)
-      			xmlFreeDoc(infb_v.currentDoc);
       		aux = g_object_get_data(G_OBJECT(tag),"loaded");
       		if ( aux ) {
       			infb_v.currentDoc = aux;
@@ -134,7 +132,26 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       		else {	
       			aux = g_object_get_data(G_OBJECT(tag),"file");
       			if ( aux ) {
-      				doc = xmlReadFile(aux,NULL,XML_PARSE_RECOVER | XML_PARSE_NOENT | XML_PARSE_NOBLANKS | XML_PARSE_XINCLUDE);
+	      			if (g_str_has_prefix ((gchar*)aux,"http://")) {
+							gchar *pstr = g_strdup_printf("%s/bfish_%ld",g_get_tmp_dir(),(long int)time(NULL));
+							if (xmlNanoHTTPFetch((const char *)aux,pstr,NULL)==-1) {							
+								g_free(pstr);
+	      					message_dialog_new(bfwin->main_window,
+      								GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Cannot load file"),(gchar*)aux);
+								break;
+							}
+							doc = xmlReadFile(pstr,NULL,XML_PARSE_RECOVER | XML_PARSE_NOENT | XML_PARSE_NOBLANKS | XML_PARSE_XINCLUDE);
+							if (doc) doc->URL = xmlStrdup(BAD_CAST aux);
+	      				g_free(pstr);
+						}      				
+      				else {
+	      				if (!g_file_test((gchar*)aux,G_FILE_TEST_EXISTS)) {
+   	   					message_dialog_new(bfwin->main_window,
+      									GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Cannot find file"),(gchar*)aux);
+      						break;			
+      					}     				
+      					doc = xmlReadFile((gchar*) aux,NULL,XML_PARSE_RECOVER | XML_PARSE_NOENT | XML_PARSE_NOBLANKS | XML_PARSE_XINCLUDE);
+      				}	
       				if ( doc ) {
       					g_object_set_data (G_OBJECT (tag), "loaded", doc);
       					/* check for conversion */
@@ -163,10 +180,27 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       										infb_convert_dtd(doc);
       									xmlFree(text);
       								}	
-      							} else xmlFree(text);
+      							}
+      							else if (xmlStrcmp(text,BAD_CAST "http")==0) {
+      								xmlFree(text);
+      								text = xmlGetProp(auxnode,BAD_CAST "uri");
+      								if (text) {
+												gchar *pstr = g_strdup_printf("%s/bfish_%ld",g_get_tmp_dir(),(long int)time(NULL));
+												if (xmlNanoHTTPFetch((const char *)text,pstr,NULL)==-1) {							
+													g_free(pstr);
+	      										message_dialog_new(bfwin->main_window,
+      																	GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Cannot load file from network"),(gchar*)text);
+													break;
+												}
+												doc = xmlReadFile(pstr,NULL,XML_PARSE_RECOVER | XML_PARSE_NOENT | XML_PARSE_NOBLANKS | XML_PARSE_XINCLUDE);
+												if (doc) doc->URL = xmlStrdup(BAD_CAST text);
+	      									g_free(pstr);
+      								}
+      							} 
+      							else xmlFree(text);
       						}
       					}
-      					else if (xmlStrcmp(auxnode->name,BAD_CAST "html")==0) {
+      					if (xmlStrcmp(auxnode->name,BAD_CAST "html")==0) {
       						/* bad trick - but HTML files can be non well-formed */
       						xmlErrorPtr err = xmlGetLastError();
       						if (err) {
@@ -178,9 +212,12 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       							}
       						}
       					}
+			      		if (infb_v.currentDoc!=NULL && infb_v.currentDoc!=infb_v.homeDoc)
+		      			xmlFreeDoc(infb_v.currentDoc);
 		      			infb_v.currentDoc = doc;
 		      			infb_fill_doc(bfwin,NULL);      				
-      				}				
+      				} /* if doc */	 
+      								
       			}
       		}
       		break;	
@@ -198,11 +235,7 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
 						xmlSetProp(auxnode,BAD_CAST "expanded",BAD_CAST "0");
 					else
 						xmlSetProp(auxnode,BAD_CAST "expanded",BAD_CAST "1");
-					/*offset = gtk_text_iter_get_line(&iter);*/
 					infb_fill_doc( bfwin,NULL );
-					/*gtk_text_buffer_get_iter_at_line (buffer, &iter, offset);
-					gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(gui->docview),&iter,0.0,FALSE,0.0,0.0);
-					gtk_widget_grab_focus(gui->docview);*/
 					xmlFree(text);
 				}
       	} /* group */

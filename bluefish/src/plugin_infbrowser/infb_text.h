@@ -56,10 +56,13 @@
 void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root);
 xmlXPathObjectPtr getnodeset (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start);
 xmlNodePtr getnode (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start);
+gint getcount (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start);
+
 void infb_insert_icon(GtkTextView *view, GtkWidget *icon, gchar *prepend);
 void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname);
 void infb_insert_node(GtkTextBuffer *buff, xmlChar *text, xmlNodePtr node,gboolean endline);
 void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node);
 void infb_insert_text(GtkTextBuffer *buff, xmlChar *text, gint type, gboolean eol);
-void infb_insert_label(GtkTextView *view, xmlChar *text);
+void infb_insert_text_tag(GtkTextBuffer *buff, xmlChar *text, GtkTextTag *tag, gboolean eol);
+void infb_insert_widget(GtkTextView *view, GtkWidget *widget,gint size);
 #endif /* INFB_TEXT_H */
