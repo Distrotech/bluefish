@@ -36,7 +36,7 @@ void infb_set_current_type(xmlDocPtr doc) {
 	xmlNodePtr root;
 	infb_v.currentType = INFB_DOCTYPE_UNKNOWN;
 	root = xmlDocGetRootElement(doc);
-	if ( xmlStrcmp(root->name,BAD_CAST "ref")== 0 )
+	if ( root && xmlStrcmp(root->name,BAD_CAST "ref")== 0 )
 	{
 		txt = xmlGetProp(root,BAD_CAST "type");
 		if (!txt) infb_v.currentType = INFB_DOCTYPE_FREF2;
@@ -50,9 +50,9 @@ void infb_set_current_type(xmlDocPtr doc) {
 			xmlFree(txt);
 		}
 	}	
-	else if ( xmlStrcmp(root->name,BAD_CAST "book")== 0 ) 
+	else if ( root && xmlStrcmp(root->name,BAD_CAST "book")== 0 ) 
 		infb_v.currentType = INFB_DOCTYPE_DOCBOOK;
-	else if ( xmlStrcmp(root->name,BAD_CAST "html")== 0 ) 
+	else if ( root && xmlStrcmp(root->name,BAD_CAST "html")== 0 ) 
 		infb_v.currentType = INFB_DOCTYPE_HTML;
 		
 } 
@@ -189,6 +189,14 @@ void infb_insert_icon(GtkTextView *view, GtkWidget *icon, gchar *prepend) {
 	gtk_text_buffer_insert_at_cursor(buff," ",1);
 	gtk_text_view_add_child_at_anchor (view,icon,anchor);
 	gtk_widget_show_all(icon);									
+}
+
+void infb_insert_anchor(GtkTextView *view, xmlChar *text) {
+	GtkTextIter iter;
+	GtkTextBuffer *buff = gtk_text_view_get_buffer(view);
+	if (!text) return;
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
+	gtk_text_buffer_create_mark(buff,(gchar*)text,&iter,TRUE);
 }
 
 void infb_insert_widget(GtkTextView *view, GtkWidget *widget,gint size) {
@@ -750,7 +758,11 @@ void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root) {
 	
 	gtk_text_buffer_get_bounds(buff,&it1,&it2);		
 	gtk_text_buffer_delete(buff,&it1,&it2);
-		
+	
+	if ( infb_v.currentType == INFB_DOCTYPE_UNKNOWN ) {
+		gtk_text_buffer_set_text(buff,_("Unknown document type."),-1);
+		return;
+	}	
 	if ( root == NULL ){
 		node = xmlDocGetRootElement(infb_v.currentDoc);
 		infb_v.currentNode = node;
