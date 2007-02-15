@@ -38,11 +38,14 @@
 #define INFB_STYLE_BOLD			"weight",PANGO_WEIGHT_BOLD
 #define INFB_STYLE_TITLE		"weight",PANGO_WEIGHT_BOLD,"paragraph-background","#E3D1AD","justification",GTK_JUSTIFY_CENTER
 #define INFB_STYLE_DESC			"scale",PANGO_SCALE_SMALL,"paragraph-background","#EAD8B3","justification",GTK_JUSTIFY_CENTER
-#define INFB_STYLE_FILEREF		"weight",PANGO_WEIGHT_BOLD
+#define INFB_STYLE_FILEREF		NULL
 #define INFB_STYLE_NODE			"style",PANGO_STYLE_ITALIC
 #define INFB_STYLE_GROUP		"style",PANGO_STYLE_ITALIC,"weight",PANGO_WEIGHT_BOLD
 #define INFB_STYLE_SECTION		"paragraph-background","#E5E5E5","justification",GTK_JUSTIFY_CENTER
 #define INFB_STYLE_ITALIC		"style",PANGO_STYLE_ITALIC
+#define INFB_STYLE_MSG			"weight",PANGO_WEIGHT_BOLD,"paragraph-background","#65BF65","justification",GTK_JUSTIFY_CENTER
+#define INFB_STYLE_ERR			"weight",PANGO_WEIGHT_BOLD,"paragraph-background","#E1334B","justification",GTK_JUSTIFY_CENTER
+#define INFB_STYLE_SEARCH		"background","#F0F3AD"
 
 #define INFB_TT_NONE			0
 #define INFB_TT_SMALL		1
@@ -59,11 +62,13 @@ xmlNodePtr getnode (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start);
 gint getcount (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start);
 
 void infb_insert_icon(GtkTextView *view, GtkWidget *icon, gchar *prepend);
-void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname);
+void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname,xmlChar *desc);
 void infb_insert_node(GtkTextBuffer *buff, xmlChar *text, xmlNodePtr node,gboolean endline);
 void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node);
 void infb_insert_text(GtkTextBuffer *buff, xmlChar *text, gint type, gboolean eol);
 void infb_insert_text_tag(GtkTextBuffer *buff, xmlChar *text, GtkTextTag *tag, gboolean eol);
 void infb_insert_widget(GtkTextView *view, GtkWidget *widget,gint size);
 void infb_insert_anchor(GtkTextView *view, xmlChar *text);
+void infb_insert_message(GtkTextView *view, xmlChar *text);
+void infb_insert_error(GtkTextView *view, xmlChar *text);
 #endif /* INFB_TEXT_H */
