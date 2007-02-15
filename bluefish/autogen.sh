@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: autogen.sh,v 1.9 2007-02-10 20:22:05 jimh6583 Exp $
+# $Id: autogen.sh,v 1.10 2007-02-15 14:25:26 dleidert Exp $
 
 set -e
 
@@ -108,12 +108,17 @@ autogen_help() {
 ## necessary functionality to gettextize - we should prefer this way then
 prepare_gettext() {
 	for dir in $GETTEXT_PO_DIRS ; do
-		for file in $GETTEXT_FILES ; do
-			if [ -n "$VERBOSE" ]; then
-				echo "DEBUG: $COPYACTION -f $GETTEXT_DIR/$file `pwd`/$dir" >&2
-			fi
-			$COPYACTION -f $GETTEXT_DIR/$file `pwd`/$dir
-		done
+		if [ -d $dir ] ; then
+			for file in $GETTEXT_FILES ; do
+				if [ -n "$VERBOSE" ]; then
+					echo "DEBUG: $COPYACTION -f $GETTEXT_DIR/$file `pwd`/$dir" >&2
+				fi
+				$COPYACTION -f $GETTEXT_DIR/$file `pwd`/$dir
+			done
+		else
+			echo "ERROR: $dir does not exist!"
+			break
+		fi
 	done
 }
 
