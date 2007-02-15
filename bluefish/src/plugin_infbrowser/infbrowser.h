@@ -66,6 +66,7 @@ typedef struct {
 	GtkToolItem *saved;
 	gboolean hovering_over_link;	
 	GtkWidget *tip_window,*tip_label;
+	GtkTextTag *search_tag;
 } Tinfbwin;
 
 extern Tinfb infb_v;

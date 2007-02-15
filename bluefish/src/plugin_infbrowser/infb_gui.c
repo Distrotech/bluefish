@@ -62,15 +62,15 @@ static gboolean infb_motion_notify_event (GtkWidget  *text_view,  GdkEventMotion
  	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW(text_view));
  	gtk_text_view_get_iter_at_location (GTK_TEXT_VIEW(text_view), &iter, x, y);
  	tags = gtk_text_iter_get_tags (&iter);
-   if (!tags)
-   	gtk_widget_hide_all(win->tip_window); 
+   if (GTK_WIDGET_VISIBLE(win->tip_window))
+   	gtk_widget_hide(win->tip_window);
 	 for (tagp = tags;  tagp != NULL;  tagp = tagp->next)
     {    	
       GtkTextTag *tag = tagp->data;
 		gpointer type,tipv;
 		
 		tipv = g_object_get_data (G_OBJECT (tag), "tip");
-		if (tipv) {
+		if (tipv && !GTK_WIDGET_VISIBLE(win->tip_window)) {
 			gtk_label_set_markup(GTK_LABEL(win->tip_label),(gchar*)tipv);
 	  		gdk_window_get_pointer (NULL, &x, &y, NULL);		
   			gtk_window_move (GTK_WINDOW(win->tip_window), x + 8, y + 16); 			
@@ -115,9 +115,11 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
 	xmlNodePtr auxnode;	   
 	xmlChar *text;
 	Tbfwin *bfwin = BFWIN(user_data);
+	Tinfbwin *win = (Tinfbwin*)g_hash_table_lookup(infb_v.windows,bfwin);
    
    if (event->button == 1) {
-   
+   	if (win && GTK_WIDGET_VISIBLE(win->tip_window))
+   		gtk_widget_hide_all(win->tip_window);
    	buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (widget));
    	gtk_text_buffer_get_selection_bounds (buffer, &start, &end);
   		if (gtk_text_iter_get_offset (&start) != gtk_text_iter_get_offset (&end))  return FALSE;
@@ -134,16 +136,18 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       			infb_v.currentDoc = aux;
 					infb_fill_doc(bfwin,NULL);      				
       		}
-      		else {	
+      		else {      			
       			aux = g_object_get_data(G_OBJECT(tag),"file");
       			if ( aux ) {
+      				infb_insert_message(GTK_TEXT_VIEW(widget),BAD_CAST _("Loading..."));
 	      			if (g_str_has_prefix ((gchar*)aux,"http://")) {
 							gchar *pstr = g_strdup_printf("%s/bfish_%ld",g_get_tmp_dir(),(long int)time(NULL));
 							gchar *info;
 							if (xmlNanoHTTPFetch((const char *)aux,pstr,&info)==-1) {							
 								g_free(pstr);
-	      					message_dialog_new(bfwin->main_window,
-      								GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Cannot load file"),(gchar*)aux);
+								infb_insert_error(GTK_TEXT_VIEW(widget),BAD_CAST _("Cannot load file from network"));
+	      					/*message_dialog_new(bfwin->main_window,
+      								GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Cannot load file"),(gchar*)aux);*/
 								break;
 							}
 							if (info) g_free(info);
@@ -155,8 +159,9 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
 						}      				
       				else {
 	      				if (!g_file_test((gchar*)aux,G_FILE_TEST_EXISTS) || !g_file_test((gchar*)aux,G_FILE_TEST_IS_REGULAR)) {
-   	   					message_dialog_new(bfwin->main_window,
-      									GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Cannot find file"),(gchar*)aux);
+	      					infb_insert_error(GTK_TEXT_VIEW(widget),BAD_CAST _("Cannot find file"));	
+   	   					/*message_dialog_new(bfwin->main_window,
+      									GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Cannot find file"),(gchar*)aux);*/
       						break;			
       					}     				
       					doc = xmlReadFile((gchar*) aux,NULL,
@@ -174,21 +179,21 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
       								xmlFree(text);
       								text = xmlGetProp(auxnode,BAD_CAST "uri");
       								if (text) {
-      									const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };
-      									gint res;      									 
-      									if (g_str_has_prefix ((gchar*)text,"http://")) { 
-      										res = message_dialog_new_multi(bfwin->main_window,GTK_MESSAGE_QUESTION,
+      									/*const gchar *buttons[] = { GTK_STOCK_NO, GTK_STOCK_YES, NULL };*/
+      									/*gint res;      									 
+      									f (g_str_has_prefix ((gchar*)text,"http://")) {*/ 
+      										/*res = message_dialog_new_multi(bfwin->main_window,GTK_MESSAGE_QUESTION,
       												buttons,_("Remote DTD file"),
       												_("It seems this is remote DTD.\nIt can take some time to load.\nContinue?"));
       										if ( res == 0 ) {
       											g_object_set_data (G_OBJECT (tag), "loaded", NULL);
       											if (tags) g_slist_free (tags);      												
       										 	return FALSE;
-      										} 			
-      										infb_convert_dtd(doc);
+      										} 	*/		
+      									/*	infb_convert_dtd(doc);
       									} 
-											else				
-      										infb_convert_dtd(doc);
+											else*/				
+      									infb_convert_dtd(doc);
       									xmlFree(text);
       								}	
       							}
@@ -200,8 +205,9 @@ gboolean  infb_button_release_event(GtkWidget  *widget,GdkEventButton *event, gp
 												gchar *info;
 												if (xmlNanoHTTPFetch((const char *)text,pstr,&info)==-1) {							
 													g_free(pstr);
-	      										message_dialog_new(bfwin->main_window,
-      																	GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Cannot load file from network"),(gchar*)text);
+													infb_insert_error(GTK_TEXT_VIEW(widget),BAD_CAST _("Cannot load file from network"));
+	      										/*message_dialog_new(bfwin->main_window,
+      																	GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Cannot load file from network"),(gchar*)text);*/
 													break;
 												}
 												if (info) g_free(info);												
@@ -397,8 +403,9 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 	gchar *txt,*str;
 	xmlXPathObjectPtr result;	
 	gint i;
-	xmlNodePtr node,node2,node3,node4;
+	xmlNodePtr node=NULL,node2=NULL,node3,node4;
 	gboolean found = FALSE;
+	Tinfbwin *win = (Tinfbwin*)g_hash_table_lookup(infb_v.windows,bfwin);
 	
 	if ( event->keyval != GDK_Return )	return FALSE;
 	if (infb_v.currentDoc == NULL ) return FALSE; 
@@ -425,6 +432,33 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 						xmlAddChild(node,node2);
 					}
 				}			
+			break;
+			case INFB_DOCTYPE_HTML:
+			if (win) {
+				GdkRectangle rect;
+				gint line;
+				GtkTextIter iter,mstart,mend;
+				if (win->search_tag) {
+					gtk_text_buffer_get_bounds(gtk_text_view_get_buffer(GTK_TEXT_VIEW(win->view)),&mstart,&mend);
+					gtk_text_buffer_remove_tag_by_name(gtk_text_view_get_buffer(GTK_TEXT_VIEW(win->view)),"search_tag",&mstart,&mend);
+				}							
+				gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(win->view), &rect);
+				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(win->view), &iter, rect.y, &line);
+				gtk_text_iter_forward_line(&iter);
+				if ( gtk_text_iter_forward_search(&iter,txt,GTK_TEXT_SEARCH_TEXT_ONLY,&mstart,&mend,NULL))
+				{
+					gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(win->view),&mstart,0.0,TRUE,0.0,0.0);
+					if (!win->search_tag)
+ 						win->search_tag = gtk_text_buffer_create_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(win->view)),
+										"search_tag",INFB_STYLE_SEARCH,NULL);						
+					gtk_text_buffer_apply_tag(gtk_text_view_get_buffer(GTK_TEXT_VIEW(win->view)),win->search_tag,&mstart,&mend);
+					return FALSE;
+				}
+				else {
+					message_dialog_new(bfwin->main_window,GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Nothing found"),txt);
+					return FALSE;
+				}	
+			}
 			break;
 			default: /* fref2 */
 				node = xmlNewDocNode(infb_v.currentDoc,NULL,BAD_CAST "search_result",NULL);
@@ -453,14 +487,14 @@ gboolean infb_search_keypress (GtkWidget *widget,GdkEventKey *event,Tbfwin *bfwi
 				}	
 			break;
 		} /* switch */
-		if ( found ) {		
+		if ( found && node && node2) {		
 			node2 = xmlDocGetRootElement(infb_v.currentDoc);
 			xmlAddChild(node2,node);
 			infb_fill_doc(bfwin,node);
 		}	
 		else {
-			message_dialog_new(bfwin->main_window,GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Nothing found"),"");
-			xmlFreeNode(node);
+			message_dialog_new(bfwin->main_window,GTK_MESSAGE_INFO,GTK_BUTTONS_CLOSE,_("Nothing found"),txt);
+			if (node) xmlFreeNode(node);
 		}	 															
 	}
 	return FALSE;
@@ -571,10 +605,9 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
    gtk_label_set_markup(GTK_LABEL(win->tip_label),"xx");
    gtk_misc_set_alignment (GTK_MISC (win->tip_label), 0.5, 0.5);
    gtk_container_add (GTK_CONTAINER (win->tip_window), GTK_WIDGET (win->tip_label));  
-   gtk_widget_hide_all(win->tip_window);
-   
+   gtk_widget_hide_all(win->tip_window);   
    g_object_set_data(G_OBJECT(win->view),"tip",win->tip_window);
-   gtk_widget_hide_all(win->tip_window);       
+       
 
 	infb_load();
 	infb_load_fragments(win);

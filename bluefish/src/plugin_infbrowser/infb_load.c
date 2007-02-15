@@ -31,56 +31,73 @@
 #include "infb_html.h"
 
 
-gchar *infb_load_refname(gchar *filename) {
+gchar **infb_load_refname(gchar *filename) {
 	xmlDocPtr doc;
 	xmlNodePtr cur;
-	gchar *ret;
+	gchar **ret = g_new0(gchar*,4) ;
 	
 	if (filename == NULL)	return NULL;
 	doc = xmlReadFile(filename,NULL,XML_PARSE_RECOVER | XML_PARSE_NOENT | XML_PARSE_NOBLANKS | XML_PARSE_XINCLUDE);
 	if (doc==NULL) {
 		g_warning(_("Cannot load reference file %s\n"),filename);
+		g_strfreev(ret);
 		return NULL;
 	}	
 	cur = xmlDocGetRootElement(doc);
-	if (!cur) return _("Unknown");
+	if (!cur) {
+		g_strfreev(ret);
+		return NULL;
+	}
 	if (xmlStrcmp(cur->name, BAD_CAST "ref")==0)
 	{
-		ret = (gchar*)xmlGetProp(cur, BAD_CAST "name");
+		ret[0] = (gchar*)xmlGetProp(cur, BAD_CAST "name");
+		ret[1] = (gchar*)xmlGetProp(cur, BAD_CAST "type");
+		if (!ret[1]) ret[1] = g_strdup("fref");
+		ret[2] = (gchar*)xmlGetProp(cur, BAD_CAST "description");
+		if (!ret[2]) ret[2] = g_strdup("");
 	}	
 	else if (xmlStrcmp(cur->name, BAD_CAST "book")==0) /* docbook? */
 	{
 		xmlChar *text = infb_db_get_title(doc,FALSE,NULL);
 		if (text) {
-				ret = g_strdup((gchar*)text);
+				ret[0] = g_strdup((gchar*)text);
 				xmlFree(text);
 		}		
 		else
-				ret = g_strdup((gchar*)cur->name);
+				ret[0] = g_strdup((gchar*)cur->name);
+		ret[1] = g_strdup("docbook");
+		ret[2] = g_strdup("");		
 	}
 	else if (xmlStrcmp(cur->name, BAD_CAST "html")==0) /* html? */
 	{
 		xmlErrorPtr err = xmlGetLastError();
 		xmlChar *text;
 		if (err) {
-			/*if (strcmp(err->file,filename)==0) {*/
 			/* try to reload */
 				xmlFreeDoc(doc);
       		doc = htmlParseFile(filename,NULL);
-      		if (!doc) return g_strdup("Unknown");
-      	/*}*/
       }
-		text = infb_html_get_title(doc);
-		if (text) {
-				ret = g_strdup((gchar*)text);
+  		if (!doc) {
+			g_strfreev(ret);
+			return NULL;
+  		}	
+  		else {
+			text = infb_html_get_title(doc);
+			if (text) {
+				ret[0] = g_strdup((gchar*)text);
 				xmlFree(text);
-		}		
-		else
-				ret = g_strdup((gchar*)cur->name);		
+			}		
+			else
+				ret[0] = g_strdup((gchar*)cur->name);
+			ret[1] = g_strdup("html");	
+		}
+		ret[2] = g_strdup("");				
 	}			
-	else
-		ret = g_strdup((gchar*)cur->name);
-   xmlFreeDoc(doc);   
+	else {
+		g_strfreev(ret);
+		return NULL;
+	}	
+   if (doc) xmlFreeDoc(doc);   
    return ret;
 }
 
@@ -89,7 +106,7 @@ static gboolean reference_file_known(gchar * path)
 	GList *tmplist = g_list_first(main_v->globses.reference_files);
 	while (tmplist) {
 		gchar **arr = tmplist->data;
-		if (count_array(arr) == 2 && strcmp(arr[1], path) == 0) {
+		if (count_array(arr) == 4 && strcmp(arr[1], path) == 0) {
 			return TRUE;
 		}
 		tmplist = g_list_next(tmplist);
@@ -103,7 +120,7 @@ void infb_rescan_dir(const gchar * dir)
 	/* BUG: deprecated reference files are never removed from the list !! */
 	const gchar *filename;
 	GError *error = NULL;
-	gchar *tofree;
+	gchar **tofree;
 	GPatternSpec *ps = g_pattern_spec_new("bflib_*.xml"); 
 	GPatternSpec *ps2 = g_pattern_spec_new("bflib_*.xml.gz"); /* also xml.gz files */
 	GDir *gd = g_dir_open(dir, 0, &error);
@@ -116,10 +133,12 @@ void infb_rescan_dir(const gchar * dir)
 			if (!reference_file_known(path)) {
 				tofree = infb_load_refname(path);
 				DEBUG_MSG("fref_rescan_dir, adding %s:%s to list\n",tofree,path);
-				main_v->globses.reference_files =
-					g_list_append(main_v->globses.reference_files,
-								  array_from_arglist(tofree, path, NULL));
-				g_free(tofree);
+				if (tofree) {
+					main_v->globses.reference_files =
+						g_list_append(main_v->globses.reference_files,
+										  array_from_arglist(tofree[0], path,tofree[1],tofree[2], NULL));
+					g_strfreev(tofree);
+				}
 			}
 			g_free(path);
 		}
@@ -133,7 +152,7 @@ void infb_rescan_dir(const gchar * dir)
 
 
 void infb_load(void) {
-	xmlNodePtr node,node2;
+	xmlNodePtr node,node2,n_fref,n_dtd,n_html;
 	xmlDtdPtr dtd;
 	GList *reflist;
 	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
@@ -147,19 +166,28 @@ void infb_load(void) {
 	xmlNewProp(node,BAD_CAST "name",BAD_CAST _("Documentation entries"));
 	xmlNewProp(node,BAD_CAST "type",BAD_CAST "index");
 	xmlDocSetRootElement(infb_v.homeDoc,node);
+	n_fref = xmlNewChild(node,NULL,BAD_CAST "group",BAD_CAST "");
+	xmlNewProp(n_fref,BAD_CAST "name",BAD_CAST _("References"));
+	n_dtd = xmlNewChild(node,NULL,BAD_CAST "group",BAD_CAST "");
+	xmlNewProp(n_dtd,BAD_CAST "name",BAD_CAST _("DTD"));
+	n_html = xmlNewChild(node,NULL,BAD_CAST "group",BAD_CAST "");
+	xmlNewProp(n_html,BAD_CAST "name",BAD_CAST _("Web pages"));
+		
 	dtd = xmlCreateIntSubset(infb_v.homeDoc, BAD_CAST "index", BAD_CAST INFB_INDEX_PUBLIC_ID, NULL);
 	reflist = g_list_first(main_v->globses.reference_files);
 	while (reflist) {
 		gchar **tmparray = reflist->data;
-		if (count_array(tmparray) == 2) {
+		if (count_array(tmparray) == 4) {
 			if (access(tmparray[1], R_OK) == 0) {
-				node2 = xmlNewChild(node,NULL,BAD_CAST "fileref",BAD_CAST tmparray[1]);
+				if (strcmp(tmparray[2],"dtd")==0)
+					node2 = xmlNewChild(n_dtd,NULL,BAD_CAST "fileref",BAD_CAST tmparray[1]);
+				else if (strcmp(tmparray[2],"http")==0)
+					node2 = xmlNewChild(n_html,NULL,BAD_CAST "fileref",BAD_CAST tmparray[1]);
+				else
+						node2 = xmlNewChild(n_fref,NULL,BAD_CAST "fileref",BAD_CAST tmparray[1]);		
 				xmlNewProp(node2,BAD_CAST "name",BAD_CAST tmparray[0]);
-				if (access(tmparray[1], W_OK) == 0) {
-					xmlNewProp(node2,BAD_CAST "ro",BAD_CAST "0");
-				} else {
-					xmlNewProp(node2,BAD_CAST "ro",BAD_CAST "1");
-				}				   
+				xmlNewProp(node2,BAD_CAST "type",BAD_CAST tmparray[2]);
+				xmlNewProp(node2,BAD_CAST "description",BAD_CAST tmparray[3]);
 			}
 		} 
 		reflist = g_list_next(reflist);

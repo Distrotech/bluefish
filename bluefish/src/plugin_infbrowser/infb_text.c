@@ -24,7 +24,7 @@
 #include <libxml/xmlschemas.h>
 #include <libxml/schemasInternals.h>
 #include <libxml/tree.h>
-
+#include <string.h>
 #include "infb_text.h"
 #include "infbrowser.h"
 #include "infb_docbook.h"
@@ -126,6 +126,41 @@ gint getcount (xmlDocPtr doc, xmlChar *xpath,xmlNodePtr start) {
 }
 
 
+void infb_insert_message(GtkTextView *view, xmlChar *text) {
+	GtkTextTag *tag;
+	GtkTextIter iter,it1,it2;
+	GtkTextBuffer *buff = gtk_text_view_get_buffer(view);	
+	
+	gtk_text_buffer_get_bounds(buff,&it1,&it2);
+	gtk_text_buffer_remove_all_tags (buff,&it1,&it2);
+	gtk_text_buffer_delete(buff,&it1,&it2);
+	gtk_text_buffer_insert_at_cursor(buff,"\n\n",2);	
+	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_MSG,NULL);
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
+	gtk_widget_queue_draw(GTK_WIDGET(view));
+	gdk_window_process_all_updates();
+		
+}
+
+void infb_insert_error(GtkTextView *view, xmlChar *text) {
+	GtkTextTag *tag;
+	GtkTextIter iter,it1,it2;
+	GtkTextBuffer *buff = gtk_text_view_get_buffer(view);	
+	
+	gtk_text_buffer_get_bounds(buff,&it1,&it2);
+	gtk_text_buffer_remove_all_tags (buff,&it1,&it2);
+	gtk_text_buffer_delete(buff,&it1,&it2);	
+	gtk_text_buffer_insert_at_cursor(buff,"\n\n",2);
+	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_ERR,NULL);
+	gtk_text_buffer_get_iter_at_mark (buff,&iter,gtk_text_buffer_get_insert(buff));
+	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
+	gtk_widget_queue_draw(GTK_WIDGET(view));
+	gdk_window_process_all_updates();
+		
+}
+
+
 void infb_insert_text_tag(GtkTextBuffer *buff, xmlChar *text, GtkTextTag *tag, gboolean eol) {
 	GtkTextIter iter;
 	if (!text || !tag) return;
@@ -220,7 +255,7 @@ void infb_insert_widget(GtkTextView *view, GtkWidget *widget,gint size) {
 	gtk_widget_show_all(widget);									
 }
 
-void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname) {
+void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname,xmlChar *desc) {
 	GtkTextTag *tag;
 	GtkTextIter iter;
 	if (!text) return;
@@ -228,6 +263,8 @@ void infb_insert_fileref(GtkTextBuffer *buff, xmlChar *text, xmlChar *fname) {
 	tag = gtk_text_buffer_create_tag(buff,NULL,INFB_STYLE_FILEREF,NULL);
 	g_object_set_data (G_OBJECT (tag), "type", &infb_v.nt_fileref);
 	g_object_set_data (G_OBJECT (tag), "file", g_strdup((const gchar*)fname));				
+	if ( desc && xmlStrcmp(desc,BAD_CAST"")!=0 )
+		g_object_set_data (G_OBJECT (tag), "tip", g_strdup((gchar*)desc));
 	gtk_text_buffer_insert_with_tags(buff,&iter,(const gchar*)text,xmlStrlen(text),tag,NULL);
 	gtk_text_buffer_insert_at_cursor(buff,"\n",1);
 }
@@ -293,15 +330,30 @@ static void infb_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint 
 					auxn = auxn->next;
 				}
 			} /* reference index */	
-			else	if ( xmlStrcmp(node->name,BAD_CAST "fileref") ==0 ) { /* fileref  - this will link child */
+			else	if ( xmlStrcmp(node->name,BAD_CAST "group") ==0 ) { /* fileref group  - this will link child */
 				text = xmlGetProp(node,BAD_CAST "name");
-				if ( text ) {
-					infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_FILE,GTK_ICON_SIZE_MENU),NULL);
-					text2 = xmlNodeGetContent(node);
-					infb_insert_fileref(buff,text,text2);					
-					xmlFree(text2);
+				text2 = xmlGetProp(node,BAD_CAST "expanded");
+				if ( text ) {					
+					infb_insert_group(view,text,node);																					
 					xmlFree(text);
-				}	
+				}						
+				if ( text2 && xmlStrcmp(text2,BAD_CAST "1")==0 ) {
+					auxn = node->xmlChildrenNode;
+					while ( auxn ) {
+						text = xmlGetProp(auxn,BAD_CAST "name");
+						if ( text ) {
+							xmlChar *text3,*text4;
+							infb_insert_icon(view,gtk_image_new_from_stock(GTK_STOCK_FILE,GTK_ICON_SIZE_MENU),"  ");
+							text4 = xmlNodeGetContent(auxn);
+							text3 = xmlGetProp(auxn,BAD_CAST "description");
+							infb_insert_fileref(buff,text,text4,text3);					
+							xmlFree(text);
+							xmlFree(text4);
+						}	
+						auxn = auxn->next;
+					}
+					xmlFree(text2);
+				}										
 			} /* fileref */				
 		break; /* index document */
 /**************************  DOCBOOK file ******************************/		
@@ -725,7 +777,6 @@ void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root) {
 	GtkTextBuffer *buff;
 	GtkTextIter it1,it2;
 	xmlNodePtr node;
-	Tinfbwin *win = (Tinfbwin*)g_hash_table_lookup(infb_v.windows,bfwin);
 	
 	auxp = g_hash_table_lookup(infb_v.windows,bfwin);
 	if ( !auxp ) return;
@@ -745,22 +796,17 @@ void infb_fill_doc(Tbfwin *bfwin,xmlNodePtr root) {
 		gtk_widget_set_sensitive(GTK_WIDGET(((Tinfbwin*)auxp)->btn_home),FALSE);
 		gtk_widget_set_sensitive(((Tinfbwin*)auxp)->sentry,FALSE);
 	}
+
+	 	
 	buff = gtk_text_view_get_buffer(view);
 	gtk_text_buffer_get_bounds(buff,&it1,&it2);
 	gtk_text_buffer_remove_all_tags (buff,&it1,&it2);
 	gtk_text_buffer_delete(buff,&it1,&it2);
 	
 	infb_set_current_type(infb_v.currentDoc);
-	
-	gtk_text_buffer_set_text(buff,_("Loading..."),-1);
-	gtk_widget_queue_draw(win->view);
-	gdk_window_process_all_updates();
-	
-	gtk_text_buffer_get_bounds(buff,&it1,&it2);		
-	gtk_text_buffer_delete(buff,&it1,&it2);
-	
+		
 	if ( infb_v.currentType == INFB_DOCTYPE_UNKNOWN ) {
-		gtk_text_buffer_set_text(buff,_("Unknown document type."),-1);
+		infb_insert_error(view,BAD_CAST _("Unknown document type"));
 		return;
 	}	
 	if ( root == NULL ){
