@@ -31,5 +31,6 @@
 void infb_html_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,gint level,
                          GtkTextTag *tag,gboolean preserve_spaces);
 xmlChar *infb_html_get_title(xmlDocPtr doc);
+gchar *infb_html_close_tags(gchar *fname);
 
 #endif /* INFB_HTML_H */

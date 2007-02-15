@@ -54,7 +54,7 @@ typedef struct {
 	xmlNodePtr currentNode;
 	guchar currentType;
 	xmlDocPtr homeDoc;
-	guchar nt_fileref, nt_node, nt_group; 	/* node types */
+	guchar nt_fileref, nt_node, nt_group, nt_localref; 	/* node types */
 	GHashTable *windows; /* list of windows - concerning several instances of bfish ? */
 } Tinfb;
 

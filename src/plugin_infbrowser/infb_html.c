@@ -23,13 +23,29 @@
 #include "infbrowser.h"
 #include "infb_text.h"
 
+
+int
+htmlAutoCloseTag(htmlDocPtr doc, const xmlChar *name, htmlNodePtr elem) {
+    /*htmlNodePtr child;
+
+    if (elem == NULL) return(1);
+    if (xmlStrEqual(name, elem->name)) return(0);
+    if (htmlCheckAutoClose(elem->name, name)) return(1);
+    child = elem->children;
+    while (child != NULL) {
+        if (htmlAutoCloseTag(doc, name, child)) return(1);
+	child = child->next;
+    }*/
+    return(1);
+}
+
+
 xmlChar *infb_html_get_title(xmlDocPtr doc) {
 	xmlNodePtr an = NULL,node;
 	xmlChar *text;
 	
 	node = xmlDocGetRootElement(doc);
 	an = getnode(doc,BAD_CAST "head/title",node);
-	g_print("html title %p\n",an);
 	if (an) {
 		text = xmlNodeGetContent(an);
 		if (text) {
@@ -166,17 +182,10 @@ void infb_html_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,
 	GtkTextTag *t=NULL;
 	
 	if (xmlStrcmp(node->name,BAD_CAST "body")==0 ||
-		 xmlStrcmp(node->name,BAD_CAST "head")==0 ||
 		 xmlStrcmp(node->name,BAD_CAST "html")==0 ||
-		 xmlStrcmp(node->name,BAD_CAST "meta")==0 ||
-		 xmlStrcmp(node->name,BAD_CAST "link")==0 ||
-		 xmlStrcmp(node->name,BAD_CAST "title")==0 ||
 		 xmlStrcmp(node->name,BAD_CAST "span")==0 ||
 		 xmlStrcmp(node->name,BAD_CAST "table")==0 ||
-		 xmlStrcmp(node->name,BAD_CAST "tbody")==0 ||
-		 xmlStrcmp(node->name,BAD_CAST "ul")==0 ||
-		 xmlStrcmp(node->name,BAD_CAST "dl")==0 ||
-		 xmlStrcmp(node->name,BAD_CAST "ol")==0
+		 xmlStrcmp(node->name,BAD_CAST "tbody")==0 
 		 ) {
 
 		auxn = node->xmlChildrenNode;
@@ -188,7 +197,11 @@ void infb_html_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,
 	else if (xmlStrcmp(node->name,BAD_CAST "div")==0 ||
 				xmlStrcmp(node->name,BAD_CAST "p")==0 ||
 				xmlStrcmp(node->name,BAD_CAST "dt")==0 ||
-				xmlStrcmp(node->name,BAD_CAST "dd")==0
+				xmlStrcmp(node->name,BAD_CAST "dd")==0 ||
+				 xmlStrcmp(node->name,BAD_CAST "ul")==0 ||
+				 xmlStrcmp(node->name,BAD_CAST "dl")==0 ||
+		 		xmlStrcmp(node->name,BAD_CAST "ol")==0
+				
 			   ) {
 		auxn = node->xmlChildrenNode;
 		while (auxn) {
@@ -208,6 +221,7 @@ void infb_html_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,
 	}	
 	else if (xmlStrcmp(node->name,BAD_CAST "em")==0 ||
 				xmlStrcmp(node->name,BAD_CAST "i")==0 ||
+				xmlStrcmp(node->name,BAD_CAST "abbr")==0 ||
 				xmlStrcmp(node->name,BAD_CAST "code")==0	) {
 		t = infb_html_copy_tag(buff,tag);
 		g_object_set(G_OBJECT(t),"style",PANGO_STYLE_ITALIC,NULL);
@@ -232,6 +246,7 @@ void infb_html_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,
 		xmlChar *lt,*tt;
 		GdkColor gc;
 		gboolean doit=FALSE;
+
 		t = infb_html_copy_tag(buff,tag);		
 		lt = xmlGetProp(node,BAD_CAST "href");
 		if ( lt ) {
@@ -240,30 +255,33 @@ void infb_html_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,
 					gchar *dir = g_path_get_dirname((gchar*)doc->URL);
 					gchar **arr = g_strsplit((gchar*)lt,"#",-1);
 					gchar *ss = g_strconcat(dir,"/",arr[0],NULL);
-					g_object_set_data(G_OBJECT(t),"file",g_strdup(ss));
-					doit = TRUE;
+					if (arr[1] && (xmlStrcmp(doc->URL,BAD_CAST arr[0])==0 || xmlStrcmp(BAD_CAST arr[0],BAD_CAST "")==0) ) 
+					{
+						g_object_set_data(G_OBJECT(t),"type",&infb_v.nt_localref);
+						g_object_set_data(G_OBJECT(t),"node",g_strdup(arr[1]));
+						doit = TRUE;
+					} else {
+						g_object_set_data(G_OBJECT(t),"type",&infb_v.nt_fileref);					
+						g_object_set_data(G_OBJECT(t),"file",g_strdup(ss));
+						doit = TRUE;
+					}	
 					g_strfreev(arr);
 					g_free(dir);
 					g_free(ss);
 				} else
 				{
+					g_object_set_data(G_OBJECT(t),"type",&infb_v.nt_fileref);
 					g_object_set_data(G_OBJECT(t),"file",g_strdup((gchar*)lt));
 					doit = TRUE;
 				}	
-			} else { 
-				/*g_print("%s\n",doc->URL);
-				if (g_str_has_prefix (doc->URL,"http://")) {
-					gchar *last = g_strrstr((gchar*)doc->URL,"/");
-					gchar *site = g_strndup((gchar*)doc->URL,xmlStrlen(doc->URL)-xmlStrlen(last));
-					g_print("%s\n",site);
-				}
-				else*/ 
+			} else {
+				g_object_set_data(G_OBJECT(t),"type",&infb_v.nt_fileref); 
 				g_object_set_data(G_OBJECT(t),"file",g_strdup((gchar*)lt));				
 				doit = TRUE;
 			}	
 			if (doit) {				
 				g_object_set(G_OBJECT(t),"underline",PANGO_UNDERLINE_SINGLE,NULL);
-				g_object_set_data(G_OBJECT(t),"type",&infb_v.nt_fileref);
+				
 				gdk_color_parse("#1E1ECE",&gc);
 				g_object_set(G_OBJECT(t),"foreground-gdk",&gc,NULL);
 				tt = xmlGetProp(node,BAD_CAST "title");
@@ -273,6 +291,12 @@ void infb_html_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,
 				}
 			}	
 			xmlFree(lt);
+		} else {
+			lt = xmlGetProp(node,BAD_CAST "name");
+			if (lt) {
+				infb_insert_anchor(view,lt);
+				xmlFree(lt);
+			}
 		}
 		auxn = node->xmlChildrenNode;
 		while (auxn) {
@@ -292,7 +316,12 @@ void infb_html_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,
 		infb_insert_text(buff,BAD_CAST "",INFB_TT_NONE,TRUE);
 	}
 	else if (xmlStrcmp(node->name,BAD_CAST "hr")==0) {
-		infb_insert_text(buff,BAD_CAST "----------------------",INFB_TT_NONE,TRUE);
+		GdkColor gc;
+		t = infb_html_copy_tag(buff,tag);
+		gdk_color_parse("#EEEEEE",&gc);
+		g_object_set(G_OBJECT(t),"underline",PANGO_UNDERLINE_SINGLE,NULL);
+		g_object_set(G_OBJECT(t),"justification",GTK_JUSTIFY_CENTER,NULL);		
+		infb_insert_text_tag(buff,BAD_CAST "                          ",t,TRUE);   
 	}	
 	else if (xmlStrcmp(node->name,BAD_CAST "h5")==0 ||
 				xmlStrcmp(node->name,BAD_CAST "h4")==0 ||
@@ -327,10 +356,17 @@ void infb_html_fill_node(GtkTextView *view,xmlDocPtr doc,xmlNodePtr node,
 			auxn = auxn->next;
 		}		
 		infb_insert_text(buff,BAD_CAST "",INFB_TT_NONE,TRUE);		
-	}	
+	}
+	else if (xmlStrcmp(node->name,BAD_CAST "title")==0 ||
+				xmlStrcmp(node->name,BAD_CAST "link")==0 ||
+				xmlStrcmp(node->name,BAD_CAST "meta")==0 ||
+				xmlStrcmp(node->name,BAD_CAST "head")==0  
+				) {
+		/* nothing to parse */
+	}		
 	else {
 		text = xmlNodeGetContent(node);
-		if (text) {
+		if (text && (node->type==XML_ELEMENT_NODE || node->type==XML_TEXT_NODE) ) {
 			if (!preserve_spaces) {
 				text = clean_text(text);
 			}	

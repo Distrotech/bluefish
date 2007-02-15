@@ -14,7 +14,8 @@ EXTRA_DIST = \
 	bflib_SVG_1_0.xml \
 	bflib_SVG_1_1_Full.xml \
 	bflib_SVG_1_1_Basic.xml \
-	bflib_SVG_1_1_Tiny.xml
+	bflib_SVG_1_1_Tiny.xml \
+	bflib_XHTML_1_0_W3C.xml
 
 CLEANFILES = $(bflib_DATA)
 

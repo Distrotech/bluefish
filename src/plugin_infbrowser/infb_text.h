@@ -65,4 +65,5 @@ void infb_insert_group(GtkTextView *view, xmlChar *text, xmlNodePtr node);
 void infb_insert_text(GtkTextBuffer *buff, xmlChar *text, gint type, gboolean eol);
 void infb_insert_text_tag(GtkTextBuffer *buff, xmlChar *text, GtkTextTag *tag, gboolean eol);
 void infb_insert_widget(GtkTextView *view, GtkWidget *widget,gint size);
+void infb_insert_anchor(GtkTextView *view, xmlChar *text);
 #endif /* INFB_TEXT_H */

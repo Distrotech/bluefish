@@ -43,6 +43,7 @@ gchar *infb_load_refname(gchar *filename) {
 		return NULL;
 	}	
 	cur = xmlDocGetRootElement(doc);
+	if (!cur) return _("Unknown");
 	if (xmlStrcmp(cur->name, BAD_CAST "ref")==0)
 	{
 		ret = (gchar*)xmlGetProp(cur, BAD_CAST "name");
@@ -62,12 +63,12 @@ gchar *infb_load_refname(gchar *filename) {
 		xmlErrorPtr err = xmlGetLastError();
 		xmlChar *text;
 		if (err) {
-			if (strcmp(err->file,filename)==0) {
+			/*if (strcmp(err->file,filename)==0) {*/
 			/* try to reload */
 				xmlFreeDoc(doc);
       		doc = htmlParseFile(filename,NULL);
       		if (!doc) return g_strdup("Unknown");
-      	}
+      	/*}*/
       }
 		text = infb_html_get_title(doc);
 		if (text) {
