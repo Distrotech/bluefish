@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <string.h>
 
@@ -212,6 +212,40 @@ static gboolean snippets_delete(xmlNodePtr node, GtkTreePath *path) {
 	return FALSE;
 }
 
+static void snippets_export_response_lcb(GtkDialog *dialog,gint response,Tsnippetswin *snw) {
+	if (response == GTK_RESPONSE_ACCEPT) {
+		gchar *filename;
+		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		if (snw->lastclickednode) {
+			snippets_export_node(snw->lastclickednode, filename);
+		}
+		g_free(filename);
+	}
+	gtk_widget_destroy(GTK_WIDGET(dialog));
+}
+
+static void snippets_import_response_lcb(GtkDialog *dialog,gint response,Tsnippetswin *snw) {
+	if (response == GTK_RESPONSE_ACCEPT) {
+		gchar *filename;
+		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		if (snw->lastclickednode) {
+			/* get the branch, not the node */
+			if (xmlStrEqual(snw->lastclickednode->name, (const xmlChar *)"leaf")) {
+				snippets_import_node(snw->lastclickednode->parent, filename);
+			} else {
+				snippets_import_node(snw->lastclickednode, filename);
+			}
+		} else {
+			/* give the root-node */
+			xmlNodePtr root; 
+			root = xmlDocGetRootElement(snippets_v.doc);
+			snippets_import_node(root, filename);
+		}
+		g_free(filename);
+	}
+	gtk_widget_destroy(GTK_WIDGET(dialog));
+}
+
 static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_action, GtkWidget *widget) {
 	DEBUG_MSG("snip_rpopup_rpopup_action_lcb, called with action %d and widget %p\n",callback_action,widget);
 	switch (callback_action) {
@@ -255,6 +289,25 @@ static void snip_rpopup_rpopup_action_lcb(Tsnippetswin *snw,guint callback_actio
 	case 6:
 		gtk_tree_view_collapse_all(GTK_TREE_VIEW(snw->view));
 	break;
+	case 7:
+		/* export */
+		{
+			GtkWidget *dialog;
+			dialog = file_chooser_dialog(snw->bfwin, _("Snippet export filename"), GTK_FILE_CHOOSER_ACTION_SAVE, NULL, TRUE, FALSE, "snippets", FALSE);
+			g_signal_connect(dialog, "response", G_CALLBACK(snippets_export_response_lcb), snw);
+			gtk_widget_show_all(dialog);
+		}
+	break;
+	case 8:
+		/* import */
+		{
+			GtkWidget *dialog;
+			dialog = file_chooser_dialog(snw->bfwin, _("Snippet import filename"), GTK_FILE_CHOOSER_ACTION_OPEN, NULL, TRUE, FALSE, "snippets", FALSE);
+			g_signal_connect(dialog, "response", G_CALLBACK(snippets_import_response_lcb), snw);
+			gtk_widget_show_all(dialog);
+		}
+
+	break;
 	}
 }
 
@@ -268,6 +321,9 @@ static GtkItemFactoryEntry snip_rpopup_menu_entries[] = {
 	{ "/sep2",						NULL,	NULL,									0,	"<Separator>" },
 	{ N_("/Expand all"),			NULL,	snip_rpopup_rpopup_action_lcb,	5,	"<Item>" },
 	{ N_("/Collapse all"),			NULL,	snip_rpopup_rpopup_action_lcb,	6,	"<Item>" },
+	{ "/sep3",						NULL,	NULL,									0,	"<Separator>" },
+	{ N_("/Export"),			NULL,	snip_rpopup_rpopup_action_lcb,	7,	"<Item>" },
+	{ N_("/Import"),			NULL,	snip_rpopup_rpopup_action_lcb,	8,	"<Item>" }
 };
 
 #ifdef ENABLE_NLS
@@ -302,7 +358,7 @@ static GtkWidget *snip_rpopup_create_menu(Tsnippetswin *snw, xmlNodePtr cur) {
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Set snippet accelerator"), (state==2));
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/New snippet"), (state!=2));
 	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Delete branch"), (state==1));
-
+	gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Export"), (state!=0));
 	return menu;
 }
 

@@ -284,3 +284,82 @@ gboolean snippets_store_lcb(gpointer data) {
 	}
 	return FALSE;
 }
+
+static void reload_tree_from_doc(void) {
+	if (snippets_v.doc) {
+		xmlNodePtr cur = xmlDocGetRootElement(snippets_v.doc);
+		if (cur) {
+			if (xmlStrEqual(cur->name, (const xmlChar *) "snippets")) {
+				/* the document is correct, first empty the treestore */
+				gtk_tree_store_clear(snippets_v.store);
+				
+				/* now reload the tree */
+				walk_tree(cur, NULL);
+			}
+		}
+	}
+}
+
+void snippets_export_node(xmlNodePtr node, const gchar *filename) {
+	xmlNodePtr newnode=NULL, cur=NULL;
+	xmlDocPtr newdoc; 
+	
+	newdoc = xmlNewDoc((const xmlChar *)"1.0");
+	cur = xmlNewDocNode(newdoc,NULL, (const xmlChar *)"snippets",NULL);
+	xmlDocSetRootElement(newdoc, cur);
+	
+	newnode = xmlDocCopyNode(node, newdoc, TRUE);
+	DEBUG_MSG("snippets_export_node, cur=%p, newdoc=%p, newnode=%p\n",cur,newdoc,newnode);
+	newnode =  xmlAddChild(cur,newnode);
+	DEBUG_MSG("snippets_export_node, cur=%p, newdoc=%p, newnode=%p\n",cur,newdoc,newnode);
+
+	xmlSaveFormatFile(filename, newdoc, 1);
+	xmlFreeDoc(newdoc);
+}
+
+typedef struct {
+	gchar *filename;
+	xmlDocPtr doc;
+	xmlNodePtr parent;
+} Tsnippets_import;
+
+static gboolean snippets_import_load_finished_lcb(gpointer data) {
+	Tsnippets_import *si = (Tsnippets_import *)data;
+
+	if (si->doc) {
+		xmlNodePtr cur;
+		cur = xmlDocGetRootElement(si->doc);
+		if (cur) {
+			if (xmlStrEqual(cur->name, (const xmlChar *) "snippets")) {
+				xmlNodePtr newnode;
+				/* now import everything below */
+				newnode = xmlDocCopyNodeList(snippets_v.doc, cur->children);
+				xmlAddChildList(si->parent,newnode);
+				reload_tree_from_doc();
+				g_idle_add(snippets_store_lcb, NULL);
+			}
+		}
+		xmlFreeDoc(si->doc);
+	}
+	g_free(si->filename);
+	g_free(si);
+	return FALSE;
+}
+
+static gpointer snippets_import_async(gpointer data) {
+	Tsnippets_import *si = (Tsnippets_import *)data;
+	
+	si->doc = xmlParseFile(si->filename);
+	g_idle_add(snippets_import_load_finished_lcb, si);	
+	return NULL;
+}
+
+
+void snippets_import_node(xmlNodePtr branch, const gchar *filename) {
+	Tsnippets_import *si;
+	
+	si = g_new(Tsnippets_import,1);
+	si->filename = g_strdup(filename);
+	si->parent = branch;
+	g_thread_create(snippets_import_async, si, FALSE, NULL);
+}
