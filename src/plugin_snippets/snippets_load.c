@@ -285,7 +285,7 @@ gboolean snippets_store_lcb(gpointer data) {
 	return FALSE;
 }
 
-static void reload_tree_from_doc(void) {
+void reload_tree_from_doc(void) {
 	if (snippets_v.doc) {
 		xmlNodePtr cur = xmlDocGetRootElement(snippets_v.doc);
 		if (cur) {
