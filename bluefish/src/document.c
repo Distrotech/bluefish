@@ -2771,6 +2771,13 @@ static void doc_view_drag_begin_lcb(GtkWidget *widget,GdkDragContext *drag_conte
 	}
 }
 
+static void doc_close_but_set_style_lcb (GtkWidget *button, GtkStyle *previous_style, gpointer user_data) {
+	gint h, w;
+
+	gtk_icon_size_lookup_for_settings (gtk_widget_get_settings (button), GTK_ICON_SIZE_MENU, &w, &h);
+	gtk_widget_set_size_request (button, w + 2, h + 2);
+}	
+
 static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly) {
 	GtkWidget *scroll;
 	Tdocument *newdoc;
@@ -2876,17 +2883,27 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 
 	DEBUG_MSG("doc_new_backend, appending doc to notebook\n");
 	{
-		GtkWidget *hbox, *but, *image;
-		hbox = gtk_hbox_new(FALSE,0);
-		but = gtk_button_new();
-		image = new_pixmap(101);
-		gtk_container_add(GTK_CONTAINER(but), image);
-		gtk_container_set_border_width(GTK_CONTAINER(but),0);
-		gtk_button_set_relief(GTK_BUTTON(but), GTK_RELIEF_NONE);
-		g_signal_connect(G_OBJECT(but), "clicked", G_CALLBACK(doc_close_but_clicked_lcb), newdoc);
+		GtkWidget *hbox, *button, *image;
+		GtkRcStyle *rcstyle;
+
+		hbox = gtk_hbox_new(FALSE, 4);
+		
+		button = gtk_button_new ();
+		image = gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
+		gtk_container_add (GTK_CONTAINER (button), image);
+		gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
+
+		rcstyle = gtk_rc_style_new ();
+		rcstyle->xthickness = rcstyle->ythickness = 0;
+		gtk_widget_modify_style (button, rcstyle);
+		gtk_rc_style_unref (rcstyle),
+		
+		g_signal_connect(button, "clicked", G_CALLBACK (doc_close_but_clicked_lcb), newdoc);
+		g_signal_connect (button, "style-set", G_CALLBACK (doc_close_but_set_style_lcb), NULL);
+		
 		gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
-		gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_eventbox, FALSE, FALSE, 0);
-		gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_eventbox, TRUE, TRUE, 0);
+		gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 		gtk_widget_show_all(hbox);
 		gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->notebook), scroll ,hbox, newdoc->tab_menu);
 #if GTK_CHECK_VERSION(2,10,0)
