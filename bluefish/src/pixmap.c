@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * pixmap.c
  *
- * Copyright (C) 2002 Oliver Sessink
+ * Copyright (C) 2002-2007 Oliver Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -50,7 +50,6 @@ static Tpixmap tp[] = {
 /* 	{10, undo}, */
 /* 	{11, redo}, */
 /* 	{12, preferences}, */
-	{101, pixmap_close_small},
 	{102, pixmap_view_in_browser},
  	{104, pixmap_bookmarks},
 	{105, pixmap_filetree},
