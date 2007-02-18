@@ -31,7 +31,7 @@ void snippets_add_tree_item(GtkTreeIter *parent, GtkTreeIter *child, gint pixmap
 
 void snippets_load(void);
 gboolean snippets_store_lcb(gpointer data);
-
+void reload_tree_from_doc(void);
 void snippets_export_node(xmlNodePtr node, const gchar *filename);
 void snippets_import_node(xmlNodePtr branch, const gchar *filename);
 

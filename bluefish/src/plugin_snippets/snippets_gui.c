@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <string.h>
 
@@ -435,6 +435,90 @@ static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint
 	return NULL;
 }
 
+static void snippetview_drag_data_get_lcb(GtkWidget *widget, GdkDragContext *ctx,GtkSelectionData *data, guint info, guint time,gpointer user_data)  {
+	if (data->target == gdk_atom_intern("BLUEFISH_SNIPPET", FALSE)) {
+/*		GtkTreeRowReference *ref;
+		GtkTreePath *path;*/
+		GtkTreeIter iter;
+		xmlNodePtr node;
+		gpointer test;
+		GtkTreeSelection *selection;
+		GtkTreeModel *model;
+		gchar *title;
+		
+		DEBUG_MSG("snippetview_drag_data_get_lcb, started\n");
+/*		ref = g_object_get_data(G_OBJECT(ctx), "gtk-tree-view-source-row");
+		path = gtk_tree_row_reference_get_path(ref);
+		if (path == NULL)	return;
+		gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store), &iter,path);
+		gtk_tree_path_free(path);*/
+		
+		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
+		if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return;		
+		
+		gtk_tree_model_get(GTK_TREE_MODEL(snippets_v.store),&iter,TITLE_COLUMN,&title,NODE_COLUMN,&node,-1);
+		test = g_new(xmlNodePtr,1);
+		memcpy(test,node,sizeof(xmlNodePtr));
+		gtk_selection_data_set(data, data->target,8, test, sizeof(xmlNodePtr));
+		DEBUG_MSG("snippetview_drag_data_get_lcb, set node %p (%s)\n",test,title);
+		g_free(title);
+	}
+}
+
+static void snippetview_drag_data_received_lcb(GtkWidget *widget, GdkDragContext *context,guint x, guint y, GtkSelectionData *sd,guint info, guint time, gpointer user_data) {
+	g_signal_stop_emission_by_name(widget, "drag_data_received");
+	DEBUG_MSG("snippetview_drag_data_received_lcb received node %p\n",sd->data);
+	if (sd->target == gdk_atom_intern("BLUEFISH_SNIPPET", FALSE) && sd->data) {
+		GtkTreePath *path = NULL;
+		GtkTreeViewDropPosition position;
+		DEBUG_MSG("snippetview_drag_data_received_lcb received node %p\n",sd->data);
+		if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(widget), x, y,&path, &position)) {
+			GtkTreeIter iter;
+			gchar *title;
+			xmlNodePtr dropnode, node=(xmlNodePtr)sd->data;
+			gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store), &iter, path);
+			gtk_tree_model_get(GTK_TREE_MODEL(snippets_v.store),&iter,TITLE_COLUMN,&title,NODE_COLUMN,&dropnode,-1);
+			DEBUG_MSG("snippetview_drag_data_received_lcb, title=%s\n",title);
+			g_free(title);
+			if (xmlStrEqual(dropnode->name, (const xmlChar *)"leaf")) {
+				switch (position) {
+					case GTK_TREE_VIEW_DROP_AFTER:
+					case GTK_TREE_VIEW_DROP_INTO_OR_AFTER:
+						xmlAddNextSibling(dropnode, node);
+						break;
+					case GTK_TREE_VIEW_DROP_BEFORE:
+					case GTK_TREE_VIEW_DROP_INTO_OR_BEFORE:
+						xmlAddPrevSibling(dropnode, node);
+						break;
+					default:
+						return;
+				}				
+			} else { /* branch */
+				switch (position) {
+					case GTK_TREE_VIEW_DROP_AFTER:
+						xmlAddNextSibling(dropnode, node);
+						break;
+					case GTK_TREE_VIEW_DROP_INTO_OR_AFTER:
+						xmlAddChild(dropnode, node);
+						break;
+					case GTK_TREE_VIEW_DROP_BEFORE:
+						xmlAddPrevSibling(dropnode, node);
+						break;
+					case GTK_TREE_VIEW_DROP_INTO_OR_BEFORE:
+						xmlAddChild(dropnode, node);
+						break;
+					default:
+						return;
+				}				
+			}
+			reload_tree_from_doc();
+			gtk_drag_finish(context, TRUE, TRUE, time);
+			return;
+		}
+	}
+	gtk_drag_finish(context, FALSE, TRUE, time);
+}
+
 void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	Tsnippetswin *snw;
 	GtkCellRenderer *renderer;
@@ -442,7 +526,8 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	GdkPixbuf *pixbuf;
 	GtkWidget *image;
 	GtkWidget *scrolwin;
-
+	GtkTargetEntry bfsnippet[] = {{"BLUEFISH_SNIPPET", GTK_TARGET_SAME_APP, 0}};
+	
 	DEBUG_MSG("snippets_sidepanel_initgui, bfwin=%p\n",bfwin);
 	
 	snw = g_new0(Tsnippetswin,1);
@@ -464,8 +549,14 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	gtk_tree_view_column_pack_start(column, renderer, TRUE);
 	gtk_tree_view_column_set_attributes(column,renderer,"text", TITLE_COLUMN,NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(snw->view), column);
-	
+
 	g_signal_connect(G_OBJECT(snw->view), "button_press_event",G_CALLBACK(snippetview_button_press_lcb),snw);
+
+	gtk_tree_view_enable_model_drag_source(GTK_TREE_VIEW(snw->view), GDK_BUTTON1_MASK, bfsnippet,1, GDK_ACTION_MOVE);
+	gtk_tree_view_enable_model_drag_dest(GTK_TREE_VIEW(snw->view), bfsnippet, 1, GDK_ACTION_MOVE);
+	g_signal_connect(G_OBJECT(snw->view), "drag-data-received",G_CALLBACK(snippetview_drag_data_received_lcb), snw);
+	g_signal_connect(G_OBJECT(snw->view), "drag-data-get",G_CALLBACK(snippetview_drag_data_get_lcb), snw);
+
 	pixbuf = gdk_pixbuf_new_from_inline(-1,snippet_icon,FALSE,NULL);
 	image = gtk_image_new_from_pixbuf(pixbuf);
 	g_object_unref(pixbuf);
