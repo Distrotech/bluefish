@@ -3,7 +3,6 @@ EXTRA_DIST = \
 	bluefish_icon1.png \
 	bookmarks.png \
 	close.png \
-	close_small.png \
 	filetree.png \
 	frcss.png \
 	frdialog2.png \
@@ -39,8 +38,7 @@ CLEANFILES = general_icons.c toolbar_icons.c
 MAINTAINERCLEANFILES = Makefile.in
 
 
-GENERAL = \
-	pixmap_close_small $(srcdir)/close_small.png
+GENERAL =
 
 TOOLBAR = \
 	pixmap_bluefish_icon1 $(srcdir)/bluefish_icon1.png \
