@@ -76,12 +76,14 @@ static void add_item_to_tree(GtkTreePath *parentp, gint pixmaptype, const gchar 
 	if (parentp) {
 		GtkTreeIter piter;
 		if (gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&piter,parentp)) {
-			snippets_add_tree_item(&piter, &citer, pixmap_type_insert, name, ptr);
+			gtk_tree_store_append(GTK_TREE_STORE(snippets_v.store), &citer, &piter);
+			snippets_fill_tree_item_from_node(&citer, ptr);
 		} else {
 			g_print("hmm weird error!?!\n");
 		}
 	} else {
-		snippets_add_tree_item(NULL, &citer, pixmap_type_insert, name, ptr);
+		gtk_tree_store_append(GTK_TREE_STORE(snippets_v.store), &citer, NULL);
+		snippets_fill_tree_item_from_node(&citer, ptr);
 	}
 }
 
