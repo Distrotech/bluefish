@@ -192,43 +192,32 @@ static const guint8 pixmap_insert[] =
   "\377\212\206\204\377\212\206\204\377\212\206\204\377\234\234\231\377"
   "_`[\0"};
 
-void snippets_add_tree_item(GtkTreeIter *parent, GtkTreeIter *child, gint pixmaptype, const gchar *name, gpointer ptr) {
-	GdkPixbuf* pixmap=NULL; 
-	DEBUG_MSG("add_tree_item, adding %s\n",name);
-	gtk_tree_store_append(snippets_v.store, child, parent);
-	
-	switch (pixmaptype) {
-		case pixmap_type_insert:
+void snippets_fill_tree_item_from_node(GtkTreeIter *iter, xmlNodePtr node) {
+	gchar *title;
+	GdkPixbuf* pixmap=NULL;
+	title = (gchar *)xmlGetProp(node, (const xmlChar *)"title");
+	if ((xmlStrEqual(node->name, (const xmlChar *)"branch"))) {
+		pixmap = NULL;
+	} else /*if ((xmlStrEqual(cur->name, (const xmlChar *)"leaf")))*/ {
+		xmlChar *type;
+		type = xmlGetProp(node, (const xmlChar *)"type");
+		if (xmlStrEqual(type, (const xmlChar *)"insert")) {
 			pixmap = gdk_pixbuf_new_from_inline(-1, pixmap_insert, FALSE, NULL);
-		break;
-		case pixmap_type_snr:
+		} else if (xmlStrEqual(type, (const xmlChar *)"snr")) {
 			pixmap = gdk_pixbuf_new_from_inline(-1, pixmap_snr, FALSE, NULL);
-		break;
+		}
 	}
-	
-	gtk_tree_store_set(snippets_v.store, child, PIXMAP_COLUMN, pixmap, TITLE_COLUMN, name,NODE_COLUMN, ptr,-1);
+	gtk_tree_store_set(snippets_v.store, iter, PIXMAP_COLUMN, pixmap, TITLE_COLUMN, title,NODE_COLUMN, node,-1);	
 }
 
 static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
-		xmlChar *title;
 		GtkTreeIter iter;
+		gtk_tree_store_append(snippets_v.store, &iter, parent);
+		snippets_fill_tree_item_from_node(&iter, cur);
 		if ((xmlStrEqual(cur->name, (const xmlChar *)"branch"))) {
-			title = xmlGetProp(cur, (const xmlChar *)"title");
-			snippets_add_tree_item(parent, &iter, pixmap_type_none, (const gchar *)title, cur);
 			walk_tree(cur, &iter);
-		} else if ((xmlStrEqual(cur->name, (const xmlChar *)"leaf"))) {
-			xmlChar *type;
-			gint pixtype=pixmap_type_none;
-			title = xmlGetProp(cur, (const xmlChar *)"title");
-			type = xmlGetProp(cur, (const xmlChar *)"type");
-			if (xmlStrEqual(type, (const xmlChar *)"insert")) {
-				pixtype=pixmap_type_insert;
-			} else if (xmlStrEqual(type, (const xmlChar *)"snr")) {
-				pixtype=pixmap_type_snr;
-			}
-			snippets_add_tree_item(parent, &iter, pixtype, (const gchar *)title, cur);
 		}
 		cur = cur->next;
 	}

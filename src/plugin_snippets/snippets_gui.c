@@ -437,79 +437,82 @@ static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint
 
 static void snippetview_drag_data_get_lcb(GtkWidget *widget, GdkDragContext *ctx,GtkSelectionData *data, guint info, guint time,gpointer user_data)  {
 	if (data->target == gdk_atom_intern("BLUEFISH_SNIPPET", FALSE)) {
-/*		GtkTreeRowReference *ref;
-		GtkTreePath *path;*/
+		GtkTreePath *path;
 		GtkTreeIter iter;
-		xmlNodePtr node;
-		gpointer test;
 		GtkTreeSelection *selection;
 		GtkTreeModel *model;
-		gchar *title;
+		gchar *strpath;
 		
 		DEBUG_MSG("snippetview_drag_data_get_lcb, started\n");
-/*		ref = g_object_get_data(G_OBJECT(ctx), "gtk-tree-view-source-row");
-		path = gtk_tree_row_reference_get_path(ref);
-		if (path == NULL)	return;
-		gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store), &iter,path);
-		gtk_tree_path_free(path);*/
-		
+
 		selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(widget));
 		if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return;		
-		
-		gtk_tree_model_get(GTK_TREE_MODEL(snippets_v.store),&iter,TITLE_COLUMN,&title,NODE_COLUMN,&node,-1);
-		test = g_new(xmlNodePtr,1);
-		memcpy(test,node,sizeof(xmlNodePtr));
-		gtk_selection_data_set(data, data->target,8, test, sizeof(xmlNodePtr));
-		DEBUG_MSG("snippetview_drag_data_get_lcb, set node %p (%s)\n",test,title);
-		g_free(title);
+		path = gtk_tree_model_get_path(GTK_TREE_MODEL(snippets_v.store),&iter);
+		strpath = gtk_tree_path_to_string(path);
+		gtk_selection_data_set(data, data->target,8, strpath, strlen(strpath));
+		DEBUG_MSG("snippetview_drag_data_get_lcb, set path %p (%s)\n",strpath,strpath);
+		gtk_tree_path_free(path);
 	}
 }
 
 static void snippetview_drag_data_received_lcb(GtkWidget *widget, GdkDragContext *context,guint x, guint y, GtkSelectionData *sd,guint info, guint time, gpointer user_data) {
 	g_signal_stop_emission_by_name(widget, "drag_data_received");
-	DEBUG_MSG("snippetview_drag_data_received_lcb received node %p\n",sd->data);
+	DEBUG_MSG("snippetview_drag_data_received_lcb received node %p (%s)\n",sd->data, sd->data);
 	if (sd->target == gdk_atom_intern("BLUEFISH_SNIPPET", FALSE) && sd->data) {
-		GtkTreePath *path = NULL;
+		GtkTreePath *destpath = NULL, *srcpath;
 		GtkTreeViewDropPosition position;
-		DEBUG_MSG("snippetview_drag_data_received_lcb received node %p\n",sd->data);
-		if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(widget), x, y,&path, &position)) {
-			GtkTreeIter iter;
-			gchar *title;
-			xmlNodePtr dropnode, node=(xmlNodePtr)sd->data;
-			gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store), &iter, path);
-			gtk_tree_model_get(GTK_TREE_MODEL(snippets_v.store),&iter,TITLE_COLUMN,&title,NODE_COLUMN,&dropnode,-1);
-			DEBUG_MSG("snippetview_drag_data_received_lcb, title=%s\n",title);
-			g_free(title);
-			if (xmlStrEqual(dropnode->name, (const xmlChar *)"leaf")) {
+		
+		srcpath = gtk_tree_path_new_from_string(sd->data);
+		if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(widget), x, y,&destpath, &position)) {
+			GtkTreeIter srciter, destiter, newiter, parentiter;
+			xmlNodePtr srcnode, destnode;
+			if (!gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&srciter,srcpath)) {
+				DEBUG_MSG("snippetview_drag_data_received_lcb, error, no iter for srcpath\n");
+				gtk_drag_finish(context, FALSE, TRUE, time);
+				return;
+			}
+			gtk_tree_model_get(GTK_TREE_MODEL(snippets_v.store),&srciter,NODE_COLUMN,&srcnode,-1);
+			if (!gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store), &destiter, destpath)) {
+				DEBUG_MSG("snippetview_drag_data_received_lcb, error, no iter for destpath\n");
+				gtk_drag_finish(context, FALSE, TRUE, time);
+				return;
+			}
+			gtk_tree_model_get(GTK_TREE_MODEL(snippets_v.store),&destiter,NODE_COLUMN,&destnode,-1);
+			if (xmlStrEqual(destnode->name, (const xmlChar *)"leaf") 
+							&& (position == GTK_TREE_VIEW_DROP_AFTER|| position == GTK_TREE_VIEW_DROP_BEFORE)) {
+				DEBUG_MSG("snippetview_drag_data_received_lcb, drop location is a leaf\n");
 				switch (position) {
 					case GTK_TREE_VIEW_DROP_AFTER:
 					case GTK_TREE_VIEW_DROP_INTO_OR_AFTER:
-						xmlAddNextSibling(dropnode, node);
+						srcnode = xmlAddNextSibling(destnode, srcnode);
+						if (srcnode) {
+							gtk_tree_store_remove(GTK_TREE_STORE(snippets_v.store),&srciter);
+							gtk_tree_model_iter_parent(GTK_TREE_MODEL(snippets_v.store), &parentiter, &destiter);
+							gtk_tree_store_insert_after(GTK_TREE_STORE(snippets_v.store), &newiter, &parentiter, &destiter);
+							snippets_fill_tree_item_from_node(&newiter, srcnode);
+						}
 						break;
 					case GTK_TREE_VIEW_DROP_BEFORE:
 					case GTK_TREE_VIEW_DROP_INTO_OR_BEFORE:
-						xmlAddPrevSibling(dropnode, node);
+						srcnode = xmlAddPrevSibling(destnode, srcnode);
+						if (srcnode) {
+							gtk_tree_store_remove(GTK_TREE_STORE(snippets_v.store),&srciter);
+							gtk_tree_model_iter_parent(GTK_TREE_MODEL(snippets_v.store), &parentiter, &destiter);
+							gtk_tree_store_insert_before(GTK_TREE_STORE(snippets_v.store), &newiter, &parentiter, &destiter);
+							snippets_fill_tree_item_from_node(&newiter, srcnode);
+						}
 						break;
 					default:
 						return;
 				}				
 			} else { /* branch */
-				switch (position) {
-					case GTK_TREE_VIEW_DROP_AFTER:
-						xmlAddNextSibling(dropnode, node);
-						break;
-					case GTK_TREE_VIEW_DROP_INTO_OR_AFTER:
-						xmlAddChild(dropnode, node);
-						break;
-					case GTK_TREE_VIEW_DROP_BEFORE:
-						xmlAddPrevSibling(dropnode, node);
-						break;
-					case GTK_TREE_VIEW_DROP_INTO_OR_BEFORE:
-						xmlAddChild(dropnode, node);
-						break;
-					default:
-						return;
-				}				
+				DEBUG_MSG("snippetview_drag_data_received_lcb, drop location is a branch\n");
+				srcnode = xmlAddChild(destnode, srcnode);
+				if (srcnode) {
+					gtk_tree_store_remove(GTK_TREE_STORE(snippets_v.store),&srciter);
+					gtk_tree_store_append(GTK_TREE_STORE(snippets_v.store), &newiter, &destiter);
+					snippets_fill_tree_item_from_node(&newiter, srcnode);
+				}
 			}
 			reload_tree_from_doc();
 			gtk_drag_finish(context, TRUE, TRUE, time);
