@@ -514,7 +514,6 @@ static void snippetview_drag_data_received_lcb(GtkWidget *widget, GdkDragContext
 					snippets_fill_tree_item_from_node(&newiter, srcnode);
 				}
 			}
-			reload_tree_from_doc();
 			gtk_drag_finish(context, TRUE, TRUE, time);
 			return;
 		}

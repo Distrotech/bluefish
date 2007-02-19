@@ -196,6 +196,7 @@ void snippets_fill_tree_item_from_node(GtkTreeIter *iter, xmlNodePtr node) {
 	gchar *title;
 	GdkPixbuf* pixmap=NULL;
 	title = (gchar *)xmlGetProp(node, (const xmlChar *)"title");
+	DEBUG_MSG("snippets_fill_tree_item_from_node, adding node %s with type %s\n",title,node->name);
 	if ((xmlStrEqual(node->name, (const xmlChar *)"branch"))) {
 		pixmap = NULL;
 	} else /*if ((xmlStrEqual(cur->name, (const xmlChar *)"leaf")))*/ {
@@ -211,13 +212,18 @@ void snippets_fill_tree_item_from_node(GtkTreeIter *iter, xmlNodePtr node) {
 }
 
 static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
+	DEBUG_MSG("walk_tree, started for children of %s\n",cur->name);
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
 		GtkTreeIter iter;
-		gtk_tree_store_append(snippets_v.store, &iter, parent);
-		snippets_fill_tree_item_from_node(&iter, cur);
-		if ((xmlStrEqual(cur->name, (const xmlChar *)"branch"))) {
-			walk_tree(cur, &iter);
+		DEBUG_MSG("walk_tree, adding child %s\n",cur->name);
+		if (xmlStrEqual(cur->name, (const xmlChar *)"branch") || xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
+			/* do not add type text (all the xml spacing is type text )! */ 
+			gtk_tree_store_append(snippets_v.store, &iter, parent);
+			snippets_fill_tree_item_from_node(&iter, cur);
+			if ((xmlStrEqual(cur->name, (const xmlChar *)"branch"))) {
+				walk_tree(cur, &iter);
+			}
 		}
 		cur = cur->next;
 	}
