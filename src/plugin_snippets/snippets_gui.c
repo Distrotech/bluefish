@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <string.h>
 
@@ -449,7 +449,7 @@ static void snippetview_drag_data_get_lcb(GtkWidget *widget, GdkDragContext *ctx
 		if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return;		
 		path = gtk_tree_model_get_path(GTK_TREE_MODEL(snippets_v.store),&iter);
 		strpath = gtk_tree_path_to_string(path);
-		gtk_selection_data_set(data, data->target,8, strpath, strlen(strpath));
+		gtk_selection_data_set(data, data->target,8, (guchar *)strpath, strlen(strpath));
 		DEBUG_MSG("snippetview_drag_data_get_lcb, set path %p (%s)\n",strpath,strpath);
 		gtk_tree_path_free(path);
 	}
@@ -462,7 +462,7 @@ static void snippetview_drag_data_received_lcb(GtkWidget *widget, GdkDragContext
 		GtkTreePath *destpath = NULL, *srcpath;
 		GtkTreeViewDropPosition position;
 		
-		srcpath = gtk_tree_path_new_from_string(sd->data);
+		srcpath = gtk_tree_path_new_from_string((gchar *)sd->data);
 		if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(widget), x, y,&destpath, &position)) {
 			GtkTreeIter srciter, destiter, newiter, parentiter;
 			xmlNodePtr srcnode, destnode;
@@ -478,8 +478,8 @@ static void snippetview_drag_data_received_lcb(GtkWidget *widget, GdkDragContext
 				return;
 			}
 			gtk_tree_model_get(GTK_TREE_MODEL(snippets_v.store),&destiter,NODE_COLUMN,&destnode,-1);
-			if (xmlStrEqual(destnode->name, (const xmlChar *)"leaf") 
-							&& (position == GTK_TREE_VIEW_DROP_AFTER|| position == GTK_TREE_VIEW_DROP_BEFORE)) {
+			if (position == GTK_TREE_VIEW_DROP_AFTER|| position == GTK_TREE_VIEW_DROP_BEFORE
+						|| xmlStrEqual(destnode->name, (const xmlChar *)"leaf")) {
 				DEBUG_MSG("snippetview_drag_data_received_lcb, drop location is a leaf\n");
 				switch (position) {
 					case GTK_TREE_VIEW_DROP_AFTER:
@@ -514,6 +514,7 @@ static void snippetview_drag_data_received_lcb(GtkWidget *widget, GdkDragContext
 					snippets_fill_tree_item_from_node(&newiter, srcnode);
 				}
 			}
+			g_idle_add(snippets_store_lcb, NULL);
 			gtk_drag_finish(context, TRUE, TRUE, time);
 			return;
 		}
