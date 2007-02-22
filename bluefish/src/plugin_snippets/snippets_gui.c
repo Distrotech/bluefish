@@ -529,6 +529,7 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	GdkPixbuf *pixbuf;
 	GtkWidget *image;
 	GtkWidget *scrolwin;
+	GtkTreeSelection *selection;
 	GtkTargetEntry bfsnippet[] = {{"BLUEFISH_SNIPPET", GTK_TARGET_SAME_APP, 0}};
 	
 	DEBUG_MSG("snippets_sidepanel_initgui, bfwin=%p\n",bfwin);
@@ -538,7 +539,8 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	g_hash_table_insert(snippets_v.lookup,bfwin,snw);	
 	DEBUG_MSG("snippets_sidepanel_initgui, snw=%p, store=%p\n",snw,snippets_v.store);
 	snw->view = gtk_tree_view_new_with_model(GTK_TREE_MODEL(snippets_v.store));
-	
+/*	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(snw->view));
+	gtk_tree_selection_set_mode(selection,GTK_SELECTION_NONE);*/
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(snw->view), FALSE);
 	renderer = gtk_cell_renderer_pixbuf_new();
 	column = gtk_tree_view_column_new();

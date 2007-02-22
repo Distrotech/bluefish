@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <string.h>
 
@@ -159,9 +159,11 @@ static gpointer snippets_build_pageSnr(Tsnipwiz *snwiz, GtkWidget *dialog_action
 	gtk_table_attach(GTK_TABLE(p->table), p->matchtype, 1, 2, 4, 5, GTK_EXPAND|GTK_FILL,GTK_SHRINK, 0, 0);
 	
 	p->casesens = gtk_check_button_new_with_mnemonic(_("Case sensitive _matching"));
+	gtk_tooltips_set_tip(main_v->tooltips,p->casesens,_("Only match if case (upper/lower) is identical."),NULL);
 	gtk_table_attach(GTK_TABLE(p->table), p->casesens, 0, 2, 5, 6, GTK_EXPAND|GTK_FILL,GTK_SHRINK, 0, 0);
 	
 	p->escapechars = gtk_check_button_new_with_mnemonic(_("_Use escape chars"));
+	gtk_tooltips_set_tip(main_v->tooltips,p->escapechars,_("Unescape backslash escaped characters such as \\n, \\t etc."),NULL);
 	gtk_table_attach(GTK_TABLE(p->table), p->escapechars, 0, 2, 6, 7, GTK_EXPAND|GTK_FILL,GTK_SHRINK, 0, 0);
 	
 	for (i = 0; i <  6; i++) {

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <string.h>
 
@@ -65,12 +65,12 @@ gint snippets_snr_matchtype_from_char(const xmlChar *matchtype) {
 
 static void snippets_snr_run_from_strings(Tdocument *doc, const xmlChar *searchpat,const xmlChar *region, 
 					const xmlChar *matchtype,const xmlChar *casesens, const xmlChar *replacepat, const xmlChar *useescapechars) {
-	gint regionnum,matchtypenum,casesensnum,escape;
+	gint regionnum,matchtypenum,casesensnum,unescape;
 	
 	regionnum = snippets_snr_region_from_char(region);
 	matchtypenum = snippets_snr_matchtype_from_char(matchtype);
 	casesensnum = (casesens && casesens[0] == '1');
-	escape = (useescapechars && useescapechars[0]=='1');
+	unescape = (useescapechars && useescapechars[0]=='1');
 	/* snr2_run_extern_replace
 	 * doc: a #Tdocument
 	 * search_pattern: #gchar* to search pattern
@@ -78,9 +78,11 @@ static void snippets_snr_run_from_strings(Tdocument *doc, const xmlChar *searchp
 	 * matchtype: #gint, 0 = normal, 1 = posix, 2 = perl
 	 * is_case_sens: #gint
 	 * replace_pattern: #gchar* to replace pattern.
+	 * unescape: #gint
 	 * */
+	DEBUG_MSG("snippets_snr_run_from_strings, useescapechars=%s, unescape=%d\n",useescapechars,unescape);
 	snr2_run_extern_replace(doc, (gchar *)searchpat, 
-						regionnum,matchtypenum, casesensnum, (gchar *)replacepat,FALSE);
+						regionnum,matchtypenum, casesensnum, (gchar *)replacepat,unescape);
 }
 
 typedef struct {
@@ -213,10 +215,11 @@ void snippets_activate_leaf_snr(Tsnippetswin *snw, xmlNodePtr parent) {
 			}
 			cur = cur->next;
 		}
-		region = xmlGetProp(cur, (const xmlChar *)"region");
-		matchtype = xmlGetProp(cur, (const xmlChar *)"matchtype");
-		casesens = xmlGetProp(cur, (const xmlChar *)"casesens");
-		escapechars = xmlGetProp(cur, (const xmlChar *)"escapechars");
+		region = xmlGetProp(parent, (const xmlChar *)"region");
+		matchtype = xmlGetProp(parent, (const xmlChar *)"matchtype");
+		casesens = xmlGetProp(parent, (const xmlChar *)"casesens");
+		escapechars = xmlGetProp(parent, (const xmlChar *)"escapechars");
+		DEBUG_MSG("snippets_activate_leaf_snr, region=%s,matchtype=%s,casesens=%s,escapechars=%s\n",region,matchtype,casesens,escapechars);
 		snippets_snr_run_from_strings(snw->bfwin->current_document, searchpat,region,matchtype,casesens, replacepat,escapechars);
 	} else {
 		snippets_snr_dialog(snw, parent, num_vars);

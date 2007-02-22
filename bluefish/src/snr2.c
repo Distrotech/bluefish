@@ -955,15 +955,15 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, gint startpos, gint 
  * @matchtype: #gint, 0 = normal, 1 = posix, 2 = perl
  * @is_case_sens: #gint
  * @replace_pattern: #gchar* to replace pattern.
- * @store_as_last_snr2: Set to FALSE to keep the old last_snr2 after the snr has been completed.
- * 
+ * @ unescape: #gboolean whether the patterns needs to be unescaped 
  * Return value: void
  **/
 
 void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint region,
 							gint matchtype, gint is_case_sens, const gchar *replace_pattern,
 							gboolean unescape) {
-	DEBUG_MSG("snr2_run_extern_replace, pattern=%s\n",search_pattern);
+	DEBUG_MSG("snr2_run_extern_replace, search_pattern=%s, replace_pattern=%s, unescape=%d\n",search_pattern,replace_pattern,unescape);
+	
 	if (region == 3) { /* in all open files */
 		replace_all(BFWIN(doc->bfwin),search_pattern
 					, matchtype
