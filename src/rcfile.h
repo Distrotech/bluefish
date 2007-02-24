@@ -24,7 +24,7 @@
 GList *make_config_list_item(GList * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var, gint len);
 void rcfile_parse_main(void);
 void rcfile_parse_highlighting(void);
-void rcfile_parse_custom_menu(gboolean full_reset, gboolean load_new);
+void rcfile_parse_custom_menu(void);
 void rcfile_check_directory(void);
 void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidget *widget);
 

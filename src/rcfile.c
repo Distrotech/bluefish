@@ -669,21 +669,7 @@ gint rcfile_save_main(void) {
 	return ret;
 }
 
-static void rcfile_custom_menu_load_new(gchar *defaultfile) {
-	GList *default_insert=NULL, *default_replace=NULL, *tmp_configlist=NULL;
-	DEBUG_MSG("rcfile_custom_menu_load_new, started!\n");
-	init_prop_arraylist(&tmp_configlist, &default_insert, "cmenu_insert:", 0, TRUE);
-	init_prop_arraylist(&tmp_configlist, &default_replace, "cmenu_replace:", 0, TRUE);
-	parse_config_file(tmp_configlist, defaultfile);
-	main_v->props.cmenu_insert = arraylist_load_new_identifiers_from_list(main_v->props.cmenu_insert, default_insert, 1);
-	main_v->props.cmenu_replace = arraylist_load_new_identifiers_from_list(main_v->props.cmenu_replace, default_replace, 1);
-	main_v->globses.lasttime_cust_menu = TIME_T_TO_GINT(time(NULL));
-	free_arraylist(default_replace);
-	free_arraylist(default_insert);
-	free_configlist(tmp_configlist);
-}
-
-static void rcfile_custom_menu_load_all(gboolean full_reset, gchar *defaultfile) {
+void rcfile_parse_custom_menu(void) {
 	gchar *filename;
 	custom_menu_configlist = NULL;
 
@@ -692,16 +678,7 @@ static void rcfile_custom_menu_load_all(gboolean full_reset, gchar *defaultfile)
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_replace, "cmenu_replace:", 0, TRUE);
 
 	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/custom_menu", NULL);
-
-	if (full_reset || !parse_config_file(custom_menu_configlist, filename) || (main_v->props.cust_menu==NULL && main_v->props.cmenu_insert==NULL && main_v->props.cmenu_replace==NULL )) {
-		DEBUG_MSG("error parsing the custom menu file, or full_reset is set\n");
-		/* init the custom_menu in some way? */
-		if (defaultfile) {
-			parse_config_file(custom_menu_configlist, defaultfile);
-		} else {
-			g_print("Unable to find '"PKGDATADIR"/custom_menu'\n");
-		}
-	}
+	parse_config_file(custom_menu_configlist, filename);
 	g_free(filename);
 
 	/* for backwards compatibility with older (before Bluefish 0.10) custom menu files we can convert those.. 
@@ -753,61 +730,6 @@ static void rcfile_custom_menu_load_all(gboolean full_reset, gchar *defaultfile)
  - Else if LC_MESSAGES is set and non-null, follow it.
  - Else if LANG is set and non-null, follow it.
 */
-void rcfile_parse_custom_menu(gboolean full_reset, gboolean load_new) {
-	gchar *defaultfile, *langdefaultfile1=NULL, *langdefaultfile2=NULL, *tmp;
-	const gchar *tmp2;
-	DEBUG_MSG("rcfile_parse_custom_menu, started\n");
-	tmp2 = g_getenv("LC_ALL");
-	if (tmp2 == NULL) {
-		tmp2 = g_getenv("LC_MESSAGES");
-		if (tmp2 == NULL) {
-#ifdef PLATFORM_DARWIN
-			tmp2 = g_getenv("LANGUAGE");
-#else
-			tmp2 = g_getenv("LANG");
-#endif
-		}
-	}
-	tmp = g_strdup(tmp2);
-	DEBUG_MSG("rcfile_parse_custom_menu, Language is: %s", tmp);
-	if (tmp && strlen(tmp)>0) {
-		tmp = trunc_on_char(tmp, '.');
-		tmp = trunc_on_char(tmp, '@');
-		langdefaultfile1 = g_strconcat(PKGDATADIR"/custom_menu.",tmp,".default", NULL);
-		DEBUG_MSG("rcfile_parse_custom_menu, langdefaultfile1 is: %s", langdefaultfile1);
-		tmp = trunc_on_char(tmp, '_');
-		langdefaultfile2 = g_strconcat(PKGDATADIR"/custom_menu.",tmp,".default", NULL);
-		DEBUG_MSG("rcfile_parse_custom_menu, langdefaultfile2 is: %s", langdefaultfile2);
-		g_free(tmp);
-	}
-	if (langdefaultfile1) {
-		defaultfile = return_first_existing_filename(langdefaultfile1, langdefaultfile2,
-									PKGDATADIR"/custom_menu",
-									"data/custom_menu",
-									"../data/custom_menu",NULL);
-	} else {
-		defaultfile = return_first_existing_filename(PKGDATADIR"/custom_menu",
-									"data/custom_menu",
-									"../data/custom_menu",NULL);
-	}
-	DEBUG_MSG("rcfile_parse_custom_menu, defaultfile is: %s", defaultfile);
-	
-	if (full_reset) {
-		free_arraylist(main_v->props.cmenu_insert);
-		free_arraylist(main_v->props.cmenu_replace);
-		main_v->props.cmenu_insert = NULL;
-		main_v->props.cmenu_replace = NULL;
-	}
-
-	if (load_new && !full_reset) {
-		rcfile_custom_menu_load_new(defaultfile);
-	} else {
-		rcfile_custom_menu_load_all(full_reset, defaultfile);
-	}
-	g_free(defaultfile);
-	g_free(langdefaultfile1);
-	g_free(langdefaultfile2);
-}
 gint rcfile_save_custom_menu(void) {
 	gint retval;
 	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/custom_menu", NULL);
@@ -855,7 +777,6 @@ static GList *return_globalsession_configlist(gboolean init_values) {
 	init_prop_integer   (&config_rc, &main_v->globses.main_window_w, "main_window_width:", 600, init_values); /* negative width means maximized */
 	init_prop_integer   (&config_rc, &main_v->globses.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.left_panel_width, "left_panel_width:", 150, init_values);
-	init_prop_integer   (&config_rc, &main_v->globses.lasttime_cust_menu, "lasttime_cust_menu:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_filetypes, "lasttime_filetypes:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_encodings, "lasttime_encodings:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.bookmarks_default_store,"bookmarks_default_store:",1, init_values);
@@ -890,7 +811,6 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_string_with_escape(&configlist, &session->encoding, "encoding:", NULL);
 	init_prop_integer   (&configlist, &session->adv_open_recursive, "adv_open_recursive:", 0, FALSE);
 	init_prop_string    (&configlist, &session->last_filefilter, "last_filefilter:", "");
-	init_prop_integer   (&configlist, &session->view_custom_menu, "view_custom_menu:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->view_main_toolbar, "view_main_toolbar:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->view_left_panel, "view_left_panel:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->filebrowser_show_hidden_files, "fb_show_hidden_f:", 0, FALSE);

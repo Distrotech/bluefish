@@ -279,7 +279,6 @@ typedef struct {
 	gint main_window_w;			/* main window width */
 	gint two_pane_filebrowser_height; /* position of the pane separater on the two paned file browser */
 	gint left_panel_width; 	/* width of filelist */
-	gint lasttime_cust_menu; /* the last time the defaultfile was checked for new entries */
 	gint lasttime_filetypes; /* see above */
 	gint lasttime_encodings; /* see above */
 	gint bookmarks_default_store; /* 0= temporary by default, 1= permanent by default */
@@ -310,7 +309,6 @@ typedef struct {
 	gchar *encoding;
 	gint   adv_open_recursive;
 	gchar *last_filefilter;	/* last filelist filter type */
-	gint view_custom_menu;			/* view custom menubar */
 	gint view_main_toolbar;				/* view main toolbar */
 	gint view_left_panel;  	/* view filebrowser/functionbrowser etc. */
 	gint filebrowser_show_hidden_files;
@@ -370,7 +368,6 @@ typedef struct {
 	/* following widgets are used to show/hide stuff */
 	GtkWidget *main_toolbar_hb;
 	GtkWidget *html_toolbar_hb;
-	GtkWidget *custom_menu_hb; /* handle box for custom menu */
 	GtkWidget *leftpanel_notebook;
 	/* following are lists with dynamic menu entries */
 	GList *menu_recent_files;

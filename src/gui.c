@@ -669,16 +669,10 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 		gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->main_toolbar_hb, FALSE, FALSE, 0);
 		bfwin->html_toolbar_hb = gtk_handle_box_new();
 		gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->html_toolbar_hb, FALSE, FALSE, 0);
-		bfwin->custom_menu_hb = gtk_handle_box_new();
-		gtk_box_pack_start(GTK_BOX(bfwin->toolbarbox), bfwin->custom_menu_hb, FALSE, FALSE, 0);
 
 		if (bfwin->session->view_main_toolbar) {
 			make_main_toolbar(bfwin);
 			gtk_widget_show(bfwin->main_toolbar_hb);
-		}
-		if (bfwin->session->view_custom_menu) {
-			make_cust_menubar(bfwin,bfwin->custom_menu_hb);
-			gtk_widget_show(bfwin->custom_menu_hb);
 		}
 	}
 
@@ -1004,16 +998,6 @@ void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync
 	}
 	widget_set_visible(bfwin->main_toolbar_hb,visible);
 }
-void gui_set_custom_menu_visible(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
-	if (sync_menu) {
-		DEBUG_MSG("gui_set_custom_menu_visible, trying to sync menu\n");
-		setup_toggle_item_from_widget(bfwin->menubar, "/View/View Custom Menu", visible);
-	}
-	if (gtk_container_children(GTK_CONTAINER(bfwin->custom_menu_hb)) == NULL) {
-		make_cust_menubar(bfwin,bfwin->custom_menu_hb);
-	}
-	widget_set_visible(bfwin->custom_menu_hb,visible);
-}
 
 void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	gboolean active = GTK_CHECK_MENU_ITEM(widget)->active;
@@ -1022,10 +1006,6 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	case 1:
 		bfwin->session->view_main_toolbar = active;
 		gui_set_main_toolbar_visible(bfwin, active, FALSE);
-	break;
-	case 3:
-		bfwin->session->view_custom_menu = active;
-		gui_set_custom_menu_visible(bfwin, active, FALSE);
 	break;
 	case 4:
 		bfwin->session->view_left_panel = active;
