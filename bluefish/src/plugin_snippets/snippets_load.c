@@ -54,7 +54,7 @@ leaves are of some type:
 </snippets>
 
 */
-/* #define DEBUG */
+#define DEBUG
 
 #include <string.h>
 
@@ -249,7 +249,12 @@ static gboolean snippets_load_finished_lcb(gpointer data) {
 	if (doc == NULL) {
 		snippets_v.doc = xmlNewDoc((const xmlChar *)"1.0");
 		cur = xmlNewDocNode(snippets_v.doc,NULL, (const xmlChar *)"snippets",NULL);
-		xmlDocSetRootElement(snippets_v.doc, cur);	
+		xmlDocSetRootElement(snippets_v.doc, cur);
+		DEBUG_MSG("snippets_load_finished_lcb, loading from cmenu %p and %p\n",main_v->props.cmenu_insert, main_v->props.cmenu_replace);
+		/* now check if there is a custom menu  configuration. If there is one, parse it and build a xml tree */
+		if (snippets_convert_cmenu(cur)) {
+			walk_tree(cur, NULL);
+		}
 	}
 	DEBUG_MSG("snippets_load_finished_lcb, finished empty tree\n");
 	return FALSE;

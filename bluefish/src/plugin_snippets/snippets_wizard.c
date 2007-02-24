@@ -438,8 +438,8 @@ static gint snippets_test_pageInsert(Tsnipwiz *snwiz, gpointer data) {
 		xmlSetProp(childn, (const xmlChar *)"tooltip", (const xmlChar *)snwiz->description);
 	}
 	
-	tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"before",(const xmlChar *)before);
-	tmpn = xmlNewChild(childn,NULL,(const xmlChar *)"after",(const xmlChar *)after);
+	tmpn = xmlNewTextChild(childn,NULL,(const xmlChar *)"before",(const xmlChar *)before);
+	tmpn = xmlNewTextChild(childn,NULL,(const xmlChar *)"after",(const xmlChar *)after);
 	for (i = 0; i <  10; i++) {
 		gchar *tmpstr;
 		tmpstr = gtk_editable_get_chars(GTK_EDITABLE(p2->entries[i]),0,-1);

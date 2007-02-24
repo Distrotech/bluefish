@@ -219,7 +219,7 @@ int main(int argc, char *argv[])
 	}*/
 	bluefish_load_plugins();
 	main_v->session = g_new0(Tsessionvars,1);
-	main_v->session->view_main_toolbar = main_v->session->view_custom_menu = main_v->session->view_left_panel = main_v->session->filebrowser_focus_follow =1;
+	main_v->session->view_main_toolbar = main_v->session->view_left_panel = main_v->session->filebrowser_focus_follow =1;
 	rcfile_parse_global_session();
 	if (main_v->session->recent_dirs == NULL) {
 		main_v->session->recent_dirs = g_list_append(main_v->session->recent_dirs, g_strconcat("file://", g_get_home_dir(), NULL));
@@ -240,7 +240,6 @@ int main(int argc, char *argv[])
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("parsing custom menu file..."));
 #endif /* #ifndef NOSPLASH */
-	rcfile_parse_custom_menu(FALSE,FALSE);
 	main_v->tooltips = gtk_tooltips_new();
 	main_v->bmarkdata = bookmark_data_new();
 #ifdef WITH_MSG_QUEUE

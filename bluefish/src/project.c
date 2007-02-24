@@ -68,7 +68,6 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 		session->last_filefilter = g_strdup(main_v->session->last_filefilter);
 	}
 	session->adv_open_recursive = main_v->session->adv_open_recursive;
-	session->view_custom_menu = main_v->session->view_custom_menu;
 	session->view_main_toolbar = main_v->session->view_main_toolbar;
 	session->view_left_panel = main_v->session->view_left_panel;
 	session->filebrowser_show_hidden_files = main_v->session->filebrowser_show_hidden_files;
@@ -107,7 +106,6 @@ static void setup_bfwin_for_project(Tbfwin *bfwin) {
 	bmark_reload(bfwin);
 
 	gui_set_main_toolbar_visible(bfwin, bfwin->session->view_main_toolbar, TRUE);
-	gui_set_custom_menu_visible(bfwin, bfwin->session->view_custom_menu, TRUE);
 	left_panel_show_hide_toggle(bfwin,FALSE,bfwin->session->view_left_panel, TRUE);
 	fb2_update_settings_from_session(bfwin);
 
