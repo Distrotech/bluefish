@@ -429,6 +429,7 @@ static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint
 					return tmp;
 				}
 			}
+			gtk_tree_path_free(path);
 		}
 		return g_strdup(_("Click the right mouse button to add, edit or delete snippets."));
 	}
