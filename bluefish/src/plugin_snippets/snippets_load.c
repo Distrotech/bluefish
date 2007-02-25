@@ -60,6 +60,7 @@ leaves are of some type:
 
 #include "snippets.h"
 #include "snippets_load.h"
+#include "snippets_convert_cmenu.h"
 #include "../bf_lib.h"
 
 /* GdkPixbuf RGBA C-Source image dump */
