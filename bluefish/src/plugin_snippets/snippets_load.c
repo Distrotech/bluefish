@@ -208,8 +208,10 @@ void snippets_fill_tree_item_from_node(GtkTreeIter *iter, xmlNodePtr node) {
 		} else if (xmlStrEqual(type, (const xmlChar *)"snr")) {
 			pixmap = gdk_pixbuf_new_from_inline(-1, pixmap_snr, FALSE, NULL);
 		}
+		xmlFree(type);
 	}
-	gtk_tree_store_set(snippets_v.store, iter, PIXMAP_COLUMN, pixmap, TITLE_COLUMN, title,NODE_COLUMN, node,-1);	
+	gtk_tree_store_set(snippets_v.store, iter, PIXMAP_COLUMN, pixmap, TITLE_COLUMN, title,NODE_COLUMN, node,-1);
+	xmlFree(title);	
 }
 
 static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
