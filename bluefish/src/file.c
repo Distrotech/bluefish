@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file.c - file operations based on GnomeVFS
  *
- * Copyright (C) 2002,2003,2004,2005 Olivier Sessink
+ * Copyright (C) 2002-2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -990,12 +990,13 @@ static void openadv_unref(Topenadv *oa) {
 	oa->refcount--;
 	DEBUG_MSG("openadv_unref, count=%d\n",oa->refcount);
 	if (oa->refcount <= 0 ) {
-		gchar *tmp;
+		gchar *tmp, *tmp2;
 		tmp = g_strdup_printf(ngettext("%d document open.","%d documents open.",g_list_length(oa->bfwin->documentlist)),
 				g_list_length(oa->bfwin->documentlist));
-		tmp = g_strconcat("Advanced open: Finished searching files. ",tmp,NULL);
-		statusbar_message(oa->bfwin,tmp, 4000);
+		tmp2 = g_strconcat("Advanced open: Finished searching files. ",tmp,NULL);
+		statusbar_message(oa->bfwin, tmp2, 4000);
 		g_free(tmp);
+		g_free(tmp2);
 		if (oa->extension_filter) g_free(oa->extension_filter);
 		if (oa->patspec) g_pattern_spec_free(oa->patspec);
 		if (oa->content_filter) g_free(oa->content_filter);
@@ -1091,6 +1092,7 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 				open_advanced_backend(oad->oa, child_uri);
 			} else if (finfo->type == GNOME_VFS_FILE_TYPE_REGULAR){
 				gchar *curi;
+				GList *list;
 				curi = gnome_vfs_uri_to_string(child_uri,0);
 				list = return_allwindows_documentlist();
 				if (documentlist_return_document_from_uri(list, child_uri)==NULL) { /* if this file is already open, there is no need to do any of these checks */
