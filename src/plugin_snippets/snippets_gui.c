@@ -529,7 +529,7 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	GdkPixbuf *pixbuf;
 	GtkWidget *image;
 	GtkWidget *scrolwin;
-	GtkTreeSelection *selection;
+/*	GtkTreeSelection *selection;*/
 	GtkTargetEntry bfsnippet[] = {{"BLUEFISH_SNIPPET", GTK_TARGET_SAME_APP, 0}};
 	
 	DEBUG_MSG("snippets_sidepanel_initgui, bfwin=%p\n",bfwin);

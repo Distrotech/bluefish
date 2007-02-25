@@ -20,9 +20,10 @@
 /* #define DEBUG */
 
 #include "snippets.h"
+#include "snippets_convert_cmenu.h"
+#include "../bf_lib.h"
 #include "../stringlist.h"
 #include "../rcfile.h"
-#include "snippets_convert_cmenu.h"
 
 static xmlNodePtr get_child_by_title(xmlNodePtr node, const xmlChar *title) {
 	xmlNodePtr cur;
