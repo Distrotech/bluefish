@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file.c - file operations based on GnomeVFS
  *
- * Copyright (C) 2002-2007 Olivier Sessink
+ * Copyright (C) 2002,2003,2004,2005,2006,2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -257,13 +257,14 @@ static void savefile_asynccreateuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 
 static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
 	Tsavefile *sf = data;
-	DEBUG_MSG("savefile_asyncopenuri_lcb, result=%d (%s)\n",result,gnome_vfs_result_to_string(result));
+	DEBUG_MSG("savefile_asyncopenuri_lcb, sf=%p, uri=%p, result=%d (%s)\n",sf,sf->uri,result,gnome_vfs_result_to_string(result));
 	/* WORKAROUND for the ssh/sftp module */
 	if (strcmp(gnome_vfs_uri_get_scheme(sf->uri),"sftp")==0 && result == 18) {
 		result = GNOME_VFS_ERROR_NOT_FOUND;
 	}
 	/* end of WORKAROUND */
 	if (result == GNOME_VFS_ERROR_NOT_FOUND) {
+		DEBUG_MSG("savefile_asyncopenuri_lcb, uri %p (%s) not found, we have to create the file\n",sf->uri,gnome_vfs_uri_get_path(sf->uri));
 		gnome_vfs_async_create_uri(&sf->handle,sf->uri,GNOME_VFS_OPEN_WRITE, FALSE,0644,GNOME_VFS_PRIORITY_DEFAULT
 					,savefile_asynccreateuri_lcb,sf);
 	} else {
@@ -274,12 +275,12 @@ static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 Tsavefile *file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, SavefileAsyncCallback callback_func, gpointer callback_data) {
 	Tsavefile *sf;
 	sf = g_new(Tsavefile,1);
-	DEBUG_MSG("file_savefile_uri_async, sf=%p\n",sf);
 	sf->callback_data = callback_data;
 	sf->callback_func = callback_func;
 	sf->buffer = buffer;
 	gnome_vfs_uri_ref(uri);
 	sf->uri = uri;
+	DEBUG_MSG("file_savefile_uri_async, sf=%p, uri=%p\n",sf, sf->uri);
 	refcpointer_ref(buffer);
 	sf->buffer_size = buffer_size;
 	gnome_vfs_async_open_uri(&sf->handle,uri,GNOME_VFS_OPEN_WRITE,GNOME_VFS_PRIORITY_DEFAULT-1
