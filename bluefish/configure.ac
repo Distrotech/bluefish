@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.145 2007-02-27 19:10:45 dleidert Exp $
+dnl $Id: configure.ac,v 1.146 2007-02-27 20:42:51 dleidert Exp $
 dnl
 dnl Copyright (C) 2002-2007 Olivier Sessink
 dnl Copyright (C) 2006 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.145 $)
+AC_REVISION($Revision: 1.146 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -253,11 +253,11 @@ AC_ARG_WITH(
 		[
 		 the specified file is the systems XML catalog (/etc/xml/catalog for most systems),
 		 that shall be updated after installation running
-		 xmlcatalog @<:@default=${sysconfir}/xml/catalog@:>@
+		 xmlcatalog @<:@default=${sysconfdir}/xml/catalog@:>@
 		]
 	),
 	[xmlcatalog="$withval"],
-	[xmlcatalog="${sysconfir}/xml/catalog"]
+	[xmlcatalog="${sysconfdir}/xml/catalog"]
 )
 
 AC_ARG_WITH(
