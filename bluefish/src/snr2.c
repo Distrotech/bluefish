@@ -109,6 +109,57 @@ void snr2_cleanup(Tbfwin *bfwin) {
 	g_free(bfwin->snr2);
 }
 
+static void snr2_doc_remove_highlight(Tdocument *doc) {
+	if (doc) {
+		GtkTextIter itstart, itend;
+		DEBUG_MSG("snr2_doc_remove_highlight, removing tag snr2match from doc %p\n",doc);
+		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+		gtk_text_buffer_remove_tag_by_name(doc->buffer,"snr2match",&itstart,&itend);
+	}
+}
+
+static void snr2_doc_highlight_match(Tdocument *doc, gint start, gint end) {
+	const gchar * tagname =  "snr2match";
+	GtkTextIter itstart, itend;
+	GdkRectangle visirect;
+	GtkTextIter visi_so, visi_eo;
+	GtkTextTag *tag;
+
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
+	
+	tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(doc->buffer), tagname);
+	if (!tag) {
+		tag = gtk_text_buffer_create_tag(doc->buffer, tagname, "background", "#FF0000", "foreground", "#000000", NULL);
+	}  
+	gtk_text_buffer_apply_tag(doc->buffer, tag, &itstart, &itend);
+
+	gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(doc->view),&visirect);
+	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_so, visirect.x, visirect.y);
+	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_eo, visirect.x + visirect.width, visirect.y + visirect.height);
+
+	if (!gtk_text_iter_in_range(&itstart,&visi_so,&visi_eo)) {
+		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.0,TRUE,0.5,0.10);
+		/*gtk_widget_grab_focus(doc->view);*/
+	}
+	
+	/* now move the search window if it is on top of the result */
+	/* hmm perhaps I should create a generic function 'move window away from cursor' or something like that.
+	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(doc->view),&itstart,visirect);
+	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(doc->view),gtk_text_view_get_window_type(GTK_TEXT_VIEW(doc->view), gdkwin)
+				gint visirect.x,visirect.y,&window_x,&window_y);
+	gtk_window_get_position(snrdialog,&snr_x,&snr_y);
+	gtk_window_get_size(snrdialog,&snr_width,&snr_height);
+	if (window_x > snr_x && window_x <  snr_x+snr_width && window_y > snr_y && window_y < snr_y+snr_height ) {
+		if (window_y > snr_height) {
+			gtk_window_move(snrdialog,0,window_y-snr_height-10);
+		} else {
+			gtk_window_move(snrdialog,0,window_y+10);
+		}
+	}
+	*/	
+}
+
 /* static void reset_last_snr2(Tbfwin *bfwin) {
 	if (LASTSNR2(bfwin->snr2)->search_pattern) {
 		g_free(LASTSNR2(bfwin->snr2)->search_pattern);
@@ -376,7 +427,8 @@ void doc_show_result(Tdocument *document, gint start, gint end) {
 	if (document != BFWIN(document->bfwin)->current_document) {
 		switch_to_document_by_pointer(BFWIN(document->bfwin),document);
 	}
-	doc_select_region(document, start, end, TRUE);
+	/*doc_select_region(document, start, end, TRUE);*/
+	snr2_doc_highlight_match(document, start,end);
 }
 
 /*****************************************************/
@@ -915,6 +967,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, gint startpos, gint 
 	Tsearch_result result = {0,0,0,0,NULL,0};
 	if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
 		Tsearch_all_result result_all;
+		snr2_doc_remove_highlight(LASTSNR2(bfwin->snr2)->doc);
 		result_all = search_all(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
 		result.start = result_all.start;
 		result.end = result_all.end;
@@ -930,6 +983,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, gint startpos, gint 
 		return result;
 	} else {
 		DEBUG_MSG("search_single_and_show, startpos=%d, endpos=%d\n",startpos,endpos);
+		snr2_doc_remove_highlight(bfwin->current_document);
 		result = search_doc(bfwin,bfwin->current_document, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
 		if (result.end > 0) {
 			doc_show_result(bfwin->current_document, result.start, result.end);
@@ -1349,6 +1403,7 @@ static void snr_option_toggled(GtkToggleButton *togglebutton,gpointer user_data)
 static void snr_dialog_destroy(TSNRWin * snrwin)
 {
 	DEBUG_MSG("snr_dialog_destroy, called\n");
+	snr2_doc_remove_highlight(LASTSNR2(snrwin->bfwin->snr2)->doc);
 	gtk_widget_destroy(snrwin->dialog);
 	g_free(snrwin);
 }
