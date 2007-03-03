@@ -220,6 +220,7 @@ int main(int argc, char *argv[])
 	bluefish_load_plugins();
 	main_v->session = g_new0(Tsessionvars,1);
 	main_v->session->view_main_toolbar = main_v->session->view_left_panel = main_v->session->filebrowser_focus_follow =1;
+	main_v->session->snr_position_x = main_v->session->snr_position_y = -1;
 	rcfile_parse_global_session();
 	if (main_v->session->recent_dirs == NULL) {
 		main_v->session->recent_dirs = g_list_append(main_v->session->recent_dirs, g_strconcat("file://", g_get_home_dir(), NULL));

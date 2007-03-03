@@ -2,7 +2,7 @@
  * snr2.c - rewrite of search 'n replace functions
  *
  * Copyright (C) 2000,2001,2002,2003,2004 Olivier Sessink
- * Copyright (C) 2005-2006 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2007 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1267,6 +1267,7 @@ static void setup_new_snr2(Tbfwin *bfwin, const gchar *search_pattern, gboolean 
 typedef struct {
 	gint dialogType;
 	GtkWidget *dialog;
+	GtkWidget *expander;
 	GtkWidget *search;
 	GtkWidget *replace;
 	GtkWidget *scope;
@@ -1408,6 +1409,22 @@ static void snr_dialog_destroy(TSNRWin * snrwin)
 	g_free(snrwin);
 }
 
+static void snr_dialog_save_position(TSNRWin * snrwin)
+{
+	gint x, y;
+	
+	snrwin->bfwin->session->snr_is_expanded =
+				gtk_expander_get_expanded(GTK_EXPANDER(snrwin->expander));
+	
+	gtk_window_get_position(GTK_WINDOW(snrwin->dialog), &x, &y);
+	
+	if (x < 0) x=0;
+	if (y < 0) y=0;
+	
+	snrwin->bfwin->session->snr_position_x = x;
+	snrwin->bfwin->session->snr_position_y = y;
+}
+
 static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin)
 {
 	const gchar *search_pattern, *replace_pattern=NULL;
@@ -1537,6 +1554,7 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 		snr_update_count_label(snrwin);
 	break;
 	case GTK_RESPONSE_CLOSE:
+		snr_dialog_save_position(snrwin);
 		snr_dialog_destroy(snrwin);
 	break;
 	default:
@@ -1558,7 +1576,7 @@ static void snr_combo_activate_lcb(GtkEntry *entry,gpointer user_data) {
 static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 {
 	TSNRWin *snrwin;
-	GtkWidget *table, *expander, *vbox, *vbox2;
+	GtkWidget *table, *vbox, *vbox2;
 	gchar *title;
 	gint numrows;
 	GtkListStore *history;
@@ -1603,6 +1621,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 		gtk_dialog_new_with_buttons(title, GTK_WINDOW(bfwin->main_window),
 									GTK_DIALOG_DESTROY_WITH_PARENT, NULL);
 	gtk_window_set_resizable(GTK_WINDOW(snrwin->dialog), FALSE);
+	gtk_dialog_set_has_separator(GTK_DIALOG(snrwin->dialog), FALSE);
 	window_delete_on_escape(GTK_WINDOW(snrwin->dialog));
 	g_signal_connect(G_OBJECT(snrwin->dialog), "response", G_CALLBACK(snr_response_lcb), snrwin);
 	g_signal_connect_after(G_OBJECT(snrwin->dialog), "focus-in-event", G_CALLBACK(snr_focus_in_lcb), snrwin);
@@ -1672,12 +1691,13 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	gtk_misc_set_alignment(GTK_MISC(snrwin->warninglabel), 0.0f, 0.5f);
 	gtk_box_pack_start(GTK_BOX(vbox2),snrwin->warninglabel,TRUE,TRUE,0);
 	
-	expander = gtk_expander_new_with_mnemonic(_("<b>_Options</b>"));
-	gtk_expander_set_use_markup(GTK_EXPANDER(expander), TRUE);
-	gtk_expander_set_spacing(GTK_EXPANDER(expander), 6);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(snrwin->dialog)->vbox), expander, FALSE, FALSE, 12);
+	snrwin->expander = gtk_expander_new_with_mnemonic(_("<b>_Options</b>"));
+	gtk_expander_set_use_markup(GTK_EXPANDER(snrwin->expander), TRUE);
+	gtk_expander_set_spacing(GTK_EXPANDER(snrwin->expander), 6);
+	gtk_expander_set_expanded(GTK_EXPANDER(snrwin->expander), bfwin->session->snr_is_expanded);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(snrwin->dialog)->vbox), snrwin->expander, FALSE, FALSE, 12);
 	vbox = gtk_vbox_new(FALSE, 6);
-	gtk_container_add(GTK_CONTAINER(expander), vbox);
+	gtk_container_add(GTK_CONTAINER(snrwin->expander), vbox);
 
 	vbox2 = dialog_vbox_new(vbox);
 	table = dialog_table_in_vbox_defaults(numrows - 1, 2, 0, vbox2);
@@ -1763,6 +1783,12 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_FIND);
 	DEBUG_MSG("snr_dialog_real: display the dialog\n");
 	gtk_widget_show(snrwin->dialog);
+	
+	if ((bfwin->session->snr_position_x >= 0) && (bfwin->session->snr_position_y >= 0) &&
+		(bfwin->session->snr_position_x < (gdk_screen_width()-50)) && (bfwin->session->snr_position_y < (gdk_screen_height()-50)))
+	{
+		gtk_window_move (GTK_WINDOW(snrwin->dialog), bfwin->session->snr_position_x, bfwin->session->snr_position_y);
+	}
 	
 	return snrwin;
 }
