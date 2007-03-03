@@ -293,29 +293,32 @@ typedef struct {
 } Tglobalsession;
 
 typedef struct {
-	GList *classlist;
-	GList *colorlist;
-	GList *targetlist;
-	GList *urllist;
-	GList *fontlist;
-	GList *positionlist; /* is this used ?? */
-	GList *searchlist; /* used in snr2 and for advanced_open */
-	GList *replacelist; /* used in snr2 */
-	GList *bmarks;
-	GList *recent_files;
-	GList *recent_dirs;
+	gboolean snr_is_expanded;
+	gchar *encoding;
+	gchar *last_filefilter;   /* last filelist filter type */
 	gchar *opendir;
 	gchar *savedir;
-	gchar *encoding;
-	gint   adv_open_recursive;
-	gchar *last_filefilter;	/* last filelist filter type */
-	gint view_main_toolbar;				/* view main toolbar */
-	gint view_left_panel;  	/* view filebrowser/functionbrowser etc. */
-	gint filebrowser_show_hidden_files;
+	gint adv_open_recursive;
+	gint bookmarks_filename_mode;    /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
+	gint bookmarks_show_mode;        /* 0=both,1=name,2=content */
+	gint filebrowser_focus_follow;   /* have the directory of the current document in focus */
 	gint filebrowser_show_backup_files;
-	gint filebrowser_focus_follow; /* have the directory of the current document in focus */
-	gint bookmarks_filename_mode; /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
-	gint bookmarks_show_mode; /* 0=both,1=name,2=content */
+	gint filebrowser_show_hidden_files;
+	gint snr_position_x;
+	gint snr_position_y;
+	gint view_left_panel;     /* view filebrowser/functionbrowser etc. */
+	gint view_main_toolbar;   /* view main toolbar */
+	GList *bmarks;
+	GList *classlist;
+	GList *colorlist;
+	GList *fontlist;
+	GList *positionlist;   /* is this used ?? */
+	GList *recent_dirs;
+	GList *recent_files;
+	GList *replacelist;    /* used in snr2 */
+	GList *searchlist;     /* used in snr2 and for advanced_open */
+	GList *targetlist;
+	GList *urllist;
 #ifdef HAVE_LIBASPELL
 	gchar *spell_default_lang;
 #endif /* HAVE_LIBASPELL */
