@@ -30,7 +30,7 @@ catalog.xml:
 	$(XMLCATALOG) --noout --create \
 	  --add 'public' 'Bluefish/DTD/Bflang' 'bflang.dtd' \
 	  --add 'system' 'http://bluefish.openoffice.nl/DTD/bflang.dtd' 'bflang.dtd' \
-	  --noout --add 'rewriteURI' 'http://bluefish.openoffice.nl/DTD' '$(datadir)/xml/$(PACKAGE)' \
+	  --add 'rewriteURI' 'http://bluefish.openoffice.nl/DTD' '$(datadir)/xml/$(PACKAGE)' \
 	  $@
 
 install-data-hook:
@@ -38,7 +38,7 @@ if REGISTER_XML_CATALOG
 	$(XMLCATALOG) --noout \
 	  --add 'public' 'Bluefish/DTD/Bflang' 'bflang.dtd' \
 	  --add 'system' 'http://bluefish.openoffice.nl/DTD/bflang.dtd' 'bflang.dtd' \
-	  --noout --add 'rewriteURI' 'http://bluefish.openoffice.nl/DTD' '$(datadir)/xml/$(PACKAGE)' \
+	  --add 'rewriteURI' 'http://bluefish.openoffice.nl/DTD' '$(datadir)/xml/$(PACKAGE)' \
 	  $(DESTDIR)$(XML_CATALOG_FILE)
 endif #REGISTER_XML_CATALOG
 
