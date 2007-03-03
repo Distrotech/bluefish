@@ -126,7 +126,11 @@ int main(int argc, char *argv[])
 
 #ifdef GNOME_PARAM_GOPTION_CONTEXT
 	context = g_option_context_new (_(" [FILE(S)]"));
+#ifdef ENABLE_NLS	
+	g_option_context_add_main_entries (context, options, PACKAGE);
+#else
 	g_option_context_add_main_entries (context, options, NULL);
+#endif /* ENABLE_NLS */
 #endif /* #ifdef GNOME_PARAM_GOPTION_CONTEXT */
 
 	bfprogram = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE, 
