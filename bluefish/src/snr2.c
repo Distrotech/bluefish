@@ -37,7 +37,7 @@
  */
 /*****************************************************/
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>    /* GDK_Return */
@@ -116,6 +116,46 @@ static void snr2_doc_remove_highlight(Tdocument *doc) {
 		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
 		gtk_text_buffer_remove_tag_by_name(doc->buffer,"snr2match",&itstart,&itend);
 	}
+}
+
+static void move_window_away_from_cursor(GtkWindow *win, Tdocument *doc) {
+	gint winx,winy,winh,winw;
+	GtkTextIter iter;
+	GdkRectangle visirect;
+	gint itx,ity;
+	gint px,py,bfx,bfy, cursorx,cursory;
+	
+	/* get window coordinates */
+	gtk_window_get_position(win,&winx,&winy);
+	gtk_window_get_size(win,&winh,&winw);
+	DEBUG_MSG("move_window_away_from_cursor, winx=%d, winy=%d, winh=%d, winw=%d\n",winx,winy,winh,winw);
+
+	gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter,gtk_text_buffer_get_insert(doc->buffer));
+	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(doc->view),&iter,&visirect);
+	DEBUG_MSG("move_window_away_from_cursor, visirect.x=%d, visirect.y=%d\n",visirect.x,visirect.y);
+
+	/* the following function will return the position relative to the text area of the widget
+	but we also have margins!! */	
+	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(doc->view)
+					, GTK_TEXT_WINDOW_TEXT
+					, visirect.x,visirect.y,&itx,&ity);
+	
+	/* the following function will return the position of the total text widget */
+	gdk_window_get_position(doc->view->window,&px,&py);
+	gtk_window_get_position(BFWIN(doc->bfwin)->main_window,&bfx,&bfy);	
+	DEBUG_MSG("move_window_away_from_cursor, px=%d,bfx=%d,itx=%d\n",px,bfx,itx);
+	cursorx = px+bfx+itx+gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
+	cursory = py+bfy+ity+gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_TOP);
+	DEBUG_MSG("move_window_away_from_cursor, cursorx=%d,cursory=%d\n",cursorx,cursory);
+/*
+	if (window_x > snr_x && window_x <  snr_x+snr_width && window_y > snr_y && window_y < snr_y+snr_height ) {
+		if (window_y > snr_height) {
+			gtk_window_move(snrdialog,0,window_y-snr_height-10);
+		} else {
+			gtk_window_move(snrdialog,0,window_y+10);
+		}
+	}
+	*/
 }
 
 static void snr2_doc_highlight_match(Tdocument *doc, gint start, gint end) {
