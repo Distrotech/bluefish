@@ -2023,6 +2023,34 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 	return FALSE;
 }
 
+void doc_get_iter_location(Tdocument *doc, GtkTextIter *iter, GdkRectangle *rectangle) {
+	GdkRectangle rect;
+	gint itx,ity,px,py;
+
+	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(doc->view),iter,&rect);
+
+	/* the following function will return the position relative to the text area of the widget
+	but we also have margins!! */	
+	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(doc->view)
+					, GTK_TEXT_WINDOW_TEXT
+					, rect.x,rect.y,&itx,&ity);
+	/* the following function will return the position of the total text widget */
+	gdk_window_get_origin(doc->view->window,&px,&py);
+	
+	DEBUG_MSG("doc_get_iter_location, px=%d, itx=%d,border=%d\n",px,itx,gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT));
+	DEBUG_MSG("doc_get_iter_location, py=%d, ity=%d,border=%d\n",py,ity,gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_TOP));
+	rectangle->x = px+itx+gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
+	rectangle->y = py+ity+gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_TOP);
+	rectangle->width = rect.width;
+	rectangle->height = rect.height;
+}
+/*
+void doc_get_cursor_location(Tdocument *doc, gint *x, gint *y) {
+	GtkTextIter iter;
+	gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter,gtk_text_buffer_get_insert(doc->buffer));
+	doc_get_iter_location(doc, &iter, x, y);
+}
+*/
 void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter *iter) {
 	gint xpos, ypos;
 	GtkTextWindowType wintype;
