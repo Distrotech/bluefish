@@ -37,7 +37,7 @@
  */
 /*****************************************************/
 
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>    /* GDK_Return */
@@ -118,47 +118,28 @@ static void snr2_doc_remove_highlight(Tdocument *doc) {
 	}
 }
 
-static void move_window_away_from_cursor(GtkWindow *win, Tdocument *doc) {
-	gint winx,winy,winh,winw;
-	GtkTextIter iter;
-	GdkRectangle visirect;
-	gint itx,ity;
-	gint px,py,bfx,bfy, cursorx,cursory;
-	
-	/* get window coordinates */
-	gtk_window_get_position(win,&winx,&winy);
-	gtk_window_get_size(win,&winh,&winw);
-	DEBUG_MSG("move_window_away_from_cursor, winx=%d, winy=%d, winh=%d, winw=%d\n",winx,winy,winh,winw);
+static void move_window_away_from_cursor(Tdocument *doc, GtkWindow *win, GtkTextIter *iter) {
+	GdkRectangle winrect;
+	GdkRectangle itrect;
 
-	gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter,gtk_text_buffer_get_insert(doc->buffer));
-	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(doc->view),&iter,&visirect);
-	DEBUG_MSG("move_window_away_from_cursor, visirect.x=%d, visirect.y=%d\n",visirect.x,visirect.y);
+	/* get window coordinates, try to include the decorations */
+	gdk_window_get_frame_extents(GTK_WIDGET(win)->window,&winrect);
 
-	/* the following function will return the position relative to the text area of the widget
-	but we also have margins!! */	
-	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(doc->view)
-					, GTK_TEXT_WINDOW_TEXT
-					, visirect.x,visirect.y,&itx,&ity);
-	
-	/* the following function will return the position of the total text widget */
-	gdk_window_get_position(doc->view->window,&px,&py);
-	gtk_window_get_position(BFWIN(doc->bfwin)->main_window,&bfx,&bfy);	
-	DEBUG_MSG("move_window_away_from_cursor, px=%d,bfx=%d,itx=%d\n",px,bfx,itx);
-	cursorx = px+bfx+itx+gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_LEFT);
-	cursory = py+bfy+ity+gtk_text_view_get_border_window_size(GTK_TEXT_VIEW(doc->view),GTK_TEXT_WINDOW_TOP);
-	DEBUG_MSG("move_window_away_from_cursor, cursorx=%d,cursory=%d\n",cursorx,cursory);
-/*
-	if (window_x > snr_x && window_x <  snr_x+snr_width && window_y > snr_y && window_y < snr_y+snr_height ) {
-		if (window_y > snr_height) {
-			gtk_window_move(snrdialog,0,window_y-snr_height-10);
+	doc_get_iter_location(doc, iter, &itrect);	
+	DEBUG_MSG("move_window_away_from_cursor, itx=%d-%d,ity=%d-%d, winx=%d-%d, winy=%d-%d\n",itrect.x,itrect.x+itrect.width,itrect.y,itrect.y+itrect.height,winrect.x,winrect.x+winrect.width,winrect.y,winrect.y+winrect.height);
+	if (itrect.x+itrect.width > winrect.x && itrect.x < winrect.x+winrect.width 
+				&& itrect.y + itrect.height > winrect.y && itrect.y < winrect.y+winrect.height ) {
+		if (itrect.y > winrect.height+48) { /* the 48 is there to avoid crashing into a top-menu-bar*/
+			DEBUG_MSG("move_window_away_from_cursor, move window up to %d,%d\n",winrect.x,itrect.y-winrect.height);
+			gtk_window_move(win,winrect.x,itrect.y-winrect.height-10); /* add pixels 10 spacing */
 		} else {
-			gtk_window_move(snrdialog,0,window_y+10);
+			DEBUG_MSG("move_window_away_from_cursor, move window down to %d,%d\n",winrect.x,itrect.y+itrect.height);
+			gtk_window_move(win,winrect.x,itrect.y+itrect.height+10); /* add pixels 10 spqacing */
 		}
 	}
-	*/
 }
 
-static void snr2_doc_highlight_match(Tdocument *doc, gint start, gint end) {
+static void snr2_doc_highlight_match(Tdocument *doc, GtkWindow *dialog, gint start, gint end) {
 	const gchar * tagname =  "snr2match";
 	GtkTextIter itstart, itend;
 	GdkRectangle visirect;
@@ -180,24 +161,10 @@ static void snr2_doc_highlight_match(Tdocument *doc, gint start, gint end) {
 
 	if (!gtk_text_iter_in_range(&itstart,&visi_so,&visi_eo)) {
 		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.0,TRUE,0.5,0.10);
-		/*gtk_widget_grab_focus(doc->view);*/
 	}
-	
-	/* now move the search window if it is on top of the result */
-	/* hmm perhaps I should create a generic function 'move window away from cursor' or something like that.
-	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(doc->view),&itstart,visirect);
-	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(doc->view),gtk_text_view_get_window_type(GTK_TEXT_VIEW(doc->view), gdkwin)
-				gint visirect.x,visirect.y,&window_x,&window_y);
-	gtk_window_get_position(snrdialog,&snr_x,&snr_y);
-	gtk_window_get_size(snrdialog,&snr_width,&snr_height);
-	if (window_x > snr_x && window_x <  snr_x+snr_width && window_y > snr_y && window_y < snr_y+snr_height ) {
-		if (window_y > snr_height) {
-			gtk_window_move(snrdialog,0,window_y-snr_height-10);
-		} else {
-			gtk_window_move(snrdialog,0,window_y+10);
-		}
+	if (dialog) {
+		move_window_away_from_cursor(doc, dialog, &itstart);
 	}
-	*/	
 }
 
 /* static void reset_last_snr2(Tbfwin *bfwin) {
@@ -462,13 +429,13 @@ Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_patte
  *
  * Return value: void
  **/
-void doc_show_result(Tdocument *document, gint start, gint end) {
+void doc_show_result(Tdocument *document, GtkWindow *window, gint start, gint end) {
 	DEBUG_MSG("doc_show_result, select from start=%d to end=%d\n",start, end);
 	if (document != BFWIN(document->bfwin)->current_document) {
 		switch_to_document_by_pointer(BFWIN(document->bfwin),document);
 	}
 	/*doc_select_region(document, start, end, TRUE);*/
-	snr2_doc_highlight_match(document, start,end);
+	snr2_doc_highlight_match(document, window, start,end);
 }
 
 /*****************************************************/
@@ -1003,7 +970,7 @@ static gint search_multiple(Tbfwin *bfwin, gint startpos, gint endpos) {
 	return count;
 }
 
-static Tsearch_result search_single_and_show(Tbfwin *bfwin, gint startpos, gint endpos, gboolean want_submatches) {
+static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, gint startpos, gint endpos, gboolean want_submatches) {
 	Tsearch_result result = {0,0,0,0,NULL,0};
 	if (LASTSNR2(bfwin->snr2)->placetype_option==opened_files) {
 		Tsearch_all_result result_all;
@@ -1012,7 +979,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, gint startpos, gint 
 		result.start = result_all.start;
 		result.end = result_all.end;
 		if (result_all.end > 0) {
-			doc_show_result(result_all.doc, result_all.start, result_all.end);
+			doc_show_result(result_all.doc, dialog, result_all.start, result_all.end);
 			if (bfwin->current_document->uri && LASTSNR2(bfwin->snr2)->bookmark_results) {
 				gchar *text = doc_get_chars(result_all.doc, result_all.start, result_all.end);
 				DEBUG_MSG("search_single_and_show, adding bookmark '%s' at %d\n", text, result_all.start);
@@ -1026,7 +993,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, gint startpos, gint 
 		snr2_doc_remove_highlight(bfwin->current_document);
 		result = search_doc(bfwin,bfwin->current_document, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
 		if (result.end > 0) {
-			doc_show_result(bfwin->current_document, result.start, result.end);
+			doc_show_result(bfwin->current_document, dialog, result.start, result.end);
 			if (bfwin->current_document->uri && LASTSNR2(bfwin->snr2)->bookmark_results) {
 				gchar *text = doc_get_chars(bfwin->current_document, result.start, result.end);
 				DEBUG_MSG("search_single_and_show, adding bookmark '%s' at %d\n", text, result.start);
@@ -1543,7 +1510,7 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	case SNR_RESPONSE_FIND:
 	{
 		Tsearch_result result;
-		result = search_single_and_show(snrwin->bfwin, startpos, endpos, (snrwin->dialogType == BF_REPLACE_DIALOG));
+		result = search_single_and_show(snrwin->bfwin, GTK_WINDOW(snrwin->dialog), startpos, endpos, (snrwin->dialogType == BF_REPLACE_DIALOG));
 		if (result.end >0) {
 			LASTSNR2(snrwin->bfwin->snr2)->matches++;
 			DEBUG_MSG("snr_response_lcb, found match, update count label\n");
@@ -1906,7 +1873,7 @@ void search_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 		}
 	}	
 	
-	result = search_single_and_show(bfwin, startpos, endpos, FALSE);
+	result = search_single_and_show(bfwin, NULL, startpos, endpos, FALSE);
 	if (result.end > 0) {
 		LASTSNR2(bfwin->snr2)->matches++;
 	} else {
