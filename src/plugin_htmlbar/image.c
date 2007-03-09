@@ -304,12 +304,14 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	/* we should use the full path to create the thumbnail filename */
 	tmp = strstr(filename, "://");
 	if ((tmp == NULL && filename[0] != '/') && imdg->dg->doc->uri) {
-		GnomeVFSURI *parent;
+/*		GnomeVFSURI *parent;
 		gchar *basedir = gnome_vfs_uri_extract_dirname(imdg->dg->doc->uri);
+		DEBUG_MSG("image_filename_changed: document basedir=%s\n",basedir);
 		parent = gnome_vfs_uri_new(basedir);
-		fullfilename = gnome_vfs_uri_resolve_relative (parent,filename);
-		g_free(basedir);
-		gnome_vfs_uri_unref(parent);
+		fullfilename = gnome_vfs_uri_resolve_relative (parent,filename);*/
+		fullfilename = gnome_vfs_uri_resolve_relative (imdg->dg->doc->uri,filename);
+/*		g_free(basedir);
+		gnome_vfs_uri_unref(parent);*/
 	} else if (tmp != NULL || filename[0]=='/') {
 		fullfilename = gnome_vfs_uri_new(filename);
 	} else {
