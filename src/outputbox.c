@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -141,6 +141,7 @@ static Toutputbox *init_output_box(Tbfwin *bfwin) {
 
 void fill_output_box(gpointer data, gchar *string) {
 	GtkTreeIter iter;
+	gboolean needscroll=FALSE;
 	int ovector[30];
 	int nummatches;
 	Toutputbox *ob = data;
@@ -151,6 +152,7 @@ void fill_output_box(gpointer data, gchar *string) {
 		const char *filename,*line,*output;
 		filename=line=output=NULL;
 		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
+		needscroll=TRUE;
 		if (ob->def->file_subpat >= 0 && ovector[ob->def->file_subpat*2] >=0) {
 			pcre_get_substring(string,ovector,nummatches,ob->def->file_subpat,&filename);
 /*			DEBUG_MSG("fill_output_box, filename from %d to %d\n", ob->def->pmatch[ob->def->file_subpat].rm_so ,ob->def->pmatch[ob->def->file_subpat].rm_eo);*/
@@ -186,8 +188,16 @@ void fill_output_box(gpointer data, gchar *string) {
 			g_free((gchar *)output);
 		}
 	} else if (ob->def->show_all_output) {
+		needscroll=TRUE;
 		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
 		gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,2,string, -1);
+	}
+	if (needscroll) {
+		GtkAdjustment* vadj;
+		
+		vadj = gtk_tree_view_get_vadjustment(GTK_TREE_VIEW(ob->lview));
+		gtk_adjustment_set_value(vadj, vadj->upper);		
+		
 	}
 }
 

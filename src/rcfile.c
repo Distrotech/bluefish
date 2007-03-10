@@ -626,7 +626,7 @@ void rcfile_parse_main(void)  {
 		}
 		g_free(defaultfile);
 	}
-	g_print("outputbox=%p\n",main_v->props.external_outputbox);
+
 	if (main_v->props.external_outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
 		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","cd %c && make","1",NULL));
