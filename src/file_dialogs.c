@@ -41,6 +41,7 @@ typedef struct {
 	GtkWidget *dialog;
 	GtkWidget *basedir;
 	GtkWidget *find_pattern;
+	GtkWidget *matchname;
 	GtkWidget *recursive;
 	GtkWidget *grep_pattern;
 	GtkWidget *is_regex;
@@ -66,6 +67,7 @@ static void files_advanced_win_ok_clicked(Tfiles_advanced *tfs) {
 	tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist,content_filter,TRUE,TRUE);
 
 	open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
+			, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname))
 			, strlen(extension_filter) ==0 ? NULL : extension_filter
 			, strlen(content_filter) ==0 ? NULL : content_filter
 			, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->is_regex)));
@@ -76,6 +78,7 @@ static void files_advanced_win_ok_clicked(Tfiles_advanced *tfs) {
 	gnome_vfs_uri_unref (baseuri);
 	
 	tfs->bfwin->session->adv_open_recursive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(tfs->recursive));
+	tfs->bfwin->session->adv_open_matchname = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(tfs->matchname));
 }
 
 static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_advanced *tfs) {
@@ -126,7 +129,7 @@ void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
 																GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 																NULL);	
 
-	table = dialog_table_in_vbox(7, 5, 10, GTK_DIALOG (tfs->dialog)->vbox, FALSE, FALSE, 0);
+	table = dialog_table_in_vbox(8, 5, 10, GTK_DIALOG (tfs->dialog)->vbox, FALSE, FALSE, 0);
 
 	bf_label_tad_with_markup(_("<b>General</b>"), 0, 0.5, table, 0, 3, 0, 1);	
 	if (!basedir) {
@@ -149,20 +152,24 @@ void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
 	gtk_table_attach_defaults(GTK_TABLE(table), tfs->find_pattern, 2, 4, 2, 3);
 	g_signal_connect (G_OBJECT (tfs->find_pattern), "changed", G_CALLBACK (files_advanced_win_findpattern_changed), tfs);
 
+	tfs->matchname = checkbut_with_value(NULL, tfs->bfwin ? tfs->bfwin->session->adv_open_matchname : TRUE);
+	dialog_mnemonic_label_in_table(_("_Match on file name only:"), tfs->matchname, table, 1, 2, 3, 4);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->matchname, 2, 3, 3, 4);
+
 	tfs->recursive = checkbut_with_value(NULL, tfs->bfwin ? tfs->bfwin->session->adv_open_recursive : TRUE);
-	dialog_mnemonic_label_in_table(_("_Recursive:"), tfs->recursive, table, 1, 2, 3, 4);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->recursive, 2, 3, 3, 4);	
+	dialog_mnemonic_label_in_table(_("_Recursive:"), tfs->recursive, table, 1, 2, 4, 5);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->recursive, 2, 3, 4, 5);	
 	
-	bf_label_tad_with_markup(_("<b>Contains</b>"), 0, 0.5, table, 0, 3, 4, 5);
+	bf_label_tad_with_markup(_("<b>Contains</b>"), 0, 0.5, table, 0, 3, 5, 6);
 
 	/* TODO: This needs to be converted to use GtkComboBoxEntry */
 	tfs->grep_pattern = combo_with_popdown("", bfwin->session->searchlist, TRUE);
-	dialog_mnemonic_label_in_table(_("Pa_ttern:"), (GTK_COMBO (tfs->grep_pattern)->entry), table, 1, 2, 5, 6);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 2, 4, 5, 6);
+	dialog_mnemonic_label_in_table(_("Pa_ttern:"), (GTK_COMBO (tfs->grep_pattern)->entry), table, 1, 2, 6, 7);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->grep_pattern, 2, 4, 6, 7);
 	
 	tfs->is_regex = checkbut_with_value(NULL, 0);
-	dialog_mnemonic_label_in_table(_("Is rege_x:"), tfs->is_regex, table, 1, 2, 6, 7);
-	gtk_table_attach_defaults(GTK_TABLE(table), tfs->is_regex, 2, 3, 6, 7);
+	dialog_mnemonic_label_in_table(_("Is rege_x:"), tfs->is_regex, table, 1, 2, 7, 8);
+	gtk_table_attach_defaults(GTK_TABLE(table), tfs->is_regex, 2, 3, 7, 8);
 
 	gtk_dialog_set_response_sensitive (GTK_DIALOG (tfs->dialog), GTK_RESPONSE_ACCEPT, FALSE);
 	gtk_widget_show_all (GTK_DIALOG (tfs->dialog)->vbox);

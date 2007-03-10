@@ -809,6 +809,7 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_string_with_escape(&configlist, &session->opendir, "opendir:", NULL);
 	init_prop_string_with_escape(&configlist, &session->savedir, "savedir:", NULL);
 	init_prop_string_with_escape(&configlist, &session->encoding, "encoding:", NULL);
+	init_prop_integer   (&configlist, &session->adv_open_matchname, "adv_open_matchname:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->adv_open_recursive, "adv_open_recursive:", 0, FALSE);
 	init_prop_string    (&configlist, &session->last_filefilter, "last_filefilter:", "");
 	init_prop_integer   (&configlist, &session->view_main_toolbar, "view_main_toolbar:", 1, FALSE);

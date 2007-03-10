@@ -968,11 +968,13 @@ typedef struct {
 	guint refcount;
 	Tbfwin *bfwin;
 	gboolean recursive;
+	gboolean matchname;
 	gchar *extension_filter;
 	GPatternSpec* patspec;
 	gchar *content_filter;
 	gboolean use_regex;
 	pcre *contentf_pcre; /* a compiled content_filter */
+	GnomeVFSURI *topbasedir; /* the top directory where advanced open started */
 } Topenadv;
 
 typedef struct {
@@ -1002,6 +1004,7 @@ static void openadv_unref(Topenadv *oa) {
 		if (oa->patspec) g_pattern_spec_free(oa->patspec);
 		if (oa->content_filter) g_free(oa->content_filter);
 		if (oa->contentf_pcre) pcre_free(oa->contentf_pcre);
+		if (oa->topbasedir) gnome_vfs_uri_unref(oa->topbasedir);
 		g_free(oa);
 	}
 }
@@ -1098,7 +1101,19 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 				list = return_allwindows_documentlist();
 				if (documentlist_return_document_from_uri(list, child_uri)==NULL) { /* if this file is already open, there is no need to do any of these checks */
 					if (oad->oa->patspec) {
-						if (g_pattern_match_string(oad->oa->patspec, finfo->name)) { /* test extension */
+						gchar *nametomatch;
+						/* check if we have to match the name only or path+name */
+						if (oad->oa->matchname) {
+							nametomatch = finfo->name;
+						} else {
+							/* we do some tricks here with the entries stored in GnomeVFSURI's 
+							so we do not need to allocate memory */
+							nametomatch = gnome_vfs_uri_get_path(child_uri);
+							nametomatch = nametomatch + strlen(gnome_vfs_uri_get_path(oad->oa->topbasedir));
+							if (nametomatch[0] == '/') nametomatch++;
+						}
+						DEBUG_MSG("open_adv_load_directory_lcb, matching on %s\n",nametomatch);
+						if (g_pattern_match_string(oad->oa->patspec, nametomatch)) { /* test extension */
 							if (oad->oa->content_filter) { /* do we need content filtering */
 								DEBUG_MSG("open_adv_load_directory_lcb, content filter %s\n", gnome_vfs_uri_get_path(child_uri));
 								openadv_content_filter_file(oad->oa, child_uri, finfo);
@@ -1191,16 +1206,19 @@ static void open_advanced_backend(Topenadv *oa, GnomeVFSURI *basedir) {
 	g_idle_add(process_advqueue, GINT_TO_POINTER(FALSE));
 }
 
-void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gchar *extension_filter, gchar *content_filter, gboolean use_regex) {
+void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
 	if (basedir) {
 		Topenadv *oa;
 		oa = g_new0(Topenadv, 1);
-		DEBUG_MSG("open_advanced, open dir %s, oa=%p, extension_filter=%s\n", gnome_vfs_uri_get_path(basedir), oa, extension_filter);
+		DEBUG_MSG("open_advanced, open dir %s, oa=%p, name_filter=%s\n", gnome_vfs_uri_get_path(basedir), oa, name_filter);
 		oa->bfwin = bfwin;
 		oa->recursive = recursive;
-		if (extension_filter) {
-			oa->extension_filter = g_strdup(extension_filter);
-			oa->patspec = g_pattern_spec_new(extension_filter);
+		oa->matchname = matchname;
+		oa->topbasedir = basedir;
+		gnome_vfs_uri_ref(oa->topbasedir);
+		if (name_filter) {
+			oa->extension_filter = g_strdup(name_filter);
+			oa->patspec = g_pattern_spec_new(name_filter);
 		}
 		if (content_filter) oa->content_filter = g_strdup(content_filter);
 		oa->use_regex = use_regex;
