@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * image.c - the image/thumbnail dialoges
  *
- * Copyright (C) 2003-2006 Olivier Sessink
+ * Copyright (C) 2003-2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -73,6 +73,7 @@ static gchar *create_thumbnail_filename(gchar *filename) {
 
 typedef struct {
 	Thtml_diag *dg;
+	GtkWidget *message;
 	GtkWidget *frame;
 	GdkPixbuf *pb;
 	GnomeVFSURI *full_uri;
@@ -244,6 +245,10 @@ static void image_dialog_set_pixbuf(Timage_diag *imdg) {
 	imdg->im = gtk_image_new_from_pixbuf(tmp_pb);
 
 	g_object_unref(tmp_pb);
+	/*gtk_container_remove(GTK_CONTAINER(imdg->frame),imdg->message);*/
+	gtk_widget_destroy(imdg->message);
+	imdg->message = NULL;
+	
 	gtk_container_add(GTK_CONTAINER(imdg->frame), imdg->im);
 	gtk_widget_show(imdg->im);
 	DEBUG_MSG("imdg->im == %p\n", imdg->im);
@@ -257,6 +262,8 @@ static void image_loaded_lcb(Topenfile_status status,gint error_info,gchar *buff
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:
 		case OPENFILE_ERROR_NOREAD:
+			gtk_label_set_text(GTK_LABEL(imdg->message), _("Loading image failed..."));
+		break;
 		case OPENFILE_ERROR_CANCELLED:
 			/* should we warn the user ?? */
 			gdk_pixbuf_loader_close(imdg->pbloader,NULL);
@@ -319,9 +326,20 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 	}
 	DEBUG_MSG("image_filename_changed: fullfilename=%s, loading!\n",gnome_vfs_uri_get_path(fullfilename));
 	if (fullfilename) {
+		gchar *name, *msg;
 		imdg->pbloader = pbloader_from_filename(gnome_vfs_uri_get_path(fullfilename));
 		imdg->of = file_openfile_uri_async(fullfilename, image_loaded_lcb, imdg);
 		imdg->full_uri = fullfilename;
+		name = gnome_vfs_uri_to_string(fullfilename, GNOME_VFS_URI_HIDE_PASSWORD);
+		msg = g_strdup_printf(_("Loading file %s..."),name);
+		if (imdg->message) {
+			gtk_widget_destroy(imdg->message);
+		}
+		imdg->message = gtk_label_new(msg);
+		gtk_container_add(GTK_CONTAINER(imdg->frame), imdg->message);
+		gtk_widget_show(imdg->message);
+		g_free(msg);
+		g_free(name);
 	}
 }
 
@@ -374,6 +392,8 @@ void image_insert_dialog_backend(gchar *filename,Tbfwin *bfwin, Ttagpopup *data,
 		fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, imdg->dg);
 	}
 	imdg->frame = gtk_frame_new(_("Preview"));
+	imdg->message = NULL;
+	/*gtk_container_add(GTK_CONTAINER(imdg->frame), imdg->message);*/
 /*	gtk_widget_set_usize(imdg->frame, -1, 50);*/
 	gtk_box_pack_start(GTK_BOX(imdg->dg->vbox), imdg->frame, TRUE, TRUE, 0);
 	if (is_thumbnail) {
