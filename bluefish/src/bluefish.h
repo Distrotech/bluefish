@@ -298,6 +298,7 @@ typedef struct {
 	gchar *last_filefilter;   /* last filelist filter type */
 	gchar *opendir;
 	gchar *savedir;
+	gint adv_open_matchname;
 	gint adv_open_recursive;
 	gint bookmarks_filename_mode;    /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
 	gint bookmarks_show_mode;        /* 0=both,1=name,2=content */
