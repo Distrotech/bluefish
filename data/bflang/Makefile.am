@@ -14,6 +14,7 @@ bflang_DATA = \
 	c.bflang \
 	cpp.bflang \
 	css.bflang \
+	d.bflang \
 	html.bflang \
 	java.bflang \
 	pascal.bflang \
