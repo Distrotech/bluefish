@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bflang PUBLIC "Bluefish/DTD/Bflang" "http://bluefish.openoffice.nl/DTD/bflang.dtd">
+<bflang name="D" description="D Programming Language">
+
+<mimetypes>
+<mimetype type="text/x-dsrc" />
+</mimetypes>
+
+<options>
+    <option name="case-sensitive">true</option>
+    <option name="scan-markup-tags">false</option>
+    <option name="scan-blocks">true</option>
+    <option name="auto-scan-triggers">*/(){}'[]\n#";&lt;&gt;&#032;&#013;</option>
+    <option name="escape-characters">\</option>
+</options>
+
+<block-group id="blocks">
+<block id="braces" begin="{" end="}" scanned="true" foldable="true" markup="false" case="true" />
+<block id="square braces" begin="[" end="]" scanned="true" foldable="false" markup="false" case="true" />
+<block id="round braces" begin="(" end=")" scanned="true" foldable="false" markup="false" case="true" />
+<block id="mutliline comment" begin="/*" end="*/" scanned="false" foldable="true" markup="false" case="true" defaultstyle="comment"/>
+</block-group>
+
+<token-group id="general">
+ <token name="string" regexp="true" defaultstyle="string">&quot;[^&quot;]*&quot;</token>
+ <token name="character" regexp="true" defaultstyle="string">&apos;[^&apos;]&apos;</token>
+ <token name="line comment" regexp="true" defaultstyle="comment">//[^&#x0A;]*</token>
+</token-group>
+
+<token-group id="keywords" defaultstyle="keyword">
+ <token-list name="keywords" separator=",">abstract,alias,align,asm,assert,body,break,case,cast,catch,debug,default,delete,deprecated,do,else,export,final,finally,for</token-list>
+ <token-list name="keywords2" separator=",">foreach,foreach_reverse,goto,if,import,in,inout,interface,invariant,is,lazy,mixin,module,new,out,override,package,pragma</token-list>
+ <token-list name="keywords3" separator=",">private,protected,public,return,scope,sizeof,switch,synchronized,template,throw,try,typeid,unittest,version,while,with</token-list>
+</token-group>
+
+<token-group id="storage keywords" defaultstyle="keyword-blue">
+ <token-list name="skeywords" separator=",">auto,bit,bool,byte,cdouble,cent,cfloat,char,class,const,creal,delegate,dchar,double,enum,extern,float,function</token-list>
+ <token-list name="skeywords2" separator=",">idouble,ifloat,int,ireal,long,real,short,static,struct,typedef,ubyte,uint,ulong,union,ushort,void,volatile,wchar</token-list>
+</token-group>
+
+<token-group id="other" defaultstyle="variable">
+ <token-list name="special values" separator=",">null,true,false,this,super</token-list>
+</token-group>
+
+<token-group id="numbers" defaultstyle="numbers">
+ <token name="number" regexp="true">[0-9]+.?[0-9]*</token>
+ <token name="hex number" regexp="true">0x[0-9]+</token>
+</token-group>
+
+</bflang>
