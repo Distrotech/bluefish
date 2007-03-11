@@ -43,6 +43,9 @@
 
 <token-group id="other" defaultstyle="variable">
  <token-list name="defines" separator=",">null,true,false</token-list>
+</token-group>
+
+<token-group id="numbers" defaultstyle="numbers">
  <token name="number" regexp="true">[0-9]+.?[0-9]*</token>
  <token name="hex number" regexp="true">0x[0-9]+</token>
 </token-group>
