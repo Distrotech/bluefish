@@ -35,6 +35,23 @@ cfml:CFML Comment:0:<!---:--->:1::#848484::1:2:
 cfml:HTML Comment:0:<!--:-->:1::#AAAAAA::1:2:
 cfml:Special Characters:1:&[^;]*;::2::#999999::2:0:
 cfml:DocType:1:<![a-z0-9]+:[^?-]>:1::#bb8800::0:0:
+D:Decimal:0:\\b-?[0-9_]+(L[uU]?|[uU]L?)?\\b::2::#009900::0:0:
+D:Hex:0:\\b0[xX][A-Fa-f0-9_]+(L[uU]?|[uU]L?)?\\b::2::#009900::0:0:
+D:Binary:0:\\b0[bB][01_]+(L[uU]?|[uU]L?)?\\b::2::#009900::0:0:
+D:Float:0:\\b[0-9_]+(\\.[0-9_]+)?([eE][-+]?[0-9_]+)?[fFL]?i?\\b::2::#009900::0:0:
+D:HexFloat:0:\\b0[xX][A-Fa-f0-9_]+(\\.[A-Fa-f0-9_]+)?([pP][-+]?[0-9_]+)?[fFL]?i?\\b::2::#009900::0:0:
+D:Keywords:1:\\b(abstract|alias|align|asm|assert|auto|body|break|case|cast|catch|class|const|continue|debug|default|delete|deprecated|do|else|enum|export|extern|final|finally|for|foreach|foreach_reverse|goto|if|import|in|inout|interface|invariant|is|lazy|mixin|module|new|out|override|package|pragma|private|protected|public|return|scope|static|struct|switch|synchronized|template|throw|try|typedef|typeid|typeof|union|unittest|ushort|version|volatile|while|with)\\b::2::#009999::2:0:
+D:Basic Types:1:\\b(delegate|function|bit|bool|byte|ubyte|short|ushort|int|uint|long|ulong|cent|char|wchar|dchar|float|double|real|ifloat|idouble|ireal|cfloat|cdouble|creal|void)\\b::2::#000099::2:0:
+D:Special Values:1:\\b(true|false|null|this|super)\\b::2::#999900::2:0:
+D:Braces:0:[{}]::2::#000000::2:0:
+D:Character:0:'.*?'::2::#009900::0:0:
+D:Character Escape:0:\\\\.::2:^character$:#009900::0:0:
+D:String (wysiwyg):0:(r".*?"[cwd]?)|(`.*?`[cwd]?)::2::#009900::0:0:
+D:String Escape:0:\\\\(n|t|v|b|r|f|a|\\\\|\\?|'|"|\\d{1,3}|x\\d+)::2:^String$:#990099::0:0:
+D:String:0:x?"((\\\\")|[^"])*"[cwd]?::2::#009900::0:0:
+D:Comment (single line):0://.*?$::2::#0000FF::1:2:
+D:Comment (multiline):0:/\\*.*?\\*/::2::#0000FF::1:2:
+D:Comment (nested):0:/\\+((?R)|.)*?\\+/::2::#0000FF::1:2:
 gettext po:Untranslated:1:msgstr(?\:\\[[0-9]+\\])? ""\\n\\n::2::#990000:#ffffff:0:0:
 gettext po:Text:1:":":1::#009900:#ffffff:0:2:
 gettext po:Todo:1:^#,.*?$::2::#ffffff:#990000:2:0:
