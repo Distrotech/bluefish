@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru.po\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2007-02-04 15:44-0800\n"
+"POT-Creation-Date: 2007-03-13 01:16+0100\n"
 "PO-Revision-Date: 2004-12-02 10:42+0300\n"
 "Last-Translator: Eugene Rupakov <taurus_1@mail.ru>\n"
 "Language-Team:  <ru@li.org>\n"
@@ -1458,7 +1458,7 @@ msgstr "_Цель:"
 #: src/plugin_htmlbar/html.c:1208 src/plugin_htmlbar/html.c:1682
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:418
+#: src/plugin_htmlbar/image.c:440
 msgid "_Name:"
 msgstr "_Имя:"
 
@@ -1474,7 +1474,7 @@ msgstr "_Язык:"
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:426
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:448
 msgid "Custo_m:"
 msgstr "Про_чее:"
 
@@ -1558,7 +1558,7 @@ msgid "Horizontal Rule"
 msgstr "Горизонтальный разделитель"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1767
-#: src/plugin_htmlbar/image.c:444
+#: src/plugin_htmlbar/image.c:466
 msgid "_Align:"
 msgstr "В_ыравнивание"
 
@@ -1570,7 +1570,7 @@ msgstr "Вы_сота:"
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1771
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:402
+#: src/plugin_htmlbar/image.c:424
 msgid "_Width:"
 msgstr "_Ширина:"
 
@@ -1923,83 +1923,93 @@ msgstr "Расстояние между ст_роками:"
 msgid "No Wra_p:"
 msgstr "Не _переносить слова:"
 
-#: src/plugin_htmlbar/image.c:366
+#: src/plugin_htmlbar/image.c:265
+#, fuzzy
+msgid "Loading image failed..."
+msgstr "Загрузка файлов..."
+
+#: src/plugin_htmlbar/image.c:334
+#, fuzzy, c-format
+msgid "Loading file %s..."
+msgstr "Загрузка файлов..."
+
+#: src/plugin_htmlbar/image.c:386
 msgid "Insert thumbnail"
 msgstr "Вставить эскиз"
 
-#: src/plugin_htmlbar/image.c:368
+#: src/plugin_htmlbar/image.c:388
 msgid "Insert image"
 msgstr "Вставить изображение"
 
-#: src/plugin_htmlbar/image.c:374
+#: src/plugin_htmlbar/image.c:394
 msgid "Preview"
 msgstr "Просмотр"
 
-#: src/plugin_htmlbar/image.c:394
+#: src/plugin_htmlbar/image.c:416
 msgid "_Image location:"
 msgstr "Ссылка на _изображение:"
 
-#: src/plugin_htmlbar/image.c:409
+#: src/plugin_htmlbar/image.c:431
 msgid "Hei_ght:"
 msgstr "В_ысота:"
 
-#: src/plugin_htmlbar/image.c:414
+#: src/plugin_htmlbar/image.c:436
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
-#: src/plugin_htmlbar/image.c:422
+#: src/plugin_htmlbar/image.c:444
 msgid "Alternate _text:"
 msgstr "Альтернативный _текст:"
 
-#: src/plugin_htmlbar/image.c:430
+#: src/plugin_htmlbar/image.c:452
 msgid "_Hspace:"
 msgstr "_Hspace:"
 
-#: src/plugin_htmlbar/image.c:434
+#: src/plugin_htmlbar/image.c:456
 msgid "_Vspace:"
 msgstr "_Vspace:"
 
-#: src/plugin_htmlbar/image.c:448
+#: src/plugin_htmlbar/image.c:470
 msgid "Borde_r:"
 msgstr "_Рамка:"
 
-#: src/plugin_htmlbar/image.c:779
+#: src/plugin_htmlbar/image.c:801
 msgid "Select files for thumbnail creation"
 msgstr "Выберите файлы для которых следует создать эскизы"
 
-#: src/plugin_htmlbar/image.c:814
+#: src/plugin_htmlbar/image.c:836
 msgid "Scaling (%)"
 msgstr "Масштабирование (%)"
 
-#: src/plugin_htmlbar/image.c:818 src/plugin_htmlbar/image.c:826
+#: src/plugin_htmlbar/image.c:840 src/plugin_htmlbar/image.c:848
 msgid "Width"
 msgstr "Ширина"
 
-#: src/plugin_htmlbar/image.c:822 src/plugin_htmlbar/image.c:854
+#: src/plugin_htmlbar/image.c:844 src/plugin_htmlbar/image.c:876
 msgid "Height"
 msgstr "Высота"
 
-#: src/plugin_htmlbar/image.c:843
+#: src/plugin_htmlbar/image.c:865
 msgid "Multi thumbnail"
 msgstr "Альбом эскизов"
 
-#: src/plugin_htmlbar/image.c:849
+#: src/plugin_htmlbar/image.c:871
 msgid "By scaling"
 msgstr "По масштабу"
 
-#: src/plugin_htmlbar/image.c:850
+#: src/plugin_htmlbar/image.c:872
 msgid "By width, keep aspect ratio"
 msgstr "По ширине, сохранять пропорции"
 
-#: src/plugin_htmlbar/image.c:851
+#: src/plugin_htmlbar/image.c:873
 msgid "By height, keep aspect ratio"
 msgstr "По высоте, сохранять пропорции"
 
-#: src/plugin_htmlbar/image.c:852
+#: src/plugin_htmlbar/image.c:874
 msgid "By width and height, ignore aspect ratio"
 msgstr "По ширине и высоте, игнорировать пропорцию"
 
-#: src/plugin_htmlbar/image.c:876
+#: src/plugin_htmlbar/image.c:898
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -4551,9 +4561,6 @@ msgstr "Размер:"
 
 #~ msgid "File save error"
 #~ msgstr "Ошибка сохранения файла"
-
-#~ msgid "Loading files..."
-#~ msgstr "Загрузка файлов..."
 
 #~ msgid ""
 #~ "These files could not opened:\n"

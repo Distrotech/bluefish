@@ -131,7 +131,8 @@ enum {
 	editor_bg,
 	view_rmargin,
 	rmargin_at,
-	autocomp_key,	
+	autocomp_key,
+	tag_autoclose,	
 	property_num_max
 };
 
@@ -1679,6 +1680,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.view_symbols, pd->prefs[view_symbols], TRUE);
 	integer_apply(&main_v->props.view_mbhl, pd->prefs[view_mbhl], TRUE);
 	integer_apply(&main_v->props.view_cline, pd->prefs[view_cline], TRUE);
+	integer_apply(&main_v->props.tag_autoclose, pd->prefs[tag_autoclose], TRUE);
 	main_v->props.scan_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[scan_mode]));
 	string_apply(&main_v->props.editor_fg, pd->prefs[editor_fg]);
 	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);	
@@ -1971,6 +1973,7 @@ static void preferences_dialog() {
 	pd->prefs[view_blocks] = boxed_checkbut_with_value(_("Block folding view by default"), main_v->props.view_blocks, vbox2);
 	pd->prefs[view_symbols] = boxed_checkbut_with_value(_("Symbols view by default"), main_v->props.view_symbols, vbox2);
 	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
+	pd->prefs[tag_autoclose] = boxed_checkbut_with_value(_("Tag autoclose by default"), main_v->props.tag_autoclose, vbox2);
 
 	frame = gtk_frame_new(_("Undo options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);

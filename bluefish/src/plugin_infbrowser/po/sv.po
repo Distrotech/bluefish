@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2007-02-15 02:57+0100\n"
+"POT-Creation-Date: 2007-03-13 01:16+0100\n"
 "PO-Revision-Date: 2004-11-27 21:02+0100\n"
 "Last-Translator: David Smeringe <david.smeringe@telia.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -15,67 +15,55 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/plugin_infbrowser/infb_gui.c:146
-msgid "Cannot load file"
+#: src/plugin_infbrowser/infb_gui.c:142
+msgid "Loading..."
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:159
-msgid "Cannot find file"
-msgstr ""
-
-#: src/plugin_infbrowser/infb_gui.c:181
-#: src/plugin_infbrowser/infb_wizard.c:125
-msgid "Remote DTD file"
-msgstr ""
-
-#: src/plugin_infbrowser/infb_gui.c:182
-msgid ""
-"It seems this is remote DTD.\n"
-"It can take some time to load.\n"
-"Continue?"
-msgstr ""
-
-#: src/plugin_infbrowser/infb_gui.c:204
+#: src/plugin_infbrowser/infb_gui.c:148 src/plugin_infbrowser/infb_gui.c:208
 msgid "Cannot load file from network"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:366
+#: src/plugin_infbrowser/infb_gui.c:162
+msgid "Cannot find file"
+msgstr ""
+
+#: src/plugin_infbrowser/infb_gui.c:372
 msgid "Fragment saved"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:370
+#: src/plugin_infbrowser/infb_gui.c:376
 msgid "Cannot open file"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:462
+#: src/plugin_infbrowser/infb_gui.c:458 src/plugin_infbrowser/infb_gui.c:496
 msgid "Nothing found"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:503
+#: src/plugin_infbrowser/infb_gui.c:537
 msgid "Documentation index"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:508
+#: src/plugin_infbrowser/infb_gui.c:542
 msgid "Document index"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:513
+#: src/plugin_infbrowser/infb_gui.c:547
 msgid "Upper level"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:519
+#: src/plugin_infbrowser/infb_gui.c:553
 msgid "Save current view"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:520
+#: src/plugin_infbrowser/infb_gui.c:554
 msgid "Go to sekected fragment"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:555
+#: src/plugin_infbrowser/infb_gui.c:589
 msgid "Find"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_gui.c:562
+#: src/plugin_infbrowser/infb_gui.c:596
 msgid "Info Browser"
 msgstr ""
 
@@ -84,25 +72,33 @@ msgstr ""
 msgid "Cannot load reference file %s\n"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_load.c:46
-msgid "Unknown"
-msgstr ""
-
-#: src/plugin_infbrowser/infb_load.c:147
+#: src/plugin_infbrowser/infb_load.c:166
 msgid "Documentation entries"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_text.c:755
-msgid "Loading..."
+#: src/plugin_infbrowser/infb_load.c:170
+msgid "References"
 msgstr ""
 
-#: src/plugin_infbrowser/infb_text.c:763
-msgid "Unknown document type."
+#: src/plugin_infbrowser/infb_load.c:172
+msgid "DTD"
+msgstr ""
+
+#: src/plugin_infbrowser/infb_load.c:174
+msgid "Web pages"
+msgstr ""
+
+#: src/plugin_infbrowser/infb_text.c:809
+msgid "Unknown document type"
 msgstr ""
 
 #: src/plugin_infbrowser/infb_wizard.c:117
 #: src/plugin_infbrowser/infb_wizard.c:165
 msgid "Local DTD file"
+msgstr ""
+
+#: src/plugin_infbrowser/infb_wizard.c:125
+msgid "Remote DTD file"
 msgstr ""
 
 #: src/plugin_infbrowser/infb_wizard.c:162

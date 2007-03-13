@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2007-02-04 15:44-0800\n"
+"POT-Creation-Date: 2007-03-13 01:16+0100\n"
 "PO-Revision-Date: 2004-12-08 18:48-0300\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -1456,7 +1456,7 @@ msgstr "目标(_T)："
 #: src/plugin_htmlbar/html.c:1208 src/plugin_htmlbar/html.c:1682
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:418
+#: src/plugin_htmlbar/image.c:440
 msgid "_Name:"
 msgstr "名称(_N)："
 
@@ -1472,7 +1472,7 @@ msgstr "语言(_L)："
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:426
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:448
 msgid "Custo_m:"
 msgstr "自定义(_M)："
 
@@ -1556,7 +1556,7 @@ msgid "Horizontal Rule"
 msgstr "水平线"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1767
-#: src/plugin_htmlbar/image.c:444
+#: src/plugin_htmlbar/image.c:466
 msgid "_Align:"
 msgstr "对齐(_A)："
 
@@ -1568,7 +1568,7 @@ msgstr "高度(_H)："
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1771
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:402
+#: src/plugin_htmlbar/image.c:424
 msgid "_Width:"
 msgstr "宽度(_W)："
 
@@ -1921,83 +1921,93 @@ msgstr "行合并(_R)："
 msgid "No Wra_p:"
 msgstr "不换行(_P)："
 
-#: src/plugin_htmlbar/image.c:366
+#: src/plugin_htmlbar/image.c:265
+#, fuzzy
+msgid "Loading image failed..."
+msgstr "正在载入文件..."
+
+#: src/plugin_htmlbar/image.c:334
+#, fuzzy, c-format
+msgid "Loading file %s..."
+msgstr "正在载入文件..."
+
+#: src/plugin_htmlbar/image.c:386
 msgid "Insert thumbnail"
 msgstr "插入相册"
 
-#: src/plugin_htmlbar/image.c:368
+#: src/plugin_htmlbar/image.c:388
 msgid "Insert image"
 msgstr "插入图像"
 
-#: src/plugin_htmlbar/image.c:374
+#: src/plugin_htmlbar/image.c:394
 msgid "Preview"
 msgstr "预览"
 
-#: src/plugin_htmlbar/image.c:394
+#: src/plugin_htmlbar/image.c:416
 msgid "_Image location:"
 msgstr "图像位置(_I)："
 
-#: src/plugin_htmlbar/image.c:409
+#: src/plugin_htmlbar/image.c:431
 msgid "Hei_ght:"
 msgstr "高度(_G)："
 
-#: src/plugin_htmlbar/image.c:414
+#: src/plugin_htmlbar/image.c:436
 msgid "_Usemap:"
 msgstr "使用映射(_U)："
 
-#: src/plugin_htmlbar/image.c:422
+#: src/plugin_htmlbar/image.c:444
 msgid "Alternate _text:"
 msgstr "替代文本(_T)："
 
-#: src/plugin_htmlbar/image.c:430
+#: src/plugin_htmlbar/image.c:452
 msgid "_Hspace:"
 msgstr "水平距离(_H)："
 
-#: src/plugin_htmlbar/image.c:434
+#: src/plugin_htmlbar/image.c:456
 msgid "_Vspace:"
 msgstr "垂直距离(_V)："
 
-#: src/plugin_htmlbar/image.c:448
+#: src/plugin_htmlbar/image.c:470
 msgid "Borde_r:"
 msgstr "边框(_R)："
 
-#: src/plugin_htmlbar/image.c:779
+#: src/plugin_htmlbar/image.c:801
 msgid "Select files for thumbnail creation"
 msgstr "选择用于生成相册的文件"
 
-#: src/plugin_htmlbar/image.c:814
+#: src/plugin_htmlbar/image.c:836
 msgid "Scaling (%)"
 msgstr "缩放 (%)"
 
-#: src/plugin_htmlbar/image.c:818 src/plugin_htmlbar/image.c:826
+#: src/plugin_htmlbar/image.c:840 src/plugin_htmlbar/image.c:848
 msgid "Width"
 msgstr "宽度"
 
-#: src/plugin_htmlbar/image.c:822 src/plugin_htmlbar/image.c:854
+#: src/plugin_htmlbar/image.c:844 src/plugin_htmlbar/image.c:876
 msgid "Height"
 msgstr "高度"
 
-#: src/plugin_htmlbar/image.c:843
+#: src/plugin_htmlbar/image.c:865
 msgid "Multi thumbnail"
 msgstr "多相册"
 
-#: src/plugin_htmlbar/image.c:849
+#: src/plugin_htmlbar/image.c:871
 msgid "By scaling"
 msgstr "根据比例"
 
-#: src/plugin_htmlbar/image.c:850
+#: src/plugin_htmlbar/image.c:872
 msgid "By width, keep aspect ratio"
 msgstr "根据宽度，保持高宽比"
 
-#: src/plugin_htmlbar/image.c:851
+#: src/plugin_htmlbar/image.c:873
 msgid "By height, keep aspect ratio"
 msgstr "根据高度，保持高宽比"
 
-#: src/plugin_htmlbar/image.c:852
+#: src/plugin_htmlbar/image.c:874
 msgid "By width and height, ignore aspect ratio"
 msgstr "根据和宽度和高度，忽略高宽比"
 
-#: src/plugin_htmlbar/image.c:876
+#: src/plugin_htmlbar/image.c:898
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -4513,9 +4523,6 @@ msgstr "大小："
 
 #~ msgid "File save error"
 #~ msgstr "文件保存错误"
-
-#~ msgid "Loading files..."
-#~ msgstr "正在载入文件..."
 
 #~ msgid ""
 #~ "These files could not opened:\n"

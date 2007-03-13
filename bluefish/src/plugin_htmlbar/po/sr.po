@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: last_sr\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2007-02-04 15:44-0800\n"
+"POT-Creation-Date: 2007-03-13 01:16+0100\n"
 "PO-Revision-Date: 2004-11-27 11:08+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -1459,7 +1459,7 @@ msgstr "_Meta:"
 #: src/plugin_htmlbar/html.c:1208 src/plugin_htmlbar/html.c:1682
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:418
+#: src/plugin_htmlbar/image.c:440
 msgid "_Name:"
 msgstr "_Ime:"
 
@@ -1475,7 +1475,7 @@ msgstr "_Jezik:"
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:426
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:448
 msgid "Custo_m:"
 msgstr "Lični:"
 
@@ -1559,7 +1559,7 @@ msgid "Horizontal Rule"
 msgstr "Horizontalno pravilo"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1767
-#: src/plugin_htmlbar/image.c:444
+#: src/plugin_htmlbar/image.c:466
 msgid "_Align:"
 msgstr "_Poravnjaj:"
 
@@ -1571,7 +1571,7 @@ msgstr "_Visina:"
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1771
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:402
+#: src/plugin_htmlbar/image.c:424
 msgid "_Width:"
 msgstr "_Širina:"
 
@@ -1924,83 +1924,93 @@ msgstr "_Širina reda:"
 msgid "No Wra_p:"
 msgstr "Bez uređenja:"
 
-#: src/plugin_htmlbar/image.c:366
+#: src/plugin_htmlbar/image.c:265
+#, fuzzy
+msgid "Loading image failed..."
+msgstr "Učitavam datoteke"
+
+#: src/plugin_htmlbar/image.c:334
+#, fuzzy, c-format
+msgid "Loading file %s..."
+msgstr "Učitavam datoteke"
+
+#: src/plugin_htmlbar/image.c:386
 msgid "Insert thumbnail"
 msgstr "Ubaci umanjen prikaz:"
 
-#: src/plugin_htmlbar/image.c:368
+#: src/plugin_htmlbar/image.c:388
 msgid "Insert image"
 msgstr "Ubaci sliku"
 
-#: src/plugin_htmlbar/image.c:374
+#: src/plugin_htmlbar/image.c:394
 msgid "Preview"
 msgstr "Pregled"
 
-#: src/plugin_htmlbar/image.c:394
+#: src/plugin_htmlbar/image.c:416
 msgid "_Image location:"
 msgstr "_Lokacija slike:"
 
-#: src/plugin_htmlbar/image.c:409
+#: src/plugin_htmlbar/image.c:431
 msgid "Hei_ght:"
 msgstr "Visina:"
 
-#: src/plugin_htmlbar/image.c:414
+#: src/plugin_htmlbar/image.c:436
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
-#: src/plugin_htmlbar/image.c:422
+#: src/plugin_htmlbar/image.c:444
 msgid "Alternate _text:"
 msgstr "Promenljivi _tekst:"
 
-#: src/plugin_htmlbar/image.c:430
+#: src/plugin_htmlbar/image.c:452
 msgid "_Hspace:"
 msgstr "_Hprostor:"
 
-#: src/plugin_htmlbar/image.c:434
+#: src/plugin_htmlbar/image.c:456
 msgid "_Vspace:"
 msgstr "_Vprostor:"
 
-#: src/plugin_htmlbar/image.c:448
+#: src/plugin_htmlbar/image.c:470
 msgid "Borde_r:"
 msgstr "Ivica:"
 
-#: src/plugin_htmlbar/image.c:779
+#: src/plugin_htmlbar/image.c:801
 msgid "Select files for thumbnail creation"
 msgstr "Izaberite datoteke za umanjen prikaz"
 
-#: src/plugin_htmlbar/image.c:814
+#: src/plugin_htmlbar/image.c:836
 msgid "Scaling (%)"
 msgstr "Srazmera(%)"
 
-#: src/plugin_htmlbar/image.c:818 src/plugin_htmlbar/image.c:826
+#: src/plugin_htmlbar/image.c:840 src/plugin_htmlbar/image.c:848
 msgid "Width"
 msgstr "Širina"
 
-#: src/plugin_htmlbar/image.c:822 src/plugin_htmlbar/image.c:854
+#: src/plugin_htmlbar/image.c:844 src/plugin_htmlbar/image.c:876
 msgid "Height"
 msgstr "Visina"
 
-#: src/plugin_htmlbar/image.c:843
+#: src/plugin_htmlbar/image.c:865
 msgid "Multi thumbnail"
 msgstr "Više umanjenih prikaza"
 
-#: src/plugin_htmlbar/image.c:849
+#: src/plugin_htmlbar/image.c:871
 msgid "By scaling"
 msgstr "Po srazmeri"
 
-#: src/plugin_htmlbar/image.c:850
+#: src/plugin_htmlbar/image.c:872
 msgid "By width, keep aspect ratio"
 msgstr "Po širini zadrži srazmeru"
 
-#: src/plugin_htmlbar/image.c:851
+#: src/plugin_htmlbar/image.c:873
 msgid "By height, keep aspect ratio"
 msgstr "Po visini, zadrži srazmeru"
 
-#: src/plugin_htmlbar/image.c:852
+#: src/plugin_htmlbar/image.c:874
 msgid "By width and height, ignore aspect ratio"
 msgstr "Po širini i visini, ignoriši srazmernost"
 
-#: src/plugin_htmlbar/image.c:876
+#: src/plugin_htmlbar/image.c:898
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -4540,9 +4550,6 @@ msgstr "Veličina:"
 
 #~ msgid "File save error"
 #~ msgstr "Greška u čuvanju datoteke"
-
-#~ msgid "Loading files..."
-#~ msgstr "Učitavam datoteke"
 
 #~ msgid ""
 #~ "These files could not opened:\n"

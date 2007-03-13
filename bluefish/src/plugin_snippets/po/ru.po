@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru.po\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2007-01-14 08:08-0800\n"
+"POT-Creation-Date: 2007-03-13 01:17+0100\n"
 "PO-Revision-Date: 2004-12-02 10:42+0300\n"
 "Last-Translator: Eugene Rupakov <taurus_1@mail.ru>\n"
 "Language-Team:  <ru@li.org>\n"
@@ -16,43 +16,59 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: src/plugin_snippets/snippets_gui.c:230
+#: src/plugin_snippets/snippets_gui.c:264
 msgid "Set accelerator key"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:262
+#: src/plugin_snippets/snippets_gui.c:296
+msgid "Snippet export filename"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:305
+msgid "Snippet import filename"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:315
 msgid "/_New snippet"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:263
+#: src/plugin_snippets/snippets_gui.c:316
 msgid "/_Edit snippet"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:264
+#: src/plugin_snippets/snippets_gui.c:317
 msgid "/_Delete snippet"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:265
+#: src/plugin_snippets/snippets_gui.c:318
 msgid "/Delete branch"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:267
+#: src/plugin_snippets/snippets_gui.c:320
 msgid "/Set snippet _accelerator"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:269
+#: src/plugin_snippets/snippets_gui.c:322
 msgid "/Expand all"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:270
+#: src/plugin_snippets/snippets_gui.c:323
 msgid "/Collapse all"
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:377
+#: src/plugin_snippets/snippets_gui.c:325
+msgid "/Export"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:326
+msgid "/Import"
+msgstr ""
+
+#: src/plugin_snippets/snippets_gui.c:434
 msgid "Click the right mouse button to add, edit or delete snippets."
 msgstr ""
 
-#: src/plugin_snippets/snippets_gui.c:419
+#: src/plugin_snippets/snippets_gui.c:572
 msgid "snippets"
 msgstr ""
 
@@ -60,78 +76,86 @@ msgstr ""
 msgid "[cursor position or selection]"
 msgstr ""
 
-#: src/plugin_snippets/snippets_leaf_snr.c:152
+#: src/plugin_snippets/snippets_leaf_snr.c:154
 msgid "Search for: '"
 msgstr ""
 
-#: src/plugin_snippets/snippets_leaf_snr.c:152
+#: src/plugin_snippets/snippets_leaf_snr.c:154
 msgid "', replace with: '"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:110
+#: src/plugin_snippets/snippets_wizard.c:112
 msgid "Entire document"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:111
+#: src/plugin_snippets/snippets_wizard.c:113
 msgid "Forward from cursor position"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:112
+#: src/plugin_snippets/snippets_wizard.c:114
 msgid "Selection"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:113
+#: src/plugin_snippets/snippets_wizard.c:115
 msgid "All open files"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:117
+#: src/plugin_snippets/snippets_wizard.c:119
 msgid "Normal"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:118
+#: src/plugin_snippets/snippets_wizard.c:120
 msgid "Entire word only"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:119
+#: src/plugin_snippets/snippets_wizard.c:121
 msgid "POSIX"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:120
+#: src/plugin_snippets/snippets_wizard.c:122
 msgid "PERL"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:131
+#: src/plugin_snippets/snippets_wizard.c:133
 msgid ""
 "Specify a search and a replace pattern. You may use %0, %1, ...%5 "
 "placeholders to ask for values when you activate this item. Give these "
 "placeholders an appropriate name on the right."
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:138
+#: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:142
+#: src/plugin_snippets/snippets_wizard.c:144
 msgid "Replace _with: "
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:149
+#: src/plugin_snippets/snippets_wizard.c:151
 msgid "Sco_pe: "
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:156
+#: src/plugin_snippets/snippets_wizard.c:158
 msgid "Match Patter_n: "
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:159
+#: src/plugin_snippets/snippets_wizard.c:161
 msgid "Case sensitive _matching"
 msgstr ""
 
 #: src/plugin_snippets/snippets_wizard.c:162
+msgid "Only match if case (upper/lower) is identical."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:165
 msgid "_Use escape chars"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:335
+#: src/plugin_snippets/snippets_wizard.c:166
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+msgstr ""
+
+#: src/plugin_snippets/snippets_wizard.c:339
 msgid ""
 "The <i>before</i> text will be inserted before the cursor position or the "
 "current selection, the <i>after</i> text will be inserted after the cursor "
@@ -140,42 +164,42 @@ msgid ""
 "appropriate name on the right."
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:341
+#: src/plugin_snippets/snippets_wizard.c:345
 msgid "<i>Before</i> text"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:351
+#: src/plugin_snippets/snippets_wizard.c:355
 msgid "<i>After</i> text"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:466
+#: src/plugin_snippets/snippets_wizard.c:470
 msgid "Enter the name of the branch:"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:549
+#: src/plugin_snippets/snippets_wizard.c:553
 msgid "Name of the new item:"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:554
+#: src/plugin_snippets/snippets_wizard.c:558
 msgid "Description:"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:604
+#: src/plugin_snippets/snippets_wizard.c:608
 msgid "Select what you want to add"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:606
+#: src/plugin_snippets/snippets_wizard.c:610
 msgid "Branch"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:608
+#: src/plugin_snippets/snippets_wizard.c:612
 msgid "Insert string"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:610
+#: src/plugin_snippets/snippets_wizard.c:614
 msgid "Search and replace pattern"
 msgstr ""
 
-#: src/plugin_snippets/snippets_wizard.c:717
+#: src/plugin_snippets/snippets_wizard.c:721
 msgid "New snippet"
 msgstr ""

@@ -2831,8 +2831,8 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->hl = get_filetype_for_mime_type("text/plain"); 
 	if (newdoc->hl->cfg) {
 		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),newdoc->hl->cfg);
-		BF_TEXTVIEW(newdoc->view)->tag_autoclose = TRUE;
 	}
+	BF_TEXTVIEW(newdoc->view)->tag_autoclose = main_v->props.tag_autoclose;
 	bf_textview_recolor(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg,main_v->props.editor_bg);
 	bf_textview_show_rmargin(BF_TEXTVIEW(newdoc->view),main_v->props.view_rmargin,main_v->props.rmargin_at); 
 /*	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg);*/ 

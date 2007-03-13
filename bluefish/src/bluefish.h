@@ -269,6 +269,7 @@ typedef struct {
 	gint rmargin_at; /* position of a right margin */
 	gchar *autocomp_key; /* autocompletion accelerator */
 	GList *textstyles; /* tet styles: name,foreground,background,weight,style */
+	gint tag_autoclose; /* global setting for tag autoclosing */
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 

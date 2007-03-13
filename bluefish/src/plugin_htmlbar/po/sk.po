@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 17-01-06_sk-2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2007-02-04 15:44-0800\n"
+"POT-Creation-Date: 2007-03-13 01:16+0100\n"
 "PO-Revision-Date: 2006-01-18 14:51+0100\n"
 "Last-Translator: Vladimir VASIL <vvasil@post.sk>\n"
 "Language-Team:  <sk@li.org>\n"
@@ -1455,7 +1455,7 @@ msgstr "_Cieľ:"
 #: src/plugin_htmlbar/html.c:1208 src/plugin_htmlbar/html.c:1682
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:418
+#: src/plugin_htmlbar/image.c:440
 msgid "_Name:"
 msgstr "_Meno:"
 
@@ -1471,7 +1471,7 @@ msgstr "_Jazyk:"
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:426
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:448
 msgid "Custo_m:"
 msgstr "Vlast_né:"
 
@@ -1555,7 +1555,7 @@ msgid "Horizontal Rule"
 msgstr "Horizontálna čiara"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1767
-#: src/plugin_htmlbar/image.c:444
+#: src/plugin_htmlbar/image.c:466
 msgid "_Align:"
 msgstr "Za_rovnanie:"
 
@@ -1567,7 +1567,7 @@ msgstr "_Výška:"
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1771
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:402
+#: src/plugin_htmlbar/image.c:424
 msgid "_Width:"
 msgstr "Šír_ka:"
 
@@ -1916,83 +1916,92 @@ msgstr "Zlúčenie ria_dkov:"
 msgid "No Wra_p:"
 msgstr "Nazalamovať slo_vá:"
 
-#: src/plugin_htmlbar/image.c:366
+#: src/plugin_htmlbar/image.c:265
+msgid "Loading image failed..."
+msgstr ""
+
+#: src/plugin_htmlbar/image.c:334
+#, c-format
+msgid "Loading file %s..."
+msgstr ""
+
+#: src/plugin_htmlbar/image.c:386
 msgid "Insert thumbnail"
 msgstr "Vložit náhľad"
 
-#: src/plugin_htmlbar/image.c:368
+#: src/plugin_htmlbar/image.c:388
 msgid "Insert image"
 msgstr "Vlož obrázok"
 
-#: src/plugin_htmlbar/image.c:374
+#: src/plugin_htmlbar/image.c:394
 msgid "Preview"
 msgstr "Prehľad"
 
-#: src/plugin_htmlbar/image.c:394
+#: src/plugin_htmlbar/image.c:416
 msgid "_Image location:"
 msgstr "_Umíestnenie obrázku:"
 
-#: src/plugin_htmlbar/image.c:409
+#: src/plugin_htmlbar/image.c:431
 msgid "Hei_ght:"
 msgstr "_Výška:"
 
-#: src/plugin_htmlbar/image.c:414
+#: src/plugin_htmlbar/image.c:436
 msgid "_Usemap:"
 msgstr "Po_uži mapu:"
 
-#: src/plugin_htmlbar/image.c:422
+#: src/plugin_htmlbar/image.c:444
 msgid "Alternate _text:"
 msgstr "Alternativní _text:"
 
-#: src/plugin_htmlbar/image.c:430
+#: src/plugin_htmlbar/image.c:452
 msgid "_Hspace:"
 msgstr "_Horizontálna medzera:"
 
-#: src/plugin_htmlbar/image.c:434
+#: src/plugin_htmlbar/image.c:456
 msgid "_Vspace:"
 msgstr "_Vertikálna medzera:"
 
-#: src/plugin_htmlbar/image.c:448
+#: src/plugin_htmlbar/image.c:470
 msgid "Borde_r:"
 msgstr "Oh_raničenie:"
 
-#: src/plugin_htmlbar/image.c:779
+#: src/plugin_htmlbar/image.c:801
 msgid "Select files for thumbnail creation"
 msgstr "Zvoľte súbory k vytvoreniu náhľadu"
 
-#: src/plugin_htmlbar/image.c:814
+#: src/plugin_htmlbar/image.c:836
 msgid "Scaling (%)"
 msgstr "Zmena veľkosti (%)"
 
-#: src/plugin_htmlbar/image.c:818 src/plugin_htmlbar/image.c:826
+#: src/plugin_htmlbar/image.c:840 src/plugin_htmlbar/image.c:848
 msgid "Width"
 msgstr "Šířka"
 
-#: src/plugin_htmlbar/image.c:822 src/plugin_htmlbar/image.c:854
+#: src/plugin_htmlbar/image.c:844 src/plugin_htmlbar/image.c:876
 msgid "Height"
 msgstr "Výška"
 
-#: src/plugin_htmlbar/image.c:843
+#: src/plugin_htmlbar/image.c:865
 msgid "Multi thumbnail"
 msgstr "Viacnásobné náhľady"
 
-#: src/plugin_htmlbar/image.c:849
+#: src/plugin_htmlbar/image.c:871
 msgid "By scaling"
 msgstr "Zmena veľkosti"
 
-#: src/plugin_htmlbar/image.c:850
+#: src/plugin_htmlbar/image.c:872
 msgid "By width, keep aspect ratio"
 msgstr "Zmena šírky, dodržovať pomer strán"
 
-#: src/plugin_htmlbar/image.c:851
+#: src/plugin_htmlbar/image.c:873
 msgid "By height, keep aspect ratio"
 msgstr "Zmena výšky, dodržovať pomer strán"
 
-#: src/plugin_htmlbar/image.c:852
+#: src/plugin_htmlbar/image.c:874
 msgid "By width and height, ignore aspect ratio"
 msgstr "Zmena výšky a šírky, ignorovať pomer strán"
 
-#: src/plugin_htmlbar/image.c:876
+#: src/plugin_htmlbar/image.c:898
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
