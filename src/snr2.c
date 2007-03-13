@@ -856,11 +856,13 @@ static gint replace_all(Tbfwin *bfwin,const gchar *search_pattern, Tmatch_types 
  * Return value: TRUE if found and replaced the match
  */
 static gboolean replace_current_match(Tbfwin *bfwin) {
-	gchar *tmpstr;
-	gint sel_start_pos, sel_end_pos;
-	doc_get_selection(bfwin->current_document, &sel_start_pos, &sel_end_pos);
-	if ((sel_start_pos == LASTSNR2(bfwin->snr2)->result.start) &&
-				(sel_end_pos == LASTSNR2(bfwin->snr2)->result.end)) {
+	GtkTextIter itstart,itend;
+	GtkTextTag *tag;
+	gtk_text_buffer_get_iter_at_offset(bfwin->current_document->buffer,&itstart,LASTSNR2(bfwin->snr2)->result.start);
+	gtk_text_buffer_get_iter_at_offset(bfwin->current_document->buffer,&itend,LASTSNR2(bfwin->snr2)->result.end);
+	tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(bfwin->current_document->buffer),"snr2match");
+	if (gtk_text_iter_toggles_tag(&itstart, tag) && gtk_text_iter_toggles_tag(&itend, tag)) {
+		gchar *tmpstr;
 		gint lenadded;
 		if (LASTSNR2(bfwin->snr2)->replacetype_option==string) {
 			tmpstr = g_strdup(LASTSNR2(bfwin->snr2)->replace_pattern);
