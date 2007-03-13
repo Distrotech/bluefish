@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2007-02-04 15:44-0800\n"
+"POT-Creation-Date: 2007-03-13 01:16+0100\n"
 "PO-Revision-Date: 2004-12-09 09:53-0300\n"
 "Last-Translator: Anderson Rocha <anderson@ilheusnet.com.br>\n"
 "Language-Team: Português Brasileiro <pt@li.org>\n"
@@ -1808,7 +1808,7 @@ msgstr "Alvo:"
 #: src/plugin_htmlbar/html.c:1208 src/plugin_htmlbar/html.c:1682
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
-#: src/plugin_htmlbar/image.c:418
+#: src/plugin_htmlbar/image.c:440
 msgid "_Name:"
 msgstr "Nome:"
 
@@ -1831,7 +1831,7 @@ msgstr "Idioma:"
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
-#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:426
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:448
 msgid "Custo_m:"
 msgstr "Personalizado:"
 
@@ -1937,7 +1937,7 @@ msgstr "Régua Horizontal"
 # src/html.c:994 src/html.c:1422 src/html_table.c:79 src/html_table.c:145
 # src/html_table.c:202 src/html_table.c:276 src/images.c:232
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1767
-#: src/plugin_htmlbar/image.c:444
+#: src/plugin_htmlbar/image.c:466
 msgid "_Align:"
 msgstr "_Alinhar:"
 
@@ -1952,7 +1952,7 @@ msgstr "Altura:"
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1771
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:402
+#: src/plugin_htmlbar/image.c:424
 msgid "_Width:"
 msgstr "Largura:"
 
@@ -2398,98 +2398,110 @@ msgstr "Espaço entre linha:"
 msgid "No Wra_p:"
 msgstr "Sem ajuste de linha"
 
+# src/document.c:1091
+#: src/plugin_htmlbar/image.c:265
+#, fuzzy
+msgid "Loading image failed..."
+msgstr "Carregando arquivos..."
+
+# src/document.c:1091
+#: src/plugin_htmlbar/image.c:334
+#, fuzzy, c-format
+msgid "Loading file %s..."
+msgstr "Carregando arquivos..."
+
 # src/images.c:180
-#: src/plugin_htmlbar/image.c:366
+#: src/plugin_htmlbar/image.c:386
 msgid "Insert thumbnail"
 msgstr "Inserir imagem em miniatura"
 
 # src/images.c:182
-#: src/plugin_htmlbar/image.c:368
+#: src/plugin_htmlbar/image.c:388
 msgid "Insert image"
 msgstr "Inserir imagem"
 
 # src/images.c:188
-#: src/plugin_htmlbar/image.c:374
+#: src/plugin_htmlbar/image.c:394
 msgid "Preview"
 msgstr "Previsualizar"
 
 # src/images.c:198
-#: src/plugin_htmlbar/image.c:394
+#: src/plugin_htmlbar/image.c:416
 msgid "_Image location:"
 msgstr "Localização da imagem:"
 
 # src/html.c:1411 src/html_table.c:210 src/html_table.c:284 src/images.c:216
-#: src/plugin_htmlbar/image.c:409
+#: src/plugin_htmlbar/image.c:431
 msgid "Hei_ght:"
 msgstr "Altura:"
 
 # src/images.c:251
-#: src/plugin_htmlbar/image.c:414
+#: src/plugin_htmlbar/image.c:436
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
 # src/images.c:221
-#: src/plugin_htmlbar/image.c:422
+#: src/plugin_htmlbar/image.c:444
 msgid "Alternate _text:"
 msgstr "_Texto alternativo:"
 
 # src/images.c:237
-#: src/plugin_htmlbar/image.c:430
+#: src/plugin_htmlbar/image.c:452
 msgid "_Hspace:"
 msgstr "Espaço _Horizontal:"
 
 # src/images.c:243
-#: src/plugin_htmlbar/image.c:434
+#: src/plugin_htmlbar/image.c:456
 msgid "_Vspace:"
 msgstr "Espaço _Vertical:"
 
 # src/html.c:1196 src/html.c:1247 src/html.c:1250 src/html.c:1418
 # src/html_table.c:98 src/images.c:226
-#: src/plugin_htmlbar/image.c:448
+#: src/plugin_htmlbar/image.c:470
 msgid "Borde_r:"
 msgstr "Borda:"
 
-#: src/plugin_htmlbar/image.c:779
+#: src/plugin_htmlbar/image.c:801
 msgid "Select files for thumbnail creation"
 msgstr "Selecione os arquivos para criação de miniaturas"
 
 # src/html.c:1258
-#: src/plugin_htmlbar/image.c:814
+#: src/plugin_htmlbar/image.c:836
 msgid "Scaling (%)"
 msgstr "Escala (%)"
 
 # src/html.c:1008 src/html.c:1404 src/html_table.c:192 src/html_table.c:266
 # src/images.c:208
-#: src/plugin_htmlbar/image.c:818 src/plugin_htmlbar/image.c:826
+#: src/plugin_htmlbar/image.c:840 src/plugin_htmlbar/image.c:848
 msgid "Width"
 msgstr "Largura"
 
 # src/html.c:1411 src/html_table.c:210 src/html_table.c:284 src/images.c:216
-#: src/plugin_htmlbar/image.c:822 src/plugin_htmlbar/image.c:854
+#: src/plugin_htmlbar/image.c:844 src/plugin_htmlbar/image.c:876
 msgid "Height"
 msgstr "Altura"
 
-#: src/plugin_htmlbar/image.c:843
+#: src/plugin_htmlbar/image.c:865
 msgid "Multi thumbnail"
 msgstr "Miniaturas multiplas"
 
-#: src/plugin_htmlbar/image.c:849
+#: src/plugin_htmlbar/image.c:871
 msgid "By scaling"
 msgstr "Por escala"
 
-#: src/plugin_htmlbar/image.c:850
+#: src/plugin_htmlbar/image.c:872
 msgid "By width, keep aspect ratio"
 msgstr "Por largura, manter proporção"
 
-#: src/plugin_htmlbar/image.c:851
+#: src/plugin_htmlbar/image.c:873
 msgid "By height, keep aspect ratio"
 msgstr "Por altura, manter proporção"
 
-#: src/plugin_htmlbar/image.c:852
+#: src/plugin_htmlbar/image.c:874
 msgid "By width and height, ignore aspect ratio"
 msgstr "Por largura e altura, ignorar proporção"
 
-#: src/plugin_htmlbar/image.c:876
+#: src/plugin_htmlbar/image.c:898
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
@@ -5533,10 +5545,6 @@ msgstr "Tamanho:"
 
 #~ msgid "File save error"
 #~ msgstr "Erro ao salvar arquivo"
-
-# src/document.c:1091
-#~ msgid "Loading files..."
-#~ msgstr "Carregando arquivos..."
 
 #~ msgid ""
 #~ "These files could not opened:\n"
