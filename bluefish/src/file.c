@@ -610,12 +610,17 @@ static void openfile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 		of->callback_func(OPENFILE_CHANNEL_OPENED,result,NULL,0,of->callback_data);
 		gnome_vfs_async_read(handle,of->buffer,CHUNK_SIZE,openfile_asyncread_lcb,of);
 	} else {
+		g_print("openfile_asyncopenuri_lcb, error, got result %d: %s\n",result,gnome_vfs_result_to_string(result));
 		if (result == GNOME_VFS_ERROR_TOO_MANY_OPEN_FILES) {
-			DEBUG_MSG("openfile_asyncopenuri_lcb, error, got result %d: %s\n",result,gnome_vfs_result_to_string(result));
+			DEBUG_MSG("openfile_asyncopenuri_lcb, restarting in 0.5 seconds\n");
 			/* try again 0.5 sec. later! */
 			g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,500,openfile_asyncopenuri_try_again_lcb,of,NULL);
+		} else if (result == GNOME_VFS_ERROR_CANCELLED && strcmp(gnome_vfs_uri_get_scheme(of->uri), "ftp")==0) {
+			DEBUG_MSG("openfile_asyncopenuri_lcb, ftp server cancelled download, restarting in 0.2 seconds\n");
+			/* did we cancel it, or is it cancelled by the server (known issue with ftp servers) */
+			g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,200,openfile_asyncopenuri_try_again_lcb,of,NULL);
 		} else {
-			g_print("openfile_asyncopenuri_lcb, error, got result %d: %s\n",result,gnome_vfs_result_to_string(result));
+			
 			of->callback_func(OPENFILE_ERROR_NOCHANNEL, result, NULL,0, of->callback_data);
 			openfile_cleanup(of);
 		}
