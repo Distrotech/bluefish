@@ -309,7 +309,9 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 			GnomeVFSURI *child_uri;
 			child_uri = gnome_vfs_uri_append_file_name(uir->p_uri,finfo->name);
 			DEBUG_MSG("fb2_load_directory_lcb, %s has mime_type %s and type %d (valid: %d)\n",finfo->name,finfo->mime_type, finfo->type, finfo->valid_fields);
-			fb2_add_filesystem_entry(uir->parent, child_uri, finfo->mime_type, TRUE, (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY));
+			/* to avoid the situation where the mime-type for a directory is different from x-directory/normal we always
+			set that mime-type if that type is returned */
+			fb2_add_filesystem_entry(uir->parent, child_uri, (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY) ? "x-directory/normal" : finfo->mime_type, TRUE, (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY));
 			gnome_vfs_uri_unref(child_uri);
 		}
 		tmplist = g_list_next(tmplist);
@@ -320,7 +322,12 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 		FB2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_remove(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
 		fb2_uri_in_refresh_cleanup(uir);
 		
-	} 
+	} else if (result == GNOME_VFS_ERROR_CANCELLED) {
+		/* prehaps we should restart ? */
+		FB2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_remove(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
+		fb2_uri_in_refresh_cleanup(uir);
+	
+	} /* BUG: what to do for other errors !?! */
 }
 
 /**
