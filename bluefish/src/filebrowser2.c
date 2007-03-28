@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -308,7 +308,7 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
 		if (strcmp(finfo->name,".")!=0 && strcmp(finfo->name,"..")!=0) {
 			GnomeVFSURI *child_uri;
 			child_uri = gnome_vfs_uri_append_file_name(uir->p_uri,finfo->name);
-			DEBUG_MSG("fb2_load_directory_lcb, %s has mime_type %s\n",finfo->name,finfo->mime_type);
+			DEBUG_MSG("fb2_load_directory_lcb, %s has mime_type %s and type %d (valid: %d)\n",finfo->name,finfo->mime_type, finfo->type, finfo->valid_fields);
 			fb2_add_filesystem_entry(uir->parent, child_uri, finfo->mime_type, TRUE, (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY));
 			gnome_vfs_uri_unref(child_uri);
 		}
