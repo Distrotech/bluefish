@@ -541,7 +541,7 @@ gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Tre
 
 #define CHUNK_SIZE 4096
 #define BUFFER_INCR_SIZE 40960
-#define WORKING_QUEUE_SIZE 20
+#define WORKING_QUEUE_SIZE 10
 
 typedef struct {
 	GList *work; /* Topenfile structures that are pushed to gnome_vfs */
@@ -550,7 +550,7 @@ typedef struct {
 	guint task_id; /* the event source id of the task running with g_timeout_add(), or 0 if no task is running */
 } Topenfile_queue;
 
-static Topenfile_queue ofqueue = {NULL, 0, NULL};
+static Topenfile_queue ofqueue = {NULL, 0, NULL, 0};
 
 static void openfile_cleanup(Topenfile *of) {
 	ofqueue.work = g_list_remove(ofqueue.work, of);
@@ -606,6 +606,7 @@ static gboolean openfile_asyncopenuri_try_again_lcb(gpointer data) {
 
 static void openfile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
 	Topenfile *of = data;
+	DEBUG_MSG("openfile_asyncopenuri_lcb, called for Topenfile %p with result %d\n",of,result);
 	if (result == GNOME_VFS_OK) {
 		of->callback_func(OPENFILE_CHANNEL_OPENED,result,NULL,0,of->callback_data);
 		gnome_vfs_async_read(handle,of->buffer,CHUNK_SIZE,openfile_asyncread_lcb,of);
@@ -637,17 +638,21 @@ static void openfile_activate(Topenfile *of) {
 
 static gboolean openfile_process_queue(gpointer data) {
 	GList *lastlst = g_list_last(ofqueue.todo);
+	DEBUG_MSG("openfile_process_queue, waking up queue, worknum=%d, list length=%d\n",ofqueue.worknum,g_list_length(ofqueue.todo));
 	while (lastlst != NULL && ofqueue.worknum <= WORKING_QUEUE_SIZE) {
 		GList *curlst = lastlst;
 		lastlst = curlst->prev;
 		ofqueue.todo = g_list_remove_link(ofqueue.todo, curlst);
+		DEBUG_MSG("openfile_process_queue, starting Topenfile %p, worknum=%d, remaining queue list length=%d\n", curlst->data, ofqueue.worknum, g_list_length(ofqueue.todo));
 		openfile_activate((Topenfile *)curlst->data);
 		g_list_free_1(curlst);
 	}
 	if (ofqueue.todo == NULL) {
+		DEBUG_MSG("openfile_process_queue, queue empty, set task_id to 0 and return FALSE\n");
 		ofqueue.task_id = 0;
 		return FALSE;
 	}
+	DEBUG_MSG("openfile_process_queue, queue not finished yet, return TRUE\n");
 	return TRUE;
 }
 
@@ -663,7 +668,7 @@ Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callb
 	gnome_vfs_uri_ref(of->uri);
 	of->buffer = g_malloc(of->buffer_size+1); /* the +1 is so we can add a \0 to the buffer */
 	if (ofqueue.worknum > WORKING_QUEUE_SIZE) {
-		DEBUG_MSG("file_openfile_uri_async, worknum=%d, queueing\n",ofqueue.worknum);
+		DEBUG_MSG("file_openfile_uri_async, worknum=%d, queueing (queue list length=%d)\n",ofqueue.worknum,g_list_length(ofqueue.todo));
 		ofqueue.todo = g_list_prepend(ofqueue.todo, of);
 		if (ofqueue.task_id == 0) {
 			DEBUG_MSG("file_openfile_uri_async, starting timeout task\n");
@@ -672,6 +677,7 @@ Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callb
 	} else {
 		openfile_activate(of);
 	}
+	DEBUG_MSG("file_openfile_uri_async, returning Topenfile at %p\n",of);
 	return of;
 }
 /************ LOAD A FILE ASYNC INTO A DOCUMENT ************************/
@@ -850,6 +856,17 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 	}
 }
 
+/* async file info */
+#define FILEINFO_WORKING_QUEUE_SIZE 5
+typedef struct {
+	GList *work; /* Topenfile structures that are pushed to gnome_vfs */
+	guint worknum; /* number of elements in work */
+	GList *todo; /* Topenfile structures that are not being worked on */
+	guint task_id; /* the event source id of the task running with g_timeout_add(), or 0 if no task is running */
+} Tfileinfo_queue;
+
+static Tfileinfo_queue fiqueue = {NULL, 0, NULL, 0};
+
 typedef struct {
 	GnomeVFSAsyncHandle *handle;
 	Tdocument *doc;
@@ -858,6 +875,8 @@ typedef struct {
 
 static void file_asyncfileinfo_cleanup(Tfileinfo *fi) {
 	DEBUG_MSG("file_asyncfileinfo_cleanup, fi=%p\n",fi);
+	fiqueue.work = g_list_remove(fiqueue.work, fi);
+	fiqueue.worknum--;
 	gnome_vfs_uri_unref(fi->uris->data);
 	g_list_free(fi->uris);
 	g_free(fi);
@@ -889,6 +908,31 @@ static void file_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *results, 
 	file_asyncfileinfo_cleanup(fi);
 }
 
+static void fileinfo_activate(Tfileinfo *fi) {
+	DEBUG_MSG("fileinfo_activate, starting async operation...\n");
+	fiqueue.work = g_list_prepend(fiqueue.work, fi);
+	fiqueue.worknum++;
+	gnome_vfs_async_get_file_info(&fi->handle,fi->uris,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS
+			,GNOME_VFS_PRIORITY_DEFAULT-2,file_asyncfileinfo_lcb,fi);
+}
+
+static gboolean fileinfo_process_queue(gpointer data) {
+	GList *lastlst = g_list_last(fiqueue.todo);
+	DEBUG_MSG("fileinfo_process_queue, worknum=%d, quesize=%d\n",fiqueue.worknum, g_list_length(fiqueue.todo));
+	while (lastlst != NULL && fiqueue.worknum <= FILEINFO_WORKING_QUEUE_SIZE) {
+		GList *curlst = lastlst;
+		lastlst = curlst->prev;
+		fiqueue.todo = g_list_remove_link(fiqueue.todo, curlst);
+		fileinfo_activate((Tfileinfo *)curlst->data);
+		g_list_free_1(curlst);
+	}
+	if (fiqueue.todo == NULL) {
+		fiqueue.task_id = 0;
+		return FALSE;
+	}
+	return TRUE;
+}
+
 void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri) {
 	Tfileinfo *fi;
 	fi = g_new(Tfileinfo,1);
@@ -897,8 +941,16 @@ void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri) {
 	fi->doc->action.info = fi;
 	gnome_vfs_uri_ref(uri);
 	fi->uris = g_list_append(NULL, uri);
-	gnome_vfs_async_get_file_info(&fi->handle,fi->uris,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS
-			,GNOME_VFS_PRIORITY_DEFAULT,file_asyncfileinfo_lcb,fi);
+	
+	if (fiqueue.worknum > FILEINFO_WORKING_QUEUE_SIZE) {
+		DEBUG_MSG("file_doc_fill_fileinfo, worknum=%d, queueing\n",fiqueue.worknum);
+		fiqueue.todo = g_list_prepend(fiqueue.todo, fi);
+		if (fiqueue.task_id == 0) {
+			fiqueue.task_id = g_timeout_add(250, fileinfo_process_queue, NULL);
+		}
+	} else {
+		fileinfo_activate(fi);
+	}
 }
 
 void file_doc_retry_uri(Tdocument *doc) {
