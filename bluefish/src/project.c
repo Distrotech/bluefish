@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -304,10 +304,9 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 
 		setup_bfwin_for_project(bfwin);
 
-		DEBUG_MSG("project_open_from_file, calling docs_new_from_files for existing prwin=%p\n",prwin);
+		DEBUG_MSG("project_open_from_file, calling docs_new_from_uris for existing prwin=%p\n",prwin);
 		slist = gslist_from_glist_reversed(prj->files);
 		docs_new_from_uris(prwin, slist, TRUE);
-		/* docs_new_from_files(prwin, prj->files, TRUE); */
 		g_slist_free(slist);
 	} else {
 		/* we will open a new Bluefish window for this project */
@@ -320,6 +319,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	}
 	set_project_menu_widgets(prwin, TRUE);
 	recent_menu_init_project(prwin);
+	DEBUG_MSG("project_open_from_file, done\n");
 }
 
 static void project_open_response_lcb(GtkDialog *dialog,gint response,Tbfwin *bfwin) {

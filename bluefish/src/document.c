@@ -2210,30 +2210,24 @@ void doc_unbind_signals(Tdocument *doc) {
 /**
  * buffer_to_file:
  *
- * this function is still used to create a temporary file for a filter
- * or external command
  *
- */
+ *
 gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 	GnomeVFSHandle *handle;
 	GnomeVFSFileSize bytes_written=0;
 	GnomeVFSResult result;
 	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
-	/* we use create instead of open, because open will not create the file if it does
+	/ * we use create instead of open, because open will not create the file if it does
       not already exist. The last argument is the permissions to use if the file is created,
-      the second to last tells GnomeVFS that its ok if the file already exists, and just open it */
+      the second to last tells GnomeVFS that its ok if the file already exists, and just open it * /
 	result = gnome_vfs_create(&handle, ondiskencoding, GNOME_VFS_OPEN_WRITE, FALSE, 0644);
 	g_free(ondiskencoding);
 	if (result != GNOME_VFS_OK) {
 		DEBUG_MSG("buffer_to_file, opening, result=%d, error=%s\n",result, gnome_vfs_result_to_string(result));
 		return FALSE;
 	}
-	/*	the gnome-sftp module does not truncate the file after create on an existing filename,
-	but adding this truncate code results in an 'Unsupported operation' error */
-/* result = gnome_vfs_truncate_handle(handle, 0);
-	if (result != GNOME_VFS_OK) {
-		DEBUG_MSG("buffer_to_file, truncating: result=%d, error=%s\n", result, gnome_vfs_result_to_string(result));
-	}*/
+	/ *	the gnome-sftp module does not truncate the file after create on an existing filename,
+	but adding this truncate code results in an 'Unsupported operation' error * /
 	result = gnome_vfs_write(handle, buffer, strlen(buffer), &bytes_written);
 	if (bytes_written) {
 		gnome_vfs_truncate_handle(handle, bytes_written);
@@ -2244,7 +2238,7 @@ gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename) {
 		return FALSE;
 	}
 	return TRUE;
-}
+}*/
 
 /* 
 returns a buffer in the encoding stored in doc->encoding, or NULL if that fails 
@@ -3129,6 +3123,7 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
 		gnome_vfs_uri_unref(uri);
 		tmpslist = g_slist_next(tmpslist);
 	}
+	DEBUG_MSG("docs_new_from_uris, done, all documents loading in background\n");
 }
 
 
