@@ -238,14 +238,18 @@ int main(int argc, char *argv[])
 
 	main_v->lang_mgr	= bf_lang_mgr_new();
 	filetype_highlighting_rebuild(FALSE);
+#ifndef NOSPLASH
+	if (main_v->props.show_splash_screen) splash_screen_set_label(_("building file filters ..."));
+#endif /* #ifndef NOSPLASH */
 	
 	fb2config_init(); /* filebrowser2config */
 	filters_rebuild();
 	autoclosing_init();
-#ifndef NOSPLASH
-	if (main_v->props.show_splash_screen) splash_screen_set_label(_("parsing custom menu file..."));
-#endif /* #ifndef NOSPLASH */
 	main_v->tooltips = gtk_tooltips_new();
+#ifndef NOSPLASH
+	if (main_v->props.show_splash_screen) splash_screen_set_label(_("setting up bookmarks ..."));
+#endif /* #ifndef NOSPLASH */
+
 	main_v->bmarkdata = bookmark_data_new();
 #ifdef WITH_MSG_QUEUE
 	if (!filenames && !projectfiles && main_v->props.open_in_running_bluefish) {
