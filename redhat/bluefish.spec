@@ -1,21 +1,22 @@
-%define name  		bluefish-unstable
-%define version		1.1.2
-%define release 	2
-%define source		bluefish-unstable-1.1.2
+%define name	bluefish-unstable
+%define version	1.1.3
+%define release	2
+%define distro	fc7
+%define source	bluefish-unstable-1.1.3
 
 
-Summary:	  A GTK2 web development application for experienced users
-Name:		  %{name}
-Version:	  %{version}
-Release:	  %{release}%{?dist}
-Source:		  ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{source}.tar.bz2
-URL:		  http://bluefish.openoffice.nl
-License:	  GPL
-Group:            Development/Tools
-Requires:	  gtk2, pcre, aspell, gnome-vfs2
-BuildRequires:    gtk2-devel, pcre-devel, gnome-vfs2-devel
-BuildRequires:    aspell-devel, desktop-file-utils, gettext, libxml2
-Requires(post):   desktop-file-utils, shared-mime-info
+Summary: A GTK2 web development application for experienced users
+Name: %{name}
+Version: %{version}
+Release: %{release}.%{distro}
+Source: ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{source}.tar.gz
+URL: http://bluefish.openoffice.nl
+License: GPL
+Group: Development/Tools
+Requires: gtk2, pcre, aspell, gnome-vfs2
+BuildRequires: gtk2-devel, pcre-devel, gnome-vfs2-devel
+BuildRequires: aspell-devel, desktop-file-utils, gettext, libxml2
+Requires(post): desktop-file-utils, shared-mime-info
 Requires(postun): desktop-file-utils, shared-mime-info
 BuildRoot: %{_tmppath}/%{name}-%{release}-root
 
@@ -44,23 +45,18 @@ make install DESTDIR=%{buildroot}
 %find_lang %{name}
 %find_lang %{name}_plugin_about
 %find_lang %{name}_plugin_entities
+%find_lang %{name}_plugin_infbrowser
 %find_lang %{name}_plugin_htmlbar
 %find_lang %{name}_plugin_snippets
 %{__cat} %{name}_plugin_about.lang >> %{name}.lang
 %{__cat} %{name}_plugin_entities.lang >> %{name}.lang
+%{__cat} %{name}_plugin_infbrowser.lang >> %{name}.lang
 %{__cat} %{name}_plugin_htmlbar.lang >> %{name}.lang
 %{__cat} %{name}_plugin_snippets.lang >> %{name}.lang
-
-# required ugly renaming
-%{__mv} %{buildroot}%{_datadir}/applications/bluefish.desktop \
-  %{buildroot}%{_datadir}/applications/%{name}.desktop
-%{__mv} %{buildroot}%{_datadir}/applications/bluefish-project.desktop \
-  %{buildroot}%{_datadir}/applications/%{name}-project.desktop
 
 desktop-file-install --vendor=fedora --delete-original \
   --dir %{buildroot}%{_datadir}/applications           \
   --add-category X-Fedora                              \
-  --add-category Application                           \
   --add-category Development                           \
   %{buildroot}%{_datadir}/applications/%{name}.desktop
 desktop-file-install --vendor=fedora --delete-original \
@@ -103,28 +99,7 @@ xmlcatalog --noout --del 'http://bluefish.openoffice.nl/DTD' /etc/xml/catalog
 %{_mandir}/man1/*
 
 
+
 %changelog
-* Thu Jan  4 2007 Matthias Haase <matthias_haase@bennewitz.com> - 1.1.2-2
-- libxml2 added to dependencies
-- build with '--disable-xml-catalog-update' 
-- xmlcatalog data install and remove instead for %post and %postun
-- filelist enhanced and cleaned
-- desktop files renamed
-
-* Mon Nov  6 2006 Matthias Haase <matthias_haase@bennewitz.com> - 1.0.7-1
-- Update to 1.0.7
-- mime_icon_assign.patch removed - obsolete 
-
-* Sat Oct 28 2006 Matthias Haase <matthias_haase@bennewitz.com> - 1.0.6-3
-- Rebuild for Fedora Core 6
-
-* Mon Oct  2 2006 Matthias Haase <matthias_haase@bennewitz.com> - 1.0.6-2
-- Remove of the useless gnome 2.4 mime type registration files
-- Patch added for the mime type icon assignment problem
-
-* Tue Sep 26 2006 Matthias Haase <matthias_haase@bennewitz.com> - 1.0.6-1
-- Update to 1.0.6 - using latest auto build specfile
-- Minor cleanup for %find_lang and %files
-
-* Sat May 06 2006 Matthias Haase <matthias_haase@bennewitz.com>
-- Automatic build - snapshot of 2006-05-06
+* Sun Jun 03 2007 Matthias Haase <matthias_haase@bennewitz.com> - 1.1.3-2.fc7
+- Automatic build
