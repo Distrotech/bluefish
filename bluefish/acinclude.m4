@@ -7,7 +7,7 @@ dnl be overridden by the user) and special options to use.
 dnl
 dnl @category InstalledPackages
 dnl @author Daniel Leidert <daniel.leidert@wgdd.de>
-dnl @version $Date: 2006-11-25 19:53:23 $
+dnl @version $Date: 2007-06-04 00:17:14 $
 dnl @license AllPermissive
 AC_DEFUN([BF_PROG_XMLLINT],[
 AC_REQUIRE([PKG_PROG_PKG_CONFIG])
@@ -34,7 +34,7 @@ else
 		 )
 		],
 		[
-		 if $PKG_CONFIG libxml-2.0 --atleast-version=2.6.24; then
+		 if ( $PKG_CONFIG libxml-2.0 --atleast-version=2.6.24 ) ; then
 			 AC_MSG_RESULT([yes])
 		 else
 			 AC_MSG_RESULT([no])
@@ -66,7 +66,7 @@ dnl be overridden by the user) and special options to use.
 dnl
 dnl @category InstalledPackages
 dnl @author Daniel Leidert <daniel.leidert@wgdd.de>
-dnl @version $Date: 2006-11-25 19:53:23 $
+dnl @version $Date: 2007-06-04 00:17:14 $
 dnl @license AllPermissive
 AC_DEFUN([BF_PROG_XSLTPROC],[
 AC_ARG_VAR(
@@ -99,7 +99,7 @@ dnl be overridden by the user) and special options to use.
 dnl
 dnl @category InstalledPackages
 dnl @author Daniel Leidert <daniel.leidert@wgdd.de>
-dnl @version $Date: 2006-11-25 19:53:23 $
+dnl @version $Date: 2007-06-04 00:17:14 $
 dnl @license AllPermissive
 AC_DEFUN([BF_PROG_MAN],[
 AC_ARG_VAR(

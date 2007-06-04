@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.147 2007-03-03 23:15:37 dleidert Exp $
+dnl $Id: configure.ac,v 1.148 2007-06-04 00:17:58 dleidert Exp $
 dnl
 dnl Copyright (C) 2002-2007 Olivier Sessink
 dnl Copyright (C) 2006 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.147 $)
+AC_REVISION($Revision: 1.148 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -347,7 +347,7 @@ PKG_PROG_PKG_CONFIG
 BFVAR_required="gtk+-2.0 >= 2.6 gmodule-2.0 >= 2.6 gobject-2.0 glib-2.0 pango gdk-pixbuf-2.0 gdk-2.0 gnome-vfs-2.0 >= 2.10 libxml-2.0 libgnomeui-2.0 >= 2.6"
 PKG_CHECK_MODULES([BFVAR], [$BFVAR_required])
 
-if pkg-config gnome-vfs-2.0 --atleast-version=2.14 ; then
+if ( $PKG_CONFIG gnome-vfs-2.0 --atleast-version=2.14 ) ; then
 	AC_DEFINE([HAVE_ATLEAST_GNOMEVFS_2_14], [1], [Define to 1 if you have Gnome-VFS-2.0 >= 2.14.])
 fi
 
