@@ -82,5 +82,5 @@ toolbar_icons.c:
 	gdk-pixbuf-csource --raw --extern --build-list $(TOOLBAR) > $@
 
 
-all-local: general_icons.c toolbar_icons.c
+BUILT_SOURCES = general_icons.c toolbar_icons.c
 
