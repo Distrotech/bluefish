@@ -181,5 +181,5 @@ htmlbar_icons.c:
 	gdk-pixbuf-csource --raw --extern --build-list $(HTMLBAR) > $@
 
 
-BUILT_SOURCES: htmlbar_icons.c
+BUILT_SOURCES = htmlbar_icons.c
 
