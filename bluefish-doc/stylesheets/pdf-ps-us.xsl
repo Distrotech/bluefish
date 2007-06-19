@@ -26,6 +26,11 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
 
+<!-- Define the output encoding as UTF-8 -->
+<xsl:output method="xml"
+            encoding="UTF-8"
+            indent="yes"/>
+
 <!-- For bookmarks -->
 <xsl:param name="fop.extensions" select="1"></xsl:param>
 

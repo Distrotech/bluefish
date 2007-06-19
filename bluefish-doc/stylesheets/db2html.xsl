@@ -9,7 +9,7 @@
 
 <!--
 this file belongs to bluefish, a web development environment
-Copyright (C) 2005-2006 The Bluefish Project Team
+Copyright (C) 2005-2007 The Bluefish Project Team
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -27,8 +27,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
 
 <!-- Define the output encoding as UTF-8 -->
+<xsl:output method="html"
+            encoding="UTF-8"
+            indent="yes"
+            doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
+            doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
+<!-- Make sure, the result has indentation -->
+<xsl:param name="chunker.output.indent" select="'yes'"/>
+<!-- Define the output encoding as UTF-8 -->
 <xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
- <!-- Insert list of procedures in toc -->
+<!-- Insert list of procedures in toc -->
 <xsl:param name="generate.toc">
 book	toc,title,figure,example,procedure,table
 chapter		toc
