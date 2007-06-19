@@ -1,8 +1,6 @@
 <?xml version='1.0'?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                version='1.0'
-                xmlns="http://www.w3.org/TR/xhtml1/transitional"
-                exclude-result-prefixes="#default">
+                version="1.0">
 <xsl:import href="http://docbook.sourceforge.net/release/xsl/current/html/chunk.xsl"/>
 <!-- <xsl:import href="../xsl/html/chunk.xsl"/> -->
 <xsl:include href="titlepage-html.xsl"/>
@@ -26,16 +24,17 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 -->
 
-<!-- Define the output encoding as UTF-8 -->
 <xsl:output method="html"
             encoding="UTF-8"
-            indent="yes"
-            doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
-            doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
+            indent="yes"/>
 <!-- Make sure, the result has indentation -->
 <xsl:param name="chunker.output.indent" select="'yes'"/>
 <!-- Define the output encoding as UTF-8 -->
 <xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
+<!-- Public identifer to use in the document type of generated pages -->
+<xsl:param name="chunker.output.doctype-public" select="'-//W3C//DTD HTML 4.01 Transitional//EN'"/>
+<!-- System identifier to use for the document type in generated pages -->
+<xsl:param name="chunker.output.doctype-system" select="'http://www.w3.org/TR/html4/loose.dtd'"/>
 <!-- Insert list of procedures in toc -->
 <xsl:param name="generate.toc">
 book	toc,title,figure,example,procedure,table
@@ -56,7 +55,7 @@ table before
 procedure before
 </xsl:param>
 <!-- Toc depth -->
-<xsl:variable name="toc.section.depth">3</xsl:variable>
+<xsl:variable name="toc.section.depth" select="3"/>
 <!-- Allow toc in section -->
 <xsl:param name="generate.section.toc.level" select="2"/>
 <!-- Part autolabelling -->
@@ -84,9 +83,9 @@ procedure before
 <!-- Put each term of a multiple terms variablelistentry on its own line -->
 <xsl:param name="variablelist.term.break.after" select="'1'"/>
 <!-- Remove the separator between terms -->
-<xsl:param name="variablelist.term.separator"></xsl:param>
+<xsl:param name="variablelist.term.separator" select="''"/>
 <!-- Collate copyright years into range -->
-<xsl:param name="make.year.ranges" select="1"></xsl:param> 
+<xsl:param name="make.year.ranges" select="1"/>
        
 <!-- New in docbook-xsl 1.71.0 -->
 <!-- Othercredits contributions inline -->
