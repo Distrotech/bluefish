@@ -1,4 +1,4 @@
-XSLTPROC = xsltproc --debug
+XSLTPROC = xsltproc
 HAVE_XSL_DIR=1
 
 ## You shouldn't normally need to edit anything below here.
