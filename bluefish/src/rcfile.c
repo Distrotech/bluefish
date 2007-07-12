@@ -499,15 +499,17 @@ void rcfile_parse_main(void)
 	if (main_v->props.browsers == NULL) {
 		/* if the user does not have browsers --> set them to defaults values */
 		gchar **arr;
-		arr = array_from_arglist(_("Galeon"), "galeon -x %s&",NULL);
+		arr = array_from_arglist(_("Firefox"), "firefox -remote 'openURL(%s, new-window)' || firefox '%s'&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-		arr = array_from_arglist(_("Mozilla"), "mozilla -remote 'openURL(%s, new-window)' || mozilla %s&",NULL);
+		arr = array_from_arglist(_("Mozilla"), "mozilla -remote 'openURL(%s, new-window)' || mozilla '%s'&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-		arr = array_from_arglist(_("Opera"), "opera -remote 'openURL(%s,new-window)' || opera %s&",NULL);
+		arr = array_from_arglist(_("Galeon"), "galeon -x '%s'&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-		arr = array_from_arglist(_("Netscape"), "/usr/lib/netscape/477/communicator/communicator-smotif %s&",NULL);
+		arr = array_from_arglist(_("Opera"), "opera -remote 'openURL(%s,new-window)' || opera '%s'&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-		arr = array_from_arglist(_("Gnome default"), "gnome-moz-remote --newwin %s&",NULL);
+		arr = array_from_arglist(_("Netscape"), "/usr/lib/netscape/477/communicator/communicator-smotif '%s'&",NULL);
+		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
+		arr = array_from_arglist(_("Gnome default"), "gnome-moz-remote --newwin '%s'&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 	}
 	{
