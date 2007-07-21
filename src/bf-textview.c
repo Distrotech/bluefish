@@ -2254,7 +2254,8 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 									if (mark3) {
 										bi = (BlockInfo *) g_object_get_data(G_OBJECT(mark3), "bi");
 										DEBUG_MSG("bi->tagname = %s, arr2[0] = %s\n", bi->tagname, arr2[0]);
-										if (bi->type == BI_START
+										if (bi && bi->tagname &&
+											bi->type == BI_START
 											&& strcmp(bi->tagname, arr2[0]) == 0)
 											do_mark = FALSE;
 									}
