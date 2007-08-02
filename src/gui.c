@@ -577,7 +577,11 @@ static gboolean gui_periodic_check_lcb(gpointer data) {
 
 void gui_bfwin_periodic_check(Tbfwin *bfwin, gboolean enabled) {
 	if (enabled) {
+#if GLIB_CHECK_VERSION (2, 14, 0)
+		if (!bfwin->periodic_check_id) bfwin->periodic_check_id = g_timeout_add_seconds_full(G_PRIORITY_LOW,15,gui_periodic_check_lcb,bfwin,NULL);
+#else
 		if (!bfwin->periodic_check_id) bfwin->periodic_check_id = g_timeout_add_full(G_PRIORITY_LOW,15000,gui_periodic_check_lcb,bfwin,NULL);
+#endif
 	} else {
 		if (bfwin->periodic_check_id) g_source_remove(bfwin->periodic_check_id);
 	}
