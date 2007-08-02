@@ -476,9 +476,40 @@ void gui_set_document_widgets(Tdocument *doc) {
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/Edit/Shift Left", !doc->readonly);
 
 }
+/*
+child : 	the child GtkWidget affected
+page_num : 	the new page number for child
+*/
+#if GTK_CHECK_VERSION(2,10,0)
+static void notebook_reordered_lcb(GtkNotebook *notebook,GtkWidget *child,guint page_num,gpointer user_data) {
+	Tbfwin *bfwin = BFWIN(user_data);
+	Tdocument *doc = NULL;
+	GtkWidget *view;
+	GList *tmplist = g_list_first(bfwin->documentlist);
+	
+	/* child is a gtkscrolledwindow which is a gtkbin subclass */
+	view = gtk_bin_get_child(GTK_BIN(child)); 
+	/* look where this child is in the documentlist */
+	while (tmplist) {
+		if (DOCUMENT(tmplist->data)->view == view) {
+			doc = DOCUMENT(tmplist->data);
+			break;
+		} 
+		tmplist = g_list_next(tmplist);
+	}
+	
+	bfwin->documentlist = g_list_remove(bfwin->documentlist,doc);
+	DEBUG_MSG("notebook_reordered_lcb, moving doc %p to position %d in the documentlist\n",doc,page_num);
+	bfwin->documentlist = g_list_insert(bfwin->documentlist, doc, page_num);
+}
+#endif
 
 void gui_notebook_bind_signals(Tbfwin *bfwin) {
 	bfwin->notebook_switch_signal = g_signal_connect_after(G_OBJECT(bfwin->notebook),"switch-page",G_CALLBACK(notebook_switch_page_lcb), bfwin);
+#if GTK_CHECK_VERSION(2,10,0)
+	g_signal_connect(G_OBJECT(bfwin->notebook), "page-reordered", G_CALLBACK(notebook_reordered_lcb), bfwin);
+#endif
+
 }
 
 void gui_notebook_unbind_signals(Tbfwin *bfwin) {
