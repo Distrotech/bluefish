@@ -319,6 +319,13 @@ void list_switch_order(GList *first, GList *second) {
 	first->data = second->data;
 	second->data = tmp;
 }
+
+/* moves the data pointer data to position pos in the list */
+void list_move_entry(GList *list, gpointer data, gint pos) {
+	
+
+}
+
 /**
  * file_copy:
  * @source: a #gchar * containing the source filename
