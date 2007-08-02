@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <time.h>      /* nanosleep() */
@@ -186,7 +186,7 @@ void gui_notebook_move(Tbfwin *bfwin, gboolean move_left) {
 	GtkWidget *tmp;
 	
 	tmp = gtk_widget_get_parent(bfwin->current_document->view);
-	DEBUG_MSG("gui_notebook_move, found parent %p\n",tmp);
+	DEBUG_MSG("gui_notebook_move, found scrolwin %p\n",tmp);
 	if (tmp) {
 		gint curpos, newpos;
 		GList *cur;
@@ -200,11 +200,15 @@ void gui_notebook_move(Tbfwin *bfwin, gboolean move_left) {
 		if (newpos >= 0 && newpos < gtk_notebook_get_n_pages(GTK_NOTEBOOK(bfwin->notebook))) {
 			GList *moveto;
 			gtk_notebook_reorder_child(GTK_NOTEBOOK(bfwin->notebook),tmp,newpos);
+#if GTK_CHECK_VERSION(2,10,0)
+			/* no code needed: changing the list is in gtk2.10 code handled in the signal handler */
+#else
 			moveto = (move_left) ? g_list_previous(cur) : g_list_next(cur);
 #ifdef DEVELOPMENT
 			if (!moveto) exit(1);
 #endif
 			pointer_switch_addresses(&cur->data, &moveto->data);
+#endif
 		}
 	}
 }
@@ -486,7 +490,7 @@ static void notebook_reordered_lcb(GtkNotebook *notebook,GtkWidget *child,guint 
 	Tdocument *doc = NULL;
 	GtkWidget *view;
 	GList *tmplist = g_list_first(bfwin->documentlist);
-	
+	DEBUG_MSG("notebook_reordered_lcb, started\n");	
 	/* child is a gtkscrolledwindow which is a gtkbin subclass */
 	view = gtk_bin_get_child(GTK_BIN(child)); 
 	/* look where this child is in the documentlist */
@@ -501,6 +505,7 @@ static void notebook_reordered_lcb(GtkNotebook *notebook,GtkWidget *child,guint 
 	bfwin->documentlist = g_list_remove(bfwin->documentlist,doc);
 	DEBUG_MSG("notebook_reordered_lcb, moving doc %p to position %d in the documentlist\n",doc,page_num);
 	bfwin->documentlist = g_list_insert(bfwin->documentlist, doc, page_num);
+	DEBUG_MSG("notebook_reordered_lcb, done\n");
 }
 #endif
 
