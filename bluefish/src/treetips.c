@@ -85,8 +85,12 @@ void tree_tips_show(TreeTips *tips)
      gtk_window_move (GTK_WINDOW(tips->window), x + 8, y + 16);  
      gtk_widget_show_all(tips->window);       
      g_free(pstr);
-     tips->hide_tout = g_timeout_add (tips->hide_interval, (GSourceFunc) tree_tips_hide, tips);         
-  }  
+#if GLIB_CHECK_VERSION (2, 14, 0)
+		tips->hide_tout = g_timeout_add_seconds(tips->hide_interval, (GSourceFunc) tree_tips_hide, tips);
+#else
+		tips->hide_tout = g_timeout_add(tips->hide_interval*1000, (GSourceFunc) tree_tips_hide, tips);
+#endif
+	}  
 }
 
 gboolean tree_tips_mouse_enter(GtkWidget *widget, GdkEvent *event, gpointer user_data)
@@ -155,7 +159,11 @@ gboolean tree_tips_mouse_motion(GtkWidget *widget, GdkEvent *event, gpointer use
       g_source_remove (tips->show_tout);
       tips->tip_on = FALSE;
     }
-    tips->show_tout = g_timeout_add (tips->show_interval, (GSourceFunc) tree_tips_show, tips);    
+#if GLIB_CHECK_VERSION (2, 14, 0)
+	tips->show_tout = g_timeout_add_seconds(tips->show_interval, (GSourceFunc) tree_tips_show, tips);
+#else
+	tips->show_tout = g_timeout_add(tips->show_interval*1000, (GSourceFunc) tree_tips_show, tips);
+#endif
     tips->tip_on = TRUE;
   }  
   return FALSE;
@@ -172,8 +180,8 @@ TreeTips *tree_tips_new(Tbfwin *win)
   tips->posx=tips->posy=0;
   tips->tip_on = FALSE;
   tips->tip_outside = TRUE;
-  tips->show_interval = 500;
-  tips->hide_interval = 1500;  
+  tips->show_interval = 1;
+  tips->hide_interval = 2; /* in seconds */  
   tips->enabled = TRUE;
   tips->show_tout=0;
   tips->hide_tout=0;
@@ -198,8 +206,8 @@ TreeTips *tree_tips_new_full(Tbfwin *win,GtkTreeView *tree,TreeTipsCFunc functio
     g_signal_connect(G_OBJECT(tree),"leave-notify-event",G_CALLBACK(tree_tips_mouse_leave),tips);
     g_signal_connect(G_OBJECT(tree),"focus-out-event",G_CALLBACK(tree_tips_hide_cb),tips);
   }      
-  tips->show_interval = 500;  
-  tips->hide_interval = 1500;    
+  tips->show_interval = 1;  
+  tips->hide_interval = 2; /* in seconds */    
   tips->show_tout=0;
   tips->hide_tout=0;  
   return tips;
