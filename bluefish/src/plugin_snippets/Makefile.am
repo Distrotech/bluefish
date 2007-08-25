@@ -33,5 +33,5 @@ snippets_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/snippets.def
 endif
 
 maintainer-clean-local:
-	cd $(srcdir)/po && rm -f boldquot.sed en@boldquot.header en@quot.header insert-header.sin Makefile.in.in quot.sed remove-potcdate.sin Rules-quot
+	cd $(srcdir)/po && rm -f boldquot.sed en@boldquot.header en@quot.header insert-header.sin Makefile.in.in quot.sed remove-potcdate.sin Rules-quot bluefish-unstable_plugin_snippets.pot
         
