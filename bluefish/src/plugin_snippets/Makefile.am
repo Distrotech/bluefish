@@ -26,10 +26,10 @@ snippets_la_SOURCES = \
 	snippets_wizard.c \
 	snippets_wizard.h
 
-snippets_la_LDFLAGS = -module -avoid-version
+snippets_la_LDFLAGS = -module -avoid-version $(WIN32_EXTRA_LDFLAGS)
 
 if OS_WIN32
-snippets_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/snippets.def
+snippets_la_LDFLAGS += -export-symbols $(srcdir)/snippets.def
 endif
 
 maintainer-clean-local:

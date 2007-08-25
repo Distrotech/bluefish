@@ -16,9 +16,9 @@ rsync_la_SOURCES = \
 	rsyncgui.c \
 	rsyncgui.h
 
-rsync_la_LDFLAGS = -module -avoid-version
+rsync_la_LDFLAGS = -module -avoid-version $(WIN32_EXTRA_LDFLAGS)
 
 if OS_WIN32
-rsync_la_LDFLAGS += -no-undefined -export-symbols rsync.def
+rsync_la_LDFLAGS += -export-symbols rsync.def
 endif
 

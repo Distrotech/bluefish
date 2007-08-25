@@ -38,10 +38,10 @@ htmlbar_la_SOURCES = \
 	wizards.c \
 	wizards.h
 
-htmlbar_la_LDFLAGS = -module -avoid-version
+htmlbar_la_LDFLAGS = -module -avoid-version $(WIN32_EXTRA_LDFLAGS)
 
 if OS_WIN32
-htmlbar_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/htmlbar.def
+htmlbar_la_LDFLAGS += -export-symbols $(srcdir)/htmlbar.def
 endif
 
 maintainer-clean-local:

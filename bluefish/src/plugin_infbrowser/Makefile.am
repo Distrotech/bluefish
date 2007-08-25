@@ -28,10 +28,10 @@ infbrowser_la_SOURCES = \
 	infb_html.h \
 	infb_html.c
 
-infbrowser_la_LDFLAGS = -module -avoid-version
+infbrowser_la_LDFLAGS = -module -avoid-version $(WIN32_EXTRA_LDFLAGS)
 
 if OS_WIN32
-infbrowser_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/infbrowser.def
+infbrowser_la_LDFLAGS += -export-symbols $(srcdir)/infbrowser.def
 endif
 
 maintainer-clean-local:
