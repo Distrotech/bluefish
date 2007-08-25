@@ -11,7 +11,7 @@ MAINTAINERCLEANFILES = Makefile.in
 VPATH += @builddir@
 
 XMLLINT_FLAGS  += --path "$(VPATH)" --noout --valid
-XSLTPROC_FLAGS += --path "$(VPATH)" --param man.charmap.use.subset "0"
+XSLTPROC_FLAGS += --path "$(VPATH)" --param man.charmap.use.subset "0" --param make.year.ranges "1" --param make.single.year.ranges "0"
 
 man1_MANS = $(PACKAGE).1
 
