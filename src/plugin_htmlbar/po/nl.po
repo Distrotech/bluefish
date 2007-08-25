@@ -1,4786 +1,2141 @@
-# Dutch translation of Bluefish
+# translation of bluefish-unstable_plugin_htmlbar.pot to Dutch
 # Copyright (C) 2001 Free Software Foundation, Inc.
 # Olav Sliekers <idunno@mysun.com>, 2001.
-# Olivier Sessink, 2002
+# Olivier Sessink, 2002.
+# elve <elve@savage-elve.net>, 2007.
+# Dutch translation of Bluefish
+# Copyright (C) 2001, 2007 Free Software Foundation, Inc.
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish gtk2-port\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-20 21:46-0800\n"
-"PO-Revision-Date: 2003-04-01 20:03+0200\n"
-"Last-Translator: \n"
-"Language-Team:  <nl@li.org>\n"
+"Project-Id-Version: bluefish-unstable\n"
+"Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
+"POT-Creation-Date: 2007-08-20 20:48+0200\n"
+"PO-Revision-Date: 2007-08-22 17:11+0200\n"
+"Last-Translator: elve <elve@savage-elve.net>\n"
+"Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: ../html2.c:558
-msgid "Cascading StyleSheet dialog"
-msgstr "Cascading StyleSheet dialoog"
+#. _DM_ Alert box asking if user would like to change request from add to
+#. * update.
+#.
+#: src/plugin_htmlbar/html2.c:499
+msgid "_Update"
+msgstr "Update"
 
-#: ../html2.c:578
-#, fuzzy
+#: src/plugin_htmlbar/html2.c:504
+#, c-format
+msgid "The %s %s property already exists.\n"
+msgstr "De %s %s eigenschap bestaat al\n"
+
+#: src/plugin_htmlbar/html2.c:506
+#, c-format
+msgid "The %s property already exists.\n"
+msgstr "De %s eigenschap bestaat al\n"
+
+#: src/plugin_htmlbar/html2.c:509
+#, c-format
+msgid "Update it's value from %s to %s?"
+msgstr "Waarde updaten van %s naar %s?"
+
+#: src/plugin_htmlbar/html2.c:635
+msgid "Cascading Style Sheet Builder"
+msgstr "Cascading Style Sheet Builder"
+
+#: src/plugin_htmlbar/html2.c:655
 msgid "_Selector:"
-msgstr "Keuze"
+msgstr "Selector:"
 
-#: ../html2.c:597
-#, fuzzy
+#: src/plugin_htmlbar/html2.c:674
 msgid "_Property:"
-msgstr "Eigenschap"
+msgstr "Eigenschap:"
 
-#: ../html2.c:599 ../html_form.c:650 ../html_form.c:799 ../html_form.c:894
-#, fuzzy
+#: src/plugin_htmlbar/html2.c:676 src/plugin_htmlbar/html_form.c:650
+#: src/plugin_htmlbar/html_form.c:799 src/plugin_htmlbar/html_form.c:894
 msgid "_Value:"
-msgstr "Waarde"
+msgstr "Waarde:"
 
-#: ../html2.c:617
+#: src/plugin_htmlbar/html2.c:694
 msgid "Selector"
-msgstr "Keuze"
+msgstr "Selector"
 
-#: ../html2.c:617 ../html2.c:620
+#: src/plugin_htmlbar/html2.c:694 src/plugin_htmlbar/html2.c:697
 msgid "Property"
 msgstr "Eigenschap"
 
-#: ../html2.c:617 ../html2.c:620
+#: src/plugin_htmlbar/html2.c:694 src/plugin_htmlbar/html2.c:697
 msgid "Value"
 msgstr "Waarde"
 
-#: ../html2.c:635
-#, fuzzy
+#: src/plugin_htmlbar/html2.c:712
 msgid " _Add "
 msgstr " Toevoegen "
 
-#: ../html2.c:638
-#, fuzzy
+#: src/plugin_htmlbar/html2.c:715
 msgid " _Update "
 msgstr " Vernieuwen"
 
-#: ../html2.c:641
-#, fuzzy
+#: src/plugin_htmlbar/html2.c:718
 msgid " _Delete "
-msgstr "Verwijderen"
+msgstr "Verwĳderen"
 
-#: ../html2.c:897 ../html2.c:934
-#, fuzzy
+#: src/plugin_htmlbar/html2.c:971 src/plugin_htmlbar/html2.c:1008
 msgid "_Style..."
-msgstr "Stijl"
+msgstr "Stĳl..."
 
-#: ../html2.c:1091
+#: src/plugin_htmlbar/html2.c:1165
 msgid "Bluefish: Select color"
 msgstr "Bluefish: Selecteer kleur"
 
-#: ../htmlbar.c:36
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar.c:36
 msgid "Edit color"
-msgstr "Editor"
+msgstr "Kleur bewerken"
 
-#: ../htmlbar.c:44
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar.c:44
 msgid "Edit tag"
-msgstr "tag bewerken"
+msgstr "Tag bewerken"
 
-#: ../htmlbar_gui.c:202
+#: src/plugin_htmlbar/htmlbar_gui.c:203
 msgid "/_Tags"
-msgstr "/_Elementen"
+msgstr "/_Tags"
 
-#: ../htmlbar_gui.c:204
+#: src/plugin_htmlbar/htmlbar_gui.c:205
 msgid "/Tags/_Headings"
-msgstr "/Elementen/_Koppen"
+msgstr "/Tags/_Koppen"
 
-#: ../htmlbar_gui.c:206
+#: src/plugin_htmlbar/htmlbar_gui.c:207
 msgid "/Tags/Headings/H_1"
-msgstr "/Elementen/Koppen/H_1"
+msgstr "/Tags/Koppen/H_1"
 
-#: ../htmlbar_gui.c:207
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:208
 msgid "/Tags/Headings/H_2"
-msgstr "/Elementen/Koppen/H2"
+msgstr "/Tags/Koppen/H2"
 
-#: ../htmlbar_gui.c:208
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:209
 msgid "/Tags/Headings/H_3"
-msgstr "/Elementen/Koppen/H3"
+msgstr "/Tags/Koppen/H3"
 
-#: ../htmlbar_gui.c:209
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:210
 msgid "/Tags/Headings/H_4"
-msgstr "/Elementen/Koppen/H4"
+msgstr "/Tags/Koppen/H4"
 
-#: ../htmlbar_gui.c:210
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:211
 msgid "/Tags/Headings/H_5"
-msgstr "/Elementen/Koppen/H5"
+msgstr "/Tags/Koppen/H5"
 
-#: ../htmlbar_gui.c:211
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:212
 msgid "/Tags/Headings/H_6"
-msgstr "/Elementen/Koppen/H6"
+msgstr "/Tags/Koppen/H6"
 
-#: ../htmlbar_gui.c:212
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:213
 msgid "/Tags/_Special"
-msgstr "/Elementen/Speciaal"
+msgstr "/Tags/Speciaal"
 
-#: ../htmlbar_gui.c:214
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:215
 msgid "/Tags/Special/_Accent"
-msgstr "/Elementen/Speciaal/Accent"
+msgstr "/Tags/Speciaal/Accent"
 
-#: ../htmlbar_gui.c:216
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:217
 msgid "/Tags/Special/Accent/_Uppercase"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters"
 
-#: ../htmlbar_gui.c:217
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:218
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I"
 
-#: ../htmlbar_gui.c:219
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:220
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/À"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/A grave À"
 
-#: ../htmlbar_gui.c:220
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:221
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Á"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/A acute Á"
 
-#: ../htmlbar_gui.c:221
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:222
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Â"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/A circumflex Â"
 
-#: ../htmlbar_gui.c:222
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:223
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ã"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/A tilde Ã"
 
-#: ../htmlbar_gui.c:223
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:224
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Æ"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/AE ligature Æ"
 
-#: ../htmlbar_gui.c:224
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:225
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ä"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/A diaeresis Ä"
 
-#: ../htmlbar_gui.c:225
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:226
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Å"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/A ring Å"
 
-#: ../htmlbar_gui.c:226
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:227
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ç"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/C cedilla Ç"
 
-#: ../htmlbar_gui.c:227
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:228
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/È"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/E grave È"
 
-#: ../htmlbar_gui.c:228
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:229
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/É"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/E acute É"
 
-#: ../htmlbar_gui.c:229
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:230
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ê"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/E circumflex Ê"
 
-#: ../htmlbar_gui.c:230
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:231
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ë"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/E diaeresis Ë"
 
-#: ../htmlbar_gui.c:231
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:232
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ì"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/I grave Ì"
 
-#: ../htmlbar_gui.c:232
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:233
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Í"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/I acute Í"
 
-#: ../htmlbar_gui.c:233
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:234
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Î"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/I circumflex Î"
 
-#: ../htmlbar_gui.c:234
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:235
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Ï"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/I diaeresis Ï"
 
-#: ../htmlbar_gui.c:235
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:236
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/J-Z"
 
-#: ../htmlbar_gui.c:237
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:238
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ñ"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/J-Z/N tilde Ñ"
 
-#: ../htmlbar_gui.c:238
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:239
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ò"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/J-Z/O grave Ò"
 
-#: ../htmlbar_gui.c:239
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:240
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ó"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/J-Z/O acute Ó"
 
-#: ../htmlbar_gui.c:240
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:241
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ô"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/J-Z/O circumflex Ô"
 
-#: ../htmlbar_gui.c:241
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:242
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/Æ"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/A-I/OE ligature Œ"
 
-#: ../htmlbar_gui.c:242
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:243
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Õ"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/J-Z/O tilde Õ"
 
-#: ../htmlbar_gui.c:243
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:244
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ö"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/J-Z/O diaeresis Ö"
 
-#: ../htmlbar_gui.c:244
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:245
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ø"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/J-Z/O slash Ø"
 
-#: ../htmlbar_gui.c:245
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:246
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ù"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/J-Z/U grave Ù"
 
-#: ../htmlbar_gui.c:246
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:247
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ú"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/J-Z/U acute Ú"
 
-#: ../htmlbar_gui.c:247
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:248
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Û"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/J-Z/U circumflex Û"
 
-#: ../htmlbar_gui.c:248
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:249
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ü"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/J-Z/U diaeresis Ü"
 
-#: ../htmlbar_gui.c:249
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:250
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
-msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/Ý"
+msgstr "/Tags/Speciaal/Accent/Hoofdletters/J-Z/Y acute Ý"
 
-#: ../htmlbar_gui.c:250
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:251
 msgid "/Tags/Special/Accent/_Lowercase"
-msgstr "/Elementen/Speciaal/Accent/kleine letters"
+msgstr "/Tags/Speciaal/Accent/kleine letters"
 
-#: ../htmlbar_gui.c:251
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:252
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i"
 
-#: ../htmlbar_gui.c:253
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:254
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/à"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/a grave à"
 
-#: ../htmlbar_gui.c:254
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:255
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/á"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/a acute á"
 
-#: ../htmlbar_gui.c:255
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:256
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/â"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/a circumflex â"
 
-#: ../htmlbar_gui.c:256
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:257
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/ã"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/a tilde ã"
 
-#: ../htmlbar_gui.c:257
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:258
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/å"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/a ring å"
 
-#: ../htmlbar_gui.c:258
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:259
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/æ"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/ae ligature æ"
 
-#: ../htmlbar_gui.c:259
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:260
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/A-I/ä"
+msgstr "/Tags/Speciaal/Accent/kleine letters/A-I/a diaeresis ä"
 
-#: ../htmlbar_gui.c:260
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:261
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/A-I/ç"
+msgstr "/Tags/Speciaal/Accent/kleine letters/A-I/c cedilla ç"
 
-#: ../htmlbar_gui.c:261
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:262
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/è"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/e grave è"
 
-#: ../htmlbar_gui.c:262
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:263
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/é"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/ e acute é"
 
-#: ../htmlbar_gui.c:263
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:264
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/ê"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/e circumflex ê"
 
-#: ../htmlbar_gui.c:264
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:265
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/ë"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/e diaeresis ë"
 
-#: ../htmlbar_gui.c:265
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:266
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/ì"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/i grave ì"
 
-#: ../htmlbar_gui.c:266
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:267
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/í"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/i acute í"
 
-#: ../htmlbar_gui.c:267
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:268
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/î"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/i circumflex î"
 
-#: ../htmlbar_gui.c:268
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:269
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/ï"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/i diaeresis ï"
 
-#: ../htmlbar_gui.c:269
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:270
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z"
 
-#: ../htmlbar_gui.c:271
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:272
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ñ"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z/n tilde ñ"
 
-#: ../htmlbar_gui.c:272
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:273
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ò"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z/o grave ò"
 
-#: ../htmlbar_gui.c:273
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:274
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ó"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z/o acute ó"
 
-#: ../htmlbar_gui.c:274
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:275
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/æ"
+msgstr "/Tags/Speciaal/Accent/kleine letters/a-i/oe ligature œ"
 
-#: ../htmlbar_gui.c:275
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:276
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ô"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z/o circumflex ô"
 
-#: ../htmlbar_gui.c:276
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:277
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/õ"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z/o tilde õ"
 
-#: ../htmlbar_gui.c:277
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:278
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ö"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z/o diaeresis ö"
 
-#: ../htmlbar_gui.c:278
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:279
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ø"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z/o slash ø"
 
-#: ../htmlbar_gui.c:279
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:280
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ù"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z/u grave ù"
 
-#: ../htmlbar_gui.c:280
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:281
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ú"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z/u acute ú"
 
-#: ../htmlbar_gui.c:281
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:282
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/û"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z/u circumflex û"
 
-#: ../htmlbar_gui.c:282
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:283
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ü"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z/u diaereis ü"
 
-#: ../htmlbar_gui.c:283
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:284
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ý"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z/y acute ý"
 
-#: ../htmlbar_gui.c:284
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:285
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
-msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/ÿ"
+msgstr "/Tags/Speciaal/Accent/kleine letters/j-z/y diaeresis ÿ"
 
-#: ../htmlbar_gui.c:286
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:287
 msgid "/Tags/Special/Accent/U_mlaut ¨"
-msgstr "/Elementen/Speciaal/Accent/¨"
+msgstr "/Tags/Speciaal/Accent/Umlaut ¨"
 
-#: ../htmlbar_gui.c:287
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:288
 msgid "/Tags/Special/Accent/_Acute ´"
-msgstr "/Elementen/Speciaal/Accent/`"
+msgstr "/Tags/Speciaal/Accent/Acute `"
 
-#: ../htmlbar_gui.c:288
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:289
 msgid "/Tags/Special/Accent/_Cedilla ¸"
-msgstr "/Elementen/Speciaal/Accent/¸"
+msgstr "/Tags/Speciaal/Accent/Cedilla ¸"
 
-#: ../htmlbar_gui.c:289
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:290
 msgid "/Tags/Special/_Currency"
-msgstr "/Elementen/Speciaal/Munteenheid"
+msgstr "/Tags/Speciaal/Munteenheid"
 
-#: ../htmlbar_gui.c:291
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:292
 msgid "/Tags/Special/Currency/_Cent sign ¢"
-msgstr "/Elementen/Speciaal/Munteenheid/¢"
+msgstr "/Tags/Speciaal/Munteenheid/Cent teken ¢"
 
-#: ../htmlbar_gui.c:292
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:293
 msgid "/Tags/Special/Currency/_Pound sterling £"
-msgstr "/Elementen/Speciaal/Munteenheid/£"
+msgstr "/Tags/Speciaal/Munteenheid/Pond sterling £"
 
-#: ../htmlbar_gui.c:293
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:294
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
-msgstr "/Elementen/Speciaal/Munteenheid/¤"
+msgstr "/Tags/Speciaal/Munteenheid/Munteenheid ¤"
 
-#: ../htmlbar_gui.c:294
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:295
 msgid "/Tags/Special/Currency/_Yen sign ¥"
-msgstr "/Elementen/Speciaal/Munteenheid/¥"
+msgstr "/Tags/Speciaal/Munteenheid/Yen teken ¥"
 
-#: ../htmlbar_gui.c:295
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:296
 msgid "/Tags/Special/Currency/_Euro "
-msgstr "/Elementen/Speciaal/Munteenheid"
+msgstr "/Tags/Speciaal/Munteenheid/Euro teken €"
 
-#: ../htmlbar_gui.c:296
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:297
 msgid "/Tags/Special/_Math-Science"
 msgstr "/Tags speciaal/Wiskunde"
 
-#: ../htmlbar_gui.c:298
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:299
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
-msgstr "/Tags speciaal/Wiskunde/!"
+msgstr "/Tags speciaal/Wiskunde/Logische NOT teken ¬"
 
-#: ../htmlbar_gui.c:299
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:300
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
-msgstr "/Tags speciaal/Wiskunde/×"
+msgstr "/Tags speciaal/Wiskunde/Vermenigvuldigingsteken ×"
 
-#: ../htmlbar_gui.c:300
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:301
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
-msgstr "/Tags speciaal/Wiskunde/÷"
+msgstr "/Tags speciaal/Wiskunde/Delingsteken ÷"
 
-#: ../htmlbar_gui.c:301
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:302
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
-msgstr "/Tags speciaal/Wiskunde/±"
+msgstr "/Tags speciaal/Wiskunde/Plus-Minus teken ±"
 
-#: ../htmlbar_gui.c:302
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:303
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
-msgstr "/Tags speciaal/Wiskunde/<"
+msgstr "/Tags speciaal/Wiskunde/Kleiner dan teken <"
 
-#: ../htmlbar_gui.c:303
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:304
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
-msgstr "/Tags speciaal/Wiskunde/>"
+msgstr "/Tags speciaal/Wiskunde/Groter dan teken >"
 
-#: ../htmlbar_gui.c:304
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:305
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
-msgstr "/Tags speciaal/Wiskunde/¹"
+msgstr "/Tags speciaal/Wiskunde/Superscript 1 ¹"
 
-#: ../htmlbar_gui.c:305
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:306
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
-msgstr "/Tags speciaal/Wiskunde/²"
+msgstr "/Tags speciaal/Wiskunde/Superscript 2 ²"
 
-#: ../htmlbar_gui.c:306
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:307
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
-msgstr "/Tags speciaal/Wiskunde/³"
+msgstr "/Tags speciaal/Wiskunde/Superscript 3 ³"
 
-#: ../htmlbar_gui.c:307
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:308
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
-msgstr "/Tags speciaal/Wiskunde/¼"
+msgstr "/Tags speciaal/Wiskunde/Een kwart ¼"
 
-#: ../htmlbar_gui.c:308
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:309
 msgid "/Tags/Special/Math-Science/One _half ½"
-msgstr "/Tags speciaal/Wiskunde/½"
+msgstr "/Tags speciaal/Wiskunde/Een half ½"
 
-#: ../htmlbar_gui.c:309
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:310
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
-msgstr "/Tags speciaal/Wiskunde/¾"
+msgstr "/Tags speciaal/Wiskunde/Drie kwart ¾"
 
-#: ../htmlbar_gui.c:310
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:311
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
-msgstr "/Tags speciaal/Wiskunde/°"
+msgstr "/Tags speciaal/Wiskunde/Graden teken °"
 
-#: ../htmlbar_gui.c:311
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:312
 msgid "/Tags/Special/_Non Latin"
-msgstr "/Elementen/Speciaal/Non Latin"
+msgstr "/Tags/Speciaal/Non Latin"
 
-#: ../htmlbar_gui.c:313
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:314
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
-msgstr "/Elementen/Speciaal/Non Latin/Ð"
+msgstr "/Tags/Speciaal/Non Latin/ETH (Ĳsland) Ð"
 
-#: ../htmlbar_gui.c:314
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:315
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
-msgstr "/Elementen/Speciaal/Non Latin/Þ"
+msgstr "/Tags/Speciaal/Non Latin/THORN (Ĳsland) Þ"
 
-#: ../htmlbar_gui.c:315
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:316
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
-msgstr "/Elementen/Speciaal/Non Latin/ð"
+msgstr "/Tags/Speciaal/Non Latin/eth (Ĳsland) ð"
 
-#: ../htmlbar_gui.c:316
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:317
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
-msgstr "/Elementen/Speciaal/Non Latin/þ"
+msgstr "/Tags/Speciaal/Non Latin/thorn ÿ"
 
-#: ../htmlbar_gui.c:317
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:318
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
-msgstr "/Elementen/Speciaal/Non Latin/ß"
+msgstr "/Tags/Speciaal/Non Latin/Ringeles ß"
 
-#: ../htmlbar_gui.c:318
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:319
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
-msgstr "/Elementen/Speciaal/Non Latin/µ"
+msgstr "/Tags/Speciaal/Non Latin/Micro teken µ"
 
-#: ../htmlbar_gui.c:319
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:320
 msgid "/Tags/Special/_Other"
-msgstr "/Elementen/Speciaal/Overige"
+msgstr "/Tags/Speciaal/Overige"
 
-#: ../htmlbar_gui.c:321
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:322
 msgid "/Tags/Special/Other/_Non-breaking space"
-msgstr "/Elementen/Speciaal/Overige/spatie"
+msgstr "/Tags/Speciaal/Overige/Spatie"
 
-#: ../htmlbar_gui.c:322
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:323
 msgid "/Tags/Special/Other/_Section sign §"
-msgstr "/Elementen/Speciaal/Overige/§"
+msgstr "/Tags/Speciaal/Overige/Paragraaf teken §"
 
-#: ../htmlbar_gui.c:323
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:324
 msgid "/Tags/Special/Other/_Copyright sign ©"
-msgstr "/Elementen/Speciaal/Overige/©"
+msgstr "/Tags/Speciaal/Overige/Copyright teken ©"
 
-#: ../htmlbar_gui.c:324
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:325
 msgid "/Tags/Special/Other/_Left angle quotes «"
-msgstr "/Elementen/Speciaal/Overige/«"
+msgstr "/Tags/Speciaal/Overige/Linker hoek quotes «"
 
-#: ../htmlbar_gui.c:325
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:326
 msgid "/Tags/Special/Other/_Right angle quotes »"
-msgstr "/Elementen/Speciaal/Overige/»"
+msgstr "/Tags/Speciaal/Overige/rechter hoek quotes »"
 
-#: ../htmlbar_gui.c:326
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:327
 msgid "/Tags/Special/Other/Registered _trademark ®"
-msgstr "/Elementen/Speciaal/Overige/®"
+msgstr "/Tags/Speciaal/Overige/Registered trademark ®"
 
-#: ../htmlbar_gui.c:327
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:328
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
-msgstr "/Elementen/Speciaal/Overige/¡"
+msgstr "/Tags/Speciaal/Overige/Omgekeerd uitroepteken ¡"
 
-#: ../htmlbar_gui.c:328
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:329
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
-msgstr "/Elementen/Speciaal/Overige/¿"
+msgstr "/Tags/Speciaal/Overige/Omgekeerd vraagteken ¿"
 
-#: ../htmlbar_gui.c:329
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:330
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
-msgstr "/Elementen/Speciaal/Overige/º"
+msgstr "/Tags/Speciaal/Overige/Vroouwelijke ordinaal ª"
 
-#: ../htmlbar_gui.c:330
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:331
 msgid "/Tags/Special/Other/_Masculine ordinal º"
-msgstr "/Elementen/Speciaal/Overige/ª"
+msgstr "/Tags/Speciaal/Overige/Mannelijke ordinaal º"
 
-#: ../htmlbar_gui.c:331
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:332
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
-msgstr "/Elementen/Speciaal/Overige/¶"
+msgstr "/Tags/Speciaal/Overige/Pilcrow (paragraaf teken) ¶"
 
-#: ../htmlbar_gui.c:332
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:333
 msgid "/Tags/Special/Other/_Broken bar ¦"
-msgstr "/Elementen/Speciaal/Overige/¦"
+msgstr "/Tags/Speciaal/Overige/Onderbroken balk ¦"
 
-#: ../htmlbar_gui.c:333
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:334
 msgid "/Tags/Special/Other/Soft _hypen -"
-msgstr "/Elementen/Speciaal/Overige/­"
+msgstr "/Tags/Speciaal/Overige/­Soft hypen -"
 
-#: ../htmlbar_gui.c:334
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:335
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
-msgstr "/Elementen/Speciaal/Overige/__"
+msgstr "/Tags/Speciaal/Overige/Spacing macron ¯"
 
-#: ../htmlbar_gui.c:335
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:336
 msgid "/Tags/Special/Other/Middle _dot ·"
-msgstr "/Elementen/Speciaal/Overige/·"
+msgstr "/Tags/Speciaal/Overige/Midden stip ·"
 
-#: ../htmlbar_gui.c:336
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:337
 msgid "/Tags/_Format by layout"
-msgstr "/Elementen/Opmaak"
+msgstr "/Tags/Opmaak"
 
-#: ../htmlbar_gui.c:338
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:339
 msgid "/Tags/Format by layout/_Bold"
-msgstr "/Elementen/Opmaak/Vet"
+msgstr "/Tags/Opmaak/Vet"
 
-#: ../htmlbar_gui.c:339
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:340
 msgid "/Tags/Format by layout/_Italic"
-msgstr "/Elementen/Opmaak/Cursief"
+msgstr "/Tags/Opmaak/Cursief"
 
-#: ../htmlbar_gui.c:340
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:341
 msgid "/Tags/Format by layout/_Underline"
-msgstr "/Elementen/Opmaak/Ondertrepen"
+msgstr "/Tags/Opmaak/Onderstrepen"
 
-#: ../htmlbar_gui.c:341
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:342
 msgid "/Tags/Format by layout/_Strikeout"
-msgstr "/Elementen/Opmaak/Doorhalen"
+msgstr "/Tags/Opmaak/Doorhalen"
 
-#: ../htmlbar_gui.c:342
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:343
 msgid "/Tags/Format by layout/Sm_all"
-msgstr "/Elementen/Opmaak/Cursief"
+msgstr "/Tags/Opmaak/Klein"
 
-#: ../htmlbar_gui.c:343
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:344
 msgid "/Tags/Format by layout/Bi_g"
-msgstr "/Elementen/Opmaak"
+msgstr "/Tags/Opmaak/Groot"
 
-#: ../htmlbar_gui.c:344
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:345
 msgid "/Tags/F_ormat by context"
-msgstr "/Elementen/Logische tekst-opmaak"
+msgstr "/Tags/Logische tekst-opmaak"
 
-#: ../htmlbar_gui.c:346
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:347
 msgid "/Tags/Format by context/_Strong"
-msgstr "/Elementen/Logische tekst-opmaak/Extra nadruk"
+msgstr "/Tags/Logische tekst-opmaak/Extra nadruk"
 
-#: ../htmlbar_gui.c:347
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:348
 msgid "/Tags/Format by context/_Emphasis"
-msgstr "/Elementen/Logische tekst-opmaak/Nadruk"
+msgstr "/Tags/Logische tekst-opmaak/Nadruk"
 
-#: ../htmlbar_gui.c:348
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:349
 msgid "/Tags/Format by context/_Define"
-msgstr "/Elementen/Logische tekst-opmaak/Definitie"
+msgstr "/Tags/Logische tekst-opmaak/Definitie"
 
-#: ../htmlbar_gui.c:349
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:350
 msgid "/Tags/Format by context/_Code"
-msgstr "/Elementen/Logische tekst-opmaak/Code"
+msgstr "/Tags/Logische tekst-opmaak/Code"
 
-#: ../htmlbar_gui.c:350
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:351
 msgid "/Tags/Format by context/Sa_mple"
-msgstr "/Elementen/Logische tekst-opmaak/Voorbeeld"
+msgstr "/Tags/Logische tekst-opmaak/Voorbeeld"
 
-#: ../htmlbar_gui.c:351
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:352
 msgid "/Tags/Format by context/_Keyboard"
-msgstr "/Elementen/Logische tekst-opmaak/Toetsenbord"
+msgstr "/Tags/Logische tekst-opmaak/Toetsenbord"
 
-#: ../htmlbar_gui.c:352
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:353
 msgid "/Tags/Format by context/_Variable"
-msgstr "/Elementen/Logische tekst-opmaak/Variabele"
+msgstr "/Tags/Logische tekst-opmaak/Variabele"
 
-#: ../htmlbar_gui.c:353
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:354
 msgid "/Tags/Format by context/Ci_tation"
-msgstr "/Elementen/Logische tekst-opmaak/Citaat"
+msgstr "/Tags/Logische tekst-opmaak/Citaat"
 
-#: ../htmlbar_gui.c:354
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:355
 msgid "/Tags/Format by context/_Abbreviation"
-msgstr "/Elementen/Logische tekst-opmaak/Afkorting"
+msgstr "/Tags/Logische tekst-opmaak/Afkorting"
 
-#: ../htmlbar_gui.c:355
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:356
 msgid "/Tags/Format by context/Ac_ronym"
-msgstr "/Elementen/Opmaak met context/Acroniem"
+msgstr "/Tags/Opmaak met context/Acroniem"
 
-#: ../htmlbar_gui.c:356
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:357
 msgid "/Tags/Format _general"
-msgstr "/Elementen/Opmaak algemeen"
+msgstr "/Tags/Opmaak algemeen"
 
-#: ../htmlbar_gui.c:358
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:359
 msgid "/Tags/Format general/_Paragraph"
-msgstr "/Elementen/Opmaak algemeen/Alinea"
+msgstr "/Tags/Opmaak algemeen/Alinea"
 
-#: ../htmlbar_gui.c:359
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:360
 msgid "/Tags/Format general/_Break"
-msgstr "/Elementen/Opmaak algemeen/Return"
+msgstr "/Tags/Opmaak algemeen/Return"
 
-#: ../htmlbar_gui.c:360
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:361
 msgid "/Tags/Format general/Break clear _all"
-msgstr "/Elementen/Opmaak algemeen/Harde return"
+msgstr "/Tags/Opmaak algemeen/Harde return"
 
-#: ../htmlbar_gui.c:361
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:362
 msgid "/Tags/Format general/_Non-Breaking Space"
-msgstr "/Elementen/Opmaak algemeen/spatie"
+msgstr "/Tags/Opmaak algemeen/Spatie"
 
-#: ../htmlbar_gui.c:363
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:364
 msgid "/Tags/Format general/Font Si_ze +1"
-msgstr "/Elementen/Opmaak algemeen/Lettergroote +1"
+msgstr "/Tags/Opmaak algemeen/Lettergroote +1"
 
-#: ../htmlbar_gui.c:364
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:365
 msgid "/Tags/Format general/Font _Size -1"
-msgstr "/Elementen/Opmaak algemeen/Lettergrootte -1"
+msgstr "/Tags/Opmaak algemeen/Lettergrootte -1"
 
-#: ../htmlbar_gui.c:366
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:367
 msgid "/Tags/Format general/Preformatted _Text"
-msgstr "/Elementen/Opmaak algemeen/Vaste Opmaak tekst"
+msgstr "/Tags/Opmaak algemeen/Vaste Opmaak tekst"
 
-#: ../htmlbar_gui.c:367
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:368
 msgid "/Tags/Format general/Su_bscript"
-msgstr "/Elementen/Opmaak algemeen/Subscript"
+msgstr "/Tags/Opmaak algemeen/Subscript"
 
-#: ../htmlbar_gui.c:368
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:369
 msgid "/Tags/Format general/Su_perscript"
-msgstr "/Elementen/Opmaak algemeen/Superscript"
+msgstr "/Tags/Opmaak algemeen/Superscript"
 
-#: ../htmlbar_gui.c:370
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:371
 msgid "/Tags/Format general/_Center"
-msgstr "/Elementen/Opmaak algemeen/Centreren"
+msgstr "/Tags/Opmaak algemeen/Centreren"
 
-#: ../htmlbar_gui.c:371
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:372
 msgid "/Tags/Format general/Align _right"
-msgstr "/Elementen/Opmaak algemeen/Rechts uitlijnen"
+msgstr "/Tags/Opmaak algemeen/Rechts uitlĳnen"
 
-#: ../htmlbar_gui.c:372
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:373
 msgid "/Tags/_Table"
-msgstr "/Elementen/Tabel"
+msgstr "/Tags/Tabel"
 
-#: ../htmlbar_gui.c:374
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:375
 msgid "/Tags/Table/_Table"
-msgstr "/Elementen/Tabel/Tabel"
+msgstr "/Tags/Tabel/Tabel"
 
-#: ../htmlbar_gui.c:375
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:376
 msgid "/Tags/Table/Table _Row"
-msgstr "/Elementen/Tabel/Tabelrij"
+msgstr "/Tags/Tabel/Tabelrĳ"
 
-#: ../htmlbar_gui.c:376
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:377
 msgid "/Tags/Table/Table _Header"
-msgstr "/Elementen/Tabel/Tabelkop"
+msgstr "/Tags/Tabel/Tabelkop"
 
-#: ../htmlbar_gui.c:377
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:378
 msgid "/Tags/Table/Table _Data"
-msgstr "/Elementen/Tabel/Tabelgegevens"
+msgstr "/Tags/Tabel/Tabelgegevens"
 
-#: ../htmlbar_gui.c:378
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:379
 msgid "/Tags/Table/Table _Caption"
-msgstr "/Elementen/Tabel/Tabel bijschrift"
+msgstr "/Tags/Tabel/Tabel bĳschrift"
 
-#: ../htmlbar_gui.c:379
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:380
 msgid "/Tags/_List"
-msgstr "/Elementen/_Lijst"
+msgstr "/Tags/_Lĳst"
 
-#: ../htmlbar_gui.c:381
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:382
 msgid "/Tags/List/Unordered _List"
-msgstr "/Elementen/Lijst/Ongeordende lijst"
+msgstr "/Tags/Lĳst/Ongeordende lĳst"
 
-#: ../htmlbar_gui.c:382
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:383
 msgid "/Tags/List/_Ordered List"
-msgstr "/Elementen/Lijst/Geordende lijst"
+msgstr "/Tags/Lĳst/Geordende lĳst"
 
-#: ../htmlbar_gui.c:383
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:384
 msgid "/Tags/List/List Ite_m"
-msgstr "/Elementen/Lijst/Lijst item"
+msgstr "/Tags/Lĳst/Lĳst item"
 
-#: ../htmlbar_gui.c:384
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:385
 msgid "/Tags/List/De_finition List"
-msgstr "/Elementen/Lijst/Lijst met definities"
+msgstr "/Tags/Lĳst/Lĳst met definities"
 
-#: ../htmlbar_gui.c:385
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:386
 msgid "/Tags/List/Definition _Term"
-msgstr "/Elementen/Lijst/Gedefinieerde term"
+msgstr "/Tags/Lĳst/Gedefinieerde term"
 
-#: ../htmlbar_gui.c:386
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:387
 msgid "/Tags/List/_Definition"
-msgstr "/Elementen/Lijst/Definitie"
+msgstr "/Tags/Lĳst/Definitie"
 
-#: ../htmlbar_gui.c:387
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:388
 msgid "/Tags/List/Men_u"
-msgstr "/Elementen/Lijst/menu lijst"
+msgstr "/Tags/Lĳst/Menu lĳst"
 
-#: ../htmlbar_gui.c:388
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:389
 msgid "/Tags/Fo_rm"
 msgstr "/Dialogen/Formulier"
 
-#: ../htmlbar_gui.c:390
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:391
 msgid "/Tags/Form/_Form"
-msgstr "/Dialogen/Formulier/Formulier..."
+msgstr "/Dialogen/Formulier/Formulier"
 
-#: ../htmlbar_gui.c:391
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:392
 msgid "/Tags/Form/_Button"
-msgstr "/Dialogen/Formulier/Invoerknop..."
+msgstr "/Dialogen/Formulier/Invoerknop"
 
-#: ../htmlbar_gui.c:392
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:393
 msgid "/Tags/Form/_Input"
-msgstr "/Dialogen/Formulier/Invoerknop..."
+msgstr "/Dialogen/Formulier/Invoerknop"
 
-#: ../htmlbar_gui.c:393
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:394
 msgid "/Tags/Form/_Textarea"
-msgstr "/Dialogen/Formulier/Tekstinvoerblok..."
+msgstr "/Dialogen/Formulier/Tekstinvoerblok"
 
-#: ../htmlbar_gui.c:394
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:395
 msgid "/Tags/_Misc"
-msgstr "/Elementen/_Lijst"
+msgstr "/Tags/Diversen"
 
-#: ../htmlbar_gui.c:396
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:397
 msgid "/Tags/Misc/Insert Generator _META-Tag"
-msgstr "/Elementen/Generator META-Tag invoegen"
+msgstr "/Tags/Diversen/Generator META-Tag invoegen"
 
-#: ../htmlbar_gui.c:397
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:398
 msgid "/Tags/Misc/_Span"
-msgstr "/Elementen/Speciaal"
+msgstr "/Tags/Diversen/Span"
 
-#: ../htmlbar_gui.c:398
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:399
 msgid "/Tags/Misc/_Div"
-msgstr "/Elementen/Lijst/Definitie"
+msgstr "/Tags/Diversen/Div"
 
-#: ../htmlbar_gui.c:399
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:400
 msgid "/Tags/Misc/_Link"
-msgstr "/Elementen/_Lijst"
+msgstr "/Tags/Diversen/Link"
 
-#: ../htmlbar_gui.c:400
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:401
 msgid "/Tags/Misc/S_cript"
-msgstr "/Elementen/_Lijst"
+msgstr "/Tags/Diversen/Script"
 
-#: ../htmlbar_gui.c:401
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:402
 msgid "/Tags/Misc/_Anchor"
-msgstr "/Elementen/Lijst/Definitie"
+msgstr "/Tags/Diversen/Anker"
 
-#: ../htmlbar_gui.c:402
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:403
 msgid "/Tags/Misc/_Image"
-msgstr "/Elementen/Tabel"
+msgstr "/Tags/Diversen/Afbeelding"
 
-#: ../htmlbar_gui.c:403
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:404
 msgid "/Tags/_Comment"
-msgstr "/Elementen/Commentaar"
+msgstr "/Tags/Commentaar"
 
-#: ../htmlbar_gui.c:404
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:405
 msgid "/Dial_ogs"
 msgstr "/_Dialogen"
 
-#: ../htmlbar_gui.c:406
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:407
 msgid "/Dialogs/_General"
 msgstr "/Dialogen/Algemeen"
 
-#: ../htmlbar_gui.c:408
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:409
 msgid "/Dialogs/General/_Quickstart..."
-msgstr "/Dialogen/Algemeen/Snelstart"
+msgstr "/Dialogen/Algemeen/Snelstart..."
 
-#: ../htmlbar_gui.c:409
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:410
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Dialogen/Algemeen/Meta..."
+msgstr "/Dialogen/Algemeen/Link Header..."
 
-#: ../htmlbar_gui.c:410
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:411
 msgid "/Dialogs/General/_Body..."
-msgstr "/Dialogen/Algemeen/Body"
+msgstr "/Dialogen/Algemeen/Body..."
 
-#: ../htmlbar_gui.c:411
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:412
 msgid "/Dialogs/General/_Anchor..."
 msgstr "/Dialogen/Algemeen/Anker..."
 
-#: ../htmlbar_gui.c:412
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:413
 msgid "/Dialogs/General/_Email..."
 msgstr "/Dialogen/Algemeen/Email..."
 
-#: ../htmlbar_gui.c:413
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:414
 msgid "/Dialogs/General/_Rule..."
-msgstr "/Dialogen/Algemeen/Horizontale lijn..."
+msgstr "/Dialogen/Algemeen/Horizontale lĳn..."
 
-#: ../htmlbar_gui.c:414
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:415
 msgid "/Dialogs/General/_Font..."
 msgstr "/Dialogen/Algemeen/Lettertype..."
 
-#: ../htmlbar_gui.c:415
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:416
 msgid "/Dialogs/General/Basef_ont..."
 msgstr "/Dialogen/Algemeen/Basislettertype..."
 
-#: ../htmlbar_gui.c:416
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:417
 msgid "/Dialogs/General/Quick_list..."
-msgstr "/Dialogen/Algemeen/Snellijst..."
+msgstr "/Dialogen/Algemeen/Snellĳst..."
 
-#: ../htmlbar_gui.c:417
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:418
 msgid "/Dialogs/General/_Meta..."
 msgstr "/Dialogen/Algemeen/Meta..."
 
-#: ../htmlbar_gui.c:418
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:419
 msgid "/Dialogs/General/Embe_d..."
 msgstr "/Dialogen/Algemeen/Multimedia (Embed)..."
 
-#: ../htmlbar_gui.c:419
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:420
 msgid "/Dialogs/General/Select _Color..."
-msgstr "/Dialogen/Algemeen/Kleur..."
+msgstr "/Dialogen/Algemeen/Selecteer Kleur..."
 
-#: ../htmlbar_gui.c:420
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:421
 msgid "/Dialogs/General/Insert _Time..."
-msgstr "/Dialogen/Algemeen/Tijd invoegen..."
+msgstr "/Dialogen/Algemeen/Tĳd invoegen..."
 
-#: ../htmlbar_gui.c:421
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:422
 msgid "/Dialogs/General/Insert _Image..."
 msgstr "/Dialogen/Algemeen/Afbeelding invoegen..."
 
-#: ../htmlbar_gui.c:422
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:423
 msgid "/Dialogs/General/Insert T_humbnail..."
 msgstr "/Dialogen/Algemeen/Voorbeeldafbeelding invoegen..."
 
-#: ../htmlbar_gui.c:423
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:424
 msgid "/Dialogs/_Table"
 msgstr "/Dialogen/Tabel"
 
-#: ../htmlbar_gui.c:425
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:426
 msgid "/Dialogs/Table/Table _Wizard..."
-msgstr "/Dialogen/Tabel/Tabelhoofd..."
+msgstr "/Dialogen/Tabel/Tabel Wizard..."
 
-#: ../htmlbar_gui.c:426
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:427
 msgid "/Dialogs/Table/_Table..."
 msgstr "/Dialogen/Tabel/Tabel..."
 
-#: ../htmlbar_gui.c:427
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:428
 msgid "/Dialogs/Table/Table _Row..."
-msgstr "/Dialogen/Tabel/Tabelrij..."
+msgstr "/Dialogen/Tabel/Tabelrĳ..."
 
-#: ../htmlbar_gui.c:428
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:429
 msgid "/Dialogs/Table/Table _Head..."
 msgstr "/Dialogen/Tabel/Tabelhoofd..."
 
-#: ../htmlbar_gui.c:429
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:430
 msgid "/Dialogs/Table/Table _Data..."
 msgstr "/Dialogen/Tabel/Tabeldata..."
 
-#: ../htmlbar_gui.c:430
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:431
 msgid "/Dialogs/_CSS"
 msgstr "/Dialogen/CSS"
 
-#: ../htmlbar_gui.c:432
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:433
 msgid "/Dialogs/CSS/_Create Style..."
-msgstr "/Dialogen/CSS/Stijl maken..."
+msgstr "/Dialogen/CSS/Stĳl maken..."
 
-#: ../htmlbar_gui.c:433
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:434
 msgid "/Dialogs/CSS/S_pan..."
 msgstr "/Dialogen/CSS/Span..."
 
-#: ../htmlbar_gui.c:434
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:435
 msgid "/Dialogs/CSS/_Div..."
 msgstr "/Dialogen/CSS/Div..."
 
-#: ../htmlbar_gui.c:435
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:436
 msgid "/Dialogs/CSS/_Style..."
-msgstr "/Dialogen/CSS/Stijl..."
+msgstr "/Dialogen/CSS/Stĳl..."
 
-#: ../htmlbar_gui.c:436
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:437
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
-msgstr "/Dialogen/CSS/Link naar stijlsheet..."
+msgstr "/Dialogen/CSS/Link naar stĳlsheet..."
 
-#: ../htmlbar_gui.c:437
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:438
 msgid "/Dialogs/_Frame"
 msgstr "/Dialogen/Frame"
 
-#: ../htmlbar_gui.c:439
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:440
 msgid "/Dialogs/Frame/Frame _Wizard..."
-msgstr "/Dialogen/Frame/Frame..."
+msgstr "/Dialogen/Frame/Frame Wizard..."
 
-#: ../htmlbar_gui.c:440
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:441
 msgid "/Dialogs/Frame/Frame_set..."
 msgstr "/Dialogen/Frame/Frameset..."
 
-#: ../htmlbar_gui.c:441
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:442
 msgid "/Dialogs/Frame/_Frame..."
 msgstr "/Dialogen/Frame/Frame..."
 
-#: ../htmlbar_gui.c:442
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:443
 msgid "/Dialogs/F_orm"
 msgstr "/Dialogen/Formulier"
 
-#: ../htmlbar_gui.c:444
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:445
 msgid "/Dialogs/Form/F_orm..."
 msgstr "/Dialogen/Formulier/Formulier..."
 
-#: ../htmlbar_gui.c:445
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:446
 msgid "/Dialogs/Form/_Input..."
-msgstr "/Dialogen/Formulier/Invoerknop..."
+msgstr "/Dialogen/Formulier/Invoer..."
 
-#: ../htmlbar_gui.c:446
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:447
 msgid "/Dialogs/Form/Input Buttons..."
 msgstr "/Dialogen/Formulier/Invoerknop..."
 
-#: ../htmlbar_gui.c:447
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:448
 msgid "/Dialogs/Form/Input Text..."
 msgstr "/Dialogen/Formulier/Tekstinvoerregel..."
 
-#: ../htmlbar_gui.c:448
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:449
 msgid "/Dialogs/Form/Text_area..."
 msgstr "/Dialogen/Formulier/Tekstinvoerblok..."
 
-#: ../htmlbar_gui.c:449
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:450
 msgid "/Dialogs/Form/_Select..."
-msgstr "/Dialogen/Formulier/Keuzelijst..."
+msgstr "/Dialogen/Formulier/Keuzelĳst..."
 
-#: ../htmlbar_gui.c:450
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:451
 msgid "/Dialogs/Form/O_ption..."
-msgstr "/Dialogen/Formulier/Optie"
+msgstr "/Dialogen/Formulier/Optie..."
 
-#: ../htmlbar_gui.c:451
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:452
 msgid "/Dialogs/Form/Option _Group..."
 msgstr "/Dialogen/Formulier/Optie groep..."
 
-#: ../htmlbar_gui.c:452
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:453
 msgid "/Dialogs/Form/_Button..."
-msgstr "/Dialogen/Formulier/Invoerknop..."
+msgstr "/Dialogen/Formulier/Knop..."
 
-#: ../htmlbar_gui.c:454
+#: src/plugin_htmlbar/htmlbar_gui.c:455
 msgid "/Dialogs/_Edit tag under cursor..."
-msgstr ""
+msgstr "/Dialogen/Formulier/Tag onder cursor bewerken..."
 
-#: ../htmlbar_gui.c:457
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:458
 msgid "/View/View _HTML Toolbar"
 msgstr "/Opties/Beeld/Toon HTML-werkbalk"
 
-#: ../htmlbar_gui.c:731
+#: src/plugin_htmlbar/htmlbar_gui.c:732
 msgid "QuickStart..."
 msgstr "Snelle start..."
 
-#: ../htmlbar_gui.c:732
+#: src/plugin_htmlbar/htmlbar_gui.c:733
 msgid "Body..."
 msgstr "Body..."
 
-#: ../htmlbar_gui.c:733
+#: src/plugin_htmlbar/htmlbar_gui.c:734
 msgid "Bold"
 msgstr "Vet"
 
-#: ../htmlbar_gui.c:734
+#: src/plugin_htmlbar/htmlbar_gui.c:735
 msgid "Italic"
 msgstr "Cursief"
 
-#: ../htmlbar_gui.c:735 ../html.c:781
+#: src/plugin_htmlbar/htmlbar_gui.c:736 src/plugin_htmlbar/html.c:777
 msgid "Paragraph"
 msgstr "Alinea"
 
-#: ../htmlbar_gui.c:736
+#: src/plugin_htmlbar/htmlbar_gui.c:737
 msgid "Break"
 msgstr "Nieuwe regel"
 
-#: ../htmlbar_gui.c:737
+#: src/plugin_htmlbar/htmlbar_gui.c:738
 msgid "Break and clear"
 msgstr "Nieuwe regel geheel links "
 
-#: ../htmlbar_gui.c:738
+#: src/plugin_htmlbar/htmlbar_gui.c:739
 msgid "Non-breaking space"
 msgstr "Spatie"
 
-#: ../htmlbar_gui.c:740
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:741
 msgid "Anchor..."
 msgstr "Anker..."
 
-#: ../htmlbar_gui.c:741
+#: src/plugin_htmlbar/htmlbar_gui.c:742
 msgid "Rule..."
-msgstr "Lijn..."
+msgstr "Lĳn..."
 
-#: ../htmlbar_gui.c:742
+#: src/plugin_htmlbar/htmlbar_gui.c:743
 msgid "Center"
 msgstr "Centreren"
 
-#: ../htmlbar_gui.c:743
+#: src/plugin_htmlbar/htmlbar_gui.c:744
 msgid "Right Justify"
-msgstr "Rechts Uitlijnen"
+msgstr "Rechts Uitlĳnen"
 
-#: ../htmlbar_gui.c:744
+#: src/plugin_htmlbar/htmlbar_gui.c:745
 msgid "Comment"
 msgstr "Commentaar"
 
-#: ../htmlbar_gui.c:745
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:746
 msgid "E-mail..."
 msgstr "E-Mail..."
 
-#: ../htmlbar_gui.c:746
+#: src/plugin_htmlbar/htmlbar_gui.c:747
 msgid "Font..."
 msgstr "Lettertype..."
 
-#: ../htmlbar_gui.c:747
+#: src/plugin_htmlbar/htmlbar_gui.c:748
 msgid "Base Font Size..."
 msgstr "Standaard lettergrootte..."
 
-#: ../htmlbar_gui.c:749
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:750
 msgid "Font Size +1"
 msgstr "Lettergrootte +1"
 
-#: ../htmlbar_gui.c:750
+#: src/plugin_htmlbar/htmlbar_gui.c:751
 msgid "Font Size -1"
 msgstr "Lettergrootte -1"
 
-#: ../htmlbar_gui.c:751
+#: src/plugin_htmlbar/htmlbar_gui.c:752
 msgid "Preformatted Text"
 msgstr "Vaste opmaak van tekst"
 
-#: ../htmlbar_gui.c:752
+#: src/plugin_htmlbar/htmlbar_gui.c:753
 msgid "Subscript"
 msgstr "Subscript"
 
-#: ../htmlbar_gui.c:753
+#: src/plugin_htmlbar/htmlbar_gui.c:754
 msgid "Superscript"
 msgstr "Superscript"
 
-#: ../htmlbar_gui.c:754
+#: src/plugin_htmlbar/htmlbar_gui.c:755
 msgid "Strong"
 msgstr "Extra Nadruk"
 
-#: ../htmlbar_gui.c:755
+#: src/plugin_htmlbar/htmlbar_gui.c:756
 msgid "Emphasis"
 msgstr "Nadruk"
 
-#: ../htmlbar_gui.c:757 ../html.c:790
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:758 src/plugin_htmlbar/html.c:786
 msgid "Heading 1"
 msgstr "Kop 1"
 
-#: ../htmlbar_gui.c:758 ../html.c:793
+#: src/plugin_htmlbar/htmlbar_gui.c:759 src/plugin_htmlbar/html.c:789
 msgid "Heading 2"
 msgstr "Kop 2"
 
-#: ../htmlbar_gui.c:759 ../html.c:796
+#: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:792
 msgid "Heading 3"
 msgstr "Kop 3"
 
-#: ../htmlbar_gui.c:760 ../html.c:799
+#: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:795
 msgid "Heading 4"
 msgstr "Kop 4"
 
-#: ../htmlbar_gui.c:761 ../html.c:802
+#: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:798
 msgid "Heading 5"
 msgstr "Kop 5"
 
-#: ../htmlbar_gui.c:762 ../html.c:805
+#: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:801
 msgid "Heading 6"
 msgstr "Kop 6"
 
-#: ../htmlbar_gui.c:763
+#: src/plugin_htmlbar/htmlbar_gui.c:764
 msgid "Table Wizard..."
 msgstr "Tabel Wizard..."
 
-#: ../htmlbar_gui.c:765
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:766
 msgid "Table..."
 msgstr "Tabel..."
 
-#: ../htmlbar_gui.c:766
+#: src/plugin_htmlbar/htmlbar_gui.c:767
 msgid "Table Row..."
-msgstr "Tabel Rij..."
+msgstr "Tabel Rĳ..."
 
-#: ../htmlbar_gui.c:767
+#: src/plugin_htmlbar/htmlbar_gui.c:768
 msgid "Table Header..."
 msgstr "Tabel Hoofd..."
 
-#: ../htmlbar_gui.c:768
+#: src/plugin_htmlbar/htmlbar_gui.c:769
 msgid "Table Data..."
 msgstr "Tabelgegevens..."
 
-#: ../htmlbar_gui.c:770 ../html_table.c:77
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:771 src/plugin_htmlbar/html_table.c:77
 msgid "Table"
 msgstr "Tabel"
 
-#: ../htmlbar_gui.c:771 ../html_table.c:209
+#: src/plugin_htmlbar/htmlbar_gui.c:772 src/plugin_htmlbar/html_table.c:209
 msgid "Table Row"
-msgstr "Tabel Rij"
+msgstr "Tabel Rĳ"
 
-#: ../htmlbar_gui.c:772 ../html_table.c:320
+#: src/plugin_htmlbar/htmlbar_gui.c:773 src/plugin_htmlbar/html_table.c:320
 msgid "Table Header"
 msgstr "Tabel Hoofd"
 
-#: ../htmlbar_gui.c:773 ../html_table.c:318
+#: src/plugin_htmlbar/htmlbar_gui.c:774 src/plugin_htmlbar/html_table.c:318
 msgid "Table Data"
 msgstr "Tabel Gegevens"
 
-#: ../htmlbar_gui.c:774
+#: src/plugin_htmlbar/htmlbar_gui.c:775
 msgid "Table Caption"
-msgstr "Tabel Bijschrift"
+msgstr "Tabel Bĳschrift"
 
-#: ../htmlbar_gui.c:775
+#: src/plugin_htmlbar/htmlbar_gui.c:776
 msgid "Frame Wizard..."
 msgstr "Frame Wizard..."
 
-#: ../htmlbar_gui.c:777
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:778
 msgid "Frameset..."
 msgstr "Frameset..."
 
-#: ../htmlbar_gui.c:778
+#: src/plugin_htmlbar/htmlbar_gui.c:779
 msgid "Frame..."
 msgstr "Frame..."
 
-#: ../htmlbar_gui.c:780 ../html.c:1590
+#. spacing
+#: src/plugin_htmlbar/htmlbar_gui.c:781 src/plugin_htmlbar/html.c:1586
 msgid "Frameset"
 msgstr "Frameset"
 
-#: ../htmlbar_gui.c:781 ../html.c:1674
+#: src/plugin_htmlbar/htmlbar_gui.c:782 src/plugin_htmlbar/html.c:1670
 msgid "Frame"
 msgstr "Frame"
 
-#: ../htmlbar_gui.c:782
+#: src/plugin_htmlbar/htmlbar_gui.c:783
 msgid "Noframes"
 msgstr "Noframes"
 
-#: ../htmlbar_gui.c:783
+#: src/plugin_htmlbar/htmlbar_gui.c:784
 msgid "Target"
 msgstr "Doel"
 
-#: ../htmlbar_gui.c:784
+#: src/plugin_htmlbar/htmlbar_gui.c:785
 msgid "Form..."
 msgstr "Formulier..."
 
-#: ../htmlbar_gui.c:785
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:786
 msgid "Input Button..."
-msgstr "Knop"
+msgstr "Input Button..."
 
-#: ../htmlbar_gui.c:786
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:787
 msgid "Input Text..."
-msgstr "Knop"
+msgstr "Input Tekst..."
 
-#: ../htmlbar_gui.c:787
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:788
 msgid "Input Hidden..."
-msgstr "Verborgen Inhoud..."
+msgstr "Verborgen Invoer..."
 
-#: ../htmlbar_gui.c:788
+#: src/plugin_htmlbar/htmlbar_gui.c:789
 msgid "Textarea..."
 msgstr "Tekstinvoerblok..."
 
-#: ../htmlbar_gui.c:789
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:790
 msgid "Input Radio Button..."
 msgstr "Aanklikrondje..."
 
-#: ../htmlbar_gui.c:790
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:791
 msgid "Input Check Box..."
 msgstr "Aankruisvakje..."
 
-#: ../htmlbar_gui.c:791
+#: src/plugin_htmlbar/htmlbar_gui.c:792
 msgid "Select..."
-msgstr "Keuzelijst..."
+msgstr "Keuzelĳst..."
 
-#: ../htmlbar_gui.c:792
+#: src/plugin_htmlbar/htmlbar_gui.c:793
 msgid "Option..."
 msgstr "Optie..."
 
-#: ../htmlbar_gui.c:793
+#: src/plugin_htmlbar/htmlbar_gui.c:794
 msgid "Option group..."
 msgstr "Groep van opties..."
 
-#: ../htmlbar_gui.c:794
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:795
 msgid "Button..."
-msgstr "Knop"
+msgstr "Button..."
 
-#: ../htmlbar_gui.c:795
+#: src/plugin_htmlbar/htmlbar_gui.c:796
 msgid "Quick List..."
-msgstr "Snel lijst aanmaken..."
+msgstr "Snel lĳst aanmaken..."
 
-#: ../htmlbar_gui.c:796
+#: src/plugin_htmlbar/htmlbar_gui.c:797
 msgid "Unordered List"
-msgstr "Ongeordende Lijst"
+msgstr "Ongeordende Lĳst"
 
-#: ../htmlbar_gui.c:797
+#: src/plugin_htmlbar/htmlbar_gui.c:798
 msgid "Ordered List"
-msgstr "Geordende lijst"
+msgstr "Geordende lĳst"
 
-#: ../htmlbar_gui.c:798
+#: src/plugin_htmlbar/htmlbar_gui.c:799
 msgid "List Item"
-msgstr "Lijst item"
+msgstr "Lĳst item"
 
-#: ../htmlbar_gui.c:799
+#: src/plugin_htmlbar/htmlbar_gui.c:800
 msgid "Definition List"
-msgstr "Lijst met definities"
+msgstr "Lĳst met definities"
 
-#: ../htmlbar_gui.c:800
+#: src/plugin_htmlbar/htmlbar_gui.c:801
 msgid "Definition Term"
 msgstr "Gedefinieerde term"
 
-#: ../htmlbar_gui.c:801 ../htmlbar_gui.c:810
+#: src/plugin_htmlbar/htmlbar_gui.c:802 src/plugin_htmlbar/htmlbar_gui.c:811
 msgid "Definition"
 msgstr "Definitie"
 
-#: ../htmlbar_gui.c:802
+#: src/plugin_htmlbar/htmlbar_gui.c:803
 msgid "Create stylesheet..."
 msgstr "Stylesheet maken..."
 
-#: ../htmlbar_gui.c:803
+#: src/plugin_htmlbar/htmlbar_gui.c:804
 msgid "Span..."
 msgstr "Span..."
 
-#: ../htmlbar_gui.c:804
+#: src/plugin_htmlbar/htmlbar_gui.c:805
 msgid "Div..."
 msgstr "Div..."
 
-#: ../htmlbar_gui.c:805 ../html_form.c:825
+#: src/plugin_htmlbar/htmlbar_gui.c:806 src/plugin_htmlbar/html_form.c:825
 msgid "Style"
-msgstr "Stijl"
+msgstr "Stĳl"
 
-#: ../htmlbar_gui.c:806
+#: src/plugin_htmlbar/htmlbar_gui.c:807
 msgid "Link to stylesheet..."
-msgstr "Link naar stylesheet"
+msgstr "Link naar stylesheet..."
 
-#: ../htmlbar_gui.c:807
+#: src/plugin_htmlbar/htmlbar_gui.c:808
 msgid "Insert image..."
 msgstr "Beeld invoegen..."
 
-#: ../htmlbar_gui.c:808
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:809
 msgid "Insert thumbnail..."
-msgstr "Afbeelding als voorbeeldafbeelding invoegen"
+msgstr "Voorbeeldafbeelding invoegen..."
 
-#: ../htmlbar_gui.c:809
+#: src/plugin_htmlbar/htmlbar_gui.c:810
 msgid "Multi thumbnail..."
 msgstr "Meervoudige voorbeeldafbeelding..."
 
-#: ../htmlbar_gui.c:811
+#: src/plugin_htmlbar/htmlbar_gui.c:812
 msgid "Code"
 msgstr "Code"
 
-#: ../htmlbar_gui.c:812
+#: src/plugin_htmlbar/htmlbar_gui.c:813
 msgid "Sample"
 msgstr "Voorbeeld"
 
-#: ../htmlbar_gui.c:813
+#: src/plugin_htmlbar/htmlbar_gui.c:814
 msgid "Keyboard"
 msgstr "Toetsenbord"
 
-#: ../htmlbar_gui.c:814
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:815
 msgid "Variable"
 msgstr "Variabelen"
 
-#: ../htmlbar_gui.c:815
+#: src/plugin_htmlbar/htmlbar_gui.c:816
 msgid "Citation"
 msgstr "Citaat"
 
-#: ../htmlbar_gui.c:816
+#: src/plugin_htmlbar/htmlbar_gui.c:817
 msgid "Abbreviation"
 msgstr "Afkorting"
 
-#: ../htmlbar_gui.c:817
+#: src/plugin_htmlbar/htmlbar_gui.c:818
 msgid "Acronym"
 msgstr "Afkorting"
 
-#: ../htmlbar_gui.c:937
+#: src/plugin_htmlbar/htmlbar_gui.c:938
 msgid "Remove from quickbar"
-msgstr "Verwijder van snelbalk"
+msgstr "Verwĳder van snelbalk"
 
-#: ../htmlbar_gui.c:938
+#: src/plugin_htmlbar/htmlbar_gui.c:939
 msgid "Move Left"
-msgstr ""
+msgstr "Verplaats naar links"
 
-#: ../htmlbar_gui.c:939
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:940
 msgid "Move Right"
-msgstr "Hoogte"
+msgstr "Verplaats naar rechts"
 
-#: ../htmlbar_gui.c:979
+#: src/plugin_htmlbar/htmlbar_gui.c:980
 msgid "Add to quickbar"
 msgstr "Voeg toe aan  Snel balk "
 
-#: ../htmlbar_gui.c:1081
+#: src/plugin_htmlbar/htmlbar_gui.c:1082
 msgid " Quick bar "
 msgstr " Snel balk "
 
-#: ../htmlbar_gui.c:1086
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:1087
 msgid "Heading"
 msgstr "Kop"
 
-#: ../htmlbar_gui.c:1088
+#: src/plugin_htmlbar/htmlbar_gui.c:1089
 msgid " Standard bar "
 msgstr "Standaard balk"
 
-#: ../htmlbar_gui.c:1093
+#: src/plugin_htmlbar/htmlbar_gui.c:1094
 msgid "Context formatting"
 msgstr "Logische opmaak"
 
-#: ../htmlbar_gui.c:1095
+#: src/plugin_htmlbar/htmlbar_gui.c:1096
 msgid " Fonts "
 msgstr " Lettertype "
 
-#: ../htmlbar_gui.c:1100
+#: src/plugin_htmlbar/htmlbar_gui.c:1101
 msgid " Tables "
 msgstr " Tabellen "
 
-#: ../htmlbar_gui.c:1105
+#: src/plugin_htmlbar/htmlbar_gui.c:1106
 msgid " Frames "
 msgstr " Frames "
 
-#: ../htmlbar_gui.c:1110
+#: src/plugin_htmlbar/htmlbar_gui.c:1111
 msgid " Forms "
 msgstr " Formulieren "
 
-#: ../htmlbar_gui.c:1115
-#, fuzzy
+#: src/plugin_htmlbar/htmlbar_gui.c:1116
 msgid " List "
-msgstr "Lijsten"
+msgstr "Lĳsten"
 
-#: ../htmlbar_gui.c:1120
+#: src/plugin_htmlbar/htmlbar_gui.c:1121
 msgid " CSS "
 msgstr " CSS "
 
-#: ../html.c:389
+#: src/plugin_htmlbar/html.c:385
 msgid "Insert Time"
-msgstr "Voeg tijd in"
+msgstr "Voeg tĳd in"
 
-#: ../html.c:397
-#, fuzzy, c-format
+#: src/plugin_htmlbar/html.c:393
+#, c-format
 msgid "  _Time (%i:%i:%i)"
-msgstr "  Tijd (%i:%i:%i)"
+msgstr "  Tĳd (%i:%i:%i)"
 
-#: ../html.c:402
-#, fuzzy
+#: src/plugin_htmlbar/html.c:398
 msgid "  Day of the _week (Sunday)"
-msgstr " Dag van de week (Zondag)"
+msgstr " Dag van de week (zondag)"
 
-#: ../html.c:405
-#, fuzzy
+#: src/plugin_htmlbar/html.c:401
 msgid "  Day of the _week (Monday)"
 msgstr "  Dag van de week (maandag)"
 
-#: ../html.c:408
-#, fuzzy
+#: src/plugin_htmlbar/html.c:404
 msgid "  Day of the _week (Tuesday)"
 msgstr "Dag van de week (dinsdag)"
 
-#: ../html.c:411
-#, fuzzy
+#: src/plugin_htmlbar/html.c:407
 msgid "  Day of the _week (Wednesday)"
 msgstr "  Dag van de week (woensdag)"
 
-#: ../html.c:414
-#, fuzzy
+#: src/plugin_htmlbar/html.c:410
 msgid "  Day of the _week (Thursday)"
 msgstr "  Dag van de week (donderdag)"
 
-#: ../html.c:417
-#, fuzzy
+#: src/plugin_htmlbar/html.c:413
 msgid "  Day of the _week (Friday)"
-msgstr "  Dag van de week (vrijdag)"
+msgstr "  Dag van de week (vrĳdag)"
 
-#: ../html.c:420
-#, fuzzy
+#: src/plugin_htmlbar/html.c:416
 msgid "  Day of the _week (Saturday)"
 msgstr "  Dag van de week (zaterdag)"
 
-#: ../html.c:423
+#: src/plugin_htmlbar/html.c:419
 msgid "You appear to have a non existant day!\n"
 msgstr "Niet bestaande dag!\n"
 
-#: ../html.c:431
-#, fuzzy, c-format
+#: src/plugin_htmlbar/html.c:427
+#, c-format
 msgid "  _Date (%i/%i/%i)"
 msgstr "  Datum (%i/%i/%i)"
 
-#: ../html.c:434
-#, fuzzy, c-format
+#: src/plugin_htmlbar/html.c:430
+#, c-format
 msgid "  _Unix Time (%i)"
-msgstr "  Unix tijd (%i)"
+msgstr "  Unix tĳd (%i)"
 
-#: ../html.c:439
-#, fuzzy, c-format
-msgid "  Unix Date _String (%s"
-msgstr " Unix datum stempel(%s"
+#: src/plugin_htmlbar/html.c:435
+#, c-format
+msgid "  Unix Date _String (%s)"
+msgstr "Unix datum string (%s)"
 
-#: ../html.c:447
+#: src/plugin_htmlbar/html.c:443
 #, c-format
 msgid "  ISO-8601 Ti_me (%s)"
-msgstr ""
+msgstr "ISO-8601 Tĳd (%s)"
 
-#: ../html.c:589
+#: src/plugin_htmlbar/html.c:585
 msgid "Quick Anchor"
 msgstr "Snel anker"
 
-#: ../html.c:595 ../html_form.c:780
+#: src/plugin_htmlbar/html.c:591 src/plugin_htmlbar/html_form.c:780
 msgid "Attributes"
-msgstr ""
+msgstr "Attributen"
 
-#: ../html.c:609 ../html.c:1918
-#, fuzzy
+#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1914
 msgid "_HREF:"
-msgstr "HREF"
+msgstr "HREF:"
 
-#: ../html.c:613 ../html_form.c:183
-#, fuzzy
+#: src/plugin_htmlbar/html.c:609 src/plugin_htmlbar/html_form.c:183
 msgid "_Target:"
-msgstr "Doel"
+msgstr "Doel:"
 
-#: ../html.c:617 ../html.c:837 ../html.c:1212 ../html.c:1686
-#: ../html_form.c:231 ../html_form.c:596 ../html_form.c:795 ../html_form.c:890
-#: ../image.c:416
-#, fuzzy
+#: src/plugin_htmlbar/html.c:613 src/plugin_htmlbar/html.c:833
+#: src/plugin_htmlbar/html.c:1208 src/plugin_htmlbar/html.c:1682
+#: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
+#: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
+#: src/plugin_htmlbar/image.c:440
 msgid "_Name:"
-msgstr "Naam"
+msgstr "Naam:"
 
-#: ../html.c:623 ../html.c:1070 ../html.c:1241 ../html.c:1833
-#, fuzzy
+#: src/plugin_htmlbar/html.c:619 src/plugin_htmlbar/html.c:1066
+#: src/plugin_htmlbar/html.c:1237 src/plugin_htmlbar/html.c:1829
 msgid "_Language:"
-msgstr "Taal"
+msgstr "Taal:"
 
-#: ../html.c:627 ../html.c:845 ../html.c:979 ../html.c:1074 ../html.c:1249
-#: ../html.c:1622 ../html.c:1723 ../html.c:1852 ../html_form.c:187
-#: ../html_form.c:243 ../html_form.c:609 ../html_form.c:903
-#: ../html_table.c:101 ../html_table.c:253 ../html_table.c:361 ../image.c:424
-#, fuzzy
+#: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:841
+#: src/plugin_htmlbar/html.c:975 src/plugin_htmlbar/html.c:1070
+#: src/plugin_htmlbar/html.c:1245 src/plugin_htmlbar/html.c:1618
+#: src/plugin_htmlbar/html.c:1719 src/plugin_htmlbar/html.c:1848
+#: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
+#: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
+#: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
+#: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:448
 msgid "Custo_m:"
-msgstr "Aangepast"
+msgstr "Aangepast:"
 
-#: ../html.c:630 ../html.c:1078 ../html_form.c:829
+#: src/plugin_htmlbar/html.c:626 src/plugin_htmlbar/html.c:1074
+#: src/plugin_htmlbar/html_form.c:829
 msgid "Events"
 msgstr "Gebeurtenissen"
 
-#: ../html.c:633
-#, fuzzy
+#: src/plugin_htmlbar/html.c:629
 msgid "OnClic_k:"
-msgstr "OnClick"
+msgstr "OnClick:"
 
-#: ../html.c:637
-#, fuzzy
+#: src/plugin_htmlbar/html.c:633
 msgid "OnD_blClick:"
-msgstr "OnDblClick"
+msgstr "OnDblClick:"
 
-#: ../html.c:641
-#, fuzzy
+#: src/plugin_htmlbar/html.c:637
 msgid "OnMouseO_ver:"
-msgstr "OnMouseOver"
+msgstr "OnMouseOver:"
 
-#: ../html.c:645
-#, fuzzy
+#: src/plugin_htmlbar/html.c:641
 msgid "OnMouse_Down:"
-msgstr "OnMouseDown"
+msgstr "OnMouseDown:"
 
-#: ../html.c:649
-#, fuzzy
+#: src/plugin_htmlbar/html.c:645
 msgid "OnMouse_Move:"
-msgstr "OnMouseMove"
+msgstr "OnMouseMove:"
 
-#: ../html.c:653
-#, fuzzy
+#: src/plugin_htmlbar/html.c:649
 msgid "OnMouseOu_t:"
-msgstr "OnMouseOut"
+msgstr "OnMouseOut:"
 
-#: ../html.c:657
-#, fuzzy
+#: src/plugin_htmlbar/html.c:653
 msgid "OnMouse_Up:"
-msgstr "OnMouseUp"
+msgstr "OnMouseUp:"
 
-#: ../html.c:661
-#, fuzzy
+#: src/plugin_htmlbar/html.c:657
 msgid "OnKeyDo_wn:"
-msgstr "OnKeyDown"
+msgstr "OnKeyDown:"
 
-#: ../html.c:665
-#, fuzzy
+#: src/plugin_htmlbar/html.c:661
 msgid "OnKey_Press:"
-msgstr "OnKeyPress"
+msgstr "OnKeyPress:"
 
-#: ../html.c:669
-#, fuzzy
+#: src/plugin_htmlbar/html.c:665
 msgid "OnKe_yUp:"
-msgstr "OnKeyUp"
+msgstr "OnKeyUp:"
 
-#: ../html.c:784
+#: src/plugin_htmlbar/html.c:780
 msgid "Div"
 msgstr "Div"
 
-#: ../html.c:787
+#: src/plugin_htmlbar/html.c:783
 msgid "Span"
 msgstr "Span"
 
-#: ../html.c:822 ../html_table.c:109 ../html_table.c:219 ../html_table.c:333
-#, fuzzy
+#: src/plugin_htmlbar/html.c:818 src/plugin_htmlbar/html_table.c:109
+#: src/plugin_htmlbar/html_table.c:219 src/plugin_htmlbar/html_table.c:333
 msgid "Ali_gn:"
-msgstr "Uitlijnen"
+msgstr "Uitlĳnen:"
 
-#: ../html.c:826 ../html.c:1062 ../html_diag.c:373 ../html_table.c:91
-#: ../html_table.c:237 ../html_table.c:351
-#, fuzzy
+#: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
+#: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
+#: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
 msgid "Cl_ass:"
-msgstr "Klasse"
+msgstr "Klasse:"
 
-#: ../html.c:830 ../html.c:1055 ../html_diag.c:381 ../html_table.c:96
-#: ../html_table.c:248 ../html_table.c:356
-#, fuzzy
+#: src/plugin_htmlbar/html.c:826 src/plugin_htmlbar/html.c:1051
+#: src/plugin_htmlbar/html_diag.c:381 src/plugin_htmlbar/html_table.c:96
+#: src/plugin_htmlbar/html_table.c:248 src/plugin_htmlbar/html_table.c:356
 msgid "St_yle:"
-msgstr "Stijl"
+msgstr "Stĳl:"
 
-#: ../html.c:841 ../html.c:1066 ../html_diag.c:377
-#, fuzzy
+#: src/plugin_htmlbar/html.c:837 src/plugin_htmlbar/html.c:1062
+#: src/plugin_htmlbar/html_diag.c:377
 msgid "_ID:"
-msgstr "ID"
+msgstr "ID:"
 
-#: ../html.c:942
+#: src/plugin_htmlbar/html.c:938
 msgid "Horizontal Rule"
-msgstr "horizontale lijn"
+msgstr "Horizontale Lĳn"
 
-#: ../html.c:953 ../html.c:1771 ../image.c:442
-#, fuzzy
+#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1767
+#: src/plugin_htmlbar/image.c:466
 msgid "_Align:"
-msgstr "Uitlijnen"
+msgstr "Uitlĳnen:"
 
-#: ../html.c:960 ../html.c:1779 ../html_table.c:387
-#, fuzzy
+#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1775
+#: src/plugin_htmlbar/html_table.c:387
 msgid "_Height:"
-msgstr "Hoogte"
+msgstr "Hoogte:"
 
-#: ../html.c:966 ../html.c:1775 ../html_table.c:134 ../html_table.c:380
-#: ../image.c:400
-#, fuzzy
+#. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
+#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1771
+#: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
+#: src/plugin_htmlbar/image.c:424
 msgid "_Width:"
-msgstr "Breedte"
+msgstr "Breedte:"
 
-#: ../html.c:969
-#, fuzzy
+#: src/plugin_htmlbar/html.c:965
 msgid "Is _percent"
 msgstr "Percentage?"
 
-#: ../html.c:974
-#, fuzzy
+#: src/plugin_htmlbar/html.c:970
 msgid "No _shading"
 msgstr "Geen schaduw"
 
-#: ../html.c:1039
+#: src/plugin_htmlbar/html.c:1035
 msgid "Body"
 msgstr "Body"
 
-#: ../html.c:1047
+#: src/plugin_htmlbar/html.c:1043
 msgid "Options"
 msgstr "Opties"
 
-#: ../html.c:1085
+#: src/plugin_htmlbar/html.c:1081
 msgid "On_Load:"
-msgstr ""
+msgstr "On Load:"
 
-#: ../html.c:1093
+#: src/plugin_htmlbar/html.c:1089
 msgid "On_UnLoad:"
-msgstr ""
+msgstr "On UnLoad:"
 
-#: ../html.c:1102
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1098
 msgid "Depreciated options"
 msgstr "Verouderde opties"
 
-#: ../html.c:1112
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1108
 msgid "Background _Image:"
-msgstr "Achtergrond Afbeelding"
+msgstr "Achtergrond Afbeelding:"
 
-#: ../html.c:1119
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1115
 msgid "Back_ground Color:"
-msgstr "Achtergrond-kleur"
+msgstr "Achtergrond-kleur:"
 
-#: ../html.c:1125
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1121
 msgid "_Text Color:"
-msgstr "Kleur van tekst"
+msgstr "Kleur van tekst:"
 
-#: ../html.c:1131
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1127
 msgid "_Link Color:"
-msgstr "Kleur van Link"
+msgstr "Kleur van Link:"
 
-#: ../html.c:1137
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1133
 msgid "_Visited Link Color:"
-msgstr "Kleur van bezochte link"
+msgstr "Kleur van bezochte link:"
 
-#: ../html.c:1143
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1139
 msgid "_Active Link Color:"
-msgstr "Kleur van active link"
+msgstr "Kleur van active link:"
 
-#: ../html.c:1194
+#: src/plugin_htmlbar/html.c:1190
 msgid "Meta"
 msgstr "Meta"
 
-#: ../html.c:1232
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1228
 msgid "_HTTP-EQUIV:"
-msgstr "HTTP-EQUIV"
+msgstr "HTTP-EQUIV:"
 
-#: ../html.c:1237
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1233
 msgid "Con_tent:"
-msgstr "Inhoud"
+msgstr "Inhoud:"
 
-#: ../html.c:1245
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1241
 msgid "_Scheme:"
-msgstr "Schema"
+msgstr "Schema:"
 
-#: ../html.c:1326
+#: src/plugin_htmlbar/html.c:1322
 msgid "Font"
-msgstr "Lettertype"
+msgstr "Lettertype::"
 
-#: ../html.c:1329
+#: src/plugin_htmlbar/html.c:1325
 msgid "Base Font"
 msgstr "Basis lettergrootte"
 
-#: ../html.c:1344
+#: src/plugin_htmlbar/html.c:1340
 msgid "Size"
 msgstr "Grootte"
 
-#: ../html.c:1352
+#: src/plugin_htmlbar/html.c:1348
 msgid "Color"
 msgstr "Kleur"
 
-#: ../html.c:1357
+#: src/plugin_htmlbar/html.c:1353
 msgid "Face"
 msgstr "Face"
 
-#: ../html.c:1361
+#: src/plugin_htmlbar/html.c:1357
 msgid "Custom"
 msgstr "Aangepast"
 
-#: ../html.c:1445
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1441
 msgid "E-mail"
 msgstr "Email"
 
-#: ../html.c:1453
+#: src/plugin_htmlbar/html.c:1449
 msgid "_Mail to:"
-msgstr ""
+msgstr "Mailen naar:"
 
-#: ../html.c:1457
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1453
 msgid "_Copy to:"
-msgstr "Kopieeren"
+msgstr "Kopieëren naar:"
 
-#: ../html.c:1461
+#: src/plugin_htmlbar/html.c:1457
 msgid "Blin_d copy to:"
-msgstr ""
+msgstr "Blinde kopie naar:"
 
-#: ../html.c:1465
+#: src/plugin_htmlbar/html.c:1461
 msgid "with _Subject:"
-msgstr ""
+msgstr "met Onderwerp:"
 
-#: ../html.c:1469
+#: src/plugin_htmlbar/html.c:1465
 msgid "with _Body:"
-msgstr ""
+msgstr "met Body:"
 
-#: ../html.c:1513
+#: src/plugin_htmlbar/html.c:1509
 msgid "Quick List"
-msgstr "Snel lijst"
+msgstr "Snel lĳst"
 
-#: ../html.c:1518 ../html.c:1600 ../html_form.c:236
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1514 src/plugin_htmlbar/html.c:1596
+#: src/plugin_htmlbar/html_form.c:236
 msgid "_Rows:"
-msgstr "Rijen"
+msgstr "Rĳen:"
 
-#: ../html.c:1521
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1517
 msgid "Or_dered"
 msgstr "Geordend"
 
-#: ../html.c:1522
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1518
 msgid "_Unordered"
 msgstr "Ongeordend"
 
-#: ../html.c:1524
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1520
 msgid "Style:"
-msgstr "Stijl"
+msgstr "Stĳl:"
 
-#: ../html.c:1596 ../html_form.c:240
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1592 src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
-msgstr "Kolommen"
+msgstr "Kolommen:"
 
-#: ../html.c:1605
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1601
 msgid "_Add <frame> elements"
 msgstr "<frame> elementen toevoegen"
 
-#: ../html.c:1682 ../html.c:1767 ../html.c:1826
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1678 src/plugin_htmlbar/html.c:1763
+#: src/plugin_htmlbar/html.c:1822
 msgid "_Source:"
-msgstr "Bron"
+msgstr "Bron:"
 
-#: ../html.c:1690
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1686
 msgid "Margin _Width:"
-msgstr "Marge breedte"
+msgstr "Marge breedte:"
 
-#: ../html.c:1694
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1690
 msgid "Margin _Height:"
-msgstr "Marge boven & onder"
+msgstr "Marge hoogte:"
 
-#: ../html.c:1702
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1698
 msgid "Scrollin_g:"
-msgstr "Schuifbalk"
+msgstr "Schuifbalk:"
 
-#: ../html.c:1706
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1702
 msgid "_Frameborder:"
-msgstr "Framerand"
+msgstr "Framerand:"
 
-#: ../html.c:1711
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1707
 msgid "No _Resize:"
-msgstr "Frames fixeren"
+msgstr "Frames fixeren:"
 
-#: ../html.c:1761
+#: src/plugin_htmlbar/html.c:1757
 msgid "Embed"
 msgstr "Multimedia (embed)"
 
-#: ../html.c:1783 ../html_table.c:140
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1779 src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
-msgstr "Rand"
+msgstr "Rand:"
 
-#: ../html.c:1819
+#: src/plugin_htmlbar/html.c:1815
 msgid "Script"
 msgstr "Script"
 
-#: ../html.c:1848 ../html.c:1949 ../html_form.c:789 ../html_form.c:899
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1844 src/plugin_htmlbar/html.c:1945
+#: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
-msgstr "Type"
+msgstr "Type:"
 
-#: ../html.c:1907
+#: src/plugin_htmlbar/html.c:1903
 msgid "Link"
 msgstr "Link"
 
-#: ../html.c:1924
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1920
 msgid "HREF_LANG:"
-msgstr "HREF"
+msgstr "HREF_LANG:"
 
-#: ../html.c:1928
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1924
 msgid "T_itle:"
-msgstr "Titel"
+msgstr "Titel:"
 
-#: ../html.c:1968
+#: src/plugin_htmlbar/html.c:1964
 msgid "_Forward Relation:"
-msgstr ""
+msgstr "Voorwaartse relatie:"
 
-#: ../html.c:1972
+#: src/plugin_htmlbar/html.c:1968
 msgid "_Reverse Relation:"
-msgstr ""
+msgstr "Achterwaartse relatie:"
 
-#: ../html.c:1983
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1979
 msgid "Media:"
-msgstr "Meta"
+msgstr "Media:"
 
-#: ../html.c:1987
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1983
 msgid "L_ang:"
-msgstr "Taal"
+msgstr "Taal:"
 
-#: ../html.c:1991
-#, fuzzy
+#: src/plugin_htmlbar/html.c:1987
 msgid "_Custom:"
-msgstr "Aangepast"
+msgstr "Aangepast:"
 
-#: ../html_form.c:141
+#: src/plugin_htmlbar/html_form.c:141
 msgid "Form"
 msgstr "Formulier"
 
-#: ../html_form.c:159
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:159
 msgid "_Action:"
-msgstr "Actie"
+msgstr "Actie:"
 
-#: ../html_form.c:167
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:167
 msgid "Metho_d:"
-msgstr "Methode"
+msgstr "Methode:"
 
-#: ../html_form.c:176
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:176
 msgid "_Enctype:"
-msgstr "Doctype"
+msgstr "Codering type:"
 
-#: ../html_form.c:225
+#: src/plugin_htmlbar/html_form.c:225
 msgid "Text area"
 msgstr "Tekstinvoerblok"
 
-#: ../html_form.c:590
+#: src/plugin_htmlbar/html_form.c:590
 msgid "Select"
-msgstr "Keuzelijst"
+msgstr "Keuzelĳst"
 
-#: ../html_form.c:601 ../html_form.c:808
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:601 src/plugin_htmlbar/html_form.c:808
 msgid "Si_ze:"
-msgstr "Grootte"
+msgstr "Grootte:"
 
-#: ../html_form.c:605
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:605
 msgid "Multiple _Selections:"
-msgstr "Meerdere keuzes"
+msgstr "Meerdere keuzes:"
 
-#: ../html_form.c:644
+#: src/plugin_htmlbar/html_form.c:644
 msgid "Option"
 msgstr "Optie"
 
-#: ../html_form.c:654 ../html_form.c:697
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:654 src/plugin_htmlbar/html_form.c:697
 msgid "_Label:"
-msgstr "Label"
+msgstr "Label:"
 
-#: ../html_form.c:659
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:659
 msgid "_Selected:"
-msgstr "Geselecteerd"
+msgstr "Geselecteerd:"
 
-#: ../html_form.c:692
+#: src/plugin_htmlbar/html_form.c:692
 msgid "Option group"
 msgstr "Optie groep"
 
-#: ../html_form.c:775
+#: src/plugin_htmlbar/html_form.c:775
 msgid "Input"
-msgstr ""
+msgstr "Invoer"
 
-#: ../html_form.c:803
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:803
 msgid "_Checked:"
-msgstr "Aangeklikt"
+msgstr "Aangevinkt:"
 
-#: ../html_form.c:812
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:812
 msgid "Max _Length:"
-msgstr "Max Lengte"
+msgstr "Max Lengte:"
 
-#: ../html_form.c:816
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:816
 msgid "_Accept:"
-msgstr "Actie"
+msgstr "Accept:"
 
-#: ../html_form.c:820
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:820
 msgid "C_ustom:"
-msgstr "Aangepast"
+msgstr "Aangepast:"
 
-#: ../html_form.c:832
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:832
 msgid "On_Focus:"
-msgstr "OnMouseUp"
+msgstr "OnFocus:"
 
-#: ../html_form.c:836
+#: src/plugin_htmlbar/html_form.c:836
 msgid "On_Blur:"
-msgstr ""
+msgstr "OnBlur:"
 
-#: ../html_form.c:840
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:840
 msgid "On_Select:"
-msgstr "Keuze"
+msgstr "OnSelect:"
 
-#: ../html_form.c:844
-#, fuzzy
+#: src/plugin_htmlbar/html_form.c:844
 msgid "On_Change:"
-msgstr "Taal"
+msgstr "OnChange:"
 
-#: ../html_form.c:884
+#: src/plugin_htmlbar/html_form.c:884
 msgid "Button"
 msgstr "Knop"
 
-#: ../html_table.c:83
-#, fuzzy
+#: src/plugin_htmlbar/html_table.c:83
 msgid "Cell _Padding:"
-msgstr "Ruimte celrand-inhoud"
+msgstr "Ruimte celrand-inhoud:"
 
-#: ../html_table.c:87
-#, fuzzy
+#: src/plugin_htmlbar/html_table.c:87
 msgid "C_ell Spacing:"
-msgstr "Ruimte cel-cel"
+msgstr "Ruimte cel-cel:"
 
-#: ../html_table.c:123 ../html_table.c:233 ../html_table.c:347
-#, fuzzy
+#: src/plugin_htmlbar/html_table.c:123 src/plugin_htmlbar/html_table.c:233
+#: src/plugin_htmlbar/html_table.c:347
 msgid "_Valign:"
-msgstr "Verticale uitlijning"
+msgstr "Verticale uitlĳning:"
 
-#: ../html_table.c:128 ../html_table.c:242 ../html_table.c:392
-#, fuzzy
+#: src/plugin_htmlbar/html_table.c:128 src/plugin_htmlbar/html_table.c:242
+#: src/plugin_htmlbar/html_table.c:392
 msgid "Backgrou_nd Color:"
-msgstr "Achtergrond-kleur"
+msgstr "Achtergrond-kleur:"
 
-#: ../html_table.c:154
-#, fuzzy
+#: src/plugin_htmlbar/html_table.c:154
 msgid "_Frame:"
-msgstr "Frame"
+msgstr "Frame:"
 
-#: ../html_table.c:165
-#, fuzzy
+#: src/plugin_htmlbar/html_table.c:165
 msgid "R_ules:"
-msgstr "Randen"
+msgstr "Rules:"
 
-#: ../html_table.c:365
-#, fuzzy
+#: src/plugin_htmlbar/html_table.c:365
 msgid "Co_l Span:"
-msgstr "Aantal samen te voegen kolommen"
+msgstr "Aantal samen te voegen kolommen:"
 
-#: ../html_table.c:369
-#, fuzzy
+#: src/plugin_htmlbar/html_table.c:369
 msgid "_Row Span:"
-msgstr "Aantal samen te voegen rijen"
+msgstr "Aantal samen te voegen rĳen:"
 
-#: ../html_table.c:374
-#, fuzzy
+#: src/plugin_htmlbar/html_table.c:374
 msgid "No Wra_p:"
-msgstr "Niet passend maken"
+msgstr "Geen omloop:"
 
-#: ../image.c:364
+#: src/plugin_htmlbar/image.c:265
+msgid "Loading image failed..."
+msgstr "Laden van afbeelding mislukt..."
+
+#: src/plugin_htmlbar/image.c:334
+#, c-format
+msgid "Loading file %s..."
+msgstr "Bestand %s wordt geladen..."
+
+#: src/plugin_htmlbar/image.c:386
 msgid "Insert thumbnail"
 msgstr "Voeg voorbeeldafbeelding in"
 
-#: ../image.c:366
+#: src/plugin_htmlbar/image.c:388
 msgid "Insert image"
 msgstr "Afbeelding invoegen"
 
-#: ../image.c:372
+#: src/plugin_htmlbar/image.c:394
 msgid "Preview"
 msgstr "Preview"
 
-#: ../image.c:392
-#, fuzzy
+#: src/plugin_htmlbar/image.c:416
 msgid "_Image location:"
-msgstr "Locatie van afbeelding"
+msgstr "Locatie van afbeelding:"
 
-#: ../image.c:407
-#, fuzzy
+#: src/plugin_htmlbar/image.c:431
 msgid "Hei_ght:"
-msgstr "Hoogte"
+msgstr "Hoogte:"
 
-#: ../image.c:412
-#, fuzzy
+#: src/plugin_htmlbar/image.c:436
 msgid "_Usemap:"
-msgstr "Aanklikbare afbeelding"
+msgstr "Aanklikbare afbeelding:"
 
-#: ../image.c:420
-#, fuzzy
+#: src/plugin_htmlbar/image.c:444
 msgid "Alternate _text:"
-msgstr "tekst-alternatief"
+msgstr "Alternatieve tekst:"
 
-#: ../image.c:428
-#, fuzzy
+#: src/plugin_htmlbar/image.c:452
 msgid "_Hspace:"
-msgstr "Ruimte links/rechts"
+msgstr "Ruimte links/rechts:"
 
-#: ../image.c:432
-#, fuzzy
+#: src/plugin_htmlbar/image.c:456
 msgid "_Vspace:"
-msgstr "Ruimte onder/boven"
+msgstr "Ruimte onder/boven:"
 
-#: ../image.c:446
-#, fuzzy
+#: src/plugin_htmlbar/image.c:470
 msgid "Borde_r:"
-msgstr "Rand"
+msgstr "Rand:"
 
-#: ../image.c:774
+#: src/plugin_htmlbar/image.c:801
 msgid "Select files for thumbnail creation"
-msgstr "Selecteer bestanden voor voorbeeldafbeelding cratie"
+msgstr "Selecteer bestanden voor voorbeeldafbeelding creatie"
 
-#: ../image.c:809
+#: src/plugin_htmlbar/image.c:836
 msgid "Scaling (%)"
 msgstr "Schaal  (%)"
 
-#: ../image.c:813 ../image.c:821
+#: src/plugin_htmlbar/image.c:840 src/plugin_htmlbar/image.c:848
 msgid "Width"
 msgstr "Breedte"
 
-#: ../image.c:817 ../image.c:849
+#: src/plugin_htmlbar/image.c:844 src/plugin_htmlbar/image.c:876
 msgid "Height"
 msgstr "Hoogte"
 
-#: ../image.c:838
+#: src/plugin_htmlbar/image.c:865
 msgid "Multi thumbnail"
 msgstr "Meervoudige voorbeeldafbeelding"
 
-#: ../image.c:844
+#: src/plugin_htmlbar/image.c:871
 msgid "By scaling"
 msgstr "Met schaal"
 
-#: ../image.c:845
+#: src/plugin_htmlbar/image.c:872
 msgid "By width, keep aspect ratio"
 msgstr "Met breedte, behoud verhoudingen"
 
-#: ../image.c:846
+#: src/plugin_htmlbar/image.c:873
 msgid "By height, keep aspect ratio"
-msgstr "met hoogte,behoud verhoudingen"
+msgstr "Met hoogte,behoud verhoudingen"
 
-#: ../image.c:847
+#: src/plugin_htmlbar/image.c:874
 msgid "By width and height, ignore aspect ratio"
-msgstr "met hoogte en breedte,negeer verhoudingen"
+msgstr "Met hoogte en breedte,negeer verhoudingen"
 
-#: ../image.c:871
+#: src/plugin_htmlbar/image.c:898
 msgid ""
 "%r: original filename  %t: thumbnail filename\n"
 "%w: original width  %h: original height\n"
 "%x: thumbnail width  %y: thumbnail height\n"
 "%b: original size (bytes)"
 msgstr ""
-"%r: origineelen bestandsnaam %t: voorbeeldafbeelding bestandsnaam\n"
-"%w: origineelen breedte  %h: origineelen hoogte\n"
+"%r: originele bestandsnaam %t: voorbeeldafbeelding bestandsnaam\n"
+"%w: originele breedte  %h: originele hoogte\n"
 "%x: voorbeeldafbeelding breedte  %y:voorbeeldafbeelding hoogte\n"
-"%b: origineelen  groote (bytes)"
+"%b: originele  grootte (bytes)"
 
-#: ../quickstart.c:512
+#: src/plugin_htmlbar/quickstart.c:512
 msgid "<b>E_xternal Style Sheet</b>"
-msgstr ""
+msgstr "<b>Extern Style Sheet</b>"
 
-#: ../quickstart.c:522
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:522
 msgid "Ty_pe:"
-msgstr "Type"
+msgstr "Type:"
 
-#: ../quickstart.c:540
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:540
 msgid "HRE_F:"
-msgstr "HREF"
+msgstr "HREF:"
 
-#: ../quickstart.c:544
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:544
 msgid "_Media:"
-msgstr "Meta"
+msgstr "Media:"
 
-#: ../quickstart.c:548
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:548
 msgid "Titl_e:"
-msgstr "Titel"
+msgstr "Titel:"
 
-#: ../quickstart.c:554
+#. TODO: add an option to place content in the style area
+#. * Possibly from a code snippet library
+#.
+#: src/plugin_htmlbar/quickstart.c:554
 msgid "<b>Style Area</b>"
-msgstr ""
+msgstr "<b>Stĳl Gebied</b>"
 
-#: ../quickstart.c:558
+#: src/plugin_htmlbar/quickstart.c:558
 msgid "Cre_ate empty style area"
-msgstr ""
+msgstr "Maak een leeg stĳl gebied"
 
-#: ../quickstart.c:580
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:580
 msgid "<b>Attributes</b>"
-msgstr "Bevat"
+msgstr "<b>Attributen</b>"
 
-#: ../quickstart.c:595
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:595
 msgid "_Src:"
-msgstr "Bron"
+msgstr "Bron:"
 
-#: ../quickstart.c:602
-#, fuzzy
+#. TODO: add an option to place content in the script area
+#: src/plugin_htmlbar/quickstart.c:602
 msgid "<b>Script Area</b>"
-msgstr "Bevat"
+msgstr "<b>Script Area</b>"
 
-#: ../quickstart.c:606
+#: src/plugin_htmlbar/quickstart.c:606
 msgid "Cre_ate empty script area"
-msgstr ""
+msgstr "Maak een leeg script gebied"
 
-#: ../quickstart.c:633
+#: src/plugin_htmlbar/quickstart.c:633
 msgid "Quick Start"
 msgstr "Snelle Start"
 
-#: ../quickstart.c:647
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:647
 msgid "_DTD:"
-msgstr "Gebruik DTD"
+msgstr "DTD:"
 
-#: ../quickstart.c:651 ../wizards.c:186
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:651 src/plugin_htmlbar/wizards.c:186
 msgid "_Title:"
-msgstr "Titel"
+msgstr "Titel:"
 
-#: ../quickstart.c:674
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:674
 msgid "_Head:"
-msgstr "Frame"
+msgstr "Head:"
 
-#: ../quickstart.c:691
-#, fuzzy
+#: src/plugin_htmlbar/quickstart.c:691
 msgid "Open in _new document."
-msgstr "in document"
+msgstr "Open in nieuw document."
 
-#: ../wizards.c:68
+#: src/plugin_htmlbar/wizards.c:68
 msgid "Table Wizard"
 msgstr "Tabel Wizard"
 
-#: ../wizards.c:76
-#, fuzzy
+#: src/plugin_htmlbar/wizards.c:76
 msgid "Number of _rows:"
-msgstr "Aantal rijen"
+msgstr "Aantal rĳen:"
 
-#: ../wizards.c:80
-#, fuzzy
+#: src/plugin_htmlbar/wizards.c:80
 msgid "Number of colu_mns:"
-msgstr "Aantal rijen"
+msgstr "Aantal kolommen:"
 
-#: ../wizards.c:84
-#, fuzzy
+#: src/plugin_htmlbar/wizards.c:84
 msgid "Table rows on one _line:"
-msgstr "Tabelrijen op 1 regel"
+msgstr "Tabelrĳen op één regel:"
 
-#: ../wizards.c:88
-#, fuzzy
+#: src/plugin_htmlbar/wizards.c:88
 msgid "_Indent table code:"
-msgstr "Inspringen tabel-code"
+msgstr "Inspringen tabel-code:"
 
-#: ../wizards.c:175
+#: src/plugin_htmlbar/wizards.c:175
 msgid "Frame Wizard"
 msgstr "Frame Wizard"
 
-#: ../wizards.c:190
-#, fuzzy
+#: src/plugin_htmlbar/wizards.c:190
 msgid "Use _DTD:"
-msgstr "Gebruik DTD"
+msgstr "Gebruik DTD:"
 
-#: ../wizards.c:193
-#, fuzzy
+#: src/plugin_htmlbar/wizards.c:193
 msgid "Orientation:"
-msgstr "Citaat"
+msgstr "Oriëntatie:"
 
-#: ../wizards.c:196
-#, fuzzy
+#: src/plugin_htmlbar/wizards.c:196
 msgid "_Horizontal"
 msgstr "Horizontaal"
 
-#: ../wizards.c:197
-#, fuzzy
+#: src/plugin_htmlbar/wizards.c:197
 msgid "_Vertical"
 msgstr "Verticaal"
 
-#: ../wizards.c:202
-#, fuzzy
+#: src/plugin_htmlbar/wizards.c:202
 msgid "Number of _Frames:"
-msgstr "Aantal Frames"
+msgstr "Aantal Frames:"
 
-#: ../wizards.c:205
+#: src/plugin_htmlbar/wizards.c:205
 msgid "Frame's"
 msgstr "Frames"
 
-#: ../wizards.c:217
-#, fuzzy
+#: src/plugin_htmlbar/wizards.c:217
 msgid "Name:"
-msgstr "Naam"
+msgstr "Naam:"
 
-#: ../wizards.c:219
-#, fuzzy
+#: src/plugin_htmlbar/wizards.c:219
 msgid "Source:"
-msgstr "Bron"
+msgstr "Bron:"
 
-#: ../wizards.c:223
-#, fuzzy
+#: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
-msgstr "Grootte"
-
-#~ msgid "/Tags/Tearoff1"
-#~ msgstr "/Elementen/Tearoff1"
-
-#~ msgid "/Tags/Headings/Tearoff1"
-#~ msgstr "/Elementen/Koppen/Tearoff1"
-
-#~ msgid "/Tags/Special/tearoff1"
-#~ msgstr "/Elementen/Speciaal/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/tearoff1"
-#~ msgstr "/Elementen/Speciaal/Accent/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/A-I/tearoff1"
-#~ msgstr "/Elementen/Speciaal/Accent/Hoofdletters/A-I/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Uppercase/J-Z/tearoff1"
-#~ msgstr "/Elementen/Speciaal/Accent/Hoofdletters/J-Z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/A-I/tearoff1"
-#~ msgstr "/Elementen/Speciaal/Accent/kleine letters/a-i/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/Lowercase/J-Z/tearoff1"
-#~ msgstr "/Elementen/Speciaal/Accent/kleine letters/j-z/tearoff1"
-
-#~ msgid "/Tags/Special/Accent/separator"
-#~ msgstr "/Elementen/Speciaal/Accent/separator"
-
-#~ msgid "/Tags/Special/Currency/tearoff1"
-#~ msgstr "/Elementen/Speciaal/Munteenheid/tearoff1"
-
-#~ msgid "/Tags/Special/Math-Science/tearoff1"
-#~ msgstr "/Tags speciaal/Wiskunde/tearoff1"
-
-#~ msgid "/Tags/Special/Non Latin/tearoff1"
-#~ msgstr "/Elementen/Speciaal/Non Latin/tearoff1"
-
-#~ msgid "/Tags/Special/Other/tearoff1"
-#~ msgstr "/Elementen/Speciaal/Overige/tearoff1"
-
-#~ msgid "/Tags/Format by layout/tearoff1"
-#~ msgstr "/Elementen/Opmaak/tearoff1"
-
-#~ msgid "/Tags/Format by context/tearoff1"
-#~ msgstr "/Elementen/Logische tekst-opmaak/tearoff1"
-
-#~ msgid "/Tags/Format general/tearoff1"
-#~ msgstr "/Elementen/Opmaak algemeen/tearoff1"
-
-#~ msgid "/Tags/Format general/<separator>"
-#~ msgstr "/Elementen/Opmaak algemeen/<separator>"
-
-#~ msgid "/Tags/Table/tearoff1"
-#~ msgstr "/Elementen/Tabel/tearoff1"
-
-#~ msgid "/Tags/List/tearoff1"
-#~ msgstr "/Elementen/Lijst/tearoff1"
-
-#, fuzzy
-#~ msgid "/Tags/Form/tearoff1"
-#~ msgstr "/Dialogen/Formulier/tearoff1"
-
-#, fuzzy
-#~ msgid "/Tags/Misc/tearoff1"
-#~ msgstr "/Elementen/Lijst/tearoff1"
-
-#~ msgid "/Dialogs/tearoff1"
-#~ msgstr "/Dialogen/tearoff1"
-
-#~ msgid "/Dialogs/General/tearoff1"
-#~ msgstr "/Dialogen/Algemeen/tearoff1"
-
-#~ msgid "/Dialogs/Table/tearoff1"
-#~ msgstr "/Dialogen/Tabel/tearoff1"
-
-#~ msgid "/Dialogs/CSS/tearoff1"
-#~ msgstr "/Dialogen/CSS/tearoff1"
-
-#~ msgid "/Dialogs/Frame/tearoff1"
-#~ msgstr "/Dialogen/Frame/tearoff1"
-
-#~ msgid "/Dialogs/Form/tearoff1"
-#~ msgstr "/Dialogen/Formulier/tearoff1"
-
-#, fuzzy
-#~ msgid "/Dialogs/sep1"
-#~ msgstr "/Dialogen/tearoff1"
-
-#, fuzzy
-#~ msgid "_Email address:"
-#~ msgstr "Email adres:"
-
-#, fuzzy
-#~ msgid "UrlEncoded _subject:"
-#~ msgstr "UrlEncoded onderwerp"
-
-#, fuzzy
-#~ msgid "UrlEncoded _body:"
-#~ msgstr "UrlEncoded onderwerp"
-
-#, fuzzy
-#~ msgid "_Href:"
-#~ msgstr "Frame"
-
-#, fuzzy
-#~ msgid "Hre_f:"
-#~ msgstr "Frame"
-
-#, fuzzy
-#~ msgid "/View/View _HTML Bar"
-#~ msgstr "/Bekijk/Toon _HTML-werkbalk"
-
-#, fuzzy
-#~ msgid "Info"
-#~ msgstr "Negeren"
-
-#, fuzzy
-#~ msgid "Username:"
-#~ msgstr "Bestandnaam"
-
-#, fuzzy
-#~ msgid "Check Spelling"
-#~ msgstr "Controleer"
-
-#~ msgid "Checking"
-#~ msgstr "Controleer"
-
-#, fuzzy
-#~ msgid "I_gnore"
-#~ msgstr "Negeren"
-
-#, fuzzy
-#~ msgid "_Replace"
-#~ msgstr "Vervangen"
-
-#, fuzzy
-#~ msgid "I_n selection"
-#~ msgstr "In de selectie"
-
-#~ msgid "personal dictionary"
-#~ msgstr "Persoonlijk woordenboek"
-
-#~ msgid "session dictionary"
-#~ msgstr "Sesie  woordenboek"
-
-#, fuzzy
-#~ msgid "Dictionary:"
-#~ msgstr "Woordenboek"
-
-#, fuzzy
-#~ msgid "_Add"
-#~ msgstr "Toevoegen"
-
-#, fuzzy
-#~ msgid "Language:"
-#~ msgstr "Taal"
-
-#, fuzzy
-#~ msgid "Set defa_ult"
-#~ msgstr "Set Standaard"
-
-#, fuzzy
-#~ msgid "Filter:"
-#~ msgstr "Filter"
-
-#, fuzzy
-#~ msgid "no filter"
-#~ msgstr "PHP filter"
-
-#, fuzzy
-#~ msgid "html filter"
-#~ msgstr "PHP filter"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Usage: %s [options] [filenames ...]\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Gebruik: %s [opties] [filenaam]\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Currently accepted options are:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "Momenteel geaccepteerde opties zijn:\n"
-
-#~ msgid "-s           skip root check\n"
-#~ msgstr "-s\t     root controle overslaan\n"
-
-#~ msgid "-v           current version\n"
-#~ msgstr "-v           huidige versie\n"
-
-#, fuzzy
-#~ msgid "-n           open new window\n"
-#~ msgstr "-v           huidige versie\n"
-
-#~ msgid "-h           this help screen\n"
-#~ msgstr "-h           dit help-scherm\n"
-
-#~ msgid "parsing highlighting file..."
-#~ msgstr "Inlezen van syntax bestand"
-
-#~ msgid "compiling highlighting patterns..."
-#~ msgstr "Verwerken van syntax patronen"
-
-#~ msgid "parsing custom menu file..."
-#~ msgstr "Verwerken van eigen menu bestand"
-
-#~ msgid "creating main gui..."
-#~ msgstr "Gebruikers interface wordt gemaakt"
-
-#~ msgid "showing main gui..."
-#~ msgstr "Gebruikers interface wordt getoont"
-
-# src/callbacks.c:425
-#~ msgid "Bluefish tip:"
-#~ msgstr "Bluefish tip"
-
-#~ msgid ""
-#~ "This message is shown since you do not have any items in the Quickbar.\n"
-#~ "\n"
-#~ "If you right-click a button in the HTML toolbars you can add buttons to "
-#~ "the Quickbar."
-#~ msgstr ""
-#~ "Dit bericht wordt u getoond omdat u geen dingen in de snelbalk heeft\n"
-#~ "als u recht klikt in de html gereedsschappenbalk kan u deze in de "
-#~ "snelbalk toevoeggen"
-
-#, fuzzy
-#~ msgid "_Description:"
-#~ msgstr "Definitie"
-
-#, fuzzy
-#~ msgid "Do you really want to delete all bookmarks for %s?"
-#~ msgstr "Weet u zeker dat u dit wilt vervangen?"
-
-#, fuzzy
-#~ msgid "Delete bookmarks?"
-#~ msgstr "Editor"
-
-#, fuzzy
-#~ msgid "Do you really want to delete %s?"
-#~ msgstr "Weet u zeker dat u dit wilt vervangen?"
-
-#, fuzzy
-#~ msgid "Edit bookmark"
-#~ msgstr "Editor"
-
-#, fuzzy
-#~ msgid "Edit"
-#~ msgstr "/_Bewerken"
-
-#, fuzzy
-#~ msgid "Delete"
-#~ msgstr "Verwijderen"
-
-#, fuzzy
-#~ msgid "Delete all in document"
-#~ msgstr "in alle geopende documenten"
-
-#, fuzzy
-#~ msgid "Delete all"
-#~ msgstr "Verwijderen"
-
-#, fuzzy
-#~ msgid "Error adding bookmark"
-#~ msgstr "Editor"
-
-#, fuzzy
-#~ msgid "Cannot add bookmarks to unsaved files."
-#~ msgstr "Laat reserve bestanden zien"
-
-#, fuzzy
-#~ msgid "Can't add bookmark"
-#~ msgstr "/Opties/tearoff1"
-
-#, fuzzy
-#~ msgid "/Document/Highlight Syntax"
-#~ msgstr "/Document/Oplichten van Syntax"
-
-#, fuzzy
-#~ msgid "Name: "
-#~ msgstr "Naam"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Type: "
-#~ msgstr "Type"
-
-#, fuzzy
-#~ msgid ""
-#~ "\n"
-#~ "Encoding: "
-#~ msgstr "Invoer codering"
-
-#, fuzzy
-#~ msgid "Untitled %d"
-#~ msgstr "Naamloos"
-
-#~ msgid "Cannot display file, unknown characters found."
-#~ msgstr "Kan file niet laten zien. Onbekend karakter"
-
-#~ msgid "Replace"
-#~ msgstr "Vervangen"
-
-#, fuzzy
-#~ msgid "Find"
-#~ msgstr "Zoek: "
-
-#, fuzzy
-#~ msgid "Delete bookmark"
-#~ msgstr "Editor"
-
-#, fuzzy
-#~ msgid "Add bookmark"
-#~ msgstr "/Opties/tearoff1"
-
-#, fuzzy
-#~ msgid "_Abort save"
-#~ msgstr "Opslaan onderbreken"
-
-#, fuzzy
-#~ msgid "_Continue save in UTF-8"
-#~ msgstr "Opslaan hervatten"
-
-#~ msgid "Previously: "
-#~ msgstr "Voorheen: "
-
-#~ msgid "No filename"
-#~ msgstr "Geen bestandsnaam"
-
-#~ msgid "Unable to open file"
-#~ msgstr "Kan bestand niet openen"
-
-#, fuzzy
-#~ msgid "_Reload"
-#~ msgstr "Herladen"
-
-#, fuzzy
-#~ msgid "_Ignore"
-#~ msgstr "Negeren"
-
-#, fuzzy
-#~ msgid ""
-#~ "Filename: %s\n"
-#~ "\n"
-#~ "New modification time is: %s\n"
-#~ "Old modification time is: %s"
-#~ msgstr ""
-#~ "Bestand %s\n"
-#~ "is gewijzigd door een ander proces, nieuwe wijzigings tijd %s\n"
-#~ "oude wijzigings tijd  %sOverschrijven?"
-
-#, fuzzy
-#~ msgid "_Close"
-#~ msgstr "Sluiten"
-
-#, fuzzy
-#~ msgid "File "
-#~ msgstr "Bestand "
-
-#, fuzzy
-#~ msgid "Select file to insert"
-#~ msgstr "Geen bestandsnaam"
-
-#, fuzzy
-#~ msgid "No file to insert"
-#~ msgstr "Geen bestandsnaam"
-
-#, fuzzy
-#~ msgid "New directory"
-#~ msgstr "Map aanmaken"
-
-#, fuzzy
-#~ msgid "New file"
-#~ msgstr "Nieuw bestand"
-
-#, fuzzy
-#~ msgid "Could not rename\n"
-#~ msgstr "Dit bestand kon niet geopend worden:\n"
-
-#, fuzzy
-#~ msgid "Are you sure you want to delete \"%s\" ?"
-#~ msgstr ""
-#~ "Weet u zeker dat u\n"
-#~ "%s wilt verwijderen?"
-
-#, fuzzy
-#~ msgid "Could not delete \n"
-#~ msgstr "Dit bestand kon niet geopend worden:\n"
-
-#, fuzzy
-#~ msgid "/_Open"
-#~ msgstr "/_Opties"
-
-#, fuzzy
-#~ msgid "/Open _Advanced..."
-#~ msgstr "/Bestand/Geavanceerd Openen..."
-
-#, fuzzy
-#~ msgid "/_Delete"
-#~ msgstr "Verwijderen"
-
-#, fuzzy
-#~ msgid "/New _File"
-#~ msgstr "Nieuw bestand"
-
-#, fuzzy
-#~ msgid "/_New Directory"
-#~ msgstr "Map aanmaken"
-
-#, fuzzy
-#~ msgid "/_Refresh"
-#~ msgstr "Document vernieuwen"
-
-#, fuzzy
-#~ msgid "/_Set as basedir"
-#~ msgstr "Selecteer basis map"
-
-#, fuzzy
-#~ msgid "/Follow active document"
-#~ msgstr "/_Document"
-
-#, fuzzy
-#~ msgid "/Show hidden files"
-#~ msgstr "Laat verborgen bestanden zien"
-
-#, fuzzy
-#~ msgid "/Show backup files"
-#~ msgstr "Laat reserve bestanden zien"
-
-#~ msgid "Filter"
-#~ msgstr "Filter"
-
-#, fuzzy
-#~ msgid "All files"
-#~ msgstr "alle bestanden"
-
-#~ msgid "Error creating path"
-#~ msgstr "Fout  tijdens het maken van  path"
-
-#~ msgid "File name"
-#~ msgstr "Bestandnaam"
-
-#~ msgid "Directory name"
-#~ msgstr "Map naam"
-
-#, fuzzy
-#~ msgid "Opening directory..."
-#~ msgstr "Map aanmaken"
-
-#~ msgid "Show hidden files"
-#~ msgstr "Laat verborgen bestanden zien"
-
-#~ msgid "Show backup files"
-#~ msgstr "Laat reserve bestanden zien"
-
-#, fuzzy
-#~ msgid "_Overwrite"
-#~ msgstr "Overschrijven"
-
-#, fuzzy
-#~ msgid "%s already exists, overwrite?"
-#~ msgstr "Bestand %s is geopend, overschrijven?"
-
-#, fuzzy
-#~ msgid "Overwrite file?"
-#~ msgstr "Overschrijven"
-
-#~ msgid "Select basedir"
-#~ msgstr "Selecteer basis map"
-
-#, fuzzy
-#~ msgid "Advanced open file selector"
-#~ msgstr "Geavanceerde bestands selectie"
-
-#, fuzzy
-#~ msgid "Base_dir:"
-#~ msgstr "Standaard-map"
-
-#, fuzzy
-#~ msgid "_Browse..."
-#~ msgstr "Browser commando"
-
-#, fuzzy
-#~ msgid "_Pattern:"
-#~ msgstr "Patroon"
-
-#, fuzzy
-#~ msgid "_Recursive:"
-#~ msgstr "recursief"
-
-#, fuzzy
-#~ msgid "<b>Contains</b>"
-#~ msgstr "Bevat"
-
-#, fuzzy
-#~ msgid "Pa_ttern:"
-#~ msgstr "Patroon"
-
-#, fuzzy
-#~ msgid "Is rege_x:"
-#~ msgstr "is regex"
-
-#~ msgid "Select files"
-#~ msgstr "Kies bestanden"
-
-#, fuzzy
-#~ msgid "_Continue save"
-#~ msgstr "Opslaan hervatten"
-
-#, fuzzy
-#~ msgid "File backup failure"
-#~ msgstr "Actie als reservebestand mislukt"
-
-#, fuzzy
-#~ msgid ""
-#~ "Could not save file:\n"
-#~ "\""
-#~ msgstr "Dit bestand kon niet geopend worden:\n"
-
-#, fuzzy
-#~ msgid "File save failed!\n"
-#~ msgstr "Bluefish foutmelding"
-
-#, fuzzy
-#~ msgid "File %s is modified on disk, overwrite?"
-#~ msgstr "Bestand %s is geopend, overschrijven?"
-
-#, fuzzy
-#~ msgid "Move/rename %s to"
-#~ msgstr "Document opslaan als"
-
-#, fuzzy
-#~ msgid "Save %s as"
-#~ msgstr "Opslaan als..."
-
-#, fuzzy
-#~ msgid "_Cancel"
-#~ msgstr "Annuleren"
-
-#, fuzzy
-#~ msgid "File %s exists and is opened, overwrite?"
-#~ msgstr "Bestand %s is geopend, overschrijven?"
-
-#, fuzzy
-#~ msgid "Do you want to replace the existing file?"
-#~ msgstr "Weet u zeker dat u dit wilt vervangen?"
-
-#, fuzzy
-#~ msgid ""
-#~ "File:\n"
-#~ "\""
-#~ msgstr "Filter"
-
-#, fuzzy
-#~ msgid "Do_n't save"
-#~ msgstr "Opslaan hervatten"
-
-#, fuzzy
-#~ msgid "Choose per _File"
-#~ msgstr "per bestand kiezen"
-
-#, fuzzy
-#~ msgid "Close _All"
-#~ msgstr "alles sluiten"
-
-#, fuzzy
-#~ msgid "_Save All"
-#~ msgstr "alles opslaan"
-
-#, fuzzy
-#~ msgid "Cannot load reference file %s\n"
-#~ msgstr "Bluefish: instellingen"
-
-#, fuzzy
-#~ msgid "Bad root element in reference file"
-#~ msgstr "Bluefish: instellingen"
-
-#, fuzzy
-#~ msgid "Bad reference"
-#~ msgstr "Instellingen aanpassen"
-
-#, fuzzy
-#~ msgid "Loading reference"
-#~ msgstr "Instellingen aanpassen"
-
-#, fuzzy
-#~ msgid "Unloading reference"
-#~ msgstr "/Opties/_Instellingen"
-
-#, fuzzy
-#~ msgid "Identifier"
-#~ msgstr "Centreren"
-
-#, fuzzy
-#~ msgid "Kind"
-#~ msgstr "Zoek: "
-
-#~ msgid "Name"
-#~ msgstr "Naam"
-
-#, fuzzy
-#~ msgid "Type"
-#~ msgstr "Type"
-
-#, fuzzy
-#~ msgid "Default value"
-#~ msgstr "Selecteer basis map"
-
-#, fuzzy
-#~ msgid "Input type"
-#~ msgstr "Negeren"
-
-#, fuzzy
-#~ msgid "Description"
-#~ msgstr "Definitie"
-
-#, fuzzy
-#~ msgid "Values"
-#~ msgstr "Waarde"
-
-#, fuzzy
-#~ msgid "Insert syntax"
-#~ msgstr "Afbeelding invoegen"
-
-#, fuzzy
-#~ msgid "Insert text"
-#~ msgstr "Voeg tijd in"
-
-#, fuzzy
-#~ msgid "Properties"
-#~ msgstr "Eigenschap"
-
-#, fuzzy
-#~ msgid "Add property"
-#~ msgstr "Eigenschap"
-
-#, fuzzy
-#~ msgid "Add definition ref"
-#~ msgstr "Gedefinieerde term"
-
-#, fuzzy
-#~ msgid "Select font for reference view"
-#~ msgstr "Bluefish: instellingen"
-
-#, fuzzy
-#~ msgid "Set reference colors"
-#~ msgstr "Instellingen aanpassen"
-
-#, fuzzy
-#~ msgid "Notes"
-#~ msgstr "Noframes"
-
-#, fuzzy
-#~ msgid "Examples"
-#~ msgstr "Voorbeeld"
-
-#, fuzzy
-#~ msgid "Links"
-#~ msgstr "Link"
-
-#~ msgid "Error"
-#~ msgstr "Foutmelding"
-
-#, fuzzy
-#~ msgid "Element search"
-#~ msgstr "Document vernieuwen"
-
-#, fuzzy
-#~ msgid "New library"
-#~ msgstr "Map aanmaken"
-
-#, fuzzy
-#~ msgid "Library name"
-#~ msgstr "Map naam"
-
-#, fuzzy
-#~ msgid "Delete library?"
-#~ msgstr "Editor"
-
-#, fuzzy
-#~ msgid "Bad element"
-#~ msgstr "Vervangen"
-
-#, fuzzy
-#~ msgid "New note"
-#~ msgstr "Map aanmaken"
-
-#, fuzzy
-#~ msgid "Title"
-#~ msgstr "Titel"
-
-#~ msgid "Text"
-#~ msgstr "Tekst"
-
-#, fuzzy
-#~ msgid "New group"
-#~ msgstr "Map aanmaken"
-
-#, fuzzy
-#~ msgid "New description def"
-#~ msgstr "Definitie"
-
-#, fuzzy
-#~ msgid "Description text"
-#~ msgstr "Definitie"
-
-# src/callbacks.c:425
-#, fuzzy
-#~ msgid "New values def"
-#~ msgstr "Bluefish tip"
-
-#, fuzzy
-#~ msgid "Definitions"
-#~ msgstr "Definitie"
-
-#, fuzzy
-#~ msgid "New property"
-#~ msgstr "Map aanmaken"
-
-#, fuzzy
-#~ msgid "New element"
-#~ msgstr "Vervangen"
-
-#, fuzzy
-#~ msgid "No name"
-#~ msgstr "Geen bestandsnaam"
-
-#, fuzzy
-#~ msgid "Delete definition?"
-#~ msgstr "Definitie"
-
-#, fuzzy
-#~ msgid "Delete group"
-#~ msgstr "Verwijderen"
-
-#, fuzzy
-#~ msgid "Delete group?"
-#~ msgstr "Verwijderen"
-
-#, fuzzy
-#~ msgid "Do you really want to delete current entity?"
-#~ msgstr "Weet u zeker dat u dit wilt vervangen?"
-
-#~ msgid "Insert"
-#~ msgstr "Invoegen"
-
-#, fuzzy
-#~ msgid "Rescan reference files"
-#~ msgstr "Bluefish: instellingen"
-
-#, fuzzy
-#~ msgid "Set view font"
-#~ msgstr "Keuze"
-
-#, fuzzy
-#~ msgid "Delete library"
-#~ msgstr "Editor"
-
-#, fuzzy
-#~ msgid "Note"
-#~ msgstr "Noframes"
-
-#, fuzzy
-#~ msgid "Property definition"
-#~ msgstr "Definitie"
-
-#, fuzzy
-#~ msgid "Description definition"
-#~ msgstr "Definitie"
-
-#, fuzzy
-#~ msgid "Values definition"
-#~ msgstr "Definitie"
-
-#, fuzzy
-#~ msgid "Element"
-#~ msgstr "Vervangen"
-
-#, fuzzy
-#~ msgid "Delete definition"
-#~ msgstr "Definitie"
-
-#, fuzzy
-#~ msgid "Delete entity"
-#~ msgstr "Verwijder bestand?"
-
-#~ msgid "Close"
-#~ msgstr "Sluiten"
-
-#, fuzzy
-#~ msgid "Dialog"
-#~ msgstr "/_Dialogen"
-
-#, fuzzy
-#~ msgid "Info type"
-#~ msgstr "Negeren"
-
-#, fuzzy
-#~ msgid "Reference search"
-#~ msgstr "Document vernieuwen"
-
-#~ msgid "Search"
-#~ msgstr "Zoeken"
-
-#, fuzzy
-#~ msgid "Select File"
-#~ msgstr "Kies bestand"
-
-#, fuzzy
-#~ msgid "Show hidden"
-#~ msgstr "Laat verborgen bestanden zien"
-
-#, fuzzy
-#~ msgid "Filebrowser"
-#~ msgstr "Bestands beheerder"
-
-#, fuzzy
-#~ msgid "Function reference"
-#~ msgstr "/Opties/_Instellingen"
-
-#, fuzzy
-#~ msgid "Bookmarks"
-#~ msgstr "/Opties/tearoff1"
-
-#~ msgid "New"
-#~ msgstr "Nieuw"
-
-#, fuzzy
-#~ msgid "Open..."
-#~ msgstr "Openen..."
-
-#~ msgid "Save"
-#~ msgstr "Opslaan"
-
-#~ msgid "Save As..."
-#~ msgstr "Opslaan Als..."
-
-#~ msgid "Cut"
-#~ msgstr "Knippen"
-
-#~ msgid "Paste"
-#~ msgstr "Plakken"
-
-#, fuzzy
-#~ msgid "Find..."
-#~ msgstr "Zoek: "
-
-#, fuzzy
-#~ msgid "Replace..."
-#~ msgstr "Vervangen"
-
-#~ msgid "Undo"
-#~ msgstr "Herstel"
-
-#~ msgid "Redo"
-#~ msgstr "Herhaal"
-
-#~ msgid "Spellcheck..."
-#~ msgstr "Spelling"
-
-#~ msgid "View in browser"
-#~ msgstr "Bezie in browser"
-
-#~ msgid "Preferences..."
-#~ msgstr "Voorkeuren..."
-
-# src/callbacks.c:425
-#, fuzzy
-#~ msgid "New Bluefish Window"
-#~ msgstr "Bluefish tip"
-
-#, fuzzy
-#~ msgid "Stand by..."
-#~ msgstr "Span..."
-
-#~ msgid "Goto line"
-#~ msgstr "Ga naar regel"
-
-#, fuzzy
-#~ msgid "_Line number:"
-#~ msgstr "Regel nummer: "
-
-#, fuzzy
-#~ msgid "From _selection"
-#~ msgstr "Van selectie"
-
-#, fuzzy
-#~ msgid "Keep _dialog"
-#~ msgstr "Venster actief houden"
-
-#~ msgid "starting bluefish"
-#~ msgstr "Start Bluefish"
-
-#, fuzzy
-#~ msgid "Syntax highlighting error for "
-#~ msgstr "/Opties/Lijst/Oplichten van syntaxis..."
-
-#~ msgid "/_File"
-#~ msgstr "/_Bestand"
-
-#~ msgid "/File/tearoff1"
-#~ msgstr "/Bestand/tearoff1"
-
-#~ msgid "/File/_New"
-#~ msgstr "/Bestand/_Nieuw"
-
-#~ msgid "/File/New _Window"
-#~ msgstr "/Bestand/Nieuwe _Window"
-
-#~ msgid "/File/_Open..."
-#~ msgstr "/Bestand/_Openen..."
-
-#, fuzzy
-#~ msgid "/File/Open _recent"
-#~ msgstr "/Bestand/Recent Geopend"
-
-#~ msgid "/File/Open recent/tearoff1"
-#~ msgstr "/Bestand/Recent Geopend/tearoff1"
-
-#~ msgid "/File/Open Ad_vanced..."
-#~ msgstr "/Bestand/Geavanceerd Openen..."
-
-#~ msgid "/File/Open _URL..."
-#~ msgstr "/Bestand/Openen _URL..."
-
-#~ msgid "/File/Open _from selection"
-#~ msgstr "/Bestand/Open selectie"
-
-#~ msgid "/File/sep1"
-#~ msgstr "/Bestand/sep2"
-
-#~ msgid "/File/_Save"
-#~ msgstr "/Bestand/Op_slaan"
-
-#~ msgid "/File/Save _As..."
-#~ msgstr "/Bestand/Opslaan _als"
-
-#, fuzzy
-#~ msgid "/File/Sav_e All"
-#~ msgstr "/Bestand/Alle opslaan"
-
-#, fuzzy
-#~ msgid "/File/Rever_t to Saved"
-#~ msgstr "/Bestand/terug naar opgeslagen"
-
-#~ msgid "/File/sep2"
-#~ msgstr "/Bestand/sep2"
-
-#~ msgid "/File/_Insert..."
-#~ msgstr "/Bestand/_Invoegen..."
-
-#~ msgid "/File/Rena_me..."
-#~ msgstr "/Bestand/Hernoe_men..."
-
-#~ msgid "/File/sep3"
-#~ msgstr "/Bestand/sep3"
-
-#~ msgid "/File/_Close"
-#~ msgstr "/Bestand/Sluiten"
-
-#~ msgid "/File/Close A_ll"
-#~ msgstr "/Bestand/A_lles sluiten"
-
-#~ msgid "/File/Close Win_dow"
-#~ msgstr "/Bestand/Sluit window"
-
-#~ msgid "/File/sep4"
-#~ msgstr "/Bestand/sep2"
-
-#~ msgid "/File/_Quit"
-#~ msgstr "/Bestand/Afsluiten"
-
-#~ msgid "/File/sep5"
-#~ msgstr "/Bestand/sep5"
-
-#~ msgid "/_Edit"
-#~ msgstr "/_Bewerken"
-
-#~ msgid "/Edit/Tearoff1"
-#~ msgstr "/Bewerken/Tearoff1"
-
-#~ msgid "/Edit/_Undo"
-#~ msgstr "/Bewerken/Herstel"
-
-#~ msgid "/Edit/_Redo"
-#~ msgstr "/Bewerken/Herhaal"
-
-#, fuzzy
-#~ msgid "/Edit/Undo All"
-#~ msgstr "/Bewerken/Alles herstellen"
-
-#, fuzzy
-#~ msgid "/Edit/Redo All"
-#~ msgstr "/Bewerken/Alles herhalen"
-
-#~ msgid "/Edit/sep1"
-#~ msgstr "/Bewerken/sep3"
-
-#~ msgid "/Edit/Cu_t"
-#~ msgstr "/Bewerken/Knippen"
-
-#~ msgid "/Edit/_Copy"
-#~ msgstr "/Bewerken/Kopieren"
-
-#~ msgid "/Edit/_Paste"
-#~ msgstr "/Bewerken/Plakken"
-
-#~ msgid "/Edit/sep2"
-#~ msgstr "/Bewerken/sep3"
-
-#~ msgid "/Edit/Select _All"
-#~ msgstr "/Bewerken/Alles selecteren"
-
-#~ msgid "/Edit/sep3"
-#~ msgstr "/Bewerken/sep3"
-
-#~ msgid "/Edit/_Find..."
-#~ msgstr "/Bewerken/Zoeken"
-
-#~ msgid "/Edit/Find A_gain"
-#~ msgstr "/Bewerken/Herhaal zoeken"
-
-#~ msgid "/Edit/Find from selection"
-#~ msgstr "/Bewerken/Zoek selectie"
-
-#~ msgid "/Edit/R_eplace..."
-#~ msgstr "/Bewerken/V_ervangen..."
-
-#~ msgid "/Edit/Replace Agai_n"
-#~ msgstr "/Bewerken/Herhaal vervangen"
-
-#, fuzzy
-#~ msgid "/Edit/Replace special"
-#~ msgstr "/Bewerken/Vervangen _speciaal"
-
-#~ msgid "/Edit/Replace special/Tearoff1"
-#~ msgstr "/Bewerken/Vervangen speciaal/Tearoff1"
-
-#~ msgid "/Edit/Replace special/_ASCII to HTML Entities"
-#~ msgstr "/Bewerken/Vervangen speciaal/ASCII naar HTML elementen"
-
-#~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
-#~ msgstr "/Bewerken/Vervangen speciaal/iso8859 naar HTML elementen"
-
-#~ msgid "/Edit/Replace special/_Both Types to HTML Entities"
-#~ msgstr "/Bewerken/Vervangen speciaal/beiden naar HTML elementen"
-
-#, fuzzy
-#~ msgid "/Edit/Replace special/To _Uppercase"
-#~ msgstr "/Bewerken/Vervangen speciaal/Tearoff1"
-
-#, fuzzy
-#~ msgid "/Edit/Replace special/To _Lowercase"
-#~ msgstr "/Bewerken/Vervangen speciaal/Tearoff1"
-
-#~ msgid "/Edit/sep4"
-#~ msgstr "/Bewerken/sep4"
-
-#, fuzzy
-#~ msgid "/Edit/S_hift Right"
-#~ msgstr "/Bewerken/Verschuif naar rechts"
-
-#, fuzzy
-#~ msgid "/Edit/Shift _Left"
-#~ msgstr "/Bewerken/Verschuif naar links"
-
-#~ msgid "/Edit/sep5"
-#~ msgstr "/Bewerken/sep5"
-
-#~ msgid "/Edit/sep6"
-#~ msgstr "/Bewerken/sep6"
-
-#, fuzzy
-#~ msgid "/Edit/Save Sett_ings"
-#~ msgstr "/Bewerken/_Instellingen opslaan"
-
-#~ msgid "/Edit/Save Shortcut _Keys"
-#~ msgstr "/Bewerken/_Sneltoets instellingen opslaan"
-
-#, fuzzy
-#~ msgid "/Edit/Preference_s"
-#~ msgstr "/Bewerken/Instellingen"
-
-#~ msgid "/_View"
-#~ msgstr "/_Bekijk"
-
-#~ msgid "/View/tearoff1"
-#~ msgstr "/Bekijk/tearoff1"
-
-#~ msgid "/View/View _Main Toolbar"
-#~ msgstr "/Bekijk/Toon Hoofd-_werkbalk"
-
-#~ msgid "/View/View _Custom Menu"
-#~ msgstr "/Bekijk/Toon _Aanpasbaar menu"
-
-#, fuzzy
-#~ msgid "/View/View _Sidebar"
-#~ msgstr "/Bekijk/Toon Hoofd-_werkbalk"
-
-#~ msgid "/_Document"
-#~ msgstr "/_Document"
-
-#~ msgid "/Document/tearoff1"
-#~ msgstr "/Document/tearoff1"
-
-#, fuzzy
-#~ msgid "/Document/_Increase Tabsize"
-#~ msgstr "/Document/_Regelnummering"
-
-#, fuzzy
-#~ msgid "/Document/_Decrease Tabsize"
-#~ msgstr "/Document/_Type"
-
-#, fuzzy
-#~ msgid "/Document/_Auto Indent"
-#~ msgstr "/Document/Vo_lgende"
-
-#~ msgid "/Document/sep1"
-#~ msgstr "/Document/sep1"
-
-#, fuzzy
-#~ msgid "/Document/Auto Close H_TML tags"
-#~ msgstr "/Opties/Automatisch inspringen"
-
-#~ msgid "/Document/_Wrap"
-#~ msgstr "/Document/_Omloop"
-
-#, fuzzy
-#~ msgid "/Document/_Line Numbers"
-#~ msgstr "/Document/_Regelnummering"
-
-#, fuzzy
-#~ msgid "/Document/sep2"
-#~ msgstr "/Document/sep1"
-
-#, fuzzy
-#~ msgid "/Document/_Highlight Syntax"
-#~ msgstr "/Document/Benadruk syntax"
-
-#, fuzzy
-#~ msgid "/Document/_Update Highlighting"
-#~ msgstr "/Document/Ververs syntax benadrukking"
-
-#, fuzzy
-#~ msgid "/Document/sep3"
-#~ msgstr "/Document/sep1"
-
-#, fuzzy
-#~ msgid "/Document/Document Ty_pe"
-#~ msgstr "/Document/Type"
-
-#, fuzzy
-#~ msgid "/Document/Document Type/tearoff1"
-#~ msgstr "/Document/Type/tearoff1"
-
-#, fuzzy
-#~ msgid "/Document/Character _Encoding"
-#~ msgstr "/Document/_Codering"
-
-#, fuzzy
-#~ msgid "/Document/Character Encoding/tearoff1"
-#~ msgstr "/Document/Codering/tearoff1"
-
-#, fuzzy
-#~ msgid "/Document/sep4"
-#~ msgstr "/Document/sep1"
-
-#, fuzzy
-#~ msgid "/Document/Check _Spelling..."
-#~ msgstr "/Document/Codering"
-
-#, fuzzy
-#~ msgid "/Document/_Floating window"
-#~ msgstr "/Document/_Codering"
-
-#, fuzzy
-#~ msgid "/Document/Word _Count"
-#~ msgstr "/Document/Woorden tellen"
-
-#, fuzzy
-#~ msgid "/Document/sep5"
-#~ msgstr "/Document/sep1"
-
-#, fuzzy
-#~ msgid "/Document/Move left"
-#~ msgstr "/Opties/Automatisch inspringen"
-
-#, fuzzy
-#~ msgid "/Document/Move right"
-#~ msgstr "/Document/sep1"
-
-#, fuzzy
-#~ msgid "/Go/tearoff1"
-#~ msgstr "/Bestand/tearoff1"
-
-#, fuzzy
-#~ msgid "/Go/_Next document"
-#~ msgstr "/_Document"
-
-#, fuzzy
-#~ msgid "/Go/sep1"
-#~ msgstr "/Document/sep1"
-
-#, fuzzy
-#~ msgid "/Go/_First document"
-#~ msgstr "in huidig document"
-
-#, fuzzy
-#~ msgid "/Go/L_ast document"
-#~ msgstr "/_Document"
-
-#, fuzzy
-#~ msgid "/Go/Goto _Line"
-#~ msgstr "Ga naar regel"
-
-#, fuzzy
-#~ msgid "/Go/Goto _Selection"
-#~ msgstr "/Bewerken/Regelnummer..."
-
-#, fuzzy
-#~ msgid "/_Project"
-#~ msgstr "Eigenschap"
-
-#, fuzzy
-#~ msgid "/Project/tearoff1"
-#~ msgstr "/Document/tearoff1"
-
-#, fuzzy
-#~ msgid "/Project/Open _recent"
-#~ msgstr "/Bestand/Recent Geopend"
-
-#, fuzzy
-#~ msgid "/Project/Open recent/tearoff1"
-#~ msgstr "/Bestand/Recent Geopend/tearoff1"
-
-#, fuzzy
-#~ msgid "/Project/sep1"
-#~ msgstr "/Document/sep1"
-
-#, fuzzy
-#~ msgid "/Project/_Save"
-#~ msgstr "/Bestand/Op_slaan"
-
-#, fuzzy
-#~ msgid "/Project/Save _as..."
-#~ msgstr "/Bestand/Opslaan _als"
-
-#, fuzzy
-#~ msgid "/Project/Save & _close"
-#~ msgstr "/Bestand/Opslaan _als"
-
-#, fuzzy
-#~ msgid "/Project/sep2"
-#~ msgstr "/Bestand/sep2"
-
-#~ msgid "/E_xternal"
-#~ msgstr "/E_xtern"
-
-#~ msgid "/External/tearoff1"
-#~ msgstr "/Extern/tearoff1"
-
-#, fuzzy
-#~ msgid "/Document/Document Type"
-#~ msgstr "/Document/Type"
-
-#, fuzzy
-#~ msgid "/Project/Open recent"
-#~ msgstr "/Bestand/Recent Geopend"
-
-#~ msgid "/File/Open recent"
-#~ msgstr "/Bestand/Recent Geopend"
-
-#, fuzzy
-#~ msgid "Could not view file in browser."
-#~ msgstr "Dit bestand kon niet geopend worden:\n"
-
-#~ msgid "/External/Outputbox/"
-#~ msgstr "/Extern/Uitvoer vlak/"
-
-#~ msgid "/External/Commands/"
-#~ msgstr "/Extern/Commando's/"
-
-#~ msgid "/External/Browsers/"
-#~ msgstr "/Extern/Browsers/"
-
-#~ msgid "/External"
-#~ msgstr "/Extern"
-
-#~ msgid "/External/Browsers"
-#~ msgstr "/Extern/Browsers/"
-
-#~ msgid "/External/Commands"
-#~ msgstr "/Extern/Commando's"
-
-#~ msgid "/External/Outputbox"
-#~ msgstr "/Extern/Uitvoer vlak"
-
-#, fuzzy
-#~ msgid "/Document/Character Encoding"
-#~ msgstr "/Document/Codering"
-
-#~ msgid "This custom search and replace requires a selection"
-#~ msgstr "Deze aanpasbare zoek en vervang vereist een selectie"
-
-#~ msgid "/_Custom menu"
-#~ msgstr "/_Aangepast menu"
-
-#~ msgid "/Custom menu/sep"
-#~ msgstr "/Aangepast menu/sep"
-
-#~ msgid "/Custom menu/Edit custom menu..."
-#~ msgstr "/Aangepast menu/Aangepast menu wijzigen"
-
-#, fuzzy
-#~ msgid "/Custom menu/Reset"
-#~ msgstr "/Aangepast menu/sep"
-
-#, fuzzy
-#~ msgid "/Custom menu/Load new"
-#~ msgstr "/Aangepast menu/sep"
-
-#, fuzzy
-#~ msgid "Search Pattern"
-#~ msgstr "Zoek patroon"
-
-#, fuzzy
-#~ msgid "Replace String"
-#~ msgstr "Vervang tekst"
-
-#, fuzzy
-#~ msgid "Custom Menu Editor"
-#~ msgstr "/_Aangepast menu"
-
-#, fuzzy
-#~ msgid "_Menu Path:"
-#~ msgstr "Menu pad"
-
-#~ msgid "Menu path"
-#~ msgstr "Menu pad"
-
-#, fuzzy
-#~ msgid "Number of _Variables:"
-#~ msgstr "Aantal variabelen"
-
-#~ msgid "Variables"
-#~ msgstr "Variabelen"
-
-#, fuzzy
-#~ msgid "Custom Dialo_g"
-#~ msgstr "aanpasbare dialoog"
-
-#, fuzzy
-#~ msgid "Custom Replace"
-#~ msgstr "aanpasbare zoek en vervang..."
-
-#, fuzzy
-#~ msgid "_Replace:"
-#~ msgstr "Vervangen"
-
-#~ msgid "in current document"
-#~ msgstr "in huidig document"
-
-#~ msgid "in selection"
-#~ msgstr "in de selectie"
-
-#~ msgid "in all open documents"
-#~ msgstr "in alle geopende documenten"
-
-#~ msgid "normal"
-#~ msgstr "normaal"
-
-#, fuzzy
-#~ msgid "posix regular expressions"
-#~ msgstr "posix regular expression"
-
-#, fuzzy
-#~ msgid "perl regular expressions"
-#~ msgstr "perl regular expressions"
-
-#, fuzzy
-#~ msgid "Case Se_nsitive"
-#~ msgstr "Hoofdletter gevoelig"
-
-#, fuzzy
-#~ msgid "Untitled"
-#~ msgstr "Naamloos"
-
-#, fuzzy
-#~ msgid "Select font"
-#~ msgstr "Keuze"
-
-#~ msgid "Label"
-#~ msgstr "Label"
-
-#, fuzzy
-#~ msgid "Extensions"
-#~ msgstr "Dimensies"
-
-#, fuzzy
-#~ msgid "Update chars"
-#~ msgstr " Vernieuwen"
-
-#, fuzzy
-#~ msgid "Editable"
-#~ msgstr "tag bewerken"
-
-#, fuzzy
-#~ msgid "Content regex"
-#~ msgstr "Inhoud"
-
-#, fuzzy
-#~ msgid "Inverse filter"
-#~ msgstr "Afbeelding filter"
-
-#, fuzzy
-#~ msgid "Filetypes in filter"
-#~ msgstr "Bestandsfilters"
-
-#, fuzzy
-#~ msgid "Reset"
-#~ msgstr "Frameset"
-
-#, fuzzy
-#~ msgid "Pattern name"
-#~ msgstr "Patroon"
-
-#~ msgid "Pattern"
-#~ msgstr "Patroon"
-
-#, fuzzy
-#~ msgid "Only start pattern"
-#~ msgstr "Zoek patroon"
-
-#, fuzzy
-#~ msgid "Start pattern"
-#~ msgstr "Zoek patroon"
-
-#, fuzzy
-#~ msgid "End pattern"
-#~ msgstr "Patroon"
-
-#, fuzzy
-#~ msgid "Case sensitive matching"
-#~ msgstr "Hoofdletter gevoelig"
-
-#, fuzzy
-#~ msgid "Foreground color"
-#~ msgstr "Achtergrond-kleur"
-
-#, fuzzy
-#~ msgid "Background color"
-#~ msgstr "Achtergrond-kleur"
-
-#, fuzzy
-#~ msgid "force non-bold weight"
-#~ msgstr "letterdikte"
-
-#, fuzzy
-#~ msgid "don't change style"
-#~ msgstr "Nieuwe stijl invoegen"
-
-#, fuzzy
-#~ msgid "Command"
-#~ msgstr "commando"
-
-#, fuzzy
-#~ msgid "File #"
-#~ msgstr "Bestand "
-
-#, fuzzy
-#~ msgid "Line #"
-#~ msgstr "Regels passend maken"
-
-#, fuzzy
-#~ msgid "Output #"
-#~ msgstr "Uitvoer html karakters"
-
-#~ msgid "left"
-#~ msgstr "links"
-
-#~ msgid "right"
-#~ msgstr "rechts"
-
-#~ msgid "top"
-#~ msgstr "boven"
-
-#~ msgid "bottom"
-#~ msgstr "onder"
-
-#~ msgid "Edit preferences"
-#~ msgstr "Instellingen aanpassen"
-
-#~ msgid "Editor"
-#~ msgstr "Editor"
-
-#~ msgid "Editor options"
-#~ msgstr "Editor opties"
-
-#~ msgid "Tab width"
-#~ msgstr "Tab breedte"
-
-#, fuzzy
-#~ msgid "Word wrap default"
-#~ msgstr "Woorden passend maken"
-
-#, fuzzy
-#~ msgid "Line numbers by default"
-#~ msgstr "Regel nummer: "
-
-#, fuzzy
-#~ msgid "Highlight syntax by default"
-#~ msgstr "/Beeld/Oplichten van Syntaxis"
-
-#, fuzzy
-#~ msgid "Highlight # lines"
-#~ msgstr "Oplichten als standaard"
-
-#, fuzzy
-#~ msgid "Clear undo history on save"
-#~ msgstr "Herstel mogelijkheden wissen indien document wordt opgeslagen"
-
-#, fuzzy
-#~ msgid "Bookmark options"
-#~ msgstr "/Opties/tearoff1"
-
-#, fuzzy
-#~ msgid "Make permanent by default"
-#~ msgstr "Regel nummer: "
-
-#, fuzzy
-#~ msgid "full path"
-#~ msgstr "Menu pad"
-
-#, fuzzy
-#~ msgid "path from basedir"
-#~ msgstr "Selecteer basis map"
-
-#, fuzzy
-#~ msgid "filename"
-#~ msgstr "Geen bestandsnaam"
-
-#~ msgid "HTML"
-#~ msgstr "HTML"
-
-#~ msgid "HTML options"
-#~ msgstr "HTML opties"
-
-#, fuzzy
-#~ msgid "Use XHTML style tags (<br />)"
-#~ msgstr "Gebruik XHTML syntaxis (zoals <br />)"
-
-#~ msgid "Files"
-#~ msgstr "Bestanden"
-
-#, fuzzy
-#~ msgid "Encoding"
-#~ msgstr "Invoer codering"
-
-#, fuzzy
-#~ msgid "Default character set"
-#~ msgstr "Kan geen verbinding maken"
-
-#~ msgid "Backup"
-#~ msgstr "Reserve bestanden"
-
-#~ msgid "Create backup on save"
-#~ msgstr "Maak reservebestand bij opslaan"
-
-#~ msgid "Backup file suffix"
-#~ msgstr "Reservebestand achtervoegsel"
-
-#~ msgid "save"
-#~ msgstr "opslaan"
-
-#~ msgid "abort"
-#~ msgstr "afbreken"
-
-#~ msgid "ask"
-#~ msgstr "vragen"
-
-#~ msgid "Action on backup failure"
-#~ msgstr "Actie als reservebestand mislukt"
-
-#, fuzzy
-#~ msgid "Remove backupfile on close"
-#~ msgstr "Maak reservebestand bij opslaan"
-
-#~ msgid "Allow multi instances of a file"
-#~ msgstr "Meerdere exemplaren van hetzelfde bestand toestaan"
-
-#, fuzzy
-#~ msgid "Open files in already running bluefish window"
-#~ msgstr "Bestanden geopend op de commando-prompt, openen in lopende Bluefish"
-
-#~ msgid "File browser"
-#~ msgstr "Bestands beheerder"
-
-#, fuzzy
-#~ msgid "Default basedir"
-#~ msgstr "Selecteer basis map"
-
-#, fuzzy
-#~ msgid "Unknown icon"
-#~ msgstr "Onbekende ikoon"
-
-#, fuzzy
-#~ msgid "Directory icon"
-#~ msgstr "Map ikoon"
-
-#~ msgid "User interface"
-#~ msgstr "Gebruikers interface"
-
-#~ msgid "Dimensions"
-#~ msgstr "Dimensies"
-
-#~ msgid "Restore last used dimensions"
-#~ msgstr "Herstel laatst gebruikte afmetingen"
-
-#, fuzzy
-#~ msgid "Initial sidebar width"
-#~ msgstr "Initiele breedte van programma"
-
-#~ msgid "Initial window height"
-#~ msgstr "Initiele hoogte van programma"
-
-#~ msgid "Initial window width"
-#~ msgstr "Initiele breedte van programma"
-
-#, fuzzy
-#~ msgid "General"
-#~ msgstr "Centreren"
-
-#~ msgid "Make HTML dialogs transient"
-#~ msgstr "HTML dialogen altijd vooraan"
-
-#, fuzzy
-#~ msgid "External browsers in submenu"
-#~ msgstr "Externe programma opties"
-
-#, fuzzy
-#~ msgid "External commands in submenu"
-#~ msgstr "/Extern/Commando's"
-
-#, fuzzy
-#~ msgid "Document notebook tab position"
-#~ msgstr "Positie van tabbladen"
-
-#, fuzzy
-#~ msgid "Sidebar notebook tab position"
-#~ msgstr "Positie van tabbladen"
-
-#, fuzzy
-#~ msgid "Sidebar location"
-#~ msgstr "Locatie van afbeelding"
-
-#, fuzzy
-#~ msgid "Images"
-#~ msgstr "Afbeeldingen"
-
-#, fuzzy
-#~ msgid "Thumbnails"
-#~ msgstr "Voorbeeldafbeelding..."
-
-#, fuzzy
-#~ msgid "Thumbnail suffix"
-#~ msgstr "Voorbeeldafbeelding (thumbnail) achtervoegsel"
-
-#, fuzzy
-#~ msgid "Thumbnail filetype"
-#~ msgstr "Voorbeeldafbeelding (thumbnail) type"
-
-#, fuzzy
-#~ msgid "Filetypes"
-#~ msgstr "Bestanden"
-
-#, fuzzy
-#~ msgid "Filefilters"
-#~ msgstr "Bestandsfilters"
-
-#, fuzzy
-#~ msgid "Syntax highlighting"
-#~ msgstr "/Opties/Lijst/Oplichten van syntaxis..."
-
-#, fuzzy
-#~ msgid "Patterns"
-#~ msgstr "Patroon"
-
-#, fuzzy
-#~ msgid "External programs"
-#~ msgstr "Externe programma opties"
-
-#, fuzzy
-#~ msgid "Browsers"
-#~ msgstr "Browser commando"
-
-#, fuzzy
-#~ msgid "Utilities and filters"
-#~ msgstr "Bestandsfilters"
-
-#, fuzzy
-#~ msgid "Output parsers"
-#~ msgstr "Uitvoer html karakters"
-
-#, fuzzy
-#~ msgid "Remote servers"
-#~ msgstr "Map aanmaken"
-
-#, fuzzy
-#~ msgid "New project"
-#~ msgstr "Map aanmaken"
-
-#, fuzzy
-#~ msgid "Enter Bluefish project filename"
-#~ msgstr "Bluefish foutmelding: geen bestandsnaam"
-
-#, fuzzy
-#~ msgid "Select Bluefish project filename"
-#~ msgstr "Bluefish foutmelding: geen bestandsnaam"
-
-#, fuzzy
-#~ msgid "Save current project?"
-#~ msgstr "in huidig document"
-
-#, fuzzy
-#~ msgid "Edit Project"
-#~ msgstr "tag bewerken"
-
-#, fuzzy
-#~ msgid "Project _Name:"
-#~ msgstr "Naam"
-
-#, fuzzy
-#~ msgid "_Basedir:"
-#~ msgstr "Standaard-map"
-
-#, fuzzy
-#~ msgid "_Preview URL:"
-#~ msgstr "Preview"
-
-#, fuzzy
-#~ msgid "_Template:"
-#~ msgstr "Vervangen"
-
-#, fuzzy
-#~ msgid "_Word wrap by default"
-#~ msgstr "Woorden passend maken"
-
-#, fuzzy
-#~ msgid "Netscape"
-#~ msgstr "Bekijken met Netscape"
-
-#, fuzzy
-#~ msgid "Gnome default"
-#~ msgstr "Regel nummer: "
-
-#, fuzzy
-#~ msgid "make"
-#~ msgstr "Afbeeldingen"
-
-#, fuzzy
-#~ msgid "xmllint XML checker"
-#~ msgstr "Spellingscontrole"
-
-#, fuzzy
-#~ msgid "Tidy cleanup filter"
-#~ msgstr "Bestandsfilters"
-
-#, fuzzy
-#~ msgid "All web files"
-#~ msgstr "alle web bestanden"
-
-#, fuzzy
-#~ msgid "Hide objectfiles"
-#~ msgstr "Kies bestanden"
-
-#, fuzzy
-#~ msgid "Untitled Project"
-#~ msgstr "Naamloos"
-
-#~ msgid "Regular expression error: "
-#~ msgstr "Reguliere expressie error: "
-
-#, fuzzy
-#~ msgid "Search failed"
-#~ msgstr "Zoek patroon"
-
-#, fuzzy
-#~ msgid "Regular expression error: %s at offset %d"
-#~ msgstr "Reguliere expressie error: "
-
-#~ msgid "Confirm replace"
-#~ msgstr "Bevestig vervangen"
-
-#, fuzzy
-#~ msgid "Replace _all"
-#~ msgstr "Vervangen"
-
-#, fuzzy
-#~ msgid "_Search for: "
-#~ msgstr "Zoeken"
-
-#, fuzzy
-#~ msgid "_Replace with: "
-#~ msgstr "Vervang met: "
-
-#, fuzzy
-#~ msgid "Beginning of document till end"
-#~ msgstr "Start aan het begin van het document"
-
-#, fuzzy
-#~ msgid "Current position till end"
-#~ msgstr "Start op de cursor positie"
-
-#, fuzzy
-#~ msgid "Beginning of selection till end of selection"
-#~ msgstr "in de selectie"
-
-#, fuzzy
-#~ msgid "Disabled"
-#~ msgstr "Variabelen"
-
-#, fuzzy
-#~ msgid "POSIX type"
-#~ msgstr "Negeren"
-
-#, fuzzy
-#~ msgid "Starts at:"
-#~ msgstr "Zoek patroon"
-
-#, fuzzy
-#~ msgid "Regular expression:"
-#~ msgstr "Reguliere expressie error: "
-
-#, fuzzy
-#~ msgid "Normal"
-#~ msgstr "normaal"
-
-#, fuzzy
-#~ msgid "Uppercase"
-#~ msgstr "Vervang hoofdletters"
-
-#, fuzzy
-#~ msgid "Lowercase"
-#~ msgstr "Vervang kleine letters"
-
-#, fuzzy
-#~ msgid "Replace type:"
-#~ msgstr "Vervang tekst"
-
-#, fuzzy
-#~ msgid "O_verlap searches"
-#~ msgstr "Overlappend zoeken"
-
-#, fuzzy
-#~ msgid "Prompt _before replace"
-#~ msgstr "Waarschuwen voor het vervangen"
-
-#, fuzzy
-#~ msgid "Replace o_nce"
-#~ msgstr "Eenmalig vervangen"
-
-#, fuzzy
-#~ msgid "Bookmark results"
-#~ msgstr "/Opties/tearoff1"
-
-#~ msgid " Add "
-#~ msgstr " Toevoegen "
-
-#~ msgid " Update "
-#~ msgstr " Vernieuwen"
-
-#~ msgid " Delete "
-#~ msgstr "Verwijderen"
-
-#~ msgid " Up "
-#~ msgstr " Op "
-
-#~ msgid " Down "
-#~ msgstr " Neer "
-
-#~ msgid " Sort "
-#~ msgstr " Sorteren "
-
-#, fuzzy
-#~ msgid "Could not read file:\n"
-#~ msgstr "Dit bestand kon niet geopend worden:\n"
-
-#~ msgid "Opening file "
-#~ msgstr "Bezig met bestand te openen"
-
-#~ msgid "Saving file"
-#~ msgstr "Bezig met opslaan van bestand"
-
-#~ msgid "Save as..."
-#~ msgstr "Opslaan als..."
-
-#, fuzzy
-#~ msgid ""
-#~ "File: %s\n"
-#~ "\n"
-#~ "New modification time: %s\n"
-#~ "Old modification time: %s"
-#~ msgstr ""
-#~ "Bestand %s\n"
-#~ "is gewijzigd door een ander proces, nieuwe wijzigings tijd %s\n"
-#~ "oude wijzigings tijd  %sOverschrijven?"
-
-#~ msgid "Saving %s"
-#~ msgstr "Saving %s"
-
-#, fuzzy
-#~ msgid ""
-#~ "Could not backup file:\n"
-#~ "\""
-#~ msgstr "Dit bestand kon niet geopend worden:\n"
-
-#, fuzzy
-#~ msgid "Loading files..."
-#~ msgstr "Bezig met opslaan van bestand"
-
-#, fuzzy
-#~ msgid ""
-#~ "These files could not opened:\n"
-#~ "\n"
-#~ msgstr "Dit bestand kon niet geopend worden:\n"
-
-#~ msgid "Unable to open file(s)\n"
-#~ msgstr "Kan bestand niet openen \n"
-
-#~ msgid "searching files..."
-#~ msgstr "Zoek  bestand "
-
-#, fuzzy
-#~ msgid "grep {contains} `find {basedir} -name '{file type}'`"
-#~ msgstr "grep {Bevat} `find {basis map} -name '{patroon}'`"
-
-#, fuzzy
-#~ msgid "_File Type:"
-#~ msgstr "Bestand openen"
-
-#~ msgid "Loading %d file(s)..."
-#~ msgstr "Laad %d bestand(en).."
-
-#~ msgid "Select file"
-#~ msgstr "Kies bestand"
-
-#, fuzzy
-#~ msgid "_Doctype:"
-#~ msgstr "Doctype"
-
-#, fuzzy
-#~ msgid "Loading file(s)..."
-#~ msgstr "Bezig met opslaan van bestand"
-
-#, fuzzy
-#~ msgid "The filename was:\n"
-#~ msgstr "Geen bestandsnaam opgegeven"
-
-#, fuzzy
-#~ msgid "Could not open file\n"
-#~ msgstr "Dit bestand kon niet geopend worden:\n"
-
-#, fuzzy
-#~ msgid "Show main toolbar by default"
-#~ msgstr "Regel nummer: "
-
-#, fuzzy
-#~ msgid "Show sidebar by default"
-#~ msgstr "Regel nummer: "
-
-#, fuzzy
-#~ msgid "Show custom menu by default"
-#~ msgstr "Regel nummer: "
-
-#, fuzzy
-#~ msgid "Do you want to save the project?"
-#~ msgstr "Weet u zeker dat u dit wilt vervangen?"
-
-#~ msgid "Save document as"
-#~ msgstr "Document opslaan als"
-
-#, fuzzy
-#~ msgid "Save changes to this untitled file before closing?"
-#~ msgstr ""
-#~ "    Weet u zeker dat u dit naamloos bestand wilt sluiten?    \n"
-#~ " "
-
-#~ msgid "Search..."
-#~ msgstr "Zoek...."
-
-#~ msgid "Search and Replace..."
-#~ msgstr "Zoek en vervang..."
-
-#, fuzzy
-#~ msgid "default"
-#~ msgstr "Set Standaard"
-
-#, fuzzy
-#~ msgid "/View/View Sidebar"
-#~ msgstr "/Opties/Beeld/Toon Hoofd-werkbalk"
-
-#~ msgid "/Edit/Undo"
-#~ msgstr "/Bewerken/Herstel"
-
-#~ msgid "/Edit/Redo"
-#~ msgstr "/Bewerken/Herhaal"
-
-#, fuzzy
-#~ msgid "/Document/Wrap"
-#~ msgstr "documenten"
-
-#, fuzzy
-#~ msgid "/Document/Line Numbers"
-#~ msgstr "/Document/Regel nummer: "
-
-#, fuzzy
-#~ msgid "/Document/Auto Close HTML tags"
-#~ msgstr "/Opties/Automatisch inspringen"
-
-#, fuzzy
-#~ msgid "/View/View Main Toolbar"
-#~ msgstr "/Opties/Beeld/Toon Hoofd-werkbalk"
-
-#, fuzzy
-#~ msgid "/View/View Custom Menu"
-#~ msgstr "/Opties/Beeld/Toon Gebruikers werkbalk"
-
-#, fuzzy
-#~ msgid "Sort by line number"
-#~ msgstr "Geen bestandsnaam"
-
-#, fuzzy
-#~ msgid "/Project/Save as..."
-#~ msgstr "/Bestand/Opslaan _als"
-
-#, fuzzy
-#~ msgid "/Project/Save & close"
-#~ msgstr "/Bestand/Opslaan _als"
-
-#~ msgid "posix regular expresions"
-#~ msgstr "posix regular expresion"
-
-#~ msgid "perl regular expresions"
-#~ msgstr "perl regular expresions"
-
-#, fuzzy
-#~ msgid "/View/View Left Panel"
-#~ msgstr "/Opties/Beeld/Toon Linker paneel"
-
-#~ msgid "/View/View _Left Panel"
-#~ msgstr "/Bekijk/Toon _Linker paneel"
-
-#~ msgid "Initial left panel width"
-#~ msgstr "Initiele breedte van linker paneel"
-
-#, fuzzy
-#~ msgid "Show left panel by default"
-#~ msgstr "Regel nummer: "
-
-#, fuzzy
-#~ msgid "/File/Open recen_t"
-#~ msgstr "/Bestand/Recent Geopend"
-
-#, fuzzy
-#~ msgid "/Project/Open r_ecent"
-#~ msgstr "/Bestand/Recent Geopend"
-
-#, fuzzy
-#~ msgid "Filetype"
-#~ msgstr "Bestand openen"
-
-#, fuzzy
-#~ msgid "Filefilter"
-#~ msgstr "Bestandsfilters"
-
-#, fuzzy
-#~ msgid "Browser"
-#~ msgstr "Browser commando"
-
-#, fuzzy
-#~ msgid "%s = current filename"
-#~ msgstr "Bestandsnaam exporten"
-
-#, fuzzy
-#~ msgid "File subpattern #"
-#~ msgstr "Bestand bewaren als"
-
-#, fuzzy
-#~ msgid "Line subpattern #"
-#~ msgstr "Regel nummer: "
-
-#, fuzzy
-#~ msgid "Rename"
-#~ msgstr "Bestandnaam"
-
-#, fuzzy
-#~ msgid "/Bookmarks/tearoff1"
-#~ msgstr "/Opties/tearoff1"
-
-#~ msgid "Text..."
-#~ msgstr "Tekstinvoerregel..."
-
-#, fuzzy
-#~ msgid "_Rel:"
-#~ msgstr "Rel"
-
-#, fuzzy
-#~ msgid "_websafe"
-#~ msgstr "websafe"
-
-#~ msgid "Hidden"
-#~ msgstr "Verborgen inhoud"
-
-#~ msgid "Radio Button"
-#~ msgstr "Aanklikrondje"
-
-#~ msgid "Check Box"
-#~ msgstr "Aankruisvakje"
-
-#~ msgid "/File/Open r_ecent"
-#~ msgstr "/Bestand/Recent Geopend"
-
-#, fuzzy
-#~ msgid "/Dialogs/Form/_Hidden..."
-#~ msgstr "/Dialogen/Formulier/Verborgen inhoud..."
-
-#, fuzzy
-#~ msgid "/Dialogs/Form/Radio _Buttons..."
-#~ msgstr "/Dialogen/Formulier/Aanklikrondje..."
-
-#, fuzzy
-#~ msgid "/Dialogs/Form/_Check Buttons..."
-#~ msgstr "/Dialogen/Formulier/Aankruisvakje..."
-
-#, fuzzy
-#~ msgid "Content regex pattern"
-#~ msgstr "Logische opmaak"
-
-#, fuzzy
-#~ msgid "/Document/Document _Type"
-#~ msgstr "/Document/_Type"
-
-#, fuzzy
-#~ msgid "_Local Directory:"
-#~ msgstr "Map aanmaken"
-
-#, fuzzy
-#~ msgid "Show bookmarks for project files"
-#~ msgstr "Laat reserve bestanden zien"
-
-#~ msgid "Input _Methods"
-#~ msgstr "Invoer _Manieren"
-
-#~ msgid "Original"
-#~ msgstr "Orgineel"
-
-#~ msgid "Language"
-#~ msgstr "Taal"
-
-#~ msgid " line %4d "
-#~ msgstr " Regel %4d "
-
-#~ msgid "Backup for %s failed"
-#~ msgstr "Backup voor  %s mislukt"
-
-#~ msgid "Bluefish warning, file backup failure"
-#~ msgstr "Bluefish waarschuwing, backup van bestand mislukt"
-
-#~ msgid "Bluefish: Warning, file is open"
-#~ msgstr "Bluefish waarschuwing, bestand is open"
-
-#~ msgid ""
-#~ "File %s\n"
-#~ "is modified by another process\n"
-#~ "new modification time is %s\n"
-#~ "old modification time is %s\n"
-#~ "overwrite?"
-#~ msgstr ""
-#~ "Bestand %s\n"
-#~ "Is gewijzigd door een ander proces\n"
-#~ "Nieuwe wijzigings tijd %s\n"
-#~ "Oude   wijzigings tijd  %s\n"
-#~ "Overschrijven?"
-
-#~ msgid "Bluefish: Warning, file is modified"
-#~ msgstr "Bluefish: Waarschuwing, bestand is gewijzigd"
-
-#~ msgid "File save aborted, could not backup file:\n"
-#~ msgstr "Opslaan van bestand afgebroken, kon geen backup maken van:\n"
-
-#~ msgid "File save error, could not write file:\n"
-#~ msgstr "Fout bij opslaan van bestand:\n"
-
-#~ msgid ""
-#~ "Are you sure you want to close\n"
-#~ "%s ?"
-#~ msgstr ""
-#~ "Weet u zeker dat u %s\n"
-#~ "wilt sluiten?"
-
-#~ msgid "Bluefish warning: file is modified!"
-#~ msgstr "Bluefish waarschuwing: bestand is aangepast!"
-
-#~ msgid "cancel"
-#~ msgstr "annuleren"
-
-#~ msgid "Bluefish: Warning, some file(s) are modified!"
-#~ msgstr "Bluefish: Waarschuwing bestand(en) gewijzigd!"
-
-#~ msgid ""
-#~ "Some file(s) are modified\n"
-#~ "please choose your action"
-#~ msgstr ""
-#~ "Er zijn bestanden gewijzigd!\n"
-#~ "Wat wilt u?"
-
-#, fuzzy
-#~ msgid "No selection to indent"
-#~ msgstr "/Opties/Automatisch inspringen"
-
-#~ msgid "Path exists already"
-#~ msgstr "Path  bestaat al"
-
-#~ msgid "delete file?"
-#~ msgstr "Verwijder bestand?"
-
-#, fuzzy
-#~ msgid "Unindent"
-#~ msgstr "inspringen"
-
-#, fuzzy
-#~ msgid "Indent"
-#~ msgstr "in document"
-
-#~ msgid " line    1 "
-#~ msgstr "regel  1 "
-
-#, fuzzy
-#~ msgid "Backgou_nd Color:"
-#~ msgstr "Achtergrond-kleur"
-
-#~ msgid "/File/_Move to..."
-#~ msgstr "/Bestand/Verplaatsen..."
-
-#, fuzzy
-#~ msgid "/Edit/Ne_w find..."
-#~ msgstr "/Bewerken/Opnieuw zoeken"
-
-#, fuzzy
-#~ msgid "/Edit/New re_place..."
-#~ msgstr "/Bewerken/Opnieuw vervangen"
-
-#, fuzzy
-#~ msgid "/Edit/Block operations"
-#~ msgstr "Editor opties"
-
-#, fuzzy
-#~ msgid "/Edit/Block operations/Tearoff1"
-#~ msgstr "/Bewerken/Vervangen speciaal/Tearoff1"
-
-#, fuzzy
-#~ msgid "/Edit/_Goto line"
-#~ msgstr "/Bewerken/Regelnummer..."
-
-#~ msgid "/Document/_Previous"
-#~ msgstr "/Document/Vo_rige"
-
-#~ msgid "/Options/_Display"
-#~ msgstr "/Opties/_Beeld"
-
-#~ msgid "/Options/Display/tearoff1"
-#~ msgstr "/Opties/Beeld/tearoff1"
-
-#~ msgid "/Options/Display/View _Custom menu"
-#~ msgstr "/Opties/Beeld/Toon _Gebruikers werkbalk"
-
-#, fuzzy
-#~ msgid "/Options/_Tabsize"
-#~ msgstr "/Opties/sep2"
-
-#, fuzzy
-#~ msgid "/Options/Tabsize/tearoff1"
-#~ msgstr "/Opties/tearoff1"
-
-#~ msgid "/Options/sep2"
-#~ msgstr "/Opties/sep2"
-
-#~ msgid "/Options/_Auto indent"
-#~ msgstr "/Opties/_Automatisch inspringen"
-
-#~ msgid "(none)"
-#~ msgstr "(geen)"
-
-#, fuzzy
-#~ msgid "Edit custom menu"
-#~ msgstr "/_Aangepast menu"
-
-#~ msgid "case sensitive"
-#~ msgstr "Hoofdletter gevoelig"
-
-#, fuzzy
-#~ msgid "Advanced search and replace by default"
-#~ msgstr "aanpasbare zoek en vervang..."
-
-#~ msgid "Show other users files"
-#~ msgstr "Laat bestanden van andere gebruikers zien"
-
-#~ msgid "Bluefish warning: regular expression error"
-#~ msgstr "Bluefish waarschuwing: reguliere expressie error"
-
-# src/callbacks.c:425
-#, fuzzy
-#~ msgid "Bluefish message"
-#~ msgstr "Bluefish Preview"
-
-#, fuzzy
-#~ msgid "Beginning of all o_pened files"
-#~ msgstr "In alle geopende bestanden"
-
-#, fuzzy
-#~ msgid "POSIX _regular expression type "
-#~ msgstr "Reguliere expressie error: "
-
-#, fuzzy
-#~ msgid "PERL compatible regular e_xpression type"
-#~ msgstr "Gebruik reguliere expressie"
-
-#, fuzzy
-#~ msgid "_Text"
-#~ msgstr "Tekst"
-
-#, fuzzy
-#~ msgid "Replace _this"
-#~ msgstr "Vervang tekst"
-
-#, fuzzy
-#~ msgid "Custom _values:"
-#~ msgstr "Aangepaste waardes"
-
-#~ msgid "All"
-#~ msgstr "Alles"
-
-#~ msgid "Where"
-#~ msgstr "Waar"
-
-#, fuzzy
-#~ msgid "In s_election"
-#~ msgstr "In de selectie"
-
-#, fuzzy
-#~ msgid "Use posix _regular expression matching"
-#~ msgstr "Gebruik reguliere expressie"
+msgstr "Grootte:"
