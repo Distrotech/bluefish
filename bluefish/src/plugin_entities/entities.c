@@ -230,20 +230,31 @@ gchar *urlencode(const gchar *inbuf) {
 
 typedef enum {
 	mode_urlencode,
-	mode_urldecode
-} Tencode_mode;
+	mode_urldecode,
+	mode_tolowercase,
+	mode_touppercase
+} Treplace_mode;
 
-static void doc_code_selection(Tdocument *doc, Tencode_mode mode) {
+static void doc_code_selection(Tdocument *doc, Treplace_mode mode) {
 	gint start, end;
 	if (doc_get_selection(doc, &start, &end)) {
-		gchar *inbuf, *outbuf;
+		gchar *inbuf, *outbuf = NULL;
 		
 		inbuf = doc_get_chars(doc,start,end);
-		if (mode == mode_urlencode) {
-			outbuf = urlencode(inbuf);
-		} else {
-			outbuf = urldecode(inbuf);
-		}
+		switch (mode) {
+			case mode_urlencode:
+				outbuf = urlencode(inbuf);
+			break;
+			case mode_urldecode:
+				outbuf = urldecode(inbuf);
+			break;
+			case mode_tolowercase:
+				if (inbuf) outbuf = g_utf8_strdown(inbuf,-1);
+			break;
+			case mode_touppercase:
+				if (inbuf) outbuf = g_utf8_strup(inbuf,-1);
+			break;
+		}		
 		g_free(inbuf);
 		if (outbuf) {
 			doc_replace_text(doc,outbuf,start,end);
@@ -520,6 +531,12 @@ static void entity_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widg
 	case 3:
 		doc_code_selection(bfwin->current_document, mode_urldecode);
 	break;
+	case 4:
+		doc_code_selection(bfwin->current_document, mode_tolowercase);
+	break;
+	case 5:
+		doc_code_selection(bfwin->current_document, mode_touppercase);
+	break;
 	}
 }
 
@@ -552,7 +569,9 @@ static void entity_initgui(Tbfwin* bfwin) {
 		{N_("/Edit/Replace special/Entities to characters"), NULL, entity_menu_lcb, 0, "<Item>"},
 		{N_("/Edit/Replace special/Characters to entities"), NULL, entity_menu_lcb, 1, "<Item>"},
 		{N_("/Edit/Replace special/URL encode selection"), NULL, entity_menu_lcb, 2, "<Item>"},
-		{N_("/Edit/Replace special/URL decode selection"), NULL, entity_menu_lcb, 3, "<Item>"}
+		{N_("/Edit/Replace special/URL decode selection"), NULL, entity_menu_lcb, 3, "<Item>"},
+		{N_("/Edit/Replace special/To Lowercase"), NULL, entity_menu_lcb, 4, "<Item>"},
+		{N_("/Edit/Replace special/To Uppercase"), NULL, entity_menu_lcb, 5, "<Item>"}
 	};
 	ifactory = gtk_item_factory_from_widget(bfwin->menubar);
 #ifdef ENABLE_NLS
