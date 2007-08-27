@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * html_form.h - menu/toolbar callback prototypes
  *
- * Copyright (C) 2000 Olivier Sessink
+ * Copyright (C) 2000-2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
