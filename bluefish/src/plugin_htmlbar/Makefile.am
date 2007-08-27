@@ -38,12 +38,12 @@ htmlbar_la_SOURCES = \
 	wizards.c \
 	wizards.h
 
-htmlbar_la_LDFLAGS = -module -avoid-version $(WIN32_EXTRA_LDFLAGS)
+htmlbar_la_LDFLAGS = -module -avoid-version
 
 if OS_WIN32
-htmlbar_la_LDFLAGS += -export-symbols $(srcdir)/htmlbar.def
+htmlbar_la_LDFLAGS += -no-undefined -export-symbols $(srcdir)/htmlbar.def
 endif
 
 maintainer-clean-local:
-	cd $(srcdir)/po && rm -f boldquot.sed en@boldquot.header en@quot.header insert-header.sin Makefile.in.in quot.sed remove-potcdate.sin Rules-quot bluefish-unstable_plugin_htmlbar.pot
+	cd $(srcdir)/po && rm -f boldquot.sed en@boldquot.header en@quot.header insert-header.sin Makefile.in.in quot.sed remove-potcdate.sin Rules-quot $(PACKAGE)_plugin_htmlbar.pot
 
