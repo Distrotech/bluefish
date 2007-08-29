@@ -155,6 +155,15 @@ static gboolean checkmodified_is_modified(GnomeVFSFileInfo *orig, GnomeVFSFileIn
 	return FALSE;
 }
 
+static void checkmodified_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *results, /* GnomeVFSGetFileInfoResult* items */gpointer data);
+
+static gboolean checkmodified_asyncfileinfo_try_again_lcb(gpointer data) {
+	Tcheckmodified *cm = data;
+	gnome_vfs_async_get_file_info(&cm->handle,cm->uris,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS
+			,GNOME_VFS_PRIORITY_DEFAULT,checkmodified_asyncfileinfo_lcb,cm);
+	return FALSE;
+}
+
 static void checkmodified_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *results, /* GnomeVFSGetFileInfoResult* items */gpointer data) {
 	GnomeVFSGetFileInfoResult* item;
 	Tcheckmodified *cm = data;
@@ -171,13 +180,16 @@ static void checkmodified_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *
 			DEBUG_MSG("checkmodified_asyncfileinfo_lcb, calling callback with OK\n");
 			cm->callback_func(CHECKMODIFIED_OK, item->result, cm->orig_finfo, item->file_info, cm->callback_data);
 		}
+	} else if (item->result == GNOME_VFS_ERROR_TOO_MANY_OPEN_FILES) {
+		DEBUG_MSG("checkmodified_asyncfileinfo_lcb, TOO_MANY_OPEN_FILES, restarting in 0.4 seconds\n");
+		/* try again 0.5 sec. later! */
+		g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,400,checkmodified_asyncfileinfo_try_again_lcb,cm,NULL);	
 	} else {
 		DEBUG_MSG("checkmodified_asyncfileinfo_lcb, there was an error %d retrieving the fileinfo: %s\n",item->result, gnome_vfs_result_to_string(item->result));
 		cm->callback_func(CHECKMODIFIED_ERROR, item->result, NULL, NULL, cm->callback_data);
 	}	
 	checkmodified_cleanup(cm);
 }
-
 Tcheckmodified * file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data) {
 	Tcheckmodified *cm;
 	DEBUG_MSG("file_checkmodified_uri_async, STARTED for %s, curinfo=%p\n", gnome_vfs_uri_get_path(uri), curinfo);
