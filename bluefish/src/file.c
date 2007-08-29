@@ -240,6 +240,15 @@ static void savefile_asyncwrite_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult r
 	}
 }
 
+static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data);
+
+static gboolean savefile_asyncopenuri_try_again_lcb(gpointer data) {
+	Tsavefile *sf = data;
+	gnome_vfs_async_open_uri(&sf->handle,sf->uri,GNOME_VFS_OPEN_WRITE,GNOME_VFS_PRIORITY_DEFAULT-1
+				,savefile_asyncopenuri_lcb,sf);
+	return FALSE;
+}
+
 static void savefile_asynccreateuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer data) {
 	Tsavefile *sf = data;
 	DEBUG_MSG("savefile_asynccreateuri_lcb, called with result=%d (%s)\n",result,gnome_vfs_result_to_string(result));
@@ -247,6 +256,10 @@ static void savefile_asynccreateuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 		DEBUG_MSG("savefile_asyncopenuri_lcb, called with GNOME_VFS_OK (%d)\n",result);
 		sf->callback_func(SAVEFILE_CHANNEL_OPENED, result, sf->callback_data);
 		gnome_vfs_async_write(handle,sf->buffer->data,sf->buffer_size,savefile_asyncwrite_lcb, sf);
+	} else if (result == GNOME_VFS_ERROR_TOO_MANY_OPEN_FILES) {
+		DEBUG_MSG("savefile_asynccreateuri_lcb, restarting in 0.5 seconds\n");
+		/* try again 0.5 sec. later! */
+		g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,500,savefile_asyncopenuri_try_again_lcb,sf,NULL);	
 	} else {
 		/* error! */
 		DEBUG_MSG("savefile_asyncopenuri_lcb, called with some error (%d=%s)!!! calling NOCHANNEL and aborting\n",result,gnome_vfs_result_to_string(result));
@@ -267,6 +280,10 @@ static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 		DEBUG_MSG("savefile_asyncopenuri_lcb, uri %p (%s) not found, we have to create the file\n",sf->uri,gnome_vfs_uri_get_path(sf->uri));
 		gnome_vfs_async_create_uri(&sf->handle,sf->uri,GNOME_VFS_OPEN_WRITE, FALSE,0644,GNOME_VFS_PRIORITY_DEFAULT
 					,savefile_asynccreateuri_lcb,sf);
+	} else if (result == GNOME_VFS_ERROR_TOO_MANY_OPEN_FILES) {
+		DEBUG_MSG("savefile_asyncopenuri_lcb, restarting in 0.5 seconds\n");
+		/* try again 0.5 sec. later! */
+		g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,500,savefile_asyncopenuri_try_again_lcb,sf,NULL);	
 	} else {
 		savefile_asynccreateuri_lcb(handle, result, data);
 	}
