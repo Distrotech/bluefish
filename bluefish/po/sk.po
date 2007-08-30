@@ -1,7 +1,7 @@
 # translation of 17-01-06_sk-2.po to
 # Blue Fish - HTML Editor pre programátorov.
 # Copyright (C) 2000, 2006 Free Software Foundation, Inc.
-# FIRST AUTHOR Vladimir VASIL <vvasil@post.sk>, 2005.
+# Vladimir VASIL Vladimir VASIL <vvasil@post.sk>, 2005.
 # Vladimir VASIL <vlado@localhost.localdomain>, 2006.
 #
 msgid ""
@@ -9,14 +9,12 @@ msgstr ""
 "Project-Id-Version: 17-01-06_sk-2\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-09-05 21:29+0200\n"
-"PO-Revision-Date: 2006-01-18 14:51+0100\n"
+"PO-Revision-Date: 2007-08-17 14:11+0200\n"
 "Last-Translator: Vladimir VASIL <vvasil@post.sk>\n"
 "Language-Team:  <sk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"First-Translator: Vladimir VASIL <vvasil@post.sk>\n"
-"X-Generator: KBabel 1.10\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../src/about.c:56
 msgid ""
@@ -30,10 +28,10 @@ msgid ""
 "\n"
 "This version of bluefish was compiled with the following options:\n"
 msgstr ""
-"Bluefish je editor pre skusených web dizajnérov a programátorov.Podporuje "
+"Bluefish je editor pre skúsených web dizajnérov a programátorov. Podporuje "
 "mnoho programovacích a značkovacích jazykov, ale zameriava sa na editáciu "
-"dynamických a interaktivních webov. Bluefish je vyvíjaný ako open source "
-"projekt, vydávaný pod GPL licencí.\n"
+"dynamických a interaktívnich webov. Bluefish je vyvíjaný ako open source "
+"projekt, vydávaný pod GPL licenciou.\n"
 "\n"
 "Pre viac informácií, navštívte Bluefish na adrese  http://bluefish."
 "openoffice.nl/\n"
@@ -41,7 +39,6 @@ msgstr ""
 "Táto verzia bluefish bola zkompilovaná s následujúcimi parametrami:\n"
 
 #: ../src/about.c:57
-#, fuzzy
 msgid ""
 "Project leader:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
@@ -112,10 +109,10 @@ msgid ""
 "\n"
 "Thanks to all who helped making this software available.\n"
 msgstr ""
-"Vedúcí projektu:\n"
+"Vedúci projektu:\n"
 "  Olivier Sessink <olivier@bluefish.openoffice.nl>\n"
 "\n"
-"Vyvojáry pre túto verziu:\n"
+"Vývojári pre túto verziu:\n"
 "  Olivier Sessink\n"
 "   <olivier@bluefish.openoffice.nl>\n"
 "  Jim Hayward\n"
@@ -127,7 +124,7 @@ msgstr ""
 "  Alastair Porter\n"
 "   <alastair@linuxexperience.com>\n"
 "\n"
-"Vyvojári predchadzajúceho vydánia:\n"
+"Vyvojári predchadzajúceho vydania:\n"
 "  Chris Mazuc\n"
 "  Neil Millar\n"
 "  Gero Takke\n"
@@ -289,8 +286,9 @@ msgstr ""
 "  Ruština - Eugene Rupakov\n"
 "   <rupakov@jet.msk.su>\n"
 "\n"
-"  Slovenčina - Vladimír Vasil\n"
-"   <vvasil@post.sk>\n"
+"  Slovenčina\n"
+"   Vladimír Vasil - <vvasil@post.sk>\n"
+"   Pavol Klačanský - <pavolzetor@gmail.com>\n"
 "\n"
 "  Srbština - Marko Milenović\n"
 "   <raven@sbb.co.yu>\n"
@@ -307,7 +305,7 @@ msgstr ""
 
 #: ../src/about.c:173
 msgid "About Bluefish"
-msgstr "O Bluefis"
+msgstr "O-Bluefish"
 
 #: ../src/about.c:203
 msgid ""
@@ -317,7 +315,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Výsledok hľadania z :\n"
+"Výsledok hľadania z:\n"
 
 #: ../src/about.c:230 ../src/fref.c:1470 ../src/fref.c:1754 ../src/fref.c:1841
 #: ../src/fref.c:1876 ../src/fref.c:2354
@@ -334,7 +332,7 @@ msgstr "Prekladatelia"
 
 #: ../src/authen.c:76
 msgid "Authentication required"
-msgstr "Prihláseníe požadováné"
+msgstr "Prihlásenie požadované"
 
 #: ../src/authen.c:86
 #, c-format
@@ -343,7 +341,7 @@ msgstr "Prihlásení je požadované pre %s."
 
 #: ../src/authen.c:92
 msgid "Username:"
-msgstr "Užívateľ:"
+msgstr "Používateľ:"
 
 #: ../src/authen.c:97
 msgid "Password:"
@@ -415,7 +413,7 @@ msgstr "Nastaviť _ako východzí"
 
 #: ../src/bfspell.c:456
 msgid "Filter:"
-msgstr "Filter :"
+msgstr "Filter:"
 
 #: ../src/bfspell.c:464
 msgid "no filter"
@@ -432,7 +430,7 @@ msgid ""
 "Usage: %s [options] [filenames ...]\n"
 msgstr ""
 "\n"
-"Použitie: %s [voťby] [súbory ...]\n"
+"Použitie: %s [voľby] [súbory ...]\n"
 
 #: ../src/bluefish.c:99
 msgid ""
@@ -456,7 +454,7 @@ msgstr "-v          otvoriť nové okno\n"
 
 #: ../src/bluefish.c:103
 msgid "-p filename  open project\n"
-msgstr "-p soubor  otvoriť projekt\n"
+msgstr "-p súbor  otvoriť projekt\n"
 
 #: ../src/bluefish.c:104
 msgid "-h           this help screen\n"
@@ -480,7 +478,7 @@ msgstr "vytváram hlavné gui..."
 
 #: ../src/bluefish.c:226
 msgid "showing main gui..."
-msgstr "aktivujem hlavní gui..."
+msgstr "aktivujem hlavné gui..."
 
 #: ../src/bluefish.c:263
 msgid ""
@@ -493,10 +491,10 @@ msgid ""
 msgstr ""
 "<span weight=\"bold\" size=\"larger\">Bluefish Tip:</span>\n"
 "\n"
-"Tato zpráva sa bude zobrazovať pokiaľ nebudete mať žiadné tlačítka v "
+"Tato zpráva sa bude zobrazovať pokiaľ nebudete mať žiadne tlačidlá v "
 "Quickbare.\n"
 "\n"
-"Kliknitím pravého tlačítka myši na tlačítko v HTML lište ho môžete pridať do "
+"Kliknutím pravého tlačidla myši na tlačítko v HTML lište ho môžete pridať do "
 "Quickbaru.\n"
 
 #: ../src/bluefish.c:267
@@ -551,7 +549,7 @@ msgstr "Editácia záložky"
 
 #: ../src/bookmark.c:676
 msgid "Goto bookmark"
-msgstr "Presun na záložku"
+msgstr "Presuň na záložku"
 
 #: ../src/bookmark.c:684
 msgid "Edit"
@@ -576,7 +574,7 @@ msgstr "Pridať záložku"
 
 #: ../src/bookmark.c:1282 ../src/bookmark.c:1335
 msgid "Cannot add bookmarks in unnamed files."
-msgstr "Nieje možné pridať záložky v nepomenovaných súboroch."
+msgstr "Nie je možné pridať záložky v nepomenovaných súboroch."
 
 #: ../src/bookmark.c:1299
 msgid "You already have a bookmark here!"
@@ -588,7 +586,7 @@ msgstr "Zmazať všetky záložky."
 
 #: ../src/bookmark.c:1372
 msgid "Are you sure?"
-msgstr "Skutočne to mám urobyť?"
+msgstr "Skutočne to mám urobiť?"
 
 #: ../src/bookmark.c:1415
 msgid "File size changed in file\n"
@@ -616,7 +614,7 @@ msgid ""
 "Encoding: "
 msgstr ""
 "\n"
-"Kódovaníe: "
+"Kódovanie: "
 
 #: ../src/document.c:712
 msgid ""
@@ -654,7 +652,7 @@ msgstr "Nepomenovaný %d"
 #: ../src/document.c:1099
 #, c-format
 msgid " Ln: %d, Col: %d"
-msgstr " Ria: %d, Slo: %d"
+msgstr " Ria: %d, Stĺ: %d"
 
 #: ../src/document.c:1132 ../src/document.c:1133
 #, c-format
@@ -663,11 +661,11 @@ msgstr "  %s, %s"
 
 #: ../src/document.c:1426 ../src/document.c:1447
 msgid "Could not read file:\n"
-msgstr "Nemôžem otvoríť súbor:\n"
+msgstr "Nemôžem otvoriť súbor:\n"
 
 #: ../src/document.c:1478
 msgid "Opening file "
-msgstr "Otváraníe súboru"
+msgstr "Otváranie súboru"
 
 #: ../src/document.c:1593
 msgid "Cannot display file, unknown characters found."
@@ -695,11 +693,11 @@ msgstr "Upraviť tag"
 
 #: ../src/document.c:2256
 msgid "Saving file"
-msgstr "Uloženíe súboru"
+msgstr "Uloženie súboru"
 
 #: ../src/document.c:2302 ../src/document.c:2326
 msgid "_Abort save"
-msgstr "_Prerušiť ukladaníe"
+msgstr "_Prerušiť ukladanie"
 
 #: ../src/document.c:2302
 msgid "_Continue save"
@@ -711,12 +709,12 @@ msgid ""
 "A backupfile for %s could not be created. If you continue, this file will be "
 "overwritten."
 msgstr ""
-"Zálohu súboru %s nieje možné vytvoriť. Ak budete pokračovať, súbor bude "
+"Zálohu súboru %s nie je možné vytvoriť. Ak budete pokračovať, súbor bude "
 "prepísaný."
 
 #: ../src/document.c:2305
 msgid "File backup failure"
-msgstr "Zálohovanie súboru se nepodarylo"
+msgstr "Zálohovanie súboru se nepodarilo"
 
 #: ../src/document.c:2326
 msgid "_Continue save in UTF-8"
@@ -730,7 +728,7 @@ msgid ""
 "\n"
 "Continue saving in UTF-8 encoding?"
 msgstr ""
-"Konverzia %s na kódovanie %s sa nepodarila. Konverzia zlihala na znaku'%s' "
+"Konverzia %s na kódovanie %s sa nepodarila. Konverzia zlyhala na znaku'%s' "
 "na riadku %d znak %d\n"
 "\n"
 "Pokračovať v ukladaní v UTF-8?"
@@ -741,7 +739,7 @@ msgstr "Konverzia kódovania súboru sa nepodarila"
 
 #: ../src/document.c:2470
 msgid "Previously: "
-msgstr "Predchadzajúci: "
+msgstr "Predchádzajúci: "
 
 #: ../src/document.c:2502
 #, c-format
@@ -795,8 +793,8 @@ msgid ""
 msgstr ""
 "Súbor: %s\n"
 "\n"
-"Nový čas modifikacie: %s\n"
-"Starý čas modifikacie: %s"
+"Nový čas modifikácie: %s\n"
+"Starý čas modifikácie: %s"
 
 #: ../src/document.c:2656
 msgid "File has been modified by another process."
@@ -817,7 +815,7 @@ msgstr ""
 
 #: ../src/document.c:2684
 msgid "File save aborted.\n"
-msgstr "Ukladaníe súboru prerušené.\n"
+msgstr "Ukladanie súboru prerušené.\n"
 
 #: ../src/document.c:2689
 msgid ""
@@ -857,20 +855,20 @@ msgid ""
 "These files could not opened:\n"
 "\n"
 msgstr ""
-"Tieto súbory se nepodarilo otvoríť:\n"
+"Tieto súbory se nepodarilo otvoriť:\n"
 "\n"
 
 #: ../src/document.c:3201 ../src/msg_queue.c:241
 msgid "Unable to open file(s)\n"
-msgstr "Nemôžem otvoríť súbor(y)\n"
+msgstr "Nemôžem otvoriť súbor(y)\n"
 
 #: ../src/document.c:3233
 msgid "Unable to open file"
-msgstr "Nemôžem otvoríť súbor"
+msgstr "Nemôžem otvoriť súbor"
 
 #: ../src/document.c:3295
 msgid "_Reload"
-msgstr "Načístať z_nova"
+msgstr "Načítať z_nova"
 
 #: ../src/document.c:3295
 msgid "_Ignore"
@@ -911,7 +909,7 @@ msgstr "grep {obsahuje} `find {adresár} -name '{typ súboru}'`"
 
 #: ../src/document.c:3473
 msgid "<b>General</b>"
-msgstr "<b>Obecné</b>"
+msgstr "<b>Všeobecné</b>"
 
 #: ../src/document.c:3475
 msgid "Base_dir:"
@@ -919,7 +917,7 @@ msgstr "Základný a_dresár:"
 
 #: ../src/document.c:3477 ../src/gtk_easy.c:1330
 msgid "_Browse..."
-msgstr "_Precházať..."
+msgstr "_Prechádzať..."
 
 #: ../src/document.c:3495
 msgid "_File Type:"
@@ -939,15 +937,15 @@ msgstr "Vz_or:"
 
 #: ../src/document.c:3513
 msgid "Is rege_x:"
-msgstr "_Regulárni výraz:"
+msgstr "_Regulárny výraz:"
 
 #: ../src/document.c:3648
 msgid "Open URL"
-msgstr "Otvoríť URL"
+msgstr "Otvoriť URL"
 
 #: ../src/document.c:3652
 msgid "<b>Open URL</b>"
-msgstr "<b>Otvoríť URL</b>"
+msgstr "<b>Otvoriť URL</b>"
 
 #: ../src/document.c:3698 ../src/gtk_easy.c:1627
 msgid "Select files"
@@ -964,7 +962,7 @@ msgstr "Vyberte súbor k vloženiu"
 
 #: ../src/document.c:3790
 msgid "No file to insert"
-msgstr "Žiadný súbor k vloženiu"
+msgstr "Žiadny súbor k vloženiu"
 
 #: ../src/document.c:3843
 msgid "_Save All"
@@ -980,7 +978,7 @@ msgstr "Vybrať _po súbore"
 
 #: ../src/document.c:3844
 msgid "Multiple open files have been changed."
-msgstr "Viacero otvorených súborov bylo zmenených."
+msgstr "Viacero otvorených súborov bolo zmenených."
 
 #: ../src/document.c:4092
 #, c-format
@@ -997,7 +995,7 @@ msgstr "Uvedená cesta už existuje."
 
 #: ../src/filebrowser.c:1133
 msgid "File name"
-msgstr "Název súboru"
+msgstr "Názov súboru"
 
 #: ../src/filebrowser.c:1135
 msgid "Directory name"
@@ -1005,7 +1003,7 @@ msgstr "Názov adresára"
 
 #: ../src/filebrowser.c:1166
 msgid "Opening directory..."
-msgstr "Otváraníe adresára..."
+msgstr "Otváranie adresára..."
 
 #: ../src/filebrowser.c:1255 ../src/filebrowser.c:1259
 msgid "Could not rename\n"
@@ -1026,7 +1024,7 @@ msgstr "Nemôžem smazať \n"
 
 #: ../src/filebrowser.c:1455
 msgid "/Open _Advanced..."
-msgstr "/Otevoríť _Rozšírene..."
+msgstr "/Otvoriť Pok_ročilé..."
 
 #: ../src/filebrowser.c:1459
 msgid "/_Refresh"
@@ -1046,7 +1044,7 @@ msgstr "/_Vytvoriť adresár"
 
 #: ../src/filebrowser.c:1470
 msgid "/_Open"
-msgstr "/_Otvoríť"
+msgstr "/_Otvoriť"
 
 #: ../src/filebrowser.c:1471
 msgid "/Rena_me"
@@ -1098,7 +1096,7 @@ msgstr "Vlastnosti"
 
 #: ../src/fref.c:1855
 msgid "Rescan reference files"
-msgstr "Znovu prskenovať súbory referencií"
+msgstr "Znovu preskenovať súbory referencií"
 
 #: ../src/fref.c:1859
 msgid "Left doubleclick action"
@@ -1114,7 +1112,7 @@ msgstr "Popis"
 
 #: ../src/fref.c:1891
 msgid "Attributes/Parameters"
-msgstr "Atributy/Parametry"
+msgstr "Atribúty/Parametre"
 
 #: ../src/fref.c:1896
 msgid "Notes"
@@ -1122,7 +1120,7 @@ msgstr "Poznámky"
 
 #: ../src/fref.c:2073 ../src/fref.c:2087
 msgid "Reference search"
-msgstr "Hľadať v referenciach"
+msgstr "Hľadať v referenciách"
 
 #: ../src/fref.c:2088
 msgid "Reference not found"
@@ -1137,7 +1135,7 @@ msgid ""
 "Perhaps you didn't load a reference, or you did not select a reference to "
 "search in."
 msgstr ""
-"Pravdepodobně nebola nenahraná referencia, alebo nebola vybrána referencia k "
+"Pravdepodobne nebola nahraná referencia, alebo nebola vybraná referencia k "
 "hľadaniu."
 
 #: ../src/fref.c:2339
@@ -1187,7 +1185,7 @@ msgstr "Tučné"
 
 #: ../src/gui.c:597
 msgid "Italic"
-msgstr "Kurzivá"
+msgstr "Kurzíva"
 
 #: ../src/gui.c:598 ../src/html.c:773
 msgid "Paragraph"
@@ -1199,7 +1197,7 @@ msgstr "Konec riadku"
 
 #: ../src/gui.c:600
 msgid "Break and clear"
-msgstr "Zalomenie načístané"
+msgstr "Zalomenie vyčistenie"
 
 #: ../src/gui.c:601
 msgid "Non-breaking space"
@@ -1215,11 +1213,11 @@ msgstr "Čiara..."
 
 #: ../src/gui.c:605
 msgid "Center"
-msgstr "Nastřed"
+msgstr "Nastred"
 
 #: ../src/gui.c:606
 msgid "Right Justify"
-msgstr "Zarovnavať vpravo"
+msgstr "Zarovnaváť vpravo"
 
 #: ../src/gui.c:607
 msgid "Comment"
@@ -1251,11 +1249,11 @@ msgstr "Predformatovaný text"
 
 #: ../src/gui.c:615
 msgid "Subscript"
-msgstr "Dolní index"
+msgstr "Dolný index"
 
 #: ../src/gui.c:616
 msgid "Superscript"
-msgstr "Horní index"
+msgstr "Horný index"
 
 #: ../src/gui.c:617
 msgid "Strong"
@@ -1267,27 +1265,27 @@ msgstr "Zvýraznené"
 
 #: ../src/gui.c:620 ../src/html.c:782
 msgid "Heading 1"
-msgstr "Nádpis 1"
+msgstr "Nadpis 1"
 
 #: ../src/gui.c:621 ../src/html.c:785
 msgid "Heading 2"
-msgstr "Nádpis 2"
+msgstr "Nadpis 2"
 
 #: ../src/gui.c:622 ../src/html.c:788
 msgid "Heading 3"
-msgstr "Nádpis 3"
+msgstr "Nadpis 3"
 
 #: ../src/gui.c:623 ../src/html.c:791
 msgid "Heading 4"
-msgstr "Nádpis 4"
+msgstr "Nadpis 4"
 
 #: ../src/gui.c:624 ../src/html.c:794
 msgid "Heading 5"
-msgstr "Nádpis 5"
+msgstr "Nadpis 5"
 
 #: ../src/gui.c:625 ../src/html.c:797
 msgid "Heading 6"
-msgstr "Nádpis 6"
+msgstr "Nadpis 6"
 
 #: ../src/gui.c:626
 msgid "Table Wizard..."
@@ -1327,7 +1325,7 @@ msgstr "Bunka tabuľky"
 
 #: ../src/gui.c:637
 msgid "Table Caption"
-msgstr "Nádpis tabuľky"
+msgstr "Nadpis tabuľky"
 
 #: ../src/gui.c:638
 msgid "Frame Wizard..."
@@ -1363,7 +1361,7 @@ msgstr "Formulár..."
 
 #: ../src/gui.c:648
 msgid "Input Button..."
-msgstr "Tlačítko typu submit, reset..."
+msgstr "Tlačidlo typu submit, reset..."
 
 #: ../src/gui.c:649
 msgid "Input Text..."
@@ -1383,7 +1381,7 @@ msgstr "Prepínač..."
 
 #: ../src/gui.c:653
 msgid "Input Check Box..."
-msgstr "Zaškrtávacie tlačítko..."
+msgstr "Zaškrtávacie tlačidlo..."
 
 #: ../src/gui.c:654
 msgid "Select..."
@@ -1399,7 +1397,7 @@ msgstr "Skupina prvkov..."
 
 #: ../src/gui.c:657
 msgid "Button..."
-msgstr "Tlačítko..."
+msgstr "Tlačidlo..."
 
 #: ../src/gui.c:658
 msgid "Quick List..."
@@ -1427,11 +1425,11 @@ msgstr "Definičný termín"
 
 #: ../src/gui.c:664 ../src/gui.c:673
 msgid "Definition"
-msgstr "Definicia"
+msgstr "Definícia"
 
 #: ../src/gui.c:665
 msgid "Create stylesheet..."
-msgstr "Vytovriť zošit štylov..."
+msgstr "Vytvoriť zošit štýlov..."
 
 #: ../src/gui.c:666
 msgid "Span..."
@@ -1447,7 +1445,7 @@ msgstr "Štýl"
 
 #: ../src/gui.c:669
 msgid "Link to stylesheet..."
-msgstr "Priradiť zošitu štyl..."
+msgstr "Priradiť zošitu štýl..."
 
 #: ../src/gui.c:670
 msgid "Insert image..."
@@ -1511,15 +1509,15 @@ msgstr " Rýchle spúšťanie "
 
 #: ../src/gui.c:1020
 msgid "Heading"
-msgstr "Nádpis"
+msgstr "Nadpis"
 
 #: ../src/gui.c:1022
 msgid " Standard bar "
-msgstr "Štandardná lišta"
+msgstr "Štandartná lišta"
 
 #: ../src/gui.c:1027
 msgid "Context formatting"
-msgstr "Formatovanie obsahu"
+msgstr "Formátovanie obsahu"
 
 #: ../src/gui.c:1029
 msgid " Fonts "
@@ -1563,7 +1561,7 @@ msgstr "Uložiť ako..."
 
 #: ../src/gui.c:1095
 msgid "Cut"
-msgstr "Vyňať"
+msgstr "Vystrihnúť"
 
 #: ../src/gui.c:1097
 msgid "Copy"
@@ -1583,7 +1581,7 @@ msgstr "Nahradiť..."
 
 #: ../src/gui.c:1107 ../src/preferences.c:2028
 msgid "Undo"
-msgstr "Krok speť (Undo)"
+msgstr "Krok späť (Undo)"
 
 #: ../src/gui.c:1109
 msgid "Redo"
@@ -1591,11 +1589,11 @@ msgstr "Vrátiť späť"
 
 #: ../src/gui.c:1113 ../src/gui.c:1118
 msgid "Shift Left"
-msgstr "Posunuť Blok Vľavo"
+msgstr "Posunúť Blok Vľavo"
 
 #: ../src/gui.c:1115 ../src/gui.c:1120
 msgid "Shift Right"
-msgstr "Posunuť Blok Vpravo"
+msgstr "Posunúť Blok Vpravo"
 
 #: ../src/gui.c:1127
 msgid "Spellcheck..."
@@ -1603,7 +1601,7 @@ msgstr "Kontrola pravopisu..."
 
 #: ../src/gui.c:1132
 msgid "View in browser"
-msgstr "Zobraziť v prehľadači"
+msgstr "Zobraziť v prehliadači"
 
 #: ../src/gui.c:1135
 msgid "Preferences..."
@@ -1705,7 +1703,7 @@ msgstr " _Zmazať "
 
 #: ../src/html2.c:897 ../src/html2.c:934
 msgid "_Style..."
-msgstr "Š_tyl..."
+msgstr "Š_týl..."
 
 #: ../src/html2.c:1091
 msgid "Bluefish: Select color"
@@ -1750,7 +1748,7 @@ msgstr " Deň v týždni (Sobota)"
 
 #: ../src/html.c:419
 msgid "You appear to have a non existant day!\n"
-msgstr "Zdž sa, že zkúšate neznámý deň!\n"
+msgstr "Zdá sa, že skúšate neznámy deň!\n"
 
 #: ../src/html.c:427
 #, c-format
@@ -1765,7 +1763,7 @@ msgstr " _Unixový čas (%i)"
 #: ../src/html.c:433
 #, c-format
 msgid "  Unix Date _String (%s"
-msgstr " Reťazec unixového data (%s"
+msgstr " Reťazec unixového dátumu (%s"
 
 #: ../src/html.c:439
 #, c-format
@@ -1774,11 +1772,11 @@ msgstr "  ISO-8601 Č_as (%s)"
 
 #: ../src/html.c:581
 msgid "Quick Anchor"
-msgstr "Rýchlz odkaz"
+msgstr "Rýchly odkaz"
 
 #: ../src/html.c:587 ../src/html_form.c:780
 msgid "Attributes"
-msgstr "Atributy"
+msgstr "Atribúty"
 
 #: ../src/html.c:601 ../src/html.c:2156
 msgid "_HREF:"
@@ -1899,7 +1897,7 @@ msgstr "Bez _tieňa"
 
 #: ../src/html.c:1058 ../src/quickstart.c:639
 msgid "Quick Start"
-msgstr "Rýchle začať"
+msgstr "Rýchlo začať"
 
 #: ../src/html.c:1107
 msgid "_Doctype:"
@@ -1947,11 +1945,11 @@ msgstr "Farba od_kazu:"
 
 #: ../src/html.c:1359
 msgid "_Visited Link Color:"
-msgstr "Farba navštivené_ho odkazu:"
+msgstr "Farba navštívené_ho odkazu:"
 
 #: ../src/html.c:1365
 msgid "_Active Link Color:"
-msgstr "Farba ak_tivního odkazu:"
+msgstr "Farba ak_tívneho odkazu:"
 
 #: ../src/html.c:1417
 msgid "Meta"
@@ -1975,7 +1973,7 @@ msgstr "Font"
 
 #: ../src/html.c:1554
 msgid "Base Font"
-msgstr "Základni font"
+msgstr "Základný font"
 
 #: ../src/html.c:1569
 msgid "Size"
@@ -1991,7 +1989,7 @@ msgstr "Typ"
 
 #: ../src/html.c:1586
 msgid "Custom"
-msgstr "Vlastni"
+msgstr "Vlastný"
 
 #: ../src/html.c:1690
 msgid "E-mail"
@@ -2007,15 +2005,15 @@ msgstr "Kopírovať do:"
 
 #: ../src/html.c:1706
 msgid "Blin_d copy to:"
-msgstr "Skrité kopírovať _do:"
+msgstr "Skryté kopírovať _do:"
 
 #: ../src/html.c:1711
 msgid "with _Subject:"
-msgstr "so _Subjektom:"
+msgstr "_s predmetom:"
 
 #: ../src/html.c:1713
 msgid "with _Subject (URL-encoded):"
-msgstr " _Subjekt (URL-kódovanie):"
+msgstr "_s predmetom (URL-kódovanie):"
 
 #: ../src/html.c:1719
 msgid "with _Body:"
@@ -2027,7 +2025,7 @@ msgstr "s _Body (URL-kódovanie):"
 
 #: ../src/html.c:1766
 msgid "Quick List"
-msgstr "Rýchlz zoznam"
+msgstr "Rýchly zoznam"
 
 #: ../src/html.c:1771 ../src/html.c:1853 ../src/html_form.c:236
 msgid "_Rows:"
@@ -2043,7 +2041,7 @@ msgstr "N_ečíslovaný"
 
 #: ../src/html.c:1777
 msgid "Style:"
-msgstr "Štyl:"
+msgstr "Štýl:"
 
 #: ../src/html.c:1849 ../src/html_form.c:240
 msgid "Co_ls:"
@@ -2059,7 +2057,7 @@ msgstr "_Zdroj:"
 
 #: ../src/html.c:1943
 msgid "Margin _Width:"
-msgstr "Šířka _okraja:"
+msgstr "Šírka _okraja:"
 
 #: ../src/html.c:1947
 msgid "Margin _Height:"
@@ -2108,15 +2106,15 @@ msgstr "_Titulok:"
 
 #: ../src/html.c:2207
 msgid "_Forward Relation:"
-msgstr "Relacia V_pred:"
+msgstr "Relácia V_pred:"
 
 #: ../src/html.c:2211
 msgid "_Reverse Relation:"
-msgstr "Relacia V_zad:"
+msgstr "Relácia V_zad:"
 
 #: ../src/html.c:2222
 msgid "Media:"
-msgstr "Média:"
+msgstr "Médium:"
 
 #: ../src/html.c:2226
 msgid "L_ang:"
@@ -2124,7 +2122,7 @@ msgstr "J_azyk:"
 
 #: ../src/html.c:2230
 msgid "_Custom:"
-msgstr "V_lastni:"
+msgstr "V_lastný:"
 
 #: ../src/html_form.c:141
 msgid "Form"
@@ -2140,7 +2138,7 @@ msgstr "Metó_da:"
 
 #: ../src/html_form.c:176
 msgid "_Enctype:"
-msgstr "_Enctype:"
+msgstr "Kódovani_e:"
 
 #: ../src/html_form.c:225
 msgid "Text area"
@@ -2192,7 +2190,7 @@ msgstr "_Akceptuje:"
 
 #: ../src/html_form.c:820
 msgid "C_ustom:"
-msgstr "Vl_astne:"
+msgstr "Vl_astné:"
 
 #: ../src/html_form.c:832
 msgid "On_Focus:"
@@ -2212,7 +2210,7 @@ msgstr "On_Change:"
 
 #: ../src/html_form.c:884
 msgid "Button"
-msgstr "Tlačítko"
+msgstr "Tlačidlo"
 
 #: ../src/html_table.c:86
 msgid "Cell _Padding:"
@@ -2220,7 +2218,7 @@ msgstr "Vnútorný odstu_p bunky:"
 
 #: ../src/html_table.c:90
 msgid "C_ell Spacing:"
-msgstr "Roz_ostup mezi bunkami:"
+msgstr "Roz_ostup medzi bunkami:"
 
 #: ../src/html_table.c:126 ../src/html_table.c:236 ../src/html_table.c:350
 msgid "_Valign:"
@@ -2236,7 +2234,7 @@ msgstr "_Rám:"
 
 #: ../src/html_table.c:168
 msgid "R_ules:"
-msgstr "Po_súvníky:"
+msgstr "Po_suvníky:"
 
 #: ../src/html_table.c:368
 msgid "Co_l Span:"
@@ -2248,15 +2246,15 @@ msgstr "Zlúčenie ria_dkov:"
 
 #: ../src/html_table.c:377
 msgid "No Wra_p:"
-msgstr "Nazalamovať slo_vá:"
+msgstr "Nezalamovať slo_vá:"
 
 #: ../src/image.c:282
 msgid "Insert thumbnail"
-msgstr "Vložit náhľad"
+msgstr "Vložiť náhľad"
 
 #: ../src/image.c:284
 msgid "Insert image"
-msgstr "Vlož obrázok"
+msgstr "Vložiť obrázok"
 
 #: ../src/image.c:290
 msgid "Preview"
@@ -2264,7 +2262,7 @@ msgstr "Prehľad"
 
 #: ../src/image.c:310
 msgid "_Image location:"
-msgstr "_Umíestnenie obrázku:"
+msgstr "_Umiestnenie obrázku:"
 
 #: ../src/image.c:325
 msgid "Hei_ght:"
@@ -2272,11 +2270,11 @@ msgstr "_Výška:"
 
 #: ../src/image.c:330
 msgid "_Usemap:"
-msgstr "Po_uži mapu:"
+msgstr "Po_užiť mapu:"
 
 #: ../src/image.c:338
 msgid "Alternate _text:"
-msgstr "Alternativní _text:"
+msgstr "Alternatívny _text:"
 
 #: ../src/image.c:346
 msgid "_Hspace:"
@@ -2300,7 +2298,7 @@ msgstr "Zmena veľkosti (%)"
 
 #: ../src/image.c:567 ../src/image.c:575
 msgid "Width"
-msgstr "Šířka"
+msgstr "Šírka"
 
 #: ../src/image.c:571 ../src/image.c:598
 msgid "Height"
@@ -2333,7 +2331,7 @@ msgid ""
 "%x: thumbnail width  %y: thumbnail height\n"
 "%b: original size (bytes)"
 msgstr ""
-"%r: pôvodné méno  %t: méno náhľadu\n"
+"%r: pôvodné meno  %t: meno náhľadu\n"
 "%w: pôvodná šírka  %h: pôvodná výška\n"
 "%x: šírka náhľadu  %y: výška náhľadu\n"
 "%b: pôvodná veľkosť (bajtov)"
@@ -2356,7 +2354,7 @@ msgstr "/Súbor/_Otvoriť..."
 
 #: ../src/menu.c:327
 msgid "/File/Open _recent"
-msgstr "/Súbor/Otvoriť ne_dávné"
+msgstr "/Súbor/Otvoriť ne_dávne"
 
 #: ../src/menu.c:331
 msgid "/File/Open Ad_vanced..."
@@ -2432,7 +2430,7 @@ msgstr "/Úpravy/Vrátiť v_šetko"
 
 #: ../src/menu.c:359
 msgid "/Edit/Cu_t"
-msgstr "/Úpravy/Vys_tryhnuť"
+msgstr "/Úpravy/Vys_trihnúť"
 
 #: ../src/menu.c:360
 msgid "/Edit/_Copy"
@@ -2464,7 +2462,7 @@ msgstr "/Úpravy/Na_hradiť..."
 
 #: ../src/menu.c:369
 msgid "/Edit/Replace Agai_n"
-msgstr "/Úpravy/Prepísať _Další"
+msgstr "/Úpravy/Prepísať _Ďalší"
 
 #: ../src/menu.c:370
 msgid "/Edit/Replace special"
@@ -2532,7 +2530,7 @@ msgstr "/Zobraziť/_Vlastná lišta"
 
 #: ../src/menu.c:396
 msgid "/View/View _Sidebar"
-msgstr "/Zobraziť/Postranní _Panel"
+msgstr "/Zobraziť/Postranný _Panel"
 
 #: ../src/menu.c:397
 msgid "/_Tags"
@@ -2576,27 +2574,27 @@ msgstr "/Tagy/Špeciálne/_Diakritika"
 
 #: ../src/menu.c:412
 msgid "/Tags/Special/Accent/_Uppercase"
-msgstr "/Tagy/Špeciálne/Diakritika/_Velké písmena"
+msgstr "/Tagy/Špeciálne/Diakritika/_Veľké písmená"
 
 #: ../src/menu.c:413
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I"
+msgstr "/Tagy/Špeciálne/Diakritika/Veľké písmená/A-I"
 
 #: ../src/menu.c:415
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/À "
+msgstr "/Tagy/Špeciálne/Diakritika/Veľké písmená/A-I/À "
 
 #: ../src/menu.c:416
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/Á"
+msgstr "/Tagy/Špeciálne/Diakritika/Veľké písmená/A-I/Á"
 
 #: ../src/menu.c:417
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/A zo strieškou Â"
+msgstr "/Tagy/Špeciálne/Diakritika/Veľké písmená/A-I/A zo strieškou Â"
 
 #: ../src/menu.c:418
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/A s tildou Ã"
+msgstr "/Tagy/Špeciálne/Diakritika/Veľké písmená/A-I/A s tildou Ã"
 
 #: ../src/menu.c:419
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
@@ -2604,7 +2602,7 @@ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/Æ"
 
 #: ../src/menu.c:420
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/A s prehláskou Ä"
+msgstr "/Tagy/Špeciálne/Diakritika/Veľké písmená/A-I/A s prehláskou Ä"
 
 #: ../src/menu.c:421
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
@@ -2616,15 +2614,15 @@ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/C cédille  Ç"
 
 #: ../src/menu.c:423
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/È"
+msgstr "/Tagy/Špeciálne/Diakritika/Veľké písmená/A-I/È"
 
 #: ../src/menu.c:424
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
-msgstr "/Tagy/Špeciální/Diakritika/Velké písmena/A-I/E s čárkou É"
+msgstr "/Tagy/Špeciální/Diakritika/Veľké písmená/A-I/E s čárkou É"
 
 #: ../src/menu.c:425
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/E zo strieškou Ê"
+msgstr "/Tagy/Špeciálne/Diakritika/Veľké písmená/A-I/E zo strieškou Ê"
 
 #: ../src/menu.c:426
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
@@ -2632,15 +2630,15 @@ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/E s prehláskou Ë"
 
 #: ../src/menu.c:427
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/Ì"
+msgstr "/Tagy/Špeciálne/Diakritika/Veľké písmená/A-I/Ì"
 
 #: ../src/menu.c:428
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/I s čiarkou Í"
+msgstr "/Tagy/Špeciálne/Diakritika/Veľké písmená/A-I/I s čiarkou Í"
 
 #: ../src/menu.c:429
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/I do strieškou Î"
+msgstr "/Tagy/Špeciálne/Diakritika/Veľké písmená/A-I/I do strieškou Î"
 
 #: ../src/menu.c:430
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
@@ -2648,7 +2646,7 @@ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/I s prehláskou Ï"
 
 #: ../src/menu.c:431
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/_J-Z"
+msgstr "/Tagy/Špeciálne/Diakritika/Veľké písmená/_J-Z"
 
 #: ../src/menu.c:433
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
@@ -2704,7 +2702,7 @@ msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/Y s čisrkou Ý"
 
 #: ../src/menu.c:446
 msgid "/Tags/Special/Accent/_Lowercase"
-msgstr "/Tagy/Špeciálné/Diakritika/Malé pí_smena"
+msgstr "/Tagy/Špeciálné/Diakritika/Malé pí_smená"
 
 #: ../src/menu.c:447
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
@@ -2784,7 +2782,7 @@ msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/n s tildou ñ"
 
 #: ../src/menu.c:468
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
-msgstr "/Tagy/Śpeciálne/Diakritika/Malé písmena/J-Z/ò"
+msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/ò"
 
 #: ../src/menu.c:469
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
@@ -2880,7 +2878,7 @@ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Lo_gický zápor ¬"
 
 #: ../src/menu.c:495
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Znak _multiplikacie ×"
+msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Znak _multiplikácie ×"
 
 #: ../src/menu.c:496
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
@@ -2896,19 +2894,19 @@ msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Me_nšie než <"
 
 #: ../src/menu.c:499
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Večšíe než >"
+msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Väčšie než >"
 
 #: ../src/menu.c:500
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Horni index _1 ¹"
+msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Horný index _1 ¹"
 
 #: ../src/menu.c:501
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Horni index _2 ²"
+msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Horný index _2 ²"
 
 #: ../src/menu.c:502
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Horni index _3 ³"
+msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Horný index _3 ³"
 
 #: ../src/menu.c:503
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
@@ -2988,11 +2986,11 @@ msgstr "/Tagy/Špeciálne/Iné/Obrátený v_ykričník ¡"
 
 #: ../src/menu.c:524
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
-msgstr "/Tagy/Špeciálne/Iné/Obrátený otazník ¿"
+msgstr "/Tagy/Špeciálne/Iné/Obrátený otáznik ¿"
 
 #: ../src/menu.c:525
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
-msgstr "/Tagy/Špeciálne/Iné/Žen_ské znameníe ª"
+msgstr "/Tagy/Špeciálne/Iné/Žen_ské znamenie ª"
 
 #: ../src/menu.c:526
 msgid "/Tags/Special/Other/_Masculine ordinal º"
@@ -3004,7 +3002,7 @@ msgstr "/Tagy/Špeciálne/Iné/_Pilcrow (znak odstavca) ¶"
 
 #: ../src/menu.c:528
 msgid "/Tags/Special/Other/_Broken bar ¦"
-msgstr "/Tagy/Špeciálne/Iné/Prerušená rura ¦"
+msgstr "/Tagy/Špeciálne/Iné/Prerušená rúra ¦"
 
 #: ../src/menu.c:529
 msgid "/Tags/Special/Other/Soft _hypen -"
@@ -3016,7 +3014,7 @@ msgstr "/Tagy/Špeciálne/Iné/Nadt_ržítko ¯"
 
 #: ../src/menu.c:531
 msgid "/Tags/Special/Other/Middle _dot ·"
-msgstr "/Tagy/Špeciálne/Iné/Bodka uprostre_d ·"
+msgstr "/Tagy/Špeciálne/Iné/Bodka v stre_de ·"
 
 #: ../src/menu.c:532
 msgid "/Tags/_Format by layout"
@@ -3028,7 +3026,7 @@ msgstr "/Tagy/Formát podľa umíestnenia/_Tučné"
 
 #: ../src/menu.c:535
 msgid "/Tags/Format by layout/_Italic"
-msgstr "/Tagy/Formát podľa umíestnenia/_Kurzívá"
+msgstr "/Tagy/Formát podľa umíestnenia/_Kurzíva"
 
 #: ../src/menu.c:536
 msgid "/Tags/Format by layout/_Underline"
@@ -3092,7 +3090,7 @@ msgstr "/Tagy/Formát podľa obsahu/Akr_onym"
 
 #: ../src/menu.c:552
 msgid "/Tags/Format _general"
-msgstr "/Tagy/Formát obecný"
+msgstr "/Tagy/Formát všeobecný"
 
 #: ../src/menu.c:554
 msgid "/Tags/Format general/_Paragraph"
@@ -3116,7 +3114,7 @@ msgstr "/Tagy/Formát obecný/Z_väčšiť Font +1"
 
 #: ../src/menu.c:560
 msgid "/Tags/Format general/Font _Size -1"
-msgstr "/Tagy/Formát obecný/Z_väčšiť Fontu -1"
+msgstr "/Tagy/Formát obecný/Z_menšiť Font -1"
 
 #: ../src/menu.c:562
 msgid "/Tags/Format general/Preformatted _Text"
@@ -3124,19 +3122,19 @@ msgstr "/Tagy/Formát obecný/Predformátovaný _Text"
 
 #: ../src/menu.c:563
 msgid "/Tags/Format general/Su_bscript"
-msgstr "/Tagy/Formát obecný/Do_lní index"
+msgstr "/Tagy/Formát obecný/Do_lný index"
 
 #: ../src/menu.c:564
 msgid "/Tags/Format general/Su_perscript"
-msgstr "/Tagy/Formát obecný/Ho_rní index"
+msgstr "/Tagy/Formát obecný/Ho_rný index"
 
 #: ../src/menu.c:566
 msgid "/Tags/Format general/_Center"
-msgstr "/Tagy/Formát obecný/Zarovnaníe na _stred"
+msgstr "/Tagy/Formát obecný/Zarovnanie na _stred"
 
 #: ../src/menu.c:567
 msgid "/Tags/Format general/Align _right"
-msgstr "/Tagy/Formát obecný/Zarovnwníe v_pravo"
+msgstr "/Tagy/Formát obecný/Zarovnanie v_pravo"
 
 #: ../src/menu.c:568
 msgid "/Tags/_Table"
@@ -3148,7 +3146,7 @@ msgstr "/Tagy/Tabuľka/_Tabuľka"
 
 #: ../src/menu.c:571
 msgid "/Tags/Table/Table _Row"
-msgstr "/Tagy/Tabuľka/Riá_dok Tabuľky"
+msgstr "/Tagy/Tabuľka/Ria_dok Tabuľky"
 
 #: ../src/menu.c:572
 msgid "/Tags/Table/Table _Header"
@@ -3184,7 +3182,7 @@ msgstr "/Tagy/Zoznam/Zoznam _Definícia"
 
 #: ../src/menu.c:581
 msgid "/Tags/List/Definition _Term"
-msgstr "/Tagy/Zoznam/Definiční _Termín"
+msgstr "/Tagy/Zoznam/Definičný _Termín"
 
 #: ../src/menu.c:582
 msgid "/Tags/List/_Definition"
@@ -3204,11 +3202,11 @@ msgstr "/Dialogy/Formulár/_Formulár"
 
 #: ../src/menu.c:587
 msgid "/Tags/Form/_Button"
-msgstr "/Dialogy/Formulár/_Obecné tlačítko"
+msgstr "/Dialogy/Formulár/Vše_obecné tlačidlo"
 
 #: ../src/menu.c:588
 msgid "/Tags/Form/_Input"
-msgstr "/Dialogy/Formulár/Fo_rmulárové tlačítko"
+msgstr "/Dialogy/Formulár/Fo_rmulárové tlačidlo"
 
 #: ../src/menu.c:589
 msgid "/Tags/Form/_Textarea"
@@ -3216,11 +3214,11 @@ msgstr "/Dialogy/Formulár/_Textové pole"
 
 #: ../src/menu.c:591
 msgid "/Tags/_Misc"
-msgstr "/Tagy/_Rôzné"
+msgstr "/Tagy/_Rôzne"
 
 #: ../src/menu.c:593
 msgid "/Tags/Misc/Insert Generator _META-Tag"
-msgstr "/Tagy/Rôzné/Vložiť Generator _META-Tag"
+msgstr "/Tagy/Rôzné/Vložiť Generátor _META-Tag"
 
 #: ../src/menu.c:594
 msgid "/Tags/Misc/_Span"
@@ -3252,15 +3250,15 @@ msgstr "/Tagy/_Komentár"
 
 #: ../src/menu.c:602
 msgid "/Dial_ogs"
-msgstr "/_Dialogy"
+msgstr "/_Dialógy"
 
 #: ../src/menu.c:604
 msgid "/Dialogs/_General"
-msgstr "/Dialogy/_Obecné"
+msgstr "/Dialogy/Vše_obecné"
 
 #: ../src/menu.c:606
 msgid "/Dialogs/General/_Quickstart..."
-msgstr "/Dialogy/Obecné/_Rýchle Začať..."
+msgstr "/Dialogy/Obecné/_Rýchlo Začať..."
 
 #: ../src/menu.c:609
 msgid "/Dialogs/General/_Link Header..."
@@ -3292,7 +3290,7 @@ msgstr "/Dialogy/Obecné/Základný f_ont..."
 
 #: ../src/menu.c:616
 msgid "/Dialogs/General/Quick_list..."
-msgstr "/Dialogy/Obecné/Rýchle _zoznam..."
+msgstr "/Dialogy/Obecné/Rýchly _zoznam..."
 
 #: ../src/menu.c:617
 msgid "/Dialogs/General/_Meta..."
@@ -3308,15 +3306,15 @@ msgstr "/Dialogy/Obecné/Výber _Farby..."
 
 #: ../src/menu.c:620
 msgid "/Dialogs/General/Insert _Time..."
-msgstr "/Dialogy/Obecné/Vložennie Č_asu..."
+msgstr "/Dialogy/Obecné/Vloženie Č_asu..."
 
 #: ../src/menu.c:621
 msgid "/Dialogs/General/Insert _Image..."
-msgstr "/Dialogy/Obecné/Vloženíe _Obrázku..."
+msgstr "/Dialogy/Obecné/Vloženie _Obrázku..."
 
 #: ../src/menu.c:622
 msgid "/Dialogs/General/Insert T_humbnail..."
-msgstr "/Dialogy/Obecné/Vloženíe _Náhľadu..."
+msgstr "/Dialogy/Obecné/Vloženie _Náhľadu..."
 
 #: ../src/menu.c:623
 msgid "/Dialogs/_Table"
@@ -3332,7 +3330,7 @@ msgstr "/Dialogy/Tabuľka/_Tabuľka..."
 
 #: ../src/menu.c:627
 msgid "/Dialogs/Table/Table _Row..."
-msgstr "/Dialogy/Tabuľka/Riá_dok tabuľky..."
+msgstr "/Dialogy/Tabuľka/Ria_dok tabuľky..."
 
 #: ../src/menu.c:628
 msgid "/Dialogs/Table/Table _Head..."
@@ -3348,7 +3346,7 @@ msgstr "/Dialogy/_CSS"
 
 #: ../src/menu.c:632
 msgid "/Dialogs/CSS/_Create Style..."
-msgstr "/Dialogy/CSS/_Vytvoreníe štylu..."
+msgstr "/Dialogy/CSS/_Vytvorenie štýlu..."
 
 #: ../src/menu.c:633
 msgid "/Dialogs/CSS/S_pan..."
@@ -3360,7 +3358,7 @@ msgstr "/Dialogy/CSS/_Div..."
 
 #: ../src/menu.c:635
 msgid "/Dialogs/CSS/_Style..."
-msgstr "/Dialogy/CSS/_Štyl..."
+msgstr "/Dialogy/CSS/_Štýl..."
 
 #: ../src/menu.c:636
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
@@ -3396,7 +3394,7 @@ msgstr "/Dialogy/Formulár/Vstupný _prvok..."
 
 #: ../src/menu.c:646
 msgid "/Dialogs/Form/Input Buttons..."
-msgstr "/Dialogy/Formulár/Vstupné _tlačítka..."
+msgstr "/Dialogy/Formulár/Vstupné _tlačidlá..."
 
 #: ../src/menu.c:647
 msgid "/Dialogs/Form/Input Text..."
@@ -3420,7 +3418,7 @@ msgstr "/Dialogy/Formulár/Vstup Opt_group..."
 
 #: ../src/menu.c:652
 msgid "/Dialogs/Form/_Button..."
-msgstr "/Dialogy/Formulár/O_becné Tlačítko..."
+msgstr "/Dialogy/Formulár/Všeo_becné Tlačidlo..."
 
 #: ../src/menu.c:680
 msgid "/Dialogs/_Edit tag under cursor..."
@@ -3436,15 +3434,15 @@ msgstr "/Dokument/Z_väčšiť odsadenie TABu"
 
 #: ../src/menu.c:684
 msgid "/Document/_Decrease Tabsize"
-msgstr "/Dokument/Z_menšiť odsazenie TABu"
+msgstr "/Dokument/Z_menšiť odsadenie TABu"
 
 #: ../src/menu.c:685
 msgid "/Document/_Auto Indent"
-msgstr "/Dokument/_Automaticky Odsazovať"
+msgstr "/Dokument/_Automaticky Odsadzovať"
 
 #: ../src/menu.c:687
 msgid "/Document/Auto Close H_TML tags"
-msgstr "/Dokument/Automaticky uzavírať H_TML tagy"
+msgstr "/Dokument/Automaticky uzatvárať H_TML tagy"
 
 #: ../src/menu.c:688
 msgid "/Document/_Wrap"
@@ -3452,11 +3450,11 @@ msgstr "/Dokument/Za_lamovať"
 
 #: ../src/menu.c:689
 msgid "/Document/_Line Numbers"
-msgstr "/Dokument/Čí_sla Riádkov"
+msgstr "/Dokument/Čí_sla Riadkov"
 
 #: ../src/menu.c:691
 msgid "/Document/_Highlight Syntax"
-msgstr "/Dokument/Zvýraznení synta_x"
+msgstr "/Dokument/Zvýraznenie synta_xu"
 
 #: ../src/menu.c:692
 msgid "/Document/_Update Highlighting"
@@ -3468,7 +3466,7 @@ msgstr "/Dokument/T_yp Dokumentu"
 
 #: ../src/menu.c:696
 msgid "/Document/Character _Encoding"
-msgstr "/Dokument/_Kódovánie"
+msgstr "/Dokument/_Kódovanie"
 
 #: ../src/menu.c:700
 msgid "/Document/Check _Spelling..."
@@ -3488,19 +3486,19 @@ msgstr "/_Akcia"
 
 #: ../src/menu.c:706
 msgid "/Go/_Previous document"
-msgstr "/Akce/_Predchadzajúci dokument"
+msgstr "/Akce/_Predchádzajúci dokument"
 
 #: ../src/menu.c:707
 msgid "/Go/_Next document"
-msgstr "/Akce/_Následujúcí dokument"
+msgstr "/Akce/_Následujúci dokument"
 
 #: ../src/menu.c:709
 msgid "/Go/_First document"
-msgstr "/Akce/P_rví dokument"
+msgstr "/Akce/P_rvý dokument"
 
 #: ../src/menu.c:710
 msgid "/Go/L_ast document"
-msgstr "/Akce/P_oslední dokument"
+msgstr "/Akce/P_osledný dokument"
 
 #: ../src/menu.c:712
 msgid "/Go/Goto _Line"
@@ -3520,11 +3518,11 @@ msgstr "/Projekt/_Nový Projekt"
 
 #: ../src/menu.c:717
 msgid "/Project/_Open Project..."
-msgstr "/Projekt/_Otvoríť Projekt..."
+msgstr "/Projekt/_Otvoriť Projekt..."
 
 #: ../src/menu.c:718
 msgid "/Project/Open _recent"
-msgstr "/Projekt/Otvoríť ne_dávné"
+msgstr "/Projekt/Otvoriť ne_dávne"
 
 #: ../src/menu.c:721
 msgid "/Project/_Save"
@@ -3544,7 +3542,7 @@ msgstr "/Projekt/Nastaviť Pr_edvoľby Projektu..."
 
 #: ../src/menu.c:726
 msgid "/E_xternal"
-msgstr "/E_xterní"
+msgstr "/E_xterné"
 
 #: ../src/menu.c:733
 msgid "/_Help"
@@ -3580,12 +3578,12 @@ msgstr "/Soubor/Otvoríť nedávne"
 
 #: ../src/menu.c:1224
 msgid "/Windows"
-msgstr "/Okna"
+msgstr "/Okná"
 
 #: ../src/menu.c:1290
 msgid "Could not view file in browser, the file does not yet have a name\n"
 msgstr ""
-"Nemôžem zobraziť súbor v prehliadači, protože doposiaľ nebol pomenováný a "
+"Nemôžem zobraziť súbor v prehliadači, protože doposiaľ nebol pomenovaný a "
 "uložený\n"
 
 #: ../src/menu.c:1430
@@ -3598,12 +3596,12 @@ msgstr "/Externé/Príkazy"
 
 #: ../src/menu.c:1436
 msgid "/External/Browsers/"
-msgstr "/Externé/Prehladače"
+msgstr "/Externé/Prehliadače"
 
 #: ../src/menu.c:1441 ../src/menu.c:1456 ../src/menu.c:1475 ../src/menu.c:1491
 #: ../src/menu.c:1504 ../src/menu.c:1526
 msgid "/External"
-msgstr "/E_xterne"
+msgstr "/E_xterné"
 
 #: ../src/menu.c:1454
 msgid "/External/Browsers"
@@ -3611,11 +3609,11 @@ msgstr "/Externe/Prehliadače"
 
 #: ../src/menu.c:1489
 msgid "/External/Commands"
-msgstr "/Externe/Príkazy"
+msgstr "/Externé/Príkazy"
 
 #: ../src/menu.c:1524
 msgid "/External/Outputbox"
-msgstr "/Externe/Výstup"
+msgstr "/Externé/Výstup"
 
 #: ../src/menu.c:1570
 msgid "/Document/Character Encoding"
@@ -3639,15 +3637,15 @@ msgstr "/Vlastné menu/Reset"
 
 #: ../src/menu.c:1947
 msgid "/Custom menu/Load new"
-msgstr "/Vlastné menu/Nahráť nové"
+msgstr "/Vlastné menu/Nahrať nové"
 
 #: ../src/menu.c:2163
 msgid "Search Pattern"
-msgstr "Najsť Vzorku"
+msgstr "Nájsť Vzorku"
 
 #: ../src/menu.c:2164
 msgid "Replace String"
-msgstr "Nahradiť Reťacom"
+msgstr "Nahradiť Reťazcom"
 
 #: ../src/menu.c:2167
 msgid "Formatstring Before"
@@ -3663,7 +3661,7 @@ msgstr "Cesta v ponuke, kterú chcete aktualizovať, pokiaľ neexistuje"
 
 #: ../src/menu.c:2215
 msgid "Try 'add' instead."
-msgstr "Zkúste miesto toho 'Pridať'."
+msgstr "Skúste miesto toho 'Pridať'."
 
 #: ../src/menu.c:2217
 msgid "The menupath you want to add already exists."
@@ -3683,7 +3681,7 @@ msgstr "Pridať Novú Položku"
 
 #: ../src/menu.c:2397
 msgid "Apply Changes"
-msgstr "Aplikovat Zmeny"
+msgstr "Aplikovať Zmeny"
 
 #: ../src/menu.c:2399
 msgid "Delete Menu Entry"
@@ -3715,7 +3713,7 @@ msgstr "Premenné"
 
 #: ../src/menu.c:2482
 msgid "Custom Dialo_g"
-msgstr "Vlastní Dialó_g"
+msgstr "Vlastný Dialó_g"
 
 #: ../src/menu.c:2484
 msgid "Custom Replace"
@@ -3743,7 +3741,7 @@ msgstr "vo všetkých otvorených dokumentoch"
 
 #: ../src/menu.c:2507
 msgid "Matc_hing:"
-msgstr "Porovná_vaníe:"
+msgstr "Porovná_vanie:"
 
 #: ../src/menu.c:2510
 msgid "normal"
@@ -3751,15 +3749,15 @@ msgstr "normálne"
 
 #: ../src/menu.c:2510
 msgid "posix regular expressions"
-msgstr "posixový regulární výraz"
+msgstr "posixový regulárny výraz"
 
 #: ../src/menu.c:2510
 msgid "perl regular expressions"
-msgstr "perlovský regulární výraz"
+msgstr "perlovský regulárny výraz"
 
 #: ../src/menu.c:2516
 msgid "Case Se_nsitive"
-msgstr "Rozlišovať malé/velké písmena"
+msgstr "Rozlišovať malé/veľké písmena"
 
 #: ../src/msg_queue.c:239
 msgid "These files were not opened:\n"
@@ -3796,7 +3794,7 @@ msgstr "Editovateľný"
 
 #: ../src/preferences.c:638
 msgid "Content regex"
-msgstr "Obsah reg. výraz"
+msgstr "Obsah reg. výrazu"
 
 #: ../src/preferences.c:639
 msgid "Auto close tags mode"
@@ -3804,7 +3802,7 @@ msgstr "Režim Automatického uzatvárania tagov "
 
 #: ../src/preferences.c:818
 msgid "Inverse filter"
-msgstr "Inverzní filter"
+msgstr "Inverzný filter"
 
 #: ../src/preferences.c:819
 msgid "Filetypes in filter"
@@ -3820,7 +3818,7 @@ msgstr "Reset"
 
 #: ../src/preferences.c:1187
 msgid "Pattern name"
-msgstr "Méno vzorky"
+msgstr "Meno vzorky"
 
 #: ../src/preferences.c:1205 ../src/preferences.c:1754
 msgid "Pattern"
@@ -3828,11 +3826,11 @@ msgstr "Vzorka"
 
 #: ../src/preferences.c:1228
 msgid "Start pattern and end pattern"
-msgstr "Počiatoční reťazec a koncový reťazec"
+msgstr "Počiatočný reťazec a koncový reťazec"
 
 #: ../src/preferences.c:1230
 msgid "Only start pattern"
-msgstr "Iba počiatoční reťazec"
+msgstr "Iba počiatočný reťazec"
 
 #: ../src/preferences.c:1232
 msgid "Subpattern from parent"
@@ -3840,7 +3838,7 @@ msgstr "Podreťazec z reťazca"
 
 #: ../src/preferences.c:1238
 msgid "Start pattern"
-msgstr "Štartovní reťazec"
+msgstr "Štartový reťazec"
 
 #: ../src/preferences.c:1239
 msgid "End pattern"
@@ -3876,15 +3874,15 @@ msgstr "vynútiť tučný font"
 
 #: ../src/preferences.c:1261
 msgid "don't change style"
-msgstr "nemeniť štyl"
+msgstr "nemeniť štýl"
 
 #: ../src/preferences.c:1263
 msgid "force non-italic style"
-msgstr "zakázať štyl kurzívu"
+msgstr "zakázať štýl kurzíva"
 
 #: ../src/preferences.c:1265
 msgid "force italic style"
-msgstr "vynutiť štyl kurzívu"
+msgstr "vynútiť štýl kurzíva"
 
 #: ../src/preferences.c:1409 ../src/preferences.c:1567
 #: ../src/preferences.c:1758
@@ -3898,11 +3896,11 @@ msgid ""
 "%i for input and %f for output filename (filters)"
 msgstr ""
 "%s pre tento súbor (akýkoľvek príkaz)\n"
-"%i pre vstupní a %f pre výstupní soubor (filtre)"
+"%i pre vstupný a %f pre výstupný soubor (filtre)"
 
 #: ../src/preferences.c:1753
 msgid "Name"
-msgstr "Méno"
+msgstr "Meno"
 
 #: ../src/preferences.c:1755
 msgid "File #"
@@ -3918,7 +3916,7 @@ msgstr "Výstup #"
 
 #: ../src/preferences.c:1759
 msgid "Show all output"
-msgstr "Zobraziť všetký výstupy"
+msgstr "Zobraziť všetky výstupy"
 
 #: ../src/preferences.c:1983 ../src/preferences.c:1984
 msgid "left"
@@ -3942,7 +3940,7 @@ msgstr "nekontrolovať"
 
 #: ../src/preferences.c:1985
 msgid "check mtime and size"
-msgstr "kontrolovať čas modifikace a veľkosť súboru"
+msgstr "kontrolovať čas modifikáce a veľkosť súboru"
 
 #: ../src/preferences.c:1985
 msgid "check mtime"
@@ -3961,17 +3959,16 @@ msgid "Editor"
 msgstr "Editor"
 
 #: ../src/preferences.c:2001
-#, fuzzy
 msgid "Editor startup options"
-msgstr "Vlastnosti editoru"
+msgstr "Vlastnosti štartu-editora"
 
 #: ../src/preferences.c:2007
 msgid "Show splash-screen"
-msgstr ""
+msgstr "Ukázať uvodnú obrazovku"
 
 #: ../src/preferences.c:2009
 msgid "Show empty quickbar warning"
-msgstr ""
+msgstr "Ukázať varovanie prázdneho quickbaru"
 
 #: ../src/preferences.c:2011
 msgid "Editor options"
@@ -3982,13 +3979,12 @@ msgid "Tab width"
 msgstr "Dĺžka tabulátoru"
 
 #: ../src/preferences.c:2018
-#, fuzzy
 msgid "Smart cursor positioning"
-msgstr "Nastavenie kurzora na začiatku riadka"
+msgstr "Nastavenie kurzora na začiatok riadku"
 
 #: ../src/preferences.c:2019
 msgid "Use spaces to indent, not tabs"
-msgstr "K odsadení používať medzery miesto tabelatoru"
+msgstr "K odsadeniu používať medzery miesto tabulátoru"
 
 #: ../src/preferences.c:2020
 msgid "Word wrap default"
@@ -4024,7 +4020,7 @@ msgstr "Predvoľby záložiek"
 
 #: ../src/preferences.c:2041
 msgid "Make permanent by default"
-msgstr "Štandardne vytvárať trvalé záložky"
+msgstr "Štandartne vytvárať trvalé záložky"
 
 #: ../src/preferences.c:2043
 msgid "full path"
@@ -4052,11 +4048,11 @@ msgstr "HTML parametre"
 
 #: ../src/preferences.c:2055
 msgid "Lowercase HTML tags"
-msgstr "HTML tagy malými písmenamy"
+msgstr "HTML tagy malými písmenami"
 
 #: ../src/preferences.c:2056
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
-msgstr "Používať zastaralé tagy (napr. <font> and <nobr>)"
+msgstr "Používať zastaralé tagy (napr. <font> a <nobr>)"
 
 #: ../src/preferences.c:2057
 msgid "Use XHTML style tags (<br />)"
@@ -4068,11 +4064,11 @@ msgstr "Automaticky aktualizovať author meta tag "
 
 #: ../src/preferences.c:2059
 msgid "Automatically update date meta tag"
-msgstr "Automaticky aktualizovať dátumový meta tag "
+msgstr "Automaticky aktualizovať dátumový meta tag"
 
 #: ../src/preferences.c:2060
 msgid "Automatically update generator meta tag"
-msgstr "Automaticky aktualizovať generátor meta tágu"
+msgstr "Automaticky aktualizovať generátor meta tagu"
 
 #: ../src/preferences.c:2063
 msgid "Files"
@@ -4112,7 +4108,7 @@ msgstr "ukončiť"
 
 #: ../src/preferences.c:2089
 msgid "ask"
-msgstr "spítať sa"
+msgstr "spýtať sa"
 
 #: ../src/preferences.c:2090
 msgid "Action on backup failure"
@@ -4124,7 +4120,7 @@ msgstr "Odstraňovať záložné súbory pri uzavrení"
 
 #: ../src/preferences.c:2096
 msgid "Misc"
-msgstr "Rôzné"
+msgstr "Rôzne"
 
 #: ../src/preferences.c:2101
 msgid "Allow multi instances of a file"
@@ -4136,7 +4132,7 @@ msgstr "Otvárať súbory v už bežiacom bluefish"
 
 #: ../src/preferences.c:2105
 msgid "File modified on disk check "
-msgstr "Kontrola modifikace súborů na disku"
+msgstr "Kontrola modifikace súborov na disku"
 
 #: ../src/preferences.c:2106
 msgid "Number of files in 'Open recent'"
@@ -4148,7 +4144,7 @@ msgstr "Prehliadač súborov"
 
 #: ../src/preferences.c:2112
 msgid "Default basedir"
-msgstr "Výchozí adresár"
+msgstr "Východzí adresár"
 
 #: ../src/preferences.c:2113
 msgid "Use separate file and directory view"
@@ -4196,7 +4192,7 @@ msgstr "Držať všetky HTML dialógy na vrchu"
 
 #: ../src/preferences.c:2142
 msgid "External browsers in submenu"
-msgstr "Externí prehliadač v submenu"
+msgstr "Externý prehliadač v submenu"
 
 #: ../src/preferences.c:2143
 msgid "External commands in submenu"
@@ -4212,7 +4208,7 @@ msgstr "Písmo tabu editoru (nechajte prázdne pokiaľ chcte výchozí pro gtk)"
 
 #: ../src/preferences.c:2148
 msgid "Document notebook tab position"
-msgstr "Pozicia tabu editoru"
+msgstr "Pozícia tabu editora"
 
 #: ../src/preferences.c:2149
 msgid "Sidebar notebook tab position"
@@ -4329,7 +4325,7 @@ msgstr "URL Náhľ_adu:"
 
 #: ../src/project.c:565
 msgid "_Template:"
-msgstr "Ša_blona:"
+msgstr "Ša_blóna:"
 
 #: ../src/project.c:571
 msgid "_Word wrap by default"
@@ -4425,7 +4421,7 @@ msgstr "Netscape"
 
 #: ../src/rcfile.c:511
 msgid "Gnome default"
-msgstr "Výchozí pre Gnome"
+msgstr "Východzie pre Gnome"
 
 #: ../src/rcfile.c:535
 msgid "make"
@@ -4453,11 +4449,11 @@ msgstr "php"
 
 #: ../src/rcfile.c:546
 msgid "Dos2Unix filter"
-msgstr "Dos2Unix filtr"
+msgstr "Dos2Unix filter"
 
 #: ../src/rcfile.c:548
 msgid "Tidy cleanup filter"
-msgstr "Tidy čistiací filter"
+msgstr "Tidy čistiaci filter"
 
 #: ../src/rcfile.c:573
 msgid "C programming"
@@ -4473,7 +4469,7 @@ msgstr "Java programovanie"
 
 #: ../src/rcfile.c:581
 msgid "Hide objectfiles"
-msgstr "Skrýť objektové súbory"
+msgstr "Skryť objektové súbory"
 
 #: ../src/rcfile.c:906
 msgid "Untitled Project"
@@ -4534,7 +4530,7 @@ msgstr "Od pozície kurzoru do konca dokumentu"
 
 #: ../src/snr2.c:1462
 msgid "Beginning of selection till end of selection"
-msgstr "Od začiatku výberu do konce výberu"
+msgstr "Od začiatku výberu do konca výberu"
 
 #: ../src/snr2.c:1462
 msgid "All opened files begin till end"
@@ -4542,7 +4538,7 @@ msgstr "Vo všetkých otvorených súboroch od začiatku do konca"
 
 #: ../src/snr2.c:1463
 msgid "Disabled"
-msgstr "Vypnute"
+msgstr "Vypnuté"
 
 #: ../src/snr2.c:1463
 msgid "POSIX type"
@@ -4558,11 +4554,11 @@ msgstr "Kde začať:"
 
 #: ../src/snr2.c:1476
 msgid "Regular expression:"
-msgstr "Regulárni výraz:"
+msgstr "Regulárny výraz:"
 
 #: ../src/snr2.c:1490
 msgid "Normal"
-msgstr "Normálni"
+msgstr "Normálny"
 
 #: ../src/snr2.c:1490
 msgid "Uppercase"
@@ -4590,7 +4586,7 @@ msgstr "_Viac kolové hľadanie"
 
 #: ../src/snr2.c:1508
 msgid "Prompt _before replace"
-msgstr "Opítať sa _pred nahradením"
+msgstr "Opýtať sa _pred nahradením"
 
 #: ../src/snr2.c:1509
 msgid "Replace o_nce"
@@ -4610,7 +4606,7 @@ msgstr " Obnoviť "
 
 #: ../src/stringlist.c:371
 msgid " Delete "
-msgstr " Smazať "
+msgstr " Zmazať "
 
 #: ../src/stringlist.c:373
 msgid " Up "
@@ -4638,19 +4634,19 @@ msgstr "Počet _stĺpcov:"
 
 #: ../src/wizards.c:86
 msgid "Table rows on one _line:"
-msgstr "Tabuľkové riadky vkládať do _jednej riadky:"
+msgstr "Tabuľkové riadky vkladať do _jedného riadku:"
 
 #: ../src/wizards.c:90
 msgid "_Indent table code:"
-msgstr "_Odsazovať kód tabuľky:"
+msgstr "_Odsadzovať kód tabuľky:"
 
 #: ../src/wizards.c:177
 msgid "Frame Wizard"
-msgstr "Sprievodca Ramov"
+msgstr "Sprievodca Rámov"
 
 #: ../src/wizards.c:192
 msgid "Use _DTD:"
-msgstr "Použíť _DTD:"
+msgstr "Použiť _DTD:"
 
 #: ../src/wizards.c:195
 msgid "Orientation:"
@@ -4666,7 +4662,7 @@ msgstr "_Vertikálne"
 
 #: ../src/wizards.c:204
 msgid "Number of _Frames:"
-msgstr "Počet ré_mov:"
+msgstr "Počet rá_mov:"
 
 #: ../src/wizards.c:207
 msgid "Frame's"
