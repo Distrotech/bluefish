@@ -398,7 +398,7 @@ static gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProg
 		DEBUG_MSG("checkNsave_progress_lcb, status=OVERWRITE, return REPLACE\n");
 		return GNOME_VFS_XFER_OVERWRITE_ACTION_REPLACE;
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
-		DEBUG_MSG("checkNsave_progress_lcb, status=VFSERROR, abort?\n");
+		g_print("checkNsave_progress_lcb, status=VFSERROR, vfs_status=%d (%s), abort?\n", info->vfs_status, gnome_vfs_result_to_string(info->vfs_status));
 		/* when this code was in the 'sync' callback, this results in "Xlib: unexpected async reply" which seems to be a gnome_vfs bug */
 		if (cns->callback_func(CHECKANDSAVE_ERROR_NOBACKUP, 0, cns->callback_data) == CHECKNSAVE_CONT) {
 			return GNOME_VFS_XFER_ERROR_ACTION_SKIP;
@@ -465,15 +465,24 @@ GnomeVFSURI *backup_uri_from_orig_uri(GnomeVFSURI * origuri) {
  <Oli4> ok
  <gicmo> Oli4, nautilus/libnautilus-private/nautilus-file-operations.c could be a place you should look at
 */
-static gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
+/*static gint checkNsave_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
    DEBUG_MSG("checkNsave_sync_lcb, started with status %d and phase %d for source %s and target %s, index=%ld, total=%ld, thread=%p\n"
 			,info->status,info->phase,info->source_name,info->target_name,info->file_index,info->files_total, g_thread_self());
-	/* Christian Kellner (gicmo on #nautilus on irc.gimp.ca) found 
+	/ * Christian Kellner (gicmo on #nautilus on irc.gimp.ca) found 
 		we should NEVER return 0 for default calls, it aborts!! 
 		
-		nautilus returns *always* 1 in this callback, no matter what happens */
+		nautilus returns *always* 1 in this callback, no matter what happens * /
 	return 1;
+}*/
+
+static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info, GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer data);
+
+static gboolean file_checkNsave_uri_async_try_again(gpointer data) {
+	TcheckNsave *cns = data;
+	cns->cm = file_checkmodified_uri_async(cns->uri, cns->finfo, checkNsave_checkmodified_lcb, cns);
+	return FALSE;
 }
+
 static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info, GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer data) {
 	TcheckNsave *cns = data;
 	gboolean startbackup = main_v->props.backup_file, contsave = TRUE;
@@ -490,7 +499,13 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 		if (error_info == GNOME_VFS_ERROR_NOT_FOUND) {
 			contsave = TRUE;
 			startbackup = FALSE;
+		} else if (error_info == GNOME_VFS_ERROR_TOO_MANY_OPEN_FILES) {
+			DEBUG_MSG("checkNsave_checkmodified_lcb, too many open files, call again in 300 ms\n");
+			g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,300,file_checkNsave_uri_async_try_again, cns,NULL);
+			/* return, because we do not want to run the cleanup, nor continue with the save process */
+			return;
 		} else {
+			DEBUG_MSG("checkNsave_checkmodified_lcb, status=%d, error_info=%d (%s)\n",status,error_info,gnome_vfs_result_to_string(error_info));
 			contsave = (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED_FAILED, error_info, cns->callback_data) == CHECKNSAVE_CONT);
 		}
 	break;
@@ -516,7 +531,7 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 						,GNOME_VFS_XFER_FOLLOW_LINKS,GNOME_VFS_XFER_ERROR_MODE_QUERY
 						,GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,GNOME_VFS_PRIORITY_DEFAULT
 						,checkNsave_progress_lcb, cns
-						,checkNsave_sync_lcb, cns);
+						/*,checkNsave_sync_lcb, cns*/ ,NULL,NULL);
 			DEBUG_MSG("checkNsave_checkmodified_lcb, ret ok=%d\n",(ret == GNOME_VFS_OK));
 			gnome_vfs_uri_list_free(sourcelist);
 			gnome_vfs_uri_list_free(destlist);
@@ -559,7 +574,7 @@ gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Tre
 	if (info) gnome_vfs_file_info_ref(info);
 	if (!info || check_modified) {
 		/* first check if the file is modified on disk */
-		cns->cm = file_checkmodified_uri_async(uri, info, checkNsave_checkmodified_lcb, cns);
+		cns->cm = file_checkmodified_uri_async(cns->uri, cns->finfo, checkNsave_checkmodified_lcb, cns);
 	} else {
 		checkNsave_checkmodified_lcb(CHECKMODIFIED_OK,0,NULL, NULL, cns);
 	}
