@@ -181,9 +181,9 @@ static void checkmodified_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *
 			cm->callback_func(CHECKMODIFIED_OK, item->result, cm->orig_finfo, item->file_info, cm->callback_data);
 		}
 	} else if (item->result == GNOME_VFS_ERROR_TOO_MANY_OPEN_FILES) {
-		DEBUG_MSG("checkmodified_asyncfileinfo_lcb, TOO_MANY_OPEN_FILES, restarting in 0.4 seconds\n");
-		/* try again 0.5 sec. later! */
-		g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,400,checkmodified_asyncfileinfo_try_again_lcb,cm,NULL);	
+		DEBUG_MSG("checkmodified_asyncfileinfo_lcb, TOO_MANY_OPEN_FILES, restarting in 0.2 seconds\n");
+		/* try again 0.2 sec. later! */
+		g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,200,checkmodified_asyncfileinfo_try_again_lcb,cm,NULL);	
 	} else {
 		DEBUG_MSG("checkmodified_asyncfileinfo_lcb, there was an error %d retrieving the fileinfo: %s\n",item->result, gnome_vfs_result_to_string(item->result));
 		cm->callback_func(CHECKMODIFIED_ERROR, item->result, NULL, NULL, cm->callback_data);
@@ -256,6 +256,7 @@ static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 
 static gboolean savefile_asyncopenuri_try_again_lcb(gpointer data) {
 	Tsavefile *sf = data;
+	DEBUG_MSG("savefile_asyncopenuri_try_again_lcb, trying again..\n");
 	gnome_vfs_async_open_uri(&sf->handle,sf->uri,GNOME_VFS_OPEN_WRITE,GNOME_VFS_PRIORITY_DEFAULT-1
 				,savefile_asyncopenuri_lcb,sf);
 	return FALSE;
@@ -269,9 +270,9 @@ static void savefile_asynccreateuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 		sf->callback_func(SAVEFILE_CHANNEL_OPENED, result, sf->callback_data);
 		gnome_vfs_async_write(handle,sf->buffer->data,sf->buffer_size,savefile_asyncwrite_lcb, sf);
 	} else if (result == GNOME_VFS_ERROR_TOO_MANY_OPEN_FILES) {
-		DEBUG_MSG("savefile_asynccreateuri_lcb, restarting in 0.5 seconds\n");
+		DEBUG_MSG("savefile_asynccreateuri_lcb, too many open files, restarting in 0.35 seconds\n");
 		/* try again 0.5 sec. later! */
-		g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,500,savefile_asyncopenuri_try_again_lcb,sf,NULL);	
+		g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,350,savefile_asyncopenuri_try_again_lcb,sf,NULL);	
 	} else {
 		/* error! */
 		DEBUG_MSG("savefile_asyncopenuri_lcb, called with some error (%d=%s)!!! calling NOCHANNEL and aborting\n",result,gnome_vfs_result_to_string(result));
@@ -293,9 +294,9 @@ static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 		gnome_vfs_async_create_uri(&sf->handle,sf->uri,GNOME_VFS_OPEN_WRITE, FALSE,0644,GNOME_VFS_PRIORITY_DEFAULT
 					,savefile_asynccreateuri_lcb,sf);
 	} else if (result == GNOME_VFS_ERROR_TOO_MANY_OPEN_FILES) {
-		DEBUG_MSG("savefile_asyncopenuri_lcb, restarting in 0.5 seconds\n");
+		DEBUG_MSG("savefile_asyncopenuri_lcb, restarting in 0.35 seconds\n");
 		/* try again 0.5 sec. later! */
-		g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,500,savefile_asyncopenuri_try_again_lcb,sf,NULL);	
+		g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,350,savefile_asyncopenuri_try_again_lcb,sf,NULL);	
 	} else {
 		savefile_asynccreateuri_lcb(handle, result, data);
 	}
@@ -390,6 +391,38 @@ static void checkNsave_savefile_lcb(Tsavefile_status status,gint error_info,gpoi
 	}
 }
 
+static gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInfo *info,gpointer data);
+
+static void checkNsave_startbackup(TcheckNsave *cns) {
+	GList *sourcelist;
+	GList *destlist;
+	GnomeVFSURI *dest;
+	GnomeVFSResult ret;
+	/* now first create the backup, then start save */
+	
+	gnome_vfs_uri_ref(cns->uri);
+	sourcelist = g_list_append(NULL, cns->uri);
+	
+	dest = backup_uri_from_orig_uri(cns->uri);
+	destlist = g_list_append(NULL, dest);
+	
+	DEBUG_MSG("checkNsave_startbackup, start backup, source=%s, dest=%s (len=%d,%d) in thread %p\n",gnome_vfs_uri_get_path(cns->uri),gnome_vfs_uri_get_path(dest)
+			,g_list_length(sourcelist),g_list_length(destlist),g_thread_self());
+	ret = gnome_vfs_async_xfer(&cns->handle,sourcelist,destlist
+				,GNOME_VFS_XFER_FOLLOW_LINKS,GNOME_VFS_XFER_ERROR_MODE_QUERY
+				,GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,GNOME_VFS_PRIORITY_DEFAULT
+				,checkNsave_progress_lcb, cns
+				/*,checkNsave_sync_lcb, cns*/ ,NULL,NULL);
+	DEBUG_MSG("checkNsave_startbackup, ret ok=%d\n",(ret == GNOME_VFS_OK));
+	gnome_vfs_uri_list_free(sourcelist);
+	gnome_vfs_uri_list_free(destlist);
+}
+
+static gboolean checkNsave_startbackup_try_again(gpointer data) {
+	checkNsave_startbackup((TcheckNsave *)data);
+	return FALSE;
+}
+
 static gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProgressInfo *info,gpointer data) {
 	TcheckNsave *cns = data;
 	DEBUG_MSG("checkNsave_progress_lcb, started with status %d and phase %d for source %s and target %s, index=%ld, total=%ld, thread=%p\n"
@@ -398,7 +431,11 @@ static gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProg
 		DEBUG_MSG("checkNsave_progress_lcb, status=OVERWRITE, return REPLACE\n");
 		return GNOME_VFS_XFER_OVERWRITE_ACTION_REPLACE;
 	} else if (info->status == GNOME_VFS_XFER_PROGRESS_STATUS_VFSERROR) {
-		g_print("checkNsave_progress_lcb, status=VFSERROR, vfs_status=%d (%s), abort?\n", info->vfs_status, gnome_vfs_result_to_string(info->vfs_status));
+		DEBUG_MSG("checkNsave_progress_lcb, status=VFSERROR, vfs_status=%d (%s), abort?\n", info->vfs_status, gnome_vfs_result_to_string(info->vfs_status));
+		if (info->vfs_status == GNOME_VFS_ERROR_TOO_MANY_OPEN_FILES) {
+			g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,200,checkNsave_startbackup_try_again,cns,NULL);
+			return 1;
+		}
 		/* when this code was in the 'sync' callback, this results in "Xlib: unexpected async reply" which seems to be a gnome_vfs bug */
 		if (cns->callback_func(CHECKANDSAVE_ERROR_NOBACKUP, 0, cns->callback_data) == CHECKNSAVE_CONT) {
 			return GNOME_VFS_XFER_ERROR_ACTION_SKIP;
@@ -483,6 +520,7 @@ static gboolean file_checkNsave_uri_async_try_again(gpointer data) {
 	return FALSE;
 }
 
+
 static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info, GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer data) {
 	TcheckNsave *cns = data;
 	gboolean startbackup = main_v->props.backup_file, contsave = TRUE;
@@ -515,26 +553,7 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 	}
 	if (contsave) {
 		if (startbackup)  {
-			GList *sourcelist;
-			GList *destlist;
-			GnomeVFSURI *dest;
-			GnomeVFSResult ret;
-			DEBUG_MSG("checkNsave_checkmodified_lcb, backup required (%d)\n",main_v->props.backup_file);
-			/* now first create the backup, then start save */
-			dest = backup_uri_from_orig_uri(cns->uri);
-			sourcelist = g_list_append(NULL, cns->uri);
-			gnome_vfs_uri_ref(cns->uri);
-			destlist = g_list_append(NULL, dest);
-			DEBUG_MSG("checkNsave_checkmodified_lcb, start backup, source=%s, dest=%s (len=%d,%d) in thread %p\n",gnome_vfs_uri_get_path(cns->uri),gnome_vfs_uri_get_path(dest)
-					,g_list_length(sourcelist),g_list_length(destlist),g_thread_self());
-			ret = gnome_vfs_async_xfer(&cns->handle,sourcelist,destlist
-						,GNOME_VFS_XFER_FOLLOW_LINKS,GNOME_VFS_XFER_ERROR_MODE_QUERY
-						,GNOME_VFS_XFER_OVERWRITE_MODE_REPLACE,GNOME_VFS_PRIORITY_DEFAULT
-						,checkNsave_progress_lcb, cns
-						/*,checkNsave_sync_lcb, cns*/ ,NULL,NULL);
-			DEBUG_MSG("checkNsave_checkmodified_lcb, ret ok=%d\n",(ret == GNOME_VFS_OK));
-			gnome_vfs_uri_list_free(sourcelist);
-			gnome_vfs_uri_list_free(destlist);
+			checkNsave_startbackup(cns);
 		} else {
 			DEBUG_MSG("checkNsave_checkmodified_lcb, no backup required, starting save\n");
 			cns->sf = file_savefile_uri_async(cns->uri, cns->buffer, cns->buffer_size, checkNsave_savefile_lcb, cns);
@@ -655,7 +674,7 @@ static void openfile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 		of->callback_func(OPENFILE_CHANNEL_OPENED,result,NULL,0,of->callback_data);
 		gnome_vfs_async_read(handle,of->buffer,CHUNK_SIZE,openfile_asyncread_lcb,of);
 	} else {
-		g_print("openfile_asyncopenuri_lcb, error, got result %d: %s\n",result,gnome_vfs_result_to_string(result));
+		DEBUG_MSG("openfile_asyncopenuri_lcb, error, got result %d: %s\n",result,gnome_vfs_result_to_string(result));
 		if (result == GNOME_VFS_ERROR_TOO_MANY_OPEN_FILES) {
 			DEBUG_MSG("openfile_asyncopenuri_lcb, restarting in 0.5 seconds\n");
 			/* try again 0.5 sec. later! */
