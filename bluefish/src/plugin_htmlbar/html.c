@@ -1159,6 +1159,7 @@ static void metaok_lcb(GtkWidget * widget, Thtml_diag *dg)
 	thestring = g_strdup(cap("<META"));
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[1])->entry), cap("HTTP-EQUIV"), thestring, NULL);
 	thestring = insert_string_if_entry(GTK_WIDGET(GTK_COMBO(dg->combo[2])->entry), cap("NAME"), thestring, NULL);
+	thestring = insert_string_if_entry(dg->entry[1], cap("CONTENT"), thestring, NULL);
 	thestring = insert_string_if_entry(dg->entry[2], cap("LANG"), thestring, NULL);
 	if (main_v->props.xhtml == 1) {
 		thestring = insert_string_if_entry(dg->entry[2], cap("XML:LANG"), thestring, NULL);
@@ -1191,39 +1192,17 @@ void meta_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	fill_dialogvalues(tagitems, tagvalues, &custom, (Ttagpopup *) data, dg);
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
-
-	popuplist = g_list_append(NULL, "abstract");
-	popuplist = g_list_append(popuplist, "audience");
-	popuplist = g_list_append(popuplist, "author");
-	popuplist = g_list_append(popuplist, "copyright");
-	popuplist = g_list_append(popuplist, "date");
-	popuplist = g_list_append(popuplist, "description");
-	popuplist = g_list_append(popuplist, "keywords");
-	popuplist = g_list_append(popuplist, "page-topic");
-	popuplist = g_list_append(popuplist, "page-type");
-	popuplist = g_list_append(popuplist, "publisher");
-	popuplist = g_list_append(popuplist, "revisit-after");
-	popuplist = g_list_append(popuplist, "robots");
+	popuplist = list_from_arglist(FALSE, "abstract", "audience", "author", "copyright", "date", "description", "generator"
+			, "keywords", "page-topic", "page-type", "publisher", "revisit-after", "robots");
 	dg->combo[2] = combo_with_popdown(tagvalues[1], popuplist, 1);
 	bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 10, 0, 1);
 	g_list_free(popuplist);
 
 	/* extra field for Dublin Core meta tags: DC.foo ?*/
-	
-	popuplist = g_list_append(NULL, "expires");
-	popuplist = g_list_append(popuplist, "refresh");
-	popuplist = g_list_append(popuplist, "content-encoding");
-	popuplist = g_list_append(popuplist, "content-location");
-	popuplist = g_list_append(popuplist, "content-language");
-	popuplist = g_list_append(popuplist, "content-style-type");
-	popuplist = g_list_append(popuplist, "content-script-type");
-	popuplist = g_list_append(popuplist, "content-type");
-	popuplist = g_list_append(popuplist, "ext-cache");
-	popuplist = g_list_append(popuplist, "cache-control");
-	popuplist = g_list_append(popuplist, "pragma");
-	popuplist = g_list_append(popuplist, "set-cookie");
-	popuplist = g_list_append(popuplist, "PICS-Label");
+	popuplist = list_from_arglist(FALSE, "expires", "refresh", "content-encoding", "content-location", "content-language"
+			,"content-style-type", "content-script-type", "content-type", "ext-cache", "cache-control", "pragma", "set-cookie"
+			, "PICS-Label");
 	dg->combo[1] = combo_with_popdown(tagvalues[0], popuplist, 1);
 	bf_mnemonic_label_tad_with_alignment(_("_HTTP-EQUIV:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 10, 1, 2);
