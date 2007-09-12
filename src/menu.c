@@ -998,16 +998,13 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
-			DEBUG_MSG("external_menu_rebuild,Adding browser %s with command %s to the menu\n", arr[0], arr[1]);
+			DEBUG_MSG("external_menu_rebuild,Adding filter %s with command %s to the menu\n", arr[0], arr[1]);
 			bdm->menuitem = create_dynamic_menuitem(bfwin,N_("/External/Filters"),arr[0],G_CALLBACK(external_filter_lcb),bdm,-1);
 			DEBUG_MSG("external_menu_rebuild,creating,bfwin=%p,bdm=%p,menuitem=%p\n",bfwin,bdm,bdm->menuitem);
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
+		} else {
+			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_filter; array count =%d\n",count_array(arr));
 		}
-#ifdef DEBUG
-		else {
-			DEBUG_MSG("need count=2 for browser menu! %p has count %d\n", arr, count_array(arr));
-		}
-#endif
 		tmplist = g_list_next(tmplist);
 	}
 	
@@ -1028,8 +1025,11 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			}
 			bdm->bfwin = bfwin;
 			bdm->data = arr;
+			DEBUG_MSG("external_menu_rebuild,Adding command %s with command %s (is default browser=%d) to the menu\n", arr[0], arr[1], (arr[2][0] == '1'));
 			bdm->menuitem = create_dynamic_menuitem(bfwin,tmp1,arr[0],G_CALLBACK(external_command_lcb),bdm,-1);
 			bfwin->menu_external = g_list_append(bfwin->menu_external, bdm);
+		} else {
+			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_command; array count =%d\n",count_array(arr));
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -1052,8 +1052,11 @@ void external_menu_rebuild(Tbfwin *bfwin) {
 			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
 			bdm->data = arr;
 			bdm->bfwin = bfwin;
+			DEBUG_MSG("external_menu_rebuild,Adding outputbox %s with command %s to the menu\n", arr[0], arr[5]);
 			bdm->menuitem = create_dynamic_menuitem(bfwin,N_("/External/Outputbox"),arr[0],G_CALLBACK(menu_outputbox_lcb),(gpointer)bdm,-1);
 			bfwin->menu_outputbox = g_list_append(bfwin->menu_outputbox,bdm);
+		} else {
+			DEBUG_MSG("external_menu_rebuild, CORRUPT ENTRY IN external_outputbox; array count =%d\n",count_array(arr));
 		}
 		tmplist = g_list_next(tmplist);
 	}
