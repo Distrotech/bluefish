@@ -83,11 +83,9 @@ static void files_advanced_win_ok_clicked(Tfiles_advanced *tfs) {
 
 static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_advanced *tfs) {
 	gchar *newdir = NULL;
-	const gchar *set;
 	GtkWidget *dialog;
 
-	set = gtk_entry_get_text(GTK_ENTRY(tfs->basedir));
-	dialog = file_chooser_dialog(tfs->bfwin, _("Select basedir"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, set, TRUE, FALSE, NULL, FALSE);
+	dialog = file_chooser_dialog(tfs->bfwin, _("Select basedir"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, (gchar *)gtk_entry_get_text(GTK_ENTRY(tfs->basedir)), TRUE, FALSE, NULL, FALSE);
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 		newdir = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
 	}
@@ -107,18 +105,21 @@ void files_advanced_win(Tbfwin *bfwin, gchar *basedir) {
 	unsigned int i = 0;
 	
 	const gchar *fileExts[] = {
+		"*.c",
+		"*.cgi",
+		"*.cpp",
+		"*.css",
+		"*.h",
 		"*.html",
 		"*.htm",
-		"*.php",
-		"*.php3",
-		"*.shtml",
-		"*.pl",
-		"*.cgi",
-		"*.xml",
-		"*.c",
-		"*.h",
-		"*.py",
 		"*.java",
+		"*.js",
+		"*.php",
+		"*.pl",
+		"*.py",
+		"*.shtml",
+		"*.txt",
+		"*.xml"
 	};
 	
 	tfs = g_new (Tfiles_advanced, 1);
