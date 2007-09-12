@@ -40,8 +40,13 @@ typedef struct {
 	gint count;
 } Trefcpointer;
 
+/* #define REFP_DEBUG */
 Trefcpointer *refcpointer_new(gpointer data);
+#ifdef REFP_DEBUG
+void refcpointer_ref(Trefcpointer *rp);
+#else
 #define refcpointer_ref(rp) rp->count++
+#endif
 void refcpointer_unref(Trefcpointer *rp);
 GnomeVFSURI *add_suffix_to_uri(GnomeVFSURI *uri, const char *suffix);
 GList *urilist_to_stringlist(GList *urilist);
