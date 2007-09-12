@@ -328,11 +328,12 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 
 	is_local_non_modified = (ep->bfwin->current_document->uri 
 		&& !ep->bfwin->current_document->modified
-		&& gnome_vfs_uri_is_local(ep->bfwin->current_document->uri));
+		&& strcmp(gnome_vfs_uri_get_scheme(ep->bfwin->current_document->uri),"file")==0);
+	DEBUG_MSG("create_commandstring,is_local_non_modified=%d, uri=%p, modified=%d, scheme=%s\n",is_local_non_modified,ep->bfwin->current_document->uri, ep->bfwin->current_document->modified, gnome_vfs_uri_get_scheme(ep->bfwin->current_document->uri));
 
 	if (need_filename || is_local_non_modified) {
 		curi = gnome_vfs_uri_to_string(ep->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
-		if (need_local) {
+		if (need_local || (is_local_non_modified && (need_tmpin||need_fifoin))) {
 			localname = gnome_vfs_get_local_path_from_uri(curi);
 			localfilename = strrchr(localname, '/')+1;
 			items += 2;
@@ -370,12 +371,20 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 	}
 	if (need_tmpin) {
 		table[cur].my_int = 'I';
-		ep->tmp_in = create_secure_dir_return_filename();
+		if (is_local_non_modified) {
+			ep->tmp_in = g_strdup(localfilename);
+		} else {
+			ep->tmp_in = create_secure_dir_return_filename();
+		}
 		table[cur].my_char = g_strdup(ep->tmp_in);
 		cur++;
 	} else if (need_fifoin) {
 		table[cur].my_int = 'i';
-		ep->fifo_in = create_secure_dir_return_filename();
+		if (is_local_non_modified) {
+			ep->fifo_in = g_strdup(localfilename);
+		} else {
+			ep->fifo_in = create_secure_dir_return_filename();
+		}
 		table[cur].my_char = g_strdup(ep->fifo_in);
 		DEBUG_MSG("create_commandstring, %%i will be at %s\n",table[cur].my_char);
 		cur++;
