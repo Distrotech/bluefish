@@ -78,7 +78,7 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 void doc_bind_signals(Tdocument *doc);
 void doc_unbind_signals(Tdocument *doc);
 gchar *doc_get_buffer_in_encoding(Tdocument *doc);
-gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename);
+/* gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename); */
 void doc_set_fileinfo(Tdocument *doc, GnomeVFSFileInfo *finfo);
 void doc_get_iter_location(Tdocument *doc, GtkTextIter *iter, GdkRectangle *rectange);
 void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter *iter);

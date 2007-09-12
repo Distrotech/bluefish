@@ -83,9 +83,11 @@ static void files_advanced_win_ok_clicked(Tfiles_advanced *tfs) {
 
 static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_advanced *tfs) {
 	gchar *newdir = NULL;
+	const gchar *set;
 	GtkWidget *dialog;
 
-	dialog = file_chooser_dialog(tfs->bfwin, _("Select basedir"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, NULL, TRUE, FALSE, NULL, FALSE);
+	set = gtk_entry_get_text(GTK_ENTRY(tfs->basedir));
+	dialog = file_chooser_dialog(tfs->bfwin, _("Select basedir"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, set, TRUE, FALSE, NULL, FALSE);
 	if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
 		newdir = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
 	}
