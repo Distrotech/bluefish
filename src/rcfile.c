@@ -630,20 +630,20 @@ void rcfile_parse_main(void)  {
 
 	if (main_v->props.external_outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","cd %c && make","1",NULL));
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("weblint HTML checker"),"([a-zA-Z0-9/_.-]+) \\(([0-9:]+)\\) (.*)","1","2","3","weblint '%s'","0",NULL));
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("tidy HTML validator"),"line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","tidy -qe","0",NULL));
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("javac"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac '%s'","0",NULL));
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("xmllint XML checker"),"([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\: (.*)","1","2","3","xmllint --noout --valid '%s'","0",NULL));
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("php"),"(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)","1","2","3","php '%s'","0",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","cd %c && make|","1",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("weblint HTML checker"),"([a-zA-Z0-9/_.-]+) \\(([0-9:]+)\\) (.*)","1","2","3","weblint '%s'|","0",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("tidy HTML validator"),"line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","|tidy -qe|","0",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("javac"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac '%s'|","0",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("xmllint XML checker"),"([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\: (.*)","1","2","3","xmllint --noout --valid '%s'|","0",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("php"),"(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)","1","2","3","php '%s'|","0",NULL));
 	}
 	if (main_v->props.external_filter==NULL) {
-		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Sort"),"sort",NULL));
-		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Reverse lines"),"tac",NULL));
-		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Dos2unix"),"dos2unix",NULL));
-		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Tidy HTML"),"tidy",NULL));
-		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Strip empty lines"),"egrep -v '^[ \t]*$'",NULL));
-		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Render HTML to text"),"lynx -force_html -dump %i",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Sort"),"|sort|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Reverse lines"),"|tac|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Dos2unix"),"|dos2unix|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Tidy HTML"),"|tidy|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Strip empty lines"),"|egrep -v '^[ \t]*$'|",NULL));
+		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Render HTML to text"),"lynx -force_html -dump %i |",NULL));
 	}
 	if (main_v->props.external_command==NULL) {
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Firefox"), "firefox -remote 'openURL(%i, new-window)' || firefox %i&","1",NULL));
