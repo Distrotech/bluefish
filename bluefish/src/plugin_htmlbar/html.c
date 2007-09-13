@@ -1193,7 +1193,7 @@ void meta_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 
 	dgtable = html_diag_table_in_vbox(dg, 5, 10);
 	popuplist = list_from_arglist(FALSE, "abstract", "audience", "author", "copyright", "date", "description", "generator"
-			, "keywords", "page-topic", "page-type", "publisher", "revisit-after", "robots");
+			, "keywords", "page-topic", "page-type", "publisher", "revisit-after", "robots", NULL);
 	dg->combo[2] = combo_with_popdown(tagvalues[1], popuplist, 1);
 	bf_mnemonic_label_tad_with_alignment(_("_Name:"), dg->combo[2], 0, 0.5, dgtable, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[2])), 1, 10, 0, 1);
@@ -1202,7 +1202,7 @@ void meta_dialog(Tbfwin *bfwin, Ttagpopup *data) {
 	/* extra field for Dublin Core meta tags: DC.foo ?*/
 	popuplist = list_from_arglist(FALSE, "expires", "refresh", "content-encoding", "content-location", "content-language"
 			,"content-style-type", "content-script-type", "content-type", "ext-cache", "cache-control", "pragma", "set-cookie"
-			, "PICS-Label");
+			, "PICS-Label", NULL);
 	dg->combo[1] = combo_with_popdown(tagvalues[0], popuplist, 1);
 	bf_mnemonic_label_tad_with_alignment(_("_HTTP-EQUIV:"), dg->combo[1], 0, 0.5, dgtable, 0, 1, 1, 2);
 	gtk_table_attach_defaults(GTK_TABLE(dgtable), GTK_WIDGET(GTK_COMBO(dg->combo[1])), 1, 10, 1, 2);

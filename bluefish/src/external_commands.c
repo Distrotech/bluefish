@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * external_commands.c - backend for external commands, filters and the outputbox
  *
- * Copyright (C) 2005-2006 Olivier Sessink
+ * Copyright (C) 2005-2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -264,11 +264,15 @@ gboolean operatable_on_selection(const gchar *formatstring) {
     * %O temporary filename for output of filters or outputbox (fifo is faster) (previously %f)
     * %t temporary filename for both input and output (for in-place-editing filters)
 */
-static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gboolean discard_output) {
+static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gboolean discard_output) {
 	Tconvert_table *table;
 	gchar *localname=NULL, *localfilename=NULL, *retstring, *curi=NULL;
+	gchar *formatstring;
+	gint formatstringlen;
 	gboolean is_local_non_modified;
-	gboolean need_local = FALSE, 
+	gboolean need_local = FALSE,
+		need_pipein = FALSE,
+		need_pipeout = FALSE,
 		need_tmpin = FALSE,
 		need_tmpout = FALSE,
 		need_fifoin = FALSE,
@@ -281,6 +285,20 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 	if (!ep->bfwin->current_document) {
 		return NULL;
 	}
+	
+	formatstring = g_strstrip(g_strdup(formatstr));
+	formatstringlen = strlen(formatstring);
+
+	if (formatstring[0]=='|') {
+		need_pipein = TRUE;
+		formatstring[0] = ' ';
+	}
+	
+	if (!discard_output && (formatstring[formatstringlen-1]=='|')) {
+		need_pipeout = TRUE;
+		formatstring[formatstringlen-1]=' ';
+	}
+	
 	need_filename = need_local = (strstr(formatstring, "%c") != NULL || strstr(formatstring, "%s") != NULL);
 	need_preview_uri = (strstr(formatstring, "%p") != NULL);
 	if (!need_filename) { /* local already implies we need a filename */
@@ -289,11 +307,13 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 	if (need_filename && !ep->bfwin->current_document->uri) {
 		/* BUG: give a warning that the current command only works for files with a name */
 		DEBUG_MSG("create_commandstring, this command needs a filename, but there is no\n");
+		g_free(formatstring);
 		return NULL;
 	}
 	if (need_local && !gnome_vfs_uri_is_local(ep->bfwin->current_document->uri)) {
 		DEBUG_MSG("create_commandstring, this command needs a local filefilename, but there is no\n");
 		/* BUG: give a warning that the current command only works for local files */
+		g_free(formatstring);
 		return NULL;
 	}
 	need_tmpin = (strstr(formatstring, "%I") != NULL);
@@ -303,27 +323,36 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 	need_fifoout = (strstr(formatstring, "%o") != NULL);
 	need_inplace = (strstr(formatstring, "%t") != NULL);
 	
-	if ((need_tmpout || need_fifoout || need_inplace) && discard_output) {
+	if ((need_tmpout || need_fifoout || need_inplace || need_pipeout) && discard_output) {
 		DEBUG_MSG("create_commandstring, external_commands should not have %%o\n");
 		/*  BUG: give a warning that external commands should not use %o */
+		g_free(formatstring);
 		return NULL;
 	}
-	if ((need_tmpin && (need_fifoin || need_inplace)) || (need_fifoin && need_inplace)) {
+	if ((need_tmpin && (need_fifoin || need_inplace || need_pipein)) 
+			|| (need_fifoin && (need_inplace || need_pipein))
+			|| (need_inplace && need_pipein)) {
 		DEBUG_MSG("create_commandstring, cannot have multiple inputs\n");
 		/*  BUG: give a warning that you cannot have multiple inputs */
+		g_free(formatstring);
 		return NULL;
 	}
-	if ((need_tmpout && (need_fifoout || need_inplace)) || (need_fifoout && need_inplace)) {
+	if ((need_tmpout && (need_fifoout || need_inplace || need_pipeout)) 
+			|| (need_fifoout && (need_inplace || need_pipeout))
+			|| (need_inplace && need_pipeout)) {
 		DEBUG_MSG("create_commandstring, cannot have multiple outputs\n");
 		/*  BUG: give a warning that you cannot have multiple outputs */
+		g_free(formatstring);
 		return NULL;
 	}
-	if (!need_tmpin && !need_fifoin && !need_inplace && !need_filename && !need_preview_uri) {
+	if (need_pipein)  ep->pipe_in = TRUE;
+	if (need_pipeout) ep->pipe_out = TRUE;
+/*	if (!need_tmpin && !need_fifoin && !need_inplace && !need_filename && !need_preview_uri) {
 		ep->pipe_in = TRUE;
 	}
 	if (!discard_output && !need_tmpout && !need_fifoout && !need_inplace) {
 		ep->pipe_out = TRUE;
-	}
+	}*/
 	DEBUG_MSG("create_commandstring, formatstring '%s' seems OK\n",formatstring);
 
 	is_local_non_modified = (ep->bfwin->current_document->uri 
@@ -423,6 +452,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstring, gb
 		retstring = replace_string_printflike(formatstring, table);
 	}
 	free_convert_table(table);
+	g_free(formatstring);
 	DEBUG_MSG("create_commandstring, returning %s\n",retstring);
 	return retstring;
 }
