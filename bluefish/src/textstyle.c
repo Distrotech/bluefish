@@ -75,8 +75,8 @@ void textstyle_rebuild(void) {
 		/* cleanup the existing tags */
 		gtk_text_tag_table_foreach(textstyle.tagtable,addtolist_lcb,&tmplist);
 		for (tmplist=g_list_first(tmplist);tmplist!=NULL;tmplist=tmplist->next) {
-			GtkTextTag *tag = tmplist->data;
-/*			if (strcmp(tag->name, "_folded_") !=0 && strcmp(tag->name, "_fold_header_") !=0 && strcmp(tag->name, "_block_") !=0 && strcmp(tag->name, "_block_match_") !=0) {*/
+/*			GtkTextTag *tag = tmplist->data;
+			if (strcmp(tag->name, "_folded_") !=0 && strcmp(tag->name, "_fold_header_") !=0 && strcmp(tag->name, "_block_") !=0 && strcmp(tag->name, "_block_match_") !=0) {*/
 				DEBUG_MSG("textstyle_rebuild, removing tag %p from tagtable %p\n",tmplist->data,textstyle.tagtable);
 				gtk_text_tag_table_remove(textstyle.tagtable,tmplist->data);
 /*			} else {
