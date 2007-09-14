@@ -200,6 +200,7 @@ void gui_notebook_move(Tbfwin *bfwin, gboolean move_left) {
 		if (newpos >= 0 && newpos < gtk_notebook_get_n_pages(GTK_NOTEBOOK(bfwin->notebook))) {
 			gtk_notebook_reorder_child(GTK_NOTEBOOK(bfwin->notebook),tmp,newpos);
 #if !GTK_CHECK_VERSION(2,10,0)
+			/* changing the list is in gtk2.10 code handled in the signal handler */
 			GList *moveto;
 			moveto = (move_left) ? g_list_previous(cur) : g_list_next(cur);
 #ifdef DEVELOPMENT
