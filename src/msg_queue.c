@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * msg_queue.c - message queue handling
  *
- * Copyright (C) 2003 Olivier Sessink
+ * Copyright (C) 2003-2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -41,19 +41,18 @@
 #include "document.h"
 #include "project.h"
 
-#define BLUEFISH_MSG_QUEUE 9723475
+#define BLUEFISH_MSG_QUEUE 9723476 /* randomly chosen number, I hope it is not used by other apps */
 #define MSQ_QUEUE_SIZE 1024
 #define MSQ_QUEUE_SMALL_SIZE 7
 #define MSQ_QUEUE_CHECK_TIME 300	/* miliseconds for gtk_timeout*/
 
-/* send alive must have the highest number, because it is the only type that 
- * should not be read by the master process. The sending processes reads this
- * to check if the queue is alive
- */
-#define MSG_QUEUE_SEND_ALIVE 46064
-#define MSG_QUEUE_OPENFILE 46063
-#define MSG_QUEUE_OPENPROJECT 46062
-#define MSG_QUEUE_OPENNEWWIN 46061
+#define MSG_QUEUE_SEND_ALIVE 46070
+
+#define MSG_QUEUE_OPENFILE_LAST 46050
+#define MSG_QUEUE_OPENFILE 46040
+#define MSG_QUEUE_OPENPROJECT 46030
+#define MSG_QUEUE_OPENNEWWIN 46020
+
 /* from man msgrcv: 'the first message on the queue with the lowest type less 
  * than or equal to the absolute value of msgtyp will be read'
  * that means the requestalive should have the lowest number, because
@@ -61,7 +60,7 @@
  */
 #define MSG_QUEUE_ASK_ALIVE 46010
 
-#define MSG_QUEUE_PER_DOCUMENT_TIMEOUT 20000000	/* nanoseconds */
+
 
 /* 
 the message queue system is quite easy:
@@ -189,14 +188,17 @@ static gboolean msg_queue_open(void)
  * - MSG_QUEUE_OPENFILE - open a filename
  * - MSG_QUEUE_OPENPROJECT - open a filename as project
  * - MSG_QUEUE_OPENNEWWIN - open a new window
+ * - MSG_QUEUE_FINISHED_SENDING - the calling process will stop sending now
  */
-static gboolean msg_queue_check(gint started_by_gtk_timeout)
-{
+static gboolean msg_queue_check(gint started_by_gtk_timeout) {
 	struct msgbuf {
 		long mtype;
 		char mtext[MSQ_QUEUE_SIZE];
 	} msgp;
 	gint retval;
+	gboolean run_again = TRUE;
+	Tbfwin *bfwin;	
+	
 	if (main_v->bfwinlist == NULL || BFWIN(main_v->bfwinlist->data)->documentlist == NULL) {
 		DEBUG_MSG("msg_queue_check, no documentlist yet, so we do not continue\n");
 		return TRUE;
@@ -205,63 +207,70 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout)
 	if (msg_queue.msgid == -1) {
 		return FALSE;
 	}
-	retval =	msgrcv(msg_queue.msgid, &msgp, MSQ_QUEUE_SIZE, -MSG_QUEUE_OPENFILE, IPC_NOWAIT);
-	if (retval != -1) {
-		DEBUG_MSG("msg_queue_check, found type %ld\n", msgp.mtype);
-		if (msgp.mtype == MSG_QUEUE_ASK_ALIVE) {
-			struct small_msgbuf {
-				long mtype;
-				char mtext[MSQ_QUEUE_SMALL_SIZE];
-			} small_msgp;
-			DEBUG_MSG("msg_queue_check, a keepalive is asked from %s, sending!\n", msgp.mtext);
-			small_msgp.mtype = MSG_QUEUE_SEND_ALIVE;
-			strncpy(small_msgp.mtext, msgp.mtext, MSQ_QUEUE_SMALL_SIZE - 1);
-			msgsnd(msg_queue.msgid, (void *) &small_msgp, MSQ_QUEUE_SMALL_SIZE * sizeof(char),
-				   IPC_NOWAIT);
-		} else if (msgp.mtype == MSG_QUEUE_OPENFILE) {
-			GList *lastlist = g_list_last(main_v->bfwinlist);
-			DEBUG_MSG("msg_queue_check, a filename %s is received\n", msgp.mtext);
-			doc_new_from_input(BFWIN(lastlist->data), msgp.mtext, TRUE, FALSE, -1);
-			msg_queue_check(0);	/* call myself again, there may have been multiple files */
-/*			if (started_by_gtk_timeout) {
-				notebook_changed(-1);
-			}*/
-		} else if (msgp.mtype == MSG_QUEUE_OPENPROJECT) {
-			GList *lastlist = g_list_last(main_v->bfwinlist);
-			DEBUG_MSG("msg_queue_check, a project %s is received\n", msgp.mtext);
-			project_open_from_file(BFWIN(lastlist->data), msgp.mtext);
-			msg_queue_check(0);	/* call myself again, there may have been multiple projects */
-		} else if (msgp.mtype == MSG_QUEUE_OPENNEWWIN) {
-			/* now check if this is indeed send by another process
-			if the message queue was dead during the startup of this process,
-			it might be started by this very process */
-			int otherpid = atoi(msgp.mtext);
-			DEBUG_MSG("msg_queue_check, a new window is requested by PID=%d\n",otherpid);
-			if (otherpid != (int) getpid()) {
-				DEBUG_MSG("msg_queue_check, the PID is not ours, opening new window\n");
-				gui_new_window(NULL, NULL);
-			}
-		}
-#ifdef DEBUG
-		 else {
-		 	DEBUG_MSG("msg_queue_check, unknown message queue type %ld\n", msgp.mtype);
-		 }
-#endif
+	bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
+	while (run_again) {
+		gboolean is_last = FALSE;
+		run_again = FALSE;
 		
-	} else {
-#ifdef MSG_QUEUE_DEBUG
-		DEBUG_MSG("msg_queue_check, found errno(%d)=%s\n", errno, g_strerror(errno));
-#endif
-	/*
-	43 = Identifier removed
-	*/
-		if (errno == 22 || errno == 43) {
-			DEBUG_MSG("msg_queue_check, re-opening message queue ?!?!?\n");
-			/* the msg_queue was removed !?!?! */
-			if (msg_queue_open()) {
-				DEBUG_MSG("msg_queue_check, another process has opened the message_queue, stopping server\n");
-				msg_queue.server = FALSE;
-				return FALSE;
+		/* read all except MSG_QUEUE_SEND_ALIVE */
+		retval =	msgrcv(msg_queue.msgid, &msgp, MSQ_QUEUE_SIZE, -MSG_QUEUE_OPENFILE_LAST, IPC_NOWAIT);
+		if (retval != -1) {
+			DEBUG_MSG("msg_queue_check, found type %ld\n", msgp.mtype);
+			switch (msgp.mtype) {
+			case MSG_QUEUE_ASK_ALIVE:
+				{
+				struct small_msgbuf {
+					long mtype;
+					char mtext[MSQ_QUEUE_SMALL_SIZE];
+				} small_msgp;
+				DEBUG_MSG("msg_queue_check, a keepalive is asked from %s, sending!\n", msgp.mtext);
+				small_msgp.mtype = MSG_QUEUE_SEND_ALIVE;
+				strncpy(small_msgp.mtext, msgp.mtext, MSQ_QUEUE_SMALL_SIZE - 1);
+				msgsnd(msg_queue.msgid, (void *) &small_msgp, MSQ_QUEUE_SMALL_SIZE * sizeof(char),
+					   IPC_NOWAIT);
+				}
+			break;
+			case MSG_QUEUE_OPENFILE_LAST:
+				is_last = TRUE;
+			/* don't break, we have to open file file */
+			case MSG_QUEUE_OPENFILE:
+				DEBUG_MSG("msg_queue_check, a filename %s is received, is_last=%d\n", msgp.mtext,is_last);
+				doc_new_from_input(bfwin, msgp.mtext, !is_last, FALSE, -1);
+				run_again = TRUE;	/* call myself again, there may have been multiple files */
+			break;
+			case MSG_QUEUE_OPENPROJECT:
+				DEBUG_MSG("msg_queue_check, a project %s is received\n", msgp.mtext);
+				project_open_from_file(bfwin, msgp.mtext);
+				run_again = TRUE;	/* call myself again, there may have been multiple projects */
+			break;
+			case MSG_QUEUE_OPENNEWWIN:
+				{
+					/* now check if this is indeed send by another process
+					if the message queue was dead during the startup of this process,
+					it might be started by this very process */
+					int otherpid = atoi(msgp.mtext);
+					DEBUG_MSG("msg_queue_check, a new window is requested by PID=%d\n",otherpid);
+					if (otherpid != (int) getpid()) {
+						DEBUG_MSG("msg_queue_check, the PID is not ours, opening new window\n");
+						bfwin = gui_new_window(NULL, NULL);
+					}
+				}
+			break;
+	#ifdef DEBUG
+			default:
+				DEBUG_MSG("msg_queue_check, unknown message queue type %ld\n", msgp.mtype);
+			break;
+	#endif
+			}
+		} else {
+			if (errno == 22 || errno == 43) { /* 43 = Identifier removed */
+				DEBUG_MSG("msg_queue_check, re-opening message queue ?!?!?\n");
+				/* the msg_queue was removed !?!?! */
+				if (msg_queue_open()) {
+					DEBUG_MSG("msg_queue_check, another process has opened the message_queue, stopping server\n");
+					msg_queue.server = FALSE;
+					return FALSE;
+				}
 			}
 		}
 	}
@@ -280,11 +289,15 @@ static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean 
 		long mtype;
 		char mtext[MSQ_QUEUE_SIZE];
 	} msgp;
+	
 	gint success = 1, check_keepalive_cnt = 0, send_failure_cnt = 0;
 	GList *tmplist;
+	gint num_files_sent = 0;
 
 	/* we have a message queue now, opened by another bluefish process */
 	msgp.mtype = send_with_id;
+	 
+	
 	tmplist = g_list_first(names);
 	while (tmplist && success) {
 		gint retval;
@@ -303,12 +316,19 @@ static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean 
 		
 		if (len < MSQ_QUEUE_SIZE - 1) {
 			strncpy(msgp.mtext, (gchar *) tmplist->data, MSQ_QUEUE_SIZE - 1);
+			
+			/* this is a bit of specific code for sending files, to notify the server process that the last file is coming */
+			if (tmplist->next == NULL && msgp.mtype == MSG_QUEUE_OPENFILE) {
+				DEBUG_MSG("msg_queue_send_files, %s is the last file!\n",msgp.mtext);
+				msgp.mtype = MSG_QUEUE_OPENFILE_LAST;
+			}
 			retval =	msgsnd(msg_queue.msgid, (void *) &msgp, MSQ_QUEUE_SIZE * sizeof(char), IPC_NOWAIT);
 			if (retval == -1) {
 				DEBUG_MSG("msg_queue_send_files, failed sending, errno=%d\n", errno);
 				if (errno == EAGAIN) { /* EAGAIN = 11 */
-					static struct timespec const req = { 0, MSG_QUEUE_PER_DOCUMENT_TIMEOUT};
+					struct timespec req = { 0, 20000000	/* nanoseconds */};
 					static struct timespec rem;
+					if (num_files_sent > 10 ) req.tv_nsec = (2*req.tv_nsec);
 					nanosleep(&req, &rem);
 					send_failure_cnt++;
 				} else {
@@ -339,12 +359,14 @@ static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean 
 		}
 		if ((check_keepalive_cnt > 5) || (send_failure_cnt > 60)) {
 			DEBUG_MSG
-				("msg_queue_send_files, to many tries, check_keepalive_cnt=%d, send_failure_cnt=%d\n",
+				("msg_queue_send_files, too many tries, check_keepalive_cnt=%d, send_failure_cnt=%d\n",
 				 check_keepalive_cnt, send_failure_cnt);
 			success = 0;
 		}
+		num_files_sent++;
 	}
 	if (success) {
+		/* send a signal that we are finished sending */
 		DEBUG_MSG
 			("msg_queue_send_files, sending filenames complete and successfull, received_keepalive=%d\n",
 			 received_keepalive);
