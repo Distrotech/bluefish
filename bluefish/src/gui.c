@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <time.h>      /* nanosleep() */
@@ -137,24 +137,22 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 		DEBUG_MSG("notebook_changed, WEIRD 2, doclist[%d] == NULL, RETURNING\n",cur);
 		return;
 	}
-	DEBUG_MSG("notebook_changed, current_document=%p\n",bfwin->current_document);
+	
 	bfwin->last_notebook_page = cur;
+	DEBUG_MSG("notebook_changed, current_document=%p, first flush the queue\n",bfwin->current_document);
 	/* now we flush the queue first, so that we don't call doc_activate 
 	on _this_ document if the user has another close click in the queue */
 	flush_queue();
-
+	DEBUG_MSG("notebook_changed, after flushing the queue, call doc_activate()\n");
 	doc_activate(bfwin->current_document);
 /*	bmark_adjust_visible(bfwin);*/
 	DEBUG_MSG("notebook_changed, finished\n");
 }
 
+/* use -1 to switch to the last page */
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index) {
-	if (index >= 0) {
-		gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), (index));
-/*		notebook_changed();*/
-		return TRUE;
-	}
-	return FALSE;
+	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), (index));
+	return TRUE;
 }
 
 gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document) {

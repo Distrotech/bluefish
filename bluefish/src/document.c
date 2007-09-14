@@ -3087,7 +3087,7 @@ void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gb
 	if (!input) {
 		return;
 	}
-	DEBUG_MSG("doc_new_from_input, input=%s\n",input);
+	DEBUG_MSG("doc_new_from_input, input=%s, delay_activate=%d\n",input,delay_activate);
 	if (strchr(input, '/')==NULL) { /* relative ?*/
 		if (bfwin->current_document->uri) {
 			gchar *relname;
@@ -3403,6 +3403,7 @@ void doc_activate(Tdocument *doc) {
 	}
 #endif
 	if (doc == NULL || doc == BFWIN(doc->bfwin)->last_activated_doc || doc->action.close_doc) {
+		DEBUG_MSG("doc_activate, not doing anything, doc=%p, last_avtivated_doc=%p, close_doc=%d\n",doc, BFWIN(doc->bfwin)->last_activated_doc, doc->action.close_doc);
 		return;
 	}
 	if (doc->status == DOC_STATUS_ERROR) {
@@ -3448,7 +3449,7 @@ void doc_activate(Tdocument *doc) {
 		DEBUG_MSG("doc_activate, returning\n");
 		return;
 	} else if (doc->status == DOC_STATUS_LOADING) {
-		DEBUG_MSG("STILL LOADING !\n");
+		DEBUG_MSG("doc_activate, STILL LOADING! returning\n");
 		return;
 	} else {
 		gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
