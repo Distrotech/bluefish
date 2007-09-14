@@ -1221,7 +1221,7 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 				list = return_allwindows_documentlist();
 				if (documentlist_return_document_from_uri(list, child_uri)==NULL) { /* if this file is already open, there is no need to do any of these checks */
 					if (oad->oa->patspec) {
-						gchar *nametomatch;
+						const gchar *nametomatch;
 						/* check if we have to match the name only or path+name */
 						if (oad->oa->matchname) {
 							nametomatch = finfo->name;
