@@ -2411,6 +2411,11 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 }
 */
 
+static void delete_backupfile_lcb(gpointer data) {
+	GnomeVFSURI *uri = (GnomeVFSURI *)data;
+	DEBUG_MSG("delete_backupfile_lcb, backup %s deleted\n",gnome_vfs_uri_get_path(uri));
+	gnome_vfs_uri_unref(uri);
+}
 /**
  * doc_destroy:
  * @doc: a #Tdocument
@@ -2475,8 +2480,9 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	if (doc->uri) {
 		if (main_v->props.backup_cleanuponclose) {
 			GnomeVFSURI *backupuri = backup_uri_from_orig_uri(doc->uri);
-			gnome_vfs_unlink_from_uri(backupuri);
-			gnome_vfs_uri_unref(backupuri);
+			file_delete_file_async(backupuri, delete_backupfile_lcb, backupuri);
+/*			gnome_vfs_unlink_from_uri(backupuri);*/
+/*			gnome_vfs_uri_unref(backupuri); the callback will unref the backupuri */
 		}
 		gnome_vfs_uri_unref(doc->uri);
 	}
