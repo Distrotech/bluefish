@@ -48,7 +48,7 @@ void snr2_cleanup(Tbfwin *bfwin);
 void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint region,
 							gint matchtype, gint is_case_sens, const gchar *replace_pattern,
 							gboolean unescape);
-Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens);
+Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens, gint offset);
 void search_from_selection(Tbfwin *bfwin);
 void search_cb(GtkWidget *widget, Tbfwin *bfwin);
 void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin);

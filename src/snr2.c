@@ -1059,13 +1059,15 @@ void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
  * @search_pattern: #gchar search pattern
  * @matchtype: #gint, 0 = normal, 1 = posix, 2 = perl
  * @is_case_sens: #gint, case sensitive pattern?
+ * @offset: #gint where to start searching
  *
- * Frontend for search_doc, calling it with supplied arguments and startpos = 0.
+ * Frontend for search_doc, calling it with supplied arguments 
  * 
  * Return value: #Tsearch_result_doc
  **/
-Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens) {
-	return search_doc(BFWIN(doc->bfwin),doc, search_pattern, matchtype, is_case_sens, 0, -1, FALSE, FALSE);
+Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens, gint offset) {
+	/*Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gboolean unescape, gboolean want_submatches*/
+	return search_doc(BFWIN(doc->bfwin),doc, search_pattern, matchtype, is_case_sens, offset, -1, FALSE, FALSE);
 } 
 
 /*****************************************************/
