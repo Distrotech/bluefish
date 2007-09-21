@@ -602,10 +602,6 @@ void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc) {
 	}
 }
 
-static gboolean mime_visible_in_filter(Tfilter *filter, const gchar *mime_type) {
-	if (filter)	return (GPOINTER_TO_INT(g_hash_table_lookup(filter->filetypes,mime_type)) ? filter->mode : !filter->mode);
-	return TRUE;
-}
 /*
 static gboolean name_visible_in_filter(Tfilebrowser2 *fb2, gchar *name) {
 	GList *tmplist;
