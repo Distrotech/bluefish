@@ -21,6 +21,7 @@
 #ifndef __FILEFILTER_H_
 #define __FILEFILTER_H_
 gboolean mime_visible_in_filter(Tfilter *filter, const gchar *mime_type);
+gboolean file_visible_in_filter(Tfilter *filter, const gchar *mime_type, const gchar *filename);
 Tfilter *find_filter_by_name(const gchar *name);
 void filter_delete(Tfilter *filter);
 void filters_rebuild(void);
