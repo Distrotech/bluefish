@@ -118,9 +118,11 @@ typedef struct {
 /* filter struct - used in filebrowser2 and gtk_easy */
 /*****************************************************/
 typedef struct {
-	gchar *name;
+	gushort refcount;
 	gboolean mode; /* 0= hide matching files, 1=show matching files */
+	gchar *name;
 	GHashTable *filetypes; /* hash table with mime types */
+	GList *patterns;
 } Tfilter;
 
 /********************************************************************/

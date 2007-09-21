@@ -659,7 +659,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 			if (fb2->basedir && !gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE)) {
 				retval = FALSE;
 			}
-			if (retval && fb2->curfilter)	retval = mime_visible_in_filter(fb2->curfilter, mime_type);
+			if (retval && fb2->curfilter)	retval = file_visible_in_filter(fb2->curfilter, mime_type, name);
 		}
 		g_free(name);
 		g_free(mime_type);
@@ -732,7 +732,7 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
 	if (retval && !fb2->filebrowser_show_hidden_files) {
 		if (name[0] == '.') retval = FALSE;
 	}
-	if (retval && fb2->curfilter ) retval = mime_visible_in_filter(fb2->curfilter, mime_type);
+	if (retval && fb2->curfilter ) retval = file_visible_in_filter(fb2->curfilter, mime_type, name);
 #ifdef DEBUG
 	if (retval == FALSE) {
 		g_print("file_list_filter_func, hiding %s (%s)\n",name,mime_type);
