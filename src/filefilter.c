@@ -35,6 +35,29 @@
 #include "gtk_easy.h"        /* destroy_disposable_menu_cb() */
 #include "stringlist.h"      /* count_array() */
 
+gboolean mime_visible_in_filter(Tfilter *filter, const gchar *mime_type) {
+	if (filter)	return (GPOINTER_TO_INT(g_hash_table_lookup(filter->filetypes,mime_type)) ? filter->mode : !filter->mode);
+	return TRUE;
+}
+/*
+static gboolean filename_match(Tfilter *filter, const gchar *string) {
+	GList *tmplist;
+	guint len = strlen(string);	
+	const gchar *reversed = g_utf8_strreverse(string);
+	for (tmplist = g_list_first(filter->patspecs) ; tmplist = g_list_next(tmplist); tmplist) {
+		if (g_pattern_match((GPatternSpec *)tmplist->data,len,string,reversed))
+			return TRUE;
+}
+
+gboolean file_visible_in_filter(Tfilter *filter, const gchar *mime_type, const gchar *filename) {
+
+	if (filter)	
+		return ((GPOINTER_TO_INT(g_hash_table_lookup(filter->filetypes,mime_type)) 
+				|| filename_match(filter, filename)) ? filter->mode : !filter->mode);
+	return TRUE;
+}*/
+
+
 Tfilter *find_filter_by_name(const gchar *name) {
 	GList *tmplist = g_list_first(main_v->filefilters);
 	while(tmplist) {
