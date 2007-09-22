@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 
 #include <gtk/gtk.h>
@@ -40,6 +40,14 @@ typedef struct {
 	GPatternSpec* patspec;
 } Tpattern;
 
+static Tpattern *new_pattern(gchar *name) {
+	Tpattern *pat = g_new(Tpattern,1);			
+	pat->pattern = g_strdup(name);
+	pat->patspec = g_pattern_spec_new(name);
+	return pat;
+}
+
+
 static GList *remove_pattern_from_list(GList *list, const gchar *pattern) {
 	GList *tmplist = g_list_first(list);
 	while (tmplist) {
@@ -55,19 +63,6 @@ static GList *remove_pattern_from_list(GList *list, const gchar *pattern) {
 		tmplist = g_list_next(tmplist);
 	}
 	return list;
-}
-
-gboolean mime_visible_in_filter(Tfilter *filter, const gchar *mime_type) {
-#ifdef DEBUG
-	if (filter)	{
-		gboolean retval = (GPOINTER_TO_INT(g_hash_table_lookup(filter->filetypes,mime_type)) ? filter->mode : !filter->mode);
-		DEBUG_MSG("mime_visible_in_filter, return %d for %s\n",retval,mime_type);
-		return retval;
-	}
-#else
-	if (filter)	return (GPOINTER_TO_INT(g_hash_table_lookup(filter->filetypes,mime_type)) ? filter->mode : !filter->mode);
-#endif
-	return TRUE;
 }
 
 static gboolean filename_match(Tfilter *filter, const gchar *string) {
@@ -123,10 +118,9 @@ static GList *patternlist_from_string(const gchar *patterns) {
 		gchar **pattern = pats;
 		while (*pattern) {
 			/* do something */
-			Tpattern *pat = g_new(Tpattern,1);			
-			pat->pattern = g_strdup(*pattern);
-			pat->patspec = g_pattern_spec_new(pat->pattern);
-			list = g_list_append(list, pat); 
+			if (strlen(*pattern)>0) {
+				list = g_list_append(list, new_pattern(*pattern));
+			} 
 			pattern++;
 		}
 		g_strfreev(pats);
@@ -221,13 +215,9 @@ void filters_rebuild(void) {
 	main_v->filefilters = g_list_prepend(NULL, new_filter(_("All files"), "0", NULL, NULL));
 	tmplist = g_list_first(main_v->globses.filefilters);
 	while (tmplist) {
-		gint cnt;
 		gchar **strarr = (gchar **) tmplist->data;
-		cnt = count_array(strarr); 
-		if (cnt == 3 || cnt == 4) {
-			Tfilter *filter = new_filter(strarr[0], strarr[1], strarr[2], (cnt==4)?strarr[3]:NULL);
-			main_v->filefilters = g_list_prepend(main_v->filefilters, filter);
-		}
+		Tfilter *filter = new_filter(strarr[0], strarr[1], strarr[2], strarr[3]);
+		main_v->filefilters = g_list_prepend(main_v->filefilters, filter);
 		tmplist = g_list_next(tmplist);
 	}
 }
@@ -303,7 +293,17 @@ static void apply_filter_to_config(Tfilter *filter, const gchar *origname) {
 	g_hash_table_foreach(filter->filetypes,hashtable_to_string_lcb,gstr);
 	if (strarr[2]) g_free(strarr[2]);
 	strarr[2] = g_string_free(gstr,FALSE);
-	/* what to do if the original array was shorter ?? */
+	if (strarr[3]) g_free(strarr[3]);
+	gstr = g_string_new("");
+	{
+		GList *tmplist;
+		for (tmplist = g_list_first(filter->patterns) ; tmplist ; tmplist = g_list_next(tmplist)) {
+			Tpattern *pat = tmplist->data;
+			g_string_append(gstr, pat->pattern);
+			g_string_append_c(gstr,':');
+		}
+		strarr[3] = g_string_free(gstr,FALSE);
+	}
 }
 
 /*
@@ -396,11 +396,16 @@ static void filefiltergui_2right_clicked(GtkWidget *widget, Tfilefiltergui *ffg)
 	/* get the selection */
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(ffg->out_view));
 	if (gtk_tree_selection_get_selected(select, &model, &iter)) {
-		gchar *mime_type;
-		gtk_tree_model_get(model, &iter, 0, &mime_type, -1);
+		gchar *name;
+		gint type;
+		gtk_tree_model_get(model, &iter, 0, &name, 2, &type, -1);
 		/* add the selection to the filter */
-		DEBUG_MSG("filefiltergui_2right_clicked, adding %s\n",mime_type);
-		g_hash_table_replace(ffg->curfilter->filetypes, mime_type, GINT_TO_POINTER(1));
+		DEBUG_MSG("filefiltergui_2right_clicked, adding %s\n",name);
+		if (type == 0) {
+			g_hash_table_replace(ffg->curfilter->filetypes, name, GINT_TO_POINTER(1));
+		} else {
+			ffg->curfilter->patterns = g_list_append(ffg->curfilter->patterns, new_pattern(name));
+		}
 
 		DEBUG_MSG("filefiltergui_2right_clicked, refilter\n");
 		/* refilter */
@@ -421,7 +426,7 @@ static void filefiltergui_2left_clicked(GtkWidget *widget, Tfilefiltergui *ffg) 
 	if (gtk_tree_selection_get_selected(select, &model, &iter)) {
 		gchar *name;
 		gboolean type;
-		gtk_tree_model_get(model, &iter, 0, &name,2,&type -1);
+		gtk_tree_model_get(model, &iter, 0, &name,2,&type, -1);
 		/* add the selection to the filter */
 		if (type == 0) {
 			DEBUG_MSG("filefiltergui_2left_clicked, removing %s\n",name);
