@@ -798,7 +798,7 @@ static GList *return_globalsession_configlist(gboolean init_values) {
 	init_prop_integer   (&config_rc, &main_v->globses.image_thumbnailsizing_val1,"image_thumbnailsizing_val1:",100, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.image_thumbnailsizing_val2,"image_thumbnailsizing_val2:",100, init_values);
 	init_prop_string    (&config_rc, &main_v->globses.image_thumnailformatstring,"image_thumnailformatstring:",(init_values ? "<a href=\"%r\"><img src=\"%t\" width=\"%x\" height=\"%y\" border=\"0\"></a>" : NULL));
-	init_prop_arraylist (&config_rc, &main_v->globses.filefilters, "filefilters:", 3, init_values);
+	init_prop_arraylist (&config_rc, &main_v->globses.filefilters, "filefilters:", 4, init_values);
 	init_prop_arraylist (&config_rc, &main_v->globses.reference_files, "reference_files:", 2, init_values);
 	init_prop_limitedstringlist(&config_rc, &main_v->globses.recent_projects, "recent_projects:", main_v->props.max_recent_files, init_values);
 	config_rc = bfplugins_register_globses_config(config_rc);
@@ -913,15 +913,15 @@ gboolean rcfile_parse_global_session(void) {
 	if (main_v->globses.filefilters == NULL) {
 		/* if the user does not have file filters --> set them to defaults values */
 		gchar **arr;
-		arr = array_from_arglist(_("C programming"),"1","image/jpeg:text/x-install:text/x-readme:text/x-chdr:text/x-csrc:image/png:text/x-authors:text/x-copying:text/x-makefile", NULL);
+		arr = array_from_arglist(_("C programming"),"1","image/jpeg:text/x-install:text/x-readme:text/x-chdr:text/x-csrc:image/png:text/x-authors:text/x-copying:text/x-makefile", "", NULL);
 		main_v->globses.filefilters = g_list_prepend(main_v->globses.filefilters, arr);
-		arr = array_from_arglist(_("Web files"),"1", "text/html:image/png:image/jpeg", NULL);
+		arr = array_from_arglist(_("Web files"),"1", "text/html:image/png:image/jpeg", "", NULL);
 		main_v->globses.filefilters = g_list_prepend(main_v->globses.filefilters, arr);
 		/*arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 		main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);*/
-		arr = array_from_arglist(_("Images"),"1", "image/png:image/jpeg:image/gif:image/tiff", NULL);
+		arr = array_from_arglist(_("Images"),"1", "image/png:image/jpeg:image/gif:image/tiff", "", NULL);
 		main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-		arr = array_from_arglist(_("Hide objectfiles"),"0", "application/octet-stream:application/x-object", NULL);
+		arr = array_from_arglist(_("Hide objectfiles"),"0", "application/octet-stream:application/x-object", "", NULL);
 		main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
 	}
 	
