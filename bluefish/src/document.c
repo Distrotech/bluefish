@@ -1245,6 +1245,7 @@ void doc_set_statusbar_editmode_encoding(Tdocument *doc)
  **/
 void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint start, gint end) {
 	doc_unbind_signals(doc);
+	bf_textview_set_delay_rescan(doc->view, TRUE);
 	/* delete region, and add that to undo/redo list */
 	{
 		gchar *buf;
@@ -1274,6 +1275,7 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 		doc_unre_add(doc, newstring, insert, insert + g_utf8_strlen(newstring,-1), UndoInsert);
 	}
 	doc_bind_signals(doc);
+	bf_textview_set_delay_rescan(doc->view, FALSE);
 	doc_set_modified(doc, 1);
 	doc->need_highlighting=TRUE;
 }					  

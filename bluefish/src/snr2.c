@@ -198,7 +198,7 @@ static void snr2_doc_highlight_match(Tdocument *doc, GtkWindow *dialog, gint sta
 Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *buf, guint byte_offset, gboolean want_submatches) {
 	Tsearch_result returnvalue;
 	int (*f) ();
-	gint buflen, patlen, match, i;
+	gint patlen, match, i;
 
 	returnvalue.start = -1;
 	returnvalue.end = -1;
@@ -320,10 +320,13 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		} else {
 			f = strncmp;
 		}
-		buflen = strlen(buf);
+		/* in a large (large number of replaces) search and replace, the length of the buffer 
+		is calculated *way* too often (for every replace once )..  */
+		/*buflen = strlen(buf);*/
 		patlen = strlen(search_pattern);
 		
-		for (i = byte_offset; i <= (buflen - patlen); i++) {
+		/*for (i = byte_offset; i <= (buflen - patlen); i++) {*/
+		for (i = byte_offset; buf[i] != '\0'; i++) {
 			match = f(&buf[i], search_pattern, patlen);
 			if (match == 0) {
 				returnvalue.bstart = i;

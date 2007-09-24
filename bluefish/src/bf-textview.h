@@ -228,6 +228,8 @@ typedef struct {
 	BfLangConfig *lang;
 	TBfScanner scanner;
 	GtkWidget *fold_menu;
+	gboolean delay_rescan; /* this is set to TRUE if the buffer is going to be changed lots of times
+						but we do not want rescans every time */
 	gboolean need_rescan; /* this is set to true if the buffer is changed, but the
 						 widget is not visible to the user, the scanning is then postponed until 
 						 the widget is visible to the user */
@@ -269,6 +271,7 @@ void bf_textview_set_show_rmargin(BfTextView * self, gboolean show, gint column)
 void bf_textview_set_show_blocks(BfTextView * self, gboolean show);
 void bf_textview_set_highlight(BfTextView * self, gboolean on);
 void bf_textview_set_match_blocks(BfTextView * self, gboolean on);
+void bf_textview_set_delay_rescan(BfTextView * self, gboolean on);
 
 gboolean bf_textview_add_symbol(BfTextView * self, gchar * name, GdkPixbuf * pix);
 void bf_textview_remove_symbol(BfTextView * self, gchar * name);
