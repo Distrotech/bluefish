@@ -640,6 +640,8 @@ static void bf_textview_delete_range_after_cb(GtkTextBuffer * textbuffer, GtkTex
 
 	if (!view->lang)
 		return;
+	if (view->delay_rescan)
+		return;
 	if (GTK_WIDGET_VISIBLE(view) && view->delete_rescan) {
 		if (view->hl_mode == BFTV_HL_MODE_ALL || view->need_rescan) {
 			bf_textview_scan(view);
@@ -2009,39 +2011,45 @@ void bf_textview_fold_blocks_area(BfTextView * self, GtkTextIter * start, GtkTex
 /* -------------------- SCANNING  -------------------------------*/
 
 
-void bf_textview_scan(BfTextView * self)
-{
-	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
-	GtkTextIter its, ite;
-
-	g_return_if_fail(self != NULL);
-	g_return_if_fail(BF_IS_TEXTVIEW(self));
-	g_return_if_fail(buf != NULL);
-	gtk_text_buffer_get_start_iter(buf, &its);
-	gtk_text_buffer_get_end_iter(buf, &ite);
-	if (gtk_text_iter_equal(&its, &ite))
-		return;
-	self->need_rescan = FALSE;
-	bf_textview_scan_area(self, &its, &ite, TRUE);
+void bf_textview_scan(BfTextView * self) {
+	if (!self->delay_rescan) {
+		GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
+		GtkTextIter its, ite;
+	
+		g_return_if_fail(self != NULL);
+		g_return_if_fail(BF_IS_TEXTVIEW(self));
+		g_return_if_fail(buf != NULL);
+		gtk_text_buffer_get_start_iter(buf, &its);
+		gtk_text_buffer_get_end_iter(buf, &ite);
+		if (gtk_text_iter_equal(&its, &ite))
+			return;
+		self->need_rescan = FALSE;
+		bf_textview_scan_area(self, &its, &ite, TRUE);
+	} else {
+		self->need_rescan = TRUE;
+	}
 }
 
-void bf_textview_scan_visible(BfTextView * self)
-{
-	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
-	GtkTextIter its, ite;
-	GdkRectangle rect;
-	GtkTextIter l_start, l_end;
-
-	g_return_if_fail(self != NULL);
-	g_return_if_fail(BF_IS_TEXTVIEW(self));
-	g_return_if_fail(buf != NULL);
-	gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(self), &rect);
-	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(self), &l_start, rect.y, NULL);
-	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(self), &l_end, rect.y + rect.height, NULL);
-	its = l_start;
-	ite = l_end;
-	gtk_text_iter_forward_to_line_end(&ite);
-	bf_textview_scan_area(self, &its, &ite, TRUE);
+void bf_textview_scan_visible(BfTextView * self) {
+	if (!self->delay_rescan) {
+		GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
+		GtkTextIter its, ite;
+		GdkRectangle rect;
+		GtkTextIter l_start, l_end;
+	
+		g_return_if_fail(self != NULL);
+		g_return_if_fail(BF_IS_TEXTVIEW(self));
+		g_return_if_fail(buf != NULL);
+		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(self), &rect);
+		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(self), &l_start, rect.y, NULL);
+		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(self), &l_end, rect.y + rect.height, NULL);
+		its = l_start;
+		ite = l_end;
+		gtk_text_iter_forward_to_line_end(&ite);
+		bf_textview_scan_area(self, &its, &ite, TRUE);
+	} else {
+		self->need_rescan = TRUE;
+	}
 }
 
 #ifdef HL_PROFILING
@@ -2117,9 +2125,7 @@ static void bftv_clear_matched_block(BfTextView * self)
 	self->last_matched_block = NULL;
 }
 
-void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end,
-						   gboolean apply_hl)
-{
+void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end, gboolean apply_hl) {
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 	GtkTextIter its, ita, pit;
 	gunichar c;
@@ -2137,6 +2143,10 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	g_return_if_fail(BF_IS_TEXTVIEW(self));
 	if (!self->lang || self->paste_operation)
 		return;
+
+	if (self->delay_rescan)
+		return;
+
 	its = *start;
 	ita = *start;
 	self->scanner.current_context = NULL;
@@ -2688,6 +2698,10 @@ void bf_textview_set_highlight(BfTextView * self, gboolean on)
 void bf_textview_set_match_blocks(BfTextView * self, gboolean on)
 {
 	self->match_blocks = on;
+}
+
+void bf_textview_set_delay_rescan(BfTextView * self, gboolean on) {
+	self->delay_rescan = on;
 }
 
 gboolean bf_textview_add_symbol(BfTextView * self, gchar * name, GdkPixbuf * pix)
