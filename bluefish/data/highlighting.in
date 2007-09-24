@@ -122,6 +122,43 @@ jsp:HTML Special Tags:1:^(/)?(img|a)$::2:^<html> Tags$:#BB0540::0:0:
 jsp:HTML Table Tags:1:^(/)?(table|td|tr|tbody)$::2:^<html> Tags$:#5005AA::0:0:
 jsp:<html> Tags:1:1::3:^HTML$:#550044::2:0:
 jsp:HTML:1:<((/)?[a-z0-9]+):>:1::#000077::0:0:
+kid:Keywords Definition:0:(class|def)[\\t ]+[a-zA-Z0-9_]+::2:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:#0000AA::2:0:
+kid:Operators:0:[\\-\\+/\\*\:.,;(){}\\[\\]<>=]::2:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:#000088::0:0:
+kid:Keywords:0:\\b(and|break|continue|del|elif|else|exec|for|if|in|is|not|or|pass|print|return|while)\\b::2:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:#000000::2:0:
+kid:Keywords Self:0:(self\\.?)::2:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:#000088::2:0:
+kid:Numbers:1:[+\\-]?[0-9][0-9xa-f]*(\\.[0-9a-f]+(e[0-9]+)?)?::2:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:red::0:0:
+kid:Keywords Exception:0:\\b((assert|except|finally|try)[^\:]*\:|raise[^\\n]*\\n)::2:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:#DD0000::2:0:
+kid:Include:0:^(import |from ).*?$::2:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:#990099::0:0:
+kid:Identifiers:1:[a-zA-Z_][a-zA-Z0-9_]*::2:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:brown::0:0:
+kid:Comment:0:#.*?$::2:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:#AAAAAA::1:2:
+kid:Multi-line Comment:0:''':''':1:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:#AAAAAA::1:2:
+kid:Multi-line Comment2:0:""":""":1:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:#AAAAAA::1:2:
+kid:String Double:0:":":1:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:#009900::0:0:
+kid:String Double Escape:0:\\\\.::2:^string-double$:#009900::0:0:
+kid:String Single:0:':':1:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:#009900::0:0:
+kid:String Single Escape:0:\\\\.::2:^string-single$:#009900::0:0:
+kid:Special Values:0:\\bNone\\b::2:^(PyAttribute Content|FormatPython|PyEmbeddedContent|PyEmbeddedExpression)$:#999900::0:0:
+kid:Braces:0:[{()}\\[\\]]::2::#000000::2:
+kid:FormatPython:1:<\\?python:\\?>:1:^top$:::0:0:
+kid:Format:1:<\\?:\\?>:1:^top$:#000000::2:1:
+kid:Tag:1:<((/)?[a-z0-9\:-]+):[^?-]?>:1::::0:0:
+kid:Tag Name:1:1::3:^Tag$:#005676::2:0:
+kid:PyAttributeApos:0:py\\\:(for|if|content|replace|strip|attrs|def|match|extends|layout)='([^']*)'::2:^Tag$:::1:0:
+kid:PyAttributeQuot:0:py\\\:(for|if|content|replace|strip|attrs|def|match|extends|layout)="([^"]*)"::2:^Tag$:::1:0:
+kid:PyAttribute Name:1:1::3:^(PyAttributeApos|PyAttributeQuot)$:red:yellow:1:0:
+kid:PyAttribute Content:1:2::3:^(PyAttributeApos|PyAttributeQuot)$:::1:0:
+kid:AttributeApos:1:([a-z\:\\-]*=)'([^']*)'::2:^Tag$:::0:0:
+kid:AttributeQuot:1:([a-z\:\\-]*=)"([^"]*)"::2:^Tag$:::0:0:
+kid:Attribute Name:1:1::3:^(AttributeApos|AttributeQuot)$:#ff7600::1:0:
+kid:Attribute Content:1:2::3:^(AttributeApos|AttributeQuot)$:::0:0:
+kid:DocType:1:<!DOCTYPE [a-z0-9]+:>:1::#b35300::0:0:
+kid:Entity:1:[\\[]:[\\]]:1:^DocType$:#b35300::2:1:
+kid:Comment:0:<!--:-->:1:^top|DocType|Entity$:#AAAAAA::1:2:
+kid:Character Data:1:<!\\[CDATA\\[:\\]\\]>:1::#a2b300::0:0:
+kid:Character Entity:1:&[^;]+;::2::#9b0054::0:0:
+kid:PyEmbedded:0:\\$([a-zA-Z_][a-zA-Z_0-9\\.]*)::2:^(Attribute Content|top)$:::0:0:
+kid:PyEmbeddedContent:0:1::3:^(PyEmbedded|PyEmbeddedExpression1)$:::0:0:
+kid:PyEmbeddedExpression1:0:\\${([^}]*)}::2:^(Attribute Content|top)$:::0:0:
 octave:String (escaped):1:\\\\[\\\\"'0abfnrtv]::2:^String$:#000099::0:0:
 octave:String:1:":":1:^(top|Function)$:#009900::0:0:
 octave:Braces:1:[][(){}]::2:^(top|Function)$:::2:0:
