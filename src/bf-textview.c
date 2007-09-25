@@ -221,7 +221,7 @@ GType bf_textview_get_type(void)
 GtkWidget *bf_textview_new(void)
 {
 	BfTextView *o = GET_NEW;
-	/*GdkBitmap *bmp;*/
+	/*GdkBitmap *bmp; */
 
 	g_signal_connect(G_OBJECT(o), "expose-event", G_CALLBACK(bf_textview_expose_cb), NULL);
 	o->markset_signal_id =
@@ -249,7 +249,7 @@ GtkWidget *bf_textview_new(void)
 GtkWidget *bf_textview_new_with_buffer(GtkTextBuffer * buffer)
 {
 	BfTextView *o = GET_NEW;
-	/*GdkBitmap *bmp;*/
+	/*GdkBitmap *bmp; */
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(o), buffer);
 
 	g_signal_connect(G_OBJECT(o), "expose-event", G_CALLBACK(bf_textview_expose_cb), NULL);
@@ -367,8 +367,7 @@ static void bf_textview_mark_set_cb(GtkTextBuffer * buf, GtkTextIter * arg1, Gtk
 	} else if (arg2 && arg2 == gtk_text_buffer_get_selection_bound(buf)) {
 		gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
 		gtk_text_buffer_get_iter_at_mark(buf, &it2, arg2);
-		gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it,
-								   &it2);
+		gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it, &it2);
 	}
 }
 
@@ -759,6 +758,7 @@ else g_free(ln);
 return mark2;
 }*/
 
+/* this function takes quite a part of the cpu time when working with very large files */
 static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, GtkTextIter * arg2)
 {
 	GtkTextBuffer *textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
@@ -789,7 +789,8 @@ static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, 
 						if (!gtk_text_iter_has_tag(&it2, main_v->lang_mgr->internal_tags[IT_BLOCK])) {
 							gtk_text_buffer_get_iter_at_mark(textbuffer, &it2, mark2);
 							gtk_text_buffer_get_iter_at_mark(textbuffer, &it3, mark3);
-							gtk_text_buffer_remove_tag(textbuffer, main_v->lang_mgr->internal_tags[IT_BLOCK],
+							gtk_text_buffer_remove_tag(textbuffer,
+													   main_v->lang_mgr->internal_tags[IT_BLOCK],
 													   &it2, &it3);
 						}
 						if (bi->tagname)
@@ -1036,9 +1037,9 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 	if (!ptr || !xmlCheckUTF8(ptr))
 		return;
 	if (cfg->case_sensitive || (type == ST_TOKEN && token && token->type == TT_FAKE)) {
-		ptr2 = g_utf8_to_ucs4_fast((const gchar*)ptr, -1, &size);
+		ptr2 = g_utf8_to_ucs4_fast((const gchar *) ptr, -1, &size);
 	} else {
-		gchar *tmp = g_utf8_strup((const gchar*)ptr, -1);
+		gchar *tmp = g_utf8_strup((const gchar *) ptr, -1);
 		ptr2 = g_utf8_to_ucs4_fast(tmp, -1, &size);
 		g_free(tmp);
 	}
@@ -1226,7 +1227,7 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 			cfg->max_token_length = counter;
 	}
 
-	g_free (ptr2);
+	g_free(ptr2);
 }								/* bftv_scantable_insert */
 
 
@@ -1235,59 +1236,61 @@ static gpointer bftv_make_entity(xmlDocPtr doc, xmlNodePtr node, BfLangConfig * 
 {
 	xmlChar *tmps, *tmps2;
 	gpointer ptr;
-	
-	if ( text!=NULL && text[0]=='\0' ) return NULL;
+
+	if (text != NULL && text[0] == '\0')
+		return NULL;
 	switch (type) {
 	case ST_TOKEN:
 		{
-		BfLangToken *t;
-		if (text == NULL)
-			tmps = xmlNodeListGetString(doc, node->xmlChildrenNode, 1);
-		else
-			tmps = text;
-		t = g_new0(BfLangToken, 1);
-		t->type = TT_NORMAL;
-		t->group = group;
-		tmps2 = xmlGetProp(node, (const xmlChar *) "regexp");
-		t->regexp = bftv_xml_bool(tmps2);
-		if (tmps2)
-			xmlFree(tmps2);
-		tmps2 = xmlGetProp(node, (const xmlChar *) "name");
-		if (tmps2 && text == NULL) {
-			t->name = tmps2;
-		} else {
-			t->name = tmps;
+			BfLangToken *t;
+			if (text == NULL)
+				tmps = xmlNodeListGetString(doc, node->xmlChildrenNode, 1);
+			else
+				tmps = text;
+			t = g_new0(BfLangToken, 1);
+			t->type = TT_NORMAL;
+			t->group = group;
+			tmps2 = xmlGetProp(node, (const xmlChar *) "regexp");
+			t->regexp = bftv_xml_bool(tmps2);
 			if (tmps2)
 				xmlFree(tmps2);
-		}
-		t->text = tmps;
-		tmps2 = xmlGetProp(node, (const xmlChar *) "context");
-		if (tmps2) {
-			ptr = g_hash_table_lookup(cfg->blocks, tmps2);
-			if (!ptr)
-				g_warning("Token (%s) context defined as %s but such a block does not exists.",
-						  t->text, tmps2);
-			t->context = (BfLangBlock *) ptr;
-			xmlFree(tmps2);
-		} else
-			t->context = NULL;
+			tmps2 = xmlGetProp(node, (const xmlChar *) "name");
+			if (tmps2 && text == NULL) {
+				t->name = tmps2;
+			} else {
+				t->name = tmps;
+				if (tmps2)
+					xmlFree(tmps2);
+			}
+			t->text = tmps;
+			tmps2 = xmlGetProp(node, (const xmlChar *) "context");
+			if (tmps2) {
+				ptr = g_hash_table_lookup(cfg->blocks, tmps2);
+				if (!ptr)
+					g_warning("Token (%s) context defined as %s but such a block does not exists.",
+							  t->text, tmps2);
+				t->context = (BfLangBlock *) ptr;
+				xmlFree(tmps2);
+			} else
+				t->context = NULL;
 
-		tmps2 = xmlGetProp(node, (const xmlChar *) "defaultstyle");
-		t->tag =
-			get_tag_for_scanner_style((gchar *) cfg->name, "t", (gchar *) t->name, (gchar *) tmps2);
-		if (!t->tag) {
+			tmps2 = xmlGetProp(node, (const xmlChar *) "defaultstyle");
 			t->tag =
-				get_tag_for_scanner_style((gchar *) cfg->name, "g", (gchar *) t->group,
-										  (gchar *) groupstyle);
-		}
-		if (tmps2)
-			xmlFree(tmps2);
-		if (t->context)
-			bftv_scantable_insert(&t->context->scan_table, ST_TOKEN, t, cfg);
-		else
-			bftv_scantable_insert(&cfg->scan_table, ST_TOKEN, t, cfg);
-		g_hash_table_insert(cfg->tokens, &t->name, t);
-		return t;
+				get_tag_for_scanner_style((gchar *) cfg->name, "t", (gchar *) t->name,
+										  (gchar *) tmps2);
+			if (!t->tag) {
+				t->tag =
+					get_tag_for_scanner_style((gchar *) cfg->name, "g", (gchar *) t->group,
+											  (gchar *) groupstyle);
+			}
+			if (tmps2)
+				xmlFree(tmps2);
+			if (t->context)
+				bftv_scantable_insert(&t->context->scan_table, ST_TOKEN, t, cfg);
+			else
+				bftv_scantable_insert(&cfg->scan_table, ST_TOKEN, t, cfg);
+			g_hash_table_insert(cfg->tokens, &t->name, t);
+			return t;
 		}
 		break;
 	case ST_BLOCK_BEGIN:
@@ -1410,7 +1413,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 	times(&tms1);
 #endif
 	xmlLineNumbersDefault(1);
-	DEBUG_MSG("bftv_load_config, loading %s\n",filename);
+	DEBUG_MSG("bftv_load_config, loading %s\n", filename);
 	doc = xmlReadFile(filename, "UTF-8", XML_PARSE_RECOVER | XML_PARSE_NOENT);
 	cur = xmlDocGetRootElement(doc);
 	if (xmlStrcmp(cur->name, (const xmlChar *) "bflang") == 0) {
@@ -1439,12 +1442,14 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 				while (cur2 != NULL) {
 					if (xmlStrcmp(cur2->name, (const xmlChar *) "mimetype") == 0) {
 						tmps = xmlGetProp(cur2, (const xmlChar *) "type");
-						DEBUG_MSG("found mime-type %s\n",tmps);
-						if (tmps) cfg->mimetypes = g_list_append(cfg->mimetypes, tmps);
+						DEBUG_MSG("found mime-type %s\n", tmps);
+						if (tmps)
+							cfg->mimetypes = g_list_append(cfg->mimetypes, tmps);
 					}
 					cur2 = cur2->next;
 				}
-			} /* /mimetypes */ else if (xmlStrcmp(cur->name, (const xmlChar *) "options") == 0) {
+			} /* /mimetypes */
+			else if (xmlStrcmp(cur->name, (const xmlChar *) "options") == 0) {
 				cur2 = cur->xmlChildrenNode;
 				while (cur2 != NULL) {
 					if (xmlStrcmp(cur2->name, (const xmlChar *) "option") == 0) {
@@ -1454,15 +1459,15 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 							if (xmlStrcmp(tmps, (const xmlChar *) "case-sensitive") == 0)
 								cfg->case_sensitive = bftv_xml_bool(tmps2);
 							else if (xmlStrcmp(tmps, (const xmlChar *) "scan-markup-tags") == 0)
-								cfg->scan_tags = bftv_xml_bool(tmps2);								
+								cfg->scan_tags = bftv_xml_bool(tmps2);
 							else if (xmlStrcmp(tmps, (const xmlChar *) "scan-blocks") == 0)
 								cfg->scan_blocks = bftv_xml_bool(tmps2);
 							else if (xmlStrcmp(tmps, (const xmlChar *) "schema-aware") == 0)
-								cfg->schema_aware = bftv_xml_bool(tmps2);								
+								cfg->schema_aware = bftv_xml_bool(tmps2);
 							else if (xmlStrcmp(tmps, (const xmlChar *) "autoclose-exclude") == 0) {
 								gchar **arr = NULL;
 								gint i = 0;
-								arr = g_strsplit((const gchar*)tmps2, ",", -1);
+								arr = g_strsplit((const gchar *) tmps2, ",", -1);
 								while (arr[i]) {
 									g_hash_table_insert(cfg->dont_autoclose, g_strdup(arr[i]),
 														&const_true);
@@ -1475,14 +1480,14 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 								while (i < xmlUTF8Strlen(tmps2)) {
 									p = xmlUTF8Strpos(tmps2, i);
 									cfg->as_triggers[(gint) * p] = 1;
-									i++; 
+									i++;
 									/* p = xmlUTF8Strpos(tmps2, i++); does not take last character */
 								}
 							} else if (xmlStrcmp(tmps, (const xmlChar *) "escape-characters") == 0) {
 								const guchar *p = tmps2;
 								i = 0;
 								while (i < xmlUTF8Strlen(tmps2)) {
-									p = xmlUTF8Strpos(tmps2,i);
+									p = xmlUTF8Strpos(tmps2, i);
 									cfg->escapes[(gint) * p] = 1;
 									i++;
 								}
@@ -1520,13 +1525,13 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 						if (tmps2) {
 							gchar **arr;
 							tmps = xmlNodeListGetString(doc, cur2->xmlChildrenNode, 1);
-							arr = g_strsplit((const gchar*)tmps, (const gchar*)tmps2, -1);
+							arr = g_strsplit((const gchar *) tmps, (const gchar *) tmps2, -1);
 							xmlFree(tmps2);
 							if (arr) {
 								gint i = 0;
 								while (arr[i] != NULL) {
 									bftv_make_entity(doc, cur2, cfg, ST_TOKEN, tmps3, tmps4,
-													 (guchar*)g_strdup(arr[i]));
+													 (guchar *) g_strdup(arr[i]));
 									i++;
 								}	/* while */
 								g_strfreev(arr);
@@ -1550,12 +1555,13 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 				if (tmps2) {
 					gchar **arr;
 					tmps = xmlNodeListGetString(doc, cur->xmlChildrenNode, 1);
-					arr = g_strsplit((const gchar*)tmps, (const gchar*)tmps2, -1);
+					arr = g_strsplit((const gchar *) tmps, (const gchar *) tmps2, -1);
 					xmlFree(tmps2);
 					if (arr) {
 						gint i = 0;
 						while (arr[i] != NULL) {
-							bftv_make_entity(doc, cur, cfg, ST_TOKEN, NULL, NULL, (guchar*)g_strdup(arr[i]));
+							bftv_make_entity(doc, cur, cfg, ST_TOKEN, NULL, NULL,
+											 (guchar *) g_strdup(arr[i]));
 							i++;
 						}
 						g_strfreev(arr);
@@ -1586,11 +1592,11 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 		while (lst) {
 			BfLangToken *t = (BfLangToken *) lst->data;
 			if (!t->regexp) {
-				lst3 = g_list_append(lst3, g_strstrip((gchar*)(t->text)));
+				lst3 = g_list_append(lst3, g_strstrip((gchar *) (t->text)));
 			}
 			lst = g_list_next(lst);
 		}
-		ac_add_lang_list(main_v->autocompletion, (gchar*)cfg->name, lst3);
+		ac_add_lang_list(main_v->autocompletion, (gchar *) cfg->name, lst3);
 
 
 		if (cfg->scan_tags) {
@@ -1620,7 +1626,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 			bftv_scantable_insert(&cfg->scan_table, ST_BLOCK_BEGIN, b, cfg);
 			bftv_scantable_insert(&b->scan_table, ST_BLOCK_END, b, cfg);
 
-		
+
 
 			t = g_new0(BfLangToken, 1);
 			t->group = NULL;
@@ -1656,8 +1662,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 
 		}
 
-		if ( cfg->schema_aware )
-		{
+		if (cfg->schema_aware) {
 			BfLangToken *t;
 			BfLangBlock *b = g_new0(BfLangBlock, 1);
 			b->name = xmlCharStrdup("_doctype_internal_");
@@ -1673,7 +1678,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 			g_hash_table_insert(cfg->blocks, b->name, b);
 			bftv_scantable_insert(&cfg->scan_table, ST_BLOCK_BEGIN, b, cfg);
 			bftv_scantable_insert(&b->scan_table, ST_BLOCK_END, b, cfg);
-					
+
 			t = g_new0(BfLangToken, 1);
 			t->group = NULL;
 			t->regexp = TRUE;
@@ -1683,9 +1688,9 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 			t->type = TT_DOCTYPE;
 			bftv_scantable_insert(&cfg->scan_table, ST_TOKEN, t, cfg);
 			g_hash_table_insert(cfg->tokens, &t->name, t);
-			
-					
-		}		
+
+
+		}
 
 		{						/* FAKE IDENTIFIER - Lookahead symbol workaround  */
 			gunichar c;
@@ -1732,7 +1737,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 			t->group = NULL;
 			t->regexp = TRUE;
 			t->name = xmlCharStrdup("_fake_ident_");
-			t->text = (guchar*)pstr;
+			t->text = (guchar *) pstr;
 			t->context = NULL;
 			t->type = TT_FAKE;
 			bftv_scantable_insert(&cfg->scan_table, ST_TOKEN, t, cfg);
@@ -1763,7 +1768,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 #ifdef HL_PROFILING
 	times(&tms2);
 	tot_ms = (glong) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
-	g_print("bftv_load_config(%s) took %ld ms\n",filename,tot_ms);
+	g_print("bftv_load_config(%s) took %ld ms\n", filename, tot_ms);
 	g_print("NUMBER OF STATES: %d (%s) - table size = %d, max token len: %d\n", cfg->num_states,
 			cfg->name, cfg->num_states * sizeof(BfState), cfg->max_token_length);
 #endif
@@ -1776,7 +1781,8 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 
 
 /* --------------------   LANGUAGE MANAGER -------------------------------*/
-static void bf_lang_mgr_build_internal_tags(BfLangManager *mgr) {
+static void bf_lang_mgr_build_internal_tags(BfLangManager * mgr)
+{
 	mgr->internal_tags[IT_BLOCK_MATCH] = textstyle_get("_block_match_");
 	if (mgr->internal_tags[IT_BLOCK_MATCH] == NULL) {
 		mgr->internal_tags[IT_BLOCK_MATCH] = gtk_text_tag_new("_block_match_");
@@ -1786,7 +1792,7 @@ static void bf_lang_mgr_build_internal_tags(BfLangManager *mgr) {
 	mgr->internal_tags[IT_BLOCK] = textstyle_get("_block_");
 	if (mgr->internal_tags[IT_BLOCK] == NULL) {
 		mgr->internal_tags[IT_BLOCK] = gtk_text_tag_new("_block_");
-		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_BLOCK]);	
+		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_BLOCK]);
 	}
 	mgr->internal_tags[IT_FOLDED] = textstyle_get("_folded_");
 	if (mgr->internal_tags[IT_FOLDED] == NULL) {
@@ -1800,7 +1806,8 @@ static void bf_lang_mgr_build_internal_tags(BfLangManager *mgr) {
 		bmp = gdk_bitmap_create_from_data(NULL, folded_xbm, 2, 2);
 		mgr->internal_tags[IT_FOLD_HEADER] = gtk_text_tag_new("_fold_header_");
 		gtk_text_tag_table_add(textstyle_return_tagtable(), mgr->internal_tags[IT_FOLD_HEADER]);
-		g_object_set(mgr->internal_tags[IT_FOLD_HEADER], "editable", FALSE, "background", "#F7F3D2", "foreground-stipple", bmp, NULL);
+		g_object_set(mgr->internal_tags[IT_FOLD_HEADER], "editable", FALSE, "background", "#F7F3D2",
+					 "foreground-stipple", bmp, NULL);
 		g_object_unref(bmp);
 	}
 }
@@ -1952,17 +1959,19 @@ static void bf_lang_retag(gpointer value, gpointer udata)
 	cfg->tag_end = get_tag_for_scanner_style((gchar *) cfg->name, "m", "tag_end", NULL);
 	cfg->attr_name = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_name", NULL);
 	cfg->attr_val = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_val", NULL);
-	
+
 }
 
-void bf_lang_mgr_retag(void) {
+void bf_lang_mgr_retag(void)
+{
 
-	g_list_foreach(main_v->lang_mgr->languages,bf_lang_retag,NULL);
+	g_list_foreach(main_v->lang_mgr->languages, bf_lang_retag, NULL);
 	/* we should perhaps also retag some of the internal tags such as _block_match_ ?
-	these tags are stored in each document, so we have to loop through all documents
-	to set them. */
+	   these tags are stored in each document, so we have to loop through all documents
+	   to set them. */
 	bf_lang_mgr_build_internal_tags(main_v->lang_mgr);
 }
+
 /* -------------------- /LANGUAGE MANAGER  -------------------------------*/
 
 /* -------------------- FOLDING  -------------------------------*/
@@ -2011,11 +2020,12 @@ void bf_textview_fold_blocks_area(BfTextView * self, GtkTextIter * start, GtkTex
 /* -------------------- SCANNING  -------------------------------*/
 
 
-void bf_textview_scan(BfTextView * self) {
+void bf_textview_scan(BfTextView * self)
+{
 	if (!self->delay_rescan) {
 		GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 		GtkTextIter its, ite;
-	
+
 		g_return_if_fail(self != NULL);
 		g_return_if_fail(BF_IS_TEXTVIEW(self));
 		g_return_if_fail(buf != NULL);
@@ -2030,13 +2040,14 @@ void bf_textview_scan(BfTextView * self) {
 	}
 }
 
-void bf_textview_scan_visible(BfTextView * self) {
+void bf_textview_scan_visible(BfTextView * self)
+{
 	if (!self->delay_rescan) {
 		GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 		GtkTextIter its, ite;
 		GdkRectangle rect;
 		GtkTextIter l_start, l_end;
-	
+
 		g_return_if_fail(self != NULL);
 		g_return_if_fail(BF_IS_TEXTVIEW(self));
 		g_return_if_fail(buf != NULL);
@@ -2125,25 +2136,345 @@ static void bftv_clear_matched_block(BfTextView * self)
 	self->last_matched_block = NULL;
 }
 
-void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end, gboolean apply_hl) {
+static void bf_textview_scan_state_type_st_token(BfTextView * self, GtkTextBuffer *buf, BfState * current_state, GtkTextIter *its, GtkTextIter *ita, gboolean apply_hl)
+{
+	GtkTextIter pit;
+	BfLangToken *t = (BfLangToken *) current_state->data;
+
+	switch (t->type) {
+	case TT_NORMAL:
+		if (self->highlight && t->tag && apply_hl)
+			gtk_text_buffer_apply_tag(buf, t->tag, its, ita);
+		break;
+	case TT_TAG_END:
+		{
+			gchar *txt = gtk_text_buffer_get_text(buf, its, ita, FALSE);
+			gchar *pc = txt + 2;
+			gchar **arr = g_strsplit(pc, ">", -1);
+			gchar **arr2 = g_strsplit(arr[0], " ", -1);
+			if (!g_queue_is_empty(&(self->scanner.tag_stack))) {
+				TBfBlock *bf;
+				/* Have to get tags from stack, because HTML allows not closed tags */
+				bf = NULL;
+				while (!g_queue_is_empty(&(self->scanner.tag_stack))) {
+					bf = g_queue_pop_head(&(self->scanner.tag_stack));
+					if (bf && strcmp(bf->tagname, arr2[0]) == 0)
+						break;
+					g_free(bf->tagname);
+					g_free(bf);
+					bf = NULL;
+				}
+				if (bf) {
+					GtkTextMark *mark, *mark2, *mark3, *mark4;
+					gboolean do_mark = TRUE;
+					
+					/* next line is not needed I think */
+					mark = mark2 = NULL;
+
+					mark3 = bftv_get_block_at_iter(&bf->b_start);
+
+					if (mark3) {
+						BlockInfo *bi;
+						bi = (BlockInfo *) g_object_get_data(G_OBJECT(mark3), "bi");
+						DEBUG_MSG("bi->tagname = %s, arr2[0] = %s\n", bi->tagname, arr2[0]);
+						if (bi && bi->tagname && bi->type == BI_START
+							&& strcmp(bi->tagname, arr2[0]) == 0)
+							do_mark = FALSE;
+					}
+					if (do_mark) {
+						BlockInfo *bi, *bi2;
+						mark = gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, FALSE);
+						mark2 = gtk_text_buffer_create_mark(buf, NULL, &bf->b_end, FALSE);
+						mark3 = gtk_text_buffer_create_mark(buf, NULL, its, FALSE);
+						mark4 = gtk_text_buffer_create_mark(buf, NULL, ita, FALSE);
+						bi = g_new0(BlockInfo, 1);
+						bi->type = BI_START;
+						bi->folded = FALSE;
+						bi->tagname = g_strdup(arr2[0]);
+						bi->ref = mark2;
+						bi->refe1 = mark3;
+						bi->refe2 = mark4;
+						g_object_set_data(G_OBJECT(mark), "bi", bi);
+						bi2 = g_new0(BlockInfo, 1);
+						bi2->type = BI_END;
+						bi2->folded = FALSE;
+						bi2->tagname = g_strdup(arr2[0]);
+						bi2->ref = mark4;
+						bi2->refb1 = mark;
+						bi2->refb2 = mark2;
+						g_object_set_data(G_OBJECT(mark3), "bi", bi2);
+						if (gtk_text_iter_get_line(&bf->b_start) == gtk_text_iter_get_line(its)) {
+							bi->single_line = bi2->single_line = TRUE;
+						} else {
+							bi->single_line = bi2->single_line = FALSE;
+						}
+					}
+					if (apply_hl)
+						gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK],
+												  &bf->b_end, its);
+					g_free(bf->tagname);
+					g_free(bf);
+				}
+			}					/* queue empty */
+			g_strfreev(arr);
+			g_strfreev(arr2);
+			g_free(txt);
+			if (self->highlight) {
+				GtkTextTag *tag;
+				tag = self->lang->tag_end;
+				if (tag && apply_hl)
+					gtk_text_buffer_apply_tag(buf, tag, its, ita);
+			}
+		}						/* end of tag_end */
+		break;
+	case TT_ATTR2:
+	case TT_ATTR:
+		{
+			gchar *txt = gtk_text_buffer_get_text(buf, its, ita, FALSE);
+			gchar **arr = g_strsplit(txt, "=", -1);
+			gchar *attrname = NULL, *attrval = NULL;
+			pit = *its;
+			gtk_text_iter_forward_chars(&pit, g_utf8_strlen(arr[0], -1));
+			g_strfreev(arr);
+			g_free(txt);
+			if (self->lang && self->lang->schema_aware) {	/* XMLSchema */
+				attrname = gtk_text_buffer_get_text(buf, its, &pit, FALSE);
+				attrval = gtk_text_buffer_get_text(buf, &pit, ita, FALSE);
+				if (g_str_has_suffix(attrname, "schemaLocation")) {
+					gchar **arr = g_strsplit(attrval, " ", -1);
+					gchar *sname = NULL;
+					if (arr[1]) {
+						arr[1][g_utf8_strlen(arr[1], -1) - 1] = '\0';
+						sname = ac_add_xmlschema_list(main_v->autocompletion, arr[1]);
+						if (sname)
+							self->schemas = g_list_append(self->schemas, sname);
+					}
+					g_strfreev(arr);
+				}
+				g_free(attrname);
+				g_free(attrval);
+			}
+			if (self->highlight) {
+				GtkTextTag *tag;
+				tag = self->lang->attr_name;
+				if (tag && apply_hl)
+					gtk_text_buffer_apply_tag(buf, tag, its, &pit);
+				tag = self->lang->attr_val;
+				if (tag && apply_hl)
+					gtk_text_buffer_apply_tag(buf, tag, &pit, ita);
+			}
+		}
+		break;
+	case TT_DOCTYPE:
+		{
+			gchar *txt = gtk_text_buffer_get_text(buf, its, ita, FALSE);
+			gchar *sname = ac_add_dtd_list(main_v->autocompletion, txt, FALSE, NULL);
+			if (sname)
+				self->schemas = g_list_append(self->schemas, sname);
+			g_free(txt);
+		}
+		break;
+	case TT_FAKE:
+		break;
+	}
+}
+
+static BfState *bf_textview_scan_state_type_st_block_begin(BfTextView * self, GtkTextBuffer *buf, BfState * current_state, GtkTextIter *its, GtkTextIter *ita, gboolean apply_hl)
+{
+	TBfBlock *bf;
+	BfLangBlock *tmp = (BfLangBlock *) current_state->data;
+	bf = g_new0(TBfBlock, 1);
+	bf->def = tmp;
+	bf->b_start = *its;
+	bf->b_end = *ita;
+	g_queue_push_head(&(self->scanner.block_stack), bf);
+	self->scanner.current_context = tmp;
+	if (tmp->type == BT_TAG_BEGIN) {
+		GtkTextIter pit;
+		pit = *its;
+		gtk_text_iter_forward_char(&pit);
+		bf->tagname = gtk_text_buffer_get_text(buf, &pit, ita, FALSE);
+		bf->tagname = g_strstrip(bf->tagname);
+		self->scanner.last_tagname = g_strdup(bf->tagname);
+	} else {
+		if (self->scanner.last_tagname)
+			g_free(self->scanner.last_tagname);
+		self->scanner.last_tagname = NULL;
+		bf->tagname = NULL;
+	}
+	return &tmp->scan_table;
+}
+
+static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkTextBuffer *buf, BfState * current_state, GtkTextIter *its, GtkTextIter *ita, gboolean apply_hl)
+{
+	TBfBlock *bf;
+	BfLangBlock *tmp = (BfLangBlock *) current_state->data;
+	bf = g_queue_peek_head(&(self->scanner.block_stack));
+	if (bf && bf->def == tmp) {
+		TBfBlock *aux;
+		g_queue_pop_head(&(self->scanner.block_stack));
+		aux = (TBfBlock *) g_queue_peek_head(&(self->scanner.block_stack));
+		if (aux)
+			self->scanner.current_context = aux->def;
+		else
+			self->scanner.current_context = NULL;
+		if (self->scanner.current_context)
+			current_state = &self->scanner.current_context->scan_table;
+		else
+			current_state = &self->lang->scan_table;
+		switch (tmp->type) {
+		case BT_TAG_BEGIN:
+			{
+				GtkTextIter pit;
+				TBfBlock *bf_2;
+				gboolean just_ended = FALSE;
+				if (self->scanner.last_tagname)
+					g_free(self->scanner.last_tagname);
+				self->scanner.last_tagname = NULL;
+				bf_2 = g_new0(TBfBlock, 1);
+				bf_2->tagname = g_strdup(bf->tagname);
+				bf_2->b_start = bf->b_start;
+				bf_2->b_end = *ita;
+				g_queue_push_head(&(self->scanner.tag_stack), bf_2);
+				pit = *ita;
+				while (gtk_text_iter_get_char(&pit) != '>')
+					gtk_text_iter_backward_char(&pit);
+				gtk_text_iter_backward_char(&pit);
+				if (gtk_text_iter_get_char(&pit) == '/')
+					just_ended = TRUE;
+				if (self->highlight) {
+					GtkTextTag *tag;
+					tag = self->lang->tag_begin;
+					if (tag && apply_hl)
+						gtk_text_buffer_apply_tag(buf, tag, &bf->b_start, ita);
+				}
+				/* TAG autoclose */
+				if (self->tag_autoclose && !self->delete_rescan && !self->paste_operation
+					&& self->tag_ac_state && !just_ended
+					&& g_hash_table_lookup(self->lang->dont_autoclose, bf_2->tagname) == NULL) {
+					GtkTextIter it9;
+					gtk_text_buffer_get_iter_at_mark(buf, &it9, gtk_text_buffer_get_insert(buf));
+					if (gtk_text_iter_equal(&it9, ita)) {
+						gchar *pp = g_strjoin("", "\n</", bf_2->tagname, ">", NULL);
+						self->tag_ac_state = FALSE;
+						/* Clear stacks */
+						while (!g_queue_is_empty(&self->scanner.block_stack)) {
+							bf = (TBfBlock *) g_queue_pop_head(&self->scanner.block_stack);
+							if (bf->tagname)
+								g_free(bf->tagname);
+							g_free(bf);
+						}
+						while (!g_queue_is_empty(&self->scanner.tag_stack)) {
+							bf = (TBfBlock *) g_queue_pop_head(&self->scanner.tag_stack);
+							if (bf->tagname)
+								g_free(bf->tagname);
+							g_free(bf);
+						}
+						DEBUG_MSG("about to add the closing tag, this insert will trigger a new scan\n");
+						gtk_text_buffer_insert(buf, ita, pp, -1);
+						gtk_text_buffer_get_iter_at_mark(buf, &it9,
+														 gtk_text_buffer_get_insert(buf));
+						gtk_text_iter_backward_chars(&it9, strlen(pp));
+						gtk_text_buffer_place_cursor(buf, &it9);
+						g_free(pp);
+						g_signal_handler_unblock(buf, self->markset_signal_id);
+						/* BUG, THIS HAS TO STOP THE SCANNING RUN COMPLETELY */
+						/* lets try: set ita to end of file to stop scanning */
+						
+						gtk_text_iter_forward_to_end(ita);
+						return NULL;	/*I have to return from scan, because it has been performed after latest insert */
+					}
+				}
+			}
+			break;
+		case BT_DOCTYPE_INT:
+			{
+				gchar *txt = gtk_text_buffer_get_text(buf, &bf->b_start, ita, FALSE);
+				ac_add_dtd_list(main_v->autocompletion, txt, TRUE, &self->internal_dtd);
+				g_free(txt);
+			}
+			/* not breaking here - I want next code */
+		default:
+			{
+				GtkTextMark *mark, *mark2, *mark3, *mark4;
+				gboolean do_mark = TRUE;
+				
+				/* are the next lines needed? */
+				mark = mark2 = NULL;
+
+				mark3 = bftv_get_block_at_iter(&bf->b_start);
+				if (mark3) {
+					BlockInfo *bi;
+					bi = (BlockInfo *) g_object_get_data(G_OBJECT(mark3), "bi");
+					if (bi->type == BI_START && bi->data == tmp)
+						do_mark = FALSE;
+				}
+				if (do_mark) {
+					BlockInfo *bi, *bi2;
+					mark = gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, FALSE);
+					mark2 = gtk_text_buffer_create_mark(buf, NULL, &bf->b_end, FALSE);
+					mark3 = gtk_text_buffer_create_mark(buf, NULL, its, FALSE);
+					mark4 = gtk_text_buffer_create_mark(buf, NULL, ita, FALSE);
+					bi = g_new0(BlockInfo, 1);
+					bi->type = BI_START;
+					bi->folded = FALSE;
+					bi->data = tmp;
+					bi->ref = mark2;
+					bi->refe1 = mark3;
+					bi->refe2 = mark4;
+					g_object_set_data(G_OBJECT(mark), "bi", bi);
+					bi2 = g_new0(BlockInfo, 1);
+					bi2->type = BI_END;
+					bi2->folded = FALSE;
+					bi2->data = tmp;
+					bi2->ref = mark4;
+					bi2->refb1 = mark;
+					bi2->refb2 = mark2;
+					g_object_set_data(G_OBJECT(mark3), "bi", bi2);
+					if (gtk_text_iter_get_line(&bf->b_start) == gtk_text_iter_get_line(its)) {
+						bi->single_line = bi2->single_line = TRUE;
+					} else {
+						bi->single_line = bi2->single_line = FALSE;
+					}
+				}
+				if (apply_hl)
+					gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK],
+											  &bf->b_end, its);
+				if (self->highlight) {
+					if (tmp->tag && apply_hl)
+						gtk_text_buffer_apply_tag(buf, tmp->tag, &bf->b_start, ita);
+				}
+			}					/* default */
+		}						/* switch */
+		if (bf->tagname)
+			g_free(bf->tagname);
+		g_free(bf);
+	} /* if bf */
+	else {
+		current_state = NULL;
+	}
+	return current_state;
+}
+
+
+/* this function takes most of the CPU time in bluefish */
+void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end,
+						   gboolean apply_hl)
+{
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
-	GtkTextIter its, ita, pit;
+	GtkTextIter its, ita;
 	gunichar c;
 	gboolean block_found = FALSE, token_found = FALSE, recognizing = FALSE;
-	GtkTextMark *mark, *mark2;
 	gshort magic = 0;
 	TBfBlock *bf = NULL;
-	GtkTextTag *tag = NULL;
 	BfState *current_state;
 	Trts rts;
-	BlockInfo *bi = NULL;
 
 	DEBUG_MSG("bf_textview_scan_area, started\n");
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(BF_IS_TEXTVIEW(self));
 	if (!self->lang || self->paste_operation)
 		return;
-
 	if (self->delay_rescan)
 		return;
 
@@ -2183,17 +2514,18 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 
 	magic = 0;
 	while (gtk_text_iter_compare(&ita, end) <= 0) {	/* main loop */
-		DEBUG_MSG("bf_textview_scan_area, in main loop, ita at %d, end at %d\n", gtk_text_iter_get_offset(&ita),gtk_text_iter_get_offset(end));
+		DEBUG_MSG("bf_textview_scan_area, in main loop, ita at %d, end at %d\n",
+				  gtk_text_iter_get_offset(&ita), gtk_text_iter_get_offset(end));
 		if (gtk_text_iter_equal(&ita, end)) {
 			magic++;
 			if (magic >= 2)
 				break;
 		}
 		c = gtk_text_iter_get_char(&ita);
-		if (!g_unichar_isgraph(c) ) {
+		if (!g_unichar_isgraph(c)) {
 			self->scanner.last_string = g_string_assign(self->scanner.last_string, "");
 		} else if (!block_found) {
-			g_string_append_printf(self->scanner.last_string, "%c", c);
+			g_string_append_printf(self->scanner.last_string, "%c", c); /* this is slowwwww because it is called VERY often */
 		}
 
 		/* This is a trick. Character of code 3(ETX) is not printable, so will not appear in the text,
@@ -2205,7 +2537,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 			c = 0;
 			recognizing = FALSE;
 		}
-		while (gtk_text_iter_compare(&ita, end) <= 0 && self->lang->escapes[(gint) c]) {	/* remove escapes */
+		while (self->lang->escapes[(gint) c] && gtk_text_iter_compare(&ita, end) <= 0) {	/* remove escapes */
 			gtk_text_iter_forward_char(&ita);
 			gtk_text_iter_forward_char(&ita);
 			if (magic == 0)
@@ -2230,351 +2562,38 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 			recognizing = TRUE;
 			switch (current_state->type) {
 			case ST_TOKEN:
-				{
-					BfLangToken *t = (BfLangToken *) current_state->data;
-					switch (t->type) {
-					case TT_NORMAL:
-						if (self->highlight && t->tag && apply_hl)
-							gtk_text_buffer_apply_tag(buf, t->tag, &its, &ita);
-						break;
-					case TT_TAG_END:
-						{
-							gchar *txt = gtk_text_buffer_get_text(buf, &its, &ita, FALSE);
-							gchar *pc = txt + 2;
-							gchar **arr = g_strsplit(pc, ">", -1);
-							gchar **arr2 = g_strsplit(arr[0], " ", -1);
-							if (!g_queue_is_empty(&(self->scanner.tag_stack))) {
-								/* Have to get tags from stack, because HTML allows not closed tags */
-								bf = NULL;
-								while (!g_queue_is_empty(&(self->scanner.tag_stack))) {
-									bf = g_queue_pop_head(&(self->scanner.tag_stack));
-									if (bf && strcmp(bf->tagname, arr2[0]) == 0)
-										break;
-									g_free(bf->tagname);
-									g_free(bf);
-									bf = NULL;
-								}
-								if (bf) {
-									GtkTextMark *mark3, *mark4;
-									gboolean do_mark = TRUE;
-									mark = mark2 = NULL;
-
-									mark3 = bftv_get_block_at_iter(&bf->b_start);
-
-									if (mark3) {
-										bi = (BlockInfo *) g_object_get_data(G_OBJECT(mark3), "bi");
-										DEBUG_MSG("bi->tagname = %s, arr2[0] = %s\n", bi->tagname, arr2[0]);
-										if (bi && bi->tagname &&
-											bi->type == BI_START
-											&& strcmp(bi->tagname, arr2[0]) == 0)
-											do_mark = FALSE;
-									}
-									if (do_mark) {
-										BlockInfo *bi2;
-										mark =
-											gtk_text_buffer_create_mark(buf, NULL, &bf->b_start,
-																		FALSE);
-										mark2 =
-											gtk_text_buffer_create_mark(buf, NULL, &bf->b_end,
-																		FALSE);
-										mark3 = gtk_text_buffer_create_mark(buf, NULL, &its, FALSE);
-										mark4 = gtk_text_buffer_create_mark(buf, NULL, &ita, FALSE);
-										bi = g_new0(BlockInfo, 1);
-										bi->type = BI_START;
-										bi->folded = FALSE;
-										bi->tagname = g_strdup(arr2[0]);
-										bi->ref = mark2;
-										bi->refe1 = mark3;
-										bi->refe2 = mark4;
-										g_object_set_data(G_OBJECT(mark), "bi", bi);
-										bi2 = g_new0(BlockInfo, 1);
-										bi2->type = BI_END;
-										bi2->folded = FALSE;
-										bi2->tagname = g_strdup(arr2[0]);
-										bi2->ref = mark4;
-										bi2->refb1 = mark;
-										bi2->refb2 = mark2;
-										g_object_set_data(G_OBJECT(mark3), "bi", bi2);
-										if (gtk_text_iter_get_line(&bf->b_start) ==
-											gtk_text_iter_get_line(&its)) {
-											bi->single_line = bi2->single_line = TRUE;
-										} else {
-											bi->single_line = bi2->single_line = FALSE;
-										}
-									}
-									if (apply_hl)
-										gtk_text_buffer_apply_tag(buf,
-																  main_v->lang_mgr->internal_tags[IT_BLOCK],
-																  &bf->b_end, &its);
-									g_free(bf->tagname);
-									g_free(bf);
-								}
-							}	/* queue empty */
-							g_strfreev(arr);
-							g_strfreev(arr2);
-							g_free(txt);
-							if (self->highlight) {
-								tag = self->lang->tag_end;
-								if (tag && apply_hl)
-									gtk_text_buffer_apply_tag(buf, tag, &its, &ita);
-							}
-						}		/* end of tag_end */
-						break;
-					case TT_ATTR2:
-					case TT_ATTR:
-						{
-							gchar *txt = gtk_text_buffer_get_text(buf, &its, &ita, FALSE);
-							gchar **arr = g_strsplit(txt, "=", -1);
-							gchar *attrname=NULL,*attrval=NULL;
-							pit = its;
-							gtk_text_iter_forward_chars(&pit, g_utf8_strlen(arr[0], -1));
-							g_strfreev(arr);
-							g_free(txt);
-							if (self->lang && self->lang->schema_aware ) /* XMLSchema */								
-							{							
-								attrname = gtk_text_buffer_get_text(buf, &its, &pit, FALSE);
-								attrval = gtk_text_buffer_get_text(buf, &pit, &ita, FALSE);
-								if ( g_str_has_suffix(attrname,"schemaLocation") ) 
-								{
-									gchar **arr = g_strsplit(attrval, " ", -1);
-									gchar *sname = NULL;
-									if ( arr[1] )
-									{									
-										arr[1][g_utf8_strlen(arr[1],-1)-1]='\0';															
-										sname = ac_add_xmlschema_list(main_v->autocompletion,arr[1]);
-										if ( sname )
-											self->schemas = g_list_append(self->schemas, sname );
-									}										
-									g_strfreev(arr);
-								}	
-								g_free(attrname);
-								g_free(attrval);
-							}
-							if (self->highlight) {
-								tag = self->lang->attr_name;
-								if (tag && apply_hl)
-									gtk_text_buffer_apply_tag(buf, tag, &its, &pit);
-								tag = self->lang->attr_val;
-								if (tag && apply_hl)
-									gtk_text_buffer_apply_tag(buf, tag, &pit, &ita);
-							}
-						}
-						break;
-					case TT_DOCTYPE:
-						{
-							gchar *txt = gtk_text_buffer_get_text(buf, &its, &ita, FALSE);
-							gchar *sname = ac_add_dtd_list(main_v->autocompletion,txt,FALSE,NULL);
-							if ( sname )
-								self->schemas = g_list_append(self->schemas, sname );
-							g_free(txt);					
-						}	
-						break;
-					case TT_FAKE:
-						break;
-					}
-					token_found = TRUE;
-					current_state = NULL;
-					its = ita;
-				}
+				bf_textview_scan_state_type_st_token(self, buf, current_state, &its, &ita, apply_hl);
+				token_found = TRUE;
+				current_state = NULL;
+				its = ita;
 				break;			/* token */
 			case ST_BLOCK_BEGIN:
-				{
-					BfLangBlock *tmp = (BfLangBlock *) current_state->data;
-					bf = g_new0(TBfBlock, 1);
-					bf->def = tmp;
-					bf->b_start = its;
-					bf->b_end = ita;
-					g_queue_push_head(&(self->scanner.block_stack), bf);
-					self->scanner.current_context = tmp;
-					if (tmp->type == BT_TAG_BEGIN) {
-						pit = its;
-						gtk_text_iter_forward_char(&pit);
-						bf->tagname = gtk_text_buffer_get_text(buf, &pit, &ita, FALSE);
-						bf->tagname = g_strstrip(bf->tagname);
-						self->scanner.last_tagname = g_strdup(bf->tagname);
-					} else
-					{
-						if ( self->scanner.last_tagname )
-							g_free(self->scanner.last_tagname);
-						self->scanner.last_tagname=NULL;
-						bf->tagname = NULL;
-					}	
-					current_state = &tmp->scan_table;
-					block_found = TRUE;
-					its = ita;
-				}
+				current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, apply_hl);
+				block_found = TRUE;
+				its = ita;
 				break;
 			case ST_BLOCK_END:
-				{
-					BfLangBlock *tmp = (BfLangBlock *) current_state->data;
-					bf = g_queue_peek_head(&(self->scanner.block_stack));
-					if (bf && bf->def == tmp) {
-						TBfBlock *aux;
-						g_queue_pop_head(&(self->scanner.block_stack));
-						aux =
-							(TBfBlock *) g_queue_peek_head(&(self->scanner.block_stack));
-						if (aux)
-							self->scanner.current_context = aux->def;
-						else
-							self->scanner.current_context = NULL;
-						if (self->scanner.current_context)
-							current_state = &self->scanner.current_context->scan_table;
-						else
-							current_state = &self->lang->scan_table;
-						switch (tmp->type) {
-						case BT_TAG_BEGIN:
-							{
-								TBfBlock *bf_2;
-								gboolean just_ended = FALSE;
-								if (self->scanner.last_tagname)
-									g_free(self->scanner.last_tagname);
-								self->scanner.last_tagname = NULL;
-								bf_2 = g_new0(TBfBlock, 1);
-								bf_2->tagname = g_strdup(bf->tagname);
-								bf_2->b_start = bf->b_start;
-								bf_2->b_end = ita;
-								g_queue_push_head(&(self->scanner.tag_stack), bf_2);
-								pit = ita;
-								while (gtk_text_iter_get_char(&pit) != '>')
-									gtk_text_iter_backward_char(&pit);
-								gtk_text_iter_backward_char(&pit);
-								if (gtk_text_iter_get_char(&pit) == '/')
-									just_ended = TRUE;
-								if (self->highlight) {
-									tag = self->lang->tag_begin;
-									if (tag && apply_hl)
-										gtk_text_buffer_apply_tag(buf, tag, &bf->b_start, &ita);
-								}
-								/* TAG autoclose */
-								if (self->tag_autoclose && !self->delete_rescan
-									&& !self->paste_operation && self->tag_ac_state && !just_ended
-									&& g_hash_table_lookup(self->lang->dont_autoclose,
-														   bf_2->tagname) == NULL) {
-									GtkTextIter it9;
-									gtk_text_buffer_get_iter_at_mark(buf, &it9,
-																	 gtk_text_buffer_get_insert
-																	 (buf));
-									if (gtk_text_iter_equal(&it9, &ita)) {
-										gchar *pp = g_strjoin("", "\n</", bf_2->tagname, ">", NULL);
-										self->tag_ac_state = FALSE;
-										/* Clear stacks */
-										while (!g_queue_is_empty(&self->scanner.block_stack)) {
-											bf = (TBfBlock *) g_queue_pop_head(&self->scanner.
-																			   block_stack);
-											if (bf->tagname)
-												g_free(bf->tagname);
-											g_free(bf);
-										}
-										while (!g_queue_is_empty(&self->scanner.tag_stack)) {
-											bf = (TBfBlock *) g_queue_pop_head(&self->scanner.
-																			   tag_stack);
-											if (bf->tagname)
-												g_free(bf->tagname);
-											g_free(bf);
-										}
-										gtk_text_buffer_insert(buf, &ita, pp,
-															   g_utf8_strlen(pp, -1));
-										gtk_text_buffer_get_iter_at_mark(buf, &it9,
-																		 gtk_text_buffer_get_insert
-																		 (buf));
-										gtk_text_iter_backward_chars(&it9, strlen(pp));
-										gtk_text_buffer_place_cursor(buf, &it9);
-										g_free(pp);
-										g_signal_handler_unblock(buf, self->markset_signal_id);
-										return;	/*I have to return from scan, because it has been performed after latest insert */
-									}
-								}
-							}
-							break;
-						case BT_DOCTYPE_INT:
-							{
-								gchar *txt = gtk_text_buffer_get_text(buf, &bf->b_start, &ita, FALSE);
-								ac_add_dtd_list(main_v->autocompletion,txt,TRUE,&self->internal_dtd);
-								g_free(txt);					
-							}	
-							/* not breaking here - I want next code */	
-						default:
-							{
-								GtkTextMark *mark3, *mark4;
-								gboolean do_mark = TRUE;
-								mark = mark2 = NULL;
-
-								mark3 = bftv_get_block_at_iter(&bf->b_start);
-								if (mark3) {
-									bi = (BlockInfo *) g_object_get_data(G_OBJECT(mark3), "bi");
-									if (bi->type == BI_START && bi->data == tmp)
-										do_mark = FALSE;
-								}
-								if (do_mark) {
-									BlockInfo *bi2;
-									mark =
-										gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, FALSE);
-									mark2 =
-										gtk_text_buffer_create_mark(buf, NULL, &bf->b_end, FALSE);
-									mark3 = gtk_text_buffer_create_mark(buf, NULL, &its, FALSE);
-									mark4 = gtk_text_buffer_create_mark(buf, NULL, &ita, FALSE);
-									bi = g_new0(BlockInfo, 1);
-									bi->type = BI_START;
-									bi->folded = FALSE;
-									bi->data = tmp;
-									bi->ref = mark2;
-									bi->refe1 = mark3;
-									bi->refe2 = mark4;
-									g_object_set_data(G_OBJECT(mark), "bi", bi);
-									bi2 = g_new0(BlockInfo, 1);
-									bi2->type = BI_END;
-									bi2->folded = FALSE;
-									bi2->data = tmp;
-									bi2->ref = mark4;
-									bi2->refb1 = mark;
-									bi2->refb2 = mark2;
-									g_object_set_data(G_OBJECT(mark3), "bi", bi2);
-									if (gtk_text_iter_get_line(&bf->b_start) ==
-										gtk_text_iter_get_line(&its)) {
-										bi->single_line = bi2->single_line = TRUE;
-									} else {
-										bi->single_line = bi2->single_line = FALSE;
-									}
-								}
-								if (apply_hl)
-									gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK],
-															  &bf->b_end, &its);
-								if (self->highlight) {
-									if (tmp->tag && apply_hl)
-										gtk_text_buffer_apply_tag(buf, tmp->tag, &bf->b_start,
-																  &ita);
-								}
-							}	/* default */
-						}		/* switch */
-						if (bf->tagname)
-							g_free(bf->tagname);
-						g_free(bf);
-					} /* if bf */
-					else {
-						current_state = NULL;
-					}
-					block_found = TRUE;
-					its = ita;
-				}
+				current_state = bf_textview_scan_state_type_st_block_end(self, buf, current_state, &its, &ita, apply_hl);
+				block_found = TRUE;
+				its = ita;
 				break;
 			case ST_TRANSIT:
 				break;
 			}
 		} else {				/* current_state is NULL */
-
 			its = ita;
-			gtk_text_iter_forward_char(&its);
 			if (recognizing) {
-				gtk_text_iter_backward_char(&its);
 				gtk_text_iter_backward_char(&ita);
 				recognizing = FALSE;
+			} else {
+				gtk_text_iter_forward_char(&its);
 			}
 		}
-		DEBUG_MSG("bf_textview_scan_area, token_found=%d, block_found=%d\n",token_found,block_found);
+		DEBUG_MSG("bf_textview_scan_area, token_found=%d, block_found=%d\n", token_found,
+				  block_found);
 		if (!token_found && !block_found)
 			gtk_text_iter_forward_char(&ita);
-
-	}							/*main loop */
+	}	/*main loop */
 
 /* Clear stacks */
 	while (!g_queue_is_empty(&self->scanner.block_stack)) {
@@ -2700,7 +2719,8 @@ void bf_textview_set_match_blocks(BfTextView * self, gboolean on)
 	self->match_blocks = on;
 }
 
-void bf_textview_set_delay_rescan(BfTextView * self, gboolean on) {
+void bf_textview_set_delay_rescan(BfTextView * self, gboolean on)
+{
 	self->delay_rescan = on;
 }
 
@@ -2947,16 +2967,17 @@ void bf_textview_recolor(BfTextView * view, gchar * fg_color, gchar * bg_color)
 	fga = gdk_color_to_hexstring(&c3, FALSE);
 	bgn = gdk_color_to_hexstring(&c4, FALSE);
 	bga = gdk_color_to_hexstring(&c4, FALSE);
-		
-	str = g_strdup_printf
-			("style \"bfish\" {\nGtkWidget::cursor_color=\"%s\"\nbase[NORMAL]=\"%s\"\nbase[ACTIVE]=\"%s\"\ntext[NORMAL]=\"%s\"\ntext[ACTIVE]=\"%s\"\nfg[NORMAL]=\"%s\"\nfg[ACTIVE]=\"%s\"\nbg[NORMAL]=\"%s\"\nbg[ACTIVE]=\"%s\"\n}\nclass \"BfTextView\" style \"bfish\"",
-			view->fg_color, view->bkg_color, view->bkg_color, view->fg_color, view->fg_color,
-			fgn, fga, bgn, bga);
+
+	str =
+		g_strdup_printf
+		("style \"bfish\" {\nGtkWidget::cursor_color=\"%s\"\nbase[NORMAL]=\"%s\"\nbase[ACTIVE]=\"%s\"\ntext[NORMAL]=\"%s\"\ntext[ACTIVE]=\"%s\"\nfg[NORMAL]=\"%s\"\nfg[ACTIVE]=\"%s\"\nbg[NORMAL]=\"%s\"\nbg[ACTIVE]=\"%s\"\n}\nclass \"BfTextView\" style \"bfish\"",
+		 view->fg_color, view->bkg_color, view->bkg_color, view->fg_color, view->fg_color, fgn, fga,
+		 bgn, bga);
 
 	gtk_rc_parse_string(str);
 	style = gtk_widget_get_modifier_style(GTK_WIDGET(view));
 	gtk_widget_modify_style(GTK_WIDGET(view), style);
-	
+
 	g_free(fgn);
 	g_free(fga);
 	g_free(bgn);
@@ -2992,44 +3013,45 @@ void bf_textview_autocomp_show(BfTextView * self)
 {
 	GtkTextIter it, it3;
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
-	if ( !self->lang ) return;
+	if (!self->lang)
+		return;
 	gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
 	it3 = it;
 	gtk_text_iter_set_line(&it3, gtk_text_iter_get_line(&it));
 	gtk_text_iter_backward_char(&it);
 	self->scanner.last_string = g_string_assign(self->scanner.last_string, "");
 	bf_textview_scan_area(self, &it3, &it, FALSE);
-	if ( self->lang && self->lang->schema_aware )
-	{
-		if ( self->scanner.last_string->str[0] == '<' )
-			ac_run_schema(main_v->autocompletion, self->scanner.last_string->str+1, self->schemas,
-				self->internal_dtd,GTK_TEXT_VIEW(self),NULL);
-		else if (self->scanner.current_context && self->scanner.current_context->type == BT_TAG_BEGIN )
-		{
-			ac_run_tag_attributes(main_v->autocompletion, self->scanner.last_tagname,self->scanner.last_string->str, 
-					self->schemas,self->internal_dtd,GTK_TEXT_VIEW(self),"=\"\"");
+	if (self->lang && self->lang->schema_aware) {
+		if (self->scanner.last_string->str[0] == '<')
+			ac_run_schema(main_v->autocompletion, self->scanner.last_string->str + 1, self->schemas,
+						  self->internal_dtd, GTK_TEXT_VIEW(self), NULL);
+		else if (self->scanner.current_context
+				 && self->scanner.current_context->type == BT_TAG_BEGIN) {
+			ac_run_tag_attributes(main_v->autocompletion, self->scanner.last_tagname,
+								  self->scanner.last_string->str, self->schemas, self->internal_dtd,
+								  GTK_TEXT_VIEW(self), "=\"\"");
+		} else {
+			if (self->lang->case_sensitive)
+				ac_run_lang(main_v->autocompletion, self->scanner.last_string->str,
+							(gchar *) (self->lang->name), GTK_TEXT_VIEW(self), NULL);
+			else {
+				gchar *upper =
+					g_utf8_strup(self->scanner.last_string->str, self->scanner.last_string->len);
+				ac_run_lang(main_v->autocompletion, upper, (gchar *) (self->lang->name),
+							GTK_TEXT_VIEW(self), NULL);
+				g_free(upper);
+			}
 		}
-		else
-		{
-		 if (self->lang->case_sensitive)
-				ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, (gchar*)(self->lang->name),GTK_TEXT_VIEW(self),NULL);
-		 else 
-		  {
-		  		gchar *upper = g_utf8_strup(self->scanner.last_string->str,self->scanner.last_string->len);
-		 		ac_run_lang(main_v->autocompletion, upper, (gchar*)(self->lang->name),GTK_TEXT_VIEW(self),NULL);
-		 		g_free(upper);
-		  }		  		
-		}				
+	} else {
+		if (self->lang->case_sensitive)
+			ac_run_lang(main_v->autocompletion, self->scanner.last_string->str,
+						(gchar *) (self->lang->name), GTK_TEXT_VIEW(self), NULL);
+		else {
+			gchar *upper =
+				g_utf8_strup(self->scanner.last_string->str, self->scanner.last_string->len);
+			ac_run_lang(main_v->autocompletion, upper, (gchar *) (self->lang->name),
+						GTK_TEXT_VIEW(self), NULL);
+			g_free(upper);
+		}
 	}
-	else
-	{
-		 if (self->lang->case_sensitive)
-				ac_run_lang(main_v->autocompletion, self->scanner.last_string->str, (gchar*)(self->lang->name),GTK_TEXT_VIEW(self),NULL);
-		 else 
-		  {
-		  		gchar *upper = g_utf8_strup(self->scanner.last_string->str,self->scanner.last_string->len);
-		 		ac_run_lang(main_v->autocompletion, upper, (gchar*)(self->lang->name),GTK_TEXT_VIEW(self),NULL);
-		 		g_free(upper);
-		  }		  		
-	}			
 }
