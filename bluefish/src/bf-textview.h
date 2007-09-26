@@ -259,7 +259,7 @@ GType bf_textview_get_type(void);
 void bf_textview_set_language_ptr(BfTextView * self, BfLangConfig * cfg);
 
 void bf_textview_scan(BfTextView * self);
-void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end, gboolean apply_hl);
+void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end, gboolean apply_hl, gboolean store_string);
 void bf_textview_scan_visible(BfTextView * self);
 
 GtkWidget *bf_textview_new(void);
