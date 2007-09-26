@@ -1172,7 +1172,7 @@ static void doc_set_statusbar_lncol(Tdocument *doc) {
 	
 	start = iter;
 	gtk_text_iter_set_line_offset(&start, 0);
-
+		
 	while (!gtk_text_iter_equal(&start, &iter)) {
 		if (gtk_text_iter_get_char(&start) == '\t') {
 			col += (main_v->props.editor_tab_width - (col  % main_v->props.editor_tab_width));
