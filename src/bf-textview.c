@@ -541,8 +541,8 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 								  w + 6, pt_blocks + 10, w + 6);
 				}
 			} else {			/* not block begin or end, but perhaps inside */
-				DEBUG_MSG("checking if we're in tag %p\n",
-						  main_v->lang_mgr->internal_tags[IT_BLOCK]);
+				/*DEBUG_MSG("checking if we're in tag %p\n",
+						  main_v->lang_mgr->internal_tags[IT_BLOCK]);*/
 				if (gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_BLOCK])
 					&& !gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_FOLDED])) {
 					gdk_draw_line(GDK_DRAWABLE(left_win),
@@ -766,17 +766,19 @@ static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, 
 	GtkTextMark *mark = NULL, *mark2 = NULL, *mark3, *mark4;
 	gboolean deleted = FALSE;
 	GtkTextIter it, it2, it3;
-	BlockInfo *bi, *bi2, *bi3, *bi4;
+	
 
 	if (!view->lang || !view->lang->scan_blocks)
 		return;
 	it = *arg1;
-	while (gtk_text_iter_compare(&it, arg2) <= 0) {
+	while (!gtk_text_iter_equal(&it, arg2)) {
 		mark = bftv_get_block_at_iter(&it);
 		if (mark) {
+			BlockInfo *bi;
 			bi = g_object_get_data(G_OBJECT(mark), "bi");
 			if (bi && !bi->folded) {
 				if (bi->type == BI_START) {
+					BlockInfo *bi2, *bi3, *bi4;
 					mark2 = bi->ref;
 					mark3 = bi->refe1;
 					mark4 = bi->refe2;
@@ -819,8 +821,8 @@ static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, 
 			}					/* folded */
 		}
 		gtk_text_iter_forward_char(&it);
-		if (gtk_text_iter_is_end(&it))
-			break;
+/*		if (gtk_text_iter_is_end(&it))
+			break;*/
 	}
 }
 
@@ -2464,14 +2466,15 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 {
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 	GtkTextIter its, ita;
-	gboolean block_found = FALSE, token_found = FALSE, recognizing = FALSE;
+	gboolean recognizing = FALSE;
 #ifndef NEWMAINLOOP	
+	gboolean block_found = FALSE, token_found = FALSE;
 	gshort magic = 0;
 #endif
 	BfState *current_state;
 	Trts rts;
 
-	DEBUG_MSG("bf_textview_scan_area, started\n");
+	DEBUG_MSG("bf_textview_scan_area, started from %d to %d\n",gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(BF_IS_TEXTVIEW(self));
 	if (!self->lang || self->paste_operation)
@@ -2516,8 +2519,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	magic = 0;
 	while (gtk_text_iter_compare(&ita, end) <= 0) {	/* main loop */
 		gunichar c;
-		DEBUG_MSG("bf_textview_scan_area, in main loop, ita at %d, end at %d\n",
-				  gtk_text_iter_get_offset(&ita), gtk_text_iter_get_offset(end));
+		DEBUG_MSG("bf_textview_scan_area, in main loop, ita at %d\n",gtk_text_iter_get_offset(&ita));
 		if (gtk_text_iter_equal(&ita, end)) {
 			magic++;
 			if (magic >= 2)
@@ -2601,22 +2603,17 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 /* THIS IS THE NEW MAIN LOOP */
 	{
 		gboolean last_loop = FALSE;
-		
+		gboolean block_found = FALSE;
+		gboolean end_is_buffer_end = gtk_text_iter_is_end(end); 
 		while (!last_loop) {
 			gunichar c;
 			c = gtk_text_iter_get_char(&ita);
-			if (c == 0) {
+			if (c == 0 || (!end_is_buffer_end && gtk_text_iter_equal(&ita, end))) {
 				last_loop = TRUE;
-				/* This is a trick. Character of code 3(ETX) is not printable, so will not appear in the text,
-				   but automata has entries for it, so if at the end of text is token - it will 
-				   be recognized */
-				c = 3;
-			} else if ((gint) c > BFTV_SCAN_RANGE) {
-				c = 0;
-				recognizing = FALSE;
-			}
+			} 
 			
 			if (store_string) {
+				DEBUG_MSG("store string! append character %c\n",c);
 				/* the next line can probably be improved a bit for speed  */
 				if (!g_unichar_isgraph(c)) {
 					self->scanner.last_string = g_string_assign(self->scanner.last_string, "");
@@ -2624,15 +2621,23 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 					g_string_append_printf(self->scanner.last_string, "%c", c); /* this is slowwwww because it is called VERY often */
 				}
 			}
-			if (!last_loop) {
+			if (last_loop) {
+				/* This is a trick. Character of code 3(ETX) is not printable, so will not appear in the text,
+				   but automata has entries for it, so if at the end of text is token - it will 
+				   be recognized */
+				c = 3;
+			} else {
+				if ((gint) c > BFTV_SCAN_RANGE) {
+					c = 0;
+					recognizing = FALSE;
+				}
 				while (self->lang->escapes[(gint) c] && c != 0 ) {	/* remove escapes */
 					gtk_text_iter_forward_chars(&ita, 2);
 					c = gtk_text_iter_get_char(&ita);
 				}						/* remove escapes */
 			}
 	
-	/* #####################     RECOGNIZE TOKENS AND BLOCKS ###################*/
-			token_found = FALSE;
+			/* #####################     RECOGNIZE TOKENS AND BLOCKS ###################*/
 			block_found = FALSE;
 			if (!current_state) {
 				if (self->scanner.current_context) {
@@ -2647,39 +2652,34 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	
 			if (current_state) {
 				recognizing = TRUE;
-				switch (current_state->type) {
-				case ST_TOKEN:
-					bf_textview_scan_state_type_st_token(self, buf, current_state, &its, &ita, apply_hl);
-					token_found = TRUE;
-					current_state = NULL;
+				if (current_state->type == ST_TRANSIT) {
+					gtk_text_iter_forward_char(&ita);
+				} else {
+					switch (current_state->type) {
+					case ST_TOKEN:
+						bf_textview_scan_state_type_st_token(self, buf, current_state, &its, &ita, apply_hl);
+						current_state = NULL;
+						break;			/* token */
+					case ST_BLOCK_BEGIN:
+						current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, apply_hl);
+						block_found = TRUE;
+						break;
+					case ST_BLOCK_END:
+						current_state = bf_textview_scan_state_type_st_block_end(self, buf, current_state, &its, &ita, apply_hl);
+						block_found = TRUE;
+						break;
+					}
 					its = ita;
-					break;			/* token */
-				case ST_BLOCK_BEGIN:
-					current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, apply_hl);
-					block_found = TRUE;
-					its = ita;
-					break;
-				case ST_BLOCK_END:
-					current_state = bf_textview_scan_state_type_st_block_end(self, buf, current_state, &its, &ita, apply_hl);
-					block_found = TRUE;
-					its = ita;
-					break;
-				case ST_TRANSIT:
-					break;
 				}
 			} else {	/* current_state is NULL */
 				its = ita;
 				if (recognizing) {
-					gtk_text_iter_backward_char(&ita);
 					recognizing = FALSE;
 				} else {
 					gtk_text_iter_forward_char(&its);
+					gtk_text_iter_forward_char(&ita);
 				}
 			}
-			DEBUG_MSG("bf_textview_scan_area, token_found=%d, block_found=%d\n", token_found,
-					  block_found);
-			if (!token_found && !block_found)
-				gtk_text_iter_forward_char(&ita);
 		}	/*main loop */
 	}
 #endif
@@ -3109,7 +3109,9 @@ void bf_textview_autocomp_show(BfTextView * self)
 	gtk_text_iter_set_line(&it3, gtk_text_iter_get_line(&it));
 	gtk_text_iter_backward_char(&it);
 	self->scanner.last_string = g_string_assign(self->scanner.last_string, "");
+	DEBUG_MSG("bf_textview_autocomp_show, calling scan_area()\n");
 	bf_textview_scan_area(self, &it3, &it, FALSE, TRUE);
+	DEBUG_MSG("bf_textview_autocomp_show, last_string=%s\n",self->scanner.last_string->str);
 	if (self->lang && self->lang->schema_aware) {
 		if (self->scanner.last_string->str[0] == '<')
 			ac_run_schema(main_v->autocompletion, self->scanner.last_string->str + 1, self->schemas,
