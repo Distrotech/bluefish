@@ -29,7 +29,7 @@
 #include <libgnomeui/libgnomeui.h>
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 #include <string.h>
-
+#include "textstyle.h"
 #include "filetype.h"
 #include "bluefish.h"
 #include "bf-textview.h"
@@ -105,6 +105,7 @@ static void filetype_scan_langfiles(const gchar * dir) {
 	GError *error = NULL;
 	GPatternSpec *ps = g_pattern_spec_new("*.bflang"); 
 	GDir *gd = g_dir_open(dir, 0, &error);
+	textstyle_build_lookup_table();
 	if (!error) {
 		DEBUG_MSG("filetype_scan_langfiles, scanning %s\n",dir);
 		filename = g_dir_read_name(gd);
@@ -120,6 +121,7 @@ static void filetype_scan_langfiles(const gchar * dir) {
 		g_dir_close(gd);
 	}
 	g_pattern_spec_free(ps);
+	textstyle_cleanup_lookup_table();
 }
 
 /* retrieves a Tfiletype for the given mime-type, if none is found, a 

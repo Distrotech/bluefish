@@ -22,7 +22,7 @@
  */
 
 /*#define DEBUG */
-#define HL_PROFILING
+/* #define HL_PROFILING */
 
 /*
 Typical scanner in compiler is an automata. To implement automata you
@@ -1056,7 +1056,7 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 	input = ptr2;
 	i = 0;
 
-	while (i < size) {			/* main loop */
+	while (i < size) {			/* main loop, loops for every character of every token in the language file !!!! */
 		if (!regexp) {
 			BfState *st = (BfState *) current_state->tv[(gint) * input];
 			if (st != NULL && st->type == ST_TRANSIT) {
@@ -1416,6 +1416,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 	glong tot_ms;
 	times(&tms1);
 #endif
+	
 	xmlLineNumbersDefault(1);
 	DEBUG_MSG("bftv_load_config, loading %s\n", filename);
 	doc = xmlReadFile(filename, "UTF-8", XML_PARSE_RECOVER | XML_PARSE_NOENT);

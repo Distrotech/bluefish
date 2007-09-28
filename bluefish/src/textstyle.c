@@ -30,9 +30,53 @@
 #include "stringlist.h"
 typedef struct {
 	GtkTextTagTable *tagtable;
+	GHashTable *lookup_table;
 } Ttextstyle;
 
-static Ttextstyle textstyle = {NULL};
+static Ttextstyle textstyle = {NULL,NULL};
+
+/* these hash functions hash the first 3 strings in a gchar ** */
+static gboolean arr3_equal (gconstpointer v1,gconstpointer v2)
+{
+	const gchar **arr1 = (const gchar **)v1;
+	const gchar **arr2 = (const gchar **)v2;
+  
+	return ((strcmp ((char *)arr1[0], (char *)arr2[0]) == 0 )&&
+			(strcmp ((char *)arr1[1], (char *)arr2[1]) == 0) &&
+			(strcmp ((char *)arr1[2], (char *)arr2[2]) == 0));
+}
+static guint arr3_hash(gconstpointer v)
+{
+  /* modified after g_str_hash */
+  	const signed char **tmp = (const signed char **)v;
+	const signed char *p;
+	guint32 h = *tmp[0];
+	if (h) {
+		gshort i=0;
+		while (i<3) {
+			p = tmp[i];
+			for (p += 1; *p != '\0'; p++)
+				h = (h << 5) - h + *p;
+			i++;
+		}
+	}
+	return h;
+}
+
+
+void textstyle_build_lookup_table(void) {
+	GList *tmplist;
+	textstyle.lookup_table = g_hash_table_new(arr3_hash,arr3_equal);
+	for (tmplist = g_list_first(main_v->props.syntax_styles);tmplist;tmplist=g_list_next(tmplist)) {
+		const gchar **tmp = tmplist->data;
+		g_hash_table_insert(textstyle.lookup_table,tmp,tmp[3]);
+	}
+}
+
+void textstyle_cleanup_lookup_table(void) {
+	g_hash_table_unref(textstyle.lookup_table);
+	textstyle.lookup_table = NULL;
+}
 
 static GtkTextTag *textstyle_compile(gchar **arr) {
 	GtkTextTag *tag;
@@ -120,21 +164,30 @@ GtkTextTagTable *textstyle_return_tagtable(void) {
 	return textstyle.tagtable;
 }
 
-static gchar **get_arr_for_scanner_style(const gchar *filetype,const gchar *type,const gchar *name) {
-	const gchar *arr2[] = {filetype, type, name, NULL};
-/*	DEBUG_MSG("get_tag_for_scanner_style, filetype %s, type %s, name %s\n",filetype,type,name);*/
-	return arraylist_value_exists(main_v->props.syntax_styles, arr2, 3, TRUE);
+static gchar *get_tagname_for_scanner_style(const gchar *filetype,const gchar *type,const gchar *name) {
+	const gchar *arr[] = {filetype, type, name, NULL};
+	if (textstyle.lookup_table) {
+		return g_hash_table_lookup(textstyle.lookup_table, arr);
+	} else {
+		gchar **tmparr = arraylist_value_exists(main_v->props.syntax_styles, arr, 3, TRUE);
+		g_print("get_tagname_for_scanner_style: NO LOOKUP TABLE, SLOWWWWW!!!!!\n");
+		if (tmparr)
+			return tmparr[3];
+	}
+	return NULL;	
 }
 
 GtkTextTag *get_tag_for_scanner_style(const gchar *filetype,const gchar *type,const gchar *name, const gchar *defaultstyle) {
-	gchar **arr1 = get_arr_for_scanner_style(filetype,type,name);
 	GtkTextTag *tag=NULL;
-	if (arr1 && arr1[3]) {
+
+	const gchar *tagname=get_tagname_for_scanner_style(filetype,type,name);	
+
+	if (tagname) {
 		/* the style for this element is set in the config */
-		if (arr1[3][0] != '\0') {
-			tag = textstyle_get(arr1[3]);
+		if (tagname[0] != '\0') {
+			tag = textstyle_get(tagname);
 		}
-		DEBUG_MSG("get_tag_for_scanner_style(%s:%s:%s) return tag %p for textstyle %s\n",filetype,type,name,tag,arr1[3]);
+		DEBUG_MSG("get_tag_for_scanner_style(%s:%s:%s) return tag %p for textstyle %s\n",filetype,type,name,tag,tagname);
 		return tag;
 	} else if (defaultstyle && defaultstyle[0] != '\0'){
 		/* try the default style */
