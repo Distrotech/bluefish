@@ -22,6 +22,9 @@
 #ifndef __TEXTSTYLE_H__
 #define __TEXTSTYLE_H__
 
+void textstyle_build_lookup_table(void);
+void textstyle_cleanup_lookup_table(void);
+
 void textstyle_rebuild(void);
 GtkTextTagTable *textstyle_return_tagtable(void);
 
