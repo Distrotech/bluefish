@@ -988,19 +988,21 @@ GtkTextMark *bf_textview_get_nearest_block_of_type(BfTextView * self, BfLangBloc
 /* ---------------------    /UTILITY FUNCTIONS  ---------------------------- */
 
 /* ---------------------    LANGUAGE CONFIG ---------------------------- */
+#ifdef __GNUC__
+__inline__ 
+#endif
 static gboolean bftv_xml_bool(xmlChar * text)
 {
-	if (text == NULL)
+	if (text == NULL || text[0] == '0' || strcasecmp((char*)text,"true") != 0)
 		return FALSE;
-	if (xmlStrcmp(text, (const xmlChar *) "true") == 0
-		|| xmlStrcmp(text, (const xmlChar *) "TRUE") == 0
-		|| xmlStrcmp(text, (const xmlChar *) "1") == 0) {
-		return TRUE;
-	}
-	return FALSE;
+	return TRUE;
 }
 
+/* this function adds every call a block or a token to the scanning table. 
+It is called for every token and every block during the loading of the language files.
 
+This function takes a lot of time during startup  
+ */
 static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer data,
 								  BfLangConfig * cfg)
 {
@@ -1056,14 +1058,15 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 	input = ptr2;
 	i = 0;
 
-	while (i < size) {			/* main loop, loops for every character of every token in the language file !!!! */
-		if (!regexp) {
+	if (!regexp) { /* a static string */
+		while (i < size) {/* main loop, loops for every character of every token in the language file !!!! */
 			BfState *st = (BfState *) current_state->tv[(gint) * input];
 			if (st != NULL && st->type == ST_TRANSIT) {
 				current_state = current_state->tv[(gint) * input];
 			} else if (st != NULL) {
 				found = FALSE;
-				for (m = 0; m < BFTV_SCAN_RANGE; m++) {
+				for (m = 0; m < BFTV_SCAN_RANGE; m++) { /* this loop runs 127 times for every character for every block or token... 
+								but what does this loop exactly do ?? */
 					if (m != (gint) * input && st->tv[m] == st->tv[(gint) * input])
 						found = TRUE;
 				}
@@ -1079,13 +1082,27 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 				current_state->type = ST_TRANSIT;
 				cfg->num_states++;
 			}
-		} else {				/* REGULAR */
+			if (i < size)
+				input++;
+			i++;
+		}
+		BfState *s = g_new0(BfState, 1);
+		s->type = type;
+		s->data = data;
+		cfg->num_states++;
+		for (j = 0; j < BFTV_SCAN_RANGE; j++)
+			if (!current_state->tv[j])
+				current_state->tv[j] = s;
 
+	} else { /* it is a list of characters (regex style) */
+	
+		while (i < size) {/* main loop, loops for every character of every token in the language file !!!! */
 			/* DETERMINE SPECIFIED CHARACTER SET */
 			reverse_set = FALSE;
 			/* IMPROVEMENT: the next for loop can be done with a single 'memset()' call I think */
-			for (m = 0; m < BFTV_SCAN_RANGE; m++)
-				charset[m] = FALSE;
+			/*for (m = 0; m < BFTV_SCAN_RANGE; m++)
+				charset[m] = FALSE;*/
+			memset(charset, FALSE, BFTV_SCAN_RANGE*sizeof(gboolean));
 			if (*input == '[') {
 				k = i + 1;
 				inp3 = input + 1;
@@ -1209,28 +1226,14 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 				pstates = g_list_append(pstates, auxlst->data);
 				auxlst = g_list_next(auxlst);
 			}
-
-		}						/* REGULAR END */
-		if (regexp)
 			counter++;
-		if (i < size)
-			input++;
-		i++;
-	}							/* main loop */
-
-	if (!regexp) {
-		BfState *s = g_new0(BfState, 1);
-		s->type = type;
-		s->data = data;
-		cfg->num_states++;
-		for (j = 0; j < BFTV_SCAN_RANGE; j++)
-			if (!current_state->tv[j])
-				current_state->tv[j] = s;
-	} else {
+			if (i < size)
+				input++;
+			i++;
+		}
 		if (counter > cfg->max_token_length)
 			cfg->max_token_length = counter;
-	}
-
+	}	
 	g_free(ptr2);
 }								/* bftv_scantable_insert */
 
@@ -2141,7 +2144,10 @@ static void bftv_clear_matched_block(BfTextView * self)
 	}
 	self->last_matched_block = NULL;
 }
-
+/* this is called just once */
+#ifdef __GNUC__
+__inline__ 
+#endif
 static void bf_textview_scan_state_type_st_token(BfTextView * self, GtkTextBuffer *buf, BfState * current_state, GtkTextIter *its, GtkTextIter *ita, gboolean apply_hl)
 {
 	GtkTextIter pit;
@@ -2284,7 +2290,10 @@ static void bf_textview_scan_state_type_st_token(BfTextView * self, GtkTextBuffe
 		break;
 	}
 }
-
+/* this is called just once */
+#ifdef __GNUC__
+__inline__ 
+#endif
 static BfState *bf_textview_scan_state_type_st_block_begin(BfTextView * self, GtkTextBuffer *buf, BfState * current_state, GtkTextIter *its, GtkTextIter *ita, gboolean apply_hl)
 {
 	TBfBlock *bf;
@@ -2310,7 +2319,10 @@ static BfState *bf_textview_scan_state_type_st_block_begin(BfTextView * self, Gt
 	}
 	return &tmp->scan_table;
 }
-
+/* this is called just once */
+#ifdef __GNUC__
+__inline__ 
+#endif
 static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkTextBuffer *buf, BfState * current_state, GtkTextIter *its, GtkTextIter *ita, gboolean apply_hl)
 {
 	TBfBlock *bf;
