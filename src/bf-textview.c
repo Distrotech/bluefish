@@ -21,8 +21,8 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines bf-textview.c
  */
 
-/* #define DEBUG */
-/* #define HL_PROFILING */
+/*#define DEBUG */
+#define HL_PROFILING
 
 /*
 Typical scanner in compiler is an automata. To implement automata you
@@ -1083,6 +1083,7 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 
 			/* DETERMINE SPECIFIED CHARACTER SET */
 			reverse_set = FALSE;
+			/* IMPROVEMENT: the next for loop can be done with a single 'memset()' call I think */
 			for (m = 0; m < BFTV_SCAN_RANGE; m++)
 				charset[m] = FALSE;
 			if (*input == '[') {
@@ -1528,19 +1529,20 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 						if (tmps2) {
 							gchar **arr;
 							tmps = xmlNodeListGetString(doc, cur2->xmlChildrenNode, 1);
-							arr = g_strsplit((const gchar *) tmps, (const gchar *) tmps2, -1);
-							xmlFree(tmps2);
-							if (arr) {
-								gint i = 0;
-								while (arr[i] != NULL) {
-									bftv_make_entity(doc, cur2, cfg, ST_TOKEN, tmps3, tmps4,
-													 (guchar *) g_strdup(arr[i]));
-									i++;
-								}	/* while */
-								g_strfreev(arr);
-							}
-							if (tmps)
+							if (tmps) {
+								arr = g_strsplit((const gchar *) tmps, (const gchar *) tmps2, -1);
+								xmlFree(tmps2);
+								if (arr) {
+									gint i = 0;
+									while (arr[i] != NULL) {
+										bftv_make_entity(doc, cur2, cfg, ST_TOKEN, tmps3, tmps4,
+														 (guchar *) g_strdup(arr[i]));
+										i++;
+									}	/* while */
+									g_strfreev(arr);
+								}
 								xmlFree(tmps);
+							}
 						}
 					}			/* token-list */
 					cur2 = cur2->next;
@@ -3113,6 +3115,7 @@ void bf_textview_autocomp_show(BfTextView * self)
 	bf_textview_scan_area(self, &it3, &it, FALSE, TRUE);
 	DEBUG_MSG("bf_textview_autocomp_show, last_string=%s\n",self->scanner.last_string->str);
 	if (self->lang && self->lang->schema_aware) {
+		DEBUG_MSG("bf_textview_autocomp_show, running in 'schema_aware' mode\n");
 		if (self->scanner.last_string->str[0] == '<')
 			ac_run_schema(main_v->autocompletion, self->scanner.last_string->str + 1, self->schemas,
 						  self->internal_dtd, GTK_TEXT_VIEW(self), NULL);
@@ -3134,6 +3137,7 @@ void bf_textview_autocomp_show(BfTextView * self)
 			}
 		}
 	} else {
+		DEBUG_MSG("bf_textview_autocomp_show, not 'schema_aware', calling ac_run_lang()\n");
 		if (self->lang->case_sensitive)
 			ac_run_lang(main_v->autocompletion, self->scanner.last_string->str,
 						(gchar *) (self->lang->name), GTK_TEXT_VIEW(self), NULL);

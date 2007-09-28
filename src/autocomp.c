@@ -18,7 +18,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+/* #define DEBUG */
 
+#include "bluefish.h"
 #include "autocomp.h"
 #include <gdk/gdkkeysyms.h>
 #include <string.h>
@@ -155,7 +157,11 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 	GtkTreeModel *model;
 	GtkTreePath *path;
 	gchar **arr;
+
 	if ( !view || !ac || (!empty_allowed && strcmp(prefix,"")==0) ) return NULL;
+
+	DEBUG_MSG("ac_run, called with %d strings and prefix %s\n",g_list_length(strings),prefix);	
+	
 	screen = gtk_widget_get_screen(GTK_WIDGET(view));
 	gtk_text_buffer_get_iter_at_mark(buf,&it,gtk_text_buffer_get_insert(buf));
 	gtk_text_view_get_iter_location(view,&it,&rect);
@@ -175,8 +181,9 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 		items = g_completion_complete(ac->gc,prefix,NULL);
 	}
 	w=40;
-	/*items = g_list_sort(items,(GCompareFunc)g_strcasecmp);*/ 
-	if ( items && g_list_length(items)>0 )
+	/*items = g_list_sort(items,(GCompareFunc)g_strcasecmp);*/
+	DEBUG_MSG("ac_run, found %d items for %s\n",g_list_length(items),prefix); 
+	if (items)
 	{
 		gtk_list_store_clear(ac->store);
 		lst = items;
@@ -224,12 +231,13 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 			if ( selection && gtk_tree_selection_get_selected(selection,&model,&it2))
 			{
 				gtk_tree_model_get(model,&it2,1,&tofree,-1);
+				DEBUG_MSG("ac_run, inserting tofree='%s', append='%s'\n",tofree,append);
 				tofree = tofree+strlen(prefix);
 				if ( strcmp(tofree,"")!=0 )
 				{
-					gtk_text_buffer_insert_at_cursor(buf,tofree,strlen(tofree));
-					if (append)
-						gtk_text_buffer_insert_at_cursor(buf,append,strlen(append));
+					gtk_text_buffer_insert_at_cursor(buf,tofree,-1);
+					if (append) 
+						gtk_text_buffer_insert_at_cursor(buf,append,-1);
 				}
 			}
 		}
