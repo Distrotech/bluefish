@@ -1008,17 +1008,12 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 {
 	BfLangToken *token = NULL;
 	BfLangBlock *block = NULL;
-	BfState *current_state = scantable;
 	guchar *ptr = NULL;
-	gunichar *ptr2, *input, *inp3;
-	gint i, j, k, m;
+	gunichar *ptr2;
+	BfState *current_state = scantable;
 	glong size;
-	gint counter = 0;
-	gboolean regexp = TRUE, reverse_set, found;
-	GList *pstates = NULL, *states = NULL, *auxlst;
-	gboolean charset[BFTV_SCAN_RANGE], done = FALSE;
-	BfState *z;
-
+	gboolean regexp = TRUE;
+	GList *pstates = NULL;
 
 	switch (type) {
 	case ST_TOKEN:
@@ -1055,47 +1050,60 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 
 
 	pstates = g_list_append(pstates, scantable);
-	input = ptr2;
-	i = 0;
+	
 
 	if (!regexp) { /* a static string */
-		while (i < size) {/* main loop, loops for every character of every token in the language file !!!! */
-			BfState *st = (BfState *) current_state->tv[(gint) * input];
-			if (st != NULL && st->type == ST_TRANSIT) {
-				current_state = current_state->tv[(gint) * input];
-			} else if (st != NULL) {
-				found = FALSE;
-				for (m = 0; m < BFTV_SCAN_RANGE; m++) { /* this loop runs 127 times for every character for every block or token... 
-								but what does this loop exactly do ?? */
-					if (m != (gint) * input && st->tv[m] == st->tv[(gint) * input])
-						found = TRUE;
+		gunichar *input = ptr2;
+		gshort i;
+		while (*input != '\0') {/* main loop, loops for every character of every token in the language file !!!! */
+			BfState *st = (BfState *) current_state->tv[(gchar) *input];
+			if (st != NULL) {
+				if (st->type == ST_TRANSIT) {
+					current_state = current_state->tv[(gchar) *input];
+				} else {
+					gshort m;
+					gboolean found = FALSE;
+					for (m = 0; m < BFTV_SCAN_RANGE; m++) { /* this loop runs 127 times for every character for every block or token... 
+									but what does this loop exactly do ?? */
+						if (m != (gchar) *input && st->tv[m] == st->tv[(gchar) *input])
+							found = TRUE;
+							break;
+					}
+					current_state->tv[(gchar) *input] = g_new0(BfState, 1);
+					current_state = current_state->tv[(gchar) *input];
+					current_state->type = ST_TRANSIT;
+					cfg->num_states++;
+					if (!found)
+						g_free(st);
 				}
-				current_state->tv[(gint) * input] = g_new0(BfState, 1);
-				current_state = current_state->tv[(gint) * input];
-				current_state->type = ST_TRANSIT;
-				cfg->num_states++;
-				if (!found)
-					g_free(st);
-			} else {
-				current_state->tv[(gint) * input] = g_new0(BfState, 1);
-				current_state = current_state->tv[(gint) * input];
+			} else { /* st == NULL */
+				current_state->tv[(gchar) *input] = g_new0(BfState, 1);
+				current_state = current_state->tv[(gchar) *input];
 				current_state->type = ST_TRANSIT;
 				cfg->num_states++;
 			}
-			if (i < size)
-				input++;
-			i++;
+			input++;
 		}
+		
 		BfState *s = g_new0(BfState, 1);
 		s->type = type;
 		s->data = data;
 		cfg->num_states++;
-		for (j = 0; j < BFTV_SCAN_RANGE; j++)
-			if (!current_state->tv[j])
-				current_state->tv[j] = s;
+		for (i = 0; i < BFTV_SCAN_RANGE; i++)
+			if (!current_state->tv[i])
+				current_state->tv[i] = s;
 
 	} else { /* it is a list of characters (regex style) */
-	
+		gint i=0, k, m;
+		gunichar *inp3;
+		gboolean reverse_set, found;
+		GList  *states = NULL, *auxlst;
+		gint counter = 0;
+		gboolean charset[BFTV_SCAN_RANGE], done = FALSE;
+		BfState *z;
+
+		gunichar *input = ptr2;
+			
 		while (i < size) {/* main loop, loops for every character of every token in the language file !!!! */
 			/* DETERMINE SPECIFIED CHARACTER SET */
 			reverse_set = FALSE;
@@ -1135,7 +1143,7 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 				}
 			} /* *inp == '[' */
 			else {
-				charset[(gint) * input] = TRUE;
+				charset[(gchar) *input] = TRUE;
 			}
 			/* CREATE STATES */
 			g_list_free(states);
