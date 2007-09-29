@@ -3,37 +3,49 @@
 <bflang name="Perl" description="Perl Programming Language">
 
 <mimetypes>
-<mimetype type="application/x-perl" />
+	<mimetype type="application/x-perl" />
 </mimetypes>
 
 <options>
-    <option name="case-sensitive">true</option>
-    <option name="scan-markup-tags">false</option>
-    <option name="scan-blocks">true</option>
+	<option name="case-sensitive">true</option>
+	<option name="scan-markup-tags">false</option>
+	<option name="scan-blocks">true</option>
 </options>
 
 <block-group id="blocks">
-<block id="braces" begin="{" end="}" scanned="true" foldable="true" markup="false" case="true" />
-<block id="perldoc" begin="=head" end="=cut" scanned="false" foldable="true" markup="false" case="true" defaultstyle="doc"/>
+	<block id="braces" begin="{" end="}" scanned="true" foldable="true" markup="false" case="true" />
+	<block id="perldoc" begin="=head" end="=cut" scanned="false" foldable="true" markup="false" case="true" defaultstyle="doc"/>
 </block-group>
 
 <token-group id="general">
- <token name="line comment" regexp="true" defaultstyle="comment">#[^&#x0A;]*</token>
+	<token name="line comment" regexp="true" defaultstyle="comment">#[^&#x0A;]*</token>
+</token-group>
+
+<token-group id="strings" defaultstyle="string">
+	<token name="double-quoted-string" regexp="true">&quot;[^&quot;]*&quot;</token>
+	<token name="single-quoted-string" regexp="true">&apos;[^&apos;]*&apos;</token>
 </token-group>
 
 <token-group id="Pragma" defaultstyle="preprocessor">
- <token-list name="pragma1" separator=",">attributes,attrs,autouse,base,blib,caller,charnames,constant,diagnostics,fields,filetest</token-list>
- <token-list name="pragma2" separator=",">integer,less,lib,locale,ops,overload,re,sigtrap,strict,subs,utf8,vars,warnings</token-list>
+	<token-list name="pragma1" separator=",">attributes,attrs,autouse,base,blib,caller,charnames,constant,diagnostics,fields,filetest</token-list>
+	<token-list name="pragma2" separator=",">integer,less,lib,locale,ops,overload,re,sigtrap,strict,subs,utf8,vars,warnings</token-list>
 </token-group>
 
 <token-group id="keywords" defaultstyle="keyword">
-  <token-list name="keywords" separator=",">do,each,else,elsif,for,foreach,if,local,my,our,print,printf,unless,until,values,while</token-list>
+	<token-list name="keywords" separator=",">do,each,else,elsif,for,foreach,if,local,my,next,our,sub,unless,until,values,while</token-list>
 </token-group>
 
 <token-group id="core language" defaultstyle="keyword-red">
-<token-list name="corelang" separator=",">AUTOLOAD,BEGIN,CORE,DESTROY,ISA,__BEGIN__,__END__,__PACKAGE__,bless,carp,closedir</token-list>
-<token-list name="corelang2" separator=",">,confess,croak,die,eval,exit,grep,map,no,opendir,package,require,return</token-list>
-<token-list name="corelang3" separator=",">,splice,split,sprintf,sub,sysopen,use,warn</token-list>
+	<token-list name="corelang" separator=",">AUTOLOAD,BEGIN,CORE,DESTROY,ISA,__BEGIN__,__END__,__PACKAGE__</token-list>
+	<token-list name="corelang2" separator=",">,bless,carp,chomp,chop,close,closedir,confess,croak,die,eval,exit,grep,join</token-list>
+	<token-list name="corelang3" separator=",">,map,no,open,opendir,package,print,printf,pop,push,qw,qx,readdir,require,return,shift</token-list>
+	<token-list name="corelang4" separator=",">,sort,splice,split,sprintf,stat,substr,sysopen,system,unshift,use,warn</token-list>
+</token-group>
+
+<token-group id="variables" defaultstyle="variable" >
+	<token name="array" regexp="true">@[a-z_][a-z0-9-_]*</token>
+	<token name="hash" regexp="true">%[a-z_][a-z0-9-_]*</token>
+	<token name="variable" regexp="true">$[a-z_][a-z0-9-_]*</token>
 </token-group>
 
 </bflang>
