@@ -24,17 +24,16 @@
 #ifndef __AUTOCOMP_H__
 #define __AUTOCOMP_H__
 
-
 /* Autocompletion structure which can be used in external modules
 	I need only one of this for whole Bluefish process */
 	
 typedef struct {
 	GtkAccelGroup *group;        /* accelerator group containing activation accel */
 	GClosure *closure;					 /* accel callback */ 	 
-	GtkTreeView *tree;    				 /* this is tree widget keeping ac strings */
-	GtkListStore *store;  				 /* list of strings */
-	GtkWidget *window; 				 /* small window shown when ac is activated */
-	GCompletion *gc;        				/* autocompletion object used for run */
+/*	GtkTreeView *tree;    				 / * this is tree widget keeping ac strings * /
+	GtkListStore *store;  				 / * list of strings * /
+	GtkWidget *window; 				 / * small window shown when ac is activated * /
+	GCompletion *gc;        				/ * autocompletion object used for run */
 	GHashTable *lang_lists;  		/* lists of strings which are assigned by file type (.bflang file) */
 	GHashTable *dtd_lists;			/* lists for external DTD */
 } Tautocomp;
@@ -51,10 +50,9 @@ typedef struct {
 
 Tautocomp *ac_init();
 
-gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view,gboolean empty_allowed,gchar *append);
-gchar *ac_run_lang(Tautocomp *ac, gchar *prefix, gchar *name, GtkTextView *view,gchar *append);
-gchar *ac_run_schema(Tautocomp *ac, gchar *prefix, GList *schemas, Tdtd_list *internal, GtkTextView *view,gchar *append);
-gchar *ac_run_tag_attributes(Tautocomp *ac, gchar *tag, gchar *prefix, GList *schemas, Tdtd_list *internal,GtkTextView *view,gchar *append);
+void ac_run_lang(Tautocomp *ac, gchar *prefix, gchar *name, GtkTextView *view,gchar *append);
+void ac_run_schema(Tautocomp *ac, gchar *prefix, GList *schemas, Tdtd_list *internal, GtkTextView *view,gchar *append);
+void ac_run_tag_attributes(Tautocomp *ac, gchar *tag, gchar *prefix, GList *schemas, Tdtd_list *internal,GtkTextView *view,gchar *append);
 
 void ac_add_lang_list(Tautocomp *ac, gchar *name, GList *strings);
 gchar *ac_add_dtd_list(Tautocomp *ac, gchar *chunk,gboolean internal,Tdtd_list **intptr);
