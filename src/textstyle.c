@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * textstyle.c - color styles used for syntax highlighting
  * 
- * Copyright (C) 2005 Olivier Sessink
+ * Copyright (C) 2005,2006,2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -69,7 +69,9 @@ void textstyle_build_lookup_table(void) {
 	textstyle.lookup_table = g_hash_table_new(arr3_hash,arr3_equal);
 	for (tmplist = g_list_first(main_v->props.syntax_styles);tmplist;tmplist=g_list_next(tmplist)) {
 		const gchar **tmp = tmplist->data;
-		g_hash_table_insert(textstyle.lookup_table,tmp,tmp[3]);
+		if (count_array(tmp)>3) {
+			g_hash_table_insert(textstyle.lookup_table,tmp,tmp[3]);
+		}
 	}
 }
 
