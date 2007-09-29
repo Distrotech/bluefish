@@ -52,19 +52,32 @@ static gboolean ac_press(GtkWidget *widget,GdkEventKey *event,gpointer user_data
 	GtkDialog *dlg = GTK_DIALOG(user_data);
 	switch ( event->keyval )
 	{
-		case GDK_Return:gtk_dialog_response(dlg,GTK_RESPONSE_OK);break;
-		case GDK_Escape:gtk_dialog_response(dlg,GTK_RESPONSE_CANCEL);break;
+		case GDK_Return:
+			gtk_dialog_response(dlg,GTK_RESPONSE_OK);
+			return TRUE;
+		case GDK_Escape:
+			gtk_dialog_response(dlg,GTK_RESPONSE_CANCEL);
+			return TRUE;
 	}
 	return FALSE;
 }
 
+/* the search function now asks the user to input the complete string, but it is more logical 
+for the user to continue typing after the prefix that has been typed in the document already..
+so this function should know about the prefix in the document and use it..
+
+for example, I enter mysql_ in my text and press ctrl-space, the autocompletion popup 
+becomes visible, and I continue typing query --> I want mysql_query to be selected!! */
 gboolean ac_tree_search (GtkTreeModel *model,gint column,const gchar *key,
                          GtkTreeIter *iter,gpointer search_data)
 {
+	gboolean retval = TRUE;
 	gchar *txt = NULL;
 	gtk_tree_model_get(model,iter,column,&txt,-1);
-	if (g_str_has_prefix(txt,key)) return FALSE;
-	return TRUE;
+	if (strstr(txt, key)) retval= FALSE;
+	/*if (g_str_has_prefix(txt,key)) return FALSE;*/
+	g_free(txt);
+	return retval;
 }
 
 /* Creates ac window */
@@ -103,24 +116,30 @@ static GtkWidget *ac_create_window(GtkTreeView *tree, GtkListStore *store)
 	gtk_widget_show_all(scroll);
 	gtk_window_set_decorated(GTK_WINDOW(win),FALSE);
 	gtk_dialog_set_has_separator (GTK_DIALOG(win),FALSE);
-	g_signal_connect(G_OBJECT(win),"key-press-event",G_CALLBACK(ac_press),win);
-	fontdesc = pango_font_description_from_string("Sans 8");
+	g_signal_connect(G_OBJECT(win),"key-release-event",G_CALLBACK(ac_press),win);
+
+	/* or we should use the same font of the document, or we use the gtk font. this hardcoded
+	font is (for me) too small */
+/*	fontdesc = pango_font_description_from_string("Sans 8");
 	gtk_widget_modify_font(GTK_WIDGET(scroll), fontdesc);
 	gtk_widget_modify_font(GTK_WIDGET(tree), fontdesc);
 
-	pango_font_description_free (fontdesc);
+	pango_font_description_free (fontdesc);*/
 	gtk_widget_hide(GTK_DIALOG(win)->action_area);
-	rc = gtk_widget_get_modifier_style(GTK_WIDGET(tree));
+	
+	/* hardcoded colors might not match with the users theme */
+/*	rc = gtk_widget_get_modifier_style(GTK_WIDGET(tree));
 	rc->color_flags[3] = GTK_RC_BG | GTK_RC_BASE;
 	rc->color_flags[0] = GTK_RC_BG | GTK_RC_BASE;
 	gdk_color_parse("#F7F3D2",&rc->bg[0]);
 	gdk_color_parse("#F7F3D2",&rc->base[0]);
 	gdk_color_parse("#E6DDB8",&rc->bg[3]);
 	gdk_color_parse("#E6DDB8",&rc->base[3]);
-	gtk_widget_modify_style(GTK_WIDGET(tree),rc);
+	gtk_widget_modify_style(GTK_WIDGET(tree),rc);*/
 	return win;
 }
 
+/* called once during initialisation (in bluefish.c) */
 Tautocomp *ac_init()
 {
 	Tautocomp *ret = g_new0(Tautocomp,1);
@@ -212,7 +231,7 @@ gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix, GtkTextView *view, g
 			lst = g_list_next(lst);
 		}
 		/*w = MAX(len*w+15,40);*/
-		h=MIN((g_list_length(items)+1)*h+8,100);
+		h=MIN((g_list_length(items)+1)*h+8,200);
 		gtk_widget_set_size_request(GTK_WIDGET(ac->tree),w,h); /* ac_window */
 		x += rect.x;
 		y = y + rect.y + rect.height;
