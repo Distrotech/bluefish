@@ -49,6 +49,7 @@ void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
 							gint matchtype, gint is_case_sens, const gchar *replace_pattern,
 							gboolean unescape);
 Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens, gint offset);
+void doc_show_result(Tdocument *document, GtkWindow *window, gint start, gint end);
 void search_from_selection(Tbfwin *bfwin);
 void search_cb(GtkWidget *widget, Tbfwin *bfwin);
 void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin);
