@@ -808,7 +808,7 @@ static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, 
 						gtk_text_buffer_delete_mark(textbuffer, bi->ref);
 						gtk_text_buffer_delete_mark(textbuffer, bi->refe1);
 						gtk_text_buffer_delete_mark(textbuffer, bi->refe2);
-						g_free(bi);
+						g_slice_free(BlockInfo,bi);
 						if (bi2)
 							g_slice_free(BlockInfo,bi2);
 						if (bi3)
