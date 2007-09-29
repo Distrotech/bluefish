@@ -43,8 +43,8 @@
 </token-group>
 
 <token-group id="variables" defaultstyle="variable" >
-	<token name="array" regexp="true">@[a-z_][a-z0-9-_]*</token>
-	<token name="hash" regexp="true">%[a-z_][a-z0-9-_]*</token>
+	<token name="array" regexp="true">@$?[a-z_][a-z0-9-_]*</token>
+	<token name="hash" regexp="true">%$?[a-z_][a-z0-9-_]*</token>
 	<token name="variable" regexp="true">$[a-z_][a-z0-9-_]*</token>
 </token-group>
 
