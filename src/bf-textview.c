@@ -1970,6 +1970,9 @@ static void bflang_retag_block(gpointer key, gpointer value, gpointer udata)
 static void bf_lang_retag(gpointer value, gpointer udata)
 {
 	BfLangConfig *cfg = (BfLangConfig *) value;
+
+	textstyle_build_lookup_table();
+	
 	g_hash_table_foreach(cfg->tokens, bflang_retag_token, cfg);
 	g_hash_table_foreach(cfg->blocks, bflang_retag_block, cfg);
 	cfg->tag_begin = get_tag_for_scanner_style((gchar *) cfg->name, "m", "tag_begin", NULL);
@@ -1977,6 +1980,7 @@ static void bf_lang_retag(gpointer value, gpointer udata)
 	cfg->attr_name = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_name", NULL);
 	cfg->attr_val = get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_val", NULL);
 
+	textstyle_cleanup_lookup_table();
 }
 
 void bf_lang_mgr_retag(void)
