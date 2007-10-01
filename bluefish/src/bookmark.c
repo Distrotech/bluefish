@@ -769,11 +769,28 @@ static gboolean bmark_event_mouseclick(GtkWidget * widget, GdkEventButton * even
 	return FALSE;
 }
 
-/* Initialize bookmarks gui for window */
+void bookmark_menu_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
+	g_print("function bookmark_menu_cb in src/bookmark.c is not yet finished\n");
+	switch (action) {
+		case 1:
+			/* first */
+		break;
+		case 2:
+			/* previous */
+		break;
+		case 3:
+			/* next */
+		break;
+		case 4:
+			/* last */
+		break;
+	}
+}
 
+/* Initialize bookmarks gui for window */
 GtkWidget *bmark_gui(Tbfwin * bfwin)
 {
-	GtkWidget *vbox, *scroll;
+	GtkWidget *vbox, *hbox, *scroll, *but;
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	DEBUG_MSG("bmark_gui, building gui for bfwin=%p\n",bfwin);
@@ -781,6 +798,30 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 	   Tree View is in bfwin->bmark 
 	 */
 	vbox = gtk_vbox_new(FALSE, 1);
+	
+	hbox = gtk_toolbar_new();
+	gtk_toolbar_set_icon_size(GTK_TOOLBAR(hbox),GTK_ICON_SIZE_MENU);
+	gtk_toolbar_set_style(GTK_TOOLBAR(hbox),GTK_TOOLBAR_ICONS);
+	
+	but = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GOTO_TOP,GTK_ICON_SIZE_MENU),"");
+	/*g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(but_clicked),bfwin);*/
+	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(but),main_v->tooltips,_("First bookmark"),"");
+	gtk_toolbar_insert(GTK_TOOLBAR(hbox),but,-1);
+	but = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU),"");
+	/*g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(but_clicked),bfwin);*/
+	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(but),main_v->tooltips,_("Previous bookmark"),"");
+	gtk_toolbar_insert(GTK_TOOLBAR(hbox),but,-1);
+	but = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GO_DOWN,GTK_ICON_SIZE_MENU),"");
+	/*g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(but_clicked),bfwin);*/
+	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(but),main_v->tooltips,_("Next bookmark"),"");
+	gtk_toolbar_insert(GTK_TOOLBAR(hbox),but,-1);
+	but = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GOTO_BOTTOM,GTK_ICON_SIZE_MENU),"");
+	/*g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(but_clicked),bfwin);*/
+	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(but),main_v->tooltips,_("Last bookmark"),"");
+	gtk_toolbar_insert(GTK_TOOLBAR(hbox),but,-1);
+	
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, TRUE, 0);
+	
 	bfwin->bmark = gtk_tree_view_new_with_model(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore));
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "text", NAME_COLUMN, NULL);

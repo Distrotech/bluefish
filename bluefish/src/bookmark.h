@@ -41,4 +41,6 @@ void bmark_del_all(Tbfwin *bfwin,gboolean ask);
 void bmark_check_length(Tbfwin *bfwin,Tdocument *doc);
 void bmark_cleanup(Tbfwin *bfwin);
 
+void bookmark_menu_cb(Tbfwin *bfwin,guint action,GtkWidget *widget);
+
 #endif /* __BOOKMARK_H__ */
