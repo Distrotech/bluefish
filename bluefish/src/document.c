@@ -1408,62 +1408,6 @@ static void add_encoding_to_list(gchar *encoding) {
 		g_free(enc);
 	}
 }
-/*
-#define STARTING_BUFFER_SIZE 8192
-static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *returnsize) {
-	GnomeVFSResult result= GNOME_VFS_NUM_ERRORS;
-	gchar *buffer=NULL;
-
-	DEBUG_MSG("get_buffer_from_filename, started for %s\n",filename);
-	
-	/ * a small hack to better support Zope. gnome-vfs metadata should be
-	used to get the source-link for WebDAV request but unfortunatelly
-	that functionality is yet not functional on gnome-vfs.* /
-	if (main_v->props.server_zope_compat) {
-		GnomeVFSURI* uri=gnome_vfs_uri_new(filename);
-		if (uri) {
-			gchar const *scheme=gnome_vfs_uri_get_scheme(uri);
-			if (scheme && (strcmp(scheme, "http")==0 || strcmp(scheme, "https")==0)) {
-				GnomeVFSURI* sourceuri;
-#ifdef HAVE_ATLEAST_GNOME_2_5
-				/ * TODO * /
-				/ * use metadata to get source property * /
-				sourceuri=gnome_vfs_uri_append_file_name(uri, "document_src");
-#else
-				sourceuri=gnome_vfs_uri_append_file_name(uri, "document_src");
-#endif
-				if (sourceuri) {
-					gchar *sourcefilename=gnome_vfs_uri_to_string(sourceuri, 0);
-					if (sourcefilename) {
-						result = gnome_vfs_read_entire_file(sourcefilename,returnsize,&buffer);
-						DEBUG_MSG("get_buffer_from_filename, loading %s returns %d\n", sourcefilename, result);
-						g_free(sourcefilename);
-					}
-					gnome_vfs_uri_unref(sourceuri);
-				}
-			}
-			gnome_vfs_uri_unref(uri);
-		}
-	}
-	if (GNOME_VFS_OK != result) {
-		gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
-		DEBUG_MSG("get_buffer_from_filename, about to read entire file\n");
-		result = gnome_vfs_read_entire_file(ondiskencoding,returnsize,&buffer);
-		DEBUG_MSG("get_buffer_from_filename, read file, buffer len=%d!\n",strlen(buffer));
-		g_free(ondiskencoding);
-	}
-	if (GNOME_VFS_OK != result) {
-		gchar *errmessage = g_strconcat(_("Could not read file:\n"), filename, NULL);
-		warning_dialog(bfwin->main_window,errmessage, NULL);
-		g_free(errmessage);
-		DEBUG_MSG("get_buffer_from_filename, GNOME_VFS ERROR (result=%d), returning NULL\n",result);
-		DEBUG_MSG("get_buffer_from_filename, gnome_vfs error was: %s\n", gnome_vfs_result_to_string(result));
-		return NULL;
-	}
-	buffer  = g_realloc(buffer, *returnsize+1);
-	buffer[*returnsize] = '\0';
-	return buffer;
-}*/
 
 /**
  * buffer_find_encoding:

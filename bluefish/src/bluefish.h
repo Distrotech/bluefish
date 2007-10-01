@@ -256,7 +256,6 @@ typedef struct {
 	gint cont_highlight_update;	/* update the syntax highlighting continuous */
 	/* key conversion */
 	gint open_in_running_bluefish; /* open commandline documents in already running session*/
-	gint server_zope_compat;        /* add 'document_src' to uri when reading remote files */
 	gint show_splash_screen;
 	GList *plugin_config; /* array, 0=filename, 1=enabled, 2=name*/
 	gint view_blocks; /* show blocks on the left side by default */

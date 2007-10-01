@@ -121,7 +121,6 @@ enum {
 #ifdef WITH_MSG_QUEUE
 	open_in_running_bluefish,     /* open commandline documents in already running session*/
 #endif /* WITH_MSG_QUEUE */
-	server_zope_compat,
 	view_blocks,
 	view_symbols,		
 	view_mbhl,
@@ -1753,7 +1752,6 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.image_thumbnailstring, pd->prefs[image_thumbnailstring]);
 	string_apply(&main_v->props.image_thumbnailtype, GTK_COMBO(pd->prefs[image_thumbnailtype])->entry);
 
-	integer_apply(&main_v->props.server_zope_compat, pd->prefs[server_zope_compat], TRUE);
 
 	/*filetype_apply_changes(pd);*/
 	/*filefilter_apply_changes(pd);*/
@@ -2241,17 +2239,6 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_plugin_gui(pd, vbox2);
-
-	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Servers"), WIDGETCOL,vbox1,-1);	
-	
-	frame = gtk_frame_new(_("Remote servers"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
-	pd->prefs[server_zope_compat] = boxed_checkbut_with_value(_("Zope compatibility mode"), main_v->props.server_zope_compat, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
