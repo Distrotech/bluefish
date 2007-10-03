@@ -2,7 +2,7 @@
  * bookmark.c - bookmarks
  *
  * Copyright (C) 2003 Oskar Swida
- * modifications (C) 2004,2005 Olivier Sessink
+ * modifications (C) 2004,2005,2006,2007 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -62,7 +62,7 @@ gtktreestore when they convert a window (Tbfwin) into a project window.
 */
 
 #define BMARK_SHOW_NUM_TEXT_CHARS 20
-
+#define BMARK_STORE_TEXT_NUM_CHARS 15
 enum {
 	NAME_COLUMN,				/* bookmark name */
 	PTR_COLUMN,					/* bookmark pointer */
@@ -210,9 +210,13 @@ static void bmark_update_treestore_name(Tbfwin *bfwin) {
 
 static void bmark_update_offset_from_textmark(Tbmark *b) {
 	if (b->doc && b->mark) {
-		GtkTextIter it;
+		GtkTextIter it, it2;
 		gtk_text_buffer_get_iter_at_mark(b->doc->buffer, &it, b->mark);
 		b->offset = gtk_text_iter_get_offset(&it);
+		/* to aid future repositioning (if the file has changed) update the text as well */
+		gtk_text_buffer_get_iter_at_offset(b->doc->buffer,&it2,b->offset+BMARK_STORE_TEXT_NUM_CHARS);
+		g_free(b->text);
+		b->text = gtk_text_buffer_get_text(b->doc->buffer,&it,&it2,FALSE);
 	}
 }
 
@@ -960,8 +964,7 @@ void bmark_reload(Tbfwin * bfwin) {
 	tmplist = g_list_first(bfwin->documentlist);
 	while (tmplist) {
 		DEBUG_MSG("bmark_reload, calling bmark_set_for_doc for doc=%p\n",tmplist->data);
-		bmark_set_for_doc(DOCUMENT(tmplist->data));
-		bmark_check_length(bfwin, DOCUMENT(tmplist->data));
+		bmark_set_for_doc(DOCUMENT(tmplist->data),TRUE);
 		tmplist = g_list_next(tmplist);
 	}
 }
@@ -1019,11 +1022,55 @@ void bmark_clean_for_doc(Tdocument * doc) {
 	doc->bmark_parent = NULL;
 }
 
+static gboolean bookmark_reposition(Tbmark *mark, gint offset) {
+	gint doclen = gtk_text_buffer_get_char_count(mark->doc->buffer);
+	gint bandwidth = offset>0?2*offset:-2*offset;
+	if (bandwidth < 10*strlen(mark->text)) bandwidth = 10*strlen(mark->text);
+	/* search for the bookmark near the old positions */
+
+	while (TRUE) {
+		GtkTextIter its,ite,/*starr,end*/ itrs,itre;/* resultstart, resultend */
+		gint startpos; 
+		startpos = mark->offset+offset-bandwidth/2;
+		if (startpos <0) startpos=0;
+		DEBUG_MSG("bookmark_reposition, searching from %d to %d for %s\n",startpos,startpos+bandwidth,mark->text);
+		gtk_text_buffer_get_iter_at_offset(mark->doc->buffer,&its,startpos);
+		gtk_text_buffer_get_iter_at_offset(mark->doc->buffer,&ite,startpos+bandwidth);
+		if (gtk_text_iter_forward_search(&its,mark->text,GTK_TEXT_SEARCH_TEXT_ONLY,&itrs,&itre,&ite)) {
+			/* found !!!!!!! */
+			DEBUG_MSG("bookmark_reposition, found result! resposition from %d to %d\n",mark->offset,gtk_text_iter_get_offset(&itrs));
+			mark->offset = gtk_text_iter_get_offset(&itrs);
+			return TRUE;
+		}
+		if (bandwidth > doclen) return FALSE;
+		bandwidth *= 2;
+	}
+}
+
+static gboolean bookmark_needs_repositioning(Tbmark *mark, GtkTextIter *it) {
+	GtkTextIter it2;
+	gboolean retval;
+	gchar *tmpstr;
+	/* check the content at the bookmark */
+	gtk_text_buffer_get_iter_at_offset(mark->doc->buffer, &it2, mark->offset + strlen(mark->text));
+	tmpstr = gtk_text_buffer_get_text(mark->doc->buffer, it, &it2, FALSE);
+	retval = (strcmp(tmpstr, mark->text)!=0);
+	DEBUG_MSG("bookmark_needs_repositioning, reposition=%d,text='%s', tmpstr='%s'\n",retval,mark->text, tmpstr);
+	g_free(tmpstr);
+	return retval;
+}
+
 /*
  * this function will check is this document needs any bookmarks, and set the
  * doc->bmark_parent if needed
+ *
+ * if there are bookmarks, the bookmark GtkTextMark's will be inserted
+ *
+ * if check_position is TRUE, the content of the bookmark will be checked, and if
+ * changed, the offset will be re-positioned
+ *
  */
-void bmark_set_for_doc(Tdocument * doc) {
+void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
 	GtkTreeIter tmpiter;
 	GtkTextIter it;
 	gboolean cont;
@@ -1046,6 +1093,7 @@ void bmark_set_for_doc(Tdocument * doc) {
 		gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter,
 									 NULL);
 	while (cont) {
+		/* loop all documents */
 		GtkTreeIter child;
 		if (gtk_tree_model_iter_children
 			(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child, &tmpiter)) {
@@ -1058,15 +1106,22 @@ void bmark_set_for_doc(Tdocument * doc) {
 					DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",gtk_label_get_text(GTK_LABEL(doc->tab_menu)),mark->offset);
 					/* we will now first set the Tdocument * into the second column of the parent */
 					gtk_tree_store_set(GTK_TREE_STORE(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter, PTR_COLUMN, doc, -1);
-					
+
 					mark->doc = doc;
 					gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
+					if (check_positions && bookmark_needs_repositioning(mark, &it)) { /* repositioning required ! */
+						if (bookmark_reposition(mark, gtk_text_buffer_get_char_count(doc->buffer) - mark->len)) {
+							gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
+						} else {
+							/* BUG: bookmark not restored, what to do now ???? - just put it where it was ??  */
+						}
+					}
 					mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
 					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it),TRUE);
 					cont2 =
 						gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore),
 												 &child);
-					while (cont2) {
+					while (cont2) { /* loop the bookmarks for this document  */
 						mark = NULL;
 						gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child,
 										   PTR_COLUMN, &mark, -1);
@@ -1074,6 +1129,13 @@ void bmark_set_for_doc(Tdocument * doc) {
 							mark->doc = doc;
 							DEBUG_MSG("bmark_set_for_doc, next bookmark at offset=%d!\n",mark->offset);
 							gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
+							if (check_positions && bookmark_needs_repositioning(mark, &it)) { /* repositioning required ! */
+								if (bookmark_reposition(mark, gtk_text_buffer_get_char_count(doc->buffer) - mark->len)) {
+									gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
+								} else {
+									/* BUG: bookmark not restored, what to do now ???? - just put it where it was ??  */
+								}
+							}
 							mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
 							bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it),TRUE);							
 						}
@@ -1453,10 +1515,14 @@ void bmark_del_all(Tbfwin *bfwin,gboolean ask) {
 	}
 	gtk_widget_grab_focus(bfwin->current_document->view);
 }	
-
+/*
 void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 	GtkTreeIter tmpiter;
 	gboolean cont;
+	
+	g_print("bmark_check_length is temporarily disabled\n");
+	return;
+	
 	if (!doc || !doc->bmark_parent) {
 		DEBUG_MSG("bmark_check_length, no bmark_parent iter => no bookmarks, returning\n");
 		return;
@@ -1498,7 +1564,7 @@ void bmark_check_length(Tbfwin * bfwin, Tdocument * doc) {
 		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter);
 	}
 	DEBUG_MSG("bmark_check_length, all bookmarks OK, returning\n");
-}
+}*/
 
 void bmark_cleanup(Tbfwin * bfwin) {
 	DEBUG_MSG("bmark_cleanup, cleanup for bfwin=%p\n",bfwin);
