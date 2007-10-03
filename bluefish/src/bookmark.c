@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -392,17 +392,21 @@ static void bmark_unstore(Tbfwin * bfwin, Tbmark * b)
 }
 
 /* get value from pointer column */
-static gpointer get_current_bmark(Tbfwin * bfwin)
+static Tbmark *get_current_bmark(Tbfwin * bfwin)
 {
 	if (bfwin->bmark) {
 		GtkTreePath *path;
 		GtkTreeViewColumn *col;
 		gtk_tree_view_get_cursor(bfwin->bmark, &path, &col);
 		if (path != NULL) {
-			gpointer retval = NULL;
-			GtkTreeIter iter;
-			gtk_tree_model_get_iter(gtk_tree_view_get_model(bfwin->bmark), &iter, path);
-			gtk_tree_model_get(gtk_tree_view_get_model(bfwin->bmark),&iter,1, &retval, -1);
+			Tbmark *retval = NULL;
+			if (gtk_tree_path_get_depth(path)==2) {
+				GtkTreeIter iter;
+				gtk_tree_model_get_iter(gtk_tree_view_get_model(bfwin->bmark), &iter, path);
+				gtk_tree_model_get(gtk_tree_view_get_model(bfwin->bmark),&iter,1, &retval, -1);
+			} else {
+				DEBUG_MSG("get_current_bmark, error, depth=%d\n",gtk_tree_path_get_depth(path));
+			}
 			gtk_tree_path_free(path);
 			DEBUG_MSG("get_current_bmark, returning %p\n",retval);
 			return retval;
@@ -481,7 +485,8 @@ static void bmark_popup_menu_goto(Tbfwin *bfwin) {
 			gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
 			b->offset = gtk_text_iter_get_offset(&it);
 		}
-		DEBUG_MSG("bmark_popup_menu_goto_lcb, calling doc_new_from_uri for %s with goto_offset %d\n",gnome_vfs_uri_get_path(b->filepath),b->offset);
+		DEBUG_MSG("bmark_popup_menu_goto, bmark at %p, filepath at %p\n",b, b->filepath);
+		DEBUG_MSG("bmark_popup_menu_goto, calling doc_new_from_uri for %s with goto_offset %d\n",gnome_vfs_uri_get_path(b->filepath),b->offset);
 		doc_new_from_uri(bfwin, b->filepath, NULL, FALSE, FALSE, -1, b->offset);
 		/* remove selection */
 		if ( b->doc ) {
@@ -757,10 +762,10 @@ static gboolean bmark_event_mouseclick(GtkWidget * widget, GdkEventButton * even
 			if (depth==2) {
 				show_bmark_specific = TRUE;
 				show_file_specific = TRUE;
-				if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {	/* double click  */
+/*				if (event->button == 1 && event->type == GDK_2BUTTON_PRESS) {
 					bmark_popup_menu_goto(bfwin);
 					return TRUE;
-				}
+				}*/
 			} else if (depth == 1) {
 				show_file_specific = TRUE;
 			}
@@ -773,23 +778,58 @@ static gboolean bmark_event_mouseclick(GtkWidget * widget, GdkEventButton * even
 	return FALSE;
 }
 
+static void bmark_selection_changed_lcb(GtkTreeSelection *treeselection,Tbfwin * bfwin) {
+	DEBUG_MSG("bmark_selection_changed_lcb, started\n");
+	bmark_popup_menu_goto(bfwin);
+}
+
 void bookmark_menu_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
-	g_print("function bookmark_menu_cb in src/bookmark.c is not yet finished\n");
-	switch (action) {
-		case 1:
-			/* first */
-		break;
-		case 2:
-			/* previous */
-		break;
-		case 3:
-			/* next */
-		break;
-		case 4:
-			/* last */
-		break;
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(bfwin->bmark));
+	if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
+		gboolean success=TRUE;
+		switch (action) {
+			case 1:/* first */ {
+				GtkTreePath *path= gtk_tree_model_get_path(model,&iter);
+				gtk_tree_path_up(path);
+				gtk_tree_path_down(path);
+				success = gtk_tree_model_get_iter(model,&iter,path);
+				gtk_tree_path_free(path);
+			} break;
+			case 2: 	/* previous */ {
+				GtkTreePath *path= gtk_tree_model_get_path(model,&iter);
+				success = gtk_tree_path_prev(path);
+				success = gtk_tree_model_get_iter(model,&iter,path);
+				gtk_tree_path_free(path);
+			} break;
+			case 3:/* next */ 
+				success = gtk_tree_model_iter_next(model,&iter);
+			break;
+			case 4: /* last */ {
+				GtkTreeIter parent;
+				gint num;
+				success = gtk_tree_model_iter_parent(model,&parent,&iter);
+				num = gtk_tree_model_iter_n_children(model,&parent);
+				gtk_tree_model_iter_nth_child(model,&iter,&parent,num-1);
+			} break;
+		}
+		if (success) gtk_tree_selection_select_iter(selection,&iter);
 	}
 }
+static void bmark_first_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	bookmark_menu_cb(bfwin,1,widget);
+}
+static void bmark_previous_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	bookmark_menu_cb(bfwin,2,widget);
+}
+static void bmark_next_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	bookmark_menu_cb(bfwin,3,widget);
+}
+static void bmark_last_lcb(GtkWidget *widget, Tbfwin *bfwin) {
+	bookmark_menu_cb(bfwin,4,widget);
+}
+
 
 /* Initialize bookmarks gui for window */
 GtkWidget *bmark_gui(Tbfwin * bfwin)
@@ -808,19 +848,19 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 	gtk_toolbar_set_style(GTK_TOOLBAR(hbox),GTK_TOOLBAR_ICONS);
 	
 	but = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GOTO_TOP,GTK_ICON_SIZE_MENU),"");
-	/*g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(but_clicked),bfwin);*/
+	g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(bmark_first_lcb),bfwin);
 	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(but),main_v->tooltips,_("First bookmark"),"");
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),but,-1);
 	but = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GO_UP,GTK_ICON_SIZE_MENU),"");
-	/*g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(but_clicked),bfwin);*/
+	g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(bmark_previous_lcb),bfwin);
 	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(but),main_v->tooltips,_("Previous bookmark"),"");
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),but,-1);
 	but = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GO_DOWN,GTK_ICON_SIZE_MENU),"");
-	/*g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(but_clicked),bfwin);*/
+	g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(bmark_next_lcb),bfwin);
 	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(but),main_v->tooltips,_("Next bookmark"),"");
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),but,-1);
 	but = gtk_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_GOTO_BOTTOM,GTK_ICON_SIZE_MENU),"");
-	/*g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(but_clicked),bfwin);*/
+	g_signal_connect(G_OBJECT(but),"clicked",G_CALLBACK(bmark_last_lcb),bfwin);
 	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(but),main_v->tooltips,_("Last bookmark"),"");
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),but,-1);
 	
@@ -841,6 +881,12 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 	g_signal_connect(G_OBJECT(bfwin->bmark), "button-press-event",
 					 G_CALLBACK(bmark_event_mouseclick), bfwin);
 	gtk_tree_view_expand_all(bfwin->bmark);
+	{
+		GtkTreeSelection* selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(bfwin->bmark));
+		gtk_tree_selection_set_mode(selection,GTK_SELECTION_BROWSE);
+		g_signal_connect(G_OBJECT(selection), "changed",G_CALLBACK(bmark_selection_changed_lcb), bfwin);
+	}
+	
 	return vbox;
 }
 
@@ -953,6 +999,7 @@ void bmark_reload(Tbfwin * bfwin) {
 			b->text = g_strdup(items[4]);
 			b->len = atoi(items[5]);
 			b->strarr = items;
+			DEBUG_MSG("bmark_reload, loaded bookmark %p for %s (uri=%p) at offset %d with text %s\n",b,gnome_vfs_uri_get_path(b->filepath),b->filepath,b->offset,b->text);
 			bmark_get_iter_at_tree_position(bfwin, b);
 			ptr = bmark_showname(bfwin, b);
 			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &(b->iter), NAME_COLUMN, ptr, PTR_COLUMN, b,-1);
