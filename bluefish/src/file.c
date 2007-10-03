@@ -861,8 +861,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			doc_set_tooltip(f2d->doc);
 			doc_set_status(f2d->doc, DOC_STATUS_COMPLETE);
 			bfwin_docs_not_complete(f2d->doc->bfwin, FALSE);
-			bmark_set_for_doc(f2d->doc);
-			bmark_check_length(f2d->bfwin,f2d->doc);
+			bmark_set_for_doc(f2d->doc,TRUE);
 			DEBUG_MSG("file2doc_lcb, focus_next_new_doc=%d\n",f2d->bfwin->focus_next_new_doc);
 			if (f2d->bfwin->focus_next_new_doc) {
 				f2d->bfwin->focus_next_new_doc = FALSE;
