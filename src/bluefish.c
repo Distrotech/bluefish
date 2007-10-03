@@ -291,9 +291,9 @@ int main(int argc, char *argv[])
 	
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) {
-		static struct timespec const req = { 0, 10000000};
+		/*static struct timespec const req = { 0, 10000000};*/
 		flush_queue();
-		nanosleep(&req, NULL);
+		/*nanosleep(&req, NULL);*/
 		gtk_widget_destroy(splash_window);
 	}
 #endif /* #ifndef NOSPLASH */
