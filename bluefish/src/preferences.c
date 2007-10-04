@@ -1155,12 +1155,14 @@ static void fill_hl_combo(Tprefdialog *pd) {
 }
 
 static void retrieve_arr_add_to_model(Tprefdialog *pd, GHashTable *hasht, GtkTreeIter *parent, GtkTreeIter *iiter, const gchar *filetype, const gchar *type, const gchar *name) {
-	const gchar *arr2[] = {filetype, type, name, NULL};
-	/*gchar **iarr =  arraylist_value_exists(pd->lists[syntax_styles], arr2, 3, TRUE);*/
-	gchar **iarr = g_hash_table_lookup(hasht, arr2);
-	DEBUG_MSG("retrieve_arr_add_to_model, adding %s to model\n",name);
-	gtk_tree_store_append(GTK_TREE_STORE(pd->hld.tstore), iiter, parent);
-	gtk_tree_store_set(GTK_TREE_STORE(pd->hld.tstore), iiter,0,name,1,filetype,2,type,3,iarr,-1);
+	if (filetype&&type&&name) {
+		const gchar *arr2[] = {filetype, type, name, NULL};
+		/*gchar **iarr =  arraylist_value_exists(pd->lists[syntax_styles], arr2, 3, TRUE);*/
+		gchar **iarr = g_hash_table_lookup(hasht, arr2);
+		DEBUG_MSG("retrieve_arr_add_to_model, adding %s to model\n",name);
+		gtk_tree_store_append(GTK_TREE_STORE(pd->hld.tstore), iiter, parent);
+		gtk_tree_store_set(GTK_TREE_STORE(pd->hld.tstore), iiter,0,name,1,filetype,2,type,3,iarr,-1);
+	}
 }
 
 static void fill_hl_tree(Tprefdialog *pd) {
