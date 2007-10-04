@@ -107,4 +107,6 @@ GSList *gslist_from_glist_reversed(GList *src);
 GList *glist_from_gslist(GSList *src);
 gchar *bf_portable_time(const time_t *timep);
 
+gboolean arr3_equal (gconstpointer v1,gconstpointer v2);
+guint arr3_hash(gconstpointer v);
 #endif /* __BF_LIB_H_ */

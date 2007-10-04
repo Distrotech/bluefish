@@ -24,45 +24,19 @@
 #include <gtk/gtk.h>
 #include <string.h> /* strlen */
 #include <stdlib.h> /* atoi */
+
 #include "config.h"
 #include "bluefish.h"
+#include "bf_lib.h"
 #include "textstyle.h"
 #include "stringlist.h"
+
 typedef struct {
 	GtkTextTagTable *tagtable;
 	GHashTable *lookup_table;
 } Ttextstyle;
 
 static Ttextstyle textstyle = {NULL,NULL};
-
-/* these hash functions hash the first 3 strings in a gchar ** */
-static gboolean arr3_equal (gconstpointer v1,gconstpointer v2)
-{
-	const gchar **arr1 = (const gchar **)v1;
-	const gchar **arr2 = (const gchar **)v2;
-  
-	return ((strcmp ((char *)arr1[0], (char *)arr2[0]) == 0 )&&
-			(strcmp ((char *)arr1[1], (char *)arr2[1]) == 0) &&
-			(strcmp ((char *)arr1[2], (char *)arr2[2]) == 0));
-}
-static guint arr3_hash(gconstpointer v)
-{
-  /* modified after g_str_hash */
-  	const signed char **tmp = (const signed char **)v;
-	const signed char *p;
-	guint32 h = *tmp[0];
-	if (h) {
-		gshort i=0;
-		while (i<3) {
-			p = tmp[i];
-			for (p += 1; *p != '\0'; p++)
-				h = (h << 5) - h + *p;
-			i++;
-		}
-	}
-	return h;
-}
-
 
 void textstyle_build_lookup_table(void) {
 	GList *tmplist;
