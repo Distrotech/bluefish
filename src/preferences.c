@@ -1154,9 +1154,10 @@ static void fill_hl_combo(Tprefdialog *pd) {
 	}
 }
 
-static void retrieve_arr_add_to_model(Tprefdialog *pd, GtkTreeIter *parent, GtkTreeIter *iiter, const gchar *filetype, const gchar *type, const gchar *name) {
+static void retrieve_arr_add_to_model(Tprefdialog *pd, GHashTable *hasht, GtkTreeIter *parent, GtkTreeIter *iiter, const gchar *filetype, const gchar *type, const gchar *name) {
 	const gchar *arr2[] = {filetype, type, name, NULL};
-	gchar **iarr =  arraylist_value_exists(pd->lists[syntax_styles], arr2, 3, TRUE);
+	/*gchar **iarr =  arraylist_value_exists(pd->lists[syntax_styles], arr2, 3, TRUE);*/
+	gchar **iarr = g_hash_table_lookup(hasht, arr2);
 	DEBUG_MSG("retrieve_arr_add_to_model, adding %s to model\n",name);
 	gtk_tree_store_append(GTK_TREE_STORE(pd->hld.tstore), iiter, parent);
 	gtk_tree_store_set(GTK_TREE_STORE(pd->hld.tstore), iiter,0,name,1,filetype,2,type,3,iarr,-1);
@@ -1164,6 +1165,17 @@ static void retrieve_arr_add_to_model(Tprefdialog *pd, GtkTreeIter *parent, GtkT
 
 static void fill_hl_tree(Tprefdialog *pd) {
 	GList *tmplist;
+	GHashTable *hasht;
+	hasht = g_hash_table_new(arr3_hash,arr3_equal);
+	
+	/* first fill the hashtable */
+	for (tmplist=g_list_first(pd->lists[syntax_styles]);tmplist;tmplist=g_list_next(tmplist)) {
+		const gchar **tmp = tmplist->data;
+		if (count_array(tmp)>3) {
+			g_hash_table_insert(hasht,tmp,tmp);
+		}
+	}
+	
 	tmplist = g_list_first(main_v->lang_mgr->languages);
 	while (tmplist) {
 		BfLangConfig *cfg = (BfLangConfig *)tmplist->data;
@@ -1180,17 +1192,17 @@ static void fill_hl_tree(Tprefdialog *pd) {
 			a tag, so we insert their groups in the same level for the user */
 			grouplist = bf_lang_get_groups(cfg);
 			for (tmplist = g_list_first(grouplist);tmplist;tmplist = g_list_next(tmplist)) {
-				retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "g", tmplist->data);
+				retrieve_arr_add_to_model(pd,hasht, &ftiter, &giter, cfg->name, "g", tmplist->data);
 				/* get blocks for this group and add them */
 				ilist = bf_lang_get_blocks_for_group(cfg, tmplist->data);
 				for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
-					retrieve_arr_add_to_model(pd, &giter, &iiter, cfg->name, "b", tmplist2->data);
+					retrieve_arr_add_to_model(pd,hasht, &giter, &iiter, cfg->name, "b", tmplist2->data);
 				}
 				g_list_free(ilist);
 				/* get tokens for this group and add them */
 				ilist = bf_lang_get_tokens_for_group(cfg, tmplist->data);
 				for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
-					retrieve_arr_add_to_model(pd, &giter, &iiter, cfg->name, "t", tmplist2->data);
+					retrieve_arr_add_to_model(pd,hasht, &giter, &iiter, cfg->name, "t", tmplist2->data);
 				}
 				g_list_free(ilist);
 			}
@@ -1198,24 +1210,25 @@ static void fill_hl_tree(Tprefdialog *pd) {
 			/* now add blocks/tokens that do not have a group */
 			ilist = bf_lang_get_blocks_for_group(cfg, NULL);
 			for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
-				retrieve_arr_add_to_model(pd, &ftiter, &iiter, cfg->name, "b", tmplist2->data);
+				retrieve_arr_add_to_model(pd,hasht, &ftiter, &iiter, cfg->name, "b", tmplist2->data);
 			}
 			g_list_free(ilist);
 			ilist = bf_lang_get_tokens_for_group(cfg, NULL);
 			for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
-				retrieve_arr_add_to_model(pd, &ftiter, &iiter, cfg->name, "t", tmplist2->data);
+				retrieve_arr_add_to_model(pd,hasht, &ftiter, &iiter, cfg->name, "t", tmplist2->data);
 			}
 			g_list_free(ilist);
 			/* add tags if required */
 			if (bf_lang_needs_tags(cfg)) {
-				retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "m", "tag_begin");
-				retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "m", "tag_end");
-				retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "m", "attr_name");
-				retrieve_arr_add_to_model(pd, &ftiter, &giter, cfg->name, "m", "attr_val");
+				retrieve_arr_add_to_model(pd,hasht, &ftiter, &giter, cfg->name, "m", "tag_begin");
+				retrieve_arr_add_to_model(pd,hasht, &ftiter, &giter, cfg->name, "m", "tag_end");
+				retrieve_arr_add_to_model(pd,hasht, &ftiter, &giter, cfg->name, "m", "attr_name");
+				retrieve_arr_add_to_model(pd,hasht, &ftiter, &giter, cfg->name, "m", "attr_val");
 			}
 		}
 		tmplist = g_list_next(tmplist);
-	}  
+	}
+	g_hash_table_unref(hasht); 
 }
 
 static void hl_set_textstylecombo_by_text(Tprefdialog *pd, const gchar *text) {
