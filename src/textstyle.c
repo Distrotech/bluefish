@@ -40,6 +40,7 @@ static Ttextstyle textstyle = {NULL,NULL};
 
 void textstyle_build_lookup_table(void) {
 	GList *tmplist;
+	DEBUG_MSG("textstyle_build_lookup_table, build the hashtable\n");
 	textstyle.lookup_table = g_hash_table_new(arr3_hash,arr3_equal);
 	for (tmplist = g_list_first(main_v->props.syntax_styles);tmplist;tmplist=g_list_next(tmplist)) {
 		const gchar **tmp = tmplist->data;
@@ -50,6 +51,7 @@ void textstyle_build_lookup_table(void) {
 }
 
 void textstyle_cleanup_lookup_table(void) {
+	DEBUG_MSG("textstyle_cleanup_lookup_table, unref the hashtable\n");
 	g_hash_table_unref(textstyle.lookup_table);
 	textstyle.lookup_table = NULL;
 }
@@ -141,14 +143,16 @@ GtkTextTagTable *textstyle_return_tagtable(void) {
 }
 
 static gchar *get_tagname_for_scanner_style(const gchar *filetype,const gchar *type,const gchar *name) {
-	const gchar *arr[] = {filetype, type, name, NULL};
-	if (textstyle.lookup_table) {
-		return g_hash_table_lookup(textstyle.lookup_table, arr);
-	} else {
-		gchar **tmparr = arraylist_value_exists(main_v->props.syntax_styles, arr, 3, TRUE);
-		g_print("get_tagname_for_scanner_style: NO LOOKUP TABLE, SLOWWWWW!!!!!\n");
-		if (tmparr)
-			return tmparr[3];
+	if (filetype && type && name) {
+		const gchar *arr[] = {filetype, type, name, NULL};
+		if (textstyle.lookup_table) {
+			return g_hash_table_lookup(textstyle.lookup_table, arr);
+		} else {
+			gchar **tmparr = arraylist_value_exists(main_v->props.syntax_styles, arr, 3, TRUE);
+			g_print("get_tagname_for_scanner_style: NO LOOKUP TABLE, SLOWWWWW!!!!!\n");
+			if (tmparr)
+				return tmparr[3];
+		}
 	}
 	return NULL;	
 }
@@ -163,7 +167,7 @@ GtkTextTag *get_tag_for_scanner_style(const gchar *filetype,const gchar *type,co
 		if (tagname[0] != '\0') {
 			tag = textstyle_get(tagname);
 		}
-		DEBUG_MSG("get_tag_for_scanner_style(%s:%s:%s) return tag %p for textstyle %s\n",filetype,type,name,tag,tagname);
+/*		DEBUG_MSG("get_tag_for_scanner_style(%s:%s:%s) return tag %p for textstyle %s\n",filetype,type,name,tag,tagname);*/
 		return tag;
 	} else if (defaultstyle && defaultstyle[0] != '\0'){
 		/* try the default style */
@@ -175,6 +179,6 @@ GtkTextTag *get_tag_for_scanner_style(const gchar *filetype,const gchar *type,co
 		DEBUG_MSG("get_tag_for_scanner_style, return default style %s for %s:%s:%s\n",defaultstyle,filetype,type,name);
 		return tag;
 	}
-	DEBUG_MSG("no config found for %s:%s:%s\n",filetype,type,name);
+/*	DEBUG_MSG("no config found for %s:%s:%s\n",filetype,type,name);*/
 	return NULL;
 }
