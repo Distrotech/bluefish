@@ -43,7 +43,7 @@
   <token-list name="keywords2" separator="," context="PHP area">break,continue,while,do,for,global,var,class,function,new</token-list>
 </token-group>
 
-<token name="$variable" regexp="true" context="PHP area" defaultstyle="variable">$[a-z_][a-z0-9>-_]*</token>
+<token name="$variable" regexp="true" context="PHP area" defaultstyle="variable">$[a-zA-Z_][a-zA-Z0-9>-_]*</token>
 <token name="number" regexp="true" context="PHP area" defaultstyle="variable">[0-9]+</token>
 <token name="hex number" regexp="true" context="PHP area" defaultstyle="variable">0x[0-9]+</token>
 
