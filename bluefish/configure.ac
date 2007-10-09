@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.150 2007-09-11 21:12:13 dleidert Exp $
+dnl $Id: configure.ac,v 1.151 2007-10-09 22:35:42 dleidert Exp $
 dnl
 dnl Copyright (C) 2002-2007 Olivier Sessink
 dnl Copyright (C) 2006-2007 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.150 $)
+AC_REVISION($Revision: 1.151 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -25,7 +25,7 @@ dnl ************************
 dnl   I18N options
 dnl ************************
 
-ALL_LINGUAS="da de es eu fi fr it ja nb pl pt pt_BR ru sk sr sv ta tr zh_CN zh_TW"
+ALL_LINGUAS="da de es eu fi fr it ja nb nl pl pt pt_BR ru sk sr sv ta tr zh_CN zh_TW"
 AC_SUBST(ALL_LINGUAS)
 GETTEXT_PACKAGE=AC_PACKAGE_NAME
 AC_SUBST(GETTEXT_PACKAGE)
