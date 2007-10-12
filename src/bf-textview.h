@@ -225,7 +225,7 @@ typedef struct {
 	gint lw_size_lines, lw_size_blocks, lw_size_sym;
 	GHashTable *symbols;
 	GHashTable *symbol_lines;
-	BfLangConfig *lang;
+	BfLangConfig *lang; /* a pointer to the currently active language configuration */
 	TBfScanner scanner;
 	GtkWidget *fold_menu;
 	gboolean delay_rescan; /* this is set to TRUE if the buffer is going to be changed lots of times
@@ -243,6 +243,9 @@ typedef struct {
 	gboolean tag_ac_state; /* TRUE if we should perform tag autoclosing - i.e. after inserting '>' sign only */
 	GList *schemas;
 	Tdtd_list *internal_dtd;
+/*	GSequence *block_cache;*/ /* contains all GtkTextMarks that start or end an block, sorted on their location.
+								This can be used to find out very quickly if a certain position in the buffer is inside
+								a block or not */
 } BfTextView;
 
 /*
