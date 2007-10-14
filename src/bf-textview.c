@@ -22,8 +22,8 @@
  */
 
 /*#define DEBUG */
-/* #define HL_PROFILING
-#define USE_HIGHLIGHT_MINIMAL */
+/*#define HL_PROFILING*/
+/*#define USE_HIGHLIGHT_MINIMAL */
 /*
 Typical scanner in compiler is an automata. To implement automata you
 need a TABLE. Such a table
@@ -73,11 +73,28 @@ simply set scanner state to 0 and start to iterate through
 characters, changing scanner states according the table. If I find
 "finishing state" I'm marking a token.
 
+*** Context ***
+
 the situation becomes a little more complex when we take "context" into consideration. 
 Within a PHP block for example, we use a different state table. The context is stored 
 in self->scanner.current_context which is of type BfLangBlock (wich has a scantable).
 
-IMPROVEMENTS:
+*** Blocks ***
+when scanning for blocks, a TBfBlock is pushed on the stack scanner.block_stack, so when 
+the end of the block is found, this can be related to the start.
+
+once a block is found there are 4 GtkTextMark's added:
+1) the start of the block-start-string
+2) the end of the  block-start-string
+3) the start of the block-end-string
+4) the end of the block-end-string
+All of these marks will have data "bi" set (with g_object_set_data), and this data is a 
+BlockInfo pointer. There are two BlockInfo pointers, one for the end of the block, and for 
+the start of the block !!IDEA: can we use just a single BlockInfo pointer ??!!!
+
+ 
+
+*** POSSIBLE IMPROVEMENTS ***
 
 currently always the visible area is re-scanned if certain characters are entered.. Much 
 better would be to:
@@ -131,7 +148,11 @@ typedef struct {
 	guint8 type; /* can be BI_START or BI_END */
 	gboolean folded;
 	gchar *tagname;
-	GtkTextMark *ref, *refb1, *refb2, *refe1, *refe2;
+	GtkTextMark *ref; /* mark at the other end of the string (which can be the start or the end string depending on type) */
+	GtkTextMark *refb1; /* mark at the begin of the begin-block-string set for a blockinfo of type BI_END */
+	GtkTextMark *refb2; /* mark at the end of the begin-block-string set for a blockinfo of type BI_END */
+	GtkTextMark *refe1; /* mark at the begin of the end-block-string set for a blockinfo of type BI_START */
+	GtkTextMark *refe2; /* mark at the end of the end-block-string set for a blockinfo of type BI_START */
 	gboolean single_line;
 	gpointer data;
 } BlockInfo;
@@ -793,8 +814,16 @@ else g_free(ln);
 return mark2;
 }*/
 
-/* this function takes quite a part of the cpu time when working with very large files */
-static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, GtkTextIter * arg2)
+/* this function takes quite a part of the cpu time when working with very large files. what 
+does this function do?
+
+it is called when preparing an area for scanning (so before the scanning) and it is called in the 
+'delete_text' callback  
+
+it seems to loop over the region between startit and endit, for every character it looks if there is a 
+mark with a non-folded block, and then remove the marks, BlockInfo and tags 
+ */
+static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * startit, GtkTextIter * endit)
 {
 	GtkTextBuffer *textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
 	GtkTextMark *mark = NULL, *mark2 = NULL, *mark3, *mark4;
@@ -804,13 +833,14 @@ static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, 
 
 	if (!view->lang || !view->lang->scan_blocks)
 		return;
-	it = *arg1;
-	while (!gtk_text_iter_equal(&it, arg2)) {
+	it = *startit;
+	while (!gtk_text_iter_equal(&it, endit)) {
 		mark = bftv_get_block_at_iter(&it);
 		if (mark) {
 			BlockInfo *bi;
 			bi = g_object_get_data(G_OBJECT(mark), "bi");
 			if (bi && !bi->folded) {
+				/* we found a non-folded block */
 				if (bi->type == BI_START) {
 					BlockInfo *bi2, *bi3, *bi4;
 					mark2 = bi->ref;
@@ -821,8 +851,8 @@ static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, 
 					bi4 = g_object_get_data(G_OBJECT(bi->refe2), "bi");
 					gtk_text_buffer_get_iter_at_mark(textbuffer, &it2, mark);
 					gtk_text_buffer_get_iter_at_mark(textbuffer, &it3, bi->refe2);
-					if (gtk_text_iter_in_range(&it2, arg1, arg2)
-						&& gtk_text_iter_in_range(&it3, arg1, arg2)) {
+					if (gtk_text_iter_in_range(&it2, startit, endit)
+						&& gtk_text_iter_in_range(&it3, startit, endit)) {
 						if (!gtk_text_iter_has_tag(&it2, main_v->lang_mgr->internal_tags[IT_BLOCK])) {
 							gtk_text_buffer_get_iter_at_mark(textbuffer, &it2, mark2);
 							gtk_text_buffer_get_iter_at_mark(textbuffer, &it3, mark3);
@@ -924,7 +954,7 @@ static void bftv_collapse_all(GtkWidget * widget, BfTextView * view)
 	gtk_text_buffer_place_cursor(gtk_text_view_get_buffer(GTK_TEXT_VIEW(view)), &it);
 	gtk_widget_queue_draw(GTK_WIDGET(view));
 }
-
+/*
 GtkTextMark *bf_textview_get_nearest_block(BfTextView * self, GtkTextIter * iter, gboolean backward,
 										   gint mode, gboolean not_single)
 {
@@ -970,7 +1000,7 @@ GtkTextMark *bf_textview_get_nearest_block(BfTextView * self, GtkTextIter * iter
 				} else
 					found = TRUE;
 			}
-		}						/* while */
+		}
 	} else {
 		gboolean cont = TRUE;
 		while (!found && !gtk_text_iter_compare(&it, &endit) <= 0 && cont) {
@@ -984,11 +1014,11 @@ GtkTextMark *bf_textview_get_nearest_block(BfTextView * self, GtkTextIter * iter
 				} else
 					found = TRUE;
 			}
-		}						/* while */
+		}
 	}
 	return mark;
-}
-
+}*/
+/*
 GtkTextMark *bf_textview_get_nearest_block_of_type(BfTextView * self, BfLangBlock * block,
 												   GtkTextIter * iter, gboolean backward, gint mode,
 												   gboolean not_single)
@@ -1017,7 +1047,7 @@ GtkTextMark *bf_textview_get_nearest_block_of_type(BfTextView * self, BfLangBloc
 	}
 	return NULL;
 }
-
+*/
 
 /* ---------------------    /UTILITY FUNCTIONS  ---------------------------- */
 
@@ -2547,7 +2577,6 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 	return current_state;
 }
 
-#define NEWMAINLOOP
 #define NEWREMOVETAGS
 /* this function takes most of the CPU time in bluefish */
 void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end,
@@ -2556,10 +2585,6 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 	GtkTextIter its, ita;
 	gboolean recognizing = FALSE;
-#ifndef NEWMAINLOOP	
-	gboolean block_found = FALSE, token_found = FALSE;
-	gshort magic = 0;
-#endif
 	BfState *current_state;
 	Trts rts;
 
@@ -2595,16 +2620,13 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	times(&tms1b);
 #endif
 
+/* We now simply remove ALL tags from the buffer. This means that we also remove tags 
+that have special meaning (inside a block) and tags that are set by other code..
+It could be that we have to remove tags more specifically, and leave some of the tags 
+in the buffer. But removing all tags in one go is so much more faster that 
+I'm going to see if we can keep it like that */
 	if (apply_hl) {
 		bftv_delete_blocks_from_area(self, start, end);
-		if (self->lang->tag_begin)
-			gtk_text_buffer_remove_tag(buf, self->lang->tag_begin, start, end);
-		if (self->lang->tag_end)
-			gtk_text_buffer_remove_tag(buf, self->lang->tag_end, start, end);
-		if (self->lang->attr_name)
-			gtk_text_buffer_remove_tag(buf, self->lang->attr_name, start, end);
-		if (self->lang->attr_val)
-			gtk_text_buffer_remove_tag(buf, self->lang->attr_val, start, end);
 #ifdef HL_PROFILING
 	times(&tms1c);
 #endif
@@ -2613,6 +2635,16 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 		/* BUG: if there are other (non-scanner-related) tokens in this block they are removed too !!! */
 		gtk_text_buffer_remove_all_tags(buf,start,end);
 #else
+		
+		if (self->lang->tag_begin)
+			gtk_text_buffer_remove_tag(buf, self->lang->tag_begin, start, end);
+		if (self->lang->tag_end)
+			gtk_text_buffer_remove_tag(buf, self->lang->tag_end, start, end);
+		if (self->lang->attr_name)
+			gtk_text_buffer_remove_tag(buf, self->lang->attr_name, start, end);
+		if (self->lang->attr_val)
+			gtk_text_buffer_remove_tag(buf, self->lang->attr_val, start, end);*/
+
 		/* these next two take TOO MUCH TIME because they are called for each token, but many tokens
 		actually have the same tag.... */
 		rts.buffer = buf;
@@ -2625,91 +2657,6 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 #ifdef HL_PROFILING
 	times(&tms2);
 #endif
-#ifndef NEWMAINLOOP
-	magic = 0;
-	while (gtk_text_iter_compare(&ita, end) <= 0) {	/* main loop */
-		gunichar c;
-		DEBUG_MSG("bf_textview_scan_area, in main loop, ita at %d\n",gtk_text_iter_get_offset(&ita));
-		if (gtk_text_iter_equal(&ita, end)) {
-			magic++;
-			if (magic >= 2)
-				break;
-		}
-		c = gtk_text_iter_get_char(&ita);
-		if (!g_unichar_isgraph(c)) {
-			self->scanner.last_string = g_string_assign(self->scanner.last_string, "");
-		} else if (!block_found) {
-			g_string_append_printf(self->scanner.last_string, "%c", c); /* this is slowwwww because it is called VERY often */
-		}
-
-		/* This is a trick. Character of code 3(ETX) is not printable, so will not appear in the text,
-		   but automata has entries for it, so if at the end of text is token - it will 
-		   be recognized */
-		if (magic == 1)
-			c = 3;
-		if ((gint) c < 0 || (gint) c > BFTV_SCAN_RANGE) {
-			c = 0;
-			recognizing = FALSE;
-		}
-		while (self->lang->escapes[(gint) c] && gtk_text_iter_compare(&ita, end) <= 0) {	/* remove escapes */
-			gtk_text_iter_forward_char(&ita);
-			gtk_text_iter_forward_char(&ita);
-			if (magic == 0)
-				c = gtk_text_iter_get_char(&ita);
-		}						/* remove escapes */
-
-/* #####################     RECOGNIZE TOKENS AND BLOCKS ###################*/
-		token_found = FALSE;
-		block_found = FALSE;
-		if (!current_state) {
-			if (self->scanner.current_context) {
-				current_state = &self->scanner.current_context->scan_table;
-			} else
-				current_state = &self->lang->scan_table;
-		}
-		if (self->lang->case_sensitive)
-			current_state = current_state->tv[(gint) c];
-		else
-			current_state = current_state->tv[(gint) g_unichar_toupper(c)];
-
-		if (current_state) {
-			recognizing = TRUE;
-			switch (current_state->type) {
-			case ST_TOKEN:
-				bf_textview_scan_state_type_st_token(self, buf, current_state, &its, &ita, apply_hl);
-				token_found = TRUE;
-				current_state = NULL;
-				its = ita;
-				break;			/* token */
-			case ST_BLOCK_BEGIN:
-				current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, apply_hl);
-				block_found = TRUE;
-				its = ita;
-				break;
-			case ST_BLOCK_END:
-				current_state = bf_textview_scan_state_type_st_block_end(self, buf, current_state, &its, &ita, apply_hl);
-				block_found = TRUE;
-				its = ita;
-				break;
-			case ST_TRANSIT:
-				break;
-			}
-		} else {				/* current_state is NULL */
-			its = ita;
-			if (recognizing) {
-				gtk_text_iter_backward_char(&ita);
-				recognizing = FALSE;
-			} else {
-				gtk_text_iter_forward_char(&its);
-			}
-		}
-		DEBUG_MSG("bf_textview_scan_area, token_found=%d, block_found=%d\n", token_found,
-				  block_found);
-		if (!token_found && !block_found)
-			gtk_text_iter_forward_char(&ita);
-	}	/*main loop */
-#endif
-#ifdef NEWMAINLOOP
 /* THIS IS THE NEW MAIN LOOP */
 	{
 		gboolean last_loop = FALSE;
@@ -2792,7 +2739,6 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 			}
 		}	/*main loop */
 	}
-#endif
 #ifdef HL_PROFILING
 	times(&tms3);
 #endif
@@ -2829,10 +2775,10 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 		t1c2_ms =  (glong) (double) ((tms2.tms_utime - tms1b.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		g_print("bf_textview_scan_area, PROFILING: total time: %ld ms\n", tot_ms);
 		g_print("bf_textview_scan_area, PROFILING: preparing : %ld ms\n", first_stage_ms);
-		g_print("bf_textview_scan_area, PROFILING: preparing : %ld ms\n", t1a_ms);
-		g_print("bf_textview_scan_area, PROFILING: preparing : %ld ms\n", t1ab_ms);
-		g_print("bf_textview_scan_area, PROFILING: preparing : %ld ms\n", t1bc_ms);
-		g_print("bf_textview_scan_area, PROFILING: preparing : %ld ms\n", t1c2_ms);
+		g_print("bf_textview_scan_area, PROFILING: prep 1 : %ld ms\n", t1a_ms);
+		g_print("bf_textview_scan_area, PROFILING: prep 2 : %ld ms\n", t1ab_ms);
+		g_print("bf_textview_scan_area, PROFILING: prep 3 : %ld ms\n", t1bc_ms);
+		g_print("bf_textview_scan_area, PROFILING: prep 4 : %ld ms\n", t1c2_ms);
 		g_print("bf_textview_scan_area, PROFILING: loop      : %ld ms\n", loop_ms);
 		g_print("bf_textview_scan_area, PROFILING: finalizing: %ld ms\n", finalizing_ms);
 		its = *start;
