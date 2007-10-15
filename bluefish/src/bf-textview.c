@@ -20,7 +20,7 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines bf-textview.c
  */
-
+#define USE_BI2
 /*#define DEBUG */
 /*#define HL_PROFILING*/
 /*#define USE_HIGHLIGHT_MINIMAL */
@@ -144,6 +144,21 @@ enum {
 	BI_END
 };
 
+/* #define USE_BI2 */
+#ifdef USE_BI2
+typedef struct {
+	gboolean folded; /* if the block is currently folded */
+	gboolean single_line; /* if the block is currently started and ended on the same line (cannot be folded) */
+	gpointer data; /* BfLangBlock pointer */
+	gchar *tagname; /* for XML/HTML tags */
+	GtkTextMark *blockstart_s; /* mark at the begin of the begin-block-string  */
+	GtkTextMark *blockstart_e; /* mark at the end of the begin-block-string  */
+	GtkTextMark *blockend_s; /* mark at the begin of the end-block-string  */
+	GtkTextMark *blockend_e; /* mark at the end of the end-block-string  */
+} BlockInfo2;
+
+#endif
+
 typedef struct {
 	guint8 type; /* can be BI_START or BI_END */
 	gboolean folded;
@@ -156,6 +171,7 @@ typedef struct {
 	gboolean single_line;
 	gpointer data;
 } BlockInfo;
+
 
 static char folded_xbm[] = {
 	0x02, 0x01
@@ -358,36 +374,70 @@ static gboolean bf_textview_mouse_cb(GtkWidget * widget, GdkEvent * event, gpoin
 	}
 	return FALSE;
 }
+#ifdef USE_BI2
+static void bf_textview_get_iters_at_blockinfo(GtkTextBuffer *buf, BlockInfo2 *bi2, GtkTextIter *it1, GtkTextIter *it2, GtkTextIter *it3, GtkTextIter *it4) {
+	gtk_text_buffer_get_iter_at_mark(buf, it1, bi2->blockstart_s);
+	gtk_text_buffer_get_iter_at_mark(buf, it2, bi2->blockstart_e);
+	gtk_text_buffer_get_iter_at_mark(buf, it3, bi2->blockend_s);
+	gtk_text_buffer_get_iter_at_mark(buf, it4, bi2->blockend_e);	
+}
+#endif
 
-static void bf_textview_mark_set_cb(GtkTextBuffer * buf, GtkTextIter * arg1, GtkTextMark * arg2,
+static void bf_textview_mark_set_cb(GtkTextBuffer * buf, GtkTextIter * location, GtkTextMark * arg2,
 									gpointer widget)
 {
-	GtkTextIter it, it2;
+	GtkTextIter it1, it2;
+	
 	GtkTextMark *block = NULL;
-	BlockInfo *bi;
 
 	if (arg2 && gtk_text_buffer_get_insert(buf) == arg2) {
+#ifdef USE_BI2
+		BlockInfo2 *bi2;
+		GtkTextIter it3, it4;
+#else		
+		BlockInfo *bi;
+#endif
 		/* insert set which means cursor position changed */
+
+		block = bftv_get_block_at_iter(location);
+		DEBUG_MSG("bf_textview_mark_set_cb, got block %p, last_matched_block=%p\n",block,BF_TEXTVIEW(widget)->last_matched_block);
+
 		if (BF_TEXTVIEW(widget)->last_matched_block) {
-			block = BF_TEXTVIEW(widget)->last_matched_block;
-			bi = (BlockInfo *) g_object_get_data(G_OBJECT(block), "bi");
-			gtk_text_buffer_get_iter_at_mark(buf, &it, block);
+			/* remove the tags on the previously highlighted block */
+#ifdef USE_BI2
+			bi2 = (BlockInfo2 *) g_object_get_data(G_OBJECT(BF_TEXTVIEW(widget)->last_matched_block), "bi2");
+			bf_textview_get_iters_at_blockinfo(buf, bi2, &it1, &it2, &it3, &it4);
+			gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH],&it1,&it2);
+			gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH],&it3,&it4);
+#else
+			bi = (BlockInfo *) g_object_get_data(G_OBJECT(BF_TEXTVIEW(widget)->last_matched_block), "bi");
+			gtk_text_buffer_get_iter_at_mark(buf, &it1, BF_TEXTVIEW(widget)->last_matched_block);
 			gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->ref);
-			gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it,
+			gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it1,
 									   &it2);
 			if (bi->type == BI_START) {
-				gtk_text_buffer_get_iter_at_mark(buf, &it, bi->refe1);
+				gtk_text_buffer_get_iter_at_mark(buf, &it1, bi->refe1);
 				gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->refe2);
 			} else if (bi->type == BI_END) {
-				gtk_text_buffer_get_iter_at_mark(buf, &it, bi->refb1);
+				gtk_text_buffer_get_iter_at_mark(buf, &it1, bi->refb1);
 				gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->refb2);
 			}
-			gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it,
+			gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it1,
 									   &it2);
-			block = NULL;
+#endif
 		}
-		gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
-		block = bftv_get_block_at_iter(&it);
+
+#ifdef USE_BI2
+		if (block) {
+			bi2 = (BlockInfo2 *) g_object_get_data(G_OBJECT(block), "bi2");
+			if (!bi2->folded) {
+				bf_textview_get_iters_at_blockinfo(buf, bi2, &it1, &it2, &it3, &it4);
+				gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it1,&it2);
+				gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it3,&it4);
+			}
+			BF_TEXTVIEW(widget)->last_matched_block = block;
+		}
+#else
 		if (block)
 			bi = (BlockInfo *) g_object_get_data(G_OBJECT(block), "bi");
 		else
@@ -395,25 +445,26 @@ static void bf_textview_mark_set_cb(GtkTextBuffer * buf, GtkTextIter * arg1, Gtk
 		if (block && bi->folded)
 			block = NULL;
 		if (block) {
-			gtk_text_buffer_get_iter_at_mark(buf, &it, block);
+			gtk_text_buffer_get_iter_at_mark(buf, &it1, block);
 			gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->ref);
-			gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it,
+			gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it1,
 									  &it2);
 			if (bi->type == BI_START) {
-				gtk_text_buffer_get_iter_at_mark(buf, &it, bi->refe1);
+				gtk_text_buffer_get_iter_at_mark(buf, &it1, bi->refe1);
 				gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->refe2);
 			} else if (bi->type == BI_END) {
-				gtk_text_buffer_get_iter_at_mark(buf, &it, bi->refb1);
+				gtk_text_buffer_get_iter_at_mark(buf, &it1, bi->refb1);
 				gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->refb2);
 			}
-			gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it,
+			gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it1,
 									  &it2);
 			BF_TEXTVIEW(widget)->last_matched_block = block;
 		}
+#endif
 	} else if (arg2 && arg2 == gtk_text_buffer_get_selection_bound(buf)) {
-		gtk_text_buffer_get_iter_at_mark(buf, &it, gtk_text_buffer_get_insert(buf));
+		gtk_text_buffer_get_iter_at_mark(buf, &it1, gtk_text_buffer_get_insert(buf));
 		gtk_text_buffer_get_iter_at_mark(buf, &it2, arg2);
-		gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it, &it2);
+		gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it1, &it2);
 	}
 }
 
@@ -421,7 +472,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 {
 	GdkWindow *left_win;
 	GdkRectangle rect;
-	GtkTextIter l_start, l_end, it, it2;
+	GtkTextIter l_start, l_end, it;
 	GtkTextMark *block_mark;
 	gint l_top1, numlines, w, l_top2, i, w2;
 	PangoLayout *l;
@@ -430,7 +481,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 	GdkGC *gc = NULL;
 	gpointer aux;
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(widget));
-	BlockInfo *bi;
+
 
 	DEBUG_MSG("bf_textview_expose_cb, started\n");
 	if (BF_TEXTVIEW(widget)->need_rescan) {
@@ -545,21 +596,30 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 			}
 		}
 		if (BF_TEXTVIEW(widget)->show_blocks) {	/* show block markers */
-			GtkTextMark *mark_begin = NULL, *mark_end = NULL;
+#ifdef USE_BI2
+			BlockInfo2 *bi=NULL;
+#else
+			BlockInfo *bi=NULL;
+#endif
 			block_mark = bftv_get_first_block_at_line(BF_TEXTVIEW(widget), &it, TRUE);
 			if (block_mark) {
+#ifdef USE_BI2
+				bi = (BlockInfo2 *) g_object_get_data(G_OBJECT(block_mark), "bi2");
+#else
 				bi = (BlockInfo *) g_object_get_data(G_OBJECT(block_mark), "bi");
-				mark_begin = block_mark;
-				mark_end = bi->ref;
-			} else
-				bi = NULL;
-			if (block_mark && bi && mark_end && mark_begin
-				&& !gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_FOLDED])) {
-				gtk_text_buffer_get_iter_at_mark(buf, &it2, mark_end);
-				gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it2, &w2, NULL);
+#endif
+				
+			}
+			if (bi && !gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_FOLDED])) {
+
+				gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w2, NULL);
 				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT,
 													  0, w2, NULL, &w2);
+#ifdef USE_BI2
+				if (block_mark == bi->blockstart_s) {
+#else
 				if (bi->type == BI_START) {
+#endif
 					gdk_draw_rectangle(GDK_DRAWABLE(left_win),
 									   widget->style->base_gc[GTK_WIDGET_STATE(widget)], TRUE,
 									   pt_blocks, w + 2, 10, 10);
@@ -719,7 +779,11 @@ inline GtkTextMark *bftv_get_block_at_iter(GtkTextIter * it)
 	gpointer ptr = NULL;
 
 	while (lst) {
+#ifdef USE_BI2
+		ptr = g_object_get_data(G_OBJECT(lst->data), "bi2");
+#else
 		ptr = g_object_get_data(G_OBJECT(lst->data), "bi");
+#endif
 		if (ptr /* && (ptr == &tid_block_start || ptr == &tid_block_end) */ ) {
 			return GTK_TEXT_MARK(lst->data);
 		}
@@ -729,7 +793,14 @@ inline GtkTextMark *bftv_get_block_at_iter(GtkTextIter * it)
 	return NULL;
 }
 
-/* what does this function exactly do ? */
+/* what does this function exactly do ? 
+
+it is called from many functions, such as the expose_event_cb and used to find if there should be
+a block marker on the side.. 
+
+this function should be pretty fast if possible !!!!!!!!
+
+*/
 static GtkTextMark *bftv_get_first_block_at_line(BfTextView * view, GtkTextIter * it,
 												 gboolean not_single)
 {
@@ -737,8 +808,6 @@ static GtkTextMark *bftv_get_first_block_at_line(BfTextView * view, GtkTextIter 
 	GtkTextMark *mark = NULL;
 	gint *ln = NULL;
 	gpointer ptr = NULL;
-	BlockInfo *bi;
-
 
 	if (!it)
 		return NULL;
@@ -758,7 +827,14 @@ static GtkTextMark *bftv_get_first_block_at_line(BfTextView * view, GtkTextIter 
 		   && gtk_text_iter_get_line(&it2) == gtk_text_iter_get_line(it)) {
 		mark = bftv_get_block_at_iter(&it2);
 		if (mark) {
+#ifdef USE_BI2
+			BlockInfo2 *bi;
+			bi = (BlockInfo2 *) g_object_get_data(G_OBJECT(mark), "bi2");
+#else
+			BlockInfo *bi;
 			bi = (BlockInfo *) g_object_get_data(G_OBJECT(mark), "bi");
+
+#endif
 			if (not_single) {
 				if (!bi->single_line) {
 					g_hash_table_insert(view->fbal_cache, ln, mark);
@@ -813,6 +889,18 @@ if (mark2) g_hash_table_insert(view->fbal_cache,ln,mark2);
 else g_free(ln);
 return mark2;
 }*/
+#ifdef USE_BI2
+static void blockinfo_free(GtkTextBuffer *buf, BlockInfo2 *bi) {
+	if (bi->tagname) g_free(bi->tagname);
+	
+	gtk_text_buffer_delete_mark(buf, bi->blockstart_s);
+	gtk_text_buffer_delete_mark(buf, bi->blockstart_e);
+	gtk_text_buffer_delete_mark(buf, bi->blockend_s);
+	gtk_text_buffer_delete_mark(buf, bi->blockend_e);
+	g_slice_free(BlockInfo2,bi); 
+}
+#endif
+
 
 /* this function takes quite a part of the cpu time when working with very large files. what 
 does this function do?
@@ -825,6 +913,30 @@ mark with a non-folded block, and then remove the marks, BlockInfo and tags
  */
 static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * startit, GtkTextIter * endit)
 {
+#ifdef USE_BI2
+	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
+	GtkTextIter it;
+
+	if (!view->lang || !view->lang->scan_blocks)
+		return;
+	it = *startit;
+	while (!gtk_text_iter_equal(&it, endit)) {
+		GtkTextMark *mark;
+		mark = bftv_get_block_at_iter(&it);
+		if (mark) {
+			BlockInfo2 *bi;
+			bi = g_object_get_data(G_OBJECT(mark), "bi2");
+			if (bi && !bi->folded) {
+				GtkTextIter it1,it2;
+				gtk_text_buffer_get_iter_at_mark(buf, &it1, bi->blockstart_s);
+				gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->blockend_e);
+				gtk_text_buffer_remove_tag(buf,main_v->lang_mgr->internal_tags[IT_BLOCK],&it1, &it2);
+				blockinfo_free(buf, bi);
+			}
+		}
+		gtk_text_iter_forward_char(&it);
+	}
+#else
 	GtkTextBuffer *textbuffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
 	GtkTextMark *mark = NULL, *mark2 = NULL, *mark3, *mark4;
 	gboolean deleted = FALSE;
@@ -888,10 +1000,38 @@ static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * starti
 /*		if (gtk_text_iter_is_end(&it))
 			break;*/
 	}
+#endif
 }
 
 static void bftv_fold(BfTextView * self, GtkTextMark * mark, gboolean move_cursor)
 {
+#ifdef USE_BI2
+	GtkTextBuffer *buf = gtk_text_mark_get_buffer(mark);
+	BlockInfo2 *bi = (BlockInfo2 *) g_object_get_data(G_OBJECT(mark), "bi2");
+	GtkTextIter it1, it2, it3, it4;
+	
+	if (!bi || bi->single_line || bi->blockstart_s != mark) {
+		g_print("BUG in bftv_fold? perhaps bi->blockstart_e(%p) == mark(%p)\n",bi->blockstart_e,mark);
+		return;
+	}
+	bi->folded = bi->folded ? FALSE : TRUE;
+	bf_textview_get_iters_at_blockinfo(buf, bi, &it1, &it2, &it3, &it4);
+	gtk_text_iter_set_line_offset(&it1,0);
+	gtk_text_iter_set_line_offset(&it3,0);
+	if (bi->folded) {
+		gtk_text_buffer_apply_tag_by_name(buf, "_folded_", &it2, &it3);
+		gtk_text_buffer_apply_tag_by_name(buf, "_fold_header_", &it1, &it2);
+		gtk_text_buffer_apply_tag_by_name(buf, "_fold_header_", &it3, &it4);
+		gtk_text_iter_forward_char(&it4);
+		gtk_text_buffer_place_cursor(buf, &it4);
+	} else {
+		gtk_text_buffer_remove_tag_by_name(buf, "_fold_header_", &it1, &it4);
+		gtk_text_buffer_remove_tag_by_name(buf, "_folded_", &it1, &it4);
+		gtk_text_iter_forward_line(&it2);
+		gtk_text_iter_backward_line(&it3);
+		bf_textview_fold_blocks_area(self, &it2, &it3, FALSE);
+	}
+#else
 	GtkTextBuffer *buf = gtk_text_mark_get_buffer(mark);
 	BlockInfo *bi = (BlockInfo *) g_object_get_data(G_OBJECT(mark), "bi"), *bi2;
 	gboolean f = FALSE;
@@ -935,6 +1075,7 @@ static void bftv_fold(BfTextView * self, GtkTextMark * mark, gboolean move_curso
 		gtk_text_iter_backward_line(&it3);
 		bf_textview_fold_blocks_area(self, &it2, &it3, FALSE);
 	}
+#endif
 }
 
 static void bftv_expand_all(GtkWidget * widget, BfTextView * view)
@@ -2079,7 +2220,6 @@ void bf_textview_fold_blocks_area(BfTextView * self, GtkTextIter * start, GtkTex
 	GtkTextMark *mark;
 	GtkTextIter it;
 	gint i;
-	BlockInfo *bi = NULL;
 
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(BF_IS_TEXTVIEW(self));
@@ -2088,7 +2228,14 @@ void bf_textview_fold_blocks_area(BfTextView * self, GtkTextIter * start, GtkTex
 		gtk_text_iter_set_line(&it, i);
 		mark = bftv_get_first_block_at_line(self, &it, TRUE);
 		if (mark) {
-			bi = (BlockInfo *) g_object_get_data(G_OBJECT(mark), "bi");
+#ifdef USE_BI2
+			BlockInfo2 *bi = (BlockInfo *) g_object_get_data(G_OBJECT(mark), "bi2");
+			if (bi && bi->blockstart_s == mark) {
+				bi->folded = !fold;
+				bftv_fold(self, mark, FALSE);
+			}
+#else
+			BlockInfo *bi = (BlockInfo *) g_object_get_data(G_OBJECT(mark), "bi");
 			if (bi && bi->type == BI_START) {
 				if (fold)
 					bi->folded = FALSE;
@@ -2096,6 +2243,7 @@ void bf_textview_fold_blocks_area(BfTextView * self, GtkTextIter * start, GtkTex
 					bi->folded = TRUE;
 				bftv_fold(self, mark, FALSE);
 			}
+#endif
 		}
 	}
 }
@@ -2227,10 +2375,18 @@ static void bftv_clear_block_cache(BfTextView * self)
 
 static void bftv_clear_matched_block(BfTextView * self)
 {
-	BlockInfo *bi = NULL;
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 	DEBUG_MSG("bftv_clear_matched_block, started\n");
 	if (self->last_matched_block) {
+#ifdef USE_BI2
+		BlockInfo2 *bi = NULL;
+		GtkTextIter it1, it2, it3, it4;
+		bi = (BlockInfo2 *) g_object_get_data(G_OBJECT(self->last_matched_block), "bi2");
+		bf_textview_get_iters_at_blockinfo(buf, bi, &it1, &it2, &it3, &it4);
+		gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it1, &it2);
+		gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it3, &it4);
+#else
+		BlockInfo *bi = NULL;
 		GtkTextIter it, it2;
 		bi = (BlockInfo *) g_object_get_data(G_OBJECT(self->last_matched_block), "bi");
 		gtk_text_buffer_get_iter_at_mark(buf, &it, self->last_matched_block);
@@ -2244,9 +2400,58 @@ static void bftv_clear_matched_block(BfTextView * self)
 			gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->refb2);
 		}
 		gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it, &it2);
+
+#endif
 	}
 	self->last_matched_block = NULL;
 }
+
+static void bf_textview_add_block(BfTextView * self, GtkTextBuffer *buf, gchar *tagname, GtkTextIter *blockstart_s, GtkTextIter *blockstart_e, GtkTextIter *blockend_s, GtkTextIter *blockend_e, gboolean single_line, gpointer data) {
+#ifdef USE_BI2
+	BlockInfo2 *bi2;
+#else
+	BlockInfo *bi, *bi2;
+#endif
+	GtkTextMark *mark,*mark2,*mark3,*mark4;
+	mark = gtk_text_buffer_create_mark(buf, NULL, blockstart_s, FALSE);
+	mark2 = gtk_text_buffer_create_mark(buf, NULL, blockstart_e, FALSE);
+	mark3 = gtk_text_buffer_create_mark(buf, NULL, blockend_s, FALSE);
+	mark4 = gtk_text_buffer_create_mark(buf, NULL, blockend_e, FALSE);
+#ifdef USE_BI2
+	bi2 = g_slice_new(BlockInfo2);
+	bi2->folded = FALSE;
+	bi2->tagname = g_strdup(tagname);
+	bi2->blockstart_s = mark;
+	bi2->blockstart_e = mark2;
+	bi2->blockend_s = mark3;
+	bi2->blockend_e = mark4;
+	bi2->single_line = single_line;
+	bi2->data = data;
+	g_object_set_data(G_OBJECT(mark), "bi2", bi2);
+	g_object_set_data(G_OBJECT(mark3), "bi2", bi2);
+#else
+	bi = g_slice_new0(BlockInfo);
+	bi->type = BI_START;
+	bi->folded = FALSE;
+	bi->tagname = g_strdup(tagname);
+	bi->ref = mark2;
+	bi->refe1 = mark3;
+	bi->refe2 = mark4;
+	bi->data = data;
+	g_object_set_data(G_OBJECT(mark), "bi", bi);
+	bi2 = g_slice_new0(BlockInfo);
+	bi2->type = BI_END;
+	bi2->folded = FALSE;
+	bi2->tagname = g_strdup(tagname);
+	bi2->ref = mark4;
+	bi2->refb1 = mark;
+	bi2->refb2 = mark2;
+	bi2->data = data;
+	bi->single_line = bi2->single_line = single_line;
+	g_object_set_data(G_OBJECT(mark3), "bi", bi2);
+#endif
+}
+
 /* this is called just once */
 #ifdef __GNUC__
 __inline__ 
@@ -2289,40 +2494,23 @@ static void bf_textview_scan_state_type_st_token(BfTextView * self, GtkTextBuffe
 					mark3 = bftv_get_block_at_iter(&bf->b_start);
 
 					if (mark3) {
+#ifdef USE_BI2
+						BlockInfo2 *bi2;
+						bi2 = (BlockInfo2 *) g_object_get_data(G_OBJECT(mark3), "bi2");
+						if (bi2 && bi2->tagname && strcmp(bi2->tagname, arr2[0]) == 0)
+							do_mark = FALSE;
+#else
 						BlockInfo *bi;
 						bi = (BlockInfo *) g_object_get_data(G_OBJECT(mark3), "bi");
 						DEBUG_MSG("bi->tagname = %s, arr2[0] = %s\n", bi->tagname, arr2[0]);
 						if (bi && bi->tagname && bi->type == BI_START
 							&& strcmp(bi->tagname, arr2[0]) == 0)
 							do_mark = FALSE;
+#endif
 					}
 					if (do_mark) {
-						BlockInfo *bi, *bi2;
-						mark = gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, FALSE);
-						mark2 = gtk_text_buffer_create_mark(buf, NULL, &bf->b_end, FALSE);
-						mark3 = gtk_text_buffer_create_mark(buf, NULL, its, FALSE);
-						mark4 = gtk_text_buffer_create_mark(buf, NULL, ita, FALSE);
-						bi = g_slice_new0(BlockInfo);
-						bi->type = BI_START;
-						bi->folded = FALSE;
-						bi->tagname = g_strdup(arr2[0]);
-						bi->ref = mark2;
-						bi->refe1 = mark3;
-						bi->refe2 = mark4;
-						g_object_set_data(G_OBJECT(mark), "bi", bi);
-						bi2 = g_slice_new0(BlockInfo);
-						bi2->type = BI_END;
-						bi2->folded = FALSE;
-						bi2->tagname = g_strdup(arr2[0]);
-						bi2->ref = mark4;
-						bi2->refb1 = mark;
-						bi2->refb2 = mark2;
-						g_object_set_data(G_OBJECT(mark3), "bi", bi2);
-						if (gtk_text_iter_get_line(&bf->b_start) == gtk_text_iter_get_line(its)) {
-							bi->single_line = bi2->single_line = TRUE;
-						} else {
-							bi->single_line = bi2->single_line = FALSE;
-						}
+						bf_textview_add_block(self,buf,arr2[0], &bf->b_start, &bf->b_end, its, ita
+									, (gtk_text_iter_get_line(&bf->b_start) == gtk_text_iter_get_line(its)), NULL);
 					}
 					if (apply_hl)
 						gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK],
@@ -2526,38 +2714,21 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 
 				mark3 = bftv_get_block_at_iter(&bf->b_start);
 				if (mark3) {
+#ifdef USE_BI2
+					BlockInfo2 *bi2;
+					bi2 = (BlockInfo2 *) g_object_get_data(G_OBJECT(mark3), "bi2");
+					if (bi2 && bi2->blockstart_s == mark3 && bi2->data == tmp)
+						do_mark = FALSE;
+#else
 					BlockInfo *bi;
 					bi = (BlockInfo *) g_object_get_data(G_OBJECT(mark3), "bi");
 					if (bi->type == BI_START && bi->data == tmp)
 						do_mark = FALSE;
+#endif
 				}
 				if (do_mark) {
-					BlockInfo *bi, *bi2;
-					mark = gtk_text_buffer_create_mark(buf, NULL, &bf->b_start, FALSE);
-					mark2 = gtk_text_buffer_create_mark(buf, NULL, &bf->b_end, FALSE);
-					mark3 = gtk_text_buffer_create_mark(buf, NULL, its, FALSE);
-					mark4 = gtk_text_buffer_create_mark(buf, NULL, ita, FALSE);
-					bi = g_slice_new0(BlockInfo);
-					bi->type = BI_START;
-					bi->folded = FALSE;
-					bi->data = tmp;
-					bi->ref = mark2;
-					bi->refe1 = mark3;
-					bi->refe2 = mark4;
-					g_object_set_data(G_OBJECT(mark), "bi", bi);
-					bi2 = g_slice_new0(BlockInfo);
-					bi2->type = BI_END;
-					bi2->folded = FALSE;
-					bi2->data = tmp;
-					bi2->ref = mark4;
-					bi2->refb1 = mark;
-					bi2->refb2 = mark2;
-					g_object_set_data(G_OBJECT(mark3), "bi", bi2);
-					if (gtk_text_iter_get_line(&bf->b_start) == gtk_text_iter_get_line(its)) {
-						bi->single_line = bi2->single_line = TRUE;
-					} else {
-						bi->single_line = bi2->single_line = FALSE;
-					}
+					bf_textview_add_block(self,buf,NULL, &bf->b_start, &bf->b_end, its, ita
+						, (gtk_text_iter_get_line(&bf->b_start) == gtk_text_iter_get_line(its)), tmp);
 				}
 				if (apply_hl) {
 					gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK],
