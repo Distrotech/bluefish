@@ -2943,7 +2943,7 @@ I'm going to see if we can keep it like that */
 		t1a_ms =  (glong) (double) ((tms1a.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		t1ab_ms =  (glong) (double) ((tms1b.tms_utime - tms1a.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		t1bc_ms =  (glong) (double) ((tms1c.tms_utime - tms1b.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
-		t1c2_ms =  (glong) (double) ((tms2.tms_utime - tms1b.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
+		t1c2_ms =  (glong) (double) ((tms2.tms_utime - tms1c.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		g_print("bf_textview_scan_area, PROFILING: total time: %ld ms\n", tot_ms);
 		g_print("bf_textview_scan_area, PROFILING: preparing : %ld ms\n", first_stage_ms);
 		g_print("bf_textview_scan_area, PROFILING: prep 1 : %ld ms\n", t1a_ms);
