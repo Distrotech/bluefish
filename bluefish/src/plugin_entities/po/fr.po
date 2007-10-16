@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish pre1.1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2007-03-03 23:50+0100\n"
+"POT-Creation-Date: 2007-10-14 19:11+0200\n"
 "PO-Revision-Date: 2006-01-29 00:06+0100\n"
 "Last-Translator: Michèle Garoche <michele.garoche@easyconnect.fr>\n"
 "Language-Team: français <fr@li.org>\n"
@@ -18,62 +18,72 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/plugin_entities/entities.c:456
+#: src/plugin_entities/entities.c:412
 msgid "Characters to entities"
 msgstr "Caractères en entités"
 
-#: src/plugin_entities/entities.c:456
+#: src/plugin_entities/entities.c:412
 msgid "Entities to characters"
 msgstr "Entités en caractères"
 
-#: src/plugin_entities/entities.c:469
+#: src/plugin_entities/entities.c:425
 msgid "In current document"
 msgstr "Dans le document actif"
 
-#: src/plugin_entities/entities.c:470
+#: src/plugin_entities/entities.c:426
 msgid "In selection"
 msgstr "À l'intérieur de la sélection"
 
-#: src/plugin_entities/entities.c:471
+#: src/plugin_entities/entities.c:427
 msgid "In all documents"
 msgstr "Dans tous les documents"
 
-#: src/plugin_entities/entities.c:472
+#: src/plugin_entities/entities.c:428
 msgid "Sco_pe:"
 msgstr "Étend_ue :"
 
-#: src/plugin_entities/entities.c:476
+#: src/plugin_entities/entities.c:432
 msgid "Convert numerical characters"
 msgstr "Convertir les caractères numériques"
 
-#: src/plugin_entities/entities.c:483
+#: src/plugin_entities/entities.c:439
 msgid "Convert _iso-8859-1 characters"
 msgstr "Convertir les caractères _iso-8859-1"
 
-#: src/plugin_entities/entities.c:487
+#: src/plugin_entities/entities.c:443
 msgid "Convert _symbol characters"
 msgstr "Convertir les s_ymboles"
 
-#: src/plugin_entities/entities.c:491
+#: src/plugin_entities/entities.c:447
 msgid "Convert spe_cial characters"
 msgstr "Convertir les caractères _spéciaux"
 
-#: src/plugin_entities/entities.c:495
+#: src/plugin_entities/entities.c:451
 msgid "Convert _xml characters <>&"
 msgstr "Convertir les caractères _xml <>&"
 
-#: src/plugin_entities/entities.c:552
+#: src/plugin_entities/entities.c:514
 msgid "/Edit/Replace special/Entities to characters"
 msgstr "/Éditer/Remplacement spécial/Entités en caractères"
 
-#: src/plugin_entities/entities.c:553
+#: src/plugin_entities/entities.c:515
 msgid "/Edit/Replace special/Characters to entities"
 msgstr "/Éditer/Remplacement spécial/Caractères en entités"
 
-#: src/plugin_entities/entities.c:554
+#: src/plugin_entities/entities.c:516
 msgid "/Edit/Replace special/URL encode selection"
 msgstr "/Éditer/Remplacement spécial/Encodage URL de la sélection"
 
-#: src/plugin_entities/entities.c:555
+#: src/plugin_entities/entities.c:517
 msgid "/Edit/Replace special/URL decode selection"
 msgstr "/Éditer/Remplacement spécial/Décodage URL de la sélection"
+
+#: src/plugin_entities/entities.c:518
+#, fuzzy
+msgid "/Edit/Replace special/To Lowercase"
+msgstr "/Éditer/Remplacement spécial/Encodage URL de la sélection"
+
+#: src/plugin_entities/entities.c:519
+#, fuzzy
+msgid "/Edit/Replace special/To Uppercase"
+msgstr "/Éditer/Remplacement spécial/Encodage URL de la sélection"

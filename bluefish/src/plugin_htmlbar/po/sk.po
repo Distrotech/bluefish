@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 17-01-06_sk-2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2007-08-25 23:39+0200\n"
+"POT-Creation-Date: 2007-10-14 19:11+0200\n"
 "PO-Revision-Date: 2006-01-18 14:51+0100\n"
 "Last-Translator: Vladimir VASIL <vvasil@post.sk>\n"
 "Language-Team:  <sk@li.org>\n"
@@ -1170,11 +1170,11 @@ msgid "Frame..."
 msgstr "Rám..."
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:781 src/plugin_htmlbar/html.c:1586
+#: src/plugin_htmlbar/htmlbar_gui.c:781 src/plugin_htmlbar/html.c:1565
 msgid "Frameset"
 msgstr "Nastavenie rámov"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:782 src/plugin_htmlbar/html.c:1670
+#: src/plugin_htmlbar/htmlbar_gui.c:782 src/plugin_htmlbar/html.c:1649
 msgid "Frame"
 msgstr "Rám"
 
@@ -1443,7 +1443,7 @@ msgstr "Rýchlz odkaz"
 msgid "Attributes"
 msgstr "Atributy"
 
-#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1914
+#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1893
 msgid "_HREF:"
 msgstr "_HREF:"
 
@@ -1452,7 +1452,7 @@ msgid "_Target:"
 msgstr "_Cieľ:"
 
 #: src/plugin_htmlbar/html.c:613 src/plugin_htmlbar/html.c:833
-#: src/plugin_htmlbar/html.c:1208 src/plugin_htmlbar/html.c:1682
+#: src/plugin_htmlbar/html.c:1198 src/plugin_htmlbar/html.c:1661
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
 #: src/plugin_htmlbar/image.c:440
@@ -1460,14 +1460,14 @@ msgid "_Name:"
 msgstr "_Meno:"
 
 #: src/plugin_htmlbar/html.c:619 src/plugin_htmlbar/html.c:1066
-#: src/plugin_htmlbar/html.c:1237 src/plugin_htmlbar/html.c:1829
+#: src/plugin_htmlbar/html.c:1216 src/plugin_htmlbar/html.c:1808
 msgid "_Language:"
 msgstr "_Jazyk:"
 
 #: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:841
 #: src/plugin_htmlbar/html.c:975 src/plugin_htmlbar/html.c:1070
-#: src/plugin_htmlbar/html.c:1245 src/plugin_htmlbar/html.c:1618
-#: src/plugin_htmlbar/html.c:1719 src/plugin_htmlbar/html.c:1848
+#: src/plugin_htmlbar/html.c:1224 src/plugin_htmlbar/html.c:1597
+#: src/plugin_htmlbar/html.c:1698 src/plugin_htmlbar/html.c:1827
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
@@ -1554,18 +1554,18 @@ msgstr "_ID:"
 msgid "Horizontal Rule"
 msgstr "Horizontálna čiara"
 
-#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1767
+#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
 #: src/plugin_htmlbar/image.c:466
 msgid "_Align:"
 msgstr "Za_rovnanie:"
 
-#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1775
+#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
 #: src/plugin_htmlbar/html_table.c:387
 msgid "_Height:"
 msgstr "_Výška:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1771
+#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
 #: src/plugin_htmlbar/image.c:424
 msgid "_Width:"
@@ -1623,170 +1623,170 @@ msgstr "Farba navštivené_ho odkazu:"
 msgid "_Active Link Color:"
 msgstr "Farba ak_tivního odkazu:"
 
-#: src/plugin_htmlbar/html.c:1190
+#: src/plugin_htmlbar/html.c:1191
 msgid "Meta"
 msgstr "Meta"
 
-#: src/plugin_htmlbar/html.c:1228
+#: src/plugin_htmlbar/html.c:1207
 msgid "_HTTP-EQUIV:"
 msgstr "HTTP-E_QUIV:"
 
-#: src/plugin_htmlbar/html.c:1233
+#: src/plugin_htmlbar/html.c:1212
 msgid "Con_tent:"
 msgstr "Ob_sah:"
 
-#: src/plugin_htmlbar/html.c:1241
+#: src/plugin_htmlbar/html.c:1220
 msgid "_Scheme:"
 msgstr "S_chéma:"
 
-#: src/plugin_htmlbar/html.c:1322
+#: src/plugin_htmlbar/html.c:1301
 msgid "Font"
 msgstr "Font"
 
-#: src/plugin_htmlbar/html.c:1325
+#: src/plugin_htmlbar/html.c:1304
 msgid "Base Font"
 msgstr "Základni font"
 
-#: src/plugin_htmlbar/html.c:1340
+#: src/plugin_htmlbar/html.c:1319
 msgid "Size"
 msgstr "Veľkosť"
 
-#: src/plugin_htmlbar/html.c:1348
+#: src/plugin_htmlbar/html.c:1327
 msgid "Color"
 msgstr "Farba"
 
-#: src/plugin_htmlbar/html.c:1353
+#: src/plugin_htmlbar/html.c:1332
 msgid "Face"
 msgstr "Typ"
 
-#: src/plugin_htmlbar/html.c:1357
+#: src/plugin_htmlbar/html.c:1336
 msgid "Custom"
 msgstr "Vlastni"
 
-#: src/plugin_htmlbar/html.c:1441
+#: src/plugin_htmlbar/html.c:1420
 msgid "E-mail"
 msgstr "E-mail"
 
-#: src/plugin_htmlbar/html.c:1449
+#: src/plugin_htmlbar/html.c:1428
 msgid "_Mail to:"
 msgstr "Email pre:"
 
-#: src/plugin_htmlbar/html.c:1453
+#: src/plugin_htmlbar/html.c:1432
 msgid "_Copy to:"
 msgstr "Kopírovať do:"
 
-#: src/plugin_htmlbar/html.c:1457
+#: src/plugin_htmlbar/html.c:1436
 msgid "Blin_d copy to:"
 msgstr "Skrité kopírovať _do:"
 
-#: src/plugin_htmlbar/html.c:1461
+#: src/plugin_htmlbar/html.c:1440
 msgid "with _Subject:"
 msgstr "so _Subjektom:"
 
-#: src/plugin_htmlbar/html.c:1465
+#: src/plugin_htmlbar/html.c:1444
 msgid "with _Body:"
 msgstr "s _Body:"
 
-#: src/plugin_htmlbar/html.c:1509
+#: src/plugin_htmlbar/html.c:1488
 msgid "Quick List"
 msgstr "Rýchlz zoznam"
 
-#: src/plugin_htmlbar/html.c:1514 src/plugin_htmlbar/html.c:1596
+#: src/plugin_htmlbar/html.c:1493 src/plugin_htmlbar/html.c:1575
 #: src/plugin_htmlbar/html_form.c:236
 msgid "_Rows:"
 msgstr "Riadk_y:"
 
-#: src/plugin_htmlbar/html.c:1517
+#: src/plugin_htmlbar/html.c:1496
 msgid "Or_dered"
 msgstr "Čísl_ovaný"
 
-#: src/plugin_htmlbar/html.c:1518
+#: src/plugin_htmlbar/html.c:1497
 msgid "_Unordered"
 msgstr "N_ečíslovaný"
 
-#: src/plugin_htmlbar/html.c:1520
+#: src/plugin_htmlbar/html.c:1499
 msgid "Style:"
 msgstr "Štyl:"
 
-#: src/plugin_htmlbar/html.c:1592 src/plugin_htmlbar/html_form.c:240
+#: src/plugin_htmlbar/html.c:1571 src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
 msgstr "S_tĺpce:"
 
-#: src/plugin_htmlbar/html.c:1601
+#: src/plugin_htmlbar/html.c:1580
 msgid "_Add <frame> elements"
 msgstr "Prid_ať <frame> prvky "
 
-#: src/plugin_htmlbar/html.c:1678 src/plugin_htmlbar/html.c:1763
-#: src/plugin_htmlbar/html.c:1822
+#: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
+#: src/plugin_htmlbar/html.c:1801
 msgid "_Source:"
 msgstr "_Zdroj:"
 
-#: src/plugin_htmlbar/html.c:1686
+#: src/plugin_htmlbar/html.c:1665
 msgid "Margin _Width:"
 msgstr "Šířka _okraja:"
 
-#: src/plugin_htmlbar/html.c:1690
+#: src/plugin_htmlbar/html.c:1669
 msgid "Margin _Height:"
 msgstr "_Výška okraja:"
 
-#: src/plugin_htmlbar/html.c:1698
+#: src/plugin_htmlbar/html.c:1677
 msgid "Scrollin_g:"
 msgstr "Sc_rolovanie:"
 
-#: src/plugin_htmlbar/html.c:1702
+#: src/plugin_htmlbar/html.c:1681
 msgid "_Frameborder:"
 msgstr "O_kraje rámu:"
 
-#: src/plugin_htmlbar/html.c:1707
+#: src/plugin_htmlbar/html.c:1686
 msgid "No _Resize:"
 msgstr "Zakázať zmenu _Veľkosti:"
 
-#: src/plugin_htmlbar/html.c:1757
+#: src/plugin_htmlbar/html.c:1736
 msgid "Embed"
 msgstr "Zapustený"
 
-#: src/plugin_htmlbar/html.c:1779 src/plugin_htmlbar/html_table.c:140
+#: src/plugin_htmlbar/html.c:1758 src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
 msgstr "_Hranice:"
 
-#: src/plugin_htmlbar/html.c:1815
+#: src/plugin_htmlbar/html.c:1794
 msgid "Script"
 msgstr "Skript"
 
-#: src/plugin_htmlbar/html.c:1844 src/plugin_htmlbar/html.c:1945
+#: src/plugin_htmlbar/html.c:1823 src/plugin_htmlbar/html.c:1924
 #: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
 msgstr "_Typ:"
 
-#: src/plugin_htmlbar/html.c:1903
+#: src/plugin_htmlbar/html.c:1882
 msgid "Link"
 msgstr "Odkaz"
 
-#: src/plugin_htmlbar/html.c:1920
+#: src/plugin_htmlbar/html.c:1899
 msgid "HREF_LANG:"
 msgstr "_HREF jazyk:"
 
-#: src/plugin_htmlbar/html.c:1924
+#: src/plugin_htmlbar/html.c:1903
 msgid "T_itle:"
 msgstr "_Titulok:"
 
-#: src/plugin_htmlbar/html.c:1964
+#: src/plugin_htmlbar/html.c:1943
 msgid "_Forward Relation:"
 msgstr "Relacia V_pred:"
 
-#: src/plugin_htmlbar/html.c:1968
+#: src/plugin_htmlbar/html.c:1947
 msgid "_Reverse Relation:"
 msgstr "Relacia V_zad:"
 
-#: src/plugin_htmlbar/html.c:1979
+#: src/plugin_htmlbar/html.c:1958
 msgid "Media:"
 msgstr "Média:"
 
-#: src/plugin_htmlbar/html.c:1983
+#: src/plugin_htmlbar/html.c:1962
 msgid "L_ang:"
 msgstr "J_azyk:"
 
-#: src/plugin_htmlbar/html.c:1987
+#: src/plugin_htmlbar/html.c:1966
 msgid "_Custom:"
 msgstr "V_lastni:"
 

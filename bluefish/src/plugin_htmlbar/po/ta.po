@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2007-08-25 23:39+0200\n"
+"POT-Creation-Date: 2007-10-14 19:11+0200\n"
 "PO-Revision-Date: 2006-02-10 23:32+0530\n"
 "Last-Translator: Murugapandian barathee <barathee@gmail.com>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -1170,11 +1170,11 @@ msgid "Frame..."
 msgstr "சட்டகம்..."
 
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:781 src/plugin_htmlbar/html.c:1586
+#: src/plugin_htmlbar/htmlbar_gui.c:781 src/plugin_htmlbar/html.c:1565
 msgid "Frameset"
 msgstr "சட்டகத் தொகுப்பு"
 
-#: src/plugin_htmlbar/htmlbar_gui.c:782 src/plugin_htmlbar/html.c:1670
+#: src/plugin_htmlbar/htmlbar_gui.c:782 src/plugin_htmlbar/html.c:1649
 msgid "Frame"
 msgstr "சட்டகம்"
 
@@ -1443,7 +1443,7 @@ msgstr "விரைவு நங்கூரம்"
 msgid "Attributes"
 msgstr "தன்மைகள்"
 
-#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1914
+#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1893
 msgid "_HREF:"
 msgstr "_HREF:"
 
@@ -1452,7 +1452,7 @@ msgid "_Target:"
 msgstr "_Target:"
 
 #: src/plugin_htmlbar/html.c:613 src/plugin_htmlbar/html.c:833
-#: src/plugin_htmlbar/html.c:1208 src/plugin_htmlbar/html.c:1682
+#: src/plugin_htmlbar/html.c:1198 src/plugin_htmlbar/html.c:1661
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
 #: src/plugin_htmlbar/image.c:440
@@ -1460,14 +1460,14 @@ msgid "_Name:"
 msgstr "பெயர் _N:"
 
 #: src/plugin_htmlbar/html.c:619 src/plugin_htmlbar/html.c:1066
-#: src/plugin_htmlbar/html.c:1237 src/plugin_htmlbar/html.c:1829
+#: src/plugin_htmlbar/html.c:1216 src/plugin_htmlbar/html.c:1808
 msgid "_Language:"
 msgstr "மொழி _L:"
 
 #: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:841
 #: src/plugin_htmlbar/html.c:975 src/plugin_htmlbar/html.c:1070
-#: src/plugin_htmlbar/html.c:1245 src/plugin_htmlbar/html.c:1618
-#: src/plugin_htmlbar/html.c:1719 src/plugin_htmlbar/html.c:1848
+#: src/plugin_htmlbar/html.c:1224 src/plugin_htmlbar/html.c:1597
+#: src/plugin_htmlbar/html.c:1698 src/plugin_htmlbar/html.c:1827
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
@@ -1554,18 +1554,18 @@ msgstr "_ID:"
 msgid "Horizontal Rule"
 msgstr "கிடைக்கோடு"
 
-#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1767
+#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
 #: src/plugin_htmlbar/image.c:466
 msgid "_Align:"
 msgstr "இசைவு _A:"
 
-#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1775
+#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
 #: src/plugin_htmlbar/html_table.c:387
 msgid "_Height:"
 msgstr "உயரம் _H:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1771
+#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
 #: src/plugin_htmlbar/image.c:424
 msgid "_Width:"
@@ -1623,170 +1623,170 @@ msgstr "பார்த்த சுட்டி வர்ணம் _V:"
 msgid "_Active Link Color:"
 msgstr "நடப்பு சுட்டி வர்ணம் _A:"
 
-#: src/plugin_htmlbar/html.c:1190
+#: src/plugin_htmlbar/html.c:1191
 msgid "Meta"
 msgstr "மெட்டா"
 
-#: src/plugin_htmlbar/html.c:1228
+#: src/plugin_htmlbar/html.c:1207
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
-#: src/plugin_htmlbar/html.c:1233
+#: src/plugin_htmlbar/html.c:1212
 msgid "Con_tent:"
 msgstr "உள்ளடக்கம் _t:"
 
-#: src/plugin_htmlbar/html.c:1241
+#: src/plugin_htmlbar/html.c:1220
 msgid "_Scheme:"
 msgstr "திட்டமுறை _S:"
 
-#: src/plugin_htmlbar/html.c:1322
+#: src/plugin_htmlbar/html.c:1301
 msgid "Font"
 msgstr "எழுத்துரு"
 
-#: src/plugin_htmlbar/html.c:1325
+#: src/plugin_htmlbar/html.c:1304
 msgid "Base Font"
 msgstr "அடித்தள எழுத்துரு"
 
-#: src/plugin_htmlbar/html.c:1340
+#: src/plugin_htmlbar/html.c:1319
 msgid "Size"
 msgstr "அளவு"
 
-#: src/plugin_htmlbar/html.c:1348
+#: src/plugin_htmlbar/html.c:1327
 msgid "Color"
 msgstr "வர்ணம்"
 
-#: src/plugin_htmlbar/html.c:1353
+#: src/plugin_htmlbar/html.c:1332
 msgid "Face"
 msgstr "முகப்பு"
 
-#: src/plugin_htmlbar/html.c:1357
+#: src/plugin_htmlbar/html.c:1336
 msgid "Custom"
 msgstr "தனிப்பயன்"
 
-#: src/plugin_htmlbar/html.c:1441
+#: src/plugin_htmlbar/html.c:1420
 msgid "E-mail"
 msgstr "மின்-அஞ்சல்"
 
-#: src/plugin_htmlbar/html.c:1449
+#: src/plugin_htmlbar/html.c:1428
 msgid "_Mail to:"
 msgstr "_Mail to:"
 
-#: src/plugin_htmlbar/html.c:1453
+#: src/plugin_htmlbar/html.c:1432
 msgid "_Copy to:"
 msgstr "நகல் _C"
 
-#: src/plugin_htmlbar/html.c:1457
+#: src/plugin_htmlbar/html.c:1436
 msgid "Blin_d copy to:"
 msgstr "Blin_d copy to:"
 
-#: src/plugin_htmlbar/html.c:1461
+#: src/plugin_htmlbar/html.c:1440
 msgid "with _Subject:"
 msgstr "with _Subject:"
 
-#: src/plugin_htmlbar/html.c:1465
+#: src/plugin_htmlbar/html.c:1444
 msgid "with _Body:"
 msgstr "with _Body:"
 
-#: src/plugin_htmlbar/html.c:1509
+#: src/plugin_htmlbar/html.c:1488
 msgid "Quick List"
 msgstr "விரைவுப் பட்டியல்"
 
-#: src/plugin_htmlbar/html.c:1514 src/plugin_htmlbar/html.c:1596
+#: src/plugin_htmlbar/html.c:1493 src/plugin_htmlbar/html.c:1575
 #: src/plugin_htmlbar/html_form.c:236
 msgid "_Rows:"
 msgstr "கிடைவரிசைகள் _R:"
 
-#: src/plugin_htmlbar/html.c:1517
+#: src/plugin_htmlbar/html.c:1496
 msgid "Or_dered"
 msgstr "அடுக்கப்பட்டது _d"
 
-#: src/plugin_htmlbar/html.c:1518
+#: src/plugin_htmlbar/html.c:1497
 msgid "_Unordered"
 msgstr "அடுக்கப்படாதது _U"
 
-#: src/plugin_htmlbar/html.c:1520
+#: src/plugin_htmlbar/html.c:1499
 msgid "Style:"
 msgstr "Style:"
 
-#: src/plugin_htmlbar/html.c:1592 src/plugin_htmlbar/html_form.c:240
+#: src/plugin_htmlbar/html.c:1571 src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
 msgstr "நெடுவரிசைகள் _l:"
 
-#: src/plugin_htmlbar/html.c:1601
+#: src/plugin_htmlbar/html.c:1580
 msgid "_Add <frame> elements"
 msgstr "<frame> தன்மைகளைச் சேர் _A"
 
-#: src/plugin_htmlbar/html.c:1678 src/plugin_htmlbar/html.c:1763
-#: src/plugin_htmlbar/html.c:1822
+#: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
+#: src/plugin_htmlbar/html.c:1801
 msgid "_Source:"
 msgstr "மூலநிரல் _S:"
 
-#: src/plugin_htmlbar/html.c:1686
+#: src/plugin_htmlbar/html.c:1665
 msgid "Margin _Width:"
 msgstr "மார்ஜின் அகலம் _W:"
 
-#: src/plugin_htmlbar/html.c:1690
+#: src/plugin_htmlbar/html.c:1669
 msgid "Margin _Height:"
 msgstr "மார்ஜின் உயரம் _H"
 
-#: src/plugin_htmlbar/html.c:1698
+#: src/plugin_htmlbar/html.c:1677
 msgid "Scrollin_g:"
 msgstr "திரை உருளல் _g"
 
-#: src/plugin_htmlbar/html.c:1702
+#: src/plugin_htmlbar/html.c:1681
 msgid "_Frameborder:"
 msgstr "சட்டகபார்டர் _F:"
 
-#: src/plugin_htmlbar/html.c:1707
+#: src/plugin_htmlbar/html.c:1686
 msgid "No _Resize:"
 msgstr "அளவு மாற்றாதே _R:"
 
-#: src/plugin_htmlbar/html.c:1757
+#: src/plugin_htmlbar/html.c:1736
 msgid "Embed"
 msgstr "உட்பொதி"
 
-#: src/plugin_htmlbar/html.c:1779 src/plugin_htmlbar/html_table.c:140
+#: src/plugin_htmlbar/html.c:1758 src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
 msgstr "பார்டர் _r"
 
-#: src/plugin_htmlbar/html.c:1815
+#: src/plugin_htmlbar/html.c:1794
 msgid "Script"
 msgstr "கட்டளைத்தொடர்"
 
-#: src/plugin_htmlbar/html.c:1844 src/plugin_htmlbar/html.c:1945
+#: src/plugin_htmlbar/html.c:1823 src/plugin_htmlbar/html.c:1924
 #: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
 msgstr "_Type:"
 
-#: src/plugin_htmlbar/html.c:1903
+#: src/plugin_htmlbar/html.c:1882
 msgid "Link"
 msgstr "சுட்டி"
 
-#: src/plugin_htmlbar/html.c:1920
+#: src/plugin_htmlbar/html.c:1899
 msgid "HREF_LANG:"
 msgstr "HREF_LANG:"
 
-#: src/plugin_htmlbar/html.c:1924
+#: src/plugin_htmlbar/html.c:1903
 msgid "T_itle:"
 msgstr "தலைப்பு _i:"
 
-#: src/plugin_htmlbar/html.c:1964
+#: src/plugin_htmlbar/html.c:1943
 msgid "_Forward Relation:"
 msgstr "_Forward Relation:"
 
-#: src/plugin_htmlbar/html.c:1968
+#: src/plugin_htmlbar/html.c:1947
 msgid "_Reverse Relation:"
 msgstr "_Reverse Relation:"
 
-#: src/plugin_htmlbar/html.c:1979
+#: src/plugin_htmlbar/html.c:1958
 msgid "Media:"
 msgstr "மீடியா:"
 
-#: src/plugin_htmlbar/html.c:1983
+#: src/plugin_htmlbar/html.c:1962
 msgid "L_ang:"
 msgstr "L_ang:"
 
-#: src/plugin_htmlbar/html.c:1987
+#: src/plugin_htmlbar/html.c:1966
 msgid "_Custom:"
 msgstr "தனிப்பயன் _C:"
 

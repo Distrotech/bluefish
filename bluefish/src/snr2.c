@@ -1244,38 +1244,6 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 	}
 }
 
-static void setup_new_snr2(Tbfwin *bfwin, const gchar *search_pattern, gboolean unescape, 
-		gboolean is_case_sens, gboolean overlapping_search,
-		gboolean bookmark, Tplace_types place_type, Tmatch_types match_type, Treplace_types replace_type,
-		gboolean replace, const gchar *replace_pattern) {
-	if (LASTSNR2(bfwin->snr2)->search_pattern) {
-		g_free(LASTSNR2(bfwin->snr2)->search_pattern);
-		LASTSNR2(bfwin->snr2)->search_pattern = NULL;
-	}
-	if (LASTSNR2(bfwin->snr2)->replace_pattern) {
-		g_free(LASTSNR2(bfwin->snr2)->replace_pattern);
-		LASTSNR2(bfwin->snr2)->replace_pattern = NULL;
-	}
-	LASTSNR2(bfwin->snr2)->search_pattern = g_strdup(search_pattern);
-	bfwin->session->searchlist = add_to_history_stringlist(bfwin->session->searchlist,LASTSNR2(bfwin->snr2)->search_pattern,TRUE,TRUE);
-	LASTSNR2(bfwin->snr2)->unescape = unescape;
- 	LASTSNR2(bfwin->snr2)->is_case_sens = is_case_sens;
- 	LASTSNR2(bfwin->snr2)->overlapping_search = overlapping_search;
-	LASTSNR2(bfwin->snr2)->replace = replace;
-	LASTSNR2(bfwin->snr2)->placetype_option = place_type;
-	LASTSNR2(bfwin->snr2)->matchtype_option = match_type;
-	LASTSNR2(bfwin->snr2)->replacetype_option = replace_type;
-	LASTSNR2(bfwin->snr2)->endpos = -1;
-	if (replace_pattern) {
-		LASTSNR2(bfwin->snr2)->replace_pattern = g_strdup(replace_pattern);
-		bfwin->session->replacelist = add_to_history_stringlist(bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,TRUE,TRUE);
-	}
-	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;
-	LASTSNR2(bfwin->snr2)->matches = 0;
-	LASTSNR2(bfwin->snr2)->replaces = 0;
-	LASTSNR2(bfwin->snr2)->doc = NULL;
-}
-
 
 /***************** NEW DIALOG ************************************/
 typedef struct {
@@ -1306,6 +1274,44 @@ enum {
 	SNR_RESPONSE_REPLACE_ALL,
 	SNR_RESPONSE_FIND_ALL
 };
+
+static void setup_new_snr2(TSNRWin *snrwin, const gchar *search_pattern, gboolean unescape, 
+		gboolean is_case_sens, gboolean overlapping_search,
+		gboolean bookmark, Tplace_types place_type, Tmatch_types match_type, Treplace_types replace_type,
+		gboolean replace, const gchar *replace_pattern) {
+	GtkTreeModel *history;
+	GtkTreeIter iter;
+	Tbfwin *bfwin = BFWIN(snrwin->bfwin);
+	if (LASTSNR2(bfwin->snr2)->search_pattern) {
+		g_free(LASTSNR2(bfwin->snr2)->search_pattern);
+		LASTSNR2(bfwin->snr2)->search_pattern = NULL;
+	}
+	if (LASTSNR2(bfwin->snr2)->replace_pattern) {
+		g_free(LASTSNR2(bfwin->snr2)->replace_pattern);
+		LASTSNR2(bfwin->snr2)->replace_pattern = NULL;
+	}
+	LASTSNR2(bfwin->snr2)->search_pattern = g_strdup(search_pattern);
+	bfwin->session->searchlist = add_to_history_stringlist(bfwin->session->searchlist,LASTSNR2(bfwin->snr2)->search_pattern,TRUE,TRUE);
+	history = gtk_combo_box_get_model(GTK_COMBO_BOX(snrwin->search));
+	gtk_list_store_prepend(GTK_LIST_STORE(history), &iter);
+	gtk_list_store_set(GTK_LIST_STORE(history), &iter, 0, LASTSNR2(bfwin->snr2)->search_pattern, -1);
+	LASTSNR2(bfwin->snr2)->unescape = unescape;
+ 	LASTSNR2(bfwin->snr2)->is_case_sens = is_case_sens;
+ 	LASTSNR2(bfwin->snr2)->overlapping_search = overlapping_search;
+	LASTSNR2(bfwin->snr2)->replace = replace;
+	LASTSNR2(bfwin->snr2)->placetype_option = place_type;
+	LASTSNR2(bfwin->snr2)->matchtype_option = match_type;
+	LASTSNR2(bfwin->snr2)->replacetype_option = replace_type;
+	LASTSNR2(bfwin->snr2)->endpos = -1;
+	if (replace_pattern) {
+		LASTSNR2(bfwin->snr2)->replace_pattern = g_strdup(replace_pattern);
+		bfwin->session->replacelist = add_to_history_stringlist(bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,TRUE,TRUE);
+	}
+	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;
+	LASTSNR2(bfwin->snr2)->matches = 0;
+	LASTSNR2(bfwin->snr2)->replaces = 0;
+	LASTSNR2(bfwin->snr2)->doc = NULL;
+}
 
 static gboolean snr_focus_in_lcb(GtkWidget *widget, GdkEventFocus *event, TSNRWin * snrwin)
 {
@@ -1353,7 +1359,7 @@ static void snr_update_count_label(TSNRWin * snrwin) {
 static void snr_combo_changed_reset_options(TSNRWin * snrwin)
 {
 	gint scope;
-	DEBUG_MSG("snr_combo_changed, called\n");
+	DEBUG_MSG("snr_combo_changed, called, resetting search\n");
 	
 	/* on any change we reset the current set of options */
 	LASTSNR2(snrwin->bfwin->snr2)->result.start = -1;
@@ -1469,10 +1475,11 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	
 		/* now check if we started with the current option set already, if so we can continue it, if 
 		not we should setup a new set of options*/
+		
 		if (LASTSNR2(snrwin->bfwin->snr2)->result.start == -1) {
 			DEBUG_MSG("result.start == -1: setup new search\n");
 			/* snrwin->replaceType */
-			setup_new_snr2(snrwin->bfwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
+			setup_new_snr2(snrwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
 					GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
 					GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, scope, matchtype, replacetype, (snrwin->dialogType == BF_REPLACE_DIALOG), replace_pattern);
 			if (LASTSNR2(bfwin->snr2)->placetype_option==beginning) {

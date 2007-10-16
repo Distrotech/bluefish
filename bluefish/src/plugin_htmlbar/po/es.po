@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2007-08-25 23:39+0200\n"
+"POT-Creation-Date: 2007-10-14 19:11+0200\n"
 "PO-Revision-Date: 2004-11-30 01:12-0300\n"
 "Last-Translator: Walter Echarri <wecharri@yahoo.com>\n"
 "Language-Team: español <es@li.org>\n"
@@ -1728,13 +1728,13 @@ msgstr "Marco..."
 # src/html.c:1342 src/toolbars.c:352
 # src/html.c:555 src/html.c:993 src/toolbars.c:356
 #. spacing
-#: src/plugin_htmlbar/htmlbar_gui.c:781 src/plugin_htmlbar/html.c:1586
+#: src/plugin_htmlbar/htmlbar_gui.c:781 src/plugin_htmlbar/html.c:1565
 msgid "Frameset"
 msgstr "Estructura de marcos"
 
 # src/html.c:1396 src/toolbars.c:354
 # src/html.c:1047 src/toolbars.c:358
-#: src/plugin_htmlbar/htmlbar_gui.c:782 src/plugin_htmlbar/html.c:1670
+#: src/plugin_htmlbar/htmlbar_gui.c:782 src/plugin_htmlbar/html.c:1649
 msgid "Frame"
 msgstr "Marco"
 
@@ -2117,7 +2117,7 @@ msgstr "Atributos"
 
 # src/html.c:824
 # src/html.c:766 src/wml.c:250
-#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1914
+#: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1893
 msgid "_HREF:"
 msgstr "_HREF"
 
@@ -2137,7 +2137,7 @@ msgstr "_Objetivo"
 # src/html_form.c:403 src/menu.c:891 src/menu.c:917 src/wml.c:167
 # src/wml.c:207 src/wml.c:323
 #: src/plugin_htmlbar/html.c:613 src/plugin_htmlbar/html.c:833
-#: src/plugin_htmlbar/html.c:1208 src/plugin_htmlbar/html.c:1682
+#: src/plugin_htmlbar/html.c:1198 src/plugin_htmlbar/html.c:1661
 #: src/plugin_htmlbar/html_form.c:231 src/plugin_htmlbar/html_form.c:596
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
 #: src/plugin_htmlbar/image.c:440
@@ -2145,7 +2145,7 @@ msgid "_Name:"
 msgstr "_Nombre"
 
 #: src/plugin_htmlbar/html.c:619 src/plugin_htmlbar/html.c:1066
-#: src/plugin_htmlbar/html.c:1237 src/plugin_htmlbar/html.c:1829
+#: src/plugin_htmlbar/html.c:1216 src/plugin_htmlbar/html.c:1808
 msgid "_Language:"
 msgstr "_Idioma"
 
@@ -2162,8 +2162,8 @@ msgstr "_Idioma"
 # src/images.c:256
 #: src/plugin_htmlbar/html.c:623 src/plugin_htmlbar/html.c:841
 #: src/plugin_htmlbar/html.c:975 src/plugin_htmlbar/html.c:1070
-#: src/plugin_htmlbar/html.c:1245 src/plugin_htmlbar/html.c:1618
-#: src/plugin_htmlbar/html.c:1719 src/plugin_htmlbar/html.c:1848
+#: src/plugin_htmlbar/html.c:1224 src/plugin_htmlbar/html.c:1597
+#: src/plugin_htmlbar/html.c:1698 src/plugin_htmlbar/html.c:1827
 #: src/plugin_htmlbar/html_form.c:187 src/plugin_htmlbar/html_form.c:243
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
@@ -2270,14 +2270,14 @@ msgstr "Regla Horizontal"
 # src/html.c:1279 src/html.c:1955 src/images.c:241
 # src/html.c:813 src/html.c:1239 src/html_table.c:86 src/html_table.c:157
 # src/html_table.c:213 src/html_table.c:294 src/images.c:240
-#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1767
+#: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
 #: src/plugin_htmlbar/image.c:466
 msgid "_Align:"
 msgstr "_Alinear:"
 
 # src/html.c:1212 src/html.c:1293 src/html.c:1939 src/images.c:220
 # src/html.c:1223 src/html_table.c:227 src/html_table.c:308 src/images.c:219
-#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1775
+#: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
 #: src/plugin_htmlbar/html_table.c:387
 msgid "_Height:"
 msgstr "_Alto:"
@@ -2287,7 +2287,7 @@ msgstr "_Alto:"
 # src/html.c:827 src/html.c:1215 src/html_table.c:204 src/html_table.c:285
 # src/images.c:211
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
-#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1771
+#: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
 #: src/plugin_htmlbar/image.c:424
 msgid "_Width:"
@@ -2370,37 +2370,37 @@ msgstr "Color para enlaces _activos:"
 
 # src/html.c:1877
 # src/html.c:1161
-#: src/plugin_htmlbar/html.c:1190
+#: src/plugin_htmlbar/html.c:1191
 msgid "Meta"
 msgstr "Meta"
 
 # src/html.c:1895
 # src/html.c:1179
-#: src/plugin_htmlbar/html.c:1228
+#: src/plugin_htmlbar/html.c:1207
 msgid "_HTTP-EQUIV:"
 msgstr "_HTTP-EQUIV:"
 
 # src/html.c:1901
 # src/html.c:1185
-#: src/plugin_htmlbar/html.c:1233
+#: src/plugin_htmlbar/html.c:1212
 msgid "Con_tent:"
 msgstr "Con_tenido:"
 
 # src/html.c:1905
 # src/html.c:1189
-#: src/plugin_htmlbar/html.c:1241
+#: src/plugin_htmlbar/html.c:1220
 msgid "_Scheme:"
 msgstr "E_squema:"
 
 # src/html.c:942
 # src/html.c:883
-#: src/plugin_htmlbar/html.c:1322
+#: src/plugin_htmlbar/html.c:1301
 msgid "Font"
 msgstr "Tipo de letra"
 
 # src/html.c:998
 # src/html.c:939
-#: src/plugin_htmlbar/html.c:1325
+#: src/plugin_htmlbar/html.c:1304
 msgid "Base Font"
 msgstr "Fuente base"
 
@@ -2408,19 +2408,19 @@ msgstr "Fuente base"
 # src/html.c:1809
 # src/html.c:820 src/html.c:891 src/html.c:947 src/html_form.c:275
 # src/html_form.c:410
-#: src/plugin_htmlbar/html.c:1340
+#: src/plugin_htmlbar/html.c:1319
 msgid "Size"
 msgstr "Tamaño"
 
 # src/html.c:962 src/html.c:1018
 # src/html.c:903 src/html.c:959
-#: src/plugin_htmlbar/html.c:1348
+#: src/plugin_htmlbar/html.c:1327
 msgid "Color"
 msgstr "Color"
 
 # src/html.c:967 src/html.c:1023
 # src/html.c:908 src/html.c:964
-#: src/plugin_htmlbar/html.c:1353
+#: src/plugin_htmlbar/html.c:1332
 msgid "Face"
 msgstr "Cara"
 
@@ -2435,121 +2435,121 @@ msgstr "Cara"
 # src/html_form.c:373 src/html_form.c:419 src/html_table.c:121
 # src/html_table.c:172 src/html_table.c:252 src/html_table.c:333
 # src/images.c:256
-#: src/plugin_htmlbar/html.c:1357
+#: src/plugin_htmlbar/html.c:1336
 msgid "Custom"
 msgstr "Personalizar"
 
 # src/html.c:910
 # src/html.c:851
-#: src/plugin_htmlbar/html.c:1441
+#: src/plugin_htmlbar/html.c:1420
 #, fuzzy
 msgid "E-mail"
 msgstr "Correo electrónico..."
 
-#: src/plugin_htmlbar/html.c:1449
+#: src/plugin_htmlbar/html.c:1428
 msgid "_Mail to:"
 msgstr ""
 
 # src/toolbars.c:159
 # src/toolbars.c:161
-#: src/plugin_htmlbar/html.c:1453
+#: src/plugin_htmlbar/html.c:1432
 #, fuzzy
 msgid "_Copy to:"
 msgstr "Copiar"
 
-#: src/plugin_htmlbar/html.c:1457
+#: src/plugin_htmlbar/html.c:1436
 msgid "Blin_d copy to:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1461
+#: src/plugin_htmlbar/html.c:1440
 msgid "with _Subject:"
 msgstr ""
 
-#: src/plugin_htmlbar/html.c:1465
+#: src/plugin_htmlbar/html.c:1444
 msgid "with _Body:"
 msgstr ""
 
 # src/html.c:1831
 # src/html.c:1115
-#: src/plugin_htmlbar/html.c:1509
+#: src/plugin_htmlbar/html.c:1488
 msgid "Quick List"
 msgstr "Lista rápida"
 
 # src/html.c:1353 src/html.c:1586 src/html.c:1836
 # src/html.c:1004 src/html.c:1120 src/html_form.c:187
-#: src/plugin_htmlbar/html.c:1514 src/plugin_htmlbar/html.c:1596
+#: src/plugin_htmlbar/html.c:1493 src/plugin_htmlbar/html.c:1575
 #: src/plugin_htmlbar/html_form.c:236
 msgid "_Rows:"
 msgstr "_Filas:"
 
 # src/html.c:1845
 # src/html.c:1129
-#: src/plugin_htmlbar/html.c:1517
+#: src/plugin_htmlbar/html.c:1496
 msgid "Or_dered"
 msgstr "Or_denada"
 
 # src/html.c:1847
 # src/html.c:1131
-#: src/plugin_htmlbar/html.c:1518
+#: src/plugin_htmlbar/html.c:1497
 msgid "_Unordered"
 msgstr "_Desordenada"
 
 # src/html.c:1844 src/toolbars.c:440
 # src/html.c:1128 src/toolbars.c:444
-#: src/plugin_htmlbar/html.c:1520
+#: src/plugin_htmlbar/html.c:1499
 msgid "Style:"
 msgstr "Estilo:"
 
 # src/html.c:1348 src/html.c:1593
 # src/html.c:999 src/html_form.c:194
-#: src/plugin_htmlbar/html.c:1592 src/plugin_htmlbar/html_form.c:240
+#: src/plugin_htmlbar/html.c:1571 src/plugin_htmlbar/html_form.c:240
 msgid "Co_ls:"
 msgstr "Co_lumnas:"
 
-#: src/plugin_htmlbar/html.c:1601
+#: src/plugin_htmlbar/html.c:1580
 msgid "_Add <frame> elements"
 msgstr "_Agregar elementos <frame>"
 
 # src/html.c:1402
 # src/html.c:1053
-#: src/plugin_htmlbar/html.c:1678 src/plugin_htmlbar/html.c:1763
-#: src/plugin_htmlbar/html.c:1822
+#: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
+#: src/plugin_htmlbar/html.c:1801
 msgid "_Source:"
 msgstr "F_uente:"
 
 # src/html.c:1428
 # src/html.c:1079
-#: src/plugin_htmlbar/html.c:1686
+#: src/plugin_htmlbar/html.c:1665
 msgid "Margin _Width:"
 msgstr "_Ancho del margen:"
 
 # src/html.c:1435
 # src/html.c:1086
-#: src/plugin_htmlbar/html.c:1690
+#: src/plugin_htmlbar/html.c:1669
 msgid "Margin _Height:"
 msgstr "_Alto del margen:"
 
 # src/html.c:1421
 # src/html.c:1072
-#: src/plugin_htmlbar/html.c:1698
+#: src/plugin_htmlbar/html.c:1677
 msgid "Scrollin_g:"
 msgstr "_Deslizar:"
 
 # src/html.c:1342 src/toolbars.c:352
 # src/html.c:555 src/html.c:993 src/toolbars.c:356
-#: src/plugin_htmlbar/html.c:1702
+#: src/plugin_htmlbar/html.c:1681
 msgid "_Frameborder:"
 msgstr "_Borde del marco:"
 
 # src/html.c:1447
 # src/html.c:1098
-#: src/plugin_htmlbar/html.c:1707
+#: src/plugin_htmlbar/html.c:1686
 msgid "No _Resize:"
 msgstr "_Tamaño fijo:"
 
 # src/html.c:1921
 # src/html.c:1205
-#: src/plugin_htmlbar/html.c:1757
+#: src/plugin_htmlbar/html.c:1736
 msgid "Embed"
 msgstr "Incrustado"
 
@@ -2557,55 +2557,55 @@ msgstr "Incrustado"
 # src/html.c:1947 src/images.c:235
 # src/html.c:1009 src/html.c:1061 src/html.c:1064 src/html.c:1231
 # src/html_table.c:110 src/images.c:234
-#: src/plugin_htmlbar/html.c:1779 src/plugin_htmlbar/html_table.c:140
+#: src/plugin_htmlbar/html.c:1758 src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
 msgstr "Bo_rde:"
 
 # src/toolbars.c:279
 # src/toolbars.c:283
-#: src/plugin_htmlbar/html.c:1815
+#: src/plugin_htmlbar/html.c:1794
 msgid "Script"
 msgstr "Script"
 
 # src/wml.c:315
-#: src/plugin_htmlbar/html.c:1844 src/plugin_htmlbar/html.c:1945
+#: src/plugin_htmlbar/html.c:1823 src/plugin_htmlbar/html.c:1924
 #: src/plugin_htmlbar/html_form.c:789 src/plugin_htmlbar/html_form.c:899
 msgid "_Type:"
 msgstr "_Tipo:"
 
-#: src/plugin_htmlbar/html.c:1903
+#: src/plugin_htmlbar/html.c:1882
 msgid "Link"
 msgstr "Enlace"
 
 # src/html.c:824
 # src/html.c:766 src/wml.c:250
-#: src/plugin_htmlbar/html.c:1920
+#: src/plugin_htmlbar/html.c:1899
 #, fuzzy
 msgid "HREF_LANG:"
 msgstr "_HREF"
 
 # src/html.c:659
 # src/html.c:602 src/wml.c:127 src/wml.c:364
-#: src/plugin_htmlbar/html.c:1924
+#: src/plugin_htmlbar/html.c:1903
 #, fuzzy
 msgid "T_itle:"
 msgstr "_Título:"
 
-#: src/plugin_htmlbar/html.c:1964
+#: src/plugin_htmlbar/html.c:1943
 msgid "_Forward Relation:"
 msgstr "_Forward Relation:"
 
-#: src/plugin_htmlbar/html.c:1968
+#: src/plugin_htmlbar/html.c:1947
 msgid "_Reverse Relation:"
 msgstr "_Reverse Relation:"
 
 # src/html.c:1877
 # src/html.c:1161
-#: src/plugin_htmlbar/html.c:1979
+#: src/plugin_htmlbar/html.c:1958
 msgid "Media:"
 msgstr "Medio:"
 
-#: src/plugin_htmlbar/html.c:1983
+#: src/plugin_htmlbar/html.c:1962
 msgid "L_ang:"
 msgstr "_Idioma:"
 
@@ -2620,7 +2620,7 @@ msgstr "_Idioma:"
 # src/html_form.c:373 src/html_form.c:419 src/html_table.c:121
 # src/html_table.c:172 src/html_table.c:252 src/html_table.c:333
 # src/images.c:256
-#: src/plugin_htmlbar/html.c:1987
+#: src/plugin_htmlbar/html.c:1966
 msgid "_Custom:"
 msgstr "_Personalizar:"
 
