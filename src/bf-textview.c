@@ -156,9 +156,7 @@ typedef struct {
 	GtkTextMark *blockend_s; /* mark at the begin of the end-block-string  */
 	GtkTextMark *blockend_e; /* mark at the end of the end-block-string  */
 } BlockInfo2;
-
-#endif
-
+#else
 typedef struct {
 	guint8 type; /* can be BI_START or BI_END */
 	gboolean folded;
@@ -171,7 +169,7 @@ typedef struct {
 	gboolean single_line;
 	gpointer data;
 } BlockInfo;
-
+#endif
 
 static char folded_xbm[] = {
 	0x02, 0x01
@@ -2230,7 +2228,7 @@ void bf_textview_fold_blocks_area(BfTextView * self, GtkTextIter * start, GtkTex
 		mark = bftv_get_first_block_at_line(self, &it, TRUE);
 		if (mark) {
 #ifdef USE_BI2
-			BlockInfo2 *bi = (BlockInfo *) g_object_get_data(G_OBJECT(mark), "bi2");
+			BlockInfo2 *bi = (BlockInfo2 *) g_object_get_data(G_OBJECT(mark), "bi2");
 			if (bi && bi->blockstart_s == mark) {
 				bi->folded = !fold;
 				bftv_fold(self, mark, FALSE);
