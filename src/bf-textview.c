@@ -22,7 +22,7 @@
  */
 #define USE_BI2
 /*#define DEBUG */
-/*#define HL_PROFILING*/
+/* #define HL_PROFILING */
 /*#define USE_HIGHLIGHT_MINIMAL */
 /*
 Typical scanner in compiler is an automata. To implement automata you
@@ -198,7 +198,7 @@ inline GtkTextMark *bftv_get_block_at_iter(GtkTextIter * it);
 static GtkTextMark *bftv_get_first_block_at_line(BfTextView * view, GtkTextIter * it,
 												 gboolean not_single);
 /*static GtkTextMark *bftv_get_last_block_at_line(BfTextView *view, GtkTextIter * it);*/
-static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, GtkTextIter * arg2);
+static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * arg1, GtkTextIter * arg2, gboolean remove_tags);
 static void bftv_fold(BfTextView * self, GtkTextMark * mark, gboolean move_cursor);
 static void bftv_expand_all(GtkWidget * widget, BfTextView * view);
 static void bftv_collapse_all(GtkWidget * widget, BfTextView * view);
@@ -725,7 +725,7 @@ static void bf_textview_delete_range_cb(GtkTextBuffer * textbuffer, GtkTextIter 
 		return;
 	bftv_clear_matched_block(view);
 	bftv_clear_block_cache(view);
-	bftv_delete_blocks_from_area(view, arg1, arg2);
+	bftv_delete_blocks_from_area(view, arg1, arg2, TRUE);
 	gtk_text_buffer_remove_all_tags(textbuffer, arg1, arg2);
 	p = pomstr = gtk_text_buffer_get_text(textbuffer, arg1, arg2, TRUE);
 	len = 0;
@@ -911,7 +911,7 @@ it is called when preparing an area for scanning (so before the scanning) and it
 it seems to loop over the region between startit and endit, for every character it looks if there is a 
 mark with a non-folded block, and then remove the marks, BlockInfo and tags 
  */
-static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * startit, GtkTextIter * endit)
+static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * startit, GtkTextIter * endit, gboolean remove_tags)
 {
 #ifdef USE_BI2
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(view));
@@ -930,7 +930,8 @@ static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * starti
 				GtkTextIter it1,it2;
 				gtk_text_buffer_get_iter_at_mark(buf, &it1, bi->blockstart_s);
 				gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->blockend_e);
-				gtk_text_buffer_remove_tag(buf,main_v->lang_mgr->internal_tags[IT_BLOCK],&it1, &it2);
+				if (remove_tags) 
+					gtk_text_buffer_remove_tag(buf,main_v->lang_mgr->internal_tags[IT_BLOCK],&it1, &it2);
 				blockinfo_free(buf, bi);
 			}
 		}
@@ -2797,7 +2798,7 @@ It could be that we have to remove tags more specifically, and leave some of the
 in the buffer. But removing all tags in one go is so much more faster that 
 I'm going to see if we can keep it like that */
 	if (apply_hl) {
-		bftv_delete_blocks_from_area(self, start, end);
+		bftv_delete_blocks_from_area(self, start, end, FALSE);
 #ifdef HL_PROFILING
 	times(&tms1c);
 #endif
