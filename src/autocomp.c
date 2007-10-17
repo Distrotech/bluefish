@@ -383,7 +383,7 @@ static void ac_scan_xml_hash(void *payload, void *data, xmlChar *name)
 	Tdtd_list *d = (Tdtd_list*)data;
 	xmlElementPtr el = (xmlElementPtr)payload;
 	xmlAttributePtr attr = el->attributes, ptr=NULL;
-	gchar *nn = g_strdup(name);
+	gchar *nn = g_strdup((gchar *)name);
 	GList *alist = NULL;
 
 	ptr = attr;
@@ -425,7 +425,7 @@ gchar *ac_add_dtd_list(Tautocomp *ac, gchar *chunk,gboolean internal,Tdtd_list *
 
 	if ( ctxt->hasExternalSubset)
 	{
-		name = g_strdup(ctxt->extSubURI);
+		name = g_strdup((gchar *)ctxt->extSubURI);
 		if (  g_hash_table_lookup(ac->dtd_lists,name)==NULL )
 		{
 			if (ctxt->hasExternalSubset)
@@ -467,11 +467,11 @@ static void ac_xmlschema_walk(xmlNodePtr node, Tdtd_list *data)
 {
 	if (xmlStrcmp(node->name, (const xmlChar *) "element") == 0)
 	{
-		gchar *nn = g_strdup(xmlGetProp(node, (const xmlChar *) "name"));
-		guchar *type = NULL;
+		gchar *nn = g_strdup((gchar *)xmlGetProp(node, (const xmlChar *) "name"));
+		gchar *type = NULL;
 		gchar **arr = NULL;
 		data->elements = g_list_append(data->elements,nn);
-		type = xmlGetProp(node, (const xmlChar *) "type");
+		type = (gchar *)xmlGetProp(node, (const xmlChar *) "type");
 		arr = g_strsplit(type,":",-1);
 		xmlFree(type);
 		if ( arr[1] )
@@ -482,14 +482,14 @@ static void ac_xmlschema_walk(xmlNodePtr node, Tdtd_list *data)
 	}
 	else if (xmlStrcmp(node->name, (const xmlChar *) "attribute") == 0)
 	{
-		guchar *pname = xmlGetProp(node->parent, (const xmlChar *) "name");
-		guchar *use = xmlGetProp(node, (const xmlChar *) "use");
-		guchar *aname = NULL;
+		gchar *pname = (gchar *)xmlGetProp(node->parent, (const xmlChar *) "name");
+		gchar *use = (gchar *)xmlGetProp(node, (const xmlChar *) "use");
+		gchar *aname = NULL;
 		GList *lst = NULL;
 		if (xmlStrcmp(node->parent->name, (const xmlChar *) "complexType") == 0)
 		{
 			lst = g_hash_table_lookup(data->type_attrs,pname);
-			aname = xmlGetProp(node, (const xmlChar *) "name");
+			aname = (gchar *)xmlGetProp(node, (const xmlChar *) "name");
 			if (use && xmlStrcmp(use, (const xmlChar *) "required") == 0)
 				lst = g_list_append(lst,g_strdup_printf("%s$r",aname));
 			else
