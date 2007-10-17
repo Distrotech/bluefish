@@ -882,18 +882,21 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			f2d->doc->action.goto_offset = -1;
 			f2d->doc->action.load = NULL;
 			file2doc_cleanup(data);
+			{
+				gchar *utf8uri, *tmp;
+				utf8uri = full_path_utf8_from_uri(f2d->uri);
+				if (BFWIN(f2d->bfwin)->num_docs_not_completed > 0) {
+					tmp = g_strdup_printf(_("Still loading %d files, finished %s"), BFWIN(f2d->bfwin)->num_docs_not_completed, utf8uri);
+				} else {
+					tmp = g_strdup_printf(_("All files loaded, finished %s"), utf8uri);
+				}
+				statusbar_message(f2d->doc->bfwin,tmp, 3000);
+				g_free(tmp);
+				g_free(utf8uri);
+			}
 		break;
 		case OPENFILE_CHANNEL_OPENED:
 			/* do nothing */
-		{
-			gchar *utf8uri, *tmp;
-			utf8uri = full_path_utf8_from_uri(f2d->uri);
-			tmp = g_strdup_printf("Loading %s", utf8uri);
-			statusbar_message(f2d->doc->bfwin,tmp, 1000);
-			g_free(tmp);
-			g_free(utf8uri);
-		}
-
 		break;
    	case OPENFILE_ERROR_CANCELLED:
 		/* lets close the document */
