@@ -129,7 +129,7 @@ static Tacwin *ac_create_window(const gchar *prefix) {
 	gtk_tree_view_append_column(GTK_TREE_VIEW(acw->tree), column);
 	gtk_tree_view_set_enable_search(GTK_TREE_VIEW(acw->tree),TRUE);
 	gtk_tree_view_set_search_column(GTK_TREE_VIEW(acw->tree),1);
-	gtk_tree_view_set_search_equal_func(GTK_TREE_VIEW(acw->tree),ac_tree_search,prefix,NULL);
+	gtk_tree_view_set_search_equal_func(GTK_TREE_VIEW(acw->tree),ac_tree_search,(gpointer)prefix,NULL);
 	acw->win = gtk_dialog_new();
 	gtk_widget_set_app_paintable (acw->win, TRUE);
 	gtk_window_set_resizable (GTK_WINDOW(acw->win), FALSE);
@@ -178,7 +178,7 @@ Tautocomp *ac_init()
  Returns: only string which has been inserted into document
  PERFORMS INSERTION! 
 */
-static void ac_run(Tautocomp *ac, GList *strings, gchar *prefix_in, GtkTextView *view, gboolean empty_allowed,gchar *append) 
+static gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix_in, GtkTextView *view, gboolean empty_allowed,gchar *append) 
 {
 	GtkTextIter it,it3;
 	GdkScreen *screen;
@@ -222,7 +222,7 @@ static void ac_run(Tautocomp *ac, GList *strings, gchar *prefix_in, GtkTextView 
 				if (items && items->next==NULL) {  /* this is short for: items has 1 entry */
 					/* one entry means that all possible text is already inserted by 'newprefix' , so just cleanup and return */
 					g_completion_free(gc);
-					return;
+					return NULL;
 				}
 				prefix = newprefix;
 				prefixlen = newprefixlen;
@@ -482,9 +482,9 @@ static void ac_xmlschema_walk(xmlNodePtr node, Tdtd_list *data)
 	}
 	else if (xmlStrcmp(node->name, (const xmlChar *) "attribute") == 0)
 	{
-		gchar *pname = xmlGetProp(node->parent, (const xmlChar *) "name");
+		guchar *pname = xmlGetProp(node->parent, (const xmlChar *) "name");
 		guchar *use = xmlGetProp(node, (const xmlChar *) "use");
-		gchar *aname = NULL;
+		guchar *aname = NULL;
 		GList *lst = NULL;
 		if (xmlStrcmp(node->parent->name, (const xmlChar *) "complexType") == 0)
 		{
