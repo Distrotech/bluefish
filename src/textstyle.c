@@ -43,7 +43,7 @@ void textstyle_build_lookup_table(void) {
 	DEBUG_MSG("textstyle_build_lookup_table, build the hashtable\n");
 	textstyle.lookup_table = g_hash_table_new(arr3_hash,arr3_equal);
 	for (tmplist = g_list_first(main_v->props.syntax_styles);tmplist;tmplist=g_list_next(tmplist)) {
-		const gchar **tmp = tmplist->data;
+		gchar **tmp = tmplist->data;
 		if (count_array(tmp)>3) {
 			g_hash_table_insert(textstyle.lookup_table,tmp,tmp[3]);
 		}
