@@ -274,7 +274,7 @@ static void image_loaded_lcb(Topenfile_status status,gint error_info,gchar *buff
 		break;
 		case OPENFILE_FINISHED: {
 			GError *error=NULL;
-			if (gdk_pixbuf_loader_write(imdg->pbloader,(guchar *) buffer,buflen,&error) 
+			if (gdk_pixbuf_loader_write(imdg->pbloader,(gchar *) buffer,buflen,&error) 
 						&& gdk_pixbuf_loader_close(imdg->pbloader,&error)) {
 				imdg->pb = gdk_pixbuf_loader_get_pixbuf(imdg->pbloader);
 				if (imdg->pb) {
@@ -682,7 +682,7 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
 			DEBUG_MSG("mt_openfile_lcb, finished loading image %s\n",gnome_vfs_uri_get_path(i2t->imagename));
 			nextload = mt_start_next_load(i2t); /* fire up the next image load */
 			pbloader = pbloader_from_filename(gnome_vfs_uri_get_path(i2t->imagename));
-			if (gdk_pixbuf_loader_write(pbloader,(guchar *) buffer,buflen,&error) 
+			if (gdk_pixbuf_loader_write(pbloader,(gchar *) buffer,buflen,&error) 
 						&& gdk_pixbuf_loader_close(pbloader,&error)) {
 				gint tw,th,ow,oh;
 				GdkPixbuf *image;

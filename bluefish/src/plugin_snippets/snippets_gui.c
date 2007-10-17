@@ -450,7 +450,7 @@ static void snippetview_drag_data_get_lcb(GtkWidget *widget, GdkDragContext *ctx
 		if (!gtk_tree_selection_get_selected(selection, &model, &iter)) return;		
 		path = gtk_tree_model_get_path(GTK_TREE_MODEL(snippets_v.store),&iter);
 		strpath = gtk_tree_path_to_string(path);
-		gtk_selection_data_set(data, data->target,8, (guchar *)strpath, strlen(strpath));
+		gtk_selection_data_set(data, data->target,8, (gchar *)strpath, strlen(strpath));
 		DEBUG_MSG("snippetview_drag_data_get_lcb, set path %p (%s)\n",strpath,strpath);
 		gtk_tree_path_free(path);
 	}

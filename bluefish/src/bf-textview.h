@@ -69,8 +69,8 @@ enum {
 };
 
 typedef struct {
-	guchar *name, *begin, *end;
-	guchar *group;
+	gchar *name, *begin, *end;
+	gchar *group;
 	gboolean regexp, scanned, foldable,cs,markup;
 	guint8 type;
 	GtkTextTag *tag;
@@ -101,9 +101,9 @@ enum {
 }; 
 
 typedef struct {
-	guchar *text;
-	guchar *name;
-	guchar *group;
+	gchar *text;
+	gchar *name;
+	gchar *group;
 	BfLangBlock *context;
 	gboolean regexp;
 	guint8 type;
@@ -119,7 +119,7 @@ typedef struct {
 
 
 typedef struct {
-	guchar *name, *description;
+	gchar *name, *description;
 	gboolean case_sensitive;
 	gboolean scan_tags;
 	gboolean scan_blocks;
@@ -306,8 +306,8 @@ void bf_textview_recolor(BfTextView *view, gchar *fg_color, gchar *bg_color );
 for a certain language config. They are used in the preferences panel to build
 the GUI to set textstyles */
 GList *bf_lang_get_groups(BfLangConfig * cfg);
-GList *bf_lang_get_blocks_for_group(BfLangConfig * cfg, guchar * group);
-GList *bf_lang_get_tokens_for_group(BfLangConfig * cfg, guchar * group);
+GList *bf_lang_get_blocks_for_group(BfLangConfig * cfg, gchar * group);
+GList *bf_lang_get_tokens_for_group(BfLangConfig * cfg, gchar * group);
 gboolean bf_lang_needs_tags(BfLangConfig * cfg);
 void bf_lang_mgr_retag(void);
 
