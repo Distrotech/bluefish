@@ -490,7 +490,7 @@ static void ac_xmlschema_walk(xmlNodePtr node, Tdtd_list *data)
 		{
 			lst = g_hash_table_lookup(data->type_attrs,pname);
 			aname = (gchar *)xmlGetProp(node, (const xmlChar *) "name");
-			if (use && xmlStrcmp(use, (const xmlChar *) "required") == 0)
+			if (use && strcmp(use, "required") == 0)
 				lst = g_list_append(lst,g_strdup_printf("%s$r",aname));
 			else
 				lst = g_list_append(lst,g_strdup(aname));
