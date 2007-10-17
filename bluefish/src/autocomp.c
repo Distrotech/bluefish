@@ -95,7 +95,7 @@ typedef struct {
 } Tacwin;
 
 /* Creates ac window */
-static Tacwin *ac_create_window(const gchar *prefix) {
+static Tacwin *ac_create_window(const gpointer prefix) {
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	GtkWidget *scroll, *vbar;
@@ -129,7 +129,7 @@ static Tacwin *ac_create_window(const gchar *prefix) {
 	gtk_tree_view_append_column(GTK_TREE_VIEW(acw->tree), column);
 	gtk_tree_view_set_enable_search(GTK_TREE_VIEW(acw->tree),TRUE);
 	gtk_tree_view_set_search_column(GTK_TREE_VIEW(acw->tree),1);
-	gtk_tree_view_set_search_equal_func(GTK_TREE_VIEW(acw->tree),ac_tree_search,(gpointer)prefix,NULL);
+	gtk_tree_view_set_search_equal_func(GTK_TREE_VIEW(acw->tree),ac_tree_search,prefix,NULL);
 	acw->win = gtk_dialog_new();
 	gtk_widget_set_app_paintable (acw->win, TRUE);
 	gtk_window_set_resizable (GTK_WINDOW(acw->win), FALSE);
