@@ -449,7 +449,7 @@ static void filefiltergui_addpattern_clicked_lcb(GtkWidget *widget, Tfilefilterg
 	Tpattern *pat;
 	GtkTreeIter it;
 	pat = g_new(Tpattern,1);
-	pat->pattern = g_strdup(gtk_entry_get_text(ffg->patentry));
+	pat->pattern = g_strdup(gtk_entry_get_text(GTK_ENTRY(ffg->patentry)));
 	pat->patspec = g_pattern_spec_new(pat->pattern);
 	ffg->curfilter->patterns = g_list_append(ffg->curfilter->patterns, pat);
 	gtk_list_store_prepend(ffg->lstore,&it);
