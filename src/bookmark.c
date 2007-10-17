@@ -834,7 +834,8 @@ static void bmark_last_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 /* Initialize bookmarks gui for window */
 GtkWidget *bmark_gui(Tbfwin * bfwin)
 {
-	GtkWidget *vbox, *hbox, *scroll, *but;
+	GtkWidget *vbox, *hbox, *scroll;
+	GtkToolItem *but;
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	DEBUG_MSG("bmark_gui, building gui for bfwin=%p\n",bfwin);
