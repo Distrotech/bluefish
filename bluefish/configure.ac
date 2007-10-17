@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.152 2007-10-15 16:06:51 oli4 Exp $
+dnl $Id: configure.ac,v 1.153 2007-10-17 01:20:49 dleidert Exp $
 dnl
 dnl Copyright (C) 2002-2007 Olivier Sessink
 dnl Copyright (C) 2006-2007 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.152 $)
+AC_REVISION($Revision: 1.153 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -524,7 +524,7 @@ if test "$prefix" == "NONE"; then
 fi
 
 if test "$exec_prefix" == "NONE"; then
-	exec_prefix="${ac_default_prefix}"
+	exec_prefix="${prefix}"
 	AC_SUBST([exec_prefix])
 fi
 
