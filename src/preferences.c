@@ -1172,7 +1172,7 @@ static void fill_hl_tree(Tprefdialog *pd) {
 	
 	/* first fill the hashtable */
 	for (tmplist=g_list_first(pd->lists[syntax_styles]);tmplist;tmplist=g_list_next(tmplist)) {
-		const gchar **tmp = tmplist->data;
+		gchar **tmp = tmplist->data;
 		if (count_array(tmp)>3) {
 			g_hash_table_insert(hasht,tmp,tmp);
 		}
