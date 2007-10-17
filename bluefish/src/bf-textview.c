@@ -1260,29 +1260,29 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 		gunichar *input = ptr2;
 		gshort i;
 		while (*input != '\0') {/* main loop, loops for every character of every token in the language file !!!! */
-			BfState *st = (BfState *) current_state->tv[(gchar) *input];
+			BfState *st = (BfState *) current_state->tv[(gint8) *input];
 			if (st != NULL) {
 				if (st->type == ST_TRANSIT) {
-					current_state = current_state->tv[(gchar) *input];
+					current_state = current_state->tv[(gint8) *input];
 				} else {
 					gshort m;
 					gboolean found = FALSE;
 					for (m = 0; m < BFTV_SCAN_RANGE; m++) { /* this loop runs 127 times for every character for every block or token... 
 									but what does this loop exactly do ?? */
-						if (m != (gchar) *input && st->tv[m] == st->tv[(gchar) *input])
+						if (m != (gchar) *input && st->tv[m] == st->tv[(gint8) *input])
 							found = TRUE;
 							break;
 					}
-					current_state->tv[(gchar) *input] = g_slice_new0(BfState);
-					current_state = current_state->tv[(gchar) *input];
+					current_state->tv[(gint8) *input] = g_slice_new0(BfState);
+					current_state = current_state->tv[(gint8) *input];
 					current_state->type = ST_TRANSIT;
 					cfg->num_states++;
 					if (!found)
 						g_slice_free(BfState, st);
 				}
 			} else { /* st == NULL */
-				current_state->tv[(gchar) *input] = g_slice_new0(BfState);
-				current_state = current_state->tv[(gchar) *input];
+				current_state->tv[(gint8) *input] = g_slice_new0(BfState);
+				current_state = current_state->tv[(gint8) *input];
 				current_state->type = ST_TRANSIT;
 				cfg->num_states++;
 			}
@@ -1347,7 +1347,7 @@ static void bftv_scantable_insert(BfState * scantable, guint8 type, gpointer dat
 				}
 			} /* *inp == '[' */
 			else {
-				charset[(gchar) *input] = TRUE;
+				charset[(gint8) *input] = TRUE;
 			}
 			/* CREATE STATES */
 			g_list_free(states);
@@ -2343,7 +2343,7 @@ typedef struct {
 	GtkTextIter *start;
 	GtkTextIter *end;
 } Trts;
-
+/*
 static void bftv_remove_t_tag(gpointer key, gpointer value, gpointer data)
 {
 	BfLangToken *t = (BfLangToken *) value;
@@ -2358,7 +2358,7 @@ static void bftv_remove_b_tag(gpointer key, gpointer value, gpointer data)
 	Trts *s = (Trts *) data;
 	if (b->tag)
 		gtk_text_buffer_remove_tag(s->buffer, b->tag, s->start, s->end);
-}
+}*/
 
 static gboolean bftv_remove_cache_item(gpointer key, gpointer value, gpointer data)
 {
@@ -2484,12 +2484,9 @@ static void bf_textview_scan_state_type_st_token(BfTextView * self, GtkTextBuffe
 					bf = NULL;
 				}
 				if (bf) {
-					GtkTextMark *mark, *mark2, *mark3, *mark4;
+					GtkTextMark *mark3;
 					gboolean do_mark = TRUE;
 					
-					/* next line is not needed I think */
-					mark = mark2 = NULL;
-
 					mark3 = bftv_get_block_at_iter(&bf->b_start);
 
 					if (mark3) {
@@ -2705,12 +2702,9 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 			/* not breaking here - I want next code */
 		default:
 			{
-				GtkTextMark *mark, *mark2, *mark3, *mark4;
+				GtkTextMark *mark3;
 				gboolean do_mark = TRUE;
 				
-				/* are the next lines needed? */
-				mark = mark2 = NULL;
-
 				mark3 = bftv_get_block_at_iter(&bf->b_start);
 				if (mark3) {
 #ifdef USE_BI2
@@ -2756,7 +2750,6 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	GtkTextIter its, ita;
 	gboolean recognizing = FALSE;
 	BfState *current_state;
-	Trts rts;
 
 	DEBUG_MSG("bf_textview_scan_area, started from %d to %d\n",gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
 	g_return_if_fail(self != NULL);
@@ -2873,9 +2866,9 @@ I'm going to see if we can keep it like that */
 					current_state = &self->lang->scan_table;
 			}
 			if (self->lang->case_sensitive)
-				current_state = current_state->tv[(gint) c];
+				current_state = current_state->tv[(gint8) c];
 			else
-				current_state = current_state->tv[(gint) toupper(c)];
+				current_state = current_state->tv[(gint8) toupper(c)];
 	
 			if (current_state) {
 				recognizing = TRUE;
