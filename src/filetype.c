@@ -26,8 +26,12 @@
 
 #include "config.h"
 
+#ifndef NO_LIBGNOMEUI
 #include <libgnomeui/libgnomeui.h>
+#endif /* NO_LIBGNOMEUI */
+
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
+
 #include <string.h>
 #include "textstyle.h"
 #include "filetype.h"
@@ -60,7 +64,13 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	if (!icon_theme)
 		icon_theme = gtk_icon_theme_get_default();
 		/*icon_theme = gtk_icon_theme_get_for_screen(widget));*/	
-	
+
+#ifdef NO_LIBGNOMEUI
+	/* TODO: suggestion from Daniel: 
+	("gnome-mime-$(primarytype)-$(subtype).{png,svgz}") and then check if it
+	exists (gtk_icon_theme_has_icon) and then load it or fall back to our
+	defaults */
+#else	
 	icon_name = gnome_icon_lookup (icon_theme, NULL, NULL, NULL, NULL,
 				mime_type, 0, NULL);
 	if (!icon_name) {
@@ -83,6 +93,7 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	} else {
 		return NULL; /* perhaps we shopuld return some default icon ? */
 	}
+#endif
 	return pixbuf;
 }
 
