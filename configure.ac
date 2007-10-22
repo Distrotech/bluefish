@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.153 2007-10-17 01:20:49 dleidert Exp $
+dnl $Id: configure.ac,v 1.154 2007-10-22 01:46:23 dleidert Exp $
 dnl
 dnl Copyright (C) 2002-2007 Olivier Sessink
 dnl Copyright (C) 2006-2007 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.153 $)
+AC_REVISION($Revision: 1.154 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -194,6 +194,25 @@ AC_ARG_ENABLE(
 dnl if splash-screen is disabled, we don't need to install the icon
 AM_CONDITIONAL([INSTALL_SPLASH], [test "x$enable_splash_screen" != "xno"])
 
+dnl it has been requested to be able to build bluefish without libGNOMEUI
+AC_ARG_ENABLE(
+        [libgnomeui],
+	AC_HELP_STRING(
+		[--disable-libgnomeui],
+		[
+		 enable (or disable) the running of xmlcatalog after installation -
+		 some distributions like Debian use their own system for registering
+		 catalogs, so be careful here and also check the `--with-xml-catalog'
+		 option @<:@default=yes@:>@
+		]
+	),
+	[
+	 if test "x$enableval" = "xno"; then
+		AC_DEFINE([NO_LIBGNOMEUI], [1], [Define to 1 if you want to disable libgnomeui calls.])
+	 fi
+	],
+	[enable_libgnomeui=yes]
+)
 
 dnl To create our catalog and maybe update the systems XML catalog, we need xmlcatalog.
 dnl But because several systems like Debian or Mac use their own system, so let the user
@@ -344,7 +363,21 @@ dnl   Libraries
 dnl ************************
 
 PKG_PROG_PKG_CONFIG
-BFVAR_required="gtk+-2.0 >= 2.6 gmodule-2.0 >= 2.6 gobject-2.0 glib-2.0 pango gdk-pixbuf-2.0 gdk-2.0 gnome-vfs-2.0 >= 2.10 libxml-2.0 libgnomeui-2.0 >= 2.6"
+
+BFVAR_required="gtk+-2.0 >= 2.6 \
+gmodule-2.0 >= 2.6 \
+gobject-2.0 \
+glib-2.0 \
+pango \
+gdk-pixbuf-2.0 \
+gdk-2.0 \
+gnome-vfs-2.0 >= 2.10 \
+libxml-2.0"
+
+dnl it has been requested to be able to build bluefish without libGNOMEUI
+if test "x$enable_libgnomeui" = "xyes" ; then
+	BFVAR_required="$BFVAR_required libgnomeui-2.0 >= 2.6"
+fi
 PKG_CHECK_MODULES([BFVAR], [$BFVAR_required])
 
 if ( $PKG_CONFIG gnome-vfs-2.0 --atleast-version=2.14 ) ; then
