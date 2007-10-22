@@ -27,8 +27,15 @@
 
 #include "bluefish.h"
 #include <libxml/parser.h>
-#include <libgnomeui/libgnomeui.h>
 #include <libgnomevfs/gnome-vfs.h>
+
+#ifndef NO_LIBGNOMEUI
+#include <libgnomeui/libgnomeui.h>
+#endif
+
+#ifndef GNOME_PARAM_GOPTION_CONTEXT
+#include <popt.h>
+#endif
 
 #ifdef ENABLE_NLS
 #include <locale.h>
@@ -89,7 +96,10 @@ int main(int argc, char *argv[])
 	gint filearray, i;
 	GList *filenames = NULL, *projectfiles=NULL;
 	Tbfwin *firstbfwin;
+
+#ifndef NO_LIBGNOMEUI
 	GnomeProgram *bfprogram;
+#endif
 
 #ifndef NOSPLASH
 	GtkWidget *splash_window = NULL;
@@ -132,7 +142,14 @@ int main(int argc, char *argv[])
 	g_option_context_add_main_entries (context, options, NULL);
 #endif /* ENABLE_NLS */
 #endif /* #ifdef GNOME_PARAM_GOPTION_CONTEXT */
+#ifdef NO_LIBGNOMEUI
+#ifdef GNOME_PARAM_GOPTION_CONTEXT
+	gtk_init_with_args(&argc, &argv, "", context, PACKAGE, NULL);
+#else
+	gtk_init_with_args(&argc, &argv, "", pcontext, PACKAGE, NULL);
+#endif
 
+#else
 	bfprogram = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE, 
 	                                argc, argv,
 #ifdef GNOME_PARAM_GOPTION_CONTEXT
@@ -141,9 +158,13 @@ int main(int argc, char *argv[])
 	                                GNOME_PARAM_POPT_TABLE, options,
 #endif /* #ifdef GNOME_PARAM_GOPTION_CONTEXT */
 	                                NULL);
+#endif /* NO_LIBGNOMEUI */
 	xmlInitParser();
 	gnome_vfs_init();
+#ifndef NO_LIBGNOMEUI
+	/* will be crippled without libgnomeui*/
 	gnome_authentication_manager_init();
+#endif
 
 	set_default_icon();
 	main_v = g_new0(Tmain, 1);
@@ -187,12 +208,12 @@ int main(int argc, char *argv[])
 		projectfiles = g_list_append(projectfiles, tmpname);
 		DEBUG_MSG("main, project=%s, tmpname=%s\n", project, tmpname);
 	}
-	
+#ifndef NO_LIBGNOMEUI	
 #ifndef GNOME_PARAM_GOPTION_CONTEXT
 	g_object_get(G_OBJECT(bfprogram), GNOME_PARAM_POPT_CONTEXT, &pcontext, NULL);
 	files = (char**) poptGetArgs(pcontext);
 #endif /* #ifndef GNOME_PARAM_GOPTION_CONTEXT */
-
+#endif /* NO_LIBGNOMEUI */
 	if (files != NULL) {
 		filearray = g_strv_length(files);
 		for (i = 0; i < filearray; ++i) {
@@ -307,8 +328,9 @@ int main(int argc, char *argv[])
 	DEBUG_MSG("calling fb2config_cleanup()\n");
 	fb2config_cleanup();
 	DEBUG_MSG("Bluefish: exiting cleanly\n");
+#ifndef NO_LIBGNOMEUI
 	g_object_unref (bfprogram);
-
+#endif
 	return 0;
 }
 
