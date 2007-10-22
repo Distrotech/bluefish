@@ -26,9 +26,9 @@
 
 #include "config.h"
 
-#ifndef NO_LIBGNOMEUI
+#ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
 #include <libgnomeui/libgnomeui.h>
-#endif /* NO_LIBGNOMEUI */
+#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 
 #include <libgnomevfs/gnome-vfs-mime-handlers.h>
 
@@ -65,12 +65,7 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 		icon_theme = gtk_icon_theme_get_default();
 		/*icon_theme = gtk_icon_theme_get_for_screen(widget));*/	
 
-#ifdef NO_LIBGNOMEUI
-	/* TODO: suggestion from Daniel: 
-	("gnome-mime-$(primarytype)-$(subtype).{png,svgz}") and then check if it
-	exists (gtk_icon_theme_has_icon) and then load it or fall back to our
-	defaults */
-#else	
+#ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
 	icon_name = gnome_icon_lookup (icon_theme, NULL, NULL, NULL, NULL,
 				mime_type, 0, NULL);
 	if (!icon_name) {
@@ -93,7 +88,12 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	} else {
 		return NULL; /* perhaps we shopuld return some default icon ? */
 	}
-#endif
+#else /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
+	/* TODO: suggestion from Daniel:
+	   ("gnome-mime-$(primarytype)-$(subtype).{png,svgz}") and then check if it
+	   exists (gtk_icon_theme_has_icon) and then load it or fall back to our
+	   defaults */
+#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 	return pixbuf;
 }
 

@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.154 2007-10-22 01:46:23 dleidert Exp $
+dnl $Id: configure.ac,v 1.155 2007-10-22 23:24:18 dleidert Exp $
 dnl
 dnl Copyright (C) 2002-2007 Olivier Sessink
 dnl Copyright (C) 2006-2007 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.154 $)
+AC_REVISION($Revision: 1.155 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -205,13 +205,7 @@ AC_ARG_ENABLE(
 		 catalogs, so be careful here and also check the `--with-xml-catalog'
 		 option @<:@default=yes@:>@
 		]
-	),
-	[
-	 if test "x$enableval" = "xno"; then
-		AC_DEFINE([NO_LIBGNOMEUI], [1], [Define to 1 if you want to disable libgnomeui calls.])
-	 fi
-	],
-	[enable_libgnomeui=yes]
+	)
 )
 
 dnl To create our catalog and maybe update the systems XML catalog, we need xmlcatalog.
@@ -364,7 +358,7 @@ dnl ************************
 
 PKG_PROG_PKG_CONFIG
 
-BFVAR_required="gtk+-2.0 >= 2.6 \
+BFREQ_required="gtk+-2.0 >= 2.6 \
 gmodule-2.0 >= 2.6 \
 gobject-2.0 \
 glib-2.0 \
@@ -374,14 +368,28 @@ gdk-2.0 \
 gnome-vfs-2.0 >= 2.10 \
 libxml-2.0"
 
-dnl it has been requested to be able to build bluefish without libGNOMEUI
-if test "x$enable_libgnomeui" = "xyes" ; then
-	BFVAR_required="$BFVAR_required libgnomeui-2.0 >= 2.6"
-fi
-PKG_CHECK_MODULES([BFVAR], [$BFVAR_required])
+PKG_CHECK_MODULES([BFREQ], [$BFREQ_required])
 
 if ( $PKG_CONFIG gnome-vfs-2.0 --atleast-version=2.14 ) ; then
 	AC_DEFINE([HAVE_ATLEAST_GNOMEVFS_2_14], [1], [Define to 1 if you have Gnome-VFS-2.0 >= 2.14.])
+fi
+
+
+
+dnl it has been requested to be able to build bluefish without libGNOMEUI
+if test "x$enable_libgnomeui" != "xno" ; then
+	BFOPT_optional="libgnomeui-2.0 >= 2.6"
+	PKG_CHECK_MODULES([BFOPT], [$BFOPT_optional],, [enable_libgnomeui=no])
+fi
+
+if test "x$enable_libgnomeui" != "xno" ; then
+	CPPFLAGS_backup="$CPPFLAGS"
+	CPPFLAGS="$BFOPT_CFLAGS"
+	AC_CHECK_HEADERS([libgnomeui/libgnomeui.h])
+	CPPFLAGS="$CPPFLAGS_backup"
+else
+	AC_MSG_WARN([Your version of bluefish will be crippled without libgnomeui.])
+	AC_MSG_WARN([The program will miss authetntication dialogs, icon support and more.])
 fi
 
 
@@ -543,8 +551,8 @@ dnl ************************
 dnl   Final Cflags/Libs
 dnl ************************
 
-CFLAGS="$BFVAR_CFLAGS $CFLAGS"
-LIBS="$BFVAR_LIBS $LIBS"
+CFLAGS="$CFLAGS $BFREQ_CFLAGS $BFOPT_CFLAGS"
+LIBS="$LIBS $BFREQ_LIBS $BFOPT_LIBS"
 
 
 dnl ************************
