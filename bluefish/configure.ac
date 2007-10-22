@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.155 2007-10-22 23:24:18 dleidert Exp $
+dnl $Id: configure.ac,v 1.156 2007-10-22 23:28:52 dleidert Exp $
 dnl
 dnl Copyright (C) 2002-2007 Olivier Sessink
 dnl Copyright (C) 2006-2007 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.155 $)
+AC_REVISION($Revision: 1.156 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -389,7 +389,7 @@ if test "x$enable_libgnomeui" != "xno" ; then
 	CPPFLAGS="$CPPFLAGS_backup"
 else
 	AC_MSG_WARN([Your version of bluefish will be crippled without libgnomeui.])
-	AC_MSG_WARN([The program will miss authetntication dialogs, icon support and more.])
+	AC_MSG_WARN([The program will miss authentication dialogs, icon support and more.])
 fi
 
 
