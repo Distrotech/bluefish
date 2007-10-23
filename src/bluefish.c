@@ -158,10 +158,12 @@ int main(int argc, char *argv[])
 	g_option_context_set_ignore_unknown_options (context, TRUE);
 	g_option_context_add_group (context, gtk_get_option_group (TRUE));
 	if (!g_option_context_parse (context, &argc, &argv, &error)) {
-		g_error(N_("Error %d. Message: %s\nPlease run: %s -?\n"),
+		g_error(N_("Error code %d parsing command line options. %s\nPlease run: %s -?\n"),
 		        error->code, error->message, argv[0]);
-		g_error_free (error);
 	}
+
+	g_option_context_free (context);
+	if (error) g_error_free (error);
 #endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 
 	xmlInitParser();
