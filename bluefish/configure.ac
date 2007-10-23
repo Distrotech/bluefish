@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.157 2007-10-23 01:28:15 dleidert Exp $
+dnl $Id: configure.ac,v 1.158 2007-10-23 04:36:33 dleidert Exp $
 dnl
 dnl Copyright (C) 2002-2007 Olivier Sessink
 dnl Copyright (C) 2006-2007 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.157 $)
+AC_REVISION($Revision: 1.158 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -399,55 +399,23 @@ else
 	CFLAGS="$CFLAGS `$PCRE_CONFIG --cflags`"
 fi
 
-AC_CHECK_LIB(
-	[posix4],
-	[nanosleep], 
-	[LIBS="$LIBS -lposix4" AC_DEFINE([HAVE_NANOSLEEP], [1], [Define to 1 if you have nanosleep.])],
-	[AC_CHECK_LIB(
-		[rt],
-		[nanosleep],
-		[LIBS="$LIBS -lrt" AC_DEFINE([HAVE_NANOSLEEP], [1], [Define to 1 if you have nanosleep.])]
-	)]
-)
+AC_SEARCH_LIBS([nanosleep], [posix4 rt])
 
-AC_CHECK_HEADER(
-	[aspell.h], 
-	[AC_CHECK_LIB(
-		[aspell],
+AC_CHECK_HEADERS(
+	[aspell.h],
+	AC_SEARCH_LIBS(
 		[new_aspell_config],
-		[
-		 LIBS="$LIBS -laspell"
-		 AC_DEFINE([HAVE_LIBASPELL], [1], [Define to 1 if you have libaspell installed.])
-		],
-		[
-		 OLDLIBS="$LIBS"
-		 LIBS="$OLDSLIBS -lstdc++"
-		 AC_CHECK_LIB(
-			[aspell],
+		[aspell aspell-common],
+		AC_DEFINE([HAVE_LIBASPELL], [1], [Define to 1 if you have the `aspell' library (-laspell).]),
+		AC_SEARCH_LIBS(
 			[new_aspell_config],
-			[
-			 LIBS="$LIBS -laspell"
-			 AC_DEFINE([HAVE_LIBASPELL], [1], [Define to 1 if you have libaspell installed.])
-			],
-			[
-			 LIBS="$OLDSLIBS -laspell-common -lstdc++"
-			 AC_CHECK_LIB(
-				 [aspell],
-				 [new_aspell_config],
-				 [
-					LIBS="$LIBS -laspell" 
-					AC_DEFINE([HAVE_LIBASPELL], [1], [Define to 1 if you have libaspell installed.])
-				 ],
-				 [
-					LIBS="$OLDLIBS"
-					AC_MSG_WARN([libaspell not found - please install libaspell-dev or similar])
-				 ]
-			 )
-			]
-		 )
-		]
-	 )
-	]
+			[aspell aspell-common],
+			LIBS="$LIBS -lstdc++"
+			AC_DEFINE([HAVE_LIBASPELL], [1], [Define to 1 if you have the `aspell' library (-laspell).]),
+			AC_MSG_WARN([libaspell not found - please install libaspell-dev or similar]),
+			[-lstdc++]
+		)
+	)
 )
 
 AC_ARG_ENABLE(
@@ -527,13 +495,7 @@ dnl ************************
 
 AC_CHECK_HEADERS([stdlib.h unistd.h string.h strings.h errno.h stdio.h sys/stat.h ctype.h getopt.h math.h time.h sys/types.h fcntl.h netdb.h netinet/in.h sys/socket.h arpa/inet.h dirent.h sys/select.h sys/time.h sys/ipc.h sys/msg.h])
 
-AC_CHECK_FUNC([msgrcv], AC_DEFINE([HAVE_MSGRCV], [1], [Define to 1 if msgrcv() is available.]))
-AC_CHECK_FUNC([msgsnd], AC_DEFINE([HAVE_MSGSND], [1], [Define to 1 if msgsnd() is available.]))
-AC_CHECK_FUNC([ctime], AC_DEFINE([HAVE_CTIME], [1], [Define to 1 if ctime() is available.]))
-AC_CHECK_FUNC([ctime_r], AC_DEFINE([HAVE_CTIME_R], [1], [Define to 1 if ctime_r() is available.]))
-AC_CHECK_FUNC([asctime], AC_DEFINE([HAVE_ASCTIME], [1], [Define to 1 if asctime() is available.]))
-AC_CHECK_FUNC([asctime_r], AC_DEFINE([HAVE_ASCTIME_R], [1], [Define to 1 if asctime_r() is available.]))
-AC_CHECK_FUNC([localtime], AC_DEFINE([HAVE_LOCALTIME], [1], [Define to 1 if localtime() is available.]))
+AC_CHECK_FUNCS([msgrcv msgsnd ctime ctime_r asctime asctime_r localtime])
 
 
 dnl **************************
