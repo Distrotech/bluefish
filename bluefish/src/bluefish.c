@@ -31,11 +31,10 @@
 
 #ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
 #include <libgnomeui/libgnomeui.h>
-#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
-
 #ifndef GNOME_PARAM_GOPTION_CONTEXT
 #include <popt.h>
 #endif /* GNOME_PARAM_GOPTION_CONTEXT */
+#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 
 #ifdef ENABLE_NLS
 #include <locale.h>
@@ -99,13 +98,15 @@ int main(int argc, char *argv[])
 
 #ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
 	GnomeProgram *bfprogram;
+#else /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
+	GError *error = NULL;
 #endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 
 #ifndef NOSPLASH
 	GtkWidget *splash_window = NULL;
 #endif /* NOSPLASH */
 
-#ifdef GNOME_PARAM_GOPTION_CONTEXT
+#if !defined (HAVE_LIBGNOMEUI_LIBGNOMEUI_H) || defined (GNOME_PARAM_GOPTION_CONTEXT)
 	GOptionContext *context;
 	const GOptionEntry options[] = {
 		{"newwindow", 'n', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &newwindow, N_("Open in a new window."), NULL},
@@ -134,14 +135,15 @@ int main(int argc, char *argv[])
 	textdomain(PACKAGE);                                                    
 #endif /* ENABLE_NLS */
 
-#ifdef GNOME_PARAM_GOPTION_CONTEXT
+#if !defined (HAVE_LIBGNOMEUI_LIBGNOMEUI_H) || defined (GNOME_PARAM_GOPTION_CONTEXT)
 	context = g_option_context_new (_(" [FILE(S)]"));
 #ifdef ENABLE_NLS	
 	g_option_context_add_main_entries (context, options, PACKAGE);
 #else
 	g_option_context_add_main_entries (context, options, NULL);
 #endif /* ENABLE_NLS */
-#endif /* GNOME_PARAM_GOPTION_CONTEXT */
+#endif /* GNOME_PARAM_GOPTION_CONTEXT || !HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
+
 #ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
 	bfprogram = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE, 
 	                                argc, argv,
@@ -152,14 +154,8 @@ int main(int argc, char *argv[])
 #endif /* GNOME_PARAM_GOPTION_CONTEXT */
 	                                NULL);
 #else /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
-	gtk_init_with_args(&argc, &argv, "",
-#ifdef GNOME_PARAM_GOPTION_CONTEXT
-	                   context,
-#else /* GNOME_PARAM_GOPTION_CONTEXT */
-	                   pcontext,
-#endif /* GNOME_PARAM_GOPTION_CONTEXT */
-	                   PACKAGE, NULL);
-
+	g_option_context_add_group (context, gtk_get_option_group (TRUE));
+	g_option_context_parse (context, &argc, &argv, &error);
 #endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 
 	xmlInitParser();
@@ -212,12 +208,10 @@ int main(int argc, char *argv[])
 		projectfiles = g_list_append(projectfiles, tmpname);
 		DEBUG_MSG("main, project=%s, tmpname=%s\n", project, tmpname);
 	}
-#ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H	
-#ifndef GNOME_PARAM_GOPTION_CONTEXT
+#if defined (HAVE_LIBGNOMEUI_LIBGNOMEUI_H) && !defined (GNOME_PARAM_GOPTION_CONTEXT)
 	g_object_get(G_OBJECT(bfprogram), GNOME_PARAM_POPT_CONTEXT, &pcontext, NULL);
 	files = (char**) poptGetArgs(pcontext);
-#endif /* #ifndef GNOME_PARAM_GOPTION_CONTEXT */
-#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
+#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H && !GNOME_PARAM_GOPTION_CONTEXT */
 	if (files != NULL) {
 		filearray = g_strv_length(files);
 		for (i = 0; i < filearray; ++i) {
@@ -239,7 +233,7 @@ int main(int argc, char *argv[])
 		splash_window = start_splash_screen();
 		splash_screen_set_label(_("parsing highlighting file..."));
 	}
-#endif /* #ifndef NOSPLASH */
+#endif /* NOSPLASH */
 
 /*	{
 		gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/dir_history", NULL);
@@ -259,13 +253,13 @@ int main(int argc, char *argv[])
 
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("compiling highlighting patterns..."));
-#endif /* #ifndef NOSPLASH */
+#endif /* NOSPLASH */
 
 	main_v->lang_mgr	= bf_lang_mgr_new();
 	filetype_highlighting_rebuild(FALSE);
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("building file filters ..."));
-#endif /* #ifndef NOSPLASH */
+#endif /* NOSPLASH */
 	
 	fb2config_init(); /* filebrowser2config */
 	filters_rebuild();
@@ -273,7 +267,7 @@ int main(int argc, char *argv[])
 	main_v->tooltips = gtk_tooltips_new();
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("setting up bookmarks ..."));
-#endif /* #ifndef NOSPLASH */
+#endif /* NOSPLASH */
 
 	main_v->bmarkdata = bookmark_data_new();
 #ifdef WITH_MSG_QUEUE
@@ -283,7 +277,7 @@ int main(int argc, char *argv[])
 #endif /* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("creating main gui..."));
-#endif /* #ifndef NOSPLASH */
+#endif /* NOSPLASH */
 	/* create the first window */
 	firstbfwin = g_new0(Tbfwin,1);
 	firstbfwin->session = main_v->session;
@@ -294,7 +288,7 @@ int main(int argc, char *argv[])
 
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("showing main gui..."));
-#endif /* #ifndef NOSPLASH */
+#endif /* NOSPLASH */
 	/* set GTK settings, must be AFTER the menu is created */
 	{
 		gchar *shortcutfilename;
@@ -321,7 +315,7 @@ int main(int argc, char *argv[])
 		/*nanosleep(&req, NULL);*/
 		gtk_widget_destroy(splash_window);
 	}
-#endif /* #ifndef NOSPLASH */
+#endif /* NOSPLASH */
 	DEBUG_MSG("main, before gtk_main()\n");
 	gtk_main();
 	DEBUG_MSG("main, after gtk_main()\n");

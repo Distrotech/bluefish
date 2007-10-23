@@ -54,7 +54,7 @@
  **/
 GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	static GtkIconTheme *icon_theme = NULL;
-	char *icon_name;
+	gchar *icon_name = NULL;
 	GdkPixbuf *pixbuf = NULL;
 
 	/* Try the icon theme. (GNOME 2.2 or Sun GNOME 2.0).
@@ -68,6 +68,24 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 #ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
 	icon_name = gnome_icon_lookup (icon_theme, NULL, NULL, NULL, NULL,
 				mime_type, 0, NULL);
+#else /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
+	if (mime_type != NULL) {
+		gchar *mime_type_without_slashes, *tmp;
+
+		mime_type_without_slashes = g_strdup (mime_type);
+		while ((tmp = strchr(mime_type_without_slashes, '/')) != NULL)
+			*tmp = '-';
+		icon_name = g_strdup (mime_type_without_slashes);
+
+		/* TODO: add gnome_vfs_mime_get_icon () call too? */
+		if (!gtk_icon_theme_has_icon (icon_theme, icon_name))
+			icon_name = g_strconcat ("gnome-mime-", icon_name, NULL);
+			if (!gtk_icon_theme_has_icon (icon_theme, icon_name))
+				icon_name = NULL;
+
+		g_free (mime_type_without_slashes);
+	}
+#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 	if (!icon_name) {
 		/* fall back to the default icon */
 		if (strncmp(mime_type,"x-directory",11)==0) {
@@ -88,12 +106,6 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	} else {
 		return NULL; /* perhaps we shopuld return some default icon ? */
 	}
-#else /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
-	/* TODO: suggestion from Daniel:
-	   ("gnome-mime-$(primarytype)-$(subtype).{png,svgz}") and then check if it
-	   exists (gtk_icon_theme_has_icon) and then load it or fall back to our
-	   defaults */
-#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 	return pixbuf;
 }
 
