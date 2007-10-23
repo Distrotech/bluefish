@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.158 2007-10-23 04:36:33 dleidert Exp $
+dnl $Id: configure.ac,v 1.159 2007-10-23 05:11:41 dleidert Exp $
 dnl
 dnl Copyright (C) 2002-2007 Olivier Sessink
 dnl Copyright (C) 2006-2007 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.158 $)
+AC_REVISION($Revision: 1.159 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -106,6 +106,15 @@ esac
 
 AM_CONDITIONAL([OS_WIN32], [test "x$native_win32" = "xyes"])
 
+dnl ************************
+dnl   Necessary tools
+dnl ************************
+
+AC_ARG_VAR(
+	[GDK_PIXBUF_CSOURCE],
+	[The `gdk-pixbuf-csource' executable. Use it to define or override its location.]
+)
+AC_CHECK_PROG([GDK_PIXBUF_CSOURCE], [gdk-pixbuf-csource], [gdk-pixbuf-csource])
 
 dnl ************************
 dnl   Configure options e/d
@@ -198,12 +207,12 @@ dnl it has been requested to be able to build bluefish without libGNOMEUI
 AC_ARG_ENABLE(
         [libgnomeui],
 	AC_HELP_STRING(
-		[--disable-libgnomeui],
+		[--enable-libgnomeui],
 		[
-		 enable (or disable) the running of xmlcatalog after installation -
-		 some distributions like Debian use their own system for registering
-		 catalogs, so be careful here and also check the `--with-xml-catalog'
-		 option @<:@default=yes@:>@
+		 enable (or disable) building the package with libgnomeui -
+		 disabling will give you a crippled package missing
+		 some functionality (e.g. authentication dialogs or full icon
+		 support will not be available) @<:@default=yes@:>@
 		]
 	)
 )
@@ -213,7 +222,7 @@ dnl But because several systems like Debian or Mac use their own system, so let 
 dnl decide, if he wants to update the sytems catalog.
 AC_PATH_PROG([XMLCATALOG], [xmlcatalog], [no])
 if test "x$XMLCATALOG" = "xno"; then
-	AC_MSG_ERROR([Instal the xmlcatalog application, which is delivered with the GNOME xml-library.])
+	AC_MSG_ERROR([Install the xmlcatalog application, which is delivered with the GNOME xml-library.])
 fi
 
 AC_ARG_ENABLE(
@@ -233,26 +242,27 @@ AC_ARG_ENABLE(
 	[update-databases],
 	AC_HELP_STRING(
 		[--enable-update-databases],
-		[enable (or disable) the running of update-desktop-database/update-mime-database after installation @<:@default=yes@:>@]
-	),
-	[
-	 if test "x$enableval" != "xno"; then
-		 AC_PATH_PROG([UPDATE_DESKTOP_DATABASE], [update-desktop-database])
-		 AC_PATH_PROG([UPDATE_MIME_DATABASE], [update-mime-database])
-	 else
-	 	 UPDATE_DESKTOP_DATABASE=
-	 	 UPDATE_MIME_DATABASE=
-	 fi
-	],
-	[
-	 AC_PATH_PROG([UPDATE_DESKTOP_DATABASE], [update-desktop-database])
-	 AC_PATH_PROG([UPDATE_MIME_DATABASE], [update-mime-database])
-	]
+		[
+		 enable (or disable) the running of update-desktop-database/update-mime-database
+		 after installation @<:@default=yes@:>@
+		]
+	)
 )
 
-AC_SUBST([UPDATE_DESKTOP_DATABASE])
+AC_ARG_VAR(
+	[UPDATE_DESKTOP_DATABASE],
+	[The `update-desktop-database' program. Use it to define or override its location.]
+)
+AC_ARG_VAR(
+	[UPDATE_MIME_DATABASE],
+	[The `update-mime-database' program. Use it to define or override its location.]
+)
+if test "x$enable_update_databases" != "xno" ; then
+	AC_PATH_PROG([UPDATE_DESKTOP_DATABASE], [update-desktop-database])
+	AC_PATH_PROG([UPDATE_MIME_DATABASE], [update-mime-database])
+fi
+
 AM_CONDITIONAL([HAVE_UPDATE_DESKTOP_DATABASE], [test -n "$UPDATE_DESKTOP_DATABASE"])
-AC_SUBST([UPDATE_MIME_DATABASE])
 AM_CONDITIONAL([HAVE_UPDATE_MIME_DATABASE], [test -n "$UPDATE_MIME_DATABASE"])
 
 dnl ************************
