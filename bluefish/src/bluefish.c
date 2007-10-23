@@ -154,8 +154,15 @@ int main(int argc, char *argv[])
 #endif /* GNOME_PARAM_GOPTION_CONTEXT */
 	                                NULL);
 #else /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
+	/* this one or bail out with the error of g_option_context_parse () */
+	g_option_context_set_ignore_unknown_options (context, TRUE);
 	g_option_context_add_group (context, gtk_get_option_group (TRUE));
-	g_option_context_parse (context, &argc, &argv, &error);
+	if (!g_option_context_parse (context, &argc, &argv, &error)) {
+		g_error(N_("%s\nPlease run: %s -?\n"), error->message, argv[0]);
+		g_error_free (error);
+		g_free (argv);
+		exit (-1);
+	}
 #endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 
 	xmlInitParser();
