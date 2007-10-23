@@ -76,10 +76,10 @@ TOOLBAR = \
 
 
 general_icons.c:
-	gdk-pixbuf-csource --raw --extern --build-list $(GENERAL) > $@
+	$(GDK_PIXBUF_CSOURCE) --raw --extern --build-list $(GENERAL) > $@
 
 toolbar_icons.c:
-	gdk-pixbuf-csource --raw --extern --build-list $(TOOLBAR) > $@
+	$(GDK_PIXBUF_CSOURCE) --raw --extern --build-list $(TOOLBAR) > $@
 
 
 BUILT_SOURCES = general_icons.c toolbar_icons.c
