@@ -1,20 +1,64 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-   <!ELEMENT bflang (mimetypes,options?,block-group*,token-group*,block*,token*)>
+	<!-- root element -->
+	<!-- language name and description -->
+   <!ELEMENT bflang (mimetypes,options?,block-group*,token-group*,block*,token*)> 
 	<!ATTLIST bflang name CDATA #REQUIRED>
 	<!ATTLIST bflang description CDATA #IMPLIED>   
 	   
+	<!-- 
+		mimetypes indicate which files should we treat as a sources written in described language
+	 	Attributes:
+	 		type - proper MIME string 
+	-->   
    <!ELEMENT mimetypes (mimetype+)>
    <!ELEMENT mimetype (EMPTY)>
    <!ATTLIST mimetype type CDATA #REQUIRED>
    
+   <!-- Global scanner options. 
+   	  Attributes:
+   	  		name - option name
+   	  Tag content: 
+   	  		option value   	  	 
+   	  Option meaning and values:
+   	  		case-sensitive	(true/false) 	 		: is our scanner case sensitive ?
+   	  		scan-markup-tags (true/false) 		: set this to 'false' if your language does not use tags. 
+   	  														  When false we do not build part of a scanner. 	    
+				scan-blocks (true/false)				: as above set to false if you do not intend to recognize blocks. 
+				auto-scan-triggers (string value)   : this is set of characters. We launch scanner automatically when user inserts any of them.
+				escape-characters (string value)  	: set of characters which should not affect scanning (actually they are ignored by scanner).
+																  Good way to avoid problems when using \n \t etc. in strings
+				autoclose-exclude(comma separated list) : list of tags which should be ignored when tag autoclosing is used. 
+																	I.e. they are not autoclosed
+				schema-aware (true/false)				: if true scanner will look for DTD and XML Schema includes. 
+																  If found they are automatically loaded and can be used in autocompletion.																																     													
+   -->
    <!ELEMENT options (option*)>
    <!ELEMENT option (#PCDATA)>
    <!ATTLIST option name (case-sensitive|scan-markup-tags|scan-blocks|auto-scan-triggers|escape-characters|autoclose-exclude|schema-aware) #REQUIRED>
-   
+
+	<!-- Group of blocks.
+		  Blocks and tokens can be grouped for easier highlighting configuration.	 
+	-->   
    <!ELEMENT block-group (block*)>
    <!ATTLIST block-group id CDATA #REQUIRED>
    
+   <!-- Block definition
+   	  Attributes:
+   	  		id (string)		: unique block identifier which can be used later in tokens to specify context.
+   	  		begin (string)	: string denoting block begin (can be regexp)
+   	  		end (string)	: as above but block end
+   	  		scanned (true/false) : if true text inside block will be scanned too. 
+   	  									  If false scanner will ignore block content (improves scanner speed).
+   	  		foldable (true/false) : can we fold this block ?
+   	  		markup (true/false)	 : if true scanner will try to recognize markup tags inside block. 
+   	  										If you are sure that specific block does not contain tags 
+   	  										(or you are not interested in them) you can set this to false (improves scan speed)
+   	  		case (true/false)		 : should we scan text inside block in case sensitive way ?
+   	  		defaultstyle (string) : name of default style used to highlight this block
+				context (string)		 : id of another block.If attribute is set that means current block is 
+												recognized ONLY inside another block (this pointed by id).      	  										 								  		
+   -->
    <!ELEMENT block (EMPTY)>
    <!ATTLIST block id CDATA #REQUIRED>
 	<!ATTLIST block begin CDATA #REQUIRED>	
@@ -26,16 +70,42 @@
 	<!ATTLIST block defaultstyle CDATA #IMPLIED>
 	<!ATTLIST block context CDATA #IMPLIED>
 
+	<!-- Token group -->
    <!ELEMENT token-group (token*|token-list*)>
    <!ATTLIST token-group id CDATA #REQUIRED>
    <!ATTLIST token-group defaultstyle CDATA #IMPLIED>
 	   
+	<!-- Token definition
+		Attributes:
+				name (string) : unique token name
+				regexp (true/false) : should we analyse tag content as a regular expression ?
+				context (string)	:	id of previously defined block. If set, token is recognized ONLY inside this block.
+				defaultstyle (string) :  name of default style used to highlight this token
+		Tag content:
+				explicit value of recognized token or regular expression describing it
+		Regexp used in tag content:
+				Subset of POSIX regexp.
+				+ one or more
+				* zero or more
+				? zero or one (i.e. optional)
+				[a-z$#] set of characters
+				[^a-z] set negation
+						 		
+	-->   
    <!ELEMENT token (#PCDATA)>
    <!ATTLIST token name CDATA #REQUIRED>
 	<!ATTLIST token regexp (true|false) "false">    
    <!ATTLIST token context CDATA #IMPLIED>
 	<!ATTLIST token defaultstyle CDATA #IMPLIED>
    
+   <!-- Token list for easier keyword specification.
+    	  Sometimes you have a lot of simple keywords and functions. 
+    	  This allows to specify them in more compact way.
+    	  Attributes:
+    	  		name : unique list name
+    	  		separator : character separating words
+    	  		context : the same as in token  	
+   -->
 	<!ELEMENT token-list (#PCDATA)>
    <!ATTLIST token-list name CDATA #REQUIRED>
 	<!ATTLIST token-list separator CDATA #REQUIRED>
