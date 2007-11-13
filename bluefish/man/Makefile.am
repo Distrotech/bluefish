@@ -4,8 +4,6 @@ EXTRA_DIST = \
 	bluefish.1.xml \
 	bf_entities.dtd.in
 
-DISTCLEANFILES = bf_entities.dtd
-
 MAINTAINERCLEANFILES = Makefile.in
 
 VPATH += @builddir@
