@@ -1,8 +1,8 @@
 %define name	bluefish-unstable
-%define version	1.1.3
-%define release	2
-%define distro	fc7
-%define source	bluefish-unstable-1.1.3
+%define version	1.1.5
+%define release	3
+%define distro	fc8
+%define source	bluefish-unstable-1.1.5
 
 
 Summary: A GTK2 web development application for experienced users
@@ -13,9 +13,10 @@ Source: ftp://ftp.ratisbona.com/pub/bluefish/snapshots/%{source}.tar.gz
 URL: http://bluefish.openoffice.nl
 License: GPL
 Group: Development/Tools
-Requires: gtk2, pcre, aspell, gnome-vfs2
-BuildRequires: gtk2-devel, pcre-devel, gnome-vfs2-devel
-BuildRequires: aspell-devel, desktop-file-utils, gettext, libxml2
+Requires: gtk2, pcre, aspell, gnome-vfs2, libgnomeui
+BuildRequires: gtk2-devel, pcre-devel, gnome-vfs2-devel, aspell-devel
+BuildRequires: desktop-file-utils, gettext, libxml2, perl-XML-Parser
+BuildRequires: libgnomeui-devel
 Requires(post): desktop-file-utils, shared-mime-info
 Requires(postun): desktop-file-utils, shared-mime-info
 BuildRoot: %{_tmppath}/%{name}-%{release}-root
@@ -101,5 +102,5 @@ xmlcatalog --noout --del 'http://bluefish.openoffice.nl/DTD' /etc/xml/catalog
 
 
 %changelog
-* Sun Jun 03 2007 Matthias Haase <matthias_haase@bennewitz.com> - 1.1.3-2.fc7
+* Mon Nov 12 2007 Matthias Haase <matthias_haase@bennewitz.com> - 1.1.5-3.fc8
 - Automatic build
