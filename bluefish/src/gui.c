@@ -1167,7 +1167,7 @@ static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEvent *
 				main_v->globses.main_window_h = event->height;
 				DEBUG_MSG("gui_main_window_configure_event_lcb, width=%d, height=%d\n",main_v->globses.main_window_w,main_v->globses.main_window_h);
 			}
-		} else if (revent->type == GDK_WINDOW_STATE) {
+		} else if (revent->type == GDK_WINDOW_STATE && GTK_WIDGET_VISIBLE(bfwin->main_window)) {
 			GdkEventWindowState *event = (GdkEventWindowState *)revent;
 			if (event->new_window_state == GDK_WINDOW_STATE_MAXIMIZED && main_v->globses.main_window_w > 0) {
 				main_v->globses.main_window_w = -1 * main_v->globses.main_window_w; /* negative means it is maximized !! */
