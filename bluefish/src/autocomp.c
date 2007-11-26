@@ -428,8 +428,14 @@ gchar *ac_add_dtd_list(Tautocomp *ac, gchar *chunk,gboolean internal,Tdtd_list *
 		name = g_strdup((gchar *)ctxt->extSubURI);
 		if (  g_hash_table_lookup(ac->dtd_lists,name)==NULL )
 		{
-			if (ctxt->hasExternalSubset)
-				dtd = xmlParseDTD(ctxt->extSubSystem,ctxt->extSubURI);
+			if (ctxt->hasExternalSubset) {
+				if (g_str_has_prefix((gchar*)ctxt->extSubURI,"http://")) {
+					if (main_v->props.load_network_dtd)	
+						dtd = xmlParseDTD(ctxt->extSubSystem,ctxt->extSubURI);
+				}
+				else
+					dtd = xmlParseDTD(ctxt->extSubSystem,ctxt->extSubURI);				
+			}	
 		}
 	}
 	else

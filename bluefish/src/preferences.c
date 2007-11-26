@@ -132,6 +132,7 @@ enum {
 	rmargin_at,
 	autocomp_key,
 	tag_autoclose,	
+	load_network_dtd,
 	property_num_max
 };
 
@@ -1700,6 +1701,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);	
 	integer_apply(&main_v->props.view_rmargin, pd->prefs[view_rmargin], TRUE);
 	integer_apply(&main_v->props.rmargin_at, pd->prefs[rmargin_at], FALSE);
+	integer_apply(&main_v->props.load_network_dtd, pd->prefs[load_network_dtd], TRUE);
 	{
 	  	guint key;
 		GdkModifierType mod;
@@ -2283,6 +2285,7 @@ static void preferences_dialog() {
 		pd->prefs[scan_mode] = boxed_optionmenu_with_value(_("Scan mode"), main_v->props.scan_mode, vbox2, modes);
 	}
 	pd->prefs[autocomp_key] = prefs_string(_("Autocompletion key"), main_v->props.autocomp_key, vbox2, pd, string_accel);
+	pd->prefs[load_network_dtd] = boxed_checkbut_with_value(_("Load network DTD by default"), main_v->props.load_network_dtd, vbox2);
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);	
