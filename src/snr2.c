@@ -87,6 +87,7 @@ typedef struct {
 	gint overlapping_search;
 	gint is_case_sens;
 	gint bookmark_results;
+	gint select_match;
 	Treplace_types replacetype_option;
 	Tmatch_types matchtype_option;
 	Tplace_types placetype_option;
@@ -432,13 +433,16 @@ Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_patte
  *
  * Return value: void
  **/
-void doc_show_result(Tdocument *document, GtkWindow *window, gint start, gint end) {
+void doc_show_result(Tdocument *document, GtkWindow *window, gint start, gint end, gboolean select_match) {
 	DEBUG_MSG("doc_show_result, select from start=%d to end=%d\n",start, end);
 	if (document != BFWIN(document->bfwin)->current_document) {
 		switch_to_document_by_pointer(BFWIN(document->bfwin),document);
 	}
-	/*doc_select_region(document, start, end, TRUE);*/
-	snr2_doc_highlight_match(document, window, start,end);
+	if (select_match) {
+		doc_select_region(document, start, end, TRUE);
+	} else {
+		snr2_doc_highlight_match(document, window, start,end);
+	}
 }
 
 /*****************************************************/
@@ -984,7 +988,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
 		result.start = result_all.start;
 		result.end = result_all.end;
 		if (result_all.end > 0) {
-			doc_show_result(result_all.doc, dialog, result_all.start, result_all.end);
+			doc_show_result(result_all.doc, dialog, result_all.start, result_all.end, LASTSNR2(bfwin->snr2)->select_match);
 			if (bfwin->current_document->uri && LASTSNR2(bfwin->snr2)->bookmark_results) {
 				gchar *text = doc_get_chars(result_all.doc, result_all.start, result_all.end);
 				DEBUG_MSG("search_single_and_show, adding bookmark '%s' at %d\n", text, result_all.start);
@@ -998,7 +1002,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
 		snr2_doc_remove_highlight(bfwin->current_document);
 		result = search_doc(bfwin,bfwin->current_document, LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->unescape, want_submatches);
 		if (result.end > 0) {
-			doc_show_result(bfwin->current_document, dialog, result.start, result.end);
+			doc_show_result(bfwin->current_document, dialog, result.start, result.end, LASTSNR2(bfwin->snr2)->select_match);
 			if (bfwin->current_document->uri && LASTSNR2(bfwin->snr2)->bookmark_results) {
 				gchar *text = doc_get_chars(bfwin->current_document, result.start, result.end);
 				DEBUG_MSG("search_single_and_show, adding bookmark '%s' at %d\n", text, result.start);
@@ -1260,6 +1264,7 @@ typedef struct {
 	GtkWidget *overlappingMatches;
 	GtkWidget *matchCase;
 	GtkWidget *escapeChars;
+	GtkWidget *select_match;
 	GtkWidget *bookmarks;
 	GtkWidget *findButton;
 	GtkWidget *findAllButton;
@@ -1276,7 +1281,7 @@ enum {
 };
 
 static void setup_new_snr2(TSNRWin *snrwin, const gchar *search_pattern, gboolean unescape, 
-		gboolean is_case_sens, gboolean overlapping_search,
+		gboolean is_case_sens, gboolean overlapping_search, gboolean select_match,
 		gboolean bookmark, Tplace_types place_type, Tmatch_types match_type, Treplace_types replace_type,
 		gboolean replace, const gchar *replace_pattern) {
 	GtkTreeModel *history;
@@ -1307,7 +1312,8 @@ static void setup_new_snr2(TSNRWin *snrwin, const gchar *search_pattern, gboolea
 		LASTSNR2(bfwin->snr2)->replace_pattern = g_strdup(replace_pattern);
 		bfwin->session->replacelist = add_to_history_stringlist(bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,TRUE,TRUE);
 	}
-	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;
+	LASTSNR2(bfwin->snr2)->select_match = select_match;
+	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;	
 	LASTSNR2(bfwin->snr2)->matches = 0;
 	LASTSNR2(bfwin->snr2)->replaces = 0;
 	LASTSNR2(bfwin->snr2)->doc = NULL;
@@ -1480,7 +1486,7 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 			DEBUG_MSG("result.start == -1: setup new search\n");
 			/* snrwin->replaceType */
 			setup_new_snr2(snrwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
-					GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active,
+					GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active, GTK_TOGGLE_BUTTON(snrwin->select_match)->active,
 					GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, scope, matchtype, replacetype, (snrwin->dialogType == BF_REPLACE_DIALOG), replace_pattern);
 			if (LASTSNR2(bfwin->snr2)->placetype_option==beginning) {
 				startpos = 0;
@@ -1762,9 +1768,12 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->escapeChars,_("Unescape backslash escaped characters such as \\n, \\t etc."),NULL);
 	
+	snrwin->select_match = gtk_check_button_new_with_mnemonic(_("_Select matches"));
+	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->select_match, FALSE, FALSE, 0);
+	gtk_tooltips_set_tip(main_v->tooltips,snrwin->select_match,_("Select the matching text instead of just highlighting it"),NULL);
+	
 	snrwin->bookmarks = gtk_check_button_new_with_mnemonic(_("_Bookmark matches"));
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->bookmarks, FALSE, FALSE, 0);
-	g_signal_connect(snrwin->bookmarks, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->bookmarks,_("Create a bookmark for each match"),NULL);
 
 	gtk_dialog_add_button(GTK_DIALOG(snrwin->dialog), GTK_STOCK_CLOSE, GTK_RESPONSE_CLOSE);
