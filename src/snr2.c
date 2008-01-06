@@ -1312,7 +1312,7 @@ static void setup_new_snr2(TSNRWin *snrwin, const gchar *search_pattern, gboolea
 		LASTSNR2(bfwin->snr2)->replace_pattern = g_strdup(replace_pattern);
 		bfwin->session->replacelist = add_to_history_stringlist(bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,TRUE,TRUE);
 	}
-	LASTSNR2(bfwin->snr2)->select_match = select_match;
+	main_v->globses.snr_select_match = LASTSNR2(bfwin->snr2)->select_match = select_match;
 	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;	
 	LASTSNR2(bfwin->snr2)->matches = 0;
 	LASTSNR2(bfwin->snr2)->replaces = 0;
@@ -1769,6 +1769,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->escapeChars,_("Unescape backslash escaped characters such as \\n, \\t etc."),NULL);
 	
 	snrwin->select_match = gtk_check_button_new_with_mnemonic(_("_Select matches"));
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(snrwin->select_match),main_v->globses.snr_select_match);
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->select_match, FALSE, FALSE, 0);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->select_match,_("Select the matching text instead of just highlighting it"),NULL);
 	
