@@ -284,6 +284,7 @@ typedef struct {
 	gint left_panel_width; 	/* width of filelist */
 	gint lasttime_filetypes; /* see above */
 	gint lasttime_encodings; /* see above */
+	gint snr_select_match; /* if the search and replace should select anything found or just mark it */
 	gint bookmarks_default_store; /* 0= temporary by default, 1= permanent by default */
 	gint image_thumbnail_refresh_quality; /* 1=GDK_INTERP_BILINEAR, 0=GDK_INTERP_NEAREST*/
 	gint image_thumbnailsizing_type;	/* scaling ratio=0, fixed width=1, height=2, width+height (discard aspect ratio)=3 */

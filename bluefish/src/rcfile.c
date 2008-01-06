@@ -792,6 +792,7 @@ static GList *return_globalsession_configlist(gboolean init_values) {
 	init_prop_integer   (&config_rc, &main_v->globses.left_panel_width, "left_panel_width:", 150, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_filetypes, "lasttime_filetypes:", 0, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.lasttime_encodings, "lasttime_encodings:", 0, init_values);
+	init_prop_integer   (&config_rc, &main_v->globses.snr_select_match, "snr_select_match:", 1, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.bookmarks_default_store,"bookmarks_default_store:",1, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.image_thumbnail_refresh_quality,"image_thumbnail_refresh_quality:",1, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.image_thumbnailsizing_type,"image_thumbnailsizing_type:",0, init_values);
