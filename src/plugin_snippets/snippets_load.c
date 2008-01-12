@@ -54,7 +54,7 @@ leaves are of some type:
 </snippets>
 
 */
-/* #define DEBUG */
+#define DEBUG
 
 #include <string.h>
 
@@ -193,13 +193,18 @@ static const guint8 pixmap_insert[] =
   "\377\212\206\204\377\212\206\204\377\212\206\204\377\234\234\231\377"
   "_`[\0"};
 
+static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent);
+
 void snippets_fill_tree_item_from_node(GtkTreeIter *iter, xmlNodePtr node) {
 	gchar *title;
+	gboolean recursive=FALSE;
 	GdkPixbuf* pixmap=NULL;
+	DEBUG_MSG("snippets_fill_tree_item_from_node, got node with type %s\n",node->name);
 	title = (gchar *)xmlGetProp(node, (const xmlChar *)"title");
-	DEBUG_MSG("snippets_fill_tree_item_from_node, adding node %s with type %s\n",title,node->name);
+	DEBUG_MSG("snippets_fill_tree_item_from_node, node has title %s\n",title);
 	if ((xmlStrEqual(node->name, (const xmlChar *)"branch"))) {
 		pixmap = NULL;
+		recursive = TRUE;
 	} else /*if ((xmlStrEqual(cur->name, (const xmlChar *)"leaf")))*/ {
 		xmlChar *type;
 		type = xmlGetProp(node, (const xmlChar *)"type");
@@ -211,6 +216,9 @@ void snippets_fill_tree_item_from_node(GtkTreeIter *iter, xmlNodePtr node) {
 		xmlFree(type);
 	}
 	gtk_tree_store_set(snippets_v.store, iter, PIXMAP_COLUMN, pixmap, TITLE_COLUMN, title,NODE_COLUMN, node,-1);
+	if (recursive) {
+		walk_tree(node, iter);
+	}
 	xmlFree(title);	
 }
 
@@ -219,14 +227,11 @@ static void walk_tree(xmlNodePtr cur, GtkTreeIter *parent) {
 	cur = cur->xmlChildrenNode;
 	while (cur != NULL) {
 		GtkTreeIter iter;
-		DEBUG_MSG("walk_tree, adding child %s\n",cur->name);
+		DEBUG_MSG("walk_tree, found child with type %s\n",cur->name);
 		if (xmlStrEqual(cur->name, (const xmlChar *)"branch") || xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
 			/* do not add type text (all the xml spacing is type text )! */ 
 			gtk_tree_store_append(snippets_v.store, &iter, parent);
 			snippets_fill_tree_item_from_node(&iter, cur);
-			if ((xmlStrEqual(cur->name, (const xmlChar *)"branch"))) {
-				walk_tree(cur, &iter);
-			}
 		}
 		cur = cur->next;
 	}
