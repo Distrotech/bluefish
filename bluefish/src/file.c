@@ -878,10 +878,6 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 				DEBUG_MSG("file2doc_lcb, goto_offset=%d\n",f2d->doc->action.goto_offset);
 				doc_select_line_by_offset(f2d->doc, f2d->doc->action.goto_offset, TRUE);
 			}
-			f2d->doc->action.goto_line = -1;
-			f2d->doc->action.goto_offset = -1;
-			f2d->doc->action.load = NULL;
-			file2doc_cleanup(data);
 			{
 				gchar *utf8uri, *tmp;
 				utf8uri = full_path_utf8_from_uri(f2d->uri);
@@ -894,6 +890,11 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 				g_free(tmp);
 				g_free(utf8uri);
 			}
+			f2d->doc->action.goto_line = -1;
+			f2d->doc->action.goto_offset = -1;
+			f2d->doc->action.load = NULL;
+			file2doc_cleanup(data);
+
 		break;
 		case OPENFILE_CHANNEL_OPENED:
 			/* do nothing */
