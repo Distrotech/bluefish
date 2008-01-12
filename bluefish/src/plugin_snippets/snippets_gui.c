@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-/* #define DEBUG */
+#define DEBUG
 
 #include <string.h>
 
@@ -464,9 +464,16 @@ static void snippetview_drag_data_received_lcb(GtkWidget *widget, GdkDragContext
 		GtkTreeViewDropPosition position;
 		
 		srcpath = gtk_tree_path_new_from_string((gchar *)sd->data);
+		
 		if (gtk_tree_view_get_dest_row_at_pos(GTK_TREE_VIEW(widget), x, y,&destpath, &position)) {
 			GtkTreeIter srciter, destiter, newiter, parentiter;
 			xmlNodePtr srcnode, destnode;
+			
+			if (0==gtk_tree_path_compare(srcpath,destpath)) {
+				gtk_drag_finish(context, TRUE, TRUE, time);
+				return;
+			}
+			
 			if (!gtk_tree_model_get_iter(GTK_TREE_MODEL(snippets_v.store),&srciter,srcpath)) {
 				DEBUG_MSG("snippetview_drag_data_received_lcb, error, no iter for srcpath\n");
 				gtk_drag_finish(context, FALSE, TRUE, time);
@@ -488,8 +495,11 @@ static void snippetview_drag_data_received_lcb(GtkWidget *widget, GdkDragContext
 						srcnode = xmlAddNextSibling(destnode, srcnode);
 						if (srcnode) {
 							gtk_tree_store_remove(GTK_TREE_STORE(snippets_v.store),&srciter);
-							gtk_tree_model_iter_parent(GTK_TREE_MODEL(snippets_v.store), &parentiter, &destiter);
-							gtk_tree_store_insert_after(GTK_TREE_STORE(snippets_v.store), &newiter, &parentiter, &destiter);
+							if (gtk_tree_model_iter_parent(GTK_TREE_MODEL(snippets_v.store), &parentiter, &destiter)) {
+								gtk_tree_store_insert_after(GTK_TREE_STORE(snippets_v.store), &newiter, &parentiter, &destiter);
+							} else {
+								gtk_tree_store_insert_after(GTK_TREE_STORE(snippets_v.store), &newiter, NULL, &destiter);
+							}
 							snippets_fill_tree_item_from_node(&newiter, srcnode);
 						}
 						break;
@@ -498,8 +508,11 @@ static void snippetview_drag_data_received_lcb(GtkWidget *widget, GdkDragContext
 						srcnode = xmlAddPrevSibling(destnode, srcnode);
 						if (srcnode) {
 							gtk_tree_store_remove(GTK_TREE_STORE(snippets_v.store),&srciter);
-							gtk_tree_model_iter_parent(GTK_TREE_MODEL(snippets_v.store), &parentiter, &destiter);
-							gtk_tree_store_insert_before(GTK_TREE_STORE(snippets_v.store), &newiter, &parentiter, &destiter);
+							if (gtk_tree_model_iter_parent(GTK_TREE_MODEL(snippets_v.store), &parentiter, &destiter)) {
+								gtk_tree_store_insert_before(GTK_TREE_STORE(snippets_v.store), &newiter, &parentiter, &destiter);
+							} else {
+								gtk_tree_store_insert_before(GTK_TREE_STORE(snippets_v.store), &newiter, NULL, &destiter);
+							}
 							snippets_fill_tree_item_from_node(&newiter, srcnode);
 						}
 						break;
@@ -507,9 +520,14 @@ static void snippetview_drag_data_received_lcb(GtkWidget *widget, GdkDragContext
 						return;
 				}				
 			} else { /* branch */
+				/*xmlNode *orig;
+				orig = srcnode;*/
 				DEBUG_MSG("snippetview_drag_data_received_lcb, drop location is a branch\n");
+				xmlUnlinkNode(srcnode);
 				srcnode = xmlAddChild(destnode, srcnode);
 				if (srcnode) {
+					/*xmlUnlinkNode(orig);
+					xmlFreeNode(orig);*/
 					gtk_tree_store_remove(GTK_TREE_STORE(snippets_v.store),&srciter);
 					gtk_tree_store_append(GTK_TREE_STORE(snippets_v.store), &newiter, &destiter);
 					snippets_fill_tree_item_from_node(&newiter, srcnode);
