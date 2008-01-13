@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#define DEBUG
+/* #define DEBUG */
 
 #include <string.h>
 
@@ -469,8 +469,9 @@ static void snippetview_drag_data_received_lcb(GtkWidget *widget, GdkDragContext
 			GtkTreeIter srciter, destiter, newiter, parentiter;
 			xmlNodePtr srcnode, destnode;
 			
-			if (0==gtk_tree_path_compare(srcpath,destpath)) {
-				gtk_drag_finish(context, TRUE, TRUE, time);
+			if (0==gtk_tree_path_compare(srcpath,destpath) || gtk_tree_path_is_ancestor(srcpath, destpath)) {
+				DEBUG_MSG("source and destination combination invalid\n");
+				gtk_drag_finish(context, FALSE, TRUE, time);
 				return;
 			}
 			

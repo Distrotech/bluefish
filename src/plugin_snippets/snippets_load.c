@@ -54,7 +54,7 @@ leaves are of some type:
 </snippets>
 
 */
-#define DEBUG
+/* #define DEBUG */
 
 #include <string.h>
 

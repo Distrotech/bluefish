@@ -21,7 +21,7 @@
 #define __SNIPPETS_H_
 
 #define ENABLEPLUGINS
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 
