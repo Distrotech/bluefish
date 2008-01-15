@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filebrowser2.c - the filebrowser v2
  *
- * Copyright (C) 2002,2003,2004,2005,2006 Olivier Sessink
+ * Copyright (C) 2002,2003,2004,2005,2006,2007,2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -85,6 +85,12 @@ enum {
 	DIR_URI_COLUMN
 };
 
+enum {
+	viewmode_tree,
+	viewmode_dual,
+	viewmode_flat
+};
+
 typedef struct {
 	GtkWidget *dirmenu_v;
 	gulong dirmenu_changed_signal;
@@ -108,6 +114,7 @@ typedef struct {
 	gboolean last_popup_on_dir;
 	gboolean filebrowser_show_hidden_files;
 	gboolean filebrowser_show_backup_files;
+	gint filebrowser_viewmode;
 	Tbfwin *bfwin;
 } Tfilebrowser2;
 
