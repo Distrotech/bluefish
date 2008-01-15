@@ -309,6 +309,7 @@ typedef struct {
 	gint filebrowser_focus_follow;   /* have the directory of the current document in focus */
 	gint filebrowser_show_backup_files;
 	gint filebrowser_show_hidden_files;
+	gint filebrowser_viewmode; /* 0=tree, 1=dual or 2=flat */
 	gint snr_position_x;
 	gint snr_position_y;
 	gint view_left_panel;     /* view filebrowser/functionbrowser etc. */
