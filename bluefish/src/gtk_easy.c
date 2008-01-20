@@ -180,20 +180,9 @@ void window_close_by_data_cb(GtkWidget * widget, gpointer data) {
  * Return value: void
  */
 void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state) {
-	GtkWidget *toggle;
-	toggle = gtk_item_factory_get_widget(ifactory, path);
-	if (!toggle) {
-		g_print("warning, menuitem \"%s\" does NOT exist! check the translation!\n", path);
-		return;
-	}
-	DEBUG_MSG("setting path %s to %d\n",path,state);
-	if ((GTK_CHECK_MENU_ITEM(toggle)->active) && state == 0) {
-		GTK_CHECK_MENU_ITEM(toggle)->active = state;
-		return;
-	}
-	if ((!GTK_CHECK_MENU_ITEM(toggle)->active) && state == 1) {
-		GTK_CHECK_MENU_ITEM(toggle)->active = state;
-		return;
+	GtkWidget *toggle = gtk_item_factory_get_widget(ifactory, path);
+	if (toggle && (GTK_CHECK_MENU_ITEM(toggle)->active) != state) {
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(toggle), state);
 	}
 }
 
