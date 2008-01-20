@@ -182,7 +182,8 @@ void window_close_by_data_cb(GtkWidget * widget, gpointer data) {
 void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state) {
 	GtkWidget *toggle = gtk_item_factory_get_widget(ifactory, path);
 	if (toggle && (GTK_CHECK_MENU_ITEM(toggle)->active) != state) {
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(toggle), state);
+		/*gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(toggle), state);*/
+		GTK_CHECK_MENU_ITEM(toggle)->active = state;
 	}
 }
 

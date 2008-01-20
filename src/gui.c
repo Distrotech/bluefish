@@ -585,6 +585,7 @@ void gui_bfwin_periodic_check(Tbfwin *bfwin, gboolean enabled) {
 }
 
 void gui_apply_settings(Tbfwin *bfwin) {
+	DEBUG_MSG("gui_apply_settings, started\n");
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook),main_v->props.document_tabposition);
 	/* We don't want to set the tab position if the left panel is hidden */
 	if (bfwin->leftpanel_notebook) {
