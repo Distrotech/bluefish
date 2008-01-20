@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * preferences.c - the preferences code
  *
- * Copyright (C) 2002-2005 Olivier Sessink
+ * Copyright (C) 2002-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -367,207 +367,6 @@ static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget
 	return return_widget;
 }
 
-
-/*************************/
-/* GENERAL FUNCTIONS     */
-/*************************/
-/* static GList *general_poplist(GList *arraylist, gint required_items, gint poplist_label_index) {
-	GList *tmplist, *poplist=NULL;
-	
-	tmplist = g_list_first(arraylist);
-	while(tmplist){
-		gchar **strarr =(gchar **)tmplist->data;
-		if (count_array(strarr) >= required_items) poplist = g_list_append(poplist, strarr[poplist_label_index]);
-		tmplist = g_list_next(tmplist);
-	}
-	return poplist;
-}*/
-/*
-static void generic_selection_changed_cb(GtkTreeSelection *selection
-	, GtkWidget **entry, void (*apply_func)(), Tprefdialog *pd,gint whichlist, gint numentries, gchar ***newcurstrarr){
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	DEBUG_MSG("generic_selection_changed_cb, started\n");
-	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-		gchar *value;
-		GList *tmplist = g_list_first(pd->lists[whichlist]);
-		gtk_tree_model_get(model, &iter, 0, &value, -1);
-		apply_func(pd);
-		while (tmplist) {
-			gchar **strarr =(gchar **)tmplist->data;
-			if (strcmp(strarr[0],value)==0) {
-				gint i;
-				for (i=0;i<numentries;i++) {
-					gtk_entry_set_text(GTK_ENTRY(entry[i]), strarr[i]);
-				}
-				DEBUG_MSG("generic_selection_changed_cb, newcurstrarr(%p) is now %p\n", newcurstrarr, *newcurstrarr);
-				*newcurstrarr = strarr;
-				DEBUG_MSG("generic_selection_changed_cb, newcurstrarr(%p) set to %p (check %p)\n", newcurstrarr, strarr, *newcurstrarr);
-				return;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	} else {
-		DEBUG_MSG("generic_selection_changed_cb, no selection ?!?!\n");
-	}
-}
-
-static gchar **generic_create_strarr(gint numitems, GtkWidget **entries, gboolean force_firstitem_strlen) {
-	gint i;
-	gchar **strarr = g_malloc((numitems+1)*sizeof(gchar *));
-	for (i=0;i<numitems;i++) {
-		strarr[i] = gtk_editable_get_chars(GTK_EDITABLE(entries[i]), 0, -1);
-	}
-	strarr[numitems] = NULL;
-	if (strlen(strarr[0])) {
-		return strarr;
-	} else {
-		g_strfreev(strarr);
-		return NULL;
-	}
-}*/
-
-/**********************************************************/
-/* FILETYPE, FILTERS AND HIGHLIGHT PATTERNS FUNCTIONS     */
-/**********************************************************/
-
-/* static void add_new_general_lcb(Tprefdialog *pd, GtkWidget *entry, gint numentries, gint whichlist, GtkListStore *lstore) {
-	gchar *newtype = gtk_editable_get_chars(GTK_EDITABLE(entry),0,-1);
-	DEBUG_MSG("add_new_general_lcb, newtype=%s\n", newtype);
-	if (strlen(newtype)) {
-		gint i;
-		gchar **strarr = g_malloc((numentries+1)*sizeof(gchar *));
-		strarr[0] = newtype;
-		for (i=1;i<numentries;i++) {
-			strarr[i] = g_strdup("");
-		}
-		strarr[i] = NULL;
-		pd->lists[whichlist] = g_list_append(pd->lists[whichlist], strarr);
-		{
-			GtkTreeIter iter;
-			gtk_list_store_append(GTK_LIST_STORE(lstore), &iter);
-			for (i=0;i<numentries;i++) {
-				gtk_list_store_set(GTK_LIST_STORE(lstore),&iter,i,strarr[i],-1);
-			}
-		}
-	} else {
-		g_free(newtype);
-	}
-} */
-/*
-static gchar **filetype_create_strarr(Tprefdialog *pd) {
-	gchar **strarr;
-	gchar *escaped, *tmp;
-	tmp = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[0]),0,-1);
-	if (strlen(tmp)) {
-		strarr = g_malloc(8*sizeof(gchar *));
-		strarr[0] = tmp;
-		strarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[1]),0,-1);
-		escaped = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[2]),0,-1);
-		strarr[2] = unescape_string(escaped, FALSE);
-		g_free(escaped);
-		strarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[3]),0,-1);
-		strarr[4] = g_strdup(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->ftd.entry[4])) ? "1" : "0");
-		strarr[5] = gtk_editable_get_chars(GTK_EDITABLE(pd->ftd.entry[5]),0,-1);
-		strarr[6] = g_strdup("1");
-		strarr[7] = NULL;
-		DEBUG_MSG("filetype_create_strarr, created at %p\n", strarr);
-		return strarr;
-	} else {
-		g_free(tmp);
-		return NULL;
-	}
-}
-
-static void set_filetype_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
-	gint arrcount;
-	arrcount = count_array(strarr);
-	if (arrcount==7) {
-		gchar *escaped;
-		DEBUG_MSG("set_filetype_strarr_in_list, escaping %s\n",strarr[2]);
-		escaped = escape_string(strarr[2],FALSE);
-		DEBUG_MSG("set_filetype_strarr_in_list, 4=%d, string was %s\n",(strarr[4][0] != '0'), strarr[4]);
-		gtk_list_store_set(GTK_LIST_STORE(pd->ftd.lstore), iter
-			,0,strarr[0]
-			,1,strarr[1]
-			,2,escaped
-			,3,strarr[3]
-			,4,(strarr[4][0] != '0')
-			,5,strarr[5]
-			,6,strarr[6]
-			,7,strarr
-			,-1);
-		g_free(escaped);
-	}
-}
-
-static void filetype_apply_changes(Tprefdialog *pd) {
-	DEBUG_MSG("filetype_apply_changes, started\n");
-	if (pd->ftd.curstrarr) {
-		GtkTreeIter iter;
-		gboolean retval;
-		GList *tmplist;
-		tmplist = g_list_first(pd->lists[filetypes]);
-		while (tmplist) {
-			if (tmplist->data == pd->ftd.curstrarr) {
-				g_strfreev(pd->ftd.curstrarr);
-				tmplist->data = filetype_create_strarr(pd);
-				pd->ftd.curstrarr = tmplist->data;
-				DEBUG_MSG("filetype_apply_changes, applied changes to pd->lists new curstrarr=%p\n", pd->ftd.curstrarr);
-				break;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-		
-		retval = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->ftd.lstore),&iter);
-		DEBUG_MSG("filetype_apply_changes, searching for '%s' in liststore\n",pd->ftd.curstrarr[0]);
-		while (retval) {
-			gchar *curval;
-			gtk_tree_model_get(GTK_TREE_MODEL(pd->ftd.lstore),&iter,0,&curval,-1);
-			if (strcmp(curval,pd->ftd.curstrarr[0])==0) {
-				DEBUG_MSG("filetype_apply_changes, found it, set listore 0=%s,1=%s,...\n", pd->ftd.curstrarr[0], pd->ftd.curstrarr[1]);
-				set_filetype_strarr_in_list(&iter,pd->ftd.curstrarr,pd);
-				break;
-			}
-			retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->ftd.lstore),&iter);
-		}
-	} else {
-		DEBUG_MSG("filetype_apply_changes, no curstrarr, nothing to apply\n");
-	}
-}
-
-static void filetype_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	DEBUG_MSG("filetype_selection_changed_cb, started\n");
-	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-		gchar *filetype;
-		GList *tmplist = g_list_first(pd->lists[filetypes]);
-		gtk_tree_model_get(model, &iter, 0, &filetype, -1);
-		filetype_apply_changes(pd);
-		while (tmplist) {
-			gchar **strarr =(gchar **)tmplist->data;
-			DEBUG_MSG("filetype_selection_changed_cb, searching for '%s'\n",filetype);
-			if (strcmp(strarr[0],filetype)==0) {
-				gchar *escaped = escape_string(strarr[2],FALSE);
-				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[0]), strarr[0]);
-				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[1]), strarr[1]);
-				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[2]), escaped);
-				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[3]), strarr[3]);
-				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->ftd.entry[4]), (strarr[4][0] != '0'));
-				gtk_entry_set_text(GTK_ENTRY(pd->ftd.entry[5]), strarr[5]);
-				pd->ftd.curstrarr = strarr;
-				g_free(escaped);
-				return;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-		DEBUG_MSG("filetype_selection_changed_cb, NOTHING FOUND ?!?!?\n");
-	} else {
-		DEBUG_MSG("filetype_selection_changed_cb, no selection ?!?!\n");
-	}
-}
-*/
 static void set_filetype_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
 	arrcount = count_array(strarr);
@@ -642,9 +441,6 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_widget_set_size_request(scrolwin, 150, 190);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	
-/*	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview));
-	gtk_tree_selection_set_mode (select, GTK_SELECTION_SINGLE);
-	g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(filetype_selection_changed_cb),pd);*/
 	{
 		GList *tmplist = g_list_first(pd->lists[filetypes]);
 		while (tmplist) {
@@ -672,103 +468,7 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_filetype_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 }
-/*
-static gchar **filefilter_create_strarr(Tprefdialog *pd) {
-	gchar **strarr = g_malloc(4*sizeof(gchar *));
-	strarr[0] = gtk_editable_get_chars(GTK_EDITABLE(pd->ffd.entry[0]), 0, -1);
-	if (GTK_TOGGLE_BUTTON(pd->ffd.check)->active){
-			strarr[1] = g_strdup("0");
-		} else {
-			strarr[1] = g_strdup("1");
-		}
-	strarr[2] = gtk_editable_get_chars(GTK_EDITABLE(pd->ffd.entry[1]), 0, -1);
-	strarr[3] = NULL;
-	return strarr;
-}
 
-static void filefilter_apply_changes(Tprefdialog *pd) {
-	DEBUG_MSG("filefilters_apply_changes, started\n");
-	if (pd->ffd.curstrarr) {
-		gchar **strarr;
-		strarr = filefilter_create_strarr(pd);
-		if (strarr) {
-			GList *tmplist;
-			GtkTreeIter iter;
-			gboolean retval = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->ffd.lstore),&iter);
-			while (retval) {
-				gchar *curval;
-				gtk_tree_model_get(GTK_TREE_MODEL(pd->ffd.lstore),&iter,0,&curval,-1);
-				if (strcmp(curval,pd->ffd.curstrarr[0])==0) {
-					gtk_list_store_set(GTK_LIST_STORE(pd->ffd.lstore), &iter
-						,0,strarr[0]
-						,1,(strarr[1][0] == '0')
-						,2,strarr[2]
-						,-1);
-					DEBUG_MSG("filefilters_apply_changes, changed in tree model\n");
-					break;
-				}
-				retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->ffd.lstore),&iter);
-			}
-
-			tmplist = g_list_first(pd->lists[filefilters]);
-			while (tmplist) {
-				if (tmplist->data == pd->ffd.curstrarr) {
-					g_strfreev(pd->ffd.curstrarr);
-					tmplist->data = strarr;
-					pd->ffd.curstrarr = strarr;
-					DEBUG_MSG("filefilters_apply_changes, changed custrarr\n");
-					break;
-				}
-				tmplist = g_list_next(tmplist);
-			}
-		} else {
-			DEBUG_MSG("filefilters_apply_changes, NO strarr!!\n");
-		}
-	} else {
-		DEBUG_MSG("filefilters_apply_changes, NO curstrarr!!\n");
-	}
-}
-
-static void add_new_filefilter_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	gchar **strarr;
-	strarr = filefilter_create_strarr(pd);
-	if (strarr) {
-		GtkTreeIter iter;
-		pd->lists[filefilters] = g_list_append(pd->lists[filefilters], strarr);
-		gtk_list_store_append(GTK_LIST_STORE(pd->ffd.lstore), &iter);
-		gtk_list_store_set(GTK_LIST_STORE(pd->ffd.lstore), &iter
-				,0,strarr[0]
-				,1,(strarr[1][0]=='0')
-				,2,strarr[2]
-				,-1);
-	}
-}
-static void filefilter_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	DEBUG_MSG("filefilter_selection_changed_cb, curstrarr=%p, &curstrarr=%p\n", pd->ftd.curstrarr, &pd->ffd.curstrarr);
-	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-		gchar *filefilter;
-		GList *tmplist = g_list_first(pd->lists[filefilters]);
-		gtk_tree_model_get(model, &iter, 0, &filefilter, -1);
-		filefilter_apply_changes(pd);
-		while (tmplist) {
-			gchar **strarr =(gchar **)tmplist->data;
-			if (strcmp(strarr[0],filefilter)==0) {
-				gtk_entry_set_text(GTK_ENTRY(pd->ffd.entry[0]), strarr[0]);
-				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->ffd.check), (strarr[1][0] == '0'));
-				gtk_entry_set_text(GTK_ENTRY(pd->ffd.entry[1]), strarr[2]);
-				pd->ffd.curstrarr = strarr;
-				DEBUG_MSG("filefilter_selection_changed_cb, found %s, curstrarr=%p\n", filefilter, strarr);
-				return;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-		DEBUG_MSG("filefilter_selection_changed_cb, could not find the selected text %s\n", filefilter);
-	} else {
-		DEBUG_MSG("filefilter_selection_changed_cb, no selection ?!?!\n");
-	}
-}*/
 static void set_filefilter_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
 	arrcount = count_array(strarr);
@@ -951,7 +651,7 @@ static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog 
 	if (menuitem) {
 	  if (pd->hpd.selected_filetype)
 	    g_free (pd->hpd.selected_filetype);
-		pd->hpd.selected_filetype = g_strdup (gtk_label_get_text(GTK_LABEL(GTK_BIN(menuitem)->child)));
+    pd->hpd.selected_filetype = g_strdup (gtk_label_get_text(GTK_LABEL(GTK_BIN(menuitem)->child)));
 	}
 	highlightpattern_fill_from_selected_filetype(pd);
 }
@@ -971,7 +671,6 @@ static void add_new_highlightpattern_lcb(GtkWidget *wid, Tprefdialog *pd) {
 			gtk_list_store_set(GTK_LIST_STORE(pd->hpd.lstore), &iter, 0, strarr[1], -1);
 			gtk_tree_selection_select_iter(selection,&iter);
 		}
-/*		gtk_entry_set_text(GTK_ENTRY(pd->hpd.entry[0]), "");*/
 	} else {
 		g_free(pattern);
 	}
@@ -984,7 +683,6 @@ static void highlightpattern_selection_changed_cb(GtkTreeSelection *selection, T
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
 		gchar *pattern;
 		GList *tmplist = g_list_first(pd->lists[highlight_patterns]);
-/*		GtkWidget *menuitem = gtk_menu_get_active(GTK_MENU( gtk_option_menu_get_menu(GTK_OPTION_MENU(pd->hpd.popmenu)) ));*/
 		gtk_tree_model_get(model, &iter, 0, &pattern, -1);
 		DEBUG_MSG("highlightpattern_selection_changed_cb, selected=%s\n",pattern);
 		highlightpattern_apply_changes(pd);
@@ -1266,111 +964,7 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->hpd.radio[8] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[6]), _("force italic style"));
 	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[8], TRUE, TRUE, 0);
 }
-/*
-static gchar **browser_create_strarr(Tprefdialog *pd) {
-	return generic_create_strarr(2, pd->bd.entry, TRUE);
-}
 
-static void browsers_apply_changes(Tprefdialog *pd) {
-	DEBUG_MSG("browsers_apply_changes, started\n");
-	if (pd->bd.curstrarr) {
-		gchar **strarr;
-		strarr = browser_create_strarr(pd);
-		if (strarr) {
-			GList *tmplist;
-			GtkTreeIter iter;
-			gboolean retval = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->bd.lstore),&iter);
-			while (retval) {
-				gchar *curval;
-				gtk_tree_model_get(GTK_TREE_MODEL(pd->bd.lstore),&iter,0,&curval,-1);
-				if (strcmp(curval,pd->bd.curstrarr[0])==0) {
-					gtk_list_store_set(GTK_LIST_STORE(pd->bd.lstore), &iter
-						,0,strarr[0]
-						,1,strarr[1]
-						,-1);
-					DEBUG_MSG("browsers_apply_changes, changed in tree model\n");
-					break;
-				}
-				retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->bd.lstore),&iter);
-			}
-
-			tmplist = g_list_first(pd->lists[browsers]);
-			while (tmplist) {
-				if (tmplist->data == pd->bd.curstrarr) {
-					g_strfreev(pd->bd.curstrarr);
-					tmplist->data = strarr;
-					pd->bd.curstrarr = strarr;
-					DEBUG_MSG("browsers_apply_changes, changed custrarr\n");
-					break;
-				}
-				tmplist = g_list_next(tmplist);
-			}
-		} else {
-			DEBUG_MSG("browsers_apply_changes, strarr=NULL!!\n");
-		}
-	} else {
-		DEBUG_MSG("browsers_apply_changes, NO curstrarr!!\n");
-	}
-}
-
-static void add_new_browser_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	gchar **strarr;
-	strarr = browser_create_strarr(pd);
-	if (strarr) {
-		GtkTreeIter iter;
-		pd->lists[browsers] = g_list_append(pd->lists[browsers], strarr);
-		gtk_list_store_append(GTK_LIST_STORE(pd->bd.lstore), &iter);
-		gtk_list_store_set(GTK_LIST_STORE(pd->bd.lstore), &iter
-				,0,strarr[0]
-				,1,strarr[1]
-				,-1);
-	}
-}
-
-static void delete_browser_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	if (pd->bd.curstrarr) {
-		GtkTreeIter iter;
-		gboolean retval= gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->bd.lstore),&iter);
-		while (retval) {
-			gchar *curval;
-			gtk_tree_model_get(GTK_TREE_MODEL(pd->bd.lstore),&iter,0,&curval,-1);
-			if (strcmp(curval,pd->bd.curstrarr[0])==0) {
-				gtk_list_store_remove(GTK_LIST_STORE(pd->bd.lstore),&iter);
-				break;
-			}
-			retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->bd.lstore),&iter);
-		}
-		pd->lists[browsers] = g_list_remove(pd->lists[browsers],pd->bd.curstrarr);
-	}
-}
-
-static void set_default_browser_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	if (pd->bd.curstrarr) {
-		GtkTreeIter iter;
-		gboolean retval=gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->bd.lstore),&iter);
-		while (retval) {
-			gchar *curval;
-			gtk_tree_model_get(GTK_TREE_MODEL(pd->bd.lstore),&iter,0,&curval,-1);
-			if (strcmp((char *)curval,pd->bd.curstrarr[0])==0) {
-                                gtk_list_store_remove((pd->bd.lstore),&iter);
-				break;
-			}
-			retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->bd.lstore),&iter);
-		}
-                gtk_list_store_insert((pd->bd.lstore),&iter,0); 
-		gtk_list_store_set(GTK_LIST_STORE(pd->bd.lstore), &iter
-						,0,pd->bd.curstrarr[0]
-						,1,pd->bd.curstrarr[1]
-						,-1);
-		pd->lists[browsers] = g_list_remove(pd->lists[browsers],pd->bd.curstrarr);
-		pd->lists[browsers] = g_list_insert(pd->lists[browsers],pd->bd.curstrarr,0);
-	}
-}
-static void browser_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
-	DEBUG_MSG("browser_selection_changed_cb, curstrarr=%p, &curstrarr=%p\n", pd->ftd.curstrarr, &pd->bd.curstrarr);
-	generic_selection_changed_cb(selection,pd->bd.entry,browsers_apply_changes,pd,browsers,2,&pd->bd.curstrarr);
-	DEBUG_MSG("browser_selection_changed_cb, curstrarr=%p, &curstrarr=%p\n", pd->ftd.curstrarr, &pd->bd.curstrarr);
-}*/
 static void set_browser_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount = count_array(strarr);
 	if (arrcount==2) {
@@ -1436,98 +1030,6 @@ static void create_browsers_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_browser_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);	
 }
-/*
-static gchar **external_create_strarr(Tprefdialog *pd) {
-	return generic_create_strarr(2, pd->ed.entry, TRUE);
-}
-
-static void externals_apply_changes(Tprefdialog *pd) {
-	DEBUG_MSG("externals_apply_changes, started\n");
-	if (pd->ed.curstrarr) {
-		gchar **strarr;
-		strarr = external_create_strarr(pd);
-		if (strarr) {
-			GList *tmplist;
-			GtkTreeIter iter;
-			gboolean retval = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->ed.lstore),&iter);
-			while (retval) {
-				gchar *curval;
-				gtk_tree_model_get(GTK_TREE_MODEL(pd->ed.lstore),&iter,0,&curval,-1);
-				if (strcmp(curval,pd->ed.curstrarr[0])==0) {
-					gtk_list_store_set(GTK_LIST_STORE(pd->ed.lstore), &iter
-						,0,strarr[0]
-						,1,strarr[1]
-						,-1);
-					DEBUG_MSG("externals_apply_changes, changed in tree model\n");
-					break;
-				}
-				retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->ed.lstore),&iter);
-			}
-
-			tmplist = g_list_first(pd->lists[external_commands]);
-			while (tmplist) {
-				if (tmplist->data == pd->ed.curstrarr) {
-					g_strfreev(pd->ed.curstrarr);
-					tmplist->data = strarr;
-					pd->ed.curstrarr = strarr;
-					DEBUG_MSG("externals_apply_changes, changed custrarr\n");
-					break;
-				}
-				tmplist = g_list_next(tmplist);
-			}
-		} else {
-			DEBUG_MSG("externals_apply_changes, NO strarr!!\n");
-		}
-	} else {
-		DEBUG_MSG("externals_apply_changes, NO curstrarr!!\n");
-	}
-}
-
-static void external_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
-	DEBUG_MSG("external_selection_changed_cb, started\n");
-	generic_selection_changed_cb(selection,pd->ed.entry,externals_apply_changes,pd,external_commands,2,&pd->ed.curstrarr);
-}
-
-static void add_new_external_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	gchar **strarr;
-	strarr = external_create_strarr(pd);
-	if (strarr) {
-		GtkTreeIter iter;
-		pd->lists[external_commands] = g_list_append(pd->lists[external_commands], strarr);
-		gtk_list_store_append(GTK_LIST_STORE(pd->ed.lstore), &iter);
-		gtk_list_store_set(GTK_LIST_STORE(pd->ed.lstore), &iter
-				,0,strarr[0]
-				,1,strarr[1]
-				,-1);
-	}
-}
-
-static void delete_external_commands_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	GtkTreeSelection *select;
-	GtkTreeIter iter;
-	gboolean retval;
-
-	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ed.lview));
-	retval = gtk_tree_selection_get_selected (select,NULL,&iter);
-	if(retval) {
-		gchar *curval;
-		GList *work = NULL;
-		gchar **curstrarr;
-		
-		gtk_tree_model_get(GTK_TREE_MODEL(pd->ed.lstore),&iter,0,&curval,-1);
-		gtk_list_store_remove(pd->ed.lstore,&iter);
-		work = pd->lists[external_commands];
-		while(work) {
-			curstrarr = work->data;
-			if (strcmp(curval,curstrarr[0])==0) {
-				pd->lists[external_commands] = g_list_remove(pd->lists[external_commands],curstrarr);
-				break;
-			}
-			work = g_list_next(work);
-		}
-		g_free(curval);
-	}
-}*/
 
 static void set_external_commands_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount = count_array(strarr);
@@ -1594,109 +1096,7 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_external_commands_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);	
 }
-/*
-static gchar **outputbox_create_strarr(Tprefdialog *pd) {
-	gchar **strarr = g_malloc(8*sizeof(gchar *));
-	strarr[0] = gtk_editable_get_chars(GTK_EDITABLE(pd->od.entry[0]), 0, -1);
-	strarr[1] = gtk_editable_get_chars(GTK_EDITABLE(pd->od.entry[1]), 0, -1);
-	strarr[2] = gtk_editable_get_chars(GTK_EDITABLE(pd->od.entry[2]), 0, -1);
-	strarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->od.entry[3]), 0, -1);
-	strarr[4] = gtk_editable_get_chars(GTK_EDITABLE(pd->od.entry[4]), 0, -1);
-	strarr[5] = gtk_editable_get_chars(GTK_EDITABLE(pd->od.entry[5]), 0, -1);
-	strarr[6] = g_strdup((GTK_TOGGLE_BUTTON(pd->od.check)->active) ? "1" : "0");
-	strarr[7] = NULL;
-	return strarr;
-}
-static void outputbox_apply_changes(Tprefdialog *pd) {
-	if (pd->od.curstrarr) {
-		gchar **strarr;
-		strarr = outputbox_create_strarr(pd);
-		if (strarr) {
-			GList *tmplist;
-			GtkTreeIter iter;
-			gboolean retval = gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->od.lstore),&iter);
-			while (retval) {
-				gchar *curval;
-				gtk_tree_model_get(GTK_TREE_MODEL(pd->od.lstore),&iter,0,&curval,-1);
-				if (strcmp(curval,pd->od.curstrarr[0])==0) {
-					gtk_list_store_set(GTK_LIST_STORE(pd->od.lstore), &iter
-						,0,strarr[0]
-						,1,strarr[1]
-						,2,strarr[2]
-						,3,strarr[3]
-						,4,strarr[4]
-						,5,strarr[5]
-						,6,strarr[6]
-						,-1);
-					break;
-				}
-				retval = gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->od.lstore),&iter);
-			}
 
-			tmplist = g_list_first(pd->lists[outputbox]);
-			while (tmplist) {
-				if (tmplist->data == pd->od.curstrarr) {
-					g_strfreev(pd->od.curstrarr);
-					tmplist->data = strarr;
-					pd->od.curstrarr = strarr;
-					break;
-				}
-				tmplist = g_list_next(tmplist);
-			}
-		} else {
-			DEBUG_MSG("outputbox_apply_changes, NO strarr!!\n");
-		}
-	} else {
-		DEBUG_MSG("outputbox_apply_changes, NO curstrarr!!\n");
-	}
-}	
-static void add_new_outputbox_lcb(GtkWidget *wid, Tprefdialog *pd) {
-	gchar **strarr;
-	strarr = outputbox_create_strarr(pd);
-	if (strarr) {
-		GtkTreeIter iter;
-		pd->lists[outputbox] = g_list_append(pd->lists[outputbox], strarr);
-		gtk_list_store_append(GTK_LIST_STORE(pd->od.lstore), &iter);
-		gtk_list_store_set(GTK_LIST_STORE(pd->od.lstore), &iter
-						,0,strarr[0]
-						,1,strarr[1]
-						,2,strarr[2]
-						,3,strarr[3]
-						,4,strarr[4]
-						,5,strarr[5]
-						,6,strarr[6]
-						,-1);
-	}
-}
-
-static void outputbox_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
-	GtkTreeIter iter;
-	GtkTreeModel *model;
-	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-		gchar *name;
-		GList *tmplist = g_list_first(pd->lists[outputbox]);
-		gtk_tree_model_get(model, &iter, 0, &name, -1);
-		outputbox_apply_changes(pd);
-		while (tmplist) {
-			gchar **strarr =(gchar **)tmplist->data;
-			if (strcmp(strarr[0],name)==0) {
-				gtk_entry_set_text(GTK_ENTRY(pd->od.entry[0]), strarr[0]);
-				gtk_entry_set_text(GTK_ENTRY(pd->od.entry[1]), strarr[1]);
-				gtk_entry_set_text(GTK_ENTRY(pd->od.entry[2]), strarr[2]);
-				gtk_entry_set_text(GTK_ENTRY(pd->od.entry[3]), strarr[3]);
-				gtk_entry_set_text(GTK_ENTRY(pd->od.entry[4]), strarr[4]);
-				gtk_entry_set_text(GTK_ENTRY(pd->od.entry[5]), strarr[5]);
-				gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->od.check), (strarr[6][0] == '1'));
-				pd->od.curstrarr = strarr;
-				return;
-			}
-			tmplist = g_list_next(tmplist);
-		}
-	} else {
-		DEBUG_MSG("outputbox_selection_changed_cb, no selection ?!?!\n");
-	}
-}
-*/
 static void set_outputbox_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
 	gint arrcount;
 	arrcount = count_array(strarr);
@@ -1813,8 +1213,6 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
   if (pd->hpd.selected_filetype)
 	    g_free (pd->hpd.selected_filetype);
 
-/*	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview));
-	g_signal_handlers_destroy(G_OBJECT(select));*/
 	DEBUG_MSG("preferences_destroy_lcb, destroying handlers for lstore %p\n",pd->ftd.lstore);
 	g_signal_handlers_destroy(G_OBJECT(pd->ftd.lstore));
 
@@ -1822,10 +1220,9 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	g_signal_handlers_destroy(G_OBJECT(select));
 
 	g_signal_handlers_destroy(G_OBJECT(pd->hpd.popmenu));
-/*	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->bd.combo)->list));*/
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->bd.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
-/*	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->ed.combo)->list));*/
+
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ed.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
 	DEBUG_MSG("preferences_destroy_lcb, about to destroy the window\n");
@@ -1890,10 +1287,6 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.leftpanel_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[leftpanel_tabposition]));
 	main_v->props.left_panel_left = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[left_panel_left]));
 
-/*	integer_apply(&main_v->props.view_main_toolbar, pd->prefs[view_main_toolbar], TRUE);
-	integer_apply(&main_v->props.view_left_panel, pd->prefs[view_left_panel], TRUE);
-	integer_apply(&main_v->props.view_custom_menu, pd->prefs[view_custom_menu], TRUE);
-	integer_apply(&main_v->props.view_html_toolbar, pd->prefs[view_html_toolbar], TRUE);*/
 	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
 	
 	integer_apply(&main_v->props.ext_browsers_in_submenu, pd->prefs[ext_browsers_in_submenu], TRUE);
@@ -1910,12 +1303,7 @@ static void preferences_apply(Tprefdialog *pd) {
 
 	integer_apply(&main_v->props.server_zope_compat, pd->prefs[server_zope_compat], TRUE);
 
-	/*filetype_apply_changes(pd);*/
-	/*filefilter_apply_changes(pd);*/
 	highlightpattern_apply_changes(pd);
-	/*browsers_apply_changes(pd);*/
-	/*externals_apply_changes(pd);*/
-	/*outputbox_apply_changes(pd);*/
 
 	free_arraylist(main_v->props.filetypes);
 	main_v->props.filetypes = duplicate_arraylist(pd->lists[filetypes]);
@@ -2135,10 +1523,6 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
-/*	pd->prefs[view_main_toolbar] = boxed_checkbut_with_value(_("Show main toolbar by default"), main_v->props.view_main_toolbar, vbox2);
-	pd->prefs[view_left_panel] = boxed_checkbut_with_value(_("Show sidebar by default"), main_v->props.view_left_panel, vbox2);
-	pd->prefs[view_custom_menu] = boxed_checkbut_with_value(_("Show custom menu by default"), main_v->props.view_custom_menu, vbox2);
-	pd->prefs[view_html_toolbar] = boxed_checkbut_with_value(_("Show HTML toolbar by default"), main_v->props.view_html_toolbar, vbox2);*/
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
 
 	pd->prefs[ext_browsers_in_submenu] = boxed_checkbut_with_value(_("External browsers in submenu"), main_v->props.ext_browsers_in_submenu, vbox2);
