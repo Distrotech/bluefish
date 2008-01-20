@@ -1704,8 +1704,8 @@ static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdo
 	if (!(kevent->state & GDK_CONTROL_MASK) && 
 	       ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End)) && 
 	       main_v->props.editor_smart_cursor) {
-                GtkTextMark* imark;
-                GtkTextIter  iter, currentpos, linestart;
+            GtkTextMark* imark;
+            GtkTextIter  iter, currentpos, linestart;
    
         		imark = gtk_text_buffer_get_insert (doc->buffer);		
         		gtk_text_buffer_get_iter_at_mark (doc->buffer, &currentpos, imark);
@@ -1750,19 +1750,27 @@ static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdo
 	}
 
 	if (kevent->keyval == GDK_Tab && main_v->props.editor_indent_wspaces) {
-  		GtkTextMark* imark;
-		GtkTextIter iter;
-		gchar *string;
+    GtkTextMark *imark;
+    GtkTextIter iter;
+    gchar *string;
 
-  	   /* replace the tab with spaces if the user wants that */
-  	   string = bf_str_repeat(" ", main_v->props.editor_tab_width);
-  	   imark = gtk_text_buffer_get_insert(doc->buffer);
-  	   gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter,imark);
-  	   gtk_text_buffer_insert(doc->buffer,&iter,string,main_v->props.editor_tab_width);
-  	   g_free(string);
+    /* replace the tab with spaces if the user wants that */
+    string = bf_str_repeat(" ", main_v->props.editor_tab_width);
+    imark = gtk_text_buffer_get_insert(doc->buffer);
+    gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter,imark);
+    gtk_text_buffer_insert(doc->buffer,&iter,string,main_v->props.editor_tab_width);
+    g_free(string);
 
-  	   return TRUE; /* we handled the event, stop the event from cascading further */
-  	}
+    return TRUE; /* we handled the event, stop the event from cascading further */
+  }
+  
+  if (!(kevent->state & GDK_SHIFT_MASK) &&
+       (kevent->keyval == GDK_Up || kevent->keyval == GDK_Down || 
+        kevent->keyval == GDK_KP_Up || kevent->keyval == GDK_KP_Down ||
+        kevent->keyval == GDK_Next || kevent->keyval == GDK_Prior)) {
+
+        doc_highlight_line (doc);
+  }
   	
 	return FALSE; /* we didn't handle all of the event */
 }
