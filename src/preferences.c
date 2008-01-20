@@ -44,7 +44,6 @@ enum {
 	view_main_toolbar,
 	view_left_panel,
 	view_line_numbers,
-	filebrowser_two_pane_view,
 	filebrowser_unknown_icon,
 	editor_show_splash_screen,    /* show splash screen at start-up */
 	editor_font_string,           /* editor font */
@@ -1763,7 +1762,6 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
 	
 /*	string_apply(&main_v->props.default_basedir, pd->prefs[default_basedir]);*/
-	integer_apply(&main_v->props.filebrowser_two_pane_view, pd->prefs[filebrowser_two_pane_view], TRUE);
 	string_apply(&main_v->props.filebrowser_unknown_icon, pd->prefs[filebrowser_unknown_icon]);
 	
 	string_apply(&main_v->props.image_thumbnailstring, pd->prefs[image_thumbnailstring]);
@@ -2124,7 +2122,6 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 /*	pd->prefs[default_basedir] = prefs_string(_("Default basedir"), main_v->props.default_basedir, vbox2, pd, string_none);*/
-	pd->prefs[filebrowser_two_pane_view] = boxed_checkbut_with_value(_("Use separate file and directory view"), main_v->props.filebrowser_two_pane_view, vbox2);
 	pd->prefs[filebrowser_unknown_icon] = prefs_string(_("Unknown icon"), main_v->props.filebrowser_unknown_icon, vbox2, pd, string_file);
 	
 	
