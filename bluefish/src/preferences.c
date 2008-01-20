@@ -162,7 +162,7 @@ typedef struct {
 	GtkWidget *check;
 	GtkWidget *radio[9];
 	gchar **curstrarr;
-	const gchar *selected_filetype;
+	gchar *selected_filetype;
 } Thighlightpatterndialog;
 
 typedef struct {
@@ -910,12 +910,12 @@ static void highlightpattern_apply_changes(Tprefdialog *pd) {
 }
 
 static void highlightpattern_fill_from_selected_filetype(Tprefdialog *pd) {
-	DEBUG_MSG("highlightpattern_popmenu_activate, applied changes, about to clear liststore\n");
+	DEBUG_MSG("highlightpattern_fill_from_selected_filetype, applied changes, about to clear liststore\n");
 	gtk_list_store_clear(GTK_LIST_STORE(pd->hpd.lstore));
 	if (pd->hpd.selected_filetype) {
 		GList *tmplist;
 		tmplist = g_list_first(pd->lists[highlight_patterns]);
-		DEBUG_MSG("highlightpattern_popmenu_activate, about to fill for filetype %s (tmplist=%p)\n",pd->hpd.selected_filetype,tmplist);
+		DEBUG_MSG("highlightpattern_fill_from_selected_filetype, about to fill for filetype %s (tmplist=%p)\n",pd->hpd.selected_filetype,tmplist);
 		/* fill list model here */
 		while (tmplist) {
 			gchar **strarr =(gchar **)tmplist->data;
@@ -923,7 +923,7 @@ static void highlightpattern_fill_from_selected_filetype(Tprefdialog *pd) {
 				DEBUG_MSG("found entry with filetype %s\n",strarr[0]);
 				if (strcmp(strarr[0], pd->hpd.selected_filetype)==0) {
 					GtkTreeIter iter;
-					DEBUG_MSG("highlightpattern_popmenu_activate, appending pattern %s with filetype %s\n",strarr[1],strarr[0]);
+					DEBUG_MSG("highlightpattern_fill_from_selected_filetype, appending pattern %s with filetype %s\n",strarr[1],strarr[0]);
 					gtk_list_store_append(GTK_LIST_STORE(pd->hpd.lstore), &iter);
 					gtk_list_store_set(GTK_LIST_STORE(pd->hpd.lstore), &iter, 0, strarr[1], -1);
 				}
@@ -949,7 +949,9 @@ static void highlightpattern_popmenu_activate(GtkMenuItem *menuitem,Tprefdialog 
 	highlightpattern_apply_changes(pd);
 	pd->hpd.curstrarr = NULL;
 	if (menuitem) {
-		pd->hpd.selected_filetype = gtk_label_get_text(GTK_LABEL(GTK_BIN(menuitem)->child));
+	  if (pd->hpd.selected_filetype)
+	    g_free (pd->hpd.selected_filetype);
+		pd->hpd.selected_filetype = g_strdup (gtk_label_get_text(GTK_LABEL(GTK_BIN(menuitem)->child)));
 	}
 	highlightpattern_fill_from_selected_filetype(pd);
 }
@@ -1209,6 +1211,7 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		
 		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
 		g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(highlightpattern_selection_changed_cb),pd);
+		gtk_tree_selection_set_mode (select, GTK_SELECTION_SINGLE);
 	}
 
 	vbox3 = gtk_vbox_new(FALSE, 2);
@@ -1806,6 +1809,9 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	pd->lists[highlight_patterns] = NULL;
 	pd->lists[browsers] = NULL;
 	pd->lists[external_commands] = NULL;
+
+  if (pd->hpd.selected_filetype)
+	    g_free (pd->hpd.selected_filetype);
 
 /*	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->ftd.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));*/
