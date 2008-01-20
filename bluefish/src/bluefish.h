@@ -191,7 +191,6 @@ typedef struct {
 typedef struct {
 	gint do_periodic_check;
 	gint view_line_numbers; /* view line numbers on the left side by default */
-	gint filebrowser_two_pane_view; /* have one or two panes in the filebrowser */
 	gchar *filebrowser_unknown_icon;
 	gint filebrowser_icon_size;
 	gchar *editor_font_string;		/* editor font */
