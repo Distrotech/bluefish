@@ -1435,18 +1435,10 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 	if (fb2->basedir == NULL || fb2->filebrowser_viewmode == viewmode_flat) {
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Show Full Tree"), FALSE);
 	}
-	switch (fb2->filebrowser_viewmode) {
-		case viewmode_tree:
-			setup_toggle_item(menumaker, "/Mode/Tree view", TRUE);
-		break;
-		case viewmode_dual:
-			setup_toggle_item(menumaker, "/Mode/Dual view", TRUE);
-		break;
-		case viewmode_flat:
-			setup_toggle_item(menumaker, "/Mode/Flat view", TRUE);
-		break;
-	}	
-	
+	setup_toggle_item(menumaker, "/Mode/Tree view", (fb2->filebrowser_viewmode == viewmode_tree));
+	setup_toggle_item(menumaker, "/Mode/Dual view", (fb2->filebrowser_viewmode == viewmode_dual));
+	setup_toggle_item(menumaker, "/Mode/Flat view", (fb2->filebrowser_viewmode == viewmode_flat));
+
 	/* Add filter submenu */
 	menu_item = gtk_menu_item_new_with_label(_("Filter"));
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu), menu_item);
@@ -1895,6 +1887,9 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 *fb2, gint viewmode) {
 	DEBUG_MSG("fb2_set_viewmode_widgets, building new GUI\n");
 	if (fb2->basedir) {
 		basepath = treepath_for_uri(fb2, fb2->basedir);
+		if (fb2->filebrowser_viewmode != viewmode_flat) {
+			gtk_tree_path_up(basepath);
+		}
 	}
 	
 	fb2->dir_tfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore),basepath);
@@ -2085,7 +2080,7 @@ GtkWidget *fb2_init(Tbfwin *bfwin) {
 	fb2->dirmenu_changed_signal = g_signal_connect(fb2->dirmenu_v, "changed", G_CALLBACK(dirmenu_changed_lcb), fb2);
 
 	fb2_update_settings_from_session(bfwin);
-	gtk_widget_show_all(fb2->vbox);	
+	gtk_widget_show_all(fb2->vbox);
 /*	{
 		GnomeVFSURI *uri = NULL;
 		if (bfwin->session->recent_dirs) {
