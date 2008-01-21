@@ -1766,8 +1766,7 @@ static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdo
   
   if (!(kevent->state & GDK_SHIFT_MASK) &&
        (kevent->keyval == GDK_Up || kevent->keyval == GDK_Down || 
-        kevent->keyval == GDK_KP_Up || kevent->keyval == GDK_KP_Down ||
-        kevent->keyval == GDK_Next || kevent->keyval == GDK_Prior)) {
+        kevent->keyval == GDK_KP_Up || kevent->keyval == GDK_KP_Down)) {
 
         doc_highlight_line (doc);
   }
