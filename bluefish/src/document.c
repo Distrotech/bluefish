@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * document.c - the document
  *
- * Copyright (C) 1998-2007 Olivier Sessink
+ * Copyright (C) 1998-2008 Olivier Sessink
  * Copyright (C) 1998 Chris Mazuc
  * some additions Copyright (C) 2004 Eugene Morenko(More)
  *
@@ -1872,6 +1872,14 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 			}
 		}
 	}
+	
+	if (!(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_MOD1_MASK) &&
+        (kevent->keyval == GDK_Delete || kevent->keyval == GDK_KP_Delete ||
+        kevent->keyval == GDK_BackSpace)) {
+	
+        doc_highlight_line (doc);
+	}
+	
 	return FALSE; /* we didn't handle all of the event */
 }
 
