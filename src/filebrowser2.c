@@ -1123,14 +1123,20 @@ static void rename_not_open_file(Tbfwin *bfwin, GnomeVFSURI *olduri) {
 	g_free(oldfilename);
 } 
 
-static void fb2rpopup_new(Tfilebrowser2 *fb2, gboolean newisdir) {
-	GnomeVFSURI *baseuri;
+static void fb2rpopup_new(Tfilebrowser2 *fb2, gboolean newisdir, GnomeVFSURI *noselectionbaseuri) {
+	GnomeVFSURI *baseuri=NULL;
 	if (fb2->last_popup_on_dir) {
 		baseuri = gnome_vfs_uri_dup(fb2_uri_from_dir_selection(fb2));
 	} else {
 		GnomeVFSURI *childuri = fb2_uri_from_file_selection(fb2);
-		baseuri = gnome_vfs_uri_get_parent(childuri);
+		if (childuri)
+			baseuri = gnome_vfs_uri_get_parent(childuri);
 	}
+	if (!baseuri) {
+		/* no selection, try the noselectionbaseuri */
+		baseuri = noselectionbaseuri;
+	}
+	
 	if (baseuri) {
 		GnomeVFSURI *newuri;
 		GnomeVFSResult res;
@@ -1163,6 +1169,8 @@ static void fb2rpopup_new(Tfilebrowser2 *fb2, gboolean newisdir) {
 		}
 		gnome_vfs_uri_unref(newuri);
 		gnome_vfs_uri_unref(baseuri);
+	} else {
+		DEBUG_MSG("not creating new file => no baseuri, perhaps we should use the basedir ??\n");
 	}
 }
 
@@ -1276,10 +1284,15 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 			fb2rpopup_delete(fb2);
 		break;
 		case 4:
-			fb2rpopup_new(fb2, FALSE);
+			/* BUG: in the case of a click in a dual-view fileview, we should not use the basedir
+			as third argument */
+			fb2rpopup_new(fb2, FALSE, fb2->basedir);
 		break;
 		case 5:
-			fb2rpopup_new(fb2, TRUE);
+			/* BUG: in the case of a click in a dual-view fileview, we should not use the basedir
+			as third argument */
+
+			fb2rpopup_new(fb2, TRUE, fb2->basedir);
 		break;
 		case 6:
 			fb2rpopup_refresh(fb2);
