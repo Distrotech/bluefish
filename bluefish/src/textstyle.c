@@ -169,11 +169,12 @@ GtkTextTag *get_tag_for_scanner_style(const gchar *filetype,const gchar *type,co
 		}
 /*		DEBUG_MSG("get_tag_for_scanner_style(%s:%s:%s) return tag %p for textstyle %s\n",filetype,type,name,tag,tagname);*/
 		return tag;
-	} else if (defaultstyle && defaultstyle[0] != '\0'){
+	} else if (defaultstyle && defaultstyle[0] != '\0') {
 		/* try the default style */
 		tag = textstyle_get(defaultstyle);
 		if (tag) {
 			gchar **arr2 = array_from_arglist(filetype,type,name,defaultstyle,NULL);
+			g_print("get_tag_for_scanner_style, %s:%s:%s is not yet in rcfile_v2, adding with value %s\n",filetype,type,name,defaultstyle);
 			main_v->props.syntax_styles = g_list_append(main_v->props.syntax_styles,arr2);
 		}
 		DEBUG_MSG("get_tag_for_scanner_style, return default style %s for %s:%s:%s\n",defaultstyle,filetype,type,name);
