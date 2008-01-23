@@ -1171,11 +1171,17 @@ static void fill_hl_tree(Tprefdialog *pd) {
 	hasht = g_hash_table_new(arr3_hash,arr3_equal);
 	
 	/* first fill the hashtable */
-	for (tmplist=g_list_first(pd->lists[syntax_styles]);tmplist;tmplist=g_list_next(tmplist)) {
+	tmplist=g_list_first(pd->lists[syntax_styles]);
+	while (tmplist) {
 		gchar **tmp = tmplist->data;
-		if (count_array(tmp)>3) {
+		tmplist=g_list_next(tmplist);
+		if (count_array(tmp)>3 && g_hash_table_lookup(hasht, tmp)==NULL) {
 			g_hash_table_insert(hasht,tmp,tmp);
+		} else {
+			/* removes broken and duplicate values from the list */
+			pd->lists[syntax_styles] = g_list_remove(pd->lists[syntax_styles], tmp);
 		}
+		
 	}
 	
 	tmplist = g_list_first(main_v->lang_mgr->languages);
@@ -1292,6 +1298,7 @@ static void hl_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd
 				DEBUG_MSG("hl_selection_changed_cb, created %p %s:%s:%s:%s\n",strarr, strarr[0],strarr[1],strarr[2],strarr[3]);
 				gtk_tree_store_set(GTK_TREE_STORE(model), &iter, 3, strarr, -1);
 				hl_set_textstylecombo_by_text(pd, NULL);
+				g_print("hl_selection_changed_cb, adding %s:%s:%s%s to syntax_styles\n",strarr[0],strarr[1],strarr[2],strarr[3]);
 				pd->lists[syntax_styles] = g_list_prepend(pd->lists[syntax_styles], strarr);
 				pd->hld.curstrarr = strarr;
 			} else {
