@@ -815,6 +815,13 @@ gint filebrowser_sort_func(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpo
 	return retval;
 }
 
+static void add_uri_to_recent_dirs(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
+	gchar *tmp;
+	tmp = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
+	fb2->bfwin->session->recent_dirs = add_to_history_stringlist(fb2->bfwin->session->recent_dirs, tmp, TRUE, TRUE);
+	g_free(tmp);
+}
+
 /**
  * refilter_dirlist:
  *
@@ -830,19 +837,17 @@ static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
 		useroot = gtk_tree_path_copy(newroot);
 		if (fb2->filebrowser_viewmode == viewmode_flat) {
 			fb2->basedir = fb2_uri_from_fspath(fb2, newroot);
+			add_uri_to_recent_dirs(fb2, fb2->basedir);
 			gnome_vfs_uri_ref(fb2->basedir);
 			DEBUG_MSG("refilter_dirlist, we use useroot as new root\n");
 		} else {
 			if (gtk_tree_path_get_depth(newroot) > 1 && gtk_tree_path_up(useroot)) { /* do not set the root as basedir, it is useless  */
 				GnomeVFSURI *uri;
-				gchar *tmp;
 				/* store this basedir in fb2 */
 				uri = fb2_uri_from_fspath(fb2, newroot);
 				gnome_vfs_uri_ref(uri);
 				fb2->basedir = uri;
-				tmp = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
-				fb2->bfwin->session->recent_dirs = add_to_history_stringlist(fb2->bfwin->session->recent_dirs, tmp, TRUE, TRUE);
-				g_free(tmp);
+				add_uri_to_recent_dirs(fb2, fb2->basedir);
 			} else {
 				DEBUG_MSG("there is no parent for this path, so we will set the basedir to NULL\n");
 				gtk_tree_path_free(useroot);
