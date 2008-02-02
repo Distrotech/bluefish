@@ -1,30 +1,30 @@
-# translation of 17-01-06_sk-2.po to
-# Blue Fish - HTML Editor pre programátorov.
+# translation of bluefis-unstable_plugin_htmlbar.po to
+# Blue Fish - HTML Editor for programators.
 # Copyright (C) 2000, 2006 Free Software Foundation, Inc.
-# FIRST AUTHOR Vladimir VASIL <vvasil@post.sk>, 2005.
+# Vladimir VASIL Vladimir VASIL <vvasil@post.sk>, 2005.
 # Vladimir VASIL <vlado@localhost.localdomain>, 2006.
+# Pavol Klacansky <pavolzetor@gmail.com>, 2008.
+#
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 17-01-06_sk-2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2007-10-14 19:11+0200\n"
-"PO-Revision-Date: 2006-01-18 14:51+0100\n"
-"Last-Translator: Vladimir VASIL <vvasil@post.sk>\n"
-"Language-Team:  <sk@li.org>\n"
+"PO-Revision-Date: 2008-02-02 15:12+0100\n"
+"Last-Translator: Pavol Klacansky <pavolzetor@gmail.com>\n"
+"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"First-Translator: Vladimir VASIL <vvasil@post.sk>\n"
-"X-Generator: KBabel 1.10\n"
+"Plural-Forms: nplurals=3; plural= (n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;"
 
 #. _DM_ Alert box asking if user would like to change request from add to
 #. * update.
 #.
 #: src/plugin_htmlbar/html2.c:499
-#, fuzzy
 msgid "_Update"
-msgstr " _Aktualizovať "
+msgstr "_Obnoviť"
 
 #: src/plugin_htmlbar/html2.c:504
 #, fuzzy, c-format
@@ -39,7 +39,7 @@ msgstr "Uvedená cesta už existuje."
 #: src/plugin_htmlbar/html2.c:509
 #, c-format
 msgid "Update it's value from %s to %s?"
-msgstr ""
+msgstr "Aktualizovať hodnotu s %s na %s?"
 
 #: src/plugin_htmlbar/html2.c:635
 #, fuzzy
@@ -101,903 +101,903 @@ msgstr "Upraviť tag"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:203
 msgid "/_Tags"
-msgstr "/_Tagy"
+msgstr "/_Značky"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:205
 msgid "/Tags/_Headings"
-msgstr "/Tagy/Nadpisy"
+msgstr "/Značky/Nadpisy"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:207
 msgid "/Tags/Headings/H_1"
-msgstr "/Tagy/Nadpisy/H_1"
+msgstr "/Značky/Nadpisy/H_1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:208
 msgid "/Tags/Headings/H_2"
-msgstr "/Tagy/Nadpisy/H_2"
+msgstr "/Značky/Nadpisy/H_2"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:209
 msgid "/Tags/Headings/H_3"
-msgstr "/Tagy/Nadpisy/H_3"
+msgstr "/Značky/Nadpisy/H_3"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:210
 msgid "/Tags/Headings/H_4"
-msgstr "/Tagy/Nadpisy/H_4"
+msgstr "/Značky/Nadpisy/H_4"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:211
 msgid "/Tags/Headings/H_5"
-msgstr "/Tagy/Nadpisy/H_5"
+msgstr "/Značky/Nadpisy/H_5"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:212
 msgid "/Tags/Headings/H_6"
-msgstr "/Tagy/Nadpisy/H_6"
+msgstr "/Značky/Nadpisy/H_6"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:213
 msgid "/Tags/_Special"
-msgstr "/Tagy/Š_peciálne"
+msgstr "/Značky/Š_peciálne"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:215
 msgid "/Tags/Special/_Accent"
-msgstr "/Tagy/Špeciálne/_Diakritika"
+msgstr "/Značky/Špeciálne/_Diakritika"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:217
 msgid "/Tags/Special/Accent/_Uppercase"
-msgstr "/Tagy/Špeciálne/Diakritika/_Velké písmena"
+msgstr "/Značky/Špeciálne/Diakritika/_Velké písmena"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:218
 msgid "/Tags/Special/Accent/Uppercase/_A-I"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:220
 msgid "/Tags/Special/Accent/Uppercase/A-I/A grave À"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/À "
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/À "
 
 #: src/plugin_htmlbar/htmlbar_gui.c:221
 msgid "/Tags/Special/Accent/Uppercase/A-I/A acute Á"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/Á"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/Á"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:222
 msgid "/Tags/Special/Accent/Uppercase/A-I/A circumflex Â"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/A zo strieškou Â"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/A zo strieškou Â"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:223
 msgid "/Tags/Special/Accent/Uppercase/A-I/A tilde Ã"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/A s tildou Ã"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/A s tildou Ã"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:224
 msgid "/Tags/Special/Accent/Uppercase/A-I/AE ligature Æ"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/Æ"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/Æ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:225
 msgid "/Tags/Special/Accent/Uppercase/A-I/A diaeresis Ä"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/A s prehláskou Ä"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/A s prehláskou Ä"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:226
 msgid "/Tags/Special/Accent/Uppercase/A-I/A ring Å"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/A s kolečkom Å"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/A s kolečkom Å"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:227
 msgid "/Tags/Special/Accent/Uppercase/A-I/C cedilla Ç"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/C cédille  Ç"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/C cédille  Ç"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:228
 msgid "/Tags/Special/Accent/Uppercase/A-I/E grave È"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/È"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/È"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:229
 msgid "/Tags/Special/Accent/Uppercase/A-I/E acute É"
-msgstr "/Tagy/Špeciální/Diakritika/Velké písmena/A-I/E s čárkou É"
+msgstr "/Značky/Špeciální/Diakritika/Velké písmena/A-I/E s čárkou É"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:230
 msgid "/Tags/Special/Accent/Uppercase/A-I/E circumflex Ê"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/E zo strieškou Ê"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/E zo strieškou Ê"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:231
 msgid "/Tags/Special/Accent/Uppercase/A-I/E diaeresis Ë"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/E s prehláskou Ë"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/E s prehláskou Ë"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:232
 msgid "/Tags/Special/Accent/Uppercase/A-I/I grave Ì"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/Ì"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/Ì"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:233
 msgid "/Tags/Special/Accent/Uppercase/A-I/I acute Í"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/I s čiarkou Í"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/I s čiarkou Í"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:234
 msgid "/Tags/Special/Accent/Uppercase/A-I/I circumflex Î"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/I do strieškou Î"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/I do strieškou Î"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:235
 msgid "/Tags/Special/Accent/Uppercase/A-I/I diaeresis Ï"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/A-I/I s prehláskou Ï"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/A-I/I s prehláskou Ï"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:236
 msgid "/Tags/Special/Accent/Uppercase/_J-Z"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/_J-Z"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/_J-Z"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:238
 msgid "/Tags/Special/Accent/Uppercase/J-Z/N tilde Ñ"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/N s tildou Ñ"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/J-Z/N s tildou Ñ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:239
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O grave Ò"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/Ò"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/J-Z/Ò"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:240
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O acute Ó"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/O s čiarkou Ó"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/J-Z/O s čiarkou Ó"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:241
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O circumflex Ô"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/O so strieškou Ô"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/J-Z/O so strieškou Ô"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:242
 msgid "/Tags/Special/Accent/Uppercase/J-Z/OE ligature Œ"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/OE ligatúra Œ "
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/J-Z/OE ligatúra Œ "
 
 #: src/plugin_htmlbar/htmlbar_gui.c:243
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O tilde Õ"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/O s tildou Õ"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/J-Z/O s tildou Õ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:244
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O diaeresis Ö"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/O s prehláskou Ö"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/J-Z/O s prehláskou Ö"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:245
 msgid "/Tags/Special/Accent/Uppercase/J-Z/O slash Ø"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/Ø"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/J-Z/Ø"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:246
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U grave Ù"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/Ù"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/J-Z/Ù"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:247
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U acute Ú"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/U s čisrkou Ú"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/J-Z/U s čisrkou Ú"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:248
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U circumflex Û"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/U so strieškou Û"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/J-Z/U so strieškou Û"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:249
 msgid "/Tags/Special/Accent/Uppercase/J-Z/U diaeresis Ü"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/U s prehláskou Ü"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/J-Z/U s prehláskou Ü"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:250
 msgid "/Tags/Special/Accent/Uppercase/J-Z/Y acute Ý"
-msgstr "/Tagy/Špeciálne/Diakritika/Velké písmena/J-Z/Y s čisrkou Ý"
+msgstr "/Značky/Špeciálne/Diakritika/Velké písmena/J-Z/Y s čisrkou Ý"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:251
 msgid "/Tags/Special/Accent/_Lowercase"
-msgstr "/Tagy/Špeciálné/Diakritika/Malé pí_smena"
+msgstr "/Značky/Špeciálné/Diakritika/Malé pí_smena"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:252
 msgid "/Tags/Special/Accent/Lowercase/_A-I"
-msgstr "/Tagy/Šeciálne/Diakritika/Malé písmena/_A-I"
+msgstr "/Značky/Šeciálne/Diakritika/Malé písmena/_A-I"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:254
 msgid "/Tags/Special/Accent/Lowercase/A-I/a grave à"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/à"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/à"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:255
 msgid "/Tags/Special/Accent/Lowercase/A-I/a acute á"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/a s čiarkou á"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/a s čiarkou á"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:256
 msgid "/Tags/Special/Accent/Lowercase/A-I/a circumflex â"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/a so strieškou â"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/a so strieškou â"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:257
 msgid "/Tags/Special/Accent/Lowercase/A-I/a tilde ã"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/a s tildou ã"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/a s tildou ã"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:258
 msgid "/Tags/Special/Accent/Lowercase/A-I/a ring å"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/a s kolečkem å"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/a s kolečkem å"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:259
 msgid "/Tags/Special/Accent/Lowercase/A-I/ae ligature æ"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/æ"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/æ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:260
 msgid "/Tags/Special/Accent/Lowercase/A-I/a diaeresis ä"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/a s prehláskou ä"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/a s prehláskou ä"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:261
 msgid "/Tags/Special/Accent/Lowercase/A-I/c cedilla ç"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/c cédille ç"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/c cédille ç"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:262
 msgid "/Tags/Special/Accent/Lowercase/A-I/e grave è"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/è"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/è"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:263
 msgid "/Tags/Special/Accent/Lowercase/A-I/e acute é"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/e s čiarkou é"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/e s čiarkou é"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:264
 msgid "/Tags/Special/Accent/Lowercase/A-I/e circumflex ê"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/e se strieškou ê"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/e se strieškou ê"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:265
 msgid "/Tags/Special/Accent/Lowercase/A-I/e diaeresis ë"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/e s prehláskou ë"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/e s prehláskou ë"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:266
 msgid "/Tags/Special/Accent/Lowercase/A-I/i grave ì"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/ì"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/ì"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:267
 msgid "/Tags/Special/Accent/Lowercase/A-I/i acute í"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/i s čiarkou í"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/i s čiarkou í"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:268
 msgid "/Tags/Special/Accent/Lowercase/A-I/i circumflex î"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/i se strieškou î"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/i se strieškou î"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:269
 msgid "/Tags/Special/Accent/Lowercase/A-I/i diaeresis ï"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/A-I/i s prehláskou ï"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/A-I/i s prehláskou ï"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:270
 msgid "/Tags/Special/Accent/Lowercase/_J-Z"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/_J-Z"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/_J-Z"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:272
 msgid "/Tags/Special/Accent/Lowercase/J-Z/n tilde ñ"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/n s tildou ñ"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/J-Z/n s tildou ñ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:273
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o grave ò"
-msgstr "/Tagy/Śpeciálne/Diakritika/Malé písmena/J-Z/ò"
+msgstr "/Značky/Śpeciálne/Diakritika/Malé písmena/J-Z/ò"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:274
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o acute ó"
-msgstr "/Tagy/Špeciálne/Diakritika/Mal= písmena/J-Z/o s čisrkou ó"
+msgstr "/Značky/Špeciálne/Diakritika/Mal= písmena/J-Z/o s čisrkou ó"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:275
 msgid "/Tags/Special/Accent/Lowercase/J-Z/oe ligature œ"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/oe ligatúra œ "
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/J-Z/oe ligatúra œ "
 
 #: src/plugin_htmlbar/htmlbar_gui.c:276
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o circumflex ô"
-msgstr "/Tagy/Špeciálne/Diakritika/Malá písmena/J-Z/o so strieškou ô"
+msgstr "/Značky/Špeciálne/Diakritika/Malá písmena/J-Z/o so strieškou ô"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:277
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o tilde õ"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/o s tildou õ"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/J-Z/o s tildou õ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:278
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o diaeresis ö"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/o s prehláškou ö"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/J-Z/o s prehláškou ö"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:279
 msgid "/Tags/Special/Accent/Lowercase/J-Z/o slash ø"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/ø"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/J-Z/ø"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:280
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u grave ù"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/ù"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/J-Z/ù"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:281
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u acute ú"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/u s čiarkou ú"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/J-Z/u s čiarkou ú"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:282
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u circumflex û"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/u so strieškou û"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/J-Z/u so strieškou û"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:283
 msgid "/Tags/Special/Accent/Lowercase/J-Z/u diaeresis ü"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/u s prehláskou ü"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/J-Z/u s prehláskou ü"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:284
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y acute ý"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/y s čiarkou ý"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/J-Z/y s čiarkou ý"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:285
 msgid "/Tags/Special/Accent/Lowercase/J-Z/y diaeresis ÿ"
-msgstr "/Tagy/Špeciálne/Diakritika/Malé písmena/J-Z/y s prehláskou ÿ"
+msgstr "/Značky/Špeciálne/Diakritika/Malé písmena/J-Z/y s prehláskou ÿ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:287
 msgid "/Tags/Special/Accent/U_mlaut ¨"
-msgstr "/Tagy/Špeciálne/Diakritika/_Prehláska ¨"
+msgstr "/Značky/Špeciálne/Diakritika/_Prehláska ¨"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:288
 msgid "/Tags/Special/Accent/_Acute ´"
-msgstr "/Tagy/Špeciálne/Diakritika/Čia_rka ´"
+msgstr "/Značky/Špeciálne/Diakritika/Čia_rka ´"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:289
 msgid "/Tags/Special/Accent/_Cedilla ¸"
-msgstr "/Tagy/Špeciálne/Diakritika/_Cédille"
+msgstr "/Značky/Špeciálne/Diakritika/_Cédille"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:290
 msgid "/Tags/Special/_Currency"
-msgstr "/Tagy/Špeciálne/Me_na"
+msgstr "/Značky/Špeciálne/Me_na"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:292
 msgid "/Tags/Special/Currency/_Cent sign ¢"
-msgstr "/Tagy/Špeciálne/Mena/_Cent ¢"
+msgstr "/Značky/Špeciálne/Mena/_Cent ¢"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:293
 msgid "/Tags/Special/Currency/_Pound sterling £"
-msgstr "/Tagy/Špeciálne/Mena/_Pence £"
+msgstr "/Značky/Špeciálne/Mena/_Pence £"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:294
 msgid "/Tags/Special/Currency/C_urrency sign ¤"
-msgstr "/Tagy/Špeciálne/Mena/Znak me_ny ¤"
+msgstr "/Značky/Špeciálne/Mena/Znak me_ny ¤"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:295
 msgid "/Tags/Special/Currency/_Yen sign ¥"
-msgstr "/Tagy/Špeciálne/Mena/_Yen ¥"
+msgstr "/Značky/Špeciálne/Mena/_Yen ¥"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:296
 msgid "/Tags/Special/Currency/_Euro "
-msgstr "/Tagy/Špeciálne/_Euro €"
+msgstr "/Značky/Špeciálne/_Euro €"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:297
 msgid "/Tags/Special/_Math-Science"
-msgstr "/Tagy/Špeciálne/_Matematicko-Vedecké"
+msgstr "/Značky/Špeciálne/_Matematicko-Vedecké"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:299
 msgid "/Tags/Special/Math-Science/Logical _not sign ¬"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Lo_gický zápor ¬"
+msgstr "/Značky/Špeciálne/Matematicko-Vedecké/Lo_gický zápor ¬"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:300
 msgid "/Tags/Special/Math-Science/_Multiplication sign ×"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Znak _multiplikacie ×"
+msgstr "/Značky/Špeciálne/Matematicko-Vedecké/Znak _multiplikacie ×"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:301
 msgid "/Tags/Special/Math-Science/_Division sign ÷"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/_Delenie ÷"
+msgstr "/Značky/Špeciálne/Matematicko-Vedecké/_Delenie ÷"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:302
 msgid "/Tags/Special/Math-Science/_Plus-minus sign ±"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/_PlusMínus ±"
+msgstr "/Značky/Špeciálne/Matematicko-Vedecké/_PlusMínus ±"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:303
 msgid "/Tags/Special/Math-Science/_Less-than sign <"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Me_nšie než <"
+msgstr "/Značky/Špeciálne/Matematicko-Vedecké/Me_nšie než <"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:304
 msgid "/Tags/Special/Math-Science/_Greater-than sign >"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Večšíe než >"
+msgstr "/Značky/Špeciálne/Matematicko-Vedecké/Večšíe než >"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:305
 msgid "/Tags/Special/Math-Science/Superscript _1 ¹"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Horni index _1 ¹"
+msgstr "/Značky/Špeciálne/Matematicko-Vedecké/Horni index _1 ¹"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:306
 msgid "/Tags/Special/Math-Science/Superscript _2 ²"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Horni index _2 ²"
+msgstr "/Značky/Špeciálne/Matematicko-Vedecké/Horni index _2 ²"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:307
 msgid "/Tags/Special/Math-Science/Superscript _3 ³"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Horni index _3 ³"
+msgstr "/Značky/Špeciálne/Matematicko-Vedecké/Horni index _3 ³"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:308
 msgid "/Tags/Special/Math-Science/One _quarter ¼"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Š_tvrtina ¼"
+msgstr "/Značky/Špeciálne/Matematicko-Vedecké/Š_tvrtina ¼"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:309
 msgid "/Tags/Special/Math-Science/One _half ½"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/Pol_ovica ½"
+msgstr "/Značky/Špeciálne/Matematicko-Vedecké/Pol_ovica ½"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:310
 msgid "/Tags/Special/Math-Science/_Three quarters ¾"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/_Tri štvrtiny ¾"
+msgstr "/Značky/Špeciálne/Matematicko-Vedecké/_Tri štvrtiny ¾"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:311
 msgid "/Tags/Special/Math-Science/Deg_ree sign °"
-msgstr "/Tagy/Špeciálne/Matematicko-Vedecké/_Stupeň °"
+msgstr "/Značky/Špeciálne/Matematicko-Vedecké/_Stupeň °"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:312
 msgid "/Tags/Special/_Non Latin"
-msgstr "/Tagy/Špeciálne/Iné ako _Latin"
+msgstr "/Značky/Špeciálne/Iné ako _Latin"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:314
 msgid "/Tags/Special/Non Latin/_ETH (Icelandic) Ð"
-msgstr "/Tagy/Špeciálne/Iné ako Latin/_ETH (Islandské) Ð"
+msgstr "/Značky/Špeciálne/Iné ako Latin/_ETH (Islandské) Ð"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:315
 msgid "/Tags/Special/Non Latin/_THORN (Icelandic) Þ"
-msgstr "/Tagy/Špeciálne/Iné ako Latin/_THORN (Islandské) Þ"
+msgstr "/Značky/Špeciálne/Iné ako Latin/_THORN (Islandské) Þ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:316
 msgid "/Tags/Special/Non Latin/et_h (Icelandic) ð"
-msgstr "/Tagy/Špeciálne/Iné ako Latin/et_h (Islandské) ð"
+msgstr "/Značky/Špeciálne/Iné ako Latin/et_h (Islandské) ð"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:317
 msgid "/Tags/Special/Non Latin/th_orn ÿ"
-msgstr "/Tagy/Špeciálne/Iné ako Latin/th_orn ÿ"
+msgstr "/Značky/Špeciálne/Iné ako Latin/th_orn ÿ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:318
 msgid "/Tags/Special/Non Latin/Sharp _s ß"
-msgstr "/Tagy/Špeciálne/Iné ako Latin/Ostré _s ß"
+msgstr "/Značky/Špeciálne/Iné ako Latin/Ostré _s ß"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:319
 msgid "/Tags/Special/Non Latin/_Micro sign µ"
-msgstr "/Tagy/Špeciálne/Iné ako Latin/Znak _mikro µ"
+msgstr "/Značky/Špeciálne/Iné ako Latin/Znak _mikro µ"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:320
 msgid "/Tags/Special/_Other"
-msgstr "/Tagy/Špeciálne/_Iné"
+msgstr "/Značky/Špeciálne/_Iné"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:322
 msgid "/Tags/Special/Other/_Non-breaking space"
-msgstr "/Tagy/Špeciálne/Iné/_Nedelitelná mezera"
+msgstr "/Značky/Špeciálne/Iné/_Nedelitelná mezera"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:323
 msgid "/Tags/Special/Other/_Section sign §"
-msgstr "/Tagy/Špeciálne/Iné/_Paragraf §"
+msgstr "/Značky/Špeciálne/Iné/_Paragraf §"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:324
 msgid "/Tags/Special/Other/_Copyright sign ©"
-msgstr "/Tagy/Špeciálne/Iné/_Coryright ©"
+msgstr "/Značky/Špeciálne/Iné/_Coryright ©"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:325
 msgid "/Tags/Special/Other/_Left angle quotes «"
-msgstr "/Tagy/Špeciálne/Iné/«"
+msgstr "/Značky/Špeciálne/Iné/«"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:326
 msgid "/Tags/Special/Other/_Right angle quotes »"
-msgstr "/Tagy/Špeciálne/Iné/»"
+msgstr "/Značky/Špeciálne/Iné/»"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:327
 msgid "/Tags/Special/Other/Registered _trademark ®"
-msgstr "/Tagy/Špeciálne/Iné/®"
+msgstr "/Značky/Špeciálne/Iné/®"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:328
 msgid "/Tags/Special/Other/Inverted _exclamation ¡"
-msgstr "/Tagy/Špeciálne/Iné/Obrátený v_ykričník ¡"
+msgstr "/Značky/Špeciálne/Iné/Obrátený v_ykričník ¡"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:329
 msgid "/Tags/Special/Other/Inverted _question mark ¿"
-msgstr "/Tagy/Špeciálne/Iné/Obrátený otazník ¿"
+msgstr "/Značky/Špeciálne/Iné/Obrátený otazník ¿"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:330
 msgid "/Tags/Special/Other/_Feminine ordinal ª"
-msgstr "/Tagy/Špeciálne/Iné/Žen_ské znameníe ª"
+msgstr "/Značky/Špeciálne/Iné/Žen_ské znameníe ª"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:331
 msgid "/Tags/Special/Other/_Masculine ordinal º"
-msgstr "/Tagy/Špeciálne/Iné/Mužské znamenie º"
+msgstr "/Značky/Špeciálne/Iné/Mužské znamenie º"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:332
 msgid "/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"
-msgstr "/Tagy/Špeciálne/Iné/_Pilcrow (znak odstavca) ¶"
+msgstr "/Značky/Špeciálne/Iné/_Pilcrow (znak odstavca) ¶"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:333
 msgid "/Tags/Special/Other/_Broken bar ¦"
-msgstr "/Tagy/Špeciálne/Iné/Prerušená rura ¦"
+msgstr "/Značky/Špeciálne/Iné/Prerušená rura ¦"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:334
 msgid "/Tags/Special/Other/Soft _hypen -"
-msgstr "/Tagy/Špeciálne/Iné/Pomlčka -"
+msgstr "/Značky/Špeciálne/Iné/Pomlčka -"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:335
 msgid "/Tags/Special/Other/Spa_cing macron ¯"
-msgstr "/Tagy/Špeciálne/Iné/Nadt_ržítko ¯"
+msgstr "/Značky/Špeciálne/Iné/Nadt_ržítko ¯"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:336
 msgid "/Tags/Special/Other/Middle _dot ·"
-msgstr "/Tagy/Špeciálne/Iné/Bodka uprostre_d ·"
+msgstr "/Značky/Špeciálne/Iné/Bodka uprostre_d ·"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:337
 msgid "/Tags/_Format by layout"
-msgstr "/Tagy/_Formát podľa umiestnenia"
+msgstr "/Značky/_Formát podľa umiestnenia"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:339
 msgid "/Tags/Format by layout/_Bold"
-msgstr "/Tagy/Formát podľa umíestnenia/_Tučné"
+msgstr "/Značky/Formát podľa umíestnenia/_Tučné"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:340
 msgid "/Tags/Format by layout/_Italic"
-msgstr "/Tagy/Formát podľa umíestnenia/_Kurzívá"
+msgstr "/Značky/Formát podľa umíestnenia/_Kurzívá"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:341
 msgid "/Tags/Format by layout/_Underline"
-msgstr "/Tagy/Formát podľa umíestnenia/_Podčiarknuté"
+msgstr "/Značky/Formát podľa umíestnenia/_Podčiarknuté"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:342
 msgid "/Tags/Format by layout/_Strikeout"
-msgstr "/Tagy/Formát podľa umíestnenia/Prešk_rtnuté"
+msgstr "/Značky/Formát podľa umíestnenia/Prešk_rtnuté"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:343
 msgid "/Tags/Format by layout/Sm_all"
-msgstr "/Tagy/Formát podľa umíestnenia/M_alé"
+msgstr "/Značky/Formát podľa umíestnenia/M_alé"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:344
 msgid "/Tags/Format by layout/Bi_g"
-msgstr "/Tagy/Formát podľa umíestnenia/_Veľké"
+msgstr "/Značky/Formát podľa umíestnenia/_Veľké"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:345
 msgid "/Tags/F_ormat by context"
-msgstr "/Tagy/Formát podľa obsahu"
+msgstr "/Značky/Formát podľa obsahu"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:347
 msgid "/Tags/Format by context/_Strong"
-msgstr "/Tagy/Formát podľa obsahu/_Silné"
+msgstr "/Značky/Formát podľa obsahu/_Silné"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:348
 msgid "/Tags/Format by context/_Emphasis"
-msgstr "/Tagy/Formát podľa obsahu/_Zvýraznené"
+msgstr "/Značky/Formát podľa obsahu/_Zvýraznené"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:349
 msgid "/Tags/Format by context/_Define"
-msgstr "/Tagy/Formát podľa obsahu/_Definícia"
+msgstr "/Značky/Formát podľa obsahu/_Definícia"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:350
 msgid "/Tags/Format by context/_Code"
-msgstr "/Tagy/Formát podľa obsahu/_Kód"
+msgstr "/Značky/Formát podľa obsahu/_Kód"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:351
 msgid "/Tags/Format by context/Sa_mple"
-msgstr "/Tagy/Formát podľa obsahu/Príkl_ad"
+msgstr "/Značky/Formát podľa obsahu/Príkl_ad"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:352
 msgid "/Tags/Format by context/_Keyboard"
-msgstr "/Tagy/Formát podľa obsahu/Klá_vesnica"
+msgstr "/Značky/Formát podľa obsahu/Klá_vesnica"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:353
 msgid "/Tags/Format by context/_Variable"
-msgstr "/Tagy/Formát podľa obsahu/_Premenná"
+msgstr "/Značky/Formát podľa obsahu/_Premenná"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:354
 msgid "/Tags/Format by context/Ci_tation"
-msgstr "/Tagy/Formát podľa obsahu/Ci_tácia"
+msgstr "/Značky/Formát podľa obsahu/Ci_tácia"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:355
 msgid "/Tags/Format by context/_Abbreviation"
-msgstr "/Tagy/Formát podľa obsahu/Výťa_h"
+msgstr "/Značky/Formát podľa obsahu/Výťa_h"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:356
 msgid "/Tags/Format by context/Ac_ronym"
-msgstr "/Tagy/Formát podľa obsahu/Akr_onym"
+msgstr "/Značky/Formát podľa obsahu/Akr_onym"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:357
 msgid "/Tags/Format _general"
-msgstr "/Tagy/Formát obecný"
+msgstr "/Značky/Formát obecný"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:359
 msgid "/Tags/Format general/_Paragraph"
-msgstr "/Tagy/Formát obecný/_Odstavec"
+msgstr "/Značky/Formát obecný/_Odstavec"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:360
 msgid "/Tags/Format general/_Break"
-msgstr "/Tagy/Formát obecný/_Zalomenie"
+msgstr "/Značky/Formát obecný/_Zalomenie"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:361
 msgid "/Tags/Format general/Break clear _all"
-msgstr "/Tagy/Formát obecný/_Konec riadku (clear all)"
+msgstr "/Značky/Formát obecný/_Konec riadku (clear all)"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:362
 msgid "/Tags/Format general/_Non-Breaking Space"
-msgstr "/Tagy/Formát obecný/_Nedelitelná mezera"
+msgstr "/Značky/Formát obecný/_Nedelitelná mezera"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:364
 msgid "/Tags/Format general/Font Si_ze +1"
-msgstr "/Tagy/Formát obecný/Z_väčšiť Font +1"
+msgstr "/Značky/Formát obecný/Z_väčšiť Font +1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:365
 msgid "/Tags/Format general/Font _Size -1"
-msgstr "/Tagy/Formát obecný/Z_väčšiť Fontu -1"
+msgstr "/Značky/Formát obecný/Z_väčšiť Fontu -1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:367
 msgid "/Tags/Format general/Preformatted _Text"
-msgstr "/Tagy/Formát obecný/Predformátovaný _Text"
+msgstr "/Značky/Formát obecný/Predformátovaný _Text"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:368
 msgid "/Tags/Format general/Su_bscript"
-msgstr "/Tagy/Formát obecný/Do_lní index"
+msgstr "/Značky/Formát obecný/Do_lní index"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:369
 msgid "/Tags/Format general/Su_perscript"
-msgstr "/Tagy/Formát obecný/Ho_rní index"
+msgstr "/Značky/Formát obecný/Ho_rní index"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:371
 msgid "/Tags/Format general/_Center"
-msgstr "/Tagy/Formát obecný/Zarovnaníe na _stred"
+msgstr "/Značky/Formát obecný/Zarovnaníe na _stred"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:372
 msgid "/Tags/Format general/Align _right"
-msgstr "/Tagy/Formát obecný/Zarovnwníe v_pravo"
+msgstr "/Značky/Formát obecný/Zarovnwníe v_pravo"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:373
 msgid "/Tags/_Table"
-msgstr "/Tagy/_Tabuľka"
+msgstr "/Značky/_Tabuľka"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:375
 msgid "/Tags/Table/_Table"
-msgstr "/Tagy/Tabuľka/_Tabuľka"
+msgstr "/Značky/Tabuľka/_Tabuľka"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:376
 msgid "/Tags/Table/Table _Row"
-msgstr "/Tagy/Tabuľka/Riá_dok Tabuľky"
+msgstr "/Značky/Tabuľka/Riá_dok Tabuľky"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:377
 msgid "/Tags/Table/Table _Header"
-msgstr "/Tagy/Tabuľka/_Hlavička Tabuľky"
+msgstr "/Značky/Tabuľka/_Hlavička Tabuľky"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:378
 msgid "/Tags/Table/Table _Data"
-msgstr "/Tagy/Tabuľka/_Bunka Tabuľky"
+msgstr "/Značky/Tabuľka/_Bunka Tabuľky"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:379
 msgid "/Tags/Table/Table _Caption"
-msgstr "/Tagy/Tabuľka/_Podtitulok Tabuľky"
+msgstr "/Značky/Tabuľka/_Podtitulok Tabuľky"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:380
 msgid "/Tags/_List"
-msgstr "/Tagy/_Zoznam"
+msgstr "/Značky/_Zoznam"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:382
 msgid "/Tags/List/Unordered _List"
-msgstr "/Tagy/Zoznam/_Nečíslovaný Zoznam"
+msgstr "/Značky/Zoznam/_Nečíslovaný Zoznam"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:383
 msgid "/Tags/List/_Ordered List"
-msgstr "/Tagy/Zoznam/Čí_slovaný Zoznam"
+msgstr "/Značky/Zoznam/Čí_slovaný Zoznam"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:384
 msgid "/Tags/List/List Ite_m"
-msgstr "/Tagy/Zoznam/_Položka Zoznamu"
+msgstr "/Značky/Zoznam/_Položka Zoznamu"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:385
 msgid "/Tags/List/De_finition List"
-msgstr "/Tagy/Zoznam/Zoznam _Definícia"
+msgstr "/Značky/Zoznam/Zoznam _Definícia"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:386
 msgid "/Tags/List/Definition _Term"
-msgstr "/Tagy/Zoznam/Definiční _Termín"
+msgstr "/Značky/Zoznam/Definiční _Termín"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:387
 msgid "/Tags/List/_Definition"
-msgstr "/Tagy/Zoznam/De_finície"
+msgstr "/Značky/Zoznam/De_finície"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:388
 msgid "/Tags/List/Men_u"
-msgstr "/Tagy/Zoznam/Po_nuka"
+msgstr "/Značky/Zoznam/Po_nuka"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:389
 msgid "/Tags/Fo_rm"
-msgstr "/Dialogy/Fo_rmulár"
+msgstr "/Dialógy/Fo_rmulár"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:391
 msgid "/Tags/Form/_Form"
-msgstr "/Dialogy/Formulár/_Formulár"
+msgstr "/Dialógy/Formulár/_Formulár"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:392
 msgid "/Tags/Form/_Button"
-msgstr "/Dialogy/Formulár/_Obecné tlačítko"
+msgstr "/Dialógy/Formulár/_Všeobecné tlačítko"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:393
 msgid "/Tags/Form/_Input"
-msgstr "/Dialogy/Formulár/Fo_rmulárové tlačítko"
+msgstr "/Dialógy/Formulár/Fo_rmulárové tlačítko"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:394
 msgid "/Tags/Form/_Textarea"
-msgstr "/Dialogy/Formulár/_Textové pole"
+msgstr "/Dialógy/Formulár/_Textové pole"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:395
 msgid "/Tags/_Misc"
-msgstr "/Tagy/_Rôzné"
+msgstr "/Značky/_Rôzné"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:397
 msgid "/Tags/Misc/Insert Generator _META-Tag"
-msgstr "/Tagy/Rôzné/Vložiť Generator _META-Tag"
+msgstr "/Značky/Rôzné/Vložiť Generator _META-Tag"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:398
 msgid "/Tags/Misc/_Span"
-msgstr "/Tagy/Rôzné/_Span"
+msgstr "/Značky/Rôzné/_Span"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:399
 msgid "/Tags/Misc/_Div"
-msgstr "/Tagy/Rôzné/_Div"
+msgstr "/Značky/Rôzné/_Div"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:400
 msgid "/Tags/Misc/_Link"
-msgstr "/Tagy/Rôzné/_Link"
+msgstr "/Značky/Rôzné/_Link"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:401
 msgid "/Tags/Misc/S_cript"
-msgstr "/Tagy/Rôzné/S_kript"
+msgstr "/Značky/Rôzné/S_kript"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:402
 msgid "/Tags/Misc/_Anchor"
-msgstr "/Tagy/Rôzné/Ko_tva"
+msgstr "/Značky/Rôzné/Ko_tva"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:403
 msgid "/Tags/Misc/_Image"
-msgstr "/Tagy/Rôzné/_Obrázok"
+msgstr "/Značky/Rôzné/_Obrázok"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:404
 msgid "/Tags/_Comment"
-msgstr "/Tagy/_Komentár"
+msgstr "/Značky/_Komentár"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:405
 msgid "/Dial_ogs"
-msgstr "/_Dialogy"
+msgstr "/_Dialógy"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:407
 msgid "/Dialogs/_General"
-msgstr "/Dialogy/_Obecné"
+msgstr "/Dialógy/_Všeobecné"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:409
 msgid "/Dialogs/General/_Quickstart..."
-msgstr "/Dialogy/Obecné/_Rýchle Začať..."
+msgstr "/Dialógy/VšeVšeobecné/_Rýchlo začať..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:410
 msgid "/Dialogs/General/_Link Header..."
-msgstr "/Dialogy/General/_Link Hlavičky... "
+msgstr "/Dialógy/VšeVšeobecné/Hlavičky _odkazov... "
 
 #: src/plugin_htmlbar/htmlbar_gui.c:411
 msgid "/Dialogs/General/_Body..."
-msgstr "/Dialogy/Obecné/_Body..."
+msgstr "/Dialógy/Všeobecné/_Telo..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:412
 msgid "/Dialogs/General/_Anchor..."
-msgstr "/Dialogy/Obecné/_Kotva..."
+msgstr "/Dialógy/Všeobecné/_Kotva..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:413
 msgid "/Dialogs/General/_Email..."
-msgstr "/Dialogy/Obecné/_Email..."
+msgstr "/Dialógy/Všeobecné/_E-mail..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:414
 msgid "/Dialogs/General/_Rule..."
-msgstr "/Dialogy/Obecné/_Horizontálna Čia_ra..."
+msgstr "/Dialógy/Všeobecné/_Horizontálna čia_ra..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:415
 msgid "/Dialogs/General/_Font..."
-msgstr "/Dialogy/Obecné/_Písmo..."
+msgstr "/Dialógy/Všeobecné/_Písmo..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:416
 msgid "/Dialogs/General/Basef_ont..."
-msgstr "/Dialogy/Obecné/Základný f_ont..."
+msgstr "/Dialógy/Všeobecné/Základné písm_o..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:417
 msgid "/Dialogs/General/Quick_list..."
-msgstr "/Dialogy/Obecné/Rýchle _zoznam..."
+msgstr "/Dialógy/Všeobecné/Rýchly _zoznam..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:418
 msgid "/Dialogs/General/_Meta..."
-msgstr "/Dialogy/Obecné/_Meta..."
+msgstr "/Dialógy/Všeobecné/_Meta..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:419
 msgid "/Dialogs/General/Embe_d..."
-msgstr "/Dialogy/Obecné/Embe_d..."
+msgstr "/Dialógy/Všeobecné/Embe_d..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:420
 msgid "/Dialogs/General/Select _Color..."
-msgstr "/Dialogy/Obecné/Výber _Farby..."
+msgstr "/Dialógy/Všeobecné/Výber _farby..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:421
 msgid "/Dialogs/General/Insert _Time..."
-msgstr "/Dialogy/Obecné/Vložennie Č_asu..."
+msgstr "/Dialógy/Všeobecné/Vloženie č_ase..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:422
 msgid "/Dialogs/General/Insert _Image..."
-msgstr "/Dialogy/Obecné/Vloženíe _Obrázku..."
+msgstr "/Dialógy/Všeobecné/Vloženie _obrázku..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:423
 msgid "/Dialogs/General/Insert T_humbnail..."
-msgstr "/Dialogy/Obecné/Vloženíe _Náhľadu..."
+msgstr "/Dialógy/Všeobecné/Vloženie _náhľadu..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:424
 msgid "/Dialogs/_Table"
-msgstr "/Dialogy/_Tabuľka"
+msgstr "/Dialógy/_Tabuľka"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:426
 msgid "/Dialogs/Table/Table _Wizard..."
-msgstr "/Dialogy/Tabuľka/_Sprievodca Tabuľkou..."
+msgstr "/Dialógy/Tabuľka/_Sprievodca tabuľkou..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:427
 msgid "/Dialogs/Table/_Table..."
-msgstr "/Dialogy/Tabuľka/_Tabuľka..."
+msgstr "/Dialógy/Tabuľka/_Tabuľka..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:428
 msgid "/Dialogs/Table/Table _Row..."
-msgstr "/Dialogy/Tabuľka/Riá_dok tabuľky..."
+msgstr "/Dialógy/Tabuľka/Ria_dok tabuľky..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:429
 msgid "/Dialogs/Table/Table _Head..."
-msgstr "/Dialogy/Tabuľka/_Hlavička Tabuľky..."
+msgstr "/Dialógy/Tabuľka/_Hlavička tabuľky..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:430
 msgid "/Dialogs/Table/Table _Data..."
-msgstr "/Dialogy/Tabuľka/_Bunka Tabuľky..."
+msgstr "/Dialógy/Tabuľka/_Bunka tabuľky..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:431
 msgid "/Dialogs/_CSS"
-msgstr "/Dialogy/_CSS"
+msgstr "/Dialógy/_CSS"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:433
 msgid "/Dialogs/CSS/_Create Style..."
-msgstr "/Dialogy/CSS/_Vytvoreníe štylu..."
+msgstr "/Dialógy/CSS/_Vytvorenie štýlu..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:434
 msgid "/Dialogs/CSS/S_pan..."
-msgstr "/Dialogy/CSS/S_pan..."
+msgstr "/Dialógy/CSS/S_pan..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:435
 msgid "/Dialogs/CSS/_Div..."
-msgstr "/Dialogy/CSS/_Div..."
+msgstr "/Dialógy/CSS/_Div..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:436
 msgid "/Dialogs/CSS/_Style..."
-msgstr "/Dialogy/CSS/_Štyl..."
+msgstr "/Dialógy/CSS/_Štyl..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:437
 msgid "/Dialogs/CSS/_Link to Stylesheet..."
-msgstr "/Dialogy/CSS/_Link na štylopis..."
+msgstr "/Dialógy/CSS/_Odkaz na stylesheet..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:438
 msgid "/Dialogs/_Frame"
-msgstr "/Dialogy/_Rám"
+msgstr "/Dialógy/_Rám"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:440
 msgid "/Dialogs/Frame/Frame _Wizard..."
-msgstr "/Dialogy/Rám/_Sprievodca Rámy..."
+msgstr "/Dialógy/Rám/_Sprievodca rámov..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:441
 msgid "/Dialogs/Frame/Frame_set..."
-msgstr "/Dialogy/Rám/_Definicia Rámu..."
+msgstr "/Dialógy/Rám/_Nastavenie rámu..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:442
 msgid "/Dialogs/Frame/_Frame..."
-msgstr "/Dialogy/Rám/_Rám..."
+msgstr "/Dialógy/Rám/_Rám..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:443
 msgid "/Dialogs/F_orm"
-msgstr "/Dialogy/F_ormulár"
+msgstr "/Dialógy/F_ormulár"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:445
 msgid "/Dialogs/Form/F_orm..."
-msgstr "/Dialogy/Formulár/F_ormulár..."
+msgstr "/Dialógy/Formulár/F_ormulár..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:446
 msgid "/Dialogs/Form/_Input..."
-msgstr "/Dialogy/Formulár/Vstupný _prvok..."
+msgstr "/Dialógy/Formulár/Vstupný _prvok..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:447
 msgid "/Dialogs/Form/Input Buttons..."
-msgstr "/Dialogy/Formulár/Vstupné _tlačítka..."
+msgstr "/Dialógy/Formulár/Vstupné _tlačidla..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:448
 msgid "/Dialogs/Form/Input Text..."
-msgstr "/Dialogy/Formulár/Text..."
+msgstr "/Dialógy/Formulár/Text..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:449
 msgid "/Dialogs/Form/Text_area..."
-msgstr "/Dialogy/Formulár/Textové p_ole..."
+msgstr "/Dialógy/Formulár/Textové p_ole..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:450
 msgid "/Dialogs/Form/_Select..."
-msgstr "/Dialogy/Formulár/_Výber..."
+msgstr "/Dialógy/Formulár/_Výber..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:451
 msgid "/Dialogs/Form/O_ption..."
-msgstr "/Dialogy/Formulár/Vstup O_ption..."
+msgstr "/Dialógy/Formulár/Vstup O_ption..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:452
 msgid "/Dialogs/Form/Option _Group..."
-msgstr "/Dialogy/Formulár/Vstup Opt_group..."
+msgstr "/Dialógy/Formulár/Vstup Opt_group..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:453
 msgid "/Dialogs/Form/_Button..."
-msgstr "/Dialogy/Formulár/O_becné Tlačítko..."
+msgstr "/Dialógy/Formulár/Všeo_becné tlačidlo..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:455
 msgid "/Dialogs/_Edit tag under cursor..."
-msgstr "/Dialogy/_Editovať tag pod kurzorom..."
+msgstr "/Dialógy/_Upraviť značku pod kurzorom..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:458
 msgid "/View/View _HTML Toolbar"
-msgstr "/Zobraziť/_HTML lišta"
+msgstr "/Zobraziť/_HTML panel nástrojov"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:732
 msgid "QuickStart..."
-msgstr "Rýchle Spúšťanie..."
+msgstr "Rýchle spúšťanie..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:733
 msgid "Body..."
@@ -1021,7 +1021,7 @@ msgstr "Konec riadku"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:738
 msgid "Break and clear"
-msgstr "Zalomenie načístané"
+msgstr "Zalomenie a vymazanie"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:739
 msgid "Non-breaking space"
@@ -1038,7 +1038,7 @@ msgstr "Čiara..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:743
 msgid "Center"
-msgstr "Nastřed"
+msgstr "Nastred"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:744
 msgid "Right Justify"
@@ -1054,20 +1054,20 @@ msgstr "E-mail..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:747
 msgid "Font..."
-msgstr "Font..."
+msgstr "Písmo..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:748
 msgid "Base Font Size..."
-msgstr "Veľkosť základného fontu..."
+msgstr "Veľkosť základného písma..."
 
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:750
 msgid "Font Size +1"
-msgstr "Veľkosť fontu +1"
+msgstr "Veľkosť písma +1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:751
 msgid "Font Size -1"
-msgstr "Veľkosť fontu -1"
+msgstr "Veľkosť písma -1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:752
 msgid "Preformatted Text"
@@ -1075,11 +1075,11 @@ msgstr "Predformatovaný text"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:753
 msgid "Subscript"
-msgstr "Dolní index"
+msgstr "Podprogram"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:754
 msgid "Superscript"
-msgstr "Horní index"
+msgstr "Superprogram"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:755
 msgid "Strong"
@@ -1092,27 +1092,27 @@ msgstr "Zvýraznené"
 #. spacing
 #: src/plugin_htmlbar/htmlbar_gui.c:758 src/plugin_htmlbar/html.c:786
 msgid "Heading 1"
-msgstr "Nádpis 1"
+msgstr "Nadpis 1"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:759 src/plugin_htmlbar/html.c:789
 msgid "Heading 2"
-msgstr "Nádpis 2"
+msgstr "Nadpis 2"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:760 src/plugin_htmlbar/html.c:792
 msgid "Heading 3"
-msgstr "Nádpis 3"
+msgstr "Nadpis 3"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:761 src/plugin_htmlbar/html.c:795
 msgid "Heading 4"
-msgstr "Nádpis 4"
+msgstr "Nadpis 4"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:762 src/plugin_htmlbar/html.c:798
 msgid "Heading 5"
-msgstr "Nádpis 5"
+msgstr "Nadpis 5"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:763 src/plugin_htmlbar/html.c:801
 msgid "Heading 6"
-msgstr "Nádpis 6"
+msgstr "Nadpis 6"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:764
 msgid "Table Wizard..."
@@ -1154,7 +1154,7 @@ msgstr "Bunka tabuľky"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:775
 msgid "Table Caption"
-msgstr "Nádpis tabuľky"
+msgstr "Nadpis tabuľky"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:776
 msgid "Frame Wizard..."
@@ -1212,7 +1212,7 @@ msgstr "Prepínač..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:791
 msgid "Input Check Box..."
-msgstr "Zaškrtávacie tlačítko..."
+msgstr "Zaškrtávacie tlačidlo..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:792
 msgid "Select..."
@@ -1228,19 +1228,19 @@ msgstr "Skupina prvkov..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:795
 msgid "Button..."
-msgstr "Tlačítko..."
+msgstr "Tlačidlo..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:796
 msgid "Quick List..."
-msgstr "Rychlý zoznam..."
+msgstr "Rýchly zoznam..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:797
 msgid "Unordered List"
-msgstr "Nečíslovaný"
+msgstr "Nečíslovaný zoznam"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:798
 msgid "Ordered List"
-msgstr "Číslovaný"
+msgstr "Číslovaný zoznam"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:799
 msgid "List Item"
@@ -1256,11 +1256,11 @@ msgstr "Definičný termín"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:802 src/plugin_htmlbar/htmlbar_gui.c:811
 msgid "Definition"
-msgstr "Definicia"
+msgstr "Definícia"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:803
 msgid "Create stylesheet..."
-msgstr "Vytovriť zošit štylov..."
+msgstr "Vytvoriť zošit štylov..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:804
 msgid "Span..."
@@ -1276,7 +1276,7 @@ msgstr "Štýl"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:807
 msgid "Link to stylesheet..."
-msgstr "Priradiť zošitu štyl..."
+msgstr "Priradiť zošitu štýl..."
 
 #: src/plugin_htmlbar/htmlbar_gui.c:808
 msgid "Insert image..."
@@ -1340,19 +1340,19 @@ msgstr " Rýchle spúšťanie "
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1087
 msgid "Heading"
-msgstr "Nádpis"
+msgstr "Nadpis"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1089
 msgid " Standard bar "
-msgstr "Štandardná lišta"
+msgstr " Štandartná lišta"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1094
 msgid "Context formatting"
-msgstr "Formatovanie obsahu"
+msgstr "Formátovanie obsahu"
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1096
 msgid " Fonts "
-msgstr "Fonty"
+msgstr " Písma "
 
 #: src/plugin_htmlbar/htmlbar_gui.c:1101
 msgid " Tables "
@@ -1385,31 +1385,31 @@ msgstr " _Čas  (%i.%i.%i)"
 
 #: src/plugin_htmlbar/html.c:398
 msgid "  Day of the _week (Sunday)"
-msgstr " Deň v týždni (Nedeľa)"
+msgstr "  Deň v týždni (Nedeľa)"
 
 #: src/plugin_htmlbar/html.c:401
 msgid "  Day of the _week (Monday)"
-msgstr " Deň v týždni (Pondelok)"
+msgstr "  Deň v týždni (Pondelok)"
 
 #: src/plugin_htmlbar/html.c:404
 msgid "  Day of the _week (Tuesday)"
-msgstr " Deň v týždni (Utorok)"
+msgstr "  Deň v týždni (Utorok)"
 
 #: src/plugin_htmlbar/html.c:407
 msgid "  Day of the _week (Wednesday)"
-msgstr " Deň v týždni (Streda)"
+msgstr "  Deň v týždni (Streda)"
 
 #: src/plugin_htmlbar/html.c:410
 msgid "  Day of the _week (Thursday)"
-msgstr " Deň v týždni (Štvrtok)"
+msgstr "  Deň v týždni (Štvrtok)"
 
 #: src/plugin_htmlbar/html.c:413
 msgid "  Day of the _week (Friday)"
-msgstr " Deň v týždni (Piatok)"
+msgstr "  Deň v týždni (Piatok)"
 
 #: src/plugin_htmlbar/html.c:416
 msgid "  Day of the _week (Saturday)"
-msgstr " Deň v týždni (Sobota)"
+msgstr "  Deň v týždni (Sobota)"
 
 #: src/plugin_htmlbar/html.c:419
 msgid "You appear to have a non existant day!\n"
@@ -1426,9 +1426,9 @@ msgid "  _Unix Time (%i)"
 msgstr " _Unixový čas (%i)"
 
 #: src/plugin_htmlbar/html.c:435
-#, fuzzy, c-format
+#, c-format
 msgid "  Unix Date _String (%s)"
-msgstr " Reťazec unixového data (%s"
+msgstr " Reťazec unixového dátumu (%s)"
 
 #: src/plugin_htmlbar/html.c:443
 #, c-format
@@ -1437,11 +1437,11 @@ msgstr "  ISO-8601 Č_as (%s)"
 
 #: src/plugin_htmlbar/html.c:585
 msgid "Quick Anchor"
-msgstr "Rýchlz odkaz"
+msgstr "Rýchly odkaz"
 
 #: src/plugin_htmlbar/html.c:591 src/plugin_htmlbar/html_form.c:780
 msgid "Attributes"
-msgstr "Atributy"
+msgstr "Atribúty"
 
 #: src/plugin_htmlbar/html.c:605 src/plugin_htmlbar/html.c:1893
 msgid "_HREF:"
@@ -1457,7 +1457,7 @@ msgstr "_Cieľ:"
 #: src/plugin_htmlbar/html_form.c:795 src/plugin_htmlbar/html_form.c:890
 #: src/plugin_htmlbar/image.c:440
 msgid "_Name:"
-msgstr "_Meno:"
+msgstr "_Názov:"
 
 #: src/plugin_htmlbar/html.c:619 src/plugin_htmlbar/html.c:1066
 #: src/plugin_htmlbar/html.c:1216 src/plugin_htmlbar/html.c:1808
@@ -1629,7 +1629,7 @@ msgstr "Meta"
 
 #: src/plugin_htmlbar/html.c:1207
 msgid "_HTTP-EQUIV:"
-msgstr "HTTP-E_QUIV:"
+msgstr "_HTTP-EQUIV:"
 
 #: src/plugin_htmlbar/html.c:1212
 msgid "Con_tent:"
@@ -1731,7 +1731,7 @@ msgstr "_Výška okraja:"
 
 #: src/plugin_htmlbar/html.c:1677
 msgid "Scrollin_g:"
-msgstr "Sc_rolovanie:"
+msgstr "_Rolovanie:"
 
 #: src/plugin_htmlbar/html.c:1681
 msgid "_Frameborder:"
@@ -1739,7 +1739,7 @@ msgstr "O_kraje rámu:"
 
 #: src/plugin_htmlbar/html.c:1686
 msgid "No _Resize:"
-msgstr "Zakázať zmenu _Veľkosti:"
+msgstr "Zakázať zmenu _veľkosti:"
 
 #: src/plugin_htmlbar/html.c:1736
 msgid "Embed"
@@ -1747,7 +1747,7 @@ msgstr "Zapustený"
 
 #: src/plugin_htmlbar/html.c:1758 src/plugin_htmlbar/html_table.c:140
 msgid "Bo_rder:"
-msgstr "_Hranice:"
+msgstr "Ok_raj:"
 
 #: src/plugin_htmlbar/html.c:1794
 msgid "Script"
@@ -1918,12 +1918,12 @@ msgstr "Nazalamovať slo_vá:"
 
 #: src/plugin_htmlbar/image.c:265
 msgid "Loading image failed..."
-msgstr ""
+msgstr "Nahrávanie obrázku zlyhalo..."
 
 #: src/plugin_htmlbar/image.c:334
 #, c-format
 msgid "Loading file %s..."
-msgstr ""
+msgstr "Nahrávam súbor %s..."
 
 #: src/plugin_htmlbar/image.c:386
 msgid "Insert thumbnail"
@@ -2055,7 +2055,7 @@ msgstr "_Zdroj:"
 #. TODO: add an option to place content in the script area
 #: src/plugin_htmlbar/quickstart.c:602
 msgid "<b>Script Area</b>"
-msgstr "Priestor Scriptu"
+msgstr "Priestor skriptu"
 
 #: src/plugin_htmlbar/quickstart.c:606
 msgid "Cre_ate empty script area"
@@ -2140,3 +2140,4 @@ msgstr "Zdroj:"
 #: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
 msgstr "Velikosť:"
+
