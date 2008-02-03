@@ -1386,10 +1386,10 @@ static GtkItemFactoryEntry fb2rpopup_menu_entries[] = {
 	{ N_("/Show Full _Tree"),	NULL,	fb2rpopup_rpopup_action_lcb,	9,	"<Item>" },
 	{ N_("/Show hidden files"),	NULL,	fb2rpopup_rpopup_action_lcb,	16,	"<ToggleItem>" },
 	{ N_("/Show backup files"),	NULL,	fb2rpopup_rpopup_action_lcb,	17,	"<ToggleItem>" },
-	{ N_("/Mode"),	NULL,	NULL,	0,	"<Branch>" },
-	{ N_("/Mode/Tree view"),	NULL,	fb2rpopup_rpopup_action_lcb,	20,	"<RadioItem>" },
-	{ N_("/Mode/Dual view"),	NULL,	fb2rpopup_rpopup_action_lcb,	21,	"/Mode/Tree view" },
-	{ N_("/Mode/Flat view"),	NULL,	fb2rpopup_rpopup_action_lcb,	22,	"/Mode/Tree view" }
+	{ N_("/View mode"),	NULL,	NULL,	0,	"<Branch>" },
+	{ N_("/View mode/Tree"),	NULL,	fb2rpopup_rpopup_action_lcb,	20,	"<RadioItem>" },
+	{ N_("/View mode/Dual"),	NULL,	fb2rpopup_rpopup_action_lcb,	21,	"/View mode/Tree" },
+	{ N_("/View mode/Flat"),	NULL,	fb2rpopup_rpopup_action_lcb,	22,	"/View mode/Tree" }
 };
 
 static void edit_filefilter_lcb(GtkMenuItem *menuitem,gpointer data) {
@@ -1453,9 +1453,9 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 *fb2, gboolean is_directo
 	if (fb2->basedir == NULL || fb2->filebrowser_viewmode == viewmode_flat) {
 		gtk_widget_set_sensitive(gtk_item_factory_get_widget(menumaker, "/Show Full Tree"), FALSE);
 	}
-	setup_toggle_item(menumaker, "/Mode/Tree view", (fb2->filebrowser_viewmode == viewmode_tree));
-	setup_toggle_item(menumaker, "/Mode/Dual view", (fb2->filebrowser_viewmode == viewmode_dual));
-	setup_toggle_item(menumaker, "/Mode/Flat view", (fb2->filebrowser_viewmode == viewmode_flat));
+	setup_toggle_item(menumaker, "/View mode/Tree", (fb2->filebrowser_viewmode == viewmode_tree));
+	setup_toggle_item(menumaker, "/View mode/Dual", (fb2->filebrowser_viewmode == viewmode_dual));
+	setup_toggle_item(menumaker, "/View mode/Flat", (fb2->filebrowser_viewmode == viewmode_flat));
 
 	/* Add filter submenu */
 	menu_item = gtk_menu_item_new_with_label(_("Filter"));
