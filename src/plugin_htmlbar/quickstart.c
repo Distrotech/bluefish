@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * quickstart.c - quickstart dialog
  *
- * Copyright (C) 2005-2006 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2008 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,20 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
- 
-/*
- * Initial work on a new dialog.
- * A lot more work to do still. some features are still missing
- *
- * DTD's now have an easily readable name
- *
- * meta tags can now be edited by double clicking on them in the list
- *
- * all meta tags displayed in the list are now added to the new quickstart
- * document. the remove button is used to remove tags you don't want 
- *
- * new dialog resizes better then the old one.
  */
  
 /*#define DEBUG*/
@@ -631,10 +617,11 @@ quickstart_dialog_new(Tbfwin *bfwin)
 	qstart->bfwin = bfwin;
 	
 	dialog = gtk_dialog_new_with_buttons (_("Quick Start"), GTK_WINDOW (bfwin->main_window),
-													  GTK_DIALOG_DESTROY_WITH_PARENT,
-													  GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
-													  GTK_STOCK_OK, GTK_RESPONSE_ACCEPT,
-													  NULL);	  
+                                        GTK_DIALOG_DESTROY_WITH_PARENT,
+                                        GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
+                                        GTK_STOCK_OK, GTK_RESPONSE_ACCEPT,
+                                        NULL);
+  gtk_dialog_set_has_separator (GTK_DIALOG (dialog), FALSE);
 	g_signal_connect (G_OBJECT (dialog), "response", G_CALLBACK (quickstart_response_lcb), qstart);
 
 	table = dialog_table_in_vbox_defaults(4, 3, 6, GTK_DIALOG (dialog)->vbox);
