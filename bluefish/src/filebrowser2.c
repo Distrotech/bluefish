@@ -1073,20 +1073,26 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 }
 
 static void fb2rpopup_refresh(Tfilebrowser2 *fb2) {
-	GnomeVFSURI *baseuri;
-	gboolean free_baseuri = FALSE;
+	GnomeVFSURI *baseuri=NULL;
+	gboolean unref_baseuri = FALSE;
 	if (fb2->last_popup_on_dir) {
-		baseuri = fb2_uri_from_dir_selection(fb2);
+		baseuri = fb2_uri_from_dir_selection(fb2); /* returns the uri in the treestore */
 	} else {
-		GnomeVFSURI *childuri = fb2_uri_from_file_selection(fb2);
-		baseuri = gnome_vfs_uri_get_parent(childuri);
-		free_baseuri = TRUE;
+		GnomeVFSURI *childuri = fb2_uri_from_file_selection(fb2); /* returns the uri in the treestore */
+		if (childuri) { 
+			baseuri = gnome_vfs_uri_get_parent(childuri);
+			unref_baseuri = TRUE;
+		}
 	}
+	if (!baseuri && (fb2->filebrowser_viewmode == viewmode_flat || fb2->filebrowser_viewmode == viewmode_dual)) {
+		/* in flat view or dual view we can refresh the basedir now */
+		baseuri = fb2->basedir;
+	} 
 	if (baseuri) {
 		GtkTreeIter *iter;
 		iter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, baseuri);
 		fb2_refresh_dir(NULL, iter);
-		if (free_baseuri) gnome_vfs_uri_unref(baseuri);
+		if (unref_baseuri) gnome_vfs_uri_unref(baseuri);
 	}
 }
 
@@ -1269,7 +1275,9 @@ static void fb2rpopup_delete(Tfilebrowser2 *fb2) {
 
 static void fb2_refilter(Tfilebrowser2 *fb2) {
 	gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
-	gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
+	if (fb2->filebrowser_viewmode == viewmode_dual) {
+		gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
+	}
 }
 
 
