@@ -248,17 +248,16 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			returnvalue.bstart = pmatch[0].rm_so + byte_offset;
 			returnvalue.bend = pmatch[0].rm_eo + byte_offset;
 		}
-#ifdef DEBUG
-		{	int i;
-			for (i=0;i<nmatch;i++) {
-				DEBUG_MSG("search_backend, sub search_pattern %d so=%d, eo=%d\n", i, pmatch[i].rm_so, pmatch[i].rm_eo);
-			}
-		}
-#endif
 		regfree(&reg_pat);
 		if (want_submatches) {
+			int i;
 			returnvalue.pmatch = pmatch;
 			returnvalue.nmatch = nmatch;
+			for (i=0;i<nmatch;i++) {
+				pmatch[i].rm_so += byte_offset; 
+				pmatch[i].rm_eo += byte_offset;
+				DEBUG_MSG("search_backend, sub search_pattern %d so=%d, eo=%d\n", i, pmatch[i].rm_so, pmatch[i].rm_eo);
+			}
 			/* if want_submatches is set, pmatch should be 
 			free`ed by the calling function! */
 		} else {
@@ -504,16 +503,18 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
 	Tconvert_table * tct;
 	gchar *retval;
 	gint i, size;
-	DEBUG_MSG("reg_replace, started for pattern='%s',standardescape=%d\n",replace_pattern,standardescape);
-	if (result.nmatch <= 10) size = (result.nmatch == 0 ) ? 0 : result.nmatch -1;
+	DEBUG_MSG("reg_replace, started for pattern='%s',standardescape=%d, offset=%d\n",replace_pattern,standardescape,offset);
+	if (result.nmatch <= 10) size = (result.nmatch == 0 ) ? 0 : result.nmatch;
 	else size= 10;
-	DEBUG_MSG("reg_repplace, size=%d\n",size);
+	
 	tct = new_convert_table(size, standardescape);
-	for (i=0;i<size;i++) {
+	for (i=0;i<size;i++) { /* \0 refers to the total pattern, so we have size+1 replace */
 		tct[i].my_int = i+48;
-		tct[i].my_char = doc_get_chars(doc, offset+result.pmatch[i+1].rm_so, offset+result.pmatch[i+1].rm_eo);
+		tct[i].my_char = doc_get_chars(doc, offset+result.pmatch[i].rm_so, offset+result.pmatch[i].rm_eo);
+		DEBUG_MSG("reg_replace, %c will be replaced with %s\n",tct[i].my_int, tct[i].my_char);
 	}
 	retval = expand_string(replace_pattern, '\\', tct);
+	DEBUG_MSG("reg_replace, returning %s\n",retval);
 	free_convert_table(tct);
 	return retval;
 }
