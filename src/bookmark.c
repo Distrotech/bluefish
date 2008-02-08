@@ -211,12 +211,15 @@ static void bmark_update_treestore_name(Tbfwin *bfwin) {
 static void bmark_update_offset_from_textmark(Tbmark *b) {
 	if (b->doc && b->mark) {
 		GtkTextIter it, it2;
+		int len;
 		gtk_text_buffer_get_iter_at_mark(b->doc->buffer, &it, b->mark);
 		b->offset = gtk_text_iter_get_offset(&it);
+		len = strlen(b->text);
 		/* to aid future repositioning (if the file has changed) update the text as well */
-		gtk_text_buffer_get_iter_at_offset(b->doc->buffer,&it2,b->offset+BMARK_STORE_TEXT_NUM_CHARS);
+		gtk_text_buffer_get_iter_at_offset(b->doc->buffer,&it2,b->offset+len);
 		g_free(b->text);
 		b->text = gtk_text_buffer_get_text(b->doc->buffer,&it,&it2,FALSE);
+		DEBUG_MSG("bmark_update_offset_from_textmark, text=%s\n",b->text);
 	}
 }
 
