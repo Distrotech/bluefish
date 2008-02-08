@@ -936,7 +936,7 @@ static gint search_doc_multiple_backend(Tbfwin *bfwin,Tdocument *document, gchar
 	while (result.end > 0) {
 		if (LASTSNR2(bfwin->snr2)->bookmark_results) {
 			gchar *text = doc_get_chars(document, startpos+result.start, startpos+result.end);
-			DEBUG_MSG("search_doc_multiple_backend, adding bookmark '%s' at %d\n", text, result.start);
+			DEBUG_MSG("search_doc_multiple_backend, adding bookmark %s with text '%s' at %d\n", search_pattern, text, result.start);
 			bmark_add_extern(document, startpos+result.start, search_pattern, text, !main_v->globses.bookmarks_default_store);
 			g_free(text);
 		}
