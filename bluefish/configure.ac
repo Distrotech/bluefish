@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.159 2007-10-23 05:11:41 dleidert Exp $
+dnl $Id: configure.ac,v 1.160 2008-02-14 05:01:44 dleidert Exp $
 dnl
 dnl Copyright (C) 2002-2007 Olivier Sessink
 dnl Copyright (C) 2006-2007 Daniel Leidert
@@ -16,10 +16,11 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.159 $)
+AC_REVISION($Revision: 1.160 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
+#set AM_MAINTAINER_MODE here?
 
 dnl ************************
 dnl   I18N options
@@ -63,6 +64,8 @@ m4_ifdef(
 dnl ************************
 dnl   Compiler options
 dnl ************************
+
+AC_DISABLE_STATIC
 
 #AC_ARG_PROGRAM
 AC_PROG_CC
