@@ -405,6 +405,7 @@ static void bf_textview_mark_set_cb(GtkTextBuffer * buf, GtkTextIter * location,
 #ifdef USE_BI2
 			bi2 = (BlockInfo2 *) g_object_get_data(G_OBJECT(BF_TEXTVIEW(widget)->last_matched_block), "bi2");
 			bf_textview_get_iters_at_blockinfo(buf, bi2, &it1, &it2, &it3, &it4);
+			DEBUG_TEXTTAG_MSG("removing tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH],__FILE__,__LINE__);
 			gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH],&it1,&it2);
 			gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH],&it3,&it4);
 #else
@@ -430,6 +431,7 @@ static void bf_textview_mark_set_cb(GtkTextBuffer * buf, GtkTextIter * location,
 			bi2 = (BlockInfo2 *) g_object_get_data(G_OBJECT(block), "bi2");
 			if (!bi2->folded) {
 				bf_textview_get_iters_at_blockinfo(buf, bi2, &it1, &it2, &it3, &it4);
+				DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH],__FILE__,__LINE__);
 				gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it1,&it2);
 				gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it3,&it4);
 			}
@@ -560,6 +562,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 											  NULL, &w);
 		if (BF_TEXTVIEW(widget)->show_lines) {	/* show line numbers */
 			/*DEBUG_MSG("checking for folded tag %p\n", BF_TEXTVIEW(widget)->folded_tag); */
+			DEBUG_TEXTTAG_MSG("check for tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_FOLDED],__FILE__,__LINE__);
 			if (!gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_FOLDED])) {
 				if (currline == i)
 					pomstr = g_strdup_printf("<b>%d</b>", 1 + i);	/* line numbers should start at 1 */
@@ -572,7 +575,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 			}
 		}
 		if (BF_TEXTVIEW(widget)->show_symbols) {	/* show symbols */
-
+			DEBUG_TEXTTAG_MSG("check tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_FOLDED],__FILE__,__LINE__);
 			if (!gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_FOLDED])) {
 				GSList *lst3;
 				gc = gdk_gc_new(GDK_DRAWABLE(left_win));
@@ -608,6 +611,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 #endif
 				
 			}
+			DEBUG_TEXTTAG_MSG("check tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_FOLDED],__FILE__,__LINE__);
 			if (bi && !gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_FOLDED])) {
 
 				gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w2, NULL);
@@ -646,6 +650,7 @@ static gboolean bf_textview_expose_cb(GtkWidget * widget, GdkEventExpose * event
 			} else {			/* not block begin or end, but perhaps inside */
 				/*DEBUG_MSG("checking if we're in tag %p\n",
 						  main_v->lang_mgr->internal_tags[IT_BLOCK]);*/
+				DEBUG_TEXTTAG_MSG("check tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_BLOCK],__FILE__,__LINE__);
 				if (gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_BLOCK])
 					&& !gtk_text_iter_has_tag(&it, main_v->lang_mgr->internal_tags[IT_FOLDED])) {
 					gdk_draw_line(GDK_DRAWABLE(left_win),
@@ -928,8 +933,10 @@ static void bftv_delete_blocks_from_area(BfTextView * view, GtkTextIter * starti
 				GtkTextIter it1,it2;
 				gtk_text_buffer_get_iter_at_mark(buf, &it1, bi->blockstart_s);
 				gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->blockend_e);
-				if (remove_tags) 
+				if (remove_tags) {
+					DEBUG_TEXTTAG_MSG("remove tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_BLOCK],__FILE__,__LINE__);
 					gtk_text_buffer_remove_tag(buf,main_v->lang_mgr->internal_tags[IT_BLOCK],&it1, &it2);
+				}
 				blockinfo_free(buf, bi);
 			}
 		}
@@ -1010,7 +1017,7 @@ static void bftv_fold(BfTextView * self, GtkTextMark * mark, gboolean move_curso
 	GtkTextIter it1, it2, it3, it4;
 	
 	if (!bi || bi->single_line || bi->blockstart_s != mark) {
-		g_print("BUG in bftv_fold? perhaps bi->blockstart_e(%p) == mark(%p)\n",bi->blockstart_e,mark);
+		DEBUG_TEXTTAG_MSG("BUG in bftv_fold? perhaps bi->blockstart_e(%p) == mark(%p)\n",bi->blockstart_e,mark);
 		return;
 	}
 	bi->folded = bi->folded ? FALSE : TRUE;
@@ -1989,8 +1996,8 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 #ifdef HL_PROFILING
 	times(&tms2);
 	tot_ms = (glong) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
-	g_print("bftv_load_config(%s) took %ld ms\n", filename, tot_ms);
-	g_print("NUMBER OF STATES: %d (%s) - table size = %d, max token len: %d\n", cfg->num_states,
+	DEBUG_TEXTTAG_MSG("bftv_load_config(%s) took %ld ms\n", filename, tot_ms);
+	DEBUG_TEXTTAG_MSG("NUMBER OF STATES: %d (%s) - table size = %d, max token len: %d\n", cfg->num_states,
 			cfg->name, cfg->num_states * sizeof(BfState), cfg->max_token_length);
 #endif
 	return cfg;
@@ -2031,6 +2038,12 @@ static void bf_lang_mgr_build_internal_tags(BfLangManager * mgr)
 					 "foreground-stipple", bmp, NULL);
 		g_object_unref(bmp);
 	}
+	DEBUG_TEXTTAG_MSG("new tags are IT_BLOCK_MATCH:%p, IT_BLOCK:%p, IT_FOLDED:%p, IT_FOLD_HEADER:%p\n"
+			,mgr->internal_tags[IT_BLOCK_MATCH]
+			,mgr->internal_tags[IT_BLOCK]
+			,mgr->internal_tags[IT_FOLDED]
+			,mgr->internal_tags[IT_FOLD_HEADER]
+			);
 }
 
 BfLangManager *bf_lang_mgr_new()
@@ -2276,8 +2289,9 @@ void bf_textview_scan(BfTextView * self)
 static void bf_textview_scan_minimal(BfTextView * self, GtkTextIter * iter) {
 	GtkTextIter start, end;
 	start = end = *iter;
+	DEBUG_TEXTTAG_MSG("check tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_BLOCK],__FILE__,__LINE__);
 	if (gtk_text_iter_has_tag(&start, main_v->lang_mgr->internal_tags[IT_BLOCK])) {
-		g_print("bf_textview_scan_update, iter does have tag IT_BLOCK, so it is in some kind of block\n");
+		DEBUG_TEXTTAG_MSG("bf_textview_scan_update, iter does have tag IT_BLOCK, so it is in some kind of block\n");
 		
 		gtk_text_iter_backward_to_tag_toggle(&start,NULL);
 		/* now the start is at the end of the block-start-marker, and end is at the start 
@@ -2286,16 +2300,16 @@ static void bf_textview_scan_minimal(BfTextView * self, GtkTextIter * iter) {
 		/* find the context of the block that we are in, and just scan for tokens of this context AND the end of the block */
 		
 	} else {
-		g_print("bf_textview_scan_update, iter does not have tag IT_BLOCK, so it is outside any blocks\n");
+		DEBUG_TEXTTAG_MSG("bf_textview_scan_update, iter does not have tag IT_BLOCK, so it is outside any blocks\n");
 		/* rescan from the last end-of-token or end-of-block */
 		gtk_text_iter_backward_to_tag_toggle(&start,NULL);
 		/* possibly this could be far back in the document if there are 
 		hardly any reckognised tokens or blocks. BUG: we should avoid rescanning way more 
 		than the visible area in such a situation */
 	}
-	g_print("bf_textview_scan_minimal, scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
+	DEBUG_TEXTTAG_MSG("bf_textview_scan_minimal, scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
 	bf_textview_scan_area(self, &start, &end, TRUE, FALSE);
-	g_print("bf_textview_scan_minimal, done\n");
+	DEBUG_TEXTTAG_MSG("bf_textview_scan_minimal, done\n");
 }
 
 
@@ -2330,7 +2344,7 @@ static void bftv_dump_location_info(gint line, GtkTextBuffer * buffer, GtkTextIt
 	ss = gtk_text_iter_get_marks(it);
 	while (ss) {
 		GtkTextMark *m = (GtkTextMark *) ss->data;
-		g_print("bftv_dump_location_info, called from line %d, location %d has mark %p (%s)\n",
+		DEBUG_TEXTTAG_MSG("bftv_dump_location_info, called from line %d, location %d has mark %p (%s)\n",
 				line, gtk_text_iter_get_offset(it), m, gtk_text_mark_get_name(m));
 		ss = g_slist_next(ss);
 	}
@@ -2382,6 +2396,7 @@ static void bftv_clear_matched_block(BfTextView * self)
 		GtkTextIter it1, it2, it3, it4;
 		bi = (BlockInfo2 *) g_object_get_data(G_OBJECT(self->last_matched_block), "bi2");
 		bf_textview_get_iters_at_blockinfo(buf, bi, &it1, &it2, &it3, &it4);
+		DEBUG_TEXTTAG_MSG("REMOVE tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH],__FILE__,__LINE__);
 		gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it1, &it2);
 		gtk_text_buffer_remove_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK_MATCH], &it3, &it4);
 #else
@@ -2462,8 +2477,10 @@ static void bf_textview_scan_state_type_st_token(BfTextView * self, GtkTextBuffe
 
 	switch (t->type) {
 	case TT_NORMAL:
-		if (self->highlight && t->tag && apply_hl)
+		if (self->highlight && t->tag && apply_hl) {
+			DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",t->tag,__FILE__,__LINE__);
 			gtk_text_buffer_apply_tag(buf, t->tag, its, ita);
+		}
 		break;
 	case TT_TAG_END:
 		{
@@ -2508,9 +2525,11 @@ static void bf_textview_scan_state_type_st_token(BfTextView * self, GtkTextBuffe
 						bf_textview_add_block(self,buf,arr2[0], &bf->b_start, &bf->b_end, its, ita
 									, (gtk_text_iter_get_line(&bf->b_start) == gtk_text_iter_get_line(its)), NULL);
 					}
-					if (apply_hl)
+					if (apply_hl) {
+						DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_BLOCK],__FILE__,__LINE__);
 						gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK],
 												  &bf->b_end, its);
+					}
 					g_free(bf->tagname);
 					g_slice_free(TBfBlock,bf);
 				}
@@ -2521,8 +2540,10 @@ static void bf_textview_scan_state_type_st_token(BfTextView * self, GtkTextBuffe
 			if (self->highlight) {
 				GtkTextTag *tag;
 				tag = self->lang->tag_end;
-				if (tag && apply_hl)
+				if (tag && apply_hl) {
+					DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",tag,__FILE__,__LINE__);
 					gtk_text_buffer_apply_tag(buf, tag, its, ita);
+				}
 			}
 		}						/* end of tag_end */
 		break;
@@ -2556,11 +2577,15 @@ static void bf_textview_scan_state_type_st_token(BfTextView * self, GtkTextBuffe
 			if (self->highlight) {
 				GtkTextTag *tag;
 				tag = self->lang->attr_name;
-				if (tag && apply_hl)
+				if (tag && apply_hl) {
+					DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",tag,__FILE__,__LINE__);
 					gtk_text_buffer_apply_tag(buf, tag, its, &pit);
+				}
 				tag = self->lang->attr_val;
-				if (tag && apply_hl)
+				if (tag && apply_hl) {
+					DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",tag,__FILE__,__LINE__);
 					gtk_text_buffer_apply_tag(buf, tag, &pit, ita);
+				}
 			}
 		}
 		break;
@@ -2651,8 +2676,10 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 				if (self->highlight) {
 					GtkTextTag *tag;
 					tag = self->lang->tag_begin;
-					if (tag && apply_hl)
+					if (tag && apply_hl) {
+						DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",tag,__FILE__,__LINE__);
 						gtk_text_buffer_apply_tag(buf, tag, &bf->b_start, ita);
+					}
 				}
 				/* TAG autoclose */
 				if (self->tag_autoclose && !self->delete_rescan && !self->paste_operation
@@ -2724,10 +2751,13 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 						, (gtk_text_iter_get_line(&bf->b_start) == gtk_text_iter_get_line(its)), tmp);
 				}
 				if (apply_hl) {
+					DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_BLOCK],__FILE__,__LINE__);
 					gtk_text_buffer_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK],
 											  &bf->b_end, its);
-					if (self->highlight && tmp->tag)
+					if (self->highlight && tmp->tag) {
+						DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",tmp->tag,__FILE__,__LINE__);
 						gtk_text_buffer_apply_tag(buf, tmp->tag, &bf->b_start, ita);
+					}
 				}
 			}					/* default */
 		}						/* switch */
@@ -2799,14 +2829,22 @@ I'm going to see if we can keep it like that */
 		gtk_text_buffer_remove_all_tags(buf,start,end);
 #else
 		
-		if (self->lang->tag_begin)
+		if (self->lang->tag_begin) {
+			DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",self->lang->tag_begin,__FILE__,__LINE__);
 			gtk_text_buffer_remove_tag(buf, self->lang->tag_begin, start, end);
-		if (self->lang->tag_end)
+		}
+		if (self->lang->tag_end) {
+			DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",self->lang->tag_end,__FILE__,__LINE__);
 			gtk_text_buffer_remove_tag(buf, self->lang->tag_end, start, end);
-		if (self->lang->attr_name)
+		}
+		if (self->lang->attr_name) {
+			DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",self->lang->attr_name,__FILE__,__LINE__);
 			gtk_text_buffer_remove_tag(buf, self->lang->attr_name, start, end);
-		if (self->lang->attr_val)
+		}
+		if (self->lang->attr_val) {
+			DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",self->lang->attr_val,__FILE__,__LINE__);
 			gtk_text_buffer_remove_tag(buf, self->lang->attr_val, start, end);*/
+		}
 
 		/* these next two take TOO MUCH TIME because they are called for each token, but many tokens
 		actually have the same tag.... */
@@ -2936,14 +2974,14 @@ I'm going to see if we can keep it like that */
 		t1ab_ms =  (glong) (double) ((tms1b.tms_utime - tms1a.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		t1bc_ms =  (glong) (double) ((tms1c.tms_utime - tms1b.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		t1c2_ms =  (glong) (double) ((tms2.tms_utime - tms1c.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
-		g_print("bf_textview_scan_area, PROFILING: total time: %ld ms\n", tot_ms);
-		g_print("bf_textview_scan_area, PROFILING: preparing : %ld ms\n", first_stage_ms);
-		g_print("bf_textview_scan_area, PROFILING: prep 1 : %ld ms\n", t1a_ms);
-		g_print("bf_textview_scan_area, PROFILING: prep 2 : %ld ms\n", t1ab_ms);
-		g_print("bf_textview_scan_area, PROFILING: prep 3 : %ld ms\n", t1bc_ms);
-		g_print("bf_textview_scan_area, PROFILING: prep 4 : %ld ms\n", t1c2_ms);
-		g_print("bf_textview_scan_area, PROFILING: loop      : %ld ms\n", loop_ms);
-		g_print("bf_textview_scan_area, PROFILING: finalizing: %ld ms\n", finalizing_ms);
+		DEBUG_TEXTTAG_MSG("bf_textview_scan_area, PROFILING: total time: %ld ms\n", tot_ms);
+		DEBUG_TEXTTAG_MSG("bf_textview_scan_area, PROFILING: preparing : %ld ms\n", first_stage_ms);
+		DEBUG_TEXTTAG_MSG("bf_textview_scan_area, PROFILING: prep 1 : %ld ms\n", t1a_ms);
+		DEBUG_TEXTTAG_MSG("bf_textview_scan_area, PROFILING: prep 2 : %ld ms\n", t1ab_ms);
+		DEBUG_TEXTTAG_MSG("bf_textview_scan_area, PROFILING: prep 3 : %ld ms\n", t1bc_ms);
+		DEBUG_TEXTTAG_MSG("bf_textview_scan_area, PROFILING: prep 4 : %ld ms\n", t1c2_ms);
+		DEBUG_TEXTTAG_MSG("bf_textview_scan_area, PROFILING: loop      : %ld ms\n", loop_ms);
+		DEBUG_TEXTTAG_MSG("bf_textview_scan_area, PROFILING: finalizing: %ld ms\n", finalizing_ms);
 		its = *start;
 		ita = *end;
 		pit = its;
@@ -2965,7 +3003,7 @@ I'm going to see if we can keep it like that */
 			g_slist_free(ss);
 			gtk_text_iter_forward_char(&pit);
 		}
-		g_print("In area: total number of existing marks: %d, all marks: %d total number of tags: %d\n",
+		DEBUG_TEXTTAG_MSG("In area: total number of existing marks: %d, all marks: %d total number of tags: %d\n",
 				marks, allmarks, tags);
 	}
 #endif
