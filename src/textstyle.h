@@ -22,6 +22,17 @@
 #ifndef __TEXTSTYLE_H__
 #define __TEXTSTYLE_H__
 
+#ifdef DEBUG_TEXTTAG
+#define DEBUG_TEXTTAG_MSG g_print
+#else /* not DEBUG_TEXTTAG */
+#ifdef __GNUC__
+#define DEBUG_TEXTTAG_MSG(args...)
+ /**/
+#else/* notdef __GNUC__ */
+extern void g_none(gchar *first, ...);
+#define DEBUG_TEXTTAG_MSG g_none
+#endif /* __GNUC__ */
+#endif /* DEBUG_TEXTTAG */
 void textstyle_build_lookup_table(void);
 void textstyle_cleanup_lookup_table(void);
 

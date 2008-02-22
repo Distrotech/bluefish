@@ -120,6 +120,7 @@ void textstyle_rebuild(void) {
 		DEBUG_MSG("textstyle_rebuild, adding tag %p to tagtable %p\n",tag,textstyle.tagtable);
 		gtk_text_tag_table_add(textstyle.tagtable, tag);
 		g_object_unref(tag);
+		DEBUG_TEXTTAG_MSG("textstyle %s has tag %p\n",arr[0],tag);
 	}
 }
 
@@ -149,7 +150,7 @@ static gchar *get_tagname_for_scanner_style(const gchar *filetype,const gchar *t
 			return g_hash_table_lookup(textstyle.lookup_table, arr);
 		} else {
 			gchar **tmparr = arraylist_value_exists(main_v->props.syntax_styles, arr, 3, TRUE);
-			g_print("get_tagname_for_scanner_style: NO LOOKUP TABLE, SLOWWWWW!!!!!\n");
+			DEBUG_TEXTTAG_MSG("get_tagname_for_scanner_style: NO LOOKUP TABLE, SLOWWWWW!!!!!\n");
 			if (tmparr)
 				return tmparr[3];
 		}
@@ -174,7 +175,7 @@ GtkTextTag *get_tag_for_scanner_style(const gchar *filetype,const gchar *type,co
 		tag = textstyle_get(defaultstyle);
 		if (tag) {
 			gchar **arr2 = array_from_arglist(filetype,type,name,defaultstyle,NULL);
-			g_print("get_tag_for_scanner_style, %s:%s:%s is not yet in rcfile_v2, adding with value %s\n",filetype,type,name,defaultstyle);
+			DEBUG_TEXTTAG_MSG("get_tag_for_scanner_style, %s:%s:%s is not yet in rcfile_v2, adding with value %s\n",filetype,type,name,defaultstyle);
 			main_v->props.syntax_styles = g_list_append(main_v->props.syntax_styles,arr2);
 			if (textstyle.lookup_table) {
 				g_hash_table_insert(textstyle.lookup_table,arr2,arr2[3]);
