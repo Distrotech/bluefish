@@ -228,6 +228,7 @@ void gui_notebook_switch(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 }
 
 static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpointer data){
+	Tbfwin *bfwin = BFWIN(data);
 	gint position;
 	g_object_get(object, pspec->name, &position, NULL);
 	DEBUG_MSG("left_panel_notify_position_lcb, restore_dimensions=%d, new position=%d\n",main_v->props.restore_dimensions, position);
@@ -235,8 +236,11 @@ static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpo
 		if (main_v->props.left_panel_left) {
 			main_v->globses.left_panel_width = position;
 		} else {
-			main_v->globses.left_panel_width = main_v->globses.main_window_w - position;
+			int w,h;
+			gtk_window_get_size(GTK_WINDOW(bfwin->main_window),&w,&h);
+			main_v->globses.left_panel_width = w - position;
 		}
+		DEBUG_MSG("left_panel_notify_position_lcb, left_panel_width=%d\n",main_v->globses.left_panel_width);
 	}
 }
 
@@ -297,9 +301,9 @@ void left_panel_rebuild(Tbfwin *bfwin) {
 		DEBUG_MSG("left_panel_rebuild, re-init\n");
 		left_panel_build(bfwin);
 		if (main_v->props.left_panel_left) {
-			gtk_paned_add1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook);
+			gtk_paned_pack1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook,TRUE,TRUE);
 		} else {
-			gtk_paned_add2(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook);
+			gtk_paned_pack2(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook,TRUE,TRUE);
 		}
 		gtk_widget_show_all(bfwin->leftpanel_notebook);
 	}
@@ -332,13 +336,20 @@ void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean sho
 			DEBUG_MSG("set paned position to %d (left)\n",main_v->globses.left_panel_width);
 			gtk_paned_set_position(GTK_PANED(bfwin->hpane), main_v->globses.left_panel_width);
 		} else {
-			DEBUG_MSG("set paned position to %d (right)\n",main_v->globses.main_window_w - main_v->globses.left_panel_width);
-			gtk_paned_set_position(GTK_PANED(bfwin->hpane), main_v->globses.main_window_w - main_v->globses.left_panel_width);
+			int w,h;
+			gtk_window_get_size(GTK_WINDOW(bfwin->main_window),&w,&h);
+			DEBUG_MSG("set paned position to %d (right)\n",w - main_v->globses.left_panel_width);
+			gtk_paned_set_position(GTK_PANED(bfwin->hpane), w - main_v->globses.left_panel_width);
 		}
-		g_signal_connect(G_OBJECT(bfwin->hpane),"notify::position",G_CALLBACK(left_panel_notify_position_lcb), NULL);
+		g_signal_connect(G_OBJECT(bfwin->hpane),"notify::position",G_CALLBACK(left_panel_notify_position_lcb), bfwin);
 		bfwin->leftpanel_notebook = left_panel_build(bfwin);
-		gtk_paned_add1(GTK_PANED(bfwin->hpane), main_v->props.left_panel_left ? bfwin->leftpanel_notebook : bfwin->notebook_box);
-		gtk_paned_add2(GTK_PANED(bfwin->hpane), main_v->props.left_panel_left ? bfwin->notebook_box : bfwin->leftpanel_notebook);
+		if (main_v->props.left_panel_left) {
+			gtk_paned_pack1(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook, FALSE, TRUE);
+			gtk_paned_pack2(GTK_PANED(bfwin->hpane), bfwin->notebook_box, TRUE, TRUE);
+		} else {
+			gtk_paned_pack1(GTK_PANED(bfwin->hpane), bfwin->notebook_box, TRUE, TRUE);
+			gtk_paned_pack2(GTK_PANED(bfwin->hpane), bfwin->leftpanel_notebook, FALSE, TRUE);
+		}
 		gtk_box_pack_start(GTK_BOX(bfwin->middlebox), bfwin->hpane, TRUE, TRUE, 0);
 		gtk_widget_show(bfwin->hpane);
 	} else {
@@ -525,19 +536,21 @@ static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEvent *
 	if (main_v->props.restore_dimensions) {
 		if (revent->type == GDK_CONFIGURE) {
 			GdkEventConfigure *event = (GdkEventConfigure *)revent;
+			DEBUG_MSG("gui_main_window_configure_event_lcb, configure event\n");
 			if (main_v->globses.main_window_w > 0 ) {
 				main_v->globses.main_window_w = event->width;
 				main_v->globses.main_window_h = event->height;
-				DEBUG_MSG("gui_main_window_configure_event_lcb, width=%d, height=%d\n",main_v->globses.main_window_w,main_v->globses.main_window_h);
+				DEBUG_MSG("gui_main_window_configure_event_lcb, not maximized, setting width=%d, height=%d\n",main_v->globses.main_window_w,main_v->globses.main_window_h);
 			}
-		} else if (revent->type == GDK_WINDOW_STATE && GTK_WIDGET_VISIBLE(bfwin->main_window)) {
+		} else if (revent->type == GDK_WINDOW_STATE && GTK_WIDGET_VISIBLE(bfwin->main_window) ) {
 			GdkEventWindowState *event = (GdkEventWindowState *)revent;
-			if (event->new_window_state == GDK_WINDOW_STATE_MAXIMIZED && main_v->globses.main_window_w > 0) {
+			DEBUG_MSG("gui_main_window_configure_event_lcb, window state event, state=%d, globses_main_window_w=%d\n",event->new_window_state,main_v->globses.main_window_w);
+			if ((event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED) && main_v->globses.main_window_w > 0) {
 				main_v->globses.main_window_w = -1 * main_v->globses.main_window_w; /* negative means it is maximized !! */
-				DEBUG_MSG("gui_main_window_configure_event_lcb, maximized!! width=%d\n",main_v->globses.main_window_w);
-			} else if (event->new_window_state != GDK_WINDOW_STATE_MAXIMIZED && main_v->globses.main_window_w < 0) {
+				DEBUG_MSG("gui_main_window_configure_event_lcb, maximized!! setting width=%d\n",main_v->globses.main_window_w);
+			} else if (!(event->new_window_state & GDK_WINDOW_STATE_MAXIMIZED) && main_v->globses.main_window_w < 0) {
 				main_v->globses.main_window_w = -1 * main_v->globses.main_window_w; /* make it positive again */
-				DEBUG_MSG("gui_main_window_configure_event_lcb, NOT-maximized, width=%d\n",main_v->globses.main_window_w);
+				DEBUG_MSG("gui_main_window_configure_event_lcb, NOT-maximized, setting width=%d\n",main_v->globses.main_window_w);
 			}
 		}
 	}
@@ -668,9 +681,10 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	GtkWidget *vbox;
 	GList *tmplist;
-	DEBUG_MSG("gui_create_main, bfwin=%p\n",bfwin);
+	DEBUG_MSG("gui_create_main, bfwin=%p, main_window_w=%d\n",bfwin,main_v->globses.main_window_w);
 	bfwin->main_window = window_full2(_("New Bluefish Window"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
+	gtk_widget_realize(bfwin->main_window);
 	if (main_v->globses.main_window_w > 0) {
 		gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->globses.main_window_w, main_v->globses.main_window_h);
 	} else {
@@ -818,7 +832,9 @@ void gui_show_main(Tbfwin *bfwin) {
 	DEBUG_MSG("gui_show_main, before show\n");
 	/* don't use show_all since some widgets are and should be hidden */
 	gtk_widget_show(bfwin->main_window);
+	DEBUG_MSG("gui_show_main, after show, before flush_queue\n");
 	flush_queue();
+	DEBUG_MSG("gui_show_main, after flush queue\n");
 	doc_scroll_to_cursor(bfwin->current_document);
 /*	if ((bfwin->project && bfwin->project->view_left_panel) || (!bfwin->project && main_v->props.view_left_panel)) {
 		filebrowser_scroll_initial(bfwin);

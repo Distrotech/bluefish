@@ -374,7 +374,7 @@ void bluefish_exit_request() {
 			return;
 		}
 	}
-/*	gtk_widget_hide(main_v->main_window);*/
+
 	tmplist = g_list_first(gtk_window_list_toplevels());
 	while (tmplist) {
 		gtk_widget_hide(GTK_WIDGET(tmplist->data));
