@@ -2437,7 +2437,7 @@ static void bf_textview_add_block(BfTextView * self, GtkTextBuffer *buf, gchar *
 
 #ifdef REUSETAGS
 
-static void debug_tags(GtkTextIter *it) {
+/*static void debug_tags(GtkTextIter *it) {
 	GSList *toggles = gtk_text_iter_get_toggled_tags(it,FALSE);
 	while (toggles) {
 		g_print("toggles tag %p\n",toggles->data);
@@ -2448,12 +2448,12 @@ static void debug_tags(GtkTextIter *it) {
 		g_print("has tag %p\n",toggles->data);
 		toggles = g_slist_next(toggles);
 	}
-}
+}*/
 
 static void bf_textview_check_or_apply_tag(GtkTextBuffer *buf,GtkTextTag *tag,GtkTextIter *its, GtkTextIter *ita) {
 	if (!gtk_text_iter_toggles_tag(its, tag) || !gtk_text_iter_toggles_tag(ita, tag)) {
-		/*g_print("bf_textview_check_or_apply_tag, set tag %p\n",tag);
-		debug_tags(its);*/
+		/*g_print("%s:%d, set tag %p\n",__FILE__,__LINE__,tag);*/
+		/*debug_tags(its);*/
 		gtk_text_buffer_apply_tag(buf, tag, its, ita);
 	} /*else {
 		g_print("bf_textview_check_or_apply_tag, re-use existing tag %p\n",tag);
@@ -2773,16 +2773,17 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 }
 
 static void remove_tags_starting_at_iter(GtkTextBuffer *buf, GtkTextIter it) {
-	GSList *toggles;
-	toggles = gtk_text_iter_get_toggled_tags(&it,TRUE);
-	while (toggles) {
+	GSList *toggles, *tmplist;
+	tmplist = toggles = gtk_text_iter_get_toggled_tags(&it,TRUE);
+	while (tmplist) {
 		GtkTextIter tmpit;
 		tmpit = it;
-		gtk_text_iter_forward_to_tag_toggle(&tmpit,toggles->data);
-		/*g_print("remove_tags_starting_at_iter, removing %p\n",toggles->data);*/
-		gtk_text_buffer_remove_tag(buf,toggles->data,&it,&tmpit);
-		toggles = g_slist_next(toggles);
+		gtk_text_iter_forward_to_tag_toggle(&tmpit,tmplist->data);
+		/*g_print("%s:%d, removing tag %p\n",__FILE__,__LINE__,tmplist->data);*/
+		gtk_text_buffer_remove_tag(buf,tmplist->data,&it,&tmpit);
+		tmplist = g_slist_next(tmplist);
 	}
+	g_slist_free(toggles);
 }
 
 #define NEWREMOVETAGS
