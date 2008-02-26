@@ -2748,9 +2748,13 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 						, (gtk_text_iter_get_line(&bf->b_start) == gtk_text_iter_get_line(its)), tmp);
 				}
 				if (apply_hl) {
-					DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_BLOCK],__FILE__,__LINE__);
-					bf_textview_check_or_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK],
+					/* we only need to apply IT_BLOCK on the top-level block detected. all blocks within 
+					the top level will be inside an area in which IT_BLOCK is set already */
+					if (g_queue_is_empty(&self->scanner.block_stack)) {
+						DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_BLOCK],__FILE__,__LINE__);
+						bf_textview_check_or_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK],
 											  &bf->b_end, its);
+					}
 					if (self->highlight && tmp->tag) {
 						DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",tmp->tag,__FILE__,__LINE__);
 						bf_textview_check_or_apply_tag(buf, tmp->tag, &bf->b_start, ita);
