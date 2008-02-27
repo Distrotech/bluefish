@@ -2452,7 +2452,7 @@ static void bf_textview_add_block(BfTextView * self, GtkTextBuffer *buf, gchar *
 
 static void bf_textview_check_or_apply_tag(GtkTextBuffer *buf,GtkTextTag *tag,GtkTextIter *its, GtkTextIter *ita) {
 	if (!gtk_text_iter_toggles_tag(its, tag) || !gtk_text_iter_toggles_tag(ita, tag)) {
-		/*g_print("%s:%d, set tag %p\n",__FILE__,__LINE__,tag);*/
+		g_print("%s:%d, set tag %p from %d to %d\n",__FILE__,__LINE__,tag,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
 		/*debug_tags(its);*/
 		gtk_text_buffer_apply_tag(buf, tag, its, ita);
 	} /*else {
@@ -2752,6 +2752,7 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 					the top level will be inside an area in which IT_BLOCK is set already */
 					if (g_queue_is_empty(&self->scanner.block_stack)) {
 						DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_BLOCK],__FILE__,__LINE__);
+						g_print("%s:%d set IT_BLOCK from %d to %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(&bf->b_end),gtk_text_iter_get_offset(its));
 						bf_textview_check_or_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK],
 											  &bf->b_end, its);
 					}
@@ -2772,15 +2773,15 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 	return current_state;
 }
 
-static void remove_tags_starting_at_iter(GtkTextBuffer *buf, GtkTextIter it) {
+static void remove_tags_starting_at_iter(GtkTextBuffer *buf, GtkTextIter *it) {
 	GSList *toggles, *tmplist;
-	tmplist = toggles = gtk_text_iter_get_toggled_tags(&it,TRUE);
+	tmplist = toggles = gtk_text_iter_get_toggled_tags(it,TRUE);
 	while (tmplist) {
 		GtkTextIter tmpit;
-		tmpit = it;
+		tmpit = *it;
 		gtk_text_iter_forward_to_tag_toggle(&tmpit,tmplist->data);
-		/*g_print("%s:%d, removing tag %p\n",__FILE__,__LINE__,tmplist->data);*/
-		gtk_text_buffer_remove_tag(buf,tmplist->data,&it,&tmpit);
+		g_print("%s:%d, removing tag %p from %d to %d\n",__FILE__,__LINE__,tmplist->data,gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(&tmpit));
+		gtk_text_buffer_remove_tag(buf,tmplist->data,it,&tmpit);
 		tmplist = g_slist_next(tmplist);
 	}
 	g_slist_free(toggles);
@@ -2793,7 +2794,6 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 {
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 	GtkTextIter its, ita;
-	gboolean recognizing = FALSE;
 	BfState *current_state;
 
 	DEBUG_MSG("bf_textview_scan_area, started from %d to %d\n",gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
@@ -2884,6 +2884,7 @@ I'm going to see if we can keep it like that */
 		while (!last_loop) {
 			gunichar c;
 			c = gtk_text_iter_get_char(&ita);
+			g_print("%s:%d got character %c at position %d\n",__FILE__, __LINE__,c,gtk_text_iter_get_offset(&ita));
 			if (c == 0 || (!end_is_buffer_end && gtk_text_iter_equal(&ita, end))) {
 				last_loop = TRUE;
 			} 
@@ -2905,7 +2906,6 @@ I'm going to see if we can keep it like that */
 			} else {
 				if ((gint) c > BFTV_SCAN_RANGE) {
 					c = 0;
-					recognizing = FALSE;
 				}
 				while (self->lang->escapes[(gint) c] && c != 0 ) {	/* remove escapes */
 					gtk_text_iter_forward_chars(&ita, 2);
@@ -2927,15 +2927,15 @@ I'm going to see if we can keep it like that */
 				current_state = current_state->tv[(gint8) toupper(c)];
 	
 			if (current_state) {
-				recognizing = TRUE;
 				if (current_state->type == ST_TRANSIT) {
 #ifdef REUSETAGS
 					if (!gtk_text_iter_equal(&ita,&its)) {
-						remove_tags_starting_at_iter(buf, ita);
+						remove_tags_starting_at_iter(buf, &ita);
 					}
 #endif
 					gtk_text_iter_forward_char(&ita);
 				} else {
+					g_print("%s:%d found type %d at pos %d\n",__FILE__, __LINE__,current_state->type,gtk_text_iter_get_offset(&ita));
 					switch (current_state->type) {
 					case ST_TOKEN:
 						bf_textview_scan_state_type_st_token(self, buf, current_state, &its, &ita, apply_hl);
@@ -2951,17 +2951,22 @@ I'm going to see if we can keep it like that */
 						break;
 					}
 					its = ita;
+					/* why don't we use gtk_text_iter_forward_char(&ita); here? --> the highlightig doesn't work anymore
+					we run the loop another time on the same position ?? what kind of magic is
+					in the automata that required us to re-run the loop? 
+					==> because a NOT pattern [^lkjhf] requires a character that matches the NOT condition
+					to stop the matching on the previous position !!!! */
 				}
 			} else {	/* current_state is NULL */
-				remove_tags_starting_at_iter(buf, its);
-				its = ita;
-				remove_tags_starting_at_iter(buf, ita);
-				if (recognizing) {
-					recognizing = FALSE;
-				} else {
-					gtk_text_iter_forward_char(&its);
-					gtk_text_iter_forward_char(&ita);
+				g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&its));
+				remove_tags_starting_at_iter(buf, &its);
+				if (!gtk_text_iter_equal(&its,&ita)) {
+					g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));
+					remove_tags_starting_at_iter(buf, &ita);
 				}
+				its = ita;
+				gtk_text_iter_forward_char(&its);
+				gtk_text_iter_forward_char(&ita);
 			}
 		}	/*main loop */
 	}
