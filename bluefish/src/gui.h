@@ -45,6 +45,7 @@ void gui_notebook_unbind_signals(Tbfwin *bfwin);
 void gui_create_main(Tbfwin *bfwin, GList *filenames);
 void gui_show_main(Tbfwin *bfwin);
 void statusbar_message(Tbfwin *bfwin,gchar *message, gint time);
+gboolean bfwin_has_doc(Tbfwin *bfwin, Tdocument *doc);
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index);
 gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document);
 gboolean switch_to_document_by_uri(Tbfwin *bfwin,GnomeVFSURI *uri);

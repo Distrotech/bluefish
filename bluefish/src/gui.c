@@ -149,6 +149,10 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	DEBUG_MSG("notebook_changed, finished\n");
 }
 
+gboolean bfwin_has_doc(Tbfwin *bfwin, Tdocument *doc) {
+	return (g_list_index(bfwin->documentlist, doc) >= 0);
+}
+
 /* use -1 to switch to the last page */
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index) {
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), (index));
