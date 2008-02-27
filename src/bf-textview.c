@@ -23,7 +23,7 @@
 #define USE_BI2
 #define REUSETAGS
 /*#define DEBUG */
-/* #define HL_PROFILING */
+/*#define HL_PROFILING*/
 /*#define USE_HIGHLIGHT_MINIMAL */
 /*
 Typical scanner in compiler is an automata. To implement automata you
@@ -2452,7 +2452,7 @@ static void bf_textview_add_block(BfTextView * self, GtkTextBuffer *buf, gchar *
 
 static void bf_textview_check_or_apply_tag(GtkTextBuffer *buf,GtkTextTag *tag,GtkTextIter *its, GtkTextIter *ita) {
 	if (!gtk_text_iter_toggles_tag(its, tag) || !gtk_text_iter_toggles_tag(ita, tag)) {
-		g_print("%s:%d, set tag %p from %d to %d\n",__FILE__,__LINE__,tag,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
+		/*g_print("%s:%d, set tag %p from %d to %d\n",__FILE__,__LINE__,tag,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));*/
 		/*debug_tags(its);*/
 		gtk_text_buffer_apply_tag(buf, tag, its, ita);
 	} /*else {
@@ -2611,7 +2611,7 @@ static BfState *bf_textview_scan_state_type_st_block_begin(BfTextView * self, Gt
 	bf->def = tmp;
 	bf->b_start = *its;
 	bf->b_end = *ita;
-	g_print("%s:%d block start from %d to %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
+	/*g_print("%s:%d block start from %d to %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));*/
 	g_queue_push_head(&(self->scanner.block_stack), bf);
 	self->scanner.current_context = tmp;
 	if (tmp->type == BT_TAG_BEGIN) {
@@ -2781,7 +2781,7 @@ static void remove_tags_starting_at_iter(GtkTextBuffer *buf, GtkTextIter *it) {
 		GtkTextIter tmpit;
 		tmpit = *it;
 		gtk_text_iter_forward_to_tag_toggle(&tmpit,tmplist->data);
-		g_print("%s:%d, removing tag %p from %d to %d\n",__FILE__,__LINE__,tmplist->data,gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(&tmpit));
+		/*g_print("%s:%d, removing tag %p from %d to %d\n",__FILE__,__LINE__,tmplist->data,gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(&tmpit));*/
 		gtk_text_buffer_remove_tag(buf,tmplist->data,it,&tmpit);
 		tmplist = g_slist_next(tmplist);
 	}
@@ -2886,7 +2886,7 @@ I'm going to see if we can keep it like that */
 		while (!last_loop) {
 			gunichar c;
 			c = gtk_text_iter_get_char(&ita);
-			g_print("%s:%d got character %c at position %d\n",__FILE__, __LINE__,c,gtk_text_iter_get_offset(&ita));
+			/*g_print("%s:%d got character %c at position %d\n",__FILE__, __LINE__,c,gtk_text_iter_get_offset(&ita));*/
 			if (c == 0 || (!end_is_buffer_end && gtk_text_iter_equal(&ita, end))) {
 				last_loop = TRUE;
 			} 
@@ -2916,9 +2916,9 @@ I'm going to see if we can keep it like that */
 			}
 	
 			/* #####################     RECOGNIZE TOKENS AND BLOCKS ###################*/
+			rescan_character = FALSE;
 			do {
 				block_found = FALSE;
-				rescan_character = FALSE;
 				if (!current_state) {
 					if (self->scanner.current_context) {
 						current_state = &self->scanner.current_context->scan_table;
@@ -2933,14 +2933,16 @@ I'm going to see if we can keep it like that */
 				if (current_state) {
 					if (current_state->type == ST_TRANSIT) {
 #ifdef REUSETAGS
-						if (!gtk_text_iter_equal(&ita,&its)) {
+						if (!rescan_character && !gtk_text_iter_equal(&its,&ita)) {
+							/*g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));*/
 							remove_tags_starting_at_iter(buf, &ita);
 						}
 #endif
 						gtk_text_iter_forward_char(&ita);
+						rescan_character = FALSE;
 					} else {
 						
-						g_print("%s:%d found type %d at pos %d\n",__FILE__, __LINE__,current_state->type,gtk_text_iter_get_offset(&ita));
+						/*g_print("%s:%d found type %d at pos %d\n",__FILE__, __LINE__,current_state->type,gtk_text_iter_get_offset(&ita));*/
 						switch (current_state->type) {
 						case ST_TOKEN:
 							bf_textview_scan_state_type_st_token(self, buf, current_state, &its, &ita, apply_hl);
@@ -2955,23 +2957,26 @@ I'm going to see if we can keep it like that */
 							block_found = TRUE;
 							break;
 						}
-						rescan_character = TRUE;
 						its = ita;
 						/* why don't we use gtk_text_iter_forward_char(&ita); here? --> the highlightig doesn't work anymore
 						we run the loop another time on the same position ?? what kind of magic is
 						in the automata that required us to re-run the loop? 
 						==> because a pattern [any]* or + requires a character that matches the NOT condition
 						to stop the matching on the previous position !!!! */
+						rescan_character = TRUE;
 					}
 				} else {	/* current_state is NULL */
-					g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&its));
-					remove_tags_starting_at_iter(buf, &its);
-					if (!gtk_text_iter_equal(&its,&ita)) {
-						g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));
+					if (!rescan_character) {
+						/*g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));*/
 						remove_tags_starting_at_iter(buf, &ita);
+						if (!gtk_text_iter_equal(&its,&ita)) {
+							/*g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&its));*/
+							remove_tags_starting_at_iter(buf, &its);
+						}
 					}
 					gtk_text_iter_forward_char(&ita);
 					its = ita;
+					rescan_character = FALSE;
 				}
 			} while (rescan_character);
 		}	/*main loop */
