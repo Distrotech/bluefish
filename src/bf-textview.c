@@ -2880,6 +2880,7 @@ I'm going to see if we can keep it like that */
 /* THIS IS THE NEW MAIN LOOP */
 	{
 		gboolean last_loop = FALSE;
+		gboolean rescan_character;
 		gboolean block_found = FALSE;
 		gboolean end_is_buffer_end = gtk_text_iter_is_end(end); 
 		while (!last_loop) {
@@ -2915,59 +2916,64 @@ I'm going to see if we can keep it like that */
 			}
 	
 			/* #####################     RECOGNIZE TOKENS AND BLOCKS ###################*/
-			block_found = FALSE;
-			if (!current_state) {
-				if (self->scanner.current_context) {
-					current_state = &self->scanner.current_context->scan_table;
-				} else
-					current_state = &self->lang->scan_table;
-			}
-			if (self->lang->case_sensitive)
-				current_state = current_state->tv[(gint8) c];
-			else
-				current_state = current_state->tv[(gint8) toupper(c)];
-	
-			if (current_state) {
-				if (current_state->type == ST_TRANSIT) {
+			do {
+				block_found = FALSE;
+				rescan_character = FALSE;
+				if (!current_state) {
+					if (self->scanner.current_context) {
+						current_state = &self->scanner.current_context->scan_table;
+					} else
+						current_state = &self->lang->scan_table;
+				}
+				if (self->lang->case_sensitive)
+					current_state = current_state->tv[(gint8) c];
+				else
+					current_state = current_state->tv[(gint8) toupper(c)];
+		
+				if (current_state) {
+					if (current_state->type == ST_TRANSIT) {
 #ifdef REUSETAGS
-					if (!gtk_text_iter_equal(&ita,&its)) {
+						if (!gtk_text_iter_equal(&ita,&its)) {
+							remove_tags_starting_at_iter(buf, &ita);
+						}
+#endif
+						gtk_text_iter_forward_char(&ita);
+					} else {
+						
+						g_print("%s:%d found type %d at pos %d\n",__FILE__, __LINE__,current_state->type,gtk_text_iter_get_offset(&ita));
+						switch (current_state->type) {
+						case ST_TOKEN:
+							bf_textview_scan_state_type_st_token(self, buf, current_state, &its, &ita, apply_hl);
+							current_state = NULL;
+							break;			/* token */
+						case ST_BLOCK_BEGIN:
+							current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, apply_hl);
+							block_found = TRUE;
+							break;
+						case ST_BLOCK_END:
+							current_state = bf_textview_scan_state_type_st_block_end(self, buf, current_state, &its, &ita, apply_hl);
+							block_found = TRUE;
+							break;
+						}
+						rescan_character = TRUE;
+						its = ita;
+						/* why don't we use gtk_text_iter_forward_char(&ita); here? --> the highlightig doesn't work anymore
+						we run the loop another time on the same position ?? what kind of magic is
+						in the automata that required us to re-run the loop? 
+						==> because a pattern [any]* or + requires a character that matches the NOT condition
+						to stop the matching on the previous position !!!! */
+					}
+				} else {	/* current_state is NULL */
+					g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&its));
+					remove_tags_starting_at_iter(buf, &its);
+					if (!gtk_text_iter_equal(&its,&ita)) {
+						g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));
 						remove_tags_starting_at_iter(buf, &ita);
 					}
-#endif
 					gtk_text_iter_forward_char(&ita);
-				} else {
-					g_print("%s:%d found type %d at pos %d\n",__FILE__, __LINE__,current_state->type,gtk_text_iter_get_offset(&ita));
-					switch (current_state->type) {
-					case ST_TOKEN:
-						bf_textview_scan_state_type_st_token(self, buf, current_state, &its, &ita, apply_hl);
-						current_state = NULL;
-						break;			/* token */
-					case ST_BLOCK_BEGIN:
-						current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, apply_hl);
-						block_found = TRUE;
-						break;
-					case ST_BLOCK_END:
-						current_state = bf_textview_scan_state_type_st_block_end(self, buf, current_state, &its, &ita, apply_hl);
-						block_found = TRUE;
-						break;
-					}
 					its = ita;
-					/* why don't we use gtk_text_iter_forward_char(&ita); here? --> the highlightig doesn't work anymore
-					we run the loop another time on the same position ?? what kind of magic is
-					in the automata that required us to re-run the loop? 
-					==> because a NOT pattern [^lkjhf] requires a character that matches the NOT condition
-					to stop the matching on the previous position !!!! */
 				}
-			} else {	/* current_state is NULL */
-				g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&its));
-				remove_tags_starting_at_iter(buf, &its);
-				if (!gtk_text_iter_equal(&its,&ita)) {
-					g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));
-					remove_tags_starting_at_iter(buf, &ita);
-				}
-				gtk_text_iter_forward_char(&ita);
-				its = ita;
-			}
+			} while (rescan_character);
 		}	/*main loop */
 	}
 #ifdef HL_PROFILING
