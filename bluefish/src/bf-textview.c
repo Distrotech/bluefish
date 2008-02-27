@@ -2611,6 +2611,7 @@ static BfState *bf_textview_scan_state_type_st_block_begin(BfTextView * self, Gt
 	bf->def = tmp;
 	bf->b_start = *its;
 	bf->b_end = *ita;
+	g_print("%s:%d block start from %d to %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
 	g_queue_push_head(&(self->scanner.block_stack), bf);
 	self->scanner.current_context = tmp;
 	if (tmp->type == BT_TAG_BEGIN) {
@@ -2964,9 +2965,8 @@ I'm going to see if we can keep it like that */
 					g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));
 					remove_tags_starting_at_iter(buf, &ita);
 				}
-				its = ita;
-				gtk_text_iter_forward_char(&its);
 				gtk_text_iter_forward_char(&ita);
+				its = ita;
 			}
 		}	/*main loop */
 	}
