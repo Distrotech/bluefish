@@ -22,6 +22,7 @@
  */
 #define USE_BI2
 #define REUSETAGS
+/*#define SCANALLTAGVIEWABLE*/
 /*#define DEBUG */
 /*#define HL_PROFILING*/
 /*#define USE_HIGHLIGHT_MINIMAL */
@@ -700,11 +701,19 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 			view->tag_ac_state = TRUE;
 		else
 			view->tag_ac_state = FALSE;
+
+#ifdef SCANALLTAGVIEWABLE
+		if (view->need_rescan) 
+			bf_textview_scan(view);
+		else
+			bf_textview_scan_visible(view);
+#else
 		if (view->hl_mode == BFTV_HL_MODE_ALL || view->need_rescan) {
 			bf_textview_scan(view);
 		} else {
 			bf_textview_scan_visible(view);
 		}
+#endif
 	} else {
 		DEBUG_MSG("bf_textview_insert_text_cb, postpone the scanning, setting need_rescan\n");
 		view->need_rescan = TRUE;
@@ -2790,12 +2799,16 @@ static void remove_tags_starting_at_iter(GtkTextBuffer *buf, GtkTextIter *it) {
 
 #define NEWREMOVETAGS
 /* this function takes most of the CPU time in bluefish */
-void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end,
+void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIter * endarg,
 						   gboolean apply_hl, gboolean store_string)
 {
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 	GtkTextIter its, ita;
+	GtkTextIter start,end;
 	BfState *current_state;
+#ifdef SCANALLTAGVIEWABLE
+	GtkTextIter startvisible,endvisible;
+#endif
 
 	DEBUG_MSG("bf_textview_scan_area, started from %d to %d\n",gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
 	g_return_if_fail(self != NULL);
@@ -2805,8 +2818,16 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	if (self->delay_rescan)
 		return;
 
-	its = *start;
-	ita = *start;
+#ifdef SCANALLTAGVIEWABLE
+	startvisible = *startarg;
+	endvisible = *endarg;
+	gtk_text_buffer_get_bounds(buf,&start,&end);
+	its = ita = start; 
+#else
+	its = ita = start = *startarg;
+	end = *endarg;
+#endif
+
 	self->scanner.current_context = NULL;
 	current_state = &self->lang->scan_table;
 
@@ -2829,13 +2850,8 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter *
 	times(&tms1b);
 #endif
 
-/* We now simply remove ALL tags from the buffer. This means that we also remove tags 
-that have special meaning (inside a block) and tags that are set by other code..
-It could be that we have to remove tags more specifically, and leave some of the tags 
-in the buffer. But removing all tags in one go is so much more faster that 
-I'm going to see if we can keep it like that */
 	if (apply_hl) {
-		bftv_delete_blocks_from_area(self, start, end, FALSE);
+		bftv_delete_blocks_from_area(self, &start, &end, FALSE);
 #ifdef HL_PROFILING
 	times(&tms1c);
 #endif
@@ -2843,6 +2859,12 @@ I'm going to see if we can keep it like that */
 	/* do not remove any tags yet */
 #else
 #ifdef NEWREMOVETAGS
+		/* We now simply remove ALL tags from the buffer. This means that we also remove tags 
+		that have special meaning (inside a block) and tags that are set by other code..
+		It could be that we have to remove tags more specifically, and leave some of the tags 
+		in the buffer. But removing all tags in one go is so much more faster that 
+		I'm going to see if we can keep it like that */
+
 		/* BUG: if there are other (non-scanner-related) tokens in this block they are removed too !!! */
 		gtk_text_buffer_remove_all_tags(buf,start,end);
 #else
@@ -2882,15 +2904,22 @@ I'm going to see if we can keep it like that */
 		gboolean last_loop = FALSE;
 		gboolean rescan_character;
 		gboolean block_found = FALSE;
-		gboolean end_is_buffer_end = gtk_text_iter_is_end(end); 
+#ifdef SCANALLTAGVIEWABLE
+		const gboolean end_is_buffer_end = TRUE;
+		gboolean in_visible_area;
+#else
+		gboolean end_is_buffer_end = gtk_text_iter_is_end(&end);
+#endif 
 		while (!last_loop) {
 			gunichar c;
 			c = gtk_text_iter_get_char(&ita);
 			/*g_print("%s:%d got character %c at position %d\n",__FILE__, __LINE__,c,gtk_text_iter_get_offset(&ita));*/
-			if (c == 0 || (!end_is_buffer_end && gtk_text_iter_equal(&ita, end))) {
+			if (c == 0 || (!end_is_buffer_end && gtk_text_iter_equal(&ita, &end))) {
 				last_loop = TRUE;
 			} 
-			
+#ifdef SCANALLTAGVIEWABLE		
+			in_visible_area = gtk_text_iter_in_range(&ita,&startvisible,&endvisible);
+#endif 			
 			if (store_string) {
 				DEBUG_MSG("store string! append character %c\n",c);
 				/* the next line can probably be improved a bit for speed  */
@@ -2933,27 +2962,44 @@ I'm going to see if we can keep it like that */
 				if (current_state) {
 					if (current_state->type == ST_TRANSIT) {
 #ifdef REUSETAGS
+#ifdef SCANALLTAGVIEWABLE		
+						if (in_visible_area && !rescan_character && !gtk_text_iter_equal(&its,&ita)) {
+							remove_tags_starting_at_iter(buf, &ita);
+						}
+#else
 						if (!rescan_character && !gtk_text_iter_equal(&its,&ita)) {
 							/*g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));*/
 							remove_tags_starting_at_iter(buf, &ita);
 						}
 #endif
+#endif
 						gtk_text_iter_forward_char(&ita);
 						rescan_character = FALSE;
 					} else {
-						
 						/*g_print("%s:%d found type %d at pos %d\n",__FILE__, __LINE__,current_state->type,gtk_text_iter_get_offset(&ita));*/
 						switch (current_state->type) {
 						case ST_TOKEN:
+#ifdef SCANALLTAGVIEWABLE
+							bf_textview_scan_state_type_st_token(self, buf, current_state, &its, &ita, (apply_hl && in_visible_area));
+#else
 							bf_textview_scan_state_type_st_token(self, buf, current_state, &its, &ita, apply_hl);
+#endif
 							current_state = NULL;
 							break;			/* token */
 						case ST_BLOCK_BEGIN:
+#ifdef SCANALLTAGVIEWABLE
+							current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, (apply_hl && in_visible_area));
+#else
 							current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, apply_hl);
+#endif
 							block_found = TRUE;
 							break;
 						case ST_BLOCK_END:
+#ifdef SCANALLTAGVIEWABLE
+							current_state = bf_textview_scan_state_type_st_block_end(self, buf, current_state, &its, &ita, (apply_hl && in_visible_area));
+#else
 							current_state = bf_textview_scan_state_type_st_block_end(self, buf, current_state, &its, &ita, apply_hl);
+#endif
 							block_found = TRUE;
 							break;
 						}
@@ -2966,6 +3012,16 @@ I'm going to see if we can keep it like that */
 						rescan_character = TRUE;
 					}
 				} else {	/* current_state is NULL */
+#ifdef SCANALLTAGVIEWABLE	
+					if (in_visible_area && !rescan_character) {
+						/*g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));*/
+						remove_tags_starting_at_iter(buf, &ita);
+						if (!gtk_text_iter_equal(&its,&ita)) {
+							/*g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&its));*/
+							remove_tags_starting_at_iter(buf, &its);
+						}
+					}
+#else
 					if (!rescan_character) {
 						/*g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));*/
 						remove_tags_starting_at_iter(buf, &ita);
@@ -2974,6 +3030,8 @@ I'm going to see if we can keep it like that */
 							remove_tags_starting_at_iter(buf, &its);
 						}
 					}
+
+#endif
 					gtk_text_iter_forward_char(&ita);
 					its = ita;
 					rescan_character = FALSE;
