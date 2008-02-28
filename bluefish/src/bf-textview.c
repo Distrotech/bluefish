@@ -766,6 +766,15 @@ static void bf_textview_delete_range_after_cb(GtkTextBuffer * textbuffer, GtkTex
 	if (view->delay_rescan)
 		return;
 	if (GTK_WIDGET_VISIBLE(view) && view->delete_rescan) {
+#ifdef SCANALLTAGVIEWABLE
+		if (view->need_rescan) {
+			bf_textview_scan(view);
+			view->delete_rescan = FALSE;
+		} else {
+			bf_textview_scan_visible(view);
+			view->delete_rescan = FALSE;
+		}
+#else
 		if (view->hl_mode == BFTV_HL_MODE_ALL || view->need_rescan) {
 			bf_textview_scan(view);
 			view->delete_rescan = FALSE;
@@ -773,6 +782,7 @@ static void bf_textview_delete_range_after_cb(GtkTextBuffer * textbuffer, GtkTex
 			bf_textview_scan_visible(view);
 			view->delete_rescan = FALSE;
 		}
+#endif
 	} else if (view->delete_rescan) {
 		view->need_rescan = TRUE;
 	}
@@ -3081,8 +3091,8 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 		g_print("bf_textview_scan_area, PROFILING: prep 4 : %ld ms\n", t1c2_ms);
 		g_print("bf_textview_scan_area, PROFILING: loop      : %ld ms\n", loop_ms);
 		g_print("bf_textview_scan_area, PROFILING: finalizing: %ld ms\n", finalizing_ms);
-		its = *start;
-		ita = *end;
+		its = start;
+		ita = end;
 		pit = its;
 		while (!gtk_text_iter_equal(&pit, &ita)) {
 			ss = gtk_text_iter_get_marks(&pit);
