@@ -512,7 +512,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Tags/Special/Other/_Masculine ordinal º"), NULL, insert_char_cb, 92, "<Item>"},
 	{N_("/Tags/Special/Other/_Pilcrow (paragraph sign) ¶"), NULL, insert_char_cb, 93, "<Item>"},
 	{N_("/Tags/Special/Other/_Broken bar ¦"), NULL, insert_char_cb, 94, "<Item>"},
-	{N_("/Tags/Special/Other/Soft _hypen -"), NULL, insert_char_cb, 95, "<Item>"},
+	{N_("/Tags/Special/Other/Soft _hyphen -"), NULL, insert_char_cb, 95, "<Item>"},
 	{N_("/Tags/Special/Other/Spa_cing macron ¯"), NULL, insert_char_cb, 96, "<Item>"},
 	{N_("/Tags/Special/Other/Middle _dot ·"), NULL, insert_char_cb, 97, "<Item>"},
 	{N_("/Tags/_Format by layout"), NULL, NULL, 0, "<Branch>"},
