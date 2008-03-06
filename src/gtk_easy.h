@@ -103,10 +103,6 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 											gchar *set, gboolean localonly, gboolean multiple, const gchar *filter, gboolean show_encoding);
 void destroy_disposable_menu_cb(GtkWidget *widget, GtkWidget *menu);
 
-#ifndef HAVE_ATLEAST_GNOMEVFS_2_2
-GnomeVFSResult gnome_vfs_read_entire_file (const char *uri,int *file_size,char **file_contents);
-#endif
-
 gchar *gdk_color_to_hexstring(GdkColor *color, gboolean websafe);
 gchar *ask_accelerator_dialog(const gchar *title);
 #endif
