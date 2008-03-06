@@ -1361,7 +1361,8 @@ static gchar *get_buffer_from_filename(Tbfwin *bfwin, gchar *filename, int *retu
 		gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
 		DEBUG_MSG("get_buffer_from_filename, about to read entire file\n");
 		result = gnome_vfs_read_entire_file(ondiskencoding,returnsize,&buffer);
-		DEBUG_MSG("get_buffer_from_filename, read file, buffer len=%d!\n",strlen(buffer));
+		if (buffer)
+			DEBUG_MSG("get_buffer_from_filename, read file, buffer len=%d!\n",strlen(buffer));
 		g_free(ondiskencoding);
 	}
 	if (GNOME_VFS_OK != result) {
