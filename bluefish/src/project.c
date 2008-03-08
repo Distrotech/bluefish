@@ -23,7 +23,6 @@
 #include <gtk/gtk.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>    /* unlink() */
 
 #include "bluefish.h"
 #include "project.h"
