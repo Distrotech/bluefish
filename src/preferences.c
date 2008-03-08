@@ -77,6 +77,7 @@ enum {
 	auto_update_meta_generator,   /* auto update generator meta tag */
 	document_tabposition,
 	leftpanel_tabposition,
+	switch_tabs_by_altx,          /* switch tabs using Alt+X (#385860) */
 	/* not yet in use */
 	image_editor_cline,           /* image editor commandline */
 	full_p,                       /* use </p> */
@@ -1759,6 +1760,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	}
 	string_apply(&main_v->props.tab_font_string, pd->prefs[tab_font_string]);
 	main_v->props.document_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[document_tabposition]));
+	integer_apply(&main_v->props.switch_tabs_by_altx, pd->prefs[switch_tabs_by_altx], TRUE);
 	main_v->props.leftpanel_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[leftpanel_tabposition]));
 	main_v->props.left_panel_left = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[left_panel_left]));
 	
@@ -1894,20 +1896,22 @@ static void rescan_lang_files(Tprefdialog *pd)
 	if ( pd->lang_files != NULL ) {
 		gtk_list_store_clear(pd->lang_files);
 	} else {
-			pd->lang_files = gtk_list_store_new (1, G_TYPE_STRING);
+		pd->lang_files = gtk_list_store_new (1, G_TYPE_STRING);
 	}
-   gtk_list_store_append (pd->lang_files, &iter);
+	gtk_list_store_append (pd->lang_files, &iter);
  	gtk_list_store_set (pd->lang_files, &iter,0, "",-1);	
 	gd = g_dir_open(PKGDATADIR, 0, &error);
-	filename = g_dir_read_name(gd);
-	while (filename) {
-		if (g_pattern_match(ps, strlen(filename), filename, NULL) ) {
- 	      gtk_list_store_append (pd->lang_files, &iter);
-      	gtk_list_store_set (pd->lang_files, &iter,0, filename,-1);
-		}
+	if (gd) {
 		filename = g_dir_read_name(gd);
+		while (filename) {
+			if (g_pattern_match(ps, strlen(filename), filename, NULL) ) {
+		 		gtk_list_store_append (pd->lang_files, &iter);
+			      	gtk_list_store_set (pd->lang_files, &iter,0, filename,-1);
+			}
+			filename = g_dir_read_name(gd);
+		}
+		g_dir_close(gd);
 	}
-	g_dir_close(gd);
 	
 	gd = g_dir_open(userdir, 0, &error);
 	filename = g_dir_read_name(gd);
@@ -2102,6 +2106,7 @@ static void preferences_dialog() {
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font \n(leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
 	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
+	pd->prefs[switch_tabs_by_altx] = boxed_checkbut_with_value(_("Switch between tabs with <Alt>+0..9"), main_v->props.switch_tabs_by_altx, vbox2);
 	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Sidebar notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
 	pd->prefs[left_panel_left] = boxed_optionmenu_with_value(_("Sidebar location"), main_v->props.left_panel_left, vbox2, panellocations);
 
@@ -2130,12 +2135,10 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 /*	pd->prefs[default_basedir] = prefs_string(_("Default basedir"), main_v->props.default_basedir, vbox2, pd, string_none);*/
 	pd->prefs[filebrowser_unknown_icon] = prefs_string(_("Unknown icon"), main_v->props.filebrowser_unknown_icon, vbox2, pd, string_file);
-	
-	
+
 /*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("User interface"), 156,TRUE));
-
-
+	
 	frame = gtk_frame_new(_("Dimensions"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
@@ -2146,14 +2149,13 @@ static void preferences_dialog() {
 	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->globses.main_window_w, vbox2, pd, 1, 4000);
 	restore_dimensions_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions]), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[restore_dimensions]), "toggled", G_CALLBACK(restore_dimensions_toggled_lcb), pd);
-
+	
 	frame = gtk_frame_new(_("General"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	
-
-/ *	pd->prefs[view_main_toolbar] = boxed_checkbut_with_value(_("Show main toolbar by default"), main_v->props.view_main_toolbar, vbox2);
+/*	pd->prefs[view_main_toolbar] = boxed_checkbut_with_value(_("Show main toolbar by default"), main_v->props.view_main_toolbar, vbox2);
 	pd->prefs[view_left_panel] = boxed_checkbut_with_value(_("Show sidebar by default"), main_v->props.view_left_panel, vbox2);
 	pd->prefs[view_custom_menu] = boxed_checkbut_with_value(_("Show custom menu by default"), main_v->props.view_custom_menu, vbox2);
 	pd->prefs[view_html_toolbar] = boxed_checkbut_with_value(_("Show HTML toolbar by default"), main_v->props.view_html_toolbar, vbox2);* /
@@ -2164,21 +2166,19 @@ static void preferences_dialog() {
 	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
 	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Sidebar notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
 	pd->prefs[left_panel_left] = boxed_optionmenu_with_value(_("Sidebar location"), main_v->props.left_panel_left, vbox2, panellocations);
-
 	frame = gtk_frame_new(_("Reference library"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-
+	
 	pd->prefs[bflib_info_font] = prefs_string(_("Font"), main_v->props.bflib_info_font, vbox2, pd, string_font);
 	pd->prefs[bflib_info_bkg] = prefs_string(_("Info background color"), main_v->props.bflib_info_bkg, vbox2, pd, string_color);
 	pd->prefs[bflib_info_fg] = prefs_string(_("Info foreground color"), main_v->props.bflib_info_fg, vbox2, pd, string_color);
 	
 */
-
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Images"), WIDGETCOL,vbox1,-1);	
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Images"), WIDGETCOL,vbox1,-1);
 /*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Images"), 155,TRUE));
 */
