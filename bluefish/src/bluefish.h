@@ -237,6 +237,7 @@ typedef struct {
 	gint encoding_search_Nbytes; /* number of bytes to look for the encoding meta tag */
 	gint document_tabposition;
 	gint leftpanel_tabposition;
+	gint switch_tabs_by_altx;
 	gchar *project_suffix;
 	/* not yet in use */
 	gchar *image_editor_cline; 	/* image editor commandline */
