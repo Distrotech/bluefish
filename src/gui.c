@@ -532,69 +532,68 @@ void gui_notebook_bind_signals(Tbfwin *bfwin) {
 #if GTK_CHECK_VERSION(2,10,0)
 	g_signal_connect(G_OBJECT(bfwin->notebook), "page-reordered", G_CALLBACK(notebook_reordered_lcb), bfwin);
 #endif
-	if (main_v->props.switch_tabs_by_altx) {
-		DEBUG_MSG("gui_notebook_bind_signals, connect <Alt>X trigered events\n");
-		g_signal_connect(G_OBJECT(bfwin->notebook), "tab-last", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) -1);
-		g_signal_connect(G_OBJECT(bfwin->notebook), "tab-first", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 1);
-		g_signal_connect(G_OBJECT(bfwin->notebook), "tab2", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 2);
-		g_signal_connect(G_OBJECT(bfwin->notebook), "tab3", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 3);
-		g_signal_connect(G_OBJECT(bfwin->notebook), "tab4", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 4);
-		g_signal_connect(G_OBJECT(bfwin->notebook), "tab5", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 5);
-		g_signal_connect(G_OBJECT(bfwin->notebook), "tab6", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 6);
-		g_signal_connect(G_OBJECT(bfwin->notebook), "tab7", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 7);
-		g_signal_connect(G_OBJECT(bfwin->notebook), "tab8", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 8);
-		g_signal_connect(G_OBJECT(bfwin->notebook), "tab9", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 9);
-	}
+}
+
+void gui_notebook_bind_tab_signals(Tbfwin *bfwin) {
+	DEBUG_MSG("gui_notebook_bind_signals, connect <Alt>X trigered events\n");
+	g_signal_connect(G_OBJECT(bfwin->notebook), "tab-last", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) -1);
+	g_signal_connect(G_OBJECT(bfwin->notebook), "tab-first", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 1);
+	g_signal_connect(G_OBJECT(bfwin->notebook), "tab2", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 2);
+	g_signal_connect(G_OBJECT(bfwin->notebook), "tab3", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 3);
+	g_signal_connect(G_OBJECT(bfwin->notebook), "tab4", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 4);
+	g_signal_connect(G_OBJECT(bfwin->notebook), "tab5", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 5);
+	g_signal_connect(G_OBJECT(bfwin->notebook), "tab6", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 6);
+	g_signal_connect(G_OBJECT(bfwin->notebook), "tab7", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 7);
+	g_signal_connect(G_OBJECT(bfwin->notebook), "tab8", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 8);
+	g_signal_connect(G_OBJECT(bfwin->notebook), "tab9", G_CALLBACK(gui_notebook_switch_by_key_lcb), (gpointer) 9);
 }
 
 void gui_notebook_unbind_signals(Tbfwin *bfwin) {
-if (bfwin->notebook_switch_signal != 0) {
+	if (bfwin->notebook_switch_signal != 0) {
 		g_signal_handler_disconnect(G_OBJECT(bfwin->notebook),bfwin->notebook_switch_signal);
 		bfwin->notebook_switch_signal = 0;
 	}
 }
 
-void gui_notebook_set_accels(Tbfwin *bfwin) {
-	if (main_v->props.switch_tabs_by_altx) {
-		GtkAccelGroup * tab_accels;
+void gui_notebook_set_tab_accels(Tbfwin *bfwin) {
+	GtkAccelGroup * tab_accels;
 
-		DEBUG_MSG("gui_notebook_set_accels, g_signal_new for <Alt>X triggered events\n");
-		g_signal_new ("tab-last", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
-		    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-		g_signal_new ("tab-first", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
-		    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-		g_signal_new ("tab2", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
-		    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-		g_signal_new ("tab3", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
-		    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-		g_signal_new ("tab4", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
-		    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-		g_signal_new ("tab5", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
-		    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-		g_signal_new ("tab6", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
-		    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-		g_signal_new ("tab7", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
-		    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-		g_signal_new ("tab8", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
-		    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
-		g_signal_new ("tab9", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
-		    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	DEBUG_MSG("gui_notebook_set_tab_accels, g_signal_new for <Alt>X triggered events\n");
+	g_signal_new ("tab-last", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
+	    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	g_signal_new ("tab-first", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
+	    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	g_signal_new ("tab2", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
+	    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	g_signal_new ("tab3", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
+	    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	g_signal_new ("tab4", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
+	    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	g_signal_new ("tab5", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
+	    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	g_signal_new ("tab6", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
+	    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	g_signal_new ("tab7", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
+	    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	g_signal_new ("tab8", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
+	    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+	g_signal_new ("tab9", gtk_widget_get_type (), G_SIGNAL_ACTION, 0, NULL, NULL,
+	    g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 	
-		tab_accels = gtk_accel_group_new ();
-		DEBUG_MSG("gui_notebook_set_accels, gtk_window_add_accel_group\n");
-		gtk_window_add_accel_group (GTK_WINDOW(bfwin->main_window), tab_accels);
-		DEBUG_MSG("gui_notebook_set_accels, gtk_widget_add_accelerator\n");
-		gtk_widget_add_accelerator(bfwin->notebook, "tab-last", tab_accels, GDK_0, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-		gtk_widget_add_accelerator(bfwin->notebook, "tab-first", tab_accels, GDK_1, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-		gtk_widget_add_accelerator(bfwin->notebook, "tab2", tab_accels, GDK_2, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-		gtk_widget_add_accelerator(bfwin->notebook, "tab3", tab_accels, GDK_3, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-		gtk_widget_add_accelerator(bfwin->notebook, "tab4", tab_accels, GDK_4, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-		gtk_widget_add_accelerator(bfwin->notebook, "tab5", tab_accels, GDK_5, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-		gtk_widget_add_accelerator(bfwin->notebook, "tab6", tab_accels, GDK_6, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-		gtk_widget_add_accelerator(bfwin->notebook, "tab7", tab_accels, GDK_7, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-		gtk_widget_add_accelerator(bfwin->notebook, "tab8", tab_accels, GDK_8, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-		gtk_widget_add_accelerator(bfwin->notebook, "tab9", tab_accels, GDK_9, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
-	}
+	tab_accels = gtk_accel_group_new ();
+	DEBUG_MSG("gui_notebook_set_tab_accels, gtk_window_add_accel_group\n");
+	gtk_window_add_accel_group (GTK_WINDOW(bfwin->main_window), tab_accels);
+	DEBUG_MSG("gui_notebook_set_tab_accels, gtk_widget_add_accelerator\n");
+	gtk_widget_add_accelerator(bfwin->notebook, "tab-last", tab_accels, GDK_0, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab-first", tab_accels, GDK_1, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab2", tab_accels, GDK_2, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab3", tab_accels, GDK_3, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab4", tab_accels, GDK_4, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab5", tab_accels, GDK_5, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab6", tab_accels, GDK_6, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab7", tab_accels, GDK_7, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab8", tab_accels, GDK_8, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
+	gtk_widget_add_accelerator(bfwin->notebook, "tab9", tab_accels, GDK_9, GDK_MOD1_MASK, GTK_ACCEL_VISIBLE);
 }
 
 static gboolean gui_main_window_configure_event_lcb(GtkWidget *widget,GdkEvent *revent,Tbfwin *bfwin) {
@@ -855,8 +854,11 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	g_slist_foreach(main_v->plugins, bfplugins_gui, bfwin);
 
 	/* We have to know when the notebook changes */
-	gui_notebook_set_accels(bfwin);
 	gui_notebook_bind_signals(bfwin);
+	if (main_v->props.switch_tabs_by_altx) {
+		gui_notebook_set_tab_accels(bfwin);
+		gui_notebook_bind_tab_signals(bfwin);
+	}
 	
 	/* everything is ready - we can start loading documents */
 	/* start to open an empty doc */
