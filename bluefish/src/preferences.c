@@ -89,6 +89,7 @@ enum {
 	bookmarks_filename_mode,
 	document_tabposition,
 	leftpanel_tabposition,
+	switch_tabs_by_altx,        /* switch tabs using Alt+X (#385860) */
 	default_basedir,
 	/* not yet in use */
 	image_editor_cline,         /* image editor commandline */
@@ -120,9 +121,9 @@ enum {
 	spc_esc_chars,              /* which ones ? */
 	spc_use_pers_dict,          /* use a personal dictionary */
 	spc_pers_dict,              /* which one ? */
-   spc_use_input_encoding,      /* use input encoding */
-   spc_input_encoding,          /* wich one ? */
-   spc_output_html_chars,       /* output html chars ? (like &aacute,)*/
+	spc_use_input_encoding,     /* use input encoding */
+	spc_input_encoding,         /* wich one ? */
+	spc_output_html_chars,      /* output html chars ? (like &aacute,)*/
 #endif
 	/* key conversion */
 	conv_ctrl_enter,            /* convert control-enter key press */
@@ -1284,6 +1285,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	}
 	string_apply(&main_v->props.tab_font_string, pd->prefs[tab_font_string]);
 	main_v->props.document_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[document_tabposition]));
+	integer_apply(&main_v->props.switch_tabs_by_altx, pd->prefs[switch_tabs_by_altx], TRUE);
 	main_v->props.leftpanel_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[leftpanel_tabposition]));
 	main_v->props.left_panel_left = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[left_panel_left]));
 
@@ -1532,6 +1534,7 @@ static void preferences_dialog() {
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font (leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
 	
 	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
+	pd->prefs[switch_tabs_by_altx] = boxed_checkbut_with_value(_("Switch between tabs with <Alt>+0..9"), main_v->props.switch_tabs_by_altx, vbox2);
 	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Sidebar notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
 	pd->prefs[left_panel_left] = boxed_optionmenu_with_value(_("Sidebar location"), main_v->props.left_panel_left, vbox2, panellocations);
 

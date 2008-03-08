@@ -62,7 +62,11 @@ extern void g_none(gchar *first, ...);
 #define DIRCHR '/'
 
 #include <sys/types.h>
+#ifdef HAVE_PCREPOSIX_H
+#include <pcreposix.h>
+#else
 #include <regex.h>
+#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
@@ -212,6 +216,7 @@ typedef struct {
 	gint bookmarks_filename_mode; /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
 	gint document_tabposition;
 	gint leftpanel_tabposition;
+	gint switch_tabs_by_altx;
 	gchar *default_basedir;
 	gchar *project_suffix;
 #ifdef HAVE_LIBASPELL
