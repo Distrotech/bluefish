@@ -712,20 +712,20 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
 		g_free(mime_type);
 		return retval;
 	} else { /* directory */
-		if (fb2->filebrowser_viewmode == viewmode_tree) {
-			if (fb2->basedir) {
-				/* show only our basedir on the root level, no other directories at that level */
-				if (!gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE) && !gnome_vfs_uri_equal(fb2->basedir, uri)) {
-					retval = FALSE;
-				}
-			}
-		} else if (fb2->filebrowser_viewmode == viewmode_flat) {
+		if (fb2->filebrowser_viewmode == viewmode_flat) {
 			if (fb2->basedir) {
 				/* show only the level of our basedir no deeper directories */
 				if (!gnome_vfs_uri_is_parent(fb2->basedir, uri, FALSE)) {
 					retval = FALSE;
 				}
 			}
+		} else {
+			if (fb2->basedir) {
+				/* show only our basedir on the root level, no other directories at that level */
+				if (!gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE) && !gnome_vfs_uri_equal(fb2->basedir, uri)) {
+					retval = FALSE;
+				}
+			}		
 		}
 		if (retval && !fb2->filebrowser_show_hidden_files) {
 			if (name[0] == '.') retval = FALSE;
