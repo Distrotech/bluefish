@@ -1904,8 +1904,7 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 *fb2, gint viewmode) {
 			gtk_container_remove(GTK_CONTAINER(fb2->vbox),fb2->dirscrolwin);
 			fb2->dirscrolwin = NULL;
 		}
-		fb2->dir_v = NULL;
-		fb2->file_v = NULL;
+		fb2->dir_v = fb2->file_v = fb2->dir_tfilter = fb2->file_lfilter = NULL;
 		DEBUG_MSG("\n");
 	}
 	fb2->filebrowser_viewmode = viewmode;
@@ -2044,7 +2043,7 @@ void fb2_update_settings_from_session(Tbfwin *bfwin) {
 		}
 		if (need_refilter) {
 			if (fb2->dir_tfilter) gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
-			if (fb2->file_lfilter) gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
+			if (fb2->file_lfilter && fb2->filebrowser_viewmode == viewmode_dual) gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
 		}
 		if (bfwin->session->recent_dirs 
 					&& ((GList *)g_list_first(bfwin->session->recent_dirs))->data 
