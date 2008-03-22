@@ -2537,6 +2537,29 @@ static void remove_tags_starting_at_iter(GtkTextBuffer *buf, GtkTextIter *it) {
 	}
 	g_slist_free(toggles);
 }
+#ifdef SKIP_KNOWN_UNCHANGED_BLOCKS
+static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, GtkTextIter *changelocation) {		
+	GtkTextMark *mark;
+	mark = bftv_get_block_at_iter(&it);
+	if (mark) {
+		BlockInfo2 *bi;
+		bi = g_object_get_data(G_OBJECT(mark), "bi2");
+		if (bi) {
+			/* GtkTextIter it1; */
+			GtkTextIter it2;
+			
+			/*gtk_text_buffer_get_iter_at_mark(buf, &it1, bi->blockstart_s);*/
+			gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->blockend_e);
+			if (gtk_text_iter_compare(it2,changelocation) > 0) {
+				/* the block is finished before the first changed text, so we can skip to the end of the block with scanning */
+				return TRUE;
+			}
+			
+		}
+	}
+	return FALSE;
+}
+#endif
 
 #define NEWREMOVETAGS
 /* this function takes most of the CPU time in bluefish */
@@ -2728,6 +2751,9 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 							current_state = NULL;
 							break;			/* token */
 						case ST_BLOCK_BEGIN:
+#ifdef SKIP_KNOWN_UNCHANGED_BLOCKS
+							
+#endif
 #ifdef SCANALLTAGVIEWABLE
 							current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, (apply_hl && in_visible_area));
 #else
