@@ -2551,7 +2551,9 @@ static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, G
 			/*gtk_text_buffer_get_iter_at_mark(buf, &it1, bi->blockstart_s);*/
 			gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->blockend_e);
 			if (gtk_text_iter_compare(it2,changelocation) > 0) {
+				DEBUG_MSG("block_unchanged_and_known, skipping iter from %d to %d\n", gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(it2));
 				/* the block is finished before the first changed text, so we can skip to the end of the block with scanning */
+				*it = *it2;
 				return TRUE;
 			}
 			
@@ -2752,14 +2754,20 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 							break;			/* token */
 						case ST_BLOCK_BEGIN:
 #ifdef SKIP_KNOWN_UNCHANGED_BLOCKS
-							
-#endif
+							if (block_unchanged_and_known(buf, &ita, &visible_start)) {
+								/* do nothing */								
+							} else {
+								current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, apply_hl);
+								block_found = TRUE;
+							}							
+#else
 #ifdef SCANALLTAGVIEWABLE
 							current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, (apply_hl && in_visible_area));
 #else
 							current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, apply_hl);
 #endif
 							block_found = TRUE;
+#endif
 							break;
 						case ST_BLOCK_END:
 #ifdef SCANALLTAGVIEWABLE
