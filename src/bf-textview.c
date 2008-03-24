@@ -629,7 +629,7 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 		else
 			view->tag_ac_state = FALSE;
 
-#ifdef SCANALLTAGVIEWABLE
+#if defined SCANALLTAGVIEWABLE || defined SKIP_KNOWN_UNCHANGED_BLOCKS
 		if (view->need_rescan) 
 			bf_textview_scan(view);
 		else
@@ -2110,6 +2110,9 @@ void bf_textview_scan_visible(BfTextView * self)
 		its = l_start;
 		ite = l_end;
 		gtk_text_iter_forward_to_line_end(&ite);
+		g_print("bf_textview_scan_visible, from %d (line %d) to %d (line %d)\n"
+				,gtk_text_iter_get_offset(&its),gtk_text_iter_get_line(&its)
+				,gtk_text_iter_get_offset(&ite),gtk_text_iter_get_line(&ite));
 		bf_textview_scan_area(self, &its, &ite, TRUE, FALSE);
 	} else {
 		self->need_rescan = TRUE;
@@ -2539,26 +2542,38 @@ static void remove_tags_starting_at_iter(GtkTextBuffer *buf, GtkTextIter *it) {
 	g_slist_free(toggles);
 }
 #ifdef SKIP_KNOWN_UNCHANGED_BLOCKS
-static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, GtkTextIter *changelocation) {		
-	GtkTextMark *mark;
-	mark = bftv_get_block_at_iter(it);
-	if (mark) {
-		BlockInfo2 *bi;
-		bi = g_object_get_data(G_OBJECT(mark), "bi2");
-		if (bi) {
-			/* GtkTextIter it1; */
-			GtkTextIter it2;
+static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, GtkTextIter *changestart, GtkTextIter *changeend) {		
+	if (gtk_text_iter_compare(it,changestart)>0 && gtk_text_iter_compare(it,changeend)<0) {
+		/* the block starts after the start of the changed area but before the end of the changed area */
+		g_print("no skipping, iter at %d (line %d) is between %d (line %d) and %d (line %d)\n"
+					,gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it)
+					,gtk_text_iter_get_offset(changestart),gtk_text_iter_get_line(changestart)
+					,gtk_text_iter_get_offset(changeend),gtk_text_iter_get_line(changeend));
+	} else {
+		/* the block starts before the start of the changed area or after the end */
+		GtkTextMark *mark;
+		mark = bftv_get_block_at_iter(it);
+		if (mark) {
+			BlockInfo2 *bi;
+			bi = g_object_get_data(G_OBJECT(mark), "bi2");
+			if (bi) {
+				/* GtkTextIter it1; */
+				GtkTextIter it2;
+				
+				/*gtk_text_buffer_get_iter_at_mark(buf, &it1, bi->blockstart_s);*/
+				gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->blockend_e);
+				if (gtk_text_iter_compare(&it2,changestart) > 0 && gtk_text_iter_compare(&it2,changeend) < 0) {
+					/* the block ends before the start of the changed area: skip */
+					g_print("block_unchanged_and_known, skipping iter from %d (line %d) to %d (line %d)\n", gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_line(&it2));
+					/* the block is finished before the first changed text, so we can skip to the end of the block with scanning */
+					*it = it2;
+					return TRUE;
+				} else g_print("blocks ends within/beyond the changed area\n");
+				
+			} else g_print("no existing blockinfo\n");
 			
-			/*gtk_text_buffer_get_iter_at_mark(buf, &it1, bi->blockstart_s);*/
-			gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->blockend_e);
-			if (gtk_text_iter_compare(&it2,changelocation) > 0) {
-				DEBUG_MSG("block_unchanged_and_known, skipping iter from %d to %d\n", gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(it2));
-				/* the block is finished before the first changed text, so we can skip to the end of the block with scanning */
-				*it = it2;
-				return TRUE;
-			}
-			
-		}
+		} else g_print("no existing mark\n");
+		
 	}
 	return FALSE;
 }
@@ -2757,7 +2772,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 							break;			/* token */
 						case ST_BLOCK_BEGIN:
 #ifdef SKIP_KNOWN_UNCHANGED_BLOCKS
-							if (block_unchanged_and_known(buf, &ita, &startvisible)) {
+							if (block_unchanged_and_known(buf, &ita, &startvisible,&endvisible)) {
 								/* keep same scanning state */
 								TBfBlock *aux = (TBfBlock *) g_queue_peek_head(&(self->scanner.block_stack));
 								if (aux)
