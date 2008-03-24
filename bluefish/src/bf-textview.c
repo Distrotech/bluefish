@@ -2,6 +2,7 @@
  * bf-textview.c - Bluefish text widget
  * 
  * Copyright (C) 2005-2006  Oskar Świda swida@aragorn.pb.bialystok.pl
+ * Copyright (C) 2007-2008 Olivier Sessink  
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +22,7 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines bf-textview.c
  */
 #define REUSETAGS
+/*#define SKIP_KNOWN_UNCHANGED_BLOCKS*/
 /*#define SCANALLTAGVIEWABLE*/
 /*#define DEBUG */
 /*#define HL_PROFILING*/
@@ -189,7 +191,6 @@ static void bftv_collapse_all(GtkWidget * widget, BfTextView * view);
 static void bftv_clear_block_cache(BfTextView * self);
 static void bftv_clear_matched_block(BfTextView * self);
 
-static void bf_textview_scan_minimal(BfTextView * self, GtkTextIter * iter);
 
 /* internal functions */
 
@@ -2540,7 +2541,7 @@ static void remove_tags_starting_at_iter(GtkTextBuffer *buf, GtkTextIter *it) {
 #ifdef SKIP_KNOWN_UNCHANGED_BLOCKS
 static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, GtkTextIter *changelocation) {		
 	GtkTextMark *mark;
-	mark = bftv_get_block_at_iter(&it);
+	mark = bftv_get_block_at_iter(it);
 	if (mark) {
 		BlockInfo2 *bi;
 		bi = g_object_get_data(G_OBJECT(mark), "bi2");
@@ -2550,10 +2551,10 @@ static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, G
 			
 			/*gtk_text_buffer_get_iter_at_mark(buf, &it1, bi->blockstart_s);*/
 			gtk_text_buffer_get_iter_at_mark(buf, &it2, bi->blockend_e);
-			if (gtk_text_iter_compare(it2,changelocation) > 0) {
+			if (gtk_text_iter_compare(&it2,changelocation) > 0) {
 				DEBUG_MSG("block_unchanged_and_known, skipping iter from %d to %d\n", gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(it2));
 				/* the block is finished before the first changed text, so we can skip to the end of the block with scanning */
-				*it = *it2;
+				*it = it2;
 				return TRUE;
 			}
 			
@@ -2572,7 +2573,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 	GtkTextIter its, ita;
 	GtkTextIter start,end;
 	BfState *current_state;
-#ifdef SCANALLTAGVIEWABLE
+#if defined SCANALLTAGVIEWABLE || defined SKIP_KNOWN_UNCHANGED_BLOCKS
 	GtkTextIter startvisible,endvisible;
 #endif
 
@@ -2584,7 +2585,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 	if (self->delay_rescan)
 		return;
 
-#ifdef SCANALLTAGVIEWABLE
+#if defined SCANALLTAGVIEWABLE || defined SKIP_KNOWN_UNCHANGED_BLOCKS
 	startvisible = *startarg;
 	endvisible = *endarg;
 	gtk_text_buffer_get_bounds(buf,&start,&end);
@@ -2617,7 +2618,9 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 #endif
 
 	if (apply_hl) {
+#ifndef SKIP_KNOWN_UNCHANGED_BLOCKS
 		bftv_delete_blocks_from_area(self, &start, &end, FALSE);
+#endif /* SKIP_KNOWN_UNCHANGED_BLOCKS */
 #ifdef HL_PROFILING
 	times(&tms1c);
 #endif
@@ -2754,8 +2757,17 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 							break;			/* token */
 						case ST_BLOCK_BEGIN:
 #ifdef SKIP_KNOWN_UNCHANGED_BLOCKS
-							if (block_unchanged_and_known(buf, &ita, &visible_start)) {
-								/* do nothing */								
+							if (block_unchanged_and_known(buf, &ita, &startvisible)) {
+								/* keep same scanning state */
+								TBfBlock *aux = (TBfBlock *) g_queue_peek_head(&(self->scanner.block_stack));
+								if (aux)
+									self->scanner.current_context = aux->def;
+								else
+									self->scanner.current_context = NULL;
+								if (self->scanner.current_context)
+									current_state = &self->scanner.current_context->scan_table;
+								else
+									current_state = &self->lang->scan_table;					
 							} else {
 								current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, apply_hl);
 								block_found = TRUE;
