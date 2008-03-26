@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * external_commands.c - backend for external commands, filters and the outputbox
  *
- * Copyright (C) 2005-2007 Olivier Sessink
+ * Copyright (C) 2005-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -401,20 +401,21 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	if (need_tmpin) {
 		table[cur].my_int = 'I';
 		if (is_local_non_modified) {
-			ep->tmp_in = g_strdup(localfilename);
+			table[cur].my_char = g_strdup(localname);
 		} else {
 			ep->tmp_in = create_secure_dir_return_filename();
+			table[cur].my_char = g_strdup(ep->tmp_in);
 		}
-		table[cur].my_char = g_strdup(ep->tmp_in);
 		cur++;
 	} else if (need_fifoin) {
 		table[cur].my_int = 'i';
 		if (is_local_non_modified) {
-			ep->fifo_in = g_strdup(localfilename);
+			table[cur].my_char = g_strdup(localname);;
 		} else {
 			ep->fifo_in = create_secure_dir_return_filename();
+			table[cur].my_char = g_strdup(ep->fifo_in);
 		}
-		table[cur].my_char = g_strdup(ep->fifo_in);
+		
 		DEBUG_MSG("create_commandstring, %%i will be at %s\n",table[cur].my_char);
 		cur++;
 	} else if (need_inplace) {
