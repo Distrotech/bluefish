@@ -21,12 +21,20 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines bf-textview.c
  */
-#define REUSETAGS
-/*#define SKIP_KNOWN_UNCHANGED_BLOCKS*/
-/*#define SCANALLTAGVIEWABLE*/
+#define REUSETAGS /* REUSETAGS does not remove texttags from the widget and applying 
+							them again if the text was not changed - instead it removes only
+							those tags that are not in use anymore, and adds only those tags
+							that are not yet set */
+/*#define SKIP_KNOWN_UNCHANGED_BLOCKS*/ /* SKIP_KNOWN_UNCHANGED_BLOCKS tests when a block 
+							start is found if a previous scan found a block end and if the block
+							end is within the unchanged part of the text, it will skip that entire 
+							block and continue scanning after that block*/
+/*#define SCANALLTAGVIEWABLE*/ /* SCANALLTAGVIEWABLE was a test to see if it improved speed
+							to scan all text but to tag only in the visible area. the performance
+							gain is not very high... */
 /*#define DEBUG */
 /*#define HL_PROFILING*/
-/*#define USE_HIGHLIGHT_MINIMAL */
+/*#define USE_HIGHLIGHT_MINIMAL */ /* USE_HIGHLIGHT_MINIMAL is not yet used */
 /*
 Typical scanner in compiler is an automata. To implement automata you
 need a TABLE. Such a table
@@ -109,6 +117,19 @@ and just scan if the end of the block has been just inserted
 3) if we're not in any block, start at the end of the last block or token that has been found, continue
 til the last just entered character 
 */
+
+#ifdef DEBUGSC
+#define DEBUGSC_MSG g_print
+#else /* not DEBUG */
+#ifdef __GNUC__
+#define DEBUGSC_MSG(args...)
+ /**/
+#else/* notdef __GNUC__ */
+extern void g_none(gchar *first, ...);
+#define DEBUGSC_MSG g_none
+#endif /* __GNUC__ */
+#endif /* DEBUG */
+
 
 #include "config.h"
 
@@ -2399,6 +2420,7 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 {
 	TBfBlock *bf;
 	BfLangBlock *tmp = (BfLangBlock *) current_state->data;
+	/*g_print("%s:%d block_end\n",__FILE__,__LINE__);*/
 	bf = g_queue_peek_head(&(self->scanner.block_stack));
 	if (bf && bf->def == tmp) {
 		TBfBlock *aux;
@@ -2507,7 +2529,7 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 					the top level will be inside an area in which IT_BLOCK is set already */
 					if (g_queue_is_empty(&self->scanner.block_stack)) {
 						DEBUG_TEXTTAG_MSG("apply tag %p (%s:%d)\n",main_v->lang_mgr->internal_tags[IT_BLOCK],__FILE__,__LINE__);
-						g_print("%s:%d set IT_BLOCK from %d to %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(&bf->b_end),gtk_text_iter_get_offset(its));
+						DEBUGSC_MSG("%s:%d set IT_BLOCK from %d to %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(&bf->b_end),gtk_text_iter_get_offset(its));
 						bf_textview_check_or_apply_tag(buf, main_v->lang_mgr->internal_tags[IT_BLOCK],
 											  &bf->b_end, its);
 					}
@@ -2650,7 +2672,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 		I'm going to see if we can keep it like that */
 
 		/* BUG: if there are other (non-scanner-related) tokens in this block they are removed too !!! */
-		gtk_text_buffer_remove_all_tags(buf,start,end);
+		gtk_text_buffer_remove_all_tags(buf,&start,&end);
 #else
 		
 		if (self->lang->tag_begin) {
@@ -2742,8 +2764,9 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 					current_state = current_state->tv[(gint8) c];
 				else
 					current_state = current_state->tv[(gint8) toupper(c)];
-		
+				
 				if (current_state) {
+					DEBUGSC_MSG("%s:%d, new state after character %c has type %d\n",__FILE__,__LINE__,c,current_state->type);
 					if (current_state->type == ST_TRANSIT) {
 #ifdef REUSETAGS
 #ifdef SCANALLTAGVIEWABLE		
@@ -2812,8 +2835,10 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 						==> because a pattern [any]* or + requires a character that matches the NOT condition
 						to stop the matching on the previous position !!!! */
 						rescan_character = TRUE;
+						DEBUGSC_MSG("%s:%d, rescan_character=%d\n",__FILE__,__LINE__,rescan_character);
 					}
 				} else {	/* current_state is NULL */
+					DEBUGSC_MSG("%s:%d, current_state=NULL after character %c\n",__FILE__,__LINE__,c);
 #ifdef SCANALLTAGVIEWABLE	
 					if (in_visible_area && !rescan_character) {
 						/*g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));*/
