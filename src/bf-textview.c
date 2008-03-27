@@ -33,6 +33,8 @@
 							to scan all text but to tag only in the visible area. the performance
 							gain is not very high... */
 /*#define DEBUG */
+/* #define DEBUGSC */ /* DEBUGSC gives specific debugging on internal scanner working PER CHARACTER,
+							so this is A LOT OF OUTPUT */
 /*#define HL_PROFILING*/
 /*#define USE_HIGHLIGHT_MINIMAL */ /* USE_HIGHLIGHT_MINIMAL is not yet used */
 /*
@@ -2859,9 +2861,14 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 					}
 
 #endif
-					gtk_text_iter_forward_char(&ita);
 					its = ita;
-					rescan_character = FALSE;
+					if (rescan_character) {
+						gtk_text_iter_forward_char(&ita);
+						
+						rescan_character = FALSE;
+					} else {
+						rescan_character = TRUE;
+					}
 				}
 			} while (rescan_character);
 		}	/*main loop */
