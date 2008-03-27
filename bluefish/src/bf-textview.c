@@ -2264,7 +2264,7 @@ static void bf_textview_scan_state_type_st_token(BfTextView * self, GtkTextBuffe
 {
 	GtkTextIter pit;
 	BfLangToken *t = (BfLangToken *) current_state->data;
-
+	DEBUGSC_MSG("%s:%d token type %d from %d to %d\n",__FILE__,__LINE__,t->type,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
 	switch (t->type) {
 	case TT_NORMAL:
 		if (self->highlight && t->tag && apply_hl) {
@@ -2395,7 +2395,7 @@ static BfState *bf_textview_scan_state_type_st_block_begin(BfTextView * self, Gt
 	bf->def = tmp;
 	bf->b_start = *its;
 	bf->b_end = *ita;
-	/*g_print("%s:%d block start from %d to %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));*/
+	DEBUGSC_MSG("%s:%d block start from %d to %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
 	g_queue_push_head(&(self->scanner.block_stack), bf);
 	self->scanner.current_context = tmp;
 	if (tmp->type == BT_TAG_BEGIN) {
@@ -2422,7 +2422,7 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 {
 	TBfBlock *bf;
 	BfLangBlock *tmp = (BfLangBlock *) current_state->data;
-	/*g_print("%s:%d block_end\n",__FILE__,__LINE__);*/
+	DEBUGSC_MSG("%s:%d block_end from %d to %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
 	bf = g_queue_peek_head(&(self->scanner.block_stack));
 	if (bf && bf->def == tmp) {
 		TBfBlock *aux;
@@ -2768,7 +2768,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 					current_state = current_state->tv[(gint8) toupper(c)];
 				
 				if (current_state) {
-					DEBUGSC_MSG("%s:%d, new state after character %c has type %d\n",__FILE__,__LINE__,c,current_state->type);
+					DEBUGSC_MSG("%s:%d, new state after character %d(%c) has type %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(&ita),c,current_state->type);
 					if (current_state->type == ST_TRANSIT) {
 #ifdef REUSETAGS
 #ifdef SCANALLTAGVIEWABLE		
@@ -2840,7 +2840,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 						DEBUGSC_MSG("%s:%d, rescan_character=%d\n",__FILE__,__LINE__,rescan_character);
 					}
 				} else {	/* current_state is NULL */
-					DEBUGSC_MSG("%s:%d, current_state=NULL after character %c\n",__FILE__,__LINE__,c);
+					DEBUGSC_MSG("%s:%d, current_state=NULL after character %d(%c)\n",__FILE__,__LINE__,gtk_text_iter_get_offset(&ita),c);
 #ifdef SCANALLTAGVIEWABLE	
 					if (in_visible_area && !rescan_character) {
 						/*g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));*/
@@ -2860,8 +2860,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 						}
 					}
 
-#endif
-					its = ita;
+#endif					
 					if (rescan_character) {
 						gtk_text_iter_forward_char(&ita);
 						
@@ -2869,6 +2868,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 					} else {
 						rescan_character = TRUE;
 					}
+					its = ita;
 				}
 			} while (rescan_character);
 		}	/*main loop */
