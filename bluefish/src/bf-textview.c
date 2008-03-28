@@ -25,7 +25,7 @@
 							them again if the text was not changed - instead it removes only
 							those tags that are not in use anymore, and adds only those tags
 							that are not yet set */
-/* #define SKIP_KNOWN_UNCHANGED_BLOCKS */ /* SKIP_KNOWN_UNCHANGED_BLOCKS tests when a block 
+#define SKIP_KNOWN_UNCHANGED_BLOCKS /* SKIP_KNOWN_UNCHANGED_BLOCKS tests when a block 
 							start is found if a previous scan found a block end and if the block
 							end is within the unchanged part of the text, it will skip that entire 
 							block and continue scanning after that block*/
@@ -1517,7 +1517,7 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 			get_tag_for_scanner_style((gchar *) cfg->name, "m", "attr_val", "attribute value");
 		cfg->dont_autoclose = g_hash_table_new(g_str_hash, g_str_equal);
 		for (i = 0; i < BFTV_SCAN_RANGE; i++) {
-			cfg->as_triggers[i] = 0;
+			cfg->as_triggers[i] = 1;
 			cfg->escapes[i] = 0;
 		}
 		cur = cur->xmlChildrenNode;
@@ -1561,6 +1561,9 @@ static BfLangConfig *bftv_load_config(const gchar * filename)
 								g_strfreev(arr);
 							} else if (strcmp(tmps, "auto-scan-triggers") == 0) {
 								const gchar *p = tmps2;
+								for (i = 0; i < BFTV_SCAN_RANGE; i++) {
+									cfg->as_triggers[i] = 0;
+								}
 								i = 0;
 								while (i < xmlUTF8Strlen((xmlChar *)tmps2)) {
 									p = (gchar *)xmlUTF8Strpos((xmlChar *)tmps2, i);
@@ -2677,7 +2680,9 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 #endif
 
 	if (apply_hl) {
-#ifndef SKIP_KNOWN_UNCHANGED_BLOCKS
+#ifdef SKIP_KNOWN_UNCHANGED_BLOCKS
+		bftv_delete_blocks_from_area(self, &startvisible, &endvisible, FALSE);
+#else
 		bftv_delete_blocks_from_area(self, &start, &end, FALSE);
 #endif /* SKIP_KNOWN_UNCHANGED_BLOCKS */
 #ifdef HL_PROFILING
