@@ -2149,7 +2149,7 @@ void bf_textview_scan_visible(BfTextView * self)
 		its = l_start;
 		ite = l_end;
 		gtk_text_iter_forward_to_line_end(&ite);
-		g_print("bf_textview_scan_visible, from %d (line %d) to %d (line %d)\n"
+		DEBUGSC_MSG("bf_textview_scan_visible, from %d (line %d) to %d (line %d)\n"
 				,gtk_text_iter_get_offset(&its),gtk_text_iter_get_line(&its)
 				,gtk_text_iter_get_offset(&ite),gtk_text_iter_get_line(&ite));
 		bf_textview_scan_area(self, &its, &ite, TRUE, FALSE);
@@ -2586,7 +2586,7 @@ static void remove_tags_starting_at_iter(GtkTextBuffer *buf, GtkTextIter *it) {
 static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, GtkTextIter *changestart, GtkTextIter *changeend) {		
 	if (gtk_text_iter_compare(it,changestart)>0 && gtk_text_iter_compare(it,changeend)<0) {
 		/* the block starts after the start of the changed area but before the end of the changed area */
-		g_print("no skipping, iter at %d (line %d) is between %d (line %d) and %d (line %d)\n"
+		DEBUGSC_MSG("no skipping, iter at %d (line %d) is between %d (line %d) and %d (line %d)\n"
 					,gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it)
 					,gtk_text_iter_get_offset(changestart),gtk_text_iter_get_line(changestart)
 					,gtk_text_iter_get_offset(changeend),gtk_text_iter_get_line(changeend));
@@ -2806,7 +2806,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 						gtk_text_iter_forward_char(&ita);
 						rescan_character = FALSE;
 					} else {
-						g_print(__FILE__":%d found type %d at pos %d\n", __LINE__,current_state->type,gtk_text_iter_get_offset(&ita));
+						DEBUGSC_MSG(__FILE__":%d found type %d at pos %d\n", __LINE__,current_state->type,gtk_text_iter_get_offset(&ita));
 						switch (current_state->type) {
 						case ST_TOKEN:
 #ifdef SCANALLTAGVIEWABLE
