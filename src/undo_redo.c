@@ -55,7 +55,7 @@ static gboolean have_current_action_id(unre_t unre) {
 static unregroup_t *unregroup_new(Tdocument *doc, guint action_id) {
 	unregroup_t *newgroup;
 	
-	newgroup = g_malloc(sizeof(unregroup_t));
+	newgroup = g_slice_new(unregroup_t);
 	newgroup->changed = doc->modified;
 	newgroup->entries = NULL;
 	newgroup->action_id = action_id;
@@ -67,7 +67,7 @@ static void unreentry_destroy(unreentry_t *remove_entry) {
 	if (remove_entry->text) {
 		g_free(remove_entry->text);
 	}
-	g_free(remove_entry);
+	g_slice_free(unreentry_t,remove_entry);
 }
 
 static void unregroup_destroy(unregroup_t *to_remove) {
@@ -79,7 +79,7 @@ static void unregroup_destroy(unregroup_t *to_remove) {
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(tmplist);
-	g_free(to_remove);
+	g_slice_free(unregroup_t,to_remove);
 }
 
 static void doc_unre_destroy_last_group(Tdocument *doc) {
@@ -137,7 +137,7 @@ static gint unregroup_activate(unregroup_t *curgroup, Tdocument *doc, gint is_re
 
 static unreentry_t *unreentry_new(const char *text, int start, int end, undo_op_t op) {
 	unreentry_t *new_entry;
-	new_entry = g_malloc(sizeof(unreentry_t));
+	new_entry = g_slice_new(unreentry_t);
 	DEBUG_MSG("unreentry_new, for text='%s'\n", text);
 	new_entry->text = g_strdup(text);
 	new_entry->start = start;
