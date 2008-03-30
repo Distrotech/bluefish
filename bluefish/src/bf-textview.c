@@ -762,9 +762,9 @@ inline GtkTextMark *bftv_get_block_at_iter(GtkTextIter * it)
 	GSList *tmp, *lst = gtk_text_iter_get_marks(it);
 	gpointer ptr = NULL;
 	tmp = lst;
-/*	g_print("bftv_get_block_at_iter, found %d marks at %d (line %d)\n",g_slist_length(lst),gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it));*/
+
 	while (tmp) {
-		ptr = g_object_get_data(G_OBJECT(lst->data), "bi2");
+		ptr = g_object_get_data(G_OBJECT(tmp->data), "bi2");
 		if (ptr) {
 			GtkTextMark *mark = GTK_TEXT_MARK(tmp->data);
 			g_slist_free(lst);
@@ -866,9 +866,19 @@ if (mark2) g_hash_table_insert(view->fbal_cache,ln,mark2);
 else g_free(ln);
 return mark2;
 }*/
+static gint offset_for_mark(GtkTextBuffer *buf, GtkTextMark *mark) {
+	GtkTextIter it;
+	gtk_text_buffer_get_iter_at_mark(buf,&it,mark);
+	return gtk_text_iter_get_offset(&it);
+}
+
 static void blockinfo_free(GtkTextBuffer *buf, BlockInfo2 *bi) {
-	if (bi->tagname) g_free(bi->tagname);
 	
+	if (bi->tagname) g_free(bi->tagname);
+	g_print("blockinfo_free at %d:%d - %d%d\n"
+			,offset_for_mark(buf,bi->blockstart_s),offset_for_mark(buf,bi->blockstart_e)
+			,offset_for_mark(buf,bi->blockend_s),offset_for_mark(buf,bi->blockend_e)
+				);
 	gtk_text_buffer_delete_mark(buf, bi->blockstart_s);
 	gtk_text_buffer_delete_mark(buf, bi->blockstart_e);
 	gtk_text_buffer_delete_mark(buf, bi->blockend_s);
@@ -2588,7 +2598,7 @@ static void remove_tags_starting_at_iter(GtkTextBuffer *buf, GtkTextIter *it) {
 		GtkTextIter tmpit;
 		tmpit = *it;
 		gtk_text_iter_forward_to_tag_toggle(&tmpit,tmplist->data);
-		/*g_print("%s:%d, removing tag %p from %d to %d\n",__FILE__,__LINE__,tmplist->data,gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(&tmpit));*/
+		g_print("%s:%d, removing tag %p from %d to %d\n",__FILE__,__LINE__,tmplist->data,gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(&tmpit));
 		gtk_text_buffer_remove_tag(buf,tmplist->data,it,&tmpit);
 		tmplist = g_slist_next(tmplist);
 	}
@@ -2621,9 +2631,10 @@ static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, G
 					g_print("block_unchanged_and_known, skipping block from %d (line %d) to %d (line %d)\n", gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_line(&it2));
 					/* the block is finished before the first changed text, so we can skip to the end of the block with scanning */
 #ifdef HL_PROFILING
-					numskipped += (gtk_text_iter_get_offset(&it2)-gtk_text_iter_get_offset(it));
+					numskipped += (gtk_text_iter_get_offset(&it2)-gtk_text_iter_get_offset(it)-1);
 #endif
 					*it = it2;
+					gtk_text_iter_backward_char(it);
 					return TRUE;
 				} else g_print("blocks %d to %d is within the changed area %d to %d\n",
 								gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(&it2),
@@ -2852,6 +2863,7 @@ static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, Gtk
 								ita = its;
 								/* keep same scanning state */
 								TBfBlock *aux = (TBfBlock *) g_queue_peek_head(&(self->scanner.block_stack));
+								g_print("set context %s\n",aux->def->name);
 								if (aux)
 									self->scanner.current_context = aux->def;
 								else
@@ -2946,12 +2958,14 @@ static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, Gtk
 
 #ifdef HL_PROFILING
 	{
+		gint totalchars;
 		glong tot_ms=0,first_stage_ms = 0, loop_ms=0,finalizing_ms=0;
 		glong t1a_ms=0,t1ab_ms=0,t1bc_ms=0,t1c2_ms=0;
 		gint marks = 0, allmarks = 0, tags = 0;
 		GSList *ss = NULL;
 		GtkTextIter pit;
 		times(&tms4);
+		totalchars = gtk_text_buffer_get_char_count(buf);
 		tot_ms = (glong) (double) ((tms4.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		first_stage_ms = (glong) (double) ((tms2.tms_utime - tms1.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		loop_ms = (glong) (double) ((tms3.tms_utime - tms2.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
@@ -2960,7 +2974,7 @@ static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, Gtk
 		t1ab_ms =  (glong) (double) ((tms1b.tms_utime - tms1a.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		t1bc_ms =  (glong) (double) ((tms1c.tms_utime - tms1b.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		t1c2_ms =  (glong) (double) ((tms2.tms_utime - tms1c.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
-		g_print("bf_textview_scan_area, PROFILING\nretrieved %d characters, looped %d times, skipped %d characters (%d%%)\n", numchars,numloop,numskipped,(int)(100*numskipped/numchars));
+		g_print("bf_textview_scan_area, PROFILING\n%d total characters, retrieved %d characters (%d%%), looped %d times, skipped %d characters (%d%%)\n", totalchars,numchars,(int)(100*numchars/totalchars),numloop,numskipped,(int)(100*numskipped/totalchars));
 		g_print("total time: %ld ms\n", tot_ms);
 		
 		g_print("   preparing : %ld ms\n", first_stage_ms);

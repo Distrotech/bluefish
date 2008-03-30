@@ -1179,8 +1179,11 @@ static void doc_set_statusbar_lncol(Tdocument *doc) {
 		} else ++col;
 		gtk_text_iter_forward_char(&start);
 	}
-
-	msg = g_strdup_printf(_(" Ln: %d, Col: %d"), line + 1, col + 1);
+	if (1) {
+		msg = g_strdup_printf(_(" Ln: %d, Col: %d, Char %d"), line + 1, col + 1,gtk_text_iter_get_offset(&iter));
+	} else {
+		msg = g_strdup_printf(_(" Ln: %d, Col: %d"), line + 1, col + 1);
+	}
 
 	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_lncol), 0);
 	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_lncol), 0, msg);
