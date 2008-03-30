@@ -36,7 +36,7 @@
 /* #define DEBUGSC */ /* DEBUGSC gives specific debugging on internal scanner working PER CHARACTER,
 							so this is A LOT OF OUTPUT */
 /* #define DEBUGTAGS */ /* DEBUGTAGS gives info about setting and removing tags  */
-/*#define HL_PROFILING*/
+/* #define HL_PROFILING */
 /*#define USE_HIGHLIGHT_MINIMAL */ /* USE_HIGHLIGHT_MINIMAL is not yet used */
 /*
 Typical scanner in compiler is an automata. To implement automata you
@@ -227,7 +227,7 @@ static void bftv_expand_all(GtkWidget * widget, BfTextView * view);
 static void bftv_collapse_all(GtkWidget * widget, BfTextView * view);
 static void bftv_clear_block_cache(BfTextView * self);
 static void bftv_clear_matched_block(BfTextView * self);
-
+static void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end, gboolean apply_hl, gboolean store_string, gboolean force_rescan);
 
 /* internal functions */
 
@@ -874,6 +874,13 @@ static void blockinfo_free(GtkTextBuffer *buf, BlockInfo2 *bi) {
 	g_slice_free(BlockInfo2,bi); 
 }
 
+static void blockinfo_free_bymark(GtkTextBuffer *buf, GtkTextMark *mark) {
+	BlockInfo2 *bi;
+	bi = g_object_get_data(G_OBJECT(mark), "bi2");
+	if (bi) {
+		blockinfo_free(buf, bi);
+	}
+}
 
 /* this function takes quite a part of the cpu time when working with very large files. what 
 does this function do?
@@ -2129,7 +2136,7 @@ void bf_textview_scan(BfTextView * self)
 		if (gtk_text_iter_equal(&its, &ite))
 			return;
 		self->need_rescan = FALSE;
-		bf_textview_scan_area(self, &its, &ite, TRUE, FALSE);
+		bf_textview_scan_area(self, &its, &ite, TRUE, FALSE, TRUE);
 	} else {
 		self->need_rescan = TRUE;
 	}
@@ -2155,7 +2162,7 @@ void bf_textview_scan_visible(BfTextView * self)
 		DEBUGSC_MSG("bf_textview_scan_visible, from %d (line %d) to %d (line %d)\n"
 				,gtk_text_iter_get_offset(&its),gtk_text_iter_get_line(&its)
 				,gtk_text_iter_get_offset(&ite),gtk_text_iter_get_line(&ite));
-		bf_textview_scan_area(self, &its, &ite, TRUE, FALSE);
+		bf_textview_scan_area(self, &its, &ite, TRUE, FALSE, FALSE);
 	} else {
 		self->need_rescan = TRUE;
 	}
@@ -2609,17 +2616,17 @@ static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, G
 				if ((gtk_text_iter_compare(it,changestart)<0 && gtk_text_iter_compare(&it2,changestart) < 0)
 							 || (gtk_text_iter_compare(it,changeend)>0 && gtk_text_iter_compare(&it2,changeend)>0)) {
 					/* the block ends before the start of the changed area: skip */
-					g_print("block_unchanged_and_known, skipping iter from %d (line %d) to %d (line %d)\n", gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_line(&it2));
+					DEBUGSC_MSG("block_unchanged_and_known, skipping iter from %d (line %d) to %d (line %d)\n", gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_line(&it2));
 					/* the block is finished before the first changed text, so we can skip to the end of the block with scanning */
 					*it = it2;
 					return TRUE;
-				} else g_print("blocks %d to %d is within the changed area %d to %d\n",
+				} else DEBUGSC_MSG("blocks %d to %d is within the changed area %d to %d\n",
 								gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(&it2),
 								gtk_text_iter_get_offset(changestart),gtk_text_iter_get_offset(changeend));
 				
 			} else g_print("no existing blockinfo\n");
 			
-		} else g_print(__FILE__", no existing mark at %d\n",gtk_text_iter_get_offset(it));
+		} else DEBUGSC_MSG(__FILE__", no existing mark at %d\n",gtk_text_iter_get_offset(it));
 		
 	}
 	return FALSE;
@@ -2628,8 +2635,8 @@ static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, G
 
 #define NEWREMOVETAGS
 /* this function takes most of the CPU time in bluefish */
-void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIter * endarg,
-						   gboolean apply_hl, gboolean store_string)
+static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIter * endarg,
+						   gboolean apply_hl, gboolean store_string, gboolean force_rehighlight)
 {
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 	GtkTextIter its, ita;
@@ -2681,9 +2688,9 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 
 	if (apply_hl) {
 #ifdef SKIP_KNOWN_UNCHANGED_BLOCKS
-		bftv_delete_blocks_from_area(self, &startvisible, &endvisible, FALSE);
-#else
-		bftv_delete_blocks_from_area(self, &start, &end, FALSE);
+		if (force_rehighlight) {
+			gtk_text_buffer_remove_all_tags(buf,&start,&end);
+		}
 #endif /* SKIP_KNOWN_UNCHANGED_BLOCKS */
 #ifdef HL_PROFILING
 	times(&tms1c);
@@ -2754,6 +2761,11 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 #ifdef SCANALLTAGVIEWABLE		
 			in_visible_area = gtk_text_iter_in_range(&ita,&startvisible,&endvisible);
 #endif 			
+			if (force_rehighlight || gtk_text_iter_in_range(&ita,&startvisible,&endvisible)) {
+				GtkTextMark *mark = bftv_get_block_at_iter(&ita);
+				if (mark)
+					blockinfo_free_bymark(buf, mark);
+			}
 			if (store_string) {
 				DEBUG_MSG("store string! append character %c\n",c);
 				/* the next line can probably be improved a bit for speed  */
@@ -2802,7 +2814,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 							remove_tags_starting_at_iter(buf, &ita);
 						}
 #else
-						if (!rescan_character && !gtk_text_iter_equal(&its,&ita)) {
+						if (!force_rehighlight && !rescan_character && !gtk_text_iter_equal(&its,&ita)) {
 							/*g_print("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));*/
 							remove_tags_starting_at_iter(buf, &ita);
 						}
@@ -2824,7 +2836,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 						case ST_BLOCK_BEGIN:
 #ifdef SKIP_KNOWN_UNCHANGED_BLOCKS
 							/* the mark with bi2 is set at the start of the block, so ita and not its */
-							if (block_unchanged_and_known(buf, &its, &startvisible,&endvisible)) {
+							if (!force_rehighlight && block_unchanged_and_known(buf, &its, &startvisible,&endvisible)) {
 								ita = its;
 								/* keep same scanning state */
 								TBfBlock *aux = (TBfBlock *) g_queue_peek_head(&(self->scanner.block_stack));
@@ -2879,7 +2891,7 @@ void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIte
 						}
 					}
 #else
-					if (!rescan_character) {
+					if (!rescan_character && !force_rehighlight) {
 						DEBUGTAGS_MSG("%s:%d calling remove_tags_starting_at_iter, position %d\n",__FILE__, __LINE__,gtk_text_iter_get_offset(&ita));
 						remove_tags_starting_at_iter(buf, &ita);
 						if (!gtk_text_iter_equal(&its,&ita)) {
@@ -3350,7 +3362,7 @@ void bf_textview_autocomp_show(BfTextView * self)
 	gtk_text_iter_backward_char(&it);
 	self->scanner.last_string = g_string_assign(self->scanner.last_string, "");
 	DEBUG_MSG("bf_textview_autocomp_show, calling scan_area()\n");
-	bf_textview_scan_area(self, &it3, &it, FALSE, TRUE);
+	bf_textview_scan_area(self, &it3, &it, FALSE, TRUE, FALSE);
 	DEBUG_MSG("bf_textview_autocomp_show, last_string=%s\n",self->scanner.last_string->str);
 	if (self->lang && self->lang->schema_aware) {
 		DEBUG_MSG("bf_textview_autocomp_show, running in 'schema_aware' mode\n");
