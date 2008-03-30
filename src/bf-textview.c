@@ -36,7 +36,7 @@
 /* #define DEBUGSC */ /* DEBUGSC gives specific debugging on internal scanner working PER CHARACTER,
 							so this is A LOT OF OUTPUT */
 /* #define DEBUGTAGS */ /* DEBUGTAGS gives info about setting and removing tags  */
-/* #define HL_PROFILING */
+#define HL_PROFILING
 /*#define USE_HIGHLIGHT_MINIMAL */ /* USE_HIGHLIGHT_MINIMAL is not yet used */
 /*
 Typical scanner in compiler is an automata. To implement automata you
@@ -177,6 +177,7 @@ struct tms tms1c;
 struct tms tms2;
 struct tms tms3;
 struct tms tms4;
+gint numskipped;
 #endif							/* HL_PROFILING */
 
 enum {
@@ -761,6 +762,7 @@ inline GtkTextMark *bftv_get_block_at_iter(GtkTextIter * it)
 	GSList *tmp, *lst = gtk_text_iter_get_marks(it);
 	gpointer ptr = NULL;
 	tmp = lst;
+/*	g_print("bftv_get_block_at_iter, found %d marks at %d (line %d)\n",g_slist_length(lst),gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it));*/
 	while (tmp) {
 		ptr = g_object_get_data(G_OBJECT(lst->data), "bi2");
 		if (ptr) {
@@ -2252,7 +2254,7 @@ static void bf_textview_add_block(BfTextView * self, GtkTextBuffer *buf, gchar *
 	bi2->data = data;
 	g_object_set_data(G_OBJECT(mark), "bi2", bi2);
 	g_object_set_data(G_OBJECT(mark3), "bi2", bi2);
-	DEBUGSC_MSG("%s:%d, marks with bi2 set at %d and %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(blockstart_s),gtk_text_iter_get_offset(blockend_s));
+	g_print("%s:%d, marks with bi2 set at %d and %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(blockstart_s),gtk_text_iter_get_offset(blockend_s));
 }
 
 #ifdef REUSETAGS
@@ -2422,7 +2424,7 @@ static BfState *bf_textview_scan_state_type_st_block_begin(BfTextView * self, Gt
 	bf->def = tmp;
 	bf->b_start = *its;
 	bf->b_end = *ita;
-	DEBUGSC_MSG("%s:%d block start from %d to %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
+	g_print("%s:%d block %s begin from %d to %d\n",__FILE__,__LINE__,tmp->name,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
 	g_queue_push_head(&(self->scanner.block_stack), bf);
 	self->scanner.current_context = tmp;
 	if (tmp->type == BT_TAG_BEGIN) {
@@ -2449,7 +2451,7 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 {
 	TBfBlock *bf;
 	BfLangBlock *tmp = (BfLangBlock *) current_state->data;
-	DEBUGSC_MSG("%s:%d block_end from %d to %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
+	g_print("%s:%d block %s end from %d to %d\n",__FILE__,__LINE__,tmp->name, gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
 	bf = g_queue_peek_head(&(self->scanner.block_stack));
 	if (bf && bf->def == tmp) {
 		TBfBlock *aux;
@@ -2616,18 +2618,19 @@ static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, G
 				if ((gtk_text_iter_compare(it,changestart)<0 && gtk_text_iter_compare(&it2,changestart) < 0)
 							 || (gtk_text_iter_compare(it,changeend)>0 && gtk_text_iter_compare(&it2,changeend)>0)) {
 					/* the block ends before the start of the changed area: skip */
-					DEBUGSC_MSG("block_unchanged_and_known, skipping iter from %d (line %d) to %d (line %d)\n", gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_line(&it2));
+					g_print("block_unchanged_and_known, skipping block from %d (line %d) to %d (line %d)\n", gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_line(&it2));
 					/* the block is finished before the first changed text, so we can skip to the end of the block with scanning */
+#ifdef HL_PROFILING
+					numskipped += (gtk_text_iter_get_offset(&it2)-gtk_text_iter_get_offset(it));
+#endif
 					*it = it2;
 					return TRUE;
-				} else DEBUGSC_MSG("blocks %d to %d is within the changed area %d to %d\n",
+				} else g_print("blocks %d to %d is within the changed area %d to %d\n",
 								gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(&it2),
 								gtk_text_iter_get_offset(changestart),gtk_text_iter_get_offset(changeend));
 				
 			} else g_print("no existing blockinfo\n");
-			
-		} else DEBUGSC_MSG(__FILE__", no existing mark at %d\n",gtk_text_iter_get_offset(it));
-		
+		} else g_print(__FILE__", no existing mark at %d (line %d)\n",gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it));
 	}
 	return FALSE;
 }
@@ -2645,7 +2648,10 @@ static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, Gtk
 #if defined SCANALLTAGVIEWABLE || defined SKIP_KNOWN_UNCHANGED_BLOCKS
 	GtkTextIter startvisible,endvisible;
 #endif
-
+#ifdef HL_PROFILING
+	gint numchars=0, numloop=0;
+	numskipped=0;
+#endif
 	DEBUG_MSG("bf_textview_scan_area, started from %d to %d\n",gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(BF_IS_TEXTVIEW(self));
@@ -2753,6 +2759,9 @@ static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, Gtk
 #endif 
 		while (!last_loop) {
 			gunichar c;
+#ifdef HL_PROFILING
+			numchars++;
+#endif
 			c = gtk_text_iter_get_char(&ita);
 			/*g_print("%s:%d got character %c at position %d\n",__FILE__, __LINE__,c,gtk_text_iter_get_offset(&ita));*/
 			if (c == 0 || (!end_is_buffer_end && gtk_text_iter_equal(&ita, &end))) {
@@ -2793,6 +2802,9 @@ static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, Gtk
 			/* #####################     RECOGNIZE TOKENS AND BLOCKS ###################*/
 			rescan_character = FALSE;
 			do {
+#ifdef HL_PROFILING
+				numloop++;
+#endif
 				block_found = FALSE;
 				if (!current_state) {
 					if (self->scanner.current_context) {
@@ -2851,7 +2863,7 @@ static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, Gtk
 							} else {
 								current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, apply_hl);
 								block_found = TRUE;
-							}							
+							}						
 #else
 #ifdef SCANALLTAGVIEWABLE
 							current_state = bf_textview_scan_state_type_st_block_begin(self, buf, current_state, &its, &ita, (apply_hl && in_visible_area));
@@ -2948,14 +2960,17 @@ static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, Gtk
 		t1ab_ms =  (glong) (double) ((tms1b.tms_utime - tms1a.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		t1bc_ms =  (glong) (double) ((tms1c.tms_utime - tms1b.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
 		t1c2_ms =  (glong) (double) ((tms2.tms_utime - tms1c.tms_utime) * 1000 / sysconf(_SC_CLK_TCK));
-		g_print("bf_textview_scan_area, PROFILING: total time: %ld ms\n", tot_ms);
-		g_print("bf_textview_scan_area, PROFILING: preparing : %ld ms\n", first_stage_ms);
-		g_print("bf_textview_scan_area, PROFILING: prep 1 : %ld ms\n", t1a_ms);
-		g_print("bf_textview_scan_area, PROFILING: prep 2 : %ld ms\n", t1ab_ms);
-		g_print("bf_textview_scan_area, PROFILING: prep 3 : %ld ms\n", t1bc_ms);
-		g_print("bf_textview_scan_area, PROFILING: prep 4 : %ld ms\n", t1c2_ms);
-		g_print("bf_textview_scan_area, PROFILING: loop      : %ld ms\n", loop_ms);
-		g_print("bf_textview_scan_area, PROFILING: finalizing: %ld ms\n", finalizing_ms);
+		g_print("bf_textview_scan_area, PROFILING\nretrieved %d characters, looped %d times, skipped %d characters (%d%%)\n", numchars,numloop,numskipped,(int)(100*numskipped/numchars));
+		g_print("total time: %ld ms\n", tot_ms);
+		
+		g_print("   preparing : %ld ms\n", first_stage_ms);
+		g_print("   prep 1 : %ld ms\n", t1a_ms);
+		g_print("   prep 2 : %ld ms\n", t1ab_ms);
+		g_print("   prep 3 : %ld ms\n", t1bc_ms);
+		g_print("   prep 4 : %ld ms\n", t1c2_ms);
+		g_print("   loop      : %ld ms\n", loop_ms);
+		g_print("   finalizing: %ld ms\n", finalizing_ms);
+		
 		its = start;
 		ita = end;
 		pit = its;
