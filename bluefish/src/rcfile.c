@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * rcfile.c - loading and parsing of the configfiles
  *
- * Copyright (C) 2000-2007 Olivier Sessink
+ * Copyright (C) 2000-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -386,7 +386,6 @@ static GList *props_init_main(GList * config_rc)
 
 	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE);
 	/* old type filetypes have a different count, they are converted below */
-	init_prop_integer   (&config_rc, &main_v->props.numcharsforfiletype, "numcharsforfiletype:", 200, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);	
 
@@ -419,7 +418,9 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string(&config_rc, &main_v->props.image_editor_cline, "image_editor_command:", "gimp-remote -n \"%s\"&");
 	init_prop_integer(&config_rc, &main_v->props.allow_dep, "allow_the_use_of_font:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.format_by_context, "format_by_context:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.xhtml, "use_xhtml:", 0, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.xhtml, "use_xhtml:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.insert_close_tag, "insert_close_tag:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.close_tag_newline, "close_tag_newline:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.allow_ruby, "allow_the_use_of_ruby:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.force_dtd, "force_an_dtd:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.dtd_url, "url_in_dtd:", 0, TRUE);

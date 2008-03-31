@@ -260,7 +260,7 @@ static void bf_textview_init(BfTextView * o)
 	o->paste_operation = FALSE;
 	o->hl_mode = BFTV_HL_MODE_ALL;
 	o->show_current_line = main_v->props.view_cline;
-	o->tag_autoclose = FALSE;
+	o->tag_autoclose = main_v->props.insert_close_tag;
 	o->fbal_cache = g_hash_table_new(g_int_hash, g_int_equal);
 	o->lbal_cache = g_hash_table_new(g_int_hash, g_int_equal);
 	o->last_matched_block = NULL;
@@ -2085,8 +2085,8 @@ void bf_lang_mgr_retag(void)
 
 	g_list_foreach(main_v->lang_mgr->languages, bf_lang_retag, NULL);
 	/* we should perhaps also retag some of the internal tags such as _block_match_ ?
-	   these tags are stored in each document, so we have to loop through all documents
-	   to set them. */
+	   these tags are stored in each document, so we have to rescan all documents
+	   to set them again */
 	bf_lang_mgr_build_internal_tags(main_v->lang_mgr);
 }
 
@@ -2510,7 +2510,11 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 					GtkTextIter it9;
 					gtk_text_buffer_get_iter_at_mark(buf, &it9, gtk_text_buffer_get_insert(buf));
 					if (gtk_text_iter_equal(&it9, ita)) {
-						gchar *pp = g_strjoin("", "\n</", bf_2->tagname, ">", NULL);
+						gchar *pp;
+						if (main_v->props.close_tag_newline)
+							pp = g_strconcat("\n</", bf_2->tagname, ">", NULL);
+						else
+							pp = g_strconcat("</", bf_2->tagname, ">", NULL);
 						self->tag_ac_state = FALSE;
 						/* Clear stacks */
 						while (!g_queue_is_empty(&self->scanner.block_stack)) {
