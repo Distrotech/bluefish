@@ -36,7 +36,7 @@
 /* #define DEBUGSC */ /* DEBUGSC gives specific debugging on internal scanner working PER CHARACTER,
 							so this is A LOT OF OUTPUT */
 /* #define DEBUGTAGS */ /* DEBUGTAGS gives info about setting and removing tags  */
-#define HL_PROFILING
+/*#define HL_PROFILING*/
 /*#define USE_HIGHLIGHT_MINIMAL */ /* USE_HIGHLIGHT_MINIMAL is not yet used */
 /*
 Typical scanner in compiler is an automata. To implement automata you
@@ -875,10 +875,10 @@ static gint offset_for_mark(GtkTextBuffer *buf, GtkTextMark *mark) {
 static void blockinfo_free(GtkTextBuffer *buf, BlockInfo2 *bi) {
 	
 	if (bi->tagname) g_free(bi->tagname);
-	g_print("blockinfo_free at %d:%d - %d%d\n"
+	/*g_print("blockinfo_free at %d:%d - %d%d\n"
 			,offset_for_mark(buf,bi->blockstart_s),offset_for_mark(buf,bi->blockstart_e)
 			,offset_for_mark(buf,bi->blockend_s),offset_for_mark(buf,bi->blockend_e)
-				);
+				);*/
 	gtk_text_buffer_delete_mark(buf, bi->blockstart_s);
 	gtk_text_buffer_delete_mark(buf, bi->blockstart_e);
 	gtk_text_buffer_delete_mark(buf, bi->blockend_s);
@@ -2264,7 +2264,7 @@ static void bf_textview_add_block(BfTextView * self, GtkTextBuffer *buf, gchar *
 	bi2->data = data;
 	g_object_set_data(G_OBJECT(mark), "bi2", bi2);
 	g_object_set_data(G_OBJECT(mark3), "bi2", bi2);
-	g_print("%s:%d, marks with bi2 set at %d and %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(blockstart_s),gtk_text_iter_get_offset(blockend_s));
+	/*g_print("%s:%d, marks with bi2 set at %d and %d\n",__FILE__,__LINE__,gtk_text_iter_get_offset(blockstart_s),gtk_text_iter_get_offset(blockend_s));*/
 }
 
 #ifdef REUSETAGS
@@ -2434,7 +2434,7 @@ static BfState *bf_textview_scan_state_type_st_block_begin(BfTextView * self, Gt
 	bf->def = tmp;
 	bf->b_start = *its;
 	bf->b_end = *ita;
-	g_print("%s:%d block %s begin from %d to %d\n",__FILE__,__LINE__,tmp->name,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
+	DEBUGSC_MSG("%s:%d block %s begin from %d to %d\n",__FILE__,__LINE__,tmp->name,gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
 	g_queue_push_head(&(self->scanner.block_stack), bf);
 	self->scanner.current_context = tmp;
 	if (tmp->type == BT_TAG_BEGIN) {
@@ -2461,7 +2461,7 @@ static BfState *bf_textview_scan_state_type_st_block_end(BfTextView * self, GtkT
 {
 	TBfBlock *bf;
 	BfLangBlock *tmp = (BfLangBlock *) current_state->data;
-	g_print("%s:%d block %s end from %d to %d\n",__FILE__,__LINE__,tmp->name, gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
+	DEBUGSC_MSG("%s:%d block %s end from %d to %d\n",__FILE__,__LINE__,tmp->name, gtk_text_iter_get_offset(its),gtk_text_iter_get_offset(ita));
 	bf = g_queue_peek_head(&(self->scanner.block_stack));
 	if (bf && bf->def == tmp) {
 		TBfBlock *aux;
@@ -2598,7 +2598,7 @@ static void remove_tags_starting_at_iter(GtkTextBuffer *buf, GtkTextIter *it) {
 		GtkTextIter tmpit;
 		tmpit = *it;
 		gtk_text_iter_forward_to_tag_toggle(&tmpit,tmplist->data);
-		g_print("%s:%d, removing tag %p from %d to %d\n",__FILE__,__LINE__,tmplist->data,gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(&tmpit));
+		DEBUGSC_MSG("%s:%d, removing tag %p from %d to %d\n",__FILE__,__LINE__,tmplist->data,gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(&tmpit));
 		gtk_text_buffer_remove_tag(buf,tmplist->data,it,&tmpit);
 		tmplist = g_slist_next(tmplist);
 	}
@@ -2628,7 +2628,7 @@ static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, G
 				if ((gtk_text_iter_compare(it,changestart)<0 && gtk_text_iter_compare(&it2,changestart) < 0)
 							 || (gtk_text_iter_compare(it,changeend)>0 && gtk_text_iter_compare(&it2,changeend)>0)) {
 					/* the block ends before the start of the changed area: skip */
-					g_print("block_unchanged_and_known, skipping block from %d (line %d) to %d (line %d)\n", gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_line(&it2));
+					DEBUGSC_MSG("block_unchanged_and_known, skipping block from %d (line %d) to %d (line %d)\n", gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_line(&it2));
 					/* the block is finished before the first changed text, so we can skip to the end of the block with scanning */
 #ifdef HL_PROFILING
 					numskipped += (gtk_text_iter_get_offset(&it2)-gtk_text_iter_get_offset(it)-1);
@@ -2636,12 +2636,12 @@ static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, G
 					*it = it2;
 					gtk_text_iter_backward_char(it);
 					return TRUE;
-				} else g_print("blocks %d to %d is within the changed area %d to %d\n",
+				} else DEBUGSC_MSG("blocks %d to %d is within the changed area %d to %d\n",
 								gtk_text_iter_get_offset(it),gtk_text_iter_get_offset(&it2),
 								gtk_text_iter_get_offset(changestart),gtk_text_iter_get_offset(changeend));
 				
-			} else g_print("no existing blockinfo\n");
-		} else g_print(__FILE__", no existing mark at %d (line %d)\n",gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it));
+			} else DEBUGSC_MSG("no existing blockinfo\n");
+		} else DEBUGSC_MSG(__FILE__", no existing mark at %d (line %d)\n",gtk_text_iter_get_offset(it),gtk_text_iter_get_line(it));
 	}
 	return FALSE;
 }
@@ -2863,7 +2863,9 @@ static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, Gtk
 								ita = its;
 								/* keep same scanning state */
 								TBfBlock *aux = (TBfBlock *) g_queue_peek_head(&(self->scanner.block_stack));
-								g_print("set context %s\n",aux->def->name);
+#ifdef DEBUGSC								
+								if (aux && aux->def) g_print("set context %s\n",aux->def->name);
+#endif
 								if (aux)
 									self->scanner.current_context = aux->def;
 								else
