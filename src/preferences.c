@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * preferences.c - the preferences code
  *
- * Copyright (C) 2002-2007 Olivier Sessink
+ * Copyright (C) 2002-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -86,6 +86,8 @@ enum {
 	allow_dep,                    /* allow <FONT>... */
 	format_by_context,            /* use <strong> instead of <b>, <emphasis instead of <i> etc. (W3C reccomendation) */
 	xhtml,                        /* write <br /> */
+	insert_close_tag, /* write a closingtag after a start tag */
+	close_tag_newline, /* insert the closing tag after a newline */
 	allow_ruby,                   /* allow <ruby> */
 	allow_h4,                     /* allow <Q>... */
 	allow_frames,                 /* allow <FRAME> */
@@ -1733,6 +1735,8 @@ static void preferences_apply(Tprefdialog *pd) {
 		integer_apply(&main_v->props.lowercase_tags, pd->prefs[lowercase_tags], TRUE);
 		integer_apply(&main_v->props.allow_dep, pd->prefs[allow_dep], TRUE);
 	}
+	integer_apply(&main_v->props.insert_close_tag, pd->prefs[insert_close_tag], TRUE);
+	integer_apply(&main_v->props.close_tag_newline, pd->prefs[close_tag_newline], TRUE);
 	integer_apply(&main_v->props.auto_update_meta_author, pd->prefs[auto_update_meta_author], TRUE);
 	integer_apply(&main_v->props.auto_update_meta_date, pd->prefs[auto_update_meta_date], TRUE);
 	integer_apply(&main_v->props.auto_update_meta_generator, pd->prefs[auto_update_meta_generator], TRUE);
@@ -2034,6 +2038,8 @@ static void preferences_dialog() {
 	pd->prefs[lowercase_tags] = boxed_checkbut_with_value(_("Lowercase HTML tags"), main_v->props.lowercase_tags, vbox2);
 	pd->prefs[allow_dep] = boxed_checkbut_with_value(_("Use deprecated tags (e.g. <font> and <nobr>)"), main_v->props.allow_dep, vbox2);
 	pd->prefs[xhtml] = boxed_checkbut_with_value(_("Use XHTML style tags (<br />)"), main_v->props.xhtml, vbox2);
+	pd->prefs[insert_close_tag] = boxed_checkbut_with_value(_("Automatically close tags"), main_v->props.insert_close_tag, vbox2);
+	pd->prefs[close_tag_newline] = boxed_checkbut_with_value(_("Prepend close tags with a newline"), main_v->props.close_tag_newline, vbox2);
 	
 	pd->prefs[auto_update_meta_author] = boxed_checkbut_with_value(_("Automatically update author meta tag"), main_v->props.auto_update_meta_author, vbox2);
 	pd->prefs[auto_update_meta_date] = boxed_checkbut_with_value(_("Automatically update date meta tag"), main_v->props.auto_update_meta_date, vbox2);

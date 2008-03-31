@@ -2,7 +2,7 @@
  * bluefish.h - global prototypes
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2007 Olivier Sessink
+ * Copyright (C) 1999-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -212,7 +212,6 @@ typedef struct {
 	GList *cmenu_insert; /* custom menu inserts */
 	GList *cmenu_replace; /* custom menu replaces */	
 	gint defaulthighlight;		/* highlight documents by default */
-	gint numcharsforfiletype; /* maximum number of characters in the file to use to find the filetype */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint restore_dimensions; /* use the dimensions as used the previous run */
 	gint left_panel_left; /* 1 = left, 0 = right */
@@ -244,6 +243,8 @@ typedef struct {
 	gint allow_dep;				/* allow <FONT>... */
 	gint format_by_context; 	/* use <strong> instead of <b>, <emphasis instead of <i> etc. (W3C reccomendation) */
 	gint xhtml;					/* write <br /> */
+	gint insert_close_tag; /* write a closingtag after a start tag */
+	gint close_tag_newline; /* insert the closing tag after a newline */
 	gint allow_ruby;			/* allow <ruby> */
 	gint force_dtd;				/* write <!DOCTYPE...> */
 	gint dtd_url;				/* URL in DTD */
