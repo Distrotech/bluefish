@@ -33,9 +33,11 @@
 							to scan all text but to tag only in the visible area. the performance
 							gain is not very high... */
 /*#define DEBUG */
-/* #define DEBUGSC */ /* DEBUGSC gives specific debugging on internal scanner working PER CHARACTER,
+/*#define DEBUGSC*/ /* DEBUGSC gives specific debugging on internal scanner working PER CHARACTER,
 							so this is A LOT OF OUTPUT */
 /* #define DEBUGTAGS */ /* DEBUGTAGS gives info about setting and removing tags  */
+/* #define DEBUGCB */ /* DEBUGCB gives info on callbacks */
+/*#define DEBUGAC*/
 /*#define HL_PROFILING*/
 
 /*
@@ -121,30 +123,38 @@ and just scan if the end of the block has been just inserted
 til the last just entered character 
 */
 
-#ifdef DEBUGSC
-#define DEBUGSC_MSG g_print
-#else /* not DEBUGSC */
+#define DEBUGON_MSG g_print
 #ifdef __GNUC__
-#define DEBUGSC_MSG(args...)
+#define DEBUGOFF_MSG(args...)
  /**/
 #else/* notdef __GNUC__ */
 extern void g_none(gchar *first, ...);
-#define DEBUGSC_MSG g_none
+#define DEBUGOFF_MSG g_none
 #endif /* __GNUC__ */
-#endif /* DEBUGSC */
 
 #ifdef DEBUGTAGS
-#define DEBUGTAGS_MSG g_print
+#define DEBUGTAGS_MSG DEBUGON_MSG
 #else /* not DEBUGTAGS */
-#ifdef __GNUC__
-#define DEBUGTAGS_MSG(args...)
- /**/
-#else/* notdef __GNUC__ */
-extern void g_none(gchar *first, ...);
-#define DEBUGTAGS_MSG g_none
-#endif /* __GNUC__ */
+#define DEBUGTAGS_MSG DEBUGOFF_MSG
 #endif /* DEBUGTAGS */
 
+#ifdef DEBUGSC
+#define DEBUGSC_MSG DEBUGON_MSG
+#else /* not DEBUGTAGS */
+#define DEBUGSC_MSG DEBUGOFF_MSG
+#endif /* DEBUGTAGS */
+
+#ifdef DEBUGCB
+#define DEBUGCB_MSG DEBUGON_MSG
+#else /* not DEBUGCB */
+#define DEBUGCB_MSG DEBUGOFF_MSG
+#endif /* DEBUGCB */
+
+#ifdef DEBUGAC
+#define DEBUGAC_MSG DEBUGON_MSG
+#else /* not DEBUGAC */
+#define DEBUGAC_MSG DEBUGOFF_MSG
+#endif /* DEBUGAC */
 
 
 #include "config.h"
@@ -639,7 +649,7 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 	gboolean trigger = FALSE;
 	gchar *p = string;
 
-	DEBUG_MSG("bf_textview_insert_text_cb, started, string=\"%s\", stringlen=%d\n", string,
+	DEBUGCB_MSG("bf_textview_insert_text_cb, started, string=\"%s\", stringlen=%d\n", string,
 			  stringlen);
 	if (!view->lang)
 		return;
@@ -666,8 +676,12 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 #if defined SCANALLTAGVIEWABLE || defined SKIP_KNOWN_UNCHANGED_BLOCKS
 		if (view->need_rescan) 
 			bf_textview_scan(view);
-		else
-			bf_textview_scan_visible(view);
+		else {
+			GtkTextIter ite,its;
+			its=ite=*iter;
+			gtk_text_iter_forward_chars(&ite,stringlen);
+			bf_textview_scan_changed(view,&its,&ite);
+		}
 #else
 		if (view->hl_mode == BFTV_HL_MODE_ALL || view->need_rescan) {
 			bf_textview_scan(view);
@@ -690,7 +704,7 @@ static void bf_textview_delete_range_cb(GtkTextBuffer * textbuffer, GtkTextIter 
 	gchar *p, *pomstr;
 
 	view->delete_rescan = FALSE;
-	DEBUG_MSG("bf_textview_delete_range_cb, started\n");
+	DEBUGCB_MSG("bf_textview_delete_range_cb, started\n");
 	if (!view->lang)
 		return;
 	bftv_clear_matched_block(view);
@@ -720,7 +734,7 @@ static void bf_textview_delete_range_after_cb(GtkTextBuffer * textbuffer, GtkTex
 {
 	BfTextView *view = BF_TEXTVIEW(user_data);
 
-	DEBUG_MSG("bf_textview_delete_range_cb, started\n");
+	DEBUGCB_MSG("bf_textview_delete_range_cb, started\n");
 
 	if (!view->lang)
 		return;
@@ -732,7 +746,7 @@ static void bf_textview_delete_range_after_cb(GtkTextBuffer * textbuffer, GtkTex
 			bf_textview_scan(view);
 			view->delete_rescan = FALSE;
 		} else {
-			bf_textview_scan_visible(view);
+			bf_textview_scan_changed(view,arg1,arg2);
 			view->delete_rescan = FALSE;
 		}
 #else
@@ -2176,6 +2190,14 @@ void bf_textview_scan_visible(BfTextView * self)
 	}
 }
 
+void bf_textview_scan_changed(BfTextView * self,GtkTextIter *its, GtkTextIter *ite) {
+	if (!self->delay_rescan) {
+		bf_textview_scan_area(self, its, ite, TRUE, FALSE, FALSE);
+	} else {
+		self->need_rescan = TRUE;
+	}
+}
+
 #ifdef HL_PROFILING
 /* this function is here for debugging purposes */
 static void bftv_dump_location_info(gint line, GtkTextBuffer * buffer, GtkTextIter * it)
@@ -2650,7 +2672,7 @@ static gboolean block_unchanged_and_known(GtkTextBuffer *buf, GtkTextIter *it, G
 #define NEWREMOVETAGS
 /* this function takes most of the CPU time in bluefish */
 static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, GtkTextIter * endarg,
-						   gboolean apply_hl, gboolean store_string, gboolean force_rehighlight)
+						   gboolean apply_hl, gboolean scan_autocompletion, gboolean force_rehighlight)
 {
 	GtkTextBuffer *buf = gtk_text_view_get_buffer(GTK_TEXT_VIEW(self));
 	GtkTextIter its, ita;
@@ -2663,7 +2685,7 @@ static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, Gtk
 	gint numchars=0, numloop=0;
 	numskipped=0;
 #endif
-	DEBUG_MSG("bf_textview_scan_area, started from %d to %d\n",gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end));
+	DEBUG_MSG("bf_textview_scan_area, started from %d to %d, store_string=%d,apply_hl=%d\n",gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end),store_string,force_rehighlight);
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(BF_IS_TEXTVIEW(self));
 	if (!self->lang || self->paste_operation)
@@ -2786,13 +2808,17 @@ static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, Gtk
 				if (mark)
 					blockinfo_free_bymark(buf, mark);
 			}
-			if (store_string) {
+			if (scan_autocompletion) {
+				/* if scan_autocompletion is set we assume that the cursor is at endvisible */
 				DEBUG_MSG("store string! append character %c\n",c);
 				/* the next line can probably be improved a bit for speed  */
 				if (!g_unichar_isgraph(c)) {
 					self->scanner.last_string = g_string_assign(self->scanner.last_string, "");
 				} else if (!block_found) {
-					g_string_append_printf(self->scanner.last_string, "%c", c); /* this is slowwwww because it is called VERY often */
+					g_string_append_unichar(self->scanner.last_string, c);
+				}
+				if (gtk_text_iter_equal(&ita,&endvisible)) {
+					return;
 				}
 			}
 			if (last_loop) {
@@ -3396,11 +3422,11 @@ void bf_textview_autocomp_show(BfTextView * self)
 	gtk_text_iter_set_line(&it3, gtk_text_iter_get_line(&it));
 	gtk_text_iter_backward_char(&it);
 	self->scanner.last_string = g_string_assign(self->scanner.last_string, "");
-	DEBUG_MSG("bf_textview_autocomp_show, calling scan_area()\n");
+	DEBUGAC_MSG("bf_textview_autocomp_show, calling scan_area()\n");
 	bf_textview_scan_area(self, &it3, &it, FALSE, TRUE, FALSE);
-	DEBUG_MSG("bf_textview_autocomp_show, last_string=%s\n",self->scanner.last_string->str);
+	DEBUGAC_MSG("bf_textview_autocomp_show, last_string=%s\n",self->scanner.last_string->str);
 	if (self->lang && self->lang->schema_aware) {
-		DEBUG_MSG("bf_textview_autocomp_show, running in 'schema_aware' mode\n");
+		DEBUGAC_MSG("bf_textview_autocomp_show, running in 'schema_aware' mode\n");
 		if (self->scanner.last_string->str[0] == '<')
 			ac_run_schema(main_v->autocompletion, self->scanner.last_string->str + 1, self->schemas,
 						  self->internal_dtd, GTK_TEXT_VIEW(self), NULL);
@@ -3422,7 +3448,7 @@ void bf_textview_autocomp_show(BfTextView * self)
 			}
 		}
 	} else {
-		DEBUG_MSG("bf_textview_autocomp_show, not 'schema_aware', calling ac_run_lang()\n");
+		DEBUGAC_MSG("bf_textview_autocomp_show, not 'schema_aware', calling ac_run_lang()\n");
 		if (self->lang->case_sensitive)
 			ac_run_lang(main_v->autocompletion, self->scanner.last_string->str,
 						(gchar *) (self->lang->name), GTK_TEXT_VIEW(self), NULL);
