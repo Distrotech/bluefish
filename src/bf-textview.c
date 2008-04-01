@@ -37,7 +37,7 @@
 							so this is A LOT OF OUTPUT */
 /* #define DEBUGTAGS */ /* DEBUGTAGS gives info about setting and removing tags  */
 /*#define HL_PROFILING*/
-/*#define USE_HIGHLIGHT_MINIMAL */ /* USE_HIGHLIGHT_MINIMAL is not yet used */
+
 /*
 Typical scanner in compiler is an automata. To implement automata you
 need a TABLE. Such a table
@@ -645,9 +645,6 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 		return;
 	view->delete_rescan = FALSE;
 	if (GTK_WIDGET_VISIBLE(view)) {
-#ifdef USE_HIGHLIGHT_MINIMAL
-		trigger = TRUE;
-#else
 		/* now find out if this insert should trigger a rescan */
 		glong uslen = g_utf8_strlen(string, stringlen);
 		len = 0;
@@ -659,7 +656,6 @@ static void bf_textview_insert_text_cb(GtkTextBuffer * textbuffer, GtkTextIter *
 			len++;
 			p = g_utf8_next_char(p);
 		}
-#endif
 		if (!trigger)
 			return;
 		if (stringlen == 1 && *string == '>')
