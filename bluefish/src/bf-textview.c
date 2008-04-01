@@ -2893,6 +2893,10 @@ static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, Gtk
 #else
 							current_state = bf_textview_scan_state_type_st_block_end(self, buf, current_state, &its, &ita, apply_hl);
 #endif
+							if (current_state == NULL && gtk_text_iter_is_end(&ita)) {
+								/* auto closing a tag automatically triggers a new scan */
+								return;
+							}
 							block_found = TRUE;
 							break;
 						}
