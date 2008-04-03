@@ -590,11 +590,15 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	gtk_box_pack_start(GTK_BOX(hbox), win->sentry, TRUE, TRUE, 2);
 	g_signal_connect(win->sentry, "key-press-event",G_CALLBACK(infb_search_keypress), bfwin);
 	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 2);
-	
+#if GTK_CHECK_VERSION(2,8,0)
 	gtk_notebook_insert_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),vbox,
 									gtk_image_new_from_stock(GTK_STOCK_INFO,GTK_ICON_SIZE_LARGE_TOOLBAR),
 									gtk_label_new(_("Info Browser")),-1);
-
+#else
+	gtk_notebook_insert_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),vbox,
+									gtk_image_new_from_stock(GTK_STOCK_FIND,GTK_ICON_SIZE_LARGE_TOOLBAR),
+									gtk_label_new(_("Info Browser")),-1);
+#endif
 /* ---- tip window ----*/
 	win->tip_window = gtk_window_new (GTK_WINDOW_POPUP);
    gtk_widget_set_app_paintable (win->tip_window, TRUE);
