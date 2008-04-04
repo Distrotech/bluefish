@@ -160,22 +160,6 @@ static Tproject *create_new_project(Tbfwin *bfwin) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
-	if (prj->files) {
-		gint len;
-		gchar *somefile, *prefix;
-		len = find_common_prefixlen_in_stringlist(prj->files);
-		somefile = (gchar *)prj->files->data;
-		prefix = g_strndup(somefile, len);
-		if (prefix[strlen(prefix)-1] == '/') {
-			prj->basedir = g_strdup(prefix);
-		} else {
-			prj->basedir = g_path_get_dirname(prefix);
-		}
-		g_free(prefix);
-	} else {
-		prj->basedir = NULL;
-	}
-	prj->webdir = g_strdup("");
 	prj->template = g_strdup("");
 	prj->word_wrap = main_v->props.word_wrap;
 	if (bfwin) {
@@ -290,7 +274,6 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	DEBUG_MSG("project_open_from_file, filebrowser_show_backup_files=%d\n",prj->session->filebrowser_show_backup_files);
 	add_to_recent_list(bfwin,fromfilename, FALSE, TRUE);
 	prj->filename = g_strdup(fromfilename);
-	DEBUG_MSG("project_open_from_file, basedir=%s\n",prj->basedir);
 	if (bfwin->project == NULL && test_only_empty_doc_left(bfwin->documentlist)) {
 		GSList *slist;
 		/* we will use this Bluefish window to open the project */
@@ -345,15 +328,12 @@ static void project_destroy(Tproject *project) {
 	free_session(project->session);
 	g_free(project->filename);
 	g_free(project->name);
-	g_free(project->basedir);
-	g_free(project->webdir);
 	g_free(project->template);
 	g_free(project);
 }
 
 static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 	DEBUG_MSG("setup_bfwin_for_nonproject, bfwin=%p\n",bfwin);
-/*	gchar * newbasedir = g_strdup (g_get_home_dir());*/
 	bfwin->session = main_v->session;
 	bfwin->bmarkdata = main_v->bmarkdata;
 	bfwin->project = NULL;
@@ -362,8 +342,6 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 	after all documents are just closed */
 	if (bfwin->current_document) gui_set_title(bfwin, bfwin->current_document);
 	fb2_update_settings_from_session(bfwin);
-/*	fb2_set_basedir(bfwin, main_v->props.default_basedir);*/
-/*	g_free (newbasedir);*/
 	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
 	set_project_menu_widgets(bfwin, FALSE);
 
@@ -443,8 +421,6 @@ gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 
 typedef enum {
 	name,
-	basedir,
-	webdir,
 	template,
 	word_wrap,
 	projecteditor_entries_num
@@ -486,16 +462,8 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 	gtk_widget_hide(pred->win);
 	DEBUG_MSG("project_edit_ok_clicked_lcb, Tproject at %p, bfwin at %p\n",prj,pred->bfwin);
 	string_apply(&prj->name, pred->entries[name]);
-	string_apply(&prj->basedir, pred->entries[basedir]);
-	if (prj->basedir && strlen(prj->basedir)) {
-		gchar *tmp = prj->basedir;
-		prj->basedir = ending_slash(prj->basedir);
-		g_free(tmp);
-	}
-	string_apply(&prj->webdir, pred->entries[webdir]);
 	string_apply(&prj->template, pred->entries[template]);
 	integer_apply(&prj->word_wrap, pred->entries[word_wrap], TRUE);
-	DEBUG_MSG("project_edit_ok_clicked_lcb, name=%s, basedir=%s, webdir=%s\n",prj->name,prj->basedir,prj->webdir);
 
 	if (pred->bfwin == NULL) {
 		pred->bfwin = gui_new_window(NULL, pred->project);
@@ -572,14 +540,7 @@ void project_edit(Tbfwin *bfwin) {
 	bf_mnemonic_label_tad_with_alignment(_("Project _Name:"), pred->entries[name], 1, 0.5, table, 0, 1, 0, 1);
 	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[name], 2, 3, 0, 1);
 
-	pred->entries[basedir] = entry_with_text(pred->project->basedir, 255);
-	bf_mnemonic_label_tad_with_alignment(_("_Basedir:"), pred->entries[basedir], 1, 0.5, table, 0, 1, 1, 2);
-	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[basedir], 2, 3, 1, 2);
 
-	pred->entries[webdir] = entry_with_text(pred->project->webdir, 255);
-	bf_mnemonic_label_tad_with_alignment(_("_Preview URL:"), pred->entries[webdir], 1, 0.5, table, 0, 1, 2, 3);
-	gtk_table_attach_defaults(GTK_TABLE(table), pred->entries[webdir], 2, 3, 2, 3);
-	
 	pred->entries[template] = entry_with_text(pred->project->template, 255);
 	bf_mnemonic_label_tad_with_alignment(_("_Template:"), pred->entries[template], 1, 0.5, table, 0, 1, 3, 4);
 	but = file_but_new(pred->entries[template], 1, NULL);

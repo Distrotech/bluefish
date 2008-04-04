@@ -299,6 +299,8 @@ typedef struct {
 
 typedef struct {
 	gboolean snr_is_expanded;
+	gchar *webroot;
+	gchar *documentroot;
 	gchar *encoding;
 	gchar *last_filefilter;   /* last filelist filter type */
 	gchar *opendir;
@@ -335,8 +337,6 @@ typedef struct {
 	gchar *filename;
 	gchar *name;
 	GList *files;
-	gchar *basedir;
-	gchar *webdir;
 	gchar *template;
 	gpointer editor;
 	gint word_wrap;
