@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -156,6 +156,7 @@ gboolean bfwin_has_doc(Tbfwin *bfwin, Tdocument *doc) {
 
 /* use -1 to switch to the last page */
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index) {
+	DEBUG_MSG("switch_to_document_by_index, index=%d\n",index);
 	gtk_notebook_set_current_page(GTK_NOTEBOOK(bfwin->notebook), (index));
 	return TRUE;
 }
@@ -216,6 +217,7 @@ void gui_notebook_move(Tbfwin *bfwin, gboolean move_left) {
 }
 
 void gui_notebook_switch(Tbfwin *bfwin,guint action,GtkWidget *widget) {
+	DEBUG_MSG("gui_notebook_switch, action=%d\n",action);
 	switch (action) {
 		case 1: gtk_notebook_prev_page(GTK_NOTEBOOK(bfwin->notebook));
 		break;
