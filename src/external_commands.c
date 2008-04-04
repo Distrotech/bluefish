@@ -387,11 +387,11 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		cur++;
 		if (need_preview_uri) {
 			table[cur].my_int = 'p';
-			if (ep->bfwin->project && ep->bfwin->project->webdir 
-					&& ep->bfwin->project->basedir && strlen(ep->bfwin->project->webdir)>2
-					&& strlen(ep->bfwin->project->basedir)>2 
-					&& strncmp(curi, ep->bfwin->project->basedir, strlen(ep->bfwin->project->basedir))==0) {
-						table[cur].my_char = g_strconcat(ep->bfwin->project->webdir, &curi[strlen(ep->bfwin->project->basedir)], NULL);
+			if (ep->bfwin->session->documentroot && ep->bfwin->session->webroot 
+					&& strlen(ep->bfwin->session->documentroot)>5
+					&& strlen(ep->bfwin->session->webroot)>5 
+					&& strncmp(curi, ep->bfwin->session->documentroot, strlen(ep->bfwin->session->documentroot))==0) {
+						table[cur].my_char = g_strconcat(ep->bfwin->session->webroot, &curi[strlen(ep->bfwin->session->documentroot)], NULL);
 			} else {
 				table[cur].my_char = g_strdup(curi);
 			}

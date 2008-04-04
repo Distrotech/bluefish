@@ -164,6 +164,79 @@ static void DEBUG_TPATH(GtkTreeModel *model, GtkTreePath *path, gboolean newline
 	g_free(filename);
 }
 /**************/
+typedef struct { 
+	Tbfwin *bfwin;
+	GtkWidget *win;
+	GtkWidget *doc_entry;
+	GtkWidget *web_entry;
+	GnomeVFSURI *documentroot;
+	GnomeVFSURI *webroot;
+} Tdocrootdialog;
+
+static void drd_response_lcb(GtkDialog * dialog, gint response, Tdocrootdialog * drd) {
+	if (response == GTK_RESPONSE_ACCEPT) {
+		GnomeVFSURI *docroot, *webroot;
+		docroot = gnome_vfs_uri_new(gtk_entry_get_text(GTK_ENTRY(drd->doc_entry)));
+		webroot = gnome_vfs_uri_new(gtk_entry_get_text(GTK_ENTRY(drd->web_entry)));
+		if (docroot && webroot) {
+			if (drd->bfwin->session->documentroot)
+				g_free(drd->bfwin->session->documentroot);
+			drd->bfwin->session->documentroot = gnome_vfs_uri_to_string(docroot,0);
+			if (drd->bfwin->session->webroot)
+				g_free(drd->bfwin->session->webroot);
+			drd->bfwin->session->webroot = gnome_vfs_uri_to_string(webroot,0);
+			gnome_vfs_uri_unref(docroot);
+			gnome_vfs_uri_unref(webroot);
+		}
+	}
+	gtk_widget_destroy(drd->win);
+	if (drd->webroot)
+		gnome_vfs_uri_unref(drd->webroot);
+	if (drd->documentroot)
+		gnome_vfs_uri_unref(drd->documentroot);
+	g_free(drd);
+}
+
+static void set_documentroot_dialog(Tbfwin *bfwin, GnomeVFSURI *uri) {
+	/* now start the dialog to set the webroot */
+	GtkWidget *table, *label;
+	gchar *tmp;
+	Tdocrootdialog *drd;
+	drd = g_new0(Tdocrootdialog,1);
+	drd->bfwin = bfwin;
+	drd->documentroot = uri;
+	gnome_vfs_uri_ref(drd->documentroot);
+	drd->win = gtk_dialog_new_with_buttons(_("Set documentroot and webroot"),
+			GTK_WINDOW(bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT, 
+			GTK_STOCK_CANCEL, GTK_RESPONSE_REJECT,
+			GTK_STOCK_OK, GTK_RESPONSE_ACCEPT, 
+			NULL);
+	g_signal_connect(G_OBJECT(drd->win), "response", G_CALLBACK(drd_response_lcb), drd);
+	table = dialog_table_in_vbox_defaults(2, 2, 5,GTK_DIALOG(drd->win)->vbox);
+	label = gtk_label_new(NULL);
+	gtk_label_set_markup(GTK_LABEL(label),_("The <i>documentroot</i> is the place where Bluefish finds the file,\nthe <i>webroot</i> is the location where those same files can be viewed on the webserver"));
+	gtk_table_attach_defaults(GTK_TABLE(table),label,0,2,0,1);
+	
+	tmp= gnome_vfs_uri_to_string(uri,0);
+	drd->doc_entry = entry_with_text(tmp, 512);
+	g_free(tmp); 
+	gtk_table_attach_defaults(GTK_TABLE(table),drd->doc_entry,1,2,1,2);
+	dialog_mnemonic_label_in_table(_("Documentroot"),drd->doc_entry, table,0, 1,1, 2);
+
+	{
+		if (strcmp(gnome_vfs_uri_get_scheme(uri),"file")==0) {
+			tmp = g_strdup("http://localhost/");
+		} else {
+			tmp = g_strconcat("http://",gnome_vfs_uri_get_host_name(uri),"/", NULL);
+		}
+	}
+	drd->web_entry = entry_with_text(tmp, 512);
+	gtk_table_attach_defaults(GTK_TABLE(table),drd->web_entry,1,2,2,3);
+	dialog_mnemonic_label_in_table(_("Webroot"),drd->web_entry, table,0, 1,2,3);
+	
+	
+	gtk_widget_show_all(drd->win);
+}
 
 /**
  * fb2_get_uri_in_refresh:
@@ -1333,6 +1406,12 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 			refilter_dirlist(fb2, NULL);
 			fb2_focus_document(fb2->bfwin, fb2->bfwin->current_document);
 		break;
+		case 10:
+			{
+				GnomeVFSURI *uri = fb2_uri_from_dir_selection(fb2);
+				set_documentroot_dialog(fb2->bfwin, uri);
+			}
+		break;
 		case 15:
 			fb2->bfwin->session->filebrowser_focus_follow = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(widget));
 			if (fb2->bfwin->session->filebrowser_focus_follow) {
@@ -1390,6 +1469,7 @@ static GtkItemFactoryEntry fb2rpopup_menu_entries[] = {
 	{ N_("/_Refresh"),			NULL,	fb2rpopup_rpopup_action_lcb,	6,	"<Item>" },
 	{ N_("/Follow active document"),	NULL,	fb2rpopup_rpopup_action_lcb,	15,	"<ToggleItem>" },
 	{ N_("/_Set as basedir"),	NULL,	fb2rpopup_rpopup_action_lcb,	8,	"<Item>" },
+	{ N_("/Set as documentroot"),	NULL,	fb2rpopup_rpopup_action_lcb,	10,	"<Item>" },
 	{ "/sep3",						NULL,	NULL,									0,	"<Separator>" },
 	{ N_("/Show Full _Tree"),	NULL,	fb2rpopup_rpopup_action_lcb,	9,	"<Item>" },
 	{ N_("/Show hidden files"),	NULL,	fb2rpopup_rpopup_action_lcb,	16,	"<ToggleItem>" },
@@ -2050,8 +2130,6 @@ void fb2_update_settings_from_session(Tbfwin *bfwin) {
 					&& strlen(((GList *)g_list_first(bfwin->session->recent_dirs))->data)>0) {
 			/* the fb2_set_basedir function tests itself if  the basedir if changed, if not it does not refresh */
 			fb2_set_basedir(bfwin, ((GList *)g_list_first(bfwin->session->recent_dirs))->data);
-		} else if (bfwin->project && bfwin->project->basedir && strlen(bfwin->project->basedir)>0) {
-			fb2_set_basedir(bfwin, bfwin->project->basedir);
 		} else {
 			fb2_set_basedir(bfwin, NULL);
 		}
