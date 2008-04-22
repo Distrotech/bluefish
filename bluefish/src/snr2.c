@@ -112,10 +112,19 @@ void snr2_cleanup(Tbfwin *bfwin) {
 
 static void snr2_doc_remove_highlight(Tdocument *doc) {
 	if (doc) {
-		GtkTextIter itstart, itend;
-		DEBUG_MSG("snr2_doc_remove_highlight, removing tag snr2match from doc %p\n",doc);
-		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-		gtk_text_buffer_remove_tag_by_name(doc->buffer,"snr2match",&itstart,&itend);
+		GtkTextTagTable *tagtable;
+		GtkTextTag *tag;
+
+		tagtable = gtk_text_buffer_get_tag_table (doc->buffer);
+		tag = gtk_text_tag_table_lookup (tagtable, "snr2match");
+
+		if (tag != NULL) {
+			GtkTextIter itstart, itend;
+
+			DEBUG_MSG("snr2_doc_remove_highlight, removing tag snr2match from doc %p\n",doc);
+			gtk_text_buffer_get_bounds(doc->buffer, &itstart, &itend);
+			gtk_text_buffer_remove_tag(doc->buffer, tag, &itstart, &itend);
+		}
 	}
 }
 
