@@ -62,16 +62,26 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 	if (!before_parse) {
 		/* session parts that will be filled by rcfile_parse() will not be included
 		   in this initial setup */
+		session->webroot = g_strdup(main_v->session->webroot);
+		session->documentroot = g_strdup(main_v->session->documentroot);
 		session->encoding = g_strdup(main_v->session->encoding);
 		session->opendir = g_strdup(main_v->session->opendir);
 		session->savedir = g_strdup(main_v->session->savedir);
 		session->last_filefilter = g_strdup(main_v->session->last_filefilter);
 	}
+	session->snr_is_expanded = main_v->session->snr_is_expanded;
 	session->adv_open_recursive = main_v->session->adv_open_recursive;
-	session->view_main_toolbar = main_v->session->view_main_toolbar;
-	session->view_left_panel = main_v->session->view_left_panel;
+	session->adv_open_matchname = main_v->session->adv_open_matchname;
+	session->bookmarks_filename_mode = main_v->session->bookmarks_filename_mode;
+	session->bookmarks_show_mode = main_v->session->bookmarks_show_mode;
+	session->filebrowser_focus_follow = main_v->session->filebrowser_focus_follow;
 	session->filebrowser_show_hidden_files = main_v->session->filebrowser_show_hidden_files;
 	session->filebrowser_show_backup_files = main_v->session->filebrowser_show_backup_files;
+	session->filebrowser_viewmode = main_v->session->filebrowser_viewmode;
+	session->snr_position_x = main_v->session->snr_position_x;
+	session->snr_position_y = main_v->session->snr_position_y;
+	session->view_main_toolbar = main_v->session->view_main_toolbar;
+	session->view_left_panel = main_v->session->view_left_panel;
 }
 
 Tbfwin *project_is_open(gchar *filename) {
