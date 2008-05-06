@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# $Id: autogen.sh,v 1.10 2007-02-15 14:25:26 dleidert Exp $
+# $Id: autogen.sh,v 1.11 2008-05-06 14:44:52 dleidert Exp $
 
 set -e
 
@@ -140,8 +140,8 @@ autogen() {
 	$LIBTOOLIZE $DEBUG -f $COPYOPTION
 	$INTLTOOLIZE $DEBUG -f $COPYOPTION
 	prepare_gettext
-	$ACLOCAL $VERBOSE
-	$AUTOHEADER $DEBUG $VERBOSE
+	$ACLOCAL --force $VERBOSE
+	$AUTOHEADER -f $DEBUG $VERBOSE
 	$AUTOMAKE --gnu -a $VERBOSE $COPYOPTION
 	autogen_if_missing
 	$AUTOCONF $DEBUG $VERBOSE
