@@ -1440,7 +1440,9 @@ static void snr_option_toggled(GtkToggleButton *togglebutton,gpointer user_data)
 static void snr_dialog_destroy(TSNRWin * snrwin)
 {
 	DEBUG_MSG("snr_dialog_destroy, called\n");
-	snr2_doc_remove_highlight(LASTSNR2(snrwin->bfwin->snr2)->doc);
+	if (bfwin_has_doc(snrwin->bfwin, LASTSNR2(snrwin->bfwin->snr2)->doc)) {
+		snr2_doc_remove_highlight(LASTSNR2(snrwin->bfwin->snr2)->doc);
+	}
 	gtk_widget_destroy(snrwin->dialog);
 	g_free(snrwin);
 }
