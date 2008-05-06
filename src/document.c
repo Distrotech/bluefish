@@ -233,7 +233,7 @@ Tdocument *documentlist_return_document_from_uri(GList *doclist, GnomeVFSURI *ur
 	DEBUG_MSG("documentlist_return_document_from_filename, filename=%s\n",gnome_vfs_uri_get_path(uri));
 	tmplist = g_list_first(doclist);
 	while (tmplist) {
-		if ((DOCUMENT(tmplist->data)->uri && (DOCUMENT(tmplist->data)->uri == uri) || gnome_vfs_uri_equal(DOCUMENT(tmplist->data)->uri,uri))) {
+		if ((DOCUMENT(tmplist->data)->uri && DOCUMENT(tmplist->data)->uri == uri) || gnome_vfs_uri_equal(DOCUMENT(tmplist->data)->uri,uri)) {
 			DEBUG_MSG("documentlist_return_document_from_filename, found, returning %p\n", tmplist->data);
 			return DOCUMENT(tmplist->data);
 		}
