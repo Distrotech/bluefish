@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.161 2008-03-28 19:17:16 oli4 Exp $
+dnl $Id: configure.ac,v 1.162 2008-06-13 21:29:21 oli4 Exp $
 dnl
 dnl Copyright (C) 2002-2007 Olivier Sessink
 dnl Copyright (C) 2006-2007 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.161 $)
+AC_REVISION($Revision: 1.162 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -385,6 +385,12 @@ PKG_CHECK_MODULES([BFREQ], [$BFREQ_required])
 
 if ( $PKG_CONFIG gnome-vfs-2.0 --atleast-version=2.14 ) ; then
 	AC_DEFINE([HAVE_ATLEAST_GNOMEVFS_2_14], [1], [Define to 1 if you have Gnome-VFS-2.0 >= 2.14.])
+fi
+
+if ( $PKG_CONFIG gio-2.0 --atleast-version=2.16 ) ; then
+	AC_DEFINE([HAVE_ATLEAST_GIO_2_16], [1], [Define to 1 if you have GIO >= 2.16.])
+	BFOPT_optional="gio-2.0 >= 2.16"
+	PKG_CHECK_MODULES([BFOPT], [$BFOPT_optional])
 fi
 
 dnl it has been requested to be able to build bluefish without libGNOMEUI
