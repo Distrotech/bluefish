@@ -68,7 +68,66 @@ void refcpointer_unref(Trefcpointer *rp) {
 		g_free(rp);
 	}
 }
+#ifdef HAVE_ATLEAST_GIO_2_16
+GFile *add_suffix_to_uri(GFile *file, const char *suffix) {
+	if (!suffix) {
+		g_object_ref(file);
+		return file;
+	} else {
+		gchar *tmp, *tmp2;
+		GFile *retval;
+		tmp = g_file_get_parse_name(file);
+		tmp2 =  g_strconcat(tmp,suffix,NULL);
+		retval = g_file_parse_name(tmp2);
+		g_free(tmp);
+		g_free(tmp2);
+		return retval;
+	}
+}
+GList *urilist_to_stringlist(GList *urilist) {
+	GList *retlist=NULL, *tmplist = g_list_last(urilist);
+	while (tmplist) {/* previously, passwords were hidden with GNOME_VFS_URI_HIDE_PASSWORD */
+		retlist = g_list_prepend(retlist, g_file_get_parse_name((GFile *)tmplist->data));
+		tmplist = g_list_previous(tmplist);
+	}
+	return retlist;
+}
 
+void free_urilist(GList *urilist) {
+	GList *tmplist = g_list_first(urilist);
+	while (tmplist) {
+		g_object_unref((GObject *)tmplist->data);
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(urilist);
+}
+
+const gchar *full_path_utf8_from_uri(GFile *uri) {
+
+	GFileInfo* ginfo;
+	GError *error=NULL;
+	const gchar *utf8uri; 
+	ginfo = g_file_query_info(uri, G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME, G_FILE_QUERY_INFO_NONE, NULL, &error);
+	utf8uri = g_file_info_get_display_name(ginfo);
+	g_object_unref(ginfo);
+	return utf8uri;
+}
+
+gchar *filename_utf8_from_uri(GFile *uri) {
+	gchar *utf8name, *slashpos;
+	
+	utf8name = full_path_utf8_from_uri(uri);
+	slashpos = strrchr(utf8name,'/');
+	if (slashpos) {
+		gchar *tmp;
+		slashpos++;
+		tmp = g_strdup(slashpos);
+		g_free(utf8name);
+		return tmp;
+	}
+	return utf8name;
+}
+#else
 GnomeVFSURI *add_suffix_to_uri(GnomeVFSURI *uri, const char *suffix) {
 	if (!suffix) {
 		gnome_vfs_uri_ref(uri);
@@ -197,7 +256,7 @@ gchar *get_filename_on_disk_encoding(const gchar *utf8filename) {
 	}
 	return NULL;
 }
-
+#endif
 gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname) {
 	if (encodedname) {
 		GError *gerror=NULL;
@@ -1182,6 +1241,9 @@ bluefish.c:95
 bluefish.c:120
 outputbox.c:163
 */
+#ifdef HAVE_ATLEAST_GIO_2_16
+	/* not needed anymore */
+#else
 gchar *create_full_path(const gchar * filename, const gchar *basedir) {
 	gchar *absolute_filename;
 	gchar *tmpcdir;
@@ -1212,6 +1274,7 @@ gchar *create_full_path(const gchar * filename, const gchar *basedir) {
 	absolute_filename = most_efficient_filename(absolute_filename);
 	return absolute_filename;
 }
+#endif
 
 /**
  * strip_trailing_slash:
@@ -1277,11 +1340,18 @@ gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
  *
  */
 gboolean full_path_exists(const gchar *full_path) {
-	GnomeVFSURI *uri;
 	gboolean retval;
+#ifdef HAVE_ATLEAST_GIO_2_16
+	GFile *uri;
+	uri = g_file_new_for_path(full_path);
+	retval = g_file_query_exists(uri,NULL);
+	g_object_unref(uri);
+#else
+	GnomeVFSURI *uri;
 	uri = gnome_vfs_uri_new(full_path);
 	retval = gnome_vfs_uri_exists(uri);
 	gnome_vfs_uri_unref(uri);
+#endif
 	return retval;
 }
 
