@@ -48,15 +48,25 @@ void refcpointer_ref(Trefcpointer *rp);
 #define refcpointer_ref(rp) rp->count++
 #endif
 void refcpointer_unref(Trefcpointer *rp);
+
+#ifdef HAVE_ATLEAST_GIO_2_16
+GFile *add_suffix_to_uri(GFile *file, const char *suffix);
+const gchar *full_path_utf8_from_uri(GFile *uri);
+gchar *filename_utf8_from_uri(GFile *uri);
+#else
 GnomeVFSURI *add_suffix_to_uri(GnomeVFSURI *uri, const char *suffix);
+gchar *full_path_utf8_from_uri(GnomeVFSURI *uri);
+gchar *filename_utf8_from_uri(GnomeVFSURI *uri);
+#endif
+
 GList *urilist_to_stringlist(GList *urilist);
 void free_urilist(GList *urilist);
 
 #define user_bfdir(file) g_strconcat(g_get_home_dir(), "/."PACKAGE"/", file, NULL)
 
-gchar *full_path_utf8_from_uri(GnomeVFSURI *uri);
+
 gchar *filename_utf8_from_full_path_utf8(const gchar *full_path_utf8);
-gchar *filename_utf8_from_uri(GnomeVFSURI *uri);
+
 
 gchar *get_filename_on_disk_encoding(const gchar *utf8filename);
 gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname);
@@ -89,7 +99,9 @@ gchar *trunc_on_char(gchar * string, gchar which_char);
 gchar *strip_common_path(char *to_filename, char *from_filename);
 gchar *most_efficient_filename(gchar *filename);
 gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepath);
+#ifndef HAVE_ATLEAST_GIO_2_16
 gchar *create_full_path(const gchar * filename, const gchar *basedir);
+#endif
 gchar *strip_trailing_slash(gchar *input);
 gchar *ending_slash(const gchar *dirname);
 gchar *path_get_dirname_with_ending_slash(const gchar *filename);

@@ -77,7 +77,11 @@ extern void g_none(gchar *first, ...);
 #include <unistd.h>
 #include <pcre.h>
 
+#ifdef HAVE_ATLEAST_GIO_2_16
+#include <gio/gio.h>
+#else
 #include <libgnomevfs/gnome-vfs.h>
+#endif
 
 #include "bf-textview.h"
 #include "autocomp.h"
@@ -153,14 +157,22 @@ typedef struct {
 } Tdoc_action;
 
 typedef struct {
+#ifdef HAVE_ATLEAST_GIO_2_16
+	GFile *file;
+#else
 	GnomeVFSURI *uri;
+#endif
 	Tdoc_action action; /* see above, if set, some action has to be executed after opening/closing is done */
 /*	gchar *filename;  this is the UTF-8 encoded filename, before you use it on disk you need convert to disk-encoding! */
 	Tdocstatus status; /* can be DOC_STATUS_ERROR, DOC_STATUS_LOADING, DOC_STATUS_COMPLETE, DOC_CLOSING */
 	gchar *encoding;
 	gint modified;
 	gint readonly;
+#ifdef HAVE_ATLEAST_GIO_2_16
+	GFileInfo *fileinfo;
+#else
 	GnomeVFSFileInfo *fileinfo;
+#endif
 	gint is_symlink; /* file is a symbolic link */
 	gulong del_txt_id; /* text delete signal */
 	gulong ins_txt_id; /* text insert signal */
@@ -334,7 +346,11 @@ typedef struct {
 } Tsessionvars;
 
 typedef struct {
+#ifdef HAVE_ATLEAST_GIO_2_16
+	GFile *file;
+#else
 	gchar *filename;
+#endif
 	gchar *name;
 	GList *files;
 	gchar *template;

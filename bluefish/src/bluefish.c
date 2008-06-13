@@ -189,7 +189,11 @@ int main(int argc, char *argv[])
 	}
 
 	if (project) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+		g_file_new_for_commandline_arg(project);
+#else
 		tmpname = create_full_path(project, NULL);
+#endif
 		/*
 			TODO 1: Check if given file is a project-file.
 			Maybe using gnome-vfs API and checking for application/bluefish-project.
@@ -223,7 +227,11 @@ int main(int argc, char *argv[])
 	if (files != NULL) {
 		filearray = g_strv_length(files);
 		for (i = 0; i < filearray; ++i) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+			g_file_new_for_commandline_arg(files[i]);
+#else
 			tmpname = create_full_path(files[i], NULL);
+#endif
 			filenames = g_list_append(filenames, tmpname);
 			DEBUG_MSG("main, files[%d]=%s, tmpname=%s\n", i, files[i], tmpname);
 		}
