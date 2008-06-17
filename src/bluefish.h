@@ -158,7 +158,7 @@ typedef struct {
 
 typedef struct {
 #ifdef HAVE_ATLEAST_GIO_2_16
-	GFile *file;
+	GFile *uri;
 #else
 	GnomeVFSURI *uri;
 #endif
