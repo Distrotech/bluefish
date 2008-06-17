@@ -36,6 +36,7 @@
 #include "document.h"
 #include "gtk_easy.h"
 #include "gui.h"
+#include "bf_lib.h"
 #include "stringlist.h"
 #include "menu.h"				/* menu_translate() */
 
@@ -77,7 +78,11 @@ enum {
 
 typedef struct {
 	GtkTextMark *mark;
+#ifdef HAVE_ATLEAST_GIO_2_16
+	GFile *filepath;
+#else
 	GnomeVFSURI *filepath;
+#endif
 	gint offset;
 	Tdocument *doc;
 	GtkTreeIter iter;			/* for tree view */
@@ -111,11 +116,11 @@ enum {
 	BM_SMODE_NAME,
 	BM_SMODE_CONTENT
 };
-
+#ifndef HAVE_ATLEAST_GIO_2_16
 static void gnome_vfs_uri_hash_destroy(gpointer data) {
 	gnome_vfs_uri_unref((GnomeVFSURI *)data);
 }
-
+#endif
 /* Free bookmark structure */
 static void bmark_free(gpointer ptr)
 {
@@ -133,7 +138,11 @@ static void bmark_free(gpointer ptr)
 		DEBUG_MSG("bmark_free, NOT GOOD, strarr should be NULL here...\n");
 	}
 #endif
-	gnome_vfs_uri_unref(m->filepath);
+#ifdef HAVE_ATLEAST_GIO_2_16
+	g_object_unref(m->filepath);
+#else
+gnome_vfs_uri_unref(m->filepath);
+#endif
 	g_free(m->text);
 	g_free(m->name);
 	g_free(m->description);
@@ -149,7 +158,36 @@ static gchar *bmark_showname(Tbfwin *bfwin, Tbmark *b) {
 		return g_strdup(b->text);
 	}
 }
-
+#ifdef HAVE_ATLEAST_GIO_2_16
+static gchar *bmark_filename(Tbfwin *bfwin, GFile *filepath) {
+	gchar *title, *rawtitle = NULL;
+	switch (bfwin->session->bookmarks_filename_mode) {
+	/*case BM_FMODE_HOME:
+		if (bfwin->project != NULL && bfwin->project->basedir && strlen(bfwin->project->basedir)) {
+			gint baselen = strlen(bfwin->project->basedir);
+			gchar *tmp;
+			tmp = gnome_vfs_uri_to_string(m->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
+			if (tmp[baselen] == '/') baselen++;
+			if (strncmp(tmp, bfwin->project->basedir, baselen)==0) {
+				title = g_strdup(tmp + baselen);
+			}
+			g_free(tmp);
+		}
+		break;*/
+	case BM_FMODE_PATH:
+		title = full_path_utf8_from_uri(filepath);
+		break;
+	case BM_FMODE_FILE:
+		title = filename_utf8_from_uri(filepath);
+		break;
+	case BM_FMODE_FULL:
+	default:
+		title = full_path_utf8_from_uri(filepath);
+		break;
+	}
+	return title;
+}
+#else
 static gchar *bmark_filename(Tbfwin *bfwin, GnomeVFSURI *filepath) {
 	gchar *title, *rawtitle = NULL;
 	switch (bfwin->session->bookmarks_filename_mode) {
@@ -180,7 +218,7 @@ static gchar *bmark_filename(Tbfwin *bfwin, GnomeVFSURI *filepath) {
 	}
 	return title;
 }
-
+#endif
 static void bmark_update_treestore_name(Tbfwin *bfwin) {
 	GtkTreeIter piter, citer;
 	gboolean cont1, cont2;
@@ -321,7 +359,11 @@ static void bmark_store(Tbfwin * bfwin, Tbmark * b) {
 		DEBUG_MSG("bmark_store, creating new strarr for bookmark %p\n",b);
 		strarr = g_malloc0(sizeof(gchar *) * 7);
 		DEBUG_MSG("name=%s, description=%s, filepath=%s, text=%s\n", b->name, b->description, gnome_vfs_uri_get_path(b->filepath), b->text);
+#ifdef HAVE_ATLEAST_GIO_2_16
+		strarr[2] = g_file_get_parse_name(b->filepath);
+#else
 		strarr[2] = gnome_vfs_uri_to_string(b->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
+#endif
 		strarr[4] = g_strdup(b->text);
 	} else {
 		DEBUG_MSG("bmark_store, bookmark %p has strarr at %p\n",b,b->strarr);
@@ -919,7 +961,11 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 		}
 		DEBUG_MSG("bmark_get_iter_at_tree_position, appending parent %p in hashtable %p for filepath=%s\n",parent,BMARKDATA(bfwin->bmarkdata)->bmarkfiles,gnome_vfs_uri_get_path(m->filepath));
 		/* the hash table frees the key, but not the value, on destroy */
+#ifdef HAVE_ATLEAST_GIO_2_16
+		g_object_ref(m->filepath);
+#else
 		gnome_vfs_uri_ref(m->filepath);
+#endif
 		g_hash_table_insert(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, m->filepath, parent);
 	} else
 		parent = (GtkTreeIter *) ptr;
@@ -944,8 +990,13 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 gpointer bookmark_data_new(void) {
 	Tbmarkdata *bmd;
 	bmd = g_new0(Tbmarkdata, 1);
+#ifdef HAVE_ATLEAST_GIO_2_16
+	bmd->bookmarkstore = gtk_tree_store_new(N_COLUMNS, G_TYPE_INT, G_TYPE_POINTER);
+	bmd->bmarkfiles = g_hash_table_new_full(g_file_hash, g_file_equal,NULL,NULL);
+#else
 	bmd->bookmarkstore = gtk_tree_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_POINTER);
 	bmd->bmarkfiles = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,gnome_vfs_uri_hash_destroy,NULL);
+#endif
 	DEBUG_MSG("bookmark_data_new, created bookmarkstore at %p\n", bmd->bookmarkstore);
 	return bmd;
 }
@@ -967,7 +1018,11 @@ void bookmark_data_cleanup(gpointer *data) {
  * opened (bfwin->documentlist) if they have bookmarks !!
  */
 void bmark_reload(Tbfwin * bfwin) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+	GFile *cacheduri=NULL;
+#else
 	GnomeVFSURI *cacheduri=NULL;
+#endif
 	GList *tmplist;
 
 	DEBUG_MSG("bmark_reload for bfwin %p\n",bfwin);
@@ -986,11 +1041,29 @@ void bmark_reload(Tbfwin * bfwin) {
 			if (strchr(items[2], ':')==NULL) {
 				gchar *tmp;
 				tmp = g_strconcat("file://", items[2], NULL);
+#ifdef HAVE_ATLEAST_GIO_2_16
+				b->filepath = g_file_parse_name(tmp);
+#else
 				b->filepath = gnome_vfs_uri_new(tmp);
+#endif
 				g_free(tmp);
 			} else {
+#ifdef HAVE_ATLEAST_GIO_2_16
+				b->filepath = g_file_parse_name(items[2]);
+#else
 				b->filepath = gnome_vfs_uri_new(items[2]);
+#endif
 			}
+#ifdef HAVE_ATLEAST_GIO_2_16
+			/* because the bookmark list is usually sorted, we try to cache the uri's and consume less memory */
+			if (cacheduri && (cacheduri == b->filepath || g_file_equal(cacheduri,b->filepath))) {
+				g_object_unref(b->filepath);
+				g_object_ref(cacheduri);
+				b->filepath = cacheduri;
+			} else {
+				cacheduri = b->filepath;
+			}
+#else
 			/* because the bookmark list is usually sorted, we try to cache the uri's and consume less memory */
 			if (cacheduri && (cacheduri == b->filepath || gnome_vfs_uri_equal(cacheduri,b->filepath))) {
 				gnome_vfs_uri_unref(b->filepath);
@@ -999,6 +1072,8 @@ void bmark_reload(Tbfwin * bfwin) {
 			} else {
 				cacheduri = b->filepath;
 			}
+
+#endif
 			b->offset = atoi(items[3]);
 			b->text = g_strdup(items[4]);
 			b->len = atoi(items[5]);

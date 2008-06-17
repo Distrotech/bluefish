@@ -48,7 +48,11 @@ void statusbar_message(Tbfwin *bfwin,gchar *message, gint time);
 gboolean bfwin_has_doc(Tbfwin *bfwin, Tdocument *doc);
 gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index);
 gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document);
+#ifdef HAVE_ATLEAST_GIO_2_16
+gboolean switch_to_document_by_uri(Tbfwin *bfwin,GFile *uri);
+#else
 gboolean switch_to_document_by_uri(Tbfwin *bfwin,GnomeVFSURI *uri);
+#endif
 void bfwin_docs_not_complete(Tbfwin *bfwin, gboolean increase);
 
 void go_to_line_win_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);

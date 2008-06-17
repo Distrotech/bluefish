@@ -30,8 +30,13 @@ enum {
 void autoclosing_init(void);
 GList *return_allwindows_documentlist(void);
 GList *return_urilist_from_doclist(GList *doclist);
+#ifdef HAVE_ATLEAST_GIO_2_16
+gint documentlist_return_index_from_uri(GList *doclist, GFile *uri);
+Tdocument *documentlist_return_document_from_uri(GList *doclist, GFile *uri);
+#else
 gint documentlist_return_index_from_uri(GList *doclist, GnomeVFSURI *uri);
 Tdocument *documentlist_return_document_from_uri(GList *doclist, GnomeVFSURI *uri);
+#endif
 Tdocument *documentlist_return_document_from_index(GList *doclist, gint index);
 gint document_return_num_notcomplete(GList *doclist);
 
@@ -44,7 +49,11 @@ Tfiletype *get_filetype_by_name(const gchar *name);
 #ifndef GNOMEVFSINT
 Tfiletype *get_filetype_by_filename_and_content(const gchar *filename, gchar *buf);
 #endif
+#ifdef HAVE_ATLEAST_GIO_2_16
+void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssize buflen);
+#else
 void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gconstpointer buf, gssize buflen);
+#endif
 void doc_set_font(Tdocument *doc, gchar *fontstring);
 void doc_set_tabsize(Tdocument *doc, gint tabsize);
 void gui_change_tabsize(Tbfwin *bfwin,guint action,GtkWidget *widget);
@@ -79,7 +88,11 @@ void doc_bind_signals(Tdocument *doc);
 void doc_unbind_signals(Tdocument *doc);
 gchar *doc_get_buffer_in_encoding(Tdocument *doc);
 /* gboolean buffer_to_file(Tbfwin *bfwin, gchar *buffer, gchar *filename); */
+#ifdef HAVE_ATLEAST_GIO_2_16
+void doc_set_fileinfo(Tdocument *doc, GFileInfo *finfo);
+#else
 void doc_set_fileinfo(Tdocument *doc, GnomeVFSFileInfo *finfo);
+#endif
 void doc_get_iter_location(Tdocument *doc, GtkTextIter *iter, GdkRectangle *rectange);
 void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter *iter);
 void doc_destroy(Tdocument * doc, gboolean delay_activation);
@@ -91,8 +104,13 @@ void document_set_show_blocks(Tdocument *doc, gboolean value);
 void document_set_show_symbols(Tdocument *doc, gboolean value);
 Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
 /* void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename); */
+#ifdef HAVE_ATLEAST_GIO_2_16
+Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GFile *uri, GFileInfo *finfo, gboolean readonly);
+void doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset);
+#else
 Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gboolean readonly);
 void doc_new_from_uri(Tbfwin *bfwin, GnomeVFSURI *opturi, GnomeVFSFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset);
+#endif
 void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gboolean move_to_this_win, gint goto_line);
 void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_win);
 

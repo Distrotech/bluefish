@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -163,15 +163,38 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 	externalp_unref(ep);
 }
 
+#define USEBINSH
+
+static gint count_char(char *string, char mychar) {
+	gint retval = 0;
+	gchar *tmp = string;
+	while (*tmp) {
+		if (*tmp == mychar)
+			retval++;
+	}
+	return retval;
+}
+
 static void start_command_backend(Texternalp *ep) {
+#ifdef USEBINSH	
 	gchar *argv[4];
+#else
+	gchar **argv;
+#endif
 	gint standard_input=0,standard_output=0;
 	GError *error=NULL;
 
+#ifdef USEBINSH
 	argv[0] = "/bin/sh";
 	argv[1] = "-c";
 	argv[2] = ep->commandstring;
 	argv[3] = NULL;
+#else
+	
+	argv = g_malloc(sizeof(char *)*(count_char(ep->commandstring, ' ')+1));
+	
+	
+#endif
 	if (ep->fifo_in) {
 		if (mkfifo(ep->fifo_in, 0600) != 0) {
 			g_print("some error happened creating fifo %s??\n",ep->fifo_in);
@@ -196,16 +219,25 @@ static void start_command_backend(Texternalp *ep) {
 				NULL,&error);
 	ep->refcount++;
 	g_child_watch_add(ep->child_pid,child_watch_lcb,ep);
-	
 	if (error) {
-		DEBUG_MSG("start_command_backend, there is an error!!\n");
+		DEBUG_MSG("start_command_backend, there is an error: %s!!\n",error->message);
+		externalp_unref(ep);
+		return;
 	}
+	flush_queue();
 	if (ep->pipe_in) {
 		DEBUG_MSG("start_command_backend, creating channel_in from pipe\n");
 		ep->channel_in = g_io_channel_unix_new(standard_input);
 	} else if (ep->fifo_in) {
 		DEBUG_MSG("start_command_backend, connecting channel_in to fifo %s\n",ep->fifo_in);
-		ep->channel_in = g_io_channel_new_file(ep->fifo_in,"w",NULL);
+		/* problem: this can hang if there is no process actually reading from this fifo... so if the 
+		command died in some way (a nonexisting command), this call will hang bluefish */
+		ep->channel_in = g_io_channel_new_file(ep->fifo_in,"w",&error);
+		if (error) {
+			DEBUG_MSG("start_command_backend, error connecting to fifo %s: %s\n",ep->fifo_in,error->message);
+			
+			return;
+		}
 	}
 	if (ep->pipe_in || ep->fifo_in) {
 		ep->refcount++;
@@ -358,7 +390,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	is_local_non_modified = (ep->bfwin->current_document->uri 
 		&& !ep->bfwin->current_document->modified
 		&& strcmp(gnome_vfs_uri_get_scheme(ep->bfwin->current_document->uri),"file")==0);
-	DEBUG_MSG("create_commandstring,is_local_non_modified=%d, uri=%p, modified=%d, scheme=%s\n",is_local_non_modified,ep->bfwin->current_document->uri, ep->bfwin->current_document->modified, gnome_vfs_uri_get_scheme(ep->bfwin->current_document->uri));
+	DEBUG_MSG("create_commandstring,is_local_non_modified=%d, uri=%p, modified=%d\n",is_local_non_modified,ep->bfwin->current_document->uri, ep->bfwin->current_document->modified);
 
 	if (need_filename || is_local_non_modified) {
 		curi = gnome_vfs_uri_to_string(ep->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
