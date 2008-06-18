@@ -990,11 +990,10 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 gpointer bookmark_data_new(void) {
 	Tbmarkdata *bmd;
 	bmd = g_new0(Tbmarkdata, 1);
+	bmd->bookmarkstore = gtk_tree_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_POINTER);
 #ifdef HAVE_ATLEAST_GIO_2_16
-	bmd->bookmarkstore = gtk_tree_store_new(N_COLUMNS, G_TYPE_INT, G_TYPE_POINTER);
 	bmd->bmarkfiles = g_hash_table_new_full(g_file_hash, g_file_equal,NULL,NULL);
 #else
-	bmd->bookmarkstore = gtk_tree_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_POINTER);
 	bmd->bmarkfiles = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,gnome_vfs_uri_hash_destroy,NULL);
 #endif
 	DEBUG_MSG("bookmark_data_new, created bookmarkstore at %p\n", bmd->bookmarkstore);

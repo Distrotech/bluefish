@@ -139,7 +139,7 @@ GList *return_urilist_from_doclist(GList *doclist) {
 	while(tmplist){
 		if (DOCUMENT(tmplist->data)->uri) {
 			DEBUG_MSG("return_filenamestringlist_from_doclist, adding filename %s\n",gnome_vfs_uri_get_path(DOCUMENT(tmplist->data)->uri));
-			gnome_vfs_uri_ref(DOCUMENT(tmplist->data)->uri);
+			g_object_ref(DOCUMENT(tmplist->data)->uri);
 			newlist = g_list_prepend(newlist, DOCUMENT(tmplist->data)->uri);
 		}
 		tmplist = g_list_next(tmplist);
@@ -418,6 +418,32 @@ void doc_set_tooltip(Tdocument *doc) {
 	}
 	DEBUG_MSG("doc_set_tooltip, fileinfo=%p for doc %s\n", doc->fileinfo, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 	if (doc->fileinfo) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_UNIX_MODE)) {
+			tmp = filemode_to_string(g_file_info_get_attribute_uint32(doc->fileinfo, G_FILE_ATTRIBUTE_UNIX_MODE));
+			g_string_append_printf(retstr, _("\nPermissions: %s\nUid: %u Gid: %u"),tmp,doc->fileinfo->uid,doc->fileinfo->gid);
+			g_free(tmp);
+		}
+		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_SIZE)) {
+			sizestr = g_format_size_for_display(g_file_info_get_size(doc->fileinfo));
+			retstr = g_string_append(retstr, _("\nSize (on disk): "));
+			retstr = g_string_append(retstr, sizestr);
+			g_free(sizestr);
+		}
+		if (doc->hl && doc->hl->mime_type) {
+			retstr = g_string_append(retstr, _("\nMime type: "));
+			retstr = g_string_append(retstr, doc->hl->mime_type);
+		}
+		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED)) {
+			/* this function always appends a newline to the string*/
+			uint64 modtime = g_file_info_get_attribute_uint64(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
+			mtimestr = bf_portable_time(&modtime);
+			retstr = g_string_append(retstr, _("\nLast modified: "));
+			retstr = g_string_append(retstr, mtimestr);
+			g_free(mtimestr);
+			retstr = g_string_truncate(retstr,retstr->len-1);
+		}
+#else /* GnomeVFS */
 		if (doc->fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_PERMISSIONS) {
 			tmp = filemode_to_string(doc->fileinfo->permissions);
 			g_string_append_printf(retstr, _("\nPermissions: %s\nUid: %u Gid: %u"),tmp,doc->fileinfo->uid,doc->fileinfo->gid);
@@ -441,8 +467,9 @@ void doc_set_tooltip(Tdocument *doc) {
 			g_free(mtimestr);
 			retstr = g_string_truncate(retstr,retstr->len-1);
 		}
+#endif
 	}
-	tmp = g_string_free(retstr,FALSE);
+ /* #else HAVE_ATLEAST_GIO_2_16 */	tmp = g_string_free(retstr,FALSE);
 	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, tmp, "");
 	g_free(tmp);
 }
