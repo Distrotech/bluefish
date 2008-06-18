@@ -24,8 +24,14 @@
 #include "bluefish.h"
 GdkPixbuf *get_icon_for_mime_type (const char *mime_type);
 Tfiletype *get_filetype_for_mime_type(const gchar *mime_type);
+#ifdef HAVE_ATLEAST_GIO_2_16
+const gchar *get_mimetype_for_uri(GFile *uri, gboolean fast);
+Tfiletype *get_filetype_for_uri(GFile *uri, gboolean fast);
+#else /* GnomeVFS */
 const gchar *get_mimetype_for_uri(GnomeVFSURI *uri, gboolean fast);
 Tfiletype *get_filetype_for_uri(GnomeVFSURI *uri, gboolean fast);
+#endif /* #else HAVE_ATLEAST_GIO_2_16 */
+
 void filetype_highlighting_rebuild(gboolean gui_errors);
 
 #endif /* __FILETYPE_H_ */

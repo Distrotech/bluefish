@@ -79,6 +79,9 @@ extern void g_none(gchar *first, ...);
 
 #ifdef HAVE_ATLEAST_GIO_2_16
 #include <gio/gio.h>
+#define GnomeVFSURI GFile
+#define GnomeVFSFileInfo GFileInfo
+#define gnome_vfs_uri_equal g_file_equal
 #else
 #include <libgnomevfs/gnome-vfs.h>
 #endif

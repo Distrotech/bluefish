@@ -27,7 +27,6 @@
 
 #include "bluefish.h"
 #include <libxml/parser.h>
-#include <libgnomevfs/gnome-vfs.h>
 
 #ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
 #include <libgnomeui/libgnomeui.h>

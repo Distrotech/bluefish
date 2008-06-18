@@ -21,8 +21,13 @@
 #ifndef __FILEBROWSER2_H_
 #define __FILEBROWSER2_H_
 
+#ifdef HAVE_ATLEAST_GIO_2_16
+void fb2_refresh_dir_from_uri(GFile *dir);
+void fb2_refresh_parent_of_uri(GFile *child_uri);
+#else /* GnomeVFS */
 void fb2_refresh_dir_from_uri(GnomeVFSURI *dir);
 void fb2_refresh_parent_of_uri(GnomeVFSURI *child_uri);
+#endif /* #else HAVE_ATLEAST_GIO_2_16 */
 void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc);
 void fb2_update_settings_from_session(Tbfwin *bfwin);
 GtkWidget *fb2_init(Tbfwin *bfwin);
