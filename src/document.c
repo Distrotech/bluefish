@@ -421,7 +421,7 @@ void doc_set_tooltip(Tdocument *doc) {
 #ifdef HAVE_ATLEAST_GIO_2_16
 		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_UNIX_MODE)) {
 			tmp = filemode_to_string(g_file_info_get_attribute_uint32(doc->fileinfo, G_FILE_ATTRIBUTE_UNIX_MODE));
-			g_string_append_printf(retstr, _("\nPermissions: %s\nUid: %u Gid: %u"),tmp,doc->fileinfo->uid,doc->fileinfo->gid);
+			g_string_append_printf(retstr, _("\nPermissions: %s\nUid: %u Gid: %u"),tmp,g_file_info_get_attribute_uint32(doc->fileinfo,G_FILE_ATTRIBUTE_UNIX_UID),g_file_info_get_attribute_uint32(doc->fileinfo,G_FILE_ATTRIBUTE_UNIX_GID));
 			g_free(tmp);
 		}
 		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_SIZE)) {
@@ -436,7 +436,7 @@ void doc_set_tooltip(Tdocument *doc) {
 		}
 		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED)) {
 			/* this function always appends a newline to the string*/
-			uint64 modtime = g_file_info_get_attribute_uint64(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
+			guint64 modtime = g_file_info_get_attribute_uint64(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
 			mtimestr = bf_portable_time(&modtime);
 			retstr = g_string_append(retstr, _("\nLast modified: "));
 			retstr = g_string_append(retstr, mtimestr);
@@ -545,6 +545,15 @@ const char *gnome_vfs_mime_type_from_name (const gchar * filename);
 void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gconstpointer buf, gssize buflen) {
 	const gchar *mimetype = NULL;
 	Tfiletype *ft=NULL;
+#ifdef HAVE_ATLEAST_GIO_2_16
+	gboolean uncertain=FALSE;
+	char *filename, *conttype;
+	filename = filename_utf8_from_uri(newuri);
+	conttype = g_content_type_guess(filename,buf,buflen,&uncertain);
+	g_free(filename);
+	mimetype = g_content_type_get_mime_type(conttype);
+	/* docs are unclear if conttype is a static string or a newly allocated string */
+#else
 #ifdef HAVE_ATLEAST_GNOMEVFS_2_14
 	const gchar *curi;
 	
@@ -564,7 +573,7 @@ void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gconstpointer buf,
 		DEBUG_MSG("doc_reset_filetype, got %s as mimetype after content checking\n",mimetype);
 	}
 #endif
-	
+#endif
 	if (mimetype) {
 		ft = get_filetype_for_mime_type(mimetype);
 		 
@@ -580,7 +589,8 @@ void doc_set_filename(Tdocument *doc, GnomeVFSURI *newuri) {
 	DEBUG_MSG("doc_set_filename, started\n");
 	if (newuri) {
 		gchar *buf;
-		if (doc->uri) gnome_vfs_uri_unref(doc->uri);
+		if (doc->uri) 
+			gnome_vfs_uri_unref(doc->uri);
 		doc->uri = newuri;
 		gnome_vfs_uri_ref(newuri);
 		doc_set_title(doc);
@@ -2385,7 +2395,11 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 /*        bmark_adjust_visible(bfwin);   */
 
 	if (doc->uri) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+		gchar *curi = g_file_get_parse_name(doc->uri);
+#else
 		gchar *curi = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+#endif
 		add_to_recent_list(doc->bfwin,curi, 1, FALSE);
 		g_free(curi);
 	}
@@ -2769,7 +2783,11 @@ Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeV
 	Tdocument *doc = doc_new_backend(bfwin, FALSE, readonly);
 	DEBUG_MSG("doc_new_loading_in_background, bfwin=%p, doc=%p, for uri %s\n",bfwin,doc,gnome_vfs_uri_get_path(uri));
 	if (finfo) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+		doc->fileinfo = g_file_info_dup(finfo);
+#else
 		doc->fileinfo = gnome_vfs_file_info_dup(finfo);
+#endif
 	} else {
 		doc->fileinfo = NULL;
 	}
@@ -2864,8 +2882,12 @@ void doc_new_from_uri(Tbfwin *bfwin, GnomeVFSURI *opturi, GnomeVFSFileInfo *finf
 	}
 	uri = opturi;
 	gnome_vfs_uri_ref(opturi);
+#ifdef HAVE_ATLEAST_GIO_2_16
+	tmpcuri = g_file_get_parse_name(opturi);
+#else
 	tmpcuri = gnome_vfs_uri_to_string(opturi,GNOME_VFS_URI_HIDE_PASSWORD);
-	DEBUG_MSG("doc_new_from_uri, started for uri(%p)=%s=%s\n",uri,gnome_vfs_uri_get_path(uri),tmpcuri);
+#endif
+	DEBUG_MSG("doc_new_from_uri, started for uri(%p)=%s\n",uri,tmpcuri);
 	
 	/* check if the document already is opened */
 	alldocs = return_allwindows_documentlist();
