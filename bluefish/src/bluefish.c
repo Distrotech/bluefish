@@ -94,6 +94,9 @@ int main(int argc, char *argv[])
 	gint filearray, i;
 	GList *filenames = NULL, *projectfiles=NULL;
 	Tbfwin *firstbfwin;
+#ifdef HAVE_ATLEAST_GIO_2_16
+	GFile *tmpfile;
+#endif
 
 #ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
 	GnomeProgram *bfprogram;
@@ -166,8 +169,9 @@ int main(int argc, char *argv[])
 #endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 
 	xmlInitParser();
+#ifndef HAVE_ATLEAST_GIO_2_16
 	gnome_vfs_init();
-
+#endif
 #ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
 	/* will be crippled without libgnomeui*/
 	gnome_authentication_manager_init();
@@ -189,9 +193,12 @@ int main(int argc, char *argv[])
 
 	if (project) {
 #ifdef HAVE_ATLEAST_GIO_2_16
-		g_file_new_for_commandline_arg(project);
+		tmpfile = g_file_new_for_commandline_arg(project);
+		projectfiles = g_list_append(projectfiles, g_file_get_parse_name(tmpfile));
+		g_object_unref(tmpfile);
 #else
 		tmpname = create_full_path(project, NULL);
+		projectfiles = g_list_append(projectfiles, tmpname);
 #endif
 		/*
 			TODO 1: Check if given file is a project-file.
@@ -216,7 +223,7 @@ int main(int argc, char *argv[])
 			this could be a good starting poitn, when you want to open a file inside the project,
 			without seeing the whole tree (just see the project)
 		*/
-		projectfiles = g_list_append(projectfiles, tmpname);
+		
 		DEBUG_MSG("main, project=%s, tmpname=%s\n", project, tmpname);
 	}
 #if defined (HAVE_LIBGNOMEUI_LIBGNOMEUI_H) && !defined (GNOME_PARAM_GOPTION_CONTEXT)
@@ -227,11 +234,14 @@ int main(int argc, char *argv[])
 		filearray = g_strv_length(files);
 		for (i = 0; i < filearray; ++i) {
 #ifdef HAVE_ATLEAST_GIO_2_16
-			g_file_new_for_commandline_arg(files[i]);
+			tmpfile = g_file_new_for_commandline_arg(files[i]);
+			filenames = g_list_append(filenames, g_file_get_parse_name(tmpfile));
+			g_object_unref(tmpfile);
 #else
 			tmpname = create_full_path(files[i], NULL);
-#endif
 			filenames = g_list_append(filenames, tmpname);
+#endif
+			
 			DEBUG_MSG("main, files[%d]=%s, tmpname=%s\n", i, files[i], tmpname);
 		}
 		g_strfreev(files);
