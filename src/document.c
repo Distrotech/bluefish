@@ -2916,14 +2916,36 @@ void doc_new_from_uri(Tbfwin *bfwin, GnomeVFSURI *opturi, GnomeVFSFileInfo *finf
 	session_set_opendir(bfwin, tmpcuri);
 	g_free(tmpcuri);
 }
-
+#ifdef HAVE_ATLEAST_GIO_2_16
+void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gboolean move_to_this_win, gint goto_line) {
+	GFile *uri;
+	if (!input) {
+		return;
+	}
+	DEBUG_MSG("doc_new_from_input, input=%s, delay_activate=%d\n",input,delay_activate);
+	if (strchr(input, '/')==NULL) { /* no slashes in the path, relative ?*/
+		if (bfwin->current_document->uri) {
+			uri = g_file_resolve_relative_path(bfwin->current_document->uri, input);
+		} else {
+			/* relative path to what ?!?!?! */
+			/* home dir? current dir? */
+		}
+	} else {
+		uri = g_file_new_for_commandline_arg(input);
+	}
+	if (uri) {
+		doc_new_from_uri(bfwin, uri, NULL, delay_activate, move_to_this_win, goto_line, -1);
+		g_object_unref(uri);
+	}
+}
+#else
 void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gboolean move_to_this_win, gint goto_line) {
 	gchar *curi=NULL;
 	if (!input) {
 		return;
 	}
 	DEBUG_MSG("doc_new_from_input, input=%s, delay_activate=%d\n",input,delay_activate);
-	if (strchr(input, '/')==NULL) { /* relative ?*/
+	if (strchr(input, '/')==NULL) { /* no slashes in the path, relative ?*/
 		if (bfwin->current_document->uri) {
 			gchar *relname;
 			GnomeVFSURI *tmp1;
@@ -2952,6 +2974,7 @@ void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gb
 		}
 	}
 }
+#endif
 
 void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_win) {
 	GSList *tmpslist;
@@ -2959,9 +2982,15 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
 	bfwin->focus_next_new_doc = TRUE;
 	tmpslist = urislist;
 	while (tmpslist) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+		GFile *uri = g_file_parse_name(tmpslist->data);
+		doc_new_from_uri(bfwin, uri, NULL, TRUE, move_to_this_win, -1, -1);
+		g_object_unref(uri);
+#else
 		GnomeVFSURI *uri = gnome_vfs_uri_new(tmpslist->data);
 		doc_new_from_uri(bfwin, uri, NULL, TRUE, move_to_this_win, -1, -1);
 		gnome_vfs_uri_unref(uri);
+#endif
 		tmpslist = g_slist_next(tmpslist);
 	}
 	DEBUG_MSG("docs_new_from_uris, done, all documents loading in background\n");

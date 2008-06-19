@@ -167,8 +167,10 @@ typedef struct {
 typedef struct {
 #ifdef HAVE_ATLEAST_GIO_2_16
 	GFile *uri;
+	GFileInfo *fileinfo;
 #else
 	GnomeVFSURI *uri;
+	GnomeVFSFileInfo *fileinfo;
 #endif
 	Tdoc_action action; /* see above, if set, some action has to be executed after opening/closing is done */
 /*	gchar *filename;  this is the UTF-8 encoded filename, before you use it on disk you need convert to disk-encoding! */
@@ -176,11 +178,6 @@ typedef struct {
 	gchar *encoding;
 	gint modified;
 	gint readonly;
-#ifdef HAVE_ATLEAST_GIO_2_16
-	GFileInfo *fileinfo;
-#else
-	GnomeVFSFileInfo *fileinfo;
-#endif
 	gint is_symlink; /* file is a symbolic link */
 	gulong del_txt_id; /* text delete signal */
 	gulong ins_txt_id; /* text insert signal */

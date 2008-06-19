@@ -73,7 +73,19 @@ static void push_to_queue(Tqueue *queue, gpointer data) {
 }*/
 
 /*************************** FILE DELETE ASYNC ******************************/
+#ifdef HAVE_ATLEAST_GIO_2_16
+static gboolean delete_async(GIOSchedulerJob *job,GCancellable *cancellable,gpointer user_data) {
+	GFile *uri = user_data;	
+	g_file_delete(uri,NULL,NULL);
+	g_object_unref(uri);
+}
 
+void file_delete_file_async(GFile *uri, DeleteAsyncCallback callback, gpointer callback_data) {
+	g_io_scheduler_push_job(delete_async, uri,NULL,G_PRIORITY_DEFAULT,NULL);
+	g_object_ref(uri);
+}
+
+#else
 typedef struct {
 	GnomeVFSAsyncHandle *handle;
 	DeleteAsyncCallback callback;
@@ -116,9 +128,63 @@ void file_delete_file_async(GnomeVFSURI *uri, DeleteAsyncCallback callback, gpoi
 						,deletefile_progress_lcb, fd
 						,deletefile_sync_lcb, fd);
 }
-
+#endif
 /*************************** FILE INFO ASYNC ******************************/
+#ifdef HAVE_ATLEAST_GIO_2_16
+static gboolean checkmodified_is_modified(GFileInfo *orig, GFileInfo *new) {
+	/* modified_check_type;  0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
+	if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
+		if (g_file_info_get_attribute_uint64(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED) != g_file_info_get_attribute_uint64(new,G_FILE_ATTRIBUTE_TIME_MODIFIED)) return TRUE;
+	}
+	if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 3) {
+		if (g_file_info_get_size(orig) != g_file_info_get_size(new)) return TRUE;
+	}
+	return FALSE;
+}
 
+static void checkmodified_asyncfileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	GFileInfo *info;
+	GError error=NULL;
+	Tcheckmodified *cm = user_data;
+	info = g_file_query_info_finish(cm->uri,res,&error);
+	if (info) {
+		if (checkmodified_is_modified(cm->orig_finfo, info))) {
+			cm->callback_func(CHECKMODIFIED_MODIFIED, item->result, cm->orig_finfo, item->file_info, cm->callback_data);
+		} else {
+			cm->callback_func(CHECKMODIFIED_OK, item->result, cm->orig_finfo, item->file_info, cm->callback_data);
+		}
+	} else {
+		/* error condition */
+		DEBUG_MSG("************************ checkmodified_asyncfileinfo_lcb, non-handled error condition\n");
+		
+		cm->callback_func(CHECKMODIFIED_ERROR, error->code, NULL, NULL, cm->callback_data);
+		g_error_free(error);
+	}
+}
+
+
+Tcheckmodified *file_checkmodified_uri_async(GFile *uri, GFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data) {
+	Tcheckmodified *cm;
+	if (curinfo == NULL) {
+		callback_func(CHECKMODIFIED_OK, 0, NULL, NULL, callback_data);
+		return NULL;
+	}
+	cm = g_new(Tcheckmodified,1);
+	cm->callback_func = callback_func;
+	cm->callback_data = callback_data;
+	g_object_ref(uri);
+	cm->uris = g_list_append(NULL, uri);
+	g_object_ref(curinfo);
+	cm->orig_finfo = curinfo;
+
+	g_file_query_info_async(uri,"standard::size,unix::mode,unix::uid,unix::gid,time::modified"
+					,G_FILE_QUERY_INFO_NONE
+					,G_PRIORITY_DEFAULT
+					,cancellable
+					,checkmodified_asyncfileinfo_lcb,cm);
+}
+
+#else
 static void checkmodified_cleanup(Tcheckmodified *cm) {
 	DEBUG_MSG("checkmodified_cleanup, started\n");
 	gnome_vfs_uri_unref(cm->uris->data);
@@ -208,8 +274,11 @@ Tcheckmodified * file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo
 			,GNOME_VFS_PRIORITY_DEFAULT,checkmodified_asyncfileinfo_lcb,cm);
 	return cm;
 }
+#endif
 /*************************** SAVE FILE ASYNC ******************************/
-
+#ifdef HAVE_ATLEAST_GIO_2_16
+/* nothing, we can directly check if it is modified and do the backup */
+#else
 static void savefile_cleanup(Tsavefile *sf) {
 	DEBUG_MSG("savefile_cleanup, called for %p\n",sf);
 	refcpointer_unref(sf->buffer);
@@ -317,22 +386,107 @@ Tsavefile *file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, Gnome
 				,savefile_asyncopenuri_lcb,sf);
 	return sf;
 }
-
+#endif
 /*************************** CHECK MODIFIED AND SAVE ASYNC ******************************/
 
 typedef struct {
+#ifdef HAVE_ATLEAST_GIO_2_16
+	goffset buffer_size;
+	GFile *uri;
+	GFileInfo *finfo;
+	const gchar *etag;
+#else
 	GnomeVFSAsyncHandle *handle; /* to cancel backups */
-	Tsavefile *sf; /* to cancel the actual save */
-	Tcheckmodified *cm; /* to cancel the checkmodified check */
 	GnomeVFSFileSize buffer_size;
-	Trefcpointer *buffer;
 	GnomeVFSURI *uri;
 	GnomeVFSFileInfo *finfo;
+#endif
+	Tsavefile *sf; /* to cancel the actual save */
+	Tcheckmodified *cm; /* to cancel the checkmodified check */
+	Trefcpointer *buffer;
 	gboolean check_modified;
 	CheckNsaveAsyncCallback callback_func;
 	gpointer callback_data;
 	gboolean abort; /* the backup callback may set this to true, it means that the user choosed to abort save because the backup failed */
 } TcheckNsave;
+#ifdef HAVE_ATLEAST_GIO_2_16
+
+static void checkNsave_cleanup(TcheckNsave *cns) {
+	DEBUG_MSG("checkNsave_cleanup, called for %p\n",cns);
+	refcpointer_unref(cns->buffer);
+	g_object_unref(cns->uri);
+	if (cns->finfo) g_object_unref(cns->finfo);
+	g_free(cns);
+}
+
+static checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *res, gpointer user_data) {
+	TcheckNsave *cns = user_data;
+	gboolean retval;
+	char *etag=NULL;
+	GError error=NULL;
+	
+	retval = g_file_replace_contents_finish(cns->uri,res,&etag,&error);
+	if (error) {
+		if (error->code == G_IO_ERROR_WRONG_ETAG) {
+			gboolean contsave; 
+			if (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED, error_info, cns->callback_data) == CHECKNSAVE_CONT) {
+				g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
+						,NULL,TRUE
+						,G_FILE_CREATE_NONE,NULL
+						,checkNsave_replace_async_lcb,sf);
+			} else {
+				/* abort */
+				checkNsave_cleanup(cns);
+			}
+		} else if (error->code == G_IO_ERROR_CANT_CREATE_BACKUP) {
+			if (cns->callback_func(CHECKANDSAVE_ERROR_NOBACKUP, 0, cns->callback_data) == CHECKNSAVE_CONT) {
+				g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
+						,cns->etag,FALSE
+						,G_FILE_CREATE_NONE,NULL
+						,checkNsave_replace_async_lcb,sf);
+			} else {
+				/* abort */
+				checkNsave_cleanup(cns);
+			}
+		} else {
+			g_print("****************** checkNsave_replace_async_lcb() unhandled error \n");
+		}
+	} else {
+		cns->callback_func(CHECKANDSAVE_FINISHED, error_info, cns->callback_data);
+		checkNsave_cleanup(cns);
+	}
+}
+
+gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, goffset buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
+	TcheckNsave *cns;
+	cns->etag=NULL;
+	cns = g_new0(TcheckNsave,1);
+	cns->callback_data = callback_data;
+	cns->callback_func = callback_func;
+	cns->buffer = buffer;
+	refcpointer_ref(buffer);
+	cns->buffer_size = buffer_size;
+	cns->uri = uri;
+	g_object_ref(uri);
+	cns->finfo = info;
+	cns->check_modified = check_modified;
+	cns->abort = FALSE;
+	if (info) {
+		g_object_ref(info);
+		if (check_modified) {
+			etag = g_file_info_get_etag(info);
+		}
+	}
+	g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
+					,cns->etag,TRUE
+					,G_FILE_CREATE_NONE,NULL
+					,checkNsave_replace_async_lcb,sf);
+	return cns;
+}
+
+
+
+#else
 
 static void checkNsave_cleanup(TcheckNsave *cns) {
 	DEBUG_MSG("checkNsave_cleanup, called for %p\n",cns);
@@ -599,7 +753,7 @@ gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Tre
 	}
 	return cns;
 }
-
+#endif
 /*************************** OPEN FILE ASYNC ******************************/
 
 #define CHUNK_SIZE 4096
