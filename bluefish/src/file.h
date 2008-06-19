@@ -142,15 +142,13 @@ typedef struct {
 #ifdef HAVE_ATLEAST_GIO_2_16
 	GFile *uri;
 	GCancellable *handle;
-	goffset buffer_size;
-	goffset used_size;
 #else /* GnomeVFS */
 	GnomeVFSURI *uri;
 	GnomeVFSAsyncHandle *handle;
 	GnomeVFSFileSize buffer_size;
 	GnomeVFSFileSize used_size;
-#endif /* #else HAVE_ATLEAST_GIO_2_16 */
 	gchar *buffer;
+#endif /* #else HAVE_ATLEAST_GIO_2_16 */
 	OpenfileAsyncCallback callback_func;
 	gpointer callback_data;
 } Topenfile;

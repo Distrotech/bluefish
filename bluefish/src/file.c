@@ -755,7 +755,40 @@ gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Tre
 }
 #endif
 /*************************** OPEN FILE ASYNC ******************************/
+#ifdef HAVE_ATLEAST_GIO_2_16
+static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	Topenfile *of = user_data;
+	gboolean retval;
+	GError *error=NULL;
+	gchar *buffer=NULL;
+	gchar *etag=NULL;
+	gsize size=0;
+	
+	retval = g_file_load_contents_finish(of->uri,res,&buffer,&size,&etag,&error);
+	if (error) {
+	
+	
+	} else {
+		of->callback_func(OPENFILE_FINISHED,result,buffer,size, of->callback_data);
+	}
+	g_free(buffer);
+}
 
+Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callback_func, gpointer callback_data) {
+	Topenfile *of;
+	of = g_new(Topenfile,1);
+	DEBUG_MSG("file_open_uri_async, %s, of=%p\n",gnome_vfs_uri_get_path(uri), of);
+	of->callback_data = callback_data;
+	of->callback_func = callback_func;
+	of->uri = uri;
+	g_object_ref(of->uri);
+	
+	g_file_load_contents_async(of->uri,NULL,openfile_async_lcb,of);
+	return of;
+}
+
+
+#else
 #define CHUNK_SIZE 4096
 #define BUFFER_INCR_SIZE 40960
 #define WORKING_QUEUE_SIZE 10
@@ -897,6 +930,7 @@ Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callb
 	DEBUG_MSG("file_openfile_uri_async, returning Topenfile at %p\n",of);
 	return of;
 }
+#endif
 /************ LOAD A FILE ASYNC INTO A DOCUMENT ************************/
 typedef struct {
 	Tbfwin *bfwin;
