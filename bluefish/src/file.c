@@ -766,10 +766,10 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 	
 	retval = g_file_load_contents_finish(of->uri,res,&buffer,&size,&etag,&error);
 	if (error) {
-	
-	
+		of->callback_func(OPENFILE_ERROR,error->code,buffer,size, of->callback_data);
+		g_error_free(error);
 	} else {
-		of->callback_func(OPENFILE_FINISHED,result,buffer,size, of->callback_data);
+		of->callback_func(OPENFILE_FINISHED,0,buffer,size, of->callback_data);
 	}
 	g_free(buffer);
 }
@@ -786,9 +786,8 @@ Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callb
 	g_file_load_contents_async(of->uri,NULL,openfile_async_lcb,of);
 	return of;
 }
-
-
 #else
+
 #define CHUNK_SIZE 4096
 #define BUFFER_INCR_SIZE 40960
 #define WORKING_QUEUE_SIZE 10
@@ -938,6 +937,9 @@ typedef struct {
 	GnomeVFSURI *uri;
 	gboolean isTemplate;
 } Tfileintodoc;
+#ifdef HAVE_ATLEAST_GIO_2_16
+
+#else
 
 static void fileintodoc_cleanup(Tfileintodoc *fid) {
 	gnome_vfs_uri_unref(fid->uri);
@@ -1263,7 +1265,7 @@ void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo,
 	}
 	f2d->of = file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
 }
-
+#endif
 /*************************** OPEN ADVANCED ******************************/
 
 typedef struct {
