@@ -937,9 +937,6 @@ typedef struct {
 	GnomeVFSURI *uri;
 	gboolean isTemplate;
 } Tfileintodoc;
-#ifdef HAVE_ATLEAST_GIO_2_16
-
-#else
 
 static void fileintodoc_cleanup(Tfileintodoc *fid) {
 	gnome_vfs_uri_unref(fid->uri);
@@ -1112,6 +1109,47 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 	}
 }
 
+#ifdef HAVE_ATLEAST_GIO_2_16
+
+typedef struct {
+	Tdocument *doc;
+	GFile *uri;
+} Tfileinfo;
+
+static void fill_fileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	GFileInfo *info;
+	GError error=NULL;
+	Tfileinfo *fi = user_data;
+	info = g_file_query_info_finish(fi->uri,res,&error);
+	if (info) {
+		doc_set_fileinfo(fi->doc, info);
+	}
+	fi->doc->action.info = NULL;
+	if (fi->doc->action.close_doc) {
+		doc_close_single_backend(fi->doc, FALSE, fi->doc->action.close_window);
+	}
+	g_object_unref(fi->uri);
+	g_free(fi);
+}
+
+void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri) {
+	Tfileinfo *fi;
+	fi = g_new(Tfileinfo,1);
+	DEBUG_MSG("file_doc_fill_fileinfo, started for doc %p and uri %s at fi=%p\n",doc,gnome_vfs_uri_get_path(uri),fi);
+	fi->doc = doc;
+	fi->doc->action.info = fi;
+	g_object_ref(uri);
+	fi->uri = uri;
+	
+	g_file_query_info_async(fi->uri,"standard::size,unix::mode,unix::uid,unix::gid,time::modified"
+					,G_FILE_QUERY_INFO_NONE
+					,G_PRIORITY_LOW
+					,cancellable
+					,fill_fileinfo_lcb,fi);
+}
+
+#else
+
 /* async file info */
 #define FILEINFO_WORKING_QUEUE_SIZE 5
 typedef struct {
@@ -1208,6 +1246,7 @@ void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri) {
 		fileinfo_activate(fi);
 	}
 }
+#endif
 
 void file_doc_retry_uri(Tdocument *doc) {
 	Tfile2doc *f2d;

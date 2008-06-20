@@ -81,6 +81,7 @@ extern void g_none(gchar *first, ...);
 #include <gio/gio.h>
 #define GnomeVFSURI GFile
 #define GnomeVFSFileInfo GFileInfo
+#define GnomeVFSFileSize goffset
 #define gnome_vfs_uri_equal g_file_equal
 #define gnome_vfs_uri_unref g_object_unref
 #define gnome_vfs_uri_ref g_object_ref
