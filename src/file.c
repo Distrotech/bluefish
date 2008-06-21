@@ -1141,7 +1141,7 @@ void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri) {
 	g_object_ref(uri);
 	fi->uri = uri;
 	
-	g_file_query_info_async(fi->uri,"standard::size,unix::mode,unix::uid,unix::gid,time::modified"
+	g_file_query_info_async(fi->uri,BF_FILEINFO
 					,G_FILE_QUERY_INFO_NONE
 					,G_PRIORITY_LOW
 					,cancellable
@@ -1331,8 +1331,13 @@ typedef struct {
 
 typedef struct {
 	Topenadv *oa;
+#ifdef HAVE_ATLEAST_GIO_2_16
+	GFile *basedir;
+	GFileEnumerator *enumerator;
+#else
 	GnomeVFSAsyncHandle *handle;
 	GnomeVFSURI *basedir;
+#endif
 } Topenadv_dir;
 
 typedef struct {
@@ -1416,10 +1421,124 @@ static void openadv_content_filter_file(Topenadv *oa, GnomeVFSURI *uri, GnomeVFS
 	oa->refcount++;
 	oau->uri = uri;
 	gnome_vfs_uri_ref(uri);
+#ifdef HAVE_ATLEAST_GIO_2_16
+	oau->finfo = g_file_info_dup(finfo);
+#else
 	oau->finfo = gnome_vfs_file_info_dup(finfo);
+#endif
 	file_openfile_uri_async(uri, open_adv_content_filter_lcb, oau);
 }
 
+#ifdef HAVE_ATLEAST_GIO_2_16
+
+static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	GList *list *tmplist;;
+	GError *error=NULL;
+	Topenadv_dir *oad = user_data;
+	list = g_file_enumerator_next_files_finish (oad->enumerator,res,&error);
+	while (tmplist) {
+		GFileInfo *finfo=tmplist->data;
+		if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_DIRECTORY) {
+			GFile *dir;
+			const gchar *name = g_file_info_get_name(finfo);
+			dir = g_file_get_child(oad->basedir,name);
+			open_advanced_backend(oad->oa, dir);
+			g_object_unref(dir);
+		} else if (g_file_info_get_file_type(info)==G_FILE_TYPE_REGULAR) {
+			GFile *child_uri;
+			GList *alldoclist;
+			const gchar *name = g_file_info_get_name(finfo);
+			child_uri = g_file_get_child(oad->basedir,name);
+
+			alldoclist = return_allwindows_documentlist();
+			if (documentlist_return_document_from_uri(alldoclist, child_uri)==NULL) { /* if this file is already open, there is no need to do any of these checks */
+				if (oad->oa->patspec) {
+					const gchar *nametomatch;
+					/* check if we have to match the name only or path+name */
+					if (oad->oa->matchname) {
+						nametomatch = name;
+					} else {
+						char *filepart;
+						filepart = strrchr(name,'/');
+						nametomatch = filepart;
+					}
+					DEBUG_MSG("open_adv_load_directory_lcb, matching on %s\n",nametomatch);
+					if (g_pattern_match_string(oad->oa->patspec, nametomatch)) { /* test extension */
+						if (oad->oa->content_filter) { /* do we need content filtering */
+							DEBUG_MSG("open_adv_load_directory_lcb, content filter %s\n", gnome_vfs_uri_get_path(child_uri));
+							openadv_content_filter_file(oad->oa, child_uri, finfo);
+						} else { /* open this file as document */
+							DEBUG_MSG("open_adv_load_directory_lcb, open %s\n", gnome_vfs_uri_get_path(child_uri));
+							doc_new_from_uri(oad->oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
+						}
+					}
+				} else if (oad->oa->content_filter) {
+					openadv_content_filter_file(oad->oa, child_uri, finfo);
+				} else {
+					doc_new_from_uri(oad->oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
+				}
+			}
+		}
+		g_object_unref(finfo);
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(list);
+}
+
+static void enumerate_children_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	Topenadv_dir *oad = user_data;
+	GFileEnumerator* gfe;
+	GError *error=NULL;
+	
+	oad->gfe = g_file_enumerate_children_finish(oad->basedir,res,&error);
+	g_file_enumerator_next_files_async(gfe,10,G_PRIORITY_DEFAULT+2
+			,cancellable
+			,enumerator_next_files_lcb,oad);
+}
+
+static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
+	Topenadv_dir *oad;
+	GError *error=NULL;
+	oad = g_new0(Topenadv_dir, 1);
+	oad->oa = oa;
+	oa->refcount++;
+
+	oad->basedir = basedir;
+	gnome_vfs_uri_ref(oad->basedir);
+	g_file_enumerate_children_async(basedir,BF_FILEINFO,0
+				,G_PRIORITY_DEFAULT+3 
+				,cancellable
+				,enumerate_children_lcb,oad);
+}
+
+void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
+	if (basedir) {
+		Topenadv *oa;
+		oa = g_new0(Topenadv, 1);
+		DEBUG_MSG("open_advanced, open dir %s, oa=%p, name_filter=%s\n", gnome_vfs_uri_get_path(basedir), oa, name_filter);
+		oa->bfwin = bfwin;
+		oa->recursive = recursive;
+		oa->matchname = matchname;
+		oa->topbasedir = basedir;
+		gnome_vfs_uri_ref(oa->topbasedir);
+		if (name_filter) {
+			oa->extension_filter = g_strdup(name_filter);
+			oa->patspec = g_pattern_spec_new(name_filter);
+		}
+		if (content_filter) oa->content_filter = g_strdup(content_filter);
+		oa->use_regex = use_regex;
+		if (oa->use_regex) {
+			const char *error;
+			int erroffset;
+			oa->contentf_pcre = pcre_compile(oa->content_filter, 0, &error, &erroffset, NULL);
+			/* BUG: need error handling here */
+			openadv_unref(oa);
+		}
+		open_advanced_backend(oa, basedir);
+	}
+}
+
+#else
 static gboolean process_advqueue(gpointer data);
 
 static void open_adv_load_directory_cleanup(Topenadv_dir *oad) {
@@ -1584,7 +1703,7 @@ void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gboo
 		open_advanced_backend(oa, basedir);
 	}
 }
-
+#endif
 /************************/
 typedef struct {
 	Tbfwin *bfwin;
