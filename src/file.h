@@ -45,12 +45,13 @@ typedef void (* CheckmodifiedAsyncCallback) (Tcheckmodified_status status,gint e
 typedef struct {
 #ifdef HAVE_ATLEAST_GIO_2_16
 	GCancellable *handle;
-	GFileInfo *orig_info;
+	GFileInfo *orig_finfo;
+	GFile *uri;
 #else
 	GnomeVFSAsyncHandle *handle;
 	GnomeVFSFileInfo *orig_finfo;
+	GList *uris;
 #endif
-	GList *uris;	
 	CheckmodifiedAsyncCallback callback_func;
 	gpointer callback_data;
 } Tcheckmodified;

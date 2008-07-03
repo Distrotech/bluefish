@@ -144,14 +144,14 @@ static gboolean checkmodified_is_modified(GFileInfo *orig, GFileInfo *new) {
 
 static void checkmodified_asyncfileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	GFileInfo *info;
-	GError error=NULL;
+	GError *error=NULL;
 	Tcheckmodified *cm = user_data;
 	info = g_file_query_info_finish(cm->uri,res,&error);
 	if (info) {
-		if (checkmodified_is_modified(cm->orig_finfo, info))) {
-			cm->callback_func(CHECKMODIFIED_MODIFIED, item->result, cm->orig_finfo, item->file_info, cm->callback_data);
+		if (checkmodified_is_modified(cm->orig_finfo, info)) {
+			cm->callback_func(CHECKMODIFIED_MODIFIED, 0, cm->orig_finfo, info, cm->callback_data);
 		} else {
-			cm->callback_func(CHECKMODIFIED_OK, item->result, cm->orig_finfo, item->file_info, cm->callback_data);
+			cm->callback_func(CHECKMODIFIED_OK, 0, cm->orig_finfo, info, cm->callback_data);
 		}
 	} else {
 		/* error condition */
@@ -173,14 +173,14 @@ Tcheckmodified *file_checkmodified_uri_async(GFile *uri, GFileInfo *curinfo, Che
 	cm->callback_func = callback_func;
 	cm->callback_data = callback_data;
 	g_object_ref(uri);
-	cm->uris = g_list_append(NULL, uri);
+	cm->uri = uri;
 	g_object_ref(curinfo);
 	cm->orig_finfo = curinfo;
 
 	g_file_query_info_async(uri,"standard::size,unix::mode,unix::uid,unix::gid,time::modified"
 					,G_FILE_QUERY_INFO_NONE
 					,G_PRIORITY_DEFAULT
-					,cancellable
+					,NULL /*cancellable*/
 					,checkmodified_asyncfileinfo_lcb,cm);
 }
 
@@ -419,21 +419,21 @@ static void checkNsave_cleanup(TcheckNsave *cns) {
 	g_free(cns);
 }
 
-static checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *res, gpointer user_data) {
+static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *res, gpointer user_data) {
 	TcheckNsave *cns = user_data;
 	gboolean retval;
 	char *etag=NULL;
-	GError error=NULL;
+	GError *error=NULL;
 	
 	retval = g_file_replace_contents_finish(cns->uri,res,&etag,&error);
 	if (error) {
 		if (error->code == G_IO_ERROR_WRONG_ETAG) {
 			gboolean contsave; 
-			if (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED, error_info, cns->callback_data) == CHECKNSAVE_CONT) {
+			if (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED,error->code, cns->callback_data) == CHECKNSAVE_CONT) {
 				g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
 						,NULL,TRUE
 						,G_FILE_CREATE_NONE,NULL
-						,checkNsave_replace_async_lcb,sf);
+						,checkNsave_replace_async_lcb,cns);
 			} else {
 				/* abort */
 				checkNsave_cleanup(cns);
@@ -443,7 +443,7 @@ static checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *res, gp
 				g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
 						,cns->etag,FALSE
 						,G_FILE_CREATE_NONE,NULL
-						,checkNsave_replace_async_lcb,sf);
+						,checkNsave_replace_async_lcb,cns);
 			} else {
 				/* abort */
 				checkNsave_cleanup(cns);
@@ -480,7 +480,7 @@ gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *bu
 	g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
 					,cns->etag,TRUE
 					,G_FILE_CREATE_NONE,NULL
-					,checkNsave_replace_async_lcb,sf);
+					,checkNsave_replace_async_lcb,cns);
 	return cns;
 }
 
@@ -1707,12 +1707,124 @@ void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gboo
 /************************/
 typedef struct {
 	Tbfwin *bfwin;
+#ifdef HAVE_ATLEAST_GIO_2_16
+	GSList *sourcelist;
+	GFile *destdir;
+	GFile *curfile, *curdest;
+#else
 	GnomeVFSAsyncHandle *handle;
 	GnomeVFSURI *destdir;
 	GList *sourcelist;
 	GList *destlist;
+#endif
 } Tcopyfile;
 
+#ifdef HAVE_ATLEAST_GIO_2_16
+static gboolean copy_uris_process_queue(Tcopyfile *cf);
+static void copy_async_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	Tcopyfile *cf = user_data;
+	gboolean done;
+	GError *error=NULL;
+	/* fill in the blanks */
+	done = g_file_copy_finish(cf->curfile,res,&error);
+
+	if (!done) {
+		if (error->code == G_IO_ERROR_EXISTS) {
+			const gchar *buttons[] = {_("_Skip"), _("_Overwrite"), NULL};
+			gint retval;
+			gchar *tmpstr, *dispname;
+			dispname = gfile_display_name(cf->curfile);
+			tmpstr = g_strdup_printf(_("%s cannot be copied, it already exists, overwrite?"),dispname);
+			retval = message_dialog_new_multi(BFWIN(cf->bfwin)->main_window,
+														 GTK_MESSAGE_WARNING,
+														 buttons,
+														 _("Overwrite file?"),
+														 tmpstr);
+			g_free(tmpstr);
+			g_free(dispname);
+			if (retval == 1) {
+				g_file_copy_async(cf->curfile,cf->curdest,G_FILE_COPY_OVERWRITE,
+					G_PRIORITY_LOW,NULL,
+					NULL,NULL,
+					copy_async_lcb,cf);
+				return;
+			}
+		}
+	}
+	g_object_unref(cf->curfile);
+	g_object_unref(cf->curdest);
+
+	if (!copy_uris_process_queue(cf)) {
+		g_object_unref(cf->destdir);
+		g_free(cf);
+	}
+}
+
+static gboolean copy_uris_process_queue(Tcopyfile *cf) {
+	if (cf->sourcelist) {
+		GFile *uri, *dest;
+		char *tmp;
+		
+		uri = cf->sourcelist->data;
+		cf->sourcelist = g_slist_remove(cf->sourcelist, uri);
+		
+		tmp = g_file_get_basename(uri);
+		dest = g_file_get_child(cf->destdir,tmp);
+		g_free(tmp);
+		
+		cf->curfile = uri;
+		cf->curdest = dest;
+		
+		g_file_copy_async(uri,dest,G_FILE_COPY_NONE,
+				G_PRIORITY_LOW,NULL,
+				NULL,NULL,
+				copy_async_lcb,cf);
+		
+		return TRUE;
+	}
+	return FALSE;
+}
+
+void copy_uris_async(Tbfwin *bfwin, GFile *destdir, GSList *sources) {
+	Tcopyfile *cf;
+	GSList *tmplist;
+	cf = g_new0(Tcopyfile,1);
+	cf->bfwin = bfwin;
+	cf->destdir = destdir;
+	g_object_ref(cf->destdir);
+	cf->sourcelist = g_slist_copy(sources);
+	tmplist = cf->sourcelist;
+	while (tmplist) {
+		g_object_ref(tmplist->data);
+		tmplist = tmplist->next;
+	}
+	copy_uris_process_queue(cf);
+}
+
+
+void copy_files_async(Tbfwin *bfwin, GFile *destdir, gchar *sources) {
+	Tcopyfile *cf;
+	gchar **splitted, **tmp;
+	cf = g_new0(Tcopyfile,1);
+	cf->bfwin = bfwin;
+	cf->destdir = destdir;
+	g_object_ref(cf->destdir);
+	/* create the source and destlist ! */
+	tmp = splitted = g_strsplit(sources, "\n",0);
+	while (*tmp) {
+		trunc_on_char(trunc_on_char(*tmp, '\r'), '\n');
+		if (strlen(*tmp) > 1) {
+			GFile *src;
+			src = g_file_new_for_path(*tmp);
+			cf->sourcelist = g_slist_append(cf->sourcelist, src);
+		}
+		tmp++;
+	}
+	g_strfreev(splitted);
+	copy_uris_process_queue(cf);
+}
+
+#else
 static void copyfile_cleanup(Tcopyfile *cf) {
 	DEBUG_MSG("copyfile_cleanup %p\n",cf);
 	gnome_vfs_uri_list_free(cf->sourcelist);
@@ -1794,4 +1906,4 @@ void copy_files_async(Tbfwin *bfwin, GnomeVFSURI *destdir, gchar *sources) {
 			,g_list_length(cf->sourcelist),g_list_length(cf->destlist),ret);
 	g_strfreev(splitted);
 }
-
+#endif
