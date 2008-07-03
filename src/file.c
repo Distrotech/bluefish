@@ -78,6 +78,7 @@ static gboolean delete_async(GIOSchedulerJob *job,GCancellable *cancellable,gpoi
 	GFile *uri = user_data;	
 	g_file_delete(uri,NULL,NULL);
 	g_object_unref(uri);
+	return TRUE;
 }
 
 void file_delete_file_async(GFile *uri, DeleteAsyncCallback callback, gpointer callback_data) {
@@ -182,6 +183,7 @@ Tcheckmodified *file_checkmodified_uri_async(GFile *uri, GFileInfo *curinfo, Che
 					,G_PRIORITY_DEFAULT
 					,NULL /*cancellable*/
 					,checkmodified_asyncfileinfo_lcb,cm);
+	return cm;
 }
 
 #else
@@ -428,7 +430,6 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 	retval = g_file_replace_contents_finish(cns->uri,res,&etag,&error);
 	if (error) {
 		if (error->code == G_IO_ERROR_WRONG_ETAG) {
-			gboolean contsave; 
 			if (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED,error->code, cns->callback_data) == CHECKNSAVE_CONT) {
 				g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
 						,NULL,TRUE
@@ -452,15 +453,15 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 			g_print("****************** checkNsave_replace_async_lcb() unhandled error \n");
 		}
 	} else {
-		cns->callback_func(CHECKANDSAVE_FINISHED, error_info, cns->callback_data);
+		cns->callback_func(CHECKANDSAVE_FINISHED, 0, cns->callback_data);
 		checkNsave_cleanup(cns);
 	}
 }
 
 gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, goffset buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
 	TcheckNsave *cns;
-	cns->etag=NULL;
 	cns = g_new0(TcheckNsave,1);
+	/*cns->etag=NULL;*/
 	cns->callback_data = callback_data;
 	cns->callback_func = callback_func;
 	cns->buffer = buffer;
@@ -474,7 +475,7 @@ gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *bu
 	if (info) {
 		g_object_ref(info);
 		if (check_modified) {
-			etag = g_file_info_get_etag(info);
+			cns->etag = g_file_info_get_etag(info);
 		}
 	}
 	g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
@@ -983,7 +984,7 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 			/* do nothing */
 		{
 			gchar *utf8uri, *tmp;
-			utf8uri = full_path_utf8_from_uri(fid->uri);
+			utf8uri = gfile_display_name(fid->uri, NULL);
 			tmp = g_strdup_printf("Loading %s", utf8uri);
 			statusbar_message(fid->doc->bfwin,tmp, 1000);
 			g_free(tmp);
@@ -1067,7 +1068,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 			}
 			{
 				gchar *utf8uri, *tmp;
-				utf8uri = full_path_utf8_from_uri(f2d->uri);
+				utf8uri = gfile_display_name(f2d->uri,NULL);
 				if (BFWIN(f2d->bfwin)->num_docs_not_completed > 0) {
 					tmp = g_strdup_printf(_("Still loading %d files, finished %s"), BFWIN(f2d->bfwin)->num_docs_not_completed, utf8uri);
 				} else {
@@ -1118,8 +1119,9 @@ typedef struct {
 
 static void fill_fileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	GFileInfo *info;
-	GError error=NULL;
-	Tfileinfo *fi = user_data;
+	GError *error=NULL;
+	Tfileinfo *fi=user_data;
+	
 	info = g_file_query_info_finish(fi->uri,res,&error);
 	if (info) {
 		doc_set_fileinfo(fi->doc, info);
@@ -1144,7 +1146,7 @@ void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri) {
 	g_file_query_info_async(fi->uri,BF_FILEINFO
 					,G_FILE_QUERY_INFO_NONE
 					,G_PRIORITY_LOW
-					,cancellable
+					,NULL
 					,fill_fileinfo_lcb,fi);
 }
 
@@ -1304,7 +1306,7 @@ void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo,
 	}
 	f2d->of = file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
 }
-#endif
+
 /*************************** OPEN ADVANCED ******************************/
 
 typedef struct {
@@ -1333,7 +1335,7 @@ typedef struct {
 	Topenadv *oa;
 #ifdef HAVE_ATLEAST_GIO_2_16
 	GFile *basedir;
-	GFileEnumerator *enumerator;
+	GFileEnumerator *gfe;
 #else
 	GnomeVFSAsyncHandle *handle;
 	GnomeVFSURI *basedir;
@@ -1430,12 +1432,13 @@ static void openadv_content_filter_file(Topenadv *oa, GnomeVFSURI *uri, GnomeVFS
 }
 
 #ifdef HAVE_ATLEAST_GIO_2_16
+static void open_advanced_backend(Topenadv *oa, GFile *basedir);
 
 static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
-	GList *list *tmplist;;
+	GList *list, *tmplist;
 	GError *error=NULL;
 	Topenadv_dir *oad = user_data;
-	list = g_file_enumerator_next_files_finish (oad->enumerator,res,&error);
+	list = tmplist = g_file_enumerator_next_files_finish (oad->gfe,res,&error);
 	while (tmplist) {
 		GFileInfo *finfo=tmplist->data;
 		if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_DIRECTORY) {
@@ -1444,7 +1447,7 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 			dir = g_file_get_child(oad->basedir,name);
 			open_advanced_backend(oad->oa, dir);
 			g_object_unref(dir);
-		} else if (g_file_info_get_file_type(info)==G_FILE_TYPE_REGULAR) {
+		} else if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_REGULAR) {
 			GFile *child_uri;
 			GList *alldoclist;
 			const gchar *name = g_file_info_get_name(finfo);
@@ -1487,12 +1490,11 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 
 static void enumerate_children_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	Topenadv_dir *oad = user_data;
-	GFileEnumerator* gfe;
 	GError *error=NULL;
 	
 	oad->gfe = g_file_enumerate_children_finish(oad->basedir,res,&error);
-	g_file_enumerator_next_files_async(gfe,10,G_PRIORITY_DEFAULT+2
-			,cancellable
+	g_file_enumerator_next_files_async(oad->gfe,10,G_PRIORITY_DEFAULT+2
+			,NULL
 			,enumerator_next_files_lcb,oad);
 }
 
@@ -1507,7 +1509,7 @@ static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 	gnome_vfs_uri_ref(oad->basedir);
 	g_file_enumerate_children_async(basedir,BF_FILEINFO,0
 				,G_PRIORITY_DEFAULT+3 
-				,cancellable
+				,NULL
 				,enumerate_children_lcb,oad);
 }
 
@@ -1733,7 +1735,7 @@ static void copy_async_lcb(GObject *source_object,GAsyncResult *res,gpointer use
 			const gchar *buttons[] = {_("_Skip"), _("_Overwrite"), NULL};
 			gint retval;
 			gchar *tmpstr, *dispname;
-			dispname = gfile_display_name(cf->curfile);
+			dispname = gfile_display_name(cf->curfile,NULL);
 			tmpstr = g_strdup_printf(_("%s cannot be copied, it already exists, overwrite?"),dispname);
 			retval = message_dialog_new_multi(BFWIN(cf->bfwin)->main_window,
 														 GTK_MESSAGE_WARNING,
@@ -1755,6 +1757,7 @@ static void copy_async_lcb(GObject *source_object,GAsyncResult *res,gpointer use
 	g_object_unref(cf->curdest);
 
 	if (!copy_uris_process_queue(cf)) {
+		fb2_refresh_dir_from_uri(cf->destdir);
 		g_object_unref(cf->destdir);
 		g_free(cf);
 	}
