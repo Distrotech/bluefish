@@ -123,7 +123,7 @@ gboolean arr3_equal (gconstpointer v1,gconstpointer v2);
 guint arr3_hash(gconstpointer v);
 
 #ifdef HAVE_ATLEAST_GIO_2_16
-gchar *gfile_display_name(GFile *uri);
+gchar *gfile_display_name(GFile *uri,GFileInfo *finfo);
 #endif
 
 #endif /* __BF_LIB_H_ */

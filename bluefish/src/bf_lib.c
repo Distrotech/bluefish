@@ -1718,12 +1718,13 @@ guint arr3_hash(gconstpointer v)
 
 #ifdef HAVE_ATLEAST_GIO_2_16
 gchar *gfile_display_name(GFile *uri, GFileInfo *finfo) {
+	const gchar *retval;
 	if (finfo && g_file_info_has_attribute(finfo,G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME)) {
 		retval = g_file_info_get_display_name(finfo);
 	} else {
 		GFileInfo *finfo2;
-		gchar *retval;
-		finfo2 = g_file_query_info(uri,G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,0,NULL,&error);
+		
+		finfo2 = g_file_query_info(uri,G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,G_FILE_QUERY_INFO_NONE,NULL,NULL);
 		retval = g_file_info_get_display_name(finfo2);
 		g_object_unref(finfo2);
 	}
