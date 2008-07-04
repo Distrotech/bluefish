@@ -65,10 +65,16 @@ typedef struct {
 #define FB2CONFIG(var) ((Tfilebrowser2config *)(var))
 
 typedef struct {
+#ifdef HAVE_ATLEAST_GIO_2_16
+	GFile *uri;
+	GFile *p_uri;
+	GFileEnumerator* gfe;
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 	GnomeVFSAsyncHandle *handle;
 	GnomeVFSURI *uri;
-	GtkTreeIter *parent;
 	GnomeVFSURI *p_uri;
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
+	GtkTreeIter *parent;
 } Turi_in_refresh;
 
 enum {
@@ -375,6 +381,53 @@ static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIt
 	DEBUG_MSG("fb2_treestore_mark_children_refresh1, finished for model=%p\n",tstore);
 }
 
+#ifdef HAVE_ATLEAST_GIO_2_16
+
+static void fb2_enumerate_next_files(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	Turi_in_refresh *uir = user_data;
+	GError *error=NULL;
+	GList* list, *tmplist;
+	list = g_file_enumerator_next_files_finish(uir->gfe,res,&error);
+	tmplist = g_list_first(list);
+	while (tmplist) {
+		GFileInfo *finfo = tmplist->data;
+		
+		/* TODO: add the files actually to the treestore */
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(list);
+}
+
+static void fb2_enumerate_children_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	Turi_in_refresh *uir = user_data;
+	GError *error=NULL;
+	uir->gfe = g_file_enumerate_children_finish(uir->p_uri,res,&error);
+	if (uir->gfe) {
+		g_file_enumerator_next_files_async(uir->gfe,20,G_PRIORITY_LOW,NULL,,uir);
+	}
+}
+
+static void fb2_fill_dir_async(GtkTreeIter *parent, GFile *uri) {
+	if (fb2_get_uri_in_refresh(uri) == NULL) {
+		Turi_in_refresh *uir;
+
+		fb2_treestore_mark_children_refresh1(FB2CONFIG(main_v->fb2config)->filesystem_tstore, parent);
+		
+		uir = g_new(Turi_in_refresh,1);
+		uir->parent = parent;
+		uir->p_uri = uri;
+		uir->uri = uri;
+		gnome_vfs_uri_ref(uir->uri);
+		DEBUG_MSG("fb2_fill_dir_async, opening ");
+		DEBUG_URI(uir->p_uri, TRUE);
+		g_file_enumerate_children_async(uir->p_uri,"standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
+					G_FILE_QUERY_INFO_NONE,
+					G_PRIORITY_LOW,NULL,fb2_enumerate_children_lcb,uir);
+		FB2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_prepend(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
+	}
+
+}
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 /**
  * fb2_load_directory_lcb
  *
@@ -451,6 +504,7 @@ static void fb2_fill_dir_async(GtkTreeIter *parent, GnomeVFSURI *uri) {
 	}
 #endif
 }
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 
 /**
  * fb2_uri_from_iter:
