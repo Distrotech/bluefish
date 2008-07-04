@@ -88,6 +88,7 @@ extern void g_none(gchar *first, ...);
 #define gnome_vfs_file_info_unref g_object_unref
 #define gnome_vfs_file_info_ref g_object_ref
 #define BF_FILEINFO "standard::size,standard::type,unix::mode,unix::uid,unix::gid,time::modified,etag::value"
+#define GNOME_VFS_ERROR_NOT_FOUND G_IO_ERROR_NOT_FOUND
 
 #else
 #include <libgnomevfs/gnome-vfs.h>
