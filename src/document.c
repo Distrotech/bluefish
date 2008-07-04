@@ -3119,8 +3119,16 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 		gchar *tmpstr, *oldtimestr, *newtimestr;
 		gint retval;
 		const gchar *buttons[] = {_("_Ignore"),_("_Reload"), NULL};
+#ifdef HAVE_ATLEAST_GIO_2_16
+		guint64 newtime,origtime;
+		newtime = g_file_info_get_attribute_uint64(new,G_FILE_ATTRIBUTE_TIME_MODIFIED);
+		origtime = g_file_info_get_attribute_uint64(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED);
+		newtimestr = bf_portable_time(&newtime);
+		oldtimestr = bf_portable_time(&origtime);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 		newtimestr = bf_portable_time(&new->mtime);
 		oldtimestr = bf_portable_time(&orig->mtime);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 		tmpstr = g_strdup_printf(_("Filename: %s\n\nNew modification time is: %s\nOld modification time is: %s"), gtk_label_get_text(GTK_LABEL(doc->tab_menu)), newtimestr, oldtimestr);
 		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
 													 GTK_MESSAGE_WARNING,
@@ -3324,7 +3332,11 @@ void file_insert_menucb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) 
 	} else {
 		GnomeVFSURI *uri;
 		doc_unre_new_group(bfwin->current_document);
+#ifdef HAVE_ATLEAST_GIO_2_16
+	uri = g_file_new_for_uri(tmpfilename);
+#else
 		uri = gnome_vfs_uri_new(tmpfilename);
+#endif
 		file_into_doc(bfwin->current_document, uri, FALSE);
 		gnome_vfs_uri_unref(uri);
 		g_free(tmpfilename);
@@ -3629,12 +3641,20 @@ GList *list_relative_document_filenames(Tdocument *curdoc) {
 	if (curdoc->uri == NULL) {
 		return NULL;
 	} 
+#ifdef HAVE_ATLEAST_GIO_2_16
+	curi = g_file_get_parse_name(curdoc->uri);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 	curi = gnome_vfs_uri_to_string(curdoc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	tmplist = g_list_first(BFWIN(curdoc->bfwin)->documentlist);
 	while (tmplist) {
 		Tdocument *tmpdoc = tmplist->data;
 		if (tmpdoc != curdoc && tmpdoc->uri != NULL) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+			gchar *tmp = g_file_get_parse_name(tmpdoc->uri);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 			gchar *tmp = gnome_vfs_uri_to_string(tmpdoc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 			retlist = g_list_prepend(retlist,create_relative_link_to(curi, tmp));
 			g_free(tmp);
 		}
