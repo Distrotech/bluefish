@@ -83,6 +83,9 @@ enum {
 	URI_COLUMN,
 	REFRESH_COLUMN,
 	TYPE_COLUMN,
+#ifdef HAVE_ATLEAST_GIO_2_16
+	FILEINFO_COLUMN,
+#endif /* HAVE_ATLEAST_GIO_2_16 */
 	N_COLUMNS
 };
 
@@ -270,6 +273,42 @@ static void fb2_uri_in_refresh_cleanup(Turi_in_refresh *uir) {
  * if there was no iter in the hashtable yet, else it is the existing iter
  *
  */
+#ifdef HAVE_ATLEAST_GIO_2_16
+static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GFile *child_uri, GFileInfo *finfo, gboolean load_subdirs) {
+	GtkTreeIter *newiter;
+	
+	newiter = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, child_uri);
+	if (newiter != NULL) {
+		gboolean refresh;
+		/* the child exists already, update the REFRESH column */
+		gtk_tree_model_get(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), newiter, REFRESH_COLUMN, &refresh, -1);
+		if (refresh != 0) {
+			gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,REFRESH_COLUMN, 0,-1);
+		}
+	} else { /* child does not yet exist */
+		gchar *display_name, *pixmap, *mime_type;
+		GIcon *icon;
+		g_object_ref(child_uri);
+		g_object_ref(finfo);
+		display_name = gfile_display_name(child_uri,finfo);
+		icon = g_file_info_get_attribute_object(finfo,G_FILE_ATTRIBUTE_STANDARD_ICON);
+		
+		pixmap = g_object_get_attribute(icon,"name");
+		mime_type = g_file_info_get_attribute_string(finfo,G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+		
+		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);
+		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,
+				PIXMAP_COLUMN, pixmap,
+				FILENAME_COLUMN, display_name,
+				URI_COLUMN, child_uri,
+				REFRESH_COLUMN, 0,
+				TYPE_COLUMN, mime_type,
+				FILEINFO_COLUMN, finfo,
+				-1);
+	}
+
+}
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *child_uri, const gchar *mime_type, gboolean load_subdirs, gboolean isdir) {
 	GtkTreeIter *newiter;
 	
@@ -334,6 +373,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
 	return newiter;
 }
 
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 /**
  * fb2_treestore_delete_children_refresh1
  *
@@ -2119,11 +2159,17 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 *fb2, gint viewmode) {
 		renderer = gtk_cell_renderer_pixbuf_new();
 		column = gtk_tree_view_column_new();
 		gtk_tree_view_column_pack_start(column, renderer, FALSE);
+#ifdef HAVE_ATLEAST_GIO_2_16
+		gtk_tree_view_column_set_attributes(column,renderer
+			,"icon-name",PIXMAP_COLUMN
+			,NULL);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 		gtk_tree_view_column_set_attributes(column,renderer
 			,"pixbuf",PIXMAP_COLUMN
 			,"pixbuf_expander_closed",PIXMAP_COLUMN
 			,"pixbuf_expander_open",PIXMAP_COLUMN
 			,NULL);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 		renderer = gtk_cell_renderer_text_new();
 		g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL); /* Not editable. */
 		gtk_tree_view_column_pack_start(column, renderer, TRUE);
@@ -2283,8 +2329,12 @@ void fb2_unset_filter(Tbfwin *bfwin, Tfilter *filter) {
 	}
 }
 
-static void gnome_vfs_uri_hash_destroy(gpointer data) {
+static void uri_hash_destroy(gpointer data) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+	g_object_unref((GObject *)data);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 	gnome_vfs_uri_unref((GnomeVFSURI *)data);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 }
 
 void fb2config_init(void) {
@@ -2297,8 +2347,14 @@ void fb2config_init(void) {
 	fb2config = g_new0(Tfilebrowser2config,1);
 	main_v->fb2config = fb2config;
 
-	fb2config->filesystem_itable = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,gnome_vfs_uri_hash_destroy,g_free);
+#ifdef HAVE_ATLEAST_GIO_2_16
+	fb2config->filesystem_itable = g_hash_table_new_full(g_file_hash, g_file_equal,uri_hash_destroy,g_free);
+	fb2config->filesystem_tstore = gtk_tree_store_new(N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_POINTER,G_TYPE_BOOLEAN,G_TYPE_STRING,G_TYPE_POINTER);
+
+#else /* no HAVE_ATLEAST_GIO_2_16  */
+	fb2config->filesystem_itable = g_hash_table_new_full(gnome_vfs_uri_hash, gnome_vfs_uri_hequal,uri_hash_destroy,g_free);
 	fb2config->filesystem_tstore = gtk_tree_store_new(N_COLUMNS,GDK_TYPE_PIXBUF,G_TYPE_STRING,G_TYPE_POINTER,G_TYPE_BOOLEAN,G_TYPE_STRING);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	filename = return_first_existing_filename(main_v->props.filebrowser_unknown_icon,
 					"icon_unknown.png","../images/icon_unknown.png",
 					"images/icon_unknown.png",NULL);
