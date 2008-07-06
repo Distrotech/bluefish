@@ -1818,7 +1818,7 @@ void copy_files_async(Tbfwin *bfwin, GFile *destdir, gchar *sources) {
 		trunc_on_char(trunc_on_char(*tmp, '\r'), '\n');
 		if (strlen(*tmp) > 1) {
 			GFile *src;
-			src = g_file_new_for_path(*tmp);
+			src = g_file_new_for_commandline_arg(*tmp);
 			cf->sourcelist = g_slist_append(cf->sourcelist, src);
 		}
 		tmp++;

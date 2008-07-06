@@ -1430,7 +1430,9 @@ static void fb2rpopup_new(Tfilebrowser2 *fb2, gboolean newisdir, GnomeVFSURI *no
 			done = (gnome_vfs_make_directory_for_uri(newuri, 0755) == GNOME_VFS_OK);
 #endif /* else HAVE_ATLEAST_GIO_2_16 */
 		} else {
+#ifndef HAVE_ATLEAST_GIO_2_16
 			GnomeVFSHandle *handle;
+#endif /* not HAVE_ATLEAST_GIO_2_16 */
 			gint counter = 0;
 			gchar *filename = g_strdup(_("New file"));
 			while (counter < 100) {
@@ -1439,24 +1441,34 @@ static void fb2rpopup_new(Tfilebrowser2 *fb2, gboolean newisdir, GnomeVFSURI *no
 				GError *error=NULL;
 				newuri = g_file_get_child(baseuri, filename);
 				gfos = g_file_create(newuri,G_FILE_CREATE_NONE,NULL,&error);
-				not yet done here ...
+				if (gfos) {
+					g_output_stream_close(gfos,NULL,&error);
+					done = TRUE;
+					counter = 100;
+				} else if (error->code == G_IO_ERROR_EXISTS) {
+					counter++;
+				} else {
+					counter = 100;
+				}
 #else /* no HAVE_ATLEAST_GIO_2_16  */
 				newuri = gnome_vfs_uri_append_file_name(baseuri, filename);
 				res = gnome_vfs_create_uri(&handle,newuri,GNOME_VFS_OPEN_WRITE,TRUE,0644);
 				if (res == GNOME_VFS_ERROR_FILE_EXISTS) {
 					counter++;
 					filename = g_strdup_printf("%s%d",_("New file"),counter);
+				} else if (res == GNOME_VFS_OK) {
+					res = gnome_vfs_close(handle);
+					done = TRUE;
 				} else {
 					counter = 100;
 				}
 #endif /* else HAVE_ATLEAST_GIO_2_16 */
 			}
 			if (done) {
-				res = gnome_vfs_close(handle);
 				rename_not_open_file(fb2->bfwin, newuri);
 			}
 		}
-		if (res == GNOME_VFS_OK) {
+		if (done) {
 			fb2_refresh_parent_of_uri(newuri);
 		} else {
 			DEBUG_MSG("fb2rpopup_new, failed creation.. (res=%d, %s)\n",res,gnome_vfs_result_to_string(res));
@@ -1597,7 +1609,11 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 *fb2,guint callback_action
 			{
 				gchar *curi;
 				GnomeVFSURI *uri = fb2_uri_from_dir_selection(fb2);
+#ifdef HAVE_ATLEAST_GIO_2_16
+				curi = g_file_get_uri(uri);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 				curi = gnome_vfs_uri_to_string(uri,0);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 				files_advanced_win(fb2->bfwin, curi);
 				g_free(curi);
 			}
@@ -1912,7 +1928,11 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 	while (tmplist) {
 		GnomeVFSURI *uri;
 		gchar *name;
+#ifdef HAVE_ATLEAST_GIO_2_16
+		uri = g_file_new_for_uri(tmplist->data);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 		uri = gnome_vfs_uri_new(tmplist->data);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 		if (uri) {
 			name = full_path_utf8_from_uri(uri);
 			gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m),&iter);
@@ -1940,10 +1960,15 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 					,DIR_NAME_COLUMN,name
 					,DIR_URI_COLUMN,tmp /* don't unref tmp at this point, because there is a reference from the model */
 					,-1);
+#ifdef HAVE_ATLEAST_GIO_2_16
+		tmp = g_file_get_parent(tmp);
+		cont = (tmp!=NULL)
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 		cont = gnome_vfs_uri_has_parent(tmp);
 		if (cont) {
 			tmp = gnome_vfs_uri_get_parent(tmp);
 		}
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	}
 	DEBUG_MSG("dirmenu_set_curdir, activate the new model\n");
 	g_signal_handler_block(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
@@ -2089,10 +2114,20 @@ static void fb2_file_v_drag_data_received(GtkWidget * widget, GdkDragContext * c
 	DEBUG_MSG("fb2_file_v_drag_data_received, stringdata='%s', len=%d\n",stringdata,data->length);
 	if (destdir) {
 		if (strchr(stringdata, '\n') == NULL) { /* no newlines, probably a single file */
+#ifdef HAVE_ATLEAST_GIO_2_16
+			GSList *list=NULL;
+			GFile *uri;
+			uri = g_file_new_for_commandline_arg(stringdata);
+			list = g_slist_append(list,uri);
+			copy_uris_async(bfwin, destdir, list);
+			g_slist_free(list);
+			g_object_unref(uri);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 			gchar *curi;
 			curi = gnome_vfs_make_uri_from_input(stringdata);
 			copy_files_async(fb2->bfwin, destdir, curi);
 			g_free(curi);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 		} else { /* there are newlines, probably this is a list of uri's */
 			copy_files_async(fb2->bfwin, destdir, stringdata);
 		}
