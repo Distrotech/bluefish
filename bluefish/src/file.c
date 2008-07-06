@@ -1506,7 +1506,7 @@ static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 	oa->refcount++;
 
 	oad->basedir = basedir;
-	gnome_vfs_uri_ref(oad->basedir);
+	g_object_uri_ref(oad->basedir);
 	g_file_enumerate_children_async(basedir,BF_FILEINFO,0
 				,G_PRIORITY_DEFAULT+3 
 				,NULL
