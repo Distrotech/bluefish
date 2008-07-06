@@ -1730,5 +1730,37 @@ gchar *gfile_display_name(GFile *uri, GFileInfo *finfo) {
 	}
 	return strdup(retval);
 }
+
+gboolean gfile_uri_is_parent(GFile *parent, GFile *child, gboolean recursive) {
+	gboolean retval = FALSE;
+	GFile *tmp, *tmp2=child;
+	g_object_ref(child);
+	do {
+		tmp = g_file_get_parent(tmp2);
+		g_object_unref(tmp2);
+		if (tmp == NULL) {
+			break;
+		}
+		retval = g_file_equal(tmp,parent);
+		tmp2 = tmp;
+	} while (recursive == TRUE && retval != TRUE);
+	if (tmp) {
+		g_object_unref(tmp);
+	}
+	return retval;
+}
+gchar *get_hostname_from_uri(GFile *uri) {
+	gchar *tmp, *begin, *end1, *end2, *end, *retval;
+	
+	tmp = g_file_get_uri(uri);
+	begin = strstr(tmp, "://");
+	begin += 3;
+	end1 = strchr(begin, ':');
+	end2 = strchr(begin, '/');
+	end = (end1 < end2) ? end1 : end2;
+	retval = g_strndup(begin, (end-begin));
+	g_free(tmp); 
+	return retval;
+}
 #endif
 

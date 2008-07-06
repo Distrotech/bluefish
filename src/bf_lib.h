@@ -124,6 +124,8 @@ guint arr3_hash(gconstpointer v);
 
 #ifdef HAVE_ATLEAST_GIO_2_16
 gchar *gfile_display_name(GFile *uri,GFileInfo *finfo);
+gboolean gfile_uri_is_parent(GFile *parent, GFile *child, gboolean recursive);
+gchar *get_hostname_from_uri(GFile *uri);
 #endif
 
 #endif /* __BF_LIB_H_ */
