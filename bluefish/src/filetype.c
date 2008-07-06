@@ -165,6 +165,23 @@ Tfiletype *get_filetype_for_mime_type(const gchar *mime_type) {
 	}
 }
 
+#ifdef HAVE_ATLEAST_GIO_2_16
+gchar *get_mimetype_for_uri(GFile *uri, GFileInfo *finfo, gboolean fast) {
+	GFileInfo *rfinfo;
+	const gchar *attrib = fast ? "standard::fast-content-type":"standard::content-type";
+	if (finfo && g_file_info_has_attribute(finfo, attrib)) {
+		rfinfo = finfo;
+		g_object_ref(rfinfo);
+	} else {
+		GError *error=NULL;
+		rfinfo = g_file_query_info(uri,attrib
+				,G_FILE_QUERY_INFO_NONE,NULL,&error);
+	}
+	mime = g_file_info_get_attribute_string(rfinfo, attrib);
+	g_object_unref(rfinfo);
+	return mime;
+}
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 const gchar *get_mimetype_for_uri(GnomeVFSURI *uri, gboolean fast) {
 	GnomeVFSFileInfo *info;
 	GnomeVFSResult res;
@@ -180,6 +197,7 @@ const gchar *get_mimetype_for_uri(GnomeVFSURI *uri, gboolean fast) {
 	gnome_vfs_file_info_unref(info);
 	return retval;
 }
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 
 Tfiletype *get_filetype_for_uri(GnomeVFSURI *uri, gboolean fast) {
 	const gchar *mimetype = get_mimetype_for_uri(uri, fast);

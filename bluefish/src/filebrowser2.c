@@ -270,7 +270,8 @@ static void set_documentroot_dialog(Tbfwin *bfwin, GnomeVFSURI *uri) {
 		}
 	}
 
-#endif /* else HAVE_ATLEAST_GIO_2_16 */	drd->web_entry = entry_with_text(tmp, 512);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
+	drd->web_entry = entry_with_text(tmp, 512);
 	gtk_table_attach_defaults(GTK_TABLE(table),drd->web_entry,1,2,2,3);
 	dialog_mnemonic_label_in_table(_("Webroot"),drd->web_entry, table,0, 1,2,3);
 	
@@ -1049,7 +1050,11 @@ gint filebrowser_sort_func(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpo
 
 static void add_uri_to_recent_dirs(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 	gchar *tmp;
+#ifdef HAVE_ATLEAST_GIO_2_16
+	tmp = g_file_get_uri(uri);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 	tmp = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	fb2->bfwin->session->recent_dirs = add_to_history_stringlist(fb2->bfwin->session->recent_dirs, tmp, TRUE, TRUE);
 	g_free(tmp);
 }
@@ -1287,6 +1292,25 @@ static GnomeVFSURI *fb2_uri_from_dir_selection(Tfilebrowser2 *fb2) {
  * opens the file, project or inserts the image pointer to by 'uri'
  */
 static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+	gchar *mimetype = get_mimetype_for_uri(uri, NULL, FALSE);
+	if (mimetype) {
+		if (strncmp(mimetype,"image",5)==0) {
+			/* image! */
+			g_print("handle_activate_on_file, TODO, handle image activate!\n");
+		} else if (strcmp(mimetype,"application/bluefish-project")==0) {
+			gchar *filename;
+#ifdef HAVE_ATLEAST_GIO_2_16
+			filename = g_file_get_path(uri);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
+			filename = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
+			project_open_from_file(fb2->bfwin, filename);
+			g_free(filename);
+			return;
+		}
+	}
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 	const gchar *mimetype = get_mimetype_for_uri(uri, FALSE);
 	if (mimetype) {
 		if (strncmp(mimetype,"image",5)==0) {
@@ -1297,9 +1321,12 @@ static void handle_activate_on_file(Tfilebrowser2 *fb2, GnomeVFSURI *uri) {
 			filename = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
 			project_open_from_file(fb2->bfwin, filename);
 			g_free(filename);
+			g_free(mimetype);
 			return;
 		}
+		g_free(mimetype);
 	}
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	doc_new_from_uri(fb2->bfwin, uri, NULL, FALSE, FALSE, -1, -1);
 	DEBUG_MSG("handle_activate_on_file, finished\n");
 }
@@ -1332,14 +1359,24 @@ static void rename_not_open_file(Tbfwin *bfwin, GnomeVFSURI *olduri) {
 	gchar *newfilename=NULL, *oldfilename;
 	
 	/* Promt user, "File/Move To"-style. */
+#ifdef HAVE_ATLEAST_GIO_2_16
+	oldfilename = g_file_get_uri(olduri);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 	oldfilename = gnome_vfs_uri_to_string(olduri,0);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	newfilename = ask_new_filename(bfwin, oldfilename, oldfilename, TRUE);
 	if (newfilename) {
 		GnomeVFSURI *newuri=NULL;
-		GnomeVFSResult res;
+		gboolean res;
+#ifdef HAVE_ATLEAST_GIO_2_16
+		GError *error=NULL;
+		newuri = g_file_new_for_uri(newfilename);
+		res = g_file_move(olduri,newuri,G_FILE_COPY_NONE,NULL,NULL,NULL,&error);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 		newuri = gnome_vfs_uri_new(newfilename);
-		res = gnome_vfs_move_uri(olduri,newuri,TRUE);
-		if (res != GNOME_VFS_OK) {
+		res = (gnome_vfs_move_uri(olduri,newuri,TRUE) == GNOME_VFS_OK);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
+		if (!res) {
 			gchar *errmessage = g_strconcat(_("Could not rename\n"), oldfilename, NULL);
 			message_dialog_new(bfwin->main_window, 
 									 GTK_MESSAGE_ERROR, 
@@ -1382,15 +1419,28 @@ static void fb2rpopup_new(Tfilebrowser2 *fb2, gboolean newisdir, GnomeVFSURI *no
 	
 	if (baseuri) {
 		GnomeVFSURI *newuri;
-		GnomeVFSResult res;
+		gboolean done=FALSE;
 		if (newisdir) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+			GError *error=NULL;
+			newuri = g_file_get_child(baseuri, _("New directory"));
+			done = g_file_make_directory(newuri,NULL,&error);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 			newuri = gnome_vfs_uri_append_file_name(baseuri, _("New directory"));
-			res = gnome_vfs_make_directory_for_uri(newuri, 0755);
+			done = (gnome_vfs_make_directory_for_uri(newuri, 0755) == GNOME_VFS_OK);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 		} else {
 			GnomeVFSHandle *handle;
 			gint counter = 0;
 			gchar *filename = g_strdup(_("New file"));
 			while (counter < 100) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+				GFileOutputStream* gfos;
+				GError *error=NULL;
+				newuri = g_file_get_child(baseuri, filename);
+				gfos = g_file_create(newuri,G_FILE_CREATE_NONE,NULL,&error);
+				not yet done here ...
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 				newuri = gnome_vfs_uri_append_file_name(baseuri, filename);
 				res = gnome_vfs_create_uri(&handle,newuri,GNOME_VFS_OPEN_WRITE,TRUE,0644);
 				if (res == GNOME_VFS_ERROR_FILE_EXISTS) {
@@ -1399,8 +1449,9 @@ static void fb2rpopup_new(Tfilebrowser2 *fb2, gboolean newisdir, GnomeVFSURI *no
 				} else {
 					counter = 100;
 				}
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 			}
-			if (res == GNOME_VFS_OK) {
+			if (done) {
 				res = gnome_vfs_close(handle);
 				rename_not_open_file(fb2->bfwin, newuri);
 			}

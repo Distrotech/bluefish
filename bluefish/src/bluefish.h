@@ -91,6 +91,7 @@ extern void g_none(gchar *first, ...);
 #define GNOME_VFS_ERROR_NOT_FOUND G_IO_ERROR_NOT_FOUND
 #define gnome_vfs_uri_get_parent g_file_get_parent
 #define gnome_vfs_uri_is_parent gfile_uri_is_parent
+#define gnome_vfs_uri_dup g_file_dup
 
 #else
 #include <libgnomevfs/gnome-vfs.h>
