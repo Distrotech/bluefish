@@ -182,6 +182,14 @@ gchar *get_mimetype_for_uri(GFile *uri, GFileInfo *finfo, gboolean fast) {
 	g_object_unref(rfinfo);
 	return mime;
 }
+Tfiletype *get_filetype_for_uri(GFile *uri, GFileInfo *finfo, gboolean fast) {
+	const gchar *mimetype = get_mimetype_for_uri(uri, finfo, fast);
+	if (mimetype) {
+		return get_filetype_for_mime_type(mimetype);
+	}
+	return NULL;
+}
+
 #else /* no HAVE_ATLEAST_GIO_2_16  */
 const gchar *get_mimetype_for_uri(GnomeVFSURI *uri, gboolean fast) {
 	GnomeVFSFileInfo *info;
@@ -198,8 +206,6 @@ const gchar *get_mimetype_for_uri(GnomeVFSURI *uri, gboolean fast) {
 	gnome_vfs_file_info_unref(info);
 	return retval;
 }
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
-
 Tfiletype *get_filetype_for_uri(GnomeVFSURI *uri, gboolean fast) {
 	const gchar *mimetype = get_mimetype_for_uri(uri, fast);
 	if (mimetype) {
@@ -207,6 +213,8 @@ Tfiletype *get_filetype_for_uri(GnomeVFSURI *uri, gboolean fast) {
 	}
 	return NULL;
 }
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
+
 
 /*
  * This is modifed function for scanner environment.

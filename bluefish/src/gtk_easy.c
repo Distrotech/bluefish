@@ -1166,14 +1166,26 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	if (!setfile || strlen(setfile)==0) {
 		if (fb->bfwin && fb->bfwin->current_document->uri) {
 			if (setfile) g_free(setfile);
+#ifdef HAVE_ATLEAST_GIO_2_16
+			setfile = g_file_get_uri(fb->bfwin->current_document->uri);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 			setfile = gnome_vfs_uri_to_string(fb->bfwin->current_document->uri, GNOME_VFS_URI_HIDE_PASSWORD);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 			/* setfile = gnome_vfs_uri_extract_dirname(fb->bfwin->current_document->uri);*/
 		}
 	} else if (setfile && setfile[0] != '/' && strchr(setfile, ':')==NULL && fb->bfwin && fb->bfwin->current_document->uri) {
 		/* if setfile is a relative name, we should try to make it a full path. relative names
 		cannot start with a slash or with a scheme (such as file://) */
+#ifdef HAVE_ATLEAST_GIO_2_16
+		GFile *newsetfile;
+		newsetfile = g_file_resolve_relative_path(fb->bfwin->current_document->uri, setfile);
+		if (newsetfile) {
+			g_free(setfile);
+			setfile = g_file_get_uri(newsetfile);;
+			g_object_unref(newsetfile);
+		}
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 		gchar *doccuri, *newsetfile;
-		
 		doccuri = gnome_vfs_uri_to_string(fb->bfwin->current_document->uri, GNOME_VFS_URI_HIDE_PASSWORD);
 		newsetfile = gnome_vfs_uri_make_full_from_relative(doccuri,setfile);
 		if (newsetfile) {
@@ -1181,6 +1193,7 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 			setfile = newsetfile;
 		}
 		g_free(doccuri);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	}
 	
 	{
@@ -1206,9 +1219,16 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	if (tmpstring) {
 		if (!fb->fullpath && fb->bfwin) {
 			if (fb->bfwin->current_document->uri != NULL) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+				GFile *tmpuri = g_file_new_for_uri(tmpstring);
+				tmp2string = g_file_get_relative_path(fb->bfwin->current_document->uri, tmpuri);
+				g_object_unref(tmpuri);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 				gchar *curi = gnome_vfs_uri_to_string(fb->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
 				tmp2string = create_relative_link_to(curi, tmpstring);
 				g_free(curi);
+
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 			} else {
 				tmp2string = g_strdup(tmpstring);
 			}
