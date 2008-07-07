@@ -707,7 +707,7 @@ void fb2_refresh_parent_of_uri(GnomeVFSURI *child_uri) {
  * returns a pointer to the iter stored in the hashtable, so this is a persistent iter
  */
 static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
-	GnomeVFSURI* tmp, *parent_uri;
+	GnomeVFSURI* tmp, *parent_uri=NULL;
 	GtkTreeIter *parent = NULL;
 	tmp = uri;
 	/* first find if any directory part of this uri exists already in the treestore */
