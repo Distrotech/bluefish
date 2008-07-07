@@ -66,6 +66,7 @@ typedef struct {
 
 typedef struct {
 #ifdef HAVE_ATLEAST_GIO_2_16
+	GCancellable* cancel;
 	GFile *uri;
 	GFile *p_uri;
 	GFileEnumerator* gfe;
@@ -295,6 +296,9 @@ static Turi_in_refresh *fb2_get_uri_in_refresh(GnomeVFSURI *uri) {
 static void fb2_uri_in_refresh_cleanup(Turi_in_refresh *uir) {
 	DEBUG_MSG("fb2_uri_in_refresh_cleanup, called for %p\n",uir);
 	gnome_vfs_uri_unref(uir->uri);
+#ifdef HAVE_ATLEAST_GIO_2_16
+	g_object_unref(uir->cancel);
+#endif /* HAVE_ATLEAST_GIO_2_16 */
 	g_free(uir);
 }
 
@@ -483,11 +487,27 @@ static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIt
 
 #ifdef HAVE_ATLEAST_GIO_2_16
 
+static void fb2_enumerator_close_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	Turi_in_refresh *uir = user_data;
+	GError *error=NULL;
+	g_file_enumerator_close_finish(uir->gfe,res,&error);
+	fb2_uri_in_refresh_cleanup(uir);
+}
+
 static void fb2_enumerate_next_files_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	Turi_in_refresh *uir = user_data;
 	GError *error=NULL;
 	GList* list, *tmplist;
 	list = g_file_enumerator_next_files_finish(uir->gfe,res,&error);
+	if (error) {
+		g_print("ERROR: unhandled error in fb2_enumerate_next_files_lcb()\n");
+		return;
+	}
+	if (list == NULL) {
+		/* done */
+		g_file_enumerator_close_async(uir->gfe,G_PRIORITY_LOW,uir->cancel,fb2_enumerator_close_lcb,uir);
+		return;
+	}
 	tmplist = g_list_first(list);
 	while (tmplist) {
 		GFileInfo *finfo = tmplist->data;
@@ -508,7 +528,7 @@ static void fb2_enumerate_children_lcb(GObject *source_object,GAsyncResult *res,
 	GError *error=NULL;
 	uir->gfe = g_file_enumerate_children_finish(uir->p_uri,res,&error);
 	if (uir->gfe) {
-		g_file_enumerator_next_files_async(uir->gfe,20,G_PRIORITY_LOW,NULL,fb2_enumerate_next_files_lcb,uir);
+		g_file_enumerator_next_files_async(uir->gfe,20,G_PRIORITY_LOW,uir->cancel,fb2_enumerate_next_files_lcb,uir);
 	}
 	/* BUG: do error handling */
 }
@@ -526,9 +546,10 @@ static void fb2_fill_dir_async(GtkTreeIter *parent, GFile *uri) {
 		gnome_vfs_uri_ref(uir->uri);
 		DEBUG_MSG("fb2_fill_dir_async, opening ");
 		DEBUG_URI(uir->p_uri, TRUE);
+		uir->cancel = g_cancellable_new();
 		g_file_enumerate_children_async(uir->p_uri,"standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
 					G_FILE_QUERY_INFO_NONE,
-					G_PRIORITY_LOW,NULL,fb2_enumerate_children_lcb,uir);
+					G_PRIORITY_LOW,uir->cancel,fb2_enumerate_children_lcb,uir);
 		FB2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_prepend(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
 	}
 
@@ -1947,8 +1968,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 	
 	/* then we rebuild the current uri */
 	tmp = gnome_vfs_uri_dup(newcurdir);
-	cont = gnome_vfs_uri_has_parent(tmp);
-	while (cont) {
+	do {
 		gchar *name = full_path_utf8_from_uri(tmp);
 		DEBUG_MSG("dirmenu_set_curdir, appending %s to the new model\n",name);
 		gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m),&iter);
@@ -1962,14 +1982,14 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 					,-1);
 #ifdef HAVE_ATLEAST_GIO_2_16
 		tmp = g_file_get_parent(tmp);
-		cont = (tmp!=NULL)
+		cont = (tmp!=NULL);
 #else /* no HAVE_ATLEAST_GIO_2_16  */
 		cont = gnome_vfs_uri_has_parent(tmp);
 		if (cont) {
 			tmp = gnome_vfs_uri_get_parent(tmp);
 		}
 #endif /* else HAVE_ATLEAST_GIO_2_16 */
-	}
+	} while (cont);
 	DEBUG_MSG("dirmenu_set_curdir, activate the new model\n");
 	g_signal_handler_block(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 	gtk_combo_box_set_model(GTK_COMBO_BOX(fb2->dirmenu_v),GTK_TREE_MODEL(fb2->dirmenu_m));
@@ -2045,12 +2065,11 @@ void fb2_set_basedir(Tbfwin *bfwin, gchar *curi) {
 		Tfilebrowser2 *fb2 = bfwin->fb2;
 		if (curi) {
 			GnomeVFSURI *uri;
-			DEBUG_MSG("fb2_set_basedir, set curi=%s for bfwin=%p and fb2=%p\n",curi,bfwin,fb2);
+#ifdef HAVE_ATLEAST_GIO_2_16
+			uri = g_file_new_for_uri(strip_trailing_slash(curi));
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 			uri = gnome_vfs_uri_new(strip_trailing_slash(curi));
-			/* for performance reasons we should test if the basedir 
-			is the same as the current basedir, if so we can return here, and
-			if not, we can disconnect the treemodelfilter, and then build the 
-			path before we create the new treemodelfilter */
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 			if (uri) {
 				fb2_set_basedir_backend(fb2, uri);
 				gnome_vfs_uri_unref(uri);
@@ -2119,7 +2138,7 @@ static void fb2_file_v_drag_data_received(GtkWidget * widget, GdkDragContext * c
 			GFile *uri;
 			uri = g_file_new_for_commandline_arg(stringdata);
 			list = g_slist_append(list,uri);
-			copy_uris_async(bfwin, destdir, list);
+			copy_uris_async(fb2->bfwin, destdir, list);
 			g_slist_free(list);
 			g_object_unref(uri);
 #else /* no HAVE_ATLEAST_GIO_2_16  */
@@ -2178,10 +2197,20 @@ static void fb2_dir_v_drag_data_received(GtkWidget * widget, GdkDragContext * co
 	}
 	if (destdir) {
 		if (strchr(stringdata, '\n') == NULL) { /* no newlines, probably a single file */
+#ifdef HAVE_ATLEAST_GIO_2_16
+			GSList *list=NULL;
+			GFile *uri;
+			uri = g_file_new_for_commandline_arg(stringdata);
+			list = g_slist_append(list,uri);
+			copy_uris_async(fb2->bfwin, destdir, list);
+			g_slist_free(list);
+			g_object_unref(uri);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 			gchar *curi;
 			curi = gnome_vfs_make_uri_from_input(stringdata);
 			copy_files_async(fb2->bfwin, destdir, curi);
 			g_free(curi);
+#endif
 		} else { /* there are newlines, probably this is a list of uri's */
 			copy_files_async(fb2->bfwin, destdir, stringdata);
 		}
@@ -2535,7 +2564,11 @@ void fb2config_cleanup(void) {
 	DEBUG_MSG("fb2config_cleanup, stopping all async directory reads\n");
 	while (tmplist) {
 		Turi_in_refresh *uir = tmplist->data;
+#ifdef HAVE_ATLEAST_GIO_2_16
+		g_cancellable_cancel(uir->cancel);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 		gnome_vfs_async_cancel(uir->handle);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 		gnome_vfs_uri_unref(uir->uri);
 		g_free(uir);
 		tmplist = g_list_next(tmplist);
