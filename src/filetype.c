@@ -168,6 +168,7 @@ Tfiletype *get_filetype_for_mime_type(const gchar *mime_type) {
 #ifdef HAVE_ATLEAST_GIO_2_16
 gchar *get_mimetype_for_uri(GFile *uri, GFileInfo *finfo, gboolean fast) {
 	GFileInfo *rfinfo;
+	gchar *mime;
 	const gchar *attrib = fast ? "standard::fast-content-type":"standard::content-type";
 	if (finfo && g_file_info_has_attribute(finfo, attrib)) {
 		rfinfo = finfo;
