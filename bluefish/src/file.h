@@ -44,7 +44,7 @@ typedef void (* CheckmodifiedAsyncCallback) (Tcheckmodified_status status,gint e
 
 typedef struct {
 #ifdef HAVE_ATLEAST_GIO_2_16
-	GCancellable *handle;
+	GCancellable *cancel;
 	GFileInfo *orig_finfo;
 	GFile *uri;
 #else
@@ -142,7 +142,7 @@ typedef void (* OpenfileAsyncCallback) (Topenfile_status status,gint error_info,
 typedef struct {
 #ifdef HAVE_ATLEAST_GIO_2_16
 	GFile *uri;
-	GCancellable *handle;
+	GCancellable *cancel;
 #else /* GnomeVFS */
 	GnomeVFSURI *uri;
 	GnomeVFSAsyncHandle *handle;
