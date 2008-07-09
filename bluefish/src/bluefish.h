@@ -357,11 +357,7 @@ typedef struct {
 } Tsessionvars;
 
 typedef struct {
-#ifdef HAVE_ATLEAST_GIO_2_16
-	GFile *file;
-#else
 	gchar *filename;
-#endif
 	gchar *name;
 	GList *files;
 	gchar *template;

@@ -803,23 +803,23 @@ GList *get_stringlist(const gchar * filename, GList * which_list) {
  * Return value: #gboolean TRUE on success, FALSE on failure
  */
 gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxentries) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+	GFile *file;
+	GString *strbuffer;
+	GError *error=NULL;
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 	GnomeVFSResult result;
 	GnomeVFSHandle *handle=NULL;
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	GList *tmplist;
-
 	DEBUG_MSG("put_stringlist_limited, started with filename=%s, limit=%d\n", filename, maxentries);
-/*	{
-		gchar *backupfilename = g_strconcat(filename, main_v->props.backup_filestring,NULL);
-		file_copy(filename, backupfilename);
-		g_free(backupfilename);
-	}*/
-
-	DEBUG_MSG("put_stringlist_limited, opening %s for saving list(%p) with length %d\n", filename, which_list, g_list_length(which_list));
+#ifndef HAVE_ATLEAST_GIO_2_16
 	result = gnome_vfs_create(&handle,filename,GNOME_VFS_OPEN_WRITE,FALSE,0644);
 	if (result != GNOME_VFS_OK) {
 		DEBUG_MSG("put_stringlist_limited, failed to open file for writing: %s\n",gnome_vfs_result_to_string(result));
 		return FALSE;
 	}
+#endif /* not HAVE_ATLEAST_GIO_2_16 */
 	if (maxentries > 0) {
 		gint count;
 		count = g_list_length(which_list) - maxentries;
@@ -827,6 +827,18 @@ gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxen
 	} else {
 		tmplist = g_list_first(which_list);
 	}
+#ifdef HAVE_ATLEAST_GIO_2_16
+	file = g_file_new_for_path(filename);
+	strbuffer = g_string_sized_new(1024);
+	while (tmplist) {
+		strbuffer = g_string_append(strbuffer,(char *) tmplist->data);
+		strbuffer = g_string_append_c(strbuffer,'\n');
+		tmplist = g_list_next(tmplist);
+	}
+	g_file_replace_contents(file,strbuffer->str,strbuffer->len
+				,NULL,TRUE,G_FILE_CREATE_PRIVATE,NULL,NULL,&error);
+	g_string_free(strbuffer,TRUE);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 	while (tmplist) {
 		GnomeVFSFileSize bytes_written=0;
 		gchar *tmpstr = g_strndup((char *) tmplist->data, STRING_MAX_SIZE - 1);
@@ -837,6 +849,7 @@ gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxen
 		tmplist = g_list_next(tmplist);
 	}
 	result = gnome_vfs_close(handle);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	DEBUG_MSG("put_stringlist_limited, finished, filedescriptor closed\n");
 	return TRUE;
 }
