@@ -132,6 +132,18 @@ void file_delete_file_async(GnomeVFSURI *uri, DeleteAsyncCallback callback, gpoi
 #endif
 /*************************** FILE INFO ASYNC ******************************/
 #ifdef HAVE_ATLEAST_GIO_2_16
+
+static void checkmodified_cleanup(Tcheckmodified *cm) {
+	g_object_unref(cm->uri);
+	g_object_unref(cm->cancel);
+	g_object_unref(cm->orig_finfo);
+	g_free(cm);
+}
+static void checkmodified_cancel(Tcheckmodified *cm) {
+	g_cancellable_cancel(cm->cancel);
+}
+
+
 static gboolean checkmodified_is_modified(GFileInfo *orig, GFileInfo *new) {
 	/* modified_check_type;  0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
 	if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
@@ -161,6 +173,7 @@ static void checkmodified_asyncfileinfo_lcb(GObject *source_object,GAsyncResult 
 		cm->callback_func(CHECKMODIFIED_ERROR, error->code, NULL, NULL, cm->callback_data);
 		g_error_free(error);
 	}
+	checkmodified_cleanup(cm);
 }
 
 
@@ -177,11 +190,13 @@ Tcheckmodified *file_checkmodified_uri_async(GFile *uri, GFileInfo *curinfo, Che
 	cm->uri = uri;
 	g_object_ref(curinfo);
 	cm->orig_finfo = curinfo;
+	g_object_ref(curinfo);
+	cm->cancel = g_cancellable_new();
 
 	g_file_query_info_async(uri,"standard::size,unix::mode,unix::uid,unix::gid,time::modified"
 					,G_FILE_QUERY_INFO_NONE
 					,G_PRIORITY_DEFAULT
-					,NULL /*cancellable*/
+					,cm->cancel /*cancellable*/
 					,checkmodified_asyncfileinfo_lcb,cm);
 	return cm;
 }
@@ -613,7 +628,22 @@ static gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProg
 	}
 	return 1; 	/* Nautilus returns 1 by default for this callback */
 }
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 
+#ifdef HAVE_ATLEAST_GIO_2_16
+GFile *backup_uri_from_orig_uri(GFile * origuri) {
+	gchar *tmp, *tmp2;
+	GFile *ret;
+	
+	tmp = g_file_get_parse_name(origuri);
+	tmp2 = g_strconcat(tmp,"~",NULL);
+	
+	ret = g_file_parse_name(tmp2);
+	g_free(tmp);
+	g_free(tmp2);
+	return ret;
+}
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 /* we want to implement several backup scheme's, and a 
 restore option that uses the current backup scheme:
 
@@ -757,6 +787,14 @@ gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Tre
 #endif
 /*************************** OPEN FILE ASYNC ******************************/
 #ifdef HAVE_ATLEAST_GIO_2_16
+static void openfile_cleanup(Topenfile *of) {
+	g_object_unref(of->uri);
+	g_object_unref(of->cancel);
+	g_free(of);
+}
+static void openfile_cancel(Topenfile *of) {
+	g_cancellable_cancel(of->cancel);
+}
 static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	Topenfile *of = user_data;
 	gboolean retval;
@@ -771,6 +809,7 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 		g_error_free(error);
 	} else {
 		of->callback_func(OPENFILE_FINISHED,0,buffer,size, of->callback_data);
+		openfile_cleanup(of);
 	}
 	g_free(buffer);
 }
@@ -782,9 +821,10 @@ Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callb
 	of->callback_data = callback_data;
 	of->callback_func = callback_func;
 	of->uri = uri;
+	of->cancel = g_cancellable_new();
 	g_object_ref(of->uri);
 	
-	g_file_load_contents_async(of->uri,NULL,openfile_async_lcb,of);
+	g_file_load_contents_async(of->uri,of->cancel,openfile_async_lcb,of);
 	return of;
 }
 #else
@@ -1506,7 +1546,7 @@ static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 	oa->refcount++;
 
 	oad->basedir = basedir;
-	g_object_uri_ref(oad->basedir);
+	g_object_ref(oad->basedir);
 	g_file_enumerate_children_async(basedir,BF_FILEINFO,0
 				,G_PRIORITY_DEFAULT+3 
 				,NULL

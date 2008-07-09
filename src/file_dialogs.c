@@ -648,7 +648,7 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
 			gnome_vfs_uri_unref(doc->uri);
 		}
 #ifdef HAVE_ATLEAST_GIO_2_16
-		doc->uri = g_file_new_from_uri(newfilename);
+		doc->uri = g_file_new_for_uri(newfilename);
 #else /* no HAVE_ATLEAST_GIO_2_16  */
 		doc->uri = gnome_vfs_uri_new(newfilename);
 #endif /* else HAVE_ATLEAST_GIO_2_16 */
