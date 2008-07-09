@@ -139,7 +139,7 @@ static void checkmodified_cleanup(Tcheckmodified *cm) {
 	g_object_unref(cm->orig_finfo);
 	g_free(cm);
 }
-static void checkmodified_cancel(Tcheckmodified *cm) {
+void checkmodified_cancel(Tcheckmodified *cm) {
 	g_cancellable_cancel(cm->cancel);
 }
 
@@ -792,7 +792,7 @@ static void openfile_cleanup(Topenfile *of) {
 	g_object_unref(of->cancel);
 	g_free(of);
 }
-static void openfile_cancel(Topenfile *of) {
+void openfile_cancel(Topenfile *of) {
 	g_cancellable_cancel(of->cancel);
 }
 static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
@@ -1155,8 +1155,12 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 typedef struct {
 	Tdocument *doc;
 	GFile *uri;
+	GCancellable *cancel;
 } Tfileinfo;
 
+void file_asyncfileinfo_cancel(gpointer fi) {
+	g_cancellable_cancel(((Tfileinfo *)fi)->cancel);
+}
 static void fill_fileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	GFileInfo *info;
 	GError *error=NULL;
@@ -1171,6 +1175,7 @@ static void fill_fileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer 
 		doc_close_single_backend(fi->doc, FALSE, fi->doc->action.close_window);
 	}
 	g_object_unref(fi->uri);
+	g_object_unref(fi->cancel);
 	g_free(fi);
 }
 
@@ -1182,11 +1187,12 @@ void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri) {
 	fi->doc->action.info = fi;
 	g_object_ref(uri);
 	fi->uri = uri;
+	fi->cancel = g_cancellable_new();
 	
 	g_file_query_info_async(fi->uri,BF_FILEINFO
 					,G_FILE_QUERY_INFO_NONE
 					,G_PRIORITY_LOW
-					,NULL
+					,fi->cancel
 					,fill_fileinfo_lcb,fi);
 }
 

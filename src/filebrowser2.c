@@ -349,7 +349,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GFile *child_u
 		display_name = gfile_display_name(child_uri,finfo);
 		icon = g_file_info_get_attribute_object(finfo,G_FILE_ATTRIBUTE_STANDARD_ICON);
 		
-		pixmap = g_object_get_property(icon,"name");
+		g_object_get(icon,"name",&pixmap,NULL);
 		mime_type = g_file_info_get_attribute_string(finfo,G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 		
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);
