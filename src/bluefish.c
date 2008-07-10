@@ -140,7 +140,7 @@ int main(int argc, char *argv[])
 #ifdef HAVE_ATLEAST_GIO_2_16
   if (!g_thread_supported ())
     g_thread_init (NULL);
-  gdk_threads_init ();
+/*  gdk_threads_init ();*/
 #endif
 
 #if !defined (HAVE_LIBGNOMEUI_LIBGNOMEUI_H) || defined (GNOME_PARAM_GOPTION_CONTEXT)
@@ -349,11 +349,11 @@ int main(int argc, char *argv[])
 #endif /* NOSPLASH */
   DEBUG_MSG("main, before gtk_main()\n");
 #ifdef HAVE_ATLEAST_GIO_2_16
-  gdk_threads_enter ();
+/*  gdk_threads_enter ();*/
 #endif  
   gtk_main();
 #ifdef HAVE_ATLEAST_GIO_2_16
-  gdk_threads_leave ();
+/*  gdk_threads_leave ();*/
 #endif
   DEBUG_MSG("main, after gtk_main()\n");
 #ifdef WITH_MSG_QUEUE 
