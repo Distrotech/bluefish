@@ -2148,16 +2148,40 @@ static void dirmenu_changed_lcb(GtkComboBox *widget,gpointer data) {
     GnomeVFSURI *uri;
     DEBUG_MSG("dirmenu_changed_lcb. we have an active iter\n");
     gtk_tree_model_get(GTK_TREE_MODEL(fb2->dirmenu_m), &iter, DIR_URI_COLUMN, &uri, -1);
-    DEBUG_MSG("dirmenu_changed_lcb. active iter has url %s\n",gnome_vfs_uri_get_path(uri));
+#ifdef DEBUG
+#ifdef HAVE_ATLEAST_GIO_2_16
+        gchar *path = g_file_get_path (uri);
+        DEBUG_MSG("dirmenu_changed_lcb. active iter has url %s\n", path);
+        g_free (path);
+#else
+        DEBUG_MSG("dirmenu_changed_lcb. active iter has url %s\n",gnome_vfs_uri_get_path(uri));
+#endif
+#endif
     gnome_vfs_uri_ref(uri);
     g_signal_handler_block(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
     if (fb2->basedir || fb2->filebrowser_viewmode == viewmode_flat) {
       if (fb2->filebrowser_viewmode != viewmode_flat && (gnome_vfs_uri_is_parent(fb2->basedir,uri,TRUE) || gnome_vfs_uri_equal(fb2->basedir,uri))) {
+#ifdef DEBUG
+#ifdef HAVE_ATLEAST_GIO_2_16
+        gchar *path = g_file_get_path (fb2->basedir);
+        DEBUG_MSG("dirmenu_changed_lcb, uri within basedir %s, call fb2_focus_dir\n", path);
+        g_free (path);
+#else
         DEBUG_MSG("dirmenu_changed_lcb, uri within basedir %s, call fb2_focus_dir\n",gnome_vfs_uri_get_path(fb2->basedir));
+#endif
+#endif
         fb2_focus_dir(FILEBROWSER2(fb2), uri, FALSE);
       } else {
         /* drop basedir or set as new basedir, for now we set it as new basedir */
+#ifdef DEBUG
+#ifdef HAVE_ATLEAST_GIO_2_16
+        gchar *path = g_file_get_path (fb2->basedir);
+        DEBUG_MSG("dirmenu_changed_lcb, uri NOT within basedir %s, call fb2_set_basedir_backend\n", path);
+        g_free (path);
+#else
         DEBUG_MSG("dirmenu_changed_lcb, uri NOT within basedir %s, call fb2_set_basedir_backend\n",gnome_vfs_uri_get_path(fb2->basedir));
+#endif
+#endif
         fb2_set_basedir_backend(fb2, uri);
       }
     } else { /* no basedir, we can focus it */
