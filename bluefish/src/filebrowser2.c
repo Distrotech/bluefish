@@ -836,7 +836,15 @@ static void fb2_focus_dir(Tfilebrowser2 *fb2, GnomeVFSURI *uri, gboolean noselec
     /* set this directory as the top tree for the file widget */
     fs_path = gtk_tree_model_get_path(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore),dir);
     if (fs_path) {
+#ifdef DEBUG
+#ifdef HAVE_ATLEAST_GIO_2_16
+      gchar *basename = g_file_get_basename (uri);
+      DEBUG_MSG("fb2_focus_dir, fb2=%p, set new root %s for file list..\n",fb2, basename);
+      g_free (basename);
+#else
       DEBUG_MSG("fb2_focus_dir, fb2=%p, set new root %s for file list..\n",fb2, gnome_vfs_uri_extract_short_name(uri));
+#endif
+#endif
       refilter_filelist(fb2, fs_path);
       DEBUG_MSG("fb2_focus_dir, fb2=%p, expand dir tree to this dir..\n",fb2);
       if (!noselect && fb2->filebrowser_viewmode != viewmode_flat) {
@@ -1113,7 +1121,14 @@ static void refilter_dirlist(Tfilebrowser2 *fb2, GtkTreePath *newroot) {
       }
     }
   }
+#ifdef DEBUG
+#ifdef HAVE_ATLEAST_GIO_2_16
+  gchar *path = g_file_get_path (fb2->basedir);
+  DEBUG_MSG("refilter_dirlist, newroot=%p, basedir=%s\n",useroot,fb2->basedir ? path : "NULL");
+#else
   DEBUG_MSG("refilter_dirlist, newroot=%p, basedir=%s\n",useroot,fb2->basedir ? gnome_vfs_uri_extract_short_path_name(fb2->basedir) : "NULL");
+#endif
+#endif
   fb2->dir_tfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore),useroot);
   gtk_tree_model_filter_set_visible_func(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter),tree_model_filter_func,fb2,NULL);
   
@@ -1876,7 +1891,15 @@ static gboolean dir_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event,
       GnomeVFSURI *uri;
       uri = fb2_uri_from_dir_sort_path(fb2,path);
       if (uri) {
+#ifdef DEBUG
+#ifdef HAVE_ATLEAST_GIO_2_16
+        gchar *basename = g_file_get_basename (uri);
+        DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", basename);
+        g_free (basename);
+#else
         DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", gnome_vfs_uri_extract_short_name(uri));
+#endif
+#endif
         handle_activate_on_file(fb2, uri);
       }
     }
@@ -1904,7 +1927,15 @@ static gboolean file_v_button_press_lcb(GtkWidget *widget, GdkEventButton *event
       GnomeVFSURI *uri;
       uri = fb2_uri_from_file_sort_path(fb2,sort_path);
       if (uri) {
+#ifdef DEBUG
+#ifdef HAVE_ATLEAST_GIO_2_16
+        gchar *basename = g_file_get_basename (uri);
+        DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", basename);
+        g_free (basename);
+#else
         DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", gnome_vfs_uri_extract_short_name(uri));
+#endif
+#endif
         handle_activate_on_file(fb2, uri);
       }
 #ifdef DEBUG
@@ -1946,13 +1977,30 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
   gboolean cont, havesetiter=FALSE;
   if (fb2->currentdir) {
     if (newcurdir && (fb2->currentdir == newcurdir || gnome_vfs_uri_equal(fb2->currentdir, newcurdir))) return;
-    DEBUG_MSG("dirmenu_set_curdir, old_curdir=%s, new_curdir=%s\n",gnome_vfs_uri_get_path(fb2->currentdir),gnome_vfs_uri_get_path(newcurdir));
+#ifdef DEBUG
+#ifdef HAVE_ATLEAST_GIO_2_16
+        gchar *path = g_file_get_path (fb2->currentdir);
+        gchar *path2 = g_file_get_path (newcurdir);
+        DEBUG_MSG("dirmenu_set_curdir, old_curdir=%s, new_curdir=%s\n", path, path2);
+        g_free (path);
+        g_free (path2);
+#else
+        DEBUG_MSG("dirmenu_set_curdir, old_curdir=%s, new_curdir=%s\n",gnome_vfs_uri_get_path(fb2->currentdir),gnome_vfs_uri_get_path(newcurdir));
+#endif
+#endif    
     gnome_vfs_uri_unref(fb2->currentdir);
   }
   fb2->currentdir = newcurdir;
   gnome_vfs_uri_ref(fb2->currentdir);
-  DEBUG_MSG("dirmenu_set_curdir, new curdir %s\n",gnome_vfs_uri_get_path(fb2->currentdir));
-  
+#ifdef DEBUG
+#ifdef HAVE_ATLEAST_GIO_2_16
+        gchar *path = g_file_get_path (fb2->currentdir);
+        DEBUG_MSG("dirmenu_set_curdir, new curdir %s\n", path);
+        g_free (path);
+#else
+        DEBUG_MSG("dirmenu_set_curdir, new curdir %s\n",gnome_vfs_uri_get_path(fb2->currentdir));
+#endif
+#endif
   fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(2,G_TYPE_STRING,G_TYPE_POINTER));
   tmplist = g_list_first(fb2->bfwin->session->recent_dirs);
   while (tmplist) {
