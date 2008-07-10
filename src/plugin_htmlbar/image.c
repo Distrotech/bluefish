@@ -98,7 +98,11 @@ void image_diag_destroy_cb(GtkWidget * widget, Timage_diag *imdg) {
     g_object_unref(imdg->pb);
   }
   if (imdg->full_uri) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+    g_object_unref (imdg->full_uri);
+#else
     gnome_vfs_uri_unref(imdg->full_uri);
+#endif
   }
   g_free(imdg);
 }
