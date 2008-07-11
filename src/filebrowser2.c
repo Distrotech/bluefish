@@ -53,6 +53,14 @@ alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're 
 #include "project.h"
 #include "stringlist.h"      /* count_array() */
 #include "filefilter.h"
+#ifdef HAVE_ATLEAST_GIO_2_16
+#define DIR_MIME_TYPE "inode/directory"
+#define MIME_ISDIR(string) strcmp(string, "inode/directory") 
+#else /* no HAVE_ATLEAST_GIO_2_16  */
+#define DIR_MIME_TYPE "x-directory/normal"
+#define MIME_ISDIR(string) strncmp(string, "x-directory",11)
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
+
 
 typedef struct {
   GtkTreeStore *filesystem_tstore; /* the directory tree */ 
@@ -318,7 +326,7 @@ static GFileInfo *fake_directory_fileinfo(const gchar *name) {
   g_file_info_set_name(finfo, name);
   g_file_info_set_edit_name(finfo, name);
   g_file_info_set_file_type(finfo,G_FILE_TYPE_DIRECTORY);
-  g_file_info_set_attribute_string(finfo,G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,"x-directory/normal");
+  g_file_info_set_attribute_string(finfo,G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE,DIR_MIME_TYPE);
   return finfo;
 }
 static GFileInfo *fake_directory_fileinfo_for_uri(GFile *uri) {
@@ -341,22 +349,53 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GFile *child_u
 			gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,REFRESH_COLUMN, 0,-1);
 		}
 	} else { /* child does not yet exist */
-		gchar *display_name, *pixmap=NULL, *mime_type;
+		gchar *display_name, *mime_type;
+#if !GTK_CHECK_VERSION(2,14,0)
+		GdkPixbuf *pixmap=NULL;
+		/*gchar *pixmap = NULL;*/
+#endif
 		GIcon *icon;
 		newiter = g_new(GtkTreeIter,1);
 		g_object_ref(child_uri);
 		g_object_ref(finfo);
 		display_name = gfile_display_name(child_uri,finfo);
 		icon = g_file_info_get_attribute_object(finfo,G_FILE_ATTRIBUTE_STANDARD_ICON);
+#if !GTK_CHECK_VERSION(2,14,0)
 		if (icon) {
-			DEBUG_MSG("fb2_add_filesystem_entry, requesting icon name from %p\n");
-			g_object_get(icon,"name",&pixmap,NULL);
-			DEBUG_MSG("fb2_add_filesystem_entry, got %s\n",pixmap);
+			gchar **tmp;
+			DEBUG_MSG("fb2_add_filesystem_entry, requesting icon name from %p\n",icon);
+			g_object_get(icon,"names",&tmp,NULL);
+			if (tmp && tmp[0]) {
+				GtkIconTheme *it;
+				GtkIconInfo *ii;
+				DEBUG_MSG("fb2_add_filesystem_entry, got %s\n",tmp[0]);
+				it = gtk_icon_theme_get_default();
+				ii = gtk_icon_theme_lookup_icon(it,tmp[0],12,GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+				pixmap = gtk_icon_info_load_icon(ii,NULL);
+				g_object_unref(ii);
+				/*pixmap = g_strdup(tmp[0]);*/
+				g_strfreev(tmp);
+			}
+			g_object_unref(icon);
+		} else {
+			DEBUG_MSG("no icon in finfo %p, has_icon=%d\n",finfo,g_file_info_has_attribute(finfo,G_FILE_ATTRIBUTE_STANDARD_ICON));
 		}
+#endif
 		mime_type = g_file_info_get_attribute_string(finfo,G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 		
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,parent);
 		DEBUG_MSG("store %s in iter %p, parent %p\n",display_name,newiter,parent);
+#if GTK_CHECK_VERSION(2,14,0)
+		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,
+				PIXMAP_COLUMN, icon,
+				FILENAME_COLUMN, display_name,
+				URI_COLUMN, child_uri,
+				REFRESH_COLUMN, 0,
+				TYPE_COLUMN, mime_type,
+				FILEINFO_COLUMN, finfo,
+				-1);
+#else
+		DEBUG_MSG("set pixmap=%s,display_name=%s,mime_type=%s,child_uri=%p,finfo=%p\n",pixmap,display_name,mime_type,child_uri,finfo);
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,
 				PIXMAP_COLUMN, pixmap,
 				FILENAME_COLUMN, display_name,
@@ -365,6 +404,8 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GFile *child_u
 				TYPE_COLUMN, mime_type,
 				FILEINFO_COLUMN, finfo,
 				-1);
+
+#endif
 		DEBUG_MSG("insert newiter in hashtable\n");
 		g_hash_table_insert(FB2CONFIG(main_v->fb2config)->filesystem_itable,child_uri,newiter);
 		DEBUG_MSG("load_subdirs=%d, finfo=%p\n",load_subdirs,finfo);
@@ -440,7 +481,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GnomeVFSURI *c
       GnomeVFSURI *dummy_uri;
       /* add a dummy item so the expander will be shown */
       dummy_uri = gnome_vfs_uri_append_string(child_uri,"%20");
-      fb2_add_filesystem_entry(newiter, dummy_uri, "x-directory/normal", FALSE, TRUE);
+      fb2_add_filesystem_entry(newiter, dummy_uri, DIR_MIME_TYPE, FALSE, TRUE);
       gnome_vfs_uri_unref(dummy_uri);
     }
   }
@@ -514,20 +555,25 @@ static void fb2_enumerate_next_files_lcb(GObject *source_object,GAsyncResult *re
     /* done */
     g_file_enumerator_close_async(uir->gfe,G_PRIORITY_LOW,uir->cancel,fb2_enumerator_close_lcb,uir);
     return;
-  }
-  tmplist = g_list_first(list);
-  while (tmplist) {
-    GFileInfo *finfo = tmplist->data;
-    const gchar *name = g_file_info_get_name(finfo);
-    GFile *newchild;
-    newchild = g_file_get_child(uir->p_uri,name);
-    fb2_add_filesystem_entry(uir->parent, newchild, finfo, TRUE);
-    g_object_unref(newchild);
-    g_object_unref(finfo);
-    tmplist = g_list_next(tmplist);
-  }
-  /* BUG: do error handling */
-  g_list_free(list);
+	}
+	tmplist = g_list_first(list);
+	while (tmplist) {
+		GFileInfo *finfo = tmplist->data;
+		const gchar *name;
+		GFile *newchild;
+		if (g_file_info_has_attribute(finfo,G_FILE_ATTRIBUTE_STANDARD_NAME)) {
+			name = g_file_info_get_name(finfo);
+			newchild = g_file_get_child(uir->p_uri,name);
+			fb2_add_filesystem_entry(uir->parent, newchild, finfo, TRUE);
+			g_object_unref(newchild);
+		} else {
+			DEBUG_MSG("fb2_enumerate_next_files_lcb, weird, finfo=%p does not have attribute name ???\n");
+		}
+		g_object_unref(finfo);
+		tmplist = g_list_next(tmplist);
+	}
+	/* BUG: do error handling */
+	g_list_free(list);
 }
 
 static void fb2_enumerate_children_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
@@ -554,7 +600,7 @@ static void fb2_fill_dir_async(GtkTreeIter *parent, GFile *uri) {
     DEBUG_MSG("fb2_fill_dir_async, opening ");
     DEBUG_URI(uir->p_uri, TRUE);
     uir->cancel = g_cancellable_new();
-    g_file_enumerate_children_async(uir->p_uri,"standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
+    g_file_enumerate_children_async(uir->p_uri,"standard::name,standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
           G_FILE_QUERY_INFO_NONE,
           G_PRIORITY_LOW,uir->cancel,fb2_enumerate_children_lcb,uir);
     FB2CONFIG(main_v->fb2config)->uri_in_refresh = g_list_prepend(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
@@ -583,7 +629,7 @@ static void fb2_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult re
       DEBUG_MSG("fb2_load_directory_lcb, %s has mime_type %s and type %d (valid: %d)\n",finfo->name,finfo->mime_type, finfo->type, finfo->valid_fields);
       /* to avoid the situation where the mime-type for a directory is different from x-directory/normal we always
       set that mime-type if that type is returned */
-      fb2_add_filesystem_entry(uir->parent, child_uri, (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY) ? "x-directory/normal" : finfo->mime_type, TRUE, (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY));
+      fb2_add_filesystem_entry(uir->parent, child_uri, (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY) ? DIR_MIME_TYPE : finfo->mime_type, TRUE, (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY));
       gnome_vfs_uri_unref(child_uri);
     }
     tmplist = g_list_next(tmplist);
@@ -755,7 +801,7 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 	if (!parent) {
 		DEBUG_MSG("adding toplevel ");
 		DEBUG_URI(tmp, TRUE);
-		parent = fb2_add_filesystem_entry(NULL, tmp, "x-directory/normal", FALSE, TRUE);
+		parent = fb2_add_filesystem_entry(NULL, tmp, DIR_MIME_TYPE, FALSE, TRUE);
 		parent_uri = tmp;
 	} else {
 		parent_uri = tmp;
@@ -780,7 +826,7 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 			parent = fb2_add_filesystem_entry(parent, tmp2, finfo, gnome_vfs_uri_equal(tmp2,uri));
 			g_object_unref(finfo);
 #else /* no HAVE_ATLEAST_GIO_2_16  */
-			parent = fb2_add_filesystem_entry(parent, tmp2, "x-directory/normal", gnome_vfs_uri_equal(tmp2,uri), TRUE);
+			parent = fb2_add_filesystem_entry(parent, tmp2, DIR_MIME_TYPE, gnome_vfs_uri_equal(tmp2,uri), TRUE);
 #endif /* else HAVE_ATLEAST_GIO_2_16 */
 			gnome_vfs_uri_unref(parent_uri);
 			parent_uri = tmp2; /* here 'parent_uri'='tmp2' is newly allocated */
@@ -949,7 +995,7 @@ static gboolean tree_model_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpo
   }
   DEBUG_MSG("tree_model_filter_func, model=%p and fb2=%p, name=%s, mime=%s, and uri=",model,fb2,name,mime_type);
   DEBUG_URI(uri, TRUE);
-  if (mime_type && strncmp(mime_type, "x-directory",11)!=0) { /* file */
+  if (mime_type && MIME_ISDIR(mime_type)!=0) { /* file */
     if (fb2->filebrowser_viewmode == viewmode_dual) {
       /* in the two paned view we don't show files in the dir view */
       retval = FALSE;
@@ -1016,7 +1062,7 @@ static gboolean file_list_filter_func(GtkTreeModel *model,GtkTreeIter *iter,gpoi
   gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &mime_type, -1);
   if (!name) return FALSE;
   
-  if (strncmp(mime_type, "x-directory",11) == 0) retval = FALSE;
+  if (MIME_ISDIR(mime_type) == 0) retval = FALSE;
   
   if (retval && !fb2->filebrowser_show_backup_files) {
     len = strlen(name);
@@ -1051,8 +1097,8 @@ gint filebrowser_sort_func(GtkTreeModel *model,GtkTreeIter *a,GtkTreeIter *b,gpo
   gint retval=0;
   gtk_tree_model_get(GTK_TREE_MODEL(model), a, FILENAME_COLUMN, &namea, TYPE_COLUMN, &mimea, -1);
   gtk_tree_model_get(GTK_TREE_MODEL(model), b, FILENAME_COLUMN, &nameb, TYPE_COLUMN, &mimeb, -1);
-  isdira = (mimea && strncmp(mimea,"x-directory",11)==0);
-  isdirb = (mimeb && strncmp(mimeb,"x-directory",11)==0);
+  isdira = (mimea && MIME_ISDIR(mimea)==0);
+  isdirb = (mimeb && MIME_ISDIR(mimeb)==0);
   if (isdira == isdirb) { /* both files, or both directories */
     if (namea == nameb) {
       retval = 0; /* both NULL */
@@ -1252,7 +1298,7 @@ static gboolean fb2_isdir_from_dir_sort_path(Tfilebrowser2 *fb2, GtkTreePath *so
     gboolean is_dir = FALSE;
     gtk_tree_model_get(fb2->dir_tsort, &iter, TYPE_COLUMN, &mime_type, -1);
     DEBUG_MSG("fb2_isdir_from_file_sort_path, mime_type=%s\n",mime_type);
-    if (mime_type && strncmp(mime_type, "x-directory", 11) == 0) {
+    if (mime_type && MIME_ISDIR(mime_type) == 0) {
       is_dir = TRUE;
     }
     g_free (mime_type);
@@ -1964,12 +2010,17 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 	gboolean cont, havesetiter=FALSE;
 	DEBUG_MSG("dirmenu_set_curdir(fb2=%p, newcurdir=%p)\n",fb2,newcurdir);
 	if (fb2->currentdir) {
-		if (newcurdir && (fb2->currentdir == newcurdir || gnome_vfs_uri_equal(fb2->currentdir, newcurdir))) return;
+		if (newcurdir && (fb2->currentdir == newcurdir || gnome_vfs_uri_equal(fb2->currentdir, newcurdir))) 
+			return;
 		if (fb2->currentdir)
 			gnome_vfs_uri_unref(fb2->currentdir);
 	}
 	fb2->currentdir = newcurdir;
 	gnome_vfs_uri_ref(fb2->currentdir);
+#ifdef DEBUG
+	DEBUG_MSG("dirmenu_set_curdir, newcurdir=");
+	DEBUG_URI(newcurdir,TRUE);	
+#endif
 	
 	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(2,G_TYPE_STRING,G_TYPE_POINTER));
 	tmplist = g_list_first(fb2->bfwin->session->recent_dirs);
@@ -1982,7 +2033,11 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 		uri = gnome_vfs_uri_new(tmplist->data);
 #endif /* else HAVE_ATLEAST_GIO_2_16 */
 		if (uri) {
+#ifdef HAVE_ATLEAST_GIO_2_16
+			name = g_file_get_uri(uri);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 			name = full_path_utf8_from_uri(uri);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 			DEBUG_MSG("dirmenu_set_curdir, appending %s\n",name);
 			gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m),&iter);
 			gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m),&iter
@@ -1993,11 +2048,14 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	
 	/* then we rebuild the current uri */
 	tmp = gnome_vfs_uri_dup(newcurdir);
 	do {
+#ifdef HAVE_ATLEAST_GIO_2_16
+		gchar *name = g_file_get_uri(tmp);
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 		gchar *name = full_path_utf8_from_uri(tmp);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 		DEBUG_MSG("dirmenu_set_curdir, appending %s to the new model\n",name);
 		gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m),&iter);
 		if (!havesetiter) {
@@ -2006,8 +2064,9 @@ static void dirmenu_set_curdir(Tfilebrowser2 *fb2, GnomeVFSURI *newcurdir) {
 		}
 		gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m),&iter
 					,DIR_NAME_COLUMN,name
-					,DIR_URI_COLUMN,tmp /* don't unref tmp at this point, because there is a reference from the model */
+					,DIR_URI_COLUMN,tmp /* don't unref tmp at this point, because there is a reference in the model */
 					,-1);
+		g_free(name);
 #ifdef HAVE_ATLEAST_GIO_2_16
 		tmp = g_file_get_parent(tmp);
 		cont = (tmp!=NULL);
@@ -2047,7 +2106,7 @@ static void dir_v_selection_changed_lcb(GtkTreeSelection *treeselection,Tfilebro
 		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri,TYPE_COLUMN, &mime_type, -1);
 		DEBUG_MSG("dir_v_selection_changed_lcb, mime_type=%s and uri=",mime_type);
 		DEBUG_URI(uri,TRUE);
-		if (uri && (mime_type && strncmp(mime_type, "x-directory", 11) == 0)) {
+		if (uri && (mime_type && MIME_ISDIR(mime_type) == 0)) {
 			DEBUG_MSG("uri %p is directory, calling dirmenu_set_curdir\n",uri);
 			dirmenu_set_curdir(fb2, uri);
 			fb2_focus_dir(fb2, uri, TRUE);
@@ -2323,11 +2382,29 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 *fb2, gint viewmode) {
   renderer = gtk_cell_renderer_pixbuf_new();
   column = gtk_tree_view_column_new();
   gtk_tree_view_column_pack_start(column, renderer, FALSE);
+#ifdef HAVE_ATLEAST_GIO_2_16
+#if GTK_CHECK_VERSION(2,14,0)
+    gtk_tree_view_column_set_attributes(column,renderer
+      ,"gicon",PIXMAP_COLUMN
+      ,NULL);
+#else 
+/*	gtk_tree_view_column_set_attributes(column,renderer
+      ,"icon-name",PIXMAP_COLUMN
+      ,NULL);*/
+	gtk_tree_view_column_set_attributes(column,renderer
+      ,"pixbuf",PIXMAP_COLUMN
+      ,"pixbuf_expander_closed",PIXMAP_COLUMN
+      ,"pixbuf_expander_open",PIXMAP_COLUMN
+      ,NULL);
+
+#endif
+#else /* no HAVE_ATLEAST_GIO_2_16  */
   gtk_tree_view_column_set_attributes(column,renderer
     ,"pixbuf",PIXMAP_COLUMN
     ,"pixbuf_expander_closed",PIXMAP_COLUMN
     ,"pixbuf_expander_open",PIXMAP_COLUMN
     ,NULL);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
   renderer = gtk_cell_renderer_text_new();
   g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL); /* Not editable. */
   gtk_tree_view_column_pack_start(column, renderer, TRUE);
@@ -2367,9 +2444,20 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 *fb2, gint viewmode) {
     column = gtk_tree_view_column_new();
     gtk_tree_view_column_pack_start(column, renderer, FALSE);
 #ifdef HAVE_ATLEAST_GIO_2_16
+#if GTK_CHECK_VERSION(2,14,0)
     gtk_tree_view_column_set_attributes(column,renderer
-      ,"icon-name",PIXMAP_COLUMN
+      ,"gicon",PIXMAP_COLUMN
       ,NULL);
+#else 
+/*	gtk_tree_view_column_set_attributes(column,renderer
+      ,"icon-name",PIXMAP_COLUMN
+      ,NULL);*/
+	gtk_tree_view_column_set_attributes(column,renderer
+      ,"pixbuf",PIXMAP_COLUMN
+      ,"pixbuf_expander_closed",PIXMAP_COLUMN
+      ,"pixbuf_expander_open",PIXMAP_COLUMN
+      ,NULL);
+#endif
 #else /* no HAVE_ATLEAST_GIO_2_16  */
     gtk_tree_view_column_set_attributes(column,renderer
       ,"pixbuf",PIXMAP_COLUMN
@@ -2571,7 +2659,7 @@ void fb2config_init(void) {
           "icon_dir.png","../images/icon_dir.png",
           "images/icon_dir.png",NULL);
   fb2config->dir_icon = gdk_pixbuf_new_from_file(filename, NULL);*/
-  fb2config->dir_icon = get_icon_for_mime_type("x-directory/normal");
+  fb2config->dir_icon = get_icon_for_mime_type(DIR_MIME_TYPE);
   /*g_free(filename);*/
 
 /*  {

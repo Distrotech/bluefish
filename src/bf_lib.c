@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include "config.h"
 
@@ -1721,14 +1721,16 @@ gchar *gfile_display_name(GFile *uri, GFileInfo *finfo) {
 	const gchar *retval;
 	if (finfo && g_file_info_has_attribute(finfo,G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME)) {
 		retval = g_file_info_get_display_name(finfo);
+		DEBUG_MSG("gfile_display_name, got %s from finfo\n",retval);
 	} else {
 		GFileInfo *finfo2;
 		
 		finfo2 = g_file_query_info(uri,G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME,G_FILE_QUERY_INFO_NONE,NULL,NULL);
 		retval = g_file_info_get_display_name(finfo2);
+		DEBUG_MSG("gfile_display_name, queried uri %p, and got %s from finfo %p\n",uri,retval,finfo2);
 		g_object_unref(finfo2);
 	}
-	return strdup(retval);
+	return g_strdup(retval);
 }
 
 gboolean gfile_uri_is_parent(GFile *parent, GFile *child, gboolean recursive) {
