@@ -370,9 +370,16 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GFile *child_u
 				GtkIconInfo *ii;
 				DEBUG_MSG("fb2_add_filesystem_entry, got %s\n",tmp[0]);
 				it = gtk_icon_theme_get_default();
-				ii = gtk_icon_theme_lookup_icon(it,tmp[0],12,GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-				pixmap = gtk_icon_info_load_icon(ii,NULL);
-				g_object_unref(ii);
+				if (G_IS_THEMED_ICON(icon)) {
+					ii = gtk_icon_theme_choose_icon(it,tmp,12,GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+					if (ii) {
+						pixmap = gtk_icon_info_load_icon(ii,NULL);
+						/*g_object_unref(ii);*/
+					}
+				} else {
+					g_print("icon is not themed, unknown how to load...\n");
+				
+				}
 				/*pixmap = g_strdup(tmp[0]);*/
 				g_strfreev(tmp);
 			}
@@ -395,7 +402,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter *parent, GFile *child_u
 				FILEINFO_COLUMN, finfo,
 				-1);
 #else
-		DEBUG_MSG("set pixmap=%s,display_name=%s,mime_type=%s,child_uri=%p,finfo=%p\n",pixmap,display_name,mime_type,child_uri,finfo);
+		DEBUG_MSG("set pixmap=%p,display_name=%s,mime_type=%s,child_uri=%p,finfo=%p\n",pixmap,display_name,mime_type,child_uri,finfo);
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),newiter,
 				PIXMAP_COLUMN, pixmap,
 				FILENAME_COLUMN, display_name,
