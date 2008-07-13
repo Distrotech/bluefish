@@ -22,7 +22,7 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines filetype.c
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include "config.h"
 
@@ -114,7 +114,11 @@ static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
 	const gchar *description;
 	filetype = g_new(Tfiletype, 1);
 	DEBUG_MSG("building filetype for %s\n",mime_type);
+#ifdef HAVE_ATLEAST_GIO_2_16
+	description = g_strdup("BUG: not ported to GIO yet\n");
+#else /* no HAVE_ATLEAST_GIO_2_16  */
 	description = gnome_vfs_mime_get_description(mime_type);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	filetype->type = g_strdup(description?description:"");
 	filetype->mime_type = g_strdup(mime_type);
 	filetype->icon = get_icon_for_mime_type(mime_type);

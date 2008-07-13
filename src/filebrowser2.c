@@ -543,10 +543,11 @@ static void fb2_treestore_mark_children_refresh1(GtkTreeStore *tstore, GtkTreeIt
 #ifdef HAVE_ATLEAST_GIO_2_16
 
 static void fb2_enumerator_close_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
-  Turi_in_refresh *uir = user_data;
-  GError *error=NULL;
-  g_file_enumerator_close_finish(uir->gfe,res,&error);
-  fb2_uri_in_refresh_cleanup(uir);
+	Turi_in_refresh *uir = user_data;
+	GError *error=NULL;
+	g_file_enumerator_close_finish(uir->gfe,res,&error);
+	fb2_treestore_delete_children_refresh1(FB2CONFIG(main_v->fb2config)->filesystem_tstore, uir->parent);
+	fb2_uri_in_refresh_cleanup(uir);
 }
 
 static void fb2_enumerate_next_files_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
