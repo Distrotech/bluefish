@@ -28,7 +28,7 @@
 #include <stdlib.h>         /* system() */
 #include <pcre.h>
 
-/* #define DEBUG */
+#define DEBUG
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -138,7 +138,6 @@ GList *return_urilist_from_doclist(GList *doclist) {
 	tmplist = g_list_first(doclist);
 	while(tmplist){
 		if (DOCUMENT(tmplist->data)->uri) {
-			DEBUG_MSG("return_filenamestringlist_from_doclist, adding filename %s\n",gnome_vfs_uri_get_path(DOCUMENT(tmplist->data)->uri));
 			g_object_ref(DOCUMENT(tmplist->data)->uri);
 			newlist = g_list_prepend(newlist, DOCUMENT(tmplist->data)->uri);
 		}
@@ -230,7 +229,6 @@ Tdocument *documentlist_return_document_from_uri(GList *doclist, GnomeVFSURI *ur
 		DEBUG_MSG("documentlist_return_document_from_filename, no filename! returning\n");
 		return NULL;
 	}
-	DEBUG_MSG("documentlist_return_document_from_filename, filename=%s\n",gnome_vfs_uri_get_path(uri));
 	tmplist = g_list_first(doclist);
 	while (tmplist) {
 		if (DOCUMENT(tmplist->data)->uri && (DOCUMENT(tmplist->data)->uri == uri || gnome_vfs_uri_equal(DOCUMENT(tmplist->data)->uri,uri))) {
@@ -432,6 +430,7 @@ void doc_set_tooltip(Tdocument *doc) {
 		}
 		if (doc->hl && doc->hl->mime_type) {
 			retstr = g_string_append(retstr, _("\nMime type: "));
+			DEBUG_MSG("doc %p has filetype %p with mime %s\n",doc,doc->hl,doc->hl->mime_type);
 			retstr = g_string_append(retstr, doc->hl->mime_type);
 		}
 		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED)) {
@@ -526,6 +525,7 @@ void doc_set_title(Tdocument *doc) {
 	}
 	gtk_label_set(GTK_LABEL(doc->tab_menu),tabmenu_string);
 	gtk_label_set(GTK_LABEL(doc->tab_label),label_string);
+	DEBUG_MSG("doc_set_title, tabmenu_string=%s,label_string=%s\n",tabmenu_string,label_string);
 	doc_set_tooltip(doc);
 	g_free(label_string);
 	g_free(tabmenu_string);
@@ -554,10 +554,13 @@ void doc_reset_filetype(Tdocument * doc, GnomeVFSURI *newuri, gconstpointer buf,
 #ifdef HAVE_ATLEAST_GIO_2_16
 	gboolean uncertain=FALSE;
 	char *filename, *conttype;
-	filename = filename_utf8_from_uri(newuri);
+	filename = g_file_get_basename(newuri);
 	conttype = g_content_type_guess(filename,buf,buflen,&uncertain);
+	DEBUG_MSG("doc_reset_filetype,conttype=%s\n",conttype);
 	g_free(filename);
-	mimetype = g_content_type_get_mime_type(conttype);
+	/*mimetype = g_content_type_get_mime_type(conttype);*/
+	mimetype=conttype;
+	DEBUG_MSG("doc_reset_filetype,mimetype=%s\n",mimetype);
 	/* docs are unclear if conttype is a static string or a newly allocated string */
 #else
 #ifdef HAVE_ATLEAST_GNOMEVFS_2_14
@@ -1681,7 +1684,6 @@ void doc_set_fileinfo(Tdocument *doc, GnomeVFSFileInfo *finfo) {
 		gnome_vfs_file_info_unref(doc->fileinfo);
 	}
 	gnome_vfs_file_info_ref(finfo);
-	DEBUG_MSG("doc_set_fileinfo, mime=%s\n",finfo->mime_type);
 	doc->fileinfo = finfo;
 	doc_set_tooltip(doc);
 }
@@ -2372,7 +2374,6 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 
 static void delete_backupfile_lcb(gpointer data) {
 	GnomeVFSURI *uri = (GnomeVFSURI *)data;
-	DEBUG_MSG("delete_backupfile_lcb, backup %s deleted\n",gnome_vfs_uri_get_path(uri));
 	gnome_vfs_uri_unref(uri);
 }
 /**
@@ -2787,7 +2788,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
  */
 Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gboolean readonly) {
 	Tdocument *doc = doc_new_backend(bfwin, FALSE, readonly);
-	DEBUG_MSG("doc_new_loading_in_background, bfwin=%p, doc=%p, for uri %s\n",bfwin,doc,gnome_vfs_uri_get_path(uri));
+	DEBUG_MSG("doc_new_loading_in_background, bfwin=%p, doc=%p, for uri %p\n",bfwin,doc,uri);
 	if (finfo) {
 #ifdef HAVE_ATLEAST_GIO_2_16
 		doc->fileinfo = g_file_info_dup(finfo);
