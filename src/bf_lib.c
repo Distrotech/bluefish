@@ -1734,22 +1734,34 @@ gchar *gfile_display_name(GFile *uri, GFileInfo *finfo) {
 }
 
 gboolean gfile_uri_is_parent(GFile *parent, GFile *child, gboolean recursive) {
-	gboolean retval = FALSE;
-	GFile *tmp, *tmp2=child;
-	g_object_ref(child);
-	do {
-		tmp = g_file_get_parent(tmp2);
-		g_object_unref(tmp2);
-		if (tmp == NULL) {
-			break;
+	if (parent == NULL) {
+		g_print("gfile_uri_is_parent, parent=NULL ??\n");
+		return FALSE;
+	} else if (child == NULL) {
+		g_print("gfile_uri_is_parent, child=NULL ??\n");
+		return FALSE;
+	} else {
+		gboolean retval = FALSE;
+		GFile *tmp, *tmp2=child;
+		
+		g_object_ref(child);
+		do {
+			tmp = g_file_get_parent(tmp2);
+			g_object_unref(tmp2);
+			if (tmp == NULL) {
+				g_print("tmp=NULL, break!\n");
+				break;
+			}
+			retval = g_file_equal(tmp,parent);
+			g_print("retval=%d\n",retval);
+			tmp2 = tmp;
+		} while (recursive == TRUE && retval != TRUE);
+		g_print("after loop, tmp=%p, retval=%d\n",tmp,retval);
+		if (tmp) {
+			g_object_unref(tmp);
 		}
-		retval = g_file_equal(tmp,parent);
-		tmp2 = tmp;
-	} while (recursive == TRUE && retval != TRUE);
-	if (tmp) {
-		g_object_unref(tmp);
+		return retval;
 	}
-	return retval;
 }
 gchar *get_hostname_from_uri(GFile *uri) {
 	gchar *tmp, *begin, *end1, *end2, *end, *retval;
