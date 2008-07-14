@@ -793,6 +793,7 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 		tmp = tmp2;
 		parent = g_hash_table_lookup(FB2CONFIG(main_v->fb2config)->filesystem_itable, tmp);
 	}/* after this loop 'tmp' is newly allocated */
+	parent_uri=tmp;
 #else /* no HAVE_ATLEAST_GIO_2_16  */
 	while (!parent && gnome_vfs_uri_has_parent(tmp)) {
 		GnomeVFSURI* tmp2 = gnome_vfs_uri_get_parent(tmp);
