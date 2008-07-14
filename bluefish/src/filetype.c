@@ -113,15 +113,17 @@ static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
 	Tfiletype *filetype;
 	const gchar *description;
 	filetype = g_new(Tfiletype, 1);
-	DEBUG_MSG("building filetype for %s\n",mime_type);
+	DEBUG_MSG("building filetype for %s at %p\n",mime_type,filetype);
 #ifdef HAVE_ATLEAST_GIO_2_16
-	description = g_strdup("BUG: not ported to GIO yet\n");
+	filetype->type = g_strdup("BUG: not ported to GIO yet");
+	filetype->icon=NULL;
 #else /* no HAVE_ATLEAST_GIO_2_16  */
 	description = gnome_vfs_mime_get_description(mime_type);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	filetype->type = g_strdup(description?description:"");
-	filetype->mime_type = g_strdup(mime_type);
 	filetype->icon = get_icon_for_mime_type(mime_type);
+#endif /* else HAVE_ATLEAST_GIO_2_16 */
+	filetype->mime_type = g_strdup(mime_type);
+
 	filetype->cfg = cfg;
 	return filetype;
 }
@@ -160,8 +162,8 @@ Tfiletype *get_filetype_for_mime_type(const gchar *mime_type) {
 		Tfiletype *ft;
 		ft = g_hash_table_lookup(main_v->filetypetable, mime_type);
 		if (ft == NULL) {
-			ft = filetype_new(mime_type, NULL);
 			DEBUG_MSG("get_filetype_for_mime_type, %s is not in hashtable, creating new filetype %p\n",mime_type,ft);
+			ft = filetype_new(mime_type, NULL);
 			g_hash_table_replace(main_v->filetypetable, ft->mime_type, ft);
 			main_v->filetypelist = g_list_prepend(main_v->filetypelist, ft);
 		}
