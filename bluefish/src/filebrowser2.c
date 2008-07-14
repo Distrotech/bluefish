@@ -815,7 +815,12 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI *uri) {
 		parent_uri = tmp;
 	}/* after this loop 'parent_uri'='tmp' is newly allocated */
 #endif /* else HAVE_ATLEAST_GIO_2_16 */
-
+#ifdef DEBUG
+	if (parent_uri == NULL) {
+		g_print("parent_uri should not be NULL\n");
+		exit(123);
+	}
+#endif
 	{	/* now loop to create all directories in the treestore that were not in the treestore yet*/
 		gboolean done=gnome_vfs_uri_equal(parent_uri, uri);
 		while (!done) {
