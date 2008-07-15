@@ -1776,5 +1776,20 @@ gchar *get_hostname_from_uri(GFile *uri) {
 	g_free(tmp); 
 	return retval;
 }
+
+GFile *g_file_new_make_uri(const gchar *path_or_uri) {
+	GFile *retval;
+	if (!path_or_uri)
+		return NULL;
+	if (path_or_uri[0] == '/') {
+		gchar *tmp;
+		tmp = g_strconcat("file://",path_or_uri,NULL);
+		retval = g_file_new_for_uri(tmp);
+		g_free(tmp);
+	} else {
+		retval = g_file_new_for_uri(path_or_uri);
+	}
+	return retval;
+}
 #endif
 
