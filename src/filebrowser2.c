@@ -2947,7 +2947,10 @@ void fb2config_init(void)
 	   "icon_dir.png","../images/icon_dir.png",
 	   "images/icon_dir.png",NULL);
 	   fb2config->dir_icon = gdk_pixbuf_new_from_file(filename, NULL); */
+#ifndef HAVE_ATLEAST_GIO_2_16
 	fb2config->dir_icon = get_icon_for_mime_type(DIR_MIME_TYPE);
+#endif /* not HAVE_ATLEAST_GIO_2_16 */
+
 	/*g_free(filename); */
 
 /*  {

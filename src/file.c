@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -817,7 +817,6 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callback_func, gpointer callback_data) {
 	Topenfile *of;
 	of = g_new(Topenfile,1);
-	DEBUG_MSG("file_open_uri_async, %s, of=%p\n",gnome_vfs_uri_get_path(uri), of);
 	of->callback_data = callback_data;
 	of->callback_func = callback_func;
 	of->uri = uri;
@@ -1083,7 +1082,6 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,G
 	DEBUG_MSG("file2doc_lcb, status=%d, f2d=%p\n",status,f2d);
 	switch (status) {
 		case OPENFILE_FINISHED:
-			DEBUG_MSG("file2doc_lcb, status=%d, now we should convert %s data into a GtkTextBuffer and such\n",status, gnome_vfs_uri_get_path(f2d->uri));
 			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
 			doc_reset_filetype(f2d->doc, f2d->doc->uri, buffer,buflen);
 			doc_set_tooltip(f2d->doc);
@@ -1182,7 +1180,7 @@ static void fill_fileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer 
 void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri) {
 	Tfileinfo *fi;
 	fi = g_new(Tfileinfo,1);
-	DEBUG_MSG("file_doc_fill_fileinfo, started for doc %p and uri %s at fi=%p\n",doc,gnome_vfs_uri_get_path(uri),fi);
+	DEBUG_MSG("file_doc_fill_fileinfo, started for doc %p and uri %p at fi=%p\n",doc,uri,fi);
 	fi->doc = doc;
 	fi->doc->action.info = fi;
 	g_object_ref(uri);
@@ -1336,7 +1334,7 @@ void file_doc_fill_from_uri(Tdocument *doc, GnomeVFSURI *uri, GnomeVFSFileInfo *
 void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line, gint goto_offset, gboolean readonly) {
 	Tfile2doc *f2d;
 	f2d = g_new(Tfile2doc,1);
-	DEBUG_MSG("file_doc_from_uri, open %s, f2d=%p\n", gnome_vfs_uri_get_path(uri), f2d);
+	DEBUG_MSG("file_doc_from_uri, open uri %p, f2d=%p\n", uri, f2d);
 	f2d->bfwin = bfwin;
 	f2d->uri = uri;
 	f2d->readonly = readonly;
@@ -1480,16 +1478,32 @@ static void openadv_content_filter_file(Topenadv *oa, GnomeVFSURI *uri, GnomeVFS
 #ifdef HAVE_ATLEAST_GIO_2_16
 static void open_advanced_backend(Topenadv *oa, GFile *basedir);
 
+static void open_adv_load_directory_cleanup(Topenadv_dir *oad) {
+	DEBUG_MSG("open_adv_load_directory_cleanup %p\n", oad);
+	g_object_unref(oad->basedir);
+	g_object_unref(oad->gfe);
+	openadv_unref(oad->oa);
+	g_free(oad);
+}
+
 static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	GList *list, *tmplist;
 	GError *error=NULL;
 	Topenadv_dir *oad = user_data;
+	
 	list = tmplist = g_file_enumerator_next_files_finish (oad->gfe,res,&error);
+	DEBUG_MSG("enumerator_next_files_lcb for oad=%p has %d results\n",oad,g_list_length(list));
+	if (!list ) {
+		/* cleanup */
+		open_adv_load_directory_cleanup(oad);
+		return;
+	}
 	while (tmplist) {
 		GFileInfo *finfo=tmplist->data;
 		if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_DIRECTORY) {
 			GFile *dir;
 			const gchar *name = g_file_info_get_name(finfo);
+			DEBUG_MSG("enumerator_next_files_lcb, %s is a dir\n",name);
 			dir = g_file_get_child(oad->basedir,name);
 			open_advanced_backend(oad->oa, dir);
 			g_object_unref(dir);
@@ -1497,6 +1511,7 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 			GFile *child_uri;
 			GList *alldoclist;
 			const gchar *name = g_file_info_get_name(finfo);
+			DEBUG_MSG("enumerator_next_files_lcb, %s is a regular file\n",name);
 			child_uri = g_file_get_child(oad->basedir,name);
 
 			alldoclist = return_allwindows_documentlist();
@@ -1514,10 +1529,8 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 					DEBUG_MSG("open_adv_load_directory_lcb, matching on %s\n",nametomatch);
 					if (g_pattern_match_string(oad->oa->patspec, nametomatch)) { /* test extension */
 						if (oad->oa->content_filter) { /* do we need content filtering */
-							DEBUG_MSG("open_adv_load_directory_lcb, content filter %s\n", gnome_vfs_uri_get_path(child_uri));
 							openadv_content_filter_file(oad->oa, child_uri, finfo);
 						} else { /* open this file as document */
-							DEBUG_MSG("open_adv_load_directory_lcb, open %s\n", gnome_vfs_uri_get_path(child_uri));
 							doc_new_from_uri(oad->oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
 						}
 					}
@@ -1532,12 +1545,15 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(list);
+	g_file_enumerator_next_files_async(oad->gfe,10,G_PRIORITY_DEFAULT+2
+			,NULL
+			,enumerator_next_files_lcb,oad);
 }
 
 static void enumerate_children_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	Topenadv_dir *oad = user_data;
 	GError *error=NULL;
-	
+	DEBUG_MSG("enumerate_children_lcb, started for oad %p\n",oad);
 	oad->gfe = g_file_enumerate_children_finish(oad->basedir,res,&error);
 	g_file_enumerator_next_files_async(oad->gfe,10,G_PRIORITY_DEFAULT+2
 			,NULL
@@ -1546,7 +1562,7 @@ static void enumerate_children_lcb(GObject *source_object,GAsyncResult *res,gpoi
 
 static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 	Topenadv_dir *oad;
-	GError *error=NULL;
+	DEBUG_MSG("open_advanced_backend on basedir %p\n",basedir);
 	oad = g_new0(Topenadv_dir, 1);
 	oad->oa = oa;
 	oa->refcount++;
@@ -1563,7 +1579,6 @@ void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, gboolean m
 	if (basedir) {
 		Topenadv *oa;
 		oa = g_new0(Topenadv, 1);
-		DEBUG_MSG("open_advanced, open dir %s, oa=%p, name_filter=%s\n", gnome_vfs_uri_get_path(basedir), oa, name_filter);
 		oa->bfwin = bfwin;
 		oa->recursive = recursive;
 		oa->matchname = matchname;
