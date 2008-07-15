@@ -52,6 +52,7 @@
  *
  * Return value: a pixbuf, which the caller must unref when it is done
  **/
+#ifndef HAVE_ATLEAST_GIO_2_16
 GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	static GtkIconTheme *icon_theme = NULL;
 	gchar *icon_name = NULL;
@@ -108,6 +109,7 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	}
 	return pixbuf;
 }
+#endif /* not HAVE_ATLEAST_GIO_2_16 */
 
 static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
 	Tfiletype *filetype;
@@ -115,7 +117,8 @@ static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
 	filetype = g_new(Tfiletype, 1);
 	DEBUG_MSG("building filetype for %s at %p\n",mime_type,filetype);
 #ifdef HAVE_ATLEAST_GIO_2_16
-	filetype->type = g_strdup("BUG: not ported to GIO yet");
+	/* BUG: should use contenttype here, not mime_type*/
+	filetype->type = g_content_type_get_description(mime_type);
 	filetype->icon=NULL;
 #else /* no HAVE_ATLEAST_GIO_2_16  */
 	description = gnome_vfs_mime_get_description(mime_type);
