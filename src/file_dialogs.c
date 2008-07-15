@@ -91,7 +91,7 @@ static void files_advanced_win_select_basedir_lcb(GtkWidget * widget, Tfiles_adv
 
   dialog = file_chooser_dialog(tfs->bfwin, _("Select basedir"), GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER, (gchar *)gtk_entry_get_text(GTK_ENTRY(tfs->basedir)), TRUE, FALSE, NULL, FALSE);
   if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-    newdir = gtk_file_chooser_get_filename (GTK_FILE_CHOOSER (dialog));
+    newdir = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
   }
   gtk_widget_destroy (dialog);
 
@@ -371,7 +371,6 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
     case CHECKANDSAVE_ERROR_NOWRITE:
     case CHECKANDSAVE_ERROR_CANCELLED:
       {
-        DEBUG_MSG("doc_checkNsave_lcb, error=%d (%s), give user a message\n",error_info,gnome_vfs_result_to_string(error_info));
         errmessage = g_strconcat(_("Could not save file:\n\""),gtk_label_get_text(GTK_LABEL(doc->tab_label)), "\"", NULL);
         message_dialog_new(BFWIN(doc->bfwin)->main_window, 
                      GTK_MESSAGE_ERROR, 

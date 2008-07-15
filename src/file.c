@@ -1490,6 +1490,7 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 	GList *list, *tmplist;
 	GError *error=NULL;
 	Topenadv_dir *oad = user_data;
+	GList *alldoclist;
 	
 	list = tmplist = g_file_enumerator_next_files_finish (oad->gfe,res,&error);
 	DEBUG_MSG("enumerator_next_files_lcb for oad=%p has %d results\n",oad,g_list_length(list));
@@ -1498,6 +1499,7 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 		open_adv_load_directory_cleanup(oad);
 		return;
 	}
+	alldoclist = return_allwindows_documentlist();
 	while (tmplist) {
 		GFileInfo *finfo=tmplist->data;
 		if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_DIRECTORY) {
@@ -1509,43 +1511,42 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 			g_object_unref(dir);
 		} else if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_REGULAR) {
 			GFile *child_uri;
-			GList *alldoclist;
 			const gchar *name = g_file_info_get_name(finfo);
 			DEBUG_MSG("enumerator_next_files_lcb, %s is a regular file\n",name);
 			child_uri = g_file_get_child(oad->basedir,name);
 
-			alldoclist = return_allwindows_documentlist();
-			if (documentlist_return_document_from_uri(alldoclist, child_uri)==NULL) { /* if this file is already open, there is no need to do any of these checks */
-				if (oad->oa->patspec) {
-					const gchar *nametomatch;
-					/* check if we have to match the name only or path+name */
-					if (oad->oa->matchname) {
-						nametomatch = name;
-					} else {
-						char *filepart;
-						filepart = strrchr(name,'/');
-						nametomatch = filepart;
-					}
-					DEBUG_MSG("open_adv_load_directory_lcb, matching on %s\n",nametomatch);
-					if (g_pattern_match_string(oad->oa->patspec, nametomatch)) { /* test extension */
-						if (oad->oa->content_filter) { /* do we need content filtering */
-							openadv_content_filter_file(oad->oa, child_uri, finfo);
-						} else { /* open this file as document */
-							doc_new_from_uri(oad->oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
-						}
-					}
-				} else if (oad->oa->content_filter) {
-					openadv_content_filter_file(oad->oa, child_uri, finfo);
+			if (oad->oa->patspec) {
+				gchar *nametomatch;
+				/* check if we have to match the name only or path+name */
+				if (oad->oa->matchname) {
+					nametomatch = g_strdup(name);
 				} else {
-					doc_new_from_uri(oad->oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
+					nametomatch = g_file_get_uri(child_uri);
 				}
+				DEBUG_MSG("open_adv_load_directory_lcb, matching on %s\n",nametomatch);
+				if (g_pattern_match_string(oad->oa->patspec, nametomatch)) { /* test extension */
+					if (oad->oa->content_filter) { /* do we need content filtering */
+						openadv_content_filter_file(oad->oa, child_uri, finfo);
+					} else { /* open this file as document */
+						doc_new_from_uri(oad->oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
+					}
+				}
+				g_free(nametomatch);
+			} else if (oad->oa->content_filter) {
+			/* content filters are expensive, first see if this file is already open */
+				if (documentlist_return_document_from_uri(alldoclist, child_uri)==NULL) { /* if this file is already open, there is no need to do any of these checks */
+					openadv_content_filter_file(oad->oa, child_uri, finfo);
+				}
+			} else {
+				doc_new_from_uri(oad->oa->bfwin, child_uri, finfo, TRUE, FALSE, -1, -1);
 			}
 		}
 		g_object_unref(finfo);
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(list);
-	g_file_enumerator_next_files_async(oad->gfe,10,G_PRIORITY_DEFAULT+2
+	g_list_free(alldoclist);
+	g_file_enumerator_next_files_async(oad->gfe,20,G_PRIORITY_DEFAULT+2
 			,NULL
 			,enumerator_next_files_lcb,oad);
 }
@@ -1555,14 +1556,20 @@ static void enumerate_children_lcb(GObject *source_object,GAsyncResult *res,gpoi
 	GError *error=NULL;
 	DEBUG_MSG("enumerate_children_lcb, started for oad %p\n",oad);
 	oad->gfe = g_file_enumerate_children_finish(oad->basedir,res,&error);
-	g_file_enumerator_next_files_async(oad->gfe,10,G_PRIORITY_DEFAULT+2
-			,NULL
-			,enumerator_next_files_lcb,oad);
+	if (error) {
+		g_print("BUG: enumerate_children_lcb, unhandled error: %s\n", error->message);
+		g_error_free(error);
+		open_adv_load_directory_cleanup(oad);
+	} else {
+		g_file_enumerator_next_files_async(oad->gfe,20,G_PRIORITY_DEFAULT+2
+				,NULL,enumerator_next_files_lcb,oad);
+	}
 }
 
 static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 	Topenadv_dir *oad;
-	DEBUG_MSG("open_advanced_backend on basedir %p\n",basedir);
+	DEBUG_MSG("open_advanced_backend on basedir %p ",basedir);
+	DEBUG_URI(basedir,TRUE);
 	oad = g_new0(Topenadv_dir, 1);
 	oad->oa = oa;
 	oa->refcount++;
