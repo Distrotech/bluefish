@@ -2791,7 +2791,8 @@ Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeV
 	DEBUG_MSG("doc_new_loading_in_background, bfwin=%p, doc=%p, for uri %p\n",bfwin,doc,uri);
 	if (finfo) {
 #ifdef HAVE_ATLEAST_GIO_2_16
-		doc->fileinfo = g_file_info_dup(finfo);
+		doc->fileinfo = finfo;
+		g_object_ref(finfo);
 #else
 		doc->fileinfo = gnome_vfs_file_info_dup(finfo);
 #endif

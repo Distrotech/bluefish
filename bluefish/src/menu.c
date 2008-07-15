@@ -27,7 +27,7 @@
 #include <string.h>			/* strchr() */
 #include <gdk/gdkkeysyms.h>
 
-/* #define DEBUG */
+#define DEBUG
 
 #include "bluefish.h"
 #include "bf_lib.h"			/* append_string_to_file() */
@@ -624,7 +624,10 @@ static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
 static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	GnomeVFSURI *uri;
 #ifdef HAVE_ATLEAST_GIO_2_16
-	uri = g_file_new_for_uri(GTK_LABEL(GTK_BIN(widget)->child)->label);
+	/*uri = g_file_new_for_uri(GTK_LABEL(GTK_BIN(widget)->child)->label);*/
+	uri = g_file_new_make_uri(GTK_LABEL(GTK_BIN(widget)->child)->label);
+	DEBUG_MSG("open_recent_file_cb, opening uri ");
+	DEBUG_URI(uri,TRUE);
 #else /* no HAVE_ATLEAST_GIO_2_16  */
 	uri = gnome_vfs_uri_new(GTK_LABEL(GTK_BIN(widget)->child)->label);
 #endif /* else HAVE_ATLEAST_GIO_2_16 */
