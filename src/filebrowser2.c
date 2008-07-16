@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -373,48 +373,33 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 		}
 	} else {					/* child does not yet exist */
 		gchar *display_name, *mime_type;
-#if !GTK_CHECK_VERSION(2,14,0)
-		GdkPixbuf *pixmap = NULL;
-		/*gchar *pixmap = NULL; */
-#endif
+#if GTK_CHECK_VERSION(2,14,0)
 		GIcon *icon;
+#else
+		GdkPixbuf *pixmap = NULL;
+#endif
 		newiter = g_new(GtkTreeIter, 1);
 		g_object_ref(child_uri);
 		g_object_ref(finfo);
 		display_name = gfile_display_name(child_uri, finfo);
+		mime_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+#if GTK_CHECK_VERSION(2,14,0)		
 		icon = g_file_info_get_attribute_object(finfo, G_FILE_ATTRIBUTE_STANDARD_ICON);
-#if !GTK_CHECK_VERSION(2,14,0)
-		if (icon) {
-			gchar **tmp;
-			DEBUG_MSG("fb2_add_filesystem_entry, requesting icon name from %p\n", icon);
-			g_object_get(icon, "names", &tmp, NULL);
-			if (tmp && tmp[0]) {
-				GtkIconTheme *it;
-				GtkIconInfo *ii;
-				DEBUG_MSG("fb2_add_filesystem_entry, got %s\n", tmp[0]);
-				it = gtk_icon_theme_get_default();
-				if (G_IS_THEMED_ICON(icon)) {
-					ii = gtk_icon_theme_choose_icon(it, tmp, 12, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-					if (ii) {
-						pixmap = gtk_icon_info_load_icon(ii, NULL);
-						/*g_object_unref(ii); */
-					}
-				} else {
-					g_print("icon is not themed, unknown how to load...\n");
-
-				}
-				/*pixmap = g_strdup(tmp[0]); */
-				g_strfreev(tmp);
+#else
+		{
+			Tfiletype *ft = get_filetype_for_mime_type(mime_type);
+			if (ft && ft->icon) {
+				pixmap = ft->icon;
+			} else {
+				pixmap = get_icon_for_mime_type(mime_type);
 			}
-			g_object_unref(icon);
-		} else {
-			DEBUG_MSG("no icon in finfo %p, has_icon=%d\n", finfo,
-					  g_file_info_has_attribute(finfo, G_FILE_ATTRIBUTE_STANDARD_ICON));
+#ifdef DEBUG
+			if (pixmap == NULL) {
+				g_print("no pixmap for mime type %s\n",mime_type);
+			}
+#endif
 		}
 #endif
-		mime_type =
-			g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
-
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
 							  newiter, parent);
 		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);

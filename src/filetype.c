@@ -52,7 +52,41 @@
  *
  * Return value: a pixbuf, which the caller must unref when it is done
  **/
-#ifndef HAVE_ATLEAST_GIO_2_16
+#ifdef HAVE_ATLEAST_GIO_2_16
+GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
+	static GtkIconTheme *it=NULL;
+	GIcon *icon;
+	gchar *conttype;
+	GdkPixbuf *pixbuf = NULL;
+	
+	if (!it) 
+		it = gtk_icon_theme_get_default();
+#ifdef HAVE_ATLEAST_GIO_2_18
+	conttype = g_content_type_from_mime_type(mime_type);
+#else
+	conttype = g_strdup(mime_type);
+#endif
+	icon = g_content_type_get_icon(mime_type);
+	if (icon) {
+		if (G_IS_THEMED_ICON(icon)) {
+			gchar **tmp;
+			g_object_get(icon, "names", &tmp, NULL);
+			if (tmp && tmp[0]) {
+				GtkIconInfo *ii;
+				ii = gtk_icon_theme_choose_icon(it, tmp, 12, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+				if (ii) {
+					pixbuf = gtk_icon_info_load_icon(ii, NULL);
+				}
+			}
+		} else {
+			g_print("icon is not themed, unknown how to load...\n");
+		}
+	}
+	g_free(conttype);
+	return pixbuf;
+}
+
+#else
 GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	static GtkIconTheme *icon_theme = NULL;
 	gchar *icon_name = NULL;
@@ -109,7 +143,7 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	}
 	return pixbuf;
 }
-#endif /* not HAVE_ATLEAST_GIO_2_16 */
+#endif /* HAVE_ATLEAST_GIO_2_16 */
 
 static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
 	Tfiletype *filetype;
@@ -119,12 +153,11 @@ static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
 #ifdef HAVE_ATLEAST_GIO_2_16
 	/* BUG: should use contenttype here, not mime_type*/
 	filetype->type = g_content_type_get_description(mime_type);
-	filetype->icon=NULL;
 #else /* no HAVE_ATLEAST_GIO_2_16  */
 	description = gnome_vfs_mime_get_description(mime_type);
 	filetype->type = g_strdup(description?description:"");
-	filetype->icon = get_icon_for_mime_type(mime_type);
 #endif /* else HAVE_ATLEAST_GIO_2_16 */
+	filetype->icon = get_icon_for_mime_type(mime_type);
 	filetype->mime_type = g_strdup(mime_type);
 
 	filetype->cfg = cfg;
