@@ -1718,7 +1718,7 @@ guint arr3_hash(gconstpointer v)
 
 #ifdef HAVE_ATLEAST_GIO_2_16
 gchar *gfile_display_name(GFile *uri, GFileInfo *finfo) {
-	const gchar *retval;
+	gchar *retval;
 	if (finfo && g_file_info_has_attribute(finfo,G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME)) {
 		retval = g_strdup(g_file_info_get_display_name(finfo));
 		DEBUG_MSG("gfile_display_name, got %s from finfo\n",retval);
@@ -1777,19 +1777,4 @@ gchar *get_hostname_from_uri(GFile *uri) {
 	return retval;
 }
 
-GFile *g_file_new_make_uri(const gchar *path_or_uri) {
-	GFile *retval;
-	if (!path_or_uri)
-		return NULL;
-	if (path_or_uri[0] == '/') {
-		gchar *tmp;
-		tmp = g_strconcat("file://",path_or_uri,NULL);
-		retval = g_file_new_for_uri(tmp);
-		g_free(tmp);
-	} else {
-		retval = g_file_new_for_uri(path_or_uri);
-	}
-	return retval;
-}
 #endif
-
