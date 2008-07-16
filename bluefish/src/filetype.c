@@ -22,7 +22,7 @@
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines filetype.c
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 #include "config.h"
 

@@ -126,7 +126,6 @@ guint arr3_hash(gconstpointer v);
 gchar *gfile_display_name(GFile *uri,GFileInfo *finfo);
 gboolean gfile_uri_is_parent(GFile *parent, GFile *child, gboolean recursive);
 gchar *get_hostname_from_uri(GFile *uri);
-GFile *g_file_new_make_uri(const gchar *path_or_uri);
 #endif
 
 #endif /* __BF_LIB_H_ */
