@@ -3074,25 +3074,30 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
 /**
  * doc_reload:
  * @doc: a #Tdocument
+ * @finfo: if the reload is because the file is modified, pass here the new fileinfo, use NULL if unknown
  *
  * Revert to file on disk.
  *
  * Return value: void
  **/
-void doc_reload(Tdocument *doc) {
+void doc_reload(Tdocument *doc, GFileInfo *newfinfo) {
+	GtkTextIter itstart, itend;
+	g_print("starting reload for %p\n",doc);
 	if ((doc->uri == NULL)/* || (!file_exists_and_readable(doc->uri))*/) {
 		statusbar_message(BFWIN(doc->bfwin),_("Unable to open file"), 2000);
 		return;
 	}
-	{
-		GtkTextIter itstart, itend;
-		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
-	}
+	/* store all bookmark positions, reload them later */
+	bmark_clean_for_doc(doc);
+	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+	gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 	doc_set_status(doc, DOC_STATUS_LOADING);
 	bfwin_docs_not_complete(doc->bfwin, TRUE);
 	doc_set_modified(doc,FALSE);
-	file_doc_fill_from_uri(doc, doc->uri, NULL, -1);
+	g_object_unref(doc->fileinfo);
+	doc->fileinfo = newfinfo;
+	g_object_ref(doc->fileinfo);
+	file_doc_fill_from_uri(doc, doc->uri, doc->fileinfo, -1);
 }
 
 static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_info,GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer callback_data) {
@@ -3126,7 +3131,7 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 		{
 		gchar *tmpstr, *oldtimestr, *newtimestr;
 		gint retval;
-		const gchar *buttons[] = {_("_Ignore"),_("_Reload"), NULL};
+		const gchar *buttons[] = {_("_Ignore"),_("_Reload"),_("Check and reload all documents"), NULL};
 #ifdef HAVE_ATLEAST_GIO_2_16
 		guint64 newtime,origtime;
 		newtime = g_file_info_get_attribute_uint64(new,G_FILE_ATTRIBUTE_TIME_MODIFIED);
@@ -3153,8 +3158,10 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 			doc->fileinfo = new;
 			gnome_vfs_file_info_ref(doc->fileinfo);
 			doc_set_tooltip(doc);
-		} else { /* reload */
-			doc_reload(doc);
+		} else if (retval == 1) { /* reload */
+			doc_reload(doc, new);
+		} else { /* reload all modified documents */
+			file_reload_all_modified(doc->bfwin);
 		}
 		}
 	break;

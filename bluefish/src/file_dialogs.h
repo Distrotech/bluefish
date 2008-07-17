@@ -38,5 +38,5 @@ void doc_close_multiple_backend(Tbfwin *bfwin, gboolean close_window);
 void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 
 void file_new_cb(GtkWidget * widget, Tbfwin *bfwin);
-
+void file_reload_all_modified(Tbfwin *bfwin);
 #endif /* __FILEDIALOGS_H_ */

@@ -116,7 +116,7 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
 
 Tdocument *doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate, gboolean move_to_this_win);
 void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this_win);
-void doc_reload(Tdocument *doc);
+void doc_reload(Tdocument *doc,GFileInfo *newfinfo);
 void doc_start_modified_check(Tdocument *doc);
 void doc_activate(Tdocument *doc);
 void doc_force_activate(Tdocument *doc);
