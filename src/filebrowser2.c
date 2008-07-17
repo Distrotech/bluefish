@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -391,11 +391,19 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 			if (ft && ft->icon) {
 				pixmap = ft->icon;
 			} else {
-				pixmap = get_icon_for_mime_type(mime_type);
+				if (g_file_info_has_attribute(finfo,G_FILE_ATTRIBUTE_STANDARD_ICON)) {
+					GIcon *icon;
+					icon = g_file_info_get_attribute_object(finfo, G_FILE_ATTRIBUTE_STANDARD_ICON);
+					pixmap = get_pixbuf_for_gicon(icon);
+				} else {
+					pixmap = get_icon_for_mime_type(mime_type);
+				}
+				
 			}
 #ifdef DEBUG
 			if (pixmap == NULL) {
-				g_print("no pixmap for mime type %s\n",mime_type);
+				g_print("no pixmap for mime type %s",mime_type);
+				DEBUG_URI(child_uri,TRUE);
 			}
 #endif
 		}

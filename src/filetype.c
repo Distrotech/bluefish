@@ -41,6 +41,14 @@
 #include "stringlist.h"
 #include "menu.h"
 
+#ifndef HAVE_ATLEAST_GIO_2_18
+char *g_content_type_from_mime_type (const char *type) {
+	if (type)
+		return g_strdup(type);
+	return NULL;
+}
+#endif
+
 /**
  * icon_for_mime_type:
  * @mime_type: a MIME type
@@ -53,35 +61,41 @@
  * Return value: a pixbuf, which the caller must unref when it is done
  **/
 #ifdef HAVE_ATLEAST_GIO_2_16
-GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
+#if !GTK_CHECK_VERSION(2,14,0)
+GdkPixbuf *get_pixbuf_for_gicon(GIcon *icon) {
 	static GtkIconTheme *it=NULL;
-	GIcon *icon;
-	gchar *conttype;
-	GdkPixbuf *pixbuf = NULL;
+	GdkPixbuf *pixbuf=NULL;
 	
 	if (!it) 
 		it = gtk_icon_theme_get_default();
-#ifdef HAVE_ATLEAST_GIO_2_18
-	conttype = g_content_type_from_mime_type(mime_type);
-#else
-	conttype = g_strdup(mime_type);
-#endif
-	icon = g_content_type_get_icon(mime_type);
-	if (icon) {
-		if (G_IS_THEMED_ICON(icon)) {
-			gchar **tmp;
-			g_object_get(icon, "names", &tmp, NULL);
-			if (tmp && tmp[0]) {
-				GtkIconInfo *ii;
-				ii = gtk_icon_theme_choose_icon(it, tmp, 12, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
-				if (ii) {
-					pixbuf = gtk_icon_info_load_icon(ii, NULL);
-				}
+	
+	if (G_IS_THEMED_ICON(icon)) {
+		gchar **tmp;
+		g_object_get(icon, "names", &tmp, NULL);
+		if (tmp && tmp[0]) {
+			GtkIconInfo *ii;
+			ii = gtk_icon_theme_choose_icon(it, tmp, 12, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+			if (ii) {
+				pixbuf = gtk_icon_info_load_icon(ii, NULL);
 			}
-		} else {
-			g_print("icon is not themed, unknown how to load...\n");
 		}
 	}
+	return pixbuf;
+}
+#endif
+
+GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
+	
+	GIcon *icon;
+	gchar *conttype;
+	GdkPixbuf *pixbuf = NULL;
+
+	conttype = g_content_type_from_mime_type(mime_type);
+	icon = g_content_type_get_icon(conttype);
+	if (icon) {
+		pixbuf = get_pixbuf_for_gicon(icon);
+		g_object_unref(icon);
+	} 
 	g_free(conttype);
 	return pixbuf;
 }

@@ -1749,14 +1749,11 @@ gboolean gfile_uri_is_parent(GFile *parent, GFile *child, gboolean recursive) {
 			tmp = g_file_get_parent(tmp2);
 			g_object_unref(tmp2);
 			if (tmp == NULL) {
-				g_print("tmp=NULL, break!\n");
 				break;
 			}
 			retval = g_file_equal(tmp,parent);
-			g_print("retval=%d\n",retval);
 			tmp2 = tmp;
 		} while (recursive == TRUE && retval != TRUE);
-		g_print("after loop, tmp=%p, retval=%d\n",tmp,retval);
 		if (tmp) {
 			g_object_unref(tmp);
 		}
