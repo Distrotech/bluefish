@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -917,4 +917,23 @@ void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
     /*doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);
     doc_activate(doc);*/
   }
+}
+
+static void file_reload_all_modified_check_lcb(Tcheckmodified_status status,gint error_info,GFileInfo *orig, GFileInfo *new, gpointer user_data) {
+	if (status == CHECKMODIFIED_MODIFIED) {
+		g_print("file_reload_all_modified_check_lcb, reload %p\n",user_data);
+		
+		doc_reload(DOCUMENT(user_data), new);
+	}
+}
+
+void file_reload_all_modified(Tbfwin *bfwin) {
+	GList *tmplist = g_list_first(bfwin->documentlist);
+	while (tmplist) {
+		if (DOCUMENT(tmplist->data)->uri && DOCUMENT(tmplist->data)->status == DOC_STATUS_COMPLETE) {
+			g_print("file_reload_all_modified, check %p\n",tmplist->data);
+			file_checkmodified_uri_async(DOCUMENT(tmplist->data)->uri, DOCUMENT(tmplist->data)->fileinfo, file_reload_all_modified_check_lcb, tmplist->data);
+		}
+		tmplist = g_list_next(tmplist);
+	}
 }

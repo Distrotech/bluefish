@@ -77,7 +77,7 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		file_open_advanced_cb(NULL,bfwin);
 	break;
 	case 4:
-		doc_reload(bfwin->current_document);
+		doc_reload(bfwin->current_document,NULL);
 	break;
 	case 5:
 		file_save_cb(NULL, bfwin);
@@ -625,8 +625,6 @@ static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	GnomeVFSURI *uri;
 #ifdef HAVE_ATLEAST_GIO_2_16
 	uri = g_file_new_for_commandline_arg(GTK_LABEL(GTK_BIN(widget)->child)->label);
-	DEBUG_MSG("open_recent_file_cb, opening uri ");
-	DEBUG_URI(uri,TRUE);
 #else /* no HAVE_ATLEAST_GIO_2_16  */
 	uri = gnome_vfs_uri_new(GTK_LABEL(GTK_BIN(widget)->child)->label);
 #endif /* else HAVE_ATLEAST_GIO_2_16 */

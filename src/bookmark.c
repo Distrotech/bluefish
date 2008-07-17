@@ -19,7 +19,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -160,7 +160,7 @@ static gchar *bmark_showname(Tbfwin *bfwin, Tbmark *b) {
 }
 #ifdef HAVE_ATLEAST_GIO_2_16
 static gchar *bmark_filename(Tbfwin *bfwin, GFile *filepath) {
-	gchar *title, *rawtitle = NULL;
+	gchar *title;
 	switch (bfwin->session->bookmarks_filename_mode) {
 	/*case BM_FMODE_HOME:
 		if (bfwin->project != NULL && bfwin->project->basedir && strlen(bfwin->project->basedir)) {
@@ -175,14 +175,14 @@ static gchar *bmark_filename(Tbfwin *bfwin, GFile *filepath) {
 		}
 		break;*/
 	case BM_FMODE_PATH:
-		title = full_path_utf8_from_uri(filepath);
+		title = g_file_get_uri(filepath);
 		break;
 	case BM_FMODE_FILE:
-		title = filename_utf8_from_uri(filepath);
+		title = g_file_get_basename(filepath);
 		break;
 	case BM_FMODE_FULL:
 	default:
-		title = full_path_utf8_from_uri(filepath);
+		title = g_file_get_uri(filepath);
 		break;
 	}
 	return title;
@@ -358,7 +358,7 @@ static void bmark_store(Tbfwin * bfwin, Tbmark * b) {
 	if (b->strarr == NULL) {
 		DEBUG_MSG("bmark_store, creating new strarr for bookmark %p\n",b);
 		strarr = g_malloc0(sizeof(gchar *) * 7);
-		DEBUG_MSG("name=%s, description=%s, filepath=%s, text=%s\n", b->name, b->description, gnome_vfs_uri_get_path(b->filepath), b->text);
+		DEBUG_MSG("name=%s, description=%s, text=%s\n", b->name, b->description, b->text);
 #ifdef HAVE_ATLEAST_GIO_2_16
 		strarr[2] = g_file_get_parse_name(b->filepath);
 #else
@@ -531,7 +531,7 @@ static void bmark_popup_menu_goto(Tbfwin *bfwin) {
 			b->offset = gtk_text_iter_get_offset(&it);
 		}
 		DEBUG_MSG("bmark_popup_menu_goto, bmark at %p, filepath at %p\n",b, b->filepath);
-		DEBUG_MSG("bmark_popup_menu_goto, calling doc_new_from_uri for %s with goto_offset %d\n",gnome_vfs_uri_get_path(b->filepath),b->offset);
+		DEBUG_MSG("bmark_popup_menu_goto, calling doc_new_from_uri with goto_offset %d\n",b->offset);
 		doc_new_from_uri(bfwin, b->filepath, NULL, FALSE, FALSE, -1, b->offset);
 		/* remove selection */
 		if ( b->doc ) {
@@ -944,9 +944,9 @@ GtkWidget *bmark_gui(Tbfwin * bfwin)
 static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 	GtkTreeIter *parent;
 	gpointer ptr;
-	DEBUG_MSG("bmark_get_iter_at_tree_position, started for filepath=%s\n",gnome_vfs_uri_get_path(m->filepath));
+	DEBUG_MSG("bmark_get_iter_at_tree_position, started\n");
 	ptr = g_hash_table_lookup(BMARKDATA(bfwin->bmarkdata)->bmarkfiles, m->filepath);
-	DEBUG_MSG("bmark_get_iter_at_tree_position, found %p for filepath %s in hashtable %p\n",ptr,gnome_vfs_uri_get_path(m->filepath),BMARKDATA(bfwin->bmarkdata)->bmarkfiles);
+	DEBUG_MSG("bmark_get_iter_at_tree_position, found %p in hashtable %p\n",ptr,BMARKDATA(bfwin->bmarkdata)->bmarkfiles);
 	if (ptr == NULL) {			/* closed document or bookmarks never set */
 		gchar *title;
 		parent = g_new0(GtkTreeIter, 1);
@@ -959,7 +959,7 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 			DEBUG_MSG("bmark_get_iter_at_tree_position, setting parent iter %p for doc%p\n",parent,m->doc);
 			m->doc->bmark_parent = parent;
 		}
-		DEBUG_MSG("bmark_get_iter_at_tree_position, appending parent %p in hashtable %p for filepath=%s\n",parent,BMARKDATA(bfwin->bmarkdata)->bmarkfiles,gnome_vfs_uri_get_path(m->filepath));
+		DEBUG_MSG("bmark_get_iter_at_tree_position, appending parent %p in hashtable %p\n",parent,BMARKDATA(bfwin->bmarkdata)->bmarkfiles);
 		/* the hash table frees the key, but not the value, on destroy */
 #ifdef HAVE_ATLEAST_GIO_2_16
 		g_object_ref(m->filepath);
@@ -1077,7 +1077,7 @@ void bmark_reload(Tbfwin * bfwin) {
 			b->text = g_strdup(items[4]);
 			b->len = atoi(items[5]);
 			b->strarr = items;
-			DEBUG_MSG("bmark_reload, loaded bookmark %p for %s (uri=%p) at offset %d with text %s\n",b,gnome_vfs_uri_get_path(b->filepath),b->filepath,b->offset,b->text);
+			DEBUG_MSG("bmark_reload, loaded bookmark %p for uri=%pat offset %d with text %s\n",b,b->filepath,b->offset,b->text);
 			bmark_get_iter_at_tree_position(bfwin, b);
 			ptr = bmark_showname(bfwin, b);
 			gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, &(b->iter), NAME_COLUMN, ptr, PTR_COLUMN, b,-1);
@@ -1231,7 +1231,6 @@ void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
 					DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",gtk_label_get_text(GTK_LABEL(doc->tab_menu)),mark->offset);
 					/* we will now first set the Tdocument * into the second column of the parent */
 					gtk_tree_store_set(GTK_TREE_STORE(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter, PTR_COLUMN, doc, -1);
-
 					mark->doc = doc;
 					gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
 					if (check_positions && bookmark_needs_repositioning(mark, &it)) { /* repositioning required ! */
@@ -1241,6 +1240,7 @@ void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
 							/* BUG: bookmark not restored, what to do now ???? - just put it where it was ??  */
 						}
 					}
+					DEBUG_MSG("bmark_set_for_doc, create textmark at position %d\n",gtk_text_iter_get_offset(&it));
 					mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
 					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it),TRUE);
 					cont2 =
