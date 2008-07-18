@@ -840,6 +840,19 @@ void fb2_refresh_parent_of_uri(GnomeVFSURI * child_uri)
 	gnome_vfs_uri_unref(parent_uri);
 }
 
+static gchar * get_toplevel_name(GFile *uri) {
+	GError *error=NULL;
+	GMount* mount;
+	gchar *name;
+	mount = g_file_find_enclosing_mount(uri,NULL,&error);
+	if (!error && mount) {
+		name = g_mount_get_name(mount);
+		g_object_unref(mount);
+	} else {
+		name = g_file_get_basename(uri);
+	}
+	return name;
+}
 /**
  * fb2_build_dir:
  *
@@ -861,7 +874,8 @@ static GtkTreeIter *fb2_build_dir(GnomeVFSURI * uri)
 		if (tmp2 == NULL) {
 			GFileInfo *finfo;
 			gchar *name;
-			name = g_file_get_basename(tmp);
+			/*name = g_file_get_basename(tmp);*/
+			name = get_toplevel_name(tmp);
 			/* there was no parent for this filesystem yet */
 			finfo = fake_directory_fileinfo(name);
 			parent = fb2_add_filesystem_entry(NULL, tmp, finfo, FALSE);
