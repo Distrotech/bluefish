@@ -28,13 +28,6 @@
 #include "bluefish.h"
 #include <libxml/parser.h>
 
-#ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
-#include <libgnomeui/libgnomeui.h>
-#ifndef GNOME_PARAM_GOPTION_CONTEXT
-#include <popt.h>
-#endif /* GNOME_PARAM_GOPTION_CONTEXT */
-#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
-
 #ifdef ENABLE_NLS
 #include <locale.h>
 #endif /* ENABLE_NLS */
@@ -98,17 +91,12 @@ int main(int argc, char *argv[])
   GFile *tmpfile;
 #endif
 
-#ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
-  GnomeProgram *bfprogram;
-#else /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
   GError *error = NULL;
-#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 
 #ifndef NOSPLASH
   GtkWidget *splash_window = NULL;
 #endif /* NOSPLASH */
 
-#if !defined (HAVE_LIBGNOMEUI_LIBGNOMEUI_H) || defined (GNOME_PARAM_GOPTION_CONTEXT)
   GOptionContext *context;
   const GOptionEntry options[] = {
     {"newwindow", 'n', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &newwindow, N_("Open in a new window."), NULL},
@@ -118,16 +106,6 @@ int main(int argc, char *argv[])
     {G_OPTION_REMAINING, 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_FILENAME_ARRAY, &files, "Special option that collects any remaining arguments for us"},
     {NULL}
 };
-#else /* GNOME_PARAM_GOPTION_CONTEXT */
-  poptContext pcontext; 
-  const struct poptOption options[] = {
-    {"newwindow", 'n', POPT_ARG_NONE, &newwindow, 0, N_("Open in a new window."), NULL},
-    {"project", 'p', POPT_ARG_STRING, &project, 0, N_("Open a project from the specified projectfile."), N_("PROJECTFILE")},
-    {"skiprootcheck", 's', POPT_ARG_NONE, &skiprootcheck, 0, N_("Skip root check."), NULL},
-    {"Version", 'v', POPT_ARG_CALLBACK, (void*) cb_print_version, 0, N_("Print version information."), NULL},
-    {NULL, '\0', 0, NULL, 0, NULL, NULL }
-  };
-#endif /* GNOME_PARAM_GOPTION_CONTEXT */
 
 #ifdef ENABLE_NLS
   setlocale(LC_ALL,"");                                                   
@@ -143,25 +121,13 @@ int main(int argc, char *argv[])
 /*  gdk_threads_init ();*/
 #endif
 
-#if !defined (HAVE_LIBGNOMEUI_LIBGNOMEUI_H) || defined (GNOME_PARAM_GOPTION_CONTEXT)
   context = g_option_context_new (_(" [FILE(S)]"));
 #ifdef ENABLE_NLS 
   g_option_context_add_main_entries (context, options, PACKAGE);
 #else
   g_option_context_add_main_entries (context, options, NULL);
 #endif /* ENABLE_NLS */
-#endif /* GNOME_PARAM_GOPTION_CONTEXT || !HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 
-#ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
-  bfprogram = gnome_program_init (PACKAGE, VERSION, LIBGNOMEUI_MODULE, 
-                                  argc, argv,
-#ifdef GNOME_PARAM_GOPTION_CONTEXT
-                                  GNOME_PARAM_GOPTION_CONTEXT, context,
-#else /* GNOME_PARAM_GOPTION_CONTEXT */
-                                  GNOME_PARAM_POPT_TABLE, options,
-#endif /* GNOME_PARAM_GOPTION_CONTEXT */
-                                  NULL);
-#else /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
   /* this one or bail out with the error of g_option_context_parse () */
   g_option_context_set_ignore_unknown_options (context, TRUE);
   g_option_context_add_group (context, gtk_get_option_group (TRUE));
@@ -172,16 +138,11 @@ int main(int argc, char *argv[])
 
   g_option_context_free (context);
   if (error) g_error_free (error);
-#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 
   xmlInitParser();
 #ifndef HAVE_ATLEAST_GIO_2_16
   gnome_vfs_init();
 #endif
-#ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
-  /* will be crippled without libgnomeui*/
-  gnome_authentication_manager_init();
-#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
 
   set_default_icon();
   main_v = g_new0(Tmain, 1);
@@ -232,10 +193,7 @@ int main(int argc, char *argv[])
     
     DEBUG_MSG("main, project=%s, tmpname=%s\n", project, tmpname);
   }
-#if defined (HAVE_LIBGNOMEUI_LIBGNOMEUI_H) && !defined (GNOME_PARAM_GOPTION_CONTEXT)
-  g_object_get(G_OBJECT(bfprogram), GNOME_PARAM_POPT_CONTEXT, &pcontext, NULL);
-  files = (char**) poptGetArgs(pcontext);
-#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H && !GNOME_PARAM_GOPTION_CONTEXT */
+
   if (files != NULL) {
     filearray = g_strv_length(files);
     for (i = 0; i < filearray; ++i) {
@@ -363,9 +321,7 @@ int main(int argc, char *argv[])
   DEBUG_MSG("calling fb2config_cleanup()\n");
   fb2config_cleanup();
   DEBUG_MSG("Bluefish: exiting cleanly\n");
-#ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
-  g_object_unref (bfprogram);
-#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
+
   return 0;
 }
 

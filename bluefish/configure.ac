@@ -1,8 +1,8 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.162 2008-06-13 21:29:21 oli4 Exp $
+dnl $Id: configure.ac,v 1.163 2008-07-19 22:33:59 jimh6583 Exp $
 dnl
-dnl Copyright (C) 2002-2007 Olivier Sessink
+dnl Copyright (C) 2002-2008 Olivier Sessink
 dnl Copyright (C) 2006-2007 Daniel Leidert
 dnl
 dnl This file is free software. The copyright owner gives unlimited
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.162 $)
+AC_REVISION($Revision: 1.163 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -206,20 +206,6 @@ AC_ARG_ENABLE(
 dnl if splash-screen is disabled, we don't need to install the icon
 AM_CONDITIONAL([INSTALL_SPLASH], [test "x$enable_splash_screen" != "xno"])
 
-dnl it has been requested to be able to build bluefish without libGNOMEUI
-AC_ARG_ENABLE(
-        [libgnomeui],
-	AC_HELP_STRING(
-		[--enable-libgnomeui],
-		[
-		 enable (or disable) building the package with libgnomeui -
-		 disabling will give you a crippled package missing
-		 some functionality (e.g. authentication dialogs or full icon
-		 support will not be available) @<:@default=yes@:>@
-		]
-	)
-)
-
 dnl To create our catalog and maybe update the systems XML catalog, we need xmlcatalog.
 dnl But because several systems like Debian or Mac use their own system, so let the user
 dnl decide, if he wants to update the sytems catalog.
@@ -392,23 +378,6 @@ if ( $PKG_CONFIG gio-2.0 --atleast-version=2.16 ) ; then
 	BFOPT_optional="gio-2.0 >= 2.16"
 	PKG_CHECK_MODULES([BFOPT], [$BFOPT_optional])
 fi
-
-dnl it has been requested to be able to build bluefish without libGNOMEUI
-if test "x$enable_libgnomeui" != "xno" ; then
-	BFOPT_optional="libgnomeui-2.0 >= 2.6"
-	PKG_CHECK_MODULES([BFOPT], [$BFOPT_optional],, [enable_libgnomeui=no])
-fi
-
-if test "x$enable_libgnomeui" != "xno" ; then
-	CPPFLAGS_backup="$CPPFLAGS"
-	CPPFLAGS="$BFOPT_CFLAGS"
-	AC_CHECK_HEADERS([libgnomeui/libgnomeui.h])
-	CPPFLAGS="$CPPFLAGS_backup"
-else
-	AC_MSG_WARN([Your version of $PACKAGE will be crippled without libgnomeui.])
-	AC_MSG_WARN([It will miss authentication dialogs, full icon support and more.])
-fi
-
 
 AC_PATH_PROG([PCRE_CONFIG], [pcre-config], [no])
 if test "x$PCRE_CONFIG" = "xno" ; then
