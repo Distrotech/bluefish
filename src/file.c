@@ -75,15 +75,20 @@ static void push_to_queue(Tqueue *queue, gpointer data) {
 /*************************** FILE DELETE ASYNC ******************************/
 #ifdef HAVE_ATLEAST_GIO_2_16
 static gboolean delete_async(GIOSchedulerJob *job,GCancellable *cancellable,gpointer user_data) {
-	GFile *uri = user_data;	
-	g_file_delete(uri,NULL,NULL);
+	GFile *uri = user_data;
+	GError *error=NULL;	
+	g_file_delete(uri,NULL,&error);
+	if (error) {
+		g_print("delete_async, failed to delete: %s\n",error->message);
+		g_error_free(error);
+	}
 	g_object_unref(uri);
-	return TRUE;
+	return FALSE;
 }
 
 void file_delete_file_async(GFile *uri, DeleteAsyncCallback callback, gpointer callback_data) {
-	g_io_scheduler_push_job(delete_async, uri,NULL,G_PRIORITY_DEFAULT,NULL);
 	g_object_ref(uri);
+	g_io_scheduler_push_job(delete_async, uri,NULL,G_PRIORITY_DEFAULT,NULL);
 }
 
 #else

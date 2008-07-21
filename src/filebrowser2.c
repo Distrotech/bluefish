@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -113,7 +113,7 @@ typedef struct {
 	GtkWidget *dirmenu_v;
 	gulong dirmenu_changed_signal;
 	GtkTreeModel *dirmenu_m;
-	GnomeVFSURI *currentdir;
+	GFile *currentdir;
 
 	GtkWidget *vbox;			/* toiplevel vbox for filebrowser widgets */
 	GtkWidget *dir_v;			/* treeview widget */
@@ -123,7 +123,7 @@ typedef struct {
 
 	gulong expand_signal;
 
-	GnomeVFSURI *basedir;
+	GFile *basedir;
 	Tfilter *curfilter;
 
 	GtkTreeModel *dir_tfilter;
@@ -1690,41 +1690,48 @@ static void rename_not_open_file(Tbfwin * bfwin, GnomeVFSURI * olduri)
 	g_free(oldfilename);
 }
 
-static void fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GnomeVFSURI * noselectionbaseuri)
+static void fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * noselectionbaseuri)
 {
-	GnomeVFSURI *baseuri = NULL;
+	GFile *baseuri = NULL;
 	if (fb2->last_popup_on_dir) {
-		baseuri = gnome_vfs_uri_dup(fb2_uri_from_dir_selection(fb2));
+		baseuri = fb2_uri_from_dir_selection(fb2);
+		if (baseuri) {
+			g_object_ref(baseuri);
+			DEBUG_MSG("fb2rpopup_new, baseuri from dir selection=");
+			DEBUG_URI(baseuri,TRUE);
+		}
 	} else {
-		GnomeVFSURI *childuri = fb2_uri_from_file_selection(fb2);
-		if (childuri)
-			baseuri = gnome_vfs_uri_get_parent(childuri);
+		GFile *childuri = fb2_uri_from_file_selection(fb2);
+		if (childuri) {
+			baseuri = g_file_get_parent(childuri);
+			DEBUG_MSG("fb2rpopup_new, baseuri from file selection=");
+			DEBUG_URI(baseuri,TRUE);
+		}
 	}
 	if (!baseuri) {
 		/* no selection, try the noselectionbaseuri */
 		baseuri = noselectionbaseuri;
+		DEBUG_MSG("fb2rpopup_new, baseuri from noselectionbaseuri=");
+		DEBUG_URI(baseuri,TRUE);
 	}
 
 	if (baseuri) {
-		GnomeVFSURI *newuri;
+		GFile *newuri;
 		gboolean done = FALSE;
+		DEBUG_MSG("fb2rpopup_new, baseuri=");
+		DEBUG_URI(baseuri,TRUE);
 		if (newisdir) {
-#ifdef HAVE_ATLEAST_GIO_2_16
 			GError *error = NULL;
 			newuri = g_file_get_child(baseuri, _("New directory"));
 			done = g_file_make_directory(newuri, NULL, &error);
-#else							/* no HAVE_ATLEAST_GIO_2_16  */
-			newuri = gnome_vfs_uri_append_file_name(baseuri, _("New directory"));
-			done = (gnome_vfs_make_directory_for_uri(newuri, 0755) == GNOME_VFS_OK);
-#endif							/* else HAVE_ATLEAST_GIO_2_16 */
+			if (error) {
+				g_print("fb2rpopup_new, failed to create directory: %s\n",error->message);
+				g_error_free(error);
+			}
 		} else {
-#ifndef HAVE_ATLEAST_GIO_2_16
-			GnomeVFSHandle *handle;
-#endif							/* not HAVE_ATLEAST_GIO_2_16 */
 			gint counter = 0;
 			gchar *filename = g_strdup(_("New file"));
 			while (counter < 100) {
-#ifdef HAVE_ATLEAST_GIO_2_16
 				GFileOutputStream *gfos;
 				GError *error = NULL;
 				newuri = g_file_get_child(baseuri, filename);
@@ -1733,24 +1740,16 @@ static void fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GnomeVFSURI * 
 					g_output_stream_close(gfos, NULL, &error);
 					done = TRUE;
 					counter = 100;
-				} else if (error->code == G_IO_ERROR_EXISTS) {
+				} else if (error && error->code == G_IO_ERROR_EXISTS) {
 					counter++;
+					g_error_free(error);
 				} else {
 					counter = 100;
+					if (error) {
+						g_print("fb2rpopup_new, failed to create file: %s\n",error->message);
+						g_error_free(error);
+					}
 				}
-#else							/* no HAVE_ATLEAST_GIO_2_16  */
-				newuri = gnome_vfs_uri_append_file_name(baseuri, filename);
-				res = gnome_vfs_create_uri(&handle, newuri, GNOME_VFS_OPEN_WRITE, TRUE, 0644);
-				if (res == GNOME_VFS_ERROR_FILE_EXISTS) {
-					counter++;
-					filename = g_strdup_printf("%s%d", _("New file"), counter);
-				} else if (res == GNOME_VFS_OK) {
-					res = gnome_vfs_close(handle);
-					done = TRUE;
-				} else {
-					counter = 100;
-				}
-#endif							/* else HAVE_ATLEAST_GIO_2_16 */
 			}
 			if (done) {
 				rename_not_open_file(fb2->bfwin, newuri);
@@ -1816,7 +1815,7 @@ static void rcpopup_async_delete_lcb(gpointer data)
 
 static void fb2rpopup_delete(Tfilebrowser2 * fb2)
 {
-	GnomeVFSURI *uri;
+	GFile *uri;
 
 	if (fb2->last_popup_on_dir) {
 		uri = fb2_uri_from_dir_selection(fb2);
@@ -1828,8 +1827,8 @@ static void fb2rpopup_delete(Tfilebrowser2 * fb2)
 		gchar *text, *text2;
 		gint retval;
 		gchar *fullpath, *filename;
-		fullpath = full_path_utf8_from_uri(uri);
-		filename = filename_utf8_from_uri(uri);
+		fullpath = g_file_get_uri(uri);
+		filename = gfile_display_name(uri,NULL);
 		/* Do we really need to display the full path here?
 		 *  
 		 * Having the filename in the both the primary and secondary text seems to be redundant.
@@ -1847,7 +1846,7 @@ static void fb2rpopup_delete(Tfilebrowser2 * fb2)
 		g_free(text2);
 		if (retval == 1) {
 			/* ref the uri, it is unreffed by the callback */
-			gnome_vfs_uri_ref(uri);
+			g_object_ref(uri);
 			file_delete_file_async(uri, rcpopup_async_delete_lcb, uri);
 		}
 		g_free(filename);
@@ -1886,7 +1885,11 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 * fb2, guint callback_acti
 	case 4:
 		/* BUG: in the case of a click in a dual-view fileview, we should not use the basedir
 		   as third argument */
-		fb2rpopup_new(fb2, FALSE, fb2->basedir);
+		if (fb2->file_v == NULL) {
+			fb2rpopup_new(fb2, FALSE, fb2->basedir);
+		} else {
+			fb2rpopup_new(fb2, FALSE, fb2->currentdir);
+		}
 		break;
 	case 5:
 		/* BUG: in the case of a click in a dual-view fileview, we should not use the basedir
@@ -2043,7 +2046,7 @@ static GtkWidget *fb2_rpopup_create_menu(Tfilebrowser2 * fb2, gboolean is_direct
 {
 	GtkWidget *menu, *menu_item;
 	GtkItemFactory *menumaker;
-
+	DEBUG_MSG("fb2_rpopup_create_menu,fb2=%p,is_directory=%d,is_file=%d\n",fb2,is_directory,is_file);
 	fb2->last_popup_on_dir = is_directory;
 	menumaker = gtk_item_factory_new(GTK_TYPE_MENU, "<Filebrowser>", NULL);
 #ifdef ENABLE_NLS
@@ -2140,7 +2143,7 @@ static void dir_v_row_expanded_lcb(GtkTreeView * tree, GtkTreeIter * sort_iter,
 static gboolean dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event,
 									   Tfilebrowser2 * fb2)
 {
-	DEBUG_MSG("dir_v_button_press_lcb, called for fb2=%p\n", fb2);
+	DEBUG_MSG("dir_v_button_press_lcb, called for fb2=%p and event->button=%d\n", fb2,event->button);
 	if (event->button == 3) {
 		GtkWidget *menu = NULL;
 		GtkTreePath *path;
@@ -2151,6 +2154,7 @@ static gboolean dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * even
 			menu = fb2_rpopup_create_menu(fb2, is_dir, !is_dir);
 			gtk_tree_path_free(path);
 		} else {
+			DEBUG_MSG("dir_v_button_press_lcb, no path for position\n");
 			menu = fb2_rpopup_create_menu(fb2, FALSE, FALSE);
 		}
 		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
@@ -2164,14 +2168,9 @@ static gboolean dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * even
 			uri = fb2_uri_from_dir_sort_path(fb2, path);
 			if (uri) {
 #ifdef DEBUG
-#ifdef HAVE_ATLEAST_GIO_2_16
 				gchar *basename = g_file_get_basename(uri);
 				DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", basename);
 				g_free(basename);
-#else
-				DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n",
-						  gnome_vfs_uri_extract_short_name(uri));
-#endif
 #endif
 				handle_activate_on_file(fb2, uri);
 			}
@@ -2183,7 +2182,7 @@ static gboolean dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * even
 static gboolean file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * event,
 										Tfilebrowser2 * fb2)
 {
-	DEBUG_MSG("file_v_button_press_lcb, called for fb2=%p\n", fb2);
+	DEBUG_MSG("file_v_button_press_lcb, called for fb2=%p and event->button=%d\n", fb2,event->button);
 	if (event->button == 3) {
 		GtkWidget *menu = NULL;
 		GtkTreePath *path;
@@ -2193,6 +2192,7 @@ static gboolean file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * eve
 			menu = fb2_rpopup_create_menu(fb2, FALSE, TRUE);
 			gtk_tree_path_free(path);
 		} else {
+			DEBUG_MSG("no path for position\n");
 			menu = fb2_rpopup_create_menu(fb2, FALSE, FALSE);
 		}
 		gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
@@ -2205,14 +2205,9 @@ static gboolean file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * eve
 			uri = fb2_uri_from_file_sort_path(fb2, sort_path);
 			if (uri) {
 #ifdef DEBUG
-#ifdef HAVE_ATLEAST_GIO_2_16
 				gchar *basename = g_file_get_basename(uri);
 				DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", basename);
 				g_free(basename);
-#else
-				DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n",
-						  gnome_vfs_uri_extract_short_name(uri));
-#endif
 #endif
 
 				handle_activate_on_file(fb2, uri);
