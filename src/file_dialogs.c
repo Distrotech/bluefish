@@ -669,7 +669,7 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
   doc->action.close_doc = close_doc;
   doc->action.close_window = close_window;
   gtk_text_view_set_editable(GTK_TEXT_VIEW(doc->view),FALSE);
-  
+  DEBUG_MSG("doc_save_backend, calling file_checkNsave_uri_async for %d bytes\n",strlen(buffer->data));
   doc->action.save = file_checkNsave_uri_async(doc->uri, doc->fileinfo, buffer, strlen(buffer->data), !do_save_as, doc_checkNsave_lcb, dsb);
 
   if (do_save_as) {

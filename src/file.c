@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -412,17 +412,10 @@ Tsavefile *file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, Gnome
 /*************************** CHECK MODIFIED AND SAVE ASYNC ******************************/
 
 typedef struct {
-#ifdef HAVE_ATLEAST_GIO_2_16
-	goffset buffer_size;
+	gsize buffer_size;
 	GFile *uri;
 	GFileInfo *finfo;
 	const gchar *etag;
-#else
-	GnomeVFSAsyncHandle *handle; /* to cancel backups */
-	GnomeVFSFileSize buffer_size;
-	GnomeVFSURI *uri;
-	GnomeVFSFileInfo *finfo;
-#endif
 	Tsavefile *sf; /* to cancel the actual save */
 	Tcheckmodified *cm; /* to cancel the checkmodified check */
 	Trefcpointer *buffer;
@@ -449,6 +442,7 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 	
 	retval = g_file_replace_contents_finish(cns->uri,res,&etag,&error);
 	if (error) {
+		DEBUG_MSG("checkNsave_replace_async_lcb,error %s\n",error->message);
 		if (error->code == G_IO_ERROR_WRONG_ETAG) {
 			if (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED,error->code, cns->callback_data) == CHECKNSAVE_CONT) {
 				g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
@@ -470,15 +464,16 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 				checkNsave_cleanup(cns);
 			}
 		} else {
-			g_print("****************** checkNsave_replace_async_lcb() unhandled error \n");
+			g_print("****************** checkNsave_replace_async_lcb() unhandled error %d: %s\n",error->code,error->message);
 		}
+		g_error_free(error);
 	} else {
 		cns->callback_func(CHECKANDSAVE_FINISHED, 0, cns->callback_data);
 		checkNsave_cleanup(cns);
 	}
 }
 
-gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, goffset buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
+gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, gsize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
 	TcheckNsave *cns;
 	cns = g_new0(TcheckNsave,1);
 	/*cns->etag=NULL;*/
@@ -494,10 +489,13 @@ gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *bu
 	cns->abort = FALSE;
 	if (info) {
 		g_object_ref(info);
-		if (check_modified) {
+		if (check_modified && g_file_info_has_attribute(info,G_FILE_ATTRIBUTE_ETAG_VALUE)) {
 			cns->etag = g_file_info_get_etag(info);
+			DEBUG_MSG("file_checkNsave_uri_async, using etag=%s\n",cns->etag);
 		}
 	}
+	DEBUG_MSG("file_checkNsave_uri_async, saving %ld bytes to ",cns->buffer_size);
+	DEBUG_URI(cns->uri);
 	g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
 					,cns->etag,TRUE
 					,G_FILE_CREATE_NONE,NULL
