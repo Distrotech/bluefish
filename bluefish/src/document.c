@@ -3700,7 +3700,7 @@ static void new_floatingview(Tdocument *doc) {
 	fv = g_new(Tfloatingview,1);
 	doc->floatingview = fv;
 	DEBUG_MSG("new_floatingview for doc=%p is at %p\n",doc,doc->floatingview);
-	title = (doc->uri) ? full_path_utf8_from_uri(doc->uri) : g_strdup("Untitled");
+	title = (doc->uri) ? g_file_get_uri(doc->uri) : g_strdup("Untitled");
 	fv->window = window_full2(title, GTK_WIN_POS_NONE, 5, G_CALLBACK(floatingview_destroy_lcb), doc, TRUE, NULL);
 	g_free(title);
 	gtk_window_set_role(GTK_WINDOW(fv->window), "floatingview");
