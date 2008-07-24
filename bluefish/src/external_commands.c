@@ -190,11 +190,9 @@ static void start_command_backend(Texternalp *ep) {
 	argv[2] = ep->commandstring;
 	argv[3] = NULL;
 #else
-	
 	argv = g_malloc(sizeof(char *)*(count_char(ep->commandstring, ' ')+1));
-	
-	
 #endif
+	DEBUG_MSG("start_command_backend,commandstring=%s\n",ep->commandstring);
 	if (ep->fifo_in) {
 		if (mkfifo(ep->fifo_in, 0600) != 0) {
 			g_print("some error happened creating fifo %s??\n",ep->fifo_in);
@@ -217,7 +215,7 @@ static void start_command_backend(Texternalp *ep) {
 				(ep->pipe_in) ? &standard_input : NULL,
 				(ep->pipe_out) ? &standard_output : NULL,
 				NULL,&error);
-	ep->refcount++;
+	ep->refcount+=2; /* one reference for this function (cleared in the end), one reference for the child_watch function */
 	g_child_watch_add(ep->child_pid,child_watch_lcb,ep);
 	if (error) {
 		DEBUG_MSG("start_command_backend, there is an error: %s!!\n",error->message);
@@ -260,7 +258,7 @@ static void start_command_backend(Texternalp *ep) {
 		DEBUG_MSG("start_command_backend, add watch for channel_out\n");
 		g_io_add_watch(ep->channel_out, G_IO_IN|G_IO_PRI|G_IO_ERR|G_IO_HUP,ep->channel_out_lcb,ep->channel_out_data);
 	}
-	
+	externalp_unref(ep);
 }
 
 static void start_command(Texternalp *ep) {
