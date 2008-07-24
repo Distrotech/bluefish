@@ -68,7 +68,6 @@ void refcpointer_unref(Trefcpointer *rp) {
 		g_free(rp);
 	}
 }
-#ifdef HAVE_ATLEAST_GIO_2_16
 GFile *add_suffix_to_uri(GFile *file, const char *suffix) {
 	if (!suffix) {
 		g_object_ref(file);
@@ -102,7 +101,7 @@ void free_urilist(GList *urilist) {
 	g_list_free(urilist);
 }
 
-const gchar *full_path_utf8_from_uri(GFile *uri) {
+/*const gchar *full_path_utf8_from_uri(GFile *uri) {
 
 	GFileInfo* ginfo;
 	GError *error=NULL;
@@ -126,137 +125,8 @@ gchar *filename_utf8_from_uri(GFile *uri) {
 		return tmp;
 	}
 	return utf8name;
-}
-#else
-GnomeVFSURI *add_suffix_to_uri(GnomeVFSURI *uri, const char *suffix) {
-	if (!suffix) {
-		gnome_vfs_uri_ref(uri);
-		return uri;
-	} else {
-		gchar *tmp, *tmp2;
-		GnomeVFSURI *retval;
-		tmp = gnome_vfs_uri_to_string(uri,0);
-		tmp2 = g_strconcat(tmp, suffix, NULL);
-		retval = gnome_vfs_uri_new(tmp2);
-		g_free(tmp);
-		g_free(tmp2);
-		return retval;
-	}
-}
-
-GList *urilist_to_stringlist(GList *urilist) {
-	GList *retlist=NULL, *tmplist = g_list_last(urilist);
-	while (tmplist) {/* previously, passwords were hidden with GNOME_VFS_URI_HIDE_PASSWORD */
-		retlist = g_list_prepend(retlist, gnome_vfs_uri_to_string((GnomeVFSURI *)tmplist->data,0));
-		tmplist = g_list_previous(tmplist);
-	}
-	return retlist;
-}
-
-void free_urilist(GList *urilist) {
-	GList *tmplist = g_list_first(urilist);
-	while (tmplist) {
-		gnome_vfs_uri_unref((GnomeVFSURI *)tmplist->data);
-		tmplist = g_list_next(tmplist);
-	}
-	g_list_free(urilist);
-}
-
-gchar *full_path_utf8_from_uri(GnomeVFSURI *uri) {
-	gchar *curi;
-	
-	curi = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
-	if (gnome_vfs_uri_is_local(uri)) {
-		gchar *utf8uri;
-		/* for local uri's, this function  will use the encoding of the filesystem to
-		unescape the uri correctly to UTF-8 */
-		utf8uri = gnome_vfs_format_uri_for_display(curi);
-		g_free(curi);
-		curi = utf8uri;
-	}
-	return curi;
-	/* 
-	gnome_vfs_format_uri_for_display guarantees to return UTF-8, it will retrieve the 
-		encoding of the LOCAL filesystem, and use that to create the utf8 encoded string, and 
-		if it fails	to convert a local filename to utf-8 it will return the uri form
-		
-	gnome_vfs_unescape_string_for_display does return some string, but 
-		it seems (after some testing) to stop after it encounters any character 
-		it cannot convert to utf-8 (and thus shows only half of the filename) */
-}
-
-/* gchar *filename_utf8_from_full_path_utf8(const gchar *full_path_utf8) {
-	gchar *tmp, *tmp2;
-	tmp = g_path_get_basename(full_path_utf8);
-	/ * BUG: if the filename contains characters that are not in utf8, the 
-	'unescape_string' will unescape those characters, and thus produce non-utf8, which bluefish
-	cannot display... "Invalid UTF-8 string passed to pango_layout_set_text()"
-	hmm how to do this... perhaps test if the returned string is utf8 ??* /
-	
-	/ * What does gnome-vfs use for the conversion? The g_filename_* set of functions?
-	 * There is a short description in the glib documentation about file name encodings
-	 * in the character set conversion section. I don't recall seeing it previously.
-	 * /
-	tmp2 = gnome_vfs_unescape_string_for_display(tmp);
-	g_free(tmp);
-	return tmp2;
 }*/
 
-gchar *filename_utf8_from_uri(GnomeVFSURI *uri) {
-	gchar *filename;
-	/* for local files we can use the current disk encoding, and 
-	then strip the filename part of the uri. For remote files we
-	strip the filename, and try to unescape, if the resulting string is
-	utf8  we use it, else we'll use the escaped string */
-	
-	if (gnome_vfs_uri_is_local(uri)) {
-		gchar *tmp,*curi;
-		curi = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
-		tmp = gnome_vfs_format_uri_for_display(curi);
-		filename = g_path_get_basename(tmp);
-		g_free(tmp);
-		g_free(curi);
-	} else {
-		gchar *tmp, *tmp2;
-		tmp = gnome_vfs_uri_extract_short_path_name(uri);
-		tmp2 = gnome_vfs_unescape_string(tmp, "");
-		if (g_utf8_validate(tmp2, -1, NULL)) {
-			filename =  tmp2;
-			g_free(tmp);
-		} else {
-			filename =  tmp;
-			g_free(tmp2);
-		}
-	}
-	return filename;
-}
-
-/**
- * get_filename_on_disk_encoding:
- *
- * if gnome_vfs is defined, this function will also escape local paths
- * to make sure we can open files with a # in their name
- */
-gchar *get_filename_on_disk_encoding(const gchar *utf8filename) {
-	if (utf8filename) {
-		GError *gerror=NULL;
-		gsize b_written;
-		gchar *ondiskencoding = g_filename_from_utf8(utf8filename,-1, NULL,&b_written,&gerror);
-		if (gerror) {
-			g_print(_("Bluefish has trouble reading the filenames. Try to set the environment variable G_BROKEN_FILENAMES=1\n"));
-			ondiskencoding = g_strdup(utf8filename);
-		}
-		/* convert local path's */
-		if (ondiskencoding[0] == '/') {
-			gchar *tmp = gnome_vfs_escape_path_string(ondiskencoding);
-			g_free(ondiskencoding);
-			ondiskencoding = tmp;
-		}
-		return ondiskencoding;
-	}
-	return NULL;
-}
-#endif
 gchar *get_utf8filename_from_on_disk_encoding(const gchar *encodedname) {
 	if (encodedname) {
 		GError *gerror=NULL;
@@ -1216,66 +1086,6 @@ gchar *create_relative_link_to(gchar * current_filepath, gchar * link_to_filepat
 	return returnstring;
 }
 
-#define STRIP_FILE_URI
-/**
- * create_full_path:
- * @filename: a gchar * with the (relative or not) filename
- * @basedir: a gchar * with a basedir or NULL for current dir
- *
- * if filename is already absolute, it returns it
- * else it will use basedir if available, else the current dir
- * to add to the filename to form the full path
- *
- * for URL's it will simply return a strdup(), except for file:// URL's, 
- * there the file:// bit is stripped and 
- * IF YOU HAVE GNOME_VFS any %XX sequenves are converted
- * so if you DON'T have gnome_vfs, you should not feed file:// uri's!!
- *
- * it does use most_efficient_filename() to remote unwanted dir/../ entries
- *
- * Return value: a newly allocated gchar * with the full path
- **/
-/* 
-used:
-bluefish.c:95
-bluefish.c:120
-outputbox.c:163
-*/
-#ifdef HAVE_ATLEAST_GIO_2_16
-	/* not needed anymore */
-#else
-gchar *create_full_path(const gchar * filename, const gchar *basedir) {
-	gchar *absolute_filename;
-	gchar *tmpcdir;
-
-	if (!filename) return NULL;
-	filename = gnome_vfs_expand_initial_tilde(filename);
-	DEBUG_MSG("create_full_path, filename=%s, basedir=%s\n", filename, basedir);
-	if (strchr(filename, ':') != NULL) { /* it is an URI!! */
-		DEBUG_MSG("create_full_path, %s is an URI\n",filename);
-		if (strncmp(filename, "file://", 7)==0) {
-			return gnome_vfs_get_local_path_from_uri(filename);
-		}
-		return g_strdup(filename); /* cannot do this on remote paths */
-	}
-	if (g_path_is_absolute(filename)) {
-		absolute_filename = g_strdup(filename);
-	} else {
-		if (basedir) {
-			tmpcdir = ending_slash(basedir);
-		} else {
-			gchar *curdir = g_get_current_dir();
-			tmpcdir = ending_slash(curdir);
-			g_free(curdir);
-		}
-		absolute_filename = g_strconcat(tmpcdir, filename, NULL);
-		g_free(tmpcdir);
-	}
-	absolute_filename = most_efficient_filename(absolute_filename);
-	return absolute_filename;
-}
-#endif
-
 /**
  * strip_trailing_slash:
  * @dirname: a gchar *pointing to a directory
@@ -1341,17 +1151,10 @@ gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
  */
 gboolean full_path_exists(const gchar *full_path) {
 	gboolean retval;
-#ifdef HAVE_ATLEAST_GIO_2_16
 	GFile *uri;
 	uri = g_file_new_for_path(full_path);
 	retval = g_file_query_exists(uri,NULL);
 	g_object_unref(uri);
-#else
-	GnomeVFSURI *uri;
-	uri = gnome_vfs_uri_new(full_path);
-	retval = gnome_vfs_uri_exists(uri);
-	gnome_vfs_uri_unref(uri);
-#endif
 	return retval;
 }
 
@@ -1716,7 +1519,6 @@ guint arr3_hash(gconstpointer v)
 	return h;
 }
 
-#ifdef HAVE_ATLEAST_GIO_2_16
 gchar *gfile_display_name(GFile *uri, GFileInfo *finfo) {
 	gchar *retval;
 	if (finfo && g_file_info_has_attribute(finfo,G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME)) {
@@ -1774,4 +1576,3 @@ gchar *get_hostname_from_uri(GFile *uri) {
 	return retval;
 }
 
-#endif
