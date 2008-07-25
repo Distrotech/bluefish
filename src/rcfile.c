@@ -387,6 +387,8 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE);
 	/* old type filetypes have a different count, they are converted below */
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE);
+	
+	init_prop_integer   (&config_rc, &main_v->props.leave_to_window_manager, "leave_to_window_manager:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);	
 
 	init_prop_integer   (&config_rc, &main_v->props.left_panel_left, "left_panel_left:", 1, TRUE);

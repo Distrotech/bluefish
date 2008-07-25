@@ -751,11 +751,14 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	bfwin->main_window = window_full2(_("New Bluefish Window"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
 	gtk_widget_realize(bfwin->main_window);
-	if (main_v->globses.main_window_w > 0) {
-		gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->globses.main_window_w, main_v->globses.main_window_h);
-	} else {
-		gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->globses.main_window_w * -1, main_v->globses.main_window_h);
-		gtk_window_maximize(GTK_WINDOW(bfwin->main_window));
+	if (!main_v->props.leave_to_window_manager) {
+		g_print("set window size\n");
+		if (main_v->globses.main_window_w > 0) {
+			gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->globses.main_window_w, main_v->globses.main_window_h);
+		} else {
+			gtk_window_set_default_size(GTK_WINDOW(bfwin->main_window), main_v->globses.main_window_w * -1, main_v->globses.main_window_h);
+			gtk_window_maximize(GTK_WINDOW(bfwin->main_window));
+		}
 	}
 	g_signal_connect(G_OBJECT(bfwin->main_window), "delete_event", G_CALLBACK(main_window_delete_event_lcb), bfwin);
 	g_signal_connect(G_OBJECT(bfwin->main_window), "configure-event", G_CALLBACK(gui_main_window_configure_event_lcb), bfwin);
