@@ -171,13 +171,8 @@ typedef struct {
 } Tdoc_action;
 
 typedef struct {
-#ifdef HAVE_ATLEAST_GIO_2_16
 	GFile *uri;
 	GFileInfo *fileinfo;
-#else
-	GnomeVFSURI *uri;
-	GnomeVFSFileInfo *fileinfo;
-#endif
 	Tdoc_action action; /* see above, if set, some action has to be executed after opening/closing is done */
 /*	gchar *filename;  this is the UTF-8 encoded filename, before you use it on disk you need convert to disk-encoding! */
 	Tdocstatus status; /* can be DOC_STATUS_ERROR, DOC_STATUS_LOADING, DOC_STATUS_COMPLETE, DOC_CLOSING */
@@ -236,6 +231,7 @@ typedef struct {
 	GList *cmenu_replace; /* custom menu replaces */	
 	gint defaulthighlight;		/* highlight documents by default */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
+	gint leave_to_window_manager; /* don't set any dimensions, leave all to window manager */
 	gint restore_dimensions; /* use the dimensions as used the previous run */
 	gint left_panel_left; /* 1 = left, 0 = right */
 	gint max_recent_files;	/* length of Open Recent list */

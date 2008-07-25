@@ -53,6 +53,7 @@ enum {
 	tab_font_string,              /* notebook tabs font */	
 	defaulthighlight,             /* highlight documents by default */
 	transient_htdialogs,          /* set html dialogs transient ro the main window */
+	leave_to_window_manager,
 	restore_dimensions,
 	left_panel_width,
 	left_panel_left,
@@ -1756,6 +1757,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.modified_check_type = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[modified_check_type]));
 	integer_apply(&main_v->props.do_periodic_check, pd->prefs[do_periodic_check], TRUE);
 	integer_apply(&main_v->props.max_recent_files, pd->prefs[max_recent_files], FALSE);
+	integer_apply(&main_v->props.leave_to_window_manager, pd->prefs[leave_to_window_manager], TRUE);
 	integer_apply(&main_v->props.restore_dimensions, pd->prefs[restore_dimensions], TRUE);
 	if (!main_v->props.restore_dimensions) {
 		integer_apply(&main_v->globses.left_panel_width, pd->prefs[left_panel_width], FALSE);
@@ -1847,9 +1849,19 @@ static void preferences_ok_clicked_lcb(GtkWidget *wid, Tprefdialog *pd) {
 }
 
 static void restore_dimensions_toggled_lcb(GtkToggleButton *togglebutton,Tprefdialog *pd) {
-	gtk_widget_set_sensitive(pd->prefs[left_panel_width], !togglebutton->active);
-	gtk_widget_set_sensitive(pd->prefs[main_window_h], !togglebutton->active);
-	gtk_widget_set_sensitive(pd->prefs[main_window_w], !togglebutton->active);
+	if (togglebutton == GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions])) {
+		gtk_widget_set_sensitive(pd->prefs[left_panel_width], !togglebutton->active);
+		gtk_widget_set_sensitive(pd->prefs[main_window_h], !togglebutton->active);
+		gtk_widget_set_sensitive(pd->prefs[main_window_w], !togglebutton->active);
+	} else if (togglebutton == GTK_TOGGLE_BUTTON(pd->prefs[leave_to_window_manager])) {
+		gtk_widget_set_sensitive(pd->prefs[restore_dimensions], !togglebutton->active);
+		
+		gtk_widget_set_sensitive(pd->prefs[left_panel_width], !togglebutton->active && !GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions])->active);
+		gtk_widget_set_sensitive(pd->prefs[main_window_h], !togglebutton->active && !GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions])->active);
+		gtk_widget_set_sensitive(pd->prefs[main_window_w], !togglebutton->active && !GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions])->active);
+	} else {
+		g_print("restore_dimensions_toggled_lcb, unknown togglebutton\n");
+	}
 }
 static void create_backup_toggled_lcb(GtkToggleButton *togglebutton,Tprefdialog *pd) {
     gtk_widget_set_sensitive(pd->prefs[backup_prefix], togglebutton->active);
@@ -2124,12 +2136,15 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+	
+	pd->prefs[leave_to_window_manager] = boxed_checkbut_with_value(_("Leave dimensions to window manager"), main_v->props.leave_to_window_manager, vbox2);
 	pd->prefs[restore_dimensions] = boxed_checkbut_with_value(_("Restore last used dimensions"), main_v->props.restore_dimensions, vbox2);
 	pd->prefs[left_panel_width] = prefs_integer(_("Initial sidebar width"), main_v->globses.left_panel_width, vbox2, pd, 1, 4000);
 	pd->prefs[main_window_h] = prefs_integer(_("Initial window height"), main_v->globses.main_window_h, vbox2, pd, 1, 4000);
 	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->globses.main_window_w, vbox2, pd, 1, 4000);
 	restore_dimensions_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions]), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[restore_dimensions]), "toggled", G_CALLBACK(restore_dimensions_toggled_lcb), pd);
+	g_signal_connect(G_OBJECT(pd->prefs[leave_to_window_manager]), "toggled", G_CALLBACK(restore_dimensions_toggled_lcb), pd);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
