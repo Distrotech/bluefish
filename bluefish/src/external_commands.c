@@ -25,8 +25,9 @@
 
 #include "config.h"
 #include "bluefish.h"
-#include "document.h"
 #include "bf_lib.h"
+#include "document.h"
+#include "gtk_easy.h"
 #include "outputbox.h"
 
 /*
@@ -340,20 +341,13 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		g_free(formatstring);
 		return NULL;
 	}
-#ifdef HAVE_ATLEAST_GIO_2_16
+
 	localname = g_file_get_path(ep->bfwin->current_document->uri);
 	if (need_local && !localname) {
 		g_free(formatstring);
 		g_free(localname);
 	}
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-	if (need_local && !gnome_vfs_uri_is_local(ep->bfwin->current_document->uri)) {
-		DEBUG_MSG("create_commandstring, this command needs a local filefilename, but there is no\n");
-		/* BUG: give a warning that the current command only works for local files */
-		g_free(formatstring);
-		return NULL;
-	}
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
+
 	need_tmpin = (strstr(formatstring, "%I") != NULL);
 	/* %f is for backwards compatibility with bluefish 1.0 */
 	need_tmpout = (strstr(formatstring, "%O") != NULL);
@@ -365,9 +359,8 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		DEBUG_MSG("create_commandstring, external_commands should not have %%o\n");
 		/*  BUG: give a warning that external commands should not use %o */
 		g_free(formatstring);
-#ifdef HAVE_ATLEAST_GIO_2_16
 		g_free(localname);
-#endif /* HAVE_ATLEAST_GIO_2_16 */
+
 		return NULL;
 	}
 	if ((need_tmpin && (need_fifoin || need_inplace || need_pipein)) 
@@ -376,9 +369,8 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		DEBUG_MSG("create_commandstring, cannot have multiple inputs\n");
 		/*  BUG: give a warning that you cannot have multiple inputs */
 		g_free(formatstring);
-#ifdef HAVE_ATLEAST_GIO_2_16
 		g_free(localname);
-#endif /* HAVE_ATLEAST_GIO_2_16 */
+
 		return NULL;
 	}
 	if ((need_tmpout && (need_fifoout || need_inplace || need_pipeout)) 
@@ -387,9 +379,8 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 		DEBUG_MSG("create_commandstring, cannot have multiple outputs\n");
 		/*  BUG: give a warning that you cannot have multiple outputs */
 		g_free(formatstring);
-#ifdef HAVE_ATLEAST_GIO_2_16
 		g_free(localname);
-#endif /* HAVE_ATLEAST_GIO_2_16 */
+
 		return NULL;
 	}
 	if (need_pipein)  ep->pipe_in = TRUE;
@@ -402,28 +393,16 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	}*/
 	DEBUG_MSG("create_commandstring, formatstring '%s' seems OK\n",formatstring);
 
-#ifdef HAVE_ATLEAST_GIO_2_16
 	is_local_non_modified = (ep->bfwin->current_document->uri 
 		&& !ep->bfwin->current_document->modified
 		&& localname != NULL);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-	is_local_non_modified = (ep->bfwin->current_document->uri 
-		&& !ep->bfwin->current_document->modified
-		&& strcmp(gnome_vfs_uri_get_scheme(ep->bfwin->current_document->uri),"file")==0);
 
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	DEBUG_MSG("create_commandstring,is_local_non_modified=%d, uri=%p, modified=%d\n",is_local_non_modified,ep->bfwin->current_document->uri, ep->bfwin->current_document->modified);
 
 	if (need_filename || is_local_non_modified) {
-#ifdef HAVE_ATLEAST_GIO_2_16
 		curi = g_file_get_uri(ep->bfwin->current_document->uri);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-		curi = gnome_vfs_uri_to_string(ep->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
+
 		if (need_local || (is_local_non_modified && (need_tmpin||need_fifoin))) {
-#ifndef HAVE_ATLEAST_GIO_2_16
-			localname = gnome_vfs_get_local_path_from_uri(curi);
-#endif /* not HAVE_ATLEAST_GIO_2_16 */
 			localfilename = strrchr(localname, '/')+1;
 			items += 2;
 		}
