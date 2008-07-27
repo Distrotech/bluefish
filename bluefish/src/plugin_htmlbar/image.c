@@ -77,11 +77,7 @@ typedef struct {
   GtkWidget *frame;
   GdkPixbuf *pb;
   GtkWidget *im;
-#ifdef HAVE_ATLEAST_GIO_2_16
   GFile *full_uri;
-#else
-  GnomeVFSURI *full_uri;
-#endif
 
   GdkPixbufLoader* pbloader;
   Topenfile *of;
@@ -98,11 +94,7 @@ void image_diag_destroy_cb(GtkWidget * widget, Timage_diag *imdg) {
     g_object_unref(imdg->pb);
   }
   if (imdg->full_uri) {
-#ifdef HAVE_ATLEAST_GIO_2_16
     g_object_unref (imdg->full_uri);
-#else
-    gnome_vfs_uri_unref(imdg->full_uri);
-#endif
   }
   g_free(imdg);
 }
@@ -122,34 +114,23 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
     gint w,h;
     GError *error=NULL;
     GdkPixbuf *tmp_im;
-#ifdef HAVE_ATLEAST_GIO_2_16
     GFile *fullthumbfilename;
-#else
-    GnomeVFSURI *fullthumbfilename;
-#endif
+
     filename = gtk_editable_get_chars(GTK_EDITABLE(imdg->dg->entry[0]), 0, -1);
     thumbnailfilename = create_thumbnail_filename(filename);
     /* we should use the full path to create the thumbnail filename */
-#ifdef HAVE_ATLEAST_GIO_2_16
+
     tmp1 = g_file_get_uri (imdg->full_uri);
     tmp2 = create_thumbnail_filename (tmp1);
     fullthumbfilename = g_file_new_for_uri (tmp2);
-#else
-    tmp1 = gnome_vfs_uri_to_string(imdg->full_uri,GNOME_VFS_URI_HIDE_PASSWORD);
-    tmp2 = create_thumbnail_filename(tmp1);
-    fullthumbfilename = gnome_vfs_uri_new(tmp2);
-#endif
+
     g_free(tmp1);
     g_free(tmp2);
 
 #ifdef DEBUG
-#ifdef HAVE_ATLEAST_GIO_2_16
     gchar *path = g_file_get_path (fullthumbfilename);
     DEBUG_MSG("image_insert_dialogok_lcb, thumbnail will be stored at %s\n", path);
     g_free (path);
-#else    
-    DEBUG_MSG("image_insert_dialogok_lcb, thumbnail will be stored at %s\n", gnome_vfs_uri_get_path(fullthumbfilename));
-#endif
 #endif
     w = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[0]));
     h = gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(imdg->dg->spin[1]));
@@ -166,30 +147,31 @@ static void image_insert_dialogok_lcb(GtkWidget * widget, Timage_diag *imdg) {
       g_print("ERROR while saving thumbnail to buffer: %s\n", error->message);
       g_error_free(error);
     } else {
+    	GError *error=NULL;
+    	GFileInfo *finfo;
       Tsavefile *sf;
       Trefcpointer *refbuf = refcpointer_new(buffer);
+      
+			finfo = g_file_query_info (fullthumbfilename,
+																 BF_FILEINFO,
+																 G_FILE_QUERY_INFO_NONE,
+																 NULL, &error);
+			if (error != NULL) {
+				g_print("image_insert_dialogok_lcb: %s\n ", error->message);
+				g_error_free(error);
+			}
 #ifdef DEBUG
-#ifdef HAVE_ATLEAST_GIO_2_16
       gchar *path = g_file_get_path (fullthumbfilename);
       DEBUG_MSG("image_insert_dialogok_lcb, starting async save to %s\n", path);
       g_free (path);
-#else
-      DEBUG_MSG("image_insert_dialogok_lcb, starting async save to %s\n",gnome_vfs_uri_get_path(fullthumbfilename));
-#endif
 #endif
 
-#ifdef HAVE_ATLEAST_GIO_2_16
-      sf = file_savefile_uri_async (fullthumbfilename, refbuf, buflen, async_thumbsave_lcb, NULL);
-#else
-      sf = file_savefile_uri_async(fullthumbfilename, refbuf, buflen, async_thumbsave_lcb, NULL);
-#endif
+      sf = file_checkNsave_uri_async (fullthumbfilename, finfo, refbuf, buflen, FALSE, (CheckNsaveAsyncCallback) async_thumbsave_lcb, NULL);
       refcpointer_unref(refbuf);
     }
-#ifdef HAVE_ATLEAST_GIO_2_16
+
     g_object_unref (fullthumbfilename);
-#else
-    gnome_vfs_uri_unref(fullthumbfilename);
-#endif
+
     thestring = g_strconcat(cap("<A HREF=\""),filename, cap("\"><IMG SRC=\""), thumbnailfilename, "\"", NULL);
     g_free(filename);
     g_free(thumbnailfilename);
@@ -335,11 +317,7 @@ static void image_loaded_lcb(Topenfile_status status,gint error_info,gchar *buff
 static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
   const gchar *filename;
   gchar *tmp;
-#ifdef HAVE_ATLEAST_GIO_2_16
   GFile *fullfilename = NULL;
-#else
-  GnomeVFSURI *fullfilename=NULL;
-#endif
 
   DEBUG_MSG("image_filename_changed() started. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
   if (imdg->pb) {
@@ -356,53 +334,26 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
   /* we should use the full path to create the thumbnail filename */
   tmp = strstr(filename, "://");
   if ((tmp == NULL && filename[0] != '/') && imdg->dg->doc->uri) {
-/*    GnomeVFSURI *parent;
-    gchar *basedir = gnome_vfs_uri_extract_dirname(imdg->dg->doc->uri);
-    DEBUG_MSG("image_filename_changed: document basedir=%s\n",basedir);
-    parent = gnome_vfs_uri_new(basedir);
-    fullfilename = gnome_vfs_uri_resolve_relative (parent,filename);*/
-#ifdef HAVE_ATLEAST_GIO_2_16
     fullfilename = g_file_resolve_relative_path (imdg->dg->doc->uri, filename);
-#else
-    fullfilename = gnome_vfs_uri_resolve_relative (imdg->dg->doc->uri, filename);
-#endif
-/*    g_free(basedir);
-    gnome_vfs_uri_unref(parent);*/
   } else if (tmp != NULL || filename[0]=='/') {
-#ifdef HAVE_ATLEAST_GIO_2_16
     fullfilename = g_file_new_for_uri (filename);
-#else
-    fullfilename = gnome_vfs_uri_new(filename);
-#endif
   } else {
     return;
   }
 #ifdef DEBUG
-#ifdef HAVE_ATLEAST_GIO_2_16
   gchar *path = g_file_get_path (fullfilename);
   DEBUG_MSG("image_filename_changed: fullfilename=%s, loading!\n", path);
   g_free (path);
-#else
-  DEBUG_MSG("image_filename_changed: fullfilename=%s, loading!\n",gnome_vfs_uri_get_path(fullfilename));
-#endif
 #endif
   if (fullfilename) {
     gchar *name, *msg;
-
-#ifdef HAVE_ATLEAST_GIO_2_16
     gchar *path = g_file_get_path (fullfilename);
     imdg->pbloader = pbloader_from_filename (path);
     g_free (path);
-#else
-    imdg->pbloader = pbloader_from_filename(gnome_vfs_uri_get_path(fullfilename));
-#endif
+
     imdg->of = file_openfile_uri_async(fullfilename, image_loaded_lcb, imdg);
     imdg->full_uri = fullfilename;
-#ifdef HAVE_ATLEAST_GIO_2_16
     name = g_file_get_uri (fullfilename);
-#else
-    name = gnome_vfs_uri_to_string(fullfilename, GNOME_VFS_URI_HIDE_PASSWORD);
-#endif
     msg = g_strdup_printf(_("Loading file %s..."),name);
     if (imdg->message) {
       gtk_widget_destroy(imdg->message);
@@ -586,13 +537,8 @@ typedef struct {
 } Tmuthudia;
 
 typedef struct {
-#ifdef HAVE_ATLEAST_GIO_2_16
   GFile *imagename;
   GFile *thumbname;
-#else
-  GnomeVFSURI *imagename;
-  GnomeVFSURI *thumbname;
-#endif
   Topenfile *of; /* if != NULL, the image is loading */
   Tsavefile *sf; /* if != NULL, the thumbnail is saving */
   gboolean created; /* both loading and saving is finished */
@@ -613,13 +559,8 @@ static void mt_dialog_destroy(GtkWidget *wid, Tmuthudia *mtd) {
   }
   for (tmplist = g_list_first(mtd->images); tmplist ; tmplist = g_list_next(tmplist)) {
     Timage2thumb *tmp = tmplist->data;
-#ifdef HAVE_ATLEAST_GIO_2_16
     g_object_unref (tmp->imagename);
     g_object_unref (tmp->thumbname);
-#else
-    gnome_vfs_uri_unref(tmp->imagename);
-    gnome_vfs_uri_unref(tmp->thumbname);
-#endif
     g_free(tmp);
   }
   DEBUG_MSG("multi_thumbnail_dialog_destroy, called for mtd=%p\n",mtd); 
@@ -632,28 +573,19 @@ static void mt_fill_string(Timage2thumb *i2t, GdkPixbuf *image, GdkPixbuf *thumb
   gchar *relthumb, *tmp, *relimage;
   gchar *doc_curi = NULL;
 
-#ifdef HAVE_ATLEAST_GIO_2_16
   relimage = tmp = g_file_get_uri (i2t->imagename);
-#else
-  relimage = tmp = gnome_vfs_uri_to_string(i2t->imagename,GNOME_VFS_URI_HIDE_PASSWORD);
-#endif
+
   if (i2t->mtd->document->uri) {
-#ifdef HAVE_ATLEAST_GIO_2_16
       doc_curi = g_file_get_uri (i2t->mtd->document->uri);
-#else
-      doc_curi = gnome_vfs_uri_to_string(i2t->mtd->document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
-#endif
   }
   
   if (i2t->mtd->document->uri) {
     relimage = create_relative_link_to(doc_curi, tmp);
     g_free(tmp);
   }
-#ifdef HAVE_ATLEAST_GIO_2_16
+
   relthumb = tmp = g_file_get_uri (i2t->thumbname);
-#else
-  relthumb = tmp = gnome_vfs_uri_to_string(i2t->thumbname,GNOME_VFS_URI_HIDE_PASSWORD);
-#endif
+
   if (i2t->mtd->bfwin->current_document->uri) {
     relthumb = create_relative_link_to(doc_curi, tmp);
     g_free(tmp);
@@ -764,13 +696,9 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
     case OPENFILE_ERROR_CANCELLED:
       /* should we warn the user ?? */
 #ifdef DEBUG
-#ifdef HAVE_ATLEAST_GIO_2_16
       gchar *path = g_file_get_path (i2t->imagename);
       DEBUG_MSG("mt_openfile_lcb, some error! status=%d for image %s\n",status, path);
       g_free (path);
-#else
-      DEBUG_MSG("mt_openfile_lcb, some error! status=%d for image %s\n",status,gnome_vfs_uri_get_path(i2t->imagename));
-#endif
 #endif
     break;
     case OPENFILE_CHANNEL_OPENED:
@@ -781,22 +709,16 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
       gboolean nextload;
       GdkPixbufLoader* pbloader;
 #ifdef DEBUG
-#ifdef HAVE_ATLEAST_GIO_2_16
       gchar *path = g_file_get_path (i2t->imagename);
       DEBUG_MSG("mt_openfile_lcb, finished loading image %s\n", path);
       g_free (path);
-#else
-      DEBUG_MSG("mt_openfile_lcb, finished loading image %s\n",gnome_vfs_uri_get_path(i2t->imagename));
-#endif
 #endif
       nextload = mt_start_next_load(i2t); /* fire up the next image load */
-#ifdef HAVE_ATLEAST_GIO_2_16
+
       gchar *path = g_file_get_path (i2t->imagename);
       pbloader = pbloader_from_filename (path);
       g_free (path);
-#else
-      pbloader = pbloader_from_filename(gnome_vfs_uri_get_path(i2t->imagename));
-#endif
+
       if (gdk_pixbuf_loader_write(pbloader,(const guchar *) buffer,buflen,&error) 
             && gdk_pixbuf_loader_close(pbloader,&error)) {
         gint tw,th,ow,oh;
@@ -826,23 +748,15 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
           break;
           }
 #ifdef DEBUG
-#ifdef HAVE_ATLEAST_GIO_2_16
           gchar *path = g_file_get_path (i2t->imagename);
           DEBUG_MSG("mt_openfile_lcb, start scaling %s to %dx%d\n", path, tw, th);
           g_free (path);
-#else
-          DEBUG_MSG("mt_openfile_lcb, start scaling %s to %dx%d\n",gnome_vfs_uri_get_path(i2t->imagename),tw,th);
-#endif
 #endif
           thumb = gdk_pixbuf_scale_simple(image, tw, th, GDK_INTERP_BILINEAR);
 #ifdef DEBUG
-#ifdef HAVE_ATLEAST_GIO_2_16
           gchar *path = g_file_get_path (i2t->imagename);
           DEBUG_MSG("mt_openfile_lcb, done scaling %s\n", path);
           g_free (path);
-#else          
-          DEBUG_MSG("mt_openfile_lcb, done scaling %s\n",gnome_vfs_uri_get_path(i2t->imagename));
-#endif
 #endif
           mt_fill_string(i2t,image,thumb); /* create the string */
           mt_print_string(i2t); /* print the string and all previous string (if possible) */
@@ -859,29 +773,32 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
             g_print("ERROR while saving thumbnail to buffer: %s\n", error->message);
             g_error_free(error);
           } else {
+          	GError *error=NULL;
+          	GFileInfo *finfo;
             Trefcpointer *refbuf = refcpointer_new(buffer);
+            
+						finfo = g_file_query_info (i2t->thumbname,
+																			 BF_FILEINFO,
+																			 G_FILE_QUERY_INFO_NONE,
+																			 NULL, &error);
+						if (error != NULL) {
+							g_print("mt_openfile_lcb %s\n ", error->message);
+							g_error_free(error);
+						}
 #ifdef DEBUG
-#ifdef HAVE_ATLEAST_GIO_2_16
             gchar *path = g_file_get_path (i2t->thumbname);
             DEBUG_MSG("mt_openfile_lcb, starting thumbnail save to %s\n", path);
             g_free (path);
-#else
-            DEBUG_MSG("mt_openfile_lcb, starting thumbnail save to %s\n",gnome_vfs_uri_get_path(i2t->thumbname));
 #endif
-#endif
-            i2t->sf = file_savefile_uri_async(i2t->thumbname, refbuf, buflen, async_thumbsave_lcb, NULL);
+            i2t->sf = file_checkNsave_uri_async(i2t->thumbname, finfo, refbuf, buflen, FALSE, (CheckNsaveAsyncCallback) async_thumbsave_lcb, NULL);
             refcpointer_unref(refbuf);
           }
         } else {
           /* ok, this image is not valid, how do we continue ?? */
 #ifdef DEBUG
-#ifdef HAVE_ATLEAST_GIO_2_16
           gchar *path = g_file_get_path (i2t->imagename);
           DEBUG_MSG("mt_openfile_lcb, failed to convert %s to image\n", path);
           g_free (path);
-#else          
-          DEBUG_MSG("mt_openfile_lcb, failed to convert %s to image\n",gnome_vfs_uri_get_path(i2t->imagename));
-#endif
 #endif
           i2t->string = g_strdup("");
           mt_print_string(i2t);
@@ -904,29 +821,18 @@ static void mt_start_load(Timage2thumb *i2t) {
 static Timage2thumb *mt_image2thumbnail(Tmuthudia *mtd, gchar *curi) {
   Timage2thumb *i2t;
   gchar *tmp;
-#ifdef HAVE_ATLEAST_GIO_2_16
   GFile *uri;
-#else
-  GnomeVFSURI *uri;
-#endif
   
   DEBUG_MSG("mt_image2thumbnail, called for %s\n",curi);
   if (!curi) return NULL;
-#ifdef HAVE_ATLEAST_GIO_2_16
   uri = g_file_new_for_uri (curi);
-#else
-  uri = gnome_vfs_uri_new(curi);
-#endif
+
   if (!uri) return NULL;
   i2t = g_new0(Timage2thumb,1);
   i2t->mtd = mtd;
   i2t->imagename = uri;
   tmp = create_thumbnail_filename(curi);
-#ifdef HAVE_ATLEAST_GIO_2_16
   i2t->thumbname = g_file_new_for_uri (tmp);
-#else  
-  i2t->thumbname = gnome_vfs_uri_new(tmp);
-#endif
   g_free(tmp);
   return i2t;
 }
