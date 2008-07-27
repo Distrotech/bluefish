@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * embed_python.c - embedded python functionality
  *
- * Copyright (C) 2005 Oliver Sessink
+ * Copyright (C) 2005-2008 Oliver Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 #include "config.h"
 #ifdef HAVE_PYTHON
 
-#define DEBUG
+/* #define DEBUG */
 
 #include <Python.h>
 #include <gtk/gtk.h>
@@ -57,7 +57,7 @@ typedef struct {
 	return NULL;
 }*/
 static int Document_init(bluefish_DocumentObject *self, PyObject *args, PyObject *kwds) {
-	GnomeVFSURI *uri;
+	GFile *uri;
 	static char *kwlist[] = {"uri", NULL};
 	PyObject *PyBfwin;
 	Tbfwin *bfwin;
@@ -72,7 +72,11 @@ static int Document_init(bluefish_DocumentObject *self, PyObject *args, PyObject
 		Tdocument *tmpdoc;
 		tmpdoc = documentlist_return_document_from_uri(bfwin->documentlist, uri);
 		if (!tmpdoc) return -1;
-		g_print("found %p for %s\n",tmpdoc,uri->text);
+#ifdef DEBUG
+		gchar *fullpath = g_file_get_parse_name (uri);
+		g_print("found %p for %s\n",tmpdoc,fullpath);
+		g_free(fullpath);
+#endif
 		self->doc = tmpdoc;
 	} else {
 		self->doc = bfwin->current_document;
