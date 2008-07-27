@@ -83,13 +83,11 @@ void cb_print_version (const gchar *option_name, const gchar *value, gpointer da
 int main(int argc, char *argv[])
 {
   gboolean newwindow = FALSE, skiprootcheck = FALSE, root_override=FALSE, open_in_new_window=FALSE;
-  gchar **files = NULL, *project = NULL, *tmpname;
+  gchar **files = NULL, *project = NULL;
   gint filearray, i;
   GList *filenames = NULL, *projectfiles=NULL;
   Tbfwin *firstbfwin;
-#ifdef HAVE_ATLEAST_GIO_2_16
   GFile *tmpfile;
-#endif
 
   GError *error = NULL;
 
@@ -115,11 +113,9 @@ int main(int argc, char *argv[])
   textdomain(PACKAGE);                                                    
 #endif /* ENABLE_NLS */
 
-#ifdef HAVE_ATLEAST_GIO_2_16
   if (!g_thread_supported ())
     g_thread_init (NULL);
 /*  gdk_threads_init ();*/
-#endif
 
   context = g_option_context_new (_(" [FILE(S)]"));
 #ifdef ENABLE_NLS 
@@ -140,9 +136,6 @@ int main(int argc, char *argv[])
   if (error) g_error_free (error);
 
   xmlInitParser();
-#ifndef HAVE_ATLEAST_GIO_2_16
-  gnome_vfs_init();
-#endif
 
   set_default_icon();
   main_v = g_new0(Tmain, 1);
@@ -159,14 +152,10 @@ int main(int argc, char *argv[])
   }
 
   if (project) {
-#ifdef HAVE_ATLEAST_GIO_2_16
     tmpfile = g_file_new_for_commandline_arg(project);
     projectfiles = g_list_append(projectfiles, g_file_get_parse_name(tmpfile));
     g_object_unref(tmpfile);
-#else
-    tmpname = create_full_path(project, NULL);
-    projectfiles = g_list_append(projectfiles, tmpname);
-#endif
+
     /*
       TODO 1: Check if given file is a project-file.
       Maybe using gnome-vfs API and checking for application/bluefish-project.
@@ -197,14 +186,9 @@ int main(int argc, char *argv[])
   if (files != NULL) {
     filearray = g_strv_length(files);
     for (i = 0; i < filearray; ++i) {
-#ifdef HAVE_ATLEAST_GIO_2_16
       tmpfile = g_file_new_for_commandline_arg(files[i]);
       filenames = g_list_append(filenames, g_file_get_parse_name(tmpfile));
       g_object_unref(tmpfile);
-#else
-      tmpname = create_full_path(files[i], NULL);
-      filenames = g_list_append(filenames, tmpname);
-#endif
       
       DEBUG_MSG("main, files[%d]=%s, tmpname=%s\n", i, files[i], tmpname);
     }
@@ -306,13 +290,9 @@ int main(int argc, char *argv[])
   }
 #endif /* NOSPLASH */
   DEBUG_MSG("main, before gtk_main()\n");
-#ifdef HAVE_ATLEAST_GIO_2_16
 /*  gdk_threads_enter ();*/
-#endif  
   gtk_main();
-#ifdef HAVE_ATLEAST_GIO_2_16
 /*  gdk_threads_leave ();*/
-#endif
   DEBUG_MSG("main, after gtk_main()\n");
 #ifdef WITH_MSG_QUEUE 
   /* do the cleanup */
