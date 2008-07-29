@@ -118,7 +118,7 @@ static gint deletefile_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 	return 1;
 }
 
-void file_delete_file_async(GnomeVFSURI *uri, DeleteAsyncCallback callback, gpointer callback_data) {
+void file_delete_file_async(GFile *uri, DeleteAsyncCallback callback, gpointer callback_data) {
 	GnomeVFSResult ret;
 	GList *sourcelist;
 	Tfiledelete *fd;
@@ -127,7 +127,7 @@ void file_delete_file_async(GnomeVFSURI *uri, DeleteAsyncCallback callback, gpoi
 	fd->callback = callback;
 	fd->callback_data = callback_data;
 	sourcelist = g_list_append(NULL, uri);
-	gnome_vfs_uri_ref(uri);
+	g_object_ref(uri);
 	ret = gnome_vfs_async_xfer(&fd->handle,sourcelist,NULL
 						,GNOME_VFS_XFER_DELETE_ITEMS,GNOME_VFS_XFER_ERROR_MODE_QUERY
 						,GNOME_VFS_XFER_OVERWRITE_MODE_SKIP,GNOME_VFS_PRIORITY_DEFAULT
@@ -209,9 +209,9 @@ Tcheckmodified *file_checkmodified_uri_async(GFile *uri, GFileInfo *curinfo, Che
 #else
 static void checkmodified_cleanup(Tcheckmodified *cm) {
 	DEBUG_MSG("checkmodified_cleanup, started\n");
-	gnome_vfs_uri_unref(cm->uris->data);
+	g_object_unref(cm->uris->data);
 	g_list_free(cm->uris);
-	gnome_vfs_file_info_unref(cm->orig_finfo);
+	g_object_unref(cm->orig_finfo);
 	g_free(cm);
 }
 
@@ -221,7 +221,7 @@ void checkmodified_cancel(Tcheckmodified * cm) {
 	checkmodified_cleanup(cm);
 }
 
-static gboolean checkmodified_is_modified(GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new) {
+static gboolean checkmodified_is_modified(GFileInfo *orig, GFileInfo *new) {
 	/* modified_check_type;  0=no check, 1=by mtime and size, 2=by mtime, 3=by size, 4,5,...not implemented (md5sum?) */
 	DEBUG_MSG("checkmodified_is_modified, matches=%d, orig,new(size,mtime)=(%"GNOME_VFS_SIZE_FORMAT_STR",%ld),(%"GNOME_VFS_SIZE_FORMAT_STR",%ld)\n",gnome_vfs_file_info_matches(orig,new),
 			orig->size,orig->mtime,new->size,new->mtime);
@@ -278,7 +278,7 @@ static void checkmodified_asyncfileinfo_lcb(GnomeVFSAsyncHandle *handle, GList *
 	}	
 	checkmodified_cleanup(cm);
 }
-Tcheckmodified * file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data) {
+Tcheckmodified * file_checkmodified_uri_async(GFile *uri, GFileInfo *curinfo, CheckmodifiedAsyncCallback callback_func, gpointer callback_data) {
 	Tcheckmodified *cm;
 	DEBUG_MSG("file_checkmodified_uri_async, STARTED for %s, curinfo=%p\n", gnome_vfs_uri_get_path(uri), curinfo);
 	if (curinfo == NULL) {
@@ -288,9 +288,9 @@ Tcheckmodified * file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo
 	cm = g_new(Tcheckmodified,1);
 	cm->callback_func = callback_func;
 	cm->callback_data = callback_data;
-	gnome_vfs_uri_ref(uri);
+	g_object_ref(uri);
 	cm->uris = g_list_append(NULL, uri);
-	gnome_vfs_file_info_ref(curinfo);
+	g_object_ref(curinfo);
 	cm->orig_finfo = curinfo;
 	gnome_vfs_async_get_file_info(&cm->handle,cm->uris,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS
 			,GNOME_VFS_PRIORITY_DEFAULT,checkmodified_asyncfileinfo_lcb,cm);
@@ -304,7 +304,7 @@ Tcheckmodified * file_checkmodified_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo
 static void savefile_cleanup(Tsavefile *sf) {
 	DEBUG_MSG("savefile_cleanup, called for %p\n",sf);
 	refcpointer_unref(sf->buffer);
-	gnome_vfs_uri_unref(sf->uri);
+	g_object_unref(sf->uri);
 	g_free(sf);
 }
 
@@ -326,7 +326,7 @@ static void savefile_asyncclose_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult r
 	savefile_cleanup(sf);
 }
 
-static void savefile_asyncwrite_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gconstpointer buffer,GnomeVFSFileSize bytes_requested,GnomeVFSFileSize bytes_written,gpointer data) {
+static void savefile_asyncwrite_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gconstpointer buffer,goffset bytes_requested,goffset bytes_written,gpointer data) {
 	Tsavefile *sf = data;
 	DEBUG_MSG("savefile_asyncwrite_lcb, called with result=%d (%s), %"GNOME_VFS_SIZE_FORMAT_STR" bytes written\n",result,gnome_vfs_result_to_string(result),bytes_written);
 	if (result == GNOME_VFS_OK) {
@@ -393,13 +393,13 @@ static void savefile_asyncopenuri_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult
 	}
 }
 
-Tsavefile *file_savefile_uri_async(GnomeVFSURI *uri, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, SavefileAsyncCallback callback_func, gpointer callback_data) {
+Tsavefile *file_savefile_uri_async(GFile *uri, Trefcpointer *buffer, goffset buffer_size, SavefileAsyncCallback callback_func, gpointer callback_data) {
 	Tsavefile *sf;
 	sf = g_new(Tsavefile,1);
 	sf->callback_data = callback_data;
 	sf->callback_func = callback_func;
 	sf->buffer = buffer;
-	gnome_vfs_uri_ref(uri);
+	g_object_ref(uri);
 	sf->uri = uri;
 	DEBUG_MSG("file_savefile_uri_async, sf=%p, uri=%p\n",sf, sf->uri);
 	refcpointer_ref(buffer);
@@ -510,8 +510,8 @@ gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *bu
 static void checkNsave_cleanup(TcheckNsave *cns) {
 	DEBUG_MSG("checkNsave_cleanup, called for %p\n",cns);
 	refcpointer_unref(cns->buffer);
-	gnome_vfs_uri_unref(cns->uri);
-	if (cns->finfo) gnome_vfs_file_info_unref(cns->finfo);
+	g_object_unref(cns->uri);
+	if (cns->finfo) g_object_unref(cns->finfo);
 	g_free(cns);
 }
 
@@ -569,11 +569,11 @@ static gint checkNsave_progress_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSXferProg
 static void checkNsave_startbackup(TcheckNsave *cns) {
 	GList *sourcelist;
 	GList *destlist;
-	GnomeVFSURI *dest;
+	GFile *dest;
 	GnomeVFSResult ret;
 	/* now first create the backup, then start save */
 	
-	gnome_vfs_uri_ref(cns->uri);
+	g_object_ref(cns->uri);
 	sourcelist = g_list_append(NULL, cns->uri);
 	
 	dest = backup_uri_from_orig_uri(cns->uri);
@@ -657,8 +657,8 @@ restore option that uses the current backup scheme:
 	a cleanup option too
 
 */
-GnomeVFSURI *backup_uri_from_orig_uri(GnomeVFSURI * origuri) {
-	GnomeVFSURI *backupuri;
+GFile *backup_uri_from_orig_uri(GFile * origuri) {
+	GFile *backupuri;
 	gchar *retval, *basedir, *filename;
 	filename = gnome_vfs_uri_extract_short_name(origuri);
 	
@@ -672,11 +672,11 @@ GnomeVFSURI *backup_uri_from_orig_uri(GnomeVFSURI * origuri) {
 	g_free(retval);
 	/* if the prefix contains a slash, it is a separate directory */
 	if (strchr(main_v->props.backup_prefix,GNOME_VFS_URI_PATH_CHR)!=NULL) {
-		GnomeVFSURI *dir;
+		GFile *dir;
 		/* make sure that the directory exists */
 		dir = gnome_vfs_uri_get_parent(backupuri);
 		gnome_vfs_make_directory_for_uri(dir, 0770);
-		gnome_vfs_uri_unref(dir);
+		g_object_unref(dir);
 	}
 	return backupuri;
 }
@@ -700,7 +700,7 @@ GnomeVFSURI *backup_uri_from_orig_uri(GnomeVFSURI * origuri) {
 	return 1;
 }*/
 
-static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info, GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer data);
+static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info, GFileInfo *orig, GFileInfo *new, gpointer data);
 
 static gboolean file_checkNsave_uri_async_try_again(gpointer data) {
 	TcheckNsave *cns = data;
@@ -709,7 +709,7 @@ static gboolean file_checkNsave_uri_async_try_again(gpointer data) {
 }
 
 
-static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info, GnomeVFSFileInfo *orig, GnomeVFSFileInfo *new, gpointer data) {
+static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error_info, GFileInfo *orig, GFileInfo *new, gpointer data) {
 	TcheckNsave *cns = data;
 	gboolean startbackup = main_v->props.backup_file, contsave = TRUE;
 	
@@ -753,10 +753,10 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
 
 /**
  * file_checkNsave_uri_async:
- * @uri: #GnomeVFSURI*
- * @info: #GnomeVFSFileInfo* or NULL if the info on-disk is unknown (new file??)
+ * @uri: #GFile*
+ * @info: #GFileInfo* or NULL if the info on-disk is unknown (new file??)
  * @buffer: #Trefcpointer* with the contents of to be saved to uri
- * @buffer_size: #GnomeVFSFileSize 
+ * @buffer_size: #goffset 
  * @check_modified: #gboolean (ignored if 'info' is NULL)
  * @callback_func: #CheckNsaveAsyncCallback
  * @callback_data: #gpointer
@@ -764,7 +764,7 @@ static void checkNsave_checkmodified_lcb(Tcheckmodified_status status,gint error
  * checks if the target uri is modified, if not creates a backup, then writes 
  * the buffer; all done async
  */
-gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Trefcpointer *buffer, GnomeVFSFileSize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
+gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, goffset buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
 	TcheckNsave *cns;
 	DEBUG_MSG("file_checkNsave_uri_async, started for (%p) %s with callback_data %p\n", uri, gnome_vfs_uri_get_path(uri),callback_data);
 	cns = g_new0(TcheckNsave,1);
@@ -774,11 +774,11 @@ gpointer file_checkNsave_uri_async(GnomeVFSURI *uri, GnomeVFSFileInfo *info, Tre
 	refcpointer_ref(buffer);
 	cns->buffer_size = buffer_size;
 	cns->uri = uri;
-	gnome_vfs_uri_ref(uri);
+	g_object_ref(uri);
 	cns->finfo = info;
 	cns->check_modified = check_modified;
 	cns->abort = FALSE;
-	if (info) gnome_vfs_file_info_ref(info);
+	if (info) g_object_ref(info);
 	if (!info || check_modified) {
 		/* first check if the file is modified on disk */
 		cns->cm = file_checkmodified_uri_async(cns->uri, cns->finfo, checkNsave_checkmodified_lcb, cns);
@@ -817,7 +817,7 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 	g_free(buffer);
 }
 
-Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callback_func, gpointer callback_data) {
+Topenfile *file_openfile_uri_async(GFile *uri, OpenfileAsyncCallback callback_func, gpointer callback_data) {
 	Topenfile *of;
 	of = g_new(Topenfile,1);
 	of->callback_data = callback_data;
@@ -848,7 +848,7 @@ static void openfile_cleanup(Topenfile *of) {
 	ofqueue.work = g_list_remove(ofqueue.work, of);
 	ofqueue.worknum--;
 	DEBUG_MSG("openfile_cleanup, cleaning %p, %d files working\n",of,ofqueue.worknum);
-	gnome_vfs_uri_unref(of->uri);
+	g_object_unref(of->uri);
 	g_free(of->buffer);
 	g_free(of);
 }
@@ -865,7 +865,7 @@ static void openfile_asyncclose_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult r
 }
 
 static void openfile_asyncread_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,gpointer buffer
-							,GnomeVFSFileSize bytes_requested,GnomeVFSFileSize bytes_read ,gpointer data) {
+							,goffset bytes_requested,goffset bytes_read ,gpointer data) {
 	Topenfile *of = data;
 	if (result == GNOME_VFS_OK) {
 		of->used_size += bytes_read;
@@ -948,7 +948,7 @@ static gboolean openfile_process_queue(gpointer data) {
 	return TRUE;
 }
 
-Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callback_func, gpointer callback_data) {
+Topenfile *file_openfile_uri_async(GFile *uri, OpenfileAsyncCallback callback_func, gpointer callback_data) {
 	Topenfile *of;
 	of = g_new(Topenfile,1);
 	DEBUG_MSG("file_open_uri_async, %s, of=%p\n",gnome_vfs_uri_get_path(uri), of);
@@ -957,7 +957,7 @@ Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callb
 	of->buffer_size = BUFFER_INCR_SIZE;
 	of->used_size = 0;
 	of->uri = uri;
-	gnome_vfs_uri_ref(of->uri);
+	g_object_ref(of->uri);
 	of->buffer = g_malloc(of->buffer_size+1); /* the +1 is so we can add a \0 to the buffer */
 	if (ofqueue.worknum > WORKING_QUEUE_SIZE) {
 		DEBUG_MSG("file_openfile_uri_async, worknum=%d, queueing (queue list length=%d)\n",ofqueue.worknum,g_list_length(ofqueue.todo));
@@ -977,16 +977,16 @@ Topenfile *file_openfile_uri_async(GnomeVFSURI *uri, OpenfileAsyncCallback callb
 typedef struct {
 	Tbfwin *bfwin;
 	Tdocument *doc;
-	GnomeVFSURI *uri;
+	GFile *uri;
 	gboolean isTemplate;
 } Tfileintodoc;
 
 static void fileintodoc_cleanup(Tfileintodoc *fid) {
-	gnome_vfs_uri_unref(fid->uri);
+	g_object_unref(fid->uri);
 	g_free(fid);
 }
 
-static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffer,GnomeVFSFileSize buflen ,gpointer data) {
+static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffer,goffset buflen ,gpointer data) {
 	Tfileintodoc *fid = data;
 	switch (status) {
 		case OPENFILE_FINISHED:
@@ -1044,7 +1044,7 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 }
 
 /* used for template loading, and for file_insert */
-void file_into_doc(Tdocument *doc, GnomeVFSURI *uri, gboolean isTemplate) {
+void file_into_doc(Tdocument *doc, GFile *uri, gboolean isTemplate) {
 	Tfileintodoc *fid;
 	fid = g_new(Tfileintodoc,1);
 	fid->bfwin = doc->bfwin;
@@ -1055,7 +1055,7 @@ void file_into_doc(Tdocument *doc, GnomeVFSURI *uri, gboolean isTemplate) {
 		bfwin_docs_not_complete(doc->bfwin, TRUE);
 	}
 	fid->uri = uri;
-	gnome_vfs_uri_ref(uri);
+	g_object_ref(uri);
 	file_openfile_uri_async(fid->uri,fileintodoc_lcb,fid);
 }
 
@@ -1064,13 +1064,13 @@ typedef struct {
 	Topenfile *of;
 	Tbfwin *bfwin;
 	Tdocument *doc;
-	GnomeVFSURI *uri;
+	GFile *uri;
 	gboolean readonly;
 } Tfile2doc;
 
 static void file2doc_cleanup(Tfile2doc *f2d) {
 	DEBUG_MSG("file2doc_cleanup, %p, num open documents=%d\n",f2d,g_list_length(f2d->bfwin->documentlist));
-	gnome_vfs_uri_unref(f2d->uri);
+	g_object_unref(f2d->uri);
 	g_free(f2d);
 }
 
@@ -1080,7 +1080,7 @@ void file2doc_cancel(gpointer f2d) {
 	/* no cleanup, there is a CANCELLED callback coming */
 }
 
-static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,GnomeVFSFileSize buflen ,gpointer data) {
+static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,goffset buflen ,gpointer data) {
 	Tfile2doc *f2d = data;
 	DEBUG_MSG("file2doc_lcb, status=%d, f2d=%p\n",status,f2d);
 	switch (status) {
@@ -1220,7 +1220,7 @@ static void file_asyncfileinfo_cleanup(Tfileinfo *fi) {
 	DEBUG_MSG("file_asyncfileinfo_cleanup, fi=%p\n",fi);
 	fiqueue.work = g_list_remove(fiqueue.work, fi);
 	fiqueue.worknum--;
-	gnome_vfs_uri_unref(fi->uris->data);
+	g_object_unref(fi->uris->data);
 	g_list_free(fi->uris);
 	g_free(fi);
 }
@@ -1276,13 +1276,13 @@ static gboolean fileinfo_process_queue(gpointer data) {
 	return TRUE;
 }
 
-void file_doc_fill_fileinfo(Tdocument *doc, GnomeVFSURI *uri) {
+void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri) {
 	Tfileinfo *fi;
 	fi = g_new(Tfileinfo,1);
 	DEBUG_MSG("file_doc_fill_fileinfo, started for doc %p and uri %s at fi=%p\n",doc,gnome_vfs_uri_get_path(uri),fi);
 	fi->doc = doc;
 	fi->doc->action.info = fi;
-	gnome_vfs_uri_ref(uri);
+	g_object_ref(uri);
 	fi->uris = g_list_append(NULL, uri);
 	
 	if (fiqueue.worknum > FILEINFO_WORKING_QUEUE_SIZE) {
@@ -1310,18 +1310,18 @@ void file_doc_retry_uri(Tdocument *doc) {
 	/* this forces an activate on the document, which will call widget_show() on the textview */
 	BFWIN(doc->bfwin)->focus_next_new_doc = TRUE;
 	f2d->uri = doc->uri;
-	gnome_vfs_uri_ref(doc->uri);
+	g_object_ref(doc->uri);
 	if (doc->fileinfo == NULL) {
 		file_doc_fill_fileinfo(f2d->doc, f2d->uri);
 	}
 	f2d->of = file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
 }
 
-void file_doc_fill_from_uri(Tdocument *doc, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line) {
+void file_doc_fill_from_uri(Tdocument *doc, GFile *uri, GFileInfo *finfo, gint goto_line) {
 	Tfile2doc *f2d;
 	f2d = g_new(Tfile2doc,1);
 	f2d->bfwin = doc->bfwin;
-	f2d->uri = gnome_vfs_uri_ref(uri);
+	f2d->uri = g_object_ref(uri);
 	f2d->doc = doc;
 	f2d->doc->action.load = f2d;
 	f2d->doc->action.goto_line = goto_line;
@@ -1334,14 +1334,14 @@ void file_doc_fill_from_uri(Tdocument *doc, GnomeVFSURI *uri, GnomeVFSFileInfo *
 }
 
 /* this funcion is usually used to load documents */
-void file_doc_from_uri(Tbfwin *bfwin, GnomeVFSURI *uri, GnomeVFSFileInfo *finfo, gint goto_line, gint goto_offset, gboolean readonly) {
+void file_doc_from_uri(Tbfwin *bfwin, GFile *uri, GFileInfo *finfo, gint goto_line, gint goto_offset, gboolean readonly) {
 	Tfile2doc *f2d;
 	f2d = g_new(Tfile2doc,1);
 	DEBUG_MSG("file_doc_from_uri, open uri %p, f2d=%p\n", uri, f2d);
 	f2d->bfwin = bfwin;
 	f2d->uri = uri;
 	f2d->readonly = readonly;
-	gnome_vfs_uri_ref(uri);
+	g_object_ref(uri);
 	f2d->doc = doc_new_loading_in_background(bfwin, uri, finfo, readonly);
 	f2d->doc->action.load = f2d;
 	f2d->doc->action.goto_line = goto_line;
@@ -1375,7 +1375,7 @@ typedef struct {
 	gchar *content_filter;
 	gboolean use_regex;
 	pcre *contentf_pcre; /* a compiled content_filter */
-	GnomeVFSURI *topbasedir; /* the top directory where advanced open started */
+	GFile *topbasedir; /* the top directory where advanced open started */
 } Topenadv;
 
 typedef struct {
@@ -1385,14 +1385,14 @@ typedef struct {
 	GFileEnumerator *gfe;
 #else
 	GnomeVFSAsyncHandle *handle;
-	GnomeVFSURI *basedir;
+	GFile *basedir;
 #endif
 } Topenadv_dir;
 
 typedef struct {
 	Topenadv *oa;
-	GnomeVFSURI *uri;
-	GnomeVFSFileInfo *finfo;
+	GFile *uri;
+	GFileInfo *finfo;
 } Topenadv_uri;
 
 static void openadv_unref(Topenadv *oa) {
@@ -1410,19 +1410,19 @@ static void openadv_unref(Topenadv *oa) {
 		if (oa->patspec) g_pattern_spec_free(oa->patspec);
 		if (oa->content_filter) g_free(oa->content_filter);
 		if (oa->contentf_pcre) pcre_free(oa->contentf_pcre);
-		if (oa->topbasedir) gnome_vfs_uri_unref(oa->topbasedir);
+		if (oa->topbasedir) g_object_unref(oa->topbasedir);
 		g_free(oa);
 	}
 }
 
 static void open_adv_open_uri_cleanup(Topenadv_uri *oau) {
-	gnome_vfs_uri_unref(oau->uri);
-	gnome_vfs_file_info_unref(oau->finfo);
+	g_object_unref(oau->uri);
+	g_object_unref(oau->finfo);
 	openadv_unref(oau->oa);
 	g_free(oau);
 }
 
-static gboolean open_adv_content_matches_filter(gchar *buffer,GnomeVFSFileSize buflen, Topenadv_uri *oau) {
+static gboolean open_adv_content_matches_filter(gchar *buffer,goffset buflen, Topenadv_uri *oau) {
 	if (oau->oa->use_regex) {
 		int rc;
 		int ovector[30];
@@ -1434,7 +1434,7 @@ static gboolean open_adv_content_matches_filter(gchar *buffer,GnomeVFSFileSize b
 	return FALSE;
 }
 
-static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer data) {
+static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info, gchar *buffer,goffset buflen,gpointer data) {
 	Topenadv_uri *oau = data;
 	switch (status) {
 		case OPENFILE_FINISHED:
@@ -1443,7 +1443,7 @@ static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info,
 			if (open_adv_content_matches_filter(buffer,buflen,oau)) {
 				Tfile2doc *f2d = g_new(Tfile2doc,1);
 				f2d->uri = oau->uri;
-				gnome_vfs_uri_ref(oau->uri);
+				g_object_ref(oau->uri);
 				f2d->bfwin = oau->oa->bfwin;
 				f2d->doc = doc_new_loading_in_background(oau->oa->bfwin, oau->uri, oau->finfo, FALSE);
 				file2doc_lcb(status,error_info,buffer,buflen,f2d);
@@ -1462,14 +1462,14 @@ static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info,
 	}
 }
 
-static void openadv_content_filter_file(Topenadv *oa, GnomeVFSURI *uri, GnomeVFSFileInfo* finfo) {
+static void openadv_content_filter_file(Topenadv *oa, GFile *uri, GFileInfo* finfo) {
 	Topenadv_uri *oau;
 	
 	oau = g_new0(Topenadv_uri,1);
 	oau->oa = oa;
 	oa->refcount++;
 	oau->uri = uri;
-	gnome_vfs_uri_ref(uri);
+	g_object_ref(uri);
 #ifdef HAVE_ATLEAST_GIO_2_16
 	oau->finfo = g_file_info_dup(finfo);
 #else
@@ -1593,7 +1593,7 @@ void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, gboolean m
 		oa->recursive = recursive;
 		oa->matchname = matchname;
 		oa->topbasedir = basedir;
-		gnome_vfs_uri_ref(oa->topbasedir);
+		g_object_ref(oa->topbasedir);
 		if (name_filter) {
 			oa->extension_filter = g_strdup(name_filter);
 			oa->patspec = g_pattern_spec_new(name_filter);
@@ -1618,12 +1618,12 @@ static void open_adv_load_directory_cleanup(Topenadv_dir *oad) {
 	DEBUG_MSG("open_adv_load_directory_cleanup %p for %s\n", oad, gnome_vfs_uri_get_path(oad->basedir));
 	advqueue.worknum--;
 	g_idle_add(process_advqueue, GINT_TO_POINTER(FALSE));
-	gnome_vfs_uri_unref(oad->basedir);
+	g_object_unref(oad->basedir);
 	openadv_unref(oad->oa);
 	g_free(oad);
 }
 
-static void open_advanced_backend(Topenadv *oa, GnomeVFSURI *basedir);
+static void open_advanced_backend(Topenadv *oa, GFile *basedir);
 
 static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResult result,GList *list,guint entries_read,gpointer data) {
 	Topenadv_dir *oad = data;
@@ -1631,8 +1631,8 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 	DEBUG_MSG("open_adv_load_directory_lcb, called for %p %s with %d items, result=%d\n",oad, gnome_vfs_uri_get_path(oad->basedir), entries_read, result);
 	tmplist = g_list_first(list);
 	while (tmplist) {
-		GnomeVFSFileInfo *finfo = tmplist->data;
-		GnomeVFSURI *child_uri;
+		GFileInfo *finfo = tmplist->data;
+		GFile *child_uri;
 		if (strcmp(finfo->name,".")!=0 && strcmp(finfo->name,"..")!=0) {
 			child_uri = gnome_vfs_uri_append_file_name(oad->basedir,finfo->name);
 			if (finfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY && oad->oa->recursive) {
@@ -1650,7 +1650,7 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 						if (oad->oa->matchname) {
 							nametomatch = finfo->name;
 						} else {
-							/* we do some tricks here with the entries stored in GnomeVFSURI's 
+							/* we do some tricks here with the entries stored in GFile's 
 							so we do not need to allocate memory */
 							nametomatch = gnome_vfs_uri_get_path(child_uri);
 							nametomatch = nametomatch + strlen(gnome_vfs_uri_get_path(oad->oa->topbasedir));
@@ -1675,7 +1675,7 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 				g_free(curi);
 				g_list_free(list);
 			}
-			gnome_vfs_uri_unref(child_uri);
+			g_object_unref(child_uri);
 		}
 		tmplist = g_list_next(tmplist);
 	}	
@@ -1684,7 +1684,7 @@ static void open_adv_load_directory_lcb(GnomeVFSAsyncHandle *handle,GnomeVFSResu
 	}
 }
 
-static void advdir_statusbar_message(Tbfwin *bfwin, GnomeVFSURI *basedir) {
+static void advdir_statusbar_message(Tbfwin *bfwin, GFile *basedir) {
 	gchar *utf8uri, *tmp;
 	utf8uri = full_path_utf8_from_uri(basedir);
 	tmp = g_strdup_printf("Advanced open: searching in %s", utf8uri);
@@ -1734,7 +1734,7 @@ static gboolean process_advqueue(gpointer data) {
 	return FALSE;
 }
 
-static void open_advanced_backend(Topenadv *oa, GnomeVFSURI *basedir) {
+static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 	Topenadv_dir *oad;
 	
 	oad = g_new0(Topenadv_dir, 1);
@@ -1742,7 +1742,7 @@ static void open_advanced_backend(Topenadv *oa, GnomeVFSURI *basedir) {
 	oa->refcount++;
 
 	oad->basedir = basedir;
-	gnome_vfs_uri_ref(oad->basedir);
+	g_object_ref(oad->basedir);
 
 /*	gnome_vfs_async_load_directory_uri(&oad->handle,oad->basedir,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS,
 									10,GNOME_VFS_PRIORITY_DEFAULT-1,open_adv_load_directory_lcb,oad);*/
@@ -1750,7 +1750,7 @@ static void open_advanced_backend(Topenadv *oa, GnomeVFSURI *basedir) {
 	g_idle_add(process_advqueue, GINT_TO_POINTER(FALSE));
 }
 
-void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
+void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
 	if (basedir) {
 		Topenadv *oa;
 		oa = g_new0(Topenadv, 1);
@@ -1759,7 +1759,7 @@ void open_advanced(Tbfwin *bfwin, GnomeVFSURI *basedir, gboolean recursive, gboo
 		oa->recursive = recursive;
 		oa->matchname = matchname;
 		oa->topbasedir = basedir;
-		gnome_vfs_uri_ref(oa->topbasedir);
+		g_object_ref(oa->topbasedir);
 		if (name_filter) {
 			oa->extension_filter = g_strdup(name_filter);
 			oa->patspec = g_pattern_spec_new(name_filter);
@@ -1786,7 +1786,7 @@ typedef struct {
 	GFile *curfile, *curdest;
 #else
 	GnomeVFSAsyncHandle *handle;
-	GnomeVFSURI *destdir;
+	GFile *destdir;
 	GList *sourcelist;
 	GList *destlist;
 #endif
@@ -1903,7 +1903,7 @@ static void copyfile_cleanup(Tcopyfile *cf) {
 	DEBUG_MSG("copyfile_cleanup %p\n",cf);
 	gnome_vfs_uri_list_free(cf->sourcelist);
 	gnome_vfs_uri_list_free(cf->destlist);
-	gnome_vfs_uri_unref(cf->destdir);
+	g_object_unref(cf->destdir);
 	g_free(cf);
 }
 
@@ -1947,21 +1947,21 @@ static gint copyfile_sync_lcb(GnomeVFSXferProgressInfo *info,gpointer data) {
 	return 1;
 }
 
-void copy_files_async(Tbfwin *bfwin, GnomeVFSURI *destdir, gchar *sources) {
+void copy_files_async(Tbfwin *bfwin, GFile *destdir, gchar *sources) {
 	Tcopyfile *cf;
 	GnomeVFSResult ret;
 	gchar **splitted, **tmp;
 	cf = g_new0(Tcopyfile,1);
 	cf->bfwin = bfwin;
 	cf->destdir = destdir;
-	gnome_vfs_uri_ref(cf->destdir);
+	g_object_ref(cf->destdir);
 	/* create the source and destlist ! */
 	tmp = splitted = g_strsplit(sources, "\n",0);
 	while (*tmp) {
 		trunc_on_char(trunc_on_char(*tmp, '\r'), '\n');
 		DEBUG_MSG("copy_files_async, *tmp='%s', len=%d\n",*tmp,strlen(*tmp));
 		if (strlen(*tmp) > 1) {
-			GnomeVFSURI *src, *dest;
+			GFile *src, *dest;
 			gchar *tmpstring;
 			src = gnome_vfs_uri_new(*tmp);
 			tmpstring = gnome_vfs_uri_extract_short_path_name(src);

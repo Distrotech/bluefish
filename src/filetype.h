@@ -31,8 +31,8 @@ Tfiletype *get_filetype_for_mime_type(const gchar *mime_type);
 gchar *get_mimetype_for_uri(GFile *uri, GFileInfo *finfo, gboolean fast);
 Tfiletype *get_filetype_for_uri(GFile *uri, GFileInfo *finfo, gboolean fast);
 #else /* GnomeVFS */
-const gchar *get_mimetype_for_uri(GnomeVFSURI *uri, gboolean fast);
-Tfiletype *get_filetype_for_uri(GnomeVFSURI *uri, gboolean fast);
+const gchar *get_mimetype_for_uri(GFile *uri, gboolean fast);
+Tfiletype *get_filetype_for_uri(GFile *uri, gboolean fast);
 #endif /* #else HAVE_ATLEAST_GIO_2_16 */
 
 void filetype_highlighting_rebuild(gboolean gui_errors);

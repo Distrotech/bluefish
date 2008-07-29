@@ -51,7 +51,7 @@ gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document);
 #ifdef HAVE_ATLEAST_GIO_2_16
 gboolean switch_to_document_by_uri(Tbfwin *bfwin,GFile *uri);
 #else
-gboolean switch_to_document_by_uri(Tbfwin *bfwin,GnomeVFSURI *uri);
+gboolean switch_to_document_by_uri(Tbfwin *bfwin,GFile *uri);
 #endif
 void bfwin_docs_not_complete(Tbfwin *bfwin, gboolean increase);
 

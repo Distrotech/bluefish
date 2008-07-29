@@ -57,7 +57,7 @@ static void files_advanced_win_findpattern_changed(GtkComboBox *combobox, Tfiles
 }
 
 static void files_advanced_win_ok_clicked(Tfiles_advanced *tfs) {
-  GnomeVFSURI *baseuri;
+  GFile *baseuri;
   gchar *basedir, *content_filter, *extension_filter;
 
   extension_filter = gtk_editable_get_chars (GTK_EDITABLE (GTK_BIN (tfs->find_pattern)->child), 0, -1);
@@ -79,7 +79,7 @@ static void files_advanced_win_ok_clicked(Tfiles_advanced *tfs) {
   g_free (basedir);
   g_free (content_filter);
   g_free (extension_filter);
-  gnome_vfs_uri_unref (baseuri);
+  g_object_unref (baseuri);
   
   tfs->bfwin->session->adv_open_recursive = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(tfs->recursive));
   tfs->bfwin->session->adv_open_matchname = gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(tfs->matchname));
@@ -317,13 +317,13 @@ void file_open_url_cb(GtkWidget * widget, Tbfwin *bfwin) {
 
 typedef struct {
   Tdocument *doc;
-  GnomeVFSURI *unlink_uri;
-  GnomeVFSURI *fbrefresh_uri;
+  GFile *unlink_uri;
+  GFile *fbrefresh_uri;
 } Tdocsavebackend;
 
 static void docsavebackend_cleanup(Tdocsavebackend *dsb) {
-  if (dsb->unlink_uri) gnome_vfs_uri_unref(dsb->unlink_uri);
-  if (dsb->fbrefresh_uri) gnome_vfs_uri_unref(dsb->fbrefresh_uri);
+  if (dsb->unlink_uri) g_object_unref(dsb->unlink_uri);
+  if (dsb->fbrefresh_uri) g_object_unref(dsb->fbrefresh_uri);
   g_free(dsb);
 }
 
@@ -430,7 +430,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
       } else {
         /* YES! we're done! update the fileinfo !*/
         DEBUG_MSG("doc_checkNsave_lcb, re-set async doc->fileinfo (current=%p)\n",doc->fileinfo);
-        if (doc->fileinfo) gnome_vfs_file_info_unref(doc->fileinfo);
+        if (doc->fileinfo) g_object_unref(doc->fileinfo);
         doc->fileinfo = NULL;
         file_doc_fill_fileinfo(doc, doc->uri);
         if (main_v->props.clear_undo_on_save) {
@@ -441,15 +441,15 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
         when a document is closed, the filebrowser is anyway refreshed (hmm perhaps only if 
         'follow document focus' is set).*/
         if (dsb->unlink_uri && dsb->fbrefresh_uri) {
-          GnomeVFSURI *parent1, *parent2;
+          GFile *parent1, *parent2;
           parent1 = gnome_vfs_uri_get_parent(dsb->unlink_uri);
           parent2 = gnome_vfs_uri_get_parent(dsb->fbrefresh_uri);
-          if (!gnome_vfs_uri_equal(parent1,parent2)) {
+          if (!g_file_equal(parent1,parent2)) {
             /* if they are equal, the directory will be refreshed by the unlink callback */
             fb2_refresh_dir_from_uri(parent2);
           }
-          gnome_vfs_uri_unref(parent1);
-          gnome_vfs_uri_unref(parent2);
+          g_object_unref(parent1);
+          g_object_unref(parent2);
         } else if (dsb->fbrefresh_uri) {
           fb2_refresh_parent_of_uri(dsb->fbrefresh_uri);
         }
@@ -483,7 +483,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
   Tdocument *exdoc;
   GList *alldocs;
   gchar *new_curi = NULL;
-  GnomeVFSURI *uri;
+  GFile *uri;
   gchar *dialogtext;
   GtkWidget *dialog;
   
@@ -509,7 +509,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
   uri = gnome_vfs_uri_new(new_curi);
 #endif /* else HAVE_ATLEAST_GIO_2_16 */
   exdoc = documentlist_return_document_from_uri(alldocs, uri);
-  gnome_vfs_uri_unref(uri);
+  g_object_unref(uri);
   g_list_free(alldocs);
   DEBUG_MSG("ask_new_filename, exdoc=%p, newfilename=%s\n", exdoc, new_curi);
   if (exdoc) {
@@ -530,7 +530,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
       document_unset_filename(exdoc);
     }
   } else {
-    GnomeVFSURI *tmp;
+    GFile *tmp;
     gboolean exists;
 #ifdef HAVE_ATLEAST_GIO_2_16
     tmp = g_file_new_for_uri(new_curi);
@@ -539,7 +539,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
     tmp = gnome_vfs_uri_new(new_curi);
     exists = gnome_vfs_uri_exists(tmp);
 #endif /* else HAVE_ATLEAST_GIO_2_16 */
-    gnome_vfs_uri_unref(tmp);
+    g_object_unref(tmp);
     if (exists) {
       gchar *tmpstr;
       gint retval;
@@ -642,9 +642,9 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
     if (doc->uri) {
       if (do_move) {
         dsb->unlink_uri = doc->uri;/* unlink this uri later */
-        gnome_vfs_uri_ref(dsb->unlink_uri);
+        g_object_ref(dsb->unlink_uri);
       }
-      gnome_vfs_uri_unref(doc->uri);
+      g_object_unref(doc->uri);
     }
 #ifdef HAVE_ATLEAST_GIO_2_16
     doc->uri = g_file_new_for_uri(newfilename);
@@ -655,7 +655,7 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
     curi = newfilename;
     DEBUG_MSG("doc_save_backend, new uri=%s\n",curi);
     dsb->fbrefresh_uri = doc->uri; /* refresh this uri later */
-    gnome_vfs_uri_ref(dsb->fbrefresh_uri);
+    g_object_ref(dsb->fbrefresh_uri);
   }
   session_set_savedir(doc->bfwin, curi);
 
@@ -903,7 +903,7 @@ void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
     GFile *uri;
     uri = g_file_new_for_uri (bfwin->project->template);
 #else
-    GnomeVFSURI *uri;
+    GFile *uri;
     uri = gnome_vfs_uri_new(bfwin->project->template);
 #endif
     if (uri) {
@@ -911,7 +911,7 @@ void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
 #ifdef HAVE_ATLEAST_GIO_2_16
       g_object_unref (uri);
 #else
-      gnome_vfs_uri_unref(uri);
+      g_object_unref(uri);
 #endif
     }
     /*doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);

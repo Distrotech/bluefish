@@ -241,8 +241,8 @@ Tfiletype *get_filetype_for_uri(GFile *uri, GFileInfo *finfo, gboolean fast) {
 }
 
 #else /* no HAVE_ATLEAST_GIO_2_16  */
-const gchar *get_mimetype_for_uri(GnomeVFSURI *uri, gboolean fast) {
-	GnomeVFSFileInfo *info;
+const gchar *get_mimetype_for_uri(GFile *uri, gboolean fast) {
+	GFileInfo *info;
 	GnomeVFSResult res;
 	const gchar *retval=NULL;
 	
@@ -253,10 +253,10 @@ const gchar *get_mimetype_for_uri(GnomeVFSURI *uri, gboolean fast) {
 	if (res == GNOME_VFS_OK) {
 		retval = gnome_vfs_file_info_get_mime_type(info);
 	}
-	gnome_vfs_file_info_unref(info);
+	g_object_unref(info);
 	return retval;
 }
-Tfiletype *get_filetype_for_uri(GnomeVFSURI *uri, gboolean fast) {
+Tfiletype *get_filetype_for_uri(GFile *uri, gboolean fast) {
 	const gchar *mimetype = get_mimetype_for_uri(uri, fast);
 	if (mimetype) {
 		return get_filetype_for_mime_type(mimetype);

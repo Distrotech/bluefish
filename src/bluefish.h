@@ -79,14 +79,14 @@ extern void g_none(gchar *first, ...);
 
 #ifdef HAVE_ATLEAST_GIO_2_16
 #include <gio/gio.h>
-#define GnomeVFSURI GFile
-#define GnomeVFSFileInfo GFileInfo
-#define GnomeVFSFileSize goffset
-#define gnome_vfs_uri_equal g_file_equal
-#define gnome_vfs_uri_unref g_object_unref
-#define gnome_vfs_uri_ref g_object_ref
-#define gnome_vfs_file_info_unref g_object_unref
-#define gnome_vfs_file_info_ref g_object_ref
+#define GFile GFile
+#define GFileInfo GFileInfo
+#define goffset goffset
+#define g_file_equal g_file_equal
+#define g_object_unref g_object_unref
+#define g_object_ref g_object_ref
+#define g_object_unref g_object_unref
+#define g_object_ref g_object_ref
 #define BF_FILEINFO "standard::name,standard::display-name,standard::size,standard::type,unix::mode,unix::uid,unix::gid,time::modified,etag::value"
 #define GNOME_VFS_ERROR_NOT_FOUND G_IO_ERROR_NOT_FOUND
 #define gnome_vfs_uri_get_parent g_file_get_parent

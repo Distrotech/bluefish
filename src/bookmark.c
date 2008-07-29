@@ -1149,7 +1149,7 @@ void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
 			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child, PTR_COLUMN,
 							   &mark, -1);
 			if (mark) {
-				if (mark->filepath && (mark->filepath == doc->uri || gnome_vfs_uri_equal(mark->filepath, doc->uri))) {	/* this is it */
+				if (mark->filepath && (mark->filepath == doc->uri || g_file_equal(mark->filepath, doc->uri))) {	/* this is it */
 					gboolean cont2;
 					DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",gtk_label_get_text(GTK_LABEL(doc->tab_menu)),mark->offset);
 					/* we will now first set the Tdocument * into the second column of the parent */
@@ -1193,7 +1193,7 @@ void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
 					}
 					doc->bmark_parent = g_memdup(&tmpiter, sizeof(GtkTreeIter));
 					/* now we add that to the hastbale */
-					gnome_vfs_uri_ref(doc->uri);
+					g_object_ref(doc->uri);
 					g_hash_table_insert(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles, doc->uri, doc->bmark_parent);
 					DEBUG_MSG("bmark_set_for_doc, added parent_iter %p to doc %p, and adding that to the hashtable %p\n",doc->bmark_parent,doc,BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles);
 					return;
@@ -1287,7 +1287,7 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 	}
 	
 	m->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
-	gnome_vfs_uri_ref(doc->uri);
+	g_object_ref(doc->uri);
 	m->filepath = doc->uri;
 	m->is_temp = is_temp;
 	m->text = g_strdup(text);

@@ -278,7 +278,7 @@ static void image_dialog_set_pixbuf(Timage_diag *imdg) {
   DEBUG_MSG("image_filename_changed() finished. GTK_IS_WIDGET(imdg->im) == %d\n", GTK_IS_WIDGET(imdg->im));
 }
 
-static void image_loaded_lcb(Topenfile_status status,gint error_info,gchar *buffer,GnomeVFSFileSize buflen,gpointer callback_data) {
+static void image_loaded_lcb(Topenfile_status status,gint error_info,gchar *buffer,goffset buflen,gpointer callback_data) {
   Timage_diag *imdg = callback_data;
   gboolean cleanup = TRUE;
   switch (status) {
@@ -687,7 +687,7 @@ static gboolean mt_start_next_load(Timage2thumb *i2t) {
   return FALSE;
 }
 
-static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buffer,GnomeVFSFileSize buflen,gpointer callback_data) {
+static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buffer,goffset buflen,gpointer callback_data) {
   Timage2thumb *i2t = callback_data;
   switch (status) {
     case OPENFILE_ERROR:
