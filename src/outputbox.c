@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * outputbox.c - the output box
  *
- * Copyright (C) 2002-2006 Olivier Sessink
+ * Copyright (C) 2002-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -167,37 +167,18 @@ void fill_output_box(gpointer data, gchar *string) {
 		}
 		DEBUG_MSG("fill_output_box, filename=%s, line=%s, output=%s\n",filename,line,output);
 		if (filename) {
-#ifdef HAVE_ATLEAST_GIO_2_16
 			GFile *addtolist;
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-			gchar *addtolist;
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
+
 			if (filename[0] == '/') {
-#ifdef HAVE_ATLEAST_GIO_2_16
 				addtolist = g_file_new_for_path(filename);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-				addtolist = gnome_vfs_make_uri_from_input(filename);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
 			} else if (strchr(filename,':')==NULL) {
-#ifdef HAVE_ATLEAST_GIO_2_16
 				addtolist = g_file_resolve_relative_path(ob->def->docuri,filename);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-				addtolist = gnome_vfs_uri_make_full_from_relative(ob->def->docuri,filename);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
 			} else {
-#ifdef HAVE_ATLEAST_GIO_2_16
 				addtolist = g_file_new_for_uri(filename);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-				addtolist = gnome_vfs_make_uri_canonical_strip_fragment(filename);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
 			}
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,0,addtolist,-1);
 			g_free((gchar *)filename);
-#ifdef HAVE_ATLEAST_GIO_2_16
 			g_object_unref(addtolist);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-			g_free(addtolist);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
 		}
 		if (line) {
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,1,line, -1);
@@ -264,11 +245,7 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	ob->def = g_new0(Toutput_def,1);
 	ob->def->pattern = g_strdup(pattern);
 	if (bfwin->current_document->uri) {
-#ifdef HAVE_ATLEAST_GIO_2_16
 		ob->def->docuri = g_file_get_uri(bfwin->current_document->uri);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-		ob->def->docuri = gnome_vfs_uri_to_string(bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	}
 	ob->def->file_subpat = file_subpat;
 	ob->def->line_subpat = line_subpat;
