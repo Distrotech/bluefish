@@ -26,12 +26,6 @@
 
 #include "config.h"
 
-#ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
-#include <libgnomeui/libgnomeui.h>
-#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
-
-#include <libgnomevfs/gnome-vfs-mime-handlers.h>
-
 #include <string.h>
 #include "textstyle.h"
 #include "filetype.h"

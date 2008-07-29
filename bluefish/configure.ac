@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.163 2008-07-19 22:33:59 jimh6583 Exp $
+dnl $Id: configure.ac,v 1.164 2008-07-29 21:28:32 oli4 Exp $
 dnl
 dnl Copyright (C) 2002-2008 Olivier Sessink
 dnl Copyright (C) 2006-2007 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.163 $)
+AC_REVISION($Revision: 1.164 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -364,14 +364,13 @@ glib-2.0 \
 pango \
 gdk-pixbuf-2.0 \
 gdk-2.0 \
-gnome-vfs-2.0 >= 2.10 \
+gio-unix-2.0 >= 2.10 \
+gthread-2.0 \
 libxml-2.0"
 
-PKG_CHECK_MODULES([BFREQ], [$BFREQ_required])
+# it is unclear to me if gio requires g_thread_init(), but if it does, we need to include gthread-2.0
 
-if ( $PKG_CONFIG gnome-vfs-2.0 --atleast-version=2.14 ) ; then
-	AC_DEFINE([HAVE_ATLEAST_GNOMEVFS_2_14], [1], [Define to 1 if you have Gnome-VFS-2.0 >= 2.14.])
-fi
+PKG_CHECK_MODULES([BFREQ], [$BFREQ_required])
 
 if ( $PKG_CONFIG gio-2.0 --atleast-version=2.16 ) ; then
 	AC_DEFINE([HAVE_ATLEAST_GIO_2_16], [1], [Define to 1 if you have GIO >= 2.16.])
@@ -413,7 +412,7 @@ AC_ARG_ENABLE(
 		[enable (or disable) the building of the python plugin @<:@default=auto->yes@:>@]
 	),
 	[enable_python="$enableval"],
-	[enable_python="yes"]
+	[enable_python="no"]
 )
 
 if test "x$enable_python" = "xyes" ; then
