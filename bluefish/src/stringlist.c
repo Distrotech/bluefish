@@ -840,7 +840,7 @@ gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxen
 	g_string_free(strbuffer,TRUE);
 #else /* no HAVE_ATLEAST_GIO_2_16  */
 	while (tmplist) {
-		GnomeVFSFileSize bytes_written=0;
+		goffset bytes_written=0;
 		gchar *tmpstr = g_strndup((char *) tmplist->data, STRING_MAX_SIZE - 1);
 		DEBUG_MSG("put_stringlist_limited, tmplist(%p), adding string(%p)=%s (strlen=%d)the file\n", tmplist, tmpstr, tmpstr, strlen(tmpstr));
 		result = gnome_vfs_write(handle,tmpstr,strlen(tmpstr),&bytes_written);

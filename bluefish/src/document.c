@@ -915,11 +915,11 @@ if the file is modified by another process, returns
 if newstatbuf is not NULL, it will be filled with the new statbuf from the file IF IT WAS CHANGED!!!
 leave NULL if you do not need this information, if the file is not changed, this field will not be set!!
 * /
-static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **newfileinfo) {
+static gboolean doc_check_modified_on_disk(Tdocument *doc, GFileInfo **newfileinfo) {
 	if (main_v->props.modified_check_type == 0 || !doc->uri || doc->fileinfo == NULL) {
 		return FALSE;
 	} else if (main_v->props.modified_check_type < 4) {
-		GnomeVFSFileInfo *fileinfo;
+		GFileInfo *fileinfo;
 		gboolean unref_fileinfo = FALSE;
 		if (*newfileinfo == NULL) {
 			fileinfo = gnome_vfs_file_info_new();
@@ -933,18 +933,18 @@ static gboolean doc_check_modified_on_disk(Tdocument *doc, GnomeVFSFileInfo **ne
 					, GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS) == GNOME_VFS_OK) {
 			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
 				if (doc->fileinfo->mtime < fileinfo->mtime) {
-					if (unref_fileinfo) gnome_vfs_file_info_unref(fileinfo);
+					if (unref_fileinfo) g_object_unref(fileinfo);
 					return TRUE;
 				}
 			}
 			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 3) {
 				if (doc->fileinfo->size != fileinfo->size) {
-					if (unref_fileinfo) gnome_vfs_file_info_unref(fileinfo);
+					if (unref_fileinfo) g_object_unref(fileinfo);
 					return TRUE;
 				}
 			}
 		}
-		if (unref_fileinfo) gnome_vfs_file_info_unref(fileinfo);
+		if (unref_fileinfo) g_object_unref(fileinfo);
 	} else {
 		DEBUG_MSG("doc_check_mtime, type %d checking not yet implemented\n", main_v->props.modified_check_type);
 	}
@@ -2322,8 +2322,8 @@ gint doc_textbox_to_file(Tdocument * doc, gchar * filename, gboolean window_clos
 */
 
 static void delete_backupfile_lcb(gpointer data) {
-	GnomeVFSURI *uri = (GnomeVFSURI *)data;
-	gnome_vfs_uri_unref(uri);
+	GFile *uri = (GFile *)data;
+	g_object_unref(uri);
 }
 /**
  * doc_destroy:
@@ -2774,7 +2774,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 /*void doc_new_with_new_file(Tbfwin *bfwin, gchar *new_curi) {
 	Tdocument *doc;
 	Tfiletype *ft;
-	GnomeVFSURI *new_uri;
+	GFile *new_uri;
 	if (new_curi == NULL) {
 		statusbar_message(bfwin,_("No filename"), 2);
 		return;
@@ -2792,11 +2792,11 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate) {
 	doc = doc_new(bfwin, FALSE);
 	doc->uri = new_uri;
 	if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
-		GnomeVFSURI *uri;
+		GFile *uri;
 		uri = gnome_vfs_uri_new(bfwin->project->template);
 		if (uri) {
 			file_into_doc(bfwin->current_document, uri, TRUE);
-			gnome_vfs_uri_unref(uri);
+			g_object_unref(uri);
 		}
  	}
 	ft = get_filetype_by_filename_and_content(new_curi, NULL);

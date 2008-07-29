@@ -168,7 +168,7 @@ gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document) {
 	return switch_to_document_by_index(bfwin,index);
 }
 
-gboolean switch_to_document_by_uri(Tbfwin *bfwin,GnomeVFSURI *uri) {
+gboolean switch_to_document_by_uri(Tbfwin *bfwin,GFile *uri) {
 	gint index;
 
 	index = documentlist_return_index_from_uri(bfwin->documentlist,uri);

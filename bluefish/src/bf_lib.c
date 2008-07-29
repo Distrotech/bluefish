@@ -280,7 +280,7 @@ void list_move_entry(GList *list, gpointer data, gint pos) {
 #define BYTES_TO_PROCESS 8196
 gboolean file_copy(gchar *source, gchar *dest) {
 	GnomeVFSHandle *read_handle, *write_handle;
-	GnomeVFSFileSize bytes_read, bytes_written;
+	goffset bytes_read, bytes_written;
 	guint buffer[BYTES_TO_PROCESS];
 	GnomeVFSResult result;
 	gchar *OnDiEn_source, *OnDiEn_dest;
@@ -1144,9 +1144,9 @@ gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
  * full_path_exists:
  * @full_path: gchar*
  *
- * convenience function that will create a GnomeVFSURI, check if it exists, and unref it again.
+ * convenience function that will create a GFile, check if it exists, and unref it again.
  *
- * if you already have a GnomeVFSURI you should use gnome_vfs_uri_exists()
+ * if you already have a GFile you should use gnome_vfs_uri_exists()
  *
  */
 gboolean full_path_exists(const gchar *full_path) {
@@ -1171,7 +1171,7 @@ gboolean full_path_exists(const gchar *full_path) {
  * Return value: gboolean, TRUE if readable, else FALSE
  ** /
 gboolean file_exists_and_readable(const gchar * filename) {
-	GnomeVFSURI* uri;
+	GFile* uri;
 	gboolean retval=TRUE;
 #ifdef DEVELOPMENT
 	g_assert(filename);
@@ -1198,7 +1198,7 @@ gboolean file_exists_and_readable(const gchar * filename) {
 		g_free(curi);
 	}
 	retval = gnome_vfs_uri_exists(uri);
-	gnome_vfs_uri_unref(uri);
+	g_object_unref(uri);
 	DEBUG_MSG("file_exists_and_readable, return %d for %s\n",retval,filename);
 	return retval;
 }
