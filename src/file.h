@@ -23,6 +23,8 @@
 
 #include "bf_lib.h"
 
+void DEBUG_URI(GFile * uri, gboolean newline);
+
 typedef void (* DeleteAsyncCallback) (gpointer callback_data);
 void file_delete_file_async(GFile *uri, DeleteAsyncCallback callback, gpointer callback_data);
 typedef enum {

@@ -100,8 +100,8 @@ static Tacwin *ac_create_window(const gpointer prefix) {
 	GtkTreeViewColumn *column;
 	GtkWidget *scroll, *vbar;
 
-	PangoFontDescription *fontdesc;
-	GtkRcStyle *rc;
+	/*PangoFontDescription *fontdesc;
+	GtkRcStyle *rc;*/
 
 	GtkTreeModel *sortmodel;
 

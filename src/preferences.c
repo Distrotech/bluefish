@@ -600,7 +600,7 @@ static void plugin_1_toggled_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar
 	g_free(val);
 }
 static void create_plugin_gui(Tprefdialog *pd, GtkWidget *vbox1) {
-	GtkWidget *hbox, *but, *scrolwin;
+	GtkWidget *hbox, *scrolwin;
 	pd->lists[pluginconfig] = duplicate_arraylist(main_v->props.plugin_config);
 	pd->pd.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_STRING,G_TYPE_POINTER);
 	pd->pd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->pd.lstore));

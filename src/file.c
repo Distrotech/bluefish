@@ -35,6 +35,18 @@
 #include "gui.h"
 #include "stringlist.h"
 
+#ifdef DEBUG
+void DEBUG_URI(GFile * uri, gboolean newline)
+{
+	gchar *name = g_file_get_uri(uri);
+	DEBUG_MSG("%s", name);
+	if (newline) {
+		DEBUG_MSG("\n");
+	}
+	g_free(name);
+}
+#endif
+
 /* queue functions */
 typedef struct {
 	guint worknum; /* number of elements that are being worked on */
@@ -494,8 +506,8 @@ gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *bu
 			DEBUG_MSG("file_checkNsave_uri_async, using etag=%s\n",cns->etag);
 		}
 	}
-	DEBUG_MSG("file_checkNsave_uri_async, saving %ld bytes to ",cns->buffer_size);
-	DEBUG_URI(cns->uri);
+	DEBUG_MSG("file_checkNsave_uri_async, saving %ld bytes to ",(long int)cns->buffer_size);
+	DEBUG_URI(cns->uri, TRUE);
 	g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
 					,cns->etag,TRUE
 					,G_FILE_CREATE_NONE,NULL
@@ -1355,7 +1367,7 @@ void file_doc_from_uri(Tbfwin *bfwin, GFile *uri, GFileInfo *finfo, gint goto_li
 }
 
 /*************************** OPEN ADVANCED ******************************/
-
+/*
 typedef struct {
 	GList *todo;
 	guint worknum;
@@ -1364,7 +1376,7 @@ typedef struct {
 } Tadvqueue;
 
 static Tadvqueue advqueue = {NULL, 0, 0};
-
+*/
 typedef struct {
 	guint refcount;
 	Tbfwin *bfwin;

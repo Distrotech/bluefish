@@ -336,6 +336,8 @@ typedef struct {
 	gint snr_position_y;
 	gint view_left_panel;     /* view filebrowser/functionbrowser etc. */
 	gint view_main_toolbar;   /* view main toolbar */
+	gint outputb_scroll_mode; /* 0=none, 1=first line, 2= last line*/
+	gint outputb_show_all_output;
 	GList *bmarks;
 	GList *classlist;
 	GList *colorlist;

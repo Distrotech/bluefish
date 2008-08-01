@@ -45,7 +45,7 @@
 typedef struct {
 	gchar *command;
 	gchar *pattern;
-	gchar *docuri;
+	GFile *docuri;
 	gint file_subpat;
 	gint line_subpat;
 	gint output_subpat;
@@ -57,6 +57,7 @@ typedef struct {
 
 typedef struct {
 	GtkListStore *lstore;
+	GtkTreeModelFilter *lfilter;
 	GtkWidget *lview;
 	GtkWidget *hbox;
 	Toutput_def *def;
@@ -83,9 +84,85 @@ static void ob_lview_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkT
 	g_free(file);
 }
 
+static void ob_scroll_initial(Toutputbox *ob) {
+	GtkTreeIter iter;
+	
+	if (ob->bfwin->session->outputb_scroll_mode == 0) 
+		return;
+	
+	if (ob->bfwin->session->outputb_scroll_mode == 1) {
+		/* scroll to first line */
+	} else if (ob->bfwin->session->outputb_scroll_mode == 2) {
+		/* scroll to last line */
+	}
+}
+
 static void output_box_close_clicked_lcb(GtkWidget *widget, Toutputbox *ob) {
 	DEBUG_MSG("output_box_close_clicked_lcb for %p\n",ob);
 	outputbox_cleanup(ob->bfwin);
+}
+
+static void ob_rpopup_show_all_output_lcb(GtkAction *action,Toutputbox *ob) {
+	ob->bfwin->session->outputb_show_all_output = gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(action));
+	gtk_tree_model_filter_refilter(ob->lfilter);
+}
+
+static void ob_rpopup_scrollmode_lcb(GtkAction *action,GtkAction *current, Toutputbox *ob) {
+	ob->bfwin->session->outputb_scroll_mode = gtk_radio_action_get_current_value(GTK_RADIO_ACTION(action));
+}
+
+static GtkWidget *ob_rpopup_create_menu(Toutputbox *ob) {
+	static const gchar *ui_xml = 
+			"<ui><popup name='Outputbox'>"
+			"<menuitem action='Show all output' />"
+			"<separator />"
+			"<menuitem action='No auto scroll' />"
+			"<menuitem action='Scroll to first matching line' />"
+			"<menuitem action='Scroll to end' />"
+			"</popup></ui>";
+	GtkToggleActionEntry ui_toggle_actions[] = {
+		{"Show all output", NULL, "Show _all output", NULL, "shows all lines", G_CALLBACK(ob_rpopup_show_all_output_lcb), ob->bfwin->session->outputb_show_all_output}
+	};
+	static const GtkRadioActionEntry ui_radio_actions[] = { 
+		{"No auto scroll", NULL, "No auto scroll", NULL, "scroll to...", 0},
+		{"Scroll to first matching line", NULL, "Scroll to first matching line", NULL, "scroll to...", 1},
+		{"Scroll to end", NULL, "Scroll to end", NULL, "scroll to...", 2}
+	};
+	GtkUIManager *uimanager;
+	GtkActionGroup *ac;
+	
+	ac = gtk_action_group_new("Outputbox");
+	gtk_action_group_add_toggle_actions(ac,ui_toggle_actions,G_N_ELEMENTS(ui_toggle_actions),ob);
+	gtk_action_group_add_radio_actions(ac,ui_radio_actions,G_N_ELEMENTS(ui_radio_actions)
+			,ob->bfwin->session->outputb_scroll_mode,G_CALLBACK(ob_rpopup_scrollmode_lcb),ob);
+	uimanager = gtk_ui_manager_new();
+	if (!gtk_ui_manager_add_ui_from_string(uimanager, ui_xml, -1, NULL)) 
+		return NULL;
+	gtk_ui_manager_insert_action_group(uimanager,ac,0);
+	return gtk_ui_manager_get_widget(uimanager, "/Outputbox");
+}
+
+static gboolean ob_lview_button_press_lcb(GtkWidget * widget, GdkEventButton * event,Toutputbox *ob) {
+	if (event->button == 3) {
+		GtkWidget *menu;
+		menu = ob_rpopup_create_menu(ob);
+		if (menu)
+			gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+	}
+	return FALSE;
+}
+
+static gboolean ob_filter_func(GtkTreeModel * model, GtkTreeIter * iter, gpointer data) {
+	Toutputbox *ob=data;
+	gboolean retval=TRUE;
+	if (!ob->bfwin->session->outputb_show_all_output) {
+		gchar *line;
+		gtk_tree_model_get(GTK_TREE_MODEL(model), iter, 1, &line, -1);
+		if (!line || (line && line[0] == '\0')) 
+			retval = FALSE;
+		g_free(line);
+	}
+	return retval;	
 }
 
 static Toutputbox *init_output_box(Tbfwin *bfwin) {
@@ -106,7 +183,9 @@ static Toutputbox *init_output_box(Tbfwin *bfwin) {
 	gtk_paned_set_position(GTK_PANED(bfwin->vpane),(gint)(bfwin->vpane->allocation.height * 0.8));
 
 	ob->lstore = gtk_list_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
-	ob->lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(ob->lstore));
+	ob->lfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(ob->lstore),NULL);
+	gtk_tree_model_filter_set_visible_func(ob->lfilter, ob_filter_func,ob,NULL);
+	ob->lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(ob->lfilter));
 	g_object_unref(ob->lstore);/* the view widget now holds the only reference, if the view is destroyed, the model will be destroyed */
 
 	renderer = gtk_cell_renderer_text_new ();
@@ -123,6 +202,9 @@ static Toutputbox *init_output_box(Tbfwin *bfwin) {
 	gtk_widget_set_size_request(scrolwin, 150, 150);
 	gtk_box_pack_start(GTK_BOX(ob->hbox), scrolwin, TRUE, TRUE, 0);
 	g_signal_connect(G_OBJECT(ob->lview), "row-activated",G_CALLBACK(ob_lview_row_activated_lcb),ob);
+
+	g_signal_connect(G_OBJECT(ob->lview), "button_press_event",
+			G_CALLBACK(ob_lview_button_press_lcb), ob);
 
 	vbox2 = gtk_vbox_new(FALSE,0);
 	but = gtk_button_new();
@@ -208,7 +290,7 @@ static void outputbox_def_cleanup(Toutputbox *ob, gboolean do_shutdown) {
 	pcre_free(ob->def->pcre_c);
 	pcre_free(ob->def->pcre_s);
 	g_free(ob->def->command);
-	g_free(ob->def->docuri);
+	g_object_unref(ob->def->docuri);
 	g_free(ob->def);
 	ob->def = NULL;
 	DEBUG_MSG("outputbox_def_cleanup, finished\n");
@@ -245,7 +327,8 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	ob->def = g_new0(Toutput_def,1);
 	ob->def->pattern = g_strdup(pattern);
 	if (bfwin->current_document->uri) {
-		ob->def->docuri = g_file_get_uri(bfwin->current_document->uri);
+		ob->def->docuri = bfwin->current_document->uri;
+		g_object_ref(ob->def->docuri);
 	}
 	ob->def->file_subpat = file_subpat;
 	ob->def->line_subpat = line_subpat;
