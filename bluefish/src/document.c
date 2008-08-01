@@ -435,7 +435,7 @@ void doc_set_tooltip(Tdocument *doc) {
 		}
 		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED)) {
 			/* this function always appends a newline to the string*/
-			guint64 modtime = g_file_info_get_attribute_uint64(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
+			time_t modtime = (time_t) g_file_info_get_attribute_uint64(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
 			mtimestr = bf_portable_time(&modtime);
 			retstr = g_string_append(retstr, _("\nLast modified: "));
 			retstr = g_string_append(retstr, mtimestr);
@@ -3023,10 +3023,10 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 		gchar *tmpstr, *oldtimestr, *newtimestr;
 		gint retval;
 		const gchar *buttons[] = {_("_Ignore"),_("_Reload"),_("Check and reload all documents"), NULL};
-		guint64 newtime,origtime;
+		time_t newtime,origtime;
 
-		newtime = g_file_info_get_attribute_uint64(new,G_FILE_ATTRIBUTE_TIME_MODIFIED);
-		origtime = g_file_info_get_attribute_uint64(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED);
+		newtime = (time_t)g_file_info_get_attribute_uint64(new,G_FILE_ATTRIBUTE_TIME_MODIFIED);
+		origtime = (time_t)g_file_info_get_attribute_uint64(orig,G_FILE_ATTRIBUTE_TIME_MODIFIED);
 		newtimestr = bf_portable_time(&newtime);
 		oldtimestr = bf_portable_time(&origtime);
 

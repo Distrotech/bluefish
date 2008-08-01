@@ -166,7 +166,7 @@ static void child_watch_lcb(GPid pid,gint status,gpointer data) {
 
 #define USEBINSH
 
-static gint count_char(char *string, char mychar) {
+/*static gint count_char(char *string, char mychar) {
 	gint retval = 0;
 	gchar *tmp = string;
 	while (*tmp) {
@@ -174,7 +174,7 @@ static gint count_char(char *string, char mychar) {
 			retval++;
 	}
 	return retval;
-}
+}*/
 
 static void start_command_backend(Texternalp *ep) {
 #ifdef USEBINSH	

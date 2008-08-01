@@ -240,6 +240,8 @@ static void bftv_clear_block_cache(BfTextView * self);
 static void bftv_clear_matched_block(BfTextView * self);
 static void bf_textview_scan_area(BfTextView * self, GtkTextIter * start, GtkTextIter * end, gboolean apply_hl, gboolean store_string, gboolean force_rescan);
 
+void bf_textview_scan_changed(BfTextView * self,GtkTextIter *its, GtkTextIter *ite);
+
 /* internal functions */
 
 static void bf_textview_class_init(BfTextViewClass * c)
@@ -876,11 +878,11 @@ if (mark2) g_hash_table_insert(view->fbal_cache,ln,mark2);
 else g_free(ln);
 return mark2;
 }*/
-static gint offset_for_mark(GtkTextBuffer *buf, GtkTextMark *mark) {
+/*static gint offset_for_mark(GtkTextBuffer *buf, GtkTextMark *mark) {
 	GtkTextIter it;
 	gtk_text_buffer_get_iter_at_mark(buf,&it,mark);
 	return gtk_text_iter_get_offset(&it);
-}
+}*/
 
 static void blockinfo_free(GtkTextBuffer *buf, BlockInfo2 *bi) {
 	

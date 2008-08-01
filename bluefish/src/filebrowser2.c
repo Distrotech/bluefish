@@ -147,19 +147,6 @@ static void fb2_set_basedir_backend(Tfilebrowser2 * fb2, GFile * uri);
 static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode);
 /**************/
 
-void DEBUG_URI(GFile * uri, gboolean newline)
-{
-#ifdef HAVE_ATLEAST_GIO_2_16
-	gchar *name = g_file_get_uri(uri);
-#else							/* no HAVE_ATLEAST_GIO_2_16  */
-	gchar *name = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
-#endif							/* else HAVE_ATLEAST_GIO_2_16 */
-	DEBUG_MSG("%s", name);
-	if (newline) {
-		DEBUG_MSG("\n");
-	}
-	g_free(name);
-}
 static void DEBUG_DIRITER(GtkTreeIter * diriter)
 {
 	gchar *name;
@@ -372,7 +359,8 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 							   newiter, REFRESH_COLUMN, 0, -1);
 		}
 	} else {					/* child does not yet exist */
-		gchar *display_name, *mime_type;
+		gchar *display_name;
+		const gchar *mime_type;
 #if GTK_CHECK_VERSION(2,14,0)
 		GIcon *icon;
 #else
@@ -393,7 +381,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 			} else {
 				if (g_file_info_has_attribute(finfo,G_FILE_ATTRIBUTE_STANDARD_ICON)) {
 					GIcon *icon;
-					icon = g_file_info_get_attribute_object(finfo, G_FILE_ATTRIBUTE_STANDARD_ICON);
+					icon = (GIcon *)g_file_info_get_attribute_object(finfo, G_FILE_ATTRIBUTE_STANDARD_ICON);
 					pixmap = get_pixbuf_for_gicon(icon);
 				} else {
 					pixmap = get_icon_for_mime_type(mime_type);
@@ -1577,41 +1565,19 @@ static GFile *fb2_uri_from_dir_selection(Tfilebrowser2 * fb2)
  */
 static void handle_activate_on_file(Tfilebrowser2 * fb2, GFile * uri)
 {
-#ifdef HAVE_ATLEAST_GIO_2_16
-	gchar *mimetype = get_mimetype_for_uri(uri, NULL, FALSE);
+	const gchar *mimetype = get_mimetype_for_uri(uri, NULL, FALSE);
 	if (mimetype) {
 		if (strncmp(mimetype, "image", 5) == 0) {
 			/* image! */
 			g_print("handle_activate_on_file, TODO, handle image activate!\n");
 		} else if (strcmp(mimetype, "application/bluefish-project") == 0) {
 			gchar *filename;
-#ifdef HAVE_ATLEAST_GIO_2_16
 			filename = g_file_get_path(uri);
-#else							/* no HAVE_ATLEAST_GIO_2_16  */
-			filename = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
-#endif							/* else HAVE_ATLEAST_GIO_2_16 */
 			project_open_from_file(fb2->bfwin, filename);
 			g_free(filename);
 			return;
 		}
 	}
-#else							/* no HAVE_ATLEAST_GIO_2_16  */
-	const gchar *mimetype = get_mimetype_for_uri(uri, FALSE);
-	if (mimetype) {
-		if (strncmp(mimetype, "image", 5) == 0) {
-			/* image! */
-			g_print("handle_activate_on_file, TODO, handle image activate!\n");
-		} else if (strcmp(mimetype, "application/bluefish-project") == 0) {
-			gchar *filename;
-			filename = gnome_vfs_uri_to_string(uri, GNOME_VFS_URI_HIDE_PASSWORD);
-			project_open_from_file(fb2->bfwin, filename);
-			g_free(filename);
-			g_free(mimetype);
-			return;
-		}
-		g_free(mimetype);
-	}
-#endif							/* else HAVE_ATLEAST_GIO_2_16 */
 	doc_new_from_uri(fb2->bfwin, uri, NULL, FALSE, FALSE, -1, -1);
 	DEBUG_MSG("handle_activate_on_file, finished\n");
 }
@@ -1737,7 +1703,7 @@ static void fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * nosele
 				newuri = g_file_get_child(baseuri, filename);
 				gfos = g_file_create(newuri, G_FILE_CREATE_NONE, NULL, &error);
 				if (gfos) {
-					g_output_stream_close(gfos, NULL, &error);
+					g_output_stream_close((GOutputStream *)gfos, NULL, &error);
 					done = TRUE;
 					counter = 100;
 				} else if (error && error->code == G_IO_ERROR_EXISTS) {

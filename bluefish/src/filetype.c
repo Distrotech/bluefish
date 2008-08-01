@@ -54,7 +54,7 @@ char *g_content_type_from_mime_type (const char *type) {
  *
  * Return value: a pixbuf, which the caller must unref when it is done
  **/
-#ifdef HAVE_ATLEAST_GIO_2_16
+
 #if !GTK_CHECK_VERSION(2,14,0)
 GdkPixbuf *get_pixbuf_for_gicon(GIcon *icon) {
 	static GtkIconTheme *it=NULL;
@@ -68,7 +68,7 @@ GdkPixbuf *get_pixbuf_for_gicon(GIcon *icon) {
 		g_object_get(icon, "names", &tmp, NULL);
 		if (tmp && tmp[0]) {
 			GtkIconInfo *ii;
-			ii = gtk_icon_theme_choose_icon(it, tmp, 12, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
+			ii = gtk_icon_theme_choose_icon(it, (const gchar **)tmp, 12, GTK_ICON_LOOKUP_GENERIC_FALLBACK);
 			if (ii) {
 				pixbuf = gtk_icon_info_load_icon(ii, NULL);
 			}
@@ -94,77 +94,13 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	return pixbuf;
 }
 
-#else
-GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
-	static GtkIconTheme *icon_theme = NULL;
-	gchar *icon_name = NULL;
-	GdkPixbuf *pixbuf = NULL;
-
-	/* Try the icon theme. (GNOME 2.2 or Sun GNOME 2.0).
-	 * This will also look in GNOME VFS.
-	 */
-	
-	if (!icon_theme)
-		icon_theme = gtk_icon_theme_get_default();
-		/*icon_theme = gtk_icon_theme_get_for_screen(widget));*/	
-
-#ifdef HAVE_LIBGNOMEUI_LIBGNOMEUI_H
-	icon_name = gnome_icon_lookup (icon_theme, NULL, NULL, NULL, NULL,
-				mime_type, 0, NULL);
-#else /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
-	if (mime_type != NULL) {
-		gchar *mime_type_without_slashes, *tmp;
-
-		mime_type_without_slashes = g_strdup (mime_type);
-		while ((tmp = strchr(mime_type_without_slashes, '/')) != NULL)
-			*tmp = '-';
-		icon_name = g_strdup (mime_type_without_slashes);
-
-		/* TODO: add gnome_vfs_mime_get_icon () call too? */
-		if (!gtk_icon_theme_has_icon (icon_theme, icon_name))
-			icon_name = g_strconcat ("gnome-mime-", icon_name, NULL);
-			if (!gtk_icon_theme_has_icon (icon_theme, icon_name))
-				icon_name = NULL;
-
-		g_free (mime_type_without_slashes);
-	}
-#endif /* HAVE_LIBGNOMEUI_LIBGNOMEUI_H */
-	if (!icon_name) {
-		/* fall back to the default icon */
-		if (strncmp(mime_type,"x-directory",11)==0) {
-			icon_name = g_strdup(GTK_STOCK_DIRECTORY);
-		} else {
-			icon_name = g_strdup(GTK_STOCK_FILE);
-		}
-	}
-	if (icon_name) {
-		GError *error=NULL;
-		DEBUG_MSG("get_icon_for_mime_type, got %s for %s\n",icon_name,mime_type);
-		pixbuf = gtk_icon_theme_load_icon(icon_theme, icon_name, main_v->props.filebrowser_icon_size, GTK_ICON_LOOKUP_USE_BUILTIN, &error);
-		if (!pixbuf) {
-    		g_warning ("Couldn't load icon: %s", error->message);
-    		g_error_free (error);
-		}
-		g_free (icon_name);
-	} else {
-		return NULL; /* perhaps we shopuld return some default icon ? */
-	}
-	return pixbuf;
-}
-#endif /* HAVE_ATLEAST_GIO_2_16 */
-
 static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
 	Tfiletype *filetype;
-	const gchar *description;
+	/*const gchar *description;*/
 	filetype = g_new(Tfiletype, 1);
 	DEBUG_MSG("building filetype for %s at %p\n",mime_type,filetype);
-#ifdef HAVE_ATLEAST_GIO_2_16
 	/* BUG: should use contenttype here, not mime_type*/
 	filetype->type = g_content_type_get_description(mime_type);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-	description = gnome_vfs_mime_get_description(mime_type);
-	filetype->type = g_strdup(description?description:"");
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	filetype->icon = get_icon_for_mime_type(mime_type);
 	filetype->mime_type = g_strdup(mime_type);
 
@@ -215,10 +151,9 @@ Tfiletype *get_filetype_for_mime_type(const gchar *mime_type) {
 	}
 }
 
-#ifdef HAVE_ATLEAST_GIO_2_16
-gchar *get_mimetype_for_uri(GFile *uri, GFileInfo *finfo, gboolean fast) {
+const gchar *get_mimetype_for_uri(GFile *uri, GFileInfo *finfo, gboolean fast) {
 	GFileInfo *rfinfo;
-	gchar *mime;
+	const gchar *mime;
 	const gchar *attrib = fast ? "standard::fast-content-type":"standard::content-type";
 	if (finfo && g_file_info_has_attribute(finfo, attrib)) {
 		rfinfo = finfo;
@@ -239,31 +174,6 @@ Tfiletype *get_filetype_for_uri(GFile *uri, GFileInfo *finfo, gboolean fast) {
 	}
 	return NULL;
 }
-
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-const gchar *get_mimetype_for_uri(GFile *uri, gboolean fast) {
-	GFileInfo *info;
-	GnomeVFSResult res;
-	const gchar *retval=NULL;
-	
-	info = gnome_vfs_file_info_new();
-	DEBUG_MSG("get_mimetype_for_uri, uri(%p)=%s\n",uri,gnome_vfs_uri_extract_short_name(uri));
-	res = gnome_vfs_get_file_info_uri(uri,info,fast?GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS|GNOME_VFS_FILE_INFO_FORCE_FAST_MIME_TYPE:GNOME_VFS_FILE_INFO_GET_MIME_TYPE|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-	DEBUG_MSG("get_mimetype_for_uri, res=%d\n",res);
-	if (res == GNOME_VFS_OK) {
-		retval = gnome_vfs_file_info_get_mime_type(info);
-	}
-	g_object_unref(info);
-	return retval;
-}
-Tfiletype *get_filetype_for_uri(GFile *uri, gboolean fast) {
-	const gchar *mimetype = get_mimetype_for_uri(uri, fast);
-	if (mimetype) {
-		return get_filetype_for_mime_type(mimetype);
-	}
-	return NULL;
-}
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
 
 
 /*
