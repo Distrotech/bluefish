@@ -69,15 +69,15 @@ static void ob_lview_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkT
 	GtkTreeIter iter;
 	gchar *file, *line;
 	gint lineval=-1;
-	gtk_tree_model_get_iter(GTK_TREE_MODEL(ob->lstore),&iter,path);
-	gtk_tree_model_get(GTK_TREE_MODEL(ob->lstore), &iter, 0,&file,1,&line, -1);
+	gtk_tree_model_get_iter(GTK_TREE_MODEL(ob->lfilter),&iter,path);
+	gtk_tree_model_get(GTK_TREE_MODEL(ob->lfilter), &iter, 0,&file,1,&line, -1);
 	DEBUG_MSG("ob_lview_row_activated_lcb, file=%s, line=%s\n",file,line);
 	if (line && strlen(line)) {
 		lineval = atoi(line);
 	}
 	if (file && strlen(file)) {
 		doc_new_from_input(ob->bfwin, file, FALSE,FALSE, lineval);
-	} else {
+	} else if (lineval > 0){
 		doc_select_line(ob->bfwin->current_document, lineval, TRUE);
 	}
 	g_free(line);
@@ -256,7 +256,6 @@ static Toutputbox *init_output_box(Tbfwin *bfwin) {
 
 void fill_output_box(gpointer data, gchar *string) {
 	GtkTreeIter iter;
-	gboolean needscroll=FALSE;
 	int ovector[30];
 	int nummatches;
 	Toutputbox *ob = data;
@@ -283,7 +282,13 @@ void fill_output_box(gpointer data, gchar *string) {
 		if (filename) {
 			GFile *addtolist;
 			gchar *curi;
-			addtolist = g_file_resolve_relative_path(ob->def->docuri,filename);
+			if (filename[0] == '/' || strchr(filename, ':')!= NULL ) {
+			   addtolist = g_file_new_for_commandline_arg(filename);
+			} else {
+			   GFile *docparent = g_file_get_parent(ob->def->docuri);
+            addtolist = g_file_resolve_relative_path(docparent,filename);
+            g_object_unref(docparent);
+         }
 			curi = g_file_get_uri(addtolist);
 			
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,0,curi,-1);
@@ -309,8 +314,7 @@ void fill_output_box(gpointer data, gchar *string) {
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,2,output, -1);
 			g_free((gchar *)output);
 		}
-	} else if (ob->def->show_all_output) {
-		needscroll=TRUE;
+	} else {
 		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
 		gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,2,string, -1);
 	}
@@ -372,7 +376,6 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	ob->def->file_subpat = file_subpat;
 	ob->def->line_subpat = line_subpat;
 	ob->def->output_subpat = output_subpat;
-	
 	
 	ob->def->show_all_output = show_all_output;
 	
