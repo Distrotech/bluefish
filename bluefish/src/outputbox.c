@@ -86,14 +86,46 @@ static void ob_lview_row_activated_lcb(GtkTreeView *tree, GtkTreePath *path,GtkT
 
 static void ob_scroll_initial(Toutputbox *ob) {
 	GtkTreeIter iter;
+	gboolean scrolliter=FALSE;
 	
 	if (ob->bfwin->session->outputb_scroll_mode == 0) 
 		return;
-	
+
+	if (!gtk_tree_model_get_iter_first(GTK_TREE_MODEL(ob->lfilter),&iter))
+			return;
+
 	if (ob->bfwin->session->outputb_scroll_mode == 1) {
 		/* scroll to first line */
+		do {
+			gchar *line=NULL;
+			gtk_tree_model_get(GTK_TREE_MODEL(ob->lfilter),&iter,1,&line,-1);
+			if (line) {
+				g_free(line);
+				scrolliter=TRUE;
+				break;
+			}
+		} while ( gtk_tree_model_iter_next(GTK_TREE_MODEL(ob->lfilter),&iter));
 	} else if (ob->bfwin->session->outputb_scroll_mode == 2) {
 		/* scroll to last line */
+		GtkTreeIter it2=iter;
+		do {
+			gchar *line=NULL;
+			gtk_tree_model_get(GTK_TREE_MODEL(ob->lfilter),&it2,1,&line,-1);
+			if (line) {
+				g_free(line);
+				iter = it2;
+				scrolliter=TRUE;
+			}
+		} while ( gtk_tree_model_iter_next(GTK_TREE_MODEL(ob->lfilter),&it2));
+	}
+	if (scrolliter) {
+		GtkTreePath *path;
+		GtkTreeSelection* sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(ob->lview));
+		gtk_tree_selection_unselect_all(sel);
+		gtk_tree_selection_select_iter(sel,&iter);
+		path = gtk_tree_model_get_path(GTK_TREE_MODEL(ob->lfilter),&iter);
+		gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(ob->lview),path,NULL,FALSE,0,0);
+		gtk_tree_path_free(path);
 	}
 }
 
@@ -109,6 +141,7 @@ static void ob_rpopup_show_all_output_lcb(GtkAction *action,Toutputbox *ob) {
 
 static void ob_rpopup_scrollmode_lcb(GtkAction *action,GtkAction *current, Toutputbox *ob) {
 	ob->bfwin->session->outputb_scroll_mode = gtk_radio_action_get_current_value(GTK_RADIO_ACTION(action));
+	ob_scroll_initial(ob);
 }
 
 static GtkWidget *ob_rpopup_create_menu(Toutputbox *ob) {
@@ -183,7 +216,7 @@ static Toutputbox *init_output_box(Tbfwin *bfwin) {
 	gtk_paned_set_position(GTK_PANED(bfwin->vpane),(gint)(bfwin->vpane->allocation.height * 0.8));
 
 	ob->lstore = gtk_list_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
-	ob->lfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(ob->lstore),NULL);
+	ob->lfilter = GTK_TREE_MODEL_FILTER(gtk_tree_model_filter_new(GTK_TREE_MODEL(ob->lstore),NULL));
 	gtk_tree_model_filter_set_visible_func(ob->lfilter, ob_filter_func,ob,NULL);
 	ob->lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(ob->lfilter));
 	g_object_unref(ob->lstore);/* the view widget now holds the only reference, if the view is destroyed, the model will be destroyed */
@@ -234,7 +267,6 @@ void fill_output_box(gpointer data, gchar *string) {
 		const char *filename,*line,*output;
 		filename=line=output=NULL;
 		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
-		needscroll=TRUE;
 		if (ob->def->file_subpat >= 0 && ovector[ob->def->file_subpat*2] >=0) {
 			pcre_get_substring(string,ovector,nummatches,ob->def->file_subpat,&filename);
 /*			DEBUG_MSG("fill_output_box, filename from %d to %d\n", ob->def->pmatch[ob->def->file_subpat].rm_so ,ob->def->pmatch[ob->def->file_subpat].rm_eo);*/
@@ -250,21 +282,28 @@ void fill_output_box(gpointer data, gchar *string) {
 		DEBUG_MSG("fill_output_box, filename=%s, line=%s, output=%s\n",filename,line,output);
 		if (filename) {
 			GFile *addtolist;
-
-			if (filename[0] == '/') {
-				addtolist = g_file_new_for_path(filename);
-			} else if (strchr(filename,':')==NULL) {
-				addtolist = g_file_resolve_relative_path(ob->def->docuri,filename);
-			} else {
-				addtolist = g_file_new_for_uri(filename);
-			}
-			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,0,addtolist,-1);
-			g_free((gchar *)filename);
+			gchar *curi;
+			addtolist = g_file_resolve_relative_path(ob->def->docuri,filename);
+			curi = g_file_get_uri(addtolist);
+			
+			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,0,curi,-1);
+			g_free(curi);
 			g_object_unref(addtolist);
 		}
 		if (line) {
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,1,line, -1);
 			g_free((gchar *)line);
+			if (ob->bfwin->session->outputb_scroll_mode == 1 && ob->bfwin->session->outputb_show_all_output==1) {
+				/* TODO: hmm we have to check if this is the first entry with a line number */
+				
+			} else if (ob->bfwin->session->outputb_scroll_mode == 2) {
+				GtkTreePath *path;
+				GtkTreeIter filter_iter;
+				gtk_tree_model_filter_convert_child_iter_to_iter(ob->lfilter,&iter,&filter_iter);
+				path = gtk_tree_model_get_path(GTK_TREE_MODEL(ob->lfilter),&filter_iter);
+				gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(ob->lview),path,NULL,FALSE,0,0);
+				gtk_tree_path_free(path);
+			}
 		}
 		if (output) {
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,2,output, -1);
@@ -275,7 +314,7 @@ void fill_output_box(gpointer data, gchar *string) {
 		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
 		gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,2,string, -1);
 	}
-	if (needscroll) {
+	if (ob->bfwin->session->outputb_scroll_mode == 1) {
 		GtkAdjustment* vadj;
 		
 		vadj = gtk_tree_view_get_vadjustment(GTK_TREE_VIEW(ob->lview));
