@@ -2973,7 +2973,7 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
  **/
 void doc_reload(Tdocument *doc, GFileInfo *newfinfo) {
 	GtkTextIter itstart, itend;
-	g_print("starting reload for %p\n",doc);
+	DEBUG_MSG("starting reload for %p\n",doc);
 	if ((doc->uri == NULL)/* || (!file_exists_and_readable(doc->uri))*/) {
 		statusbar_message(BFWIN(doc->bfwin),_("Unable to open file"), 2000);
 		return;

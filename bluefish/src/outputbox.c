@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -49,7 +49,7 @@ typedef struct {
 	gint file_subpat;
 	gint line_subpat;
 	gint output_subpat;
-	gboolean show_all_output;
+	gboolean scrolled_once;
 	
 	pcre *pcre_c;
 	pcre_extra *pcre_s;
@@ -120,9 +120,9 @@ static void ob_scroll_initial(Toutputbox *ob) {
 	}
 	if (scrolliter) {
 		GtkTreePath *path;
-		GtkTreeSelection* sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(ob->lview));
+/*		GtkTreeSelection* sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(ob->lview));
 		gtk_tree_selection_unselect_all(sel);
-		gtk_tree_selection_select_iter(sel,&iter);
+		gtk_tree_selection_select_iter(sel,&iter);*/
 		path = gtk_tree_model_get_path(GTK_TREE_MODEL(ob->lfilter),&iter);
 		gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(ob->lview),path,NULL,FALSE,0,0);
 		gtk_tree_path_free(path);
@@ -254,6 +254,26 @@ static Toutputbox *init_output_box(Tbfwin *bfwin) {
 	return ob;
 }
 
+typedef struct {
+	GtkTreePath *lpath;
+	Toutputbox *ob;
+} Tscrollto;
+
+static gboolean scroll_to_lstore_path_idle_lcb(gpointer data) {
+	Tscrollto *st = data;
+	GtkTreePath *fpath;
+	DEBUG_MSG("scroll_to_lstore_path_idle_lcb(%p)\n",st);
+	fpath = gtk_tree_model_filter_convert_child_path_to_path(st->ob->lfilter,st->lpath);
+	if (fpath) {
+		gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(st->ob->lview),fpath,NULL,FALSE,0,0);
+		gtk_tree_path_free(fpath);
+	}
+	gtk_tree_path_free(st->lpath);
+	g_free(st);
+	return FALSE;
+}
+
+
 void fill_output_box(gpointer data, gchar *string) {
 	GtkTreeIter iter;
 	int ovector[30];
@@ -298,16 +318,13 @@ void fill_output_box(gpointer data, gchar *string) {
 		if (line) {
 			gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,1,line, -1);
 			g_free((gchar *)line);
-			if (ob->bfwin->session->outputb_scroll_mode == 1 && ob->bfwin->session->outputb_show_all_output==1) {
-				/* TODO: hmm we have to check if this is the first entry with a line number */
-				
-			} else if (ob->bfwin->session->outputb_scroll_mode == 2) {
-				GtkTreePath *path;
-				GtkTreeIter filter_iter;
-				gtk_tree_model_filter_convert_child_iter_to_iter(ob->lfilter,&iter,&filter_iter);
-				path = gtk_tree_model_get_path(GTK_TREE_MODEL(ob->lfilter),&filter_iter);
-				gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(ob->lview),path,NULL,FALSE,0,0);
-				gtk_tree_path_free(path);
+			if (ob->bfwin->session->outputb_scroll_mode == 1 && ob->bfwin->session->outputb_show_all_output==1 && ob->def->scrolled_once == FALSE) {
+				Tscrollto *st;
+				st = g_new(Tscrollto,1);
+				st->lpath = gtk_tree_model_get_path(GTK_TREE_MODEL(ob->lstore),&iter);
+				st->ob = ob;
+				g_idle_add(scroll_to_lstore_path_idle_lcb,st);
+				ob->def->scrolled_once = TRUE;
 			}
 		}
 		if (output) {
@@ -318,9 +335,9 @@ void fill_output_box(gpointer data, gchar *string) {
 		gtk_list_store_append(GTK_LIST_STORE(ob->lstore), &iter);
 		gtk_list_store_set(GTK_LIST_STORE(ob->lstore), &iter,2,string, -1);
 	}
-	if (ob->bfwin->session->outputb_scroll_mode == 1) {
+	if (ob->bfwin->session->outputb_scroll_mode == 2) {
 		GtkAdjustment* vadj;
-		
+		DEBUG_MSG("scroll to end..\n");
 		vadj = gtk_tree_view_get_vadjustment(GTK_TREE_VIEW(ob->lview));
 		gtk_adjustment_set_value(vadj, vadj->upper);		
 		
@@ -377,7 +394,7 @@ void outputbox(Tbfwin *bfwin,gchar *pattern, gint file_subpat, gint line_subpat,
 	ob->def->line_subpat = line_subpat;
 	ob->def->output_subpat = output_subpat;
 	
-	ob->def->show_all_output = show_all_output;
+/*	ob->def->show_all_output = show_all_output;*/
 	
 	ob->def->pcre_c = pcre_compile(ob->def->pattern, PCRE_UTF8,&errptr,&erroffset,NULL);
 	if (ob->def->pcre_c == NULL) {

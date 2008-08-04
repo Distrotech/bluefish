@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -35,7 +35,6 @@
 #include "gui.h"
 #include "stringlist.h"
 
-#ifdef DEBUG
 void DEBUG_URI(GFile * uri, gboolean newline)
 {
 	gchar *name = g_file_get_uri(uri);
@@ -45,7 +44,6 @@ void DEBUG_URI(GFile * uri, gboolean newline)
 	}
 	g_free(name);
 }
-#endif
 
 /* queue functions */
 typedef struct {

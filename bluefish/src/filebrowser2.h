@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filebrowser2.h - the filebrowser v2
  *
- * Copyright (C) 2005 Olivier Sessink
+ * Copyright (C) 2005,2006,2007,2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,13 +21,8 @@
 #ifndef __FILEBROWSER2_H_
 #define __FILEBROWSER2_H_
 
-#ifdef HAVE_ATLEAST_GIO_2_16
 void fb2_refresh_dir_from_uri(GFile *dir);
 void fb2_refresh_parent_of_uri(GFile *child_uri);
-#else /* GnomeVFS */
-void fb2_refresh_dir_from_uri(GFile *dir);
-void fb2_refresh_parent_of_uri(GFile *child_uri);
-#endif /* #else HAVE_ATLEAST_GIO_2_16 */
 void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc);
 void fb2_update_settings_from_session(Tbfwin *bfwin);
 GtkWidget *fb2_init(Tbfwin *bfwin);
