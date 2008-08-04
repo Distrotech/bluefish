@@ -61,6 +61,11 @@ alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're 
 #define MIME_ISDIR(string) strncmp(string, "x-directory",11)
 #endif							/* else HAVE_ATLEAST_GIO_2_16 */
 
+#ifndef DEBUG_URI
+#define DEBUG_URI 
+/* */
+#endif
+
 
 typedef struct {
 	GtkTreeStore *filesystem_tstore;	/* the directory tree */
@@ -73,16 +78,10 @@ typedef struct {
 #define FB2CONFIG(var) ((Tfilebrowser2config *)(var))
 
 typedef struct {
-#ifdef HAVE_ATLEAST_GIO_2_16
 	GCancellable *cancel;
 	GFile *uri;
 	GFile *p_uri;
 	GFileEnumerator *gfe;
-#else							/* no HAVE_ATLEAST_GIO_2_16  */
-	GnomeVFSAsyncHandle *handle;
-	GFile *uri;
-	GFile *p_uri;
-#endif							/* else HAVE_ATLEAST_GIO_2_16 */
 	GtkTreeIter *parent;
 } Turi_in_refresh;
 
@@ -92,9 +91,7 @@ enum {
 	URI_COLUMN,
 	REFRESH_COLUMN,
 	TYPE_COLUMN,
-#ifdef HAVE_ATLEAST_GIO_2_16
 	FILEINFO_COLUMN,
-#endif							/* HAVE_ATLEAST_GIO_2_16 */
 	N_COLUMNS
 };
 
