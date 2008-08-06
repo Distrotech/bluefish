@@ -2095,6 +2095,7 @@ static gboolean user_idle_timer_lcb(gpointer data) {
 		DEBUG_MSG("user_idle_timer_lcb, half a second no user action, time to check auto-completion and stuff lile that!\n");
 		
 		/* TODO: here we can check for things like auto-completion.. */
+		bf_textview_autocomp_show(bfwin->current_document->view);
 		
 		
 		g_timer_start(bfwin->idletimer);

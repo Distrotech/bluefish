@@ -232,7 +232,11 @@ static gchar *ac_run(Tautocomp *ac, GList *strings, gchar *prefix_in, GtkTextVie
 		}
 	}
 
-	DEBUG_MSG("ac_run, have %d items for prefix %s\n",g_list_length(items),prefix);	
+	DEBUG_MSG("ac_run, have %d items for prefix %s\n",g_list_length(items),prefix);
+	if (items && items->next == NULL /* only 1 item */ && strcmp(items->data, prefix)==0 /* prefix equals the string */) {
+		g_completion_free(gc);
+		return NULL;
+	} 
 	
 	acw = ac_create_window(prefix);
 	
