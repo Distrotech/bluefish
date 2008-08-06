@@ -718,6 +718,7 @@ void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	gui_bfwin_cleanup(bfwin);
 	DEBUG_MSG("main_window_destroy_lcb, will destroy the window now\n");
 	gtk_widget_destroy(bfwin->main_window);
+	g_timer_destroy(bfwin->idletimer);
 	g_free(bfwin);
 	DEBUG_MSG("main_window_destroy_lcb, bfwin is free'ed\n");
 	if (NULL == main_v->bfwinlist) {
@@ -748,6 +749,9 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	GtkWidget *vbox;
 	GList *tmplist;
 	DEBUG_MSG("gui_create_main, bfwin=%p, main_window_w=%d\n",bfwin,main_v->globses.main_window_w);
+	
+	bfwin->idletimer = g_timer_new();
+	
 	bfwin->main_window = window_full2(_("New Bluefish Window"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
 	gtk_widget_realize(bfwin->main_window);
