@@ -2089,12 +2089,36 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 	
 	gtk_widget_show_all(GTK_WIDGET(menu));
 }
+static gboolean user_idle_timer_lcb(gpointer data) {
+	Tbfwin *bfwin = BFWIN(data);
+	if (g_timer_elapsed(bfwin->idletimer,NULL) > 0.48) {
+		DEBUG_MSG("user_idle_timer_lcb, half a second no user action, time to check auto-completion and stuff lile that!\n");
+		
+		/* TODO: here we can check for things like auto-completion.. */
+		
+		
+		g_timer_start(bfwin->idletimer);
+	}
+	return FALSE;
+}
+static void reset_user_idle_timer(Tbfwin *bfwin) {
+	g_timer_start(bfwin->idletimer);
+	g_timeout_add(500,user_idle_timer_lcb,bfwin);
+}
 
 static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,GtkTextIter *iter,GtkTextMark *set_mark,Tdocument *doc) {
-	doc_set_statusbar_lncol(doc);
+	DEBUG_MSG("doc_buffer_mark_set_lcb, set_mark=%p, insert_mark=%p\n",set_mark,gtk_text_buffer_get_insert(buffer));
+	if (set_mark == gtk_text_buffer_get_insert(buffer)) {
+		DEBUG_MSG("doc_buffer_mark_set_lcb, insert mark is changed\n");
+		doc_set_statusbar_lncol(doc);
+		/* reset the timer */
+		reset_user_idle_timer(BFWIN(doc->bfwin));
+	}
 }
 static void doc_buffer_changed_lcb(GtkTextBuffer *textbuffer,Tdocument*doc) {
+	DEBUG_MSG("doc_buffer_changed_lcb()\n");
 	doc_set_statusbar_lncol(doc);
+	reset_user_idle_timer(BFWIN(doc->bfwin));
 }
 
 static void doc_view_toggle_overwrite_lcb(GtkTextView *view, Tdocument *doc)
