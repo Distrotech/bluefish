@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gtk_easy.c
  *
- * Copyright (C) 1999-2006 Olivier Sessink
+ * Copyright (C) 1999-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1159,24 +1159,18 @@ typedef struct {
 } Tfilebut;
 
 static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
-	gchar *tmpstring=NULL, *tmp2string, *setfile;
+	gchar *tmpstring=NULL, *tmp2string=NULL, *setfile;
 	DEBUG_MSG("file_but_clicked_lcb, started, which_entry=%p\n",fb->entry);
 	setfile = gtk_editable_get_chars(GTK_EDITABLE(GTK_ENTRY(fb->entry)),0,-1);
 	/* if setfile is empty we should probably use the current document basedir ? right? */
 	if (!setfile || strlen(setfile)==0) {
 		if (fb->bfwin && fb->bfwin->current_document->uri) {
 			if (setfile) g_free(setfile);
-#ifdef HAVE_ATLEAST_GIO_2_16
 			setfile = g_file_get_uri(fb->bfwin->current_document->uri);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-			setfile = gnome_vfs_uri_to_string(fb->bfwin->current_document->uri, GNOME_VFS_URI_HIDE_PASSWORD);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
-			/* setfile = gnome_vfs_uri_extract_dirname(fb->bfwin->current_document->uri);*/
 		}
 	} else if (setfile && setfile[0] != '/' && strchr(setfile, ':')==NULL && fb->bfwin && fb->bfwin->current_document->uri) {
 		/* if setfile is a relative name, we should try to make it a full path. relative names
 		cannot start with a slash or with a scheme (such as file://) */
-#ifdef HAVE_ATLEAST_GIO_2_16
 		GFile *newsetfile;
 		newsetfile = g_file_resolve_relative_path(fb->bfwin->current_document->uri, setfile);
 		if (newsetfile) {
@@ -1184,16 +1178,6 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 			setfile = g_file_get_uri(newsetfile);;
 			g_object_unref(newsetfile);
 		}
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-		gchar *doccuri, *newsetfile;
-		doccuri = gnome_vfs_uri_to_string(fb->bfwin->current_document->uri, GNOME_VFS_URI_HIDE_PASSWORD);
-		newsetfile = gnome_vfs_uri_make_full_from_relative(doccuri,setfile);
-		if (newsetfile) {
-			g_free(setfile);
-			setfile = newsetfile;
-		}
-		g_free(doccuri);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	}
 	
 	{
@@ -1219,16 +1203,13 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	if (tmpstring) {
 		if (!fb->fullpath && fb->bfwin) {
 			if (fb->bfwin->current_document->uri != NULL) {
-#ifdef HAVE_ATLEAST_GIO_2_16
 				GFile *tmpuri = g_file_new_for_uri(tmpstring);
+				DEBUG_MSG("file_but_clicked_lcb, tmpuri %s\n",g_file_get_uri(tmpuri));
 				tmp2string = g_file_get_relative_path(fb->bfwin->current_document->uri, tmpuri);
 				g_object_unref(tmpuri);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-				gchar *curi = gnome_vfs_uri_to_string(fb->bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
-				tmp2string = create_relative_link_to(curi, tmpstring);
-				g_free(curi);
-
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
+				/* If tmp2string is NULL we need to return the full path */
+				if (tmp2string == NULL)
+					tmp2string = g_strdup(tmpstring);
 			} else {
 				tmp2string = g_strdup(tmpstring);
 			}
