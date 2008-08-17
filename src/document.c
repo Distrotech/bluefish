@@ -3021,7 +3021,7 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 	switch (status) {
 	case CHECKMODIFIED_ERROR:
 		DEBUG_MSG("doc_activate_modified_lcb, CHECKMODIFIED_ERROR ??\n");
-		if (error_info == GNOME_VFS_ERROR_NOT_FOUND) {
+		if (error_info == G_IO_ERROR_NOT_FOUND) {
 			gchar *tmpstr;
 			gint retval;
 			const gchar *buttons[] = {_("_Unset file name"),_("_Save"), NULL};
