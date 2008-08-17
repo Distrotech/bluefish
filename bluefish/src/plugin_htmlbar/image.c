@@ -693,13 +693,14 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
     case OPENFILE_ERROR:
     case OPENFILE_ERROR_NOCHANNEL:
     case OPENFILE_ERROR_NOREAD:
-    case OPENFILE_ERROR_CANCELLED:
+    case OPENFILE_ERROR_CANCELLED: {
       /* should we warn the user ?? */
 #ifdef DEBUG
       gchar *path = g_file_get_path (i2t->imagename);
       DEBUG_MSG("mt_openfile_lcb, some error! status=%d for image %s\n",status, path);
       g_free (path);
 #endif
+		}
     break;
     case OPENFILE_CHANNEL_OPENED:
       /* do nothing */
@@ -709,9 +710,11 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
       gboolean nextload;
       GdkPixbufLoader* pbloader;
 #ifdef DEBUG
-      gchar *path = g_file_get_path (i2t->imagename);
-      DEBUG_MSG("mt_openfile_lcb, finished loading image %s\n", path);
-      g_free (path);
+			{
+      	gchar *path = g_file_get_path (i2t->imagename);
+      	DEBUG_MSG("mt_openfile_lcb, finished loading image %s\n", path);
+      	g_free (path);
+      }
 #endif
       nextload = mt_start_next_load(i2t); /* fire up the next image load */
 
@@ -748,9 +751,11 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
           break;
           }
 #ifdef DEBUG
-          gchar *path = g_file_get_path (i2t->imagename);
-          DEBUG_MSG("mt_openfile_lcb, start scaling %s to %dx%d\n", path, tw, th);
-          g_free (path);
+					{
+          	gchar *path = g_file_get_path (i2t->imagename);
+          	DEBUG_MSG("mt_openfile_lcb, start scaling %s to %dx%d\n", path, tw, th);
+          	g_free (path);
+          }
 #endif
           thumb = gdk_pixbuf_scale_simple(image, tw, th, GDK_INTERP_BILINEAR);
 #ifdef DEBUG
@@ -814,7 +819,11 @@ static void mt_openfile_lcb(Topenfile_status status,gint error_info, gchar *buff
 }
 
 static void mt_start_load(Timage2thumb *i2t) {
-  DEBUG_MSG("mt_start_load, starting load for %s\n",gnome_vfs_uri_get_path(i2t->imagename));
+#ifdef DEBUG
+	gchar *path = g_file_get_path (i2t->imagename);
+  DEBUG_MSG("mt_start_load, starting load for %s\n", path);
+  g_free (path);
+#endif
   i2t->of = file_openfile_uri_async(i2t->imagename, mt_openfile_lcb, i2t);
 }
 
