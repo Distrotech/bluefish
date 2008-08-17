@@ -50,7 +50,7 @@ cmenu_insert: /HTML/Lien relationnel:<link rel="%0" type="%1" href="%2" />::3:Re
 cmenu_insert: /HTML/Image:<img src="%0" height="%1" width="%2" alt="%3" />::4:Source:Hauteur:Largeur:Texte alternatif:
 cmenu_insert: /HTML/Hyperlien:<a href="%0" title="%1">%2:</a>:3:Destination du lien:Titre:Texte du lien:
 cmenu_insert: /HTML/Formulaires/Sélection:<select name="%0">:</select>:1:Nom::
-cmenu_insert: /HTML/Formulaires/Option:<option value="%0">:</select>:2:Valeur:Texte de l'option:
+cmenu_insert: /HTML/Formulaires/Option:<option value="%0">%1:</option>:2:Valeur:Texte de l'option:
 cmenu_insert: /HTML/Formulaires/Étiquette:<label for="%0">:</label>:1:Pour:
 cmenu_insert: /HTML/Formulaires/Texte:<input type="text" name="%0" value="%1" />::2:Nom:Valeur par défaut:
 cmenu_insert: /HTML/Formulaires/Envoi:<input type="submit" name="%0" value="%1" />::2:Nom:Texte du bouton:
