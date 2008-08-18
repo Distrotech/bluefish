@@ -1204,7 +1204,6 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 		if (!fb->fullpath && fb->bfwin) {
 			if (fb->bfwin->current_document->uri != NULL) {
 				GFile *tmpuri = g_file_new_for_uri(tmpstring);
-				DEBUG_MSG("file_but_clicked_lcb, tmpuri %s\n",g_file_get_uri(tmpuri));
 				tmp2string = g_file_get_relative_path(fb->bfwin->current_document->uri, tmpuri);
 				g_object_unref(tmpuri);
 				/* If tmp2string is NULL we need to return the full path */
