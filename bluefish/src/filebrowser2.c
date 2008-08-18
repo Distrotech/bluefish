@@ -820,7 +820,7 @@ void fb2_refresh_parent_of_uri(GFile * child_uri)
 {
 	GFile *parent_uri;
 	DEBUG_MSG("fb2_refresh_parent_of_uri, started\n");
-	parent_uri = gnome_vfs_uri_get_parent(child_uri);
+	parent_uri = g_file_get_parent(child_uri);
 	fb2_refresh_dir(parent_uri, NULL);
 	g_object_unref(parent_uri);
 }
@@ -910,8 +910,8 @@ static GtkTreeIter *fb2_build_dir(GFile * uri)
 			GFileInfo *finfo;
 #endif
 			g_object_ref(tmp2);	/* both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
-			while (!gnome_vfs_uri_is_parent(parent_uri, tmp2, FALSE)) {
-				GFile *tmp3 = gnome_vfs_uri_get_parent(tmp2);
+			while (!gfile_uri_is_parent(parent_uri, tmp2, FALSE)) {
+				GFile *tmp3 = g_file_get_parent(tmp2);
 				g_object_unref(tmp2);
 				tmp2 = tmp3;
 			}					/* after this loop both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
@@ -978,7 +978,7 @@ static void fb2_focus_dir(Tfilebrowser2 * fb2, GFile * uri, gboolean noselect)
 		fb2_set_basedir_backend(fb2, uri);
 	} else {
 		if (fb2->basedir) {
-			if (!gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE)
+			if (!gfile_uri_is_parent(fb2->basedir, uri, TRUE)
 				&& !g_file_equal(fb2->basedir, uri)) {
 				fb2_set_basedir_backend(fb2, NULL);
 			}
@@ -1059,7 +1059,7 @@ void fb2_focus_document(Tbfwin * bfwin, Tdocument * doc)
 		/* first we make sure we have the correct directory open, then
 		   we could select the document, but if the directory *was* open already, this
 		   could disturb the user... hmmm... */
-		dir_uri = gnome_vfs_uri_get_parent(doc->uri);
+		dir_uri = g_file_get_parent(doc->uri);
 #ifdef DEVELOPMENT
 		if (!dir_uri)
 			exit(334);
@@ -1122,7 +1122,7 @@ static gboolean tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter,
 		} else {
 			if (fb2->filebrowser_viewmode == viewmode_flat) {
 				if (fb2->basedir) {
-					if (!gnome_vfs_uri_is_parent(fb2->basedir, uri, FALSE)) {
+					if (!gfile_uri_is_parent(fb2->basedir, uri, FALSE)) {
 						retval = FALSE;
 					}
 				}
@@ -1136,7 +1136,7 @@ static gboolean tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter,
 				if (name[0] == '.')
 					retval = FALSE;
 			}
-			if (fb2->basedir && !gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE)) {
+			if (fb2->basedir && !gfile_uri_is_parent(fb2->basedir, uri, TRUE)) {
 				retval = FALSE;
 			}
 			if (retval && fb2->curfilter)
@@ -1150,14 +1150,14 @@ static gboolean tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter,
 		if (fb2->filebrowser_viewmode == viewmode_flat) {
 			if (fb2->basedir) {
 				/* show only the level of our basedir no deeper directories */
-				if (!gnome_vfs_uri_is_parent(fb2->basedir, uri, FALSE)) {
+				if (!gfile_uri_is_parent(fb2->basedir, uri, FALSE)) {
 					retval = FALSE;
 				}
 			}
 		} else {
 			if (fb2->basedir) {
 				/* show only our basedir on the root level, no other directories at that level */
-				if (!gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE)
+				if (!gfile_uri_is_parent(fb2->basedir, uri, TRUE)
 					&& !g_file_equal(fb2->basedir, uri)) {
 					retval = FALSE;
 				}
@@ -1588,7 +1588,7 @@ static void fb2rpopup_refresh(Tfilebrowser2 * fb2)
 	} else {
 		GFile *childuri = fb2_uri_from_file_selection(fb2);	/* returns the uri in the treestore */
 		if (childuri) {
-			baseuri = gnome_vfs_uri_get_parent(childuri);
+			baseuri = g_file_get_parent(childuri);
 			unref_baseuri = TRUE;
 		}
 	}
@@ -1636,8 +1636,8 @@ static void rename_not_open_file(Tbfwin * bfwin, GFile * olduri)
 			g_free(errmessage);
 		} else {
 			GFile *parent1, *parent2;
-			parent1 = gnome_vfs_uri_get_parent(olduri);
-			parent2 = gnome_vfs_uri_get_parent(newuri);
+			parent1 = g_file_get_parent(olduri);
+			parent2 = g_file_get_parent(newuri);
 			if (!g_file_equal(parent1, parent2)) {
 				fb2_refresh_parent_of_uri(olduri);
 				fb2_refresh_parent_of_uri(newuri);
@@ -2234,17 +2234,11 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	while (tmplist) {
 		GFile *uri;
 		gchar *name;
-#ifdef HAVE_ATLEAST_GIO_2_16
+
 		uri = g_file_new_for_uri(tmplist->data);
-#else							/* no HAVE_ATLEAST_GIO_2_16  */
-		uri = gnome_vfs_uri_new(tmplist->data);
-#endif							/* else HAVE_ATLEAST_GIO_2_16 */
+
 		if (uri) {
-#ifdef HAVE_ATLEAST_GIO_2_16
 			name = g_file_get_uri(uri);
-#else							/* no HAVE_ATLEAST_GIO_2_16  */
-			name = full_path_utf8_from_uri(uri);
-#endif							/* else HAVE_ATLEAST_GIO_2_16 */
 			DEBUG_MSG("dirmenu_set_curdir, appending %s\n", name);
 			gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
 			gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name,
@@ -2254,31 +2248,20 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 		tmplist = g_list_next(tmplist);
 	}
 	/* then we rebuild the current uri */
-	tmp = gnome_vfs_uri_dup(newcurdir);
+	tmp = g_file_dup(newcurdir);
 	do {
-#ifdef HAVE_ATLEAST_GIO_2_16
-		gchar *name = g_file_get_uri(tmp);
-#else							/* no HAVE_ATLEAST_GIO_2_16  */
-		gchar *name = full_path_utf8_from_uri(tmp);
-#endif							/* else HAVE_ATLEAST_GIO_2_16 */
-		DEBUG_MSG("dirmenu_set_curdir, appending %s to the new model\n", name);
-		gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
-		if (!havesetiter) {
-			setiter = iter;
-			havesetiter = TRUE;
-		}
-		gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name, DIR_URI_COLUMN, tmp	/* don't unref tmp at this point, because there is a reference in the model */
-						   , -1);
-		g_free(name);
-#ifdef HAVE_ATLEAST_GIO_2_16
-		tmp = g_file_get_parent(tmp);
-		cont = (tmp != NULL);
-#else							/* no HAVE_ATLEAST_GIO_2_16  */
-		cont = gnome_vfs_uri_has_parent(tmp);
-		if (cont) {
-			tmp = gnome_vfs_uri_get_parent(tmp);
-		}
-#endif							/* else HAVE_ATLEAST_GIO_2_16 */
+				gchar *name = g_file_get_uri(tmp);
+				DEBUG_MSG("dirmenu_set_curdir, appending %s to the new model\n", name);
+				gtk_list_store_append(GTK_LIST_STORE(fb2->dirmenu_m), &iter);
+				if (!havesetiter) {
+					setiter = iter;
+					havesetiter = TRUE;
+				}
+				gtk_list_store_set(GTK_LIST_STORE(fb2->dirmenu_m), &iter, DIR_NAME_COLUMN, name, DIR_URI_COLUMN, tmp,	/* don't unref tmp at this point, because there is a reference in the model */
+													 -1);
+				g_free(name);
+				tmp = g_file_get_parent(tmp);
+				cont = (tmp != NULL);
 	} while (cont);
 	DEBUG_MSG("dirmenu_set_curdir, activate the new model\n");
 	g_signal_handler_block(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
@@ -2288,7 +2271,6 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	g_signal_handler_unblock(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 	DEBUG_MSG("dirmenu_set_curdir, activated!\n");
 	g_idle_add(dirmenu_idle_cleanup_lcb, oldmodel);
-
 }
 
 static void dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
@@ -2396,7 +2378,7 @@ static void dirmenu_changed_lcb(GtkComboBox * widget, gpointer data)
 		g_signal_handler_block(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 		if (fb2->basedir || fb2->filebrowser_viewmode == viewmode_flat) {
 			if (fb2->filebrowser_viewmode != viewmode_flat
-				&& (gnome_vfs_uri_is_parent(fb2->basedir, uri, TRUE)
+				&& (gfile_uri_is_parent(fb2->basedir, uri, TRUE)
 					|| g_file_equal(fb2->basedir, uri))) {
 				fb2_focus_dir(FILEBROWSER2(fb2), uri, FALSE);
 			} else {
@@ -2495,7 +2477,7 @@ static void fb2_dir_v_drag_data_received(GtkWidget * widget, GdkDragContext * co
 				destdir = uri;
 				g_object_ref(destdir);
 			} else {
-				destdir = gnome_vfs_uri_get_parent(uri);
+				destdir = g_file_get_parent(uri);
 			}
 			g_free(mime_type);
 		}
