@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file_dialogs.c - file dialogs
  *
- * Copyright (C) 2005,2006,2007 Olivier Sessink
+ * Copyright (C) 2005,2006,2007,2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -62,11 +62,7 @@ static void files_advanced_win_ok_clicked(Tfiles_advanced *tfs) {
 
   extension_filter = gtk_editable_get_chars (GTK_EDITABLE (GTK_BIN (tfs->find_pattern)->child), 0, -1);
   basedir = gtk_editable_get_chars (GTK_EDITABLE (tfs->basedir), 0, -1);
-#ifdef HAVE_ATLEAST_GIO_2_16
   baseuri = g_file_new_for_uri(basedir);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-  baseuri = gnome_vfs_uri_new (basedir);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
   content_filter = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->grep_pattern)->entry), 0, -1);
   tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist,content_filter,TRUE,TRUE);
 
@@ -503,11 +499,7 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
   }
   
   alldocs = return_allwindows_documentlist();
-#ifdef HAVE_ATLEAST_GIO_2_16
   uri = g_file_new_for_uri(new_curi); 
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-  uri = gnome_vfs_uri_new(new_curi);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
   exdoc = documentlist_return_document_from_uri(alldocs, uri);
   g_object_unref(uri);
   g_list_free(alldocs);
@@ -532,13 +524,8 @@ gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gb
   } else {
     GFile *tmp;
     gboolean exists;
-#ifdef HAVE_ATLEAST_GIO_2_16
     tmp = g_file_new_for_uri(new_curi);
     exists = g_file_query_exists(tmp,NULL);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-    tmp = gnome_vfs_uri_new(new_curi);
-    exists = gnome_vfs_uri_exists(tmp);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
     g_object_unref(tmp);
     if (exists) {
       gchar *tmpstr;
@@ -608,11 +595,8 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
     snr2_run_extern_replace(doc,"<meta[ \t\n]+name[ \t\n]*=[ \t\n]*\"generator\"[ \t\n]+content[ \t\n]*=[ \t\n]*\"[^\"]*\"[ \t\n]*",0,1,0,"<meta name=\"generator\" content=\"Bluefish "VERSION"\" ", TRUE);
   }
 
-#ifdef HAVE_ATLEAST_GIO_2_16
   if (doc->uri) curi = g_file_get_uri(doc->uri);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-  if (doc->uri) curi = gnome_vfs_uri_to_string(doc->uri,GNOME_VFS_URI_HIDE_PASSWORD);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
+
   if(doc->action.save) {
     gchar *errmessage;
     /* this message is not in very nice english I'm afraid */
@@ -646,11 +630,9 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
       }
       g_object_unref(doc->uri);
     }
-#ifdef HAVE_ATLEAST_GIO_2_16
+
     doc->uri = g_file_new_for_uri(newfilename);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-    doc->uri = gnome_vfs_uri_new(newfilename);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
+
     if (curi) g_free(curi);
     curi = newfilename;
     DEBUG_MSG("doc_save_backend, new uri=%s\n",curi);
@@ -899,20 +881,12 @@ void file_new_cb(GtkWidget *widget, Tbfwin *bfwin) {
   doc = doc_new(bfwin, FALSE);
   switch_to_document_by_pointer(bfwin,doc);
   if (bfwin->project && bfwin->project->template && strlen(bfwin->project->template) > 2) {
-#ifdef HAVE_ATLEAST_GIO_2_16
     GFile *uri;
     uri = g_file_new_for_uri (bfwin->project->template);
-#else
-    GFile *uri;
-    uri = gnome_vfs_uri_new(bfwin->project->template);
-#endif
+
     if (uri) {
       file_into_doc(bfwin->current_document, uri, TRUE);
-#ifdef HAVE_ATLEAST_GIO_2_16
       g_object_unref (uri);
-#else
-      g_object_unref(uri);
-#endif
     }
     /*doc_file_to_textbox(doc, bfwin->project->template, FALSE, FALSE);
     doc_activate(doc);*/
