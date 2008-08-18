@@ -442,8 +442,8 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
         'follow document focus' is set).*/
         if (dsb->unlink_uri && dsb->fbrefresh_uri) {
           GFile *parent1, *parent2;
-          parent1 = gnome_vfs_uri_get_parent(dsb->unlink_uri);
-          parent2 = gnome_vfs_uri_get_parent(dsb->fbrefresh_uri);
+          parent1 = g_file_get_parent(dsb->unlink_uri);
+          parent2 = g_file_get_parent(dsb->fbrefresh_uri);
           if (!g_file_equal(parent1,parent2)) {
             /* if they are equal, the directory will be refreshed by the unlink callback */
             fb2_refresh_dir_from_uri(parent2);

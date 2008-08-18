@@ -81,10 +81,6 @@ extern void g_none(gchar *first, ...);
 
 #define BF_FILEINFO "standard::name,standard::display-name,standard::size,standard::type,unix::mode,unix::uid,unix::gid,time::modified,etag::value"
 
-#define gnome_vfs_uri_get_parent g_file_get_parent
-#define gnome_vfs_uri_is_parent gfile_uri_is_parent
-#define gnome_vfs_uri_dup g_file_dup
-
 #include "bf-textview.h"
 #include "autocomp.h"
 
