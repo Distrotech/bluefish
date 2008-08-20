@@ -1,6 +1,6 @@
 dnl ************************
 dnl configure.ac
-dnl $Id: configure.ac,v 1.164 2008-07-29 21:28:32 oli4 Exp $
+dnl $Id: configure.ac,v 1.165 2008-08-20 03:42:57 jimh6583 Exp $
 dnl
 dnl Copyright (C) 2002-2008 Olivier Sessink
 dnl Copyright (C) 2006-2007 Daniel Leidert
@@ -16,7 +16,7 @@ AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
 
-AC_REVISION($Revision: 1.164 $)
+AC_REVISION($Revision: 1.165 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
@@ -357,14 +357,14 @@ dnl ************************
 
 PKG_PROG_PKG_CONFIG
 
-BFREQ_required="gtk+-2.0 >= 2.6 \
-gmodule-2.0 >= 2.6 \
+BFREQ_required="gtk+-2.0 >= 2.12 \
+gmodule-2.0 >= 2.12 \
 gobject-2.0 \
 glib-2.0 \
 pango \
 gdk-pixbuf-2.0 \
 gdk-2.0 \
-gio-unix-2.0 >= 2.10 \
+gio-unix-2.0 >= 2.16 \
 gthread-2.0 \
 libxml-2.0"
 
