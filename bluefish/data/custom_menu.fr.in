@@ -135,7 +135,7 @@ cmenu_insert: / C /Traverser une GList:GList *tmplist;\ntmplist = g_list_first(%
 cmenu_insert: / C /Commentaire:/*:*/:0:
 cmenu_replace: /Remplacement/Suppression/Espaces en fin de ligne:(?<=\\S)\\s*(?=(\\n|\\r))::2:2:0:0:
 cmenu_replace: /Remplacement/Suppression/Balises Font:(<font[^>]*>|</font>)::0:1:0:0:
-cmenu_replace: /Remplacement/Suppression/Toute balise à l'intérieur de la sélection:(<%0[^>]*>|</%0>)::2:1:0:1:Nom de la balise:
+cmenu_replace: /Remplacement/Suppression/Toute balise à l'intérieur de la sélection:(</?%0( *| +[^>]*)>)::2:1:0:1:Nom de la balise:
 cmenu_replace: /Remplacement/Conversion à l'intérieur de la sélection/Tabulations en espaces (8):(\t):        :2:1:0:0:
 cmenu_replace: /Remplacement/Conversion à l'intérieur de la sélection/Tabulations en espaces (4):(\t):    :2:1:0:0:
 cmenu_replace: /Remplacement/Conversion à l'intérieur de la sélection/Espaces (8) en tabulation simple:(        ):\t:2:1:0:0:
