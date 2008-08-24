@@ -1159,7 +1159,7 @@ typedef struct {
 } Tfilebut;
 
 static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
-	gchar *tmpstring=NULL, *tmp2string=NULL, *setfile;
+	gchar *tmpstring=NULL, *tmp2string=NULL, *setfile=NULL;
 	DEBUG_MSG("file_but_clicked_lcb, started, which_entry=%p\n",fb->entry);
 	setfile = gtk_editable_get_chars(GTK_EDITABLE(GTK_ENTRY(fb->entry)),0,-1);
 	/* if setfile is empty we should probably use the current document basedir ? right? */
@@ -1167,7 +1167,8 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 		if (fb->bfwin && fb->bfwin->current_document->uri) {
 			if (setfile) g_free(setfile);
 			setfile = g_file_get_uri(fb->bfwin->current_document->uri);
-		}
+		} else
+				setfile = NULL;
 	} else if (setfile && setfile[0] != '/' && strchr(setfile, ':')==NULL && fb->bfwin && fb->bfwin->current_document->uri) {
 		/* if setfile is a relative name, we should try to make it a full path. relative names
 		cannot start with a slash or with a scheme (such as file://) */
@@ -1187,7 +1188,7 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 		gtk_window_set_transient_for(GTK_WINDOW(dialog),GTK_WINDOW(gtk_widget_get_toplevel(fb->entry)));
 		if (fb->chooseraction == GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER) {
 			gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),setfile);
-		} else {
+		} else if (setfile) {
 			gtk_file_chooser_set_uri(GTK_FILE_CHOOSER(dialog),setfile);
 		}
 		if (gtk_dialog_run (GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
