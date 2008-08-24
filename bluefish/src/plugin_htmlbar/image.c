@@ -334,7 +334,9 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
   /* we should use the full path to create the thumbnail filename */
   tmp = strstr(filename, "://");
   if ((tmp == NULL && filename[0] != '/') && imdg->dg->doc->uri) {
-    fullfilename = g_file_resolve_relative_path (imdg->dg->doc->uri, filename);
+		GFile *parent = g_file_get_parent (imdg->dg->doc->uri);
+		fullfilename = g_file_resolve_relative_path (parent, filename);
+		g_object_unref (parent);
   } else if (tmp != NULL || filename[0]=='/') {
     fullfilename = g_file_new_for_uri (filename);
   } else {
