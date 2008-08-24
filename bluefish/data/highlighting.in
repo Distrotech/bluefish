@@ -192,8 +192,8 @@ perl:RegExp 10:0:~\\s*m\\s*\\|:(?<!\\\\)\\|\\s*[gcimosxde]*:1::#666666::0:1:
 perl:RegExp 11:0:~\\s*m\\s*\\[:(?<!\\\\)\\]\\s*[gcimosxde]*:1::#666666::0:1:
 perl:RegExp 12:0:~\\s*m\\s*\\{:(?<!\\\\)\\}\\s*[gcimosxde]*:1::#666666::0:1:
 perl:RegExp 13:0:~\\s*m\\s*\\(:(?<!\\\\)\\)\\s*[gcimosxde]*:1::#666666::0:1:
-perl:String (single quoted):0:(?<!\\\\)'.*?'::2::#009900::0:0:
-perl:String (double quoted):0:(?<!\\\\)".*?"::2::#009900::0:0:
+perl:String (single quoted):0:(?<!\\\\)'.*?(?<!\\\\)'::2::#009900::0:0:
+perl:String (double quoted):0:(?<!\\\\)".*?(?<!\\\\)"::2::#009900::0:0:
 perl:String (execute) 1:0:\\bqx\\s*~:(?<!\\\\)~:1::#880000::0:0:
 perl:String (execute) 2:0:\\bqx\\s*\\(:(?<!\\\\)\\):1::#880000::0:0:
 perl:String (execute) 3:0:\\bqx\\s*\\[:(?<!\\\\)\\]:1::#880000::0:0:
