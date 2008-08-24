@@ -2858,7 +2858,7 @@ void doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean d
 	}
 	uri = opturi;
 	g_object_ref(opturi);
-	tmpcuri = g_file_get_parse_name(opturi);
+	tmpcuri = g_file_get_uri(opturi);
 	DEBUG_MSG("doc_new_from_uri, started for uri(%p)=%s\n",uri,tmpcuri);
 	
 	/* check if the document already is opened */
@@ -2917,7 +2917,7 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
 	bfwin->focus_next_new_doc = TRUE;
 	tmpslist = urislist;
 	while (tmpslist) {
-		GFile *uri = g_file_parse_name(tmpslist->data);
+		GFile *uri = g_file_new_for_uri(tmpslist->data);
 		doc_new_from_uri(bfwin, uri, NULL, TRUE, move_to_this_win, -1, -1);
 		g_object_unref(uri);
 		tmpslist = g_slist_next(tmpslist);
