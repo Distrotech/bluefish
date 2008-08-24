@@ -2,13 +2,14 @@
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Knud Franzkowiak <knud.franzkowiak@gmx.net>, 2000.
 # Roland Steinbach <roland@netzblick.de>, 2001-2004.
+# Daniel Leidert <daniel.leidert@wgdd.de>, 2007-2008.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 1.0.6\n"
+"Project-Id-Version: bluefish 1.0.8\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-17 08:59-0700\n"
-"PO-Revision-Date: 2006-08-25 16:59+0200\n"
+"PO-Revision-Date: 2008-08-24 13:33+0200\n"
 "Last-Translator: Roland Steinbach <roland@netzblick.de>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -397,9 +398,8 @@ msgid "Dictionary:"
 msgstr "Wörterbuch:"
 
 #: ../src/bfspell.c:446
-#, fuzzy
 msgid "_Add Word"
-msgstr " Hin_zufügen "
+msgstr "Wort Hin_zufügen "
 
 #: ../src/bfspell.c:452
 msgid "Language:"
@@ -529,9 +529,8 @@ msgid "Do you really want to delete all bookmarks for %s?"
 msgstr "Wirklich alle Lesezeichen von %s löschen?"
 
 #: ../src/bookmark.c:624
-#, fuzzy
 msgid "Delete all bookmarks?"
-msgstr "Alle Lesezeichen löschen."
+msgstr "Alle Lesezeichen löschen?"
 
 #: ../src/bookmark.c:654
 #, c-format
@@ -567,19 +566,16 @@ msgid "Delete all"
 msgstr "Alle Löschen"
 
 #: ../src/bookmark.c:1297 ../src/bookmark.c:1356
-#, fuzzy
 msgid "Error adding bookmark"
-msgstr "Bearbeite Lesezeichen"
+msgstr "Fehler beim Hinzufügen des Lesezeichens"
 
 #: ../src/bookmark.c:1298 ../src/bookmark.c:1357
-#, fuzzy
 msgid "Cannot add bookmarks to unsaved files."
-msgstr "Kann Lesezeichen nicht in namenlose Dateien einfügen."
+msgstr "Lesezeichen kann nicht zu ungespeicherter Datei hinzugefügt werden."
 
 #: ../src/bookmark.c:1317
-#, fuzzy
 msgid "Can't add bookmark"
-msgstr "Lesezeichen hinzufügen"
+msgstr "Lesezeichen kann nicht hinzugefügt werden"
 
 #: ../src/bookmark.c:1318
 msgid "You already have a bookmark here!"
@@ -1128,14 +1124,12 @@ msgid "Reference search"
 msgstr "Referenz durchsuchen"
 
 #: ../src/fref.c:2091 ../src/fref.c:2108
-#, fuzzy
 msgid "Reference search error"
-msgstr "Referenz durchsuchen"
+msgstr "Referenz-Suchfehler"
 
 #: ../src/fref.c:2092
-#, fuzzy
 msgid "Reference not found."
-msgstr "Referenz nicht gefunden"
+msgstr "Referenz nicht gefunden."
 
 #: ../src/fref.c:2109
 msgid ""
@@ -1762,9 +1756,9 @@ msgid "  _Unix Time (%i)"
 msgstr "  _Unixzeit (%i)"
 
 #: ../src/html.c:433
-#, fuzzy, c-format
+#, c-format
 msgid "  Unix Date _String (%s)"
-msgstr "  Unixdatum (%s"
+msgstr "  Unixdatum _Zeichenkette (%s)"
 
 #: ../src/html.c:439
 #, c-format
@@ -2981,7 +2975,6 @@ msgid "/Tags/Special/Other/_Broken bar ¦"
 msgstr "/Tags/Spezial/Andere/¦"
 
 #: ../src/menu.c:515
-#, fuzzy
 msgid "/Tags/Special/Other/Soft _hyphen -"
 msgstr "/Tags/Spezial/Andere/­"
 
@@ -4278,9 +4271,8 @@ msgid "Close _Without Saving"
 msgstr ""
 
 #: ../src/project.c:370
-#, fuzzy
 msgid "Save current project?"
-msgstr "Kann aktuelles Projekt nicht speichern"
+msgstr "Aktuelles Projekt speichern?"
 
 #: ../src/project.c:513
 msgid "Create New Project"
