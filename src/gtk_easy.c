@@ -1204,8 +1204,10 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 		if (!fb->fullpath && fb->bfwin) {
 			if (fb->bfwin->current_document->uri != NULL) {
 				GFile *tmpuri = g_file_new_for_uri(tmpstring);
-				tmp2string = g_file_get_relative_path(fb->bfwin->current_document->uri, tmpuri);
+				GFile *parent = g_file_get_parent(fb->bfwin->current_document->uri);
+				tmp2string = g_file_get_relative_path(parent, tmpuri);
 				g_object_unref(tmpuri);
+				g_object_unref(parent);
 				/* If tmp2string is NULL we need to return the full path */
 				if (tmp2string == NULL)
 					tmp2string = g_strdup(tmpstring);
