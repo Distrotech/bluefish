@@ -1171,8 +1171,9 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	} else if (setfile && setfile[0] != '/' && strchr(setfile, ':')==NULL && fb->bfwin && fb->bfwin->current_document->uri) {
 		/* if setfile is a relative name, we should try to make it a full path. relative names
 		cannot start with a slash or with a scheme (such as file://) */
-		GFile *newsetfile;
-		newsetfile = g_file_resolve_relative_path(fb->bfwin->current_document->uri, setfile);
+		GFile *parent = g_file_get_parent (fb->bfwin->current_document->uri);
+		GFile *newsetfile = g_file_resolve_relative_path(parent, setfile);
+		g_object_unref (parent);
 		if (newsetfile) {
 			g_free(setfile);
 			setfile = g_file_get_uri(newsetfile);;
