@@ -342,17 +342,18 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
   } else {
     return;
   }
-#ifdef DEBUG
-  gchar *path = g_file_get_path (fullfilename);
-  DEBUG_MSG("image_filename_changed: fullfilename=%s, loading!\n", path);
-  g_free (path);
-#endif
-  if (fullfilename) {
+
+  if (fullfilename && g_file_query_exists (fullfilename, NULL)) {
     gchar *name, *msg;
     gchar *path = g_file_get_path (fullfilename);
     imdg->pbloader = pbloader_from_filename (path);
     g_free (path);
 
+#ifdef DEBUG
+		gchar *path2 = g_file_get_path (fullfilename);
+		DEBUG_MSG("image_filename_changed: fullfilename=%s, loading!\n", path2);
+		g_free (path2);
+#endif
     imdg->of = file_openfile_uri_async(fullfilename, image_loaded_lcb, imdg);
     imdg->full_uri = fullfilename;
     name = g_file_get_uri (fullfilename);
