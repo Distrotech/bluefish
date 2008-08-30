@@ -31,6 +31,7 @@
 #include "html_form.h"
 #include "html_table.h"
 #include "image.h"
+#include "image_dialog.h"
 #include "quickstart.h"
 #include "rpopup.h"
 #include "wizards.h"
@@ -77,7 +78,8 @@ static void menu_html_dialogs_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget
 		embed_dialog(bfwin,NULL);
 	break;
 	case 10:
-		image_insert_dialog(bfwin,NULL);
+		/*image_insert_dialog(bfwin,NULL);*/
+		bluefish_image_dialog_new(bfwin);
 	break;
 	case 11:
 		thumbnail_insert_dialog(bfwin);
@@ -694,7 +696,8 @@ static void buttondialog_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	buttondialog_dialog(bfwin,NULL);
 }
 static void image_insert_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
-	image_insert_dialog(bfwin,NULL);
+	/*image_insert_dialog(bfwin,NULL);*/
+	bluefish_image_dialog_new (bfwin);
 }
 static void thumbnail_insert_clicked_lcb(GtkWidget *widget, Tbfwin *bfwin) {
 	thumbnail_insert_dialog(bfwin);
