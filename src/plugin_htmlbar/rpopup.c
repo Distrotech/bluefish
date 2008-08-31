@@ -31,6 +31,7 @@
 #include "html_table.h"
 #include "html_form.h"
 #include "image.h"
+#include "image_dialog.h"
 
 typedef struct {
 	guint32 findchar;
@@ -249,7 +250,7 @@ static void parse_tagstring(Tbfwin *bfwin, gchar * tagstring, gint pos, gint end
 		{"select",G_CALLBACK(selectdialog_dialog)},
 		{"option",G_CALLBACK(optiondialog_dialog)},
 		{"meta",G_CALLBACK(meta_dialog)},
-		{"img",G_CALLBACK(image_insert_dialog)},
+		{"img",G_CALLBACK(bluefish_image_dialog_new_with_data)},
 		{"input",G_CALLBACK(inputdialog_rpopup)},
 		{"button",G_CALLBACK(buttondialog_dialog)},
 		{"link",G_CALLBACK(linkdialog_dialog)}

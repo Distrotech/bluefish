@@ -24,6 +24,7 @@
 
 #include "../bluefish.h"
 
+#include "html_diag.h"
 
 #define BLUEFISH_TYPE_IMAGE_DIALOG            (bluefish_image_dialog_get_type ())
 #define BLUEFISH_IMAGE_DIALOG(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), BLUEFISH_TYPE_IMAGE_DIALOG, BluefishImageDialog))
@@ -54,5 +55,8 @@ struct _BluefishImageDialogClass
 GType bluefish_image_dialog_get_type (void);
 
 void bluefish_image_dialog_new (Tbfwin *bfwin);
+
+void bluefish_image_dialog_new_with_data (Tbfwin *bfwin,
+																					Ttagpopup *data);
 
 #endif /* __IMAGE_DIALOG_H_ */

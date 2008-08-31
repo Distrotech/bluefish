@@ -24,6 +24,7 @@
 #include "image_dialog.h"
 #include "cap.h"
 
+#include "../bf_lib.h"
 #include "../dialog_utils.h"
 #include "../document.h"
 #include "../file.h"
@@ -41,6 +42,9 @@ struct _BluefishImageDialogPrivate
 	gint origWidth;
 	
 	GdkPixbufLoader *pbloader;
+	
+	gint tagStart;
+	gint tagEnd;
 	
 	GtkWidget *align;
 	GtkWidget *alt;
@@ -73,7 +77,24 @@ struct _BluefishImageDialogPrivate
 enum
 {
   PROP_0,
-  PROP_BFWIN
+  PROP_BFWIN,
+	PROP_SRC,
+	PROP_WIDTH,
+	PROP_WIDTH_IS_PERCENT,
+	PROP_HEIGHT,
+	PROP_HEIGHT_IS_PERCENT,
+	PROP_ALT,
+	PROP_LONGDESC,
+	PROP_CLASS,
+	PROP_ID,
+	PROP_USEMAP,
+	PROP_ALIGN,
+	PROP_BORDER,
+	PROP_HSPACE,
+	PROP_VSPACE,
+	PROP_USE_TRANSITIONAL,
+	PROP_TAG_START,
+	PROP_TAG_END
 };
 
 G_DEFINE_TYPE(BluefishImageDialog, bluefish_image_dialog, GTK_TYPE_DIALOG)
@@ -156,6 +177,80 @@ bluefish_image_dialog_set_property (GObject *object,
     case PROP_BFWIN:
       dialog->priv->bfwin = g_value_get_pointer (value);
       break;
+		case PROP_SRC:
+			if (g_value_get_string (value) != NULL)
+				gtk_entry_set_text (GTK_ENTRY (dialog->priv->source),
+														g_value_get_string (value));
+			break;
+		case PROP_WIDTH:
+			gtk_spin_button_set_value (GTK_SPIN_BUTTON (dialog->priv->width),
+																 g_value_get_double (value));
+			break;
+		case PROP_WIDTH_IS_PERCENT:
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->widthPercent),
+																		g_value_get_boolean (value));
+			break;
+		case PROP_HEIGHT:
+			gtk_spin_button_set_value (GTK_SPIN_BUTTON (dialog->priv->height),
+																 g_value_get_double (value));
+			break;
+		case PROP_HEIGHT_IS_PERCENT:
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->heightPercent),
+																		g_value_get_boolean (value));
+			break;
+		case PROP_ALT:
+			if (g_value_get_string (value) != NULL)
+				gtk_entry_set_text (GTK_ENTRY (dialog->priv->alt),
+														g_value_get_string (value));
+			break;
+		case PROP_LONGDESC:
+			if (g_value_get_string (value) != NULL)
+				gtk_entry_set_text (GTK_ENTRY (dialog->priv->longDesc),
+														g_value_get_string (value));
+			break;
+		case PROP_CLASS:
+			if (g_value_get_string (value) != NULL) {
+				gtk_combo_box_prepend_text (GTK_COMBO_BOX (dialog->priv->class),
+																		g_value_get_string (value));
+				gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->class), 0);
+			}
+			break;
+		case PROP_ID:
+			if (g_value_get_string (value) != NULL)
+				gtk_entry_set_text (GTK_ENTRY (dialog->priv->id),
+														g_value_get_string (value));
+			break;
+		case PROP_USEMAP:
+			if (g_value_get_string (value) != NULL)
+				gtk_entry_set_text (GTK_ENTRY (dialog->priv->usemap),
+														g_value_get_string (value));
+			break;
+		case PROP_ALIGN:
+			gtk_combo_box_set_active (GTK_COMBO_BOX (dialog->priv->align),
+																g_value_get_int (value));
+			break;
+		case PROP_BORDER:
+			gtk_spin_button_set_value (GTK_SPIN_BUTTON (dialog->priv->border),
+																 g_value_get_double (value));
+			break;
+		case PROP_HSPACE:
+			gtk_spin_button_set_value (GTK_SPIN_BUTTON (dialog->priv->hspace),
+																 g_value_get_double (value));
+			break;
+		case PROP_VSPACE:
+			gtk_spin_button_set_value (GTK_SPIN_BUTTON (dialog->priv->vspace),
+																 g_value_get_double (value));
+			break;
+		case PROP_USE_TRANSITIONAL:
+			gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (dialog->priv->useTransitional),
+																		g_value_get_boolean (value));
+			break;
+		case PROP_TAG_START:
+			dialog->priv->tagStart = g_value_get_int (value);
+			break;
+		case PROP_TAG_END:
+			dialog->priv->tagEnd = g_value_get_int (value);
+			break;
     default:
       G_OBJECT_WARN_INVALID_PROPERTY_ID (object, prop_id, pspec);
       break;
@@ -358,11 +453,164 @@ bluefish_image_dialog_class_init (BluefishImageDialogClass *klass)
   g_object_class_install_property (object_class,
 																	 PROP_BFWIN,
 																	 g_param_spec_pointer ("bfwin",
-																												 "BFwin",
+																												 "bfwin",
 																												 "The image dialogs bfwin",
 																												 G_PARAM_READWRITE |
 																												 G_PARAM_CONSTRUCT_ONLY |
 																												 G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_SRC,
+																	 g_param_spec_string ("src",
+																												"src",
+																												"The image source",
+																												NULL,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_WIDTH,
+																	 g_param_spec_double ("width",
+																												"width",
+																												"The image width",
+																												0, 3000, 0,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_WIDTH_IS_PERCENT,
+																	 g_param_spec_boolean ("width-is-percent",
+																												 "width is percent",
+																												 "If image width is a percent",
+																												 FALSE,
+																												 G_PARAM_READWRITE |
+																												 G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_HEIGHT,
+																	 g_param_spec_double ("height",
+																												"height",
+																												"The image height",
+																												0, 3000, 0,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_HEIGHT_IS_PERCENT,
+																	 g_param_spec_boolean ("height-is-percent",
+																												 "height is percent",
+																												 "If image height is a percent",
+																												 FALSE,
+																												 G_PARAM_READWRITE |
+																												 G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_ALT,
+																	 g_param_spec_string ("alt",
+																												"alt",
+																												"Alternate text",
+																												NULL,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_LONGDESC,
+																	 g_param_spec_string ("longdesc",
+																												"longdesc",
+																												"Long description",
+																												NULL,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_CLASS,
+																	 g_param_spec_string ("class",
+																												"class",
+																												"Class",
+																												NULL,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_ID,
+																	 g_param_spec_string ("id",
+																												"id",
+																												"ID",
+																												NULL,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_USEMAP,
+																	 g_param_spec_string ("usemap",
+																												"usemap",
+																												"Usemap",
+																												NULL,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_ALIGN,
+																	 g_param_spec_int ("align",
+																										 "align",
+																										 "The image alignment",
+																										 0, 5, 0,
+																										 G_PARAM_READWRITE |
+																										 G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_BORDER,
+																	 g_param_spec_double ("border",
+																												"border",
+																												"The image border width",
+																												-1, 500, -1,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_HSPACE,
+																	 g_param_spec_double ("hspace",
+																												"hspace",
+																												"The image hspace",
+																												-1, 500, -1,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_VSPACE,
+																	 g_param_spec_double ("vspace",
+																												"vspace",
+																												"The image vspace",
+																												-1, 500, -1,
+																												G_PARAM_READWRITE |
+																												G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_USE_TRANSITIONAL,
+																	 g_param_spec_boolean ("use-transitional",
+																												 "use transitional",
+																												 "Use transitional options",
+																												 FALSE,
+																												 G_PARAM_READWRITE |
+																												 G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_TAG_START,
+																	 g_param_spec_int ("tag-start",
+																										 "tag start",
+																										 "Start position to replace existing tag",
+																										 -1, G_MAXINT, -1,
+																										 G_PARAM_READWRITE |
+																										 G_PARAM_STATIC_STRINGS));
+	
+	g_object_class_install_property (object_class,
+																	 PROP_TAG_END,
+																	 g_param_spec_int ("tag-end",
+																										 "tag end",
+																										 "End position to replace existing tag",
+																										 -1, G_MAXINT, -1,
+																										 G_PARAM_READWRITE |
+																										 G_PARAM_STATIC_STRINGS));
 }
 
 static void 
@@ -846,7 +1094,10 @@ image_dialog_ok_clicked (BluefishImageDialog *dialog)
 	
   g_string_append_printf (tag, (main_v->props.xhtml == 1) ? " />" : ">");
   
-	if (gtk_text_buffer_get_selection_bounds (dialog->priv->doc->buffer, &start, &end))
+	if (dialog->priv->tagStart >= 0) {
+		doc_replace_text (dialog->priv->doc, tag->str, dialog->priv->tagStart, dialog->priv->tagEnd);
+	}
+	else if (gtk_text_buffer_get_selection_bounds (dialog->priv->doc->buffer, &start, &end))
 	{
 		gint soffset, eoffset;
 		
@@ -855,7 +1106,7 @@ image_dialog_ok_clicked (BluefishImageDialog *dialog)
 		
 		doc_replace_text (dialog->priv->doc, tag->str, soffset, eoffset);
 	} 
-	else
+	else 
 		doc_insert_two_strings (dialog->priv->doc, tag->str, NULL);
 	
 	g_string_free (tag, TRUE);
@@ -884,6 +1135,123 @@ bluefish_image_dialog_new (Tbfwin *bfwin)
 												 "has-separator", FALSE,
 												 "title", _("Insert Image"),
 												 "transient-for", bfwin->main_window,
+												 "tag-start", -1,
+												 "tag-end", -1,
+												 NULL);
+	
+	g_return_if_fail (dialog != NULL);
+	
+	gtk_widget_show_all (GTK_WIDGET (dialog));
+}
+
+void
+bluefish_image_dialog_new_with_data (Tbfwin *bfwin,
+																		 Ttagpopup *data)
+{
+	BluefishImageDialog *dialog;
+  gboolean usetransitional = FALSE;
+	gboolean widthispercent = FALSE;
+	gboolean heightispercent = FALSE;
+	gchar *custom = NULL;
+	gchar *temp;
+	gint align = 0;
+	gdouble width = 0;
+	gdouble height = 0;
+	gdouble border = -1;
+	gdouble hspace = -1;
+	gdouble vspace = -1;
+	
+	gchar *tagitems[] = {
+		"src",
+		"width",
+		"height",
+		"alt",
+		"longdesc",
+		"class",
+		"id",
+		"usemap",
+		"align",
+		"border",
+		"hspace",
+		"vspace",
+		NULL
+	};
+	
+	gchar *tagvalues[13] = { NULL };
+	
+	parse_html_for_dialogvalues (tagitems, tagvalues, &custom, (Ttagpopup *) data);
+	
+	temp = strchr (tagvalues[1], '%');
+	if (temp) {
+		tagvalues[1] = trunc_on_char (tagvalues[1], '%');
+		width = g_strtod (tagvalues[1], NULL);
+		widthispercent = TRUE;
+		g_free (temp);
+	}
+	
+	temp = strchr (tagvalues[2], '%');
+	if (temp) {
+		tagvalues[2] = trunc_on_char (tagvalues[2], '%');
+		height = g_strtod (tagvalues[2], NULL);
+		heightispercent = TRUE;
+		g_free (temp);
+	}
+	
+	if (tagvalues[8]) {
+		int i;
+		
+		const gchar *alignments[] = {
+			"",
+			"bottom",
+			"left",
+			"middle",
+			"right",
+			"top",
+		};
+		
+		for (i = 0; i < G_N_ELEMENTS (alignments); i++) {
+			if (strcmp (alignments[i], tagvalues[8]) == 0) {
+				align = i;
+				break;
+			}
+		}
+	}
+	
+	if (tagvalues[9])
+		border = g_strtod (tagvalues[9], NULL);
+	
+	if (tagvalues[10])
+		hspace = g_strtod (tagvalues[10], NULL);
+	
+	if (tagvalues[11])
+		vspace = g_strtod (tagvalues[11], NULL);
+
+	if (tagvalues[8] || tagvalues[9] || tagvalues[10] || tagvalues[11])
+		usetransitional = TRUE;
+	
+	dialog = g_object_new (BLUEFISH_TYPE_IMAGE_DIALOG,
+												 "bfwin", bfwin,
+												 "destroy-with-parent", TRUE,
+												 "has-separator", FALSE,
+												 "title", _("Insert Image"),
+												 "transient-for", bfwin->main_window,
+												 "src", tagvalues[0],
+												 "width", width,
+												 "width-is-percent", widthispercent,
+												 "height", height,
+												 "height-is-percent", heightispercent,
+												 "alt", tagvalues[3],
+												 "longdesc", tagvalues[4],
+												 "class", tagvalues[5],
+												 "id", tagvalues[6],
+												 "usemap", tagvalues[7],
+												 "align", align,
+												 "border", border,
+												 "hspace", hspace,
+												 "vspace", vspace,
+												 "use-transitional", usetransitional,
+												 "tag-start", (Ttagpopup *) data->pos,
+												 "tag-end", (Ttagpopup *) data->end,
 												 NULL);
 	
 	g_return_if_fail (dialog != NULL);
