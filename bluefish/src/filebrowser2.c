@@ -381,7 +381,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 						   PIXMAP_COLUMN, pixmap, FILENAME_COLUMN, display_name, URI_COLUMN,
 						   child_uri, REFRESH_COLUMN, 0, TYPE_COLUMN, mime_type, FILEINFO_COLUMN,
 						   finfo, -1);
-
+		
 #endif
 		DEBUG_MSG("insert newiter in hashtable\n");
 		g_hash_table_insert(FB2CONFIG(main_v->fb2config)->filesystem_itable, child_uri, newiter);
@@ -397,6 +397,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 			g_object_unref(dummy_uri);
 			g_object_unref(dummy_finfo);
 		}
+		g_free(display_name);
 	}
 	return newiter;
 }
