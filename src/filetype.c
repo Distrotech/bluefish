@@ -72,6 +72,7 @@ GdkPixbuf *get_pixbuf_for_gicon(GIcon *icon) {
 			if (ii) {
 				pixbuf = gtk_icon_info_load_icon(ii, NULL);
 			}
+			g_strfreev (tmp);
 		}
 	}
 	return pixbuf;
