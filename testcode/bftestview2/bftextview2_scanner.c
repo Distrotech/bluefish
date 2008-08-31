@@ -47,8 +47,11 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 	GtkTextBuffer *buffer;
 	GtkTextIter start, end, iter;
 	GtkTextIter mstart;
+	GQueue *contextstack;
+	GQueue *blockstack;
+	GArray *matchstack;
 
-	unsigned int pos = 0, newpos, matchstackpos = 0;
+	unsigned int pos = 0, newpos, matchstackpos=0;
 	int context = 0;
 
 	Tmatch matchstack[32];
@@ -67,12 +70,19 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 	/* start timer */
 	g_timer_start(bt2->timer);
 	
+
 	iter = mstart = start;
 	g_print("got bounds from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
-	/* find the context of the last found match */
 	
-	/* TODO: set the context using the last found block */
 	
+	if (gtk_text_iter_is_start(&start)) {
+		contextstack = g_queue_new();
+		blockstack = g_queue_new();
+	} else {
+		/* reconstruct the context stack and the block stack */
+	
+	}
+	matchstack = g_array_sized_new(FALSE,TRUE,sizeof(Tmatch),10);
 	do {
 		gunichar uc;
 
@@ -81,23 +91,25 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 			newpos = 0;
 		} else {
 			/*g_print("scanning %c\n",uc); */
-			newpos = scantable.table[pos].row[uc];
+			newpos = g_array_index(bt2->scantable.table, Ttablerow, pos).row[uc];
 		}
-		if (scantable.table[newpos].match != 0) {
+		if (bt2->scantable.table[newpos].match != 0) {
+			Tmatch match;
 			g_print("possible match at matchstackpos=%d\n",matchstackpos);
-			matchstack[matchstackpos].patternum = scantable.table[newpos].match;
-			matchstack[matchstackpos].start = mstart;
-			matchstack[matchstackpos].end = iter;
-			gtk_text_iter_forward_char(&matchstack[matchstackpos].end);
+			match.patternum = g_array_index(bt2->scantable.table,Ttablerow, newpos).match;
+			match.start = mstart;
+			match.end = iter;
+			gtk_text_iter_forward_char(&match.end);
+			g_array_append_val(matchstack,match);
 			matchstackpos++;
 		}
 		if (newpos == 0 || uc == '\0') {
 			if (matchstackpos > 0) {
 				g_print("we have a match at matchstackpos=%d\n",matchstackpos-1);
-				context = found_match(bt2, matchstack[matchstackpos - 1]);
+				context = found_match(bt2, g_array_index(matchstack,Tmatch,matchstackpos - 1));
 				matchstackpos = 0;
 			}
-			newpos = scantable.contexttable[context];
+			newpos = bt2->scantable.contexttable[context];
 			/*g_print("reset matchstack and mstart iter\n");*/
 			mstart = iter;
 			gtk_text_iter_forward_char(&mstart);

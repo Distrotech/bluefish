@@ -19,7 +19,10 @@ typedef struct {
 	char *message;
 	int nextcontext;
 	GtkTextTag *selftag;
+	gboolean starts_block;
+	gboolean ends_block;
 	GtkTextTag *blocktag;
+	int patternum blockstartpattern;
 } Tpattern;
 
 typedef struct {
