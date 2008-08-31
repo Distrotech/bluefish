@@ -41,8 +41,9 @@ static void found_end_of_block(GtkTextBuffer *buffer, Tmatch match, Tscanning *s
 		fblock->end2 = gtk_text_buffer_create_mark(buffer,NULL,&match.end,TRUE);
 		g_object_set_data(fblock->start2, "block", fblock);
 		g_object_set_data(fblock->end2, "block", fblock);
+	} else {
+		g_print("no start-of-block found\n");
 	}
-	
 }
 
 static int found_match(Tbftextview2 * bt2, Tmatch match, Tscanning *scanning)
@@ -122,7 +123,7 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 		blockstack = g_queue_new();
 	} else {
 		/* reconstruct the context stack and the block stack */
-	
+		/* TODO !!!!!!!!!!!! */
 	}
 	matchstack = g_array_sized_new(FALSE,TRUE,sizeof(Tmatch),10);
 	do {
