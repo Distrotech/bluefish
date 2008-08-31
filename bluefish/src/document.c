@@ -539,7 +539,7 @@ void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssiz
 
 	if (mimetype) {
 		ft = get_filetype_for_mime_type(mimetype);
-		 
+		g_free(conttype);
 	} else {
 		GList *tmplist;
 		tmplist = g_list_first(main_v->filetypelist);
@@ -2615,6 +2615,7 @@ static void doc_close_but_set_style_lcb (GtkWidget *button, GtkStyle *previous_s
 static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly) {
 	GtkWidget *scroll;
 	Tdocument *newdoc;
+	GdkPixbuf *pixbuf;
 	
 	/* test if the current document is empty and nameless, if so we return that */
 	if (!force_new && g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
@@ -2642,7 +2643,9 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	bf_textview_recolor(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg,main_v->props.editor_bg);
 	bf_textview_show_rmargin(BF_TEXTVIEW(newdoc->view),main_v->props.view_rmargin,main_v->props.rmargin_at); 
 /*	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg);*/ 
-	bf_textview_add_symbol(BF_TEXTVIEW(newdoc->view),"bookmark",gdk_pixbuf_new_from_inline(-1,pixmap_bookmarks,FALSE,NULL));	
+	pixbuf = gdk_pixbuf_new_from_inline(-1,pixmap_bookmarks,FALSE,NULL);
+	bf_textview_add_symbol(BF_TEXTVIEW(newdoc->view),"bookmark",pixbuf);
+	g_object_unref(pixbuf);
 	
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
