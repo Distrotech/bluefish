@@ -6,19 +6,63 @@ typedef struct {
 	GtkTextIter end;
 } Tmatch;
 
+typedef struct {
+	GQueue *contextstack;
+	GQueue *blockstack;
+} Tscanning;
 
-static int found_match(Tbftextview2 * bt2, Tmatch match)
+static void found_start_of_block(GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
+	Tfoundblock *fblock;
+	g_print("put on blockstack\n");
+		
+	fblock = g_slice_new0(Tfoundblock);
+	fblock->start1 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
+	fblock->end1 = gtk_text_buffer_create_mark(buffer,NULL,&match.end,TRUE);
+	fblock->patternum = match.patternum;
+	g_object_set_data(fblock->start1, "block", fblock);
+	g_object_set_data(fblock->end1, "block", fblock);
+	g_queue_push_head(scanning->blockstack,fblock);
+}
+
+static void found_end_of_block(GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
+	Tfoundblock *fblock=NULL;
+	do {
+		if (fblock) {
+			gtk_text_buffer_delete_mark(buffer,fblock->start1);
+			gtk_text_buffer_delete_mark(buffer,fblock->end1);
+			g_slice_free(Tfoundblock,fblock);
+		}
+		g_print("pop from blockstack\n");
+		fblock = g_queue_pop_head(scanning->blockstack);
+	} while (fblock && fblock.patternnum == g_array_index(bt2->scantable.matches,Tpattern, match.patternum).blockstartpattern);
+	if (fblock) {
+		g_print("found the start of the block\n");
+		fblock->start2 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
+		fblock->end2 = gtk_text_buffer_create_mark(buffer,NULL,&match.end,TRUE);
+		g_object_set_data(fblock->start2, "block", fblock);
+		g_object_set_data(fblock->end2, "block", fblock);
+	}
+	
+}
+
+static int found_match(Tbftextview2 * bt2, Tmatch match, Tscanning *scanning)
 {
 	GtkTextBuffer *buffer;
-
 	buffer = gtk_text_view_get_buffer(bt2);
 
-	g_print("pattern no. %d (%s) matches (%d:%d) --> nextcontext=%d\n", match.patternum, scantable.matches[match.patternum].message,
-			gtk_text_iter_get_offset(&match.start), gtk_text_iter_get_offset(&match.end), scantable.matches[match.patternum].nextcontext);
+/*	g_print("pattern no. %d (%s) matches (%d:%d) --> nextcontext=%d\n", match.patternum, scantable.matches[match.patternum].message,
+			gtk_text_iter_get_offset(&match.start), gtk_text_iter_get_offset(&match.end), scantable.matches[match.patternum].nextcontext);*/
 
-	if (bt2->scantable.matches[match.patternum].selftag)
+	if (g_array_index(bt2->scantable.matches,Tpattern, match.patternum).selftag)
 		gtk_text_buffer_apply_tag(buffer,scantable.matches[match.patternum].selftag, &match.start, &match.end);
-		
+	
+	if (g_array_index(bt2->scantable.matches,Tpattern, match.patternum).starts_block) {
+		found_start_of_block(buffer, match, scanning);
+	}
+	if (g_array_index(bt2->scantable.matches,Tpattern, match.patternum).ends_block) {
+		found_end_of_block(buffer, match, scanning);
+	}
+	
 	return scantable.matches[match.patternum].nextcontext;
 }
 
@@ -47,11 +91,9 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 	GtkTextBuffer *buffer;
 	GtkTextIter start, end, iter;
 	GtkTextIter mstart;
-	GQueue *contextstack;
-	GQueue *blockstack;
 	GArray *matchstack;
-
-	unsigned int pos = 0, newpos, matchstackpos=0;
+	Tscanning scanning;
+	unsigned int pos = 0, newpos;
 	int context = 0;
 
 	Tmatch matchstack[32];
@@ -101,13 +143,12 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 			match.end = iter;
 			gtk_text_iter_forward_char(&match.end);
 			g_array_append_val(matchstack,match);
-			matchstackpos++;
 		}
 		if (newpos == 0 || uc == '\0') {
-			if (matchstackpos > 0) {
-				g_print("we have a match at matchstackpos=%d\n",matchstackpos-1);
-				context = found_match(bt2, g_array_index(matchstack,Tmatch,matchstackpos - 1));
-				matchstackpos = 0;
+			if (matchstack->len > 0) {
+				g_print("we have a match at matchstackpos=%d\n",matchstack->len-1);
+				context = found_match(bt2, g_array_index(matchstack,Tmatch,matchstack->len - 1),&scanning);
+				matchstack->len = 0;
 			}
 			newpos = bt2->scantable.contexttable[context];
 			/*g_print("reset matchstack and mstart iter\n");*/

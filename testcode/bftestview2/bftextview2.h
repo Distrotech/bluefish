@@ -45,6 +45,7 @@ typedef struct {
 	GtkTextMark *end1;
 	GtkTextMark *start2;
 	GtkTextMark *end2;
+	gint patternum;
 } Tfoundblock; /* once a start-of-block is found start1 and end1 are set 
 						and the Tfoundblock is added to the GtkTextMark's as "block"
 						and the Tfoundblock is added to the current blockstack.
