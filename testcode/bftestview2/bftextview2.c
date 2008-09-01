@@ -3,7 +3,8 @@
 #include "bftextview2.h"
 #include "bftextview2_scanner.h"
 
-static void bftextview2_scanner_idle(Tbftextview2 * bt2) {
+static gboolean bftextview2_scanner_idle(gpointer data) {
+	Tbftextview2 * bt2 = data;
 	if (!bftextview2_run_scanner(bt2)) {
 		bt2->scanner_idle = 0;
 		return FALSE;
@@ -17,7 +18,7 @@ static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * it
 	GtkTextIter start;
 	g_print("bftextview2_insert_text_lcb, stringlen=%d\n",stringlen);
 	if (bt2->scanner_idle == 0) {
-		bt2->scanner_idle = g_idle_add(bftextview2_run_scanner,bt2);
+		bt2->scanner_idle = g_idle_add(bftextview2_scanner_idle,bt2);
 	}
 	
 	/* mark the text that is changed */
@@ -44,7 +45,7 @@ static void bftextview2_class_init(Tbftextview2Class * c)
 static void bftextview2_init(Tbftextview2 * bt2)
 {
 	bt2->timer = g_timer_new();
-	bt2.scancache.stackcaches = g_sequence_new(NULL);
+	bt2->scancache.stackcaches = g_sequence_new(NULL);
 
 }
 

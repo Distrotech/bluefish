@@ -70,7 +70,7 @@ typedef struct {
 	gboolean ends_block; /* wheter or not this pattern may end a block */
 	GtkTextTag *blocktag; /* if this pattern ends a context or a block, we can highlight 
 	the region within the start and end pattern with this tag */
-	int patternum blockstartpattern; /* the number of the pattern that may start this block */
+	int blockstartpattern; /* the number of the pattern that may start this block */
 } Tpattern;
 
 typedef struct {
