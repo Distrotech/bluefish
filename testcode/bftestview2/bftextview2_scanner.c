@@ -49,7 +49,7 @@ static void add_to_scancache(Tbftextview2 * bt2,GQueue *stack, Tstacktype type) 
 
 static void found_start_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
 	Tfoundblock *fblock;
-	g_print("put on blockstack\n");
+	g_print("put block with type %d on blockstack\n",match.patternum);
 		
 	fblock = g_slice_new0(Tfoundblock);
 	fblock->start1 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
@@ -64,6 +64,7 @@ static void found_start_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatc
 
 static void found_end_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
 	Tfoundblock *fblock=NULL;
+	g_print("found end of block that matches start of block pattern %d\n",pat->blockstartpattern); 
 	do {
 /*		since a pointer to the Tfoundblock is *also* in the cache, we should add a refcount for memory-management
 		or something like that */ 
@@ -72,9 +73,10 @@ static void found_end_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch 
 			gtk_text_buffer_delete_mark(buffer,fblock->end1);
 			g_slice_free(Tfoundblock,fblock);
 		}*/
-		g_print("pop from blockstack\n");
 		fblock = g_queue_pop_head(scanning->blockstack);
-	} while (fblock && fblock->patternum == g_array_index(bt2->scantable->matches,Tpattern, match.patternum).blockstartpattern);
+		if (fblock)
+			g_print("popped block for pattern %d from blockstack\n",fblock->patternum);
+	} while (fblock && fblock->patternum != pat->blockstartpattern);
 	if (fblock) {
 		g_print("found the matching start of the block\n");
 		fblock->start2 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
@@ -83,6 +85,7 @@ static void found_end_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch 
 		g_object_set_data(G_OBJECT(fblock->end2), "block", fblock);
 		if (pat->blocktag) {
 			GtkTextIter iter;
+			g_print("apply blocktag\n");
 			gtk_text_buffer_get_iter_at_mark(buffer,&iter,fblock->end1);
 			gtk_text_buffer_apply_tag(buffer,pat->blocktag, &iter, &match.start);
 		}
