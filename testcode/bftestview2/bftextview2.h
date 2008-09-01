@@ -45,8 +45,8 @@ DESIGN:
 
 */
 
-#ifndef _BFTEXTVIEW_H_
-#define _BFTEXTVIEW_H_
+#ifndef _BFTEXTVIEW2_H_
+#define _BFTEXTVIEW2_H_
 
 #include <gtk/gtk.h>
 

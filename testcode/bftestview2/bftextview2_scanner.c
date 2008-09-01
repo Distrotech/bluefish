@@ -1,5 +1,6 @@
 /* for the design docs see bftextview2.h */
 #include "bftextview2.h"
+#include "bftextview2_scanner.h"
 
 typedef struct {
 	unsigned int patternum;
