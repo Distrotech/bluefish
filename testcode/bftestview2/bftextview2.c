@@ -2,6 +2,7 @@
 
 #include "bftextview2.h"
 #include "bftextview2_scanner.h"
+#include "bftextview2_patcompile.h"
 
 static gboolean bftextview2_scanner_idle(gpointer data) {
 	Tbftextview2 * bt2 = data;

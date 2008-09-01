@@ -94,15 +94,15 @@ static void found_end_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch 
 static int found_match(Tbftextview2 * bt2, Tmatch match, Tscanning *scanning)
 {
 	GtkTextBuffer *buffer;
-	buffer = gtk_text_view_get_buffer(GTK_TEXT_BUFFER(bt2));
+	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bt2));
 	Tpattern pat = g_array_index(bt2->scantable->matches,Tpattern, match.patternum);
-
+	g_print("found_match for pattern %d %s\n",match.patternum,pat.message);
 /*	g_print("pattern no. %d (%s) matches (%d:%d) --> nextcontext=%d\n", match.patternum, scantable.matches[match.patternum].message,
 			gtk_text_iter_get_offset(&match.start), gtk_text_iter_get_offset(&match.end), scantable.matches[match.patternum].nextcontext);*/
 
 	if (pat.selftag)
 		gtk_text_buffer_apply_tag(buffer,pat.selftag, &match.start, &match.end);
-	
+	g_print("found_match for pattern %d\n",match.patternum);
 	if (pat.starts_block) {
 		found_start_of_block(bt2, buffer, match, scanning);
 	}
@@ -160,22 +160,20 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 	GtkTextIter start, end, iter;
 	GtkTextIter mstart;
 	GArray *matchstack;
-	GQueue *contextstack;
-	GQueue *blockstack;
 	Tscanning scanning;
-	unsigned int pos = 0, newpos;
+	guint pos = 0, newpos;
 	int context = 0;
 
 	if (!bt2->scantable) {
 		g_print("no scantable, nothing to scan, returning...\n");
-		return;
+		return FALSE;
 	}
 	
 	buffer = gtk_text_view_get_buffer(bt2);
 	
 	if (!bftextview2_find_region2scan(buffer, &start, &end)) {
 		g_print("nothing to scan here.. move along\n");
-		return;
+		return FALSE;
 	}
 	/* start timer */
 	g_timer_start(bt2->timer);
@@ -186,13 +184,13 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 	
 	
 	if (gtk_text_iter_is_start(&start)) {
-		contextstack = g_queue_new();
-		blockstack = g_queue_new();
+		scanning.contextstack = g_queue_new();
+		scanning.blockstack = g_queue_new();
 	} else {
 		/* reconstruct the context stack and the block stack */
 		/* TODO for contextstack !!!!!!!!!!!! */
 		
-		blockstack = reconstruct_block_stack(bt2, buffer, &iter);
+		scanning.blockstack = reconstruct_block_stack(bt2, buffer, &iter);
 	}
 	matchstack = g_array_sized_new(FALSE,TRUE,sizeof(Tmatch),10);
 	do {
@@ -202,8 +200,9 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 		if (uc > 128) {
 			newpos = 0;
 		} else {
-			/*g_print("scanning %c\n",uc); */
+			/*g_print("scanning %c in pos %d..",uc,pos);*/ 
 			newpos = g_array_index(bt2->scantable->table, Ttablerow, pos).row[uc];
+			/*g_print(" got newpos %d\n",newpos);*/
 		}
 		if (g_array_index(bt2->scantable->table, Ttablerow, newpos).match != 0) {
 			Tmatch match;
@@ -226,11 +225,11 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 		}
 		pos = newpos;
 		gtk_text_iter_forward_char(&iter);
-	} while (!gtk_text_iter_equal(&iter, &end) && g_timer_elapsed(bt2->timer,NULL)<0.002);
+	} while (!gtk_text_iter_equal(&iter, &end) && g_timer_elapsed(bt2->timer,NULL)<0.01);
 	g_print("scanned up to position %d, which took %f microseconds\n",gtk_text_iter_get_offset(&iter),g_timer_elapsed(bt2->timer,NULL));
 	gtk_text_buffer_remove_tag_by_name(buffer,"needscanning",&start,&iter);
 	if (!gtk_text_iter_equal(&iter, &end)) {
-		return FALSE;
+		return TRUE; /* need again scanning */
 	}
-	return TRUE;
+	return FALSE; /* finished scanning */
 }

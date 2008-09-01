@@ -6,13 +6,10 @@
 Tscantable *bftextview2_scantable_new(void) {
 	Tscantable *st;
 
-	Ttablerow tr;
-	Tpatter pat;
-	gint context;
-	
+
 	st = g_slice_new0(Tscantable);
 	st->table = g_array_sized_new(FALSE,TRUE,sizeof(Ttablerow), 100);
-	st->context = g_array_sized_new(FALSE,TRUE,sizeof(gint), 3);
+	st->contexts = g_array_sized_new(FALSE,TRUE,sizeof(gint), 3);
 	st->matches = g_array_sized_new(FALSE,TRUE,sizeof(Tpattern), 10);
 
 	/* we don't build a automata from patterns right now, because I'm not
@@ -33,16 +30,19 @@ Tscantable *bftextview2_scantable_new(void) {
 	
 	g_array_set_size(st->matches,4);
 	st->matches->len = 4;
-	g_array_index(st->table, Tpattern, 0).message = "{";
-	g_array_index(st->table, Tpattern, 0).starts_block = TRUE;
-	g_array_index(st->table, Tpattern, 1).message = "}";
-	g_array_index(st->table, Tpattern, 1).ends_block = TRUE;
-	g_array_index(st->table, Tpattern, 1).blockstartpattern = 0;
-	g_array_index(st->table, Tpattern, 2).message = "(";
-	g_array_index(st->table, Tpattern, 2).starts_block = TRUE;
-	g_array_index(st->table, Tpattern, 3).message = ")";
-	g_array_index(st->table, Tpattern, 3).ends_block = TRUE;
-	g_array_index(st->table, Tpattern, 3).blockstartpattern = 0;
+	g_array_index(st->matches, Tpattern, 0).message = "{";
+	g_array_index(st->matches, Tpattern, 0).starts_block = TRUE;
+	g_array_index(st->matches, Tpattern, 1).message = "}";
+	g_array_index(st->matches, Tpattern, 1).ends_block = TRUE;
+	g_array_index(st->matches, Tpattern, 1).blockstartpattern = 0;
+	g_array_index(st->matches, Tpattern, 2).message = "(";
+	g_array_index(st->matches, Tpattern, 2).starts_block = TRUE;
+	g_array_index(st->matches, Tpattern, 3).message = ")";
+	g_array_index(st->matches, Tpattern, 3).ends_block = TRUE;
+	g_array_index(st->matches, Tpattern, 3).blockstartpattern = 0;
 	
+	g_array_set_size(st->contexts,1);
+	st->matches->len = 1;
+	g_array_index(st->contexts, gint, 0) = 0;
 	return st;
 }

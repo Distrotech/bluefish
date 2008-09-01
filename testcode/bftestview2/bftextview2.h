@@ -51,9 +51,6 @@ DESIGN:
 #include <gtk/gtk.h>
 
 #define NUMSCANCHARS 127
-#define MAXSCANSTATES 1000
-#define MAXMATCHES 10
-#define NUMCONTEXTS 10
 
 /* building the automata */
 
