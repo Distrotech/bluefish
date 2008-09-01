@@ -1,3 +1,5 @@
+/* for the design docs see bftextview2.h */
+
 #include "bftextview2.h"
 #include "bftextview2_scanner.h"
 
@@ -42,6 +44,7 @@ static void bftextview2_class_init(Tbftextview2Class * c)
 static void bftextview2_init(Tbftextview2 * bt2)
 {
 	bt2->timer = g_timer_new();
+	bt2.scancache.stackcaches = g_sequence_new(NULL);
 
 }
 

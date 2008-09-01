@@ -1,3 +1,4 @@
+/* for the design docs see bftextview2.h */
 #include "bftextview2.h"
 
 typedef struct {
@@ -11,7 +12,40 @@ typedef struct {
 	GQueue *blockstack;
 } Tscanning;
 
-static void found_start_of_block(GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
+static void foundstack_update_positions(GtkTextBuffer *buffer, Tfoundstack *fstack) {
+	GtkTextMark *updatefrom;
+	gpointer found;
+	found = g_queue_peek_tail(fstack->stack);
+	if (fstack->type == CONTEXTSTACK) {
+		updatefrom = ((Tfoundcontext *)found)->start;
+	} else if (fstack->type == BLOCKSTACK) {
+		updatefrom = ((Tfoundcontext *)found)->end1;
+	}
+	if (updatefrom) {
+		GtkTextIter iter;
+		gtk_text_buffer_get_iter_at_mark(buffer,&iter,updatefrom);
+		fstack->charoffset = gtk_text_iter_get_offset(&iter);
+		fstack->line = gtk_text_iter_get_line(&iter);
+	} else {
+		g_print("should not get here in foundstack_update_positions\n");
+	}
+}
+
+static gint stackcache_compare_charoffset(gconstpointer a,gconstpointer b,gpointer user_data) {
+	return ((Tfoundstack *)a)->charoffset - ((Tfoundstack *)b)->charoffset; 
+}
+
+static void add_to_scancache(Tbftextview2 * bt2,GQueue *stack, Tstacktype type) {
+	Tfoundstack *fstack;
+
+	fstack = g_slice_new0(Tfoundstack);
+	fstack->type = type;
+	fstack->stack = g_queue_copy(stack);
+	
+	g_sequence_insert_sorted(bt2.scancaches->stackcaches,stackcopy,stackcache_compare_charoffset,NULL);
+}
+
+static void found_start_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
 	Tfoundblock *fblock;
 	g_print("put on blockstack\n");
 		
@@ -24,7 +58,7 @@ static void found_start_of_block(GtkTextBuffer *buffer, Tmatch match, Tscanning 
 	g_queue_push_head(scanning->blockstack,fblock);
 }
 
-static void found_end_of_block(GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
+static void found_end_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
 	Tfoundblock *fblock=NULL;
 	do {
 		if (fblock) {

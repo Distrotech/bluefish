@@ -1,4 +1,4 @@
-
+/* for the design docs see bftextview2.h */
 #ifndef _BFTEXTVIEW_SCANNER_H_
 #define _BFTEXTVIEW_SCANNER_H_
 
