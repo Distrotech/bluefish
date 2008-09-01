@@ -49,6 +49,7 @@ enum {
 	editor_tab_width,           /* editor tabwidth */
 	editor_indent_wspaces,
 	editor_smart_cursor,
+	editor_highlight_current_line,
 	tab_font_string,            /* notebook tabs font */
 	highlight_num_lines_count,  /* number of lines to highlight in continous highlighting */	
 	defaulthighlight,           /* highlight documents by default */
@@ -1239,6 +1240,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.editor_tab_width, pd->prefs[editor_tab_width], FALSE);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
+	integer_apply(&main_v->props.editor_highlight_current_line, pd->prefs[editor_highlight_current_line], TRUE);
 	integer_apply(&main_v->props.word_wrap, pd->prefs[word_wrap], TRUE);
 	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
@@ -1411,6 +1413,7 @@ static void preferences_dialog() {
 	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap default"), main_v->props.word_wrap, vbox2);
 	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);
+	pd->prefs[editor_highlight_current_line] = boxed_checkbut_with_value(_("Highlight current line"), main_v->props.editor_highlight_current_line, vbox2);
 	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
 #ifdef HAVE_PCRE_UTF8
 	pd->prefs[highlight_utf8] = boxed_checkbut_with_value(_("Enable highlighting PCRE UTF-8 support"), main_v->props.highlight_utf8, vbox2);

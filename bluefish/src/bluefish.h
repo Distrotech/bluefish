@@ -163,6 +163,7 @@ typedef struct {
 	gint editor_tab_width;	/* editor tabwidth */
 	gint editor_smart_cursor;
 	gint editor_indent_wspaces; /* indent with spaces, not tabs */
+	gint editor_highlight_current_line;
 	gchar *tab_font_string;		/* notebook tabs font */
 	GList *browsers; /* browsers array */
 	GList *external_commands;	/* external commands array */

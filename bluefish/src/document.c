@@ -2748,9 +2748,8 @@ static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
 
 /* contributed by Oskar Swida <swida@aragorn.pb.bialystok.pl>, with help from the gedit source */
 static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose * event, gpointer doc) {
-	GtkTextView *view = (GtkTextView*)widget;
+	GtkTextView *view = GTK_TEXT_VIEW (widget);
 	GdkRectangle rect;
-	GdkWindow *win;
 	GtkTextIter l_start,l_end, it;
 	gint l_top1,l_top2;
 	PangoLayout *l;
@@ -2758,44 +2757,89 @@ static gboolean doc_textview_expose_event_lcb(GtkWidget * widget, GdkEventExpose
 	gint numlines,w,i;
 	GHashTable *temp_tab;
 
-	win = gtk_text_view_get_window(view,GTK_TEXT_WINDOW_LEFT);
-	if (win!=event->window) return FALSE;
+	if (event->window == gtk_text_view_get_window (view, GTK_TEXT_WINDOW_LEFT)) {
+		gtk_text_view_get_visible_rect(view,&rect);
+		gtk_text_view_get_line_at_y(view,&l_start,rect.y,&l_top1);
+		gtk_text_view_get_line_at_y(view,&l_end,rect.y+rect.height,&l_top2);
+		l = gtk_widget_create_pango_layout(widget,"");
 
-	gtk_text_view_get_visible_rect(view,&rect);
-	gtk_text_view_get_line_at_y(view,&l_start,rect.y,&l_top1);
-	gtk_text_view_get_line_at_y(view,&l_end,rect.y+rect.height,&l_top2);
-	l = gtk_widget_create_pango_layout(widget,"");
-
-	numlines = gtk_text_buffer_get_line_count(gtk_text_view_get_buffer(view));
-	pomstr = g_strdup_printf("%d",MAX(99,numlines));
-	pango_layout_set_text(l,pomstr,-1);
-	g_free(pomstr);
-	pango_layout_get_pixel_size(l,&w,NULL);
-	gtk_text_view_set_border_window_size(view,GTK_TEXT_WINDOW_LEFT,w+4);   
-	it = l_start;
-	temp_tab = bmark_get_bookmarked_lines(DOCUMENT(doc),&l_start,&l_end);
-	for(i=gtk_text_iter_get_line(&l_start);i<=gtk_text_iter_get_line(&l_end);i++) {
-		gchar* val;
-		gtk_text_iter_set_line(&it,i);
-		gtk_text_view_get_line_yrange(view,&it,&w,NULL);      
-		gtk_text_view_buffer_to_window_coords(view,GTK_TEXT_WINDOW_LEFT,0,w,NULL,&w);
-		pomstr = NULL;
-		if (temp_tab) {
-			val = g_hash_table_lookup(temp_tab,&i);      		
-			if (val) {
-				pomstr = g_strdup_printf("<span background=\"%s\" >%d</span>",val[0] == '0' ? "#768BEA" : "#62CB7F",i+1);
-			}
-		}
-		if (pomstr == NULL) {
-			pomstr = g_strdup_printf("<span>%d</span>",i+1);
-		} 
-		pango_layout_set_markup(l,pomstr,-1);
-		gtk_paint_layout(widget->style,win,GTK_WIDGET_STATE(widget),FALSE,NULL,widget,NULL,2,w,l);
+		numlines = gtk_text_buffer_get_line_count(gtk_text_view_get_buffer(view));
+		pomstr = g_strdup_printf("%d",MAX(99,numlines));
+		pango_layout_set_text(l,pomstr,-1);
 		g_free(pomstr);
+		pango_layout_get_pixel_size(l,&w,NULL);
+		gtk_text_view_set_border_window_size(view,GTK_TEXT_WINDOW_LEFT,w+4);   
+		it = l_start;
+		temp_tab = bmark_get_bookmarked_lines(DOCUMENT(doc),&l_start,&l_end);
+		for(i=gtk_text_iter_get_line(&l_start);i<=gtk_text_iter_get_line(&l_end);i++) {
+			gchar* val;
+			gtk_text_iter_set_line(&it,i);
+			gtk_text_view_get_line_yrange(view,&it,&w,NULL);      
+			gtk_text_view_buffer_to_window_coords(view,GTK_TEXT_WINDOW_LEFT,0,w,NULL,&w);
+			pomstr = NULL;
+			if (temp_tab) {
+				val = g_hash_table_lookup(temp_tab,&i);      		
+				if (val) {
+					pomstr = g_strdup_printf("<span background=\"%s\" >%d</span>",val[0] == '0' ? "#768BEA" : "#62CB7F",i+1);
+				}
+			}
+			if (pomstr == NULL) {
+				pomstr = g_strdup_printf("<span>%d</span>",i+1);
+			} 
+			pango_layout_set_markup(l,pomstr,-1);
+			gtk_paint_layout(widget->style,event->window,GTK_WIDGET_STATE(widget),FALSE,NULL,widget,NULL,2,w,l);
+			g_free(pomstr);
+		}
+		g_object_unref(G_OBJECT(l));
+		if (temp_tab) g_hash_table_destroy(temp_tab);
+		return TRUE;
 	}
-	g_object_unref(G_OBJECT(l));
-	if (temp_tab) g_hash_table_destroy(temp_tab);
-	return TRUE;
+	else {
+		if (GTK_WIDGET_IS_SENSITIVE (view) && main_v->props.editor_highlight_current_line &&
+				(event->window == gtk_text_view_get_window (view, GTK_TEXT_WINDOW_TEXT)))
+		{
+			GtkTextIter iter;
+			gint buffer_y, height;
+			gint win_y;
+			gint margin;
+			GdkRectangle line_rect;
+					
+			gtk_text_buffer_get_iter_at_mark (view->buffer,
+																				&iter,
+																				gtk_text_buffer_get_insert (view->buffer));
+			
+			gtk_text_view_get_line_yrange (view, &iter, &buffer_y, &height);
+			
+			gtk_text_view_get_visible_rect (view, &rect);
+
+			gtk_text_view_buffer_to_window_coords (view,
+																						 GTK_TEXT_WINDOW_TEXT,
+																						 rect.x,
+																						 buffer_y,
+																						 &line_rect.x,
+																						 &win_y);
+
+			line_rect.x = 0;
+			line_rect.width = rect.width;
+			line_rect.y = win_y;
+			line_rect.height = height;
+
+			if (view->hadjustment)
+				margin = gtk_text_view_get_left_margin (view) - (int) view->hadjustment->value;
+			else
+				margin = gtk_text_view_get_left_margin (view);
+
+			line_rect.x += MAX (0, margin - 1);
+			
+			gdk_draw_rectangle (event->window, 
+													widget->style->bg_gc[GTK_WIDGET_STATE(widget)],
+													TRUE,
+													line_rect.x, line_rect.y,
+													line_rect.width, line_rect.height);
+		}
+	}
+	
+	return FALSE;
 }
 
 /**
