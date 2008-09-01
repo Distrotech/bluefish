@@ -363,19 +363,7 @@ bluefish_image_dialog_create (GType type,
 	g_signal_connect (dialog->priv->resetSizeButton, "clicked", G_CALLBACK (image_dialog_reset_dimensions), dialog);																		 
 	
 	table = dialog_table_in_vbox(5, 3, 6, vbox, TRUE, TRUE, 0);
-	/*
-	dialog->priv->source = gtk_entry_new ();
-	gtk_table_attach (GTK_TABLE (table), dialog->priv->source, 1, 2, 0, 1, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
-	dialog_mnemonic_label_in_table(_("_Source:"), dialog->priv->source, table, 0, 1, 0, 1);
 
-	gtk_table_set_col_spacing (GTK_TABLE (table), 1, 6);
-	dialog->priv->fileButton = dialog_button_new_with_image_in_table(NULL,
-																	-1, GTK_STOCK_OPEN,
-																	GTK_ICON_SIZE_MENU,
-																	table, 2, 3, 0, 1);
-	gtk_button_set_focus_on_click(GTK_BUTTON (dialog->priv->fileButton), FALSE);
-	g_signal_connect (dialog->priv->fileButton, "clicked", G_CALLBACK (filebutton_clicked), dialog);
-	*/
 	dialog->priv->alt = gtk_entry_new ();
 	gtk_table_attach (GTK_TABLE (table), dialog->priv->alt, 1, 3, 0, 1, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
 	dialog_mnemonic_label_in_table(_("Alternate te_xt:"), dialog->priv->alt, table, 0, 1, 0, 1);
@@ -1048,6 +1036,8 @@ image_dialog_ok_clicked (BluefishImageDialog *dialog)
 	strvalue = gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->alt), 0, -1);
 	if (strlen (strvalue))
 		g_string_append_printf (tag, " %s=\"%s\"", cap ("ALT"), strvalue);
+	else
+		g_string_append_printf (tag, " %s=\"\"", cap ("ALT"));
 	g_free (strvalue);
 	
 	strvalue = gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->longDesc), 0, -1);
@@ -1181,23 +1171,30 @@ bluefish_image_dialog_new_with_data (Tbfwin *bfwin,
 	
 	parse_html_for_dialogvalues (tagitems, tagvalues, &custom, (Ttagpopup *) data);
 	
-	temp = strchr (tagvalues[1], '%');
-	if (temp) {
-		tagvalues[1] = trunc_on_char (tagvalues[1], '%');
-		width = g_strtod (tagvalues[1], NULL);
-		widthispercent = TRUE;
-		g_free (temp);
+	if (tagvalues[1])
+	{
+		temp = strchr (tagvalues[1], '%');
+		if (temp) {
+			tagvalues[1] = trunc_on_char (tagvalues[1], '%');
+			width = g_strtod (tagvalues[1], NULL);
+			widthispercent = TRUE;
+			g_free (temp);
+		}
 	}
 	
-	temp = strchr (tagvalues[2], '%');
-	if (temp) {
-		tagvalues[2] = trunc_on_char (tagvalues[2], '%');
-		height = g_strtod (tagvalues[2], NULL);
-		heightispercent = TRUE;
-		g_free (temp);
+	if (tagvalues[2])
+	{
+		temp = strchr (tagvalues[2], '%');
+		if (temp) {
+			tagvalues[2] = trunc_on_char (tagvalues[2], '%');
+			height = g_strtod (tagvalues[2], NULL);
+			heightispercent = TRUE;
+			g_free (temp);
+		}
 	}
 	
-	if (tagvalues[8]) {
+	if (tagvalues[8])
+	{
 		int i;
 		
 		const gchar *alignments[] = {
