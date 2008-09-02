@@ -73,6 +73,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 
 	g_array_index(st->table, Ttablerow, 7).row['*'] = 8;
 	g_array_index(st->table, Ttablerow, 8).row['/'] = 9;
+	/*g_array_index(st->table, Ttablerow, 8).row['*'] = 8;*/
 
 	g_array_index(st->table, Ttablerow, 9).match = 5;
 	g_array_index(st->matches, Tpattern, 5).message = "*/";
