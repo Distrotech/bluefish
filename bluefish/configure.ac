@@ -1,6 +1,6 @@
 # Bluefish HTML Editor
 # configure.ac - the autoconf file
-# Copyright (C) 2002-2007 Olivier Sessink
+# Copyright (C) 2002-2008 Olivier Sessink
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -324,9 +324,7 @@ AC_CHECK_HEADERS(stdlib.h unistd.h string.h strings.h errno.h stdio.h sys/stat.h
 dnl ************************
 dnl Checks for external programs.
 dnl ************************
-AC_PATH_PROG(EXTERNAL_FIND, find, /usr/bin/find)
 AC_PATH_PROG(EXTERNAL_GREP, grep, /bin/grep)
-AC_DEFINE_UNQUOTED(EXTERNAL_FIND, "$EXTERNAL_FIND")
 AC_DEFINE_UNQUOTED(EXTERNAL_GREP, "$EXTERNAL_GREP")
 
 dnl **************************
