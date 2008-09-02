@@ -3348,7 +3348,6 @@ static void directory_list_load (const gchar *text_uri,
 																 gboolean recursive)
 {
 	GList *fileinfo_list;
-	GList *dir_list = NULL;
 	GList *temp = NULL;
 	GnomeVFSResult result;
 	
@@ -3366,12 +3365,13 @@ static void directory_list_load (const gchar *text_uri,
 			
 			if (fileinfo->valid_fields & GNOME_VFS_FILE_INFO_FIELDS_TYPE )
 			{
-				if (fileinfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY)
+				if (fileinfo->type == GNOME_VFS_FILE_TYPE_DIRECTORY && recursive)
 				{
 					if (!g_str_has_prefix (fileinfo->name, "."))
 					{
 						gchar *uri = g_build_filename (text_uri, fileinfo->name, NULL);
-						dir_list = g_list_prepend (dir_list, uri);
+						directory_list_load (uri, file_list, pattern, TRUE);
+						g_free (uri);
 					}
 				}
 				else if (fileinfo->type == GNOME_VFS_FILE_TYPE_REGULAR)
@@ -3385,22 +3385,6 @@ static void directory_list_load (const gchar *text_uri,
 			
 				temp = g_list_next (temp);
 			}
-		}
-		
-		if (recursive && (dir_list != NULL))
-		{
-			temp = g_list_first (dir_list);
-			while (temp)
-			{
-				directory_list_load (dir_list->data, file_list, pattern, TRUE);
-				temp = g_list_next (temp);
-			}
-		}
-		
-		if (dir_list)
-		{
-			g_list_foreach (dir_list, (GFunc) g_free, dir_list->data);
-			g_list_free (dir_list);
 		}
 	}
 	
