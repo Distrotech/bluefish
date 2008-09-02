@@ -41,8 +41,22 @@ DESIGN:
  - same holds for the blocks. we keep a blockstack, and we keep a cache of the blockstack in the 
    same stackcache as where we keep the contextstack.
 
-- the current scanner is a DFA (deterministic finit automata) but it can be done with regex as well
+- the current scanning is based on Deterministic Finite Automata (DFA) just like the current 
+unstable engine (see wikipedia for more info). The unstable engine alloc's each state in a 
+separate memory block. This engine alloc's a large array for all states at once, so you can 
+simply move trough the array instead of following pointers. Following the DFA is then as simple 
+as state = table[state][character]; where state is just an integer position in the array, and 
+character is the current character you're scanning. I hope the array will help to speed up 
+the scanner.
 
+- DFA table's for multiple contexts are all in the same memory block. Each context has an offset 
+where it starts. When a match is found, scanning can move to a different context. For example 
+when <?php is found, we switch to row 123 of the DFA table from which all php functions are scanned.
+
+- Compared to the engine in the 1.0 series the main advantage is that we do only a single scanning 
+run for all patterns in a given context. The 1.0 scanner does multiple scanning runs for <\?php 
+and for <[a-z]+>. The new engine scans (<\?php|<[a-z]+>) but knows that both sub-patterns lead 
+to different results (different color, different context).
 */
 
 #ifndef _BFTEXTVIEW2_H_
@@ -52,8 +66,9 @@ DESIGN:
 
 #define NUMSCANCHARS 127
 
-/* building the automata */
-
+/*****************************************************************/
+/* building the automata and autocompletion cache */
+/*****************************************************************/
 typedef struct {
 	GCompletion* ac;
 
@@ -83,8 +98,9 @@ typedef struct {
 	GArray *matches; /* dynamic sized array of Tpattern */
 } Tscantable;
 
-
-/* scanning the text */
+/*****************************************************************/
+/* scanning the text and caching the results */
+/*****************************************************************/
 typedef struct {
 	GtkTextMark *start1;
 	GtkTextMark *end1;
@@ -104,7 +120,7 @@ typedef struct {
 typedef struct {
 	GtkTextMark *start;
 	GtkTextMark *end;
-	gint contextnum;
+	gint context;
 } Tfoundcontext; /* once a start-of-context is found start is set 
 						and the Tfoundcontext is added to the GtkTextMark as "context"
 						and the Tfoundcontext is added to the current contextstack.
@@ -115,14 +131,12 @@ typedef struct {
 						The Tfoundcontext is popped from the current stack, and a new copy
 						of the stack is copied into Tscancache */ 
 
-typedef enum {
-	CONTEXTSTACK,
-	BLOCKSTACK
-} Tstacktype;
-
 typedef struct {
-	GQueue *stack; /* a stack of Tfoundcontext or Tfoundblock stack */
-	Tstacktype type;
+	GQueue *contextstack; /* a stack of Tfoundcontext */
+	GQueue *blockstack;  /* a stack of Tfoundblock */
+	GtkTextMark *mark; /* the position where these stack contents become valid. This is 
+							a pointer to a GtkTextMark that is set in the Tfoundblock / Tfoundcontext
+							and not a newly created mark */
 	guint charoffset; /* the stackcaches (see below in Tscancache) is sorted on this offset */
 	guint line; /* a line that starts a block should be very quick to find (during the expose event) 
 						because we need to draw a collapse icon in the margin. because the stackcaches are 
@@ -132,13 +146,13 @@ typedef struct {
 } Tfoundstack;
 
 typedef struct {
-	GSequence* stackcaches; /* a sorted cache of all blocks and context stacks for 
+	GSequence* stackcaches; /* a sorted structure of Tfoundstack for 
 							each position where the stack changes so we can restart scanning 
 							on any location */
 } Tscancache;
-
+/*****************************************************************/
 /* stuff for the widget */
-
+/*****************************************************************/
 typedef struct {
 	GtkTextView __parent__;
 	Tscantable *scantable;

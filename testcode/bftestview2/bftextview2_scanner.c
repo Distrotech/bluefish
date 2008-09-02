@@ -11,24 +11,15 @@ typedef struct {
 typedef struct {
 	GQueue *contextstack;
 	GQueue *blockstack;
+	gint context;
 } Tscanning;
 
 static void foundstack_update_positions(GtkTextBuffer *buffer, Tfoundstack *fstack) {
-	GtkTextMark *updatefrom;
-	gpointer found;
-	found = g_queue_peek_tail(fstack->stack);
-	if (fstack->type == CONTEXTSTACK) {
-		updatefrom = ((Tfoundcontext *)found)->start;
-	} else if (fstack->type == BLOCKSTACK) {
-		updatefrom = ((Tfoundblock *)found)->end1;
-	}
-	if (updatefrom) {
-		GtkTextIter iter;
-		gtk_text_buffer_get_iter_at_mark(buffer,&iter,updatefrom);
-		fstack->charoffset = gtk_text_iter_get_offset(&iter);
-		fstack->line = gtk_text_iter_get_line(&iter);
-	} else {
-		g_print("should not get here in foundstack_update_positions\n");
+	GtkTextIter it1;
+	if (fstack->mark) {
+		gtk_text_buffer_get_iter_at_mark(buffer,&it1,fstack->mark);
+		fstack->charoffset = gtk_text_iter_get_offset(&it1);
+		fstack->line = gtk_text_iter_get_line(&it1);
 	}
 }
 
@@ -37,17 +28,19 @@ static gint stackcache_compare_charoffset(gconstpointer a,gconstpointer b,gpoint
 	return ((Tfoundstack *)a)->charoffset - ((Tfoundstack *)b)->charoffset; 
 }
 
-static void add_to_scancache(Tbftextview2 * bt2,GQueue *stack, Tstacktype type) {
+static void add_to_scancache(Tbftextview2 * bt2,GtkTextBuffer *buffer,Tscanning *scanning, GtkTextMark *where) {
 	Tfoundstack *fstack;
 
 	fstack = g_slice_new0(Tfoundstack);
-	fstack->type = type;
-	fstack->stack = g_queue_copy(stack);
-	
+	fstack->contextstack = g_queue_copy(scanning->contextstack);
+	fstack->blockstack = g_queue_copy(scanning->blockstack);
+	fstack->mark = where;
+	foundstack_update_positions(buffer, fstack);
+	g_print("add_to_scancache, put the stacks in the cache\n");
 	g_sequence_insert_sorted(bt2->scancache.stackcaches,fstack,stackcache_compare_charoffset,NULL);
 }
 
-static void found_start_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
+static GtkTextMark *found_start_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
 	Tfoundblock *fblock;
 	g_print("put block with type %d on blockstack\n",match.patternum);
 		
@@ -58,11 +51,10 @@ static void found_start_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatc
 	g_object_set_data(G_OBJECT(fblock->start1), "block", fblock);
 	g_object_set_data(G_OBJECT(fblock->end1), "block", fblock);
 	g_queue_push_head(scanning->blockstack,fblock);
-
-	add_to_scancache(bt2,scanning->blockstack,BLOCKSTACK);
+	return fblock->end1;
 }
 
-static void found_end_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
+static GtkTextMark *found_end_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
 	Tfoundblock *fblock=NULL;
 	g_print("found end of block that matches start of block pattern %d\n",pat->blockstartpattern); 
 	do {
@@ -89,17 +81,40 @@ static void found_end_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch 
 			gtk_text_buffer_get_iter_at_mark(buffer,&iter,fblock->end1);
 			gtk_text_buffer_apply_tag(buffer,pat->blocktag, &iter, &match.start);
 		}
+		return fblock->end2;
 	} else {
 		g_print("no matching start-of-block found\n");
+	}
+	return NULL;
+}
+
+static GtkTextMark *found_context_change(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
+	Tfoundcontext *fcontext;
+	/* check if we change up or down the stack */
+	if (pat->nextcontext < scanning->context) {
+		/* pop */
+		fcontext = g_queue_pop_head(scanning->contextstack);
+		fcontext->end = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
+		g_print("found_context_change, popped context %d from the stack, stack len %d\n",fcontext->context,g_queue_get_length(scanning->contextstack));
+		return fcontext->end;
+	} else {
+		fcontext = g_slice_new0(Tfoundcontext);
+		fcontext->start = gtk_text_buffer_create_mark(buffer,NULL,&match.end,FALSE);
+		fcontext->context = pat->nextcontext;
+		g_queue_push_head(scanning->contextstack, fcontext);
+		g_print("found_context_change, pushed context %d onto the stack, stack len %d\n",pat->nextcontext,g_queue_get_length(scanning->contextstack));
+		return fcontext->start;
 	}
 }
 
 static int found_match(Tbftextview2 * bt2, Tmatch match, Tscanning *scanning)
 {
 	GtkTextBuffer *buffer;
+	GtkTextMark *where;
+	gboolean changesstack=FALSE;
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bt2));
 	Tpattern pat = g_array_index(bt2->scantable->matches,Tpattern, match.patternum);
-	g_print("found_match for pattern %d %s\n",match.patternum,pat.message);
+	g_print("found_match for pattern %d %s at charoffset %d\n",match.patternum,pat.message, gtk_text_iter_get_offset(&match.start));
 /*	g_print("pattern no. %d (%s) matches (%d:%d) --> nextcontext=%d\n", match.patternum, scantable.matches[match.patternum].message,
 			gtk_text_iter_get_offset(&match.start), gtk_text_iter_get_offset(&match.end), scantable.matches[match.patternum].nextcontext);*/
 
@@ -107,10 +122,20 @@ static int found_match(Tbftextview2 * bt2, Tmatch match, Tscanning *scanning)
 		gtk_text_buffer_apply_tag(buffer,pat.selftag, &match.start, &match.end);
 	g_print("found_match for pattern %d\n",match.patternum);
 	if (pat.starts_block) {
-		found_start_of_block(bt2, buffer, match, scanning);
+		where = found_start_of_block(bt2, buffer, match, scanning);
+		changesstack = TRUE;
 	}
 	if (pat.ends_block) {
-		found_end_of_block(bt2, buffer, match, scanning, &pat);
+		where = found_end_of_block(bt2, buffer, match, scanning, &pat);
+		changesstack = TRUE;
+	}
+
+	if (pat.nextcontext != scanning->context) {
+		where = found_context_change(bt2, buffer, match, scanning, &pat);
+		changesstack = TRUE;
+	}
+	if (changesstack) {
+		add_to_scancache(bt2,buffer,scanning, where);
 	}
 	
 	return pat.nextcontext;
@@ -120,41 +145,64 @@ static gboolean bftextview2_find_region2scan(GtkTextBuffer *buffer, GtkTextIter 
 	GtkTextTag *scantag;
 	/* first find a region that needs scanning */
 	scantag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(buffer),"needscanning");
-	gtk_text_buffer_get_bounds(buffer, start, end);
+	gtk_text_buffer_get_start_iter(buffer, start);
 	if (!gtk_text_iter_begins_tag(start,scantag) ) {
 		if (!gtk_text_iter_forward_to_tag_toggle(start,scantag)) {
 			/* nothing to scan */
 			return FALSE;
 		}
 	}
+	/* find the end of the region */
+	*end = *start;
+	gtk_text_iter_forward_char(end);
 	if (!gtk_text_iter_ends_tag(end,scantag)) {
-		if (!gtk_text_iter_backward_to_tag_toggle(end,scantag)) {
+		if (!gtk_text_iter_forward_to_tag_toggle(end,scantag)) {
 			g_print("BUG: we should never get here\n");
 			return FALSE;
 		}
 	}
+	/* now move start to the beginning of the line and end to the end of the line */
+	gtk_text_iter_set_line_offset(start,0);
+	gtk_text_iter_forward_to_line_end(end);
+	gtk_text_iter_forward_char(end);
 	return TRUE;
 }
 
-GQueue *reconstruct_block_stack(Tbftextview2 * bt2, GtkTextBuffer *buffer, GtkTextIter *position) {
+void reconstruct_stack(Tbftextview2 * bt2, GtkTextBuffer *buffer, GtkTextIter *position, Tscanning *scanning) {
 	GSequenceIter* siter;
 	Tfoundstack fakefstack;
-	Tfoundstack *fstack;
+	Tfoundstack *fstack=NULL;
 	fakefstack.charoffset = gtk_text_iter_get_offset(position); 
-	
+	g_print("reconstruct_block_stack for position %d\n",fakefstack.charoffset);
 	siter = g_sequence_search(bt2->scancache.stackcaches,&fakefstack,stackcache_compare_charoffset,NULL);
-	/* now get the previous position, and get the stack at that position */
-	do {
+	if (!g_sequence_iter_is_begin(siter)) {
+		
+		/* now get the previous position, and get the stack at that position */
+		g_print("search returned iter at position %d (cache length %d)\n",g_sequence_iter_get_position(siter),g_sequence_get_length(bt2->scancache.stackcaches));
 		siter = g_sequence_iter_prev(siter);
-		if (siter)
+		g_print("prev returned iter at position %d (cache length %d)\n",g_sequence_iter_get_position(siter),g_sequence_get_length(bt2->scancache.stackcaches));
+		if (siter && !g_sequence_iter_is_end(siter)) {
 			fstack = g_sequence_get(siter);
-		else
+			g_print("found a stack with charoffset %d\n",fstack->charoffset);
+		} else {
 			fstack = NULL;
-	} while (siter && fstack && fstack->type != BLOCKSTACK);
-	if (fstack) {
-		return g_queue_copy(fstack->stack);
+			g_print("no siter no stack\n");
+		}
 	}
-	return g_queue_new();
+	if (fstack) {
+		Tfoundcontext *fcontext;
+		scanning->contextstack = g_queue_copy(fstack->contextstack);
+		fcontext = g_queue_peek_head(scanning->contextstack);
+		if (fcontext)
+			scanning->context = fcontext->context;
+		scanning->blockstack =  g_queue_copy(fstack->blockstack);
+		g_print("stack from the cache, contextstack has len %d, blockstack has len %d, context=%d\n",g_queue_get_length(scanning->contextstack),g_queue_get_length(scanning->blockstack),scanning->context);
+	} else {
+		g_print("empty stack\n");
+		scanning->contextstack =  g_queue_new();
+		scanning->blockstack =  g_queue_new();
+		
+	}
 }
 
 gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
@@ -165,14 +213,15 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 	GArray *matchstack;
 	Tscanning scanning;
 	guint pos = 0, newpos;
-	int context = 0;
+	
+	scanning.context = 0;
 
 	if (!bt2->scantable) {
 		g_print("no scantable, nothing to scan, returning...\n");
 		return FALSE;
 	}
 	
-	buffer = gtk_text_view_get_buffer(bt2);
+	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bt2));
 	
 	if (!bftextview2_find_region2scan(buffer, &start, &end)) {
 		g_print("nothing to scan here.. move along\n");
@@ -185,15 +234,13 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 	iter = mstart = start;
 	g_print("got bounds from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
 	
-	
 	if (gtk_text_iter_is_start(&start)) {
 		scanning.contextstack = g_queue_new();
 		scanning.blockstack = g_queue_new();
 	} else {
 		/* reconstruct the context stack and the block stack */
-		/* TODO for contextstack !!!!!!!!!!!! */
-		
-		scanning.blockstack = reconstruct_block_stack(bt2, buffer, &iter);
+		reconstruct_stack(bt2, buffer, &iter, &scanning);
+		pos = g_array_index(bt2->scantable->contexts,gint,scanning.context);
 	}
 	matchstack = g_array_sized_new(FALSE,TRUE,sizeof(Tmatch),10);
 	do {
@@ -218,17 +265,23 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 		if (newpos == 0 || uc == '\0') {
 			if (matchstack->len > 0) {
 				g_print("we have a match at matchstackpos=%d\n",matchstack->len-1);
-				context = found_match(bt2, g_array_index(matchstack,Tmatch,matchstack->len - 1),&scanning);
+				scanning.context = found_match(bt2, g_array_index(matchstack,Tmatch,matchstack->len - 1),&scanning);
 				matchstack->len = 0;
+				
+				/* we found a match, so the pattern is finished, so 
+				the current character was not part of that pattern, and thus
+				the current character might be the start of the next pattern.
+				we have to reverse the iter one char  */
+				gtk_text_iter_backward_char(&iter);
 			}
-			newpos = g_array_index(bt2->scantable->contexts,gint,context);
+			newpos = g_array_index(bt2->scantable->contexts,gint,scanning.context);
 			/*g_print("reset matchstack and mstart iter\n");*/
 			mstart = iter;
 			gtk_text_iter_forward_char(&mstart);
 		}
 		pos = newpos;
 		gtk_text_iter_forward_char(&iter);
-	} while (!gtk_text_iter_equal(&iter, &end) && g_timer_elapsed(bt2->timer,NULL)<0.01);
+	} while (!gtk_text_iter_equal(&iter, &end) && g_timer_elapsed(bt2->timer,NULL)<0.1);
 	g_print("scanned up to position %d, which took %f microseconds\n",gtk_text_iter_get_offset(&iter),g_timer_elapsed(bt2->timer,NULL));
 	gtk_text_buffer_remove_tag_by_name(buffer,"needscanning",&start,&iter);
 	if (!gtk_text_iter_equal(&iter, &end)) {

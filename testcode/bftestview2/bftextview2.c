@@ -33,9 +33,57 @@ static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * it
 	
 }
 
+static void bftextview2_get_iters_at_foundblock(GtkTextBuffer *buffer, Tfoundblock *fblock
+	,GtkTextIter *it1, GtkTextIter *it2, GtkTextIter *it3, GtkTextIter *it4) {
+	gtk_text_buffer_get_iter_at_mark(buffer, it1, fblock->start1);
+	gtk_text_buffer_get_iter_at_mark(buffer, it2, fblock->end1);
+	gtk_text_buffer_get_iter_at_mark(buffer, it3, fblock->start2);
+	gtk_text_buffer_get_iter_at_mark(buffer, it4, fblock->end2);
+}
+
+static Tfoundblock *bftextview2_get_block_at_iter(GtkTextIter * it)
+{
+	GSList *tmp, *lst = gtk_text_iter_get_marks(it);
+	gpointer ptr = NULL;
+	tmp = lst;
+
+	while (tmp) {
+		ptr = g_object_get_data(G_OBJECT(tmp->data), "block");
+		if (ptr) {
+			g_slist_free(lst);
+			return ptr;
+		}
+		tmp = g_slist_next(tmp);
+	}
+	g_slist_free(lst);
+	return NULL;
+}
+
+static void bftextview2_mark_set_lcb(GtkTextBuffer *buffer, GtkTextIter *location, GtkTextMark * arg2,
+									gpointer widget) {
+	if (arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
+		GtkTextIter it1,it2;
+		Tfoundblock *fblock = bftextview2_get_block_at_iter(location);
+		gtk_text_buffer_get_bounds(buffer,&it1,&it2);
+		gtk_text_buffer_remove_tag_by_name(buffer, "blockmatch", &it1,&it2);
+		if (fblock) {
+			GtkTextIter it3,it4;
+			if (fblock->start2) {
+				g_print("found a block to highlight the start and end\n");
+				bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
+				gtk_text_buffer_apply_tag_by_name(buffer, "blockmatch", &it1,&it2);
+				gtk_text_buffer_apply_tag_by_name(buffer, "blockmatch", &it3,&it4);
+			} else {
+				g_print("block has no end - no matching\n");
+			}
+		}
+	}
+
+}
+
+/*****************************************************************/
 /* widget stuff below */
-
-
+/*****************************************************************/
 static GtkTextViewClass *parent_class = NULL;
 
 static void bftextview2_class_init(Tbftextview2Class * c)
@@ -80,8 +128,10 @@ GtkWidget *bftextview2_new(void)
 	/*g_signal_connect(G_OBJECT(o), "expose-event", G_CALLBACK(bftextview2_expose_lcb), NULL);*/
 	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "insert-text",
 						   G_CALLBACK(bftextview2_insert_text_lcb), o);
-	font_desc = pango_font_description_from_string("Courier 11");
-	gtk_widget_modify_font(o, font_desc);
+	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "mark-set",
+							   G_CALLBACK(bftextview2_mark_set_lcb), o);
+	font_desc = pango_font_description_from_string("Monospace 10");
+	gtk_widget_modify_font(GTK_WIDGET(o), font_desc);
 	pango_font_description_free(font_desc);
 
 	return (GtkWidget *) o;
@@ -89,9 +139,11 @@ GtkWidget *bftextview2_new(void)
 
 GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 {
-	Tbftextview2 *o = bftextview2_new();
+	Tbftextview2 *o = (Tbftextview2 *)bftextview2_new();
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(o), buffer);
 	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "insert-text",
 						   G_CALLBACK(bftextview2_insert_text_lcb), o);
+	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "mark-set",
+							   G_CALLBACK(bftextview2_mark_set_lcb), o);
 	return (GtkWidget *) o;
 }

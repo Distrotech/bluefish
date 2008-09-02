@@ -42,9 +42,9 @@ int main(int argc, char *argv[])
 	buffer = gtk_text_buffer_new(NULL);
 	
 	gtk_text_buffer_create_tag(buffer,"needscanning",NULL);
-	testtag = gtk_text_buffer_create_tag(buffer,"testtag","foreground","blue",NULL);
+	gtk_text_buffer_create_tag(buffer,"blockmatch","background","red","foreground","white",NULL);
 	text_view = bftextview2_new_with_buffer(buffer);
-	text_view->scantable = bftextview2_scantable_new(testtag);
+	text_view->scantable = bftextview2_scantable_new(buffer);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC,
 								   GTK_POLICY_AUTOMATIC);
