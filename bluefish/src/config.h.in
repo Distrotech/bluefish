@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * config.h.in - autoconf template
  *
- * Copyright (C) 2002-2006 Olivier Sessink
+ * Copyright (C) 2002-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -78,8 +78,7 @@
 /* with splash screen */
 #undef NOSPLASH
 
-/* find and grep for open advanced */
-#undef EXTERNAL_FIND
+/* grep for open advanced */
 #undef EXTERNAL_GREP
 
 /* i18n */

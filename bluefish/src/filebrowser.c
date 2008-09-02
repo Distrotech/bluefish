@@ -1318,7 +1318,6 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 		filebrowser_rpopup_refresh(filebrowser);
 	break;
 #ifdef EXTERNAL_GREP
-#ifdef EXTERNAL_FIND
 	case 7: {
 		gchar *path = get_selected_filename(filebrowser, TRUE);
 		if (path) {
@@ -1326,7 +1325,6 @@ static void filebrowser_rpopup_action_lcb(Tfilebrowser *filebrowser,guint callba
 			g_free(path);
 		}
 	} break;
-#endif
 #endif
 	case 8: {
 		gchar *path = get_selected_filename(filebrowser, TRUE);
@@ -1375,10 +1373,8 @@ static void filebrowser_rpopup_sbf_toggled_lcb(GtkWidget *widget, Tfilebrowser *
 }
 
 static GtkItemFactoryEntry filebrowser_dirmenu_entries[] = {
-#ifdef EXTERNAL_GREP
-#ifdef EXTERNAL_FIND	
+#ifdef EXTERNAL_GREP	
 	{ N_("/Open _Advanced..."), NULL, filebrowser_rpopup_action_lcb, 7, "<Item>" },
-#endif
 #endif
 	
 	{ N_("/_Refresh"), NULL, filebrowser_rpopup_action_lcb, 6, "<Item>" },

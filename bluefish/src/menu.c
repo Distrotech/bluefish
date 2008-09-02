@@ -77,11 +77,9 @@ static void menu_file_operations_cb(Tbfwin *bfwin, guint callback_action, GtkWid
 		file_open_cb(NULL,bfwin);
 	break;
 #ifdef EXTERNAL_GREP
-#ifdef EXTERNAL_FIND
 	case 3:
 		file_open_advanced_cb(NULL,bfwin);
 	break;
-#endif
 #endif
 	case 4:
 		doc_reload(bfwin->current_document);
@@ -320,9 +318,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Open _recent"), NULL, NULL, 0, "<Branch>"},
 	{"/File/Open recent/tearoff1", NULL, NULL, 0, "<Tearoff>"},	
 #ifdef EXTERNAL_GREP
-#ifdef EXTERNAL_FIND
 	{N_("/File/Open Ad_vanced..."), "<shift><control>O", menu_file_operations_cb, 3, "<Item>"},
-#endif /* EXTERNAL_FIND */
 #endif /* EXTERNAL_GREP */
 	{N_("/File/Open _URL..."), NULL, menu_file_operations_cb, 25, "<Item>"},
 	{N_("/File/Open _from selection"), NULL, menu_file_operations_cb, 26, "<Item>"},
