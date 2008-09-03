@@ -271,9 +271,9 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 		if (uc > 128) {
 			newpos = 0;
 		} else {
-			/*g_print("scanning %c in pos %d..",uc,pos);*/ 
+			g_print("scanning %c in pos %d..",uc,pos); 
 			newpos = g_array_index(bt2->scantable->table, Ttablerow, pos).row[uc];
-			/*g_print(" got newpos %d\n",newpos);*/
+			g_print(" got newpos %d\n",newpos);
 		}
 		if (g_array_index(bt2->scantable->table, Ttablerow, newpos).match != 0) {
 			Tmatch match;
@@ -296,7 +296,7 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 				gtk_text_iter_backward_char(&iter);
 			}
 			newpos = g_array_index(bt2->scantable->contexts,Tcontext,scanning.context).startstate;
-			/*g_print("reset matchstack and mstart iter\n");*/
+			g_print("set newpos to %d for context %d\n",newpos,scanning.context);
 			mstart = iter;
 			gtk_text_iter_forward_char(&mstart);
 		}
