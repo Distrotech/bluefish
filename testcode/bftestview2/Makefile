@@ -3,7 +3,7 @@ CC=gcc
 CFLAGS=-g -O2 `pkg-config --cflags ${PKGS}`
 LDFLAGS=`pkg-config --libs ${PKGS}`
 
-SRCS=bftextview2.c bftextview2_scanner.c bftextview2_patcompile.c testapp.c
+SRCS=bftextview2.c bftextview2_scanner.c bftextview2_patcompile.c bftextview2_autocomp.c testapp.c
 
 OBJS = $(SRCS:.c=.o)
 

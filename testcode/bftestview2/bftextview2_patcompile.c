@@ -15,7 +15,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 
 	st = g_slice_new0(Tscantable);
 	st->table = g_array_sized_new(FALSE,TRUE,sizeof(Ttablerow), 100);
-	st->contexts = g_array_sized_new(FALSE,TRUE,sizeof(gint), 3);
+	st->contexts = g_array_sized_new(FALSE,TRUE,sizeof(Tcontext), 3);
 	st->matches = g_array_sized_new(FALSE,TRUE,sizeof(Tpattern), 10);
 
 	/* we don't build a automata from patterns right now, because I'm not
@@ -30,7 +30,13 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	g_array_set_size(st->matches,8);
 	st->matches->len = 8; /* match 0 is not used */
 
-	g_array_index(st->contexts, gint, 0) = 0;
+	g_array_index(st->contexts, Tcontext, 0).startstate = 0;
+	g_array_index(st->contexts, Tcontext, 0).ac = g_completion_new(NULL);
+	{
+		GList *list = g_list_prepend(NULL, "void"); 
+		g_completion_add_items(g_array_index(st->contexts, Tcontext, 0).ac, list);
+		g_list_free(list);
+	}
 
 	g_array_index(st->table, Ttablerow, 0).row['{'] = 1;
 	g_array_index(st->table, Ttablerow, 0).row['}'] = 2;
@@ -67,9 +73,10 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	g_array_index(st->matches, Tpattern, 4).message = "/*";
 	g_array_index(st->matches, Tpattern, 4).starts_block = TRUE;
 	g_array_index(st->matches, Tpattern, 4).nextcontext = 1;
+
 	g_array_index(st->matches, Tpattern, 4).selftag = comment;
 	
-	g_array_index(st->contexts, gint, 1) = 7;
+	g_array_index(st->contexts, Tcontext, 1).startstate = 7;
 
 	g_array_index(st->table, Ttablerow, 7).row['*'] = 8;
 	g_array_index(st->table, Ttablerow, 8).row['/'] = 9;

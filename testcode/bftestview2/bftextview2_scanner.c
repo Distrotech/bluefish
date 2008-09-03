@@ -12,6 +12,7 @@ typedef struct {
 	GQueue *contextstack;
 	GQueue *blockstack;
 	gint context;
+	GTimer *timer;
 } Tscanning;
 
 static void foundstack_update_positions(GtkTextBuffer *buffer, Tfoundstack *fstack) {
@@ -168,12 +169,12 @@ static gboolean bftextview2_find_region2scan(GtkTextBuffer *buffer, GtkTextIter 
 	return TRUE;
 }
 
-void reconstruct_stack(Tbftextview2 * bt2, GtkTextBuffer *buffer, GtkTextIter *position, Tscanning *scanning) {
+static Tfoundstack *get_stackcache_at_position(Tbftextview2 * bt2, GtkTextIter *position) {
 	GSequenceIter* siter;
 	Tfoundstack fakefstack;
 	Tfoundstack *fstack=NULL;
 	fakefstack.charoffset = gtk_text_iter_get_offset(position); 
-	g_print("reconstruct_block_stack for position %d\n",fakefstack.charoffset);
+	g_print("get_stackcache_at_position for position %d\n",fakefstack.charoffset);
 	siter = g_sequence_search(bt2->scancache.stackcaches,&fakefstack,stackcache_compare_charoffset,NULL);
 	if (!g_sequence_iter_is_begin(siter)) {
 		
@@ -189,6 +190,12 @@ void reconstruct_stack(Tbftextview2 * bt2, GtkTextBuffer *buffer, GtkTextIter *p
 			g_print("no siter no stack\n");
 		}
 	}
+	return fstack;
+}
+
+static void reconstruct_stack(Tbftextview2 * bt2, GtkTextBuffer *buffer, GtkTextIter *position, Tscanning *scanning) {
+	Tfoundstack *fstack=NULL;
+	fstack = get_stackcache_at_position(bt2,position);
 	if (fstack) {
 		Tfoundcontext *fcontext;
 		scanning->contextstack = g_queue_copy(fstack->contextstack);
@@ -202,6 +209,20 @@ void reconstruct_stack(Tbftextview2 * bt2, GtkTextBuffer *buffer, GtkTextIter *p
 		scanning->contextstack =  g_queue_new();
 		scanning->blockstack =  g_queue_new();
 		
+	}
+}
+
+Tcontext *get_context_at_position(Tbftextview2 * bt2, GtkTextIter *position) {
+	Tfoundstack *fstack=NULL;
+	fstack = get_stackcache_at_position(bt2,position);
+	if (fstack) {
+		Tfoundcontext *fcontext;
+		fcontext = g_queue_peek_head(fstack->contextstack);
+		if (fcontext) {
+			return &g_array_index(bt2->scantable->contexts,Tcontext,fcontext->context);
+		} else {
+			return &g_array_index(bt2->scantable->contexts,Tcontext,0);
+		}
 	}
 }
 
@@ -228,7 +249,7 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 		return FALSE;
 	}
 	/* start timer */
-	g_timer_start(bt2->timer);
+	scanning.timer = g_timer_new();
 	
 
 	iter = mstart = start;
@@ -240,7 +261,7 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 	} else {
 		/* reconstruct the context stack and the block stack */
 		reconstruct_stack(bt2, buffer, &iter, &scanning);
-		pos = g_array_index(bt2->scantable->contexts,gint,scanning.context);
+		pos = g_array_index(bt2->scantable->contexts,Tcontext,scanning.context).startstate;
 	}
 	matchstack = g_array_sized_new(FALSE,TRUE,sizeof(Tmatch),10);
 	do {
@@ -274,15 +295,16 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 				we have to reverse the iter one char  */
 				gtk_text_iter_backward_char(&iter);
 			}
-			newpos = g_array_index(bt2->scantable->contexts,gint,scanning.context);
+			newpos = g_array_index(bt2->scantable->contexts,Tcontext,scanning.context).startstate;
 			/*g_print("reset matchstack and mstart iter\n");*/
 			mstart = iter;
 			gtk_text_iter_forward_char(&mstart);
 		}
 		pos = newpos;
 		gtk_text_iter_forward_char(&iter);
-	} while (!gtk_text_iter_equal(&iter, &end) && g_timer_elapsed(bt2->timer,NULL)<0.1);
-	g_print("scanned up to position %d, which took %f microseconds\n",gtk_text_iter_get_offset(&iter),g_timer_elapsed(bt2->timer,NULL));
+	} while (!gtk_text_iter_equal(&iter, &end) && g_timer_elapsed(scanning.timer,NULL)<0.01);
+	g_print("scanned up to position %d, which took %f microseconds\n",gtk_text_iter_get_offset(&iter),g_timer_elapsed(scanning.timer,NULL));
+	g_timer_destroy(scanning.timer);
 	gtk_text_buffer_remove_tag_by_name(buffer,"needscanning",&start,&iter);
 	if (!gtk_text_iter_equal(&iter, &end)) {
 		return TRUE; /* need again scanning */

@@ -66,12 +66,15 @@ to different results (different color, different context).
 
 #define NUMSCANCHARS 127
 
+#define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */
+
 /*****************************************************************/
 /* building the automata and autocompletion cache */
 /*****************************************************************/
+
 typedef struct {
 	GCompletion* ac;
-
+	guint startstate;
 } Tcontext;
 
 typedef struct {
@@ -94,7 +97,7 @@ typedef struct {
 	int nextnewpos;
 	int nextnewmatch;
 	GArray *table; /* dynamic sized array of Ttablerow: the DFA table */
-	GArray *contexts; /* dynamic sized array that translates a context number into a rownumber in the DFA table */
+	GArray *contexts; /* dynamic sized array of Tcontext that translates a context number into a rownumber in the DFA table */
 	GArray *matches; /* dynamic sized array of Tpattern */
 } Tscantable;
 
@@ -158,7 +161,8 @@ typedef struct {
 	Tscantable *scantable;
 	Tscancache scancache;
 	guint scanner_idle; /* event ID for the idle function that handles the scanning. 0 if no idle function is running */
-	GTimer *timer;
+	GTimer *user_idle_timer;
+	guint user_idle; /* event ID for the timed function that handles user idle events such as autocompletion popups */
 } Tbftextview2;
 
 typedef struct {

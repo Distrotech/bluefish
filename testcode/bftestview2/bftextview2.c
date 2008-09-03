@@ -3,6 +3,31 @@
 #include "bftextview2.h"
 #include "bftextview2_scanner.h"
 #include "bftextview2_patcompile.h"
+#include "bftextview2_autocomp.h"
+
+static gboolean bftextview2_user_idle_timer(gpointer data) {
+	Tbftextview2 * bt2 = data;
+	guint elapsed = (guint)(1000.0 * g_timer_elapsed(bt2->user_idle_timer,NULL));
+	if (elapsed >= USER_IDLE_EVENT_INTERVAL) {
+		g_print("bftextview2_user_idle_timer, user is > %d milliseconds idle!!!\n",elapsed);
+		autocomp_run(bt2);
+		bt2->user_idle = 0;
+		return FALSE;
+	} else {
+		guint nextcheck;
+		nextcheck = USER_IDLE_EVENT_INTERVAL - elapsed;
+		g_print("bftextview2_user_idle_timer, not yet elapsed (%d milliseconds idle), rechecking in %d milliseconds\n",elapsed, nextcheck);  
+		bt2->user_idle = g_timeout_add(nextcheck, bftextview2_user_idle_timer, bt2);
+		return FALSE;
+	}
+}
+static void bftextview2_reset_user_idle_timer(Tbftextview2 * bt2) {
+	g_timer_start(bt2->user_idle_timer);
+	if (bt2->user_idle == 0) {
+		bt2->user_idle = g_timeout_add(USER_IDLE_EVENT_INTERVAL, bftextview2_user_idle_timer, bt2);
+		g_print("started user_idle timeout with event source %d and timeout %d\n",bt2->user_idle,USER_IDLE_EVENT_INTERVAL);
+	}
+}
 
 static gboolean bftextview2_scanner_idle(gpointer data) {
 	Tbftextview2 * bt2 = data;
@@ -30,7 +55,7 @@ static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * it
 	gtk_text_iter_forward_to_line_end(iter);
 	gtk_text_buffer_apply_tag_by_name(buffer,"needscanning",&start,iter);
 	g_print("mark text from %d to %d as needscanning\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter));
-	
+	bftextview2_reset_user_idle_timer(bt2);
 }
 
 static void bftextview2_get_iters_at_foundblock(GtkTextBuffer *buffer, Tfoundblock *fblock
@@ -78,12 +103,12 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer *buffer, GtkTextIter *locatio
 			}
 		}
 	}
-
+	bftextview2_reset_user_idle_timer((Tbftextview2 *)widget);
 }
 
-/*****************************************************************/
+/* *************************************************************** */
 /* widget stuff below */
-/*****************************************************************/
+/* *************************************************************** */
 static GtkTextViewClass *parent_class = NULL;
 
 static void bftextview2_class_init(Tbftextview2Class * c)
@@ -93,7 +118,7 @@ static void bftextview2_class_init(Tbftextview2Class * c)
 
 static void bftextview2_init(Tbftextview2 * bt2)
 {
-	bt2->timer = g_timer_new();
+	bt2->user_idle_timer = g_timer_new();
 	bt2->scancache.stackcaches = g_sequence_new(NULL);
 
 }
