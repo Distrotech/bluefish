@@ -184,7 +184,7 @@ static Tfoundstack *get_stackcache_at_position(Tbftextview2 * bt2, GtkTextIter *
 		g_print("prev returned iter at position %d (cache length %d)\n",g_sequence_iter_get_position(siter),g_sequence_get_length(bt2->scancache.stackcaches));
 		if (siter && !g_sequence_iter_is_end(siter)) {
 			fstack = g_sequence_get(siter);
-			g_print("found a stack with charoffset %d\n",fstack->charoffset);
+			g_print("found nearest stack at charoffset %d\n",fstack->charoffset);
 		} else {
 			fstack = NULL;
 			g_print("no siter no stack\n");
@@ -219,6 +219,7 @@ Tcontext *get_context_at_position(Tbftextview2 * bt2, GtkTextIter *position) {
 		Tfoundcontext *fcontext;
 		fcontext = g_queue_peek_head(fstack->contextstack);
 		if (fcontext) {
+			g_print("found context %d\n",fcontext->context);
 			return &g_array_index(bt2->scantable->contexts,Tcontext,fcontext->context);
 		} else {
 			return &g_array_index(bt2->scantable->contexts,Tcontext,0);
@@ -271,9 +272,9 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 		if (uc > 128) {
 			newpos = 0;
 		} else {
-			g_print("scanning %c in pos %d..",uc,pos); 
+			/*g_print("scanning %c in pos %d..",uc,pos);*/ 
 			newpos = g_array_index(bt2->scantable->table, Ttablerow, pos).row[uc];
-			g_print(" got newpos %d\n",newpos);
+			/*g_print(" got newpos %d\n",newpos);*/
 		}
 		if (g_array_index(bt2->scantable->table, Ttablerow, newpos).match != 0) {
 			Tmatch match;
@@ -296,7 +297,7 @@ gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
 				gtk_text_iter_backward_char(&iter);
 			}
 			newpos = g_array_index(bt2->scantable->contexts,Tcontext,scanning.context).startstate;
-			g_print("set newpos to %d for context %d\n",newpos,scanning.context);
+			/*g_print("set newpos to %d for context %d\n",newpos,scanning.context);*/
 			mstart = iter;
 			gtk_text_iter_forward_char(&mstart);
 		}

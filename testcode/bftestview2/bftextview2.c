@@ -8,7 +8,7 @@
 static gboolean bftextview2_user_idle_timer(gpointer data) {
 	Tbftextview2 * bt2 = data;
 	guint elapsed = (guint)(1000.0 * g_timer_elapsed(bt2->user_idle_timer,NULL));
-	if (elapsed >= USER_IDLE_EVENT_INTERVAL) {
+	if (elapsed+10 >= USER_IDLE_EVENT_INTERVAL) { /* avoid delaying for less than 10 milliseconds */
 		g_print("bftextview2_user_idle_timer, user is > %d milliseconds idle!!!\n",elapsed);
 		autocomp_run(bt2);
 		bt2->user_idle = 0;
