@@ -292,16 +292,17 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 				/* we found a match, so the pattern is finished, so 
 				the current character was not part of that pattern, and thus
 				the current character might be the start of the next pattern.
-				we have to reverse the iter one char  */
-				gtk_text_iter_backward_char(&iter);
-			}
-			newpos = g_array_index(bt2->scantable->contexts,Tcontext,scanning.context).startstate;
-			/*g_print("set newpos to %d for context %d\n",newpos,scanning.context);*/
-			mstart = iter;
-			gtk_text_iter_forward_char(&mstart);
+				we have to rescan this char  */
+			} else {
+				newpos = g_array_index(bt2->scantable->contexts,Tcontext,scanning.context).startstate;
+				/*g_print("set newpos to %d for context %d\n",newpos,scanning.context);*/
+				gtk_text_iter_forward_char(&mstart);
+				iter = mstart;
+			}			
+		} else {
+			gtk_text_iter_forward_char(&iter);
 		}
 		pos = newpos;
-		gtk_text_iter_forward_char(&iter);
 	} while (!gtk_text_iter_equal(&iter, &end) && g_timer_elapsed(scanning.timer,NULL)<0.01);
 	g_print("scanned up to position %d, which took %f microseconds\n",gtk_text_iter_get_offset(&iter),g_timer_elapsed(scanning.timer,NULL));
 	g_timer_destroy(scanning.timer);
