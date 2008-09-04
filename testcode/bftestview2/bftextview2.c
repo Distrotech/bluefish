@@ -45,6 +45,7 @@ static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * it
 										gchar * string, gint stringlen, BluefishTextView * bt2)
 {
 	GtkTextIter start;
+	gint start_offset;
 	g_print("bftextview2_insert_text_lcb, stringlen=%d\n",stringlen);
 	if (bt2->scanner_idle == 0) {
 		bt2->scanner_idle = g_idle_add(bftextview2_scanner_idle,bt2);
@@ -53,11 +54,13 @@ static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * it
 	/* mark the text that is changed */
 	start = *iter;
 	gtk_text_iter_backward_chars(&start,stringlen);
-	/* always scan the whole line */
-	gtk_text_iter_set_line_offset(&start, 0);
-	gtk_text_iter_forward_to_line_end(iter);
+
 	gtk_text_buffer_apply_tag_by_name(buffer,"needscanning",&start,iter);
 	g_print("mark text from %d to %d as needscanning\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter));
+	start_offset = gtk_text_iter_get_offset(&start);
+	if (bt2->scancache.stackcache_need_update_charoffset == -1 || bt2->scancache.stackcache_need_update_charoffset > start_offset) {
+		bt2->scancache.stackcache_need_update_charoffset = start_offset;
+	}
 	bftextview2_reset_user_idle_timer(bt2);
 }
 

@@ -14,6 +14,36 @@ typedef struct {
 	GTimer *timer;
 } Tscanning;
 
+/* sort function for the stackcache GSequence structure */
+static gint stackcache_compare_charoffset(gconstpointer a,gconstpointer b,gpointer user_data) {
+	return ((Tfoundstack *)a)->charoffset - ((Tfoundstack *)b)->charoffset; 
+}
+
+static Tfoundstack *get_stackcache_at_position(BluefishTextView * bt2, GtkTextIter *position, GSequenceIter ** retsiter) {
+	GSequenceIter* siter;
+	Tfoundstack fakefstack;
+	Tfoundstack *fstack=NULL;
+	fakefstack.charoffset = gtk_text_iter_get_offset(position); 
+	g_print("get_stackcache_at_position for position %d\n",fakefstack.charoffset);
+	siter = g_sequence_search(bt2->scancache.stackcaches,&fakefstack,stackcache_compare_charoffset,NULL);
+	if (!g_sequence_iter_is_begin(siter)) {
+		
+		/* now get the previous position, and get the stack at that position */
+		g_print("search returned iter at position %d (cache length %d)\n",g_sequence_iter_get_position(siter),g_sequence_get_length(bt2->scancache.stackcaches));
+		siter = g_sequence_iter_prev(siter);
+		g_print("prev returned iter at position %d (cache length %d)\n",g_sequence_iter_get_position(siter),g_sequence_get_length(bt2->scancache.stackcaches));
+		if (siter && !g_sequence_iter_is_end(siter)) {
+			fstack = g_sequence_get(siter);
+			if (retsiter)
+				*retsiter = siter;
+			g_print("found nearest stack at charoffset %d\n",fstack->charoffset);
+		} else {
+			g_print("no siter no stack\n");
+		}
+	}
+	return fstack;
+}
+
 static void foundstack_update_positions(GtkTextBuffer *buffer, Tfoundstack *fstack) {
 	GtkTextIter it1;
 	if (fstack->mark) {
@@ -27,15 +57,32 @@ static void scancache_update_all_foreach(gpointer data, gpointer user_data) {
 	foundstack_update_positions(GTK_TEXT_BUFFER(user_data), (Tfoundstack *)data);
 } 
 
-static void scancache_update_all_positions(BluefishTextView *bt2, GtkTextBuffer *buffer) {
+static void scancache_update_all_positions(BluefishTextView *bt2, GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end) {
 	/* loop over all items in the scancache and update the offsets */
-	g_sequence_foreach(bt2->scancache.stackcaches,scancache_update_all_foreach,buffer);
+	if (start && end) {
+		GSequenceIter *siter;
+		Tfoundstack *fstack;
+		gint end_offset = gtk_text_iter_get_offset(end);
+		fstack = get_stackcache_at_position(bt2, start, &siter);
+		if (fstack) {
+			gboolean cont=TRUE;
+			while (cont) {
+				siter = g_sequence_iter_next(siter);
+				if (siter && !g_sequence_iter_is_end(siter)) {
+					fstack = g_sequence_get(siter);
+					foundstack_update_positions(buffer, fstack);
+					cont = (fstack->charoffset <= end_offset);
+				} else {
+					cont = FALSE;
+				}
+			} 
+		}
+		bt2->scancache.stackcache_need_update_charoffset = end_offset;
+	} else {
+		g_sequence_foreach(bt2->scancache.stackcaches,scancache_update_all_foreach,buffer);
+		bt2->scancache.stackcache_need_update_charoffset = -1;
+	}
 	g_print("done updating stackcaches offsets\n");
-}
-
-/* sort function for the stackcache GSequence structure */
-static gint stackcache_compare_charoffset(gconstpointer a,gconstpointer b,gpointer user_data) {
-	return ((Tfoundstack *)a)->charoffset - ((Tfoundstack *)b)->charoffset; 
 }
 
 static void add_to_scancache(BluefishTextView * bt2,GtkTextBuffer *buffer,Tscanning *scanning, GtkTextMark *where) {
@@ -174,33 +221,9 @@ static gboolean bftextview2_find_region2scan(GtkTextBuffer *buffer, GtkTextIter 
 	return TRUE;
 }
 
-static Tfoundstack *get_stackcache_at_position(BluefishTextView * bt2, GtkTextIter *position) {
-	GSequenceIter* siter;
-	Tfoundstack fakefstack;
-	Tfoundstack *fstack=NULL;
-	fakefstack.charoffset = gtk_text_iter_get_offset(position); 
-	g_print("get_stackcache_at_position for position %d\n",fakefstack.charoffset);
-	siter = g_sequence_search(bt2->scancache.stackcaches,&fakefstack,stackcache_compare_charoffset,NULL);
-	if (!g_sequence_iter_is_begin(siter)) {
-		
-		/* now get the previous position, and get the stack at that position */
-		g_print("search returned iter at position %d (cache length %d)\n",g_sequence_iter_get_position(siter),g_sequence_get_length(bt2->scancache.stackcaches));
-		siter = g_sequence_iter_prev(siter);
-		g_print("prev returned iter at position %d (cache length %d)\n",g_sequence_iter_get_position(siter),g_sequence_get_length(bt2->scancache.stackcaches));
-		if (siter && !g_sequence_iter_is_end(siter)) {
-			fstack = g_sequence_get(siter);
-			g_print("found nearest stack at charoffset %d\n",fstack->charoffset);
-		} else {
-			fstack = NULL;
-			g_print("no siter no stack\n");
-		}
-	}
-	return fstack;
-}
-
 static void reconstruct_stack(BluefishTextView * bt2, GtkTextBuffer *buffer, GtkTextIter *position, Tscanning *scanning) {
 	Tfoundstack *fstack=NULL;
-	fstack = get_stackcache_at_position(bt2,position);
+	fstack = get_stackcache_at_position(bt2,position,NULL);
 	if (fstack) {
 		Tfoundcontext *fcontext;
 		scanning->contextstack = g_queue_copy(fstack->contextstack);
@@ -219,7 +242,7 @@ static void reconstruct_stack(BluefishTextView * bt2, GtkTextBuffer *buffer, Gtk
 
 Tcontext *get_context_at_position(BluefishTextView * bt2, GtkTextIter *position) {
 	Tfoundstack *fstack=NULL;
-	fstack = get_stackcache_at_position(bt2,position);
+	fstack = get_stackcache_at_position(bt2,position,NULL);
 	if (fstack) {
 		Tfoundcontext *fcontext;
 		fcontext = g_queue_peek_head(fstack->contextstack);
@@ -251,18 +274,23 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 	
 	if (!bftextview2_find_region2scan(buffer, &start, &end)) {
 		g_print("nothing to scan here.. update the offsets in the stackcache\n");
-		scancache_update_all_positions(bt2,buffer);
+		scancache_update_all_positions(bt2,buffer,NULL,NULL);
 		/* after the offsets have been updated there is really nothing to do for
 		the idle function so we return FALSE */
 		return FALSE;
 	}
 	/* start timer */
 	scanning.timer = g_timer_new();
+		
 	
-
-	iter = mstart = start;
 	g_print("got bounds from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
-	
+
+	if (bt2->scancache.stackcache_need_update_charoffset != -1 && bt2->scancache.stackcache_need_update_charoffset <= gtk_text_iter_get_offset(&end)) {
+		g_print("need to update the scancache offsets for the region we are about to scan\n");
+		gtk_text_buffer_get_iter_at_offset(buffer, &iter, bt2->scancache.stackcache_need_update_charoffset);
+		scancache_update_all_positions(bt2, buffer, &iter, &end); 
+	}
+	iter = mstart = start;
 	if (gtk_text_iter_is_start(&start)) {
 		scanning.contextstack = g_queue_new();
 		scanning.blockstack = g_queue_new();
@@ -272,6 +300,10 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 		pos = g_array_index(bt2->scantable->contexts,Tcontext,scanning.context).startstate;
 	}
 	matchstack = g_array_sized_new(FALSE,TRUE,sizeof(Tmatch),10);
+	/* TODO: when rescanning text that has been scanned before we need to remove 
+	tags and blocks, or at least check if they need to be removed (perhaps, very 
+	likely, they are still valid) */
+	
 	do {
 		gunichar uc;
 
