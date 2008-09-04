@@ -112,6 +112,43 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer *buffer, GtkTextIter *locatio
 	bftextview2_reset_user_idle_timer(BLUEFISH_TEXT_VIEW (widget));
 }
 
+static void bftextview2_set_margin_size(BluefishTextView *bt2) {
+	/* TODO: this should be calculated based on the number of lines in the text, 
+	whether or not we have bookmarks, and whether or not we have block folding */
+	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(bt2), GTK_TEXT_WINDOW_LEFT,25);
+}
+
+static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose * event, gpointer data) {
+	GtkTextIter startvisible,endvisible,it;
+	GdkRectangle rect;
+	gint i;
+	PangoLayout *panlay;
+	GdkWindow *left_win;
+	
+	gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &startvisible, rect.y, NULL);
+	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
+	
+	left_win = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT);
+	it = startvisible;
+	panlay = gtk_widget_create_pango_layout(widget, "x");
+	for (i = gtk_text_iter_get_line(&startvisible); i <= gtk_text_iter_get_line(&endvisible); i++) {
+		gint w;
+		gchar *string;
+		
+		gtk_text_iter_set_line(&it, i);
+		gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, NULL);
+		gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT, 0, w,NULL, &w);
+		
+		string = g_strdup_printf("%d", 1 + i);
+		pango_layout_set_markup(panlay, string, -1);
+		gdk_draw_layout(GDK_DRAWABLE(left_win),widget->style->text_gc[GTK_WIDGET_STATE(widget)], 2, w, panlay);
+		g_free(string);
+	}
+	g_object_unref(G_OBJECT(panlay));
+	return FALSE;
+}
+
 /* *************************************************************** */
 /* widget stuff below */
 /* *************************************************************** */
@@ -141,7 +178,7 @@ static void bluefish_text_view_class_init(BluefishTextViewClass *klass)
 	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
 	object_class->constructor = bluefish_text_view_create;
-  object_class->finalize = bluefish_text_view_finalize;
+	object_class->finalize = bluefish_text_view_finalize;
 }
 
 static void bluefish_text_view_init(BluefishTextView *textview)
@@ -154,6 +191,7 @@ static void bluefish_text_view_init(BluefishTextView *textview)
 	font_desc = pango_font_description_from_string("Monospace 10");
 	gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
 	pango_font_description_free(font_desc);
+	bftextview2_set_margin_size(textview);
 }
 
 GtkWidget * bftextview2_new(void)
@@ -181,6 +219,8 @@ GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 								G_CALLBACK(bftextview2_insert_text_lcb), textview);
 	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview))), "mark-set",
 								G_CALLBACK(bftextview2_mark_set_lcb), textview);
+	g_signal_connect(G_OBJECT(GTK_TEXT_VIEW(textview)), "expose-event",
+								G_CALLBACK(bftextview2_expose_event_lcb), textview);
 	
 	return GTK_WIDGET (textview);
 }
