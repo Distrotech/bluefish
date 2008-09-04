@@ -68,13 +68,14 @@ to different results (different color, different context).
 
 #define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */
 
+#define MAX_CONTINUOUS_SCANNING_INTERVAL 0.05 /* float in seconds */ 
 
 /*****************************************************************/
 /* building the automata and autocompletion cache */
 /*****************************************************************/
 
 typedef struct {
-	GCompletion* ac;
+	GCompletion* ac; /* autocompletion items in this context */
 	guint startstate;
 } Tcontext;
 
@@ -187,7 +188,5 @@ GType bluefish_text_view_get_type (void);
 
 GtkWidget * bftextview2_new(void);
 GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer);
-
-extern Tscantable scantable;
 
 #endif

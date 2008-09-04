@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
 	gchar *data = NULL;
 	gsize datalen;
 	GFile *uri;
-	GtkTextTag *testtag;
 
 	gtk_init(&argc, &argv);
 

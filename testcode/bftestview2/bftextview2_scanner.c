@@ -314,7 +314,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 			gtk_text_iter_forward_char(&iter);
 		}
 		pos = newpos;
-	} while (!gtk_text_iter_equal(&iter, &end) && g_timer_elapsed(scanning.timer,NULL)<0.01);
+	} while (!gtk_text_iter_equal(&iter, &end) && g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL);
 	g_print("scanned up to position %d, which took %f microseconds\n",gtk_text_iter_get_offset(&iter),g_timer_elapsed(scanning.timer,NULL));
 	gtk_text_buffer_remove_tag_by_name(buffer,"needscanning",&start,&iter);
 
