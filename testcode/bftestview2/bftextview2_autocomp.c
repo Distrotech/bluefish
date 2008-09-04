@@ -106,7 +106,10 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 		tmplist = g_list_next(tmplist);
 	}
 }
-
+/* this function works for words, but not for other constructs in programming 
+languages such as things that start with < or with $ or *.
+should be improved. possibly we need a custom function for different types of languages,
+or some special per-language configuration of this function */
 static gchar *autocomp_get_prefix_at_location(GtkTextBuffer *buffer, GtkTextIter *location) {
 	GtkTextIter start;
 	start = *location;
@@ -122,11 +125,12 @@ void autocomp_run(BluefishTextView *bt2) {
 	
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bt2));
 	gtk_text_buffer_get_iter_at_mark(buffer,&iter,gtk_text_buffer_get_insert(buffer)); 
-
+	/* first find the context at the current location, and see if there are any autocompletion
+	items in this context */
 	context = get_context_at_position(bt2, &iter);
 	if (context && context->ac) {
 		gchar *prefix;
-		
+		/* get the prefix, see if it results in any autocompletion possibilities */
 		prefix = autocomp_get_prefix_at_location(buffer, &iter);
 		g_print("found autocompletion prefix %s\n",prefix);
 		if (prefix) {
@@ -136,6 +140,7 @@ void autocomp_run(BluefishTextView *bt2) {
 			g_print("got %d autocompletion items, newprefix=%s\n",g_list_length(items),newprefix);
 			if (items) {
 				Tacwin * acw;
+				/* create the GUI and run */
 				acw = acwin_create();
 				acwin_fill_tree(acw, items);
 				acwin_position_at_cursor(acw,bt2);

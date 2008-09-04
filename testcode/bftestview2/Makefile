@@ -1,6 +1,6 @@
 PKGS="gtk+-x11-2.0 gio-2.0"
 CC=gcc
-CFLAGS=-g -O2 `pkg-config --cflags ${PKGS}`
+CFLAGS=-Wall -g -O2 `pkg-config --cflags ${PKGS}`
 LDFLAGS=`pkg-config --libs ${PKGS}`
 
 SRCS=bftextview2.c bftextview2_scanner.c bftextview2_patcompile.c bftextview2_autocomp.c testapp.c

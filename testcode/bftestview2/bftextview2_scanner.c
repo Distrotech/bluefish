@@ -23,6 +23,16 @@ static void foundstack_update_positions(GtkTextBuffer *buffer, Tfoundstack *fsta
 	}
 }
 
+static void scancache_update_all_foreach(gpointer data, gpointer user_data) {
+	foundstack_update_positions(GTK_TEXT_BUFFER(user_data), (Tfoundstack *)data);
+} 
+
+static void scancache_update_all_positions(BluefishTextView *bt2, GtkTextBuffer *buffer) {
+	/* loop over all items in the scancache and update the offsets */
+	g_sequence_foreach(bt2->scancache.stackcaches,scancache_update_all_foreach,buffer);
+	g_print("done updating stackcaches offsets\n");
+}
+
 /* sort function for the stackcache GSequence structure */
 static gint stackcache_compare_charoffset(gconstpointer a,gconstpointer b,gpointer user_data) {
 	return ((Tfoundstack *)a)->charoffset - ((Tfoundstack *)b)->charoffset; 
@@ -110,8 +120,7 @@ static GtkTextMark *found_context_change(BluefishTextView * bt2,GtkTextBuffer *b
 static int found_match(BluefishTextView * bt2, Tmatch match, Tscanning *scanning)
 {
 	GtkTextBuffer *buffer;
-	GtkTextMark *where;
-	gboolean changesstack=FALSE;
+	GtkTextMark *where=NULL;
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bt2));
 	Tpattern pat = g_array_index(bt2->scantable->matches,Tpattern, match.patternum);
 	g_print("found_match for pattern %d %s at charoffset %d\n",match.patternum,pat.message, gtk_text_iter_get_offset(&match.start));
@@ -123,18 +132,15 @@ static int found_match(BluefishTextView * bt2, Tmatch match, Tscanning *scanning
 	g_print("found_match for pattern %d\n",match.patternum);
 	if (pat.starts_block) {
 		where = found_start_of_block(bt2, buffer, match, scanning);
-		changesstack = TRUE;
 	}
 	if (pat.ends_block) {
 		where = found_end_of_block(bt2, buffer, match, scanning, &pat);
-		changesstack = TRUE;
 	}
 
 	if (pat.nextcontext != scanning->context) {
 		where = found_context_change(bt2, buffer, match, scanning, &pat);
-		changesstack = TRUE;
 	}
-	if (changesstack) {
+	if (where) {
 		add_to_scancache(bt2,buffer,scanning, where);
 	}
 	
@@ -220,10 +226,9 @@ Tcontext *get_context_at_position(BluefishTextView * bt2, GtkTextIter *position)
 		if (fcontext) {
 			g_print("found context %d\n",fcontext->context);
 			return &g_array_index(bt2->scantable->contexts,Tcontext,fcontext->context);
-		} else {
-			return &g_array_index(bt2->scantable->contexts,Tcontext,0);
 		}
 	}
+	return &g_array_index(bt2->scantable->contexts,Tcontext,0);
 }
 
 gboolean bftextview2_run_scanner(BluefishTextView * bt2)
@@ -245,7 +250,10 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bt2));
 	
 	if (!bftextview2_find_region2scan(buffer, &start, &end)) {
-		g_print("nothing to scan here.. move along\n");
+		g_print("nothing to scan here.. update the offsets in the stackcache\n");
+		scancache_update_all_positions(bt2,buffer);
+		/* after the offsets have been updated there is really nothing to do for
+		the idle function so we return FALSE */
 		return FALSE;
 	}
 	/* start timer */
@@ -294,11 +302,13 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 				the current character might be the start of the next pattern.
 				we have to rescan this char  */
 			} else {
-				newpos = g_array_index(bt2->scantable->contexts,Tcontext,scanning.context).startstate;
 				/*g_print("set newpos to %d for context %d\n",newpos,scanning.context);*/
+				/* if there was no match we revert to the previoud could-have-been-start,
+				advance once character and resume scanning */
 				gtk_text_iter_forward_char(&mstart);
 				iter = mstart;
-			}			
+			}
+			newpos = g_array_index(bt2->scantable->contexts,Tcontext,scanning.context).startstate;		
 		} else {
 			gtk_text_iter_forward_char(&iter);
 		}
@@ -307,8 +317,5 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 	g_print("scanned up to position %d, which took %f microseconds\n",gtk_text_iter_get_offset(&iter),g_timer_elapsed(scanning.timer,NULL));
 	g_timer_destroy(scanning.timer);
 	gtk_text_buffer_remove_tag_by_name(buffer,"needscanning",&start,&iter);
-	if (!gtk_text_iter_equal(&iter, &end)) {
-		return TRUE; /* need again scanning */
-	}
-	return FALSE; /* finished scanning */
+	return TRUE; /* even if we finished scanning the next call should update the scancache */
 }
