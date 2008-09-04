@@ -300,7 +300,8 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 				/* we found a match, so the pattern is finished, so 
 				the current character was not part of that pattern, and thus
 				the current character might be the start of the next pattern.
-				we have to rescan this char  */
+				we have to rescan this char */
+				mstart = iter;
 			} else {
 				/*g_print("set newpos to %d for context %d\n",newpos,scanning.context);*/
 				/* if there was no match we revert to the previoud could-have-been-start,
@@ -315,7 +316,10 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 		pos = newpos;
 	} while (!gtk_text_iter_equal(&iter, &end) && g_timer_elapsed(scanning.timer,NULL)<0.01);
 	g_print("scanned up to position %d, which took %f microseconds\n",gtk_text_iter_get_offset(&iter),g_timer_elapsed(scanning.timer,NULL));
-	g_timer_destroy(scanning.timer);
 	gtk_text_buffer_remove_tag_by_name(buffer,"needscanning",&start,&iter);
+
+	g_timer_destroy(scanning.timer);
+	g_array_free(matchstack,TRUE);
+
 	return TRUE; /* even if we finished scanning the next call should update the scancache */
 }

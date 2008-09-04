@@ -84,7 +84,7 @@ static void acwin_position_at_cursor(Tacwin *acwin, BluefishTextView *bt2) {
 	GtkTextIter it;
 	GdkRectangle rect;
 	GdkScreen *screen;
-	guint x,y;
+	gint x,y;
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bt2));
 	screen = gtk_widget_get_screen(GTK_WIDGET(bt2));
 	
@@ -118,7 +118,6 @@ static gchar *autocomp_get_prefix_at_location(GtkTextBuffer *buffer, GtkTextIter
 }
 
 void autocomp_run(BluefishTextView *bt2) {
-	GtkTextMark *mark;
 	Tcontext *context;
 	GtkTextIter iter;
 	GtkTextBuffer *buffer;
@@ -133,7 +132,7 @@ void autocomp_run(BluefishTextView *bt2) {
 		/* get the prefix, see if it results in any autocompletion possibilities */
 		prefix = autocomp_get_prefix_at_location(buffer, &iter);
 		g_print("found autocompletion prefix %s\n",prefix);
-		if (prefix) {
+		if (prefix && *prefix != '\0') {
 			gchar *newprefix;
 			GList *items;
 			items = g_completion_complete(context->ac,prefix,&newprefix);
