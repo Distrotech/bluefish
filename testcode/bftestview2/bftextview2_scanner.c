@@ -1,5 +1,4 @@
 /* for the design docs see bftextview2.h */
-#include "bftextview2.h"
 #include "bftextview2_scanner.h"
 
 typedef struct {
@@ -29,7 +28,7 @@ static gint stackcache_compare_charoffset(gconstpointer a,gconstpointer b,gpoint
 	return ((Tfoundstack *)a)->charoffset - ((Tfoundstack *)b)->charoffset; 
 }
 
-static void add_to_scancache(Tbftextview2 * bt2,GtkTextBuffer *buffer,Tscanning *scanning, GtkTextMark *where) {
+static void add_to_scancache(BluefishTextView * bt2,GtkTextBuffer *buffer,Tscanning *scanning, GtkTextMark *where) {
 	Tfoundstack *fstack;
 
 	fstack = g_slice_new0(Tfoundstack);
@@ -41,7 +40,7 @@ static void add_to_scancache(Tbftextview2 * bt2,GtkTextBuffer *buffer,Tscanning 
 	g_sequence_insert_sorted(bt2->scancache.stackcaches,fstack,stackcache_compare_charoffset,NULL);
 }
 
-static GtkTextMark *found_start_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
+static GtkTextMark *found_start_of_block(BluefishTextView * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
 	Tfoundblock *fblock;
 	g_print("put block with type %d on blockstack\n",match.patternum);
 		
@@ -55,7 +54,7 @@ static GtkTextMark *found_start_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffe
 	return fblock->end1;
 }
 
-static GtkTextMark *found_end_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
+static GtkTextMark *found_end_of_block(BluefishTextView * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
 	Tfoundblock *fblock=NULL;
 	g_print("found end of block that matches start of block pattern %d\n",pat->blockstartpattern); 
 	do {
@@ -89,7 +88,7 @@ static GtkTextMark *found_end_of_block(Tbftextview2 * bt2,GtkTextBuffer *buffer,
 	return NULL;
 }
 
-static GtkTextMark *found_context_change(Tbftextview2 * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
+static GtkTextMark *found_context_change(BluefishTextView * bt2,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
 	Tfoundcontext *fcontext;
 	/* check if we change up or down the stack */
 	if (pat->nextcontext < scanning->context) {
@@ -108,7 +107,7 @@ static GtkTextMark *found_context_change(Tbftextview2 * bt2,GtkTextBuffer *buffe
 	}
 }
 
-static int found_match(Tbftextview2 * bt2, Tmatch match, Tscanning *scanning)
+static int found_match(BluefishTextView * bt2, Tmatch match, Tscanning *scanning)
 {
 	GtkTextBuffer *buffer;
 	GtkTextMark *where;
@@ -169,7 +168,7 @@ static gboolean bftextview2_find_region2scan(GtkTextBuffer *buffer, GtkTextIter 
 	return TRUE;
 }
 
-static Tfoundstack *get_stackcache_at_position(Tbftextview2 * bt2, GtkTextIter *position) {
+static Tfoundstack *get_stackcache_at_position(BluefishTextView * bt2, GtkTextIter *position) {
 	GSequenceIter* siter;
 	Tfoundstack fakefstack;
 	Tfoundstack *fstack=NULL;
@@ -193,7 +192,7 @@ static Tfoundstack *get_stackcache_at_position(Tbftextview2 * bt2, GtkTextIter *
 	return fstack;
 }
 
-static void reconstruct_stack(Tbftextview2 * bt2, GtkTextBuffer *buffer, GtkTextIter *position, Tscanning *scanning) {
+static void reconstruct_stack(BluefishTextView * bt2, GtkTextBuffer *buffer, GtkTextIter *position, Tscanning *scanning) {
 	Tfoundstack *fstack=NULL;
 	fstack = get_stackcache_at_position(bt2,position);
 	if (fstack) {
@@ -212,7 +211,7 @@ static void reconstruct_stack(Tbftextview2 * bt2, GtkTextBuffer *buffer, GtkText
 	}
 }
 
-Tcontext *get_context_at_position(Tbftextview2 * bt2, GtkTextIter *position) {
+Tcontext *get_context_at_position(BluefishTextView * bt2, GtkTextIter *position) {
 	Tfoundstack *fstack=NULL;
 	fstack = get_stackcache_at_position(bt2,position);
 	if (fstack) {
@@ -227,7 +226,7 @@ Tcontext *get_context_at_position(Tbftextview2 * bt2, GtkTextIter *position) {
 	}
 }
 
-gboolean bftextview2_run_scanner(Tbftextview2 * bt2)
+gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 {
 	GtkTextBuffer *buffer;
 	GtkTextIter start, end, iter;

@@ -5,8 +5,11 @@
 #include "bftextview2_patcompile.h"
 #include "bftextview2_autocomp.h"
 
+
+G_DEFINE_TYPE(BluefishTextView, bluefish_text_view, GTK_TYPE_TEXT_VIEW)
+
 static gboolean bftextview2_user_idle_timer(gpointer data) {
-	Tbftextview2 * bt2 = data;
+	BluefishTextView * bt2 = data;
 	guint elapsed = (guint)(1000.0 * g_timer_elapsed(bt2->user_idle_timer,NULL));
 	if (elapsed+10 >= USER_IDLE_EVENT_INTERVAL) { /* avoid delaying for less than 10 milliseconds */
 		g_print("bftextview2_user_idle_timer, user is > %d milliseconds idle!!!\n",elapsed);
@@ -21,7 +24,7 @@ static gboolean bftextview2_user_idle_timer(gpointer data) {
 		return FALSE;
 	}
 }
-static void bftextview2_reset_user_idle_timer(Tbftextview2 * bt2) {
+static void bftextview2_reset_user_idle_timer(BluefishTextView * bt2) {
 	g_timer_start(bt2->user_idle_timer);
 	if (bt2->user_idle == 0) {
 		bt2->user_idle = g_timeout_add(USER_IDLE_EVENT_INTERVAL, bftextview2_user_idle_timer, bt2);
@@ -30,7 +33,7 @@ static void bftextview2_reset_user_idle_timer(Tbftextview2 * bt2) {
 }
 
 static gboolean bftextview2_scanner_idle(gpointer data) {
-	Tbftextview2 * bt2 = data;
+	BluefishTextView * bt2 = data;
 	if (!bftextview2_run_scanner(bt2)) {
 		bt2->scanner_idle = 0;
 		return FALSE;
@@ -39,7 +42,7 @@ static gboolean bftextview2_scanner_idle(gpointer data) {
 }
 
 static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * iter,
-										gchar * string, gint stringlen, Tbftextview2 * bt2)
+										gchar * string, gint stringlen, BluefishTextView * bt2)
 {
 	GtkTextIter start;
 	g_print("bftextview2_insert_text_lcb, stringlen=%d\n",stringlen);
@@ -103,72 +106,78 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer *buffer, GtkTextIter *locatio
 			}
 		}
 	}
-	bftextview2_reset_user_idle_timer((Tbftextview2 *)widget);
+	bftextview2_reset_user_idle_timer(BLUEFISH_TEXT_VIEW (widget));
 }
 
 /* *************************************************************** */
 /* widget stuff below */
 /* *************************************************************** */
-static GtkTextViewClass *parent_class = NULL;
 
-static void bftextview2_class_init(Tbftextview2Class * c)
-{
-	parent_class = g_type_class_ref(GTK_TYPE_TEXT_VIEW);
+static void bluefish_text_view_finalize (GObject *object)
+{	
+  G_OBJECT_CLASS (bluefish_text_view_parent_class)->finalize (object);
 }
 
-static void bftextview2_init(Tbftextview2 * bt2)
+static GObject * bluefish_text_view_create (GType type,
+                                            guint n_construct_properties,
+                                            GObjectConstructParam *construct_properties)
 {
-	bt2->user_idle_timer = g_timer_new();
-	bt2->scancache.stackcaches = g_sequence_new(NULL);
-
+  BluefishTextViewClass *klass = BLUEFISH_TEXT_VIEW_CLASS (g_type_class_peek (BLUEFISH_TYPE_TEXT_VIEW));
+  GObjectClass *parent_class = G_OBJECT_CLASS (g_type_class_peek_parent (klass));
+  GObject *obj = parent_class->constructor (type,
+                                            n_construct_properties,
+                                            construct_properties);
+	
+	/* This constructor is not needed right now */
+	
+  return (obj);
 }
 
-GType bftextview2_get_type(void)
+static void bluefish_text_view_class_init(BluefishTextViewClass *klass)
 {
-	static GType type = 0;
+	GObjectClass *object_class = G_OBJECT_CLASS (klass);
 
-	if (type == 0) {
-		static const GTypeInfo info = {
-			sizeof(Tbftextview2Class),
-			(GBaseInitFunc) NULL,
-			(GBaseFinalizeFunc) NULL,
-			(GClassInitFunc) bftextview2_class_init,
-			(GClassFinalizeFunc) NULL,
-			NULL /* class_data */ ,
-			sizeof(Tbftextview2),
-			0 /* n_preallocs */ ,
-			(GInstanceInitFunc) bftextview2_init,
-			NULL
-		};
-		type = g_type_register_static(GTK_TYPE_TEXT_VIEW, "bftextview2", &info, (GTypeFlags) 0);
-	}
-	return type;
+	object_class->constructor = bluefish_text_view_create;
+  object_class->finalize = bluefish_text_view_finalize;
 }
 
-GtkWidget *bftextview2_new(void)
+static void bluefish_text_view_init(BluefishTextView *textview)
 {
 	PangoFontDescription *font_desc;
-	Tbftextview2 *o = ((Tbftextview2 *) g_object_new(bftextview2_get_type(), NULL));
 	
-	/*g_signal_connect(G_OBJECT(o), "expose-event", G_CALLBACK(bftextview2_expose_lcb), NULL);*/
-	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "insert-text",
-						   G_CALLBACK(bftextview2_insert_text_lcb), o);
-	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "mark-set",
-							   G_CALLBACK(bftextview2_mark_set_lcb), o);
+	textview->user_idle_timer = g_timer_new();
+	textview->scancache.stackcaches = g_sequence_new(NULL);
+	
 	font_desc = pango_font_description_from_string("Monospace 10");
-	gtk_widget_modify_font(GTK_WIDGET(o), font_desc);
+	gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
 	pango_font_description_free(font_desc);
-
-	return (GtkWidget *) o;
 }
 
-GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
+GtkWidget * bftextview2_new(void)
 {
-	Tbftextview2 *o = (Tbftextview2 *)bftextview2_new();
-	gtk_text_view_set_buffer(GTK_TEXT_VIEW(o), buffer);
-	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "insert-text",
-						   G_CALLBACK(bftextview2_insert_text_lcb), o);
-	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(o))), "mark-set",
-							   G_CALLBACK(bftextview2_mark_set_lcb), o);
-	return (GtkWidget *) o;
+	BluefishTextView *textview = (BluefishTextView *) g_object_new(BLUEFISH_TYPE_TEXT_VIEW, NULL);
+	
+	g_return_val_if_fail (textview != NULL, NULL);
+
+	return GTK_WIDGET (textview);
+}
+
+GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer)
+{
+	BluefishTextView *textview = (BluefishTextView *) bftextview2_new();
+	
+	g_return_val_if_fail (textview != NULL, NULL);
+	/* If for some reason we cannot create the text view, we return NULL.
+	 * We don't want to call *set_buffer() on a NULL value.
+	 */
+	
+	gtk_text_view_set_buffer(GTK_TEXT_VIEW(textview), buffer);
+	
+	/*g_signal_connect(G_OBJECT(o), "expose-event", G_CALLBACK(bftextview2_expose_lcb), NULL);*/
+	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview))), "insert-text",
+								G_CALLBACK(bftextview2_insert_text_lcb), textview);
+	g_signal_connect_after(G_OBJECT(gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview))), "mark-set",
+								G_CALLBACK(bftextview2_mark_set_lcb), textview);
+	
+	return GTK_WIDGET (textview);
 }

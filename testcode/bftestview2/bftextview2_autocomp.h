@@ -1,2 +1,8 @@
+#ifndef _BFTEXTVIEW2_AUTOCOMP_H_
+#define _BFTEXTVIEW2_AUTOCOMP_H_
 
-void autocomp_run(Tbftextview2 *bt2);
+#include "bftextview2.h"
+
+void autocomp_run(BluefishTextView *bt2);
+
+#endif /* _BFTEXTVIEW2_AUTOCOMP_H_ */

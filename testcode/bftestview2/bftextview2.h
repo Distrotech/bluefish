@@ -68,6 +68,7 @@ to different results (different color, different context).
 
 #define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */
 
+
 /*****************************************************************/
 /* building the automata and autocompletion cache */
 /*****************************************************************/
@@ -153,21 +154,39 @@ typedef struct {
 							each position where the stack changes so we can restart scanning 
 							on any location */
 } Tscancache;
+
+
 /*****************************************************************/
 /* stuff for the widget */
 /*****************************************************************/
-typedef struct {
-	GtkTextView __parent__;
+
+#define BLUEFISH_TYPE_TEXT_VIEW            (bluefish_text_view_get_type ())
+#define BLUEFISH_TEXT_VIEW(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), BLUEFISH_TYPE_TEXT_VIEW, BluefishTextView))
+#define BLUEFISH_TEXT_VIEW_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), BLUEFISH_TYPE_TEXT_VIEW, BluefishTextViewClass))
+#define BLUEFISH_IS_TEXT_VIEW(obj)         (G_TYPE_CHECK_INSTANCE_TYPE((obj), BLUEFISH_TYPE_TEXT_VIEW))
+#define BLUEFISH_IS_TEXT_VIEW_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), BLUEFISH_TYPE_TEXT_VIEW))
+#define BLUEFISH_TEXT_VIEW_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), BLUEFISH_TYPE_TEXT_VIEW, BluefishTextViewClass))
+
+typedef struct _BluefishTextView BluefishTextView;
+typedef struct _BluefishTextViewClass BluefishTextViewClass;
+
+struct _BluefishTextView {
+	GtkTextView parent;
 	Tscantable *scantable;
 	Tscancache scancache;
 	guint scanner_idle; /* event ID for the idle function that handles the scanning. 0 if no idle function is running */
 	GTimer *user_idle_timer;
 	guint user_idle; /* event ID for the timed function that handles user idle events such as autocompletion popups */
-} Tbftextview2;
+};
 
-typedef struct {
-	GtkTextViewClass __parent__;
-} Tbftextview2Class;
+struct _BluefishTextViewClass {
+	GtkTextViewClass parent_class;
+};
+
+GType bluefish_text_view_get_type (void);
+
+GtkWidget * bftextview2_new(void);
+GtkWidget * bftextview2_new_with_buffer(GtkTextBuffer * buffer);
 
 extern Tscantable scantable;
 

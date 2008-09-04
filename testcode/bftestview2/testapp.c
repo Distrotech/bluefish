@@ -1,6 +1,7 @@
 #include <gtk/gtk.h>
 #include <gio/gio.h>
 #include "bftextview2.h"
+#include "bftextview2_patcompile.h"
 
 void on_window_destroy(GtkWidget * widget, gpointer data)
 {
@@ -17,7 +18,7 @@ int main(int argc, char *argv[])
 {
 	GtkWidget *window, *scroll;
 	GtkWidget *vbox;
-	Tbftextview2 *text_view;
+	GtkWidget *text_view;
 	GtkWidget *button;
 	GtkTextBuffer *buffer;
 	gchar *data = NULL;
@@ -44,7 +45,7 @@ int main(int argc, char *argv[])
 	gtk_text_buffer_create_tag(buffer,"needscanning",NULL);
 	gtk_text_buffer_create_tag(buffer,"blockmatch","background","red","foreground","white",NULL);
 	text_view = bftextview2_new_with_buffer(buffer);
-	text_view->scantable = bftextview2_scantable_new(buffer);
+	BLUEFISH_TEXT_VIEW (text_view)->scantable = bftextview2_scantable_new(buffer);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC,
 								   GTK_POLICY_AUTOMATIC);

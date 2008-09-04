@@ -1,5 +1,5 @@
+#include <string.h>
 #include <gdk/gdkkeysyms.h>
-#include "bftextview2.h"
 #include "bftextview2_scanner.h"
 #include "bftextview2_autocomp.h"
 
@@ -80,7 +80,7 @@ static Tacwin *acwin_create(void) {
 	return acw;
 }
 
-static void acwin_position_at_cursor(Tacwin *acwin, Tbftextview2 *bt2) {
+static void acwin_position_at_cursor(Tacwin *acwin, BluefishTextView *bt2) {
 	GtkTextIter it;
 	GdkRectangle rect;
 	GdkScreen *screen;
@@ -89,9 +89,9 @@ static void acwin_position_at_cursor(Tacwin *acwin, Tbftextview2 *bt2) {
 	screen = gtk_widget_get_screen(GTK_WIDGET(bt2));
 	
 	gtk_text_buffer_get_iter_at_mark(buffer,&it,gtk_text_buffer_get_insert(buffer));
-	gtk_text_view_get_iter_location(bt2,&it,&rect);
-	gtk_text_view_buffer_to_window_coords(bt2, GTK_TEXT_WINDOW_TEXT, rect.x, rect.y,&rect.x, &rect.y);
-	gdk_window_get_origin(gtk_text_view_get_window(bt2,GTK_TEXT_WINDOW_TEXT),&x,&y);
+	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(bt2),&it,&rect);
+	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(bt2), GTK_TEXT_WINDOW_TEXT, rect.x, rect.y,&rect.x, &rect.y);
+	gdk_window_get_origin(gtk_text_view_get_window(GTK_TEXT_VIEW(bt2),GTK_TEXT_WINDOW_TEXT),&x,&y);
 	
 	gtk_window_move(GTK_WINDOW(acwin->win),rect.x+x ,rect.y+y);
 }
@@ -114,7 +114,7 @@ static gchar *autocomp_get_prefix_at_location(GtkTextBuffer *buffer, GtkTextIter
 	return gtk_text_buffer_get_text(buffer,&start,location,TRUE);
 }
 
-void autocomp_run(Tbftextview2 *bt2) {
+void autocomp_run(BluefishTextView *bt2) {
 	GtkTextMark *mark;
 	Tcontext *context;
 	GtkTextIter iter;
