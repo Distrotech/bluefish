@@ -1,5 +1,8 @@
 /* for the design docs see bftextview2.h */
 
+#include <gtk-2.0/gdk/gdkevents.h>
+#include <gtk-2.0/gtk/gtkwidget.h>
+
 #include "bftextview2.h"
 #include "bftextview2_scanner.h"
 #include "bftextview2_patcompile.h"
@@ -123,29 +126,31 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 	GdkRectangle rect;
 	gint i;
 	PangoLayout *panlay;
-	GdkWindow *left_win;
 	
-	gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
-	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &startvisible, rect.y, NULL);
-	gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
-	
-	left_win = gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT);
-	it = startvisible;
-	panlay = gtk_widget_create_pango_layout(widget, "x");
-	for (i = gtk_text_iter_get_line(&startvisible); i <= gtk_text_iter_get_line(&endvisible); i++) {
-		gint w;
-		gchar *string;
-		
-		gtk_text_iter_set_line(&it, i);
-		gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, NULL);
-		gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT, 0, w,NULL, &w);
-		
-		string = g_strdup_printf("%d", 1 + i);
-		pango_layout_set_markup(panlay, string, -1);
-		gdk_draw_layout(GDK_DRAWABLE(left_win),widget->style->text_gc[GTK_WIDGET_STATE(widget)], 2, w, panlay);
-		g_free(string);
+	if (event->window == gtk_text_view_get_window (GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT)) {
+		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &startvisible, rect.y, NULL);
+		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
+
+		it = startvisible;
+		panlay = gtk_widget_create_pango_layout(widget, "x");
+		for (i = gtk_text_iter_get_line(&startvisible); i <= gtk_text_iter_get_line(&endvisible); i++) {
+			gint w;
+			gchar *string;
+
+			gtk_text_iter_set_line(&it, i);
+			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, NULL);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT, 0, w,NULL, &w);
+
+			string = g_strdup_printf("%d", 1 + i);
+			pango_layout_set_markup(panlay, string, -1);
+			gtk_paint_layout(widget->style,event->window,GTK_WIDGET_STATE (widget),FALSE,NULL,widget,NULL,2,w,panlay);
+			g_free(string);
+		}
+		g_object_unref(G_OBJECT(panlay));
+		return TRUE;
 	}
-	g_object_unref(G_OBJECT(panlay));
+	
 	return FALSE;
 }
 
