@@ -19,7 +19,15 @@ static gint stackcache_compare_charoffset(gconstpointer a,gconstpointer b,gpoint
 	return ((Tfoundstack *)a)->charoffset - ((Tfoundstack *)b)->charoffset; 
 }
 
-static Tfoundstack *get_stackcache_at_position(BluefishTextView * bt2, GtkTextIter *position, GSequenceIter ** retsiter) {
+Tfoundstack *get_stackcache_next(BluefishTextView * bt2, GSequenceIter ** siter) {
+	*siter = g_sequence_iter_next(*siter);
+	if (*siter && !g_sequence_iter_is_end(*siter)) {
+		return g_sequence_get(*siter);
+	}
+	return NULL;
+}
+
+Tfoundstack *get_stackcache_at_position(BluefishTextView * bt2, GtkTextIter *position, GSequenceIter ** retsiter) {
 	GSequenceIter* siter;
 	Tfoundstack fakefstack;
 	Tfoundstack *fstack=NULL;
@@ -58,7 +66,7 @@ static void scancache_update_all_foreach(gpointer data, gpointer user_data) {
 } 
 
 static void scancache_update_all_positions(BluefishTextView *bt2, GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end) {
-	/* loop over all items in the scancache and update the offsets */
+	
 	if (start && end) {
 		GSequenceIter *siter;
 		Tfoundstack *fstack;
@@ -79,6 +87,7 @@ static void scancache_update_all_positions(BluefishTextView *bt2, GtkTextBuffer 
 		}
 		bt2->scancache.stackcache_need_update_charoffset = end_offset;
 	} else {
+		/* loop over all items in the scancache and update the offsets */
 		g_sequence_foreach(bt2->scancache.stackcaches,scancache_update_all_foreach,buffer);
 		bt2->scancache.stackcache_need_update_charoffset = -1;
 	}
@@ -254,6 +263,23 @@ Tcontext *get_context_at_position(BluefishTextView * bt2, GtkTextIter *position)
 	return &g_array_index(bt2->scantable->contexts,Tcontext,0);
 }
 
+static void remove_old_matches_at_iter(BluefishTextView *btv, GtkTextBuffer *buffer, GtkTextIter *iter) {
+	GSList *toggles, *tmplist;
+	/* remove any toggled tags */
+	toggles = tmplist = gtk_text_iter_get_toggled_tags(iter,FALSE);
+	while (tmplist) {
+		GtkTextIter tmpit;
+		tmpit = *iter;
+		gtk_text_iter_forward_to_tag_toggle(&tmpit,tmplist->data);
+		g_print("%s:%d, removing tag %p from %d to %d\n",__FILE__,__LINE__,tmplist->data,gtk_text_iter_get_offset(iter),gtk_text_iter_get_offset(&tmpit));
+		gtk_text_buffer_remove_tag(buffer,tmplist->data,iter,&tmpit);
+		tmplist = g_slist_next(tmplist);
+	}
+	g_slist_free(toggles);
+	/* TODO see if there are any old blockstack or context changes */
+	
+}
+
 gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 {
 	GtkTextBuffer *buffer;
@@ -294,6 +320,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 	if (gtk_text_iter_is_start(&start)) {
 		scanning.contextstack = g_queue_new();
 		scanning.blockstack = g_queue_new();
+		/*siter = g_sequence_iter_first(bt2->scancache.stackcaches);*/
 	} else {
 		/* reconstruct the context stack and the block stack */
 		reconstruct_stack(bt2, buffer, &iter, &scanning);
@@ -335,6 +362,8 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 				we have to rescan this char */
 				mstart = iter;
 			} else {
+				/* no match at mstart, so mstart should not toggle any tags */
+				/*remove_old_matches_at_iter(bt2,buffer,&mstart);*/
 				/*g_print("set newpos to %d for context %d\n",newpos,scanning.context);*/
 				/* if there was no match we revert to the previoud could-have-been-start,
 				advance once character and resume scanning */
