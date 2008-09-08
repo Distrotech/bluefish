@@ -5,9 +5,11 @@
 
 
 typedef struct {
+	BluefishTextView *bt2;
 	GtkWidget *win;
 	GtkListStore *store;
 	GtkTreeView *tree;
+	GtkWidget *reflabel;
 } Tacwin;
 
 static void acwin_cleanup(Tacwin * acw) {
@@ -31,15 +33,37 @@ static gboolean acwin_key_release_lcb(GtkWidget *widget,GdkEventKey *event,gpoin
 	return FALSE;
 }
 
-static Tacwin *acwin_create(void) {
+static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
+		gchar *key;
+		gtk_tree_model_get(model,&iter,0,&key,-1);
+		if (key) {
+			gchar *string = g_hash_table_lookup(acw->bt2->scantable->reference,key);
+			if (string) {
+				g_print("show %s\n",string);
+				gtk_label_set_markup(GTK_LABEL(acw->reflabel),string);
+				gtk_widget_show(acw->reflabel);
+				gtk_widget_set_size_request(acw->win, 300, 200);
+				return;
+			}
+		}
+	}
+	gtk_widget_hide(acw->reflabel);
+	gtk_widget_set_size_request(acw->win, 150, 200);
+}
+
+static Tacwin *acwin_create(BluefishTextView *bt2) {
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
-	GtkWidget *scroll, *vbar;
+	GtkWidget *scroll, *vbar, *hbox;
 	GtkTreeModel *sortmodel;
 	Tacwin * acw;
+	GtkTreeSelection* selection;
 	
 	acw = g_new0(Tacwin,1);
-	
+	acw->bt2 = bt2;
 	acw->win = gtk_dialog_new();
 	gtk_widget_set_app_paintable(acw->win, TRUE);
 	gtk_window_set_resizable(GTK_WINDOW(acw->win), FALSE);
@@ -64,16 +88,27 @@ static Tacwin *acwin_create(void) {
 	column = gtk_tree_view_column_new_with_attributes("", cell, "markup", 0, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(acw->tree), column);
 	gtk_tree_view_set_enable_search(GTK_TREE_VIEW(acw->tree),FALSE);
+	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(acw->tree));
+	g_signal_connect(G_OBJECT(selection),"changed",acw_selection_changed_lcb,acw);
+	
 /*	gtk_tree_view_set_search_column(GTK_TREE_VIEW(acw->tree),1);
 	gtk_tree_view_set_search_equal_func(GTK_TREE_VIEW(acw->tree),acwin_tree_search_lcb,prefix,NULL);*/
 	
 	/*g_signal_connect_swapped(GTK_WINDOW(acw->win),"expose-event",G_CALLBACK(ac_paint),acw->win);*/
 	/*gtk_window_set_position (GTK_WINDOW(acw->win), GTK_WIN_POS_MOUSE);*/
 	gtk_container_add(GTK_CONTAINER(scroll), GTK_WIDGET(acw->tree));
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(acw->win)->vbox),scroll,TRUE,TRUE,0);
+
+	hbox = gtk_hbox_new(FALSE,0);
+	gtk_box_pack_start(GTK_BOX(hbox),scroll,TRUE,TRUE,0);
+	acw->reflabel = gtk_label_new(NULL);
+	gtk_label_set_line_wrap(GTK_LABEL(acw->reflabel),TRUE);
+	gtk_box_pack_start(GTK_BOX(hbox),acw->reflabel,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(acw->win)->vbox),hbox,TRUE,TRUE,0);
+	gtk_widget_set_size_request(acw->reflabel,150,-1);
 	gtk_widget_show_all(scroll);
+	gtk_widget_show(hbox);
 	/*gtk_widget_set_size_request(GTK_WIDGET(acw->tree),100,200);*/
-	gtk_widget_set_size_request(acw->win, 100, 200);
+	gtk_widget_set_size_request(acw->win, 150, 200);
 	g_signal_connect(G_OBJECT(acw->win),"key-release-event",G_CALLBACK(acwin_key_release_lcb),acw);
 
 	gtk_widget_hide(GTK_DIALOG(acw->win)->action_area);
@@ -140,7 +175,7 @@ void autocomp_run(BluefishTextView *bt2) {
 			if (items) {
 				Tacwin * acw;
 				/* create the GUI and run */
-				acw = acwin_create();
+				acw = acwin_create(bt2);
 				acwin_fill_tree(acw, items);
 				acwin_position_at_cursor(acw,bt2);
 				if (gtk_dialog_run(GTK_DIALOG(acw->win)) ==GTK_RESPONSE_OK ) {

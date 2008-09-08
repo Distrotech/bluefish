@@ -16,6 +16,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	st->table = g_array_sized_new(FALSE,TRUE,sizeof(Ttablerow), 100);
 	st->contexts = g_array_sized_new(FALSE,TRUE,sizeof(Tcontext), 3);
 	st->matches = g_array_sized_new(FALSE,TRUE,sizeof(Tpattern), 10);
+	st->reference = g_hash_table_new(g_str_hash,g_str_equal);
 
 	/* we don't build a automata from patterns right now, because I'm not
 	very satisfied with my previous attempt to code that.. 
@@ -38,6 +39,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		GList *list = g_list_prepend(NULL, "void"); 
 		g_completion_add_items(g_array_index(st->contexts, Tcontext, 0).ac, list);
 		g_list_free(list);
+		g_hash_table_insert(st->reference,"void","A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
 	}
 
 	g_array_index(st->table, Ttablerow, 0).row['{'] = 1;

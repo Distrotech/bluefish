@@ -101,6 +101,7 @@ typedef struct {
 	GArray *table; /* dynamic sized array of Ttablerow: the DFA table */
 	GArray *contexts; /* dynamic sized array of Tcontext that translates a context number into a rownumber in the DFA table */
 	GArray *matches; /* dynamic sized array of Tpattern */
+	GHashTable *reference; /* reference help for each autocompletion item */
 } Tscantable;
 
 /*****************************************************************/
