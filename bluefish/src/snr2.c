@@ -1778,9 +1778,14 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 			gchar *replacestring, *type, *xhtmlend;
 			DEBUG_MSG("update_encoding_meta_in_file, we have a match, nmatch=%d\n",result.nmatch);
 			if (result.nmatch > 2) {
-				type = g_strndup(fulltext+result.pmatch[1].rm_so, result.pmatch[1].rm_eo - result.pmatch[1].rm_so);
-				xhtmlend = g_strndup(fulltext+result.pmatch[2].rm_so, result.pmatch[2].rm_eo - result.pmatch[2].rm_so);
+				gchar *offset;
+				
+				offset = g_utf8_offset_to_pointer(fulltext,result.pmatch[1].rm_so);
+				type = g_strndup(offset, result.pmatch[1].rm_eo - result.pmatch[1].rm_so);
+				offset = g_utf8_offset_to_pointer(fulltext,result.pmatch[2].rm_so);
+				xhtmlend = g_strndup(offset, result.pmatch[2].rm_eo - result.pmatch[2].rm_so);
 				DEBUG_MSG("update_encoding_meta_in_file, type=%s (bstart=%d, bend=%d, so[1]=%d, eo[1]=%d)\n",type,result.bstart,result.bend,result.pmatch[1].rm_so,result.pmatch[1].rm_eo);
+				g_free(result.pmatch);
 			} else {
 				type = g_strdup("text/html");
 				xhtmlend = g_strdup( main_v->props.xhtml ? "/" : "");
