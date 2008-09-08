@@ -118,7 +118,14 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer *buffer, GtkTextIter *locatio
 static void bftextview2_set_margin_size(BluefishTextView *bt2) {
 	/* TODO: this should be calculated based on the number of lines in the text, 
 	whether or not we have bookmarks, and whether or not we have block folding */
-	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(bt2), GTK_TEXT_WINDOW_LEFT,25);
+	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(bt2), GTK_TEXT_WINDOW_LEFT,30);
+}
+
+static void print_fstack(Tfoundstack *fstack) {
+	g_print("got fstack %p for next position",fstack);
+	if (fstack)
+		g_print(" with line %d and charoffset %d and %d blocks",fstack->line,fstack->charoffset,g_queue_get_length(fstack->blockstack));
+	g_print("\n");
 }
 
 static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose * event, gpointer data) {
@@ -137,22 +144,30 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
 
 		/* to see how many blocks are active here */
-		fstack = get_stackcache_at_position(bt2, &startvisible, &siter);
-		if (fstack) {
-			num_blocks = g_queue_get_length(fstack->blockstack);
-		} else {
+		if (gtk_text_iter_is_start(&startvisible)) {
+			siter = g_sequence_get_begin_iter(bt2->scancache.stackcaches);
 			num_blocks = 0;
+			g_print("EXPOSE: start at begin, set num_blocks %d\n",num_blocks);
+		} else {
+			fstack = get_stackcache_at_position(bt2, &startvisible, &siter);
+			if (fstack) {
+				num_blocks = g_queue_get_length(fstack->blockstack);
+				g_print("EXPOSE: got fstack %p with line %d and charoffset %d and num_blocks %d for start position %d\n",fstack,fstack->line,fstack->charoffset,num_blocks,gtk_text_iter_get_offset(&startvisible));
+			} else {
+				num_blocks = 0;
+			}
 		}
 		fstack = get_stackcache_next(bt2, &siter);
+		print_fstack(fstack);
 
 		it = startvisible;
 		panlay = gtk_widget_create_pango_layout(widget, "x");
 		for (i = gtk_text_iter_get_line(&startvisible); i <= gtk_text_iter_get_line(&endvisible); i++) {
-			gint w;
+			gint w,height;
 			gchar *string;
 
 			gtk_text_iter_set_line(&it, i);
-			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, NULL);
+			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, &height);
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT, 0, w,NULL, &w);
 
 			/* line numbers */
@@ -163,19 +178,23 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 			g_free(string);
 			
 			/* block folding */
-			if (fstack && fstack->line == i+1) { /* the Tfoundstack is on this line, expand or collapse ? */
+			if (fstack && fstack->line == i) { /* the Tfoundstack is on this line, expand or collapse ? */
+				g_print("expander on line %d (for the user line %d)\n",i,i+1);
 				gtk_paint_box(widget->style,event->window,GTK_WIDGET_STATE(widget),GTK_SHADOW_NONE,
-						NULL,widget,NULL,15,w,8,8);
-				gtk_paint_box(widget->style,event->window,GTK_WIDGET_STATE(widget),GTK_SHADOW_NONE,
-						NULL,widget,"bg",15,w,8,8);
+						NULL,widget,NULL,21,w+(height/2-4),8,8);
+				/*gtk_paint_box(widget->style,event->window,GTK_WIDGET_STATE(widget),GTK_SHADOW_NONE,
+						NULL,widget,"bg",20,w,8,8);*/
+				num_blocks = g_queue_get_length(fstack->blockstack);
 				do {
 					fstack = get_stackcache_next(bt2, &siter);
-				} while (fstack && fstack->line == i+1);
+					print_fstack(fstack);
+				} while (fstack && fstack->line == i);
 			} else { /* not on this line, draw line  or nothing ? */
 				if (num_blocks > 0) {
+					g_print("draw line on line %d (for the user line %d)\n",i,i+1);
 					/* draw line */
 					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE(widget),
-						NULL,widget,NULL,w,w+8,15);
+						NULL,widget,NULL,w,w+height,25);
 				}
 			}
 		}

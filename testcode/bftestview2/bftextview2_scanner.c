@@ -44,7 +44,7 @@ Tfoundstack *get_stackcache_at_position(BluefishTextView * bt2, GtkTextIter *pos
 			fstack = g_sequence_get(siter);
 			if (retsiter)
 				*retsiter = siter;
-			g_print("found nearest stack at charoffset %d\n",fstack->charoffset);
+			g_print("found nearest stack %p with charoffset %d\n",fstack,fstack->charoffset);
 		} else {
 			g_print("no siter no stack\n");
 		}
