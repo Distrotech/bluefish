@@ -256,7 +256,7 @@ gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *bu
 	DEBUG_MSG("file_checkNsave_uri_async, saving %ld bytes to ",(long int)cns->buffer_size);
 	DEBUG_URI(cns->uri, TRUE);
 	g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
-					,cns->etag,TRUE
+					,cns->etag,main_v->props.backup_file ? TRUE : FALSE
 					,G_FILE_CREATE_NONE,NULL
 					,checkNsave_replace_async_lcb,cns);
 	return cns;
