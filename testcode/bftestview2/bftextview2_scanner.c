@@ -102,7 +102,7 @@ static void add_to_scancache(BluefishTextView * bt2,GtkTextBuffer *buffer,Tscann
 	fstack->blockstack = g_queue_copy(scanning->blockstack);
 	fstack->mark = where;
 	foundstack_update_positions(buffer, fstack);
-	g_print("add_to_scancache, put the stacks in the cache\n");
+	g_print("add_to_scancache, put the stacks in the cache at charoffset %d / line %d\n",fstack->charoffset,fstack->line);
 	g_sequence_insert_sorted(bt2->scancache.stackcaches,fstack,stackcache_compare_charoffset,NULL);
 }
 
@@ -258,8 +258,10 @@ Tcontext *get_context_at_position(BluefishTextView * bt2, GtkTextIter *position)
 		if (fcontext) {
 			g_print("found context %d\n",fcontext->context);
 			return &g_array_index(bt2->scantable->contexts,Tcontext,fcontext->context);
-		}
-	}
+		} else 
+			g_print("no context on stack, return context 0\n");
+	} else 
+		g_print("no stack, no context, return context 0\n");
 	return &g_array_index(bt2->scantable->contexts,Tcontext,0);
 }
 

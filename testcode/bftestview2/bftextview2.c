@@ -146,8 +146,9 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 		/* to see how many blocks are active here */
 		if (gtk_text_iter_is_start(&startvisible)) {
 			siter = g_sequence_get_begin_iter(bt2->scancache.stackcaches);
+			fstack = g_sequence_get(siter);
 			num_blocks = 0;
-			g_print("EXPOSE: start at begin, set num_blocks %d\n",num_blocks);
+			g_print("EXPOSE: start at begin, set num_blocks %d, fstack=%p\n",num_blocks,fstack);
 		} else {
 			fstack = get_stackcache_at_position(bt2, &startvisible, &siter);
 			if (fstack) {
@@ -157,7 +158,13 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 				num_blocks = 0;
 			}
 		}
-		fstack = get_stackcache_next(bt2, &siter);
+		/* in the case that the *first* fstack is relevant, we don't need 
+		the 'next' fstack*/
+		if (!fstack || fstack->charoffset < gtk_text_iter_get_offset(&startvisible)) {
+			g_print("get next fstack..\n");
+			fstack = get_stackcache_next(bt2, &siter);
+		}
+		g_print("first fstack ");
 		print_fstack(fstack);
 
 		it = startvisible;
@@ -179,19 +186,38 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 			
 			/* block folding */
 			if (fstack && fstack->line == i) { /* the Tfoundstack is on this line, expand or collapse ? */
-				g_print("expander on line %d (for the user line %d)\n",i,i+1);
-				gtk_paint_box(widget->style,event->window,GTK_WIDGET_STATE(widget),GTK_SHADOW_NONE,
-						NULL,widget,NULL,21,w+(height/2-4),8,8);
-				/*gtk_paint_box(widget->style,event->window,GTK_WIDGET_STATE(widget),GTK_SHADOW_NONE,
-						NULL,widget,"bg",20,w,8,8);*/
-				num_blocks = g_queue_get_length(fstack->blockstack);
+				gint tmp = g_queue_get_length(fstack->blockstack);
+				if (tmp > num_blocks) {
+					g_print("fstack num_blocks=%d, old num_blocks=%d, expander (box from x 21, y %d) on line %d (for the user line %d)\n",tmp,num_blocks,w+(height/2-4),i,i+1);
+					gtk_paint_box(widget->style,event->window,GTK_WIDGET_STATE(widget),GTK_SHADOW_OUT,
+							NULL,widget,NULL,21,w+(height/2-4),9,9);
+					gtk_paint_hline(widget->style,event->window,GTK_WIDGET_STATE(widget),
+						NULL,widget,NULL,23,28,w+(height/2));
+					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE(widget),
+						NULL,widget,NULL,w+(height/2)+4,w+height,25);
+
+					/*gtk_paint_box(widget->style,event->window,GTK_WIDGET_STATE(widget),GTK_SHADOW_NONE,
+							NULL,widget,"bg",20,w,8,8);*/
+					num_blocks = g_queue_get_length(fstack->blockstack);
+				} else if (tmp < num_blocks) {
+					g_print("end of block\n");
+					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE(widget),
+						NULL,widget,NULL,w,w+(height/2),25);
+					gtk_paint_hline(widget->style,event->window,GTK_WIDGET_STATE(widget),
+						NULL,widget,NULL,25,29,w+(height/2));
+					num_blocks = g_queue_get_length(fstack->blockstack);
+				} else {
+					g_print("no blockstack change, fstack has %d, num_blocks=%d, draw line\n",tmp,num_blocks);
+					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE(widget),
+						NULL,widget,NULL,w,w+height,25);
+				}
 				do {
 					fstack = get_stackcache_next(bt2, &siter);
 					print_fstack(fstack);
 				} while (fstack && fstack->line == i);
 			} else { /* not on this line, draw line  or nothing ? */
 				if (num_blocks > 0) {
-					g_print("draw line on line %d (for the user line %d)\n",i,i+1);
+					g_print("draw line (line from x 25 y %d to %d) on line %d (for the user line %d)\n",w,w+height,i,i+1);
 					/* draw line */
 					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE(widget),
 						NULL,widget,NULL,w,w+height,25);
