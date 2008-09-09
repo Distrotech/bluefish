@@ -113,6 +113,7 @@ typedef struct {
 	GtkTextMark *start2;
 	GtkTextMark *end2;
 	gint patternum;
+	guint refcount; /* free on 0 */
 } Tfoundblock; /* once a start-of-block is found start1 and end1 are set 
 						and the Tfoundblock is added to the GtkTextMark's as "block"
 						and the Tfoundblock is added to the current blockstack.
@@ -127,6 +128,7 @@ typedef struct {
 	GtkTextMark *start;
 	GtkTextMark *end;
 	gint context;
+	guint refcount; /* free on 0 */
 } Tfoundcontext; /* once a start-of-context is found start is set 
 						and the Tfoundcontext is added to the GtkTextMark as "context"
 						and the Tfoundcontext is added to the current contextstack.

@@ -93,6 +93,41 @@ static void scancache_update_all_positions(BluefishTextView *bt2, GtkTextBuffer 
 	}
 	g_print("done updating stackcaches offsets\n");
 }
+static void foundblock_unref(Tfoundblock *fblock, GtkTextBuffer *buffer) {
+	fblock->refcount--;
+	if (fblock->refcount == 0) {
+		/* remove marks */
+		gtk_text_buffer_delete_mark(buffer,fblock->start1);
+		gtk_text_buffer_delete_mark(buffer,fblock->end1);
+		if (fblock->start2 && fblock->end2) {
+			gtk_text_buffer_delete_mark(buffer,fblock->start2);
+			gtk_text_buffer_delete_mark(buffer,fblock->end2);
+		}
+		g_slice_free(Tfoundblock,fblock);
+	}
+}
+static void foundcontext_unref(Tfoundcontext *fcontext, GtkTextBuffer *buffer) {
+	fcontext->refcount--;
+	if (fcontext->refcount == 0) {
+		/* remove marks */
+		gtk_text_buffer_delete_mark(buffer,fcontext->start);
+		gtk_text_buffer_delete_mark(buffer,fcontext->end);
+		g_slice_free(Tfoundcontext,fcontext);
+	}
+}
+static void foundcontext_foreach_unref_lcb(gpointer data,gpointer user_data) {
+	foundcontext_unref(data,gtk_text_view_get_buffer(user_data));
+}
+static void foundblock_foreach_unref_lcb(gpointer data,gpointer user_data) {
+	foundblock_unref(data,gtk_text_view_get_buffer(user_data));
+}
+void foundstack_free_lcb(gpointer data, gpointer bt2) {
+	Tfoundstack *fstack = data;
+	/* unref all contexts and blocks */
+	g_queue_foreach(fstack->blockstack,foundblock_foreach_unref_lcb,bt2);
+	g_queue_foreach(fstack->contextstack,foundcontext_foreach_unref_lcb,bt2);
+	g_slice_free(Tfoundstack,fstack);
+}
 
 static void add_to_scancache(BluefishTextView * bt2,GtkTextBuffer *buffer,Tscanning *scanning, GtkTextMark *where) {
 	Tfoundstack *fstack;
