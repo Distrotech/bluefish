@@ -282,6 +282,23 @@ static void remove_old_matches_at_iter(BluefishTextView *btv, GtkTextBuffer *buf
 	
 }
 
+static void remove_old_scan_results(BluefishTextView *btv, GtkTextBuffer *buffer, GtkTextIter *fromhere) {
+	GtkTextIter end;
+	Tfoundstack *fstack=NULL;
+	GSequenceIter *sit1,*sit2;
+
+	gtk_text_buffer_get_end_iter(buffer,&end);
+	gtk_text_buffer_remove_all_tags(buffer,fromhere,&end);
+
+	fstack = get_stackcache_at_position(btv,fromhere,&sit1);
+	if (sit1) {
+		sit2 = g_sequence_get_end_iter(btv->scancache.stackcaches);
+		if (g_sequence_iter_compare(sit1,sit2)!=0) {
+			g_sequence_remove_range(sit1,sit2);
+		}
+	}	
+}
+
 gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 {
 	GtkTextBuffer *buffer;
@@ -330,9 +347,12 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 	}
 	matchstack = g_array_sized_new(FALSE,TRUE,sizeof(Tmatch),10);
 	/* TODO: when rescanning text that has been scanned before we need to remove 
-	tags and blocks, or at least check if they need to be removed (perhaps, very 
-	likely, they are still valid) */
-	
+	invalid tags and blocks. right now we remove all, but most are likely 
+	still valid */
+	remove_old_scan_results(bt2, buffer, &start);
+	/* because we remove all to the end we have to rescan to the end (I know this 
+	is stupid, should become smarter in the future )*/
+	gtk_text_iter_forward_to_end(&end);
 	do {
 		gunichar uc;
 
@@ -379,7 +399,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 		pos = newpos;
 	} while (!gtk_text_iter_equal(&iter, &end) && g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL);
 	g_print("scanned up to position %d, which took %f microseconds\n",gtk_text_iter_get_offset(&iter),g_timer_elapsed(scanning.timer,NULL));
-	gtk_text_buffer_remove_tag_by_name(buffer,"needscanning",&start,&iter);
+	gtk_text_buffer_apply_tag_by_name(buffer,"needscanning",&iter,&end);
 
 	g_timer_destroy(scanning.timer);
 	g_array_free(matchstack,TRUE);

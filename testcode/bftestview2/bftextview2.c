@@ -118,7 +118,7 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer *buffer, GtkTextIter *locatio
 static void bftextview2_set_margin_size(BluefishTextView *bt2) {
 	/* TODO: this should be calculated based on the number of lines in the text, 
 	whether or not we have bookmarks, and whether or not we have block folding */
-	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(bt2), GTK_TEXT_WINDOW_LEFT,30);
+	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(bt2), GTK_TEXT_WINDOW_LEFT,35);
 }
 
 static void print_fstack(Tfoundstack *fstack) {
@@ -209,7 +209,7 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 				} else {
 					g_print("no blockstack change, fstack has %d, num_blocks=%d, draw line\n",tmp,num_blocks);
 					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE(widget),
-						NULL,widget,NULL,w,w+height,25);
+							NULL,widget,NULL,w,w+height,25);
 				}
 				do {
 					fstack = get_stackcache_next(bt2, &siter);
@@ -220,7 +220,7 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 					g_print("draw line (line from x 25 y %d to %d) on line %d (for the user line %d)\n",w,w+height,i,i+1);
 					/* draw line */
 					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE(widget),
-						NULL,widget,NULL,w,w+height,25);
+							NULL,widget,NULL,w,w+height,25);
 				}
 			}
 		}

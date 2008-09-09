@@ -24,7 +24,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	
 	/* for testing we are going to scan for a block detected by {} and by ()
 	and we do C comments, and we scan for the keyword void */
-/*#define CSTYLEMATCHING*/
+#define CSTYLEMATCHING
 #ifdef CSTYLEMATCHING
 	g_array_set_size(st->table,14);
 	st->table->len = 14;
@@ -102,7 +102,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	g_array_index(st->matches, Tpattern, 7).selftag = storage;
 #endif /* #ifdef CSTYLEMATCHING */
 /* for more testing we try some html tags */
-#define HTMLSTYLEMATCHING
+/*#define HTMLSTYLEMATCHING*/
 #ifdef HTMLSTYLEMATCHING
 	g_array_set_size(st->table,39);
 	st->table->len = 39;
