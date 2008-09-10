@@ -193,6 +193,7 @@ void autocomp_run(BluefishTextView *bt2) {
 				}
 				acwin_cleanup(acw);
 			}
+			g_free(prefix);
 		}
 	} else {
 		DBG_MSG("no autocompletion data for context %p\n",context);

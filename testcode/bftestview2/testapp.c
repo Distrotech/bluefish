@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 	uri = g_file_new_for_commandline_arg(argv[1]);
 	g_file_load_contents(uri, NULL, &data, &datalen, NULL, NULL);
 	gtk_text_buffer_set_text(buffer, data, datalen);
-
+	g_free(data);
 	/* Create a close button. */
 	button = gtk_button_new_with_label("test");
 	gtk_box_pack_start(GTK_BOX(vbox), button, 0, 0, 0);
