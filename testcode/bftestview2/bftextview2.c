@@ -15,14 +15,14 @@ static gboolean bftextview2_user_idle_timer(gpointer data) {
 	BluefishTextView * bt2 = data;
 	guint elapsed = (guint)(1000.0 * g_timer_elapsed(bt2->user_idle_timer,NULL));
 	if (elapsed+10 >= USER_IDLE_EVENT_INTERVAL) { /* avoid delaying for less than 10 milliseconds */
-		g_print("bftextview2_user_idle_timer, user is > %d milliseconds idle!!!\n",elapsed);
+		DBG_MSG("bftextview2_user_idle_timer, user is > %d milliseconds idle!!!\n",elapsed);
 		autocomp_run(bt2);
 		bt2->user_idle = 0;
 		return FALSE;
 	} else {
 		guint nextcheck;
 		nextcheck = USER_IDLE_EVENT_INTERVAL - elapsed;
-		g_print("bftextview2_user_idle_timer, not yet elapsed (%d milliseconds idle), rechecking in %d milliseconds\n",elapsed, nextcheck);  
+		DBG_MSG("bftextview2_user_idle_timer, not yet elapsed (%d milliseconds idle), rechecking in %d milliseconds\n",elapsed, nextcheck);  
 		bt2->user_idle = g_timeout_add(nextcheck, bftextview2_user_idle_timer, bt2);
 		return FALSE;
 	}
@@ -31,7 +31,7 @@ static void bftextview2_reset_user_idle_timer(BluefishTextView * bt2) {
 	g_timer_start(bt2->user_idle_timer);
 	if (bt2->user_idle == 0) {
 		bt2->user_idle = g_timeout_add(USER_IDLE_EVENT_INTERVAL, bftextview2_user_idle_timer, bt2);
-		g_print("started user_idle timeout with event source %d and timeout %d\n",bt2->user_idle,USER_IDLE_EVENT_INTERVAL);
+		DBG_MSG("started user_idle timeout with event source %d and timeout %d\n",bt2->user_idle,USER_IDLE_EVENT_INTERVAL);
 	}
 }
 
@@ -49,7 +49,7 @@ static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * it
 {
 	GtkTextIter start;
 	gint start_offset;
-	g_print("bftextview2_insert_text_lcb, stringlen=%d\n",stringlen);
+	DBG_MSG("bftextview2_insert_text_lcb, stringlen=%d\n",stringlen);
 	if (bt2->scanner_idle == 0) {
 		bt2->scanner_idle = g_idle_add(bftextview2_scanner_idle,bt2);
 	}
@@ -59,7 +59,7 @@ static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * it
 	gtk_text_iter_backward_chars(&start,stringlen);
 
 	gtk_text_buffer_apply_tag_by_name(buffer,"needscanning",&start,iter);
-	g_print("mark text from %d to %d as needscanning\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter));
+	DBG_MSG("mark text from %d to %d as needscanning\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(iter));
 	start_offset = gtk_text_iter_get_offset(&start);
 	if (bt2->scancache.stackcache_need_update_charoffset == -1 || bt2->scancache.stackcache_need_update_charoffset > start_offset) {
 		bt2->scancache.stackcache_need_update_charoffset = start_offset;
@@ -103,12 +103,12 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer *buffer, GtkTextIter *locatio
 		if (fblock) {
 			GtkTextIter it3,it4;
 			if (fblock->start2) {
-				g_print("found a block to highlight the start and end\n");
+				DBG_MSG("found a block to highlight the start and end\n");
 				bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
 				gtk_text_buffer_apply_tag_by_name(buffer, "blockmatch", &it1,&it2);
 				gtk_text_buffer_apply_tag_by_name(buffer, "blockmatch", &it3,&it4);
 			} else {
-				g_print("block has no end - no matching\n");
+				DBG_MSG("block has no end - no matching\n");
 			}
 		}
 	}
@@ -122,10 +122,10 @@ static void bftextview2_set_margin_size(BluefishTextView *bt2) {
 }
 
 static void print_fstack(Tfoundstack *fstack) {
-	g_print("got fstack %p for next position",fstack);
+	DBG_MSG("got fstack %p for next position",fstack);
 	if (fstack)
-		g_print(" with line %d and charoffset %d and %d blocks",fstack->line,fstack->charoffset,g_queue_get_length(fstack->blockstack));
-	g_print("\n");
+		DBG_MSG(" with line %d and charoffset %d and %d blocks",fstack->line,fstack->charoffset,g_queue_get_length(fstack->blockstack));
+	DBG_MSG("\n");
 }
 
 static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose * event, gpointer data) {
@@ -135,7 +135,7 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 		GdkRectangle rect;
 		gint i;
 		PangoLayout *panlay;
-		Tfoundstack *fstack;
+		Tfoundstack *fstack=NULL;
 		GSequenceIter *siter;
 		guint num_blocks;
 		
@@ -146,14 +146,16 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 		/* to see how many blocks are active here */
 		if (gtk_text_iter_is_start(&startvisible)) {
 			siter = g_sequence_get_begin_iter(bt2->scancache.stackcaches);
-			fstack = g_sequence_get(siter);
+			if (!g_sequence_iter_is_end(siter)) {
+				fstack = g_sequence_get(siter);
+			}
 			num_blocks = 0;
-			g_print("EXPOSE: start at begin, set num_blocks %d, fstack=%p\n",num_blocks,fstack);
+			DBG_MSG("EXPOSE: start at begin, set num_blocks %d, fstack=%p\n",num_blocks,fstack);
 		} else {
 			fstack = get_stackcache_at_position(bt2, &startvisible, &siter);
 			if (fstack) {
 				num_blocks = g_queue_get_length(fstack->blockstack);
-				g_print("EXPOSE: got fstack %p with line %d and charoffset %d and num_blocks %d for start position %d\n",fstack,fstack->line,fstack->charoffset,num_blocks,gtk_text_iter_get_offset(&startvisible));
+				DBG_MSG("EXPOSE: got fstack %p with line %d and charoffset %d and num_blocks %d for start position %d\n",fstack,fstack->line,fstack->charoffset,num_blocks,gtk_text_iter_get_offset(&startvisible));
 			} else {
 				num_blocks = 0;
 			}
@@ -161,10 +163,10 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 		/* in the case that the *first* fstack is relevant, we don't need 
 		the 'next' fstack*/
 		if (!fstack || fstack->charoffset < gtk_text_iter_get_offset(&startvisible)) {
-			g_print("get next fstack..\n");
+			DBG_MSG("get next fstack..\n");
 			fstack = get_stackcache_next(bt2, &siter);
 		}
-		g_print("first fstack ");
+		DBG_MSG("first fstack ");
 		print_fstack(fstack);
 
 		it = startvisible;
@@ -188,7 +190,7 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 			if (fstack && fstack->line == i) { /* the Tfoundstack is on this line, expand or collapse ? */
 				gint tmp = g_queue_get_length(fstack->blockstack);
 				if (tmp > num_blocks) {
-					g_print("fstack num_blocks=%d, old num_blocks=%d, expander (box from x 21, y %d) on line %d (for the user line %d)\n",tmp,num_blocks,w+(height/2-4),i,i+1);
+					DBG_MSG("fstack num_blocks=%d, old num_blocks=%d, expander (box from x 21, y %d) on line %d (for the user line %d)\n",tmp,num_blocks,w+(height/2-4),i,i+1);
 					gtk_paint_box(widget->style,event->window,GTK_WIDGET_STATE(widget),GTK_SHADOW_OUT,
 							NULL,widget,NULL,21,w+(height/2-4),9,9);
 					gtk_paint_hline(widget->style,event->window,GTK_WIDGET_STATE(widget),
@@ -200,14 +202,14 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 							NULL,widget,"bg",20,w,8,8);*/
 					num_blocks = g_queue_get_length(fstack->blockstack);
 				} else if (tmp < num_blocks) {
-					g_print("end of block\n");
+					DBG_MSG("end of block\n");
 					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE(widget),
 						NULL,widget,NULL,w,w+(height/2),25);
 					gtk_paint_hline(widget->style,event->window,GTK_WIDGET_STATE(widget),
 						NULL,widget,NULL,25,29,w+(height/2));
 					num_blocks = g_queue_get_length(fstack->blockstack);
 				} else {
-					g_print("no blockstack change, fstack has %d, num_blocks=%d, draw line\n",tmp,num_blocks);
+					DBG_MSG("no blockstack change, fstack has %d, num_blocks=%d, draw line\n",tmp,num_blocks);
 					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE(widget),
 							NULL,widget,NULL,w,w+height,25);
 				}
@@ -217,7 +219,7 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 				} while (fstack && fstack->line == i);
 			} else { /* not on this line, draw line  or nothing ? */
 				if (num_blocks > 0) {
-					g_print("draw line (line from x 25 y %d to %d) on line %d (for the user line %d)\n",w,w+height,i,i+1);
+					DBG_MSG("draw line (line from x 25 y %d to %d) on line %d (for the user line %d)\n",w,w+height,i,i+1);
 					/* draw line */
 					gtk_paint_vline(widget->style,event->window,GTK_WIDGET_STATE(widget),
 							NULL,widget,NULL,w,w+height,25);

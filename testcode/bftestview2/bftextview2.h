@@ -64,6 +64,14 @@ to different results (different color, different context).
 
 #include <gtk/gtk.h>
 
+#define DBG_NONE(args...)
+ /**/
+
+#define DBG_MSG DBG_NONE
+#define DBG_SCANCACHE g_print
+
+
+
 #define NUMSCANCHARS 127
 
 #define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */

@@ -20,7 +20,7 @@ static void acwin_cleanup(Tacwin * acw) {
 static gboolean acwin_key_release_lcb(GtkWidget *widget,GdkEventKey *event,gpointer user_data)
 {
 	GtkDialog *dlg = GTK_DIALOG(((Tacwin *)user_data)->win);
-	g_print("got keyval %c\n",event->keyval);
+	DBG_MSG("got keyval %c\n",event->keyval);
 	if (event->keyval == GDK_Return) {
 		gtk_dialog_response(dlg,GTK_RESPONSE_OK);
 		return TRUE;
@@ -42,7 +42,7 @@ static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 		if (key) {
 			gchar *string = g_hash_table_lookup(acw->bt2->scantable->reference,key);
 			if (string) {
-				g_print("show %s\n",string);
+				DBG_MSG("show %s\n",string);
 				gtk_label_set_markup(GTK_LABEL(acw->reflabel),string);
 				gtk_widget_show(acw->reflabel);
 				gtk_widget_set_size_request(acw->win, 300, 200);
@@ -166,12 +166,12 @@ void autocomp_run(BluefishTextView *bt2) {
 		gchar *prefix;
 		/* get the prefix, see if it results in any autocompletion possibilities */
 		prefix = autocomp_get_prefix_at_location(buffer, &iter);
-		g_print("found autocompletion prefix %s\n",prefix);
+		DBG_MSG("found autocompletion prefix %s\n",prefix);
 		if (prefix && *prefix != '\0') {
 			gchar *newprefix;
 			GList *items;
 			items = g_completion_complete(context->ac,prefix,&newprefix);
-			g_print("got %d autocompletion items, newprefix=%s\n",g_list_length(items),newprefix);
+			DBG_MSG("got %d autocompletion items, newprefix=%s\n",g_list_length(items),newprefix);
 			if (items) {
 				Tacwin * acw;
 				/* create the GUI and run */
@@ -182,12 +182,12 @@ void autocomp_run(BluefishTextView *bt2) {
 					GtkTreeSelection *selection;
 					GtkTreeIter it;
 					GtkTreeModel *model;
-					g_print("autocomp_run, do something\n");
+					DBG_MSG("autocomp_run, do something\n");
 					selection = gtk_tree_view_get_selection(acw->tree);
 					if ( selection && gtk_tree_selection_get_selected(selection,&model,&it)) {
 						gchar *string;
 						gtk_tree_model_get(model,&it,0,&string,-1);
-						g_print("got string %s\n",string);
+						DBG_MSG("got string %s\n",string);
 						gtk_text_buffer_insert_at_cursor(buffer,string+strlen(prefix),-1);
 					}
 				}
@@ -195,6 +195,6 @@ void autocomp_run(BluefishTextView *bt2) {
 			}
 		}
 	} else {
-		g_print("no autocompletion data for context %p\n",context);
+		DBG_MSG("no autocompletion data for context %p\n",context);
 	}
 }
