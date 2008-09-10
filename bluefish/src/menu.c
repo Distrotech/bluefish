@@ -6,7 +6,7 @@
  *
  * Copyright (C) 1998-2000 Olivier Sessink, Chris Mazuc and Roland Steinbach
  * Copyright (C) 2000-2002 Olivier Sessink and Roland Steinbach
- * Copyright (C) 2002-2006 Olivier Sessink
+ * Copyright (C) 2002-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -2379,7 +2379,7 @@ gint menu_entry_sort(gchar ** a,gchar ** b) {
 
 void cmenu_editor(Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
 	Tcmenu_editor *cme;
-	GtkWidget *hbox, *vbox, *frame, *vbox2, *vbox3, *hbox2, *label, *toolbar;
+	GtkWidget *button, *hbox, *vbox, *frame, *vbox2, *vbox3, *hbox2, *label, *toolbar;
 	GList *tmplist;
 	gint i;
 	gchar *tmpstr;
@@ -2404,12 +2404,7 @@ void cmenu_editor(Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
 								NULL, G_CALLBACK(cme_update_lcb), cme, -1);
 	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_DELETE, _("Delete Menu Entry"),
 								NULL, G_CALLBACK(cme_delete_lcb), cme, -1);
-	gtk_toolbar_append_space(GTK_TOOLBAR(toolbar));
-	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_CLOSE, _("Close Discards Changes"),
-								NULL, G_CALLBACK(cme_close_lcb), cme, -1);
-	gtk_toolbar_insert_stock(GTK_TOOLBAR(toolbar), GTK_STOCK_SAVE, _("Save Changes and Exit"),
-								NULL, G_CALLBACK(cme_ok_lcb), cme, -1);
-	
+
 	vbox2 = gtk_vbox_new(FALSE, 12);
 	gtk_container_set_border_width(GTK_CONTAINER(vbox2), 6);
 	gtk_box_pack_start(GTK_BOX(vbox), vbox2, TRUE, TRUE, 0);							
@@ -2560,6 +2555,21 @@ void cmenu_editor(Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
 			tmplist = g_list_next(tmplist);
 		}
 	}
+	
+	hbox = gtk_hbutton_box_new();
+	gtk_button_box_set_layout(GTK_BUTTON_BOX(hbox), GTK_BUTTONBOX_END);
+	gtk_container_set_border_width(GTK_CONTAINER(hbox), 6);
+	gtk_box_set_spacing(GTK_BOX(hbox), 6);
+	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
+	
+	button = gtk_button_new_from_stock(GTK_STOCK_CANCEL);
+	g_signal_connect(button, "clicked", G_CALLBACK(cme_close_lcb), cme);
+	gtk_container_add(GTK_CONTAINER(hbox), button);
+	
+	button = gtk_button_new_from_stock(GTK_STOCK_OK);
+	gtk_container_add(GTK_CONTAINER(hbox), button);
+	g_signal_connect(button, "clicked", G_CALLBACK(cme_ok_lcb), cme);
+	
 	gtk_widget_show_all(cme->win);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(cme->type[0]), TRUE);
 	cme_type_changed_lcb(NULL, cme);
