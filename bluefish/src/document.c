@@ -3282,6 +3282,10 @@ void doc_activate(Tdocument *doc) {
 			doc_reload(doc);
 		}
 	}
+	
+	if (doc->hl == NULL)
+		doc_reset_filetype(doc, doc->filename, NULL);
+	
 	DEBUG_MSG("doc_activate, calling gui_set_document_widgets()\n");
 	gui_set_document_widgets(doc);
 	gui_set_title(BFWIN(doc->bfwin), doc);

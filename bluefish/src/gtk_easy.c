@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gtk_easy.c
  *
- * Copyright (C) 1999-2006 Olivier Sessink
+ * Copyright (C) 1999-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -139,7 +139,7 @@ void window_close_by_data_cb(GtkWidget * widget, gpointer data) {
  * Return value: void
  */
 void setup_toggle_item(GtkItemFactory * ifactory, gchar * path, gint state) {
-	GtkWidget *toggle;
+	GtkWidget *toggle = NULL;
 	toggle = gtk_item_factory_get_widget(ifactory, path);
 	if (!toggle) {
 		g_print("warning, menuitem \"%s\" does NOT exist! check the translation!\n", path);
