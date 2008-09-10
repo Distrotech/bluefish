@@ -97,6 +97,7 @@ static void foundblock_unref(Tfoundblock *fblock, GtkTextBuffer *buffer) {
 	fblock->refcount--;
 	if (fblock->refcount == 0) {
 		/* remove marks */
+		g_print("UNREF->cleanup foundblock %p\n",fblock);
 		gtk_text_buffer_delete_mark(buffer,fblock->start1);
 		gtk_text_buffer_delete_mark(buffer,fblock->end1);
 		if (fblock->start2 && fblock->end2) {
@@ -110,6 +111,7 @@ static void foundcontext_unref(Tfoundcontext *fcontext, GtkTextBuffer *buffer) {
 	fcontext->refcount--;
 	if (fcontext->refcount == 0) {
 		/* remove marks */
+		g_print("UNREF->cleanup foundcontext %p\n",fcontext);
 		gtk_text_buffer_delete_mark(buffer,fcontext->start);
 		gtk_text_buffer_delete_mark(buffer,fcontext->end);
 		g_slice_free(Tfoundcontext,fcontext);
@@ -128,13 +130,21 @@ void foundstack_free_lcb(gpointer data, gpointer bt2) {
 	g_queue_foreach(fstack->contextstack,foundcontext_foreach_unref_lcb,bt2);
 	g_slice_free(Tfoundstack,fstack);
 }
-
+static void foundcontext_foreach_ref_lcb(gpointer data,gpointer user_data) {
+	((Tfoundcontext *)data)->refcount++; 
+}
+static void foundblock_foreach_ref_lcb(gpointer data,gpointer user_data) {
+	((Tfoundblock *)data)->refcount++;
+}
 static void add_to_scancache(BluefishTextView * bt2,GtkTextBuffer *buffer,Tscanning *scanning, GtkTextMark *where) {
 	Tfoundstack *fstack;
 
 	fstack = g_slice_new0(Tfoundstack);
 	fstack->contextstack = g_queue_copy(scanning->contextstack);
 	fstack->blockstack = g_queue_copy(scanning->blockstack);
+	g_queue_foreach(fstack->blockstack,foundblock_foreach_ref_lcb,NULL);
+	g_queue_foreach(fstack->contextstack,foundcontext_foreach_ref_lcb,NULL);
+		
 	fstack->mark = where;
 	foundstack_update_positions(buffer, fstack);
 	g_print("add_to_scancache, put the stacks in the cache at charoffset %d / line %d\n",fstack->charoffset,fstack->line);
@@ -152,6 +162,7 @@ static GtkTextMark *found_start_of_block(BluefishTextView * bt2,GtkTextBuffer *b
 	g_object_set_data(G_OBJECT(fblock->start1), "block", fblock);
 	g_object_set_data(G_OBJECT(fblock->end1), "block", fblock);
 	g_queue_push_head(scanning->blockstack,fblock);
+	fblock->refcount++;
 	return fblock->end1;
 }
 
@@ -159,16 +170,13 @@ static GtkTextMark *found_end_of_block(BluefishTextView * bt2,GtkTextBuffer *buf
 	Tfoundblock *fblock=NULL;
 	g_print("found end of block that matches start of block pattern %d\n",pat->blockstartpattern); 
 	do {
-/*		since a pointer to the Tfoundblock is *also* in the cache, we should add a refcount for memory-management
-		or something like that */ 
-/*		if (fblock) {
-			gtk_text_buffer_delete_mark(buffer,fblock->start1);
-			gtk_text_buffer_delete_mark(buffer,fblock->end1);
-			g_slice_free(Tfoundblock,fblock);
-		}*/
+		if (fblock) {
+			foundblock_unref(fblock, buffer);
+		}
 		fblock = g_queue_pop_head(scanning->blockstack);
-		if (fblock)
+		if (fblock) {
 			g_print("popped block for pattern %d from blockstack\n",fblock->patternum);
+		}
 	} while (fblock && fblock->patternum != pat->blockstartpattern);
 	if (fblock) {
 		g_print("found the matching start of the block\n");
@@ -197,12 +205,14 @@ static GtkTextMark *found_context_change(BluefishTextView * bt2,GtkTextBuffer *b
 		fcontext = g_queue_pop_head(scanning->contextstack);
 		fcontext->end = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
 		g_print("found_context_change, popped context %d from the stack, stack len %d\n",fcontext->context,g_queue_get_length(scanning->contextstack));
+		foundcontext_unref(fcontext, buffer);
 		return fcontext->end;
 	} else {
 		fcontext = g_slice_new0(Tfoundcontext);
 		fcontext->start = gtk_text_buffer_create_mark(buffer,NULL,&match.end,FALSE);
 		fcontext->context = pat->nextcontext;
 		g_queue_push_head(scanning->contextstack, fcontext);
+		fcontext->refcount++;
 		g_print("found_context_change, pushed context %d onto the stack, stack len %d\n",pat->nextcontext,g_queue_get_length(scanning->contextstack));
 		return fcontext->start;
 	}
@@ -274,7 +284,10 @@ static void reconstruct_stack(BluefishTextView * bt2, GtkTextBuffer *buffer, Gtk
 		fcontext = g_queue_peek_head(scanning->contextstack);
 		if (fcontext)
 			scanning->context = fcontext->context;
-		scanning->blockstack =  g_queue_copy(fstack->blockstack);
+		scanning->blockstack = g_queue_copy(fstack->blockstack);
+
+		g_queue_foreach(scanning->blockstack,foundblock_foreach_ref_lcb,NULL);
+		g_queue_foreach(scanning->contextstack,foundcontext_foreach_ref_lcb,NULL);
 		g_print("stack from the cache, contextstack has len %d, blockstack has len %d, context=%d\n",g_queue_get_length(scanning->contextstack),g_queue_get_length(scanning->blockstack),scanning->context);
 	} else {
 		g_print("empty stack\n");
@@ -299,10 +312,10 @@ Tcontext *get_context_at_position(BluefishTextView * bt2, GtkTextIter *position)
 		g_print("no stack, no context, return context 0\n");
 	return &g_array_index(bt2->scantable->contexts,Tcontext,0);
 }
-
+/*
 static void remove_old_matches_at_iter(BluefishTextView *btv, GtkTextBuffer *buffer, GtkTextIter *iter) {
 	GSList *toggles, *tmplist;
-	/* remove any toggled tags */
+	/ * remove any toggled tags * /
 	toggles = tmplist = gtk_text_iter_get_toggled_tags(iter,FALSE);
 	while (tmplist) {
 		GtkTextIter tmpit;
@@ -313,22 +326,25 @@ static void remove_old_matches_at_iter(BluefishTextView *btv, GtkTextBuffer *buf
 		tmplist = g_slist_next(tmplist);
 	}
 	g_slist_free(toggles);
-	/* TODO see if there are any old blockstack or context changes */
+	/ * TODO see if there are any old blockstack or context changes * /
 	
-}
+}*/
 
 static void remove_old_scan_results(BluefishTextView *btv, GtkTextBuffer *buffer, GtkTextIter *fromhere) {
 	GtkTextIter end;
 	Tfoundstack *fstack=NULL;
 	GSequenceIter *sit1,*sit2;
-
+	
 	gtk_text_buffer_get_end_iter(buffer,&end);
+	g_print("remove_old_scan_results: remove tags from charoffset %d to %d\n",gtk_text_iter_get_offset(fromhere),gtk_text_iter_get_offset(&end));
 	gtk_text_buffer_remove_all_tags(buffer,fromhere,&end);
 
 	fstack = get_stackcache_at_position(btv,fromhere,&sit1);
 	if (sit1) {
 		sit2 = g_sequence_get_end_iter(btv->scancache.stackcaches);
 		if (g_sequence_iter_compare(sit1,sit2)!=0) {
+			g_print("remove_old_scan_results: remove stackcache entries %d to %d\n",g_sequence_iter_get_position(sit1),g_sequence_iter_get_position(sit2));
+			g_sequence_foreach_range(sit1,sit2,foundstack_free_lcb,btv);
 			g_sequence_remove_range(sit1,sit2);
 		}
 	}	
