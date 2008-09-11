@@ -4,7 +4,7 @@
 
 Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	Tscantable *st;
-
+	gint i;
 	GtkTextTag *braces, *comment, *storage;
 	
 	braces = gtk_text_buffer_create_tag(buffer,"braces","weight", PANGO_WEIGHT_BOLD,"foreground","darkblue",NULL);
@@ -24,7 +24,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	
 	/* for testing we are going to scan for a block detected by {} and by ()
 	and we do C comments, and we scan for the keyword void */
-#define CSTYLEMATCHING
+/*#define CSTYLEMATCHING*/
 #ifdef CSTYLEMATCHING
 	g_array_set_size(st->table,14);
 	st->table->len = 14;
@@ -102,7 +102,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	g_array_index(st->matches, Tpattern, 7).selftag = storage;
 #endif /* #ifdef CSTYLEMATCHING */
 /* for more testing we try some html tags */
-/*#define HTMLSTYLEMATCHING*/
+#define HTMLSTYLEMATCHING
 #ifdef HTMLSTYLEMATCHING
 	g_array_set_size(st->table,39);
 	st->table->len = 39;
@@ -244,8 +244,162 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	g_array_index(st->matches, Tpattern, 11).message = ">";
 	g_array_index(st->matches, Tpattern, 11).nextcontext = 0;
 	g_array_index(st->matches, Tpattern, 11).selftag = braces;
-	
-	
+
 #endif /* #ifdef HTMLSTYLEMATCHING */
+/* #define PHPSTYLEMATCHING not finished !!! */
+#ifdef PHPSTYLEMATCHING
+	g_array_index(st->table, Ttablerow, 0).row['<'] = 1;
+	
+	/* <?php */
+	g_array_index(st->table, Ttablerow, 1).row['?'] = 2;
+	g_array_index(st->table, Ttablerow, 2).row['p'] = 3;
+	g_array_index(st->table, Ttablerow, 3).row['h'] = 4;
+	g_array_index(st->table, Ttablerow, 4).row['p'] = 5;
+	g_array_index(st->table, Ttablerow, 5).match = 1;
+	g_array_index(st->matches, Tpattern, 1).message = "<?php";
+	g_array_index(st->matches, Tpattern, 1).nextcontext = 1;
+	g_array_index(st->matches, Tpattern, 1).selftag = braces;
+	g_array_index(st->matches, Tpattern, 1).starts_block = TRUE;
+	/* <p */
+	g_array_index(st->table, Ttablerow, 1).row['p'] = 6;
+	g_array_index(st->table, Ttablerow, 6).match = 2;
+	g_array_index(st->matches, Tpattern, 2).message = "<p";
+	g_array_index(st->matches, Tpattern, 2).nextcontext = 2;
+	g_array_index(st->matches, Tpattern, 2).selftag = storage;
+	/* <!-- */
+	g_array_index(st->table, Ttablerow, 1).row['!'] = 7;
+	g_array_index(st->table, Ttablerow, 7).row['-'] = 8;
+	g_array_index(st->table, Ttablerow, 8).row['-'] = 9;
+	g_array_index(st->table, Ttablerow, 9).match = 3;
+	g_array_index(st->matches, Tpattern, 3).message = "<!--";
+	g_array_index(st->matches, Tpattern, 3).nextcontext = 3;
+	g_array_index(st->matches, Tpattern, 3).selftag = comment;
+	g_array_index(st->matches, Tpattern, 3).starts_block = TRUE;
+	/* php context, ?> */
+	g_array_index(st->contexts, Tcontext, 1).startstate = 10;
+	g_array_index(st->table, Ttablerow, 10).row['?'] = 11;
+	g_array_index(st->table, Ttablerow, 11).row['>'] = 12;
+	g_array_index(st->table, Ttablerow, 12).match = 4;
+	g_array_index(st->matches, Tpattern, 4).message = "?>";
+	g_array_index(st->matches, Tpattern, 4).nextcontext = 1;
+	g_array_index(st->matches, Tpattern, 4).selftag = braces;
+	g_array_index(st->matches, Tpattern, 6).ends_block = TRUE;
+	g_array_index(st->matches, Tpattern, 6).blockstartpattern = 1;
+	/* php context, { */
+	g_array_index(st->table, Ttablerow, 10).row['{'] = 13;
+	g_array_index(st->table, Ttablerow, 13).match = 5;
+	g_array_index(st->matches, Tpattern, 5).message = "{";
+	g_array_index(st->matches, Tpattern, 5).nextcontext = 1;
+	g_array_index(st->matches, Tpattern, 5).selftag = braces;
+	g_array_index(st->matches, Tpattern, 5).starts_block = TRUE;
+	/* php context, } */
+	g_array_index(st->table, Ttablerow, 10).row['}'] = 14;
+	g_array_index(st->table, Ttablerow, 14).match = 6;
+	g_array_index(st->matches, Tpattern, 6).message = "}";
+	g_array_index(st->matches, Tpattern, 6).nextcontext = 1;
+	g_array_index(st->matches, Tpattern, 6).selftag = braces;
+	g_array_index(st->matches, Tpattern, 6).ends_block = TRUE;
+	g_array_index(st->matches, Tpattern, 6).blockstartpattern = 5;
+
+	/* php context, ( */
+	g_array_index(st->table, Ttablerow, 10).row['('] = 15;
+	g_array_index(st->table, Ttablerow, 15).match = 7;
+	g_array_index(st->matches, Tpattern, 7).message = "(";
+	g_array_index(st->matches, Tpattern, 7).nextcontext = 1;
+	g_array_index(st->matches, Tpattern, 7).selftag = braces;
+	g_array_index(st->matches, Tpattern, 7).starts_block = TRUE;
+	/* php context, ) */
+	g_array_index(st->table, Ttablerow, 10).row[')'] = 16;
+	g_array_index(st->table, Ttablerow, 16).match = 8;
+	g_array_index(st->matches, Tpattern, 8).message = ")";
+	g_array_index(st->matches, Tpattern, 8).nextcontext = 1;
+	g_array_index(st->matches, Tpattern, 8).selftag = braces;
+	g_array_index(st->matches, Tpattern, 8).ends_block = TRUE;
+	g_array_index(st->matches, Tpattern, 8).blockstartpattern = 7;
+
+	/* php context, [ */
+	g_array_index(st->table, Ttablerow, 10).row['['] = 17;
+	g_array_index(st->table, Ttablerow, 17).match = 9;
+	g_array_index(st->matches, Tpattern, 9).message = "[";
+	g_array_index(st->matches, Tpattern, 9).nextcontext = 1;
+	g_array_index(st->matches, Tpattern, 9).selftag = braces;
+	g_array_index(st->matches, Tpattern, 9).starts_block = TRUE;
+	/* php context, ] */
+	g_array_index(st->table, Ttablerow, 10).row[']'] = 18;
+	g_array_index(st->table, Ttablerow, 18).match = 10;
+	g_array_index(st->matches, Tpattern, 10).message = "]";
+	g_array_index(st->matches, Tpattern, 10).nextcontext = 1;
+	g_array_index(st->matches, Tpattern, 10).selftag = braces;
+	g_array_index(st->matches, Tpattern, 8).ends_block = TRUE;
+	g_array_index(st->matches, Tpattern, 8).blockstartpattern = 9;
+
+	/* php context $[a-zA-Z]+ */
+	g_array_index(st->table, Ttablerow, 10).row['$'] = 19;
+	for (i='a';i<='z';i++) {
+		g_array_index(st->table, Ttablerow, 19).row[i] = 20;
+		g_array_index(st->table, Ttablerow, 20).row[i] = 20;
+	}
+	for (i='A';i<='Z';i++) {
+		g_array_index(st->table, Ttablerow, 19).row[i] = 20;
+		g_array_index(st->table, Ttablerow, 20).row[i] = 20;
+	}
+	g_array_index(st->table, Ttablerow, 20).match = 11;
+	g_array_index(st->matches, Tpattern, 10).message = "$[a-z]+";
+	g_array_index(st->matches, Tpattern, 10).nextcontext = 1;
+	g_array_index(st->matches, Tpattern, 10).selftag = storage;
+	
+	/* php context C comment */
+	g_array_index(st->table, Ttablerow, 10).row['/'] = 21;
+	g_array_index(st->table, Ttablerow, 21).row['*'] = 22;
+	g_array_index(st->table, Ttablerow, 22).match = 11;
+	g_array_index(st->matches, Tpattern, 11).message = "/*";
+	g_array_index(st->matches, Tpattern, 11).nextcontext = 4;
+	g_array_index(st->matches, Tpattern, 11).selftag = comment;
+	g_array_index(st->matches, Tpattern, 11).starts_block = TRUE;
+	/* php context C++ or shell comment (//|#)[^\n]*\n */
+	g_array_index(st->table, Ttablerow, 10).row['/'] = 23;
+	g_array_index(st->table, Ttablerow, 10).row['#'] = 24;
+	g_array_index(st->table, Ttablerow, 23).row['/'] = 24;
+	for (i=0;i<127;i++) {
+		g_array_index(st->table, Ttablerow, 24).row[i] = 24;
+	}
+	g_array_index(st->table, Ttablerow, 24).row['\n'] = 25;
+	g_array_index(st->table, Ttablerow, 25).match = 12;
+	g_array_index(st->matches, Tpattern, 12).message = " (//|#)[^\\n]*\\n";
+	g_array_index(st->matches, Tpattern, 12).nextcontext = 1;
+	g_array_index(st->matches, Tpattern, 12).selftag = comment;
+	
+	/* <p end > */
+	g_array_index(st->contexts, Tcontext, 2).startstate = 26;
+	g_array_index(st->table, Ttablerow, 26).row['>'] = 27;
+	g_array_index(st->table, Ttablerow, 27).match = 13;
+	g_array_index(st->matches, Tpattern, 13).message = ">";
+	g_array_index(st->matches, Tpattern, 13).nextcontext = 0;
+	g_array_index(st->matches, Tpattern, 13).selftag = storage;
+	
+	/* <!-- end --> */
+	g_array_index(st->contexts, Tcontext, 3).startstate = 28;
+	g_array_index(st->table, Ttablerow, 28).row['-'] = 29;
+	g_array_index(st->table, Ttablerow, 29).row['-'] = 30;
+	g_array_index(st->table, Ttablerow, 30).row['>'] = 31;
+	g_array_index(st->table, Ttablerow, 31).match = 14;
+	g_array_index(st->matches, Tpattern, 14).message = "-->";
+	g_array_index(st->matches, Tpattern, 14).nextcontext = 0;
+	g_array_index(st->matches, Tpattern, 14).selftag = comment;
+	g_array_index(st->matches, Tpattern, 14).ends_block = TRUE;
+	g_array_index(st->matches, Tpattern, 14).blockstartpattern = 3;
+	/* php, C style comment end * / */
+	g_array_index(st->contexts, Tcontext, 4).startstate = 32;
+	g_array_index(st->table, Ttablerow, 32).row['*'] = 33;
+	g_array_index(st->table, Ttablerow, 33).row['/'] = 34;
+	g_array_index(st->table, Ttablerow, 34).match = 15;
+	g_array_index(st->matches, Tpattern, 15).message = "*/";
+	g_array_index(st->matches, Tpattern, 15).nextcontext = 1;
+	g_array_index(st->matches, Tpattern, 15).selftag = comment;
+	g_array_index(st->matches, Tpattern, 15).blocktag = comment;
+	g_array_index(st->matches, Tpattern, 15).ends_block = TRUE;
+	g_array_index(st->matches, Tpattern, 15).blockstartpattern = 11;
+	
+#endif /* PHPSTYLEMATCHING */
 	return st;
 }
