@@ -1533,6 +1533,10 @@ gboolean doc_file_to_textbox(Tdocument * doc, gchar * filename, gboolean enable_
 		if (buffer) {
 			gtk_text_buffer_insert_at_cursor(doc->buffer,buffer,-1);
 			g_free(buffer);
+			
+			/* set the document as modified if it was created from a project template */
+			if (!doc->filename && BFWIN(doc->bfwin)->project && BFWIN(doc->bfwin)->project->template && strlen(BFWIN(doc->bfwin)->project->template) > 2)
+				doc_set_modified (doc, TRUE);
 		}
 	}
 	if (doc->highlightstate) {
