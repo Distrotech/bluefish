@@ -68,8 +68,8 @@ to different results (different color, different context).
  /**/
 
 #define DBG_MSG DBG_NONE
-#define DBG_SCANCACHE g_print
-
+#define DBG_SCANCACHE DBG_NONE
+#define DBG_REFCOUNT DBG_NONE
 
 
 #define NUMSCANCHARS 127

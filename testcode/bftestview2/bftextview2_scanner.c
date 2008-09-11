@@ -97,7 +97,7 @@ static void foundblock_unref(Tfoundblock *fblock, GtkTextBuffer *buffer) {
 	fblock->refcount--;
 	if (fblock->refcount == 0) {
 		/* remove marks */
-		DBG_MSG("UNREF->cleanup foundblock %p\n",fblock);
+		DBG_SCANCACHE("UNREF->cleanup foundblock %p\n",fblock);
 		gtk_text_buffer_delete_mark(buffer,fblock->start1);
 		gtk_text_buffer_delete_mark(buffer,fblock->end1);
 		if (fblock->start2 && fblock->end2) {
@@ -109,19 +109,22 @@ static void foundblock_unref(Tfoundblock *fblock, GtkTextBuffer *buffer) {
 }
 static void foundcontext_unref(Tfoundcontext *fcontext, GtkTextBuffer *buffer) {
 	fcontext->refcount--;
+	DBG_REFCOUNT("unref: refcount for fcontext %p is %d\n",fcontext,fcontext->refcount);
 	if (fcontext->refcount == 0) {
 		/* remove marks */
-		DBG_MSG("UNREF->cleanup foundcontext %p\n",fcontext);
+		DBG_REFCOUNT("unref: cleanup foundcontext %p\n",fcontext);
 		gtk_text_buffer_delete_mark(buffer,fcontext->start);
 		gtk_text_buffer_delete_mark(buffer,fcontext->end);
 		g_slice_free(Tfoundcontext,fcontext);
 	}
 }
 static void foundcontext_foreach_unref_lcb(gpointer data,gpointer user_data) {
-	foundcontext_unref(data,gtk_text_view_get_buffer(user_data));
+	if (data)
+		foundcontext_unref(data,gtk_text_view_get_buffer(user_data));
 }
 static void foundblock_foreach_unref_lcb(gpointer data,gpointer user_data) {
-	foundblock_unref(data,gtk_text_view_get_buffer(user_data));
+	if (data)
+		foundblock_unref(data,gtk_text_view_get_buffer(user_data));
 }
 void foundstack_free_lcb(gpointer data, gpointer bt2) {
 	Tfoundstack *fstack = data;
@@ -131,10 +134,15 @@ void foundstack_free_lcb(gpointer data, gpointer bt2) {
 	g_slice_free(Tfoundstack,fstack);
 }
 static void foundcontext_foreach_ref_lcb(gpointer data,gpointer user_data) {
-	((Tfoundcontext *)data)->refcount++; 
+	if (data) {
+		((Tfoundcontext *)data)->refcount++; 
+		DBG_REFCOUNT("foreach ref: refcount for fcontext %p is %d\n",data,((Tfoundcontext *)data)->refcount);
+	}
 }
 static void foundblock_foreach_ref_lcb(gpointer data,gpointer user_data) {
-	((Tfoundblock *)data)->refcount++;
+	if (data) {
+		((Tfoundblock *)data)->refcount++;
+	}
 }
 static void add_to_scancache(BluefishTextView * bt2,GtkTextBuffer *buffer,Tscanning *scanning, GtkTextMark *where) {
 	Tfoundstack *fstack;
@@ -147,7 +155,7 @@ static void add_to_scancache(BluefishTextView * bt2,GtkTextBuffer *buffer,Tscann
 		
 	fstack->mark = where;
 	foundstack_update_positions(buffer, fstack);
-	DBG_MSG("add_to_scancache, put the stacks in the cache at charoffset %d / line %d\n",fstack->charoffset,fstack->line);
+	DBG_SCANCACHE("add_to_scancache, put the stacks in the cache at charoffset %d / line %d\n",fstack->charoffset,fstack->line);
 	g_sequence_insert_sorted(bt2->scancache.stackcaches,fstack,stackcache_compare_charoffset,NULL);
 }
 
@@ -213,6 +221,7 @@ static GtkTextMark *found_context_change(BluefishTextView * bt2,GtkTextBuffer *b
 		fcontext->context = pat->nextcontext;
 		g_queue_push_head(scanning->contextstack, fcontext);
 		fcontext->refcount++;
+		DBG_REFCOUNT("refcount for fcontext %p is %d\n",fcontext,fcontext->refcount);
 		DBG_MSG("found_context_change, pushed context %d onto the stack, stack len %d\n",pat->nextcontext,g_queue_get_length(scanning->contextstack));
 		return fcontext->start;
 	}
@@ -332,20 +341,23 @@ static void remove_old_matches_at_iter(BluefishTextView *btv, GtkTextBuffer *buf
 
 static void remove_old_scan_results(BluefishTextView *btv, GtkTextBuffer *buffer, GtkTextIter *fromhere) {
 	GtkTextIter end;
-	Tfoundstack *fstack=NULL;
-	GSequenceIter *sit1=NULL,*sit2;
+	GSequenceIter *sit1,*sit2;
+	Tfoundstack fakefstack;
 	
 	gtk_text_buffer_get_end_iter(buffer,&end);
 	DBG_SCANCACHE("remove_old_scan_results: remove tags from charoffset %d to %d\n",gtk_text_iter_get_offset(fromhere),gtk_text_iter_get_offset(&end));
 	gtk_text_buffer_remove_all_tags(buffer,fromhere,&end);
 
-	fstack = get_stackcache_at_position(btv,fromhere,&sit1);
-	if (fstack && sit1 && !g_sequence_iter_is_end(sit1)) {
+	fakefstack.charoffset = gtk_text_iter_get_offset(fromhere); 
+	sit1 = g_sequence_search(btv->scancache.stackcaches,&fakefstack,stackcache_compare_charoffset,NULL);
+	if (sit1 && !g_sequence_iter_is_end(sit1)) {
 		sit2 = g_sequence_get_end_iter(btv->scancache.stackcaches);
 		DBG_SCANCACHE("sit1=%p, sit2=%p\n",sit1,sit2);
 		DBG_SCANCACHE("remove_old_scan_results: remove stackcache entries %d to %d\n",g_sequence_iter_get_position(sit1),g_sequence_iter_get_position(sit2));
 		g_sequence_foreach_range(sit1,sit2,foundstack_free_lcb,btv);
 		g_sequence_remove_range(sit1,sit2);
+	} else{
+		g_print("no sit1, no cleanup ??\n");
 	}
 }
 
@@ -378,7 +390,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 	scanning.timer = g_timer_new();
 		
 	
-	DBG_MSG("got bounds from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
+	g_print("scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
 
 	if (bt2->scancache.stackcache_need_update_charoffset != -1 && bt2->scancache.stackcache_need_update_charoffset <= gtk_text_iter_get_offset(&end)) {
 		DBG_MSG("need to update the scancache offsets for the region we are about to scan\n");
