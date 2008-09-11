@@ -6,15 +6,17 @@ static guint new_context(Tscantable *st) {
 	
 	num = st->contexts->len;
 	st->contexts->len++;
-	g_array_set_size(st->contexts,st->contexts->len+1);
+	g_array_set_size(st->contexts,st->contexts->len);
 	g_array_index(st->contexts, Tcontext, num).startstate = st->table->len;
+
 	st->table->len++;
-	g_array_set_size(st->table,st->table->len+1);
-	g_print("new context %d, ac=%p\n",num,g_array_index(st->contexts, Tcontext, num).ac);
+	g_array_set_size(st->table,st->table->len);
 	
+	g_print("new context %d has startstate %d\n",num, g_array_index(st->contexts, Tcontext, num).startstate);	
 	return num;
 }
-
+/* this function cannot do any regex style patterns 
+just full keywords */
 static guint add_keyword_to_scanning_table_keyword(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint context, guint nextcontext
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
 				, GtkTextTag *blocktag,gboolean add_to_ac, const gchar *reference) {
@@ -25,7 +27,7 @@ static guint add_keyword_to_scanning_table_keyword(Tscantable *st, gchar *keywor
 	/* add the match */
 	matchnum = st->matches->len;
 	st->matches->len++;
-	g_array_set_size(st->matches,st->matches->len+1);
+	g_array_set_size(st->matches,st->matches->len);
 	g_array_index(st->matches, Tpattern, matchnum).message = g_strdup(keyword);
 	g_array_index(st->matches, Tpattern, matchnum).ends_block = ends_block;
 	g_array_index(st->matches, Tpattern, matchnum).starts_block = starts_block;
@@ -45,9 +47,9 @@ static guint add_keyword_to_scanning_table_keyword(Tscantable *st, gchar *keywor
 			if (g_array_index(st->table, Ttablerow, pos).row[c] != 0) {
 				pos = g_array_index(st->table, Ttablerow, pos).row[c];
 			} else {
-				pos = g_array_index(st->table, Ttablerow, pos).row[c] = st->matches->len;
-				st->matches->len++;
-				g_array_set_size(st->table,st->table->len);
+				pos = g_array_index(st->table, Ttablerow, pos).row[c] = st->table->len;
+				st->table->len++;
+				g_array_set_size(st->table,st->table->len+1);
 			}
 		}
 	}
@@ -75,19 +77,21 @@ static guint add_keyword_to_scanning_table_keyword(Tscantable *st, gchar *keywor
 Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	Tscantable *st;
 	gint i,context1,context2,match1;
-	GtkTextTag *braces, *comment, *storage, *keyword, *string;
+	GtkTextTag *braces, *comment, *storage, *keyword, *string, *variable;
 	
 	braces = gtk_text_buffer_create_tag(buffer,"braces","weight", PANGO_WEIGHT_BOLD,"foreground","darkblue",NULL);
 	comment = gtk_text_buffer_create_tag(buffer,"comment","style", PANGO_STYLE_ITALIC,"foreground", "grey", NULL);
 	storage = gtk_text_buffer_create_tag(buffer,"storage","weight", PANGO_WEIGHT_BOLD,"foreground", "darkred", NULL);
 	keyword = gtk_text_buffer_create_tag(buffer,"keyword","weight", PANGO_WEIGHT_BOLD,"foreground", "black", NULL);
-	string = gtk_text_buffer_create_tag(buffer,"string","foreground", "green", NULL);
+	string = gtk_text_buffer_create_tag(buffer,"string","foreground", "darkgreen", NULL);
+	variable = gtk_text_buffer_create_tag(buffer,"variable","foreground", "blue", NULL);
 
 	st = g_slice_new0(Tscantable);
-	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), 100);
+	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), 160);
 	st->contexts = g_array_sized_new(TRUE,TRUE,sizeof(Tcontext), 3);
 	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
-
+	st->matches->len = 1; /* match 0 eans no match */
+	
 #define DFA_COMPILING 
 #ifdef DFA_COMPILING
 	context1 = new_context(st);
@@ -97,9 +101,26 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	add_keyword_to_scanning_table_keyword(st, "int", storage, context1, context1
 				, FALSE, FALSE, 0, NULL,TRUE
 				, "Integer bla bla");
-	add_keyword_to_scanning_table_keyword(st, "char", storage, context1, context1
-				, FALSE, FALSE, 0, NULL,TRUE
-				, "Character bla bla");
+	add_keyword_to_scanning_table_keyword(st, "char", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "gchar", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "gint", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "guint", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "gpointer", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "gboolean", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "GList", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "GFile", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "GtkWidget", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "GtkTextView", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "GtkTextBuffer", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "GtkLabel", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "GtkTextIter", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "GtkTextMark", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "GtkTreeStore", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "GtkListStore", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table_keyword(st, "GtkTreeModel", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	
+	add_keyword_to_scanning_table_keyword(st, "NULL", variable, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "empty pointer value bla bla");
+	
 	add_keyword_to_scanning_table_keyword(st, "if", keyword, context1, context1
 				, FALSE, FALSE, 0, NULL,TRUE
 				, "if bla");
@@ -152,6 +173,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	add_keyword_to_scanning_table_keyword(st, "*/", comment, context2, context1
 				, FALSE, TRUE, match1, comment,FALSE,NULL);
 
+	g_print("we have %d states in %d contexts for %d matches\n",st->table->len,st->contexts->len,st->matches->len);
 #endif
 
 	/* we don't build a automata from patterns right now, because I'm not

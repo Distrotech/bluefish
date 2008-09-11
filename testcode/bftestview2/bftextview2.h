@@ -90,13 +90,15 @@ typedef struct {
 
 typedef struct {
 	char *message; /* for debugging */
-	int nextcontext; /* 0, or if this pattern starts a new context the number of the contect */
+	guint nextcontext; /* 0, or if this pattern starts a new context the number of the contect */
 	GtkTextTag *selftag; /* the tag used to highlight this pattern */
 	gboolean starts_block; /* wheter or not this pattern may start a block */
 	gboolean ends_block; /* wheter or not this pattern may end a block */
 	GtkTextTag *blocktag; /* if this pattern ends a context or a block, we can highlight 
 	the region within the start and end pattern with this tag */
-	int blockstartpattern; /* the number of the pattern that may start this block */
+	guint blockstartpattern; /* the number of the pattern that may start this block */
+	gboolean may_fold;
+	gboolean highlight_other_end;
 } Tpattern;
 
 typedef struct {
