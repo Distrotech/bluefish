@@ -7,9 +7,9 @@ static guint new_context(Tscantable *st) {
 	num = st->contexts->len;
 	st->contexts->len++;
 	g_array_set_size(st->contexts,st->contexts->len+1);
-	g_array_index(st->contexts, Tcontext, num).startstate = st->matches->len;
-	st->matches->len++;
-	g_array_set_size(st->matches,st->matches->len+1);
+	g_array_index(st->contexts, Tcontext, num).startstate = st->table->len;
+	st->table->len++;
+	g_array_set_size(st->table,st->table->len+1);
 	g_print("new context %d, ac=%p\n",num,g_array_index(st->contexts, Tcontext, num).ac);
 	
 	return num;
@@ -36,19 +36,18 @@ static guint add_keyword_to_scanning_table_keyword(Tscantable *st, gchar *keywor
 
 	/* compile the keyword into the DFA */
 	pos = g_array_index(st->contexts, Tcontext, context).startstate;
-
 	len = strlen(keyword);
 	for (i=0;i<=len;i++) {
 		int c = keyword[i];
-		if (g_array_index(st->table, Ttablerow, pos).row[c] != 0) {
-			pos = g_array_index(st->table, Ttablerow, pos).row[c];
+		if (c == '\0') {
+			g_array_index(st->table, Ttablerow, pos).match = matchnum;
 		} else {
-			if (c == '\0') {
-				g_array_index(st->table, Ttablerow, pos).match = matchnum;
+			if (g_array_index(st->table, Ttablerow, pos).row[c] != 0) {
+				pos = g_array_index(st->table, Ttablerow, pos).row[c];
 			} else {
 				pos = g_array_index(st->table, Ttablerow, pos).row[c] = st->matches->len;
 				st->matches->len++;
-				g_array_set_size(st->table,st->matches->len);
+				g_array_set_size(st->table,st->table->len);
 			}
 		}
 	}
@@ -88,22 +87,31 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	st->contexts = g_array_sized_new(TRUE,TRUE,sizeof(Tcontext), 3);
 	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
 
-/*#define DFA_COMPILING*/ 
+#define DFA_COMPILING 
 #ifdef DFA_COMPILING
 	context1 = new_context(st);
-	match1 = add_keyword_to_scanning_table_keyword(st, "void", storage, context1, context1
+	add_keyword_to_scanning_table_keyword(st, "void", storage, context1, context1
 				, FALSE, FALSE, 0, NULL,TRUE
 				, "A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
-	match1 = add_keyword_to_scanning_table_keyword(st, "int", storage, context1, context1
+	add_keyword_to_scanning_table_keyword(st, "int", storage, context1, context1
 				, FALSE, FALSE, 0, NULL,TRUE
 				, "Integer bla bla");
-	match1 = add_keyword_to_scanning_table_keyword(st, "char", storage, context1, context1
+	add_keyword_to_scanning_table_keyword(st, "char", storage, context1, context1
 				, FALSE, FALSE, 0, NULL,TRUE
 				, "Character bla bla");
-	match1 = add_keyword_to_scanning_table_keyword(st, "{", storage, context1, context1
+	match1 = add_keyword_to_scanning_table_keyword(st, "{", braces, context1, context1
 				, TRUE, FALSE, 0, NULL,FALSE,NULL);
-	match1 = add_keyword_to_scanning_table_keyword(st, "}", storage, context1, context1
+	add_keyword_to_scanning_table_keyword(st, "}", braces, context1, context1
 				, FALSE, TRUE, match1, NULL,TRUE,NULL);
+	match1 = add_keyword_to_scanning_table_keyword(st, "(", braces, context1, context1
+				, TRUE, FALSE, 0, NULL,FALSE,NULL);
+	add_keyword_to_scanning_table_keyword(st, ")", braces, context1, context1
+				, FALSE, TRUE, match1, NULL,TRUE,NULL);
+	match1 = add_keyword_to_scanning_table_keyword(st, "[", braces, context1, context1
+				, TRUE, FALSE, 0, NULL,FALSE,NULL);
+	add_keyword_to_scanning_table_keyword(st, "]", braces, context1, context1
+				, FALSE, TRUE, match1, NULL,TRUE,NULL);
+	
 #endif
 
 	/* we don't build a automata from patterns right now, because I'm not
@@ -112,7 +120,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	
 	/* for testing we are going to scan for a block detected by {} and by ()
 	and we do C comments, and we scan for the keyword void */
-#define CSTYLEMATCHING
+/*#define CSTYLEMATCHING*/
 #ifdef CSTYLEMATCHING
 	g_array_set_size(st->table,14);
 	st->table->len = 14;
