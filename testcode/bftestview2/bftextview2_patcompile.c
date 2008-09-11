@@ -1,10 +1,81 @@
 /* for the design docs see bftextview2.h */
 #include "bftextview2_patcompile.h"
 
+static guint new_context(Tscantable *st) {
+	guint num;
+	
+	num = st->contexts->len;
+	st->contexts->len++;
+	g_array_set_size(st->contexts,st->contexts->len+1);
+	g_array_index(st->contexts, Tcontext, num).startstate = st->matches->len;
+	st->matches->len++;
+	g_array_set_size(st->matches,st->matches->len+1);
+	g_print("new context %d, ac=%p\n",num,g_array_index(st->contexts, Tcontext, num).ac);
+	
+	return num;
+}
+
+static guint add_keyword_to_scanning_table_keyword(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint context, guint nextcontext
+				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
+				, GtkTextTag *blocktag,gboolean add_to_ac, const gchar *reference) {
+
+	gint i,len,pos=0;
+	guint matchnum;
+
+	/* add the match */
+	matchnum = st->matches->len;
+	st->matches->len++;
+	g_array_set_size(st->matches,st->matches->len+1);
+	g_array_index(st->matches, Tpattern, matchnum).message = g_strdup(keyword);
+	g_array_index(st->matches, Tpattern, matchnum).ends_block = ends_block;
+	g_array_index(st->matches, Tpattern, matchnum).starts_block = ends_block;
+	g_array_index(st->matches, Tpattern, matchnum).blockstartpattern = blockstartpattern;
+	g_array_index(st->matches, Tpattern, matchnum).selftag = selftag;
+	g_array_index(st->matches, Tpattern, matchnum).blocktag = blocktag;
+	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
+
+	/* compile the keyword into the DFA */
+	pos = g_array_index(st->contexts, Tcontext, context).startstate;
+
+	len = strlen(keyword);
+	for (i=0;i<=len;i++) {
+		int c = keyword[i];
+		if (g_array_index(st->table, Ttablerow, pos).row[c] != 0) {
+			pos = g_array_index(st->table, Ttablerow, pos).row[c];
+		} else {
+			if (c == '\0') {
+				g_array_index(st->table, Ttablerow, pos).match = matchnum;
+			} else {
+				pos = g_array_index(st->table, Ttablerow, pos).row[c] = st->matches->len;
+				st->matches->len++;
+				g_array_set_size(st->table,st->matches->len);
+			}
+		}
+	}
+	/* do autocompletion and reference */
+	if (add_to_ac) {
+		GList *list;
+		if (!g_array_index(st->contexts, Tcontext, context).ac) {
+			g_print("create g_completion for context %d\n",context);
+			g_array_index(st->contexts, Tcontext, context).ac = g_completion_new(NULL);
+		}
+		list = g_list_prepend(NULL, keyword);
+		g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
+		g_list_free(list);
+		
+		if (reference) {
+			if (!g_array_index(st->contexts, Tcontext, context).reference) {
+				g_array_index(st->contexts, Tcontext, context).reference = g_hash_table_new(g_str_hash,g_str_equal);
+			}
+			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,keyword,reference);
+		}
+	}
+	return matchnum;
+}
 
 Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	Tscantable *st;
-	gint i;
+	gint i,context1,match1;
 	GtkTextTag *braces, *comment, *storage;
 	
 	braces = gtk_text_buffer_create_tag(buffer,"braces","weight", PANGO_WEIGHT_BOLD,"foreground","darkblue",NULL);
@@ -13,10 +84,27 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	
 
 	st = g_slice_new0(Tscantable);
-	st->table = g_array_sized_new(FALSE,TRUE,sizeof(Ttablerow), 100);
-	st->contexts = g_array_sized_new(FALSE,TRUE,sizeof(Tcontext), 3);
-	st->matches = g_array_sized_new(FALSE,TRUE,sizeof(Tpattern), 10);
-	st->reference = g_hash_table_new(g_str_hash,g_str_equal);
+	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), 100);
+	st->contexts = g_array_sized_new(TRUE,TRUE,sizeof(Tcontext), 3);
+	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
+
+/*#define DFA_COMPILING*/ 
+#ifdef DFA_COMPILING
+	context1 = new_context(st);
+	match1 = add_keyword_to_scanning_table_keyword(st, "void", storage, context1, context1
+				, FALSE, FALSE, 0, NULL,TRUE
+				, "A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
+	match1 = add_keyword_to_scanning_table_keyword(st, "int", storage, context1, context1
+				, FALSE, FALSE, 0, NULL,TRUE
+				, "Integer bla bla");
+	match1 = add_keyword_to_scanning_table_keyword(st, "char", storage, context1, context1
+				, FALSE, FALSE, 0, NULL,TRUE
+				, "Character bla bla");
+	match1 = add_keyword_to_scanning_table_keyword(st, "{", storage, context1, context1
+				, TRUE, FALSE, 0, NULL,FALSE,NULL);
+	match1 = add_keyword_to_scanning_table_keyword(st, "}", storage, context1, context1
+				, FALSE, TRUE, match1, NULL,TRUE,NULL);
+#endif
 
 	/* we don't build a automata from patterns right now, because I'm not
 	very satisfied with my previous attempt to code that.. 
@@ -24,7 +112,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	
 	/* for testing we are going to scan for a block detected by {} and by ()
 	and we do C comments, and we scan for the keyword void */
-/*#define CSTYLEMATCHING*/
+#define CSTYLEMATCHING
 #ifdef CSTYLEMATCHING
 	g_array_set_size(st->table,14);
 	st->table->len = 14;
@@ -39,7 +127,8 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		GList *list = g_list_prepend(NULL, "void"); 
 		g_completion_add_items(g_array_index(st->contexts, Tcontext, 0).ac, list);
 		g_list_free(list);
-		g_hash_table_insert(st->reference,"void","A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
+		g_array_index(st->contexts, Tcontext, 0).reference = g_hash_table_new(g_str_hash,g_str_equal);
+		g_hash_table_insert(g_array_index(st->contexts, Tcontext, 0).reference,"void","A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
 	}
 
 	g_array_index(st->table, Ttablerow, 0).row['{'] = 1;
@@ -102,7 +191,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	g_array_index(st->matches, Tpattern, 7).selftag = storage;
 #endif /* #ifdef CSTYLEMATCHING */
 /* for more testing we try some html tags */
-#define HTMLSTYLEMATCHING
+/*#define HTMLSTYLEMATCHING*/
 #ifdef HTMLSTYLEMATCHING
 	g_array_set_size(st->table,39);
 	st->table->len = 39;

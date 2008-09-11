@@ -76,7 +76,7 @@ to different results (different color, different context).
 
 #define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */
 
-#define MAX_CONTINUOUS_SCANNING_INTERVAL 0.05 /* float in seconds */ 
+#define MAX_CONTINUOUS_SCANNING_INTERVAL 0.1 /* float in seconds */ 
 
 /*****************************************************************/
 /* building the automata and autocompletion cache */
@@ -84,6 +84,7 @@ to different results (different color, different context).
 
 typedef struct {
 	GCompletion* ac; /* autocompletion items in this context */
+	GHashTable *reference; /* reference help for each autocompletion item */
 	guint startstate;
 } Tcontext;
 
@@ -109,7 +110,6 @@ typedef struct {
 	GArray *table; /* dynamic sized array of Ttablerow: the DFA table */
 	GArray *contexts; /* dynamic sized array of Tcontext that translates a context number into a rownumber in the DFA table */
 	GArray *matches; /* dynamic sized array of Tpattern */
-	GHashTable *reference; /* reference help for each autocompletion item */
 } Tscantable;
 
 /*****************************************************************/

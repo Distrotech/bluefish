@@ -6,6 +6,7 @@
 
 typedef struct {
 	BluefishTextView *bt2;
+	Tcontext *context;
 	GtkWidget *win;
 	GtkListStore *store;
 	GtkTreeView *tree;
@@ -40,7 +41,7 @@ static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 		gchar *key;
 		gtk_tree_model_get(model,&iter,0,&key,-1);
 		if (key) {
-			gchar *string = g_hash_table_lookup(acw->bt2->scantable->reference,key);
+			gchar *string = g_hash_table_lookup(acw->context->reference,key);
 			if (string) {
 				DBG_MSG("show %s\n",string);
 				gtk_label_set_markup(GTK_LABEL(acw->reflabel),string);
@@ -54,7 +55,7 @@ static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 	gtk_widget_set_size_request(acw->win, 150, 200);
 }
 
-static Tacwin *acwin_create(BluefishTextView *bt2) {
+static Tacwin *acwin_create(BluefishTextView *bt2, Tcontext *context) {
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	GtkWidget *scroll, *vbar, *hbox;
@@ -64,6 +65,7 @@ static Tacwin *acwin_create(BluefishTextView *bt2) {
 	
 	acw = g_new0(Tacwin,1);
 	acw->bt2 = bt2;
+	acw->context = context;
 	acw->win = gtk_dialog_new();
 	gtk_widget_set_app_paintable(acw->win, TRUE);
 	gtk_window_set_resizable(GTK_WINDOW(acw->win), FALSE);
@@ -175,7 +177,7 @@ void autocomp_run(BluefishTextView *bt2) {
 			if (items) {
 				Tacwin * acw;
 				/* create the GUI and run */
-				acw = acwin_create(bt2);
+				acw = acwin_create(bt2, context);
 				acwin_fill_tree(acw, items);
 				acwin_position_at_cursor(acw,bt2);
 				if (gtk_dialog_run(GTK_DIALOG(acw->win)) ==GTK_RESPONSE_OK ) {
