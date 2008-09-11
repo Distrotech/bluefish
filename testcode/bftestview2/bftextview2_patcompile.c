@@ -28,7 +28,7 @@ static guint add_keyword_to_scanning_table_keyword(Tscantable *st, gchar *keywor
 	g_array_set_size(st->matches,st->matches->len+1);
 	g_array_index(st->matches, Tpattern, matchnum).message = g_strdup(keyword);
 	g_array_index(st->matches, Tpattern, matchnum).ends_block = ends_block;
-	g_array_index(st->matches, Tpattern, matchnum).starts_block = ends_block;
+	g_array_index(st->matches, Tpattern, matchnum).starts_block = starts_block;
 	g_array_index(st->matches, Tpattern, matchnum).blockstartpattern = blockstartpattern;
 	g_array_index(st->matches, Tpattern, matchnum).selftag = selftag;
 	g_array_index(st->matches, Tpattern, matchnum).blocktag = blocktag;
@@ -74,13 +74,14 @@ static guint add_keyword_to_scanning_table_keyword(Tscantable *st, gchar *keywor
 
 Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	Tscantable *st;
-	gint i,context1,match1;
-	GtkTextTag *braces, *comment, *storage;
+	gint i,context1,context2,match1;
+	GtkTextTag *braces, *comment, *storage, *keyword, *string;
 	
 	braces = gtk_text_buffer_create_tag(buffer,"braces","weight", PANGO_WEIGHT_BOLD,"foreground","darkblue",NULL);
 	comment = gtk_text_buffer_create_tag(buffer,"comment","style", PANGO_STYLE_ITALIC,"foreground", "grey", NULL);
 	storage = gtk_text_buffer_create_tag(buffer,"storage","weight", PANGO_WEIGHT_BOLD,"foreground", "darkred", NULL);
-	
+	keyword = gtk_text_buffer_create_tag(buffer,"keyword","weight", PANGO_WEIGHT_BOLD,"foreground", "black", NULL);
+	string = gtk_text_buffer_create_tag(buffer,"string","foreground", "green", NULL);
 
 	st = g_slice_new0(Tscantable);
 	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), 100);
@@ -99,19 +100,58 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	add_keyword_to_scanning_table_keyword(st, "char", storage, context1, context1
 				, FALSE, FALSE, 0, NULL,TRUE
 				, "Character bla bla");
+	add_keyword_to_scanning_table_keyword(st, "if", keyword, context1, context1
+				, FALSE, FALSE, 0, NULL,TRUE
+				, "if bla");
+	add_keyword_to_scanning_table_keyword(st, "else", keyword, context1, context1
+				, FALSE, FALSE, 0, NULL,TRUE
+				, "else bla bla");
+	add_keyword_to_scanning_table_keyword(st, "return", keyword, context1, context1
+				, FALSE, FALSE, 0, NULL,TRUE
+				, "return bla bla");
+	add_keyword_to_scanning_table_keyword(st, "static", keyword, context1, context1
+				, FALSE, FALSE, 0, NULL,TRUE
+				, "static bla bla");
+	add_keyword_to_scanning_table_keyword(st, "const", keyword, context1, context1
+				, FALSE, FALSE, 0, NULL,TRUE
+				, "const bla bla");
+	add_keyword_to_scanning_table_keyword(st, "sizeof", keyword, context1, context1
+				, FALSE, FALSE, 0, NULL,TRUE
+				, "sizeof bla bla");
+	add_keyword_to_scanning_table_keyword(st, "switch", keyword, context1, context1
+				, FALSE, FALSE, 0, NULL,TRUE
+				, "switch bla bla");
+	add_keyword_to_scanning_table_keyword(st, "case", keyword, context1, context1
+				, FALSE, FALSE, 0, NULL,TRUE
+				, "case bla bla");
+	add_keyword_to_scanning_table_keyword(st, "break", keyword, context1, context1
+				, FALSE, FALSE, 0, NULL,TRUE
+				, "break bla bla");
 	match1 = add_keyword_to_scanning_table_keyword(st, "{", braces, context1, context1
 				, TRUE, FALSE, 0, NULL,FALSE,NULL);
 	add_keyword_to_scanning_table_keyword(st, "}", braces, context1, context1
-				, FALSE, TRUE, match1, NULL,TRUE,NULL);
+				, FALSE, TRUE, match1, NULL,FALSE,NULL);
 	match1 = add_keyword_to_scanning_table_keyword(st, "(", braces, context1, context1
 				, TRUE, FALSE, 0, NULL,FALSE,NULL);
 	add_keyword_to_scanning_table_keyword(st, ")", braces, context1, context1
-				, FALSE, TRUE, match1, NULL,TRUE,NULL);
+				, FALSE, TRUE, match1, NULL,FALSE,NULL);
 	match1 = add_keyword_to_scanning_table_keyword(st, "[", braces, context1, context1
 				, TRUE, FALSE, 0, NULL,FALSE,NULL);
 	add_keyword_to_scanning_table_keyword(st, "]", braces, context1, context1
-				, FALSE, TRUE, match1, NULL,TRUE,NULL);
-	
+				, FALSE, TRUE, match1, NULL,FALSE,NULL);
+	context2 = new_context(st);
+	match1 = add_keyword_to_scanning_table_keyword(st, "\"", string, context1, context2
+				, TRUE, FALSE, 0, NULL,FALSE,NULL);
+	add_keyword_to_scanning_table_keyword(st, "\\\"", string, context2, context2
+				, FALSE, FALSE, 0, string,FALSE,NULL);
+	add_keyword_to_scanning_table_keyword(st, "\"", string, context2, context1
+				, FALSE, TRUE, match1, string,FALSE,NULL);
+	context2 = new_context(st);
+	match1 = add_keyword_to_scanning_table_keyword(st, "/*", comment, context1, context2
+				, TRUE, FALSE, 0, NULL,FALSE,NULL);
+	add_keyword_to_scanning_table_keyword(st, "*/", comment, context2, context1
+				, FALSE, TRUE, match1, comment,FALSE,NULL);
+
 #endif
 
 	/* we don't build a automata from patterns right now, because I'm not
