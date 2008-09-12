@@ -43,8 +43,10 @@ static void bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 static gboolean bftextview2_scanner_idle(gpointer data)
 {
 	BluefishTextView *btv = data;
+	DBG_MSG("bftextview2_scanner_idle, running scanner idle function\n");
 	if (!bftextview2_run_scanner(btv)) {
 		btv->scanner_idle = 0;
+		DBG_MSG("bftextview2_scanner_idle, stopping scanner idle function\n");
 		return FALSE;
 	}
 	return TRUE;
@@ -267,18 +269,21 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 	}
 	return FALSE;
 }
-static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * begin,
-										 GtkTextIter * end, gpointer user_data)
+static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
+										 GtkTextIter * oend, gpointer user_data)
 {
 	guint start_offset;
+	GtkTextIter begin=*obegin,end=*oend;
 	BluefishTextView *btv=user_data;
 	DBG_MSG("bftextview2_delete_range_lcb\n");
 	
-	/* mark the text that is changed */
-	gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", begin, end);
-	DBG_MSG("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(begin),
-			gtk_text_iter_get_offset(end));
-	start_offset = gtk_text_iter_get_offset(begin);
+	/* mark the surroundings of the ext that will be deleted */
+	gtk_text_iter_backward_word_start(&begin);
+	gtk_text_iter_forward_word_end(&end);
+	gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &begin, &end);
+	DBG_MSG("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
+			gtk_text_iter_get_offset(&end));
+	start_offset = gtk_text_iter_get_offset(&begin);
 	if (btv->scancache.stackcache_need_update_charoffset == -1
 		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
