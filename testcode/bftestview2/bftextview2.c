@@ -43,10 +43,10 @@ static void bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 static gboolean bftextview2_scanner_idle(gpointer data)
 {
 	BluefishTextView *btv = data;
-	DBG_MSG("bftextview2_scanner_idle, running scanner idle function\n");
+	DBG_SIGNALS("bftextview2_scanner_idle, running scanner idle function\n");
 	if (!bftextview2_run_scanner(btv)) {
 		btv->scanner_idle = 0;
-		DBG_MSG("bftextview2_scanner_idle, stopping scanner idle function\n");
+		DBG_SIGNALS("bftextview2_scanner_idle, stopping scanner idle function\n");
 		return FALSE;
 	}
 	return TRUE;
@@ -54,6 +54,7 @@ static gboolean bftextview2_scanner_idle(gpointer data)
 
 static void bftextview2_schedule_scanning(BluefishTextView * btv) {
 	if (btv->scanner_idle == 0) {
+		DBG_SIGNALS("bftextview2_schedule_scanning, scheduling scanning function\n");
 		btv->scanner_idle = g_idle_add(bftextview2_scanner_idle, btv);
 	}
 }
@@ -63,7 +64,7 @@ static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * it
 {
 	GtkTextIter start;
 	gint start_offset;
-	DBG_MSG("bftextview2_insert_text_lcb, stringlen=%d\n", stringlen);
+	DBG_SIGNALS("bftextview2_insert_text_lcb, stringlen=%d\n", stringlen);
 	
 	bftextview2_schedule_scanning(btv);
 	/* mark the text that is changed */
@@ -71,7 +72,7 @@ static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * it
 	gtk_text_iter_backward_chars(&start, stringlen);
 
 	gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &start, iter);
-	DBG_MSG("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&start),
+	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&start),
 			gtk_text_iter_get_offset(iter));
 	start_offset = gtk_text_iter_get_offset(&start);
 	if (btv->scancache.stackcache_need_update_charoffset == -1
@@ -112,10 +113,12 @@ static Tfoundblock *bftextview2_get_block_at_iter(GtkTextIter * it)
 static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * location,
 									 GtkTextMark * arg2, gpointer widget)
 {
+	
 	if (arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
 		GtkTextIter it1, it2;
 		Tfoundblock *fblock = bftextview2_get_block_at_iter(location);
 		gtk_text_buffer_get_bounds(buffer, &it1, &it2);
+		DBG_SIGNALS("bftextview2_mark_set_lcb, 'insert' set\n");
 		gtk_text_buffer_remove_tag_by_name(buffer, "blockmatch", &it1, &it2);
 		if (fblock) {
 			GtkTextIter it3, it4;
@@ -256,6 +259,7 @@ static gboolean bftextview2_expose_event_lcb(GtkWidget * widget, GdkEventExpose 
 											 gpointer data)
 {
 	BluefishTextView *btv = data;
+	DBG_SIGNALS("bftextview2_expose_event_lcb\n");
 	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT)) {
 		GtkTextIter startvisible, endvisible;
 		GdkRectangle rect;
@@ -275,13 +279,13 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	guint start_offset;
 	GtkTextIter begin=*obegin,end=*oend;
 	BluefishTextView *btv=user_data;
-	DBG_MSG("bftextview2_delete_range_lcb\n");
+	DBG_SIGNALS("bftextview2_delete_range_lcb\n");
 	
 	/* mark the surroundings of the ext that will be deleted */
 	gtk_text_iter_backward_word_start(&begin);
 	gtk_text_iter_forward_word_end(&end);
 	gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &begin, &end);
-	DBG_MSG("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
+	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
 			gtk_text_iter_get_offset(&end));
 	start_offset = gtk_text_iter_get_offset(&begin);
 	if (btv->scancache.stackcache_need_update_charoffset == -1
@@ -294,7 +298,7 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * begin,
 											   GtkTextIter * end, gpointer user_data)
 {
-	DBG_MSG("bftextview2_delete_range_after_lcb\n");
+	DBG_SIGNALS("bftextview2_delete_range_after_lcb, schedule scanning...\n");
 	bftextview2_schedule_scanning(user_data);
 }
 

@@ -71,6 +71,7 @@ to different results (different color, different context).
 #define DBG_SCANCACHE DBG_NONE
 #define DBG_REFCOUNT DBG_NONE
 #define DBG_PATCOMPILE DBG_NONE
+#define DBG_SIGNALS g_print
 
 #define NUMSCANCHARS 127
 
