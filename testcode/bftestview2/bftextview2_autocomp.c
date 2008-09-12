@@ -66,14 +66,14 @@ static Tacwin *acwin_create(BluefishTextView *bt2, Tcontext *context) {
 	acw = g_new0(Tacwin,1);
 	acw->bt2 = bt2;
 	acw->context = context;
-	acw->win = gtk_dialog_new();
+	acw->win = gtk_window_new(GTK_WINDOW_POPUP);
 	gtk_widget_set_app_paintable(acw->win, TRUE);
 	gtk_window_set_resizable(GTK_WINDOW(acw->win), FALSE);
 	gtk_container_set_border_width(GTK_CONTAINER (acw->win), 0);
 	gtk_window_set_decorated(GTK_WINDOW(acw->win),FALSE);
-	gtk_dialog_set_has_separator(GTK_DIALOG(acw->win),FALSE);
-	
-	
+	gtk_window_set_type_hint(GTK_WINDOW(acw->win),GDK_WINDOW_TYPE_HINT_POPUP_MENU);
+
+		
 	acw->store = gtk_list_store_new(2,G_TYPE_STRING,G_TYPE_STRING);
 	sortmodel = gtk_tree_model_sort_new_with_model (GTK_TREE_MODEL(acw->store));
 	g_object_unref(acw->store);
@@ -105,7 +105,7 @@ static Tacwin *acwin_create(BluefishTextView *bt2, Tcontext *context) {
 	acw->reflabel = gtk_label_new(NULL);
 	gtk_label_set_line_wrap(GTK_LABEL(acw->reflabel),TRUE);
 	gtk_box_pack_start(GTK_BOX(hbox),acw->reflabel,TRUE,TRUE,0);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(acw->win)->vbox),hbox,TRUE,TRUE,0);
+	gtk_container_add(GTK_CONTAINER(acw->win), hbox);
 	gtk_widget_set_size_request(acw->reflabel,150,-1);
 	gtk_widget_show_all(scroll);
 	gtk_widget_show(hbox);
@@ -113,7 +113,6 @@ static Tacwin *acwin_create(BluefishTextView *bt2, Tcontext *context) {
 	gtk_widget_set_size_request(acw->win, 150, 200);
 	g_signal_connect(G_OBJECT(acw->win),"key-release-event",G_CALLBACK(acwin_key_release_lcb),acw);
 
-	gtk_widget_hide(GTK_DIALOG(acw->win)->action_area);
 	return acw;
 }
 
