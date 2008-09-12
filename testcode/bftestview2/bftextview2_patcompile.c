@@ -92,7 +92,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
 	st->matches->len = 1; /* match 0 eans no match */
 	
-#define DFA_COMPILING 
+/*#define DFA_COMPILING*/ 
 #ifdef DFA_COMPILING
 	context1 = new_context(st);
 	add_keyword_to_scanning_table_keyword(st, "void", storage, context1, context1
@@ -182,7 +182,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	
 	/* for testing we are going to scan for a block detected by {} and by ()
 	and we do C comments, and we scan for the keyword void */
-/*#define CSTYLEMATCHING*/
+#define CSTYLEMATCHING
 #ifdef CSTYLEMATCHING
 	g_array_set_size(st->table,14);
 	st->table->len = 14;
