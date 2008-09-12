@@ -1,4 +1,5 @@
 /* for the design docs see bftextview2.h */
+#include <string.h>
 #include "bftextview2_patcompile.h"
 
 static guint new_context(Tscantable *st) {
@@ -19,15 +20,16 @@ static guint new_context(Tscantable *st) {
 just full keywords */
 static guint add_keyword_to_scanning_table_keyword(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint context, guint nextcontext
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
-				, GtkTextTag *blocktag,gboolean add_to_ac, const gchar *reference) {
+				, GtkTextTag *blocktag,gboolean add_to_ac, gchar *reference) {
 
 	gint i,len,pos=0;
 	guint matchnum;
 
 	/* add the match */
+	DBG_PATCOMPILE("building pattern %s\n",keyword);
 	matchnum = st->matches->len;
 	st->matches->len++;
-	g_array_set_size(st->matches,st->matches->len);
+	g_array_set_size(st->matches,st->matches->len+1);
 	g_array_index(st->matches, Tpattern, matchnum).message = g_strdup(keyword);
 	g_array_index(st->matches, Tpattern, matchnum).ends_block = ends_block;
 	g_array_index(st->matches, Tpattern, matchnum).starts_block = starts_block;
@@ -57,7 +59,7 @@ static guint add_keyword_to_scanning_table_keyword(Tscantable *st, gchar *keywor
 	if (add_to_ac) {
 		GList *list;
 		if (!g_array_index(st->contexts, Tcontext, context).ac) {
-			g_print("create g_completion for context %d\n",context);
+			DBG_PATCOMPILE("create g_completion for context %d\n",context);
 			g_array_index(st->contexts, Tcontext, context).ac = g_completion_new(NULL);
 		}
 		list = g_list_prepend(NULL, keyword);
@@ -66,6 +68,7 @@ static guint add_keyword_to_scanning_table_keyword(Tscantable *st, gchar *keywor
 		
 		if (reference) {
 			if (!g_array_index(st->contexts, Tcontext, context).reference) {
+				DBG_PATCOMPILE("create hashtable for context %d\n",context);
 				g_array_index(st->contexts, Tcontext, context).reference = g_hash_table_new(g_str_hash,g_str_equal);
 			}
 			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,keyword,reference);
@@ -92,7 +95,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
 	st->matches->len = 1; /* match 0 eans no match */
 	
-/*#define DFA_COMPILING*/ 
+#define DFA_COMPILING 
 #ifdef DFA_COMPILING
 	context1 = new_context(st);
 	add_keyword_to_scanning_table_keyword(st, "void", storage, context1, context1
@@ -182,7 +185,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	
 	/* for testing we are going to scan for a block detected by {} and by ()
 	and we do C comments, and we scan for the keyword void */
-#define CSTYLEMATCHING
+/*#define CSTYLEMATCHING*/
 #ifdef CSTYLEMATCHING
 	g_array_set_size(st->table,14);
 	st->table->len = 14;
