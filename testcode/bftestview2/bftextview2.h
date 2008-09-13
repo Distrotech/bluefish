@@ -71,7 +71,8 @@ to different results (different color, different context).
 #define DBG_SCANCACHE DBG_NONE
 #define DBG_REFCOUNT DBG_NONE
 #define DBG_PATCOMPILE DBG_NONE
-#define DBG_SIGNALS g_print
+#define DBG_SIGNALS DBG_NONE
+#define DBG_AUTOCOMP g_print
 
 #define NUMSCANCHARS 127
 
@@ -194,6 +195,7 @@ struct _BluefishTextView {
 	guint scanner_idle; /* event ID for the idle function that handles the scanning. 0 if no idle function is running */
 	GTimer *user_idle_timer;
 	guint user_idle; /* event ID for the timed function that handles user idle events such as autocompletion popups */
+	gpointer autocomp; /* a Tacwin* with the current autocompletion window */
 };
 
 struct _BluefishTextViewClass {
