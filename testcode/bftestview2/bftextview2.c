@@ -301,7 +301,14 @@ static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIt
 	DBG_SIGNALS("bftextview2_delete_range_after_lcb, schedule scanning...\n");
 	bftextview2_schedule_scanning(user_data);
 }
-
+static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
+	BluefishTextView *btv=user_data;
+	if (btv->autocomp) {
+		if (acwin_check_keypress(btv, kevent))
+			return TRUE;
+	}
+	return FALSE;
+}
 /* *************************************************************** */
 /* widget stuff below */
 /* *************************************************************** */
@@ -377,5 +384,7 @@ GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 					 textview);
 	g_signal_connect_after(G_OBJECT(buffer), "delete-range",
 						   G_CALLBACK(bftextview2_delete_range_after_lcb), textview);
+	g_signal_connect(G_OBJECT(buffer), "keypress", G_CALLBACK(bftextview2_key_press_lcb),
+					 textview);
 	return GTK_WIDGET(textview);
 }
