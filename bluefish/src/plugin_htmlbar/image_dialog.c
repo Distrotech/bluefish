@@ -303,8 +303,8 @@ bluefish_image_dialog_create (GType type,
 	gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
 	gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_OK, GTK_RESPONSE_OK);
 	
-	gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog),
-																		 GTK_RESPONSE_OK, FALSE);
+	/*gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog),
+																		 GTK_RESPONSE_OK, FALSE);*/
 	
 	g_signal_connect (dialog, "response", G_CALLBACK (image_dialog_response_lcb), dialog);
 	
@@ -769,7 +769,7 @@ image_dialog_preview_loaded (BluefishImageDialog *dialog)
 	image_dialog_reset_dimensions (NULL, dialog);
 	gtk_widget_set_sensitive (dialog->priv->resetSizeButton, TRUE);
 	image_dialog_set_source (dialog);
-	gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GTK_RESPONSE_OK, TRUE);
+	/*gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GTK_RESPONSE_OK, TRUE);*/
 }
 
 static void
@@ -845,7 +845,7 @@ image_dialog_remove_preview (BluefishImageDialog *dialog)
 	dialog->priv->origWidth = 0;	
 	image_dialog_reset_dimensions (NULL, dialog);
 	gtk_widget_set_sensitive (dialog->priv->resetSizeButton, FALSE);
-	gtk_dialog_set_response_sensitive (GTK_DIALOG(dialog), GTK_RESPONSE_OK, FALSE);
+	/*gtk_dialog_set_response_sensitive (GTK_DIALOG(dialog), GTK_RESPONSE_OK, FALSE);*/
 }
 
 static void
@@ -906,9 +906,11 @@ image_dialog_source_changed (GtkWidget *widget,
 			GFile *parent = g_file_get_parent (dialog->priv->doc->uri);
 			dialog->priv->fileuri = g_file_resolve_relative_path (parent, filename);
 			g_object_unref (parent);
-		} else if (tmp != NULL)
+		} else if (tmp != NULL) {
 				dialog->priv->fileuri = g_file_new_for_uri (filename);
-			else if	(filename[0] == '/')
+				if (!g_file_has_uri_scheme (dialog->priv->fileuri, "file"))
+					return;
+		}	else if	(filename[0] == '/')
 				dialog->priv->fileuri = g_file_new_for_path (filename);
 			else
 				return;
@@ -957,7 +959,7 @@ filebutton_clicked (GtkButton *button,
 	
 	gtk_file_chooser_set_local_only (GTK_FILE_CHOOSER (dialog), FALSE);
 
-	if (imageDialog->priv->fileuri) {
+	if (imageDialog->priv->fileuri && imageDialog->priv->preview) {
 		seturi = g_file_get_uri (imageDialog->priv->fileuri);
 		gtk_file_chooser_set_uri (GTK_FILE_CHOOSER (dialog), seturi);
 	}
@@ -969,6 +971,9 @@ filebutton_clicked (GtkButton *button,
 		if (seturi)
 			gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dialog), seturi);
 	}
+	else if (imageDialog->priv->bfwin->session->opendir)
+		gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dialog), 
+																						 imageDialog->priv->bfwin->session->opendir);
 	
 	if (seturi)
 		g_free (seturi);
@@ -1046,9 +1051,21 @@ image_dialog_ok_clicked (BluefishImageDialog *dialog)
 	gtk_widget_hide (GTK_WIDGET (dialog));
 	
 	tag = g_string_new (cap ("<IMG"));
-  g_string_append_printf (tag, " %s=\"%s\"", cap ("SRC"),
-													dialog->priv->filename);
-
+  
+	strvalue = gtk_editable_get_chars (GTK_EDITABLE (dialog->priv->source), 0, -1);
+	if (strlen (strvalue))
+	{
+		if (dialog->priv->filename)
+			g_string_append_printf (tag, " %s=\"%s\"", cap ("SRC"),
+															dialog->priv->filename);
+		else
+			g_string_append_printf (tag, " %s=\"%s\"", cap ("SRC"),
+															strvalue);
+	}
+	else
+		g_string_append_printf (tag, " %s=\"\"", cap ("SRC"));
+	g_free (strvalue);
+	
 	intvalue = gtk_spin_button_get_value_as_int (GTK_SPIN_BUTTON (dialog->priv->width));
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON (dialog->priv->widthPercent)))
 		g_string_append_printf (tag, " %s=\"%d%%\"", cap ("WIDTH"), intvalue);
@@ -1214,6 +1231,8 @@ bluefish_image_dialog_new_with_data (Tbfwin *bfwin,
 			widthispercent = TRUE;
 			g_free (temp);
 		}
+		else
+			width = g_strtod (tagvalues[1], NULL);
 	}
 	
 	if (tagvalues[2])
@@ -1225,6 +1244,8 @@ bluefish_image_dialog_new_with_data (Tbfwin *bfwin,
 			heightispercent = TRUE;
 			g_free (temp);
 		}
+		else
+			height = g_strtod (tagvalues[2], NULL);
 	}
 	
 	if (tagvalues[9])
