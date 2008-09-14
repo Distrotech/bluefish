@@ -24,6 +24,26 @@ static void acwin_cleanup(BluefishTextView * btv) {
 	}
 }
 
+static gboolean acwin_move_selection(BluefishTextView *btv, gint keyval) {
+	GtkTreeSelection *selection;
+	GtkTreeIter it;
+	GtkTreeModel *model;
+	selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
+	if (selection && gtk_tree_selection_get_selected(selection,&model,&it)) {
+		switch (keyval) {
+		case GDK_Up:
+			/* move the selection one up */
+			
+		break;
+		
+		}
+	
+	} else {
+		/* set selection */
+	}
+	return FALSE;
+}
+
 gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 {
 	DBG_AUTOCOMP("got keyval %c\n",event->keyval);
@@ -47,10 +67,9 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 		return TRUE;
 	break;
 	case GDK_Up:
-	
-	break;
 	case GDK_Down:
-	
+		if (acwin_move_selection(btv, event->keyval))
+			return TRUE;
 	break;
 	}
 
