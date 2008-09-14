@@ -1130,6 +1130,14 @@ void gui_set_main_toolbar_visible(Tbfwin *bfwin, gboolean visible, gboolean sync
 	widget_set_visible(bfwin->main_toolbar_hb,visible);
 }
 
+void gui_fullscreen_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
+	if (GTK_CHECK_MENU_ITEM(widget)->active) {
+		gtk_window_fullscreen(GTK_WINDOW(bfwin->main_window));
+	} else {
+		gtk_window_unfullscreen(GTK_WINDOW(bfwin->main_window));
+	}
+}
+
 void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	gboolean active = GTK_CHECK_MENU_ITEM(widget)->active;
 	DEBUG_MSG("gui_toggle_hidewidget_cb, action=%d, active=%d\n",action,active);
