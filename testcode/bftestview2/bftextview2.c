@@ -79,7 +79,11 @@ static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * it
 		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
-	bftextview2_reset_user_idle_timer(btv);
+	if (btv->autocomp) {
+		autocomp_run(btv);
+	} else {
+		bftextview2_reset_user_idle_timer(btv);
+	}
 }
 
 static void bftextview2_get_iters_at_foundblock(GtkTextBuffer * buffer, Tfoundblock * fblock,

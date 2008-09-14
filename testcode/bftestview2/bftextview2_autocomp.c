@@ -28,18 +28,30 @@ static gboolean acwin_move_selection(BluefishTextView *btv, gint keyval) {
 	GtkTreeSelection *selection;
 	GtkTreeIter it;
 	GtkTreeModel *model;
+	GtkTreePath *path;
+
 	selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
-	if (selection && gtk_tree_selection_get_selected(selection,&model,&it)) {
+	if (gtk_tree_selection_get_selected(selection,&model,&it)) {
+		path = gtk_tree_model_get_path(model, &it);
 		switch (keyval) {
-		case GDK_Up:
-			/* move the selection one up */
-			
-		break;
-		
+			case GDK_Up:	/* move the selection one up */
+				gtk_tree_path_prev(path);
+			break;
+			case GDK_Down:
+				gtk_tree_path_next(path);
+			break;		
 		}
-	
+		if (gtk_tree_model_get_iter(model, &it, path))
+		{
+			gtk_tree_selection_select_iter(selection, &it);
+			gtk_tree_view_scroll_to_cell(ACWIN(btv->autocomp)->tree, path, NULL, FALSE, 0, 0);
+			
+		}
+		gtk_tree_path_free(path);
+		return TRUE;
 	} else {
 		/* set selection */
+		
 	}
 	return FALSE;
 }
@@ -101,7 +113,6 @@ static Tacwin *acwin_create(BluefishTextView *btv, Tcontext *context) {
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	GtkWidget *scroll, *vbar, *hbox;
-	GtkTreeModel *sortmodel;
 	Tacwin * acw;
 	GtkTreeSelection* selection;
 	
@@ -115,11 +126,8 @@ static Tacwin *acwin_create(BluefishTextView *btv, Tcontext *context) {
 	gtk_window_set_type_hint(GTK_WINDOW(acw->win),GDK_WINDOW_TYPE_HINT_POPUP_MENU);
 
 	acw->store = gtk_list_store_new(2,G_TYPE_STRING,G_TYPE_STRING);
-	sortmodel = gtk_tree_model_sort_new_with_model (GTK_TREE_MODEL(acw->store));
+	acw->tree = GTK_TREE_VIEW(gtk_tree_view_new_with_model(acw->store));
 	g_object_unref(acw->store);
-	acw->tree = GTK_TREE_VIEW(gtk_tree_view_new_with_model(sortmodel));
-	g_object_unref(sortmodel);
-	gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE (sortmodel),1, GTK_SORT_ASCENDING);
 	
 	gtk_tree_view_set_headers_visible(acw->tree, FALSE);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
@@ -214,6 +222,8 @@ void autocomp_run(BluefishTextView *btv) {
 			items = g_completion_complete(context->ac,prefix,&newprefix);
 			DBG_AUTOCOMP("got %d autocompletion items, newprefix=%s\n",g_list_length(items),newprefix);
 			if (items) {
+				GtkTreeSelection *selection;
+				GtkTreeIter it;
 				/* create the GUI */
 				if (!btv->autocomp) {
 					btv->autocomp = acwin_create(btv, context);
@@ -225,6 +235,9 @@ void autocomp_run(BluefishTextView *btv) {
 				acwin_fill_tree(ACWIN(btv->autocomp), items);
 				acwin_position_at_cursor(btv);
 				gtk_widget_show(ACWIN(btv->autocomp)->win);
+				gtk_tree_model_get_iter_first(ACWIN(btv->autocomp)->store, &it);
+				selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
+				gtk_tree_selection_select_iter(selection, &it);
 			} else {
 				acwin_cleanup(btv);
 			}
