@@ -271,6 +271,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Preference_s"), NULL, open_preferences_menu_cb, 0, "<StockItem>", GTK_STOCK_PREFERENCES},
 	{N_("/_View"), NULL, NULL, 0, "<Branch>"},
 	{"/View/tearoff1", NULL, NULL, 0, "<Tearoff>"},
+	{N_("/View/Fullscreen"), NULL, gui_fullscreen_cb, 1, "<ToggleItem>"},
+	{"/View/sep1", NULL, NULL, 0, "<Separator>"},
 	{N_("/View/View _Main Toolbar"), NULL, gui_toggle_hidewidget_cb, 1, "<ToggleItem>"},
 	{N_("/View/View _Sidebar"), "F9", gui_toggle_hidewidget_cb, 4, "<ToggleItem>"},
 	{N_("/_Document"), NULL, NULL, 0, "<Branch>"},
