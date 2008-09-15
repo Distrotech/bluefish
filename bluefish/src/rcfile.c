@@ -242,7 +242,10 @@ static gint save_config_file(GList * config_list, gchar * filename)
 			DEBUG_MSG("save_config_file, the tmplist2(%p)\n", tmplist2);
 			while (tmplist2 != NULL) {
 				tmpstring2 = array_to_string((char **) tmplist2->data);
-				tmpstring = g_strdup_printf("%s %s", tmpitem->identifier, tmpstring2);
+				if (tmpitem->identifier)
+					tmpstring = g_strdup_printf("%s %s", tmpitem->identifier, tmpstring2);
+				else
+					tmpstring = g_strdup_printf("%s", tmpstring2);
 				DEBUG_MSG("save_config_file, tmpstring(%p)=%s\n", tmpstring, tmpstring);
 				rclist = g_list_append(rclist, tmpstring);
 				tmplist2 = g_list_previous(tmplist2);
@@ -405,7 +408,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.newfile_default_encoding,"newfile_default_encoding:","UTF-8");
-	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 2, TRUE);
+/*	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 3, TRUE);*/
 	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta_author,"auto_update_meta_author:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta_date,"auto_update_meta_date:",1, TRUE);
@@ -612,12 +615,16 @@ void rcfile_parse_main(void)  {
 	
 	
 	{
+		gchar *filename = user_bfdir("encodings");
 		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"/encodings",
 											"data/encodings",
-										"../data/encodings",NULL);
+											"../data/encodings",NULL);
+		
 		if (main_v->props.encodings == NULL) {
+			if (filename)
+				main_v->props.encodings = get_list(filename, NULL, TRUE);
 			/* if the user does not have encodings --> set them to defaults values */
-			if (defaultfile) {
+			if (main_v->props.encodings == NULL && defaultfile) {
 				main_v->props.encodings = get_list(defaultfile,NULL,TRUE);
 			} else {
 				g_print("Unable to find '"PKGDATADIR"/encodings'\n");
@@ -628,6 +635,7 @@ void rcfile_parse_main(void)  {
 				main_v->globses.lasttime_encodings = TIME_T_TO_GINT(time(NULL));
 			}
 		}
+		g_free(filename);
 		g_free(defaultfile);
 	}
 
@@ -869,12 +877,25 @@ gboolean rcfile_parse_project(Tproject *project, gchar *filename) {
 gboolean rcfile_save_project(Tproject *project, gchar *filename) {
 	gboolean retval;
 	GList *configlist = return_project_configlist(project);
-	DEBUG_MSG("rcfile_save_project, project %p, name='%s', basedir='%s', webdir='%s'\n",project, project->name, project->basedir, project->webdir);
+	DEBUG_MSG("rcfile_save_project, project %p, name='%s'\n",project, project->name);
 	DEBUG_MSG("rcfile_save_project, bmarks=%p, list length=%d\n",project->session->bmarks, g_list_length(project->session->bmarks));
 	DEBUG_MSG("rcfile_save_project, length session recent_files=%d\n",g_list_length(project->session->recent_files));
 	retval = save_config_file(configlist, filename);
 	free_configlist(configlist);
 	return retval;
+}
+
+gboolean rcfile_save_encodings(void) {
+	gboolean retval;
+	gchar *filename;
+	GList *configlist = NULL;
+	
+	filename = user_bfdir("encodings");
+	init_prop_arraylist (&configlist, &main_v->props.encodings, NULL, 3, FALSE);
+	DEBUG_MSG("rcfile_save_encodings, saving encodings to %s\n", filename);
+	retval = save_config_file(configlist, filename);
+	g_free(filename);
+	return TRUE;
 }
 
 gboolean rcfile_save_global_session(void) {
@@ -931,8 +952,6 @@ gboolean rcfile_parse_global_session(void) {
 		arr = array_from_arglist(_("Hide objectfiles"),"0", "application/octet-stream:application/x-object", "", NULL);
 		main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
 	}
-	
-
-	
+		
 	return retval;
 }

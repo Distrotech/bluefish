@@ -35,6 +35,7 @@
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
+#include "encodings_dialog.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"            /* window_full, bf_stock_ok_button */
 #include "gui.h"                 /* go_to_line_win_cb */
@@ -182,6 +183,10 @@ static void menu_bmark_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWid
 	}
 }
 
+static void encodings_dialog_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+	bluefish_encodings_dialog_new (bfwin);
+}
+
 static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	switch(callback_action) {
 	case 1:
@@ -294,13 +299,15 @@ static GtkItemFactoryEntry menu_items[] = {
 	{"/Document/Document Type/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/Character _Encoding"), NULL, NULL, 0, "<Branch>"},
 	{"/Document/Character Encoding/tearoff1", NULL, NULL, 0, "<Tearoff>"},
-	{"/Document/sep4", NULL, NULL, 0, "<Separator>"},
+	{"/Document/Character Encoding/sep4", NULL, NULL, 0, "<Separator>"},
+	{"/Document/Character Encoding/_Add or Remove...", NULL, encodings_dialog_menu_cb, 1, "<Item>"},
+	{"/Document/sep5", NULL, NULL, 0, "<Separator>"},
 #ifdef HAVE_LIBASPELL
 	{N_("/Document/Check _Spelling..."), NULL, spell_check_menu_cb, 0, "<StockItem>", GTK_STOCK_SPELL_CHECK},
 #endif /* HAVE_LIBASPELL */
 	{N_("/Document/_Floating window"), NULL, file_floatingview_menu_cb, 1, "<Item>"},			
 	{N_("/Document/Word _Count"), NULL, word_count_cb, 1, "<Item>"},
-	{"/Document/sep5", NULL, NULL, 0, "<Separator>"},
+	{"/Document/sep6", NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/Move left"), NULL, gui_notebook_switch, 5, "<Item>"},
 	{N_("/Document/Move right"), NULL, gui_notebook_switch, 6, "<Item>"},
 	{N_("/_Go"), NULL, NULL, 0, "<Branch>"},
@@ -1113,9 +1120,11 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Document/Character Encoding"));
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
-		if (count_array(strarr)==2) {
+		if (count_array(strarr)==3 && (g_ascii_strcasecmp (strarr[2], "TRUE") == 0)) {
 			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
-			bdm->menuitem = gtk_radio_menu_item_new_with_label(group, strarr[0]);
+			gchar *label = g_strdup_printf ("%s (%s)", strarr[0], strarr[1]);
+			bdm->menuitem = gtk_radio_menu_item_new_with_label(group, label);
+			g_free (label);
 			bdm->data = strarr[1];
 			bdm->bfwin = bfwin;
 			g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(menu_current_document_encoding_change), (gpointer) bdm);

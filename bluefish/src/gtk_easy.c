@@ -1415,12 +1415,17 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 
 		hbox = gtk_hbox_new (FALSE, 6);
 		label = gtk_label_new_with_mnemonic(_("Character _Encoding:"));
-		store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_POINTER);
+		store = gtk_list_store_new(3,
+															 G_TYPE_STRING,
+															 G_TYPE_POINTER,
+															 G_TYPE_BOOLEAN);
 		for (tmplist=g_list_first(main_v->props.encodings);tmplist;tmplist=tmplist->next){
 			gchar **arr = (gchar **)tmplist->data;
-			if (count_array(arr) == 2) {
+			if (count_array(arr) == 3) {
+				gchar *label = g_strdup_printf ("%s (%s)", arr[0], arr[1]);
 				gtk_list_store_append(store,&iter);
-				gtk_list_store_set(store,&iter,0,arr[0],1,arr,-1);
+				gtk_list_store_set(store,&iter,0,label,1,arr,-1);
+				g_free (label);
 				if (bfwin->session->encoding && strcmp(arr[1],bfwin->session->encoding)==0) {
 					seliter = iter;
 					have_seliter = TRUE;
