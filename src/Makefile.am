@@ -32,6 +32,8 @@ bluefish_unstable_SOURCES = \
 	document.h \
 	embed_python.c \
 	embed_python.h \
+	encodings_dialog.c \
+	encodings_dialog.h \
 	external_commands.c \
 	external_commands.h \
 	filebrowser2.c \
