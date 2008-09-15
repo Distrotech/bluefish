@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * rcfile.h - functions to load the config
  *
- * Copyright (C) 2001-2003 Olivier Sessink
+ * Copyright (C) 2001-2008 Olivier Sessink
  * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@ gint rcfile_save_main(void);
 gint rcfile_save_custom_menu(void);
 gboolean rcfile_parse_project(Tproject *project, gchar *filename);
 gboolean rcfile_save_project(Tproject *project, gchar *filename);
+gboolean rcfile_save_encodings(void);
 gboolean rcfile_save_global_session(void);
 gboolean rcfile_parse_global_session(void);
 #endif /* __RCFILE_H_ */
