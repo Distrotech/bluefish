@@ -2,6 +2,32 @@
 #include <string.h>
 #include "bftextview2_patcompile.h"
 
+/*
+we need real regex pattern support as well. 
+
+we don't do everything that pcre or posix regex patterns can 
+do - these engines have features that cannot be done in a DFA  
+
+There are several ways in which regex patterns can be simplified: 
+
+a(bc)+ == abc(abc)*
+[a-z]+ == [a-z][a-z]*
+
+a(bc)? = (a|abc)
+a[a-z]? = (a|a[a-z])
+
+a(b|c)d == (abd|acd)
+
+[^a] == [b-z] (and all other ascii characters, for simplification I just use the alphabet)
+
+so we need to be able to compile:
+the OR construct: (|)
+the zero-or-more *
+the character list [a-z]
+
+*/
+
+
 static guint new_context(Tscantable *st, gchar *symbols) {
 	guint context, startstate, identstate;
 	gint i;
