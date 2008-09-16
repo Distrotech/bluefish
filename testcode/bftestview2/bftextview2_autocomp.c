@@ -91,6 +91,9 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
+	if (!acw->context->reference)
+		return;
+	
 	if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
 		gchar *key;
 		gtk_tree_model_get(model,&iter,0,&key,-1);
@@ -182,7 +185,8 @@ static void acwin_position_at_cursor(BluefishTextView *btv) {
 
 static void acwin_fill_tree(Tacwin *acw, GList *items) {
 	GList *tmplist;
-	tmplist = g_list_first(items);
+	
+	tmplist = g_list_sort(items, g_strcmp0);
 	while (tmplist)	{
 		GtkTreeIter it;
 		gtk_list_store_append(acw->store,&it);
