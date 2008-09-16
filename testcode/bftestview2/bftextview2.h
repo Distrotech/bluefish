@@ -72,7 +72,8 @@ to different results (different color, different context).
 #define DBG_REFCOUNT DBG_NONE
 #define DBG_PATCOMPILE DBG_NONE
 #define DBG_SIGNALS DBG_NONE
-#define DBG_AUTOCOMP g_print
+#define DBG_AUTOCOMP DBG_NONE
+#define DBG_SCANNING DBG_NONE
 
 #define NUMSCANCHARS 127
 
@@ -87,7 +88,11 @@ to different results (different color, different context).
 typedef struct {
 	GCompletion* ac; /* autocompletion items in this context */
 	GHashTable *reference; /* reference help for each autocompletion item */
-	guint startstate;
+	guint startstate; /* refers to the row number in scantable->table that is the start state for this context */
+	guint identstate; /* refers to the row number in scantable->table that is the identifier-state 
+					for this context. The identifier state is a state that refers to itself for all characters
+					except the characters (symbols) thay may be the begin or end of an identifier such
+					as whitespace, ();[]{}*+-/ etc. */
 } Tcontext;
 
 typedef struct {

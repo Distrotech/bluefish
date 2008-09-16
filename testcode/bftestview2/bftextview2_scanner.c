@@ -233,7 +233,7 @@ static int found_match(BluefishTextView * bt2, Tmatch match, Tscanning *scanning
 	GtkTextMark *where=NULL;
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bt2));
 	Tpattern pat = g_array_index(bt2->scantable->matches,Tpattern, match.patternum);
-	DBG_MSG("found_match for pattern %d %s at charoffset %d\n",match.patternum,pat.message, gtk_text_iter_get_offset(&match.start));
+	DBG_SCANNING("found_match for pattern %d %s at charoffset %d\n",match.patternum,pat.message, gtk_text_iter_get_offset(&match.start));
 /*	DBG_MSG("pattern no. %d (%s) matches (%d:%d) --> nextcontext=%d\n", match.patternum, scantable.matches[match.patternum].message,
 			gtk_text_iter_get_offset(&match.start), gtk_text_iter_get_offset(&match.end), scantable.matches[match.patternum].nextcontext);*/
 
@@ -366,7 +366,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 	GtkTextBuffer *buffer;
 	GtkTextIter start, end, iter;
 	GtkTextIter mstart;
-	GArray *matchstack;
+	/*GArray *matchstack;*/
 	Tscanning scanning;
 	guint pos = 0, newpos;
 	
@@ -407,7 +407,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 		reconstruct_stack(bt2, buffer, &iter, &scanning);
 		pos = g_array_index(bt2->scantable->contexts,Tcontext,scanning.context).startstate;
 	}
-	matchstack = g_array_sized_new(FALSE,TRUE,sizeof(Tmatch),10);
+	/*matchstack = g_array_sized_new(FALSE,TRUE,sizeof(Tmatch),10);*/
 	/* TODO: when rescanning text that has been scanned before we need to remove 
 	invalid tags and blocks. right now we remove all, but most are likely 
 	still valid */
@@ -422,19 +422,33 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 		if (uc > 128) {
 			newpos = 0;
 		} else {
-			/*DBG_MSG("scanning %c in pos %d..",uc,pos);*/ 
+			DBG_SCANNING("scanning %d %c in pos %d..",gtk_text_iter_get_offset(&iter),uc,pos); 
 			newpos = g_array_index(bt2->scantable->table, Ttablerow, pos).row[uc];
-			/*DBG_MSG(" got newpos %d\n",newpos);*/
+			DBG_SCANNING(" got newpos %d\n",newpos);
 		}
-		if (g_array_index(bt2->scantable->table, Ttablerow, newpos).match != 0) {
+/*		if (g_array_index(bt2->scantable->table, Ttablerow, newpos).match != 0) {
 			Tmatch match;
 			match.patternum = g_array_index(bt2->scantable->table,Ttablerow, newpos).match;
 			match.start = mstart;
 			match.end = iter;
 			gtk_text_iter_forward_char(&match.end);
+			DBG_SCANNING("scanning, newpos=%d, put match %d on stack from pos %d to %d\n",newpos,match.patternum,gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
 			g_array_append_val(matchstack,match);
-		}
+		}*/
 		if (newpos == 0 || uc == '\0') {
+			if (g_array_index(bt2->scantable->table,Ttablerow, pos).match) {
+				Tmatch match;
+				match.patternum = g_array_index(bt2->scantable->table,Ttablerow, pos).match;
+				match.start = mstart;
+				match.end = iter;
+				DBG_SCANNING("we have a match from pos %d to %d\n", gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
+				scanning.context = found_match(bt2, match,&scanning);
+			}
+			if (gtk_text_iter_equal(&mstart,&iter)) {
+				gtk_text_iter_forward_char(&iter);
+			}
+			mstart = iter;
+#ifdef OLD			
 			if (matchstack->len > 0) {
 				DBG_MSG("we have a match at matchstackpos=%d\n",matchstack->len-1);
 				scanning.context = found_match(bt2, g_array_index(matchstack,Tmatch,matchstack->len - 1),&scanning);
@@ -454,6 +468,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 				gtk_text_iter_forward_char(&mstart);
 				iter = mstart;
 			}
+#endif
 			newpos = g_array_index(bt2->scantable->contexts,Tcontext,scanning.context).startstate;		
 		} else {
 			gtk_text_iter_forward_char(&iter);
@@ -464,7 +479,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 	gtk_text_buffer_apply_tag_by_name(buffer,"needscanning",&iter,&end);
 
 	g_timer_destroy(scanning.timer);
-	g_array_free(matchstack,TRUE);
+	/*g_array_free(matchstack,TRUE);*/
 
 	return TRUE; /* even if we finished scanning the next call should update the scancache */
 }

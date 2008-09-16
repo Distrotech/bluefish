@@ -2,19 +2,35 @@
 #include <string.h>
 #include "bftextview2_patcompile.h"
 
-static guint new_context(Tscantable *st) {
-	guint num;
+static guint new_context(Tscantable *st, gchar *symbols) {
+	guint context, startstate, identstate;
+	gint i;
+	gchar *tmp;
 	
-	num = st->contexts->len;
-	st->contexts->len++;
+	context = st->contexts->len;
 	g_array_set_size(st->contexts,st->contexts->len+1);
-	g_array_index(st->contexts, Tcontext, num).startstate = st->table->len;
 
-	st->table->len++;
-	g_array_set_size(st->table,st->table->len);
+	startstate = st->table->len;
+	identstate = st->table->len+1;
+
+	g_array_index(st->contexts, Tcontext, context).startstate = startstate;
+	g_array_index(st->contexts, Tcontext, context).identstate = identstate;
+	g_array_set_size(st->table,st->table->len+2);
 	
-	g_print("new context %d has startstate %d\n",num, g_array_index(st->contexts, Tcontext, num).startstate);	
-	return num;
+	/* identstate refers to itself for all characters except the symbols. we cannot use memset
+	because an integer occupies 2 bytes */
+	for (i=0;i<NUMSCANCHARS;i++)
+		g_array_index(st->table, Ttablerow, identstate).row[i] = identstate;
+	
+	tmp = symbols;
+	while (*tmp) {
+		g_array_index(st->table, Ttablerow, identstate).row[(int)*tmp] = 0;
+		tmp++;
+	} 
+	memcpy(g_array_index(st->table, Ttablerow, startstate).row, g_array_index(st->table, Ttablerow, identstate).row, sizeof(unsigned int[NUMSCANCHARS]));
+	
+	g_print("new context %d has startstate %d, identstate %d\n",context, g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts, Tcontext, context).identstate);	
+	return context;
 }
 
 static guint new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint context, guint nextcontext
@@ -25,7 +41,6 @@ static guint new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guin
 	
 	matchnum = st->matches->len;
 	DBG_PATCOMPILE("new match %s with matchnum %d\n",keyword,matchnum);
-	st->matches->len++;
 	g_array_set_size(st->matches,st->matches->len+1);
 
 	g_array_index(st->matches, Tpattern, matchnum).message = g_strdup(keyword);
@@ -63,21 +78,35 @@ just full keywords */
 static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint matchnum, guint context) {
 
 	gint i,len,pos=0;
+	gboolean is_symbol=FALSE;
+	guint identstate = g_array_index(st->contexts, Tcontext, context).identstate;
 
 	/* compile the keyword into the DFA */
 	pos = g_array_index(st->contexts, Tcontext, context).startstate;
+	if (strlen(keyword)==1 && g_array_index(st->table, Ttablerow, identstate).row[keyword[0]] == 0) {
+		/* this keyword is a symbol itself ! */
+		is_symbol=TRUE;
+	}
+	
+	DBG_PATCOMPILE("in context %d we start with position %d; %d is the identstate\n",context,pos,identstate);
 	len = strlen(keyword);
 	for (i=0;i<=len;i++) {
 		int c = keyword[i];
 		if (c == '\0') {
+			if (is_symbol) {
+				for (i=0;i<NUMSCANCHARS;i++)
+					if (g_array_index(st->table, Ttablerow, pos).row[i] == identstate)
+						g_array_index(st->table, Ttablerow, pos).row[i] = 0;
+			}
 			g_array_index(st->table, Ttablerow, pos).match = matchnum;
 		} else {
-			if (g_array_index(st->table, Ttablerow, pos).row[c] != 0) {
+			DBG_PATCOMPILE("state %d, character %c refers to next state %d\n",pos,c,g_array_index(st->table, Ttablerow, pos).row[c]);
+			if (g_array_index(st->table, Ttablerow, pos).row[c] != 0 && g_array_index(st->table, Ttablerow, pos).row[c] != identstate) {
 				pos = g_array_index(st->table, Ttablerow, pos).row[c];
 			} else {
 				pos = g_array_index(st->table, Ttablerow, pos).row[c] = st->table->len;
-				st->table->len++;
 				g_array_set_size(st->table,st->table->len+1);
+				memcpy(g_array_index(st->table, Ttablerow, pos).row, g_array_index(st->table, Ttablerow, g_array_index(st->contexts, Tcontext, context).identstate).row, sizeof(unsigned int[NUMSCANCHARS]));
 			}
 		}
 	}
@@ -92,6 +121,23 @@ guint add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, GtkTextTag *
 				, blocktag,add_to_ac, reference);
 	compile_keyword_to_DFA(st, keyword, matchnum, context);
 	return matchnum;
+}
+
+static void print_DFA(Tscantable *st, char start, char end) {
+	gint i,j;
+	g_print("   ");
+	for (j=start;j<end;j++) {
+		g_print("%c ",j);
+	}
+	g_print("\n");
+	for (i=0;i<st->table->len;i++) {
+		g_print("%1d: ",i);
+		for (j=start;j<end;j++) {
+			g_print("%d ",g_array_index(st->table, Ttablerow, i).row[j]);
+		}
+		g_print("\n");
+	}
+	
 }
 
 Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
@@ -113,15 +159,11 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
 	st->matches->len = 1; /* match 0 eans no match */
 	
-/*#define DFA_COMPILING*/ 
+#define DFA_COMPILING 
 #ifdef DFA_COMPILING
-	context1 = new_context(st);
-	add_keyword_to_scanning_table(st, "void", storage, context1, context1
-				, FALSE, FALSE, 0, NULL,TRUE
-				, "A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
-	add_keyword_to_scanning_table(st, "int", storage, context1, context1
-				, FALSE, FALSE, 0, NULL,TRUE
-				, "Integer bla bla");
+	context1 = new_context(st," \t\n;(){}[]:\"\\',<>*&^%!+=-|/?#");
+	add_keyword_to_scanning_table(st, "void", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
+	add_keyword_to_scanning_table(st, "int", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "Integer bla bla");
 	add_keyword_to_scanning_table(st, "char", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
 	add_keyword_to_scanning_table(st, "gchar", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
 	add_keyword_to_scanning_table(st, "gint", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
@@ -139,8 +181,11 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	add_keyword_to_scanning_table(st, "GtkTreeStore", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
 	add_keyword_to_scanning_table(st, "GtkListStore", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
 	add_keyword_to_scanning_table(st, "GtkTreeModel", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
+	add_keyword_to_scanning_table(st, "GObject", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
 	
 	add_keyword_to_scanning_table(st, "NULL", variable, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "empty pointer value bla bla");
+	add_keyword_to_scanning_table(st, "TRUE", variable, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "empty pointer value bla bla");
+	add_keyword_to_scanning_table(st, "FALSE", variable, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "empty pointer value bla bla");
 	
 	add_keyword_to_scanning_table(st, "if", keyword, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "if bla");
 	add_keyword_to_scanning_table(st, "else", keyword, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "else bla bla");
@@ -151,24 +196,27 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	add_keyword_to_scanning_table(st, "switch", keyword, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "switch bla bla");
 	add_keyword_to_scanning_table(st, "case", keyword, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "case bla bla");
 	add_keyword_to_scanning_table(st, "break", keyword, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "break bla bla");
+	add_keyword_to_scanning_table(st, "typedef", keyword, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "break bla bla");
+	add_keyword_to_scanning_table(st, "struct", keyword, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "break bla bla");
+	add_keyword_to_scanning_table(st, "enum", keyword, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "break bla bla");
 	match1 = add_keyword_to_scanning_table(st, "{", braces, context1, context1, TRUE, FALSE, 0, NULL,FALSE,NULL);
 	add_keyword_to_scanning_table(st, "}", braces, context1, context1, FALSE, TRUE, match1, NULL,FALSE,NULL);
 	match1 = add_keyword_to_scanning_table(st, "(", braces, context1, context1, TRUE, FALSE, 0, NULL,FALSE,NULL);
 	add_keyword_to_scanning_table(st, ")", braces, context1, context1, FALSE, TRUE, match1, NULL,FALSE,NULL);
 	match1 = add_keyword_to_scanning_table(st, "[", braces, context1, context1, TRUE, FALSE, 0, NULL,FALSE,NULL);
 	add_keyword_to_scanning_table(st, "]", braces, context1, context1, FALSE, TRUE, match1, NULL,FALSE,NULL);
-	context2 = new_context(st);
+	context2 = new_context(st,"\\\" \n\t");
 	match1 = add_keyword_to_scanning_table(st, "\"", string, context1, context2, TRUE, FALSE, 0, NULL,FALSE,NULL);
 	add_keyword_to_scanning_table(st, "\\\"", string, context2, context2, FALSE, FALSE, 0, string,FALSE,NULL);
 	add_keyword_to_scanning_table(st, "\"", string, context2, context1, FALSE, TRUE, match1, string,FALSE,NULL);
-	context2 = new_context(st);
+	context2 = new_context(st, "*/ \n\t");
 	match1 = add_keyword_to_scanning_table(st, "/*", comment, context1, context2, TRUE, FALSE, 0, NULL,FALSE,NULL);
 	add_keyword_to_scanning_table(st, "*/", comment, context2, context1, FALSE, TRUE, match1, comment,FALSE,NULL);
 
 	g_print("we have %d states in %d contexts for %d matches\n",st->table->len,st->contexts->len,st->matches->len);
 #endif
 
-#define PHP_COMPILING
+/*#define PHP_COMPILING*/
 #ifdef PHP_COMPILING
 	{
 		guint context0, contexttag, contextphp, contextstring;
