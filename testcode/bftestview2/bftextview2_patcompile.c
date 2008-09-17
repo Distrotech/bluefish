@@ -29,6 +29,16 @@ the zero-or-more *
 the character list [a-z]
 
 */
+static void print_characters(gchar *characters) {
+	int i;
+	DBG_PATCOMPILE("we have active characters ");
+	for (i=0;i<NUMSCANCHARS;i++) {
+		if (characters[i]==1)
+			DBG_PATCOMPILE("%c ",i);
+	}
+	DBG_PATCOMPILE("\n");
+}
+
 static gint fill_characters_from_range(gchar *input, gchar *characters) {
 	gboolean reverse = 0;
 	gint i=0;
@@ -69,33 +79,40 @@ static void create_state_tables(Tscantable *st, guint context, gchar *characters
 	and thus newstate==-1 but if one or more characters in one or more states need a new state
 	it will be >0 */
 	identstate = g_array_index(st->contexts, Tcontext, context).identstate;
+	DBG_PATCOMPILE("started for %d states, pointtoself=%d\n",g_queue_get_length(positions),pointtoself);
 	while (g_queue_get_length(positions)) {
 		pos = GPOINTER_TO_INT(g_queue_pop_head(positions));
-		DBG_PATCOMPILE("working on position %d\n",pos);
+		DBG_PATCOMPILE("working on position %d, identstate=%d\n",pos,identstate);
 		for (c=0;c<NUMSCANCHARS;c++) {
-			
-			if (g_array_index(st->table, Ttablerow, pos).row[c] != 0 && g_array_index(st->table, Ttablerow, pos).row[c] != identstate) {
-				if (pointtoself) { /* perhaps check here if the state does point to itself, 
-						or if we have this state on the stack already */
-					g_queue_push_head(positions, GINT_TO_POINTER(g_array_index(st->table, Ttablerow, pos).row[c]));
-				} else {
-					g_queue_push_head(newpositions, GINT_TO_POINTER(g_array_index(st->table, Ttablerow, pos).row[c]));
-				}
-			} else {
-				if (newstate == -1) {
-					g_array_index(st->table, Ttablerow, pos).row[c] = newstate = st->table->len;
-					g_array_set_size(st->table,st->table->len+1);
-					memcpy(g_array_index(st->table, Ttablerow, newstate).row, g_array_index(st->table, Ttablerow, g_array_index(st->contexts, Tcontext, context).identstate).row, sizeof(unsigned int[NUMSCANCHARS]));
-					g_queue_push_head(newpositions, GINT_TO_POINTER(newstate));
-					if (pointtoself) {
-						guint d;
-						for (d=0;d<NUMSCANCHARS;d++) {
-							g_array_index(st->table, Ttablerow, newstate).row[c] = newstate;
-						}
+			if (characters[c] == 1) {
+				DBG_PATCOMPILE("running for position %d char %c\n",pos,c);
+				if (g_array_index(st->table, Ttablerow, pos).row[c] != 0 && g_array_index(st->table, Ttablerow, pos).row[c] != identstate) {
+					if (pointtoself) { /* perhaps check here if the state does point to itself, 
+							or if we have this state on the stack already */
+						g_queue_push_head(positions, GINT_TO_POINTER(g_array_index(st->table, Ttablerow, pos).row[c]));
+					} else {
+						g_queue_push_head(newpositions, GINT_TO_POINTER(g_array_index(st->table, Ttablerow, pos).row[c]));
 					}
 				} else {
-					g_array_index(st->table, Ttablerow, pos).row[c] = newstate;
-					/* nothing to put on the stack, newstate should be on newpositions already if it is not -1 */
+					if (newstate == -1) {
+						g_array_index(st->table, Ttablerow, pos).row[c] = newstate = st->table->len;
+						DBG_PATCOMPILE("create newstate %d, pointtoself=%d\n",newstate,pointtoself);
+						g_array_set_size(st->table,st->table->len+1);
+						memcpy(g_array_index(st->table, Ttablerow, newstate).row, g_array_index(st->table, Ttablerow, g_array_index(st->contexts, Tcontext, context).identstate).row, sizeof(unsigned int[NUMSCANCHARS]));
+						g_queue_push_head(newpositions, GINT_TO_POINTER(newstate));
+						if (pointtoself) {
+							guint d;
+							for (d=0;d<NUMSCANCHARS;d++) {
+								if (characters[d]==1) { 
+									DBG_PATCOMPILE("in newstate %d, character %c points to %d\n",newstate,d,newstate);
+									g_array_index(st->table, Ttablerow, newstate).row[d] = newstate;
+								}
+							}
+						}
+					} else {
+						g_array_index(st->table, Ttablerow, pos).row[c] = newstate;
+						/* nothing to put on the stack, newstate should be on newpositions already if it is not -1 */
+					}
 				}
 			}
 		}
@@ -110,7 +127,7 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 	gchar *lregex;
 	GQueue* positions, * newpositions, *tmp;
 	
-	
+	memset(&characters, 0, NUMSCANCHARS*sizeof(char));
 	positions = g_queue_new();
 	newpositions = g_queue_new();
 	if (caseinsensitive) {
@@ -154,6 +171,7 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 				}
 			}
 			DBG_PATCOMPILE("i=%d, testing %c for operator\n",i,lregex[i+1]);
+			print_characters(characters);
 			/* see if there is an operator */
 			if (lregex[i+1] == '+') {
 				create_state_tables(st, context, characters, TRUE, positions, newpositions);
@@ -330,9 +348,12 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 #define REGEXCOMPILING
 #ifdef REGEXCOMPILING
 	context1 = new_context(st," \t\n;(){}[]:\"\\',<>*&^%!+=-|/?#");
-	match1 = new_match(st, "numbers", storage, context1, context1, FALSE, FALSE, 0, NULL,FALSE, NULL);
-	compile_limitedregex_to_DFA(st, "[0-9]+", FALSE, match1, context1);
-	print_DFA(st, ' ', 'z');
+	match1 = new_match(st, "numbers", variable, context1, context1, FALSE, FALSE, 0, NULL,FALSE, NULL);
+	compile_limitedregex_to_DFA(st, "[0-9.]+", FALSE, match1, context1);
+	add_keyword_to_scanning_table(st, "void", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
+	add_keyword_to_scanning_table(st, "int", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "Integer bla bla");
+	
+	print_DFA(st, ' ', 'A');
 #endif
 
 /*#define DFA_COMPILING*/
