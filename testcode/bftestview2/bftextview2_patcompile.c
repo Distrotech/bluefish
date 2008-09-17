@@ -29,7 +29,7 @@ the zero-or-more *
 the character list [a-z]
 
 */
-static void fill_characters_from_range(gchar *input, gchar *characters) {
+static gint fill_characters_from_range(gchar *input, gchar *characters) {
 	gboolean reverse = 0;
 	gint i=0;
 	if (input[i] == '^') {	/* see if it is a NOT pattern */
@@ -48,16 +48,18 @@ static void fill_characters_from_range(gchar *input, gchar *characters) {
 	while (input[i] != ']') {
 		if (input[i] == '-') {	/* range all characters between the previous and the next char */
 			gchar j;
+			DBG_PATCOMPILE("adding characters from %c to %c\n",input[i - 1],input[i+1]);
 			for (j = input[i - 1]; j <= input[i + 1]; j++) {
 				characters[(int)j] = 1 - reverse;
 			}
 			i += 2;
 		} else {
+			DBG_PATCOMPILE("adding character %c\n",input[i]);
 			characters[(int)input[i]] = 1 - reverse;
 			i++;
 		}
 	}
-	return;
+	return i;
 }
 
 static void create_state_tables(Tscantable *st, guint context, gchar *characters, gboolean pointtoself, GQueue *positions, GQueue *newpositions) {
@@ -67,8 +69,13 @@ static void create_state_tables(Tscantable *st, guint context, gchar *characters
 	and thus newstate==-1 but if one or more characters in one or more states need a new state
 	it will be >0 */
 	identstate = g_array_index(st->contexts, Tcontext, context).identstate;
-	while ((pos = GPOINTER_TO_INT(g_queue_pop_head(positions)))) {
+	DBG_PATCOMPILE("started for %d positions\n",g_queue_get_length(positions));
+	pos = GPOINTER_TO_INT(g_queue_pop_head(positions));
+	DBG_PATCOMPILE("got position %d\n",pos);
+	while (pos != 0) {
+		DBG_PATCOMPILE("working on position %d\n",pos);
 		for (c=0;c<NUMSCANCHARS;c++) {
+			
 			if (g_array_index(st->table, Ttablerow, pos).row[c] != 0 && g_array_index(st->table, Ttablerow, pos).row[c] != identstate) {
 				if (pointtoself) { /* perhaps check here if the state does point to itself, 
 						or if we have this state on the stack already */
@@ -94,6 +101,7 @@ static void create_state_tables(Tscantable *st, guint context, gchar *characters
 				}
 			}
 		}
+		pos = GPOINTER_TO_INT(g_queue_pop_head(positions));
 	}
 }
 
@@ -104,6 +112,7 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 	gchar *lregex;
 	GQueue* positions, * newpositions, *tmp;
 	
+	
 	positions = g_queue_new();
 	newpositions = g_queue_new();
 	if (caseinsensitive) {
@@ -113,10 +122,13 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 		lregex = g_strdup(input);
 	}
 	
+	g_queue_push_head(positions, GINT_TO_POINTER(g_array_index(st->contexts, Tcontext, context).startstate));
+	DBG_PATCOMPILE("lregex=%s, positionstack has length %d\n",lregex,g_queue_get_length(positions));
 	while (1) {
 		escaped = 0;
 		if (input[i] == '\0') { /* end of pattern */
 			while ((p = GPOINTER_TO_INT(g_queue_pop_head(positions)))) {
+				DBG_PATCOMPILE("mark state %d as possible end-state\n",p);
 				g_array_index(st->table, Ttablerow, p).match = matchnum;
 			}
 			return;
@@ -130,7 +142,7 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 					memset(&characters, 1, NUMSCANCHARS*sizeof(char));
 				break;
 				case '[':
-					fill_characters_from_range(&lregex[i+1],characters);
+					i += fill_characters_from_range(&lregex[i+1],characters) + 1;
 				break;
 				default:
 					characters[(int)lregex[i]] = 1;
@@ -143,6 +155,7 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 					characters[j - 32] = characters[j];
 				}
 			}
+			DBG_PATCOMPILE("i=%d, testing %c for operator\n",i,lregex[i+1]);
 			/* see if there is an operator */
 			if (lregex[i+1] == '+') {
 				create_state_tables(st, context, characters, TRUE, positions, newpositions);
@@ -289,7 +302,7 @@ static void print_DFA(Tscantable *st, char start, char end) {
 	g_print("\n");
 	for (i=0;i<st->table->len;i++) {
 		g_print("%1d: ",i);
-		for (j=start;j<end;j++) {
+		for (j=start;j<=end;j++) {
 			g_print("%d ",g_array_index(st->table, Ttablerow, i).row[j]);
 		}
 		g_print("\n");
@@ -315,8 +328,16 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	st->contexts = g_array_sized_new(TRUE,TRUE,sizeof(Tcontext), 3);
 	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
 	st->matches->len = 1; /* match 0 eans no match */
-	
-#define DFA_COMPILING 
+
+/*#define REGEXCOMPILING*/
+#ifdef REGEXCOMPILING
+	context1 = new_context(st," \t\n;(){}[]:\"\\',<>*&^%!+=-|/?#");
+	match1 = new_match(st, "numbers", storage, context1, context1, FALSE, FALSE, 0, NULL,FALSE, NULL);
+	compile_limitedregex_to_DFA(st, "[0-9]+", FALSE, match1, context1);
+	print_DFA(st, ' ', 'z');
+#endif
+
+#define DFA_COMPILING
 #ifdef DFA_COMPILING
 	context1 = new_context(st," \t\n;(){}[]:\"\\',<>*&^%!+=-|/?#");
 	add_keyword_to_scanning_table(st, "void", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
