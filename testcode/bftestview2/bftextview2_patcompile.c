@@ -12,6 +12,9 @@ There are several ways in which regex patterns can be simplified:
 
 a(bc)+ == abc(abc)*
 [a-z]+ == [a-z][a-z]*
+OR reverse:
+a(bc)* == (a|a[bc]+)
+a[a-z]* == (a|a[a-z]+)
 
 a(bc)? = (a|abc)
 a[a-z]? = (a|a[a-z])
@@ -26,7 +29,7 @@ the zero-or-more *
 the character list [a-z]
 
 */
-static void fill_characters_from_range(gchar *input, gchar **characters) {
+static void fill_characters_from_range(gchar *input, gchar *characters) {
 	gboolean reverse = 0;
 	gint i=0;
 	if (input[i] == '^') {	/* see if it is a NOT pattern */
@@ -46,25 +49,25 @@ static void fill_characters_from_range(gchar *input, gchar **characters) {
 		if (input[i] == '-') {	/* range all characters between the previous and the next char */
 			gchar j;
 			for (j = input[i - 1]; j <= input[i + 1]; j++) {
-				characters[j] = 1 - reverse;
+				characters[(int)j] = 1 - reverse;
 			}
 			i += 2;
 		} else {
-			characters[input[i]] = 1 - reverse;
+			characters[(int)input[i]] = 1 - reverse;
 			i++;
 		}
 	}
 	return;
 }
 
-static void create_state_tables(Tscantable *st, guint context, gchar **characters, gboolean pointtoself, GQueue *positions, GQueue *newpositions) {
+static void create_state_tables(Tscantable *st, guint context, gchar *characters, gboolean pointtoself, GQueue *positions, GQueue *newpositions) {
 	guint c,pos;
 	guint identstate;
 	gint newstate=-1; /* if all characters can follow existing states we don't need any newstate
 	and thus newstate==-1 but if one or more characters in one or more states need a new state
 	it will be >0 */
 	identstate = g_array_index(st->contexts, Tcontext, context).identstate;
-	while (pos = GPOINTER_TO_INT(g_queue_pop_head(positions))) {
+	while ((pos = GPOINTER_TO_INT(g_queue_pop_head(positions)))) {
 		for (c=0;c<NUMSCANCHARS;c++) {
 			if (g_array_index(st->table, Ttablerow, pos).row[c] != 0 && g_array_index(st->table, Ttablerow, pos).row[c] != identstate) {
 				if (pointtoself) { /* perhaps check here if the state does point to itself, 
@@ -75,12 +78,19 @@ static void create_state_tables(Tscantable *st, guint context, gchar **character
 				}
 			} else {
 				if (newstate == -1) {
-					newstate = g_array_index(st->table, Ttablerow, pos).row[c] = st->table->len;
+					g_array_index(st->table, Ttablerow, pos).row[c] = newstate = st->table->len;
 					g_array_set_size(st->table,st->table->len+1);
 					memcpy(g_array_index(st->table, Ttablerow, newstate).row, g_array_index(st->table, Ttablerow, g_array_index(st->contexts, Tcontext, context).identstate).row, sizeof(unsigned int[NUMSCANCHARS]));
 					g_queue_push_head(newpositions, GINT_TO_POINTER(newstate));
+					if (pointtoself) {
+						guint d;
+						for (d=0;d<NUMSCANCHARS;d++) {
+							g_array_index(st->table, Ttablerow, newstate).row[c] = newstate;
+						}
+					}
 				} else {
-					/* nothing to do, newstate should be on newpositions already if it is not -1 */
+					g_array_index(st->table, Ttablerow, pos).row[c] = newstate;
+					/* nothing to put on the stack, newstate should be on newpositions already if it is not -1 */
 				}
 			}
 		}
@@ -92,14 +102,13 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 	guint p, i=0;
 	gchar characters[NUMSCANCHARS];
 	gchar *lregex;
-	GQueue* positions;
-	GQueue* newpositions;
+	GQueue* positions, * newpositions, *tmp;
 	
 	positions = g_queue_new();
 	newpositions = g_queue_new();
 	if (caseinsensitive) {
 		/* make complete string lowercase */
-		lregex = strtolower(input);
+		lregex = g_ascii_strdown(input,-1);
 	} else {
 		lregex = g_strdup(input);
 	}
@@ -107,7 +116,7 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 	while (1) {
 		escaped = 0;
 		if (input[i] == '\0') { /* end of pattern */
-			while (p = GPOINTER_TO_INT(g_queue_pop_head(positions))) {
+			while ((p = GPOINTER_TO_INT(g_queue_pop_head(positions)))) {
 				g_array_index(st->table, Ttablerow, p).match = matchnum;
 			}
 			return;
@@ -121,10 +130,10 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 					memset(&characters, 1, NUMSCANCHARS*sizeof(char));
 				break;
 				case '[':
-					fill_characters_from_range(lregex[i+1],characters);
+					fill_characters_from_range(&lregex[i+1],characters);
 				break;
 				default:
-					characters[lregex[i]] = 1;
+					characters[(int)lregex[i]] = 1;
 				break;
 			}
 			/* handle case */
@@ -135,8 +144,18 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 				}
 			}
 			/* see if there is an operator */
-			
+			if (lregex[i+1] == '+') {
+				create_state_tables(st, context, characters, TRUE, positions, newpositions);
+				i++;
+			} else {
+				create_state_tables(st, context, characters, FALSE, positions, newpositions);
+			}
+			g_queue_clear(positions);
+			tmp = positions;
+			positions = newpositions;
+			newpositions = tmp;
 		}
+		i++;
 	}
 }
 
@@ -221,7 +240,7 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint matchnu
 
 	/* compile the keyword into the DFA */
 	pos = g_array_index(st->contexts, Tcontext, context).startstate;
-	if (strlen(keyword)==1 && g_array_index(st->table, Ttablerow, identstate).row[keyword[0]] == 0) {
+	if (strlen(keyword)==1 && g_array_index(st->table, Ttablerow, identstate).row[(int)keyword[0]] == 0) {
 		/* this keyword is a symbol itself ! */
 		is_symbol=TRUE;
 	}
