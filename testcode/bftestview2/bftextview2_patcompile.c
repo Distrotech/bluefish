@@ -69,10 +69,8 @@ static void create_state_tables(Tscantable *st, guint context, gchar *characters
 	and thus newstate==-1 but if one or more characters in one or more states need a new state
 	it will be >0 */
 	identstate = g_array_index(st->contexts, Tcontext, context).identstate;
-	DBG_PATCOMPILE("started for %d positions\n",g_queue_get_length(positions));
-	pos = GPOINTER_TO_INT(g_queue_pop_head(positions));
-	DBG_PATCOMPILE("got position %d\n",pos);
-	while (pos != 0) {
+	while (g_queue_get_length(positions)) {
+		pos = GPOINTER_TO_INT(g_queue_pop_head(positions));
 		DBG_PATCOMPILE("working on position %d\n",pos);
 		for (c=0;c<NUMSCANCHARS;c++) {
 			
@@ -329,7 +327,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
 	st->matches->len = 1; /* match 0 eans no match */
 
-/*#define REGEXCOMPILING*/
+#define REGEXCOMPILING
 #ifdef REGEXCOMPILING
 	context1 = new_context(st," \t\n;(){}[]:\"\\',<>*&^%!+=-|/?#");
 	match1 = new_match(st, "numbers", storage, context1, context1, FALSE, FALSE, 0, NULL,FALSE, NULL);
@@ -337,7 +335,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	print_DFA(st, ' ', 'z');
 #endif
 
-#define DFA_COMPILING
+/*#define DFA_COMPILING*/
 #ifdef DFA_COMPILING
 	context1 = new_context(st," \t\n;(){}[]:\"\\',<>*&^%!+=-|/?#");
 	add_keyword_to_scanning_table(st, "void", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
