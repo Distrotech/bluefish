@@ -61,11 +61,6 @@ alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're 
 #define MIME_ISDIR(string) strncmp(string, "x-directory",11)
 #endif							/* else HAVE_ATLEAST_GIO_2_16 */
 
-#ifndef DEBUG_URI
-#define DEBUG_URI 
-/* */
-#endif
-
 
 typedef struct {
 	GtkTreeStore *filesystem_tstore;	/* the directory tree */
