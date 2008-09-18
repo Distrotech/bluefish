@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * project.c - project functionality
  *
- * Copyright (C) 2003-2005 Olivier Sessink
+ * Copyright (C) 2003-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -331,7 +331,7 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 static void project_open_response_lcb(GtkDialog *dialog,gint response,Tbfwin *bfwin) {
 	if (response == GTK_RESPONSE_ACCEPT) {
 		gchar *filename;
-		filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+		filename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
 		project_open_from_file(bfwin,filename);
 		g_free(filename);
 	}
