@@ -180,7 +180,7 @@ int main(int argc, char *argv[])
       without seeing the whole tree (just see the project)
     */
     
-    DEBUG_MSG("main, project=%s, tmpname=%s\n", project, tmpname);
+    DEBUG_MSG("main, project=%s\n", project);
   }
 
   if (files != NULL) {
@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
       filenames = g_list_append(filenames, g_file_get_parse_name(tmpfile));
       g_object_unref(tmpfile);
       
-      DEBUG_MSG("main, files[%d]=%s, tmpname=%s\n", i, files[i], tmpname);
+      DEBUG_MSG("main, files[%d]=%s\n", i, files[i]);
     }
     g_strfreev(files);
   }
