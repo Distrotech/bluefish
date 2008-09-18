@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2008-08-19 20:16-0700\n"
+"POT-Creation-Date: 2008-09-17 22:03-0700\n"
 "PO-Revision-Date: 2004-12-08 18:48-0300\n"
 "Last-Translator: Funda Wang <fundawang@linux.net.cn>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
@@ -61,7 +61,7 @@ msgstr "更改为(_T)："
 msgid "I_gnore"
 msgstr "忽略(_G)"
 
-#: ../src/bfspell.c:412 ../src/snr2.c:1798
+#: ../src/bfspell.c:412 ../src/snr2.c:1804
 msgid "_Replace"
 msgstr "替换(_R)"
 
@@ -432,88 +432,88 @@ msgstr ""
 "\n"
 "上次修改时间："
 
-#: ../src/document.c:493
+#: ../src/document.c:498
 #, c-format
 msgid "Untitled %d"
 msgstr "无标题 %d"
 
-#: ../src/document.c:816
+#: ../src/document.c:821
 #, fuzzy, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "在已打开的 bluefish 窗口中打开文件"
 
-#: ../src/document.c:818
+#: ../src/document.c:823
 msgid "Move to this window"
 msgstr ""
 
-#: ../src/document.c:818
+#: ../src/document.c:823
 msgid "Open readonly"
 msgstr ""
 
-#: ../src/document.c:818
+#: ../src/document.c:823
 #, fuzzy
 msgid "Do not open"
 msgstr "无法打开文件\n"
 
-#: ../src/document.c:1178
+#: ../src/document.c:1183
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr "行 %d，列 %d"
 
-#: ../src/document.c:1180
+#: ../src/document.c:1185
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d"
 msgstr "行 %d，列 %d"
 
-#: ../src/document.c:1201
+#: ../src/document.c:1206
 msgid " OVR"
 msgstr ""
 
-#: ../src/document.c:1201
+#: ../src/document.c:1206
 msgid " INS"
 msgstr ""
 
-#: ../src/document.c:1203
+#: ../src/document.c:1208
 msgid " RO"
 msgstr ""
 
-#: ../src/document.c:1217 ../src/document.c:1218
+#: ../src/document.c:1222 ../src/document.c:1223
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s，%s"
 
-#: ../src/document.c:1566
+#: ../src/document.c:1572
 msgid "Cannot display file, unknown characters found."
 msgstr "无法显示文件，字符集未知。"
 
-#: ../src/document.c:2047 ../src/snr2.c:1655
+#: ../src/document.c:2058 ../src/snr2.c:1661
 msgid "Replace"
 msgstr "替换"
 
-#: ../src/document.c:2052 ../src/snr2.c:1652
+#: ../src/document.c:2063 ../src/snr2.c:1658
 msgid "Find"
 msgstr "查找"
 
-#: ../src/document.c:2060
+#: ../src/document.c:2071
 msgid "Delete bookmark"
 msgstr "删除书签。"
 
-#: ../src/document.c:2064
+#: ../src/document.c:2075
 msgid "Add bookmark"
 msgstr "添加书签"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2198 ../src/file_dialogs.c:347 ../src/file_dialogs.c:386
+#: ../src/document.c:2209 ../src/file_dialogs.c:347 ../src/file_dialogs.c:386
 msgid "_Abort save"
 msgstr "中断保存(_A)"
 
-#: ../src/document.c:2198
+#: ../src/document.c:2209
 msgid "_Continue save in UTF-8"
 msgstr "继续以 UTF-8 保存(_C)"
 
-#: ../src/document.c:2209
+#: ../src/document.c:2220
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -525,54 +525,54 @@ msgstr ""
 "\n"
 "以 UTF-8 编码继续保存吗？"
 
-#: ../src/document.c:2213
+#: ../src/document.c:2224
 msgid "File encoding conversion failure"
 msgstr "文件编码转换失败"
 
-#: ../src/document.c:2447
+#: ../src/document.c:2458
 msgid "Previously: "
 msgstr "前一个："
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:3003
+#: ../src/document.c:3017
 msgid "Unable to open file"
 msgstr "无法打开文件"
 
-#: ../src/document.c:3027
+#: ../src/document.c:3041
 #, fuzzy
 msgid "_Unset file name"
 msgstr "文件名"
 
-#: ../src/document.c:3027
+#: ../src/document.c:3041
 #, fuzzy
 msgid "_Save"
 msgstr "保存"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:3029
+#: ../src/document.c:3043
 #, fuzzy, c-format
 msgid "File name: %s"
 msgstr "文件名"
 
-#: ../src/document.c:3033
+#: ../src/document.c:3047
 #, fuzzy
 msgid "File disappeared from disk\n"
 msgstr "文件修改依据"
 
-#: ../src/document.c:3050
+#: ../src/document.c:3064
 msgid "_Ignore"
 msgstr "忽略(_I)"
 
-#: ../src/document.c:3050
+#: ../src/document.c:3064
 msgid "_Reload"
 msgstr "重新载入(_R)"
 
-#: ../src/document.c:3050
+#: ../src/document.c:3064
 #, fuzzy
 msgid "Check and reload all documents"
 msgstr "在所有打开的文档中"
 
-#: ../src/document.c:3058
+#: ../src/document.c:3072
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -585,84 +585,111 @@ msgstr ""
 "新的修改时间：%s\n"
 "旧的修改时间：%s"
 
-#: ../src/document.c:3062
+#: ../src/document.c:3076
 msgid "File has been modified by another process\n"
 msgstr "文件已经被另一个程序修改\n"
 
-#: ../src/document.c:3122
+#: ../src/document.c:3136
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:3122
+#: ../src/document.c:3136
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:3122
+#: ../src/document.c:3136
 #, fuzzy
 msgid "_Close"
 msgstr "关闭"
 
-#: ../src/document.c:3122
+#: ../src/document.c:3136
 #, fuzzy
 msgid "Close all _failed"
 msgstr "文件保存中断。\n"
 
-#: ../src/document.c:3126
+#: ../src/document.c:3140
 #, fuzzy
 msgid "File "
 msgstr "文件 #"
 
-#: ../src/document.c:3126
+#: ../src/document.c:3140
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:3130
+#: ../src/document.c:3144
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:3250
+#: ../src/document.c:3264
 msgid "Select file to insert"
 msgstr "选择要插入的文件"
 
-#: ../src/document.c:3258
+#: ../src/document.c:3272
 msgid "No file to insert"
 msgstr "没有要插入的文件"
 
-#: ../src/document.c:3408
+#: ../src/document.c:3422
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "统计：共 %d 行，%d 个单词，%d 个字符"
 
-#: ../src/filebrowser2.c:229
+#: ../src/encodings_dialog.c:329
+msgid "_Available encodings:"
+msgstr ""
+
+#: ../src/encodings_dialog.c:381 ../src/encodings_dialog.c:452
+msgid "Description"
+msgstr "描述"
+
+#.
+#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Files"),152,TRUE));
+#.
+#: ../src/encodings_dialog.c:391 ../src/encodings_dialog.c:461
+#: ../src/preferences.c:2067
+msgid "Encoding"
+msgstr "编码"
+
+#: ../src/encodings_dialog.c:427
+#, fuzzy
+msgid "Encodings in _menu:"
+msgstr ""
+"\n"
+"编码："
+
+#: ../src/encodings_dialog.c:511
+msgid "Add or remove document encodings"
+msgstr ""
+
+#: ../src/filebrowser2.c:224
 msgid "Set documentroot and webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:238
+#: ../src/filebrowser2.c:233
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
 "the webserver"
 msgstr ""
 
-#: ../src/filebrowser2.c:245
+#: ../src/filebrowser2.c:240
 #, fuzzy
 msgid "Documentroot"
 msgstr "/文档(_D)"
 
-#: ../src/filebrowser2.c:255
+#: ../src/filebrowser2.c:250
 msgid "Webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:1393
+#: ../src/filebrowser2.c:1389
 msgid "Could not rename\n"
 msgstr "无法重命名\n"
 
-#: ../src/filebrowser2.c:1448
+#: ../src/filebrowser2.c:1444
 #, fuzzy
 msgid "New directory"
 msgstr "/新建目录(_N)"
 
-#: ../src/filebrowser2.c:1456
+#: ../src/filebrowser2.c:1452
 #, fuzzy
 msgid "New file"
 msgstr "/新建文件(_F)"
@@ -675,108 +702,108 @@ msgstr "/新建文件(_F)"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1563
+#: ../src/filebrowser2.c:1559
 #, fuzzy, c-format
 msgid ""
 "Are you sure you want to delete\n"
 "\"%s\"?"
 msgstr "您确定要删除\" %s \"吗?"
 
-#: ../src/filebrowser2.c:1564
+#: ../src/filebrowser2.c:1560
 #, fuzzy, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "如果你删除这个文件,它将会被永久删除。"
 
-#: ../src/filebrowser2.c:1707
+#: ../src/filebrowser2.c:1703
 msgid "/_Open"
 msgstr "/打开(_O)"
 
-#: ../src/filebrowser2.c:1708
+#: ../src/filebrowser2.c:1704
 msgid "/Open _Advanced..."
 msgstr "/高级打开(_A)..."
 
-#: ../src/filebrowser2.c:1709
+#: ../src/filebrowser2.c:1705
 msgid "/Rena_me"
 msgstr "/重命名(_M)"
 
-#: ../src/filebrowser2.c:1710
+#: ../src/filebrowser2.c:1706
 msgid "/_Delete"
 msgstr "/删除(_D)"
 
-#: ../src/filebrowser2.c:1712
+#: ../src/filebrowser2.c:1708
 msgid "/New _File"
 msgstr "/新建文件(_F)"
 
-#: ../src/filebrowser2.c:1713
+#: ../src/filebrowser2.c:1709
 msgid "/_New Directory"
 msgstr "/新建目录(_N)"
 
-#: ../src/filebrowser2.c:1715
+#: ../src/filebrowser2.c:1711
 msgid "/_Refresh"
 msgstr "/刷新(_R)"
 
-#: ../src/filebrowser2.c:1716
+#: ../src/filebrowser2.c:1712
 #, fuzzy
 msgid "/Follow active document"
 msgstr "/转到(G)/最后一篇文档(_A)"
 
-#: ../src/filebrowser2.c:1717
+#: ../src/filebrowser2.c:1713
 msgid "/_Set as basedir"
 msgstr "/设为基础目录(_S)"
 
-#: ../src/filebrowser2.c:1718
+#: ../src/filebrowser2.c:1714
 #, fuzzy
 msgid "/Set as documentroot"
 msgstr "/转到(G)/下一篇文档(_N)"
 
-#: ../src/filebrowser2.c:1720
+#: ../src/filebrowser2.c:1716
 #, fuzzy
 msgid "/Show Full _Tree"
 msgstr "显示完整树"
 
-#: ../src/filebrowser2.c:1721
+#: ../src/filebrowser2.c:1717
 #, fuzzy
 msgid "/Show hidden files"
 msgstr "显示隐藏文件"
 
-#: ../src/filebrowser2.c:1722
+#: ../src/filebrowser2.c:1718
 #, fuzzy
 msgid "/Show backup files"
 msgstr "显示备份文件"
 
-#: ../src/filebrowser2.c:1723
+#: ../src/filebrowser2.c:1719
 #, fuzzy
 msgid "/View mode"
 msgstr "/查看(_V)"
 
-#: ../src/filebrowser2.c:1724
+#: ../src/filebrowser2.c:1720
 msgid "/View mode/Tree"
 msgstr ""
 
-#: ../src/filebrowser2.c:1725
+#: ../src/filebrowser2.c:1721
 msgid "/View mode/Dual"
 msgstr ""
 
-#: ../src/filebrowser2.c:1726
+#: ../src/filebrowser2.c:1722
 msgid "/View mode/Flat"
 msgstr ""
 
 #. Add filter submenu
-#: ../src/filebrowser2.c:1804
+#: ../src/filebrowser2.c:1800
 msgid "Filter"
 msgstr "过滤器"
 
-#: ../src/filebrowser2.c:1830 ../src/filefilter.c:477
+#: ../src/filebrowser2.c:1826 ../src/filefilter.c:477
 #, fuzzy
 msgid "Edit filter"
 msgstr "html 过滤器"
 
-#: ../src/filebrowser2.c:1834
+#: ../src/filebrowser2.c:1830
 #, fuzzy
 msgid "Delete filter"
 msgstr "选择文件"
 
-#: ../src/filebrowser2.c:1839
+#: ../src/filebrowser2.c:1835
 #, fuzzy
 msgid "New filter"
 msgstr "/新建文件(_F)"
@@ -834,7 +861,7 @@ msgstr "<b>常规</b>"
 msgid "Base _Dir:"
 msgstr "基础目录(_D)："
 
-#: ../src/file_dialogs.c:145 ../src/gtk_easy.c:1253
+#: ../src/file_dialogs.c:145 ../src/gtk_easy.c:1257
 msgid "_Browse..."
 msgstr "浏览(_B)..."
 
@@ -991,7 +1018,7 @@ msgid "Multiple open files have been changed."
 msgstr "多个打开的文件已更改。"
 
 #. build a list of filters
-#: ../src/filefilter.c:215 ../src/gtk_easy.c:1363
+#: ../src/filefilter.c:215 ../src/gtk_easy.c:1367
 msgid "All files"
 msgstr "所有文件"
 
@@ -1013,20 +1040,20 @@ msgstr "图标"
 msgid "%d of %d"
 msgstr "%2$d 的 %1$d"
 
-#: ../src/gtk_easy.c:1185
+#: ../src/gtk_easy.c:1187
 msgid "Select File"
 msgstr "选择文件"
 
-#: ../src/gtk_easy.c:1353
+#: ../src/gtk_easy.c:1357
 msgid "Show backup files"
 msgstr "显示备份文件"
 
-#: ../src/gtk_easy.c:1413
+#: ../src/gtk_easy.c:1417
 #, fuzzy
 msgid "Character _Encoding:"
 msgstr "/文档(D)/字符编码(_E)"
 
-#: ../src/gtk_easy.c:1427
+#: ../src/gtk_easy.c:1436
 #, fuzzy
 msgid "Automatic detection"
 msgstr "自动刷新作者 META 标签"
@@ -1137,405 +1164,409 @@ msgstr "保持对话框(_D)"
 msgid "starting bluefish"
 msgstr "开始 bluefish"
 
-#: ../src/menu.c:214
+#: ../src/menu.c:219
 msgid "/_File"
 msgstr "/文件(F)"
 
-#: ../src/menu.c:216
+#: ../src/menu.c:221
 msgid "/File/_New"
 msgstr "/文件(F)/新建(_N)"
 
-#: ../src/menu.c:217
+#: ../src/menu.c:222
 msgid "/File/New _Window"
 msgstr "/文件(F)/新建窗口(_W)"
 
-#: ../src/menu.c:218
+#: ../src/menu.c:223
 msgid "/File/_Open..."
 msgstr "/文件(F)/打开(_O)..."
 
-#: ../src/menu.c:219
+#: ../src/menu.c:224
 msgid "/File/Open _recent"
 msgstr "/文件(F)/打开最近使用的文件(_R)"
 
-#: ../src/menu.c:221
+#: ../src/menu.c:226
 msgid "/File/Open Ad_vanced..."
 msgstr "/文件(F)/高级打开(_V)..."
 
-#: ../src/menu.c:222
+#: ../src/menu.c:227
 msgid "/File/Open _URL..."
 msgstr "/文件(F)/打开 _URL..."
 
-#: ../src/menu.c:223
+#: ../src/menu.c:228
 msgid "/File/Open _from selection"
 msgstr "/文件(F)/根据选择打开(_F)"
 
-#: ../src/menu.c:225
+#: ../src/menu.c:230
 msgid "/File/_Save"
 msgstr "/文件(F)/保存(_S)"
 
-#: ../src/menu.c:226
+#: ../src/menu.c:231
 msgid "/File/Save _As..."
 msgstr "/文件(F)/另存为(_A)..."
 
-#: ../src/menu.c:227
+#: ../src/menu.c:232
 msgid "/File/Sav_e All"
 msgstr "/文件(F)/全部保存(_E)"
 
-#: ../src/menu.c:228
+#: ../src/menu.c:233
 msgid "/File/Rever_t to Saved"
 msgstr "/文件(F)/恢复到已保存的文件(_T)"
 
-#: ../src/menu.c:230
+#: ../src/menu.c:235
 msgid "/File/_Insert..."
 msgstr "/文件(F)/插入(_I)..."
 
-#: ../src/menu.c:231
+#: ../src/menu.c:236
 msgid "/File/Rena_me..."
 msgstr "/文件(F)/重命名(_M)..."
 
-#: ../src/menu.c:233
+#: ../src/menu.c:238
 msgid "/File/_Close"
 msgstr "/文件(F)/关闭(_C)"
 
-#: ../src/menu.c:234
+#: ../src/menu.c:239
 msgid "/File/Close A_ll"
 msgstr "/文件(F)/全部关闭(_L)"
 
-#: ../src/menu.c:235
+#: ../src/menu.c:240
 msgid "/File/Close Win_dow"
 msgstr "/文件(F)/关闭窗口(_D)"
 
-#: ../src/menu.c:237
+#: ../src/menu.c:242
 msgid "/File/_Quit"
 msgstr "/文件(F)/退出(_Q)"
 
-#: ../src/menu.c:240
+#: ../src/menu.c:245
 msgid "/File/Run Python Script"
 msgstr ""
 
-#: ../src/menu.c:242
+#: ../src/menu.c:247
 msgid "/_Edit"
 msgstr "/编辑(_E)"
 
-#: ../src/menu.c:244
+#: ../src/menu.c:249
 msgid "/Edit/_Undo"
 msgstr "/编辑(E)/撤消(_U)"
 
-#: ../src/menu.c:245
+#: ../src/menu.c:250
 msgid "/Edit/_Redo"
 msgstr "/编辑(E)/重做(_R)"
 
-#: ../src/menu.c:246
+#: ../src/menu.c:251
 msgid "/Edit/Undo All"
 msgstr "/编辑(E)/撤消所有"
 
-#: ../src/menu.c:247
+#: ../src/menu.c:252
 msgid "/Edit/Redo All"
 msgstr "/编辑(E)/重做所有"
 
-#: ../src/menu.c:249
+#: ../src/menu.c:254
 msgid "/Edit/Cu_t"
 msgstr "/编辑(E)/剪切(_T)"
 
-#: ../src/menu.c:250
+#: ../src/menu.c:255
 msgid "/Edit/_Copy"
 msgstr "/编辑(E)/复制(_C)"
 
-#: ../src/menu.c:251
+#: ../src/menu.c:256
 msgid "/Edit/_Paste"
 msgstr "/编辑(E)/粘贴(_P)"
 
-#: ../src/menu.c:253
+#: ../src/menu.c:258
 msgid "/Edit/Select _All"
 msgstr "/编辑(E)/全选(_A)"
 
-#: ../src/menu.c:255
+#: ../src/menu.c:260
 msgid "/Edit/_Find..."
 msgstr "/编辑(E)/查找(_F)..."
 
-#: ../src/menu.c:256
+#: ../src/menu.c:261
 msgid "/Edit/Find A_gain"
 msgstr "/编辑(E)/查找下一个(_G)"
 
-#: ../src/menu.c:257
+#: ../src/menu.c:262
 msgid "/Edit/Find from selection"
 msgstr "/编辑(E)/在选择的文本中查找"
 
-#: ../src/menu.c:258
+#: ../src/menu.c:263
 msgid "/Edit/R_eplace..."
 msgstr "/编辑(E)/替换(_E)..."
 
-#: ../src/menu.c:259
+#: ../src/menu.c:264
 msgid "/Edit/Replace Agai_n"
 msgstr "/编辑(E)/替换下一个(_N)"
 
-#: ../src/menu.c:260
+#: ../src/menu.c:265
 msgid "/Edit/Replace special"
 msgstr "/编辑(E)/特殊替换"
 
-#: ../src/menu.c:262
+#: ../src/menu.c:267
 #, fuzzy
 msgid "/Edit/Replace special/Block sync"
 msgstr "/编辑(E)/特殊替换"
 
-#: ../src/menu.c:264
+#: ../src/menu.c:269
 msgid "/Edit/S_hift Right"
 msgstr "/编辑(E)/右移(_H)"
 
-#: ../src/menu.c:265
+#: ../src/menu.c:270
 msgid "/Edit/Shift _Left"
 msgstr "/编辑(E)/左移(_L)"
 
-#: ../src/menu.c:267
+#: ../src/menu.c:272
 msgid "/Edit/Add _Bookmark"
 msgstr "/编辑(E)/添加书签(_B)"
 
-#: ../src/menu.c:269
+#: ../src/menu.c:274
 msgid "/Edit/Save Sett_ings"
 msgstr "/编辑(E)/保存设置(_I)"
 
-#: ../src/menu.c:270
+#: ../src/menu.c:275
 msgid "/Edit/Save Shortcut _Keys"
 msgstr "/编辑(E)/保存快捷键(_K)"
 
-#: ../src/menu.c:271
+#: ../src/menu.c:276
 msgid "/Edit/Preference_s"
 msgstr "/编辑(E)/首选项(_S)"
 
-#: ../src/menu.c:272
+#: ../src/menu.c:277
 msgid "/_View"
 msgstr "/查看(_V)"
 
-#: ../src/menu.c:274
+#: ../src/menu.c:279
+msgid "/View/Fullscreen"
+msgstr ""
+
+#: ../src/menu.c:281
 msgid "/View/View _Main Toolbar"
 msgstr "/查看(V)/查看主工具栏(_M)"
 
-#: ../src/menu.c:275
+#: ../src/menu.c:282
 msgid "/View/View _Sidebar"
 msgstr "/查看(V)/查看主工具栏(_S)"
 
-#: ../src/menu.c:276
+#: ../src/menu.c:283
 msgid "/_Document"
 msgstr "/文档(_D)"
 
-#: ../src/menu.c:278
+#: ../src/menu.c:285
 msgid "/Document/_Increase Tabsize"
 msgstr "/文档(D)/增大 Tab 尺寸(_I)"
 
-#: ../src/menu.c:279
+#: ../src/menu.c:286
 msgid "/Document/_Decrease Tabsize"
 msgstr "/文档(D)/减小 Tab 尺寸(_D)"
 
-#: ../src/menu.c:280
+#: ../src/menu.c:287
 msgid "/Document/_Auto Indent"
 msgstr "/文档(D)/自动缩进(_A)"
 
-#: ../src/menu.c:282
+#: ../src/menu.c:289
 msgid "/Document/Auto Close H_TML tags"
 msgstr "/文档(D)/自动关闭 HTML 标签(_T)"
 
-#: ../src/menu.c:283
+#: ../src/menu.c:290
 msgid "/Document/_Wrap"
 msgstr "/文档(D)/自动换行(_W)"
 
-#: ../src/menu.c:284
+#: ../src/menu.c:291
 msgid "/Document/_Line Numbers"
 msgstr "/文档(D)/行号(_L)"
 
-#: ../src/menu.c:285
+#: ../src/menu.c:292
 #, fuzzy
 msgid "/Document/Show _blocks"
 msgstr "/文档(D)/字数统计(_C)"
 
-#: ../src/menu.c:286
+#: ../src/menu.c:293
 #, fuzzy
 msgid "/Document/Show _symbols"
 msgstr "/文档(D)/字数统计(_C)"
 
-#: ../src/menu.c:288
+#: ../src/menu.c:295
 msgid "/Document/_Highlight Syntax"
 msgstr "/文档(D)/语法高亮(_H)"
 
-#: ../src/menu.c:289
+#: ../src/menu.c:296
 msgid "/Document/_Update Highlighting"
 msgstr "/文档(D)/刷新语法高亮(_U)"
 
-#: ../src/menu.c:291
+#: ../src/menu.c:298
 msgid "/Document/Document Ty_pe"
 msgstr "/文档(D)/文档类型(_P)"
 
-#: ../src/menu.c:293
+#: ../src/menu.c:300
 msgid "/Document/Character _Encoding"
 msgstr "/文档(D)/字符编码(_E)"
 
-#: ../src/menu.c:297
+#: ../src/menu.c:306
 msgid "/Document/Check _Spelling..."
 msgstr "/文档(D)/拼写检查(_S)..."
 
-#: ../src/menu.c:299
+#: ../src/menu.c:308
 msgid "/Document/_Floating window"
 msgstr "/文档(D)/浮动窗口(_F)"
 
-#: ../src/menu.c:300
+#: ../src/menu.c:309
 msgid "/Document/Word _Count"
 msgstr "/文档(D)/字数统计(_C)"
 
-#: ../src/menu.c:302
+#: ../src/menu.c:311
 #, fuzzy
 msgid "/Document/Move left"
 msgstr "/文档(D)/自动缩进(_A)"
 
-#: ../src/menu.c:303
+#: ../src/menu.c:312
 #, fuzzy
 msgid "/Document/Move right"
 msgstr "/文档(D)/sep1"
 
-#: ../src/menu.c:304
+#: ../src/menu.c:313
 msgid "/_Go"
 msgstr "/转到(_G)"
 
-#: ../src/menu.c:306
+#: ../src/menu.c:315
 msgid "/Go/_Previous document"
 msgstr "/转到(G)/前一篇文档(_P)"
 
-#: ../src/menu.c:307
+#: ../src/menu.c:316
 msgid "/Go/_Next document"
 msgstr "/转到(G)/下一篇文档(_N)"
 
-#: ../src/menu.c:309
+#: ../src/menu.c:318
 msgid "/Go/_First document"
 msgstr "/转到(G)/第一篇文档(_F)"
 
-#: ../src/menu.c:310
+#: ../src/menu.c:319
 msgid "/Go/L_ast document"
 msgstr "/转到(G)/最后一篇文档(_A)"
 
-#: ../src/menu.c:312
+#: ../src/menu.c:321
 #, fuzzy
 msgid "/Go/First bookmark"
 msgstr "编辑书签"
 
-#: ../src/menu.c:313
+#: ../src/menu.c:322
 #, fuzzy
 msgid "/Go/Previous bookmark"
 msgstr "/转到(G)/前一篇文档(_P)"
 
-#: ../src/menu.c:314
+#: ../src/menu.c:323
 #, fuzzy
 msgid "/Go/Next _bookmark"
 msgstr "转到书签"
 
-#: ../src/menu.c:315
+#: ../src/menu.c:324
 #, fuzzy
 msgid "/Go/Last bookmark"
 msgstr "转到书签"
 
-#: ../src/menu.c:317
+#: ../src/menu.c:326
 msgid "/Go/Goto _Line"
 msgstr "/转到(G)/移动到行(_L)"
 
-#: ../src/menu.c:318
+#: ../src/menu.c:327
 msgid "/Go/Goto _Selection"
 msgstr "/转到(G)/移动到选择(_S)"
 
-#: ../src/menu.c:319
+#: ../src/menu.c:328
 msgid "/_Project"
 msgstr "/项目(_P)"
 
-#: ../src/menu.c:321
+#: ../src/menu.c:330
 msgid "/Project/_New Project"
 msgstr "/项目(P)/新建项目(_N)"
 
-#: ../src/menu.c:322
+#: ../src/menu.c:331
 msgid "/Project/_Open Project..."
 msgstr "/项目(P)/打开项目(_O)..."
 
-#: ../src/menu.c:323
+#: ../src/menu.c:332
 msgid "/Project/Open _recent"
 msgstr "/项目(P)/打开最近使用的项目(_R)"
 
-#: ../src/menu.c:326
+#: ../src/menu.c:335
 msgid "/Project/_Save"
 msgstr "/项目(P)/保存(_S)"
 
-#: ../src/menu.c:327
+#: ../src/menu.c:336
 msgid "/Project/Save _as..."
 msgstr "/项目(P)/另存为(_A)..."
 
-#: ../src/menu.c:328
+#: ../src/menu.c:337
 msgid "/Project/Save & _close"
 msgstr "/项目(P)/保存并关闭(_C)..."
 
-#: ../src/menu.c:330
+#: ../src/menu.c:339
 msgid "/Project/E_dit Project Options..."
 msgstr "/项目(P)/编辑项目选项(_D)..."
 
-#: ../src/menu.c:331
+#: ../src/menu.c:340
 msgid "/E_xternal"
 msgstr "/外部程序(_X)"
 
-#: ../src/menu.c:498
+#: ../src/menu.c:507
 msgid "/Document/Document Type"
 msgstr "/文档(D)/文档类型"
 
-#: ../src/menu.c:652
+#: ../src/menu.c:661
 msgid "/Project/Open recent"
 msgstr "/项目(P)/打开最近使用的项目"
 
-#: ../src/menu.c:656
+#: ../src/menu.c:665
 msgid "/File/Open recent"
 msgstr "/文件(F)/打开最近使用的文件"
 
-#: ../src/menu.c:835
+#: ../src/menu.c:844
 msgid "/Windows"
 msgstr "/窗口"
 
-#: ../src/menu.c:928
+#: ../src/menu.c:937
 #, fuzzy
 msgid "No default browser found"
 msgstr "默认基准路径"
 
-#: ../src/menu.c:929
+#: ../src/menu.c:938
 msgid ""
 "You can set a default browser by going to:\n"
 "Edit->Preferences->External Commands"
 msgstr ""
 
-#: ../src/menu.c:948
+#: ../src/menu.c:957
 msgid "Operate filter only on selection?"
 msgstr ""
 
-#: ../src/menu.c:996
+#: ../src/menu.c:1005
 msgid "/External/Outputbox/"
 msgstr "/外部程序(X)/输出窗口/"
 
-#: ../src/menu.c:997
+#: ../src/menu.c:1006
 msgid "/External/Commands/"
 msgstr "/外部程序(X)/命令/"
 
-#: ../src/menu.c:998
+#: ../src/menu.c:1007
 #, fuzzy
 msgid "/External/Filters/"
 msgstr "/外部程序(X)/浏览器/"
 
-#: ../src/menu.c:1011
+#: ../src/menu.c:1020
 #, fuzzy
 msgid "/External/Filters"
 msgstr "/外部程序(X)/tearoff1"
 
-#: ../src/menu.c:1031
+#: ../src/menu.c:1040
 msgid "/External"
 msgstr "/外部程序(X)"
 
-#: ../src/menu.c:1033
+#: ../src/menu.c:1042
 msgid "/External/Commands"
 msgstr "/外部程序(X)/命令"
 
-#: ../src/menu.c:1065
+#: ../src/menu.c:1074
 msgid "/External/Outputbox"
 msgstr "/外部程序(X)/输出窗口"
 
-#: ../src/menu.c:1111
+#: ../src/menu.c:1120
 msgid "/Document/Character Encoding"
 msgstr "/文档(D)/字符编码"
 
@@ -1873,13 +1904,6 @@ msgstr "自动刷新作者 META 标签"
 msgid "Files"
 msgstr "文件"
 
-#.
-#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Files"),152,TRUE));
-#.
-#: ../src/preferences.c:2067
-msgid "Encoding"
-msgstr "编码"
-
 #: ../src/preferences.c:2079
 #, fuzzy
 msgid "Default character set for new files"
@@ -2031,7 +2055,7 @@ msgstr "未知文件图标"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2202 ../src/rcfile.c:929
+#: ../src/preferences.c:2202 ../src/rcfile.c:950
 msgid "Images"
 msgstr "图像"
 
@@ -2205,81 +2229,81 @@ msgid "Create empty project"
 msgstr "创建空项目"
 
 #. if the user does not have outputbox settings --> set them to defaults values
-#: ../src/rcfile.c:636
+#: ../src/rcfile.c:644
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:637
+#: ../src/rcfile.c:645
 msgid "weblint HTML checker"
 msgstr "weblint HTML checker"
 
-#: ../src/rcfile.c:638
+#: ../src/rcfile.c:646
 msgid "tidy HTML validator"
 msgstr "tidy HTML validator"
 
-#: ../src/rcfile.c:639
+#: ../src/rcfile.c:647
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:640
+#: ../src/rcfile.c:648
 msgid "xmllint XML checker"
 msgstr "xmllint XML checker"
 
-#: ../src/rcfile.c:641
+#: ../src/rcfile.c:649
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:644
+#: ../src/rcfile.c:652
 #, fuzzy
 msgid "Sort"
 msgstr " 排序 "
 
-#: ../src/rcfile.c:645
+#: ../src/rcfile.c:653
 #, fuzzy
 msgid "Reverse lines"
 msgstr "后退关系(_R)："
 
-#: ../src/rcfile.c:646
+#: ../src/rcfile.c:654
 #, fuzzy
 msgid "Dos2unix"
 msgstr "Dos2Unix filter"
 
-#: ../src/rcfile.c:647
+#: ../src/rcfile.c:655
 #, fuzzy
 msgid "Tidy HTML"
 msgstr "HTML"
 
-#: ../src/rcfile.c:648
+#: ../src/rcfile.c:656
 msgid "Strip empty lines"
 msgstr ""
 
-#: ../src/rcfile.c:649
+#: ../src/rcfile.c:657
 #, fuzzy
 msgid "Render HTML to text"
 msgstr "插入时间"
 
-#: ../src/rcfile.c:652
+#: ../src/rcfile.c:660
 msgid "Firefox"
 msgstr ""
 
-#: ../src/rcfile.c:653
+#: ../src/rcfile.c:661
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:852
+#: ../src/rcfile.c:860
 msgid "Untitled Project"
 msgstr "无标题项目"
 
-#: ../src/rcfile.c:923
+#: ../src/rcfile.c:944
 msgid "C programming"
 msgstr "C 编程"
 
-#: ../src/rcfile.c:925
+#: ../src/rcfile.c:946
 #, fuzzy
 msgid "Web files"
 msgstr "所有 Web 文件"
 
-#: ../src/rcfile.c:931
+#: ../src/rcfile.c:952
 msgid "Hide objectfiles"
 msgstr "隐藏目标文件"
 
@@ -2296,21 +2320,21 @@ msgstr "搜索失败"
 msgid "Regular expression error: %s at offset %d"
 msgstr "正规表达式出错：位于偏移量 %2$d 的 %1$s"
 
-#: ../src/snr2.c:1361
+#: ../src/snr2.c:1367
 #, c-format
 msgid "Found %d matches, "
 msgid_plural "Found %d matches, "
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../src/snr2.c:1362
+#: ../src/snr2.c:1368
 #, fuzzy, c-format
 msgid "replaced %d"
 msgid_plural "replaced %d"
 msgstr[0] "替换"
 msgstr[1] "替换"
 
-#: ../src/snr2.c:1367
+#: ../src/snr2.c:1373
 #, c-format
 msgid "Found %d matches"
 msgid_plural "Found %d matches"
@@ -2318,177 +2342,177 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr2.c:1388
+#: ../src/snr2.c:1394
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</"
 "span>"
 msgstr ""
 
-#: ../src/snr2.c:1513
+#: ../src/snr2.c:1519
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">No selection. Please select a block "
 "of text first.</span>"
 msgstr ""
 
-#: ../src/snr2.c:1552 ../src/snr2.c:1917
+#: ../src/snr2.c:1558 ../src/snr2.c:1923
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
 "will continue at the beginning.</span>"
 msgstr ""
 
-#: ../src/snr2.c:1628
+#: ../src/snr2.c:1634
 #, fuzzy
 msgid "Entire document"
 msgstr "在文档中(_D)"
 
-#: ../src/snr2.c:1629
+#: ../src/snr2.c:1635
 msgid "Forward from cursor position"
 msgstr ""
 
-#: ../src/snr2.c:1630
+#: ../src/snr2.c:1636
 #, fuzzy
 msgid "Selection"
 msgstr "选择字体"
 
-#: ../src/snr2.c:1631
+#: ../src/snr2.c:1637
 #, fuzzy
 msgid "All open files"
 msgstr "所有 Web 文件"
 
-#: ../src/snr2.c:1635 ../src/snr2.c:1642
+#: ../src/snr2.c:1641 ../src/snr2.c:1648
 msgid "Normal"
 msgstr "一般"
 
-#: ../src/snr2.c:1636
+#: ../src/snr2.c:1642
 msgid "Entire word only"
 msgstr ""
 
-#: ../src/snr2.c:1637
+#: ../src/snr2.c:1643
 #, fuzzy
 msgid "POSIX"
 msgstr "POSIX 类型"
 
-#: ../src/snr2.c:1638
+#: ../src/snr2.c:1644
 #, fuzzy
 msgid "PERL"
 msgstr "PERL 类型"
 
-#: ../src/snr2.c:1643
+#: ../src/snr2.c:1649
 msgid "Uppercase"
 msgstr "大写"
 
-#: ../src/snr2.c:1644
+#: ../src/snr2.c:1650
 msgid "Lowercase"
 msgstr "小写"
 
-#: ../src/snr2.c:1682
+#: ../src/snr2.c:1688
 msgid "_Search for: "
 msgstr "搜索(_S)："
 
-#: ../src/snr2.c:1686
+#: ../src/snr2.c:1692
 msgid "The pattern to look for"
 msgstr ""
 
-#: ../src/snr2.c:1701
+#: ../src/snr2.c:1707
 #, fuzzy
 msgid "Replace _with: "
 msgstr "替换为(_R)："
 
-#: ../src/snr2.c:1705
+#: ../src/snr2.c:1711
 msgid "Replace matching text with"
 msgstr ""
 
-#: ../src/snr2.c:1713
+#: ../src/snr2.c:1719
 msgid "Sco_pe: "
 msgstr ""
 
-#: ../src/snr2.c:1717
+#: ../src/snr2.c:1723
 msgid "Where to look for the pattern."
 msgstr ""
 
-#: ../src/snr2.c:1723
+#: ../src/snr2.c:1729
 msgid "Found 0 matches, replaced 0"
 msgstr ""
 
-#: ../src/snr2.c:1723
+#: ../src/snr2.c:1729
 msgid "Found 0 matches"
 msgstr ""
 
-#: ../src/snr2.c:1733
+#: ../src/snr2.c:1739
 #, fuzzy
 msgid "<b>_Options</b>"
 msgstr "<b>包含</b>"
 
-#: ../src/snr2.c:1748
+#: ../src/snr2.c:1754
 #, fuzzy
 msgid "Match Patter_n: "
 msgstr "搜索模式"
 
-#: ../src/snr2.c:1752
+#: ../src/snr2.c:1758
 msgid "How to interpret the pattern."
 msgstr ""
 
-#: ../src/snr2.c:1759
+#: ../src/snr2.c:1765
 #, fuzzy
 msgid "Replace T_ype: "
 msgstr "替换类型："
 
-#: ../src/snr2.c:1764
+#: ../src/snr2.c:1770
 #, fuzzy
 msgid "What to replace with."
 msgstr "替换为(_R)："
 
-#: ../src/snr2.c:1768
+#: ../src/snr2.c:1774
 #, fuzzy
 msgid "Allow o_verlapping matches"
 msgstr "循环搜索(_O)"
 
-#: ../src/snr2.c:1771
+#: ../src/snr2.c:1777
 msgid "After a match is found, start next search within that match."
 msgstr ""
 
-#: ../src/snr2.c:1773
+#: ../src/snr2.c:1779
 #, fuzzy
 msgid "Case sensitive _matching"
 msgstr "区分大小写匹配"
 
-#: ../src/snr2.c:1776
+#: ../src/snr2.c:1782
 msgid "Only match if case (upper/lower) is identical."
 msgstr ""
 
-#: ../src/snr2.c:1778
+#: ../src/snr2.c:1784
 #, fuzzy
 msgid "_Use escape chars"
 msgstr "更新字符"
 
-#: ../src/snr2.c:1781
+#: ../src/snr2.c:1787
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr ""
 
-#: ../src/snr2.c:1783
+#: ../src/snr2.c:1789
 #, fuzzy
 msgid "_Select matches"
 msgstr "选择文件"
 
-#: ../src/snr2.c:1786
+#: ../src/snr2.c:1792
 msgid "Select the matching text instead of just highlighting it"
 msgstr ""
 
-#: ../src/snr2.c:1788
+#: ../src/snr2.c:1794
 #, fuzzy
 msgid "_Bookmark matches"
 msgstr "书签"
 
-#: ../src/snr2.c:1790
+#: ../src/snr2.c:1796
 msgid "Create a bookmark for each match"
 msgstr ""
 
-#: ../src/snr2.c:1795
+#: ../src/snr2.c:1801
 #, fuzzy
 msgid "Replace _All"
 msgstr "全部替换(_A)"
 
-#: ../src/snr2.c:1801
+#: ../src/snr2.c:1807
 #, fuzzy
 msgid "Find _All"
 msgstr "查找"
@@ -2612,9 +2636,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Input type"
 #~ msgstr "信息类型"
-
-#~ msgid "Description"
-#~ msgstr "描述"
 
 #, fuzzy
 #~ msgid "Values"
