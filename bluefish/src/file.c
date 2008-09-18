@@ -504,7 +504,7 @@ void file_asyncfileinfo_cancel(gpointer fi) {
 	g_cancellable_cancel(((Tfileinfo *)fi)->cancel);
 }
 static void fill_fileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
-	GFileInfo *info;
+	GFileInfo *info = NULL;
 	GError *error=NULL;
 	Tfileinfo *fi=user_data;
 	

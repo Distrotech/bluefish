@@ -1637,9 +1637,14 @@ void doc_set_fileinfo(Tdocument *doc, GFileInfo *finfo) {
 	if (doc->fileinfo) {
 		DEBUG_MSG("doc_set_fileinfo, unref doc->fileinfo at %p\n",doc->fileinfo);
 		g_object_unref(doc->fileinfo);
+		doc->fileinfo = NULL;
 	}
-	g_object_ref(finfo);
-	doc->fileinfo = finfo;
+	
+	if (finfo != NULL) {
+		g_object_ref(finfo);
+		doc->fileinfo = finfo;
+	}
+	
 	doc_set_tooltip(doc);
 }
 
@@ -2921,7 +2926,7 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
 	bfwin->focus_next_new_doc = TRUE;
 	tmpslist = urislist;
 	while (tmpslist) {
-		GFile *uri = g_file_new_for_uri(tmpslist->data);
+		GFile *uri = g_file_new_for_path(tmpslist->data);
 		doc_new_from_uri(bfwin, uri, NULL, TRUE, move_to_this_win, -1, -1);
 		g_object_unref(uri);
 		tmpslist = g_slist_next(tmpslist);
