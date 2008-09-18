@@ -2687,7 +2687,7 @@ static void bf_textview_scan_area(BfTextView * self, GtkTextIter * startarg, Gtk
 	gint numchars=0, numloop=0;
 	numskipped=0;
 #endif
-	DEBUG_MSG("bf_textview_scan_area, started from %d to %d, store_string=%d,apply_hl=%d\n",gtk_text_iter_get_offset(start),gtk_text_iter_get_offset(end),store_string,force_rehighlight);
+	DEBUG_MSG("bf_textview_scan_area, started from %d to %d, ,apply_hl=%d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end),force_rehighlight);
 	g_return_if_fail(self != NULL);
 	g_return_if_fail(BF_IS_TEXTVIEW(self));
 	if (!self->lang || self->paste_operation)
