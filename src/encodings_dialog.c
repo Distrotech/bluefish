@@ -378,20 +378,22 @@ bluefish_encodings_dialog_create (GType type,
 										G_CALLBACK (enc_avail_view_selection_changed), dialog );
 	
 	renderer = gtk_cell_renderer_text_new ();
-	column = gtk_tree_view_column_new_with_attributes ("Description",
+	column = gtk_tree_view_column_new_with_attributes (_("Description"),
 																										 renderer,
 																										 "text",
 																										 COLUMN_DESCRIPTION,
 																										 NULL);
+	
 	gtk_tree_view_append_column (GTK_TREE_VIEW (dialog->priv->encAvailView),
 															 column);
 	
 	renderer = gtk_cell_renderer_text_new ();
-	column = gtk_tree_view_column_new_with_attributes ("Encoding",
+	column = gtk_tree_view_column_new_with_attributes (_("Encoding"),
 																										 renderer,
 																										 "text",
 																										 COLUMN_ENCODING,
 																										 NULL);
+
 	gtk_tree_view_append_column (GTK_TREE_VIEW (dialog->priv->encAvailView),
 															 column);
 	
@@ -447,7 +449,7 @@ bluefish_encodings_dialog_create (GType type,
 										G_CALLBACK (enc_in_menu_view_selection_changed), dialog );
 	
 	renderer = gtk_cell_renderer_text_new ();
-	column = gtk_tree_view_column_new_with_attributes ("Description",
+	column = gtk_tree_view_column_new_with_attributes (_("Description"),
 																										 renderer,
 																										 "text",
 																										 COLUMN_DESCRIPTION,
@@ -456,7 +458,7 @@ bluefish_encodings_dialog_create (GType type,
 															 column);
 	
 	renderer = gtk_cell_renderer_text_new ();
-	column = gtk_tree_view_column_new_with_attributes ("Encoding",
+	column = gtk_tree_view_column_new_with_attributes (_("Encoding"),
 																										 renderer,
 																										 "text",
 																										 COLUMN_ENCODING,
