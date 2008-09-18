@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable_eu\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2008-08-19 20:16-0700\n"
+"POT-Creation-Date: 2008-09-17 22:03-0700\n"
 "PO-Revision-Date: 2008-07-17 22:00+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
@@ -65,7 +65,7 @@ msgstr "_Ordeztu honekin:"
 msgid "I_gnore"
 msgstr "_Ez ikusi egin"
 
-#: ../src/bfspell.c:412 ../src/snr2.c:1798
+#: ../src/bfspell.c:412 ../src/snr2.c:1804
 msgid "_Replace"
 msgstr "Orde_ztu"
 
@@ -428,87 +428,87 @@ msgstr ""
 "\n"
 "Azken aldatze-data: "
 
-#: ../src/document.c:493
+#: ../src/document.c:498
 #, c-format
 msgid "Untitled %d"
 msgstr "%d izengabe"
 
-#: ../src/document.c:816
+#: ../src/document.c:821
 #, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "%s dokumentua jadanik Bluefish-en beste leiho batean irekita dago."
 
-#: ../src/document.c:818
+#: ../src/document.c:823
 msgid "Move to this window"
 msgstr "Eraman leiho honetara"
 
-#: ../src/document.c:818
+#: ../src/document.c:823
 msgid "Open readonly"
 msgstr "Ireki irakurtzeko soilik"
 
-#: ../src/document.c:818
+#: ../src/document.c:823
 msgid "Do not open"
 msgstr "Ez ireki"
 
-#: ../src/document.c:1178
+#: ../src/document.c:1183
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr " %d ler., %d zut."
 
-#: ../src/document.c:1180
+#: ../src/document.c:1185
 #, c-format
 msgid " Ln: %d, Col: %d"
 msgstr " %d ler., %d zut."
 
-#: ../src/document.c:1201
+#: ../src/document.c:1206
 msgid " OVR"
 msgstr " GAIN"
 
-#: ../src/document.c:1201
+#: ../src/document.c:1206
 msgid " INS"
 msgstr " TXER"
 
-#: ../src/document.c:1203
+#: ../src/document.c:1208
 msgid " RO"
 msgstr " IS"
 
-#: ../src/document.c:1217 ../src/document.c:1218
+#: ../src/document.c:1222 ../src/document.c:1223
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-#: ../src/document.c:1566
+#: ../src/document.c:1572
 msgid "Cannot display file, unknown characters found."
 msgstr "Ezin da bistaratu fitxategia, karaktere ezezagunak aurkitu direlako."
 
-#: ../src/document.c:2047 ../src/snr2.c:1655
+#: ../src/document.c:2058 ../src/snr2.c:1661
 msgid "Replace"
 msgstr "Ordeztu"
 
-#: ../src/document.c:2052 ../src/snr2.c:1652
+#: ../src/document.c:2063 ../src/snr2.c:1658
 msgid "Find"
 msgstr "Bilatu"
 
-#: ../src/document.c:2060
+#: ../src/document.c:2071
 msgid "Delete bookmark"
 msgstr "Ezabatu laster-markak"
 
-#: ../src/document.c:2064
+#: ../src/document.c:2075
 msgid "Add bookmark"
 msgstr "Gehitu laster-marka"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2198 ../src/file_dialogs.c:347 ../src/file_dialogs.c:386
+#: ../src/document.c:2209 ../src/file_dialogs.c:347 ../src/file_dialogs.c:386
 msgid "_Abort save"
 msgstr "_Abortatu gordetzea"
 
-#: ../src/document.c:2198
+#: ../src/document.c:2209
 msgid "_Continue save in UTF-8"
 msgstr "_Jarraitu gordetzen UTF-8 kodeketan"
 
-#: ../src/document.c:2209
+#: ../src/document.c:2220
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -521,51 +521,51 @@ msgstr ""
 "\n"
 "UTF-8 kodeketan gordetzen jarraitu nahi duzu?"
 
-#: ../src/document.c:2213
+#: ../src/document.c:2224
 msgid "File encoding conversion failure"
 msgstr "Huts egin du fitxategiaren kodeketa bihurtzean"
 
-#: ../src/document.c:2447
+#: ../src/document.c:2458
 msgid "Previously: "
 msgstr "Lehen: "
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:3003
+#: ../src/document.c:3017
 msgid "Unable to open file"
 msgstr "Fitxategia ezin da ireki"
 
-#: ../src/document.c:3027
+#: ../src/document.c:3041
 msgid "_Unset file name"
 msgstr "_Kendu fitxategi-izenaren ezarpena"
 
-#: ../src/document.c:3027
+#: ../src/document.c:3041
 msgid "_Save"
 msgstr "_Gorde"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:3029
+#: ../src/document.c:3043
 #, c-format
 msgid "File name: %s"
 msgstr "Fitxategi-izena: %s"
 
-#: ../src/document.c:3033
+#: ../src/document.c:3047
 msgid "File disappeared from disk\n"
 msgstr "Fitxategia diskotik desagertuta.\n"
 
-#: ../src/document.c:3050
+#: ../src/document.c:3064
 msgid "_Ignore"
 msgstr "_Ez ikusi egin"
 
-#: ../src/document.c:3050
+#: ../src/document.c:3064
 msgid "_Reload"
 msgstr "_Birkargatu"
 
-#: ../src/document.c:3050
+#: ../src/document.c:3064
 #, fuzzy
 msgid "Check and reload all documents"
 msgstr "Desegin dokumentu _guztietan"
 
-#: ../src/document.c:3058
+#: ../src/document.c:3072
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -578,80 +578,108 @@ msgstr ""
 "Aldatze-ordu berria: %s\n"
 "Aldatze-ordu zaharra: %s"
 
-#: ../src/document.c:3062
+#: ../src/document.c:3076
 msgid "File has been modified by another process\n"
 msgstr "Beste prozesuren batek aldatu du fitxategia\n"
 
-#: ../src/document.c:3122
+#: ../src/document.c:3136
 msgid "_Retry"
 msgstr "_Saiatu berriro"
 
-#: ../src/document.c:3122
+#: ../src/document.c:3136
 msgid "Retry _all failed"
 msgstr "Saiatu berriro huts egindako _guztiak"
 
-#: ../src/document.c:3122
+#: ../src/document.c:3136
 msgid "_Close"
 msgstr "It_xi"
 
-#: ../src/document.c:3122
+#: ../src/document.c:3136
 msgid "Close all _failed"
 msgstr "Itxi _huts egindako guztiak"
 
-#: ../src/document.c:3126
+#: ../src/document.c:3140
 msgid "File "
 msgstr " "
 
-#: ../src/document.c:3126
+#: ../src/document.c:3140
 msgid " failed to load."
 msgstr " fitxategiak huts egin du kargatzean."
 
-#: ../src/document.c:3130
+#: ../src/document.c:3144
 msgid "File failed to load\n"
 msgstr "Fitxategiak huts egin du kargatzean\n"
 
-#: ../src/document.c:3250
+#: ../src/document.c:3264
 msgid "Select file to insert"
 msgstr "Hautatu fitxategia txertatzeko"
 
-#: ../src/document.c:3258
+#: ../src/document.c:3272
 msgid "No file to insert"
 msgstr "Ez dago fitxategirik txertatzeko"
 
-#: ../src/document.c:3408
+#: ../src/document.c:3422
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "Estatistikak: %d lerro, %d hitz, %d karaktere"
 
-#: ../src/filebrowser2.c:229
+#: ../src/encodings_dialog.c:329
+msgid "_Available encodings:"
+msgstr ""
+
+#: ../src/encodings_dialog.c:381 ../src/encodings_dialog.c:452
+#, fuzzy
+msgid "Description"
+msgstr "_Azalpena:"
+
+#.
+#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Files"),152,TRUE));
+#.
+#: ../src/encodings_dialog.c:391 ../src/encodings_dialog.c:461
+#: ../src/preferences.c:2067
+msgid "Encoding"
+msgstr "Kodeketa"
+
+#: ../src/encodings_dialog.c:427
+#, fuzzy
+msgid "Encodings in _menu:"
+msgstr ""
+"\n"
+"Kodeketa: "
+
+#: ../src/encodings_dialog.c:511
+msgid "Add or remove document encodings"
+msgstr ""
+
+#: ../src/filebrowser2.c:224
 msgid "Set documentroot and webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:238
+#: ../src/filebrowser2.c:233
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
 "the webserver"
 msgstr ""
 
-#: ../src/filebrowser2.c:245
+#: ../src/filebrowser2.c:240
 #, fuzzy
 msgid "Documentroot"
 msgstr "/_Dokumentua"
 
-#: ../src/filebrowser2.c:255
+#: ../src/filebrowser2.c:250
 msgid "Webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:1393
+#: ../src/filebrowser2.c:1389
 msgid "Could not rename\n"
 msgstr "Ezin izan da izena aldatu\n"
 
-#: ../src/filebrowser2.c:1448
+#: ../src/filebrowser2.c:1444
 msgid "New directory"
 msgstr "Direktorio berria"
 
-#: ../src/filebrowser2.c:1456
+#: ../src/filebrowser2.c:1452
 msgid "New file"
 msgstr "Fitxategi berria"
 
@@ -663,7 +691,7 @@ msgstr "Fitxategi berria"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1563
+#: ../src/filebrowser2.c:1559
 #, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -672,94 +700,94 @@ msgstr ""
 "Ziur zaude \"%s\"\n"
 "ezabatu nahi duzula?"
 
-#: ../src/filebrowser2.c:1564
+#: ../src/filebrowser2.c:1560
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "%s ezabatzen baduzu, betiko ezabatuko da."
 
-#: ../src/filebrowser2.c:1707
+#: ../src/filebrowser2.c:1703
 msgid "/_Open"
 msgstr "/_Ireki"
 
-#: ../src/filebrowser2.c:1708
+#: ../src/filebrowser2.c:1704
 msgid "/Open _Advanced..."
 msgstr "/Ireki _aurreratua..."
 
-#: ../src/filebrowser2.c:1709
+#: ../src/filebrowser2.c:1705
 msgid "/Rena_me"
 msgstr "/I_zena aldatu"
 
-#: ../src/filebrowser2.c:1710
+#: ../src/filebrowser2.c:1706
 msgid "/_Delete"
 msgstr "/E_zabatu"
 
-#: ../src/filebrowser2.c:1712
+#: ../src/filebrowser2.c:1708
 msgid "/New _File"
 msgstr "/_Fitxategi berria"
 
-#: ../src/filebrowser2.c:1713
+#: ../src/filebrowser2.c:1709
 msgid "/_New Directory"
 msgstr "/_Direktorio berria"
 
-#: ../src/filebrowser2.c:1715
+#: ../src/filebrowser2.c:1711
 msgid "/_Refresh"
 msgstr "/_Freskatu"
 
-#: ../src/filebrowser2.c:1716
+#: ../src/filebrowser2.c:1712
 msgid "/Follow active document"
 msgstr "/Jarraitu dokumentu aktiboa"
 
-#: ../src/filebrowser2.c:1717
+#: ../src/filebrowser2.c:1713
 msgid "/_Set as basedir"
 msgstr "/_Ezarri oinarri-direktorio gisa"
 
-#: ../src/filebrowser2.c:1718
+#: ../src/filebrowser2.c:1714
 #, fuzzy
 msgid "/Set as documentroot"
 msgstr "/Joan/_Hurrengo dokumentura"
 
-#: ../src/filebrowser2.c:1720
+#: ../src/filebrowser2.c:1716
 msgid "/Show Full _Tree"
 msgstr "/Erakutsi zuhaitz _osoa"
 
-#: ../src/filebrowser2.c:1721
+#: ../src/filebrowser2.c:1717
 msgid "/Show hidden files"
 msgstr "/Erakutsi ezkutuko fitxategiak"
 
-#: ../src/filebrowser2.c:1722
+#: ../src/filebrowser2.c:1718
 msgid "/Show backup files"
 msgstr "/Erakutsi babeskopia-fitxategiak"
 
-#: ../src/filebrowser2.c:1723
+#: ../src/filebrowser2.c:1719
 msgid "/View mode"
 msgstr "/Ikuspegi-modua"
 
-#: ../src/filebrowser2.c:1724
+#: ../src/filebrowser2.c:1720
 msgid "/View mode/Tree"
 msgstr "/Ikuspegi-modua/Zuhaitza"
 
-#: ../src/filebrowser2.c:1725
+#: ../src/filebrowser2.c:1721
 msgid "/View mode/Dual"
 msgstr "/Ikuspegi-modua/Bikoitza"
 
-#: ../src/filebrowser2.c:1726
+#: ../src/filebrowser2.c:1722
 msgid "/View mode/Flat"
 msgstr "/Ikuspegi-modua/Soila"
 
 #. Add filter submenu
-#: ../src/filebrowser2.c:1804
+#: ../src/filebrowser2.c:1800
 msgid "Filter"
 msgstr "Iragazkia"
 
-#: ../src/filebrowser2.c:1830 ../src/filefilter.c:477
+#: ../src/filebrowser2.c:1826 ../src/filefilter.c:477
 msgid "Edit filter"
 msgstr "Editatu iragazkia"
 
-#: ../src/filebrowser2.c:1834
+#: ../src/filebrowser2.c:1830
 msgid "Delete filter"
 msgstr "Ezabatu iragazkia"
 
-#: ../src/filebrowser2.c:1839
+#: ../src/filebrowser2.c:1835
 msgid "New filter"
 msgstr "Iragazki berria"
 
@@ -814,7 +842,7 @@ msgstr "<b>Orokorra</b>"
 msgid "Base _Dir:"
 msgstr "Oinarri-_dir.:"
 
-#: ../src/file_dialogs.c:145 ../src/gtk_easy.c:1253
+#: ../src/file_dialogs.c:145 ../src/gtk_easy.c:1257
 msgid "_Browse..."
 msgstr "_Arakatu..."
 
@@ -969,7 +997,7 @@ msgid "Multiple open files have been changed."
 msgstr "Irekitako hainbat fitxategi aldatu egin dira."
 
 #. build a list of filters
-#: ../src/filefilter.c:215 ../src/gtk_easy.c:1363
+#: ../src/filefilter.c:215 ../src/gtk_easy.c:1367
 msgid "All files"
 msgstr "Fitxategi guztiak"
 
@@ -990,19 +1018,19 @@ msgstr "Ikonoa"
 msgid "%d of %d"
 msgstr "%d / %d"
 
-#: ../src/gtk_easy.c:1185
+#: ../src/gtk_easy.c:1187
 msgid "Select File"
 msgstr "Hautatu fitxategia"
 
-#: ../src/gtk_easy.c:1353
+#: ../src/gtk_easy.c:1357
 msgid "Show backup files"
 msgstr "Erakutsi babeskopia-fitxategiak"
 
-#: ../src/gtk_easy.c:1413
+#: ../src/gtk_easy.c:1417
 msgid "Character _Encoding:"
 msgstr "_Karaktere-kodeketa:"
 
-#: ../src/gtk_easy.c:1427
+#: ../src/gtk_easy.c:1436
 msgid "Automatic detection"
 msgstr "Detekzio automatikoa"
 
@@ -1112,355 +1140,359 @@ msgstr "_Gorde elkarrizketa"
 msgid "starting bluefish"
 msgstr "bluefish abiarazten"
 
-#: ../src/menu.c:214
+#: ../src/menu.c:219
 msgid "/_File"
 msgstr "/_Fitxategia"
 
-#: ../src/menu.c:216
+#: ../src/menu.c:221
 msgid "/File/_New"
 msgstr "/Fitxategia/_Berria"
 
-#: ../src/menu.c:217
+#: ../src/menu.c:222
 msgid "/File/New _Window"
 msgstr "/Fitxategia/_Leiho berria"
 
-#: ../src/menu.c:218
+#: ../src/menu.c:223
 msgid "/File/_Open..."
 msgstr "/Fitxategia/_Ireki..."
 
-#: ../src/menu.c:219
+#: ../src/menu.c:224
 msgid "/File/Open _recent"
 msgstr "/Fitxategia/_Azken fitxategiak."
 
-#: ../src/menu.c:221
+#: ../src/menu.c:226
 msgid "/File/Open Ad_vanced..."
 msgstr "/Fitxategia/Ireki _aurreratua..."
 
-#: ../src/menu.c:222
+#: ../src/menu.c:227
 msgid "/File/Open _URL..."
 msgstr "/Fitxategia/Ireki _URLa..."
 
-#: ../src/menu.c:223
+#: ../src/menu.c:228
 msgid "/File/Open _from selection"
 msgstr "/Fitxategia/Ir_eki hautapenetik"
 
-#: ../src/menu.c:225
+#: ../src/menu.c:230
 msgid "/File/_Save"
 msgstr "/Fitxategia/_Gorde"
 
-#: ../src/menu.c:226
+#: ../src/menu.c:231
 msgid "/File/Save _As..."
 msgstr "/Fitxategia/Gorde _honela..."
 
-#: ../src/menu.c:227
+#: ../src/menu.c:232
 msgid "/File/Sav_e All"
 msgstr "/Fitxategia/G_orde dena"
 
-#: ../src/menu.c:228
+#: ../src/menu.c:233
 msgid "/File/Rever_t to Saved"
 msgstr "/Fitxategia/Itzuli gordeta_kora"
 
-#: ../src/menu.c:230
+#: ../src/menu.c:235
 msgid "/File/_Insert..."
 msgstr "/Fitxategia/T_xertatu..."
 
-#: ../src/menu.c:231
+#: ../src/menu.c:236
 msgid "/File/Rena_me..."
 msgstr "/Fitxategia/I_zena aldatu..."
 
-#: ../src/menu.c:233
+#: ../src/menu.c:238
 msgid "/File/_Close"
 msgstr "/Fitxategia/I_txi"
 
-#: ../src/menu.c:234
+#: ../src/menu.c:239
 msgid "/File/Close A_ll"
 msgstr "/Fitxategia/Itxi de_na"
 
-#: ../src/menu.c:235
+#: ../src/menu.c:240
 msgid "/File/Close Win_dow"
 msgstr "/Fitxategia/Itxi _leihoa"
 
-#: ../src/menu.c:237
+#: ../src/menu.c:242
 msgid "/File/_Quit"
 msgstr "/Fitxategia/I_rten"
 
-#: ../src/menu.c:240
+#: ../src/menu.c:245
 msgid "/File/Run Python Script"
 msgstr "/Fitxategia/Exekutatu Python script-a"
 
-#: ../src/menu.c:242
+#: ../src/menu.c:247
 msgid "/_Edit"
 msgstr "/_Editatu"
 
-#: ../src/menu.c:244
+#: ../src/menu.c:249
 msgid "/Edit/_Undo"
 msgstr "/Editatu/_Desegin"
 
-#: ../src/menu.c:245
+#: ../src/menu.c:250
 msgid "/Edit/_Redo"
 msgstr "/Editatu/_Berregin"
 
-#: ../src/menu.c:246
+#: ../src/menu.c:251
 msgid "/Edit/Undo All"
 msgstr "/Editatu/Desegin dena"
 
-#: ../src/menu.c:247
+#: ../src/menu.c:252
 msgid "/Edit/Redo All"
 msgstr "/Editatu/Berregin dena"
 
-#: ../src/menu.c:249
+#: ../src/menu.c:254
 msgid "/Edit/Cu_t"
 msgstr "/Editatu/Eb_aki"
 
-#: ../src/menu.c:250
+#: ../src/menu.c:255
 msgid "/Edit/_Copy"
 msgstr "/Editatu/_Kopiatu"
 
-#: ../src/menu.c:251
+#: ../src/menu.c:256
 msgid "/Edit/_Paste"
 msgstr "/Editatu/It_satsi"
 
-#: ../src/menu.c:253
+#: ../src/menu.c:258
 msgid "/Edit/Select _All"
 msgstr "/Editatu/Hautatu _dena"
 
-#: ../src/menu.c:255
+#: ../src/menu.c:260
 msgid "/Edit/_Find..."
 msgstr "/Editatu/_Bilatu..."
 
-#: ../src/menu.c:256
+#: ../src/menu.c:261
 msgid "/Edit/Find A_gain"
 msgstr "/Editatu/_Bilatu berriro"
 
-#: ../src/menu.c:257
+#: ../src/menu.c:262
 msgid "/Edit/Find from selection"
 msgstr "/Editatu/Bilatu hautapenetik"
 
-#: ../src/menu.c:258
+#: ../src/menu.c:263
 msgid "/Edit/R_eplace..."
 msgstr "/Editatu/_Ordeztu..."
 
-#: ../src/menu.c:259
+#: ../src/menu.c:264
 msgid "/Edit/Replace Agai_n"
 msgstr "/Editatu/O_rdeztu berriro"
 
-#: ../src/menu.c:260
+#: ../src/menu.c:265
 msgid "/Edit/Replace special"
 msgstr "/Editatu/Or_deztu berezia"
 
-#: ../src/menu.c:262
+#: ../src/menu.c:267
 msgid "/Edit/Replace special/Block sync"
 msgstr "/Editatu/Ordeztu berezia/Bloke-sinkronizazioa"
 
-#: ../src/menu.c:264
+#: ../src/menu.c:269
 msgid "/Edit/S_hift Right"
 msgstr "/Editatu/_Lerratu eskuinera"
 
-#: ../src/menu.c:265
+#: ../src/menu.c:270
 msgid "/Edit/Shift _Left"
 msgstr "/Editatu/L_erratu ezkerrera"
 
-#: ../src/menu.c:267
+#: ../src/menu.c:272
 msgid "/Edit/Add _Bookmark"
 msgstr "/Editatu/Gehitu _laster-marka"
 
-#: ../src/menu.c:269
+#: ../src/menu.c:274
 msgid "/Edit/Save Sett_ings"
 msgstr "/Editatu/_Gorde ezarpenak"
 
-#: ../src/menu.c:270
+#: ../src/menu.c:275
 msgid "/Edit/Save Shortcut _Keys"
 msgstr "/Editatu/Gorde _laster-teklak"
 
-#: ../src/menu.c:271
+#: ../src/menu.c:276
 msgid "/Edit/Preference_s"
 msgstr "/Fitxategia/_Hobespenak"
 
-#: ../src/menu.c:272
+#: ../src/menu.c:277
 msgid "/_View"
 msgstr "/_Ikusi"
 
-#: ../src/menu.c:274
+#: ../src/menu.c:279
+msgid "/View/Fullscreen"
+msgstr ""
+
+#: ../src/menu.c:281
 msgid "/View/View _Main Toolbar"
 msgstr "/Ikusi/Ik_usi tresna-barra nagusia"
 
-#: ../src/menu.c:275
+#: ../src/menu.c:282
 msgid "/View/View _Sidebar"
 msgstr "/Ikusi/Ik_usi alboko-panela"
 
-#: ../src/menu.c:276
+#: ../src/menu.c:283
 msgid "/_Document"
 msgstr "/_Dokumentua"
 
-#: ../src/menu.c:278
+#: ../src/menu.c:285
 msgid "/Document/_Increase Tabsize"
 msgstr "/Dokumentua/_Handitu tabuladorearen tamaina"
 
-#: ../src/menu.c:279
+#: ../src/menu.c:286
 msgid "/Document/_Decrease Tabsize"
 msgstr "/Dokumentua/_Txikitu tabuladorearen tamaina"
 
-#: ../src/menu.c:280
+#: ../src/menu.c:287
 msgid "/Document/_Auto Indent"
 msgstr "/Dokumentua/_Koska automatikoa"
 
-#: ../src/menu.c:282
+#: ../src/menu.c:289
 msgid "/Document/Auto Close H_TML tags"
 msgstr "/Dokumentua/_Itxi automatikoki HTML etiketak"
 
-#: ../src/menu.c:283
+#: ../src/menu.c:290
 msgid "/Document/_Wrap"
 msgstr "/Dokumentua/It_zulbiratu"
 
-#: ../src/menu.c:284
+#: ../src/menu.c:291
 msgid "/Document/_Line Numbers"
 msgstr "/Dokumentua/_Lerro-zenbakiak"
 
-#: ../src/menu.c:285
+#: ../src/menu.c:292
 msgid "/Document/Show _blocks"
 msgstr "/Dokumentua/Erakutsi _blokeak"
 
-#: ../src/menu.c:286
+#: ../src/menu.c:293
 msgid "/Document/Show _symbols"
 msgstr "/Dokumentua/Erakutsi _ikurrak"
 
-#: ../src/menu.c:288
+#: ../src/menu.c:295
 msgid "/Document/_Highlight Syntax"
 msgstr "/Dokumentua/_Nabarmendu sintaxia"
 
-#: ../src/menu.c:289
+#: ../src/menu.c:296
 msgid "/Document/_Update Highlighting"
 msgstr "/Dokumentua/_Eguneratu nabarmentzea"
 
-#: ../src/menu.c:291
+#: ../src/menu.c:298
 msgid "/Document/Document Ty_pe"
 msgstr "/Dokumentua/_Dokumentu-mota"
 
-#: ../src/menu.c:293
+#: ../src/menu.c:300
 msgid "/Document/Character _Encoding"
 msgstr "/Dokumentua/_Karaktere-kodeketa"
 
-#: ../src/menu.c:297
+#: ../src/menu.c:306
 msgid "/Document/Check _Spelling..."
 msgstr "/Dokumentua/_Egiaztatu ortografia..."
 
-#: ../src/menu.c:299
+#: ../src/menu.c:308
 msgid "/Document/_Floating window"
 msgstr "/Dokumentua/_Leiho mugikorra"
 
-#: ../src/menu.c:300
+#: ../src/menu.c:309
 msgid "/Document/Word _Count"
 msgstr "/Dokumentua/K_ontatu hitzak"
 
-#: ../src/menu.c:302
+#: ../src/menu.c:311
 msgid "/Document/Move left"
 msgstr "/Dokumentua/Eraman e_zkerrera"
 
-#: ../src/menu.c:303
+#: ../src/menu.c:312
 msgid "/Document/Move right"
 msgstr "/Dokumentua/Eraman e_skuinera"
 
-#: ../src/menu.c:304
+#: ../src/menu.c:313
 msgid "/_Go"
 msgstr "/_Joan"
 
-#: ../src/menu.c:306
+#: ../src/menu.c:315
 msgid "/Go/_Previous document"
 msgstr "/Joan/_Aurreko dokumentura"
 
-#: ../src/menu.c:307
+#: ../src/menu.c:316
 msgid "/Go/_Next document"
 msgstr "/Joan/_Hurrengo dokumentura"
 
-#: ../src/menu.c:309
+#: ../src/menu.c:318
 msgid "/Go/_First document"
 msgstr "/Joan/_Lehenengo dokumentura"
 
-#: ../src/menu.c:310
+#: ../src/menu.c:319
 msgid "/Go/L_ast document"
 msgstr "/Joan/_Azken dokumentura"
 
-#: ../src/menu.c:312
+#: ../src/menu.c:321
 msgid "/Go/First bookmark"
 msgstr "/Joan/Lehen laster-markara"
 
-#: ../src/menu.c:313
+#: ../src/menu.c:322
 msgid "/Go/Previous bookmark"
 msgstr "/Joan/Aurreko laster-markara"
 
-#: ../src/menu.c:314
+#: ../src/menu.c:323
 msgid "/Go/Next _bookmark"
 msgstr "/Joan/_Hurrengo laster-markara"
 
-#: ../src/menu.c:315
+#: ../src/menu.c:324
 msgid "/Go/Last bookmark"
 msgstr "/Joan/Azken laster-markara"
 
-#: ../src/menu.c:317
+#: ../src/menu.c:326
 msgid "/Go/Goto _Line"
 msgstr "/Joan/Joan _lerrora"
 
-#: ../src/menu.c:318
+#: ../src/menu.c:327
 msgid "/Go/Goto _Selection"
 msgstr "/Joan/Joan _hautapenera"
 
-#: ../src/menu.c:319
+#: ../src/menu.c:328
 msgid "/_Project"
 msgstr "/_Proiektua"
 
-#: ../src/menu.c:321
+#: ../src/menu.c:330
 msgid "/Project/_New Project"
 msgstr "/Proiektua/_Proiektu berria"
 
-#: ../src/menu.c:322
+#: ../src/menu.c:331
 msgid "/Project/_Open Project..."
 msgstr "/Proiektua/_Ireki proiektua..."
 
-#: ../src/menu.c:323
+#: ../src/menu.c:332
 msgid "/Project/Open _recent"
 msgstr "/Proiektua/A_zken proiektuak"
 
-#: ../src/menu.c:326
+#: ../src/menu.c:335
 msgid "/Project/_Save"
 msgstr "/Proiektua/_Gorde"
 
-#: ../src/menu.c:327
+#: ../src/menu.c:336
 msgid "/Project/Save _as..."
 msgstr "/Proiektua/Gorde _honela..."
 
-#: ../src/menu.c:328
+#: ../src/menu.c:337
 msgid "/Project/Save & _close"
 msgstr "/Proiektua/Gorde _eta itxi"
 
-#: ../src/menu.c:330
+#: ../src/menu.c:339
 msgid "/Project/E_dit Project Options..."
 msgstr "/Proiektua/E_ditatu proiektuaren aukerak..."
 
-#: ../src/menu.c:331
+#: ../src/menu.c:340
 msgid "/E_xternal"
 msgstr "/_Kanpokoa"
 
-#: ../src/menu.c:498
+#: ../src/menu.c:507
 msgid "/Document/Document Type"
 msgstr "/Dokumentua/Dokumentu-mota"
 
-#: ../src/menu.c:652
+#: ../src/menu.c:661
 msgid "/Project/Open recent"
 msgstr "/Proiektua/Azken proiektuak"
 
-#: ../src/menu.c:656
+#: ../src/menu.c:665
 msgid "/File/Open recent"
 msgstr "/Fitxategia/Azken fitxategiak"
 
-#: ../src/menu.c:835
+#: ../src/menu.c:844
 msgid "/Windows"
 msgstr "/Leihoak"
 
-#: ../src/menu.c:928
+#: ../src/menu.c:937
 msgid "No default browser found"
 msgstr "Ez da arakatzaile lehenetsirik aurkitu"
 
-#: ../src/menu.c:929
+#: ../src/menu.c:938
 msgid ""
 "You can set a default browser by going to:\n"
 "Edit->Preferences->External Commands"
@@ -1468,39 +1500,39 @@ msgstr ""
 "Arakatzaile lehenetsia ezartzeko joan hona:\n"
 "Editatu->Hobespenak->Kanpoko komandoak"
 
-#: ../src/menu.c:948
+#: ../src/menu.c:957
 msgid "Operate filter only on selection?"
 msgstr "Aplikatu iragazkia hautapenari soilik?"
 
-#: ../src/menu.c:996
+#: ../src/menu.c:1005
 msgid "/External/Outputbox/"
 msgstr "/Kanpokoa/Irteerako kutxa/"
 
-#: ../src/menu.c:997
+#: ../src/menu.c:1006
 msgid "/External/Commands/"
 msgstr "/Kanpokoa/Komandoak/"
 
-#: ../src/menu.c:998
+#: ../src/menu.c:1007
 msgid "/External/Filters/"
 msgstr "/Kanpokoa/Iragazkiak/"
 
-#: ../src/menu.c:1011
+#: ../src/menu.c:1020
 msgid "/External/Filters"
 msgstr "/Kanpokoa/Iragazkiak"
 
-#: ../src/menu.c:1031
+#: ../src/menu.c:1040
 msgid "/External"
 msgstr "/Kanpokoa"
 
-#: ../src/menu.c:1033
+#: ../src/menu.c:1042
 msgid "/External/Commands"
 msgstr "/Kanpokoa/Komandoak"
 
-#: ../src/menu.c:1065
+#: ../src/menu.c:1074
 msgid "/External/Outputbox"
 msgstr "/Kanpokoa/Irteerako kutxa"
 
-#: ../src/menu.c:1111
+#: ../src/menu.c:1120
 msgid "/Document/Character Encoding"
 msgstr "/Dokumentua/Karaktere-kodeketa"
 
@@ -1880,13 +1912,6 @@ msgstr "Automatikoki eguneratu 'generator' meta etiketa"
 msgid "Files"
 msgstr "Fitxategiak"
 
-#.
-#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Files"),152,TRUE));
-#.
-#: ../src/preferences.c:2067
-msgid "Encoding"
-msgstr "Kodeketa"
-
 #: ../src/preferences.c:2079
 msgid "Default character set for new files"
 msgstr "Karaktere-joko lehenetsia fitxategi berrientzako"
@@ -2030,7 +2055,7 @@ msgstr "Ikono ezezaguna"
 
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2202 ../src/rcfile.c:929
+#: ../src/preferences.c:2202 ../src/rcfile.c:950
 msgid "Images"
 msgstr "Irudiak"
 
@@ -2193,75 +2218,75 @@ msgid "Create empty project"
 msgstr "Sortu proiektu hutsa"
 
 #. if the user does not have outputbox settings --> set them to defaults values
-#: ../src/rcfile.c:636
+#: ../src/rcfile.c:644
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:637
+#: ../src/rcfile.c:645
 msgid "weblint HTML checker"
 msgstr "HTML weblint egiaztatzailea"
 
-#: ../src/rcfile.c:638
+#: ../src/rcfile.c:646
 msgid "tidy HTML validator"
 msgstr "HTML Tidy balidatzailea"
 
-#: ../src/rcfile.c:639
+#: ../src/rcfile.c:647
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:640
+#: ../src/rcfile.c:648
 msgid "xmllint XML checker"
 msgstr "XMl xmllint egiaztatzailea"
 
-#: ../src/rcfile.c:641
+#: ../src/rcfile.c:649
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:644
+#: ../src/rcfile.c:652
 msgid "Sort"
 msgstr "Ordenatu"
 
-#: ../src/rcfile.c:645
+#: ../src/rcfile.c:653
 msgid "Reverse lines"
 msgstr "Alderantzikatu lerroak"
 
-#: ../src/rcfile.c:646
+#: ../src/rcfile.c:654
 msgid "Dos2unix"
 msgstr "Dos2unix"
 
-#: ../src/rcfile.c:647
+#: ../src/rcfile.c:655
 msgid "Tidy HTML"
 msgstr "Tidy HTML"
 
-#: ../src/rcfile.c:648
+#: ../src/rcfile.c:656
 msgid "Strip empty lines"
 msgstr "Kendu lerro hutsak"
 
-#: ../src/rcfile.c:649
+#: ../src/rcfile.c:657
 msgid "Render HTML to text"
 msgstr "Errendatu HTML testura"
 
-#: ../src/rcfile.c:652
+#: ../src/rcfile.c:660
 msgid "Firefox"
 msgstr "Firefox"
 
-#: ../src/rcfile.c:653
+#: ../src/rcfile.c:661
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:852
+#: ../src/rcfile.c:860
 msgid "Untitled Project"
 msgstr "Izenik gabeko proiektua"
 
-#: ../src/rcfile.c:923
+#: ../src/rcfile.c:944
 msgid "C programming"
 msgstr "C programazioa"
 
-#: ../src/rcfile.c:925
+#: ../src/rcfile.c:946
 msgid "Web files"
 msgstr "Web fitxategiak"
 
-#: ../src/rcfile.c:931
+#: ../src/rcfile.c:952
 msgid "Hide objectfiles"
 msgstr "Ezkutatu objektu-fitxategiak"
 
@@ -2278,21 +2303,21 @@ msgstr "Bilaketak huts egin du"
 msgid "Regular expression error: %s at offset %d"
 msgstr "Adierazpen erregularraren errorea: %s %d posizioan"
 
-#: ../src/snr2.c:1361
+#: ../src/snr2.c:1367
 #, c-format
 msgid "Found %d matches, "
 msgid_plural "Found %d matches, "
 msgstr[0] "%d aurkitu da, "
 msgstr[1] "%d aurkitu dira, "
 
-#: ../src/snr2.c:1362
+#: ../src/snr2.c:1368
 #, c-format
 msgid "replaced %d"
 msgid_plural "replaced %d"
 msgstr[0] "%d ordeztuta"
 msgstr[1] "%d ordeztuta"
 
-#: ../src/snr2.c:1367
+#: ../src/snr2.c:1373
 #, c-format
 msgid "Found %d matches"
 msgid_plural "Found %d matches"
@@ -2300,7 +2325,7 @@ msgstr[0] "%d aurkitu da"
 msgstr[1] "%d aurkitu dira"
 
 #. display warning that not all documents have yet finished loading
-#: ../src/snr2.c:1388
+#: ../src/snr2.c:1394
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Not all documents are loaded yet</"
 "span>"
@@ -2308,7 +2333,7 @@ msgstr ""
 "<span foreground=\"red\" weight=\"bold\">Oraindik ez dira dokumentu guztiak "
 "kargatu</span>"
 
-#: ../src/snr2.c:1513
+#: ../src/snr2.c:1519
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">No selection. Please select a block "
 "of text first.</span>"
@@ -2316,7 +2341,7 @@ msgstr ""
 "<span foreground=\"red\" weight=\"bold\">Ez dago hautapenarik. Aurrenik "
 "hautatu testu-bloke bat.</span>"
 
-#: ../src/snr2.c:1552 ../src/snr2.c:1917
+#: ../src/snr2.c:1558 ../src/snr2.c:1923
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">No more matches found, next search "
 "will continue at the beginning.</span>"
@@ -2324,146 +2349,146 @@ msgstr ""
 "<span foreground=\"red\" weight=\"bold\">Ez da bat datorrenik aurkitu, "
 "hurrengo bilaketa hasieratik jarraituko da.</span>"
 
-#: ../src/snr2.c:1628
+#: ../src/snr2.c:1634
 msgid "Entire document"
 msgstr "Dokumentu osoa"
 
-#: ../src/snr2.c:1629
+#: ../src/snr2.c:1635
 msgid "Forward from cursor position"
 msgstr "Aurrerantz kurtsorearen posiziotik"
 
-#: ../src/snr2.c:1630
+#: ../src/snr2.c:1636
 msgid "Selection"
 msgstr "Hautapena"
 
-#: ../src/snr2.c:1631
+#: ../src/snr2.c:1637
 msgid "All open files"
 msgstr "Irekitako fitxategi guztiak"
 
-#: ../src/snr2.c:1635 ../src/snr2.c:1642
+#: ../src/snr2.c:1641 ../src/snr2.c:1648
 msgid "Normal"
 msgstr "Normala"
 
-#: ../src/snr2.c:1636
+#: ../src/snr2.c:1642
 msgid "Entire word only"
 msgstr "Hitz osoa soilik"
 
-#: ../src/snr2.c:1637
+#: ../src/snr2.c:1643
 msgid "POSIX"
 msgstr "POSIX"
 
-#: ../src/snr2.c:1638
+#: ../src/snr2.c:1644
 msgid "PERL"
 msgstr "PERL"
 
-#: ../src/snr2.c:1643
+#: ../src/snr2.c:1649
 msgid "Uppercase"
 msgstr "Maiuskulak"
 
-#: ../src/snr2.c:1644
+#: ../src/snr2.c:1650
 msgid "Lowercase"
 msgstr "Minuskulak"
 
-#: ../src/snr2.c:1682
+#: ../src/snr2.c:1688
 msgid "_Search for: "
 msgstr "_Bilatu hau: "
 
-#: ../src/snr2.c:1686
+#: ../src/snr2.c:1692
 msgid "The pattern to look for"
 msgstr "Eredua bilatzeko"
 
-#: ../src/snr2.c:1701
+#: ../src/snr2.c:1707
 msgid "Replace _with: "
 msgstr "Ordeztu _honekin: "
 
-#: ../src/snr2.c:1705
+#: ../src/snr2.c:1711
 msgid "Replace matching text with"
 msgstr "Ordeztu bat datorren testua honekin: "
 
-#: ../src/snr2.c:1713
+#: ../src/snr2.c:1719
 msgid "Sco_pe: "
 msgstr "_Esparrua: "
 
-#: ../src/snr2.c:1717
+#: ../src/snr2.c:1723
 msgid "Where to look for the pattern."
 msgstr "Ereduaren bilaketa non egin."
 
-#: ../src/snr2.c:1723
+#: ../src/snr2.c:1729
 msgid "Found 0 matches, replaced 0"
 msgstr "0 aurkituta, 0 ordeztuta"
 
-#: ../src/snr2.c:1723
+#: ../src/snr2.c:1729
 msgid "Found 0 matches"
 msgstr "0 aurkituta"
 
-#: ../src/snr2.c:1733
+#: ../src/snr2.c:1739
 msgid "<b>_Options</b>"
 msgstr "<b>_Aukerak</b>"
 
-#: ../src/snr2.c:1748
+#: ../src/snr2.c:1754
 msgid "Match Patter_n: "
 msgstr "Bilatu _eredua: "
 
-#: ../src/snr2.c:1752
+#: ../src/snr2.c:1758
 msgid "How to interpret the pattern."
 msgstr "Nola interpretatu eredua."
 
-#: ../src/snr2.c:1759
+#: ../src/snr2.c:1765
 msgid "Replace T_ype: "
 msgstr "Ordeztu _mota: "
 
-#: ../src/snr2.c:1764
+#: ../src/snr2.c:1770
 msgid "What to replace with."
 msgstr "Zerrekin ordeztu."
 
-#: ../src/snr2.c:1768
+#: ../src/snr2.c:1774
 msgid "Allow o_verlapping matches"
 msgstr "Onartu _teilakatu bilaketak"
 
-#: ../src/snr2.c:1771
+#: ../src/snr2.c:1777
 msgid "After a match is found, start next search within that match."
 msgstr ""
 "Bat datorrena aurkitzean, hurrengo bilaketa bat datorrenaren barnean hasi."
 
-#: ../src/snr2.c:1773
+#: ../src/snr2.c:1779
 msgid "Case sensitive _matching"
 msgstr "_Maiuskulak eta minuskulak"
 
-#: ../src/snr2.c:1776
+#: ../src/snr2.c:1782
 msgid "Only match if case (upper/lower) is identical."
 msgstr "Bat etorriko da maiuskulak/minuskulak berdinak badira."
 
-#: ../src/snr2.c:1778
+#: ../src/snr2.c:1784
 msgid "_Use escape chars"
 msgstr "_Erabili ihes-sekuentziak"
 
-#: ../src/snr2.c:1781
+#: ../src/snr2.c:1787
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
 msgstr ""
 "Kendu ihes-ikurra \\n, \\t, e.a. bezalako alderantzizko barradun ihes-"
 "sekuentzietatik."
 
-#: ../src/snr2.c:1783
+#: ../src/snr2.c:1789
 msgid "_Select matches"
 msgstr "_Hautatu aurkitutakoak"
 
-#: ../src/snr2.c:1786
+#: ../src/snr2.c:1792
 msgid "Select the matching text instead of just highlighting it"
 msgstr "Hautatu aurkitutako testua nabarmendu ordez"
 
-#: ../src/snr2.c:1788
+#: ../src/snr2.c:1794
 msgid "_Bookmark matches"
 msgstr "Sortu emaitzen _laster-marka"
 
-#: ../src/snr2.c:1790
+#: ../src/snr2.c:1796
 msgid "Create a bookmark for each match"
 msgstr "Sortu emaitza bakoitzaren laster-marka"
 
-#: ../src/snr2.c:1795
+#: ../src/snr2.c:1801
 msgid "Replace _All"
 msgstr "Ordeztu _guztiak"
 
-#: ../src/snr2.c:1801
+#: ../src/snr2.c:1807
 msgid "Find _All"
 msgstr "Bilatu _guztiak"
 
