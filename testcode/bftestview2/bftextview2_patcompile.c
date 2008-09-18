@@ -42,9 +42,10 @@ static void print_characters(gchar *characters) {
 static gint fill_characters_from_range(gchar *input, gchar *characters) {
 	gboolean reverse = 0;
 	gint i=0;
+	DBG_PATCOMPILE("fill chcracters at %p\n",characters);
 	if (input[i] == '^') {	/* see if it is a NOT pattern */
 		reverse = 1;
-		memset(&characters, 1, NUMSCANCHARS*sizeof(char));
+		memset(characters, 1, NUMSCANCHARS*sizeof(char));
 		i++;
 	}
 	if (input[i] == ']') {	/* ] is actually part of the collection */
@@ -58,13 +59,13 @@ static gint fill_characters_from_range(gchar *input, gchar *characters) {
 	while (input[i] != ']') {
 		if (input[i] == '-') {	/* range all characters between the previous and the next char */
 			gchar j;
-			DBG_PATCOMPILE("adding characters from %c to %c\n",input[i - 1],input[i+1]);
+			DBG_PATCOMPILE("set characters from %c to %c to %d\n",input[i - 1],input[i+1],1-reverse);
 			for (j = input[i - 1]; j <= input[i + 1]; j++) {
 				characters[(int)j] = 1 - reverse;
 			}
 			i += 2;
 		} else {
-			DBG_PATCOMPILE("adding character %c\n",input[i]);
+			DBG_PATCOMPILE("set characters %c (pos %d) to %d\n",input[i],input[i],1-reverse);
 			characters[(int)input[i]] = 1 - reverse;
 			i++;
 		}
@@ -157,6 +158,7 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 					memset(&characters, 1, NUMSCANCHARS*sizeof(char));
 				break;
 				case '[':
+					DBG_PATCOMPILE("fill characters at %p\n",characters);
 					i += fill_characters_from_range(&lregex[i+1],characters) + 1;
 				break;
 				default:
@@ -173,7 +175,7 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 			DBG_PATCOMPILE("i=%d, testing %c for operator\n",i,lregex[i+1]);
 			print_characters(characters);
 			/* see if there is an operator */
-			if (lregex[i+1] == '+') {
+			if (lregex[i]!='\0' && lregex[i+1] == '+') {
 				create_state_tables(st, context, characters, TRUE, positions, newpositions);
 				i++;
 			} else {
@@ -350,9 +352,11 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	context1 = new_context(st," \t\n;(){}[]:\"\\',<>*&^%!+=-|/?#");
 	match1 = new_match(st, "numbers", variable, context1, context1, FALSE, FALSE, 0, NULL,FALSE, NULL);
 	compile_limitedregex_to_DFA(st, "[0-9.]+", FALSE, match1, context1);
+	match1 = new_match(st, "comment", comment, context1, context1, FALSE, FALSE, 0, NULL,FALSE, NULL);
+	compile_limitedregex_to_DFA(st, "//[^\n]+", FALSE, match1, context1);
 	add_keyword_to_scanning_table(st, "void", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
 	add_keyword_to_scanning_table(st, "int", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "Integer bla bla");
-	
+	add_keyword_to_scanning_table(st, "char", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
 	print_DFA(st, ' ', 'A');
 #endif
 
