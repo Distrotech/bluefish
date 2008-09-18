@@ -132,7 +132,7 @@ void infb_rescan_dir(const gchar * dir)
 			DEBUG_MSG("fref_rescan_dir, filename %s has a match!\n", filename);
 			if (!reference_file_known(path)) {
 				tofree = infb_load_refname(path);
-				DEBUG_MSG("fref_rescan_dir, adding %s:%s to list\n",tofree,path);
+				DEBUG_MSG("fref_rescan_dir, adding %s:%s to list\n",*tofree,path);
 				if (tofree) {
 					main_v->globses.reference_files =
 						g_list_append(main_v->globses.reference_files,
