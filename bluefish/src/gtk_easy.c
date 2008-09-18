@@ -1287,6 +1287,21 @@ static void refresh_filter_lcb(GtkToggleButton *togglebutton,GtkWidget *dialog) 
 	gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),uri);
 }
 
+static gboolean is_separator (GtkTreeModel *model, GtkTreeIter *iter, gpointer data)
+{
+	gboolean result = FALSE;
+	gchar *text;
+	
+	gtk_tree_model_get (model, iter, 0, &text, -1);
+	
+	if (g_ascii_strcasecmp (text, "separator") == 0)
+		result = TRUE;
+	
+	g_free (text);
+	
+	return (result);
+}
+
 static gboolean file_chooser_custom_filter_func(GtkFileFilterInfo *filter_info,gpointer data) {
 	gint ret;
 	Tfchooser_filter *cf = data;
@@ -1420,8 +1435,8 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 															 G_TYPE_POINTER,
 															 G_TYPE_BOOLEAN);
 		for (tmplist=g_list_first(main_v->props.encodings);tmplist;tmplist=tmplist->next){
-			gchar **arr = (gchar **)tmplist->data;
-			if (count_array(arr) == 3) {
+			GStrv arr = (GStrv) tmplist->data;
+			if (g_strv_length (arr) == 3 && g_ascii_strcasecmp(arr[2], "TRUE") == 0) {
 				gchar *label = g_strdup_printf ("%s (%s)", arr[0], arr[1]);
 				gtk_list_store_append(store,&iter);
 				gtk_list_store_set(store,&iter,0,label,1,arr,-1);
@@ -1432,9 +1447,16 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 				}
 			}
 		}
+		
+		gtk_list_store_prepend(store, &iter);
+		gtk_list_store_set (store, &iter, 0, "separator", 1, NULL, -1);
 		gtk_list_store_prepend(store,&iter);
 		gtk_list_store_set(store,&iter, 0, _("Automatic detection"),1,NULL,-1);
+		
 		combo = gtk_combo_box_new_with_model(GTK_TREE_MODEL(store));
+		gtk_combo_box_set_row_separator_func (GTK_COMBO_BOX (combo),
+																					is_separator,
+																					NULL, NULL);
 		gtk_combo_box_set_active_iter(GTK_COMBO_BOX(combo),have_seliter ?&seliter:&iter);
 		
 		renderer = gtk_cell_renderer_text_new();
