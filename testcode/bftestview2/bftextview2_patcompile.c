@@ -121,32 +121,17 @@ static void create_state_tables(Tscantable *st, guint context, gchar *characters
 	}
 }
 
-static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean caseinsensitive, guint matchnum, guint context) {
+static void compile_limitedregex_to_DFA_backend(Tscantable *st, gchar *lregex, guint context, gboolean caseinsensitive,GQueue **positions) {
 	gboolean escaped = 0;
-	guint p, i=0;
+	guint i=0;
 	gchar characters[NUMSCANCHARS];
-	gchar *lregex;
-	GQueue* positions, * newpositions, *tmp;
-	
+	GQueue *newpositions,*tmp;
+	newpositions = g_queue_new();	
 	memset(&characters, 0, NUMSCANCHARS*sizeof(char));
-	positions = g_queue_new();
-	newpositions = g_queue_new();
-	if (caseinsensitive) {
-		/* make complete string lowercase */
-		lregex = g_ascii_strdown(input,-1);
-	} else {
-		lregex = g_strdup(input);
-	}
-	
-	g_queue_push_head(positions, GINT_TO_POINTER(g_array_index(st->contexts, Tcontext, context).startstate));
-	DBG_PATCOMPILE("lregex=%s, positionstack has length %d\n",lregex,g_queue_get_length(positions));
 	while (1) {
 		escaped = 0;
-		if (input[i] == '\0') { /* end of pattern */
-			while ((p = GPOINTER_TO_INT(g_queue_pop_head(positions)))) {
-				DBG_PATCOMPILE("mark state %d as possible end-state\n",p);
-				g_array_index(st->table, Ttablerow, p).match = matchnum;
-			}
+		if (lregex[i] == '\0') { /* end of pattern */
+			DBG_PATCOMPILE("end of pattern, positions(%p) has %d entries\n",*positions,g_queue_get_length(*positions));
 			return;
 		} else {
 			switch (lregex[i]) {
@@ -176,18 +161,44 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 			print_characters(characters);
 			/* see if there is an operator */
 			if (lregex[i]!='\0' && lregex[i+1] == '+') {
-				create_state_tables(st, context, characters, TRUE, positions, newpositions);
+				create_state_tables(st, context, characters, TRUE, *positions, newpositions);
 				i++;
 			} else {
-				create_state_tables(st, context, characters, FALSE, positions, newpositions);
+				create_state_tables(st, context, characters, FALSE, *positions, newpositions);
 			}
-			g_queue_clear(positions);
-			tmp = positions;
-			positions = newpositions;
+			g_queue_clear(*positions);
+			tmp = *positions;
+			*positions = newpositions;
 			newpositions = tmp;
 		}
 		i++;
 	}
+}
+
+static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean caseinsensitive, guint matchnum, guint context) {
+	GQueue *positions;
+	gchar *lregex;
+	gint p;
+	positions = g_queue_new();
+	
+	if (caseinsensitive) {
+		/* make complete string lowercase */
+		lregex = g_ascii_strdown(input,-1);
+	} else {
+		lregex = g_strdup(input);
+	}
+	
+	g_queue_push_head(positions, GINT_TO_POINTER(g_array_index(st->contexts, Tcontext, context).startstate));
+	DBG_PATCOMPILE("lregex=%s, positionstack has length %d\n",lregex,g_queue_get_length(positions));
+	
+	compile_limitedregex_to_DFA_backend(st,lregex,context,caseinsensitive,&positions);
+	DBG_PATCOMPILE("after compiling positionstack has length %d\n",g_queue_get_length(positions));
+	while ((g_queue_get_length(positions))) {
+		p = GPOINTER_TO_INT(g_queue_pop_head(positions));
+		DBG_PATCOMPILE("mark state %d as possible end-state\n",p);
+		g_array_index(st->table, Ttablerow, p).match = matchnum;
+	}
+	
 }
 
 static guint new_context(Tscantable *st, gchar *symbols) {
