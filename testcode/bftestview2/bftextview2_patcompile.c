@@ -121,6 +121,51 @@ static void create_state_tables(Tscantable *st, guint context, gchar *characters
 	}
 }
 
+static void merge_queues(GQueue *target, GQueue *src) {
+	while (g_queue_get_length(src)) {
+		g_queue_push_head(target,g_queue_pop_head(src)); 
+	}
+}
+
+static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,guint context, gboolean caseinsensitive, GQueue *inputpositions);
+
+static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,guint context, gboolean caseinsensitive, GQueue *inputpositions, gint *regexpartpos) {
+	gint j=0;
+	gboolean escaped=FALSE;
+	gchar *target;
+	GQueue *mergednewpositions = g_queue_new();
+	target = g_strdup(regexpart); /* a very easy way to make target a buffer long enough to hold any subpattern */
+	
+	while (!escaped && regexpart[*regexpartpos] != '\0') {
+		if (!escaped && regexpart[*regexpartpos] == '\\') {
+			escaped = TRUE;
+			*regexpartpos = *regexpartpos + 1;
+		}
+		if (!escaped && (regexpart[*regexpartpos] == '|' || regexpart[*regexpartpos] == ')')) {
+			/* found a subpattern */
+			GQueue *newpositions;
+			target[j] = '\0';
+			DBG_PATCOMPILE("found subpattern %s\n",target);
+			newpositions = process_regex_part(st, target,context, caseinsensitive, inputpositions);
+			merge_queues(mergednewpositions,newpositions);
+			g_queue_free(newpositions);
+			j=0;
+			if (regexpart[*regexpartpos] == ')') {
+				g_free(target);
+				*regexpartpos = *regexpartpos + 1;
+				return mergednewpositions;
+			}
+		} else {
+			target[j] = regexpart[*regexpartpos];
+			j++;
+		}
+		*regexpartpos = *regexpartpos + 1;
+		escaped=FALSE;
+	}
+	g_free(target);
+	return mergednewpositions;
+}
+
 static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,guint context, gboolean caseinsensitive, GQueue *inputpositions) {
 	gboolean escaped = FALSE;
 	guint i=0;
@@ -145,7 +190,7 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,guint context
 				switch (regexpart[i]) {
 					case '(':
 						/* a subpattern */
-						
+						newpositions = run_subpatterns(st, regexpart,context, caseinsensitive, positions, &i);
 					break;
 					case '.':
 						memset(&characters, 1, NUMSCANCHARS*sizeof(char));
