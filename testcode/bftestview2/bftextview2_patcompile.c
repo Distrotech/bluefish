@@ -134,9 +134,10 @@ static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,guint context, g
 	gboolean escaped=FALSE;
 	gchar *target;
 	GQueue *mergednewpositions = g_queue_new();
-	target = g_strdup(regexpart); /* a very easy way to make target a buffer long enough to hold any subpattern */
+	target = g_strdup(&regexpart[*regexpartpos]); /* a very easy way to make target a buffer long enough to hold any subpattern */
 	
 	while (!escaped && regexpart[*regexpartpos] != '\0') {
+		DBG_PATCOMPILE("run_subpatterns, regepart[%d]=%c\n",*regexpartpos,regexpart[*regexpartpos]);
 		if (!escaped && regexpart[*regexpartpos] == '\\') {
 			escaped = TRUE;
 			*regexpartpos = *regexpartpos + 1;
@@ -145,14 +146,14 @@ static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,guint context, g
 			/* found a subpattern */
 			GQueue *newpositions;
 			target[j] = '\0';
-			DBG_PATCOMPILE("found subpattern %s\n",target);
+			DBG_PATCOMPILE("at regexpartpos=%d found SUBPATTERN %s\n",*regexpartpos,target);
 			newpositions = process_regex_part(st, target,context, caseinsensitive, inputpositions);
 			merge_queues(mergednewpositions,newpositions);
 			g_queue_free(newpositions);
 			j=0;
+			
 			if (regexpart[*regexpartpos] == ')') {
 				g_free(target);
-				*regexpartpos = *regexpartpos + 1;
 				return mergednewpositions;
 			}
 		} else {
@@ -174,9 +175,11 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,guint context
 	
 	positions = g_queue_copy(inputpositions);
 	newpositions = g_queue_new();	
-	memset(&characters, 0, NUMSCANCHARS*sizeof(char));
+	
 	while (1) {
+		memset(&characters, 0, NUMSCANCHARS*sizeof(char));
 		escaped = 0;
+		DBG_PATCOMPILE("start of loop, regexpart[%d]=%c\n",i,regexpart[i]);
 		if (regexpart[i] == '\0') { /* end of pattern */
 			DBG_PATCOMPILE("end of pattern, positions(%p) has %d entries\n",positions,g_queue_get_length(positions));
 			g_queue_free(newpositions);
@@ -186,43 +189,45 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,guint context
 				escaped = TRUE;
 				i++;
 			}
-			if (!escaped) {
-				switch (regexpart[i]) {
-					case '(':
-						/* a subpattern */
-						newpositions = run_subpatterns(st, regexpart,context, caseinsensitive, positions, &i);
-					break;
-					case '.':
-						memset(&characters, 1, NUMSCANCHARS*sizeof(char));
-					break;
-					case '[':
-						DBG_PATCOMPILE("fill characters at %p\n",characters);
-						i += fill_characters_from_range(&regexpart[i+1],characters) + 1;
-					break;
-					default:
-						characters[(int)regexpart[i]] = 1;
-					break;
+			if (!escaped && regexpart[i] == '(') {
+				/* a subpattern */
+				DBG_PATCOMPILE("found subpatern start at %d\n",i);
+				newpositions = run_subpatterns(st, regexpart,context, caseinsensitive, positions, &i);
+				DBG_PATCOMPILE("end of subpatern at %d (%c)\n",i,regexpart[i]);
+			} else { 
+				if (!escaped) {
+					switch (regexpart[i]) {
+						case '.':
+							memset(&characters, 1, NUMSCANCHARS*sizeof(char));
+						break;
+						case '[':
+							DBG_PATCOMPILE("found range, fill characters at %p\n",characters);
+							i += fill_characters_from_range(&regexpart[i+1],characters) + 1;
+						break;
+						default:
+							characters[(int)regexpart[i]] = 1;
+						break;
+					}
+				} else { /* escaped */
+					characters[(int)regexpart[i]] = 1;
 				}
-			} else { /* escaped */
-				characters[(int)regexpart[i]] = 1;
-			}
-			/* handle case */
-			if (caseinsensitive) {
-				gint j;
-				for (j = 'a'; j <= 'z'; j++) {
-					characters[j - 32] = characters[j];
+				/* handle case */
+				if (caseinsensitive) {
+					gint j;
+					for (j = 'a'; j <= 'z'; j++) {
+						characters[j - 32] = characters[j];
+					}
+				}
+				DBG_PATCOMPILE("i=%d, testing i+1  (%c) for operator\n",i,regexpart[i+1]);
+				/*print_characters(characters);*/
+				/* see if there is an operator */
+				if (regexpart[i] != '\0' && regexpart[i+1] == '+') {
+					create_state_tables(st, context, characters, TRUE, positions, newpositions);
+					i++;
+				} else {
+					create_state_tables(st, context, characters, FALSE, positions, newpositions);
 				}
 			}
-			DBG_PATCOMPILE("i=%d, testing %c for operator\n",i,regexpart[i+1]);
-			print_characters(characters);
-			/* see if there is an operator */
-			if (regexpart[i]!='\0' && regexpart[i+1] == '+') {
-				create_state_tables(st, context, characters, TRUE, positions, newpositions);
-				i++;
-			} else {
-				create_state_tables(st, context, characters, FALSE, positions, newpositions);
-			}
-			
 			g_queue_clear(positions);
 			tmp = positions;
 			positions = newpositions;
@@ -383,17 +388,17 @@ guint add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, GtkTextTag *
 
 static void print_DFA(Tscantable *st, char start, char end) {
 	gint i,j;
-	g_print("   ");
+	g_print("    ");
 	for (j=start;j<end;j++) {
-		g_print("%c ",j);
+		g_print(" %c ",j);
 	}
-	g_print("\n");
+	g_print(": match\n");
 	for (i=0;i<st->table->len;i++) {
-		g_print("%1d: ",i);
+		g_print("%2d: ",i);
 		for (j=start;j<=end;j++) {
-			g_print("%d ",g_array_index(st->table, Ttablerow, i).row[j]);
+			g_print("%2d ",g_array_index(st->table, Ttablerow, i).row[j]);
 		}
-		g_print("\n");
+		g_print(": %2d\n",g_array_index(st->table, Ttablerow, i).match);
 	}
 	
 }
@@ -424,10 +429,12 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	compile_limitedregex_to_DFA(st, "[0-9.]+", FALSE, match1, context1);
 	match1 = new_match(st, "comment", comment, context1, context1, FALSE, FALSE, 0, NULL,FALSE, NULL);
 	compile_limitedregex_to_DFA(st, "//[^\n]+", FALSE, match1, context1);
-	add_keyword_to_scanning_table(st, "void", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
+	match1 = new_match(st, "storage", storage, context1, context1, FALSE, FALSE, 0, NULL,FALSE, NULL);
+	compile_limitedregex_to_DFA(st, "(void|int|char)", FALSE, match1, context1);
+/*	add_keyword_to_scanning_table(st, "void", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
 	add_keyword_to_scanning_table(st, "int", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "Integer bla bla");
-	add_keyword_to_scanning_table(st, "char", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
-	print_DFA(st, ' ', 'A');
+	add_keyword_to_scanning_table(st, "char", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");*/
+	print_DFA(st, 'a', 'z');	
 #endif
 
 /*#define DFA_COMPILING*/
