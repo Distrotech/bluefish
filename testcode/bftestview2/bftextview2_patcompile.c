@@ -601,7 +601,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		match = add_keyword_to_scanning_table(st, "<!--", FALSE, FALSE, comment, context0, contexttag, TRUE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "-->", FALSE, FALSE, comment, contexttag, context0, FALSE, TRUE, match, comment,FALSE,NULL);
 
-		contextphp = new_context(st, "\"=' \t\n\r$(){}[]*+-/\\");
+		contextphp = new_context(st, "\"=' \t\n\r$(){}[]*+-/\\,;");
 		match = add_keyword_to_scanning_table(st, "<?php", FALSE, FALSE, variable, context0, contextphp, TRUE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "?>", FALSE, FALSE, variable, contextphp, context0, FALSE, TRUE, match, NULL,FALSE,NULL);
 
@@ -615,8 +615,9 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		add_keyword_to_scanning_table(st, "echo", FALSE, FALSE, keyword, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "class", FALSE, FALSE, keyword, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "var", FALSE, FALSE, keyword, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "while", FALSE, FALSE, keyword, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 
-		contextstring = new_context(st, "\"=' \t\n\r");
+		contextstring = new_context(st, "\\\"");
 		add_keyword_to_scanning_table(st, "\"", FALSE, FALSE, string, contextphp, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "\"", FALSE, FALSE, string, contextstring, contextphp, FALSE, FALSE, 0, string,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "\\\"", FALSE, FALSE, string, contextstring, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
@@ -644,6 +645,10 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		add_keyword_to_scanning_table(st, "mysql_fetch_array", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "mysql_destroy", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "mysql_close", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		
+		add_keyword_to_scanning_table(st, "$[a-z0-9_]+", TRUE, TRUE, variable, contextphp, contextphp, FALSE, FALSE, 0, NULL,FALSE,NULL);
+		add_keyword_to_scanning_table(st, "//[^\n\t]+", TRUE, TRUE, comment, contextphp, contextphp, FALSE, FALSE, 0, NULL,FALSE,NULL);
+		
 	}
 #endif
 	/* we don't build a automata from regex patterns right now, because I'm not
