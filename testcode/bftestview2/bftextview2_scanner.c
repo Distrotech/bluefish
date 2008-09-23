@@ -213,6 +213,11 @@ static GtkTextMark *found_context_change(BluefishTextView * bt2,GtkTextBuffer *b
 		fcontext = g_queue_pop_head(scanning->contextstack);
 		fcontext->end = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
 		DBG_MSG("found_context_change, popped context %d from the stack, stack len %d\n",fcontext->context,g_queue_get_length(scanning->contextstack));
+		if (g_array_index(bt2->scantable->contexts,Tcontext,fcontext->context).contexttag) {
+			GtkTextIter iter;
+			gtk_text_buffer_get_iter_at_mark(buffer,&iter,fcontext->start);
+			gtk_text_buffer_apply_tag(buffer,g_array_index(bt2->scantable->contexts,Tcontext,fcontext->context).contexttag, &iter, &match.start);
+		}
 		foundcontext_unref(fcontext, buffer);
 		return fcontext->end;
 	} else {

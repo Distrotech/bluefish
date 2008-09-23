@@ -266,7 +266,7 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 	g_free(lregex);
 }
 
-static guint new_context(Tscantable *st, gchar *symbols) {
+static guint new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag) {
 	guint context, startstate, identstate;
 	gint i;
 	gchar *tmp;
@@ -279,6 +279,7 @@ static guint new_context(Tscantable *st, gchar *symbols) {
 
 	g_array_index(st->contexts, Tcontext, context).startstate = startstate;
 	g_array_index(st->contexts, Tcontext, context).identstate = identstate;
+	g_array_index(st->contexts, Tcontext, context).contexttag = contexttag;
 	g_array_set_size(st->table,st->table->len+2);
 	
 	/* identstate refers to itself for all characters except the symbols. we cannot use memset
@@ -413,7 +414,7 @@ static void add_html_tag(Tscantable *st, guint context, GtkTextTag *tag, GtkText
 	gchar *tmp;
 	va_list args;
 	
-	contexttag = new_context(st, ">\"=' \t\n\r");
+	contexttag = new_context(st, ">\"=' \t\n\r", NULL);
 	tmp = g_strconcat("<",tagname,NULL);
 	match = add_keyword_to_scanning_table(st, tmp, FALSE, FALSE, tag, context, contexttag, TRUE, FALSE, 0, NULL,TRUE,NULL);
 	g_free(tmp);
@@ -426,7 +427,7 @@ static void add_html_tag(Tscantable *st, guint context, GtkTextTag *tag, GtkText
 	}
 	va_end(args);		
 	
-	contextstring = new_context(st, "\"=' \t\n\r");
+	contextstring = new_context(st, "\"=' \t\n\r", string);
 	add_keyword_to_scanning_table(st, "\"", FALSE, FALSE, string, contexttag, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
 	add_keyword_to_scanning_table(st, "\"", FALSE, FALSE, string, contextstring, contexttag, FALSE, FALSE, 0, string,FALSE,NULL);
 
@@ -439,17 +440,18 @@ static void add_html_tag(Tscantable *st, guint context, GtkTextTag *tag, GtkText
 Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	Tscantable *st;
 	gint i,context1,context2,match1;
-	GtkTextTag *braces, *comment, *storage, *keyword, *string, *variable, *function, *value, *tag;
+	GtkTextTag *braces, *comment, *storage, *keyword, *string, *variable, *function, *value, *tag,*region;
 	
 	braces = gtk_text_buffer_create_tag(buffer,"braces","weight", PANGO_WEIGHT_BOLD,"foreground","darkblue",NULL);
 	comment = gtk_text_buffer_create_tag(buffer,"comment","style", PANGO_STYLE_ITALIC,"foreground", "grey", NULL);
 	storage = gtk_text_buffer_create_tag(buffer,"storage","weight", PANGO_WEIGHT_BOLD,"foreground", "darkred", NULL);
 	keyword = gtk_text_buffer_create_tag(buffer,"keyword","weight", PANGO_WEIGHT_BOLD,"foreground", "black", NULL);
-	string = gtk_text_buffer_create_tag(buffer,"string","foreground", "darkgreen", NULL);
+	string = gtk_text_buffer_create_tag(buffer,"string","foreground", "#009900", NULL);
 	variable = gtk_text_buffer_create_tag(buffer,"variable","foreground", "red", "weight", PANGO_WEIGHT_BOLD , NULL);
 	value = gtk_text_buffer_create_tag(buffer,"value","foreground", "blue", NULL);
 	function = gtk_text_buffer_create_tag(buffer,"function","foreground", "darkblue", NULL);
 	tag = gtk_text_buffer_create_tag(buffer,"tag","foreground", "purple", NULL);
+	region = gtk_text_buffer_create_tag(buffer,"region","background", "#EEF8FF", NULL);
 
 	st = g_slice_new0(Tscantable);
 	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), 160);
@@ -534,7 +536,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	{
 		guint context0, contexttag, contextphp, contextstring;
 		guint match;
-		context0= new_context(st, "<> \n\t\r");
+		context0= new_context(st, "> \n\t\r",NULL);
 
 		add_html_tag(st, context0, tag, keyword, string, "html", NULL);
 		add_html_tag(st, context0, tag, keyword, string, "head", NULL);
@@ -549,11 +551,11 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		add_html_tag(st, context0, tag, keyword, string, "script", "type", "src", NULL);
 		add_html_tag(st, context0, tag, keyword, string, "a", "style", "class", "id", "href", "target",NULL);
 
-		contexttag = new_context(st, ">\"=' \t\n\r");
+		contexttag = new_context(st, ">\"=' \t\n\r",NULL);
 		match = add_keyword_to_scanning_table(st, "<!--", FALSE, FALSE, comment, context0, contexttag, TRUE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "-->", FALSE, FALSE, comment, contexttag, context0, FALSE, TRUE, match, comment,FALSE,NULL);
 
-		contextphp = new_context(st, "\"=' \t\n\r$(){}[]*+-/\\,;<>?:.");
+		contextphp = new_context(st, "\"=' \t\n\r$(){}[]*+-/\\,;<>?:.",region);
 		match = add_keyword_to_scanning_table(st, "<?php", FALSE, FALSE, variable, context0, contextphp, TRUE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "?>", FALSE, FALSE, variable, contextphp, context0, FALSE, TRUE, match, NULL,FALSE,NULL);
 
@@ -573,16 +575,16 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		add_keyword_to_scanning_table(st, "FALSE", FALSE, FALSE, value, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "TRUE", FALSE, FALSE, value, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);	
 	
-		contextstring = new_context(st, "\\\"");
+		contextstring = new_context(st, "\\\"",string);
 		add_keyword_to_scanning_table(st, "\"", FALSE, FALSE, string, contextphp, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "\"", FALSE, FALSE, string, contextstring, contextphp, FALSE, FALSE, 0, string,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "\\\"", FALSE, FALSE, string, contextstring, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
 
-		contextstring = new_context(st, "\"=' \t\n\r");
+		contextstring = new_context(st, "\"=' \t\n\r",NULL);
 		match = add_keyword_to_scanning_table(st, "/*", FALSE, FALSE, comment, contextphp, contextstring, TRUE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "*/", FALSE, FALSE, comment, contextstring, contextphp, FALSE, TRUE, match, comment,FALSE,NULL);
 
-		contextstring = new_context(st, "\"=' \t\n\r");
+		contextstring = new_context(st, "\"=' \t\n\r",string);
 		add_keyword_to_scanning_table(st, "'", FALSE, FALSE, string, contextphp, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "'", FALSE, FALSE, string, contextstring, contextphp, FALSE, FALSE, 0, string,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "\\'", FALSE, FALSE, string, contextstring, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
