@@ -194,15 +194,35 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 		tmplist = g_list_next(tmplist);
 	}
 }
+
+static gboolean character_is_symbol(BluefishTextView *btv,Tcontext *context, gint c) {
+	DBG_AUTOCOMP("context has identstate %d, startstate %d, table[%d].row[%c]=%d\n",context->identstate,context->startstate,context->identstate,c,g_array_index(btv->scantable->table, Ttablerow, context->identstate).row[c]);
+	return (g_array_index(btv->scantable->table, Ttablerow, context->identstate).row[c] != context->identstate);
+}
+
 /* this function works for words, but not for other constructs in programming 
 languages such as things that start with < or with $ or *.
 should be improved. possibly we need a custom function for different types of languages,
 or some special per-language configuration of this function */
-static gchar *autocomp_get_prefix_at_location(GtkTextBuffer *buffer, GtkTextIter *location) {
-	GtkTextIter start;
-	start = *location;
-	gtk_text_iter_backward_word_start(&start);
-	return gtk_text_buffer_get_text(buffer,&start,location,TRUE);
+static gchar *autocomp_get_prefix_at_location(BluefishTextView *btv, GtkTextBuffer *buffer, Tcontext *context, GtkTextIter *location) {
+	GtkTextIter iter;
+	gboolean cont=TRUE;
+	gunichar c;
+
+	iter = *location;
+	while (cont) {
+		cont = gtk_text_iter_backward_char(&iter);
+		c = gtk_text_iter_get_char(&iter);
+		DBG_AUTOCOMP("check character %c\n",c);
+		if (c >= NUMSCANCHARS) {
+			return NULL;
+		} else if (character_is_symbol(btv,context,(gint)c)) {
+			gtk_text_iter_forward_char(&iter);
+			return gtk_text_buffer_get_text(buffer,&iter,location,TRUE);
+		} 
+	}
+	return gtk_text_buffer_get_text(buffer,&iter,location,TRUE);
+/*	gtk_text_iter_backward_word_start(&start);*/	
 }
 
 void autocomp_run(BluefishTextView *btv) {
@@ -218,7 +238,7 @@ void autocomp_run(BluefishTextView *btv) {
 	if (context && context->ac) {
 		gchar *prefix;
 		/* get the prefix, see if it results in any autocompletion possibilities */
-		prefix = autocomp_get_prefix_at_location(buffer, &iter);
+		prefix = autocomp_get_prefix_at_location(btv,buffer,context,&iter);
 		DBG_AUTOCOMP("found autocompletion prefix %s\n",prefix);
 		if (prefix && *prefix != '\0') {
 			gchar *newprefix;

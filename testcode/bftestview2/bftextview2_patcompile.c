@@ -281,7 +281,8 @@ static guint new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag)
 	g_array_index(st->contexts, Tcontext, context).identstate = identstate;
 	g_array_index(st->contexts, Tcontext, context).contexttag = contexttag;
 	g_array_set_size(st->table,st->table->len+2);
-	
+
+	g_print("new context %d has startstate %d, identstate %d and symbols %s\n",context, g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts, Tcontext, context).identstate,symbols);	
 	/* identstate refers to itself for all characters except the symbols. we cannot use memset
 	because an integer occupies 2 bytes */
 	for (i=0;i<NUMSCANCHARS;i++)
@@ -289,12 +290,13 @@ static guint new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag)
 	
 	tmp = symbols;
 	while (*tmp) {
+		g_print("mark %c as symbol\n",*tmp);
 		g_array_index(st->table, Ttablerow, identstate).row[(int)*tmp] = 0;
 		tmp++;
 	} 
-	memcpy(g_array_index(st->table, Ttablerow, startstate).row, g_array_index(st->table, Ttablerow, identstate).row, sizeof(unsigned int[NUMSCANCHARS]));
+	memcpy(g_array_index(st->table, Ttablerow, startstate).row, g_array_index(st->table, Ttablerow, identstate).row, sizeof(guint16[NUMSCANCHARS]));
 	
-	g_print("new context %d has startstate %d, identstate %d\n",context, g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts, Tcontext, context).identstate);	
+		
 	return context;
 }
 
@@ -596,13 +598,26 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		match = add_keyword_to_scanning_table(st, "(", FALSE, FALSE, keyword, contextphp, contextphp, TRUE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, ")", FALSE, FALSE, keyword, contextphp, contextphp, FALSE, TRUE, match, NULL,FALSE,NULL);
 		
+		add_keyword_to_scanning_table(st, "mysql_affected_rows", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "mysql_connect", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "mysql_query", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "mysql_num_rows", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "mysql_fetch_row", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
-		add_keyword_to_scanning_table(st, "mysql_fetch_array", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "mysql_destroy", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "mysql_change_user", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "mysql_client_encoding", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "mysql_close", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "mysql_create_db", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "mysql_data_seek", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "mysql_db_name", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "mysql_db_query", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "mysql_drop_db", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "mysql_errno", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "mysql_error", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "mysql_escape_string", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "mysql_fetch_array", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "mysql_fetch_assoc", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+		add_keyword_to_scanning_table(st, "mysql_fetch_field", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		
 		add_keyword_to_scanning_table(st, "$[a-z0-9_]+", TRUE, TRUE, variable, contextphp, contextphp, FALSE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "(//|#)[^\n\t]+", TRUE, TRUE, comment, contextphp, contextphp, FALSE, FALSE, 0, NULL,FALSE,NULL);
