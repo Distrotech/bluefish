@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 	gtk_window_set_title(GTK_WINDOW(window), "Highlight widget test");
 
 	/* Set a decent default size for the window. */
-	gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
+	gtk_window_set_default_size(GTK_WINDOW(window), 500, 300);
 	g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(on_window_destroy), NULL);
 
 	vbox = gtk_vbox_new(FALSE, 2);
