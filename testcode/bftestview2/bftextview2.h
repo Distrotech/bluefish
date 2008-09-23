@@ -75,7 +75,7 @@ to different results (different color, different context).
 #define DBG_AUTOCOMP DBG_NONE
 #define DBG_SCANNING DBG_NONE
 
-#define NUMSCANCHARS 127
+#define NUMSCANCHARS 128
 
 #define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */
 
@@ -88,29 +88,33 @@ to different results (different color, different context).
 typedef struct {
 	GCompletion* ac; /* autocompletion items in this context */
 	GHashTable *reference; /* reference help for each autocompletion item */
-	guint startstate; /* refers to the row number in scantable->table that is the start state for this context */
-	guint identstate; /* refers to the row number in scantable->table that is the identifier-state 
+	guint16 startstate; /* refers to the row number in scantable->table that is the start state for this context */
+	guint16 identstate; /* refers to the row number in scantable->table that is the identifier-state 
 					for this context. The identifier state is a state that refers to itself for all characters
 					except the characters (symbols) thay may be the begin or end of an identifier such
 					as whitespace, ();[]{}*+-/ etc. */
+	GtkTextTag *contexttag; /* if the context area itself needs some kind of style (strings!) */
 } Tcontext;
 
 typedef struct {
 	char *message; /* for debugging */
-	guint nextcontext; /* 0, or if this pattern starts a new context the number of the contect */
 	GtkTextTag *selftag; /* the tag used to highlight this pattern */
 	gboolean starts_block; /* wheter or not this pattern may start a block */
 	gboolean ends_block; /* wheter or not this pattern may end a block */
 	GtkTextTag *blocktag; /* if this pattern ends a context or a block, we can highlight 
 	the region within the start and end pattern with this tag */
-	guint blockstartpattern; /* the number of the pattern that may start this block */
-	gboolean may_fold;
-	gboolean highlight_other_end;
+	guint16 blockstartpattern; /* the number of the pattern that may start this block */
+	guint16 nextcontext; /* 0, or if this pattern starts a new context the number of the contect */
+	gboolean may_fold; /* not yet used */
+	gboolean highlight_other_end; /* not yet used */
 } Tpattern;
 
 typedef struct {
-	unsigned int row[NUMSCANCHARS];	/* contains for each character the number of the next state */
-	unsigned int match;			/* 0 == no match, refers to the index number in array 'matches' */
+	guint16 row[NUMSCANCHARS];	/* contains for each character the number of the next state
+						because we use a 16bit unsigned number we can support only 65535 states 
+						at maximum!!!!!!! but we use half the size of the scanning table, which
+						hopefully helps to keep the scanning table in the L2 cache of the CPU */
+	guint16 match;			/* 0 == no match, refers to the index number in array 'matches' */
 } Ttablerow; /* a row in the DFA */
 
 typedef struct {
@@ -129,8 +133,8 @@ typedef struct {
 	GtkTextMark *end1;
 	GtkTextMark *start2;
 	GtkTextMark *end2;
-	gint patternum;
-	guint refcount; /* free on 0 */
+	guint16 patternum;
+	guint16 refcount; /* free on 0 */
 } Tfoundblock; /* once a start-of-block is found start1 and end1 are set 
 						and the Tfoundblock is added to the GtkTextMark's as "block"
 						and the Tfoundblock is added to the current blockstack.
@@ -144,8 +148,8 @@ typedef struct {
 typedef struct {
 	GtkTextMark *start;
 	GtkTextMark *end;
-	gint context;
-	guint refcount; /* free on 0 */
+	guint16 context;
+	guint16 refcount; /* free on 0 */
 } Tfoundcontext; /* once a start-of-context is found start is set 
 						and the Tfoundcontext is added to the GtkTextMark as "context"
 						and the Tfoundcontext is added to the current contextstack.
