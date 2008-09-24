@@ -539,7 +539,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	{
 		guint context0, contexttag, contextphp, contextstring;
 		guint match;
-		context0= new_context(st, "> \n\t\r",NULL);
+		context0= new_context(st, "<> \n\t\r",NULL);
 
 		add_html_tag(st, context0, tag, keyword, string, "html", NULL);
 		add_html_tag(st, context0, tag, keyword, string, "head", NULL);
@@ -548,13 +548,26 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		add_html_tag(st, context0, tag, keyword, string, "body", "onLoad", "style", "class",NULL);
 		add_html_tag(st, context0, tag, keyword, string, "p", "style", "class", "id", "align",NULL);
 		add_html_tag(st, context0, tag, keyword, string, "div", "style", "class", "id", "align",NULL);
+		add_html_tag(st, context0, tag, keyword, string, "span", "style", "class", "id", "align",NULL);
+		add_html_tag(st, context0, tag, keyword, string, "ul", "style", "class", "id", "align",NULL);
+		add_html_tag(st, context0, tag, keyword, string, "li", "style", "class", "id", "align",NULL);
+		add_html_tag(st, context0, tag, keyword, string, "h1", "style", "class", "id", "align",NULL);
+		add_html_tag(st, context0, tag, keyword, string, "h2", "style", "class", "id", "align",NULL);
+		add_html_tag(st, context0, tag, keyword, string, "h3", "style", "class", "id", "align",NULL);
+		add_html_tag(st, context0, tag, keyword, string, "h4", "style", "class", "id", "align",NULL);
+		add_html_tag(st, context0, tag, keyword, string, "h5", "style", "class", "id", "align",NULL);
+		add_html_tag(st, context0, tag, keyword, string, "h6", "style", "class", "id", "align",NULL);
+		add_html_tag(st, context0, tag, keyword, string, "meta", "name", "content", "http-equiv", "align",NULL);
 		add_html_tag(st, context0, tag, keyword, string, "b", "style", "class", "id",NULL);
 		add_html_tag(st, context0, tag, keyword, string, "i", "style", "class", "id",NULL);
+		add_html_tag(st, context0, tag, keyword, string, "em", "style", "class", "id",NULL);
+		add_html_tag(st, context0, tag, keyword, string, "strong", "style", "class", "id",NULL);
 		add_html_tag(st, context0, tag, keyword, string, "img", "style", "class", "id","src","alt","width","height","border","valign","align",NULL);
 		add_html_tag(st, context0, tag, keyword, string, "script", "type", "src", NULL);
 		add_html_tag(st, context0, tag, keyword, string, "a", "style", "class", "id", "href", "target",NULL);
+		
 
-		contexttag = new_context(st, ">\"=' \t\n\r",NULL);
+		contexttag = new_context(st, "-> \t\n\r",NULL);
 		match = add_keyword_to_scanning_table(st, "<!--", FALSE, FALSE, comment, context0, contexttag, TRUE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "-->", FALSE, FALSE, comment, contexttag, context0, FALSE, TRUE, match, comment,FALSE,NULL);
 

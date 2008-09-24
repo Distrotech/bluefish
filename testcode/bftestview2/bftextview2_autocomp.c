@@ -7,6 +7,7 @@
 typedef struct {
 	Tcontext *context;
 	gchar *prefix;
+	gchar *newprefix;
 	GtkWidget *win;
 	GtkListStore *store;
 	GtkTreeView *tree;
@@ -67,7 +68,7 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 		selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 		if (selection && gtk_tree_selection_get_selected(selection,&model,&it)) {
 			gchar *string, *tmp;
-			gtk_tree_model_get(model,&it,0,&string,-1);
+			gtk_tree_model_get(model,&it,1,&string,-1);
 			DBG_AUTOCOMP("got string %s\n",string);
 			gtk_text_buffer_insert_at_cursor(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),string+strlen(ACWIN(btv->autocomp)->prefix),-1);
 			g_free(string);
@@ -75,6 +76,12 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 		acwin_cleanup(btv);
 		return TRUE;
 	} break;
+	case GDK_Tab:
+		if (ACWIN(btv->autocomp)->newprefix && strlen(ACWIN(btv->autocomp)->newprefix) > strlen(ACWIN(btv->autocomp)->prefix)) {
+			gtk_text_buffer_insert_at_cursor(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),ACWIN(btv->autocomp)->newprefix+strlen(ACWIN(btv->autocomp)->prefix),-1);
+		}
+		return TRUE;
+	break;
 	case GDK_Escape:
 		acwin_cleanup(btv);
 		return TRUE;
@@ -97,7 +104,7 @@ static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 	
 	if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
 		gchar *key;
-		gtk_tree_model_get(model,&iter,0,&key,-1);
+		gtk_tree_model_get(model,&iter,1,&key,-1);
 		if (key) {
 			gchar *string = g_hash_table_lookup(acw->context->reference,key);
 			if (string) {
@@ -193,7 +200,7 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 		gchar *tmp;
 		gtk_list_store_append(acw->store,&it);
 		tmp = g_markup_escape_text(tmplist->data,-1);
-		gtk_list_store_set(acw->store,&it,0,tmp,-1);
+		gtk_list_store_set(acw->store,&it,0,tmp,1,tmplist->data,-1);
 		g_free(tmp);
 		tmplist = g_list_next(tmplist);
 	}
@@ -275,9 +282,11 @@ void autocomp_run(BluefishTextView *btv) {
 					btv->autocomp = acwin_create(btv, context);
 				} else {
 					g_free(ACWIN(btv->autocomp)->prefix);
+					g_free(ACWIN(btv->autocomp)->newprefix);
 					gtk_list_store_clear(ACWIN(btv->autocomp)->store);
 				}
 				ACWIN(btv->autocomp)->prefix = g_strdup(prefix);
+				ACWIN(btv->autocomp)->newprefix = g_strdup(newprefix);
 				acwin_fill_tree(ACWIN(btv->autocomp), items);
 				acwin_position_at_cursor(btv);
 				gtk_widget_show(ACWIN(btv->autocomp)->win);
