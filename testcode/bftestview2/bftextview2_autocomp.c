@@ -189,16 +189,19 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 	tmplist = g_list_sort(items, (GCompareFunc) g_strcmp0);
 	while (tmplist)	{
 		GtkTreeIter it;
+		gchar *tmp;
 		gtk_list_store_append(acw->store,&it);
-		gtk_list_store_set(acw->store,&it,0,tmplist->data,-1);
+		tmp = g_markup_escape_text(tmplist->data,-1);
+		gtk_list_store_set(acw->store,&it,0,tmp,-1);
+		g_free(tmp);
 		tmplist = g_list_next(tmplist);
 	}
 }
 
-static gboolean character_is_symbol(BluefishTextView *btv,Tcontext *context, gint c) {
-	DBG_AUTOCOMP("context has identstate %d, startstate %d, table[%d].row[%c]=%d\n",context->identstate,context->startstate,context->identstate,c,g_array_index(btv->scantable->table, Ttablerow, context->identstate).row[c]);
+#define character_is_symbol(btv,context,c) (g_array_index(btv->scantable->table, Ttablerow, context->identstate).row[c] != context->identstate)
+/*static gboolean character_is_symbol(BluefishTextView *btv,Tcontext *context, gint c) {
 	return (g_array_index(btv->scantable->table, Ttablerow, context->identstate).row[c] != context->identstate);
-}
+}*/
 
 /* this function works for words, but not for other constructs in programming 
 languages such as things that start with < or with $ or *.
@@ -213,7 +216,7 @@ static gchar *autocomp_get_prefix_at_location(BluefishTextView *btv, GtkTextBuff
 	while (cont) {
 		cont = gtk_text_iter_backward_char(&iter);
 		c = gtk_text_iter_get_char(&iter);
-		DBG_AUTOCOMP("check character %c\n",c);
+		/*DBG_AUTOCOMP("check character %c\n",c);*/
 		if (c >= NUMSCANCHARS) {
 			return NULL;
 		} else if (character_is_symbol(btv,context,(gint)c)) {
@@ -245,7 +248,8 @@ void autocomp_run(BluefishTextView *btv) {
 			GList *items;
 			items = g_completion_complete(context->ac,prefix,&newprefix);
 			DBG_AUTOCOMP("got %d autocompletion items, newprefix=%s\n",g_list_length(items),newprefix);
-			if (items) {
+			if (items!=NULL && (items->next != NULL || strcmp(items->data,prefix)!=0) ) {
+						/* do not popup if there are 0 items, and also not if there is 1 item which equals the prefix */
 				GtkTreeSelection *selection;
 				GtkTreeIter it;
 				/* create the GUI */
@@ -265,6 +269,7 @@ void autocomp_run(BluefishTextView *btv) {
 			} else {
 				acwin_cleanup(btv);
 			}
+			g_free(newprefix);
 			g_free(prefix);
 		} else {
 			acwin_cleanup(btv);

@@ -327,6 +327,7 @@ static guint new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guin
 		}
 		list = g_list_prepend(NULL, keyword);
 		g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
+		DBG_AUTOCOMP("adding %s to GCompletion\n",keyword);
 		g_list_free(list);
 		
 		if (reference) {
@@ -420,14 +421,14 @@ static void add_html_tag(Tscantable *st, guint context, GtkTextTag *tag, GtkText
 	tmp = g_strconcat("<",tagname,NULL);
 	match = add_keyword_to_scanning_table(st, tmp, FALSE, FALSE, tag, context, contexttag, TRUE, FALSE, 0, NULL,TRUE,NULL);
 	g_free(tmp);
-	add_keyword_to_scanning_table(st, ">", FALSE, FALSE, tag, contexttag, context, FALSE, FALSE, 0, NULL,TRUE,NULL);
+	add_keyword_to_scanning_table(st, ">", FALSE, FALSE, tag, contexttag, context, FALSE, FALSE, 0, NULL,FALSE,NULL);
 
 	va_start(args, attribname);
 	while (attribname) {
 		add_keyword_to_scanning_table(st, attribname, FALSE, FALSE, attrib, contexttag, contexttag, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		attribname = va_arg(args, gchar*);
 	}
-	va_end(args);		
+	va_end(args);
 	
 	contextstring = new_context(st, "\"=' \t\n\r", string);
 	add_keyword_to_scanning_table(st, "\"", FALSE, FALSE, string, contexttag, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
