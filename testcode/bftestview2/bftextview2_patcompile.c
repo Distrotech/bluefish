@@ -282,7 +282,7 @@ static guint new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag)
 	g_array_index(st->contexts, Tcontext, context).contexttag = contexttag;
 	g_array_set_size(st->table,st->table->len+2);
 
-	g_print("new context %d has startstate %d, identstate %d and symbols %s\n",context, g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts, Tcontext, context).identstate,symbols);	
+	DBG_PATCOMPILE("new context %d has startstate %d, identstate %d and symbols %s\n",context, g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts, Tcontext, context).identstate,symbols);	
 	/* identstate refers to itself for all characters except the symbols. we cannot use memset
 	because an integer occupies 2 bytes */
 	for (i=0;i<NUMSCANCHARS;i++)
@@ -290,7 +290,7 @@ static guint new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag)
 	
 	tmp = symbols;
 	while (*tmp) {
-		g_print("mark %c as symbol\n",*tmp);
+		/*g_print("mark %c as symbol\n",*tmp);*/
 		g_array_index(st->table, Ttablerow, identstate).row[(int)*tmp] = 0;
 		tmp++;
 	} 
@@ -325,9 +325,9 @@ static guint new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guin
 			DBG_PATCOMPILE("create g_completion for context %d\n",context);
 			g_array_index(st->contexts, Tcontext, context).ac = g_completion_new(NULL);
 		}
-		list = g_list_prepend(NULL, keyword);
+		list = g_list_prepend(NULL, g_strdup(keyword));
 		g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
-		DBG_AUTOCOMP("adding %s to GCompletion\n",keyword);
+		DBG_AUTOCOMP("adding %s to GCompletion\n",list->data);
 		g_list_free(list);
 		
 		if (reference) {

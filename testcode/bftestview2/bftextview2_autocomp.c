@@ -66,10 +66,11 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 		GtkTreeModel *model;
 		selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 		if (selection && gtk_tree_selection_get_selected(selection,&model,&it)) {
-			gchar *string;
+			gchar *string, *tmp;
 			gtk_tree_model_get(model,&it,0,&string,-1);
 			DBG_AUTOCOMP("got string %s\n",string);
 			gtk_text_buffer_insert_at_cursor(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),string+strlen(ACWIN(btv->autocomp)->prefix),-1);
+			g_free(string);
 		}
 		acwin_cleanup(btv);
 		return TRUE;
@@ -198,6 +199,16 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 	}
 }
 
+static void print_ac_items(GCompletion *gc) {
+	g_print("autocompletion has %d items:",g_list_length(gc->items));
+	GList *tmplist = g_list_first(gc->items);
+	while (tmplist) {
+		g_print(" %s",(char *)tmplist->data);
+		tmplist = g_list_next(tmplist);
+	}
+	g_print("\n");
+}
+
 #define character_is_symbol(btv,context,c) (g_array_index(btv->scantable->table, Ttablerow, context->identstate).row[c] != context->identstate)
 /*static gboolean character_is_symbol(BluefishTextView *btv,Tcontext *context, gint c) {
 	return (g_array_index(btv->scantable->table, Ttablerow, context->identstate).row[c] != context->identstate);
@@ -213,6 +224,12 @@ static gchar *autocomp_get_prefix_at_location(BluefishTextView *btv, GtkTextBuff
 	gunichar c;
 
 	iter = *location;
+	c = gtk_text_iter_get_char(&iter);
+	if (c > NUMSCANCHARS || !character_is_symbol(btv,context,(gint)c)) {
+		DBG_AUTOCOMP("current character %c is not a symbol -> return NULL\n",c);
+		return NULL;
+	}
+	
 	while (cont) {
 		cont = gtk_text_iter_backward_char(&iter);
 		c = gtk_text_iter_get_char(&iter);
@@ -248,6 +265,7 @@ void autocomp_run(BluefishTextView *btv) {
 			GList *items;
 			items = g_completion_complete(context->ac,prefix,&newprefix);
 			DBG_AUTOCOMP("got %d autocompletion items, newprefix=%s\n",g_list_length(items),newprefix);
+			print_ac_items(context->ac);
 			if (items!=NULL && (items->next != NULL || strcmp(items->data,prefix)!=0) ) {
 						/* do not popup if there are 0 items, and also not if there is 1 item which equals the prefix */
 				GtkTreeSelection *selection;
