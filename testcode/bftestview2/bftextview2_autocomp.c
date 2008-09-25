@@ -216,7 +216,6 @@ static void print_ac_items(GCompletion *gc) {
 	g_print("\n");
 }
 
-#define character_is_symbol(btv,context,c) (g_array_index(btv->scantable->table, Ttablerow, context->identstate).row[c] != context->identstate)
 /*static gboolean character_is_symbol(BluefishTextView *btv,Tcontext *context, gint c) {
 	return (g_array_index(btv->scantable->table, Ttablerow, context->identstate).row[c] != context->identstate);
 }*/

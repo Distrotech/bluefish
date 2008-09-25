@@ -341,27 +341,28 @@ static guint new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guin
 	
 	return matchnum;
 }
+
+#define character_is_symbol(st,context,c) (g_array_index(st->table, Ttablerow, context.identstate).row[c] != context.identstate)
+
 /* this function cannot do any regex style patterns 
 just full keywords */
-static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint matchnum, guint context) {
-
+static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 matchnum, guint16 context) {
 	gint i,len,pos=0;
-	gboolean is_symbol=FALSE;
-	guint identstate = g_array_index(st->contexts, Tcontext, context).identstate;
+	guint16 identstate = g_array_index(st->contexts, Tcontext, context).identstate;
 
 	/* compile the keyword into the DFA */
 	pos = g_array_index(st->contexts, Tcontext, context).startstate;
-	if (strlen(keyword)==1 && g_array_index(st->table, Ttablerow, identstate).row[(int)keyword[0]] == 0) {
-		/* this keyword is a symbol itself ! */
+/*	if (strlen(keyword)==1 && g_array_index(st->table, Ttablerow, identstate).row[(int)keyword[0]] == 0) {
+		/ * this keyword is a symbol itself ! * /
 		is_symbol=TRUE;
-	}
+	}*/
 	
 	DBG_PATCOMPILE("in context %d we start with position %d; %d is the identstate\n",context,pos,identstate);
 	len = strlen(keyword);
 	for (i=0;i<=len;i++) {
 		int c = keyword[i];
 		if (c == '\0') {
-			if (is_symbol) {
+			if (character_is_symbol(st,g_array_index(st->contexts, Tcontext, context),keyword[i-1])) {
 				for (i=0;i<NUMSCANCHARS;i++)
 					if (g_array_index(st->table, Ttablerow, pos).row[i] == identstate)
 						g_array_index(st->table, Ttablerow, pos).row[i] = 0;
@@ -374,7 +375,7 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint matchnu
 			} else {
 				pos = g_array_index(st->table, Ttablerow, pos).row[c] = st->table->len;
 				g_array_set_size(st->table,st->table->len+1);
-				memcpy(g_array_index(st->table, Ttablerow, pos).row, g_array_index(st->table, Ttablerow, g_array_index(st->contexts, Tcontext, context).identstate).row, sizeof(unsigned int[NUMSCANCHARS]));
+				memcpy(g_array_index(st->table, Ttablerow, pos).row, g_array_index(st->table, Ttablerow, g_array_index(st->contexts, Tcontext, context).identstate).row, sizeof(guint16[NUMSCANCHARS]));
 			}
 		}
 	}
