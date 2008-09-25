@@ -182,6 +182,9 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,guint context
 		DBG_PATCOMPILE("start of loop, regexpart[%d]=%c, have %d positions\n",i,regexpart[i],g_queue_get_length(positions));
 		if (regexpart[i] == '\0') { /* end of pattern */
 			DBG_PATCOMPILE("end of pattern, positions(%p) has %d entries\n",positions,g_queue_get_length(positions));
+			/* BUG: ?? check if the last character was a symbol ???? */
+			
+			
 			g_queue_free(newpositions);
 			return positions;
 		} else {
@@ -327,7 +330,7 @@ static guint new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guin
 		}
 		list = g_list_prepend(NULL, g_strdup(keyword));
 		g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
-		DBG_AUTOCOMP("adding %s to GCompletion\n",list->data);
+		DBG_AUTOCOMP("adding %s to GCompletion\n",(gchar *)list->data);
 		g_list_free(list);
 		
 		if (reference) {
@@ -450,11 +453,11 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	comment = gtk_text_buffer_create_tag(buffer,"comment","style", PANGO_STYLE_ITALIC,"foreground", "grey", NULL);
 	storage = gtk_text_buffer_create_tag(buffer,"storage","weight", PANGO_WEIGHT_BOLD,"foreground", "darkred", NULL);
 	keyword = gtk_text_buffer_create_tag(buffer,"keyword","weight", PANGO_WEIGHT_BOLD,"foreground", "black", NULL);
-	string = gtk_text_buffer_create_tag(buffer,"string","foreground", "#009900", NULL);
+	string = gtk_text_buffer_create_tag(buffer,"string","foreground", "#008800", NULL);
 	variable = gtk_text_buffer_create_tag(buffer,"variable","foreground", "red", "weight", PANGO_WEIGHT_BOLD , NULL);
 	value = gtk_text_buffer_create_tag(buffer,"value","foreground", "blue", NULL);
 	function = gtk_text_buffer_create_tag(buffer,"function","foreground", "darkblue", NULL);
-	tag = gtk_text_buffer_create_tag(buffer,"tag","foreground", "purple", NULL);
+	tag = gtk_text_buffer_create_tag(buffer,"tag","foreground", "#880088", NULL);
 	region = gtk_text_buffer_create_tag(buffer,"region","background", "#EEF8FF", NULL);
 
 	st = g_slice_new0(Tscantable);
@@ -565,7 +568,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		add_html_tag(st, context0, tag, keyword, string, "strong", "style", "class", "id",NULL);
 		add_html_tag(st, context0, tag, keyword, string, "img", "style", "class", "id","src","alt","width","height","border","valign","align",NULL);
 		add_html_tag(st, context0, tag, keyword, string, "script", "type", "src", NULL);
-		add_html_tag(st, context0, tag, keyword, string, "a", "style", "class", "id", "href", "target",NULL);
+		add_html_tag(st, context0, tag, keyword, string, "a", "style", "class", "id", "href", "target","title",NULL);
 		
 
 		contexttag = new_context(st, "-> \t\n\r",NULL);

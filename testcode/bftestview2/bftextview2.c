@@ -17,7 +17,7 @@ static gboolean bftextview2_user_idle_timer(gpointer data)
 	guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 	if (elapsed + 10 >= USER_IDLE_EVENT_INTERVAL) {	/* avoid delaying for less than 10 milliseconds */
 		DBG_MSG("bftextview2_user_idle_timer, user is > %d milliseconds idle!!!\n", elapsed);
-		autocomp_run(btv);
+		autocomp_run(btv,FALSE);
 		btv->user_idle = 0;
 		return FALSE;
 	} else {
@@ -80,7 +80,7 @@ static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * it
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
 	if (btv->autocomp) {
-		autocomp_run(btv);
+		autocomp_run(btv,FALSE);
 	} else {
 		bftextview2_reset_user_idle_timer(btv);
 	}
@@ -307,10 +307,13 @@ static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIt
 }
 static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
 	BluefishTextView *btv=user_data;
-	g_print("key_press\n");
 	if (btv->autocomp) {
 		if (acwin_check_keypress(btv, kevent))
 			return TRUE;
+	}
+	if ((kevent->state & GDK_CONTROL_MASK) && kevent->keyval == ' ') {
+		autocomp_run(btv,TRUE);
+		return TRUE;
 	}
 	return FALSE;
 }

@@ -67,7 +67,7 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 		GtkTreeModel *model;
 		selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 		if (selection && gtk_tree_selection_get_selected(selection,&model,&it)) {
-			gchar *string, *tmp;
+			gchar *string;
 			gtk_tree_model_get(model,&it,1,&string,-1);
 			DBG_AUTOCOMP("got string %s\n",string);
 			gtk_text_buffer_insert_at_cursor(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),string+strlen(ACWIN(btv->autocomp)->prefix),-1);
@@ -192,9 +192,9 @@ static void acwin_position_at_cursor(BluefishTextView *btv) {
 }
 
 static void acwin_fill_tree(Tacwin *acw, GList *items) {
-	GList *tmplist;
+	GList *tmplist,*list;
 	
-	tmplist = g_list_sort(items, (GCompareFunc) g_strcmp0);
+	list = tmplist = g_list_sort(g_list_copy(items), (GCompareFunc) g_strcmp0);
 	while (tmplist)	{
 		GtkTreeIter it;
 		gchar *tmp;
@@ -204,10 +204,11 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 		g_free(tmp);
 		tmplist = g_list_next(tmplist);
 	}
+	g_list_free(list);
 }
 
 static void print_ac_items(GCompletion *gc) {
-	g_print("autocompletion has %d items:",g_list_length(gc->items));
+	g_print("autocompletion has %d items:",g_list_length(g_list_first(gc->items)));
 	GList *tmplist = g_list_first(gc->items);
 	while (tmplist) {
 		g_print(" %s",(char *)tmplist->data);
@@ -272,7 +273,7 @@ static gchar *autocomp_get_prefix_at_location(BluefishTextView *btv, GtkTextBuff
 	return NULL;
 }
 #endif
-void autocomp_run(BluefishTextView *btv) {
+void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 	GtkTextIter cursorpos,iter;
 	GtkTextBuffer *buffer;
 	guint16 contextnum;
@@ -283,14 +284,17 @@ void autocomp_run(BluefishTextView *btv) {
 	gtk_text_iter_set_line_offset(&iter,0);
 
 	scan_for_autocomp_prefix(btv,&iter,&cursorpos,&contextnum);
-	if (!gtk_text_iter_equal(&iter,&cursorpos) && g_array_index(btv->scantable->contexts,Tcontext, contextnum).ac != NULL) {
+	if ((user_requested || !gtk_text_iter_equal(&iter,&cursorpos)) && g_array_index(btv->scantable->contexts,Tcontext, contextnum).ac != NULL) {
 		/* we have a prefix and a context */
 		gchar *newprefix, *prefix;
 		GList *items;
+		
+		print_ac_items(g_array_index(btv->scantable->contexts,Tcontext, contextnum).ac);
+		
 		prefix = gtk_text_buffer_get_text(buffer,&iter,&cursorpos,TRUE);
 		items = g_completion_complete(g_array_index(btv->scantable->contexts,Tcontext, contextnum).ac,prefix,&newprefix);
-		DBG_AUTOCOMP("got %d autocompletion items, newprefix=%s\n",g_list_length(items),newprefix);
-		print_ac_items(g_array_index(btv->scantable->contexts,Tcontext, contextnum).ac);
+		DBG_AUTOCOMP("got %d autocompletion items for prefix %s in context %d, newprefix=%s\n",g_list_length(items),prefix,contextnum,newprefix);
+		
 		if (items!=NULL && (items->next != NULL || strcmp(items->data,prefix)!=0) ) {
 					/* do not popup if there are 0 items, and also not if there is 1 item which equals the prefix */
 			GtkTreeSelection *selection;
