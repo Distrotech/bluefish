@@ -253,7 +253,7 @@ static gchar *autocomp_get_prefix_at_location_old(BluefishTextView *btv, GtkText
 /*	gtk_text_iter_backward_word_start(&start);*/	
 }
 #endif
-
+#ifdef OLD
 static gchar *autocomp_get_prefix_at_location(BluefishTextView *btv, GtkTextBuffer *buffer, guint16 context, GtkTextIter *location, GtkTextIter *contextstart) {
 	/* find out if we should start scanning for the prefix at the start of the current 
 	context or the start of the line */
@@ -272,7 +272,57 @@ static gchar *autocomp_get_prefix_at_location(BluefishTextView *btv, GtkTextBuff
 	}
 	return NULL;
 }
+#endif
+void autocomp_run(BluefishTextView *btv) {
+	GtkTextIter cursorpos,iter;
+	GtkTextBuffer *buffer;
+	guint16 contextnum;
+	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+	gtk_text_buffer_get_iter_at_mark(buffer,&cursorpos,gtk_text_buffer_get_insert(buffer));
+	
+	iter = cursorpos;
+	gtk_text_iter_set_line_offset(&iter,0);
 
+	scan_for_autocomp_prefix(btv,&iter,&cursorpos,&contextnum);
+	if (!gtk_text_iter_equal(&iter,&cursorpos) && g_array_index(btv->scantable->contexts,Tcontext, contextnum).ac != NULL) {
+		/* we have a prefix and a context */
+		gchar *newprefix, *prefix;
+		GList *items;
+		prefix = gtk_text_buffer_get_text(buffer,&iter,&cursorpos,TRUE);
+		items = g_completion_complete(g_array_index(btv->scantable->contexts,Tcontext, contextnum).ac,prefix,&newprefix);
+		DBG_AUTOCOMP("got %d autocompletion items, newprefix=%s\n",g_list_length(items),newprefix);
+		print_ac_items(g_array_index(btv->scantable->contexts,Tcontext, contextnum).ac);
+		if (items!=NULL && (items->next != NULL || strcmp(items->data,prefix)!=0) ) {
+					/* do not popup if there are 0 items, and also not if there is 1 item which equals the prefix */
+			GtkTreeSelection *selection;
+			GtkTreeIter it;
+			/* create the GUI */
+			if (!btv->autocomp) {
+				btv->autocomp = acwin_create(btv, contextnum);
+			} else {
+				g_free(ACWIN(btv->autocomp)->prefix);
+				g_free(ACWIN(btv->autocomp)->newprefix);
+				gtk_list_store_clear(ACWIN(btv->autocomp)->store);
+			}
+			ACWIN(btv->autocomp)->prefix = g_strdup(prefix);
+			ACWIN(btv->autocomp)->newprefix = g_strdup(newprefix);
+			acwin_fill_tree(ACWIN(btv->autocomp), items);
+			acwin_position_at_cursor(btv);
+			gtk_widget_show(ACWIN(btv->autocomp)->win);
+			gtk_tree_model_get_iter_first(GTK_TREE_MODEL(ACWIN(btv->autocomp)->store), &it);
+			selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
+			gtk_tree_selection_select_iter(selection, &it);
+		} else {
+			acwin_cleanup(btv);
+		}
+		g_free(newprefix);
+		g_free(prefix);
+	} else {
+		DBG_AUTOCOMP("no autocompletion data for context %d, or no prefix\n",contextnum);
+		acwin_cleanup(btv);
+	}
+}
+#ifdef OLD
 void autocomp_run(BluefishTextView *btv) {
 	guint16 context;
 	GtkTextIter iter, iter2;
@@ -329,3 +379,4 @@ void autocomp_run(BluefishTextView *btv) {
 		acwin_cleanup(btv);
 	}
 }
+#endif

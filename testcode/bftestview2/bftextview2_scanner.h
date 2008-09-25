@@ -8,4 +8,5 @@ Tfoundstack *get_stackcache_at_position(BluefishTextView * bt2, GtkTextIter *pos
 guint16 get_context_and_startposition(BluefishTextView * bt2, GtkTextIter *position);
 gboolean bftextview2_run_scanner(BluefishTextView * bt2);
 void scan_for_prefix_start(BluefishTextView *btv, guint16 contextnum, GtkTextIter *start, GtkTextIter *cursor);
+void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter *cursorpos,guint16 *contextnum);
 #endif

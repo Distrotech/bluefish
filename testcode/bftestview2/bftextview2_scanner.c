@@ -310,6 +310,7 @@ static void reconstruct_stack(BluefishTextView * bt2, GtkTextBuffer *buffer, Gtk
 		
 	}
 }
+#ifdef OLD
 /* returns a context number and changes 'position' such that it points to the position
 where this context was found */
 guint16 get_context_and_startposition(BluefishTextView * bt2, GtkTextIter *position) {
@@ -321,6 +322,22 @@ guint16 get_context_and_startposition(BluefishTextView * bt2, GtkTextIter *posit
 		if (fcontext) {
 			DBG_MSG("found context %d\n",fcontext->context);
 			gtk_text_buffer_get_iter_at_mark(gtk_text_view_get_buffer(bt2),position,fstack->mark);
+			return fcontext->context;
+		} else 
+			DBG_MSG("no context on stack, return context 0\n");
+	} else 
+		DBG_MSG("no stack, no context, return context 0\n");
+	return 0;
+}
+#endif
+guint16 get_context_at_position(BluefishTextView * bt2, GtkTextIter *position) {
+	Tfoundstack *fstack;
+	fstack = get_stackcache_at_position(bt2,position,NULL);
+	if (fstack) {
+		Tfoundcontext *fcontext;
+		fcontext = g_queue_peek_head(fstack->contextstack);
+		if (fcontext) {
+			DBG_MSG("found context %d\n",fcontext->context);
 			return fcontext->context;
 		} else 
 			DBG_MSG("no context on stack, return context 0\n");
@@ -460,7 +477,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 
 	return TRUE; /* even if we finished scanning the next call should update the scancache */
 }
-
+#ifdef OLD
 /* this function starts at start, scans up to iter, and the location of the 
 possible match start will be in 'start'. */
 void scan_for_prefix_start(BluefishTextView *btv, guint16 contextnum, GtkTextIter *start, GtkTextIter *cursor) {
@@ -492,5 +509,36 @@ void scan_for_prefix_start(BluefishTextView *btv, guint16 contextnum, GtkTextIte
 			gtk_text_iter_forward_char(&iter);
 		}
 		pos = newpos;
+	}
+}
+#endif
+void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter *cursorpos,guint16 *contextnum) {
+	GtkTextIter iter;
+	guint16 pos,newpos;
+	/* get the current context */
+	iter = *mstart;
+	*contextnum = get_context_at_position(btv, &iter);
+	pos = g_array_index(btv->scantable->contexts,Tcontext, *contextnum).startstate;
+	while (!gtk_text_iter_equal(&iter, cursorpos)) {
+		gunichar uc;
+		uc = gtk_text_iter_get_char(&iter);
+		if (uc > 128) {
+			newpos = 0;
+		} else {
+			newpos = g_array_index(btv->scantable->table, Ttablerow, pos).row[uc];
+		}
+		if (newpos == 0 || uc == '\0') {
+			if (g_array_index(btv->scantable->table,Ttablerow, pos).match) {
+				*contextnum = g_array_index(btv->scantable->matches,Tpattern, g_array_index(btv->scantable->table,Ttablerow, pos).match).nextcontext;
+			}
+			if (gtk_text_iter_equal(mstart,&iter)) {
+				gtk_text_iter_forward_char(&iter);
+			}
+			*mstart = iter;
+			newpos = g_array_index(btv->scantable->contexts,Tcontext, *contextnum).startstate;
+		} else {
+			gtk_text_iter_forward_char(&iter);
+		}
+		pos = newpos;		
 	}
 }
