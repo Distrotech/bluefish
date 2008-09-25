@@ -120,7 +120,7 @@ static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 	gtk_widget_set_size_request(acw->win, 150, 200);
 }
 
-static Tacwin *acwin_create(BluefishTextView *btv, Tcontext *context) {
+static Tacwin *acwin_create(BluefishTextView *btv, guint16 context) {
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	GtkWidget *scroll, *vbar, *hbox;
@@ -128,7 +128,7 @@ static Tacwin *acwin_create(BluefishTextView *btv, Tcontext *context) {
 	GtkTreeSelection* selection;
 	
 	acw = g_new0(Tacwin,1);
-	acw->context = context;
+	acw->context = &g_array_index(btv->scantable->contexts,Tcontext, context);
 	acw->win = gtk_window_new(GTK_WINDOW_POPUP);
 	gtk_widget_set_app_paintable(acw->win, TRUE);
 	gtk_window_set_resizable(GTK_WINDOW(acw->win), FALSE);
@@ -221,11 +221,12 @@ static void print_ac_items(GCompletion *gc) {
 	return (g_array_index(btv->scantable->table, Ttablerow, context->identstate).row[c] != context->identstate);
 }*/
 
+#ifdef OLD
 /* this function works for words, but not for other constructs in programming 
 languages such as things that start with < or with $ or *.
 should be improved. possibly we need a custom function for different types of languages,
 or some special per-language configuration of this function */
-static gchar *autocomp_get_prefix_at_location(BluefishTextView *btv, GtkTextBuffer *buffer, Tcontext *context, GtkTextIter *location) {
+static gchar *autocomp_get_prefix_at_location_old(BluefishTextView *btv, GtkTextBuffer *buffer, Tcontext *context, GtkTextIter *location) {
 	GtkTextIter iter;
 	gboolean cont=TRUE;
 	gunichar c;
@@ -251,28 +252,50 @@ static gchar *autocomp_get_prefix_at_location(BluefishTextView *btv, GtkTextBuff
 	return gtk_text_buffer_get_text(buffer,&iter,location,TRUE);
 /*	gtk_text_iter_backward_word_start(&start);*/	
 }
+#endif
+
+static gchar *autocomp_get_prefix_at_location(BluefishTextView *btv, GtkTextBuffer *buffer, guint16 context, GtkTextIter *location, GtkTextIter *contextstart) {
+	/* find out if we should start scanning for the prefix at the start of the current 
+	context or the start of the line */
+	DBG_AUTOCOMP("contextstart at %d, cursor at %d\n",gtk_text_iter_get_offset(contextstart),gtk_text_iter_get_offset(location));
+	if (gtk_text_iter_get_offset(location) > 0 && !gtk_text_iter_equal(contextstart,location)) {
+		GtkTextIter iter = *location;
+		gtk_text_iter_set_line_offset(&iter,0);
+		DBG_AUTOCOMP("iter at %d, contextstart at %d, cursor at %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(contextstart),gtk_text_iter_get_offset(location));
+		if (gtk_text_iter_compare(&iter,contextstart)<0) {
+			scan_for_prefix_start(btv, context, contextstart, location);
+			return gtk_text_buffer_get_text(buffer,contextstart,location,TRUE);
+		} else {
+			scan_for_prefix_start(btv, context, &iter, location);
+			return gtk_text_buffer_get_text(buffer,&iter,location,TRUE);
+		}
+	}
+	return NULL;
+}
 
 void autocomp_run(BluefishTextView *btv) {
-	Tcontext *context;
-	GtkTextIter iter;
+	guint16 context;
+	GtkTextIter iter, iter2;
 	GtkTextBuffer *buffer;
 
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-	gtk_text_buffer_get_iter_at_mark(buffer,&iter,gtk_text_buffer_get_insert(buffer)); 
+	gtk_text_buffer_get_iter_at_mark(buffer,&iter,gtk_text_buffer_get_insert(buffer));
+	DBG_AUTOCOMP("cursor is at %d\n",gtk_text_iter_get_offset(&iter));
 	/* first find the context at the current location, and see if there are any autocompletion
 	items in this context */
-	context = get_context_at_position(btv, &iter);
-	if (context && context->ac) {
+	iter2 = iter;
+	context = get_context_and_startposition(btv, &iter2);
+	if (g_array_index(btv->scantable->contexts,Tcontext, context).ac) {
 		gchar *prefix;
 		/* get the prefix, see if it results in any autocompletion possibilities */
-		prefix = autocomp_get_prefix_at_location(btv,buffer,context,&iter);
+		prefix = autocomp_get_prefix_at_location(btv,buffer,context,&iter, &iter2);
 		DBG_AUTOCOMP("found autocompletion prefix %s\n",prefix);
 		if (prefix && *prefix != '\0') {
 			gchar *newprefix;
 			GList *items;
-			items = g_completion_complete(context->ac,prefix,&newprefix);
+			items = g_completion_complete(g_array_index(btv->scantable->contexts,Tcontext, context).ac,prefix,&newprefix);
 			DBG_AUTOCOMP("got %d autocompletion items, newprefix=%s\n",g_list_length(items),newprefix);
-			print_ac_items(context->ac);
+			print_ac_items(g_array_index(btv->scantable->contexts,Tcontext, context).ac);
 			if (items!=NULL && (items->next != NULL || strcmp(items->data,prefix)!=0) ) {
 						/* do not popup if there are 0 items, and also not if there is 1 item which equals the prefix */
 				GtkTreeSelection *selection;
@@ -302,7 +325,7 @@ void autocomp_run(BluefishTextView *btv) {
 			acwin_cleanup(btv);
 		}
 	} else {
-		DBG_AUTOCOMP("no autocompletion data for context %p\n",context);
+		DBG_AUTOCOMP("no autocompletion data for context %d\n",context);
 		acwin_cleanup(btv);
 	}
 }

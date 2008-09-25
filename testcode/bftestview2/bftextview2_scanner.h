@@ -5,7 +5,7 @@
 #include "bftextview2.h"
 Tfoundstack *get_stackcache_next(BluefishTextView * bt2, GSequenceIter ** siter);
 Tfoundstack *get_stackcache_at_position(BluefishTextView * bt2, GtkTextIter *position, GSequenceIter ** retsiter);
-Tcontext *get_context_at_position(BluefishTextView * bt2, GtkTextIter *position);
+guint16 get_context_and_startposition(BluefishTextView * bt2, GtkTextIter *position);
 gboolean bftextview2_run_scanner(BluefishTextView * bt2);
-
+void scan_for_prefix_start(BluefishTextView *btv, guint16 contextnum, GtkTextIter *start, GtkTextIter *cursor);
 #endif
