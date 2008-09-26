@@ -317,6 +317,52 @@ static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,
 	}
 	return FALSE;
 }
+
+static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
+	Tfoundstack *fstack;
+	GSequenceIter *siter;
+	gint line;
+	line = gtk_text_iter_get_line(iter);
+	fstack = get_stackcache_at_position(btv, iter, &siter); /* returns the fstack PRIOR to iter, or the fstack excactly at iter */
+	if (fstack && fstack->line < line) {
+		fstack = get_stackcache_next(btv, &siter); /* should be the first fstack AFTER iter */
+	}
+	if (fstack) { 
+		DBG_FOLD("we have a fstack with line %d\n",fstack->line);
+	}
+}
+
+static gboolean bftextview2_mouse_lcb(GtkWidget * widget, GdkEvent * event, gpointer user_data) {
+	BluefishTextView *btv=user_data;
+	GdkWindow *win = gtk_text_view_get_window(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_LEFT);
+
+	if (win != event->button.window)
+		return FALSE;
+
+	if (event->button.button == 1) {
+		gint x, y;
+		GtkTextIter it;
+		if (event->button.x >= 25) { /* get the offset that equals the folding area */
+			gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, 0,
+												  event->button.y, &x, &y);
+			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &it, y, &x);
+			DBG_FOLD("fold/unfold at offset %d (line %d)\n",gtk_text_iter_get_offset(&it),gtk_text_iter_get_line(&it));
+			bftextview2_toggle_fold(btv, &it);
+			/*block_mark = bftv_get_first_block_at_line(BF_TEXTVIEW(widget), &it, TRUE);
+			if (block_mark)
+				bftv_fold(BF_TEXTVIEW(widget), block_mark, TRUE);*/
+			return TRUE;
+		}
+	}/* else if (event->button.button == 3) {
+		if (event->button.x >= pt_blocks) {
+			gtk_menu_popup(GTK_MENU(BF_TEXTVIEW(widget)->fold_menu), NULL, NULL, NULL, NULL, 1,
+						   gtk_get_current_event_time());
+			return TRUE;
+		}
+	}*/
+	return FALSE;
+}
+
 /* *************************************************************** */
 /* widget stuff below */
 /* *************************************************************** */
@@ -382,17 +428,17 @@ GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(textview), buffer);
 
-	g_signal_connect_after(G_OBJECT(buffer), "insert-text", G_CALLBACK(bftextview2_insert_text_lcb),
-						   textview);
-	g_signal_connect_after(G_OBJECT(buffer), "mark-set", G_CALLBACK(bftextview2_mark_set_lcb),
-						   textview);
-	g_signal_connect(G_OBJECT(textview), "expose-event", G_CALLBACK(bftextview2_expose_event_lcb),
-					 textview);
-	g_signal_connect(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_lcb),
-					 textview);
-	g_signal_connect_after(G_OBJECT(buffer), "delete-range",
-						   G_CALLBACK(bftextview2_delete_range_after_lcb), textview);
-	g_signal_connect(G_OBJECT(textview), "key-press-event", G_CALLBACK(bftextview2_key_press_lcb),
-					 textview);
+	g_signal_connect_after(G_OBJECT(buffer), "insert-text", G_CALLBACK(bftextview2_insert_text_lcb),textview);
+	g_signal_connect_after(G_OBJECT(buffer), "mark-set", G_CALLBACK(bftextview2_mark_set_lcb),textview);
+	g_signal_connect(G_OBJECT(textview), "expose-event", G_CALLBACK(bftextview2_expose_event_lcb),textview);
+	g_signal_connect(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_lcb),textview);
+	g_signal_connect_after(G_OBJECT(buffer), "delete-range",G_CALLBACK(bftextview2_delete_range_after_lcb), textview);
+	g_signal_connect(G_OBJECT(textview), "key-press-event", G_CALLBACK(bftextview2_key_press_lcb),textview);
+	g_signal_connect(G_OBJECT(textview), "button-press-event", G_CALLBACK(bftextview2_mouse_lcb), textview);
+	gtk_text_buffer_create_tag(buffer,"_folded_","editable",FALSE, "invisible", TRUE, NULL);
+	gtk_text_buffer_create_tag(buffer,"_foldheader_","editable",FALSE, "background", "#99FF99", NULL);
+	
+	
+	
 	return GTK_WIDGET(textview);
 }
