@@ -107,10 +107,10 @@ typedef struct {
 	GtkTextTag *selftag; /* the tag used to highlight this pattern */
 	GtkTextTag *blocktag; /* if this pattern ends a context or a block, we can highlight 
 	the region within the start and end pattern with this tag */
-	gboolean starts_block; /* wheter or not this pattern may start a block */
-	gboolean ends_block; /* wheter or not this pattern may end a block */
 	guint16 blockstartpattern; /* the number of the pattern that may start this block */
 	guint16 nextcontext; /* 0, or if this pattern starts a new context the number of the contect */
+	guint8 starts_block; /* wether or not this pattern may start a block */
+	guint8 ends_block; /* wether or not this pattern may end a block */
 	/*gboolean may_fold;  not yet used */
 	/*gboolean highlight_other_end; not yet used */
 } Tpattern;
@@ -139,7 +139,8 @@ typedef struct {
 	GtkTextMark *end2;
 	guint16 patternum;
 	guint16 refcount; /* free on 0 */
-	gboolean folded;
+	guint8 folded;
+	guint8 foldable; /* perhaps on a single line ? */
 } Tfoundblock; /* once a start-of-block is found start1 and end1 are set 
 						and the Tfoundblock is added to the GtkTextMark's as "block"
 						and the Tfoundblock is added to the current blockstack.

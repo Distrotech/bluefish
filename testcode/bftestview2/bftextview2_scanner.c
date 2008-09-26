@@ -208,16 +208,19 @@ static Tfoundblock *found_end_of_block(BluefishTextView * bt2,GtkTextBuffer *buf
 		}
 	} while (fblock && fblock->patternum != pat->blockstartpattern);
 	if (fblock) {
+		GtkTextIter iter;
 		DBG_MSG("found the matching start of the block\n");
 		fblock->start2 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
 		fblock->end2 = gtk_text_buffer_create_mark(buffer,NULL,&match.end,TRUE);
 		g_object_set_data(G_OBJECT(fblock->start2), "block", fblock);
 		g_object_set_data(G_OBJECT(fblock->end2), "block", fblock);
+		gtk_text_buffer_get_iter_at_mark(buffer,&iter,fblock->end1);
 		if (pat->blocktag) {
-			GtkTextIter iter;
 			DBG_MSG("apply blocktag\n");
-			gtk_text_buffer_get_iter_at_mark(buffer,&iter,fblock->end1);
 			gtk_text_buffer_apply_tag(buffer,pat->blocktag, &iter, &match.start);
+		}
+		if (gtk_text_iter_get_line(&iter) > (gtk_text_iter_get_line(&match.start)+1)) {
+			fblock->foldable = TRUE;
 		}
 		return fblock;
 	} else {
