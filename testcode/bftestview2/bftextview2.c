@@ -155,6 +155,35 @@ static void print_fstack(Tfoundstack * fstack)
 	DBG_MARGIN("\n");
 }
 
+static void paint_margin_expand(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
+	gtk_paint_box(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv),
+				  GTK_SHADOW_OUT, NULL, GTK_WIDGET(btv), NULL, 21, w + (height / 2 - 4), 9, 9);
+	gtk_paint_hline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
+					GTK_WIDGET(btv), NULL, 23, 28, w + (height / 2));
+	gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
+					GTK_WIDGET(btv), NULL, w + (height / 2) + 4, w + height, 25);
+}
+static void paint_margin_collapse(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
+	gtk_paint_box(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv),
+				  GTK_SHADOW_OUT, NULL, GTK_WIDGET(btv), NULL, 21, w + (height / 2 - 4), 9, 9);
+	gtk_paint_hline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
+					GTK_WIDGET(btv), NULL, 23, 28, w + (height / 2));
+	gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
+					GTK_WIDGET(btv), NULL, w + (height / 2) -2, w + (height / 2) +2, 25);
+	gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
+					GTK_WIDGET(btv), NULL, w + (height / 2) + 4, w + height, 25);
+}
+static void paint_margin_blockend(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
+	gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
+					GTK_WIDGET(btv), NULL, w, w + (height / 2), 25);
+	gtk_paint_hline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
+					GTK_WIDGET(btv), NULL, 25, 29, w + (height / 2));
+}
+static void paint_margin_line(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
+	gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
+					GTK_WIDGET(btv), NULL, w, w + height, 25);
+}
+
 static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible)
 {
 	Tfoundstack *fstack = NULL;
@@ -193,7 +222,6 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 	DBG_MARGIN("first fstack ");
 	print_fstack(fstack);
 
-
 	it = *startvisible;
 	panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "x");
 	for (i = gtk_text_iter_get_line(startvisible); i <= gtk_text_iter_get_line(endvisible); i++) {
@@ -216,31 +244,16 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 		if (fstack && fstack->line == i) {	/* the Tfoundstack is on this line, expand or collapse ? */
 			gint tmp = g_queue_get_length(fstack->blockstack);
 			if (tmp > num_blocks) {
-				DBG_MARGIN
-					("fstack num_blocks=%d, old num_blocks=%d, expander (box from x 21, y %d) on line %d (for the user line %d)\n",
-					 tmp, num_blocks, w + (height / 2 - 4), i, i + 1);
-				gtk_paint_box(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv),
-							  GTK_SHADOW_OUT, NULL, GTK_WIDGET(btv), NULL, 21, w + (height / 2 - 4), 9, 9);
-				gtk_paint_hline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
-								GTK_WIDGET(btv), NULL, 23, 28, w + (height / 2));
-				gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
-								GTK_WIDGET(btv), NULL, w + (height / 2) + 4, w + height, 25);
-
-				/*gtk_paint_box(GTK_WIDGET(btv)->style,event->window,GTK_WIDGET_STATE(btv),GTK_SHADOW_NONE,
-				   NULL,btv,"bg",20,w,8,8); */
+				DBG_MARGIN("fstack num_blocks=%d, old num_blocks=%d, expander (box from x 21, y %d) on line %d (for the user line %d)\n",tmp, num_blocks, w + (height / 2 - 4), i, i + 1);
+				paint_margin_expand(btv,event,w,height);
 				num_blocks = g_queue_get_length(fstack->blockstack);
 			} else if (tmp < num_blocks) {
 				DBG_MARGIN("end of block\n");
-				gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
-								GTK_WIDGET(btv), NULL, w, w + (height / 2), 25);
-				gtk_paint_hline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
-								GTK_WIDGET(btv), NULL, 25, 29, w + (height / 2));
+				paint_margin_blockend(btv,event,w,height);
 				num_blocks = g_queue_get_length(fstack->blockstack);
 			} else {
-				DBG_MARGIN("no blockstack change, fstack has %d, num_blocks=%d, draw line\n", tmp,
-						num_blocks);
-				gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
-								GTK_WIDGET(btv), NULL, w, w + height, 25);
+				DBG_MARGIN("no blockstack change, fstack has %d, num_blocks=%d, draw line\n", tmp,num_blocks);
+				paint_margin_line(btv,event,w,height);
 			}
 			do {
 				fstack = get_stackcache_next(btv, &siter);
