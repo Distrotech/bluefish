@@ -219,7 +219,7 @@ static Tfoundblock *found_end_of_block(BluefishTextView * bt2,GtkTextBuffer *buf
 			DBG_MSG("apply blocktag\n");
 			gtk_text_buffer_apply_tag(buffer,pat->blocktag, &iter, &match.start);
 		}
-		if (gtk_text_iter_get_line(&iter) > (gtk_text_iter_get_line(&match.start)+1)) {
+		if ((gtk_text_iter_get_line(&iter)+1) < gtk_text_iter_get_line(&match.start)) {
 			fblock->foldable = TRUE;
 		}
 		return fblock;

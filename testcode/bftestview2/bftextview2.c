@@ -326,10 +326,10 @@ static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 	fstack = get_stackcache_at_position(btv, iter, &siter); /* returns the fstack PRIOR to iter, or the fstack excactly at iter */
 	while (fstack && fstack->line <= line) {
 		fstack = get_stackcache_next(btv, &siter); /* should be the first fstack AFTER iter */
-		if (fstack && fstack->pushedblock)
+		if (fstack && fstack->pushedblock && fstack->pushedblock->foldable)
 			break;
 	}
-	if (fstack && fstack->pushedblock) {
+	if (fstack && fstack->line == line && fstack->pushedblock && fstack->pushedblock->foldable) {
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer(btv);
 		GtkTextIter it1,it2,it3,it4;
 		DBG_FOLD("we have a fstack with line %d\n",fstack->line);
