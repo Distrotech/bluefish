@@ -122,13 +122,13 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 		GtkTextIter it1, it2;
 		Tfoundblock *fblock = bftextview2_get_block_at_iter(location);
 		gtk_text_buffer_get_bounds(buffer, &it1, &it2);
-		DBG_SIGNALS("bftextview2_mark_set_lcb, 'insert' set\n");
+		DBG_SIGNALS("bftextview2_mark_set_lcb, 'insert' set at %d\n",gtk_text_iter_get_offset(location));
 		gtk_text_buffer_remove_tag_by_name(buffer, "blockmatch", &it1, &it2);
 		if (fblock) {
 			GtkTextIter it3, it4;
 			if (fblock->start2) {
-				DBG_MSG("found a block to highlight the start and end\n");
 				bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
+				DBG_MSG("found a block to highlight the start (%d:%d) and end (%d:%d)\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_offset(&it3),gtk_text_iter_get_offset(&it4));
 				gtk_text_buffer_apply_tag_by_name(buffer, "blockmatch", &it1, &it2);
 				gtk_text_buffer_apply_tag_by_name(buffer, "blockmatch", &it3, &it4);
 			} else {
@@ -148,11 +148,11 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 
 static void print_fstack(Tfoundstack * fstack)
 {
-	DBG_MSG("got fstack %p for next position", fstack);
+	DBG_MARGIN("got fstack %p for next position", fstack);
 	if (fstack)
-		DBG_MSG(" with line %d and charoffset %d and %d blocks", fstack->line, fstack->charoffset,
+		DBG_MARGIN(" with line %d and charoffset %d and %d blocks", fstack->line, fstack->charoffset,
 				g_queue_get_length(fstack->blockstack));
-	DBG_MSG("\n");
+	DBG_MARGIN("\n");
 }
 
 static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible)
@@ -171,12 +171,12 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 			fstack = g_sequence_get(siter);
 		}
 		num_blocks = 0;
-		DBG_MSG("EXPOSE: start at begin, set num_blocks %d, fstack=%p\n", num_blocks, fstack);
+		DBG_MARGIN("EXPOSE: start at begin, set num_blocks %d, fstack=%p\n", num_blocks, fstack);
 	} else {
 		fstack = get_stackcache_at_position(btv, startvisible, &siter);
 		if (fstack) {
 			num_blocks = g_queue_get_length(fstack->blockstack);
-			DBG_MSG
+			DBG_MARGIN
 				("EXPOSE: got fstack %p with line %d and charoffset %d and num_blocks %d for start position %d\n",
 				 fstack, fstack->line, fstack->charoffset, num_blocks,
 				 gtk_text_iter_get_offset(startvisible));
@@ -187,10 +187,10 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 	/* in the case that the *first* fstack is relevant, we don't need 
 	   the 'next' fstack */
 	if (!fstack || fstack->charoffset < gtk_text_iter_get_offset(startvisible)) {
-		DBG_MSG("get next fstack..\n");
+		DBG_MARGIN("get next fstack..\n");
 		fstack = get_stackcache_next(btv, &siter);
 	}
-	DBG_MSG("first fstack ");
+	DBG_MARGIN("first fstack ");
 	print_fstack(fstack);
 
 
@@ -216,7 +216,7 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 		if (fstack && fstack->line == i) {	/* the Tfoundstack is on this line, expand or collapse ? */
 			gint tmp = g_queue_get_length(fstack->blockstack);
 			if (tmp > num_blocks) {
-				DBG_MSG
+				DBG_MARGIN
 					("fstack num_blocks=%d, old num_blocks=%d, expander (box from x 21, y %d) on line %d (for the user line %d)\n",
 					 tmp, num_blocks, w + (height / 2 - 4), i, i + 1);
 				gtk_paint_box(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv),
@@ -230,14 +230,14 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 				   NULL,btv,"bg",20,w,8,8); */
 				num_blocks = g_queue_get_length(fstack->blockstack);
 			} else if (tmp < num_blocks) {
-				DBG_MSG("end of block\n");
+				DBG_MARGIN("end of block\n");
 				gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 								GTK_WIDGET(btv), NULL, w, w + (height / 2), 25);
 				gtk_paint_hline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 								GTK_WIDGET(btv), NULL, 25, 29, w + (height / 2));
 				num_blocks = g_queue_get_length(fstack->blockstack);
 			} else {
-				DBG_MSG("no blockstack change, fstack has %d, num_blocks=%d, draw line\n", tmp,
+				DBG_MARGIN("no blockstack change, fstack has %d, num_blocks=%d, draw line\n", tmp,
 						num_blocks);
 				gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 								GTK_WIDGET(btv), NULL, w, w + height, 25);
@@ -248,7 +248,7 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 			} while (fstack && fstack->line == i);
 		} else {				/* not on this line, draw line  or nothing ? */
 			if (num_blocks > 0) {
-				DBG_MSG("draw line (line from x 25 y %d to %d) on line %d (for the user line %d)\n",
+				DBG_MARGIN("draw line (line from x 25 y %d to %d) on line %d (for the user line %d)\n",
 						w, w + height, i, i + 1);
 				/* draw line */
 				gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
@@ -324,11 +324,19 @@ static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 	gint line;
 	line = gtk_text_iter_get_line(iter);
 	fstack = get_stackcache_at_position(btv, iter, &siter); /* returns the fstack PRIOR to iter, or the fstack excactly at iter */
-	if (fstack && fstack->line < line) {
+	while (fstack && fstack->line <= line) {
 		fstack = get_stackcache_next(btv, &siter); /* should be the first fstack AFTER iter */
+		if (fstack && fstack->pushedblock)
+			break;
 	}
-	if (fstack) { 
+	if (fstack && fstack->pushedblock) {
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer(btv);
+		GtkTextIter it1,it2,it3,it4;
 		DBG_FOLD("we have a fstack with line %d\n",fstack->line);
+		bftextview2_get_iters_at_foundblock(buffer, fstack->pushedblock, &it1, &it2, &it3, &it4);
+		gtk_text_buffer_apply_tag_by_name(buffer, "_fold_header_", &it1, &it2);
+		gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it3);
+		gtk_text_buffer_apply_tag_by_name(buffer, "_fold_header_", &it3, &it4);
 	}
 }
 
@@ -338,7 +346,7 @@ static gboolean bftextview2_mouse_lcb(GtkWidget * widget, GdkEvent * event, gpoi
 
 	if (win != event->button.window)
 		return FALSE;
-
+	DBG_SIGNALS("bftextview2_mouse_lcb\n");
 	if (event->button.button == 1) {
 		gint x, y;
 		GtkTextIter it;
@@ -435,10 +443,6 @@ GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 	g_signal_connect_after(G_OBJECT(buffer), "delete-range",G_CALLBACK(bftextview2_delete_range_after_lcb), textview);
 	g_signal_connect(G_OBJECT(textview), "key-press-event", G_CALLBACK(bftextview2_key_press_lcb),textview);
 	g_signal_connect(G_OBJECT(textview), "button-press-event", G_CALLBACK(bftextview2_mouse_lcb), textview);
-	gtk_text_buffer_create_tag(buffer,"_folded_","editable",FALSE, "invisible", TRUE, NULL);
-	gtk_text_buffer_create_tag(buffer,"_foldheader_","editable",FALSE, "background", "#99FF99", NULL);
-	
-	
 	
 	return GTK_WIDGET(textview);
 }

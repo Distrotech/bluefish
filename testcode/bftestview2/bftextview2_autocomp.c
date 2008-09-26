@@ -208,13 +208,13 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 }
 
 static void print_ac_items(GCompletion *gc) {
-	g_print("autocompletion has %d items:",g_list_length(g_list_first(gc->items)));
+	DBG_AUTOCOMP("autocompletion has %d items:",g_list_length(g_list_first(gc->items)));
 	GList *tmplist = g_list_first(gc->items);
 	while (tmplist) {
-		g_print(" %s",(char *)tmplist->data);
+		DBG_AUTOCOMP(" %s",(char *)tmplist->data);
 		tmplist = g_list_next(tmplist);
 	}
-	g_print("\n");
+	DBG_AUTOCOMP("\n");
 }
 
 /*static gboolean character_is_symbol(BluefishTextView *btv,Tcontext *context, gint c) {
