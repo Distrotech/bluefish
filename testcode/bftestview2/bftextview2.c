@@ -334,9 +334,9 @@ static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 		GtkTextIter it1,it2,it3,it4;
 		DBG_FOLD("we have a fstack with line %d\n",fstack->line);
 		bftextview2_get_iters_at_foundblock(buffer, fstack->pushedblock, &it1, &it2, &it3, &it4);
-		gtk_text_buffer_apply_tag_by_name(buffer, "_fold_header_", &it1, &it2);
+		gtk_text_buffer_apply_tag_by_name(buffer, "_foldheader_", &it1, &it2);
 		gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it3);
-		gtk_text_buffer_apply_tag_by_name(buffer, "_fold_header_", &it3, &it4);
+		gtk_text_buffer_apply_tag_by_name(buffer, "_foldheader_", &it3, &it4);
 	}
 }
 
