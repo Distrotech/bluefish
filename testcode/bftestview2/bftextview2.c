@@ -156,7 +156,7 @@ static void print_fstack(Tfoundstack * fstack)
 }
 
 static void paint_margin_expand(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
-	gtk_paint_box(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv),
+	gtk_paint_box(GTK_WIDGET(btv)->style, event->window, GTK_STATE_ACTIVE,
 				  GTK_SHADOW_OUT, NULL, GTK_WIDGET(btv), NULL, 21, w + (height / 2 - 4), 9, 9);
 	gtk_paint_hline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, 23, 28, w + (height / 2));
@@ -184,6 +184,38 @@ static void paint_margin_line(BluefishTextView *btv,GdkEventExpose * event,gint 
 					GTK_WIDGET(btv), NULL, w, w + height, 25);
 }
 
+enum {
+	MARGIN_EXPANDER,
+	MARGIN_COLLAPSE,
+	MARGIN_LINE_END,
+	MARGIN_LINE,
+	MARGIN_NOTHING
+};
+
+static gint get_num_foldable_blocks(Tfoundstack *fstack) {
+	guint count=0;
+	GList *tmplist = fstack->blockstack->head;
+	while (tmplist) {
+		if ( ((Tfoundblock *)(tmplist->data))->foldable)
+			count++;
+		tmplist = g_list_next(tmplist);
+	}
+	return count;
+}
+
+/*
+static Tfoundstack *get_next_foldable_block(BluefishTextView *btv,GSequenceIter *siter, guint line) {
+	Tfoundstack *fstack = g_sequence_get(siter);
+	while (fstack) {
+		if (fstack->line > line)
+			return NULL;
+		if (fstack->line == line && fstack->pushedblock && fstack->pushedblock->foldable)
+			return fstack;
+		fstack = get_stackcache_next(btv, &siter);
+	}
+	return NULL;
+}*/
+
 static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible)
 {
 	Tfoundstack *fstack = NULL;
@@ -204,7 +236,7 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 	} else {
 		fstack = get_stackcache_at_position(btv, startvisible, &siter);
 		if (fstack) {
-			num_blocks = g_queue_get_length(fstack->blockstack);
+			num_blocks = get_num_foldable_blocks(fstack);
 			DBG_MARGIN
 				("EXPOSE: got fstack %p with line %d and charoffset %d and num_blocks %d for start position %d\n",
 				 fstack, fstack->line, fstack->charoffset, num_blocks,
@@ -240,17 +272,46 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 						 GTK_WIDGET(btv), NULL, 2, w, panlay);
 		g_free(string);
 
-		/* block folding */
-		if (fstack && fstack->line == i) {	/* the Tfoundstack is on this line, expand or collapse ? */
+		/* block folding.
+		- to find out if we need an expander/collapse, we need to see if there is a pushedblock on the 
+		blockstack which has 'foldable' for any stackcache that is on this line.
+		- to find if we need an end-of-block we need to see if there is a poppedblock on this line
+		which has 'foldable'
+		- to find out if we need a line or nothing we need to know the number of expanded blocks on the stack 
+		 */
+		while (fstack) {
+			if (fstack->line > i) {
+				DBG_FOLD("found fstack for line %d, num_blocks=%d..\n",fstack->line,num_blocks);
+				if (num_blocks > 0) {
+					paint_margin_line(btv,event,w,height);
+				}
+				break;
+			}
+			if (fstack->line == i) {
+				DBG_FOLD("found fstack %p (charoffset %d) for current line %d, pushedblock=%p,poppedblock=%p\n",fstack, fstack->charoffset, fstack->line,fstack->pushedblock,fstack->poppedblock);
+				if (fstack->pushedblock && fstack->pushedblock->foldable) {
+					paint_margin_expand(btv,event,w,height);
+					num_blocks = get_num_foldable_blocks(fstack);
+					break;
+				} else if (fstack->poppedblock && fstack->poppedblock->foldable) {
+					paint_margin_blockend(btv,event,w,height);
+					num_blocks = get_num_foldable_blocks(fstack);
+					break;
+				}
+			}
+			fstack = get_stackcache_next(btv, &siter);
+		}
+/*
+		if (fstack) {
 			gint tmp = g_queue_get_length(fstack->blockstack);
 			if (tmp > num_blocks) {
 				DBG_MARGIN("fstack num_blocks=%d, old num_blocks=%d, expander (box from x 21, y %d) on line %d (for the user line %d)\n",tmp, num_blocks, w + (height / 2 - 4), i, i + 1);
 				paint_margin_expand(btv,event,w,height);
-				num_blocks = g_queue_get_length(fstack->blockstack);
+				num_blocks = tmp;
 			} else if (tmp < num_blocks) {
 				DBG_MARGIN("end of block\n");
 				paint_margin_blockend(btv,event,w,height);
-				num_blocks = g_queue_get_length(fstack->blockstack);
+				num_blocks = tmp;
 			} else {
 				DBG_MARGIN("no blockstack change, fstack has %d, num_blocks=%d, draw line\n", tmp,num_blocks);
 				paint_margin_line(btv,event,w,height);
@@ -259,15 +320,13 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 				fstack = get_stackcache_next(btv, &siter);
 				print_fstack(fstack);
 			} while (fstack && fstack->line == i);
-		} else {				/* not on this line, draw line  or nothing ? */
+		} else {				/* not on this line, draw line  or nothing ? * /
 			if (num_blocks > 0) {
 				DBG_MARGIN("draw line (line from x 25 y %d to %d) on line %d (for the user line %d)\n",
 						w, w + height, i, i + 1);
-				/* draw line */
-				gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
-								GTK_WIDGET(btv), NULL, w, w + height, 25);
+				paint_margin_line(btv,event,w,height);
 			}
-		}
+		}*/
 	}
 	g_object_unref(G_OBJECT(panlay));
 }

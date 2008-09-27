@@ -57,8 +57,8 @@ static void foundstack_update_positions(GtkTextBuffer *buffer, Tfoundstack *fsta
 	GtkTextMark *mark=NULL;
 	if (fstack->pushedblock)
 		mark = fstack->pushedblock->end1;
-	else if (fstack->pushedblock)
-		mark = fstack->pushedblock->start2;
+	else if (fstack->poppedblock)
+		mark = fstack->poppedblock->start2;
 	else if (fstack->pushedcontext)
 		mark = fstack->pushedcontext->start;
 	else if (fstack->poppedcontext)
@@ -176,7 +176,7 @@ static void add_to_scancache(BluefishTextView * bt2,GtkTextBuffer *buffer,Tscann
 			fstack->poppedcontext = fcontext;
 	}
 	foundstack_update_positions(buffer, fstack);
-	DBG_SCANCACHE("add_to_scancache, put the stacks in the cache at charoffset %d / line %d\n",fstack->charoffset,fstack->line);
+	DBG_SCANCACHE("add_to_scancache, put fstack %p in the cache at charoffset %d / line %d\n",fstack,fstack->charoffset,fstack->line);
 	g_sequence_insert_sorted(bt2->scancache.stackcaches,fstack,stackcache_compare_charoffset,NULL);
 }
 
@@ -263,13 +263,13 @@ static int found_match(BluefishTextView * bt2, Tmatch match, Tscanning *scanning
 	Tfoundcontext *fcontext=NULL;
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(bt2));
 	Tpattern pat = g_array_index(bt2->scantable->matches,Tpattern, match.patternum);
-	DBG_SCANNING("found_match for pattern %d %s at charoffset %d\n",match.patternum,pat.message, gtk_text_iter_get_offset(&match.start));
+	DBG_MSG("found_match for pattern %d %s at charoffset %d\n",match.patternum,pat.message, gtk_text_iter_get_offset(&match.start));
 /*	DBG_MSG("pattern no. %d (%s) matches (%d:%d) --> nextcontext=%d\n", match.patternum, scantable.matches[match.patternum].message,
 			gtk_text_iter_get_offset(&match.start), gtk_text_iter_get_offset(&match.end), scantable.matches[match.patternum].nextcontext);*/
 
 	if (pat.selftag)
 		gtk_text_buffer_apply_tag(buffer,pat.selftag, &match.start, &match.end);
-	DBG_MSG("found_match for pattern %d\n",match.patternum);
+
 	if (pat.starts_block) {
 		fblock = found_start_of_block(bt2, buffer, match, scanning);
 	}
