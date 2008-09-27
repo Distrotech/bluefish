@@ -35,11 +35,15 @@ DESIGN:
  - to know which patterns to use we have to know in which context we are. we therefore keep 
    a cache of the (context)stack. on each position where to contextstack changes, we make a copy 
    of the current stack that we keep in a sorted balanced tree (a GSequence), sorted by the 
-   position in the text.
+   character offset in the text.
    - the positions change when text is inserted or deleted, but never their order. a GSequence 
      allows us to update the offsets for the stacks without re-sorting the entire tree
  - same holds for the blocks. we keep a blockstack, and we keep a cache of the blockstack in the 
    same stackcache as where we keep the contextstack.
+
+- to paint the margin and detect if we can expand/collapse blocks, we can use this same 
+  scancache. Along with walking the lines we walk the GSequence and see if there are new 
+  blocks that can be folded. 
 
 - the current scanning is based on Deterministic Finite Automata (DFA) just like the current 
 unstable engine (see wikipedia for more info). The unstable engine alloc's each state in a 
