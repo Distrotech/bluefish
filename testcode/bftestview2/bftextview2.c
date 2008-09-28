@@ -2,6 +2,7 @@
 
 #include <gtk-2.0/gdk/gdkevents.h>
 #include <gtk-2.0/gtk/gtkwidget.h>
+#include <math.h> /* log10() */
 
 #include "bftextview2.h"
 #include "bftextview2_scanner.h"
@@ -56,33 +57,6 @@ static void bftextview2_schedule_scanning(BluefishTextView * btv) {
 	if (btv->scanner_idle == 0) {
 		DBG_SIGNALS("bftextview2_schedule_scanning, scheduling scanning function\n");
 		btv->scanner_idle = g_idle_add(bftextview2_scanner_idle, btv);
-	}
-}
-
-static void bftextview2_insert_text_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
-										gint stringlen, BluefishTextView * btv)
-{
-	GtkTextIter start;
-	gint start_offset;
-	DBG_SIGNALS("bftextview2_insert_text_lcb, stringlen=%d\n", stringlen);
-	
-	bftextview2_schedule_scanning(btv);
-	/* mark the text that is changed */
-	start = *iter;
-	gtk_text_iter_backward_chars(&start, stringlen);
-
-	gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &start, iter);
-	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&start),
-			gtk_text_iter_get_offset(iter));
-	start_offset = gtk_text_iter_get_offset(&start);
-	if (btv->scancache.stackcache_need_update_charoffset == -1
-		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
-		btv->scancache.stackcache_need_update_charoffset = start_offset;
-	}
-	if (btv->autocomp) {
-		autocomp_run(btv,FALSE);
-	} else {
-		bftextview2_reset_user_idle_timer(btv);
 	}
 }
 
@@ -143,8 +117,53 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 {
 	/* TODO: this should be calculated based on the number of lines in the text, 
 	   whether or not we have bookmarks, and whether or not we have block folding */
-	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, 35);
+	gint lines,count;
+	PangoLayout *panlay;
+	lines = gtk_text_buffer_get_line_count(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
+	if (btv->margin_pixels_per_char==0) {
+		panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "");
+		pango_layout_set_text(panlay, "W", -1);
+		pango_layout_get_pixel_size(panlay, &btv->margin_pixels_per_char, NULL);
+		g_object_unref(G_OBJECT(panlay));
+		btv->margin_pixels_block = 12;
+	}
+	if (lines >= 100)
+		count = 1+log10(lines);
+	else 
+		count=2;
+	btv->margin_pixels_chars = count * btv->margin_pixels_per_char;
+	g_print("lines=%d,count=%d,pixels_per_char=%d\n",lines,count,btv->margin_pixels_per_char);
+	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, btv->margin_pixels_chars+btv->margin_pixels_block);
 }
+
+static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
+										gint stringlen, BluefishTextView * btv)
+{
+	GtkTextIter start;
+	gint start_offset;
+	DBG_SIGNALS("bftextview2_insert_text_lcb, stringlen=%d\n", stringlen);
+	
+	bftextview2_schedule_scanning(btv);
+	/* mark the text that is changed */
+	start = *iter;
+	gtk_text_iter_backward_chars(&start, stringlen);
+
+	gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &start, iter);
+	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&start),
+			gtk_text_iter_get_offset(iter));
+	start_offset = gtk_text_iter_get_offset(&start);
+	if (btv->scancache.stackcache_need_update_charoffset == -1
+		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
+		btv->scancache.stackcache_need_update_charoffset = start_offset;
+	}
+	if (btv->autocomp) {
+		autocomp_run(btv,FALSE);
+	} else {
+		bftextview2_reset_user_idle_timer(btv);
+	}
+	bftextview2_set_margin_size(btv);
+}
+
 
 static void print_fstack(Tfoundstack * fstack)
 {
@@ -162,10 +181,10 @@ static void paint_margin_expand(BluefishTextView *btv,GdkEventExpose * event,gin
 					GTK_WIDGET(btv), NULL, 23, 28, w + (height / 2));
 	gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, w + (height / 2) + 4, w + height, 25);*/
-	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->base_gc[GTK_WIDGET_STATE(btv)], TRUE,21, w + (height / 2) - 4, 9,9);
-	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)], FALSE,21, w + (height / 2) - 4, 9,9);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],25,w + (height / 2) + 5,25, w + height);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],23,w + (height / 2), 28,w + (height / 2));
+	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->base_gc[GTK_WIDGET_STATE(btv)], TRUE,btv->margin_pixels_chars+1, w + (height / 2) - 4, 9,9);
+	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)], FALSE,btv->margin_pixels_chars+1, w + (height / 2) - 4, 9,9);
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5,w + (height / 2) + 5,btv->margin_pixels_chars+5, w + height);
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+3,w + (height / 2), btv->margin_pixels_chars+8,w + (height / 2));
 }
 static void paint_margin_collapse(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
 /*	gtk_paint_box(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv),
@@ -176,22 +195,22 @@ static void paint_margin_collapse(BluefishTextView *btv,GdkEventExpose * event,g
 					GTK_WIDGET(btv), NULL, w + (height / 2) -2, w + (height / 2) +2, 25);
 	gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, w + (height / 2) + 4, w + height, 25);*/
-	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->base_gc[GTK_WIDGET_STATE(btv)], TRUE,21, w + (height / 2) - 4, 9,9);
-	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)], FALSE,21, w + (height / 2) - 4, 9,9);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],25,w + (height / 2)-2,25, w + (height / 2)+2);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],25,w + (height / 2) + 5,25, w + height);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],23,w + (height / 2), 28,w + (height / 2));	
+	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->base_gc[GTK_WIDGET_STATE(btv)], TRUE,btv->margin_pixels_chars+1, w + (height / 2) - 4, 9,9);
+	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)], FALSE,btv->margin_pixels_chars+1, w + (height / 2) - 4, 9,9);
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5,w + (height / 2)-2,btv->margin_pixels_chars+5, w + (height / 2)+2);
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5,w + (height / 2) + 5,btv->margin_pixels_chars+5, w + height);
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+3,w + (height / 2), btv->margin_pixels_chars+8,w + (height / 2));	
 }
 static void paint_margin_blockend(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],25, w, 25, w + (height/2));
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],25, w+(height/2), 28, w + (height/2));
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5, w, btv->margin_pixels_chars+5, w + (height/2));
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5, w+(height/2), btv->margin_pixels_chars+8, w + (height/2));
 /*	gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, w, w + (height / 2), 25);
 	gtk_paint_hline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, 25, 29, w + (height / 2));*/
 }
 static void paint_margin_line(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],25, w, 25, w + height);
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5, w, btv->margin_pixels_chars+5, w + height);
 	/*gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, w, w + height, 25);*/
 }
@@ -523,7 +542,7 @@ GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 
 	gtk_text_view_set_buffer(GTK_TEXT_VIEW(textview), buffer);
 
-	g_signal_connect_after(G_OBJECT(buffer), "insert-text", G_CALLBACK(bftextview2_insert_text_lcb),textview);
+	g_signal_connect_after(G_OBJECT(buffer), "insert-text", G_CALLBACK(bftextview2_insert_text_after_lcb),textview);
 	g_signal_connect_after(G_OBJECT(buffer), "mark-set", G_CALLBACK(bftextview2_mark_set_lcb),textview);
 	g_signal_connect(G_OBJECT(textview), "expose-event", G_CALLBACK(bftextview2_expose_event_lcb),textview);
 	g_signal_connect(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_lcb),textview);
