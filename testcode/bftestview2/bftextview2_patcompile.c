@@ -640,6 +640,8 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		add_keyword_to_scanning_table(st, "$[a-z0-9_]+", TRUE, TRUE, variable, contextphp, contextphp, FALSE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "(//|#)[^\n\t]+", TRUE, TRUE, comment, contextphp, contextphp, FALSE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "[0-9.]+", TRUE, TRUE, value, contextphp, contextphp, FALSE, FALSE, 0, NULL,FALSE,NULL);
+		
+		add_keyword_to_scanning_table(st, "&[a-z0-9#]+;", TRUE, TRUE, value, context0, context0, FALSE, FALSE, 0, NULL,FALSE,NULL);
 	}
 #endif
 	/* we don't build a automata from regex patterns right now, because I'm not

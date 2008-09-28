@@ -122,7 +122,7 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 	lines = gtk_text_buffer_get_line_count(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
 	if (btv->margin_pixels_per_char==0) {
 		panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "");
-		pango_layout_set_text(panlay, "W", -1);
+		pango_layout_set_text(panlay, "4", -1);
 		pango_layout_get_pixel_size(panlay, &btv->margin_pixels_per_char, NULL);
 		g_object_unref(G_OBJECT(panlay));
 		btv->margin_pixels_block = 12;
@@ -131,7 +131,7 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 		count = 1+log10(lines);
 	else 
 		count=2;
-	btv->margin_pixels_chars = count * btv->margin_pixels_per_char;
+	btv->margin_pixels_chars = 4 + count * btv->margin_pixels_per_char;
 	g_print("lines=%d,count=%d,pixels_per_char=%d\n",lines,count,btv->margin_pixels_per_char);
 	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, btv->margin_pixels_chars+btv->margin_pixels_block);
 }
