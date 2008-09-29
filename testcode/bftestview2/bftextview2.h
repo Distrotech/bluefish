@@ -71,14 +71,14 @@ to different results (different color, different context).
 #define DBG_NONE(args...)
  /**/
 
-#define DBG_MSG g_print
+#define DBG_MSG DBG_NONE
 #define DBG_SCANCACHE DBG_NONE
 #define DBG_REFCOUNT DBG_NONE
 #define DBG_PATCOMPILE DBG_NONE
 #define DBG_SIGNALS DBG_NONE
 #define DBG_AUTOCOMP DBG_NONE
 #define DBG_SCANNING DBG_NONE
-#define DBG_FOLD g_print
+#define DBG_FOLD DBG_NONE
 #define DBG_MARGIN DBG_NONE
 
 #define NUMSCANCHARS 127 /* 128 is ascii, but the last character is never scanned (DEL)

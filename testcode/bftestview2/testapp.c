@@ -25,8 +25,10 @@ int main(int argc, char *argv[])
 	gsize datalen;
 	GFile *uri;
 
+	g_thread_init(NULL); /* we don't do gtk from other threads, only glib, so no gdk_thread_init() required */
 	gtk_init(&argc, &argv);
 
+	langmgr_init();
 	/* Create a Window. */
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW(window), "Highlight widget test");
