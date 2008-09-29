@@ -22,24 +22,31 @@ static gboolean build_lang_finished_lcb(gpointer data)
 		g_print("%s ",tmplist->data);
 		tmplist=g_list_next(tmplist);
 	}
+	g_print(", extensions= ");
+	tmplist=g_list_first(bflang->extensions);
+	while (tmplist) {
+		g_print("%s ",tmplist->data);
+		tmplist=g_list_next(tmplist);
+	}
 	g_print("\n");
 	return FALSE;
 }
 
 static void process_detection(xmlTextReaderPtr reader, Tbflang *bflang) {
-	xmlChar *name,value;
+	xmlChar *name=NULL,*value;
 	gint ret;
 	ret = xmlTextReaderRead(reader);
+	if (!ret)
+		return;
+	
 	name = xmlTextReaderName(reader);
+	
 	while (ret && name && !xmlStrEqual(name,"detection")) {
 		/*name = xmlTextReaderName(reader);*/
 		if (xmlStrEqual(name,"mime")) {
 			ret = xmlTextReaderRead(reader);
-			if (ret) {
-				name = xmlTextReaderName(reader);
-				g_print("name=%s\n",name);
+			if (ret && xmlTextReaderNodeType(reader)==XML_READER_TYPE_TEXT) {
 				value = xmlTextReaderValue(reader);
-				g_print("value=%s\n",value);
 				if (value) {
 					bflang->mimetypes = g_list_prepend(bflang->mimetypes, g_strdup(value));
 					xmlFree(value);
@@ -47,8 +54,13 @@ static void process_detection(xmlTextReaderPtr reader, Tbflang *bflang) {
 			}
 		} else if (xmlStrEqual(name,"extension")) {
 			ret = xmlTextReaderRead(reader);
-/*			if (value)
-				bflang->extensions = g_list_prepend(bflang->extensions, g_strdup(value));*/
+			if (ret && xmlTextReaderNodeType(reader)==XML_READER_TYPE_TEXT) {
+				value = xmlTextReaderValue(reader);
+				if (value) {
+					bflang->extensions = g_list_prepend(bflang->extensions, g_strdup(value));
+					xmlFree(value);
+				}
+			}
 		}
 		xmlFree(name);
 		name=NULL;
@@ -63,13 +75,12 @@ static void processNode(xmlTextReaderPtr reader, Tbflang *bflang)
 {
 	/* handling of a node in the tree */
 	xmlChar *name, *value;
-	gint ret;
 	name = xmlTextReaderName(reader);
 	if (name == NULL)
 		name = xmlStrdup(BAD_CAST "--");
 	
 	if (xmlStrEqual(name,"detection")) {
-		ret = xmlTextReaderRead(reader);
+		g_print("found detection, going into detection loop\n");
 		process_detection(reader,bflang);
 	} else {
 		value = xmlTextReaderValue(reader);
