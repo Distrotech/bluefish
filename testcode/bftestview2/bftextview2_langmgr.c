@@ -6,7 +6,6 @@
 typedef struct {
 	gchar *name;
 	GList *mimetypes;
-	GList *extensions;
 	gchar *filename;
 	Tscantable *scantable;
 } Tbflang;
@@ -19,17 +18,19 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	g_print("build_lang_finished_lcb, mimetypes= ");
 	tmplist=g_list_first(bflang->mimetypes);
 	while (tmplist) {
-		g_print("%s ",tmplist->data);
-		tmplist=g_list_next(tmplist);
-	}
-	g_print(", extensions= ");
-	tmplist=g_list_first(bflang->extensions);
-	while (tmplist) {
-		g_print("%s ",tmplist->data);
+		g_print("%s ",(gchar *)tmplist->data);
 		tmplist=g_list_next(tmplist);
 	}
 	g_print("\n");
 	return FALSE;
+}
+
+static gchar *get_atrribute_value_if_name(xmlTextReaderPtr reader, gchar *aname, gchar *searchname) {
+	xmlChar *avalue=NULL;
+	if (xmlStrEqual(aname,searchname)) {
+		avalue = xmlTextReaderValue(reader);
+	}
+	return avalue;
 }
 
 static void process_detection(xmlTextReaderPtr reader, Tbflang *bflang) {
@@ -44,23 +45,15 @@ static void process_detection(xmlTextReaderPtr reader, Tbflang *bflang) {
 	while (ret && name && !xmlStrEqual(name,"detection")) {
 		/*name = xmlTextReaderName(reader);*/
 		if (xmlStrEqual(name,"mime")) {
-			ret = xmlTextReaderRead(reader);
-			if (ret && xmlTextReaderNodeType(reader)==XML_READER_TYPE_TEXT) {
-				value = xmlTextReaderValue(reader);
-				if (value) {
-					bflang->mimetypes = g_list_prepend(bflang->mimetypes, g_strdup(value));
-					xmlFree(value);
-				}
+			while (xmlTextReaderMoveToNextAttribute(reader)) {
+				gchar mimetype;
+				xmlChar *aname = xmlTextReaderName(reader);
+				mimetype = get_atrribute_value_if_name(reader,aname,"type");
+				if (mimetype)
+					bflang->mimetypes = g_list_prepend(bflang->mimetypes, mimetype);
+				xmlFree(aname);
 			}
-		} else if (xmlStrEqual(name,"extension")) {
 			ret = xmlTextReaderRead(reader);
-			if (ret && xmlTextReaderNodeType(reader)==XML_READER_TYPE_TEXT) {
-				value = xmlTextReaderValue(reader);
-				if (value) {
-					bflang->extensions = g_list_prepend(bflang->extensions, g_strdup(value));
-					xmlFree(value);
-				}
-			}
 		}
 		xmlFree(name);
 		name=NULL;
@@ -68,34 +61,43 @@ static void process_detection(xmlTextReaderPtr reader, Tbflang *bflang) {
 		if (ret)
 			name = xmlTextReaderName(reader);
 	}
-	
 }
+static void process_scanning_regex(xmlTextReaderPtr reader, Tbflang *bflang, guint context) {
 
-static void processNode(xmlTextReaderPtr reader, Tbflang *bflang)
-{
-	/* handling of a node in the tree */
-	xmlChar *name, *value;
-	name = xmlTextReaderName(reader);
-	if (name == NULL)
-		name = xmlStrdup(BAD_CAST "--");
-	
-	if (xmlStrEqual(name,"detection")) {
-		g_print("found detection, going into detection loop\n");
-		process_detection(reader,bflang);
-	} else {
-		value = xmlTextReaderValue(reader);
-		g_print("%d %d %s %d", xmlTextReaderDepth(reader), xmlTextReaderNodeType(reader), name,
-			   xmlTextReaderIsEmptyElement(reader));
-	
-		if (value == NULL)
-			g_print("\n");
-		else {
-			g_print(" %s\n", value);
-			xmlFree(value);
-		}
+}
+static void process_scanning_pattern(xmlTextReaderPtr reader, Tbflang *bflang, guint context) {
+
+}
+static void process_scanning_keyword(xmlTextReaderPtr reader, Tbflang *bflang, guint context) {
+
+}
+static void process_scanning_context(xmlTextReaderPtr reader, Tbflang *bflang, guint prevcontext) {
+	gchar *symbols=NULL, *style=NULL;
+	guint context;
+	gint ret;
+	while (xmlTextReaderMoveToNextAttribute(reader)) {
+		xmlChar *aname = xmlTextReaderName(reader);
+		symbols = get_atrribute_value_if_name(reader,aname,"symbols");
+		style = get_atrribute_value_if_name(reader,aname,"style");
+		xmlFree(aname);
 	}
-	xmlFree(name);
-
+	/* create context */
+	/*context = new_context(symbols,style);*/
+	/* now get the children */
+	ret = xmlTextReaderRead(reader);
+	while (ret == 1) {
+		xmlChar *name;
+		name = xmlTextReaderName(reader);
+		if (xmlStrEqual(name,"regex")) {
+			process_scanning_regex(reader,bflang,context);
+		} else if (xmlStrEqual(name,"pattern")) {
+			process_scanning_pattern(reader,bflang,context);
+		} else if (xmlStrEqual(name,"keyword")) {
+			process_scanning_keyword(reader,bflang,context);
+		}
+		xmlFree(name);
+		ret = xmlTextReaderRead(reader);
+	}
 }
 
 static gpointer build_lang_thread(gpointer data)
@@ -113,7 +115,23 @@ static gpointer build_lang_thread(gpointer data)
 	if (reader != NULL) {
 		ret = xmlTextReaderRead(reader);
 		while (ret == 1) {
-			processNode(reader,bflang);
+			xmlChar *name;
+			name = xmlTextReaderName(reader);
+			if (xmlStrEqual(name,"detection")) {
+				process_detection(reader,bflang);
+			} else if (xmlStrEqual(name,"scanning")) {
+				/* next node should be main context */
+				ret = xmlTextReaderRead(reader);
+				if (ret) {
+					xmlChar *name2;
+					name2 = xmlTextReaderName(reader);
+					if (xmlStrEqual(name2,"context")) {
+						process_scanning_context(reader,bflang,0);
+					}
+					xmlFree(name2);
+				}
+			}
+			xmlFree(name);
 			ret = xmlTextReaderRead(reader);
 		}
 		xmlFreeTextReader(reader);
