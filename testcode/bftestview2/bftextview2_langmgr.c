@@ -150,6 +150,7 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 	gchar *name=NULL, *style=NULL, *reference=NULL;
 	gboolean autocomplete=FALSE, is_empty;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
+	g_print("processing keyword...\n");
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
 		set_string_if_attribute_name(reader,aname,"name",&name);
@@ -158,9 +159,19 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 		xmlFree(aname);
 	}
 	if (!is_empty) {
+		gint ret;
 		/* get reference data */
 		reference = xmlTextReaderReadInnerXml(reader);
+		ret = xmlTextReaderRead(reader);
+		while (ret) {
+			xmlChar *name = xmlTextReaderName(reader);
+			if (xmlStrEqual(name,"keyword")) { /* end of keyword */
+				break;
+			}
+			ret = xmlTextReaderRead(reader);
+		} 
 	} 
+	
 	if (name) {
 		guint16 matchnum;
 		GtkTextTag *stylet;
@@ -189,10 +200,14 @@ static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing 
 	while (ret == 1) {
 		xmlChar *name;
 		name = xmlTextReaderName(reader);
+		g_print("parsing context, found node name %s\n",name);
 		if (xmlStrEqual(name,"pattern")) {
 			process_scanning_pattern(reader,bfparser,context,prevcontext);
 		} else if (xmlStrEqual(name,"keyword")) {
 			process_scanning_keyword(reader,bfparser,context);
+		} else if (xmlStrEqual(name,"context")) {
+			xmlFree(name);
+			return context;
 		}
 		xmlFree(name);
 		ret = xmlTextReaderRead(reader);
