@@ -460,7 +460,7 @@ static gboolean bftextview2_mouse_lcb(GtkWidget * widget, GdkEvent * event, gpoi
 	if (event->button.button == 1) {
 		gint x, y;
 		GtkTextIter it;
-		if (event->button.x >= 25) { /* get the offset that equals the folding area */
+		if (event->button.x >= btv->margin_pixels_chars) { /* get the offset that equals the folding area */
 			gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, 0,
 												  event->button.y, &x, &y);
 			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &it, y, &x);
@@ -469,6 +469,17 @@ static gboolean bftextview2_mouse_lcb(GtkWidget * widget, GdkEvent * event, gpoi
 			/*block_mark = bftv_get_first_block_at_line(BF_TEXTVIEW(widget), &it, TRUE);
 			if (block_mark)
 				bftv_fold(BF_TEXTVIEW(widget), block_mark, TRUE);*/
+			return TRUE;
+		} else if (event->button.x < btv->margin_pixels_chars) {
+			GtkTextIter it2;
+			/* select line */
+			gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, 0,
+												  event->button.y, &x, &y);
+			gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &it, y, &x);
+			it2 = it;
+			gtk_text_iter_forward_to_line_end(&it2);
+			g_print("select from %d to %d\n",gtk_text_iter_get_offset(&it),gtk_text_iter_get_offset(&it2));
+			gtk_text_buffer_select_range(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),&it,&it2);
 			return TRUE;
 		}
 	}/* else if (event->button.button == 3) {

@@ -304,24 +304,22 @@ GtkTextTagTable *langmgr_get_tagtable(void) {
 
 static Tbflang *parse_bflang2_header(const gchar *filename) {
 	xmlTextReaderPtr reader;
-	gint ret;
+	Tbflang *bflang=NULL; 
 	reader = xmlNewTextReaderFilename(filename);
 	xmlTextReaderSetParserProp(reader,XML_PARSER_SUBST_ENTITIES,TRUE);
 	if (reader != NULL) {
-		ret = xmlTextReaderRead(reader);
-		while (ret == 1) {
+		while (xmlTextReaderRead(reader) == 1 && bflang==NULL) {
 			xmlChar *name = xmlTextReaderName(reader);
 			if (xmlStrEqual(name,(xmlChar *)"detection")) {
-				Tbflang *bflang = g_slice_new0(Tbflang);
+				bflang = g_slice_new0(Tbflang);
 				bflang->filename = g_strdup(filename);
 				process_detection(reader,bflang);
-				return bflang;
 			}
 			xmlFree(name);
-			ret = xmlTextReaderRead(reader);
 		}
+		xmlFreeTextReader(reader);
 	}
-	return NULL;
+	return bflang;
 }
 
 static void register_bflanguage(Tbflang *bflang) {
