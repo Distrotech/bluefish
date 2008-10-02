@@ -42,18 +42,18 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	return FALSE;
 }
 
-static gboolean set_string_if_attribute_name(xmlTextReaderPtr reader, gchar *aname, gchar *searchname, gchar **string) {
+static gboolean set_string_if_attribute_name(xmlTextReaderPtr reader, xmlChar *aname, xmlChar *searchname, gchar **string) {
 	xmlChar *avalue=NULL;
 	if (xmlStrEqual(aname,searchname)) {
 		avalue = xmlTextReaderValue(reader);
-		*string = g_strdup(avalue);
+		*string = g_strdup((gchar *)avalue);
 		xmlFree(avalue);
 		return TRUE;
 	}
 	return FALSE;
 }
 
-static gboolean set_boolean_if_attribute_name(xmlTextReaderPtr reader, gchar *aname, gchar *searchname, gboolean *bool) {
+static gboolean set_boolean_if_attribute_name(xmlTextReaderPtr reader, xmlChar *aname, xmlChar *searchname, gboolean *bool) {
 	gchar *tmp=NULL;
 	if (set_string_if_attribute_name(reader, aname, searchname, &tmp)) {
 		if (tmp && tmp[0] == '1')
@@ -65,7 +65,7 @@ static gboolean set_boolean_if_attribute_name(xmlTextReaderPtr reader, gchar *an
 }
 
 static void process_detection(xmlTextReaderPtr reader, Tbflang *bflang) {
-	xmlChar *name=NULL,*value;
+	xmlChar *name=NULL;
 	gint ret;
 	ret = xmlTextReaderRead(reader);
 	if (!ret)
@@ -73,13 +73,13 @@ static void process_detection(xmlTextReaderPtr reader, Tbflang *bflang) {
 	
 	name = xmlTextReaderName(reader);
 	
-	while (ret && name && !xmlStrEqual(name,"detection")) {
+	while (ret && name && !xmlStrEqual(name,(xmlChar *)"detection")) {
 		/*name = xmlTextReaderName(reader);*/
-		if (xmlStrEqual(name,"mime")) {
+		if (xmlStrEqual(name,(xmlChar *)"mime")) {
 			while (xmlTextReaderMoveToNextAttribute(reader)) {
 				gchar *mimetype=NULL;
 				xmlChar *aname = xmlTextReaderName(reader);
-				set_string_if_attribute_name(reader,aname,"type", &mimetype);
+				set_string_if_attribute_name(reader,aname,(xmlChar *)"type", &mimetype);
 				if (mimetype)
 					bflang->mimetypes = g_list_prepend(bflang->mimetypes, mimetype);
 				xmlFree(aname);
@@ -102,15 +102,15 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
-		set_string_if_attribute_name(reader,aname,"name",&pattern);
-		set_string_if_attribute_name(reader,aname,"style",&style);
-		set_string_if_attribute_name(reader,aname,"blockstyle",&blockstyle);
-		set_string_if_attribute_name(reader,aname,"blockstartpattern",&blockstartpattern);
-		set_boolean_if_attribute_name(reader, aname, "is_regex", &is_regex);
-		set_boolean_if_attribute_name(reader, aname, "starts_block", &starts_block);
-		set_boolean_if_attribute_name(reader, aname, "ends_block", &ends_block);
-		set_boolean_if_attribute_name(reader, aname, "case_insens", &case_insens);
-		set_boolean_if_attribute_name(reader, aname, "ends_context", &ends_context);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&pattern);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"blockstyle",&blockstyle);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"blockstartpattern",&blockstartpattern);
+		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"is_regex", &is_regex);
+		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"starts_block", &starts_block);
+		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"ends_block", &ends_block);
+		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"case_insens", &case_insens);
+		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"ends_context", &ends_context);
 		xmlFree(aname);
 	}
 	
@@ -127,7 +127,7 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 		matchnum = add_keyword_to_scanning_table(bfparser->st, pattern, is_regex,case_insens, stylet, context, nextcontext
 				, starts_block, ends_block, blockstartpatternum,blockstylet,FALSE, NULL);
 		DBG_PARSING("add matchnum %d to hash table for key %s\n",matchnum,pattern);
-		g_hash_table_insert(bfparser->patterns, pattern, GINT_TO_POINTER(matchnum));
+		g_hash_table_insert(bfparser->patterns, pattern, GINT_TO_POINTER((gint)matchnum));
 		/* now check if there is a deeper context */
 		if (!is_empty) {
 			gint ret;
@@ -135,10 +135,10 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 			ret = xmlTextReaderRead(reader);
 			if (ret) name = xmlTextReaderName(reader);
 			while (ret && name) {
-				if (xmlStrEqual(name,"context")) {
+				if (xmlStrEqual(name,(xmlChar *)"context")) {
 					nextcontext = process_scanning_context(reader,bfparser,context);
 					match_set_nextcontext(bfparser->st, matchnum, nextcontext);
-				} if (xmlStrEqual(name,"pattern")) {
+				} if (xmlStrEqual(name,(xmlChar *)"pattern")) {
 					break;
 				}
 				xmlFree(name);
@@ -159,19 +159,19 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 	DBG_PARSING("processing keyword...\n");
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
-		set_string_if_attribute_name(reader,aname,"name",&name);
-		set_string_if_attribute_name(reader,aname,"style",&style);
-		set_boolean_if_attribute_name(reader,aname, "autocomplete", &autocomplete);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&name);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
+		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"autocomplete", &autocomplete);
 		xmlFree(aname);
 	}
 	if (!is_empty) {
 		gint ret;
 		/* get reference data */
-		reference = xmlTextReaderReadInnerXml(reader);
+		reference = (gchar *)xmlTextReaderReadInnerXml(reader);
 		ret = xmlTextReaderRead(reader);
 		while (ret) {
 			xmlChar *name = xmlTextReaderName(reader);
-			if (xmlStrEqual(name,"keyword")) { /* end of keyword */
+			if (xmlStrEqual(name,(xmlChar *)"keyword")) { /* end of keyword */
 				break;
 			}
 			ret = xmlTextReaderRead(reader);
@@ -194,8 +194,8 @@ static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing 
 	gint ret;
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
-		set_string_if_attribute_name(reader,aname,"symbols",&symbols);
-		set_string_if_attribute_name(reader,aname,"style",&style);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"symbols",&symbols);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
 		xmlFree(aname);
 	}
 	/* create context */
@@ -207,11 +207,11 @@ static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing 
 		xmlChar *name;
 		name = xmlTextReaderName(reader);
 		DBG_PARSING("parsing context, found node name %s\n",name);
-		if (xmlStrEqual(name,"pattern")) {
+		if (xmlStrEqual(name,(xmlChar *)"pattern")) {
 			process_scanning_pattern(reader,bfparser,context,prevcontext);
-		} else if (xmlStrEqual(name,"keyword")) {
+		} else if (xmlStrEqual(name,(xmlChar *)"keyword")) {
 			process_scanning_keyword(reader,bfparser,context);
-		} else if (xmlStrEqual(name,"context")) {
+		} else if (xmlStrEqual(name,(xmlChar *)"context")) {
 			xmlFree(name);
 			DBG_PARSING("end-of-context, return context %d\n",context);
 			return context;
@@ -243,10 +243,11 @@ static gpointer build_lang_thread(gpointer data)
 			xmlChar *name;
 			name = xmlTextReaderName(reader);
 			DBG_PARSING("found %s\n",name);
-			if (xmlStrEqual(name,"detection")) {
+			if (xmlStrEqual(name,(xmlChar *)"detection")) {
+				/* actually we can skip detection */
 				DBG_PARSING("processing <detection>\n");
 				process_detection(reader,bflang);
-			} else if (xmlStrEqual(name,"scanning")) {
+			} else if (xmlStrEqual(name,(xmlChar *)"scanning")) {
 				DBG_PARSING("processing <scanning>\n");
 				/* next node should be main context */
 				ret = xmlTextReaderRead(reader);
@@ -254,7 +255,7 @@ static gpointer build_lang_thread(gpointer data)
 					xmlChar *name2;
 					name2 = xmlTextReaderName(reader);
 					DBG_PARSING("found %s\n",name2);
-					if (xmlStrEqual(name2,"context")) {
+					if (xmlStrEqual(name2,(xmlChar *)"context")) {
 						process_scanning_context(reader,bfparser,0);
 					}
 					xmlFree(name2);
@@ -301,23 +302,47 @@ GtkTextTagTable *langmgr_get_tagtable(void) {
 	return langmgr.tagtable;
 }
 
+static Tbflang *parse_bflang2_header(const gchar *filename) {
+	xmlTextReaderPtr reader;
+	gint ret;
+	reader = xmlNewTextReaderFilename(filename);
+	xmlTextReaderSetParserProp(reader,XML_PARSER_SUBST_ENTITIES,TRUE);
+	if (reader != NULL) {
+		ret = xmlTextReaderRead(reader);
+		while (ret == 1) {
+			xmlChar *name = xmlTextReaderName(reader);
+			if (xmlStrEqual(name,(xmlChar *)"detection")) {
+				Tbflang *bflang = g_slice_new0(Tbflang);
+				bflang->filename = g_strdup(filename);
+				process_detection(reader,bflang);
+				return bflang;
+			}
+		}
+	}
+	return NULL;
+}
+
+static void register_bflanguage(Tbflang *bflang) {
+	if (bflang) {
+		GList *tmplist;
+		
+		tmplist = g_list_first(bflang->mimetypes);
+		while (tmplist) {
+			g_hash_table_insert(langmgr.bflang_lookup, (gchar *)tmplist->data, bflang);
+			tmplist = g_list_next(tmplist);
+		}
+		langmgr.bflang_list = g_list_prepend(langmgr.bflang_list, bflang);
+	}
+}
+
 void langmgr_init(void) {
 	Tbflang *bflang;
 	langmgr.tagtable = gtk_text_tag_table_new();
 	langmgr.bflang_lookup = g_hash_table_new(g_str_hash,g_str_equal);
 	
- 	bflang = g_slice_new0(Tbflang);
- 	bflang->filename = "c.bflang2";
- 	bflang->mimetypes = g_list_prepend(bflang->mimetypes, "text/x-csrc");
- 	bflang->mimetypes = g_list_prepend(bflang->mimetypes, "text/x-chdr");
-	g_hash_table_insert(langmgr.bflang_lookup, "text/x-csrc", bflang);
-	g_hash_table_insert(langmgr.bflang_lookup, "text/x-chdr", bflang);
-	langmgr.bflang_list = g_list_prepend(langmgr.bflang_list, bflang);
-	bflang = g_slice_new0(Tbflang);
- 	bflang->filename = "php.bflang2";
- 	bflang->mimetypes = g_list_prepend(bflang->mimetypes, "application/x-php");
-	g_hash_table_insert(langmgr.bflang_lookup, "application/x-php", bflang);
-	langmgr.bflang_list = g_list_prepend(langmgr.bflang_list, bflang);
-	
+	bflang = parse_bflang2_header("c.bflang2");
+	register_bflanguage(bflang);
+	bflang = parse_bflang2_header("php.bflang2");
+	register_bflanguage(bflang);
 	DBG_PARSING("langmgr_init, returning \n");
 }

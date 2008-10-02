@@ -431,7 +431,7 @@ static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 			break;
 	}
 	if (fstack && fstack->line == line && fstack->pushedblock && fstack->pushedblock->foldable) {
-		GtkTextBuffer *buffer = gtk_text_view_get_buffer(btv);
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 		GtkTextIter it1,it2,it3,it4;
 		bftextview2_get_iters_at_foundblock(buffer, fstack->pushedblock, &it1, &it2, &it3, &it4);
 		if (fstack->pushedblock->folded) {
@@ -485,7 +485,7 @@ void bluefish_text_view_rescan(BluefishTextView * btv) {
 	cleanup_scanner(btv);
 	if (btv->bflang) {
 		GtkTextIter start,end;
-		GtkTextBuffer *buffer = gtk_text_view_get_buffer(btv);
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 		gtk_text_buffer_get_bounds(buffer,&start,&end);
 		gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &start, &end);
 		bftextview2_schedule_scanning(btv);
@@ -494,7 +494,7 @@ void bluefish_text_view_rescan(BluefishTextView * btv) {
 
 void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) {
 	GtkTextIter start,end;
-	GtkTextBuffer *buffer = gtk_text_view_get_buffer(btv);
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	Tbflang *bflang = langmgr_get_bflang_for_mimetype(mime);
 	/* remove all highlighting */
 	cleanup_scanner(btv);

@@ -20,8 +20,7 @@ void on_button_clicked(GtkWidget * button, GtkTextBuffer * buffer)
 void testapp_rescan_bflang(Tbflang *bflang) {
 	g_print("rescan if bflang %p\n",bflang);
 	if (BLUEFISH_TEXT_VIEW(text_view)->bflang == bflang) {
-		bluefish_text_view_rescan(text_view);
-
+		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(text_view));
 	}
 }
 
@@ -36,7 +35,7 @@ int main(int argc, char *argv[])
 	gsize datalen;
 	GFile *uri;
 	GFileInfo* finfo;
-	gchar *mime;
+	const gchar *mime;
 
 	g_thread_init(NULL); /* we don't do gtk from other threads, only glib, so no gdk_thread_init() required */
 	gtk_init(&argc, &argv);
@@ -91,7 +90,7 @@ int main(int argc, char *argv[])
 	finfo = g_file_query_info(uri,G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,G_FILE_QUERY_INFO_NONE,NULL,NULL);
 	mime = g_file_info_get_content_type(finfo);
 	g_print("setting mime %s\n",mime);
-	bluefish_text_view_set_mimetype(text_view, mime);
+	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(text_view), mime);
 	g_print("text_view->bflang = %p\n",BLUEFISH_TEXT_VIEW(text_view)->bflang);
 	/* Create a close button. */
 	button = gtk_button_new_with_label("test");

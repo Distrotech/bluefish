@@ -227,15 +227,17 @@ struct _BluefishTextView {
 	GTimer *user_idle_timer;
 	guint user_idle; /* event ID for the timed function that handles user idle events such as autocompletion popups */
 	gpointer autocomp; /* a Tacwin* with the current autocompletion window */
-	guint margin_pixels_per_char;
-	guint margin_pixels_chars;
-	guint margin_pixels_block;	
+	gint margin_pixels_per_char;
+	gint margin_pixels_chars;
+	gint margin_pixels_block;	
 };
 
 struct _BluefishTextViewClass {
 	GtkTextViewClass parent_class;
 };
 
+void bluefish_text_view_rescan(BluefishTextView * btv);
+void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime);
 GType bluefish_text_view_get_type (void);
 
 GtkWidget * bftextview2_new(void);

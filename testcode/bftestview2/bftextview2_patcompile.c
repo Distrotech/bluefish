@@ -89,9 +89,9 @@ static void create_state_tables(Tscantable *st, guint context, gchar *characters
 				if (g_array_index(st->table, Ttablerow, pos).row[c] != 0 && g_array_index(st->table, Ttablerow, pos).row[c] != identstate) {
 					if (pointtoself) { /* perhaps check here if the state does point to itself, 
 							or if we have this state on the stack already */
-						g_queue_push_head(positions, GINT_TO_POINTER(g_array_index(st->table, Ttablerow, pos).row[c]));
+						g_queue_push_head(positions, GINT_TO_POINTER((gint)g_array_index(st->table, Ttablerow, pos).row[c]));
 					} else {
-						g_queue_push_head(newpositions, GINT_TO_POINTER(g_array_index(st->table, Ttablerow, pos).row[c]));
+						g_queue_push_head(newpositions, GINT_TO_POINTER((gint)g_array_index(st->table, Ttablerow, pos).row[c]));
 					}
 				} else {
 					if (newstate == -1) {
@@ -169,7 +169,7 @@ static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,guint context, g
 
 static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,guint context, gboolean caseinsensitive, GQueue *inputpositions) {
 	gboolean escaped = FALSE;
-	guint i=0;
+	gint i=0;
 	gchar characters[NUMSCANCHARS];
 	GQueue *newpositions, *positions, *tmp;
 	
@@ -254,7 +254,7 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 		lregex = g_strdup(input);
 	}
 	
-	g_queue_push_head(positions, GINT_TO_POINTER(g_array_index(st->contexts, Tcontext, context).startstate));
+	g_queue_push_head(positions, GINT_TO_POINTER((gint)g_array_index(st->contexts, Tcontext, context).startstate));
 	DBG_PATCOMPILE("lregex=%s, positionstack has length %d\n",lregex,g_queue_get_length(positions));
 	newpositions = process_regex_part(st, lregex,context, caseinsensitive, positions);
 	/*compile_limitedregex_to_DFA_backend(st,lregex,context,caseinsensitive,&positions);*/
@@ -370,7 +370,7 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 	for (i=0;i<=len;i++) {
 		int c = keyword[i];
 		if (c == '\0') {
-			if (character_is_symbol(st,g_array_index(st->contexts, Tcontext, context),keyword[i-1])) {
+			if (character_is_symbol(st,g_array_index(st->contexts, Tcontext, context),(gint)keyword[i-1])) {
 				for (i=0;i<NUMSCANCHARS;i++)
 					if (g_array_index(st->table, Ttablerow, pos).row[i] == identstate)
 						g_array_index(st->table, Ttablerow, pos).row[i] = 0;
@@ -422,6 +422,23 @@ void print_DFA(Tscantable *st, char start, char end) {
 	
 }
 
+Tscantable *scantable_new() {
+	Tscantable *st;
+	st = g_slice_new0(Tscantable);
+	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), 160);
+	st->contexts = g_array_sized_new(TRUE,TRUE,sizeof(Tcontext), 3);
+	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
+	st->matches->len = 1; /* match 0 eans no match */
+	return st;
+}
+
+void print_scantable_stats(Tscantable *st) {
+	g_print("%d states (%.2f Kbytes)\n",st->table->len,1.0*st->table->len*sizeof(Ttablerow)/1024.0);
+	g_print("%d contexts (%.2f Kbytes)\n",st->contexts->len,1.0*st->contexts->len*sizeof(Tcontext)/1024.0);
+	g_print("%d matches (%.2f Kbytes)\n",st->matches->len,1.0*st->matches->len*sizeof(Tpattern)/1024.0);
+
+}
+#ifdef HARDCODED_PATTERNS
 static void add_html_tag(Tscantable *st, guint context, GtkTextTag *tag, GtkTextTag *attrib, GtkTextTag *string, gchar *tagname, gchar *attribname, ...) {
 	guint contexttag, contextstring, match;
 	gchar *tmp;
@@ -447,23 +464,6 @@ static void add_html_tag(Tscantable *st, guint context, GtkTextTag *tag, GtkText
 	tmp = g_strconcat("</",tagname,">",NULL);
 	add_keyword_to_scanning_table(st, tmp, FALSE, FALSE, tag, context, context, FALSE, TRUE, match, NULL,TRUE,NULL);
 	g_free(tmp);
-
-}
-
-Tscantable *scantable_new() {
-	Tscantable *st;
-	st = g_slice_new0(Tscantable);
-	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), 160);
-	st->contexts = g_array_sized_new(TRUE,TRUE,sizeof(Tcontext), 3);
-	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
-	st->matches->len = 1; /* match 0 eans no match */
-	return st;
-}
-
-void print_scantable_stats(Tscantable *st) {
-	g_print("%d states (%.2f Kbytes)\n",st->table->len,1.0*st->table->len*sizeof(Ttablerow)/1024.0);
-	g_print("%d contexts (%.2f Kbytes)\n",st->contexts->len,1.0*st->contexts->len*sizeof(Tcontext)/1024.0);
-	g_print("%d matches (%.2f Kbytes)\n",st->matches->len,1.0*st->matches->len*sizeof(Tpattern)/1024.0);
 
 }
 
@@ -817,3 +817,4 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	print_scantable_stats(st);
 	return st;
 }
+#endif /* HARDCODED PATTERNS */
