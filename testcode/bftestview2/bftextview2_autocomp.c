@@ -277,9 +277,10 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 	GtkTextIter cursorpos,iter;
 	GtkTextBuffer *buffer;
 	guint16 contextnum;
+	gunichar uc;
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 
-	if (!btv->bflang->st)
+	if (!btv->bflang || !btv->bflang->st)
 		return;
 
 	gtk_text_buffer_get_iter_at_mark(buffer,&cursorpos,gtk_text_buffer_get_insert(buffer));
@@ -287,9 +288,25 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 	iter = cursorpos;
 	gtk_text_iter_set_line_offset(&iter,0);
 
+
 	scan_for_autocomp_prefix(btv,&iter,&cursorpos,&contextnum);
+
+	/* see if next character is end or symbol */
+	uc = gtk_text_iter_get_char(&cursorpos);
+	if (uc < NUMSCANCHARS) {
+		guint16 identstate = g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).identstate;
+		if (g_array_index(btv->bflang->st->table, Ttablerow, identstate).row[uc] == identstate) {
+			/* current character is not a symbol! */
+			g_print("current character %d is not a symbol\n",uc);
+			return;
+		}
+	} else {
+		return;
+	}
+
+
 	if ((user_requested || !gtk_text_iter_equal(&iter,&cursorpos)) && g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac != NULL) {
-		/* we have a prefix and a context */
+		/* we have a prefix or it is user requested, and we have a context with autocompletion */
 		gchar *newprefix, *prefix;
 		GList *items;
 		

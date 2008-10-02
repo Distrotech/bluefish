@@ -291,6 +291,8 @@ guint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag) {
 	for (i=0;i<NUMSCANCHARS;i++)
 		g_array_index(st->table, Ttablerow, identstate).row[i] = identstate;
 	
+	/* 0, \0 or NULL is always a symbol */
+	g_array_index(st->table, Ttablerow, identstate).row[0] = 0;
 	tmp = symbols;
 	while (*tmp) {
 		/*g_print("mark %c as symbol\n",*tmp);*/

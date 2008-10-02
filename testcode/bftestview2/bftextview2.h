@@ -51,7 +51,8 @@ separate memory block. This engine alloc's a large array for all states at once,
 simply move trough the array instead of following pointers. Following the DFA is then as simple 
 as state = table[state][character]; where state is just an integer position in the array, and 
 character is the current character you're scanning. I hope the array will help to speed up 
-the scanner.
+the scanner. I used guint16 because I suspect that we never hit the 65500 states (largest 
+patterns set right now is php, 4500 functions use 32000 states)
 
 - DFA table's for multiple contexts are all in the same memory block. Each context has an offset 
 where it starts. When a match is found, scanning can move to a different context. For example 
@@ -61,6 +62,12 @@ when <?php is found, we switch to row 123 of the DFA table from which all php fu
 run for all patterns in a given context. The 1.0 scanner does multiple scanning runs for <\?php 
 and for <[a-z]+>. The new engine scans (<\?php|<[a-z]+>) but knows that both sub-patterns lead 
 to different results (different color, different context).
+
+- the languages are defined in an XML file. On startup, only the header of that file is parsed,
+into a Tbflang struct, which defines the language and the mime types. Only when scanning for 
+one of these mime-types is requested the rest of the file is parsed (in a separate thread!!!) 
+and the DFA for this language is created. This saves memory and startup time for languages 
+that are not used in a certain session.
 */
 
 #ifndef _BFTEXTVIEW2_H_
@@ -126,7 +133,7 @@ typedef struct {
 						at maximum!!!!!!! but we use half the size of the scanning table, which
 						hopefully helps to keep the scanning table in the L2 cache of the CPU */
 	guint16 match;			/* 0 == no match, refers to the index number in array 'matches' */
-} Ttablerow; /* a row in the DFA */
+} Ttablerow; /* a row in the DFA, right now exactly 256 bytes */
 
 typedef struct {
 	GArray *table; /* dynamic sized array of Ttablerow: the DFA table */
@@ -193,8 +200,9 @@ typedef struct {
 	gint stackcache_need_update_charoffset; /* from this character offset and further there
 				have been changes in the buffer so the caches need updating */
 } Tscancache;
-
+/********************************/
 /* language manager */
+/********************************/
 typedef struct {
 	gchar *name;
 	GList *mimetypes;

@@ -171,6 +171,54 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 	}
 	return 0;
 }
+
+
+
+
+static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context) {
+	gchar *tag=NULL, *style=NULL, *attributes=NULL, *attribstyle=NULL;
+	DBG_PARSING("processing tag...\n");
+	while (xmlTextReaderMoveToNextAttribute(reader)) {
+		xmlChar *aname = xmlTextReaderName(reader);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&tag);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"attribstyle",&attribstyle);
+		set_string_if_attribute_name(reader,aname, (xmlChar *)"attributes", &attributes);
+		xmlFree(aname);
+	}
+	if (tag) {
+		GtkTextTag *stylet;
+		stylet = langmrg_lookup_style(style);
+		guint16 contexttag, contextstring, matchnum;
+		gchar *tmp;
+	
+		contexttag = new_context(bfparser->st, ">\"=' \t\n\r", NULL);
+		tmp = g_strconcat("<",tag,NULL);
+		matchnum = add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, context, contexttag, TRUE, FALSE, 0, NULL,TRUE,NULL);
+		g_free(tmp);
+		add_keyword_to_scanning_table(bfparser->st, ">", FALSE, FALSE, stylet, contexttag, context, FALSE, FALSE, 0, NULL,FALSE,NULL);
+		if (attributes) {
+			gchar **arr, **tmp2;
+			GtkTextTag *string, *attrib = langmrg_lookup_style(attribstyle);
+			string = langmrg_lookup_style("string");
+			arr = g_strsplit(attributes,",",-1);
+			tmp2 = arr;
+			while (*tmp2) {
+				add_keyword_to_scanning_table(bfparser->st, *tmp2, FALSE, FALSE, attrib, contexttag, contexttag, FALSE, FALSE, 0, NULL,TRUE,NULL);
+				tmp2++;
+			}
+			contextstring = new_context(bfparser->st, "\"=' \t\n\r", string);
+			add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contexttag, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
+			add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contextstring, contexttag, FALSE, FALSE, 0, string,FALSE,NULL);
+		}
+		tmp = g_strconcat("</",tag,">",NULL);
+		add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, context, context, FALSE, TRUE, matchnum, NULL,TRUE,NULL);
+		g_free(tmp);
+		return matchnum;
+	}
+	return 0;
+}
+
 static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 prevcontext) {
 	gchar *symbols=NULL, *style=NULL;
 	guint16 context;
@@ -191,6 +239,8 @@ static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing 
 			process_scanning_pattern(reader,bfparser,context,prevcontext);
 		} else if (xmlStrEqual(name,(xmlChar *)"keyword")) {
 			process_scanning_keyword(reader,bfparser,context);
+		} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
+			process_scanning_tag(reader,bfparser,context);
 		} else if (xmlStrEqual(name,(xmlChar *)"context")) {
 			xmlFree(name);
 			DBG_PARSING("end-of-context, return context %d\n",context);
