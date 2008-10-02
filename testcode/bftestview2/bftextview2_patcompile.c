@@ -269,7 +269,7 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 	g_free(lregex);
 }
 
-static guint new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag) {
+guint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag) {
 	guint context, startstate, identstate;
 	gint i;
 	gchar *tmp;
@@ -303,7 +303,11 @@ static guint new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag)
 	return context;
 }
 
-static guint new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint context, guint nextcontext
+void match_set_nextcontext(Tscantable *st, guint16 matchnum, guint16 nextcontext) {
+	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
+}
+
+static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint context, guint nextcontext
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
 				, GtkTextTag *blocktag,gboolean add_to_ac, gchar *reference) {
 	guint matchnum;
@@ -384,10 +388,10 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 	}
 }
 
-guint add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean is_regex,gboolean case_insens, GtkTextTag *selftag, guint context, guint nextcontext
+guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean is_regex,gboolean case_insens, GtkTextTag *selftag, guint context, guint nextcontext
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
 				, GtkTextTag *blocktag,gboolean add_to_ac, gchar *reference)  {
-	guint matchnum;
+	guint16 matchnum;
 	
 	matchnum = new_match(st, keyword, selftag, context, nextcontext, starts_block, ends_block, blockstartpattern
 				, blocktag,add_to_ac, reference);
@@ -444,6 +448,23 @@ static void add_html_tag(Tscantable *st, guint context, GtkTextTag *tag, GtkText
 
 }
 
+Tscantable *scantable_new() {
+	Tscantable *st;
+	st = g_slice_new0(Tscantable);
+	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), 160);
+	st->contexts = g_array_sized_new(TRUE,TRUE,sizeof(Tcontext), 3);
+	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
+	st->matches->len = 1; /* match 0 eans no match */
+	return st;
+}
+
+print_scantable_stats(Tscantable *st) {
+	g_print("%d states (%.2f Kbytes)\n",st->table->len,1.0*st->table->len*sizeof(Ttablerow)/1024.0);
+	g_print("%d contexts (%.2f Kbytes)\n",st->contexts->len,1.0*st->contexts->len*sizeof(Tcontext)/1024.0);
+	g_print("%d matches (%.2f Kbytes)\n",st->matches->len,1.0*st->matches->len*sizeof(Tpattern)/1024.0);
+
+}
+
 Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	Tscantable *st;
 	gint i,context1,context2,match1;
@@ -460,11 +481,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	tag = gtk_text_buffer_create_tag(buffer,"tag","foreground", "#880088", NULL);
 	region = gtk_text_buffer_create_tag(buffer,"region","background", "#EEF8FF", NULL);
 
-	st = g_slice_new0(Tscantable);
-	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), 160);
-	st->contexts = g_array_sized_new(TRUE,TRUE,sizeof(Tcontext), 3);
-	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
-	st->matches->len = 1; /* match 0 eans no match */
+	st = scantable_new();
 
 /*#define REGEXCOMPILING*/
 #ifdef REGEXCOMPILING
@@ -795,9 +812,6 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 
 #endif /* #ifdef HTMLSTYLEMATCHING */
 
-	g_print("%d states (%.2f Kbytes)\n",st->table->len,1.0*st->table->len*sizeof(Ttablerow)/1024.0);
-	g_print("%d contexts (%.2f Kbytes)\n",st->contexts->len,1.0*st->contexts->len*sizeof(Tcontext)/1024.0);
-	g_print("%d matches (%.2f Kbytes)\n",st->matches->len,1.0*st->matches->len*sizeof(Tpattern)/1024.0);
-
+	print_scantable_stats(st);
 	return st;
 }

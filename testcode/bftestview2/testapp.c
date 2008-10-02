@@ -2,6 +2,7 @@
 #include <gio/gio.h>
 #include "bftextview2.h"
 #include "bftextview2_patcompile.h"
+#include "bftextview2_langmgr.h"
 
 void on_window_destroy(GtkWidget * widget, gpointer data)
 {
@@ -24,6 +25,8 @@ int main(int argc, char *argv[])
 	gchar *data = NULL;
 	gsize datalen;
 	GFile *uri;
+	GFileInfo* finfo;
+	gchar *mime;
 
 	g_thread_init(NULL); /* we don't do gtk from other threads, only glib, so no gdk_thread_init() required */
 	gtk_init(&argc, &argv);
@@ -57,9 +60,16 @@ int main(int argc, char *argv[])
 	gtk_box_pack_start(GTK_BOX(vbox), scroll, 1, 1, 0);
 
 	uri = g_file_new_for_commandline_arg(argv[1]);
+	
 	g_file_load_contents(uri, NULL, &data, &datalen, NULL, NULL);
 	gtk_text_buffer_set_text(buffer, data, datalen);
 	g_free(data);
+	
+	finfo = g_file_query_info(uri,G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,G_FILE_QUERY_INFO_NONE,NULL,NULL);
+	mime = g_file_info_get_content_type(finfo);
+	g_print("setting mime %s\n",mime);
+	bluefish_text_view_set_mimetype(text_view, mime);
+	
 	/* Create a close button. */
 	button = gtk_button_new_with_label("test");
 	gtk_box_pack_start(GTK_BOX(vbox), button, 0, 0, 0);

@@ -8,7 +8,7 @@
 #include "bftextview2_scanner.h"
 #include "bftextview2_patcompile.h"
 #include "bftextview2_autocomp.h"
-
+#include "bftextview2_langmgr.h"
 
 G_DEFINE_TYPE(BluefishTextView, bluefish_text_view, GTK_TYPE_TEXT_VIEW)
 
@@ -44,11 +44,13 @@ static void bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 static gboolean bftextview2_scanner_idle(gpointer data)
 {
 	BluefishTextView *btv = data;
-	DBG_SIGNALS("bftextview2_scanner_idle, running scanner idle function\n");
-	if (!bftextview2_run_scanner(btv)) {
-		btv->scanner_idle = 0;
-		DBG_SIGNALS("bftextview2_scanner_idle, stopping scanner idle function\n");
-		return FALSE;
+	if (btv->scantable) {
+		DBG_SIGNALS("bftextview2_scanner_idle, running scanner idle function\n");
+		if (!bftextview2_run_scanner(btv)) {
+			btv->scanner_idle = 0;
+			DBG_SIGNALS("bftextview2_scanner_idle, stopping scanner idle function\n");
+			return FALSE;
+		}
 	}
 	return TRUE;
 }
@@ -242,7 +244,7 @@ static Tfoundstack *get_next_foldable_block(BluefishTextView *btv,GSequenceIter 
 static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible)
 {
 	Tfoundstack *fstack = NULL;
-	GSequenceIter *siter;
+	GSequenceIter *siter=NULL;
 	guint num_blocks;
 	GtkTextIter it;
 	GtkTextTag *folded;
@@ -266,6 +268,7 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 				 fstack, fstack->line, fstack->charoffset, num_blocks,
 				 gtk_text_iter_get_offset(startvisible));
 		} else {
+			DBG_MARGIN("EXPOSE: no fstack for position %d, siter=%p\n",gtk_text_iter_get_offset(startvisible),siter);
 			num_blocks = 0;
 		}
 	}
@@ -273,7 +276,8 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 	   the 'next' fstack */
 	if (!fstack || fstack->charoffset < gtk_text_iter_get_offset(startvisible)) {
 		DBG_MARGIN("get next fstack..\n");
-		fstack = get_stackcache_next(btv, &siter);
+		if (siter)
+			fstack = get_stackcache_next(btv, &siter);
 	}
 	DBG_MARGIN("first fstack ");
 	print_fstack(fstack);
@@ -476,6 +480,25 @@ static gboolean bftextview2_mouse_lcb(GtkWidget * widget, GdkEvent * event, gpoi
 	}*/
 	return FALSE;
 }
+
+void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) {
+	GtkTextIter start,end;
+	GtkTextBuffer *buffer = gtk_text_view_get_buffer(btv);
+	Tbflang *bflang = langmgr_get_bflang_for_mimetype(mime);
+	/* remove all highlighting */
+	cleanup_scanner(btv);
+	if (bflang) {
+		/* set new scantable */
+		btv->scantable = bflang->st;
+		/* restart scanning */
+		gtk_text_buffer_get_bounds(buffer,&start,&end);
+		gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &start, &end);
+		bftextview2_schedule_scanning(btv);
+	} else {
+		btv->scantable = NULL;
+	}
+}
+
 
 /* *************************************************************** */
 /* widget stuff below */

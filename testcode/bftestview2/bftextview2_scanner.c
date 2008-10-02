@@ -20,6 +20,7 @@ static gint stackcache_compare_charoffset(gconstpointer a,gconstpointer b,gpoint
 }
 
 Tfoundstack *get_stackcache_next(BluefishTextView * bt2, GSequenceIter ** siter) {
+	DBG_MSG("get_stackcache_next, *siter=%p\n",*siter);
 	*siter = g_sequence_iter_next(*siter);
 	if (*siter && !g_sequence_iter_is_end(*siter)) {
 		return g_sequence_get(*siter);
@@ -565,5 +566,24 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 			gtk_text_iter_forward_char(&iter);
 		}
 		pos = newpos;		
+	}
+}
+
+void cleanup_scanner(BluefishTextView *btv) {
+	GtkTextIter begin,end;
+	GtkTextBuffer *buffer;
+	GSequenceIter *sit1,*sit2;
+	
+	buffer = gtk_text_view_get_buffer(btv);
+	gtk_text_buffer_get_bounds(buffer,&begin,&end);
+	gtk_text_buffer_remove_all_tags(buffer,&begin,&end);
+
+	sit1 = g_sequence_get_begin_iter(btv->scancache.stackcaches);
+	if (sit1 && !g_sequence_iter_is_end(sit1)) {
+		sit2 = g_sequence_get_end_iter(btv->scancache.stackcaches);
+		g_sequence_foreach_range(sit1,sit2,foundstack_free_lcb,btv);
+		g_sequence_remove_range(sit1,sit2);
+	} else{
+		g_print("cleanup_scanner, no sit1, no cleanup ??\n");
 	}
 }
