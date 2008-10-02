@@ -317,6 +317,8 @@ static Tbflang *parse_bflang2_header(const gchar *filename) {
 				process_detection(reader,bflang);
 				return bflang;
 			}
+			xmlFree(name);
+			ret = xmlTextReaderRead(reader);
 		}
 	}
 	return NULL;
