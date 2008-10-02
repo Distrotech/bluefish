@@ -269,7 +269,7 @@ static int found_match(BluefishTextView * bt2, Tmatch match, Tscanning *scanning
 			gtk_text_iter_get_offset(&match.start), gtk_text_iter_get_offset(&match.end), scantable.matches[match.patternum].nextcontext);*/
 
 	if (pat.selftag) {
-		g_print("apply tag %p from %d to %d\n",pat.selftag,gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
+		DBG_SCANNING("apply tag %p from %d to %d\n",pat.selftag,gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
 		gtk_text_buffer_apply_tag(buffer,pat.selftag, &match.start, &match.end);
 	}
 

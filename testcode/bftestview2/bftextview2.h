@@ -74,12 +74,13 @@ to different results (different color, different context).
 #define DBG_MSG DBG_NONE
 #define DBG_SCANCACHE DBG_NONE
 #define DBG_REFCOUNT DBG_NONE
-#define DBG_PATCOMPILE g_print
+#define DBG_PATCOMPILE DBG_NONE
 #define DBG_SIGNALS DBG_NONE
 #define DBG_AUTOCOMP DBG_NONE
-#define DBG_SCANNING g_print
+#define DBG_SCANNING DBG_NONE
 #define DBG_FOLD DBG_NONE
 #define DBG_MARGIN DBG_NONE
+#define DBG_PARSING DBG_NONE
 
 #define NUMSCANCHARS 127 /* 128 is ascii, but the last character is never scanned (DEL)
 		and the Ttablerow has one more 16bit value. By setting this to 127 instead of 128
