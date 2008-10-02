@@ -367,5 +367,8 @@ void langmgr_init(void) {
 	register_bflanguage(bflang);
 	bflang = parse_bflang2_header("php.bflang2");
 	register_bflanguage(bflang);
+	bflang = parse_bflang2_header("html.bflang2");
+	register_bflanguage(bflang);
+
 	DBG_PARSING("langmgr_init, returning \n");
 }
