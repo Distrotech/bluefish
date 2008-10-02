@@ -1,0 +1,18 @@
+<bflang name="C">
+<detection><mime type="text/x-csrc"/><mime type="text/x-chdr"/><mime type="application/x-csrc"/><mime type="application/x-chdr"/></detection><scanning><context symbols=" \t\n;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+		<keyword name="void" autocomplete="1" style="storage">void is the default storage type</keyword>
+		<keyword name="int" autocomplete="1" style="storage">int is the integer storage type</keyword>
+		<keyword name="char" autocomplete="1" style="storage">char is the character storage type, which is 1 byte (8bits)</keyword>
+		<pattern name="[" starts_block="1" mayfold="1" style="braces" />
+		<pattern name="]" ends_block="1" blockstartpattern="[" style="braces" />
+		<pattern name="(" starts_block="1" mayfold="1" style="braces" />
+		<pattern name=")" ends_block="1" blockstartpattern="(" style="braces" />
+		<pattern name="/*" starts_block="1" style="comment">
+			<context symbols="*/&#9;&#10;&#13;" style="comment">
+				<pattern name="*/" ends_block="1" blockstartpattern="/*" style="comment" mayfold="1" ends_context="1" />
+			</context>
+		</pattern>
+		<pattern name="[0-9.]+" is_regex="1" style="value"/>
+		<pattern name="//[^&#10;]+" is_regex="1" style="comment"/>
+</context></scanning>
+</bflang>
