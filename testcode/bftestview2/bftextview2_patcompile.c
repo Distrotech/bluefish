@@ -404,7 +404,7 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean i
 	return matchnum;
 }
 
-static void print_DFA(Tscantable *st, char start, char end) {
+void print_DFA(Tscantable *st, char start, char end) {
 	gint i,j;
 	g_print("    ");
 	for (j=start;j<=end;j++) {
@@ -459,7 +459,7 @@ Tscantable *scantable_new() {
 	return st;
 }
 
-print_scantable_stats(Tscantable *st) {
+void print_scantable_stats(Tscantable *st) {
 	g_print("%d states (%.2f Kbytes)\n",st->table->len,1.0*st->table->len*sizeof(Ttablerow)/1024.0);
 	g_print("%d contexts (%.2f Kbytes)\n",st->contexts->len,1.0*st->contexts->len*sizeof(Tcontext)/1024.0);
 	g_print("%d matches (%.2f Kbytes)\n",st->matches->len,1.0*st->matches->len*sizeof(Tpattern)/1024.0);

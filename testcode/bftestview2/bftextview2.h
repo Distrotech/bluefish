@@ -77,7 +77,7 @@ to different results (different color, different context).
 #define DBG_PATCOMPILE g_print
 #define DBG_SIGNALS DBG_NONE
 #define DBG_AUTOCOMP DBG_NONE
-#define DBG_SCANNING DBG_NONE
+#define DBG_SCANNING g_print
 #define DBG_FOLD DBG_NONE
 #define DBG_MARGIN DBG_NONE
 

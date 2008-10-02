@@ -19,7 +19,11 @@ typedef struct {
 static Tlangmgr langmgr = {NULL,NULL,NULL};
 
 GtkTextTag *langmrg_lookup_style(const gchar *style) {
-	return gtk_text_tag_table_lookup(langmgr.tagtable,style);
+	GtkTextTag *tag=NULL;
+	if (style)
+		tag = gtk_text_tag_table_lookup(langmgr.tagtable,style);
+	g_print("found tag %p for style %s\n",tag,style);
+	return tag;
 }
 
 /* this is called in the mainloop again */
@@ -92,7 +96,8 @@ static void process_detection(xmlTextReaderPtr reader, Tbflang *bflang) {
 static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 prevcontext);
 
 static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context, guint16 prevcontext) {
-	gchar *pattern, *style, *blockstartpattern, *blockstyle;
+	guint16 matchnum;
+	gchar *pattern=NULL, *style=NULL, *blockstartpattern=NULL, *blockstyle=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE,ends_context=FALSE, is_empty;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
@@ -105,13 +110,13 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 		set_boolean_if_attribute_name(reader, aname, "starts_block", &starts_block);
 		set_boolean_if_attribute_name(reader, aname, "ends_block", &ends_block);
 		set_boolean_if_attribute_name(reader, aname, "case_insens", &case_insens);
+		set_boolean_if_attribute_name(reader, aname, "ends_context", &ends_context);
 		xmlFree(aname);
 	}
 	
 	if (pattern) {
 		GtkTextTag *stylet=NULL,*blockstylet=NULL;
 		guint16 blockstartpatternum=0, nextcontext=context;
-		guint16 matchnum;
 		if (ends_context) {
 			nextcontext=prevcontext;
 		}
@@ -144,7 +149,7 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 				xmlFree(name);
 		}
 	}
-
+	return matchnum;
 }
 static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context) {
 	gchar *name=NULL, *style=NULL, *reference=NULL;
@@ -207,6 +212,7 @@ static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing 
 			process_scanning_keyword(reader,bfparser,context);
 		} else if (xmlStrEqual(name,"context")) {
 			xmlFree(name);
+			g_print("end-of-context, return context %d\n",context);
 			return context;
 		}
 		xmlFree(name);
@@ -267,6 +273,7 @@ static gpointer build_lang_thread(gpointer data)
 
 	g_print("build_lang_thread finished bflang=%p\n",bflang);
 	print_scantable_stats(bfparser->st);
+	print_DFA(bfparser->st, '0','9');
 	
 	/* when done call mainloop */
 	g_idle_add(build_lang_finished_lcb, bfparser);
@@ -289,6 +296,10 @@ Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype) {
 	return bflang;
 }
 
+GtkTextTagTable *langmgr_get_tagtable(void) {
+	return langmgr.tagtable;
+}
+
 void langmgr_init(void) {
 	Tbflang *bflang;
 	langmgr.tagtable = gtk_text_tag_table_new();
@@ -301,5 +312,6 @@ void langmgr_init(void) {
 	g_hash_table_insert(langmgr.bflang_lookup, "text/x-csrc", bflang);
 	g_hash_table_insert(langmgr.bflang_lookup, "text/x-chdr", bflang);
 	langmgr.bflang_list = g_list_prepend(langmgr.bflang_list, bflang);
+	
 	g_print("langmgr_init, returning \n");
 }
