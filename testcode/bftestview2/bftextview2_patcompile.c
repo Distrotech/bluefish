@@ -304,6 +304,7 @@ guint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag) {
 }
 
 void match_set_nextcontext(Tscantable *st, guint16 matchnum, guint16 nextcontext) {
+	g_print("set match %d to have nextcontext %d\n",matchnum,nextcontext);
 	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
 }
 
@@ -376,7 +377,7 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 			}
 			g_array_index(st->table, Ttablerow, pos).match = matchnum;
 		} else {
-			DBG_PATCOMPILE("state %d, character %c refers to next state %d\n",pos,c,g_array_index(st->table, Ttablerow, pos).row[c]);
+			DBG_PATCOMPILE("state %d, character %c (before change)) refers to next state %d\n",pos,c,g_array_index(st->table, Ttablerow, pos).row[c]);
 			if (g_array_index(st->table, Ttablerow, pos).row[c] != 0 && g_array_index(st->table, Ttablerow, pos).row[c] != identstate) {
 				pos = g_array_index(st->table, Ttablerow, pos).row[c];
 			} else {
@@ -395,7 +396,7 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean i
 	
 	matchnum = new_match(st, keyword, selftag, context, nextcontext, starts_block, ends_block, blockstartpattern
 				, blocktag,add_to_ac, reference);
-	DBG_PATCOMPILE("add_keyword_to_scanning_table,keyword=%s and got matchnum %d\n",keyword,matchnum);
+	DBG_PATCOMPILE("add_keyword_to_scanning_table,keyword=%s,starts_block=%d,ends_block=%d,blockstartpattern=%d, context=%d,nextcontext=%d and got matchnum %d\n",keyword, starts_block, ends_block, blockstartpattern,context,nextcontext,matchnum);
 	if (is_regex) {
 		compile_limitedregex_to_DFA(st, keyword, case_insens, matchnum, context);
 	} else {

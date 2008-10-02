@@ -125,8 +125,9 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 		if (blockstartpattern)
 			blockstartpatternum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, blockstartpattern));
 		matchnum = add_keyword_to_scanning_table(bfparser->st, pattern, is_regex,case_insens, stylet, context, nextcontext
-				, starts_block, ends_block, blockstartpattern,blockstylet,FALSE, NULL);
-		g_hash_table_insert(bfparser->patterns, pattern, GPOINTER_TO_INT(matchnum));
+				, starts_block, ends_block, blockstartpatternum,blockstylet,FALSE, NULL);
+		g_print("add matchnum %d to hash table for key %s\n",matchnum,pattern);
+		g_hash_table_insert(bfparser->patterns, pattern, GINT_TO_POINTER(matchnum));
 		/* now check if there is a deeper context */
 		if (!is_empty) {
 			gint ret;
@@ -199,7 +200,7 @@ static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing 
 	}
 	/* create context */
 	g_print("create context symbols %s and style %s\n",symbols,style);
-	context = new_context(bfparser->st,symbols,style);
+	context = new_context(bfparser->st,symbols,langmrg_lookup_style(style));
 	/* now get the children */
 	ret = xmlTextReaderRead(reader);
 	while (ret == 1) {
