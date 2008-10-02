@@ -201,6 +201,7 @@ typedef struct {
 	gchar *filename; /* the .bflang2 file */
 	gboolean loading;
 	Tscantable *st; /* NULL or complete */
+	gboolean parsing; /* set to TRUE when a thread is parsing the scantable already */
 } Tbflang;
 
 
