@@ -44,7 +44,7 @@ static void bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 static gboolean bftextview2_scanner_idle(gpointer data)
 {
 	BluefishTextView *btv = data;
-	if (btv->scantable) {
+	if (btv->bflang) {
 		DBG_SIGNALS("bftextview2_scanner_idle, running scanner idle function\n");
 		if (!bftextview2_run_scanner(btv)) {
 			btv->scanner_idle = 0;
@@ -481,6 +481,17 @@ static gboolean bftextview2_mouse_lcb(GtkWidget * widget, GdkEvent * event, gpoi
 	return FALSE;
 }
 
+void bluefish_text_view_rescan(BluefishTextView * btv) {
+	cleanup_scanner(btv);
+	if (btv->bflang) {
+		GtkTextIter start,end;
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer(btv);
+		gtk_text_buffer_get_bounds(buffer,&start,&end);
+		gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &start, &end);
+		bftextview2_schedule_scanning(btv);
+}
+}
+
 void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) {
 	GtkTextIter start,end;
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(btv);
@@ -488,14 +499,14 @@ void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) 
 	/* remove all highlighting */
 	cleanup_scanner(btv);
 	if (bflang) {
-		/* set new scantable */
-		btv->scantable = bflang->st;
+		/* set new language */
+		btv->bflang = bflang;
 		/* restart scanning */
 		gtk_text_buffer_get_bounds(buffer,&start,&end);
 		gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &start, &end);
 		bftextview2_schedule_scanning(btv);
 	} else {
-		btv->scantable = NULL;
+		btv->bflang = NULL;
 	}
 }
 

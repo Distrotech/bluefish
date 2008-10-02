@@ -395,6 +395,7 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean i
 	
 	matchnum = new_match(st, keyword, selftag, context, nextcontext, starts_block, ends_block, blockstartpattern
 				, blocktag,add_to_ac, reference);
+	DBG_PATCOMPILE("add_keyword_to_scanning_table,keyword=%s and got matchnum %d\n",keyword,matchnum);
 	if (is_regex) {
 		compile_limitedregex_to_DFA(st, keyword, case_insens, matchnum, context);
 	} else {

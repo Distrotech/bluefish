@@ -74,7 +74,7 @@ to different results (different color, different context).
 #define DBG_MSG DBG_NONE
 #define DBG_SCANCACHE DBG_NONE
 #define DBG_REFCOUNT DBG_NONE
-#define DBG_PATCOMPILE DBG_NONE
+#define DBG_PATCOMPILE g_print
 #define DBG_SIGNALS DBG_NONE
 #define DBG_AUTOCOMP DBG_NONE
 #define DBG_SCANNING DBG_NONE
@@ -193,6 +193,15 @@ typedef struct {
 				have been changes in the buffer so the caches need updating */
 } Tscancache;
 
+/* language manager */
+typedef struct {
+	gchar *name;
+	GList *mimetypes;
+	gchar *filename; /* the .bflang2 file */
+	gboolean loading;
+	Tscantable *st; /* NULL or complete */
+} Tbflang;
+
 
 /*****************************************************************/
 /* stuff for the widget */
@@ -210,7 +219,8 @@ typedef struct _BluefishTextViewClass BluefishTextViewClass;
 
 struct _BluefishTextView {
 	GtkTextView parent;
-	Tscantable *scantable;
+/*	Tscantable *scantable;*/
+	Tbflang *bflang; /* Tbflang */
 	Tscancache scancache;
 	guint scanner_idle; /* event ID for the idle function that handles the scanning. 0 if no idle function is running */
 	GTimer *user_idle_timer;

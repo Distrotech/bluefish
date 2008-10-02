@@ -29,9 +29,12 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	bfparser->bflang->st = bfparser->st;
 	/* now walk and rescan all documents that use this bflang */
 	/* TODO */
+	testapp_rescan_bflang(bfparser->bflang);
 	
 	/* cleanup the parsing structure */
 	g_slice_free(Tbflangparsing,bfparser);
+	
+	
 	return FALSE;
 }
 

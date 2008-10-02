@@ -4,6 +4,8 @@
 #include "bftextview2_patcompile.h"
 #include "bftextview2_langmgr.h"
 
+GtkWidget *text_view;
+
 void on_window_destroy(GtkWidget * widget, gpointer data)
 {
 	gtk_main_quit();
@@ -15,11 +17,19 @@ void on_button_clicked(GtkWidget * button, GtkTextBuffer * buffer)
 	g_print("not used");
 }
 
+void testapp_rescan_bflang(Tbflang *bflang) {
+	g_print("rescan if bflang %p\n",bflang);
+	if (BLUEFISH_TEXT_VIEW(text_view)->bflang == bflang) {
+		bluefish_text_view_rescan(text_view);
+
+	}
+}
+
 int main(int argc, char *argv[])
 {
 	GtkWidget *window, *scroll;
 	GtkWidget *vbox;
-	GtkWidget *text_view;
+
 	GtkWidget *button;
 	GtkTextBuffer *buffer;
 	gchar *data = NULL;
@@ -47,7 +57,7 @@ int main(int argc, char *argv[])
 	buffer = gtk_text_buffer_new(NULL);
 	
 	text_view = bftextview2_new_with_buffer(buffer);
-	BLUEFISH_TEXT_VIEW (text_view)->scantable = bftextview2_scantable_new(buffer);
+	/*BLUEFISH_TEXT_VIEW (text_view)->scantable = bftextview2_scantable_new(buffer);*/
 	gtk_text_buffer_create_tag(buffer,"needscanning",NULL);
 	gtk_text_buffer_create_tag(buffer,"blockmatch","background","red","foreground","white",NULL);
 	gtk_text_buffer_create_tag(buffer,"_folded_","editable",FALSE, "invisible", TRUE, NULL);
@@ -69,7 +79,7 @@ int main(int argc, char *argv[])
 	mime = g_file_info_get_content_type(finfo);
 	g_print("setting mime %s\n",mime);
 	bluefish_text_view_set_mimetype(text_view, mime);
-	
+	g_print("text_view->bflang = %p\n",BLUEFISH_TEXT_VIEW(text_view)->bflang);
 	/* Create a close button. */
 	button = gtk_button_new_with_label("test");
 	gtk_box_pack_start(GTK_BOX(vbox), button, 0, 0, 0);
