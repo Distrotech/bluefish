@@ -1,6 +1,6 @@
 <bflang name="PHP">
 <detection><mime type="application/x-php"/></detection>
-<scanning><context symbols="&gt;&lt;&amp; &#9;&#10;&#13;">
+<scanning><context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 
 <pattern name="&lt;?php" starts_block="1" style="region">
 <context symbols="'&#34;(){}[];:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" style="region">
@@ -4791,6 +4791,13 @@
 <pattern name="(//|#)[^&#10;]+" is_regex="1" style="comment"/>
 <pattern name="?&gt;" ends_block="1" blockstartpattern="&lt;?php" style="region" mayfold="1" ends_context="1" />
 </context></pattern>
+
+<pattern name="&lt;!--" style="comment" starts_block="1">
+	<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
+		<pattern name="--&gt;" ends_block="1" blockstartpattern="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+	</context>
+</pattern>
+<pattern name="&amp;[a-z0-9#]+;" is_regex="1" style="value" />
 </context>
 </scanning>
 </bflang>
