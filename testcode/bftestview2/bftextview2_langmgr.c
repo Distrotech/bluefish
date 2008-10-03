@@ -130,12 +130,14 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 			}
 			stylet = langmrg_lookup_style(style);
 			blockstylet = langmrg_lookup_style(blockstyle);
-			if (blockstartpattern)
+			if (blockstartpattern) {
 				blockstartpatternum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, blockstartpattern));
+				DBG_PARSING("got blockstartpatternum %d for blockstartpattern %s, ends_block=%d\n",blockstartpatternum,blockstartpattern,ends_block);
+			}
 			matchnum = add_keyword_to_scanning_table(bfparser->st, pattern, is_regex,case_insens, stylet, context, nextcontext
 					, starts_block, ends_block, blockstartpatternum,blockstylet,FALSE, NULL);
-			DBG_PARSING("add matchnum %d to hash table for key %s\n",matchnum,pattern);
-			g_hash_table_insert(bfparser->patterns, pattern, GINT_TO_POINTER((gint)matchnum));
+			DBG_PARSING("add matchnum %d to hash table for key %s, starts_block=%d\n",matchnum,pattern,starts_block);
+			g_hash_table_insert(bfparser->patterns, g_strdup(pattern), GINT_TO_POINTER((gint)matchnum));
 			/* now check if there is a deeper context */
 			if (!is_empty) {
 				while (xmlTextReaderRead(reader)==1) {

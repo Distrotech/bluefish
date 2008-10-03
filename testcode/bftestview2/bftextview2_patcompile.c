@@ -310,14 +310,14 @@ void match_set_nextcontext(Tscantable *st, guint16 matchnum, guint16 nextcontext
 	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
 }
 
-static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint context, guint nextcontext
-				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
+static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint16 context, guint16 nextcontext
+				, gboolean starts_block, gboolean ends_block, guint16 blockstartpattern
 				, GtkTextTag *blocktag,gboolean add_to_ac, gchar *reference) {
 	guint matchnum;
 /* add the match */
 	
 	matchnum = st->matches->len;
-	DBG_PATCOMPILE("new match %s with matchnum %d\n",keyword,matchnum);
+	DBG_PATCOMPILE("new match %s at matchnum %d has blockstartpattern %d\n",keyword,matchnum,blockstartpattern);
 	g_array_set_size(st->matches,st->matches->len+1);
 
 	g_array_index(st->matches, Tpattern, matchnum).message = g_strdup(keyword);
