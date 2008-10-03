@@ -206,8 +206,9 @@ typedef struct {
 typedef struct {
 	gchar *name;
 	GList *mimetypes;
+	GList *langoptions; /* all options that can be enabled/disabled for this language */
+	GList *setoptions; /* all options that are enabled */
 	gchar *filename; /* the .bflang2 file */
-	gboolean loading;
 	Tscantable *st; /* NULL or complete */
 	gboolean parsing; /* set to TRUE when a thread is parsing the scantable already */
 } Tbflang;

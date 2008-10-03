@@ -6,6 +6,7 @@
 
 typedef struct {
 	GHashTable *patterns;
+	GHashTable *setoptions;
 	Tscantable *st; /* while not finished */
 	Tbflang *bflang;
 } Tbflangparsing;
@@ -77,6 +78,21 @@ static void process_detection(xmlTextReaderPtr reader, Tbflang *bflang) {
 					bflang->mimetypes = g_list_prepend(bflang->mimetypes, mimetype);
 				xmlFree(aname);
 			}
+		} else if (xmlStrEqual(name,(xmlChar *)"option")) {
+			gchar *optionname=NULL;
+			gboolean defaultval=FALSE;
+			while (xmlTextReaderMoveToNextAttribute(reader)) {
+				xmlChar *aname = xmlTextReaderName(reader);
+				set_string_if_attribute_name(reader,aname,(xmlChar *)"name", &optionname);
+				set_boolean_if_attribute_name(reader,aname,(xmlChar *)"default", &defaultval);
+				xmlFree(aname);
+			}
+			if (optionname) {
+				bflang->langoptions = g_list_prepend(bflang->langoptions, optionname);
+				if (defaultval) {
+					bflang->setoptions = g_list_prepend(bflang->setoptions, optionname);
+				}
+			}
 		} else if (xmlStrEqual(name,(xmlChar *)"detection")) {
 			xmlFree(name);
 			break;
@@ -88,7 +104,7 @@ static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing 
 
 static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context, guint16 prevcontext) {
 	guint16 matchnum;
-	gchar *pattern=NULL, *style=NULL, *blockstartpattern=NULL, *blockstyle=NULL;
+	gchar *pattern=NULL, *style=NULL, *blockstartpattern=NULL, *blockstyle=NULL, *class=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE,ends_context=FALSE, is_empty;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
@@ -97,6 +113,7 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"blockstyle",&blockstyle);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"blockstartpattern",&blockstartpattern);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"is_regex", &is_regex);
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"starts_block", &starts_block);
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"ends_block", &ends_block);
@@ -104,47 +121,56 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"ends_context", &ends_context);
 		xmlFree(aname);
 	}
-	
-	if (pattern) {
-		GtkTextTag *stylet=NULL,*blockstylet=NULL;
-		guint16 blockstartpatternum=0, nextcontext=context;
-		if (ends_context) {
-			nextcontext=prevcontext;
-		}
-		stylet = langmrg_lookup_style(style);
-		blockstylet = langmrg_lookup_style(blockstyle);
-		if (blockstartpattern)
-			blockstartpatternum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, blockstartpattern));
-		matchnum = add_keyword_to_scanning_table(bfparser->st, pattern, is_regex,case_insens, stylet, context, nextcontext
-				, starts_block, ends_block, blockstartpatternum,blockstylet,FALSE, NULL);
-		DBG_PARSING("add matchnum %d to hash table for key %s\n",matchnum,pattern);
-		g_hash_table_insert(bfparser->patterns, pattern, GINT_TO_POINTER((gint)matchnum));
-		/* now check if there is a deeper context */
-		if (!is_empty) {
-			while (xmlTextReaderRead(reader)==1) {
-				xmlChar *name=xmlTextReaderName(reader);
-				if (xmlStrEqual(name,(xmlChar *)"context")) {
-					nextcontext = process_scanning_context(reader,bfparser,context);
-					match_set_nextcontext(bfparser->st, matchnum, nextcontext);
-				} else if (xmlStrEqual(name,(xmlChar *)"pattern")) {
+	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
+		if (pattern) {
+			GtkTextTag *stylet=NULL,*blockstylet=NULL;
+			guint16 blockstartpatternum=0, nextcontext=context;
+			if (ends_context) {
+				nextcontext=prevcontext;
+			}
+			stylet = langmrg_lookup_style(style);
+			blockstylet = langmrg_lookup_style(blockstyle);
+			if (blockstartpattern)
+				blockstartpatternum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, blockstartpattern));
+			matchnum = add_keyword_to_scanning_table(bfparser->st, pattern, is_regex,case_insens, stylet, context, nextcontext
+					, starts_block, ends_block, blockstartpatternum,blockstylet,FALSE, NULL);
+			DBG_PARSING("add matchnum %d to hash table for key %s\n",matchnum,pattern);
+			g_hash_table_insert(bfparser->patterns, pattern, GINT_TO_POINTER((gint)matchnum));
+			/* now check if there is a deeper context */
+			if (!is_empty) {
+				while (xmlTextReaderRead(reader)==1) {
+					xmlChar *name=xmlTextReaderName(reader);
+					if (xmlStrEqual(name,(xmlChar *)"context")) {
+						nextcontext = process_scanning_context(reader,bfparser,context);
+						match_set_nextcontext(bfparser->st, matchnum, nextcontext);
+					} else if (xmlStrEqual(name,(xmlChar *)"pattern")) {
+						xmlFree(name);
+						break;
+					}
 					xmlFree(name);
-					break;
 				}
-				xmlFree(name);
 			}
 		}
 	}
+	/* TODO cleanup! */
+	if (pattern) xmlFree(pattern);
+	if (style) xmlFree(style);
+	if (blockstartpattern) xmlFree(blockstartpattern);
+	if (blockstyle) xmlFree(blockstyle);
+	if (class) xmlFree(class);
 	return matchnum;
 }
 static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context) {
-	gchar *name=NULL, *style=NULL, *reference=NULL;
+	gchar *name=NULL, *style=NULL, *reference=NULL, *class=NULL;
 	gboolean autocomplete=FALSE, is_empty;
+	guint16 matchnum=0;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	DBG_PARSING("processing keyword...\n");
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&name);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
 		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"autocomplete", &autocomplete);
 		xmlFree(aname);
 	}
@@ -160,63 +186,67 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 			}
 		} 
 	} 
-	
-	if (name) {
-		guint16 matchnum;
-		GtkTextTag *stylet;
-		stylet = langmrg_lookup_style(style);
-		matchnum = add_keyword_to_scanning_table(bfparser->st, name, FALSE,FALSE, stylet, context, context
-				, FALSE, FALSE, 0,NULL,autocomplete, reference);
-		return matchnum;
+	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
+		if (name) {
+			GtkTextTag *stylet;
+			stylet = langmrg_lookup_style(style);
+			matchnum = add_keyword_to_scanning_table(bfparser->st, name, FALSE,FALSE, stylet, context, context
+					, FALSE, FALSE, 0,NULL,autocomplete, reference);
+		}
 	}
-	return 0;
+	if (name) xmlFree(name);
+	if (style) xmlFree(style);
+	if (class) xmlFree(class);
+	if (reference) xmlFree(reference);
+	return matchnum;
 }
 
-
-
-
 static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context) {
-	gchar *tag=NULL, *style=NULL, *attributes=NULL, *attribstyle=NULL;
+	gchar *tag=NULL, *style=NULL, *attributes=NULL, *attribstyle=NULL,*class=NULL;
+	guint16 matchnum=0;
 	DBG_PARSING("processing tag...\n");
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&tag);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"attribstyle",&attribstyle);
 		set_string_if_attribute_name(reader,aname, (xmlChar *)"attributes", &attributes);
 		xmlFree(aname);
 	}
-	if (tag) {
-		GtkTextTag *stylet;
-		stylet = langmrg_lookup_style(style);
-		guint16 contexttag, contextstring, matchnum;
-		gchar *tmp;
-	
-		contexttag = new_context(bfparser->st, ">\"=' \t\n\r", NULL);
-		tmp = g_strconcat("<",tag,NULL);
-		matchnum = add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, context, contexttag, TRUE, FALSE, 0, NULL,TRUE,NULL);
-		g_free(tmp);
-		add_keyword_to_scanning_table(bfparser->st, ">", FALSE, FALSE, stylet, contexttag, context, FALSE, FALSE, 0, NULL,FALSE,NULL);
-		if (attributes) {
-			gchar **arr, **tmp2;
-			GtkTextTag *string, *attrib = langmrg_lookup_style(attribstyle);
-			string = langmrg_lookup_style("string");
-			arr = g_strsplit(attributes,",",-1);
-			tmp2 = arr;
-			while (*tmp2) {
-				add_keyword_to_scanning_table(bfparser->st, *tmp2, FALSE, FALSE, attrib, contexttag, contexttag, FALSE, FALSE, 0, NULL,TRUE,NULL);
-				tmp2++;
+	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
+		if (tag) {
+			GtkTextTag *stylet;
+			stylet = langmrg_lookup_style(style);
+			guint16 contexttag, contextstring;
+			gchar *tmp;
+		
+			contexttag = new_context(bfparser->st, ">\"=' \t\n\r", NULL);
+			tmp = g_strconcat("<",tag,NULL);
+			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, context, contexttag, TRUE, FALSE, 0, NULL,TRUE,NULL);
+			g_free(tmp);
+			add_keyword_to_scanning_table(bfparser->st, ">", FALSE, FALSE, stylet, contexttag, context, FALSE, FALSE, 0, NULL,FALSE,NULL);
+			if (attributes) {
+				gchar **arr, **tmp2;
+				GtkTextTag *string, *attrib = langmrg_lookup_style(attribstyle);
+				string = langmrg_lookup_style("string");
+				arr = g_strsplit(attributes,",",-1);
+				tmp2 = arr;
+				while (*tmp2) {
+					add_keyword_to_scanning_table(bfparser->st, *tmp2, FALSE, FALSE, attrib, contexttag, contexttag, FALSE, FALSE, 0, NULL,TRUE,NULL);
+					tmp2++;
+				}
+				contextstring = new_context(bfparser->st, "\"=' \t\n\r", string);
+				add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contexttag, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
+				add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contextstring, contexttag, FALSE, FALSE, 0, string,FALSE,NULL);
 			}
-			contextstring = new_context(bfparser->st, "\"=' \t\n\r", string);
-			add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contexttag, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
-			add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contextstring, contexttag, FALSE, FALSE, 0, string,FALSE,NULL);
+			tmp = g_strconcat("</",tag,">",NULL);
+			add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, context, context, FALSE, TRUE, matchnum, NULL,TRUE,NULL);
+			g_free(tmp);
+			
 		}
-		tmp = g_strconcat("</",tag,">",NULL);
-		add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, context, context, FALSE, TRUE, matchnum, NULL,TRUE,NULL);
-		g_free(tmp);
-		return matchnum;
 	}
-	return 0;
+	return matchnum;
 }
 
 static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 prevcontext) {
@@ -256,10 +286,15 @@ static gpointer build_lang_thread(gpointer data)
 	xmlTextReaderPtr reader;
 	Tbflang *bflang = data;
 	Tbflangparsing *bfparser;
+	GList *tmplist;
 	
 	bfparser = g_slice_new0(Tbflangparsing);
 	bfparser->patterns =  g_hash_table_new(g_str_hash,g_str_equal);
+	bfparser->setoptions =  g_hash_table_new(g_str_hash,g_str_equal);
 	bfparser->bflang = bflang;
+	for(tmplist = g_list_first(bfparser->bflang->setoptions);tmplist;tmplist=g_list_next(tmplist)) {
+		g_hash_table_insert(bfparser->setoptions,tmplist->data,GINT_TO_POINTER(1));
+	}
 	bfparser->st = scantable_new();
 	
 	DBG_PARSING("build_lang_thread %p, started for %s\n",g_thread_self(),bfparser->bflang->filename);
