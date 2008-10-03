@@ -22,9 +22,14 @@
 <keyword name="const" autocomplete="1" style="keyword" />
 <keyword name="sizeof" autocomplete="1" style="keyword" />
 
-		<keyword name="void" autocomplete="1" style="storage">void is the default storage type</keyword>
-		<keyword name="int" autocomplete="1" style="storage">int is the integer storage type</keyword>
-		<keyword name="char" autocomplete="1" style="storage">char is the character storage type, which is 1 byte (8bits)</keyword>
+	<keyword name="signed" autocomplete="1" style="storage">signed means if the storage can have negative numbers or only positive numbers</keyword>
+	<keyword name="void" autocomplete="1" style="storage">void is the default storage type for a pointer, 16 bits on 16 bit architecture, 32 bits on 32 bit architecture, 64 bits on 64 bit architecture</keyword>
+	<keyword name="int" autocomplete="1" style="storage">int is the integer storage type, minimal 2 bytes but usually 4 bytes (32bits)</keyword>
+	<keyword name="char" autocomplete="1" style="storage">char is the character storage type, which is 1 byte (8bits)</keyword>
+	<keyword name="short" autocomplete="1" style="storage">a short int is 2 bytes (16bits)</keyword>
+	<keyword name="long" autocomplete="1" style="storage">a long int is minimally 4 bytes (32bits), on 64bit architectures it is 8 bytes (64 bits). A long long int is minimally 8 bytes, and 16 bytes on 64bit architectures. A long double might be 64 or 128 bits.</keyword>
+	<keyword name="float" autocomplete="1" style="storage">float is the floating point storage type, which is 2 or 4 bytes (16 or 32bits)</keyword>
+	<keyword name="double" autocomplete="1" style="storage">double is the big floating point storage type, which is 4 or 8 byte (32 or 64bits)</keyword>
 		
 <keyword name="glib_check_version" autocomplete="1" style="function" class="glib" />
 <keyword name="guint64" autocomplete="1" style="function" class="glib" />
