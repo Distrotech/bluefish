@@ -312,7 +312,7 @@ void match_set_nextcontext(Tscantable *st, guint16 matchnum, guint16 nextcontext
 
 static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint16 context, guint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint16 blockstartpattern
-				, GtkTextTag *blocktag,gboolean add_to_ac, gchar *reference) {
+				, GtkTextTag *blocktag,gboolean add_to_ac, gchar *append_to_ac, gchar *reference) {
 	guint matchnum;
 /* add the match */
 	
@@ -331,11 +331,17 @@ static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, gu
 		/* do autocompletion and reference */
 	if (add_to_ac) {
 		GList *list;
+		gchar *tmp;
 		if (!g_array_index(st->contexts, Tcontext, context).ac) {
 			DBG_PATCOMPILE("create g_completion for context %d\n",context);
 			g_array_index(st->contexts, Tcontext, context).ac = g_completion_new(NULL);
 		}
-		list = g_list_prepend(NULL, g_strdup(keyword));
+		if (append_to_ac) {
+			tmp = g_strconcat(keyword,append_to_ac,NULL);
+		} else {
+			tmp = g_strdup(keyword);
+		}
+		list = g_list_prepend(NULL, tmp);
 		g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
 		DBG_AUTOCOMP("adding %s to GCompletion\n",(gchar *)list->data);
 		g_list_free(list);
@@ -345,8 +351,10 @@ static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, gu
 				DBG_PATCOMPILE("create hashtable for context %d\n",context);
 				g_array_index(st->contexts, Tcontext, context).reference = g_hash_table_new(g_str_hash,g_str_equal);
 			}
-			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,keyword,reference);
+			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,tmp,reference);
 		}
+		/* should we free tmp?? it is in the autocomplete and in the hashtable, but do these make a copy or not?
+		AFAIK both of them don't make copies of the data */
 	}
 	
 	return matchnum;
@@ -393,11 +401,11 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 
 guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean is_regex,gboolean case_insens, GtkTextTag *selftag, guint context, guint nextcontext
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
-				, GtkTextTag *blocktag,gboolean add_to_ac, gchar *reference)  {
+				, GtkTextTag *blocktag,gboolean add_to_ac, gchar *append_to_ac, gchar *reference)  {
 	guint16 matchnum;
 	
 	matchnum = new_match(st, keyword, selftag, context, nextcontext, starts_block, ends_block, blockstartpattern
-				, blocktag,add_to_ac, reference);
+				, blocktag,add_to_ac, append_to_ac, reference);
 	DBG_PATCOMPILE("add_keyword_to_scanning_table,keyword=%s,starts_block=%d,ends_block=%d,blockstartpattern=%d, context=%d,nextcontext=%d and got matchnum %d\n",keyword, starts_block, ends_block, blockstartpattern,context,nextcontext,matchnum);
 	if (is_regex) {
 		compile_limitedregex_to_DFA(st, keyword, case_insens, matchnum, context);
