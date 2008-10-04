@@ -2,42 +2,55 @@
 <detection><mime type="text/html"/></detection>
 <scanning><context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 <tag name="html" style="tag" />
-<tag name="head" style="tag" />
-<tag name="body" style="tag" />
-<tag name="meta" style="tag" attributes="name,http-equiv,content" attribstyle="function"  />
-<tag name="link" style="tag" attributes="rel,type,href" attribstyle="function" />
-<tag name="div" style="tag" attributes="style,class,id,align" attribstyle="function" />
-<tag name="p" style="tag" attributes="style,class,id,align" attribstyle="function" />
-<tag name="span" style="tag" attributes="style,class,id,align" attribstyle="function" />
-<tag name="title" style="tag" />
-<tag name="img" style="storage" attributes="src,width,height,align,valign,border,alt" attribstyle="function" />
-<tag name="i" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="b" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="em" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="strong" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="u" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="a" style="storage" attributes="style,class,id,href,target" attribstyle="function" />
-<tag name="table" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="th" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="tr" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="td" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="ul" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="ol" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="li" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="h1" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="h2" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="h3" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="h4" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="h5" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="h6" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="br" style="tag" attributes="style,class,id" attribstyle="function" />
-<tag name="kbd" style="tag" attributes="style,class,id" attribstyle="function" />
-<pattern name="&lt;!--" style="comment" starts_block="1">
-	<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
-		<pattern name="--&gt;" ends_block="1" blockstartpattern="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+<tag name="head" style="tag">
+	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" style="region">
+	<tag name="meta" style="tag" attributes="name,http-equiv,content" attribstyle="function" />
+	<tag name="title" style="tag" />
+	<tag name="script" style="tag" attributes="type,src"  attribstyle="function" />
+	<tag name="link" style="tag" attributes="rel,type,href" attribstyle="function" />
+	<pattern name="&lt;!--" style="comment" starts_block="1">
+		<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
+			<pattern name="--&gt;" ends_block="1" blockstartpattern="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+		</context>
+	</pattern>
+	<pattern name="&amp;[a-z0-9#]+;" is_regex="1" style="value" />
 	</context>
-</pattern>
-<pattern name="&amp;[a-z0-9#]+;" is_regex="1" style="value" />
+</tag>
+<tag name="body" style="tag">
+	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+	<tag name="div" style="tag" attributes="style,class,id,align" attribstyle="function" />
+	<tag name="p" style="tag" attributes="style,class,id,align" attribstyle="function" />
+	<tag name="span" style="tag" attributes="style,class,id,align" attribstyle="function" />
+	<tag name="img" style="storage" attributes="src,width,height,align,valign,border,alt" attribstyle="function" />
+	<tag name="i" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="b" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="em" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="strong" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="u" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="a" style="storage" attributes="style,class,id,href,target" attribstyle="function" />
+	<tag name="table" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="th" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="tr" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="td" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="ul" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="ol" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="li" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="h1" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="h2" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="h3" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="h4" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="h5" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="h6" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="br" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="kbd" style="tag" attributes="style,class,id" attribstyle="function" />
+	<pattern name="&lt;!--" style="comment" starts_block="1">
+		<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
+			<pattern name="--&gt;" ends_block="1" blockstartpattern="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+		</context>
+	</pattern>
+	<pattern name="&amp;[a-z0-9#]+;" is_regex="1" style="value" />
+	</context>
+</tag>
 </context>
 </scanning>
 </bflang>

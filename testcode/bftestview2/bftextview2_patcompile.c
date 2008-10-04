@@ -351,7 +351,7 @@ static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, gu
 				DBG_PATCOMPILE("create hashtable for context %d\n",context);
 				g_array_index(st->contexts, Tcontext, context).reference = g_hash_table_new(g_str_hash,g_str_equal);
 			}
-			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,tmp,reference);
+			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,tmp,g_strdup(reference));
 		}
 		/* should we free tmp?? it is in the autocomplete and in the hashtable, but do these make a copy or not?
 		AFAIK both of them don't make copies of the data */

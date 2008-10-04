@@ -181,6 +181,7 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 		gint ret;
 		/* get reference data */
 		reference = (gchar *)xmlTextReaderReadInnerXml(reader);
+		g_print("reference-data=%s\n",reference);
 		ret = xmlTextReaderRead(reader);
 		while (xmlTextReaderRead(reader)==1) {
 			xmlChar *name = xmlTextReaderName(reader);
@@ -206,8 +207,10 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 
 static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context) {
 	gchar *tag=NULL, *style=NULL, *attributes=NULL, *attribstyle=NULL,*class=NULL, *autocomplete_append=NULL;
-	guint16 matchnum=0;
+	guint16 matchnum=0,innercontext=context;
+	gboolean is_empty;
 	DBG_PARSING("processing tag...\n");
+	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&tag);
@@ -222,14 +225,14 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 		if (tag) {
 			GtkTextTag *stylet;
 			stylet = langmrg_lookup_style(style);
-			guint16 contexttag, contextstring;
+			guint16 contexttag, contextstring, starttagmatch, endtagmatch;
 			gchar *tmp;
 		
 			contexttag = new_context(bfparser->st, ">\"=' \t\n\r", NULL);
 			tmp = g_strconcat("<",tag,NULL);
 			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, context, contexttag, TRUE, FALSE, 0, NULL,TRUE,autocomplete_append,NULL);
 			g_free(tmp);
-			add_keyword_to_scanning_table(bfparser->st, ">", FALSE, FALSE, stylet, contexttag, context, FALSE, FALSE, 0, NULL,FALSE,NULL,NULL);
+			starttagmatch = add_keyword_to_scanning_table(bfparser->st, ">", FALSE, FALSE, stylet, contexttag, context, FALSE, FALSE, 0, NULL,FALSE,NULL,NULL);
 			if (attributes) {
 				gchar **arr, **tmp2;
 				GtkTextTag *string, *attrib = langmrg_lookup_style(attribstyle);
@@ -244,10 +247,24 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 				add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contexttag, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL,NULL);
 				add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contextstring, contexttag, FALSE, FALSE, 0, string,FALSE,NULL,NULL);
 			}
-			tmp = g_strconcat("</",tag,">",NULL);
-			add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, context, context, FALSE, TRUE, matchnum, NULL,TRUE,NULL,NULL);
-			g_free(tmp);
 			
+			if (!is_empty) {
+				while (xmlTextReaderRead(reader)==1) {
+					xmlChar *name=xmlTextReaderName(reader);
+					if (xmlStrEqual(name,(xmlChar *)"context")) {
+						innercontext = process_scanning_context(reader,bfparser,context);
+						match_set_nextcontext(bfparser->st, starttagmatch, innercontext);
+					} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
+						xmlFree(name);
+						break;
+					}
+					xmlFree(name);
+				}
+			}
+			tmp = g_strconcat("</",tag,">",NULL);
+			endtagmatch = add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, innercontext, context, FALSE, TRUE, matchnum, NULL,TRUE,NULL,NULL);
+			g_free(tmp);
+
 		}
 	}
 	return matchnum;
