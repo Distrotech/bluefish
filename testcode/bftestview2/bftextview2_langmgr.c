@@ -181,7 +181,6 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 		gint ret;
 		/* get reference data */
 		reference = (gchar *)xmlTextReaderReadInnerXml(reader);
-		g_print("reference-data=%s\n",reference);
 		ret = xmlTextReaderRead(reader);
 		while (xmlTextReaderRead(reader)==1) {
 			xmlChar *name = xmlTextReaderName(reader);
@@ -353,7 +352,7 @@ static gpointer build_lang_thread(gpointer data)
 
 	DBG_PARSING("build_lang_thread finished bflang=%p\n",bflang);
 	print_scantable_stats(bfparser->st);
-	/*print_DFA(bfparser->st, '0','9');*/
+	/*print_DFA(bfparser->st, '&','Z');*/
 	
 	/* when done call mainloop */
 	g_idle_add(build_lang_finished_lcb, bfparser);
