@@ -2,7 +2,9 @@
 
 #include <gtk-2.0/gdk/gdkevents.h>
 #include <gtk-2.0/gtk/gtkwidget.h>
+#include <gdk/gdkkeysyms.h>
 #include <math.h> /* log10() */
+#include <string.h> /* strlen() */
 
 #include "bftextview2.h"
 #include "bftextview2_scanner.h"
@@ -492,6 +494,40 @@ static gboolean bftextview2_mouse_lcb(GtkWidget * widget, GdkEvent * event, gpoi
 	return FALSE;
 }
 
+static gboolean bftextview2_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
+	BluefishTextView *btv=user_data;
+	if ((kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
+		gboolean autoindent=TRUE;
+		if (autoindent) {
+			gchar *string, *indenting;
+			GtkTextMark* imark;
+			GtkTextIter itstart, itend;
+			GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+			imark = gtk_text_buffer_get_insert(buffer);
+			gtk_text_buffer_get_iter_at_mark(buffer,&itend,imark);
+			itstart = itend;
+			/* set to the beginning of the previous line */
+			gtk_text_iter_backward_line(&itstart);
+			gtk_text_iter_set_line_index(&itstart, 0);
+			string = gtk_text_buffer_get_text(buffer,&itstart,&itend,TRUE);
+			if (string) {
+				/* now count the indenting in this string */
+				indenting = string;
+				while (*indenting == '\t' || *indenting == ' ') {
+					indenting++;
+				}
+				/* ending search, non-whitespace found, so terminate at this position */
+				*indenting = '\0';
+				if (strlen(string)) {
+					gtk_text_buffer_insert(buffer,&itend,string,-1);
+				}
+				g_free(string);
+			}
+		}
+	}
+	return FALSE; /* we didn't handle all of the event */
+}
+
 void bluefish_text_view_rescan(BluefishTextView * btv) {
 	cleanup_scanner(btv);
 	if (btv->bflang) {
@@ -594,6 +630,6 @@ GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 	g_signal_connect_after(G_OBJECT(buffer), "delete-range",G_CALLBACK(bftextview2_delete_range_after_lcb), textview);
 	g_signal_connect(G_OBJECT(textview), "key-press-event", G_CALLBACK(bftextview2_key_press_lcb),textview);
 	g_signal_connect(G_OBJECT(textview), "button-press-event", G_CALLBACK(bftextview2_mouse_lcb), textview);
-	
+	g_signal_connect_after(G_OBJECT(textview), "key-release-event", G_CALLBACK(bftextview2_key_release_lcb), textview);
 	return GTK_WIDGET(textview);
 }
