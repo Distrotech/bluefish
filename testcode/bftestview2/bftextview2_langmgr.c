@@ -188,7 +188,7 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 				break;
 			}
 		} 
-	} 
+	}
 	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
 		if (name) {
 			GtkTextTag *stylet;

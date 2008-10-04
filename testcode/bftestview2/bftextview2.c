@@ -410,12 +410,49 @@ static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIt
 }
 static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
 	BluefishTextView *btv=user_data;
+	gboolean smart_cursor=TRUE;
 	if (btv->autocomp) {
 		if (acwin_check_keypress(btv, kevent))
 			return TRUE;
 	}
 	if ((kevent->state & GDK_CONTROL_MASK) && kevent->keyval == ' ') {
 		autocomp_run(btv,TRUE);
+		return TRUE;
+	}
+	if (smart_cursor && !(kevent->state & GDK_CONTROL_MASK) && 
+	       ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End))) {
+		GtkTextMark* imark;
+		GtkTextIter iter, currentpos, linestart;
+		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+   
+		imark = gtk_text_buffer_get_insert(buffer);		
+		gtk_text_buffer_get_iter_at_mark(buffer, &currentpos, imark);
+		iter = currentpos;
+
+		if ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home)) {
+			gtk_text_iter_backward_cursor_positions(&iter, gtk_text_iter_get_line_offset(&iter));
+			linestart = iter;
+        
+			while (g_unichar_isspace(gtk_text_iter_get_char (&iter)) && !gtk_text_iter_ends_line(&iter))
+				gtk_text_iter_forward_char (&iter);
+		} else { /* (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End) */
+			if (!gtk_text_iter_ends_line(&iter))
+				gtk_text_iter_forward_to_line_end(&iter);
+			linestart = iter;
+			if (gtk_text_iter_is_end (&iter) && !gtk_text_iter_starts_line (&iter))
+				gtk_text_iter_backward_char(&iter);
+			while (g_unichar_isspace (gtk_text_iter_get_char (&iter)) && !gtk_text_iter_starts_line (&iter))
+				gtk_text_iter_backward_char(&iter);
+			if ((!gtk_text_iter_starts_line (&iter) || !gtk_text_iter_ends_line (&iter)) && !g_unichar_isspace (gtk_text_iter_get_char (&iter)))
+				gtk_text_iter_forward_char(&iter);
+		}
+		if (gtk_text_iter_compare(&currentpos, &iter) == 0)
+			iter = linestart;
+		if (kevent->state & GDK_SHIFT_MASK)
+			gtk_text_buffer_move_mark(buffer, imark, &iter);
+		else		
+			gtk_text_buffer_place_cursor(buffer, &iter);
+		gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(btv), gtk_text_buffer_get_insert(buffer));
 		return TRUE;
 	}
 	return FALSE;
