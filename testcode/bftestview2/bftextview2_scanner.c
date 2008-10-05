@@ -234,16 +234,29 @@ static Tfoundcontext *found_context_change(BluefishTextView * bt2,GtkTextBuffer 
 	Tfoundcontext *fcontext;
 	/* check if we change up or down the stack */
 	if (pat->nextcontext < scanning->context) {
+		Tfoundcontext *fcontext2=NULL;
 		/* pop */
-		fcontext = g_queue_pop_head(scanning->contextstack);
-		fcontext->end = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
-		DBG_SCANNING("found_context_change, popped context %d from the stack, stack len %d\n",fcontext->context,g_queue_get_length(scanning->contextstack));
-		if (g_array_index(bt2->bflang->st->contexts,Tcontext,fcontext->context).contexttag) {
-			GtkTextIter iter;
-			gtk_text_buffer_get_iter_at_mark(buffer,&iter,fcontext->start);
-			gtk_text_buffer_apply_tag(buffer,g_array_index(bt2->bflang->st->contexts,Tcontext,fcontext->context).contexttag, &iter, &match.start);
-		}
-		foundcontext_unref(fcontext, buffer);
+		do {
+			fcontext = g_queue_pop_head(scanning->contextstack);
+			fcontext2 = g_queue_peek_head(scanning->contextstack);
+			DBG_SCANNING("popped %p, stack len now %d\n",fcontext,g_queue_get_length(scanning->contextstack));
+			DBG_SCANNING("found_context_change, popped context %d from the stack, stack len %d\n",fcontext->context,g_queue_get_length(scanning->contextstack));
+		/* debug */
+			if (fcontext2) {
+				DBG_SCANNING("nextcontext=%d, after pop stack has context %d\n",pat->nextcontext,fcontext2->context);
+			}
+		/* /debug */
+			fcontext->end = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
+			if (g_array_index(bt2->bflang->st->contexts,Tcontext,fcontext->context).contexttag) {
+				GtkTextIter iter;
+				gtk_text_buffer_get_iter_at_mark(buffer,&iter,fcontext->start);
+				gtk_text_buffer_apply_tag(buffer,g_array_index(bt2->bflang->st->contexts,Tcontext,fcontext->context).contexttag, &iter, &match.start);
+			}
+			foundcontext_unref(fcontext, buffer);
+			/* some patterns can end two contexts at once, so for these patterns we have to check 
+			if the head of the contextstack (fcontext2) has the same context as pat->nextcontext, and if
+			not we have to pop another fcontext from the stack */
+		} while (fcontext2 && fcontext2->context != pat->nextcontext);
 		return fcontext;
 	} else {
 		fcontext = g_slice_new0(Tfoundcontext);
@@ -252,7 +265,7 @@ static Tfoundcontext *found_context_change(BluefishTextView * bt2,GtkTextBuffer 
 		g_queue_push_head(scanning->contextstack, fcontext);
 		fcontext->refcount++;
 		DBG_REFCOUNT("refcount for fcontext %p is %d\n",fcontext,fcontext->refcount);
-		DBG_SCANNING("found_context_change, pushed context %d onto the stack, stack len %d\n",pat->nextcontext,g_queue_get_length(scanning->contextstack));
+		DBG_SCANNING("found_context_change, pushed nextcontext %d onto the stack, stack len %d\n",pat->nextcontext,g_queue_get_length(scanning->contextstack));
 		return fcontext;
 	}
 }
@@ -330,12 +343,11 @@ static void reconstruct_stack(BluefishTextView * bt2, GtkTextBuffer *buffer, Gtk
 
 		g_queue_foreach(scanning->blockstack,foundblock_foreach_ref_lcb,NULL);
 		g_queue_foreach(scanning->contextstack,foundcontext_foreach_ref_lcb,NULL);
-		DBG_MSG("stack from the cache, contextstack has len %d, blockstack has len %d, context=%d\n",g_queue_get_length(scanning->contextstack),g_queue_get_length(scanning->blockstack),scanning->context);
+		DBG_SCANNING("stack from the cache, contextstack has len %d, blockstack has len %d, context=%d\n",g_queue_get_length(scanning->contextstack),g_queue_get_length(scanning->blockstack),scanning->context);
 	} else {
-		DBG_MSG("empty stack\n");
+		DBG_SCANNING("empty stack\n");
 		scanning->contextstack =  g_queue_new();
 		scanning->blockstack =  g_queue_new();
-		
 	}
 }
 
@@ -423,10 +435,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 	scanning.timer = g_timer_new();
 		
 	
-	g_print("scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
+	DBG_SCANNING("scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
 
 	if (bt2->scancache.stackcache_need_update_charoffset != -1 && bt2->scancache.stackcache_need_update_charoffset <= gtk_text_iter_get_offset(&end)) {
-		DBG_MSG("need to update the scancache offsets for the region we are about to scan\n");
 		gtk_text_buffer_get_iter_at_offset(buffer, &iter, bt2->scancache.stackcache_need_update_charoffset);
 		scancache_update_all_positions(bt2, buffer, &iter, &end); 
 	}
@@ -439,6 +450,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 		/* reconstruct the context stack and the block stack */
 		reconstruct_stack(bt2, buffer, &iter, &scanning);
 		pos = g_array_index(bt2->bflang->st->contexts,Tcontext,scanning.context).startstate;
+		DBG_SCANNING("reconstructed stacks, context=%d, startstate=%d\n",scanning.context,pos);
 	}
 	/*matchstack = g_array_sized_new(FALSE,TRUE,sizeof(Tmatch),10);*/
 	/* TODO: when rescanning text that has been scanned before we need to remove 
@@ -500,10 +512,13 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 		if (uc > 128) {
 			newpos = 0;
 		} else {
+			DBG_AUTOCOMP("scanning %c\n",uc);
 			newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
 		}
 		if (newpos == 0 || uc == '\0') {
+			DBG_AUTOCOMP("newpos=%d...\n",newpos);
 			if (g_array_index(btv->bflang->st->table,Ttablerow, pos).match) {
+				DBG_AUTOCOMP("previous pos=%d had a match!\n",pos);
 				*contextnum = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
 			}
 			if (gtk_text_iter_equal(mstart,&iter)) {
@@ -523,7 +538,7 @@ void cleanup_scanner(BluefishTextView *btv) {
 	GtkTextBuffer *buffer;
 	GSequenceIter *sit1,*sit2;
 	
-	buffer = gtk_text_view_get_buffer(btv);
+	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	gtk_text_buffer_get_bounds(buffer,&begin,&end);
 	gtk_text_buffer_remove_all_tags(buffer,&begin,&end);
 

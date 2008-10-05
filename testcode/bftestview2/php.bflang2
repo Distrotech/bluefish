@@ -4785,6 +4785,8 @@
 <pattern name="[0-9.]+" is_regex="1" style="value"/>
 <keyword name="TRUE" autocomplete="1" style="value"/>
 <keyword name="FALSE" autocomplete="1" style="value"/>
+<pattern name="{" starts_block="1" mayfold="1" style="braces" />
+<pattern name="}" ends_block="1" blockstartpattern="{" style="braces" />
 <pattern name="[" starts_block="1" mayfold="1" style="braces" />
 <pattern name="]" ends_block="1" blockstartpattern="[" style="braces" />
 <pattern name="(" starts_block="1" mayfold="1" style="braces" />

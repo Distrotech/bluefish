@@ -290,14 +290,14 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 
 
 	scan_for_autocomp_prefix(btv,&iter,&cursorpos,&contextnum);
-
+	DBG_AUTOCOMP("got possible match start at %d in context %d, cursor is at %d\n",gtk_text_iter_get_offset(&iter),contextnum,gtk_text_iter_get_offset(&cursorpos));
 	/* see if next character is end or symbol */
 	uc = gtk_text_iter_get_char(&cursorpos);
 	if (uc < NUMSCANCHARS) {
 		guint16 identstate = g_array_index(btv->bflang->st->contexts, Tcontext, contextnum).identstate;
 		if (g_array_index(btv->bflang->st->table, Ttablerow, identstate).row[uc] == identstate) {
 			/* current character is not a symbol! */
-			g_print("current character %d is not a symbol\n",uc);
+			DBG_AUTOCOMP("current character %d is not a symbol\n",uc);
 			return;
 		}
 	} else {
@@ -346,61 +346,3 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 		acwin_cleanup(btv);
 	}
 }
-#ifdef OLD
-void autocomp_run(BluefishTextView *btv) {
-	guint16 context;
-	GtkTextIter iter, iter2;
-	GtkTextBuffer *buffer;
-
-	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-	gtk_text_buffer_get_iter_at_mark(buffer,&iter,gtk_text_buffer_get_insert(buffer));
-	DBG_AUTOCOMP("cursor is at %d\n",gtk_text_iter_get_offset(&iter));
-	/* first find the context at the current location, and see if there are any autocompletion
-	items in this context */
-	iter2 = iter;
-	context = get_context_and_startposition(btv, &iter2);
-	if (g_array_index(btv->bflang->st->contexts,Tcontext, context).ac) {
-		gchar *prefix;
-		/* get the prefix, see if it results in any autocompletion possibilities */
-		prefix = autocomp_get_prefix_at_location(btv,buffer,context,&iter, &iter2);
-		DBG_AUTOCOMP("found autocompletion prefix %s\n",prefix);
-		if (prefix && *prefix != '\0') {
-			gchar *newprefix;
-			GList *items;
-			items = g_completion_complete(g_array_index(btv->bflang->st->contexts,Tcontext, context).ac,prefix,&newprefix);
-			DBG_AUTOCOMP("got %d autocompletion items, newprefix=%s\n",g_list_length(items),newprefix);
-			print_ac_items(g_array_index(btv->bflang->st->contexts,Tcontext, context).ac);
-			if (items!=NULL && (items->next != NULL || strcmp(items->data,prefix)!=0) ) {
-						/* do not popup if there are 0 items, and also not if there is 1 item which equals the prefix */
-				GtkTreeSelection *selection;
-				GtkTreeIter it;
-				/* create the GUI */
-				if (!btv->autocomp) {
-					btv->autocomp = acwin_create(btv, context);
-				} else {
-					g_free(ACWIN(btv->autocomp)->prefix);
-					g_free(ACWIN(btv->autocomp)->newprefix);
-					gtk_list_store_clear(ACWIN(btv->autocomp)->store);
-				}
-				ACWIN(btv->autocomp)->prefix = g_strdup(prefix);
-				ACWIN(btv->autocomp)->newprefix = g_strdup(newprefix);
-				acwin_fill_tree(ACWIN(btv->autocomp), items);
-				acwin_position_at_cursor(btv);
-				gtk_widget_show(ACWIN(btv->autocomp)->win);
-				gtk_tree_model_get_iter_first(GTK_TREE_MODEL(ACWIN(btv->autocomp)->store), &it);
-				selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
-				gtk_tree_selection_select_iter(selection, &it);
-			} else {
-				acwin_cleanup(btv);
-			}
-			g_free(newprefix);
-			g_free(prefix);
-		} else {
-			acwin_cleanup(btv);
-		}
-	} else {
-		DBG_AUTOCOMP("no autocompletion data for context %d\n",context);
-		acwin_cleanup(btv);
-	}
-}
-#endif
