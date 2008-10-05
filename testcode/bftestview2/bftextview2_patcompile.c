@@ -101,6 +101,9 @@ static void create_state_tables(Tscantable *st, guint16 context, gchar *characte
 						DBG_PATCOMPILE("create newstate %d, pointtoself=%d\n",newstate,pointtoself);
 						g_array_set_size(st->table,st->table->len+1);
 						if (!end_is_symbol)
+							/* normally this memcpy copies the identstate to the current state such that all symbols still point to the 
+							startstate but all non-symbols point to the identstate. But if the last character ITSELF is a symbol, ALL next
+							characters may point to state 0 and make this a valid match !! */
 							memcpy(g_array_index(st->table, Ttablerow, newstate).row, g_array_index(st->table, Ttablerow, g_array_index(st->contexts, Tcontext, context).identstate).row, sizeof(unsigned int[NUMSCANCHARS]));
 						g_queue_push_head(newpositions, GINT_TO_POINTER(newstate));
 						if (pointtoself) {
@@ -170,6 +173,8 @@ static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,guint16 context,
 	return mergednewpositions;
 }
 
+/* this function can be called recursively for subpatterns. It gets all current valid states in 
+inputpositions, and returns all valid outputstates. */
 static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,guint16 context, gboolean caseinsensitive, GQueue *inputpositions, gboolean is_complete_regex) {
 	gboolean escaped = FALSE;
 	gint i=0;
@@ -185,9 +190,6 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,guint16 conte
 		DBG_PATCOMPILE("start of loop, regexpart[%d]=%c, have %d positions\n",i,regexpart[i],g_queue_get_length(positions));
 		if (regexpart[i] == '\0') { /* end of pattern */
 			DBG_PATCOMPILE("end of pattern, positions(%p) has %d entries\n",positions,g_queue_get_length(positions));
-			/* BUG: ?? check if the last character was a symbol ???? */
-			
-			
 			g_queue_free(newpositions);
 			return positions;
 		} else {
@@ -307,7 +309,7 @@ guint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag) {
 
 	DBG_PATCOMPILE("new context %d has startstate %d, identstate %d and symbols %s\n",context, g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts, Tcontext, context).identstate,symbols);	
 	/* identstate refers to itself for all characters except the symbols. we cannot use memset
-	because an integer occupies 2 bytes */
+	because an guint16 occupies 2 bytes */
 	for (i=0;i<NUMSCANCHARS;i++)
 		g_array_index(st->table, Ttablerow, identstate).row[i] = identstate;
 	

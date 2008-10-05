@@ -70,6 +70,18 @@ one of these mime-types is requested the rest of the file is parsed (in a separa
 and the DFA for this language is created. This saves memory and startup time for languages 
 that are not used in a certain session.
 
+For parsing we use the libxml2 textreader interface
+http://xmlsoft.org/xmlreader.html
+It does not need to load the full XML file into memory, it 
+is a parser that moves through the file while parsing. This
+makes it an excellent choice to quickly parse large language
+files in order to build the DFA table.
+
+A tag, keyword or patterns may have a class="foo" attribute. This pattern is only
+added to the DFA when option "foo" is enabled. This way we can have gtk functions 
+in the C patterns for those of us that do GTK programming in Bluefish. All
+others will have a much smaller DFA table for the C language. 
+
 ========== Symbols and identifiers in the DFA table ==========
 Each context has symbols. Symbols are characters that may start or end a pattern. 
 Try to highlight for example:
@@ -80,7 +92,7 @@ one to highlight? In the above example there are several symbols such as whitesp
 , brackets and operators:
  char *rc_char(char*chara);
 ^    ^^       ^    ^     ^^
-see that the occurences of 'char' that should be highlighted are all in between symbols.
+see that the occurences of 'char' that should be highlighted are all in between symbols?!
 
 The DFA table has a startstate for each context and an identifier-state (identstate). 
 In the next example state 0 is the startstate and state 1 the identstate:
@@ -122,7 +134,7 @@ a -> state 1
 ) -> state 0 if we find state 0 we check if there is a match.. no
 
 as you see, the scanner is stuck in state 1 (the identstate) if 
-either on the start or the end there is no symbol.
+either on the start or on the end there is no symbol.
 
 */
 
@@ -293,6 +305,8 @@ struct _BluefishTextView {
 	GTimer *user_idle_timer;
 	guint user_idle; /* event ID for the timed function that handles user idle events such as autocompletion popups */
 	gpointer autocomp; /* a Tacwin* with the current autocompletion window */
+	
+	/* next three are used for margin painting */
 	gint margin_pixels_per_char;
 	gint margin_pixels_chars;
 	gint margin_pixels_block;	
