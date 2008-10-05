@@ -63,11 +63,67 @@ run for all patterns in a given context. The 1.0 scanner does multiple scanning 
 and for <[a-z]+>. The new engine scans (<\?php|<[a-z]+>) but knows that both sub-patterns lead 
 to different results (different color, different context).
 
+========== language parsing from the XML file ==========
 - the languages are defined in an XML file. On startup, only the header of that file is parsed,
 into a Tbflang struct, which defines the language and the mime types. Only when scanning for 
 one of these mime-types is requested the rest of the file is parsed (in a separate thread!!!) 
 and the DFA for this language is created. This saves memory and startup time for languages 
 that are not used in a certain session.
+
+========== Symbols and identifiers in the DFA table ==========
+Each context has symbols. Symbols are characters that may start or end a pattern. 
+Try to highlight for example:
+ char *rc_char(char*chara);
+ ^^^^          ^^^^
+Only two of the four 'char' need to be highlighted. How does the scanner know which
+one to highlight? In the above example there are several symbols such as whitespace
+, brackets and operators:
+ char *rc_char(char*chara);
+^    ^^       ^    ^     ^^
+see that the occurences of 'char' that should be highlighted are all in between symbols.
+
+The DFA table has a startstate for each context and an identifier-state (identstate). 
+In the next example state 0 is the startstate and state 1 the identstate:
+ 
+|state|| space| a | c | h | r | * | ( | ) | _ | have match ?
+|  0  ||   0  | 1 | 2 | 1 | 1 | 0 | 0 | 0 | 1 | no
+|  1  ||   0  | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 1 | no
+|  2  ||   0  | 1 | 1 | 3 | 1 | 0 | 0 | 0 | 1 | no
+|  3  ||   0  | 4 | 1 | 1 | 1 | 0 | 0 | 0 | 1 | no
+|  4  ||   0  | 1 | 1 | 1 | 5 | 0 | 0 | 0 | 1 | no
+|  5  ||   0  | 1 | 1 | 1 | 1 | 0 | 0 | 0 | 1 | yes! we have: char
+
+now try to parse the bit '(char*' starting at state 0 (the startstate)
+( -> state 0 if we find state 0 we check if there is a match.. no
+c -> state 2
+h -> state 3
+a -> state 4
+r -> state 5
+* -> state 0 if we find state 0 we check if there is a match.. YES!
+
+now try to scan the bit '*rc_char('
+* -> state 0 if we find state 0 we check if there is a match.. no
+r -> state 1
+c -> state 1
+_ -> state 1
+c -> state 1
+h -> state 1
+a -> state 1
+r -> state 1
+( -> state 0 if we find state 0 we check if there is a match.. no
+
+now try to scan the bit ' chara)':
+  -> state 0 if we find state 0 we check if there is a match.. no
+c -> state 2
+h -> state 3
+a -> state 4
+r -> state 5
+a -> state 1
+) -> state 0 if we find state 0 we check if there is a match.. no
+
+as you see, the scanner is stuck in state 1 (the identstate) if 
+either on the start or the end there is no symbol.
+
 */
 
 #ifndef _BFTEXTVIEW2_H_
