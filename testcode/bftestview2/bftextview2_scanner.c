@@ -28,6 +28,14 @@ Tfoundstack *get_stackcache_next(BluefishTextView * bt2, GSequenceIter ** siter)
 	return NULL;
 }
 
+Tfoundstack *get_stackcache_first(BluefishTextView * bt2, GSequenceIter ** retsiter) {
+	*retsiter = g_sequence_get_begin_iter(bt2->scancache.stackcaches);
+	if (*retsiter && !g_sequence_iter_is_end(*retsiter)) {
+		return g_sequence_get(*retsiter);
+	}
+	return NULL;
+}
+
 Tfoundstack *get_stackcache_at_position(BluefishTextView * bt2, GtkTextIter *position, GSequenceIter ** retsiter) {
 	GSequenceIter* siter;
 	Tfoundstack fakefstack;

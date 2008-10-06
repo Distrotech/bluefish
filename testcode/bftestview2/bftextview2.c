@@ -463,8 +463,14 @@ static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 	GSequenceIter *siter;
 	gint line;
 	line = gtk_text_iter_get_line(iter);
-	fstack = get_stackcache_at_position(btv, iter, &siter); /* returns the fstack PRIOR to iter, or the fstack excactly at iter */
-	while (fstack && fstack->line <= line) {
+	 /* returns the fstack PRIOR to iter, or the fstack excactly at iter,
+	 but this fails if the iter is the start of the buffer */
+	fstack = get_stackcache_at_position(btv, iter, &siter);
+	if (!fstack) {
+		DBG_FOLD("no fstack, retrieve first iter\n");
+		fstack = get_stackcache_first(btv, &siter);
+	}
+	while (fstack && (fstack->line < line || !fstack->pushedblock || !fstack->pushedblock->foldable)) {
 		fstack = get_stackcache_next(btv, &siter); /* should be the first fstack AFTER iter */
 		if (fstack && fstack->pushedblock && fstack->pushedblock->foldable)
 			break;
@@ -472,6 +478,7 @@ static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 	if (fstack && fstack->line == line && fstack->pushedblock && fstack->pushedblock->foldable) {
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 		GtkTextIter it1,it2,it3,it4;
+		DBG_FOLD("got fstack=%p on line %d\n",fstack,fstack->line);
 		bftextview2_get_iters_at_foundblock(buffer, fstack->pushedblock, &it1, &it2, &it3, &it4);
 		if (fstack->pushedblock->folded) {
 			DBG_FOLD("expand fstack with line %d\n",fstack->line);

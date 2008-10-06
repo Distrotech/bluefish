@@ -4,6 +4,7 @@
 
 #include "bftextview2.h"
 Tfoundstack *get_stackcache_next(BluefishTextView * bt2, GSequenceIter ** siter);
+Tfoundstack *get_stackcache_first(BluefishTextView * bt2, GSequenceIter ** retsiter);
 Tfoundstack *get_stackcache_at_position(BluefishTextView * bt2, GtkTextIter *position, GSequenceIter ** retsiter);
 guint16 get_context_and_startposition(BluefishTextView * bt2, GtkTextIter *position);
 gboolean bftextview2_run_scanner(BluefishTextView * bt2);
