@@ -2423,10 +2423,17 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	gtk_object_sink(GTK_OBJECT(doc->view->parent));
 
 	if (doc->uri) {
-		/*if (main_v->props.backup_cleanuponclose) {
-			GFile *backupuri = backup_uri_from_orig_uri(doc->uri);
+		if (main_v->props.backup_cleanuponclose) {
+			gchar *tmp, *tmp2;
+			GFile *backupuri;
+			tmp = g_file_get_uri(doc->uri);
+			tmp2 = g_strconcat(tmp,"~",NULL);
+			backupuri = g_file_new_for_uri(tmp2);
+			g_free(tmp);
+			g_free(tmp2);
 			file_delete_file_async(backupuri, delete_backupfile_lcb, backupuri);
-		}*/
+			g_object_unref(backupuri);
+		}
 		g_object_unref(doc->uri);
 	}
 	
