@@ -227,6 +227,19 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 		}
 		g_error_free(error);
 	} else {
+#if !GLIB_CHECK_VERSION(2, 18, 0)
+		/* a bug in the fuse smbnetfs mount code */
+		if (g_file_has_uri_scheme(cns->uri, "smb")) {	
+			/* check that file exists/got created */
+			if (!g_file_query_exists(cns->uri,NULL)) {
+				g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
+						,cns->etag,FALSE /* we already created a backup */
+						,G_FILE_CREATE_NONE,NULL
+						,checkNsave_replace_async_lcb,cns);
+				return;			
+			}
+		}
+#endif
 		cns->callback_func(CHECKANDSAVE_FINISHED, 0, cns->callback_data);
 		checkNsave_cleanup(cns);
 	}
@@ -261,7 +274,7 @@ gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *bu
 					,checkNsave_replace_async_lcb,cns);
 	return cns;
 }
-
+/*
 GFile *backup_uri_from_orig_uri(GFile * origuri) {
 	gchar *tmp, *tmp2;
 	GFile *ret;
@@ -273,7 +286,7 @@ GFile *backup_uri_from_orig_uri(GFile * origuri) {
 	g_free(tmp);
 	g_free(tmp2);
 	return ret;
-}
+}*/
 
 /*************************** OPEN FILE ASYNC ******************************/
 static void openfile_cleanup(Topenfile *of) {
