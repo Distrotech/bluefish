@@ -62,8 +62,8 @@ enum {
 	max_recent_files,             /* length of Open Recent list */
 	max_dir_history,              /* length of directory history */
 	backup_file,                  /* wheather to use a backup file */
-	backup_suffix,                /* the string to append to the backup file */
-	backup_prefix,                /* the string to prepend to the backup file */
+/*	backup_suffix,                / * the string to append to the backup file */
+/*	backup_prefix,                / * the string to prepend to the backup file */
 	backup_abort_action,          /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
 	backup_cleanuponclose,        /* remove the backupfile after close ? */
 	image_thumbnailstring,        /* string to append to thumbnail filenames */
@@ -1745,8 +1745,8 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.newfile_default_encoding, GTK_COMBO(pd->prefs[newfile_default_encoding])->entry);
 	integer_apply(&main_v->props.auto_set_encoding_meta, pd->prefs[auto_set_encoding_meta], TRUE);
 	integer_apply(&main_v->props.backup_file, pd->prefs[backup_file], TRUE);
-	string_apply(&main_v->props.backup_suffix, pd->prefs[backup_suffix]);
-	string_apply(&main_v->props.backup_prefix, pd->prefs[backup_prefix]);
+/*	string_apply(&main_v->props.backup_suffix, pd->prefs[backup_suffix]);
+	string_apply(&main_v->props.backup_prefix, pd->prefs[backup_prefix]);*/
 	main_v->props.backup_abort_action = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[backup_abort_action]));
 	integer_apply(&main_v->props.backup_cleanuponclose, pd->prefs[backup_cleanuponclose], TRUE);
 	integer_apply(&main_v->props.num_undo_levels, pd->prefs[num_undo_levels], FALSE);
@@ -1864,8 +1864,8 @@ static void restore_dimensions_toggled_lcb(GtkToggleButton *togglebutton,Tprefdi
 	}
 }
 static void create_backup_toggled_lcb(GtkToggleButton *togglebutton,Tprefdialog *pd) {
-    gtk_widget_set_sensitive(pd->prefs[backup_prefix], togglebutton->active);
-    gtk_widget_set_sensitive(pd->prefs[backup_suffix], togglebutton->active);
+/*    gtk_widget_set_sensitive(pd->prefs[backup_prefix], togglebutton->active);
+    gtk_widget_set_sensitive(pd->prefs[backup_suffix], togglebutton->active);*/
     gtk_widget_set_sensitive(pd->prefs[backup_abort_action], togglebutton->active);
     gtk_widget_set_sensitive(pd->prefs[backup_cleanuponclose], togglebutton->active);
 }
@@ -2086,11 +2086,11 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[backup_file] = boxed_checkbut_with_value(_("Create backup file during file save"), main_v->props.backup_file, vbox2);
-	label = gtk_label_new(_("The backup prefix may contain a slash to indicate a directory component, for example \".backup/\""));
+/*	label = gtk_label_new(_("The backup prefix may contain a slash to indicate a directory component, for example \".backup/\""));
 	gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
 	gtk_box_pack_start(GTK_BOX(vbox2),label, TRUE, TRUE, 2);
 	pd->prefs[backup_prefix] = prefs_string(_("Backup file prefix"), main_v->props.backup_prefix, vbox2, pd, string_none);
-	pd->prefs[backup_suffix] = prefs_string(_("Backup file suffix"), main_v->props.backup_suffix, vbox2, pd, string_none);
+	pd->prefs[backup_suffix] = prefs_string(_("Backup file suffix"), main_v->props.backup_suffix, vbox2, pd, string_none);*/
 	{
 		gchar *failureactions[] = {N_("Continue save"), N_("Abort save"), N_("Ask what to do"), NULL};
 		pd->prefs[backup_abort_action] = boxed_optionmenu_with_value(_("If the backup fails"), main_v->props.backup_abort_action, vbox2, failureactions);

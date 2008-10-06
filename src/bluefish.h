@@ -221,8 +221,9 @@ typedef struct {
 	gint max_recent_files;	/* length of Open Recent list */
 	gint max_dir_history;	/* length of directory history */
 	gint backup_file; 			/* wheather to use a backup file */
-	gchar *backup_suffix;  /* the string to append to the backup filename */
-	gchar *backup_prefix;  /* the string to prepend to the backup filename (between the directory and the filename) */
+	/* GIO has hardcoded backup file names */
+/*	gchar *backup_suffix;  / * the string to append to the backup filename */
+/*	gchar *backup_prefix;  / * the string to prepend to the backup filename (between the directory and the filename) */
 	gint backup_abort_action; /* if the backup fails, 0=continue save  , 1=abort save, 2=ask the user */
 	gint backup_cleanuponclose; /* remove the backupfile after close ? */
 	gchar *image_thumbnailstring;	/* string to append to thumbnail filenames */

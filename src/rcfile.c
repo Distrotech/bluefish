@@ -398,8 +398,8 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.max_dir_history, "max_dir_history:", 10, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.backup_file,"backup_file:",1, TRUE);
-	init_prop_string    (&config_rc, &main_v->props.backup_suffix,"backup_suffix:","~");
-	init_prop_string    (&config_rc, &main_v->props.backup_prefix,"backup_prefix:","");
+/*	init_prop_string    (&config_rc, &main_v->props.backup_suffix,"backup_suffix:","~");
+	init_prop_string    (&config_rc, &main_v->props.backup_prefix,"backup_prefix:","");*/
 	init_prop_integer   (&config_rc, &main_v->props.backup_abort_action,"backup_abort_action:",DOCUMENT_BACKUP_ABORT_ASK, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.backup_cleanuponclose,"backup_cleanuponclose:",0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.image_thumbnailstring, "image_thumbnailstring:", "_thumbnail");
