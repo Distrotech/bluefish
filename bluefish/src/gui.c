@@ -1141,7 +1141,7 @@ void gui_fullscreen_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	}
 }
 
-void statusbar_show_hide_toggle(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
+void gui_statusbar_show_hide_toggle(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
 	if (sync_menu) {
 		setup_toggle_item_from_widget(bfwin->menubar, "/View/View Statusbar", visible);
 	}
@@ -1165,7 +1165,7 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	break;
 	case 5:
 		bfwin->session->view_statusbar = active;
-		statusbar_show_hide_toggle(bfwin, active, FALSE);
+		gui_statusbar_show_hide_toggle(bfwin, active, FALSE);
 	break;
 	default:
 		g_print("gui_toggle_hidewidget_cb should NEVER be called with action %d\n", action);
