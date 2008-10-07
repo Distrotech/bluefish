@@ -280,6 +280,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{"/View/sep1", NULL, NULL, 0, "<Separator>"},
 	{N_("/View/View _Main Toolbar"), NULL, gui_toggle_hidewidget_cb, 1, "<ToggleItem>"},
 	{N_("/View/View _Sidebar"), "F9", gui_toggle_hidewidget_cb, 4, "<ToggleItem>"},
+	{N_("/View/View S_tatusbar"), NULL, gui_toggle_hidewidget_cb, 5, "<ToggleItem>"},
 	{N_("/_Document"), NULL, NULL, 0, "<Branch>"},
 	{"/Document/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/_Increase Tabsize"), NULL, gui_change_tabsize, 1, "<Item>"},
