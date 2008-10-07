@@ -856,7 +856,10 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 		bfwin->statusbar_editmode = gtk_statusbar_new();
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_editmode, FALSE, FALSE, 0);
 		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_editmode), onecharwidth * 25, -1);
-		gtk_widget_show_all(hbox);
+		if (bfwin->session->view_statusbar)
+			gtk_widget_show_all(hbox);
+		else
+			gtk_widget_show(hbox);
 	}
 	
 	/* here we ask any plugins to build there gui */
@@ -1138,6 +1141,16 @@ void gui_fullscreen_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	}
 }
 
+void statusbar_show_hide_toggle(Tbfwin *bfwin, gboolean visible, gboolean sync_menu) {
+	if (sync_menu) {
+		setup_toggle_item_from_widget(bfwin->menubar, "/View/View Statusbar", visible);
+	}
+	widget_set_visible(bfwin->statusbar,visible);
+	widget_set_visible(bfwin->statusbar_lncol,visible);
+	widget_set_visible(bfwin->statusbar_insovr,visible);
+	widget_set_visible(bfwin->statusbar_editmode,visible);
+}
+
 void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	gboolean active = GTK_CHECK_MENU_ITEM(widget)->active;
 	DEBUG_MSG("gui_toggle_hidewidget_cb, action=%d, active=%d\n",action,active);
@@ -1149,6 +1162,10 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	case 4:
 		bfwin->session->view_left_panel = active;
 		left_panel_show_hide_toggle(bfwin,FALSE, active, FALSE);
+	break;
+	case 5:
+		bfwin->session->view_statusbar = active;
+		statusbar_show_hide_toggle(bfwin, active, FALSE);
 	break;
 	default:
 		g_print("gui_toggle_hidewidget_cb should NEVER be called with action %d\n", action);
