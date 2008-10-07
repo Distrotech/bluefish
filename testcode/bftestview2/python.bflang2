@@ -1,0 +1,63 @@
+<bflang name="Python">
+<detection>
+	<mime type="application/x-python"/>
+	<mime type="text/x-python" />
+</detection>
+<scanning>
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+
+<keyword name="if" autocomplete="1" style="keyword" />
+<keyword name="else" autocomplete="1" style="keyword" />
+<keyword name="elif" autocomplete="1" style="keyword" />
+<keyword name="for" autocomplete="1" style="keyword" />
+<keyword name="while" autocomplete="1" style="keyword" />
+<keyword name="where" autocomplete="1" style="keyword" />
+<keyword name="del" autocomplete="1" style="keyword" />
+<keyword name="raise" autocomplete="1" style="keyword" />
+<keyword name="assert" autocomplete="1" style="keyword" />
+<keyword name="lambda" autocomplete="1" style="keyword" />
+<keyword name="global" autocomplete="1" style="keyword" />
+<keyword name="try" autocomplete="1" style="keyword" />
+<keyword name="class" autocomplete="1" style="keyword" />
+<keyword name="except" autocomplete="1" style="keyword" />
+<keyword name="exec" autocomplete="1" style="keyword" />
+<keyword name="yield" autocomplete="1" style="keyword" />
+<keyword name="def" autocomplete="1" style="keyword" />
+<keyword name="finally" autocomplete="1" style="keyword" />
+<keyword name="in" autocomplete="1" style="keyword" />
+<keyword name="print" autocomplete="1" style="keyword" />
+<keyword name="and" autocomplete="1" style="keyword" />
+<keyword name="or" autocomplete="1" style="keyword" />
+<keyword name="is" autocomplete="1" style="keyword" />
+<keyword name="not" autocomplete="1" style="keyword" />
+<keyword name="return" autocomplete="1" style="keyword" />
+<keyword name="break" autocomplete="1" style="keyword" />
+<keyword name="continue" autocomplete="1" style="keyword" />
+<keyword name="pass" autocomplete="1" style="keyword" />
+<pattern name="&#34;" style="string">
+	<context symbols="\&#34;" style="string">
+		<pattern name="\&#34;" style="string" />
+		<pattern name="&#34;" style="string" ends_context="1" />
+	</context>
+</pattern>
+<pattern name="&#34;&#34;&#34;" style="string">
+	<context symbols="&#34;" style="string">
+		<pattern name="&#34;&#34;&#34;" style="string" ends_context="1" />
+	</context>
+</pattern>
+<pattern name="'" style="string">
+	<context symbols="\'" style="string">
+		<pattern name="\'" style="string" />
+		<pattern name="'" style="string" ends_context="1" />
+	</context>
+</pattern>
+<keyword name="None" autocomplete="1" style="value"/>
+<pattern name="[0-9.]+" is_regex="1" style="value"/>
+<pattern name="{" starts_block="1" mayfold="1" style="braces" />
+<pattern name="}" ends_block="1" blockstartpattern="{" style="braces" />
+<pattern name="[" starts_block="1" mayfold="1" style="braces" />
+<pattern name="]" ends_block="1" blockstartpattern="[" style="braces" />
+<pattern name="(" starts_block="1" mayfold="1" style="braces" />
+<pattern name=")" ends_block="1" blockstartpattern="(" style="braces" />
+<pattern name="#[^&#10;]+" is_regex="1" style="comment"/>
+</context></scanning></bflang>
