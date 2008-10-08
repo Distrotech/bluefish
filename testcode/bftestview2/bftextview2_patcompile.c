@@ -247,8 +247,22 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,guint16 conte
 				DBG_PATCOMPILE("i=%d, testing i+1  (%c) for operator\n",i,regexpart[i+1]);
 				/*print_characters(characters);*/
 				/* see if there is an operator */
-				if (regexpart[i] != '\0' && regexpart[i+1] == '+') {
+				if (regexpart[i] == '\0') {
+					create_state_tables(st, context, characters, FALSE, positions, newpositions, end_is_symbol);
+				} else if (regexpart[i+1] == '+') {
 					create_state_tables(st, context, characters, TRUE, positions, newpositions, end_is_symbol);
+					i++;
+				} else if (regexpart[i+1] == '*') {
+					GQueue *tmp = g_queue_copy(positions);
+					create_state_tables(st, context, characters, TRUE, positions, newpositions, end_is_symbol);
+					merge_queues(newpositions, tmp);
+					g_queue_free(tmp);
+					i++;
+				} else if (regexpart[i+1] == '?') {
+					GQueue *tmp = g_queue_copy(positions);
+					create_state_tables(st, context, characters, FALSE, positions, newpositions, end_is_symbol);
+					merge_queues(newpositions, tmp);
+					g_queue_free(tmp);
 					i++;
 				} else {
 					create_state_tables(st, context, characters, FALSE, positions, newpositions, end_is_symbol);
