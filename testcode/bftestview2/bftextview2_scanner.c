@@ -473,12 +473,14 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 
 		uc = gtk_text_iter_get_char(&iter);
 		if (uc > 128) {
-			newpos = 0;
-		} else {
-			DBG_SCANNING("scanning %d %c in pos %d..",gtk_text_iter_get_offset(&iter),uc,pos); 
-			newpos = g_array_index(bt2->bflang->st->table, Ttablerow, pos).row[uc];
-			DBG_SCANNING(" got newpos %d\n",newpos);
-		}
+			/* multibyte characters cannot be matched by the engine. character 
+			1 in ascii is "SOH (start of heading)". we need this to support a 
+			pattern like [^#]* .  */
+			uc = 1;
+		} 
+		DBG_SCANNING("scanning %d %c in pos %d..",gtk_text_iter_get_offset(&iter),uc,pos); 
+		newpos = g_array_index(bt2->bflang->st->table, Ttablerow, pos).row[uc];
+		DBG_SCANNING(" got newpos %d\n",newpos);
 		if (newpos == 0 || uc == '\0') {
 			if (g_array_index(bt2->bflang->st->table,Ttablerow, pos).match) {
 				Tmatch match;
