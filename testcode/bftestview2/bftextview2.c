@@ -412,9 +412,12 @@ static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,
 	BluefishTextView *btv=user_data;
 	gboolean smart_cursor=TRUE;
 	if (btv->autocomp) {
-		if (acwin_check_keypress(btv, kevent))
+		if (acwin_check_keypress(btv, kevent)) {
+			btv->key_press_was_autocomplete = TRUE;
 			return TRUE;
+		}
 	}
+	btv->key_press_was_autocomplete = FALSE;
 	if ((kevent->state & GDK_CONTROL_MASK) && kevent->keyval == ' ') {
 		autocomp_run(btv,TRUE);
 		return TRUE;
@@ -540,7 +543,7 @@ static gboolean bftextview2_mouse_lcb(GtkWidget * widget, GdkEvent * event, gpoi
 
 static gboolean bftextview2_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
 	BluefishTextView *btv=user_data;
-	if ((kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
+	if (!btv->key_press_was_autocomplete && (kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
 		gboolean autoindent=TRUE;
 		if (autoindent) {
 			gchar *string, *indenting;

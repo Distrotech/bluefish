@@ -309,7 +309,8 @@ struct _BluefishTextView {
 	/* next three are used for margin painting */
 	gint margin_pixels_per_char;
 	gint margin_pixels_chars;
-	gint margin_pixels_block;	
+	gint margin_pixels_block;
+	gboolean key_press_was_autocomplete;	
 };
 
 struct _BluefishTextViewClass {
