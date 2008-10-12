@@ -382,7 +382,7 @@ static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, gu
 		DBG_AUTOCOMP("adding %s to GCompletion\n",(gchar *)list->data);
 		g_list_free(list);
 		
-		if (reference) {
+		if (reference && strlen(reference)>0) {
 			if (!g_array_index(st->contexts, Tcontext, context).reference) {
 				DBG_PATCOMPILE("create hashtable for context %d\n",context);
 				g_array_index(st->contexts, Tcontext, context).reference = g_hash_table_new(g_str_hash,g_str_equal);
