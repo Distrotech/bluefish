@@ -422,6 +422,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 	/*GArray *matchstack;*/
 	Tscanning scanning;
 	guint pos = 0, newpos;
+	gboolean normal_run=TRUE, last_character_run=FALSE;
 	
 	scanning.context = 0;
 
@@ -470,14 +471,17 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 	gtk_text_iter_forward_to_end(&end);
 	do {
 		gunichar uc;
-
-		uc = gtk_text_iter_get_char(&iter);
-		if (uc > 128) {
-			/* multibyte characters cannot be matched by the engine. character 
-			1 in ascii is "SOH (start of heading)". we need this to support a 
-			pattern like [^#]* .  */
-			uc = 1;
-		} 
+		if (last_character_run) {
+			uc = '\0';
+		} else {
+			uc = gtk_text_iter_get_char(&iter);
+			if (uc > 128) {
+				/* multibyte characters cannot be matched by the engine. character 
+				1 in ascii is "SOH (start of heading)". we need this to support a 
+				pattern like [^#]* .  */
+				uc = 1;
+			}
+		}
 		DBG_SCANNING("scanning %d %c in pos %d..",gtk_text_iter_get_offset(&iter),uc,pos); 
 		newpos = g_array_index(bt2->bflang->st->table, Ttablerow, pos).row[uc];
 		DBG_SCANNING(" got newpos %d\n",newpos);
@@ -499,7 +503,11 @@ gboolean bftextview2_run_scanner(BluefishTextView * bt2)
 			gtk_text_iter_forward_char(&iter);
 		}
 		pos = newpos;
-	} while (!gtk_text_iter_equal(&iter, &end) && g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL);
+		normal_run = !gtk_text_iter_equal(&iter, &end);
+		if (!normal_run)
+			/* only if last_character_run is FALSE and normal_run is FALSE we set last_character run to TRUE */
+			last_character_run = 1 - last_character_run;
+	} while ((normal_run || last_character_run) && g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL);
 	DBG_MSG("scanned up to position %d, which took %f microseconds\n",gtk_text_iter_get_offset(&iter),g_timer_elapsed(scanning.timer,NULL));
 	gtk_text_buffer_apply_tag_by_name(buffer,"needscanning",&iter,&end);
 
