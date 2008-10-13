@@ -6,6 +6,8 @@
 #include <math.h> /* log10() */
 #include <string.h> /* strlen() */
 
+#include "testapp.h"
+
 #include "bftextview2.h"
 #include "bftextview2_scanner.h"
 #include "bftextview2_patcompile.h"
@@ -35,6 +37,7 @@ static gboolean bftextview2_user_idle_timer(gpointer data)
 }
 static void bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 {
+	DBG_DELAYSCANNING("timer reset\n");
 	g_timer_start(btv->user_idle_timer);
 	if (btv->user_idle == 0) {
 		btv->user_idle = g_timeout_add(USER_IDLE_EVENT_INTERVAL, bftextview2_user_idle_timer, btv);
@@ -43,23 +46,96 @@ static void bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 	}
 }
 
-static gboolean bftextview2_scanner_idle(gpointer data)
+static gboolean bftextview2_scanner_idle(gpointer data);
+static gboolean bftextview2_scanner_timeout(gpointer data);
+
+static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle)
 {
-	BluefishTextView *btv = data;
 	if (btv->bflang) {
-		DBG_SIGNALS("bftextview2_scanner_idle, running scanner idle function\n");
-		if (!bftextview2_run_scanner(btv)) {
-			btv->scanner_idle = 0;
-			DBG_SIGNALS("bftextview2_scanner_idle, stopping scanner idle function\n");
-			return FALSE;
+		if (delay_full_scan) {
+			guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
+			DBG_DELAYSCANNING("%d milliseconds elapsed sionce last user action\n",elapsed);
+			if (elapsed + 10 >= USER_IDLE_EVENT_INTERVAL) { /* user idle interval has passed ! */
+				DBG_DELAYSCANNING("idle, call scan for everything\n");
+				if (!bftextview2_run_scanner(btv, NULL)) {
+					/* finished scanning, make sure we are not called again */
+					DBG_DELAYSCANNING("finished scanning\n");
+					if (in_idle && btv->scanner_delayed) {
+						g_source_remove(btv->scanner_delayed);
+					} else if (!in_idle && btv->scanner_idle) {
+						g_source_remove(btv->scanner_idle);
+					}
+					btv->scanner_delayed = 0;
+					btv->scanner_idle = 0;
+					return FALSE;
+				} 
+				if (!in_idle) {
+					if (!btv->scanner_idle) {
+						DBG_DELAYSCANNING("schedule scan again in idle time\n");
+						btv->scanner_idle = g_idle_add(bftextview2_scanner_idle, btv);
+					} else {
+						DBG_DELAYSCANNING("scan in idle is already scheduled\n");
+					}
+					btv->scanner_delayed = 0;
+					return FALSE;
+				} 
+				return TRUE;
+			} else {
+				/* user has not been idle, only scan visible area */
+				GtkTextIter endvisible;
+				GdkRectangle rect;
+				/* get visible area and only scan the visible area */
+				gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(btv), &rect);
+				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(btv), &endvisible, rect.y + rect.height, NULL);
+				DBG_DELAYSCANNING("not idle, call scan for visible area\n");
+				if (!bftextview2_run_scanner(btv, &endvisible)) {
+					DBG_DELAYSCANNING("finished scanning\n");
+					if (in_idle && btv->scanner_delayed) {
+						g_source_remove(btv->scanner_delayed);
+					} else if (!in_idle && btv->scanner_idle) {
+						g_source_remove(btv->scanner_idle);
+					}
+					btv->scanner_delayed = 0;
+					btv->scanner_idle = 0;
+					return FALSE;
+				}
+				if (in_idle) {
+					if (!btv->scanner_delayed) { /* delay the rest of the scanning */
+						DBG_DELAYSCANNING("schedule delayed scanning\n");
+						btv->scanner_delayed = g_timeout_add(USER_IDLE_EVENT_INTERVAL, bftextview2_scanner_timeout, btv);
+					} else {
+						DBG_DELAYSCANNING("delayed scanning already scheduled\n");
+					}
+					btv->scanner_idle = 0;
+					return FALSE;
+				}
+				return TRUE;
+			}
+		} else {
+			DBG_SIGNALS("bftextview2_scanner_idle, running scanner idle function\n");
+			if (!bftextview2_run_scanner(btv, NULL)) {
+				btv->scanner_idle = 0;
+				DBG_SIGNALS("bftextview2_scanner_idle, stopping scanner idle function\n");
+				return FALSE;
+			}
 		}
 	}
 	return TRUE;
 }
 
+static gboolean bftextview2_scanner_idle(gpointer data) {
+	DBG_DELAYSCANNING("bftextview2_scanner_idle\n");
+	return bftextview2_scanner_scan((BluefishTextView *)data, TRUE);
+}
+static gboolean bftextview2_scanner_timeout(gpointer data) {
+	DBG_DELAYSCANNING("bftextview2_scanner_timeout\n");
+	return bftextview2_scanner_scan((BluefishTextView *)data, FALSE);
+}
+
 static void bftextview2_schedule_scanning(BluefishTextView * btv) {
 	if (btv->scanner_idle == 0) {
 		DBG_SIGNALS("bftextview2_schedule_scanning, scheduling scanning function\n");
+		DBG_DELAYSCANNING("scheduling scanning in idle function\n");
 		btv->scanner_idle = g_idle_add(bftextview2_scanner_idle, btv);
 	}
 }
@@ -113,8 +189,9 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 				DBG_MSG("block has no end - no matching\n");
 			}
 		}
+		bftextview2_reset_user_idle_timer(BLUEFISH_TEXT_VIEW(widget));
 	}
-	bftextview2_reset_user_idle_timer(BLUEFISH_TEXT_VIEW(widget));
+	
 }
 
 static void bftextview2_set_margin_size(BluefishTextView * btv)
@@ -160,11 +237,10 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
-	if (btv->autocomp) {
+	if (btv->autocomp || direct_autocomplete_popup) {
 		autocomp_run(btv,FALSE);
-	} else {
-		bftextview2_reset_user_idle_timer(btv);
 	}
+	bftextview2_reset_user_idle_timer(btv);
 	bftextview2_set_margin_size(btv);
 }
 
@@ -410,7 +486,6 @@ static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIt
 }
 static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
 	BluefishTextView *btv=user_data;
-	gboolean smart_cursor=TRUE;
 	if (btv->autocomp) {
 		if (acwin_check_keypress(btv, kevent)) {
 			btv->key_press_was_autocomplete = TRUE;
@@ -544,7 +619,6 @@ static gboolean bftextview2_mouse_lcb(GtkWidget * widget, GdkEvent * event, gpoi
 static gboolean bftextview2_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
 	BluefishTextView *btv=user_data;
 	if (!btv->key_press_was_autocomplete && (kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
-		gboolean autoindent=TRUE;
 		if (autoindent) {
 			gchar *string, *indenting;
 			GtkTextMark* imark;

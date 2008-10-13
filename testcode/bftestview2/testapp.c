@@ -4,6 +4,12 @@
 #include "bftextview2_patcompile.h"
 #include "bftextview2_langmgr.h"
 
+gboolean direct_autocomplete_popup=TRUE;
+gboolean autoindent=TRUE;
+gboolean delay_full_scan=FALSE;
+gboolean smart_cursor=TRUE;
+
+
 GtkWidget *text_view;
 
 void on_window_destroy(GtkWidget * widget, gpointer data)

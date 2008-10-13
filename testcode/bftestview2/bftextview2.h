@@ -153,6 +153,7 @@ either on the start or on the end there is no symbol.
 #define DBG_SIGNALS DBG_NONE
 #define DBG_AUTOCOMP DBG_NONE
 #define DBG_SCANNING DBG_NONE
+#define DBG_DELAYSCANNING DBG_NONE
 #define DBG_FOLD DBG_NONE
 #define DBG_MARGIN DBG_NONE
 #define DBG_PARSING DBG_NONE
@@ -302,6 +303,7 @@ struct _BluefishTextView {
 	Tbflang *bflang; /* Tbflang */
 	Tscancache scancache;
 	guint scanner_idle; /* event ID for the idle function that handles the scanning. 0 if no idle function is running */
+	guint scanner_delayed; /* event ID for the timeout function that handles the delayed scanning. 0 if no timeout function is running */
 	GTimer *user_idle_timer;
 	guint user_idle; /* event ID for the timed function that handles user idle events such as autocompletion popups */
 	gpointer autocomp; /* a Tacwin* with the current autocompletion window */
