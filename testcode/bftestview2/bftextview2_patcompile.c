@@ -333,6 +333,10 @@ guint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag) {
 	while (*tmp) {
 		/*g_print("mark %c as symbol\n",*tmp);*/
 		g_array_index(st->table, Ttablerow, identstate).row[(int)*tmp] = 0;
+	
+		if (st->allsymbols[(int)*tmp] == 0)
+			st->allsymbols[(int)*tmp] = 1;
+		
 		tmp++;
 	} 
 	memcpy(g_array_index(st->table, Ttablerow, startstate).row, g_array_index(st->table, Ttablerow, identstate).row, sizeof(guint16[NUMSCANCHARS]));

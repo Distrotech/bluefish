@@ -78,7 +78,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 					}
 					btv->scanner_delayed = 0;
 					return FALSE;
-				} 
+				}
 				return TRUE;
 			} else {
 				/* user has not been idle, only scan visible area */
@@ -213,8 +213,16 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 	else 
 		count=2;
 	btv->margin_pixels_chars = 4 + count * btv->margin_pixels_per_char;
-	g_print("lines=%d,count=%d,pixels_per_char=%d\n",lines,count,btv->margin_pixels_per_char);
+	/*g_print("lines=%d,count=%d,pixels_per_char=%d\n",lines,count,btv->margin_pixels_per_char);*/
 	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, btv->margin_pixels_chars+btv->margin_pixels_block);
+}
+
+static gboolean char_in_allsymbols(BluefishTextView * btv, gunichar uc) {
+	if (uc > 127)
+		return FALSE;
+	if (btv->bflang && btv->bflang->st)
+		return btv->bflang->st->allsymbols[uc];
+	return FALSE;
 }
 
 static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIter * iter, gchar * string,
@@ -223,8 +231,9 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	GtkTextIter start;
 	gint start_offset;
 	DBG_SIGNALS("bftextview2_insert_text_lcb, stringlen=%d\n", stringlen);
-	
-	bftextview2_schedule_scanning(btv);
+	if (!reduced_scan_triggers || stringlen > 1 || (stringlen==1 && char_in_allsymbols(btv, string[0]))) {
+		bftextview2_schedule_scanning(btv);
+	}
 	/* mark the text that is changed */
 	start = *iter;
 	gtk_text_iter_backward_chars(&start, stringlen);
@@ -657,7 +666,7 @@ void bluefish_text_view_rescan(BluefishTextView * btv) {
 		gtk_text_buffer_get_bounds(buffer,&start,&end);
 		gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &start, &end);
 		bftextview2_schedule_scanning(btv);
-}
+	}
 }
 
 void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) {

@@ -205,6 +205,7 @@ typedef struct {
 } Ttablerow; /* a row in the DFA, right now exactly 256 bytes */
 
 typedef struct {
+	guint8 allsymbols[128]; /* this lookup table holds all symbols for all contexts, and is used to trigger scanning if reduced_scan_triggers is enabled */
 	GArray *table; /* dynamic sized array of Ttablerow: the DFA table */
 	GArray *contexts; /* dynamic sized array of Tcontext that translates a context number into a rownumber in the DFA table */
 	GArray *matches; /* dynamic sized array of Tpattern */

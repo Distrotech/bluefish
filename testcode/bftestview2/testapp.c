@@ -6,6 +6,7 @@
 
 gboolean direct_autocomplete_popup=TRUE;
 gboolean autoindent=TRUE;
+gboolean reduced_scan_triggers=TRUE;
 gboolean delay_full_scan=FALSE;
 gboolean smart_cursor=TRUE;
 
