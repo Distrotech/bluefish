@@ -22,7 +22,8 @@ static gboolean bftextview2_user_idle_timer(gpointer data)
 	guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 	if (elapsed + 10 >= USER_IDLE_EVENT_INTERVAL) {	/* avoid delaying for less than 10 milliseconds */
 		DBG_MSG("bftextview2_user_idle_timer, user is > %d milliseconds idle!!!\n", elapsed);
-		autocomp_run(btv,FALSE);
+		if (autocomp_popup_mode == 1)
+			autocomp_run(btv,FALSE);
 		btv->user_idle = 0;
 		return FALSE;
 	} else {
@@ -37,9 +38,11 @@ static gboolean bftextview2_user_idle_timer(gpointer data)
 }
 static void bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 {
+	gboolean need_timeout_func;
 	DBG_DELAYSCANNING("timer reset\n");
 	g_timer_start(btv->user_idle_timer);
-	if (btv->user_idle == 0) {
+	need_timeout_func = (autocomp_popup_mode==1||delay_full_scan);
+	if (btv->user_idle == 0 && need_timeout_func) {
 		btv->user_idle = g_timeout_add(USER_IDLE_EVENT_INTERVAL, bftextview2_user_idle_timer, btv);
 		DBG_MSG("started user_idle timeout with event source %d and timeout %d\n", btv->user_idle,
 				USER_IDLE_EVENT_INTERVAL);
@@ -246,7 +249,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
-	if (btv->autocomp || direct_autocomplete_popup) {
+	if (btv->autocomp || autocomp_popup_mode == 2) {
 		autocomp_run(btv,FALSE);
 	}
 	bftextview2_reset_user_idle_timer(btv);
@@ -485,14 +488,9 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
 	bftextview2_reset_user_idle_timer(btv);
-}
-
-static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * begin,
-											   GtkTextIter * end, gpointer user_data)
-{
-	DBG_SIGNALS("bftextview2_delete_range_after_lcb, schedule scanning...\n");
 	bftextview2_schedule_scanning(user_data);
 }
+
 static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
 	BluefishTextView *btv=user_data;
 	if (btv->autocomp) {
@@ -757,7 +755,6 @@ GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 	g_signal_connect_after(G_OBJECT(buffer), "mark-set", G_CALLBACK(bftextview2_mark_set_lcb),textview);
 	g_signal_connect(G_OBJECT(textview), "expose-event", G_CALLBACK(bftextview2_expose_event_lcb),textview);
 	g_signal_connect(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_lcb),textview);
-	g_signal_connect_after(G_OBJECT(buffer), "delete-range",G_CALLBACK(bftextview2_delete_range_after_lcb), textview);
 	g_signal_connect(G_OBJECT(textview), "key-press-event", G_CALLBACK(bftextview2_key_press_lcb),textview);
 	g_signal_connect(G_OBJECT(textview), "button-press-event", G_CALLBACK(bftextview2_mouse_lcb), textview);
 	g_signal_connect_after(G_OBJECT(textview), "key-release-event", G_CALLBACK(bftextview2_key_release_lcb), textview);

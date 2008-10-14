@@ -4,12 +4,11 @@
 #include "bftextview2_patcompile.h"
 #include "bftextview2_langmgr.h"
 
-gboolean direct_autocomplete_popup=TRUE;
 gboolean autoindent=TRUE;
 gboolean reduced_scan_triggers=TRUE;
 gboolean delay_full_scan=FALSE;
 gboolean smart_cursor=TRUE;
-
+gint autocomp_popup_mode = 2; /* 0=no auto popup (only ctrl+space), 1=delayed, 2=immediately */
 
 GtkWidget *text_view;
 
