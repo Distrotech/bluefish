@@ -33,20 +33,43 @@ static gboolean acwin_move_selection(BluefishTextView *btv, gint keyval) {
 
 	selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 	if (gtk_tree_selection_get_selected(selection,&model,&it)) {
+		gint i,rows=12, *indices=NULL;
 		path = gtk_tree_model_get_path(model, &it);
+		indices = gtk_tree_path_get_indices(path);
 		switch (keyval) {
 			case GDK_Up:	/* move the selection one up */
 				gtk_tree_path_prev(path);
 			break;
 			case GDK_Down:
 				gtk_tree_path_next(path);
-			break;		
+			break;
+			case GDK_Page_Down:
+				i = MIN(gtk_tree_model_iter_n_children(model,NULL)-1,indices[0]+rows);
+				gtk_tree_path_free(path);
+				path = gtk_tree_path_new_from_indices(i,-1);
+			break;
+			case GDK_Page_Up:
+				i = MAX(indices[0]-rows,0);
+				gtk_tree_path_free(path);
+				path = gtk_tree_path_new_from_indices(i,-1);
+			break;
+			case GDK_Home:
+				gtk_tree_path_free(path);
+				path = gtk_tree_path_new_first();
+			break;
+			case GDK_End:
+				gtk_tree_path_free(path);
+				i = gtk_tree_model_iter_n_children(model,NULL);
+				path = gtk_tree_path_new_from_indices(i-1,-1);
+			break;
+			default:
+				return FALSE;
+			break;	
 		}
 		if (gtk_tree_model_get_iter(model, &it, path))
 		{
 			gtk_tree_selection_select_iter(selection, &it);
 			gtk_tree_view_scroll_to_cell(ACWIN(btv->autocomp)->tree, path, NULL, FALSE, 0, 0);
-			
 		}
 		gtk_tree_path_free(path);
 		return TRUE;
@@ -88,6 +111,10 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 	break;
 	case GDK_Up:
 	case GDK_Down:
+	case GDK_Page_Down:
+	case GDK_Page_Up:
+	case GDK_Home:
+	case GDK_End:
 		if (acwin_move_selection(btv, event->keyval))
 			return TRUE;
 	break;
@@ -132,7 +159,7 @@ static Tacwin *acwin_create(BluefishTextView *btv, guint16 context) {
 	acw->win = gtk_window_new(GTK_WINDOW_POPUP);
 	gtk_widget_set_app_paintable(acw->win, TRUE);
 	gtk_window_set_resizable(GTK_WINDOW(acw->win), FALSE);
-	gtk_container_set_border_width(GTK_CONTAINER (acw->win), 0);
+	gtk_container_set_border_width(GTK_CONTAINER(acw->win), 1);
 	gtk_window_set_decorated(GTK_WINDOW(acw->win),FALSE);
 	gtk_window_set_type_hint(GTK_WINDOW(acw->win),GDK_WINDOW_TYPE_HINT_POPUP_MENU);
 
@@ -143,7 +170,7 @@ static Tacwin *acwin_create(BluefishTextView *btv, guint16 context) {
 	gtk_tree_view_set_headers_visible(acw->tree, FALSE);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	vbar = gtk_scrolled_window_get_vscrollbar(GTK_SCROLLED_WINDOW(scroll));
-	gtk_widget_set_size_request(vbar,10,-1);
+	/*gtk_widget_set_size_request(vbar,10,-1);*/
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "markup", 0, NULL);
@@ -169,7 +196,7 @@ static Tacwin *acwin_create(BluefishTextView *btv, guint16 context) {
 	gtk_widget_show_all(scroll);
 	gtk_widget_show(hbox);
 	/*gtk_widget_set_size_request(GTK_WIDGET(acw->tree),100,200);*/
-	gtk_widget_set_size_request(acw->win, 150, 200);
+	/*gtk_widget_set_size_request(acw->win, 150, 200);*/
 	/*g_signal_connect(G_OBJECT(acw->win),"key-release-event",G_CALLBACK(acwin_key_release_lcb),acw);*/
 
 	return acw;
@@ -191,20 +218,39 @@ static void acwin_position_at_cursor(BluefishTextView *btv) {
 	gtk_window_move(GTK_WINDOW(ACWIN(btv->autocomp)->win),rect.x+x ,rect.y+y);
 }
 
+/* not only fills the tree, but calculates and sets the required width as well */
 static void acwin_fill_tree(Tacwin *acw, GList *items) {
 	GList *tmplist,*list;
+	gchar *longest=NULL;
+	guint numitems=0,longestlen=0;
 	
 	list = tmplist = g_list_sort(g_list_copy(items), (GCompareFunc) g_strcmp0);
 	while (tmplist)	{
 		GtkTreeIter it;
 		gchar *tmp;
+		guint len;
 		gtk_list_store_append(acw->store,&it);
+		len = strlen(tmplist->data);
+		if (len > longestlen) {
+			longest = tmplist->data;
+			longestlen = len;
+		}
 		tmp = g_markup_escape_text(tmplist->data,-1);
 		gtk_list_store_set(acw->store,&it,0,tmp,1,tmplist->data,-1);
 		g_free(tmp);
+		numitems++;
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(list);
+	if (longest) {
+		gint len,rowh,h,w;
+		PangoLayout *panlay = gtk_widget_create_pango_layout(GTK_WIDGET(acw->tree), NULL);
+		pango_layout_set_markup(panlay,longest,-1);
+		pango_layout_get_pixel_size(panlay, &len, &rowh);
+		h = MIN((numitems+1)*rowh+8,300);
+		w = len+20;
+		gtk_widget_set_size_request(GTK_WIDGET(acw->tree),w,h); /* ac_window */
+	}
 }
 
 static void print_ac_items(GCompletion *gc) {
@@ -217,62 +263,6 @@ static void print_ac_items(GCompletion *gc) {
 	DBG_AUTOCOMP("\n");
 }
 
-/*static gboolean character_is_symbol(BluefishTextView *btv,Tcontext *context, gint c) {
-	return (g_array_index(btv->bflang->st->table, Ttablerow, context->identstate).row[c] != context->identstate);
-}*/
-
-#ifdef OLD
-/* this function works for words, but not for other constructs in programming 
-languages such as things that start with < or with $ or *.
-should be improved. possibly we need a custom function for different types of languages,
-or some special per-language configuration of this function */
-static gchar *autocomp_get_prefix_at_location_old(BluefishTextView *btv, GtkTextBuffer *buffer, Tcontext *context, GtkTextIter *location) {
-	GtkTextIter iter;
-	gboolean cont=TRUE;
-	gunichar c;
-
-	iter = *location;
-	c = gtk_text_iter_get_char(&iter);
-	if (c > NUMSCANCHARS || !character_is_symbol(btv,context,(gint)c)) {
-		DBG_AUTOCOMP("current character %c is not a symbol -> return NULL\n",c);
-		return NULL;
-	}
-	
-	while (cont) {
-		cont = gtk_text_iter_backward_char(&iter);
-		c = gtk_text_iter_get_char(&iter);
-		/*DBG_AUTOCOMP("check character %c\n",c);*/
-		if (c >= NUMSCANCHARS) {
-			return NULL;
-		} else if (character_is_symbol(btv,context,(gint)c)) {
-			gtk_text_iter_forward_char(&iter);
-			return gtk_text_buffer_get_text(buffer,&iter,location,TRUE);
-		} 
-	}
-	return gtk_text_buffer_get_text(buffer,&iter,location,TRUE);
-/*	gtk_text_iter_backward_word_start(&start);*/	
-}
-#endif
-#ifdef OLD
-static gchar *autocomp_get_prefix_at_location(BluefishTextView *btv, GtkTextBuffer *buffer, guint16 context, GtkTextIter *location, GtkTextIter *contextstart) {
-	/* find out if we should start scanning for the prefix at the start of the current 
-	context or the start of the line */
-	DBG_AUTOCOMP("contextstart at %d, cursor at %d\n",gtk_text_iter_get_offset(contextstart),gtk_text_iter_get_offset(location));
-	if (gtk_text_iter_get_offset(location) > 0 && !gtk_text_iter_equal(contextstart,location)) {
-		GtkTextIter iter = *location;
-		gtk_text_iter_set_line_offset(&iter,0);
-		DBG_AUTOCOMP("iter at %d, contextstart at %d, cursor at %d\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(contextstart),gtk_text_iter_get_offset(location));
-		if (gtk_text_iter_compare(&iter,contextstart)<0) {
-			scan_for_prefix_start(btv, context, contextstart, location);
-			return gtk_text_buffer_get_text(buffer,contextstart,location,TRUE);
-		} else {
-			scan_for_prefix_start(btv, context, &iter, location);
-			return gtk_text_buffer_get_text(buffer,&iter,location,TRUE);
-		}
-	}
-	return NULL;
-}
-#endif
 void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 	GtkTextIter cursorpos,iter;
 	GtkTextBuffer *buffer;
