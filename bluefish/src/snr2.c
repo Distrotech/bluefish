@@ -1951,12 +1951,38 @@ void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 }
 
 /* special replace: strip trailing spaces */
-
+/* use a very simple loop, one that knows whitespace, non-whitespace and a newline */
 void strip_trailing_spaces(Tdocument *doc) {
-	GtkTextIter iter,end,wstart;
+	gint i=0,wstart=0,coffset=0;
+	gchar *buf = doc_get_chars(doc,0,-1);
+	doc_unre_new_group(doc);
+	while (buf[i] != '\0') {
+		switch (buf[i]) {
+		case ' ':
+		case '\t':
+			/* do nothing */
+		break;
+		case '\n':
+			if (wstart+1 < i) {
+				gint cstart, cend;
+				cstart = utf8_byteoffset_to_charsoffset_cached(buf, wstart+1);
+				cend = utf8_byteoffset_to_charsoffset_cached(buf, i);
+				doc_replace_text_backend(doc, "", cstart+coffset, cend+coffset);
+				coffset -= (cend-cstart);
+			}
+		/* no break, fall trough */
+		default:
+			wstart=i;
+		break;
+		}
+		i++;
+	}
+	g_free(buf);
+	doc_unre_new_group(doc);
+/*	GtkTextIter iter,end,wstart;
 	
 	gtk_text_buffer_get_bounds(doc->buffer,&iter,&end);
-	/* use a very simple loop, one that knows whitespace, non-whitespace and a newline */
+	
 	wstart = iter;
 	while (!gtk_text_iter_equal(&iter, &end)) {
 		gunichar uc = gtk_text_iter_get_char(&iter);
@@ -1965,13 +1991,13 @@ void strip_trailing_spaces(Tdocument *doc) {
 		} else if (uc == '\n') {
 			gtk_text_iter_forward_char(&wstart);
 			if (!gtk_text_iter_equal(&wstart, &iter)) {
-				/* remove from wstart to iter. hmm but a change would invalidate all iters.... */
+				/ * remove from wstart to iter. hmm but a change would invalidate all iters.... * /
 				
 			}
 		} else {
 			wstart = iter;
 		}
 		gtk_text_iter_forward_char(&iter);
-	}
+	}*/
 }
 
