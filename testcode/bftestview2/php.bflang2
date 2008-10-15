@@ -4811,7 +4811,12 @@
 </pattern>
 
 <pattern name="$[a-z0-9._]+" is_regex="1" case_insens="1" style="variable"/>
-<pattern name="(//|#)[^&#10;]*" is_regex="1" style="comment"/>
+<pattern name="(//|#)" is_regex="1" style="comment">
+	<context symbols="?&gt;&#10;" style="comment">
+		<pattern name="&#10;" ends_context="1" />
+		<pattern name="?&gt;" ends_context="2" ends_block="1" blockstartpattern="&lt;?php" style="region" mayfold="1" />
+	</context>
+</pattern>
 <pattern name="?&gt;" ends_block="1" blockstartpattern="&lt;?php" style="region" mayfold="1" ends_context="1" />
 </context></pattern>
 
