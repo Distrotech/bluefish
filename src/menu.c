@@ -146,6 +146,9 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 28:
 		blocksync_dialog(bfwin);
 	break;
+	case 29:
+		strip_trailing_spaces(bfwin->current_document);
+	break;
 #ifdef HAVE_PYTHON
 	case 99:
 		{
@@ -265,6 +268,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Edit/Replace special"), NULL, NULL, 0, "<Branch>"},
 	{"/Edit/Replace special/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Edit/Replace special/Block sync"), NULL, menu_file_operations_cb, 28, "<Item>"},
+	{N_("/Edit/Replace special/Strip trailing whitespace"), NULL, menu_file_operations_cb, 29, "<Item>"},
 	{"/Edit/sep4", NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/S_hift Right"), NULL, menu_indent_cb, 2, "<StockItem>", GTK_STOCK_INDENT},
 	{N_("/Edit/Shift _Left"), NULL, menu_indent_cb, 1, "<StockItem>", GTK_STOCK_UNINDENT},

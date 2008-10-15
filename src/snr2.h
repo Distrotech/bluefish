@@ -63,4 +63,7 @@ enum {
 	BF_REPLACE_DIALOG
 };
 void snr_dialog_new(Tbfwin * bfwin, gint dialogType);
+
+void strip_trailing_spaces(Tdocument *doc);
+
 #endif							/* __SNR_H_ */
