@@ -43,18 +43,6 @@ char *g_content_type_from_mime_type (const char *type) {
 }
 #endif
 
-/**
- * icon_for_mime_type:
- * @mime_type: a MIME type
- * @size_hint: the size the caller plans to display the icon at
- *
- * Tries to find an icon representing @mime_type that will display
- * nicely at @size_hint by @size_hint pixels. The returned icon
- * may or may not actually be that size.
- *
- * Return value: a pixbuf, which the caller must unref when it is done
- **/
-
 #if !GTK_CHECK_VERSION(2,14,0)
 GdkPixbuf *get_pixbuf_for_gicon(GIcon *icon) {
 	static GtkIconTheme *it=NULL;
@@ -77,7 +65,6 @@ GdkPixbuf *get_pixbuf_for_gicon(GIcon *icon) {
 	}
 	return pixbuf;
 }
-#endif
 
 GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	
@@ -94,6 +81,7 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	g_free(conttype);
 	return pixbuf;
 }
+#endif
 
 static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
 	Tfiletype *filetype;
@@ -102,7 +90,9 @@ static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
 	DEBUG_MSG("building filetype for %s at %p\n",mime_type,filetype);
 	/* BUG: should use contenttype here, not mime_type*/
 	filetype->type = g_content_type_get_description(mime_type);
+#if !GTK_CHECK_VERSION(2,14,0)
 	filetype->icon = get_icon_for_mime_type(mime_type);
+#endif
 	filetype->mime_type = g_strdup(mime_type);
 
 	filetype->cfg = cfg;

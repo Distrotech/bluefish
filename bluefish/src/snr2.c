@@ -1949,3 +1949,29 @@ void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	sret = replace_doc_once(bfwin,LASTSNR2(bfwin->snr2)->search_pattern, LASTSNR2(bfwin->snr2)->matchtype_option, LASTSNR2(bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(bfwin->snr2)->replace_pattern
 			, bfwin->current_document, LASTSNR2(bfwin->snr2)->replacetype_option, LASTSNR2(bfwin->snr2)->unescape);
 }
+
+/* special replace: strip trailing spaces */
+
+void strip_trailing_spaces(Tdocument *doc) {
+	GtkTextIter iter,end,wstart;
+	
+	gtk_text_buffer_get_bounds(doc->buffer,&iter,&end);
+	/* use a very simple loop, one that knows whitespace, non-whitespace and a newline */
+	wstart = iter;
+	while (!gtk_text_iter_equal(&iter, &end)) {
+		gunichar uc = gtk_text_iter_get_char(&iter);
+		if (uc == ' ' || uc == '\t') {
+			
+		} else if (uc == '\n') {
+			gtk_text_iter_forward_char(&wstart);
+			if (!gtk_text_iter_equal(&wstart, &iter)) {
+				/* remove from wstart to iter. hmm but a change would invalidate all iters.... */
+				
+			}
+		} else {
+			wstart = iter;
+		}
+		gtk_text_iter_forward_char(&iter);
+	}
+}
+
