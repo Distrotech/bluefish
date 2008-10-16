@@ -1,0 +1,121 @@
+<bflang name="ASP">
+<detection><mime type="application/x-asp"/></detection>
+<scanning>
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+	<tag name="html" style="tag" />
+	<tag name="head" style="tag" />
+	<tag name="body" style="tag" />
+	<tag name="div" style="tag" attributes="style,class,id,align" attribstyle="function" />
+	<tag name="p" style="tag" attributes="style,class,id,align" attribstyle="function" />
+	<tag name="span" style="tag" attributes="style,class,id,align" attribstyle="function" />
+	<tag name="title" style="tag" />
+	<tag name="img" style="tag" attributes="style,class,id,src,width,height,align,valign,border,alt" attribstyle="function" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" />
+	<tag name="i" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="b" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="em" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="strong" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="u" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="a" style="tag" attributes="style,class,id,href,target" attribstyle="function" />
+	<tag name="table" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="th" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="tr" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="td" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="ul" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="ol" style="tag" attributes="style,class,id" attribstyle="function" />
+	<tag name="li" style="tag" attributes="style,class,id" attribstyle="function" />
+	
+	<pattern name="&lt;%" starts_block="1" style="region">
+		<context symbols=" '&#34;():.,/$#*-+=&gt;&lt;&amp; &#9;&#10;&#13;" style="region">
+			
+			<keyword name="and" autocomplete="1" style="keyword"/>
+			<keyword name="as" autocomplete="1" style="keyword"/>
+			<keyword name="call" autocomplete="1" style="keyword"/>
+			<keyword name="case" autocomplete="1" style="keyword"/>
+			<keyword name="cbool" autocomplete="1" style="keyword"/>
+			<keyword name="cbyte" autocomplete="1" style="keyword"/>
+			<keyword name="cchar" autocomplete="1" style="keyword"/>
+			<keyword name="cdate" autocomplete="1" style="keyword"/>
+			<keyword name="cdec" autocomplete="1" style="keyword"/>
+			<keyword name="cdbl" autocomplete="1" style="keyword"/>
+			<keyword name="cint" autocomplete="1" style="keyword"/>
+			<keyword name="class" autocomplete="1" style="keyword"/>
+			<keyword name="clng" autocomplete="1" style="keyword"/>
+			<keyword name="const" autocomplete="1" style="keyword"/>
+			<keyword name="cobj" autocomplete="1" style="keyword"/>
+			<keyword name="csng" autocomplete="1" style="keyword"/>
+			<keyword name="cstr" autocomplete="1" style="keyword"/>
+			<keyword name="default" autocomplete="1" style="keyword"/>
+			<keyword name="dim" autocomplete="1" style="keyword"/>
+			<keyword name="do" autocomplete="1" style="keyword"/>
+			<keyword name="each" autocomplete="1" style="keyword"/>
+			<keyword name="else" autocomplete="1" style="keyword"/>
+			<keyword name="elseif" autocomplete="1" style="keyword"/>
+			<keyword name="end" autocomplete="1" style="keyword"/>
+			<keyword name="exit" autocomplete="1" style="keyword"/>
+			<keyword name="explicit" autocomplete="1" style="keyword"/>
+			<keyword name="for" autocomplete="1" style="keyword"/>
+			<keyword name="function" autocomplete="1" style="keyword"/>
+			<keyword name="goto" autocomplete="1" style="keyword"/>
+			<keyword name="if" autocomplete="1" style="keyword"/>
+			<keyword name="in" autocomplete="1" style="keyword"/>
+			<keyword name="is" autocomplete="1" style="keyword"/>
+			<keyword name="let" autocomplete="1" style="keyword"/>
+			<keyword name="loop" autocomplete="1" style="keyword"/>
+			<keyword name="mod" autocomplete="1" style="keyword"/>
+			<keyword name="next" autocomplete="1" style="keyword"/>
+			<keyword name="not" autocomplete="1" style="keyword"/>
+			<keyword name="option" autocomplete="1" style="keyword"/>
+			<keyword name="or" autocomplete="1" style="keyword"/>
+			<keyword name="preserve" autocomplete="1" style="keyword"/>
+			<keyword name="private" autocomplete="1" style="keyword"/>
+			<keyword name="public" autocomplete="1" style="keyword"/>
+			<keyword name="redim" autocomplete="1" style="keyword"/>
+			<keyword name="rem" autocomplete="1" style="keyword"/>
+			<keyword name="resume" autocomplete="1" style="keyword"/>
+			<keyword name="select" autocomplete="1" style="keyword"/>
+			<keyword name="set" autocomplete="1" style="keyword"/>
+			<keyword name="step" autocomplete="1" style="keyword"/>
+			<keyword name="sub" autocomplete="1" style="keyword"/>
+			<keyword name="then" autocomplete="1" style="keyword"/>
+			<keyword name="to" autocomplete="1" style="keyword"/>
+			<keyword name="until" autocomplete="1" style="keyword"/>
+			<keyword name="wend" autocomplete="1" style="keyword"/>
+			<keyword name="while" autocomplete="1" style="keyword"/>
+			<keyword name="with" autocomplete="1" style="keyword"/>
+			<keyword name="xor" autocomplete="1" style="keyword"/>
+			
+			<keyword name="TRUE" autocomplete="1" style="value"/>
+			<keyword name="FALSE" autocomplete="1" style="value"/>
+			<keyword name="NOTHING" autocomplete="1" style="value"/>
+			<keyword name="true" autocomplete="1" style="value"/>
+			<keyword name="false" autocomplete="1" style="value"/>
+			<keyword name="nothing" autocomplete="1" style="value"/>
+			<pattern name="&#34;" style="string">
+				<context symbols="&#34;" style="string">
+					<pattern name="&#34;" style="string" ends_context="1" />
+				</context>
+			</pattern>
+			
+			<pattern name="'" style="comment">
+				<context symbols="%&gt;&#10;" style="comment">
+					<pattern name="&#10;" ends_context="1" />
+					<pattern name="%&gt;" ends_context="2" ends_block="1" blockstartpattern="&lt;%" style="region" mayfold="1" />
+				</context>
+			</pattern>
+			
+			<pattern name="[0-9.]+" is_regex="1" style="value"/>
+			<pattern name="[a-z][a-z0-9._]*" is_regex="1" case_insens="1" style="variable"/>
+			<pattern name="%&gt;" ends_block="1" blockstartpattern="&lt;%" style="region" mayfold="1" ends_context="1" />
+		</context>
+	</pattern>
+	
+	<pattern name="&lt;!--" style="comment" starts_block="1">
+		<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
+			<pattern name="--&gt;" ends_block="1" blockstartpattern="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+		</context>
+	</pattern>
+	
+	<pattern name="&amp;[a-z0-9#]+;" is_regex="1" style="value" />
+</context>
+</scanning>
+</bflang>

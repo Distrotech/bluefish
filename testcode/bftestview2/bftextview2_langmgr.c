@@ -137,6 +137,7 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 		if (pattern) {
 			GtkTextTag *stylet=NULL,*blockstylet=NULL;
 			guint16 blockstartpatternum=0, nextcontext=context;
+			DBG_PARSING("pattern %s\n",pattern);
 			if (ends_context) {
 				/* the nth number in the stack */
 				nextcontext=GPOINTER_TO_INT(g_queue_peek_nth(contextstack,ends_context));
@@ -313,7 +314,8 @@ static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing 
 			DBG_PARSING("end-of-context, return context %d\n",context);
 			g_queue_pop_head(contextstack); 
 			return context;
-		}
+		} else
+			DBG_PARSING("found %s\n",name);
 		xmlFree(name);
 	}
 	/* can we ever get here ?? */
@@ -364,7 +366,8 @@ static gpointer build_lang_thread(gpointer data)
 				} else if (xmlStrEqual(name2,(xmlChar *)"scanning")) {
 					xmlFree(name2);
 					break;
-				}
+				} else
+					DBG_PARSING("found %s\n",name2);
 				xmlFree(name2);
 			}
 		}
@@ -450,6 +453,7 @@ void langmgr_init(void) {
 	register_bflanguage(bflang);
 	bflang = parse_bflang2_header("python.bflang2");
 	register_bflanguage(bflang);
-
+	bflang = parse_bflang2_header("asp.bflang2");
+	register_bflanguage(bflang);
 	DBG_PARSING("langmgr_init, returning \n");
 }
