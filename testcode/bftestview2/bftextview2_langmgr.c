@@ -227,7 +227,7 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 }
 
 static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context, GQueue *contextstack) {
-	gchar *tag=NULL, *style=NULL, *attributes=NULL, *attribstyle=NULL,*class=NULL, *autocomplete_append=NULL;
+	gchar *tag=NULL, *style=NULL, *attributes=NULL, *attribstyle=NULL,*class=NULL, *autocomplete_append=NULL,*attrib_autocomplete_append=NULL;
 	guint16 matchnum=0,innercontext=context;
 	gboolean is_empty;
 	DBG_PARSING("processing tag...\n");
@@ -240,6 +240,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"attribstyle",&attribstyle);
 		set_string_if_attribute_name(reader,aname, (xmlChar *)"attributes", &attributes);
+		set_string_if_attribute_name(reader,aname, (xmlChar *)"attrib_autocomplete_append", &attrib_autocomplete_append);
 		xmlFree(aname);
 	}
 	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
@@ -261,7 +262,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 				arr = g_strsplit(attributes,",",-1);
 				tmp2 = arr;
 				while (*tmp2) {
-					add_keyword_to_scanning_table(bfparser->st, *tmp2, FALSE, FALSE, attrib, contexttag, contexttag, FALSE, FALSE, 0, NULL,TRUE,NULL,NULL);
+					add_keyword_to_scanning_table(bfparser->st, *tmp2, FALSE, FALSE, attrib, contexttag, contexttag, FALSE, FALSE, 0, NULL,TRUE,attrib_autocomplete_append,NULL);
 					tmp2++;
 				}
 				g_strfreev(arr);
@@ -293,6 +294,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 	g_free(style);
 	g_free(class);
 	g_free(autocomplete_append);
+	g_free(attrib_autocomplete_append);
 	g_free(attribstyle);
 	g_free(attributes);
 
