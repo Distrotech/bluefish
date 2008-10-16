@@ -149,6 +149,12 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 29:
 		strip_trailing_spaces(bfwin->current_document);
 	break;
+	case 30:
+		convert_identing(bfwin->current_document, TRUE);
+	break;
+	case 31:
+		convert_identing(bfwin->current_document, FALSE);
+	break;
 #ifdef HAVE_PYTHON
 	case 99:
 		{
@@ -269,6 +275,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{"/Edit/Replace special/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Edit/Replace special/Block sync"), NULL, menu_file_operations_cb, 28, "<Item>"},
 	{N_("/Edit/Replace special/Strip trailing whitespace"), NULL, menu_file_operations_cb, 29, "<Item>"},
+	{N_("/Edit/Replace special/Convert indenting to tabs"), NULL, menu_file_operations_cb, 30, "<Item>"},
+	{N_("/Edit/Replace special/Convert indenting to spaces"), NULL, menu_file_operations_cb, 31, "<Item>"},
 	{"/Edit/sep4", NULL, NULL, 0, "<Separator>"},
 	{N_("/Edit/S_hift Right"), NULL, menu_indent_cb, 2, "<StockItem>", GTK_STOCK_INDENT},
 	{N_("/Edit/Shift _Left"), NULL, menu_indent_cb, 1, "<StockItem>", GTK_STOCK_UNINDENT},
