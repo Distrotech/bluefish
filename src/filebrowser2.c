@@ -2610,7 +2610,7 @@ void fb2config_init(void)
 	   "icon_dir.png","../images/icon_dir.png",
 	   "images/icon_dir.png",NULL);
 	   fb2config->dir_icon = gdk_pixbuf_new_from_file(filename, NULL); */
-	fb2config->dir_icon = get_icon_for_mime_type(DIR_MIME_TYPE);
+	/*fb2config->dir_icon = get_icon_for_mime_type(DIR_MIME_TYPE);*/
 
 	/*g_free(filename); */
 

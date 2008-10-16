@@ -1226,6 +1226,17 @@ void doc_set_statusbar_editmode_encoding(Tdocument *doc)
 	g_free(msg);		
 }
 
+void doc_insert_text_backend(Tdocument *doc, const gchar * newstring, gint position) {
+	GtkTextIter iter;
+	doc_unbind_signals(doc);
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter,position);
+	gtk_text_buffer_insert(doc->buffer,&iter,newstring,-1);
+	doc_unre_add(doc, newstring, position, position + g_utf8_strlen(newstring,-1), UndoInsert);
+	doc_bind_signals(doc);	
+	doc_set_modified(doc, 1);
+	doc->need_highlighting=TRUE;
+}
+
 /**
  * doc_replace_text_backend:
  * @doc: a #Tdocument
@@ -3434,7 +3445,6 @@ void word_count_cb (Tbfwin *bfwin,guint callback_action,GtkWidget *widget) {
 	statusbar_message (bfwin,wc_message, 5000);
 	g_free (wc_message);
 }
-
 /**
  * doc_indent_selection:
  * @doc: a #Tdocument*
