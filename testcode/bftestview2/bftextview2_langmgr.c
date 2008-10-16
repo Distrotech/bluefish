@@ -38,6 +38,7 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	testapp_rescan_bflang(bfparser->bflang);
 	
 	/* cleanup the parsing structure */
+	g_hash_table_destroy(bfparser->patterns);
 	g_slice_free(Tbflangparsing,bfparser);
 	
 	
@@ -108,6 +109,7 @@ static void process_detection(xmlTextReaderPtr reader, Tbflang *bflang) {
 			xmlFree(name);
 			break;
 		}
+		xmlFree(name);
 	}
 }
 /* declaration needed for recursive calling */
@@ -200,10 +202,12 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 		reference = (gchar *)xmlTextReaderReadInnerXml(reader);
 		ret = xmlTextReaderRead(reader);
 		while (xmlTextReaderRead(reader)==1) {
-			xmlChar *name = xmlTextReaderName(reader);
-			if (xmlStrEqual(name,(xmlChar *)"keyword")) { /* end of keyword */
+			xmlChar *name2 = xmlTextReaderName(reader);
+			if (xmlStrEqual(name2,(xmlChar *)"keyword")) { /* end of keyword */
+				xmlFree(name2);
 				break;
 			}
+			xmlFree(name2);
 		} 
 	}
 	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
@@ -214,10 +218,11 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 					, FALSE, FALSE, 0,NULL,autocomplete,autocomplete_append, reference);
 		}
 	}
-	if (name) xmlFree(name);
-	if (style) xmlFree(style);
-	if (class) xmlFree(class);
+	if (name) g_free(name);
+	if (style) g_free(style);
+	if (class) g_free(class);
 	if (reference) xmlFree(reference);
+	if (autocomplete_append) g_free(autocomplete_append);
 	return matchnum;
 }
 
@@ -259,6 +264,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					add_keyword_to_scanning_table(bfparser->st, *tmp2, FALSE, FALSE, attrib, contexttag, contexttag, FALSE, FALSE, 0, NULL,TRUE,NULL,NULL);
 					tmp2++;
 				}
+				g_strfreev(arr);
 				contextstring = new_context(bfparser->st, "\"=' \t\n\r", string);
 				add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contexttag, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL,NULL);
 				add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contextstring, contexttag, FALSE, FALSE, 0, string,FALSE,NULL,NULL);
@@ -280,9 +286,16 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			tmp = g_strconcat("</",tag,">",NULL);
 			endtagmatch = add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, innercontext, context, FALSE, TRUE, matchnum, NULL,TRUE,NULL,NULL);
 			g_free(tmp);
-
 		}
 	}
+	
+	g_free(tag);
+	g_free(style);
+	g_free(class);
+	g_free(autocomplete_append);
+	g_free(attribstyle);
+	g_free(attributes);
+
 	return matchnum;
 }
 
@@ -299,6 +312,9 @@ static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing 
 	DBG_PARSING("create context symbols %s and style %s\n",symbols,style);
 	context = new_context(bfparser->st,symbols,langmrg_lookup_style(style));
 	g_queue_push_head(contextstack,GINT_TO_POINTER((gint)context)); 
+	
+	g_free(symbols);
+	g_free(style);
 	/* now get the children */
 	while (xmlTextReaderRead(reader)==1) {
 		xmlChar *name = xmlTextReaderName(reader);
@@ -332,7 +348,7 @@ static gpointer build_lang_thread(gpointer data)
 	GList *tmplist;
 	
 	bfparser = g_slice_new0(Tbflangparsing);
-	bfparser->patterns =  g_hash_table_new(g_str_hash,g_str_equal);
+	bfparser->patterns =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
 	bfparser->setoptions =  g_hash_table_new(g_str_hash,g_str_equal);
 	bfparser->bflang = bflang;
 	for(tmplist = g_list_first(bfparser->bflang->setoptions);tmplist;tmplist=g_list_next(tmplist)) {

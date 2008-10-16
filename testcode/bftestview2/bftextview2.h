@@ -156,7 +156,7 @@ either on the start or on the end there is no symbol.
 #define DBG_DELAYSCANNING DBG_NONE
 #define DBG_FOLD DBG_NONE
 #define DBG_MARGIN DBG_NONE
-#define DBG_PARSING g_print
+#define DBG_PARSING DBG_NONE
 
 #define NUMSCANCHARS 127 /* 128 is ascii, but the last character is never scanned (DEL)
 		and the Ttablerow has one more 16bit value. By setting this to 127 instead of 128
