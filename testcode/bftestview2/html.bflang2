@@ -1,8 +1,8 @@
 <bflang name="HTML">
 <detection><mime type="text/html"/></detection>
 <scanning><context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-<tag name="html" style="tag"  autocomplete_append="&gt;" />
-<tag name="head" style="tag"  autocomplete_append="&gt;">
+<tag name="html" style="tag" autocomplete_append="&gt;" />
+<tag name="head" style="tag" autocomplete_append="&gt;">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" style="region">
 	<tag name="meta" style="tag" attributes="name,http-equiv,content" attribstyle="function" autocomplete_append=" /&gt;" />
 	<tag name="title" style="tag" autocomplete_append="&gt; &lt;/title&gt;" />

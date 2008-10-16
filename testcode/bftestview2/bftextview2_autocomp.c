@@ -222,7 +222,7 @@ static void acwin_position_at_cursor(BluefishTextView *btv) {
 static void acwin_fill_tree(Tacwin *acw, GList *items) {
 	GList *tmplist,*list;
 	gchar *longest=NULL;
-	guint numitems=0,longestlen=0;
+	guint numitems=0,longestlen=100;
 	
 	list = tmplist = g_list_sort(g_list_copy(items), (GCompareFunc) g_strcmp0);
 	while (tmplist)	{
@@ -230,14 +230,16 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 		gchar *tmp;
 		guint len;
 		gtk_list_store_append(acw->store,&it);
+		tmp = g_markup_escape_text(tmplist->data,-1);
 		len = strlen(tmplist->data);
 		if (len > longestlen) {
-			longest = tmplist->data;
+			g_free(longest);
+			longest = tmp;
 			longestlen = len;
 		}
-		tmp = g_markup_escape_text(tmplist->data,-1);
 		gtk_list_store_set(acw->store,&it,0,tmp,1,tmplist->data,-1);
-		g_free(tmp);
+		if (tmp!=longest)
+			g_free(tmp);
 		numitems++;
 		tmplist = g_list_next(tmplist);
 	}
@@ -250,6 +252,7 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 		h = MIN((numitems+1)*rowh+8,300);
 		w = len+20;
 		gtk_widget_set_size_request(GTK_WIDGET(acw->tree),w,h); /* ac_window */
+		g_free(longest);
 	}
 }
 
