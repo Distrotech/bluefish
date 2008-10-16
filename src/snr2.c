@@ -1979,25 +1979,46 @@ void strip_trailing_spaces(Tdocument *doc) {
 	}
 	g_free(buf);
 	doc_unre_new_group(doc);
-/*	GtkTextIter iter,end,wstart;
-	
-	gtk_text_buffer_get_bounds(doc->buffer,&iter,&end);
-	
-	wstart = iter;
-	while (!gtk_text_iter_equal(&iter, &end)) {
-		gunichar uc = gtk_text_iter_get_char(&iter);
-		if (uc == ' ' || uc == '\t') {
-			
-		} else if (uc == '\n') {
-			gtk_text_iter_forward_char(&wstart);
-			if (!gtk_text_iter_equal(&wstart, &iter)) {
-				/ * remove from wstart to iter. hmm but a change would invalidate all iters.... * /
-				
-			}
-		} else {
-			wstart = iter;
-		}
-		gtk_text_iter_forward_char(&iter);
-	}*/
 }
 
+/* from spaces to tabs or from tabs to spaces */
+void convert_identing(Tdocument *doc, gboolean to_tabs) {
+	gint i=0,wstart=0,coffset=0,indenting=0;
+	gchar *buf = doc_get_chars(doc,0,-1);
+	doc_unre_new_group(doc);
+	while (buf[i] != '\0') {
+		switch (buf[i]) {
+		case '\n':
+			wstart=i;
+			indenting=0;
+		break;
+		case '\t':
+			/* a tab increases to the next tab stop */
+			indenting = ((indenting/main_v->props.editor_tab_width)+1)*main_v->props.editor_tab_width;
+		break;
+		case ' ':
+			indenting += 1;
+		break;
+		default:
+			if (wstart != -1 && indenting>0 && (wstart+1 != i)) {
+				gchar *newindent;
+				gint cstart, cend;
+				if (to_tabs) {
+					newindent = bf_str_repeat("\t", (indenting/main_v->props.editor_tab_width));
+				} else {
+					newindent = bf_str_repeat(" ", indenting);
+				}
+				cstart = utf8_byteoffset_to_charsoffset_cached(buf, wstart+1);
+				cend = utf8_byteoffset_to_charsoffset_cached(buf, i);
+				doc_replace_text_backend(doc, newindent, cstart+coffset, cend+coffset);
+				coffset += strlen(newindent)-(cend-cstart);
+				g_free(newindent);
+			}
+			wstart=-1;
+		break;
+		}
+		i++;
+	}
+	g_free(buf);
+	doc_unre_new_group(doc);
+}
