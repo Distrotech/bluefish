@@ -92,7 +92,7 @@ static void create_state_tables(Tscantable *st, guint16 context, gchar *characte
 					if (g_array_index(st->table, Ttablerow, pos).row[c] == pos) {
 						/* this state is a 'morestate', a state that points to itself, for a (regex) pattern such as a+ or a* */
 						if (pointtoself) {
-							g_queue_push_head(newpositions, GINT_TO_POINTER(g_array_index(st->table, Ttablerow, pos).row[c]));
+							g_queue_push_head(newpositions, GINT_TO_POINTER((gint)g_array_index(st->table, Ttablerow, pos).row[c]));
 						} else {
 							g_print("BUG: we cannot parse this pattern after a regex pattern yet !!!!!!!!!!!!!\nstate tables will be incorrect!!!\n");
 						}
@@ -315,8 +315,8 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 
 /* this function cannot do any regex style patterns 
 just full keywords */
-static void compile_keyword_to_DFA_new(Tscantable *st, gchar *keyword, guint16 matchnum, guint16 context, gboolean case_insens) {
-	gint i,len,pos=0;
+static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 matchnum, guint16 context, gboolean case_insens) {
+	gint i,len;
 	GQueue *positions,*newpositions;
 	gchar *pattern;
 	gchar characters[NUMSCANCHARS];
@@ -326,8 +326,7 @@ static void compile_keyword_to_DFA_new(Tscantable *st, gchar *keyword, guint16 m
 	newpositions = g_queue_new();
 	
 	/* compile the keyword into the DFA */
-	pos = g_array_index(st->contexts, Tcontext, context).startstate;
-	g_queue_push_head(positions,GINT_TO_POINTER(pos));
+	g_queue_push_head(positions,GINT_TO_POINTER((gint)g_array_index(st->contexts, Tcontext, context).startstate));
 	
 	if (case_insens) {
 		/* make complete string lowercase */
@@ -336,7 +335,7 @@ static void compile_keyword_to_DFA_new(Tscantable *st, gchar *keyword, guint16 m
 		pattern = g_strdup(keyword);
 	}
 	
-	DBG_PATCOMPILE("in context %d we start with position %d; %d is the identstate\n",context,(gint)g_queue_peek_head(positions),identstate);
+	DBG_PATCOMPILE("in context %d we start with position %d\n",context,(gint)g_queue_peek_head(positions));
 	len = strlen(pattern);
 
 	end_is_symbol = character_is_symbol(st,g_array_index(st->contexts, Tcontext, context),(gint)pattern[len-1]);	
@@ -346,15 +345,15 @@ static void compile_keyword_to_DFA_new(Tscantable *st, gchar *keyword, guint16 m
 		int c = pattern[i];
 		memset(&characters, 0, NUMSCANCHARS*sizeof(char));
 		if (c == '\0') {
-			while ((g_queue_get_length(newpositions))) {
+			while ((g_queue_get_length(positions))) {
 				gint p;
-				p = GPOINTER_TO_INT(g_queue_pop_head(newpositions));
+				p = GPOINTER_TO_INT(g_queue_pop_head(positions));
 				DBG_PATCOMPILE("mark state %d as possible end-state\n",p);
 				g_array_index(st->table, Ttablerow, p).match = matchnum;
-			}			
+			}		
 		} else {
 			characters[c] = 1;
-			if (case_insens)
+			if (case_insens && c >= 97 && c <= 122)
 				characters[c-32] = 1;
 			create_state_tables(st, context, characters, FALSE, positions, newpositions, end_is_symbol);
 		}
@@ -462,7 +461,7 @@ static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, gu
 	
 	return matchnum;
 }
-
+#ifdef OLD
 /* this function cannot do any regex style patterns 
 just full keywords */
 static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 matchnum, guint16 context) {
@@ -499,6 +498,7 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 		}
 	}
 }
+#endif
 
 guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean is_regex,gboolean case_insens, GtkTextTag *selftag, guint context, guint nextcontext
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
@@ -515,7 +515,7 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean i
 	if (is_regex) {
 		compile_limitedregex_to_DFA(st, keyword, case_insens, matchnum, context);
 	} else {
-		compile_keyword_to_DFA(st, keyword, matchnum, context);
+		compile_keyword_to_DFA(st, keyword, matchnum, context, case_insens);
 	}
 	return matchnum;
 }

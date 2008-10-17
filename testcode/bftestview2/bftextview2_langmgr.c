@@ -183,7 +183,7 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 }
 static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context) {
 	gchar *name=NULL, *style=NULL, *reference=NULL, *class=NULL, *autocomplete_append=NULL;
-	gboolean autocomplete=FALSE, is_empty;
+	gboolean autocomplete=FALSE,case_insens=FALSE, is_empty;
 	guint16 matchnum=0;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	DBG_PARSING("processing keyword...\n");
@@ -194,6 +194,7 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
 		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"autocomplete", &autocomplete);
+		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"case_insens", &autocomplete);
 		xmlFree(aname);
 	}
 	if (!is_empty) {
@@ -214,7 +215,7 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 		if (name) {
 			GtkTextTag *stylet;
 			stylet = langmrg_lookup_style(style);
-			matchnum = add_keyword_to_scanning_table(bfparser->st, name, FALSE,FALSE, stylet, context, context
+			matchnum = add_keyword_to_scanning_table(bfparser->st, name, FALSE,case_insens, stylet, context, context
 					, FALSE, FALSE, 0,NULL,autocomplete,autocomplete_append, reference);
 		}
 	}
