@@ -33,7 +33,13 @@
 <tag name="h6" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
 <tag name="br" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append=" /&gt;" />
 <tag name="kbd" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-
+<tag name="form" style="tag" attributes="style,class,id,action,method,enctype,target" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="input" style="tag" attributes="style,class,id,type,name,value,size,maxlength,checked" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="select" style="tag" attributes="style,class,id,name,size,multiple" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="textarea" style="tag" attributes="style,class,id,name,rows,cols" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="option" style="tag" attributes="style,class,id,value,label,selected" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="optgroup" style="tag" attributes="style,class,id,label" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	
 <pattern name="&lt;?php" starts_block="1" style="region">
 <context symbols="'&#34;(){}[];:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" style="region">
 <keyword name="dotnet_load" autocomplete="1" style="function"></keyword>
@@ -712,7 +718,6 @@
 <keyword name="restore_error_handler" autocomplete="1" style="function"></keyword>
 <keyword name="restore_exception_handler" autocomplete="1" style="function"></keyword>
 <keyword name="set_error_handler" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
 <keyword name="set_exception_handler" autocomplete="1" style="function"></keyword>
 <keyword name="trigger_error" autocomplete="1" style="function"></keyword>
 <keyword name="exif_imagetype" autocomplete="1" style="function"></keyword>
@@ -1478,7 +1483,6 @@
 <keyword name="iptcparse" autocomplete="1" style="function"></keyword>
 <keyword name="jpeg2wbmp" autocomplete="1" style="function"></keyword>
 <keyword name="png2wbmp" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
 <keyword name="imap_8bit" autocomplete="1" style="function"></keyword>
 <keyword name="imap_alerts" autocomplete="1" style="function"></keyword>
 <keyword name="imap_append" autocomplete="1" style="function"></keyword>
@@ -4044,8 +4048,6 @@
 <keyword name="valid" autocomplete="1" style="function"></keyword>
 <keyword name="valid" autocomplete="1" style="function"></keyword>
 <keyword name="sqliteCreateAggregate" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
 <keyword name="sqliteCreateFunction" autocomplete="1" style="function"></keyword>
 <keyword name="ssh2_auth_hostbased_file" autocomplete="1" style="function"></keyword>
 <keyword name="ssh2_auth_none" autocomplete="1" style="function"></keyword>
@@ -4539,23 +4541,15 @@
 <keyword name="xml_parser_get_option" autocomplete="1" style="function"></keyword>
 <keyword name="xml_parser_set_option" autocomplete="1" style="function"></keyword>
 <keyword name="xml_set_character_data_handler" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
 <keyword name="xml_set_default_handler" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
 <keyword name="xml_set_element_handler" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
 <keyword name="xml_set_end_namespace_decl_handler" autocomplete="1" style="function"></keyword>
 <keyword name="xml_set_external_entity_ref_handler" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
 <keyword name="xml_set_notation_decl_handler" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
 <keyword name="xml_set_object" autocomplete="1" style="function"></keyword>
 <keyword name="xml_set_processing_instruction_handler" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
 <keyword name="xml_set_start_namespace_decl_handler" autocomplete="1" style="function"></keyword>
 <keyword name="xml_set_unparsed_entity_decl_handler" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
 <keyword name="xmlrpc_decode_request" autocomplete="1" style="function"></keyword>
 <keyword name="xmlrpc_decode" autocomplete="1" style="function"></keyword>
 <keyword name="xmlrpc_encode_request" autocomplete="1" style="function"></keyword>
@@ -4698,20 +4692,10 @@
 <keyword name="xslt_set_base" autocomplete="1" style="function"></keyword>
 <keyword name="xslt_set_encoding" autocomplete="1" style="function"></keyword>
 <keyword name="xslt_set_error_handler" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
 <keyword name="xslt_set_log" autocomplete="1" style="function"></keyword>
 <keyword name="xslt_set_object" autocomplete="1" style="function"></keyword>
 <keyword name="xslt_set_sax_handler" autocomplete="1" style="function"></keyword>
 <keyword name="xslt_set_sax_handlers" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
-<keyword name="" autocomplete="1" style="function"></keyword>
 <keyword name="xslt_set_scheme_handler" autocomplete="1" style="function"></keyword>
 <keyword name="xslt_set_scheme_handlers" autocomplete="1" style="function"></keyword>
 <keyword name="xslt_setopt" autocomplete="1" style="function"></keyword>
