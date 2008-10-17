@@ -136,7 +136,7 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 		xmlFree(aname);
 	}
 	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
-		if (pattern) {
+		if (pattern && pattern[0]) {
 			GtkTextTag *stylet=NULL,*blockstylet=NULL;
 			guint16 blockstartpatternum=0, nextcontext=context;
 			DBG_PARSING("pattern %s\n",pattern);
@@ -212,7 +212,7 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 		} 
 	}
 	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
-		if (name) {
+		if (name && name[0]) {
 			GtkTextTag *stylet;
 			stylet = langmrg_lookup_style(style);
 			matchnum = add_keyword_to_scanning_table(bfparser->st, name, FALSE,case_insens, stylet, context, context
@@ -245,7 +245,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 		xmlFree(aname);
 	}
 	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
-		if (tag) {
+		if (tag && tag[0]) {
 			GtkTextTag *stylet;
 			stylet = langmrg_lookup_style(style);
 			guint16 contexttag, contextstring, starttagmatch, endtagmatch;
