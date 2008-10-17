@@ -4,8 +4,9 @@
 </detection>
 <scanning>
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<keyword name="if" autocomplete="1" style="keyword" />
-<pattern name="#[^&#10;]+" is_regex="1" style="tag"/>
+<!-- <keyword name="if" autocomplete="1" style="keyword" /> -->
+<pattern name="[a-z]+0" is_regex="1" style="tag"/>
+<pattern name="[a-z]+1" is_regex="1" style="function"/>
 </context>
 </scanning>
 </bflang>

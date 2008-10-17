@@ -110,9 +110,9 @@ static void create_state_tables(Tscantable *st, guint16 context, gchar *characte
 						g_array_set_size(st->table,st->table->len+1);
 						if (!end_is_symbol)
 							/* normally this memcpy copies the identstate to the current state such that all symbols still point to the 
-							startstate but all non-symbols point to the identstate. But if the last character ITSELF is a symbol, ALL next
-							characters may point to state 0 and make this a valid match !! */
-							memcpy(g_array_index(st->table, Ttablerow, newstate).row, g_array_index(st->table, Ttablerow, g_array_index(st->contexts, Tcontext, context).identstate).row, sizeof(unsigned int[NUMSCANCHARS]));
+							startstate but all non-symbols point to the identstate. Only if the last character ITSELF is a symbol, ALL next
+							characters may point to state 0 and make this a valid match and we don't have to copy yhr identstate  */
+							memcpy(g_array_index(st->table, Ttablerow, newstate).row, g_array_index(st->table, Ttablerow, g_array_index(st->contexts, Tcontext, context).identstate).row, sizeof(guint16[NUMSCANCHARS]));
 						g_queue_push_head(newpositions, GINT_TO_POINTER(newstate));
 						if (pointtoself) {
 							guint d;
@@ -312,6 +312,61 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 	g_queue_free(newpositions);
 	g_free(lregex);
 }
+
+/* this function cannot do any regex style patterns 
+just full keywords */
+static void compile_keyword_to_DFA_new(Tscantable *st, gchar *keyword, guint16 matchnum, guint16 context, gboolean case_insens) {
+	gint i,len,pos=0;
+	GQueue *positions,*newpositions;
+	gchar *pattern;
+	gchar characters[NUMSCANCHARS];
+	gboolean end_is_symbol;
+	
+	positions = g_queue_new();
+	newpositions = g_queue_new();
+	
+	/* compile the keyword into the DFA */
+	pos = g_array_index(st->contexts, Tcontext, context).startstate;
+	g_queue_push_head(positions,GINT_TO_POINTER(pos));
+	
+	if (case_insens) {
+		/* make complete string lowercase */
+		pattern = g_ascii_strdown(keyword,-1);
+	} else {
+		pattern = g_strdup(keyword);
+	}
+	
+	DBG_PATCOMPILE("in context %d we start with position %d; %d is the identstate\n",context,(gint)g_queue_peek_head(positions),identstate);
+	len = strlen(pattern);
+
+	end_is_symbol = character_is_symbol(st,g_array_index(st->contexts, Tcontext, context),(gint)pattern[len-1]);	
+	
+	for (i=0;i<=len;i++) {
+		GQueue *tmp;
+		int c = pattern[i];
+		memset(&characters, 0, NUMSCANCHARS*sizeof(char));
+		if (c == '\0') {
+			while ((g_queue_get_length(newpositions))) {
+				gint p;
+				p = GPOINTER_TO_INT(g_queue_pop_head(newpositions));
+				DBG_PATCOMPILE("mark state %d as possible end-state\n",p);
+				g_array_index(st->table, Ttablerow, p).match = matchnum;
+			}			
+		} else {
+			characters[c] = 1;
+			if (case_insens)
+				characters[c-32] = 1;
+			create_state_tables(st, context, characters, FALSE, positions, newpositions, end_is_symbol);
+		}
+		g_queue_clear(positions);
+		tmp = positions;
+		positions = newpositions;
+		newpositions = tmp;
+	}
+	g_free(pattern);
+}
+
+
 
 guint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag) {
 	guint context, startstate, identstate;
