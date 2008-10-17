@@ -34,11 +34,16 @@
 <tag name="h6" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
 <tag name="br" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append=" /&gt;" />
 <tag name="kbd" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-
+<tag name="form" style="tag" attributes="style,class,id,action,method,enctype,target" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="input" style="tag" attributes="style,class,id,type,name,value,size,maxlength,checked" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="select" style="tag" attributes="style,class,id,name,size,multiple" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="textarea" style="tag" attributes="style,class,id,name,rows,cols" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="option" style="tag" attributes="style,class,id,value,label,selected" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="optgroup" style="tag" attributes="style,class,id,label" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	
 <pattern name="&lt;%" starts_block="1" style="region">
 	<context symbols=" '&#34;():.,/$#*-+=&gt;&lt;&amp; &#9;&#10;&#13;" style="region">
 		
-<!--
 		<keyword name="and" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="as" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="call" autocomplete="1" case_insens="1" style="keyword"/>
@@ -101,7 +106,6 @@
 		<keyword name="FALSE" autocomplete="1" case_insens="1" style="value"/>
 		<keyword name="NOTHING" autocomplete="1" case_insens="1" style="value"/>
 		
--->
 		<pattern name="&#34;" style="string">
 			<context symbols="&#34;" style="string">
 				<pattern name="&#34;" style="string" ends_context="1" />
@@ -124,10 +128,6 @@
 		<pattern name="sub" starts_block="1" mayfold="1" style="braces" />
 		<pattern name="end[\ \t]+sub" is_regex="1" ends_block="1" blockstartpattern="sub" mayfold="1" style="braces" />
 
-<!--
-		<pattern name="(true|false|nothing)" is_regex="1" case_insens="1" style="value"/>
-		<pattern name="(and|as|call|case|cbool|cbyte|cchar|cdate|cdec|cdbl|cint|class|clng|const|cobj|csng|cstr|default|dim|do|each|else|elseif|end|exit|explicit|for|function|goto|if|in|is|let|loop|mod|new|next|not|option|or|preserve|private|public|redim|rem|resume|select|set|step|sub|then|to|until|wend|while|with|xor)" is_regex="1" case_insens="1" style="keyword"/>
--->
 		<pattern name="[0-9.]+" is_regex="1" style="value"/>
 		<pattern name="[a-z][0-9._]*" is_regex="1" case_insens="1" style="variable"/>
 <!--

@@ -194,7 +194,7 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
 		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"autocomplete", &autocomplete);
-		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"case_insens", &autocomplete);
+		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"case_insens", &case_insens);
 		xmlFree(aname);
 	}
 	if (!is_empty) {
