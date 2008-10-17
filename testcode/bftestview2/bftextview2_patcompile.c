@@ -89,11 +89,19 @@ static void create_state_tables(Tscantable *st, guint16 context, gchar *characte
 			if (characters[c] == 1) {
 				/*DBG_PATCOMPILE("running for position %d char %c\n",pos,c);*/
 				if (g_array_index(st->table, Ttablerow, pos).row[c] != 0 && g_array_index(st->table, Ttablerow, pos).row[c] != identstate) {
-					if (pointtoself) { /* perhaps check here if the state does point to itself, 
-							or if we have this state on the stack already */
-						g_queue_push_head(positions, GINT_TO_POINTER((gint)g_array_index(st->table, Ttablerow, pos).row[c]));
+					if (g_array_index(st->table, Ttablerow, pos).row[c] == pos) {
+						/* this state is a 'morestate', a state that points to itself, for a (regex) pattern such as a+ or a* */
+						if (pointtoself) {
+							g_queue_push_head(newpositions, GINT_TO_POINTER(g_array_index(st->table, Ttablerow, pos).row[c]));
+						} else {
+							g_print("BUG: we cannot parse this pattern after a regex pattern yet !!!!!!!!!!!!!\nstate tables will be incorrect!!!\n");
+						}
 					} else {
-						g_queue_push_head(newpositions, GINT_TO_POINTER((gint)g_array_index(st->table, Ttablerow, pos).row[c]));
+						if (pointtoself) { /* perhaps check if we have this state on the stack already */
+							g_queue_push_head(positions, GINT_TO_POINTER((gint)g_array_index(st->table, Ttablerow, pos).row[c]));
+						} else {
+							g_queue_push_head(newpositions, GINT_TO_POINTER((gint)g_array_index(st->table, Ttablerow, pos).row[c]));
+						}
 					}
 				} else {
 					if (newstate == -1) {
@@ -442,6 +450,10 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean i
 				, GtkTextTag *blocktag,gboolean add_to_ac, gchar *append_to_ac, gchar *reference)  {
 	guint16 matchnum;
 	
+	if (!keyword || keyword[0] == '\0') {
+		g_print("CORRUPT LANGUAGE FILE: empty pattern/tag/keyword\n");
+		return 0;
+	}
 	matchnum = new_match(st, keyword, selftag, context, nextcontext, starts_block, ends_block, blockstartpattern
 				, blocktag,add_to_ac, append_to_ac, reference);
 	DBG_PATCOMPILE("add_keyword_to_scanning_table,keyword=%s,starts_block=%d,ends_block=%d,blockstartpattern=%d, context=%d,nextcontext=%d and got matchnum %d\n",keyword, starts_block, ends_block, blockstartpattern,context,nextcontext,matchnum);

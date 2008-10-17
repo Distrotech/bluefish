@@ -1,0 +1,11 @@
+<bflang name="C">
+<detection>
+	<mime type="application/x-perl"/>
+</detection>
+<scanning>
+<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+<keyword name="if" autocomplete="1" style="keyword" />
+<pattern name="#[^&#10;]+" is_regex="1" style="tag"/>
+</context>
+</scanning>
+</bflang>
