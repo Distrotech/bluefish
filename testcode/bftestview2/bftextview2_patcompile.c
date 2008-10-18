@@ -367,8 +367,8 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 
 
 
-guint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag) {
-	guint context, startstate, identstate;
+guint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag, gboolean autocomplete_case_insens) {
+	guint16 context, startstate, identstate;
 	gint i;
 	gchar *tmp;
 	
@@ -381,6 +381,7 @@ guint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag) {
 	g_array_index(st->contexts, Tcontext, context).startstate = startstate;
 	g_array_index(st->contexts, Tcontext, context).identstate = identstate;
 	g_array_index(st->contexts, Tcontext, context).contexttag = contexttag;
+	g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens = autocomplete_case_insens;
 	g_array_set_size(st->table,st->table->len+2);
 
 	DBG_PATCOMPILE("new context %d has startstate %d, identstate %d and symbols %s\n",context, g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts, Tcontext, context).identstate,symbols);	
@@ -437,6 +438,8 @@ static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, gu
 		if (!g_array_index(st->contexts, Tcontext, context).ac) {
 			DBG_PATCOMPILE("create g_completion for context %d\n",context);
 			g_array_index(st->contexts, Tcontext, context).ac = g_completion_new(NULL);
+			if (g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens)
+				g_completion_set_compare(g_array_index(st->contexts, Tcontext, context).ac, strncasecmp);
 		}
 		if (append_to_ac) {
 			tmp = g_strconcat(keyword,append_to_ac,NULL);

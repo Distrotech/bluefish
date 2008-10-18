@@ -251,7 +251,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			guint16 contexttag, contextstring, starttagmatch, endtagmatch;
 			gchar *tmp;
 		
-			contexttag = new_context(bfparser->st, ">\"=' \t\n\r", NULL);
+			contexttag = new_context(bfparser->st, ">\"=' \t\n\r", NULL, FALSE);
 			tmp = g_strconcat("<",tag,NULL);
 			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, context, contexttag, TRUE, FALSE, 0, NULL,TRUE,autocomplete_append,NULL);
 			g_free(tmp);
@@ -267,7 +267,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					tmp2++;
 				}
 				g_strfreev(arr);
-				contextstring = new_context(bfparser->st, "\"=' \t\n\r", string);
+				contextstring = new_context(bfparser->st, "\"=' \t\n\r", string, FALSE);
 				add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contexttag, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL,NULL);
 				add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contextstring, contexttag, FALSE, FALSE, 0, string,FALSE,NULL,NULL);
 			}
@@ -304,16 +304,18 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 
 static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack) {
 	gchar *symbols=NULL, *style=NULL;
+	gboolean autocomplete_case_insens=FALSE;
 	guint16 context;
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"symbols",&symbols);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
+		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_case_insens",&autocomplete_case_insens);
 		xmlFree(aname);
 	}
 	/* create context */
 	DBG_PARSING("create context symbols %s and style %s\n",symbols,style);
-	context = new_context(bfparser->st,symbols,langmrg_lookup_style(style));
+	context = new_context(bfparser->st,symbols,langmrg_lookup_style(style),autocomplete_case_insens);
 	g_queue_push_head(contextstack,GINT_TO_POINTER((gint)context)); 
 	
 	g_free(symbols);

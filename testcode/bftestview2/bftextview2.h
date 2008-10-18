@@ -172,6 +172,7 @@ either on the start or on the end there is no symbol.
 /*****************************************************************/
 
 typedef struct {
+	gboolean autocomplete_case_insens;
 	GCompletion* ac; /* autocompletion items in this context */
 	GHashTable *reference; /* reference help for each autocompletion item */
 	GtkTextTag *contexttag; /* if the context area itself needs some kind of style (strings!) */
