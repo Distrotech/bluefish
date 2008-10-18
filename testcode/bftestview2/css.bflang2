@@ -1,0 +1,20 @@
+<bflang name="CSS">
+<detection>
+	<mime type="text/css" />
+</detection>
+<scanning>
+<context symbols=" &#9;&#10;&#13;{}.">
+<keyword name="p" autocomplete="1" style="keyword" />
+<keyword name="body" autocomplete="1" style="keyword" />
+<keyword name="div" autocomplete="1" style="keyword" />
+<keyword name="ul" autocomplete="1" style="keyword" />
+<keyword name="li" autocomplete="1" style="keyword" />
+<pattern name="{" starts_block="1" mayfold="1" style="braces" >
+<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
+	<keyword name="font-family" autocomplete="1" style="keyword" autocomplete_append=":"/>
+	<keyword name="color" autocomplete="1" style="keyword" autocomplete_append=":"/>
+	<keyword name="background-color" autocomplete="1" style="keyword" autocomplete_append=":"/>
+	<pattern name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="1"/>
+</context>
+</pattern>
+</context></scanning></bflang>
