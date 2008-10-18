@@ -11,9 +11,27 @@
 <keyword name="li" autocomplete="1" style="keyword" />
 <pattern name="{" starts_block="1" mayfold="1" style="braces" >
 <context symbols=" &#9;&#10;&#13;{}.:&quot;';">
-	<keyword name="font-family" autocomplete="1" style="keyword" autocomplete_append=":"/>
-	<keyword name="color" autocomplete="1" style="keyword" autocomplete_append=":"/>
-	<keyword name="background-color" autocomplete="1" style="keyword" autocomplete_append=":"/>
+
+
+	<keyword name="background" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<keyword name="background-attachment" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<keyword name="background-color" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<keyword name="background-image" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<keyword name="background-position" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<keyword name="background-repeat" autocomplete="1" style="keyword" autocomplete_append=": "/>
+
+	<keyword name="color" autocomplete="1" style="keyword" autocomplete_append=": "/>
+
+	<keyword name="font-family" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<keyword name="font-size" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<keyword name="font-style" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<keyword name="font-variant" autocomplete="1" style="keyword" autocomplete_append=": "/>	
+	<keyword name="font-weight" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<keyword name="text-align" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<keyword name="text-decoration" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<keyword name="text-indent" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<keyword name="text-transform" autocomplete="1" style="keyword" autocomplete_append=": "/>	
+		
 	<pattern name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="1"/>
 </context>
 </pattern>
