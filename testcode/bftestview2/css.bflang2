@@ -52,6 +52,7 @@
 	<pattern name="border-bottom-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="border-bottom-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="border-bottom-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-collapse" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="border-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="border-left" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="border-left-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
@@ -61,19 +62,23 @@
 	<pattern name="border-right-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="border-right-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="border-right-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-spacing" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="border-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="border-top" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="border-top-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="border-top-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="border-top-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="border-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>\
 	<pattern name="clear" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="clip" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="color" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="content" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="counter-increment" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="counter-reset" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="cursor" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="display" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<pattern name="color" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	
 	<pattern name="float" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="font-family" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="font-size" autocomplete="1" style="keyword" autocomplete_append=": "/>
@@ -91,24 +96,43 @@
 	<pattern name="font-variant" autocomplete="1" style="keyword" autocomplete_append=": "/>	
 	<pattern name="font-weight" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="height" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="left" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="line-height" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="list-style" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="list-style-image" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="list-style-position" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="list-style-type" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="margin" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="margin-bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="margin-left" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="margin-right" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="margin-top" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="max-height" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="max-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="min-height" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="min-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<pattern name="color" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="overflow" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="outline" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="outline-color" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="outline-style" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="outline-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="padding" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="padding-bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="padding-left" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="padding-right" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="padding-top" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="position" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="quotes" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="right" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="text-align" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="text-decoration" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="text-indent" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<pattern name="text-transform" autocomplete="1" style="keyword" autocomplete_append=": "/>	
+	<pattern name="text-transform" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="top" autocomplete="1" style="keyword" autocomplete_append=": "/>	
+	<pattern name="vertical-align" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="visibility" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<pattern name="width" autocomplete="1" style="keyword" autocomplete_append=": "/>	
+	<pattern name="width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="z-index" autocomplete="1" style="keyword" autocomplete_append=": "/>	
 	<pattern name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="1"/>
 </context>
 </pattern>
