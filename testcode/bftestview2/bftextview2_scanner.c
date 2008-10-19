@@ -11,7 +11,7 @@ typedef struct {
 	GQueue *contextstack;
 	GQueue *blockstack;
 	GTimer *timer;
-	guint16 context;
+	gint16 context;
 } Tscanning;
 
 /* sort function for the stackcache GSequence structure */
@@ -241,19 +241,13 @@ static Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuffer *buf
 static Tfoundcontext *found_context_change(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
 	Tfoundcontext *fcontext;
 	/* check if we change up or down the stack */
-	if (pat->nextcontext < scanning->context) {
-		Tfoundcontext *fcontext2=NULL;
+	if (pat->nextcontext < 0) {
+		gint num = -1 * pat->nextcontext;
 		/* pop */
-		do {
+		while (num > 0) {
 			fcontext = g_queue_pop_head(scanning->contextstack);
-			fcontext2 = g_queue_peek_head(scanning->contextstack);
 			DBG_SCANNING("popped %p, stack len now %d\n",fcontext,g_queue_get_length(scanning->contextstack));
 			DBG_SCANNING("found_context_change, popped context %d from the stack, stack len %d\n",fcontext->context,g_queue_get_length(scanning->contextstack));
-		/* debug */
-			if (fcontext2) {
-				DBG_SCANNING("nextcontext=%d, after pop stack has context %d\n",pat->nextcontext,fcontext2->context);
-			}
-		/* /debug */
 			fcontext->end = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
 			if (g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag) {
 				GtkTextIter iter;
@@ -261,10 +255,8 @@ static Tfoundcontext *found_context_change(BluefishTextView * btv,GtkTextBuffer 
 				gtk_text_buffer_apply_tag(buffer,g_array_index(btv->bflang->st->contexts,Tcontext,fcontext->context).contexttag, &iter, &match.start);
 			}
 			foundcontext_unref(fcontext, buffer);
-			/* some patterns can end two contexts at once, so for these patterns we have to check 
-			if the head of the contextstack (fcontext2) has the same context as pat->nextcontext, and if
-			not we have to pop another fcontext from the stack */
-		} while (fcontext2 && fcontext2->context != pat->nextcontext);
+			num--;
+		}
 		return fcontext;
 	} else {
 		fcontext = g_slice_new0(Tfoundcontext);
@@ -307,7 +299,13 @@ static int found_match(BluefishTextView * btv, Tmatch match, Tscanning *scanning
 	if (fblock || fcontext) {
 		add_to_scancache(btv,buffer,scanning, fblock,fcontext);
 	}
-	
+	if (pat.nextcontext < 0) {
+		if (g_queue_get_length(scanning->contextstack)) { 
+			fcontext = g_queue_peek_head(scanning->contextstack);
+			return fcontext->context;
+		}
+		return 0;
+	}
 	return pat.nextcontext;
 }
 
@@ -512,6 +510,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 				match.end = iter;
 				DBG_SCANNING("we have a match from pos %d to %d\n", gtk_text_iter_get_offset(&match.start),gtk_text_iter_get_offset(&match.end));
 				scanning.context = found_match(btv, match,&scanning);
+				DBG_SCANNING("after match context=%d\n",scanning.context);
 			}
 			if (gtk_text_iter_equal(&mstart,&iter)) {
 				gtk_text_iter_forward_char(&iter);

@@ -22,8 +22,8 @@ DESIGN:
   the context, and based on the context we know the possibilities
   - for e.g. scanning within the '<img' html tag context we know that 'src' is one of 
     the valid attributes
-- the context is kept on a stack. once the end-of-context pattern is found, we revert to
-  the previous context
+- the context is kept on a stack. once the end-of-context pattern is found (a pattern that has
+nextcontext -1), we revert to the previous context
 
 - changed areas are marked with a GtkTextTag called 'needscanning'.
  - a idle function is started (if not running) to do the actual scanning
@@ -156,7 +156,7 @@ either on the start or on the end there is no symbol.
 #define DBG_DELAYSCANNING DBG_NONE
 #define DBG_FOLD DBG_NONE
 #define DBG_MARGIN DBG_NONE
-#define DBG_PARSING g_print
+#define DBG_PARSING DBG_NONE
 
 #define NUMSCANCHARS 127 /* 128 is ascii, but the last character is never scanned (DEL)
 		and the Ttablerow has one more 16bit value. By setting this to 127 instead of 128
@@ -190,7 +190,7 @@ typedef struct {
 	GtkTextTag *blocktag; /* if this pattern ends a context or a block, we can highlight 
 	the region within the start and end pattern with this tag */
 	guint16 blockstartpattern; /* the number of the pattern that may start this block */
-	guint16 nextcontext; /* 0, or if this pattern starts a new context the number of the contect */
+	gint16 nextcontext; /* 0, or if this pattern starts a new context the number of the contect */
 	guint8 starts_block; /* wether or not this pattern may start a block */
 	guint8 ends_block; /* wether or not this pattern may end a block */
 	/*gboolean may_fold;  not yet used */
@@ -237,7 +237,7 @@ typedef struct {
 typedef struct {
 	GtkTextMark *start;
 	GtkTextMark *end;
-	guint16 context;
+	gint16 context;
 	guint16 refcount; /* free on 0 */
 } Tfoundcontext; /* once a start-of-context is found start is set 
 						and the Tfoundcontext is added to the GtkTextMark as "context"

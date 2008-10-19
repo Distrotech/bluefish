@@ -74,7 +74,7 @@ static gint fill_characters_from_range(gchar *input, gchar *characters) {
 	return i;
 }
 
-static void create_state_tables(Tscantable *st, guint16 context, gchar *characters, gboolean pointtoself, GQueue *positions, GQueue *newpositions, gboolean end_is_symbol) {
+static void create_state_tables(Tscantable *st, gint16 context, gchar *characters, gboolean pointtoself, GQueue *positions, GQueue *newpositions, gboolean end_is_symbol) {
 	guint c,pos;
 	guint identstate;
 	gint newstate=-1; /* if all characters can follow existing states we don't need any newstate
@@ -141,9 +141,9 @@ static void merge_queues(GQueue *target, GQueue *src) {
 	DBG_PATCOMPILE("merge queue, target queue has length %d \n",g_queue_get_length(target));
 }
 
-static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,guint16 context, gboolean caseinsensitive, GQueue *inputpositions, gboolean is_complete_regex);
+static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gboolean is_complete_regex);
 
-static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,guint16 context, gboolean caseinsensitive, GQueue *inputpositions, gint *regexpartpos) {
+static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gint *regexpartpos) {
 	gint j=0;
 	gboolean escaped=FALSE;
 	gchar *target;
@@ -183,7 +183,7 @@ static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,guint16 context,
 
 /* this function can be called recursively for subpatterns. It gets all current valid states in 
 inputpositions, and returns all valid outputstates. */
-static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,guint16 context, gboolean caseinsensitive, GQueue *inputpositions, gboolean is_complete_regex) {
+static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gboolean is_complete_regex) {
 	gboolean escaped = FALSE;
 	gint i=0;
 	gchar characters[NUMSCANCHARS];
@@ -285,7 +285,7 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,guint16 conte
 	}
 }
 
-static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean caseinsensitive, guint16 matchnum, guint16 context) {
+static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean caseinsensitive, guint16 matchnum, gint16 context) {
 	GQueue *positions, *newpositions;
 	gchar *lregex;
 	gint p;
@@ -315,7 +315,7 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 
 /* this function cannot do any regex style patterns 
 just full keywords */
-static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 matchnum, guint16 context, gboolean case_insens) {
+static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 matchnum, gint16 context, gboolean case_insens) {
 	gint i,len;
 	GQueue *positions,*newpositions;
 	gchar *pattern;
@@ -365,10 +365,9 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 	g_free(pattern);
 }
 
-
-
-guint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag, gboolean autocomplete_case_insens) {
-	guint16 context, startstate, identstate;
+gint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag, gboolean autocomplete_case_insens) {
+	gint16 context;
+	guint16 startstate, identstate;
 	gint i;
 	gchar *tmp;
 	
@@ -442,7 +441,7 @@ void match_set_autocomplete(Tscantable *st,gchar *keyword,guint16 context,gchar 
 	/* should we free tmp?? it is in the autocomplete and in the hashtable, but do these make a copy or not?
 	AFAIK both of them don't make copies of the data */
 }
-static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint16 context, guint16 nextcontext
+static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint16 context, gint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint16 blockstartpattern
 				, GtkTextTag *blocktag) {
 	guint matchnum;
@@ -463,7 +462,7 @@ static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, gu
 	return matchnum;
 }
 
-guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean is_regex,gboolean case_insens, GtkTextTag *selftag, guint context, guint nextcontext
+guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean is_regex,gboolean case_insens, GtkTextTag *selftag, gint16 context, gint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
 				, GtkTextTag *blocktag,gboolean add_to_ac, gchar *append_to_ac, gchar *reference)  {
 	guint16 matchnum;
