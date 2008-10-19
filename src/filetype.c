@@ -43,7 +43,6 @@ char *g_content_type_from_mime_type (const char *type) {
 }
 #endif
 
-#if !GTK_CHECK_VERSION(2,14,0)
 GdkPixbuf *get_pixbuf_for_gicon(GIcon *icon) {
 	static GtkIconTheme *it=NULL;
 	GdkPixbuf *pixbuf=NULL;
@@ -81,7 +80,6 @@ GdkPixbuf *get_icon_for_mime_type (const char *mime_type) {
 	g_free(conttype);
 	return pixbuf;
 }
-#endif
 
 static Tfiletype *filetype_new(const char *mime_type, BfLangConfig *cfg) {
 	Tfiletype *filetype;
