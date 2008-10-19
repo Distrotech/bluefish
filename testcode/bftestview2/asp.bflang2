@@ -42,7 +42,7 @@
 <tag name="optgroup" style="tag" attributes="style,class,id,label" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	
 <pattern name="&lt;%" starts_block="1" style="region">
-	<context symbols=" '&#34;():.,/$#*-+=&gt;&lt;&amp; &#9;&#10;&#13;" style="region">
+	<context autocomplete_case_insens="1" symbols=" '&#34;():.,/$#*-+=&gt;&lt;&amp; &#9;&#10;&#13;" style="region">
 		
 		<keyword name="and" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="as" autocomplete="1" case_insens="1" style="keyword"/>
@@ -57,6 +57,7 @@
 		<keyword name="cint" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="class" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="clng" autocomplete="1" case_insens="1" style="keyword"/>
+		<keyword name="codepage" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="const" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="cobj" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="csng" autocomplete="1" case_insens="1" style="keyword"/>
@@ -67,15 +68,16 @@
 		<keyword name="each" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="else" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="elseif" autocomplete="1" case_insens="1" style="keyword"/>
-		<keyword name="end" autocomplete="1" case_insens="1" style="keyword"/>
-		<keyword name="exit" autocomplete="1" case_insens="1" style="keyword"/>
+		<keyword name="end" autocomplete="1" style="keyword"/>
+		<keyword name="exit" autocomplete="1" style="keyword"/>
 		<keyword name="explicit" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="for" autocomplete="1" case_insens="1" style="keyword"/>
-		<keyword name="function" autocomplete="1" case_insens="1" style="keyword"/>
+		<keyword name="function" autocomplete="1" style="keyword"/>
 		<keyword name="goto" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="if" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="in" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="is" autocomplete="1" case_insens="1" style="keyword"/>
+		<keyword name="language" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="let" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="loop" autocomplete="1" case_insens="1" style="keyword"/>
 		<keyword name="mod" autocomplete="1" case_insens="1" style="keyword"/>
@@ -119,26 +121,28 @@
 			</context>
 		</pattern>
 		
-		<pattern name="for" starts_block="1" mayfold="1" style="braces" />
-		<pattern name="next" ends_block="1" blockstartpattern="for" mayfold="1" style="braces" />
-		<pattern name="do" starts_block="1" mayfold="1" style="braces" />
-		<pattern name="loop" ends_block="1" blockstartpattern="do" mayfold="1" style="braces" />
-		<pattern name="while" starts_block="1" mayfold="1" style="braces" />
-		<pattern name="wend" ends_block="1" blockstartpattern="while" mayfold="1" style="braces" />
-		<pattern name="sub" starts_block="1" mayfold="1" style="braces" />
-		<pattern name="end[\ \t]+sub" is_regex="1" ends_block="1" blockstartpattern="sub" mayfold="1" style="braces" />
+		<pattern name="for" case_insens="1" starts_block="1" mayfold="1" style="braces" />
+		<pattern name="next" case_insens="1" ends_block="1" blockstartpattern="for" mayfold="1" style="braces" />
+		<pattern name="do" case_insens="1" starts_block="1" mayfold="1" style="braces" />
+		<pattern name="loop" case_insens="1" ends_block="1" blockstartpattern="do" mayfold="1" style="braces" />
+		<pattern name="while" case_insens="1" starts_block="1" mayfold="1" style="braces" />
+		<pattern name="wend" case_insens="1" ends_block="1" blockstartpattern="while" mayfold="1" style="braces" />
+		<pattern name="exit[\ \t]+sub" is_regex="1" case_insens="1" style="keyword" />
+		<pattern name="sub" case_insens="1" starts_block="1" mayfold="1" style="braces" />
+		<pattern name="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="sub" mayfold="1" style="braces" />
 
 		<pattern name="[0-9.]+" is_regex="1" style="value"/>
 		<pattern name="[a-z][0-9._]*" is_regex="1" case_insens="1" style="variable"/>
 <!--
-		<pattern name="[a-z][a-z0-9_]*" is_regex="1" case_insens="1" style="variable"/>
-		<pattern name="function" starts_block="1" mayfold="1" style="braces" />
-		<pattern name="end[\ \t]+function" is_regex="1" ends_block="1" blockstartpattern="function" mayfold="1" style="braces" />
-		<pattern name="if" starts_block="1" is_regex="1" mayfold="1" style="braces" />
-		<pattern name="end[\ \t]+if" is_regex="1" ends_block="1" blockstartpattern="if[\ \t]+.then" mayfold="1" style="braces" />
-		<pattern name="with" starts_block="1" mayfold="1" style="braces" />
-		<pattern name="end[\ \t]+with" is_regex="1" ends_block="1" blockstartpattern="with" mayfold="1" style="braces" />
+		<pattern name="[a-z][a-z0-9_]*[$%]?" is_regex="1" case_insens="1" style="variable"/>
 -->
+		<pattern name="exit[\ \t]+function" is_regex="1" case_insens="1" style="keyword" />
+		<pattern name="function" starts_block="1" case_insens="1" mayfold="1" style="braces" />
+		<pattern name="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="function" mayfold="1" style="braces" />
+		<pattern name="if" starts_block="1" is_regex="1" case_insens="1" mayfold="1" style="braces" />
+		<pattern name="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="if[\ \t]+.then" mayfold="1" style="braces" />
+		<pattern name="with" starts_block="1" case_insens="1" mayfold="1" style="braces" />
+		<pattern name="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="with" mayfold="1" style="braces" />
 
 		<pattern name="%&gt;" ends_block="1" blockstartpattern="&lt;%" style="region" mayfold="1" ends_context="1" />
 	</context>
