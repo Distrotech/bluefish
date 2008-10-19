@@ -12,16 +12,75 @@
 <pattern name="{" starts_block="1" mayfold="1" style="braces" >
 <context symbols=" &#9;&#10;&#13;{}.:&quot;';">
 	<pattern name="background" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<pattern name="background-attachment" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="background-attachment" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context symbols=" &#9;&#10;&#13;{}.;">
+		<pattern name="scroll" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name="fixed" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name=";" ends_context="1"/>
+		<pattern name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+	</context>
+	</pattern>
 	<pattern name="background-color" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="background-image" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<pattern name="background-position" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<pattern name="background-repeat" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="background-position" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context symbols=" &#9;&#10;&#13;{}.;">
+		<pattern name="top left" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name="top center" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name="top right" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name="center left" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name="center center" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name="center right" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name="bottom left" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name="bottom center" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name="bottom right" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name=";" ends_context="1"/>
+		<pattern name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+	</context>
+	</pattern>
+	<pattern name="background-repeat" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context symbols=" &#9;&#10;&#13;{}.;">
+		<pattern name="repeat" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name="repeat-x" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name="repeat-y" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name="no-repeat" autocomplete="1" style="value" autocomplete_append=";"/>
+		<pattern name=";" ends_context="1"/>
+		<pattern name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+	</context>
+	</pattern>
+	<pattern name="border" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-bottom-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-bottom-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-bottom-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-left" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-left-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-left-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-left-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-right" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-right-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-right-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-right-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-top" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-top-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-top-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-top-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="clear" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="content" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="counter-increment" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="counter-reset" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="cursor" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="display" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="color" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="float" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="font-family" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="font-size" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="font-size-adjust" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="font-stretch" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="font-style" autocomplete="1" style="keyword" autocomplete_append=": ">
-		<context symbols=" &#9;&#10;&#13;{}.;">
+	<context symbols=" &#9;&#10;&#13;{}.;">
 		<pattern name="normal" autocomplete="1" style="value" autocomplete_append=";"/>
 		<pattern name="italic" autocomplete="1" style="value" autocomplete_append=";"/>
 		<pattern name="oblique" autocomplete="1" style="value" autocomplete_append=";"/>
@@ -29,14 +88,27 @@
 		<pattern name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</pattern>
-
 	<pattern name="font-variant" autocomplete="1" style="keyword" autocomplete_append=": "/>	
 	<pattern name="font-weight" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="height" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="line-height" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="list-style" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="list-style-image" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="list-style-position" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="list-style-type" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="max-height" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="max-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="min-height" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="min-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="color" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="position" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="quotes" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="text-align" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="text-decoration" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="text-indent" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="text-transform" autocomplete="1" style="keyword" autocomplete_append=": "/>	
-		
+	<pattern name="visibility" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="width" autocomplete="1" style="keyword" autocomplete_append=": "/>	
 	<pattern name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="1"/>
 </context>
 </pattern>
