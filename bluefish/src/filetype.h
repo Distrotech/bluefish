@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * filetype.h
  *
- * Copyright (C) 2006 Olivier Sessink
+ * Copyright (C) 2006-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,8 @@
 #define __FILETYPE_H_
 
 #include "bluefish.h"
-#if !GTK_CHECK_VERSION(2,14,0)
+
 GdkPixbuf *get_pixbuf_for_gicon(GIcon *icon);
-#endif
 GdkPixbuf *get_icon_for_mime_type (const char *mime_type);
 Tfiletype *get_filetype_for_mime_type(const gchar *mime_type);
 const gchar *get_mimetype_for_uri(GFile *uri, GFileInfo *finfo, gboolean fast);
