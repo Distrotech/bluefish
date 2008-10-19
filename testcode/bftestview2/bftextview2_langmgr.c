@@ -117,8 +117,8 @@ static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing 
 
 static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context, GQueue *contextstack) {
 	guint16 matchnum;
-	gchar *pattern=NULL, *style=NULL, *blockstartpattern=NULL, *blockstyle=NULL, *class=NULL;
-	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE, is_empty;
+	gchar *pattern=NULL, *style=NULL, *blockstartpattern=NULL, *blockstyle=NULL, *class=NULL, *autocomplete_append=NULL;
+	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE, is_empty, autocomplete=FALSE;
 	gint ends_context=0;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
@@ -133,11 +133,14 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"ends_block", &ends_block);
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"case_insens", &case_insens);
 		set_integer_if_attribute_name(reader, aname, (xmlChar *)"ends_context", &ends_context);
+		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"autocomplete", &autocomplete);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
 		xmlFree(aname);
 	}
 	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
 		if (pattern && pattern[0]) {
 			GtkTextTag *stylet=NULL,*blockstylet=NULL;
+			gchar *reference=NULL;
 			guint16 blockstartpatternum=0, nextcontext=context;
 			DBG_PARSING("pattern %s\n",pattern);
 			if (ends_context) {
@@ -164,12 +167,31 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 					if (xmlStrEqual(name,(xmlChar *)"context")) {
 						nextcontext = process_scanning_context(reader,bfparser,contextstack);
 						match_set_nextcontext(bfparser->st, matchnum, nextcontext);
+					} else if (xmlStrEqual(name,(xmlChar *)"reference")) {
+						DBG_PARSING("found reference\n");
+						if (!xmlTextReaderIsEmptyElement(reader)) {
+							reference = (gchar *)xmlTextReaderReadInnerXml(reader);
+							DBG_PARSING("reference=%s\n",reference);
+							xmlFree(name);
+							while (xmlTextReaderRead(reader)==1) {
+								name=xmlTextReaderName(reader);
+								if (xmlStrEqual(name,(xmlChar *)"reference")) {
+									break;
+								}
+								xmlFree(name);
+							}
+						}
 					} else if (xmlStrEqual(name,(xmlChar *)"pattern")) {
 						xmlFree(name);
 						break;
+					} else {
+						DBG_PARSING("parsing element with name %s\n",name);
 					}
 					xmlFree(name);
 				}
+			}
+			if (autocomplete) {
+				match_set_autocomplete(bfparser->st,pattern,context,autocomplete_append,reference);
 			}
 		}
 	}

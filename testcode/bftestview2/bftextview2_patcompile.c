@@ -413,9 +413,38 @@ void match_set_nextcontext(Tscantable *st, guint16 matchnum, guint16 nextcontext
 	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
 }
 
+void match_set_autocomplete(Tscantable *st,gchar *keyword,guint16 context,gchar *append_to_ac,gchar *reference) {
+	GList *list;
+	gchar *tmp;
+	if (!g_array_index(st->contexts, Tcontext, context).ac) {
+		DBG_PATCOMPILE("create g_completion for context %d\n",context);
+		g_array_index(st->contexts, Tcontext, context).ac = g_completion_new(NULL);
+		if (g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens)
+			g_completion_set_compare(g_array_index(st->contexts, Tcontext, context).ac, strncasecmp);
+	}
+	if (append_to_ac) {
+		tmp = g_strconcat(keyword,append_to_ac,NULL);
+	} else {
+		tmp = g_strdup(keyword);
+	}
+	list = g_list_prepend(NULL, tmp);
+	g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
+	DBG_AUTOCOMP("adding %s to GCompletion\n",(gchar *)list->data);
+	g_list_free(list);
+	
+	if (reference && strlen(reference)>0) {
+		if (!g_array_index(st->contexts, Tcontext, context).reference) {
+			DBG_PATCOMPILE("create hashtable for context %d\n",context);
+			g_array_index(st->contexts, Tcontext, context).reference = g_hash_table_new(g_str_hash,g_str_equal);
+		}
+		g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,tmp,g_strdup(reference));
+	}
+	/* should we free tmp?? it is in the autocomplete and in the hashtable, but do these make a copy or not?
+	AFAIK both of them don't make copies of the data */
+}
 static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint16 context, guint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint16 blockstartpattern
-				, GtkTextTag *blocktag,gboolean add_to_ac, gchar *append_to_ac, gchar *reference) {
+				, GtkTextTag *blocktag) {
 	guint matchnum;
 /* add the match */
 	
@@ -431,77 +460,8 @@ static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, gu
 	g_array_index(st->matches, Tpattern, matchnum).blocktag = blocktag;
 	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
 	
-		/* do autocompletion and reference */
-	if (add_to_ac) {
-		GList *list;
-		gchar *tmp;
-		if (!g_array_index(st->contexts, Tcontext, context).ac) {
-			DBG_PATCOMPILE("create g_completion for context %d\n",context);
-			g_array_index(st->contexts, Tcontext, context).ac = g_completion_new(NULL);
-			if (g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens)
-				g_completion_set_compare(g_array_index(st->contexts, Tcontext, context).ac, strncasecmp);
-		}
-		if (append_to_ac) {
-			tmp = g_strconcat(keyword,append_to_ac,NULL);
-		} else {
-			tmp = g_strdup(keyword);
-		}
-		list = g_list_prepend(NULL, tmp);
-		g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
-		DBG_AUTOCOMP("adding %s to GCompletion\n",(gchar *)list->data);
-		g_list_free(list);
-		
-		if (reference && strlen(reference)>0) {
-			if (!g_array_index(st->contexts, Tcontext, context).reference) {
-				DBG_PATCOMPILE("create hashtable for context %d\n",context);
-				g_array_index(st->contexts, Tcontext, context).reference = g_hash_table_new(g_str_hash,g_str_equal);
-			}
-			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,tmp,g_strdup(reference));
-		}
-		/* should we free tmp?? it is in the autocomplete and in the hashtable, but do these make a copy or not?
-		AFAIK both of them don't make copies of the data */
-	}
-	
 	return matchnum;
 }
-#ifdef OLD
-/* this function cannot do any regex style patterns 
-just full keywords */
-static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 matchnum, guint16 context) {
-	gint i,len,pos=0;
-	guint16 identstate = g_array_index(st->contexts, Tcontext, context).identstate;
-
-	/* compile the keyword into the DFA */
-	pos = g_array_index(st->contexts, Tcontext, context).startstate;
-/*	if (strlen(keyword)==1 && g_array_index(st->table, Ttablerow, identstate).row[(int)keyword[0]] == 0) {
-		/ * this keyword is a symbol itself ! * /
-		is_symbol=TRUE;
-	}*/
-	
-	DBG_PATCOMPILE("in context %d we start with position %d; %d is the identstate\n",context,pos,identstate);
-	len = strlen(keyword);
-	for (i=0;i<=len;i++) {
-		int c = keyword[i];
-		if (c == '\0') {
-			if (character_is_symbol(st,g_array_index(st->contexts, Tcontext, context),(gint)keyword[i-1])) {
-				for (i=0;i<NUMSCANCHARS;i++)
-					if (g_array_index(st->table, Ttablerow, pos).row[i] == identstate)
-						g_array_index(st->table, Ttablerow, pos).row[i] = 0;
-			}
-			g_array_index(st->table, Ttablerow, pos).match = matchnum;
-		} else {
-			DBG_PATCOMPILE("state %d, character %c (before change)) refers to next state %d\n",pos,c,g_array_index(st->table, Ttablerow, pos).row[c]);
-			if (g_array_index(st->table, Ttablerow, pos).row[c] != 0 && g_array_index(st->table, Ttablerow, pos).row[c] != identstate) {
-				pos = g_array_index(st->table, Ttablerow, pos).row[c];
-			} else {
-				pos = g_array_index(st->table, Ttablerow, pos).row[c] = st->table->len;
-				g_array_set_size(st->table,st->table->len+1);
-				memcpy(g_array_index(st->table, Ttablerow, pos).row, g_array_index(st->table, Ttablerow, g_array_index(st->contexts, Tcontext, context).identstate).row, sizeof(guint16[NUMSCANCHARS]));
-			}
-		}
-	}
-}
-#endif
 
 guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean is_regex,gboolean case_insens, GtkTextTag *selftag, guint context, guint nextcontext
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
@@ -512,13 +472,15 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean i
 		g_print("CORRUPT LANGUAGE FILE: empty pattern/tag/keyword\n");
 		return 0;
 	}
-	matchnum = new_match(st, keyword, selftag, context, nextcontext, starts_block, ends_block, blockstartpattern
-				, blocktag,add_to_ac, append_to_ac, reference);
+	matchnum = new_match(st, keyword, selftag, context, nextcontext, starts_block, ends_block, blockstartpattern, blocktag);
 	DBG_PATCOMPILE("add_keyword_to_scanning_table,keyword=%s,starts_block=%d,ends_block=%d,blockstartpattern=%d, context=%d,nextcontext=%d and got matchnum %d\n",keyword, starts_block, ends_block, blockstartpattern,context,nextcontext,matchnum);
 	if (is_regex) {
 		compile_limitedregex_to_DFA(st, keyword, case_insens, matchnum, context);
 	} else {
 		compile_keyword_to_DFA(st, keyword, matchnum, context, case_insens);
+	}
+	if (add_to_ac) {
+		match_set_autocomplete(st,keyword,context,append_to_ac,reference);
 	}
 	return matchnum;
 }
