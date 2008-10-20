@@ -269,7 +269,7 @@ static void print_ac_items(GCompletion *gc) {
 void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 	GtkTextIter cursorpos,iter;
 	GtkTextBuffer *buffer;
-	guint16 contextnum;
+	gint contextnum;
 	gunichar uc;
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 

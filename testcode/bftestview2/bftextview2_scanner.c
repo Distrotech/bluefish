@@ -360,21 +360,6 @@ static void reconstruct_stack(BluefishTextView * btv, GtkTextBuffer *buffer, Gtk
 	}
 }
 
-guint16 get_context_at_position(BluefishTextView * btv, GtkTextIter *position) {
-	Tfoundstack *fstack;
-	fstack = get_stackcache_at_position(btv,position,NULL);
-	if (fstack) {
-		Tfoundcontext *fcontext;
-		fcontext = g_queue_peek_head(fstack->contextstack);
-		if (fcontext) {
-			DBG_MSG("found context %d\n",fcontext->context);
-			return fcontext->context;
-		} else 
-			DBG_MSG("no context on stack, return context 0\n");
-	} else 
-		DBG_MSG("no stack, no context, return context 0\n");
-	return 0;
-}
 /*
 static void remove_old_matches_at_iter(BluefishTextView *btv, GtkTextBuffer *buffer, GtkTextIter *iter) {
 	GSList *toggles, *tmplist;
@@ -538,12 +523,32 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	return TRUE; /* even if we finished scanning the next call should update the scancache */
 }
 
-void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter *cursorpos,guint16 *contextnum) {
+static GQueue *get_contextstack_at_position(BluefishTextView * btv, GtkTextIter *position) {
+	Tfoundstack *fstack;
+	GQueue *retqueue = g_queue_new();
+	fstack = get_stackcache_at_position(btv,position,NULL);
+	if (fstack) {
+		GList *tmplist;
+		
+		tmplist = fstack->contextstack->head;
+		while (tmplist) {
+			gint cont = ((Tfoundcontext *)tmplist->data)->context;
+			g_queue_push_tail(retqueue, GINT_TO_POINTER(cont));
+			tmplist = g_list_next(tmplist);
+		}
+	}
+	return retqueue;
+}
+
+void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter *cursorpos,gint *contextnum) {
 	GtkTextIter iter;
 	guint16 pos,newpos;
+	GQueue *contextstack;
 	/* get the current context */
 	iter = *mstart;
-	*contextnum = get_context_at_position(btv, &iter);
+	
+	contextstack = get_contextstack_at_position(btv, &iter);
+	*contextnum = GPOINTER_TO_INT(g_queue_peek_head(contextstack));
 	pos = g_array_index(btv->bflang->st->contexts,Tcontext, *contextnum).startstate;
 	while (!gtk_text_iter_equal(&iter, cursorpos)) {
 		gunichar uc;
@@ -557,8 +562,17 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 		if (newpos == 0 || uc == '\0') {
 			DBG_AUTOCOMP("newpos=%d...\n",newpos);
 			if (g_array_index(btv->bflang->st->table,Ttablerow, pos).match) {
-				DBG_AUTOCOMP("previous pos=%d had a match!\n",pos);
-				*contextnum = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
+				if (g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext < 0) {
+					gint num  = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
+					while (num != 0) { 
+						*contextnum = GPOINTER_TO_INT(g_queue_pop_head(contextstack));
+						num++;
+					}
+				} else {
+					DBG_AUTOCOMP("previous pos=%d had a match!\n",pos);
+					*contextnum = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
+					g_queue_push_head(contextstack, GINT_TO_POINTER(*contextnum));
+				}
 			}
 			if (gtk_text_iter_equal(mstart,&iter)) {
 				gtk_text_iter_forward_char(&iter);

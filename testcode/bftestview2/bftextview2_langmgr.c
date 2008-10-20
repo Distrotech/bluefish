@@ -270,7 +270,8 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 		if (tag && tag[0]) {
 			GtkTextTag *stylet;
 			stylet = langmrg_lookup_style(style);
-			guint16 contexttag, contextstring, starttagmatch, endtagmatch;
+			guint16 contexttag, starttagmatch, endtagmatch;
+			gint contextstring;
 			gchar *tmp;
 		
 			contexttag = new_context(bfparser->st, ">\"=' \t\n\r", NULL, FALSE);
@@ -289,9 +290,14 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					tmp2++;
 				}
 				g_strfreev(arr);
-				contextstring = new_context(bfparser->st, "\"=' \t\n\r", string, FALSE);
+				contextstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, "__internal_tag__"));
+				if (!contextstring) {
+					contextstring = new_context(bfparser->st, "\"=' \t\n\r", string, FALSE);
+					add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contextstring, -1, FALSE, FALSE, 0, string,FALSE,NULL,NULL);
+					g_hash_table_insert(bfparser->contexts, "__internal_tag__", GINT_TO_POINTER(contextstring));
+				}
 				add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contexttag, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL,NULL);
-				add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contextstring, -1, FALSE, FALSE, 0, string,FALSE,NULL,NULL);
+				
 			}
 			
 			if (!is_empty) {
