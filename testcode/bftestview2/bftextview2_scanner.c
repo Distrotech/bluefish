@@ -302,10 +302,13 @@ static int found_match(BluefishTextView * btv, Tmatch match, Tscanning *scanning
 	if (pat.nextcontext < 0) {
 		if (g_queue_get_length(scanning->contextstack)) { 
 			fcontext = g_queue_peek_head(scanning->contextstack);
+			g_print("new context %d\n",fcontext->context);
 			return fcontext->context;
 		}
+		g_print("return 0 ?\n");
 		return 0;
 	}
+	g_print("return context %d\n",pat.nextcontext);
 	return pat.nextcontext;
 }
 

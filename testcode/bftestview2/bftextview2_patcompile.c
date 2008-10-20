@@ -408,7 +408,7 @@ gint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag, gbool
 }
 
 void match_set_nextcontext(Tscantable *st, guint16 matchnum, guint16 nextcontext) {
-	g_print("set match %d to have nextcontext %d\n",matchnum,nextcontext);
+	g_print("match_set_nextcontext, set match %d to have nextcontext %d\n",matchnum,nextcontext);
 	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
 }
 
@@ -448,7 +448,7 @@ static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, gu
 /* add the match */
 	
 	matchnum = st->matches->len;
-	DBG_PATCOMPILE("new match %s at matchnum %d has blockstartpattern %d\n",keyword,matchnum,blockstartpattern);
+	g_print("new match %s at matchnum %d has blockstartpattern %d and nextcontext %d\n",keyword,matchnum,blockstartpattern,nextcontext);
 	g_array_set_size(st->matches,st->matches->len+1);
 
 	g_array_index(st->matches, Tpattern, matchnum).message = g_strdup(keyword);

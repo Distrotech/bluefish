@@ -20,7 +20,19 @@
 		<pattern name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</pattern>
-	<pattern name="background-color" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="background-color" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context name="color" symbols=" &#9;&#10;&#13;{}.;">
+		<pattern name="#[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]" style="value" is_regex="1" case_insens="1"/>
+		<pattern name="red" style="value" autocomplete="TRUE"/>
+		<pattern name="green" style="value" autocomplete="TRUE"/>
+		<pattern name="blue" style="value" autocomplete="TRUE"/>
+		<pattern name="black" style="value" autocomplete="TRUE"/>
+		<pattern name="white" style="value" autocomplete="TRUE"/>
+		<pattern name="yellow" style="value" autocomplete="TRUE"/>
+		<pattern name=";" ends_context="1"/>
+		<pattern name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+	</context>
+	</pattern>
 	<pattern name="background-image" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="background-position" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<context symbols=" &#9;&#10;&#13;{}.;">
@@ -47,32 +59,38 @@
 		<pattern name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</pattern>
-	<pattern name="border" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-bottom-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-bottom-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-bottom-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-collapse" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-left" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-left-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-left-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-left-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-right" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-right-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-right-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-right-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-spacing" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-top" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-top-color" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-top-style" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-top-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="border-width" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>\
+	<pattern name="border" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-bottom-color" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-bottom-style" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-bottom-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-collapse" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-color" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context name="color" />
+	</pattern>
+	<pattern name="border-left" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-left-color" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context name="color" />
+	</pattern>
+	<pattern name="border-left-style" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-left-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-right" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-right-color" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-right-style" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-right-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-spacing" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-style" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-top" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-top-color" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-top-style" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-top-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="border-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="clear" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<pattern name="clip" autocomplete="1" style="keyword" autocomplete_append=": "/>\
-	<pattern name="color" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="clip" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<pattern name="color" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context name="color" />
+	</pattern>
 	<pattern name="content" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="counter-increment" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<pattern name="counter-reset" autocomplete="1" style="keyword" autocomplete_append=": "/>

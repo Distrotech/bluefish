@@ -6,6 +6,7 @@
 
 typedef struct {
 	GHashTable *patterns;
+	GHashTable *contexts;
 	GHashTable *setoptions;
 	Tscantable *st; /* while not finished */
 	Tbflang *bflang;
@@ -113,7 +114,7 @@ static void process_detection(xmlTextReaderPtr reader, Tbflang *bflang) {
 	}
 }
 /* declaration needed for recursive calling */
-static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack);
+static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack);
 
 static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint16 context, GQueue *contextstack) {
 	guint16 matchnum;
@@ -323,22 +324,32 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 	return matchnum;
 }
 
-static guint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack) {
-	gchar *symbols=NULL, *style=NULL;
-	gboolean autocomplete_case_insens=FALSE;
-	guint16 context;
+static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack) {
+	gchar *symbols=NULL, *style=NULL, *name=NULL;
+	gboolean autocomplete_case_insens=FALSE,is_empty;
+	gint context;
+	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&name);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"symbols",&symbols);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
 		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_case_insens",&autocomplete_case_insens);
 		xmlFree(aname);
 	}
+	if (is_empty && name && !symbols && !style && !autocomplete_case_insens) {
+		g_print("lookup context %s in hash table..\n",name);
+		return GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, name));
+	}	
 	/* create context */
 	DBG_PARSING("create context symbols %s and style %s\n",symbols,style);
 	context = new_context(bfparser->st,symbols,langmrg_lookup_style(style),autocomplete_case_insens);
-	g_queue_push_head(contextstack,GINT_TO_POINTER((gint)context)); 
-	
+	g_queue_push_head(contextstack,GINT_TO_POINTER(context)); 
+	if (name) {
+		g_print("insert context %s into hash table as %d\n",name,context);
+		g_hash_table_insert(bfparser->contexts, g_strdup(name), GINT_TO_POINTER(context));
+	}
+	g_free(name);
 	g_free(symbols);
 	g_free(style);
 	/* now get the children */
@@ -375,6 +386,7 @@ static gpointer build_lang_thread(gpointer data)
 	
 	bfparser = g_slice_new0(Tbflangparsing);
 	bfparser->patterns =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
+	bfparser->contexts =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
 	bfparser->setoptions =  g_hash_table_new(g_str_hash,g_str_equal);
 	bfparser->bflang = bflang;
 	for(tmplist = g_list_first(bfparser->bflang->setoptions);tmplist;tmplist=g_list_next(tmplist)) {
