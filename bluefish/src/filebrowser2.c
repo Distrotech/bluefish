@@ -20,6 +20,8 @@
 
 /* #define DEBUG */
 
+#define USE_ICON_NAME
+
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
 and all directories used in all bluefish windows. This treestore has a column for the pixmap
@@ -82,6 +84,7 @@ typedef struct {
 
 enum {
 	PIXMAP_COLUMN,
+	ICON_NAME_COLUMN,
 	FILENAME_COLUMN,
 	URI_COLUMN,
 	REFRESH_COLUMN,
@@ -326,19 +329,41 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 	} else {					/* child does not yet exist */
 		gchar *display_name;
 		const gchar *mime_type;
-#if GTK_CHECK_VERSION(2,14,0)
+#ifdef USE_ICON_NAME
 		GIcon *icon;
-#endif
+		gchar *icon_name = NULL;
+#else
 		GdkPixbuf *pixmap = NULL;
+#endif
 
 		newiter = g_new(GtkTreeIter, 1);
 		g_object_ref(child_uri);
 		g_object_ref(finfo);
 		display_name = gfile_display_name(child_uri, finfo);
 		mime_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
-#if GTK_CHECK_VERSION(2,14,0)		
+#ifdef USE_ICON_NAME
 		icon = g_file_info_get_icon(finfo);
-		pixmap = get_pixbuf_for_gicon(icon);
+
+		if (G_IS_THEMED_ICON(icon)) {
+			GStrv names;
+
+			g_object_get(icon, "names", &names, NULL);
+			if (names && names[0]) {
+				GtkIconTheme *icon_theme;
+				int i;
+
+				icon_theme = gtk_icon_theme_get_default();
+
+				for (i = 0; i < g_strv_length (names); i++) {
+					if (gtk_icon_theme_has_icon(icon_theme, names[i])) {
+						icon_name = g_strdup(names[i]);
+						break;
+					}
+				}
+
+				g_strfreev (names);
+			}
+		}
 #else
 		{
 			Tfiletype *ft = get_filetype_for_mime_type(mime_type);
@@ -352,7 +377,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 				} else {
 					pixmap = get_icon_for_mime_type(mime_type);
 				}
-				
+
 			}
 #ifdef DEBUG
 			if (pixmap == NULL) {
@@ -367,12 +392,21 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
 		DEBUG_MSG("set pixmap=%p,display_name=%s,mime_type=%s,child_uri=%p,finfo=%p\n", pixmap,
 				  display_name, mime_type, child_uri, finfo);
-		
+
+#ifdef USE_ICON_NAME
+		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore), newiter,
+								   ICON_NAME_COLUMN, icon_name, FILENAME_COLUMN, display_name, URI_COLUMN,
+								   child_uri, REFRESH_COLUMN, 0, TYPE_COLUMN, mime_type, FILEINFO_COLUMN,
+								   finfo, -1);
+
+		g_free(icon_name);
+#else
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore), newiter,
 						   PIXMAP_COLUMN, pixmap, FILENAME_COLUMN, display_name, URI_COLUMN,
 						   child_uri, REFRESH_COLUMN, 0, TYPE_COLUMN, mime_type, FILEINFO_COLUMN,
 						   finfo, -1);
-		
+#endif
+
 		DEBUG_MSG("insert newiter in hashtable\n");
 		g_hash_table_insert(FB2CONFIG(main_v->fb2config)->filesystem_itable, child_uri, newiter);
 		DEBUG_MSG("load_subdirs=%d, finfo=%p\n", load_subdirs, finfo);
@@ -2280,7 +2314,7 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 			fb2->dirscrolwin = NULL;
 		}
 		fb2->dir_v = fb2->file_v = NULL;
-		fb2->dir_tfilter = fb2->file_lfilter = NULL
+		fb2->dir_tfilter = fb2->file_lfilter = NULL;
 		DEBUG_MSG("\n");
 	}
 	fb2->filebrowser_viewmode = viewmode;
@@ -2327,12 +2361,16 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	column = gtk_tree_view_column_new();
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
 
-/*	gtk_tree_view_column_set_attributes(column,renderer
-      ,"icon-name",PIXMAP_COLUMN
-      ,NULL);*/
+#ifdef USE_ICON_NAME
+	gtk_tree_view_column_set_attributes(column, renderer,
+											"icon-name", ICON_NAME_COLUMN,
+											"pixbuf_expander_closed", PIXMAP_COLUMN,
+											"pixbuf_expander_open", PIXMAP_COLUMN, NULL);
+#else
 	gtk_tree_view_column_set_attributes(column, renderer, "pixbuf", PIXMAP_COLUMN,
 										"pixbuf_expander_closed", PIXMAP_COLUMN,
 										"pixbuf_expander_open", PIXMAP_COLUMN, NULL);
+#endif
 
 	renderer = gtk_cell_renderer_text_new();
 	g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL);	/* Not editable. */
@@ -2380,12 +2418,16 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		column = gtk_tree_view_column_new();
 		gtk_tree_view_column_pack_start(column, renderer, FALSE);
 
-/*	gtk_tree_view_column_set_attributes(column,renderer
-      ,"icon-name",PIXMAP_COLUMN
-      ,NULL);*/
-		gtk_tree_view_column_set_attributes(column, renderer, "pixbuf", PIXMAP_COLUMN,
+#ifdef USE_ICON_NAME
+	gtk_tree_view_column_set_attributes(column, renderer,
+											"icon-name", ICON_NAME_COLUMN,
 											"pixbuf_expander_closed", PIXMAP_COLUMN,
 											"pixbuf_expander_open", PIXMAP_COLUMN, NULL);
+#else
+	gtk_tree_view_column_set_attributes(column, renderer, "pixbuf", PIXMAP_COLUMN,
+										"pixbuf_expander_closed", PIXMAP_COLUMN,
+										"pixbuf_expander_open", PIXMAP_COLUMN, NULL);
+#endif
 
 		renderer = gtk_cell_renderer_text_new();
 		g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL);	/* Not editable. */
@@ -2584,7 +2626,7 @@ void fb2config_init(void)
 	fb2config->filesystem_itable =
 		g_hash_table_new_full(g_file_hash, g_file_equal, uri_hash_destroy, g_free);
 	fb2config->filesystem_tstore =
-		gtk_tree_store_new(N_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_POINTER,
+		gtk_tree_store_new(N_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER,
 						   G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER);
 
 	filename =
