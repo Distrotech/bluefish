@@ -132,10 +132,6 @@
 		<pattern name="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="sub" mayfold="1" style="braces" />
 
 		<pattern name="[0-9.]+" is_regex="1" style="value"/>
-		<pattern name="[a-z][0-9._]*" is_regex="1" case_insens="1" style="variable"/>
-<!--
-		<pattern name="[a-z][a-z0-9_]*[$%]?" is_regex="1" case_insens="1" style="variable"/>
--->
 		<pattern name="exit[\ \t]+function" is_regex="1" case_insens="1" style="keyword" />
 		<pattern name="function" starts_block="1" case_insens="1" mayfold="1" style="braces" />
 		<pattern name="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="function" mayfold="1" style="braces" />
@@ -143,8 +139,14 @@
 		<pattern name="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="if[\ \t]+.then" mayfold="1" style="braces" />
 		<pattern name="with" starts_block="1" case_insens="1" mayfold="1" style="braces" />
 		<pattern name="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="with" mayfold="1" style="braces" />
+		<pattern name="select" starts_block="1" case_insens="1" mayfold="1" style="braces" />
+		<pattern name="end[\ \t]+select" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="select" mayfold="1" style="braces" />
 
 		<pattern name="%&gt;" ends_block="1" blockstartpattern="&lt;%" style="region" mayfold="1" ends_context="1" />
+<!--
+		<pattern name="[a-z][a-z0-9_]*[$%]?" is_regex="1" case_insens="1" style="variable"/>
+-->
+		<pattern name="[a-z][0-9._]*" is_regex="1" case_insens="1" style="variable"/>
 	</context>
 </pattern>
 
