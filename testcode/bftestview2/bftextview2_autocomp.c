@@ -222,7 +222,7 @@ static void acwin_position_at_cursor(BluefishTextView *btv) {
 static void acwin_fill_tree(Tacwin *acw, GList *items) {
 	GList *tmplist,*list;
 	gchar *longest=NULL;
-	guint numitems=0,longestlen=100;
+	guint numitems=0,longestlen=1;
 	
 	list = tmplist = g_list_sort(g_list_copy(items), (GCompareFunc) g_strcmp0);
 	while (tmplist)	{
@@ -249,7 +249,8 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 		PangoLayout *panlay = gtk_widget_create_pango_layout(GTK_WIDGET(acw->tree), NULL);
 		pango_layout_set_markup(panlay,longest,-1);
 		pango_layout_get_pixel_size(panlay, &len, &rowh);
-		h = MIN((numitems+1)*rowh+8,300);
+		h = MIN(MAX((numitems+1)*rowh+8,150),350);
+		g_print("numitems=%d, rowh=%d, new height=%d\n",numitems,rowh,h);
 		w = len+20;
 		gtk_widget_set_size_request(GTK_WIDGET(acw->tree),w,h); /* ac_window */
 		g_free(longest);
