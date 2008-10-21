@@ -412,36 +412,41 @@ void match_set_nextcontext(Tscantable *st, guint16 matchnum, guint16 nextcontext
 	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
 }
 
-void match_set_autocomplete(Tscantable *st,gchar *keyword,guint16 context,gchar *append_to_ac,gchar *reference) {
-	GList *list;
-	gchar *tmp;
-	if (!g_array_index(st->contexts, Tcontext, context).ac) {
-		DBG_PATCOMPILE("create g_completion for context %d\n",context);
-		g_array_index(st->contexts, Tcontext, context).ac = g_completion_new(NULL);
-		if (g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens)
-			g_completion_set_compare(g_array_index(st->contexts, Tcontext, context).ac, strncasecmp);
-	}
-	if (append_to_ac) {
-		tmp = g_strconcat(keyword,append_to_ac,NULL);
-	} else {
-		tmp = g_strdup(keyword);
-	}
-	list = g_list_prepend(NULL, tmp);
-	g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
-	DBG_AUTOCOMP("adding %s to GCompletion\n",(gchar *)list->data);
-	g_list_free(list);
-	
-	if (reference && strlen(reference)>0) {
-		
+void match_autocomplete_reference(Tscantable *st,gboolean autocomplete,gchar *keyword,guint16 context,gchar *append_to_ac,gchar *reference) {
+	gchar * refdup = NULL;
+	if (reference && reference[0]!='\0') {
+		refdup = g_strdup(reference);
 		if (!g_array_index(st->contexts, Tcontext, context).reference) {
 			DBG_PATCOMPILE("create hashtable for context %d\n",context);
 			g_array_index(st->contexts, Tcontext, context).reference = g_hash_table_new(g_str_hash,g_str_equal);
 		}
-		g_print("add reference data for key %s to hash table in context %d\n",tmp,context);
-		g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,tmp,g_strdup(reference));
+		g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,g_strdup(keyword),refdup);
 	}
-	/* should we free tmp?? it is in the autocomplete and in the hashtable, but do these make a copy or not?
-	AFAIK both of them don't make copies of the data */
+	
+	if (autocomplete) {
+		GList *list;
+		gchar *tmp;
+		if (!g_array_index(st->contexts, Tcontext, context).ac) {
+			DBG_PATCOMPILE("create g_completion for context %d\n",context);
+			g_array_index(st->contexts, Tcontext, context).ac = g_completion_new(NULL);
+			if (g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens)
+				g_completion_set_compare(g_array_index(st->contexts, Tcontext, context).ac, strncasecmp);
+		}
+		if (append_to_ac) {
+			tmp = g_strconcat(keyword,append_to_ac,NULL);
+		} else {
+			tmp = g_strdup(keyword);
+		}
+		list = g_list_prepend(NULL, tmp);
+		g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
+		DBG_AUTOCOMP("adding %s to GCompletion\n",(gchar *)list->data);
+		g_list_free(list);
+		if (refdup) {
+			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,tmp,refdup);
+		}
+		/* should we free tmp?? it is in the autocomplete and in the hashtable, but do these make a copy or not?
+		AFAIK both of them don't make copies of the data */
+	}
 }
 static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint16 context, gint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint16 blockstartpattern
@@ -480,9 +485,7 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean i
 	} else {
 		compile_keyword_to_DFA(st, keyword, matchnum, context, case_insens);
 	}
-	if (add_to_ac) {
-		match_set_autocomplete(st,keyword,context,append_to_ac,reference);
-	}
+	match_autocomplete_reference(st,add_to_ac,keyword,context,append_to_ac,reference);
 	return matchnum;
 }
 

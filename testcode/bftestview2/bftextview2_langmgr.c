@@ -190,9 +190,7 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 					xmlFree(name);
 				}
 			}
-			if (autocomplete) {
-				match_set_autocomplete(bfparser->st,pattern,context,autocomplete_append,reference);
-			}
+			match_autocomplete_reference(bfparser->st,autocomplete,pattern,context,autocomplete_append,reference);
 		}
 	}
 	/* TODO cleanup! */

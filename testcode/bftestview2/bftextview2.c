@@ -702,13 +702,13 @@ static gboolean bftextview2_query_tooltip_lcb(GtkWidget *widget,gint x,gint y,gb
 		mstart=iter;
 		gtk_text_iter_set_line_offset(&mstart,0);
 		gtk_text_iter_forward_char(&iter);
-		g_print("scan for tooltip: start at %d, position=%d...\n",gtk_text_iter_get_offset(&mstart),gtk_text_iter_get_offset(&iter));
+		DBG_MSG("scan for tooltip: start at %d, position=%d...\n",gtk_text_iter_get_offset(&mstart),gtk_text_iter_get_offset(&iter));
 		if (scan_for_tooltip(btv,&mstart,&iter,&contextnum)) {
-			g_print("we have a match in context %d\n",contextnum);
+			DBG_MSG("we have a match in context %d\n",contextnum);
 			if (g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).reference) {
 				gchar *value, *key = gtk_text_buffer_get_text(GTK_TEXT_VIEW(btv)->buffer,&mstart,&iter,TRUE);
 				value = g_hash_table_lookup(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).reference, key);
-				g_print("key=%s, value=%s\n",key,value);
+				DBG_MSG("key=%s, value=%s\n",key,value);
 				if (value) {
 					gtk_tooltip_set_markup(tooltip, value);
 					g_free(key);
