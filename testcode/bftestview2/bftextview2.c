@@ -684,7 +684,39 @@ void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) 
 		btv->bflang = NULL;
 	}
 }
-
+static gboolean bftextview2_query_tooltip_lcb(GtkWidget *widget,gint x,gint y,gboolean keyboard_tip, GtkTooltip *tooltip, gpointer user_data) {
+	BluefishTextView *btv=user_data;
+	GtkTextIter iter,mstart;
+	gint contextnum;
+	/* get position */
+	if (keyboard_tip) {
+		gint offset;
+		g_object_get(GTK_TEXT_VIEW(btv)->buffer,"cursor-position", &offset, NULL);
+		gtk_text_buffer_get_iter_at_offset(GTK_TEXT_VIEW(btv)->buffer, &iter, offset);
+	} else {
+		gint bx, by, trailing;
+		gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT,x, y, &bx, &by);
+		gtk_text_view_get_iter_at_position(GTK_TEXT_VIEW(btv), &iter, &trailing, bx, by);
+	}
+	mstart=iter;
+	gtk_text_iter_set_line_offset(&mstart,0);
+	g_print("scan for tooltip: start at %d, position=%d...\n",gtk_text_iter_get_offset(&mstart),gtk_text_iter_get_offset(&iter));
+	if (scan_for_tooltip(btv,&mstart,&iter,&contextnum)) {
+		g_print("we have a match\n");
+		if (g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).reference) {
+			gchar *value, *key = gtk_text_buffer_get_text(GTK_TEXT_VIEW(btv)->buffer,&mstart,&iter,TRUE);
+			value = g_hash_table_lookup(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).reference, key);
+			g_print("key=%s, value=%s\n",key,value);
+			if (value) {
+				gtk_tooltip_set_markup(tooltip, value);
+				g_free(key);
+				return TRUE;
+			}
+			g_free(key);
+		}
+	}
+	return FALSE;
+}
 
 /* *************************************************************** */
 /* widget stuff below */
@@ -734,6 +766,8 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 GtkWidget *bftextview2_new(void)
 {
 	BluefishTextView *textview = (BluefishTextView *) g_object_new(BLUEFISH_TYPE_TEXT_VIEW, NULL);
+	g_object_set(textview, "has-tooltip", TRUE, NULL);
+	g_signal_connect(textview, "query-tooltip",G_CALLBACK(bftextview2_query_tooltip_lcb), textview);
 
 	g_return_val_if_fail(textview != NULL, NULL);
 

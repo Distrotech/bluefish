@@ -586,6 +586,66 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 	}
 }
 
+gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter *position,gint *contextnum) {
+	GtkTextIter iter,end;
+	guint16 pos,newpos;
+	gboolean retthismatch=FALSE;
+	GQueue *contextstack;
+	/* get the current context */
+	iter = *mstart;
+	
+	contextstack = get_contextstack_at_position(btv, &iter);
+	*contextnum = GPOINTER_TO_INT(g_queue_peek_head(contextstack));
+	pos = g_array_index(btv->bflang->st->contexts,Tcontext, *contextnum).startstate;
+	
+	gtk_text_buffer_get_end_iter(GTK_TEXT_VIEW(btv)->buffer,&end);
+	
+	while (!gtk_text_iter_equal(&iter, &end)) {
+		gunichar uc;
+		uc = gtk_text_iter_get_char(&iter);
+		if (uc > 128) {
+			newpos = 0;
+		} else {
+			DBG_AUTOCOMP("scanning %c\n",uc);
+			newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
+		}
+		if (newpos == 0 || uc == '\0') {
+			DBG_AUTOCOMP("newpos=%d...\n",newpos);
+			if (g_array_index(btv->bflang->st->table,Ttablerow, pos).match) {
+				if (retthismatch) {
+					*position = iter;
+					return TRUE;
+				}
+				if (g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext < 0) {
+					gint num  = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
+					while (num != 0) { 
+						*contextnum = GPOINTER_TO_INT(g_queue_pop_head(contextstack));
+						num++;
+					}
+				} else {
+					DBG_AUTOCOMP("previous pos=%d had a match!\n",pos);
+					*contextnum = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
+					g_queue_push_head(contextstack, GINT_TO_POINTER(*contextnum));
+				}
+			}
+			if (gtk_text_iter_equal(mstart,&iter)) {
+				gtk_text_iter_forward_char(&iter);
+			}
+			*mstart = iter;
+			newpos = g_array_index(btv->bflang->st->contexts,Tcontext, *contextnum).startstate;
+		} else {
+			gtk_text_iter_forward_char(&iter);
+		}
+		pos = newpos;
+		if (gtk_text_iter_equal(&iter, position)) {
+			if (gtk_text_iter_equal(&iter, mstart))
+				return FALSE;
+			retthismatch = TRUE;
+		}
+	}
+}
+
+
 void cleanup_scanner(BluefishTextView *btv) {
 	GtkTextIter begin,end;
 	GtkTextBuffer *buffer;
