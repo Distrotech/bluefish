@@ -2426,8 +2426,10 @@
 <keyword name="mysql_num_fields" autocomplete="1" style="function"></keyword>
 <keyword name="mysql_num_rows" autocomplete="1" style="function"></keyword>
 <keyword name="mysql_pconnect" autocomplete="1" style="function"></keyword>
-<keyword name="mysql_ping" autocomplete="1" style="function"></keyword>
-<keyword name="mysql_query" autocomplete="1" style="function" autocomplete_append="($conn, $query);"></keyword>
+<keyword name="mysql_ping" autocomplete="1" style="function"/>
+
+<pattern name="mysql_query" autocomplete="1" style="function" autocomplete_append="($conn, $query);"><reference><b>mysql_query</b>($connection, $querystring);returns a result variable</reference></pattern>
+
 <keyword name="mysql_real_escape_string" autocomplete="1" style="function"></keyword>
 <keyword name="mysql_result" autocomplete="1" style="function"></keyword>
 <keyword name="mysql_select_db" autocomplete="1" style="function"></keyword>

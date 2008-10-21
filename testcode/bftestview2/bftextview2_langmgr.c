@@ -223,6 +223,7 @@ static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing 
 		gint ret;
 		/* get reference data */
 		reference = (gchar *)xmlTextReaderReadInnerXml(reader);
+		/* BUG: this doesn't work if there is <keyword></keyword> */
 		ret = xmlTextReaderRead(reader);
 		while (xmlTextReaderRead(reader)==1) {
 			xmlChar *name2 = xmlTextReaderName(reader);

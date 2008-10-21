@@ -432,10 +432,12 @@ void match_set_autocomplete(Tscantable *st,gchar *keyword,guint16 context,gchar 
 	g_list_free(list);
 	
 	if (reference && strlen(reference)>0) {
+		
 		if (!g_array_index(st->contexts, Tcontext, context).reference) {
 			DBG_PATCOMPILE("create hashtable for context %d\n",context);
 			g_array_index(st->contexts, Tcontext, context).reference = g_hash_table_new(g_str_hash,g_str_equal);
 		}
+		g_print("add reference data for key %s to hash table in context %d\n",tmp,context);
 		g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,tmp,g_strdup(reference));
 	}
 	/* should we free tmp?? it is in the autocomplete and in the hashtable, but do these make a copy or not?
@@ -448,7 +450,7 @@ static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, gu
 /* add the match */
 	
 	matchnum = st->matches->len;
-	g_print("new match %s at matchnum %d has blockstartpattern %d and nextcontext %d\n",keyword,matchnum,blockstartpattern,nextcontext);
+	/*g_print("new match %s at matchnum %d has blockstartpattern %d and nextcontext %d\n",keyword,matchnum,blockstartpattern,nextcontext);*/
 	g_array_set_size(st->matches,st->matches->len+1);
 
 	g_array_index(st->matches, Tpattern, matchnum).message = g_strdup(keyword);
