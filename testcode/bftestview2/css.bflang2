@@ -4,11 +4,11 @@
 </detection>
 <scanning>
 <context symbols=" &#9;&#10;&#13;{}.">
-<pattern name="p" autocomplete="1" style="keyword" />
-<pattern name="body" autocomplete="1" style="keyword" />
-<pattern name="div" autocomplete="1" style="keyword" />
-<pattern name="ul" autocomplete="1" style="keyword" />
-<pattern name="li" autocomplete="1" style="keyword" />
+<pattern name="p" autocomplete="1" style="tag" />
+<pattern name="body" autocomplete="1" style="tag" />
+<pattern name="div" autocomplete="1" style="tag" />
+<pattern name="ul" autocomplete="1" style="tag" />
+<pattern name="li" autocomplete="1" style="tag" />
 <pattern name="{" starts_block="1" mayfold="1" style="braces" >
 <context symbols=" &#9;&#10;&#13;{}.:&quot;';">
 	<pattern name="background" autocomplete="1" style="keyword" autocomplete_append=": "/>
