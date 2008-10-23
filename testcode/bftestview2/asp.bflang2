@@ -150,7 +150,7 @@
 <!--
 		<pattern name="[a-z][a-z0-9_]*[$%]?" is_regex="1" case_insens="1" style="variable"/>
 -->
-		<pattern name="[a-z][0-9._]*" is_regex="1" case_insens="1" style="variable"/>
+		<pattern name="[a-z][[a-z_0-9]*" is_regex="1" case_insens="1" style="variable"/>
 
 	</context>
 </pattern>

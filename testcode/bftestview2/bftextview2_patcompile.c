@@ -74,6 +74,17 @@ static gint fill_characters_from_range(gchar *input, gchar *characters) {
 	return i;
 }
 
+static void push_on_stack(GQueue *stack, gint state) {
+	GList *tmplist;
+	tmplist = stack->head;
+	while (tmplist) {
+		if (GPOINTER_TO_INT(tmplist->data) == state)
+			return;
+		tmplist = tmplist->next;
+	}
+	g_queue_push_head(stack, GINT_TO_POINTER(state));
+}
+
 static void create_state_tables(Tscantable *st, gint16 context, gchar *characters, gboolean pointtoself, GQueue *positions, GQueue *newpositions, gboolean end_is_symbol) {
 	guint c,pos;
 	guint identstate;
@@ -81,7 +92,7 @@ static void create_state_tables(Tscantable *st, gint16 context, gchar *character
 	and thus newstate==-1 but if one or more characters in one or more states need a new state
 	it will be >0 */
 	identstate = g_array_index(st->contexts, Tcontext, context).identstate;
-	DBG_PATCOMPILE("started for %d states, pointtoself=%d\n",g_queue_get_length(positions),pointtoself);
+	DBG_PATCOMPILE("create_state_tables, started for %d states, pointtoself=%d\n",g_queue_get_length(positions),pointtoself);
 	while (g_queue_get_length(positions)) {
 		pos = GPOINTER_TO_INT(g_queue_pop_head(positions));
 		DBG_PATCOMPILE("working on position %d, identstate=%d\n",pos,identstate);
@@ -92,21 +103,21 @@ static void create_state_tables(Tscantable *st, gint16 context, gchar *character
 					if (g_array_index(st->table, Ttablerow, pos).row[c] == pos) {
 						/* this state is a 'morestate', a state that points to itself, for a (regex) pattern such as a+ or a* */
 						if (pointtoself) {
-							g_queue_push_head(newpositions, GINT_TO_POINTER((gint)g_array_index(st->table, Ttablerow, pos).row[c]));
+							push_on_stack(newpositions, (gint)g_array_index(st->table, Ttablerow, pos).row[c]);
 						} else {
-							g_print("BUG: we cannot parse this pattern after a regex pattern yet !!!!!!!!!!!!!\nstate tables will be incorrect!!!\n");
+							g_print("*****************************\nBUG: we cannot parse this pattern after a regex pattern yet !!!!!!!!!!!!!\nstate tables will be incorrect!!!\n*****************************\n");
 						}
 					} else {
 						if (pointtoself) { /* perhaps check if we have this state on the stack already */
-							g_queue_push_head(positions, GINT_TO_POINTER((gint)g_array_index(st->table, Ttablerow, pos).row[c]));
+							push_on_stack(positions, (gint)g_array_index(st->table, Ttablerow, pos).row[c]);
 						} else {
-							g_queue_push_head(newpositions, GINT_TO_POINTER((gint)g_array_index(st->table, Ttablerow, pos).row[c]));
+							push_on_stack(newpositions, (gint)g_array_index(st->table, Ttablerow, pos).row[c]);
 						}
 					}
 				} else {
 					if (newstate == -1) {
 						g_array_index(st->table, Ttablerow, pos).row[c] = newstate = st->table->len;
-						DBG_PATCOMPILE("create newstate %d, pointtoself=%d\n",newstate,pointtoself);
+						DBG_PATCOMPILE("create_state_tables, create newstate %d, pointtoself=%d\n",newstate,pointtoself);
 						g_array_set_size(st->table,st->table->len+1);
 						if (!end_is_symbol)
 							/* normally this memcpy copies the identstate to the current state such that all symbols still point to the 
@@ -131,6 +142,7 @@ static void create_state_tables(Tscantable *st, gint16 context, gchar *character
 			}
 		}
 	}
+	DBG_PATCOMPILE("create_state_tables, done, %d new positions\n",g_queue_get_length(newpositions));
 }
 
 static void merge_queues(GQueue *target, GQueue *src) {
