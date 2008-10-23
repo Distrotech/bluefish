@@ -65,9 +65,9 @@ static void foundstack_update_positions(GtkTextBuffer *buffer, Tfoundstack *fsta
 	
 	GtkTextMark *mark=NULL;
 	if (fstack->pushedblock)
-		mark = fstack->pushedblock->end1;
+		mark = fstack->pushedblock->start1;
 	else if (fstack->poppedblock)
-		mark = fstack->poppedblock->start2;
+		mark = fstack->poppedblock->end2;
 	else if (fstack->pushedcontext)
 		mark = fstack->pushedcontext->start;
 	else if (fstack->poppedcontext)
@@ -345,7 +345,9 @@ static void foundblock_foreach_clear_end_lcb(gpointer data,gpointer user_data) {
 		if (fblock->start2 && fblock->end2) {
 			GtkTextIter iter;/* for debugging */
 			gtk_text_buffer_get_iter_at_mark(GTK_TEXT_BUFFER(user_data), &iter, fblock->start1);
-			g_print("clear end for block that starts at %d\n",gtk_text_iter_get_offset(&iter));
+			g_print("clear end for block that starts at %d",gtk_text_iter_get_offset(&iter));
+			gtk_text_buffer_get_iter_at_mark(GTK_TEXT_BUFFER(user_data), &iter, fblock->start2);
+			g_print(" and the end starts at %d\n",gtk_text_iter_get_offset(&iter));
 			gtk_text_buffer_delete_mark(GTK_TEXT_BUFFER(user_data),fblock->start2);
 			gtk_text_buffer_delete_mark(GTK_TEXT_BUFFER(user_data),fblock->end2);
 			fblock->start2 = NULL;
@@ -357,6 +359,7 @@ static void foundblock_foreach_clear_end_lcb(gpointer data,gpointer user_data) {
 
 static void reconstruct_stack(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTextIter *position, Tscanning *scanning) {
 	Tfoundstack *fstack=NULL;
+	g_print("reconstruct_stack at position %d\n",gtk_text_iter_get_offset(position));
 	fstack = get_stackcache_at_position(btv,position,NULL);
 	if (fstack) {
 		Tfoundcontext *fcontext;
