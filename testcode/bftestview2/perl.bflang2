@@ -4,19 +4,14 @@
 </detection>
 <scanning>
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<!-- <keyword name="if" autocomplete="1" style="keyword" /> -->
-
+<pattern name="[a-z]+" is_regex="1" style="value"/>
 <pattern name="print" autocomplete="1" style="tag">
 	<reference><b>print</b> is the standard print function</reference>
-	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-		<pattern name="end" style="tag" ends_context="1"/>
-		
-	</context>
 </pattern>
 <pattern name="printb" autocomplete="1" style="tag"><reference><b>printb</b> is NOT the standard print function</reference></pattern>
 
-<pattern name="[a-z][[a-z_0-9]*" is_regex="1" style="value"/>
-<pattern name="&lt;[^&gt;]+javascript[^&gt;]+" is_regex="1" style="function"/>
+
+
 </context>
 </scanning>
 </bflang>

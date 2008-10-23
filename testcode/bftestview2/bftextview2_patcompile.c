@@ -105,13 +105,39 @@ static void create_state_tables(Tscantable *st, gint16 context, gchar *character
 						if (pointtoself) {
 							push_on_stack(newpositions, (gint)g_array_index(st->table, Ttablerow, pos).row[c]);
 						} else {
-							g_print("*****************************\nBUG: we cannot parse this pattern after a regex pattern yet !!!!!!!!!!!!!\nstate tables will be incorrect!!!\n*****************************\n");
+							if (newstate == -1) {
+								newstate = st->table->len;
+								DBG_PATCOMPILE("create_state_tables, create newstate %d from morestate %d\n",newstate,pos);
+								g_array_set_size(st->table,st->table->len+1);
+								/* pass-on the morestate */
+								memcpy(g_array_index(st->table, Ttablerow, newstate).row, g_array_index(st->table, Ttablerow, pos).row, sizeof(guint16[NUMSCANCHARS]));
+								g_array_index(st->table, Ttablerow, pos).row[c] = newstate;
+								g_queue_push_head(newpositions, GINT_TO_POINTER(newstate));
+							} else {
+								g_array_index(st->table, Ttablerow, pos).row[c] = newstate;
+							}
+							/*g_print("*****************************\nBUG: we cannot parse this pattern after a regex pattern yet !!!!!!!!!!!!!\nstate tables will be incorrect!!!\n*****************************\n");*/
 						}
 					} else {
 						if (pointtoself) { /* perhaps check if we have this state on the stack already */
 							push_on_stack(positions, (gint)g_array_index(st->table, Ttablerow, pos).row[c]);
 						} else {
-							push_on_stack(newpositions, (gint)g_array_index(st->table, Ttablerow, pos).row[c]);
+							if (g_array_index(st->table, Ttablerow, pos).row[c] > pos) {
+								push_on_stack(newpositions, (gint)g_array_index(st->table, Ttablerow, pos).row[c]);
+							} else { /* this is probably a morestate that has been passed-on several states */
+								if (newstate == -1) {
+									newstate = st->table->len;
+									DBG_PATCOMPILE("create_state_tables, create newstate %d from morestate %d\n",newstate,pos);
+									g_array_set_size(st->table,st->table->len+1);
+									/* pass-on the morestate */
+									memcpy(g_array_index(st->table, Ttablerow, newstate).row, g_array_index(st->table, Ttablerow, pos).row, sizeof(guint16[NUMSCANCHARS]));
+									g_array_index(st->table, Ttablerow, pos).row[c] = newstate;
+									g_queue_push_head(newpositions, GINT_TO_POINTER(newstate));
+								} else {
+									g_array_index(st->table, Ttablerow, pos).row[c] = newstate;
+								}
+							} 
+								
 						}
 					}
 				} else {
@@ -498,6 +524,7 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean i
 		compile_keyword_to_DFA(st, keyword, matchnum, context, case_insens);
 	}
 	match_autocomplete_reference(st,add_to_ac,keyword,context,append_to_ac,reference);
+	/*print_DFA(st, 'a', 'z');*/
 	return matchnum;
 }
 
