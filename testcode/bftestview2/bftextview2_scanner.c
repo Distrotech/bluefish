@@ -339,6 +339,22 @@ static gboolean bftextview2_find_region2scan(GtkTextBuffer *buffer, GtkTextIter 
 	return TRUE;
 }
 
+static void foundblock_foreach_clear_end_lcb(gpointer data,gpointer user_data) {
+	Tfoundblock *fblock=data;
+	if (fblock) {
+		if (fblock->start2 && fblock->end2) {
+			GtkTextIter iter;/* for debugging */
+			gtk_text_buffer_get_iter_at_mark(GTK_TEXT_BUFFER(user_data), &iter, fblock->start1);
+			g_print("clear end for block that starts at %d\n",gtk_text_iter_get_offset(&iter));
+			gtk_text_buffer_delete_mark(GTK_TEXT_BUFFER(user_data),fblock->start2);
+			gtk_text_buffer_delete_mark(GTK_TEXT_BUFFER(user_data),fblock->end2);
+			fblock->start2 = NULL;
+			fblock->end2 = NULL;
+		}
+		fblock->foldable = FALSE;
+	}
+}
+
 static void reconstruct_stack(BluefishTextView * btv, GtkTextBuffer *buffer, GtkTextIter *position, Tscanning *scanning) {
 	Tfoundstack *fstack=NULL;
 	fstack = get_stackcache_at_position(btv,position,NULL);
@@ -353,6 +369,8 @@ static void reconstruct_stack(BluefishTextView * btv, GtkTextBuffer *buffer, Gtk
 		g_queue_foreach(scanning->blockstack,foundblock_foreach_ref_lcb,NULL);
 		g_queue_foreach(scanning->contextstack,foundcontext_foreach_ref_lcb,NULL);
 		DBG_SCANNING("stack from the cache, contextstack has len %d, blockstack has len %d, context=%d\n",g_queue_get_length(scanning->contextstack),g_queue_get_length(scanning->blockstack),scanning->context);
+		
+		g_queue_foreach(scanning->blockstack,foundblock_foreach_clear_end_lcb,buffer);
 	} else {
 		DBG_SCANNING("empty stack\n");
 		scanning->contextstack =  g_queue_new();
