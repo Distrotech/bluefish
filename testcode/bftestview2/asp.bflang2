@@ -1,6 +1,6 @@
 <bflang name="ASP">
-<detection><mime type="application/x-asp"/></detection>
-<scanning>
+<header><mime type="application/x-asp"/></header>
+<definition>
 <context symbols="&gt;&lt;&amp;; %@&#9;&#10;&#13;">
 <tag name="html" style="tag" />
 <tag name="head" style="tag" />
@@ -43,134 +43,134 @@
 <tag name="option" style="tag" attributes="style,class,id,value,label,selected" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 <tag name="optgroup" style="tag" attributes="style,class,id,label" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 
-<!-- <pattern name="&lt;script[ &#9;].+javascript.+&gt;" is_regex="1" case_insens="1" style="keyword"/> -->
+<!-- <element name="&lt;script[ &#9;].+javascript.+&gt;" is_regex="1" case_insens="1" style="keyword"/> -->
 
-<pattern name="&lt;%" starts_block="1" style="region">
+<element name="&lt;%" starts_block="1" style="region">
 	<context name="vbscript" autocomplete_case_insens="1" symbols=" '&#34;():.,/$#*-+=&gt;&lt;&amp; &#9;&#10;&#13;" style="region">
 		
-		<pattern  name="and" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="as" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="call" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="case" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="cbool" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="cbyte" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="cchar" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="cdate" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="cdec" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="cdbl" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="cint" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="class" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="clng" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="codepage" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="const" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="cobj" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="csng" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="cstr" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="default" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="dim" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="do" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="each" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="else" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="elseif" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="end" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="exit" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="explicit" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="for" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="function" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="goto" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="if" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="in" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="is" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="language" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="let" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="loop" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="mod" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="new" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="next" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="not" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="option" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="or" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="preserve" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="private" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="public" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="redim" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="rem" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="resume" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="select" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="set" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="step" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="sub" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="then" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="to" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="until" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="wend" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="while" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="with" autocomplete="1" case_insens="1" style="keyword"/>
-		<pattern  name="xor" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="and" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="as" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="call" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="case" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="cbool" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="cbyte" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="cchar" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="cdate" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="cdec" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="cdbl" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="cint" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="class" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="clng" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="codepage" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="const" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="cobj" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="csng" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="cstr" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="default" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="dim" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="do" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="each" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="else" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="elseif" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="end" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="exit" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="explicit" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="for" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="function" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="goto" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="if" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="in" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="is" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="language" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="let" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="loop" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="mod" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="new" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="next" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="not" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="option" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="or" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="preserve" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="private" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="public" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="redim" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="rem" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="resume" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="select" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="set" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="step" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="sub" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="then" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="to" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="until" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="wend" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="while" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="with" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  name="xor" autocomplete="1" case_insens="1" style="keyword"/>
 		
-		<pattern  name="TRUE" autocomplete="1" case_insens="1" style="value"/>
-		<pattern  name="FALSE" autocomplete="1" case_insens="1" style="value"/>
-		<pattern  name="NOTHING" autocomplete="1" case_insens="1" style="value"/>
+		<element  name="TRUE" autocomplete="1" case_insens="1" style="value"/>
+		<element  name="FALSE" autocomplete="1" case_insens="1" style="value"/>
+		<element  name="NOTHING" autocomplete="1" case_insens="1" style="value"/>
 		
-		<pattern name="&#34;" style="string">
+		<element name="&#34;" style="string">
 			<context symbols="&#34;" style="string">
-				<pattern name="&#34;" style="string" ends_context="1" />
+				<element name="&#34;" style="string" ends_context="1" />
 			</context>
-		</pattern>
+		</element>
 		
-		<pattern name="'" style="comment">
+		<element name="'" style="comment">
 			<context symbols="%&gt;&#10;" style="comment">
-				<pattern name="&#10;" ends_context="1" />
-				<pattern name="%&gt;" ends_context="2" ends_block="1" blockstartpattern="&lt;%" style="region" mayfold="1" />
+				<element name="&#10;" ends_context="1" />
+				<element name="%&gt;" ends_context="2" ends_block="1" blockstartpattern="&lt;%" style="region" mayfold="1" />
 			</context>
-		</pattern>
+		</element>
 		
-		<pattern name="for" case_insens="1" starts_block="1" mayfold="1" style="braces" />
-		<pattern name="next" case_insens="1" ends_block="1" blockstartpattern="for" mayfold="1" style="braces" />
-		<pattern name="do" case_insens="1" starts_block="1" mayfold="1" style="braces" />
-		<pattern name="loop" case_insens="1" ends_block="1" blockstartpattern="do" mayfold="1" style="braces" />
-		<pattern name="while" case_insens="1" starts_block="1" mayfold="1" style="braces" />
-		<pattern name="wend" case_insens="1" ends_block="1" blockstartpattern="while" mayfold="1" style="braces" />
-		<pattern name="exit[\ \t]+sub" is_regex="1" case_insens="1" style="keyword" />
-		<pattern name="sub" case_insens="1" starts_block="1" mayfold="1" style="braces" />
-		<pattern name="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="sub" mayfold="1" style="braces" />
+		<element name="for" case_insens="1" starts_block="1" mayfold="1" style="braces" />
+		<element name="next" case_insens="1" ends_block="1" blockstartpattern="for" mayfold="1" style="braces" />
+		<element name="do" case_insens="1" starts_block="1" mayfold="1" style="braces" />
+		<element name="loop" case_insens="1" ends_block="1" blockstartpattern="do" mayfold="1" style="braces" />
+		<element name="while" case_insens="1" starts_block="1" mayfold="1" style="braces" />
+		<element name="wend" case_insens="1" ends_block="1" blockstartpattern="while" mayfold="1" style="braces" />
+		<element name="exit[\ \t]+sub" is_regex="1" case_insens="1" style="keyword" />
+		<element name="sub" case_insens="1" starts_block="1" mayfold="1" style="braces" />
+		<element name="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="sub" mayfold="1" style="braces" />
 
-		<pattern name="[0-9.]+" is_regex="1" style="value"/>
-		<pattern name="exit[\ \t]+function" is_regex="1" case_insens="1" style="keyword" />
-		<pattern name="function" starts_block="1" case_insens="1" mayfold="1" style="braces" />
-		<pattern name="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="function" mayfold="1" style="braces" />
-		<pattern name="if" starts_block="1" is_regex="1" case_insens="1" mayfold="1" style="braces" />
-		<pattern name="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="if[\ \t]+.then" mayfold="1" style="braces" />
-		<pattern name="with" starts_block="1" case_insens="1" mayfold="1" style="braces" />
-		<pattern name="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="with" mayfold="1" style="braces" />
-		<pattern name="select" starts_block="1" case_insens="1" mayfold="1" style="braces" />
-		<pattern name="end[\ \t]+select" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="select" mayfold="1" style="braces" />
+		<element name="[0-9.]+" is_regex="1" style="value"/>
+		<element name="exit[\ \t]+function" is_regex="1" case_insens="1" style="keyword" />
+		<element name="function" starts_block="1" case_insens="1" mayfold="1" style="braces" />
+		<element name="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="function" mayfold="1" style="braces" />
+		<element name="if" starts_block="1" is_regex="1" case_insens="1" mayfold="1" style="braces" />
+		<element name="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="if[\ \t]+.then" mayfold="1" style="braces" />
+		<element name="with" starts_block="1" case_insens="1" mayfold="1" style="braces" />
+		<element name="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="with" mayfold="1" style="braces" />
+		<element name="select" starts_block="1" case_insens="1" mayfold="1" style="braces" />
+		<element name="end[\ \t]+select" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="select" mayfold="1" style="braces" />
 
-		<pattern name="%&gt;" ends_block="1" blockstartpattern="&lt;%" style="region" mayfold="1" ends_context="1" />
+		<element name="%&gt;" ends_block="1" blockstartpattern="&lt;%" style="region" mayfold="1" ends_context="1" />
 <!--
-		<pattern name="[a-z][a-z0-9_]*[$%]?" is_regex="1" case_insens="1" style="variable"/>
+		<element name="[a-z][a-z0-9_]*[$%]?" is_regex="1" case_insens="1" style="variable"/>
 -->
-		<pattern name="[a-z][[a-z_0-9]*" is_regex="1" case_insens="1" style="variable"/>
+		<element name="[a-z][[a-z_0-9]*" is_regex="1" case_insens="1" style="variable"/>
 
 	</context>
-</pattern>
+</element>
 
 
 <!--
-<pattern name="&lt;script.+javascript.+&gt;" is_regex="1" case_insens="1" starts_block="1" style="region">
+<element name="&lt;script.+javascript.+&gt;" is_regex="1" case_insens="1" starts_block="1" style="region">
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-		<pattern name="&lt;/script&gt;" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="&lt;script.+javascript.+&gt;" style="region" mayfold="1" ends_context="1" />
+		<element name="&lt;/script&gt;" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="&lt;script.+javascript.+&gt;" style="region" mayfold="1" ends_context="1" />
 	</context>
-</pattern>
+</element>
 -->
 
-<pattern name="&lt;!--" style="comment" starts_block="1">
+<element name="&lt;!--" style="comment" starts_block="1">
 	<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
-		<pattern name="--&gt;" ends_block="1" blockstartpattern="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+		<element name="--&gt;" ends_block="1" blockstartpattern="&lt;!--" style="comment" mayfold="1" ends_context="1" />
 	</context>
-</pattern>
+</element>
 
-<pattern name="&amp;[a-z0-9#]+;" is_regex="1" style="value" />
+<element name="&amp;[a-z0-9#]+;" is_regex="1" style="value" />
 </context>
-</scanning>
+</definition>
 </bflang>
