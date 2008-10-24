@@ -121,32 +121,32 @@
 		<element pattern="'" style="comment">
 			<context symbols="%&gt;&#10;" style="comment">
 				<element pattern="&#10;" ends_context="1" />
-				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartpattern="&lt;%" style="region" mayfold="1" />
+				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;%" style="region" mayfold="1" />
 			</context>
 		</element>
 		
 		<element pattern="for" case_insens="1" starts_block="1" mayfold="1" style="braces" />
-		<element pattern="next" case_insens="1" ends_block="1" blockstartpattern="for" mayfold="1" style="braces" />
+		<element pattern="next" case_insens="1" ends_block="1" blockstartelement="for" mayfold="1" style="braces" />
 		<element pattern="do" case_insens="1" starts_block="1" mayfold="1" style="braces" />
-		<element pattern="loop" case_insens="1" ends_block="1" blockstartpattern="do" mayfold="1" style="braces" />
+		<element pattern="loop" case_insens="1" ends_block="1" blockstartelement="do" mayfold="1" style="braces" />
 		<element pattern="while" case_insens="1" starts_block="1" mayfold="1" style="braces" />
-		<element pattern="wend" case_insens="1" ends_block="1" blockstartpattern="while" mayfold="1" style="braces" />
-		<element pattern="exit[\ \t]+sub" is_regex="1" case_insens="1" style="keyword" />
+		<element pattern="wend" case_insens="1" ends_block="1" blockstartelement="while" mayfold="1" style="braces" />
+		<element pattern="exit[\ \t]+sub" is_regex="1" case_insens="1" style="keyword" autocomplete="1" autocomplete_string="exit sub" mayfold="1" />
 		<element pattern="sub" case_insens="1" starts_block="1" mayfold="1" style="braces" />
-		<element pattern="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="sub" mayfold="1" style="braces" />
+		<element pattern="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartelement="sub" autocomplete="1" autocomplete_string="end sub" mayfold="1" style="braces" />
 
 		<element pattern="[0-9.]+" is_regex="1" style="value"/>
-		<element pattern="exit[\ \t]+function" is_regex="1" case_insens="1" style="keyword" />
+		<element pattern="exit[\ \t]+function" is_regex="1" case_insens="1" style="keyword"  autocomplete="1" autocomplete_string="exit function" mayfold="1" />
 		<element pattern="function" starts_block="1" case_insens="1" mayfold="1" style="braces" />
-		<element pattern="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="function" mayfold="1" style="braces" />
+		<element pattern="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartelement="function" mayfold="1" style="braces" autocomplete="1" autocomplete_string="end function" />
 		<element pattern="if" starts_block="1" is_regex="1" case_insens="1" mayfold="1" style="braces" />
-		<element pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="if[\ \t]+.then" mayfold="1" style="braces" />
+		<element pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartelement="if[\ \t]+.then" mayfold="1" style="braces" />
 		<element pattern="with" starts_block="1" case_insens="1" mayfold="1" style="braces" />
-		<element pattern="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="with" mayfold="1" style="braces" />
+		<element pattern="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartelement="with" mayfold="1" style="braces"  autocomplete="1" autocomplete_string="end with" />
 		<element pattern="select" starts_block="1" case_insens="1" mayfold="1" style="braces" />
-		<element pattern="end[\ \t]+select" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="select" mayfold="1" style="braces" />
+		<element pattern="end[\ \t]+select" is_regex="1" case_insens="1" ends_block="1" blockstartelement="select" mayfold="1" style="braces" autocomplete="1" autocomplete_string="end select" />
 
-		<element pattern="%&gt;" ends_block="1" blockstartpattern="&lt;%" style="region" mayfold="1" ends_context="1" />
+		<element pattern="%&gt;" ends_block="1" blockstartelement="&lt;%" style="region" mayfold="1" ends_context="1" />
 <!--
 		<element pattern="[a-z][a-z0-9_]*[$%]?" is_regex="1" case_insens="1" style="variable"/>
 -->
@@ -159,14 +159,14 @@
 <!--
 <element pattern="&lt;script.+javascript.+&gt;" is_regex="1" case_insens="1" starts_block="1" style="region">
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-		<element pattern="&lt;/script&gt;" is_regex="1" case_insens="1" ends_block="1" blockstartpattern="&lt;script.+javascript.+&gt;" style="region" mayfold="1" ends_context="1" />
+		<element pattern="&lt;/script&gt;" is_regex="1" case_insens="1" ends_block="1" blockstartelement="&lt;script.+javascript.+&gt;" style="region" mayfold="1" ends_context="1" />
 	</context>
 </element>
 -->
 
 <element pattern="&lt;!--" style="comment" starts_block="1">
 	<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
-		<element pattern="--&gt;" ends_block="1" blockstartpattern="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" style="comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
 

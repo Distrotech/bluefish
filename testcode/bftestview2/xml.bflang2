@@ -11,7 +11,7 @@
 	</element>
 	<element pattern="&lt;!--" style="comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
-			<element pattern="--&gt;" ends_block="1" blockstartpattern="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" style="comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
 	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" style="value" />

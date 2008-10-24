@@ -54,10 +54,10 @@
 <element pattern="None" autocomplete="1" style="value"/>
 <element pattern="[0-9.]+" is_regex="1" style="value"/>
 <element pattern="{" starts_block="1" mayfold="1" style="braces" />
-<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" />
+<element pattern="}" ends_block="1" blockstartelement="{" style="braces" />
 <element pattern="[" starts_block="1" mayfold="1" style="braces" />
-<element pattern="]" ends_block="1" blockstartpattern="[" style="braces" />
+<element pattern="]" ends_block="1" blockstartelement="[" style="braces" />
 <element pattern="(" starts_block="1" mayfold="1" style="braces" />
-<element pattern=")" ends_block="1" blockstartpattern="(" style="braces" />
+<element pattern=")" ends_block="1" blockstartelement="(" style="braces" />
 <element pattern="#[^&#10;]+" is_regex="1" style="comment"/>
 </context></definition></bflang>

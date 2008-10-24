@@ -22,8 +22,8 @@
 									<element pattern="/&gt;" style="tag" ends_context="4"/>
 									<element pattern="&gt;" style="tag">
 										<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;&quot;='+*^()">
-											<element pattern="(" style="braces"/>
-											<element pattern=")" style="braces"/>
+											<element pattern="(" id="js(" starts_block="1" style="braces"/>
+											<element pattern=")" style="braces" ends_block="1" blockstartelement="js("/>
 											<element pattern="for" style="keyword" autocomplete="1"/>
 											<element pattern="while" style="keyword" autocomplete="1"/>
 											<element pattern="for" style="keyword" autocomplete="1"/>
@@ -52,7 +52,7 @@
 	<tag name="link" style="tag" attributes="rel,type,href" attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<element pattern="&lt;!--" style="comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
-			<element pattern="--&gt;" ends_block="1" blockstartpattern="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" style="comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
 	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" style="value" />
@@ -95,7 +95,7 @@
 	<tag name="optgroup" style="tag" attributes="style,class,id,label" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<element pattern="&lt;!--" style="comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
-			<element pattern="--&gt;" ends_block="1" blockstartpattern="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" style="comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
 	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" style="value" />

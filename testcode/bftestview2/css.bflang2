@@ -20,7 +20,7 @@
 		<element pattern="scroll" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern="fixed" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
 	<element pattern="background-color" autocomplete="1" style="keyword" autocomplete_append=": ">
@@ -35,7 +35,7 @@
 		<element pattern="white" style="value" autocomplete="TRUE"/>
 		<element pattern="yellow" style="value" autocomplete="TRUE"/>
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
 	<element pattern="background-image" autocomplete="1" style="keyword" autocomplete_append=": ">
@@ -54,7 +54,7 @@
 		<element pattern="bottom center" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern="bottom right" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
 	<element pattern="background-repeat" autocomplete="1" style="keyword" autocomplete_append=": ">
@@ -65,7 +65,7 @@
 		<element pattern="repeat-y" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern="no-repeat" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
 	<element pattern="border" autocomplete="1" style="keyword" autocomplete_append=": ">
@@ -87,7 +87,7 @@
 		<element pattern="inset" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern="outset" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>	
 	</element>
 	<element pattern="border-bottom-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
@@ -155,7 +155,7 @@
 		<element pattern="smaller" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern="[0-9]+[ &#9;]*(pt|em|px|%)" is_regex="1" style="value" />
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
 	<element pattern="font-size-adjust" autocomplete="1" style="keyword" autocomplete_append=": ">
@@ -176,7 +176,7 @@
 		<element pattern="extra-expanded" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern="ultra-expanded" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
 	<element pattern="font-style" autocomplete="1" style="keyword" autocomplete_append=": ">
@@ -185,7 +185,7 @@
 		<element pattern="italic" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern="oblique" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
 	<element pattern="font-variant" autocomplete="1" style="keyword" autocomplete_append=": ">
@@ -193,7 +193,7 @@
 		<element pattern="normal" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern="small-caps" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>
 	</element>	
 	<element pattern="font-weight" autocomplete="1" style="keyword" autocomplete_append=": ">
@@ -204,7 +204,7 @@
 		<element pattern="lighter" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern="(100|200|300|400|500|600|700|800|900)" style="value" />
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>
 	</element>	
 	<element pattern="height" autocomplete="1" style="keyword" autocomplete_append=": "/>
@@ -252,7 +252,7 @@ relative </reference>
 		<reference><b>fixed</b>: The box's position is calculated according to the 'absolute' model, but in addition, the box is fixed with respect to some reference. In the case of continuous media, the box is fixed with respect to the viewport (and doesn't move when scrolled). In the case of paged media, the box is fixed with respect to the page, even if that page is seen through a viewport (in the case of a print-preview, for example). Authors may wish to specify 'fixed' in a media-dependent way. For instance, an author may want a box to remain at the top of the viewport on the screen, but not at the top of each printed page.</reference>
 		</element>
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
 	<element pattern="quotes" autocomplete="1" style="keyword" autocomplete_append=": "/>
@@ -265,7 +265,7 @@ relative </reference>
 		<element pattern="center" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern="justify" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
 	<element pattern="text-decoration" autocomplete="1" style="keyword" autocomplete_append=": ">
@@ -279,7 +279,7 @@ relative </reference>
 			<reference>Text blinks (alternates between visible and invisible). Conforming user agents are not required to support this value. </reference>
 		</element>
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
 	<element pattern="text-indent" autocomplete="1" style="keyword" autocomplete_append=": ">
@@ -296,7 +296,7 @@ relative </reference>
 		<element pattern="uppercase" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern="lowercase" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>	
 	</element>
 	<element pattern="top" autocomplete="1" style="keyword" autocomplete_append=": "/>	
@@ -309,12 +309,12 @@ relative </reference>
 		<element pattern="pre" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern="nowrap" autocomplete="1" style="value" autocomplete_append=";"/>
 		<element pattern=";" ends_context="1"/>
-		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
 	</context>		
 	</element>
 	<element pattern="width" autocomplete="1" style="keyword" autocomplete_append=": "/>
 	<element pattern="z-index" autocomplete="1" style="keyword" autocomplete_append=": "/>	
-	<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="1"/>
+	<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="1"/>
 </context>
 </element>
 </context></definition></bflang>
