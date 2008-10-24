@@ -1,20 +1,20 @@
-<bflang name="XML">
+<bflang pattern="XML">
 <header><mime type="text/xml"/><mime type="application/xml"/></header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-	<element name="&lt;[a-zA-Z0-9:]+" is_regex="1" style="function">
+	<element pattern="&lt;[a-zA-Z0-9:]+" is_regex="1" style="function">
 		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;">
-			<element name="&#34;[^&#34;]+&#34;" style="string" is_regex="1" />
-			<element name="'[^']+'" style="string" is_regex="1" />
-			<element name="&gt;" style="function" ends_context="1" />
+			<element pattern="&#34;[^&#34;]+&#34;" style="string" is_regex="1" />
+			<element pattern="'[^']+'" style="string" is_regex="1" />
+			<element pattern="&gt;" style="function" ends_context="1" />
 		</context>
 	</element>
-	<element name="&lt;!--" style="comment" starts_block="1">
+	<element pattern="&lt;!--" style="comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
-			<element name="--&gt;" ends_block="1" blockstartpattern="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+			<element pattern="--&gt;" ends_block="1" blockstartpattern="&lt;!--" style="comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
-	<element name="&amp;[a-z0-9#]+;" is_regex="1" style="value" />
+	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" style="value" />
 </context>
 </definition>
 </bflang>

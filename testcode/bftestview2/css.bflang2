@@ -1,320 +1,320 @@
-<bflang name="CSS">
+<bflang pattern="CSS">
 <header>
 	<mime type="text/css" />
 </header>
 <definition>
 <context symbols=" &#9;&#10;&#13;{}.">
-<element name="p" autocomplete="1" style="tag" />
-<element name="body" autocomplete="1" style="tag" />
-<element name="div" autocomplete="1" style="tag" />
-<element name="ul" autocomplete="1" style="tag" />
-<element name="li" autocomplete="1" style="tag" />
-<element name="{" starts_block="1" mayfold="1" style="braces" >
+<element pattern="p" autocomplete="1" style="tag" />
+<element pattern="body" autocomplete="1" style="tag" />
+<element pattern="div" autocomplete="1" style="tag" />
+<element pattern="ul" autocomplete="1" style="tag" />
+<element pattern="li" autocomplete="1" style="tag" />
+<element pattern="{" starts_block="1" mayfold="1" style="braces" >
 <context symbols=" &#9;&#10;&#13;{}.:&quot;';">
-	<element name="background" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="background" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference>A shorthand property for setting all background properties: background-color, background-image, background-repeat, background-attachment, and background-position, in one declaration</reference>
 	</element>
-	<element name="background-attachment" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="background-attachment" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference>Sets whether a background image is fixed or scrolls with the rest of the page</reference>
 	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element name="scroll" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="fixed" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="scroll" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="fixed" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
-	<element name="background-color" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="background-color" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference>Sets the background color of an element</reference>
-	<context name="color" symbols=" &#9;&#10;&#13;{}.;">
-		<element name="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" style="value" is_regex="1" case_insens="1"/>
-		<element name="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" style="value" is_regex="1" case_insens="1"/>
-		<element name="red" style="value" autocomplete="TRUE"/>
-		<element name="green" style="value" autocomplete="TRUE"/>
-		<element name="blue" style="value" autocomplete="TRUE"/>
-		<element name="black" style="value" autocomplete="TRUE"/>
-		<element name="white" style="value" autocomplete="TRUE"/>
-		<element name="yellow" style="value" autocomplete="TRUE"/>
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+	<context id="color" symbols=" &#9;&#10;&#13;{}.;">
+		<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" style="value" is_regex="1" case_insens="1"/>
+		<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" style="value" is_regex="1" case_insens="1"/>
+		<element pattern="red" style="value" autocomplete="TRUE"/>
+		<element pattern="green" style="value" autocomplete="TRUE"/>
+		<element pattern="blue" style="value" autocomplete="TRUE"/>
+		<element pattern="black" style="value" autocomplete="TRUE"/>
+		<element pattern="white" style="value" autocomplete="TRUE"/>
+		<element pattern="yellow" style="value" autocomplete="TRUE"/>
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
-	<element name="background-image" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="background-image" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference>Sets an image as the background</reference>
 	</element>
-	<element name="background-position" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="background-position" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference>Sets the starting position of a background image</reference>
 	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element name="top left" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="top center" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="top right" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="center left" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="center center" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="center right" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="bottom left" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="bottom center" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="bottom right" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="top left" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="top center" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="top right" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="center left" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="center center" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="center right" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="bottom left" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="bottom center" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="bottom right" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
-	<element name="background-repeat" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="background-repeat" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference><b>background-repeat</b> specifies whether the image is repeated (tiled), and how</reference>
 	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element name="repeat" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="repeat-x" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="repeat-y" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="no-repeat" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="repeat" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="repeat-x" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="repeat-y" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="no-repeat" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
-	<element name="border" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="border" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference>A shorthand property for setting the properties border-width, border-style, and border-color for the four borders in one declaration</reference>
 	</element>
-	<element name="border-bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="border-bottom-color" autocomplete="1" style="keyword" autocomplete_append=": ">
-	<context name="color" />
+	<element pattern="border-bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="border-bottom-color" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context id="color" />
 	</element>
-	<element name="border-bottom-style" autocomplete="1" style="keyword" autocomplete_append=": ">
-	<context name="border-style" symbols=" &#9;&#10;&#13;{}.;">
-		<element name="hidden" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="dotted" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="dashed" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="solid" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="double" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="groove" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="ridge" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="inset" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="outset" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+	<element pattern="border-bottom-style" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context id="border-style" symbols=" &#9;&#10;&#13;{}.;">
+		<element pattern="hidden" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="dotted" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="dashed" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="solid" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="double" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="groove" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="ridge" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="inset" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="outset" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>	
 	</element>
-	<element name="border-bottom-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="border-collapse" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="border-color" autocomplete="1" style="keyword" autocomplete_append=": ">
-	<context name="color" />
+	<element pattern="border-bottom-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="border-collapse" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="border-color" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context id="color" />
 	</element>
-	<element name="border-left" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="border-left-color" autocomplete="1" style="keyword" autocomplete_append=": ">
-	<context name="color" />
+	<element pattern="border-left" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="border-left-color" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context id="color" />
 	</element>
-	<element name="border-left-style" autocomplete="1" style="keyword" autocomplete_append=": ">
-	<context name="border-style" />
+	<element pattern="border-left-style" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context id="border-style" />
 	</element>
-	<element name="border-left-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="border-right" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="border-right-color" autocomplete="1" style="keyword" autocomplete_append=": ">
-	<context name="color" />
+	<element pattern="border-left-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="border-right" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="border-right-color" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context id="color" />
 	</element>
-	<element name="border-right-style" autocomplete="1" style="keyword" autocomplete_append=": ">
-	<context name="border-style" />
+	<element pattern="border-right-style" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context id="border-style" />
 	</element>
-	<element name="border-right-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="border-spacing" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="border-style" autocomplete="1" style="keyword" autocomplete_append=": ">
-	<context name="border-style" />
+	<element pattern="border-right-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="border-spacing" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="border-style" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context id="border-style" />
 	</element>
-	<element name="border-top" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="border-top-color" autocomplete="1" style="keyword" autocomplete_append=": ">
-	<context name="color" />
+	<element pattern="border-top" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="border-top-color" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context id="color" />
 	</element>
-	<element name="border-top-style" autocomplete="1" style="keyword" autocomplete_append=": ">
-	<context name="border-style" />
+	<element pattern="border-top-style" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context id="border-style" />
 	</element>
-	<element name="border-top-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="border-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="clear" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="clip" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="color" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="border-top-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="border-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="clear" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="clip" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="color" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference><b>color</b> describes the foreground color of an element's text content.</reference>
-	<context name="color" />
+	<context id="color" />
 	</element>
-	<element name="content" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="counter-increment" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="counter-reset" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="cursor" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="display" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="content" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="counter-increment" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="counter-reset" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="cursor" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="display" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference>Conforming HTML user agents may ignore the 'display' property. </reference>
 	</element>
 	
-	<element name="float" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="font-family" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="font-size" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="float" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="font-family" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="font-size" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference><b>font-size</b> describes the size of the font when set solid.</reference>
 	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element name="xx-small" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="x-small" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="small" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="medium" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="large" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="x-large" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="xx-large" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="larger" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="smaller" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="[0-9]+[ &#9;]*(pt|em|px|%)" is_regex="1" style="value" />
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="xx-small" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="x-small" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="small" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="medium" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="large" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="x-large" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="xx-large" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="larger" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="smaller" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="[0-9]+[ &#9;]*(pt|em|px|%)" is_regex="1" style="value" />
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
-	<element name="font-size-adjust" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="font-size-adjust" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference><b>font-size-adjust</b> allows authors to specify an aspect value for an element that will preserve the x-height of the first choice font in the substitute font.</reference>
 	</element>
-	<element name="font-stretch" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="font-stretch" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference>The 'font-stretch' property selects a normal, condensed, or extended face from a font family.</reference>
 	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element name="normal" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="wider" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="narrower" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="ultra-condensed" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="extra-condensed" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="condensed" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="semi-condensed" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="semi-expanded" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="expanded" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="extra-expanded" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="ultra-expanded" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="normal" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="wider" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="narrower" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="ultra-condensed" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="extra-condensed" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="condensed" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="semi-condensed" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="semi-expanded" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="expanded" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="extra-expanded" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="ultra-expanded" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
-	<element name="font-style" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="font-style" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element name="normal" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="italic" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="oblique" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="normal" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="italic" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="oblique" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
-	<element name="font-variant" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="font-variant" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element name="normal" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="small-caps" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="normal" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="small-caps" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</element>	
-	<element name="font-weight" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="font-weight" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element name="normal" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="bold" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="bolder" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="lighter" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="(100|200|300|400|500|600|700|800|900)" style="value" />
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="normal" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="bold" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="bolder" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="lighter" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="(100|200|300|400|500|600|700|800|900)" style="value" />
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</element>	
-	<element name="height" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="left" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="line-height" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="list-style" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="list-style-image" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="list-style-position" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="list-style-type" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="margin" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="margin-bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="margin-left" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="margin-right" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="margin-top" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="max-height" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="max-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="min-height" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="min-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="overflow" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="outline" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="outline-color" autocomplete="1" style="keyword" autocomplete_append=": ">
-	<context name="color" />
+	<element pattern="height" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="left" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="line-height" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="list-style" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="list-style-image" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="list-style-position" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="list-style-type" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="margin" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="margin-bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="margin-left" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="margin-right" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="margin-top" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="max-height" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="max-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="min-height" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="min-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="overflow" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="outline" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="outline-color" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<context id="color" />
 	</element>
-	<element name="outline-style" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="outline-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="padding" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="padding-bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="padding-left" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="padding-right" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="padding-top" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="position" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="outline-style" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="outline-width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="padding" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="padding-bottom" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="padding-left" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="padding-right" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="padding-top" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="position" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference><b>position</b>: The 'position' and 'float' properties determine which of the CSS2 positioning algorithms is used to calculate the position of a box</reference>
 	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element name="static" autocomplete="1" style="value" autocomplete_append=";">
+		<element pattern="static" autocomplete="1" style="value" autocomplete_append=";">
 		<reference><b>static</b>: The box is a normal box, laid out according to the normal flow. The 'left' and 'top' properties do not apply. 
 relative </reference>
 		</element>
-		<element name="relative" autocomplete="1" style="value" autocomplete_append=";">
+		<element pattern="relative" autocomplete="1" style="value" autocomplete_append=";">
 		<reference><b>relative</b>: The box's position is calculated according to the normal flow (this is called the position in normal flow). Then the box is offset relative to its normal position. When a box B is relatively positioned, the position of the following box is calculated as though B were not offset. </reference>
 		</element>
-		<element name="absolute" autocomplete="1" style="value" autocomplete_append=";">
+		<element pattern="absolute" autocomplete="1" style="value" autocomplete_append=";">
 		<reference><b>absolute</b>: The box's position (and possibly size) is specified with the 'left', 'right', 'top', and 'bottom' properties. These properties specify offsets with respect to the box's containing block. Absolutely positioned boxes are taken out of the normal flow. This means they have no impact on the layout of later siblings. Also, though absolutely positioned boxes have margins, they do not collapse with any other margins. </reference>
 		</element>
-		<element name="fixed" autocomplete="1" style="value" autocomplete_append=";">
+		<element pattern="fixed" autocomplete="1" style="value" autocomplete_append=";">
 		<reference><b>fixed</b>: The box's position is calculated according to the 'absolute' model, but in addition, the box is fixed with respect to some reference. In the case of continuous media, the box is fixed with respect to the viewport (and doesn't move when scrolled). In the case of paged media, the box is fixed with respect to the page, even if that page is seen through a viewport (in the case of a print-preview, for example). Authors may wish to specify 'fixed' in a media-dependent way. For instance, an author may want a box to remain at the top of the viewport on the screen, but not at the top of each printed page.</reference>
 		</element>
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
-	<element name="quotes" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="right" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="text-align" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="quotes" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="right" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="text-align" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference><b>text-align</b> describes how inline content of a block is aligned.</reference>
 	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element name="left" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="right" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="center" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="justify" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="left" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="right" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="center" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="justify" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
-	<element name="text-decoration" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="text-decoration" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference><b>text-decoration</b> describes decorations that are added to the text of an element. If the property is specified for a block-level element, it affects all inline-level descendants of the element. If it is specified for (or affects) an inline-level element, it affects all boxes generated by the element. If the element has no content or no text content (e.g., the IMG element in HTML), user agents must ignore this property</reference>
 	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element name="none" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="underline" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="overline" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="line-through" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="blink" autocomplete="1" style="value" autocomplete_append=";">
+		<element pattern="none" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="underline" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="overline" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="line-through" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="blink" autocomplete="1" style="value" autocomplete_append=";">
 			<reference>Text blinks (alternates between visible and invisible). Conforming user agents are not required to support this value. </reference>
 		</element>
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>
 	</element>
-	<element name="text-indent" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="text-indent" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference><b>text-indent</b> specifies the indentation of the first line of text in a block. More precisely, it specifies the indentation of the first box that flows into the block's first line box. The box is indented with respect to the left (or right, for right-to-left layout) edge of the line box. User agents should render this indentation as blank space. </reference>
 	</element>
-	<element name="text-shadow" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="text-shadow" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference><b>text-shadow</b> is a CSS2 property that accepts a comma-separated list of shadow effects to be applied to the text of the element. It may optionally start or end with a color. It always contains two lengths: the first length is the horizontal offset, second the vertical offset, and the optional third is the blur radius.</reference>
 	</element>
-	<element name="text-transform" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="text-transform" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference><b>text-transform</b> controls capitalization effects of an element's text.</reference>
 	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element name="none" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="capitalize" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="uppercase" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="lowercase" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="none" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="capitalize" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="uppercase" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="lowercase" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>	
 	</element>
-	<element name="top" autocomplete="1" style="keyword" autocomplete_append=": "/>	
-	<element name="vertical-align" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="visibility" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="white-space" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="top" autocomplete="1" style="keyword" autocomplete_append=": "/>	
+	<element pattern="vertical-align" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="visibility" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="white-space" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference><b>white-space</b> declares how whitespace inside the element is handled. Conforming user agents may ignore the 'white-space' property in author and user style sheets but must specify a value for it in the default style sheet.</reference>
 	<context symbols=" &#9;&#10;&#13;{}.;">
-		<element name="normal" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="pre" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name="nowrap" autocomplete="1" style="value" autocomplete_append=";"/>
-		<element name=";" ends_context="1"/>
-		<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
+		<element pattern="normal" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="pre" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern="nowrap" autocomplete="1" style="value" autocomplete_append=";"/>
+		<element pattern=";" ends_context="1"/>
+		<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="2"/>
 	</context>		
 	</element>
-	<element name="width" autocomplete="1" style="keyword" autocomplete_append=": "/>
-	<element name="z-index" autocomplete="1" style="keyword" autocomplete_append=": "/>	
-	<element name="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="1"/>
+	<element pattern="width" autocomplete="1" style="keyword" autocomplete_append=": "/>
+	<element pattern="z-index" autocomplete="1" style="keyword" autocomplete_append=": "/>	
+	<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" ends_context="1"/>
 </context>
 </element>
 </context></definition></bflang>

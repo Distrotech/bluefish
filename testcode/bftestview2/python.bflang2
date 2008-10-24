@@ -1,4 +1,4 @@
-<bflang name="Python">
+<bflang pattern="Python">
 <header>
 	<mime type="application/x-python"/>
 	<mime type="text/x-python" />
@@ -6,58 +6,58 @@
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
-<element name="if" autocomplete="1" style="keyword" />
-<element name="else" autocomplete="1" style="keyword" />
-<element name="elif" autocomplete="1" style="keyword" />
-<element name="for" autocomplete="1" style="keyword" />
-<element name="while" autocomplete="1" style="keyword" />
-<element name="where" autocomplete="1" style="keyword" />
-<element name="del" autocomplete="1" style="keyword" />
-<element name="raise" autocomplete="1" style="keyword" />
-<element name="assert" autocomplete="1" style="keyword" />
-<element name="lambda" autocomplete="1" style="keyword" />
-<element name="global" autocomplete="1" style="keyword" />
-<element name="try" autocomplete="1" style="keyword" />
-<element name="class" autocomplete="1" style="keyword" />
-<element name="except" autocomplete="1" style="keyword" />
-<element name="exec" autocomplete="1" style="keyword" />
-<element name="yield" autocomplete="1" style="keyword" />
-<element name="def" autocomplete="1" style="keyword" />
-<element name="finally" autocomplete="1" style="keyword" />
-<element name="in" autocomplete="1" style="keyword" />
-<element name="print" autocomplete="1" style="keyword" />
-<element name="and" autocomplete="1" style="keyword" />
-<element name="or" autocomplete="1" style="keyword" />
-<element name="is" autocomplete="1" style="keyword" />
-<element name="not" autocomplete="1" style="keyword" />
-<element name="return" autocomplete="1" style="keyword" />
-<element name="break" autocomplete="1" style="keyword" />
-<element name="continue" autocomplete="1" style="keyword" />
-<element name="pass" autocomplete="1" style="keyword" />
-<element name="&#34;" style="string">
+<element pattern="if" autocomplete="1" style="keyword" />
+<element pattern="else" autocomplete="1" style="keyword" />
+<element pattern="elif" autocomplete="1" style="keyword" />
+<element pattern="for" autocomplete="1" style="keyword" />
+<element pattern="while" autocomplete="1" style="keyword" />
+<element pattern="where" autocomplete="1" style="keyword" />
+<element pattern="del" autocomplete="1" style="keyword" />
+<element pattern="raise" autocomplete="1" style="keyword" />
+<element pattern="assert" autocomplete="1" style="keyword" />
+<element pattern="lambda" autocomplete="1" style="keyword" />
+<element pattern="global" autocomplete="1" style="keyword" />
+<element pattern="try" autocomplete="1" style="keyword" />
+<element pattern="class" autocomplete="1" style="keyword" />
+<element pattern="except" autocomplete="1" style="keyword" />
+<element pattern="exec" autocomplete="1" style="keyword" />
+<element pattern="yield" autocomplete="1" style="keyword" />
+<element pattern="def" autocomplete="1" style="keyword" />
+<element pattern="finally" autocomplete="1" style="keyword" />
+<element pattern="in" autocomplete="1" style="keyword" />
+<element pattern="print" autocomplete="1" style="keyword" />
+<element pattern="and" autocomplete="1" style="keyword" />
+<element pattern="or" autocomplete="1" style="keyword" />
+<element pattern="is" autocomplete="1" style="keyword" />
+<element pattern="not" autocomplete="1" style="keyword" />
+<element pattern="return" autocomplete="1" style="keyword" />
+<element pattern="break" autocomplete="1" style="keyword" />
+<element pattern="continue" autocomplete="1" style="keyword" />
+<element pattern="pass" autocomplete="1" style="keyword" />
+<element pattern="&#34;" style="string">
 	<context symbols="\&#34;" style="string">
-		<element name="\&#34;" style="string" />
-		<element name="&#34;" style="string" ends_context="1" />
+		<element pattern="\&#34;" style="string" />
+		<element pattern="&#34;" style="string" ends_context="1" />
 	</context>
 </element>
-<element name="&#34;&#34;&#34;" style="string">
+<element pattern="&#34;&#34;&#34;" style="string">
 	<context symbols="&#34;" style="string">
-		<element name="&#34;&#34;&#34;" style="string" ends_context="1" />
+		<element pattern="&#34;&#34;&#34;" style="string" ends_context="1" />
 	</context>
 </element>
-<element name="'" style="string">
+<element pattern="'" style="string">
 	<context symbols="\'" style="string">
-		<element name="\'" style="string" />
-		<element name="'" style="string" ends_context="1" />
+		<element pattern="\'" style="string" />
+		<element pattern="'" style="string" ends_context="1" />
 	</context>
 </element>
-<element name="None" autocomplete="1" style="value"/>
-<element name="[0-9.]+" is_regex="1" style="value"/>
-<element name="{" starts_block="1" mayfold="1" style="braces" />
-<element name="}" ends_block="1" blockstartpattern="{" style="braces" />
-<element name="[" starts_block="1" mayfold="1" style="braces" />
-<element name="]" ends_block="1" blockstartpattern="[" style="braces" />
-<element name="(" starts_block="1" mayfold="1" style="braces" />
-<element name=")" ends_block="1" blockstartpattern="(" style="braces" />
-<element name="#[^&#10;]+" is_regex="1" style="comment"/>
+<element pattern="None" autocomplete="1" style="value"/>
+<element pattern="[0-9.]+" is_regex="1" style="value"/>
+<element pattern="{" starts_block="1" mayfold="1" style="braces" />
+<element pattern="}" ends_block="1" blockstartpattern="{" style="braces" />
+<element pattern="[" starts_block="1" mayfold="1" style="braces" />
+<element pattern="]" ends_block="1" blockstartpattern="[" style="braces" />
+<element pattern="(" starts_block="1" mayfold="1" style="braces" />
+<element pattern=")" ends_block="1" blockstartpattern="(" style="braces" />
+<element pattern="#[^&#10;]+" is_regex="1" style="comment"/>
 </context></definition></bflang>

@@ -116,7 +116,7 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 /* declaration needed for recursive calling */
 static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack);
 
-static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint16 context, GQueue *contextstack) {
+static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint16 context, GQueue *contextstack) {
 	guint16 matchnum;
 	gchar *pattern=NULL, *style=NULL, *blockstartelement=NULL, *blockstyle=NULL, *class=NULL, *autocomplete_append=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE, is_empty, autocomplete=FALSE;
@@ -124,7 +124,7 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&pattern);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"pattern",&pattern);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"blockstyle",&blockstyle);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"blockstartelement",&blockstartelement);
@@ -210,7 +210,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&tag);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"pattern",&tag);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
@@ -290,7 +290,7 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&name);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"id",&name);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"symbols",&symbols);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
 		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_case_insens",&autocomplete_case_insens);
@@ -316,7 +316,7 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		xmlChar *name = xmlTextReaderName(reader);
 		DBG_PARSING("parsing context, found node name %s\n",name);
 		if (xmlStrEqual(name,(xmlChar *)"element")) {
-			process_scanning_pattern(reader,bfparser,context,contextstack);
+			process_scanning_element(reader,bfparser,context,contextstack);
 		} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
 			process_scanning_tag(reader,bfparser,context,contextstack);
 		} else if (xmlStrEqual(name,(xmlChar *)"context")) {

@@ -1,14 +1,14 @@
-<bflang name="C">
+<bflang pattern="C">
 <header>
 	<mime type="application/x-perl"/>
 </header>
 <definition>
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<element name="[a-z]+" is_regex="1" style="value"/>
-<element name="print" autocomplete="1" style="tag">
+<element pattern="[a-z]+" is_regex="1" style="value"/>
+<element pattern="print" autocomplete="1" style="tag">
 	<reference><b>print</b> is the standard print function</reference>
 </element>
-<element name="printb" autocomplete="1" style="tag"><reference><b>printb</b> is NOT the standard print function</reference></element>
+<element pattern="printb" autocomplete="1" style="tag"><reference><b>printb</b> is NOT the standard print function</reference></element>
 
 
 
