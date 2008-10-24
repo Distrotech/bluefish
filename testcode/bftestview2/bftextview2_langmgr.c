@@ -230,11 +230,11 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			stylet = langmrg_lookup_style(style);
 			guint16 contexttag, starttagmatch, endtagmatch;
 			gint contextstring;
-			gchar *tmp;
+			gchar *tmp, *reference=NULL;
 		
 			contexttag = new_context(bfparser->st, ">\"=' \t\n\r", NULL, FALSE);
 			tmp = g_strconcat("<",tag,NULL);
-			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, context, contexttag, TRUE, FALSE, 0, NULL,TRUE,autocomplete_append,NULL);
+			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, context, contexttag, TRUE, FALSE, 0, NULL,FALSE,NULL,NULL);
 			g_free(tmp);
 			starttagmatch = add_keyword_to_scanning_table(bfparser->st, "/?>", TRUE, FALSE, stylet, contexttag, -1, FALSE, FALSE, 0, NULL,FALSE,NULL,NULL);
 			if (attributes) {
@@ -261,7 +261,19 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			if (!is_empty) {
 				while (xmlTextReaderRead(reader)==1) {
 					xmlChar *name=xmlTextReaderName(reader);
-					if (xmlStrEqual(name,(xmlChar *)"context")) {
+					if (xmlStrEqual(name,(xmlChar *)"reference")) {
+						if (!xmlTextReaderIsEmptyElement(reader)) {
+							reference = (gchar *)xmlTextReaderReadInnerXml(reader);
+							DBG_PARSING("reference=%s\n",reference);
+							while (xmlTextReaderRead(reader)==1) {
+								xmlFree(name);
+								name=xmlTextReaderName(reader);
+								if (xmlStrEqual(name,(xmlChar *)"reference")) {
+									break;
+								}
+							}
+						}
+					} else if (xmlStrEqual(name,(xmlChar *)"context")) {
 						innercontext = process_scanning_context(reader,bfparser,contextstack);
 						match_set_nextcontext(bfparser->st, starttagmatch, innercontext);
 					} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
@@ -271,6 +283,9 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					xmlFree(name);
 				}
 			}
+			tmp = g_strconcat("<",tag,NULL);
+			match_autocomplete_reference(bfparser->st,TRUE,tmp,context,autocomplete_append,reference);
+			g_free(tmp);
 			tmp = g_strconcat("</",tag,">",NULL);
 			endtagmatch = add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, innercontext, (innercontext==context)?context:-2, FALSE, TRUE, matchnum, NULL,TRUE,NULL,NULL);
 			g_free(tmp);
