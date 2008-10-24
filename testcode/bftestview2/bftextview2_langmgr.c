@@ -118,13 +118,14 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 
 static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint16 context, GQueue *contextstack) {
 	guint16 matchnum;
-	gchar *pattern=NULL, *style=NULL, *blockstartelement=NULL, *blockstyle=NULL, *class=NULL, *autocomplete_append=NULL;
+	gchar *pattern=NULL, *style=NULL, *blockstartelement=NULL, *blockstyle=NULL, *class=NULL, *autocomplete_append=NULL, *autocomplete_string=NULL, *id=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE, is_empty, autocomplete=FALSE;
 	gint ends_context=0;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"pattern",&pattern);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"id",&id);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"blockstyle",&blockstyle);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"blockstartelement",&blockstartelement);
@@ -135,6 +136,7 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"case_insens", &case_insens);
 		set_integer_if_attribute_name(reader, aname, (xmlChar *)"ends_context", &ends_context);
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"autocomplete", &autocomplete);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_string",&autocomplete_string);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
 		xmlFree(aname);
 	}
@@ -158,7 +160,7 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 			matchnum = add_keyword_to_scanning_table(bfparser->st, pattern, is_regex,case_insens, stylet, context, nextcontext
 					, starts_block, ends_block, blockstartelementum,blockstylet,FALSE,NULL, NULL);
 			DBG_PARSING("add matchnum %d to hash table for key %s, starts_block=%d\n",matchnum,pattern,starts_block);
-			g_hash_table_insert(bfparser->patterns, g_strdup(pattern), GINT_TO_POINTER((gint)matchnum));
+			g_hash_table_insert(bfparser->patterns, g_strdup(id?id:pattern), GINT_TO_POINTER((gint)matchnum));
 			/* now check if there is a deeper context */
 			if (!is_empty) {
 				while (xmlTextReaderRead(reader)==1) {
@@ -190,11 +192,14 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 					xmlFree(name);
 				}
 			}
-			match_autocomplete_reference(bfparser->st,autocomplete,pattern,context,autocomplete_append,reference);
+			match_autocomplete_reference(bfparser->st,autocomplete,autocomplete_string?autocomplete_string:pattern,context,autocomplete_append,reference);
 		}
 	}
 	/* TODO cleanup! */
 	if (pattern) xmlFree(pattern);
+	if (id) xmlFree(id);
+	if (autocomplete_string) xmlFree(autocomplete_string);
+	if (autocomplete_append) xmlFree(autocomplete_append);
 	if (style) xmlFree(style);
 	if (blockstartelement) xmlFree(blockstartelement);
 	if (blockstyle) xmlFree(blockstyle);
