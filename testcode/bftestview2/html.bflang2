@@ -1,12 +1,54 @@
 <bflang pattern="HTML">
-<header><mime type="text/html"/></header>
-<definition><context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+<header>
+	<mime type="text/html"/>
+</header>
+<definition>
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 <tag pattern="html" style="tag" autocomplete_append="&gt;" />
 <tag pattern="head" style="tag" autocomplete_append="&gt;">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" style="region">
 	<tag pattern="meta" style="tag" attributes="name,http-equiv,content" attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<tag pattern="title" style="tag" autocomplete_append="&gt; &lt;/title&gt;" />
-	<tag pattern="script" style="tag" attributes="type,src"  attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+
+	<element pattern="&lt;script" style="tag">
+		<context symbols="&gt;&amp;; &#9;&#10;&#13;&quot;=" >
+			<element pattern="src" style="function"/>
+			<element pattern="language" style="function">
+				<context symbols="&gt;&amp;; &#9;&#10;&#13;&quot;=">
+					<element pattern="&quot;">
+						<context symbols="&gt;&amp;; &#9;&#10;&#13;&quot;=">
+							<element pattern="javascript" case_insens="1" >
+								<context symbols="&gt;&amp;; &#9;&#10;&#13;&quot;=/" >
+									<element pattern="/&gt;" style="tag" ends_context="4"/>
+									<element pattern="&gt;" style="tag">
+										<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;&quot;='+*^()">
+											<element pattern="(" style="braces"/>
+											<element pattern=")" style="braces"/>
+											<element pattern="for" style="keyword" autocomplete="1"/>
+											<element pattern="while" style="keyword" autocomplete="1"/>
+											<element pattern="for" style="keyword" autocomplete="1"/>
+											<element pattern="for" style="keyword" autocomplete="1"/>
+											
+											<element pattern="&lt;/script&gt;" style="tag" ends_context="5"/>
+										</context>
+									</element>
+								</context>
+							</element>
+							<element pattern="&quot;" ends_context="2"/>
+						</context>
+					</element>
+					<element pattern="&gt;" ends_context="2" style="tag"/>
+				</context>
+			</element>
+			<element pattern="&gt;" style="tag" ends_context="1"/>
+		</context>
+	</element>
+
+	<element pattern="&lt;/script&gt;" style="tag"/>
+<!--	<tag pattern="script" style="tag" attributes="type,src"  attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />-->
+	
+	
+	
 	<tag pattern="link" style="tag" attributes="rel,type,href" attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<element pattern="&lt;!--" style="comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
