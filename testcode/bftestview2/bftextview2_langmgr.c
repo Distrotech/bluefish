@@ -79,7 +79,7 @@ static gboolean set_boolean_if_attribute_name(xmlTextReaderPtr reader, xmlChar *
 	return FALSE;
 }
 
-static void process_detection(xmlTextReaderPtr reader, Tbflang *bflang) {
+static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 	while (xmlTextReaderRead(reader)==1) {
 		xmlChar *name=xmlTextReaderName(reader);
 		if (xmlStrEqual(name,(xmlChar *)"mime")) {
@@ -106,7 +106,7 @@ static void process_detection(xmlTextReaderPtr reader, Tbflang *bflang) {
 					bflang->setoptions = g_list_prepend(bflang->setoptions, optionname);
 				}
 			}
-		} else if (xmlStrEqual(name,(xmlChar *)"detection")) {
+		} else if (xmlStrEqual(name,(xmlChar *)"header")) {
 			xmlFree(name);
 			break;
 		}
@@ -118,7 +118,7 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 
 static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint16 context, GQueue *contextstack) {
 	guint16 matchnum;
-	gchar *pattern=NULL, *style=NULL, *blockstartpattern=NULL, *blockstyle=NULL, *class=NULL, *autocomplete_append=NULL;
+	gchar *pattern=NULL, *style=NULL, *blockstartelement=NULL, *blockstyle=NULL, *class=NULL, *autocomplete_append=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE, is_empty, autocomplete=FALSE;
 	gint ends_context=0;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
@@ -127,7 +127,7 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&pattern);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"blockstyle",&blockstyle);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"blockstartpattern",&blockstartpattern);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"blockstartelement",&blockstartelement);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"is_regex", &is_regex);
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"starts_block", &starts_block);
@@ -142,7 +142,7 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 		if (pattern && pattern[0]) {
 			GtkTextTag *stylet=NULL,*blockstylet=NULL;
 			gchar *reference=NULL;
-			guint16 blockstartpatternum=0, nextcontext=context;
+			guint16 blockstartelementum=0, nextcontext=context;
 			DBG_PARSING("pattern %s\n",pattern);
 			if (ends_context) {
 				/* the nth number in the stack */
@@ -151,12 +151,12 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 			}
 			stylet = langmrg_lookup_style(style);
 			blockstylet = langmrg_lookup_style(blockstyle);
-			if (blockstartpattern) {
-				blockstartpatternum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, blockstartpattern));
-				DBG_PARSING("got blockstartpatternum %d for blockstartpattern %s, ends_block=%d\n",blockstartpatternum,blockstartpattern,ends_block);
+			if (blockstartelement) {
+				blockstartelementum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, blockstartelement));
+				DBG_PARSING("got blockstartelementum %d for blockstartelement %s, ends_block=%d\n",blockstartelementum,blockstartelement,ends_block);
 			}
 			matchnum = add_keyword_to_scanning_table(bfparser->st, pattern, is_regex,case_insens, stylet, context, nextcontext
-					, starts_block, ends_block, blockstartpatternum,blockstylet,FALSE,NULL, NULL);
+					, starts_block, ends_block, blockstartelementum,blockstylet,FALSE,NULL, NULL);
 			DBG_PARSING("add matchnum %d to hash table for key %s, starts_block=%d\n",matchnum,pattern,starts_block);
 			g_hash_table_insert(bfparser->patterns, g_strdup(pattern), GINT_TO_POINTER((gint)matchnum));
 			/* now check if there is a deeper context */
@@ -180,7 +180,7 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 								}
 							}
 						}
-					} else if (xmlStrEqual(name,(xmlChar *)"pattern")) {
+					} else if (xmlStrEqual(name,(xmlChar *)"element")) {
 						DBG_PARSING("in pattern, found pattern --> end -of-pattern\n");
 						xmlFree(name);
 						break;
@@ -196,55 +196,9 @@ static guint16 process_scanning_pattern(xmlTextReaderPtr reader, Tbflangparsing 
 	/* TODO cleanup! */
 	if (pattern) xmlFree(pattern);
 	if (style) xmlFree(style);
-	if (blockstartpattern) xmlFree(blockstartpattern);
+	if (blockstartelement) xmlFree(blockstartelement);
 	if (blockstyle) xmlFree(blockstyle);
 	if (class) xmlFree(class);
-	return matchnum;
-}
-static guint16 process_scanning_keyword(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context) {
-	gchar *name=NULL, *style=NULL, *reference=NULL, *class=NULL, *autocomplete_append=NULL;
-	gboolean autocomplete=FALSE,case_insens=FALSE, is_empty;
-	guint16 matchnum=0;
-	is_empty = xmlTextReaderIsEmptyElement(reader);
-	DBG_PARSING("processing keyword...\n");
-	while (xmlTextReaderMoveToNextAttribute(reader)) {
-		xmlChar *aname = xmlTextReaderName(reader);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&name);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
-		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"autocomplete", &autocomplete);
-		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"case_insens", &case_insens);
-		xmlFree(aname);
-	}
-	if (!is_empty) {
-		gint ret;
-		/* get reference data */
-		reference = (gchar *)xmlTextReaderReadInnerXml(reader);
-		/* BUG: this doesn't work if there is <keyword></keyword> */
-		ret = xmlTextReaderRead(reader);
-		while (xmlTextReaderRead(reader)==1) {
-			xmlChar *name2 = xmlTextReaderName(reader);
-			if (xmlStrEqual(name2,(xmlChar *)"keyword")) { /* end of keyword */
-				xmlFree(name2);
-				break;
-			}
-			xmlFree(name2);
-		} 
-	}
-	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
-		if (name && name[0]) {
-			GtkTextTag *stylet;
-			stylet = langmrg_lookup_style(style);
-			matchnum = add_keyword_to_scanning_table(bfparser->st, name, FALSE,case_insens, stylet, context, context
-					, FALSE, FALSE, 0,NULL,autocomplete,autocomplete_append, reference);
-		}
-	}
-	if (name) g_free(name);
-	if (style) g_free(style);
-	if (class) g_free(class);
-	if (reference) xmlFree(reference);
-	if (autocomplete_append) g_free(autocomplete_append);
 	return matchnum;
 }
 
@@ -361,10 +315,8 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 	while (xmlTextReaderRead(reader)==1) {
 		xmlChar *name = xmlTextReaderName(reader);
 		DBG_PARSING("parsing context, found node name %s\n",name);
-		if (xmlStrEqual(name,(xmlChar *)"pattern")) {
+		if (xmlStrEqual(name,(xmlChar *)"element")) {
 			process_scanning_pattern(reader,bfparser,context,contextstack);
-		} else if (xmlStrEqual(name,(xmlChar *)"keyword")) {
-			process_scanning_keyword(reader,bfparser,context);
 		} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
 			process_scanning_tag(reader,bfparser,context,contextstack);
 		} else if (xmlStrEqual(name,(xmlChar *)"context")) {
@@ -411,18 +363,18 @@ static gpointer build_lang_thread(gpointer data)
 	while (xmlTextReaderRead(reader) == 1) {
 		xmlChar *name = xmlTextReaderName(reader);
 		DBG_PARSING("found %s\n",name);
-		if (xmlStrEqual(name,(xmlChar *)"detection")) {
+		if (xmlStrEqual(name,(xmlChar *)"header")) {
 			/* actually we can skip detection */
 			DBG_PARSING("processing <detection>\n");
-			process_detection(reader,bflang);
-		} else if (xmlStrEqual(name,(xmlChar *)"scanning")) {
+			process_header(reader,bflang);
+		} else if (xmlStrEqual(name,(xmlChar *)"definition")) {
 			DBG_PARSING("processing <scanning>\n");
 			while (xmlTextReaderRead(reader)==1) {
 				xmlChar *name2 = xmlTextReaderName(reader);
 				if (xmlStrEqual(name2,(xmlChar *)"context")) {
 					GQueue *contextstack = g_queue_new();
 					process_scanning_context(reader,bfparser,contextstack);
-				} else if (xmlStrEqual(name2,(xmlChar *)"scanning")) {
+				} else if (xmlStrEqual(name2,(xmlChar *)"definition")) {
 					xmlFree(name2);
 					break;
 				} else
@@ -472,10 +424,10 @@ static Tbflang *parse_bflang2_header(const gchar *filename) {
 	if (reader != NULL) {
 		while (xmlTextReaderRead(reader) == 1 && bflang==NULL) {
 			xmlChar *name = xmlTextReaderName(reader);
-			if (xmlStrEqual(name,(xmlChar *)"detection")) {
+			if (xmlStrEqual(name,(xmlChar *)"header")) {
 				bflang = g_slice_new0(Tbflang);
 				bflang->filename = g_strdup(filename);
-				process_detection(reader,bflang);
+				process_header(reader,bflang);
 			}
 			xmlFree(name);
 		}
