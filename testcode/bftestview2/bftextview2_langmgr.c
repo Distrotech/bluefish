@@ -215,7 +215,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"pattern",&tag);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&tag);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);

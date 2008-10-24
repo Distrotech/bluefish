@@ -4,44 +4,44 @@
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-<tag pattern="html" style="tag" />
-<tag pattern="head" style="tag" />
-<tag pattern="meta" style="tag" attributes="name,http-equiv,content" attribstyle="function" autocomplete_append=" /&gt;" />
-<tag pattern="title" style="tag" autocomplete_append="&gt; &lt;/title&gt;" />
-<tag pattern="script" style="tag" attributes="type,src"  attribstyle="function" autocomplete_append=" /&gt;" />
-<tag pattern="link" style="tag" attributes="rel,type,href" attribstyle="function" autocomplete_append=" /&gt;" />
-<tag pattern="body" style="tag" />
-<tag pattern="div" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="p" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="span" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="img" style="storage" attributes="src,width,height,align,valign,border,alt" attribstyle="function" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;"/>
-<tag pattern="i" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="b" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="em" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="strong" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="u" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="a" style="storage" attributes="style,class,id,href,target" attribstyle="function" autocomplete_append=" href=&#34;&#34; &gt;" />
-<tag pattern="table" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="th" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="tr" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="td" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="ul" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="ol" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="li" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="h1" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="h2" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="h3" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="h4" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="h5" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="h6" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="br" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append=" /&gt;" />
-<tag pattern="kbd" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag pattern="form" style="tag" attributes="style,class,id,action,method,enctype,target" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag pattern="input" style="tag" attributes="style,class,id,type,name,value,size,maxlength,checked" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag pattern="select" style="tag" attributes="style,class,id,name,size,multiple" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag pattern="textarea" style="tag" attributes="style,class,id,name,rows,cols" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag pattern="option" style="tag" attributes="style,class,id,value,label,selected" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag pattern="optgroup" style="tag" attributes="style,class,id,label" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="html" style="tag" />
+<tag name="head" style="tag" />
+<tag name="meta" style="tag" attributes="name,http-equiv,content" attribstyle="function" autocomplete_append=" /&gt;" />
+<tag name="title" style="tag" autocomplete_append="&gt; &lt;/title&gt;" />
+<tag name="script" style="tag" attributes="type,src"  attribstyle="function" autocomplete_append=" /&gt;" />
+<tag name="link" style="tag" attributes="rel,type,href" attribstyle="function" autocomplete_append=" /&gt;" />
+<tag name="body" style="tag" />
+<tag name="div" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="p" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="span" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="img" style="storage" attributes="src,width,height,align,valign,border,alt" attribstyle="function" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;"/>
+<tag name="i" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="b" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="em" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="strong" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="u" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="a" style="storage" attributes="style,class,id,href,target" attribstyle="function" autocomplete_append=" href=&#34;&#34; &gt;" />
+<tag name="table" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="th" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="tr" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="td" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="ul" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="ol" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="li" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="h1" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="h2" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="h3" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="h4" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="h5" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="h6" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="br" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append=" /&gt;" />
+<tag name="kbd" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
+<tag name="form" style="tag" attributes="style,class,id,action,method,enctype,target" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="input" style="tag" attributes="style,class,id,type,name,value,size,maxlength,checked" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="select" style="tag" attributes="style,class,id,name,size,multiple" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="textarea" style="tag" attributes="style,class,id,name,rows,cols" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="option" style="tag" attributes="style,class,id,value,label,selected" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="optgroup" style="tag" attributes="style,class,id,label" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	
 <element pattern="&lt;?php" starts_block="1" style="region">
 <context symbols="'&#34;(){}[];:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" style="region">
