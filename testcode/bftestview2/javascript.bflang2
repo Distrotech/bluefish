@@ -1,0 +1,47 @@
+<bflang pattern="C">
+<header>
+	<mime type="application/javascript"/>
+</header>
+<definition>
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+
+<element pattern="if" autocomplete="1" style="keyword" />
+<element pattern="else" autocomplete="1" style="keyword" />
+<element pattern="where" autocomplete="1" style="keyword" />
+<element pattern="case" autocomplete="1" style="keyword" />
+<element pattern="switch" autocomplete="1" style="keyword" />
+<element pattern="break" autocomplete="1" style="keyword" />
+<element pattern="return" autocomplete="1" style="keyword" />
+<element pattern="while" autocomplete="1" style="keyword" />
+<element pattern="for" autocomplete="1" style="keyword" />
+<element pattern="function" autocomplete="1" style="keyword" />
+
+<element pattern="&#34;" style="string">
+	<context symbols="\&#34;" style="string">
+		<element pattern="\&#34;" style="string" />
+		<element pattern="&#34;" style="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="'" style="string">
+	<context symbols="\'" style="string">
+		<element pattern="\." is_regex="1" style="string" />
+		<element pattern="'" style="string" ends_context="1" />
+	</context>
+</element>
+		<element pattern="{" starts_block="1" mayfold="1" style="braces" />
+		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" />
+		<element pattern="[" starts_block="1" mayfold="1" style="braces" />
+		<element pattern="]" ends_block="1" blockstartelement="[" style="braces" />
+		<element pattern="(" starts_block="1" mayfold="1" style="braces" />
+		<element pattern=")" ends_block="1" blockstartelement="(" style="braces" />
+		<element pattern="/*" starts_block="1" style="comment">
+			<context symbols="*/&#9;&#10;&#13;" style="comment">
+				<element pattern="*/" ends_block="1" blockstartelement="/*" style="comment" mayfold="1" ends_context="1" />
+			</context>
+		</element>
+		<element pattern="[0-9.]+" is_regex="1" style="value"/>
+		<element pattern="//[^&#10;]+" is_regex="1" style="comment"/>
+		<element pattern="#[^&#10;]+" is_regex="1" style="tag"/>
+	</context>
+</definition>
+</bflang>

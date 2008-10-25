@@ -136,7 +136,7 @@ static gboolean bftextview2_scanner_timeout(gpointer data) {
 }
 
 static void bftextview2_schedule_scanning(BluefishTextView * btv) {
-	if (btv->scanner_idle == 0) {
+	if (btv->bflang && btv->bflang->st && btv->scanner_idle == 0) {
 		DBG_SIGNALS("bftextview2_schedule_scanning, scheduling scanning function\n");
 		DBG_DELAYSCANNING("scheduling scanning in idle function\n");
 		btv->scanner_idle = g_idle_add(bftextview2_scanner_idle, btv);
@@ -175,7 +175,7 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 									 GtkTextMark * arg2, gpointer widget)
 {
 	
-	if (arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
+	if (BLUEFISH_TEXT_VIEW(widget)->bflang && BLUEFISH_TEXT_VIEW(widget)->bflang->st && arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
 		GtkTextIter it1, it2;
 		Tfoundblock *fblock = bftextview2_get_block_at_iter(location);
 		gtk_text_buffer_get_bounds(buffer, &it1, &it2);
@@ -488,7 +488,7 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
 	bftextview2_reset_user_idle_timer(btv);
-	bftextview2_schedule_scanning(user_data);
+	bftextview2_schedule_scanning(btv);
 }
 
 static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
@@ -547,6 +547,10 @@ static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 	Tfoundstack *fstack;
 	GSequenceIter *siter;
 	gint line;
+	
+	if (!btv->bflang)
+		return;
+	
 	line = gtk_text_iter_get_line(iter);
 	 /* returns the fstack PRIOR to iter, or the fstack excactly at iter,
 	 but this fails if the iter is the start of the buffer */
