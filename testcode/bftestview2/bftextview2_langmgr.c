@@ -492,6 +492,8 @@ void langmgr_init(void) {
 	register_bflanguage(bflang);
 	bflang = parse_bflang2_header("javascript.bflang2");
 	register_bflanguage(bflang);
+	bflang = parse_bflang2_header("java.bflang2");
+	register_bflanguage(bflang);
 
 	DBG_PARSING("langmgr_init, returning \n");
 }
