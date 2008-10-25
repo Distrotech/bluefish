@@ -20,6 +20,16 @@ typedef struct {
 
 static Tlangmgr langmgr = {NULL,NULL,NULL};
 
+static void skip_to_end_tag(xmlTextReaderPtr reader, int depth) {
+	while (xmlTextReaderRead(reader)==1) {
+		if (xmlTextReaderNodeType(reader)==XML_READER_TYPE_END_ELEMENT && depth == xmlTextReaderDepth(reader)) {
+			DBG_PARSING("found node %s type %d with depth %d\n", xmlTextReaderName(reader),xmlTextReaderNodeType(reader), xmlTextReaderDepth(reader));
+			break;
+		}
+	}
+}
+
+
 GtkTextTag *langmrg_lookup_style(const gchar *style) {
 	GtkTextTag *tag=NULL;
 	if (style)
@@ -117,7 +127,7 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack);
 
 static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint16 context, GQueue *contextstack) {
-	guint16 matchnum;
+	guint16 matchnum=0;
 	gchar *pattern=NULL, *style=NULL, *blockstartelement=NULL, *blockstyle=NULL, *class=NULL, *autocomplete_append=NULL, *autocomplete_string=NULL, *id=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE, is_empty, autocomplete=FALSE;
 	gint ends_context=0;
@@ -303,6 +313,55 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 	return matchnum;
 }
 
+static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint context, GQueue *contextstack) {
+	gchar *autocomplete_append=NULL, *style=NULL, *class=NULL, *attrib_autocomplete_append=NULL; 
+	gboolean case_insens=FALSE, is_regex=FALSE, autocomplete=FALSE;
+	gint depth;
+	if (xmlTextReaderIsEmptyElement(reader)) {
+		return;
+	}
+	depth = xmlTextReaderDepth(reader);
+	while (xmlTextReaderMoveToNextAttribute(reader)) {
+		xmlChar *aname = xmlTextReaderName(reader);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"style",&style);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"attrib_autocomplete_append",&attrib_autocomplete_append);
+		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"case_insens",&case_insens);
+		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"is_regex",&is_regex);
+		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete",&autocomplete);
+		xmlFree(aname);
+	}
+	
+	if (class && GPOINTER_TO_INT(g_hash_table_lookup(bfparser->setoptions,class))==1){
+		DBG_PARSING("group disabled, class=%s, skip to end of group, my depth=%d\n",class,depth);
+		skip_to_end_tag(reader, depth);
+	} else {
+		while (xmlTextReaderRead(reader)==1) {
+			xmlChar *name = xmlTextReaderName(reader);
+			if (xmlStrEqual(name,(xmlChar *)"element")) {
+				process_scanning_element(reader,bfparser,context,contextstack);
+			} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
+				process_scanning_tag(reader,bfparser,context,contextstack);
+			} else if (xmlStrEqual(name,(xmlChar *)"group")) {
+				if (xmlTextReaderDepth(reader)==depth) {
+					DBG_PARSING("end-of-group\n");
+					xmlFree(name);
+					break;
+				} else {
+					process_scanning_group(reader, bfparser, context, contextstack);
+				}
+			} else
+				DBG_PARSING("found %s\n",name);
+			xmlFree(name);
+		}
+	}
+	g_free(autocomplete_append);
+	g_free(style);
+	g_free(class);
+	g_free(attrib_autocomplete_append);
+}
+
 static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack) {
 	gchar *symbols=NULL, *style=NULL, *name=NULL;
 	gboolean autocomplete_case_insens=FALSE,is_empty;
@@ -339,13 +398,16 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 			process_scanning_element(reader,bfparser,context,contextstack);
 		} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
 			process_scanning_tag(reader,bfparser,context,contextstack);
+		} else if (xmlStrEqual(name,(xmlChar *)"group")) {
+			g_print("parsing context, group found\n");
+			process_scanning_group(reader,bfparser,context,contextstack);
 		} else if (xmlStrEqual(name,(xmlChar *)"context")) {
 			xmlFree(name);
-			DBG_PARSING("end-of-context, return context %d\n",context);
+			DBG_PARSING("parsing context, end-of-context, return context %d\n",context);
 			g_queue_pop_head(contextstack); 
 			return context;
 		} else
-			DBG_PARSING("found %s\n",name);
+			DBG_PARSING("parsing context, found %s\n",name);
 		xmlFree(name);
 	}
 	/* can we ever get here ?? */
