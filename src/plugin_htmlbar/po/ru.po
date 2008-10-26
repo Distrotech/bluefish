@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ru.po\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2008-08-29 23:38-0700\n"
+"POT-Creation-Date: 2008-10-19 14:31-0700\n"
 "PO-Revision-Date: 2004-12-02 10:42+0300\n"
 "Last-Translator: Eugene Rupakov <taurus_1@mail.ru>\n"
 "Language-Team:  <ru@li.org>\n"
@@ -1476,6 +1476,7 @@ msgstr "_Язык:"
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
+#: src/plugin_htmlbar/image_dialog.c:401
 msgid "Custo_m:"
 msgstr "Про_чее:"
 
@@ -1540,7 +1541,7 @@ msgstr "_Выравнивание:"
 #: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
 #: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
 #: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
-#: src/plugin_htmlbar/image_dialog.c:294
+#: src/plugin_htmlbar/image_dialog.c:389
 msgid "Cl_ass:"
 msgstr "_Класс:"
 
@@ -1560,19 +1561,19 @@ msgid "Horizontal Rule"
 msgstr "Горизонтальный разделитель"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:323
+#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:422
 msgid "_Align:"
 msgstr "В_ыравнивание"
 
 #: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
-#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:256
+#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:363
 msgid "_Height:"
 msgstr "Вы_сота:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:247
+#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:354
 msgid "_Width:"
 msgstr "_Ширина:"
 
@@ -1724,7 +1725,7 @@ msgid "_Add <frame> elements"
 msgstr "_Добавить элементы <frame>"
 
 #: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
-#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:207
+#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:314
 msgid "_Source:"
 msgstr "_Источник:"
 
@@ -1943,7 +1944,7 @@ msgstr "Вставить эскиз"
 msgid "Insert image"
 msgstr "Вставить изображение"
 
-#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:226
+#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:333
 msgid "Preview"
 msgstr "Просмотр"
 
@@ -1955,7 +1956,7 @@ msgstr "Ссылка на _изображение:"
 msgid "Hei_ght:"
 msgstr "В_ысота:"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:302
+#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:397
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
@@ -1963,11 +1964,11 @@ msgstr "_Usemap:"
 msgid "Alternate _text:"
 msgstr "Альтернативный _текст:"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:332
+#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:431
 msgid "_Hspace:"
 msgstr "_Hspace:"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:336
+#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:435
 msgid "_Vspace:"
 msgstr "_Vspace:"
 
@@ -2023,70 +2024,71 @@ msgstr ""
 "%x: ширина эскиза  %y: высота эскиза\n"
 "%b: размер исходного файла (в байтах)"
 
-#: src/plugin_htmlbar/image_dialog.c:263
+#: src/plugin_htmlbar/image_dialog.c:370
 #, fuzzy
 msgid "_Reset Dimensions"
 msgstr "Размеры"
 
-#: src/plugin_htmlbar/image_dialog.c:286
+#: src/plugin_htmlbar/image_dialog.c:381
 #, fuzzy
 msgid "Alternate te_xt:"
 msgstr "Альтернативный _текст:"
 
-#: src/plugin_htmlbar/image_dialog.c:290
+#: src/plugin_htmlbar/image_dialog.c:385
 #, fuzzy
 msgid "_Long description:"
 msgstr "_Описание"
 
-#: src/plugin_htmlbar/image_dialog.c:298
+#: src/plugin_htmlbar/image_dialog.c:393
 #, fuzzy
 msgid "I_D:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/image_dialog.c:304
+#: src/plugin_htmlbar/image_dialog.c:403
 #, fuzzy
 msgid "Strict"
 msgstr "Скрипт"
 
-#: src/plugin_htmlbar/image_dialog.c:313
+#: src/plugin_htmlbar/image_dialog.c:412
 msgid "_Use Transitional options"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:328
+#: src/plugin_htmlbar/image_dialog.c:427
 #, fuzzy
 msgid "_Border:"
 msgstr "_Рамка"
 
-#: src/plugin_htmlbar/image_dialog.c:338
+#: src/plugin_htmlbar/image_dialog.c:437
 #, fuzzy
 msgid "Transitional"
 msgstr "Переводчики"
 
-#: src/plugin_htmlbar/image_dialog.c:486
+#: src/plugin_htmlbar/image_dialog.c:749
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:491
+#: src/plugin_htmlbar/image_dialog.c:754
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:682
+#: src/plugin_htmlbar/image_dialog.c:948
 #, fuzzy
 msgid "Select Image"
 msgstr "Выберите Файл"
 
-#: src/plugin_htmlbar/image_dialog.c:690
+#: src/plugin_htmlbar/image_dialog.c:956
 #, fuzzy
 msgid "images"
 msgstr "Изображения"
 
-#: src/plugin_htmlbar/image_dialog.c:885
+#: src/plugin_htmlbar/image_dialog.c:1176
+#: src/plugin_htmlbar/image_dialog.c:1288
 #, fuzzy
 msgid "Insert Image"
 msgstr "Вставить изображение"

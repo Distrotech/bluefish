@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2008-08-29 23:38-0700\n"
+"POT-Creation-Date: 2008-10-19 14:31-0700\n"
 "PO-Revision-Date: 2003-12-06 14:24+0100\n"
 "Last-Translator: Juho Roukala <j.mr@luukku.com>\n"
 "Language-Team: Not a memeber <LL@li.org>\n"
@@ -1510,6 +1510,7 @@ msgstr "Kie_li:"
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
+#: src/plugin_htmlbar/image_dialog.c:401
 msgid "Custo_m:"
 msgstr "_Mukautettu:"
 
@@ -1574,7 +1575,7 @@ msgstr "Tasau_s:"
 #: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
 #: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
 #: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
-#: src/plugin_htmlbar/image_dialog.c:294
+#: src/plugin_htmlbar/image_dialog.c:389
 msgid "Cl_ass:"
 msgstr "Luokk_a:"
 
@@ -1594,19 +1595,19 @@ msgid "Horizontal Rule"
 msgstr "Vaakasuora viiva"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:323
+#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:422
 msgid "_Align:"
 msgstr "_Tasaus:"
 
 #: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
-#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:256
+#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:363
 msgid "_Height:"
 msgstr "_Korkeus:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:247
+#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:354
 msgid "_Width:"
 msgstr "_Leveys:"
 
@@ -1758,7 +1759,7 @@ msgid "_Add <frame> elements"
 msgstr "_Lisää <frame> elementtejä"
 
 #: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
-#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:207
+#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:314
 msgid "_Source:"
 msgstr "L_ähde:"
 
@@ -1977,7 +1978,7 @@ msgstr "Lisää esikatselukuva"
 msgid "Insert image"
 msgstr "Lisää kuva"
 
-#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:226
+#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:333
 msgid "Preview"
 msgstr "Esikatsele"
 
@@ -1989,7 +1990,7 @@ msgstr "K_uvan sijainti:"
 msgid "Hei_ght:"
 msgstr "Ko_rkeus:"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:302
+#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:397
 msgid "_Usemap:"
 msgstr "Käytä k_arttaa:"
 
@@ -1997,11 +1998,11 @@ msgstr "Käytä k_arttaa:"
 msgid "Alternate _text:"
 msgstr "V_aihtoehtoinen teksti:"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:332
+#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:431
 msgid "_Hspace:"
 msgstr "_Vaakavälistys:"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:336
+#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:435
 msgid "_Vspace:"
 msgstr "_Pystyvälistys"
 
@@ -2057,70 +2058,71 @@ msgstr ""
 "%x: esikatselukuvan leveys  %g: esikatselukuvan korkeus\n"
 "%b: alkuperäinen koko (tavua)"
 
-#: src/plugin_htmlbar/image_dialog.c:263
+#: src/plugin_htmlbar/image_dialog.c:370
 #, fuzzy
 msgid "_Reset Dimensions"
 msgstr "Ulottuvuudet"
 
-#: src/plugin_htmlbar/image_dialog.c:286
+#: src/plugin_htmlbar/image_dialog.c:381
 #, fuzzy
 msgid "Alternate te_xt:"
 msgstr "V_aihtoehtoinen teksti:"
 
-#: src/plugin_htmlbar/image_dialog.c:290
+#: src/plugin_htmlbar/image_dialog.c:385
 #, fuzzy
 msgid "_Long description:"
 msgstr "_Kuvaus"
 
-#: src/plugin_htmlbar/image_dialog.c:298
+#: src/plugin_htmlbar/image_dialog.c:393
 #, fuzzy
 msgid "I_D:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/image_dialog.c:304
+#: src/plugin_htmlbar/image_dialog.c:403
 #, fuzzy
 msgid "Strict"
 msgstr "Skripti"
 
-#: src/plugin_htmlbar/image_dialog.c:313
+#: src/plugin_htmlbar/image_dialog.c:412
 msgid "_Use Transitional options"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:328
+#: src/plugin_htmlbar/image_dialog.c:427
 #, fuzzy
 msgid "_Border:"
 msgstr "_Reuna:"
 
-#: src/plugin_htmlbar/image_dialog.c:338
+#: src/plugin_htmlbar/image_dialog.c:437
 #, fuzzy
 msgid "Transitional"
 msgstr "Kääntäjät"
 
-#: src/plugin_htmlbar/image_dialog.c:486
+#: src/plugin_htmlbar/image_dialog.c:749
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:491
+#: src/plugin_htmlbar/image_dialog.c:754
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:682
+#: src/plugin_htmlbar/image_dialog.c:948
 #, fuzzy
 msgid "Select Image"
 msgstr "Valitse tiedosto"
 
-#: src/plugin_htmlbar/image_dialog.c:690
+#: src/plugin_htmlbar/image_dialog.c:956
 #, fuzzy
 msgid "images"
 msgstr "Kuvat"
 
-#: src/plugin_htmlbar/image_dialog.c:885
+#: src/plugin_htmlbar/image_dialog.c:1176
+#: src/plugin_htmlbar/image_dialog.c:1288
 #, fuzzy
 msgid "Insert Image"
 msgstr "Lisää kuva"

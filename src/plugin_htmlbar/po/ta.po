@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2008-08-29 23:38-0700\n"
+"POT-Creation-Date: 2008-10-19 14:31-0700\n"
 "PO-Revision-Date: 2006-02-10 23:32+0530\n"
 "Last-Translator: Murugapandian barathee <barathee@gmail.com>\n"
 "Language-Team: Not a member <LL@li.org>\n"
@@ -1473,6 +1473,7 @@ msgstr "மொழி _L:"
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
+#: src/plugin_htmlbar/image_dialog.c:401
 msgid "Custo_m:"
 msgstr "தனிப்பயன் _m"
 
@@ -1537,7 +1538,7 @@ msgstr "இசைவு _g:"
 #: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
 #: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
 #: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
-#: src/plugin_htmlbar/image_dialog.c:294
+#: src/plugin_htmlbar/image_dialog.c:389
 msgid "Cl_ass:"
 msgstr "Cl_ass:"
 
@@ -1557,19 +1558,19 @@ msgid "Horizontal Rule"
 msgstr "கிடைக்கோடு"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:323
+#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:422
 msgid "_Align:"
 msgstr "இசைவு _A:"
 
 #: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
-#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:256
+#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:363
 msgid "_Height:"
 msgstr "உயரம் _H:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:247
+#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:354
 msgid "_Width:"
 msgstr "அகலம் _W:"
 
@@ -1719,7 +1720,7 @@ msgid "_Add <frame> elements"
 msgstr "<frame> தன்மைகளைச் சேர் _A"
 
 #: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
-#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:207
+#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:314
 msgid "_Source:"
 msgstr "மூலநிரல் _S:"
 
@@ -1935,7 +1936,7 @@ msgstr "நகக்கண் சித்திரத்தைச் செர�
 msgid "Insert image"
 msgstr "சித்திரத்தைச் செருகு"
 
-#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:226
+#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:333
 msgid "Preview"
 msgstr "முன்னோட்டம்"
 
@@ -1947,7 +1948,7 @@ msgstr "சித்திர அமைவிடம் _I"
 msgid "Hei_ght:"
 msgstr "உயரம் _g:"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:302
+#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:397
 msgid "_Usemap:"
 msgstr "_Usemap:"
 
@@ -1955,11 +1956,11 @@ msgstr "_Usemap:"
 msgid "Alternate _text:"
 msgstr "மாற்று உரை _t:"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:332
+#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:431
 msgid "_Hspace:"
 msgstr "_Hspace:"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:336
+#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:435
 msgid "_Vspace:"
 msgstr "_Vspace:"
 
@@ -2015,66 +2016,67 @@ msgstr ""
 "%x: நகக்கண் சித்திர அகலம்  %y: நகக்கண் சித்திர உயரம்\n"
 "%b: அசல் அளவு (பைட்டுகள்)"
 
-#: src/plugin_htmlbar/image_dialog.c:263
+#: src/plugin_htmlbar/image_dialog.c:370
 msgid "_Reset Dimensions"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:286
+#: src/plugin_htmlbar/image_dialog.c:381
 #, fuzzy
 msgid "Alternate te_xt:"
 msgstr "மாற்று உரை _t:"
 
-#: src/plugin_htmlbar/image_dialog.c:290
+#: src/plugin_htmlbar/image_dialog.c:385
 msgid "_Long description:"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:298
+#: src/plugin_htmlbar/image_dialog.c:393
 #, fuzzy
 msgid "I_D:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/image_dialog.c:304
+#: src/plugin_htmlbar/image_dialog.c:403
 #, fuzzy
 msgid "Strict"
 msgstr "கட்டளைத்தொடர்"
 
-#: src/plugin_htmlbar/image_dialog.c:313
+#: src/plugin_htmlbar/image_dialog.c:412
 msgid "_Use Transitional options"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:328
+#: src/plugin_htmlbar/image_dialog.c:427
 #, fuzzy
 msgid "_Border:"
 msgstr "பார்டர் _r"
 
-#: src/plugin_htmlbar/image_dialog.c:338
+#: src/plugin_htmlbar/image_dialog.c:437
 msgid "Transitional"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:486
+#: src/plugin_htmlbar/image_dialog.c:749
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:491
+#: src/plugin_htmlbar/image_dialog.c:754
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:682
+#: src/plugin_htmlbar/image_dialog.c:948
 #, fuzzy
 msgid "Select Image"
 msgstr "தேர்ந்தெடு"
 
-#: src/plugin_htmlbar/image_dialog.c:690
+#: src/plugin_htmlbar/image_dialog.c:956
 msgid "images"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:885
+#: src/plugin_htmlbar/image_dialog.c:1176
+#: src/plugin_htmlbar/image_dialog.c:1288
 #, fuzzy
 msgid "Insert Image"
 msgstr "சித்திரத்தைச் செருகு"
