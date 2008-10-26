@@ -29,7 +29,6 @@ static void skip_to_end_tag(xmlTextReaderPtr reader, int depth) {
 	}
 }
 
-
 GtkTextTag *langmrg_lookup_style(const gchar *style) {
 	GtkTextTag *tag=NULL;
 	if (style)
@@ -81,9 +80,10 @@ static gboolean set_integer_if_attribute_name(xmlTextReaderPtr reader, xmlChar *
 static gboolean set_boolean_if_attribute_name(xmlTextReaderPtr reader, xmlChar *aname, xmlChar *searchname, gboolean *bool) {
 	gchar *tmp=NULL;
 	if (set_string_if_attribute_name(reader, aname, searchname, &tmp)) {
-		if (tmp)
+		if (tmp) {
 			*bool = (tmp[0] == '1');
-		g_free(tmp);
+			g_free(tmp);
+		}
 		return TRUE;
 	}
 	return FALSE;
@@ -340,7 +340,7 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 		xmlFree(aname);
 	}
 	
-	if (class && GPOINTER_TO_INT(g_hash_table_lookup(bfparser->setoptions,class))==1){
+	if (class && GPOINTER_TO_INT(g_hash_table_lookup(bfparser->setoptions,class))!=1){
 		DBG_PARSING("group disabled, class=%s, skip to end of group, my depth=%d\n",class,depth);
 		skip_to_end_tag(reader, depth);
 	} else {
