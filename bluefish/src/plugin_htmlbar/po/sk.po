@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 17-01-06_sk-2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2008-08-29 23:38-0700\n"
+"POT-Creation-Date: 2008-10-19 14:31-0700\n"
 "PO-Revision-Date: 2008-02-02 15:12+0100\n"
 "Last-Translator: Pavol Klacansky <pavolzetor@gmail.com>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -1473,6 +1473,7 @@ msgstr "_Jazyk:"
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
+#: src/plugin_htmlbar/image_dialog.c:401
 msgid "Custo_m:"
 msgstr "Vlast_né:"
 
@@ -1537,7 +1538,7 @@ msgstr "Za_rovnanie:"
 #: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
 #: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
 #: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
-#: src/plugin_htmlbar/image_dialog.c:294
+#: src/plugin_htmlbar/image_dialog.c:389
 msgid "Cl_ass:"
 msgstr "Trie_da:"
 
@@ -1557,19 +1558,19 @@ msgid "Horizontal Rule"
 msgstr "Horizontálna čiara"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:323
+#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:422
 msgid "_Align:"
 msgstr "Za_rovnanie:"
 
 #: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
-#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:256
+#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:363
 msgid "_Height:"
 msgstr "_Výška:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:247
+#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:354
 msgid "_Width:"
 msgstr "Šír_ka:"
 
@@ -1719,7 +1720,7 @@ msgid "_Add <frame> elements"
 msgstr "Prid_ať <frame> prvky "
 
 #: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
-#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:207
+#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:314
 msgid "_Source:"
 msgstr "_Zdroj:"
 
@@ -1935,7 +1936,7 @@ msgstr "Vložit náhľad"
 msgid "Insert image"
 msgstr "Vlož obrázok"
 
-#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:226
+#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:333
 msgid "Preview"
 msgstr "Prehľad"
 
@@ -1947,7 +1948,7 @@ msgstr "_Umíestnenie obrázku:"
 msgid "Hei_ght:"
 msgstr "_Výška:"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:302
+#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:397
 msgid "_Usemap:"
 msgstr "Po_uži mapu:"
 
@@ -1955,11 +1956,11 @@ msgstr "Po_uži mapu:"
 msgid "Alternate _text:"
 msgstr "Alternativní _text:"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:332
+#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:431
 msgid "_Hspace:"
 msgstr "_Horizontálna medzera:"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:336
+#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:435
 msgid "_Vspace:"
 msgstr "_Vertikálna medzera:"
 
@@ -2015,66 +2016,67 @@ msgstr ""
 "%x: šírka náhľadu  %y: výška náhľadu\n"
 "%b: pôvodná veľkosť (bajtov)"
 
-#: src/plugin_htmlbar/image_dialog.c:263
+#: src/plugin_htmlbar/image_dialog.c:370
 msgid "_Reset Dimensions"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:286
+#: src/plugin_htmlbar/image_dialog.c:381
 #, fuzzy
 msgid "Alternate te_xt:"
 msgstr "Alternativní _text:"
 
-#: src/plugin_htmlbar/image_dialog.c:290
+#: src/plugin_htmlbar/image_dialog.c:385
 msgid "_Long description:"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:298
+#: src/plugin_htmlbar/image_dialog.c:393
 #, fuzzy
 msgid "I_D:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/image_dialog.c:304
+#: src/plugin_htmlbar/image_dialog.c:403
 #, fuzzy
 msgid "Strict"
 msgstr "Skript"
 
-#: src/plugin_htmlbar/image_dialog.c:313
+#: src/plugin_htmlbar/image_dialog.c:412
 msgid "_Use Transitional options"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:328
+#: src/plugin_htmlbar/image_dialog.c:427
 #, fuzzy
 msgid "_Border:"
 msgstr "Ok_raj:"
 
-#: src/plugin_htmlbar/image_dialog.c:338
+#: src/plugin_htmlbar/image_dialog.c:437
 msgid "Transitional"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:486
+#: src/plugin_htmlbar/image_dialog.c:749
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:491
+#: src/plugin_htmlbar/image_dialog.c:754
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:682
+#: src/plugin_htmlbar/image_dialog.c:948
 #, fuzzy
 msgid "Select Image"
 msgstr "Výber"
 
-#: src/plugin_htmlbar/image_dialog.c:690
+#: src/plugin_htmlbar/image_dialog.c:956
 msgid "images"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:885
+#: src/plugin_htmlbar/image_dialog.c:1176
+#: src/plugin_htmlbar/image_dialog.c:1288
 #, fuzzy
 msgid "Insert Image"
 msgstr "Vlož obrázok"
