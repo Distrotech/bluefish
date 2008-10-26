@@ -34,7 +34,8 @@
 	<element pattern="struct"></element>
 	<element pattern="enum"></element>
 </group>
-<group class="glib" style="function" autocomplete="1">
+<group class="glib">
+<group  style="function" autocomplete="1">
 <element pattern="glib_check_version" />
 <element pattern="guint64" />
 <element pattern="G_LIKELY" />
@@ -1226,7 +1227,8 @@
 <element pattern="GCacheNewFunc" />
 <element pattern="g_allocator_new" />
 <element pattern="g_allocator_free" />
-	<group style="storage">
+</group>
+	<group style="storage" autocomplete="1">
 		<element pattern="gint" />
 		<element pattern="guint" />
 		<element pattern="gint16" />
@@ -1234,8 +1236,8 @@
 		<element pattern="gboolean"  />
 		<element pattern="gchar"  />
 	</group>
-<element pattern="TRUE"  style="value" />	
-<element pattern="FALSE"  style="value" />
+	<element pattern="TRUE"  style="value" />	
+	<element pattern="FALSE"  style="value" />
 </group>
 <element pattern="NULL" autocomplete="1" style="value" />
 <element pattern="&#34;" style="string">
