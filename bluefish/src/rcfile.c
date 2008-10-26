@@ -20,11 +20,11 @@
 
 /*****
  * THE WORKING OF THE CONFIG FILES AND STRUCTURES IN BLUEFISH
- * 
+ *
  * there are 3 different places to store options in bluefish
  *
  * 1) main_v->props.item stored in ~/.bluefish/rcfile_v2
- * these items are only stored after preferences OK button 
+ * these items are only stored after preferences OK button
  * is hit, so they should only change if they are changed
  * by the user in the preferences panel
  * They should be added in bluefish.h in struct Tproperties
@@ -38,7 +38,7 @@
  * these are the *global* session variables. global means
  * that they cannot have a different value in projects. This
  * file is saved on exit. Items in here should be items that
- * are always global for all bluefish windows, but can be 
+ * are always global for all bluefish windows, but can be
  * changed outside the preference panel (such as main window
  * width, or recent project files)
  * They should be added in bluefish.h in struct Tglobalsession
@@ -48,16 +48,16 @@
  * 3) bfwin->session->item, stored in ~/.bluefish/session for non-project
  * windows, or stored as part of the project for project windows
  * these are specific session variables. that means they can be different
- * for project windows. Items in here should be items that are useful to 
- * have a different value in a project. For example the encoding, the spell 
+ * for project windows. Items in here should be items that are useful to
+ * have a different value in a project. For example the encoding, the spell
  * check language, the filebrowser filter, etc.
  * They should be added in bluefish.h in struct Tsessionvars
  * They should be in rcfile.c in return_session_configlist()
- * They *probably* should be added to project.c 
+ * They *probably* should be added to project.c
  *        - in project_setup_initial_session()
  *        - in setup_bfwin_for_nonproject()
  *        - in project_open_from_file()
- * 
+ *
  */
 
 /* #define DEBUG */
@@ -277,7 +277,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 
 	rclist = NULL;
 	rclist = get_list(filename, rclist,FALSE);
-	
+
 	if (rclist == NULL) {
 		DEBUG_MSG("no rclist, returning!\n");
 		return retval;
@@ -364,7 +364,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	DEBUG_MSG("parse_config_file, parsed all entries, freeing list read from file\n");	
+	DEBUG_MSG("parse_config_file, parsed all entries, freeing list read from file\n");
 	free_stringlist(rclist);
 	return retval;
 }
@@ -390,9 +390,9 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE);
 	/* old type filetypes have a different count, they are converted below */
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE);
-	
+
 	init_prop_integer   (&config_rc, &main_v->props.leave_to_window_manager, "leave_to_window_manager:", 0, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);	
+	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);
 
 	init_prop_integer   (&config_rc, &main_v->props.left_panel_left, "left_panel_left:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15, TRUE);
@@ -443,9 +443,9 @@ static GList *props_init_main(GList * config_rc)
 #endif
 	init_prop_arraylist (&config_rc, &main_v->props.plugin_config, "plugin_config:", 3, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_blocks, "view_blocks:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.view_symbols, "view_symbols:", 1, TRUE);	
-	init_prop_integer   (&config_rc, &main_v->props.view_mbhl, "view_mbhl:", 1, TRUE);	
-	init_prop_integer   (&config_rc, &main_v->props.view_cline, "view_cline:", 1, TRUE);	
+	init_prop_integer   (&config_rc, &main_v->props.view_symbols, "view_symbols:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.view_mbhl, "view_mbhl:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.view_cline, "view_cline:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.scan_mode,"scan_mode:",1, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.editor_fg,"editor_fg:","#000000");
 	init_prop_string    (&config_rc, &main_v->props.editor_bg,"editor_bg:","#FFFFFF");
@@ -538,7 +538,7 @@ void rcfile_parse_main(void)  {
 	g_free(filename);
 	if (main_v->props.encoding_search_Nbytes< 1000) main_v->props.encoding_search_Nbytes = 2048;
 	/* do some default configuration for the lists */
-	
+
 	if (main_v->props.external_commands){ /* convert old-style external_commands to new style, 1.0.1 had old style */
 		GList *tmplist = g_list_first(main_v->props.external_commands);
 		while (tmplist) {
@@ -561,7 +561,7 @@ void rcfile_parse_main(void)  {
 		free_arraylist(main_v->props.external_commands);
 		main_v->props.external_commands = NULL;
 	}
-	
+
 	if (main_v->props.browsers) { /* convert old-style browsers to new style, 1.0.1 had old style */
 		gboolean have_default = FALSE;
 		GList *tmplist = g_list_first(main_v->props.browsers);
@@ -612,23 +612,22 @@ void rcfile_parse_main(void)  {
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 		arr = array_from_arglist(_("Gnome default"), "gnome-moz-remote --newwin %s&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);*/
-	
-	
+
+
 	{
 		gchar *filename = user_bfdir("encodings");
 		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"/encodings",
 											"data/encodings",
 											"../data/encodings",NULL);
-		
+
 		if (main_v->props.encodings == NULL) {
 			if (filename)
 				main_v->props.encodings = get_list(filename, NULL, TRUE);
 			/* if the user does not have encodings --> set them to defaults values */
-			if (main_v->props.encodings == NULL && defaultfile) {
+			if (main_v->props.encodings == NULL && defaultfile)
 				main_v->props.encodings = get_list(defaultfile,NULL,TRUE);
-			} else {
+			else if (main_v->props.encodings == NULL)
 				g_print("Unable to find '"PKGDATADIR"/encodings'\n");
-			}
 		} else {
 			if (defaultfile && config_file_is_newer(main_v->globses.lasttime_encodings,defaultfile)) {
 				main_v->props.encodings = arraylist_load_new_identifiers_from_file(main_v->props.encodings,defaultfile,1);
@@ -658,9 +657,9 @@ void rcfile_parse_main(void)  {
 	}
 	if (main_v->props.external_command==NULL) {
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Firefox"), "firefox -remote 'openURL(%i, new-window)' || firefox %i&","1",NULL));
-		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Opera"), "opera -remote 'openURL(%I,new-window)' || opera %I&","0",NULL));	
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Opera"), "opera -remote 'openURL(%I,new-window)' || opera %I&","0",NULL));
 	}
-	
+
 /*	if (main_v->props.external_commands == NULL) {
 		/ * if the user does not have external commands --> set them to defaults values * /
 		gchar **arr;
@@ -670,13 +669,13 @@ void rcfile_parse_main(void)  {
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 	}
 	*/
-	
+
 	/* initialize the default textstyles */
 	if (main_v->props.textstyles == NULL) {
 		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"/textstyles",
 									"data/textstyles",
 									"../data/textstyles",NULL);
-		
+
 		if (defaultfile) {
 				main_v->props.textstyles = get_list(defaultfile,NULL,TRUE);
 		} else {
@@ -705,7 +704,7 @@ void rcfile_parse_custom_menu(void) {
 	parse_config_file(custom_menu_configlist, filename);
 	g_free(filename);
 
-	/* for backwards compatibility with older (before Bluefish 0.10) custom menu files we can convert those.. 
+	/* for backwards compatibility with older (before Bluefish 0.10) custom menu files we can convert those..
 	we will not need the 'type' anymore, since we will put them in separate lists, hence the memmove() call
 	*/
 	DEBUG_MSG("main_v->props.cust_menu=%p\n",main_v->props.cust_menu);
@@ -726,7 +725,7 @@ void rcfile_parse_custom_menu(void) {
 				memmove(&strarr[1], &strarr[2], (count-1) * sizeof(gchar *));
 				main_v->props.cmenu_replace = g_list_append(main_v->props.cmenu_replace, strarr);
 			} else if (count >= 4 && count == (4+atoi(strarr[1]))) { /*  the first check avoids a segfault if count == 1 */
-				/* a very old insert type, 0=menupath, 1=numvariables, 2=string1, 3=string2, 4... are variables 
+				/* a very old insert type, 0=menupath, 1=numvariables, 2=string1, 3=string2, 4... are variables
 				   we can re-arrange it for the new insert type */
 				gchar *numvars = strarr[1];
 				strarr[1] = strarr[2];
@@ -890,7 +889,7 @@ gboolean rcfile_save_encodings(void) {
 	gboolean retval;
 	gchar *filename;
 	GList *configlist = NULL;
-	
+
 	filename = user_bfdir("encodings");
 	init_prop_arraylist (&configlist, &main_v->props.encodings, NULL, 3, FALSE);
 	DEBUG_MSG("rcfile_save_encodings, saving encodings to %s\n", filename);
@@ -923,7 +922,7 @@ gboolean rcfile_parse_global_session(void) {
 	configlist = return_session_configlist(configlist, main_v->session);
 	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/session", NULL);
 	if (!full_path_exists(filename)) {
-		/* versions before 0.13 did not have a separate session file, so 
+		/* versions before 0.13 did not have a separate session file, so
 		we'll try to load these items from rcfile_v2 */
 		g_free(filename);
 		filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/rcfile_v2", NULL);
@@ -931,14 +930,14 @@ gboolean rcfile_parse_global_session(void) {
 	retval = parse_config_file(configlist, filename);
 	free_configlist(configlist);
 	g_free(filename);
-	
+
 	if (main_v->globses.reference_files == NULL) {
 		gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 		/* if the user does not yet have any function reference files, set them to default values */
 		DEBUG_MSG("rcfile_parse_global_session, no reference files yet, scan directories!\n");
 		g_free(userdir);
 	}
-	
+
 	if (main_v->globses.filefilters == NULL) {
 		/* if the user does not have file filters --> set them to defaults values */
 		gchar **arr;
@@ -953,6 +952,6 @@ gboolean rcfile_parse_global_session(void) {
 		arr = array_from_arglist(_("Hide objectfiles"),"0", "application/octet-stream:application/x-object", "", NULL);
 		main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
 	}
-		
+
 	return retval;
 }
