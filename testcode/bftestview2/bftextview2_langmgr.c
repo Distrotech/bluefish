@@ -81,8 +81,8 @@ static gboolean set_integer_if_attribute_name(xmlTextReaderPtr reader, xmlChar *
 static gboolean set_boolean_if_attribute_name(xmlTextReaderPtr reader, xmlChar *aname, xmlChar *searchname, gboolean *bool) {
 	gchar *tmp=NULL;
 	if (set_string_if_attribute_name(reader, aname, searchname, &tmp)) {
-		if (tmp && tmp[0] == '1')
-			*bool = TRUE;
+		if (tmp)
+			*bool = (tmp[0] == '1');
 		g_free(tmp);
 		return TRUE;
 	}
