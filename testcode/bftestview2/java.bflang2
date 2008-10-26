@@ -4,40 +4,40 @@
 </header>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-
-<element pattern="if" autocomplete="1" style="keyword" />
-<element pattern="else" autocomplete="1" style="keyword" />
-<element pattern="where" autocomplete="1" style="keyword" />
-<element pattern="case" autocomplete="1" style="keyword" />
-<element pattern="switch" autocomplete="1" style="keyword" />
-<element pattern="break" autocomplete="1" style="keyword" />
-<element pattern="return" autocomplete="1" style="keyword" />
-<element pattern="while" autocomplete="1" style="keyword" />
-<element pattern="for" autocomplete="1" style="keyword" />
-<element pattern="class" autocomplete="1" style="keyword" />
-<element pattern="public" autocomplete="1" style="keyword" />
-<element pattern="private" autocomplete="1" style="keyword" />
-<element pattern="new" autocomplete="1" style="keyword" />
-<element pattern="assert" autocomplete="1" style="keyword" />
-<element pattern="class" autocomplete="1" style="keyword" />
-<element pattern="continue" autocomplete="1" style="keyword" />
-<element pattern="do" autocomplete="1" style="keyword" />
-<element pattern="finally" autocomplete="1" style="keyword" />
-<element pattern="goto" autocomplete="1" style="keyword" />
-<element pattern="super" autocomplete="1" style="keyword" />
-<element pattern="throw" autocomplete="1" style="keyword" />
-<element pattern="throws" autocomplete="1" style="keyword" />
-<element pattern="try" autocomplete="1" style="keyword" />
-
-<element pattern="abstract" autocomplete="1" style="keyword" />
-
-<element pattern="int" autocomplete="1" style="storage" />
-<element pattern="boolean" autocomplete="1" style="storage" />
-<element pattern="double" autocomplete="1" style="storage" />
-<element pattern="void" autocomplete="1" style="storage" />
-<element pattern="float" autocomplete="1" style="storage" />
-<element pattern="long" autocomplete="1" style="storage" />
-
+<group autocomplete="1" style="keyword"> 
+<element pattern="if" />
+<element pattern="else" />
+<element pattern="where" />
+<element pattern="case" />
+<element pattern="switch" />
+<element pattern="break" />
+<element pattern="return" />
+<element pattern="while" />
+<element pattern="for" />
+<element pattern="class" />
+<element pattern="public" />
+<element pattern="private" />
+<element pattern="new" />
+<element pattern="assert" />
+<element pattern="class" />
+<element pattern="continue" />
+<element pattern="do" />
+<element pattern="finally" />
+<element pattern="goto" />
+<element pattern="super" />
+<element pattern="throw" />
+<element pattern="throws" />
+<element pattern="try" />
+<element pattern="abstract" />
+</group>
+<group autocomplete="1" style="storage">
+<element pattern="int" />
+<element pattern="boolean" />
+<element pattern="double" />
+<element pattern="void" />
+<element pattern="float" />
+<element pattern="long" />
+</group>
 <element pattern="String" autocomplete="1" style="storage" />
 <element pattern="Rectangle" autocomplete="1" style="storage" />
 <element pattern="Color" autocomplete="1" style="storage" />
