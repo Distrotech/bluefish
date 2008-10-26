@@ -126,7 +126,9 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 /* declaration needed for recursive calling */
 static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack);
 
-static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint16 context, GQueue *contextstack) {
+static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint16 context, GQueue *contextstack
+		,gchar *ih_autocomplete_append ,gchar *ih_style
+		,gboolean ih_case_insens ,gboolean ih_is_regex ,gboolean ih_autocomplete) {
 	guint16 matchnum=0;
 	gchar *pattern=NULL, *style=NULL, *blockstartelement=NULL, *blockstyle=NULL, *class=NULL, *autocomplete_append=NULL, *autocomplete_string=NULL, *id=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE, is_empty, autocomplete=FALSE;
@@ -161,13 +163,13 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 				nextcontext=-1*ends_context;/*GPOINTER_TO_INT(g_queue_peek_nth(contextstack,ends_context));*/
 			
 			}
-			stylet = langmrg_lookup_style(style);
+			stylet = langmrg_lookup_style(style?style:ih_style);
 			blockstylet = langmrg_lookup_style(blockstyle);
 			if (blockstartelement) {
 				blockstartelementum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, blockstartelement));
 				DBG_PARSING("got blockstartelementum %d for blockstartelement %s, ends_block=%d\n",blockstartelementum,blockstartelement,ends_block);
 			}
-			matchnum = add_keyword_to_scanning_table(bfparser->st, pattern, is_regex,case_insens, stylet, context, nextcontext
+			matchnum = add_keyword_to_scanning_table(bfparser->st, pattern, is_regex?is_regex:ih_is_regex,case_insens?case_insens:ih_case_insens, stylet, context, nextcontext
 					, starts_block, ends_block, blockstartelementum,blockstylet,FALSE,NULL, NULL);
 			DBG_PARSING("add matchnum %d to hash table for key %s, starts_block=%d\n",matchnum,pattern,starts_block);
 			g_hash_table_insert(bfparser->patterns, g_strdup(id?id:pattern), GINT_TO_POINTER((gint)matchnum));
@@ -202,7 +204,7 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 					xmlFree(name);
 				}
 			}
-			match_autocomplete_reference(bfparser->st,autocomplete,autocomplete_string?autocomplete_string:pattern,context,autocomplete_append,reference);
+			match_autocomplete_reference(bfparser->st,autocomplete?autocomplete:ih_autocomplete,autocomplete_string?autocomplete_string:pattern,context,autocomplete_append?autocomplete_append:ih_autocomplete_append,reference);
 		}
 	}
 	/* TODO cleanup! */
@@ -344,7 +346,13 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 		while (xmlTextReaderRead(reader)==1) {
 			xmlChar *name = xmlTextReaderName(reader);
 			if (xmlStrEqual(name,(xmlChar *)"element")) {
-				process_scanning_element(reader,bfparser,context,contextstack);
+				process_scanning_element(reader,bfparser,context,contextstack
+						,autocomplete_append?autocomplete_append:ih_autocomplete_append
+						,style?style:ih_style
+						,case_insens?case_insens:ih_case_insens
+						,is_regex?is_regex:ih_is_regex
+						,autocomplete?autocomplete:ih_autocomplete
+						);
 			} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
 				process_scanning_tag(reader,bfparser,context,contextstack);
 			} else if (xmlStrEqual(name,(xmlChar *)"group")) {
@@ -409,7 +417,7 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		xmlChar *name = xmlTextReaderName(reader);
 		DBG_PARSING("parsing context, found node name %s\n",name);
 		if (xmlStrEqual(name,(xmlChar *)"element")) {
-			process_scanning_element(reader,bfparser,context,contextstack);
+			process_scanning_element(reader,bfparser,context,contextstack,NULL,NULL,FALSE,FALSE,FALSE);
 		} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
 			process_scanning_tag(reader,bfparser,context,contextstack);
 		} else if (xmlStrEqual(name,(xmlChar *)"group")) {
