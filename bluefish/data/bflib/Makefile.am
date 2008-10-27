@@ -24,6 +24,7 @@ MAINTAINERCLEANFILES = Makefile.in
 bflibdir = $(pkgdatadir)/bflib
 bflib_DATA = $(EXTRA_DIST:.xml=.xml.gz)
 
-%.xml.gz : %.xml
-	gzip $< -c > $@
+SUFFIXES = .xml.gz .xml
 
+.xml.xml.gz:
+	gzip $< -c > $@
