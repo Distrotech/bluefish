@@ -569,17 +569,31 @@ static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 		GtkTextIter it1,it2,it3,it4;
 		DBG_FOLD("got fstack=%p on line %d\n",fstack,fstack->line);
 		bftextview2_get_iters_at_foundblock(buffer, fstack->pushedblock, &it1, &it2, &it3, &it4);
+		if (folding_mode == 1 && !gtk_text_iter_ends_line(&it2)) {
+			gtk_text_iter_forward_to_line_end(&it2);
+		}
+		if (gtk_text_iter_ends_line(&it4)) {
+			gtk_text_iter_forward_line(&it4);
+		}
 		if (fstack->pushedblock->folded) {
 			DBG_FOLD("expand fstack with line %d\n",fstack->line);
 			gtk_text_buffer_remove_tag_by_name(buffer, "_foldheader_", &it1, &it2);
-			gtk_text_buffer_remove_tag_by_name(buffer, "_folded_", &it2, &it3);
-			gtk_text_buffer_remove_tag_by_name(buffer, "_foldheader_", &it3, &it4);
+			if (folding_mode==0) {
+				gtk_text_buffer_remove_tag_by_name(buffer, "_folded_", &it2, &it3);
+				gtk_text_buffer_remove_tag_by_name(buffer, "_foldheader_", &it3, &it4);
+			} else if (folding_mode==1) {
+				gtk_text_buffer_remove_tag_by_name(buffer, "_folded_", &it2, &it4);
+			}
 			fstack->pushedblock->folded=FALSE;
 		} else {
 			DBG_FOLD("collapse fstack with line %d\n",fstack->line);
 			gtk_text_buffer_apply_tag_by_name(buffer, "_foldheader_", &it1, &it2);
-			gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it3);
-			gtk_text_buffer_apply_tag_by_name(buffer, "_foldheader_", &it3, &it4);
+			if (folding_mode==0) {
+				gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it3);
+				gtk_text_buffer_apply_tag_by_name(buffer, "_foldheader_", &it3, &it4);
+			} else if (folding_mode==1) {
+				gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it4);
+			}
 			fstack->pushedblock->folded=TRUE;
 		}
 	}

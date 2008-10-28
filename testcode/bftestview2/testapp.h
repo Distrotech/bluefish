@@ -8,6 +8,7 @@ extern gboolean delay_full_scan;
 extern gboolean smart_cursor;
 extern gboolean load_reference;
 extern gint autocomp_popup_mode;
+extern gint folding_mode;
 
 void testapp_rescan_bflang(Tbflang *bflang);
 #endif
