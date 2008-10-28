@@ -8,6 +8,7 @@ gboolean autoindent=TRUE;
 gboolean reduced_scan_triggers=TRUE;
 gboolean delay_full_scan=FALSE;
 gboolean smart_cursor=TRUE;
+gboolean load_reference=TRUE;
 gint autocomp_popup_mode = 2; /* 0=no auto popup (only ctrl+space), 1=delayed, 2=immediately */
 
 GtkWidget *text_view;
@@ -46,7 +47,7 @@ int main(int argc, char *argv[])
 	g_thread_init(NULL); /* we don't do gtk from other threads, only glib, so no gdk_thread_init() required */
 	gtk_init(&argc, &argv);
 
-	langmgr_init();
+	langmgr_init(load_reference);
 	/* Create a Window. */
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW(window), "Highlight widget test");

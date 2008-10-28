@@ -16,6 +16,7 @@ typedef struct {
 	GHashTable *bflang_lookup;
 	GList *bflang_list;
 	GtkTextTagTable *tagtable;
+	gboolean load_reference;
 } Tlangmgr;
 
 static Tlangmgr langmgr = {NULL,NULL,NULL};
@@ -184,7 +185,8 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 					} else if (xmlStrEqual(name,(xmlChar *)"reference")) {
 						DBG_PARSING("in pattern, found reference\n");
 						if (!xmlTextReaderIsEmptyElement(reader)) {
-							reference = (gchar *)xmlTextReaderReadInnerXml(reader);
+							if (langmgr.load_reference)
+								reference = (gchar *)xmlTextReaderReadInnerXml(reader);
 							DBG_PARSING("reference=%s\n",reference);
 							while (xmlTextReaderRead(reader)==1) {
 								xmlFree(name);
@@ -277,7 +279,8 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					xmlChar *name=xmlTextReaderName(reader);
 					if (xmlStrEqual(name,(xmlChar *)"reference")) {
 						if (!xmlTextReaderIsEmptyElement(reader)) {
-							reference = (gchar *)xmlTextReaderReadInnerXml(reader);
+							if (langmgr.load_reference)
+								reference = (gchar *)xmlTextReaderReadInnerXml(reader);
 							DBG_PARSING("reference=%s\n",reference);
 							while (xmlTextReaderRead(reader)==1) {
 								xmlFree(name);
@@ -560,10 +563,11 @@ static void register_bflanguage(Tbflang *bflang) {
 	}
 }
 
-void langmgr_init(void) {
+void langmgr_init(gboolean load_reference) {
 	Tbflang *bflang;
 	langmgr.tagtable = gtk_text_tag_table_new();
 	langmgr.bflang_lookup = g_hash_table_new(g_str_hash,g_str_equal);
+	langmgr.load_reference = load_reference;
 	
 	bflang = parse_bflang2_header("c.bflang2");
 	register_bflanguage(bflang);
