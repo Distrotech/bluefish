@@ -97,22 +97,24 @@
 	<element pattern="&lt;/script&gt;" style="tag"/>
 <!--	<tag name="script" style="tag" attributes="type,src"  attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />-->
 	
-	
+
 	<element pattern="&lt;style" style="tag" >
 		<context symbols="&gt;">
 			<element pattern="/&gt;" style="tag" ends_context="1" />
 			<element pattern="&gt;" style="tag" >
 				<context symbols=" &#9;&#10;&#13;{}.">
 
-<element pattern="{" id="css{" starts_block="1" style="braces"/>
+<element pattern="&lt;/style&gt;" style="tag" ends_context="2" />
+<element pattern="{" id="css{" starts_block="1" style="braces">
 <context symbols=" &#9;&#10;&#13;{}.:&quot;';">
-
+	<element pattern="&lt;/style&gt;" style="tag" ends_context="3" />
 	<element pattern="background" autocomplete="1" style="keyword" autocomplete_append=": ">
 	<reference>A shorthand property for setting all background properties: background-color, background-image, background-repeat, background-attachment, and background-position, in one declaration</reference>
 	</element>
 	<element pattern="background-attachment" autocomplete="1" style="keyword" autocomplete_append=": ">
 		<reference>Sets whether a background image is fixed or scrolls with the rest of the page</reference>
 		<context symbols=" &#9;&#10;&#13;{}.;">
+			<element pattern="&lt;/style&gt;" style="tag" ends_context="4" />
 			<element pattern="scroll" autocomplete="1" style="value" autocomplete_append=";"/>
 			<element pattern="fixed" autocomplete="1" style="value" autocomplete_append=";"/>
 			<element pattern=";" ends_context="1"/>
@@ -122,6 +124,7 @@
 	<element pattern="background-color" autocomplete="1" style="keyword" autocomplete_append=": ">
 		<reference>Sets the background color of an element</reference>
 		<context id="color" symbols=" &#9;&#10;&#13;{}.;">
+			<element pattern="&lt;/style&gt;" style="tag" ends_context="4" />
 			<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" style="value" is_regex="1" case_insens="1"/>
 			<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" style="value" is_regex="1" case_insens="1"/>
 			<element pattern="red" style="value" autocomplete="TRUE"/>
@@ -135,12 +138,12 @@
 		</context>
 	</element>
 </context>
-
+</element>
 				</context>
 			</element>	
 		</context>
 	</element>
-	
+
 	<tag name="link" style="tag" attributes="rel,type,href" attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<element pattern="&lt;!--" style="comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
