@@ -249,7 +249,8 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			tmp = g_strconcat("<",tag,NULL);
 			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, context, contexttag, TRUE, FALSE, 0, NULL,FALSE,NULL,NULL);
 			g_free(tmp);
-			starttagmatch = add_keyword_to_scanning_table(bfparser->st, "/?>", TRUE, FALSE, stylet, contexttag, -1, FALSE, FALSE, 0, NULL,FALSE,NULL,NULL);
+			add_keyword_to_scanning_table(bfparser->st, "/>", FALSE, FALSE, stylet, contexttag, -1, FALSE, FALSE, 0, NULL,FALSE,NULL,NULL);
+			starttagmatch = add_keyword_to_scanning_table(bfparser->st, ">", FALSE, FALSE, stylet, contexttag, -1, FALSE, FALSE, 0, NULL,FALSE,NULL,NULL);
 			if (attributes) {
 				gchar **arr, **tmp2;
 				GtkTextTag *string, *attrib = langmrg_lookup_style(attribstyle?attribstyle:ih_attribstyle);
