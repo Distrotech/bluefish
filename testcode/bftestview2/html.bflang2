@@ -118,7 +118,7 @@
 			<element pattern="scroll" autocomplete="1" style="value" autocomplete_append=";"/>
 			<element pattern="fixed" autocomplete="1" style="value" autocomplete_append=";"/>
 			<element pattern=";" ends_context="1"/>
-			<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
+			<element pattern="}" ends_block="1" blockstartelement="css{" style="braces" ends_context="2"/>
 		</context>
 	</element>
 	<element pattern="background-color" autocomplete="1" style="keyword" autocomplete_append=": ">
@@ -137,6 +137,7 @@
 			<element pattern="}" ends_block="1" blockstartelement="css{" style="braces" ends_context="2"/>
 		</context>
 	</element>
+	<element pattern="}" ends_block="1" blockstartelement="css{" style="braces" ends_context="1"/>
 </context>
 </element>
 				</context>
