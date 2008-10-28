@@ -22,14 +22,64 @@
 									<element pattern="/&gt;" style="tag" ends_context="4"/>
 									<element pattern="&gt;" style="tag">
 										<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;&quot;='+*^()">
-											<element pattern="(" id="js(" starts_block="1" style="braces"/>
-											<element pattern=")" style="braces" ends_block="1" blockstartelement="js("/>
-											<element pattern="for" style="keyword" autocomplete="1"/>
-											<element pattern="while" style="keyword" autocomplete="1"/>
-											<element pattern="for" style="keyword" autocomplete="1"/>
-											<element pattern="for" style="keyword" autocomplete="1"/>
-											
-											<element pattern="&lt;/script&gt;" style="tag" ends_context="5"/>
+										
+ 
+<element pattern="(" id="js(" starts_block="1" style="braces"/>
+<element pattern=")" style="braces" ends_block="1" blockstartelement="js("/>
+<element pattern="{" id="js{" starts_block="1" style="braces"/>
+<element pattern="}" style="braces" ends_block="1" blockstartelement="js{"/>
+<group style="keyword" autocomplete="1">
+<element pattern="if" />
+<element pattern="else" />
+<element pattern="where" />
+<element pattern="case" />
+<element pattern="switch" />
+<element pattern="break" />
+<element pattern="return" />
+<element pattern="while" />
+<element pattern="for" />
+<element pattern="function" />
+<element pattern="var" />
+<element pattern="new" />
+<element pattern="try" />
+<element pattern="catch" />
+<element pattern="default" />
+</group>
+<group style="function" autocomplete="1">
+<element pattern="getElementsByTagName" />
+<element pattern="getElementsByTagName" />
+</group>
+<group style="value" autocomplete="1">
+<element pattern="true" />
+<element pattern="false" />
+<element pattern="[0-9.]+" is_regex="1" autocomplete="0"/>
+</group>
+<element pattern="&#34;" style="string">
+	<context symbols="\&#34;" style="string">
+		<element pattern="\&#34;" style="string" />
+		<element pattern="&#34;" style="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="'" style="string">
+	<context symbols="\'" style="string">
+		<element pattern="\." is_regex="1" style="string" />
+		<element pattern="'" style="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="//" style="comment">
+	<context symbols="&#34;&gt;&lt; " style="comment">
+		<element pattern="&#34;" style="comment" ends_context="1" />
+		<element pattern="&lt;/script&gt;" style="tag" ends_context="6"/>
+	</context>
+</element>
+<element pattern="/*" starts_block="1" style="comment">
+	<context symbols="*/&#9;&#10;&#13;" style="comment">
+		<element pattern="*/" ends_block="1" blockstartelement="/*" style="comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+
+<element pattern="&lt;/script&gt;" style="tag" ends_context="5"/>
+
 										</context>
 									</element>
 								</context>
@@ -48,6 +98,48 @@
 <!--	<tag name="script" style="tag" attributes="type,src"  attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />-->
 	
 	
+	<element pattern="&lt;style" style="tag" >
+		<context symbols="&gt;">
+			<element pattern="/&gt;" style="tag" ends_context="1" />
+			<element pattern="&gt;" style="tag" >
+				<context symbols=" &#9;&#10;&#13;{}.">
+
+<element pattern="{" id="css{" starts_block="1" style="braces"/>
+<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
+
+	<element pattern="background" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<reference>A shorthand property for setting all background properties: background-color, background-image, background-repeat, background-attachment, and background-position, in one declaration</reference>
+	</element>
+	<element pattern="background-attachment" autocomplete="1" style="keyword" autocomplete_append=": ">
+		<reference>Sets whether a background image is fixed or scrolls with the rest of the page</reference>
+		<context symbols=" &#9;&#10;&#13;{}.;">
+			<element pattern="scroll" autocomplete="1" style="value" autocomplete_append=";"/>
+			<element pattern="fixed" autocomplete="1" style="value" autocomplete_append=";"/>
+			<element pattern=";" ends_context="1"/>
+			<element pattern="}" ends_block="1" blockstartelement="{" style="braces" ends_context="2"/>
+		</context>
+	</element>
+	<element pattern="background-color" autocomplete="1" style="keyword" autocomplete_append=": ">
+		<reference>Sets the background color of an element</reference>
+		<context id="color" symbols=" &#9;&#10;&#13;{}.;">
+			<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" style="value" is_regex="1" case_insens="1"/>
+			<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" style="value" is_regex="1" case_insens="1"/>
+			<element pattern="red" style="value" autocomplete="TRUE"/>
+			<element pattern="green" style="value" autocomplete="TRUE"/>
+			<element pattern="blue" style="value" autocomplete="TRUE"/>
+			<element pattern="black" style="value" autocomplete="TRUE"/>
+			<element pattern="white" style="value" autocomplete="TRUE"/>
+			<element pattern="yellow" style="value" autocomplete="TRUE"/>
+			<element pattern=";" ends_context="1"/>
+			<element pattern="}" ends_block="1" blockstartelement="css{" style="braces" ends_context="2"/>
+		</context>
+	</element>
+</context>
+
+				</context>
+			</element>	
+		</context>
+	</element>
 	
 	<tag name="link" style="tag" attributes="rel,type,href" attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<element pattern="&lt;!--" style="comment" starts_block="1">
@@ -63,7 +155,7 @@
 	<tag name="div" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<tag name="p" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<tag name="span" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="img" style="storage" attributes="src,width,height,align,valign,border,alt" attribstyle="function" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" attrib_autocomplete_append="=&quot;&quot;">
+	<tag name="img" style="storage" attributes="src,width,height,align,valign,border,alt,name" attribstyle="function" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" attrib_autocomplete_append="=&quot;&quot;">
 	<reference>the image tag</reference>
 	</tag>
 	<tag name="i" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />

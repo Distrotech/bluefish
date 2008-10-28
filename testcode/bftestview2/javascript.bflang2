@@ -5,17 +5,18 @@
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
-<element pattern="if" autocomplete="1" style="keyword" />
-<element pattern="else" autocomplete="1" style="keyword" />
-<element pattern="where" autocomplete="1" style="keyword" />
-<element pattern="case" autocomplete="1" style="keyword" />
-<element pattern="switch" autocomplete="1" style="keyword" />
-<element pattern="break" autocomplete="1" style="keyword" />
-<element pattern="return" autocomplete="1" style="keyword" />
-<element pattern="while" autocomplete="1" style="keyword" />
-<element pattern="for" autocomplete="1" style="keyword" />
-<element pattern="function" autocomplete="1" style="keyword" />
-
+<group autocomplete="1" style="keyword"> 
+<element pattern="if" />
+<element pattern="else" />
+<element pattern="where" />
+<element pattern="case" />
+<element pattern="switch" />
+<element pattern="break" />
+<element pattern="return" />
+<element pattern="while" />
+<element pattern="for" />
+<element pattern="function" />
+</group>
 <element pattern="&#34;" style="string">
 	<context symbols="\&#34;" style="string">
 		<element pattern="\&#34;" style="string" />
@@ -41,7 +42,7 @@
 		</element>
 		<element pattern="[0-9.]+" is_regex="1" style="value"/>
 		<element pattern="//[^&#10;]+" is_regex="1" style="comment"/>
-		<element pattern="#[^&#10;]+" is_regex="1" style="tag"/>
+		<!-- <element pattern="#[^&#10;]+" is_regex="1" style="tag"/> -->
 	</context>
 </definition>
 </bflang>
