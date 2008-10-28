@@ -95,16 +95,14 @@
 	</element>
 
 	<element pattern="&lt;/script&gt;" style="tag"/>
-<!--	<tag name="script" style="tag" attributes="type,src"  attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />-->
-	
-
-	<element pattern="&lt;style" style="tag" >
+<tag name="style" style="tag" attributes="type,src"  attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
+	<!--	<element pattern="&lt;style" style="tag" >
 		<context symbols="&gt;">
 			<element pattern="/&gt;" style="tag" ends_context="1" />
-			<element pattern="&gt;" style="tag" >
+			<element pattern="&gt;" style="tag" >-->
 				<context symbols=" &#9;&#10;&#13;{}.">
-
-<element pattern="&lt;/style&gt;" style="tag" ends_context="2" />
+<!--<element pattern="&lt;/style&gt;" style="tag" ends_context="2" />-->
+<element pattern="body" style="keyword"/>
 <element pattern="{" id="css{" starts_block="1" style="braces">
 <context symbols=" &#9;&#10;&#13;{}.:&quot;';">
 	<element pattern="&lt;/style&gt;" style="tag" ends_context="3" />
@@ -141,9 +139,10 @@
 </context>
 </element>
 				</context>
-			</element>	
+<!--			</element>	
 		</context>
-	</element>
+	</element>-->
+</tag>
 
 	<tag name="link" style="tag" attributes="rel,type,href" attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<element pattern="&lt;!--" style="comment" starts_block="1">
