@@ -9,6 +9,7 @@ extern gboolean smart_cursor;
 extern gboolean load_reference;
 extern gint autocomp_popup_mode;
 extern gint folding_mode;
+extern gchar *background_color;
 
 void testapp_rescan_bflang(Tbflang *bflang);
 #endif
