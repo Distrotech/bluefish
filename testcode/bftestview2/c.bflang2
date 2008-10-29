@@ -9,20 +9,36 @@
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 <group style="keyword" autocomplete="1">
-<element pattern="if" />
-<element pattern="else" />
-<element pattern="where" />
-<element pattern="case" />
-<element pattern="switch" />
+<element pattern="asm" />
+<element pattern="auto" />
 <element pattern="break" />
-<element pattern="return" />
-<element pattern="while" />
-<element pattern="for" />
-<element pattern="static" />
+<element pattern="case" />
 <element pattern="const" />
+<element pattern="continue" />
+<element pattern="default" />
+<element pattern="do" />
+<element pattern="else" />
+<element pattern="enum" />
+<element pattern="extern" />
+<element pattern="for" />
+<element pattern="fortran" />
+<element pattern="goto" />
+<element pattern="if" />
+<element pattern="inline" />
+<element pattern="register" />
+<element pattern="restrict" />
+<element pattern="return" />
 <element pattern="sizeof" />
+<element pattern="static" />
+<element pattern="struct" />
+<element pattern="switch" />
+<element pattern="typedef" />
+<element pattern="volatile" />
+<element pattern="while" />
 </group>
 <group style="storage" autocomplete="1">
+	<element pattern="bool"/>
+	<element pattern="unsigned"/>
 	<element pattern="signed"><reference><b></b> <b>signed</b> means if the storage can have negative numbers or only positive numbers</reference></element>
 	<element pattern="void"><reference><b></b> <b>void</b> is the default storage type for a pointer, 16 bits on 16 bit architecture, 32 bits on 32 bit architecture, 64 bits on 64 bit architecture</reference></element>
 	<element pattern="int"><reference><b></b> <b>int</b> is the integer storage type, minimal 2 bytes but usually 4 bytes (32bits)</reference></element>
@@ -31,8 +47,6 @@
 	<element pattern="long"><reference><b></b> a <b>long</b> int is minimally 4 bytes (32bits), on 64bit architectures it is 8 bytes (64 bits). A <b>long long</b> int is minimally 8 bytes, and 16 bytes on 64bit architectures. A <b>long</b> double might be 64 or 128 bits.</reference></element>
 	<element pattern="float"><reference><b></b> float is the floating point storage type, which is 2 or 4 bytes (16 or 32bits)</reference></element>
 	<element pattern="double"><reference><b></b> double is the big floating point storage type, which is 4 or 8 byte (32 or 64bits)</reference></element>
-	<element pattern="struct"></element>
-	<element pattern="enum"></element>
 </group>
 <group class="glib">
 <group  style="function" autocomplete="1">
