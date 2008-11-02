@@ -589,6 +589,8 @@ void langmgr_init(gboolean load_reference) {
 	register_bflanguage(bflang);
 	bflang = parse_bflang2_header("java.bflang2");
 	register_bflanguage(bflang);
+	bflang = parse_bflang2_header("po.bflang2");
+	register_bflanguage(bflang);
 
 	DBG_PARSING("langmgr_init, returning \n");
 }
