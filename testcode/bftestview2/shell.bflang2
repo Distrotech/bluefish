@@ -1,0 +1,27 @@
+<bflang pattern="Shell">
+<header>
+	<mime type="application/x-shellscript"/>
+	<mime type="text/x-shellscript"/>
+	
+	<mime type="text/x-sh"/>
+</header>
+<definition>
+<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+<element pattern="[a-z]+" is_regex="1" style="value"/>
+<group autocomplete="1" style="function">
+	<element pattern="print" />
+	<element pattern="if" />
+	<element pattern="for" />
+	<element pattern="while"/>
+</group>
+<element pattern="#[^\n]+" is_regex="1" style="comment"/>
+<element pattern="'[^']*'" style="string"/>
+<element pattern="&quot;" style="string">
+<context symbols="\&quot;">
+	<element pattern="\\." is_regex="1" style="tag" />
+	<element pattern="&quot;" style="string" ends_context="1"/>
+</context>
+</element>
+</context>
+</definition>
+</bflang>

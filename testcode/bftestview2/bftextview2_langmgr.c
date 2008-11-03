@@ -517,11 +517,13 @@ Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype) {
 		GError *error=NULL;
 		GThread* thread;
 		bflang->parsing=TRUE;
-		DBG_MSG("no scantable, start thread\n");
+		g_print("no scantable in %p, start thread\n",bflang);
 		thread = g_thread_create(build_lang_thread,bflang,FALSE,&error);
 		if (error) {
 			DBG_PARSING("start thread, error\n");
 		}
+	} else {
+		g_print("have scantable, return %p\n",bflang);
 	}
 	return bflang;
 }
@@ -590,6 +592,8 @@ void langmgr_init(gboolean load_reference) {
 	bflang = parse_bflang2_header("java.bflang2");
 	register_bflanguage(bflang);
 	bflang = parse_bflang2_header("po.bflang2");
+	register_bflanguage(bflang);
+	bflang = parse_bflang2_header("shell.bflang2");
 	register_bflanguage(bflang);
 
 	DBG_PARSING("langmgr_init, returning \n");
