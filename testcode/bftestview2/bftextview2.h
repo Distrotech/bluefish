@@ -165,7 +165,7 @@ either on the start or on the end there is no symbol.
 
 #define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */
 
-#define MAX_CONTINUOUS_SCANNING_INTERVAL 0.1 /* float in seconds */ 
+#define MAX_CONTINUOUS_SCANNING_INTERVAL 0.2 /* float in seconds */ 
 
 /*****************************************************************/
 /* building the automata and autocompletion cache */
