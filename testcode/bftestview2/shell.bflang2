@@ -6,19 +6,36 @@
 	<mime type="text/x-sh"/>
 </header>
 <definition>
-<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<element pattern="[a-z]+" is_regex="1" style="value"/>
+<context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+<element pattern="[0-9.]+" is_regex="1" style="value"/>
+<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" style="variable"/>
+<element pattern="${[^}]+}" is_regex="1" case_insens="1" style="variable"/>
 <group autocomplete="1" style="function">
 	<element pattern="print" />
+	<element pattern="echo" />
+	<element pattern="setopt" />
+	<element pattern="alias" />
+	<element pattern="set" />
 	<element pattern="if" />
+	<element pattern="else" />
+	<element pattern="fi" />
 	<element pattern="for" />
+	<element pattern="in" />
+	<element pattern="do" />
+	<element pattern="done" />
 	<element pattern="while"/>
+	<element pattern="case" />
+	<element pattern="esac" />
+	<element pattern="break" />
+	<element pattern="eval" />
 </group>
-<element pattern="#[^\n]+" is_regex="1" style="comment"/>
-<element pattern="'[^']*'" style="string"/>
+<element pattern="#[^&#10;]*" is_regex="1" style="comment"/>
+<element pattern="'[^']*'" is_regex="1" style="string"/>
 <element pattern="&quot;" style="string">
-<context symbols="\&quot;">
+<context symbols="\&quot;${}" style="string">
 	<element pattern="\\." is_regex="1" style="tag" />
+	<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" style="variable"/>
+	<element pattern="${[^}]+}" is_regex="1" case_insens="1" style="variable"/>
 	<element pattern="&quot;" style="string" ends_context="1"/>
 </context>
 </element>
