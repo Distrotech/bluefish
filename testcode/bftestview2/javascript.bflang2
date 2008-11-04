@@ -16,6 +16,11 @@
 <element pattern="while" />
 <element pattern="for" />
 <element pattern="function" />
+<element pattern="var" />
+<element pattern="new" />
+<element pattern="try" />
+<element pattern="catch" />
+<element pattern="default" />
 </group>
 <element pattern="&#34;" style="string">
 	<context symbols="\&#34;" style="string">
