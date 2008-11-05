@@ -22,11 +22,22 @@
 #ifndef __DOCUMENT_H_
 #define __DOCUMENT_H_
 
+typedef struct {
+	Tdocument *doc;
+	GtkTextMark *start;
+	GtkTextMark *end;
+} Tselectionsave;
+
 enum {
 	DOCUMENT_BACKUP_ABORT_SAVE,
 	DOCUMENT_BACKUP_ABORT_ABORT,
 	DOCUMENT_BACKUP_ABORT_ASK
 };
+
+Tselectionsave *doc_save_selection(Tdocument *doc);
+void doc_restore_selection(Tselectionsave *selsave, gboolean only_if_no_selection);
+
+
 void autoclosing_init(void);
 GList *return_allwindows_documentlist(void);
 GList *return_urilist_from_doclist(GList *doclist);
@@ -54,7 +65,7 @@ gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc);
 gboolean test_docs_modified(GList *doclist);
 gboolean test_only_empty_doc_left(GList *doclist);
 
-gboolean doc_has_selection(Tdocument *doc);
+#define doc_has_selection(doc) gtk_text_buffer_get_has_selection(((Tdocument *)doc)->buffer)
 void doc_set_status(Tdocument *doc, gint status);
 void doc_set_modified(Tdocument *doc, gint value);
 void doc_scroll_to_cursor(Tdocument *doc);
