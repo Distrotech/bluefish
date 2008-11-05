@@ -1,0 +1,59 @@
+<bflang pattern="Ruby">
+<header>
+	<mime type="text/x-ruby"/>
+	<mime type="application/x-ruby"/>
+</header>
+<definition>
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+<group autocomplete="1" style="keyword"> 
+<element pattern="module" />
+<element pattern="class" />
+<element pattern="def" />
+<element pattern="end" />
+<element pattern="case" />
+<element pattern="when" />
+<element pattern="then" />
+<element pattern="raise" />
+<element pattern="return" />
+<element pattern="loop" />
+<element pattern="do" />
+<element pattern="rescue" />
+<element pattern="ensure" />
+<element pattern="nil" />
+<element pattern="begin" />
+<element pattern="yield" />
+<element pattern="foreach" />
+<element pattern="if" />
+<element pattern="else" />
+<element pattern="elsif" />
+<element pattern="while" />
+<element pattern="for" />
+<element pattern="sleep" />
+<element pattern="retry" />
+</group>
+
+<element pattern="&#34;" style="string">
+	<context symbols="\&#34;" style="string">
+		<element pattern="\&#34;" style="string" />
+		<element pattern="&#34;" style="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="'" style="string">
+	<context symbols="\'" style="string">
+		<element pattern="\." is_regex="1" style="string" />
+		<element pattern="'" style="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="{" starts_block="1" mayfold="1" style="braces" />
+<element pattern="}" ends_block="1" blockstartelement="{" style="braces" />
+<element pattern="[" starts_block="1" mayfold="1" style="braces" />
+<element pattern="]" ends_block="1" blockstartelement="[" style="braces" />
+<element pattern="(" starts_block="1" mayfold="1" style="braces" />
+<element pattern=")" ends_block="1" blockstartelement="(" style="braces" />
+
+<element pattern="[0-9.]+" is_regex="1" style="value"/>
+<element pattern="#[^&#10;]+" is_regex="1" style="comment"/>
+		
+	</context>
+</definition>
+</bflang>

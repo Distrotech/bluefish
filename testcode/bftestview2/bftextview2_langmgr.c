@@ -597,6 +597,7 @@ void langmgr_init(gboolean load_reference) {
 	register_bflanguage(bflang);
 	bflang = parse_bflang2_header("shell.bflang2");
 	register_bflanguage(bflang);
-
+	bflang = parse_bflang2_header("ruby.bflang2");
+	register_bflanguage(bflang);
 	DBG_PARSING("langmgr_init, returning \n");
 }
