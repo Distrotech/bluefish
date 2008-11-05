@@ -65,6 +65,32 @@ typedef struct {
 } Tpasteoperation;
 #define PASTEOPERATION(var) ((Tpasteoperation *)(var))
 
+Tselectionsave *doc_save_selection(Tdocument *doc) {
+	Tselectionsave *selsave;
+	GtkTextIter start,end;
+	selsave = g_slice_new(Tselectionsave);
+	gtk_text_buffer_get_selection_bounds(doc->buffer,&start,&end);
+	/*g_print("saving selection %d:%d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));*/
+	selsave->start = gtk_text_buffer_create_mark(doc->buffer,NULL,&start,FALSE);
+	selsave->end = gtk_text_buffer_create_mark(doc->buffer,NULL,&end,TRUE);
+	selsave->doc = doc;
+	return selsave;
+}
+
+void doc_restore_selection(Tselectionsave *selsave, gboolean only_if_no_selection) {
+	if (!only_if_no_selection || !gtk_text_buffer_get_has_selection(selsave->doc->buffer)) {
+		GtkTextIter start,end;
+		gtk_text_buffer_get_iter_at_mark(selsave->doc->buffer,&start,selsave->start);
+		gtk_text_buffer_get_iter_at_mark(selsave->doc->buffer,&end,selsave->end);
+		/*g_print("restoring selection %d:%d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));*/
+		gtk_text_buffer_select_range(selsave->doc->buffer,&start,&end);
+	}
+	gtk_text_buffer_delete_mark(selsave->doc->buffer,selsave->start);
+	gtk_text_buffer_delete_mark(selsave->doc->buffer,selsave->end);
+	g_slice_free(Tselectionsave,selsave);
+}
+
+
 void autoclosing_init(void) {
 	const char *error;
 	int erroffset;
@@ -823,22 +849,6 @@ void doc_move_to_window_dialog(Tdocument *doc, Tbfwin *newwin) {
 	gtk_dialog_add_buttons(GTK_DIALOG(dialog),_("Move to this window"),1,_("Open readonly"),2,_("Do not open"),3,NULL);
 	g_signal_connect(dialog, "response", G_CALLBACK(doc_move_to_window_dialog_response_lcb), dmwd);
 	gtk_widget_show_all(dialog);
-}
-
-/**
- * doc_has_selection:
- * @doc: a #Tdocument
- *
- * returns TRUE if the document has a selection
- * returns FALSE if it does not
- *
- * Return value: gboolean
- **/
-#ifdef __GNUC__
-__inline__ 
-#endif
-gboolean doc_has_selection(Tdocument *doc) {
-	return gtk_text_buffer_get_selection_bounds(doc->buffer,NULL,NULL);
 }
 
 static void doc_set_label_color(Tdocument *doc, GdkColor *color) {

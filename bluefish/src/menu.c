@@ -959,6 +959,25 @@ void browser_toolbar_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	} * /
 	view_in_browser(bdm->bfwin,arr[1]);
 }*/
+
+typedef struct {
+	Tselectionsave *selsave;
+	Tbfw_dynmenu *bdm;
+} Tfilterdialog;
+
+static void external_filter_dialog_response_lcb(GtkWidget *widget,gint response_id, gpointer data) {
+	Tfilterdialog *fd= data;
+	gchar **arr = (gchar **)fd->bdm->data;
+	gint begin=0,end=-1;
+	gtk_widget_destroy(widget);
+	doc_restore_selection(fd->selsave, TRUE); /* the restore will also free the Tselectionsave */
+	if (response_id == GTK_RESPONSE_YES) {
+		doc_get_selection(fd->bdm->bfwin->current_document,&begin,&end);
+	}
+	filter_command(fd->bdm->bfwin, arr[1],begin,end);
+	g_slice_free(Tfilterdialog,fd);
+}
+
 static void external_filter_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	gchar **arr = (gchar **)bdm->data;
 	gint begin=0,end=-1;
@@ -966,17 +985,19 @@ static void external_filter_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	 we should ask if it should be the complete file or the selection */
 	 
 	if (operatable_on_selection(arr[1]) && (doc_has_selection(bdm->bfwin->current_document))) {
-		GtkWidget *dialog;
-		dialog = gtk_message_dialog_new(GTK_WINDOW(bdm->bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Operate filter only on selection?"));
+		GtkWidget *dialog,*vbox;
+		Tfilterdialog *fd;
+		fd = g_slice_new(Tfilterdialog);
+		fd->bdm = bdm;
 		
-		if (gtk_dialog_run(GTK_DIALOG(dialog)) == GTK_RESPONSE_YES) {
-			doc_get_selection(bdm->bfwin->current_document,&begin,&end);
-		}
-		DEBUG_MSG("external_filter_lcb, begin=%d, end=%d\n",begin,end);
-		gtk_widget_destroy(dialog);
-	} 
-	DEBUG_MSG("external_filter_lcb, calling external_command for %s\n",arr[1]);
-	filter_command(bdm->bfwin, arr[1],begin,end);
+		fd->selsave = doc_save_selection(bdm->bfwin->current_document);
+		dialog = gtk_message_dialog_new(GTK_WINDOW(bdm->bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT,GTK_MESSAGE_QUESTION,GTK_BUTTONS_YES_NO,_("Operate filter only on selection?"));
+		g_signal_connect(dialog,"response",G_CALLBACK(external_filter_dialog_response_lcb),fd);
+		gtk_widget_show_all(dialog);
+	} else {
+		DEBUG_MSG("external_filter_lcb, calling external_command for %s\n",arr[1]);
+		filter_command(bdm->bfwin, arr[1],begin,end);
+	}
 }
 
 static void external_command_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
