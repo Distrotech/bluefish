@@ -118,7 +118,7 @@ GtkTextTag *langmrg_lookup_highlight(const gchar *lang, const gchar *highlight) 
 		if (style)
 			tag = gtk_text_tag_table_lookup(langmgr.tagtable,style);
 	}
-	g_print("found tag %p for lang %s highlight %s\n",tag,lang,highlight);
+	/*g_print("found tag %p for lang %s highlight %s\n",tag,lang,highlight);*/
 	return tag;
 }
 
@@ -665,7 +665,7 @@ static Tbflang *parse_bflang2_header(const gchar *filename) {
 					xmlFree(aname);
 				}
 				if (bflang->name == NULL) {
-					g_print("Language without a name.. abort..\n");
+					g_print("Language file %s has no name.. abort..\n",filename);
 					return NULL;
 				}
 			} else if (xmlStrEqual(name,(xmlChar *)"header")) {

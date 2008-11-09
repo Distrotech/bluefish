@@ -1,5 +1,17 @@
-<bflang pattern="ASP">
-<header><mime type="application/x-asp"/></header>
+<bflang name="ASP">
+<header>
+	<mime type="application/x-asp"/>
+	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
+	<highlight name="attribute" style="attribute" fgcolor="#000099"  />
+	<highlight name="string" style="string" fgcolor="#009900"  />
+	<highlight name="entity" style="value" fgcolor="#0000FF" />
+	<highlight name="brackets" style="brackets" fgcolor="#000000" bold="1" />
+	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="value" style="value" fgcolor="#0000FF" />
+	<highlight name="function" style="function" fgcolor="#000099" />
+	<highlight name="asp-comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="html-comment" style="comment" fgcolor="grey" italic="1" />
+</header>
 <definition>
 <context symbols="&gt;&lt;&amp;; %@&#9;&#10;&#13;">
 <tag name="html" highlight="tag" />
@@ -164,13 +176,13 @@
 </element>
 -->
 
-<element pattern="&lt;!--" highlight="comment" starts_block="1">
-	<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
-		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
+<element pattern="&lt;!--" highlight="html-comment" starts_block="1">
+	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
+		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="html-comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
 
-<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="value" />
+<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
 </context>
 </definition>
 </bflang>

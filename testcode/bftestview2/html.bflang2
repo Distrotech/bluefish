@@ -5,9 +5,11 @@
 	<highlight name="special-tag" style="special-tag" fgcolor="#990000" bold="1" />
 	<highlight name="attribute" style="attribute" fgcolor="#000099"  />
 	<highlight name="string" style="string" fgcolor="#009900"  />
+	<highlight name="entity" style="value" fgcolor="#0000FF" />
 	<highlight name="brackets" style="brackets" fgcolor="#000000" bold="1" />
 	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
 	<highlight name="value" style="value" fgcolor="#0000FF" />
+	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
@@ -200,7 +202,7 @@
 			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
-	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="value" />
+	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
 	</context>
 </tag>
 </context>

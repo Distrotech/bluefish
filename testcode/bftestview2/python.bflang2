@@ -1,12 +1,20 @@
-<bflang pattern="Python">
+<bflang name="Python">
 <header>
 	<mime type="application/x-python"/>
 	<mime type="text/x-python" />
+	<highlight name="string" style="string" fgcolor="#009900"  />
+	<highlight name="brackets" style="brackets" fgcolor="#000000" bold="1" />
+	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="value" style="value" fgcolor="#0000FF" />
+	<highlight name="function" style="function" fgcolor="#000099" />
+	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="variable" style="variable" fgcolor="#990000" bold="1" />
+	<highlight name="preprocessor" style="preprocessor" fgcolor="#aaaa00"  />	
 </header>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<element pattern="import[^&#10;]+" is_regex="1" highlight="tag"/>
-<element pattern="from[^&#10;]+" is_regex="1" highlight="tag"/>
+<element pattern="import[^&#10;]+" is_regex="1" highlight="preprocessor"/>
+<element pattern="from[^&#10;]+" is_regex="1" highlight="preprocessor"/>
 <group autocomplete="1" highlight="keyword">
 <element pattern="and" />
 <element pattern="assert" />
