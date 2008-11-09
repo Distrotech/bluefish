@@ -97,9 +97,10 @@ static void skip_to_end_tag(xmlTextReaderPtr reader, int depth) {
 
 static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const gchar *bgcolor, gboolean bold, gboolean italic) {
 	GtkTextTag *tag;
+	if (!name || name[0]=='\0') return;
 	tag = gtk_text_tag_new(name);
-	if (fgcolor) g_object_set(tag, "foreground", fgcolor, NULL);
-	if (bgcolor) g_object_set(tag, "background", bgcolor, NULL);
+	if (fgcolor && fgcolor[0]!='\0') g_object_set(tag, "foreground", fgcolor, NULL);
+	if (bgcolor && bgcolor[0]!='\0') g_object_set(tag, "background", bgcolor, NULL);
 	if (bold) g_object_set(tag, "weight", PANGO_WEIGHT_BOLD, NULL);
 	if (italic) g_object_set(tag, "style", PANGO_STYLE_ITALIC, NULL);
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
@@ -693,12 +694,27 @@ static void register_bflanguage(Tbflang *bflang) {
 	}
 }
 
-void langmgr_init(gboolean load_reference) {
+void langmgr_init(GList *user_styles, GList *user_highlight_styles, gboolean load_reference) {
 	Tbflang *bflang;
+	GList *tmplist;
+	
 	langmgr.tagtable = gtk_text_tag_table_new();
 	langmgr.bflang_lookup = g_hash_table_new(g_str_hash,g_str_equal);
 	langmgr.load_reference = load_reference;
 	langmgr.configured_styles = g_hash_table_new(arr2_hash,arr2_equal);
+	
+	for (tmplist = g_list_first(user_styles);tmplist;tmplist=tmplist->next) {
+		gchar **arr = (gchar **)tmplist->data;
+		g_print("create style %s\n",arr[0]);
+		langmrg_create_style(arr[0], arr[1], arr[2], (arr[3] && arr[3][0]=='1') , (arr[4] && arr[4][0]=='1'));
+	}
+	for (tmplist = g_list_first(user_highlight_styles);tmplist;tmplist=tmplist->next) {
+		gchar **arr2, **arr = (gchar **)tmplist->data;
+		arr2 = array_from_arglist(arr[0], arr[1], NULL);
+		g_print("set style %s for highlight %s:%s\n",arr[2],arr2[0],arr2[1]);
+		g_hash_table_insert(langmgr.configured_styles,arr2,g_strdup(arr[2]));
+	}
+	
 	bflang = parse_bflang2_header("c.bflang2");
 	register_bflanguage(bflang);
 	bflang = parse_bflang2_header("php.bflang2");

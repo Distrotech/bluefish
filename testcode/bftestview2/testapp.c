@@ -37,6 +37,7 @@ int main(int argc, char *argv[])
 {
 	GtkWidget *window, *scroll;
 	GtkWidget *vbox;
+	GList *user_highlight_styles=NULL, *user_styles=NULL;
 
 	GtkWidget *button;
 	GtkTextBuffer *buffer;
@@ -49,7 +50,9 @@ int main(int argc, char *argv[])
 	g_thread_init(NULL); /* we don't do gtk from other threads, only glib, so no gdk_thread_init() required */
 	gtk_init(&argc, &argv);
 
-	langmgr_init(load_reference);
+	user_styles = g_list_prepend(user_styles, array_from_arglist("mystyle", "#0000FF", "", "1", "0", NULL));
+	user_highlight_styles = g_list_prepend(user_highlight_styles, array_from_arglist("PHP", "php-tag", "mystyle", NULL));
+	langmgr_init(user_styles, user_highlight_styles, load_reference);
 	/* Create a Window. */
 	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title(GTK_WINDOW(window), "Highlight widget test");
