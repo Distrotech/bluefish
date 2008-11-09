@@ -4,11 +4,11 @@
 </header>
 <definition>
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<element pattern="[a-z]+" is_regex="1" style="value"/>
-<element pattern="print" autocomplete="1" style="tag">
+<element pattern="[a-z]+" is_regex="1" highlight="value"/>
+<element pattern="print" autocomplete="1" highlight="tag">
 	<reference><b>print</b> is the standard print function</reference>
 </element>
-<element pattern="printb" autocomplete="1" style="tag"><reference><b>printb</b> is NOT the standard print function</reference></element>
+<element pattern="printb" autocomplete="1" highlight="tag"><reference><b>printb</b> is NOT the standard print function</reference></element>
 
 
 

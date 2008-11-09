@@ -2,175 +2,175 @@
 <header><mime type="application/x-asp"/></header>
 <definition>
 <context symbols="&gt;&lt;&amp;; %@&#9;&#10;&#13;">
-<tag name="html" style="tag" />
-<tag name="head" style="tag" />
-<tag name="meta" style="tag" attributes="name,http-equiv,content" attribstyle="function" autocomplete_append=" /&gt;" />
-<tag name="title" style="tag" autocomplete_append="&gt; &lt;/title&gt;" />
+<tag name="html" highlight="tag" />
+<tag name="head" highlight="tag" />
+<tag name="meta" highlight="tag" attributes="name,http-equiv,content" attribhighlight="function" autocomplete_append=" /&gt;" />
+<tag name="title" highlight="tag" autocomplete_append="&gt; &lt;/title&gt;" />
 <!--
-<tag name="script" style="tag" attributes="type,src"  attribstyle="function" autocomplete_append=" /&gt;" />
+<tag name="script" highlight="tag" attributes="type,src"  attribhighlight="function" autocomplete_append=" /&gt;" />
 -->
-<tag name="link" style="tag" attributes="rel,type,href" attribstyle="function" autocomplete_append=" /&gt;" />
-<tag name="body" style="tag" />
-<tag name="div" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="p" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="span" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="img" style="storage" attributes="src,width,height,align,valign,border,alt" attribstyle="function" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;"/>
-<tag name="i" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="b" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="em" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="strong" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="u" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="a" style="storage" attributes="style,class,id,href,target" attribstyle="function" autocomplete_append=" href=&#34;&#34; &gt;" />
-<tag name="table" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="th" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="tr" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="td" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="ul" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="ol" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="li" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="h1" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="h2" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="h3" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="h4" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="h5" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="h6" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="br" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append=" /&gt;" />
-<tag name="kbd" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" />
-<tag name="form" style="tag" attributes="style,class,id,action,method,enctype,target" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag name="input" style="tag" attributes="style,class,id,type,name,value,size,maxlength,checked" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag name="select" style="tag" attributes="style,class,id,name,size,multiple" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag name="textarea" style="tag" attributes="style,class,id,name,rows,cols" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag name="option" style="tag" attributes="style,class,id,value,label,selected" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag name="optgroup" style="tag" attributes="style,class,id,label" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="link" highlight="tag" attributes="rel,type,href" attribhighlight="function" autocomplete_append=" /&gt;" />
+<tag name="body" highlight="tag" />
+<tag name="div" highlight="tag" attributes="style,class,id,align" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="p" highlight="tag" attributes="style,class,id,align" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="span" highlight="tag" attributes="style,class,id,align" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="img" highlight="storage" attributes="src,width,height,align,valign,border,alt" attribhighlight="function" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;"/>
+<tag name="i" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="b" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="em" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="strong" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="u" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="a" highlight="storage" attributes="style,class,id,href,target" attribhighlight="function" autocomplete_append=" href=&#34;&#34; &gt;" />
+<tag name="table" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="th" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="tr" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="td" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="ul" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="ol" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="li" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="h1" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="h2" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="h3" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="h4" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="h5" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="h6" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="br" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append=" /&gt;" />
+<tag name="kbd" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
+<tag name="form" highlight="tag" attributes="style,class,id,action,method,enctype,target" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="input" highlight="tag" attributes="style,class,id,type,name,value,size,maxlength,checked" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="select" highlight="tag" attributes="style,class,id,name,size,multiple" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="textarea" highlight="tag" attributes="style,class,id,name,rows,cols" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="option" highlight="tag" attributes="style,class,id,value,label,selected" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="optgroup" highlight="tag" attributes="style,class,id,label" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 
-<!-- <element pattern="&lt;script[ &#9;].+javascript.+&gt;" is_regex="1" case_insens="1" style="keyword"/> -->
+<!-- <element pattern="&lt;script[ &#9;].+javascript.+&gt;" is_regex="1" case_insens="1" highlight="keyword"/> -->
 
-<element pattern="&lt;%" starts_block="1" style="region">
-	<context id="vbscript" autocomplete_case_insens="1" symbols=" '&#34;():.,/$#*-+=&gt;&lt;&amp; &#9;&#10;&#13;" style="region">
+<element pattern="&lt;%" starts_block="1" highlight="region">
+	<context id="vbscript" autocomplete_case_insens="1" symbols=" '&#34;():.,/$#*-+=&gt;&lt;&amp; &#9;&#10;&#13;" highlight="region">
 		
-		<element  pattern="and" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="as" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="call" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="case" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="cbool" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="cbyte" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="cchar" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="cdate" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="cdec" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="cdbl" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="cint" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="class" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="clng" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="codepage" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="const" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="cobj" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="csng" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="cstr" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="default" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="dim" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="do" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="each" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="else" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="elseif" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="end" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="exit" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="explicit" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="for" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="function" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="goto" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="if" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="in" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="is" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="language" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="let" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="loop" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="mod" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="new" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="next" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="not" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="option" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="or" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="preserve" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="private" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="public" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="redim" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="rem" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="resume" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="select" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="set" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="step" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="sub" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="then" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="to" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="until" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="wend" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="while" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="with" autocomplete="1" case_insens="1" style="keyword"/>
-		<element  pattern="xor" autocomplete="1" case_insens="1" style="keyword"/>
+		<element  pattern="and" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="as" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="call" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="case" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="cbool" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="cbyte" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="cchar" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="cdate" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="cdec" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="cdbl" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="cint" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="class" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="clng" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="codepage" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="const" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="cobj" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="csng" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="cstr" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="default" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="dim" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="do" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="each" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="else" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="elseif" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="end" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="exit" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="explicit" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="for" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="function" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="goto" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="if" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="in" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="is" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="language" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="let" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="loop" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="mod" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="new" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="next" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="not" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="option" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="or" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="preserve" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="private" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="public" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="redim" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="rem" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="resume" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="select" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="set" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="step" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="sub" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="then" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="to" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="until" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="wend" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="while" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="with" autocomplete="1" case_insens="1" highlight="keyword"/>
+		<element  pattern="xor" autocomplete="1" case_insens="1" highlight="keyword"/>
 		
-		<element  pattern="TRUE" autocomplete="1" case_insens="1" style="value"/>
-		<element  pattern="FALSE" autocomplete="1" case_insens="1" style="value"/>
-		<element  pattern="NOTHING" autocomplete="1" case_insens="1" style="value"/>
+		<element  pattern="TRUE" autocomplete="1" case_insens="1" highlight="value"/>
+		<element  pattern="FALSE" autocomplete="1" case_insens="1" highlight="value"/>
+		<element  pattern="NOTHING" autocomplete="1" case_insens="1" highlight="value"/>
 		
-		<element pattern="&#34;" style="string">
-			<context symbols="&#34;" style="string">
-				<element pattern="&#34;" style="string" ends_context="1" />
+		<element pattern="&#34;" highlight="string">
+			<context symbols="&#34;" highlight="string">
+				<element pattern="&#34;" highlight="string" ends_context="1" />
 			</context>
 		</element>
 		
-		<element pattern="'" style="comment">
-			<context symbols="%&gt;&#10;" style="comment">
+		<element pattern="'" highlight="comment">
+			<context symbols="%&gt;&#10;" highlight="comment">
 				<element pattern="&#10;" ends_context="1" />
-				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;%" style="region" mayfold="1" />
+				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;%" highlight="region" mayfold="1" />
 			</context>
 		</element>
 		
-		<element pattern="for" case_insens="1" starts_block="1" mayfold="1" style="braces" />
-		<element pattern="next" case_insens="1" ends_block="1" blockstartelement="for" mayfold="1" style="braces" />
-		<element pattern="do" case_insens="1" starts_block="1" mayfold="1" style="braces" />
-		<element pattern="loop" case_insens="1" ends_block="1" blockstartelement="do" mayfold="1" style="braces" />
-		<element pattern="while" case_insens="1" starts_block="1" mayfold="1" style="braces" />
-		<element pattern="wend" case_insens="1" ends_block="1" blockstartelement="while" mayfold="1" style="braces" />
-		<element pattern="exit[\ \t]+sub" is_regex="1" case_insens="1" style="keyword" autocomplete="1" autocomplete_string="exit sub" mayfold="1" />
-		<element pattern="sub" case_insens="1" starts_block="1" mayfold="1" style="braces" />
-		<element pattern="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartelement="sub" autocomplete="1" autocomplete_string="end sub" mayfold="1" style="braces" />
+		<element pattern="for" case_insens="1" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="next" case_insens="1" ends_block="1" blockstartelement="for" mayfold="1" highlight="brackets" />
+		<element pattern="do" case_insens="1" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="loop" case_insens="1" ends_block="1" blockstartelement="do" mayfold="1" highlight="brackets" />
+		<element pattern="while" case_insens="1" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="wend" case_insens="1" ends_block="1" blockstartelement="while" mayfold="1" highlight="brackets" />
+		<element pattern="exit[\ \t]+sub" is_regex="1" case_insens="1" highlight="keyword" autocomplete="1" autocomplete_string="exit sub" mayfold="1" />
+		<element pattern="sub" case_insens="1" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartelement="sub" autocomplete="1" autocomplete_string="end sub" mayfold="1" highlight="brackets" />
 
-		<element pattern="[0-9.]+" is_regex="1" style="value"/>
-		<element pattern="exit[\ \t]+function" is_regex="1" case_insens="1" style="keyword"  autocomplete="1" autocomplete_string="exit function" mayfold="1" />
-		<element pattern="function" starts_block="1" case_insens="1" mayfold="1" style="braces" />
-		<element pattern="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartelement="function" mayfold="1" style="braces" autocomplete="1" autocomplete_string="end function" />
-		<element pattern="if" starts_block="1" is_regex="1" case_insens="1" mayfold="1" style="braces" />
-		<element pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartelement="if[\ \t]+.then" mayfold="1" style="braces" />
-		<element pattern="with" starts_block="1" case_insens="1" mayfold="1" style="braces" />
-		<element pattern="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartelement="with" mayfold="1" style="braces"  autocomplete="1" autocomplete_string="end with" />
-		<element pattern="select" starts_block="1" case_insens="1" mayfold="1" style="braces" />
-		<element pattern="end[\ \t]+select" is_regex="1" case_insens="1" ends_block="1" blockstartelement="select" mayfold="1" style="braces" autocomplete="1" autocomplete_string="end select" />
+		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+		<element pattern="exit[\ \t]+function" is_regex="1" case_insens="1" highlight="keyword"  autocomplete="1" autocomplete_string="exit function" mayfold="1" />
+		<element pattern="function" starts_block="1" case_insens="1" mayfold="1" highlight="brackets" />
+		<element pattern="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartelement="function" mayfold="1" highlight="brackets" autocomplete="1" autocomplete_string="end function" />
+		<element pattern="if" starts_block="1" is_regex="1" case_insens="1" mayfold="1" highlight="brackets" />
+		<element pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartelement="if[\ \t]+.then" mayfold="1" highlight="brackets" />
+		<element pattern="with" starts_block="1" case_insens="1" mayfold="1" highlight="brackets" />
+		<element pattern="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartelement="with" mayfold="1" highlight="brackets"  autocomplete="1" autocomplete_string="end with" />
+		<element pattern="select" starts_block="1" case_insens="1" mayfold="1" highlight="brackets" />
+		<element pattern="end[\ \t]+select" is_regex="1" case_insens="1" ends_block="1" blockstartelement="select" mayfold="1" highlight="brackets" autocomplete="1" autocomplete_string="end select" />
 
-		<element pattern="%&gt;" ends_block="1" blockstartelement="&lt;%" style="region" mayfold="1" ends_context="1" />
+		<element pattern="%&gt;" ends_block="1" blockstartelement="&lt;%" highlight="region" mayfold="1" ends_context="1" />
 <!--
-		<element pattern="[a-z][a-z0-9_]*[$%]?" is_regex="1" case_insens="1" style="variable"/>
+		<element pattern="[a-z][a-z0-9_]*[$%]?" is_regex="1" case_insens="1" highlight="variable"/>
 -->
-		<element pattern="[a-z][[a-z_0-9]*" is_regex="1" case_insens="1" style="variable"/>
+		<element pattern="[a-z][[a-z_0-9]*" is_regex="1" case_insens="1" highlight="variable"/>
 
 	</context>
 </element>
 
 
 <!--
-<element pattern="&lt;script.+javascript.+&gt;" is_regex="1" case_insens="1" starts_block="1" style="region">
+<element pattern="&lt;script.+javascript.+&gt;" is_regex="1" case_insens="1" starts_block="1" highlight="region">
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-		<element pattern="&lt;/script&gt;" is_regex="1" case_insens="1" ends_block="1" blockstartelement="&lt;script.+javascript.+&gt;" style="region" mayfold="1" ends_context="1" />
+		<element pattern="&lt;/script&gt;" is_regex="1" case_insens="1" ends_block="1" blockstartelement="&lt;script.+javascript.+&gt;" highlight="region" mayfold="1" ends_context="1" />
 	</context>
 </element>
 -->
 
-<element pattern="&lt;!--" style="comment" starts_block="1">
-	<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
-		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+<element pattern="&lt;!--" highlight="comment" starts_block="1">
+	<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
+		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
 
-<element pattern="&amp;[a-z0-9#]+;" is_regex="1" style="value" />
+<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="value" />
 </context>
 </definition>
 </bflang>

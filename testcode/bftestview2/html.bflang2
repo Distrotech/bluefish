@@ -4,31 +4,31 @@
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-<tag name="html" style="tag" autocomplete_append="&gt;" />
-<tag name="head" style="tag" autocomplete_append="&gt;">
-	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" style="region">
-	<tag name="meta" style="tag" attributes="name,http-equiv,content" attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="title" style="tag" autocomplete_append="&gt; &lt;/title&gt;" />
+<tag name="html" highlight="tag" autocomplete_append="&gt;" />
+<tag name="head" highlight="tag" autocomplete_append="&gt;">
+	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
+	<tag name="meta" highlight="tag" attributes="name,http-equiv,content" attribhighlight="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="title" highlight="tag" autocomplete_append="&gt; &lt;/title&gt;" />
 
-	<element pattern="&lt;script" style="tag">
+	<element pattern="&lt;script" highlight="tag">
 		<context symbols="&gt;&amp;; &#9;&#10;&#13;&quot;=" >
-			<element pattern="src" style="function"/>
-			<element pattern="language" style="function">
+			<element pattern="src" highlight="function"/>
+			<element pattern="language" highlight="function">
 				<context symbols="&gt;&amp;; &#9;&#10;&#13;&quot;=">
 					<element pattern="&quot;">
 						<context symbols="&gt;&amp;; &#9;&#10;&#13;&quot;=">
 							<element pattern="javascript" case_insens="1" >
 								<context symbols="&gt;&amp;; &#9;&#10;&#13;&quot;=/" >
-									<element pattern="/&gt;" style="tag" ends_context="4"/>
-									<element pattern="&gt;" style="tag">
+									<element pattern="/&gt;" highlight="tag" ends_context="4"/>
+									<element pattern="&gt;" highlight="tag">
 										<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;&quot;='+*^()">
 										
  
-<element pattern="(" id="js(" starts_block="1" style="braces"/>
-<element pattern=")" style="braces" ends_block="1" blockstartelement="js("/>
-<element pattern="{" id="js{" starts_block="1" style="braces"/>
-<element pattern="}" style="braces" ends_block="1" blockstartelement="js{"/>
-<group style="keyword" autocomplete="1">
+<element pattern="(" id="js(" starts_block="1" highlight="brackets"/>
+<element pattern=")" highlight="brackets" ends_block="1" blockstartelement="js("/>
+<element pattern="{" id="js{" starts_block="1" highlight="brackets"/>
+<element pattern="}" highlight="brackets" ends_block="1" blockstartelement="js{"/>
+<group highlight="keyword" autocomplete="1">
 <element pattern="if" />
 <element pattern="else" />
 <element pattern="where" />
@@ -45,40 +45,40 @@
 <element pattern="catch" />
 <element pattern="default" />
 </group>
-<group style="function" autocomplete="1">
+<group highlight="function" autocomplete="1">
 <element pattern="getElementsByTagName" />
 <element pattern="getElementsByTagName" />
 </group>
-<group style="value" autocomplete="1">
+<group highlight="value" autocomplete="1">
 <element pattern="true" />
 <element pattern="false" />
 <element pattern="[0-9.]+" is_regex="1" autocomplete="0"/>
 </group>
-<element pattern="&#34;" style="string">
-	<context symbols="\&#34;" style="string">
-		<element pattern="\&#34;" style="string" />
-		<element pattern="&#34;" style="string" ends_context="1" />
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;" highlight="string">
+		<element pattern="\&#34;" highlight="string" />
+		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
-<element pattern="'" style="string">
-	<context symbols="\'" style="string">
-		<element pattern="\." is_regex="1" style="string" />
-		<element pattern="'" style="string" ends_context="1" />
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\." is_regex="1" highlight="string" />
+		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
-<element pattern="//" style="comment">
-	<context symbols="&#34;&gt;&lt; " style="comment">
-		<element pattern="&#34;" style="comment" ends_context="1" />
-		<element pattern="&lt;/script&gt;" style="tag" ends_context="6"/>
+<element pattern="//" highlight="comment">
+	<context symbols="&#34;&gt;&lt; " highlight="comment">
+		<element pattern="&#34;" highlight="comment" ends_context="1" />
+		<element pattern="&lt;/script&gt;" highlight="tag" ends_context="6"/>
 	</context>
 </element>
-<element pattern="/*" starts_block="1" style="comment">
-	<context symbols="*/&#9;&#10;&#13;" style="comment">
-		<element pattern="*/" ends_block="1" blockstartelement="/*" style="comment" mayfold="1" ends_context="1" />
+<element pattern="/*" starts_block="1" highlight="comment">
+	<context symbols="*/&#9;&#10;&#13;" highlight="comment">
+		<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
 
-<element pattern="&lt;/script&gt;" style="tag" ends_context="5"/>
+<element pattern="&lt;/script&gt;" highlight="tag" ends_context="5"/>
 
 										</context>
 									</element>
@@ -87,55 +87,55 @@
 							<element pattern="&quot;" ends_context="2"/>
 						</context>
 					</element>
-					<element pattern="&gt;" ends_context="2" style="tag"/>
+					<element pattern="&gt;" ends_context="2" highlight="tag"/>
 				</context>
 			</element>
-			<element pattern="&gt;" style="tag" ends_context="1"/>
+			<element pattern="&gt;" highlight="tag" ends_context="1"/>
 		</context>
 	</element>
 
-	<element pattern="&lt;/script&gt;" style="tag"/>
-<tag name="style" style="tag" attributes="type,src"  attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
-	<!--	<element pattern="&lt;style" style="tag" >
+	<element pattern="&lt;/script&gt;" highlight="tag"/>
+<tag name="style" highlight="tag" attributes="type,src"  attribhighlight="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
+	<!--	<element pattern="&lt;style" highlight="tag" >
 		<context symbols="&gt;">
-			<element pattern="/&gt;" style="tag" ends_context="1" />
-			<element pattern="&gt;" style="tag" >-->
+			<element pattern="/&gt;" highlight="tag" ends_context="1" />
+			<element pattern="&gt;" highlight="tag" >-->
 				<context symbols=" &#9;&#10;&#13;{}.">
-<!--<element pattern="&lt;/style&gt;" style="tag" ends_context="2" />-->
-<element pattern="body" style="keyword"/>
-<element pattern="{" id="css{" starts_block="1" style="braces">
+<!--<element pattern="&lt;/style&gt;" highlight="tag" ends_context="2" />-->
+<element pattern="body" highlight="keyword"/>
+<element pattern="{" id="css{" starts_block="1" highlight="brackets">
 <context symbols=" &#9;&#10;&#13;{}.:&quot;';">
-	<element pattern="&lt;/style&gt;" style="tag" ends_context="3" />
-	<element pattern="background" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="&lt;/style&gt;" highlight="tag" ends_context="3" />
+	<element pattern="background" autocomplete="1" highlight="keyword" autocomplete_append=": ">
 	<reference>A shorthand property for setting all background properties: background-color, background-image, background-repeat, background-attachment, and background-position, in one declaration</reference>
 	</element>
-	<element pattern="background-attachment" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="background-attachment" autocomplete="1" highlight="keyword" autocomplete_append=": ">
 		<reference>Sets whether a background image is fixed or scrolls with the rest of the page</reference>
 		<context symbols=" &#9;&#10;&#13;{}.;">
-			<element pattern="&lt;/style&gt;" style="tag" ends_context="4" />
-			<element pattern="scroll" autocomplete="1" style="value" autocomplete_append=";"/>
-			<element pattern="fixed" autocomplete="1" style="value" autocomplete_append=";"/>
+			<element pattern="&lt;/style&gt;" highlight="tag" ends_context="4" />
+			<element pattern="scroll" autocomplete="1" highlight="value" autocomplete_append=";"/>
+			<element pattern="fixed" autocomplete="1" highlight="value" autocomplete_append=";"/>
 			<element pattern=";" ends_context="1"/>
-			<element pattern="}" ends_block="1" blockstartelement="css{" style="braces" ends_context="2"/>
+			<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="2"/>
 		</context>
 	</element>
-	<element pattern="background-color" autocomplete="1" style="keyword" autocomplete_append=": ">
+	<element pattern="background-color" autocomplete="1" highlight="keyword" autocomplete_append=": ">
 		<reference>Sets the background color of an element</reference>
 		<context id="color" symbols=" &#9;&#10;&#13;{}.;">
-			<element pattern="&lt;/style&gt;" style="tag" ends_context="4" />
-			<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" style="value" is_regex="1" case_insens="1"/>
-			<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" style="value" is_regex="1" case_insens="1"/>
-			<element pattern="red" style="value" autocomplete="TRUE"/>
-			<element pattern="green" style="value" autocomplete="TRUE"/>
-			<element pattern="blue" style="value" autocomplete="TRUE"/>
-			<element pattern="black" style="value" autocomplete="TRUE"/>
-			<element pattern="white" style="value" autocomplete="TRUE"/>
-			<element pattern="yellow" style="value" autocomplete="TRUE"/>
+			<element pattern="&lt;/style&gt;" highlight="tag" ends_context="4" />
+			<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="value" is_regex="1" case_insens="1"/>
+			<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="value" is_regex="1" case_insens="1"/>
+			<element pattern="red" highlight="value" autocomplete="TRUE"/>
+			<element pattern="green" highlight="value" autocomplete="TRUE"/>
+			<element pattern="blue" highlight="value" autocomplete="TRUE"/>
+			<element pattern="black" highlight="value" autocomplete="TRUE"/>
+			<element pattern="white" highlight="value" autocomplete="TRUE"/>
+			<element pattern="yellow" highlight="value" autocomplete="TRUE"/>
 			<element pattern=";" ends_context="1"/>
-			<element pattern="}" ends_block="1" blockstartelement="css{" style="braces" ends_context="2"/>
+			<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="2"/>
 		</context>
 	</element>
-	<element pattern="}" ends_block="1" blockstartelement="css{" style="braces" ends_context="1"/>
+	<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="1"/>
 </context>
 </element>
 				</context>
@@ -144,56 +144,56 @@
 	</element>-->
 </tag>
 
-	<tag name="link" style="tag" attributes="rel,type,href" attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<element pattern="&lt;!--" style="comment" starts_block="1">
-		<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
-			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+	<tag name="link" highlight="tag" attributes="rel,type,href" attribhighlight="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<element pattern="&lt;!--" highlight="comment" starts_block="1">
+		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
+			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
-	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" style="value" />
+	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="value" />
 	</context>
 </tag>
-<tag name="body" style="tag">
+<tag name="body" highlight="tag">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-	<tag name="div" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="p" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="span" style="tag" attributes="style,class,id,align" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="img" style="storage" attributes="src,width,height,align,valign,border,alt,name" attribstyle="function" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" attrib_autocomplete_append="=&quot;&quot;">
+	<tag name="div" highlight="tag" attributes="style,class,id,align" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="p" highlight="tag" attributes="style,class,id,align" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="span" highlight="tag" attributes="style,class,id,align" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="img" highlight="storage" attributes="src,width,height,align,valign,border,alt,name" attribhighlight="function" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" attrib_autocomplete_append="=&quot;&quot;">
 	<reference>the image tag</reference>
 	</tag>
-	<tag name="i" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="b" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="em" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="strong" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="u" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="a" style="storage" attributes="style,class,id,href,target" attribstyle="function" autocomplete_append=" href=&#34;&#34; &gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="table" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="th" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="tr" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="td" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="ul" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="ol" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="li" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="h1" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="h2" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="h3" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="h4" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="h5" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="h6" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="br" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="kbd" style="tag" attributes="style,class,id" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="form" style="tag" attributes="style,class,id,action,method,enctype,target" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="input" style="tag" attributes="style,class,id,type,name,value,size,maxlength,checked" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="select" style="tag" attributes="style,class,id,name,size,multiple" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="textarea" style="tag" attributes="style,class,id,name,rows,cols" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="option" style="tag" attributes="style,class,id,value,label,selected" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="optgroup" style="tag" attributes="style,class,id,label" attribstyle="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<element pattern="&lt;!--" style="comment" starts_block="1">
-		<context symbols="-&gt; &#9;&#10;&#13;" style="comment">
-			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" style="comment" mayfold="1" ends_context="1" />
+	<tag name="i" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="b" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="em" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="strong" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="u" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="a" highlight="storage" attributes="style,class,id,href,target" attribhighlight="function" autocomplete_append=" href=&#34;&#34; &gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="table" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="th" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="tr" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="td" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="ul" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="ol" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="li" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="h1" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="h2" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="h3" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="h4" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="h5" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="h6" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="br" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="kbd" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="form" highlight="tag" attributes="style,class,id,action,method,enctype,target" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="input" highlight="tag" attributes="style,class,id,type,name,value,size,maxlength,checked" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="select" highlight="tag" attributes="style,class,id,name,size,multiple" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="textarea" highlight="tag" attributes="style,class,id,name,rows,cols" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="option" highlight="tag" attributes="style,class,id,value,label,selected" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="optgroup" highlight="tag" attributes="style,class,id,label" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<element pattern="&lt;!--" highlight="comment" starts_block="1">
+		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
+			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
-	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" style="value" />
+	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="value" />
 	</context>
 </tag>
 </context>

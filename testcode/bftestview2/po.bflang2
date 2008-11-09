@@ -5,10 +5,10 @@
 <definition>
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
-<element pattern="&quot;[^&quot;]*&quot;" is_regex="1" style="string"/>
-<element pattern="#[^&#x0A;]*" is_regex="1" style="comment"/>
-<element pattern="msgid" autocomplete="1" style="tag"/>
-<element pattern="msgstr" autocomplete="1" style="tag"/>
+<element pattern="&quot;[^&quot;]*&quot;" is_regex="1" highlight="string"/>
+<element pattern="#[^&#x0A;]*" is_regex="1" highlight="comment"/>
+<element pattern="msgid" autocomplete="1" highlight="tag"/>
+<element pattern="msgstr" autocomplete="1" highlight="tag"/>
 
 </context>
 </definition>

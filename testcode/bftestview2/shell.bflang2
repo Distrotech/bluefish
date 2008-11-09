@@ -7,10 +7,10 @@
 </header>
 <definition>
 <context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<element pattern="[0-9.]+" is_regex="1" style="value"/>
-<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" style="variable"/>
-<element pattern="${[^}]+}" is_regex="1" case_insens="1" style="variable"/>
-<group autocomplete="1" style="function">
+<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable"/>
+<element pattern="${[^}]+}" is_regex="1" case_insens="1" highlight="variable"/>
+<group autocomplete="1" highlight="function">
 	<element pattern="print" />
 	<element pattern="echo" />
 	<element pattern="setopt" />
@@ -30,14 +30,14 @@
 	<element pattern="break" />
 	<element pattern="eval" />
 </group>
-<element pattern="#[^&#10;]*" is_regex="1" style="comment"/>
-<element pattern="'[^']*'" is_regex="1" style="string"/>
-<element pattern="&quot;" style="string">
-<context symbols="\&quot;${}" style="string">
-	<element pattern="\\." is_regex="1" style="tag" />
-	<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" style="variable"/>
-	<element pattern="${[^}]+}" is_regex="1" case_insens="1" style="variable"/>
-	<element pattern="&quot;" style="string" ends_context="1"/>
+<element pattern="#[^&#10;]*" is_regex="1" highlight="comment"/>
+<element pattern="'[^']*'" is_regex="1" highlight="string"/>
+<element pattern="&quot;" highlight="string">
+<context symbols="\&quot;${}" highlight="string">
+	<element pattern="\\." is_regex="1" highlight="tag" />
+	<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable"/>
+	<element pattern="${[^}]+}" is_regex="1" case_insens="1" highlight="variable"/>
+	<element pattern="&quot;" highlight="string" ends_context="1"/>
 </context>
 </element>
 </context>

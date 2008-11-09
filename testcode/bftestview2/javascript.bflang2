@@ -5,7 +5,7 @@
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
-<group autocomplete="1" style="keyword"> 
+<group autocomplete="1" highlight="keyword"> 
 <element pattern="if" />
 <element pattern="else" />
 <element pattern="where" />
@@ -22,32 +22,32 @@
 <element pattern="catch" />
 <element pattern="default" />
 </group>
-<element pattern="&#34;" style="string">
-	<context symbols="\&#34;" style="string">
-		<element pattern="\&#34;" style="string" />
-		<element pattern="&#34;" style="string" ends_context="1" />
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;" highlight="string">
+		<element pattern="\&#34;" highlight="string" />
+		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
-<element pattern="'" style="string">
-	<context symbols="\'" style="string">
-		<element pattern="\." is_regex="1" style="string" />
-		<element pattern="'" style="string" ends_context="1" />
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\." is_regex="1" highlight="string" />
+		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
-		<element pattern="{" starts_block="1" mayfold="1" style="braces" />
-		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" />
-		<element pattern="[" starts_block="1" mayfold="1" style="braces" />
-		<element pattern="]" ends_block="1" blockstartelement="[" style="braces" />
-		<element pattern="(" starts_block="1" mayfold="1" style="braces" />
-		<element pattern=")" ends_block="1" blockstartelement="(" style="braces" />
-		<element pattern="/*" starts_block="1" style="comment">
-			<context symbols="*/&#9;&#10;&#13;" style="comment">
-				<element pattern="*/" ends_block="1" blockstartelement="/*" style="comment" mayfold="1" ends_context="1" />
+		<element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+		<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+		<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
+		<element pattern="/*" starts_block="1" highlight="comment">
+			<context symbols="*/&#9;&#10;&#13;" highlight="comment">
+				<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
 			</context>
 		</element>
-		<element pattern="[0-9.]+" is_regex="1" style="value"/>
-		<element pattern="//[^&#10;]+" is_regex="1" style="comment"/>
-		<!-- <element pattern="#[^&#10;]+" is_regex="1" style="tag"/> -->
+		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+		<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
+		<!-- <element pattern="#[^&#10;]+" is_regex="1" highlight="tag"/> -->
 	</context>
 </definition>
 </bflang>

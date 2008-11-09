@@ -5,9 +5,9 @@
 </header>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<element pattern="import[^&#10;]+" is_regex="1" style="tag"/>
-<element pattern="from[^&#10;]+" is_regex="1" style="tag"/>
-<group autocomplete="1" style="keyword">
+<element pattern="import[^&#10;]+" is_regex="1" highlight="tag"/>
+<element pattern="from[^&#10;]+" is_regex="1" highlight="tag"/>
+<group autocomplete="1" highlight="keyword">
 <element pattern="and" />
 <element pattern="assert" />
 <element pattern="break" />
@@ -37,7 +37,7 @@
 <element pattern="while" />
 <element pattern="yield" />
 </group>
-<group style="function" autocomplete="1">
+<group highlight="function" autocomplete="1">
 <element pattern="distutils.Charset" />
 <element pattern="distutils.add_charset" />
 <element pattern="distutils.add_alias" />
@@ -1893,35 +1893,35 @@
 <element pattern="xml.sax.parse" />
 <element pattern="xml.sax.parseString" />
 </group>
-<element pattern="&#34;" style="string">
-	<context symbols="\&#34;" style="string">
-		<element pattern="\&#34;" style="string" />
-		<element pattern="&#34;" style="string" ends_context="1" />
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;" highlight="string">
+		<element pattern="\&#34;" highlight="string" />
+		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
-<element pattern="&#34;&#34;&#34;" style="string">
-	<context symbols="&#34;" style="string">
-		<element pattern="&#34;&#34;&#34;" style="string" ends_context="1" />
+<element pattern="&#34;&#34;&#34;" highlight="string">
+	<context symbols="&#34;" highlight="string">
+		<element pattern="&#34;&#34;&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
-<element pattern="'" style="string">
-	<context symbols="\'" style="string">
-		<element pattern="\'" style="string" />
-		<element pattern="'" style="string" ends_context="1" />
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\'" highlight="string" />
+		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
-<group autocomplete="1" style="value">
+<group autocomplete="1" highlight="value">
 <element pattern="True" />
 <element pattern="False" />
 <element pattern="None" />
 <element pattern="0x[0-9]+" is_regex="1" autocomplete="0" />
 <element pattern="[0-9]+.?[0-9]*" is_regex="1" autocomplete="0" />
 </group>
-<element pattern="{" starts_block="1" mayfold="1" style="braces" />
-<element pattern="}" ends_block="1" blockstartelement="{" style="braces" />
-<element pattern="[" starts_block="1" mayfold="1" style="braces" />
-<element pattern="]" ends_block="1" blockstartelement="[" style="braces" />
-<element pattern="(" starts_block="1" mayfold="1" style="braces" />
-<element pattern=")" ends_block="1" blockstartelement="(" style="braces" />
-<element pattern="#[^&#10;]*" is_regex="1" style="comment"/>
+<element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
+<element pattern="#[^&#10;]*" is_regex="1" highlight="comment"/>
 </context></definition></bflang>
