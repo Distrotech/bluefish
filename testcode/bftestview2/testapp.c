@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 	/* Create a multiline text widget. */
 	buffer = gtk_text_buffer_new(langmgr_get_tagtable());
 	
-	gtk_text_buffer_create_tag(buffer,"braces","weight", PANGO_WEIGHT_BOLD,"foreground","darkblue",NULL);
+/*	gtk_text_buffer_create_tag(buffer,"braces","weight", PANGO_WEIGHT_BOLD,"foreground","darkblue",NULL);
 	gtk_text_buffer_create_tag(buffer,"comment","style", PANGO_STYLE_ITALIC,"foreground", "grey", NULL);
 	gtk_text_buffer_create_tag(buffer,"storage","weight", PANGO_WEIGHT_BOLD,"foreground", "darkred", NULL);
 	gtk_text_buffer_create_tag(buffer,"keyword","weight", PANGO_WEIGHT_BOLD,"foreground", "black", NULL);
@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 	gtk_text_buffer_create_tag(buffer,"value","foreground", "blue", NULL);
 	gtk_text_buffer_create_tag(buffer,"function","foreground", "darkblue", NULL);
 	gtk_text_buffer_create_tag(buffer,"tag","foreground", "#880088", NULL);
-	gtk_text_buffer_create_tag(buffer,"region","background", "#EEF8FF", NULL);
+	gtk_text_buffer_create_tag(buffer,"region","background", "#EEF8FF", NULL);*/
 
 	
 	

@@ -1,14 +1,24 @@
-<bflang pattern="C">
+<bflang name="C">
 <header>
 	<mime type="text/x-csrc"/>
 	<mime type="text/x-chdr"/>
 	<mime type="application/x-csrc"/>
 	<mime type="application/x-chdr"/>
 	<option name="glib" default="1" description="glib types and functions"/>
+	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="bracket" style="bracket" bold="1" />
+	<highlight name="type" style="type" fgcolor="#000000" bold="1" />
+	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="string" style="string" fgcolor="#008800"  />
+	<highlight name="value" style="value" fgcolor="#0000EE"  />
+	<highlight name="preprocessor" style="preprocessor" fgcolor="#aaaa00"  />
+	<highlight name="glib-function" style="special-function" fgcolor="#990000"  />
+	<highlight name="glib-type" style="special-type" fgcolor="#990000" bold="1" />
+	
 </header>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<group style="keyword" autocomplete="1">
+<group highlight="keyword" autocomplete="1">
 <element pattern="asm" />
 <element pattern="auto" />
 <element pattern="break" />
@@ -36,7 +46,7 @@
 <element pattern="volatile" />
 <element pattern="while" />
 </group>
-<group style="storage" autocomplete="1">
+<group highlight="type" autocomplete="1">
 	<element pattern="bool"/>
 	<element pattern="unsigned"/>
 	<element pattern="signed"><reference><b></b> <b>signed</b> means if the storage can have negative numbers or only positive numbers</reference></element>
@@ -49,7 +59,7 @@
 	<element pattern="double"><reference><b></b> double is the big floating point storage type, which is 4 or 8 byte (32 or 64bits)</reference></element>
 </group>
 <group class="glib">
-<group  style="function" autocomplete="1">
+<group  highlight="glib-function" autocomplete="1">
 <element pattern="glib_check_version" />
 <element pattern="guint64" />
 <element pattern="G_LIKELY" />
@@ -1242,7 +1252,7 @@
 <element pattern="g_allocator_new" />
 <element pattern="g_allocator_free" />
 </group>
-	<group style="storage" autocomplete="1">
+	<group highlight="glib-type" autocomplete="1">
 		<element pattern="gint" />
 		<element pattern="guint" />
 		<element pattern="gint16" />
@@ -1250,36 +1260,36 @@
 		<element pattern="gboolean"  />
 		<element pattern="gchar"  />
 	</group>
-	<element pattern="TRUE"  style="value" />	
-	<element pattern="FALSE"  style="value" />
+	<element pattern="TRUE"  highlight="value" />	
+	<element pattern="FALSE"  highlight="value" />
 </group>
-<element pattern="NULL" autocomplete="1" style="value" />
-<element pattern="&#34;" style="string">
-	<context symbols="\&#34;" style="string">
-		<element pattern="\&#34;" style="string" />
-		<element pattern="&#34;" style="string" ends_context="1" />
+<element pattern="NULL" autocomplete="1" highlight="value" />
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;" highlight="string">
+		<element pattern="\&#34;" highlight="string" />
+		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
-<element pattern="'" style="string">
-	<context symbols="\'" style="string">
-		<element pattern="\." is_regex="1" style="string" />
-		<element pattern="'" style="string" ends_context="1" />
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\." is_regex="1" highlight="string" />
+		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
-		<element pattern="{" starts_block="1" mayfold="1" style="braces" />
-		<element pattern="}" ends_block="1" blockstartelement="{" style="braces" />
-		<element pattern="[" starts_block="1" mayfold="1" style="braces" />
-		<element pattern="]" ends_block="1" blockstartelement="[" style="braces" />
-		<element pattern="(" starts_block="1" mayfold="1" style="braces" />
-		<element pattern=")" ends_block="1" blockstartelement="(" style="braces" />
-		<element pattern="/*" starts_block="1" style="comment">
-			<context symbols="*/&#9;&#10;&#13;" style="comment">
-				<element pattern="*/" ends_block="1" blockstartelement="/*" style="comment" mayfold="1" ends_context="1" />
+		<element pattern="{" starts_block="1" mayfold="1" highlight="bracket" />
+		<element pattern="}" ends_block="1" blockstartelement="{" highlight="bracket" />
+		<element pattern="[" starts_block="1" mayfold="1" highlight="bracket" />
+		<element pattern="]" ends_block="1" blockstartelement="[" highlight="bracket" />
+		<element pattern="(" starts_block="1" mayfold="1" highlight="bracket" />
+		<element pattern=")" ends_block="1" blockstartelement="(" highlight="bracket" />
+		<element pattern="/*" starts_block="1" highlight="comment">
+			<context symbols="*/&#9;&#10;&#13;" highlight="comment">
+				<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
 			</context>
 		</element>
-		<element pattern="[0-9.]+" is_regex="1" style="value"/>
-		<element pattern="//[^&#10;]+" is_regex="1" style="comment"/>
-		<element pattern="#[^&#10;]+" is_regex="1" style="tag"/>
+		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+		<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
+		<element pattern="#[^&#10;]+" is_regex="1" highlight="preprocessor"/>
 	</context>
 </definition>
 </bflang>
