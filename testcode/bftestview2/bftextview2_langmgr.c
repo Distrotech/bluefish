@@ -664,6 +664,10 @@ static Tbflang *parse_bflang2_header(const gchar *filename) {
 					set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&bflang->name);
 					xmlFree(aname);
 				}
+				if (bflang->name == NULL) {
+					g_print("Language without a name.. abort..\n");
+					return NULL;
+				}
 			} else if (xmlStrEqual(name,(xmlChar *)"header")) {
 				process_header(reader,bflang);
 				xmlFree(name);

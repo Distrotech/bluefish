@@ -1,13 +1,20 @@
-<bflang pattern="HTML">
+<bflang name="HTML">
 <header>
 	<mime type="text/html"/>
+	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
+	<highlight name="special-tag" style="special-tag" fgcolor="#990000" bold="1" />
+	<highlight name="attribute" style="attribute" fgcolor="#000099"  />
+	<highlight name="string" style="string" fgcolor="#009900"  />
+	<highlight name="brackets" style="brackets" fgcolor="#000000" bold="1" />
+	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="value" style="value" fgcolor="#0000FF" />
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 <tag name="html" highlight="tag" autocomplete_append="&gt;" />
 <tag name="head" highlight="tag" autocomplete_append="&gt;">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
-	<tag name="meta" highlight="tag" attributes="name,http-equiv,content" attribhighlight="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="meta" highlight="tag" attributes="name,http-equiv,content" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<tag name="title" highlight="tag" autocomplete_append="&gt; &lt;/title&gt;" />
 
 	<element pattern="&lt;script" highlight="tag">
@@ -95,7 +102,7 @@
 	</element>
 
 	<element pattern="&lt;/script&gt;" highlight="tag"/>
-<tag name="style" highlight="tag" attributes="type,src"  attribhighlight="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
+<tag name="style" highlight="tag" attributes="type,src"  attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
 	<!--	<element pattern="&lt;style" highlight="tag" >
 		<context symbols="&gt;">
 			<element pattern="/&gt;" highlight="tag" ends_context="1" />
@@ -144,7 +151,7 @@
 	</element>-->
 </tag>
 
-	<tag name="link" highlight="tag" attributes="rel,type,href" attribhighlight="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="link" highlight="tag" attributes="rel,type,href" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<element pattern="&lt;!--" highlight="comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
 			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
@@ -155,39 +162,39 @@
 </tag>
 <tag name="body" highlight="tag">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-	<tag name="div" highlight="tag" attributes="style,class,id,align" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="p" highlight="tag" attributes="style,class,id,align" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="span" highlight="tag" attributes="style,class,id,align" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="img" highlight="storage" attributes="src,width,height,align,valign,border,alt,name" attribhighlight="function" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" attrib_autocomplete_append="=&quot;&quot;">
+	<tag name="div" highlight="tag" attributes="style,class,id,align" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="p" highlight="tag" attributes="style,class,id,align" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="span" highlight="tag" attributes="style,class,id,align" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="img" highlight="special-tag" attributes="src,width,height,align,valign,border,alt,name" attribhighlight="attribute" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" attrib_autocomplete_append="=&quot;&quot;">
 	<reference>the image tag</reference>
 	</tag>
-	<tag name="i" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="b" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="em" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="strong" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="u" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="a" highlight="storage" attributes="style,class,id,href,target" attribhighlight="function" autocomplete_append=" href=&#34;&#34; &gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="table" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="th" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="tr" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="td" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="ul" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="ol" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="li" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="h1" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="h2" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="h3" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="h4" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="h5" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="h6" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="br" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="kbd" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="form" highlight="tag" attributes="style,class,id,action,method,enctype,target" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="input" highlight="tag" attributes="style,class,id,type,name,value,size,maxlength,checked" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="select" highlight="tag" attributes="style,class,id,name,size,multiple" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="textarea" highlight="tag" attributes="style,class,id,name,rows,cols" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="option" highlight="tag" attributes="style,class,id,value,label,selected" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="optgroup" highlight="tag" attributes="style,class,id,label" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="i" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="b" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="em" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="strong" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="u" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="a" highlight="special-tag" attributes="style,class,id,href,target" attribhighlight="attribute" autocomplete_append=" href=&#34;&#34; &gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="table" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="th" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="tr" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="td" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="ul" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="ol" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="li" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="h1" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="h2" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="h3" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="h4" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="h5" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="h6" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="br" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="kbd" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="form" highlight="tag" attributes="style,class,id,action,method,enctype,target" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="input" highlight="tag" attributes="style,class,id,type,name,value,size,maxlength,checked" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="select" highlight="tag" attributes="style,class,id,name,size,multiple" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="textarea" highlight="tag" attributes="style,class,id,name,rows,cols" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="option" highlight="tag" attributes="style,class,id,value,label,selected" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="optgroup" highlight="tag" attributes="style,class,id,label" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<element pattern="&lt;!--" highlight="comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
 			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
