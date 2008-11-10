@@ -20,7 +20,7 @@ AC_REVISION($Revision: 1.165 $)
 
 AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
 
-#set AM_MAINTAINER_MODE here?
+AM_MAINTAINER_MODE
 
 dnl ************************
 dnl   I18N options
