@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # $Id: autogen.sh,v 1.11 2008-05-06 14:44:52 dleidert Exp $
 
