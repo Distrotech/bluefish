@@ -1,0 +1,66 @@
+<bflang name="Bflang2">
+<header>
+	<mime type="text/bluefish-language"/>
+<!--	<mime type="text/html"/> -->
+	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
+	<highlight name="special-tag" style="special-tag" fgcolor="#990000" bold="1" />
+	<highlight name="attribute" style="attribute" fgcolor="#000099"  />
+	<highlight name="string" style="string" fgcolor="#009900"  />
+	<highlight name="entity" style="value" fgcolor="#0000FF" />
+	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
+</header>
+<definition>
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+<element pattern="&lt;!--" highlight="comment" starts_block="1">
+	<context id="comment" symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
+	<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+<tag name="bflang" highlight="tag" autocomplete_append="&gt;" attributes="name" >
+	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+	<element pattern="&lt;!--" highlight="comment" starts_block="1"><context id="comment"/></element>
+	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+	<tag name="header" highlight="tag" autocomplete_append="&gt;" >
+		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
+		<element pattern="&lt;!--" highlight="comment" starts_block="1"><context id="comment"/></element>
+		<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+		<tag name="mime" highlight="tag" autocomplete_append=" type=&quot;&quot; /&gt;" attributes="type" />
+		<tag name="highlight" highlight="tag" autocomplete_append=" name=&quot;&quot; style=&quot;&quot; /&gt;" attributes="name,style,fgcolor,bgcolor,bold,italic" />		
+		</context>
+	</tag>
+	<tag name="definition" highlight="tag" autocomplete_append="&gt;">
+		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
+		<tag name="context" highlight="tag" autocomplete_append="/&gt;" attributes="id,symbols,highlight">
+			<context id="context" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
+			<element pattern="&lt;!--" highlight="comment" starts_block="1"><context id="comment"/></element>
+			<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+			<tag name="element" highlight="tag" autocomplete_append="/&gt;" attributes="id,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,blockhighlight,class,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string">
+				<context id="innerpattern" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
+					<tag name="reference" highlight="tag" autocomplete_append="/&gt;" />
+					<tag name="context" highlight="tag" autocomplete_append="/&gt;" attributes="id,symbols,highlight">
+						<context id="context" />
+					</tag>
+				</context>
+			</tag>
+			<tag name="tag" highlight="tag" autocomplete_append="/&gt;" attributes="name,highlight,class,attributes,autocomplete,autocomplete_append,attribhighlight,attrib_autocomplete_append">
+				<context id="innerpattern" />
+			</tag>
+			<tag name="group" highlight="tag" autocomplete_append="/&gt;" attributes="highlight,autocomplete,autocomplete_append,class,case_insens,is_regex,attrib_autocomplete_append,attribhighlight">
+				<context id="group" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
+				<tag name="element" highlight="tag" autocomplete_append="/&gt;" attributes="id,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,blockhighlight,class,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string"><context id="innerpattern" /></tag>
+				<tag name="tag" highlight="tag" autocomplete_append="/&gt;" attributes="name,highlight,class,attributes,autocomplete,autocomplete_append,attribhighlight,attrib_autocomplete_append"><context id="innerpattern" /></tag>
+				<tag name="group" highlight="tag" autocomplete_append="/&gt;" attributes="highlight,autocomplete,autocomplete_append,class,case_insens,is_regex,attrib_autocomplete_append,attribhighlight"><context id="group"/></tag>
+				</context>
+			</tag>
+			
+			</context>
+		</tag>
+		</context>
+	</tag>
+	</context>
+</tag>
+
+</context>
+</definition>
+</bflang>
