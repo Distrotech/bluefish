@@ -1,7 +1,7 @@
 <bflang name="Bflang2">
 <header>
 	<mime type="text/bluefish-language"/>
-<!--	<mime type="text/html"/> -->
+<!--	<mime type="text/html"/>-->
 	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
 	<highlight name="special-tag" style="special-tag" fgcolor="#990000" bold="1" />
 	<highlight name="attribute" style="attribute" fgcolor="#000099"  />
@@ -31,26 +31,26 @@
 	</tag>
 	<tag name="definition" highlight="tag" autocomplete_append="&gt;">
 		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
-		<tag name="context" highlight="tag" autocomplete_append="/&gt;" attributes="id,symbols,highlight">
+		<tag name="context" highlight="tag" autocomplete_append=" symbols=&quot;&quot; &gt;" attributes="id,symbols,highlight">
 			<context id="context" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
 			<element pattern="&lt;!--" highlight="comment" starts_block="1"><context id="comment"/></element>
 			<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
-			<tag name="element" highlight="tag" autocomplete_append="/&gt;" attributes="id,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,blockhighlight,class,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string">
+			<tag name="element" highlight="tag" autocomplete_append=" pattern=&quot;&quot; /&gt;" attributes="id,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,blockhighlight,class,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string">
 				<context id="innerpattern" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
 					<tag name="reference" highlight="tag" autocomplete_append="/&gt;" />
-					<tag name="context" highlight="tag" autocomplete_append="/&gt;" attributes="id,symbols,highlight">
+					<tag name="context" highlight="tag" autocomplete_append="symbols=&quot;&quot; &gt;" attributes="id,symbols,highlight">
 						<context id="context" />
 					</tag>
 				</context>
 			</tag>
-			<tag name="tag" highlight="tag" autocomplete_append="/&gt;" attributes="name,highlight,class,attributes,autocomplete,autocomplete_append,attribhighlight,attrib_autocomplete_append">
+			<tag name="tag" highlight="tag" autocomplete_append=" name=&quot;&quot; /&gt;" attributes="name,highlight,class,attributes,autocomplete,autocomplete_append,attribhighlight,attrib_autocomplete_append">
 				<context id="innerpattern" />
 			</tag>
-			<tag name="group" highlight="tag" autocomplete_append="/&gt;" attributes="highlight,autocomplete,autocomplete_append,class,case_insens,is_regex,attrib_autocomplete_append,attribhighlight">
+			<tag name="group" highlight="tag" autocomplete_append="&gt;" attributes="highlight,autocomplete,autocomplete_append,class,case_insens,is_regex,attrib_autocomplete_append,attribhighlight">
 				<context id="group" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
-				<tag name="element" highlight="tag" autocomplete_append="/&gt;" attributes="id,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,blockhighlight,class,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string"><context id="innerpattern" /></tag>
-				<tag name="tag" highlight="tag" autocomplete_append="/&gt;" attributes="name,highlight,class,attributes,autocomplete,autocomplete_append,attribhighlight,attrib_autocomplete_append"><context id="innerpattern" /></tag>
-				<tag name="group" highlight="tag" autocomplete_append="/&gt;" attributes="highlight,autocomplete,autocomplete_append,class,case_insens,is_regex,attrib_autocomplete_append,attribhighlight"><context id="group"/></tag>
+				<tag name="element" highlight="tag" autocomplete_append=" pattern=&quot;&quot; /&gt;" attributes="id,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,blockhighlight,class,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string"><context id="innerpattern" /></tag>
+				<tag name="tag" highlight="tag" autocomplete_append=" name=&quot;&quot; /&gt;" attributes="name,highlight,class,attributes,autocomplete,autocomplete_append,attribhighlight,attrib_autocomplete_append"><context id="innerpattern" /></tag>
+				<tag name="group" highlight="tag" autocomplete_append="&gt;" attributes="highlight,autocomplete,autocomplete_append,class,case_insens,is_regex,attrib_autocomplete_append,attribhighlight"><context id="group"/></tag>
 				</context>
 			</tag>
 			
