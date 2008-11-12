@@ -486,25 +486,36 @@ void match_autocomplete_reference(Tscantable *st,gboolean autocomplete,gchar *ke
 		AFAIK both of them don't make copies of the data */
 	}
 }
-static guint16 new_match(Tscantable *st, gchar *keyword, GtkTextTag *selftag, guint16 context, gint16 nextcontext
+static guint16 new_match(Tscantable *st, gchar *pattern, GtkTextTag *selftag, guint16 context, gint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint16 blockstartpattern
-				, GtkTextTag *blocktag) {
+				, GtkTextTag *blocktag, gboolean case_insens, gboolean is_regex) {
 	guint matchnum;
 /* add the match */
 	
 	matchnum = st->matches->len;
-	/*g_print("new match %s at matchnum %d has blockstartpattern %d and nextcontext %d\n",keyword,matchnum,blockstartpattern,nextcontext);*/
+	DBG_BLOCKMATCH("new match %s at matchnum %d has blockstartpattern %d and nextcontext %d\n",pattern,matchnum,blockstartpattern,nextcontext);
 	g_array_set_size(st->matches,st->matches->len+1);
 
-	g_array_index(st->matches, Tpattern, matchnum).message = g_strdup(keyword);
+	g_array_index(st->matches, Tpattern, matchnum).pattern = g_strdup(pattern);
 	g_array_index(st->matches, Tpattern, matchnum).ends_block = ends_block;
 	g_array_index(st->matches, Tpattern, matchnum).starts_block = starts_block;
 	g_array_index(st->matches, Tpattern, matchnum).blockstartpattern = blockstartpattern;
 	g_array_index(st->matches, Tpattern, matchnum).selftag = selftag;
 	g_array_index(st->matches, Tpattern, matchnum).blocktag = blocktag;
 	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
-	
+	g_array_index(st->matches, Tpattern, matchnum).case_insens = case_insens;
+	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
 	return matchnum;
+}
+
+void compile_existing_match(Tscantable *st,guint16 matchnum, gint16 context) {
+	if (g_array_index(st->matches, Tpattern, matchnum).is_regex) {
+		compile_limitedregex_to_DFA(st, g_array_index(st->matches, Tpattern, matchnum).pattern, g_array_index(st->matches, Tpattern, matchnum).case_insens, matchnum, context);
+	} else {
+		compile_keyword_to_DFA(st, g_array_index(st->matches, Tpattern, matchnum).pattern, matchnum, context, g_array_index(st->matches, Tpattern, matchnum).case_insens);
+	}
+	/* TODO: add autocomplete and reference info to this context too, but re-use already alloc'ed memory !! */
+	/*match_autocomplete_reference(st,add_to_ac,keyword,context,append_to_ac,reference);*/
 }
 
 guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean is_regex,gboolean case_insens, GtkTextTag *selftag, gint16 context, gint16 nextcontext
@@ -516,7 +527,7 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean i
 		g_print("CORRUPT LANGUAGE FILE: empty pattern/tag/keyword\n");
 		return 0;
 	}
-	matchnum = new_match(st, keyword, selftag, context, nextcontext, starts_block, ends_block, blockstartpattern, blocktag);
+	matchnum = new_match(st, keyword, selftag, context, nextcontext, starts_block, ends_block, blockstartpattern, blocktag, case_insens, is_regex);
 	DBG_PATCOMPILE("add_keyword_to_scanning_table,keyword=%s,starts_block=%d,ends_block=%d,blockstartpattern=%d, context=%d,nextcontext=%d and got matchnum %d\n",keyword, starts_block, ends_block, blockstartpattern,context,nextcontext,matchnum);
 	if (is_regex) {
 		compile_limitedregex_to_DFA(st, keyword, case_insens, matchnum, context);
@@ -551,7 +562,8 @@ Tscantable *scantable_new() {
 	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), 160);
 	st->contexts = g_array_sized_new(TRUE,TRUE,sizeof(Tcontext), 3);
 	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
-	st->matches->len = 1; /* match 0 eans no match */
+	st->matches->len = 1; /* match 0 means no match */
+	st->contexts->len = 1; /* context 0 means no context change */
 	return st;
 }
 

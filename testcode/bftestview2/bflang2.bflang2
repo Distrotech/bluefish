@@ -1,7 +1,7 @@
 <bflang name="Bflang2">
-<header>
+<header matches="200" contexts="20" table="2000">
 	<mime type="text/bluefish-language"/>
-<!--	<mime type="text/html"/>-->
+	<mime type="text/html"/>
 	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
 	<highlight name="special-tag" style="special-tag" fgcolor="#990000" bold="1" />
 	<highlight name="attribute" style="attribute" fgcolor="#000099"  />
@@ -11,20 +11,20 @@
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-<element pattern="&lt;!--" highlight="comment" starts_block="1">
+<element id="comment" pattern="&lt;!--" highlight="comment" starts_block="1">
 	<context id="comment" symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
 	<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
-<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+<element id="entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
 <tag name="bflang" highlight="tag" autocomplete_append="&gt;" attributes="name" >
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-	<element pattern="&lt;!--" highlight="comment" starts_block="1"><context id="comment"/></element>
-	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+	<element id="comment"/>
+	<element id="entity" />
 	<tag name="header" highlight="tag" autocomplete_append="&gt;" >
 		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
-		<element pattern="&lt;!--" highlight="comment" starts_block="1"><context id="comment"/></element>
-		<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+		<element id="comment"/>
+		<element id="entity" />
 		<tag name="mime" highlight="tag" autocomplete_append=" type=&quot;&quot; /&gt;" attributes="type" />
 		<tag name="highlight" highlight="tag" autocomplete_append=" name=&quot;&quot; style=&quot;&quot; /&gt;" attributes="name,style,fgcolor,bgcolor,bold,italic" />		
 		</context>

@@ -271,10 +271,14 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 		xmlFree(aname);
 	}
 	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
-		if (pattern && pattern[0]) {
+		if (!pattern && id) {
+			guint16 matchnum;
+			matchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, id));
+			compile_existing_match(bfparser->st,matchnum, context);
+		} else if (pattern && pattern[0]) {
 			GtkTextTag *stylet=NULL,*blockhighlightt=NULL;
 			gchar *reference=NULL;
-			guint16 blockstartelementum=0, nextcontext=context;
+			guint16 blockstartelementum=0, nextcontext=0;
 			DBG_PARSING("pattern %s\n",pattern);
 			if (ends_context) {
 				/* the nth number in the stack */

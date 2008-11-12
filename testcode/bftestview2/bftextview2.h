@@ -157,6 +157,7 @@ either on the start or on the end there is no symbol.
 #define DBG_FOLD DBG_NONE
 #define DBG_MARGIN DBG_NONE
 #define DBG_PARSING DBG_NONE
+#define DBG_BLOCKMATCH DBG_NONE
 
 #define NUMSCANCHARS 127 /* 128 is ascii, but the last character is never scanned (DEL)
 		and the Ttablerow has one more 16bit value. By setting this to 127 instead of 128
@@ -185,7 +186,7 @@ typedef struct {
 } Tcontext;
 
 typedef struct {
-	char *message; /* for debugging */
+	gchar *pattern;
 	GtkTextTag *selftag; /* the tag used to highlight this pattern */
 	GtkTextTag *blocktag; /* if this pattern ends a context or a block, we can highlight 
 	the region within the start and end pattern with this tag */
@@ -193,6 +194,8 @@ typedef struct {
 	gint16 nextcontext; /* 0, or if this pattern starts a new context the number of the contect */
 	guint8 starts_block; /* wether or not this pattern may start a block */
 	guint8 ends_block; /* wether or not this pattern may end a block */
+	guint8 case_insens;
+	guint8 is_regex;
 	/*gboolean may_fold;  not yet used */
 	/*gboolean highlight_other_end; not yet used */
 } Tpattern;

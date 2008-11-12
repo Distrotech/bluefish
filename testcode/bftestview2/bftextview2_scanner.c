@@ -191,7 +191,7 @@ static void add_to_scancache(BluefishTextView * btv,GtkTextBuffer *buffer,Tscann
 
 static Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
 	Tfoundblock *fblock;
-	DBG_SCANNING("put block for pattern %d on blockstack\n",match.patternum);
+	DBG_BLOCKMATCH("put block for pattern %d on blockstack\n",match.patternum);
 		
 	fblock = g_slice_new0(Tfoundblock);
 	fblock->start1 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
@@ -206,19 +206,19 @@ static Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *b
 
 static Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
 	Tfoundblock *fblock=NULL;
-	DBG_SCANNING("found end of block that matches start of block pattern %d\n",pat->blockstartpattern); 
+	DBG_BLOCKMATCH("found end of block that matches start of block pattern %d\n",pat->blockstartpattern); 
 	do {
 		if (fblock) {
 			foundblock_unref(fblock, buffer);
 		}
 		fblock = g_queue_pop_head(scanning->blockstack);
 		if (fblock) {
-			DBG_SCANNING("popped block for pattern %d from blockstack\n",fblock->patternum);
+			DBG_BLOCKMATCH("popped block for pattern %d from blockstack\n",fblock->patternum);
 		}
 	} while (fblock && fblock->patternum != pat->blockstartpattern);
 	if (fblock) {
 		GtkTextIter iter;
-		DBG_SCANNING("found the matching start of the block\n");
+		DBG_BLOCKMATCH("found the matching start of the block\n");
 		fblock->start2 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
 		fblock->end2 = gtk_text_buffer_create_mark(buffer,NULL,&match.end,TRUE);
 		g_object_set_data(G_OBJECT(fblock->start2), "block", fblock);
@@ -232,7 +232,7 @@ static Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuffer *buf
 		}
 		return fblock;
 	} else {
-		DBG_SCANNING("no matching start-of-block found\n");
+		DBG_BLOCKMATCH("no matching start-of-block found\n");
 	}
 	return NULL;
 }
@@ -292,7 +292,7 @@ static int found_match(BluefishTextView * btv, Tmatch match, Tscanning *scanning
 		fblock = found_end_of_block(btv, buffer, match, scanning, &pat);
 	}
 
-	if (pat.nextcontext != scanning->context) {
+	if (pat.nextcontext != 0 && pat.nextcontext != scanning->context) {
 		fcontext = found_context_change(btv, buffer, match, scanning, &pat);
 	}
 	if (fblock || fcontext) {
@@ -307,8 +307,10 @@ static int found_match(BluefishTextView * btv, Tmatch match, Tscanning *scanning
 		DBG_SCANNING("return context 0\n");
 		return 0;
 	}
-	DBG_SCANNING("return context %d\n",pat.nextcontext);
-	return pat.nextcontext;
+	if (pat.nextcontext == 0)
+		return scanning->context;
+	else
+		return pat.nextcontext;
 }
 
 static gboolean bftextview2_find_region2scan(GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end) {
@@ -432,7 +434,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	guint pos = 0, newpos;
 	gboolean normal_run=TRUE, last_character_run=FALSE;
 	
-	scanning.context = 0;
+	scanning.context = 1;
 
 	if (!btv->bflang->st) {
 		DBG_MSG("no scantable, nothing to scan, returning...\n");
@@ -568,7 +570,10 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 	iter = *mstart;
 	
 	contextstack = get_contextstack_at_position(btv, &iter);
-	*contextnum = GPOINTER_TO_INT(g_queue_peek_head(contextstack));
+	if (g_queue_get_length(contextstack)>0) 
+		*contextnum = GPOINTER_TO_INT(g_queue_peek_head(contextstack));
+	else
+		*contextnum = 1;
 	pos = g_array_index(btv->bflang->st->contexts,Tcontext, *contextnum).startstate;
 	while (!gtk_text_iter_equal(&iter, cursorpos)) {
 		gunichar uc;
@@ -588,8 +593,8 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 						*contextnum = GPOINTER_TO_INT(g_queue_pop_head(contextstack));
 						num++;
 					}
-				} else {
-					DBG_AUTOCOMP("previous pos=%d had a match!\n",pos);
+				} else if (g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext > 0) {
+					DBG_AUTOCOMP("previous pos=%d had a match with a context change!\n",pos);
 					*contextnum = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
 					g_queue_push_head(contextstack, GINT_TO_POINTER(*contextnum));
 				}
@@ -615,7 +620,10 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 	iter = *mstart;
 	
 	contextstack = get_contextstack_at_position(btv, &iter);
-	*contextnum = GPOINTER_TO_INT(g_queue_peek_head(contextstack));
+	if (g_queue_get_length(contextstack)>0) 
+		*contextnum = GPOINTER_TO_INT(g_queue_peek_head(contextstack));
+	else
+		*contextnum = 1;
 	pos = g_array_index(btv->bflang->st->contexts,Tcontext, *contextnum).startstate;
 	
 	gtk_text_buffer_get_end_iter(GTK_TEXT_VIEW(btv)->buffer,&end);
@@ -642,8 +650,8 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 						*contextnum = GPOINTER_TO_INT(g_queue_pop_head(contextstack));
 						num++;
 					}
-				} else {
-					DBG_AUTOCOMP("previous pos=%d had a match!\n",pos);
+				} else if (g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext > 0) {
+					DBG_AUTOCOMP("previous pos=%d had a match with a context change!\n",pos);
 					*contextnum = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
 					g_queue_push_head(contextstack, GINT_TO_POINTER(*contextnum));
 				}
