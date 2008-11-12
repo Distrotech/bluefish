@@ -17,19 +17,26 @@
 	</context>
 </element>
 <element id="entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
-<tag name="bflang" highlight="tag" autocomplete_append="&gt;" attributes="name" >
+<tag name="bflang" highlight="tag" autocomplete_append="&gt;" attributes="name,table,matches,contexts" >
+<reference>the <i>bflang</i> tag is the root tag of the bluefish language file. It should have attribute <i>name</i>.</reference>
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 	<element id="comment"/>
 	<element id="entity" />
 	<tag name="header" highlight="tag" autocomplete_append="&gt;" >
+	<reference>The <i>header</i> tag is the region of the language file that is always loaded, regardless if the language is used or not. </reference>
 		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 		<element id="comment"/>
 		<element id="entity" />
-		<tag name="mime" highlight="tag" autocomplete_append=" type=&quot;&quot; /&gt;" attributes="type" attribhighlight="attribute"/>
-		<tag name="highlight" highlight="tag" autocomplete_append=" name=&quot;&quot; style=&quot;&quot; /&gt;" attributes="name,style,fgcolor,bgcolor,bold,italic" attribhighlight="attribute" />		
+		<tag name="mime" highlight="tag" autocomplete_append=" type=&quot;&quot; /&gt;" attributes="type" attribhighlight="attribute">
+		<reference>The <i>mime</i> tag should have attribute <i>type</i> which has the mime type. The mime type is used to find the correct language definition for a file in the editor. There can be multiple mime tags in the heading section.</reference>
+		</tag>
+		<tag name="highlight" highlight="tag" autocomplete_append=" name=&quot;&quot; style=&quot;&quot; /&gt;" attributes="name,style,fgcolor,bgcolor,bold,italic" attribhighlight="attribute">
+		<reference>The <i>highlight</i> tag should have attributes <i>name</i> and <i>style</i>, and may have attributes <i>fgcolor</i>, <i>bgcolor</i>, <i>bold</i> and <i>italic</i>. The tag links the types of elements that can be highlighted (called <i>highlights</i>) and <i>styles</i> that are used by multiple languages. Because each language file may specify a new style it can be defined by fgcolor (foreground color), bgcolor (background color), bold, and italic. If multiple language files specify the same style, the style is defined by the first of these language files that is loaded. A user may override each style in the configuration.</reference>
+		</tag>		
 		</context>
 	</tag>
 	<tag name="definition" highlight="tag" autocomplete_append="&gt;">
+	<reference>The <i>definition</i> tag is the region of the language file that actually defines the language. This region is only loaded when a file of this type is opened in the editor.</reference>
 		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" >
 		<tag name="context" id="context" highlight="tag" autocomplete_append=" symbols=&quot;&quot; &gt;" attributes="id,symbols,highlight" attribhighlight="attribute">
 			<context id="context" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">

@@ -454,7 +454,7 @@ void match_autocomplete_reference(Tscantable *st,guint16 matchnum, gboolean auto
 	if (g_array_index(st->matches, Tpattern, matchnum).reference) {
 		refdup = g_array_index(st->matches, Tpattern, matchnum).reference;
 	} else if (reference && reference[0]!='\0') {
-		refdup = g_strdup(reference);
+		g_array_index(st->matches, Tpattern, matchnum).reference = refdup = g_strdup(reference);
 	}
 	if (refdup) {
 		if (!g_array_index(st->contexts, Tcontext, context).reference) {
