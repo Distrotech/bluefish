@@ -544,7 +544,7 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 	/* create context */
 	DBG_PARSING("create context symbols %s and style %s\n",symbols,style);
 	context = new_context(bfparser->st,symbols,langmrg_lookup_highlight(bfparser->bflang->name,highlight),autocomplete_case_insens);
-	g_queue_push_head(contextstack,GINT_TO_POINTER(context)); 
+	g_queue_push_head(contextstack,GINT_TO_POINTER(context));
 	if (name) {
 		DBG_PARSING("insert context %s into hash table as %d\n",name,context);
 		g_hash_table_insert(bfparser->contexts, g_strdup(name), GINT_TO_POINTER(context));

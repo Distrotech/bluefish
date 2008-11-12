@@ -336,7 +336,7 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 		g_free(newprefix);
 		g_free(prefix);
 	} else {
-		DBG_AUTOCOMP("no autocompletion data for context %d, or no prefix\n",contextnum);
+		DBG_AUTOCOMP("no autocompletion data for context %d (ac=%p), or no prefix\n",contextnum,g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac);
 		acwin_cleanup(btv);
 	}
 }

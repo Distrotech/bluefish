@@ -151,7 +151,7 @@ either on the start or on the end there is no symbol.
 #define DBG_REFCOUNT DBG_NONE
 #define DBG_PATCOMPILE DBG_NONE
 #define DBG_SIGNALS DBG_NONE
-#define DBG_AUTOCOMP g_print
+#define DBG_AUTOCOMP DBG_NONE
 #define DBG_SCANNING DBG_NONE
 #define DBG_DELAYSCANNING DBG_NONE
 #define DBG_FOLD DBG_NONE
