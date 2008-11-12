@@ -627,7 +627,7 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 	pos = g_array_index(btv->bflang->st->contexts,Tcontext, *contextnum).startstate;
 	
 	gtk_text_buffer_get_end_iter(GTK_TEXT_VIEW(btv)->buffer,&end);
-	
+	DBG_AUTOCOMP("start scanning at offset %d\n",gtk_text_iter_get_offset(&iter));
 	while (!gtk_text_iter_equal(&iter, &end)) {
 		gunichar uc;
 		uc = gtk_text_iter_get_char(&iter);
@@ -666,6 +666,7 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 		}
 		pos = newpos;
 		if (gtk_text_iter_equal(&iter, position)) {
+			DBG_AUTOCOMP("at position...\n");
 			if (gtk_text_iter_equal(&iter, mstart))
 				return FALSE;
 			retthismatch = TRUE;

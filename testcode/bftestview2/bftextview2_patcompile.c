@@ -452,9 +452,11 @@ void match_set_nextcontext(Tscantable *st, guint16 matchnum, guint16 nextcontext
 void match_autocomplete_reference(Tscantable *st,guint16 matchnum, gboolean autocomplete,gchar *keyword,guint16 context,gchar *append_to_ac,gchar *reference) {
 	gchar * refdup = NULL;
 	if (g_array_index(st->matches, Tpattern, matchnum).reference) {
+		g_print("re-using reference for %s\n",keyword);
 		refdup = g_array_index(st->matches, Tpattern, matchnum).reference;
 	} else if (reference && reference[0]!='\0') {
 		g_array_index(st->matches, Tpattern, matchnum).reference = refdup = g_strdup(reference);
+		g_print("new reference for %s\n",keyword);
 	}
 	if (refdup) {
 		if (!g_array_index(st->contexts, Tcontext, context).reference) {
