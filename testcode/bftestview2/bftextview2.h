@@ -186,12 +186,14 @@ typedef struct {
 } Tcontext;
 
 typedef struct {
-	gchar *pattern;
+	gchar *pattern; /* the pattern itself. stored in the Tpattern so we can re-use it in another context */
 	GtkTextTag *selftag; /* the tag used to highlight this pattern */
 	GtkTextTag *blocktag; /* if this pattern ends a context or a block, we can highlight 
 	the region within the start and end pattern with this tag */
+	gchar *reference; /* the reference data, or NULL. may be inserted in hash tables for multiple keys in multiple contexts */
 	guint16 blockstartpattern; /* the number of the pattern that may start this block */
-	gint16 nextcontext; /* 0, or if this pattern starts a new context the number of the contect */
+	gint16 nextcontext; /* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc. 
+			to pop a context of the stack */
 	guint8 starts_block; /* wether or not this pattern may start a block */
 	guint8 ends_block; /* wether or not this pattern may end a block */
 	guint8 case_insens;
@@ -285,6 +287,9 @@ typedef struct {
 	gchar *filename; /* the .bflang2 file */
 	Tscantable *st; /* NULL or complete */
 	gboolean parsing; /* set to TRUE when a thread is parsing the scantable already */
+	gint size_table;
+	gint size_contexts;
+	gint size_matches; 
 } Tbflang;
 
 

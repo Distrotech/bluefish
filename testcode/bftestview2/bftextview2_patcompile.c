@@ -441,19 +441,22 @@ gint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag, gbool
 	} 
 	memcpy(g_array_index(st->table, Ttablerow, startstate).row, g_array_index(st->table, Ttablerow, identstate).row, sizeof(guint16[NUMSCANCHARS]));
 	
-		
 	return context;
 }
 
 void match_set_nextcontext(Tscantable *st, guint16 matchnum, guint16 nextcontext) {
-	g_print("match_set_nextcontext, set match %d to have nextcontext %d\n",matchnum,nextcontext);
+	DBG_PATCOMPILE("match_set_nextcontext, set match %d to have nextcontext %d\n",matchnum,nextcontext);
 	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
 }
 
-void match_autocomplete_reference(Tscantable *st,gboolean autocomplete,gchar *keyword,guint16 context,gchar *append_to_ac,gchar *reference) {
+void match_autocomplete_reference(Tscantable *st,guint16 matchnum, gboolean autocomplete,gchar *keyword,guint16 context,gchar *append_to_ac,gchar *reference) {
 	gchar * refdup = NULL;
-	if (reference && reference[0]!='\0') {
+	if (g_array_index(st->matches, Tpattern, matchnum).reference) {
+		refdup = g_array_index(st->matches, Tpattern, matchnum).reference;
+	} else if (reference && reference[0]!='\0') {
 		refdup = g_strdup(reference);
+	}
+	if (refdup) {
 		if (!g_array_index(st->contexts, Tcontext, context).reference) {
 			DBG_PATCOMPILE("create hashtable for context %d\n",context);
 			g_array_index(st->contexts, Tcontext, context).reference = g_hash_table_new(g_str_hash,g_str_equal);
@@ -509,13 +512,14 @@ static guint16 new_match(Tscantable *st, gchar *pattern, GtkTextTag *selftag, gu
 }
 
 void compile_existing_match(Tscantable *st,guint16 matchnum, gint16 context) {
+	DBG_PATCOMPILE("compile existing match %d (%s) in context %d\n",matchnum,g_array_index(st->matches, Tpattern, matchnum).pattern,context);
 	if (g_array_index(st->matches, Tpattern, matchnum).is_regex) {
 		compile_limitedregex_to_DFA(st, g_array_index(st->matches, Tpattern, matchnum).pattern, g_array_index(st->matches, Tpattern, matchnum).case_insens, matchnum, context);
 	} else {
 		compile_keyword_to_DFA(st, g_array_index(st->matches, Tpattern, matchnum).pattern, matchnum, context, g_array_index(st->matches, Tpattern, matchnum).case_insens);
 	}
 	/* TODO: add autocomplete and reference info to this context too, but re-use already alloc'ed memory !! */
-	/*match_autocomplete_reference(st,add_to_ac,keyword,context,append_to_ac,reference);*/
+	/*match_autocomplete_reference(st,matchnum, add_to_ac,keyword,context,append_to_ac,NULL);*/
 }
 
 guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean is_regex,gboolean case_insens, GtkTextTag *selftag, gint16 context, gint16 nextcontext
@@ -534,7 +538,7 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean i
 	} else {
 		compile_keyword_to_DFA(st, keyword, matchnum, context, case_insens);
 	}
-	match_autocomplete_reference(st,add_to_ac,keyword,context,append_to_ac,reference);
+	match_autocomplete_reference(st,matchnum, add_to_ac,keyword,context,append_to_ac,reference);
 	/*print_DFA(st, 'a', 'z');*/
 	return matchnum;
 }
@@ -556,12 +560,12 @@ void print_DFA(Tscantable *st, char start, char end) {
 	
 }
 
-Tscantable *scantable_new() {
+Tscantable *scantable_new(guint size_table, guint size_matches, guint size_contexts) {
 	Tscantable *st;
 	st = g_slice_new0(Tscantable);
-	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), 160);
-	st->contexts = g_array_sized_new(TRUE,TRUE,sizeof(Tcontext), 3);
-	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), 10);
+	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), size_table);
+	st->contexts = g_array_sized_new(TRUE,TRUE,sizeof(Tcontext), size_contexts);
+	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), size_matches);
 	st->matches->len = 1; /* match 0 means no match */
 	st->contexts->len = 1; /* context 0 means no context change */
 	return st;
