@@ -737,8 +737,8 @@ void langmgr_init(GList *user_styles, GList *user_highlight_styles, gboolean loa
 	register_bflanguage(bflang);
 	bflang = parse_bflang2_header("php.bflang2");
 	register_bflanguage(bflang);
-/*	bflang = parse_bflang2_header("html.bflang2");
-	register_bflanguage(bflang);*/
+	bflang = parse_bflang2_header("html.bflang2");
+	register_bflanguage(bflang);
 	bflang = parse_bflang2_header("xml.bflang2");
 	register_bflanguage(bflang);
 	bflang = parse_bflang2_header("python.bflang2");

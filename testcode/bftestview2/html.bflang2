@@ -1,4 +1,4 @@
-<bflang name="HTML">
+<bflang name="HTML" table="1392" contexts="58" matches="398">
 <header>
 	<mime type="text/html"/>
 	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
@@ -167,7 +167,7 @@
 	<tag name="div" highlight="tag" attributes="style,class,id,align" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<tag name="p" highlight="tag" attributes="style,class,id,align" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<tag name="span" highlight="tag" attributes="style,class,id,align" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="img" highlight="special-tag" attributes="src,width,height,align,valign,border,alt,name" attribhighlight="attribute" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" attrib_autocomplete_append="=&quot;&quot;">
+	<tag name="img" highlight="special-tag" attributes="src,width,height,align,valign,border,alt,name,style,id,class" attribhighlight="attribute" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" attrib_autocomplete_append="=&quot;&quot;">
 	<reference>the image tag</reference>
 	</tag>
 	<tag name="i" highlight="tag" attributes="style,class,id" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />

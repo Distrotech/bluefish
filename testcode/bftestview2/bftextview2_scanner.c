@@ -594,7 +594,6 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 			if (g_array_index(btv->bflang->st->table,Ttablerow, pos).match) {
 				if (g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext < 0) {
 					gint num  = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
-					g_print("pop %d times\n",num);
 					while (num != 0) { 
 						g_queue_pop_head(contextstack);
 						num++;
@@ -604,7 +603,6 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 					DBG_AUTOCOMP("previous pos=%d had a match with a context change!\n",pos);
 					*contextnum = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
 					g_queue_push_head(contextstack, GINT_TO_POINTER(*contextnum));
-					g_print("push\n");
 				}
 				DBG_AUTOCOMP("found match %d, new context is %d\n",g_array_index(btv->bflang->st->table,Ttablerow, pos).match,*contextnum);
 			}
