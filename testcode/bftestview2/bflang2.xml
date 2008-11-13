@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<mime-info xmlns='http://www.freedesktop.org/standards/shared-mime-info'>
+  <mime-type type="application/x-bluefish-language2">
+    <comment>Bluefish language definition file version 2</comment>
+    <!-- more translated comment elements -->
+    <magic priority="50">
+      <match type="string" offset="0" value="&lt;bflang2"/>
+    </magic>
+    <glob pattern="*.bflang2"/>
+  </mime-type>
+</mime-info>
