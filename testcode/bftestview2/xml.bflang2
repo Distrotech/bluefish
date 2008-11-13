@@ -1,6 +1,8 @@
-<bflang name="XML">
+<?xml version="1.0" encoding="ascii" ?>
+<bflang name="XML" table="28" contexts="4" matches="9">
 <header>
-<mime type="text/xml"/><mime type="application/xml"/>
+	<mime type="text/xml"/>
+	<mime type="application/xml"/>
 	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
 	<highlight name="attribute" style="attribute" fgcolor="#000099"  />
 	<highlight name="string" style="string" fgcolor="#009900"  />
@@ -10,12 +12,13 @@
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 	<element pattern="&lt;[a-zA-Z0-9:]+" is_regex="1" highlight="tag">
-		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;">
+		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;" highlight="attribute">
 			<element pattern="&#34;[^&#34;]+&#34;" highlight="string" is_regex="1" />
 			<element pattern="'[^']+'" highlight="string" is_regex="1" />
 			<element pattern="&gt;" highlight="tag" ends_context="1" />
 		</context>
 	</element>
+	<element pattern="&lt;/[a-zA-Z0-9:]+[ &#9;]*&gt;" is_regex="1" highlight="tag"/>
 	<element pattern="&lt;!--" highlight="comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
 			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
