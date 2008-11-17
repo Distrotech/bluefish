@@ -136,6 +136,8 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	
 	/* cleanup the parsing structure */
 	g_hash_table_destroy(bfparser->patterns);
+	g_hash_table_destroy(bfparser->contexts);
+	g_hash_table_destroy(bfparser->setoptions);
 	g_slice_free(Tbflangparsing,bfparser);
 	
 	
@@ -389,7 +391,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 				arr = g_strsplit(attributes,",",-1);
 				tmp2 = arr;
 				while (*tmp2) {
-					add_keyword_to_scanning_table(bfparser->st, *tmp2, FALSE, FALSE, attrib, contexttag, contexttag, FALSE, FALSE, 0, NULL,TRUE,attrib_autocomplete_append?attrib_autocomplete_append:ih_attrib_autocomplete_append,NULL);
+					add_keyword_to_scanning_table(bfparser->st, *tmp2, FALSE, FALSE, attrib, contexttag, 0, FALSE, FALSE, 0, NULL,TRUE,attrib_autocomplete_append?attrib_autocomplete_append:ih_attrib_autocomplete_append,NULL);
 					tmp2++;
 				}
 				g_strfreev(arr);
@@ -433,7 +435,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			match_autocomplete_reference(bfparser->st,matchnum,TRUE,tmp,context,autocomplete_append?autocomplete_append:ih_autocomplete_append,reference);
 			g_free(tmp);
 			tmp = g_strconcat("</",tag,">",NULL);
-			endtagmatch = add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, innercontext, (innercontext==context)?context:-2, FALSE, TRUE, matchnum, NULL,TRUE,NULL,NULL);
+			endtagmatch = add_keyword_to_scanning_table(bfparser->st, tmp, FALSE, FALSE, stylet, innercontext, (innercontext==context)?0:-2, FALSE, TRUE, matchnum, NULL,TRUE,NULL,NULL);
 			g_hash_table_insert(bfparser->patterns, g_strdup(tmp), GINT_TO_POINTER((gint)endtagmatch));
 			g_free(tmp);
 		}

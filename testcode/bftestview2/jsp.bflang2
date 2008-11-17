@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <bflang name="JSP">
 <header>
 	<mime type="application/x-jsp"/>
@@ -6,53 +7,55 @@
 	<highlight name="bracket" style="bracket" bold="1" />
 	<highlight name="type" style="type" fgcolor="#000000" bold="1" />
 	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
-	<highlight name="string" style="string" fgcolor="#008800"  />
-	<highlight name="value" style="value" fgcolor="#0000EE"  />
-	<highlight name="preprocessor" style="preprocessor" fgcolor="#aaaa00"  />
+	<highlight name="string" style="string" fgcolor="#008800" />
+	<highlight name="value" style="value" fgcolor="#0000EE" />
+	<highlight name="preprocessor" style="preprocessor" fgcolor="#aaaa00" />
 	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
-	<highlight name="attribute" style="tag" fgcolor="#cc00cc"  />
+	<highlight name="attribute" style="tag" fgcolor="#cc00cc" />
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-<tag name="html" highlight="tag" />
-<tag name="head" highlight="tag" />
-<tag name="meta" highlight="tag" attributes="name,http-equiv,content" attribhighlight="function" autocomplete_append=" /&gt;" />
-<tag name="title" highlight="tag" autocomplete_append="&gt; &lt;/title&gt;" />
-<tag name="script" highlight="tag" attributes="type,src"  attribhighlight="function" autocomplete_append=" /&gt;" />
-<tag name="link" highlight="tag" attributes="rel,type,href" attribhighlight="function" autocomplete_append=" /&gt;" />
-<tag name="body" highlight="tag" />
-<tag name="div" highlight="tag" attributes="style,class,id,align" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="p" highlight="tag" attributes="style,class,id,align" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="span" highlight="tag" attributes="style,class,id,align" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="img" highlight="storage" attributes="src,width,height,align,valign,border,alt" attribhighlight="function" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;"/>
-<tag name="i" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="b" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="em" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="strong" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="u" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="a" highlight="storage" attributes="style,class,id,href,target" attribhighlight="function" autocomplete_append=" href=&#34;&#34; &gt;" />
-<tag name="table" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="th" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="tr" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="td" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="ul" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="ol" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="li" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="h1" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="h2" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="h3" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="h4" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="h5" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="h6" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="br" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append=" /&gt;" />
-<tag name="kbd" highlight="tag" attributes="style,class,id" attribhighlight="function" autocomplete_append="&gt;" />
-<tag name="form" highlight="tag" attributes="style,class,id,action,method,enctype,target" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag name="input" highlight="tag" attributes="style,class,id,type,name,value,size,maxlength,checked" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag name="select" highlight="tag" attributes="style,class,id,name,size,multiple" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag name="textarea" highlight="tag" attributes="style,class,id,name,rows,cols" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag name="option" highlight="tag" attributes="style,class,id,value,label,selected" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-<tag name="optgroup" highlight="tag" attributes="style,class,id,label" attribhighlight="function" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	
+<group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+<tag name="html" />
+<tag name="head" />
+<tag name="meta" attributes="name,http-equiv,content" autocomplete_append=" /&gt;" />
+<tag name="title" autocomplete_append="&gt; &lt;/title&gt;" />
+<tag name="script" attributes="type,src" autocomplete_append=" /&gt;" />
+<tag name="link" attributes="rel,type,href" autocomplete_append=" /&gt;" />
+<tag name="body" />
+<tag name="div" attributes="style,class,id,align" />
+<tag name="p" attributes="style,class,id,align" />
+<tag name="span" attributes="style,class,id,align" />
+<tag name="img" highlight="storage" attributes="src,width,height,align,valign,border,alt" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;"/>
+<tag name="i" attributes="style,class,id" />
+<tag name="b" attributes="style,class,id" />
+<tag name="em" attributes="style,class,id" />
+<tag name="strong" attributes="style,class,id" />
+<tag name="u" attributes="style,class,id" />
+<tag name="a" highlight="storage" attributes="style,class,id,href,target" autocomplete_append=" href=&#34;&#34; &gt;" />
+<tag name="table" attributes="style,class,id" />
+<tag name="th" attributes="style,class,id" />
+<tag name="tr" attributes="style,class,id" />
+<tag name="td" attributes="style,class,id" />
+<tag name="ul" attributes="style,class,id" />
+<tag name="ol" attributes="style,class,id" />
+<tag name="li" attributes="style,class,id" />
+<tag name="h1" attributes="style,class,id" />
+<tag name="h2" attributes="style,class,id" />
+<tag name="h3" attributes="style,class,id" />
+<tag name="h4" attributes="style,class,id" />
+<tag name="h5" attributes="style,class,id" />
+<tag name="h6" attributes="style,class,id" />
+<tag name="br" attributes="style,class,id" autocomplete_append=" /&gt;" />
+<tag name="kbd" attributes="style,class,id" />
+<tag name="form" attributes="style,class,id,action,method,enctype,target" />
+<tag name="input" attributes="style,class,id,type,name,value,size,maxlength,checked" />
+<tag name="select" attributes="style,class,id,name,size,multiple" />
+<tag name="textarea" attributes="style,class,id,name,rows,cols" />
+<tag name="option" attributes="style,class,id,value,label,selected" />
+<tag name="optgroup" attributes="style,class,id,label" />
+</group>
+
 <element pattern="&lt;%" starts_block="1" highlight="region">
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 <group autocomplete="1" highlight="keyword"> 

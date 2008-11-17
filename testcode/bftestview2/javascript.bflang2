@@ -1,4 +1,5 @@
-<bflang name="Javascript">
+<?xml version="1.0"?>
+<bflang name="Javascript" matches="32" contexts="5" table="92">
 <header>
 	<mime type="application/javascript"/>
 	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
@@ -9,7 +10,6 @@
 	<highlight name="string" style="string" fgcolor="#008800"  />
 	<highlight name="value" style="value" fgcolor="#0000EE"  />
 	<highlight name="preprocessor" style="preprocessor" fgcolor="#aaaa00"  />
-
 </header>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">

@@ -136,6 +136,12 @@ a -> state 1
 as you see, the scanner is stuck in state 1 (the identstate) if 
 either on the start or on the end there is no symbol.
 
+TODO: 
+a style may be defined differenty in multiple files, which is not very nice.
+- an alternative would be to have a separate file for all the default styles.
+in the end, many styles could be user-defined anyway and the pre-defined styles
+may not be used then... 
+
 */
 
 #ifndef _BFTEXTVIEW2_H_

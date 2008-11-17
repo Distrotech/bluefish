@@ -491,12 +491,13 @@ void match_autocomplete_reference(Tscantable *st,guint16 matchnum, gboolean auto
 		AFAIK both of them don't make copies of the data */
 	}
 }
-static guint16 new_match(Tscantable *st, gchar *pattern, GtkTextTag *selftag, guint16 context, gint16 nextcontext
+static guint16 new_match(Tscantable *st, gchar *pattern, GtkTextTag *selftag, gint16 context, gint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint16 blockstartpattern
 				, GtkTextTag *blocktag, gboolean case_insens, gboolean is_regex) {
 	guint matchnum;
 /* add the match */
-	
+	if (context == nextcontext)
+		g_print("context=nextcontext=%d for %s\n",context,pattern);
 	matchnum = st->matches->len;
 	DBG_BLOCKMATCH("new match %s at matchnum %d has blockstartpattern %d and nextcontext %d\n",pattern,matchnum,blockstartpattern,nextcontext);
 	g_array_set_size(st->matches,st->matches->len+1);
