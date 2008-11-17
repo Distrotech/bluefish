@@ -630,6 +630,10 @@ static gpointer build_lang_thread(gpointer data)
 		xmlFree(name);
 	}
 	xmlFreeTextReader(reader);
+	/* do some final memory management */
+	bfparser->st->table->data = g_realloc(bfparser->st->table->data, bfparser->st->table->len*sizeof(Ttablerow));
+	bfparser->st->contexts->data = g_realloc(bfparser->st->contexts->data, bfparser->st->contexts->len*sizeof(Tcontext));
+	bfparser->st->matches->data = g_realloc(bfparser->st->matches->data, bfparser->st->matches->len*sizeof(Tpattern));
 
 	DBG_PARSING("build_lang_thread finished bflang=%p\n",bflang);
 	print_scantable_stats(bfparser->st);
