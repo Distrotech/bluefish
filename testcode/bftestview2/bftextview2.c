@@ -241,7 +241,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	start = *iter;
 	gtk_text_iter_backward_chars(&start, stringlen);
 
-	gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &start, iter);
+	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, iter);
 	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&start),
 			gtk_text_iter_get_offset(iter));
 	start_offset = gtk_text_iter_get_offset(&start);
@@ -479,7 +479,7 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	/* mark the surroundings of the ext that will be deleted */
 	gtk_text_iter_backward_word_start(&begin);
 	gtk_text_iter_forward_word_end(&end);
-	gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &begin, &end);
+	gtk_text_buffer_apply_tag(buffer, btv->needscanning, &begin, &end);
 	DBG_SIGNALS("mark text from %d to %d as needscanning\n", gtk_text_iter_get_offset(&begin),
 			gtk_text_iter_get_offset(&end));
 	start_offset = gtk_text_iter_get_offset(&begin);
@@ -666,7 +666,7 @@ void bluefish_text_view_rescan(BluefishTextView * btv) {
 		GtkTextIter start,end;
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 		gtk_text_buffer_get_bounds(buffer,&start,&end);
-		gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &start, &end);
+		gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, &end);
 		bftextview2_schedule_scanning(btv);
 	}
 }
@@ -682,7 +682,7 @@ void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) 
 		btv->bflang = bflang;
 		/* restart scanning */
 		gtk_text_buffer_get_bounds(buffer,&start,&end);
-		gtk_text_buffer_apply_tag_by_name(buffer, "needscanning", &start, &end);
+		gtk_text_buffer_apply_tag(buffer, btv->needscanning, &start, &end);
 		bftextview2_schedule_scanning(btv);
 	} else {
 		btv->bflang = NULL;
@@ -784,6 +784,7 @@ GtkWidget *bftextview2_new(void)
 	
 		gtk_widget_modify_base(GTK_WIDGET(textview),GTK_STATE_NORMAL, &color);
 	}
+	textview->needscanning = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"needscanning");
 	return GTK_WIDGET(textview);
 }
 

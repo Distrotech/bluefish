@@ -721,11 +721,16 @@ static void register_bflanguage(Tbflang *bflang) {
 void langmgr_init(GList *user_styles, GList *user_highlight_styles, gboolean load_reference) {
 	Tbflang *bflang;
 	GList *tmplist;
+	GtkTextTag *tag;
 	
 	langmgr.tagtable = gtk_text_tag_table_new();
 	langmgr.bflang_lookup = g_hash_table_new(g_str_hash,g_str_equal);
 	langmgr.load_reference = load_reference;
 	langmgr.configured_styles = g_hash_table_new(arr2_hash,arr2_equal);
+	
+	tag = gtk_text_tag_new("needscanning");
+	gtk_text_tag_table_add(langmgr.tagtable, tag);
+	g_object_unref(tag);
 	
 	for (tmplist = g_list_first(user_styles);tmplist;tmplist=tmplist->next) {
 		gchar **arr = (gchar **)tmplist->data;
