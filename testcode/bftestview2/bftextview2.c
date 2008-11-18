@@ -136,7 +136,7 @@ static gboolean bftextview2_scanner_timeout(gpointer data) {
 }
 
 static void bftextview2_schedule_scanning(BluefishTextView * btv) {
-	if (btv->bflang && btv->bflang->st && btv->scanner_idle == 0) {
+	if (btv->enable_scanner && btv->bflang && btv->bflang->st && btv->scanner_idle == 0) {
 		DBG_SIGNALS("bftextview2_schedule_scanning, scheduling scanning function\n");
 		DBG_DELAYSCANNING("scheduling scanning in idle function\n");
 		btv->scanner_idle = g_idle_add(bftextview2_scanner_idle, btv);
@@ -249,7 +249,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
-	if (btv->autocomp || autocomp_popup_mode == 2) {
+	if (btv->enable_scanner && (btv->autocomp || autocomp_popup_mode == 2)) {
 		autocomp_run(btv,FALSE);
 	}
 	bftextview2_reset_user_idle_timer(btv);
@@ -500,7 +500,7 @@ static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,
 		}
 	}
 	btv->key_press_was_autocomplete = FALSE;
-	if ((kevent->state & GDK_CONTROL_MASK) && kevent->keyval == ' ') {
+	if (btv->enable_scanner && (kevent->state & GDK_CONTROL_MASK) && kevent->keyval == ' ') {
 		autocomp_run(btv,TRUE);
 		return TRUE;
 	}
@@ -690,7 +690,7 @@ void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) 
 }
 static gboolean bftextview2_query_tooltip_lcb(GtkWidget *widget,gint x,gint y,gboolean keyboard_tip, GtkTooltip *tooltip, gpointer user_data) {
 	BluefishTextView *btv=user_data;
-	if (btv->bflang && btv->bflang->st) {
+	if (btv->bflang && btv->bflang->st && btv->enable_scanner) {
 		GtkTextIter iter,mstart;
 		gint contextnum;
 		/* get position */

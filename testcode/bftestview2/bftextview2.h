@@ -328,7 +328,9 @@ struct _BluefishTextView {
 	gint margin_pixels_per_char;
 	gint margin_pixels_chars;
 	gint margin_pixels_block;
-	gboolean key_press_was_autocomplete;	
+	gboolean key_press_was_autocomplete;
+	
+	gboolean enable_scanner; /* only run scanner when TRUE, this is FALSE if the document is in the background for example */	
 };
 
 struct _BluefishTextViewClass {
