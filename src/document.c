@@ -310,6 +310,12 @@ gint document_return_num_notcomplete(GList *doclist) {
  **/
 void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	if (!bfwin->current_document) return;
+#ifdef USE_BFTEXTVIEW2
+	if (!BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner) {
+		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = TRUE;
+	}
+	bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(bfwin->current_document->view));
+#else
 	DEBUG_MSG("doc_update_highlighting, curdoc=%p, highlight=%d\n", bfwin->current_document, BF_TEXTVIEW(bfwin->current_document->view)->highlight);
 	if (BF_TEXTVIEW(bfwin->current_document->view)->highlight == 0) {
 		setup_toggle_item(gtk_item_factory_from_widget(bfwin->menubar), "/Document/Highlight Syntax", TRUE);
@@ -318,6 +324,7 @@ void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *wid
 	} else {
 		bf_textview_scan(BF_TEXTVIEW(bfwin->current_document->view));
 	}
+#endif
 }
 
 /**
@@ -473,7 +480,7 @@ void doc_set_tooltip(Tdocument *doc) {
 	gtk_tooltips_set_tip(main_v->tooltips, doc->tab_eventbox, tmp, "");
 	g_free(tmp);
 }
-
+#ifndef USE_BFTEXTVIEW2
 /**
  * doc_set_filetype:
  * @doc: a #Tdocument
@@ -498,7 +505,7 @@ gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft) {
 	}
 	return FALSE;
 }
-
+#endif
 /**
  * doc_set_title:
  * @doc: #Tdocument*
@@ -1269,7 +1276,9 @@ void doc_insert_text_backend(Tdocument *doc, const gchar * newstring, gint posit
  **/
 void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint start, gint end) {
 	doc_unbind_signals(doc);
+#ifndef USE_BFTEXTVIEW2
 	bf_textview_set_delay_rescan(BF_TEXTVIEW(doc->view), TRUE);
+#endif
 	/* delete region, and add that to undo/redo list */
 	{
 		gchar *buf;
@@ -1299,9 +1308,12 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 		doc_unre_add(doc, newstring, insert, insert + g_utf8_strlen(newstring,-1), UndoInsert);
 	}
 	doc_bind_signals(doc);
+#ifndef USE_BFTEXTVIEW2
 	bf_textview_set_delay_rescan(BF_TEXTVIEW(doc->view), FALSE);
-	doc_set_modified(doc, 1);
 	doc->need_highlighting=TRUE;
+#endif
+	doc_set_modified(doc, 1);
+
 }					  
 /**
  * doc_replace_text:
@@ -1600,7 +1612,7 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 	add_encoding_to_list(encoding);
 	gtk_text_buffer_insert_at_cursor(doc->buffer,newbuf,-1);
 	g_free(newbuf);
-
+#ifndef USE_BFTEXTVIEW2
 	if (BF_TEXTVIEW(doc->view)->highlight) {
 		doc->need_highlighting=TRUE;
 		DEBUG_MSG("doc_buffer_to_textbox, highlight=%d, need_highlighting=%d, delay=%d\n",BF_TEXTVIEW(doc->view)->highlight,doc->need_highlighting,delay);
@@ -1611,6 +1623,7 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 #endif
 		}
 	}
+#endif
 	if (!enable_undo) {
 		doc_bind_signals(doc);
 	}
@@ -2664,8 +2677,15 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->bfwin = (gpointer)bfwin;
 	newdoc->status = DOC_STATUS_COMPLETE; /* if we don't set this default we will get problems for new empty files */
 	newdoc->buffer = gtk_text_buffer_new(textstyle_return_tagtable());
+#ifdef USE_BFTEXTVIEW2
+	newdoc->view = bftextview2_new_with_buffer(newdoc->buffer);
+#else
 	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
+#endif
 	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
+#ifdef USE_BFTEXTVIEW2
+	bluefish_text_view_set_mimetype(newdoc->view, "text/plain");
+#else
 	/* set the default doc to be plain text for now.
        we should maybe add a default file type to preferences, projects, and/or session 
 	   or maybe a dialog asking the user what to create */
@@ -2676,11 +2696,11 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	BF_TEXTVIEW(newdoc->view)->tag_autoclose = main_v->props.tag_autoclose;
 	bf_textview_recolor(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg,main_v->props.editor_bg);
 	bf_textview_show_rmargin(BF_TEXTVIEW(newdoc->view),main_v->props.view_rmargin,main_v->props.rmargin_at); 
-/*	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg);*/ 
+/*	bf_textview_set_fg_color(BF_TEXTVIEW(newdoc->view),main_v->props.editor_fg);*/
 	pixbuf = gdk_pixbuf_new_from_inline(-1,pixmap_bookmarks,FALSE,NULL);
 	bf_textview_add_symbol(BF_TEXTVIEW(newdoc->view),"bookmark",pixbuf);
 	g_object_unref(pixbuf);
-	
+#endif 	
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
 									   GTK_POLICY_AUTOMATIC,

@@ -276,7 +276,11 @@ typedef struct {
 	gchar *autocomp_key; /* autocompletion accelerator */
 	gint load_network_dtd; /* if true - remote(network) DTDs in DTD aware formats are loaded, otherwise they are not */
 	GList *textstyles; /* tet styles: name,foreground,background,weight,style */
-	gint tag_autoclose; /* global setting for tag autoclosing */ 
+	gint tag_autoclose; /* global setting for tag autoclosing */
+#ifdef USE_BFTEXTVIEW2
+	GList *highlight_styles;
+	gboolean load_reference;
+#endif
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
