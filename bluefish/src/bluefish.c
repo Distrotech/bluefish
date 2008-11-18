@@ -227,9 +227,12 @@ int main(int argc, char *argv[])
 #ifndef NOSPLASH
   if (main_v->props.show_splash_screen) splash_screen_set_label(_("compiling highlighting patterns..."));
 #endif /* NOSPLASH */
-
+#ifdef USE_BFTEXTVIEW2
+	langmgr_init(main_v->props.textstyles, main_v->props.highlight_styles, main_v->props.load_reference);
+#else
   main_v->lang_mgr  = bf_lang_mgr_new();
   filetype_highlighting_rebuild(FALSE);
+ #endif
 #ifndef NOSPLASH
   if (main_v->props.show_splash_screen) splash_screen_set_label(_("building file filters ..."));
 #endif /* NOSPLASH */
