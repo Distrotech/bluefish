@@ -728,7 +728,22 @@ void langmgr_init(GList *user_styles, GList *user_highlight_styles, gboolean loa
 	langmgr.load_reference = load_reference;
 	langmgr.configured_styles = g_hash_table_new(arr2_hash,arr2_equal);
 	
-	tag = gtk_text_tag_new("needscanning");
+	tag = gtk_text_tag_new("_needscanning_");
+	gtk_text_tag_table_add(langmgr.tagtable, tag);
+	g_object_unref(tag);
+	tag = gtk_text_tag_new("_blockmatch_");
+	g_object_set(tag, "background", "red", NULL);
+	g_object_set(tag, "foreground", "white", NULL);
+	gtk_text_tag_table_add(langmgr.tagtable, tag);
+	g_object_unref(tag);
+	tag = gtk_text_tag_new("_folded_");
+	g_object_set(tag, "editable", FALSE, NULL);
+	g_object_set(tag, "invisible", TRUE, NULL);
+	gtk_text_tag_table_add(langmgr.tagtable, tag);
+	g_object_unref(tag);
+	tag = gtk_text_tag_new("_foldheader_");
+	g_object_set(tag, "editable", FALSE, NULL);
+	g_object_set(tag, "background", "#99FF99", NULL);
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
 	

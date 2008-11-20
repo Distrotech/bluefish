@@ -82,10 +82,8 @@ int main(int argc, char *argv[])
 	
 	text_view = bftextview2_new_with_buffer(buffer);
 	/*BLUEFISH_TEXT_VIEW (text_view)->scantable = bftextview2_scantable_new(buffer);*/
-	gtk_text_buffer_create_tag(buffer,"needscanning",NULL);
-	gtk_text_buffer_create_tag(buffer,"blockmatch","background","red","foreground","white",NULL);
-	gtk_text_buffer_create_tag(buffer,"_folded_","editable",FALSE, "invisible", TRUE, NULL);
-	gtk_text_buffer_create_tag(buffer,"_foldheader_","editable",FALSE, "background", "#99FF99", NULL);
+	/*gtk_text_buffer_create_tag(buffer,"needscanning",NULL);*/
+	
 
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll), GTK_POLICY_AUTOMATIC,

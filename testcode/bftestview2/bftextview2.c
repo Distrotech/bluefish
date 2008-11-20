@@ -180,14 +180,14 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 		Tfoundblock *fblock = bftextview2_get_block_at_iter(location);
 		gtk_text_buffer_get_bounds(buffer, &it1, &it2);
 		DBG_SIGNALS("bftextview2_mark_set_lcb, 'insert' set at %d\n",gtk_text_iter_get_offset(location));
-		gtk_text_buffer_remove_tag_by_name(buffer, "blockmatch", &it1, &it2);
+		gtk_text_buffer_remove_tag_by_name(buffer, "_blockmatch_", &it1, &it2);
 		if (fblock) {
 			GtkTextIter it3, it4;
 			if (fblock->start2) {
 				bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
 				DBG_MSG("found a block to highlight the start (%d:%d) and end (%d:%d)\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_offset(&it3),gtk_text_iter_get_offset(&it4));
-				gtk_text_buffer_apply_tag_by_name(buffer, "blockmatch", &it1, &it2);
-				gtk_text_buffer_apply_tag_by_name(buffer, "blockmatch", &it3, &it4);
+				gtk_text_buffer_apply_tag_by_name(buffer, "_blockmatch_", &it1, &it2);
+				gtk_text_buffer_apply_tag_by_name(buffer, "_blockmatch_", &it3, &it4);
 			} else {
 				DBG_MSG("block has no end - no matching\n");
 			}
@@ -202,20 +202,24 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 	/* TODO: this should be calculated based on the number of lines in the text, 
 	   whether or not we have bookmarks, and whether or not we have block folding */
 	gint lines,count;
-	PangoLayout *panlay;
-	lines = gtk_text_buffer_get_line_count(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
-	if (btv->margin_pixels_per_char==0) {
-		panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "");
-		pango_layout_set_text(panlay, "4", -1);
-		pango_layout_get_pixel_size(panlay, &btv->margin_pixels_per_char, NULL);
-		g_object_unref(G_OBJECT(panlay));
-		btv->margin_pixels_block = 12;
+	if (btv->linenumbers) {
+		PangoLayout *panlay;
+		lines = gtk_text_buffer_get_line_count(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)));
+		if (btv->margin_pixels_per_char==0) {
+			panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "");
+			pango_layout_set_text(panlay, "4", -1);
+			pango_layout_get_pixel_size(panlay, &btv->margin_pixels_per_char, NULL);
+			g_object_unref(G_OBJECT(panlay));
+		}
+		if (lines >= 100)
+			count = 1+log10(lines);
+		else 
+			count=2;
+		btv->margin_pixels_chars = 4 + count * btv->margin_pixels_per_char;
+	} else {
+		btv->margin_pixels_chars = 0;
 	}
-	if (lines >= 100)
-		count = 1+log10(lines);
-	else 
-		count=2;
-	btv->margin_pixels_chars = 4 + count * btv->margin_pixels_per_char;
+	btv->margin_pixels_block = 12;
 	/*g_print("lines=%d,count=%d,pixels_per_char=%d\n",lines,count,btv->margin_pixels_per_char);*/
 	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, btv->margin_pixels_chars+btv->margin_pixels_block);
 }
@@ -369,8 +373,8 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 		if (siter)
 			fstack = get_stackcache_next(btv, &siter);
 	}
-	DBG_MARGIN("first fstack ");
-	print_fstack(fstack);
+	/*DBG_MARGIN("first fstack ");
+	print_fstack(fstack);*/
 
 	it = *startvisible;
 	panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "x");
@@ -391,11 +395,13 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 												  NULL, &w);
 	
 			/* line numbers */
-			string = g_strdup_printf("%d", 1 + i);
-			pango_layout_set_markup(panlay, string, -1);
-			gtk_paint_layout(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), FALSE, NULL,
-							 GTK_WIDGET(btv), NULL, 2, w, panlay);
-			g_free(string);
+			if (btv->linenumbers) {
+				string = g_strdup_printf("%d", 1 + i);
+				pango_layout_set_markup(panlay, string, -1);
+				gtk_paint_layout(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), FALSE, NULL,
+								 GTK_WIDGET(btv), NULL, 2, w, panlay);
+				g_free(string);
+			}
 	
 			/* block folding.
 			- to find out if we need an expander/collapse, we need to see if there is a pushedblock on the 
@@ -784,7 +790,9 @@ GtkWidget *bftextview2_new(void)
 	
 		gtk_widget_modify_base(GTK_WIDGET(textview),GTK_STATE_NORMAL, &color);
 	}
-	textview->needscanning = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"needscanning");
+	textview->needscanning = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"_needscanning_");
+	textview->linenumbers=FALSE;
+	textview->enable_scanner=TRUE;
 	return GTK_WIDGET(textview);
 }
 
