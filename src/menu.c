@@ -1179,7 +1179,7 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 	}
 }
 
-void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, Tfiletype *filetype, gchar *encoding) {
+void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, gpointer filetype, gchar *encoding) {
 	Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(bfwin->menu_filetypes, filetype);
 	if (bdm && filetype && bdm->menuitem && !GTK_CHECK_MENU_ITEM(bdm->menuitem)->active) {
 		DEBUG_MSG("setting widget from hlset %p active\n", bfwin->current_document->hl);

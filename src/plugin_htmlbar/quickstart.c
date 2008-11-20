@@ -28,7 +28,9 @@
 #include "../config.h"
 #include "../dialog_utils.h"
 #include "../document.h"
+#ifndef USE_BFTEXTVIEW2
 #include "../filetype.h"
+#endif
 #include "../gtk_easy.h"
 #include "../gui.h"
 #include "../stringlist.h"
@@ -416,7 +418,9 @@ quickstart_response_lcb(GtkDialog *dialog, gint response, TQuickStart *qstart)
                                 is_frameset_dtd ? cap("\n</FRAMESET>\n</HTML>") : cap("\n</BODY>\n</HTML>"));
 		g_free (finalstr);
 		
+#ifndef USE_BFTEXTVIEW2
 		doc_set_filetype(qstart->bfwin->current_document, get_filetype_for_mime_type("text/html"));
+#endif
 	}
 
 	g_free (qstart);

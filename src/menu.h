@@ -22,7 +22,7 @@
 #ifndef __MENU_H_
 #define __MENU_H_
 
-void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, Tfiletype *filetype, gchar *encoding);
+void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, gpointer filetype, gchar *encoding);
 void menu_create_main(Tbfwin *bfwin,GtkWidget *vbox);
 void add_to_recent_list(Tbfwin *bfwin,gchar *filename, gint closed_file, gboolean is_project);
 GList *recent_menu_from_list(Tbfwin *bfwin, GList *startat, gboolean is_project);

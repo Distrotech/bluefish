@@ -22,6 +22,7 @@
 #define __FILETYPE_H_
 
 #include "bluefish.h"
+#ifndef USE_BFTEXTVIEW2
 
 GdkPixbuf *get_pixbuf_for_gicon(GIcon *icon);
 GdkPixbuf *get_icon_for_mime_type (const char *mime_type);
@@ -30,5 +31,6 @@ const gchar *get_mimetype_for_uri(GFile *uri, GFileInfo *finfo, gboolean fast);
 Tfiletype *get_filetype_for_uri(GFile *uri, GFileInfo *finfo, gboolean fast);
 
 void filetype_highlighting_rebuild(gboolean gui_errors);
+#endif
 
 #endif /* __FILETYPE_H_ */

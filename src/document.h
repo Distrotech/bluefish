@@ -49,9 +49,13 @@ gint document_return_num_notcomplete(GList *doclist);
 void doc_update_highlighting(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void doc_set_wrap(Tdocument *doc);
 void doc_set_tooltip(Tdocument *doc);
+#ifndef USE_BFTEXTVIEW2
 gboolean doc_set_filetype(Tdocument *doc, Tfiletype *ft);
+#endif
 void doc_set_title(Tdocument *doc);
+#ifndef USE_BFTEXTVIEW2
 Tfiletype *get_filetype_by_name(const gchar *name);
+#endif
 #ifndef GNOMEVFSINT
 Tfiletype *get_filetype_by_filename_and_content(const gchar *filename, gchar *buf);
 #endif

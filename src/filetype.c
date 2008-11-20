@@ -24,6 +24,7 @@
 
 /* #define DEBUG */
 
+
 #include "config.h"
 
 #include <string.h>
@@ -34,6 +35,8 @@
 #include "document.h"
 #include "stringlist.h"
 #include "menu.h"
+
+#ifndef USE_BFTEXTVIEW2
 
 #ifndef HAVE_ATLEAST_GIO_2_18
 char *g_content_type_from_mime_type (const char *type) {
@@ -247,3 +250,4 @@ void filetype_highlighting_rebuild(gboolean gui_errors)
 	}
 	g_list_free(alldoclist);
 }
+#endif

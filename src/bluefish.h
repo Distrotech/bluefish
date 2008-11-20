@@ -20,7 +20,7 @@
  */
 /* #define HL_PROFILING */
 #define GNOMEVFSINT
-
+/*#define USE_BFTEXTVIEW2*/
 /* if you define DEBUG here you will get debug output from all Bluefish parts */
 /* #define DEBUG */
 
@@ -80,8 +80,11 @@ extern void g_none(gchar *first, ...);
 #include <gio/gio.h>
 
 #define BF_FILEINFO "standard::name,standard::display-name,standard::size,standard::type,unix::mode,unix::uid,unix::gid,time::modified,etag::value"
-
+#ifdef USE_BFTEXTVIEW2
+#include "bftextview2.h"
+#else
 #include "bf-textview.h"
+#endif
 #include "autocomp.h"
 
 /*********************/
@@ -108,14 +111,14 @@ typedef struct {
 /******************************************************************************************/
 /* filetype struct, used for filtering, highlighting/scanning, and as document property   */
 /******************************************************************************************/
-
+#ifndef USE_BFTEXTVIEW2
 typedef struct {
 	gchar *type;
 	GdkPixbuf *icon;
 	gchar *mime_type;
 	BfLangConfig *cfg;
 } Tfiletype;
-
+#endif
 /*****************************************************/
 /* filter struct - used in filebrowser2 and gtk_easy */
 /*****************************************************/
@@ -175,7 +178,9 @@ typedef struct {
 	GtkTextBuffer *buffer;
 	gpointer paste_operation;
 	gint last_rbutton_event; /* index of last 3rd button click */
+#ifndef USE_BFTEXTVIEW2
 	Tfiletype *hl; /* filetype & highlighting set to use for this document */
+#endif
 	gint need_highlighting; /* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
 	gboolean highlightstate; /* does this document use highlighting ? */
 	gboolean wrapstate; /* does this document use wrap?*/
@@ -444,7 +449,9 @@ typedef struct {
 							is initialized */
 	GSList *sidepanel_destroygui; /* plugins can register a function here that is called when the side pane
 							is destroyed */
+#ifndef USE_BFTEXTVIEW2
 	BfLangManager *lang_mgr;
+#endif
 	Tautocomp *autocompletion;
 } Tmain;
 
