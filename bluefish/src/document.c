@@ -36,7 +36,11 @@
 
 #include "bluefish.h"
 #include "bf_lib.h"
+#ifdef USE_BFTEXTVIEW2
+#include "bftextview2.h"
+#else
 #include "bf-textview.h"
+#endif
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
@@ -2171,7 +2175,9 @@ static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,GtkTextIter *iter,GtkT
 static void doc_buffer_changed_lcb(GtkTextBuffer *textbuffer,Tdocument*doc) {
 	DEBUG_MSG("doc_buffer_changed_lcb()\n");
 	doc_set_statusbar_lncol(doc);
+#ifdef USER_IDLE_TIMER
 	reset_user_idle_timer(BFWIN(doc->bfwin));
+#endif
 }
 
 static void doc_view_toggle_overwrite_lcb(GtkTextView *view, Tdocument *doc)
@@ -2645,10 +2651,12 @@ void document_set_show_blocks(Tdocument *doc, gboolean value) {
  *
  * Return value: void
  **/ 
+#ifndef USE_BFTEXTVIEW2
 void document_set_show_symbols(Tdocument *doc, gboolean value) {
 	bf_textview_show_symbols(BF_TEXTVIEW(doc->view),value);
 }
-
+#endif
+#ifndef USE_BFTEXTVIEW2
 static void doc_view_drag_end_lcb(GtkWidget *widget,GdkDragContext *drag_context,Tdocument *doc) {
 	if (doc->paste_operation) {
 		if (PASTEOPERATION(doc->paste_operation)->eo > PASTEOPERATION(doc->paste_operation)->so) {			
@@ -2666,7 +2674,7 @@ static void doc_view_drag_begin_lcb(GtkWidget *widget,GdkDragContext *drag_conte
 		BF_TEXTVIEW(doc->view)->paste_operation = TRUE;
 	}
 }
-
+#endif
 static void doc_close_but_set_style_lcb (GtkWidget *button, GtkStyle *previous_style, gpointer user_data) {
 	gint h, w;
 
