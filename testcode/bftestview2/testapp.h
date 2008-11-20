@@ -2,7 +2,7 @@
 #define _TESTAPP_H_
 #include "bftextview2.h"
 
-extern gboolean autoindent;
+/*extern gboolean autoindent;*/
 extern gboolean reduced_scan_triggers;
 extern gboolean delay_full_scan;
 extern gboolean smart_cursor;

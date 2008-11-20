@@ -249,7 +249,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
-	if (btv->enable_scanner && (btv->autocomp || autocomp_popup_mode == 2)) {
+	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || autocomp_popup_mode == 2)) {
 		autocomp_run(btv,FALSE);
 	}
 	bftextview2_reset_user_idle_timer(btv);
@@ -500,7 +500,7 @@ static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,
 		}
 	}
 	btv->key_press_was_autocomplete = FALSE;
-	if (btv->enable_scanner && (kevent->state & GDK_CONTROL_MASK) && kevent->keyval == ' ') {
+	if (btv->enable_scanner && btv->autocomplete && (kevent->state & GDK_CONTROL_MASK) && kevent->keyval == ' ') {
 		autocomp_run(btv,TRUE);
 		return TRUE;
 	}
@@ -630,7 +630,7 @@ static gboolean bftextview2_mouse_lcb(GtkWidget * widget, GdkEvent * event, gpoi
 static gboolean bftextview2_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
 	BluefishTextView *btv=user_data;
 	if (!btv->key_press_was_autocomplete && (kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
-		if (autoindent) {
+		if (btv->autoindent) {
 			gchar *string, *indenting;
 			GtkTextMark* imark;
 			GtkTextIter itstart, itend;
