@@ -1965,7 +1965,7 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 	}
 	doc_set_modified(doc, 1);
 }
-
+#ifndef USE_BFTEXTVIEW2
 static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
 	DEBUG_MSG("doc_view_button_release_lcb, button %d\n", bevent->button);
 	if (bevent->button==2) {
@@ -1976,7 +1976,7 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 			}
 			g_free(doc->paste_operation);
 			doc->paste_operation = NULL;
-		BF_TEXTVIEW(doc->view)->paste_operation = FALSE;			
+			BF_TEXTVIEW(doc->view)->paste_operation = FALSE;			
 		}
 		/* now we should update the highlighting for the pasted text, but how long is the pasted text ?? */
 	}
@@ -2010,6 +2010,7 @@ static gboolean doc_view_button_release_lcb(GtkWidget *widget,GdkEventButton *be
 	} */
 	return FALSE;
 }
+#endif
 
 void doc_get_iter_location(Tdocument *doc, GtkTextIter *iter, GdkRectangle *rectangle) {
 	GdkRectangle rect;
@@ -2052,12 +2053,14 @@ void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter 
 
 static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
 	DEBUG_MSG("doc_view_button_press_lcb, button %d\n", bevent->button);
+#ifdef USE_BFTEXTVIEW2
 	if (bevent->button==2 && !doc->paste_operation) {
 		doc->paste_operation = g_new(Tpasteoperation,1);
 		PASTEOPERATION(doc->paste_operation)->so = -1;
 		PASTEOPERATION(doc->paste_operation)->eo = -1;
 		BF_TEXTVIEW(doc->view)->paste_operation = TRUE;
 	}
+#endif
 	if (bevent->button == 3) {
 		GtkTextIter iter;
 		doc_get_iter_at_bevent(doc, bevent, &iter);
@@ -2134,6 +2137,7 @@ static void doc_view_populate_popup_lcb(GtkTextView *textview,GtkMenu *menu,Tdoc
 	
 	gtk_widget_show_all(GTK_WIDGET(menu));
 }
+#ifdef USER_IDLE_TIMER
 static gboolean user_idle_timer_lcb(gpointer data) {
 	Tbfwin *bfwin = BFWIN(data);
 	if (g_timer_elapsed(bfwin->idletimer,NULL) > 0.48) {
@@ -2151,14 +2155,17 @@ static void reset_user_idle_timer(Tbfwin *bfwin) {
 	g_timer_start(bfwin->idletimer);
 	g_timeout_add(500,user_idle_timer_lcb,bfwin);
 }
+#endif
 
 static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,GtkTextIter *iter,GtkTextMark *set_mark,Tdocument *doc) {
 	DEBUG_MSG("doc_buffer_mark_set_lcb, set_mark=%p, insert_mark=%p\n",set_mark,gtk_text_buffer_get_insert(buffer));
 	if (set_mark == gtk_text_buffer_get_insert(buffer)) {
 		DEBUG_MSG("doc_buffer_mark_set_lcb, insert mark is changed\n");
 		doc_set_statusbar_lncol(doc);
+#ifdef USER_IDLE_TIMER
 		/* reset the timer */
 		reset_user_idle_timer(BFWIN(doc->bfwin));
+#endif
 	}
 }
 static void doc_buffer_changed_lcb(GtkTextBuffer *textbuffer,Tdocument*doc) {
@@ -2605,7 +2612,11 @@ static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
  * Return value: void
  **/ 
 void document_set_line_numbers(Tdocument *doc, gboolean value) {
+#ifdef USE_BFTEXTVIEW2
+	BLUEFISH_TEXTVIEW(doc->view)->linenumbers = value;
+#else
 	bf_textview_show_lines(BF_TEXTVIEW(doc->view),value);
+#endif
 }
 
 /**
@@ -2618,7 +2629,11 @@ void document_set_line_numbers(Tdocument *doc, gboolean value) {
  * Return value: void
  **/ 
 void document_set_show_blocks(Tdocument *doc, gboolean value) {
+#ifdef USE_BFTEXTVIEW2
+	BLUEFISH_TEXTVIEW(doc->view)->showblocks = value;
+#else
 	bf_textview_show_blocks(BF_TEXTVIEW(doc->view),value);
+#endif
 }
 
 /**
