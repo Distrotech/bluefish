@@ -219,7 +219,11 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 	} else {
 		btv->margin_pixels_chars = 0;
 	}
-	btv->margin_pixels_block = 12;
+	if (btv->showblocks) {
+		btv->margin_pixels_block = 12;
+	} else {
+		btv->margin_pixels_block = 0;
+	}
 	/*g_print("lines=%d,count=%d,pixels_per_char=%d\n",lines,count,btv->margin_pixels_per_char);*/
 	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, btv->margin_pixels_chars+btv->margin_pixels_block);
 }
@@ -410,31 +414,33 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 			which has 'foldable'
 			- to find out if we need a line or nothing we need to know the number of expanded blocks on the stack 
 			 */
-			while (fstack) {
-				if (fstack->line > i) {
-					DBG_FOLD("found fstack for line %d, num_blocks=%d..\n",fstack->line,num_blocks);
-					if (num_blocks > 0) {
-						paint_margin_line(btv,event,w,height);
-					}
-					break;
-				}
-				if (fstack->line == i) {
-					DBG_FOLD("found fstack %p (charoffset %d) for current line %d, pushedblock=%p,poppedblock=%p\n",fstack, fstack->charoffset, fstack->line,fstack->pushedblock,fstack->poppedblock);
-					if (fstack->pushedblock && fstack->pushedblock->foldable) {
-						if (fstack->pushedblock->folded)
-							paint_margin_collapse(btv,event,w,height);
-						else
-							paint_margin_expand(btv,event,w,height);
-							
-						num_blocks = get_num_foldable_blocks(fstack);
-						break;
-					} else if (fstack->poppedblock && fstack->poppedblock->foldable) {
-						paint_margin_blockend(btv,event,w,height);
-						num_blocks = get_num_foldable_blocks(fstack);
+			if (btv->showblocks) {
+				while (fstack) {
+					if (fstack->line > i) {
+						DBG_FOLD("found fstack for line %d, num_blocks=%d..\n",fstack->line,num_blocks);
+						if (num_blocks > 0) {
+							paint_margin_line(btv,event,w,height);
+						}
 						break;
 					}
+					if (fstack->line == i) {
+						DBG_FOLD("found fstack %p (charoffset %d) for current line %d, pushedblock=%p,poppedblock=%p\n",fstack, fstack->charoffset, fstack->line,fstack->pushedblock,fstack->poppedblock);
+						if (fstack->pushedblock && fstack->pushedblock->foldable) {
+							if (fstack->pushedblock->folded)
+								paint_margin_collapse(btv,event,w,height);
+							else
+								paint_margin_expand(btv,event,w,height);
+								
+							num_blocks = get_num_foldable_blocks(fstack);
+							break;
+						} else if (fstack->poppedblock && fstack->poppedblock->foldable) {
+							paint_margin_blockend(btv,event,w,height);
+							num_blocks = get_num_foldable_blocks(fstack);
+							break;
+						}
+					}
+					fstack = get_stackcache_next(btv, &siter);
 				}
-				fstack = get_stackcache_next(btv, &siter);
 			}
 		}
 	}

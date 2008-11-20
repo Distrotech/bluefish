@@ -334,7 +334,8 @@ struct _BluefishTextView {
 	gboolean enable_scanner; /* only run scanner when TRUE, this is FALSE if the document is in the background for example */
 	gboolean autoindent;
 	gboolean autocomplete;
-	gboolean linenumbers;	
+	gboolean linenumbers;
+	gboolean showblocks;	
 };
 
 struct _BluefishTextViewClass {
