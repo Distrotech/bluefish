@@ -38,10 +38,10 @@
 typedef struct {
 	gchar *pattern;
 	GPatternSpec* patspec;
-} Tpattern;
+} Tfilterpattern;
 
-static Tpattern *new_pattern(gchar *name) {
-	Tpattern *pat = g_new(Tpattern,1);			
+static Tfilterpattern *new_pattern(gchar *name) {
+	Tfilterpattern *pat = g_new(Tfilterpattern,1);			
 	pat->pattern = g_strdup(name);
 	pat->patspec = g_pattern_spec_new(name);
 	return pat;
@@ -51,7 +51,7 @@ static Tpattern *new_pattern(gchar *name) {
 static GList *remove_pattern_from_list(GList *list, const gchar *pattern) {
 	GList *tmplist = g_list_first(list);
 	while (tmplist) {
-		Tpattern *pat = (Tpattern *)tmplist->data;
+		Tfilterpattern *pat = (Tfilterpattern *)tmplist->data;
 		if (strcmp(pat->pattern, pattern)==0) {
 			g_free(pat->pattern);
 			g_pattern_spec_free(pat->patspec);
@@ -70,7 +70,7 @@ static gboolean filename_match(Tfilter *filter, const gchar *string) {
 	guint len = strlen(string);	
 	const gchar *reversed = g_utf8_strreverse(string,-1);
 	for (tmplist = g_list_first(filter->patterns) ; tmplist ; tmplist = g_list_next(tmplist)) {
-		if (g_pattern_match(((Tpattern *)tmplist->data)->patspec,len,string,reversed))
+		if (g_pattern_match(((Tfilterpattern *)tmplist->data)->patspec,len,string,reversed))
 			return TRUE;
 	}
 	return FALSE;
@@ -144,7 +144,7 @@ static void filter_destroy(Tfilter *filter) {
 	g_free(filter->name);
 	g_hash_table_destroy(filter->filetypes);
 	for (tmplist=g_list_first(filter->patterns);tmplist;tmplist=g_list_next(tmplist)) {
-		Tpattern *pat = tmplist->data;
+		Tfilterpattern *pat = tmplist->data;
 		g_pattern_spec_free(pat->patspec);
 		g_free(pat->pattern);
 	}
@@ -298,7 +298,7 @@ static void apply_filter_to_config(Tfilter *filter, const gchar *origname) {
 	{
 		GList *tmplist;
 		for (tmplist = g_list_first(filter->patterns) ; tmplist ; tmplist = g_list_next(tmplist)) {
-			Tpattern *pat = tmplist->data;
+			Tfilterpattern *pat = tmplist->data;
 			g_string_append(gstr, pat->pattern);
 			g_string_append_c(gstr,':');
 		}
@@ -362,7 +362,7 @@ static gboolean filefiltergui_infilter_visiblefunc(GtkTreeModel *model,GtkTreeIt
 		} else { /* type == 1*/
 			GList *tmplist;
 			for (tmplist = g_list_first(ffg->curfilter->patterns) ; tmplist ; tmplist = g_list_next(tmplist)) {
-				Tpattern *pat = tmplist->data;
+				Tfilterpattern *pat = tmplist->data;
 				if (strcmp(pat->pattern, name)==0) {
 					retval = TRUE;
 					break;
@@ -446,9 +446,9 @@ static void filefiltergui_2left_clicked(GtkWidget *widget, Tfilefiltergui *ffg) 
 }
 
 static void filefiltergui_addpattern_clicked_lcb(GtkWidget *widget, Tfilefiltergui *ffg) {
-	Tpattern *pat;
+	Tfilterpattern *pat;
 	GtkTreeIter it;
-	pat = g_new(Tpattern,1);
+	pat = g_new(Tfilterpattern,1);
 	pat->pattern = g_strdup(gtk_entry_get_text(GTK_ENTRY(ffg->patentry)));
 	pat->patspec = g_pattern_spec_new(pat->pattern);
 	ffg->curfilter->patterns = g_list_append(ffg->curfilter->patterns, pat);
@@ -496,7 +496,7 @@ void filefilter_gui(Tfilter *filter) {
 	tmplist = g_list_first(ffg->curfilter->patterns);
 	while (tmplist) {
 		GtkTreeIter it;
-		Tpattern *pat = (Tpattern *)tmplist->data;
+		Tfilterpattern *pat = (Tfilterpattern *)tmplist->data;
 		gtk_list_store_prepend(ffg->lstore,&it);
 		gtk_list_store_set(ffg->lstore,&it,0,pat->pattern,1,NULL,2,1,-1);
 		tmplist = g_list_next(tmplist);

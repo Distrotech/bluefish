@@ -356,6 +356,7 @@ void doc_set_wrap(Tdocument * doc) {
  *
  * Return value: Tfiletype* 
  **/
+#ifndef USE_BFTEXTVIEW2
 Tfiletype *get_filetype_by_name(const gchar * name) {
 	GList *tmplist;
 	tmplist = g_list_first(main_v->filetypelist);
@@ -367,6 +368,7 @@ Tfiletype *get_filetype_by_name(const gchar * name) {
 	}
 	return NULL;
 }
+#endif
 #ifndef GNOMEVFSINT
 /**
  * get_filetype_by_filename_and_content:
@@ -444,10 +446,17 @@ void doc_set_tooltip(Tdocument *doc) {
 	retstr = g_string_new(_("Name: "));
 	retstr = g_string_append(retstr, gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
 	
+#ifdef USE_BFTEXTVIEW2
+	if (BLUEFISH_TEXT_VIEW(doc->view)->bflang) {
+		retstr = g_string_append(retstr, _("\nFile type: "));
+		retstr = g_string_append(retstr, BLUEFISH_TEXT_VIEW(doc->view)->bflang->name);
+	}
+#else
 	if (doc->hl) {
 		retstr = g_string_append(retstr, _("\nFile type: "));
 		retstr = g_string_append(retstr, doc->hl->type);
 	}
+#endif
 	if (doc->encoding) {
 		retstr = g_string_append(retstr, _("\nEncoding: "));
 		retstr = g_string_append(retstr, doc->encoding);
@@ -465,11 +474,19 @@ void doc_set_tooltip(Tdocument *doc) {
 			retstr = g_string_append(retstr, sizestr);
 			g_free(sizestr);
 		}
+#ifdef USE_BFTEXTVIEW2
+		if (doc->fileinfo) {
+			const gchar *mime = g_file_info_get_attribute_string(doc->fileinfo, "standard::content-type");
+			retstr = g_string_append(retstr, _("\nMime type: "));
+			retstr = g_string_append(retstr, mime);
+		}
+#else
 		if (doc->hl && doc->hl->mime_type) {
 			retstr = g_string_append(retstr, _("\nMime type: "));
 			DEBUG_MSG("doc %p has filetype %p with mime %s\n",doc,doc->hl,doc->hl->mime_type);
 			retstr = g_string_append(retstr, doc->hl->mime_type);
 		}
+#endif
 		if (g_file_info_has_attribute(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED)) {
 			/* this function always appends a newline to the string*/
 			time_t modtime = (time_t) g_file_info_get_attribute_uint64(doc->fileinfo, G_FILE_ATTRIBUTE_TIME_MODIFIED);
@@ -561,7 +578,9 @@ void doc_set_title(Tdocument *doc) {
  **/
 void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssize buflen) {
 	const gchar *mimetype = NULL;
+#ifndef USE_BFTEXTVIEW2
 	Tfiletype *ft=NULL;
+#endif
 	gboolean uncertain=FALSE;
 	char *filename, *conttype;
 	
@@ -574,6 +593,9 @@ void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssiz
 	DEBUG_MSG("doc_reset_filetype,mimetype=%s\n",mimetype);
 	/* docs are unclear if conttype is a static string or a newly allocated string */
 
+#ifdef USE_BFTEXTVIEW2
+	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(doc->view), mimetype);
+#else
 	if (mimetype) {
 		ft = get_filetype_for_mime_type(mimetype);
 		g_free(conttype);
@@ -583,6 +605,7 @@ void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssiz
 		ft = (Tfiletype *)tmplist->data;	
 	}
 	doc_set_filetype(doc, ft);
+#endif
 }
 
 void doc_set_filename(Tdocument *doc, GFile *newuri) {
@@ -1240,8 +1263,17 @@ void doc_set_statusbar_insovr(Tdocument *doc)
 void doc_set_statusbar_editmode_encoding(Tdocument *doc)
 {
 	gchar *msg;
+#ifdef USE_BFTEXTVIEW2
+	if (doc->fileinfo) {
+		const gchar *mime = g_file_info_get_attribute_string(doc->fileinfo, "standard::content-type");
+		msg = g_strdup_printf(_("  %s, %s"), mime, doc->encoding);
+	} else {
+		msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
+	}
+#else
 	if (doc->hl == NULL) msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
 	else msg = g_strdup_printf(_("  %s, %s"), doc->hl->type, doc->encoding);
+#endif
 	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_editmode), 0);
 	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_editmode), 0, msg);
 	g_free(msg);		
@@ -1620,12 +1652,6 @@ gboolean doc_buffer_to_textbox(Tdocument * doc, gchar * buffer, gsize buflen, gb
 	if (BF_TEXTVIEW(doc->view)->highlight) {
 		doc->need_highlighting=TRUE;
 		DEBUG_MSG("doc_buffer_to_textbox, highlight=%d, need_highlighting=%d, delay=%d\n",BF_TEXTVIEW(doc->view)->highlight,doc->need_highlighting,delay);
-		if (!delay) {
-
-#ifdef DEBUG
-			g_print("doc_buffer_to_textbox, doc->hl=%p, type=%s\n", doc->hl, doc->hl->type);
-#endif
-		}
 	}
 #endif
 	if (!enable_undo) {
@@ -2057,7 +2083,7 @@ void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter 
 
 static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
 	DEBUG_MSG("doc_view_button_press_lcb, button %d\n", bevent->button);
-#ifdef USE_BFTEXTVIEW2
+#ifndef USE_BFTEXTVIEW2
 	if (bevent->button==2 && !doc->paste_operation) {
 		doc->paste_operation = g_new(Tpasteoperation,1);
 		PASTEOPERATION(doc->paste_operation)->so = -1;
@@ -2619,7 +2645,7 @@ static void doc_close_but_clicked_lcb(GtkWidget *wid, gpointer data) {
  **/ 
 void document_set_line_numbers(Tdocument *doc, gboolean value) {
 #ifdef USE_BFTEXTVIEW2
-	BLUEFISH_TEXTVIEW(doc->view)->linenumbers = value;
+	BLUEFISH_TEXT_VIEW(doc->view)->linenumbers = value;
 #else
 	bf_textview_show_lines(BF_TEXTVIEW(doc->view),value);
 #endif
@@ -2636,7 +2662,7 @@ void document_set_line_numbers(Tdocument *doc, gboolean value) {
  **/ 
 void document_set_show_blocks(Tdocument *doc, gboolean value) {
 #ifdef USE_BFTEXTVIEW2
-	BLUEFISH_TEXTVIEW(doc->view)->showblocks = value;
+	BLUEFISH_TEXT_VIEW(doc->view)->showblocks = value;
 #else
 	bf_textview_show_blocks(BF_TEXTVIEW(doc->view),value);
 #endif
@@ -2712,7 +2738,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	/* set the default doc to be plain text for now.
        we should maybe add a default file type to preferences, projects, and/or session 
 	   or maybe a dialog asking the user what to create */
-	newdoc->hl = get_filetype_for_mime_type("text/plain"); 
+	newdoc->hl = get_filetype_for_mime_type("text/plain");
 	if (newdoc->hl->cfg) {
 		bf_textview_set_language_ptr(BF_TEXTVIEW(newdoc->view),newdoc->hl->cfg);
 	}
@@ -2765,8 +2791,10 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->overwrite_mode = FALSE;
 	doc_bind_signals(newdoc);
 
+#ifndef USE_BFTEXTVIEW2
 	g_signal_connect(G_OBJECT(newdoc->view), "button-release-event", 
 		G_CALLBACK(doc_view_button_release_lcb), newdoc);
+#endif
 	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event", 
 		G_CALLBACK(doc_view_button_press_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "changed",
@@ -2779,10 +2807,12 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 		G_CALLBACK(doc_paste_clipboard_lcb), newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view), "button-release-event", 
 		G_CALLBACK(doc_view_button_release_after_lcb), newdoc);*/
+#ifndef USE_BFTEXTVIEW2
 	g_signal_connect_after(G_OBJECT(newdoc->view), "drag-end", 
 		G_CALLBACK(doc_view_drag_end_lcb), newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view), "drag-begin", 
 		G_CALLBACK(doc_view_drag_begin_lcb), newdoc);
+#endif
 	g_signal_connect_after(G_OBJECT(newdoc->view), "key-release-event", 
 		G_CALLBACK(doc_view_key_release_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "key-press-event", 
@@ -2827,7 +2857,9 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	/* for some reason it only works after the document is appended to the notebook */
 	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
 	
+#ifndef USE_BFTEXTVIEW2
 	BF_TEXTVIEW(newdoc->view)->highlight = main_v->props.defaulthighlight;
+#endif
 	DEBUG_MSG("doc_new_backend, need_highlighting=%d, highlight=%d\n", newdoc->need_highlighting, BF_TEXTVIEW(newdoc->view)->highlight);
 	return newdoc;
 }
@@ -3265,11 +3297,6 @@ void doc_activate(Tdocument *doc) {
 	doc_set_statusbar_insovr(doc);
 	doc_set_statusbar_editmode_encoding(doc);
 
-	/* if highlighting is needed for this document do this now !! */
-	if (doc->need_highlighting && BF_TEXTVIEW(doc->view)->highlight) {
-		DEBUG_MSG("doc_activate, doc=%p, after doc_highlight_full, need_highlighting=%d\n",doc,doc->need_highlighting);
-	}
-
 /*	doc_scroll_to_cursor(doc);*/
 	if (doc->uri) {
 /*		gchar *dir1 = g_path_get_dirname(doc->uri);
@@ -3400,24 +3427,28 @@ void edit_paste_cb(GtkWidget * widget, Tbfwin *bfwin) {
 	GtkTextMark *mark;
 	Tdocument *doc = bfwin->current_document;
 	DEBUG_MSG("edit_paste_cb, started\n");
+#ifndef USE_BFTEXTVIEW2
 	if (!doc->paste_operation) {
 		doc->paste_operation = g_new(Tpasteoperation,1);
 		PASTEOPERATION(doc->paste_operation)->so = -1;
 		PASTEOPERATION(doc->paste_operation)->eo = -1;
 		BF_TEXTVIEW(doc->view)->paste_operation = TRUE;
 	}
+#endif
 	doc_unre_new_group(doc);
 
 	DEBUG_MSG("edit_paste_cb, pasting clipboard\n");
 	gtk_text_buffer_paste_clipboard (doc->buffer,gtk_clipboard_get(GDK_SELECTION_CLIPBOARD),NULL,TRUE);
 
 	doc_unre_new_group(doc);
+#ifndef USE_BFTEXTVIEW2
 	if (PASTEOPERATION(doc->paste_operation)->eo > PASTEOPERATION(doc->paste_operation)->so) {
 		DEBUG_MSG("edit_paste_cb, start doc_highlight_region for so=%d, eo=%d\n",PASTEOPERATION(doc->paste_operation)->so,PASTEOPERATION(doc->paste_operation)->eo);		
 	}
 	g_free(doc->paste_operation);
 	doc->paste_operation = NULL;
 	BF_TEXTVIEW(doc->view)->paste_operation = FALSE;
+#endif
 	mark = gtk_text_buffer_get_insert(bfwin->current_document->buffer);
 	gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(bfwin->current_document->view), mark); 
 	DEBUG_MSG("edit_paste_cb, finished\n");
@@ -3450,10 +3481,14 @@ void edit_select_all_cb(GtkWidget * widget, Tbfwin *bfwin) {
  * Return value: void
  **/
 void doc_toggle_highlighting_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
+#ifdef USE_BFTEXTVIEW2
+	BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner-1;
+#else
 	BF_TEXTVIEW(bfwin->current_document->view)->highlight = 
 		BF_TEXTVIEW(bfwin->current_document->view)->highlight ? FALSE : TRUE;
 	DEBUG_MSG("doc_toggle_highlighting_cb, started, highlight is %d\n", BF_TEXTVIEW(bfwin->current_document->view)->highlight);		
 	bf_textview_scan(BF_TEXTVIEW(bfwin->current_document->view));
+#endif
 }
 
 /**
@@ -3469,7 +3504,9 @@ void all_documents_apply_settings() {
 		Tdocument *doc = tmplist->data;
 		doc_set_tabsize(doc, main_v->props.editor_tab_width);
 		doc_set_font(doc, main_v->props.editor_font_string);
+#ifndef USE_BFTEXTVIEW2
 		bf_textview_recolor(BF_TEXTVIEW(doc->view),main_v->props.editor_fg,main_v->props.editor_bg);
+#endif
 		tmplist = g_list_next(tmplist);
 	}
 
