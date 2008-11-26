@@ -26,7 +26,11 @@
 #include "bluefish.h"
 #include "autocomp.h"
 #include "bf_lib.h"        /* list_switch_order() */
+
+#ifndef USE_BFTEXTVIEW2
 #include "bf-textview.h"
+#endif
+
 #include "document.h"
 #include "filebrowser2.h"
 #include "gtk_easy.h"
@@ -1187,7 +1191,9 @@ static void fill_hl_tree(Tprefdialog *pd) {
 		}
 		
 	}
-	
+#ifdef USE_BFTEXTVIEW2
+	/* TODO */
+#else	
 	tmplist = g_list_first(main_v->lang_mgr->languages);
 	while (tmplist) {
 		BfLangConfig *cfg = (BfLangConfig *)tmplist->data;
@@ -1240,7 +1246,8 @@ static void fill_hl_tree(Tprefdialog *pd) {
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	g_hash_table_unref(hasht); 
+	g_hash_table_unref(hasht);
+#endif 
 }
 
 static void hl_set_textstylecombo_by_text(Tprefdialog *pd, const gchar *text) {
@@ -1813,11 +1820,13 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.textstyles = duplicate_arraylist(pd->lists[textstyles]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
-
+#ifdef USE_BFTEXTVIEW2
+	/* TODO */
+#else
 	textstyle_rebuild();
 
 	bf_lang_mgr_retag();
-	
+#endif
 	all_documents_apply_settings();
 	{
 		GList *tmplist = g_list_first(main_v->bfwinlist);

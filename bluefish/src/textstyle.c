@@ -27,6 +27,9 @@
 
 #include "config.h"
 #include "bluefish.h"
+
+#ifndef USE_BFTEXTVIEW2
+
 #include "bf_lib.h"
 #include "textstyle.h"
 #include "stringlist.h"
@@ -187,3 +190,4 @@ GtkTextTag *get_tag_for_scanner_style(const gchar *filetype,const gchar *type,co
 /*	DEBUG_MSG("no config found for %s:%s:%s\n",filetype,type,name);*/
 	return NULL;
 }
+#endif 
