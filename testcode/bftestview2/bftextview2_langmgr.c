@@ -705,6 +705,10 @@ static Tbflang *parse_bflang2_header(const gchar *filename) {
 	return bflang;
 }
 
+GList *langmgr_get_languages(void) {
+	return g_list_duplicate(langmgr.bflang_list);
+}
+
 static void register_bflanguage(Tbflang *bflang) {
 	if (bflang) {
 		GList *tmplist;
