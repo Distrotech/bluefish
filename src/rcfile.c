@@ -445,11 +445,18 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.editor_fg,"editor_fg:","#000000");
 	init_prop_string    (&config_rc, &main_v->props.editor_bg,"editor_bg:","#FFFFFF");
 	init_prop_arraylist (&config_rc, &main_v->props.textstyles, "textstyles:", 5, TRUE);
-#ifndef USE_BFTEXTVIEW2
-	init_prop_integer   (&config_rc, &main_v->props.view_blocks, "view_blocks:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.view_symbols, "view_symbols:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_mbhl, "view_mbhl:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_cline, "view_cline:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.view_blocks, "view_blocks:", 1, TRUE);
+#ifdef USE_BFTEXTVIEW2
+	init_prop_arraylist (&config_rc, &main_v->props.plugin_config, "highlight_styles:", 3, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.load_reference, "load_reference:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.delay_full_scan, "delay_full_scan:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.autocomp_popup_mode, "autocomp_popup_mode:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.reduced_scan_triggers, "reduced_scan_triggers:", 1, TRUE);
+	init_prop_integer   (&config_rc, &main_v->props.smart_cursor, "smart_cursor:", 1, TRUE);
+#else
+	init_prop_integer   (&config_rc, &main_v->props.view_symbols, "view_symbols:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.scan_mode,"scan_mode:",1, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.syntax_styles, "syntax_styles:", 4, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_rmargin, "view_rmargin:", 0, TRUE);
@@ -457,6 +464,8 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_string    (&config_rc, &main_v->props.autocomp_key, "autocomp_key:", "<Control>space");
 	init_prop_integer   (&config_rc, &main_v->props.load_network_dtd, "load_network_dtd:", 0, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.tag_autoclose, "tag_autoclose:", 1, TRUE);
+
+
 #endif
 	return config_rc;
 }

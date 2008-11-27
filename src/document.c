@@ -2772,8 +2772,8 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	document_set_line_numbers(newdoc, newdoc->linenumberstate);
 	newdoc->blocksstate = main_v->props.view_blocks;
 	document_set_show_blocks(newdoc, newdoc->blocksstate);
-	newdoc->symstate = main_v->props.view_symbols;
 #ifndef USE_BFTEXTVIEW2
+	newdoc->symstate = main_v->props.view_symbols;	
 	document_set_show_symbols(newdoc, newdoc->symstate);
 #endif
 	newdoc->tab_label = gtk_label_new(NULL);

@@ -268,28 +268,28 @@ typedef struct {
 	gint open_in_running_bluefish; /* open commandline documents in already running session*/
 	gint show_splash_screen;
 	GList *plugin_config; /* array, 0=filename, 1=enabled, 2=name*/
-	gint view_blocks; /* show blocks on the left side by default */
-	gint view_symbols; /* show symbols on the left side by default */	
-	gint view_mbhl; /* show matching block begin-end by default */	
-	gint view_cline; /* highlight current line by default */
-	gint scan_mode; /* number of lines to autoscan */
 	gchar *editor_fg; /* editor foreground color */
 	gchar *editor_bg; /* editor background color */
+	gint view_mbhl; /* show matching block begin-end by default */	
+	gint view_cline; /* highlight current line by default */
+	GList *textstyles; /* tet styles: name,foreground,background,weight,style */
+	gint view_blocks; /* show blocks on the left side by default */
+#ifdef USE_BFTEXTVIEW2
+	GList *highlight_styles;
+	gboolean load_reference;
+	gboolean delay_full_scan;
+	gint autocomp_popup_mode;
+	gboolean reduced_scan_triggers;
+	gboolean smart_cursor;
+#else
+	gint view_symbols; /* show symbols on the left side by default */	
+	gint scan_mode; /* number of lines to autoscan */
 	GList *syntax_styles; /* textstyles (see below) for each detected bit of syntax */
 	gint view_rmargin; /* show right margin by default */
 	gint rmargin_at; /* position of a right margin */
 	gchar *autocomp_key; /* autocompletion accelerator */
 	gint load_network_dtd; /* if true - remote(network) DTDs in DTD aware formats are loaded, otherwise they are not */
-	GList *textstyles; /* tet styles: name,foreground,background,weight,style */
 	gint tag_autoclose; /* global setting for tag autoclosing */
-#ifdef USE_BFTEXTVIEW2
-	GList *highlight_styles;
-	gboolean load_reference;
-	gboolean delay_full_scan;
-	gboolean autocomp_popup_mode;
-	gboolean reduced_scan_triggers;
-	gboolean smart_cursor;
-	
 #endif
 } Tproperties;
 

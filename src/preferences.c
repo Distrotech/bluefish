@@ -1333,7 +1333,9 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	GtkTreeSelection *select;
 
 	DEBUG_MSG("create_hl_gui, duplicate arraylist \n");
+#ifndef USE_BFTEXTVIEW2
 	pd->lists[syntax_styles] = duplicate_arraylist(main_v->props.syntax_styles);
+#endif
 	/* new structure: one treestore for all, column 1:visible label, 2:label for config file 3:pointer to strarr */
 	pd->hld.tstore = gtk_tree_store_new(4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
 	pd->hld.cstore = gtk_list_store_new(1,G_TYPE_STRING);
@@ -1711,16 +1713,16 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.word_wrap, pd->prefs[word_wrap], TRUE);
 	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);	
 	integer_apply(&main_v->props.view_blocks, pd->prefs[view_blocks], TRUE);
-	integer_apply(&main_v->props.view_symbols, pd->prefs[view_symbols], TRUE);
 	integer_apply(&main_v->props.view_mbhl, pd->prefs[view_mbhl], TRUE);
 	integer_apply(&main_v->props.view_cline, pd->prefs[view_cline], TRUE);
-	integer_apply(&main_v->props.tag_autoclose, pd->prefs[tag_autoclose], TRUE);
-	main_v->props.scan_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[scan_mode]));
 	string_apply(&main_v->props.editor_fg, pd->prefs[editor_fg]);
 	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);	
+#ifndef USE_BFTEXTVIEW2
+	integer_apply(&main_v->props.view_symbols, pd->prefs[view_symbols], TRUE);
+	integer_apply(&main_v->props.tag_autoclose, pd->prefs[tag_autoclose], TRUE);
+	main_v->props.scan_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[scan_mode]));
 	integer_apply(&main_v->props.view_rmargin, pd->prefs[view_rmargin], TRUE);
 	integer_apply(&main_v->props.rmargin_at, pd->prefs[rmargin_at], FALSE);
-#ifndef USE_BFTEXTVIEW2
 	integer_apply(&main_v->props.load_network_dtd, pd->prefs[load_network_dtd], TRUE);
 	{
 	  	guint key;
@@ -1805,10 +1807,11 @@ static void preferences_apply(Tprefdialog *pd) {
 	free_arraylist(main_v->props.filetypes);
 	main_v->props.filetypes = duplicate_arraylist(pd->lists[filetypes]);
 */
+#ifndef USE_BFTEXTVIEW2
 	DEBUG_MSG("preferences_apply: free old syntax styles, and building new list\n");
 	free_arraylist(main_v->props.syntax_styles);
 	main_v->props.syntax_styles = duplicate_arraylist(pd->lists[syntax_styles]);
-	
+#endif	
 	free_arraylist(main_v->props.external_command);
 	main_v->props.external_command = duplicate_arraylist(pd->lists[extcommands]);
 	
@@ -2023,9 +2026,12 @@ static void preferences_dialog() {
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap default"), main_v->props.word_wrap, vbox2);
 	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);	
 	pd->prefs[view_blocks] = boxed_checkbut_with_value(_("Block folding view by default"), main_v->props.view_blocks, vbox2);
+#ifndef USE_BFTEXTVIEW2
 	pd->prefs[view_symbols] = boxed_checkbut_with_value(_("Symbols view by default"), main_v->props.view_symbols, vbox2);
-	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
 	pd->prefs[tag_autoclose] = boxed_checkbut_with_value(_("Tag autoclose by default"), main_v->props.tag_autoclose, vbox2);
+#endif
+	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
+
 
 	frame = gtk_frame_new(_("Undo options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2315,13 +2321,13 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[view_mbhl] = boxed_checkbut_with_value(_("Match block begin-end by default"), main_v->props.view_mbhl, vbox2);
 	pd->prefs[view_cline] = boxed_checkbut_with_value(_("Highlight current line by default"), main_v->props.view_cline, vbox2);
+#ifndef USE_BFTEXTVIEW2
 	pd->prefs[view_rmargin] = boxed_checkbut_with_value(_("Show right margin by default"), main_v->props.view_rmargin, vbox2);
 	pd->prefs[rmargin_at] = prefs_integer(_("Right margin at"), main_v->props.rmargin_at, vbox2, pd,0, 500);
 	{
 		gchar *modes[] = {N_("whole document"), N_("visible area"),  NULL};
 		pd->prefs[scan_mode] = boxed_optionmenu_with_value(_("Scan mode"), main_v->props.scan_mode, vbox2, modes);
 	}
-#ifndef USE_BFTEXTVIEW2
 	pd->prefs[autocomp_key] = prefs_string(_("Autocompletion key"), main_v->props.autocomp_key, vbox2, pd, string_accel);
 	pd->prefs[load_network_dtd] = boxed_checkbut_with_value(_("Load network DTD by default"), main_v->props.load_network_dtd, vbox2);
 #endif
