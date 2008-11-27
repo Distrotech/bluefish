@@ -21,6 +21,27 @@
 #ifndef __FILEBROWSER2_H_
 #define __FILEBROWSER2_H_
 
+#include "bluefish.h"
+#include "config.h"
+
+#ifdef HAVE_ATLEAST_GIO_2_16
+#define DIR_MIME_TYPE "inode/directory"
+#define MIME_ISDIR(string) strcmp(string, "inode/directory")
+#else							/* no HAVE_ATLEAST_GIO_2_16  */
+#define DIR_MIME_TYPE "x-directory/normal"
+#define MIME_ISDIR(string) strncmp(string, "x-directory",11)
+#endif							/* else HAVE_ATLEAST_GIO_2_16 */
+
+typedef struct {
+	GtkTreeStore *filesystem_tstore;	/* the directory tree */
+	GHashTable *filesystem_itable;	/* iter to known files and directories */
+	GdkPixbuf *unknown_icon;
+	GdkPixbuf *dir_icon;
+	GList *uri_in_refresh;		/* all uris currently in refresh are stored here, because 
+								   two refreshes on the same uri should not happen */
+} Tfilebrowser2config;
+#define FB2CONFIG(var) ((Tfilebrowser2config *)(var))
+
 void fb2_refresh_dir_from_uri(GFile *dir);
 void fb2_refresh_parent_of_uri(GFile *child_uri);
 void fb2_focus_document(Tbfwin *bfwin, Tdocument *doc);

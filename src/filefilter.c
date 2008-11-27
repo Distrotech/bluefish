@@ -382,9 +382,8 @@ static void filefiltergui_add_filetypes(gpointer key,gpointer value,gpointer dat
 	
 	if (strlen(key)>0 && g_hash_table_lookup(main_v->filetypetable, key) == NULL) {
 		GtkTreeIter it;
-		Tfiletype *ft = get_filetype_for_mime_type(key);
 		gtk_list_store_prepend(ffg->lstore,&it);
-		gtk_list_store_set(ffg->lstore,&it,0,ft->mime_type,1,ft->icon,2,0,-1);
+		gtk_list_store_set(ffg->lstore,&it,0,key,2,0,-1);
 	}
 }
 
@@ -459,7 +458,7 @@ static void filefiltergui_addpattern_clicked_lcb(GtkWidget *widget, Tfilefilterg
 void filefilter_gui(Tfilter *filter) {
 	GtkCellRenderer *renderer;
 	GtkTreeViewColumn *column;
-	GList *tmplist;
+	GList *tmplist, *reglist;
 	GtkWidget *table,*hbox,*but,*vbox,*scrolwin;
 
 	Tfilefiltergui *ffg = g_new0(Tfilefiltergui,1);
@@ -479,17 +478,17 @@ void filefilter_gui(Tfilter *filter) {
 	ffg->lstore = gtk_list_store_new(3, G_TYPE_STRING, GDK_TYPE_PIXBUF, G_TYPE_BOOLEAN);
 	
 	/* fill the list model from the currently known filetypes */
-	tmplist = g_list_first(main_v->filetypelist);
+	reglist = g_content_types_get_registered();
+	tmplist = g_list_first(reglist);
 	while (tmplist) {
 		GtkTreeIter it;
-		Tfiletype *ft = tmplist->data;
-		if (strncmp(ft->mime_type,"x-directory",11)!=0) {
+		if (MIME_ISDIR(tmplist->data)) {
 			gtk_list_store_prepend(ffg->lstore,&it);
-			DEBUG_MSG("filefilter_gui, adding %s\n",ft->mime_type);
-			gtk_list_store_set(ffg->lstore,&it,0,ft->mime_type,1,ft->icon,2,0, -1);
+			gtk_list_store_set(ffg->lstore,&it,0,tmplist->data,2,0, -1);
 		}
 		tmplist = g_list_next(tmplist);
 	}
+	g_list_free(reglist);
 	/* make sure that all filetypes that exist in the current filter are shown */
 	g_hash_table_foreach(ffg->curfilter->filetypes,filefiltergui_add_filetypes,ffg);
 	/* add the patterns from the current filter */
