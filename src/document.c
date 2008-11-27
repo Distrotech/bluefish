@@ -128,7 +128,6 @@ void session_set_savedir(Tbfwin *bfwin, gchar *curi) {
 	}
 }
 
-
 /**
  * return_allwindows_documentlist:
  *
@@ -151,6 +150,16 @@ GList *return_allwindows_documentlist() {
 	}
 	DEBUG_MSG("return_allwindows_documentlist, returning list length %d\n",g_list_length(newdoclist));
 	return newdoclist;
+}
+
+void alldocs_foreach(foreachdocfunc func, gpointer data) {
+	GList *tmplist, *doclist = return_allwindows_documentlist();
+	tmplist=g_list_first(doclist);
+	while (tmplist) {
+		func(tmplist->data,data);
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(doclist);
 }
 
 /**
@@ -590,7 +599,7 @@ void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssiz
 	g_free(filename);
 	/*mimetype = g_content_type_get_mime_type(conttype);*/
 	mimetype=conttype;
-	DEBUG_MSG("doc_reset_filetype,mimetype=%s\n",mimetype);
+	g_print("doc_reset_filetype,mimetype=%s\n",mimetype);
 	/* docs are unclear if conttype is a static string or a newly allocated string */
 
 #ifdef USE_BFTEXTVIEW2
@@ -3287,6 +3296,10 @@ void doc_activate(Tdocument *doc) {
 		DEBUG_MSG("doc_activate, STILL LOADING! returning\n");
 		return;
 	} else {
+#ifdef USE_BFTEXTVIEW2
+		if (!BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner)
+			BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
+#endif
 		gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
 	}
 	BFWIN(doc->bfwin)->last_activated_doc = doc;
