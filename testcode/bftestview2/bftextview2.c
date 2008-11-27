@@ -6,9 +6,15 @@
 #include <math.h> /* log10() */
 #include <string.h> /* strlen() */
 
-#include "testapp.h"
-
 #include "bftextview2.h"
+
+#ifdef IN_BLUEFISH
+#include "bluefish.h"
+#else
+#include "testapp.h"
+#endif
+
+
 #include "bftextview2_scanner.h"
 #include "bftextview2_patcompile.h"
 #include "bftextview2_autocomp.h"
@@ -22,7 +28,11 @@ static gboolean bftextview2_user_idle_timer(gpointer data)
 	guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 	if (elapsed + 10 >= USER_IDLE_EVENT_INTERVAL) {	/* avoid delaying for less than 10 milliseconds */
 		DBG_MSG("bftextview2_user_idle_timer, user is > %d milliseconds idle!!!\n", elapsed);
+#ifdef IN_BLUEFISH
+		if (main_v->props.autocomp_popup_mode == 1)
+#else
 		if (autocomp_popup_mode == 1)
+#endif
 			autocomp_run(btv,FALSE);
 		btv->user_idle = 0;
 		return FALSE;
@@ -41,7 +51,11 @@ static void bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 	gboolean need_timeout_func;
 	DBG_DELAYSCANNING("timer reset\n");
 	g_timer_start(btv->user_idle_timer);
+#ifdef IN_BLUEFISH
+	need_timeout_func = (main_v->props.autocomp_popup_mode==1||main_v->props.delay_full_scan);
+#else
 	need_timeout_func = (autocomp_popup_mode==1||delay_full_scan);
+#endif
 	if (btv->user_idle == 0 && need_timeout_func) {
 		btv->user_idle = g_timeout_add(USER_IDLE_EVENT_INTERVAL, bftextview2_user_idle_timer, btv);
 		DBG_MSG("started user_idle timeout with event source %d and timeout %d\n", btv->user_idle,
@@ -55,7 +69,12 @@ static gboolean bftextview2_scanner_timeout(gpointer data);
 static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle)
 {
 	if (btv->bflang) {
-		if (delay_full_scan) {
+#ifdef IN_BLUEFISH
+		if (main_v->props.delay_full_scan)
+#else
+		if (delay_full_scan)
+#endif		
+		 {
 			guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 			DBG_DELAYSCANNING("%d milliseconds elapsed sionce last user action\n",elapsed);
 			if (elapsed + 10 >= USER_IDLE_EVENT_INTERVAL) { /* user idle interval has passed ! */
@@ -242,9 +261,15 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	GtkTextIter start;
 	gint start_offset;
 	DBG_SIGNALS("bftextview2_insert_text_lcb, stringlen=%d\n", stringlen);
+#ifdef IN_BLUEFISH
+	if (!main_v->props.reduced_scan_triggers || stringlen > 1 || (stringlen==1 && char_in_allsymbols(btv, string[0]))) {
+		bftextview2_schedule_scanning(btv);
+	}
+#else
 	if (!reduced_scan_triggers || stringlen > 1 || (stringlen==1 && char_in_allsymbols(btv, string[0]))) {
 		bftextview2_schedule_scanning(btv);
 	}
+#endif
 	/* mark the text that is changed */
 	start = *iter;
 	gtk_text_iter_backward_chars(&start, stringlen);
@@ -257,9 +282,15 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
+#ifdef IN_BLUEFISH
+	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode == 2)) {
+		autocomp_run(btv,FALSE);
+	}
+#else
 	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || autocomp_popup_mode == 2)) {
 		autocomp_run(btv,FALSE);
 	}
+#endif
 	bftextview2_reset_user_idle_timer(btv);
 	bftextview2_set_margin_size(btv);
 }
@@ -516,8 +547,12 @@ static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,
 		autocomp_run(btv,TRUE);
 		return TRUE;
 	}
-	if (smart_cursor && !(kevent->state & GDK_CONTROL_MASK) && 
-	       ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End))) {
+#ifdef IN_BLUEFISH
+	if (main_v->props.smart_cursor && !(kevent->state & GDK_CONTROL_MASK) && ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End)))
+#else
+	if (smart_cursor && !(kevent->state & GDK_CONTROL_MASK) && ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End)))
+#endif 
+			{
 		GtkTextMark* imark;
 		GtkTextIter iter, currentpos, linestart;
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
@@ -790,12 +825,17 @@ GtkWidget *bftextview2_new(void)
 	g_signal_connect(textview, "query-tooltip",G_CALLBACK(bftextview2_query_tooltip_lcb), textview);
 
 	g_return_val_if_fail(textview != NULL, NULL);
-	
-	if (background_color) {
-		gdk_color_parse(background_color, &color);
-	
+#ifdef IN_BLUEFISH
+	if (main_v->props.editor_bg) {
+		gdk_color_parse(main_v->props.editor_bg, &color);
 		gtk_widget_modify_base(GTK_WIDGET(textview),GTK_STATE_NORMAL, &color);
 	}
+#else
+	if (background_color) {
+		gdk_color_parse(background_color, &color);
+		gtk_widget_modify_base(GTK_WIDGET(textview),GTK_STATE_NORMAL, &color);
+	}
+#endif
 	textview->needscanning = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"_needscanning_");
 	textview->linenumbers=FALSE;
 	textview->enable_scanner=TRUE;

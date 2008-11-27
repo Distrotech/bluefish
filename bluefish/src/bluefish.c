@@ -221,20 +221,22 @@ int main(int argc, char *argv[])
   if (main_v->session->recent_dirs == NULL) {
     main_v->session->recent_dirs = g_list_append(main_v->session->recent_dirs, g_strconcat("file://", g_get_home_dir(), NULL));
   }
-  main_v->autocompletion = ac_init(); 
-  textstyle_rebuild();
+  	main_v->autocompletion = ac_init(); 
+#ifndef USE_BFTEXTVIEW2
+	textstyle_rebuild();
+#endif
 
 #ifndef NOSPLASH
-  if (main_v->props.show_splash_screen) splash_screen_set_label(_("compiling highlighting patterns..."));
+	if (main_v->props.show_splash_screen) splash_screen_set_label(_("compiling highlighting patterns..."));
 #endif /* NOSPLASH */
 #ifdef USE_BFTEXTVIEW2
 	langmgr_init(main_v->props.textstyles, main_v->props.highlight_styles, main_v->props.load_reference);
 #else
-  main_v->lang_mgr  = bf_lang_mgr_new();
-  filetype_highlighting_rebuild(FALSE);
- #endif
+	main_v->lang_mgr  = bf_lang_mgr_new();
+	filetype_highlighting_rebuild(FALSE);
+#endif
 #ifndef NOSPLASH
-  if (main_v->props.show_splash_screen) splash_screen_set_label(_("building file filters ..."));
+	if (main_v->props.show_splash_screen) splash_screen_set_label(_("building file filters ..."));
 #endif /* NOSPLASH */
   
   fb2config_init(); /* filebrowser2config */

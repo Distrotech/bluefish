@@ -9,6 +9,20 @@ DEFS += -DLOCALEDIR=\"$(localedir)\" -DPKGDATADIR=\"$(pkgdatadir)\" -DPKGLIBDIR=
 
 bin_PROGRAMS = bluefish-unstable
 
+#
+#
+#	bftextview2.c \
+#	bftextview2.h \
+#	bftextview2_langmgr.c \
+#	bftextview2_langmgr.h \
+#	bftextview2_autocomp.c \
+#	bftextview2_autocomp.h \
+#	bftextview2_patcompile.c \
+#	bftextview2_patcompile.h \
+#	bftextview2_scanner.c \
+#	bftextview2_scanner.h \
+#
+
 bluefish_unstable_SOURCES = \
 	autocomp.c \
 	autocomp.h \

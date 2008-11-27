@@ -56,6 +56,7 @@ guint arr2_hash(gconstpointer v)
 	}
 	return h;
 }
+#ifndef IN_BLUEFISH
 gchar **array_from_arglist(const gchar *string1, ...) {
 	gint numargs=1;
 	va_list args;
@@ -84,6 +85,7 @@ gchar **array_from_arglist(const gchar *string1, ...) {
 	*index = NULL;
 	return retval;
 }
+#endif
 /* langmgr code */
 
 static void skip_to_end_tag(xmlTextReaderPtr reader, int depth) {
@@ -132,7 +134,11 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	bfparser->bflang->parsing=FALSE;
 	/* now walk and rescan all documents that use this bflang */
 	/* TODO */
+#ifdef IN_BLUEFISH
+	
+#else
 	testapp_rescan_bflang(bfparser->bflang);
+#endif
 	
 	/* cleanup the parsing structure */
 	g_hash_table_destroy(bfparser->patterns);
@@ -706,7 +712,7 @@ static Tbflang *parse_bflang2_header(const gchar *filename) {
 }
 
 GList *langmgr_get_languages(void) {
-	return g_list_duplicate(langmgr.bflang_list);
+	return g_list_copy(langmgr.bflang_list);
 }
 
 static void register_bflanguage(Tbflang *bflang) {
@@ -745,7 +751,6 @@ static void scan_bflang2files(const gchar * dir) {
 }
 
 void langmgr_init(GList *user_styles, GList *user_highlight_styles, gboolean load_reference) {
-	Tbflang *bflang;
 	GList *tmplist;
 	GtkTextTag *tag;
 	
