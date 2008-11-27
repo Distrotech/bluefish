@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<bflang name="HTML" table="1362" contexts="55" matches="394">
+<header>
+	<mime type="text/html"/>
+	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
+	<highlight name="special-tag" style="special-tag" fgcolor="#990000" bold="1" />
+	<highlight name="table-tag" style="special-tag2" fgcolor="#005500" bold="1" />
+	<highlight name="form-tag" style="special-tag3" fgcolor="#FF9900" bold="1" />
+	<highlight name="attribute" style="attribute" fgcolor="#000099" />
+	<highlight name="string" style="string" fgcolor="#009900" />
+	<highlight name="entity" style="value" fgcolor="#0000FF" />
+	<highlight name="brackets" style="brackets" fgcolor="#000000" bold="1" />
+	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="value" style="value" fgcolor="#0000FF" />
+	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
+</header>
+<definition>
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+<tag name="html" highlight="tag" autocomplete_append="&gt;" />
+<tag name="head" highlight="tag" autocomplete_append="&gt;">
+	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
+	<tag name="meta" highlight="tag" attributes="name,http-equiv,content" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="title" highlight="tag" autocomplete_append="&gt; &lt;/title&gt;" />
+
+<tag name="script" highlight="tag" attributes="src,type" autocomplete_append="&gt;" attribhighlight="attribute">
+<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+<element pattern="(" id="js(" starts_block="1" highlight="brackets"/>
+<element pattern=")" highlight="brackets" ends_block="1" blockstartelement="js("/>
+<element pattern="{" id="js{" starts_block="1" highlight="brackets"/>
+<element pattern="}" highlight="brackets" ends_block="1" blockstartelement="js{"/>
+<group highlight="keyword" autocomplete="1">
+<element pattern="if" />
+<element pattern="else" />
+<element pattern="where" />
+<element pattern="case" />
+<element pattern="switch" />
+<element pattern="break" />
+<element pattern="return" />
+<element pattern="while" />
+<element pattern="for" />
+<element pattern="function" />
+<element pattern="var" />
+<element pattern="new" />
+<element pattern="try" />
+<element pattern="catch" />
+<element pattern="default" />
+</group>
+<group highlight="function" autocomplete="1">
+<element pattern="getElementsByTagName" />
+<element pattern="getElementsByTagName" />
+</group>
+<group highlight="value" autocomplete="1">
+<element pattern="true" />
+<element pattern="false" />
+<element pattern="[0-9.]+" is_regex="1" autocomplete="0"/>
+</group>
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;" highlight="string">
+		<element pattern="\&#34;" highlight="string" />
+		<element pattern="&#34;" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\." is_regex="1" highlight="string" />
+		<element pattern="'" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="//" highlight="comment">
+	<context symbols="&#34;&gt;&lt; " highlight="comment">
+		<element pattern="&#34;" highlight="comment" ends_context="1" />
+		<element pattern="&lt;/script&gt;" highlight="tag" ends_context="6"/>
+	</context>
+</element>
+<element pattern="/*" starts_block="1" highlight="comment">
+	<context symbols="*/&#9;&#10;&#13;" highlight="comment">
+		<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+
+<element pattern="&lt;/script&gt;" highlight="tag" ends_context="5"/>
+</context>
+</tag>
+<tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
+	<!--	<element pattern="&lt;style" highlight="tag" >
+		<context symbols="&gt;">
+			<element pattern="/&gt;" highlight="tag" ends_context="1" />
+			<element pattern="&gt;" highlight="tag" >-->
+				<context symbols=" &#9;&#10;&#13;{}.">
+<!--<element pattern="&lt;/style&gt;" highlight="tag" ends_context="2" />-->
+<element pattern="body" highlight="keyword"/>
+<element pattern="{" id="css{" starts_block="1" highlight="brackets">
+<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
+	<element pattern="&lt;/style&gt;" highlight="tag" ends_context="3" />
+	<element pattern="background" autocomplete="1" highlight="keyword" autocomplete_append=": ">
+	<reference>A shorthand property for setting all background properties: background-color, background-image, background-repeat, background-attachment, and background-position, in one declaration</reference>
+	</element>
+	<element pattern="background-attachment" autocomplete="1" highlight="keyword" autocomplete_append=": ">
+		<reference>Sets whether a background image is fixed or scrolls with the rest of the page</reference>
+		<context symbols=" &#9;&#10;&#13;{}.;">
+			<element pattern="&lt;/style&gt;" highlight="tag" ends_context="4" />
+			<element pattern="scroll" autocomplete="1" highlight="value" autocomplete_append=";"/>
+			<element pattern="fixed" autocomplete="1" highlight="value" autocomplete_append=";"/>
+			<element pattern=";" ends_context="1"/>
+			<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="2"/>
+		</context>
+	</element>
+	<element pattern="background-color" autocomplete="1" highlight="keyword" autocomplete_append=": ">
+		<reference>Sets the background color of an element</reference>
+		<context id="color" symbols=" &#9;&#10;&#13;{}.;">
+			<element pattern="&lt;/style&gt;" highlight="tag" ends_context="4" />
+			<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="value" is_regex="1" case_insens="1"/>
+			<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="value" is_regex="1" case_insens="1"/>
+			<element pattern="red" highlight="value" autocomplete="TRUE"/>
+			<element pattern="green" highlight="value" autocomplete="TRUE"/>
+			<element pattern="blue" highlight="value" autocomplete="TRUE"/>
+			<element pattern="black" highlight="value" autocomplete="TRUE"/>
+			<element pattern="white" highlight="value" autocomplete="TRUE"/>
+			<element pattern="yellow" highlight="value" autocomplete="TRUE"/>
+			<element pattern=";" ends_context="1"/>
+			<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="2"/>
+		</context>
+	</element>
+	<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="1"/>
+</context>
+</element>
+				</context>
+<!--			</element>	
+		</context>
+	</element>-->
+</tag>
+
+	<tag name="link" highlight="tag" attributes="rel,type,href" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<element pattern="&lt;!--" highlight="comment" starts_block="1">
+		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
+			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
+		</context>
+	</element>
+	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="value" />
+	</context>
+</tag>
+<tag name="body" highlight="tag">
+	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+<group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;"> 
+	<tag name="div" attributes="style,class,id,align" />
+	<tag name="p" attributes="style,class,id,align" />
+	<tag name="span" attributes="style,class,id,align" />
+	<tag name="img" highlight="special-tag" attributes="src,width,height,align,valign,border,alt,name,style,id,class" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" >
+	<reference>the image tag</reference>
+	</tag>
+	<tag name="i" attributes="style,class,id" />
+	<tag name="b" attributes="style,class,id" />
+	<tag name="em" attributes="style,class,id" />
+	<tag name="strong" attributes="style,class,id" />
+	<tag name="u" attributes="style,class,id" />
+	<tag name="a" highlight="special-tag" attributes="style,class,id,href,target" autocomplete_append=" href=&#34;&#34; &gt;" />
+	<tag name="table" highlight="table-tag" attributes="style,class,id" />
+	<tag name="th" highlight="table-tag" attributes="style,class,id" />
+	<tag name="tr" highlight="table-tag" attributes="style,class,id" />
+	<tag name="td" highlight="table-tag" attributes="style,class,id" />
+	<tag name="ul" attributes="style,class,id" />
+	<tag name="ol" attributes="style,class,id" />
+	<tag name="li" attributes="style,class,id" />
+	<tag name="h1" attributes="style,class,id" />
+	<tag name="h2" attributes="style,class,id" />
+	<tag name="h3" attributes="style,class,id" />
+	<tag name="h4" attributes="style,class,id" />
+	<tag name="h5" attributes="style,class,id" />
+	<tag name="h6" attributes="style,class,id" />
+	<tag name="br" attributes="style,class,id" autocomplete_append=" /&gt;" />
+	<tag name="kbd" attributes="style,class,id" />
+	<tag name="form" highlight="form-tag" attributes="style,class,id,action,method,enctype,target" />
+	<tag name="input" highlight="form-tag" attributes="style,class,id,type,name,value,size,maxlength,checked" />
+	<tag name="select" highlight="form-tag" attributes="style,class,id,name,size,multiple" />
+	<tag name="textarea" highlight="form-tag" attributes="style,class,id,name,rows,cols" />
+	<tag name="option" highlight="form-tag" attributes="style,class,id,value,label,selected" />
+	<tag name="optgroup" highlight="form-tag" attributes="style,class,id,label" />
+</group>	
+	<element pattern="&lt;!--" highlight="comment" starts_block="1">
+		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
+			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
+		</context>
+	</element>
+	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+	</context>
+</tag>
+</context>
+</definition>
+</bflang>

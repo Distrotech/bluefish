@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<bflang name="Shell" matches="29" contexts="3" table="82">
+<header>
+	<mime type="application/x-shellscript"/>
+	<mime type="text/x-shellscript"/>
+	<mime type="text/x-sh"/>
+	<highlight name="string" style="string" fgcolor="#009900"  />
+	<highlight name="brackets" style="brackets" fgcolor="#000000" bold="1" />
+	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="value" style="value" fgcolor="#0000FF" />
+	<highlight name="function" style="function" fgcolor="#000099" />
+	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="variable" style="variable" fgcolor="#990000" bold="1" />
+</header>
+<definition>
+<context symbols=" $;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable"/>
+<element pattern="${[^}]+}" is_regex="1" case_insens="1" highlight="variable"/>
+<group autocomplete="1" highlight="function">
+	<element pattern="print" />
+	<element pattern="echo" />
+	<element pattern="setopt" />
+	<element pattern="alias" />
+	<element pattern="set" />
+	<element pattern="if" />
+	<element pattern="then" />
+	<element pattern="else" />
+	<element pattern="fi" />
+	<element pattern="for" />
+	<element pattern="in" />
+	<element pattern="do" />
+	<element pattern="done" />
+	<element pattern="while"/>
+	<element pattern="case" />
+	<element pattern="esac" />
+	<element pattern="break" />
+	<element pattern="eval" />
+</group>
+<element pattern="#[^&#10;]*" is_regex="1" highlight="comment"/>
+<element pattern="'[^']*'" is_regex="1" highlight="string"/>
+<element pattern="&quot;" highlight="string">
+<context symbols="\&quot;${}" highlight="string">
+	<element pattern="\\." is_regex="1" highlight="tag" />
+	<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable"/>
+	<element pattern="${[^}]+}" is_regex="1" case_insens="1" highlight="variable"/>
+	<element pattern="&quot;" highlight="string" ends_context="1"/>
+</context>
+</element>
+</context>
+</definition>
+</bflang>

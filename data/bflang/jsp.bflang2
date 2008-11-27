@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<bflang name="JSP">
+<header>
+	<mime type="application/x-jsp"/>
+	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="special-keyword" style="special-keyword" fgcolor="#990000" bold="1" />
+	<highlight name="bracket" style="bracket" bold="1" />
+	<highlight name="type" style="type" fgcolor="#000000" bold="1" />
+	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="string" style="string" fgcolor="#008800" />
+	<highlight name="value" style="value" fgcolor="#0000EE" />
+	<highlight name="preprocessor" style="preprocessor" fgcolor="#aaaa00" />
+	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
+	<highlight name="attribute" style="tag" fgcolor="#cc00cc" />
+</header>
+<definition>
+<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+<group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+<tag name="html" />
+<tag name="head" />
+<tag name="meta" attributes="name,http-equiv,content" autocomplete_append=" /&gt;" />
+<tag name="title" autocomplete_append="&gt; &lt;/title&gt;" />
+<tag name="script" attributes="type,src" autocomplete_append=" /&gt;" />
+<tag name="link" attributes="rel,type,href" autocomplete_append=" /&gt;" />
+<tag name="body" />
+<tag name="div" attributes="style,class,id,align" />
+<tag name="p" attributes="style,class,id,align" />
+<tag name="span" attributes="style,class,id,align" />
+<tag name="img" highlight="storage" attributes="src,width,height,align,valign,border,alt" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;"/>
+<tag name="i" attributes="style,class,id" />
+<tag name="b" attributes="style,class,id" />
+<tag name="em" attributes="style,class,id" />
+<tag name="strong" attributes="style,class,id" />
+<tag name="u" attributes="style,class,id" />
+<tag name="a" highlight="storage" attributes="style,class,id,href,target" autocomplete_append=" href=&#34;&#34; &gt;" />
+<tag name="table" attributes="style,class,id" />
+<tag name="th" attributes="style,class,id" />
+<tag name="tr" attributes="style,class,id" />
+<tag name="td" attributes="style,class,id" />
+<tag name="ul" attributes="style,class,id" />
+<tag name="ol" attributes="style,class,id" />
+<tag name="li" attributes="style,class,id" />
+<tag name="h1" attributes="style,class,id" />
+<tag name="h2" attributes="style,class,id" />
+<tag name="h3" attributes="style,class,id" />
+<tag name="h4" attributes="style,class,id" />
+<tag name="h5" attributes="style,class,id" />
+<tag name="h6" attributes="style,class,id" />
+<tag name="br" attributes="style,class,id" autocomplete_append=" /&gt;" />
+<tag name="kbd" attributes="style,class,id" />
+<tag name="form" attributes="style,class,id,action,method,enctype,target" />
+<tag name="input" attributes="style,class,id,type,name,value,size,maxlength,checked" />
+<tag name="select" attributes="style,class,id,name,size,multiple" />
+<tag name="textarea" attributes="style,class,id,name,rows,cols" />
+<tag name="option" attributes="style,class,id,value,label,selected" />
+<tag name="optgroup" attributes="style,class,id,label" />
+</group>
+
+<element pattern="&lt;%" starts_block="1" highlight="region">
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+<group autocomplete="1" highlight="keyword"> 
+<element pattern="assert" />
+<element pattern="break" />
+<element pattern="case" />
+<element pattern="catch" />
+<element pattern="class" />
+<element pattern="continue" />
+<element pattern="default" />
+<element pattern="do" />
+<element pattern="else" />
+<element pattern="finally" />
+<element pattern="for" />
+<element pattern="goto" />
+<element pattern="if" />
+<element pattern="new" />
+<element pattern="private" />
+<element pattern="public" />
+<element pattern="return" />
+<element pattern="super" />
+<element pattern="switch" />
+<element pattern="throw" />
+<element pattern="throws" />
+<element pattern="try" />
+<element pattern="where" />
+<element pattern="while" />
+
+</group>
+<group autocomplete="1" highlight="tag">
+<element pattern="abstract" />
+<element pattern="final" />
+<element pattern="native" />
+<element pattern="private" />
+<element pattern="protected" />
+<element pattern="public" />
+<element pattern="static" />
+<element pattern="transient" />
+<element pattern="synchronized" />
+<element pattern="volatile" />
+<element pattern="extends" />
+<element pattern="implements" />
+</group>
+<group autocomplete="1" highlight="storage">
+<element pattern="int" />
+<element pattern="boolean" />
+<element pattern="double" />
+<element pattern="void" />
+<element pattern="float" />
+<element pattern="long" />
+</group>
+<element pattern="String" autocomplete="1" highlight="storage" />
+<element pattern="Rectangle" autocomplete="1" highlight="storage" />
+<element pattern="Color" autocomplete="1" highlight="storage" />
+
+<element pattern="import" is_regex="1" highlight="tag">
+	<context symbols=";" highlight="tag">
+		<element pattern=";" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;" highlight="string">
+		<element pattern="\&#34;" highlight="string" />
+		<element pattern="&#34;" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\." is_regex="1" highlight="string" />
+		<element pattern="'" highlight="string" ends_context="1" />
+	</context>
+</element>
+		<element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+		<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+		<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
+		<element pattern="/*" starts_block="1" highlight="comment">
+			<context symbols="*/&#9;&#10;&#13;" highlight="comment">
+				<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
+			</context>
+		</element>
+		<element pattern="true" highlight="value"/>
+		<element pattern="false" highlight="value"/>
+		<element pattern="null" highlight="value"/>
+		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+		<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
+		<element pattern="%&gt;" ends_block="1" blockstartelement="&lt;%" ends_context="1"/>		
+	</context>
+
+	
+</element>
+</context>
+</definition>
+</bflang>

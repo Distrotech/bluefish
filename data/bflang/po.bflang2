@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<bflang name="Po">
+<header>
+	<mime type="text/x-gettext-translation"/>
+	<highlight name="string" style="string" fgcolor="#009900"  />
+	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
+</header>
+<definition>
+<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+
+<element pattern="&quot;[^&quot;]*&quot;" is_regex="1" highlight="string"/>
+<element pattern="#[^&#x0A;]*" is_regex="1" highlight="comment"/>
+<element pattern="msgid" autocomplete="1" highlight="keyword"/>
+<element pattern="msgstr" autocomplete="1" highlight="keyword"/>
+
+</context>
+</definition>
+</bflang>

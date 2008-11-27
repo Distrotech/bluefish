@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<bflang name="Javascript" matches="32" contexts="5" table="92">
+<header>
+	<mime type="application/javascript"/>
+	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="special-keyword" style="special-keyword" fgcolor="#990000" bold="1" />
+	<highlight name="bracket" style="bracket" bold="1" />
+	<highlight name="type" style="type" fgcolor="#000000" bold="1" />
+	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="string" style="string" fgcolor="#008800"  />
+	<highlight name="value" style="value" fgcolor="#0000EE"  />
+	<highlight name="preprocessor" style="preprocessor" fgcolor="#aaaa00"  />
+</header>
+<definition>
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+
+<group autocomplete="1" highlight="keyword"> 
+<element pattern="if" />
+<element pattern="else" />
+<element pattern="where" />
+<element pattern="case" />
+<element pattern="switch" />
+<element pattern="break" />
+<element pattern="return" />
+<element pattern="while" />
+<element pattern="for" />
+<element pattern="function" />
+<element pattern="var" />
+<element pattern="new" />
+<element pattern="try" />
+<element pattern="catch" />
+<element pattern="default" />
+</group>
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;" highlight="string">
+		<element pattern="\&#34;" highlight="string" />
+		<element pattern="&#34;" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\." is_regex="1" highlight="string" />
+		<element pattern="'" highlight="string" ends_context="1" />
+	</context>
+</element>
+		<element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+		<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+		<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+		<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
+		<element pattern="/*" starts_block="1" highlight="comment">
+			<context symbols="*/&#9;&#10;&#13;" highlight="comment">
+				<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
+			</context>
+		</element>
+		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+		<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
+		<!-- <element pattern="#[^&#10;]+" is_regex="1" highlight="tag"/> -->
+	</context>
+</definition>
+</bflang>

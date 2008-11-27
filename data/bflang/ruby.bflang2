@@ -1,0 +1,64 @@
+<bflang name="Ruby">
+<header>
+	<mime type="text/x-ruby"/>
+	<mime type="application/x-ruby"/>
+	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="bracket" style="bracket" bold="1" />
+	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="string" style="string" fgcolor="#008800"  />
+	<highlight name="value" style="value" fgcolor="#0000EE"  />
+</header>
+<definition>
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+<group autocomplete="1" highlight="keyword"> 
+<element pattern="module" />
+<element pattern="class" />
+<element pattern="def" />
+<element pattern="end" />
+<element pattern="case" />
+<element pattern="when" />
+<element pattern="then" />
+<element pattern="raise" />
+<element pattern="return" />
+<element pattern="loop" />
+<element pattern="do" />
+<element pattern="rescue" />
+<element pattern="ensure" />
+<element pattern="nil" />
+<element pattern="begin" />
+<element pattern="yield" />
+<element pattern="foreach" />
+<element pattern="if" />
+<element pattern="else" />
+<element pattern="elsif" />
+<element pattern="while" />
+<element pattern="for" />
+<element pattern="sleep" />
+<element pattern="retry" />
+</group>
+
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;" highlight="string">
+		<element pattern="\&#34;" highlight="string" />
+		<element pattern="&#34;" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\." is_regex="1" highlight="string" />
+		<element pattern="'" highlight="string" ends_context="1" />
+	</context>
+</element>
+<element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
+
+<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+<element pattern="#[^&#10;]+" is_regex="1" highlight="comment"/>
+		
+	</context>
+</definition>
+</bflang>
