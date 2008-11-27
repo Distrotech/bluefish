@@ -156,7 +156,7 @@ static gboolean bftextview2_scanner_timeout(gpointer data) {
 
 static void bftextview2_schedule_scanning(BluefishTextView * btv) {
 	if (btv->enable_scanner && btv->bflang && btv->bflang->st && btv->scanner_idle == 0) {
-		DBG_SIGNALS("bftextview2_schedule_scanning, scheduling scanning function\n");
+		DBG_MSG("bftextview2_schedule_scanning, scheduling scanning function\n");
 		DBG_DELAYSCANNING("scheduling scanning in idle function\n");
 		btv->scanner_idle = g_idle_add(bftextview2_scanner_idle, btv);
 	}

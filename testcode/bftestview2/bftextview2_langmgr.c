@@ -7,6 +7,12 @@
 #include "bftextview2_langmgr.h"
 #include "bftextview2_patcompile.h"
 
+#ifdef IN_BLUEFISH
+#include "bluefish.h"
+#include "document.h"
+#include "bf_lib.h"
+#endif
+
 typedef struct {
 	GHashTable *patterns;
 	GHashTable *contexts;
@@ -124,8 +130,14 @@ GtkTextTag *langmrg_lookup_highlight(const gchar *lang, const gchar *highlight) 
 	/*g_print("found tag %p for lang %s highlight %s\n",tag,lang,highlight);*/
 	return tag;
 }
+#ifdef IN_BLUEFISH
+static void foreachdoc_lcb(Tdocument *doc, gpointer data) {
+	if (BLUEFISH_TEXT_VIEW(doc->view)->bflang == data) {
+		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(doc->view));
+	}
+}
 
-
+#endif
 /* this is called in the mainloop again */
 static gboolean build_lang_finished_lcb(gpointer data)
 {
@@ -133,9 +145,8 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	bfparser->bflang->st = bfparser->st;
 	bfparser->bflang->parsing=FALSE;
 	/* now walk and rescan all documents that use this bflang */
-	/* TODO */
 #ifdef IN_BLUEFISH
-	
+	alldocs_foreach(foreachdoc_lcb, bfparser->bflang);
 #else
 	testapp_rescan_bflang(bfparser->bflang);
 #endif
@@ -733,12 +744,15 @@ static void scan_bflang2files(const gchar * dir) {
 	GError *error = NULL;
 	GPatternSpec *ps = g_pattern_spec_new("*.bflang2"); 
 	GDir *gd = g_dir_open(dir, 0, &error);
+	g_print("loading .\n");
 	if (!error) {
 		filename = g_dir_read_name(gd);
 		while (filename) {
+			g_print("filename=%s\n",filename);
 			if (g_pattern_match(ps, strlen(filename), filename, NULL)) {
 				Tbflang *bflang;
-				gchar *path = g_strconcat(dir, filename, NULL);
+				gchar *path = g_strconcat(dir, "/",filename, NULL);
+				g_print("parse=%s\n",path);
 				bflang = parse_bflang2_header(path);
 				register_bflanguage(bflang);
 				g_free(path);

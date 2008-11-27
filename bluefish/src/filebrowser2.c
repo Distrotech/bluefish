@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 /* ******* FILEBROWSER DESIGN ********
 there is only one treestore left for all bluefish windows. This treestore has all files 
@@ -139,7 +139,7 @@ static void DEBUG_TPATH(GtkTreeModel * model, GtkTreePath * path, gboolean newli
 	gchar *tname, *filename;
 	GtkTreeIter iter;
 	tname = gtk_tree_path_to_string(path);
-	DEBUG_MSG(tname);
+	DEBUG_MSG("%s",tname);
 	if (gtk_tree_model_get_iter(model, &iter, path)) {
 		gtk_tree_model_get(model, &iter, FILENAME_COLUMN, &filename, -1);
 	} else {
@@ -342,8 +342,6 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
 							  newiter, parent);
 		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
-		DEBUG_MSG("set pixmap=%p,display_name=%s,mime_type=%s,child_uri=%p,finfo=%p\n", pixmap,
-				  display_name, mime_type, child_uri, finfo);
 
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore), newiter,
 								   ICON_NAME_COLUMN, icon_name, FILENAME_COLUMN, display_name, URI_COLUMN,
@@ -1169,7 +1167,7 @@ static GFile *fb2_uri_from_fspath(Tfilebrowser2 * fb2, GtkTreePath * fs_path)
  *
  * returns the uri stored in the treestore based on the 'sort_path' from the file sort
  */
-static GFile *fb2_uri_from_file_sort_path(Tfilebrowser2 * fb2, GtkTreePath * sort_path)
+static GFile *fb2_uri_from_file_sort_path(Tfilebrowser2 * fb2, GtkTreePath * sort_path, gchar **mime)
 {
 	GFile *uri = NULL;
 	GtkTreeIter iter;
@@ -1179,6 +1177,9 @@ static GFile *fb2_uri_from_file_sort_path(Tfilebrowser2 * fb2, GtkTreePath * sor
 	   gtk_tree_path_free(fs_path); */
 	if (gtk_tree_model_get_iter(fb2->file_lsort, &iter, sort_path)) {
 		gtk_tree_model_get(fb2->file_lsort, &iter, URI_COLUMN, &uri, -1);
+		if (mime) {
+			gtk_tree_model_get(fb2->file_lsort, &iter, TYPE_COLUMN, &mime, -1);
+		}
 	}
 	return uri;
 }
@@ -1188,12 +1189,15 @@ static GFile *fb2_uri_from_file_sort_path(Tfilebrowser2 * fb2, GtkTreePath * sor
  *
  * returns the uri stored in the treestore based on the 'sort_path' from the dir sort
  */
-static GFile *fb2_uri_from_dir_sort_path(Tfilebrowser2 * fb2, GtkTreePath * sort_path)
+static GFile *fb2_uri_from_dir_sort_path(Tfilebrowser2 * fb2, GtkTreePath * sort_path, gchar **mime)
 {
 	GFile *uri = NULL;
 	GtkTreeIter iter;
 	if (gtk_tree_model_get_iter(fb2->dir_tsort, &iter, sort_path)) {
 		gtk_tree_model_get(fb2->dir_tsort, &iter, URI_COLUMN, &uri, -1);
+		if (mime) {
+			gtk_tree_model_get(fb2->dir_tsort, &iter, TYPE_COLUMN, &mime, -1);
+		}
 	}
 	return uri;
 }
@@ -1249,7 +1253,7 @@ static GtkTreePath *fb2_fspath_from_dir_selection(Tfilebrowser2 * fb2)
  *
  * returns the uri stored in the treestore for the current selected entry in the file_v
  */
-static GFile *fb2_uri_from_file_selection(Tfilebrowser2 * fb2)
+static GFile *fb2_uri_from_file_selection(Tfilebrowser2 * fb2, gchar **mime)
 {
 	GtkTreeModel *sort_model;
 	GtkTreeIter sort_iter;
@@ -1258,6 +1262,9 @@ static GFile *fb2_uri_from_file_selection(Tfilebrowser2 * fb2)
 										   &sort_model, &sort_iter)) {
 		GFile *uri = NULL;
 		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri, -1);
+		if (mime) {
+			gtk_tree_model_get(sort_model, &sort_iter, TYPE_COLUMN, mime, -1);
+		}
 		return uri;
 	} else if (!fb2->file_v && fb2->dir_v
 			   &&
@@ -1266,6 +1273,9 @@ static GFile *fb2_uri_from_file_selection(Tfilebrowser2 * fb2)
 											   &sort_iter)) {
 		GFile *uri = NULL;
 		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri, -1);
+		if (mime) {
+			gtk_tree_model_get(sort_model, &sort_iter, TYPE_COLUMN, mime, -1);
+		}
 		return uri;
 	}
 #ifdef DEBUG
@@ -1298,9 +1308,7 @@ static GFile *fb2_uri_from_dir_selection(Tfilebrowser2 * fb2)
  *
  * opens the file, project or inserts the image pointer to by 'uri'
  */
-static void handle_activate_on_file(Tfilebrowser2 * fb2, GFile * uri)
-{
-	const gchar *mimetype = get_mimetype_for_uri(uri, NULL, FALSE);
+static void handle_activate_on_file(Tfilebrowser2 * fb2, GFile * uri, gchar *mimetype) {
 	if (mimetype) {
 		if (strncmp(mimetype, "image", 5) == 0) {
 			/* image! */
@@ -1324,7 +1332,7 @@ static void fb2rpopup_refresh(Tfilebrowser2 * fb2)
 	if (fb2->last_popup_on_dir) {
 		baseuri = fb2_uri_from_dir_selection(fb2);	/* returns the uri in the treestore */
 	} else {
-		GFile *childuri = fb2_uri_from_file_selection(fb2);	/* returns the uri in the treestore */
+		GFile *childuri = fb2_uri_from_file_selection(fb2,NULL);	/* returns the uri in the treestore */
 		if (childuri) {
 			baseuri = g_file_get_parent(childuri);
 			unref_baseuri = TRUE;
@@ -1394,7 +1402,7 @@ static void fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * nosele
 			DEBUG_URI(baseuri,TRUE);
 		}
 	} else {
-		GFile *childuri = fb2_uri_from_file_selection(fb2);
+		GFile *childuri = fb2_uri_from_file_selection(fb2,NULL);
 		if (childuri) {
 			baseuri = g_file_get_parent(childuri);
 			DEBUG_MSG("fb2rpopup_new, baseuri from file selection=");
@@ -1464,7 +1472,7 @@ static void fb2rpopup_rename(Tfilebrowser2 * fb2)
 	if (fb2->last_popup_on_dir) {
 		olduri = fb2_uri_from_dir_selection(fb2);
 	} else {
-		olduri = fb2_uri_from_file_selection(fb2);
+		olduri = fb2_uri_from_file_selection(fb2,NULL);
 	}
 	if (olduri) {
 		Tdocument *tmpdoc;
@@ -1513,7 +1521,7 @@ static void fb2rpopup_delete(Tfilebrowser2 * fb2)
 	if (fb2->last_popup_on_dir) {
 		uri = fb2_uri_from_dir_selection(fb2);
 	} else {
-		uri = fb2_uri_from_file_selection(fb2);
+		uri = fb2_uri_from_file_selection(fb2,NULL);
 	}
 	if (uri) {
 		const gchar *buttons[] = { GTK_STOCK_CANCEL, GTK_STOCK_DELETE, NULL };
@@ -1564,9 +1572,10 @@ static void fb2rpopup_rpopup_action_lcb(Tfilebrowser2 * fb2, guint callback_acti
 	switch (callback_action) {
 	case 1:
 		{
-			GFile *uri = fb2_uri_from_file_selection(fb2);
+			gchar *mime=NULL;
+			GFile *uri = fb2_uri_from_file_selection(fb2,&mime);
 			if (uri)
-				handle_activate_on_file(fb2, uri);
+				handle_activate_on_file(fb2, uri, mime);
 		}
 		break;
 	case 2:
@@ -1854,14 +1863,15 @@ static gboolean dir_v_button_press_lcb(GtkWidget * widget, GdkEventButton * even
 									  NULL, NULL);
 		if (path && !fb2_isdir_from_dir_sort_path(fb2, path)) {
 			GFile *uri;
-			uri = fb2_uri_from_dir_sort_path(fb2, path);
+			gchar *mime=NULL;
+			uri = fb2_uri_from_dir_sort_path(fb2, path,&mime);
 			if (uri) {
 #ifdef DEBUG
 				gchar *basename = g_file_get_basename(uri);
 				DEBUG_MSG("file_v_button_press_lcb, doucleclick on %s\n", basename);
 				g_free(basename);
 #endif
-				handle_activate_on_file(fb2, uri);
+				handle_activate_on_file(fb2, uri,mime);
 			}
 		}
 	}
@@ -1891,7 +1901,8 @@ static gboolean file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * eve
 									  NULL, NULL, NULL);
 		if (sort_path) {
 			GFile *uri;
-			uri = fb2_uri_from_file_sort_path(fb2, sort_path);
+			gchar *mime=NULL;
+			uri = fb2_uri_from_file_sort_path(fb2, sort_path,&mime);
 			if (uri) {
 #ifdef DEBUG
 				gchar *basename = g_file_get_basename(uri);
@@ -1899,7 +1910,7 @@ static gboolean file_v_button_press_lcb(GtkWidget * widget, GdkEventButton * eve
 				g_free(basename);
 #endif
 
-				handle_activate_on_file(fb2, uri);
+				handle_activate_on_file(fb2, uri,mime);
 			}
 #ifdef DEBUG
 			else {
@@ -2003,7 +2014,7 @@ static void dir_v_row_activated_lcb(GtkTreeView * tree, GtkTreePath * path,
 									GtkTreeViewColumn * column, Tfilebrowser2 * fb2)
 {
 	if (fb2->filebrowser_viewmode == viewmode_flat) {
-		GFile *uri = fb2_uri_from_dir_sort_path(fb2, path);	/* this is a pointer to the uri stored in the treemodel */
+		GFile *uri = fb2_uri_from_dir_sort_path(fb2, path,NULL);	/* this is a pointer to the uri stored in the treemodel */
 		fb2_set_basedir_backend(fb2, uri);
 		dirmenu_set_curdir(fb2, uri);
 	}

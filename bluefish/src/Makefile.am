@@ -22,6 +22,7 @@ bin_PROGRAMS = bluefish-unstable
 #	bftextview2_scanner.c \
 #	bftextview2_scanner.h \
 #
+#
 
 bluefish_unstable_SOURCES = \
 	autocomp.c \
@@ -30,12 +31,12 @@ bluefish_unstable_SOURCES = \
 	bf_lib.h \
 	bfspell.c \
 	bfspell.h \
-	bf-textview.c \
-	bf-textview.h \
 	blocksync.c \
 	blocksync.h \
 	bluefish.c \
 	bluefish.h \
+	bf-textview.c \
+	bf-textview.h \
 	bookmark.c \
 	bookmark.h \
 	cap.c \

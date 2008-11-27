@@ -147,7 +147,7 @@ may not be used then...
 #ifndef _BFTEXTVIEW2_H_
 #define _BFTEXTVIEW2_H_
 
-/* #define IN_BLUEFISH */
+/*#define IN_BLUEFISH*/
 
 #include <gtk/gtk.h>
 

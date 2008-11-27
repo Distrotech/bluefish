@@ -40,6 +40,9 @@ void doc_restore_selection(Tselectionsave *selsave, gboolean only_if_no_selectio
 
 void autoclosing_init(void);
 GList *return_allwindows_documentlist(void);
+typedef void (*foreachdocfunc) (Tdocument *doc, gpointer data);
+void alldocs_foreach(foreachdocfunc func, gpointer data);
+
 GList *return_urilist_from_doclist(GList *doclist);
 gint documentlist_return_index_from_uri(GList *doclist, GFile *uri);
 Tdocument *documentlist_return_document_from_uri(GList *doclist, GFile *uri);
