@@ -718,6 +718,28 @@ static void register_bflanguage(Tbflang *bflang) {
 	}
 }
 
+static void scan_bflang2files(const gchar * dir) {
+	const gchar *filename;
+	GError *error = NULL;
+	GPatternSpec *ps = g_pattern_spec_new("*.bflang2"); 
+	GDir *gd = g_dir_open(dir, 0, &error);
+	if (!error) {
+		filename = g_dir_read_name(gd);
+		while (filename) {
+			if (g_pattern_match(ps, strlen(filename), filename, NULL)) {
+				Tbflang *bflang;
+				gchar *path = g_strconcat(dir, filename, NULL);
+				bflang = parse_bflang2_header(path);
+				register_bflanguage(bflang);
+				g_free(path);
+			}
+			filename = g_dir_read_name(gd);
+		}
+		g_dir_close(gd);
+	}
+	g_pattern_spec_free(ps);
+}
+
 void langmgr_init(GList *user_styles, GList *user_highlight_styles, gboolean load_reference) {
 	Tbflang *bflang;
 	GList *tmplist;
@@ -758,37 +780,6 @@ void langmgr_init(GList *user_styles, GList *user_highlight_styles, gboolean loa
 		g_print("set style %s for highlight %s:%s\n",arr[2],arr2[0],arr2[1]);
 		g_hash_table_insert(langmgr.configured_styles,arr2,g_strdup(arr[2]));
 	}
-	
-	bflang = parse_bflang2_header("c.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("php.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("html.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("xml.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("python.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("asp.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("perl.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("css.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("javascript.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("java.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("jsp.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("po.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("shell.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("ruby.bflang2");
-	register_bflanguage(bflang);
-	bflang = parse_bflang2_header("bflang2.bflang2");
-	register_bflanguage(bflang);
-
+	scan_bflang2files(".");
 	DBG_PARSING("langmgr_init, returning \n");
 }
