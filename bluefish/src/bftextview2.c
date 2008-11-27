@@ -811,9 +811,9 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 	textview->user_idle_timer = g_timer_new();
 	textview->scancache.stackcaches = g_sequence_new(NULL);
 
-	font_desc = pango_font_description_from_string("Monospace 10");
+	/*font_desc = pango_font_description_from_string("Monospace 10");
 	gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
-	pango_font_description_free(font_desc);
+	pango_font_description_free(font_desc);*/
 	bftextview2_set_margin_size(textview);
 }
 

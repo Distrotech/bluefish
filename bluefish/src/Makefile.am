@@ -25,8 +25,6 @@ bin_PROGRAMS = bluefish-unstable
 #
 
 bluefish_unstable_SOURCES = \
-	autocomp.c \
-	autocomp.h \
 	bf_lib.c \
 	bf_lib.h \
 	bfspell.c \
@@ -35,8 +33,16 @@ bluefish_unstable_SOURCES = \
 	blocksync.h \
 	bluefish.c \
 	bluefish.h \
-	bf-textview.c \
-	bf-textview.h \
+	bftextview2.c \
+	bftextview2.h \
+	bftextview2_langmgr.c \
+	bftextview2_langmgr.h \
+	bftextview2_autocomp.c \
+	bftextview2_autocomp.h \
+	bftextview2_patcompile.c \
+	bftextview2_patcompile.h \
+	bftextview2_scanner.c \
+	bftextview2_scanner.h \
 	bookmark.c \
 	bookmark.h \
 	cap.c \
@@ -45,8 +51,6 @@ bluefish_unstable_SOURCES = \
 	dialog_utils.h \
 	document.c \
 	document.h \
-	embed_python.c \
-	embed_python.h \
 	encodings_dialog.c \
 	encodings_dialog.h \
 	external_commands.c \
@@ -59,8 +63,6 @@ bluefish_unstable_SOURCES = \
 	file_dialogs.h \
 	filefilter.c \
 	filefilter.h \
-	filetype.c \
-	filetype.h \
 	gtk_easy.c \
 	gtk_easy.h \
 	gui.c \

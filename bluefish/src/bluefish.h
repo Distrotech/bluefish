@@ -20,7 +20,7 @@
  */
 /* #define HL_PROFILING */
 #define GNOMEVFSINT
-/*#define USE_BFTEXTVIEW2*/
+#define USE_BFTEXTVIEW2
 /* if you define DEBUG here you will get debug output from all Bluefish parts */
 /* #define DEBUG */
 
@@ -456,8 +456,8 @@ typedef struct {
 							is destroyed */
 #ifndef USE_BFTEXTVIEW2
 	BfLangManager *lang_mgr;
-#endif
 	Tautocomp *autocompletion;
+#endif
 } Tmain;
 
 extern Tmain *main_v;

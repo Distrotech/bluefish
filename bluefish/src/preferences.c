@@ -213,8 +213,7 @@ typedef enum {
 	string_none,
 	string_file,
 	string_font,
-	string_color,
-	string_accel
+	string_color
 } Tprefstringtype;
 
 void pref_click_column  (GtkTreeViewColumn *treeviewcolumn, gpointer user_data) {
@@ -454,13 +453,14 @@ static void color_button_lcb(GtkWidget *wid, GtkWidget *entry) {
 	gtk_window_set_destroy_with_parent(GTK_WINDOW(GTK_DIALOG(fsd)), TRUE);
 	gtk_widget_show(fsd);
 }
-
+#ifndef USE_BFTEXTVIEW2
 static void accel_button_lcb(GtkWidget *wid, gpointer data) 
 {
 	gchar *name = ac_key_choice();
 	if (name)
 		gtk_button_set_label(GTK_BUTTON(wid),name);
 }
+#endif
 
 static GtkWidget *prefs_string(const gchar *title, const gchar *curval, GtkWidget *box, Tprefdialog *pd, Tprefstringtype prefstringtype) {
 	GtkWidget *hbox, *return_widget;
@@ -472,11 +472,13 @@ static GtkWidget *prefs_string(const gchar *title, const gchar *curval, GtkWidge
 		return_widget = boxed_entry_with_text(curval, 8, hbox);
 		gtk_entry_set_width_chars(GTK_ENTRY(return_widget),8);
 	}
+#ifndef USE_BFTEXTVIEW2
 	else if (prefstringtype == string_accel)
 	{
 		return_widget = bf_allbuttons_backend(curval, FALSE, -1, G_CALLBACK(accel_button_lcb), NULL);;
 		gtk_box_pack_start(GTK_BOX(hbox), return_widget, FALSE, FALSE, 3);	
-	}	
+	}
+#endif
 	else
 		return_widget = boxed_entry_with_text(curval, 1023, hbox);
 	if (prefstringtype == file) {
@@ -1718,6 +1720,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);	
 	integer_apply(&main_v->props.view_rmargin, pd->prefs[view_rmargin], TRUE);
 	integer_apply(&main_v->props.rmargin_at, pd->prefs[rmargin_at], FALSE);
+#ifndef USE_BFTEXTVIEW2
 	integer_apply(&main_v->props.load_network_dtd, pd->prefs[load_network_dtd], TRUE);
 	{
 	  	guint key;
@@ -1729,7 +1732,7 @@ static void preferences_apply(Tprefdialog *pd) {
 		gtk_accel_group_connect(main_v->autocompletion->group,key,mod,GTK_ACCEL_VISIBLE, main_v->autocompletion->closure);
 		g_closure_unref(main_v->autocompletion->closure);					
 	}
-
+#endif
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
 
 /*	integer_apply(&main_v->props.bookmarks_default_store, pd->prefs[bookmarks_default_store], TRUE);
@@ -2318,8 +2321,10 @@ static void preferences_dialog() {
 		gchar *modes[] = {N_("whole document"), N_("visible area"),  NULL};
 		pd->prefs[scan_mode] = boxed_optionmenu_with_value(_("Scan mode"), main_v->props.scan_mode, vbox2, modes);
 	}
+#ifndef USE_BFTEXTVIEW2
 	pd->prefs[autocomp_key] = prefs_string(_("Autocompletion key"), main_v->props.autocomp_key, vbox2, pd, string_accel);
 	pd->prefs[load_network_dtd] = boxed_checkbut_with_value(_("Load network DTD by default"), main_v->props.load_network_dtd, vbox2);
+#endif
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);	

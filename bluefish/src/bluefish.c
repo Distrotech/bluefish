@@ -221,8 +221,8 @@ int main(int argc, char *argv[])
   if (main_v->session->recent_dirs == NULL) {
     main_v->session->recent_dirs = g_list_append(main_v->session->recent_dirs, g_strconcat("file://", g_get_home_dir(), NULL));
   }
-  	main_v->autocompletion = ac_init(); 
 #ifndef USE_BFTEXTVIEW2
+  	main_v->autocompletion = ac_init();
 	textstyle_rebuild();
 #endif
 

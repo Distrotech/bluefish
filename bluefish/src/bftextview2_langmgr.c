@@ -739,8 +739,8 @@ static void register_bflanguage(Tbflang *bflang) {
 	}
 }
 
-static void scan_bflang2files(const gchar * dir) {
-	const gchar *filename;
+static void scan_bflang2files(void) {
+	const gchar *filename, *dir=PKGDATADIR"/bflang/";
 	GError *error = NULL;
 	GPatternSpec *ps = g_pattern_spec_new("*.bflang2"); 
 	GDir *gd = g_dir_open(dir, 0, &error);
@@ -803,6 +803,6 @@ void langmgr_init(GList *user_styles, GList *user_highlight_styles, gboolean loa
 		g_print("set style %s for highlight %s:%s\n",arr[2],arr2[0],arr2[1]);
 		g_hash_table_insert(langmgr.configured_styles,arr2,g_strdup(arr[2]));
 	}
-	scan_bflang2files(".");
+	scan_bflang2files();
 	DBG_PARSING("langmgr_init, returning \n");
 }
