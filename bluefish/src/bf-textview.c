@@ -21,6 +21,7 @@
  * indenting is done with
  * indent --line-length 100 --k-and-r-style --tab-size 4 -bbo --ignore-newlines bf-textview.c
  */
+
 #define REUSETAGS /* REUSETAGS does not remove texttags from the widget and applying 
 							them again if the text was not changed - instead it removes only
 							those tags that are not in use anymore, and adds only those tags
@@ -158,9 +159,10 @@ extern void g_none(gchar *first, ...);
 
 
 #include "config.h"
-
-#include "bf-textview.h"
 #include "bluefish.h"
+#ifndef USE_BFTEXTVIEW2
+#include "bf-textview.h"
+
 #include "textstyle.h"
 #include "bf_lib.h"
 #include "gtk_easy.h"			/* gdk_color_to_hexstring */
@@ -3463,3 +3465,4 @@ void bf_textview_autocomp_show(BfTextView * self)
 		}
 	}
 }
+#endif

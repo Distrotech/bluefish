@@ -474,17 +474,26 @@ void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
 
 void gui_set_document_widgets(Tdocument *doc) {
 	GtkItemFactory *tmp1 = gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar);
-
+#ifdef USE_BFTEXTVIEW2
+	setup_toggle_item(tmp1,("/Document/Highlight Syntax"), BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner);
+#else
 	setup_toggle_item(tmp1,("/Document/Highlight Syntax"), BF_TEXTVIEW(doc->view)->highlight);			
+#endif
 	gui_set_undo_redo_widgets(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Wrap", doc->wrapstate);
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Line Numbers", doc->linenumberstate);
+#ifndef USE_BFTEXTVIEW2
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Auto Close HTML tags", BF_TEXTVIEW(doc->view)->tag_autoclose);
+#endif
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Show blocks", doc->blocksstate);
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Show symbols", doc->symstate);
 	
 /*#ifndef USE_SCANNER	why did we not set the encoding and filetype with the scanner enabled????*/
+#ifdef USE_BFTEXTVIEW2
+	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),BLUEFISH_TEXT_VIEW(doc->view)->bflang, doc->encoding);
+#else
 	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),doc->hl, doc->encoding);
+#endif
 /*#endif	*/
 
 	/* we should also disable certain menu's if the document is readonly */
