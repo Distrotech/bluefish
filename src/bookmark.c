@@ -30,7 +30,11 @@
 #include <string.h>
 
 #include "bluefish.h"
+#ifdef USE_BFTEXTVIEW2
+
+#else
 #include "bf-textview.h"
+#endif
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
@@ -513,7 +517,12 @@ static gboolean bmark_check_remove(Tbfwin *bfwin,Tbmark *b) {
 
 		if (b->doc) {
 		 	gtk_text_buffer_get_iter_at_mark(b->doc->buffer,&it,b->mark);
+#ifdef USE_BFTEXTVIEW2
+	/* TODO */
+#else
 		 	bf_textview_set_symbol(BF_TEXTVIEW(b->doc->view),"bookmark",gtk_text_iter_get_line(&it),FALSE);
+#endif
+
 		} 
 	
 		if (numchild == 1) {
@@ -1165,7 +1174,11 @@ void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
 					}
 					DEBUG_MSG("bmark_set_for_doc, create textmark at position %d\n",gtk_text_iter_get_offset(&it));
 					mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
+#ifdef USE_BFTEXTVIEW2
+	/* TODO */
+#else
 					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it),TRUE);
+#endif
 					cont2 =
 						gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore),
 												 &child);
@@ -1185,7 +1198,11 @@ void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
 								}
 							}
 							mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
+#ifdef USE_BFTEXTVIEW2
+	/* TODO */
+#else
 							bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it),TRUE);							
+#endif
 						}
 						cont2 =
 							gtk_tree_model_iter_next(GTK_TREE_MODEL
@@ -1304,7 +1321,11 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 	if (!m->is_temp) {
 		bmark_store(BFWIN(doc->bfwin), m);
 	}
+#ifdef USE_BFTEXTVIEW2
+	/* TODO */
+#else
 	bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it),TRUE);
+#endif
 	gtk_widget_queue_draw(doc->view);	
 }
 

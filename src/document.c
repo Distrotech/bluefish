@@ -2725,10 +2725,11 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->readonly = readonly;
 	newdoc->bfwin = (gpointer)bfwin;
 	newdoc->status = DOC_STATUS_COMPLETE; /* if we don't set this default we will get problems for new empty files */
-	newdoc->buffer = gtk_text_buffer_new(textstyle_return_tagtable());
 #ifdef USE_BFTEXTVIEW2
+	newdoc->buffer = gtk_text_buffer_new(langmgr_get_tagtable());
 	newdoc->view = bftextview2_new_with_buffer(newdoc->buffer);
 #else
+	newdoc->buffer = gtk_text_buffer_new(textstyle_return_tagtable());
 	newdoc->view = bf_textview_new_with_buffer(newdoc->buffer);
 #endif
 	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
@@ -2763,8 +2764,9 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->blocksstate = main_v->props.view_blocks;
 	document_set_show_blocks(newdoc, newdoc->blocksstate);
 	newdoc->symstate = main_v->props.view_symbols;
+#ifndef USE_BFTEXTVIEW2
 	document_set_show_symbols(newdoc, newdoc->symstate);
-
+#endif
 	newdoc->tab_label = gtk_label_new(NULL);
 	GTK_WIDGET_UNSET_FLAGS(newdoc->tab_label, GTK_CAN_FOCUS);
 	if (strlen(main_v->props.tab_font_string)) {

@@ -20,7 +20,7 @@
  */
 /* #define HL_PROFILING */
 #define GNOMEVFSINT
-/* #define USE_BFTEXTVIEW2 */
+/*#define USE_BFTEXTVIEW2*/
 /* if you define DEBUG here you will get debug output from all Bluefish parts */
 /* #define DEBUG */
 
@@ -285,6 +285,11 @@ typedef struct {
 #ifdef USE_BFTEXTVIEW2
 	GList *highlight_styles;
 	gboolean load_reference;
+	gboolean delay_full_scan;
+	gboolean autocomp_popup_mode;
+	gboolean reduced_scan_triggers;
+	gboolean smart_cursor;
+	
 #endif
 } Tproperties;
 
