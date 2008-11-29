@@ -230,7 +230,7 @@ php:Variables (special characters):0:(\\[|\\]|->)::2:^Variables$:#0000cc::2:0:
 php:String (single quoted):0:':':1:^PHP Block$:#009900::1:1:
 php:String (single quote escaped):0:\\\\.::2:^String \\(single quoted\\)$:::1:1:
 php:Comment (C):0:/\\*.*?\\*/::2:^PHP Block$:#7777aa::1:2:
-php:Comment (C++/single line):0:(//|#).*?$::2:^PHP Block$:#7777aa::1:2:
+php:Comment (C++/single line):0:(//|#).*?\\R::2:^PHP Block$:#7777aa::1:2:
 php:Flow Control:0:\\b(if|else|elseif|case|default|switch|break|continue|while|do|for|foreach)\\b::2:^PHP Block$:#000000::2:1:
 php:String (SQL Keywords):0:\\b(SELECT|INSERT|UPDATE|DELETE|DROP|GROUP BY|FROM|INTO|ON|AS|AND|NOT|OR|NULL|SET|VALUES|WHERE|ORDER BY|LIMIT|(LEFT|RIGHT|FULL) JOIN|ASC|DESC)\\b::2:^(PHP Block|String \\(single quoted\\)|String \\(double quoted\\))$:#996699::2:1:
 php:String (SQL Functions):0:\\b(MATCH|AGAINST|ASCII|CHAR|SOUNDEX|MAX|MIN|MD5|LCASE|UCASE|PASSWORD|ENCRYPT|RAND|LAST_INSERT_ID|COUNT|AVG|SUM|NOW|CURDATE|CURDATE|FROM_DAYS|FROM_UNIXTIME|PERIOD_ADD|PERIOD_DIFF|TO_DAYS|UNIX_TIMESTAMP|USER|WEEKDAY|CONCAT|DATE_(FORMAT|ADD|SUB))\\b\\(:\\):1:^(PHP Block|String \\(double quoted\\)|String \\(single quoted\\))$:#999966::2:1:
