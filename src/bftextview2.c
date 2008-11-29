@@ -808,7 +808,23 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 /*	PangoFontDescription *font_desc;*/
 	textview->user_idle_timer = g_timer_new();
 	textview->scancache.stackcaches = g_sequence_new(NULL);
-
+#ifdef IN_BLUEFISH
+	if (main_v->props.editor_bg) {
+		GdkColor color;
+		gdk_color_parse(main_v->props.editor_bg, &color);
+		gtk_widget_modify_base(GTK_WIDGET(textview),GTK_STATE_NORMAL, &color);
+	}
+	textview->linenumbers = main_v->props.view_line_numbers;
+	textview->showblocks = main_v->props.view_blocks;
+#else
+	if (background_color) {
+		GdkColor color;
+		gdk_color_parse(background_color, &color);
+		gtk_widget_modify_base(GTK_WIDGET(textview),GTK_STATE_NORMAL, &color);
+	}
+#endif
+	textview->needscanning = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"_needscanning_");
+	textview->enable_scanner=TRUE;	
 	/*font_desc = pango_font_description_from_string("Monospace 10");
 	gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
 	pango_font_description_free(font_desc);*/
@@ -817,26 +833,13 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 
 GtkWidget *bftextview2_new(void)
 {
-	GdkColor color;
 	BluefishTextView *textview = (BluefishTextView *) g_object_new(BLUEFISH_TYPE_TEXT_VIEW, NULL);
+
+	g_return_val_if_fail(textview != NULL, NULL);
+
 	g_object_set(textview, "has-tooltip", TRUE, NULL);
 	g_signal_connect(textview, "query-tooltip",G_CALLBACK(bftextview2_query_tooltip_lcb), textview);
 
-	g_return_val_if_fail(textview != NULL, NULL);
-#ifdef IN_BLUEFISH
-	if (main_v->props.editor_bg) {
-		gdk_color_parse(main_v->props.editor_bg, &color);
-		gtk_widget_modify_base(GTK_WIDGET(textview),GTK_STATE_NORMAL, &color);
-	}
-#else
-	if (background_color) {
-		gdk_color_parse(background_color, &color);
-		gtk_widget_modify_base(GTK_WIDGET(textview),GTK_STATE_NORMAL, &color);
-	}
-#endif
-	textview->needscanning = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"_needscanning_");
-	textview->linenumbers=FALSE;
-	textview->enable_scanner=TRUE;
 	return GTK_WIDGET(textview);
 }
 
