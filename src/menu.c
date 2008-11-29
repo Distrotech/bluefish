@@ -6,7 +6,7 @@
  *
  * Copyright (C) 1998-2000 Olivier Sessink, Chris Mazuc and Roland Steinbach
  * Copyright (C) 2000-2002 Olivier Sessink and Roland Steinbach
- * Copyright (C) 2002-2005 Olivier Sessink
+ * Copyright (C) 2002-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

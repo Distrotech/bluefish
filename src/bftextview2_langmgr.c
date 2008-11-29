@@ -103,16 +103,47 @@ static void skip_to_end_tag(xmlTextReaderPtr reader, int depth) {
 	}
 }
 
-static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const gchar *bgcolor, gboolean bold, gboolean italic) {
+static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const gchar *bgcolor, gchar *bold, gchar *italic) {
 	GtkTextTag *tag;
+	gboolean newtag=FALSE;
 	if (!name || name[0]=='\0') return;
-	tag = gtk_text_tag_new(name);
+	
+	tag = gtk_text_tag_table_lookup(langmgr.tagtable,name);       
+	if (!tag) {
+		tag = gtk_text_tag_new(name);
+		newtag=TRUE;
+	}
+
+	if (fgcolor && fgcolor[0]!='\0') {
+		g_object_set(tag, "foreground", fgcolor,"foreground-set", TRUE, NULL);
+	} else if (newtag){
+		g_object_set(tag, "foreground-set", FALSE, NULL);
+	}
+	if (bgcolor && bgcolor[0]!='\0') {
+		g_object_set(tag, "background", bgcolor, "background-set",TRUE, NULL);
+	} else if (newtag) {
+		g_object_set(tag, "background-set", FALSE, NULL);
+	}
+	if (bold && (bold[0]=='1'||bold[0]=='2')) {
+		g_object_set(tag, "weight", PANGO_WEIGHT_BOLD, NULL);
+	} else if (newtag) {
+		g_object_set(tag, "weight", PANGO_WEIGHT_NORMAL, NULL);
+	}
+	if (italic && (italic[0] == '1'||italic[0] == '2')) {
+		g_object_set(tag, "style", PANGO_STYLE_ITALIC, NULL);
+	} else if (newtag) {
+		g_object_set(tag, "style", PANGO_STYLE_NORMAL, NULL);
+	}
+/*
 	if (fgcolor && fgcolor[0]!='\0') g_object_set(tag, "foreground", fgcolor, NULL);
 	if (bgcolor && bgcolor[0]!='\0') g_object_set(tag, "background", bgcolor, NULL);
 	if (bold) g_object_set(tag, "weight", PANGO_WEIGHT_BOLD, NULL);
 	if (italic) g_object_set(tag, "style", PANGO_STYLE_ITALIC, NULL);
-	gtk_text_tag_table_add(langmgr.tagtable, tag);
-	g_object_unref(tag);
+	*/
+	if (newtag) {
+		gtk_text_tag_table_add(langmgr.tagtable, tag);
+		g_object_unref(tag);
+	}
 }
 
 static gchar *langmgr_lookup_style_for_highlight(const gchar *lang, const gchar *highlight) {
@@ -223,16 +254,15 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 				}
 			}
 		} else if (xmlStrEqual(name,(xmlChar *)"highlight")) {
-			gchar *name=NULL, *style=NULL, *fgcolor=NULL, *bgcolor=NULL;
-			gboolean italic=FALSE,bold=FALSE;
+			gchar *name=NULL, *style=NULL, *fgcolor=NULL, *bgcolor=NULL, *italic=NULL,*bold=NULL;
 			while (xmlTextReaderMoveToNextAttribute(reader)) {
 				xmlChar *aname = xmlTextReaderName(reader);
 				set_string_if_attribute_name(reader,aname,(xmlChar *)"name", &name);
 				set_string_if_attribute_name(reader,aname,(xmlChar *)"style", &style);
 				set_string_if_attribute_name(reader,aname,(xmlChar *)"fgcolor", &fgcolor);
 				set_string_if_attribute_name(reader,aname,(xmlChar *)"bgcolor", &bgcolor);
-				set_boolean_if_attribute_name(reader,aname,(xmlChar *)"italic", &italic);
-				set_boolean_if_attribute_name(reader,aname,(xmlChar *)"bold", &bold);
+				set_string_if_attribute_name(reader,aname,(xmlChar *)"italic", &italic);
+				set_string_if_attribute_name(reader,aname,(xmlChar *)"bold", &bold);
 				xmlFree(aname);
 			}
 			if (name) {
@@ -253,6 +283,8 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 			g_free(style);
 			g_free(fgcolor);
 			g_free(bgcolor);
+			g_free(italic);
+			g_free(bold);
 		} else if (xmlStrEqual(name,(xmlChar *)"header")) {
 			xmlFree(name);
 			break;
@@ -795,7 +827,7 @@ void langmgr_init(GList *user_styles, GList *user_highlight_styles, gboolean loa
 	for (tmplist = g_list_first(user_styles);tmplist;tmplist=tmplist->next) {
 		gchar **arr = (gchar **)tmplist->data;
 		g_print("create style %s\n",arr[0]);
-		langmrg_create_style(arr[0], arr[1], arr[2], (arr[3] && arr[3][0]=='1') , (arr[4] && arr[4][0]=='1'));
+		langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
 	}
 	for (tmplist = g_list_first(user_highlight_styles);tmplist;tmplist=tmplist->next) {
 		gchar **arr2, **arr = (gchar **)tmplist->data;
