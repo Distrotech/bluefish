@@ -212,8 +212,7 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 			}
 		}
 		bftextview2_reset_user_idle_timer(BLUEFISH_TEXT_VIEW(widget));
-	}
-	
+	}	
 }
 
 static void bftextview2_set_margin_size(BluefishTextView * btv)
@@ -238,7 +237,7 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 	} else {
 		btv->margin_pixels_chars = 0;
 	}
-	if (btv->showblocks) {
+	if (btv->showblocks && g_sequence_get_length(btv->scancache.stackcaches)>0) {
 		btv->margin_pixels_block = 12;
 	} else {
 		btv->margin_pixels_block = 0;
@@ -806,8 +805,7 @@ static void bluefish_text_view_class_init(BluefishTextViewClass * klass)
 
 static void bluefish_text_view_init(BluefishTextView * textview)
 {
-	PangoFontDescription *font_desc;
-
+/*	PangoFontDescription *font_desc;*/
 	textview->user_idle_timer = g_timer_new();
 	textview->scancache.stackcaches = g_sequence_new(NULL);
 
