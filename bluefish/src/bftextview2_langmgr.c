@@ -10,7 +10,7 @@
 #ifdef IN_BLUEFISH
 #include "bluefish.h"
 #include "document.h"
-#include "bf_lib.h"
+#include "stringlist.h"
 #endif
 
 typedef struct {
@@ -62,36 +62,6 @@ guint arr2_hash(gconstpointer v)
 	}
 	return h;
 }
-#ifndef IN_BLUEFISH
-gchar **array_from_arglist(const gchar *string1, ...) {
-	gint numargs=1;
-	va_list args;
-	gchar *s;
-	gchar **retval, **index;
-
-	va_start(args, string1);
-	s = va_arg(args, gchar*);
-	while (s) {
-		numargs++;
-		s = va_arg(args, gchar*);
-	}
-	va_end(args);
-
-	index = retval = g_new(gchar *, numargs + 1);
-	*index = g_strdup(string1);
-	va_start(args, string1);
-	s = va_arg (args, gchar*);
-	while (s) {
-		index++;
-		*index = g_strdup(s);
-		s = va_arg(args, gchar*);
-	}
-	va_end(args);
-	index++;
-	*index = NULL;
-	return retval;
-}
-#endif
 /* langmgr code */
 
 static void skip_to_end_tag(xmlTextReaderPtr reader, int depth) {
@@ -144,6 +114,15 @@ static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const 
 		gtk_text_tag_table_add(langmgr.tagtable, tag);
 		g_object_unref(tag);
 	}
+}
+
+void langmgr_reload_user_styles(GList *user_styles) {
+	GList *tmplist;
+	for (tmplist = g_list_first(user_styles);tmplist;tmplist=tmplist->next) {
+		gchar **arr = (gchar **)tmplist->data;
+		langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
+	}
+
 }
 
 static gchar *langmgr_lookup_style_for_highlight(const gchar *lang, const gchar *highlight) {
@@ -824,11 +803,7 @@ void langmgr_init(GList *user_styles, GList *user_highlight_styles, gboolean loa
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
 	
-	for (tmplist = g_list_first(user_styles);tmplist;tmplist=tmplist->next) {
-		gchar **arr = (gchar **)tmplist->data;
-		g_print("create style %s\n",arr[0]);
-		langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
-	}
+	langmgr_reload_user_styles(user_styles);
 	for (tmplist = g_list_first(user_highlight_styles);tmplist;tmplist=tmplist->next) {
 		gchar **arr2, **arr = (gchar **)tmplist->data;
 		arr2 = array_from_arglist(arr[0], arr[1], NULL);
