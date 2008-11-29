@@ -494,13 +494,15 @@ static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory)
 }	
 
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
-	DEBUG_MSG("menu_current_document_type_change, started for hlset %p\n", bdm->data);
+	
 #ifdef USE_BFTEXTVIEW2
+	DEBUG_MSG("menu_current_document_type_change, started for bflang %p\n", bdm->data);
 	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
 		bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(bdm->bfwin->current_document->view), ((Tbflang *)bdm->data)->mimetypes->data);
 	}
 
 #else
+	DEBUG_MSG("menu_current_document_type_change, started for hlset %p\n", bdm->data);
 	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
 		if (doc_set_filetype(bdm->bfwin->current_document, bdm->data)) {
 		} else {
@@ -539,10 +541,11 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	bfwin->menu_filetypes = NULL;
 	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Document Type"));
 #ifdef USE_BFTEXTVIEW2
-	tmplist = langmgr_get_languages();
+	tmplist = g_list_first(langmgr_get_languages());
 	while (tmplist) {
 		Tbflang *bflang = (Tbflang *)tmplist->data;
 		Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
+		g_print("adding language %s to menu\n",bflang->name);
 		bdm->data = bflang;
 		bdm->bfwin = bfwin;
 		bdm->menuitem = gtk_radio_menu_item_new_with_label(group, bflang->name);
@@ -551,7 +554,7 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 		gtk_menu_insert(GTK_MENU(parent_menu), bdm->menuitem, 1);
 		group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(bdm->menuitem));
 		bfwin->menu_filetypes = g_list_append(bfwin->menu_filetypes, bdm);
-		tmplist = g_list_previous(tmplist);
+		tmplist = g_list_next(tmplist);
 	}
 #else
 	tmplist = g_list_last(main_v->filetypelist);

@@ -427,7 +427,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 				if (!contextstring) {
 					contextstring = new_context(bfparser->st, "\"=' \t\n\r", string, FALSE);
 					add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contextstring, -1, FALSE, FALSE, 0, string,FALSE,NULL,NULL);
-					g_hash_table_insert(bfparser->contexts, "__internal_tag__", GINT_TO_POINTER(contextstring));
+					g_hash_table_insert(bfparser->contexts, g_strdup("__internal_tag__"), GINT_TO_POINTER(contextstring));
 				}
 				add_keyword_to_scanning_table(bfparser->st, "\"", FALSE, FALSE, string, contexttag, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL,NULL);
 				
@@ -617,10 +617,10 @@ static gpointer build_lang_thread(gpointer data)
 	bfparser = g_slice_new0(Tbflangparsing);
 	bfparser->patterns =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
 	bfparser->contexts =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
-	bfparser->setoptions =  g_hash_table_new(g_str_hash,g_str_equal);
+	bfparser->setoptions =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
 	bfparser->bflang = bflang;
 	for(tmplist = g_list_first(bfparser->bflang->setoptions);tmplist;tmplist=g_list_next(tmplist)) {
-		g_hash_table_insert(bfparser->setoptions,tmplist->data,GINT_TO_POINTER(1));
+		g_hash_table_insert(bfparser->setoptions,g_strdup(tmplist->data),GINT_TO_POINTER(1));
 	}
 	bfparser->st = scantable_new(bflang->size_table,bflang->size_matches,bflang->size_contexts);
 	
@@ -717,10 +717,6 @@ static Tbflang *parse_bflang2_header(const gchar *filename) {
 					set_integer_if_attribute_name(reader,aname,(xmlChar *)"contexts",&bflang->size_contexts);
 					xmlFree(aname);
 				}
-				if (bflang->name == NULL) {
-					g_print("Language file %s has no name.. abort..\n",filename);
-					return NULL;
-				}
 			} else if (xmlStrEqual(name,(xmlChar *)"header")) {
 				process_header(reader,bflang);
 				xmlFree(name);
@@ -729,6 +725,10 @@ static Tbflang *parse_bflang2_header(const gchar *filename) {
 			xmlFree(name);
 		}
 		xmlFreeTextReader(reader);
+		if (bflang->name == NULL) {
+			g_print("Language file %s has no name.. abort..\n",filename);
+			return NULL;
+		}
 	}
 	return bflang;
 }
@@ -740,7 +740,7 @@ GList *langmgr_get_languages(void) {
 static void register_bflanguage(Tbflang *bflang) {
 	if (bflang) {
 		GList *tmplist;
-		
+		g_print("register bflang %s\n",bflang->name);
 		tmplist = g_list_first(bflang->mimetypes);
 		while (tmplist) {
 			g_hash_table_insert(langmgr.bflang_lookup, (gchar *)tmplist->data, bflang);
