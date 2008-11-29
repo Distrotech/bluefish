@@ -1812,8 +1812,9 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.textstyles = duplicate_arraylist(pd->lists[textstyles]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
-#ifdef USE_BFTEXTVIEW2
-	/* TODO */
+#ifdef USE_BFTEXTVIEW2	
+	langmgr_reload_user_styles(main_v->props.textstyles);
+	/* TODO for highlight styles */
 #else
 	textstyle_rebuild();
 
@@ -1899,6 +1900,7 @@ void preftree_cursor_changed_cb (GtkTreeView *treeview, gpointer user_data) {
 	}
 }
 
+#ifndef USE_BFTEXTVIEW2
 /* List of language files */
 	
 static void rescan_lang_files(Tprefdialog *pd)
@@ -1944,6 +1946,7 @@ static void rescan_lang_files(Tprefdialog *pd)
 	g_pattern_spec_free(ps);
 
 }
+#endif
 
 static void preferences_dialog() {
 	Tprefdialog *pd;
@@ -1959,8 +1962,9 @@ static void preferences_dialog() {
 
 	pd = g_new0(Tprefdialog,1);
 	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
-	rescan_lang_files(pd);
-	
+#ifndef USE_BFTEXTVIEW2
+	rescan_lang_files(pd);*/
+#endif
 	dvbox = gtk_vbox_new(FALSE, 5);
 	dhbox = gtk_hbox_new(FALSE, 5);
 	pd->fixed = gtk_hbox_new(FALSE,5);
