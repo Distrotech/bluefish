@@ -1103,16 +1103,17 @@ static void doc_select_and_scroll(Tdocument *doc, GtkTextIter *it1,
 		gtk_text_iter_set_line_offset(&sit1,0);
 		gtk_text_iter_forward_to_line_end(&sit2);
 	}
-	gtk_text_buffer_move_mark_by_name(doc->buffer, "insert", &sit1);
-	gtk_text_buffer_move_mark_by_name(doc->buffer, "selection_bound", &sit2);
-
-	gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(doc->view),&visirect);
-	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_so, visirect.x, visirect.y);
-	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_eo, visirect.x + visirect.width, visirect.y + visirect.height);
-
-	if (do_scroll && !gtk_text_iter_in_range(&sit1,&visi_so,&visi_eo)) {
-		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&sit1,0.0,TRUE,0.5,0.10);
-		gtk_widget_grab_focus(doc->view);
+	gtk_text_buffer_select_range(doc->buffer,&sit1,&sit2);
+	if (do_scroll) {
+		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(doc->view),&visirect);
+		gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_so, visirect.x, visirect.y);
+		gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_eo, visirect.x + visirect.width, visirect.y + visirect.height);
+		/* in doc reload this works strange, there is no scrolling to the correct position...
+		perhaps this should be done in an idle callback so that the iter positions can be calculated?? */
+		if (!gtk_text_iter_in_range(&sit1,&visi_so,&visi_eo)) {
+			gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&sit1,0.25,TRUE,0.5,0.10);
+			gtk_widget_grab_focus(doc->view);
+		}
 	}
 }
 
@@ -3139,7 +3140,8 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
  * Return value: void
  **/
 void doc_reload(Tdocument *doc, GFileInfo *newfinfo) {
-	GtkTextIter itstart, itend;
+	GtkTextIter itstart, itend, cursor;
+	gint cursorpos=-1;
 	DEBUG_MSG("starting reload for %p\n",doc);
 	if ((doc->uri == NULL)/* || (!file_exists_and_readable(doc->uri))*/) {
 		statusbar_message(BFWIN(doc->bfwin),_("Unable to open file"), 2000);
@@ -3147,6 +3149,8 @@ void doc_reload(Tdocument *doc, GFileInfo *newfinfo) {
 	}
 	/* store all bookmark positions, reload them later */
 	bmark_clean_for_doc(doc);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer,&cursor,gtk_text_buffer_get_insert(doc->buffer));
+	cursorpos = gtk_text_iter_get_line(&cursor);
 	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
 	gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 	doc_set_status(doc, DOC_STATUS_LOADING);
@@ -3155,7 +3159,7 @@ void doc_reload(Tdocument *doc, GFileInfo *newfinfo) {
 	g_object_unref(doc->fileinfo);
 	doc->fileinfo = newfinfo;
 	g_object_ref(doc->fileinfo);
-	file_doc_fill_from_uri(doc, doc->uri, doc->fileinfo, -1);
+	file_doc_fill_from_uri(doc, doc->uri, doc->fileinfo, cursorpos);
 }
 
 static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_info,GFileInfo *orig, GFileInfo *new, gpointer callback_data) {
