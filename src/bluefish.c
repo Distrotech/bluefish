@@ -32,6 +32,10 @@
 #include <locale.h>
 #endif /* ENABLE_NLS */
 
+#ifdef USE_BFTEXTVIEW2
+#include "bftextview2_langmgr.h"
+#endif
+
 #include "pixmap.h"        /* set_default_icon() */
 #include "bf_lib.h"        /* create_full_path() */
 #include "bookmark.h"      /* bmark_init() */
@@ -67,7 +71,7 @@ void g_none(gchar *first, ...) {
 void cb_print_version (const gchar *option_name, const gchar *value, gpointer data, GError **error)
 {
   char *version;
-  
+
   version = g_strconcat(_("Bluefish Editor"), " ", VERSION, "\n",
                         _("Visit us at http://bluefish.openoffice.nl"), "\n",
                         NULL);
@@ -106,11 +110,11 @@ int main(int argc, char *argv[])
 };
 
 #ifdef ENABLE_NLS
-  setlocale(LC_ALL,"");                                                   
+  setlocale(LC_ALL,"");
   bindtextdomain(PACKAGE,LOCALEDIR);
   DEBUG_MSG("set bindtextdomain for %s to %s\n",PACKAGE,LOCALEDIR);
   bind_textdomain_codeset(PACKAGE, "UTF-8");
-  textdomain(PACKAGE);                                                    
+  textdomain(PACKAGE);
 #endif /* ENABLE_NLS */
 
   if (!g_thread_supported ())
@@ -118,7 +122,7 @@ int main(int argc, char *argv[])
 /*  gdk_threads_init ();*/
 
   context = g_option_context_new (_(" [FILE(S)]"));
-#ifdef ENABLE_NLS 
+#ifdef ENABLE_NLS
   g_option_context_add_main_entries (context, options, PACKAGE);
 #else
   g_option_context_add_main_entries (context, options, NULL);
@@ -142,7 +146,7 @@ int main(int argc, char *argv[])
   DEBUG_MSG("main, main_v is at %p\n", main_v);
   rcfile_check_directory();
   rcfile_parse_main();
-  
+
   if (newwindow) {
     open_in_new_window = 1;
   }
@@ -160,26 +164,26 @@ int main(int argc, char *argv[])
       TODO 1: Check if given file is a project-file.
       Maybe using gnome-vfs API and checking for application/bluefish-project.
       If not at least one project file was given, fail or print a warning?
-      
+
       ATM: Nothing happens.
-      
+
 
       TODO 2: suggestion, on what should happen using the following command:
-      
+
       bluefish(-unstable) -p foo.bfproject bar.html foo.bar
       bluefish(-unstable) --project=foo.bfproject bar.html foo.bar
-      
+
       or in general:
-      
+
       bluefish(-unstable) [-p |--project=]projectfile [file(s)]
-      
+
       1) first open project
       2) open the other files in the project
-      
+
       this could be a good starting poitn, when you want to open a file inside the project,
       without seeing the whole tree (just see the project)
     */
-    
+
     DEBUG_MSG("main, project=%s\n", project);
   }
 
@@ -189,13 +193,13 @@ int main(int argc, char *argv[])
       tmpfile = g_file_new_for_commandline_arg(files[i]);
       filenames = g_list_append(filenames, g_file_get_parse_name(tmpfile));
       g_object_unref(tmpfile);
-      
+
       DEBUG_MSG("main, files[%d]=%s\n", i, files[i]);
     }
     g_strfreev(files);
   }
-    
-#ifdef WITH_MSG_QUEUE 
+
+#ifdef WITH_MSG_QUEUE
   if (((filenames || projectfiles) && main_v->props.open_in_running_bluefish) ||  open_in_new_window) {
     msg_queue_start(filenames, projectfiles, open_in_new_window);
   }
@@ -238,7 +242,7 @@ int main(int argc, char *argv[])
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("building file filters ..."));
 #endif /* NOSPLASH */
-  
+
   fb2config_init(); /* filebrowser2config */
   filters_rebuild();
   autoclosing_init();
@@ -271,7 +275,7 @@ int main(int argc, char *argv[])
   {
     gchar *shortcutfilename;
     GtkSettings* gtksettings = gtk_settings_get_default();
-    g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL); 
+    g_object_set(G_OBJECT(gtksettings), "gtk-can-change-accels", TRUE, NULL);
     shortcutfilename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/menudump_2", NULL);
     gtk_accel_map_load(shortcutfilename);
     g_free(shortcutfilename);
@@ -285,7 +289,7 @@ int main(int argc, char *argv[])
       tmplist = g_list_next(tmplist);
     }
   }
-  
+
 #ifndef NOSPLASH
   if (main_v->props.show_splash_screen) {
     /*static struct timespec const req = { 0, 10000000};*/
@@ -299,7 +303,7 @@ int main(int argc, char *argv[])
   gtk_main();
 /*  gdk_threads_leave ();*/
   DEBUG_MSG("main, after gtk_main()\n");
-#ifdef WITH_MSG_QUEUE 
+#ifdef WITH_MSG_QUEUE
   /* do the cleanup */
   msg_queue_cleanup();
 #endif /* WITH_MSG_QUEUE */
@@ -351,16 +355,16 @@ void bluefish_exit_request() {
     tmplist = g_list_next(tmplist);
   }
   flush_queue();
-  
+
   rcfile_save_global_session();
 	rcfile_save_encodings();
-  
+
 /*  {
     gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/dir_history", NULL);
     put_stringlist_limited(filename, main_v->recent_directories, main_v->props.max_dir_history);
     g_free(filename);
   }*/
-  
+
 /*  NEEDS TO BE PORTED FOR MULTIPLE-WINDOW SUPPORT
   tmplist = gtk_window_list_toplevels();
   g_list_foreach(tmplist, (GFunc)g_object_ref, NULL);
@@ -372,7 +376,7 @@ void bluefish_exit_request() {
     tmplist = g_list_next(tmplist);
   }
   g_list_foreach (tmplist, (GFunc)g_object_unref, NULL); */
-  
+
   /* I don't understand why, but if I call gtk_main_quit here, the main() function does not continue after gtk_main(), very weird, so I'll call exit() here */
   gtk_main_quit();
   DEBUG_MSG("bluefish_exit_request, after gtk_main_quit()\n");

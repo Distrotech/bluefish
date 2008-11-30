@@ -29,6 +29,8 @@
 
 #ifndef USE_BFTEXTVIEW2
 #include "bf-textview.h"
+#else
+#include "bftextview2_langmgr.h"
 #endif
 
 #include "document.h"
@@ -54,7 +56,7 @@ enum {
 	editor_tab_width,             /* editor tabwidth */
 	editor_indent_wspaces,
 	editor_smart_cursor,
-	tab_font_string,              /* notebook tabs font */	
+	tab_font_string,              /* notebook tabs font */
 	defaulthighlight,             /* highlight documents by default */
 	transient_htdialogs,          /* set html dialogs transient ro the main window */
 	leave_to_window_manager,
@@ -129,7 +131,7 @@ enum {
 	open_in_running_bluefish,     /* open commandline documents in already running session*/
 #endif /* WITH_MSG_QUEUE */
 	view_blocks,
-	view_symbols,		
+	view_symbols,
 	view_mbhl,
 	view_cline,
 	scan_mode,
@@ -138,7 +140,7 @@ enum {
 	view_rmargin,
 	rmargin_at,
 	autocomp_key,
-	tag_autoclose,	
+	tag_autoclose,
 	load_network_dtd,
 	property_num_max
 };
@@ -228,8 +230,8 @@ void pref_click_column  (GtkTreeViewColumn *treeviewcolumn, gpointer user_data) 
 		if (lst) {
 			g_object_set(G_OBJECT(lst->data),"sensitive",FALSE,"mode",GTK_CELL_RENDERER_MODE_INERT,NULL);
 			g_list_free(lst);
-		}	
-	}	
+		}
+	}
 	else
 	{
 		gtk_toggle_button_set_active(but,TRUE);
@@ -238,7 +240,7 @@ void pref_click_column  (GtkTreeViewColumn *treeviewcolumn, gpointer user_data) 
 		if (lst) {
 			g_object_set(G_OBJECT(lst->data),"sensitive",TRUE,"mode",GTK_CELL_RENDERER_MODE_EDITABLE,NULL);
 			g_list_free(lst);
-		}			
+		}
 	}
 }
 /*
@@ -249,7 +251,7 @@ static void pref_create_combo_column(GtkTreeView *treeview,GCallback func, gpoin
 	GtkWidget *but;
 		renderer = gtk_cell_renderer_combo_new();
 		if (func) {
-			g_object_set(G_OBJECT(renderer), "editable", TRUE, 
+			g_object_set(G_OBJECT(renderer), "editable", TRUE,
 	             "model", store,
                 "text-column", 0,
                 "has-entry", FALSE,	NULL);
@@ -454,7 +456,7 @@ static void color_button_lcb(GtkWidget *wid, GtkWidget *entry) {
 	gtk_widget_show(fsd);
 }
 #ifndef USE_BFTEXTVIEW2
-static void accel_button_lcb(GtkWidget *wid, gpointer data) 
+static void accel_button_lcb(GtkWidget *wid, gpointer data)
 {
 	gchar *name = ac_key_choice();
 	if (name)
@@ -476,7 +478,7 @@ static GtkWidget *prefs_string(const gchar *title, const gchar *curval, GtkWidge
 	else if (prefstringtype == string_accel)
 	{
 		return_widget = bf_allbuttons_backend(curval, FALSE, -1, G_CALLBACK(accel_button_lcb), NULL);;
-		gtk_box_pack_start(GTK_BOX(hbox), return_widget, FALSE, FALSE, 3);	
+		gtk_box_pack_start(GTK_BOX(hbox), return_widget, FALSE, FALSE, 3);
 	}
 #endif
 	else
@@ -533,7 +535,7 @@ static GtkWidget *prefs_integer(const gchar *title, const gint curval, GtkWidget
 /*************************/
 /* static GList *general_poplist(GList *arraylist, gint required_items, gint poplist_label_index) {
 	GList *tmplist, *poplist=NULL;
-	
+
 	tmplist = g_list_first(arraylist);
 	while(tmplist){
 		gchar **strarr =(gchar **)tmplist->data;
@@ -618,7 +620,7 @@ static void create_plugin_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->pd.lview);
 	gtk_widget_set_size_request(scrolwin, 200, 350);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
-	
+
 	{
 		GList *tmplist = g_list_first(pd->lists[pluginconfig]);
 		while (tmplist) {
@@ -747,7 +749,7 @@ static void textstyle_radio_changed(GtkToggleButton *togglebutton, gpointer user
 
 /*
 the textstyle gui is based on a liststore with 2 columns, first the name, second the gchar **
-where this should be updated. We keep track of the current selected name, and set that gchar ** in 
+where this should be updated. We keep track of the current selected name, and set that gchar ** in
 pd->tsd.curstrarr. Whenever any of the radiobuttons or colors is changed, we can immediatly change
 it in pd->tsd.curstrarr
 if pd->tsd.curstrarr == NULL then there is no name selected, for example we are in the middle of
@@ -769,13 +771,13 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pref_create_column(GTK_TREE_VIEW(pd->tsd.lview), 1, G_CALLBACK(textstyle_0_edited_lcb), pd, _("Label"), 0);
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->tsd.lview));
 	g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(textstyle_selection_changed_cb),pd);
-	
+
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->tsd.lview);
 	gtk_widget_set_size_request(scrolwin, 200, 350);
 	gtk_box_pack_start(GTK_BOX(hbox), scrolwin, TRUE, TRUE, 2);
-	
+
 	vbox = gtk_vbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), vbox, TRUE, TRUE, 5);
 	pd->tsd.fg_color = prefs_string(_("Foreground color"), "", vbox, pd, string_color);
@@ -844,19 +846,19 @@ static void bf_ins_token(gpointer key,gpointer value,gpointer udata) {
 	BfLangToken *t = (BfLangToken*)value;
 	if ( d->grpcrit == NULL && t->group==NULL)
 	{
-		if ( strcmp(t->name,"_tag_end_")!=0 && strcmp(t->name,"_attr_")!=0 && 
+		if ( strcmp(t->name,"_tag_end_")!=0 && strcmp(t->name,"_attr_")!=0 &&
 				strcmp(t->name,"_attr2_")!=0 && strcmp(t->name,"_attr_tag_begin_end_")!=0 &&
 				strcmp(t->name,"_fake_ident_")!=0)
 		*(d->list) = g_list_append(*(d->list),t->name);
-	}	
+	}
 	else
-		if ( d->grpcrit!=NULL && t->group!=NULL && strcmp(t->group,d->grpcrit) == 0 )	
+		if ( d->grpcrit!=NULL && t->group!=NULL && strcmp(t->group,d->grpcrit) == 0 )
 		{
-		if ( strcmp(t->name,"_tag_end_")!=0 && strcmp(t->name,"_attr_")!=0 && 
+		if ( strcmp(t->name,"_tag_end_")!=0 && strcmp(t->name,"_attr_")!=0 &&
 				strcmp(t->name,"_attr2_")!=0 && strcmp(t->name,"_attr_tag_begin_end_")!=0 &&
 				strcmp(t->name,"_fake_ident_")!=0)
 	  			  *(d->list) = g_list_append(*(d->list),t->name);
-		}	
+		}
 }
 
 static void bf_ins_block(gpointer key,gpointer value,gpointer udata) {
@@ -865,12 +867,12 @@ static void bf_ins_block(gpointer key,gpointer value,gpointer udata) {
 	if ( d->grpcrit == NULL  && t->group==NULL) {
 		if ( strcmp(t->id,"_tag_begin_")!=0 )
 			*(d->list) = g_list_append(*(d->list),t->id);
-	}	
+	}
 	else
 		if ( d->grpcrit!=NULL && t->group!=NULL && strcmp(t->group,d->grpcrit) == 0 )	 {
-			if ( strcmp(t->id,"_tag_begin_")!=0 )		
+			if ( strcmp(t->id,"_tag_begin_")!=0 )
 				*(d->list) = g_list_append(*(d->list),t->id);
-		}	
+		}
 }
 
 static void  hlg_toggled  (GtkToggleButton *togglebutton, gpointer user_data) {
@@ -879,7 +881,7 @@ static void  hlg_toggled  (GtkToggleButton *togglebutton, gpointer user_data) {
 
 	if ( !cfg ) return;
 	if ( !gtk_toggle_button_get_active(togglebutton)) return;
-	pd->hld.filetype_change = TRUE;		
+	pd->hld.filetype_change = TRUE;
 	if ( GTK_WIDGET(togglebutton) == pd->hld.blk_radio ) {
 		gtk_tree_view_set_model(GTK_TREE_VIEW(pd->hld.tree),GTK_TREE_MODEL(pd->hld.blk_store));
 	}
@@ -889,7 +891,7 @@ static void  hlg_toggled  (GtkToggleButton *togglebutton, gpointer user_data) {
 	else if ( GTK_WIDGET(togglebutton) == pd->hld.tag_radio ) {
 		gtk_tree_view_set_model(GTK_TREE_VIEW(pd->hld.tree),GTK_TREE_MODEL(pd->hld.tag_store));
 	}
-	pd->hld.filetype_change = FALSE;		
+	pd->hld.filetype_change = FALSE;
 }
 
 static gchar **hlg_find_pattern(Tprefdialog *pd, gchar *filetype, gchar *type, gchar *name) {
@@ -898,7 +900,7 @@ static gchar **hlg_find_pattern(Tprefdialog *pd, gchar *filetype, gchar *type, g
 		gchar **arr = lst->data;
 		if ( strcmp(arr[0],filetype)==0  && strcmp(arr[1],type)==0 && strcmp(arr[2],name)==0 ) {
 			return arr;
-		}	
+		}
 		lst = g_list_next(lst);
 	}
 	return NULL;
@@ -911,11 +913,11 @@ static gchar **hlg_find_pattern(Tprefdialog *pd, gchar *filetype, gchar *type, g
 	GList *lst=NULL,*lst2,*lst3;
 	GtkTreeIter iter,iter2;
 	Thf *hf = g_new0(Thf,1);
-	
+
 	if (!cfg) {
 		gtk_widget_hide(pd->hld.main_view);
 		return;
-	}	 
+	}
 	pd->hld.filetype_change = TRUE;
 	gtk_widget_show(pd->hld.main_view);
 	/ * fill all stores * /
@@ -930,15 +932,15 @@ static gchar **hlg_find_pattern(Tprefdialog *pd, gchar *filetype, gchar *type, g
 		lst2 = g_list_first(lst3);
 		if ( lst2 ) {
 			gtk_tree_store_append(pd->hld.blk_store, &iter, NULL);
-			gtk_tree_store_set(pd->hld.blk_store, &iter, 0,0,1,lst->data, 
-			      2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"g",lst->data), -1);		
+			gtk_tree_store_set(pd->hld.blk_store, &iter, 0,0,1,lst->data,
+			      2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"g",lst->data), -1);
 			while (lst2) {
 				gtk_tree_store_append(pd->hld.blk_store, &iter2, &iter);
 				gtk_tree_store_set(pd->hld.blk_store, &iter2, 0,1,1,lst2->data,
-					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"b",lst2->data), -1);			
+					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"b",lst2->data), -1);
 				lst2 = g_list_next(lst2);
-			}		
-			g_list_free(lst3);		
+			}
+			g_list_free(lst3);
 		}
 		lst3 = NULL;
 		hf->list = &lst3;
@@ -948,11 +950,11 @@ static gchar **hlg_find_pattern(Tprefdialog *pd, gchar *filetype, gchar *type, g
 		if ( lst2 ) {
 			gtk_tree_store_append(pd->hld.tk_store, &iter, NULL);
 			gtk_tree_store_set(pd->hld.tk_store, &iter, 0,0,1,lst->data,
-					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"g",lst->data),-1);		
+					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"g",lst->data),-1);
 			while (lst2) {
 				gtk_tree_store_append(pd->hld.tk_store, &iter2, &iter);
 				gtk_tree_store_set(pd->hld.tk_store, &iter2, 0,2,1,lst2->data,
-					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"t",lst2->data), -1);			
+					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"t",lst2->data), -1);
 				lst2 = g_list_next(lst2);
 			}
 			g_list_free(lst3);
@@ -967,10 +969,10 @@ static gchar **hlg_find_pattern(Tprefdialog *pd, gchar *filetype, gchar *type, g
 	while (lst2) {
 		gtk_tree_store_append(pd->hld.blk_store, &iter2, NULL);
 		gtk_tree_store_set(pd->hld.blk_store, &iter2, 0,1,1,lst2->data,
-					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"b",lst2->data), -1);			
+					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"b",lst2->data), -1);
 		lst2 = g_list_next(lst2);
 	}
-	g_list_free(lst3);		
+	g_list_free(lst3);
 	lst3 = NULL;
 	hf->list = &lst3;
 	hf->grpcrit = NULL;
@@ -979,19 +981,19 @@ static gchar **hlg_find_pattern(Tprefdialog *pd, gchar *filetype, gchar *type, g
 	while (lst2) {
 		gtk_tree_store_append(pd->hld.tk_store, &iter2, NULL);
 		gtk_tree_store_set(pd->hld.tk_store, &iter2, 0,2,1,lst2->data,
-					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"t",lst2->data), -1);			
+					2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"t",lst2->data), -1);
 		lst2 = g_list_next(lst2);
-	}		
-	g_list_free(lst3);		
+	}
+	g_list_free(lst3);
 
-	
+
 	g_free(hf);
-	if ( !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.blk_radio)) ) 
-		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.blk_radio),TRUE);	
+	if ( !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.blk_radio)) )
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.blk_radio),TRUE);
 	else
 		hlg_toggled(GTK_TOGGLE_BUTTON(pd->hld.blk_radio),pd);
 	if ( cfg->scan_tags ) {
-		gtk_widget_set_sensitive(pd->hld.tag_radio,TRUE);	
+		gtk_widget_set_sensitive(pd->hld.tag_radio,TRUE);
 		gtk_tree_model_get_iter_first(GTK_TREE_MODEL(pd->hld.tag_store),&iter);
 		gtk_tree_store_set(pd->hld.tag_store,&iter,2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"m","tag_begin"), -1);
 		gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->hld.tag_store),&iter);
@@ -999,11 +1001,11 @@ static gchar **hlg_find_pattern(Tprefdialog *pd, gchar *filetype, gchar *type, g
 		gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->hld.tag_store),&iter);
 		gtk_tree_store_set(pd->hld.tag_store,&iter,2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"m","attr_name"), -1);
 		gtk_tree_model_iter_next(GTK_TREE_MODEL(pd->hld.tag_store),&iter);
-		gtk_tree_store_set(pd->hld.tag_store,&iter,2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"m","attr_val"), -1);		
-	}	
+		gtk_tree_store_set(pd->hld.tag_store,&iter,2, hlg_find_pattern(pd,gtk_combo_box_get_active_text(widget),"m","attr_val"), -1);
+	}
 	else
-		gtk_widget_set_sensitive(pd->hld.tag_radio,FALSE);		
-	pd->hld.filetype_change = FALSE;		
+		gtk_widget_set_sensitive(pd->hld.tag_radio,FALSE);
+	pd->hld.filetype_change = FALSE;
 }*/
 /*
 static void hlg_apply_style(Tprefdialog *pd) {
@@ -1021,18 +1023,18 @@ static void hlg_apply_style(Tprefdialog *pd) {
 			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[atoi(strarr[6])]),TRUE);
 		} else {
 			gtk_entry_set_text(GTK_ENTRY(pd->hld.fg_color),"");
-			gtk_entry_set_text(GTK_ENTRY(pd->hld.bg_color),"");		
+			gtk_entry_set_text(GTK_ENTRY(pd->hld.bg_color),"");
 			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.bold_radio[0]),TRUE);
-			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[0]),TRUE);			
+			gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[0]),TRUE);
 		}
 	}
 }*/
 /*
 static void hlg_cursor_changed  (GtkTreeView *treeview, gpointer user_data) {
 	Tprefdialog *pd = (Tprefdialog *)user_data;
-	pd->hld.filetype_change = TRUE;		
+	pd->hld.filetype_change = TRUE;
 	hlg_apply_style(pd);
-	pd->hld.filetype_change = FALSE;		
+	pd->hld.filetype_change = FALSE;
 }*/
 
 /* static void hlg_apply_changes_to_item(Tprefdialog *pd) {
@@ -1045,41 +1047,41 @@ static void hlg_cursor_changed  (GtkTreeView *treeview, gpointer user_data) {
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hld.tree));
 	if ( !select ) return;
 	if (gtk_tree_selection_get_selected (select,NULL,&iter)) {
-		gtk_tree_model_get(GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter, 2, &strarr, -1);	
+		gtk_tree_model_get(GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter, 2, &strarr, -1);
 		if ( strarr ) { / * already have array * /
 			strarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->hld.fg_color),0,-1);
 			strarr[4] = gtk_editable_get_chars(GTK_EDITABLE(pd->hld.bg_color),0,-1);
 			g_free(strarr[5]);
 			if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.bold_radio[1])) )
 				strarr[5] = g_strdup("1");
-			else if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.bold_radio[2])) )	
+			else if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.bold_radio[2])) )
 				strarr[5] = g_strdup("2");
 			else
-				strarr[5] = g_strdup("0");	
-			g_free(strarr[6]);	
+				strarr[5] = g_strdup("0");
+			g_free(strarr[6]);
 			if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[1])) )
 				strarr[6] = g_strdup("1");
-			else if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[2])) )	
-				strarr[6] = g_strdup("2");				
+			else if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[2])) )
+				strarr[6] = g_strdup("2");
 			else
-				strarr[6] = g_strdup("0");	
+				strarr[6] = g_strdup("0");
 		} else { / * create new array * /
 			strarr = g_malloc(8*sizeof(gchar *));
 			strarr[7] = NULL;
-			strarr[0] = g_strdup(gtk_combo_box_get_active_text(GTK_COMBO_BOX(pd->hld.ftype_combo)));				
-			gtk_tree_model_get(GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter, 0, &tp, -1);	
+			strarr[0] = g_strdup(gtk_combo_box_get_active_text(GTK_COMBO_BOX(pd->hld.ftype_combo)));
+			gtk_tree_model_get(GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter, 0, &tp, -1);
 			switch ( tp ) {
 				case 0: / * group * /
 					strarr[1] = g_strdup("g");break;
 				case 1: / * block  * /
 					strarr[1] = g_strdup("b");break;
 				case 2: / * token * /
-					strarr[1] = g_strdup("t");break;					
+					strarr[1] = g_strdup("t");break;
 				case 3: / * markup * /
-				case 4: 
+				case 4:
 				case 5:
 				case 6:
-					strarr[1] = g_strdup("m");break;										
+					strarr[1] = g_strdup("m");break;
 			}
 			if ( tp < 3 ) {
 				gtk_tree_model_get(GTK_TREE_MODEL(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter, 1, &pomstr, -1);
@@ -1091,46 +1093,46 @@ static void hlg_cursor_changed  (GtkTreeView *treeview, gpointer user_data) {
 					case 5: strarr[2] = g_strdup("attr_name");break;
 					case 6: strarr[2] = g_strdup("attr_val");break;
 				}
-			}	
+			}
 			strarr[3] = gtk_editable_get_chars(GTK_EDITABLE(pd->hld.fg_color),0,-1);
 			strarr[4] = gtk_editable_get_chars(GTK_EDITABLE(pd->hld.bg_color),0,-1);
 			if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.bold_radio[1])) )
 				strarr[5] = g_strdup("1");
-			else if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.bold_radio[2])) )	
+			else if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.bold_radio[2])) )
 				strarr[5] = g_strdup("2");
 			else
-				strarr[5] = g_strdup("0");	
+				strarr[5] = g_strdup("0");
 			if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[1])) )
 				strarr[6] = g_strdup("1");
-			else if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[2])) )	
-				strarr[6] = g_strdup("2");				
+			else if ( gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pd->hld.italic_radio[2])) )
+				strarr[6] = g_strdup("2");
 			else
-				strarr[6] = g_strdup("0");				
+				strarr[6] = g_strdup("0");
 			gtk_tree_store_set(GTK_TREE_STORE(gtk_tree_view_get_model(GTK_TREE_VIEW(pd->hld.tree))), &iter,
-			   2, strarr,-1);	
-			pd->lists[highlight_patterns] = g_list_append(pd->lists[highlight_patterns],strarr);   
+			   2, strarr,-1);
+			pd->lists[highlight_patterns] = g_list_append(pd->lists[highlight_patterns],strarr);
 		} / * create new array * /
 	}	/ * get_selected * /
 }
 */
 
-/* 
+/*
 the new GUI will look like this (only 1st column is visible, 2, 3 and 4 are not rendered):
 
 -|- PHP                    "PHP"        NULL,   NULL
  |  |- php-group           "PHP",       "g"     NULL, or some gchar **
  |  |  |- comment          "PHP",       "b"     NULL, or some gchar **
- |  |  |- braces             ... .... 
- |  |- markup group             ... .... 
- |  |- general             ... .... 
- |  |- keywords             ... .... 
+ |  |  |- braces             ... ....
+ |  |- markup group             ... ....
+ |  |- general             ... ....
+ |  |- keywords             ... ....
  |  |- tag begin            "PHP",       "begin_tag"    NULL, or some gchar **
- |  |- tag end             ... .... 
+ |  |- tag end             ... ....
  |
  |-Python
  |  |
 
-in the liststore, we will have three columns: 
+in the liststore, we will have three columns:
 	0: the visible name
 	1: the filetype
 	2: the type as stored in the config file
@@ -1165,7 +1167,7 @@ static void fill_hl_tree(Tprefdialog *pd) {
 	GList *tmplist;
 	GHashTable *hasht;
 	hasht = g_hash_table_new(arr3_hash,arr3_equal);
-	
+
 	/* first fill the hashtable */
 	tmplist=g_list_first(pd->lists[syntax_styles]);
 	while (tmplist) {
@@ -1177,11 +1179,11 @@ static void fill_hl_tree(Tprefdialog *pd) {
 			/* removes broken and duplicate values from the list */
 			pd->lists[syntax_styles] = g_list_remove(pd->lists[syntax_styles], tmp);
 		}
-		
+
 	}
 #ifdef USE_BFTEXTVIEW2
 	/* TODO */
-#else	
+#else
 	tmplist = g_list_first(main_v->lang_mgr->languages);
 	while (tmplist) {
 		BfLangConfig *cfg = (BfLangConfig *)tmplist->data;
@@ -1194,7 +1196,7 @@ static void fill_hl_tree(Tprefdialog *pd) {
 			gtk_tree_store_set(pd->hld.tstore, &ftiter
 					,0,cfg->name,1,cfg->name,2, NULL,3,NULL, -1);
 
-			/* add blocks/tokens/tags to the tree, the user doesn't need to know if something is a block, a token or 
+			/* add blocks/tokens/tags to the tree, the user doesn't need to know if something is a block, a token or
 			a tag, so we insert their groups in the same level for the user */
 			grouplist = bf_lang_get_groups(cfg);
 			for (tmplist = g_list_first(grouplist);tmplist;tmplist = g_list_next(tmplist)) {
@@ -1235,7 +1237,7 @@ static void fill_hl_tree(Tprefdialog *pd) {
 		tmplist = g_list_next(tmplist);
 	}
 	g_hash_table_unref(hasht);
-#endif 
+#endif
 }
 
 static void hl_set_textstylecombo_by_text(Tprefdialog *pd, const gchar *text) {
@@ -1332,11 +1334,11 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	gtk_box_pack_start(GTK_BOX(hbox), scrolledwindow1, TRUE, TRUE, 2);
 	gtk_container_set_border_width (GTK_CONTAINER (scrolledwindow1), 2);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwindow1), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-	/* fill the tree */	
+	/* fill the tree */
 	fill_hl_tree(pd);
 	/* fill the combo box model */
 	fill_hl_combo(pd);
-	
+
 	/* create the view component */
 	pd->hld.tview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->hld.tstore));
 	gtk_container_add (GTK_CONTAINER(scrolledwindow1), pd->hld.tview);
@@ -1346,7 +1348,7 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	renderer = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,"text", 0,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(pd->hld.tview), column);
-	
+
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hld.tview));
 	g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(hl_selection_changed_cb),pd);
 	vbox = gtk_vbox_new(TRUE,0);
@@ -1357,42 +1359,42 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(pd->hld.textstyle),renderer, TRUE);
 	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(pd->hld.textstyle), renderer, "text", 0, NULL);
 	g_signal_connect(G_OBJECT(pd->hld.textstyle), "changed",G_CALLBACK(hl_textstylecombo_changed),pd);
-	
-	
+
+
 	gtk_box_pack_start(GTK_BOX(vbox), pd->hld.textstyle, TRUE, FALSE, 2);
-	
+
 /*	reset_btn = gtk_button_new_with_mnemonic (_("Reset"));
 	gtk_box_pack_start(GTK_BOX (hbox1), reset_btn, FALSE, FALSE, 2);
 	gtk_container_set_border_width (GTK_CONTAINER (reset_btn), 2);
-	
+
 	vbox2 = gtk_vbox_new (FALSE, 3);
 	gtk_box_pack_start (GTK_BOX (vbox1), vbox2, TRUE, TRUE, 0);
 	pd->hld.main_view = vbox2;
-	
+
 	hbox2 = gtk_hbox_new (FALSE, 3);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox2, TRUE, TRUE, 3);
-	
+
 	pd->hld.blk_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Blocks"));
 	gtk_box_pack_start (GTK_BOX (hbox2), pd->hld.blk_radio, FALSE, FALSE, 2);
 	gtk_container_set_border_width (GTK_CONTAINER (pd->hld.blk_radio), 2);
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (pd->hld.blk_radio), blk_radio_group);
 	blk_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (pd->hld.blk_radio));
-	
+
 	pd->hld.tk_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Tokens"));
 	gtk_box_pack_start (GTK_BOX (hbox2), pd->hld.tk_radio, FALSE, FALSE, 2);
 	gtk_container_set_border_width (GTK_CONTAINER (pd->hld.tk_radio), 2);
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (pd->hld.tk_radio), blk_radio_group);
 	blk_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (pd->hld.tk_radio));
-	
+
 	pd->hld.tag_radio = gtk_radio_button_new_with_mnemonic (NULL, _("Tags"));
 	gtk_box_pack_start (GTK_BOX (hbox2), pd->hld.tag_radio, FALSE, FALSE, 2);
 	gtk_container_set_border_width (GTK_CONTAINER (pd->hld.tag_radio), 2);
 	gtk_radio_button_set_group (GTK_RADIO_BUTTON (pd->hld.tag_radio), blk_radio_group);
 	blk_radio_group = gtk_radio_button_get_group (GTK_RADIO_BUTTON (pd->hld.tag_radio));
-	
+
 	hbox3 = gtk_hbox_new (FALSE, 3);
 	gtk_box_pack_start (GTK_BOX (vbox2), hbox3, TRUE, TRUE, 0);*/
-	
+
 /*	t_pbox = gtk_vbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox3), t_pbox, TRUE, TRUE, 5);
 	pd->hld.fg_color = prefs_string(_("Foreground color"), "", t_pbox, pd, string_color);
@@ -1409,7 +1411,7 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[1], TRUE, TRUE, 0);
 	pd->hld.italic_radio[2] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hld.italic_radio[0]), _("force italic style"));
 	gtk_box_pack_start(GTK_BOX(t_pbox),pd->hld.italic_radio[2], TRUE, TRUE, 0);*/
-	
+
 /*	g_signal_connect(G_OBJECT(pd->hld.ftype_combo),"changed",G_CALLBACK(hlg_ftype_changed),pd);
 	g_signal_connect(G_OBJECT(pd->hld.blk_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
 	g_signal_connect(G_OBJECT(pd->hld.tk_radio),"toggled",G_CALLBACK(hlg_toggled),pd);
@@ -1488,7 +1490,7 @@ static void create_extcommands_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_extcommands_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_extcommands_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);	
+	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 }
 
 /************ external filters?? code ****************/
@@ -1527,7 +1529,7 @@ static void create_filters_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->ed.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->ed.lstore));
 	pref_create_column(GTK_TREE_VIEW(pd->ed.lview), 1, G_CALLBACK(external_filter_0_edited_lcb), pd, _("Label"), 0);
 	pref_create_column(GTK_TREE_VIEW(pd->ed.lview), 1, G_CALLBACK(external_filter_1_edited_lcb), pd, _("Command"), 1);
-	
+
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label), _("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n%s local filename (requires local file, cannot operate on selection)\n%i temporary fifo for input\n%I temporary filename for input\n<b>Output options</b>\nend with a | to read the output from the standard output\n%o temporary fifo\n%O temporary filename\n%t temporary filename for both input and output (for in-place-editing filters, cannot operate on selection)\n<b>Other options</b>\n%c local directory of file (requires local file)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
 	gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);
@@ -1551,13 +1553,13 @@ static void create_filters_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->ed.insertloc = -1;
 	g_signal_connect(G_OBJECT(pd->ed.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->ed);
 	g_signal_connect(G_OBJECT(pd->ed.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->ed);
-	
+
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1),hbox, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_external_filter_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_external_filter_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);	
+	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 }
 
 /************ outputbox code ****************/
@@ -1676,7 +1678,7 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	pd->lists[extcommands] = NULL;
 	pd->lists[extfilters] = NULL;
 	pd->lists[extoutputbox] = NULL;
-	
+
 /*	g_signal_handlers_destroy(G_OBJECT(GTK_COMBO(pd->bd.combo)->list));*/
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->bd.lview));
 	g_signal_handlers_destroy(G_OBJECT(select));
@@ -1697,12 +1699,12 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
 	integer_apply(&main_v->props.word_wrap, pd->prefs[word_wrap], TRUE);
-	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);	
+	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);
 	integer_apply(&main_v->props.view_blocks, pd->prefs[view_blocks], TRUE);
 	integer_apply(&main_v->props.view_mbhl, pd->prefs[view_mbhl], TRUE);
 	integer_apply(&main_v->props.view_cline, pd->prefs[view_cline], TRUE);
 	string_apply(&main_v->props.editor_fg, pd->prefs[editor_fg]);
-	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);	
+	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);
 #ifndef USE_BFTEXTVIEW2
 	integer_apply(&main_v->props.view_symbols, pd->prefs[view_symbols], TRUE);
 	integer_apply(&main_v->props.tag_autoclose, pd->prefs[tag_autoclose], TRUE);
@@ -1713,12 +1715,12 @@ static void preferences_apply(Tprefdialog *pd) {
 	{
 	  	guint key;
 		GdkModifierType mod;
-		g_closure_ref(main_v->autocompletion->closure);		
+		g_closure_ref(main_v->autocompletion->closure);
 		gtk_accel_group_disconnect(main_v->autocompletion->group,main_v->autocompletion->closure);
-		button_apply(&main_v->props.autocomp_key, pd->prefs[autocomp_key]);		
+		button_apply(&main_v->props.autocomp_key, pd->prefs[autocomp_key]);
 		gtk_accelerator_parse(main_v->props.autocomp_key,&key,&mod);
 		gtk_accel_group_connect(main_v->autocompletion->group,key,mod,GTK_ACCEL_VISIBLE, main_v->autocompletion->closure);
-		g_closure_unref(main_v->autocompletion->closure);					
+		g_closure_unref(main_v->autocompletion->closure);
 	}
 #endif
 	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
@@ -1739,7 +1741,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.auto_update_meta_author, pd->prefs[auto_update_meta_author], TRUE);
 	integer_apply(&main_v->props.auto_update_meta_date, pd->prefs[auto_update_meta_date], TRUE);
 	integer_apply(&main_v->props.auto_update_meta_generator, pd->prefs[auto_update_meta_generator], TRUE);
-	
+
 	string_apply(&main_v->props.newfile_default_encoding, GTK_COMBO(pd->prefs[newfile_default_encoding])->entry);
 	integer_apply(&main_v->props.auto_set_encoding_meta, pd->prefs[auto_set_encoding_meta], TRUE);
 	integer_apply(&main_v->props.backup_file, pd->prefs[backup_file], TRUE);
@@ -1767,16 +1769,16 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.switch_tabs_by_altx, pd->prefs[switch_tabs_by_altx], TRUE);
 	main_v->props.leftpanel_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[leftpanel_tabposition]));
 	main_v->props.left_panel_left = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[left_panel_left]));
-	
+
 /*	integer_apply(&main_v->props.view_main_toolbar, pd->prefs[view_main_toolbar], TRUE);
 	integer_apply(&main_v->props.view_left_panel, pd->prefs[view_left_panel], TRUE);
 	integer_apply(&main_v->props.view_custom_menu, pd->prefs[view_custom_menu], TRUE);
 	integer_apply(&main_v->props.view_html_toolbar, pd->prefs[view_html_toolbar], TRUE);*/
 	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
-	
+
 /*	string_apply(&main_v->props.default_basedir, pd->prefs[default_basedir]);*/
 	string_apply(&main_v->props.filebrowser_unknown_icon, pd->prefs[filebrowser_unknown_icon]);
-	
+
 	string_apply(&main_v->props.image_thumbnailstring, pd->prefs[image_thumbnailstring]);
 	string_apply(&main_v->props.image_thumbnailtype, GTK_COMBO(pd->prefs[image_thumbnailtype])->entry);
 
@@ -1797,13 +1799,13 @@ static void preferences_apply(Tprefdialog *pd) {
 	DEBUG_MSG("preferences_apply: free old syntax styles, and building new list\n");
 	free_arraylist(main_v->props.syntax_styles);
 	main_v->props.syntax_styles = duplicate_arraylist(pd->lists[syntax_styles]);
-#endif	
+#endif
 	free_arraylist(main_v->props.external_command);
 	main_v->props.external_command = duplicate_arraylist(pd->lists[extcommands]);
-	
+
 	free_arraylist(main_v->props.external_filter);
 	main_v->props.external_filter = duplicate_arraylist(pd->lists[extfilters]);
-	
+
 	free_arraylist(main_v->props.external_outputbox);
 	main_v->props.external_outputbox = duplicate_arraylist(pd->lists[extoutputbox]);
 
@@ -1812,7 +1814,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.textstyles = duplicate_arraylist(pd->lists[textstyles]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
-#ifdef USE_BFTEXTVIEW2	
+#ifdef USE_BFTEXTVIEW2
 	langmgr_reload_user_styles(main_v->props.textstyles);
 	/* TODO for highlight styles */
 #else
@@ -1857,7 +1859,7 @@ static void restore_dimensions_toggled_lcb(GtkToggleButton *togglebutton,Tprefdi
 		gtk_widget_set_sensitive(pd->prefs[main_window_w], !togglebutton->active);
 	} else if (togglebutton == GTK_TOGGLE_BUTTON(pd->prefs[leave_to_window_manager])) {
 		gtk_widget_set_sensitive(pd->prefs[restore_dimensions], !togglebutton->active);
-		
+
 		gtk_widget_set_sensitive(pd->prefs[left_panel_width], !togglebutton->active && !GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions])->active);
 		gtk_widget_set_sensitive(pd->prefs[main_window_h], !togglebutton->active && !GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions])->active);
 		gtk_widget_set_sensitive(pd->prefs[main_window_w], !togglebutton->active && !GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions])->active);
@@ -1878,16 +1880,16 @@ void preftree_cursor_changed_cb (GtkTreeView *treeview, gpointer user_data) {
 	GtkTreeIter iter;
 	gpointer child;
 	GList *lst;
-	
+
 	lst = gtk_container_get_children(GTK_CONTAINER(pd->fixed));
 	while (lst) {
 		if (GTK_IS_WIDGET(lst->data)) {
 			g_object_ref(G_OBJECT(lst->data));
 			gtk_container_remove(GTK_CONTAINER(pd->fixed),lst->data);
-		}	
+		}
 		lst = g_list_next(lst);
 	}
-	
+
 	gtk_tree_view_get_cursor(treeview,&path,NULL);
 	if ( path ) {
 		gtk_tree_model_get_iter(GTK_TREE_MODEL(pd->nstore),&iter,path);
@@ -1895,20 +1897,20 @@ void preftree_cursor_changed_cb (GtkTreeView *treeview, gpointer user_data) {
 		if ( child ) {
 			gtk_box_pack_start(GTK_BOX(pd->fixed),child,TRUE,TRUE,1);
 			gtk_widget_show_all(pd->fixed);
-		}	
+		}
 		gtk_tree_path_free(path);
 	}
 }
 
 #ifndef USE_BFTEXTVIEW2
 /* List of language files */
-	
+
 static void rescan_lang_files(Tprefdialog *pd)
 {
 	const gchar *filename;
 	GError *error = NULL;
 	GtkTreeIter iter;
-	GPatternSpec *ps = g_pattern_spec_new("*.bflang"); 
+	GPatternSpec *ps = g_pattern_spec_new("*.bflang");
 	GDir *gd;
 	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
 
@@ -1918,7 +1920,7 @@ static void rescan_lang_files(Tprefdialog *pd)
 		pd->lang_files = gtk_list_store_new (1, G_TYPE_STRING);
 	}
 	gtk_list_store_append (pd->lang_files, &iter);
- 	gtk_list_store_set (pd->lang_files, &iter,0, "",-1);	
+ 	gtk_list_store_set (pd->lang_files, &iter,0, "",-1);
 	gd = g_dir_open(PKGDATADIR, 0, &error);
 	if (gd) {
 		filename = g_dir_read_name(gd);
@@ -1931,7 +1933,7 @@ static void rescan_lang_files(Tprefdialog *pd)
 		}
 		g_dir_close(gd);
 	}
-	
+
 	gd = g_dir_open(userdir, 0, &error);
 	filename = g_dir_read_name(gd);
 	while (filename) {
@@ -1954,16 +1956,16 @@ static void preferences_dialog() {
 	gchar *notebooktabpositions[] = {N_("left"), N_("right"), N_("top"), N_("bottom"), NULL};
 	gchar *panellocations[] = {N_("right"), N_("left"), NULL};
 	gchar *modified_check_types[] = {N_("Nothing"), N_("Modified time and file size"), N_("Modified time"), N_("File size"), NULL};
-	GtkWidget *dhbox, *label;	
+	GtkWidget *dhbox, *label;
 	GtkCellRenderer *cell;
-	GtkTreeViewColumn *column;	
+	GtkTreeViewColumn *column;
 	GtkTreeIter auxit,iter;
 	GtkTreePath *path;
 
 	pd = g_new0(Tprefdialog,1);
 	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
 #ifndef USE_BFTEXTVIEW2
-	rescan_lang_files(pd);*/
+	rescan_lang_files(pd);
 #endif
 	dvbox = gtk_vbox_new(FALSE, 5);
 	dhbox = gtk_hbox_new(FALSE, 5);
@@ -1975,14 +1977,14 @@ static void preferences_dialog() {
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "text", NAMECOL, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(pd->noteb), column);
-	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(pd->noteb), FALSE);	
+	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW(pd->noteb), FALSE);
 	gtk_box_pack_start(GTK_BOX(dvbox), dhbox, TRUE, TRUE, 5);
 	gtk_container_add(GTK_CONTAINER(pd->win), dvbox);
 /*
 	gtk_container_add(GTK_CONTAINER(pd->win), dvbox);
 	pd->noteb = gtk_notebook_new();
 	gtk_notebook_set_homogeneous_tabs(GTK_NOTEBOOK(pd->noteb), TRUE);
-	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(pd->noteb), GTK_POS_LEFT);	
+	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(pd->noteb), GTK_POS_LEFT);
 	gtk_box_pack_start(GTK_BOX(dvbox), pd->noteb, FALSE, FALSE, 0);
 */
 
@@ -2001,20 +2003,20 @@ static void preferences_dialog() {
 
 	pd->prefs[editor_show_splash_screen] = boxed_checkbut_with_value(_("Show splash-screen"), main_v->props.show_splash_screen, vbox2);
 #endif /* #ifndef NOSPLASH */
-	
+
 	frame = gtk_frame_new(_("Editor options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
-	pd->prefs[editor_font_string] = prefs_string(_("Font"), main_v->props.editor_font_string, vbox2, pd, string_font);	
+
+	pd->prefs[editor_font_string] = prefs_string(_("Font"), main_v->props.editor_font_string, vbox2, pd, string_font);
 	pd->prefs[editor_fg] = prefs_string(_("Foreground color"), main_v->props.editor_fg, vbox2, pd, string_color);
-	pd->prefs[editor_bg] = prefs_string(_("Background color"), main_v->props.editor_bg, vbox2, pd, string_color);	
+	pd->prefs[editor_bg] = prefs_string(_("Background color"), main_v->props.editor_bg, vbox2, pd, string_color);
 	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
 	pd->prefs[editor_smart_cursor] = boxed_checkbut_with_value(_("Smart cursor positioning"), main_v->props.editor_smart_cursor, vbox2);
 	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap default"), main_v->props.word_wrap, vbox2);
-	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);	
+	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);
 	pd->prefs[view_blocks] = boxed_checkbut_with_value(_("Block folding view by default"), main_v->props.view_blocks, vbox2);
 #ifndef USE_BFTEXTVIEW2
 	pd->prefs[view_symbols] = boxed_checkbut_with_value(_("Symbols view by default"), main_v->props.view_symbols, vbox2);
@@ -2030,12 +2032,12 @@ static void preferences_dialog() {
 
 	pd->prefs[num_undo_levels] = prefs_integer(_("Undo history size"), main_v->props.num_undo_levels, vbox2, pd, 50, 10000);
 	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);
-	
+
 /*	frame = gtk_frame_new(_("Bookmark options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
+
 	pd->prefs[bookmarks_default_store] = boxed_checkbut_with_value(_("Make permanent by default"), main_v->props.bookmarks_default_store, vbox2);
 	{
 		gchar *actions[] = {N_("full path"), N_("path from basedir"), N_("filename"), NULL};
@@ -2045,7 +2047,7 @@ static void preferences_dialog() {
 	vbox1 = gtk_vbox_new(FALSE, 5);
 
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("HTML"), WIDGETCOL,vbox1,-1);	
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("HTML"), WIDGETCOL,vbox1,-1);
 /*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("HTML"),154,TRUE));
 */
@@ -2054,20 +2056,20 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
+
 	pd->prefs[lowercase_tags] = boxed_checkbut_with_value(_("Lowercase HTML tags"), main_v->props.lowercase_tags, vbox2);
 	pd->prefs[allow_dep] = boxed_checkbut_with_value(_("Use deprecated tags (e.g. <font> and <nobr>)"), main_v->props.allow_dep, vbox2);
 	pd->prefs[xhtml] = boxed_checkbut_with_value(_("Use XHTML style tags (<br />)"), main_v->props.xhtml, vbox2);
 	pd->prefs[insert_close_tag] = boxed_checkbut_with_value(_("Automatically close tags"), main_v->props.insert_close_tag, vbox2);
 	pd->prefs[close_tag_newline] = boxed_checkbut_with_value(_("Prepend close tags with a newline"), main_v->props.close_tag_newline, vbox2);
-	
+
 	pd->prefs[auto_update_meta_author] = boxed_checkbut_with_value(_("Automatically update author meta tag"), main_v->props.auto_update_meta_author, vbox2);
 	pd->prefs[auto_update_meta_date] = boxed_checkbut_with_value(_("Automatically update date meta tag"), main_v->props.auto_update_meta_date, vbox2);
 	pd->prefs[auto_update_meta_generator] = boxed_checkbut_with_value(_("Automatically update generator meta tag"), main_v->props.auto_update_meta_generator, vbox2);
-	
+
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Files"), WIDGETCOL,vbox1,-1);	
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Files"), WIDGETCOL,vbox1,-1);
 /*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Files"),152,TRUE));
 */
@@ -2086,7 +2088,7 @@ static void preferences_dialog() {
 		}
 		pd->prefs[newfile_default_encoding] = prefs_combo(_("Default character set for new files"),main_v->props.newfile_default_encoding, vbox2, pd, poplist, TRUE);
 		g_list_free(poplist);
-	}	
+	}
 	pd->prefs[auto_set_encoding_meta] = boxed_checkbut_with_value(_("Auto set <meta> HTML tag on encoding change"), main_v->props.auto_set_encoding_meta, vbox2);
 
 	frame = gtk_frame_new(_("Backup"));
@@ -2114,7 +2116,7 @@ static void preferences_dialog() {
 
 #ifdef WITH_MSG_QUEUE
 	pd->prefs[open_in_running_bluefish] = boxed_checkbut_with_value(_("Open files in already running bluefish window"),main_v->props.open_in_running_bluefish, vbox2);
-#endif /* WITH_MSG_QUEUE */		
+#endif /* WITH_MSG_QUEUE */
 	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(_("File properties to check on disk for modifications"), main_v->props.modified_check_type, vbox2, modified_check_types);
 	pd->prefs[do_periodic_check] = boxed_checkbut_with_value(_("Periodically check if file is modified on disk"), main_v->props.do_periodic_check, vbox2);
 	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent' menu"), main_v->props.max_recent_files, vbox2, pd, 3, 100);
@@ -2122,13 +2124,13 @@ static void preferences_dialog() {
 	vbox1 = gtk_vbox_new(FALSE, 5);
 
 	gtk_tree_store_append(pd->nstore, &iter, NULL);
-	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("User interface"), WIDGETCOL,vbox1,-1);	
+	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("User interface"), WIDGETCOL,vbox1,-1);
 
    frame = gtk_frame_new(_("General"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
+
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font \n(leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
 	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
@@ -2138,13 +2140,13 @@ static void preferences_dialog() {
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Dimensions"), WIDGETCOL,vbox1,-1);	
-	
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Dimensions"), WIDGETCOL,vbox1,-1);
+
 	frame = gtk_frame_new(_("Dimensions"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
+
 	pd->prefs[leave_to_window_manager] = boxed_checkbut_with_value(_("Leave dimensions to window manager"), main_v->props.leave_to_window_manager, vbox2);
 	pd->prefs[restore_dimensions] = boxed_checkbut_with_value(_("Restore last used dimensions"), main_v->props.restore_dimensions, vbox2);
 	pd->prefs[left_panel_width] = prefs_integer(_("Initial sidebar width"), main_v->globses.left_panel_width, vbox2, pd, 1, 4000);
@@ -2156,7 +2158,7 @@ static void preferences_dialog() {
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("File and directory view"), WIDGETCOL,vbox1,-1);	
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("File and directory view"), WIDGETCOL,vbox1,-1);
 
 	frame = gtk_frame_new(_("File and directory view"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2167,7 +2169,7 @@ static void preferences_dialog() {
 
 /*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("User interface"), 156,TRUE));
-	
+
 	frame = gtk_frame_new(_("Dimensions"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
@@ -2178,12 +2180,12 @@ static void preferences_dialog() {
 	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->globses.main_window_w, vbox2, pd, 1, 4000);
 	restore_dimensions_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions]), pd);
 	g_signal_connect(G_OBJECT(pd->prefs[restore_dimensions]), "toggled", G_CALLBACK(restore_dimensions_toggled_lcb), pd);
-	
+
 	frame = gtk_frame_new(_("General"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
+
 / *	pd->prefs[view_main_toolbar] = boxed_checkbut_with_value(_("Show main toolbar by default"), main_v->props.view_main_toolbar, vbox2);
 	pd->prefs[view_left_panel] = boxed_checkbut_with_value(_("Show sidebar by default"), main_v->props.view_left_panel, vbox2);
 	pd->prefs[view_custom_menu] = boxed_checkbut_with_value(_("Show custom menu by default"), main_v->props.view_custom_menu, vbox2);
@@ -2191,7 +2193,7 @@ static void preferences_dialog() {
 	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
 
 	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font (leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
-	
+
 	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
 	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Sidebar notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
 	pd->prefs[left_panel_left] = boxed_optionmenu_with_value(_("Sidebar location"), main_v->props.left_panel_left, vbox2, panellocations);
@@ -2199,11 +2201,11 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
+
 	pd->prefs[bflib_info_font] = prefs_string(_("Font"), main_v->props.bflib_info_font, vbox2, pd, string_font);
 	pd->prefs[bflib_info_bkg] = prefs_string(_("Info background color"), main_v->props.bflib_info_bkg, vbox2, pd, string_color);
 	pd->prefs[bflib_info_fg] = prefs_string(_("Info foreground color"), main_v->props.bflib_info_fg, vbox2, pd, string_color);
-	
+
 */
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
@@ -2226,7 +2228,7 @@ static void preferences_dialog() {
 /*
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("File types"), WIDGETCOL,vbox1,-1);*/	
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("File types"), WIDGETCOL,vbox1,-1);*/
 /*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("File types"), 153,TRUE));
 */
@@ -2239,13 +2241,13 @@ static void preferences_dialog() {
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("External commands"), WIDGETCOL,vbox1,-1);	
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("External commands"), WIDGETCOL,vbox1,-1);
 
-	
+
 /*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External commands"), 151,TRUE));
 */
-	
+
 	frame = gtk_frame_new(_("Commands"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 5);
@@ -2254,11 +2256,11 @@ static void preferences_dialog() {
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("External filters"), WIDGETCOL,vbox1,-1);	
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("External filters"), WIDGETCOL,vbox1,-1);
 /*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External filters"), 151,TRUE));
 */
-	
+
 	frame = gtk_frame_new(_("Filters"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 5);
@@ -2267,11 +2269,11 @@ static void preferences_dialog() {
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Output parsers"), WIDGETCOL,vbox1,-1);	
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Output parsers"), WIDGETCOL,vbox1,-1);
 /*
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Output parsers"), 157,TRUE));
 */
-	
+
 	frame = gtk_frame_new(_("Output parsers"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 5);
@@ -2294,19 +2296,19 @@ static void preferences_dialog() {
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Text styles"), WIDGETCOL,vbox1,-1);
 	frame = gtk_frame_new(_("Text styles"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);	
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_textstyle_gui(pd,vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	
+
 	gtk_tree_store_append(pd->nstore, &iter, NULL);
-	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("Syntax scanning"), WIDGETCOL,vbox1,-1);	
+	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("Syntax scanning"), WIDGETCOL,vbox1,-1);
 
 
 	frame = gtk_frame_new(_("Advanced syntax scanning options"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);	
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[view_mbhl] = boxed_checkbut_with_value(_("Match block begin-end by default"), main_v->props.view_mbhl, vbox2);
@@ -2323,11 +2325,11 @@ static void preferences_dialog() {
 #endif
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);	
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);
 
 
 	frame = gtk_frame_new(_("Syntax highlighting"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);	
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	create_hl_gui(pd,vbox2);
@@ -2351,9 +2353,9 @@ static void preferences_dialog() {
 		gtk_window_set_default(GTK_WINDOW(pd->win), but);
 	}
 
-	
+
 	gtk_widget_show_all(pd->win);
-	
+
 	g_signal_connect(G_OBJECT(pd->noteb),"cursor-changed",G_CALLBACK(preftree_cursor_changed_cb),pd);
 	path = gtk_tree_path_new_first();
 	gtk_tree_view_set_cursor(GTK_TREE_VIEW(pd->noteb),path,NULL,FALSE);

@@ -1,14 +1,34 @@
+/* Bluefish HTML Editor
+ * bftextview2_patcompile.c
+ *
+ * Copyright (C) 2008 Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
 /* for the design docs see bftextview2.h */
 #include <string.h>
 #include "bftextview2_patcompile.h"
 
 /*
-we need real regex pattern support as well. 
+we need real regex pattern support as well.
 
-we don't do everything that pcre or posix regex patterns can 
-do - these engines have features that cannot be done in a DFA  
+we don't do everything that pcre or posix regex patterns can
+do - these engines have features that cannot be done in a DFA
 
-There are several ways in which regex patterns can be simplified: 
+There are several ways in which regex patterns can be simplified:
 
 a(bc)+ == abc(abc)*
 [a-z]+ == [a-z][a-z]*
@@ -136,8 +156,8 @@ static void create_state_tables(Tscantable *st, gint16 context, gchar *character
 								} else {
 									g_array_index(st->table, Ttablerow, pos).row[c] = newstate;
 								}
-							} 
-								
+							}
+
 						}
 					}
 				} else {
@@ -146,7 +166,7 @@ static void create_state_tables(Tscantable *st, gint16 context, gchar *character
 						DBG_PATCOMPILE("create_state_tables, create newstate %d, pointtoself=%d\n",newstate,pointtoself);
 						g_array_set_size(st->table,st->table->len+1);
 						if (!end_is_symbol)
-							/* normally this memcpy copies the identstate to the current state such that all symbols still point to the 
+							/* normally this memcpy copies the identstate to the current state such that all symbols still point to the
 							startstate but all non-symbols point to the identstate. Only if the last character ITSELF is a symbol, ALL next
 							characters may point to state 0 and make this a valid match and we don't have to copy yhr identstate  */
 							memcpy(g_array_index(st->table, Ttablerow, newstate).row, g_array_index(st->table, Ttablerow, g_array_index(st->contexts, Tcontext, context).identstate).row, sizeof(guint16[NUMSCANCHARS]));
@@ -154,7 +174,7 @@ static void create_state_tables(Tscantable *st, gint16 context, gchar *character
 						if (pointtoself) {
 							guint d;
 							for (d=0;d<NUMSCANCHARS;d++) {
-								if (characters[d]==1) { 
+								if (characters[d]==1) {
 									/*DBG_PATCOMPILE("in newstate %d, character %c points to %d\n",newstate,d,newstate);*/
 									g_array_index(st->table, Ttablerow, newstate).row[d] = newstate;
 								}
@@ -174,7 +194,7 @@ static void create_state_tables(Tscantable *st, gint16 context, gchar *character
 static void merge_queues(GQueue *target, GQueue *src) {
 	while (g_queue_get_length(src)) {
 		DBG_PATCOMPILE("merge queue, push state %d to queue\n",GPOINTER_TO_INT(g_queue_peek_head(src)));
-		g_queue_push_head(target,g_queue_pop_head(src)); 
+		g_queue_push_head(target,g_queue_pop_head(src));
 	}
 	DBG_PATCOMPILE("merge queue, target queue has length %d \n",g_queue_get_length(target));
 }
@@ -187,7 +207,7 @@ static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,gint16 context, 
 	gchar *target;
 	GQueue *mergednewpositions = g_queue_new();
 	target = g_strdup(&regexpart[*regexpartpos]); /* a very easy way to make target a buffer long enough to hold any subpattern */
-	
+
 	while (!escaped && regexpart[*regexpartpos] != '\0') {
 		DBG_PATCOMPILE("run_subpatterns, regexpart[%d]=%c\n",*regexpartpos,regexpart[*regexpartpos]);
 		if (!escaped && regexpart[*regexpartpos] == '\\') {
@@ -203,7 +223,7 @@ static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,gint16 context, 
 			merge_queues(mergednewpositions,newpositions);
 			g_queue_free(newpositions);
 			j=0;
-			
+
 			if (regexpart[*regexpartpos] == ')') {
 				g_free(target);
 				return mergednewpositions;
@@ -219,17 +239,17 @@ static GQueue *run_subpatterns(Tscantable *st, gchar *regexpart,gint16 context, 
 	return mergednewpositions;
 }
 
-/* this function can be called recursively for subpatterns. It gets all current valid states in 
+/* this function can be called recursively for subpatterns. It gets all current valid states in
 inputpositions, and returns all valid outputstates. */
 static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gboolean is_complete_regex) {
 	gboolean escaped = FALSE;
 	gint i=0;
 	gchar characters[NUMSCANCHARS];
 	GQueue *newpositions, *positions, *tmp;
-	
+
 	positions = g_queue_copy(inputpositions);
-	newpositions = g_queue_new();	
-	
+	newpositions = g_queue_new();
+
 	while (1) {
 		memset(&characters, 0, NUMSCANCHARS*sizeof(char));
 		escaped = 0;
@@ -250,7 +270,7 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 contex
 				newpositions = run_subpatterns(st, regexpart,context, caseinsensitive, positions, &i);
 				DBG_PATCOMPILE("end of subpatern at %d (%c)\n",i,regexpart[i]);
 			} else {
-				gboolean end_is_symbol=FALSE; 
+				gboolean end_is_symbol=FALSE;
 				if (!escaped) {
 					switch (regexpart[i]) {
 						case '.':
@@ -274,10 +294,10 @@ static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 contex
 						characters[j - 32] = characters[j];
 					}
 				}
-				
+
 				if (is_complete_regex && regexpart[i]!='\0' && regexpart[i+1]=='\0') {
 					gboolean only_symbols=TRUE;
-					/* check if the last character of the regex is a symbol, if so the last state should not 
+					/* check if the last character of the regex is a symbol, if so the last state should not
 					refer to the identstate for all non-symbols */
 					gint j;
 					for (j = 0; j <= NUMSCANCHARS; j++) {
@@ -328,14 +348,14 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 	gchar *lregex;
 	gint p;
 	positions = g_queue_new();
-	
+
 	if (caseinsensitive) {
 		/* make complete string lowercase */
 		lregex = g_ascii_strdown(input,-1);
 	} else {
 		lregex = g_strdup(input);
 	}
-	
+
 	g_queue_push_head(positions, GINT_TO_POINTER((gint)g_array_index(st->contexts, Tcontext, context).startstate));
 	DBG_PATCOMPILE("lregex=%s, positionstack has length %d\n",lregex,g_queue_get_length(positions));
 	newpositions = process_regex_part(st, lregex,context, caseinsensitive, positions, TRUE);
@@ -351,7 +371,7 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 	g_free(lregex);
 }
 
-/* this function cannot do any regex style patterns 
+/* this function cannot do any regex style patterns
 just full keywords */
 static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 matchnum, gint16 context, gboolean case_insens) {
 	gint i,len;
@@ -359,25 +379,25 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 	gchar *pattern;
 	gchar characters[NUMSCANCHARS];
 	gboolean end_is_symbol;
-	
+
 	positions = g_queue_new();
 	newpositions = g_queue_new();
-	
+
 	/* compile the keyword into the DFA */
 	g_queue_push_head(positions,GINT_TO_POINTER((gint)g_array_index(st->contexts, Tcontext, context).startstate));
-	
+
 	if (case_insens) {
 		/* make complete string lowercase */
 		pattern = g_ascii_strdown(keyword,-1);
 	} else {
 		pattern = g_strdup(keyword);
 	}
-	
+
 	DBG_PATCOMPILE("in context %d we start with position %d\n",context,(gint)g_queue_peek_head(positions));
 	len = strlen(pattern);
 
-	end_is_symbol = character_is_symbol(st,g_array_index(st->contexts, Tcontext, context),(gint)pattern[len-1]);	
-	
+	end_is_symbol = character_is_symbol(st,g_array_index(st->contexts, Tcontext, context),(gint)pattern[len-1]);
+
 	for (i=0;i<=len;i++) {
 		GQueue *tmp;
 		int c = pattern[i];
@@ -388,7 +408,7 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 				p = GPOINTER_TO_INT(g_queue_pop_head(positions));
 				DBG_PATCOMPILE("mark state %d as possible end-state\n",p);
 				g_array_index(st->table, Ttablerow, p).match = matchnum;
-			}		
+			}
 		} else {
 			characters[c] = 1;
 			if (case_insens && c >= 97 && c <= 122)
@@ -408,7 +428,7 @@ gint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag, gbool
 	guint16 startstate, identstate;
 	gint i;
 	gchar *tmp;
-	
+
 	context = st->contexts->len;
 	g_array_set_size(st->contexts,st->contexts->len+1);
 
@@ -421,26 +441,26 @@ gint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag, gbool
 	g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens = autocomplete_case_insens;
 	g_array_set_size(st->table,st->table->len+2);
 
-	DBG_PATCOMPILE("new context %d has startstate %d, identstate %d and symbols %s\n",context, g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts, Tcontext, context).identstate,symbols);	
+	DBG_PATCOMPILE("new context %d has startstate %d, identstate %d and symbols %s\n",context, g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts, Tcontext, context).identstate,symbols);
 	/* identstate refers to itself for all characters except the symbols. we cannot use memset
 	because an guint16 occupies 2 bytes */
 	for (i=0;i<NUMSCANCHARS;i++)
 		g_array_index(st->table, Ttablerow, identstate).row[i] = identstate;
-	
+
 	/* 0, \0 or NULL is always a symbol */
 	g_array_index(st->table, Ttablerow, identstate).row[0] = 0;
 	tmp = symbols;
 	while (*tmp) {
 		/*g_print("mark %c as symbol\n",*tmp);*/
 		g_array_index(st->table, Ttablerow, identstate).row[(int)*tmp] = 0;
-	
+
 		if (st->allsymbols[(int)*tmp] == 0)
 			st->allsymbols[(int)*tmp] = 1;
-		
+
 		tmp++;
-	} 
+	}
 	memcpy(g_array_index(st->table, Ttablerow, startstate).row, g_array_index(st->table, Ttablerow, identstate).row, sizeof(guint16[NUMSCANCHARS]));
-	
+
 	return context;
 }
 
@@ -465,7 +485,7 @@ void match_autocomplete_reference(Tscantable *st,guint16 matchnum, gboolean auto
 		}
 		g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,g_strdup(keyword),refdup);
 	}
-	
+
 	if (autocomplete) {
 		GList *list;
 		gchar *tmp;
@@ -529,7 +549,7 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean i
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
 				, GtkTextTag *blocktag,gboolean add_to_ac, gchar *append_to_ac, gchar *reference)  {
 	guint16 matchnum;
-	
+
 	if (!keyword || keyword[0] == '\0') {
 		g_print("CORRUPT LANGUAGE FILE: empty pattern/tag/keyword\n");
 		return 0;
@@ -560,7 +580,7 @@ void print_DFA(Tscantable *st, char start, char end) {
 		}
 		g_print(": %2d\n",g_array_index(st->table, Ttablerow, i).match);
 	}
-	
+
 }
 
 Tscantable *scantable_new(guint size_table, guint size_matches, guint size_contexts) {
@@ -585,7 +605,7 @@ static void add_html_tag(Tscantable *st, guint context, GtkTextTag *tag, GtkText
 	guint contexttag, contextstring, match;
 	gchar *tmp;
 	va_list args;
-	
+
 	contexttag = new_context(st, ">\"=' \t\n\r", NULL);
 	tmp = g_strconcat("<",tagname,NULL);
 	match = add_keyword_to_scanning_table(st, tmp, FALSE, FALSE, tag, context, contexttag, TRUE, FALSE, 0, NULL,TRUE,NULL);
@@ -598,7 +618,7 @@ static void add_html_tag(Tscantable *st, guint context, GtkTextTag *tag, GtkText
 		attribname = va_arg(args, gchar*);
 	}
 	va_end(args);
-	
+
 	contextstring = new_context(st, "\"=' \t\n\r", string);
 	add_keyword_to_scanning_table(st, "\"", FALSE, FALSE, string, contexttag, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
 	add_keyword_to_scanning_table(st, "\"", FALSE, FALSE, string, contextstring, contexttag, FALSE, FALSE, 0, string,FALSE,NULL);
@@ -613,7 +633,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	Tscantable *st;
 	gint i,context1,context2,match1;
 	GtkTextTag *braces, *comment, *storage, *keyword, *string, *variable, *function, *value, *tag,*region;
-	
+
 	braces = gtk_text_buffer_create_tag(buffer,"braces","weight", PANGO_WEIGHT_BOLD,"foreground","darkblue",NULL);
 	comment = gtk_text_buffer_create_tag(buffer,"comment","style", PANGO_STYLE_ITALIC,"foreground", "grey", NULL);
 	storage = gtk_text_buffer_create_tag(buffer,"storage","weight", PANGO_WEIGHT_BOLD,"foreground", "darkred", NULL);
@@ -639,7 +659,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 /*	add_keyword_to_scanning_table(st, "void", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "A function without return value returns <b>void</b>. An argument list for a function taking no arguments is also <b>void</b>. The only variable that can be declared with type void is a pointer.");
 	add_keyword_to_scanning_table(st, "int", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "Integer bla bla");
 	add_keyword_to_scanning_table(st, "char", storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");*/
-	print_DFA(st, '#', '/');	
+	print_DFA(st, '#', '/');
 #endif
 
 /* #define C_PATERNS */
@@ -665,11 +685,11 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	add_keyword_to_scanning_table(st, "GtkListStore", FALSE, FALSE, storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
 	add_keyword_to_scanning_table(st, "GtkTreeModel", FALSE, FALSE, storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
 	add_keyword_to_scanning_table(st, "GObject", FALSE, FALSE, storage, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "storage type bla bla");
-	
+
 	add_keyword_to_scanning_table(st, "NULL", FALSE, FALSE, variable, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "empty pointer value bla bla");
 	add_keyword_to_scanning_table(st, "TRUE", FALSE, FALSE, variable, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "empty pointer value bla bla");
 	add_keyword_to_scanning_table(st, "FALSE", FALSE, FALSE, variable, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "empty pointer value bla bla");
-	
+
 	add_keyword_to_scanning_table(st, "if", FALSE, FALSE, keyword, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "if bla");
 	add_keyword_to_scanning_table(st, "else", FALSE, FALSE, keyword, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "else bla bla");
 	add_keyword_to_scanning_table(st, "return", FALSE, FALSE, keyword, context1, context1, FALSE, FALSE, 0, NULL,TRUE, "return bla bla");
@@ -730,7 +750,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		add_html_tag(st, context0, tag, keyword, string, "img", "style", "class", "id","src","alt","width","height","border","valign","align",NULL);
 		add_html_tag(st, context0, tag, keyword, string, "script", "type", "src", NULL);
 		add_html_tag(st, context0, tag, keyword, string, "a", "style", "class", "id", "href", "target","title",NULL);
-		
+
 
 		contexttag = new_context(st, "-> \t\n\r",NULL);
 		match = add_keyword_to_scanning_table(st, "<!--", FALSE, FALSE, comment, context0, contexttag, TRUE, FALSE, 0, NULL,TRUE,NULL);
@@ -754,8 +774,8 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		add_keyword_to_scanning_table(st, "for", FALSE, FALSE, keyword, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 
 		add_keyword_to_scanning_table(st, "FALSE", FALSE, FALSE, value, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
-		add_keyword_to_scanning_table(st, "TRUE", FALSE, FALSE, value, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);	
-	
+		add_keyword_to_scanning_table(st, "TRUE", FALSE, FALSE, value, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
+
 		contextstring = new_context(st, "\\\"",string);
 		add_keyword_to_scanning_table(st, "\"", FALSE, FALSE, string, contextphp, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "\"", FALSE, FALSE, string, contextstring, contextphp, FALSE, FALSE, 0, string,FALSE,NULL);
@@ -769,14 +789,14 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		add_keyword_to_scanning_table(st, "'", FALSE, FALSE, string, contextphp, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "'", FALSE, FALSE, string, contextstring, contextphp, FALSE, FALSE, 0, string,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "\\'", FALSE, FALSE, string, contextstring, contextstring, FALSE, FALSE, 0, NULL,FALSE,NULL);
-		
+
 		match = add_keyword_to_scanning_table(st, "{", FALSE, FALSE, keyword, contextphp, contextphp, TRUE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "}", FALSE, FALSE, keyword, contextphp, contextphp, FALSE, TRUE, match, NULL,FALSE,NULL);
 		match = add_keyword_to_scanning_table(st, "[", FALSE, FALSE, keyword, contextphp, contextphp, TRUE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "]", FALSE, FALSE, keyword, contextphp, contextphp, FALSE, TRUE, match, NULL,FALSE,NULL);
 		match = add_keyword_to_scanning_table(st, "(", FALSE, FALSE, keyword, contextphp, contextphp, TRUE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, ")", FALSE, FALSE, keyword, contextphp, contextphp, FALSE, TRUE, match, NULL,FALSE,NULL);
-		
+
 		add_keyword_to_scanning_table(st, "mysql_affected_rows", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "mysql_connect", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "mysql_query", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
@@ -797,18 +817,18 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 		add_keyword_to_scanning_table(st, "mysql_fetch_array", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "mysql_fetch_assoc", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
 		add_keyword_to_scanning_table(st, "mysql_fetch_field", FALSE, FALSE, function, contextphp, contextphp, FALSE, FALSE, 0, NULL,TRUE,NULL);
-		
+
 		add_keyword_to_scanning_table(st, "$[a-z0-9_]+", TRUE, TRUE, variable, contextphp, contextphp, FALSE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "(//|#)[^\n\t]+", TRUE, TRUE, comment, contextphp, contextphp, FALSE, FALSE, 0, NULL,FALSE,NULL);
 		add_keyword_to_scanning_table(st, "[0-9.]+", TRUE, TRUE, value, contextphp, contextphp, FALSE, FALSE, 0, NULL,FALSE,NULL);
-		
+
 		add_keyword_to_scanning_table(st, "&[a-z0-9#]+;", TRUE, TRUE, value, context0, context0, FALSE, FALSE, 0, NULL,FALSE,NULL);
 	}
 #endif
 	/* we don't build a automata from regex patterns right now, because I'm not
-	very satisfied with my previous attempt to code that.. 
-	we build one by hand just to test scanning.. */ 
-	
+	very satisfied with my previous attempt to code that..
+	we build one by hand just to test scanning.. */
+
 
 /* for more testing we try some html tags */
 /*#define HTMLSTYLEMATCHING*/
@@ -832,7 +852,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	}
 
 	g_array_index(st->table, Ttablerow, 0).row['<'] = 1;
-	
+
 	/* comment <!-- */
 	g_array_index(st->table, Ttablerow, 1).row['!'] = 2;
 	g_array_index(st->table, Ttablerow, 2).row['-'] = 3;
@@ -842,8 +862,8 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	g_array_index(st->matches, Tpattern, 1).starts_block = TRUE;
 	g_array_index(st->matches, Tpattern, 1).selftag = comment;
 	g_array_index(st->matches, Tpattern, 1).nextcontext = 1;
-	
-	/* <img */	
+
+	/* <img */
 	g_array_index(st->table, Ttablerow, 1).row['i'] = 5;
 	g_array_index(st->table, Ttablerow, 5).row['m'] = 6;
 	g_array_index(st->table, Ttablerow, 6).row['g'] = 7;
@@ -867,7 +887,7 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	g_array_index(st->matches, Tpattern, 4).message = "<html";
 	g_array_index(st->matches, Tpattern, 4).starts_block = TRUE;
 	g_array_index(st->matches, Tpattern, 4).selftag = braces;
-	
+
 	/* </html> */
 	g_array_index(st->table, Ttablerow, 1).row['/'] = 12;
 	g_array_index(st->table, Ttablerow, 12).row['h'] = 13;
@@ -880,8 +900,8 @@ Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer) {
 	g_array_index(st->matches, Tpattern, 5).ends_block = TRUE;
 	g_array_index(st->matches, Tpattern, 5).selftag = braces;
 	g_array_index(st->matches, Tpattern, 5).blockstartpattern = 4;
-	
-	/* <body */ 
+
+	/* <body */
 	g_array_index(st->table, Ttablerow, 1).row['b'] = 18;
 	g_array_index(st->table, Ttablerow, 18).row['o'] = 19;
 	g_array_index(st->table, Ttablerow, 19).row['d'] = 20;
