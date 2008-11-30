@@ -169,14 +169,14 @@ typedef struct {
 	gint is_symlink; /* file is a symbolic link */
 	gulong del_txt_id; /* text delete signal */
 	gulong ins_txt_id; /* text insert signal */
-	gulong ins_aft_txt_id; /* text insert-after signal, for auto-indenting */
+	/*gulong ins_aft_txt_id;*/ /* text insert-after signal, for auto-indenting */
 	unre_t unre;
 	GtkWidget *view;
 	GtkWidget *tab_label;
 	GtkWidget *tab_eventbox;
 	GtkWidget *tab_menu;
 	GtkTextBuffer *buffer;
-	gpointer paste_operation;
+	/*gpointer paste_operation;*/
 	gint last_rbutton_event; /* index of last 3rd button click */
 #ifndef USE_BFTEXTVIEW2
 	Tfiletype *hl; /* filetype & highlighting set to use for this document */

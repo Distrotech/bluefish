@@ -1761,10 +1761,10 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 	DEBUG_MSG("doc_buffer_insert_text_lcb, started, string='%s', len=%d, clen=%d\n", string, len, clen);
 	/* the 'len' seems to be the number of bytes and not the number of characters.. */
 
-	if (doc->paste_operation) {
+/*	if (doc->paste_operation) {
 		if ((pos + clen) > PASTEOPERATION(doc->paste_operation)->eo) PASTEOPERATION(doc->paste_operation)->eo = pos + clen;
 		if (pos < PASTEOPERATION(doc->paste_operation)->so || PASTEOPERATION(doc->paste_operation)->so == -1) PASTEOPERATION(doc->paste_operation)->so = pos;
-	} else if (len == 1) {
+	} else if (len == 1) {*/
 		/* undo_redo stuff */
 		if (	!doc_unre_test_last_entry(doc, UndoInsert, -1, pos)
 				|| string[0] == ' '
@@ -1774,7 +1774,7 @@ static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * i
 			DEBUG_MSG("doc_buffer_insert_text_lcb, need a new undogroup\n");
 			doc_unre_new_group(doc);
 		}
-	}
+/*	}*/
 	/* we do not call doc_unre_new_group() for multi character inserts, these are from paste, and edit_paste_cb groups them already */
 	/*  else if (clen != 1) {
 		doc_unre_new_group(doc);
@@ -1800,6 +1800,7 @@ static gchar *closingtagtoinsert(Tdocument *doc, const gchar *tagname, GtkTextIt
 	return NULL;
 }
 */
+/*
 static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {
 	DEBUG_MSG("doc_buffer_insert_text_after_lcb, started for string '%s'\n",string);
 	if (!doc->paste_operation) {
@@ -1809,7 +1810,7 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 		DEBUG_MSG("doc_buffer_insert_text_after_lcb, paste_operation, NOT DOING ANYTHING\n");
 	}
 #endif
-}
+}*/
 
 static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdocument *doc) {
 	DEBUG_MSG("doc_view_key_press_lcb, keyval=%d, hardware_keycode=%d\n",kevent->keyval, kevent->hardware_keycode);
@@ -2004,7 +2005,7 @@ static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * 
 					DEBUG_MSG("doc_buffer_delete_range_lcb, need a new undogroup\n");
 					doc_unre_new_group(doc);
 				}
-			} else if (!doc->paste_operation) {
+			} else /*if (!doc->paste_operation)*/ {
 				doc_unre_new_group(doc);
 			}
 			doc_unre_add(doc, string, start, end, UndoDelete);
@@ -2246,9 +2247,9 @@ void doc_bind_signals(Tdocument *doc) {
 	doc->del_txt_id = g_signal_connect(G_OBJECT(doc->buffer),
 					 "delete-range",
 					 G_CALLBACK(doc_buffer_delete_range_lcb), doc);
-	doc->ins_aft_txt_id = g_signal_connect_after(G_OBJECT(doc->buffer),
+/*	doc->ins_aft_txt_id = g_signal_connect_after(G_OBJECT(doc->buffer),
 					 "insert-text",
-					 G_CALLBACK(doc_buffer_insert_text_after_lcb), doc);
+					 G_CALLBACK(doc_buffer_insert_text_after_lcb), doc);*/
 }
 
 /**
@@ -2271,10 +2272,10 @@ void doc_unbind_signals(Tdocument *doc) {
 		g_signal_handler_disconnect(G_OBJECT(doc->buffer),doc->del_txt_id);
 		doc->del_txt_id = 0;
 	}
-	if (doc->ins_aft_txt_id != 0) {
+/*	if (doc->ins_aft_txt_id != 0) {
 		g_signal_handler_disconnect(G_OBJECT(doc->buffer),doc->ins_aft_txt_id);
 		doc->ins_txt_id = 0;
-	}
+	}*/
 }
 
 /*
