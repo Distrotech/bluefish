@@ -485,9 +485,13 @@ void doc_set_tooltip(Tdocument *doc) {
 		}
 #ifdef USE_BFTEXTVIEW2
 		if (doc->fileinfo) {
-			const gchar *mime = g_file_info_get_attribute_string(doc->fileinfo, "standard::content-type");
-			retstr = g_string_append(retstr, _("\nMime type: "));
-			retstr = g_string_append(retstr, mime);
+			const gchar *mime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE);
+			if (!mime)
+				mime = g_file_info_get_attribute_string(doc->fileinfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+			if (mime) {
+				retstr = g_string_append(retstr, _("\nMime type: "));
+				retstr = g_string_append(retstr, mime);
+			}
 		}
 #else
 		if (doc->hl && doc->hl->mime_type) {
@@ -604,6 +608,10 @@ void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssiz
 
 #ifdef USE_BFTEXTVIEW2
 	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(doc->view), mimetype);
+	if (doc->fileinfo) {
+		g_file_info_set_content_type(doc->fileinfo,mimetype);
+	}
+	/* TODO: set the mime type in the doc->fileinfo so we can use it in the tooltips */
 #else
 	if (mimetype) {
 		ft = get_filetype_for_mime_type(mimetype);
@@ -1704,7 +1712,7 @@ gboolean doc_file_to_textbox(Tdocument *doc, gchar *filename, gboolean enable_un
 	g_free(buffer);
 	return ret;
 }*/
-
+/* code moved to file.c 
 void doc_set_fileinfo(Tdocument *doc, GFileInfo *finfo) {
 	DEBUG_MSG("doc_set_fileinfo, doc=%p, new finfo=%p, old fileinfo=%p\n",doc,finfo,doc->fileinfo);
 	if (doc->fileinfo) {
@@ -1719,7 +1727,7 @@ void doc_set_fileinfo(Tdocument *doc, GFileInfo *finfo) {
 	}
 	
 	doc_set_tooltip(doc);
-}
+}*/
 
 /**
  * doc_check_backup:

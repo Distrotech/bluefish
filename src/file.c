@@ -523,7 +523,12 @@ static void fill_fileinfo_lcb(GObject *source_object,GAsyncResult *res,gpointer 
 	
 	info = g_file_query_info_finish(fi->uri,res,&error);
 	if (info) {
-		doc_set_fileinfo(fi->doc, info);
+		if (fi->doc->fileinfo) {
+			g_object_unref(fi->doc->fileinfo);
+		}
+		fi->doc->fileinfo = info;
+		g_object_ref(info);
+		doc_set_tooltip(fi->doc);
 	}
 	fi->doc->action.info = NULL;
 	if (fi->doc->action.close_doc) {
