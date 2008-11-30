@@ -429,8 +429,8 @@ typedef struct {
 typedef struct {
 	Tproperties props; /* preferences */
 	Tglobalsession globses; /* global session */
-	GList *filetypelist; /* highlighting.c: a list of all filetypes with their icons and highlighting sets */
-	GHashTable *filetypetable;
+/*	GList *filetypelist; / * highlighting.c: a list of all filetypes with their icons and highlighting sets * /
+	GHashTable *filetypetable;*/
 	GList *bfwinlist;
 /*	GList *recent_directories; / * a stringlist with the most recently used directories */
 	Tsessionvars *session; /* holds all session variables for non-project windows */
@@ -441,9 +441,11 @@ typedef struct {
 /* 	GtkTreeStore *bookmarkstore; the global bookmarks from the global session */
 	gint num_untitled_documents;
 	GtkTooltips *tooltips;
+#ifndef USE_BFTEXTVIEW2
 	guint16 lastkp_hardware_keycode; /* for the autoclosing, we need to know the last pressed key, in the key release callback, */
 	guint lastkp_keyval;             /* this is different if the modifier key is not pressed anymore during the key-release */
 	pcre *autoclosingtag_regc; /* the regular expression to check for a valid tag in tag autoclosing*/
+#endif
 	gchar *securedir; /* temporary rwx------ directory for secure file creation */
 	GSList *plugins;
 	GSList *doc_view_populate_popup_cbs; /* plugins can register functions here that need to 

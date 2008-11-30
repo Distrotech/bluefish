@@ -95,7 +95,7 @@ void doc_restore_selection(Tselectionsave *selsave, gboolean only_if_no_selectio
 	g_slice_free(Tselectionsave,selsave);
 }
 
-
+#ifndef USE_BFTEXTVIEW2
 void autoclosing_init(void) {
 	const char *error;
 	int erroffset;
@@ -107,6 +107,7 @@ void autoclosing_init(void) {
 	}
 #endif
 }
+#endif
 
 static void session_set_opendir(Tbfwin *bfwin, gchar *curi) {
 	if (curi) {
@@ -1815,9 +1816,10 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 
 static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdocument *doc) {
 	DEBUG_MSG("doc_view_key_press_lcb, keyval=%d, hardware_keycode=%d\n",kevent->keyval, kevent->hardware_keycode);
+#ifndef USE_BFTEXTVIEW2
 	main_v->lastkp_keyval = kevent->keyval;
 	main_v->lastkp_hardware_keycode = kevent->hardware_keycode;
-
+#endif
 	if (!(kevent->state & GDK_CONTROL_MASK) &&
 	       ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End)) &&
 	       main_v->props.editor_smart_cursor) {
@@ -1888,8 +1890,8 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 #endif
 	/* if the shift key is released before the '>' key, we get a key release not for '>' but for '.'. We, therefore
 	 have set that in the key_press event, and check if the same hardware keycode was released */
-	if ((kevent->keyval == GDK_greater) || (kevent->hardware_keycode == main_v->lastkp_hardware_keycode && main_v->lastkp_keyval == GDK_greater)) {
 #ifndef GNOMEVFSINT
+	if ((kevent->keyval == GDK_greater) || (kevent->hardware_keycode == main_v->lastkp_hardware_keycode && main_v->lastkp_keyval == GDK_greater)) {
 		if (doc->autoclosingtag) {
 			/* start the autoclosing! the code is modified from the patch sent by more <more@irpin.com> because that
 			 * patch did not work with php code (the < and > characters can be inside a php block as well with a
@@ -1952,8 +1954,9 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 			}
 #endif
 		}
-#endif
-	} else if ((kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
+	} else 
+#endif	
+	if ((kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
 		if (main_v->props.autoindent) {
 			gchar *string, *indenting;
 			GtkTextMark* imark;

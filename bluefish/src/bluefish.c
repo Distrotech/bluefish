@@ -243,10 +243,12 @@ int main(int argc, char *argv[])
 	if (main_v->props.show_splash_screen) splash_screen_set_label(_("building file filters ..."));
 #endif /* NOSPLASH */
 
-  fb2config_init(); /* filebrowser2config */
-  filters_rebuild();
-  autoclosing_init();
-  main_v->tooltips = gtk_tooltips_new();
+	fb2config_init(); /* filebrowser2config */
+	filters_rebuild();
+#ifndef USE_BFTEXTVIEW2
+	autoclosing_init();
+#endif
+	main_v->tooltips = gtk_tooltips_new();
 #ifndef NOSPLASH
   if (main_v->props.show_splash_screen) splash_screen_set_label(_("setting up bookmarks ..."));
 #endif /* NOSPLASH */
