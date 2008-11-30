@@ -87,9 +87,5 @@ bluefish_unstable_SOURCES = \
 	snr2.h \
 	stringlist.c \
 	stringlist.h \
-	textstyle.c \
-	textstyle.h \
-	treetips.c \
-	treetips.h \
 	undo_redo.c \
 	undo_redo.h

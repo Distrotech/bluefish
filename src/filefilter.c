@@ -376,7 +376,7 @@ static gboolean filefiltergui_infilter_visiblefunc(GtkTreeModel *model,GtkTreeIt
 static gboolean filefiltergui_outfilter_visiblefunc(GtkTreeModel *model,GtkTreeIter *iter,gpointer data) {
 	return !filefiltergui_infilter_visiblefunc(model,iter,data);
 }
-
+/*
 static void filefiltergui_add_filetypes(gpointer key,gpointer value,gpointer data) {
 	Tfilefiltergui *ffg = data;
 	
@@ -386,7 +386,7 @@ static void filefiltergui_add_filetypes(gpointer key,gpointer value,gpointer dat
 		gtk_list_store_set(ffg->lstore,&it,0,key,2,0,-1);
 	}
 }
-
+*/
 static void filefiltergui_2right_clicked(GtkWidget *widget, Tfilefiltergui *ffg) {
 	GtkTreeIter iter;
 	GtkTreeSelection *select;
@@ -479,7 +479,8 @@ void filefilter_gui(Tfilter *filter) {
 	
 	/* fill the list model from the currently known filetypes */
 	reglist = g_content_types_get_registered();
-	tmplist = g_list_first(reglist);
+	
+	tmplist = g_list_first(g_list_sort(reglist,strcmp));
 	while (tmplist) {
 		GtkTreeIter it;
 		if (MIME_ISDIR(tmplist->data)) {
@@ -490,7 +491,7 @@ void filefilter_gui(Tfilter *filter) {
 	}
 	g_list_free(reglist);
 	/* make sure that all filetypes that exist in the current filter are shown */
-	g_hash_table_foreach(ffg->curfilter->filetypes,filefiltergui_add_filetypes,ffg);
+	/*g_hash_table_foreach(ffg->curfilter->filetypes,filefiltergui_add_filetypes,ffg);*/
 	/* add the patterns from the current filter */
 	tmplist = g_list_first(ffg->curfilter->patterns);
 	while (tmplist) {
