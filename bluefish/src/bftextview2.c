@@ -1,7 +1,25 @@
+/* Bluefish HTML Editor
+ * bftextview2.c
+ *
+ * Copyright (C) 2008 Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
 /* for the design docs see bftextview2.h */
 
-#include <gtk-2.0/gdk/gdkevents.h>
-#include <gtk-2.0/gtk/gtkwidget.h>
 #include <gdk/gdkkeysyms.h>
 #include <math.h> /* log10() */
 #include <string.h> /* strlen() */
@@ -73,7 +91,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 		if (main_v->props.delay_full_scan)
 #else
 		if (delay_full_scan)
-#endif		
+#endif
 		 {
 			guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 			DBG_DELAYSCANNING("%d milliseconds elapsed sionce last user action\n",elapsed);
@@ -90,7 +108,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 					btv->scanner_delayed = 0;
 					btv->scanner_idle = 0;
 					return FALSE;
-				} 
+				}
 				if (!in_idle) {
 					if (!btv->scanner_idle) {
 						DBG_DELAYSCANNING("schedule scan again in idle time\n");
@@ -193,7 +211,7 @@ static Tfoundblock *bftextview2_get_block_at_iter(GtkTextIter * it)
 static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * location,
 									 GtkTextMark * arg2, gpointer widget)
 {
-	
+
 	if (BLUEFISH_TEXT_VIEW(widget)->bflang && BLUEFISH_TEXT_VIEW(widget)->bflang->st && arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
 		GtkTextIter it1, it2;
 		Tfoundblock *fblock = bftextview2_get_block_at_iter(location);
@@ -212,12 +230,12 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 			}
 		}
 		bftextview2_reset_user_idle_timer(BLUEFISH_TEXT_VIEW(widget));
-	}	
+	}
 }
 
 static void bftextview2_set_margin_size(BluefishTextView * btv)
 {
-	/* TODO: this should be calculated based on the number of lines in the text, 
+	/* TODO: this should be calculated based on the number of lines in the text,
 	   whether or not we have bookmarks, and whether or not we have block folding */
 	gint lines,count;
 	if (btv->linenumbers) {
@@ -231,7 +249,7 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 		}
 		if (lines >= 100)
 			count = 1+log10(lines);
-		else 
+		else
 			count=2;
 		btv->margin_pixels_chars = 4 + count * btv->margin_pixels_per_char;
 	} else {
@@ -329,7 +347,7 @@ static void paint_margin_collapse(BluefishTextView *btv,GdkEventExpose * event,g
 	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)], FALSE,btv->margin_pixels_chars+1, w + (height / 2) - 4, 8,8);
 	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5,w + (height / 2)-2,btv->margin_pixels_chars+5, w + (height / 2)+2);
 	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5,w + (height / 2) + 5,btv->margin_pixels_chars+5, w + height);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+3,w + (height / 2), btv->margin_pixels_chars+7,w + (height / 2));	
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+3,w + (height / 2), btv->margin_pixels_chars+7,w + (height / 2));
 }
 static void paint_margin_blockend(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
 	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5, w, btv->margin_pixels_chars+5, w + (height/2));
@@ -400,7 +418,7 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 			num_blocks = 0;
 		}
 	}
-	/* in the case that the *first* fstack is relevant, we don't need 
+	/* in the case that the *first* fstack is relevant, we don't need
 	   the 'next' fstack */
 	if (!fstack || fstack->charoffset < gtk_text_iter_get_offset(startvisible)) {
 		DBG_MARGIN("get next fstack..\n");
@@ -414,7 +432,7 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 	panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "x");
 
 	folded = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv))),"_folded_");
-	
+
 	for (i = gtk_text_iter_get_line(startvisible); i <= gtk_text_iter_get_line(endvisible); i++) {
 		gint w, height;
 		gchar *string;
@@ -422,12 +440,12 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 		gtk_text_iter_set_line(&it, i);
 
 		if (gtk_text_iter_has_tag(&it, folded)) {
-			DBG_FOLD("line %d is hidden\n",i);			
+			DBG_FOLD("line %d is hidden\n",i);
 		} else {
 			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(btv), &it, &w, &height);
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, 0, w,
 												  NULL, &w);
-	
+
 			/* line numbers */
 			if (btv->linenumbers) {
 				string = g_strdup_printf("%d", 1 + i);
@@ -436,13 +454,13 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 								 GTK_WIDGET(btv), NULL, 2, w, panlay);
 				g_free(string);
 			}
-	
+
 			/* block folding.
-			- to find out if we need an expander/collapse, we need to see if there is a pushedblock on the 
+			- to find out if we need an expander/collapse, we need to see if there is a pushedblock on the
 			blockstack which has 'foldable' for any stackcache that is on this line.
 			- to find if we need an end-of-block we need to see if there is a poppedblock on this line
 			which has 'foldable'
-			- to find out if we need a line or nothing we need to know the number of expanded blocks on the stack 
+			- to find out if we need a line or nothing we need to know the number of expanded blocks on the stack
 			 */
 			if (btv->showblocks) {
 				while (fstack) {
@@ -460,7 +478,7 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 								paint_margin_collapse(btv,event,w,height);
 							else
 								paint_margin_expand(btv,event,w,height);
-								
+
 							num_blocks = get_num_foldable_blocks(fstack);
 							break;
 						} else if (fstack->poppedblock && fstack->poppedblock->foldable) {
@@ -517,7 +535,7 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 	GtkTextIter begin=*obegin,end=*oend;
 	BluefishTextView *btv=user_data;
 	DBG_SIGNALS("bftextview2_delete_range_lcb\n");
-	
+
 	/* mark the surroundings of the ext that will be deleted */
 	gtk_text_iter_backward_word_start(&begin);
 	gtk_text_iter_forward_word_end(&end);
@@ -550,20 +568,20 @@ static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,
 	if (main_v->props.smart_cursor && !(kevent->state & GDK_CONTROL_MASK) && ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End)))
 #else
 	if (smart_cursor && !(kevent->state & GDK_CONTROL_MASK) && ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End)))
-#endif 
+#endif
 			{
 		GtkTextMark* imark;
 		GtkTextIter iter, currentpos, linestart;
 		GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-   
-		imark = gtk_text_buffer_get_insert(buffer);		
+
+		imark = gtk_text_buffer_get_insert(buffer);
 		gtk_text_buffer_get_iter_at_mark(buffer, &currentpos, imark);
 		iter = currentpos;
 
 		if ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home)) {
 			gtk_text_iter_backward_cursor_positions(&iter, gtk_text_iter_get_line_offset(&iter));
 			linestart = iter;
-        
+
 			while (g_unichar_isspace(gtk_text_iter_get_char (&iter)) && !gtk_text_iter_ends_line(&iter))
 				gtk_text_iter_forward_char (&iter);
 		} else { /* (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End) */
@@ -581,7 +599,7 @@ static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,
 			iter = linestart;
 		if (kevent->state & GDK_SHIFT_MASK)
 			gtk_text_buffer_move_mark(buffer, imark, &iter);
-		else		
+		else
 			gtk_text_buffer_place_cursor(buffer, &iter);
 		gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(btv), gtk_text_buffer_get_insert(buffer));
 		return TRUE;
@@ -593,10 +611,10 @@ static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 	Tfoundstack *fstack;
 	GSequenceIter *siter;
 	gint line;
-	
+
 	if (!btv->bflang)
 		return;
-	
+
 	line = gtk_text_iter_get_line(iter);
 	 /* returns the fstack PRIOR to iter, or the fstack excactly at iter,
 	 but this fails if the iter is the start of the buffer */
@@ -824,7 +842,7 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 	}
 #endif
 	textview->needscanning = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"_needscanning_");
-	textview->enable_scanner=FALSE;	
+	textview->enable_scanner=FALSE;
 	/*font_desc = pango_font_description_from_string("Monospace 10");
 	gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
 	pango_font_description_free(font_desc);*/

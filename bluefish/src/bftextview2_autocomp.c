@@ -1,3 +1,23 @@
+/* Bluefish HTML Editor
+ * bftextview2_autocomp.c
+ *
+ * Copyright (C) 2008 Olivier Sessink
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
 #include <string.h>
 #include <gdk/gdkkeysyms.h>
 #include "bftextview2_scanner.h"
@@ -64,7 +84,7 @@ static gboolean acwin_move_selection(BluefishTextView *btv, gint keyval) {
 			break;
 			default:
 				return FALSE;
-			break;	
+			break;
 		}
 		if (gtk_tree_model_get_iter(model, &it, path))
 		{
@@ -75,7 +95,7 @@ static gboolean acwin_move_selection(BluefishTextView *btv, gint keyval) {
 		return TRUE;
 	} else {
 		/* set selection */
-		
+
 	}
 	return FALSE;
 }
@@ -128,7 +148,7 @@ static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 	GtkTreeIter iter;
 	if (!acw->context->reference)
 		return;
-	
+
 	if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
 		gchar *key;
 		gtk_tree_model_get(model,&iter,1,&key,-1);
@@ -153,7 +173,7 @@ static Tacwin *acwin_create(BluefishTextView *btv, guint16 context) {
 	GtkWidget *scroll, *vbar, *hbox;
 	Tacwin * acw;
 	GtkTreeSelection* selection;
-	
+
 	acw = g_new0(Tacwin,1);
 	acw->context = &g_array_index(btv->bflang->st->contexts,Tcontext, context);
 	acw->win = gtk_window_new(GTK_WINDOW_POPUP);
@@ -166,7 +186,7 @@ static Tacwin *acwin_create(BluefishTextView *btv, guint16 context) {
 	acw->store = gtk_list_store_new(2,G_TYPE_STRING,G_TYPE_STRING);
 	acw->tree = GTK_TREE_VIEW(gtk_tree_view_new_with_model(GTK_TREE_MODEL(acw->store)));
 	g_object_unref(acw->store);
-	
+
 	gtk_tree_view_set_headers_visible(acw->tree, FALSE);
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	vbar = gtk_scrolled_window_get_vscrollbar(GTK_SCROLLED_WINDOW(scroll));
@@ -178,10 +198,10 @@ static Tacwin *acwin_create(BluefishTextView *btv, guint16 context) {
 	gtk_tree_view_set_enable_search(GTK_TREE_VIEW(acw->tree),FALSE);
 	selection = gtk_tree_view_get_selection(GTK_TREE_VIEW(acw->tree));
 	g_signal_connect(G_OBJECT(selection),"changed",G_CALLBACK(acw_selection_changed_lcb),acw);
-	
+
 /*	gtk_tree_view_set_search_column(GTK_TREE_VIEW(acw->tree),1);
 	gtk_tree_view_set_search_equal_func(GTK_TREE_VIEW(acw->tree),acwin_tree_search_lcb,prefix,NULL);*/
-	
+
 	/*g_signal_connect_swapped(GTK_WINDOW(acw->win),"expose-event",G_CALLBACK(ac_paint),acw->win);*/
 	/*gtk_window_set_position (GTK_WINDOW(acw->win), GTK_WIN_POS_MOUSE);*/
 	gtk_container_add(GTK_CONTAINER(scroll), GTK_WIDGET(acw->tree));
@@ -209,12 +229,12 @@ static void acwin_position_at_cursor(BluefishTextView *btv) {
 	gint x,y;
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	screen = gtk_widget_get_screen(GTK_WIDGET(btv));
-	
+
 	gtk_text_buffer_get_iter_at_mark(buffer,&it,gtk_text_buffer_get_insert(buffer));
 	gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv),&it,&rect);
 	gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, rect.x, rect.y,&rect.x, &rect.y);
 	gdk_window_get_origin(gtk_text_view_get_window(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT),&x,&y);
-	
+
 	gtk_window_move(GTK_WINDOW(ACWIN(btv->autocomp)->win),rect.x+x ,rect.y+y);
 }
 
@@ -223,7 +243,7 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 	GList *tmplist,*list;
 	gchar *longest=NULL;
 	guint numitems=0,longestlen=1;
-	
+
 	list = tmplist = g_list_sort(g_list_copy(items), (GCompareFunc) g_strcmp0);
 	while (tmplist)	{
 		GtkTreeIter it;
@@ -278,7 +298,7 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 		return;
 
 	gtk_text_buffer_get_iter_at_mark(buffer,&cursorpos,gtk_text_buffer_get_insert(buffer));
-	
+
 	iter = cursorpos;
 	gtk_text_iter_set_line_offset(&iter,0);
 
@@ -303,13 +323,13 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 		/* we have a prefix or it is user requested, and we have a context with autocompletion */
 		gchar *newprefix, *prefix;
 		GList *items;
-		
+
 		print_ac_items(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac);
-		
+
 		prefix = gtk_text_buffer_get_text(buffer,&iter,&cursorpos,TRUE);
 		items = g_completion_complete(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac,prefix,&newprefix);
 		DBG_AUTOCOMP("got %d autocompletion items for prefix %s in context %d, newprefix=%s\n",g_list_length(items),prefix,contextnum,newprefix);
-		
+
 		if (items!=NULL && (items->next != NULL || strcmp(items->data,prefix)!=0) ) {
 					/* do not popup if there are 0 items, and also not if there is 1 item which equals the prefix */
 			GtkTreeSelection *selection;
