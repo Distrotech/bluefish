@@ -154,7 +154,7 @@ static gboolean bftextview2_scanner_timeout(gpointer data) {
 	return bftextview2_scanner_scan((BluefishTextView *)data, FALSE);
 }
 
-static void bftextview2_schedule_scanning(BluefishTextView * btv) {
+void bftextview2_schedule_scanning(BluefishTextView * btv) {
 	if (btv->enable_scanner && btv->bflang && btv->bflang->st && btv->scanner_idle == 0) {
 		DBG_MSG("bftextview2_schedule_scanning, scheduling scanning function\n");
 		DBG_DELAYSCANNING("scheduling scanning in idle function\n");
@@ -824,7 +824,7 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 	}
 #endif
 	textview->needscanning = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"_needscanning_");
-	textview->enable_scanner=TRUE;	
+	textview->enable_scanner=FALSE;	
 	/*font_desc = pango_font_description_from_string("Monospace 10");
 	gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
 	pango_font_description_free(font_desc);*/

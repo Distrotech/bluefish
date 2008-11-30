@@ -3297,8 +3297,11 @@ void doc_activate(Tdocument *doc) {
 		return;
 	} else {
 #ifdef USE_BFTEXTVIEW2
-		if (!BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner)
+		if (!BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner) {
+			/*g_print("doc_activate, enable scanner for doc %p\n",doc);*/
 			BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = TRUE;
+			bftextview2_schedule_scanning(BLUEFISH_TEXT_VIEW(doc->view));
+		}
 #endif
 		gtk_widget_show(doc->view); /* This might be the first time this document is activated. */
 	}
