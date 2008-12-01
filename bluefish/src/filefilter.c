@@ -480,7 +480,7 @@ void filefilter_gui(Tfilter *filter) {
 	/* fill the list model from the currently known filetypes */
 	reglist = g_content_types_get_registered();
 	
-	tmplist = g_list_first(g_list_sort(reglist,strcmp));
+	tmplist = g_list_first(g_list_sort(reglist,g_strcmp0));
 	while (tmplist) {
 		GtkTreeIter it;
 		if (MIME_ISDIR(tmplist->data)) {

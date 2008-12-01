@@ -323,14 +323,18 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 	retval = g_file_load_contents_finish(of->uri,res,&buffer,&size,&etag,&error);
 	if (error) {
 		if (error->code == G_IO_ERROR_NOT_MOUNTED) {
+#if GTK_CHECK_VERSION(2,14,0)
 			GMountOperation * gmo;
 			g_print("not mounted, try to mount!!\n");
-			gmo = gtk_mount_operation_new(NULL); /* TODO, add bfwin to the Topenfile */
+			gmo = gtk_mount_operation_new(of->bfwin?(GtkWindow *)of->bfwin->main_window:NULL); /* TODO, add bfwin to the Topenfile */
 			g_file_mount_enclosing_volume(of->uri
 					,G_MOUNT_MOUNT_NONE
 					,gmo
 					,of->cancel
 					,openfile_async_mount_lcb,of);
+#else
+			g_print("TODO, CREATE GMOUNTOPERATION FOR BACKWARDS COMPATIBILITY WITH OLDER GTK?!?!\n");
+#endif
 		} else {
 			of->callback_func(OPENFILE_ERROR,error->code,buffer,size, of->callback_data);
 			g_free(buffer);
@@ -343,12 +347,13 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 	}	
 }
 
-Topenfile *file_openfile_uri_async(GFile *uri, OpenfileAsyncCallback callback_func, gpointer callback_data) {
+Topenfile *file_openfile_uri_async(GFile *uri, Tbfwin *bfwin, OpenfileAsyncCallback callback_func, gpointer callback_data) {
 	Topenfile *of;
 	of = g_new(Topenfile,1);
 	of->callback_data = callback_data;
 	of->callback_func = callback_func;
 	of->uri = uri;
+	of->bfwin = bfwin;
 	of->cancel = g_cancellable_new();
 	g_object_ref(of->uri);
 	
@@ -439,7 +444,7 @@ void file_into_doc(Tdocument *doc, GFile *uri, gboolean isTemplate) {
 	}
 	fid->uri = uri;
 	g_object_ref(uri);
-	file_openfile_uri_async(fid->uri,fileintodoc_lcb,fid);
+	file_openfile_uri_async(fid->uri, doc->bfwin,fileintodoc_lcb,fid);
 }
 
 /************ MAKE DOCUMENT FROM ASYNC OPENED FILE ************************/
@@ -600,7 +605,7 @@ void file_doc_retry_uri(Tdocument *doc) {
 	if (doc->fileinfo == NULL) {
 		file_doc_fill_fileinfo(f2d->doc, f2d->uri);
 	}
-	f2d->of = file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
+	f2d->of = file_openfile_uri_async(f2d->uri,doc->bfwin,file2doc_lcb,f2d);
 }
 
 void file_doc_fill_from_uri(Tdocument *doc, GFile *uri, GFileInfo *finfo, gint goto_line) {
@@ -616,7 +621,7 @@ void file_doc_fill_from_uri(Tdocument *doc, GFile *uri, GFileInfo *finfo, gint g
 	if (finfo == NULL) {
 		file_doc_fill_fileinfo(f2d->doc, uri);
 	}
-	f2d->of = file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
+	f2d->of = file_openfile_uri_async(f2d->uri,doc->bfwin,file2doc_lcb,f2d);
 }
 
 /* this funcion is usually used to load documents */
@@ -637,7 +642,7 @@ void file_doc_from_uri(Tbfwin *bfwin, GFile *uri, GFileInfo *finfo, gint goto_li
 		/* get the fileinfo also async */
 		file_doc_fill_fileinfo(f2d->doc, uri);
 	}
-	f2d->of = file_openfile_uri_async(f2d->uri,file2doc_lcb,f2d);
+	f2d->of = file_openfile_uri_async(f2d->uri,bfwin,file2doc_lcb,f2d);
 }
 
 /*************************** OPEN ADVANCED ******************************/
@@ -754,7 +759,7 @@ static void openadv_content_filter_file(Topenadv *oa, GFile *uri, GFileInfo* fin
 
 	oau->finfo = g_file_info_dup(finfo);
 
-	file_openfile_uri_async(uri, open_adv_content_filter_lcb, oau);
+	file_openfile_uri_async(uri, oa->bfwin, open_adv_content_filter_lcb, oau);
 }
 
 static void open_advanced_backend(Topenadv *oa, GFile *basedir);

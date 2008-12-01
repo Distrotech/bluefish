@@ -354,7 +354,7 @@ static void image_filename_changed(GtkWidget * widget, Timage_diag *imdg) {
 		DEBUG_MSG("image_filename_changed: fullfilename=%s, loading!\n", path2);
 		g_free (path2);
 #endif
-    imdg->of = file_openfile_uri_async(fullfilename, image_loaded_lcb, imdg);
+    imdg->of = file_openfile_uri_async(fullfilename, NULL,image_loaded_lcb, imdg);
     imdg->full_uri = fullfilename;
     name = g_file_get_uri (fullfilename);
     msg = g_strdup_printf(_("Loading file %s..."),name);
@@ -827,7 +827,7 @@ static void mt_start_load(Timage2thumb *i2t) {
   DEBUG_MSG("mt_start_load, starting load for %s\n", path);
   g_free (path);
 #endif
-  i2t->of = file_openfile_uri_async(i2t->imagename, mt_openfile_lcb, i2t);
+  i2t->of = file_openfile_uri_async(i2t->imagename,NULL, mt_openfile_lcb, i2t);
 }
 
 static Timage2thumb *mt_image2thumbnail(Tmuthudia *mtd, gchar *curi) {
