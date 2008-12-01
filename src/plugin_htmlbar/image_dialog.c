@@ -880,7 +880,7 @@ image_dialog_set_preview (BluefishImageDialog *dialog)
 	g_signal_connect (dialog->priv->pbloader, "size-prepared",
 										G_CALLBACK (pbloader_size_prepared), dialog);
 		
-	dialog->priv->openfile = file_openfile_uri_async (dialog->priv->fileuri, image_dialog_load_preview, dialog);
+	dialog->priv->openfile = file_openfile_uri_async (dialog->priv->fileuri,NULL, image_dialog_load_preview, dialog);
 }
 
 static void

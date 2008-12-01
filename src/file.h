@@ -105,12 +105,13 @@ typedef enum {
 typedef void (* OpenfileAsyncCallback) (Topenfile_status status,gint error_info, gchar *buffer,goffset buflen,gpointer callback_data);
 typedef struct {
 	GFile *uri;
+	Tbfwin *bfwin; /* MAY BE NULL !!!!!!!!!!!!!!!!!!!!!!!!!!! */
 	GCancellable *cancel;
 	OpenfileAsyncCallback callback_func;
 	gpointer callback_data;
 } Topenfile;
 void openfile_cancel(Topenfile *of);
-Topenfile *file_openfile_uri_async(GFile *uri, OpenfileAsyncCallback callback_func, gpointer callback_data);
+Topenfile *file_openfile_uri_async(GFile *uri, Tbfwin *bfwin, OpenfileAsyncCallback callback_func, gpointer callback_data);
 
 void file2doc_cancel(gpointer f2d);
 void file_asyncfileinfo_cancel(gpointer fi);
