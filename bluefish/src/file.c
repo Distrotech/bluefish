@@ -297,6 +297,21 @@ static void openfile_cleanup(Topenfile *of) {
 void openfile_cancel(Topenfile *of) {
 	g_cancellable_cancel(of->cancel);
 }
+
+static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data);
+
+static void openfile_async_mount_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	Topenfile *of = user_data;
+	GError *error=NULL;
+	if (g_file_mount_enclosing_volume_finish(of->uri,res,&error)) {
+		/* open again */
+		g_file_load_contents_async(of->uri,of->cancel,openfile_async_lcb,of);
+	} else {
+		g_print("failed to mount!!\n");
+		of->callback_func(OPENFILE_ERROR,error->code,NULL,0, of->callback_data);		
+	}
+}
+
 static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	Topenfile *of = user_data;
 	gboolean retval;
@@ -307,13 +322,25 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 	
 	retval = g_file_load_contents_finish(of->uri,res,&buffer,&size,&etag,&error);
 	if (error) {
-		of->callback_func(OPENFILE_ERROR,error->code,buffer,size, of->callback_data);
+		if (error->code == G_IO_ERROR_NOT_MOUNTED) {
+			GMountOperation * gmo;
+			g_print("not mounted, try to mount!!\n");
+			gmo = gtk_mount_operation_new(NULL); /* TODO, add bfwin to the Topenfile */
+			g_file_mount_enclosing_volume(of->uri
+					,G_MOUNT_MOUNT_NONE
+					,gmo
+					,of->cancel
+					,openfile_async_mount_lcb,of);
+		} else {
+			of->callback_func(OPENFILE_ERROR,error->code,buffer,size, of->callback_data);
+			g_free(buffer);
+		}
 		g_error_free(error);
 	} else {
 		of->callback_func(OPENFILE_FINISHED,0,buffer,size, of->callback_data);
 		openfile_cleanup(of);
-	}
-	g_free(buffer);
+		g_free(buffer);
+	}	
 }
 
 Topenfile *file_openfile_uri_async(GFile *uri, OpenfileAsyncCallback callback_func, gpointer callback_data) {
