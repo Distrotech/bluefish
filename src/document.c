@@ -605,7 +605,7 @@ void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssiz
 	g_free(filename);
 	/*mimetype = g_content_type_get_mime_type(conttype);*/
 	mimetype=conttype;
-	g_print("doc_reset_filetype,mimetype=%s\n",mimetype);
+	DEBUG_MSG("doc_reset_filetype,mimetype=%s\n",mimetype);
 	/* docs are unclear if conttype is a static string or a newly allocated string */
 
 #ifdef USE_BFTEXTVIEW2
@@ -1882,7 +1882,7 @@ static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdo
 	}
 	return FALSE; /* we didn't handle all of the event */
 }
-
+#ifndef USE_BFTEXTVIEW2
 static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdocument *doc) {
 #ifdef DEBUG
 	guint32 character = gdk_keyval_to_unicode(kevent->keyval);
@@ -1986,6 +1986,7 @@ static gboolean doc_view_key_release_lcb(GtkWidget *widget,GdkEventKey *kevent,T
 	}
 	return FALSE; /* we didn't handle all of the event */
 }
+#endif
 
 static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * itstart,GtkTextIter * itend, Tdocument * doc) {
 	gchar *string;
@@ -2837,9 +2838,9 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 		G_CALLBACK(doc_view_drag_end_lcb), newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view), "drag-begin",
 		G_CALLBACK(doc_view_drag_begin_lcb), newdoc);
-#endif
 	g_signal_connect_after(G_OBJECT(newdoc->view), "key-release-event",
 		G_CALLBACK(doc_view_key_release_lcb), newdoc);
+#endif
 	g_signal_connect(G_OBJECT(newdoc->view), "key-press-event",
 		G_CALLBACK(doc_view_key_press_lcb), newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view), "populate-popup",

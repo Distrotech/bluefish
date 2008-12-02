@@ -218,7 +218,7 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 		break;
 #endif
 	case 4:
-		main_v->props.autoindent = GTK_CHECK_MENU_ITEM(widget)->active;
+		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->autoindent = GTK_CHECK_MENU_ITEM(widget)->active;
 		break;
 	case 5:
 		bfwin->current_document->blocksstate = GTK_CHECK_MENU_ITEM(widget)->active;
@@ -545,7 +545,6 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	while (tmplist) {
 		Tbflang *bflang = (Tbflang *)tmplist->data;
 		Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
-		g_print("adding language %s to menu\n",bflang->name);
 		bdm->data = bflang;
 		bdm->bfwin = bfwin;
 		bdm->menuitem = gtk_radio_menu_item_new_with_label(group, bflang->name);

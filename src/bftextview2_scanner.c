@@ -440,7 +440,7 @@ static void remove_old_scan_results(BluefishTextView *btv, GtkTextBuffer *buffer
 		g_sequence_foreach_range(sit1,sit2,foundstack_free_lcb,btv);
 		g_sequence_remove_range(sit1,sit2);
 	} else{
-		g_print("no sit1, no cleanup ??\n");
+		DBG_SCANCACHE("no sit1, no cleanup ??\n");
 	}
 }
 

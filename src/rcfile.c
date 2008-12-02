@@ -310,7 +310,6 @@ static gboolean parse_config_file(GHashTable * config_list, gchar * filename)
 			DEBUG_MSG("parse_config_file, tmpstring=%s\n", tmpstring);
 			key = g_strndup(tmpstring, strchr(tmpstring,':')-tmpstring+1);
 			tmpitem = g_hash_table_lookup(config_list, key);
-			g_print("lookup %s found %p\n",key,tmpitem);
 			g_free(key);
 			if (tmpitem) {
 				/* we have found the correct identifier */
