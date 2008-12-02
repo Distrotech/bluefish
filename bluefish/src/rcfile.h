@@ -21,7 +21,7 @@
 #ifndef __RCFILE_H_
 #define __RCFILE_H_
 
-GList *make_config_list_item(GList * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var, gint len);
+GHashTable *make_config_list_item(GHashTable * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var, gint len);
 void rcfile_parse_main(void);
 void rcfile_parse_highlighting(void);
 void rcfile_parse_custom_menu(void);
