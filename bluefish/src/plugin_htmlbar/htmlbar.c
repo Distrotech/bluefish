@@ -129,13 +129,13 @@ static void htmlbar_cleanup_gui(Tbfwin *bfwin) {
 	/* BUG: clean the keys and structures in the hashtable */
 }
 
-static GList *htmlbar_register_globses_config(GList *configlist) {
+static GHashTable *htmlbar_register_globses_config(GHashTable *configlist) {
 	DEBUG_MSG("htmlbar_register_globses_config, started\n");
 /*	configlist = make_config_list_item(configlist, &htmlbar_v.view_htmlbar, 'i', "view_htmlbar", 0);*/
 	configlist = make_config_list_item(configlist, &htmlbar_v.quickbar_items, 'l', "htmlbar_quickbar:", 0);
 	return configlist;
 }
-static GList *htmlbar_register_session_config(GList *configlist, Tsessionvars *session) {
+static GHashTable *htmlbar_register_session_config(GHashTable *configlist, Tsessionvars *session) {
 	Thtmlbarsession *hbs;
 	DEBUG_MSG("htmlbar_register_session_config, started for %p\n",session);
 	hbs = g_hash_table_lookup(htmlbar_v.lookup,session);

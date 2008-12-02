@@ -80,11 +80,11 @@ static void infb_cleanup(void) {
 static void infb_cleanup_gui(Tbfwin *bfwin) {
 }
 
-static GList *infb_register_globses_config(GList *configlist) {
+static GHashTable *infb_register_globses_config(GHashTable *configlist) {
 	return configlist;
 }
 
-static GList *infb_register_session_config(GList *configlist, Tsessionvars *session) {
+static GHashTable *infb_register_session_config(GHashTable *configlist, Tsessionvars *session) {
 	return configlist;
 }
 
