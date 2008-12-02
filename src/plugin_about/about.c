@@ -222,10 +222,10 @@ static void about_cleanup(void) {
 static void about_cleanup_gui(Tbfwin *bfwin) {
 }
 
-static GList *about_register_globses_config(GList *configlist) {
+static GHashTable *about_register_globses_config(GHashTable *configlist) {
   return configlist;
 }
-static GList *about_register_session_config(GList *configlist, Tsessionvars *session) {
+static GHashTable *about_register_session_config(GHashTable *configlist, Tsessionvars *session) {
   return configlist;
 }
 

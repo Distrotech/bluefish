@@ -529,8 +529,8 @@ static void entity_initgui(Tbfwin* bfwin) {
 static void entity_enforce_session(Tbfwin* bfwin) {}
 static void entity_cleanup(void) {}
 static void entity_cleanup_gui(Tbfwin *bfwin) {}
-static GList *entity_register_globses_config(GList *configlist) {return configlist;}
-static GList *entity_register_session_config(GList *configlist, Tsessionvars *session) {  return configlist;}
+static GHashTable *entity_register_globses_config(GHashTable *configlist) {return configlist;}
+static GHashTable *entity_register_session_config(GHashTable *configlist, Tsessionvars *session) {  return configlist;}
 
 static TBluefishPlugin bfplugin = {
   "entities",

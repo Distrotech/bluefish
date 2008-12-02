@@ -77,12 +77,12 @@ static void snippets_cleanup_gui(Tbfwin *bfwin) {
 	/* BUG: clean the keys and structures in the hashtable */
 }
 
-static GList *snippets_register_globses_config(GList *configlist) {
+static GHashTable *snippets_register_globses_config(GHashTable *configlist) {
 /*	DEBUG_MSG("snippets_register_globses_config, started\n");
 	configlist = make_config_list_item(configlist, &snippets_v.quickbar_items, 'l', "snippets_quickbar:", 0);*/
 	return configlist;
 }
-static GList *snippets_register_session_config(GList *configlist, Tsessionvars *session) {
+static GHashTable *snippets_register_session_config(GHashTable *configlist, Tsessionvars *session) {
 /*	Tsnippetssession *hbs;
 	DEBUG_MSG("snippets_register_session_config, started for %p\n",session);
 	hbs = g_hash_table_lookup(snippets_v.lookup,session);
