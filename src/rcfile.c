@@ -89,21 +89,22 @@ typedef struct {
 						, or the number of items the array should have (during load) */
 } Tconfig_list_item;
 
-static GList *main_configlist=NULL;
-static GList *custom_menu_configlist=NULL;
+static GHashTable *main_configlist=NULL;
+static GHashTable *custom_menu_configlist=NULL;
 
-static void free_configlist(GList *configlist) {
-	GList *tmplist = g_list_first(configlist);
+static void free_configlist(GHashTable *configlist) {
+	g_hash_table_destroy(configlist);
+/*	GList *tmplist = g_list_first(configlist);
 	while(tmplist) {
 		Tconfig_list_item *cli = tmplist->data;
 		g_free(cli);
 		tmplist = g_list_next(tmplist);
 	}
-	g_list_free(configlist);
+	g_list_free(configlist);*/
 }
 
 /*this should add 1 empty entry to the configuration list */
-GList *make_config_list_item(GList * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var, gint len)
+GHashTable *make_config_list_item(GHashTable * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var, gint len)
 {
 	Tconfig_list_item *config_list_item;
 	if (!pointer_to_var) {
@@ -115,16 +116,17 @@ GList *make_config_list_item(GList * config_list, void *pointer_to_var, unsigned
 	config_list_item->type = type_of_var;
 	config_list_item->identifier = name_of_var;
 	config_list_item->len = len;
-	return (GList *) g_list_append(config_list, config_list_item);
+	g_hash_table_replace(config_list, name_of_var, config_list_item);
+	return config_list; 
 }
 
-static void init_prop_integer(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint default_value, gboolean set_default)
+static void init_prop_integer(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var, gint default_value, gboolean set_default)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'i', name_of_var, 0);
 	if (set_default) *(gint *)pointer_to_var = default_value;
 }
 
-static void init_prop_string(GList ** config_list, void *pointer_to_var, gchar * name_of_var, const gchar * default_value)
+static void init_prop_string(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var, const gchar * default_value)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 's', name_of_var, 0);
 	if (*(gchar **) pointer_to_var == NULL) {
@@ -133,7 +135,7 @@ static void init_prop_string(GList ** config_list, void *pointer_to_var, gchar *
 	DEBUG_MSG("init_prop_string, name_of_var=%s, default_value=%s, current value=%s\n", name_of_var, default_value, *(gchar **) pointer_to_var);
 }
 
-static void init_prop_string_with_escape(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gchar * default_value)
+static void init_prop_string_with_escape(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var, gchar * default_value)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'e', name_of_var, 0);
 	if (*(gchar **) pointer_to_var == NULL && default_value) {
@@ -142,7 +144,7 @@ static void init_prop_string_with_escape(GList ** config_list, void *pointer_to_
 	DEBUG_MSG("init_prop_string, name_of_var=%s, default_value=%s\n", name_of_var, default_value);
 }
 
-static void init_prop_stringlist(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gboolean setNULL)
+static void init_prop_stringlist(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var, gboolean setNULL)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'l', name_of_var, 0);
 	if (setNULL) {
@@ -150,7 +152,7 @@ static void init_prop_stringlist(GList ** config_list, void *pointer_to_var, gch
 	}
 }
 
-static void init_prop_arraylist(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint len, gboolean setNULL)
+static void init_prop_arraylist(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var, gint len, gboolean setNULL)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'a', name_of_var, len);
 	if (setNULL) {
@@ -159,7 +161,7 @@ static void init_prop_arraylist(GList ** config_list, void *pointer_to_var, gcha
 }
 
 /* limited lists should have the most recent on top, the last entries will be cut if there are too many entries */
-static void init_prop_limitedstringlist(GList ** config_list, void *pointer_to_var, gchar * name_of_var, gint len, gboolean setNULL)
+static void init_prop_limitedstringlist(GHashTable ** config_list, void *pointer_to_var, gchar * name_of_var, gint len, gboolean setNULL)
 {
 	*config_list = make_config_list_item(*config_list, pointer_to_var, 'm', name_of_var, len);
 	if (setNULL) {
@@ -167,21 +169,21 @@ static void init_prop_limitedstringlist(GList ** config_list, void *pointer_to_v
 	}
 }
 
-static gint save_config_file(GList * config_list, gchar * filename)
+static gint save_config_file(GHashTable * config_list, gchar * filename)
 {
 	gchar *tmpstring = NULL, *tmpstring2;
-	GList *rclist, *tmplist, *tmplist2;
-	Tconfig_list_item *tmpitem;
+	GList *rclist, *tmplist2;
+	GHashTableIter iter;
+	gpointer key,value;
 
 	DEBUG_MSG("save_config_file, started\n");
 
 	rclist = NULL;
 
 /* We must first make a list with 1 string per item. */
-	tmplist = g_list_first(config_list);
-	while (tmplist != NULL) {
-		DEBUG_MSG("save_config_file, tmpitem at %p\n", tmplist->data);
-		tmpitem = tmplist->data;
+	g_hash_table_iter_init(&iter,config_list);
+	while (g_hash_table_iter_next(&iter, &key, &value)) {
+		Tconfig_list_item *tmpitem = value;
 		DEBUG_MSG("save_config_file, identifier=%s datatype %c\n", tmpitem->identifier,tmpitem->type);
 		switch (tmpitem->type) {
 		case 'i':
@@ -255,8 +257,6 @@ static gint save_config_file(GList * config_list, gchar * filename)
 		default:
 			break;
 		}
-		tmplist = g_list_next(tmplist);
-
 	}
 	DEBUG_MSG("save_config_file, will save list with len %d to file %s\n",g_list_length(rclist),filename);
 	put_stringlist(filename, rclist);
@@ -265,13 +265,15 @@ static gint save_config_file(GList * config_list, gchar * filename)
 	return 1;
 }
 
-static gboolean parse_config_file(GList * config_list, gchar * filename)
+static gboolean parse_config_file(GHashTable * config_list, gchar * filename)
 {
 	gboolean retval = FALSE;
 	gchar *tmpstring = NULL, *tmpstring2;
 	gchar **tmparray;
-	GList *rclist, *tmplist, *tmplist2;
+	GList *rclist, *tmplist;
 	Tconfig_list_item *tmpitem;
+	GHashTableIter iter;
+	gpointer key, value;
 
 	DEBUG_MSG("parse_config_file, started\n");
 
@@ -284,9 +286,9 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 	}
 
 	/* empty all variables that have type GList ('l') */
-	tmplist = g_list_first(config_list);
-	while (tmplist != NULL) {
-		tmpitem = (Tconfig_list_item *) tmplist->data;
+	g_hash_table_iter_init(&iter, config_list);
+	while (g_hash_table_iter_next (&iter, &key, &value)) { 
+		tmpitem = (Tconfig_list_item *) value;
 		DEBUG_MSG("parse_config_file, type=%c, identifier=%s\n", tmpitem->type, tmpitem->identifier);
 		if (tmpitem->type == 'l' || tmpitem->type == 'a') {
 			DEBUG_MSG("parse_config_file, freeing list before filling it\n");
@@ -294,7 +296,6 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 			*(void **) tmpitem->pointer = (GList *)NULL;
 		}
 		DEBUG_MSG("parse_config_file, type=%c, identifier=%s\n", tmpitem->type, tmpitem->identifier);
-		tmplist = g_list_next(tmplist);
 	}
 	DEBUG_MSG("parse_config_file, all the type 'l' and 'a' have been emptied\n");
 	DEBUG_MSG("parse_config_file, length rclist=%d\n", g_list_length(rclist));
@@ -304,62 +305,55 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 		tmpstring = (gchar *) tmplist->data;
 
 		if (tmpstring != NULL) {
-			DEBUG_MSG("parse_config_file, tmpstring=%s\n", tmpstring);
+			gchar *key;
 			g_strchug(tmpstring);
+			DEBUG_MSG("parse_config_file, tmpstring=%s\n", tmpstring);
+			key = g_strndup(tmpstring, strchr(tmpstring,':')-tmpstring+1);
+			tmpitem = g_hash_table_lookup(config_list, key);
+			g_print("lookup %s found %p\n",key,tmpitem);
+			g_free(key);
+			if (tmpitem) {
+				/* we have found the correct identifier */
+				retval = TRUE;
+				DEBUG_MSG("parse_config_file, identifier=%s, string=%s\n", tmpitem->identifier, tmpstring);
+				/* move pointer past the identifier */
+				tmpstring += strlen(tmpitem->identifier);
+				trunc_on_char(tmpstring, '\n');
+				g_strstrip(tmpstring);
 
-			tmplist2 = g_list_first(config_list);
-			while (tmplist2) {
-				tmpitem = (Tconfig_list_item *) tmplist2->data;
-#ifdef DEVELOPMENT
-				if (!tmpitem || !tmpitem->identifier || !tmpstring) {
-					g_print("WARNING: almost a problem!\n");
-				}
-#endif
-				if (g_strncasecmp(tmpitem->identifier, tmpstring, strlen(tmpitem->identifier)) == 0) {
-					/* we have found the correct identifier */
-					retval = TRUE;
-					DEBUG_MSG("parse_config_file, identifier=%s, string=%s\n", tmpitem->identifier, tmpstring);
-					/* move pointer past the identifier */
-					tmpstring += strlen(tmpitem->identifier);
-					trunc_on_char(tmpstring, '\n');
-					g_strstrip(tmpstring);
-
-					switch (tmpitem->type) {
-					case 'i':
-						*(int *) (void *) tmpitem->pointer = atoi(tmpstring);
-						break;
-					case 's':
-						*(void **) tmpitem->pointer = (char *) realloc((char *) *(void **) tmpitem->pointer, strlen(tmpstring) + 1);
-						strcpy((char *) *(void **) tmpitem->pointer, tmpstring);
-						break;
-					case 'e':
-						tmpstring2 = unescape_string(tmpstring, FALSE); /* I wonder if that should be TRUE */
-						*(void **) tmpitem->pointer = (char *) realloc((char *) *(void **) tmpitem->pointer, strlen(tmpstring2) + 1);
-						strcpy((char *) *(void **) tmpitem->pointer, tmpstring2);
-						g_free(tmpstring2);
-						break;
-					case 'l':
-					case 'm':
-						tmpstring2 = g_strdup(tmpstring);
-						* (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmpstring2);
-						DEBUG_MSG("parse_config_file, *(void **)tmpitem->pointer=%p\n", *(void **) tmpitem->pointer);
-						break;
-					case 'a':
-						tmparray = string_to_array(tmpstring);
-						if (tmpitem->len <= 0 || tmpitem->len == count_array(tmparray)) {
-							* (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmparray);
-						} else {
-							DEBUG_MSG("parse_config_file, not storing array, count_array() != tmpitem->len\n");
-							g_strfreev(tmparray);
-						}
-						DEBUG_MSG("parse_config_file, *(void **)tmpitem->pointer=%p\n", *(void **) tmpitem->pointer);
-						break;
-					default:
-						break;
+				switch (tmpitem->type) {
+				case 'i':
+					*(int *) (void *) tmpitem->pointer = atoi(tmpstring);
+					break;
+				case 's':
+					*(void **) tmpitem->pointer = (char *) realloc((char *) *(void **) tmpitem->pointer, strlen(tmpstring) + 1);
+					strcpy((char *) *(void **) tmpitem->pointer, tmpstring);
+					break;
+				case 'e':
+					tmpstring2 = unescape_string(tmpstring, FALSE); /* I wonder if that should be TRUE */
+					*(void **) tmpitem->pointer = (char *) realloc((char *) *(void **) tmpitem->pointer, strlen(tmpstring2) + 1);
+					strcpy((char *) *(void **) tmpitem->pointer, tmpstring2);
+					g_free(tmpstring2);
+					break;
+				case 'l':
+				case 'm':
+					tmpstring2 = g_strdup(tmpstring);
+					* (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmpstring2);
+					DEBUG_MSG("parse_config_file, *(void **)tmpitem->pointer=%p\n", *(void **) tmpitem->pointer);
+					break;
+				case 'a':
+					tmparray = string_to_array(tmpstring);
+					if (tmpitem->len <= 0 || tmpitem->len == count_array(tmparray)) {
+						* (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmparray);
+					} else {
+						DEBUG_MSG("parse_config_file, not storing array, count_array() != tmpitem->len\n");
+						g_strfreev(tmparray);
 					}
-					tmplist2 = g_list_last(tmplist2);
+					DEBUG_MSG("parse_config_file, *(void **)tmpitem->pointer=%p\n", *(void **) tmpitem->pointer);
+					break;
+				default:
+					break;
 				}
-				tmplist2 = g_list_next(tmplist2);
 			}
 		}
 		tmplist = g_list_next(tmplist);
@@ -369,7 +363,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 	return retval;
 }
 
-static GList *props_init_main(GList * config_rc)
+static GHashTable *props_init_main(GHashTable * config_rc)
 {
 	init_prop_integer   (&config_rc, &main_v->props.do_periodic_check, "do_periodic_check:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_line_numbers, "view_line_numbers:", 1, TRUE);
@@ -540,7 +534,7 @@ void rcfile_parse_main(void)  {
 	memset(&main_v->props, 0, sizeof(Tproperties));
 
 	/*Make the config_rc list ready for filling with data and set default values */
-	main_configlist = props_init_main(NULL);
+	main_configlist = props_init_main(g_hash_table_new_full(g_str_hash,g_str_equal,NULL, g_free));
 
 	filename = user_bfdir("rcfile_v2");
 	if (!parse_config_file(main_configlist, filename)) {
@@ -705,7 +699,7 @@ gint rcfile_save_main(void) {
 
 void rcfile_parse_custom_menu(void) {
 	gchar *filename;
-	custom_menu_configlist = NULL;
+	custom_menu_configlist = g_hash_table_new_full(g_str_hash,g_str_equal,NULL, g_free);
 
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cust_menu, "custom_menu:", 0, TRUE);
 	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_insert, "cmenu_insert:", 0, TRUE);
@@ -805,8 +799,8 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 	}
 }
 
-static GList *return_globalsession_configlist(gboolean init_values) {
-	GList *config_rc = NULL;
+static GHashTable *return_globalsession_configlist(gboolean init_values) {
+	GHashTable *config_rc = g_hash_table_new_full(g_str_hash,g_str_equal,NULL, g_free);
 	init_prop_integer   (&config_rc, &main_v->globses.main_window_h, "main_window_height:", 400, init_values);
 	init_prop_integer   (&config_rc, &main_v->globses.main_window_w, "main_window_width:", 600, init_values); /* negative width means maximized */
 	init_prop_integer   (&config_rc, &main_v->globses.two_pane_filebrowser_height, "two_pane_filebrowser_height:", 250, init_values);
@@ -823,11 +817,12 @@ static GList *return_globalsession_configlist(gboolean init_values) {
 	init_prop_arraylist (&config_rc, &main_v->globses.filefilters, "filefilters:", 4, init_values);
 	init_prop_arraylist (&config_rc, &main_v->globses.reference_files, "reference_files:", 2, init_values);
 	init_prop_limitedstringlist(&config_rc, &main_v->globses.recent_projects, "recent_projects:", main_v->props.max_recent_files, init_values);
+	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 3, FALSE);
 	config_rc = bfplugins_register_globses_config(config_rc);
 	return config_rc;
 }
 
-static GList *return_session_configlist(GList *configlist, Tsessionvars *session) {
+static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvars *session) {
 	/* this function should *NOT* initialize any values to default values
 	because it is also used on existing sessions that already have a value, and
 	that would wipe out the value of the existing session */
@@ -866,8 +861,8 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	return configlist;
 }
 
-static GList *return_project_configlist(Tproject *project) {
-	GList *configlist = NULL;
+static GHashTable *return_project_configlist(Tproject *project) {
+	GHashTable *configlist = g_hash_table_new_full(g_str_hash,g_str_equal,NULL, g_free);
 	init_prop_string(&configlist, &project->name,"name:",_("Untitled Project"));
 	init_prop_stringlist(&configlist, &project->files, "files:", FALSE);
 	init_prop_string(&configlist, &project->template,"template:","");
@@ -879,7 +874,7 @@ static GList *return_project_configlist(Tproject *project) {
 
 gboolean rcfile_parse_project(Tproject *project, gchar *filename) {
 	gboolean retval;
-	GList *configlist = return_project_configlist(project);
+	GHashTable *configlist = return_project_configlist(project);
 	retval = parse_config_file(configlist, filename);
 	free_configlist(configlist);
 	return retval;
@@ -887,7 +882,7 @@ gboolean rcfile_parse_project(Tproject *project, gchar *filename) {
 
 gboolean rcfile_save_project(Tproject *project, gchar *filename) {
 	gboolean retval;
-	GList *configlist = return_project_configlist(project);
+	GHashTable *configlist = return_project_configlist(project);
 	DEBUG_MSG("rcfile_save_project, project %p, name='%s'\n",project, project->name);
 	DEBUG_MSG("rcfile_save_project, bmarks=%p, list length=%d\n",project->session->bmarks, g_list_length(project->session->bmarks));
 	DEBUG_MSG("rcfile_save_project, length session recent_files=%d\n",g_list_length(project->session->recent_files));
@@ -896,23 +891,10 @@ gboolean rcfile_save_project(Tproject *project, gchar *filename) {
 	return retval;
 }
 
-gboolean rcfile_save_encodings(void) {
-	gboolean retval;
-	gchar *filename;
-	GList *configlist = NULL;
-
-	filename = user_bfdir("encodings");
-	init_prop_arraylist (&configlist, &main_v->props.encodings, NULL, 3, FALSE);
-	DEBUG_MSG("rcfile_save_encodings, saving encodings to %s\n", filename);
-	retval = save_config_file(configlist, filename);
-	g_free(filename);
-	return TRUE;
-}
-
 gboolean rcfile_save_global_session(void) {
 	gboolean retval;
 	gchar *filename;
-	GList *configlist;
+	GHashTable *configlist;
 	filename = user_bfdir("session");
 	configlist = return_globalsession_configlist(FALSE);
 	configlist = return_session_configlist(configlist, main_v->session);
@@ -929,7 +911,7 @@ gboolean rcfile_save_global_session(void) {
 gboolean rcfile_parse_global_session(void) {
 	gboolean retval;
 	gchar *filename;
-	GList *configlist = return_globalsession_configlist(TRUE);
+	GHashTable *configlist = return_globalsession_configlist(TRUE);
 	configlist = return_session_configlist(configlist, main_v->session);
 	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/session", NULL);
 	if (!full_path_exists(filename)) {

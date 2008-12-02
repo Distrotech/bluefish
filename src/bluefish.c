@@ -358,8 +358,8 @@ void bluefish_exit_request() {
   }
   flush_queue();
 
-  rcfile_save_global_session();
-	rcfile_save_encodings();
+	rcfile_save_global_session();
+
 
 /*  {
     gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/dir_history", NULL);

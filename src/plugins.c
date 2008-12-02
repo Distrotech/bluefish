@@ -188,7 +188,7 @@ void bfplugins_enforce_session(gpointer data, gpointer user_data) {
 	bfplugin->enforce_session(bfwin);
 }
 
-GList *bfplugins_register_globses_config(GList *list) {
+GHashTable *bfplugins_register_globses_config(GHashTable *list) {
 	GSList *tmplist = main_v->plugins;
 	while (tmplist) {
 		TBluefishPlugin *bfplugin = tmplist->data;
@@ -199,7 +199,7 @@ GList *bfplugins_register_globses_config(GList *list) {
 	}
 	return list;
 }
-GList *bfplugins_register_session_config(GList *list, Tsessionvars *session) {
+GHashTable *bfplugins_register_session_config(GHashTable *list, Tsessionvars *session) {
 	GSList *tmplist = main_v->plugins;
 	while (tmplist) {
 		TBluefishPlugin *bfplugin = tmplist->data;
