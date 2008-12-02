@@ -834,6 +834,7 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 	}
 	textview->linenumbers = main_v->props.view_line_numbers;
 	textview->showblocks = main_v->props.view_blocks;
+	textview->autoindent = main_v->props.autoindent;
 #else
 	if (background_color) {
 		GdkColor color;

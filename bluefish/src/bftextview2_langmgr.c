@@ -700,13 +700,13 @@ Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype) {
 		GError *error=NULL;
 		GThread* thread;
 		bflang->parsing=TRUE;
-		g_print("no scantable in %p, start thread\n",bflang);
+		DBG_MSG("no scantable in %p, start thread\n",bflang);
 		thread = g_thread_create(build_lang_thread,bflang,FALSE,&error);
 		if (error) {
 			DBG_PARSING("start thread, error\n");
 		}
 	} else {
-		g_print("have scantable, return %p\n",bflang);
+		DBG_MSG("have scantable, return %p\n",bflang);
 	}
 	return bflang;
 }
@@ -760,7 +760,7 @@ GList *langmgr_get_languages(void) {
 static void register_bflanguage(Tbflang *bflang) {
 	if (bflang) {
 		GList *tmplist;
-		g_print("register bflang %s\n",bflang->name);
+		/*g_print("register bflang %s\n",bflang->name);*/
 		tmplist = g_list_first(bflang->mimetypes);
 		while (tmplist) {
 			g_hash_table_insert(langmgr.bflang_lookup, (gchar *)tmplist->data, bflang);
@@ -775,15 +775,12 @@ static void scan_bflang2files(void) {
 	GError *error = NULL;
 	GPatternSpec *ps = g_pattern_spec_new("*.bflang2");
 	GDir *gd = g_dir_open(dir, 0, &error);
-	g_print("loading .\n");
 	if (!error) {
 		filename = g_dir_read_name(gd);
 		while (filename) {
-			g_print("filename=%s\n",filename);
 			if (g_pattern_match(ps, strlen(filename), filename, NULL)) {
 				Tbflang *bflang;
 				gchar *path = g_strconcat(dir, "/",filename, NULL);
-				g_print("parse=%s\n",path);
 				bflang = parse_bflang2_header(path);
 				register_bflanguage(bflang);
 				g_free(path);
