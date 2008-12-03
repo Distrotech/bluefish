@@ -45,10 +45,6 @@
 
 enum {
 	do_periodic_check,
-	view_html_toolbar,
-	view_custom_menu,
-	view_main_toolbar,
-	view_left_panel,
 	view_line_numbers,
 	filebrowser_unknown_icon,
 	editor_show_splash_screen,    /* show splash screen at start-up */
@@ -107,7 +103,6 @@ enum {
 	drop_at_drop_pos,             /* drop at drop position instead of cursor position */
 	link_management,              /* perform link management */
 	html_ver,
-	cust_menu,                    /* entries in the custom menu */
 #ifdef WITH_SPC
 	/* spell checker options */
 	cfg_spc_cline,                /* spell checker command line */
@@ -130,18 +125,25 @@ enum {
 #ifdef WITH_MSG_QUEUE
 	open_in_running_bluefish,     /* open commandline documents in already running session*/
 #endif /* WITH_MSG_QUEUE */
+#ifdef USE_BFTEXTVIEW2
+	load_reference,
+	delay_full_scan,
+	autocomp_popup_mode,
+	reduced_scan_triggers,
+#else
+	view_symbols,/* show symbols on the left side by default */	
+	scan_mode, /* number of lines to autoscan */
+	view_rmargin, /* show right margin by default */
+	rmargin_at, /* position of a right margin */
+	autocomp_key, /* autocompletion accelerator */
+	load_network_dtd, /* if true - remote(network) DTDs in DTD aware formats are loaded, otherwise they are not */
+	tag_autoclose, /* global setting for tag autoclosing */
+#endif
 	view_blocks,
-	view_symbols,
 	view_mbhl,
 	view_cline,
-	scan_mode,
 	editor_fg,
 	editor_bg,
-	view_rmargin,
-	rmargin_at,
-	autocomp_key,
-	tag_autoclose,
-	load_network_dtd,
 	property_num_max
 };
 
@@ -152,6 +154,9 @@ enum {
 	extoutputbox,
 	pluginconfig,
 	textstyles,
+#ifdef USE_BFTEXTVIEW2
+	highlight_styles,
+#endif
 	syntax_styles,
 	lists_num_max
 };
@@ -1179,7 +1184,6 @@ static void fill_hl_tree(Tprefdialog *pd) {
 			/* removes broken and duplicate values from the list */
 			pd->lists[syntax_styles] = g_list_remove(pd->lists[syntax_styles], tmp);
 		}
-
 	}
 #ifdef USE_BFTEXTVIEW2
 	/* TODO */
