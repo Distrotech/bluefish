@@ -565,7 +565,7 @@ static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,
 		return TRUE;
 	}
 #ifdef IN_BLUEFISH
-	if (main_v->props.smart_cursor && !(kevent->state & GDK_CONTROL_MASK) && ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End)))
+	if (main_v->props.editor_smart_cursor && !(kevent->state & GDK_CONTROL_MASK) && ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End)))
 #else
 	if (smart_cursor && !(kevent->state & GDK_CONTROL_MASK) && ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End)))
 #endif

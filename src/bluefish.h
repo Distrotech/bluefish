@@ -280,7 +280,6 @@ typedef struct {
 	gboolean delay_full_scan;
 	gint autocomp_popup_mode;
 	gboolean reduced_scan_triggers;
-	gboolean smart_cursor;
 #else
 	gint view_symbols; /* show symbols on the left side by default */	
 	gint scan_mode; /* number of lines to autoscan */
