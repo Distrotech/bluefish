@@ -142,7 +142,6 @@ void langmgr_reload_user_styles(GList *user_styles) {
 		gchar **arr = (gchar **)tmplist->data;
 		langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
 	}
-
 }
 
 static gchar *langmgr_lookup_style_for_highlight(const gchar *lang, const gchar *highlight) {

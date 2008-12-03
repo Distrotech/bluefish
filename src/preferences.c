@@ -1995,16 +1995,7 @@ static void preferences_dialog() {
 	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Editor"),150,TRUE));
 */
 
-#ifndef NOSPLASH
-	frame = gtk_frame_new(_("Editor startup options"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-
-	pd->prefs[editor_show_splash_screen] = boxed_checkbut_with_value(_("Show splash-screen"), main_v->props.show_splash_screen, vbox2);
-#endif /* #ifndef NOSPLASH */
-
-	frame = gtk_frame_new(_("Editor options"));
+	frame = gtk_frame_new(_("Generic editor options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
@@ -2012,26 +2003,29 @@ static void preferences_dialog() {
 	pd->prefs[editor_font_string] = prefs_string(_("Font"), main_v->props.editor_font_string, vbox2, pd, string_font);
 	pd->prefs[editor_fg] = prefs_string(_("Foreground color"), main_v->props.editor_fg, vbox2, pd, string_color);
 	pd->prefs[editor_bg] = prefs_string(_("Background color"), main_v->props.editor_bg, vbox2, pd, string_color);
-	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
-	pd->prefs[editor_smart_cursor] = boxed_checkbut_with_value(_("Smart cursor positioning"), main_v->props.editor_smart_cursor, vbox2);
+	pd->prefs[editor_smart_cursor] = boxed_checkbut_with_value(_("Smart Home/End cursor positioning"), main_v->props.editor_smart_cursor, vbox2);
 	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
-	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap default"), main_v->props.word_wrap, vbox2);
-	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Line numbers by default"), main_v->props.view_line_numbers, vbox2);
-	pd->prefs[view_blocks] = boxed_checkbut_with_value(_("Block folding view by default"), main_v->props.view_blocks, vbox2);
-#ifndef USE_BFTEXTVIEW2
-	pd->prefs[view_symbols] = boxed_checkbut_with_value(_("Symbols view by default"), main_v->props.view_symbols, vbox2);
-	pd->prefs[tag_autoclose] = boxed_checkbut_with_value(_("Tag autoclose by default"), main_v->props.tag_autoclose, vbox2);
-#endif
-	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax by default"), main_v->props.defaulthighlight, vbox2);
 
+	pd->prefs[num_undo_levels] = prefs_integer(_("Number of actions in undo history"), main_v->props.num_undo_levels, vbox2, pd, 50, 10000);
+	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);
 
-	frame = gtk_frame_new(_("Undo options"));
+	frame = gtk_frame_new(_("Default values"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
-	pd->prefs[num_undo_levels] = prefs_integer(_("Undo history size"), main_v->props.num_undo_levels, vbox2, pd, 50, 10000);
-	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);
+	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
+	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap"), main_v->props.word_wrap, vbox2);
+	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Show line numbers"), main_v->props.view_line_numbers, vbox2);
+	
+#ifndef USE_BFTEXTVIEW2
+	pd->prefs[view_symbols] = boxed_checkbut_with_value(_("Symbols view"), main_v->props.view_symbols, vbox2);
+	pd->prefs[tag_autoclose] = boxed_checkbut_with_value(_("Tag autoclose"), main_v->props.tag_autoclose, vbox2);
+#endif
+	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax"), main_v->props.defaulthighlight, vbox2);
+	pd->prefs[view_cline] = boxed_checkbut_with_value(_("Highlight current line"), main_v->props.view_cline, vbox2);
+	pd->prefs[view_blocks] = boxed_checkbut_with_value(_("Enable block folding"), main_v->props.view_blocks, vbox2);
+	pd->prefs[view_mbhl] = boxed_checkbut_with_value(_("Highlight matching block begin-end"), main_v->props.view_mbhl, vbox2);
 
 /*	frame = gtk_frame_new(_("Bookmark options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2125,6 +2119,15 @@ static void preferences_dialog() {
 
 	gtk_tree_store_append(pd->nstore, &iter, NULL);
 	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("User interface"), WIDGETCOL,vbox1,-1);
+
+#ifndef NOSPLASH
+	frame = gtk_frame_new(_("Startup options"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+
+	pd->prefs[editor_show_splash_screen] = boxed_checkbut_with_value(_("Show splash-screen"), main_v->props.show_splash_screen, vbox2);
+#endif /* #ifndef NOSPLASH */
 
    frame = gtk_frame_new(_("General"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -2311,8 +2314,6 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	pd->prefs[view_mbhl] = boxed_checkbut_with_value(_("Match block begin-end by default"), main_v->props.view_mbhl, vbox2);
-	pd->prefs[view_cline] = boxed_checkbut_with_value(_("Highlight current line by default"), main_v->props.view_cline, vbox2);
 #ifndef USE_BFTEXTVIEW2
 	pd->prefs[view_rmargin] = boxed_checkbut_with_value(_("Show right margin by default"), main_v->props.view_rmargin, vbox2);
 	pd->prefs[rmargin_at] = prefs_integer(_("Right margin at"), main_v->props.rmargin_at, vbox2, pd,0, 500);
