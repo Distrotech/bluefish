@@ -140,7 +140,8 @@ void langmgr_reload_user_styles(GList *user_styles) {
 	GList *tmplist;
 	for (tmplist = g_list_first(user_styles);tmplist;tmplist=tmplist->next) {
 		gchar **arr = (gchar **)tmplist->data;
-		langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
+		if (count_array(arr)==5) 
+			langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
 	}
 }
 

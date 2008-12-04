@@ -125,20 +125,10 @@ enum {
 #ifdef WITH_MSG_QUEUE
 	open_in_running_bluefish,     /* open commandline documents in already running session*/
 #endif /* WITH_MSG_QUEUE */
-#ifdef USE_BFTEXTVIEW2
 	load_reference,
 	delay_full_scan,
 	autocomp_popup_mode,
 	reduced_scan_triggers,
-#else
-	view_symbols,/* show symbols on the left side by default */	
-	scan_mode, /* number of lines to autoscan */
-	view_rmargin, /* show right margin by default */
-	rmargin_at, /* position of a right margin */
-	autocomp_key, /* autocompletion accelerator */
-	load_network_dtd, /* if true - remote(network) DTDs in DTD aware formats are loaded, otherwise they are not */
-	tag_autoclose, /* global setting for tag autoclosing */
-#endif
 	view_blocks,
 	view_mbhl,
 	view_cline,
@@ -154,10 +144,7 @@ enum {
 	extoutputbox,
 	pluginconfig,
 	textstyles,
-#ifdef USE_BFTEXTVIEW2
 	highlight_styles,
-#endif
-	syntax_styles,
 	lists_num_max
 };
 
@@ -1611,8 +1598,8 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	DEBUG_MSG("preferences_destroy_lcb, started\n");
 
 	free_arraylist(pd->lists[textstyles]);
-	free_arraylist(pd->lists[syntax_styles]);
-	pd->lists[syntax_styles] = NULL;
+	free_arraylist(pd->lists[highlight_styles]);
+	pd->lists[highlight_styles] = NULL;
 	free_arraylist(pd->lists[extcommands]);
 	free_arraylist(pd->lists[extfilters]);
 	free_arraylist(pd->lists[extoutputbox]);
@@ -1736,11 +1723,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	free_arraylist(main_v->props.filetypes);
 	main_v->props.filetypes = duplicate_arraylist(pd->lists[filetypes]);
 */
-#ifndef USE_BFTEXTVIEW2
-	DEBUG_MSG("preferences_apply: free old syntax styles, and building new list\n");
-	free_arraylist(main_v->props.syntax_styles);
-	main_v->props.syntax_styles = duplicate_arraylist(pd->lists[syntax_styles]);
-#endif
+
 	free_arraylist(main_v->props.external_command);
 	main_v->props.external_command = duplicate_arraylist(pd->lists[extcommands]);
 
@@ -1753,16 +1736,13 @@ static void preferences_apply(Tprefdialog *pd) {
 	DEBUG_MSG("preferences_apply: free old textstyles, and building new list\n");
 	free_arraylist(main_v->props.textstyles);
 	main_v->props.textstyles = duplicate_arraylist(pd->lists[textstyles]);
+	free_arraylist(main_v->props.highlight_styles);
+	main_v->props.highlight_styles = duplicate_arraylist(pd->lists[highlight_styles]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
-#ifdef USE_BFTEXTVIEW2
 	langmgr_reload_user_styles(main_v->props.textstyles);
 	/* TODO for highlight styles */
-#else
-	textstyle_rebuild();
 
-	bf_lang_mgr_retag();
-#endif
 	all_documents_apply_settings();
 	{
 		GList *tmplist = g_list_first(main_v->bfwinlist);
@@ -1843,54 +1823,6 @@ void preftree_cursor_changed_cb (GtkTreeView *treeview, gpointer user_data) {
 	}
 }
 
-#ifndef USE_BFTEXTVIEW2
-/* List of language files */
-
-static void rescan_lang_files(Tprefdialog *pd)
-{
-	const gchar *filename;
-	GError *error = NULL;
-	GtkTreeIter iter;
-	GPatternSpec *ps = g_pattern_spec_new("*.bflang");
-	GDir *gd;
-	gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
-
-	if ( pd->lang_files != NULL ) {
-		gtk_list_store_clear(pd->lang_files);
-	} else {
-		pd->lang_files = gtk_list_store_new (1, G_TYPE_STRING);
-	}
-	gtk_list_store_append (pd->lang_files, &iter);
- 	gtk_list_store_set (pd->lang_files, &iter,0, "",-1);
-	gd = g_dir_open(PKGDATADIR, 0, &error);
-	if (gd) {
-		filename = g_dir_read_name(gd);
-		while (filename) {
-			if (g_pattern_match(ps, strlen(filename), filename, NULL) ) {
-		 		gtk_list_store_append (pd->lang_files, &iter);
-			      	gtk_list_store_set (pd->lang_files, &iter,0, filename,-1);
-			}
-			filename = g_dir_read_name(gd);
-		}
-		g_dir_close(gd);
-	}
-
-	gd = g_dir_open(userdir, 0, &error);
-	filename = g_dir_read_name(gd);
-	while (filename) {
-		if (g_pattern_match(ps, strlen(filename), filename, NULL) ) {
- 	      gtk_list_store_append (pd->lang_files, &iter);
-      	gtk_list_store_set (pd->lang_files, &iter,0, filename,-1);
-		}
-		filename = g_dir_read_name(gd);
-	}
-	g_dir_close(gd);
-	g_free(userdir);
-	g_pattern_spec_free(ps);
-
-}
-#endif
-
 static void preferences_dialog() {
 	Tprefdialog *pd;
 	GtkWidget *dvbox, *frame, *vbox1, *vbox2;
@@ -1905,9 +1837,7 @@ static void preferences_dialog() {
 
 	pd = g_new0(Tprefdialog,1);
 	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
-#ifndef USE_BFTEXTVIEW2
-	rescan_lang_files(pd);
-#endif
+
 	dvbox = gtk_vbox_new(FALSE, 5);
 	dhbox = gtk_hbox_new(FALSE, 5);
 	pd->fixed = gtk_hbox_new(FALSE,5);
@@ -1959,10 +1889,6 @@ static void preferences_dialog() {
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap"), main_v->props.word_wrap, vbox2);
 	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Show line numbers"), main_v->props.view_line_numbers, vbox2);
 	
-#ifndef USE_BFTEXTVIEW2
-	pd->prefs[view_symbols] = boxed_checkbut_with_value(_("Symbols view"), main_v->props.view_symbols, vbox2);
-	pd->prefs[tag_autoclose] = boxed_checkbut_with_value(_("Tag autoclose"), main_v->props.tag_autoclose, vbox2);
-#endif
 	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax"), main_v->props.defaulthighlight, vbox2);
 	pd->prefs[view_cline] = boxed_checkbut_with_value(_("Highlight current line"), main_v->props.view_cline, vbox2);
 	pd->prefs[view_blocks] = boxed_checkbut_with_value(_("Enable block folding"), main_v->props.view_blocks, vbox2);
@@ -2255,16 +2181,6 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-#ifndef USE_BFTEXTVIEW2
-	pd->prefs[view_rmargin] = boxed_checkbut_with_value(_("Show right margin by default"), main_v->props.view_rmargin, vbox2);
-	pd->prefs[rmargin_at] = prefs_integer(_("Right margin at"), main_v->props.rmargin_at, vbox2, pd,0, 500);
-	{
-		gchar *modes[] = {N_("whole document"), N_("visible area"),  NULL};
-		pd->prefs[scan_mode] = boxed_optionmenu_with_value(_("Scan mode"), main_v->props.scan_mode, vbox2, modes);
-	}
-	pd->prefs[autocomp_key] = prefs_string(_("Autocompletion key"), main_v->props.autocomp_key, vbox2, pd, string_accel);
-	pd->prefs[load_network_dtd] = boxed_checkbut_with_value(_("Load network DTD by default"), main_v->props.load_network_dtd, vbox2);
-#endif
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);
