@@ -312,6 +312,7 @@ typedef struct {
 	GList *mimetypes;
 	GList *langoptions; /* all options that can be enabled/disabled for this language */
 	GList *setoptions; /* all options that are enabled */
+	GList *highlights;
 	gchar *filename; /* the .bflang2 file */
 	Tscantable *st; /* NULL or complete */
 	gboolean parsing; /* set to TRUE when a thread is parsing the scantable already */
