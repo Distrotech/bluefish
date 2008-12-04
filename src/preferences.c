@@ -1157,95 +1157,40 @@ static void fill_hl_combo(Tprefdialog *pd) {
 	}
 }
 
-static void retrieve_arr_add_to_model(Tprefdialog *pd, GHashTable *hasht, GtkTreeIter *parent, GtkTreeIter *iiter, const gchar *filetype, const gchar *type, const gchar *name) {
-	if (filetype&&type&&name) {
-		const gchar *arr2[] = {filetype, type, name, NULL};
-		/*gchar **iarr =  arraylist_value_exists(pd->lists[syntax_styles], arr2, 3, TRUE);*/
-		gchar **iarr = g_hash_table_lookup(hasht, arr2);
-		DEBUG_MSG("retrieve_arr_add_to_model, adding %s to model\n",name);
-		gtk_tree_store_append(GTK_TREE_STORE(pd->hld.tstore), iiter, parent);
-		gtk_tree_store_set(GTK_TREE_STORE(pd->hld.tstore), iiter,0,name,1,filetype,2,type,3,iarr,-1);
-	}
-}
-
 static void fill_hl_tree(Tprefdialog *pd) {
-	GList *tmplist;
-	GHashTable *hasht;
-	hasht = g_hash_table_new(arr3_hash,arr3_equal);
-
-	/* first fill the hashtable */
-	tmplist=g_list_first(pd->lists[syntax_styles]);
+	/* To fill the tree quickly, we create the parents (language names), and add the names with the corresponding
+	GtkTreeIter to a hashtable. Then we simply walk the GList and lookup the correct GtkTreeIter in the hashtable */
+	GHashTable *langiters;
+	GList *tmplist = g_list_first(langmgr_get_languages());
+	langiters = g_hash_table_new_full(g_str_hash,g_str_equal,NULL,g_free);
 	while (tmplist) {
-		gchar **tmp = tmplist->data;
-		tmplist=g_list_next(tmplist);
-		if (count_array(tmp)>3 && g_hash_table_lookup(hasht, tmp)==NULL) {
-			g_hash_table_insert(hasht,tmp,tmp);
-		} else {
-			/* removes broken and duplicate values from the list */
-			pd->lists[syntax_styles] = g_list_remove(pd->lists[syntax_styles], tmp);
-		}
-	}
-#ifdef USE_BFTEXTVIEW2
-	/* TODO */
-#else
-	tmplist = g_list_first(main_v->lang_mgr->languages);
-	while (tmplist) {
-		BfLangConfig *cfg = (BfLangConfig *)tmplist->data;
-		GtkTreeIter ftiter;
-		if (cfg) {
-			GtkTreeIter giter, iiter;
-			GList *grouplist, *tmplist, *ilist, *tmplist2;
-			/* add the parent entry */
-			gtk_tree_store_append(pd->hld.tstore, &ftiter, NULL);
-			gtk_tree_store_set(pd->hld.tstore, &ftiter
-					,0,cfg->name,1,cfg->name,2, NULL,3,NULL, -1);
-
-			/* add blocks/tokens/tags to the tree, the user doesn't need to know if something is a block, a token or
-			a tag, so we insert their groups in the same level for the user */
-			grouplist = bf_lang_get_groups(cfg);
-			for (tmplist = g_list_first(grouplist);tmplist;tmplist = g_list_next(tmplist)) {
-				retrieve_arr_add_to_model(pd,hasht, &ftiter, &giter, cfg->name, "g", tmplist->data);
-				/* get blocks for this group and add them */
-				ilist = bf_lang_get_blocks_for_group(cfg, tmplist->data);
-				for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
-					retrieve_arr_add_to_model(pd,hasht, &giter, &iiter, cfg->name, "b", tmplist2->data);
-				}
-				g_list_free(ilist);
-				/* get tokens for this group and add them */
-				ilist = bf_lang_get_tokens_for_group(cfg, tmplist->data);
-				for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
-					retrieve_arr_add_to_model(pd,hasht, &giter, &iiter, cfg->name, "t", tmplist2->data);
-				}
-				g_list_free(ilist);
-			}
-			g_list_free(grouplist);
-			/* now add blocks/tokens that do not have a group */
-			ilist = bf_lang_get_blocks_for_group(cfg, NULL);
-			for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
-				retrieve_arr_add_to_model(pd,hasht, &ftiter, &iiter, cfg->name, "b", tmplist2->data);
-			}
-			g_list_free(ilist);
-			ilist = bf_lang_get_tokens_for_group(cfg, NULL);
-			for (tmplist2 = g_list_first(ilist);tmplist2;tmplist2 = g_list_next(tmplist2)) {
-				retrieve_arr_add_to_model(pd,hasht, &ftiter, &iiter, cfg->name, "t", tmplist2->data);
-			}
-			g_list_free(ilist);
-			/* add tags if required */
-			if (bf_lang_needs_tags(cfg)) {
-				retrieve_arr_add_to_model(pd,hasht, &ftiter, &giter, cfg->name, "m", "tag_begin");
-				retrieve_arr_add_to_model(pd,hasht, &ftiter, &giter, cfg->name, "m", "tag_end");
-				retrieve_arr_add_to_model(pd,hasht, &ftiter, &giter, cfg->name, "m", "attr_name");
-				retrieve_arr_add_to_model(pd,hasht, &ftiter, &giter, cfg->name, "m", "attr_val");
-			}
-		}
+		GtkTreeIter *toplevel = g_new0(GtkTreeIter,1);
+		Tbflang* bflang = tmplist->data;
+		gtk_tree_store_append(pd->hld.tstore, toplevel, NULL);
+		gtk_tree_store_set(pd->hld.tstore, toplevel
+					,0,bflang->name,-1);
+		g_hash_table_insert(langiters,bflang->name,toplevel);
 		tmplist = g_list_next(tmplist);
 	}
-	g_hash_table_unref(hasht);
-#endif
+	tmplist = g_list_first(pd->lists[highlight_styles]);
+	while (tmplist) {
+		GtkTreeIter *parent;
+		gchar **arr = tmplist->data;
+		if (count_array(arr)==3) {
+			parent = g_hash_table_lookup(langiters,arr[0]);
+			if (parent) {
+				GtkTreeIter iter;
+				gtk_tree_store_append(pd->hld.tstore, &iter, parent);
+				gtk_tree_store_set(pd->hld.tstore, &iter,0,arr[1],1, arr[0],2,arr, -1);
+			}
+			tmplist = g_list_next(tmplist);
+		}
+	}
+	g_hash_table_unref(langiters);
 }
 
 static void hl_set_textstylecombo_by_text(Tprefdialog *pd, const gchar *text) {
-	DEBUG_MSG("hl_set_textstylecombo_by_text, text=%s\n",text);
+	g_print("hl_set_textstylecombo_by_text, text=%s\n",text);
 	if (text == NULL) {
 		gtk_combo_box_set_active(GTK_COMBO_BOX(pd->hld.textstyle),-1);
 	} else {
@@ -1254,7 +1199,7 @@ static void hl_set_textstylecombo_by_text(Tprefdialog *pd, const gchar *text) {
 		while (cont) {
 			gchar *name;
 			gtk_tree_model_get(GTK_TREE_MODEL(pd->hld.cstore),&iter,0,&name,-1);
-			DEBUG_MSG("hl_set_textstylecombo_by_text, compare %s and %s\n",text,name);
+			g_print("hl_set_textstylecombo_by_text, compare %s and %s\n",text,name);
 			if (strcmp(name,text)==0) {
 				gtk_combo_box_set_active_iter(GTK_COMBO_BOX(pd->hld.textstyle),&iter);
 				g_free(name);
@@ -1275,43 +1220,36 @@ static void hl_textstylecombo_changed(GtkComboBox *widget,Tprefdialog *pd) {
 		gchar *name;
 		gtk_tree_model_get(GTK_TREE_MODEL(pd->hld.cstore),&iter,0,&name,-1);
 		DEBUG_MSG("hl_textstylecombo_changed, found name %s\n",name);
-		if (pd->hld.curstrarr[3]) {
+		if (pd->hld.curstrarr[2]) {
 			DEBUG_MSG("free old value %s\n",pd->hld.curstrarr[3]);
-			g_free(pd->hld.curstrarr[3]);
+			g_free(pd->hld.curstrarr[2]);
 		}
-		pd->hld.curstrarr[3] = name;
+		pd->hld.curstrarr[2] = name;
 	}
 }
 
 static void hl_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
-	DEBUG_MSG("hl_selection_changed_cb, started\n");
+	g_print("hl_selection_changed_cb, started\n");
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-		gchar *name, *filetype, *type, **strarr;
-		gtk_tree_model_get(model, &iter, 0, &name, 1, &filetype, 2, &type, 3, &strarr, -1);
+		gchar *name, *filetype, **strarr;
+		gtk_tree_model_get(model, &iter, 0, &name, 1, &filetype, 2, &strarr, -1);
 		pd->hld.curstrarr = NULL;
-		if (type) {
-			if (strarr == NULL) {
-				/* create the strarr if there is none yet */
-				strarr = g_malloc((5)*sizeof(gchar *));
-				strarr[0] = filetype;
-				strarr[1] = type;
-				strarr[2] = name;
-				strarr[3] = g_strdup("");
-				strarr[4] = NULL;
-				DEBUG_MSG("hl_selection_changed_cb, created %p %s:%s:%s:%s\n",strarr, strarr[0],strarr[1],strarr[2],strarr[3]);
-				gtk_tree_store_set(GTK_TREE_STORE(model), &iter, 3, strarr, -1);
-				hl_set_textstylecombo_by_text(pd, NULL);
-				g_print("hl_selection_changed_cb, adding %s:%s:%s%s to syntax_styles\n",strarr[0],strarr[1],strarr[2],strarr[3]);
-				pd->lists[syntax_styles] = g_list_prepend(pd->lists[syntax_styles], strarr);
-				pd->hld.curstrarr = strarr;
-			} else {
-				DEBUG_MSG("textstyle_selection_changed_cb, existing strarr=%p has strarr[3]=%s\n",strarr,strarr[3]);
-				hl_set_textstylecombo_by_text(pd, strarr[3]);
-				pd->hld.curstrarr = strarr;
-			}
+		if (strarr == NULL) {
+			/* create the strarr if there is none yet */
+			strarr = g_malloc(4*sizeof(gchar *));
+			strarr[0] = filetype;
+			strarr[1] = name;
+			strarr[2] = g_strdup("");
+			strarr[3] = NULL;
+			gtk_tree_store_set(GTK_TREE_STORE(model), &iter, 2, strarr, -1);
+			hl_set_textstylecombo_by_text(pd, NULL);
+			pd->lists[highlight_styles] = g_list_prepend(pd->lists[highlight_styles], strarr);
+		} else {
+			hl_set_textstylecombo_by_text(pd, strarr[2]);
 		}
+		pd->hld.curstrarr = strarr;
 	} else {
 		DEBUG_MSG("no selection, returning..\n");
 	}
@@ -1325,11 +1263,10 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	GtkTreeSelection *select;
 
 	DEBUG_MSG("create_hl_gui, duplicate arraylist \n");
-#ifndef USE_BFTEXTVIEW2
-	pd->lists[syntax_styles] = duplicate_arraylist(main_v->props.syntax_styles);
-#endif
+	pd->lists[highlight_styles] = duplicate_arraylist(main_v->props.highlight_styles);
+
 	/* new structure: one treestore for all, column 1:visible label, 2:label for config file 3:pointer to strarr */
-	pd->hld.tstore = gtk_tree_store_new(4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
+	pd->hld.tstore = gtk_tree_store_new(3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
 	pd->hld.cstore = gtk_list_store_new(1,G_TYPE_STRING);
 
 	hbox = gtk_hbox_new(TRUE,0);

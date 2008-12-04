@@ -270,9 +270,14 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 						gchar **arr;
 						arr = array_from_arglist(bflang->name,name,NULL);
 						g_hash_table_insert(langmgr.configured_styles,arr,g_strdup(style));
+						arr = array_from_arglist(bflang->name,name,style,NULL);
+						main_v->props.highlight_styles = g_list_prepend(main_v->props.highlight_styles, arr); 
 					} else if (strcmp(tmpstyle,style)==0) {
 						if (!gtk_text_tag_table_lookup(langmgr.tagtable,style)) {
+							gchar **arr;
 							langmrg_create_style(style, fgcolor, bgcolor, bold, italic);
+							arr = array_from_arglist(style, fgcolor, bgcolor, bold, italic,NULL);
+							main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, arr);
 						}
 					}
 				}
@@ -791,13 +796,13 @@ static void scan_bflang2files(void) {
 	g_pattern_spec_free(ps);
 }
 
-void langmgr_init(GList *user_styles, GList *user_highlight_styles, gboolean load_reference) {
+void langmgr_init() {
 	GList *tmplist;
 	GtkTextTag *tag;
 
 	langmgr.tagtable = gtk_text_tag_table_new();
 	langmgr.bflang_lookup = g_hash_table_new(g_str_hash,g_str_equal);
-	langmgr.load_reference = load_reference;
+	langmgr.load_reference = main_v->props.load_reference;
 	langmgr.configured_styles = g_hash_table_new(arr2_hash,arr2_equal);
 
 	tag = gtk_text_tag_new("_needscanning_");
@@ -819,8 +824,8 @@ void langmgr_init(GList *user_styles, GList *user_highlight_styles, gboolean loa
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
 
-	langmgr_reload_user_styles(user_styles);
-	for (tmplist = g_list_first(user_highlight_styles);tmplist;tmplist=tmplist->next) {
+	langmgr_reload_user_styles(main_v->props.textstyles);
+	for (tmplist = g_list_first(main_v->props.highlight_styles);tmplist;tmplist=tmplist->next) {
 		gchar **arr2, **arr = (gchar **)tmplist->data;
 		arr2 = array_from_arglist(arr[0], arr[1], NULL);
 		g_print("set style %s for highlight %s:%s\n",arr[2],arr2[0],arr2[1]);
