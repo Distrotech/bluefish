@@ -3,13 +3,13 @@
 <header>
 	<mime type="text/x-java"/>
 	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
-	<highlight name="special-keyword" style="special-keyword" fgcolor="#990000" bold="1" />
+	<highlight name="special-keyword" style="keyword-red" fgcolor="#990000" bold="1" />
 	<highlight name="bracket" style="bracket" bold="1" />
 	<highlight name="type" style="type" fgcolor="#000000" bold="1" />
 	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
 	<highlight name="string" style="string" fgcolor="#008800"  />
 	<highlight name="value" style="value" fgcolor="#0000EE"  />
-	<highlight name="preprocessor" style="preprocessor" fgcolor="#aaaa00"  />
+	<highlight name="imports" style="preprocessor" fgcolor="#aaaa00"  />
 </header>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
@@ -66,9 +66,9 @@
 <element pattern="Rectangle" autocomplete="1" highlight="type" />
 <element pattern="Color" autocomplete="1" highlight="type" />
 
-<element pattern="import" is_regex="1" highlight="preprocessor">
-	<context symbols=";" highlight="tag">
-		<element pattern=";" highlight="string" ends_context="1" />
+<element pattern="import" is_regex="1" highlight="imports">
+	<context symbols=";" highlight="imports">
+		<element pattern=";" highlight="imports" ends_context="1" />
 	</context>
 </element>
 
