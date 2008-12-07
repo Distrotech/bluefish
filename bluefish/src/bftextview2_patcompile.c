@@ -21,7 +21,7 @@
 /* for the design docs see bftextview2.h */
 #include <string.h>
 #include "bftextview2_patcompile.h"
-
+#include "bftextview2_langmgr.h"
 /*
 we need real regex pattern support as well.
 
@@ -423,7 +423,7 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 	g_free(pattern);
 }
 
-gint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag, gboolean autocomplete_case_insens) {
+gint16 new_context(Tscantable *st, const gchar *lang, gchar *symbols, const gchar *contexthighlight, gboolean autocomplete_case_insens) {
 	gint16 context;
 	guint16 startstate, identstate;
 	gint i;
@@ -437,8 +437,10 @@ gint16 new_context(Tscantable *st, gchar *symbols, GtkTextTag *contexttag, gbool
 
 	g_array_index(st->contexts, Tcontext, context).startstate = startstate;
 	g_array_index(st->contexts, Tcontext, context).identstate = identstate;
-	g_array_index(st->contexts, Tcontext, context).contexttag = contexttag;
 	g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens = autocomplete_case_insens;
+	g_array_index(st->contexts, Tcontext, context).contexthighlight = contexthighlight;
+	if (contexthighlight) 
+		g_array_index(st->contexts, Tcontext, context).contexttag = langmrg_lookup_tag_highlight(lang, contexthighlight);
 	g_array_set_size(st->table,st->table->len+2);
 
 	DBG_PATCOMPILE("new context %d has startstate %d, identstate %d and symbols %s\n",context, g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts, Tcontext, context).identstate,symbols);
@@ -511,9 +513,8 @@ void match_autocomplete_reference(Tscantable *st,guint16 matchnum, gboolean auto
 		AFAIK both of them don't make copies of the data */
 	}
 }
-static guint16 new_match(Tscantable *st, gchar *pattern, GtkTextTag *selftag, gint16 context, gint16 nextcontext
-				, gboolean starts_block, gboolean ends_block, guint16 blockstartpattern
-				, GtkTextTag *blocktag, gboolean case_insens, gboolean is_regex) {
+static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang, const gchar *selfhighlight, const gchar *blockhighlight, gint16 context, gint16 nextcontext
+				, gboolean starts_block, gboolean ends_block, guint16 blockstartpattern, gboolean case_insens, gboolean is_regex) {
 	guint matchnum;
 /* add the match */
 	if (context == nextcontext)
@@ -526,11 +527,15 @@ static guint16 new_match(Tscantable *st, gchar *pattern, GtkTextTag *selftag, gi
 	g_array_index(st->matches, Tpattern, matchnum).ends_block = ends_block;
 	g_array_index(st->matches, Tpattern, matchnum).starts_block = starts_block;
 	g_array_index(st->matches, Tpattern, matchnum).blockstartpattern = blockstartpattern;
-	g_array_index(st->matches, Tpattern, matchnum).selftag = selftag;
-	g_array_index(st->matches, Tpattern, matchnum).blocktag = blocktag;
 	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
 	g_array_index(st->matches, Tpattern, matchnum).case_insens = case_insens;
 	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
+	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = selfhighlight;
+	if (selfhighlight)
+		g_array_index(st->matches, Tpattern, matchnum).selftag = langmrg_lookup_tag_highlight(lang, selfhighlight);
+	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = blockhighlight;
+	if (blockhighlight)
+		g_array_index(st->matches, Tpattern, matchnum).blocktag = langmrg_lookup_tag_highlight(lang, blockhighlight);
 	return matchnum;
 }
 
@@ -545,23 +550,24 @@ void compile_existing_match(Tscantable *st,guint16 matchnum, gint16 context) {
 	/*match_autocomplete_reference(st,matchnum, add_to_ac,keyword,context,append_to_ac,NULL);*/
 }
 
-guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *keyword, gboolean is_regex,gboolean case_insens, GtkTextTag *selftag, gint16 context, gint16 nextcontext
+guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *pattern, const gchar *lang, const gchar *selfhighlight, const gchar *blockhighlight
+				, gboolean is_regex,gboolean case_insens, gint16 context, gint16 nextcontext
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
-				, GtkTextTag *blocktag,gboolean add_to_ac, gchar *append_to_ac, gchar *reference)  {
+				, gboolean add_to_ac, gchar *append_to_ac, gchar *reference)  {
 	guint16 matchnum;
 
-	if (!keyword || keyword[0] == '\0') {
+	if (!pattern || pattern[0] == '\0') {
 		g_print("CORRUPT LANGUAGE FILE: empty pattern/tag/keyword\n");
 		return 0;
 	}
-	matchnum = new_match(st, keyword, selftag, context, nextcontext, starts_block, ends_block, blockstartpattern, blocktag, case_insens, is_regex);
-	DBG_PATCOMPILE("add_keyword_to_scanning_table,keyword=%s,starts_block=%d,ends_block=%d,blockstartpattern=%d, context=%d,nextcontext=%d and got matchnum %d\n",keyword, starts_block, ends_block, blockstartpattern,context,nextcontext,matchnum);
+	matchnum = new_match(st, pattern, lang, selfhighlight, blockhighlight, context, nextcontext, starts_block, ends_block, blockstartpattern, case_insens, is_regex);
+	DBG_PATCOMPILE("add_keyword_to_scanning_table,pattern=%s,starts_block=%d,ends_block=%d,blockstartpattern=%d, context=%d,nextcontext=%d and got matchnum %d\n",pattern, starts_block, ends_block, blockstartpattern,context,nextcontext,matchnum);
 	if (is_regex) {
-		compile_limitedregex_to_DFA(st, keyword, case_insens, matchnum, context);
+		compile_limitedregex_to_DFA(st, pattern, case_insens, matchnum, context);
 	} else {
-		compile_keyword_to_DFA(st, keyword, matchnum, context, case_insens);
+		compile_keyword_to_DFA(st, pattern, matchnum, context, case_insens);
 	}
-	match_autocomplete_reference(st,matchnum, add_to_ac,keyword,context,append_to_ac,reference);
+	match_autocomplete_reference(st,matchnum, add_to_ac,pattern,context,append_to_ac,reference);
 	/*print_DFA(st, 'a', 'z');*/
 	return matchnum;
 }
