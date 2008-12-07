@@ -13,7 +13,7 @@
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 <element id="comment" pattern="&lt;!--" highlight="comment" starts_block="1">
 	<context id="comment" symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
-	<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
+	<element pattern="--&gt;" ends_block="1" blockstartelement="comment" highlight="comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
 <element id="entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
@@ -38,17 +38,21 @@
 	<tag name="definition" highlight="tag" autocomplete_append="&gt;">
 	<reference>The <i>definition</i> tag is the region of the language file that actually defines the language. This region is only loaded when a file of this type is opened in the editor.</reference>
 		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" >
+		<element id="comment"/>
+		<element id="entity" />
 		<tag name="context" id="context" highlight="tag" autocomplete_append=" symbols=&quot;&quot; &gt;" attributes="id,symbols,highlight" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 			<context id="context" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 			<element id="comment"/>
 			<element id="entity" />
 			<tag id="element" name="element" highlight="pattern-tag" autocomplete_append=" pattern=&quot;&quot; /&gt;" attributes="id,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,blockhighlight,class,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 				<context id="innerpattern" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+					<element id="comment"/>
+					<element id="entity" />
 					<tag name="reference" highlight="tag" autocomplete_append="/&gt;" />
 					<tag id="context" />
 				</context>
 			</tag>
-			<tag name="tag" highlight="pattern-tag" autocomplete_append=" name=&quot;&quot; /&gt;" attributes="id,name,highlight,class,attributes,autocomplete,autocomplete_append,attribhighlight,attrib_autocomplete_append" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+			<tag id="tag" name="tag" highlight="pattern-tag" autocomplete_append=" name=&quot;&quot; /&gt;" attributes="id,name,highlight,class,attributes,autocomplete,autocomplete_append,attribhighlight,attrib_autocomplete_append" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 				<context id="innerpattern" />
 			</tag>
 			<tag name="group" id="group" highlight="tag" autocomplete_append="&gt;" attributes="highlight,autocomplete,autocomplete_append,class,case_insens,is_regex,attrib_autocomplete_append,attribhighlight" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
