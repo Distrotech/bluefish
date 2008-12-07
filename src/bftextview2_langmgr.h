@@ -23,6 +23,7 @@
 
 #include "bftextview2.h"
 void langmgr_reload_user_styles(GList *user_styles);
+void langmgr_reload_user_highlights(void);
 GtkTextTag *langmrg_lookup_tag_highlight(const gchar *lang, const gchar *highlight);
 GtkTextTagTable *langmgr_get_tagtable(void);
 Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype);
