@@ -51,7 +51,7 @@ enum {
 	editor_smart_cursor,
 	editor_highlight_current_line,
 	tab_font_string,            /* notebook tabs font */
-	highlight_num_lines_count,  /* number of lines to highlight in continous highlighting */	
+	highlight_num_lines_count,  /* number of lines to highlight in continous highlighting */
 	defaulthighlight,           /* highlight documents by default */
 #ifdef HAVE_PCRE_UTF8
 	highlight_utf8,             /* enable PCRE UTF-8 support */
@@ -440,9 +440,8 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ftd.lview);
-	gtk_widget_set_size_request(scrolwin, 150, 190);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
-	
+
 	{
 		GList *tmplist = g_list_first(pd->lists[filetypes]);
 		while (tmplist) {
@@ -464,7 +463,7 @@ static void create_filetype_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	g_signal_connect(G_OBJECT(pd->ftd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->ftd);
 
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_filetype_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_filetype_lcb), pd);
@@ -520,7 +519,6 @@ static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ffd.lview);
-	gtk_widget_set_size_request(scrolwin, 150, 190);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	{
 		GList *tmplist = g_list_first(pd->lists[filefilters]);
@@ -541,11 +539,11 @@ static void create_filefilter_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	g_signal_connect(G_OBJECT(pd->ffd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->ffd);
 
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_filefilter_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_filefilter_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);	
+	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 }
 
 static gchar **highlightpattern_create_strarr(Tprefdialog *pd) {
@@ -831,9 +829,9 @@ static void highlightpattern_gui_rebuild_filetype_popup(Tprefdialog *pd) {
 	while (tmplist) {
 		gchar **arr = (gchar **)tmplist->data;
 		if (count_array(arr)>=3) {
-			if (strcmp(arr[0], "objectfile") != 0 && strcmp(arr[0], "webimage") != 0 
-				&& strcmp(arr[0], "image") != 0 && strcmp(arr[0], "bfproject") != 0) {				
-				
+			if (strcmp(arr[0], "objectfile") != 0 && strcmp(arr[0], "webimage") != 0
+				&& strcmp(arr[0], "image") != 0 && strcmp(arr[0], "bfproject") != 0) {
+
 				menuitem = gtk_menu_item_new_with_label(arr[0]);
 				DEBUG_MSG("highlightpattern_gui_rebuild_filetype_popup, menuitem=%p for %s\n", menuitem, arr[0]);
 				g_signal_connect(GTK_OBJECT(menuitem), "activate",G_CALLBACK(highlightpattern_popmenu_activate),pd);
@@ -868,7 +866,7 @@ static void highlightpattern_reset_clicked_lcb(GtkWidget *button, Tprefdialog *p
 static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	GtkWidget *hbox, *but, *vbox3;
 	pd->lists[highlight_patterns] = duplicate_arraylist(main_v->props.highlight_patterns);
-	
+
 	DEBUG_MSG("create_highlightpattern_gui, pd=%p, pd->lists[highlight_patterns]=%p\n", pd, pd->lists[highlight_patterns]);
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 3);
@@ -890,7 +888,7 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, TRUE, 3);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(highlightpattern_delete_clicked_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox), but, FALSE, FALSE, 1);
-	
+
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
 
@@ -908,7 +906,7 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 		gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 		gtk_container_add(GTK_CONTAINER(scrolwin), pd->hpd.lview);
 		gtk_box_pack_start(GTK_BOX(hbox), scrolwin, FALSE, TRUE, 2);
-		
+
 		select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->hpd.lview));
 		g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(highlightpattern_selection_changed_cb),pd);
 		gtk_tree_selection_set_mode (select, GTK_SELECTION_SINGLE);
@@ -922,7 +920,7 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_box_pack_start(GTK_BOX(vbox3), but, FALSE, FALSE, 1);
 	but = bf_gtkstock_button(GTK_STOCK_GO_DOWN, G_CALLBACK(highlightpattern_down_clicked_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(vbox3), but, FALSE, FALSE, 1);
-	
+
 	vbox3 = gtk_vbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 2);
 
@@ -945,10 +943,10 @@ static void create_highlightpattern_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 
 	hbox = gtk_hbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(vbox1), hbox, TRUE, TRUE, 0);
-	
+
 	vbox3 = gtk_vbox_new(FALSE, 0);
 	gtk_box_pack_start(GTK_BOX(hbox), vbox3, TRUE, TRUE, 0);
-	
+
 	pd->hpd.radio[3] = gtk_radio_button_new_with_label(NULL, _("don't change weight"));
 	gtk_box_pack_start(GTK_BOX(vbox3),pd->hpd.radio[3], TRUE, TRUE, 0);
 	pd->hpd.radio[4] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->hpd.radio[3]), _("force non-bold weight"));
@@ -1007,7 +1005,6 @@ static void create_browsers_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->bd.lview);
-	gtk_widget_set_size_request(scrolwin, 150, 190);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	{
 		GList *tmplist = g_list_first(pd->lists[browsers]);
@@ -1026,11 +1023,11 @@ static void create_browsers_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	g_signal_connect(G_OBJECT(pd->bd.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->bd);
 
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_browser_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_browser_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);	
+	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 }
 
 static void set_external_commands_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
@@ -1073,7 +1070,6 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->ed.lview);
-	gtk_widget_set_size_request(scrolwin, 120, 190);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	{
 		GList *tmplist = g_list_first(pd->lists[external_commands]);
@@ -1090,13 +1086,13 @@ static void create_externals_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->ed.insertloc = -1;
 	g_signal_connect(G_OBJECT(pd->ed.lstore), "row-inserted", G_CALLBACK(listpref_row_inserted), &pd->ed);
 	g_signal_connect(G_OBJECT(pd->ed.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->ed);
-	gtk_box_pack_start(GTK_BOX(vbox1),gtk_label_new(_("%s for current filename (any command)\n%i for input and %f for output filename (filters)")), TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),gtk_label_new(_("%s for current filename (any command)\n%i for input and %f for output filename (filters)")), FALSE, FALSE, 2);
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_external_commands_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_external_commands_lcb), pd);
-	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);	
+	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 }
 
 static void set_outputbox_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
@@ -1163,7 +1159,6 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->od.lview);
-	gtk_widget_set_size_request(scrolwin, 150, 190);
 	gtk_box_pack_start(GTK_BOX(vbox1), scrolwin, TRUE, TRUE, 2);
 	{
 		GList *tmplist = g_list_first(pd->lists[outputbox]);
@@ -1186,7 +1181,7 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	g_signal_connect(G_OBJECT(pd->od.lstore), "row-deleted", G_CALLBACK(listpref_row_deleted), &pd->od);
 
 	hbox = gtk_hbox_new(FALSE, 0);
-	gtk_box_pack_start(GTK_BOX(vbox1),hbox, TRUE, TRUE, 2);
+	gtk_box_pack_start(GTK_BOX(vbox1),hbox, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_ADD, G_CALLBACK(add_new_outputbox_lcb), pd);
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 	but = bf_gtkstock_button(GTK_STOCK_DELETE, G_CALLBACK(delete_outputbox_lcb), pd);
@@ -1263,7 +1258,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.auto_update_meta_author, pd->prefs[auto_update_meta_author], TRUE);
 	integer_apply(&main_v->props.auto_update_meta_date, pd->prefs[auto_update_meta_date], TRUE);
 	integer_apply(&main_v->props.auto_update_meta_generator, pd->prefs[auto_update_meta_generator], TRUE);
-	
+
 	string_apply(&main_v->props.newfile_default_encoding, GTK_COMBO(pd->prefs[newfile_default_encoding])->entry);
 	integer_apply(&main_v->props.auto_set_encoding_meta, pd->prefs[auto_set_encoding_meta], TRUE);
 	integer_apply(&main_v->props.backup_file, pd->prefs[backup_file], TRUE);
@@ -1278,7 +1273,7 @@ static void preferences_apply(Tprefdialog *pd) {
 #endif
 	main_v->props.modified_check_type = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[modified_check_type]));
 	integer_apply(&main_v->props.max_recent_files, pd->prefs[max_recent_files], FALSE);
-	
+
 	integer_apply(&main_v->props.restore_dimensions, pd->prefs[restore_dimensions], TRUE);
 	if (!main_v->props.restore_dimensions) {
 		integer_apply(&main_v->props.left_panel_width, pd->prefs[left_panel_width], FALSE);
@@ -1292,7 +1287,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.left_panel_left = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[left_panel_left]));
 
 	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
-	
+
 	integer_apply(&main_v->props.ext_browsers_in_submenu, pd->prefs[ext_browsers_in_submenu], TRUE);
 	integer_apply(&main_v->props.ext_commands_in_submenu, pd->prefs[ext_commands_in_submenu], TRUE);
 	integer_apply(&main_v->props.ext_outputbox_in_submenu, pd->prefs[ext_outputbox_in_submenu], TRUE);
@@ -1301,7 +1296,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.filebrowser_two_pane_view, pd->prefs[filebrowser_two_pane_view], TRUE);
 	string_apply(&main_v->props.filebrowser_unknown_icon, pd->prefs[filebrowser_unknown_icon]);
 	string_apply(&main_v->props.filebrowser_dir_icon, pd->prefs[filebrowser_dir_icon]);
-	
+
 	string_apply(&main_v->props.image_thumbnailstring, pd->prefs[image_thumbnailstring]);
 	string_apply(&main_v->props.image_thumbnailtype, GTK_COMBO(pd->prefs[image_thumbnailtype])->entry);
 
@@ -1317,20 +1312,20 @@ static void preferences_apply(Tprefdialog *pd) {
 
 	free_arraylist(main_v->props.highlight_patterns);
 	main_v->props.highlight_patterns = duplicate_arraylist(pd->lists[highlight_patterns]);
-	
+
 	free_arraylist(main_v->props.browsers);
 	main_v->props.browsers = duplicate_arraylist(pd->lists[browsers]);
-	
+
 	free_arraylist(main_v->props.external_commands);
 	main_v->props.external_commands = duplicate_arraylist(pd->lists[external_commands]);
-	
+
 	free_arraylist(main_v->props.outputbox);
 	main_v->props.outputbox	 = duplicate_arraylist(pd->lists[outputbox]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
 	filetype_highlighting_rebuild(TRUE);
 	filebrowser_filters_rebuild();
-	
+
 	all_documents_apply_settings();
 	{
 		GList *tmplist = g_list_first(main_v->bfwinlist);
@@ -1379,20 +1374,19 @@ static void preferences_dialog() {
 	gchar *modified_check_types[] = {N_("no check"), N_("check mtime and size"), N_("check mtime"), N_("check size"), NULL};
 
 	pd = g_new0(Tprefdialog,1);
-	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_NONE, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
-	
+	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_CENTER_ALWAYS, 6, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
+
 	dvbox = gtk_vbox_new(FALSE, 5);
 	gtk_container_add(GTK_CONTAINER(pd->win), dvbox);
+
 	pd->noteb = gtk_notebook_new();
-	gtk_notebook_set_homogeneous_tabs(GTK_NOTEBOOK(pd->noteb), TRUE);
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(pd->noteb), GTK_POS_LEFT);
-	
 	gtk_box_pack_start(GTK_BOX(dvbox), pd->noteb, TRUE, TRUE, 0);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Editor"),150,TRUE));
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("Startup")));
 
-	frame = gtk_frame_new(_("Editor startup options"));
+	frame = gtk_frame_new(_("Startup"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
@@ -1401,12 +1395,48 @@ static void preferences_dialog() {
 	pd->prefs[editor_show_splash_screen] = boxed_checkbut_with_value(_("Show splash-screen"), main_v->props.show_splash_screen, vbox2);
 #endif /* #ifndef NOSPLASH */
 	pd->prefs[editor_show_quickbar_warning] = boxed_checkbut_with_value(_("Show empty quickbar warning"), main_v->props.show_quickbar_tip, vbox2);
-	
+
+	frame = gtk_frame_new(_("Dimensions"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+
+	pd->prefs[restore_dimensions] = boxed_checkbut_with_value(_("Restore last used dimensions"), main_v->props.restore_dimensions, vbox2);
+	pd->prefs[left_panel_width] = prefs_integer(_("Initial sidebar width"), main_v->props.left_panel_width, vbox2, pd, 1, 4000);
+	pd->prefs[main_window_h] = prefs_integer(_("Initial window height"), main_v->globses.main_window_h, vbox2, pd, 1, 4000);
+	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->globses.main_window_w, vbox2, pd, 1, 4000);
+	restore_dimensions_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions]), pd);
+	g_signal_connect(G_OBJECT(pd->prefs[restore_dimensions]), "toggled", G_CALLBACK(restore_dimensions_toggled_lcb), pd);
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("User interface")));
+
+	frame = gtk_frame_new(_("General"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	vbox2 = gtk_vbox_new(FALSE, 0);
+	gtk_container_add(GTK_CONTAINER(frame), vbox2);
+
+	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
+
+	pd->prefs[ext_browsers_in_submenu] = boxed_checkbut_with_value(_("External browsers in submenu"), main_v->props.ext_browsers_in_submenu, vbox2);
+	pd->prefs[ext_commands_in_submenu] = boxed_checkbut_with_value(_("External commands in submenu"), main_v->props.ext_commands_in_submenu, vbox2);
+	pd->prefs[ext_outputbox_in_submenu] = boxed_checkbut_with_value(_("External outputbox in submenu"), main_v->props.ext_outputbox_in_submenu, vbox2);
+
+	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font (leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
+
+	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
+	pd->prefs[switch_tabs_by_altx] = boxed_checkbut_with_value(_("Switch between tabs with <Alt>+0..9"), main_v->props.switch_tabs_by_altx, vbox2);
+	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Sidebar notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
+	pd->prefs[left_panel_left] = boxed_optionmenu_with_value(_("Sidebar location"), main_v->props.left_panel_left, vbox2, panellocations);
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("Editor")));
+
 	frame = gtk_frame_new(_("Editor options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
+
 	pd->prefs[editor_font_string] = prefs_string(_("Font"), main_v->props.editor_font_string, vbox2, pd, string_font);
 	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
 	pd->prefs[editor_smart_cursor] = boxed_checkbut_with_value(_("Smart cursor positioning"), main_v->props.editor_smart_cursor, vbox2);
@@ -1427,35 +1457,24 @@ static void preferences_dialog() {
 
 	pd->prefs[num_undo_levels] = prefs_integer(_("Undo history size"), main_v->props.num_undo_levels, vbox2, pd, 50, 10000);
 	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);
-	
-	frame = gtk_frame_new(_("Bookmark options"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
-	pd->prefs[bookmarks_default_store] = boxed_checkbut_with_value(_("Make permanent by default"), main_v->props.bookmarks_default_store, vbox2);
-	{
-		gchar *actions[] = {N_("full path"), N_("path from basedir"), N_("filename"), NULL};
-		pd->prefs[bookmarks_filename_mode] = boxed_optionmenu_with_value(_("Bookmarks filename display"), main_v->props.bookmarks_filename_mode, vbox2, actions);
-	}
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("HTML"),154,TRUE));
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("HTML")));
 
 	frame = gtk_frame_new(_("HTML options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
+
 	pd->prefs[lowercase_tags] = boxed_checkbut_with_value(_("Lowercase HTML tags"), main_v->props.lowercase_tags, vbox2);
 	pd->prefs[allow_dep] = boxed_checkbut_with_value(_("Use deprecated tags (e.g. <font> and <nobr>)"), main_v->props.allow_dep, vbox2);
 	pd->prefs[xhtml] = boxed_checkbut_with_value(_("Use XHTML style tags (<br />)"), main_v->props.xhtml, vbox2);
 	pd->prefs[auto_update_meta_author] = boxed_checkbut_with_value(_("Automatically update author meta tag"), main_v->props.auto_update_meta_author, vbox2);
 	pd->prefs[auto_update_meta_date] = boxed_checkbut_with_value(_("Automatically update date meta tag"), main_v->props.auto_update_meta_date, vbox2);
 	pd->prefs[auto_update_meta_generator] = boxed_checkbut_with_value(_("Automatically update generator meta tag"), main_v->props.auto_update_meta_generator, vbox2);
-	
+
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Files"),152,TRUE));
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("Files")));
 
 	frame = gtk_frame_new(_("Encoding"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -1471,7 +1490,7 @@ static void preferences_dialog() {
 		}
 		pd->prefs[newfile_default_encoding] = prefs_combo(_("Default character set"),main_v->props.newfile_default_encoding, vbox2, pd, poplist, TRUE);
 		g_list_free(poplist);
-	}	
+	}
 	pd->prefs[auto_set_encoding_meta] = boxed_checkbut_with_value(_("Auto set <meta> encoding tag on change"), main_v->props.auto_set_encoding_meta, vbox2);
 
 	frame = gtk_frame_new(_("Backup"));
@@ -1496,9 +1515,12 @@ static void preferences_dialog() {
 	pd->prefs[allow_multi_instances] = boxed_checkbut_with_value(_("Allow multi instances of a file"), main_v->props.allow_multi_instances, vbox2);
 #ifdef WITH_MSG_QUEUE
 	pd->prefs[open_in_running_bluefish] = boxed_checkbut_with_value(_("Open files in already running bluefish window"),main_v->props.open_in_running_bluefish, vbox2);
-#endif /* WITH_MSG_QUEUE */		
+#endif /* WITH_MSG_QUEUE */
 	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(_("File modified on disk check "), main_v->props.modified_check_type, vbox2, modified_check_types);
 	pd->prefs[max_recent_files] = prefs_integer(_("Number of files in 'Open recent'"), main_v->props.max_recent_files, vbox2, pd, 3, 100);
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("File Browser")));
 
 	frame = gtk_frame_new(_("File browser"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -1510,39 +1532,21 @@ static void preferences_dialog() {
 	pd->prefs[filebrowser_dir_icon] = prefs_string(_("Directory icon"), main_v->props.filebrowser_dir_icon, vbox2, pd, string_file);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("User interface"), 156,TRUE));
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("Bookmarks")));
 
-	frame = gtk_frame_new(_("Dimensions"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	pd->prefs[restore_dimensions] = boxed_checkbut_with_value(_("Restore last used dimensions"), main_v->props.restore_dimensions, vbox2);
-	pd->prefs[left_panel_width] = prefs_integer(_("Initial sidebar width"), main_v->props.left_panel_width, vbox2, pd, 1, 4000);
-	pd->prefs[main_window_h] = prefs_integer(_("Initial window height"), main_v->globses.main_window_h, vbox2, pd, 1, 4000);
-	pd->prefs[main_window_w] = prefs_integer(_("Initial window width"), main_v->globses.main_window_w, vbox2, pd, 1, 4000);
-	restore_dimensions_toggled_lcb(GTK_TOGGLE_BUTTON(pd->prefs[restore_dimensions]), pd);
-	g_signal_connect(G_OBJECT(pd->prefs[restore_dimensions]), "toggled", G_CALLBACK(restore_dimensions_toggled_lcb), pd);
-
-	frame = gtk_frame_new(_("General"));
+	frame = gtk_frame_new(_("Bookmark options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
-	pd->prefs[transient_htdialogs] = boxed_checkbut_with_value(_("Make HTML dialogs transient"), main_v->props.transient_htdialogs, vbox2);
-
-	pd->prefs[ext_browsers_in_submenu] = boxed_checkbut_with_value(_("External browsers in submenu"), main_v->props.ext_browsers_in_submenu, vbox2);
-	pd->prefs[ext_commands_in_submenu] = boxed_checkbut_with_value(_("External commands in submenu"), main_v->props.ext_commands_in_submenu, vbox2);
-	pd->prefs[ext_outputbox_in_submenu] = boxed_checkbut_with_value(_("External outputbox in submenu"), main_v->props.ext_outputbox_in_submenu, vbox2);
-	
-	pd->prefs[tab_font_string] = prefs_string(_("Notebook tab font (leave empty for gtk default)"), main_v->props.tab_font_string, vbox2, pd, string_font);
-	
-	pd->prefs[document_tabposition] = boxed_optionmenu_with_value(_("Document notebook tab position"), main_v->props.document_tabposition, vbox2, notebooktabpositions);
-	pd->prefs[switch_tabs_by_altx] = boxed_checkbut_with_value(_("Switch between tabs with <Alt>+0..9"), main_v->props.switch_tabs_by_altx, vbox2);
-	pd->prefs[leftpanel_tabposition] = boxed_optionmenu_with_value(_("Sidebar notebook tab position"), main_v->props.leftpanel_tabposition, vbox2, notebooktabpositions);
-	pd->prefs[left_panel_left] = boxed_optionmenu_with_value(_("Sidebar location"), main_v->props.left_panel_left, vbox2, panellocations);
+	pd->prefs[bookmarks_default_store] = boxed_checkbut_with_value(_("Make permanent by default"), main_v->props.bookmarks_default_store, vbox2);
+	{
+		gchar *actions[] = {N_("full path"), N_("path from basedir"), N_("filename"), NULL};
+		pd->prefs[bookmarks_filename_mode] = boxed_optionmenu_with_value(_("Bookmarks filename display"), main_v->props.bookmarks_filename_mode, vbox2, actions);
+	}
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Images"), 155,TRUE));
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("Images")));
 
 	frame = gtk_frame_new(_("Thumbnails"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -1557,24 +1561,27 @@ static void preferences_dialog() {
 	}
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Filetypes"), 153,TRUE));
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("File Types")));
 
-	frame = gtk_frame_new(_("Filetypes"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	frame = gtk_frame_new(_("File Types"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 	create_filetype_gui(pd, vbox2);
-	
-	frame = gtk_frame_new(_("Filefilters"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("File Filters")));
+
+	frame = gtk_frame_new(_("File Filters"));
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
+
 	create_filefilter_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Syntax highlighting"), 158,TRUE));
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("Syntax highlighting")));
 
 	frame = gtk_frame_new(_("Patterns"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -1584,40 +1591,43 @@ static void preferences_dialog() {
 	create_highlightpattern_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External programs"), 151,TRUE));
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("Browsers")));
 
 	frame = gtk_frame_new(_("Browsers"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 	create_browsers_gui(pd, vbox2);
 
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("External programs")));
+
 	frame = gtk_frame_new(_("Utilities and filters"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 	create_externals_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Output parsers"), 157,TRUE));
-	
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("Output parsers")));
+
 	frame = gtk_frame_new(_("Outputbox"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
+	gtk_box_pack_start(GTK_BOX(vbox1), frame, TRUE, TRUE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
+
 	create_outputbox_gui(pd, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Servers"), 0,TRUE));
-	
+	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, gtk_label_new(_("Servers")));
+
 	frame = gtk_frame_new(_("Remote servers"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	
+
 	pd->prefs[server_zope_compat] = boxed_checkbut_with_value(_("Zope compatibility mode"), main_v->props.server_zope_compat, vbox2);
 
 	/* end, create buttons for dialog now */
