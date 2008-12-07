@@ -10,9 +10,13 @@
 	<highlight name="string" style="string" fgcolor="#009900" />
 	<highlight name="entity" style="value" fgcolor="#0000FF" />
 	<highlight name="brackets" style="brackets" fgcolor="#000000" bold="1" />
-	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
-	<highlight name="value" style="value" fgcolor="#0000FF" />
-	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="css-keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="js-keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="js-value" style="value" fgcolor="#0000FF" />
+	<highlight name="css-value" style="value" fgcolor="#0000FF" />
+	<highlight name="js-comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="css-comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="html-comment" style="comment" fgcolor="grey" italic="1" />
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
@@ -28,7 +32,7 @@
 <element pattern=")" highlight="brackets" ends_block="1" blockstartelement="js("/>
 <element pattern="{" id="js{" starts_block="1" highlight="brackets"/>
 <element pattern="}" highlight="brackets" ends_block="1" blockstartelement="js{"/>
-<group highlight="keyword" autocomplete="1">
+<group highlight="js-keyword" autocomplete="1">
 <element pattern="if" />
 <element pattern="else" />
 <element pattern="where" />
@@ -49,7 +53,7 @@
 <element pattern="getElementsByTagName" />
 <element pattern="getElementsByTagName" />
 </group>
-<group highlight="value" autocomplete="1">
+<group highlight="js-value" autocomplete="1">
 <element pattern="true" />
 <element pattern="false" />
 <element pattern="[0-9.]+" is_regex="1" autocomplete="0"/>
@@ -66,15 +70,15 @@
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
-<element pattern="//" highlight="comment">
-	<context symbols="&#34;&gt;&lt; " highlight="comment">
-		<element pattern="&#34;" highlight="comment" ends_context="1" />
+<element pattern="//" highlight="js-comment">
+	<context symbols="&#34;&gt;&lt; " highlight="js-comment">
+		<element pattern="&#34;" highlight="js-comment" ends_context="1" />
 		<element pattern="&lt;/script&gt;" highlight="tag" ends_context="6"/>
 	</context>
 </element>
-<element pattern="/*" starts_block="1" highlight="comment">
-	<context symbols="*/&#9;&#10;&#13;" highlight="comment">
-		<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
+<element pattern="/*" starts_block="1" highlight="js-comment">
+	<context symbols="*/&#9;&#10;&#13;" highlight="js-comment">
+		<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="js-comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
 
@@ -88,35 +92,35 @@
 			<element pattern="&gt;" highlight="tag" >-->
 				<context symbols=" &#9;&#10;&#13;{}.">
 <!--<element pattern="&lt;/style&gt;" highlight="tag" ends_context="2" />-->
-<element pattern="body" highlight="keyword"/>
+<element pattern="body" highlight="css-keyword"/>
 <element pattern="{" id="css{" starts_block="1" highlight="brackets">
 <context symbols=" &#9;&#10;&#13;{}.:&quot;';">
 	<element pattern="&lt;/style&gt;" highlight="tag" ends_context="3" />
-	<element pattern="background" autocomplete="1" highlight="keyword" autocomplete_append=": ">
+	<element pattern="background" autocomplete="1" highlight="css-keyword" autocomplete_append=": ">
 	<reference>A shorthand property for setting all background properties: background-color, background-image, background-repeat, background-attachment, and background-position, in one declaration</reference>
 	</element>
-	<element pattern="background-attachment" autocomplete="1" highlight="keyword" autocomplete_append=": ">
+	<element pattern="background-attachment" autocomplete="1" highlight="css-keyword" autocomplete_append=": ">
 		<reference>Sets whether a background image is fixed or scrolls with the rest of the page</reference>
 		<context symbols=" &#9;&#10;&#13;{}.;">
 			<element pattern="&lt;/style&gt;" highlight="tag" ends_context="4" />
-			<element pattern="scroll" autocomplete="1" highlight="value" autocomplete_append=";"/>
-			<element pattern="fixed" autocomplete="1" highlight="value" autocomplete_append=";"/>
+			<element pattern="scroll" autocomplete="1" highlight="css-css-value" autocomplete_append=";"/>
+			<element pattern="fixed" autocomplete="1" highlight="css-css-value" autocomplete_append=";"/>
 			<element pattern=";" ends_context="1"/>
 			<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="2"/>
 		</context>
 	</element>
-	<element pattern="background-color" autocomplete="1" highlight="keyword" autocomplete_append=": ">
+	<element pattern="background-color" autocomplete="1" highlight="css-keyword" autocomplete_append=": ">
 		<reference>Sets the background color of an element</reference>
 		<context id="color" symbols=" &#9;&#10;&#13;{}.;">
 			<element pattern="&lt;/style&gt;" highlight="tag" ends_context="4" />
-			<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="value" is_regex="1" case_insens="1"/>
-			<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="value" is_regex="1" case_insens="1"/>
-			<element pattern="red" highlight="value" autocomplete="TRUE"/>
-			<element pattern="green" highlight="value" autocomplete="TRUE"/>
-			<element pattern="blue" highlight="value" autocomplete="TRUE"/>
-			<element pattern="black" highlight="value" autocomplete="TRUE"/>
-			<element pattern="white" highlight="value" autocomplete="TRUE"/>
-			<element pattern="yellow" highlight="value" autocomplete="TRUE"/>
+			<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
+			<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
+			<element pattern="red" highlight="css-value" autocomplete="TRUE"/>
+			<element pattern="green" highlight="css-value" autocomplete="TRUE"/>
+			<element pattern="blue" highlight="css-value" autocomplete="TRUE"/>
+			<element pattern="black" highlight="css-value" autocomplete="TRUE"/>
+			<element pattern="white" highlight="css-value" autocomplete="TRUE"/>
+			<element pattern="yellow" highlight="css-value" autocomplete="TRUE"/>
 			<element pattern=";" ends_context="1"/>
 			<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="2"/>
 		</context>
