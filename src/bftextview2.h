@@ -204,7 +204,8 @@ typedef struct {
 	gboolean autocomplete_case_insens;
 	GCompletion* ac; /* autocompletion items in this context */
 	GHashTable *reference; /* reference help for each autocompletion item */
-	GtkTextTag *contexttag; /* if the context area itself needs some kind of style (strings!) */
+	GtkTextTag *contexttag; /* if the context area itself needs some kind of style (to implement a string context for example) */
+	const gchar *contexthighlight; /* the string that has the id for the highlight */
 	guint16 startstate; /* refers to the row number in scantable->table that is the start state for this context */
 	guint16 identstate; /* refers to the row number in scantable->table that is the identifier-state
 					for this context. The identifier state is a state that refers to itself for all characters
@@ -214,11 +215,15 @@ typedef struct {
 } Tcontext;
 
 typedef struct {
-	gchar *pattern; /* the pattern itself. stored in the Tpattern so we can re-use it in another context */
 	GtkTextTag *selftag; /* the tag used to highlight this pattern */
 	GtkTextTag *blocktag; /* if this pattern ends a context or a block, we can highlight
 	the region within the start and end pattern with this tag */
 	gchar *reference; /* the reference data, or NULL. may be inserted in hash tables for multiple keys in multiple contexts */
+	gchar *pattern; /* the pattern itself. stored in the Tpattern so we can re-use it in another context */
+	const gchar *selfhighlight; /* a string with the highlight for this pattern. used when re-linking highlights and textstyles 
+							if the user changed any of these in the preferences */
+	const gchar *blockhighlight; /* a string for the highlight corresponding to the  blocktag */
+
 	guint16 blockstartpattern; /* the number of the pattern that may start this block */
 	gint16 nextcontext; /* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc.
 			to pop a context of the stack */
