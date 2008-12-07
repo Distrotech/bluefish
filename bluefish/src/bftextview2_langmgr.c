@@ -145,6 +145,17 @@ void langmgr_reload_user_styles(GList *user_styles) {
 	}
 }
 
+void langmgr_reload_user_highlights(void) {
+	GList *tmplist = g_list_first(langmgr.bflang_list);
+	while (tmplist) {
+		Tbflang *bflang;
+		if (bflang->st) {
+			bftextview2_scantable_rematch_highlights(bflang->st, bflang->name);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+}
+
 static gchar *langmgr_lookup_style_for_highlight(const gchar *lang, const gchar *highlight) {
 	const gchar *arr[] = {lang, highlight, NULL};
 	return g_hash_table_lookup(langmgr.configured_styles, arr);

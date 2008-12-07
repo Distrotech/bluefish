@@ -49,6 +49,21 @@ the zero-or-more *
 the character list [a-z]
 
 */
+
+void bftextview2_scantable_rematch_highlights(Tscantable *st, const gchar *lang) {
+	int i=0;
+	for (i=0;i<(st->contexts->len);i++)
+		if (g_array_index(st->contexts, Tcontext, i).contexthighlight)
+			g_array_index(st->contexts, Tcontext, i).contexttag = langmrg_lookup_tag_highlight(lang, g_array_index(st->contexts, Tcontext, i).contexthighlight);
+	for (i=0;i<(st->matches->len);i++) {
+		if (g_array_index(st->matches, Tpattern, i).selfhighlight)
+			g_array_index(st->matches, Tpattern, i).selftag = langmrg_lookup_tag_highlight(lang, g_array_index(st->matches, Tpattern, i).selfhighlight);
+		if (g_array_index(st->matches, Tpattern, i).blockhighlight)
+			g_array_index(st->matches, Tpattern, i).blocktag = langmrg_lookup_tag_highlight(lang, g_array_index(st->matches, Tpattern, i).blockhighlight);
+	}
+	
+}
+
 static void print_characters(gchar *characters) {
 	int i;
 	DBG_PATCOMPILE("we have active characters ");
