@@ -146,10 +146,20 @@ void langmgr_reload_user_styles(GList *user_styles) {
 }
 
 void langmgr_reload_user_highlights(void) {
-	GList *tmplist = g_list_first(langmgr.bflang_list);
+	GList *tmplist;
+	g_hash_table_remove_all(langmgr.configured_styles);
+	for (tmplist = g_list_first(main_v->props.highlight_styles);tmplist;tmplist=tmplist->next) {
+		gchar **arr2, **arr = (gchar **)tmplist->data;
+		arr2 = array_from_arglist(arr[0], arr[1], NULL);
+		g_print("set style %s for highlight %s:%s\n",arr[2],arr2[0],arr2[1]);
+		g_hash_table_insert(langmgr.configured_styles,arr2,g_strdup(arr[2]));
+	}
+	
+	tmplist = g_list_first(langmgr.bflang_list);
 	while (tmplist) {
-		Tbflang *bflang;
+		Tbflang *bflang=tmplist->data;
 		if (bflang->st) {
+			g_print("langmgr_reload_user_highlights, bflang name %s\n",bflang->name);
 			bftextview2_scantable_rematch_highlights(bflang->st, bflang->name);
 		}
 		tmplist = g_list_next(tmplist);

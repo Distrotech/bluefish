@@ -1742,7 +1742,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	/* apply the changes to highlighting patterns and filetypes to the running program */
 	langmgr_reload_user_styles(main_v->props.textstyles);
 	/* TODO for highlight styles */
-
+	langmgr_reload_user_highlights();
 	all_documents_apply_settings();
 	{
 		GList *tmplist = g_list_first(main_v->bfwinlist);
