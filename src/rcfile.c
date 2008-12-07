@@ -229,7 +229,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 
 	rclist = NULL;
 	rclist = get_list(filename, rclist,FALSE);
-	
+
 	if (rclist == NULL) {
 		DEBUG_MSG("no rclist, returning!\n");
 		return retval;
@@ -316,7 +316,7 @@ static gboolean parse_config_file(GList * config_list, gchar * filename)
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	DEBUG_MSG("parse_config_file, parsed all entries, freeing list read from file\n");	
+	DEBUG_MSG("parse_config_file, parsed all entries, freeing list read from file\n");
 	free_stringlist(rclist);
 	return retval;
 }
@@ -354,7 +354,7 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_arraylist (&config_rc, &main_v->props.filefilters, "filefilters:", 3, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.last_filefilter, "last_filefilter:", "");
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);	
+	init_prop_integer   (&config_rc, &main_v->props.restore_dimensions, "restore_dimensions:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.left_panel_width, "left_panel_width:", 150, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.left_panel_left, "left_panel_left:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.max_recent_files, "max_recent_files:", 15, TRUE);
@@ -410,11 +410,11 @@ static GList *props_init_main(GList * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.autoindent, "autoindent:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.link_management, "link_management:", 1, TRUE);
-	
+
 #ifdef WITH_MSG_QUEUE
 	init_prop_integer (&config_rc, &main_v->props.open_in_running_bluefish,"open_in_running_bluefish:",1, TRUE);
 #endif
-	init_prop_integer (&config_rc, &main_v->props.server_zope_compat,"server_zope_compat:", 0, TRUE); 
+	init_prop_integer (&config_rc, &main_v->props.server_zope_compat,"server_zope_compat:", 0, TRUE);
 
 	return config_rc;
 }
@@ -509,8 +509,6 @@ void rcfile_parse_main(void)
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 		arr = array_from_arglist(_("Opera"), "opera -remote 'openURL(%s,new-window)' || opera '%s'&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-		arr = array_from_arglist(_("Netscape"), "/usr/lib/netscape/477/communicator/communicator-smotif '%s'&",NULL);
-		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 		arr = array_from_arglist(_("Gnome default"), "gnome-moz-remote --newwin '%s'&",NULL);
 		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
 	}
@@ -591,8 +589,8 @@ void rcfile_parse_main(void)
 		fref_rescan_dir(userdir);
 		g_free(userdir);
 	}
-	/* for backwards compatibility with old filetypes, 
-		before version 0.10 had length 4, 
+	/* for backwards compatibility with old filetypes,
+		before version 0.10 had length 4,
 		before version 0.13 had length 6 */
 	{
 		GList *tmplist = g_list_first(main_v->props.filetypes);
@@ -710,7 +708,7 @@ static void rcfile_custom_menu_load_all(gboolean full_reset, gchar *defaultfile)
 	}
 	g_free(filename);
 
-	/* for backwards compatibility with older (before Bluefish 0.10) custom menu files we can convert those.. 
+	/* for backwards compatibility with older (before Bluefish 0.10) custom menu files we can convert those..
 	we will not need the 'type' anymore, since we will put them in separate lists, hence the memmove() call
 	*/
 	DEBUG_MSG("main_v->props.cust_menu=%p\n",main_v->props.cust_menu);
@@ -731,7 +729,7 @@ static void rcfile_custom_menu_load_all(gboolean full_reset, gchar *defaultfile)
 				memmove(&strarr[1], &strarr[2], (count-1) * sizeof(gchar *));
 				main_v->props.cmenu_replace = g_list_append(main_v->props.cmenu_replace, strarr);
 			} else if (count >= 4 && count == (4+atoi(strarr[1]))) { /*  the first check avoids a segfault if count == 1 */
-				/* a very old insert type, 0=menupath, 1=numvariables, 2=string1, 3=string2, 4... are variables 
+				/* a very old insert type, 0=menupath, 1=numvariables, 2=string1, 3=string2, 4... are variables
 				   we can re-arrange it for the new insert type */
 				gchar *numvars = strarr[1];
 				strarr[1] = strarr[2];
@@ -799,7 +797,7 @@ void rcfile_parse_custom_menu(gboolean full_reset, gboolean load_new) {
 									"../data/custom_menu.default",NULL);
 	}
 	DEBUG_MSG("rcfile_parse_custom_menu, defaultfile is: %s", defaultfile);
-	
+
 	if (full_reset) {
 		free_arraylist(main_v->props.cmenu_insert);
 		free_arraylist(main_v->props.cmenu_replace);
@@ -900,7 +898,7 @@ static GList *return_session_configlist(GList *configlist, Tsessionvars *session
 	init_prop_integer(&configlist, &session->view_html_toolbar, "view_html_toolbar:", 1, FALSE);
 	init_prop_integer(&configlist, &session->view_custom_menu, "view_custom_menu:", 1, FALSE);
 	init_prop_integer(&configlist, &session->view_main_toolbar, "view_main_toolbar:", 1, FALSE);
-	init_prop_integer(&configlist, &session->view_left_panel, "view_left_panel:", 1, FALSE);	
+	init_prop_integer(&configlist, &session->view_left_panel, "view_left_panel:", 1, FALSE);
 	return configlist;
 }
 
@@ -959,7 +957,7 @@ gboolean rcfile_parse_global_session(void) {
 	configlist = return_session_configlist(configlist, main_v->session);
 	filename = g_strconcat(g_get_home_dir(), "/.bluefish/session", NULL);
 	if (!file_exists_and_readable(filename)) {
-		/* versions before 0.13 did not have a separate session file, so 
+		/* versions before 0.13 did not have a separate session file, so
 		we'll try to load these items from rcfile_v2 */
 		g_free(filename);
 		filename = g_strconcat(g_get_home_dir(), "/.bluefish/rcfile_v2", NULL);
