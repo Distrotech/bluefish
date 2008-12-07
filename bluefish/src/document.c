@@ -3004,7 +3004,7 @@ void doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean d
 	tmpdoc = documentlist_return_document_from_uri(alldocs, uri);
 	g_list_free(alldocs);
 	if (tmpdoc) { /* document is already open */
-		if (move_to_this_win) {
+		if (tmpdoc->bfwin != bfwin && move_to_this_win) {
 			/* we should aks the user if it is OK to move the document */
 			if (!delay_activate)	bfwin->focus_next_new_doc = TRUE;
 			doc_move_to_window_dialog(tmpdoc, bfwin);
@@ -3051,8 +3051,8 @@ void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gb
 
 void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_win) {
 	GSList *tmpslist;
-
-	bfwin->focus_next_new_doc = TRUE;
+	gboolean one_doc=(g_slist_length(urislist)==1);
+	bfwin->focus_next_new_doc = !one_doc;
 	tmpslist = urislist;
 	while (tmpslist) {
 		GFile *uri;
@@ -3060,7 +3060,7 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
 			uri = g_file_new_for_path((gchar *) tmpslist->data);
 		else
 			uri = g_file_new_for_uri((gchar *) tmpslist->data);
-		doc_new_from_uri(bfwin, uri, NULL, TRUE, move_to_this_win, -1, -1);
+		doc_new_from_uri(bfwin, uri, NULL, !one_doc, move_to_this_win, -1, -1);
 		g_object_unref(uri);
 		tmpslist = g_slist_next(tmpslist);
 	}
