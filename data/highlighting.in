@@ -52,6 +52,49 @@ D:String:0:x?"((\\\\")|[^"])*"[cwd]?::2::#009900::0:0:
 D:Comment (single line):0://.*?$::2::#0000FF::1:2:
 D:Comment (multiline):0:/\\*.*?\\*/::2::#0000FF::1:2:
 D:Comment (nested):0:/\\+((?R)|.)*?\\+/::2::#0000FF::1:2:
+Django:css-Selector:1:\\b(a|a\\\:link|a\\\:visited|a\\\:active|a\\\:hover|body|abbr|acronym|address|applet|area|b|bdo|blockquote|br|button|caption|cite|code|col|colgroup|dd|del|dfn|div|dl|dt|em|embed|fieldset|form|h\\d+|hr|i|iframe|img|input|ins|kbd|label|legend|li|map|noframes|noscript|object|ol|optgroup|option|p|pre|q|samp|select|small|span|strong|table|tbody|td|textarea|tfoot|th|thead|tr|tt|ul|var)\\b::2:^CSS$:#0000ff:#ddddff:0:0:
+Django:css-Value:1:\\b(relative|serif|sans\\-serif|cursive|fantasy|monospace|normal|italic|oblique|small\\-caps|bold|bolder|lighter|smaller|xx\\-small|x\\-small|small|medium|large|x\\-large|xx\\-large|transparent|none|repeat|repeat\\-x|repeat\\-y|no\\-repeat|scroll|fixed|top|center|bottom|left|center|right|underline|overline|line\\-through|blink|baseline|sub|super|text\\-top|middle|text\\-bottom|capitalize|uppercase|lowercase|justify|auto|thin|thick|dotted|dashed|solid|double|groove|ridge|inset|outset|both|block|inline|list\\-item|pre|nowrap|disc|circle|square|decimal|lower\\-roman|upper\\-roman|lower\\-alpha|upper\\-alpha|inside|outside|small|large)\\b::2:^CSS$:::0:0:
+Django:css-Font:1:\\b(font(\\-color|\\-family|\\-weight|\\-size|\\-variant|\\-style)*)\\b::2:^CSS$:darkblue::0:0:
+Django:css-Misc:1:(\\s*|\\t*)\\b(float|color|width|height|position|top|bottom|left|right|cursor|display|z\\-index|content)\\b\\s*\\\:::2:^CSS$:darkblue::0:0:
+Django:css-Padding:1:\\b(padding(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2:^CSS$:darkblue::0:0:
+Django:css-Margin:1:\\b(margin(\\-top|\\-bottom|\\-left|\\-right|\\-width|\\-color|\\-style)*)\\b\\s*\\\:::2:^CSS$:darkblue::0:0:
+Django:css-Background:1:\\b(background(\\-color|\\-image|\\-repeat|\\-attachment|\\-position)*)\\b\\s*\:::2:^CSS$:darkblue::0:0:
+Django:css-Line:1:\\b(line(\\-top|\\-bottom|\\-left|\\-width|\\-color|\\-style|\\-height)*)\\b\\s*\:::2:^CSS$:darkblue::0:0:
+Django:css-Text:1:\\b(word\\-spacing|letter\\-spacing|text\\-decoration|vertical\\-align|text\\-transform|text\\-align|text\\-ident)\\b\\s*\:::2:^CSS$:darkblue::0:0:
+Django:css-Border:1:\\b(border(\\-top|\\-bottom|\\-left|\\-right)*(\\-width|\\-color|\\-style)*)\\b\\s*\:::2:^CSS$:darkblue::0:0:
+Django:css-Color:1:#[0-9A-Fa-f]{3,6}::2:^CSS$:#358139::0:0:
+Django:css-Comment:1:\\/\\*:\\*\\/:1:^CSS$:#AE7112::0:0:
+Django:css-Length:1:\\d+(\\%|px|em|ex|pt|in|cm|pc|mm)::2:^CSS$:darkgreen::0:0:
+Django:css-String:1:":":1:^CSS$:#40B381::0:0:
+Django:css-Symbol:1:(\\{|\\}|\\;|\\,)::2:^CSS$:#3D76AF::0:0:
+Django:js-django{}:1:{{:}}:1:^JS$:#3333ff:#eeeeff:0:0:
+Django:js-operators:0:[<>[\\]!=&%*/+.]::2:^JS$:#003f7f::0:0:
+Django:js-comment-C-style:0:/\\*:\\*/:1:^JS$:#858282::1:2:
+Django:js-comment-C++-style:0://.*?$::2:^JS$:#666666:#eeeeee:0:0:
+Django:js-string-escape:0:\\\\.::2:^js-string$:#ff0000::0:0:
+Django:js-keywords:0:\\b(return|goto|if|else|case|default|switch|break|continue|while|do|for|catch|throw|finally|try|new|var|function)\\b::2:^JS$:#ff0000:#ffeeee:0:0:
+Django:js-special_values:0:\\b(false|null|true|NaN|infinity|this)\\b::2:^JS$:#00aa00:#eeffee:0:0:
+Django:js-string:0:":":1:^JS$:#0000FF:#EEeeFF:0:0:
+Django:js-character:0:':':1:^JS$:#0000FF:#EEeeFF:0:0:
+Django:js-number:1:[0-9]::2:^JS$:::0:0:
+Django:js-object:1:([a-z]+)\\.::2:^JS$:#000099::1:1:
+Django:Entities:1:&([a-z]*|#[0-9]*);::2::#990066::0:0:
+Django:DocType:1:<![a-z0-9]+:[^?-]>:1::#bb8800::0:0:
+Django:Comment:0:<!--:-->:1::#777:#f0f0f0:0:0:
+Django:Attribute Contents:1:2::3:^Attributes$:#0000ff::0:0:
+Django:Attributes:1:((?\:xml\:)?[a-z][a-z-]*=)[ \\n\\t]*((?\:"[^"]+")|(?\:'[^']+'))::2:^Tags$:#000::0:0:
+Django:javascript uri:1:href="javascript\:[^"]*"::2:^Tags$:#0F0:#000:0:0:
+Django:onevent:1:on(abort|blur|change|click|dblclick|dragdrop|focus|keydown|keypress|keyup|load|mousedown|mousemove|mouseout|mouseover|mouseup|move|reset|resize|select|submit|unload)="([^"]*)"::2:^Tags$:#0F0:#000:0:0:
+Django:<html> tag:1:1::3:^Tags$:#00f::0:0:
+Django:CSS:1:<style[^>]*>:</style>:1::#0000EE::0:0:
+Django:Tags:1:<((/)?[a-z][a-z0-9]*).*?>::2::#0000EE:#eeeeff:0:0:
+Django:CSS:1:1::3:^CSS-outer$:#000:#FFF:0:0:
+Django:CSS-outer:1:<style[^>]*>(.*?)</(?\:style>?)?::2::#99F:#000:0:0:
+Django:JS:1:1::3:^JS-outer$:#000:#FFF:0:0:
+Django:JS-outer:1:<script[^>]*>(.*?)</(?\:script>?)?::2::#0F0:#000:0:0:
+Django:django{}:1:{{:}}:1::#3333ff:#eeeeff:0:0:
+Django:django%:1:{%:%}:1::#ff0000:#ffeeee:0:0:
+Django:django#:1:{#:#}:1::#aaaaaa:#f0f0f0:0:0:
 gettext po:Untranslated:1:msgstr(?\:\\[[0-9]+\\])? ""\\n\\n::2::#990000:#ffffff:0:0:
 gettext po:Text:1:":":1::#009900:#ffffff:0:2:
 gettext po:Todo:1:^#,.*?$::2::#ffffff:#990000:2:0:
