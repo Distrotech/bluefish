@@ -24,12 +24,15 @@
 GHashTable *make_config_list_item(GHashTable * config_list, void *pointer_to_var, unsigned char type_of_var, gchar * name_of_var, gint len);
 void rcfile_parse_main(void);
 void rcfile_parse_highlighting(void);
+#ifdef USE_CUSTOM_MENU
 void rcfile_parse_custom_menu(void);
+gint rcfile_save_custom_menu(void);
+#endif
 void rcfile_check_directory(void);
 void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidget *widget);
 
 gint rcfile_save_main(void);
-gint rcfile_save_custom_menu(void);
+
 gboolean rcfile_parse_project(Tproject *project, gchar *filename);
 gboolean rcfile_save_project(Tproject *project, gchar *filename);
 gboolean rcfile_save_encodings(void);

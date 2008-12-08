@@ -90,8 +90,9 @@ typedef struct {
 } Tconfig_list_item;
 
 static GHashTable *main_configlist=NULL;
+#ifdef USE_CUSTOM_MENU
 static GHashTable *custom_menu_configlist=NULL;
-
+#endif
 static void free_configlist(GHashTable *configlist) {
 	g_hash_table_destroy(configlist);
 /*	GList *tmplist = g_list_first(configlist);
@@ -670,7 +671,7 @@ void rcfile_parse_main(void)  {
 		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
 	}
 	*/
-
+#ifndef USE_BFTEXTVIEW2
 	/* initialize the default textstyles */
 	if (main_v->props.textstyles == NULL) {
 		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"/textstyles",
@@ -683,6 +684,7 @@ void rcfile_parse_main(void)  {
 			g_print("Unable to find '"PKGDATADIR"/textsyles'\n");
 		}
 	}
+#endif
 }
 
 gint rcfile_save_main(void) {
@@ -692,7 +694,7 @@ gint rcfile_save_main(void) {
 	g_free(filename);
 	return ret;
 }
-
+#ifdef USE_CUSTOM_MENU
 void rcfile_parse_custom_menu(void) {
 	gchar *filename;
 	custom_menu_configlist = g_hash_table_new_full(g_str_hash,g_str_equal,NULL, g_free);
@@ -754,6 +756,7 @@ void rcfile_parse_custom_menu(void) {
  - Else if LC_MESSAGES is set and non-null, follow it.
  - Else if LANG is set and non-null, follow it.
 */
+
 gint rcfile_save_custom_menu(void) {
 	gint retval;
 	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/custom_menu", NULL);
@@ -761,7 +764,7 @@ gint rcfile_save_custom_menu(void) {
 	g_free(filename);
 	return retval;
 }
-
+#endif /* USE_CUSTOM_MENU */
 #define DIR_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)	/* same as 0755 */
 void rcfile_check_directory(void) {
 	gchar *rcdir = g_strconcat(g_get_home_dir(), "/."PACKAGE, NULL);
@@ -776,9 +779,11 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 	case 0:
 		rcfile_save_main();
 	break;
+#ifdef USE_CUSTOM_MENU
 	case 2:
 		rcfile_save_custom_menu();
 	break;
+#endif
 	case 3:
 		{
 			gchar *shortcutfilename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/menudump_2", NULL);
@@ -919,13 +924,13 @@ gboolean rcfile_parse_global_session(void) {
 	retval = parse_config_file(configlist, filename);
 	free_configlist(configlist);
 	g_free(filename);
-
+/*
 	if (main_v->globses.reference_files == NULL) {
 		gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
-		/* if the user does not yet have any function reference files, set them to default values */
+		/ * if the user does not yet have any function reference files, set them to default values * /
 		DEBUG_MSG("rcfile_parse_global_session, no reference files yet, scan directories!\n");
 		g_free(userdir);
-	}
+	}*/
 
 	if (main_v->globses.filefilters == NULL) {
 		/* if the user does not have file filters --> set them to defaults values */

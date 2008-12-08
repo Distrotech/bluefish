@@ -286,22 +286,26 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 				xmlFree(aname);
 			}
 			if (name) {
-				gchar *tmpstyle = langmgr_lookup_style_for_highlight(bflang->name, name);
-				if (style) {
-					if (!tmpstyle) {
+				gchar *use_textstyle = langmgr_lookup_style_for_highlight(bflang->name, name);
+				if (use_textstyle) { /* we have a user-configured textstyle for this highlight */
+					if (!gtk_text_tag_table_lookup(langmgr.tagtable,use_textstyle)) {
+						/* the user-set style does not exist, create the user-set style with the provided style as content */
 						gchar **arr;
-						arr = array_from_arglist(bflang->name,name,NULL);
-						g_hash_table_insert(langmgr.configured_styles,arr,g_strdup(style));
-						arr = array_from_arglist(bflang->name,name,style,NULL);
-						main_v->props.highlight_styles = g_list_prepend(main_v->props.highlight_styles, arr); 
-					} else if (strcmp(tmpstyle,style)==0) {
-						if (!gtk_text_tag_table_lookup(langmgr.tagtable,style)) {
-							gchar **arr;
-							langmrg_create_style(style, fgcolor, bgcolor, bold, italic);
-							arr = array_from_arglist(style, fgcolor, bgcolor, bold, italic,NULL);
-							main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, arr);
-						}
+						langmrg_create_style(use_textstyle, fgcolor, bgcolor, bold, italic);
+						arr = array_from_arglist(use_textstyle, fgcolor?fgcolor:"", bgcolor?bgcolor:"", bold?bold:"0", italic?italic:"0",NULL);
+						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, arr);
 					}
+				} else if (style) { /* no textstyle was configured, use the provided style */
+					gchar **arr;
+					if (!gtk_text_tag_table_lookup(langmgr.tagtable,style)) {
+						langmrg_create_style(style, fgcolor, bgcolor, bold, italic);
+						arr = array_from_arglist(style, fgcolor?fgcolor:"", bgcolor?bgcolor:"", bold?bold:"0", italic?italic:"0",NULL);
+						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, arr);
+					}
+					arr = array_from_arglist(bflang->name,name,NULL);
+					g_hash_table_insert(langmgr.configured_styles,arr,g_strdup(style));
+					arr = array_from_arglist(bflang->name,name,style,NULL);
+					main_v->props.highlight_styles = g_list_prepend(main_v->props.highlight_styles, arr);
 				}
 			}
 			g_free(name);
