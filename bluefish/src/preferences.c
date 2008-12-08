@@ -790,6 +790,8 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 				GtkTreeIter iter;
 				gtk_list_store_append(GTK_LIST_STORE(pd->tsd.lstore), &iter);
 				set_textstyle_strarr_in_list(&iter, strarr,pd);
+			} else {
+				g_print("invalid textstyle with length %d\n",count_array(strarr));
 			}
 			tmplist = g_list_next(tmplist);
 		}
