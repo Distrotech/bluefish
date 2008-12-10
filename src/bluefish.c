@@ -51,7 +51,6 @@
 #include "project.h"
 #include "rcfile.h"        /* rcfile_parse_main() */
 #include "stringlist.h"    /* put_stringlist(), get_stringlist() */
-#include "textstyle.h"
 #include "filefilter.h"
 
 /*********************************************/
@@ -252,6 +251,8 @@ int main(int argc, char *argv[])
 #ifndef NOSPLASH
   if (main_v->props.show_splash_screen) splash_screen_set_label(_("setting up bookmarks ..."));
 #endif /* NOSPLASH */
+
+	regcomp(&main_v->find_encoding,"<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"text/x?html;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>",REG_EXTENDED|REG_ICASE);
 
   main_v->bmarkdata = bookmark_data_new();
 #ifdef WITH_MSG_QUEUE

@@ -924,7 +924,7 @@ static gboolean file_list_filter_func(GtkTreeModel * model, GtkTreeIter * iter, 
 	gint len;
 	gboolean retval = TRUE;
 /*  DEBUG_MSG("file_list_filter_func, called for model=%p and fb2=%p\n",model,fb2);*/
-	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &mime_type,
+	gtk_tree_model_get((GtkTreeModel *)model, iter, FILENAME_COLUMN, &name, TYPE_COLUMN, &mime_type,
 					   -1);
 	if (!name)
 		return FALSE;
@@ -968,8 +968,8 @@ gint filebrowser_sort_func(GtkTreeModel * model, GtkTreeIter * a, GtkTreeIter * 
 	gchar *namea, *nameb, *mimea, *mimeb;
 	gboolean isdira, isdirb;
 	gint retval = 0;
-	gtk_tree_model_get(GTK_TREE_MODEL(model), a, FILENAME_COLUMN, &namea, TYPE_COLUMN, &mimea, -1);
-	gtk_tree_model_get(GTK_TREE_MODEL(model), b, FILENAME_COLUMN, &nameb, TYPE_COLUMN, &mimeb, -1);
+	gtk_tree_model_get((GtkTreeModel *)model, a, FILENAME_COLUMN, &namea, TYPE_COLUMN, &mimea, -1);
+	gtk_tree_model_get((GtkTreeModel *)model, b, FILENAME_COLUMN, &nameb, TYPE_COLUMN, &mimeb, -1);
 	isdira = (mimea && MIME_ISDIR(mimea) == 0);
 	isdirb = (mimeb && MIME_ISDIR(mimeb) == 0);
 	if (isdira == isdirb) {		/* both files, or both directories */

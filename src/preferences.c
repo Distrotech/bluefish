@@ -24,15 +24,8 @@
 #include <string.h>        /* strcmp() */
 
 #include "bluefish.h"
-#include "autocomp.h"
 #include "bf_lib.h"        /* list_switch_order() */
-
-#ifndef USE_BFTEXTVIEW2
-#include "bf-textview.h"
-#else
 #include "bftextview2_langmgr.h"
-#endif
-
 #include "document.h"
 #include "filebrowser2.h"
 #include "gtk_easy.h"
@@ -40,7 +33,6 @@
 #include "menu.h"
 #include "pixmap.h"
 #include "rcfile.h"
-#include "textstyle.h"
 #include "stringlist.h"    /* duplicate_arraylist*/
 
 enum {

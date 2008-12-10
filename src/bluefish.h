@@ -80,12 +80,8 @@ extern void g_none(gchar *first, ...);
 #include <gio/gio.h>
 
 #define BF_FILEINFO "standard::name,standard::display-name,standard::size,standard::type,unix::mode,unix::uid,unix::gid,time::modified,etag::value,standard::fast-content-type"
-#ifdef USE_BFTEXTVIEW2
 #include "bftextview2.h"
-#else
-#include "bf-textview.h"
-#endif
-#include "autocomp.h"
+
 
 /*********************/
 /* undo/redo structs */
@@ -459,6 +455,7 @@ typedef struct {
 	BfLangManager *lang_mgr;
 	Tautocomp *autocompletion;
 #endif
+	regex_t find_encoding;
 } Tmain;
 
 extern Tmain *main_v;
