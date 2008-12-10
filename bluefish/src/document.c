@@ -36,12 +36,8 @@
 
 #include "bluefish.h"
 #include "bf_lib.h"
-#ifdef USE_BFTEXTVIEW2
 #include "bftextview2.h"
 #include "bftextview2_langmgr.h"
-#else
-#include "bf-textview.h"
-#endif
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
@@ -55,7 +51,6 @@
 #include "pixmap.h"
 #include "snr2.h"           /* snr2_run_extern_replace */
 #include "stringlist.h"     /* free_stringlist() */
-#include "textstyle.h"
 #include "undo_redo.h"      /* doc_unre_init() */
 
 typedef struct {
@@ -1516,30 +1511,22 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 	gchar *tmpencoding = NULL;
 	/* the first try is if the encoding is set in the file */
 	{
-		regex_t preg;
 		regmatch_t pmatch[10];
 		gint retval;
 		/* <meta http-equiv="content-type" content="text/html; charset=UTF-8" /> */
-		gchar *pattern = "<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"text/x?html;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>";
-		retval = regcomp(&preg,pattern,REG_EXTENDED|REG_ICASE);
-#ifdef DEBUG
-		if (retval) {
-			g_print("regcomp error!\n");
-		}
-#endif
 		/* we do a nasty trick to make regexec search only in the first N bytes */
 		if (buflen > main_v->props.encoding_search_Nbytes) {
 			gchar tmp = buffer[main_v->props.encoding_search_Nbytes];
 			buffer[main_v->props.encoding_search_Nbytes] = '\0';
-			retval = regexec(&preg,buffer,10,pmatch,0);
+			retval = regexec(&main_v->find_encoding,buffer,10,pmatch,0);
 			buffer[main_v->props.encoding_search_Nbytes] = tmp;
 		} else {
-			retval = regexec(&preg,buffer,10,pmatch,0);
+			retval = regexec(&main_v->find_encoding,buffer,10,pmatch,0);
 		}
 #ifdef DEBUG
 		if (retval) {
 			gchar errbuf[1024];
-			regerror(retval, &preg, errbuf, 1024);
+			regerror(retval, &main_v->find_encoding, errbuf, 1024);
 			g_print("regexec error! %s\n", errbuf);
 		}
 #endif
@@ -1549,7 +1536,6 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 			tmpencoding = g_strndup(&buffer[pmatch[1].rm_so], pmatch[1].rm_eo-pmatch[1].rm_so);
 			DEBUG_MSG("doc_buffer_to_textbox, detected encoding %s\n", tmpencoding);
 		}
-		regfree(&preg);
 #ifdef DEBUGPROFILING
 		times(&locals.tms1);
 		print_time_diff("encoding regex match", &locals.tms2, &locals.tms1);
@@ -3268,6 +3254,7 @@ void doc_activate(Tdocument *doc) {
 		DEBUG_MSG("doc_activate, not doing anything, doc=%p, last_avtivated_doc=%p, close_doc=%d\n",doc, BFWIN(doc->bfwin)->last_activated_doc, doc->action.close_doc);
 		return;
 	}
+	g_print("doc_activate for doc with view %p..\n",doc->view);
 	if (doc->status == DOC_STATUS_ERROR) {
 		const gchar *buttons[] = {_("_Retry"), _("Retry _all failed"),_("_Close"), _("Close all _failed"), NULL};
 		gchar *tmpstr;

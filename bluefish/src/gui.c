@@ -133,6 +133,8 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 		bfwin->last_notebook_page = -2;
 		return;
 	}
+	if (bfwin->current_document) 
+		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->enable_scanner = FALSE;
 	bfwin->current_document = g_list_nth_data(bfwin->documentlist, cur);
 	if (bfwin->current_document == NULL) {
 		DEBUG_MSG("notebook_changed, WEIRD 2, doclist[%d] == NULL, RETURNING\n",cur);

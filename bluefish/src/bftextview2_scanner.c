@@ -457,7 +457,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	gboolean normal_run=TRUE, last_character_run=FALSE;
 
 	scanning.context = 1;
-
+	g_print("bftextview2_run_scanner for btv %p..\n",btv);
 	if (!btv->bflang->st) {
 		DBG_MSG("no scantable, nothing to scan, returning...\n");
 		return FALSE;
