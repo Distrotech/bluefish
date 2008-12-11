@@ -1220,6 +1220,8 @@ static void preferences_apply(Tprefdialog *pd) {
 
 	string_apply(&main_v->props.image_thumbnailstring, pd->prefs[image_thumbnailstring]);
 	string_apply(&main_v->props.image_thumbnailtype, GTK_COMBO(pd->prefs[image_thumbnailtype])->entry);
+	
+	main_v->props.autocomp_popup_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[autocomp_popup_mode]));
 
 	free_arraylist(main_v->props.plugin_config);
 	main_v->props.plugin_config = duplicate_arraylist(pd->lists[pluginconfig]);
@@ -1583,6 +1585,11 @@ static void preferences_dialog() {
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);
+
+	{
+		gchar *autocompmodes[] = {N_("On keypress only"), N_("Immediately"), N_("Delayed"), NULL};
+		pd->prefs[autocomp_popup_mode] = boxed_optionmenu_with_value(_("Show the autocompletion popup window"), main_v->props.autocomp_popup_mode, vbox2, autocompmodes);
+	}
 
 
 	frame = gtk_frame_new(_("Syntax highlighting"));
