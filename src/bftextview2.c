@@ -38,6 +38,8 @@
 #include "bftextview2_autocomp.h"
 #include "bftextview2_langmgr.h"
 
+#define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */
+
 G_DEFINE_TYPE(BluefishTextView, bluefish_text_view, GTK_TYPE_TEXT_VIEW)
 
 static gboolean bftextview2_user_idle_timer(gpointer data)
@@ -176,7 +178,8 @@ void bftextview2_schedule_scanning(BluefishTextView * btv) {
 	if (btv->enable_scanner && btv->bflang && btv->bflang->st && btv->scanner_idle == 0) {
 		DBG_MSG("bftextview2_schedule_scanning, scheduling scanning function\n");
 		DBG_DELAYSCANNING("scheduling scanning in idle function\n");
-		btv->scanner_idle = g_idle_add(bftextview2_scanner_idle, btv);
+		/* G_PRIORITY_LOW IS 300 and G_PRIORITY_DEFAULT_IDLE is 200 */
+		btv->scanner_idle = g_idle_add_full(250,bftextview2_scanner_idle, btv,NULL);
 	}
 }
 

@@ -390,7 +390,9 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 				gchar *encoding, *newbuf;
 				newbuf = buffer_find_encoding(buffer, buflen, &encoding, BFWIN(fid->doc->bfwin)->session->encoding);
 				if (newbuf) {
-					doc_insert_two_strings(fid->doc, newbuf, NULL);
+					GtkTextIter iter;
+					gtk_text_buffer_get_iter_at_mark(fid->doc->buffer,&iter,gtk_text_buffer_get_insert(fid->doc->buffer));
+					gtk_text_buffer_insert(fid->doc->buffer,&iter,newbuf,-1);
 					/* BUG ENCODING */
 					g_free(newbuf);
 					g_free(encoding);
@@ -473,6 +475,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,g
 	DEBUG_MSG("file2doc_lcb, status=%d, f2d=%p\n",status,f2d);
 	switch (status) {
 		case OPENFILE_FINISHED:
+			g_print("finished loading data in memory for view %p\n",f2d->doc->view);
 			doc_buffer_to_textbox(f2d->doc, buffer, buflen, FALSE, TRUE);
 			doc_reset_filetype(f2d->doc, f2d->doc->uri, buffer,buflen);
 			doc_set_tooltip(f2d->doc);
@@ -511,7 +514,7 @@ static void file2doc_lcb(Topenfile_status status,gint error_info,gchar *buffer,g
 			f2d->doc->action.goto_offset = -1;
 			f2d->doc->action.load = NULL;
 			file2doc_cleanup(data);
-
+			g_print("finished data in document view %p\n",f2d->doc->view);
 		break;
 		case OPENFILE_CHANNEL_OPENED:
 			/* do nothing */

@@ -21,6 +21,8 @@
 /* for the design docs see bftextview2.h */
 #include "bftextview2_scanner.h"
 
+#define MAX_CONTINUOUS_SCANNING_INTERVAL 0.1 /* float in seconds */
+
 typedef struct {
 	GtkTextIter start;
 	GtkTextIter end;

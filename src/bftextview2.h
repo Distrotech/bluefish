@@ -192,10 +192,6 @@ may not be used then...
 		we don't need padding to align the Ttablerow in memory
 		(Ttablerow = (127+1)*16=2048 bits or 256 bytes) */
 
-#define USER_IDLE_EVENT_INTERVAL 480 /* milliseconds */
-
-#define MAX_CONTINUOUS_SCANNING_INTERVAL 0.2 /* float in seconds */
-
 /*****************************************************************/
 /* building the automata and autocompletion cache */
 /*****************************************************************/
