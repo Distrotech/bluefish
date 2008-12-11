@@ -2198,9 +2198,8 @@ static void reset_user_idle_timer(Tbfwin *bfwin) {
 #endif
 
 static void doc_buffer_mark_set_lcb(GtkTextBuffer *buffer,GtkTextIter *iter,GtkTextMark *set_mark,Tdocument *doc) {
-	DEBUG_MSG("doc_buffer_mark_set_lcb, set_mark=%p, insert_mark=%p\n",set_mark,gtk_text_buffer_get_insert(buffer));
+	/*DEBUG_MSG("doc_buffer_mark_set_lcb, set_mark=%p, insert_mark=%p\n",set_mark,gtk_text_buffer_get_insert(buffer));*/
 	if (set_mark == gtk_text_buffer_get_insert(buffer)) {
-		DEBUG_MSG("doc_buffer_mark_set_lcb, insert mark is changed\n");
 		doc_set_statusbar_lncol(doc);
 #ifdef USER_IDLE_TIMER
 		/* reset the timer */

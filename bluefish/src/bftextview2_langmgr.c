@@ -195,6 +195,7 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	Tbflangparsing *bfparser=data;
 	bfparser->bflang->st = bfparser->st;
 	bfparser->bflang->parsing=FALSE;
+	g_print("build_lang_finished_lcb..\n");
 	/* now walk and rescan all documents that use this bflang */
 #ifdef IN_BLUEFISH
 	alldocs_foreach(foreachdoc_lcb, bfparser->bflang);
@@ -656,7 +657,7 @@ static gpointer build_lang_thread(gpointer data)
 	Tbflang *bflang = data;
 	Tbflangparsing *bfparser;
 	GList *tmplist;
-
+	
 	bfparser = g_slice_new0(Tbflangparsing);
 	bfparser->patterns =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
 	bfparser->contexts =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
@@ -711,7 +712,7 @@ static gpointer build_lang_thread(gpointer data)
 	/*print_DFA(bfparser->st, '&','Z');*/
 
 	/* when done call mainloop */
-	g_idle_add(build_lang_finished_lcb, bfparser);
+	g_idle_add_full(G_PRIORITY_LOW,build_lang_finished_lcb, bfparser,NULL);
 	return bflang;
 }
 
@@ -724,7 +725,9 @@ Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype) {
 		GThread* thread;
 		bflang->parsing=TRUE;
 		DBG_MSG("no scantable in %p, start thread\n",bflang);
-		thread = g_thread_create(build_lang_thread,bflang,FALSE,&error);
+		/*thread = g_thread_create(build_lang_thread,bflang,FALSE,&error);*/
+		thread = g_thread_create_full(build_lang_thread,bflang,0,FALSE,TRUE,G_THREAD_PRIORITY_LOW,&error);
+		
 		if (error) {
 			DBG_PARSING("start thread, error\n");
 		}
