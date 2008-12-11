@@ -438,26 +438,15 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_arraylist (&config_rc, &main_v->props.plugin_config, "plugin_config:", 3, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.editor_fg,"editor_fg:","#000000");
 	init_prop_string    (&config_rc, &main_v->props.editor_bg,"editor_bg:","#FFFFFF");
-	init_prop_arraylist (&config_rc, &main_v->props.textstyles, "textstyles:", 5, TRUE);
+	init_prop_arraylist (&config_rc, &main_v->props.textstyles, "textstyles2:", 5, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_mbhl, "view_mbhl:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_cline, "view_cline:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.view_blocks, "view_blocks:", 1, TRUE);
-#ifdef USE_BFTEXTVIEW2
 	init_prop_arraylist (&config_rc, &main_v->props.highlight_styles, "highlight_styles:", 3, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.load_reference, "load_reference:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.delay_full_scan, "delay_full_scan:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.autocomp_popup_mode, "autocomp_popup_mode:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.reduced_scan_triggers, "reduced_scan_triggers:", 1, TRUE);
-#else
-	init_prop_integer   (&config_rc, &main_v->props.view_symbols, "view_symbols:", 1, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.scan_mode,"scan_mode:",1, TRUE);
-	init_prop_arraylist (&config_rc, &main_v->props.syntax_styles, "syntax_styles:", 4, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.view_rmargin, "view_rmargin:", 0, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.rmargin_at, "rmargin_at:", 80, TRUE);
-	init_prop_string    (&config_rc, &main_v->props.autocomp_key, "autocomp_key:", "<Control>space");
-	init_prop_integer   (&config_rc, &main_v->props.load_network_dtd, "load_network_dtd:", 0, TRUE);
-	init_prop_integer   (&config_rc, &main_v->props.tag_autoclose, "tag_autoclose:", 1, TRUE);
-#endif
 	return config_rc;
 }
 
@@ -473,55 +462,6 @@ static gboolean config_file_is_newer(gint lasttime, const gchar *configfile) {
 	return FALSE;
 }
 
-/*
-static GList *arraylist_load_defaults(GList *thelist, const gchar *filename, const gchar *name) {
-	GList *deflist,*tmplist = g_list_first(thelist);
-	if (name) {
-		while (tmplist) {
-			gchar **tmparr = tmplist->data;
-			if (strcmp(tmparr[0],name)==0) {
-				GList *todelete = tmplist;
-				tmplist = g_list_next(tmplist);
-				if (tmplist) {
-					g_list_delete_link(tmplist, todelete);
-					g_strfreev(tmparr);
-					g_list_free_1(todelete);
-				} else {
-					thelist = NULL;
-					g_strfreev(tmparr);
-					g_list_free(todelete);
-				}
-			} else {
-				tmplist = g_list_next(tmplist);
-			}
-		}
-	} else {
-		while (tmplist) {
-			g_strfreev((gchar **)tmplist->data);
-			tmplist = g_list_next(tmplist);
-		}
-		g_list_free(thelist);
-		thelist = NULL;
-	}
-	if (name) {
-		deflist = get_list(filename,NULL,TRUE);
-		tmplist = g_list_first(deflist);
-		while (tmplist) {
-			gchar **tmparr = tmplist->data;
-			DEBUG_MSG("arraylist_load_defaults, testing if %s should be added (requested=%s)\n",tmparr[0],name);
-			if (strcmp(tmparr[0],name)==0) {
-				DEBUG_MSG("adding %s to thelist\n",tmparr[0]);
-				thelist = g_list_append(thelist, duplicate_stringarray(tmparr));
-			}
-			tmplist = g_list_next(tmplist);
-		}
-		free_arraylist(deflist);
-	} else {
-		thelist = get_list(filename,NULL,TRUE);
-	}
-	return thelist;
-}
-*/
 void rcfile_parse_main(void)  {
 	gchar *filename;
 
@@ -541,82 +481,7 @@ void rcfile_parse_main(void)  {
 	if (main_v->props.encoding_search_Nbytes< 1000) main_v->props.encoding_search_Nbytes = 2048;
 	/* do some default configuration for the lists */
 
-	if (main_v->props.external_commands){ /* convert old-style external_commands to new style, 1.0.1 had old style */
-		GList *tmplist = g_list_first(main_v->props.external_commands);
-		while (tmplist) {
-			gchar **orig = (gchar **)tmplist->data;
-			if (count_array(orig)==2) {
-				gchar *pf = strstr(orig[1], "%f");
-				if (pf) {
-					gchar **new;
-					pf++;
-					*pf = 'O';
-					new = array_from_arglist(orig[0], orig[1],NULL);
-					main_v->props.external_filter = g_list_prepend(main_v->props.external_filter, new);
-				} else {
-					gchar **new = array_from_arglist(orig[0], orig[1], "0", NULL);
-					main_v->props.external_command = g_list_prepend(main_v->props.external_command, new);
-				}
-			}
-			tmplist = g_list_next(tmplist);
-		}
-		free_arraylist(main_v->props.external_commands);
-		main_v->props.external_commands = NULL;
-	}
-
-	if (main_v->props.browsers) { /* convert old-style browsers to new style, 1.0.1 had old style */
-		gboolean have_default = FALSE;
-		GList *tmplist = g_list_first(main_v->props.browsers);
-		while (tmplist) {
-			gchar **orig = (gchar **)tmplist->data;
-			if (count_array(orig)==2) {
-				gchar **new;
-				if (have_default) {
-					new = array_from_arglist(orig[0], orig[1], "0", NULL);
-				} else {
-					new = array_from_arglist(orig[0], orig[1], "1", NULL);
-					have_default = TRUE;
-				}
-				main_v->props.external_command = g_list_prepend(main_v->props.external_command, new);
-			}
-			tmplist = g_list_next(tmplist);
-		}
-		free_arraylist(main_v->props.browsers);
-		main_v->props.browsers = NULL;
-	}
-	if (main_v->props.outputbox) {/* convert old-style outputbox to new style, 1.0.1 had old style */
-		GList *tmplist = g_list_first(main_v->props.outputbox);
-		while (tmplist) {
-			gchar **new;
-			gchar **orig = (gchar **)tmplist->data;
-			gchar *pf = strstr(orig[5], "%f");
-			if (pf) {
-				pf++;
-				*pf = 'O';
-			}
-			new = array_from_arglist(orig[0], orig[1], orig[2], orig[3], orig[4], orig[5], orig[6], NULL);
-			main_v->props.external_outputbox = g_list_prepend(main_v->props.external_outputbox, new);
-			tmplist = g_list_next(tmplist);
-		}
-		free_arraylist(main_v->props.outputbox);
-		main_v->props.outputbox = NULL;
-	}
-
-
-/*		gchar **arr;
-		arr = array_from_arglist(_("Galeon"), "galeon -x %s&",NULL);
-		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-		arr = array_from_arglist(_("Mozilla"), "mozilla -remote 'openURL(%s, new-window)' || mozilla %s&",NULL);
-		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-		arr = array_from_arglist(_("Opera"), "opera -remote 'openURL(%s,new-window)' || opera %s&",NULL);
-		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-		arr = array_from_arglist(_("Netscape"), "/usr/lib/netscape/477/communicator/communicator-smotif %s&",NULL);
-		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);
-		arr = array_from_arglist(_("Gnome default"), "gnome-moz-remote --newwin %s&",NULL);
-		main_v->props.browsers = g_list_append(main_v->props.browsers,arr);*/
-
-
-	{
+/*	{
 		gchar *filename = user_bfdir("encodings");
 		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"/encodings",
 											"data/encodings",
@@ -625,7 +490,7 @@ void rcfile_parse_main(void)  {
 		if (main_v->props.encodings == NULL) {
 			if (filename)
 				main_v->props.encodings = get_list(filename, NULL, TRUE);
-			/* if the user does not have encodings --> set them to defaults values */
+			/ * if the user does not have encodings --> set them to defaults values * /
 			if (main_v->props.encodings == NULL && defaultfile)
 				main_v->props.encodings = get_list(defaultfile,NULL,TRUE);
 			else if (main_v->props.encodings == NULL)
@@ -638,7 +503,7 @@ void rcfile_parse_main(void)  {
 		}
 		g_free(filename);
 		g_free(defaultfile);
-	}
+	}*/
 
 	if (main_v->props.external_outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
@@ -661,30 +526,6 @@ void rcfile_parse_main(void)  {
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Firefox"), "firefox -remote 'openURL(%i, new-window)' || firefox %i&","1",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Opera"), "opera -remote 'openURL(%I,new-window)' || opera %I&","0",NULL));
 	}
-
-/*	if (main_v->props.external_commands == NULL) {
-		/ * if the user does not have external commands --> set them to defaults values * /
-		gchar **arr;
-		arr = array_from_arglist(_("Dos2Unix filter"), "cat '%s' | dos2unix > '%f'",NULL);
-		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
-		arr = array_from_arglist(_("Tidy cleanup filter"), "cat '%s' | tidy -utf8 -q >'%f' 2>/dev/null",NULL);
-		main_v->props.external_commands = g_list_append(main_v->props.external_commands,arr);
-	}
-	*/
-#ifndef USE_BFTEXTVIEW2
-	/* initialize the default textstyles */
-	if (main_v->props.textstyles == NULL) {
-		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"/textstyles",
-									"data/textstyles",
-									"../data/textstyles",NULL);
-
-		if (defaultfile) {
-				main_v->props.textstyles = get_list(defaultfile,NULL,TRUE);
-		} else {
-			g_print("Unable to find '"PKGDATADIR"/textsyles'\n");
-		}
-	}
-#endif
 }
 
 gint rcfile_save_main(void) {
@@ -694,77 +535,7 @@ gint rcfile_save_main(void) {
 	g_free(filename);
 	return ret;
 }
-#ifdef USE_CUSTOM_MENU
-void rcfile_parse_custom_menu(void) {
-	gchar *filename;
-	custom_menu_configlist = g_hash_table_new_full(g_str_hash,g_str_equal,NULL, g_free);
 
-	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cust_menu, "custom_menu:", 0, TRUE);
-	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_insert, "cmenu_insert:", 0, TRUE);
-	init_prop_arraylist(&custom_menu_configlist, &main_v->props.cmenu_replace, "cmenu_replace:", 0, TRUE);
-
-	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/custom_menu", NULL);
-	parse_config_file(custom_menu_configlist, filename);
-	g_free(filename);
-
-	/* for backwards compatibility with older (before Bluefish 0.10) custom menu files we can convert those..
-	we will not need the 'type' anymore, since we will put them in separate lists, hence the memmove() call
-	*/
-	DEBUG_MSG("main_v->props.cust_menu=%p\n",main_v->props.cust_menu);
-	if (main_v->props.cust_menu) {
-		GList *tmplist= g_list_first(main_v->props.cust_menu);
-		while (tmplist) {
-			gchar **strarr = (gchar **)tmplist->data;
-			gint count = count_array(strarr);
-			DEBUG_MSG("converting cust_menu, found count=%d\n",count);
-			if (count >= 5 && strarr[1][0] == '0') {
-				DEBUG_MSG("rcfile_parse_custom_menu, converting insert, 0=%s, 1=%s\n", strarr[0], strarr[1]);
-				g_free(strarr[1]);
-				memmove(&strarr[1], &strarr[2], (count-1) * sizeof(gchar *));
-				main_v->props.cmenu_insert = g_list_append(main_v->props.cmenu_insert, strarr);
-			} else if (count >= 8 && strarr[1][0] == '1') {
-				DEBUG_MSG("rcfile_parse_custom_menu, converting replace, 0=%s, 1=%s\n", strarr[0], strarr[1]);
-				g_free(strarr[1]);
-				memmove(&strarr[1], &strarr[2], (count-1) * sizeof(gchar *));
-				main_v->props.cmenu_replace = g_list_append(main_v->props.cmenu_replace, strarr);
-			} else if (count >= 4 && count == (4+atoi(strarr[1]))) { /*  the first check avoids a segfault if count == 1 */
-				/* a very old insert type, 0=menupath, 1=numvariables, 2=string1, 3=string2, 4... are variables
-				   we can re-arrange it for the new insert type */
-				gchar *numvars = strarr[1];
-				strarr[1] = strarr[2];
-				strarr[2] = strarr[3];
-				strarr[3] = numvars; /* the variables; beyond [3], are still the same */
-				DEBUG_MSG("rcfile_parse_custom_menu, converting very old insert, 0=%s\n", strarr[0]);
-				main_v->props.cmenu_insert = g_list_append(main_v->props.cmenu_insert, strarr);
-			} else {
-#ifdef DEBUG
-				if (count > 2) {
-					g_print("rcfile_parse_custom_menu, ignoring %s with type %s (count=%d)\n",strarr[0], strarr[1], count);
-				} else {
-					g_print("rcfile_parse_custom_menu, ignoring invalid cust_menu entry with count=%d..\n", count);
-				}
-#endif
-			}
-			tmplist = g_list_next(tmplist);
-		}
-		g_list_free(main_v->props.cust_menu);
-		main_v->props.cust_menu=NULL;
-	}
-}
-/*
- - If LC_ALL is set and non-null, follow it.
- - Else if LC_MESSAGES is set and non-null, follow it.
- - Else if LANG is set and non-null, follow it.
-*/
-
-gint rcfile_save_custom_menu(void) {
-	gint retval;
-	gchar *filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/custom_menu", NULL);
-	retval = save_config_file(custom_menu_configlist, filename);
-	g_free(filename);
-	return retval;
-}
-#endif /* USE_CUSTOM_MENU */
 #define DIR_MODE (S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH)	/* same as 0755 */
 void rcfile_check_directory(void) {
 	gchar *rcdir = g_strconcat(g_get_home_dir(), "/."PACKAGE, NULL);
