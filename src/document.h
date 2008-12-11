@@ -59,9 +59,6 @@ void doc_set_title(Tdocument *doc);
 #ifndef USE_BFTEXTVIEW2
 Tfiletype *get_filetype_by_name(const gchar *name);
 #endif
-#ifndef GNOMEVFSINT
-Tfiletype *get_filetype_by_filename_and_content(const gchar *filename, gchar *buf);
-#endif
 void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssize buflen);
 void doc_set_font(Tdocument *doc, gchar *fontstring);
 void doc_set_tabsize(Tdocument *doc, gint tabsize);

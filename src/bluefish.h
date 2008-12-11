@@ -19,7 +19,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 /* #define HL_PROFILING */
-#define GNOMEVFSINT
 #define USE_BFTEXTVIEW2
 /* if you define DEBUG here you will get debug output from all Bluefish parts */
 /* #define DEBUG */
@@ -100,30 +99,19 @@ typedef struct {
 	GList *first;
 	GList *last;
 	unregroup_t *current;
-	gint num_groups;
 	GList *redofirst;
+	gint num_groups;
 } unre_t;
 
-/******************************************************************************************/
-/* filetype struct, used for filtering, highlighting/scanning, and as document property   */
-/******************************************************************************************/
-#ifndef USE_BFTEXTVIEW2
-typedef struct {
-	gchar *type;
-	GdkPixbuf *icon;
-	gchar *mime_type;
-	BfLangConfig *cfg;
-} Tfiletype;
-#endif
 /*****************************************************/
 /* filter struct - used in filebrowser2 and gtk_easy */
 /*****************************************************/
 typedef struct {
-	gushort refcount;
-	gboolean mode; /* 0= hide matching files, 1=show matching files */
 	gchar *name;
 	GHashTable *filetypes; /* hash table with mime types */
 	GList *patterns;
+	gushort refcount;
+	gushort mode; /* 0= hide matching files, 1=show matching files */
 } Tfilter;
 
 /********************************************************************/
@@ -132,7 +120,6 @@ typedef struct {
 #define BFWIN(var) ((Tbfwin *)(var))
 #define DOCUMENT(var) ((Tdocument *)(var))
 #define CURDOC(bfwin) (bfwin->current_document)
-#define FILETYPE(var) ((Tfiletype *)(var))
 
 typedef enum {
 	DOC_STATUS_ERROR,
@@ -143,14 +130,14 @@ typedef enum {
 
 /* if an action is set, this action has to be executed after the document finishing closing/opening */
 typedef struct {
-	gint goto_line;
-	gint goto_offset;
-	gboolean close_doc;
-	gboolean close_window;
 	gpointer save; /* during document save */
 	gpointer info; /* during update of the fileinfo */
 	gpointer checkmodified; /* during check modified on disk checking */
 	gpointer load; /* during load */
+	gint goto_line;
+	gint goto_offset;
+	gushort close_doc;
+	gushort close_window;
 } Tdoc_action;
 
 typedef struct {
@@ -174,9 +161,6 @@ typedef struct {
 	GtkTextBuffer *buffer;
 	/*gpointer paste_operation;*/
 	gint last_rbutton_event; /* index of last 3rd button click */
-#ifndef USE_BFTEXTVIEW2
-	Tfiletype *hl; /* filetype & highlighting set to use for this document */
-#endif
 	gint need_highlighting; /* if you open 10+ documents you don't need immediate highlighting, just set this var, and notebook_switch() will trigger the actual highlighting when needed */
 	gboolean highlightstate; /* does this document use highlighting ? */
 	gboolean wrapstate; /* does this document use wrap?*/
@@ -270,22 +254,11 @@ typedef struct {
 	gint view_cline; /* highlight current line by default */
 	GList *textstyles; /* tet styles: name,foreground,background,weight,style */
 	gint view_blocks; /* show blocks on the left side by default */
-#ifdef USE_BFTEXTVIEW2
 	GList *highlight_styles;
 	gboolean load_reference;
 	gboolean delay_full_scan;
 	gint autocomp_popup_mode;
 	gboolean reduced_scan_triggers;
-#else
-	gint view_symbols; /* show symbols on the left side by default */	
-	gint scan_mode; /* number of lines to autoscan */
-	GList *syntax_styles; /* textstyles (see below) for each detected bit of syntax */
-	gint view_rmargin; /* show right margin by default */
-	gint rmargin_at; /* position of a right margin */
-	gchar *autocomp_key; /* autocompletion accelerator */
-	gint load_network_dtd; /* if true - remote(network) DTDs in DTD aware formats are loaded, otherwise they are not */
-	gint tag_autoclose; /* global setting for tag autoclosing */
-#endif
 } Tproperties;
 
 /* the Tglobalsession contains all settings that can change 
@@ -436,11 +409,6 @@ typedef struct {
 /* 	GtkTreeStore *bookmarkstore; the global bookmarks from the global session */
 	gint num_untitled_documents;
 	GtkTooltips *tooltips;
-#ifndef USE_BFTEXTVIEW2
-	guint16 lastkp_hardware_keycode; /* for the autoclosing, we need to know the last pressed key, in the key release callback, */
-	guint lastkp_keyval;             /* this is different if the modifier key is not pressed anymore during the key-release */
-	pcre *autoclosingtag_regc; /* the regular expression to check for a valid tag in tag autoclosing*/
-#endif
 	gchar *securedir; /* temporary rwx------ directory for secure file creation */
 	GSList *plugins;
 	GSList *doc_view_populate_popup_cbs; /* plugins can register functions here that need to 
@@ -451,10 +419,6 @@ typedef struct {
 							is initialized */
 	GSList *sidepanel_destroygui; /* plugins can register a function here that is called when the side pane
 							is destroyed */
-#ifndef USE_BFTEXTVIEW2
-	BfLangManager *lang_mgr;
-	Tautocomp *autocompletion;
-#endif
 	regex_t find_encoding;
 } Tmain;
 

@@ -807,28 +807,6 @@ void fb2_focus_document(Tbfwin * bfwin, Tdocument * doc)
 	}
 }
 
-/*
-static gboolean name_visible_in_filter(Tfilebrowser2 *fb2, gchar *name) {
-  GList *tmplist;
-  
-  if (!fb2->curfilter) {
-    return TRUE;
-  }
-  if (!fb2->curfilter->filetypes) {
-    return !fb2->curfilter->mode;
-  }
-  / * TODO: WORK ON THE FILE FILTER * /
-#ifndef GNOMEVFSINT
-  tmplist = g_list_first(fb2->curfilter->filetypes);
-  while (tmplist) {
-    if (filename_test_extensions(((Tfiletype *)tmplist->data)->extensions, name))
-      return fb2->curfilter->mode;
-    tmplist = g_list_next(tmplist);
-  }
-#endif
-  return !fb2->curfilter->mode;
-}*/
-
 /**
  * tree_model_filter_func
  *
