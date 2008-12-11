@@ -263,13 +263,6 @@ static void fb2_uri_in_refresh_cleanup(Turi_in_refresh * uir)
 	g_free(uir);
 }
 
-/**
- * fb2_add_filesystem_entry:
- *
- * returns the GtkTreeIter* that is stored in the hashtable. This can be a new iter pointer
- * if there was no iter in the hashtable yet, else it is the existing iter
- *
- */
 static GFileInfo *fake_directory_fileinfo(const gchar * name)
 {
 	GFileInfo *finfo;
@@ -290,7 +283,13 @@ static GFileInfo *fake_directory_fileinfo_for_uri(GFile * uri)
 	g_free(name);
 	return finfo;
 }
-
+/**
+ * fb2_add_filesystem_entry:
+ *
+ * returns the GtkTreeIter* that is stored in the hashtable. This can be a new iter pointer
+ * if there was no iter in the hashtable yet, else it is the existing iter
+ *
+ */
 static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child_uri,
 											 GFileInfo * finfo, gboolean load_subdirs)
 {
@@ -319,30 +318,28 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 		mime_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 		icon = g_file_info_get_icon(finfo);
 
-		if (G_IS_THEMED_ICON(icon)) {
+		if (icon && G_IS_THEMED_ICON(icon)) {
 			GStrv names;
 
 			g_object_get(icon, "names", &names, NULL);
 			if (names && names[0]) {
 				GtkIconTheme *icon_theme;
 				int i;
-
 				icon_theme = gtk_icon_theme_get_default();
-
 				for (i = 0; i < g_strv_length (names); i++) {
 					if (gtk_icon_theme_has_icon(icon_theme, names[i])) {
 						icon_name = g_strdup(names[i]);
 						break;
 					}
 				}
-
 				g_strfreev (names);
 			}
+		} else {
+			icon_name = g_strdup("folder");
 		}
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
 							  newiter, parent);
 		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
-
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore), newiter,
 								   ICON_NAME_COLUMN, icon_name, FILENAME_COLUMN, display_name, URI_COLUMN,
 								   child_uri, REFRESH_COLUMN, 0, TYPE_COLUMN, mime_type, FILEINFO_COLUMN,
