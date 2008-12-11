@@ -13,8 +13,6 @@ snippets_LTLIBRARIES = snippets.la
 snippets_la_SOURCES = \
 	snippets.c \
 	snippets.h \
-	snippets_convert_cmenu.c \
-	snippets_convert_cmenu.h \
 	snippets_gui.c \
 	snippets_gui.h \
 	snippets_leaf_insert.c \

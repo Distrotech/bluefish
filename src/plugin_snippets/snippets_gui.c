@@ -398,6 +398,47 @@ static gboolean snippetview_button_press_lcb(GtkWidget *widget, GdkEventButton *
 	return FALSE; /* pass the event on */
 }
 
+static gboolean snippets_treetip_lcb(GtkWidget *widget,gint x,gint y,gboolean keyboard_tip, GtkTooltip *tooltipwidget, gpointer user_data) {
+	Tsnippetswin *snw = user_data;
+	if (snippets_v.doc) {
+		GtkTreePath *path;	
+		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(snw->view), x, y, &path, NULL, NULL, NULL)) {
+			xmlNodePtr cur = snippetview_get_node_at_path(path);
+			DEBUG_MSG("snippets_treetip_lcb, found node %p for path %p\n",cur,path); 
+			if (cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
+				xmlChar *tooltip, *accelerator;
+				gchar *tooltip2=NULL, *accelerator2=NULL;
+				tooltip = xmlGetProp(cur, (const xmlChar *)"tooltip");
+				accelerator = xmlGetProp(cur, (const xmlChar *)"accelerator");
+				if (tooltip) {
+					tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
+					xmlFree(tooltip);
+				}
+				if (accelerator) {
+					accelerator2 = g_markup_escape_text((gchar *)accelerator,-1);
+					xmlFree(accelerator);
+				}
+				if (tooltip && !accelerator) {
+					return tooltip2;
+				} else if (accelerator && !tooltip) {
+					return accelerator2;
+				} else if (tooltip && accelerator) {
+					gchar *tmp;
+					tmp = g_strconcat(tooltip2, "\n", accelerator2, NULL);
+					gtk_tooltip_set_text(tooltipwidget, tmp);
+					g_free(tooltip2);
+					g_free(accelerator2);
+					g_free(tmp);
+					return TRUE;
+				}
+			}
+			gtk_tree_path_free(path);
+		}
+		gtk_tooltip_set_text(tooltipwidget, _("Click the right mouse button to add, edit or delete snippets."));
+	}
+	return TRUE;
+}
+/*
 static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint x, gint y) {
 	if (snippets_v.doc) {
 		GtkTreePath *path;	
@@ -434,7 +475,7 @@ static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint
 		return g_strdup(_("Click the right mouse button to add, edit or delete snippets."));
 	}
 	return NULL;
-}
+}*/
 
 static void snippetview_drag_data_get_lcb(GtkWidget *widget, GdkDragContext *ctx,GtkSelectionData *data, guint info, guint time,gpointer user_data)  {
 	if (data->target == gdk_atom_intern("BLUEFISH_SNIPPET", FALSE)) {
@@ -589,8 +630,9 @@ void snippets_sidepanel_initgui(Tbfwin *bfwin) {
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), snw->view);
 	gtk_notebook_insert_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),scrolwin,image,gtk_label_new(_("snippets")),2);
-		
-	snw->ttips = tree_tips_new_full(snw->bfwin,GTK_TREE_VIEW(snw->view),snippets_treetip_lcb);
+	g_object_set(snw->view, "has-tooltip", TRUE, NULL);
+	g_signal_connect(snw->view, "query-tooltip",G_CALLBACK(snippets_treetip_lcb), snw);
+	/*snw->ttips = tree_tips_new_full(snw->bfwin,GTK_TREE_VIEW(snw->view),snippets_treetip_lcb);*/
 	
 	/* now parse the accelerator, and make it active for this item */
 	snw->accel_group = gtk_accel_group_new();
@@ -610,7 +652,7 @@ void snippets_sidepanel_destroygui(Tbfwin *bfwin) {
 	/* the widget is auto destroyed, and there is nothing more to destroy */
 	snw = g_hash_table_lookup(snippets_v.lookup,bfwin);
 	if (snw) {
-		tree_tips_destroy(snw->ttips);
+		/*tree_tips_destroy(snw->ttips);*/
 		gtk_window_remove_accel_group(GTK_WINDOW(snw->bfwin->main_window),snw->accel_group);
 		g_object_unref(G_OBJECT(snw->accel_group));
 	}	

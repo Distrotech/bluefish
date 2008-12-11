@@ -60,7 +60,6 @@ leaves are of some type:
 
 #include "snippets.h"
 #include "snippets_load.h"
-#include "snippets_convert_cmenu.h"
 #include "../bf_lib.h"
 
 /* GdkPixbuf RGBA C-Source image dump */
@@ -260,9 +259,9 @@ static gboolean snippets_load_finished_lcb(gpointer data) {
 		xmlDocSetRootElement(snippets_v.doc, cur);
 		DEBUG_MSG("snippets_load_finished_lcb, loading from cmenu %p and %p\n",main_v->props.cmenu_insert, main_v->props.cmenu_replace);
 		/* now check if there is a custom menu  configuration. If there is one, parse it and build a xml tree */
-		if (snippets_convert_cmenu(cur)) {
+/*		if (snippets_convert_cmenu(cur)) {
 			walk_tree(cur, NULL);
-		}
+		}*/
 	}
 	DEBUG_MSG("snippets_load_finished_lcb, finished empty tree\n");
 	return FALSE;
