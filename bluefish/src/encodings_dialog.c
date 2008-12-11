@@ -233,7 +233,7 @@ encodings_dialog_response_lcb (GtkDialog *dialog,
 	
 	gtk_widget_hide (GTK_WIDGET (dialog));
 	
-	free_arraylist (main_v->props.encodings);
+	free_arraylist (main_v->globses.encodings);
 	
 	valid = gtk_tree_model_get_iter_first (GTK_TREE_MODEL (encDialog->priv->encStore), &iter);
 	
@@ -261,7 +261,7 @@ encodings_dialog_response_lcb (GtkDialog *dialog,
 		valid = gtk_tree_model_iter_next (GTK_TREE_MODEL (encDialog->priv->encStore), &iter);
 	}
 	
-	main_v->props.encodings = tmplist;
+	main_v->globses.encodings = tmplist;
 	
 	bfwinlist = g_list_first (main_v->bfwinlist);
 	while (bfwinlist) {
@@ -343,7 +343,7 @@ bluefish_encodings_dialog_create (GType type,
 	
 	encodings = get_encoding_list_for_all_open_documents ();
 	
-	for (node = main_v->props.encodings; node != NULL; node = node->next) {
+	for (node = main_v->globses.encodings; node != NULL; node = node->next) {
 		GStrv arr = (GStrv) node->data;
 		if (g_strv_length (arr) == 3)
 		{

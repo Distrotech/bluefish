@@ -217,7 +217,6 @@ typedef struct {
 	gint num_undo_levels; 	/* number of undo levels per document */
 	gint clear_undo_on_save; 	/* clear all undo information on file save */
 	gchar *newfile_default_encoding; /* if you open a new file, what encoding will it use */
-	GList *encodings; /* all encodings you can choose from */
 	gint auto_set_encoding_meta; /* auto set metatag for the encoding */
 	gint auto_update_meta_author; /* auto update author meta tag on save */
 	gint auto_update_meta_date; /* auto update date meta tag on save */
@@ -281,6 +280,7 @@ typedef struct {
 	GList *filefilters; /* filefilter.c file filtering */
 	GList *reference_files; /* all reference files */
 	GList *recent_projects;
+	GList *encodings; /* all encodings you can choose from */
 } Tglobalsession;
 
 typedef struct {

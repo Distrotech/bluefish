@@ -590,6 +590,7 @@ gchar *stringlist_to_string(GList *stringlist, gchar *delimiter) {
 	}
 	return string;
 }
+
 /**
  * array_n_strings_identical:
  * @array1: #gchar**

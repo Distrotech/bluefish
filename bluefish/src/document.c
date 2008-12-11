@@ -1249,11 +1249,11 @@ void doc_insert_two_strings(Tdocument *doc, const gchar *before_str, const gchar
 static void add_encoding_to_list(gchar *encoding) {
 	gchar **enc = g_new0(gchar *,4);
 	enc[0] = g_strdup(encoding);
-	if (!arraylist_value_exists(main_v->props.encodings, (const gchar **)enc, 1, FALSE)) {
+	if (!arraylist_value_exists(main_v->globses.encodings, (const gchar **)enc, 1, FALSE)) {
 		GList *tmplist;
 		enc[1] = g_strdup(encoding);
 		enc[2] = g_strdup("TRUE");
-		main_v->props.encodings = g_list_insert(main_v->props.encodings, enc, 1);
+		main_v->globses.encodings = g_list_insert(main_v->globses.encodings, enc, 1);
 		tmplist = g_list_first(main_v->bfwinlist);
 		while (tmplist) {
 			encoding_menu_rebuild(BFWIN(tmplist->data));
@@ -1357,7 +1357,7 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 	{
 		GList *tmplist;
 		DEBUG_MSG("doc_buffer_to_textbox, tried the most obvious encodings, nothing found.. go trough list\n");
-		tmplist = g_list_first(main_v->props.encodings);
+		tmplist = g_list_first(main_v->globses.encodings);
 		while (tmplist) {
 			gchar **enc = tmplist->data;
 			DEBUG_MSG("doc_buffer_to_textbox, trying encoding %s\n", enc[1]);

@@ -1419,7 +1419,7 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	{
 		GList *tmplist, *poplist = NULL;
-		tmplist = g_list_first(main_v->props.encodings);
+		tmplist = g_list_first(main_v->globses.encodings);
 		while (tmplist) {
 			gchar **strarr = (gchar **)tmplist->data;
 			poplist = g_list_append(poplist, strarr[1]);
