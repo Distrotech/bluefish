@@ -688,11 +688,7 @@ static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
  * has been selected. */
 static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	GFile *uri;
-#ifdef HAVE_ATLEAST_GIO_2_16
 	uri = g_file_new_for_commandline_arg(GTK_LABEL(GTK_BIN(widget)->child)->label);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-	uri = gnome_vfs_uri_new(GTK_LABEL(GTK_BIN(widget)->child)->label);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
 	DEBUG_MSG("open_recent_file_cb, started, filename is %s\n", GTK_LABEL(GTK_BIN(widget)->child)->label);
 	doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1);
 	g_object_unref(uri);
@@ -938,41 +934,6 @@ void rename_window_entry_in_all_windows(Tbfwin *tobfwin, gchar *newtitle) {
 /*****************/
 /* Browsers!!    */
 /*****************/
-/* static void view_in_browser(Tbfwin *bfwin, gchar *browser) {
-	if (bfwin->current_document->uri) {
-		Tconvert_table *table, *tmpt;
-		gchar *command;
-		gchar *curi;
-		
-		curi = gnome_vfs_uri_to_string(bfwin->current_document->uri,GNOME_VFS_URI_HIDE_PASSWORD);
-		table = tmpt = g_new(Tconvert_table, 2);
-		tmpt->my_int = 's';
-		if (bfwin->project && bfwin->project->webdir 
-				&& bfwin->project->basedir && strlen(bfwin->project->webdir)>2
-				&& strlen(bfwin->project->basedir)>2 
-				&& strncmp(curi, bfwin->project->basedir, strlen(bfwin->project->basedir))==0
-				) {
-			tmpt->my_char = g_strconcat(bfwin->project->webdir, &curi[strlen(bfwin->project->basedir)], NULL);
-		} else {
-			tmpt->my_char = g_strdup(curi);
-		}
-		tmpt++;
-		tmpt->my_char = NULL;
-		command = replace_string_printflike(browser, table);
-		g_free(table->my_char);
-		g_free(table);
-		DEBUG_MSG("view_in_browser, should start %s now\n", command);
-		system(command);
-		g_free(command);
-		g_free(curi);
-	} else {
-		message_dialog_new(bfwin->main_window, 
-							 	 GTK_MESSAGE_ERROR, 
-							 	 GTK_BUTTONS_CLOSE, 
-								 _("Could not view file in browser."), 
-								 _("File has not been saved\n"));
-	}
-}*/
 
 void browser_toolbar_cb(GtkWidget *widget, Tbfwin *bfwin) {
     GList *tmplist = g_list_first(main_v->props.external_command);
@@ -994,14 +955,6 @@ void browser_toolbar_cb(GtkWidget *widget, Tbfwin *bfwin) {
                        _("You can set a default browser by going to:\n" 
                          "Edit->Preferences->External Commands"));
 }
-
-/*static void browser_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
-	gchar **arr = (gchar **)bdm->data;
-/ *	if (!bdm->bfwin->current_document->uri || bdm->bfwin->current_document->modified) {
-		file_save_cb(NULL, bdm->bfwin);
-	} * /
-	view_in_browser(bdm->bfwin,arr[1]);
-}*/
 
 typedef struct {
 	Tselectionsave *selsave;

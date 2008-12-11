@@ -212,16 +212,11 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 		}
 		if (save_as || bfwin->project->filename == NULL) {
 			gboolean exists;
-#ifdef HAVE_ATLEAST_GIO_2_16
 			GFile *file;
 			file = g_file_new_for_path(filename);
 			exists = g_file_query_exists(file,NULL);
 			g_object_unref(file); 
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-			gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
-			exists = g_file_test(ondiskencoding, G_FILE_TEST_EXISTS); 
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
-			if (exists) {
+		if (exists) {
 				gchar *tmpstr;
 				gint retval;
 				const gchar *buttons[] = {_("_Cancel"), _("_Overwrite"), NULL};
@@ -234,15 +229,9 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 				g_free(tmpstr);
 				if (retval == 0) {
 					g_free(filename);
-#ifndef HAVE_ATLEAST_GIO_2_16
-					g_free(ondiskencoding);
-#endif /* not HAVE_ATLEAST_GIO_2_16 */
 					return FALSE;
 				}
 			}
-#ifndef HAVE_ATLEAST_GIO_2_16
-			g_free(ondiskencoding);
-#endif /* not HAVE_ATLEAST_GIO_2_16 */
 		}
 		suflen = strlen(main_v->props.project_suffix);
 		filen = strlen(filename);

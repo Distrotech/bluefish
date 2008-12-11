@@ -30,11 +30,6 @@
 #include <string.h>
 
 #include "bluefish.h"
-#ifdef USE_BFTEXTVIEW2
-
-#else
-#include "bf-textview.h"
-#endif
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
@@ -155,18 +150,6 @@ static gchar *bmark_showname(Tbfwin *bfwin, Tbmark *b) {
 static gchar *bmark_filename(Tbfwin *bfwin, GFile *filepath) {
 	gchar *title;
 	switch (bfwin->session->bookmarks_filename_mode) {
-	/*case BM_FMODE_HOME:
-		if (bfwin->project != NULL && bfwin->project->basedir && strlen(bfwin->project->basedir)) {
-			gint baselen = strlen(bfwin->project->basedir);
-			gchar *tmp;
-			tmp = gnome_vfs_uri_to_string(m->filepath,GNOME_VFS_URI_HIDE_PASSWORD);
-			if (tmp[baselen] == '/') baselen++;
-			if (strncmp(tmp, bfwin->project->basedir, baselen)==0) {
-				title = g_strdup(tmp + baselen);
-			}
-			g_free(tmp);
-		}
-		break;*/
 	case BM_FMODE_PATH:
 		title = g_file_get_uri(filepath);
 		break;
