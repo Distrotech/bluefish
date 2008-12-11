@@ -34,7 +34,6 @@
 
 #include "../config.h"
 #include "../bluefish.h"
-#include "../treetips.h"
 #ifdef ENABLE_NLS
 #undef _
 #define _(String) dgettext(PACKAGE"_plugin_infbrowser", String)
