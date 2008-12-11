@@ -85,7 +85,7 @@ GFile *add_suffix_to_uri(GFile *file, const char *suffix) {
 }
 GList *urilist_to_stringlist(GList *urilist) {
 	GList *retlist=NULL, *tmplist = g_list_last(urilist);
-	while (tmplist) {/* previously, passwords were hidden with GNOME_VFS_URI_HIDE_PASSWORD */
+	while (tmplist) {
 		retlist = g_list_prepend(retlist, g_file_get_parse_name((GFile *)tmplist->data));
 		tmplist = g_list_previous(tmplist);
 	}
@@ -267,51 +267,6 @@ void list_move_entry(GList *list, gpointer data, gint pos) {
 
 }
 
-/**
- * file_copy:
- * @source: a #gchar * containing the source filename
- * @dest: a #gchar * containing the destination filename
- * 
- * copies the contents of the file source to dest
- * this function is Gnome-VFS aware, so it will work on URI's
- * 
- * Return value: gboolean, TRUE if the function succeeds
- ** /
-#define BYTES_TO_PROCESS 8196
-gboolean file_copy(gchar *source, gchar *dest) {
-	GnomeVFSHandle *read_handle, *write_handle;
-	goffset bytes_read, bytes_written;
-	guint buffer[BYTES_TO_PROCESS];
-	GnomeVFSResult result;
-	gchar *OnDiEn_source, *OnDiEn_dest;
-	OnDiEn_source = get_filename_on_disk_encoding(source);
-	OnDiEn_dest = get_filename_on_disk_encoding(dest);
-	
-	result = gnome_vfs_open(&read_handle, OnDiEn_source, GNOME_VFS_OPEN_READ);
-	g_free(OnDiEn_source);
-	if (result != GNOME_VFS_OK) return FALSE;
-	result = gnome_vfs_create(&write_handle, OnDiEn_dest, GNOME_VFS_OPEN_WRITE, FALSE, 0644);
-	g_free(OnDiEn_dest);
-	if (result != GNOME_VFS_OK) {
-		gnome_vfs_close(read_handle);
-		return FALSE;
-	}
-	result = gnome_vfs_read (read_handle, buffer, BYTES_TO_PROCESS, &bytes_read);
-	while (result == GNOME_VFS_OK) {
-		result = gnome_vfs_write (write_handle, buffer, bytes_read, &bytes_written);
-		if (result != GNOME_VFS_OK || bytes_written != bytes_read) {
-			DEBUG_MSG("file_copy, return FALSE, write result=%d, written=%ld, read=%ld\n",result,(long)bytes_written,(long)bytes_read);
-			gnome_vfs_close(write_handle);
-			gnome_vfs_close(read_handle);
-			return FALSE;
-		}
-		result = gnome_vfs_read(read_handle, buffer, BYTES_TO_PROCESS, &bytes_read);
-	}
-	gnome_vfs_close(write_handle);
-	gnome_vfs_close(read_handle);
-	return TRUE;
-}
-*/
 static gint length_common_prefix(gchar *first, gchar *second) {
 	gint i=0;
 	while (first[i] == second[i] && first[i] != '\0') {
@@ -350,31 +305,6 @@ gint find_common_prefixlen_in_stringlist(GList *stringlist) {
 	}
 	return commonlen;
 }
-/**
- * append_string_to_file:
- * @filename: a #gchar * containing the destination filename
- * @string: a #gchar * containing the string to append
- * 
- * opens the file filename in append mode, and appends the string
- * no newline or anything else is appended, just the string
- *
- * DOES NOT YET SUPPORT GNOME_VFS !!!
- * 
- * Return value: gboolean, TRUE if the function succeeds
- ** /
-gboolean append_string_to_file(gchar *filename, gchar *string) {
-	FILE *out;
-	gchar *ondiskencoding = get_filename_on_disk_encoding(filename);
-	out = fopen(ondiskencoding, "a");
-	g_free(ondiskencoding);
-	if (!out) {
-		DEBUG_MSG("append_to_file, could not open file %s for append\n", filename);
-		return FALSE;
-	}
-	fputs(string, out);
-	fclose(out);
-	return TRUE;
-}*/
 /**
  * countchars:
  * @string: a gchar * to count the chars in
@@ -1146,8 +1076,6 @@ gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
  *
  * convenience function that will create a GFile, check if it exists, and unref it again.
  *
- * if you already have a GFile you should use gnome_vfs_uri_exists()
- *
  */
 gboolean full_path_exists(const gchar *full_path) {
 	gboolean retval;
@@ -1158,51 +1086,6 @@ gboolean full_path_exists(const gchar *full_path) {
 	return retval;
 }
 
-/**
- * file_exists_and_readable:
- * @filename: a #const gchar * with a file path
- *
- * tests if the file exists, and  if it is readable, the last
- * check is not reliable, it does not check all the groups you are
- * in, so change this function before you rely on that check!
- *
- * this function is Gnome-VFS aware, so it will work on URI's
- *
- * Return value: gboolean, TRUE if readable, else FALSE
- ** /
-gboolean file_exists_and_readable(const gchar * filename) {
-	GFile* uri;
-	gboolean retval=TRUE;
-#ifdef DEVELOPMENT
-	g_assert(filename);
-#endif
-	if (!filename || strlen(filename) < 2) {
-		DEBUG_MSG("file_exists_and_readable, strlen(filename) < 2 or no filename!!!!\n");
-		return FALSE;
-	}
-	DEBUG_MSG("file_exists_and_readable, filename(%p)=\"%s\", strlen(filename)=%d\n", filename, filename, strlen(filename));
-	if (strchr(filename, ':')!=NULL) { / * uri * /
-		uri = gnome_vfs_uri_new(filename);
-	} else if (filename[0] == '/') { / * local path * /
-		uri = gnome_vfs_uri_new(filename);
-	} else {
-		gchar *curi, *tmp1, *tmp2;
-		tmp1 = g_get_current_dir();
-		tmp2 = ending_slash(tmp1);
-		/ * relative path * /
-		curi = gnome_vfs_uri_make_full_from_relative(tmp2, filename);
-		DEBUG_MSG("file_exists_and_readable, constructed %s from %s and %s\n",curi,tmp2,filename);
-		uri = gnome_vfs_uri_new(curi);
-		g_free(tmp1);
-		g_free(tmp2);
-		g_free(curi);
-	}
-	retval = gnome_vfs_uri_exists(uri);
-	g_object_unref(uri);
-	DEBUG_MSG("file_exists_and_readable, return %d for %s\n",retval,filename);
-	return retval;
-}
-*/
 /**
  * return_first_existing_filename:
  * @filename: a #const gchar * with a filename

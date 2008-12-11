@@ -24,13 +24,8 @@
 #include "bluefish.h"
 #include "config.h"
 
-#ifdef HAVE_ATLEAST_GIO_2_16
 #define DIR_MIME_TYPE "inode/directory"
 #define MIME_ISDIR(string) strcmp(string, "inode/directory")
-#else							/* no HAVE_ATLEAST_GIO_2_16  */
-#define DIR_MIME_TYPE "x-directory/normal"
-#define MIME_ISDIR(string) strncmp(string, "x-directory",11)
-#endif							/* else HAVE_ATLEAST_GIO_2_16 */
 
 typedef struct {
 	GtkTreeStore *filesystem_tstore;	/* the directory tree */

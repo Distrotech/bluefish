@@ -810,63 +810,6 @@ void doc_set_modified(Tdocument *doc, gint value) {
 #endif
 }
 
-/* returns 1 if the file is modified on disk, returns 0
-if the file is modified by another process, returns
-0 if there was no previous mtime information available
-if newstatbuf is not NULL, it will be filled with the new statbuf from the file IF IT WAS CHANGED!!!
-leave NULL if you do not need this information, if the file is not changed, this field will not be set!!
-* /
-static gboolean doc_check_modified_on_disk(Tdocument *doc, GFileInfo **newfileinfo) {
-	if (main_v->props.modified_check_type == 0 || !doc->uri || doc->fileinfo == NULL) {
-		return FALSE;
-	} else if (main_v->props.modified_check_type < 4) {
-		GFileInfo *fileinfo;
-		gboolean unref_fileinfo = FALSE;
-		if (*newfileinfo == NULL) {
-			fileinfo = gnome_vfs_file_info_new();
-			unref_fileinfo = TRUE;
-			DEBUG_MSG("doc_check_modified_on_disk, allocating new fileinfo at %p\n", fileinfo);
-		} else {
-			fileinfo = *newfileinfo;
-			DEBUG_MSG("doc_check_modified_on_disk, using existing fileinfo at %p\n", fileinfo);
-		}
-		if (gnome_vfs_get_file_info(doc->uri, fileinfo
-					, GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS) == GNOME_VFS_OK) {
-			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 2) {
-				if (doc->fileinfo->mtime < fileinfo->mtime) {
-					if (unref_fileinfo) g_object_unref(fileinfo);
-					return TRUE;
-				}
-			}
-			if (main_v->props.modified_check_type == 1 || main_v->props.modified_check_type == 3) {
-				if (doc->fileinfo->size != fileinfo->size) {
-					if (unref_fileinfo) g_object_unref(fileinfo);
-					return TRUE;
-				}
-			}
-		}
-		if (unref_fileinfo) g_object_unref(fileinfo);
-	} else {
-		DEBUG_MSG("doc_check_mtime, type %d checking not yet implemented\n", main_v->props.modified_check_type);
-	}
-	return FALSE;
-}*/
-
-/* doc_set_stat_info() includes setting the mtime field, so there is no need
-to call doc_update_mtime() as well */
-/* static void doc_set_stat_info(Tdocument *doc) {
-	if (doc->uri) {
-		if (doc->fileinfo == NULL) {
-			doc->fileinfo = gnome_vfs_file_info_new();
-			DEBUG_MSG("doc_set_stat_info, new fileinfo at %p\n",doc->fileinfo);
-		}
-		gnome_vfs_get_file_info(doc->uri, doc->fileinfo
-				,GNOME_VFS_FILE_INFO_DEFAULT|GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
-		doc->is_symlink = GNOME_VFS_FILE_INFO_SYMLINK(doc->fileinfo);
-		doc_set_tooltip(doc);
-	}
-} */
-
 /**
  * doc_scroll_to_cursor:
  * @doc: a #Tdocument
@@ -1535,31 +1478,6 @@ void doc_set_fileinfo(Tdocument *doc, GFileInfo *finfo) {
 	}
 
 	doc_set_tooltip(doc);
-}*/
-
-/**
- * doc_check_backup:
- * @doc: #Tdocument*
- *
- * creates a backup, depending on the configuration
- * returns 1 on success, 0 on failure
- * if no backup is required, or no filename known, 1 is returned
- *
- * Return value: #gint 1 on success or 0 on failure
- * /
-static gint doc_check_backup(Tdocument *doc) {
-	gint res = 1;
-
-	if (main_v->props.backup_file && doc->uri && file_exists_and_readable(doc->uri)) {
-		gchar *backupfilename;
-		backupfilename = g_strconcat(doc->uri, main_v->props.backup_filestring, NULL);
-		res = file_copy(doc->uri, backupfilename);
-		if (doc->fileinfo) {
-			gnome_vfs_set_file_info(backupfilename, doc->fileinfo, GNOME_VFS_SET_FILE_INFO_PERMISSIONS|GNOME_VFS_SET_FILE_INFO_OWNER);
-		}
-		g_free(backupfilename);
-	}
-	return res;
 }*/
 
 static void doc_buffer_insert_text_lcb(GtkTextBuffer *textbuffer,GtkTextIter * iter,gchar * string,gint len, Tdocument * doc) {

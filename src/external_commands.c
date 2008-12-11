@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -419,11 +419,7 @@ static gchar *create_commandstring(Texternalp *ep, const gchar *formatstr, gbool
 	table = g_new(Tconvert_table, items+1);
 	if (need_filename) {
 		table[cur].my_int = 'n';
-#ifdef HAVE_ATLEAST_GIO_2_16
 		table[cur].my_char = need_local ? g_strdup(localfilename) : g_file_get_basename(ep->bfwin->current_document->uri);
-#else /* no HAVE_ATLEAST_GIO_2_16  */
-		table[cur].my_char = need_local ? g_strdup(localfilename) : gnome_vfs_uri_extract_short_path_name(ep->bfwin->current_document->uri);
-#endif /* else HAVE_ATLEAST_GIO_2_16 */
 		cur++;
 		table[cur].my_int = 'u';
 		table[cur].my_char = curi;
