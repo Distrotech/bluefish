@@ -1436,7 +1436,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 															 G_TYPE_STRING,
 															 G_TYPE_POINTER,
 															 G_TYPE_BOOLEAN);
-		for (tmplist=g_list_first(main_v->props.encodings);tmplist;tmplist=tmplist->next){
+		for (tmplist=g_list_first(main_v->globses.encodings);tmplist;tmplist=tmplist->next){
 			GStrv arr = (GStrv) tmplist->data;
 			if (g_strv_length (arr) == 3 && g_ascii_strcasecmp(arr[2], "TRUE") == 0) {
 				gchar *label = g_strdup_printf ("%s (%s)", arr[0], arr[1]);

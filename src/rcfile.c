@@ -402,7 +402,6 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.num_undo_levels,"num_undo_levels:",100, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.clear_undo_on_save,"clear_undo_on_save:",0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.newfile_default_encoding,"newfile_default_encoding:","UTF-8");
-/*	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 3, TRUE);*/
 	init_prop_integer   (&config_rc, &main_v->props.auto_set_encoding_meta,"auto_set_encoding_meta:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta_author,"auto_update_meta_author:",1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.auto_update_meta_date,"auto_update_meta_date:",1, TRUE);
@@ -450,18 +449,6 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	return config_rc;
 }
 
-/* we save the value in 'days' precision, so we can divide seconds by 24*60*60
-, this way we can store it in a gint (which is the config file precision) */
-#define TIME_T_TO_GINT(time) ((gint)(time / (24*60*60)))
-
-static gboolean config_file_is_newer(gint lasttime, const gchar *configfile) {
-	struct stat statbuf;
-	if(stat(configfile, &statbuf)==0) {
-		if (TIME_T_TO_GINT(statbuf.st_mtime) >= lasttime) return TRUE;
-	}
-	return FALSE;
-}
-
 void rcfile_parse_main(void)  {
 	gchar *filename;
 
@@ -480,30 +467,6 @@ void rcfile_parse_main(void)  {
 	g_free(filename);
 	if (main_v->props.encoding_search_Nbytes< 1000) main_v->props.encoding_search_Nbytes = 2048;
 	/* do some default configuration for the lists */
-
-/*	{
-		gchar *filename = user_bfdir("encodings");
-		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"/encodings",
-											"data/encodings",
-											"../data/encodings",NULL);
-
-		if (main_v->props.encodings == NULL) {
-			if (filename)
-				main_v->props.encodings = get_list(filename, NULL, TRUE);
-			/ * if the user does not have encodings --> set them to defaults values * /
-			if (main_v->props.encodings == NULL && defaultfile)
-				main_v->props.encodings = get_list(defaultfile,NULL,TRUE);
-			else if (main_v->props.encodings == NULL)
-				g_print("Unable to find '"PKGDATADIR"/encodings'\n");
-		} else {
-			if (defaultfile && config_file_is_newer(main_v->globses.lasttime_encodings,defaultfile)) {
-				main_v->props.encodings = arraylist_load_new_identifiers_from_file(main_v->props.encodings,defaultfile,1);
-				main_v->globses.lasttime_encodings = TIME_T_TO_GINT(time(NULL));
-			}
-		}
-		g_free(filename);
-		g_free(defaultfile);
-	}*/
 
 	if (main_v->props.external_outputbox==NULL) {
 		/* if the user does not have outputbox settings --> set them to defaults values */
@@ -589,7 +552,7 @@ static GHashTable *return_globalsession_configlist(gboolean init_values) {
 	init_prop_arraylist (&config_rc, &main_v->globses.filefilters, "filefilters:", 4, init_values);
 	init_prop_arraylist (&config_rc, &main_v->globses.reference_files, "reference_files:", 2, init_values);
 	init_prop_limitedstringlist(&config_rc, &main_v->globses.recent_projects, "recent_projects:", main_v->props.max_recent_files, init_values);
-	init_prop_arraylist (&config_rc, &main_v->props.encodings, "encodings:", 3, FALSE);
+	init_prop_arraylist (&config_rc, &main_v->globses.encodings, "encodings:", 3, FALSE);
 	config_rc = bfplugins_register_globses_config(config_rc);
 	return config_rc;
 }
@@ -716,6 +679,13 @@ gboolean rcfile_parse_global_session(void) {
 		main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
 		arr = array_from_arglist(_("Hide objectfiles"),"0", "application/octet-stream:application/x-object", "", NULL);
 		main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
+	}
+	if (main_v->globses.encodings == NULL) {
+		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"/encodings","data/encodings","../data/encodings",NULL);
+		if (defaultfile) { 
+			main_v->globses.encodings = get_list(defaultfile,NULL,TRUE);
+			g_free(defaultfile);
+		}
 	}
 
 	return retval;

@@ -1146,7 +1146,7 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 	g_list_free(bfwin->menu_encodings);
 	bfwin->menu_encodings = NULL;
 
-	tmplist = g_list_last(main_v->props.encodings);
+	tmplist = g_list_last(main_v->globses.encodings);
 	parent_menu = gtk_item_factory_get_widget(gtk_item_factory_from_widget(bfwin->menubar), N_("/Document/Character Encoding"));
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
@@ -1182,7 +1182,7 @@ void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, gpointer filety
 #endif
 	if (encoding) {
 		GList *tmplist;
-		tmplist = g_list_first(main_v->props.encodings);
+		tmplist = g_list_first(main_v->globses.encodings);
 		while (tmplist) {
 			gchar **tmparr = (gchar **)tmplist->data;
 			if (strcmp(tmparr[1], encoding)==0) {
