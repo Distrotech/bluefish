@@ -2,7 +2,6 @@
 EXTRA_DIST = \
 	$(appsiconsvg_DATA) \
 	$(mimeiconsvg_DATA) \
-	$(unknownicon_DATA) \
 	$(APPS_PICS) \
 	$(MIME_PICS) \
 	$(SPLASH_PICS)
@@ -40,9 +39,6 @@ SPLASH_PICS = \
 MAINTAINERCLEANFILES = Makefile.in
 
 ICON_SIZES = 16 22 32 36 48 64 72 96 128 192
-
-unknownicondir = $(pkgdatadir)
-unknownicon_DATA = icon_unknown.png
 
 if INSTALL_THEMEICONS
 appsiconsvgdir = $(iconthemepath)/scalable/apps
