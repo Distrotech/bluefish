@@ -83,21 +83,40 @@ static void push_to_queue(Tqueue *queue, gpointer data) {
 }*/
 
 /*************************** FILE DELETE ASYNC ******************************/
+typedef struct {
+	DeleteAsyncCallback callback;
+	gpointer callback_data;
+	GFile *uri;
+} Tdelete;
+
+static gboolean delete_async_finished_lcb(gpointer data) {
+	Tdelete *del = data;
+	del->callback(del->callback_data);
+	g_object_unref(del->uri);
+	g_free(del);
+	return FALSE;
+}
+
 static gboolean delete_async(GIOSchedulerJob *job,GCancellable *cancellable,gpointer user_data) {
-	GFile *uri = user_data;
+	Tdelete *del = user_data;
 	GError *error=NULL;	
-	g_file_delete(uri,NULL,&error);
+	g_file_delete(del->uri,NULL,&error);
 	if (error) {
 		g_print("delete_async, failed to delete: %s\n",error->message);
 		g_error_free(error);
 	}
-	g_object_unref(uri);
+	g_idle_add_full(G_PRIORITY_LOW,delete_async_finished_lcb, del,NULL);
+	
 	return FALSE;
 }
 
 void file_delete_file_async(GFile *uri, DeleteAsyncCallback callback, gpointer callback_data) {
+	Tdelete *del = g_new0(Tdelete,1);
 	g_object_ref(uri);
-	g_io_scheduler_push_job(delete_async, uri,NULL,G_PRIORITY_DEFAULT,NULL);
+	del->uri = uri;
+	del->callback = callback;
+	del->callback_data = callback_data;
+	g_io_scheduler_push_job(delete_async, del,NULL,G_PRIORITY_LOW,NULL);
 }
 
 /*************************** FILE INFO ASYNC ******************************/
