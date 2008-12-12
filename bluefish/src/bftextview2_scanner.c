@@ -654,20 +654,20 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 	pos = g_array_index(btv->bflang->st->contexts,Tcontext, *contextnum).startstate;
 
 	gtk_text_buffer_get_end_iter(GTK_TEXT_VIEW(btv)->buffer,&end);
-	DBG_AUTOCOMP("start scanning at offset %d with context %d and position %d\n",gtk_text_iter_get_offset(&iter),*contextnum,pos);
+	DBG_MSG("start scanning at offset %d with context %d and position %d\n",gtk_text_iter_get_offset(&iter),*contextnum,pos);
 	while (!gtk_text_iter_equal(&iter, &end)) {
 		gunichar uc;
 		uc = gtk_text_iter_get_char(&iter);
 		if (uc > 128) {
 			newpos = 0;
 		} else {
-			DBG_AUTOCOMP("scanning %c\n",uc);
+			DBG_MSG("scanning %c\n",uc);
 			newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
 		}
 		if (newpos == 0 || uc == '\0') {
-			DBG_AUTOCOMP("newpos=%d...\n",newpos);
+			DBG_MSG("newpos=%d...\n",newpos);
 			if (g_array_index(btv->bflang->st->table,Ttablerow, pos).match) {
-				DBG_AUTOCOMP("found match %d, retthismatch=%d\n",g_array_index(btv->bflang->st->table,Ttablerow, pos).match,retthismatch);
+				DBG_MSG("found match %d, retthismatch=%d\n",g_array_index(btv->bflang->st->table,Ttablerow, pos).match,retthismatch);
 				if (retthismatch) {
 					*position = iter;
 					return TRUE;
@@ -679,7 +679,7 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 						num++;
 					}
 				} else if (g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext > 0) {
-					DBG_AUTOCOMP("previous pos=%d had a match with a context change!\n",pos);
+					DBG_MSG("previous pos=%d had a match with a context change!\n",pos);
 					*contextnum = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
 					g_queue_push_head(contextstack, GINT_TO_POINTER(*contextnum));
 				}
@@ -694,7 +694,7 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 		}
 		pos = newpos;
 		if (gtk_text_iter_equal(&iter, position)) {
-			DBG_AUTOCOMP("at position...\n");
+			DBG_MSG("at position...\n");
 			if (gtk_text_iter_equal(&iter, mstart))
 				return FALSE;
 			retthismatch = TRUE;

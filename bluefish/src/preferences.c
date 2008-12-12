@@ -1587,7 +1587,7 @@ static void preferences_dialog() {
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);
 
 	{
-		gchar *autocompmodes[] = {N_("On keypress only"), N_("Immediately"), N_("Delayed"), NULL};
+		gchar *autocompmodes[] = {N_("On keypress only"), N_("Delayed"),N_("Immediately"), NULL};
 		pd->prefs[autocomp_popup_mode] = boxed_optionmenu_with_value(_("Show the autocompletion popup window"), main_v->props.autocomp_popup_mode, vbox2, autocompmodes);
 	}
 
