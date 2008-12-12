@@ -13,6 +13,7 @@
 	<highlight name="css-keyword" style="keyword" fgcolor="#000000" bold="1" />
 	<highlight name="js-keyword" style="keyword" fgcolor="#000000" bold="1" />
 	<highlight name="js-value" style="value" fgcolor="#0000FF" />
+	<highlight name="js-function" style="function" fgcolor="#000099"/>
 	<highlight name="css-value" style="value" fgcolor="#0000FF" />
 	<highlight name="js-comment" style="comment" fgcolor="grey" italic="1" />
 	<highlight name="css-comment" style="comment" fgcolor="grey" italic="1" />
@@ -49,7 +50,7 @@
 <element pattern="catch" />
 <element pattern="default" />
 </group>
-<group highlight="function" autocomplete="1">
+<group highlight="js-function" autocomplete="1">
 <element pattern="getElementsByTagName" />
 <element pattern="getElementsByTagName" />
 </group>
@@ -86,12 +87,7 @@
 </context>
 </tag>
 <tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
-	<!--	<element pattern="&lt;style" highlight="tag" >
-		<context symbols="&gt;">
-			<element pattern="/&gt;" highlight="tag" ends_context="1" />
-			<element pattern="&gt;" highlight="tag" >-->
 				<context symbols=" &#9;&#10;&#13;{}.">
-<!--<element pattern="&lt;/style&gt;" highlight="tag" ends_context="2" />-->
 <element pattern="body" highlight="css-keyword"/>
 <element pattern="{" id="css{" starts_block="1" highlight="brackets">
 <context symbols=" &#9;&#10;&#13;{}.:&quot;';">
@@ -103,8 +99,8 @@
 		<reference>Sets whether a background image is fixed or scrolls with the rest of the page</reference>
 		<context symbols=" &#9;&#10;&#13;{}.;">
 			<element pattern="&lt;/style&gt;" highlight="tag" ends_context="4" />
-			<element pattern="scroll" autocomplete="1" highlight="css-css-value" autocomplete_append=";"/>
-			<element pattern="fixed" autocomplete="1" highlight="css-css-value" autocomplete_append=";"/>
+			<element pattern="scroll" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
+			<element pattern="fixed" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
 			<element pattern=";" ends_context="1"/>
 			<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="2"/>
 		</context>
@@ -180,9 +176,9 @@
 	<tag name="option" highlight="form-tag" attributes="style,class,id,value,label,selected" />
 	<tag name="optgroup" highlight="form-tag" attributes="style,class,id,label" />
 </group>	
-	<element pattern="&lt;!--" highlight="comment" starts_block="1">
-		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
-			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
+	<element pattern="&lt;!--" highlight="html-comment" starts_block="1">
+		<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
+			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="html-comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
 	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />

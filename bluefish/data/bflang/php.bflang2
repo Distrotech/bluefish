@@ -2,22 +2,22 @@
 <header>
 	<mime type="application/x-php"/>
 	<option name="allfunctions" default="1" description="All php functions" />
-	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
-	<highlight name="php-tag" style="special-value" fgcolor="#0000FF" bold="1" />
-	<highlight name="attribute" style="attribute" fgcolor="#000099"  />
+	<highlight name="html-tag" style="tag" fgcolor="#990099" bold="1" />
+	<highlight name="php-open-tag" style="special-value" fgcolor="#0000FF" bold="1" />
+	<highlight name="html-attribute" style="attribute" fgcolor="#000099"  />
 	<highlight name="string" style="string" fgcolor="#009900"  />
-	<highlight name="entity" style="value" fgcolor="#0000FF" />
+	<highlight name="html-entity" style="value" fgcolor="#0000FF" />
 	<highlight name="brackets" style="brackets" fgcolor="#000000" bold="1" />
-	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
-	<highlight name="value" style="value" fgcolor="#0000FF" />
-	<highlight name="function" style="function" fgcolor="#000099" />
+	<highlight name="php-keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="php-value" style="value" fgcolor="#0000FF" />
+	<highlight name="php-function" style="function" fgcolor="#000099" />
 	<highlight name="php-comment" style="comment" fgcolor="grey" italic="1" />
 	<highlight name="html-comment" style="comment" fgcolor="grey" italic="1" />
-	<highlight name="variable" style="variable" fgcolor="#990000" bold="1" />
+	<highlight name="php-variable" style="variable" fgcolor="#990000" bold="1" />
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-<group  attribhighlight="attribute" highlight="tag">
+<group  attribhighlight="html-attribute" highlight="html-tag">
 <tag name="html" />
 <tag name="head" />
 <tag name="meta" attributes="name,http-equiv,content" autocomplete_append=" /&gt;" />
@@ -57,10 +57,17 @@
 <tag name="option" attributes="style,class,id,value,label,selected" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 <tag name="optgroup" attributes="style,class,id,label" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 </group>	
-<element pattern="&lt;?php" starts_block="1" highlight="php-tag">
+<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="html-entity" />
+<element pattern="&lt;!--" highlight="html-comment" starts_block="1">
+	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
+		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="html-comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+
+<element pattern="&lt;?php" starts_block="1" highlight="php-block-tag">
 <context symbols="'&#34;(){}[];:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" highlight="region">
 
-<group class="allfunctions" autocomplete="1" highlight="function">
+<group class="allfunctions" autocomplete="1" highlight="php-function">
 <element pattern="dotnet_load" />
 <element pattern="apache_child_terminate" />
 <element pattern="apache_get_modules" />
@@ -4804,9 +4811,9 @@ returns a result variable</reference></element>
 <element pattern="for" />
 <element pattern="foreach" />
 </group>
-<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
-<element pattern="TRUE" autocomplete="1" highlight="value"/>
-<element pattern="FALSE" autocomplete="1" highlight="value"/>
+<element pattern="[0-9.]+" is_regex="1" highlight="php-value"/>
+<element pattern="TRUE" autocomplete="1" highlight="php-value"/>
+<element pattern="FALSE" autocomplete="1" highlight="php-value"/>
 <element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
 <element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
@@ -4831,22 +4838,17 @@ returns a result variable</reference></element>
 	</context>
 </element>
 
-<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="variable"/>
+<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="php-variable"/>
 <element pattern="(//|#)" is_regex="1" highlight="php-comment">
 	<context symbols="?&gt;&#10;" highlight="php-comment">
 		<element pattern="&#10;" ends_context="1" />
-		<element pattern="?&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;?php" highlight="php-tag" mayfold="1" />
+		<element pattern="?&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;?php" highlight="php-block-tag" mayfold="1" />
 	</context>
 </element>
-<element pattern="?&gt;" ends_block="1" blockstartelement="&lt;?php" highlight="php-tag" mayfold="1" ends_context="1" />
+<element pattern="?&gt;" ends_block="1" blockstartelement="&lt;?php" highlight="php-block-tag" mayfold="1" ends_context="1" />
 </context></element>
 
-<element pattern="&lt;!--" highlight="html-comment" starts_block="1">
-	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
-		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="html-comment" mayfold="1" ends_context="1" />
-	</context>
-</element>
-<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="value" />
+
 </context>
 </definition>
 </bflang>
