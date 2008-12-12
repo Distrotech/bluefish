@@ -47,11 +47,11 @@ static gboolean bftextview2_user_idle_timer(gpointer data)
 	BluefishTextView *btv = data;
 	guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 	if (elapsed + 10 >= USER_IDLE_EVENT_INTERVAL) {	/* avoid delaying for less than 10 milliseconds */
-		DBG_MSG("bftextview2_user_idle_timer, user is > %d milliseconds idle!!!\n", elapsed);
+		DBG_AUTOCOMP("bftextview2_user_idle_timer, user is > %d milliseconds idle, mode=%d\n", elapsed,main_v->props.autocomp_popup_mode);
 #ifdef IN_BLUEFISH
-		if (main_v->props.autocomp_popup_mode == 1)
+		if (btv->autocomp && main_v->props.autocomp_popup_mode == 1)
 #else
-		if (autocomp_popup_mode == 1)
+		if (btv->autocomp && autocomp_popup_mode == 1)
 #endif
 			autocomp_run(btv,FALSE);
 		btv->user_idle = 0;
@@ -72,9 +72,9 @@ static void bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 	DBG_DELAYSCANNING("timer reset\n");
 	g_timer_start(btv->user_idle_timer);
 #ifdef IN_BLUEFISH
-	need_timeout_func = (main_v->props.autocomp_popup_mode==1||main_v->props.delay_full_scan);
+	need_timeout_func = ((main_v->props.autocomp_popup_mode==1&&btv->autocomp)||main_v->props.delay_full_scan);
 #else
-	need_timeout_func = (autocomp_popup_mode==1||delay_full_scan);
+	need_timeout_func = ((autocomp_popup_mode==1&&btv->autocomp)||delay_full_scan);
 #endif
 	if (btv->user_idle == 0 && need_timeout_func) {
 		btv->user_idle = g_timeout_add(USER_IDLE_EVENT_INTERVAL, bftextview2_user_idle_timer, btv);
@@ -303,6 +303,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
 #ifdef IN_BLUEFISH
+	DBG_AUTOCOMP("bftextview2_insert_text_after_lcb, autocomplete=%d,popup_mode=%d\n",btv->autocomplete, main_v->props.autocomp_popup_mode);
 	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode == 2)) {
 		autocomp_run(btv,FALSE);
 	}
@@ -847,6 +848,7 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 #endif
 	textview->needscanning = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"_needscanning_");
 	textview->enable_scanner=FALSE;
+	textview->autocomplete=TRUE;
 	/*font_desc = pango_font_description_from_string("Monospace 10");
 	gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
 	pango_font_description_free(font_desc);*/
