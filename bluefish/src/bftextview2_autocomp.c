@@ -287,6 +287,10 @@ static void print_ac_items(GCompletion *gc) {
 	DBG_AUTOCOMP("\n");
 }
 
+void autocomp_stop(BluefishTextView *btv) {
+	acwin_cleanup(btv);
+}
+
 void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 	GtkTextIter cursorpos,iter;
 	GtkTextBuffer *buffer;
