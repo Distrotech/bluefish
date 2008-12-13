@@ -232,6 +232,10 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 				DBG_MSG("block has no end - no matching\n");
 			}
 		}
+		
+		if (BLUEFISH_TEXT_VIEW(widget)->autocomp) {
+			autocomp_stop(BLUEFISH_TEXT_VIEW(widget));
+		}
 		bftextview2_reset_user_idle_timer(BLUEFISH_TEXT_VIEW(widget));
 	}
 }
@@ -303,7 +307,6 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
 #ifdef IN_BLUEFISH
-	DBG_AUTOCOMP("bftextview2_insert_text_after_lcb, autocomplete=%d,popup_mode=%d\n",btv->autocomplete, main_v->props.autocomp_popup_mode);
 	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode == 2)) {
 		autocomp_run(btv,FALSE);
 	}
@@ -551,8 +554,17 @@ static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * o
 		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
+
 	bftextview2_reset_user_idle_timer(btv);
 	bftextview2_schedule_scanning(btv);
+}
+static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
+										 GtkTextIter * oend, gpointer user_data)
+{
+	BluefishTextView *btv=user_data;
+	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode == 2)) {
+		autocomp_run(btv,FALSE);
+	}
 }
 
 static gboolean bftextview2_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,gpointer user_data) {
@@ -882,6 +894,7 @@ GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 	g_signal_connect_after(G_OBJECT(buffer), "mark-set", G_CALLBACK(bftextview2_mark_set_lcb),textview);
 	g_signal_connect(G_OBJECT(textview), "expose-event", G_CALLBACK(bftextview2_expose_event_lcb),textview);
 	g_signal_connect(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_lcb),textview);
+	g_signal_connect_after(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_after_lcb),textview);
 	g_signal_connect(G_OBJECT(textview), "key-press-event", G_CALLBACK(bftextview2_key_press_lcb),textview);
 	g_signal_connect(G_OBJECT(textview), "button-press-event", G_CALLBACK(bftextview2_mouse_lcb), textview);
 	g_signal_connect_after(G_OBJECT(textview), "key-release-event", G_CALLBACK(bftextview2_key_release_lcb), textview);
