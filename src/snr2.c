@@ -116,7 +116,6 @@ typedef struct {
 	/*GtkWidget *replace_entry;*/
 	GtkWidget *replace_label;
 	/*GtkWidget *replace_scrollbox;*/
-	GtkWidget *subpat_help;
 	GtkWidget *overlapping_search;
 	GtkWidget *prompt_before_replace;
 	GtkWidget *is_case_sens;
@@ -1376,14 +1375,6 @@ static void placetype_changed_lcb(GtkWidget *widget, Tsnr2_win *snr2win) {
 
 static void matchtype_changed_lcb(GtkWidget *widget, Tsnr2_win *snr2win) {
 	LASTSNR2(snr2win->bfwin->snr2)->matchtype_option =  gtk_option_menu_get_history((GtkOptionMenu *) snr2win->matchtype_option);
-	if (snr2win->replace) {
-		if (LASTSNR2(snr2win->bfwin->snr2)->matchtype_option==0) {
-			gtk_widget_hide(snr2win->subpat_help);
-		}
-		else {
-			gtk_widget_show(snr2win->subpat_help);
-		}
-	}
 	DEBUG_MSG("matchtype_changed_lcb, changing option to %d\n", LASTSNR2(snr2win->bfwin->snr2)->matchtype_option);
 }
 
@@ -1493,10 +1484,6 @@ static void snr2dialog(Tbfwin *bfwin, gint is_replace, gint is_new_search) {
 		gtk_table_attach (GTK_TABLE (table), snr2win->replace_combo, 1, 2, 1, 2,
 						(GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (GTK_FILL), 0, 0);
 		/*g_signal_connect(G_OBJECT(snr2win->replace_entry), "key_press_event", G_CALLBACK(search_entry_key_press_event_lcb), snr2win);*/
-		snr2win->subpat_help = gtk_label_new(_("\\0 refers to the first subsearch_pattern, \\1 to the second etc."));
-		gtk_box_pack_start(GTK_BOX(vbox), snr2win->subpat_help, FALSE, TRUE, 6);
-		gtk_label_set_justify (GTK_LABEL (snr2win->subpat_help), GTK_JUSTIFY_LEFT);
-		gtk_misc_set_alignment (GTK_MISC (snr2win->subpat_help), 1, 0.5);
 	}
 
 	if (is_replace) {
