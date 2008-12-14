@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2008-09-17 22:03-0700\n"
+"POT-Creation-Date: 2008-12-14 12:11+0100\n"
 "PO-Revision-Date: 2005-01-19 11:34+0800\n"
 "Last-Translator: OLS3 <ols3@lxer.idv.tw>\n"
 "Language-Team: zh_TW <i18n-translation@b2d.org.tw>\n"
@@ -108,15 +108,6 @@ msgstr "不過濾"
 msgid "html filter"
 msgstr "html 過濾器"
 
-#: ../src/bf-textview.c:263
-msgid "Expand all"
-msgstr ""
-
-#: ../src/bf-textview.c:266
-#, fuzzy
-msgid "Collapse all"
-msgstr "全部關閉(_A)"
-
 #: ../src/blocksync.c:88
 msgid ""
 "Select the block to sync to other pages. Include the start-of-block and end-"
@@ -165,231 +156,233 @@ msgstr ""
 msgid "Block synchronisation"
 msgstr ""
 
-#: ../src/bluefish.c:71
+#: ../src/bluefish.c:73
 #, fuzzy
 msgid "Bluefish Editor"
 msgstr "Bluefish 技巧:"
 
-#: ../src/bluefish.c:72
+#: ../src/bluefish.c:74
 msgid "Visit us at http://bluefish.openoffice.nl"
 msgstr ""
 
-#: ../src/bluefish.c:100
+#: ../src/bluefish.c:103
 msgid "Open in a new window."
 msgstr ""
 
-#: ../src/bluefish.c:101
+#: ../src/bluefish.c:105
 msgid "Open a project from the specified projectfile."
 msgstr ""
 
-#: ../src/bluefish.c:101
+#: ../src/bluefish.c:105
 msgid "PROJECTFILE"
 msgstr ""
 
-#: ../src/bluefish.c:102
+#: ../src/bluefish.c:107
 #, fuzzy
 msgid "Skip root check."
 msgstr "-s           跳過 root 檢查\n"
 
-#: ../src/bluefish.c:103
+#: ../src/bluefish.c:109
 msgid "Print version information."
 msgstr ""
 
 #. gdk_threads_init ();
-#: ../src/bluefish.c:120
+#: ../src/bluefish.c:127
 msgid " [FILE(S)]"
 msgstr ""
 
-#: ../src/bluefish.c:131
+#: ../src/bluefish.c:138
 #, c-format
 msgid ""
 "Error parsing command line options. %s\n"
 "Please run: %s -?\n"
 msgstr ""
 
-#: ../src/bluefish.c:207
-msgid "parsing highlighting file..."
-msgstr "解析反白顏色的檔案..."
+#: ../src/bluefish.c:215
+#, fuzzy
+msgid "loading plugins..."
+msgstr "載入檔案..."
 
-#: ../src/bluefish.c:228
-msgid "compiling highlighting patterns..."
-msgstr "編譯反白顏色的檔型態..."
+#: ../src/bluefish.c:237
+#, fuzzy
+msgid "reading language files..."
+msgstr "建立主要圖型介面..."
 
-#: ../src/bluefish.c:234
+#: ../src/bluefish.c:242
 #, fuzzy
 msgid "building file filters ..."
 msgstr "載入檔案中..."
 
-#: ../src/bluefish.c:242
+#: ../src/bluefish.c:250
 #, fuzzy
 msgid "setting up bookmarks ..."
 msgstr "刪除所有書籤."
 
-#: ../src/bluefish.c:252
+#: ../src/bluefish.c:265
 msgid "creating main gui..."
 msgstr "建立主要圖型介面..."
 
-#: ../src/bluefish.c:263
+#: ../src/bluefish.c:277
 msgid "showing main gui..."
 msgstr "顯示主要圖型介面..."
 
-#: ../src/bookmark.c:438
+#: ../src/bookmark.c:425
 msgid "_Name:"
 msgstr "名稱(_N):"
 
-#: ../src/bookmark.c:443
+#: ../src/bookmark.c:430
 msgid "_Description:"
 msgstr "描述(_D):"
 
-#: ../src/bookmark.c:445
+#: ../src/bookmark.c:432
 msgid "Temporary"
 msgstr "暫時"
 
-#: ../src/bookmark.c:592
+#: ../src/bookmark.c:584
 #, c-format
 msgid "Do you really want to delete all bookmarks for %s?"
 msgstr "您真的要刪除 %s 的所有書籤嗎?"
 
-#: ../src/bookmark.c:596
+#: ../src/bookmark.c:588
 msgid "Delete bookmarks?"
 msgstr "刪除書籤?"
 
-#: ../src/bookmark.c:621
+#: ../src/bookmark.c:613
 #, c-format
 msgid "Do you really want to delete %s?"
 msgstr "您真的要刪除 %s 嗎?"
 
-#: ../src/bookmark.c:625
+#: ../src/bookmark.c:617
 msgid "Delete permanent bookmark."
 msgstr "永久刪除書籤."
 
-#: ../src/bookmark.c:646
+#: ../src/bookmark.c:638
 msgid "Edit bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bookmark.c:703
+#: ../src/bookmark.c:695
 #, fuzzy
 msgid "/Goto"
 msgstr "/衝(_G)"
 
-#: ../src/bookmark.c:704
+#: ../src/bookmark.c:696
 #, fuzzy
 msgid "/Edit"
 msgstr "/編輯(_E)"
 
-#: ../src/bookmark.c:705
+#: ../src/bookmark.c:697
 #, fuzzy
 msgid "/Delete"
 msgstr "/刪除(_D)"
 
-#: ../src/bookmark.c:707
+#: ../src/bookmark.c:699
 #, fuzzy
 msgid "/Delete All in document"
 msgstr "刪除在檔案中的全部"
 
-#: ../src/bookmark.c:708
+#: ../src/bookmark.c:700
 #, fuzzy
 msgid "/Delete All"
 msgstr " 刪除全部 "
 
-#: ../src/bookmark.c:710
+#: ../src/bookmark.c:702
 #, fuzzy
 msgid "/Permanent by default"
 msgstr "預設為永久"
 
-#: ../src/bookmark.c:712
+#: ../src/bookmark.c:704
 #, fuzzy
 msgid "/Show file"
 msgstr "沒有檔案名稱"
 
-#: ../src/bookmark.c:713
+#: ../src/bookmark.c:705
 #, fuzzy
 msgid "/Show file/By name"
 msgstr "沒有檔案名稱"
 
-#: ../src/bookmark.c:714
+#: ../src/bookmark.c:706
 #, fuzzy
 msgid "/Show file/By full path"
 msgstr "顯示全部目錄樹"
 
-#: ../src/bookmark.c:715
+#: ../src/bookmark.c:707
 #, fuzzy
 msgid "/Show file/By full uri"
 msgstr "顯示全部目錄樹"
 
-#: ../src/bookmark.c:716
+#: ../src/bookmark.c:708
 #, fuzzy
 msgid "/Show bookmark"
 msgstr "跳到書籤"
 
-#: ../src/bookmark.c:717
+#: ../src/bookmark.c:709
 msgid "/Show bookmark/Name & Content"
 msgstr ""
 
-#: ../src/bookmark.c:718
+#: ../src/bookmark.c:710
 msgid "/Show bookmark/Content"
 msgstr ""
 
-#: ../src/bookmark.c:719
+#: ../src/bookmark.c:711
 #, fuzzy
 msgid "/Show bookmark/Name"
 msgstr "跳到書籤"
 
-#: ../src/bookmark.c:852
+#: ../src/bookmark.c:844
 #, fuzzy
 msgid "First bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bookmark.c:856
+#: ../src/bookmark.c:848
 #, fuzzy
 msgid "Previous bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bookmark.c:860
+#: ../src/bookmark.c:852
 #, fuzzy
 msgid "Next bookmark"
 msgstr "刪除書籤"
 
-#: ../src/bookmark.c:864
+#: ../src/bookmark.c:856
 #, fuzzy
 msgid "Last bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bookmark.c:1455 ../src/bookmark.c:1514
+#: ../src/bookmark.c:1459 ../src/bookmark.c:1518
 #, fuzzy
 msgid "Error adding bookmark"
 msgstr "編輯書籤"
 
-#: ../src/bookmark.c:1456 ../src/bookmark.c:1515
+#: ../src/bookmark.c:1460 ../src/bookmark.c:1519
 #, fuzzy
 msgid "Cannot add bookmarks to unsaved files."
 msgstr "無法在未命名的檔案中新增書籤."
 
-#: ../src/bookmark.c:1475
+#: ../src/bookmark.c:1479
 #, fuzzy
 msgid "Can't add bookmark"
 msgstr "新增書籤"
 
-#: ../src/bookmark.c:1476
+#: ../src/bookmark.c:1480
 msgid "You already have a bookmark here!"
 msgstr "您目前在這裡頭已經有書籤了!"
 
-#: ../src/bookmark.c:1551
+#: ../src/bookmark.c:1555
 msgid "Delete all bookmarks."
 msgstr "刪除所有書籤."
 
-#: ../src/document.c:407
+#: ../src/document.c:345
 msgid "Name: "
 msgstr "名稱:"
 
-#: ../src/document.c:411
+#: ../src/document.c:349
 #, fuzzy
 msgid ""
 "\n"
 "File type: "
 msgstr "檔案類型"
 
-#: ../src/document.c:415
+#: ../src/document.c:353
 msgid ""
 "\n"
 "Encoding: "
@@ -397,7 +390,7 @@ msgstr ""
 "\n"
 "編碼:"
 
-#: ../src/document.c:422
+#: ../src/document.c:360
 #, fuzzy, c-format
 msgid ""
 "\n"
@@ -407,7 +400,7 @@ msgstr ""
 "\n"
 "權限:"
 
-#: ../src/document.c:427
+#: ../src/document.c:365
 msgid ""
 "\n"
 "Size (on disk): "
@@ -415,14 +408,14 @@ msgstr ""
 "\n"
 "大小(磁碟上):"
 
-#: ../src/document.c:432
+#: ../src/document.c:374
 #, fuzzy
 msgid ""
 "\n"
 "Mime type: "
 msgstr "檔案類型"
 
-#: ../src/document.c:440
+#: ../src/document.c:382
 msgid ""
 "\n"
 "Last modified: "
@@ -430,88 +423,88 @@ msgstr ""
 "\n"
 "上次修改時間:"
 
-#: ../src/document.c:498
+#: ../src/document.c:414
 #, c-format
 msgid "Untitled %d"
 msgstr "無標題 %d"
 
-#: ../src/document.c:821
+#: ../src/document.c:732
 #, fuzzy, c-format
 msgid "Document %s is already open in another Bluefish window."
 msgstr "在已執行的 bluefish 視窗中開啟檔案"
 
-#: ../src/document.c:823
+#: ../src/document.c:734
 msgid "Move to this window"
 msgstr ""
 
-#: ../src/document.c:823
+#: ../src/document.c:734
 msgid "Open readonly"
 msgstr ""
 
-#: ../src/document.c:823
+#: ../src/document.c:734
 #, fuzzy
 msgid "Do not open"
 msgstr "無法開啟檔案\n"
 
-#: ../src/document.c:1183
+#: ../src/document.c:1022
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
 msgstr "列 %d, 欄 %d"
 
-#: ../src/document.c:1185
+#: ../src/document.c:1024
 #, fuzzy, c-format
 msgid " Ln: %d, Col: %d"
 msgstr "列 %d, 欄 %d"
 
-#: ../src/document.c:1206
+#: ../src/document.c:1045
 msgid " OVR"
 msgstr ""
 
-#: ../src/document.c:1206
+#: ../src/document.c:1045
 msgid " INS"
 msgstr ""
 
-#: ../src/document.c:1208
+#: ../src/document.c:1047
 msgid " RO"
 msgstr ""
 
-#: ../src/document.c:1222 ../src/document.c:1223
+#: ../src/document.c:1063 ../src/document.c:1065
 #, c-format
 msgid "  %s, %s"
 msgstr "  %s, %s"
 
-#: ../src/document.c:1572
+#: ../src/document.c:1414
 msgid "Cannot display file, unknown characters found."
 msgstr "無法顯示檔案, 發現不明的字元集."
 
-#: ../src/document.c:2058 ../src/snr2.c:1661
+#: ../src/document.c:1708 ../src/snr2.c:1661
 msgid "Replace"
 msgstr "取代"
 
-#: ../src/document.c:2063 ../src/snr2.c:1658
+#: ../src/document.c:1713 ../src/snr2.c:1658
 msgid "Find"
 msgstr "尋找"
 
-#: ../src/document.c:2071
+#: ../src/document.c:1721
 msgid "Delete bookmark"
 msgstr "刪除書籤"
 
-#: ../src/document.c:2075
+#: ../src/document.c:1725
 msgid "Add bookmark"
 msgstr "新增書籤"
 
 #. if (main_v->props.backup_abort_action == 2)
 #. we have to ask the user
 #. we have to ask the user what to do
-#: ../src/document.c:2209 ../src/file_dialogs.c:347 ../src/file_dialogs.c:386
+#: ../src/document.c:1864 ../src/file_dialogs.c:347 ../src/file_dialogs.c:386
 msgid "_Abort save"
 msgstr "中斷儲存(_A)"
 
-#: ../src/document.c:2209
+#: ../src/document.c:1864
 msgid "_Continue save in UTF-8"
 msgstr "繼續以 UTF-8 儲存(_C)"
 
-#: ../src/document.c:2220
+#: ../src/document.c:1875
 #, c-format
 msgid ""
 "Failed to convert %s to character encoding %s. Encoding failed on character "
@@ -523,54 +516,54 @@ msgstr ""
 "\n"
 "要繼續以 UTF-8 編碼儲存嗎?"
 
-#: ../src/document.c:2224
+#: ../src/document.c:1879
 msgid "File encoding conversion failure"
 msgstr "檔案編碼轉換失敗"
 
-#: ../src/document.c:2458
+#: ../src/document.c:2120
 msgid "Previously: "
 msgstr "前一個: "
 
 #. || (!file_exists_and_readable(doc->uri))
-#: ../src/document.c:3017
+#: ../src/document.c:2636
 msgid "Unable to open file"
 msgstr "無法開啟檔案"
 
-#: ../src/document.c:3041
+#: ../src/document.c:2662
 #, fuzzy
 msgid "_Unset file name"
 msgstr "檔名"
 
-#: ../src/document.c:3041
+#: ../src/document.c:2662
 #, fuzzy
 msgid "_Save"
 msgstr "儲存"
 
 #. file is deleted on disk, what do we do now ?
-#: ../src/document.c:3043
+#: ../src/document.c:2664
 #, fuzzy, c-format
 msgid "File name: %s"
 msgstr "檔案名稱"
 
-#: ../src/document.c:3047
+#: ../src/document.c:2668
 #, fuzzy
 msgid "File disappeared from disk\n"
 msgstr "磁碟檢查時修改檔案"
 
-#: ../src/document.c:3064
+#: ../src/document.c:2685
 msgid "_Ignore"
 msgstr "忽略(_I)"
 
-#: ../src/document.c:3064
+#: ../src/document.c:2685
 msgid "_Reload"
 msgstr "重新載入(_R)"
 
-#: ../src/document.c:3064
+#: ../src/document.c:2685
 #, fuzzy
 msgid "Check and reload all documents"
 msgstr "在所有開啟的文件中"
 
-#: ../src/document.c:3072
+#: ../src/document.c:2693
 #, c-format
 msgid ""
 "Filename: %s\n"
@@ -583,50 +576,50 @@ msgstr ""
 "新的修改時間:%s\n"
 "舊的修改時間:%s"
 
-#: ../src/document.c:3076
+#: ../src/document.c:2697
 msgid "File has been modified by another process\n"
 msgstr "檔案已經被另一個行程修改\n"
 
-#: ../src/document.c:3136
+#: ../src/document.c:2758
 msgid "_Retry"
 msgstr ""
 
-#: ../src/document.c:3136
+#: ../src/document.c:2758
 msgid "Retry _all failed"
 msgstr ""
 
-#: ../src/document.c:3136
+#: ../src/document.c:2758
 #, fuzzy
 msgid "_Close"
 msgstr "關閉"
 
-#: ../src/document.c:3136
+#: ../src/document.c:2758
 #, fuzzy
 msgid "Close all _failed"
 msgstr "檔案儲存中斷.\n"
 
-#: ../src/document.c:3140
+#: ../src/document.c:2762
 #, fuzzy
 msgid "File "
 msgstr "檔案 #"
 
-#: ../src/document.c:3140
+#: ../src/document.c:2762
 msgid " failed to load."
 msgstr ""
 
-#: ../src/document.c:3144
+#: ../src/document.c:2766
 msgid "File failed to load\n"
 msgstr ""
 
-#: ../src/document.c:3264
+#: ../src/document.c:2886
 msgid "Select file to insert"
 msgstr "選擇要插入的檔案"
 
-#: ../src/document.c:3272
+#: ../src/document.c:2894
 msgid "No file to insert"
 msgstr "沒有要插入的檔案"
 
-#: ../src/document.c:3422
+#: ../src/document.c:3028
 #, c-format
 msgid "Statistics: %d lines, %d words, %d characters"
 msgstr "統計: 共 %d 列, %d 個單字, %d 個字元"
@@ -639,11 +632,8 @@ msgstr ""
 msgid "Description"
 msgstr "描述"
 
-#.
-#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Files"),152,TRUE));
-#.
 #: ../src/encodings_dialog.c:391 ../src/encodings_dialog.c:461
-#: ../src/preferences.c:2067
+#: ../src/preferences.c:1416
 msgid "Encoding"
 msgstr "編碼"
 
@@ -658,36 +648,36 @@ msgstr ""
 msgid "Add or remove document encodings"
 msgstr ""
 
-#: ../src/filebrowser2.c:224
+#: ../src/filebrowser2.c:207
 msgid "Set documentroot and webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:233
+#: ../src/filebrowser2.c:216
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
 "the webserver"
 msgstr ""
 
-#: ../src/filebrowser2.c:240
+#: ../src/filebrowser2.c:223
 #, fuzzy
 msgid "Documentroot"
 msgstr "/文件(_D)"
 
-#: ../src/filebrowser2.c:250
+#: ../src/filebrowser2.c:233
 msgid "Webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:1389
+#: ../src/filebrowser2.c:1345
 msgid "Could not rename\n"
 msgstr "無法重新命名\n"
 
-#: ../src/filebrowser2.c:1444
+#: ../src/filebrowser2.c:1400
 #, fuzzy
 msgid "New directory"
 msgstr "/新增目錄(_N)"
 
-#: ../src/filebrowser2.c:1452
+#: ../src/filebrowser2.c:1408
 #, fuzzy
 msgid "New file"
 msgstr "/新增檔案(_F)"
@@ -700,144 +690,144 @@ msgstr "/新增檔案(_F)"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1559
+#: ../src/filebrowser2.c:1516
 #, fuzzy, c-format
 msgid ""
 "Are you sure you want to delete\n"
 "\"%s\"?"
 msgstr "您確定要刪除 \" %s \" 嗎?"
 
-#: ../src/filebrowser2.c:1560
+#: ../src/filebrowser2.c:1517
 #, fuzzy, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "如果您刪除這個檔案, 它將會永久消失."
 
-#: ../src/filebrowser2.c:1703
+#: ../src/filebrowser2.c:1662
 msgid "/_Open"
 msgstr "/開啟(_O)"
 
-#: ../src/filebrowser2.c:1704
+#: ../src/filebrowser2.c:1663
 msgid "/Open _Advanced..."
 msgstr "/進階開啟(_A)..."
 
-#: ../src/filebrowser2.c:1705
+#: ../src/filebrowser2.c:1664
 msgid "/Rena_me"
 msgstr "/重新命名(_M)"
 
-#: ../src/filebrowser2.c:1706
+#: ../src/filebrowser2.c:1665
 msgid "/_Delete"
 msgstr "/刪除(_D)"
 
-#: ../src/filebrowser2.c:1708
+#: ../src/filebrowser2.c:1667
 msgid "/New _File"
 msgstr "/新增檔案(_F)"
 
-#: ../src/filebrowser2.c:1709
+#: ../src/filebrowser2.c:1668
 msgid "/_New Directory"
 msgstr "/新增目錄(_N)"
 
-#: ../src/filebrowser2.c:1711
+#: ../src/filebrowser2.c:1670
 msgid "/_Refresh"
 msgstr "/重新整理(_R)"
 
-#: ../src/filebrowser2.c:1712
+#: ../src/filebrowser2.c:1671
 #, fuzzy
 msgid "/Follow active document"
 msgstr "/衝(G)/最後一個文件(_A)"
 
-#: ../src/filebrowser2.c:1713
+#: ../src/filebrowser2.c:1672
 msgid "/_Set as basedir"
 msgstr "/設為基本目錄(_S)"
 
-#: ../src/filebrowser2.c:1714
+#: ../src/filebrowser2.c:1673
 #, fuzzy
 msgid "/Set as documentroot"
 msgstr "/衝(G)/下一文件(_N)"
 
-#: ../src/filebrowser2.c:1716
+#: ../src/filebrowser2.c:1675
 #, fuzzy
 msgid "/Show Full _Tree"
 msgstr "顯示全部目錄樹"
 
-#: ../src/filebrowser2.c:1717
+#: ../src/filebrowser2.c:1676
 #, fuzzy
 msgid "/Show hidden files"
 msgstr "顯示隱藏檔案"
 
-#: ../src/filebrowser2.c:1718
+#: ../src/filebrowser2.c:1677
 #, fuzzy
 msgid "/Show backup files"
 msgstr "顯示備份檔案"
 
-#: ../src/filebrowser2.c:1719
+#: ../src/filebrowser2.c:1678
 #, fuzzy
 msgid "/View mode"
 msgstr "/檢視(_V)"
 
-#: ../src/filebrowser2.c:1720
+#: ../src/filebrowser2.c:1679
 msgid "/View mode/Tree"
 msgstr ""
 
-#: ../src/filebrowser2.c:1721
+#: ../src/filebrowser2.c:1680
 msgid "/View mode/Dual"
 msgstr ""
 
-#: ../src/filebrowser2.c:1722
+#: ../src/filebrowser2.c:1681
 msgid "/View mode/Flat"
 msgstr ""
 
 #. Add filter submenu
-#: ../src/filebrowser2.c:1800
+#: ../src/filebrowser2.c:1759
 msgid "Filter"
 msgstr "過濾器"
 
-#: ../src/filebrowser2.c:1826 ../src/filefilter.c:477
+#: ../src/filebrowser2.c:1785 ../src/filefilter.c:475
 #, fuzzy
 msgid "Edit filter"
 msgstr "html 過濾器"
 
-#: ../src/filebrowser2.c:1830
+#: ../src/filebrowser2.c:1789
 #, fuzzy
 msgid "Delete filter"
 msgstr "選擇檔案"
 
-#: ../src/filebrowser2.c:1835
+#: ../src/filebrowser2.c:1794
 #, fuzzy
 msgid "New filter"
 msgstr "/新增檔案(_F)"
 
-#: ../src/file.c:457
+#: ../src/file.c:524
 #, c-format
 msgid "Still loading %d files, finished %s"
 msgstr ""
 
-#: ../src/file.c:459
+#: ../src/file.c:526
 #, c-format
 msgid "All files loaded, finished %s"
 msgstr ""
 
-#: ../src/file.c:639
+#: ../src/file.c:711
 #, fuzzy, c-format
 msgid "%d document open."
 msgid_plural "%d documents open."
 msgstr[0] "在文件中(_D)"
 msgstr[1] "在文件中(_D)"
 
-#: ../src/file.c:865
+#: ../src/file.c:937
 msgid "_Skip"
 msgstr "跳過(_S)"
 
-#: ../src/file.c:865 ../src/file_dialogs.c:510 ../src/file_dialogs.c:533
-#: ../src/project.c:226
+#: ../src/file.c:937 ../src/file_dialogs.c:510 ../src/file_dialogs.c:533
+#: ../src/project.c:222
 msgid "_Overwrite"
 msgstr "覆蓋(_O)"
 
-#: ../src/file.c:869
+#: ../src/file.c:941
 #, fuzzy, c-format
 msgid "%s cannot be copied, it already exists, overwrite?"
 msgstr "檔案 %s 已存在且已被開啟, 要覆蓋嗎?"
 
-#: ../src/file.c:873
+#: ../src/file.c:945
 #, fuzzy
 msgid "Overwrite file?"
 msgstr "覆蓋(_O)"
@@ -859,7 +849,7 @@ msgstr "<b>一般的</b>"
 msgid "Base _Dir:"
 msgstr "基本目錄(_D):"
 
-#: ../src/file_dialogs.c:145 ../src/gtk_easy.c:1257
+#: ../src/file_dialogs.c:145 ../src/gtk_easy.c:1259
 msgid "_Browse..."
 msgstr "瀏覽(_B)..."
 
@@ -952,7 +942,7 @@ msgid "Save %s as"
 msgstr " %s 另存為"
 
 #: ../src/file_dialogs.c:510 ../src/file_dialogs.c:533
-#: ../src/file_dialogs.c:807 ../src/project.c:226
+#: ../src/file_dialogs.c:807 ../src/project.c:222
 msgid "_Cancel"
 msgstr "取消(_C)"
 
@@ -965,12 +955,12 @@ msgstr "檔案 %s 已存在且已被開啟, 要覆蓋嗎?"
 msgid "The file you have selected is being edited in Bluefish."
 msgstr "您選擇的檔案已在 Bluefish 中編輯了."
 
-#: ../src/file_dialogs.c:534 ../src/project.c:227
+#: ../src/file_dialogs.c:534 ../src/project.c:223
 #, c-format
 msgid "A file named \"%s\" already exists."
 msgstr "檔案“%s” 已存在."
 
-#: ../src/file_dialogs.c:539 ../src/project.c:232
+#: ../src/file_dialogs.c:539 ../src/project.c:228
 msgid "Do you want to replace the existing file?"
 msgstr "您要取代已存在的檔案嗎?"
 
@@ -986,7 +976,7 @@ msgstr "過濾器:"
 msgid "Save in progress!"
 msgstr ""
 
-#: ../src/file_dialogs.c:753 ../src/project.c:392
+#: ../src/file_dialogs.c:753 ../src/project.c:382
 msgid "Close _Without Saving"
 msgstr ""
 
@@ -995,7 +985,7 @@ msgstr ""
 msgid "Save changes to \"%s\" before closing?"
 msgstr "關閉前要儲存 \"%s\" 嗎?."
 
-#: ../src/file_dialogs.c:761 ../src/file_dialogs.c:812 ../src/project.c:404
+#: ../src/file_dialogs.c:761 ../src/file_dialogs.c:812 ../src/project.c:394
 msgid "If you don't save your changes they will be lost."
 msgstr "若您不儲存, 則所有的更改將會消失."
 
@@ -1016,555 +1006,575 @@ msgid "Multiple open files have been changed."
 msgstr "多重開啟的檔案已更改."
 
 #. build a list of filters
-#: ../src/filefilter.c:215 ../src/gtk_easy.c:1367
+#: ../src/filefilter.c:214 ../src/gtk_easy.c:1384
 msgid "All files"
 msgstr "所有檔案"
 
-#: ../src/filefilter.c:516
+#: ../src/filefilter.c:515
 msgid "Hide files that match the filter"
 msgstr ""
 
-#: ../src/filefilter.c:527 ../src/filefilter.c:539
+#: ../src/filefilter.c:526 ../src/filefilter.c:538
 #, fuzzy
 msgid "Mime type"
 msgstr "檔案類型"
 
-#: ../src/filefilter.c:530 ../src/filefilter.c:542
+#: ../src/filefilter.c:529 ../src/filefilter.c:541
 msgid "Icon"
 msgstr "圖示"
 
-#: ../src/gtk_easy.c:1082
+#: ../src/gtk_easy.c:1084
 #, c-format
 msgid "%d of %d"
 msgstr "%d 的 %d"
 
-#: ../src/gtk_easy.c:1187
+#: ../src/gtk_easy.c:1189
 msgid "Select File"
 msgstr "選擇檔案"
 
-#: ../src/gtk_easy.c:1357
+#: ../src/gtk_easy.c:1374
 msgid "Show backup files"
 msgstr "顯示備份檔案"
 
-#: ../src/gtk_easy.c:1417
+#: ../src/gtk_easy.c:1434
 #, fuzzy
 msgid "Character _Encoding:"
 msgstr "/文件(D)/字元編碼(_E)"
 
-#: ../src/gtk_easy.c:1436
+#: ../src/gtk_easy.c:1456
 #, fuzzy
 msgid "Automatic detection"
 msgstr "自動更新作者 meta 標記"
 
-#: ../src/gui.c:272
+#: ../src/gui.c:274
 msgid "Filebrowser"
 msgstr "檔案瀏覽器"
 
-#: ../src/gui.c:273
+#: ../src/gui.c:275
 msgid "Bookmarks"
 msgstr "書籤"
 
-#: ../src/gui.c:412
+#: ../src/gui.c:414
 msgid "New"
 msgstr "新增"
 
-#: ../src/gui.c:414
+#: ../src/gui.c:416
 msgid "Open..."
 msgstr "開啟.."
 
-#: ../src/gui.c:416
+#: ../src/gui.c:418
 msgid "Save"
 msgstr "儲存"
 
-#: ../src/gui.c:418
+#: ../src/gui.c:420
 msgid "Save As..."
 msgstr "另存為..."
 
-#: ../src/gui.c:420
+#: ../src/gui.c:422
 msgid "Close"
 msgstr "關閉"
 
-#: ../src/gui.c:423
+#: ../src/gui.c:425
 msgid "Cut"
 msgstr "剪下"
 
-#: ../src/gui.c:425
+#: ../src/gui.c:427
 msgid "Copy"
 msgstr "複製"
 
-#: ../src/gui.c:427
+#: ../src/gui.c:429
 msgid "Paste"
 msgstr "貼上"
 
-#: ../src/gui.c:430
+#: ../src/gui.c:432
 msgid "Find..."
 msgstr "尋找..."
 
-#: ../src/gui.c:432
+#: ../src/gui.c:434
 msgid "Replace..."
 msgstr "取代..."
 
-#: ../src/gui.c:435
+#: ../src/gui.c:437
 msgid "Undo"
 msgstr "復原"
 
-#: ../src/gui.c:437
+#: ../src/gui.c:439
 msgid "Redo"
 msgstr "重做"
 
-#: ../src/gui.c:440
+#: ../src/gui.c:442
 msgid "Shift Left"
 msgstr "左移"
 
-#: ../src/gui.c:442
+#: ../src/gui.c:444
 msgid "Shift Right"
 msgstr "右移"
 
-#: ../src/gui.c:449
+#: ../src/gui.c:451
 msgid "Spellcheck..."
 msgstr "拼字檢查..."
 
-#: ../src/gui.c:454
+#: ../src/gui.c:456
 msgid "View in browser"
 msgstr "在瀏覽器中觀看"
 
-#: ../src/gui.c:457
+#: ../src/gui.c:459
 msgid "Preferences..."
 msgstr "偏好設定..."
 
-#: ../src/gui.c:755
+#: ../src/gui.c:766
 msgid "New Bluefish Window"
 msgstr "新增 Bluefish 視窗"
 
 #. Fake-label (for notebook_hide() and _show() ;)
-#: ../src/gui.c:815
+#: ../src/gui.c:826
 msgid "Stand by..."
 msgstr "稍待..."
 
-#: ../src/gui.c:1017
+#: ../src/gui.c:1031
 msgid "Goto line"
 msgstr "跳至列"
 
-#: ../src/gui.c:1025
+#: ../src/gui.c:1039
 msgid "_Line number:"
 msgstr "列號(_L):"
 
 #. mnemonic for label
-#: ../src/gui.c:1031
+#: ../src/gui.c:1045
 msgid "From _selection"
 msgstr "由選擇中(_S)"
 
-#: ../src/gui.c:1034
+#: ../src/gui.c:1048
 msgid "Keep _dialog"
 msgstr "保持對話盒(_D)"
 
-#: ../src/gui.c:1098
+#: ../src/gui.c:1112
 msgid "starting bluefish"
 msgstr "開始執行 bluefish"
 
-#: ../src/menu.c:219
+#: ../src/menu.c:237
 msgid "/_File"
 msgstr "/檔案(F)"
 
-#: ../src/menu.c:221
+#: ../src/menu.c:239
 msgid "/File/_New"
 msgstr "/檔案(F)/新增(_N)"
 
-#: ../src/menu.c:222
+#: ../src/menu.c:240
 msgid "/File/New _Window"
 msgstr "/檔案(F)/新增視窗(_W)"
 
-#: ../src/menu.c:223
+#: ../src/menu.c:241
 msgid "/File/_Open..."
 msgstr "/檔案(F)/開啟(_O)..."
 
-#: ../src/menu.c:224
+#: ../src/menu.c:242
 msgid "/File/Open _recent"
 msgstr "/檔案(F)/開啟最近的(_R)"
 
-#: ../src/menu.c:226
+#: ../src/menu.c:244
 msgid "/File/Open Ad_vanced..."
 msgstr "/檔案(F)/進階開啟(_V)..."
 
-#: ../src/menu.c:227
+#: ../src/menu.c:245
 msgid "/File/Open _URL..."
 msgstr "/檔案(F)/開啟 _URL..."
 
-#: ../src/menu.c:228
+#: ../src/menu.c:246
 msgid "/File/Open _from selection"
 msgstr "/檔案(F)/根據選擇開啟(_F)"
 
-#: ../src/menu.c:230
+#: ../src/menu.c:248
 msgid "/File/_Save"
 msgstr "/檔案(F)/儲存(_S)"
 
-#: ../src/menu.c:231
+#: ../src/menu.c:249
 msgid "/File/Save _As..."
 msgstr "/檔案(F)/另存為(_A)..."
 
-#: ../src/menu.c:232
+#: ../src/menu.c:250
 msgid "/File/Sav_e All"
 msgstr "/檔案(F)/全部儲存(_E)"
 
-#: ../src/menu.c:233
+#: ../src/menu.c:251
 msgid "/File/Rever_t to Saved"
 msgstr "/檔案(F)/回復到已儲存的(_T)"
 
-#: ../src/menu.c:235
+#: ../src/menu.c:253
 msgid "/File/_Insert..."
 msgstr "/檔案(F)/插入(_I)..."
 
-#: ../src/menu.c:236
+#: ../src/menu.c:254
 msgid "/File/Rena_me..."
 msgstr "/檔案(F)/重新命名(_M)..."
 
-#: ../src/menu.c:238
+#: ../src/menu.c:256
 msgid "/File/_Close"
 msgstr "/檔案(F)/關閉(_C)"
 
-#: ../src/menu.c:239
+#: ../src/menu.c:257
 msgid "/File/Close A_ll"
 msgstr "/檔案(F)/全部關閉(_L)"
 
-#: ../src/menu.c:240
+#: ../src/menu.c:258
 msgid "/File/Close Win_dow"
 msgstr "/檔案(F)/關閉視窗(_D)"
 
-#: ../src/menu.c:242
+#: ../src/menu.c:260
 msgid "/File/_Quit"
 msgstr "/檔案(F)/離開(_Q)"
 
-#: ../src/menu.c:245
+#: ../src/menu.c:263
 msgid "/File/Run Python Script"
 msgstr ""
 
-#: ../src/menu.c:247
+#: ../src/menu.c:265
 msgid "/_Edit"
 msgstr "/編輯(_E)"
 
-#: ../src/menu.c:249
+#: ../src/menu.c:267
 msgid "/Edit/_Undo"
 msgstr "/編輯(E)/復原(_U)"
 
-#: ../src/menu.c:250
+#: ../src/menu.c:268
 msgid "/Edit/_Redo"
 msgstr "/編輯(E)/重做(_R)"
 
-#: ../src/menu.c:251
+#: ../src/menu.c:269
 msgid "/Edit/Undo All"
 msgstr "/編輯(E)/復原所有"
 
-#: ../src/menu.c:252
+#: ../src/menu.c:270
 msgid "/Edit/Redo All"
 msgstr "/編輯(E)/重做所有"
 
-#: ../src/menu.c:254
+#: ../src/menu.c:272
 msgid "/Edit/Cu_t"
 msgstr "/編輯(E)/剪下(_T)"
 
-#: ../src/menu.c:255
+#: ../src/menu.c:273
 msgid "/Edit/_Copy"
 msgstr "/編輯(E)/複製(_C)"
 
-#: ../src/menu.c:256
+#: ../src/menu.c:274
 msgid "/Edit/_Paste"
 msgstr "/編輯(E)/貼上(_P)"
 
-#: ../src/menu.c:258
+#: ../src/menu.c:276
 msgid "/Edit/Select _All"
 msgstr "/編輯(E)/全選(_A)"
 
-#: ../src/menu.c:260
+#: ../src/menu.c:278
 msgid "/Edit/_Find..."
 msgstr "/編輯(E)/尋找(_F)..."
 
-#: ../src/menu.c:261
+#: ../src/menu.c:279
 msgid "/Edit/Find A_gain"
 msgstr "/編輯(E)/尋找下一個(_G)"
 
-#: ../src/menu.c:262
+#: ../src/menu.c:280
 msgid "/Edit/Find from selection"
 msgstr "/編輯(E)/在選擇中尋找"
 
-#: ../src/menu.c:263
+#: ../src/menu.c:281
 msgid "/Edit/R_eplace..."
 msgstr "/編輯(E)/取代(_E)..."
 
-#: ../src/menu.c:264
+#: ../src/menu.c:282
 msgid "/Edit/Replace Agai_n"
 msgstr "/編輯(E)/取代下一個(_N)"
 
-#: ../src/menu.c:265
+#: ../src/menu.c:283
 msgid "/Edit/Replace special"
 msgstr "/編輯(E)/特殊取代"
 
-#: ../src/menu.c:267
+#: ../src/menu.c:285
 #, fuzzy
 msgid "/Edit/Replace special/Block sync"
 msgstr "/編輯(E)/特殊取代"
 
-#: ../src/menu.c:269
+#: ../src/menu.c:286
+#, fuzzy
+msgid "/Edit/Replace special/Strip trailing whitespace"
+msgstr "/編輯(E)/特殊取代/轉成大寫(_U)"
+
+#: ../src/menu.c:287
+#, fuzzy
+msgid "/Edit/Replace special/Convert indenting to tabs"
+msgstr "/編輯(E)/特殊取代/兩者都取代為 HTML 實體(_B)"
+
+#: ../src/menu.c:288
+#, fuzzy
+msgid "/Edit/Replace special/Convert indenting to spaces"
+msgstr "/編輯(E)/特殊取代/取代 _ASCII 為 HTML 實體"
+
+#: ../src/menu.c:290
 msgid "/Edit/S_hift Right"
 msgstr "/編輯(E)/右移(_H)"
 
-#: ../src/menu.c:270
+#: ../src/menu.c:291
 msgid "/Edit/Shift _Left"
 msgstr "/編輯(E)/左移(_L)"
 
-#: ../src/menu.c:272
+#: ../src/menu.c:293
 msgid "/Edit/Add _Bookmark"
 msgstr "/編輯(E)/新增書籤(_B)"
 
-#: ../src/menu.c:274
+#: ../src/menu.c:295
 msgid "/Edit/Save Sett_ings"
 msgstr "/編輯(E)/儲存設定(_I)"
 
-#: ../src/menu.c:275
+#: ../src/menu.c:296
 msgid "/Edit/Save Shortcut _Keys"
 msgstr "/編輯(E)/儲存快捷鍵(_K)"
 
-#: ../src/menu.c:276
+#: ../src/menu.c:297
 msgid "/Edit/Preference_s"
 msgstr "/編輯(E)/偏好設定(_S)"
 
-#: ../src/menu.c:277
+#: ../src/menu.c:298
 msgid "/_View"
 msgstr "/檢視(_V)"
 
-#: ../src/menu.c:279
+#: ../src/menu.c:300
 msgid "/View/Fullscreen"
 msgstr ""
 
-#: ../src/menu.c:281
+#: ../src/menu.c:302
 msgid "/View/View _Main Toolbar"
 msgstr "/檢視(V)/檢視主工作列(_M)"
 
-#: ../src/menu.c:282
+#: ../src/menu.c:303
 msgid "/View/View _Sidebar"
 msgstr "/檢視(V)/檢視邊列(_S)"
 
-#: ../src/menu.c:283
+#: ../src/menu.c:304
+#, fuzzy
+msgid "/View/View S_tatusbar"
+msgstr "/檢視(V)/檢視邊列(_S)"
+
+#: ../src/menu.c:305
 msgid "/_Document"
 msgstr "/文件(_D)"
 
-#: ../src/menu.c:285
+#: ../src/menu.c:307
 msgid "/Document/_Increase Tabsize"
 msgstr "/文件(D)/增加 Tab 大小(_I)"
 
-#: ../src/menu.c:286
+#: ../src/menu.c:308
 msgid "/Document/_Decrease Tabsize"
 msgstr "/文件(D)/減少 Tab 大小(_D)"
 
-#: ../src/menu.c:287
+#: ../src/menu.c:309
 msgid "/Document/_Auto Indent"
 msgstr "/文件(D)/自動縮排(_A)"
 
-#: ../src/menu.c:289
+#: ../src/menu.c:312
 msgid "/Document/Auto Close H_TML tags"
 msgstr "/文件(D)/自動關閉 HTML 標記(_T)"
 
-#: ../src/menu.c:290
+#: ../src/menu.c:314
 msgid "/Document/_Wrap"
 msgstr "/文件(D)/自動換列(_W)"
 
-#: ../src/menu.c:291
+#: ../src/menu.c:315
 msgid "/Document/_Line Numbers"
 msgstr "/文件(D)/列號(_L)"
 
-#: ../src/menu.c:292
+#: ../src/menu.c:316
 #, fuzzy
 msgid "/Document/Show _blocks"
 msgstr "/文件(D)/字數統計(_C)"
 
-#: ../src/menu.c:293
+#: ../src/menu.c:318
 #, fuzzy
 msgid "/Document/Show _symbols"
 msgstr "/文件(D)/字數統計(_C)"
 
-#: ../src/menu.c:295
+#: ../src/menu.c:321
 msgid "/Document/_Highlight Syntax"
 msgstr "/文件(D)/語法識別(_H)"
 
-#: ../src/menu.c:296
+#: ../src/menu.c:322
 msgid "/Document/_Update Highlighting"
 msgstr "/文件(D)/更新語法識別(_U)"
 
-#: ../src/menu.c:298
+#: ../src/menu.c:324
 msgid "/Document/Document Ty_pe"
 msgstr "/文件(D)/檔案類型(_P)"
 
-#: ../src/menu.c:300
+#: ../src/menu.c:326
 msgid "/Document/Character _Encoding"
 msgstr "/文件(D)/字元編碼(_E)"
 
-#: ../src/menu.c:306
+#: ../src/menu.c:332
 msgid "/Document/Check _Spelling..."
 msgstr "/文件(D)/拼字檢查(_S)..."
 
-#: ../src/menu.c:308
+#: ../src/menu.c:334
 msgid "/Document/_Floating window"
 msgstr "/文件(D)/浮動視窗(_F)"
 
-#: ../src/menu.c:309
+#: ../src/menu.c:335
 msgid "/Document/Word _Count"
 msgstr "/文件(D)/字數統計(_C)"
 
-#: ../src/menu.c:311
+#: ../src/menu.c:337
 #, fuzzy
 msgid "/Document/Move left"
 msgstr "/文件(D)/自動縮排(_A)"
 
-#: ../src/menu.c:312
+#: ../src/menu.c:338
 #, fuzzy
 msgid "/Document/Move right"
 msgstr "/文件(D)/sep1"
 
-#: ../src/menu.c:313
+#: ../src/menu.c:339
 msgid "/_Go"
 msgstr "/衝(_G)"
 
-#: ../src/menu.c:315
+#: ../src/menu.c:341
 msgid "/Go/_Previous document"
 msgstr "/衝(G)/前一文件(_P)"
 
-#: ../src/menu.c:316
+#: ../src/menu.c:342
 msgid "/Go/_Next document"
 msgstr "/衝(G)/下一文件(_N)"
 
-#: ../src/menu.c:318
+#: ../src/menu.c:344
 msgid "/Go/_First document"
 msgstr "/衝(G)/第一個文件(_F)"
 
-#: ../src/menu.c:319
+#: ../src/menu.c:345
 msgid "/Go/L_ast document"
 msgstr "/衝(G)/最後一個文件(_A)"
 
-#: ../src/menu.c:321
+#: ../src/menu.c:347
 #, fuzzy
 msgid "/Go/First bookmark"
 msgstr "編輯書籤"
 
-#: ../src/menu.c:322
+#: ../src/menu.c:348
 #, fuzzy
 msgid "/Go/Previous bookmark"
 msgstr "/衝(G)/前一文件(_P)"
 
-#: ../src/menu.c:323
+#: ../src/menu.c:349
 #, fuzzy
 msgid "/Go/Next _bookmark"
 msgstr "跳到書籤"
 
-#: ../src/menu.c:324
+#: ../src/menu.c:350
 #, fuzzy
 msgid "/Go/Last bookmark"
 msgstr "跳到書籤"
 
-#: ../src/menu.c:326
+#: ../src/menu.c:352
 msgid "/Go/Goto _Line"
 msgstr "/衝(G)/跳到列(_L)"
 
-#: ../src/menu.c:327
+#: ../src/menu.c:353
 msgid "/Go/Goto _Selection"
 msgstr "/衝(G)/跳到選擇(_S)"
 
-#: ../src/menu.c:328
+#: ../src/menu.c:354
 msgid "/_Project"
 msgstr "/專案(_P)"
 
-#: ../src/menu.c:330
+#: ../src/menu.c:356
 msgid "/Project/_New Project"
 msgstr "/專案(P)/新增專案(_N)"
 
-#: ../src/menu.c:331
+#: ../src/menu.c:357
 msgid "/Project/_Open Project..."
 msgstr "/專案(P)/開啟專案(_O)..."
 
-#: ../src/menu.c:332
+#: ../src/menu.c:358
 msgid "/Project/Open _recent"
 msgstr "/專案(P)/開啟最近的(_R)"
 
-#: ../src/menu.c:335
+#: ../src/menu.c:361
 msgid "/Project/_Save"
 msgstr "/專案(P)/儲存(_S)"
 
-#: ../src/menu.c:336
+#: ../src/menu.c:362
 msgid "/Project/Save _as..."
 msgstr "/專案(P)/另存為(_A)..."
 
-#: ../src/menu.c:337
+#: ../src/menu.c:363
 msgid "/Project/Save & _close"
 msgstr "/專案(P)/儲存並關閉(_C)..."
 
-#: ../src/menu.c:339
+#: ../src/menu.c:365
 msgid "/Project/E_dit Project Options..."
 msgstr "/專案(P)/編輯專案選項(_D)..."
 
-#: ../src/menu.c:340
+#: ../src/menu.c:366
 msgid "/E_xternal"
 msgstr "/外部(_X)"
 
-#: ../src/menu.c:507
+#: ../src/menu.c:542
 msgid "/Document/Document Type"
 msgstr "/檔案(D)/檔案類型"
 
-#: ../src/menu.c:661
+#: ../src/menu.c:713
 msgid "/Project/Open recent"
 msgstr "/專案(P)/開啟最近的"
 
-#: ../src/menu.c:665
+#: ../src/menu.c:717
 msgid "/File/Open recent"
 msgstr "/檔案(F)/開啟最近的"
 
-#: ../src/menu.c:844
+#: ../src/menu.c:896
 msgid "/Windows"
 msgstr "/視窗"
 
-#: ../src/menu.c:937
+#: ../src/menu.c:954
 #, fuzzy
 msgid "No default browser found"
 msgstr "預設的基本目錄"
 
-#: ../src/menu.c:938
+#: ../src/menu.c:955
 msgid ""
 "You can set a default browser by going to:\n"
 "Edit->Preferences->External Commands"
 msgstr ""
 
-#: ../src/menu.c:957
+#: ../src/menu.c:990
 msgid "Operate filter only on selection?"
 msgstr ""
 
-#: ../src/menu.c:1005
+#: ../src/menu.c:1035
 msgid "/External/Outputbox/"
 msgstr "/外部(X)/輸出視窗/"
 
-#: ../src/menu.c:1006
+#: ../src/menu.c:1036
 msgid "/External/Commands/"
 msgstr "/外部(X)/命令/"
 
-#: ../src/menu.c:1007
+#: ../src/menu.c:1037
 #, fuzzy
 msgid "/External/Filters/"
 msgstr "/外部(X)/瀏覽器/"
 
-#: ../src/menu.c:1020
+#: ../src/menu.c:1050
 #, fuzzy
 msgid "/External/Filters"
 msgstr "/外部(X)/tearoff1"
 
-#: ../src/menu.c:1040
+#: ../src/menu.c:1070
 msgid "/External"
 msgstr "/外部程式(X)"
 
-#: ../src/menu.c:1042
+#: ../src/menu.c:1072
 msgid "/External/Commands"
 msgstr "/外部(X)/命令"
 
-#: ../src/menu.c:1074
+#: ../src/menu.c:1104
 msgid "/External/Outputbox"
 msgstr "/外部(X)/輸出視窗"
 
-#: ../src/menu.c:1120
+#: ../src/menu.c:1150
 msgid "/Document/Character Encoding"
 msgstr "/檔案(D)/字元編碼"
 
@@ -1573,92 +1583,86 @@ msgstr "/檔案(D)/字元編碼"
 msgid "failed to compile outputbox pattern %s\n"
 msgstr ""
 
-#: ../src/preferences.c:316
+#: ../src/preferences.c:277
 msgid "Untitled"
 msgstr "無標題"
 
-#: ../src/preferences.c:416
+#: ../src/preferences.c:377
 msgid "Select font"
 msgstr "選擇字型"
 
-#: ../src/preferences.c:441
+#: ../src/preferences.c:402
 #, fuzzy
 msgid "Select color"
 msgstr "選擇器"
 
-#: ../src/preferences.c:607
+#: ../src/preferences.c:496
 msgid "Message"
 msgstr ""
 
-#: ../src/preferences.c:608
+#: ../src/preferences.c:497
 #, fuzzy
 msgid "Enabled"
 msgstr "可編輯的"
 
-#: ../src/preferences.c:609
+#: ../src/preferences.c:498
 #, fuzzy
 msgid "File"
 msgstr "檔案 #"
 
-#: ../src/preferences.c:762
+#: ../src/preferences.c:643
 msgid ""
 "Text styles are applied on top of each other. If multiple styles are applied "
 "to the same text, the top-most style in this list has the highest priority. "
 "Use drag and drop to re-order the text styles."
 msgstr ""
 
-#: ../src/preferences.c:771 ../src/preferences.c:1461
-#: ../src/preferences.c:1531
+#: ../src/preferences.c:652 ../src/preferences.c:925 ../src/preferences.c:995
 msgid "Label"
 msgstr "標記"
 
-#: ../src/preferences.c:783 ../src/preferences.c:2006
+#: ../src/preferences.c:664 ../src/preferences.c:1370
 msgid "Foreground color"
 msgstr "前景顏色"
 
-#: ../src/preferences.c:784 ../src/preferences.c:2007
+#: ../src/preferences.c:665 ../src/preferences.c:1371
 msgid "Background color"
 msgstr "背景顏色"
 
-#: ../src/preferences.c:785
-msgid "don't change weight"
-msgstr "不改變字型粗細"
-
-#: ../src/preferences.c:787
-msgid "force non-bold weight"
-msgstr "使用非粗體"
-
-#: ../src/preferences.c:789
-msgid "force bold weight"
+#: ../src/preferences.c:666
+#, fuzzy
+msgid "normal weight"
 msgstr "使用粗體"
 
-#: ../src/preferences.c:791
-msgid "don't change style"
-msgstr "不改變字型樣態"
+#: ../src/preferences.c:668
+#, fuzzy
+msgid "bold weight"
+msgstr "使用粗體"
 
-#: ../src/preferences.c:793
-msgid "force non-italic style"
-msgstr "使用非斜體"
-
-#: ../src/preferences.c:795
-msgid "force italic style"
+#: ../src/preferences.c:670
+#, fuzzy
+msgid "normal style"
 msgstr "使用斜體"
 
-#: ../src/preferences.c:1350 ../src/preferences.c:1622
+#: ../src/preferences.c:672
+#, fuzzy
+msgid "italic style"
+msgstr "使用斜體"
+
+#: ../src/preferences.c:869 ../src/preferences.c:1086
 msgid "Name"
 msgstr "名稱"
 
-#: ../src/preferences.c:1462 ../src/preferences.c:1532
-#: ../src/preferences.c:1627
+#: ../src/preferences.c:926 ../src/preferences.c:996 ../src/preferences.c:1091
 msgid "Command"
 msgstr "命令"
 
-#: ../src/preferences.c:1463
+#: ../src/preferences.c:927
 #, fuzzy
 msgid "Default browser"
 msgstr "預設的基本目錄"
 
-#: ../src/preferences.c:1465
+#: ../src/preferences.c:929
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1675,7 +1679,7 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1535
+#: ../src/preferences.c:999
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1696,27 +1700,27 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1623
+#: ../src/preferences.c:1087
 msgid "Pattern"
 msgstr "樣式"
 
-#: ../src/preferences.c:1624
+#: ../src/preferences.c:1088
 msgid "File #"
 msgstr "檔案 #"
 
-#: ../src/preferences.c:1625
+#: ../src/preferences.c:1089
 msgid "Line #"
 msgstr "列 #"
 
-#: ../src/preferences.c:1626
+#: ../src/preferences.c:1090
 msgid "Output #"
 msgstr "輸出 #"
 
-#: ../src/preferences.c:1628
+#: ../src/preferences.c:1092
 msgid "Show all output"
 msgstr "顯示所有輸出"
 
-#: ../src/preferences.c:1630
+#: ../src/preferences.c:1094
 msgid ""
 "<small><b>Input options</b>\n"
 "start with a | to send the input to the standard input\n"
@@ -1739,569 +1743,516 @@ msgid ""
 "identical to %u</small>"
 msgstr ""
 
-#: ../src/preferences.c:1950 ../src/preferences.c:1951
+#: ../src/preferences.c:1331 ../src/preferences.c:1332
 msgid "left"
 msgstr "左"
 
-#: ../src/preferences.c:1950 ../src/preferences.c:1951
+#: ../src/preferences.c:1331 ../src/preferences.c:1332
 msgid "right"
 msgstr "右"
 
-#: ../src/preferences.c:1950
+#: ../src/preferences.c:1331
 msgid "top"
 msgstr "上"
 
-#: ../src/preferences.c:1950
+#: ../src/preferences.c:1331
 msgid "bottom"
 msgstr "下"
 
-#: ../src/preferences.c:1952
+#: ../src/preferences.c:1333
 #, fuzzy
 msgid "Nothing"
 msgstr "無陰影(_S)"
 
-#: ../src/preferences.c:1952
+#: ../src/preferences.c:1333
 #, fuzzy
 msgid "Modified time and file size"
 msgstr "檢查 mtime 時間和大小"
 
-#: ../src/preferences.c:1952
+#: ../src/preferences.c:1333
 msgid "Modified time"
 msgstr ""
 
-#: ../src/preferences.c:1952
+#: ../src/preferences.c:1333
 #, fuzzy
 msgid "File size"
 msgstr "檔案 #"
 
-#: ../src/preferences.c:1960
+#: ../src/preferences.c:1341
 msgid "Edit preferences"
 msgstr "編輯偏好設定"
 
-#: ../src/preferences.c:1986
+#: ../src/preferences.c:1359
 msgid "Editor"
 msgstr "編輯器"
 
-#: ../src/preferences.c:1992
+#.
+#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Editor"),150,TRUE));
+#.
+#: ../src/preferences.c:1364
 #, fuzzy
-msgid "Editor startup options"
+msgid "Generic editor options"
 msgstr "編輯器選項"
 
-#: ../src/preferences.c:1997
-msgid "Show splash-screen"
-msgstr ""
-
-#: ../src/preferences.c:2000
-msgid "Editor options"
-msgstr "編輯器選項"
-
-#: ../src/preferences.c:2005
+#: ../src/preferences.c:1369
 msgid "Font"
 msgstr "字型"
 
-#: ../src/preferences.c:2008
-msgid "Tab width"
-msgstr "Tab 鍵寬度"
-
-#: ../src/preferences.c:2009
-msgid "Smart cursor positioning"
+#: ../src/preferences.c:1372
+msgid "Smart Home/End cursor positioning"
 msgstr ""
 
-#: ../src/preferences.c:2010
+#: ../src/preferences.c:1373
 msgid "Use spaces to indent, not tabs"
 msgstr "用空格縮排, 不用 tab 鍵"
 
-#: ../src/preferences.c:2011
-msgid "Word wrap default"
-msgstr "預設自動換列"
+#: ../src/preferences.c:1375
+msgid "Number of actions in undo history"
+msgstr ""
 
-#: ../src/preferences.c:2012
-msgid "Line numbers by default"
-msgstr "預設顯示列號"
-
-#: ../src/preferences.c:2013
-#, fuzzy
-msgid "Block folding view by default"
-msgstr "預設自動換行(_W)"
-
-#: ../src/preferences.c:2014
-#, fuzzy
-msgid "Symbols view by default"
-msgstr "預設顯示邊列"
-
-#: ../src/preferences.c:2015
-msgid "Highlight syntax by default"
-msgstr "預設使用語法識別"
-
-#: ../src/preferences.c:2016
-#, fuzzy
-msgid "Tag autoclose by default"
-msgstr "預設顯示邊列"
-
-#: ../src/preferences.c:2018
-#, fuzzy
-msgid "Undo options"
-msgstr "編輯器選項"
-
-#: ../src/preferences.c:2023
-msgid "Undo history size"
-msgstr "可復原次數"
-
-#: ../src/preferences.c:2024
+#: ../src/preferences.c:1376
 msgid "Clear undo history on save"
 msgstr "儲存後清除復原歷史"
 
-#: ../src/preferences.c:2040
+#: ../src/preferences.c:1378
+#, fuzzy
+msgid "Default values"
+msgstr "預設的基本目錄"
+
+#: ../src/preferences.c:1383
+msgid "Tab width"
+msgstr "Tab 鍵寬度"
+
+#: ../src/preferences.c:1384
+#, fuzzy
+msgid "Word wrap"
+msgstr "預設自動換列"
+
+#: ../src/preferences.c:1385
+#, fuzzy
+msgid "Show line numbers"
+msgstr "列號(_L):"
+
+#: ../src/preferences.c:1387
+#, fuzzy
+msgid "Highlight syntax"
+msgstr "預設使用語法識別"
+
+#: ../src/preferences.c:1388
+#, fuzzy
+msgid "Highlight current line"
+msgstr "預設使用語法識別"
+
+#: ../src/preferences.c:1389
+msgid "Enable block folding"
+msgstr ""
+
+#: ../src/preferences.c:1390
+#, fuzzy
+msgid "Highlight matching block begin-end"
+msgstr "預設自動換行(_W)"
+
+#: ../src/preferences.c:1395
 msgid "HTML"
 msgstr "HTML"
 
-#.
-#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("HTML"),154,TRUE));
-#.
-#: ../src/preferences.c:2045
+#: ../src/preferences.c:1397
 msgid "HTML options"
 msgstr "HTML 選項"
 
-#: ../src/preferences.c:2050
+#: ../src/preferences.c:1402
 msgid "Lowercase HTML tags"
 msgstr "HTML 標記小寫"
 
-#: ../src/preferences.c:2051
+#: ../src/preferences.c:1403
 msgid "Use deprecated tags (e.g. <font> and <nobr>)"
 msgstr "使用棄用的標記 (例如 <font> 和 <nobr>)"
 
-#: ../src/preferences.c:2052
+#: ../src/preferences.c:1404
 msgid "Use XHTML style tags (<br />)"
 msgstr "使用 XHTML 樣式標記 (<br />)"
 
-#: ../src/preferences.c:2053
+#: ../src/preferences.c:1405
 #, fuzzy
 msgid "Automatically close tags"
 msgstr "自動關閉標記模式"
 
-#: ../src/preferences.c:2054
+#: ../src/preferences.c:1406
 msgid "Prepend close tags with a newline"
 msgstr ""
 
-#: ../src/preferences.c:2056
+#: ../src/preferences.c:1408
 #, fuzzy
 msgid "Automatically update author meta tag"
 msgstr "自動更新作者 meta 標記"
 
-#: ../src/preferences.c:2057
+#: ../src/preferences.c:1409
 #, fuzzy
 msgid "Automatically update date meta tag"
 msgstr "自動更新作者 meta 標記"
 
-#: ../src/preferences.c:2058
+#: ../src/preferences.c:1410
 #, fuzzy
 msgid "Automatically update generator meta tag"
 msgstr "自動更新作者 meta 標記"
 
-#: ../src/preferences.c:2062
+#: ../src/preferences.c:1414
 msgid "Files"
 msgstr "檔案"
 
-#: ../src/preferences.c:2079
+#: ../src/preferences.c:1428
 #, fuzzy
 msgid "Default character set for new files"
 msgstr "預設字元集"
 
-#: ../src/preferences.c:2082
+#: ../src/preferences.c:1431
 #, fuzzy
 msgid "Auto set <meta> HTML tag on encoding change"
 msgstr "在改變時自動設定 <meta> 編碼標記"
 
-#: ../src/preferences.c:2084
+#: ../src/preferences.c:1433
 msgid "Backup"
 msgstr "備份"
 
-#: ../src/preferences.c:2088
+#: ../src/preferences.c:1437
 #, fuzzy
 msgid "Create backup file during file save"
 msgstr "儲存時建立備份"
 
-#: ../src/preferences.c:2089
-msgid ""
-"The backup prefix may contain a slash to indicate a directory component, for "
-"example \".backup/\""
-msgstr ""
-
-#: ../src/preferences.c:2092
-#, fuzzy
-msgid "Backup file prefix"
-msgstr "備份檔案副檔名"
-
-#: ../src/preferences.c:2093
-msgid "Backup file suffix"
-msgstr "備份檔案副檔名"
-
-#: ../src/preferences.c:2095
+#: ../src/preferences.c:1439
 #, fuzzy
 msgid "Continue save"
 msgstr "繼續儲存(_C)"
 
-#: ../src/preferences.c:2095
+#: ../src/preferences.c:1439
 #, fuzzy
 msgid "Abort save"
 msgstr "中斷儲存(_A)"
 
-#: ../src/preferences.c:2095
+#: ../src/preferences.c:1439
 msgid "Ask what to do"
 msgstr ""
 
-#: ../src/preferences.c:2096
+#: ../src/preferences.c:1440
 #, fuzzy
 msgid "If the backup fails"
 msgstr "顯示備份檔案"
 
-#: ../src/preferences.c:2098
+#: ../src/preferences.c:1442
 #, fuzzy
 msgid "Remove backup file on close"
 msgstr "關閉時刪除備份檔案"
 
-#: ../src/preferences.c:2102
+#: ../src/preferences.c:1446
 msgid "Misc"
 msgstr "其他"
 
-#: ../src/preferences.c:2108
+#: ../src/preferences.c:1452
 msgid "Open files in already running bluefish window"
 msgstr "在已執行的 bluefish 視窗中開啟檔案"
 
-#: ../src/preferences.c:2110
+#: ../src/preferences.c:1454
 msgid "File properties to check on disk for modifications"
 msgstr ""
 
-#: ../src/preferences.c:2111
+#: ../src/preferences.c:1455
 #, fuzzy
 msgid "Periodically check if file is modified on disk"
 msgstr "磁碟檢查時修改檔案"
 
-#: ../src/preferences.c:2112
+#: ../src/preferences.c:1456
 #, fuzzy
 msgid "Number of files in 'Open recent' menu"
 msgstr "最近開啟的檔案數"
 
-#: ../src/preferences.c:2117
+#: ../src/preferences.c:1461
 msgid "User interface"
 msgstr "使用者介面"
 
-#: ../src/preferences.c:2119
+#: ../src/preferences.c:1464
+#, fuzzy
+msgid "Startup options"
+msgstr "編輯器選項"
+
+#: ../src/preferences.c:1469
+msgid "Show splash-screen"
+msgstr ""
+
+#: ../src/preferences.c:1472
 msgid "General"
 msgstr "一般"
 
-#: ../src/preferences.c:2124
+#: ../src/preferences.c:1477
 msgid "Make HTML dialogs transient"
 msgstr "產生臨時 HTML 對話盒"
 
-#: ../src/preferences.c:2125
+#: ../src/preferences.c:1478
 #, fuzzy
 msgid ""
 "Notebook tab font \n"
 "(leave empty for gtk default)"
 msgstr "筆記 tab 字型 (若空白則使用 gtk 預設)"
 
-#: ../src/preferences.c:2126
+#: ../src/preferences.c:1479
 msgid "Document notebook tab position"
 msgstr "文件筆記 tab 位置"
 
-#: ../src/preferences.c:2127
+#: ../src/preferences.c:1480
 msgid "Switch between tabs with <Alt>+0..9"
 msgstr ""
 
-#: ../src/preferences.c:2128
+#: ../src/preferences.c:1481
 msgid "Sidebar notebook tab position"
 msgstr "邊列筆記 tab 位置"
 
-#: ../src/preferences.c:2129
+#: ../src/preferences.c:1482
 msgid "Sidebar location"
 msgstr "邊列位置"
 
-#: ../src/preferences.c:2133 ../src/preferences.c:2135
+#: ../src/preferences.c:1486 ../src/preferences.c:1488
 msgid "Dimensions"
 msgstr "大小"
 
-#: ../src/preferences.c:2140
+#: ../src/preferences.c:1493
 msgid "Leave dimensions to window manager"
 msgstr ""
 
-#: ../src/preferences.c:2141
+#: ../src/preferences.c:1494
 msgid "Restore last used dimensions"
 msgstr "回存上次使用的大小"
 
-#: ../src/preferences.c:2142
+#: ../src/preferences.c:1495
 msgid "Initial sidebar width"
 msgstr "初始化邊列寬度"
 
-#: ../src/preferences.c:2143
+#: ../src/preferences.c:1496
 msgid "Initial window height"
 msgstr "初始化視窗高度"
 
-#: ../src/preferences.c:2144
+#: ../src/preferences.c:1497
 msgid "Initial window width"
 msgstr "初始化視窗寬度"
 
-#: ../src/preferences.c:2151 ../src/preferences.c:2153
+#: ../src/preferences.c:1504 ../src/preferences.c:1506
 #, fuzzy
 msgid "File and directory view"
 msgstr "使用不同的檔案和目錄檢視"
 
-#. pd->prefs[default_basedir] = prefs_string(_("Default basedir"), main_v->props.default_basedir, vbox2, pd, string_none);
-#: ../src/preferences.c:2158
-msgid "Unknown icon"
-msgstr "不明的圖示"
-
 #. arr = array_from_arglist(_("Java programming"),"1", "java:image:jsp", NULL);
 #. main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
-#: ../src/preferences.c:2202 ../src/rcfile.c:950
+#: ../src/preferences.c:1513 ../src/rcfile.c:678
 msgid "Images"
 msgstr "圖像"
 
-#.
-#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Images"), 155,TRUE));
-#.
-#: ../src/preferences.c:2207
+#: ../src/preferences.c:1515
 msgid "Thumbnails"
 msgstr "略圖"
 
-#: ../src/preferences.c:2211
+#: ../src/preferences.c:1519
 msgid "Thumbnail suffix"
 msgstr "略圖副檔名"
 
-#: ../src/preferences.c:2215
+#: ../src/preferences.c:1523
 msgid "Thumbnail filetype"
 msgstr "略圖檔案類型"
 
-#: ../src/preferences.c:2234
+#: ../src/preferences.c:1529
 #, fuzzy
 msgid "External commands"
 msgstr "/外部(X)/命令"
 
-#.
-#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External commands"), 151,TRUE));
-#.
-#: ../src/preferences.c:2241
+#: ../src/preferences.c:1531
 #, fuzzy
 msgid "Commands"
 msgstr "命令"
 
-#: ../src/preferences.c:2249
+#: ../src/preferences.c:1539
 #, fuzzy
 msgid "External filters"
 msgstr "外部程式"
 
-#.
-#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("External filters"), 151,TRUE));
-#.
-#: ../src/preferences.c:2254
+#: ../src/preferences.c:1541
 #, fuzzy
 msgid "Filters"
 msgstr "過濾器"
 
-#.
-#. gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Output parsers"), 157,TRUE));
-#.
-#: ../src/preferences.c:2262 ../src/preferences.c:2267
+#: ../src/preferences.c:1549 ../src/preferences.c:1551
 msgid "Output parsers"
 msgstr "輸出語法解析器"
 
-#: ../src/preferences.c:2278 ../src/preferences.c:2279
+#: ../src/preferences.c:1559 ../src/preferences.c:1560
 msgid "Plugins"
 msgstr ""
 
-#: ../src/preferences.c:2287 ../src/preferences.c:2288
+#: ../src/preferences.c:1568 ../src/preferences.c:1569
 msgid "Text styles"
 msgstr ""
 
-#: ../src/preferences.c:2297
+#: ../src/preferences.c:1578
 #, fuzzy
 msgid "Syntax scanning"
 msgstr "根據比例"
 
-#: ../src/preferences.c:2300
+#: ../src/preferences.c:1581
 msgid "Advanced syntax scanning options"
 msgstr ""
 
-#: ../src/preferences.c:2304
-#, fuzzy
-msgid "Match block begin-end by default"
-msgstr "預設自動換行(_W)"
-
-#: ../src/preferences.c:2305
-#, fuzzy
-msgid "Highlight current line by default"
-msgstr "預設使用語法識別"
-
-#: ../src/preferences.c:2306
-#, fuzzy
-msgid "Show right margin by default"
-msgstr "預設顯示自定選單"
-
-#: ../src/preferences.c:2307
-msgid "Right margin at"
-msgstr ""
-
-#: ../src/preferences.c:2309
-#, fuzzy
-msgid "whole document"
-msgstr "在文件中(_D)"
-
-#: ../src/preferences.c:2309
-msgid "visible area"
-msgstr ""
-
-#: ../src/preferences.c:2310
-msgid "Scan mode"
-msgstr ""
-
-#: ../src/preferences.c:2312
-msgid "Autocompletion key"
-msgstr ""
-
-#: ../src/preferences.c:2313
-#, fuzzy
-msgid "Load network DTD by default"
-msgstr "預設自動換行(_W)"
-
-#: ../src/preferences.c:2316 ../src/preferences.c:2319
+#: ../src/preferences.c:1587 ../src/preferences.c:1595
 msgid "Syntax highlighting"
 msgstr "語法識別"
 
-#: ../src/project.c:133
+#: ../src/preferences.c:1590
+msgid "On keypress only"
+msgstr ""
+
+#: ../src/preferences.c:1590
+#, fuzzy
+msgid "Delayed"
+msgstr "刪除"
+
+#: ../src/preferences.c:1590
+msgid "Immediately"
+msgstr ""
+
+#: ../src/preferences.c:1591
+msgid "Show the autocompletion popup window"
+msgstr ""
+
+#: ../src/project.c:134
 msgid "New project"
 msgstr "新增專案"
 
-#: ../src/project.c:204
+#: ../src/project.c:205
 msgid "Enter Bluefish project filename"
 msgstr "輸入 Bluefish 專案檔名"
 
-#: ../src/project.c:342
+#: ../src/project.c:332
 msgid "Select Bluefish project filename"
 msgstr "選擇 Bluefish 專案檔名"
 
 #. dialog
-#: ../src/project.c:399
+#: ../src/project.c:389
 #, fuzzy
 msgid "Save current project?"
 msgstr "建立空專案"
 
-#: ../src/project.c:525
+#: ../src/project.c:515
 msgid "Create New Project"
 msgstr "建立新專案"
 
-#: ../src/project.c:528
+#: ../src/project.c:518
 msgid "Edit Project"
 msgstr "編輯專案"
 
-#: ../src/project.c:551
+#: ../src/project.c:541
 #, c-format
 msgid "This project contains %d files"
 msgstr "這個專案包含 %d 個檔案"
 
-#: ../src/project.c:563
+#: ../src/project.c:553
 msgid "Project _Name:"
 msgstr "專案名稱(_N):"
 
-#: ../src/project.c:568
+#: ../src/project.c:558
 msgid "_Template:"
 msgstr "樣板(_T):"
 
-#: ../src/project.c:574
+#: ../src/project.c:564
 msgid "_Word wrap by default"
 msgstr "預設自動換行(_W)"
 
-#: ../src/project.c:585
+#: ../src/project.c:575
 msgid "Create _Project"
 msgstr "建立專案(_P)"
 
-#: ../src/project.c:625
+#: ../src/project.c:615
 msgid "Create project"
 msgstr "建立專案"
 
-#: ../src/project.c:629
+#: ../src/project.c:619
 msgid "Create project with currently opened documents"
 msgstr "用目前開啟的文件建立專案"
 
-#: ../src/project.c:630
+#: ../src/project.c:620
 msgid "Create empty project"
 msgstr "建立空專案"
 
 #. if the user does not have outputbox settings --> set them to defaults values
-#: ../src/rcfile.c:644
+#: ../src/rcfile.c:473
 msgid "make"
 msgstr "make"
 
-#: ../src/rcfile.c:645
+#: ../src/rcfile.c:474
 msgid "weblint HTML checker"
 msgstr "weblint HTML checker"
 
-#: ../src/rcfile.c:646
+#: ../src/rcfile.c:475
 msgid "tidy HTML validator"
 msgstr "tidy HTML validator"
 
-#: ../src/rcfile.c:647
+#: ../src/rcfile.c:476
 msgid "javac"
 msgstr "javac"
 
-#: ../src/rcfile.c:648
+#: ../src/rcfile.c:477
 msgid "xmllint XML checker"
 msgstr "xmllint XML checker"
 
-#: ../src/rcfile.c:649
+#: ../src/rcfile.c:478
 msgid "php"
 msgstr "php"
 
-#: ../src/rcfile.c:652
+#: ../src/rcfile.c:481
 #, fuzzy
 msgid "Sort"
 msgstr " 排序 "
 
-#: ../src/rcfile.c:653
+#: ../src/rcfile.c:482
 #, fuzzy
 msgid "Reverse lines"
 msgstr "往後關係(_R):"
 
-#: ../src/rcfile.c:654
+#: ../src/rcfile.c:483
 #, fuzzy
 msgid "Dos2unix"
 msgstr "Dos2Unix filter"
 
-#: ../src/rcfile.c:655
+#: ../src/rcfile.c:484
 #, fuzzy
 msgid "Tidy HTML"
 msgstr "HTML"
 
-#: ../src/rcfile.c:656
+#: ../src/rcfile.c:485
 msgid "Strip empty lines"
 msgstr ""
 
-#: ../src/rcfile.c:657
+#: ../src/rcfile.c:486
 #, fuzzy
 msgid "Render HTML to text"
 msgstr "插入時間"
 
-#: ../src/rcfile.c:660
+#: ../src/rcfile.c:489
 msgid "Firefox"
 msgstr ""
 
-#: ../src/rcfile.c:661
+#: ../src/rcfile.c:490
 msgid "Opera"
 msgstr "Opera"
 
-#: ../src/rcfile.c:860
+#: ../src/rcfile.c:601
 msgid "Untitled Project"
 msgstr "無標題專案"
 
-#: ../src/rcfile.c:944
+#: ../src/rcfile.c:672
 msgid "C programming"
 msgstr "C 程式設計"
 
-#: ../src/rcfile.c:946
+#: ../src/rcfile.c:674
 #, fuzzy
 msgid "Web files"
 msgstr "所有的 Web 檔案"
 
-#: ../src/rcfile.c:952
+#: ../src/rcfile.c:680
 msgid "Hide objectfiles"
 msgstr "隱藏目標檔案"
 
@@ -2515,30 +2466,6 @@ msgstr "全部取代(_A)"
 msgid "Find _All"
 msgstr "尋找"
 
-#: ../src/stringlist.c:367
-msgid " Add "
-msgstr " 新增 "
-
-#: ../src/stringlist.c:369
-msgid " Update "
-msgstr " 更新 "
-
-#: ../src/stringlist.c:371
-msgid " Delete "
-msgstr " 刪除 "
-
-#: ../src/stringlist.c:373
-msgid " Up "
-msgstr " 上 "
-
-#: ../src/stringlist.c:375
-msgid " Down "
-msgstr " 下 "
-
-#: ../src/stringlist.c:377
-msgid " Sort "
-msgstr " 排序 "
-
 #: ../src/undo_redo.c:463
 #, fuzzy
 msgid "Undo in _all documents"
@@ -2556,6 +2483,90 @@ msgstr ""
 #: ../src/undo_redo.c:466
 msgid "This change concerns multiple documents."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Collapse all"
+#~ msgstr "全部關閉(_A)"
+
+#~ msgid "parsing highlighting file..."
+#~ msgstr "解析反白顏色的檔案..."
+
+#~ msgid "compiling highlighting patterns..."
+#~ msgstr "編譯反白顏色的檔型態..."
+
+#~ msgid "don't change weight"
+#~ msgstr "不改變字型粗細"
+
+#~ msgid "force non-bold weight"
+#~ msgstr "使用非粗體"
+
+#~ msgid "don't change style"
+#~ msgstr "不改變字型樣態"
+
+#~ msgid "force non-italic style"
+#~ msgstr "使用非斜體"
+
+#~ msgid "Line numbers by default"
+#~ msgstr "預設顯示列號"
+
+#, fuzzy
+#~ msgid "Block folding view by default"
+#~ msgstr "預設自動換行(_W)"
+
+#, fuzzy
+#~ msgid "Symbols view by default"
+#~ msgstr "預設顯示邊列"
+
+#, fuzzy
+#~ msgid "Tag autoclose by default"
+#~ msgstr "預設顯示邊列"
+
+#, fuzzy
+#~ msgid "Undo options"
+#~ msgstr "編輯器選項"
+
+#~ msgid "Undo history size"
+#~ msgstr "可復原次數"
+
+#, fuzzy
+#~ msgid "Backup file prefix"
+#~ msgstr "備份檔案副檔名"
+
+#~ msgid "Backup file suffix"
+#~ msgstr "備份檔案副檔名"
+
+#~ msgid "Unknown icon"
+#~ msgstr "不明的圖示"
+
+#, fuzzy
+#~ msgid "Show right margin by default"
+#~ msgstr "預設顯示自定選單"
+
+#, fuzzy
+#~ msgid "whole document"
+#~ msgstr "在文件中(_D)"
+
+#, fuzzy
+#~ msgid "Load network DTD by default"
+#~ msgstr "預設自動換行(_W)"
+
+#~ msgid " Add "
+#~ msgstr " 新增 "
+
+#~ msgid " Update "
+#~ msgstr " 更新 "
+
+#~ msgid " Delete "
+#~ msgstr " 刪除 "
+
+#~ msgid " Up "
+#~ msgstr " 上 "
+
+#~ msgid " Down "
+#~ msgstr " 下 "
+
+#~ msgid " Sort "
+#~ msgstr " 排序 "
 
 #~ msgid "_Basedir:"
 #~ msgstr "基本目錄(_D):"
@@ -2628,10 +2639,6 @@ msgstr ""
 #~ msgstr "類型(_T):"
 
 #, fuzzy
-#~ msgid "Default value"
-#~ msgstr "預設的基本目錄"
-
-#, fuzzy
 #~ msgid "Input type"
 #~ msgstr "訊息類型"
 
@@ -2658,9 +2665,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Add ref definition"
 #~ msgstr "名辭定義"
-
-#~ msgid "Delete"
-#~ msgstr "刪除"
 
 #~ msgid "Error"
 #~ msgstr "錯誤"
@@ -3409,17 +3413,8 @@ msgstr ""
 #~ msgid "/Edit/Replace special/Tearoff1"
 #~ msgstr "/編輯(E)/特殊取代/Tearoff1"
 
-#~ msgid "/Edit/Replace special/_ASCII to HTML Entities"
-#~ msgstr "/編輯(E)/特殊取代/取代 _ASCII 為 HTML 實體"
-
 #~ msgid "/Edit/Replace special/_ISO8859 to HTML Entities"
 #~ msgstr "/編輯(E)/特殊取代/取代 _iso8859 為 HTML 實體"
-
-#~ msgid "/Edit/Replace special/_Both Types to HTML Entities"
-#~ msgstr "/編輯(E)/特殊取代/兩者都取代為 HTML 實體(_B)"
-
-#~ msgid "/Edit/Replace special/To _Uppercase"
-#~ msgstr "/編輯(E)/特殊取代/轉成大寫(_U)"
 
 #~ msgid "/Edit/Replace special/To _Lowercase"
 #~ msgstr "/編輯(E)/特殊取代/轉成小寫(_L)"
@@ -5424,9 +5419,6 @@ msgstr ""
 
 #~ msgid "Header tags:"
 #~ msgstr "標題標記:"
-
-#~ msgid "Loading file(s)..."
-#~ msgstr "載入檔案..."
 
 #~ msgid "The filename was:\n"
 #~ msgstr "檔名為:\n"
