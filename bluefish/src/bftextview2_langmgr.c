@@ -615,6 +615,9 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		DBG_PARSING("lookup context %s in hash table..\n",name);
 		return GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, name));
 	}
+	if (!symbols) {
+		return 0;
+	}
 	/* create context */
 	DBG_PARSING("create context symbols %s and style %s\n",symbols,style);
 	context = new_context(bfparser->st,bfparser->bflang->name,symbols,highlight,autocomplete_case_insens);
