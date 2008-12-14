@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<bflang name="PHP" table="32961" contexts="47" matches="5081">
+<bflang name="PHP" table="33009" contexts="47" matches="5093">
 <header>
 	<mime type="application/x-php"/>
 	<option name="allfunctions" default="1" description="All php functions" />
@@ -849,6 +849,7 @@
 <element pattern="fopen" />
 <element pattern="fpassthru" />
 <element pattern="fputcsv" />
+<element pattern="fputs" />
 <element pattern="fread" />
 <element pattern="fscanf" />
 <element pattern="fseek" />
@@ -864,6 +865,7 @@
 <element pattern="is_readable" />
 <element pattern="is_uploaded_file" />
 <element pattern="is_writable" />
+<element pattern="is_writeable" />
 <element pattern="lchgrp" />
 <element pattern="lchown" />
 <element pattern="link" />
@@ -881,6 +883,7 @@
 <element pattern="rename" />
 <element pattern="rewind" />
 <element pattern="rmdir" />
+<element pattern="set_file_buffer" />
 <element pattern="stat" />
 <element pattern="symlink" />
 <element pattern="tempnam" />
@@ -4799,18 +4802,27 @@ returns a result variable</reference></element>
 </group>
 <group highlight="php-keyword" autocomplete="1">
 <element pattern="if" />
-<element pattern="return" />
-<element pattern="function" />
 <element pattern="else" />
-<element pattern="case" />
-<element pattern="switch" />
-<element pattern="break" />
-<element pattern="echo" />
-<element pattern="class" />
-<element pattern="var" />
+<element pattern="elseif" />
+<element pattern="do" />
 <element pattern="while" />
 <element pattern="for" />
 <element pattern="foreach" />
+<element pattern="break" />
+<element pattern="continue" />
+<element pattern="switch" />
+<element pattern="declare" />
+<element pattern="return" />
+<element pattern="require" />
+<element pattern="include" />
+<element pattern="require_once" />
+<element pattern="include_once" />
+<element pattern="function" />
+<element pattern="case" />
+<element pattern="echo" />
+<element pattern="class" />
+<element pattern="var" />
+<element pattern="global" />
 </group>
 <element pattern="[0-9.]+" is_regex="1" highlight="php-value"/>
 <element pattern="TRUE" autocomplete="1" highlight="php-value"/>
