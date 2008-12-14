@@ -139,7 +139,7 @@
 	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="value" />
 	</context>
 </tag>
-<tag name="body" highlight="tag">
+<tag name="body" highlight="tag" attributes="style,class,id,lang">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 <group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;"> 
 	<tag name="div" attributes="style,class,id,align" />
@@ -150,14 +150,15 @@
 	</tag>
 	<tag name="i" attributes="style,class,id" />
 	<tag name="b" attributes="style,class,id" />
+	<tag name="hr" attributes="style,class,id" />
 	<tag name="em" attributes="style,class,id" />
 	<tag name="strong" attributes="style,class,id" />
 	<tag name="u" attributes="style,class,id" />
-	<tag name="a" highlight="special-tag" attributes="style,class,id,href,target" autocomplete_append=" href=&#34;&#34; &gt;" />
+	<tag name="a" highlight="special-tag" attributes="style,class,id,href,target,name" autocomplete_append=" href=&#34;&#34; &gt;" />
 	<tag name="table" highlight="table-tag" attributes="style,class,id" />
 	<tag name="th" highlight="table-tag" attributes="style,class,id" />
 	<tag name="tr" highlight="table-tag" attributes="style,class,id" />
-	<tag name="td" highlight="table-tag" attributes="style,class,id" />
+	<tag name="td" highlight="table-tag" attributes="style,class,id,valign,align" />
 	<tag name="ul" attributes="style,class,id" />
 	<tag name="ol" attributes="style,class,id" />
 	<tag name="li" attributes="style,class,id" />
