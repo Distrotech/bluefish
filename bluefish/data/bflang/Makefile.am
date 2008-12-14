@@ -18,6 +18,7 @@ bflang_DATA = \
 	php.bflang2 \
 	po.bflang2 \
 	python.bflang2 \
+	text.bflang2 \
 	xml.bflang2
 
 bflangdir = $(pkgdatadir)/bflang
