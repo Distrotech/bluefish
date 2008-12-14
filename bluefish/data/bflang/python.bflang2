@@ -1931,5 +1931,5 @@
 <element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
 <element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
 <element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
-<element pattern="#[^&#10;]*" is_regex="1" highlight="comment"/>
+<element pattern="#[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
 </context></definition></bflang>
