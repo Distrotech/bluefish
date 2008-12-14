@@ -43,7 +43,6 @@
 #include "document.h"
 #include "file.h"
 #include "filebrowser2.h"
-#include "filetype.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"       /* *_dialog() */
 #include "gui.h"            /* statusbar_message() */

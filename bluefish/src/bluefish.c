@@ -39,7 +39,6 @@
 #include "dialog_utils.h"		/* message_dialog_new() */
 #include "document.h"
 #include "filebrowser2.h"
-#include "filetype.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"			/* flush_queue() */
 #include "gui.h"				/* gui_create_main() */

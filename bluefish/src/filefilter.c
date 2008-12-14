@@ -30,7 +30,6 @@
 #include "dialog_utils.h"
 #include "document.h"
 #include "file.h"
-#include "filetype.h"
 #include "file_dialogs.h"
 #include "gtk_easy.h"        /* destroy_disposable_menu_cb() */
 #include "stringlist.h"      /* count_array() */
