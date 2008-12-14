@@ -37,7 +37,7 @@
 	<element pattern="break" />
 	<element pattern="eval" />
 </group>
-<element pattern="#[^&#10;]*" is_regex="1" highlight="comment"/>
+<element pattern="#[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
 <element pattern="'[^']*'" is_regex="1" highlight="string"/>
 <element pattern="&quot;" highlight="string">
 <context symbols="\&quot;${}" highlight="string">

@@ -53,7 +53,7 @@
 			</context>
 		</element>
 		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
-		<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
+		<element pattern="//[^&#10;&#13;]+" is_regex="1" highlight="comment"/>
 		<!-- <element pattern="#[^&#10;]+" is_regex="1" highlight="tag"/> -->
 	</context>
 </definition>
