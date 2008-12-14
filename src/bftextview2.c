@@ -47,11 +47,11 @@ static gboolean bftextview2_user_idle_timer(gpointer data)
 	BluefishTextView *btv = data;
 	guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 	if (elapsed + 10 >= USER_IDLE_EVENT_INTERVAL) {	/* avoid delaying for less than 10 milliseconds */
-		DBG_AUTOCOMP("bftextview2_user_idle_timer, user is > %d milliseconds idle, mode=%d\n", elapsed,main_v->props.autocomp_popup_mode);
+		DBG_AUTOCOMP("bftextview2_user_idle_timer, user is > %d milliseconds idle, autocomp=%d, mode=%d\n", elapsed,btv->autocomplete, main_v->props.autocomp_popup_mode);
 #ifdef IN_BLUEFISH
-		if (btv->autocomp && main_v->props.autocomp_popup_mode == 1)
+		if (btv->autocomplete && main_v->props.autocomp_popup_mode == 1)
 #else
-		if (btv->autocomp && autocomp_popup_mode == 1)
+		if (btv->autocomplete && autocomp_popup_mode == 1)
 #endif
 			autocomp_run(btv,FALSE);
 		btv->user_idle = 0;
