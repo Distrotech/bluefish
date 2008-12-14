@@ -1277,15 +1277,15 @@
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
-		<element pattern="{" starts_block="1" mayfold="1" highlight="bracket" />
+		<element id="{" pattern="{" starts_block="1" mayfold="1" highlight="bracket" />
 		<element pattern="}" ends_block="1" blockstartelement="{" highlight="bracket" />
-		<element pattern="[" starts_block="1" mayfold="1" highlight="bracket" />
+		<element id="[" pattern="[" starts_block="1" mayfold="1" highlight="bracket" />
 		<element pattern="]" ends_block="1" blockstartelement="[" highlight="bracket" />
-		<element pattern="(" starts_block="1" mayfold="1" highlight="bracket" />
+		<element id="(" pattern="(" starts_block="1" mayfold="1" highlight="bracket" />
 		<element pattern=")" ends_block="1" blockstartelement="(" highlight="bracket" />
 		<element id="commstart" pattern="/*" starts_block="1" highlight="comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="comment">
-				<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
+				<element pattern="*/" ends_block="1" blockstartelement="commstart" highlight="comment" mayfold="1" ends_context="1" />
 			</context>
 		</element>
 		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
