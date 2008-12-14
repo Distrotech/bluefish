@@ -812,23 +812,26 @@ static void hl_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd
 	GtkTreeModel *model;
 	g_print("hl_selection_changed_cb, started\n");
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
-		gchar *name, *filetype, **strarr;
-		gtk_tree_model_get(model, &iter, 0, &name, 1, &filetype, 2, &strarr, -1);
-		pd->hld.curstrarr = NULL;
-		if (strarr == NULL) {
-			/* create the strarr if there is none yet */
-			strarr = g_malloc(4*sizeof(gchar *));
-			strarr[0] = filetype;
-			strarr[1] = name;
-			strarr[2] = g_strdup("");
-			strarr[3] = NULL;
-			gtk_tree_store_set(GTK_TREE_STORE(model), &iter, 2, strarr, -1);
-			hl_set_textstylecombo_by_text(pd, NULL);
-			pd->lists[highlight_styles] = g_list_prepend(pd->lists[highlight_styles], strarr);
-		} else {
-			hl_set_textstylecombo_by_text(pd, strarr[2]);
+		GtkTreeIter parent;
+		if (gtk_tree_model_iter_parent (model, &parent, &iter)) {
+			gchar *name, *filetype, **strarr;
+			gtk_tree_model_get(model, &iter, 0, &name, 1, &filetype, 2, &strarr, -1);
+			pd->hld.curstrarr = NULL;
+			if (strarr == NULL) {
+				/* create the strarr if there is none yet */
+				strarr = g_malloc(4*sizeof(gchar *));
+				strarr[0] = filetype;
+				strarr[1] = name;
+				strarr[2] = g_strdup("");
+				strarr[3] = NULL;
+				gtk_tree_store_set(GTK_TREE_STORE(model), &iter, 2, strarr, -1);
+				hl_set_textstylecombo_by_text(pd, NULL);
+				pd->lists[highlight_styles] = g_list_prepend(pd->lists[highlight_styles], strarr);
+			} else {
+				hl_set_textstylecombo_by_text(pd, strarr[2]);
+			}
+			pd->hld.curstrarr = strarr;
 		}
-		pd->hld.curstrarr = strarr;
 	} else {
 		DEBUG_MSG("no selection, returning..\n");
 	}
