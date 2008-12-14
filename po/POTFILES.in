@@ -2,14 +2,10 @@ desktop-data/bluefish-unstable.desktop.in
 desktop-data/bluefish-unstable-project.desktop.in
 desktop-data/bluefish-unstable.keys.in
 desktop-data/bluefish-unstable.xml.in
-src/autocomp.c
-src/autocomp.h
 src/bf_lib.c
 src/bf_lib.h
 src/bfspell.c
 src/bfspell.h
-src/bf-textview.c
-src/bf-textview.h
 src/blocksync.c
 src/blocksync.h
 src/bluefish.c
@@ -36,8 +32,6 @@ src/file_dialogs.c
 src/file_dialogs.h
 src/filefilter.c
 src/filefilter.h
-src/filetype.c
-src/filetype.h
 src/gtk_easy.c
 src/gtk_easy.h
 src/gui.c
@@ -62,9 +56,5 @@ src/snr2.c
 src/snr2.h
 src/stringlist.c
 src/stringlist.h
-src/textstyle.c
-src/textstyle.h
-src/treetips.c
-src/treetips.h
 src/undo_redo.c
 src/undo_redo.h
