@@ -373,31 +373,6 @@ sql:Data Types:1:\\b(CHAR|CHAR_LENGTH|CHARACTER|CHARACTER_LENGTH|DEC|DECIMAL|DOU
 sql:Admin:1:\\b(AUTHORIZATION|DROP|GRANT|GROUP|SYSTEM_USER|USER|REVOKE|PRIVILEGES|SESSION|SESSION_USER)\\b::2::#992828::2:0:
 sql:User/Host:1:\\b([a-z0-9]+)\\@([a-z0-9]+)\\b::2::::2:2:
 sql:Group/Joining/Order:1:\\b(GROUP BY|INNER JOIN|OUTER JOIN|RIGHT JOIN|LEFT JOIN|ORDER BY)\\b::2::darkorange::2:0:
-tcl:Comment:1:#.*?$::2:^top$:#999999::0:2:
-tcl:Keywords:1:\\b(package|proc|global|return)\\b::2::#003399::2:1:
-tcl:Import/Include:1:\\b(require|provide)\\b::2::#009999::2:1:
-tcl:Braces:1:(\\{|\\}|\\[|\\]|\\(|\\))::2::#339933::2:1:
-tcl:Flow Control:1:\\b(foreach|if|else|elseif|while|for|continue|next|break|exit)\\b::2::#990066::2:1:
-tcl:Package Name:1:[a-z0-9\\-_\\.]+(?=\:\:)::2::#990066::2:1:
-tcl:Package Procedure:1:(?<=\:\:)[a-z0-9\\-_\\.]+::2::#990066::2:1:
-tcl:Builtin Procedures:1:\\b(append|exists|incr|length|Stderr|Stdin|Stdout|unset)\\b::2::#006600::2:1:
-tcl:Procedure:1:(?<=proc )[a-z\\-_0-9\\/]+(?=( )? \\{)::2::#660000::2:1:
-tcl:Special Characters:1:(\:|=|\\+|\\*|\\/|\\\\|&|!|#|%|~|@|\\.|,)::2::#009966::2:1:
-tcl:String (double quoted):1:":(?<!\\\\)":1::#009966::1:2:
-tcl:Variable:1:\\$[a-z0-9\\-_]+:":2:^(top|String \\(double quoted\\))$:#000066::2:1:
-tcl:Argument:1:\\-[a-z]+::2::#009966::2:1:
-tcl:Data Types:1:\\b(array|blob|glob|list|set|string)\\b::2::#660099::2:1:
-tcl:Numbers:1:[0-9\\.]+::2::#999900::2:1:
-xml:Format:1:<\\?:\\?>:1:^top$:#000000::2:1:
-xml:Tag:1:<((/)?[a-z0-9\:-]+):[^?-]?>:1::#0000ee::0:0:
-xml:Tag Name:1:1::3:^Tag$:#005676::2:0:
-xml:Attribute:1:([a-z\:\\-.]*=)((?\:"[^"]*")|(?\:'[^']*'))::2:^Tag$:#3cb300::1:0:
-xml:Attribute Content:1:2::3:^Attribute$:#ff7600::1:0:
-xml:DocType:1:<!DOCTYPE [a-z0-9]+:>:1::#b35300::0:0:
-xml:Entity:1:[\\[]:[\\]]:1:^DocType$:#b35300::2:1:
-xml:Comment:0:<!--:-->:1:^top|DocType|Entity$:#AAAAAA::1:2:
-xml:Character Data:1:<!\\[CDATA\\[:\\]\\]>:1::#a2b300::0:0:
-xml:Character Entity:1:&[^;]+;::2::#9b0054::0:0:
 stylesheet:Charset:1:\\@charset\\s*("[^"]*")\\s*;::2:^top$:#666666::2:1:
 stylesheet:Charset Value:1:1::3:^Charset$:#006699::2:2:
 stylesheet:Import:1:\\@import\\s*url(\\("[^"]*"\\))\\s*(?\:(?\:all|aural|braille|emboss|handheld|print|projection|screen|tty|tv)[\\s,]*)+\\s*;::2:^top$:#666666::2:1:
@@ -430,3 +405,28 @@ stylesheet:Symbols:1:[\\,]::2:^top|Import|Media|Braces$:#000000::1:1:
 stylesheet:String_double_quoted:1:":":1:^top|Braces$:#006699::1:2:
 stylesheet:String_single_quoted:1:':':1:^top|Braces$:#006699::1:2:
 stylesheet:String_escaped:1:\\\\['"]::2:^String_double_quoted|String_single_quoted$:#006699::0:0:
+tcl:Comment:1:#.*?$::2:^top$:#999999::0:2:
+tcl:Keywords:1:\\b(package|proc|global|return)\\b::2::#003399::2:1:
+tcl:Import/Include:1:\\b(require|provide)\\b::2::#009999::2:1:
+tcl:Braces:1:(\\{|\\}|\\[|\\]|\\(|\\))::2::#339933::2:1:
+tcl:Flow Control:1:\\b(foreach|if|else|elseif|while|for|continue|next|break|exit)\\b::2::#990066::2:1:
+tcl:Package Name:1:[a-z0-9\\-_\\.]+(?=\:\:)::2::#990066::2:1:
+tcl:Package Procedure:1:(?<=\:\:)[a-z0-9\\-_\\.]+::2::#990066::2:1:
+tcl:Builtin Procedures:1:\\b(append|exists|incr|length|Stderr|Stdin|Stdout|unset)\\b::2::#006600::2:1:
+tcl:Procedure:1:(?<=proc )[a-z\\-_0-9\\/]+(?=( )? \\{)::2::#660000::2:1:
+tcl:Special Characters:1:(\:|=|\\+|\\*|\\/|\\\\|&|!|#|%|~|@|\\.|,)::2::#009966::2:1:
+tcl:String (double quoted):1:":(?<!\\\\)":1::#009966::1:2:
+tcl:Variable:1:\\$[a-z0-9\\-_]+:":2:^(top|String \\(double quoted\\))$:#000066::2:1:
+tcl:Argument:1:\\-[a-z]+::2::#009966::2:1:
+tcl:Data Types:1:\\b(array|blob|glob|list|set|string)\\b::2::#660099::2:1:
+tcl:Numbers:1:[0-9\\.]+::2::#999900::2:1:
+xml:Format:1:<\\?:\\?>:1:^top$:#000000::2:1:
+xml:Tag:1:<((/)?[a-z0-9\:-]+):[^?-]?>:1::#0000ee::0:0:
+xml:Tag Name:1:1::3:^Tag$:#005676::2:0:
+xml:Attribute:1:([a-z\:\\-_.]*=)((?\:"[^"]*")|(?\:'[^']*'))::2:^Tag$:#3cb300::1:0:
+xml:Attribute Content:1:2::3:^Attribute$:#ff7600::1:0:
+xml:DocType:1:<!DOCTYPE [a-z0-9]+:>:1::#b35300::0:0:
+xml:Entity:1:[\\[]:[\\]]:1:^DocType$:#b35300::2:1:
+xml:Comment:0:<!--:-->:1:^top|DocType|Entity$:#AAAAAA::1:2:
+xml:Character Data:1:<!\\[CDATA\\[:\\]\\]>:1::#a2b300::0:0:
+xml:Character Entity:1:&[^;]+;::2::#9b0054::0:0:
