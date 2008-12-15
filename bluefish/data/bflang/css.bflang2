@@ -5,6 +5,7 @@
 	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
 	<highlight name="property" style="special-keyword" fgcolor="#990000" bold="1" />
 	<highlight name="brackets" style="brackets" bold="1" />
+	<highlight name="tag" style="tag" bold="1" />
 </header>
 <definition>
 <context symbols=" &#9;&#10;&#13;{}.">
@@ -32,10 +33,21 @@
 	<context id="color" symbols=" &#9;&#10;&#13;{}.;">
 		<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="value" is_regex="1" case_insens="1"/>
 		<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="value" is_regex="1" case_insens="1"/>
-		<element pattern="red" highlight="value" autocomplete="TRUE"/>
-		<element pattern="green" highlight="value" autocomplete="TRUE"/>
-		<element pattern="blue" highlight="value" autocomplete="TRUE"/>
+		<element pattern="aqua" highlight="value" autocomplete="TRUE"/>
 		<element pattern="black" highlight="value" autocomplete="TRUE"/>
+		<element pattern="blue" highlight="value" autocomplete="TRUE"/>
+		<element pattern="fuchsia" highlight="value" autocomplete="TRUE"/>
+		<element pattern="gray" highlight="value" autocomplete="TRUE"/>
+		<element pattern="green" highlight="value" autocomplete="TRUE"/>
+		<element pattern="lime" highlight="value" autocomplete="TRUE"/>
+		<element pattern="maroon" highlight="value" autocomplete="TRUE"/>
+		<element pattern="navy" highlight="value" autocomplete="TRUE"/>
+		<element pattern="olive" highlight="value" autocomplete="TRUE"/>
+		<element pattern="orange" highlight="value" autocomplete="TRUE"/>
+		<element pattern="purple" highlight="value" autocomplete="TRUE"/>
+		<element pattern="red" highlight="value" autocomplete="TRUE"/>
+		<element pattern="silver" highlight="value" autocomplete="TRUE"/>
+		<element pattern="teal" highlight="value" autocomplete="TRUE"/>
 		<element pattern="white" highlight="value" autocomplete="TRUE"/>
 		<element pattern="yellow" highlight="value" autocomplete="TRUE"/>
 		<element pattern=";" ends_context="1"/>
