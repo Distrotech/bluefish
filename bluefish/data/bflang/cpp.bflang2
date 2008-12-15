@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<bflang name="C++" matches="79" contexts="6" table="354">
+<header>
+	<mime type="text/x-c++src"/>
+	<mime type="text/x-c++hdr"/>
+	<mime type="application/x-c++src"/>
+	<mime type="application/x-c++hdr"/>
+
+	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="bracket" style="bracket" bold="1" />
+	<highlight name="type" style="type" fgcolor="#000000" bold="1" />
+	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="string" style="string" fgcolor="#008800"  />
+	<highlight name="value" style="value" fgcolor="#0000EE"  />
+	<highlight name="preprocessor" style="preprocessor" fgcolor="#aaaa00"  />
+</header>
+<definition>
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+
+	<group highlight="keyword" autocomplete="1">
+	<element pattern="asm" />
+	<element pattern="auto" />
+	<element pattern="break" />
+	<element pattern="case" />
+	<element pattern="catch" />
+	<element pattern="class" />
+	<element pattern="const" />
+	<element pattern="const_cast" />
+	<element pattern="continue" />
+	<element pattern="default" />
+	<element pattern="delete" />
+	<element pattern="do" />
+	<element pattern="dynamic_cast" />
+	<element pattern="else" />
+	<element pattern="explicit" />
+	<element pattern="extern" />
+	<element pattern="for" />
+	<element pattern="friend" />
+	<element pattern="goto" />
+	<element pattern="if" />
+	<element pattern="inline" />
+	<element pattern="mutable" />
+	<element pattern="namespace" />
+	<element pattern="new" />
+	<element pattern="operator" />
+	<element pattern="private" />
+	<element pattern="protected" />
+	<element pattern="public" />
+	<element pattern="register" />
+	<element pattern="reinterpret_cast" />
+	<element pattern="return" />
+	<element pattern="sizeof" />
+	<element pattern="static" />
+	<element pattern="static_cast" />
+	<element pattern="struct" />
+	<element pattern="switch" />
+	<element pattern="template" />
+	<element pattern="typeid" />
+	<element pattern="typename" />
+	<element pattern="typedef" />
+	<element pattern="using" />
+	<element pattern="virtual" />
+	<element pattern="volatile" />
+	<element pattern="while" />
+	</group>
+
+	<group highlight="type" autocomplete="1">
+		<element pattern="bool"/>
+		<element pattern="unsigned"/>
+		<element pattern="signed"><reference><b></b> <b>signed</b> means if the storage can have negative numbers or only positive numbers</reference></element>
+		<element pattern="void"><reference><b></b> <b>void</b> is the default storage type for a pointer, 16 bits on 16 bit architecture, 32 bits on 32 bit architecture, 64 bits on 64 bit architecture</reference></element>
+		<element pattern="int"><reference><b></b> <b>int</b> is the integer storage type, minimal 2 bytes but usually 4 bytes (32bits)</reference></element>
+		<element pattern="char"><reference><b></b> <b>char</b> is the character storage type, which is 1 byte (8bits)</reference></element>
+		<element pattern="enum" />
+		<element pattern="short"><reference><b></b> a <b>short</b> int is 2 bytes (16bits)</reference></element>
+		<element pattern="long"><reference><b></b> a <b>long</b> int is minimally 4 bytes (32bits), on 64bit architectures it is 8 bytes (64 bits). A <b>long long</b> int is minimally 8 bytes, and 16 bytes on 64bit architectures. A <b>long</b> double might be 64 or 128 bits.</reference></element>
+		<element pattern="float"><reference><b></b> float is the floating point storage type, which is 2 or 4 bytes (16 or 32bits)</reference></element>
+		<element pattern="double"><reference><b></b> double is the big floating point storage type, which is 4 or 8 byte (32 or 64bits)</reference></element>
+		<element pattern="union" />
+		<element pattern="wchar_t" />
+	</group>
+	
+	<element pattern="true"  highlight="value" />	
+	<element pattern="false"  highlight="value" />	
+	<element pattern="NULL" autocomplete="1" highlight="value" />
+	<element pattern="&#34;" highlight="string">
+		<context symbols="\&#34;nrt" highlight="string">
+			<element pattern="\." is_regex="1" highlight="string" />
+			<element pattern="&#34;" highlight="string" ends_context="1" />
+		</context>
+	</element>
+	<element pattern="'" highlight="string">
+		<context symbols="\'" highlight="string">
+			<element pattern="\." is_regex="1" highlight="string" />
+			<element pattern="'" highlight="string" ends_context="1" />
+		</context>
+	</element>
+	<element id="{" pattern="{" starts_block="1" mayfold="1" highlight="bracket" />
+	<element pattern="}" ends_block="1" blockstartelement="{" highlight="bracket" />
+	<element id="[" pattern="[" starts_block="1" mayfold="1" highlight="bracket" />
+	<element pattern="]" ends_block="1" blockstartelement="[" highlight="bracket" />
+	<element id="(" pattern="(" starts_block="1" mayfold="1" highlight="bracket" />
+	<element pattern=")" ends_block="1" blockstartelement="(" highlight="bracket" />
+	<element id="commstart" pattern="/*" starts_block="1" highlight="comment">
+		<context symbols="*/&#9;&#10;&#13;" highlight="comment">
+			<element pattern="*/" ends_block="1" blockstartelement="commstart" highlight="comment" mayfold="1" ends_context="1" />
+		</context>
+	</element>
+	<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+	<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
+	<element pattern="#(include|if|else|endif|ifdef|ifndef|define)" is_regex="1" highlight="preprocessor">
+		<context symbols="/*&#10;&#13;" highlight="preprocessor">
+			<element pattern="[&#10;&#13;]" is_regex="1" ends_context="1" />
+			<element id="commstart" />	
+		</context>
+	</element>
+	</context>
+</definition>
+</bflang>
