@@ -167,7 +167,7 @@ typedef struct {
 	Textra_button buttype;
 } Tcs3_arr;
 
-static gchar *cs3_colors[] = {"white", "black", "blue", "red", "yellow", "green", "brown", "purple", NULL};
+static gchar *cs3_colors[] = {"aqua", "black", "blue", "fuchsia", "gray", "green", "lime", "maroon", "navy", "olive", "orange", "purple", "red", "silver", "teal", "white", "yellow", NULL};
 static gchar *cs3_repeat[] = {"repeat", "repeat-x", "repeat-y", "no-repeat", NULL};
 static gchar *cs3_fonts[] = {"arial, helvetica, sans-serif", "roman, 'times new roman', times, serif", "courier, fixed, monospace", "western, fantasy",  "Zapf-Chancery, cursive", "serif", "sans-serif", "cursive", "fantasy", "monospace", NULL};
 static gchar *cs3_font_size_adjustments[] = {"none", NULL};
