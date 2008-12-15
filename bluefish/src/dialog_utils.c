@@ -196,7 +196,7 @@ dialog_mnemonic_label_in_table(const gchar *labeltext,
 	gtk_misc_set_alignment (GTK_MISC (label), 0, 0.5);
 	gtk_table_attach (GTK_TABLE (table), label, 
 					  left_attach, right_attach, top_attach, bottom_attach, 
-					  GTK_FILL, GTK_FILL, 0, 0);
+					  GTK_FILL, GTK_SHRINK, 0, 0);
 	
 	if (m_widget)
 		gtk_label_set_mnemonic_widget (GTK_LABEL (label), m_widget);
