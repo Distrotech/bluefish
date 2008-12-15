@@ -192,9 +192,6 @@
 						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
 					</context>
 				</element>
-				<element pattern="border" autocomplete="1" highlight="property" autocomplete_append=": ">
-					<reference>A shorthand property for setting the properties border-width, border-style, and border-color for the four borders in one declaration</reference>
-				</element>
 				<element pattern="border-bottom" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="border-bottom-color" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<context id="color" />
@@ -251,6 +248,7 @@
 				</element>
 				<element pattern="border-top-width" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="border-width" autocomplete="1" highlight="property" autocomplete_append=": "/>
+				<!-- TODO: The following does not work! -->
 				<element pattern="border" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<reference>A shorthand property for setting the properties border-width, border-style, and border-color for the four borders in one declaration</reference>
 					<context id="border-style" />
