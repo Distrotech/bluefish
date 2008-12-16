@@ -41,21 +41,27 @@
 		<element idref="comment"/>
 		<element idref="entity" />
 		<tag name="context" id="context" highlight="tag" autocomplete_append=" symbols=&quot;&quot; &gt;" attributes="id,idref,symbols,highlight" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+			<reference>Every definition starts with a context. The most important attribute of a context are the symbols. Symbols is a string with all characters that may be at the start or end of a pattern (for example whitespace in most programming languages, or &lt; and &gt; in XML, SGML and HTML), or characters that are a pattern themselves (for example a bracket [ ).</reference>
 			<context idref="context" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 			<element idref="comment"/>
 			<element idref="entity" />
 			<tag id="element" name="element" highlight="pattern-tag" autocomplete_append=" pattern=&quot;&quot; /&gt;" attributes="id,idref,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,blockhighlight,class,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+			<reference>Element is an actual language element that is syntax highlighted, autocompleted or has reference information. The most important attribute is pattern. The pattern may be a keyword (such as <b>function</b>) or a regular expression pattern (such as <b>[0-9]+</b>) if attribute is_regex is set to 1.  </reference>
 				<context id="innerpattern" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 					<element idref="comment"/>
 					<element idref="entity" />
-					<tag name="reference" highlight="tag" autocomplete_append="/&gt;" />
+					<tag name="reference" highlight="tag" autocomplete_append="&gt;&lt;/reference&gt;">
+						<reference>reference is a tag that can be added to tag or to element. The text within the reference opening/closing is the reference information about the pertinent tag or element. Simple layout is available because the string is passed to Pango.</reference>
+					</tag>
 					<tag idref="context" />
 				</context>
 			</tag>
 			<tag id="tag" name="tag" highlight="pattern-tag" autocomplete_append=" name=&quot;&quot; /&gt;" attributes="id,idref,name,highlight,class,attributes,autocomplete,autocomplete_append,attribhighlight,attrib_autocomplete_append" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+			<reference>tag is added for convenience. Everything within tag is possible with a combination of multiple element and context tags.  </reference>
 				<context idref="innerpattern" />
 			</tag>
 			<tag name="group" id="group" highlight="tag" autocomplete_append="&gt;" attributes="highlight,autocomplete,autocomplete_append,class,case_insens,is_regex,attrib_autocomplete_append,attribhighlight" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+			<reference>group is a tag that can be used to group multiple tags or multiple elements that share the same attribute values for the attributes highlight, autocomplete, autocomplete_append, class, case_insens, is_regex, attrib_autocomplete_append or attribhighlight. These attributes are then only set for the group tag, and not for the elements or tags immediately within this group tag.</reference>
 				<context id="group" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 				<element idref="comment"/>
 				<element idref="entity" />
