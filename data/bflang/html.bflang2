@@ -27,28 +27,30 @@
 	<tag name="meta" highlight="tag" attributes="name,http-equiv,content" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<tag name="title" highlight="tag" autocomplete_append="&gt; &lt;/title&gt;" />
 
-<tag name="script" highlight="tag" attributes="src,type" autocomplete_append="&gt;" attribhighlight="attribute">
+<tag id="script" name="script" highlight="tag" attributes="src,type" autocomplete_append="&gt;" attribhighlight="attribute">
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 <element pattern="(" id="js(" starts_block="1" highlight="brackets"/>
 <element pattern=")" highlight="brackets" ends_block="1" blockstartelement="js("/>
 <element pattern="{" id="js{" starts_block="1" highlight="brackets"/>
 <element pattern="}" highlight="brackets" ends_block="1" blockstartelement="js{"/>
+<element pattern="[" id="js[" starts_block="1" highlight="brackets"/>
+<element pattern="]" highlight="brackets" ends_block="1" blockstartelement="js["/>
 <group highlight="js-keyword" autocomplete="1">
-<element pattern="if" />
-<element pattern="else" />
-<element pattern="where" />
-<element pattern="case" />
-<element pattern="switch" />
-<element pattern="break" />
-<element pattern="return" />
-<element pattern="while" />
-<element pattern="for" />
-<element pattern="function" />
-<element pattern="var" />
-<element pattern="new" />
-<element pattern="try" />
-<element pattern="catch" />
-<element pattern="default" />
+	<element pattern="if" />
+	<element pattern="else" />
+	<element pattern="where" />
+	<element pattern="case" />
+	<element pattern="switch" />
+	<element pattern="break" />
+	<element pattern="return" />
+	<element pattern="while" />
+	<element pattern="for" />
+	<element pattern="function" />
+	<element pattern="var" />
+	<element pattern="new" />
+	<element pattern="try" />
+	<element pattern="catch" />
+	<element pattern="default" />
 </group>
 <group highlight="js-function" autocomplete="1">
 <element pattern="getElementsByTagName" />
@@ -72,25 +74,23 @@
 	</context>
 </element>
 <element pattern="//" highlight="js-comment">
-	<context symbols="&#34;&gt;&lt; " highlight="js-comment">
-		<element pattern="&#34;" highlight="js-comment" ends_context="1" />
+	<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
+		<element pattern="[&#10;&#13;]" is_regex="1" highlight="js-comment" ends_context="1" />
 		<element pattern="&lt;/script&gt;" highlight="tag" ends_context="6"/>
 	</context>
 </element>
-<element pattern="/*" starts_block="1" highlight="js-comment">
+<element id="js/*" pattern="/*" starts_block="1" highlight="js-comment">
 	<context symbols="*/&#9;&#10;&#13;" highlight="js-comment">
-		<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="js-comment" mayfold="1" ends_context="1" />
+		<element pattern="*/" ends_block="1" blockstartelement="js/*" highlight="js-comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
-
-<element pattern="&lt;/script&gt;" highlight="tag" ends_context="5"/>
 </context>
 </tag>
 <tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
-				<context symbols=" &#9;&#10;&#13;{}.">
-		<element pattern="/*" starts_block="1" highlight="comment">
-			<context symbols="*/&#9;&#10;&#13;" highlight="comment">
-				<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
+	<context symbols=" &#9;&#10;&#13;{}./*&lt;&gt;">
+		<element id="css/*" pattern="/*" starts_block="1" highlight="css-comment">
+			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
+				<element pattern="*/" ends_block="1" blockstartelement="css/*" highlight="css-comment" ends_context="1" />
 			</context>
 		</element>
 
@@ -147,6 +147,7 @@
 </tag>
 <tag name="body" highlight="tag" attributes="style,class,id,lang">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+	<tag idref="script" />
 <group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;"> 
 	<tag name="div" attributes="style,class,id,align" />
 	<tag name="p" attributes="style,class,id,align" />
@@ -176,6 +177,7 @@
 	<tag name="h6" attributes="style,class,id" />
 	<tag name="br" attributes="style,class,id" autocomplete_append=" /&gt;" />
 	<tag name="kbd" attributes="style,class,id" />
+	<tag name="dl" attributes="style,class,id" />
 	<tag name="form" highlight="form-tag" attributes="style,class,id,action,method,enctype,target" />
 	<tag name="input" highlight="form-tag" attributes="style,class,id,type,name,value,size,maxlength,checked" />
 	<tag name="select" highlight="form-tag" attributes="style,class,id,name,size,multiple" />
