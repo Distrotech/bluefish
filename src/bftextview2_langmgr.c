@@ -152,7 +152,7 @@ void langmgr_reload_user_highlights(void) {
 		gchar **arr2, **arr = (gchar **)tmplist->data;
 		if (arr[0] && arr[1] && arr[3]) {
 			arr2 = array_from_arglist(arr[0], arr[1], NULL);
-			g_print("set style %s for highlight %s:%s\n",arr[2],arr2[0],arr2[1]);
+			/*g_print("set style %s for highlight %s:%s\n",arr[2],arr2[0],arr2[1]);*/
 			g_hash_table_insert(langmgr.configured_styles,arr2,g_strdup(arr[2]));
 		}
 	}
@@ -618,17 +618,18 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_case_insens",&autocomplete_case_insens);
 		xmlFree(aname);
 	}
+	DBG_PARSING("found <context> (empty=%d) with id=%s, idref=%s\n",is_empty, name, idref);
 	if (is_empty && idref && !name && !symbols && !highlight && !autocomplete_case_insens) {
 		DBG_PARSING("lookup context %s in hash table..\n",name);
 		context = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, idref));
 		g_free(idref);
 		return context;
 	}
-	if (!symbols || !name) {
+	if (!symbols) {
 		return 0;
 	}
 	/* create context */
-	DBG_PARSING("create context symbols %s and style %s\n",symbols,style);
+	DBG_PARSING("create context symbols %s and highlight %s\n",symbols,highlight);
 	context = new_context(bfparser->st,bfparser->bflang->name,symbols,highlight,autocomplete_case_insens);
 	g_queue_push_head(contextstack,GINT_TO_POINTER(context));
 	if (name) {
@@ -691,13 +692,14 @@ static gpointer build_lang_thread(gpointer data)
 
 	while (xmlTextReaderRead(reader) == 1) {
 		xmlChar *name = xmlTextReaderName(reader);
-		DBG_PARSING("found %s\n",name);
+		DBG_PARSING("build_lang_thread, found %s\n",name);
 		if (xmlStrEqual(name,(xmlChar *)"header")) {
 			/* actually we can skip detection */
 			DBG_PARSING("processing <header>\n");
 			process_header(reader,bflang);
 		} else if (xmlStrEqual(name,(xmlChar *)"definition")) {
 			if (xmlTextReaderIsEmptyElement(reader)) {
+				DBG_PARSING("empty <definition />\n");
 				/* empty <definition />, probably text/plain */
 				bfparser->st->table->len = 2;
 				bfparser->st->matches->len = 2;
@@ -715,7 +717,7 @@ static gpointer build_lang_thread(gpointer data)
 					xmlFree(name2);
 					break;
 				} else
-					DBG_PARSING("found %s\n",name2);
+					DBG_PARSING("build_lang_thread, within <definition>, found %s\n",name2);
 				xmlFree(name2);
 			}
 		}
@@ -870,9 +872,11 @@ void langmgr_init() {
 	langmgr_reload_user_styles(main_v->props.textstyles);
 	for (tmplist = g_list_first(main_v->props.highlight_styles);tmplist;tmplist=tmplist->next) {
 		gchar **arr2, **arr = (gchar **)tmplist->data;
-		arr2 = array_from_arglist(arr[0], arr[1], NULL);
-		g_print("set style %s for highlight %s:%s\n",arr[2],arr2[0],arr2[1]);
-		g_hash_table_insert(langmgr.configured_styles,arr2,g_strdup(arr[2]));
+		if (arr[0] && arr[1] && arr[2]) {
+			arr2 = array_from_arglist(arr[0], arr[1], NULL);
+			/*g_print("set style %s for highlight %s:%s\n",arr[2],arr2[0],arr2[1]);*/
+			g_hash_table_insert(langmgr.configured_styles,arr2,g_strdup(arr[2]));
+		}
 	}
 	scan_bflang2files();
 	DBG_PARSING("langmgr_init, returning \n");

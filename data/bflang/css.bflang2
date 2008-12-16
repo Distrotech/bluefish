@@ -131,8 +131,8 @@
 					<context symbols=" &#9;&#10;&#13;{}.;">
 						<element pattern="scroll" autocomplete="1" highlight="value" autocomplete_append=";"/>
 						<element pattern="fixed" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element id=";" pattern=";" ends_context="1"/>
+						<element id="}" pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
 					</context>
 				</element>
 				<element pattern="background-color" autocomplete="1" highlight="property" autocomplete_append=": ">
@@ -159,8 +159,8 @@
 							<element pattern="white"/>
 							<element pattern="yellow"/>
 						</group>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="background-image" autocomplete="1" highlight="property" autocomplete_append=": ">
@@ -180,8 +180,8 @@
 							<element pattern="bottom center" />
 							<element pattern="bottom right" />
 						</group>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="background-repeat" autocomplete="1" highlight="property" autocomplete_append=": ">
@@ -193,8 +193,8 @@
 							<element pattern="repeat-y" />
 							<element pattern="no-repeat" />
 						</group>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="border-bottom" autocomplete="1" highlight="property" autocomplete_append=": "/>
@@ -215,8 +215,8 @@
 							<element pattern="inset"/>
 							<element pattern="outset"/>
 						</group>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>	
 				</element>
 				<element pattern="border-bottom-width" autocomplete="1" highlight="property" autocomplete_append=": "/>
@@ -263,8 +263,8 @@
 					<context id="box_offsets" symbols=" &#9;&#10;&#13;{}.;">
 						<element pattern="auto" autocomplete="1" highlight="value" autocomplete_append=";"/>
 						<element pattern="inherit" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="clear" autocomplete="1" highlight="property" autocomplete_append=": ">
@@ -276,8 +276,8 @@
 							<element pattern="none"/>
 							<element pattern="inherit"/>
 						</group>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="clip" autocomplete="1" highlight="property" autocomplete_append=": "/>
@@ -293,8 +293,8 @@
 								<element pattern="'" highlight="string" ends_context="1" />
 							</context>
 						</element>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="counter-increment" autocomplete="1" highlight="property" autocomplete_append=": "/>
@@ -322,8 +322,8 @@
 							<element pattern="none"/>
 							<element pattern="inherit"/>
 						</group>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="float" autocomplete="1" highlight="property" autocomplete_append=": ">
@@ -334,8 +334,8 @@
 							<element pattern="none"/>
 							<element pattern="inherit"/>
 						</group>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="font-family" autocomplete="1" highlight="property" autocomplete_append=": "/>
@@ -354,8 +354,8 @@
 							<element pattern="smaller"/>
 						</group>
 						<element pattern="[0-9]+[ &#9;]*(pt|em|px|%)" is_regex="1" highlight="value" />
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="font-size-adjust" autocomplete="1" highlight="property" autocomplete_append=": ">
@@ -377,8 +377,8 @@
 							<element pattern="extra-expanded"/>
 							<element pattern="ultra-expanded"/>
 						</group>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="font-style" autocomplete="1" highlight="property" autocomplete_append=": ">
@@ -388,16 +388,16 @@
 							<element pattern="italic"/>
 							<element pattern="oblique"/>
 						</group>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="font-variant" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<context symbols=" &#9;&#10;&#13;{}.;">
 						<element pattern="normal" autocomplete="1" highlight="value" autocomplete_append=";"/>
 						<element pattern="small-caps" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>	
 				<element pattern="font-weight" autocomplete="1" highlight="property" autocomplete_append=": ">
@@ -407,8 +407,8 @@
 						<element pattern="bolder" autocomplete="1" highlight="value" autocomplete_append=";"/>
 						<element pattern="lighter" autocomplete="1" highlight="value" autocomplete_append=";"/>
 						<element pattern="(100|200|300|400|500|600|700|800|900)" highlight="value" />
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>	
 				<element pattern="height" autocomplete="1" highlight="property" autocomplete_append=": "/>
@@ -458,8 +458,8 @@
 							<reference><b>fixed</b>: The box's position is calculated according to the 'absolute' model, but in addition, the box is fixed with respect to some reference. In the case of continuous media, the box is fixed with respect to the viewport (and doesn't move when scrolled). In the case of paged media, the box is fixed with respect to the page, even if that page is seen through a viewport (in the case of a print-preview, for example). Authors may wish to specify 'fixed' in a media-dependent way. For instance, an author may want a box to remain at the top of the viewport on the screen, but not at the top of each printed page.</reference>
 						</element>
 						<element pattern="inherit" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="quotes" autocomplete="1" highlight="property" autocomplete_append=": "/>
@@ -475,8 +475,8 @@
 							<element pattern="center"/>
 							<element pattern="justify"/>
 						</group>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="text-decoration" autocomplete="1" highlight="property" autocomplete_append=": ">
@@ -491,8 +491,8 @@
 								<reference>Text blinks (alternates between visible and invisible). Conforming user agents are not required to support this value.</reference>
 							</element>
 						</group>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="text-indent" autocomplete="1" highlight="property" autocomplete_append=": ">
@@ -510,8 +510,8 @@
 							<element pattern="uppercase"/>
 							<element pattern="lowercase"/>
 						</group>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>	
 				</element>
 				<element pattern="top" autocomplete="1" highlight="property" autocomplete_append=": ">
@@ -525,8 +525,8 @@
 						<element pattern="normal" autocomplete="1" highlight="value" autocomplete_append=";"/>
 						<element pattern="pre" autocomplete="1" highlight="value" autocomplete_append=";"/>
 						<element pattern="nowrap" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern=";" ends_context="1"/>
-						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+						<element idref=";" />
+						<element idref="}" />
 					</context>		
 				</element>
 				<element pattern="width" autocomplete="1" highlight="property" autocomplete_append=": "/>
