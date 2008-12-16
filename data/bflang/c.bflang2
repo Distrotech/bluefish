@@ -1293,7 +1293,7 @@
 		<element pattern="#(include|if|else|endif|ifdef|ifndef|define)" is_regex="1" highlight="preprocessor">
 		<context symbols="/*&#10;&#13;" highlight="preprocessor">
 			<element pattern="[&#10;&#13;]" is_regex="1" ends_context="1" />
-			<element id="commstart" />	
+			<element idref="commstart" />	
 		</context>
 		</element>
 	</context>
