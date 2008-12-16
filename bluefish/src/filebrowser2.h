@@ -30,8 +30,6 @@
 typedef struct {
 	GtkTreeStore *filesystem_tstore;	/* the directory tree */
 	GHashTable *filesystem_itable;	/* iter to known files and directories */
-	GdkPixbuf *unknown_icon;
-	GdkPixbuf *dir_icon;
 	GList *uri_in_refresh;		/* all uris currently in refresh are stored here, because 
 								   two refreshes on the same uri should not happen */
 } Tfilebrowser2config;

@@ -38,26 +38,20 @@
 enum {
 	do_periodic_check,
 	view_line_numbers,
-	filebrowser_unknown_icon,
 	editor_show_splash_screen,    /* show splash screen at start-up */
 	editor_font_string,           /* editor font */
 	editor_tab_width,             /* editor tabwidth */
-	editor_indent_wspaces,
 	editor_smart_cursor,
+	editor_indent_wspaces,
 	tab_font_string,              /* notebook tabs font */
 	defaulthighlight,             /* highlight documents by default */
 	transient_htdialogs,          /* set html dialogs transient ro the main window */
 	leave_to_window_manager,
 	restore_dimensions,
-	left_panel_width,
 	left_panel_left,
-	main_window_h,                /* main window height */
-	main_window_w,                /* main window width */
 	max_recent_files,             /* length of Open Recent list */
 	max_dir_history,              /* length of directory history */
 	backup_file,                  /* wheather to use a backup file */
-/*	backup_suffix,                / * the string to append to the backup file */
-/*	backup_prefix,                / * the string to prepend to the backup file */
 	backup_abort_action,          /* if the backup fails, continue 'save', 'abort' save, or 'ask' user */
 	backup_cleanuponclose,        /* remove the backupfile after close ? */
 	image_thumbnailstring,        /* string to append to thumbnail filenames */
@@ -75,17 +69,12 @@ enum {
 	switch_tabs_by_altx,          /* switch tabs using Alt+X (#385860) */
 	/* not yet in use */
 	image_editor_cline,           /* image editor commandline */
-	full_p,                       /* use </p> */
-	full_li,                      /* use </li> */
-	allow_css,                    /* CSS allowed */
 	allow_dep,                    /* allow <FONT>... */
 	format_by_context,            /* use <strong> instead of <b>, <emphasis instead of <i> etc. (W3C reccomendation) */
 	xhtml,                        /* write <br /> */
 	insert_close_tag, /* write a closingtag after a start tag */
 	close_tag_newline, /* insert the closing tag after a newline */
 	allow_ruby,                   /* allow <ruby> */
-	allow_h4,                     /* allow <Q>... */
-	allow_frames,                 /* allow <FRAME> */
 	force_dtd,                    /* write <!DOCTYPE...> */
 	dtd_url,                      /* URL in DTD */
 	xml_start,                    /* <?XML...> */
@@ -94,26 +83,6 @@ enum {
 	autoindent,                   /* autoindent code */
 	drop_at_drop_pos,             /* drop at drop position instead of cursor position */
 	link_management,              /* perform link management */
-	html_ver,
-#ifdef WITH_SPC
-	/* spell checker options */
-	cfg_spc_cline,                /* spell checker command line */
-	cfg_spc_lang,                 /* language */
-	spc_accept_compound,          /* accept compound words ? */
-	spc_use_esc_chars,            /* specify aditional characters that may be part of a word ? */
-	spc_esc_chars,                /* which ones ? */
-	spc_use_pers_dict,            /* use a personal dictionary */
-	spc_pers_dict,                /* which one ? */
-   spc_use_input_encoding,        /* use input encoding */
-   spc_input_encoding,            /* wich one ? */
-   spc_output_html_chars,         /* output html chars ? (like &aacute,)*/
-#endif
-	/* key conversion */
-	conv_ctrl_enter,              /* convert control-enter key press */
-	ctrl_enter_text,              /* inserted text */
-	conv_shift_enter,             /* convert shift-enter key press */
-	shift_enter_text,             /* inserted text */
-	conv_special_char,            /* convert ctrl-'<','>','&' */
 #ifdef WITH_MSG_QUEUE
 	open_in_running_bluefish,     /* open commandline documents in already running session*/
 #endif /* WITH_MSG_QUEUE */
@@ -126,6 +95,10 @@ enum {
 	view_cline,
 	editor_fg,
 	editor_bg,
+	/* now the entries in globses */
+	left_panel_width,
+	main_window_h,
+	main_window_w,
 	property_num_max
 };
 
@@ -867,7 +840,7 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	gtk_container_add (GTK_CONTAINER(scrolledwindow1), pd->hld.tview);
 	gtk_container_set_border_width(GTK_CONTAINER (pd->hld.tview), 2);
 	gtk_tree_view_set_headers_visible(GTK_TREE_VIEW (pd->hld.tview), FALSE);
-	gtk_widget_set_size_request(pd->hld.tview, 150, 500);
+	gtk_widget_set_size_request(pd->hld.tview, 150, 300);
 	renderer = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes (_("Name"), renderer,"text", 0,NULL);
 	gtk_tree_view_append_column (GTK_TREE_VIEW(pd->hld.tview), column);
@@ -1215,11 +1188,8 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.document_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[document_tabposition]));
 	integer_apply(&main_v->props.switch_tabs_by_altx, pd->prefs[switch_tabs_by_altx], TRUE);
 	main_v->props.leftpanel_tabposition = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[leftpanel_tabposition]));
-	main_v->props.left_panel_left = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[left_panel_left]));
 
 	integer_apply(&main_v->props.transient_htdialogs, pd->prefs[transient_htdialogs], TRUE);
-
-	string_apply(&main_v->props.filebrowser_unknown_icon, pd->prefs[filebrowser_unknown_icon]);
 
 	string_apply(&main_v->props.image_thumbnailstring, pd->prefs[image_thumbnailstring]);
 	string_apply(&main_v->props.image_thumbnailtype, GTK_COMBO(pd->prefs[image_thumbnailtype])->entry);
@@ -1334,7 +1304,7 @@ static void preferences_dialog() {
 	gchar *notebooktabpositions[] = {N_("left"), N_("right"), N_("top"), N_("bottom"), NULL};
 	gchar *panellocations[] = {N_("right"), N_("left"), NULL};
 	gchar *modified_check_types[] = {N_("Nothing"), N_("Modified time and file size"), N_("Modified time"), N_("File size"), NULL};
-	GtkWidget *dhbox, *label;
+	GtkWidget *dhbox;
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	GtkTreeIter auxit,iter;
@@ -1359,10 +1329,7 @@ static void preferences_dialog() {
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Editor"), WIDGETCOL,vbox1,-1);
-/*
-	gtk_notebook_append_page(GTK_NOTEBOOK(pd->noteb), vbox1, hbox_with_pix_and_text(_("Editor"),150,TRUE));
-*/
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Editor options"), WIDGETCOL,vbox1,-1);
 
 	frame = gtk_frame_new(_("Generic editor options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -1377,6 +1344,11 @@ static void preferences_dialog() {
 
 	pd->prefs[num_undo_levels] = prefs_integer(_("Number of actions in undo history"), main_v->props.num_undo_levels, vbox2, pd, 50, 10000);
 	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_tree_store_append(pd->nstore, &auxit, NULL);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Editor defaults"), WIDGETCOL,vbox1,-1);
+
 
 	frame = gtk_frame_new(_("Default values"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
@@ -1606,7 +1578,7 @@ static void preferences_dialog() {
 		GtkWidget *ahbox, *but;
 		ahbox = gtk_hbutton_box_new();
 		gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-		gtk_button_box_set_spacing(GTK_BUTTON_BOX(ahbox), 12);
+		gtk_button_box_set_spacing(GTK_BUTTON_BOX(ahbox), 6);
 
 		gtk_box_pack_start(GTK_BOX(dvbox), ahbox, FALSE, FALSE, 0);
 		but = bf_gtkstock_button(GTK_STOCK_APPLY, G_CALLBACK(preferences_apply_clicked_lcb), pd);

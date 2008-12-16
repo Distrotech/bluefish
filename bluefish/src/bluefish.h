@@ -178,8 +178,6 @@ typedef struct {
 typedef struct {
 	gint do_periodic_check;
 	gint view_line_numbers; /* view line numbers on the left side by default */
-	gchar *filebrowser_unknown_icon;
-	gint filebrowser_icon_size;
 	gchar *editor_font_string;		/* editor font */
 	gint editor_tab_width;	/* editor tabwidth */
 	gint editor_smart_cursor;
