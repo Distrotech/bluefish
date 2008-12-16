@@ -169,15 +169,17 @@
 				<element pattern="background-position" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<reference>Sets the starting position of a background image</reference>
 					<context symbols=" &#9;&#10;&#13;{}.;">
-						<element pattern="top left" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern="top center" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern="top right" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern="center left" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern="center center" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern="center right" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern="bottom left" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern="bottom center" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern="bottom right" autocomplete="1" highlight="value" autocomplete_append=";"/>
+						<group autocomplete="1" highlight="value" autocomplete_append=";">
+							<element pattern="top left"/>
+							<element pattern="top center" />
+							<element pattern="top right" />
+							<element pattern="center left" />
+							<element pattern="center center" />
+							<element pattern="center right" />
+							<element pattern="bottom left" />
+							<element pattern="bottom center" />
+							<element pattern="bottom right" />
+						</group>
 						<element pattern=";" ends_context="1"/>
 						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
 					</context>
@@ -185,10 +187,12 @@
 				<element pattern="background-repeat" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<reference><b>background-repeat</b> specifies whether the image is repeated (tiled), and how</reference>
 					<context symbols=" &#9;&#10;&#13;{}.;">
-						<element pattern="repeat" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern="repeat-x" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern="repeat-y" autocomplete="1" highlight="value" autocomplete_append=";"/>
-						<element pattern="no-repeat" autocomplete="1" highlight="value" autocomplete_append=";"/>
+						<group autocomplete="1" highlight="value" autocomplete_append=";">
+							<element pattern="repeat" />
+							<element pattern="repeat-x" />
+							<element pattern="repeat-y" />
+							<element pattern="no-repeat" />
+						</group>
 						<element pattern=";" ends_context="1"/>
 						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
 					</context>
@@ -218,42 +222,42 @@
 				<element pattern="border-bottom-width" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="border-collapse" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="border-color" autocomplete="1" highlight="property" autocomplete_append=": ">
-					<context id="color" />
+					<context idref="color" />
 				</element>
 				<element pattern="border-left" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="border-left-color" autocomplete="1" highlight="property" autocomplete_append=": ">
-					<context id="color" />
+					<context idref="color" />
 				</element>
 				<element pattern="border-left-style" autocomplete="1" highlight="property" autocomplete_append=": ">
-					<context id="border-style" />
+					<context idref="border-style" />
 				</element>
 				<element pattern="border-left-width" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="border-right" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="border-right-color" autocomplete="1" highlight="property" autocomplete_append=": ">
-					<context id="color" />
+					<context idref="color" />
 				</element>
 				<element pattern="border-right-style" autocomplete="1" highlight="property" autocomplete_append=": ">
-					<context id="border-style" />
+					<context idref="border-style" />
 				</element>
 				<element pattern="border-right-width" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="border-spacing" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="border-style" autocomplete="1" highlight="property" autocomplete_append=": ">
-					<context id="border-style" />
+					<context idref="border-style" />
 				</element>
 				<element pattern="border-top" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="border-top-color" autocomplete="1" highlight="property" autocomplete_append=": ">
-					<context id="color" />
+					<context idref="color" />
 				</element>
 				<element pattern="border-top-style" autocomplete="1" highlight="property" autocomplete_append=": ">
-					<context id="border-style" />
+					<context idref="border-style" />
 				</element>
 				<element pattern="border-top-width" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="border-width" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<!-- TODO: The following does not work! -->
 				<element pattern="border" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<reference>A shorthand property for setting the properties border-width, border-style, and border-color for the four borders in one declaration</reference>
-					<context id="border-style" />
-					<context id="color" />
+					<context idref="border-style" />
+					<context idref="color" />
 				</element>
 				<element pattern="bottom" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<context id="box_offsets" symbols=" &#9;&#10;&#13;{}.;">
@@ -279,7 +283,7 @@
 				<element pattern="clip" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="color" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<reference><b>color</b> describes the foreground color of an element's text content.</reference>
-					<context id="color" />
+					<context idref="color" />
 				</element>
 				<element pattern="content" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<context symbols=" &#9;&#10;&#13;{}.;">
@@ -409,7 +413,7 @@
 				</element>	
 				<element pattern="height" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="left" autocomplete="1" highlight="property" autocomplete_append=": ">
-					<context id="box_offsets" />
+					<context idref="box_offsets" />
 				</element>
 				<element pattern="line-height" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="list-style" autocomplete="1" highlight="property" autocomplete_append=": "/>
@@ -428,7 +432,7 @@
 				<element pattern="overflow" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="outline" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="outline-color" autocomplete="1" highlight="property" autocomplete_append=": ">
-					<context id="color" />
+					<context idref="color" />
 				</element>
 				<element pattern="outline-style" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="outline-width" autocomplete="1" highlight="property" autocomplete_append=": "/>
@@ -460,7 +464,7 @@
 				</element>
 				<element pattern="quotes" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="right" autocomplete="1" highlight="property" autocomplete_append=": ">
-					<context id="box_offsets" />
+					<context idref="box_offsets" />
 				</element>
 				<element pattern="text-align" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<reference><b>text-align</b> describes how inline content of a block is aligned.</reference>
@@ -511,7 +515,7 @@
 					</context>	
 				</element>
 				<element pattern="top" autocomplete="1" highlight="property" autocomplete_append=": ">
-					<context id="box_offsets" />
+					<context idref="box_offsets" />
 				</element>
 				<element pattern="vertical-align" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="visibility" autocomplete="1" highlight="property" autocomplete_append=": "/>
