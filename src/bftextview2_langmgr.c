@@ -721,7 +721,7 @@ static gpointer build_lang_thread(gpointer data)
 	bfparser->st->matches->data = g_realloc(bfparser->st->matches->data, bfparser->st->matches->len*sizeof(Tpattern));
 
 	DBG_PARSING("build_lang_thread finished bflang=%p\n",bflang);
-	print_scantable_stats(bfparser->st);
+	print_scantable_stats(bflang->name,bfparser->st);
 	/*print_DFA(bfparser->st, '&','Z');*/
 	/*print_DFA_subset(bfparser->st, "\\\" ");*/
 
