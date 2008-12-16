@@ -8,6 +8,7 @@
 	<highlight name="html-classid" style="tag" bold="0" italic="1" />
 	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
 	<highlight name="property" style="special-keyword" fgcolor="#990000" bold="1" />
+	<highlight name="string" style="string" />
 	<highlight name="value" style="value" fgcolor="#0000EE"  />
 </header>
 <definition>
@@ -254,21 +255,85 @@
 					<context id="border-style" />
 					<context id="color" />
 				</element>
-				<element pattern="bottom" autocomplete="1" highlight="property" autocomplete_append=": "/>
-				<element pattern="clear" autocomplete="1" highlight="property" autocomplete_append=": "/>
+				<element pattern="bottom" autocomplete="1" highlight="property" autocomplete_append=": ">
+					<context id="box_offsets" symbols=" &#9;&#10;&#13;{}.;">
+						<element pattern="auto" autocomplete="1" highlight="value" autocomplete_append=";"/>
+						<element pattern="inherit" autocomplete="1" highlight="value" autocomplete_append=";"/>
+						<element pattern=";" ends_context="1"/>
+						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+					</context>
+				</element>
+				<element pattern="clear" autocomplete="1" highlight="property" autocomplete_append=": ">
+					<context symbols=" &#9;&#10;&#13;{}.;">
+						<group highlight="value" autocomplete="1" autocomplete_append=";">
+							<element pattern="left"/>
+							<element pattern="right"/>
+							<element pattern="both"/>
+							<element pattern="none"/>
+							<element pattern="inherit"/>
+						</group>
+						<element pattern=";" ends_context="1"/>
+						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+					</context>
+				</element>
 				<element pattern="clip" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="color" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<reference><b>color</b> describes the foreground color of an element's text content.</reference>
 					<context id="color" />
 				</element>
-				<element pattern="content" autocomplete="1" highlight="property" autocomplete_append=": "/>
+				<element pattern="content" autocomplete="1" highlight="property" autocomplete_append=": ">
+					<context symbols=" &#9;&#10;&#13;{}.;">
+						<element pattern="'" highlight="string">
+							<context symbols="\'" highlight="string">
+								<element pattern="\." is_regex="1" highlight="string" />
+								<element pattern="'" highlight="string" ends_context="1" />
+							</context>
+						</element>
+						<element pattern=";" ends_context="1"/>
+						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+					</context>
+				</element>
 				<element pattern="counter-increment" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="counter-reset" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="cursor" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="display" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<reference>Conforming HTML user agents may ignore the 'display' property. </reference>
+					<context symbols=" &#9;&#10;&#13;{}.;">
+						<group highlight="value" autocomplete="1" autocomplete_append=";">
+							<element pattern="inline"/>
+							<element pattern="block"/>
+							<element pattern="list-item"/>
+							<element pattern="run-in"/>
+							<element pattern="inline-block"/>
+							<element pattern="table"/>
+							<element pattern="inline-table"/>
+							<element pattern="table-row-group"/>
+							<element pattern="table-header-group"/>
+							<element pattern="table-footer-group"/>
+							<element pattern="table-row"/>
+							<element pattern="table-column-group"/>
+							<element pattern="table-column"/>
+							<element pattern="table-cell"/>
+							<element pattern="table-caption"/>
+							<element pattern="none"/>
+							<element pattern="inherit"/>
+						</group>
+						<element pattern=";" ends_context="1"/>
+						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+					</context>
 				</element>
-				<element pattern="float" autocomplete="1" highlight="property" autocomplete_append=": "/>
+				<element pattern="float" autocomplete="1" highlight="property" autocomplete_append=": ">
+					<context id="float" symbols=" &#9;&#10;&#13;{}.;">
+						<group highlight="value" autocomplete="1" autocomplete_append=";">
+							<element pattern="left"/>
+							<element pattern="right"/>
+							<element pattern="none"/>
+							<element pattern="inherit"/>
+						</group>
+						<element pattern=";" ends_context="1"/>
+						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
+					</context>
+				</element>
 				<element pattern="font-family" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="font-size" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<reference><b>font-size</b> describes the size of the font when set solid.</reference>
@@ -343,7 +408,9 @@
 					</context>
 				</element>	
 				<element pattern="height" autocomplete="1" highlight="property" autocomplete_append=": "/>
-				<element pattern="left" autocomplete="1" highlight="property" autocomplete_append=": "/>
+				<element pattern="left" autocomplete="1" highlight="property" autocomplete_append=": ">
+					<context id="box_offsets" />
+				</element>
 				<element pattern="line-height" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="list-style" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="list-style-image" autocomplete="1" highlight="property" autocomplete_append=": "/>
@@ -386,12 +453,15 @@
 						<element pattern="fixed" autocomplete="1" highlight="value" autocomplete_append=";">
 							<reference><b>fixed</b>: The box's position is calculated according to the 'absolute' model, but in addition, the box is fixed with respect to some reference. In the case of continuous media, the box is fixed with respect to the viewport (and doesn't move when scrolled). In the case of paged media, the box is fixed with respect to the page, even if that page is seen through a viewport (in the case of a print-preview, for example). Authors may wish to specify 'fixed' in a media-dependent way. For instance, an author may want a box to remain at the top of the viewport on the screen, but not at the top of each printed page.</reference>
 						</element>
+						<element pattern="inherit" autocomplete="1" highlight="value" autocomplete_append=";"/>
 						<element pattern=";" ends_context="1"/>
 						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
 					</context>
 				</element>
 				<element pattern="quotes" autocomplete="1" highlight="property" autocomplete_append=": "/>
-				<element pattern="right" autocomplete="1" highlight="property" autocomplete_append=": "/>
+				<element pattern="right" autocomplete="1" highlight="property" autocomplete_append=": ">
+					<context id="box_offsets" />
+				</element>
 				<element pattern="text-align" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<reference><b>text-align</b> describes how inline content of a block is aligned.</reference>
 					<context symbols=" &#9;&#10;&#13;{}.;">
@@ -440,7 +510,9 @@
 						<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" ends_context="2"/>
 					</context>	
 				</element>
-				<element pattern="top" autocomplete="1" highlight="property" autocomplete_append=": "/>	
+				<element pattern="top" autocomplete="1" highlight="property" autocomplete_append=": ">
+					<context id="box_offsets" />
+				</element>
 				<element pattern="vertical-align" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="visibility" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="white-space" autocomplete="1" highlight="property" autocomplete_append=": ">
