@@ -605,22 +605,22 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 }
 
 static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack) {
-	gchar *symbols=NULL, *highlight=NULL, *name=NULL, *idref=NULL;
+	gchar *symbols=NULL, *highlight=NULL, *id=NULL, *idref=NULL;
 	gboolean autocomplete_case_insens=FALSE,is_empty;
 	gint context;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"id",&name);
+		set_string_if_attribute_name(reader,aname,(xmlChar *)"id",&id);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"idref",&idref);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"symbols",&symbols);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"highlight",&highlight);
 		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_case_insens",&autocomplete_case_insens);
 		xmlFree(aname);
 	}
-	DBG_PARSING("found <context> (empty=%d) with id=%s, idref=%s\n",is_empty, name, idref);
-	if (is_empty && idref && !name && !symbols && !highlight && !autocomplete_case_insens) {
-		DBG_PARSING("lookup context %s in hash table..\n",name);
+	DBG_PARSING("found <context> (empty=%d) with id=%s, idref=%s\n",is_empty, id, idref);
+	if (is_empty && idref && !id && !symbols && !highlight && !autocomplete_case_insens) {
+		DBG_PARSING("lookup context %s in hash table..\n",idref);
 		context = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, idref));
 		g_free(idref);
 		return context;
@@ -632,17 +632,17 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 	DBG_PARSING("create context symbols %s and highlight %s\n",symbols,highlight);
 	context = new_context(bfparser->st,bfparser->bflang->name,symbols,highlight,autocomplete_case_insens);
 	g_queue_push_head(contextstack,GINT_TO_POINTER(context));
-	if (name) {
-		DBG_PARSING("insert context %s into hash table as %d\n",name,context);
-		g_hash_table_insert(bfparser->contexts, g_strdup(name), GINT_TO_POINTER(context));
+	if (id) {
+		DBG_PARSING("insert context %s into hash table as %d\n",id,context);
+		g_hash_table_insert(bfparser->contexts, g_strdup(id), GINT_TO_POINTER(context));
 	}
-	g_free(name);
+	g_free(id);
 	g_free(symbols);
 	/*g_free(highlight); stored in the structure */
 	/* now get the children */
 	while (xmlTextReaderRead(reader)==1) {
 		xmlChar *name = xmlTextReaderName(reader);
-		DBG_PARSING("parsing context, found node name %s\n",name);
+		DBG_PARSING("parsing context, found node id %s\n",name);
 		if (xmlStrEqual(name,(xmlChar *)"element")) {
 			process_scanning_element(reader,bfparser,context,contextstack,NULL,NULL,FALSE,FALSE,FALSE);
 		} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
