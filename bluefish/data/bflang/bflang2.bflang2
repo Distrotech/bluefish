@@ -20,13 +20,13 @@
 <tag name="bflang" highlight="tag" autocomplete_append="&gt;" attributes="name,table,matches,contexts" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" >
 <reference>the <i>bflang</i> tag is the root tag of the bluefish language file. It should have attribute <i>name</i>.</reference>
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-	<element id="comment"/>
-	<element id="entity" />
+	<element idref="comment"/>
+	<element idref="entity" />
 	<tag name="header" highlight="tag" autocomplete_append="&gt;" >
 	<reference>The <i>header</i> tag is the region of the language file that is always loaded, regardless if the language is used or not. </reference>
 		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-		<element id="comment"/>
-		<element id="entity" />
+		<element idref="comment"/>
+		<element idref="entity" />
 		<tag name="mime" highlight="tag" autocomplete_append=" type=&quot;&quot; /&gt;" attributes="type" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 		<reference>The <i>mime</i> tag should have attribute <i>type</i> which has the mime type. The mime type is used to find the correct language definition for a file in the editor. There can be multiple mime tags in the heading section.</reference>
 		</tag>
@@ -38,30 +38,30 @@
 	<tag name="definition" highlight="tag" autocomplete_append="&gt;">
 	<reference>The <i>definition</i> tag is the region of the language file that actually defines the language. This region is only loaded when a file of this type is opened in the editor.</reference>
 		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" >
-		<element id="comment"/>
-		<element id="entity" />
+		<element idref="comment"/>
+		<element idref="entity" />
 		<tag name="context" id="context" highlight="tag" autocomplete_append=" symbols=&quot;&quot; &gt;" attributes="id,symbols,highlight" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
-			<context id="context" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-			<element id="comment"/>
-			<element id="entity" />
+			<context idref="context" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+			<element idref="comment"/>
+			<element idref="entity" />
 			<tag id="element" name="element" highlight="pattern-tag" autocomplete_append=" pattern=&quot;&quot; /&gt;" attributes="id,pattern,starts_block,ends_block,ends_context,highlight,blockstartelement,blockhighlight,class,is_regex,case_insens,autocomplete,autocomplete_append,autocomplete_string" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 				<context id="innerpattern" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-					<element id="comment"/>
-					<element id="entity" />
+					<element idref="comment"/>
+					<element idref="entity" />
 					<tag name="reference" highlight="tag" autocomplete_append="/&gt;" />
-					<tag id="context" />
+					<tag idref="context" />
 				</context>
 			</tag>
 			<tag id="tag" name="tag" highlight="pattern-tag" autocomplete_append=" name=&quot;&quot; /&gt;" attributes="id,name,highlight,class,attributes,autocomplete,autocomplete_append,attribhighlight,attrib_autocomplete_append" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
-				<context id="innerpattern" />
+				<context idref="innerpattern" />
 			</tag>
 			<tag name="group" id="group" highlight="tag" autocomplete_append="&gt;" attributes="highlight,autocomplete,autocomplete_append,class,case_insens,is_regex,attrib_autocomplete_append,attribhighlight" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 				<context id="group" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-				<element id="comment"/>
-				<element id="entity" />
-				<tag id="element"/>
-				<tag id="tag"/>
-				<tag id="group"/>
+				<element idref="comment"/>
+				<element idref="entity" />
+				<tag idref="element"/>
+				<tag idref="tag"/>
+				<tag idref="group"/>
 				</context>
 			</tag>
 			
