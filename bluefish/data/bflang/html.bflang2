@@ -88,6 +88,12 @@
 </tag>
 <tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
 				<context symbols=" &#9;&#10;&#13;{}.">
+		<element pattern="/*" starts_block="1" highlight="comment">
+			<context symbols="*/&#9;&#10;&#13;" highlight="comment">
+				<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
+			</context>
+		</element>
+
 <element pattern="body" highlight="css-keyword"/>
 <element pattern="{" id="css{" starts_block="1" highlight="brackets">
 <context symbols=" &#9;&#10;&#13;{}.:&quot;';">

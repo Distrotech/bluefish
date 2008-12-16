@@ -518,9 +518,11 @@ void match_autocomplete_reference(Tscantable *st,guint16 matchnum, gboolean auto
 				g_completion_set_compare(g_array_index(st->contexts, Tcontext, context).ac, strncasecmp);
 		}
 		if (append_to_ac) {
-			tmp = g_strconcat(keyword,append_to_ac,NULL);
+			if (!g_array_index(st->matches, Tpattern, matchnum).autocomplete_append) {
+				tmp = g_array_index(st->matches, Tpattern, matchnum).autocomplete_append = g_strconcat(keyword,append_to_ac,NULL);
+			}
 		} else {
-			tmp = g_strdup(keyword);
+			tmp = keyword;
 		}
 		list = g_list_prepend(NULL, tmp);
 		g_completion_add_items(g_array_index(st->contexts, Tcontext, context).ac, list);
@@ -529,8 +531,6 @@ void match_autocomplete_reference(Tscantable *st,guint16 matchnum, gboolean auto
 		if (refdup) {
 			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,tmp,refdup);
 		}
-		/* should we free tmp?? it is in the autocomplete and in the hashtable, but do these make a copy or not?
-		AFAIK both of them don't make copies of the data */
 	}
 }
 static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang, const gchar *selfhighlight, const gchar *blockhighlight, gint16 context, gint16 nextcontext
@@ -566,8 +566,7 @@ void compile_existing_match(Tscantable *st,guint16 matchnum, gint16 context) {
 	} else {
 		compile_keyword_to_DFA(st, g_array_index(st->matches, Tpattern, matchnum).pattern, matchnum, context, g_array_index(st->matches, Tpattern, matchnum).case_insens);
 	}
-	/* TODO: add autocomplete and reference info to this context too, but re-use already alloc'ed memory !! */
-	/*match_autocomplete_reference(st,matchnum, add_to_ac,keyword,context,append_to_ac,NULL);*/
+	match_autocomplete_reference(st,matchnum, g_array_index(st->matches, Tpattern, matchnum).autocomplete,g_array_index(st->matches, Tpattern, matchnum).pattern,context,g_array_index(st->matches, Tpattern, matchnum).autocomplete_append,g_array_index(st->matches, Tpattern, matchnum).reference);
 }
 
 guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *pattern, const gchar *lang, const gchar *selfhighlight, const gchar *blockhighlight
