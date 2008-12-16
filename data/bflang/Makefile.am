@@ -11,6 +11,7 @@ MAINTAINERCLEANFILES = Makefile.in
 
 bflang_DATA = \
 	asp.bflang2 \
+	bflang2.bflang2 \
 	c.bflang2 \
 	cpp.bflang2 \
 	css.bflang2 \
