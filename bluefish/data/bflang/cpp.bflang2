@@ -7,7 +7,7 @@
 	<mime type="application/x-c++hdr"/>
 
 	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
-	<highlight name="bracket" style="bracket" bold="1" />
+	<highlight name="brackets" style="brackets" bold="1" />
 	<highlight name="type" style="type" fgcolor="#000000" bold="1" />
 	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
 	<highlight name="string" style="string" fgcolor="#008800"  />
@@ -95,12 +95,12 @@
 			<element pattern="'" highlight="string" ends_context="1" />
 		</context>
 	</element>
-	<element id="{" pattern="{" starts_block="1" mayfold="1" highlight="bracket" />
-	<element pattern="}" ends_block="1" blockstartelement="{" highlight="bracket" />
-	<element id="[" pattern="[" starts_block="1" mayfold="1" highlight="bracket" />
-	<element pattern="]" ends_block="1" blockstartelement="[" highlight="bracket" />
-	<element id="(" pattern="(" starts_block="1" mayfold="1" highlight="bracket" />
-	<element pattern=")" ends_block="1" blockstartelement="(" highlight="bracket" />
+	<element id="{" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+	<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+	<element id="[" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+	<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+	<element id="(" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+	<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
 	<element id="commstart" pattern="/*" starts_block="1" highlight="comment">
 		<context symbols="*/&#9;&#10;&#13;" highlight="comment">
 			<element pattern="*/" ends_block="1" blockstartelement="commstart" highlight="comment" mayfold="1" ends_context="1" />
