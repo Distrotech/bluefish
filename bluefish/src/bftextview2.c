@@ -83,6 +83,7 @@ static void bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 	}
 }
 
+static void bftextview2_set_margin_size(BluefishTextView * btv);
 static gboolean bftextview2_scanner_idle(gpointer data);
 static gboolean bftextview2_scanner_timeout(gpointer data);
 
@@ -109,6 +110,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 					}
 					btv->scanner_delayed = 0;
 					btv->scanner_idle = 0;
+					bftextview2_set_margin_size(btv);
 					return FALSE;
 				}
 				if (!in_idle) {
@@ -139,6 +141,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 					}
 					btv->scanner_delayed = 0;
 					btv->scanner_idle = 0;
+					bftextview2_set_margin_size(btv);
 					return FALSE;
 				}
 				if (in_idle) {
@@ -158,6 +161,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 			if (!bftextview2_run_scanner(btv, NULL)) {
 				btv->scanner_idle = 0;
 				DBG_SIGNALS("bftextview2_scanner_idle, stopping scanner idle function\n");
+				bftextview2_set_margin_size(btv);
 				return FALSE;
 			}
 		}
