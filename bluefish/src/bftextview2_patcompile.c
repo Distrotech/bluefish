@@ -95,11 +95,16 @@ static gint fill_characters_from_range(gchar *input, gchar *characters) {
 	while (input[i] != ']') {
 		if (input[i] == '-') {	/* range all characters between the previous and the next char */
 			gchar j;
-			DBG_PATCOMPILE("set characters from %c to %c to %d\n",input[i - 1],input[i+1],1-reverse);
-			for (j = input[i - 1]; j <= input[i + 1]; j++) {
-				characters[(int)j] = 1 - reverse;
+			if (input[i+1] == ']') {/* - is actually part of the collection */
+				characters['-'] = 1;
+				i++;
+			} else { 
+				DBG_PATCOMPILE("set characters from %c to %c to %d\n",input[i - 1],input[i+1],1-reverse);
+				for (j = input[i - 1]; j <= input[i + 1]; j++) {
+					characters[(int)j] = 1 - reverse;
+				}
+				i += 2;
 			}
-			i += 2;
 		} else {
 			DBG_PATCOMPILE("set characters %c (pos %d) to %d\n",input[i],input[i],1-reverse);
 			characters[(int)input[i]] = 1 - reverse;
@@ -642,7 +647,8 @@ Tscantable *scantable_new(guint size_table, guint size_matches, guint size_conte
 	return st;
 }
 
-void print_scantable_stats(Tscantable *st) {
+void print_scantable_stats(const gchar *lang, Tscantable *st) {
+	g_print("Language statistics for %s\n",lang);
 	g_print("table    %5d (%.2f Kbytes)\n",st->table->len,1.0*st->table->len*sizeof(Ttablerow)/1024.0);
 	g_print("contexts %5d (%.2f Kbytes)\n",st->contexts->len,1.0*st->contexts->len*sizeof(Tcontext)/1024.0);
 	g_print("matches  %5d (%.2f Kbytes)\n",st->matches->len,1.0*st->matches->len*sizeof(Tpattern)/1024.0);

@@ -33,7 +33,7 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *pattern, const gcha
 				, gboolean starts_block, gboolean ends_block, guint blockstartpattern
 				, gboolean add_to_ac, gchar *append_to_ac, gchar *reference);
 void print_DFA(Tscantable *st, char start, char end);
-void print_scantable_stats(Tscantable *st);
+void print_scantable_stats(const gchar *lang, Tscantable *st);
 Tscantable *scantable_new(guint size_table, guint size_matches, guint size_contexts);
 Tscantable *bftextview2_scantable_new(GtkTextBuffer *buffer);
 
