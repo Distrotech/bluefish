@@ -2547,29 +2547,6 @@ void fb2config_init(void)
 		gtk_tree_store_new(N_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER,
 						   G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER);
 
-	filename =
-		return_first_existing_filename(main_v->props.filebrowser_unknown_icon, "icon_unknown.png",
-									   "../images/icon_unknown.png", "images/icon_unknown.png",
-									   NULL);
-	fb2config->unknown_icon = gdk_pixbuf_new_from_file(filename, NULL);
-	g_free(filename);
-	/*filename = return_first_existing_filename(main_v->props.filebrowser_dir_icon,
-	   "icon_dir.png","../images/icon_dir.png",
-	   "images/icon_dir.png",NULL);
-	   fb2config->dir_icon = gdk_pixbuf_new_from_file(filename, NULL); */
-	/*fb2config->dir_icon = get_icon_for_mime_type(DIR_MIME_TYPE);*/
-
-	/*g_free(filename); */
-
-/*  {
-    GtkTreeIter *iter;
-    GFile *uri;
-    gchar *home = g_strdup(g_get_home_dir());
-    uri = gnome_vfs_uri_new(strip_trailing_slash(home));
-    g_free(home);
-    iter = fb2_build_dir(uri);
-    g_object_unref(uri);
-  }*/
 	DEBUG_MSG("fb2config_init, finished\n");
 }
 
