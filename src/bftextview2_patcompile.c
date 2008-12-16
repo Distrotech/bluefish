@@ -64,7 +64,7 @@ void bftextview2_scantable_rematch_highlights(Tscantable *st, const gchar *lang)
 	
 }
 
-static void print_characters(gchar *characters) {
+/*static void print_characters(gchar *characters) {
 	int i;
 	DBG_PATCOMPILE("we have active characters ");
 	for (i=0;i<NUMSCANCHARS;i++) {
@@ -72,7 +72,7 @@ static void print_characters(gchar *characters) {
 			DBG_PATCOMPILE("%c ",i);
 	}
 	DBG_PATCOMPILE("\n");
-}
+}*/
 
 #define character_is_symbol(st,context,c) (g_array_index(st->table, Ttablerow, context.identstate).row[c] != context.identstate)
 
@@ -587,6 +587,33 @@ guint16 add_keyword_to_scanning_table(Tscantable *st, gchar *pattern, const gcha
 	return matchnum;
 }
 
+void print_DFA_subset(Tscantable *st, char *chars) {
+	gint i,j,len;
+	len = strlen(chars);
+	g_print("     ");
+	for (j=0;j<=len;j++) {
+		g_print("  %c  ",chars[j]);
+	}
+	g_print(": match\n");
+	for (i=0;i<st->table->len;i++) {
+		g_print("%3d: ",i);
+		for (j=0;j<=len;j++) {
+			g_print("%3d ",g_array_index(st->table, Ttablerow, i).row[(gshort)chars[j]]);
+		}
+		g_print(": %3d",g_array_index(st->table, Ttablerow, i).match);
+		if (g_array_index(st->table, Ttablerow, i).match > 0) {
+			g_print(" %s",g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).pattern);
+			if (g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).nextcontext > 0) {
+				g_print(" 	--> goto context %d at %d",g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).nextcontext, g_array_index(st->contexts, Tcontext, g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).nextcontext).startstate);
+			} else if (g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).nextcontext < 0) {
+				g_print(" 	--> pop context: %d",g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).nextcontext);
+			}
+		}
+		g_print("\n");
+	}
+
+}
+
 void print_DFA(Tscantable *st, char start, char end) {
 	gint i,j;
 	g_print("    ");
@@ -616,9 +643,9 @@ Tscantable *scantable_new(guint size_table, guint size_matches, guint size_conte
 }
 
 void print_scantable_stats(Tscantable *st) {
-	g_print("%d states (%.2f Kbytes)\n",st->table->len,1.0*st->table->len*sizeof(Ttablerow)/1024.0);
-	g_print("%d contexts (%.2f Kbytes)\n",st->contexts->len,1.0*st->contexts->len*sizeof(Tcontext)/1024.0);
-	g_print("%d matches (%.2f Kbytes)\n",st->matches->len,1.0*st->matches->len*sizeof(Tpattern)/1024.0);
+	g_print("table    %5d (%.2f Kbytes)\n",st->table->len,1.0*st->table->len*sizeof(Ttablerow)/1024.0);
+	g_print("contexts %5d (%.2f Kbytes)\n",st->contexts->len,1.0*st->contexts->len*sizeof(Tcontext)/1024.0);
+	g_print("matches  %5d (%.2f Kbytes)\n",st->matches->len,1.0*st->matches->len*sizeof(Tpattern)/1024.0);
 
 }
 #ifdef HARDCODED_PATTERNS

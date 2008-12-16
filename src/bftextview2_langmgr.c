@@ -685,10 +685,18 @@ static gpointer build_lang_thread(gpointer data)
 		DBG_PARSING("found %s\n",name);
 		if (xmlStrEqual(name,(xmlChar *)"header")) {
 			/* actually we can skip detection */
-			DBG_PARSING("processing <detection>\n");
+			DBG_PARSING("processing <header>\n");
 			process_header(reader,bflang);
 		} else if (xmlStrEqual(name,(xmlChar *)"definition")) {
-			DBG_PARSING("processing <scanning>\n");
+			if (xmlTextReaderIsEmptyElement(reader)) {
+				/* empty <definition />, probably text/plain */
+				bfparser->st->table->len = 2;
+				bfparser->st->matches->len = 2;
+				bfparser->st->contexts->len = 2;
+				xmlFree(name);
+				break;
+			}
+			DBG_PARSING("processing <definition>\n");
 			while (xmlTextReaderRead(reader)==1) {
 				xmlChar *name2 = xmlTextReaderName(reader);
 				if (xmlStrEqual(name2,(xmlChar *)"context")) {
@@ -713,6 +721,7 @@ static gpointer build_lang_thread(gpointer data)
 	DBG_PARSING("build_lang_thread finished bflang=%p\n",bflang);
 	print_scantable_stats(bfparser->st);
 	/*print_DFA(bfparser->st, '&','Z');*/
+	/*print_DFA_subset(bfparser->st, "\\\" ");*/
 
 	/* when done call mainloop */
 	g_idle_add_full(G_PRIORITY_LOW,build_lang_finished_lcb, bfparser,NULL);

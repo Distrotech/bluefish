@@ -125,7 +125,7 @@
 </element>
 <element pattern="'" highlight="string">
 	<context symbols="\'" highlight="string">
-		<element pattern="\." is_regex="1" highlight="string" />
+		<element pattern="\\." is_regex="1" highlight="string" />
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
