@@ -251,6 +251,7 @@ typedef struct {
 	gint view_cline; /* highlight current line by default */
 	GList *textstyles; /* tet styles: name,foreground,background,weight,style */
 	gint view_blocks; /* show blocks on the left side by default */
+	gint block_folding_mode;
 	GList *highlight_styles;
 	gboolean load_reference;
 	gboolean delay_full_scan;
