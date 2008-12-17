@@ -224,14 +224,14 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 		Tfoundblock *fblock = bftextview2_get_block_at_iter(location);
 		gtk_text_buffer_get_bounds(buffer, &it1, &it2);
 		DBG_SIGNALS("bftextview2_mark_set_lcb, 'insert' set at %d\n",gtk_text_iter_get_offset(location));
-		gtk_text_buffer_remove_tag_by_name(buffer, "_blockmatch_", &it1, &it2);
+		gtk_text_buffer_remove_tag_by_name(buffer, "blockmatch", &it1, &it2);
 		if (fblock) {
 			GtkTextIter it3, it4;
 			if (fblock->start2) {
 				bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
 				DBG_MSG("found a block to highlight the start (%d:%d) and end (%d:%d)\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_offset(&it3),gtk_text_iter_get_offset(&it4));
-				gtk_text_buffer_apply_tag_by_name(buffer, "_blockmatch_", &it1, &it2);
-				gtk_text_buffer_apply_tag_by_name(buffer, "_blockmatch_", &it3, &it4);
+				gtk_text_buffer_apply_tag_by_name(buffer, "blockmatch", &it1, &it2);
+				gtk_text_buffer_apply_tag_by_name(buffer, "blockmatch", &it3, &it4);
 			} else {
 				DBG_MSG("block has no end - no matching\n");
 			}
@@ -661,20 +661,20 @@ static void bftextview2_toggle_fold(BluefishTextView *btv, GtkTextIter *iter) {
 		}
 		if (fstack->pushedblock->folded) {
 			DBG_FOLD("expand fstack with line %d\n",fstack->line);
-			gtk_text_buffer_remove_tag_by_name(buffer, "_foldheader_", &it1, &it2);
+			gtk_text_buffer_remove_tag_by_name(buffer, "foldheader", &it1, &it2);
 			if (main_v->props.block_folding_mode==0) {
 				gtk_text_buffer_remove_tag_by_name(buffer, "_folded_", &it2, &it3);
-				gtk_text_buffer_remove_tag_by_name(buffer, "_foldheader_", &it3, &it4);
+				gtk_text_buffer_remove_tag_by_name(buffer, "foldheader", &it3, &it4);
 			} else if (main_v->props.block_folding_mode==1) {
 				gtk_text_buffer_remove_tag_by_name(buffer, "_folded_", &it2, &it4);
 			}
 			fstack->pushedblock->folded=FALSE;
 		} else {
 			DBG_FOLD("collapse fstack with line %d\n",fstack->line);
-			gtk_text_buffer_apply_tag_by_name(buffer, "_foldheader_", &it1, &it2);
+			gtk_text_buffer_apply_tag_by_name(buffer, "foldheader", &it1, &it2);
 			if (main_v->props.block_folding_mode==0) {
 				gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it3);
-				gtk_text_buffer_apply_tag_by_name(buffer, "_foldheader_", &it3, &it4);
+				gtk_text_buffer_apply_tag_by_name(buffer, "foldheader", &it3, &it4);
 			} else if (main_v->props.block_folding_mode==1) {
 				gtk_text_buffer_apply_tag_by_name(buffer, "_folded_", &it2, &it4);
 			}
