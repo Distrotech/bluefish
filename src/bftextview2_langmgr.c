@@ -853,23 +853,28 @@ void langmgr_init() {
 	tag = gtk_text_tag_new("_needscanning_");
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
-	tag = gtk_text_tag_new("_blockmatch_");
-	g_object_set(tag, "background", "red", NULL);
-	g_object_set(tag, "foreground", "white", NULL);
-	gtk_text_tag_table_add(langmgr.tagtable, tag);
-	g_object_unref(tag);
 	tag = gtk_text_tag_new("_folded_");
 	g_object_set(tag, "editable", FALSE, NULL);
 	g_object_set(tag, "invisible", TRUE, NULL);
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
-	tag = gtk_text_tag_new("_foldheader_");
-	g_object_set(tag, "editable", FALSE, NULL);
-	g_object_set(tag, "background", "#99FF99", NULL);
-	gtk_text_tag_table_add(langmgr.tagtable, tag);
-	g_object_unref(tag);
 
 	langmgr_reload_user_styles(main_v->props.textstyles);
+	if (!gtk_text_tag_table_lookup(langmgr.tagtable,"blockmatch")) {
+		tag = gtk_text_tag_new("blockmatch");
+		g_object_set(tag, "background", "red", NULL);
+		g_object_set(tag, "foreground", "white", NULL);
+		gtk_text_tag_table_add(langmgr.tagtable, tag);
+		g_object_unref(tag);
+	}
+	if (!gtk_text_tag_table_lookup(langmgr.tagtable,"foldheader")) {
+		tag = gtk_text_tag_new("foldheader");
+		g_object_set(tag, "editable", FALSE, NULL);
+		g_object_set(tag, "background", "#99FF99", NULL);
+		gtk_text_tag_table_add(langmgr.tagtable, tag);
+		g_object_unref(tag);
+	}
+	
 	for (tmplist = g_list_first(main_v->props.highlight_styles);tmplist;tmplist=tmplist->next) {
 		gchar **arr2, **arr = (gchar **)tmplist->data;
 		if (arr[0] && arr[1] && arr[2]) {
