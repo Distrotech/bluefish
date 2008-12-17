@@ -343,6 +343,7 @@ struct _BluefishTextView {
 /*	Tscantable *scantable;*/
 	Tbflang *bflang; /* Tbflang */
 	GtkTextTag *needscanning;
+	GtkTextTag *blockmatch;
 	Tscancache scancache;
 	guint scanner_idle; /* event ID for the idle function that handles the scanning. 0 if no idle function is running */
 	guint scanner_delayed; /* event ID for the timeout function that handles the delayed scanning. 0 if no timeout function is running */
