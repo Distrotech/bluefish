@@ -224,14 +224,14 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 		Tfoundblock *fblock = bftextview2_get_block_at_iter(location);
 		gtk_text_buffer_get_bounds(buffer, &it1, &it2);
 		DBG_SIGNALS("bftextview2_mark_set_lcb, 'insert' set at %d\n",gtk_text_iter_get_offset(location));
-		gtk_text_buffer_remove_tag_by_name(buffer, "blockmatch", &it1, &it2);
+		gtk_text_buffer_remove_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
 		if (fblock) {
 			GtkTextIter it3, it4;
 			if (fblock->start2) {
 				bftextview2_get_iters_at_foundblock(buffer, fblock, &it1, &it2, &it3, &it4);
 				DBG_MSG("found a block to highlight the start (%d:%d) and end (%d:%d)\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_offset(&it3),gtk_text_iter_get_offset(&it4));
-				gtk_text_buffer_apply_tag_by_name(buffer, "blockmatch", &it1, &it2);
-				gtk_text_buffer_apply_tag_by_name(buffer, "blockmatch", &it3, &it4);
+				gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
+				gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it3, &it4);
 			} else {
 				DBG_MSG("block has no end - no matching\n");
 			}
@@ -877,6 +877,7 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 	}
 #endif
 	textview->needscanning = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"_needscanning_");
+	textview->blockmatch = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"blockmatch");
 	textview->enable_scanner=FALSE;
 	textview->autocomplete=TRUE;
 	/*font_desc = pango_font_description_from_string("Monospace 10");
