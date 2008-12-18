@@ -1,5 +1,26 @@
 <?xml version="1.0"?>
-<bflang name="C" matches="1255" contexts="6" table="9228">
+<!--
+		Bluefish HTML Editor
+		c.bflang2
+ 
+		Copyright (C) 2008 Olivier Sessink
+
+		This program is free software; you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation; either version 2 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+-->
+
+<bflang name="C" matches="1282" contexts="6" table="9357">
 <header>
 	<mime type="text/x-csrc"/>
 	<mime type="text/x-chdr"/>
@@ -14,8 +35,7 @@
 	<highlight name="value" style="value" fgcolor="#0000EE"  />
 	<highlight name="preprocessor" style="preprocessor" fgcolor="#aaaa00"  />
 	<highlight name="glib-function" style="special-function" fgcolor="#990000"  />
-	<highlight name="glib-type" style="special-type" fgcolor="#990000" bold="1" />
-	
+	<highlight name="glib-type" style="special-type" fgcolor="#990000" bold="1" />	
 </header>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
@@ -62,8 +82,6 @@
 <group class="glib">
 <group  highlight="glib-function" autocomplete="1">
 <element pattern="glib_check_version" />
-<element pattern="guint64" />
-<element pattern="G_LIKELY" />
 <element pattern="g_atomic_int_get" />
 <element pattern="g_atomic_int_set" />
 <element pattern="g_atomic_int_add" />
@@ -308,12 +326,22 @@
 <element pattern="GPrintFunc" />
 <element pattern="g_printerr" />
 <element pattern="g_set_printerr_handler" />
-<element pattern="g_warn_message" />
+<element pattern="g_return_if_fail" />
+<element pattern="g_return_val_if_fail" />
+<element pattern="g_return_if_reached" />
+<element pattern="g_return_val_if_reached" />
+<element pattern="g_warn_if_fail" />
+<element pattern="g_warn_if_reached" />
 <element pattern="g_on_error_query" />
 <element pattern="g_on_error_stack_trace" />
 <element pattern="GLogFunc" />
 <element pattern="g_log" />
 <element pattern="g_logv" />
+<element pattern="g_message" />
+<element pattern="g_warning" />
+<element pattern="g_critical" />
+<element pattern="g_error" />
+<element pattern="g_debug" />
 <element pattern="g_log_set_handler" />
 <element pattern="g_log_remove_handler" />
 <element pattern="g_log_set_always_fatal" />
@@ -378,6 +406,7 @@
 <element pattern="g_strtod" />
 <element pattern="g_strchug" />
 <element pattern="g_strchomp" />
+<element pattern="g_strstrip" />
 <element pattern="g_strdelimit" />
 <element pattern="g_strescape" />
 <element pattern="g_strcompress" />
@@ -1254,12 +1283,30 @@
 <element pattern="g_allocator_free" />
 </group>
 	<group highlight="glib-type" autocomplete="1">
+		<element pattern="gboolean" />
+		<element pattern="gchar" />
+		<element pattern="guchar" />
+		<element pattern="gconstpointer" />
+		<element pattern="gpointer" />
 		<element pattern="gint" />
 		<element pattern="guint" />
+		<element pattern="gint8" />
+		<element pattern="guint8" />
 		<element pattern="gint16" />
 		<element pattern="guint16" />
-		<element pattern="gboolean"  />
-		<element pattern="gchar"  />
+		<element pattern="gint32" />
+		<element pattern="guint32" />
+		<element pattern="gint64" />
+		<element pattern="guint64" />
+		<element pattern="gshort" />
+		<element pattern="gushort" />
+		<element pattern="glong" />
+		<element pattern="gulong" />
+		<element pattern="gfloat" />
+		<element pattern="gdouble" />
+		<element pattern="gsize" />
+		<element pattern="gssize" />
+		<element pattern="goffset" />
 	</group>
 	<element pattern="TRUE"  highlight="value" />	
 	<element pattern="FALSE"  highlight="value" />
