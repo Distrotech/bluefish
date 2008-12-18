@@ -97,7 +97,7 @@
 <element pattern="//" highlight="js-comment">
 	<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
 		<element pattern="[&#10;&#13;]" is_regex="1" highlight="js-comment" ends_context="1" />
-		<element pattern="&lt;/script&gt;" highlight="tag" ends_context="6"/>
+		<element pattern="&lt;/script&gt;" highlight="tag" ends_context="2"/>
 	</context>
 </element>
 <element id="js/*" pattern="/*" starts_block="1" highlight="js-comment">
