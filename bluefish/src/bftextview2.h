@@ -217,7 +217,8 @@ typedef struct {
 	gchar *reference; /* the reference data, or NULL. may be inserted in hash tables for multiple keys in multiple contexts */
 	gchar *pattern; /* the pattern itself. stored in the Tpattern so we can re-use it in another context */
 	gboolean autocomplete; /* whether or not this pattern should be added to the autocompletion; stored in the Tpattern so we can re-use it in another context */
-	gchar *autocomplete_append;
+	gchar *autocomplete_string;
+
 	const gchar *selfhighlight; /* a string with the highlight for this pattern. used when re-linking highlights and textstyles 
 							if the user changed any of these in the preferences */
 	const gchar *blockhighlight; /* a string for the highlight corresponding to the  blocktag */
