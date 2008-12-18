@@ -788,7 +788,7 @@ void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) 
 }
 static gboolean bftextview2_query_tooltip_lcb(GtkWidget *widget,gint x,gint y,gboolean keyboard_tip, GtkTooltip *tooltip, gpointer user_data) {
 	BluefishTextView *btv=user_data;
-	if (btv->bflang && btv->bflang->st && btv->enable_scanner) {
+	if (btv->bflang && btv->bflang->st && btv->enable_scanner && btv->scanner_idle==0) {
 		GtkTextIter iter,mstart;
 		gint contextnum;
 		/* get position */
