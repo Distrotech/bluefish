@@ -1,5 +1,26 @@
 <?xml version="1.0"?>
-<bflang name="HTML" table="1362" contexts="55" matches="394">
+<!--
+		Bluefish HTML Editor
+		html.bflang2
+ 
+		Copyright (C) 2008 Olivier Sessink
+
+		This program is free software; you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation; either version 2 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+-->
+
+<bflang name="HTML" table="1562" contexts="58" matches="440">
 <header>
 	<mime type="text/html"/>
 	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
@@ -151,21 +172,21 @@
 <group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;"> 
 	<tag name="div" attributes="style,class,id,align" />
 	<tag name="p" attributes="style,class,id,align" />
-	<tag name="span" attributes="style,class,id,align" />
+	<tag name="span" attributes="style,class,id" />
 	<tag name="img" highlight="special-tag" attributes="src,width,height,align,valign,border,alt,name,style,id,class" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" >
 	<reference>the image tag</reference>
 	</tag>
-	<tag name="i" attributes="style,class,id" />
-	<tag name="b" attributes="style,class,id" />
-	<tag name="hr" attributes="style,class,id" />
+	<tag name="i" attributes="align,class,style,id" />
+	<tag name="b" attributes="align,class,style,id" />
+	<tag name="hr" attributes="align,class,style,id" />
 	<tag name="em" attributes="style,class,id" />
 	<tag name="strong" attributes="style,class,id" />
 	<tag name="u" attributes="style,class,id" />
 	<tag name="a" highlight="special-tag" attributes="style,class,id,href,target,name" autocomplete_append=" href=&#34;&#34; &gt;" />
-	<tag name="table" highlight="table-tag" attributes="style,class,id" />
-	<tag name="th" highlight="table-tag" attributes="style,class,id" />
-	<tag name="tr" highlight="table-tag" attributes="style,class,id" />
-	<tag name="td" highlight="table-tag" attributes="style,class,id,valign,align" />
+	<tag name="table" highlight="table-tag" attributes="align,border,cellpadding,cellspacing,class,style,id,width" />
+	<tag name="td" highlight="table-tag" attributes="align,class,colspan,height,id,rowspan,style,valign,width" />
+	<tag name="th" highlight="table-tag" attributes="align,class,colspan,height,id,rowspan,style,valign,width" />
+	<tag name="tr" highlight="table-tag" attributes="align,class,id,style,valign" />
 	<tag name="ul" attributes="style,class,id" />
 	<tag name="ol" attributes="style,class,id" />
 	<tag name="li" attributes="style,class,id" />
