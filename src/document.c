@@ -2371,7 +2371,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	/* for some reason it only works after the document is appended to the notebook */
 	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
 
-	DEBUG_MSG("doc_new_backend, need_highlighting=%d, highlight=%d\n", newdoc->need_highlighting, BF_TEXTVIEW(newdoc->view)->highlight);
+	DEBUG_MSG("doc_new_backend, need_highlighting=%d\n", newdoc->need_highlighting);
 	return newdoc;
 }
 
