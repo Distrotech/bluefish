@@ -215,6 +215,17 @@ static void add_to_scancache(BluefishTextView * btv,GtkTextBuffer *buffer,Tscann
 	g_sequence_insert_sorted(btv->scancache.stackcaches,fstack,stackcache_compare_charoffset,NULL);
 }
 
+static void print_blockstack(BluefishTextView * btv, Tscanning *scanning) {
+	GList *tmplist;
+	Tfoundblock *fblock;
+	g_print("blockstack:");
+	for (tmplist=scanning->blockstack->tail;tmplist;tmplist=tmplist->prev) {
+		fblock = tmplist->data;
+		g_print(" %s",g_array_index(btv->bflang->st->matches, Tpattern, fblock->patternum).pattern);
+	}
+	g_print("\n");
+}
+
 static Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
 	Tfoundblock *fblock;
 	DBG_BLOCKMATCH("put block for pattern %d on blockstack\n",match.patternum);
@@ -226,6 +237,7 @@ static Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *b
 	g_object_set_data(G_OBJECT(fblock->start1), "block", fblock);
 	g_object_set_data(G_OBJECT(fblock->end1), "block", fblock);
 	g_queue_push_head(scanning->blockstack,fblock);
+	/*print_blockstack(btv,scanning);*/
 	fblock->refcount++;
 	return fblock;
 }
@@ -242,6 +254,7 @@ static Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuffer *buf
 			DBG_BLOCKMATCH("popped block for pattern %d from blockstack\n",fblock->patternum);
 		}
 	} while (fblock && fblock->patternum != pat->blockstartpattern);
+	/*print_blockstack(btv,scanning);*/
 	if (fblock) {
 		GtkTextIter iter;
 		DBG_BLOCKMATCH("found the matching start of the block\n");
@@ -264,12 +277,12 @@ static Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuffer *buf
 }
 
 static Tfoundcontext *found_context_change(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
-	Tfoundcontext *fcontext;
+	Tfoundcontext *fcontext=NULL;
 	/* check if we change up or down the stack */
 	if (pat->nextcontext < 0) {
 		gint num = -1 * pat->nextcontext;
-		/* pop */
-		while (num > 0) {
+		/* pop, but don't pop if there is nothing to pop (because of an error in the language file) */
+		while (num > 0 && scanning->contextstack->head) {
 			fcontext = g_queue_pop_head(scanning->contextstack);
 			DBG_SCANNING("popped %p, stack len now %d\n",fcontext,g_queue_get_length(scanning->contextstack));
 			DBG_SCANNING("found_context_change, popped context %d from the stack, stack len %d\n",fcontext->context,g_queue_get_length(scanning->contextstack));
