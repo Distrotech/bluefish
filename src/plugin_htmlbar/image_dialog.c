@@ -786,10 +786,7 @@ image_dialog_load_preview (Topenfile_status status,
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:
 		case OPENFILE_ERROR_NOREAD:
-/*			gtk_label_set_text(GTK_LABEL(imdg->message), _("Loading image failed..."));*/
-		break;
 		case OPENFILE_ERROR_CANCELLED:
-			/* should we warn the user ?? */
 			gdk_pixbuf_loader_close (imageDialog->priv->pbloader, NULL);
 		break;
 		case OPENFILE_CHANNEL_OPENED:
@@ -871,11 +868,13 @@ image_dialog_set_preview (BluefishImageDialog *dialog)
 		}
 	}
 
-	g_object_unref (fileinfo);
+	if (fileinfo)
+		g_object_unref (fileinfo);
 		
 	dialog->priv->pbloader = pbloader_get_for_mime_type (mimetype);
-		
-	g_free (mimetype);
+
+	if (mimetype)		
+		g_free (mimetype);
 		
 	g_signal_connect (dialog->priv->pbloader, "size-prepared",
 										G_CALLBACK (pbloader_size_prepared), dialog);
