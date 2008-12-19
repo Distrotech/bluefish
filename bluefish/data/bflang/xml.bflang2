@@ -11,7 +11,7 @@
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-	<element pattern="&lt;[a-zA-Z0-9:-]+" is_regex="1" highlight="tag">
+	<element id="starttag" pattern="&lt;[a-zA-Z0-9:-]+" is_regex="1" highlight="tag" starts_block="1">
 		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;" highlight="attribute">
 			<element pattern="&#34;" highlight="string">
 			<context symbols="&amp;;&#34;" highlight="string" >
@@ -20,7 +20,13 @@
 			</context>
 			</element>
 			<element pattern="'[^']+'" highlight="string" is_regex="1" />
-			<element pattern="&gt;" highlight="tag" ends_context="1" />
+			<element pattern="/&gt;" highlight="tag" ends_context="1" ends_block="1" blockstartelement="starttag" />
+			<element pattern="&gt;" highlight="tag">
+				<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+					<element pattern="&lt;/[a-zA-Z0-9:-]+&gt;" is_regex="1" highlight="tag" ends_context="2"  ends_block="1" blockstartelement="starttag"/>
+					<element idref="starttag"/>
+				</context>
+			</element>
 		</context>
 	</element>
 	<element pattern="&lt;/[a-zA-Z0-9:-]+[ &#9;]*&gt;" is_regex="1" highlight="tag"/>
