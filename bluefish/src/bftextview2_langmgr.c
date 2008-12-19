@@ -100,28 +100,31 @@ static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const 
 
 	tag = gtk_text_tag_table_lookup(langmgr.tagtable,name);
 	if (!tag) {
+		/*g_print("creating tag %p for new textstyle %s\n",tag,name);*/
 		tag = gtk_text_tag_new(name);
 		newtag=TRUE;
-	}
+	} /*else {
+		g_print("modyfying tag %p for textstyle %s\n",tag,name);
+	}*/
 
 	if (fgcolor && fgcolor[0]!='\0') {
 		g_object_set(tag, "foreground", fgcolor,"foreground-set", TRUE, NULL);
-	} else if (newtag){
+	} else if (!newtag){
 		g_object_set(tag, "foreground-set", FALSE, NULL);
 	}
 	if (bgcolor && bgcolor[0]!='\0') {
 		g_object_set(tag, "background", bgcolor, "background-set",TRUE, NULL);
-	} else if (newtag) {
+	} else if (!newtag) {
 		g_object_set(tag, "background-set", FALSE, NULL);
 	}
 	if (bold && (bold[0]=='1'||bold[0]=='2')) {
 		g_object_set(tag, "weight", PANGO_WEIGHT_BOLD, NULL);
-	} else if (newtag) {
+	} else if (!newtag) {
 		g_object_set(tag, "weight", PANGO_WEIGHT_NORMAL, NULL);
 	}
 	if (italic && (italic[0] == '1'||italic[0] == '2')) {
 		g_object_set(tag, "style", PANGO_STYLE_ITALIC, NULL);
-	} else if (newtag) {
+	} else if (!newtag) {
 		g_object_set(tag, "style", PANGO_STYLE_NORMAL, NULL);
 	}
 /*
@@ -149,11 +152,10 @@ void langmgr_reload_user_highlights(void) {
 	GList *tmplist;
 	g_hash_table_remove_all(langmgr.configured_styles);
 	for (tmplist = g_list_first(main_v->props.highlight_styles);tmplist;tmplist=tmplist->next) {
-		gchar **arr2, **arr = (gchar **)tmplist->data;
-		if (arr[0] && arr[1] && arr[3]) {
-			arr2 = array_from_arglist(arr[0], arr[1], NULL);
+		gchar **arr = (gchar **)tmplist->data;
+		if (arr[0] && arr[1] && arr[2]) {
 			/*g_print("set style %s for highlight %s:%s\n",arr[2],arr2[0],arr2[1]);*/
-			g_hash_table_insert(langmgr.configured_styles,arr2,g_strdup(arr[2]));
+			g_hash_table_insert(langmgr.configured_styles,array_from_arglist(arr[0], arr[1], NULL),g_strdup(arr[2]));
 		}
 	}
 	
@@ -161,7 +163,7 @@ void langmgr_reload_user_highlights(void) {
 	while (tmplist) {
 		Tbflang *bflang=tmplist->data;
 		if (bflang->st) {
-			g_print("langmgr_reload_user_highlights, bflang name %s\n",bflang->name);
+			/*g_print("langmgr_reload_user_highlights, bflang name %s\n",bflang->name);*/
 			bftextview2_scantable_rematch_highlights(bflang->st, bflang->name);
 		}
 		tmplist = g_list_next(tmplist);
@@ -170,6 +172,7 @@ void langmgr_reload_user_highlights(void) {
 
 static gchar *langmgr_lookup_style_for_highlight(const gchar *lang, const gchar *highlight) {
 	const gchar *arr[] = {lang, highlight, NULL};
+	/*g_print("langmgr_lookup_style_for_highlight ,lookup %s:%s\n",lang,highlight);*/
 	return g_hash_table_lookup(langmgr.configured_styles, arr);
 }
 
@@ -195,23 +198,26 @@ static void foreachdoc_lcb(Tdocument *doc, gpointer data) {
 static gboolean build_lang_finished_lcb(gpointer data)
 {
 	Tbflangparsing *bfparser=data;
-	bfparser->bflang->st = bfparser->st;
+	if (bfparser->st) {
+		bfparser->bflang->st = bfparser->st;
+	} else {
+		bfparser->bflang->no_st = TRUE;
+	}
 	bfparser->bflang->parsing=FALSE;
-	g_print("build_lang_finished_lcb..\n");
+	DBG_PARSING("build_lang_finished_lcb..\n");
 	/* now walk and rescan all documents that use this bflang */
+	if (bfparser->bflang->st) {
 #ifdef IN_BLUEFISH
-	alldocs_foreach(foreachdoc_lcb, bfparser->bflang);
+		alldocs_foreach(foreachdoc_lcb, bfparser->bflang);
 #else
-	testapp_rescan_bflang(bfparser->bflang);
+		testapp_rescan_bflang(bfparser->bflang);
 #endif
-
+	}
 	/* cleanup the parsing structure */
 	g_hash_table_destroy(bfparser->patterns);
 	g_hash_table_destroy(bfparser->contexts);
 	g_hash_table_destroy(bfparser->setoptions);
 	g_slice_free(Tbflangparsing,bfparser);
-
-
 	return FALSE;
 }
 
@@ -305,8 +311,7 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 						arr = array_from_arglist(style, fgcolor?fgcolor:"", bgcolor?bgcolor:"", bold?bold:"0", italic?italic:"0",NULL);
 						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, arr);
 					}
-					arr = array_from_arglist(bflang->name,name,NULL);
-					g_hash_table_insert(langmgr.configured_styles,arr,g_strdup(style));
+					g_hash_table_insert(langmgr.configured_styles,array_from_arglist(bflang->name,name,NULL),g_strdup(style));
 					arr = array_from_arglist(bflang->name,name,style,NULL);
 					main_v->props.highlight_styles = g_list_prepend(main_v->props.highlight_styles, arr);
 				}
@@ -705,9 +710,11 @@ static gpointer build_lang_thread(gpointer data)
 			if (xmlTextReaderIsEmptyElement(reader)) {
 				DBG_PARSING("empty <definition />\n");
 				/* empty <definition />, probably text/plain */
-				bfparser->st->table->len = 2;
-				bfparser->st->matches->len = 2;
-				bfparser->st->contexts->len = 2;
+				g_array_free(bfparser->st->table,TRUE);
+				g_array_free(bfparser->st->matches,TRUE);
+				g_array_free(bfparser->st->contexts,TRUE);
+				g_slice_free(Tscantable,bfparser->st);
+				bfparser->st = NULL;
 				xmlFree(name);
 				break;
 			}
@@ -717,6 +724,7 @@ static gpointer build_lang_thread(gpointer data)
 				if (xmlStrEqual(name2,(xmlChar *)"context")) {
 					GQueue *contextstack = g_queue_new();
 					process_scanning_context(reader,bfparser,contextstack);
+					/* TODO: free contextstack, memory leak ???? */
 				} else if (xmlStrEqual(name2,(xmlChar *)"definition")) {
 					xmlFree(name2);
 					break;
@@ -729,15 +737,17 @@ static gpointer build_lang_thread(gpointer data)
 	}
 	xmlFreeTextReader(reader);
 	/* do some final memory management */
-	bfparser->st->table->data = g_realloc(bfparser->st->table->data, bfparser->st->table->len*sizeof(Ttablerow));
-	bfparser->st->contexts->data = g_realloc(bfparser->st->contexts->data, bfparser->st->contexts->len*sizeof(Tcontext));
-	bfparser->st->matches->data = g_realloc(bfparser->st->matches->data, bfparser->st->matches->len*sizeof(Tpattern));
+	if (bfparser->st) {
+		g_print("scantable final memory, realloc table %d, contexts %d, matches %d\n",bfparser->st->table->len, bfparser->st->contexts->len, bfparser->st->matches->len);
+		bfparser->st->table->data = g_realloc(bfparser->st->table->data, (bfparser->st->table->len+1)*sizeof(Ttablerow));
+		bfparser->st->contexts->data = g_realloc(bfparser->st->contexts->data, (bfparser->st->contexts->len+1)*sizeof(Tcontext));
+		bfparser->st->matches->data = g_realloc(bfparser->st->matches->data, (bfparser->st->matches->len+1)*sizeof(Tpattern));
 
+		print_scantable_stats(bflang->name,bfparser->st);
+		/*print_DFA(bfparser->st, '&','Z');*/
+		/*print_DFA_subset(bfparser->st, "\\\" ");*/
+	}
 	DBG_PARSING("build_lang_thread finished bflang=%p\n",bflang);
-	print_scantable_stats(bflang->name,bfparser->st);
-	/*print_DFA(bfparser->st, '&','Z');*/
-	/*print_DFA_subset(bfparser->st, "\\\" ");*/
-
 	/* when done call mainloop */
 	g_idle_add_full(G_PRIORITY_LOW,build_lang_finished_lcb, bfparser,NULL);
 	return bflang;
@@ -747,7 +757,7 @@ Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype) {
 	Tbflang *bflang;
 
 	bflang = g_hash_table_lookup(langmgr.bflang_lookup,mimetype);
-	if (bflang && bflang->filename && !bflang->st && !bflang->parsing) {
+	if (bflang && bflang->filename && !bflang->st && !bflang->no_st && !bflang->parsing) {
 		GError *error=NULL;
 		GThread* thread;
 		bflang->parsing=TRUE;
@@ -759,7 +769,7 @@ Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype) {
 			DBG_PARSING("start thread, error\n");
 		}
 	} else {
-		DBG_MSG("have scantable, return %p\n",bflang);
+		DBG_MSG("have scantable or no scantable available for bflang %p\n",bflang);
 	}
 	return bflang;
 }
@@ -775,7 +785,7 @@ static Tbflang *parse_bflang2_header(const gchar *filename) {
 	xmlTextReaderSetParserProp(reader,XML_PARSER_SUBST_ENTITIES,TRUE);
 	if (reader != NULL) {
 		bflang = g_slice_new0(Tbflang);
-		bflang->size_table=4; /* bare minimum sizes */
+		bflang->size_table=2; /* bare minimum sizes */
 		bflang->size_matches=2;
 		bflang->size_contexts=2;
 		bflang->filename = g_strdup(filename);
@@ -852,7 +862,7 @@ void langmgr_init() {
 	langmgr.tagtable = gtk_text_tag_table_new();
 	langmgr.bflang_lookup = g_hash_table_new(g_str_hash,g_str_equal);
 	langmgr.load_reference = main_v->props.load_reference;
-	langmgr.configured_styles = g_hash_table_new(arr2_hash,arr2_equal);
+	langmgr.configured_styles = g_hash_table_new_full(arr2_hash,arr2_equal,g_strfreev,g_free);
 
 	tag = gtk_text_tag_new("_needscanning_");
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
@@ -880,11 +890,10 @@ void langmgr_init() {
 	}
 	
 	for (tmplist = g_list_first(main_v->props.highlight_styles);tmplist;tmplist=tmplist->next) {
-		gchar **arr2, **arr = (gchar **)tmplist->data;
+		gchar **arr = (gchar **)tmplist->data;
 		if (arr[0] && arr[1] && arr[2]) {
-			arr2 = array_from_arglist(arr[0], arr[1], NULL);
 			/*g_print("set style %s for highlight %s:%s\n",arr[2],arr2[0],arr2[1]);*/
-			g_hash_table_insert(langmgr.configured_styles,arr2,g_strdup(arr[2]));
+			g_hash_table_insert(langmgr.configured_styles,array_from_arglist(arr[0], arr[1], NULL),g_strdup(arr[2]));
 		}
 	}
 	scan_bflang2files();

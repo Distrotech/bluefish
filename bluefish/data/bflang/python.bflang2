@@ -13,8 +13,8 @@
 </header>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<element pattern="import[^&#10;]+" is_regex="1" highlight="preprocessor"/>
-<element pattern="from[^&#10;]+" is_regex="1" highlight="preprocessor"/>
+<element pattern="import[^&#10;&#13;]+" is_regex="1" highlight="imports" autocomplete_string="import"/>
+<element pattern="from[^&#10;&#13;]+" is_regex="1" highlight="imports" autocomplete_string="from"/>
 <group autocomplete="1" highlight="keyword">
 <element pattern="and" />
 <element pattern="assert" />
