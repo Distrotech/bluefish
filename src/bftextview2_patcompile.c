@@ -52,10 +52,16 @@ the character list [a-z]
 
 void bftextview2_scantable_rematch_highlights(Tscantable *st, const gchar *lang) {
 	int i=0;
-	for (i=0;i<(st->contexts->len);i++)
+	for (i=0;i<(st->contexts->len);i++) {
+/*		g_print("context %d",i);
+		g_print(" has highlight %s\n",g_array_index(st->contexts, Tcontext, i).contexthighlight);*/
 		if (g_array_index(st->contexts, Tcontext, i).contexthighlight)
 			g_array_index(st->contexts, Tcontext, i).contexttag = langmrg_lookup_tag_highlight(lang, g_array_index(st->contexts, Tcontext, i).contexthighlight);
+	}
 	for (i=0;i<(st->matches->len);i++) {
+/*		g_print("pattern %d",i);
+		g_print(" (%s)",g_array_index(st->matches, Tpattern, i).pattern);
+		g_print(" has selfhighlight %s and blockhighlight %s\n",g_array_index(st->matches, Tpattern, i).selfhighlight,g_array_index(st->matches, Tpattern, i).blockhighlight);*/
 		if (g_array_index(st->matches, Tpattern, i).selfhighlight)
 			g_array_index(st->matches, Tpattern, i).selftag = langmrg_lookup_tag_highlight(lang, g_array_index(st->matches, Tpattern, i).selfhighlight);
 		if (g_array_index(st->matches, Tpattern, i).blockhighlight)
@@ -643,11 +649,12 @@ void print_DFA(Tscantable *st, char start, char end) {
 Tscantable *scantable_new(guint size_table, guint size_matches, guint size_contexts) {
 	Tscantable *st;
 	st = g_slice_new0(Tscantable);
+	DBG_PARSING("scantable_new, initial size table %d, contexts %d, matches %d\n",size_table, size_matches, size_contexts);
 	st->table = g_array_sized_new(TRUE,TRUE,sizeof(Ttablerow), size_table);
 	st->contexts = g_array_sized_new(TRUE,TRUE,sizeof(Tcontext), size_contexts);
 	st->matches = g_array_sized_new(TRUE,TRUE,sizeof(Tpattern), size_matches);
 	st->matches->len = 1; /* match 0 means no match */
-	st->contexts->len = 1; /* context 0 means no context change */
+	st->contexts->len = 1; /* a match with nextcontext 0 means no context change, so we cannot use context 0 */
 	return st;
 }
 

@@ -318,6 +318,7 @@ typedef struct {
 	GList *setoptions; /* all options that are enabled */
 	gchar *filename; /* the .bflang2 file */
 	Tscantable *st; /* NULL or complete */
+	gboolean no_st; /* no scantable, for Text, don't try to load the scantable if st=NULL */
 	gboolean parsing; /* set to TRUE when a thread is parsing the scantable already */
 	gint size_table;
 	gint size_contexts;
