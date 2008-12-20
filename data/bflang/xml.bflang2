@@ -8,16 +8,24 @@
 	<highlight name="string" style="string" fgcolor="#009900"  />
 	<highlight name="entity" style="value" fgcolor="#0000FF" />
 	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="=" style="brackets" fgcolor="#000000" bold="1" />
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
+	<element id="startcomment" pattern="&lt;!--" highlight="comment" starts_block="1">
+		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
+			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
+		</context>
+	</element>
 	<element id="starttag" pattern="&lt;[a-zA-Z0-9:-]+" is_regex="1" highlight="tag" starts_block="1">
-		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;" highlight="attribute">
+		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;">
+			<element pattern="[a-zA-Z0-9:-]+" is_regex="1" highlight="attribute" />
+			<element pattern="=" highlight="=" />
 			<element pattern="&#34;" highlight="string">
-			<context symbols="&amp;;&#34;" highlight="string" >
-				<element id="entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
-				<element pattern="&#34;" highlight="string" ends_context="1"/>
-			</context>
+				<context symbols="&amp;;&#34;" highlight="string" >
+					<element id="entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
+					<element pattern="&#34;" highlight="string" ends_context="1"/>
+				</context>
 			</element>
 			<element pattern="'[^']+'" highlight="string" is_regex="1" />
 			<element pattern="/&gt;" highlight="tag" ends_context="1" ends_block="1" blockstartelement="starttag" />
@@ -25,14 +33,10 @@
 				<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 					<element pattern="&lt;/[a-zA-Z0-9:-]+&gt;" is_regex="1" highlight="tag" ends_context="2"  ends_block="1" blockstartelement="starttag"/>
 					<element idref="starttag"/>
+					<element idref="startcomment"/>
+					<element idref="entity"/>
 				</context>
 			</element>
-		</context>
-	</element>
-	<element pattern="&lt;/[a-zA-Z0-9:-]+[ &#9;]*&gt;" is_regex="1" highlight="tag"/>
-	<element pattern="&lt;!--" highlight="comment" starts_block="1">
-		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
-			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
 	<element idref="entity" />
