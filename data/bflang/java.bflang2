@@ -2,14 +2,14 @@
 <bflang name="Java" matches="67" contexts="6" table="253">
 <header>
 	<mime type="text/x-java"/>
-	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
-	<highlight name="special-keyword" style="keyword-red" fgcolor="#990000" bold="1" />
-	<highlight name="brackets" style="brackets" bold="1" />
-	<highlight name="type" style="type" fgcolor="#000000" bold="1" />
-	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
-	<highlight name="string" style="string" fgcolor="#008800"  />
-	<highlight name="value" style="value" fgcolor="#0000EE"  />
-	<highlight name="imports" style="preprocessor" fgcolor="#aaaa00"  />
+	<highlight name="keyword" style="keyword" />
+	<highlight name="OO-keyword" style="special-keyword"  />
+	<highlight name="brackets" style="brackets"  />
+	<highlight name="type" style="type"  />
+	<highlight name="comment" style="comment"  />
+	<highlight name="string" style="string"  />
+	<highlight name="value" style="value"   />
+	<highlight name="imports" style="preprocessor"  />
 </header>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
@@ -18,7 +18,6 @@
 <element pattern="break" />
 <element pattern="case" />
 <element pattern="catch" />
-<element pattern="class" />
 <element pattern="continue" />
 <element pattern="default" />
 <element pattern="do" />
@@ -27,11 +26,7 @@
 <element pattern="for" />
 <element pattern="goto" />
 <element pattern="if" />
-<element pattern="new" />
-<element pattern="private" />
-<element pattern="public" />
 <element pattern="return" />
-<element pattern="super" />
 <element pattern="switch" />
 <element pattern="throw" />
 <element pattern="throws" />
@@ -40,7 +35,10 @@
 <element pattern="while" />
 
 </group>
-<group autocomplete="1" highlight="special-keyword">
+<group autocomplete="1" highlight="OO-keyword">
+<element pattern="new" />
+<element pattern="class" />
+<element pattern="super" />
 <element pattern="abstract" />
 <element pattern="final" />
 <element pattern="native" />

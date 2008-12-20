@@ -24,14 +24,9 @@ in this file has attribute highlight="foo", this section should have <highlight 
 style="somestyle"/>. Look at other language files and try to re-use styles !!!!!!!!!
 
 For the end-user it is convenient if styles are re-used. All languages that define a comment
-should use style 'comment' by default. Because each language can have unique types, the styles
-are also defined by this tag: 
-fgcolor defines the foreground color (if any)
-bgcolor defines the background color (if any)
-bold if "1" makes the font bold
-italic if "1" makes the font italic
+should use style 'comment' by default. 
 -->
-	<highlight name="comment" style="comment" fgcolor="#990099" bgcolor="#FFFFFF" bold="1" italic="1" />
+	<highlight name="comment" style="comment" />
 
 <!-- <option> is currently unsupported --> 
 	<option name="allfunctions" default="1" description="All php functions" />

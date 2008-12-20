@@ -2,16 +2,16 @@
 <bflang name="JSP">
 <header>
 	<mime type="application/x-jsp"/>
-	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
-	<highlight name="special-keyword" style="special-keyword" fgcolor="#990000" bold="1" />
-	<highlight name="brackets" style="brackets" bold="1" />
-	<highlight name="type" style="type" fgcolor="#000000" bold="1" />
-	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
-	<highlight name="string" style="string" fgcolor="#008800" />
-	<highlight name="value" style="value" fgcolor="#0000EE" />
-	<highlight name="preprocessor" style="preprocessor" fgcolor="#aaaa00" />
-	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
-	<highlight name="attribute" style="tag" fgcolor="#cc00cc" />
+	<highlight name="keyword" style="keyword"  />
+	<highlight name="special-keyword" style="special-keyword"  />
+	<highlight name="brackets" style="brackets"  />
+	<highlight name="type" style="type"  />
+	<highlight name="comment" style="comment"  />
+	<highlight name="string" style="string"  />
+	<highlight name="value" style="value"  />
+	<highlight name="preprocessor" style="preprocessor" />
+	<highlight name="tag" style="tag"  />
+	<highlight name="attribute" style="tag"  />
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">

@@ -23,22 +23,22 @@
 <bflang name="HTML" table="1562" contexts="58" matches="440">
 <header>
 	<mime type="text/html"/>
-	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
-	<highlight name="special-tag" style="special-tag" fgcolor="#990000" bold="1" />
-	<highlight name="table-tag" style="special-tag2" fgcolor="#005500" bold="1" />
-	<highlight name="form-tag" style="special-tag3" fgcolor="#FF9900" bold="1" />
-	<highlight name="attribute" style="attribute" fgcolor="#000099" />
-	<highlight name="string" style="string" fgcolor="#009900" />
-	<highlight name="entity" style="value" fgcolor="#0000FF" />
-	<highlight name="brackets" style="brackets" fgcolor="#000000" bold="1" />
-	<highlight name="css-keyword" style="keyword" fgcolor="#000000" bold="1" />
-	<highlight name="js-keyword" style="keyword" fgcolor="#000000" bold="1" />
-	<highlight name="js-value" style="value" fgcolor="#0000FF" />
-	<highlight name="js-function" style="function" fgcolor="#000099"/>
-	<highlight name="css-value" style="value" fgcolor="#0000FF" />
-	<highlight name="js-comment" style="comment" fgcolor="grey" italic="1" />
-	<highlight name="css-comment" style="comment" fgcolor="grey" italic="1" />
-	<highlight name="html-comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="tag" style="tag"  />
+	<highlight name="special-tag" style="special-tag"  />
+	<highlight name="table-tag" style="special-tag2"  />
+	<highlight name="form-tag" style="special-tag3"  />
+	<highlight name="attribute" style="attribute"  />
+	<highlight name="string" style="string" />
+	<highlight name="entity" style="value"/>
+	<highlight name="brackets" style="brackets"  />
+	<highlight name="css-keyword" style="keyword" f />
+	<highlight name="js-keyword" style="keyword"  />
+	<highlight name="js-value" style="value"  />
+	<highlight name="js-function" style="function" />
+	<highlight name="css-value" style="value"  />
+	<highlight name="js-comment" style="comment"  />
+	<highlight name="css-comment" style="comment"  />
+	<highlight name="html-comment" style="comment"  />
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
