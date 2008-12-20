@@ -100,8 +100,8 @@ static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const 
 
 	tag = gtk_text_tag_table_lookup(langmgr.tagtable,name);
 	if (!tag) {
-		/*g_print("creating tag %p for new textstyle %s\n",tag,name);*/
 		tag = gtk_text_tag_new(name);
+		g_print("creating tag %p for new textstyle %s\n",tag,name);
 		newtag=TRUE;
 	} /*else {
 		g_print("modyfying tag %p for textstyle %s\n",tag,name);
@@ -141,7 +141,7 @@ static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const 
 
 void langmgr_reload_user_styles(GList *user_styles) {
 	GList *tmplist;
-	for (tmplist = g_list_first(user_styles);tmplist;tmplist=tmplist->next) {
+	for (tmplist = g_list_last(user_styles);tmplist;tmplist=tmplist->prev) {
 		gchar **arr = (gchar **)tmplist->data;
 		if (count_array(arr)==5) 
 			langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
