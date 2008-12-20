@@ -139,9 +139,43 @@ static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const 
 	}
 }
 
-void langmgr_reload_user_styles(GList *user_styles) {
+void langmgr_reload_user_styles(void) {
 	GList *tmplist;
-	for (tmplist = g_list_last(user_styles);tmplist;tmplist=tmplist->prev) {
+	
+	if (main_v->props.textstyles == NULL) {
+		gint i=0;
+		/* init the textstyles, most important on the bottom
+		order of the items is {name, foreground, background, bold, italic} */
+		gchar *arr[][6] = {
+			{"preprocessor","#aaaa00","","0","0",NULL},
+			{"comment","grey","","0","1",NULL},
+			{"string","#009900","","0","0",NULL},
+			{"type","","","1","0",NULL},
+			{"special-type","#990000","","1","",NULL},
+			{"function","#000099","","0","0",NULL},
+			{"special-function","#990000","","","",NULL},
+			{"keyword","#000000","","1","0",NULL},
+			{"special-keyword","#990000","","1","",NULL},
+			{"value","#0000FF","","0","0",NULL},
+			{"special-value","#0000FF","","1","",NULL},
+			{"variable","#990000","","1","0",NULL},
+			{"tag","#990099","","1","",NULL},
+			{"special-tag","#990000","","1","",NULL},
+			{"special-tag2","#005500","","1","",NULL},
+			{"special-tag3","#FF9900","","1","",NULL},
+			{"attribute","#000099","","","",NULL},
+			{"brackets","#000000","","1","0",NULL},
+			{NULL,NULL,NULL,NULL,NULL,NULL}
+		};
+		while (arr[i][0]) {
+			main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, duplicate_stringarray(arr[i]));
+			i++;
+		}
+	}
+	
+	/* because the order of the styles is important (last added GtkTextTag is most important) 
+	we begin with the last style in the list */
+	for (tmplist = g_list_last(main_v->props.textstyles);tmplist;tmplist=tmplist->prev) {
 		gchar **arr = (gchar **)tmplist->data;
 		if (count_array(arr)==5) 
 			langmrg_create_style(arr[0], arr[1], arr[2], arr[3], arr[4]);
@@ -283,45 +317,40 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 				}
 			}
 		} else if (xmlStrEqual(name,(xmlChar *)"highlight")) {
-			gchar *name=NULL, *style=NULL, *fgcolor=NULL, *bgcolor=NULL, *italic=NULL,*bold=NULL;
+			gchar *name=NULL, *style=NULL/*, *fgcolor=NULL, *bgcolor=NULL, *italic=NULL,*bold=NULL*/;
 			while (xmlTextReaderMoveToNextAttribute(reader)) {
 				xmlChar *aname = xmlTextReaderName(reader);
 				set_string_if_attribute_name(reader,aname,(xmlChar *)"name", &name);
 				set_string_if_attribute_name(reader,aname,(xmlChar *)"style", &style);
-				set_string_if_attribute_name(reader,aname,(xmlChar *)"fgcolor", &fgcolor);
+/*				set_string_if_attribute_name(reader,aname,(xmlChar *)"fgcolor", &fgcolor);
 				set_string_if_attribute_name(reader,aname,(xmlChar *)"bgcolor", &bgcolor);
 				set_string_if_attribute_name(reader,aname,(xmlChar *)"italic", &italic);
-				set_string_if_attribute_name(reader,aname,(xmlChar *)"bold", &bold);
+				set_string_if_attribute_name(reader,aname,(xmlChar *)"bold", &bold);*/
 				xmlFree(aname);
 			}
 			if (name) {
 				gchar *use_textstyle = langmgr_lookup_style_for_highlight(bflang->name, name);
 				if (use_textstyle) { /* we have a user-configured textstyle for this highlight */
 					if (!gtk_text_tag_table_lookup(langmgr.tagtable,use_textstyle)) {
-						/* the user-set style does not exist, create the user-set style with the provided style as content */
-						gchar **arr;
-						langmrg_create_style(use_textstyle, fgcolor, bgcolor, bold, italic);
-						arr = array_from_arglist(use_textstyle, fgcolor?fgcolor:"", bgcolor?bgcolor:"", bold?bold:"0", italic?italic:"0",NULL);
-						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, arr);
+						/* the user-set style does not exist, create an empty user-set style */
+						gchar *arr[] = {"","","","","",NULL};
+						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, duplicate_stringarray(arr));
 					}
-				} else if (style) { /* no textstyle was configured, use the provided style */
-					gchar **arr;
+				} else if (style) { /* no textstyle was configured, set the provided style */
 					if (!gtk_text_tag_table_lookup(langmgr.tagtable,style)) {
-						langmrg_create_style(style, fgcolor, bgcolor, bold, italic);
-						arr = array_from_arglist(style, fgcolor?fgcolor:"", bgcolor?bgcolor:"", bold?bold:"0", italic?italic:"0",NULL);
-						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, arr);
+						gchar *arr[] = {"","","","","",NULL};
+						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, duplicate_stringarray(arr));
 					}
 					g_hash_table_insert(langmgr.configured_styles,array_from_arglist(bflang->name,name,NULL),g_strdup(style));
-					arr = array_from_arglist(bflang->name,name,style,NULL);
-					main_v->props.highlight_styles = g_list_prepend(main_v->props.highlight_styles, arr);
+					main_v->props.highlight_styles = g_list_prepend(main_v->props.highlight_styles, array_from_arglist(bflang->name,name,style,NULL));
 				}
 			}
 			g_free(name);
 			g_free(style);
-			g_free(fgcolor);
+/*			g_free(fgcolor);
 			g_free(bgcolor);
 			g_free(italic);
-			g_free(bold);
+			g_free(bold);*/
 		} else if (xmlStrEqual(name,(xmlChar *)"header")) {
 			xmlFree(name);
 			break;
@@ -873,7 +902,7 @@ void langmgr_init() {
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
 
-	langmgr_reload_user_styles(main_v->props.textstyles);
+	langmgr_reload_user_styles();
 	if (!gtk_text_tag_table_lookup(langmgr.tagtable,"blockmatch")) {
 		tag = gtk_text_tag_new("blockmatch");
 		g_object_set(tag, "background", "red", NULL);

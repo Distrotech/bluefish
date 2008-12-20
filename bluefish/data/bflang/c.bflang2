@@ -27,15 +27,15 @@
 	<mime type="application/x-csrc"/>
 	<mime type="application/x-chdr"/>
 	<option name="glib" default="1" description="glib types and functions"/>
-	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
-	<highlight name="brackets" style="brackets" bold="1" />
-	<highlight name="type" style="type" fgcolor="#000000" bold="1" />
-	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
-	<highlight name="string" style="string" fgcolor="#008800"  />
-	<highlight name="value" style="value" fgcolor="#0000EE"  />
-	<highlight name="preprocessor" style="preprocessor" fgcolor="#aaaa00"  />
-	<highlight name="glib-function" style="special-function" fgcolor="#990000"  />
-	<highlight name="glib-type" style="special-type" fgcolor="#990000" bold="1" />	
+	<highlight name="keyword" style="keyword"  />
+	<highlight name="brackets" style="brackets"  />
+	<highlight name="type" style="type"  />
+	<highlight name="comment" style="comment"  />
+	<highlight name="string" style="string"   />
+	<highlight name="value" style="value"   />
+	<highlight name="preprocessor" style="preprocessor"   />
+	<highlight name="glib-function" style="special-function"  />
+	<highlight name="glib-type" style="special-type"  />	
 </header>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">

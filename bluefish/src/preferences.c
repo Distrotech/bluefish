@@ -1215,7 +1215,7 @@ static void preferences_apply(Tprefdialog *pd) {
 	main_v->props.highlight_styles = duplicate_arraylist(pd->lists[highlight_styles]);
 
 	/* apply the changes to highlighting patterns and filetypes to the running program */
-	langmgr_reload_user_styles(main_v->props.textstyles);
+	langmgr_reload_user_styles();
 	langmgr_reload_user_highlights();
 
 	all_documents_apply_settings();
