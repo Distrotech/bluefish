@@ -3,8 +3,9 @@
 <header>
 	<mime type="text/xml"/>
 	<mime type="application/xml"/>
+	<highlight name="xml-declaration" style="preprocessor" fgcolor="#aaaa00" />
 	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
-	<highlight name="attribute" style="attribute" fgcolor="#000099"  />
+	<highlight name="attribute" style="attribute" fgcolor="#000099" />
 	<highlight name="string" style="string" fgcolor="#009900"  />
 	<highlight name="entity" style="value" fgcolor="#0000FF" />
 	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
@@ -12,21 +13,28 @@
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-	<element id="startcomment" pattern="&lt;!--" highlight="comment" starts_block="1">
-		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
-			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
-		</context>
-	</element>
-	<element id="starttag" pattern="&lt;[a-zA-Z0-9:-]+" is_regex="1" highlight="tag" starts_block="1">
-		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;">
-			<element pattern="[a-zA-Z0-9:-]+" is_regex="1" highlight="attribute" />
-			<element pattern="=" highlight="=" />
-			<element pattern="&#34;" highlight="string">
+	<element id="startxml" pattern="&lt;?xml" highlight="xml-declaration" starts_block="1">
+		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;=">
+			<element pattern="[a-zA-Z0-9:-]+" is_regex="1" highlight="xml-declaration" />
+			<element pattern="?&gt;" ends_context="1" ends_block="1" blockstartelement="startxml" highlight="xml-declaration" />
+			<element id="stringstart" pattern="&#34;" highlight="string">
 				<context symbols="&amp;;&#34;" highlight="string" >
 					<element id="entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
 					<element pattern="&#34;" highlight="string" ends_context="1"/>
 				</context>
 			</element>
+		</context>
+	</element>
+	<element id="startcomment" pattern="&lt;!--" highlight="comment" starts_block="1">
+		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
+			<element pattern="--&gt;" ends_block="1" blockstartelement="startcomment" highlight="comment" mayfold="1" ends_context="1" />
+		</context>
+	</element>
+	<element id="starttag" pattern="&lt;[a-zA-Z0-9:-]+" is_regex="1" highlight="tag" starts_block="1">
+		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;=">
+			<element pattern="[a-zA-Z0-9:-]+" is_regex="1" highlight="attribute" />
+			<element pattern="=" highlight="=" />
+			<element idref="stringstart"/>
 			<element pattern="'[^']+'" highlight="string" is_regex="1" />
 			<element pattern="/&gt;" highlight="tag" ends_context="1" ends_block="1" blockstartelement="starttag" />
 			<element pattern="&gt;" highlight="tag">
