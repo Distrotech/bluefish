@@ -1,5 +1,26 @@
 <?xml version="1.0"?>
-<bflang name="C++" matches="79" contexts="6" table="354">
+<!--
+		Bluefish HTML Editor
+		cpp.bflang2
+ 
+		Copyright (C) 2008 Olivier Sessink
+
+		This program is free software; you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation; either version 2 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+-->
+
+<bflang name="C++" matches="79" contexts="5" table="354">
 <header>
 	<mime type="text/x-c++src"/>
 	<mime type="text/x-c++hdr"/>
@@ -7,8 +28,9 @@
 	<mime type="application/x-c++hdr"/>
 
 	<highlight name="keyword" style="keyword" fgcolor="#000000" bold="1" />
+	<highlight name="storage keyword" style="storage-keyword" fgcolor="#990099" bold="1" />
 	<highlight name="brackets" style="brackets" bold="1" />
-	<highlight name="type" style="type" fgcolor="#000000" bold="1" />
+	<highlight name="type2" style="type2" fgcolor="#990099" bold="1" />
 	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
 	<highlight name="string" style="string" fgcolor="#008800"  />
 	<highlight name="value" style="value" fgcolor="#0000EE"  />
@@ -19,12 +41,10 @@
 
 	<group highlight="keyword" autocomplete="1">
 	<element pattern="asm" />
-	<element pattern="auto" />
 	<element pattern="break" />
 	<element pattern="case" />
 	<element pattern="catch" />
 	<element pattern="class" />
-	<element pattern="const" />
 	<element pattern="const_cast" />
 	<element pattern="continue" />
 	<element pattern="default" />
@@ -32,25 +52,20 @@
 	<element pattern="do" />
 	<element pattern="dynamic_cast" />
 	<element pattern="else" />
-	<element pattern="explicit" />
-	<element pattern="extern" />
+	<element pattern="enum" />
 	<element pattern="for" />
 	<element pattern="friend" />
 	<element pattern="goto" />
 	<element pattern="if" />
-	<element pattern="inline" />
-	<element pattern="mutable" />
 	<element pattern="namespace" />
 	<element pattern="new" />
 	<element pattern="operator" />
 	<element pattern="private" />
 	<element pattern="protected" />
 	<element pattern="public" />
-	<element pattern="register" />
 	<element pattern="reinterpret_cast" />
 	<element pattern="return" />
 	<element pattern="sizeof" />
-	<element pattern="static" />
 	<element pattern="static_cast" />
 	<element pattern="struct" />
 	<element pattern="switch" />
@@ -58,25 +73,36 @@
 	<element pattern="typeid" />
 	<element pattern="typename" />
 	<element pattern="typedef" />
+	<element pattern="union" />
 	<element pattern="using" />
 	<element pattern="virtual" />
-	<element pattern="volatile" />
 	<element pattern="while" />
 	</group>
 
-	<group highlight="type" autocomplete="1">
+	<group highlight="storage keyword" autocomplete="1">
+	<element pattern="auto" />
+	<element pattern="const" />
+	<element pattern="extern" />
+	<element pattern="inline" />
+	<element pattern="mutable" />	
+	<element pattern="register" />
+	<element pattern="static" />
+	<element pattern="volatile" />
+	</group>
+
+	<group highlight="type2" autocomplete="1">
 		<element pattern="bool"/>
-		<element pattern="unsigned"/>
-		<element pattern="signed"><reference><b></b> <b>signed</b> means if the storage can have negative numbers or only positive numbers</reference></element>
-		<element pattern="void"><reference><b></b> <b>void</b> is the default storage type for a pointer, 16 bits on 16 bit architecture, 32 bits on 32 bit architecture, 64 bits on 64 bit architecture</reference></element>
-		<element pattern="int"><reference><b></b> <b>int</b> is the integer storage type, minimal 2 bytes but usually 4 bytes (32bits)</reference></element>
 		<element pattern="char"><reference><b></b> <b>char</b> is the character storage type, which is 1 byte (8bits)</reference></element>
-		<element pattern="enum" />
-		<element pattern="short"><reference><b></b> a <b>short</b> int is 2 bytes (16bits)</reference></element>
-		<element pattern="long"><reference><b></b> a <b>long</b> int is minimally 4 bytes (32bits), on 64bit architectures it is 8 bytes (64 bits). A <b>long long</b> int is minimally 8 bytes, and 16 bytes on 64bit architectures. A <b>long</b> double might be 64 or 128 bits.</reference></element>
-		<element pattern="float"><reference><b></b> float is the floating point storage type, which is 2 or 4 bytes (16 or 32bits)</reference></element>
 		<element pattern="double"><reference><b></b> double is the big floating point storage type, which is 4 or 8 byte (32 or 64bits)</reference></element>
-		<element pattern="union" />
+		<element pattern="explicit" />
+		<element pattern="export" />
+		<element pattern="float"><reference><b></b> float is the floating point storage type, which is 2 or 4 bytes (16 or 32bits)</reference></element>
+		<element pattern="int"><reference><b></b> <b>int</b> is the integer storage type, minimal 2 bytes but usually 4 bytes (32bits)</reference></element>		
+		<element pattern="long"><reference><b></b> a <b>long</b> int is minimally 4 bytes (32bits), on 64bit architectures it is 8 bytes (64 bits). A <b>long long</b> int is minimally 8 bytes, and 16 bytes on 64bit architectures. A <b>long</b> double might be 64 or 128 bits.</reference></element>
+		<element pattern="signed"><reference><b></b> <b>signed</b> means if the storage can have negative numbers or only positive numbers</reference></element>
+		<element pattern="short"><reference><b></b> a <b>short</b> int is 2 bytes (16bits)</reference></element>
+		<element pattern="unsigned"/>
+		<element pattern="void"><reference><b></b> <b>void</b> is the default storage type for a pointer, 16 bits on 16 bit architecture, 32 bits on 32 bit architecture, 64 bits on 64 bit architecture</reference></element>
 		<element pattern="wchar_t" />
 	</group>
 	
@@ -108,12 +134,7 @@
 	</element>
 	<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
 	<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
-	<element pattern="#(include|if|else|endif|ifdef|ifndef|define)" is_regex="1" highlight="preprocessor">
-		<context symbols="/*&#10;&#13;" highlight="preprocessor">
-			<element pattern="[&#10;&#13;]" is_regex="1" ends_context="1" />
-			<element id="commstart" />	
-		</context>
-	</element>
+	<element pattern="#(include|if|else|endif|ifdef|ifndef|define)" is_regex="1" highlight="preprocessor" />
 	</context>
 </definition>
 </bflang>
