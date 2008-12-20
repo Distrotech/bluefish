@@ -2,12 +2,12 @@
 <bflang name="Bflang2" matches="97" contexts="20" table="642">
 <header>
 	<mime type="application/x-bluefish-language2"/>
-	<highlight name="tag" style="tag" fgcolor="#990099" bold="1" />
-	<highlight name="pattern-tag" style="special-tag" fgcolor="#990000" bold="1" />
-	<highlight name="attribute" style="attribute" fgcolor="#000099"  />
-	<highlight name="string" style="string" fgcolor="#009900"  />
-	<highlight name="entity" style="value" fgcolor="#0000FF" />
-	<highlight name="comment" style="comment" fgcolor="grey" italic="1" />
+	<highlight name="tag" style="tag" />
+	<highlight name="pattern-tag" style="special-tag"  />
+	<highlight name="attribute" style="attribute"   />
+	<highlight name="string" style="string"  />
+	<highlight name="entity" style="value"  />
+	<highlight name="comment" style="comment"  />
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
@@ -30,8 +30,8 @@
 		<tag name="mime" highlight="tag" autocomplete_append=" type=&quot;&quot; /&gt;" attributes="type" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 		<reference>The <i>mime</i> tag should have attribute <i>type</i> which has the mime type. The mime type is used to find the correct language definition for a file in the editor. There can be multiple mime tags in the heading section.</reference>
 		</tag>
-		<tag name="highlight" highlight="tag" autocomplete_append=" name=&quot;&quot; style=&quot;&quot; /&gt;" attributes="name,style,fgcolor,bgcolor,bold,italic" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
-		<reference>The <i>highlight</i> tag should have attributes <i>name</i> and <i>style</i>, and may have attributes <i>fgcolor</i>, <i>bgcolor</i>, <i>bold</i> and <i>italic</i>. The tag links the types of elements that can be highlighted (called <i>highlights</i>) and <i>styles</i> that are used by multiple languages. Because each language file may specify a new style it can be defined by fgcolor (foreground color), bgcolor (background color), bold, and italic. If multiple language files specify the same style, the style is defined by the first of these language files that is loaded. A user may override each style in the configuration.</reference>
+		<tag name="highlight" highlight="tag" autocomplete_append=" name=&quot;&quot; style=&quot;&quot; /&gt;" attributes="name,style" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+		<reference>The <i>highlight</i> tag should have attributes <i>name</i> and <i>style</i>. The tag links the types of elements that can be highlighted (called <i>highlights</i>) and <i>styles</i> that are used by multiple languages. Default styles are hardcoded in bftexdtview2_langmgr.c A user may override each highlight / style combination in the configuration and may change the looks of each style.</reference>
 		</tag>		
 		</context>
 	</tag>
