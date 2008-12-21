@@ -412,7 +412,6 @@ static void fileintodoc_lcb(Topenfile_status status,gint error_info,gchar *buffe
 					GtkTextIter iter;
 					gtk_text_buffer_get_iter_at_mark(fid->doc->buffer,&iter,gtk_text_buffer_get_insert(fid->doc->buffer));
 					gtk_text_buffer_insert(fid->doc->buffer,&iter,newbuf,-1);
-					/* BUG ENCODING */
 					g_free(newbuf);
 					g_free(encoding);
 				}

@@ -24,7 +24,7 @@
 <header>
 	<mime type="text/html"/>
 	<highlight name="tag" style="tag" />
-	<highlight name="special-tag" style="special-tag" />
+	<highlight name="reference-external-tag" style="special-tag" />
 	<highlight name="table-tag" style="special-tag2" />
 	<highlight name="form-tag" style="special-tag3" />
 	<highlight name="attribute" style="attribute" />
@@ -169,20 +169,26 @@
 <tag name="body" highlight="tag" attributes="style,class,id,lang">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 	<tag idref="script" />
+<group highlight="reference-external-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+	<tag name="img" attributes="src,width,height,align,valign,border,alt,name,style,id,class,title,ismap,usemap" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" >
+	<reference>The img tag inserts an image into a document</reference>
+	</tag>
+	<tag name="object" attributes="class,style,id" />
+	<tag name="param" attributes="class,style,id,name,value" />
+	<tag name="embed" attributes="class,style,id" />
+	<tag name="a" attributes="style,class,id,href,target,name" autocomplete_append=" href=&#34;&#34; &gt;" />
+</group>
 <group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;"> 
 	<tag name="div" attributes="style,class,id,align" />
 	<tag name="p" attributes="style,class,id,align" />
-	<tag name="span" attributes="style,class,id" />
-	<tag name="img" highlight="special-tag" attributes="src,width,height,align,valign,border,alt,name,style,id,class,title,ismap,usemap" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" >
-	<reference>The img tag inserts an image into a document</reference>
-	</tag>
+	<tag name="pre" attributes="style,class,id,align" />
+	<tag name="span" attributes="style,class,id" />	
 	<tag name="i" attributes="align,class,style,id" />
 	<tag name="b" attributes="align,class,style,id" />
 	<tag name="hr" attributes="align,class,style,id" />
 	<tag name="em" attributes="style,class,id" />
 	<tag name="strong" attributes="style,class,id" />
 	<tag name="u" attributes="style,class,id" />
-	<tag name="a" highlight="special-tag" attributes="style,class,id,href,target,name" autocomplete_append=" href=&#34;&#34; &gt;" />
 	<tag name="table" highlight="table-tag" attributes="align,border,cellpadding,cellspacing,class,style,id,width" />
 	<tag name="td" highlight="table-tag" attributes="align,class,colspan,height,id,rowspan,style,valign,width" />
 	<tag name="th" highlight="table-tag" attributes="align,class,colspan,height,id,rowspan,style,valign,width" />
