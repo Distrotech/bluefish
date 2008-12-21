@@ -20,22 +20,22 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="C" matches="1287" contexts="6" table="9364">
+<bflang name="C" matches="1289" contexts="6" table="9372">
 <header>
 	<mime type="text/x-csrc"/>
 	<mime type="text/x-chdr"/>
 	<mime type="application/x-csrc"/>
 	<mime type="application/x-chdr"/>
 	<option name="glib" default="1" description="glib types and functions"/>
-	<highlight name="keyword" style="keyword"  />
-	<highlight name="brackets" style="brackets"  />
-	<highlight name="type" style="type"  />
-	<highlight name="comment" style="comment"  />
-	<highlight name="string" style="string"   />
-	<highlight name="value" style="value"   />
-	<highlight name="preprocessor" style="preprocessor"   />
-	<highlight name="glib-function" style="special-function"  />
-	<highlight name="glib-type" style="special-type"  />	
+	<highlight name="keyword" style="keyword" />
+	<highlight name="brackets" style="brackets" />
+	<highlight name="type" style="type" />
+	<highlight name="comment" style="comment" />
+	<highlight name="string" style="string" />
+	<highlight name="value" style="value" />
+	<highlight name="preprocessor" style="preprocessor" />
+	<highlight name="glib-function" style="special-function" />
+	<highlight name="glib-type" style="special-type" />	
 </header>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
@@ -968,6 +968,8 @@
 <element pattern="GFunc" />
 <element pattern="g_list_first" />
 <element pattern="g_list_last" />
+<element pattern="g_list_previous" />
+<element pattern="g_list_next" />
 <element pattern="g_list_nth" />
 <element pattern="g_list_nth_data" />
 <element pattern="g_list_nth_prev" />
