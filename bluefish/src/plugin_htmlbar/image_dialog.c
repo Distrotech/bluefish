@@ -107,6 +107,10 @@ image_dialog_reset_dimensions (GtkButton *button,
 															 BluefishImageDialog *dialog);
 
 static void
+image_dialog_source_activate (GtkWidget *widget,
+															BluefishImageDialog *dialog);
+
+static void
 image_dialog_source_changed (GtkWidget *widget,
 														 BluefishImageDialog *dialog);
 
@@ -282,7 +286,8 @@ bluefish_image_dialog_create (GType type,
                                             
   BluefishImageDialog *dialog = BLUEFISH_IMAGE_DIALOG (obj);  
 
-	GtkWidget *frame, *hbox, *label, *notebook, *table, *vbox;
+	GtkWidget *alignment, *frame, *hbox, *vbox;
+	GtkWidget *label, *notebook, *table;
 	unsigned int i = 0;
 	
 	const gchar *alignments[] = {
@@ -303,19 +308,24 @@ bluefish_image_dialog_create (GType type,
 	gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL);
 	gtk_dialog_add_button (GTK_DIALOG (dialog), GTK_STOCK_OK, GTK_RESPONSE_OK);
 	
-	/*gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog),
-																		 GTK_RESPONSE_OK, FALSE);*/
-	
 	g_signal_connect (dialog, "response", G_CALLBACK (image_dialog_response_lcb), dialog);
 	
+	alignment = gtk_alignment_new (0, 0, 1, 1);
+	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 6, 12, 6, 6);
+	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG (dialog)->vbox), alignment);
+	
+	vbox = gtk_vbox_new (FALSE, 6);
+	gtk_container_add (GTK_CONTAINER (alignment), vbox);
+	
 	hbox = gtk_hbox_new (FALSE, 6);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), hbox, FALSE, FALSE, 6);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, FALSE, FALSE, 0);
 	
 	label = gtk_label_new_with_mnemonic (_("_Source:"));
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 	dialog->priv->source = gtk_entry_new ();
 	gtk_box_pack_start_defaults (GTK_BOX (hbox), dialog->priv->source);
 	gtk_label_set_mnemonic_widget (GTK_LABEL (label), dialog->priv->source);
+	g_signal_connect (dialog->priv->source, "activate", G_CALLBACK (image_dialog_source_activate), dialog);
 	g_signal_connect (dialog->priv->source, "changed", G_CALLBACK (image_dialog_source_changed), dialog);
 	
 	dialog->priv->fileButton = dialog_button_new_with_image (NULL,
@@ -326,7 +336,7 @@ bluefish_image_dialog_create (GType type,
 	g_signal_connect (dialog->priv->fileButton, "clicked", G_CALLBACK (filebutton_clicked), dialog);
 	
 	hbox = gtk_hbox_new (FALSE, 6);
-	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), hbox, TRUE, TRUE, 6);
+	gtk_box_pack_start_defaults (GTK_BOX (vbox), hbox);
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
 	
@@ -336,11 +346,11 @@ bluefish_image_dialog_create (GType type,
 	gtk_container_add (GTK_CONTAINER (frame), dialog->priv->previewPane);
 	
 	vbox = gtk_vbox_new (FALSE, 6);
-	gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
+	gtk_box_pack_start_defaults (GTK_BOX (hbox), vbox);
 	
 	notebook = gtk_notebook_new ();
 	gtk_notebook_popup_disable (GTK_NOTEBOOK (notebook));
-	gtk_box_pack_start (GTK_BOX (vbox), notebook, FALSE, FALSE, 6);
+	gtk_box_pack_start (GTK_BOX (vbox), notebook, FALSE, FALSE, 0);
 	
 	vbox = gtk_vbox_new (FALSE, 6);	
 	frame = gtk_frame_new (NULL);
@@ -720,10 +730,25 @@ image_dialog_set_source (BluefishImageDialog *dialog)
 }
 
 static void
+image_dialog_set_preview_info (BluefishImageDialog *dialog, const gchar *string)
+{
+	dialog->priv->previewInfo = gtk_label_new (string);
+	gtk_label_set_use_markup (GTK_LABEL (dialog->priv->previewInfo), TRUE);
+	gtk_label_set_justify (GTK_LABEL (dialog->priv->previewInfo), GTK_JUSTIFY_CENTER);
+	gtk_box_pack_start (GTK_BOX (dialog->priv->previewPane), dialog->priv->previewInfo, FALSE, FALSE, 0);
+	gtk_widget_show (dialog->priv->previewInfo);
+}
+
+static void
 image_dialog_preview_loaded (BluefishImageDialog *dialog)
 {
 	GFileInfo *fileinfo;
 	GError *error = NULL;
+	
+	if (dialog->priv->previewInfo) {
+		gtk_widget_destroy (dialog->priv->previewInfo);
+		dialog->priv->previewInfo = NULL;	
+	}	
 		
 	gtk_box_pack_start (GTK_BOX (dialog->priv->previewPane), dialog->priv->preview, FALSE, FALSE, 6);
 	gtk_widget_show (dialog->priv->preview);
@@ -755,11 +780,7 @@ image_dialog_preview_loaded (BluefishImageDialog *dialog)
 														dialog->priv->origWidth,
 														dialog->priv->origHeight);
 		
-		dialog->priv->previewInfo = gtk_label_new (previewInfo->str);
-		gtk_label_set_use_markup (GTK_LABEL (dialog->priv->previewInfo), TRUE);
-		gtk_label_set_justify (GTK_LABEL (dialog->priv->previewInfo), GTK_JUSTIFY_CENTER);
-		gtk_box_pack_start (GTK_BOX (dialog->priv->previewPane), dialog->priv->previewInfo, FALSE, FALSE, 0);
-		gtk_widget_show (dialog->priv->previewInfo);
+		image_dialog_set_preview_info (dialog, previewInfo->str);
 		
 		g_string_free (previewInfo, TRUE);
 	}
@@ -769,7 +790,6 @@ image_dialog_preview_loaded (BluefishImageDialog *dialog)
 	image_dialog_reset_dimensions (NULL, dialog);
 	gtk_widget_set_sensitive (dialog->priv->resetSizeButton, TRUE);
 	image_dialog_set_source (dialog);
-	/*gtk_dialog_set_response_sensitive (GTK_DIALOG (dialog), GTK_RESPONSE_OK, TRUE);*/
 }
 
 static void
@@ -782,17 +802,19 @@ image_dialog_load_preview (Topenfile_status status,
 	BluefishImageDialog *imageDialog = callback_data;
 	gboolean cleanup = TRUE;
 	
-	switch (status) {
+	switch (status)
+	{
 		case OPENFILE_ERROR:
 		case OPENFILE_ERROR_NOCHANNEL:
 		case OPENFILE_ERROR_NOREAD:
 		case OPENFILE_ERROR_CANCELLED:
-			gdk_pixbuf_loader_close (imageDialog->priv->pbloader, NULL);
+			gdk_pixbuf_loader_close (imageDialog->priv->pbloader, NULL);			
 		break;
 		case OPENFILE_CHANNEL_OPENED:
 			cleanup = FALSE;
 		break;
-		case OPENFILE_FINISHED: {
+		case OPENFILE_FINISHED:
+		{
 			GdkPixbuf *pixbuf;
 			GError *error= NULL;
 			
@@ -842,39 +864,18 @@ image_dialog_remove_preview (BluefishImageDialog *dialog)
 	dialog->priv->origWidth = 0;	
 	image_dialog_reset_dimensions (NULL, dialog);
 	gtk_widget_set_sensitive (dialog->priv->resetSizeButton, FALSE);
-	/*gtk_dialog_set_response_sensitive (GTK_DIALOG(dialog), GTK_RESPONSE_OK, FALSE);*/
 }
 
 static void
-image_dialog_set_preview (BluefishImageDialog *dialog)
+image_dialog_set_preview (BluefishImageDialog *dialog, const gchar *mimetype)
 {
-	GFileInfo *fileinfo;
-	GError *error = NULL;
-	gchar *mimetype = NULL;
-
 	if (dialog->priv->preview)
 		image_dialog_remove_preview (dialog);
-	
-	fileinfo = g_file_query_info (dialog->priv->fileuri,
-																G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
-																G_FILE_QUERY_INFO_NONE,
-																NULL,
-																&error);
-		
-	if (error == NULL) {
-		if (g_file_info_has_attribute (fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE)) {
-			const gchar *contenttype = g_file_info_get_content_type (fileinfo);
-			mimetype = g_content_type_get_mime_type (contenttype);
-		}
-	}
 
-	if (fileinfo)
-		g_object_unref (fileinfo);
+	if (!g_file_has_uri_scheme (dialog->priv->fileuri, "file"))
+		image_dialog_set_preview_info (dialog, _("\n\n\t<b>Loading preview...</b>\t\n\n"));
 		
 	dialog->priv->pbloader = pbloader_get_for_mime_type (mimetype);
-
-	if (mimetype)		
-		g_free (mimetype);
 		
 	g_signal_connect (dialog->priv->pbloader, "size-prepared",
 										G_CALLBACK (pbloader_size_prepared), dialog);
@@ -883,8 +884,42 @@ image_dialog_set_preview (BluefishImageDialog *dialog)
 }
 
 static void
-image_dialog_source_changed (GtkWidget *widget,
-														 BluefishImageDialog *dialog)
+image_dialog_check_is_image_file (BluefishImageDialog *dialog)
+{
+	GFileInfo *fileinfo;
+	GError *error = NULL;
+
+	fileinfo = g_file_query_info (dialog->priv->fileuri,
+																G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE,
+																G_FILE_QUERY_INFO_NONE,
+																NULL,
+																&error);
+
+	if (error == NULL) {
+		if (g_file_info_has_attribute (fileinfo, G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE)) {
+			const gchar *contenttype = g_file_info_get_content_type (fileinfo);
+
+			if (contenttype && g_content_type_is_a (contenttype, "image/*")) {
+				gchar *mimetype = NULL;
+				
+				mimetype = g_content_type_get_mime_type (contenttype);				
+				image_dialog_set_preview (dialog, mimetype);
+				
+				if (mimetype)
+					g_free (mimetype);
+			}
+		}
+	} 
+	else
+		g_error_free (error);
+	
+	if (fileinfo)
+		g_object_unref (fileinfo);
+}
+
+static void
+source_changed_or_activate (BluefishImageDialog *dialog,
+														gboolean is_activate)
 {
 	const gchar *filename = NULL;
 	gchar *tmp;
@@ -907,33 +942,30 @@ image_dialog_source_changed (GtkWidget *widget,
 			g_object_unref (parent);
 		} else if (tmp != NULL) {
 				dialog->priv->fileuri = g_file_new_for_uri (filename);
-				if (!g_file_has_uri_scheme (dialog->priv->fileuri, "file"))
+				if (is_activate == FALSE && !g_file_has_uri_scheme (dialog->priv->fileuri, "file"))
 					return;
 		}	else if	(filename[0] == '/')
 				dialog->priv->fileuri = g_file_new_for_path (filename);
 			else
 				return;
 
-		if (dialog->priv->fileuri && g_file_query_exists (dialog->priv->fileuri, NULL)) {
-			GFileInfo *fileinfo;
-			GError *error = NULL;
-
-			fileinfo = g_file_query_info (dialog->priv->fileuri,
-																		G_FILE_ATTRIBUTE_STANDARD_TYPE,
-																		G_FILE_QUERY_INFO_NONE,
-																		NULL,
-																		&error);
-
-			if (error == NULL) {
-				if (g_file_info_has_attribute (fileinfo, G_FILE_ATTRIBUTE_STANDARD_TYPE)) {
-					if (g_file_info_get_file_type (fileinfo) != G_FILE_TYPE_DIRECTORY)
-						image_dialog_set_preview (dialog);
-				}
-			}
-
-			g_object_unref (fileinfo);
-		}
+		if (dialog->priv->fileuri && g_file_query_exists (dialog->priv->fileuri, NULL))
+			image_dialog_check_is_image_file (dialog);
 	}
+}
+
+static void
+image_dialog_source_activate (GtkWidget *widget,
+															BluefishImageDialog *dialog)
+{
+	source_changed_or_activate (dialog, TRUE);
+}
+
+static void
+image_dialog_source_changed (GtkWidget *widget,
+														 BluefishImageDialog *dialog)
+{
+	source_changed_or_activate (dialog, FALSE);
 }
 
 static void
@@ -952,7 +984,7 @@ filebutton_clicked (GtkButton *button,
 										  NULL);
 	
 	filefilter = gtk_file_filter_new ();
-	gtk_file_filter_set_name (filefilter, _("images"));
+	gtk_file_filter_set_name (filefilter, _("All images"));
 	gtk_file_filter_add_pixbuf_formats (filefilter);
 	gtk_file_chooser_add_filter (GTK_FILE_CHOOSER (dialog), filefilter);
 	
@@ -960,7 +992,11 @@ filebutton_clicked (GtkButton *button,
 
 	if (imageDialog->priv->fileuri && imageDialog->priv->preview) {
 		seturi = g_file_get_uri (imageDialog->priv->fileuri);
-		gtk_file_chooser_set_uri (GTK_FILE_CHOOSER (dialog), seturi);
+		
+		if (!gtk_file_chooser_set_uri (GTK_FILE_CHOOSER (dialog), seturi)) {
+			g_free (seturi);
+			seturi = NULL;
+		}
 	}
 	else if (imageDialog->priv->doc->uri) {
 		GFile *parent = g_file_get_parent (imageDialog->priv->doc->uri);
@@ -970,9 +1006,13 @@ filebutton_clicked (GtkButton *button,
 		if (seturi)
 			gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dialog), seturi);
 	}
-	else if (imageDialog->priv->bfwin->session->opendir)
+	
+	if (seturi == NULL && imageDialog->priv->bfwin->session->opendir)
 		gtk_file_chooser_set_current_folder_uri (GTK_FILE_CHOOSER (dialog), 
 																						 imageDialog->priv->bfwin->session->opendir);
+	else if (seturi == NULL)
+		gtk_file_chooser_set_current_folder (GTK_FILE_CHOOSER (dialog),
+																				 g_get_home_dir ());
 	
 	if (seturi)
 		g_free (seturi);
@@ -991,7 +1031,7 @@ filebutton_clicked (GtkButton *button,
 		}
 
 		imageDialog->priv->fileuri = g_file_new_for_uri (stringuri);
-		image_dialog_set_preview (imageDialog);
+		image_dialog_check_is_image_file (imageDialog);
 		
 		g_free (stringuri);
 	}
