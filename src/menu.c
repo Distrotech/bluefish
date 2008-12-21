@@ -298,8 +298,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/_Highlight Syntax"), NULL, doc_toggle_highlighting_cb, 1, "<ToggleItem>"},
 	{N_("/Document/_Update Highlighting"), "F5", doc_update_highlighting, 0, "<Item>"},
 	{"/Document/sep3", NULL, NULL, 0, "<Separator>"},
-	{N_("/Document/Document Ty_pe"), NULL, NULL, 0, "<Branch>"},
-	{"/Document/Document Type/tearoff1", NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Document/Highlight _Mode"), NULL, NULL, 0, "<Branch>"},
+	{"/Document/Highlight Mode/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/Character _Encoding"), NULL, NULL, 0, "<Branch>"},
 	{"/Document/Character Encoding/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{"/Document/Character Encoding/sep4", NULL, NULL, 0, "<Separator>"},
@@ -505,9 +505,9 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	}
 	DEBUG_MSG("filetype_menu_rebuild, adding filetypes in menu\n");
 	bfwin->menu_filetypes = NULL;
-	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Document Type"));
+	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Highlight Mode"));
 
-	tmplist = g_list_first(langmgr_get_languages());
+	tmplist = g_list_last(langmgr_get_languages());
 	while (tmplist) {
 		Tbflang *bflang = (Tbflang *)tmplist->data;
 		Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
@@ -518,8 +518,8 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 		gtk_widget_show(bdm->menuitem);
 		gtk_menu_insert(GTK_MENU(parent_menu), bdm->menuitem, 1);
 		group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(bdm->menuitem));
-		bfwin->menu_filetypes = g_list_append(bfwin->menu_filetypes, bdm);
-		tmplist = g_list_next(tmplist);
+		bfwin->menu_filetypes = g_list_prepend(bfwin->menu_filetypes, bdm);
+		tmplist = g_list_previous(tmplist);
 	}
 }
 
