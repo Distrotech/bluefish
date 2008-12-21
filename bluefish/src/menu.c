@@ -50,13 +50,8 @@
 #include "external_commands.h"
 #include "outputbox.h"           /* temporary */
 #include "blocksync.h"
-
-#ifdef USE_BFTEXTVIEW2
 #include "bftextview2.h"
 #include "bftextview2_langmgr.h"
-#else
-#include "bf-textview.h"
-#endif
 
 #ifdef HAVE_PYTHON
 #include "embed_python.h"
@@ -211,12 +206,6 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 		bfwin->current_document->linenumberstate = GTK_CHECK_MENU_ITEM(widget)->active;
 		document_set_line_numbers(bfwin->current_document, bfwin->current_document->linenumberstate);
 		break;
-#ifndef USE_BFTEXTVIEW2
-	case 3:
-		bfwin->current_document->autoclosingtag = GTK_CHECK_MENU_ITEM(widget)->active;
-		BF_TEXTVIEW(bfwin->current_document->view)->tag_autoclose = GTK_CHECK_MENU_ITEM(widget)->active;
-		break;
-#endif
 	case 4:
 		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->autoindent = GTK_CHECK_MENU_ITEM(widget)->active;
 		break;
@@ -224,12 +213,6 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 		bfwin->current_document->blocksstate = GTK_CHECK_MENU_ITEM(widget)->active;
 		document_set_show_blocks(bfwin->current_document, bfwin->current_document->blocksstate);
 		break;
-#ifndef USE_BFTEXTVIEW2
-	case 6:
-		bfwin->current_document->symstate = GTK_CHECK_MENU_ITEM(widget)->active;
-		document_set_show_symbols(bfwin->current_document, bfwin->current_document->symstate);
-		break;		
-#endif
 	}
 }
 
@@ -308,15 +291,9 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/_Decrease Tabsize"), NULL, gui_change_tabsize, 0, "<Item>"},
 	{N_("/Document/_Auto Indent"), NULL, toggle_doc_property, 4, "<ToggleItem>"},
 	{"/Document/sep1", NULL, NULL, 0, "<Separator>"},
-#ifndef USE_BFTEXTVIEW2
-	{N_("/Document/Auto Close H_TML tags"), "<control>T", toggle_doc_property, 3, "<ToggleItem>"},
-#endif
 	{N_("/Document/_Wrap"), NULL, toggle_doc_property, 1, "<ToggleItem>"},
 	{N_("/Document/_Line Numbers"), NULL, toggle_doc_property, 2, "<ToggleItem>"},
 	{N_("/Document/Show _blocks"), NULL, toggle_doc_property, 5, "<ToggleItem>"},
-#ifndef USE_BFTEXTVIEW2
-	{N_("/Document/Show _symbols"), NULL, toggle_doc_property, 6, "<ToggleItem>"},	
-#endif
 	{"/Document/sep2", NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/_Highlight Syntax"), NULL, doc_toggle_highlighting_cb, 1, "<ToggleItem>"},
 	{N_("/Document/_Update Highlighting"), "F5", doc_update_highlighting, 0, "<Item>"},
@@ -494,22 +471,11 @@ static void create_parent_and_tearoff(gchar *menupath, GtkItemFactory *ifactory)
 }	
 
 static void menu_current_document_type_change(GtkMenuItem *menuitem,Tbfw_dynmenu *bdm) {
-	
-#ifdef USE_BFTEXTVIEW2
 	DEBUG_MSG("menu_current_document_type_change, started for bflang %p\n", bdm->data);
 	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
 		bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(bdm->bfwin->current_document->view), ((Tbflang *)bdm->data)->mimetypes->data);
 	}
 
-#else
-	DEBUG_MSG("menu_current_document_type_change, started for hlset %p\n", bdm->data);
-	if (GTK_CHECK_MENU_ITEM(menuitem)->active) {
-		if (doc_set_filetype(bdm->bfwin->current_document, bdm->data)) {
-		} else {
-			menu_current_document_set_toggle_wo_activate(bdm->bfwin,bdm->bfwin->current_document->hl, NULL);
-		}
-	}
-#endif
 	doc_set_statusbar_editmode_encoding(bdm->bfwin->current_document);
 	DEBUG_MSG("menu_current_document_type_change, finished\n");
 }
@@ -540,7 +506,7 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 	DEBUG_MSG("filetype_menu_rebuild, adding filetypes in menu\n");
 	bfwin->menu_filetypes = NULL;
 	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Document Type"));
-#ifdef USE_BFTEXTVIEW2
+
 	tmplist = g_list_first(langmgr_get_languages());
 	while (tmplist) {
 		Tbflang *bflang = (Tbflang *)tmplist->data;
@@ -555,34 +521,7 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 		bfwin->menu_filetypes = g_list_append(bfwin->menu_filetypes, bdm);
 		tmplist = g_list_next(tmplist);
 	}
-#else
-	tmplist = g_list_last(main_v->filetypelist);
-	while (tmplist) {
-		Tfiletype *filetype = (Tfiletype *)tmplist->data;
-		if (filetype->cfg) {
-			Tbfw_dynmenu *bdm = g_new(Tbfw_dynmenu,1);
-			bdm->data = filetype;
-			bdm->bfwin = bfwin;
-			bdm->menuitem = gtk_radio_menu_item_new_with_label(group, filetype->type);
-			bdm->signal_id = g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) bdm);
-			gtk_widget_show(bdm->menuitem);
-			gtk_menu_insert(GTK_MENU(parent_menu), bdm->menuitem, 1);
-			group = gtk_radio_menu_item_get_group(GTK_RADIO_MENU_ITEM(bdm->menuitem));
-			bfwin->menu_filetypes = g_list_append(bfwin->menu_filetypes, bdm);
-		}
-		tmplist = g_list_previous(tmplist);
-	}
-#endif
 }
-#ifndef USE_BFTEXTVIEW2
-gboolean   menu_autocomp_run(GtkAccelGroup *accel_group,GObject *acceleratable,
-                                             guint keyval,GdkModifierType modifier,gpointer data)
-{
-	Tbfwin *bfwin = BFWIN(data);
-	bf_textview_autocomp_show(BF_TEXTVIEW(bfwin->current_document->view));
-	return TRUE;
-}
-#endif 
 
 /* 
  * menu factory crap, thanks to the gtk tutorial for this
@@ -613,17 +552,6 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	setup_toggle_item(item_factory, "/Document/Auto Indent", main_v->props.autoindent);
 	set_project_menu_widgets(bfwin, FALSE);
 	filetype_menu_rebuild(bfwin, item_factory);
-#ifndef USE_BFTEXTVIEW2
-	{
-		guint key;	
-		GdkModifierType mod;
-		main_v->autocompletion->closure = g_cclosure_new(G_CALLBACK(menu_autocomp_run),bfwin,NULL);
-		main_v->autocompletion->group = accel_group;
-		gtk_accelerator_parse(main_v->props.autocomp_key,&key,&mod);
-		gtk_accel_group_connect(main_v->autocompletion->group,key,mod,GTK_ACCEL_VISIBLE, main_v->autocompletion->closure);
-		
-	}
-#endif
 }
 
 
@@ -981,7 +909,7 @@ static void external_filter_lcb(GtkWidget *widget, Tbfw_dynmenu *bdm) {
 	 we should ask if it should be the complete file or the selection */
 	 
 	if (operatable_on_selection(arr[1]) && (doc_has_selection(bdm->bfwin->current_document))) {
-		GtkWidget *dialog,*vbox;
+		GtkWidget *dialog;
 		Tfilterdialog *fd;
 		fd = g_slice_new(Tfilterdialog);
 		fd->bdm = bdm;
@@ -1170,16 +1098,11 @@ void encoding_menu_rebuild(Tbfwin *bfwin) {
 void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, gpointer filetype, gchar *encoding) {
 	Tbfw_dynmenu *bdm = find_bfw_dynmenu_by_data_in_list(bfwin->menu_filetypes, filetype);
 	if (bdm && filetype && bdm->menuitem && !GTK_CHECK_MENU_ITEM(bdm->menuitem)->active) {
-		DEBUG_MSG("setting widget from hlset %p active\n", bfwin->current_document->hl);
 		g_signal_handler_disconnect(G_OBJECT(bdm->menuitem),bdm->signal_id);
 		gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(bdm->menuitem), TRUE);
 		bdm->signal_id = g_signal_connect(G_OBJECT(bdm->menuitem), "activate",G_CALLBACK(menu_current_document_type_change), (gpointer) bdm);
 	}
-#ifdef DEBUG
-	 else {
-	 	DEBUG_MSG("widget from filetype %p is already active, or filetype does not have a widget!!\n", bfwin->current_document->hl);
-	 }
-#endif
+
 	if (encoding) {
 		GList *tmplist;
 		tmplist = g_list_first(main_v->globses.encodings);
@@ -1200,6 +1123,3 @@ void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, gpointer filety
 		}
 	}
 }
-
-
-/*************************************************************************/
