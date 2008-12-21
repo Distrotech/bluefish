@@ -1244,7 +1244,6 @@ GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, Gtk
 		}
 		
 		while (cont) {
-			Tbmark *mark;
 			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter, PTR_COLUMN,
 							   &mark, -1);
 			if (mark && mark->mark) {
@@ -1264,6 +1263,39 @@ GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, Gtk
 		return ret;
 	}
 	return NULL;
+}
+/* returns a line number for the Tbmark that bmark points to, or -1 if there is no bmark  */
+gint bmark_margin_get_next_bookmark(Tdocument * doc, gpointer *bmark) {
+	gboolean cont;
+	GtkTextIter textit;
+	GtkTreeIter treeit = ((Tbmark *)*bmark)->iter;
+	cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &treeit);
+	if (!cont) {
+		return -1;
+	}
+	gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &treeit, PTR_COLUMN,bmark, -1);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &textit, ((Tbmark *)*bmark)->mark);
+	return gtk_text_iter_get_line(&textit);
+}
+/* returns a line number for the Tbmark that bmark points to, or -1 if there is no bmark */
+gint bmark_margin_get_initial_bookmark(Tdocument * doc, GtkTextIter *fromit, gpointer *bmark) {
+	guint offset;
+	GtkTextIter textit;
+	if (!doc->bmark_parent) {
+		return -1;
+	}
+	offset = gtk_text_iter_get_offset(fromit);
+	*bmark = bmark_find_bookmark_before_offset(BFWIN(doc->bfwin), offset, doc->bmark_parent); /* returns NULL if there is no existing bookmark *before* offset */
+	if (!*bmark) {
+		GtkTreeIter treeit;
+		gboolean retval = gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &treeit, doc->bmark_parent);
+		if (!retval) {
+			return -1;
+		}
+		gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &treeit, PTR_COLUMN,bmark, -1);
+	}
+	gtk_text_buffer_get_iter_at_mark(doc->buffer, &textit, ((Tbmark *)*bmark)->mark);
+	return gtk_text_iter_get_line(&textit);
 }
 
 /* this function will simply add the bookmark as defined in the arguments

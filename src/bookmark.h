@@ -2,7 +2,7 @@
  * bookmark.h - bookmarks
  *
  * Copyright (C) 2003 Oskar Swida
- * modifications (C) 2004-2007 Olivier Sessink
+ * modifications (C) 2004-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,6 +31,8 @@ void bmark_set_store(Tbfwin *bfwin);
 void bmark_clean_for_doc(Tdocument *doc); /* set bookmark's doc to NULL when closing file */ 
 void bmark_set_for_doc(Tdocument * doc, gboolean check_positions); /* set bookmark's doc to proper doc when opening file */ 
 GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, GtkTextIter *toit);
+gint bmark_margin_get_next_bookmark(Tdocument * doc, gpointer *bmark);
+gint bmark_margin_get_initial_bookmark(Tdocument * doc, GtkTextIter *fromit, gpointer *bmark);
 void bmark_add_extern(Tdocument *doc, gint offset, const gchar *name, const gchar *text, gboolean is_temp);
 void bmark_add(Tbfwin *bfwin);
 gboolean bmark_have_bookmark_at_stored_bevent(Tdocument * doc);
