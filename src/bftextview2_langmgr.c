@@ -334,11 +334,13 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 					if (!gtk_text_tag_table_lookup(langmgr.tagtable,use_textstyle)) {
 						/* the user-set style does not exist, create an empty user-set style */
 						gchar *arr[] = {"","","","","",NULL};
+						g_print("textstyle %s is set by the user but does not exist\n",use_textstyle);
 						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, duplicate_stringarray(arr));
 					}
 				} else if (style) { /* no textstyle was configured, set the provided style */
 					if (!gtk_text_tag_table_lookup(langmgr.tagtable,style)) {
 						gchar *arr[] = {"","","","","",NULL};
+						g_print("textstyle %s is set in the language file but does not exist\n",style);
 						main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, duplicate_stringarray(arr));
 					}
 					g_hash_table_insert(langmgr.configured_styles,array_from_arglist(bflang->name,name,NULL),g_strdup(style));
@@ -392,6 +394,9 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 		if (idref && idref[0] && !id && !pattern) {
 			guint16 matchnum;
 			matchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, idref));
+			if (!matchnum) {
+				g_print("element with id %s does not exist\n",idref);
+			}
 			compile_existing_match(bfparser->st,matchnum, context);
 		} else if (pattern && pattern[0]) {
 			gchar *reference=NULL;
@@ -404,6 +409,9 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 			}
 			if (blockstartelement) {
 				blockstartelementum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, blockstartelement));
+				if (!blockstartelementum) {
+					g_print("blockstartelement %s is used in the language file but does not exist\n",blockstartelement);
+				}
 				DBG_PARSING("got blockstartelementum %d for blockstartelement %s, ends_block=%d\n",blockstartelementum,blockstartelement,ends_block);
 			}
 			matchnum = add_keyword_to_scanning_table(bfparser->st, pattern, bfparser->bflang->name, highlight?highlight:ih_highlight, blockhighlight,is_regex?is_regex:ih_is_regex,case_insens?case_insens:ih_case_insens, context, nextcontext
@@ -483,6 +491,9 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
 		if (idref && idref[0] && !tag) {
 			guint16 matchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, idref));
+			if (!matchnum) {
+				g_print("tag with id %s does not exist\n",idref);
+			}
 			DBG_PARSING("lookup tag with id %s returned matchnum %d\n",id,matchnum);
 			if (matchnum)
 				compile_existing_match(bfparser->st,matchnum, context);
