@@ -1057,14 +1057,22 @@ void doc_set_statusbar_insovr(Tdocument *doc)
  **/
 void doc_set_statusbar_editmode_encoding(Tdocument *doc)
 {
-	gchar *msg;
+	gchar *msg = NULL;
+
 	if (doc->fileinfo) {
-		const gchar *mime = g_file_info_get_content_type(doc->fileinfo);
-		const gchar *desc = g_content_type_get_description(mime);
-		msg = g_strdup_printf(_("  %s, %s"), desc, doc->encoding);
-	} else {
-		msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
+		const gchar *desc = NULL;
+		const gchar *mime = NULL;
+		
+		mime = g_file_info_get_content_type(doc->fileinfo);
+		if (mime) {
+			desc = g_content_type_get_description(mime);
+			msg = g_strdup_printf(_("  %s, %s"), desc, doc->encoding);
+		}
 	}
+	
+	if (msg == NULL)
+		msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
+
 	gtk_statusbar_pop(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_editmode), 0);
 	gtk_statusbar_push(GTK_STATUSBAR(BFWIN(doc->bfwin)->statusbar_editmode), 0, msg);
 	g_free(msg);
