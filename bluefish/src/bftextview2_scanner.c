@@ -17,7 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-
+#define HL_PROFILING
+#ifdef HL_PROFILING
+#include <sys/times.h>
+#include <unistd.h>
+#endif
 /* for the design docs see bftextview2.h */
 #include "bftextview2_scanner.h"
 
@@ -470,6 +474,13 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	Tscanning scanning;
 	guint pos = 0, newpos;
 	gboolean normal_run=TRUE, last_character_run=FALSE;
+#ifdef HL_PROFILING
+	struct tms tms1;
+	struct tms tms2;
+	struct tms tms3;
+	struct tms tms4;
+	struct tms tms5;
+#endif
 
 	scanning.context = 1;
 	DBG_MSG("bftextview2_run_scanner for btv %p..\n",btv);
@@ -508,11 +519,16 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 
 
 	DBG_SCANNING("scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
-
+#ifdef HL_PROFILING
+	times(&tms1);
+#endif
 	if (btv->scancache.stackcache_need_update_charoffset != -1 && btv->scancache.stackcache_need_update_charoffset <= gtk_text_iter_get_offset(&end)) {
 		gtk_text_buffer_get_iter_at_offset(buffer, &iter, btv->scancache.stackcache_need_update_charoffset);
 		scancache_update_all_positions(btv, buffer, &iter, &end);
 	}
+#ifdef HL_PROFILING
+	times(&tms2);
+#endif
 	iter = mstart = start;
 	if (gtk_text_iter_is_start(&start)) {
 		scanning.contextstack = g_queue_new();
@@ -524,13 +540,19 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		pos = g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).startstate;
 		DBG_SCANNING("reconstructed stacks, context=%d, startstate=%d\n",scanning.context,pos);
 	}
-	/*matchstack = g_array_sized_new(FALSE,TRUE,sizeof(Tmatch),10);*/
+#ifdef HL_PROFILING
+	times(&tms3);
+#endif
 	/* TODO: when rescanning text that has been scanned before we need to remove
 	invalid tags and blocks. right now we remove all, but most are likely
-	still valid */
+	still valid. 
+	This function takes a lot of time!!!!!!!!!! */
 	remove_old_scan_results(btv, buffer, &start);
 	/* because we remove all to the end we have to rescan to the end (I know this
 	is stupid, should become smarter in the future )*/
+#ifdef HL_PROFILING
+	times(&tms4);
+#endif
 	if (!visible_end)
 		gtk_text_iter_forward_to_end(&end);
 	else
@@ -581,7 +603,15 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 
 	g_timer_destroy(scanning.timer);
 	/*g_array_free(matchstack,TRUE);*/
-
+#ifdef HL_PROFILING
+	times(&tms5);
+	g_print("timing for this scanning run: %ld, %ld, %ld, %ld\n"
+		,(long int)((tms2.tms_utime - tms1.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
+		,(long int)((tms3.tms_utime - tms2.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
+		,(long int)((tms4.tms_utime - tms3.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
+		,(long int)((tms5.tms_utime - tms4.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
+		);
+#endif
 	return TRUE; /* even if we finished scanning the next call should update the scancache */
 }
 
