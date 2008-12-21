@@ -2278,6 +2278,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->status = DOC_STATUS_COMPLETE; /* if we don't set this default we will get problems for new empty files */
 	newdoc->buffer = gtk_text_buffer_new(langmgr_get_tagtable());
 	newdoc->view = bftextview2_new_with_buffer(newdoc->buffer);
+	BLUEFISH_TEXT_VIEW(newdoc->view)->doc = newdoc;
 	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
 	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(newdoc->view), "text/plain");
 	scroll = gtk_scrolled_window_new(NULL, NULL);

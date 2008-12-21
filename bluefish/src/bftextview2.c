@@ -28,6 +28,7 @@
 
 #ifdef IN_BLUEFISH
 #include "bluefish.h"
+#include "bookmark.h"
 #else
 #include "testapp.h"
 #endif
@@ -271,8 +272,13 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 	} else {
 		btv->margin_pixels_block = 0;
 	}
+	if (btv->showsymbols) {
+		btv->margin_pixels_symbol = 12;
+	} else {
+		btv->margin_pixels_symbol = 0;
+	}
 	/*g_print("lines=%d,count=%d,pixels_per_char=%d\n",lines,count,btv->margin_pixels_per_char);*/
-	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, btv->margin_pixels_chars+btv->margin_pixels_block);
+	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, btv->margin_pixels_chars+btv->margin_pixels_block+btv->margin_pixels_symbol);
 }
 
 static gboolean char_in_allsymbols(BluefishTextView * btv, gunichar uc) {
@@ -340,10 +346,10 @@ static void paint_margin_expand(BluefishTextView *btv,GdkEventExpose * event,gin
 					GTK_WIDGET(btv), NULL, 23, 28, w + (height / 2));
 	gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, w + (height / 2) + 4, w + height, 25);*/
-	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->base_gc[GTK_WIDGET_STATE(btv)], TRUE,btv->margin_pixels_chars+1, w + (height / 2) - 4, 8,8);
-	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)], FALSE,btv->margin_pixels_chars+1, w + (height / 2) - 4, 8,8);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5,w + (height / 2) + 5,btv->margin_pixels_chars+5, w + height);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+3,w + (height / 2), btv->margin_pixels_chars+7,w + (height / 2));
+	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->base_gc[GTK_WIDGET_STATE(btv)], TRUE,btv->margin_pixels_chars+btv->margin_pixels_symbol+1, w + (height / 2) - 4, 8,8);
+	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)], FALSE,btv->margin_pixels_chars+btv->margin_pixels_symbol+1, w + (height / 2) - 4, 8,8);
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+5,w + (height / 2) + 5,btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + height);
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+3,w + (height / 2), btv->margin_pixels_chars+btv->margin_pixels_symbol+7,w + (height / 2));
 }
 static void paint_margin_collapse(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
 /*	gtk_paint_box(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv),
@@ -356,22 +362,26 @@ static void paint_margin_collapse(BluefishTextView *btv,GdkEventExpose * event,g
 					GTK_WIDGET(btv), NULL, w + (height / 2) + 4, w + height, 25);*/
 	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->base_gc[GTK_WIDGET_STATE(btv)], TRUE,btv->margin_pixels_chars+1, w + (height / 2) - 4, 8,8);
 	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)], FALSE,btv->margin_pixels_chars+1, w + (height / 2) - 4, 8,8);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5,w + (height / 2)-2,btv->margin_pixels_chars+5, w + (height / 2)+2);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5,w + (height / 2) + 5,btv->margin_pixels_chars+5, w + height);
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+3,w + (height / 2), btv->margin_pixels_chars+7,w + (height / 2));
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+5,w + (height / 2)-2,btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + (height / 2)+2);
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+5,w + (height / 2) + 5,btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + height);
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+3,w + (height / 2), btv->margin_pixels_chars+btv->margin_pixels_symbol+7,w + (height / 2));
 }
 static void paint_margin_blockend(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5, w, btv->margin_pixels_chars+5, w + (height/2));
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5, w+(height/2), btv->margin_pixels_chars+8, w + (height/2));
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w, btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + (height/2));
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w+(height/2), btv->margin_pixels_chars+btv->margin_pixels_symbol+8, w + (height/2));
 /*	gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, w, w + (height / 2), 25);
 	gtk_paint_hline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, 25, 29, w + (height / 2));*/
 }
 static void paint_margin_line(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
-	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+5, w, btv->margin_pixels_chars+5, w + height);
+	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w, btv->margin_pixels_chars+btv->margin_pixels_symbol+5, w + height);
 	/*gtk_paint_vline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
 					GTK_WIDGET(btv), NULL, w, w + height, 25);*/
+}
+
+static void paint_margin_symbol(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
+	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)], TRUE,btv->margin_pixels_chars+2, w + (height / 2) - 4, 8,8);
 }
 
 static gint get_num_foldable_blocks(Tfoundstack *fstack) {
@@ -407,6 +417,8 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 	GtkTextTag *folded;
 	gint i;
 	PangoLayout *panlay;
+	gpointer bmark;
+	gint bmarkline=-1;
 
 	/* to see how many blocks are active here */
 	if (gtk_text_iter_is_start(startvisible)) {
@@ -443,6 +455,9 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 	panlay = gtk_widget_create_pango_layout(GTK_WIDGET(btv), "x");
 
 	folded = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv))),"_folded_");
+	if (btv->showsymbols) {
+		bmarkline = bmark_margin_get_initial_bookmark((Tdocument *)btv->doc, startvisible, &bmark);
+	}
 
 	for (i = gtk_text_iter_get_line(startvisible); i <= gtk_text_iter_get_line(endvisible); i++) {
 		gint w, height;
@@ -465,7 +480,15 @@ static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIt
 								 GTK_WIDGET(btv), NULL, 2, w, panlay);
 				g_free(string);
 			}
-
+			/* symbols */
+			if (btv->showsymbols && bmarkline != -1) {
+				while (bmarkline != -1 && bmarkline < i) {
+					bmarkline = bmark_margin_get_next_bookmark((Tdocument *)btv->doc, &bmark);
+				}
+				if (bmarkline == i) {
+					paint_margin_symbol(btv,event,w,height);
+				}
+			}
 			/* block folding.
 			- to find out if we need an expander/collapse, we need to see if there is a pushedblock on the
 			blockstack which has 'foldable' for any stackcache that is on this line.
@@ -869,6 +892,7 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 	textview->linenumbers = main_v->props.view_line_numbers;
 	textview->showblocks = main_v->props.view_blocks;
 	textview->autoindent = main_v->props.autoindent;
+	textview->showsymbols=TRUE;
 #else
 	if (background_color) {
 		GdkColor color;
@@ -879,7 +903,7 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 	textview->needscanning = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"_needscanning_");
 	textview->blockmatch = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"blockmatch");
 	textview->enable_scanner=FALSE;
-	textview->autocomplete=TRUE;
+	textview->autocomplete=TRUE;	
 	/*font_desc = pango_font_description_from_string("Monospace 10");
 	gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
 	pango_font_description_free(font_desc);*/

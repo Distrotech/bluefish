@@ -344,6 +344,7 @@ struct _BluefishTextView {
 	GtkTextView parent;
 /*	Tscantable *scantable;*/
 	Tbflang *bflang; /* Tbflang */
+	gpointer doc; /* Tdocument */
 	GtkTextTag *needscanning;
 	GtkTextTag *blockmatch;
 	Tscancache scancache;
@@ -357,6 +358,7 @@ struct _BluefishTextView {
 	gint margin_pixels_per_char;
 	gint margin_pixels_chars;
 	gint margin_pixels_block;
+	gint margin_pixels_symbol;
 	gboolean key_press_was_autocomplete;
 
 	gboolean enable_scanner; /* only run scanner when TRUE, this is FALSE if the document is in the background for example */
@@ -364,6 +366,7 @@ struct _BluefishTextView {
 	gboolean autocomplete;
 	gboolean linenumbers;
 	gboolean showblocks;
+	gboolean showsymbols;
 };
 
 struct _BluefishTextViewClass {
