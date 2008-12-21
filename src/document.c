@@ -1285,7 +1285,9 @@ gchar *buffer_find_encoding(gchar *buffer, gsize buflen, gchar **encoding, const
 	gsize wsize;
 	GError *error=NULL;
 	gchar *tmpencoding = NULL;
-	/* the first try is if the encoding is set in the file */
+	/* the first try is if the encoding is set in the file
+	TODO right now only HTML is supported, but xml files should
+	use a different regex pattern to find the encoding */
 	{
 		regmatch_t pmatch[10];
 		gint retval;
