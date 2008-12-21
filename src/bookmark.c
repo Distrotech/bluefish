@@ -1222,7 +1222,7 @@ void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
  *
  * Return value: #GHashTable * pointer or NULL
  */
-GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, GtkTextIter *toit) {
+/*GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, GtkTextIter *toit) {
 	if (doc->bmark_parent) {
 		gboolean cont = TRUE;
 		guint offset;
@@ -1231,9 +1231,9 @@ GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, Gtk
 
 		GHashTable *ret = g_hash_table_new_full(g_int_hash, g_int_equal, g_free, g_free);
 
-		/* because the bookmarks are sorted by line number, we don't have to scan trough all 
+		/ * because the bookmarks are sorted by line number, we don't have to scan trough all 
 		bookmarks, we can start at the bookmark *before* fromit, and continue until the 
-		first bookmark > toit */
+		first bookmark > toit * /
 		offset = gtk_text_iter_get_offset(fromit);
 		mark = bmark_find_bookmark_before_offset(BFWIN(doc->bfwin), offset, doc->bmark_parent);
 		if (mark) {
@@ -1259,11 +1259,11 @@ GHashTable *bmark_get_bookmarked_lines(Tdocument * doc, GtkTextIter *fromit, Gtk
 				}
 			}
 			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter);
-		} /* cont */
+		} / * cont * /
 		return ret;
 	}
 	return NULL;
-}
+}*/
 /* returns a line number for the Tbmark that bmark points to, or -1 if there is no bmark  */
 gint bmark_margin_get_next_bookmark(Tdocument * doc, gpointer *bmark) {
 	gboolean cont;

@@ -482,6 +482,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 
 	if (!bftextview2_find_region2scan(btv, buffer, &start, &end)) {
 		DBG_MSG("nothing to scan here.. update the offsets in the stackcache\n");
+		
+		DBG_SCANCACHE("scancache length %d\n", g_sequence_get_length(btv->scancache.stackcaches));
+		
 		scancache_update_all_positions(btv,buffer,NULL,NULL);
 		/* after the offsets have been updated there is really nothing to do for
 		the idle function so we return FALSE */
