@@ -98,7 +98,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 #endif
 		 {
 			guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
-			DBG_DELAYSCANNING("%d milliseconds elapsed sionce last user action\n",elapsed);
+			DBG_DELAYSCANNING("%d milliseconds elapsed since last user action\n",elapsed);
 			if (elapsed + 10 >= USER_IDLE_EVENT_INTERVAL) { /* user idle interval has passed ! */
 				DBG_DELAYSCANNING("idle, call scan for everything\n");
 				if (!bftextview2_run_scanner(btv, NULL)) {
