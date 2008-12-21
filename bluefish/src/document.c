@@ -1059,8 +1059,9 @@ void doc_set_statusbar_editmode_encoding(Tdocument *doc)
 {
 	gchar *msg;
 	if (doc->fileinfo) {
-		const gchar *mime = g_file_info_get_attribute_string(doc->fileinfo, "standard::content-type");
-		msg = g_strdup_printf(_("  %s, %s"), mime, doc->encoding);
+		const gchar *mime = g_file_info_get_content_type(doc->fileinfo);
+		const gchar *desc = g_content_type_get_description(mime);
+		msg = g_strdup_printf(_("  %s, %s"), desc, doc->encoding);
 	} else {
 		msg = g_strdup_printf(_("  %s, %s"), "unknown", doc->encoding);
 	}
