@@ -860,6 +860,10 @@ GList *langmgr_get_languages(void) {
 	return g_list_copy(langmgr.bflang_list);
 }
 
+static gint sort_bflang_list(gconstpointer a, gconstpointer b) {
+	return g_strcmp0(((Tbflang *) a)->name, ((Tbflang *) b)->name);
+}
+
 static void register_bflanguage(Tbflang *bflang) {
 	if (bflang) {
 		GList *tmplist;
@@ -937,5 +941,8 @@ void langmgr_init() {
 		}
 	}
 	scan_bflang2files();
+	
+	langmgr.bflang_list = g_list_sort(langmgr.bflang_list, (GCompareFunc) sort_bflang_list);
+
 	DBG_PARSING("langmgr_init, returning \n");
 }
