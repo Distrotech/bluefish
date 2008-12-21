@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="HTML" table="1562" contexts="58" matches="440">
+<bflang name="HTML" table="1706" contexts="61" matches="477">
 <header>
 	<mime type="text/html"/>
 	<highlight name="tag" style="tag" />
@@ -157,7 +157,7 @@
 	</element>-->
 </tag>
 
-	<tag name="link" highlight="tag" attributes="rel,type,href" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="link" highlight="tag" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<element pattern="&lt;!--" highlight="comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
 			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
@@ -173,8 +173,8 @@
 	<tag name="div" attributes="style,class,id,align" />
 	<tag name="p" attributes="style,class,id,align" />
 	<tag name="span" attributes="style,class,id" />
-	<tag name="img" highlight="special-tag" attributes="src,width,height,align,valign,border,alt,name,style,id,class" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" >
-	<reference>the image tag</reference>
+	<tag name="img" highlight="special-tag" attributes="src,width,height,align,valign,border,alt,name,style,id,class,title,ismap,usemap" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;" >
+	<reference>The img tag inserts an image into a document</reference>
 	</tag>
 	<tag name="i" attributes="align,class,style,id" />
 	<tag name="b" attributes="align,class,style,id" />
@@ -205,6 +205,9 @@
 	<tag name="textarea" highlight="form-tag" attributes="style,class,id,name,rows,cols" />
 	<tag name="option" highlight="form-tag" attributes="style,class,id,value,label,selected" />
 	<tag name="optgroup" highlight="form-tag" attributes="style,class,id,label" />
+	<tag name="label" highlight="form-tag" attributes="style,class,id,for,title" />
+	<tag name="fieldset" highlight="form-tag" attributes="style,class,id,title" />
+	<tag name="legend" highlight="form-tag" attributes="style,class,id,title" />
 </group>	
 	<element pattern="&lt;!--" highlight="html-comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
