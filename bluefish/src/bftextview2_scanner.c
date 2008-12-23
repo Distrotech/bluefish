@@ -503,11 +503,10 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	gboolean normal_run=TRUE, last_character_run=FALSE;
 	gint loop=0;
 #ifdef HL_PROFILING
-	struct tms tms1;
-	struct tms tms2;
-	struct tms tms3;
-	struct tms tms4;
-	struct tms tms5;
+	gdouble stage1;
+	gdouble stage2;
+	gdouble stage3;
+	gdouble stage4,stage5;
 	hl_profiling.longest_contextqueue=0;
 	hl_profiling.longest_blockqueue=0;
 	hl_profiling.numcontextstart=0;
@@ -517,6 +516,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	hl_profiling.numchars=0;
 	hl_profiling.numloops=0;
 #endif
+
+		/* start timer */
+	scanning.timer = g_timer_new();
 
 	scanning.context = 1;
 	DBG_MSG("bftextview2_run_scanner for btv %p..\n",btv);
@@ -531,8 +533,11 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		DBG_MSG("nothing to scan here.. update the offsets in the stackcache\n");
 		
 		DBG_SCANCACHE("scancache length %d\n", g_sequence_get_length(btv->scancache.stackcaches));
-		
 		scancache_update_all_positions(btv,buffer,NULL,NULL);
+#ifdef HL_PROFILING
+		stage1 = g_timer_elapsed(scanning.timer,NULL);
+		g_print("update scancache offsets timing: %f us\n",stage1);
+#endif
 		/* after the offsets have been updated there is really nothing to do for
 		the idle function so we return FALSE */
 		return FALSE;
@@ -550,20 +555,13 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 
 	}
 
-	/* start timer */
-	scanning.timer = g_timer_new();
-
-
 	DBG_SCANNING("scanning from %d to %d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&end));
-#ifdef HL_PROFILING
-	times(&tms1);
-#endif
 	if (btv->scancache.stackcache_need_update_charoffset != -1 && btv->scancache.stackcache_need_update_charoffset <= gtk_text_iter_get_offset(&end)) {
 		gtk_text_buffer_get_iter_at_offset(buffer, &iter, btv->scancache.stackcache_need_update_charoffset);
 		scancache_update_all_positions(btv, buffer, &iter, &end);
 	}
 #ifdef HL_PROFILING
-	times(&tms2);
+	stage1 = g_timer_elapsed(scanning.timer,NULL);
 #endif
 	iter = mstart = start;
 	if (gtk_text_iter_is_start(&start)) {
@@ -577,7 +575,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		DBG_SCANNING("reconstructed stacks, context=%d, startstate=%d\n",scanning.context,pos);
 	}
 #ifdef HL_PROFILING
-	times(&tms3);
+	stage2= g_timer_elapsed(scanning.timer,NULL);
 #endif
 	/* TODO: when rescanning text that has been scanned before we need to remove
 	invalid tags and blocks. right now we remove all, but most are likely
@@ -587,7 +585,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	/* because we remove all to the end we have to rescan to the end (I know this
 	is stupid, should become smarter in the future )*/
 #ifdef HL_PROFILING
-	times(&tms4);
+	stage3 = g_timer_elapsed(scanning.timer,NULL);
 #endif
 	if (!visible_end)
 		gtk_text_iter_forward_to_end(&end);
@@ -649,20 +647,21 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 
 	/*g_array_free(matchstack,TRUE);*/
 #ifdef HL_PROFILING
-	times(&tms5);
-	g_print("timing for this %f us scanning run: %ld, %ld, %ld, %ld; loops=%d,chars=%d,blocks %d/%d contexts %d/%d\n"
-		,g_timer_elapsed(scanning.timer,NULL)
-		,(long int)((tms2.tms_utime - tms1.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
-		,(long int)((tms3.tms_utime - tms2.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
-		,(long int)((tms4.tms_utime - tms3.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
-		,(long int)((tms5.tms_utime - tms4.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
+	stage4 = g_timer_elapsed(scanning.timer,NULL);
+	g_print("timing for this %d ms scanning run: %d, %d, %d, %d; loops=%d,chars=%d,blocks %d/%d contexts %d/%d\n"
+		,(gint)(1000*stage4)
+		,(gint)(1000*stage1)
+		,(gint)(1000*stage2-stage1)
+		,(gint)(1000*stage3-stage2)
+		,(gint)(1000*stage4-stage3)
 		,hl_profiling.numloops,hl_profiling.numchars
 		,hl_profiling.numblockstart,hl_profiling.numblockend
 		,hl_profiling.numcontextstart,hl_profiling.numcontextend
 		);
 #endif
 	/* tune the loops_per_timer, try to have 10 timer checks per loop, so we have around 10% deviation from the set interval */
-	loops_per_timer = loop/10;
+	if (normal_run)
+		loops_per_timer = loop/10;
 
 	g_timer_destroy(scanning.timer);
 	return TRUE; /* even if we finished scanning the next call should update the scancache */
