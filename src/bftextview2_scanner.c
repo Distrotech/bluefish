@@ -648,7 +648,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	/*g_array_free(matchstack,TRUE);*/
 #ifdef HL_PROFILING
 	stage4 = g_timer_elapsed(scanning.timer,NULL);
-	g_print("timing for this %d ms scanning run: %d, %d, %d, %d; loops=%d,chars=%d,blocks %d/%d contexts %d/%d\n"
+	g_print("timing for this %d ms scanning run: %d, %d, %d, %d; loops=%d,chars=%d,blocks %d/%d contexts %d/%d scancache %d\n"
 		,(gint)(1000*stage4)
 		,(gint)(1000*stage1)
 		,(gint)(1000*stage2-stage1)
@@ -657,12 +657,12 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		,hl_profiling.numloops,hl_profiling.numchars
 		,hl_profiling.numblockstart,hl_profiling.numblockend
 		,hl_profiling.numcontextstart,hl_profiling.numcontextend
+		,g_sequence_get_length(btv->scancache.stackcaches)
 		);
 #endif
 	/* tune the loops_per_timer, try to have 10 timer checks per loop, so we have around 10% deviation from the set interval */
 	if (normal_run)
-		loops_per_timer = loop/10;
-
+		loops_per_timer = MAX(loop/10,100);
 	g_timer_destroy(scanning.timer);
 	return TRUE; /* even if we finished scanning the next call should update the scancache */
 }
