@@ -25,7 +25,7 @@
 	<mime type="application/x-php"/>
 	<option name="allfunctions" default="1" description="All php functions" />
 	<highlight name="html-tag" style="tag"  />
-	<highlight name="php-open-tag" style="special-value"  />
+	<highlight name="php-block-tag" style="special-value"  />
 	<highlight name="html-attribute" style="attribute"   />
 	<highlight name="string" style="string"   />
 	<highlight name="html-entity" style="value"  />
@@ -4872,11 +4872,17 @@ returns a result variable</reference></element>
 </element>
 
 <element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="php-variable"/>
-<element pattern="(//|#)" is_regex="1" highlight="php-comment">
-	<context symbols="?&gt;&#10;&#13;" highlight="php-comment">
+<element pattern="//" highlight="php-comment">
+	<context id="line-comment" symbols="?&gt;&#10;&#13;" highlight="php-comment">
 		<element pattern="[&#10;&#13;]" is_regex="1" ends_context="1" />
 		<element pattern="?&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;?php" highlight="php-block-tag" mayfold="1" />
 	</context>
+</element>
+<!-- there is a bug in the scanning engine such that a regex style pattern like (#|//) won't work. The reason is that
+there is special code if a pattern ends on a symbol. That code fails on the above pattern because both # and / are ends 
+for this pattern and both of them are a symbol. That's why we have a separate entry for # and for // -->
+<element pattern="#" highlight="php-comment">
+	<context idref="line-comment"/>
 </element>
 <element pattern="?&gt;" ends_block="1" blockstartelement="&lt;?php" highlight="php-block-tag" mayfold="1" ends_context="1" />
 </context></element>
