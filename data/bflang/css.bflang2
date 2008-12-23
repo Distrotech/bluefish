@@ -310,8 +310,14 @@
 					<context symbols=" &#9;&#10;&#13;{}.;">
 						<element pattern="'" highlight="string">
 							<context symbols="\'" highlight="string">
-								<element pattern="\." is_regex="1" highlight="string" />
+								<element pattern="\\." is_regex="1" highlight="string" />
 								<element pattern="'" highlight="string" ends_context="1" />
+							</context>
+						</element>
+						<element pattern="&quot;" highlight="string">
+							<context symbols="\&quot;" highlight="string">
+								<element pattern="\\." is_regex="1" highlight="string" />
+								<element pattern="&quot;" highlight="string" ends_context="1" />
 							</context>
 						</element>
 						<element idref=";" />
