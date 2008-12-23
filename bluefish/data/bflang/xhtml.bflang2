@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 		Bluefish HTML Editor
-		html.bflang2
+		xhtml.bflang2
  
 		Copyright (C) 2008 Olivier Sessink
 
@@ -20,13 +20,14 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 <!DOCTYPE bflang [
+	<!ENTITY xml "xml:lang">
 	<!ENTITY i18n "dir,lang">
 	<!ENTITY univ "class,id,style,title">
 	<!ENTITY evnt "onclick,ondblclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,onkeypress,onkeydown,onkeyup">
 ]>
-<bflang name="HTML" table="1706" contexts="61" matches="477">
+<bflang name="XHTML" table="1706" contexts="61" matches="477">
 <header>
-	<mime type="text/html"/>
+	<mime type="application/xhtml+xml"/>
 	<highlight name="tag" style="tag" />
 	<highlight name="reference-external-tag" style="special-tag" />
 	<highlight name="table-tag" style="special-tag2" />
@@ -46,10 +47,10 @@
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-<tag name="html" attributes="version,&i18n;" highlight="tag" autocomplete_append="&gt;" />
+<tag name="html" attributes="version,&i18n;&xml;" highlight="tag" autocomplete_append=" xmlns=&quot;http://www.w3.org/1999/xhtml&quot; gt;" />
 <tag name="head" attributes="profile,&i18n;" highlight="tag" autocomplete_append="&gt;">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
-	<tag name="meta" highlight="tag" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" &gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="meta" highlight="tag" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<tag name="title" highlight="tag" attributes="&i18n;" autocomplete_append="&gt; &lt;/title&gt;" />
 
 <tag id="script" name="script" highlight="tag" attributes="src,type" autocomplete_append="&gt;" attribhighlight="attribute">
@@ -176,7 +177,7 @@
 		<group highlight="reference-external-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
 			<tag name="a" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" />
 			<!-- TODO: We should not add height/width/border! ... alt+src are required -->
-			<tag name="img" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; &gt;" />
+			<tag name="img" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; /&gt;" />
 				<reference>The img tag inserts an image into a document</reference>
 			</tag>
 			<!-- <tag name="embed" attributes="" /> --><!-- not HTML -->
@@ -185,7 +186,7 @@
 		</group>
 		<group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
 			<tag name="b" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="br" attributes="&univ;" autocomplete_append="&gt;"/>
+			<tag name="br" attributes="&univ;" autocomplete_append=" /&gt;"/>
 			<tag name="div" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="dl" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="em" attributes="&univ;,&i18n;,&evnt;"/>
@@ -196,7 +197,7 @@
 			<tag name="h4" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="h5" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="h6" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="hr" attributes="&univ;" autocomplete_append="&gt;""/>
+			<tag name="hr" attributes="&univ;" autocomplete_append=" /&gt;"/>
 			<tag name="kbd" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="li" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="ol" attributes="&univ;,&i18n;,&evnt;"/>
