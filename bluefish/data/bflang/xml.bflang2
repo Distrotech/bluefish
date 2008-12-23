@@ -53,7 +53,7 @@
 	</element>
 	<element id="starttag" pattern="&lt;[a-zA-Z0-9:-]+" is_regex="1" highlight="tag" starts_block="1">
 		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;=">
-			<element pattern="[a-zA-Z0-9:-]+" is_regex="1" highlight="attribute" />
+			<element pattern="[a-zA-Z0-9:-_]+" is_regex="1" highlight="attribute" />
 			<element pattern="=" highlight="=" />
 			<element idref="stringstart"/>
 			<element pattern="'[^']+'" highlight="string" is_regex="1" />
