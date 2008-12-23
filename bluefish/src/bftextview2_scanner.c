@@ -54,6 +54,8 @@ typedef struct {
 Thl_profiling hl_profiling;
 #endif
 
+guint loops_per_timer=1000; /* a tunable to avoid asking time too often. this is auto-tuned. */ 
+
 /* sort function for the stackcache GSequence structure */
 static gint stackcache_compare_charoffset(gconstpointer a,gconstpointer b,gpointer user_data) {
 	return ((Tfoundstack *)a)->charoffset - ((Tfoundstack *)b)->charoffset;
@@ -499,6 +501,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	Tscanning scanning;
 	guint pos = 0, newpos;
 	gboolean normal_run=TRUE, last_character_run=FALSE;
+	gint loop=0;
 #ifdef HL_PROFILING
 	struct tms tms1;
 	struct tms tms2;
@@ -593,6 +596,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 
 	do {
 		gunichar uc;
+		loop++;
 #ifdef HL_PROFILING
 		hl_profiling.numloops++;
 #endif
@@ -639,15 +643,15 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		if (!normal_run)
 			/* only if last_character_run is FALSE and normal_run is FALSE we set last_character run to TRUE */
 			last_character_run = 1 - last_character_run;
-	} while ((normal_run || last_character_run) && g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL);
+	} while ((normal_run || last_character_run) && (loop%loops_per_timer!=0 || g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL));
 	DBG_SCANNING("scanned up to position %d, (end=%d) which took %f microseconds\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&end),g_timer_elapsed(scanning.timer,NULL));
 	gtk_text_buffer_apply_tag(buffer,btv->needscanning,&iter,&end);
 
-	g_timer_destroy(scanning.timer);
 	/*g_array_free(matchstack,TRUE);*/
 #ifdef HL_PROFILING
 	times(&tms5);
-	g_print("timing for this scanning run: %ld, %ld, %ld, %ld; loops=%d,chars=%d,blocks %d/%d contexts %d/%d\n"
+	g_print("timing for this %f us scanning run: %ld, %ld, %ld, %ld; loops=%d,chars=%d,blocks %d/%d contexts %d/%d\n"
+		,g_timer_elapsed(scanning.timer,NULL)
 		,(long int)((tms2.tms_utime - tms1.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
 		,(long int)((tms3.tms_utime - tms2.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
 		,(long int)((tms4.tms_utime - tms3.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
@@ -657,6 +661,10 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		,hl_profiling.numcontextstart,hl_profiling.numcontextend
 		);
 #endif
+	/* tune the loops_per_timer, try to have 10 timer checks per loop, so we have around 10% deviation from the set interval */
+	loops_per_timer = loop/10;
+
+	g_timer_destroy(scanning.timer);
 	return TRUE; /* even if we finished scanning the next call should update the scancache */
 }
 
