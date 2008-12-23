@@ -67,7 +67,6 @@ void bftextview2_scantable_rematch_highlights(Tscantable *st, const gchar *lang)
 		if (g_array_index(st->matches, Tpattern, i).blockhighlight)
 			g_array_index(st->matches, Tpattern, i).blocktag = langmrg_lookup_tag_highlight(lang, g_array_index(st->matches, Tpattern, i).blockhighlight);
 	}
-	
 }
 
 /*static void print_characters(gchar *characters) {

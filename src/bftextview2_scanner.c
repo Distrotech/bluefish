@@ -39,6 +39,20 @@ typedef struct {
 	GTimer *timer;
 	gint16 context;
 } Tscanning;
+#ifdef HL_PROFILING
+typedef struct {
+	gint longest_contextqueue;
+	gint longest_blockqueue;
+	gint numcontextstart;
+	gint numcontextend;
+	gint numblockstart;
+	gint numblockend;
+	gint numchars;
+	gint numloops;
+} Thl_profiling;
+
+Thl_profiling hl_profiling;
+#endif
 
 /* sort function for the stackcache GSequence structure */
 static gint stackcache_compare_charoffset(gconstpointer a,gconstpointer b,gpointer user_data) {
@@ -233,7 +247,9 @@ static void print_blockstack(BluefishTextView * btv, Tscanning *scanning) {
 static Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
 	Tfoundblock *fblock;
 	DBG_BLOCKMATCH("put block for pattern %d on blockstack\n",match.patternum);
-
+#ifdef HL_PROFILING
+	hl_profiling.numblockstart++;
+#endif
 	fblock = g_slice_new0(Tfoundblock);
 	fblock->start1 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
 	fblock->end1 = gtk_text_buffer_create_mark(buffer,NULL,&match.end,TRUE);
@@ -249,7 +265,10 @@ static Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *b
 static Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
 	Tfoundblock *fblock=NULL;
 	DBG_BLOCKMATCH("found end of block that matches start of block pattern %d\n",pat->blockstartpattern);
-	do {
+#ifdef HL_PROFILING
+	hl_profiling.numblockend++;
+#endif
+do {
 		if (fblock) {
 			foundblock_unref(fblock, buffer);
 		}
@@ -285,6 +304,9 @@ static Tfoundcontext *found_context_change(BluefishTextView * btv,GtkTextBuffer 
 	/* check if we change up or down the stack */
 	if (pat->nextcontext < 0) {
 		gint num = -1 * pat->nextcontext;
+#ifdef HL_PROFILING
+		hl_profiling.numcontextend++;
+#endif
 		/* pop, but don't pop if there is nothing to pop (because of an error in the language file) */
 		while (num > 0 && scanning->contextstack->head) {
 			fcontext = g_queue_pop_head(scanning->contextstack);
@@ -301,6 +323,9 @@ static Tfoundcontext *found_context_change(BluefishTextView * btv,GtkTextBuffer 
 		}
 		return fcontext;
 	} else {
+#ifdef HL_PROFILING
+		hl_profiling.numcontextstart++;
+#endif
 		fcontext = g_slice_new0(Tfoundcontext);
 		fcontext->start = gtk_text_buffer_create_mark(buffer,NULL,&match.end,FALSE);
 		fcontext->context = pat->nextcontext;
@@ -480,6 +505,14 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	struct tms tms3;
 	struct tms tms4;
 	struct tms tms5;
+	hl_profiling.longest_contextqueue=0;
+	hl_profiling.longest_blockqueue=0;
+	hl_profiling.numcontextstart=0;
+	hl_profiling.numcontextend=0;
+	hl_profiling.numblockstart=0;
+	hl_profiling.numblockend=0;
+	hl_profiling.numchars=0;
+	hl_profiling.numloops=0;
 #endif
 
 	scanning.context = 1;
@@ -560,6 +593,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 
 	do {
 		gunichar uc;
+#ifdef HL_PROFILING
+		hl_profiling.numloops++;
+#endif
 		if (last_character_run) {
 			uc = '\0';
 		} else {
@@ -586,11 +622,17 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 			}
 			if (gtk_text_iter_equal(&mstart,&iter)) {
 				gtk_text_iter_forward_char(&iter);
+#ifdef HL_PROFILING
+				hl_profiling.numchars++;
+#endif
 			}
 			mstart = iter;
 			newpos = g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).startstate;
 		} else {
 			gtk_text_iter_forward_char(&iter);
+#ifdef HL_PROFILING
+			hl_profiling.numchars++;
+#endif
 		}
 		pos = newpos;
 		normal_run = !gtk_text_iter_equal(&iter, &end);
@@ -605,11 +647,14 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	/*g_array_free(matchstack,TRUE);*/
 #ifdef HL_PROFILING
 	times(&tms5);
-	g_print("timing for this scanning run: %ld, %ld, %ld, %ld\n"
+	g_print("timing for this scanning run: %ld, %ld, %ld, %ld; loops=%d,chars=%d,blocks %d/%d contexts %d/%d\n"
 		,(long int)((tms2.tms_utime - tms1.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
 		,(long int)((tms3.tms_utime - tms2.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
 		,(long int)((tms4.tms_utime - tms3.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
 		,(long int)((tms5.tms_utime - tms4.tms_utime) * 1000.0 / sysconf(_SC_CLK_TCK))
+		,hl_profiling.numloops,hl_profiling.numchars
+		,hl_profiling.numblockstart,hl_profiling.numblockend
+		,hl_profiling.numcontextstart,hl_profiling.numcontextend
 		);
 #endif
 	return TRUE; /* even if we finished scanning the next call should update the scancache */
