@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="XML" table="41" contexts="6" matches="12">
+<bflang name="XML" table="55" contexts="7" matches="16">
 <header>
 	<mime type="text/xml"/>
 	<mime type="application/xml"/>
@@ -51,16 +51,16 @@
 			<element pattern="--&gt;" ends_block="1" blockstartelement="startcomment" highlight="comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
-	<element id="starttag" pattern="&lt;[a-zA-Z0-9:-]+" is_regex="1" highlight="tag" starts_block="1">
+	<element id="starttag" pattern="&lt;[_a-zA-Z0-9:-]+" is_regex="1" highlight="tag" starts_block="1">
 		<context symbols="&gt;&amp;;&#34;' &#9;&#10;&#13;=">
-			<element pattern="[a-zA-Z0-9:-_]+" is_regex="1" highlight="attribute" />
+			<element pattern="[_a-zA-Z0-9:-]+" is_regex="1" highlight="attribute" />
 			<element pattern="=" highlight="=" />
 			<element idref="stringstart"/>
 			<element pattern="'[^']+'" highlight="string" is_regex="1" />
 			<element pattern="/&gt;" highlight="tag" ends_context="1" ends_block="1" blockstartelement="starttag" />
 			<element pattern="&gt;" highlight="tag">
 				<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-					<element pattern="&lt;/[a-zA-Z0-9:-]+&gt;" is_regex="1" highlight="tag" ends_context="2"  ends_block="1" blockstartelement="starttag"/>
+					<element pattern="&lt;/[_a-zA-Z0-9:-]+&gt;" is_regex="1" highlight="tag" ends_context="2"  ends_block="1" blockstartelement="starttag"/>
 					<element idref="starttag"/>
 					<element idref="startcomment"/>
 					<element idref="entity"/>
