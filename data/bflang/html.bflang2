@@ -19,12 +19,14 @@
 		along with this program; if not, write to the Free Software
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
+
 <!DOCTYPE bflang [
 	<!ENTITY i18n "dir,lang">
 	<!ENTITY univ "class,id,style,title">
 	<!ENTITY evnt "onclick,ondblclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,onkeypress,onkeydown,onkeyup">
 ]>
-<bflang name="HTML" table="1706" contexts="61" matches="477">
+
+<bflang name="HTML" table="4250" contexts="65" matches="1024">
 <header>
 	<mime type="text/html"/>
 	<highlight name="tag" style="tag" />
@@ -49,8 +51,9 @@
 <tag name="html" attributes="version,&i18n;" highlight="tag" autocomplete_append="&gt;" />
 <tag name="head" attributes="profile,&i18n;" highlight="tag" autocomplete_append="&gt;">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
+	<tag name="base" highlight="tag" attributes="href,target" attribhighlight="attribute" autocomplete_append="&gt; &lt;/base&gt;" />
 	<tag name="meta" highlight="tag" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" &gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="title" highlight="tag" attributes="&i18n;" autocomplete_append="&gt; &lt;/title&gt;" />
+	<tag name="title" highlight="tag" attributes="&i18n;" attribhighlight="attribute" autocomplete_append="&gt; &lt;/title&gt;" />
 
 <tag id="script" name="script" highlight="tag" attributes="src,type" autocomplete_append="&gt;" attribhighlight="attribute">
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
