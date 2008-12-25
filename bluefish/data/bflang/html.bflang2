@@ -53,133 +53,134 @@
 	<tag name="title" highlight="tag" attributes="&i18n;" autocomplete_append="&gt; &lt;/title&gt;" />
 
 <tag id="script" name="script" highlight="tag" attributes="src,type" autocomplete_append="&gt;" attribhighlight="attribute">
-<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<element pattern="(" id="js(" starts_block="1" highlight="brackets"/>
-<element pattern=")" highlight="brackets" ends_block="1" blockstartelement="js("/>
-<element pattern="{" id="js{" starts_block="1" highlight="brackets"/>
-<element pattern="}" highlight="brackets" ends_block="1" blockstartelement="js{"/>
-<element pattern="[" id="js[" starts_block="1" highlight="brackets"/>
-<element pattern="]" highlight="brackets" ends_block="1" blockstartelement="js["/>
-<group highlight="js-keyword" autocomplete="1">
-	<element pattern="if" />
-	<element pattern="else" />
-	<element pattern="where" />
-	<element pattern="case" />
-	<element pattern="switch" />
-	<element pattern="break" />
-	<element pattern="return" />
-	<element pattern="while" />
-	<element pattern="for" />
-	<element pattern="function" />
-	<element pattern="var" />
-	<element pattern="new" />
-	<element pattern="try" />
-	<element pattern="catch" />
-	<element pattern="default" />
-</group>
-<group highlight="js-function" autocomplete="1">
-<element pattern="getElementsByTagName" />
-<element pattern="getElementsByTagName" />
-</group>
-<group highlight="js-value" autocomplete="1">
-<element pattern="true" />
-<element pattern="false" />
-<element pattern="[0-9.]+" is_regex="1" autocomplete="0"/>
-</group>
-<element pattern="&#34;" highlight="string">
-	<context symbols="\&#34;" highlight="string">
-		<element pattern="\&#34;" highlight="string" />
-		<element pattern="&#34;" highlight="string" ends_context="1" />
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+		<element pattern="(" id="js(" starts_block="1" highlight="brackets" />
+		<element pattern=")" highlight="brackets" ends_block="1" blockstartelement="js(" />
+		<element pattern="{" id="js{" starts_block="1" highlight="brackets" />
+		<element pattern="}" highlight="brackets" ends_block="1" blockstartelement="js{" />
+		<element pattern="[" id="js[" starts_block="1" highlight="brackets" />
+		<element pattern="]" highlight="brackets" ends_block="1" blockstartelement="js[" />
+		<group highlight="js-keyword" autocomplete="1">
+			<element pattern="if" />
+			<element pattern="else" />
+			<element pattern="where" />
+			<element pattern="case" />
+			<element pattern="switch" />
+			<element pattern="break" />
+			<element pattern="return" />
+			<element pattern="while" />
+			<element pattern="for" />
+			<element pattern="function" />
+			<element pattern="var" />
+			<element pattern="new" />
+			<element pattern="try" />
+			<element pattern="catch" />
+			<element pattern="default" />
+		</group>
+		<group highlight="js-function" autocomplete="1">
+			<element pattern="getElementsByTagName" />
+			<element pattern="getElementsByTagName" />
+		</group>
+		<group highlight="js-value" autocomplete="1">
+			<element pattern="true" />
+			<element pattern="false" />
+			<element pattern="[0-9.]+" is_regex="1" autocomplete="0"/>
+		</group>
+		<element pattern="&#34;" highlight="string">
+			<context symbols="\&#34;" highlight="string">
+				<element pattern="\&#34;" highlight="string" />
+				<element pattern="&#34;" highlight="string" ends_context="1" />
+			</context>
+		</element>
+		<element pattern="'" highlight="string">
+			<context symbols="\'" highlight="string">
+				<element pattern="\." is_regex="1" highlight="string" />
+				<element pattern="'" highlight="string" ends_context="1" />
+			</context>
+		</element>
+		<element pattern="//" highlight="js-comment">
+			<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
+				<element pattern="[&#10;&#13;]" is_regex="1" highlight="js-comment" ends_context="1" />
+				<element pattern="&lt;/script&gt;" highlight="tag" ends_context="2"/>
+			</context>
+		</element>
+		<element id="js/*" pattern="/*" starts_block="1" highlight="js-comment">
+			<context symbols="*/&#9;&#10;&#13;" highlight="js-comment">
+				<element pattern="*/" ends_block="1" blockstartelement="js/*" highlight="js-comment" mayfold="1" ends_context="1" />
+			</context>
+		</element>
 	</context>
-</element>
-<element pattern="'" highlight="string">
-	<context symbols="\'" highlight="string">
-		<element pattern="\." is_regex="1" highlight="string" />
-		<element pattern="'" highlight="string" ends_context="1" />
-	</context>
-</element>
-<element pattern="//" highlight="js-comment">
-	<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
-		<element pattern="[&#10;&#13;]" is_regex="1" highlight="js-comment" ends_context="1" />
-		<element pattern="&lt;/script&gt;" highlight="tag" ends_context="2"/>
-	</context>
-</element>
-<element id="js/*" pattern="/*" starts_block="1" highlight="js-comment">
-	<context symbols="*/&#9;&#10;&#13;" highlight="js-comment">
-		<element pattern="*/" ends_block="1" blockstartelement="js/*" highlight="js-comment" mayfold="1" ends_context="1" />
-	</context>
-</element>
-</context>
 </tag>
+
 <tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
 	<context symbols=" &#9;&#10;&#13;{}./*&lt;&gt;">
+	
 		<element id="css/*" pattern="/*" starts_block="1" highlight="css-comment">
 			<context symbols="*/&#9;&#10;&#13;" highlight="css-comment">
 				<element pattern="*/" ends_block="1" blockstartelement="css/*" highlight="css-comment" ends_context="1" />
 			</context>
 		</element>
 
-<element pattern="body" highlight="css-keyword"/>
-<element pattern="{" id="css{" starts_block="1" highlight="brackets">
-<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
-	<element pattern="&lt;/style&gt;" highlight="tag" ends_context="3" />
-	<element pattern="background" autocomplete="1" highlight="css-keyword" autocomplete_append=": ">
-	<reference>A shorthand property for setting all background properties: background-color, background-image, background-repeat, background-attachment, and background-position, in one declaration</reference>
-	</element>
-	<element pattern="background-attachment" autocomplete="1" highlight="css-keyword" autocomplete_append=": ">
-		<reference>Sets whether a background image is fixed or scrolls with the rest of the page</reference>
-		<context symbols=" &#9;&#10;&#13;{}.;">
-			<element pattern="&lt;/style&gt;" highlight="tag" ends_context="4" />
-			<element pattern="scroll" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-			<element pattern="fixed" autocomplete="1" highlight="css-value" autocomplete_append=";"/>
-			<element pattern=";" ends_context="1"/>
-			<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="2"/>
-		</context>
-	</element>
-	<element pattern="background-color" autocomplete="1" highlight="css-keyword" autocomplete_append=": ">
-		<reference>Sets the background color of an element</reference>
-		<context id="color" symbols=" &#9;&#10;&#13;{}.;">
-			<element pattern="&lt;/style&gt;" highlight="tag" ends_context="4" />
-			<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1"/>
-			<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1"/>
-			<element pattern="red" highlight="css-value" autocomplete="TRUE"/>
-			<element pattern="green" highlight="css-value" autocomplete="TRUE"/>
-			<element pattern="blue" highlight="css-value" autocomplete="TRUE"/>
-			<element pattern="black" highlight="css-value" autocomplete="TRUE"/>
-			<element pattern="white" highlight="css-value" autocomplete="TRUE"/>
-			<element pattern="yellow" highlight="css-value" autocomplete="TRUE"/>
-			<element pattern=";" ends_context="1"/>
-			<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="2"/>
-		</context>
-	</element>
-	<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="1"/>
-</context>
-</element>
-				</context>
-<!--			</element>	
-		</context>
-	</element>-->
-</tag>
+		<element pattern="body" highlight="css-keyword" />
 
-	<tag name="link" highlight="tag" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
-	<element pattern="&lt;!--" highlight="comment" starts_block="1">
-		<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
-			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
-		</context>
-	</element>
-	<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="value" />
+		<element id="css{" pattern="{" starts_block="1" highlight="brackets">
+			<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
+				<element pattern="&lt;/style&gt;" highlight="tag" ends_context="3" />
+				<element pattern="background" autocomplete="1" highlight="css-keyword" autocomplete_append=": ">
+					<reference>A shorthand property for setting all background properties: background-color, background-image, background-repeat, background-attachment, and background-position, in one declaration</reference>
+				</element>
+				<element pattern="background-attachment" autocomplete="1" highlight="css-keyword" autocomplete_append=": ">
+					<reference>Sets whether a background image is fixed or scrolls with the rest of the page</reference>
+					<context symbols=" &#9;&#10;&#13;{}.;">
+						<element pattern="&lt;/style&gt;" highlight="tag" ends_context="4" />
+						<element pattern="scroll" autocomplete="1" highlight="css-value" autocomplete_append=";" />
+						<element pattern="fixed" autocomplete="1" highlight="css-value" autocomplete_append=";" />
+						<element pattern=";" ends_context="1" />
+						<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="2" />
+					</context>
+				</element>
+				<element pattern="background-color" autocomplete="1" highlight="css-keyword" autocomplete_append=": ">
+					<reference>Sets the background color of an element</reference>
+					<context id="color" symbols=" &#9;&#10;&#13;{}.;">
+						<element pattern="&lt;/style&gt;" highlight="tag" ends_context="4" />
+						<element pattern="#([0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f]|[0-9a-f][0-9a-f][0-9a-f])" highlight="css-value" is_regex="1" case_insens="1" />
+						<element pattern="rgb\([0-9]+%?,[0-9]+%?,[0-9]+%?\)" highlight="css-value" is_regex="1" case_insens="1" />
+						<element pattern="red" highlight="css-value" autocomplete="TRUE" />
+						<element pattern="green" highlight="css-value" autocomplete="TRUE" />
+						<element pattern="blue" highlight="css-value" autocomplete="TRUE" />
+						<element pattern="black" highlight="css-value" autocomplete="TRUE" />
+						<element pattern="white" highlight="css-value" autocomplete="TRUE" />
+						<element pattern="yellow" highlight="css-value" autocomplete="TRUE" />
+						<element pattern=";" ends_context="1" />
+						<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="2" />
+					</context>
+				</element>
+				<element pattern="}" ends_block="1" blockstartelement="css{" highlight="brackets" ends_context="1" />
+			</context>
+		</element>
 	</context>
 </tag>
+
+<tag name="link" highlight="tag" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+
+<element pattern="&lt;!--" highlight="comment" starts_block="1">
+	<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
+		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+
+<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="value" />
+</context>
+</tag>
+
 <tag name="body" highlight="tag" attributes="alink,background,bgcolor,link,onload,onunload,text,vlink,&univ;,&i18n;">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 		<tag idref="script" />
 		<group highlight="reference-external-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
 			<tag name="a" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" />
-			<!-- TODO: We should not add height/width/border! ... alt+src are required -->
-			<tag name="img" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; &gt;" />
+			<tag name="img" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; &gt;" >
 				<reference>The img tag inserts an image into a document</reference>
 			</tag>
-			<!-- <tag name="embed" attributes="" /> --><!-- not HTML -->
 			<tag name="object" attributes="align,archive,border,classid,codebase,codetype,data,declare,height,hspace,name,standby,tabindex,type,usemap,vspace,width,&univ;,&i18n;,&evnt;" />
 			<tag name="param" attributes="id,name,value,valuetype,type" autocomplete_append=" name=&#34;&#34; &gt;" />
 		</group>
@@ -196,7 +197,7 @@
 			<tag name="h4" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="h5" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="h6" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="hr" attributes="&univ;" autocomplete_append="&gt;""/>
+			<tag name="hr" attributes="&univ;" autocomplete_append="&gt;" />
 			<tag name="kbd" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="li" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="ol" attributes="&univ;,&i18n;,&evnt;"/>
