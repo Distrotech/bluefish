@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * undo_redo.c - imrpoved undo/redo functionality
  *
- * Copyright (C) 2001-2006 Olivier Sessink
+ * Copyright (C) 2001-2008 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -161,7 +161,7 @@ static void unre_list_cleanup(GList **list) {
 
 static gint doc_undo(Tdocument *doc) {
 	unregroup_t *curgroup = NULL;
-	if (g_list_length(doc->unre.current->entries) > 0) {
+	if (doc->unre.current->entries!=NULL) {
 		/* if the current group has entries we have to undo that one */
 		DEBUG_MSG("doc_undo, undo the entries of the current group, and create a new group\n");
 		curgroup = doc->unre.current;
@@ -318,7 +318,7 @@ static void doc_unre_finish(Tdocument *doc, gint cursorpos) {
  **/
 void doc_unre_new_group_action_id(Tdocument *doc, guint action_id) {
 	DEBUG_MSG("doc_unre_new_group_w_id, started, num entries=%d, action_id=%u\n", g_list_length(doc->unre.current->entries),action_id);
-	if (g_list_length(doc->unre.current->entries) > 0) {
+	if (doc->unre.current->entries!=NULL) {
 		doc->unre.first = g_list_prepend(doc->unre.first, doc->unre.current);
 		if (!doc->unre.last) {
 			doc->unre.last = doc->unre.first;
