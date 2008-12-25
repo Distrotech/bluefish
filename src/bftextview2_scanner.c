@@ -276,25 +276,34 @@ static void print_blockstack(BluefishTextView * btv, Tscanning *scanning) {
 }
 
 static Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
-	Tfoundblock *fblock;
-	DBG_BLOCKMATCH("put block for pattern %d on blockstack\n",match.patternum);
+	if (scanning->blockstack->length > 100) {
+		/* if a file has thousands of blockstarts this results in thousands of Tfoundblock structures, but 
+		worse: also thousands of copies of the blockstack in the scancache --> 1000 * 0.5 * 1000 queue elements.
+		to avoid this we return NULL here if the blockstack is > 100. If we return NULL here
+		there will be no addition to the scancache either.  */
+		DBG_BLOCKMATCH("blockstack length > 100 ** IGNORING BLOCK **\n");
+		return NULL;
+	} else {
+		Tfoundblock *fblock;
+		DBG_BLOCKMATCH("put block for pattern %d on blockstack\n",match.patternum);
 #ifdef HL_PROFILING
-	hl_profiling.numblockstart++;
+		hl_profiling.numblockstart++;
 #endif
-	fblock = g_slice_new0(Tfoundblock);
-	DBG_FBLOCKREFCOUNT("created new fblock with refcount 1 at %p\n",fblock);
+		fblock = g_slice_new0(Tfoundblock);
+		DBG_FBLOCKREFCOUNT("created new fblock with refcount 1 at %p\n",fblock);
 #ifdef HL_PROFILING
-	hl_profiling.fblock_refcount++;
+		hl_profiling.fblock_refcount++;
 #endif
-	fblock->start1 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
-	fblock->end1 = gtk_text_buffer_create_mark(buffer,NULL,&match.end,TRUE);
-	fblock->patternum = match.patternum;
-	g_object_set_data(G_OBJECT(fblock->start1), "block", fblock);
-	g_object_set_data(G_OBJECT(fblock->end1), "block", fblock);
-	g_queue_push_head(scanning->blockstack,fblock);
-	/*print_blockstack(btv,scanning);*/
-	fblock->refcount++;
-	return fblock;
+		fblock->start1 = gtk_text_buffer_create_mark(buffer,NULL,&match.start,FALSE);
+		fblock->end1 = gtk_text_buffer_create_mark(buffer,NULL,&match.end,TRUE);
+		fblock->patternum = match.patternum;
+		g_object_set_data(G_OBJECT(fblock->start1), "block", fblock);
+		g_object_set_data(G_OBJECT(fblock->end1), "block", fblock);
+		g_queue_push_head(scanning->blockstack,fblock);
+		/*print_blockstack(btv,scanning);*/
+		fblock->refcount++;
+		return fblock;
+	}	
 }
 
 static Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
