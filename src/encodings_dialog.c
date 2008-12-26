@@ -333,7 +333,7 @@ bluefish_encodings_dialog_create (GType type,
 	scrolwin = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolwin), GTK_SHADOW_IN);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolwin), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-	gtk_box_pack_start_defaults (GTK_BOX (vbox), scrolwin);
+	gtk_box_pack_start (GTK_BOX (vbox), scrolwin, TRUE, TRUE, 0);
 	
 	dialog->priv->encStore = gtk_list_store_new (NUM_COLUMNS,
 																							 G_TYPE_STRING,
@@ -431,7 +431,7 @@ bluefish_encodings_dialog_create (GType type,
 	scrolwin = gtk_scrolled_window_new (NULL, NULL);
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolwin), GTK_SHADOW_IN);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolwin), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-	gtk_box_pack_start_defaults (GTK_BOX (vbox), scrolwin);
+	gtk_box_pack_start (GTK_BOX (vbox), scrolwin, TRUE, TRUE, 0);
 	
 	encInMenuModel = gtk_tree_model_filter_new (GTK_TREE_MODEL (dialog->priv->encStore), NULL);
 	gtk_tree_model_filter_set_visible_func (GTK_TREE_MODEL_FILTER (encInMenuModel),
