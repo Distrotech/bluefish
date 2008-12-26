@@ -205,15 +205,6 @@ void gui_notebook_move(Tbfwin *bfwin, gboolean move_left) {
 		DEBUG_MSG("gui_notebook_move, cur=%d, new=%d (num_pages=%d)\n",curpos,newpos,gtk_notebook_get_n_pages(GTK_NOTEBOOK(bfwin->notebook)));
 		if (newpos >= 0 && newpos < gtk_notebook_get_n_pages(GTK_NOTEBOOK(bfwin->notebook))) {
 			gtk_notebook_reorder_child(GTK_NOTEBOOK(bfwin->notebook),tmp,newpos);
-#if !GTK_CHECK_VERSION(2,10,0)
-			/* changing the list is in gtk2.10 code handled in the signal handler */
-			GList *moveto;
-			moveto = (move_left) ? g_list_previous(cur) : g_list_next(cur);
-#ifdef DEVELOPMENT
-			if (!moveto) exit(1);
-#endif
-			pointer_switch_addresses(&cur->data, &moveto->data);
-#endif
 		}
 	}
 }
@@ -476,27 +467,15 @@ void gui_set_undo_redo_widgets(Tbfwin *bfwin, gboolean undo, gboolean redo) {
 
 void gui_set_document_widgets(Tdocument *doc) {
 	GtkItemFactory *tmp1 = gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar);
-#ifdef USE_BFTEXTVIEW2
 	setup_toggle_item(tmp1,("/Document/Highlight Syntax"), BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner);
-#else
-	setup_toggle_item(tmp1,("/Document/Highlight Syntax"), BF_TEXTVIEW(doc->view)->highlight);			
-#endif
 	gui_set_undo_redo_widgets(doc->bfwin, doc_has_undo_list(doc), doc_has_redo_list(doc));
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Wrap", doc->wrapstate);
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Line Numbers", doc->linenumberstate);
-#ifndef USE_BFTEXTVIEW2
-	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Auto Close HTML tags", BF_TEXTVIEW(doc->view)->tag_autoclose);
-#endif
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Show blocks", doc->blocksstate);
 	setup_toggle_item(gtk_item_factory_from_widget(BFWIN(doc->bfwin)->menubar),"/Document/Show symbols", doc->symstate);
 	
 /*#ifndef USE_SCANNER	why did we not set the encoding and filetype with the scanner enabled????*/
-#ifdef USE_BFTEXTVIEW2
 	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),BLUEFISH_TEXT_VIEW(doc->view)->bflang, doc->encoding);
-#else
-	menu_current_document_set_toggle_wo_activate(BFWIN(doc->bfwin),doc->hl, doc->encoding);
-#endif
-/*#endif	*/
 
 	/* we should also disable certain menu's if the document is readonly */
 	menuitem_set_sensitive(BFWIN(doc->bfwin)->menubar, "/File/Save", !doc->readonly);
@@ -515,7 +494,6 @@ void gui_set_document_widgets(Tdocument *doc) {
 child : 	the child GtkWidget affected
 page_num : 	the new page number for child
 */
-#if GTK_CHECK_VERSION(2,10,0)
 static void notebook_reordered_lcb(GtkNotebook *notebook,GtkWidget *child,guint page_num,gpointer user_data) {
 	Tbfwin *bfwin = BFWIN(user_data);
 	Tdocument *doc = NULL;
@@ -538,13 +516,10 @@ static void notebook_reordered_lcb(GtkNotebook *notebook,GtkWidget *child,guint 
 	bfwin->documentlist = g_list_insert(bfwin->documentlist, doc, page_num);
 	DEBUG_MSG("notebook_reordered_lcb, done\n");
 }
-#endif
 
 void gui_notebook_bind_signals(Tbfwin *bfwin) {
 	bfwin->notebook_switch_signal = g_signal_connect_after(G_OBJECT(bfwin->notebook),"switch-page",G_CALLBACK(notebook_switch_page_lcb), bfwin);
-#if GTK_CHECK_VERSION(2,10,0)
 	g_signal_connect(G_OBJECT(bfwin->notebook), "page-reordered", G_CALLBACK(notebook_reordered_lcb), bfwin);
-#endif
 }
 
 void gui_notebook_bind_tab_signals(Tbfwin *bfwin) {
@@ -859,7 +834,7 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_lncol, FALSE, FALSE, 0);
 		/* I hope the 'w' is an average width character */
 		onecharwidth = widget_get_string_size(bfwin->statusbar_lncol, "w");
-		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_lncol), 17*onecharwidth, -1);
+		gtk_widget_set_size_request(GTK_WIDGET(bfwin->statusbar_lncol), onecharwidth * 20, -1);
 		bfwin->statusbar_insovr = gtk_statusbar_new();
 		gtk_statusbar_set_has_resize_grip(GTK_STATUSBAR(bfwin->statusbar_insovr), FALSE);
 		gtk_box_pack_start(GTK_BOX(hbox), bfwin->statusbar_insovr, FALSE, FALSE, 0);
