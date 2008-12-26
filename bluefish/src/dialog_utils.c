@@ -363,7 +363,7 @@ dialog_table_in_vbox_defaults(gint rows, gint cols, gint borderWidth, GtkWidget 
 {
 	GtkWidget *table = dialog_table_new (rows, cols, borderWidth);
 		
-	gtk_box_pack_start_defaults (GTK_BOX (box), table);
+	gtk_box_pack_start (GTK_BOX (box), table, TRUE, TRUE, 0);
 	
 	return table;
 }

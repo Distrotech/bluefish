@@ -312,7 +312,7 @@ bluefish_image_dialog_create (GType type,
 	
 	alignment = gtk_alignment_new (0, 0, 1, 1);
 	gtk_alignment_set_padding (GTK_ALIGNMENT (alignment), 6, 12, 6, 6);
-	gtk_box_pack_start_defaults (GTK_BOX (GTK_DIALOG (dialog)->vbox), alignment);
+	gtk_box_pack_start (GTK_BOX (GTK_DIALOG (dialog)->vbox), alignment, TRUE, TRUE, 0);
 	
 	vbox = gtk_vbox_new (FALSE, 6);
 	gtk_container_add (GTK_CONTAINER (alignment), vbox);
@@ -323,7 +323,7 @@ bluefish_image_dialog_create (GType type,
 	label = gtk_label_new_with_mnemonic (_("_Source:"));
 	gtk_box_pack_start (GTK_BOX (hbox), label, FALSE, FALSE, 0);
 	dialog->priv->source = gtk_entry_new ();
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), dialog->priv->source);
+	gtk_box_pack_start (GTK_BOX (hbox), dialog->priv->source, TRUE, TRUE, 0);
 	gtk_label_set_mnemonic_widget (GTK_LABEL (label), dialog->priv->source);
 	g_signal_connect (dialog->priv->source, "activate", G_CALLBACK (image_dialog_source_activate), dialog);
 	g_signal_connect (dialog->priv->source, "changed", G_CALLBACK (image_dialog_source_changed), dialog);
@@ -336,7 +336,7 @@ bluefish_image_dialog_create (GType type,
 	g_signal_connect (dialog->priv->fileButton, "clicked", G_CALLBACK (filebutton_clicked), dialog);
 	
 	hbox = gtk_hbox_new (FALSE, 6);
-	gtk_box_pack_start_defaults (GTK_BOX (vbox), hbox);
+	gtk_box_pack_start (GTK_BOX (vbox), hbox, TRUE, TRUE, 0);
 	vbox = gtk_vbox_new (FALSE, 0);
 	gtk_box_pack_start (GTK_BOX (hbox), vbox, FALSE, FALSE, 0);
 	
@@ -346,7 +346,7 @@ bluefish_image_dialog_create (GType type,
 	gtk_container_add (GTK_CONTAINER (frame), dialog->priv->previewPane);
 	
 	vbox = gtk_vbox_new (FALSE, 6);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), vbox);
+	gtk_box_pack_start (GTK_BOX (hbox), vbox, TRUE, TRUE, 0);
 	
 	notebook = gtk_notebook_new ();
 	gtk_notebook_popup_disable (GTK_NOTEBOOK (notebook));

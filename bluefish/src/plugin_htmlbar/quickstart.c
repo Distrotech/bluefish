@@ -442,7 +442,7 @@ quickstart_meta_page_create(TQuickStart *qstart)
 	gtk_scrolled_window_set_shadow_type (GTK_SCROLLED_WINDOW (scrolwin), GTK_SHADOW_IN);
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 	gtk_widget_set_size_request (scrolwin, 450, 200);
-	gtk_box_pack_start_defaults (GTK_BOX (hbox), scrolwin);
+	gtk_box_pack_start (GTK_BOX (hbox), scrolwin, TRUE, TRUE, 0);
 	
 	metaStore = gtk_list_store_new (1, G_TYPE_STRING);
 	quickstart_load_metatags(metaStore);
