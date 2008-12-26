@@ -26,7 +26,7 @@
 	<!ENTITY evnt "onclick,ondblclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,onkeypress,onkeydown,onkeyup">
 ]>
 
-<bflang name="HTML" table="4250" contexts="65" matches="1024">
+<bflang name="HTML" table="4263" contexts="65" matches="1027">
 <header>
 	<mime type="text/html"/>
 	<highlight name="tag" style="tag" />
@@ -115,7 +115,7 @@
 	</context>
 </tag>
 
-<tag name="style" highlight="tag" attributes="type,src" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
+<tag name="style" highlight="tag" attributes="&i18n;,media,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
 	<context symbols=" &#9;&#10;&#13;{}./*&lt;&gt;">
 	
 		<element id="css/*" pattern="/*" starts_block="1" highlight="css-comment">
