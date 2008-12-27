@@ -442,11 +442,11 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 							}
 						}
 					} else if (xmlStrEqual(name,(xmlChar *)"element")) {
-						DBG_PARSING("in pattern, found pattern --> end -of-pattern\n");
+						DBG_PARSING("in pattern, found 'element' --> must be end-of-element\n");
 						xmlFree(name);
 						break;
 					} else {
-						DBG_PARSING("parsing element with name %s\n",name);
+						DBG_PARSING("in pattern, parsing element with name %s\n",name);
 					}
 					xmlFree(name);
 				}
