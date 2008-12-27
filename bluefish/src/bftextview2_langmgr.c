@@ -785,7 +785,7 @@ static gpointer build_lang_thread(gpointer data)
 		bfparser->st->contexts->data = g_realloc(bfparser->st->contexts->data, (bfparser->st->contexts->len+1)*sizeof(Tcontext));
 		bfparser->st->matches->data = g_realloc(bfparser->st->matches->data, (bfparser->st->matches->len+1)*sizeof(Tpattern));
 
-		print_scantable_stats(bflang->name,bfparser->st);
+		print_scantable_stats(bflang->name,bflang->filename,bfparser->st);
 		/*print_DFA(bfparser->st, '&','Z');*/
 		/*print_DFA_subset(bfparser->st, "\\\" ");*/
 	}
@@ -866,21 +866,42 @@ static gint sort_bflang_list(gconstpointer a, gconstpointer b) {
 	return g_strcmp0(((Tbflang *) a)->name, ((Tbflang *) b)->name);
 }
 
+static void bflang_cleanup(Tbflang *bflang) {
+	if (bflang->st) {
+		g_array_free(bflang->st->table,TRUE);
+		g_array_free(bflang->st->matches,TRUE);
+		g_array_free(bflang->st->contexts,TRUE);
+		g_slice_free(Tscantable,bflang->st);
+	}
+	g_free(bflang->name);
+	g_free(bflang->filename);
+	free_stringlist(bflang->mimetypes);
+	g_slice_free(Tbflang,bflang);
+}
+
 static void register_bflanguage(Tbflang *bflang) {
 	if (bflang) {
 		GList *tmplist;
+		gboolean registered=FALSE;
 		/*g_print("register bflang %s\n",bflang->name);*/
 		tmplist = g_list_first(bflang->mimetypes);
 		while (tmplist) {
-			g_hash_table_insert(langmgr.bflang_lookup, (gchar *)tmplist->data, bflang);
+			if (!g_hash_table_lookup(langmgr.bflang_lookup, (gchar *)tmplist->data)) {
+				g_hash_table_insert(langmgr.bflang_lookup, (gchar *)tmplist->data, bflang);
+				registered=TRUE;
+			}
 			tmplist = g_list_next(tmplist);
 		}
-		langmgr.bflang_list = g_list_prepend(langmgr.bflang_list, bflang);
+		if (registered) {
+			langmgr.bflang_list = g_list_prepend(langmgr.bflang_list, bflang);
+		} else {
+			bflang_cleanup(bflang);
+		}
 	}
 }
 
-static void scan_bflang2files(void) {
-	const gchar *filename, *dir=PKGDATADIR"/bflang/";
+static void scan_bflang2files(const gchar *dir) {
+	const gchar *filename;
 	GError *error = NULL;
 	GPatternSpec *ps = g_pattern_spec_new("*.bflang2");
 	GDir *gd = g_dir_open(dir, 0, &error);
@@ -904,6 +925,7 @@ static void scan_bflang2files(void) {
 void langmgr_init() {
 	GList *tmplist;
 	GtkTextTag *tag;
+	gchar *homebfdir;
 
 	langmgr.tagtable = gtk_text_tag_table_new();
 	langmgr.bflang_lookup = g_hash_table_new(g_str_hash,g_str_equal);
@@ -942,7 +964,10 @@ void langmgr_init() {
 			g_hash_table_insert(langmgr.configured_styles,array_from_arglist(arr[0], arr[1], NULL),g_strdup(arr[2]));
 		}
 	}
-	scan_bflang2files();
+	homebfdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
+	scan_bflang2files(homebfdir);
+	g_free(homebfdir);
+	scan_bflang2files(PKGDATADIR"/bflang/");
 	
 	langmgr.bflang_list = g_list_sort(langmgr.bflang_list, (GCompareFunc) sort_bflang_list);
 

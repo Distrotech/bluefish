@@ -657,7 +657,7 @@ Tscantable *scantable_new(guint size_table, guint size_matches, guint size_conte
 	return st;
 }
 
-void print_scantable_stats(const gchar *lang, Tscantable *st) {
+void print_scantable_stats(const gchar *lang, const gchar *file, Tscantable *st) {
 	g_print("Language statistics for %s\n",lang);
 	g_print("table    %5d (%.2f Kbytes)\n",st->table->len,1.0*st->table->len*sizeof(Ttablerow)/1024.0);
 	g_print("contexts %5d (%.2f Kbytes)\n",st->contexts->len,1.0*st->contexts->len*sizeof(Tcontext)/1024.0);
