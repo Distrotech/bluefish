@@ -507,7 +507,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 
 			contexttag = new_context(bfparser->st, bfparser->bflang->name, ">\"=' \t\n\r", NULL, FALSE);
 			tmp = g_strconcat("<",tag,NULL);
-			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp,bfparser->bflang->name,highlight?highlight:ih_highlight,NULL, FALSE, FALSE, context, contexttag, TRUE, case_insens, 0, TRUE,NULL,autocomplete_append?autocomplete_append:ih_autocomplete_append,NULL);
+			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp,bfparser->bflang->name,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, context, contexttag, TRUE, FALSE, 0, TRUE,NULL,autocomplete_append?autocomplete_append:ih_autocomplete_append,NULL);
 			DBG_PARSING("insert tag %s into hash table with matchnum %d\n",id?id:tmp,matchnum);
 			g_hash_table_insert(bfparser->patterns, g_strdup(id?id:tmp), GINT_TO_POINTER((gint)matchnum));
 			g_free(tmp);
@@ -787,7 +787,7 @@ static gpointer build_lang_thread(gpointer data)
 
 		print_scantable_stats(bflang->name,bflang->filename,bfparser->st);
 		/*print_DFA(bfparser->st, '&','Z');*/
-		/*print_DFA_subset(bfparser->st, "\\\" ");*/
+		/*print_DFA_subset(bfparser->st, "<PpIi>");*/
 	}
 	DBG_PARSING("build_lang_thread finished bflang=%p\n",bflang);
 	/* when done call mainloop */

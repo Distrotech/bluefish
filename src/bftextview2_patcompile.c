@@ -610,11 +610,11 @@ void print_DFA_subset(Tscantable *st, char *chars) {
 	}
 	g_print(": match\n");
 	for (i=0;i<st->table->len;i++) {
-		g_print("%3d: ",i);
+		g_print("%4d: ",i);
 		for (j=0;j<=len;j++) {
-			g_print("%3d ",g_array_index(st->table, Ttablerow, i).row[(gshort)chars[j]]);
+			g_print("%4d ",g_array_index(st->table, Ttablerow, i).row[(gshort)chars[j]]);
 		}
-		g_print(": %3d",g_array_index(st->table, Ttablerow, i).match);
+		g_print(": %4d",g_array_index(st->table, Ttablerow, i).match);
 		if (g_array_index(st->table, Ttablerow, i).match > 0) {
 			g_print(" %s",g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).pattern);
 			if (g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, i).match).nextcontext > 0) {
@@ -658,7 +658,7 @@ Tscantable *scantable_new(guint size_table, guint size_matches, guint size_conte
 }
 
 void print_scantable_stats(const gchar *lang, const gchar *file, Tscantable *st) {
-	g_print("Language statistics for %s\n",lang);
+	g_print("Language statistics for %s from %s\n",lang,file);
 	g_print("table    %5d (%.2f Kbytes)\n",st->table->len,1.0*st->table->len*sizeof(Ttablerow)/1024.0);
 	g_print("contexts %5d (%.2f Kbytes)\n",st->contexts->len,1.0*st->contexts->len*sizeof(Tcontext)/1024.0);
 	g_print("matches  %5d (%.2f Kbytes)\n",st->matches->len,1.0*st->matches->len*sizeof(Tpattern)/1024.0);
