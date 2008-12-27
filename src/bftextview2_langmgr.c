@@ -823,6 +823,7 @@ GtkTextTagTable *langmgr_get_tagtable(void) {
 static Tbflang *parse_bflang2_header(const gchar *filename) {
 	xmlTextReaderPtr reader;
 	Tbflang *bflang=NULL;
+	gchar *bflangversion=NULL;
 	reader = xmlNewTextReaderFilename(filename);
 	xmlTextReaderSetParserProp(reader,XML_PARSER_SUBST_ENTITIES,TRUE);
 	if (reader != NULL) {
@@ -837,6 +838,7 @@ static Tbflang *parse_bflang2_header(const gchar *filename) {
 				while (xmlTextReaderMoveToNextAttribute(reader)) {
 					xmlChar *aname = xmlTextReaderName(reader);
 					set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&bflang->name);
+					set_string_if_attribute_name(reader,aname,(xmlChar *)"version",&bflangversion);
 					set_integer_if_attribute_name(reader,aname,(xmlChar *)"table",&bflang->size_table);
 					set_integer_if_attribute_name(reader,aname,(xmlChar *)"matches",&bflang->size_matches);
 					set_integer_if_attribute_name(reader,aname,(xmlChar *)"contexts",&bflang->size_contexts);

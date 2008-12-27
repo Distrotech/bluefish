@@ -38,8 +38,8 @@
 	</context>
 </element>
 <element id="entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
-<tag name="bflang" highlight="tag" autocomplete_append="&gt;" attributes="name,table,matches,contexts" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" >
-<reference>the <i>bflang</i> tag is the root tag of the bluefish language file. It should have attribute <i>name</i>.</reference>
+<tag name="bflang" highlight="tag" autocomplete_append="name=&quot;&quot; version=&quot;1&quot;&gt;" attributes="name,version,table,matches,contexts" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" >
+<reference>the <i>bflang</i> tag is the root tag of the bluefish language file. It should have attribute <i>name</i> and <i>version</i>.</reference>
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 	<element idref="comment"/>
 	<element idref="entity" />
