@@ -77,7 +77,7 @@
 					<tag idref="context" />
 				</context>
 			</tag>
-			<tag id="tag" name="tag" highlight="pattern-tag" autocomplete_append=" name=&quot;&quot; /&gt;" attributes="id,idref,name,highlight,class,attributes,autocomplete,autocomplete_append,attribhighlight,attrib_autocomplete_append" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+			<tag id="tag" name="tag" highlight="pattern-tag" autocomplete_append=" name=&quot;&quot; /&gt;" attributes="id,idref,name,highlight,class,attributes,autocomplete,autocomplete_append,attribhighlight,attrib_autocomplete_append,case_insens,sgml_shorttag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 			<reference>tag is added for convenience. Everything within tag is possible with a combination of multiple element and context tags.  </reference>
 				<context idref="innerpattern" />
 			</tag>
