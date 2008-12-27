@@ -26,6 +26,7 @@ bflang_DATA = \
 	ruby.bflang2 \
 	shell.bflang2 \
 	text.bflang2 \
+	xhtml.bflang2 \
 	xml.bflang2
 
 bflangdir = $(pkgdatadir)/bflang

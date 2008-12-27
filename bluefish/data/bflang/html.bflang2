@@ -26,7 +26,7 @@
 	<!ENTITY evnt "onclick,ondblclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,onkeypress,onkeydown,onkeyup">
 ]>
 
-<bflang name="HTML" table="4263" contexts="65" matches="1027">
+<bflang name="Generic HTML" table="4263" contexts="65" matches="1027">
 <header>
 	<mime type="text/html"/>
 	<highlight name="tag" style="tag" />
@@ -48,14 +48,13 @@
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-<tag name="html" attributes="version,&i18n;" highlight="tag" autocomplete_append="&gt;" />
-<tag name="head" attributes="profile,&i18n;" highlight="tag" autocomplete_append="&gt;">
-	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
-	<tag name="base" highlight="tag" attributes="href,target" attribhighlight="attribute" autocomplete_append="&gt; &lt;/base&gt;" />
-	<tag name="meta" highlight="tag" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" &gt;" attrib_autocomplete_append="=&quot;&quot;" />
-	<tag name="title" highlight="tag" attributes="&i18n;" attribhighlight="attribute" autocomplete_append="&gt; &lt;/title&gt;" />
+<tag name="html" case_insens="1" sgml_shorttag="1" attributes="version,&i18n;" highlight="tag" autocomplete_append="&gt;" />
+<tag name="head" case_insens="1" sgml_shorttag="1" attributes="profile,&i18n;" highlight="tag" autocomplete_append="&gt;"/>
+	<tag name="base" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="href,target" attribhighlight="attribute" autocomplete_append="&gt; &lt;/base&gt;" />
+	<tag name="meta" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" &gt;" attrib_autocomplete_append="=&quot;&quot;" />
+	<tag name="title" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;" attribhighlight="attribute" autocomplete_append="&gt; &lt;/title&gt;" />
 
-<tag id="script" name="script" highlight="tag" attributes="src,type" autocomplete_append="&gt;" attribhighlight="attribute">
+<tag id="script" name="script" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="src,type" autocomplete_append="&gt;" attribhighlight="attribute">
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 		<element pattern="(" id="js(" starts_block="1" highlight="brackets" />
 		<element pattern=")" highlight="brackets" ends_block="1" blockstartelement="js(" />
@@ -115,7 +114,7 @@
 	</context>
 </tag>
 
-<tag name="style" highlight="tag" attributes="&i18n;,media,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
+<tag name="style" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;,media,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
 	<context symbols=" &#9;&#10;&#13;{}./*&lt;&gt;">
 	
 		<element id="css/*" pattern="/*" starts_block="1" highlight="css-comment">
@@ -164,69 +163,57 @@
 	</context>
 </tag>
 
-<tag name="link" highlight="tag" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+<tag name="link" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 
-<element pattern="&lt;!--" highlight="html-comment" starts_block="1">
-	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
-		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="html-comment" mayfold="1" ends_context="1" />
-	</context>
-</element>
-
-<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="value" />
-</context>
-</tag>
-
-<tag name="body" highlight="tag" attributes="alink,background,bgcolor,link,onload,onunload,text,vlink,&univ;,&i18n;">
-	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-		<tag idref="script" />
+<tag name="body" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="alink,background,bgcolor,link,onload,onunload,text,vlink,&univ;,&i18n;"/>
 		<group highlight="reference-external-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
-			<tag name="a" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" />
-			<tag name="img" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; &gt;" >
+			<tag name="a" case_insens="1" sgml_shorttag="1" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" />
+			<tag name="img" case_insens="1" sgml_shorttag="1" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; &gt;" >
 				<reference>The img tag inserts an image into a document</reference>
 			</tag>
-			<tag name="object" attributes="align,archive,border,classid,codebase,codetype,data,declare,height,hspace,name,standby,tabindex,type,usemap,vspace,width,&univ;,&i18n;,&evnt;" />
-			<tag name="param" attributes="id,name,value,valuetype,type" autocomplete_append=" name=&#34;&#34; &gt;" />
+			<tag name="object" case_insens="1" sgml_shorttag="1" attributes="align,archive,border,classid,codebase,codetype,data,declare,height,hspace,name,standby,tabindex,type,usemap,vspace,width,&univ;,&i18n;,&evnt;" />
+			<tag name="param" case_insens="1" sgml_shorttag="1" attributes="id,name,value,valuetype,type" autocomplete_append=" name=&#34;&#34; &gt;" />
 		</group>
 		<group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
-			<tag name="b" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="br" attributes="&univ;" autocomplete_append="&gt;"/>
-			<tag name="div" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="dl" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="em" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="i" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="h1" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="h2" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="h3" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="h4" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="h5" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="h6" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="hr" attributes="&univ;" autocomplete_append="&gt;" />
-			<tag name="kbd" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="li" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="ol" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="p" attributes="&univ;,&evnt;"/>
-			<tag name="pre" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="span" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="strong" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="u" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="ul" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="b" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="br" case_insens="1" sgml_shorttag="1" attributes="&univ;" autocomplete_append="&gt;"/>
+			<tag name="div" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="dl" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="em" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="i" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="h1" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="h2" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="h3" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="h4" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="h5" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="h6" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="hr" case_insens="1" sgml_shorttag="1" attributes="&univ;" autocomplete_append="&gt;" />
+			<tag name="kbd" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="li" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="ol" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="p" case_insens="1" sgml_shorttag="1" attributes="&univ;,&evnt;"/>
+			<tag name="pre" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="span" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="strong" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="u" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="ul" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
 		</group>
 		<group highlight="form-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
-			<tag name="fieldset" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="form" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="input" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="label" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="legend" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="optgroup" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="option" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="select" attributes="&univ;,&i18n;,&evnt;"/>
-			<tag name="textarea" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="fieldset" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="form" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="input" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="label" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="legend" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="optgroup" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="option" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="select" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="textarea" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
 		</group>
 		<group highlight="table-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
-			<tag name="table" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" autocomplete_append=" summary=&quot;&quot; &gt;" />
-			<tag name="td" attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,&i18n;,&evnt;" />
-			<tag name="th" attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,&i18n;,&evnt;" />
-			<tag name="tr" attributes="align,bgcolor,char,charoff,valign,&univ;,&i18n;,&evnt;" />
+			<tag name="table" case_insens="1" sgml_shorttag="1" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" autocomplete_append=" summary=&quot;&quot; &gt;" />
+			<tag name="td" case_insens="1" sgml_shorttag="1" attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,&i18n;,&evnt;" />
+			<tag name="th" case_insens="1" sgml_shorttag="1" attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,&i18n;,&evnt;" />
+			<tag name="tr" case_insens="1" sgml_shorttag="1" attributes="align,bgcolor,char,charoff,valign,&univ;,&i18n;,&evnt;" />
 		</group>
 		<element pattern="&lt;!--" highlight="html-comment" starts_block="1">
 			<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
@@ -234,8 +221,6 @@
 			</context>
 		</element>
 		<element pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
-	</context>
-</tag>
 </context>
 </definition>
 </bflang>
