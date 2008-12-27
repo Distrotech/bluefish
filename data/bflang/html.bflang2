@@ -166,9 +166,9 @@
 
 <tag name="link" highlight="tag" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 
-<element pattern="&lt;!--" highlight="comment" starts_block="1">
-	<context symbols="-&gt; &#9;&#10;&#13;" highlight="comment">
-		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="comment" mayfold="1" ends_context="1" />
+<element pattern="&lt;!--" highlight="html-comment" starts_block="1">
+	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
+		<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="html-comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
 
