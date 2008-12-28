@@ -22,6 +22,7 @@
 #include <string.h>
 #include <strings.h>
 #include <stdarg.h>
+#include <stdlib.h> /* qsort */
 
 #include "bftextview2.h"
 #include "bftextview2_langmgr.h"
@@ -470,10 +471,9 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 	if (class) xmlFree(class);
 	return matchnum;
 }
-
 /* qsort string comparison function */
-int stringcmp(const void *a, const void *b) {
-	return strcmp((const char *)a, (const char *)b);
+int stringcmp( void *sp1, void *sp2 ) {
+	return( strcmp(*(char **)sp1, *(char **)sp2) );
 }
 
 static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context, GQueue *contextstack
