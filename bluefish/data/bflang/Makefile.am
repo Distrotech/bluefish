@@ -15,6 +15,7 @@ bflang_DATA = \
 	c.bflang2 \
 	cpp.bflang2 \
 	css.bflang2 \
+	d.bflang2 \
 	html.bflang2 \
 	java.bflang2 \
 	javascript.bflang2 \

@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<!--
+		Bluefish HTML Editor
+		d.bflang2
+ 
+		Copyright (C) 2008 Olivier Sessink
+
+		This program is free software; you can redistribute it and/or modify
+		it under the terms of the GNU General Public License as published by
+		the Free Software Foundation; either version 2 of the License, or
+		(at your option) any later version.
+
+		This program is distributed in the hope that it will be useful,
+		but WITHOUT ANY WARRANTY; without even the implied warranty of
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+		GNU General Public License for more details.
+
+		You should have received a copy of the GNU General Public License
+		along with this program; if not, write to the Free Software
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
+-->
+
+<bflang name="D" matches="113" contexts="5" table="430">
+<header>
+	<mime type="text/x-dsrc" />
+	<highlight name="keyword" style="keyword" />
+	<highlight name="brackets" style="brackets" />
+	<highlight name="type" style="type" />
+	<highlight name="comment" style="comment" />
+	<highlight name="string" style="string" />
+	<highlight name="value" style="value" />
+	<highlight name="preprocessor" style="preprocessor" />
+</header>
+<definition>
+<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
+
+<group highlight="keyword" autocomplete="1">
+	<element pattern="abstract"/>
+	<element pattern="alias"/>
+	<element pattern="align"/>
+	<element pattern="asm"/>
+	<element pattern="assert"/>
+	<element pattern="auto"/>
+	<element pattern="body"/>
+	<element pattern="break"/>
+	<element pattern="case"/>
+	<element pattern="cast"/>
+	<element pattern="catch"/>
+	<element pattern="class"/>
+	<element pattern="const"/>
+	<element pattern="debug"/>
+	<element pattern="default"/>
+	<element pattern="delete"/>
+	<element pattern="deprecated"/>
+	<element pattern="do"/>
+	<element pattern="else"/>
+	<element pattern="enum"/>
+	<element pattern="export"/>
+	<element pattern="extern"/>
+	<element pattern="final"/>
+	<element pattern="finally"/>
+	<element pattern="for"/>
+	<element pattern="foreach"/>
+	<element pattern="foreach_reverse"/>
+	<element pattern="function"/>
+	<element pattern="goto"/>
+	<element pattern="if"/>
+	<element pattern="import"/>
+	<element pattern="in"/>
+	<element pattern="inout"/>
+	<element pattern="interface"/>
+	<element pattern="invariant"/>
+	<element pattern="is"/>
+	<element pattern="lazy"/>
+	<element pattern="mixin"/>
+	<element pattern="module"/>
+	<element pattern="new"/>
+	<element pattern="out"/>
+	<element pattern="override"/>
+	<element pattern="package"/>
+	<element pattern="pragma"/>
+	<element pattern="private"/>
+	<element pattern="protected"/>
+	<element pattern="public"/>
+	<element pattern="return"/>
+	<element pattern="scope"/>
+	<element pattern="sizeof"/>
+	<element pattern="static"/>
+	<element pattern="struct"/>
+	<element pattern="switch"/>
+	<element pattern="synchronized"/>
+	<element pattern="template"/>
+	<element pattern="throw"/>
+	<element pattern="try"/>
+	<element pattern="typedef"/>
+	<element pattern="typeid"/>
+	<element pattern="union"/>
+	<element pattern="unittest"/>
+	<element pattern="version"/>
+	<element pattern="void"/>
+	<element pattern="volatile"/>
+	<element pattern="while"/>
+	<element pattern="with"/>
+</group>
+
+<group highlight="type" autocomplete="1">
+	<element pattern="bit"/>
+	<element pattern="bool"/>
+	<element pattern="byte"/>
+	<element pattern="cdouble"/>
+	<element pattern="cent"/>
+	<element pattern="cfloat"/>
+	<element pattern="char"/>
+	<element pattern="creal"/>
+	<element pattern="delegate"/>
+	<element pattern="dchar"/>
+	<element pattern="double"/>
+	<element pattern="float"/>
+	<element pattern="idouble"/>
+	<element pattern="ifloat"/>
+	<element pattern="int"/>
+	<element pattern="ireal"/>
+	<element pattern="long"/>
+	<element pattern="real"/>
+	<element pattern="short"/>
+	<element pattern="ubyte"/>
+	<element pattern="uint"/>
+	<element pattern="ulong"/>
+	<element pattern="ushort"/>
+	<element pattern="wchar"/>
+</group>
+
+<group highlight="preprocessor" autocomplete="1">
+	<element pattern="true" />	
+	<element pattern="false" />
+	<element pattern="null" />
+	<element pattern="super" />
+	<element pattern="this" />
+</group>
+
+<element pattern="&#34;" highlight="string">
+	<context symbols="\&#34;nrt" highlight="string">
+		<element pattern="\\." is_regex="1" highlight="string" />
+		<element pattern="&#34;" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<element pattern="'" highlight="string">
+	<context symbols="\'" highlight="string">
+		<element pattern="\\." is_regex="1" highlight="string" />
+		<element pattern="'" highlight="string" ends_context="1" />
+	</context>
+</element>
+
+<element id="{" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+
+<element id="[" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+
+<element id="(" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
+
+<element id="commstart" pattern="/*" starts_block="1" highlight="comment">
+	<context symbols="*/&#9;&#10;&#13;" highlight="comment">
+		<element pattern="*/" ends_block="1" blockstartelement="commstart" highlight="comment" mayfold="1" ends_context="1" />
+	</context>
+</element>
+
+<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
+
+<group highlight="value">
+	<element pattern="[0-9.]+" is_regex="1"/>
+	<element pattern="0x[0-9]+" is_regex="1"/>
+</group>
+
+</context>
+</definition>
+</bflang>
