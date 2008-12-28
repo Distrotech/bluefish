@@ -596,6 +596,8 @@ static gchar * get_toplevel_name(GFile *uri) {
 		g_object_unref(mount);
 	} else {
 		name = g_file_get_basename(uri);
+		if (error)
+			g_error_free(error);
 	}
 	return name;
 }
