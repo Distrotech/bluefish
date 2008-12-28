@@ -48,14 +48,14 @@
 /************************************************************************/
 /************************************************************************/
 
-/**
+/* DEPRECATED BY g_strv_length
  * count_array:
  * @array: #gchar** with the NULL terminated array to count
  *
  * counts the number of entries in a NULL terminated array
  *
  * Return value: #gint with number of entries
- */
+ * /
 gint count_array(gchar **array) {
 	gint count=0;
 	gchar **tmpchar=array;
@@ -71,7 +71,7 @@ gint count_array(gchar **array) {
 	}
 	return count;
 }
-
+*/
 /**
  * array_to_string:
  * @array: #gchar** with NULL terminated array
@@ -343,7 +343,7 @@ gint free_arraylist(GList * which_list)
 	which_list = NULL;
 	return 1;
 }
-
+/* deprecated by g_strdupv
 gchar **duplicate_stringarray(gchar **array) {
 	gchar **newchar;
 	gint i;
@@ -353,7 +353,7 @@ gchar **duplicate_stringarray(gchar **array) {
 		newchar[i] = g_strdup(array[i]);
 	}
 	return newchar;
-}
+}*/
 
 GList *duplicate_arraylist(GList *arraylist) {
 	GList *tmplist;
