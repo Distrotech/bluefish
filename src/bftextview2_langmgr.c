@@ -471,6 +471,11 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 	return matchnum;
 }
 
+/* qsort string comparison function */
+int stringcmp(const void *a, const void *b) {
+	return strcmp((const char *)a, (const char *)b);
+}
+
 static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context, GQueue *contextstack
 		,gchar *ih_autocomplete_append ,gchar *ih_highlight,gchar *ih_attrib_autocomplete_append ,gchar *ih_attribhighlight) {
 	gchar *tag=NULL, *idref=NULL, *highlight=NULL, *attributes=NULL, *attribhighlight=NULL,*class=NULL
@@ -505,11 +510,52 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 				compile_existing_match(bfparser->st,matchnum, context);
 		} else if (tag && tag[0]) {
 			const gchar *stringhighlight="string";
-			guint16 contexttag, starttagmatch, endtagmatch;
-			gint contextstring;
+			gchar *attrib_context_id=NULL;
+			gchar **attrib_arr=NULL;
+			guint16 starttagmatch, endtagmatch;
+			gint contexttag, contextstring;
 			gchar *tmp, *reference=NULL;
+			
+			/* try to re-use the context of other tags. this is only possible if the other tags have exactly the same attribute set
+			we check this by sorting the attributes, concatenating them comma separated together, and using this as a hash key
+			if there are no attributes we use context __internal_no_attribs__ */ 
+			if (attributes) {
+				attrib_arr = g_strsplit(attributes,",",-1);
+				qsort(attrib_arr,g_strv_length(attrib_arr), sizeof(gchar *), stringcmp);
+				attrib_context_id = g_strjoinv(",",attrib_arr);
+			} else {
+				attrib_context_id = g_strdup("__internal_no_attribs__");
+			}
+			contexttag = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, attrib_context_id));
+			if (!contexttag) {
+				contexttag = new_context(bfparser->st, bfparser->bflang->name, ">\"=' \t\n\r", NULL, FALSE);
 
-			contexttag = new_context(bfparser->st, bfparser->bflang->name, ">\"=' \t\n\r", NULL, FALSE);
+				if (attrib_arr) {
+					gchar**tmp2;
+					
+					tmp2 = attrib_arr;
+					while (*tmp2) {
+						guint16 attrmatch = add_keyword_to_scanning_table(bfparser->st, *tmp2,bfparser->bflang->name,attribhighlight?attribhighlight:ih_attribhighlight,NULL, FALSE, FALSE, contexttag, 0, FALSE, FALSE, 0, TRUE,NULL,attrib_autocomplete_append?attrib_autocomplete_append:ih_attrib_autocomplete_append,NULL);
+						match_autocomplete_reference(bfparser->st,attrmatch,contexttag);
+						tmp2++;
+					}
+				}
+				contextstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, "__internal_tag_string__"));
+				if (!contextstring) {
+					contextstring = new_context(bfparser->st, bfparser->bflang->name, "\"=' \t\n\r", stringhighlight, FALSE);
+					add_keyword_to_scanning_table(bfparser->st, "\"",bfparser->bflang->name,stringhighlight,stringhighlight, FALSE, case_insens, contextstring, -1, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
+					g_hash_table_insert(bfparser->contexts, g_strdup("__internal_tag_string__"), GINT_TO_POINTER(contextstring));
+				}
+				add_keyword_to_scanning_table(bfparser->st, "\"", bfparser->bflang->name, stringhighlight,NULL,FALSE, FALSE, contexttag, contextstring, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
+				
+				g_hash_table_insert(bfparser->contexts, g_strdup(attrib_context_id), GINT_TO_POINTER(contexttag));
+			}
+			
+			if (attrib_arr) 
+				g_strfreev(attrib_arr);
+			if (attrib_context_id)
+				g_free(attrib_context_id);
+			
 			tmp = g_strconcat("<",tag,NULL);
 			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp,bfparser->bflang->name,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, context, contexttag, TRUE, FALSE, 0, TRUE,NULL,autocomplete_append?autocomplete_append:ih_autocomplete_append,NULL);
 			DBG_PARSING("insert tag %s into hash table with matchnum %d\n",id?id:tmp,matchnum);
@@ -518,24 +564,6 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			if (!sgml_shorttag)
 				add_keyword_to_scanning_table(bfparser->st, "/>", bfparser->bflang->name, highlight?highlight:ih_highlight, NULL, FALSE, FALSE, contexttag, -1, FALSE, TRUE, matchnum, FALSE,NULL,NULL,NULL);
 			starttagmatch = add_keyword_to_scanning_table(bfparser->st, ">", bfparser->bflang->name, highlight?highlight:ih_highlight, NULL, FALSE, FALSE, contexttag, -1, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
-			if (attributes) {
-				gchar **arr, **tmp2;
-				arr = g_strsplit(attributes,",",-1);
-				tmp2 = arr;
-				while (*tmp2) {
-					guint16 attrmatch = add_keyword_to_scanning_table(bfparser->st, *tmp2,bfparser->bflang->name,attribhighlight?attribhighlight:ih_attribhighlight,NULL, FALSE, FALSE, contexttag, 0, FALSE, FALSE, 0, TRUE,NULL,attrib_autocomplete_append?attrib_autocomplete_append:ih_attrib_autocomplete_append,NULL);
-					match_autocomplete_reference(bfparser->st,attrmatch,contexttag);
-					tmp2++;
-				}
-				g_strfreev(arr);
-				contextstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, "__internal_tag__"));
-				if (!contextstring) {
-					contextstring = new_context(bfparser->st, bfparser->bflang->name, "\"=' \t\n\r", stringhighlight, FALSE);
-					add_keyword_to_scanning_table(bfparser->st, "\"",bfparser->bflang->name,stringhighlight,stringhighlight, FALSE, case_insens, contextstring, -1, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
-					g_hash_table_insert(bfparser->contexts, g_strdup("__internal_tag__"), GINT_TO_POINTER(contextstring));
-				}
-				add_keyword_to_scanning_table(bfparser->st, "\"", bfparser->bflang->name, stringhighlight,NULL,FALSE, FALSE, contexttag, contextstring, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
-			}
 
 			if (!is_empty) {
 				while (xmlTextReaderRead(reader)==1) {

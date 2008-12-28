@@ -27,7 +27,8 @@
 /*void estrl_dialog(GList **which_list, gchar *title, gint what_list
 				, gint column_num, gchar **column_titles, void (*post_dialog_func)());*/
 
-gint count_array(gchar **array);
+/*gint count_array(gchar **array);*/
+#define count_array g_strv_length
 gchar *array_to_string(gchar **array);
 gchar **string_to_array(gchar *string);
 gchar **array_from_arglist(const gchar *string1, ...);
@@ -40,7 +41,8 @@ gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxen
 gboolean put_stringlist(gchar * filename, GList * which_list);
 
 gint free_arraylist(GList * which_list);
-gchar **duplicate_stringarray(gchar **array);
+/*gchar **duplicate_stringarray(gchar **array);*/
+#define duplicate_stringarray g_strdupv
 GList *duplicate_arraylist(GList *arraylist);
 
 /* removes a string from a stringlist if it is the same */
