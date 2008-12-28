@@ -445,6 +445,7 @@ gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxen
 	g_file_replace_contents(file,strbuffer->str,strbuffer->len
 				,NULL,TRUE,G_FILE_CREATE_PRIVATE,NULL,NULL,&error);
 	g_string_free(strbuffer,TRUE);
+	g_object_unref(file);
 	DEBUG_MSG("put_stringlist_limited, finished, filedescriptor closed\n");
 	return TRUE;
 }

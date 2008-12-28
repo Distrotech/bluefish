@@ -450,12 +450,13 @@ void doc_reset_filetype(Tdocument * doc, GFile *newuri, gconstpointer buf, gssiz
 	/*mimetype = g_content_type_get_mime_type(conttype);*/
 	mimetype=conttype;
 	DEBUG_MSG("doc_reset_filetype,mimetype=%s\n",mimetype);
-	/* docs are unclear if conttype is a static string or a newly allocated string */
 
 	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(doc->view), mimetype);
 	if (doc->fileinfo) {
 		g_file_info_set_content_type(doc->fileinfo,mimetype);
 	}
+	
+	g_free(conttype);
 	/* TODO: set the mime type in the doc->fileinfo so we can use it in the tooltips */
 }
 
@@ -1060,13 +1061,13 @@ void doc_set_statusbar_editmode_encoding(Tdocument *doc)
 	gchar *msg = NULL;
 
 	if (doc->fileinfo) {
-		const gchar *desc = NULL;
 		const gchar *mime = NULL;
 		
 		mime = g_file_info_get_content_type(doc->fileinfo);
 		if (mime) {
-			desc = g_content_type_get_description(mime);
+			gchar *desc = g_content_type_get_description(mime);
 			msg = g_strdup_printf(_("  %s, %s"), desc, doc->encoding);
+			g_free(desc);
 		}
 	}
 	

@@ -243,6 +243,7 @@ static void file_open_ok_lcb(GtkDialog *dialog,gint response,Tbfwin *bfwin) {
       }
     }
     docs_new_from_uris(bfwin, slist, FALSE);
+    g_slist_foreach(slist, (GFunc) g_free, NULL);
     g_slist_free(slist);
   }
   gtk_widget_destroy(GTK_WIDGET(dialog));
