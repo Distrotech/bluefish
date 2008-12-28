@@ -450,7 +450,11 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 					xmlFree(name);
 				}
 			}
-			match_set_reference(bfparser->st,matchnum, reference);
+			
+			if (reference != NULL) {
+				match_set_reference(bfparser->st,matchnum, reference);
+				xmlFree(reference);
+			}
 			match_autocomplete_reference(bfparser->st,matchnum,context);
 		}
 	}
@@ -559,7 +563,11 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					xmlFree(name);
 				}
 			}
-			match_set_reference(bfparser->st,matchnum, reference);
+			
+			if (reference != NULL) {
+				match_set_reference(bfparser->st,matchnum, reference);
+				xmlFree(reference);
+			}
 			match_autocomplete_reference(bfparser->st,matchnum,context);
 			tmp = g_strconcat("</",tag,">",NULL);
 			endtagmatch = add_keyword_to_scanning_table(bfparser->st, tmp, bfparser->bflang->name,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, innercontext, (innercontext==context)?0:-2, FALSE, TRUE, matchnum, TRUE,NULL,NULL,NULL);
