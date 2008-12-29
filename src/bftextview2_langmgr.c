@@ -149,7 +149,7 @@ void langmgr_reload_user_styles(void) {
 		order of the items is {name, foreground, background, bold, italic} */
 		gchar *arr[][6] = {
 			{"preprocessor","#aaaa00","","0","0",NULL},
-			{"comment","grey","","0","1",NULL},
+			{"comment","#555555","","0","1",NULL},
 			{"string","#009900","","0","0",NULL},
 			{"type","","","1","0",NULL},
 			{"special-type","#990000","","1","",NULL},
@@ -166,6 +166,7 @@ void langmgr_reload_user_styles(void) {
 			{"special-tag3","#FF9900","","1","",NULL},
 			{"attribute","#000099","","","",NULL},
 			{"brackets","#000000","","1","0",NULL},
+			{"warning","#FF0000","","1","0",NULL},
 			{NULL,NULL,NULL,NULL,NULL,NULL}
 		};
 		while (arr[i][0]) {
