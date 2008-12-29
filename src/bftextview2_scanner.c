@@ -285,7 +285,7 @@ static Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *b
 		return NULL;
 	} else {
 		Tfoundblock *fblock;
-		DBG_BLOCKMATCH("put block for pattern %d on blockstack\n",match.patternum);
+		DBG_BLOCKMATCH("put block for pattern %d (%s) on blockstack\n",match.patternum,g_array_index(btv->bflang->st->matches,Tpattern,match.patternum).pattern);
 #ifdef HL_PROFILING
 		hl_profiling.numblockstart++;
 #endif
@@ -308,7 +308,7 @@ static Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *b
 
 static Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
 	Tfoundblock *fblock=NULL;
-	DBG_BLOCKMATCH("found end of block that matches start of block pattern %d\n",pat->blockstartpattern);
+	DBG_BLOCKMATCH("found end of block with blockstartpattern %d\n",pat->blockstartpattern);
 #ifdef HL_PROFILING
 	hl_profiling.numblockend++;
 #endif
@@ -318,9 +318,11 @@ static Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuffer *buf
 		}
 		fblock = g_queue_pop_head(scanning->blockstack);
 		if (fblock) {
-			DBG_BLOCKMATCH("popped block for pattern %d from blockstack\n",fblock->patternum);
+			DBG_BLOCKMATCH("popped block for pattern %d (%s) from blockstack\n",fblock->patternum, g_array_index(btv->bflang->st->matches,Tpattern,fblock->patternum).pattern);
 		}
-	} while (fblock && fblock->patternum != pat->blockstartpattern);
+		/* if patternum == -1 this means we should end the last started block
+		else we pop until we have the right startpattern */
+	} while (fblock && fblock->patternum != pat->blockstartpattern && pat->blockstartpattern != -1);
 	/*print_blockstack(btv,scanning);*/
 	if (fblock) {
 		GtkTextIter iter;
