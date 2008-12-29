@@ -176,7 +176,7 @@
 		<group highlight="reference-external-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
 			<tag name="a" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" />
 			<!-- TODO: We should not add height/width/border! ... alt+src are required -->
-			<tag name="img" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; /&gt;" />
+			<tag name="img" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; /&gt;">
 				<reference>The img tag inserts an image into a document</reference>
 			</tag>
 			<!-- <tag name="embed" attributes="" /> --><!-- not HTML -->
@@ -184,12 +184,16 @@
 			<tag name="param" attributes="id,name,value,valuetype,type" autocomplete_append=" name=&#34;&#34; &gt;" />
 		</group>
 		<group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+			<tag name="abbr" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="acronym" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="b" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="br" attributes="&univ;" autocomplete_append=" /&gt;"/>
+			<tag name="del" attributes="&univ;,&i18n;,&evnt;,cite,datetime"/>
 			<tag name="div" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="dl" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="em" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="i" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="ins" attributes="&univ;,&i18n;,&evnt;,cite,datetime"/>
 			<tag name="h1" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="h2" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="h3" attributes="&univ;,&i18n;,&evnt;"/>
@@ -204,8 +208,11 @@
 			<tag name="pre" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="span" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="strong" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="sub" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="sup" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="u" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="ul" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="var" attributes="&univ;,&i18n;,&evnt;"/>
 		</group>
 		<group highlight="form-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
 			<tag name="fieldset" attributes="&univ;,&i18n;,&evnt;"/>
