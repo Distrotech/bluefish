@@ -26,7 +26,7 @@
 	<!ENTITY evnt "onclick,ondblclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,onkeypress,onkeydown,onkeyup">
 ]>
 
-<bflang name="Generic HTML" table="1855" contexts="33" matches="452">
+<bflang name="Generic HTML" table="1875" contexts="33" matches="455">
 <header>
 	<mime type="text/html"/>
 	<highlight name="tag" style="tag" />
@@ -54,7 +54,7 @@
 	<tag name="meta" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" &gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<tag name="title" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;" attribhighlight="attribute" autocomplete_append="&gt; &lt;/title&gt;" />
 
-<tag id="script" name="script" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="src,type" autocomplete_append="&gt;" attribhighlight="attribute">
+<tag id="script" name="script" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="charset,defer,language,src,type" autocomplete_append="&gt;" attribhighlight="attribute">
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 		<element pattern="(" id="js(" starts_block="1" highlight="brackets" />
 		<element pattern=")" highlight="brackets" ends_block="1" blockstartelement="js(" />
