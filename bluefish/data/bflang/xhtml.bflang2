@@ -25,7 +25,7 @@
 	<!ENTITY univ "class,id,style,title">
 	<!ENTITY evnt "onclick,ondblclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,onkeypress,onkeydown,onkeyup">
 ]>
-<bflang name="XHTML" table="1706" contexts="61" matches="477">
+<bflang name="XHTML" table="2058" contexts="35" matches="500">
 <header>
 	<mime type="application/xhtml+xml"/>
 	<highlight name="tag" style="tag" />
@@ -106,8 +106,9 @@
 	</context>
 </element>
 <element id="js/*" pattern="/*" starts_block="1" highlight="js-comment">
-	<context symbols="*/&#9;&#10;&#13;" highlight="js-comment">
+	<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
 		<element pattern="*/" ends_block="1" blockstartelement="js/*" highlight="js-comment" mayfold="1" ends_context="1" />
+		<element pattern="&lt;/script&gt;" highlight="tag" ends_context="3" ends_block="1" blockstartelement="script"/>
 	</context>
 </element>
 </context>
