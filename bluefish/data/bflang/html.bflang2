@@ -33,6 +33,7 @@
 	<highlight name="reference-external-tag" style="special-tag" />
 	<highlight name="table-tag" style="special-tag2" />
 	<highlight name="form-tag" style="special-tag3" />
+	<highlight name="deprecated-tag" style="warning" />
 	<highlight name="attribute" style="attribute" />
 	<highlight name="string" style="string" />
 	<highlight name="entity" style="value" />
@@ -175,8 +176,14 @@
 			<tag name="param" case_insens="1" sgml_shorttag="1" attributes="id,name,value,valuetype,type" autocomplete_append=" name=&#34;&#34; &gt;" />
 		</group>
 		<group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+			<tag name="abbr" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="acronym" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="b" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="blockquote" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,cite"/>
 			<tag name="br" case_insens="1" sgml_shorttag="1" attributes="&univ;" autocomplete_append="&gt;"/>
+			<tag name="code" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="cite" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="dfn" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="div" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="dl" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="em" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
@@ -193,10 +200,19 @@
 			<tag name="ol" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="p" case_insens="1" sgml_shorttag="1" attributes="&univ;,&evnt;"/>
 			<tag name="pre" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="q" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="samp" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="span" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="strong" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="sub" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="sup" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="u" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="ul" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="var" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
+			
+		</group>
+		<group highlight="deprecated-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+			<tag name="font" case_insens="1" sgml_shorttag="1" attributes="size,color,bgcolor,face"/>
 		</group>
 		<group highlight="form-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
 			<tag name="fieldset" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
