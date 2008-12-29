@@ -512,8 +512,8 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			const gchar *stringhighlight="string";
 			gchar *attrib_context_id=NULL;
 			gchar **attrib_arr=NULL;
-			guint16 starttagmatch, endtagmatch;
-			gint contexttag, contextstring;
+			guint16 starttagmatch=0, endtagmatch;
+			gint contexttag=0, contextstring;
 			gchar *tmp, *reference=NULL;
 			
 			/* try to re-use the context of other tags. this is only possible if the other tags have exactly the same attribute set
@@ -523,13 +523,37 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 				attrib_arr = g_strsplit(attributes,",",-1);
 				qsort(attrib_arr,g_strv_length(attrib_arr), sizeof(gchar *), stringcmp);
 				attrib_context_id = g_strjoinv(",",attrib_arr);
+				if (sgml_shorttag) {
+					tmp = attrib_context_id;
+					attrib_context_id = g_strconcat("1,",tmp,NULL);
+					g_free(tmp);
+				}
 			} else {
 				attrib_context_id = g_strdup("__internal_no_attribs__");
 			}
-			contexttag = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, attrib_context_id));
-			if (!contexttag) {
-				contexttag = new_context(bfparser->st, bfparser->bflang->name, ">\"=' \t\n\r", NULL, FALSE);
+			if (is_empty) {
+				/* we can only re-use an existing context for attributes
+				if the attributes are the same, both tags have the same
+				nextcontext (or -1) and the same sgml_shorttag setting.
+				
+				'is_empty' is not a good measure for the next context, 
+				because a tag can also have a reference, but it is a start  */
+				contexttag = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, attrib_context_id));
+				/*if (contexttag) {
+					g_print("HIT for %s\n",attrib_context_id);
+				}*/
+			}
 
+			tmp = g_strconcat("<",tag,NULL);
+			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp,bfparser->bflang->name,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, context, contexttag, TRUE, FALSE, 0, TRUE,NULL,autocomplete_append?autocomplete_append:ih_autocomplete_append,NULL);
+			DBG_PARSING("insert tag %s into hash table with matchnum %d\n",id?id:tmp,matchnum);
+			g_hash_table_insert(bfparser->patterns, g_strdup(id?id:tmp), GINT_TO_POINTER((gint)matchnum));
+			g_free(tmp);
+
+			if (!contexttag) {
+				static const gchar *internal_tag_string = "__internal_tag_string__";
+				contexttag = new_context(bfparser->st, bfparser->bflang->name, ">\"=' \t\n\r", NULL, FALSE);
+				match_set_nextcontext(bfparser->st, matchnum, contexttag);
 				if (attrib_arr) {
 					gchar**tmp2;
 					
@@ -540,14 +564,17 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 						tmp2++;
 					}
 				}
-				contextstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, "__internal_tag_string__"));
+				contextstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, internal_tag_string));
 				if (!contextstring) {
 					contextstring = new_context(bfparser->st, bfparser->bflang->name, "\"=' \t\n\r", stringhighlight, FALSE);
 					add_keyword_to_scanning_table(bfparser->st, "\"",bfparser->bflang->name,stringhighlight,stringhighlight, FALSE, case_insens, contextstring, -1, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
-					g_hash_table_insert(bfparser->contexts, g_strdup("__internal_tag_string__"), GINT_TO_POINTER(contextstring));
+					g_hash_table_insert(bfparser->contexts, g_strdup(internal_tag_string), GINT_TO_POINTER(contextstring));
 				}
 				add_keyword_to_scanning_table(bfparser->st, "\"", bfparser->bflang->name, stringhighlight,NULL,FALSE, FALSE, contexttag, contextstring, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
-				
+
+				if (!sgml_shorttag)
+					add_keyword_to_scanning_table(bfparser->st, "/>", bfparser->bflang->name, highlight?highlight:ih_highlight, NULL, FALSE, FALSE, contexttag, -1, FALSE, TRUE, -1, FALSE,NULL,NULL,NULL);
+				starttagmatch = add_keyword_to_scanning_table(bfparser->st, ">", bfparser->bflang->name, highlight?highlight:ih_highlight, NULL, FALSE, FALSE, contexttag, -1, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
 				g_hash_table_insert(bfparser->contexts, g_strdup(attrib_context_id), GINT_TO_POINTER(contexttag));
 			}
 			
@@ -556,15 +583,6 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			if (attrib_context_id)
 				g_free(attrib_context_id);
 			
-			tmp = g_strconcat("<",tag,NULL);
-			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp,bfparser->bflang->name,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, context, contexttag, TRUE, FALSE, 0, TRUE,NULL,autocomplete_append?autocomplete_append:ih_autocomplete_append,NULL);
-			DBG_PARSING("insert tag %s into hash table with matchnum %d\n",id?id:tmp,matchnum);
-			g_hash_table_insert(bfparser->patterns, g_strdup(id?id:tmp), GINT_TO_POINTER((gint)matchnum));
-			g_free(tmp);
-			if (!sgml_shorttag)
-				add_keyword_to_scanning_table(bfparser->st, "/>", bfparser->bflang->name, highlight?highlight:ih_highlight, NULL, FALSE, FALSE, contexttag, -1, FALSE, TRUE, matchnum, FALSE,NULL,NULL,NULL);
-			starttagmatch = add_keyword_to_scanning_table(bfparser->st, ">", bfparser->bflang->name, highlight?highlight:ih_highlight, NULL, FALSE, FALSE, contexttag, -1, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
-
 			if (!is_empty) {
 				while (xmlTextReaderRead(reader)==1) {
 					xmlChar *name=xmlTextReaderName(reader);

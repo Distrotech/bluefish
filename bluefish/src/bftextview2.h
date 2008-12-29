@@ -224,7 +224,7 @@ typedef struct {
 							if the user changed any of these in the preferences */
 	const gchar *blockhighlight; /* a string for the highlight corresponding to the  blocktag */
 
-	guint16 blockstartpattern; /* the number of the pattern that may start this block */
+	gint16 blockstartpattern; /* the number of the pattern that may start this block, or -1 to end the last started block */
 	gint16 nextcontext; /* 0, or if this pattern starts a new context the number of the context, or -1 or -2 etc.
 			to pop a context of the stack */
 	guint8 starts_block; /* wether or not this pattern may start a block */
@@ -258,7 +258,7 @@ typedef struct {
 	GtkTextMark *end1;
 	GtkTextMark *start2;
 	GtkTextMark *end2;
-	guint16 patternum;
+	gint16 patternum;
 	guint16 refcount; /* free on 0 */
 	guint8 folded;
 	guint8 foldable; /* perhaps on a single line ? */
