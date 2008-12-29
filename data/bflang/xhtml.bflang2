@@ -53,7 +53,7 @@
 	<tag name="meta" highlight="tag" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<tag name="title" highlight="tag" attributes="&i18n;" autocomplete_append="&gt; &lt;/title&gt;" />
 
-<tag id="script" name="script" highlight="tag" attributes="src,type" autocomplete_append="&gt;" attribhighlight="attribute">
+<tag id="script" name="script" highlight="tag" attributes="charset,defer,language,src,type" autocomplete_append="language=&quot;javascript&quot; &gt;" attribhighlight="attribute">
 <context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 <element pattern="(" id="js(" starts_block="1" highlight="brackets"/>
 <element pattern=")" highlight="brackets" ends_block="1" blockstartelement="js("/>
@@ -102,7 +102,7 @@
 <element pattern="//" highlight="js-comment">
 	<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
 		<element pattern="[&#10;&#13;]" is_regex="1" highlight="js-comment" ends_context="1" />
-		<element pattern="&lt;/script&gt;" highlight="tag" ends_context="2"/>
+		<element pattern="&lt;/script&gt;" highlight="tag" ends_context="3" ends_block="1" blockstartelement="script"/>
 	</context>
 </element>
 <element id="js/*" pattern="/*" starts_block="1" highlight="js-comment">
@@ -163,7 +163,7 @@
 	<tag name="link" highlight="tag" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 	<element id="html-comment" pattern="&lt;!--" highlight="html-comment" starts_block="1">
 		<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
-			<element pattern="--&gt;" ends_block="1" blockstartelement="&lt;!--" highlight="html-comment" mayfold="1" ends_context="1" />
+			<element pattern="--&gt;" ends_block="1" blockstartelement="html-comment" highlight="html-comment" mayfold="1" ends_context="1" />
 		</context>
 	</element>
 	<element id="html-entity" pattern="&amp;[a-z0-9#]+;" is_regex="1" highlight="entity" />
