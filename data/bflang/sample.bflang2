@@ -81,6 +81,8 @@ section of the language file
 <element> may have attribute 'id' so this element may be referred to later. To re-use element 'foo' later in the file
 use <element id="foo" />
 -->
+
+<!-- next is a block detection example -->
 <element id="bracket{" pattern="{" starts_block="1" highlight="brackets" />
 <element pattern="}" ends_block="1" blockstartelement="bracket{" highlight="brackets" />
 <!--
@@ -93,6 +95,8 @@ to specify a pattern that ends a block use ends_block="1" and use blockstartelem
 the start-of-block-element
 
 -->
+
+<!-- next is an context example, a javascript comment -->
 <element pattern="/*" highlight="c-style-comment">
 	<context symbols="*/&#9;&#10;&#13;" highlight="c-style-comment">
 		<element pattern="*/" highlight="c-style-comment" ends_context="1" />
@@ -107,6 +111,22 @@ often there is an end of the context too. in order to do this have an element IN
 has ends_context="NUM" where NUM specifies the number of contexts that are ended by this element. Because
 context may be nested there may be several contexts inside each other.
 -->
+
+<!-- next is a nested context example, inside a php comment, there may be the end of the php block. Note that
+this element has ends_context=2 -->
+<element pattern="&lt;?php" highlight="php-block">
+	<context symbols="?*/+-=*&amp;&lt;&gt;&#9;&#10;&#13;">
+		<element pattern="?&gt;" highlight="php-block" ends_context="1" />
+		<element pattern="/*" highlight="c-style-comment">
+			<context symbols="*/&#9;&#10;&#13;" highlight="c-style-comment">
+				<element pattern="*/" highlight="c-style-comment" ends_context="1" />
+				<element pattern="?&gt;" highlight="php-block" ends_context="2" />
+			</context>
+		</element> 
+	</context>
+</element>
+
+<!-- next example shows autocompletion options -->
 <element pattern="while" highlight="keyword" autocomplete="1" autocomplete_append="() {"/>
 <!--
 an pattern may also be autocompletable. to enable this use autocomplete="1"
@@ -117,6 +137,9 @@ will be autocompleted
 a regular expession pattern may be autocompletable as well. but to autocomplete the pattern
 itself usually makes no sense because it matches various other patterns. use 
 autocomplete_string="STRING" to autocomplete STRING in this context -->
+
+
+<!-- next example shows a xml/sgml tag with attributes -->
 <tag name="body" highlight="tag" attributes="style,class,id" />
 <!--
 because there are many languages that use sgml/xml/html style patterns there is <tag> for convenience. 
@@ -201,7 +224,6 @@ supported attributes are:
 	</context>
 </element>
 <element pattern="?&gt;" ends_block="1" blockstartelement="&lt;?php" highlight="php-tag" mayfold="1" ends_context="1" />
-</context></element>
 
 <element pattern="&lt;!--" highlight="html-comment" starts_block="1">
 	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
