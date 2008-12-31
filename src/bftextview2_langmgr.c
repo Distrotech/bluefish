@@ -565,13 +565,14 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 						tmp2++;
 					}
 				}
-				contextstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, internal_tag_string));
+/*				contextstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->contexts, internal_tag_string));
 				if (!contextstring) {
 					contextstring = new_context(bfparser->st, bfparser->bflang->name, "\"=' \t\n\r", stringhighlight, FALSE);
 					add_keyword_to_scanning_table(bfparser->st, "\"",bfparser->bflang->name,stringhighlight,stringhighlight, FALSE, case_insens, contextstring, -1, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
 					g_hash_table_insert(bfparser->contexts, g_strdup(internal_tag_string), GINT_TO_POINTER(contextstring));
 				}
-				add_keyword_to_scanning_table(bfparser->st, "\"", bfparser->bflang->name, stringhighlight,NULL,FALSE, FALSE, contexttag, contextstring, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
+				add_keyword_to_scanning_table(bfparser->st, "\"", bfparser->bflang->name, stringhighlight,NULL,FALSE, FALSE, contexttag, contextstring, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);*/
+				add_keyword_to_scanning_table(bfparser->st, "\"[^\"]*\"", bfparser->bflang->name, stringhighlight,NULL,TRUE, FALSE, contexttag, 0, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
 
 				if (!sgml_shorttag)
 					add_keyword_to_scanning_table(bfparser->st, "/>", bfparser->bflang->name, highlight?highlight:ih_highlight, NULL, FALSE, FALSE, contexttag, -1, FALSE, TRUE, -1, FALSE,NULL,NULL,NULL);
