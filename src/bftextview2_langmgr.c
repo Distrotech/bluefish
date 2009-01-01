@@ -561,7 +561,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					
 					tmp2 = attrib_arr;
 					while (*tmp2) {
-						guint16 attrmatch = add_keyword_to_scanning_table(bfparser->st, *tmp2,bfparser->bflang->name,attribhighlight?attribhighlight:ih_attribhighlight,NULL, FALSE, FALSE, contexttag, 0, FALSE, FALSE, 0, TRUE,NULL,attrib_autocomplete_append?attrib_autocomplete_append:ih_attrib_autocomplete_append,NULL);
+						guint16 attrmatch = add_keyword_to_scanning_table(bfparser->st, *tmp2,bfparser->bflang->name,attribhighlight?attribhighlight:ih_attribhighlight,NULL, TRUE, FALSE, contexttag, 0, FALSE, FALSE, 0, TRUE,NULL,attrib_autocomplete_append?attrib_autocomplete_append:ih_attrib_autocomplete_append,NULL);
 						match_autocomplete_reference(bfparser->st,attrmatch,contexttag);
 						tmp2++;
 					}

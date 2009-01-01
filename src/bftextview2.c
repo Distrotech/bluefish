@@ -47,7 +47,7 @@ static gboolean bftextview2_user_idle_timer(gpointer data)
 {
 	BluefishTextView *btv = data;
 	guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
-	if (elapsed + 10 >= USER_IDLE_EVENT_INTERVAL) {	/* avoid delaying for less than 10 milliseconds */
+	if ((elapsed + 20) >= USER_IDLE_EVENT_INTERVAL) {	/* avoid delaying again for less than 20 milliseconds */
 		DBG_AUTOCOMP("bftextview2_user_idle_timer, user is > %d milliseconds idle, autocomp=%d, mode=%d\n", elapsed,btv->autocomplete, main_v->props.autocomp_popup_mode);
 #ifdef IN_BLUEFISH
 		if (btv->autocomplete && main_v->props.autocomp_popup_mode == 1)
@@ -99,11 +99,11 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 		 {
 			guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 			DBG_DELAYSCANNING("%d milliseconds elapsed since last user action\n",elapsed);
-			if (elapsed + 10 >= USER_IDLE_EVENT_INTERVAL) { /* user idle interval has passed ! */
+			if ((elapsed + 20) >= USER_IDLE_EVENT_INTERVAL) { /* user idle interval has passed ! */
 				DBG_DELAYSCANNING("idle, call scan for everything\n");
 				if (!bftextview2_run_scanner(btv, NULL)) {
 					/* finished scanning, make sure we are not called again */
-					DBG_DELAYSCANNING("finished scanning\n");
+					DBG_DELAYSCANNING("finished scanning (idle=%d)\n",in_idle);
 					if (in_idle && btv->scanner_delayed) {
 						g_source_remove(btv->scanner_delayed);
 					} else if (!in_idle && btv->scanner_idle) {
@@ -115,6 +115,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 					return FALSE;
 				}
 				if (!in_idle) {
+					/* don't call timeout function again (run in idle) */
 					if (!btv->scanner_idle) {
 						DBG_DELAYSCANNING("schedule scan again in idle time\n");
 						btv->scanner_idle = g_idle_add(bftextview2_scanner_idle, btv);
@@ -122,9 +123,9 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 						DBG_DELAYSCANNING("scan in idle is already scheduled\n");
 					}
 					btv->scanner_delayed = 0;
-					return FALSE;
+					return FALSE; 
 				}
-				return TRUE;
+				return TRUE; /* call idle function again */
 			} else {
 				/* user has not been idle, only scan visible area */
 				GtkTextIter endvisible;
@@ -146,7 +147,8 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 					return FALSE;
 				}
 				if (in_idle) {
-					if (!btv->scanner_delayed) { /* delay the rest of the scanning */
+					/* don't call idle function again, but call timeout function */
+					if (!btv->scanner_delayed) {
 						DBG_DELAYSCANNING("schedule delayed scanning\n");
 						btv->scanner_delayed = g_timeout_add(USER_IDLE_EVENT_INTERVAL, bftextview2_scanner_timeout, btv);
 					} else {
@@ -155,7 +157,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 					btv->scanner_idle = 0;
 					return FALSE;
 				}
-				return TRUE;
+				return TRUE;/* call timeout function again */
 			}
 		} else {
 			DBG_SIGNALS("bftextview2_scanner_idle, running scanner idle function\n");
