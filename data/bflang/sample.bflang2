@@ -140,7 +140,7 @@ autocomplete_string="STRING" to autocomplete STRING in this context -->
 
 
 <!-- next example shows a xml/sgml tag with attributes -->
-<tag name="body" highlight="tag" attributes="style,class,id" />
+<tag name="body" highlight="tag" attributes="style,class,id" attribhighlight="attribute" />
 <!--
 because there are many languages that use sgml/xml/html style patterns there is <tag> for convenience. 
 
@@ -150,7 +150,22 @@ the attribute 'attributes' defines attributes that are valid for this tag
 
 to highlight the tag use highlight="TYPE" where TYPE is the highlight type defined in the <header> section
 to highlight attributes use attrib_highlight="TYPE" 
+-->
+<!-- next example show the equivalent of the above <tag. as you can see a single tag
+needs a lot of configuration. That's why the convenience <tag was created.  -->
+<element id="&lt;body" pattern="&lt;body" highlight="tag" starts_block="1">
+	<context symbols="&gt;\&quot;=' &#9;&#10;&#13;" >
+		<element pattern="style" highlight="attribute" />
+		<element pattern="class" highlight="attribute" />
+		<element pattern="id" highlight="attribute" />
+		<element id="__internal_tag_string_d__" pattern="&quot;[^&quot;]*&quot;" is_regex="1" highlight="string" />
+		<element id="__internal_tag_string_s__" pattern="'[^']*'" is_regex="1" highlight="string" />
+		<element pattern="/&gt;" ends_context="1" highlight="tag" />
+	</context>
+</element>
+<element pattern="&lt;/body&lt;" highlight="tag" ends_block="1" blockstartelement="&lt;body" />
 
+<!--
 a <tag> may also start a new context just as <element> does
 -->
 <tag name="img" attributes="style,class,id,src,width,height" 
