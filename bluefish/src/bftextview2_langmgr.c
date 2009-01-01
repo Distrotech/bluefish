@@ -510,7 +510,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			if (matchnum)
 				compile_existing_match(bfparser->st,matchnum, context);
 		} else if (tag && tag[0]) {
-			const gchar *stringhighlight="string";
+			static const gchar *stringhighlight="string";
 			gchar *attrib_context_id=NULL;
 			gchar **attrib_arr=NULL;
 			guint16 starttagmatch=0, endtagmatch,matchstring;
