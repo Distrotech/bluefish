@@ -21,7 +21,7 @@
 
 #ifndef __BOOKMARK_H__
 #define __BOOKMARK_H__
-
+void bmark_doc_renamed(Tbfwin * bfwin, Tdocument *doc);
 void bmark_store_all(Tbfwin *bfwin);
 GtkWidget *bmark_gui(Tbfwin *bfwin); /* used in gui.c to build the bookmark panel */
 gpointer bookmark_data_new(void); /* only used once from bluefish.c */
