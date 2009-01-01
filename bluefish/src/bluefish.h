@@ -255,6 +255,7 @@ typedef struct {
 	GList *highlight_styles;
 	gboolean load_reference;
 	gboolean delay_full_scan;
+	gint delay_scan_time;
 	gint autocomp_popup_mode;
 	gboolean reduced_scan_triggers;
 } Tproperties;
