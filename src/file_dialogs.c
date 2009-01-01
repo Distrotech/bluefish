@@ -24,6 +24,7 @@
 #include <string.h> /* memcpy */
 #include <time.h> /* strftime() */
 #include "bluefish.h"
+#include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
 #include "file.h"
@@ -660,7 +661,8 @@ void doc_save_backend(Tdocument *doc, gboolean do_save_as, gboolean do_move, gbo
     }
 
     doc->uri = g_file_new_for_uri(newfilename);
-    bmark_doc_renamed(BFWIN(doc->bfwin), doc);
+    if (do_move)
+    	bmark_doc_renamed(BFWIN(doc->bfwin), doc);
 
     if (curi) g_free(curi);
     curi = newfilename;
