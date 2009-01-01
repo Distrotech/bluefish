@@ -45,7 +45,7 @@ bookmarks will be loaded and saved to an arraylist (see stringlist.c). This
 is a double linked list (GList *) with pointers to string arrays (gchar **).
 
 To have the GUI work with them, we convert those arrays (gchar **) into a 
-Tbmark struct. This struct will ahve a pointer to the array (gchar **) so 
+Tbmark struct. This struct will have a pointer to the array (gchar **) so 
 on change it can directly change the array as well, without any need to 
 look it up in the list.
 
@@ -289,6 +289,41 @@ static Tbmark *bmark_find_bookmark_before_offset(Tbfwin *bfwin, guint offset, Gt
 	DEBUG_MSG("bmark_find_bookmark_before_offset, end-of-function, return NULL\n");
 	return NULL;
 }
+
+void bmark_rename_uri(Tbfwin * bfwin, Tbmark * b, GFile *newuri) {
+	g_object_unref(b->filepath);
+	b->filepath = newuri;
+	if (newuri)
+		g_object_ref(b->filepath);
+	if (b->strarr != NULL) {
+		g_free(b->strarr[2]);
+		if (newuri)
+			b->strarr[2] = g_file_get_parse_name(b->filepath);
+		else
+			b->strarr[2] = g_strdup("");
+	}
+} 
+
+void bmark_doc_renamed(Tbfwin * bfwin, Tdocument *doc) {
+	if (doc->uri && doc->bmark_parent) {
+		GtkTreeIter tmpiter;
+		gboolean cont;
+		gchar *name;
+		name = bmark_filename(bfwin, doc->uri);
+		gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, doc->bmark_parent, NAME_COLUMN, name, -1);
+		g_free(name);
+		cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter, doc->bmark_parent);
+		while (cont) {
+			Tbmark *b;
+			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore), &tmpiter, PTR_COLUMN,&b,-1);
+			if (b) {
+				bmark_rename_uri(bfwin, b, doc->uri);
+			}
+			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(bfwin->bmarkdata)->bookmarkstore),&tmpiter);
+		}
+	}	
+} 
+
 
 /* this function re-uses the b->strarr if possible, otherwise it will create a new one and
 append it to the list */
