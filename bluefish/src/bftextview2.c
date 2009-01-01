@@ -99,7 +99,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 		 {
 			guint elapsed = (guint) (1000.0 * g_timer_elapsed(btv->user_idle_timer, NULL));
 			DBG_DELAYSCANNING("%d milliseconds elapsed since last user action\n",elapsed);
-			if ((elapsed + 20) >= USER_IDLE_EVENT_INTERVAL) { /* user idle interval has passed ! */
+			if ((elapsed + 20) >= main_v->props.delay_scan_time) { /* delay scan time has passed ! */
 				DBG_DELAYSCANNING("idle, call scan for everything\n");
 				if (!bftextview2_run_scanner(btv, NULL)) {
 					/* finished scanning, make sure we are not called again */
@@ -150,7 +150,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 					/* don't call idle function again, but call timeout function */
 					if (!btv->scanner_delayed) {
 						DBG_DELAYSCANNING("schedule delayed scanning\n");
-						btv->scanner_delayed = g_timeout_add(USER_IDLE_EVENT_INTERVAL, bftextview2_scanner_timeout, btv);
+						btv->scanner_delayed = g_timeout_add(main_v->props.delay_scan_time, bftextview2_scanner_timeout, btv);
 					} else {
 						DBG_DELAYSCANNING("delayed scanning already scheduled\n");
 					}
