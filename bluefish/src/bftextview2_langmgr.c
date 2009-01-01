@@ -552,7 +552,8 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			g_free(tmp);
 
 			if (!contexttag) {
-				static const gchar *internal_tag_string = "__internal_tag_string__";
+				static const gchar *internal_tag_string_d = "__internal_tag_string_d__";
+				static const gchar *internal_tag_string_s = "__internal_tag_string_s__";
 				contexttag = new_context(bfparser->st, bfparser->bflang->name, ">\"=' \t\n\r", NULL, FALSE);
 				match_set_nextcontext(bfparser->st, matchnum, contexttag);
 				if (attrib_arr) {
@@ -572,12 +573,19 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					g_hash_table_insert(bfparser->contexts, g_strdup(internal_tag_string), GINT_TO_POINTER(contextstring));
 				}
 				add_keyword_to_scanning_table(bfparser->st, "\"", bfparser->bflang->name, stringhighlight,NULL,FALSE, FALSE, contexttag, contextstring, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);*/
-				matchstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, internal_tag_string));
+				matchstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, internal_tag_string_d));
 				if (matchstring) {
 					compile_existing_match(bfparser->st,matchstring, contexttag);
 				} else {
 					matchstring = add_keyword_to_scanning_table(bfparser->st, "\"[^\"]*\"", bfparser->bflang->name, stringhighlight,NULL,TRUE, FALSE, contexttag, 0, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
-					g_hash_table_insert(bfparser->contexts, g_strdup(internal_tag_string), GINT_TO_POINTER(matchstring));
+					g_hash_table_insert(bfparser->contexts, g_strdup(internal_tag_string_d), GINT_TO_POINTER(matchstring));
+				}
+				matchstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, internal_tag_string_s));
+				if (matchstring) {
+					compile_existing_match(bfparser->st,matchstring, contexttag);
+				} else {
+					matchstring = add_keyword_to_scanning_table(bfparser->st, "'[^']*'", bfparser->bflang->name, stringhighlight,NULL,TRUE, FALSE, contexttag, 0, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
+					g_hash_table_insert(bfparser->contexts, g_strdup(internal_tag_string_s), GINT_TO_POINTER(matchstring));
 				}
 
 				if (!sgml_shorttag)
