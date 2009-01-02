@@ -694,8 +694,8 @@ GList *recent_menu_from_list(Tbfwin *bfwin, GList *startat, gboolean is_project)
 void recent_menu_init(Tbfwin *bfwin) {
 /*	recent_menu_from_file(bfwin, "/."PACKAGE"/recentlist", FALSE);
 	recent_menu_from_file(bfwin, "/."PACKAGE"/recentprojects", TRUE);*/
-	recent_menu_from_list(bfwin, bfwin->session->recent_files, FALSE);
-	recent_menu_from_list(bfwin, main_v->globses.recent_projects, TRUE);
+	bfwin->menu_recent_files = recent_menu_from_list(bfwin, bfwin->session->recent_files, FALSE);
+	bfwin->menu_recent_projects = recent_menu_from_list(bfwin, main_v->globses.recent_projects, TRUE);
 }
 
 /* when a project is opened, the recent menu should show the recent files

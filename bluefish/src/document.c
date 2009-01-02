@@ -2054,7 +2054,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 /*        bmark_adjust_visible(bfwin);   */
 
 	if (doc->uri) {
-		gchar *curi = g_file_get_parse_name(doc->uri);
+		gchar *curi = g_file_get_uri(doc->uri);
 		add_to_recent_list(doc->bfwin,curi, 1, FALSE);
 		g_free(curi);
 	}
