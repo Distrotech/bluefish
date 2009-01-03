@@ -105,7 +105,7 @@ int main(int argc, char *argv[])
 		 N_("Open a project from the specified projectfile."), N_("PROJECTFILE")},
 		{"skiprootcheck", 's', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &skiprootcheck,
 		 N_("Skip root check."), NULL},
-		{"Version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void *) cb_print_version,
+		{"version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void *) cb_print_version,
 		 N_("Print version information."), NULL},
 		{G_OPTION_REMAINING, 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_FILENAME_ARRAY, &files,
 		 "Special option that collects any remaining arguments for us"},
