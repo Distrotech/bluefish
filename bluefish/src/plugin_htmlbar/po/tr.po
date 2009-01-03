@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr1\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2008-12-14 15:54+0100\n"
+"POT-Creation-Date: 2009-01-03 23:32+0100\n"
 "PO-Revision-Date: 2005-04-11 22:07+0300\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
@@ -1488,7 +1488,7 @@ msgstr "_Dil:"
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
-#: src/plugin_htmlbar/image_dialog.c:401
+#: src/plugin_htmlbar/image_dialog.c:411
 msgid "Custo_m:"
 msgstr "Ö_zel:"
 
@@ -1553,7 +1553,7 @@ msgstr "_Hizalama"
 #: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
 #: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
 #: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
-#: src/plugin_htmlbar/image_dialog.c:389
+#: src/plugin_htmlbar/image_dialog.c:399
 msgid "Cl_ass:"
 msgstr "_Sınıf:"
 
@@ -1573,19 +1573,19 @@ msgid "Horizontal Rule"
 msgstr "Yatay Çizgi"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:422
+#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:432
 msgid "_Align:"
 msgstr "_Hizalama:"
 
 #: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
-#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:363
+#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:373
 msgid "_Height:"
 msgstr "_Yükseklik:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:354
+#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:364
 msgid "_Width:"
 msgstr "_Genişlik:"
 
@@ -1737,7 +1737,7 @@ msgid "_Add <frame> elements"
 msgstr "Çerçeveleri _Ekle"
 
 #: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
-#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:314
+#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:323
 msgid "_Source:"
 msgstr "_Kaynak:"
 
@@ -1960,7 +1960,7 @@ msgstr "Resim bağlantısı ekle"
 msgid "Insert image"
 msgstr "Resim ekle"
 
-#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:333
+#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:343
 msgid "Preview"
 msgstr "Önizleme"
 
@@ -1972,7 +1972,7 @@ msgstr "_Resim Yeri:"
 msgid "Hei_ght:"
 msgstr "Yü_kseklik:"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:397
+#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:407
 msgid "_Usemap:"
 msgstr "_Harita adı:"
 
@@ -1980,11 +1980,11 @@ msgstr "_Harita adı:"
 msgid "Alternate _text:"
 msgstr "Alternatif _metin:"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:431
+#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:441
 msgid "_Hspace:"
 msgstr "Yatay aralama:"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:435
+#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:445
 msgid "_Vspace:"
 msgstr "Dikey a_ralama:"
 
@@ -2040,71 +2040,79 @@ msgstr ""
 "%x: resim bağlantısı genişliği  %y: resim bağlantısı yüksekliği\n"
 "%b: orijinal boyut (byte)"
 
-#: src/plugin_htmlbar/image_dialog.c:370
+#: src/plugin_htmlbar/image_dialog.c:380
 #, fuzzy
 msgid "_Reset Dimensions"
 msgstr "Boyutlar"
 
-#: src/plugin_htmlbar/image_dialog.c:381
+#: src/plugin_htmlbar/image_dialog.c:391
 #, fuzzy
 msgid "Alternate te_xt:"
 msgstr "Alternatif _metin:"
 
-#: src/plugin_htmlbar/image_dialog.c:385
+#: src/plugin_htmlbar/image_dialog.c:395
 #, fuzzy
 msgid "_Long description:"
 msgstr "_Tanım:"
 
-#: src/plugin_htmlbar/image_dialog.c:393
+#: src/plugin_htmlbar/image_dialog.c:403
 #, fuzzy
 msgid "I_D:"
 msgstr "_Ad:"
 
-#: src/plugin_htmlbar/image_dialog.c:403
+#: src/plugin_htmlbar/image_dialog.c:413
 #, fuzzy
 msgid "Strict"
 msgstr "Script"
 
-#: src/plugin_htmlbar/image_dialog.c:412
+#: src/plugin_htmlbar/image_dialog.c:422
 msgid "_Use Transitional options"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:427
+#: src/plugin_htmlbar/image_dialog.c:437
 #, fuzzy
 msgid "_Border:"
 msgstr "Kenar:"
 
-#: src/plugin_htmlbar/image_dialog.c:437
+#: src/plugin_htmlbar/image_dialog.c:447
 #, fuzzy
 msgid "Transitional"
 msgstr "Çevirmenler"
 
-#: src/plugin_htmlbar/image_dialog.c:749
+#: src/plugin_htmlbar/image_dialog.c:774
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:754
+#: src/plugin_htmlbar/image_dialog.c:779
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:948
+#: src/plugin_htmlbar/image_dialog.c:876
+msgid ""
+"\n"
+"\n"
+"\t<b>Loading preview...</b>\t\n"
+"\n"
+msgstr ""
+
+#: src/plugin_htmlbar/image_dialog.c:979
 #, fuzzy
 msgid "Select Image"
 msgstr "Dosya seç"
 
-#: src/plugin_htmlbar/image_dialog.c:956
+#: src/plugin_htmlbar/image_dialog.c:987
 #, fuzzy
-msgid "images"
+msgid "All images"
 msgstr "Resimler"
 
-#: src/plugin_htmlbar/image_dialog.c:1176
-#: src/plugin_htmlbar/image_dialog.c:1288
+#: src/plugin_htmlbar/image_dialog.c:1215
+#: src/plugin_htmlbar/image_dialog.c:1327
 #, fuzzy
 msgid "Insert Image"
 msgstr "Resim ekle"
