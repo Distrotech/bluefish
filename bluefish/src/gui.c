@@ -229,7 +229,7 @@ void gui_notebook_switch(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 
 void gui_notebook_switch_by_key_lcb(GtkWidget *widget, gpointer data) {
 	DEBUG_MSG("gui_notebook_switch_by_key_lcb, gtk_notebook_set_current_page\n");
-	gtk_notebook_set_current_page(GTK_NOTEBOOK(widget), (int) data - 1);
+	gtk_notebook_set_current_page(GTK_NOTEBOOK(widget), GPOINTER_TO_INT(data) - 1);
 }
 
 static void left_panel_notify_position_lcb(GObject *object,GParamSpec *pspec,gpointer data){
@@ -625,7 +625,21 @@ static void main_win_on_drag_data_lcb(GtkWidget * widget, GdkDragContext * conte
 		return;
 	}
 	stringdata = g_strndup((gchar *)data->data, data->length);
-	doc_new_from_input(bfwin, stringdata, FALSE, FALSE, -1);
+	if (strchr(stringdata,'\n')) {
+		gchar **arr, **tmp;
+		tmp = arr = g_strsplit(stringdata, "\n", -1);
+		while (*tmp) {
+			gchar *stripped = g_strstrip(*tmp);
+			if (stripped[0] != '\0') {
+				doc_new_from_input(bfwin, stripped, FALSE, FALSE, -1);
+			}
+			tmp++;
+		}
+		g_strfreev(arr);
+	} else {
+		doc_new_from_input(bfwin, stringdata, FALSE, FALSE, -1);
+	}
+	g_free(stringdata);
 	gtk_drag_finish(context, TRUE, (mode == GDK_ACTION_COPY), time);
 }
 
