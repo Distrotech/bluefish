@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		xhtml.bflang2
  
-		Copyright (C) 2008 Olivier Sessink
+		Copyright (C) 2008-2009 Olivier Sessink
 
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
 	<!ENTITY univ "class,id,style,title">
 	<!ENTITY evnt "onclick,ondblclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,onkeypress,onkeydown,onkeyup">
 ]>
-<bflang name="XHTML" table="2058" contexts="35" matches="500">
+<bflang name="XHTML" table="2523" contexts="37" matches="605">
 <header>
 	<mime type="application/xhtml+xml"/>
 	<highlight name="tag" style="tag" />
@@ -176,11 +176,9 @@
 		<tag idref="script" />
 		<group highlight="reference-external-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
 			<tag name="a" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" />
-			<!-- TODO: We should not add height/width/border! ... alt+src are required -->
 			<tag name="img" attributes="align,alt,border,height,hspace,ismap,longdesc,name,src,usemap,vspace,width,&univ;,&i18n;,&evnt;" autocomplete_append=" src=&#34;&#34; alt=&#34;&#34; /&gt;">
 				<reference>The img tag inserts an image into a document</reference>
 			</tag>
-			<!-- <tag name="embed" attributes="" /> --><!-- not HTML -->
 			<tag name="object" attributes="align,archive,border,classid,codebase,codetype,data,declare,height,hspace,name,standby,tabindex,type,usemap,vspace,width,&univ;,&i18n;,&evnt;" />
 			<tag name="param" attributes="id,name,value,valuetype,type" autocomplete_append=" name=&#34;&#34; &gt;" />
 		</group>
@@ -188,8 +186,12 @@
 			<tag name="abbr" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="acronym" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="b" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="blockquote" attributes="&univ;,&i18n;,&evnt;,cite"/>
 			<tag name="br" attributes="&univ;" autocomplete_append=" /&gt;"/>
+			<tag name="code" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="cite" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="del" attributes="&univ;,&i18n;,&evnt;,cite,datetime"/>
+			<tag name="dfn" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="div" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="dl" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="em" attributes="&univ;,&i18n;,&evnt;"/>
@@ -207,6 +209,8 @@
 			<tag name="ol" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="p" attributes="&univ;,&evnt;"/>
 			<tag name="pre" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="q" attributes="&univ;,&i18n;,&evnt;"/>
+			<tag name="samp" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="span" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="strong" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="sub" attributes="&univ;,&i18n;,&evnt;"/>
@@ -228,9 +232,13 @@
 		</group>
 		<group highlight="table-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
 			<tag name="table" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" autocomplete_append=" summary=&quot;&quot; &gt;" />
+			<tag name="caption" attributes="align,&univ;,&i18n;,&evnt;" />
 			<tag name="td" attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,&i18n;,&evnt;" />
 			<tag name="th" attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,&i18n;,&evnt;" />
 			<tag name="tr" attributes="align,bgcolor,char,charoff,valign,&univ;,&i18n;,&evnt;" />
+			<tag name="tbody" attributes="align,char,charoff,valign,&univ;,&i18n;,&evnt;" />
+			<tag name="tfoot" attributes="align,char,charoff,valign,&univ;,&i18n;,&evnt;" />
+			<tag name="thead" attributes="align,char,charoff,valign,&univ;,&i18n;,&evnt;" />
 		</group>
 		<element idref="html-comment" />
 		<element idref="html-entity"/>
