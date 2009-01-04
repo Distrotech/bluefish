@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		php.bflang2
  
-		Copyright (C) 2008 Olivier Sessink
+		Copyright (C) 2008-2009 Olivier Sessink
 
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="PHP" table="33009" contexts="47" matches="5093">
+<bflang name="PHP" table="32677" contexts="22" matches="4975">
 <header>
 	<mime type="application/x-php"/>
 	<option name="allfunctions" default="1" description="All php functions" />
@@ -70,6 +70,7 @@
 <tag name="h4" attributes="style,class,id" autocomplete_append="&gt;" />
 <tag name="h5" attributes="style,class,id" autocomplete_append="&gt;" />
 <tag name="h6" attributes="style,class,id" autocomplete_append="&gt;" />
+<tag name="hr" attributes="style,class,id" autocomplete_append="&gt;" />
 <tag name="br" attributes="style,class,id" autocomplete_append=" /&gt;" />
 <tag name="kbd" attributes="style,class,id" autocomplete_append="&gt;" />
 <tag name="form" attributes="style,class,id,action,method,enctype,target" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
@@ -87,7 +88,7 @@
 </element>
 
 <element pattern="&lt;?php" starts_block="1" highlight="php-block-tag">
-<context symbols="'&#34;(){}[];:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" highlight="region">
+<context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" highlight="region">
 
 <group class="allfunctions" autocomplete="1" highlight="php-function">
 <element pattern="dotnet_load" />
