@@ -2544,7 +2544,7 @@ void fb2config_init(void)
 	main_v->fb2config = fb2config;
 
 	fb2config->filesystem_itable =
-		g_hash_table_new_full(g_file_hash, g_file_equal, uri_hash_destroy, g_free);
+		g_hash_table_new_full(g_file_hash, (GEqualFunc)g_file_equal, uri_hash_destroy, g_free);
 	fb2config->filesystem_tstore =
 		gtk_tree_store_new(N_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER,
 						   G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER);
