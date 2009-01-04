@@ -968,7 +968,7 @@ gpointer bookmark_data_new(void) {
 	Tbmarkdata *bmd;
 	bmd = g_new0(Tbmarkdata, 1);
 	bmd->bookmarkstore = gtk_tree_store_new(N_COLUMNS, G_TYPE_STRING, G_TYPE_POINTER);
-	bmd->bmarkfiles = g_hash_table_new_full(g_file_hash, (GEqualFunc *)g_file_equal,NULL,NULL);
+	bmd->bmarkfiles = g_hash_table_new_full(g_file_hash, (GEqualFunc)g_file_equal, NULL, NULL);
 	DEBUG_MSG("bookmark_data_new, created bookmarkstore at %p\n", bmd->bookmarkstore);
 	return bmd;
 }
