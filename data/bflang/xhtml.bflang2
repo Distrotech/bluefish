@@ -47,7 +47,7 @@
 </header>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-<tag name="html" attributes="version,&i18n;&xml;" highlight="tag" autocomplete_append=" xmlns=&quot;http://www.w3.org/1999/xhtml&quot; &gt;" />
+<tag name="html" attributes="xmlns,version,&i18n;&xml;" highlight="tag" autocomplete_append=" xmlns=&quot;http://www.w3.org/1999/xhtml&quot; &gt;" />
 <tag name="head" attributes="profile,&i18n;" highlight="tag" autocomplete_append="&gt;">
 	<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" highlight="region">
 	<tag name="meta" highlight="tag" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" />
