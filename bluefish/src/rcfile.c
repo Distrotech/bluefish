@@ -486,6 +486,7 @@ void rcfile_parse_main(void)  {
 		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Render HTML to text"),"lynx -force_html -dump %i |",NULL));
 	}
 	if (main_v->props.external_command==NULL) {
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Mozilla"), "mozilla -remote 'openURL(%i, new-window)' || mozilla %i&","1",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Firefox"), "firefox -remote 'openURL(%i, new-window)' || firefox %i&","1",NULL));
 		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Opera"), "opera -remote 'openURL(%I,new-window)' || opera %I&","0",NULL));
 	}
