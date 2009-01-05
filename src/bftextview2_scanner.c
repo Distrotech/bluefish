@@ -574,15 +574,15 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	hl_profiling.numloops=0;
 #endif
 
-		/* start timer */
-	scanning.timer = g_timer_new();
-
 	scanning.context = 1;
 	DBG_MSG("bftextview2_run_scanner for btv %p..\n",btv);
 	if (!btv->bflang->st) {
 		DBG_MSG("no scantable, nothing to scan, returning...\n");
 		return FALSE;
 	}
+
+	/* start timer */
+	scanning.timer = g_timer_new();
 
 	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 
@@ -595,6 +595,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		stage1 = g_timer_elapsed(scanning.timer,NULL);
 		g_print("update scancache offsets timing: %f us\n",stage1);
 #endif
+		g_timer_destroy(scanning.timer);
 		/* after the offsets have been updated there is really nothing to do for
 		the idle function so we return FALSE */
 		return FALSE;
@@ -603,6 +604,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		/* check such that we only scan up to vend */
 		if (gtk_text_iter_compare(&start,visible_end)>0) {
 			DBG_DELAYSCANNING("start of region that needs scanning is beyond visible_end, return TRUE\n");
+			g_timer_destroy(scanning.timer);
 			return TRUE;
 		}
 		if (gtk_text_iter_compare(&end,visible_end)>0) {
