@@ -2059,10 +2059,12 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		g_free(curi);
 	}
 	gui_notebook_unbind_signals(BFWIN(doc->bfwin));
+#ifdef COMPLEX_OPTIMISATION	
 	/* to make this go really quick, we first only destroy the notebook page and run flush_queue(),
 	after the document is gone from the GUI we complete the destroy, to destroy only the notebook
 	page we ref+ the scrolthingie, remove the page, and unref it again */
 	g_object_ref(doc->view->parent);
+#endif
 	if (doc->floatingview) {
 		gtk_widget_destroy(FLOATINGVIEW(doc->floatingview)->window);
 		doc->floatingview = NULL;
@@ -2086,9 +2088,10 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		notebook_changed(BFWIN(doc->bfwin),-1);
 	}
 	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed()\n",doc);
+#ifdef COMPLEX_OPTIMISATION
 	/* now we really start to destroy the document, Ky Anh: "we should use gtk_object_sink and not g_object_unref" */
 	gtk_object_sink(GTK_OBJECT(doc->view->parent));
-
+#endif
 	if (doc->uri) {
 		if (main_v->props.backup_cleanuponclose) {
 			gchar *tmp, *tmp2;
