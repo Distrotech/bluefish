@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * rcfile.c - loading and parsing of the configfiles
  *
- * Copyright (C) 2000-2008 Olivier Sessink
+ * Copyright (C) 2000-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -472,7 +472,7 @@ void rcfile_parse_main(void)  {
 		/* if the user does not have outputbox settings --> set them to defaults values */
 		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("make"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","cd %c && make|","1",NULL));
 		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("weblint HTML checker"),"([a-zA-Z0-9/_.-]+) \\(([0-9:]+)\\) (.*)","1","2","3","weblint '%s'|","0",NULL));
-		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("tidy HTML validator"),"line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","|tidy -qe|","0",NULL));
+		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("tidy HTML validator"),"line ([0-9]+) column [0-9]+ - (.*)","-1","1","2","|tidy -qe '%s'|","0",NULL));
 		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("javac"),"([a-zA-Z0-9/_.-]+):([0-9]+):(.*)","1","2","3","javac '%s'|","0",NULL));
 		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("xmllint XML checker"),"([a-zA-Z0-9/_.-]+)\\:([0-9]+)\\: (.*)","1","2","3","xmllint --noout --valid '%s'|","0",NULL));
 		main_v->props.external_outputbox = g_list_append(main_v->props.external_outputbox,array_from_arglist(_("php"),"(.*) in (/[a-zA-Z0-9/_.-]+) on line ([0-9]+)","1","2","3","php '%s'|","0",NULL));
