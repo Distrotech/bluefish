@@ -486,9 +486,14 @@ void rcfile_parse_main(void)  {
 		main_v->props.external_filter = g_list_append(main_v->props.external_filter,array_from_arglist(_("Render HTML to text"),"lynx -force_html -dump %i |",NULL));
 	}
 	if (main_v->props.external_command==NULL) {
-		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Mozilla"), "mozilla -remote 'openURL(%i, new-window)' || mozilla %i&","1",NULL));
-		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Firefox"), "firefox -remote 'openURL(%i, new-window)' || firefox %i&","1",NULL));
-		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Opera"), "opera -remote 'openURL(%I,new-window)' || opera %I&","0",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Mozilla"), "mozilla -remote 'openURL(%i)' || mozilla '%i'&","0",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Firefox"), "firefox -remote 'openURL(%i)' || firefox '%i'&","1",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Opera"), "opera -remote 'openURL(%I)' || opera '%I'&","0",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Konqueror"), "konqueror '%I'&","0",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Galeon"), "galeon -n  '%I'&","0",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Epiphany"), "epiphany-browser -n '%I'&","0",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Kazehakase"), "kazehakase '%I'&","0",NULL));
+		main_v->props.external_command = g_list_append(main_v->props.external_command, array_from_arglist(_("Links2 (graphics)"), "links2 -g '%I'&","0",NULL));
 	}
 }
 
