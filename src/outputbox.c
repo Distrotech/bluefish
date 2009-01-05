@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * outputbox.c - the output box
  *
- * Copyright (C) 2002-2008 Olivier Sessink
+ * Copyright (C) 2002-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/*#define DEBUG*/
+/* #define DEBUG */
 
 #include <gtk/gtk.h>
 #include <sys/types.h>
@@ -346,11 +346,12 @@ void fill_output_box(gpointer data, gchar *string) {
 
 static void outputbox_def_cleanup(Toutputbox *ob, gboolean do_shutdown) {
 	DEBUG_MSG("outputbox_def_cleanup, started\n");
+	g_free(ob->def->command);
 	g_free(ob->def->pattern);
 	pcre_free(ob->def->pcre_c);
 	pcre_free(ob->def->pcre_s);
-	g_free(ob->def->command);
-	g_object_unref(ob->def->docuri);
+	if (ob->def->docuri) 
+		g_object_unref(ob->def->docuri);
 	g_free(ob->def);
 	ob->def = NULL;
 	DEBUG_MSG("outputbox_def_cleanup, finished\n");
