@@ -473,7 +473,7 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 	return matchnum;
 }
 /* qsort string comparison function */
-int stringcmp( void *sp1, void *sp2 ) {
+int stringcmp(const void *sp1, const void *sp2 ) {
 	return( strcmp(*(char **)sp1, *(char **)sp2) );
 }
 
@@ -1002,7 +1002,7 @@ void langmgr_init() {
 	langmgr.tagtable = gtk_text_tag_table_new();
 	langmgr.bflang_lookup = g_hash_table_new(g_str_hash,g_str_equal);
 	langmgr.load_reference = main_v->props.load_reference;
-	langmgr.configured_styles = g_hash_table_new_full(arr2_hash,arr2_equal,g_strfreev,g_free);
+	langmgr.configured_styles = g_hash_table_new_full(arr2_hash,arr2_equal,(GDestroyNotify)g_strfreev,g_free);
 
 	tag = gtk_text_tag_new("_needscanning_");
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
