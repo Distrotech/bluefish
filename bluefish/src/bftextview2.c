@@ -540,10 +540,11 @@ static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpo
 	gboolean event_handled = FALSE;
 	DBG_SIGNALS("bluefish_text_view_expose_event\n");
 
-	/* Optimally this should only scan the visible area and only if necessary */
+	/* expose should not schedule any scanning !?!?!?! it doesn't change text so why schedule a scanning run ????????
+	/ * Optimally this should only scan the visible area and only if necessary * /
 	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))
 		bftextview2_schedule_scanning(btv);
-	
+	*/
 	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_LEFT)) {
 		GtkTextIter startvisible, endvisible;
 		GdkRectangle rect;
