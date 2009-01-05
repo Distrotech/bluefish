@@ -578,14 +578,14 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					compile_existing_match(bfparser->st,matchstring, contexttag);
 				} else {
 					matchstring = add_keyword_to_scanning_table(bfparser->st, "\"[^\"]*\"", bfparser->bflang->name, stringhighlight,NULL,TRUE, FALSE, contexttag, 0, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
-					g_hash_table_insert(bfparser->contexts, g_strdup(internal_tag_string_d), GINT_TO_POINTER(matchstring));
+					g_hash_table_insert(bfparser->contexts, g_strdup(internal_tag_string_d), GINT_TO_POINTER((gint)matchstring));
 				}
 				matchstring = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, internal_tag_string_s));
 				if (matchstring) {
 					compile_existing_match(bfparser->st,matchstring, contexttag);
 				} else {
 					matchstring = add_keyword_to_scanning_table(bfparser->st, "'[^']*'", bfparser->bflang->name, stringhighlight,NULL,TRUE, FALSE, contexttag, 0, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
-					g_hash_table_insert(bfparser->contexts, g_strdup(internal_tag_string_s), GINT_TO_POINTER(matchstring));
+					g_hash_table_insert(bfparser->contexts, g_strdup(internal_tag_string_s), GINT_TO_POINTER((gint)matchstring));
 				}
 
 				if (!sgml_shorttag)
