@@ -552,7 +552,7 @@ this can be used to delay scanning everything until the editor is idle for sever
 gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_end)
 {
 	GtkTextBuffer *buffer;
-	GtkTextIter start, end, iter;
+	GtkTextIter start, end, iter, orig_end;
 	GtkTextIter mstart;
 	/*GArray *matchstack;*/
 	Tscanning scanning;
@@ -600,6 +600,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		the idle function so we return FALSE */
 		return FALSE;
 	}
+	orig_end = end;
 	if (visible_end) {
 		/* check such that we only scan up to vend */
 		if (gtk_text_iter_compare(&start,visible_end)>0) {
@@ -702,7 +703,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 			last_character_run = 1 - last_character_run;
 	} while ((normal_run || last_character_run) && (loop%loops_per_timer!=0 || g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL));
 	DBG_SCANNING("scanned up to position %d, (end=%d) which took %f microseconds\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&end),g_timer_elapsed(scanning.timer,NULL));
-	gtk_text_buffer_apply_tag(buffer,btv->needscanning,&iter,&end);
+	gtk_text_buffer_apply_tag(buffer,btv->needscanning,&iter,&orig_end);
 
 	/*g_array_free(matchstack,TRUE);*/
 #ifdef HL_PROFILING
