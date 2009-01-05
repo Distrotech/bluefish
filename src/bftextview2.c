@@ -868,12 +868,36 @@ static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint
 
 	return FALSE;
 }
+static void bluefish_text_view_destroy(GtkObject *object) {
+	BluefishTextView *btv;
+	BluefishTextViewClass *klass;
+	
+	g_return_if_fail (object != NULL);
+	g_print("destroy %p\n",object);
+	btv = BLUEFISH_TEXT_VIEW(object);
+
+	if (btv->scanner_delayed)
+		g_source_remove(btv->scanner_delayed);
+	if (btv->scanner_idle)
+		g_source_remove(btv->scanner_idle);
+	cleanup_scanner(btv);
+	g_timer_destroy(btv->user_idle_timer);
+	btv->user_idle_timer = NULL;
+	g_sequence_free(btv->scancache.stackcaches);
+	btv->scancache.stackcaches = NULL;
+	
+	klass = gtk_type_class(gtk_widget_get_type());
+	if (GTK_OBJECT_CLASS(klass)->destroy) {
+		(* GTK_OBJECT_CLASS(klass)->destroy) (object);
+	}
+
+}
 
 /* *************************************************************** */
 /* widget stuff below */
 /* *************************************************************** */
 
-static void bluefish_text_view_finalize(GObject * object)
+/*static void bluefish_text_view_finalize(GObject * object)
 {
 	G_OBJECT_CLASS(bluefish_text_view_parent_class)->finalize(object);
 }
@@ -888,23 +912,25 @@ static GObject *bluefish_text_view_create(GType type, guint n_construct_properti
 											 n_construct_properties,
 											 construct_properties);
 
-	/* This constructor is not needed right now */
+	/ * This constructor is not needed right now * /
 
 	return (obj);
-}
+}*/
 
 static void bluefish_text_view_class_init(BluefishTextViewClass * klass)
 {
-	GObjectClass *object_class = G_OBJECT_CLASS(klass);
+	GtkObjectClass *object_class = GTK_OBJECT_CLASS(klass);
 	GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
-	object_class->constructor = bluefish_text_view_create;
-	object_class->finalize = bluefish_text_view_finalize;
+/*	object_class->constructor = bluefish_text_view_create;
+	object_class->finalize = bluefish_text_view_finalize;*/
 	
 	widget_class->button_press_event = bluefish_text_view_button_press_event;
 	widget_class->expose_event = bluefish_text_view_expose_event;
 	widget_class->key_press_event = bluefish_text_view_key_press_event;
 	widget_class->query_tooltip = bluefish_text_view_query_tooltip;
+	object_class->destroy = bluefish_text_view_destroy;
+
 }
 
 static void bluefish_text_view_init(BluefishTextView * textview)
