@@ -880,11 +880,15 @@ static void bluefish_text_view_destroy(GtkObject *object) {
 		g_source_remove(btv->scanner_delayed);
 	if (btv->scanner_idle)
 		g_source_remove(btv->scanner_idle);
-	cleanup_scanner(btv);
-	g_timer_destroy(btv->user_idle_timer);
-	btv->user_idle_timer = NULL;
-	g_sequence_free(btv->scancache.stackcaches);
-	btv->scancache.stackcaches = NULL;
+	if (btv->scancache.stackcaches) {
+		cleanup_scanner(btv);
+		g_sequence_free(btv->scancache.stackcaches);
+		btv->scancache.stackcaches = NULL;
+	}
+	if (btv->user_idle_timer) {
+		g_timer_destroy(btv->user_idle_timer);
+		btv->user_idle_timer = NULL;
+	}
 	
 	klass = gtk_type_class(gtk_widget_get_type());
 	if (GTK_OBJECT_CLASS(klass)->destroy) {
@@ -929,7 +933,9 @@ static void bluefish_text_view_class_init(BluefishTextViewClass * klass)
 	widget_class->expose_event = bluefish_text_view_expose_event;
 	widget_class->key_press_event = bluefish_text_view_key_press_event;
 	widget_class->query_tooltip = bluefish_text_view_query_tooltip;
+	/* destroy now crashes bluefish .... Jim ? any idea?
 	object_class->destroy = bluefish_text_view_destroy;
+	*/
 
 }
 
