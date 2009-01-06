@@ -4,6 +4,8 @@
 		<sub-class-of type="text/plain" />
 		<_comment>Bluefish project file</_comment>
 		<glob pattern="*.bfproject" />
+		<!-- drop the next line as soon as this becomes the stable version -->
+		<alias type="application/bluefish-project" />
 	</mime-type>
 	<mime-type type="application/x-bluefish-language2">
 		<sub-class-of type="application/xml" />
