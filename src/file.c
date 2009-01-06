@@ -308,10 +308,21 @@ GFile *backup_uri_from_orig_uri(GFile * origuri) {
 }*/
 
 /*************************** OPEN FILE ASYNC ******************************/
+typedef struct {
+	GList *todo;
+	guint worknum;
+} Tofqueue;
+static Tofqueue ofqueue = {NULL,0};
+#define OF_MAX_WORKNUM 32
+
+static void process_ofqueue(gpointer data);
+
 static void openfile_cleanup(Topenfile *of) {
 	g_object_unref(of->uri);
 	g_object_unref(of->cancel);
 	g_free(of);
+	ofqueue.worknum--;
+	process_ofqueue(NULL);
 }
 void openfile_cancel(Topenfile *of) {
 	g_cancellable_cancel(of->cancel);
@@ -366,6 +377,22 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 	}	
 }
 
+static void process_ofqueue(gpointer data) {
+	Topenfile *of;
+	if (ofqueue.todo == NULL) {
+		return;
+	}
+	if (ofqueue.worknum > OF_MAX_WORKNUM) { /* load max OAD_MAX_WORKNUM directories simultaneously */
+		return;
+	}
+	while (ofqueue.todo!=NULL && ofqueue.worknum <= OF_MAX_WORKNUM) {
+		of = ofqueue.todo->data;
+		ofqueue.todo = g_list_delete_link(ofqueue.todo, ofqueue.todo);
+		ofqueue.worknum++;
+		g_file_load_contents_async(of->uri,of->cancel,openfile_async_lcb,of);
+	}
+}
+
 Topenfile *file_openfile_uri_async(GFile *uri, Tbfwin *bfwin, OpenfileAsyncCallback callback_func, gpointer callback_data) {
 	Topenfile *of;
 	of = g_new(Topenfile,1);
@@ -375,8 +402,8 @@ Topenfile *file_openfile_uri_async(GFile *uri, Tbfwin *bfwin, OpenfileAsyncCallb
 	of->bfwin = bfwin;
 	of->cancel = g_cancellable_new();
 	g_object_ref(of->uri);
-	
-	g_file_load_contents_async(of->uri,of->cancel,openfile_async_lcb,of);
+	ofqueue.todo = g_list_prepend(ofqueue.todo, of);
+	process_ofqueue(NULL);
 	return of;
 }
 
@@ -667,16 +694,18 @@ void file_doc_from_uri(Tbfwin *bfwin, GFile *uri, GFileInfo *finfo, gint goto_li
 }
 
 /*************************** OPEN ADVANCED ******************************/
-/*
+
 typedef struct {
 	GList *todo;
 	guint worknum;
-	guint task_id;
+} Toadqueue; /* a queue of Topenadv_dir to avoid 'Too many open files' errors */
 
-} Tadvqueue;
+static Toadqueue oadqueue = {NULL, 0};
+#define OAD_MAX_WORKNUM 16
+#define OAD_NUM_FILES_PER_CB 40
+static void process_oadqueue(gpointer data);
 
-static Tadvqueue advqueue = {NULL, 0, 0};
-*/
+#define LOAD_TIMER
 typedef struct {
 	guint refcount;
 	Tbfwin *bfwin;
@@ -688,6 +717,9 @@ typedef struct {
 	gboolean use_regex;
 	pcre *contentf_pcre; /* a compiled content_filter */
 	GFile *topbasedir; /* the top directory where advanced open started */
+#ifdef LOAD_TIMER
+	GTimer *timer;
+#endif
 } Topenadv;
 
 typedef struct {
@@ -711,6 +743,10 @@ static void openadv_unref(Topenadv *oa) {
 				g_list_length(oa->bfwin->documentlist));
 		tmp2 = g_strconcat("Advanced open: Finished searching files. ",tmp,NULL);
 		statusbar_message(oa->bfwin, tmp2, 4000);
+#ifdef LOAD_TIMER
+		g_print("%f ms, %s\n",g_timer_elapsed(oa->timer,NULL), tmp2);
+		g_timer_destroy(oa->timer);
+#endif
 		g_free(tmp);
 		g_free(tmp2);
 		if (oa->extension_filter) g_free(oa->extension_filter);
@@ -788,9 +824,12 @@ static void open_advanced_backend(Topenadv *oa, GFile *basedir);
 static void open_adv_load_directory_cleanup(Topenadv_dir *oad) {
 	DEBUG_MSG("open_adv_load_directory_cleanup %p\n", oad);
 	g_object_unref(oad->basedir);
-	g_object_unref(oad->gfe);
+	if (oad->gfe)
+		g_object_unref(oad->gfe);
 	openadv_unref(oad->oa);
 	g_free(oad);
+	oadqueue.worknum--;
+	process_oadqueue(NULL);
 }
 
 static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
@@ -853,7 +892,7 @@ static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,g
 	}
 	g_list_free(list);
 	g_list_free(alldoclist);
-	g_file_enumerator_next_files_async(oad->gfe,20,G_PRIORITY_DEFAULT+2
+	g_file_enumerator_next_files_async(oad->gfe,OAD_NUM_FILES_PER_CB,G_PRIORITY_DEFAULT+2
 			,NULL
 			,enumerator_next_files_lcb,oad);
 }
@@ -864,12 +903,34 @@ static void enumerate_children_lcb(GObject *source_object,GAsyncResult *res,gpoi
 	DEBUG_MSG("enumerate_children_lcb, started for oad %p\n",oad);
 	oad->gfe = g_file_enumerate_children_finish(oad->basedir,res,&error);
 	if (error) {
-		g_print("BUG: enumerate_children_lcb, unhandled error: %s\n", error->message);
+		/*if (error->code == G_IO_ERROR_) {
+		
+		}*/
+		g_print("BUG: enumerate_children_lcb, unhandled error: %d %s\n", error->code, error->message);
 		g_error_free(error);
 		open_adv_load_directory_cleanup(oad);
 	} else {
-		g_file_enumerator_next_files_async(oad->gfe,20,G_PRIORITY_DEFAULT+2
+		g_file_enumerator_next_files_async(oad->gfe,OAD_NUM_FILES_PER_CB,G_PRIORITY_DEFAULT+2
 				,NULL,enumerator_next_files_lcb,oad);
+	}
+}
+
+static void process_oadqueue(gpointer data) {
+	Topenadv_dir *oad;
+	if (oadqueue.todo == NULL) {
+		return;
+	}
+	if (oadqueue.worknum > OAD_MAX_WORKNUM) { /* load max OAD_MAX_WORKNUM directories simultaneously */
+		return;
+	}
+	while (oadqueue.todo!=NULL && oadqueue.worknum <= OAD_MAX_WORKNUM) {
+		oad=oadqueue.todo->data;
+		oadqueue.todo = g_list_delete_link(oadqueue.todo, oadqueue.todo);
+		oadqueue.worknum++;
+		g_file_enumerate_children_async(oad->basedir,BF_FILEINFO,0
+					,G_PRIORITY_DEFAULT+3 
+					,NULL
+					,enumerate_children_lcb,oad);
 	}
 }
 
@@ -883,16 +944,17 @@ static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 
 	oad->basedir = basedir;
 	g_object_ref(oad->basedir);
-	g_file_enumerate_children_async(basedir,BF_FILEINFO,0
-				,G_PRIORITY_DEFAULT+3 
-				,NULL
-				,enumerate_children_lcb,oad);
+	oadqueue.todo = g_list_prepend(oadqueue.todo,oad);
+	process_oadqueue(NULL);
 }
 
 void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
 	if (basedir) {
 		Topenadv *oa;
 		oa = g_new0(Topenadv, 1);
+#ifdef LOAD_TIMER
+		oa->timer = g_timer_new();
+#endif
 		oa->bfwin = bfwin;
 		oa->recursive = recursive;
 		oa->matchname = matchname;

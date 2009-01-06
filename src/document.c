@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * document.c - the document
  *
- * Copyright (C) 1998-2009 Olivier Sessink
+ * Copyright (C) 1998-2008 Olivier Sessink
  * Copyright (C) 1998 Chris Mazuc
  * some additions Copyright (C) 2004 Eugene Morenko(More)
  *
@@ -28,7 +28,7 @@
 #include <stdlib.h>         /* system() */
 #include <pcre.h>
 
-#define DEBUG
+/* #define DEBUG */
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -38,7 +38,6 @@
 #include "bf_lib.h"
 #include "bftextview2.h"
 #include "bftextview2_langmgr.h"
-#include "bftextview2_scanner.h"
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
@@ -2029,6 +2028,7 @@ static void delete_backupfile_lcb(gpointer data) {
 	GFile *uri = (GFile *)data;
 	g_object_unref(uri);
 }
+
 /**
  * doc_destroy:
  * @doc: a #Tdocument
@@ -2043,6 +2043,7 @@ static void delete_backupfile_lcb(gpointer data) {
  *
  * Return value: void
  **/
+
 void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
 
@@ -2052,7 +2053,6 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 
 	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n",doc);
 	bmark_clean_for_doc(doc);
-/*        bmark_adjust_visible(bfwin);   */
 
 	if (doc->uri) {
 		gchar *curi = g_file_get_uri(doc->uri);
@@ -2060,6 +2060,12 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		g_free(curi);
 	}
 	gui_notebook_unbind_signals(BFWIN(doc->bfwin));
+
+	/* to make this go really quick, we first only destroy the notebook page and run flush_queue(),
+	(in notebook_changed())
+	after the document is gone from the GUI we complete the destroy, to destroy only the notebook
+	page we ref+ the scrolthingie, remove the page, and unref it again */
+	g_object_ref_sink(doc->view->parent);
 
 	if (doc->floatingview) {
 		gtk_widget_destroy(FLOATINGVIEW(doc->floatingview)->window);
@@ -2073,20 +2079,10 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	if (bfwin->current_document == doc) {
 		bfwin->current_document = NULL;
 	}
-
-	g_print ("doc_destroy, doc->view = %p\n", doc->view);
-	BLUEFISH_TEXT_VIEW(doc->view)->enable_scanner = FALSE;
-	gtk_widget_hide(doc->view);
-	if (BLUEFISH_TEXT_VIEW(doc->view)->scancache.stackcaches) {
-		cleanup_scanner(BLUEFISH_TEXT_VIEW(doc->view));
-		g_sequence_free(BLUEFISH_TEXT_VIEW(doc->view)->scancache.stackcaches);
-	}
-	g_object_unref(doc->buffer);
-	
 	/* then we remove the page from the notebook */
 	DEBUG_MSG("about to remove widget from notebook (doc=%p, current_document=%p)\n",doc,bfwin->current_document);
 	gtk_notebook_remove_page(GTK_NOTEBOOK(bfwin->notebook),
-													 gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook),doc->view));
+							 gtk_notebook_page_num(GTK_NOTEBOOK(bfwin->notebook),doc->view->parent));
 	DEBUG_MSG("doc_destroy, removed widget from notebook (doc=%p), delay_activation=%d\n",doc,delay_activation);
 	DEBUG_MSG("doc_destroy, (doc=%p) about to bind notebook signals...\n",doc);
 	gui_notebook_bind_signals(BFWIN(doc->bfwin));
@@ -2094,7 +2090,8 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		notebook_changed(BFWIN(doc->bfwin),-1);
 	}
 	DEBUG_MSG("doc_destroy, (doc=%p) after calling notebook_changed()\n",doc);
-
+	/* now we really start to destroy the document */
+	g_object_unref(GTK_OBJECT(doc->view->parent));
 	if (doc->uri) {
 		if (main_v->props.backup_cleanuponclose) {
 			gchar *tmp, *tmp2;
@@ -2117,6 +2114,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		g_object_unref (doc->fileinfo);
 	}
 
+	g_object_unref(doc->buffer);
 	doc_unre_destroy(doc);
 	DEBUG_MSG("doc_destroy, finished for %p\n", doc);
 	g_free(doc);
