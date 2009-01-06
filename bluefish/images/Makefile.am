@@ -63,7 +63,7 @@ if INSTALL_ICONS
 	$(INSTALL_DATA) $(srcdir)/bluefish-icon_48.png \
 		$(DESTDIR)$(iconpath)/$(PACKAGE).png
 	$(INSTALL_DATA) $(srcdir)/bluefish-project_48.png \
-		$(DESTDIR)$(iconpath)/gnome-mime-application-bluefish-project.png
+		$(DESTDIR)$(iconpath)/application-x-bluefish-project.png
 endif #INSTALL_ICONS
 if INSTALL_THEMEICONS
 	test -z "$(iconthemepath)" || \
@@ -76,7 +76,7 @@ if INSTALL_THEMEICONS
 		test -z "$(iconthemepath)" || \
 			$(mkinstalldirs) $(DESTDIR)$(iconthemepath)/$${size}x$${size}/mimetypes ; \
 		$(INSTALL_DATA) $(srcdir)/bluefish-project_$${size}.png \
-			$(DESTDIR)$(iconthemepath)/$${size}x$${size}/mimetypes/gnome-mime-application-bluefish-project.png ; \
+			$(DESTDIR)$(iconthemepath)/$${size}x$${size}/mimetypes/application-x-bluefish-project.png ; \
 	done
 endif #INSTALL_THEMEICONS
 
@@ -87,12 +87,12 @@ if INSTALL_SPLASH
 endif #INSTALL_SPLASH
 if INSTALL_ICONS
 	rm -f $(DESTDIR)$(iconpath)/$(PACKAGE).png
-	rm -f $(DESTDIR)$(iconpath)/gnome-mime-application-bluefish-project.png
+	rm -f $(DESTDIR)$(iconpath)/application-x-bluefish-project.png
 endif #INSTALL_ICONS
 if INSTALL_THEMEICONS
 	for size in $(ICON_SIZES) ; do \
 		rm -f $(DESTDIR)$(iconthemepath)/$${size}x$${size}/apps/$(PACKAGE).png ; \
-		rm -f $(DESTDIR)$(iconthemepath)/$${size}x$${size}/mimetypes/gnome-mime-application-bluefish-project.png ; \
+		rm -f $(DESTDIR)$(iconthemepath)/$${size}x$${size}/mimetypes/application-x-bluefish-project.png ; \
 	done
 endif #INSTALL_THEMEICONS
 
