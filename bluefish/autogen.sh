@@ -4,7 +4,7 @@
 
 set -e
 
-## all initial declarations, overwrite them using e.g. 'ACLOCAL=aclocal-1.7 AUTOMAKE=automake-1.7 ./autogen.sh'
+## all initial declarations, overwrite them using e.g. 'ACLOCAL=aclocal-1.8 AUTOMAKE=automake-1.8 ./autogen.sh'
 ACLOCAL=${ACLOCAL:-aclocal}
 AUTOCONF=${AUTOCONF:-autoconf}
 AUTOHEADER=${AUTOHEADER:-autoheader}
@@ -95,11 +95,11 @@ autogen_help() {
 	echo "    -c        Copy files instead to link them."
 	echo "    -h        Print this message."
 	echo
-	echo "  You can overwrite the automatically determined location of aclocal (>= 1.7),"
-	echo "  automake (>= 1.7), autoheader, autoconf, libtoolize, intltoolize and"
+	echo "  You can overwrite the automatically determined location of aclocal (>= 1.8),"
+	echo "  automake (>= 1.8), autoheader, autoconf, libtoolize, intltoolize and"
 	echo "  gettextize using:"
 	echo
-	echo "    ACLOCAL=/foo/bin/aclocal-1.8 AUTOMAKE=automake-1.8 ./autogen.sh"
+	echo "    ACLOCAL=/foo/bin/aclocal-1.9 AUTOMAKE=automake-1.9 ./autogen.sh"
 	echo
 }
 
@@ -140,7 +140,7 @@ autogen() {
 	$LIBTOOLIZE $DEBUG -f $COPYOPTION
 	$INTLTOOLIZE $DEBUG -f $COPYOPTION
 	prepare_gettext
-	$ACLOCAL $VERBOSE
+	$ACLOCAL --force $VERBOSE
 	$AUTOHEADER -f $DEBUG $VERBOSE
 	$AUTOMAKE --gnu -a $VERBOSE $COPYOPTION
 	autogen_if_missing

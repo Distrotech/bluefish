@@ -9,9 +9,11 @@ dnl This file is free software. The copyright owner gives unlimited
 dnl permission to copy, distribute and modify it.
 dnl ************************
 
+AC_PREREQ([2.59])
+
 AC_INIT([bluefish-unstable],[1.3.1],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 dnl The `-Wno-portability' value will suppress the GNU make warnings. Add it if necessary.
-AM_INIT_AUTOMAKE([-Wall])
+AM_INIT_AUTOMAKE([1.8 -Wall])
 AC_CONFIG_SRCDIR(src/bluefish.c)
 AC_CONFIG_HEADERS(src/config.h)
 AC_CANONICAL_HOST
