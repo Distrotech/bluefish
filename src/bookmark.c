@@ -935,9 +935,7 @@ static void bmark_get_iter_at_tree_position(Tbfwin * bfwin, Tbmark * m) {
 		title = bmark_filename(bfwin,m->filepath);
 		gtk_tree_store_set(BMARKDATA(bfwin->bmarkdata)->bookmarkstore, parent, NAME_COLUMN, title, PTR_COLUMN, m->doc, -1);
 		g_free(title);
-		  
 		if (m->doc != NULL) {
-			DEBUG_MSG("bmark_get_iter_at_tree_position, setting parent iter %p for doc%p\n",parent,m->doc);
 			m->doc->bmark_parent = parent;
 		}
 		DEBUG_MSG("bmark_get_iter_at_tree_position, appending parent %p in hashtable %p\n",parent,BMARKDATA(bfwin->bmarkdata)->bmarkfiles);
@@ -1146,9 +1144,6 @@ static gboolean bookmark_needs_repositioning(Tbmark *mark, GtkTextIter *it) {
  *
  */
 void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
-	GtkTreeIter tmpiter;
-	GtkTextIter it;
-	gboolean cont;
 	if (!doc->uri) {
 		DEBUG_MSG("bmark_set_for_doc, document %p does not have a filename, returning\n", doc);
 		return;
@@ -1164,80 +1159,74 @@ void bmark_set_for_doc(Tdocument * doc, gboolean check_positions) {
 		return;
 	}
 	
-	cont =
-		gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter,
-									 NULL);
-	while (cont) {
-		/* loop all documents */
+	doc->bmark_parent = g_hash_table_lookup(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles, doc->uri);
+	if (doc->bmark_parent) {
+		gboolean cont2;
 		GtkTreeIter child;
-		if (gtk_tree_model_iter_children
-			(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child, &tmpiter)) {
+		DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",gtk_label_get_text(GTK_LABEL(doc->tab_menu)),mark->offset);
+		gtk_tree_store_set(GTK_TREE_STORE(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), doc->bmark_parent, PTR_COLUMN, doc, -1);
+	
+		cont2 = gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child, doc->bmark_parent);
+		while (cont2) { /* loop the bookmarks for this document  */
 			Tbmark *mark = NULL;
-			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child, PTR_COLUMN,
-							   &mark, -1);
+			gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child,
+							   PTR_COLUMN, &mark, -1);
 			if (mark) {
-				if (mark->filepath && (mark->filepath == doc->uri || g_file_equal(mark->filepath, doc->uri))) {	/* this is it */
-					gboolean cont2;
-					DEBUG_MSG("bmark_set_for_doc, we found a bookmark for document %s at offset=%d!\n",gtk_label_get_text(GTK_LABEL(doc->tab_menu)),mark->offset);
-					/* we will now first set the Tdocument * into the second column of the parent */
-					gtk_tree_store_set(GTK_TREE_STORE(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter, PTR_COLUMN, doc, -1);
-					mark->doc = doc;
-					gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
-					if (check_positions && bookmark_needs_repositioning(mark, &it)) { /* repositioning required ! */
-						if (bookmark_reposition(mark, gtk_text_buffer_get_char_count(doc->buffer) - mark->len)) {
-							gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
-						} else {
-							/* BUG: bookmark not restored, what to do now ???? - just put it where it was ??  */
-						}
+				GtkTextIter it;
+				mark->doc = doc;
+				DEBUG_MSG("bmark_set_for_doc, next bookmark at offset=%d!\n",mark->offset);
+				gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
+				if (check_positions && bookmark_needs_repositioning(mark, &it)) { /* repositioning required ! */
+					if (bookmark_reposition(mark, gtk_text_buffer_get_char_count(doc->buffer) - mark->len)) {
+						gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
+					} else {
+						/* BUG: bookmark not restored, what to do now ???? - just put it where it was ??  */
 					}
-					DEBUG_MSG("bmark_set_for_doc, create textmark at position %d\n",gtk_text_iter_get_offset(&it));
-					mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
+				}
+				mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
 #ifdef USE_BFTEXTVIEW2
-	/* TODO */
-#else
-					bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it),TRUE);
+				/* TODO, set symbol ?? */
 #endif
-					cont2 =
-						gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore),
-												 &child);
-					while (cont2) { /* loop the bookmarks for this document  */
-						mark = NULL;
-						gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child,
-										   PTR_COLUMN, &mark, -1);
-						if (mark) {
-							mark->doc = doc;
-							DEBUG_MSG("bmark_set_for_doc, next bookmark at offset=%d!\n",mark->offset);
-							gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
-							if (check_positions && bookmark_needs_repositioning(mark, &it)) { /* repositioning required ! */
-								if (bookmark_reposition(mark, gtk_text_buffer_get_char_count(doc->buffer) - mark->len)) {
-									gtk_text_buffer_get_iter_at_offset(doc->buffer, &it, mark->offset);
-								} else {
-									/* BUG: bookmark not restored, what to do now ???? - just put it where it was ??  */
-								}
-							}
-							mark->mark = gtk_text_buffer_create_mark(doc->buffer, NULL, &it, TRUE);
-#ifdef USE_BFTEXTVIEW2
-	/* TODO */
-#else
-							bf_textview_set_symbol(BF_TEXTVIEW(doc->view),"bookmark",gtk_text_iter_get_line(&it),TRUE);							
-#endif
-						}
-						cont2 =
-							gtk_tree_model_iter_next(GTK_TREE_MODEL
-													 (BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child);
+			}
+			cont2 =
+				gtk_tree_model_iter_next(GTK_TREE_MODEL
+										 (BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child);
+		}
+
+	} else {
+		DEBUG_MSG("no bookmarks for doc %p in hashtable\n",doc);
+	}
+	/* else {
+		GtkTreeIter tmpiter;
+		GtkTextIter it;
+		gboolean cont =
+			gtk_tree_model_iter_children(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter,
+										 NULL);
+		while (cont) {
+			/ * loop all documents * /
+			GtkTreeIter child;
+			if (gtk_tree_model_iter_children
+				(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child, &tmpiter)) {
+				Tbmark *mark = NULL;
+				gtk_tree_model_get(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &child, PTR_COLUMN,
+								   &mark, -1);
+				if (mark) {
+					if (mark->filepath && (mark->filepath == doc->uri || g_file_equal(mark->filepath, doc->uri))) {	/ * this is it * /
+						bmark_init_bmarks_for_doc(doc,&tmpiter);
+						doc->bmark_parent = g_memdup(&tmpiter, sizeof(GtkTreeIter));
+						g_print("bmark_set_for_doc, alloc'ed bmark_parent %p for doc %p %s\n",doc->bmark_parent,doc,g_file_get_uri(doc->uri));
+						/ * now we add that to the hastbale * /
+						g_object_ref(doc->uri);
+						g_hash_table_insert(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles, doc->uri, doc->bmark_parent);
+						DEBUG_MSG("bmark_set_for_doc, added parent_iter %p to doc %p, and adding that to the hashtable %p\n",doc->bmark_parent,doc,BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles);
+						return;
 					}
-					doc->bmark_parent = g_memdup(&tmpiter, sizeof(GtkTreeIter));
-					/* now we add that to the hastbale */
-					g_object_ref(doc->uri);
-					g_hash_table_insert(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles, doc->uri, doc->bmark_parent);
-					DEBUG_MSG("bmark_set_for_doc, added parent_iter %p to doc %p, and adding that to the hashtable %p\n",doc->bmark_parent,doc,BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bmarkfiles);
-					return;
 				}
 			}
-		}
-		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter);
-	}							/* cont */
-	DEBUG_MSG("bmark_set_for_doc, no bookmarks found for document %s\n", gtk_label_get_text(GTK_LABEL(doc->tab_menu)));
+			cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(BMARKDATA(BFWIN(doc->bfwin)->bmarkdata)->bookmarkstore), &tmpiter);
+		}							/ * cont * /
+	}
+	DEBUG_MSG("bmark_set_for_doc, no bookmarks found for document %s\n", gtk_label_get_text(GTK_LABEL(doc->tab_menu)));*/
 }
 
 /**

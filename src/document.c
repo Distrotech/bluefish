@@ -2051,7 +2051,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		bfwin_docs_not_complete(doc->bfwin, FALSE);
 	}
 
-	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n",doc);
+	g_print("doc_destroy, calling bmark_clean_for_doc(%p)\n",doc);
 	bmark_clean_for_doc(doc);
 
 	if (doc->uri) {
