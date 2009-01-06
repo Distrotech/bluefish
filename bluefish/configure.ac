@@ -293,16 +293,6 @@ AC_ARG_WITH(
 )
 
 AC_ARG_WITH(
-	[gnome2_4-mime],
-	AC_HELP_STRING(
-		[--with-gnome2_4-mime=@<:@DIR@:>@],
-		[install gnome2.4 mime support files in directory DIR (if supplied) or suppress installation @<:@default=${datadir}/mime-info@:>@]
-	),
-	[oldgmimepath="$withval"],
-	[oldgmimepath="${datadir}/mime-info"]
-)
-
-AC_ARG_WITH(
 	[theme-path],
 	AC_HELP_STRING(
 		[--with-theme-path=@<:@DIR@:>@],
@@ -336,8 +326,6 @@ AC_SUBST([fdomenupath])
 AM_CONDITIONAL(INSTALL_FDOMENU, [test "x$fdomenupath" != "xno"])
 AC_SUBST([fdomimepath])
 AM_CONDITIONAL(INSTALL_FDOMIME, [test "x$fdomimepath" != "xno"])
-AC_SUBST([oldgmimepath])
-AM_CONDITIONAL(INSTALL_GMIME, [test "x$oldgmimepath" != "xno"])
 AC_SUBST([iconthemepath])
 AM_CONDITIONAL(INSTALL_THEMEICONS, [test "x$iconthemepath" != "xno"])
 AC_SUBST([iconpath])
