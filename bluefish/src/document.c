@@ -2051,7 +2051,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 		bfwin_docs_not_complete(doc->bfwin, FALSE);
 	}
 
-	g_print("doc_destroy, calling bmark_clean_for_doc(%p)\n",doc);
+	DEBUG_MSG("doc_destroy, calling bmark_clean_for_doc(%p)\n",doc);
 	bmark_clean_for_doc(doc);
 
 	if (doc->uri) {
@@ -2276,7 +2276,6 @@ static void doc_close_but_set_style_lcb (GtkWidget *button, GtkStyle *previous_s
 static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly) {
 	GtkWidget *scroll;
 	Tdocument *newdoc;
-	GdkPixbuf *pixbuf;
 
 	/* test if the current document is empty and nameless, if so we return that */
 	if (!force_new && g_list_length(bfwin->documentlist)==1 && doc_is_empty_non_modified_and_nameless(bfwin->current_document)) {
