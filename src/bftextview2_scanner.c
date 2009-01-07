@@ -446,6 +446,7 @@ static gboolean bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuff
 	if (!gtk_text_iter_begins_tag(start,btv->needscanning) ) {
 		if (!gtk_text_iter_forward_to_tag_toggle(start,btv->needscanning)) {
 			/* nothing to scan */
+			DBG_DELAYSCANNING("nothing to scan..\n");
 			return FALSE;
 		}
 	}
@@ -609,7 +610,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 			return TRUE;
 		}
 		if (gtk_text_iter_compare(&end,visible_end)>0) {
-			DBG_DELAYSCANNING("end of region that needs scanning is beyond visible_end, reset end\n");
+			DBG_DELAYSCANNING("end of region that needs scanning (%d) is beyond visible_end (%d), reset end\n",gtk_text_iter_get_offset(&end),gtk_text_iter_get_offset(visible_end));
 			end = *visible_end;
 		}
 
@@ -682,7 +683,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 				scanning.context = found_match(btv, match,&scanning);
 				DBG_SCANNING("after match context=%d\n",scanning.context);
 			}
-			if (gtk_text_iter_equal(&mstart,&iter)) {
+			if (gtk_text_iter_equal(&mstart,&iter) && !last_character_run) {
 				gtk_text_iter_forward_char(&iter);
 #ifdef HL_PROFILING
 				hl_profiling.numchars++;
@@ -690,7 +691,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 			}
 			mstart = iter;
 			newpos = g_array_index(btv->bflang->st->contexts,Tcontext,scanning.context).startstate;
-		} else {
+		} else if (!last_character_run){
 			gtk_text_iter_forward_char(&iter);
 #ifdef HL_PROFILING
 			hl_profiling.numchars++;
@@ -698,11 +699,12 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		}
 		pos = newpos;
 		normal_run = !gtk_text_iter_equal(&iter, &end);
-		if (!normal_run)
+		if (!normal_run) {
 			/* only if last_character_run is FALSE and normal_run is FALSE we set last_character run to TRUE */
 			last_character_run = 1 - last_character_run;
+		}
 	} while ((normal_run || last_character_run) && (loop%loops_per_timer!=0 || g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL));
-	DBG_SCANNING("scanned up to position %d, (end=%d) which took %f microseconds\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&end),g_timer_elapsed(scanning.timer,NULL));
+	DBG_SCANNING("scanned up to position %d, (end=%d, orig_end=%d) which took %f microseconds\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&end),gtk_text_iter_get_offset(&orig_end),g_timer_elapsed(scanning.timer,NULL));
 	gtk_text_buffer_apply_tag(buffer,btv->needscanning,&iter,&orig_end);
 
 	/*g_array_free(matchstack,TRUE);*/
