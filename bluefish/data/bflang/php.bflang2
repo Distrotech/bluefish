@@ -4859,9 +4859,11 @@ returns a result variable</reference></element>
 		<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="php-comment" mayfold="1" ends_context="1" />
 	</context>
 </element>
+<element id="php-variable" pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="php-variable"/>
 <element pattern="&#34;" highlight="string">
-	<context symbols="\&#34;" highlight="string">
+	<context symbols="\&#34;$ &#9;&#10;&#13;'" highlight="string">
 		<element pattern="\&#34;" highlight="string" />
+		<element idref="php-variable" />
 		<element pattern="&#34;" highlight="string" ends_context="1" />
 	</context>
 </element>
@@ -4872,7 +4874,6 @@ returns a result variable</reference></element>
 	</context>
 </element>
 
-<element pattern="$[a-z0-9._]+" is_regex="1" case_insens="1" highlight="php-variable"/>
 <element pattern="//" highlight="php-comment">
 	<context id="line-comment" symbols="?&gt;&#10;&#13;" highlight="php-comment">
 		<element pattern="[&#10;&#13;]" is_regex="1" ends_context="1" />
