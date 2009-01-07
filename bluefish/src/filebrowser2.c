@@ -336,7 +336,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 				g_strfreev (names);
 			}
 		} else {
-			g_print("icon %p is not themed, use icon name 'folder'\n",icon);
+			g_print("icon %p for '%s' is not themed, use icon name 'folder'\n",icon,display_name);
 			icon_name = g_strdup("folder");
 		}
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore), newiter,
@@ -2293,14 +2293,10 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	renderer = gtk_cell_renderer_pixbuf_new();
 	column = gtk_tree_view_column_new();
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
-#if GTK_CHECK_VERSION(2,14,0)
-	gtk_tree_view_column_set_attributes(column, renderer, "gicon", PIXMAP_COLUMN, NULL);
-#else
 	gtk_tree_view_column_set_attributes(column, renderer,
 											"icon-name", ICON_NAME_COLUMN,
 											"pixbuf_expander_closed", PIXMAP_COLUMN,
 											"pixbuf_expander_open", PIXMAP_COLUMN, NULL);
-#endif
 	renderer = gtk_cell_renderer_text_new();
 	g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL);	/* Not editable. */
 	gtk_tree_view_column_pack_start(column, renderer, TRUE);
@@ -2346,14 +2342,10 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		renderer = gtk_cell_renderer_pixbuf_new();
 		column = gtk_tree_view_column_new();
 		gtk_tree_view_column_pack_start(column, renderer, FALSE);
-#if GTK_CHECK_VERSION(2,14,0)
-		gtk_tree_view_column_set_attributes(column, renderer, "gicon", PIXMAP_COLUMN, NULL); 
-#else
 		gtk_tree_view_column_set_attributes(column, renderer,
 											"icon-name", ICON_NAME_COLUMN,
 											"pixbuf_expander_closed", PIXMAP_COLUMN,
 											"pixbuf_expander_open", PIXMAP_COLUMN, NULL);
-#endif
 		renderer = gtk_cell_renderer_text_new();
 		g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL);	/* Not editable. */
 		gtk_tree_view_column_pack_start(column, renderer, TRUE);
