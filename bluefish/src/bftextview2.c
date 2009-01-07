@@ -956,6 +956,11 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 		gdk_color_parse(main_v->props.editor_bg, &color);
 		gtk_widget_modify_base(GTK_WIDGET(textview),GTK_STATE_NORMAL, &color);
 	}
+	if (main_v->props.editor_fg) {
+		GdkColor color;
+		gdk_color_parse(main_v->props.editor_fg, &color);
+		gtk_widget_modify_text(GTK_WIDGET(textview),GTK_STATE_NORMAL, &color);
+	}
 	textview->linenumbers = main_v->props.view_line_numbers;
 	textview->showblocks = main_v->props.view_blocks;
 	textview->autoindent = main_v->props.autoindent;
