@@ -316,7 +316,9 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 		display_name = gfile_display_name(child_uri, finfo);
 		mime_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
 		icon = g_file_info_get_icon(finfo);
-
+		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
+							  newiter, parent);
+		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
 		if (icon && G_IS_THEMED_ICON(icon)) {
 			GStrv names;
 
@@ -334,18 +336,15 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 				g_strfreev (names);
 			}
 		} else {
+			g_print("icon %p is not themed, use icon name 'folder'\n",icon);
 			icon_name = g_strdup("folder");
 		}
-		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
-							  newiter, parent);
-		DEBUG_MSG("store %s in iter %p, parent %p\n", display_name, newiter, parent);
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore), newiter,
 								   ICON_NAME_COLUMN, icon_name, FILENAME_COLUMN, display_name, URI_COLUMN,
 								   child_uri, REFRESH_COLUMN, 0, TYPE_COLUMN, mime_type, FILEINFO_COLUMN,
 								   finfo, -1);
 
 		g_free(icon_name);
-
 		DEBUG_MSG("insert newiter in hashtable\n");
 		g_hash_table_insert(FB2CONFIG(main_v->fb2config)->filesystem_itable, child_uri, newiter);
 		DEBUG_MSG("load_subdirs=%d, finfo=%p\n", load_subdirs, finfo);
@@ -471,7 +470,7 @@ static void fb2_enumerate_next_files_lcb(GObject * source_object, GAsyncResult *
 #ifdef DEBUG
 	g_print("fb2_enumerate_next_files_lcb, done\n");
 #endif
-	g_file_enumerator_next_files_async(uir->gfe, 20, G_PRIORITY_LOW, uir->cancel,
+	g_file_enumerator_next_files_async(uir->gfe, 40, G_PRIORITY_LOW, uir->cancel,
 									   fb2_enumerate_next_files_lcb, uir);
 }
 
@@ -482,7 +481,7 @@ static void fb2_enumerate_children_lcb(GObject * source_object, GAsyncResult * r
 	GError *error = NULL;
 	uir->gfe = g_file_enumerate_children_finish(uir->p_uri, res, &error);
 	if (uir->gfe) {
-		g_file_enumerator_next_files_async(uir->gfe, 20, G_PRIORITY_LOW, uir->cancel,
+		g_file_enumerator_next_files_async(uir->gfe, 40, G_PRIORITY_LOW, uir->cancel,
 										   fb2_enumerate_next_files_lcb, uir);
 	}
 	/* BUG: do error handling */
@@ -2294,11 +2293,14 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 	renderer = gtk_cell_renderer_pixbuf_new();
 	column = gtk_tree_view_column_new();
 	gtk_tree_view_column_pack_start(column, renderer, FALSE);
-
+#if GTK_CHECK_VERSION(2,14,0)
+	gtk_tree_view_column_set_attributes(column, renderer, "gicon", PIXMAP_COLUMN, NULL);
+#else
 	gtk_tree_view_column_set_attributes(column, renderer,
 											"icon-name", ICON_NAME_COLUMN,
 											"pixbuf_expander_closed", PIXMAP_COLUMN,
 											"pixbuf_expander_open", PIXMAP_COLUMN, NULL);
+#endif
 	renderer = gtk_cell_renderer_text_new();
 	g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL);	/* Not editable. */
 	gtk_tree_view_column_pack_start(column, renderer, TRUE);
@@ -2344,11 +2346,14 @@ static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode)
 		renderer = gtk_cell_renderer_pixbuf_new();
 		column = gtk_tree_view_column_new();
 		gtk_tree_view_column_pack_start(column, renderer, FALSE);
-
-	gtk_tree_view_column_set_attributes(column, renderer,
+#if GTK_CHECK_VERSION(2,14,0)
+		gtk_tree_view_column_set_attributes(column, renderer, "gicon", PIXMAP_COLUMN, NULL); 
+#else
+		gtk_tree_view_column_set_attributes(column, renderer,
 											"icon-name", ICON_NAME_COLUMN,
 											"pixbuf_expander_closed", PIXMAP_COLUMN,
 											"pixbuf_expander_open", PIXMAP_COLUMN, NULL);
+#endif
 		renderer = gtk_cell_renderer_text_new();
 		g_object_set(G_OBJECT(renderer), "editable", FALSE, NULL);	/* Not editable. */
 		gtk_tree_view_column_pack_start(column, renderer, TRUE);
@@ -2548,7 +2553,6 @@ void fb2config_init(void)
 	fb2config->filesystem_tstore =
 		gtk_tree_store_new(N_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER,
 						   G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER);
-
 	DEBUG_MSG("fb2config_init, finished\n");
 }
 
