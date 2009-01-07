@@ -396,6 +396,7 @@ typedef struct {
 
 typedef struct {
 	Tproperties props; /* preferences */
+	gpointer prefdialog; /* preferences window, there should be only 1 */
 	Tglobalsession globses; /* global session */
 /*	GList *filetypelist; / * highlighting.c: a list of all filetypes with their icons and highlighting sets * /
 	GHashTable *filetypetable;*/

@@ -448,7 +448,7 @@ static void set_plugin_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdi
 	gint arrcount;
 	arrcount = count_array(strarr);
 	if (arrcount==3) {
-		g_print("set_plugin_strarr_in_list, arrcount=%d, file=%s\n",arrcount,strarr[0]);
+		DEBUG_MSG("set_plugin_strarr_in_list, arrcount=%d, file=%s\n",arrcount,strarr[0]);
 		gtk_list_store_set(GTK_LIST_STORE(pd->pd.lstore), iter
 				,0,strarr[2]
 				,1,(strarr[1][0] == '1')
@@ -1128,6 +1128,7 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 	g_signal_handlers_destroy(G_OBJECT(select));
 	DEBUG_MSG("preferences_destroy_lcb, about to destroy the window\n");
 	window_destroy(pd->win);
+	main_v->prefdialog = NULL;
 	g_free(pd);
 }
 static void preferences_apply(Tprefdialog *pd) {
@@ -1310,7 +1311,14 @@ static void preferences_dialog() {
 	GtkTreeIter auxit,iter;
 	GtkTreePath *path;
 
-	pd = g_new0(Tprefdialog,1);
+	if (main_v->prefdialog) {
+		pd = (Tprefdialog *)main_v->prefdialog;
+		/* bring window to focus ?? */
+		gtk_window_present(GTK_WINDOW(pd->win));
+		return;
+	}
+
+	main_v->prefdialog = pd = g_new0(Tprefdialog,1);
 	pd->win = window_full(_("Edit preferences"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(preferences_destroy_lcb), pd, TRUE);
 
 	dvbox = gtk_vbox_new(FALSE, 5);
