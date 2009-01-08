@@ -371,8 +371,44 @@ GList *duplicate_arraylist(GList *arraylist) {
 /*****************************************************************************
  * gets a stringlist from a file
  */
-GList *get_list(const gchar * filename, GList * which_list, gboolean is_arraylist) {
-	FILE *fd;
+GList *get_list(GFile * file, GList * which_list, gboolean is_arraylist) {
+	gchar *buffer=NULL;
+	gsize length;
+	GError *error=NULL;
+	gchar *pos,*nextpos;
+	if (file == NULL) {
+		return NULL;
+	}
+	g_file_load_contents(file,NULL,&buffer,&length,NULL,&error);
+	if (error) {
+		g_print("error reading list %d %s\n",error->code, error->message);
+		return NULL;
+	}
+	pos = buffer;
+	nextpos = strchr(pos, '\n');
+	do {
+		if (nextpos)
+			*nextpos='\0';
+		/*g_print("next line: %s\n",pos);*/
+		if (is_arraylist) {
+			gchar **temparr = string_to_array(pos);
+			which_list = g_list_append(which_list, temparr);
+		} else {
+			DEBUG_MSG("get_list, adding string \"%s\" to the stringlist=%p\n", pos, which_list);
+			which_list = g_list_append(which_list, g_strdup(pos));
+		}
+		if (nextpos)
+			nextpos++;
+		if (*nextpos == '\0')
+			pos = NULL;
+		else
+			pos = nextpos;
+		if (pos)
+			nextpos = strchr(pos, '\n');
+	} while (pos);
+	g_free(buffer);
+	
+/*	FILE *fd;
 	gchar *tmpbuf, *tmpfilename;
 
 	DEBUG_MSG("get_stringlist, started with filename=%s\n", filename);
@@ -401,13 +437,13 @@ GList *get_list(const gchar * filename, GList * which_list, gboolean is_arraylis
 		}
 	}
 	fclose(fd);
-	g_free(tmpbuf);
+	g_free(tmpbuf);*/
 	return which_list;
 }
 #ifdef __GNUC__
 __inline__ 
 #endif
-GList *get_stringlist(const gchar * filename, GList * which_list) {
+GList *get_stringlist(GFile * filename, GList * which_list) {
 	return get_list(filename,which_list,FALSE);
 }
 
@@ -422,12 +458,11 @@ GList *get_stringlist(const gchar * filename, GList * which_list) {
  *
  * Return value: #gboolean TRUE on success, FALSE on failure
  */
-gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxentries) {
-	GFile *file;
+gboolean put_stringlist_limited(GFile * file, GList * which_list, gint maxentries) {
 	GString *strbuffer;
 	GError *error=NULL;
 	GList *tmplist;
-	DEBUG_MSG("put_stringlist_limited, started with filename=%s, limit=%d\n", filename, maxentries);
+	g_print("put_stringlist_limited, limit file %s to %d entries\n", g_file_get_uri(file), maxentries);
 	if (maxentries > 0) {
 		gint count;
 		count = g_list_length(which_list) - maxentries;
@@ -435,7 +470,6 @@ gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxen
 	} else {
 		tmplist = g_list_first(which_list);
 	}
-	file = g_file_new_for_path(filename);
 	strbuffer = g_string_sized_new(1024);
 	while (tmplist) {
 		strbuffer = g_string_append(strbuffer,(char *) tmplist->data);
@@ -444,14 +478,18 @@ gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxen
 	}
 	g_file_replace_contents(file,strbuffer->str,strbuffer->len
 				,NULL,TRUE,G_FILE_CREATE_PRIVATE,NULL,NULL,&error);
+	if (error) {
+		g_print("error %d %s\n",error->code,error->message);
+		g_error_free(error);
+		return FALSE;
+	}
 	g_string_free(strbuffer,TRUE);
-	g_object_unref(file);
 	DEBUG_MSG("put_stringlist_limited, finished, filedescriptor closed\n");
 	return TRUE;
 }
 
-gboolean put_stringlist(gchar * filename, GList * which_list) {
-	return put_stringlist_limited(filename,which_list, -1);
+gboolean put_stringlist(GFile * file, GList * which_list) {
+	return put_stringlist_limited(file,which_list, -1);
 }
 
 GList *remove_from_stringlist(GList *which_list, const gchar * string) {
@@ -691,13 +729,13 @@ GList *arraylist_append_identical_from_list(GList *thelist, GList *source, const
  * add the array to 'thelist'
  *
  * Return value: the new arraylist
- */
+ * /
 GList *arraylist_append_identical_from_file(GList *thelist, const gchar *sourcefilename, const gchar **compare, gint testlevel, gboolean case_sensitive) {
 	GList *sourcelist = get_list(sourcefilename,NULL,TRUE);
 	thelist = arraylist_append_identical_from_list(thelist, sourcelist, compare, testlevel, case_sensitive);
 	free_arraylist(sourcelist);
 	return thelist;
-}
+}*/
 
 /**
  * arraylist_value_exists:
@@ -767,13 +805,13 @@ GList *arraylist_load_new_identifiers_from_list(GList *mylist, GList *deflist, g
  * at the end of the function
  *
  * Return value: #GList*
- */
+ * / 
 GList *arraylist_load_new_identifiers_from_file(GList *mylist, const gchar *fromfilename, gint uniquelevel) {
 	GList *deflist = get_list(fromfilename,NULL,TRUE);
 	mylist = arraylist_load_new_identifiers_from_list(mylist, deflist, uniquelevel);
 	free_arraylist(deflist);
 	return mylist;	
-}
+}*/
 
 /* pure for debugging purposes */
 #ifdef DEVELOPMENT

@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -84,13 +84,13 @@ static void project_setup_initial_session(Tsessionvars *session, gboolean before
 	session->view_left_panel = main_v->session->view_left_panel;
 }
 
-Tbfwin *project_is_open(gchar *filename) {
+Tbfwin *project_is_open(GFile *uri) {
 	GList *tmplist;
 	tmplist = g_list_first(main_v->bfwinlist);
 	while(tmplist){
 		if (BFWIN(tmplist->data)->project 
-				&& BFWIN(tmplist->data)->project->filename
-				&& strcmp(BFWIN(tmplist->data)->project->filename, filename)==0) {
+				&& BFWIN(tmplist->data)->project->uri
+				&& g_file_equal( BFWIN(tmplist->data)->project->uri, uri )) {
 			return BFWIN(tmplist->data);
 		}
 		tmplist = g_list_next(tmplist);
@@ -198,28 +198,40 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	bfwin->project->session->urllist = limit_stringlist(bfwin->project->session->urllist, 10, TRUE);
 	bmark_store_all(bfwin);
 
-	if (save_as || bfwin->project->filename == NULL) {
+	if (save_as || bfwin->project->uri == NULL) {
 		gint suflen,filen;
 		GtkWidget *dialog;
-		gchar *filename = NULL;
+		GFile *newuri=NULL;
 		dialog = file_chooser_dialog(bfwin,_("Enter Bluefish project filename"),GTK_FILE_CHOOSER_ACTION_SAVE, NULL, TRUE, FALSE, "bfproject", FALSE);
 		if (gtk_dialog_run(GTK_DIALOG (dialog)) == GTK_RESPONSE_ACCEPT) {
-			filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(dialog));
+			gchar *filename;
+			newuri = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(dialog));
+			filename = g_file_get_parse_name(newuri);
+			suflen = strlen(main_v->props.project_suffix);
+			filen = strlen(filename);
+	
+			if (filen < suflen || strcmp(&filename[filen - suflen], main_v->props.project_suffix)==0) {
+				GFile *tmp2;
+				gchar *tmp = g_strconcat(filename, main_v->props.project_suffix,NULL);
+				tmp2 = g_file_parse_name(tmp);
+				g_free(tmp);
+				g_object_unref(newuri);
+				newuri = tmp2;
+			}		
+			g_free(filename);
 		}
 		gtk_widget_destroy(dialog);
-		if (!filename) {
+		if (!newuri) {
 			return FALSE;
 		}
-		if (save_as || bfwin->project->filename == NULL) {
+		if (save_as || bfwin->project->uri == NULL) {
 			gboolean exists;
-			GFile *file;
-			file = g_file_new_for_path(filename);
-			exists = g_file_query_exists(file,NULL);
-			g_object_unref(file); 
-		if (exists) {
-				gchar *tmpstr;
+			exists = g_file_query_exists(newuri,NULL);
+			if (exists) {
+				gchar *tmpstr,*filename;
 				gint retval;
 				const gchar *buttons[] = {_("_Cancel"), _("_Overwrite"), NULL};
+				filename = g_file_get_parse_name(newuri);
 				tmpstr = g_strdup_printf(_("A file named \"%s\" already exists."), filename);
 				retval = message_dialog_new_multi(bfwin->main_window,
 															 GTK_MESSAGE_WARNING,
@@ -227,26 +239,19 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 															 tmpstr,
 															 _("Do you want to replace the existing file?"));
 				g_free(tmpstr);
+				g_free(filename);
 				if (retval == 0) {
-					g_free(filename);
+					g_object_unref(newuri);
 					return FALSE;
 				}
 			}
 		}
-		suflen = strlen(main_v->props.project_suffix);
-		filen = strlen(filename);
-		if (filen > suflen && strcmp(&filename[filen - suflen], main_v->props.project_suffix)==0) {
-			bfwin->project->filename = filename;
-		} else {
-			bfwin->project->filename = g_strconcat(filename, main_v->props.project_suffix,NULL);
-			g_free(filename);
-		}
+		bfwin->project->uri = newuri;
 	}
 	
-	DEBUG_MSG("project_save, saving project %p to file %s\n",bfwin->project,bfwin->project->filename);
-	retval = rcfile_save_project(bfwin->project, bfwin->project->filename);
+	retval = rcfile_save_project(bfwin->project, bfwin->project->uri);
 	DEBUG_MSG("project_save, retval=%d\n",retval);
-	add_to_recent_list(bfwin,bfwin->project->filename, FALSE, TRUE);
+/* BUG TODO	add_to_recent_list(bfwin,bfwin->project->filename, FALSE, TRUE);*/
 	return retval;
 }
 
@@ -257,14 +262,13 @@ void set_project_menu_widgets(Tbfwin *bfwin, gboolean win_has_project) {
 	menuitem_set_sensitive(bfwin->menubar, "/Project/Edit Project Options...", win_has_project);
 }
 
-void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
+void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 	Tbfwin *prwin;
 	Tproject *prj;
 	gboolean retval;
 
 	/* first we test if the project is already open */
-	prwin = project_is_open(fromfilename);
-	DEBUG_MSG("project_open_from_file, bfwin=%p, fromfilename=%s, found existing prwin=%p\n",bfwin,fromfilename,prwin);
+	prwin = project_is_open(fromuri);
 	if (prwin != NULL) {
 		DEBUG_MSG("project_open_from_file, project is open in bfwin=%p\n",prwin);
 		gtk_window_present(GTK_WINDOW(prwin->main_window));
@@ -276,17 +280,17 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 	DEBUG_MSG("project_open_from_file, project=%p, session=%p\n",prj,prj->session);
 	project_setup_initial_session(prj->session, TRUE);
 	prj->bmarkdata = bookmark_data_new();
-	retval = rcfile_parse_project(prj, fromfilename);
+	retval = rcfile_parse_project(prj, fromuri);
 	if (!retval) {
-		DEBUG_MSG("project_open_from_file, failed parsing the project at file %s\n",fromfilename);
+		DEBUG_MSG("project_open_from_file, failed parsing the project\n");
 		bookmark_data_cleanup(prj->bmarkdata);
 		g_free(prj->session);
 		g_free(prj);
 		return;
 	}
-	DEBUG_MSG("project_open_from_file, filebrowser_show_backup_files=%d\n",prj->session->filebrowser_show_backup_files);
-	add_to_recent_list(bfwin,fromfilename, FALSE, TRUE);
-	prj->filename = g_strdup(fromfilename);
+	/* BUG TODO add_to_recent_list(bfwin,fromfilename, FALSE, TRUE); */
+	prj->uri = fromuri;
+	g_object_ref(fromuri);
 	if (bfwin->project == NULL && test_only_empty_doc_left(bfwin->documentlist)) {
 		GSList *slist;
 		/* we will use this Bluefish window to open the project */
@@ -320,10 +324,10 @@ void project_open_from_file(Tbfwin *bfwin, gchar *fromfilename) {
 
 static void project_open_response_lcb(GtkDialog *dialog,gint response,Tbfwin *bfwin) {
 	if (response == GTK_RESPONSE_ACCEPT) {
-		gchar *filename;
-		filename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(dialog));
-		project_open_from_file(bfwin,filename);
-		g_free(filename);
+		GFile *file;
+		file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(dialog));
+		project_open_from_file(bfwin,file);
+		g_object_unref(file);
 	}
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 }
@@ -335,11 +339,11 @@ static void project_open(Tbfwin *bfwin) {
 }
 
 static void project_destroy(Tproject *project) {
-	DEBUG_MSG("project_destroy, project=%p, project->session=%p\n",project,project->session);
+	g_print("project_destroy, project=%p, project->session=%p\n",project,project->session);
 	bookmark_data_cleanup(project->bmarkdata);
 	free_stringlist(project->files);
 	free_session(project->session);
-	g_free(project->filename);
+	g_object_unref(project->uri);
 	g_free(project->name);
 	g_free(project->template);
 	g_free(project);
@@ -376,7 +380,7 @@ gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 		return TRUE;
 	}
 	
-	while (!bfwin->project->filename) {
+	while (!bfwin->project->uri) {
 		gchar *text;
 		gint retval;
 		const gchar *buttons[] = {_("Close _Without Saving"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
@@ -417,7 +421,7 @@ gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 			DEBUG_MSG("project_save failed, returning\n");
 			return FALSE;
 		}
-		add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
+		/*BUG TODO add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);*/
 	}
 	if (test_only_empty_doc_left(bfwin->documentlist)) {
 		project_destroy(bfwin->project);

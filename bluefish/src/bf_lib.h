@@ -56,7 +56,8 @@ gchar *filename_utf8_from_uri(GFile *uri);
 GList *urilist_to_stringlist(GList *urilist);
 void free_urilist(GList *urilist);
 
-#define user_bfdir(file) g_strconcat(g_get_home_dir(), "/."PACKAGE"/", file, NULL)
+/*#define user_bfdir(file) g_strconcat(g_get_home_dir(), "/."PACKAGE"/", file, NULL)*/
+GFile *user_bfdir(const gchar *filename);
 
 gchar *filename_utf8_from_full_path_utf8(const gchar *full_path_utf8);
 
@@ -97,7 +98,7 @@ gchar *ending_slash(const gchar *dirname);
 gchar *path_get_dirname_with_ending_slash(const gchar *filename);
 gboolean full_path_exists(const gchar *full_path);
 /*gboolean file_exists_and_readable(const gchar * filename);*/
-gchar *return_first_existing_filename(const gchar * filename, ...);
+GFile *return_first_existing_filename(const gchar * filename, ...);
 gboolean filename_test_extensions(gchar **extensions, const gchar *filename);
 gchar *bf_str_repeat(const gchar * str, gint number_of);
 gint get_int_from_string(gchar *string);

@@ -23,7 +23,7 @@
 #define __STRINGLIST_H_
 
 #include <glib.h>
-
+#include <gio/gio.h>
 /*void estrl_dialog(GList **which_list, gchar *title, gint what_list
 				, gint column_num, gchar **column_titles, void (*post_dialog_func)());*/
 
@@ -35,10 +35,10 @@ gchar **array_from_arglist(const gchar *string1, ...);
 GList *list_from_arglist(gboolean allocate_strings, ...);
 GList *duplicate_stringlist(GList *list, gint dup_data);
 gint free_stringlist(GList * which_list);
-GList *get_list(const gchar * filename, GList * which_list, gboolean is_arraylist);
-GList *get_stringlist(const gchar * filename, GList * which_list);
-gboolean put_stringlist_limited(gchar * filename, GList * which_list, gint maxentries);
-gboolean put_stringlist(gchar * filename, GList * which_list);
+GList *get_list(GFile* file, GList * which_list, gboolean is_arraylist);
+GList *get_stringlist(GFile *file, GList * which_list);
+gboolean put_stringlist_limited(GFile * file, GList * which_list, gint maxentries);
+gboolean put_stringlist(GFile * file, GList * which_list);
 
 gint free_arraylist(GList * which_list);
 /*gchar **duplicate_stringarray(gchar **array);*/

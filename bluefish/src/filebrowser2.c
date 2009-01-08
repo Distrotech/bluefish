@@ -1289,10 +1289,7 @@ static void handle_activate_on_file(Tfilebrowser2 * fb2, GFile * uri, gchar *mim
 			/* image! */
 			g_print("handle_activate_on_file, TODO, handle image activate!\n");
 		} else if (strcmp(mimetype, "application/bluefish-project") == 0) {
-			gchar *filename;
-			filename = g_file_get_path(uri);
-			project_open_from_file(fb2->bfwin, filename);
-			g_free(filename);
+			project_open_from_file(fb2->bfwin, uri);
 			return;
 		}
 	}
@@ -2532,7 +2529,6 @@ static void uri_hash_destroy(gpointer data)
 void fb2config_init(void)
 {
 	Tfilebrowser2config *fb2config;
-	gchar *filename;
 	DEBUG_MSG("fb2config_init, started\n");
 	/* a lot of things can be the same for all windows, such as the hashtable and the treestore with
 	   all the files, and the pixmaps to use. All stored in Tfilebrowser2config;

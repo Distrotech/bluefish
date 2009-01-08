@@ -20,8 +20,10 @@
 
 /* for the design docs see bftextview2.h */
 #include <string.h>
+#include "bluefish.h"
 #include "bftextview2_patcompile.h"
 #include "bftextview2_langmgr.h"
+#include "bf_lib.h"
 /*
 we need real regex pattern support as well.
 
@@ -558,7 +560,7 @@ static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang
 	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
 	g_array_index(st->matches, Tpattern, matchnum).case_insens = case_insens;
 	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
-	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = g_strdup(selfhighlight);
+	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = selfhighlight;
 	g_array_index(st->matches, Tpattern, matchnum).autocomplete = autocomplete;
 	if (autocomplete) {
 		if (autocomplete_string)

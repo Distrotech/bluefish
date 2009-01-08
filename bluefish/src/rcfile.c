@@ -170,12 +170,13 @@ static void init_prop_limitedstringlist(GHashTable ** config_list, void *pointer
 	}
 }
 
-static gint save_config_file(GHashTable * config_list, gchar * filename)
+static gint save_config_file(GHashTable * config_list, GFile * file)
 {
 	gchar *tmpstring = NULL, *tmpstring2;
 	GList *rclist, *tmplist2;
 	GHashTableIter iter;
 	gpointer key,value;
+	gboolean retval;
 
 	DEBUG_MSG("save_config_file, started\n");
 
@@ -259,14 +260,13 @@ static gint save_config_file(GHashTable * config_list, gchar * filename)
 			break;
 		}
 	}
-	DEBUG_MSG("save_config_file, will save list with len %d to file %s\n",g_list_length(rclist),filename);
-	put_stringlist(filename, rclist);
-	/* BUG: use the return value to check if the file was stored successfully! */
+	DEBUG_MSG("save_config_file, will save list with len %d to file\n",g_list_length(rclist));
+	retval = put_stringlist(file, rclist);
 	free_stringlist(rclist);
-	return 1;
+	return retval;
 }
 
-static gboolean parse_config_file(GHashTable * config_list, gchar * filename)
+static gboolean parse_config_file(GHashTable * config_list, GFile * file)
 {
 	gboolean retval = FALSE;
 	gchar *tmpstring = NULL, *tmpstring2;
@@ -279,7 +279,7 @@ static gboolean parse_config_file(GHashTable * config_list, gchar * filename)
 	DEBUG_MSG("parse_config_file, started\n");
 
 	rclist = NULL;
-	rclist = get_list(filename, rclist,FALSE);
+	rclist = get_list(file, rclist,FALSE);
 
 	if (rclist == NULL) {
 		DEBUG_MSG("no rclist, returning!\n");
@@ -450,7 +450,7 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 }
 
 void rcfile_parse_main(void)  {
-	gchar *filename;
+	GFile *file;
 
 	DEBUG_MSG("rcfile_parse_main, started\n");
 
@@ -460,11 +460,11 @@ void rcfile_parse_main(void)  {
 	/*Make the config_rc list ready for filling with data and set default values */
 	main_configlist = props_init_main(g_hash_table_new_full(g_str_hash,g_str_equal,NULL, g_free));
 
-	filename = user_bfdir("rcfile_v2");
-	if (!parse_config_file(main_configlist, filename)) {
+	file = user_bfdir("rcfile_v2");
+	if (!parse_config_file(main_configlist, file)) {
 		/* should we initialize some things ?? */
 	}
-	g_free(filename);
+	g_object_unref(file);
 	if (main_v->props.encoding_search_Nbytes< 1000) main_v->props.encoding_search_Nbytes = 2048;
 	/* do some default configuration for the lists */
 
@@ -499,9 +499,9 @@ void rcfile_parse_main(void)  {
 
 gint rcfile_save_main(void) {
 	gint ret;
-	gchar *filename = user_bfdir("rcfile_v2");
+	GFile *filename = user_bfdir("rcfile_v2");
 	ret = save_config_file(main_configlist, filename);
-	g_free(filename);
+	g_object_unref(filename);
 	return ret;
 }
 
@@ -613,28 +613,28 @@ static GHashTable *return_project_configlist(Tproject *project) {
 	return configlist;
 }
 
-gboolean rcfile_parse_project(Tproject *project, gchar *filename) {
+gboolean rcfile_parse_project(Tproject *project, GFile *file) {
 	gboolean retval;
 	GHashTable *configlist = return_project_configlist(project);
-	retval = parse_config_file(configlist, filename);
+	retval = parse_config_file(configlist, file);
 	free_configlist(configlist);
 	return retval;
 }
 
-gboolean rcfile_save_project(Tproject *project, gchar *filename) {
+gboolean rcfile_save_project(Tproject *project, GFile *file) {
 	gboolean retval;
 	GHashTable *configlist = return_project_configlist(project);
 	DEBUG_MSG("rcfile_save_project, project %p, name='%s'\n",project, project->name);
 	DEBUG_MSG("rcfile_save_project, bmarks=%p, list length=%d\n",project->session->bmarks, g_list_length(project->session->bmarks));
 	DEBUG_MSG("rcfile_save_project, length session recent_files=%d\n",g_list_length(project->session->recent_files));
-	retval = save_config_file(configlist, filename);
+	retval = save_config_file(configlist, file);
 	free_configlist(configlist);
 	return retval;
 }
 
 gboolean rcfile_save_global_session(void) {
 	gboolean retval;
-	gchar *filename;
+	GFile *filename;
 	GHashTable *configlist;
 	filename = user_bfdir("session");
 	configlist = return_globalsession_configlist(FALSE);
@@ -644,20 +644,20 @@ gboolean rcfile_save_global_session(void) {
 	DEBUG_MSG("rcfile_save_global_session, length session recent_projects=%d\n",g_list_length(main_v->globses.recent_projects));
 	retval = save_config_file(configlist, filename);
 	free_configlist(configlist);
-	g_free(filename);
+	g_object_unref(filename);
 	return TRUE;
 }
 /* should be called AFTER the normal properties are loaded, becauses return_session_configlist() uses
  settings from main_v->props */
 gboolean rcfile_parse_global_session(void) {
 	gboolean retval;
-	gchar *filename;
+	GFile *file;
 	GHashTable *configlist = return_globalsession_configlist(TRUE);
 	configlist = return_session_configlist(configlist, main_v->session);
-	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/session", NULL);
-	retval = parse_config_file(configlist, filename);
+	file = user_bfdir("session");
+	retval = parse_config_file(configlist, file);
 	free_configlist(configlist);
-	g_free(filename);
+	g_object_unref(file);
 
 	if (main_v->globses.filefilters == NULL) {
 		/* if the user does not have file filters --> set them to defaults values */
@@ -674,10 +674,10 @@ gboolean rcfile_parse_global_session(void) {
 		main_v->globses.filefilters = g_list_append(main_v->globses.filefilters, arr);
 	}
 	if (main_v->globses.encodings == NULL) {
-		gchar *defaultfile = return_first_existing_filename(PKGDATADIR"/encodings","data/encodings","../data/encodings",NULL);
+		GFile *defaultfile = return_first_existing_filename(PKGDATADIR"/encodings","data/encodings","../data/encodings",NULL);
 		if (defaultfile) { 
 			main_v->globses.encodings = get_list(defaultfile,NULL,TRUE);
-			g_free(defaultfile);
+			g_object_unref(defaultfile);
 		}
 	}
 

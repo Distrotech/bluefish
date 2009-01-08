@@ -101,6 +101,14 @@ void free_urilist(GList *urilist) {
 	g_list_free(urilist);
 }
 
+GFile *user_bfdir(const gchar *filename) {
+	GFile *file;
+	gchar *path = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", filename, NULL);
+	file = g_file_new_for_path(path);
+	g_free(path);
+	return file;
+}
+
 /*const gchar *full_path_utf8_from_uri(GFile *uri) {
 
 	GFileInfo* ginfo;
@@ -1094,17 +1102,17 @@ gboolean full_path_exists(const gchar *full_path) {
  * you can pass multiple filenames to this function, and it will return
  * the first filename that really exists according to file_exists_and_readable()
  *
- * Return value: gchar * with the first filename found
+ * Return value: GFile * with the first filename found
  **/
-gchar *return_first_existing_filename(const gchar *filename, ...) {
+GFile *return_first_existing_filename(const gchar *filename, ...) {
 	va_list args;
-	gchar *retval=NULL;
+	GFile *retval=NULL;
 
 	va_start(args, filename);
 	while (filename) {
 		DEBUG_MSG("return_first_existing_filename, testing %s\n",filename);
 		if (access(filename, R_OK) == 0) {
-			retval = g_strdup(filename);
+			retval = g_file_new_for_path(filename);
 			break;
 		}
 		filename = va_arg(args, gchar*);
