@@ -424,7 +424,7 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 	end_is_symbol = character_is_symbol(st,g_array_index(st->contexts, Tcontext, context),(gint)pattern[len-1]);
 
 	for (i=0;i<=len;i++) {
-		GQueue *tmp;
+		/*GQueue *tmp;*/
 		int c = pattern[i];
 		memset(&characters, 0, NUMSCANCHARS*sizeof(char));
 		if (c == '\0') {
@@ -441,9 +441,10 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 			create_state_tables(st, context, characters, FALSE, positions, newpositions, end_is_symbol);
 		}
 		g_queue_clear(positions);
-		tmp = positions;
+		pointer_switch_addresses(&positions, &newpositions);
+		/*tmp = positions;
 		positions = newpositions;
-		newpositions = tmp;
+		newpositions = tmp;*/
 	}
 	g_queue_clear(positions);
 	g_queue_clear(newpositions);
