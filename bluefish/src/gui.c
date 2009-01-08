@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -736,12 +736,12 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	 * type dialogs. */
 	DEBUG_MSG("main_window_delete_event_lcb, started for bfwin %p\n",bfwin);
 	if (bfwin->project) {
-		project_save_and_close(bfwin, TRUE);
-		DEBUG_MSG("main_window_delete_event_lcb, after close project, return\n");
+		gboolean retval = project_save_and_close(bfwin, TRUE);
+		DEBUG_MSG("main_window_delete_event_lcb, after close project, return %d\n",retval);
 		/* BUG: after project close the bfwin might be free'd, which might cause a crash here
 		we have to find another way to find what to return...
 		 */
-		return (bfwin->documentlist != NULL); /* the last document that closes should close the window, so return TRUE */
+		return !retval;
 	} else {
 		if (bfwin->documentlist) {
 			doc_close_multiple_backend(bfwin, TRUE);
