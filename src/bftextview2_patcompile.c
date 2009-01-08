@@ -445,6 +445,10 @@ static void compile_keyword_to_DFA(Tscantable *st, gchar *keyword, guint16 match
 		positions = newpositions;
 		newpositions = tmp;
 	}
+	g_queue_clear(positions);
+	g_queue_clear(newpositions);
+	g_queue_free(positions);
+	g_queue_free(newpositions);
 	g_free(pattern);
 }
 

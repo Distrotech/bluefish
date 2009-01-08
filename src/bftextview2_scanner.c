@@ -883,3 +883,9 @@ void cleanup_scanner(BluefishTextView *btv) {
 		DBG_SCANNING("cleanup_scanner, no sit1, no cleanup ??\n");
 	}
 }
+
+void scancache_destroy(BluefishTextView *btv) {
+	g_sequence_foreach(btv->scancache.stackcaches,foundstack_free_lcb,btv);
+	g_sequence_free(btv->scancache.stackcaches);
+	btv->scancache.stackcaches = NULL;
+}

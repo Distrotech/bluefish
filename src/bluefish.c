@@ -313,6 +313,7 @@ int main(int argc, char *argv[])
 #endif							/* WITH_MSG_QUEUE */
 	DEBUG_MSG("calling fb2config_cleanup()\n");
 	fb2config_cleanup();
+	langmgr_cleanup();
 	DEBUG_MSG("Bluefish: exiting cleanly\n");
 
 	return 0;
