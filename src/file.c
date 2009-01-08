@@ -506,7 +506,7 @@ typedef struct {
 static void file2doc_cleanup(Tfile2doc *f2d) {
 	DEBUG_MSG("file2doc_cleanup, %p, num open documents=%d\n",f2d,g_list_length(f2d->bfwin->documentlist));
 	g_object_unref(f2d->uri);
-	g_free(f2d);
+	g_slice_free(Tfile2doc, f2d);
 }
 
 void file2doc_cancel(gpointer f2d) {
@@ -638,7 +638,7 @@ void file_doc_fill_fileinfo(Tdocument *doc, GFile *uri) {
 
 void file_doc_retry_uri(Tdocument *doc) {
 	Tfile2doc *f2d;
-	f2d = g_new(Tfile2doc,1);
+	f2d = g_slice_new(Tfile2doc);
 	f2d->bfwin = doc->bfwin;
 	f2d->doc = doc;
 	
@@ -658,7 +658,7 @@ void file_doc_retry_uri(Tdocument *doc) {
 
 void file_doc_fill_from_uri(Tdocument *doc, GFile *uri, GFileInfo *finfo, gint goto_line) {
 	Tfile2doc *f2d;
-	f2d = g_new(Tfile2doc,1);
+	f2d = g_slice_new(Tfile2doc);
 	f2d->bfwin = doc->bfwin;
 	f2d->uri = g_object_ref(uri);
 	f2d->doc = doc;
@@ -675,7 +675,7 @@ void file_doc_fill_from_uri(Tdocument *doc, GFile *uri, GFileInfo *finfo, gint g
 /* this funcion is usually used to load documents */
 void file_doc_from_uri(Tbfwin *bfwin, GFile *uri, GFileInfo *finfo, gint goto_line, gint goto_offset, gboolean readonly) {
 	Tfile2doc *f2d;
-	f2d = g_new(Tfile2doc,1);
+	f2d = g_slice_new(Tfile2doc);
 	DEBUG_MSG("file_doc_from_uri, open uri %p, f2d=%p\n", uri, f2d);
 	f2d->bfwin = bfwin;
 	f2d->uri = uri;
@@ -784,7 +784,7 @@ static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info,
 			DEBUG_MSG("open_adv_content_filter_lcb, status=%d, now we should do the content filtering\n",status);
 			/* we have all content, do the filtering, and if correct, open the file as document */
 			if (open_adv_content_matches_filter(buffer,buflen,oau)) {
-				Tfile2doc *f2d = g_new(Tfile2doc,1);
+				Tfile2doc *f2d = g_slice_new(Tfile2doc);
 				f2d->uri = oau->uri;
 				g_object_ref(oau->uri);
 				f2d->bfwin = oau->oa->bfwin;

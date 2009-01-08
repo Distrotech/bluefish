@@ -655,22 +655,9 @@ gboolean rcfile_parse_global_session(void) {
 	GHashTable *configlist = return_globalsession_configlist(TRUE);
 	configlist = return_session_configlist(configlist, main_v->session);
 	filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/session", NULL);
-	if (!full_path_exists(filename)) {
-		/* versions before 0.13 did not have a separate session file, so
-		we'll try to load these items from rcfile_v2 */
-		g_free(filename);
-		filename = g_strconcat(g_get_home_dir(), "/."PACKAGE"/rcfile_v2", NULL);
-	}
 	retval = parse_config_file(configlist, filename);
 	free_configlist(configlist);
 	g_free(filename);
-/*
-	if (main_v->globses.reference_files == NULL) {
-		gchar *userdir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", NULL);
-		/ * if the user does not yet have any function reference files, set them to default values * /
-		DEBUG_MSG("rcfile_parse_global_session, no reference files yet, scan directories!\n");
-		g_free(userdir);
-	}*/
 
 	if (main_v->globses.filefilters == NULL) {
 		/* if the user does not have file filters --> set them to defaults values */

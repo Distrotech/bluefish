@@ -269,7 +269,7 @@ inputpositions, and returns all valid outputstates. */
 static GQueue *process_regex_part(Tscantable *st, gchar *regexpart,gint16 context, gboolean caseinsensitive, GQueue *inputpositions, gboolean is_complete_regex) {
 	gboolean escaped = FALSE;
 	gint i=0;
-	gchar characters[NUMSCANCHARS];
+	char characters[NUMSCANCHARS];
 	GQueue *newpositions, *positions, *tmp;
 
 	positions = g_queue_copy(inputpositions);
@@ -558,7 +558,7 @@ static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang
 	g_array_index(st->matches, Tpattern, matchnum).nextcontext = nextcontext;
 	g_array_index(st->matches, Tpattern, matchnum).case_insens = case_insens;
 	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
-	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = selfhighlight;
+	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = g_strdup(selfhighlight);
 	g_array_index(st->matches, Tpattern, matchnum).autocomplete = autocomplete;
 	if (autocomplete) {
 		if (autocomplete_string)

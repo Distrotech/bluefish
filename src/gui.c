@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>
@@ -718,9 +718,12 @@ void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	gui_bfwin_cleanup(bfwin);
 	DEBUG_MSG("main_window_destroy_lcb, will destroy the window now\n");
 	gtk_widget_destroy(bfwin->main_window);
+#ifdef USER_IDLE_TIMER
 	g_timer_destroy(bfwin->idletimer);
+#endif
+	DEBUG_MSG("main_window_destroy_lcb, going to free bfwin %p\n",bfwin);
 	g_free(bfwin);
-	DEBUG_MSG("main_window_destroy_lcb, bfwin is free'ed\n");
+	
 	if (NULL == main_v->bfwinlist) {
 		bluefish_exit_request();
 	}
@@ -731,9 +734,13 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	 * you don't want the window to be destroyed.
 	 * This is useful for popping up 'are you sure you want to quit?'
 	 * type dialogs. */
-	DEBUG_MSG("main_window_delete_event_lcb, started\n");
+	DEBUG_MSG("main_window_delete_event_lcb, started for bfwin %p\n",bfwin);
 	if (bfwin->project) {
 		project_save_and_close(bfwin, TRUE);
+		DEBUG_MSG("main_window_delete_event_lcb, after close project, return\n");
+		/* BUG: after project close the bfwin might be free'd, which might cause a crash here
+		we have to find another way to find what to return...
+		 */
 		return (bfwin->documentlist != NULL); /* the last document that closes should close the window, so return TRUE */
 	} else {
 		if (bfwin->documentlist) {
@@ -749,9 +756,9 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	GtkWidget *vbox;
 	GList *tmplist;
 	DEBUG_MSG("gui_create_main, bfwin=%p, main_window_w=%d\n",bfwin,main_v->globses.main_window_w);
-	
+#ifdef USER_IDLE_TIMER	
 	bfwin->idletimer = g_timer_new();
-	
+#endif
 	bfwin->main_window = window_full2(_("New Bluefish Window"), GTK_WIN_POS_CENTER, 0, G_CALLBACK(main_window_destroy_lcb), bfwin, FALSE, NULL);
 	gtk_window_set_role(GTK_WINDOW(bfwin->main_window), "bluefish");
 	gtk_widget_realize(bfwin->main_window);
