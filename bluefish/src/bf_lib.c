@@ -1076,7 +1076,7 @@ gchar *path_get_dirname_with_ending_slash(const gchar *filename) {
  *
  * convenience function that will create a GFile, check if it exists, and unref it again.
  *
- */
+ * /
 gboolean full_path_exists(const gchar *full_path) {
 	gboolean retval;
 	GFile *uri;
@@ -1084,7 +1084,7 @@ gboolean full_path_exists(const gchar *full_path) {
 	retval = g_file_query_exists(uri,NULL);
 	g_object_unref(uri);
 	return retval;
-}
+}*/
 
 /**
  * return_first_existing_filename:
