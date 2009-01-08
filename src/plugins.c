@@ -161,7 +161,7 @@ void bluefish_load_plugins(void) {
 	bluefish_scan_dir_load_plugins(&oldlist,PKGLIBDIR);
 /* #ifdef DEVELOPMENT */
 	{
-		gchar*dir = user_bfdir(NULL);
+		gchar*dir = g_strconcat(g_get_home_dir(), "/."PACKAGE"/",NULL);
 		bluefish_scan_dir_load_plugins(&oldlist,dir);
 		g_free(dir);
 	}

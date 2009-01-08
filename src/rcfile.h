@@ -33,8 +33,8 @@ void rcfile_save_configfile_menu_cb(gpointer callback_data,guint action,GtkWidge
 
 gint rcfile_save_main(void);
 
-gboolean rcfile_parse_project(Tproject *project, gchar *filename);
-gboolean rcfile_save_project(Tproject *project, gchar *filename);
+gboolean rcfile_parse_project(Tproject *project, GFile *file);
+gboolean rcfile_save_project(Tproject *project, GFile *file);
 gboolean rcfile_save_encodings(void);
 gboolean rcfile_save_global_session(void);
 gboolean rcfile_parse_global_session(void);

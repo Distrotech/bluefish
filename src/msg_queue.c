@@ -239,9 +239,14 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout) {
 				run_again = TRUE;	/* call myself again, there may have been multiple files */
 			break;
 			case MSG_QUEUE_OPENPROJECT:
-				DEBUG_MSG("msg_queue_check, a project %s is received\n", msgp.mtext);
-				project_open_from_file(bfwin, msgp.mtext);
-				run_again = TRUE;	/* call myself again, there may have been multiple projects */
+				{
+					GFile *uri;
+					DEBUG_MSG("msg_queue_check, a project %s is received\n", msgp.mtext);
+					uri = g_file_new_for_commandline_arg(msgp.mtext);
+					project_open_from_file(bfwin, uri);
+					g_object_unref(uri);
+					run_again = TRUE;	/* call myself again, there may have been multiple projects */
+				}
 			break;
 			case MSG_QUEUE_OPENNEWWIN:
 				{

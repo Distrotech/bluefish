@@ -323,7 +323,7 @@ typedef struct {
 } Tsessionvars;
 
 typedef struct {
-	gchar *filename;
+	GFile *uri;
 	gchar *name;
 	GList *files;
 	gchar *template;

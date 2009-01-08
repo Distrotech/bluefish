@@ -129,12 +129,12 @@ static void bmark_free(gpointer ptr)
 		DEBUG_MSG("bmark_free, NOT GOOD, strarr should be NULL here...\n");
 	}
 #endif
-
 	g_object_unref(m->filepath);
 	g_free(m->text);
 	g_free(m->name);
 	g_free(m->description);
-	g_free(m);
+	/*g_print("free bmark %p\n",m);*/
+	g_slice_free(Tbmark,m);
 }
 
 static gchar *bmark_showname(Tbfwin *bfwin, Tbmark *b) {
@@ -972,6 +972,22 @@ gpointer bookmark_data_new(void) {
 }
 void bookmark_data_cleanup(gpointer *data) {
 	Tbmarkdata *bmd = BMARKDATA(data);
+	GtkTreeIter fileit;
+	gboolean cont;
+	/*walk the treestore and free all Tbmark's in the pointer columns */
+	
+	cont = gtk_tree_model_iter_children(GTK_TREE_MODEL(bmd->bookmarkstore), &fileit,NULL);
+	while (cont) { /* walk the toplevel */
+		GtkTreeIter bmit;
+		gboolean cont2 = gtk_tree_model_iter_children(GTK_TREE_MODEL(bmd->bookmarkstore), &bmit,&fileit);
+		while (cont2) {
+			Tbmark *bmark;
+			gtk_tree_model_get(GTK_TREE_MODEL(bmd->bookmarkstore), &bmit, PTR_COLUMN,&bmark, -1);
+			bmark_free(bmark);
+			cont2 = gtk_tree_model_iter_next(GTK_TREE_MODEL(bmd->bookmarkstore), &bmit);
+		}
+		cont = gtk_tree_model_iter_next(GTK_TREE_MODEL(bmd->bookmarkstore), &fileit);
+	}
 	g_object_unref(bmd->bookmarkstore);
 	g_hash_table_destroy(bmd->bmarkfiles);
 	g_free(bmd);
@@ -1000,7 +1016,8 @@ void bmark_reload(Tbfwin * bfwin) {
 		if (items && count_array(items) == 6) {
 			gchar *ptr;
 			Tbmark *b;
-			b = g_new0(Tbmark, 1);
+			b = g_slice_new0(Tbmark);
+			/*g_print("bmark_reload, alloc bmark %p\n",b);*/
 			b->name = g_strdup(items[0]);
 			b->description = g_strdup(items[1]);
 			/* convert old (Bf 1.0) bookmarks to new bookmarks with uri's */
@@ -1331,7 +1348,8 @@ static void bmark_add_backend(Tdocument *doc, GtkTextIter *itoffset, gint offset
 	Tbmark *m;
 	gchar *displaytext = NULL;
 	GtkTextIter it;
-	m = g_new0(Tbmark, 1);
+	m = g_slice_new0(Tbmark);
+	/*g_print("bmark_add_backend, alloc bmark %p\n",m);*/
 	m->doc = doc;
 	
 	if (itoffset) {

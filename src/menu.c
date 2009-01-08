@@ -605,10 +605,10 @@ static GtkWidget *remove_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
 }
 
 static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	gchar *filename = GTK_LABEL(GTK_BIN(widget)->child)->label;
-	DEBUG_MSG("open_recent_project_cb, started, filename is %s\n", filename);
-	project_open_from_file(bfwin, filename);
-	add_to_recent_list(bfwin,filename, 0, TRUE);
+	GFile *uri = g_file_parse_name(GTK_LABEL(GTK_BIN(widget)->child)->label);
+	project_open_from_file(bfwin, uri);
+	/* BUG TODO add_to_recent_list(bfwin,filename, 0, TRUE); */
+	g_object_unref(uri);
 }
 
 /* open_recent_file
