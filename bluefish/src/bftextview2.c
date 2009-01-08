@@ -891,9 +891,7 @@ static void bluefish_text_view_finalize(GObject *object) {
 		autocomp_stop(btv);
 	}
 	if (btv->scancache.stackcaches) {
-		cleanup_scanner(btv);
-		g_sequence_free(btv->scancache.stackcaches);
-		btv->scancache.stackcaches = NULL;
+		scancache_destroy(btv);
 	}
 	if (btv->user_idle_timer) {
 		g_timer_destroy(btv->user_idle_timer);

@@ -938,17 +938,50 @@ static gint sort_bflang_list(gconstpointer a, gconstpointer b) {
 	return g_strcmp0(((Tbflang *) a)->name, ((Tbflang *) b)->name);
 }
 
-static void bflang_cleanup(Tbflang *bflang) {
-	if (bflang->st) {
-		g_array_free(bflang->st->table,TRUE);
-		g_array_free(bflang->st->matches,TRUE);
-		g_array_free(bflang->st->contexts,TRUE);
-		g_slice_free(Tscantable,bflang->st);
+static void bflang_cleanup_scantable(Tbflang *bflang) {
+	gint i;
+	for (i=1;i<bflang->st->matches->len;i++) {
+		g_free(g_array_index(bflang->st->matches, Tpattern, i).reference);
+		g_free(g_array_index(bflang->st->matches, Tpattern, i).pattern);
+		g_free(g_array_index(bflang->st->matches, Tpattern, i).autocomplete_string);
+		g_free(g_array_index(bflang->st->matches, Tpattern, i).selfhighlight);
+		g_free(g_array_index(bflang->st->matches, Tpattern, i).blockhighlight);
 	}
-	g_free(bflang->name);
+	for (i=1;i<bflang->st->contexts->len;i++) {
+		if (g_array_index(bflang->st->contexts, Tcontext, i).ac)
+			g_completion_free(g_array_index(bflang->st->contexts, Tcontext, i).ac);
+		if (g_array_index(bflang->st->contexts, Tcontext, i).reference)
+			g_hash_table_destroy(g_array_index(bflang->st->contexts, Tcontext, i).reference);
+		g_free(g_array_index(bflang->st->contexts, Tcontext, i).contexthighlight);
+	}
+	g_array_free(bflang->st->table, TRUE);
+	g_array_free(bflang->st->matches, TRUE);
+	g_array_free(bflang->st->contexts, TRUE);
+	g_slice_free(Tscantable,bflang->st);
+	bflang->st = NULL;
+}
+
+static void bflang_cleanup(Tbflang *bflang) {
+	if (bflang->parsing) {
+		g_print("cannot cleanup a language that is still parsing\n");
+		return;
+	}
+	if (bflang->st) {
+		bflang_cleanup_scantable(bflang);
+	}
 	g_free(bflang->filename);
+	g_free(bflang->name);
 	free_stringlist(bflang->mimetypes);
 	g_slice_free(Tbflang,bflang);
+}
+
+void langmgr_cleanup(void) {
+	GList *tmplist = g_list_first(langmgr.bflang_list);
+	while (tmplist) {
+		bflang_cleanup(tmplist->data);
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(langmgr.bflang_list);
 }
 
 static void register_bflanguage(Tbflang *bflang) {
@@ -994,7 +1027,7 @@ static void scan_bflang2files(const gchar *dir) {
 	g_pattern_spec_free(ps);
 }
 
-void langmgr_init() {
+void langmgr_init(void) {
 	GList *tmplist;
 	GtkTextTag *tag;
 	gchar *homebfdir;
@@ -1045,3 +1078,4 @@ void langmgr_init() {
 
 	DBG_PARSING("langmgr_init, returning \n");
 }
+
