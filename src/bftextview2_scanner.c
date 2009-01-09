@@ -24,7 +24,9 @@
 #endif
 /* for the design docs see bftextview2.h */
 #include "bftextview2_scanner.h"
-
+/* there is an issue in the foundblock reference counting, I've seen it with
+G_SLICE=always-malloc valgrind --tool=memcheck --leak-check=full --num-callers=32 --freelist-vol=100000000 src/bluefish-unstable
+*/
 #define MAX_CONTINUOUS_SCANNING_INTERVAL 0.1 /* float in seconds */
 
 typedef struct {
