@@ -267,10 +267,18 @@ static gboolean snippets_load_finished_lcb(gpointer data) {
 	return FALSE;
 }
 
-static gpointer snippets_load_async(gpointer data) {
+static gchar *get_snipfile(void) {
+	GFile *uri;
 	gchar *filename;
+	uri = user_bfdir("snippets");
+	filename = g_file_get_path(uri);
+	g_object_unref(uri);
+	return filename;
+}
+
+static gpointer snippets_load_async(gpointer data) {
+	gchar *filename = get_snipfile();
 	xmlDocPtr doc;
-	filename = user_bfdir("snippets");
 	DEBUG_MSG("snippets_load, filename=%s\n",filename);
 	doc = xmlParseFile(filename);
 	g_free(filename);
@@ -285,7 +293,7 @@ void snippets_load(void) {
 gboolean snippets_store_lcb(gpointer data) {
 	DEBUG_MSG("snippets_store_lcb, started\n");
 	if (snippets_v.doc) {
-		gchar *snipfile = user_bfdir("snippets");
+		gchar *snipfile = get_snipfile();
 		xmlSaveFormatFile(snipfile, snippets_v.doc, 1);
 		g_free(snipfile);
 	}

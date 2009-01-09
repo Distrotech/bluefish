@@ -101,6 +101,20 @@ void free_urilist(GList *urilist) {
 	g_list_free(urilist);
 }
 
+#if GTK_CHECK_VERSION(2,14,0)
+
+#else
+GFile *gtk_file_chooser_get_file(GtkFileChooser *chooser) {
+	GFile *file=NULL;
+	gchar *uri = gtk_file_chooser_get_uri(chooser);
+	if (uri) {
+		file = g_file_new_for_uri(uri);
+		g_free(uri);
+	}
+	return file;
+}
+#endif
+
 GFile *user_bfdir(const gchar *filename) {
 	GFile *file;
 	gchar *path = g_strconcat(g_get_home_dir(), "/."PACKAGE"/", filename, NULL);
@@ -108,7 +122,6 @@ GFile *user_bfdir(const gchar *filename) {
 	g_free(path);
 	return file;
 }
-
 /*const gchar *full_path_utf8_from_uri(GFile *uri) {
 
 	GFileInfo* ginfo;

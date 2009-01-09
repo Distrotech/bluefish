@@ -55,7 +55,10 @@ gchar *filename_utf8_from_uri(GFile *uri);
 
 GList *urilist_to_stringlist(GList *urilist);
 void free_urilist(GList *urilist);
-
+#if GTK_CHECK_VERSION(2,14,0)
+#else
+GFile *gtk_file_chooser_get_file(GtkFileChooser *chooser);
+#endif
 /*#define user_bfdir(file) g_strconcat(g_get_home_dir(), "/."PACKAGE"/", file, NULL)*/
 GFile *user_bfdir(const gchar *filename);
 
