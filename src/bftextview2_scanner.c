@@ -213,7 +213,10 @@ void foundstack_free_lcb(gpointer data, gpointer btv) {
 		foundblock_unref(fstack->pushedblock, GTK_TEXT_VIEW(btv)->buffer);
 	if (fstack->poppedblock)
 		foundblock_unref(fstack->poppedblock, GTK_TEXT_VIEW(btv)->buffer);
-	
+	g_queue_clear(fstack->blockstack);
+	g_queue_clear(fstack->contextstack);
+	g_queue_free(fstack->blockstack);
+	g_queue_free(fstack->contextstack);
 	g_slice_free(Tfoundstack,fstack);
 #ifdef HL_PROFILING
 	hl_profiling.fstack_refcount--;
