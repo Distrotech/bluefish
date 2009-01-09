@@ -462,7 +462,7 @@ gboolean put_stringlist_limited(GFile * file, GList * which_list, gint maxentrie
 	GString *strbuffer;
 	GError *error=NULL;
 	GList *tmplist;
-	g_print("put_stringlist_limited, limit file %s to %d entries\n", g_file_get_uri(file), maxentries);
+	DEBUG_MSG("put_stringlist_limited, limit file %s to %d entries\n", g_file_get_uri(file), maxentries);
 	if (maxentries > 0) {
 		gint count;
 		count = g_list_length(which_list) - maxentries;
