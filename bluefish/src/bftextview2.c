@@ -174,10 +174,14 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 }
 
 static gboolean bftextview2_scanner_idle(gpointer data) {
+	if (!((BluefishTextView *)data)->enable_scanner)
+		return FALSE;
 	DBG_DELAYSCANNING("bftextview2_scanner_idle\n");
 	return bftextview2_scanner_scan((BluefishTextView *)data, TRUE);
 }
 static gboolean bftextview2_scanner_timeout(gpointer data) {
+	if (!((BluefishTextView *)data)->enable_scanner)
+		return FALSE;
 	DBG_DELAYSCANNING("bftextview2_scanner_timeout\n");
 	return bftextview2_scanner_scan((BluefishTextView *)data, FALSE);
 }
