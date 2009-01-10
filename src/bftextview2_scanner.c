@@ -207,13 +207,13 @@ static void foundcontext_unref(Tfoundcontext *fcontext, GtkTextBuffer *buffer) {
 		/* remove marks */
 		DBG_FCONTEXTREFCOUNT("unref: start cleanup foundcontext %p\n",fcontext);
 		gtk_text_buffer_delete_mark(buffer,fcontext->start);
-		gtk_text_buffer_delete_mark(buffer,fcontext->end);
+		if (fcontext->end)
+			gtk_text_buffer_delete_mark(buffer,fcontext->end);
 		DBG_FCONTEXTREFCOUNT("unref: finished cleanup foundcontext %p\n",fcontext);
 		g_slice_free(Tfoundcontext,fcontext);
 #ifdef HL_PROFILING
 		hl_profiling.fcontext_refcount--;
 #endif
-
 	}
 }
 
@@ -378,8 +378,10 @@ static Tfoundcontext *found_context_change(BluefishTextView * btv,GtkTextBuffer 
 #endif
 		/* pop, but don't pop if there is nothing to pop (because of an error in the language file) */
 		while (num > 0 && scanning->contextstack->head) {
-			if (fcontext)
-				foundcontext_unref(fcontext, buffer); 
+			if (fcontext) {
+				g_print("pop multiple\n");
+				foundcontext_unref(fcontext, buffer);
+			} 
 			fcontext = g_queue_pop_head(scanning->contextstack);
 			DBG_SCANNING("popped %p, stack len now %d\n",fcontext,g_queue_get_length(scanning->contextstack));
 			DBG_SCANNING("found_context_change, popped context %d from the stack, stack len %d\n",fcontext->context,g_queue_get_length(scanning->contextstack));
@@ -762,6 +764,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	g_queue_foreach(scanning.contextstack,foundcontext_foreach_unref_lcb,btv);
 	g_queue_free(scanning.contextstack);
 	g_queue_free(scanning.blockstack);
+	DBG_MSG("cleaned scanning run\n");
 	return TRUE; /* even if we finished scanning the next call should update the scancache */
 }
 
