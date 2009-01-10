@@ -3218,15 +3218,33 @@ void doc_reload(Tdocument *doc) {
 		return;
 	}
 	{
-		GtkTextIter itstart, itend;
-		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
-	}
+		const gchar *buttons[] = { GTK_STOCK_CANCEL, GTK_STOCK_REVERT_TO_SAVED, NULL };
+		gint retval;
+		gchar *msgstr, *basename;
+		
+		basename = g_path_get_basename(doc->filename);
+		msgstr = g_strdup_printf(_("If your revert %s to your last saved copy, your current changes will be permanently lost."), basename);
+		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+																			GTK_MESSAGE_WARNING,
+																			buttons,
+																			_("Revert changes to last saved copy?"),
+																			msgstr);
+																			
+		if (retval == 1) {
+			GtkTextIter itstart, itend;		
+
+			gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+			gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
 	
-	doc_file_to_textbox(doc, doc->filename, FALSE, FALSE);
-	doc_unre_clear_all(doc);
-	doc_set_modified(doc, 0);
-	doc_set_stat_info(doc); /* also sets mtime field */
+			doc_file_to_textbox(doc, doc->filename, FALSE, FALSE);
+			doc_unre_clear_all(doc);
+			doc_set_modified(doc, 0);
+			doc_set_stat_info(doc); /* also sets mtime field */
+		}
+		
+		g_free(basename);
+		g_free(msgstr);
+	}
 }
 
 /**
