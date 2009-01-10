@@ -3223,7 +3223,7 @@ void doc_reload(Tdocument *doc) {
 		gchar *msgstr, *basename;
 		
 		basename = g_path_get_basename(doc->filename);
-		msgstr = g_strdup_printf(_("If your revert %s to your last saved copy, your current changes will be permanently lost."), basename);
+		msgstr = g_strdup_printf(_("If you revert \"%s\" to your last saved copy, your current changes will be permanently lost."), basename);
 		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
 																			GTK_MESSAGE_WARNING,
 																			buttons,
