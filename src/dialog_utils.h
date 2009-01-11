@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * dialog_utils.h - dialog utility functions
  *
- * Copyright (C) 2005-2007 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2009 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,8 @@
 #ifndef __DIALOG_UTILS_H_
 #define __DIALOG_UTILS_H_
 
+GtkWidget *
+bluefish_small_close_button_new (void);
 
 GtkWidget * 
 dialog_stock_button_new_in_table(const gchar *stockID,

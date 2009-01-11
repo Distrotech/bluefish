@@ -6,7 +6,7 @@
  *
  * Copyright (C) 1998-2000 Olivier Sessink, Chris Mazuc and Roland Steinbach
  * Copyright (C) 2000-2002 Olivier Sessink and Roland Steinbach
- * Copyright (C) 2002-2008 Olivier Sessink
+ * Copyright (C) 2002-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -326,7 +326,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Go/Next _bookmark"), "<shift><control>d", bookmark_menu_cb, 3, "<StockItem>", GTK_STOCK_GO_DOWN},
 	{N_("/Go/Last bookmark"), NULL, bookmark_menu_cb, 4, "<StockItem>", GTK_STOCK_GOTO_BOTTOM},
 	{"/Go/sep3", NULL, NULL, 0, "<Separator>"},
-	{N_("/Go/Goto _Line"), "<control>l", go_to_line_win_cb, 1, "<StockItem>", GTK_STOCK_JUMP_TO},
+	{N_("/Go/Goto _Line"), "<control>l", gui_gotoline_frame_show, 1, "<StockItem>", GTK_STOCK_JUMP_TO},
 	{N_("/Go/Goto _Selection"), NULL, go_to_line_from_selection_cb, 1, "<Item>"},
 	{N_("/_Project"), NULL, NULL, 0, "<Branch>"},
 	{"/Project/tearoff1", NULL, NULL, 0, "<Tearoff>"},

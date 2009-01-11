@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gui.c - the main GUI
  *
- * Copyright (C) 2002-2007 Olivier Sessink
+ * Copyright (C) 2002-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,6 +32,7 @@
 #include "bluefish.h"
 #include "bf_lib.h"         /* get_int_from_string() */
 #include "bookmark.h"
+#include "dialog_utils.h"
 #include "document.h"       /* file_new_cb() */
 #include "filebrowser2.h"
 #include "file_dialogs.h"
@@ -752,6 +753,111 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	return FALSE;
 }
 
+static void gotoline_entry_insert_text(GtkEditable *editable, gchar *text, gint length, gint *position, gpointer data)
+{
+ 	gunichar c;
+ 	const gchar *p;
+ 	const gchar *end;
+ 	const gchar *next;
+ 	
+ 	p = text;
+	end = text + length;
+ 	
+ 	if (p == end)
+ 		return;
+ 	
+ 	while (p != end)
+ 	{
+	 	next = g_utf8_next_char (p);
+	 	
+	 	c = g_utf8_get_char (p);
+	 	
+	 	if (!g_unichar_isdigit (c)) {
+		 	g_signal_stop_emission_by_name (editable, "insert_text");
+		 	break;
+	 	}
+	 	
+	 	p = next;
+ 	} 
+}
+
+static void gotoline_entry_changed(GtkEditable *editable, Tbfwin *bfwin)
+{
+	gchar *linestr;
+	gint linenum;
+	guint linecount;
+	GtkTextIter iter;
+
+	linestr = gtk_editable_get_chars(editable, 0, -1);
+	linenum = get_int_from_string(linestr);
+	g_free(linestr);
+	
+	linecount = gtk_text_buffer_get_line_count(GTK_TEXT_BUFFER(bfwin->current_document->buffer));
+	
+	if (linenum == -1)
+		gtk_text_buffer_get_start_iter (GTK_TEXT_BUFFER(bfwin->current_document->buffer), &iter);
+	else if (linenum >= linecount)
+		gtk_text_buffer_get_end_iter (GTK_TEXT_BUFFER(bfwin->current_document->buffer), &iter);
+	else
+		gtk_text_buffer_get_iter_at_line (GTK_TEXT_BUFFER(bfwin->current_document->buffer), &iter, linenum-1);
+		
+	gtk_text_buffer_place_cursor(GTK_TEXT_BUFFER(bfwin->current_document->buffer), &iter);
+	doc_scroll_to_cursor(bfwin->current_document);
+}
+
+static void gotoline_close_button_clicked(GtkButton *button, Tbfwin* bfwin)
+{
+	gtk_widget_hide(bfwin->gotoline_frame);
+
+	g_signal_handlers_block_matched (bfwin->gotoline_entry,
+																	 G_SIGNAL_MATCH_FUNC,
+																	 0, 0, NULL,
+																	 gotoline_entry_changed,
+																	 NULL);
+																	 
+	gtk_editable_delete_text(GTK_EDITABLE(bfwin->gotoline_entry), 0, -1);
+	
+	g_signal_handlers_unblock_matched (bfwin->gotoline_entry,
+                                     G_SIGNAL_MATCH_FUNC,
+                                     0, 0, NULL,
+                                     gotoline_entry_changed,
+                                     NULL);
+                                     
+	gtk_widget_grab_focus(bfwin->current_document->view);
+}
+
+void gui_gotoline_frame_show(Tbfwin *bfwin, guint callback_action, GtkWidget *widget)
+{
+	if (!GTK_WIDGET_VISIBLE(bfwin->gotoline_frame))
+		gtk_widget_show(bfwin->gotoline_frame);
+
+	gtk_widget_grab_focus(bfwin->gotoline_entry);
+}
+
+static void gui_create_gotoline_frame(Tbfwin *bfwin) {
+	GtkWidget *button, *hbox;
+	
+	bfwin->gotoline_frame = gtk_frame_new(NULL);
+	hbox = gtk_hbox_new(FALSE, 12);
+	gtk_container_set_border_width(GTK_CONTAINER(hbox), 2);
+	gtk_container_add(GTK_CONTAINER(bfwin->gotoline_frame), hbox);
+
+	button = bluefish_small_close_button_new();
+	gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
+	g_signal_connect(button, "clicked", G_CALLBACK(gotoline_close_button_clicked), bfwin); 
+
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Goto Line:")), FALSE, FALSE, 0);
+	
+	bfwin->gotoline_entry = gtk_entry_new();
+	gtk_box_pack_start(GTK_BOX(hbox), bfwin->gotoline_entry, FALSE, FALSE, 0);
+	g_signal_connect(bfwin->gotoline_entry, "changed", G_CALLBACK(gotoline_entry_changed), bfwin);
+	g_signal_connect(bfwin->gotoline_entry, "insert-text", G_CALLBACK(gotoline_entry_insert_text), NULL);
+
+	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->gotoline_frame, FALSE, FALSE, 2);
+	
+	gtk_widget_show_all(hbox);
+}
+
 void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	GtkWidget *vbox;
 	GList *tmplist;
@@ -831,7 +937,8 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	gtk_notebook_popup_enable(GTK_NOTEBOOK(bfwin->notebook));
 
 	/* Add notebook and its fake friend to their common hbox. */
-	bfwin->notebook_box = gtk_hbox_new (TRUE, 0);
+	bfwin->notebook_box = gtk_vbox_new(FALSE, 0);
+	gui_create_gotoline_frame(bfwin);
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->notebook, TRUE, TRUE, 0);
 	gtk_box_pack_start(GTK_BOX(bfwin->notebook_box), bfwin->notebook_fake, TRUE, TRUE, 0);
 
@@ -948,117 +1055,6 @@ void statusbar_message(Tbfwin *bfwin,gchar *message, gint time) {
 		sr->message_id = gtk_statusbar_push(GTK_STATUSBAR(bfwin->statusbar), 0, message);
 		gtk_timeout_add(time, statusbar_remove, sr);
 	}
-}
-
-
-/***********************/
-/* GOTO line functions */
-/***********************/
-
-typedef struct {
-	GtkWidget *win;
-	GtkWidget *entry;
-	GtkWidget *check;
-	Tbfwin *bfwin;
-} Tgotoline;
-
-static void tgl_destroy_lcb(GtkWidget * widget, Tgotoline *tgl) {
-	window_destroy(tgl->win);
-	g_free(tgl);
-}
-
-static void tgl_ok_clicked_lcb(GtkWidget * widget, Tgotoline *tgl)
-{
-	gchar *linestr;
-	gint linenum;
-
-	linestr = gtk_editable_get_chars(GTK_EDITABLE(tgl->entry), 0, -1);
-	linenum = get_int_from_string(linestr);
-	DEBUG_MSG("tgl_ok_clicked_lcb, going to line %d (linestr=%s)\n", linenum, linestr);
-	g_free(linestr);
-	
-	if (linenum > 0) {
-		doc_select_line(tgl->bfwin->current_document, linenum, TRUE);
-	}
-
-	if (GTK_TOGGLE_BUTTON(tgl->check)->active) {
-		if (linenum > 0) {
-			gchar *new_text;
-			gint position=0;
-			gtk_editable_delete_text (GTK_EDITABLE(tgl->entry), 0, -1);
-			new_text = g_strdup_printf("%d", linenum);
-			gtk_editable_insert_text(GTK_EDITABLE(tgl->entry),new_text,strlen(new_text),&position);
-			g_free(new_text);
-		}
-	} else {
-		tgl_destroy_lcb(NULL, tgl);
-	}
-
-}
-
-static void tgl_fromsel_clicked_lcb(GtkWidget * widget, Tgotoline *tgl) {
-	gchar *string;
-	GtkClipboard* cb;
-
-	cb = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
-	string = gtk_clipboard_wait_for_text(cb);
-	if (string) {
-		gtk_entry_set_text(GTK_ENTRY(tgl->entry), string);
-	}
-	tgl_ok_clicked_lcb(widget, tgl);
-}
-
-static void tgl_cancel_clicked_lcb(GtkWidget *widget, gpointer data) {
-	tgl_destroy_lcb(NULL, data);
-}
-
-void tgl_enter_lcb (GtkWidget *widget, gpointer ud) {
-     Tgotoline *tgl;
-     tgl = ud;
-     tgl_ok_clicked_lcb (widget, tgl);
-}
-
-void go_to_line_win_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	Tgotoline *tgl;
-	GtkWidget *but1, *vbox, *hbox, *label;
-	
-	tgl = g_new(Tgotoline, 1);
-	tgl->bfwin = bfwin;
-	tgl->win = window_full(_("Goto line"), GTK_WIN_POS_MOUSE
-						  ,12, G_CALLBACK(tgl_destroy_lcb), tgl, TRUE);
-	vbox = gtk_vbox_new(FALSE, 12);
-	gtk_container_add(GTK_CONTAINER(tgl->win), vbox);
-
-	hbox = gtk_hbox_new(FALSE, 12);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);
-
-	label = gtk_label_new_with_mnemonic(_("_Line number:"));
-	gtk_box_pack_start(GTK_BOX(hbox), label, FALSE, FALSE, 0);
-
-	tgl->entry = boxed_entry_with_text(NULL, 20, hbox);
-	gtk_label_set_mnemonic_widget(GTK_LABEL(label), tgl->entry); /* mnemonic for label */
-
-	but1 = bf_generic_mnemonic_button(_("From _selection"), G_CALLBACK(tgl_fromsel_clicked_lcb), tgl);
-	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
-
-	tgl->check = boxed_checkbut_with_value(_("Keep _dialog"), 0, vbox);
-	
-	gtk_box_pack_start(GTK_BOX(vbox), gtk_hseparator_new(), TRUE, TRUE, 0);
-	
-	hbox = gtk_hbutton_box_new();
-	gtk_hbutton_box_set_layout_default(GTK_BUTTONBOX_END);
-	gtk_button_box_set_spacing(GTK_BUTTON_BOX(hbox), 12);
-	gtk_box_pack_start(GTK_BOX(vbox), hbox, FALSE, FALSE, 0);	
-	
-	but1 = bf_stock_cancel_button(G_CALLBACK(tgl_cancel_clicked_lcb), tgl);
-	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
-	gtk_widget_grab_focus (tgl->entry);
-
-	but1 = bf_stock_ok_button(G_CALLBACK(tgl_ok_clicked_lcb), tgl);
-	gtk_box_pack_start(GTK_BOX(hbox), but1, FALSE, FALSE, 0);
-	gtk_window_set_default(GTK_WINDOW(tgl->win), but1);
-
-	gtk_widget_show_all(tgl->win);
 }
 
 void go_to_line_from_selection_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {

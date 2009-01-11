@@ -2,7 +2,7 @@
  * bluefish.h - global prototypes
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2008 Olivier Sessink
+ * Copyright (C) 1999-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -350,6 +350,7 @@ typedef struct {
 	gint last_notebook_page; /* a check to see if the notebook changed to a new page */
 	gulong notebook_switch_signal;
 	guint periodic_check_id; /* used with g_timeout_add */
+	GtkWidget *gotoline_entry;
 	GtkWidget *notebook;
 	GtkWidget *notebook_fake;
 	GtkWidget *notebook_box; /* Container for notebook and notebook_fake */
@@ -369,6 +370,7 @@ typedef struct {
 	GtkWidget *main_toolbar_hb;
 	GtkWidget *html_toolbar_hb;
 	GtkWidget *leftpanel_notebook;
+	GtkWidget *gotoline_frame;
 	/* following are lists with dynamic menu entries */
 	GList *menu_recent_files;
 	GList *menu_recent_projects;

@@ -2257,22 +2257,6 @@ void document_set_show_blocks(Tdocument *doc, gboolean value) {
 	BLUEFISH_TEXT_VIEW(doc->view)->showblocks = value;
 }
 
-/**
- * document_set_show_symbols:
- * @doc: a #Tdocument*
- * @value: a #gboolean
- *
- * Show or hide symbols (at the left of the main GtkTextView).
- *
- * Return value: void
- **/
-static void doc_close_but_set_style_lcb (GtkWidget *button, GtkStyle *previous_style, gpointer user_data) {
-	gint h, w;
-
-	gtk_icon_size_lookup_for_settings (gtk_widget_get_settings (button), GTK_ICON_SIZE_MENU, &w, &h);
-	gtk_widget_set_size_request (button, w + 2, h + 2);
-}
-
 static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly) {
 	GtkWidget *scroll;
 	Tdocument *newdoc;
@@ -2356,32 +2340,19 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 
 	DEBUG_MSG("doc_new_backend, appending doc to notebook\n");
 	{
-		GtkWidget *hbox, *button, *image;
-		GtkRcStyle *rcstyle;
+		GtkWidget *hbox, *button;
 
 		hbox = gtk_hbox_new(FALSE, 4);
 
-		button = gtk_button_new ();
-		image = gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
-		gtk_container_add (GTK_CONTAINER (button), image);
-		gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
-
-		rcstyle = gtk_rc_style_new ();
-		rcstyle->xthickness = rcstyle->ythickness = 0;
-		gtk_widget_modify_style (button, rcstyle);
-		gtk_rc_style_unref (rcstyle),
-
+		button = bluefish_small_close_button_new();
 		g_signal_connect(button, "clicked", G_CALLBACK (doc_close_but_clicked_lcb), newdoc);
-		g_signal_connect (button, "style-set", G_CALLBACK (doc_close_but_set_style_lcb), NULL);
 
 		gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
 		gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_eventbox, TRUE, TRUE, 0);
 		gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
 		gtk_widget_show_all(hbox);
 		gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->notebook), scroll ,hbox, newdoc->tab_menu);
-#if GTK_CHECK_VERSION(2,10,0)
 		gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(bfwin->notebook), scroll, TRUE);
-#endif
 	}
 	/* for some reason it only works after the document is appended to the notebook */
 	doc_set_tabsize(newdoc, main_v->props.editor_tab_width);
