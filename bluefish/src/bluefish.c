@@ -2,7 +2,7 @@
  * bluefish.c - the main function
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2008 Olivier Sessink
+ * Copyright (C) 1999-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -123,6 +123,15 @@ int main(int argc, char *argv[])
 	if (!g_thread_supported())
 		g_thread_init(NULL);
 /*  gdk_threads_init ();*/
+
+	gtk_rc_parse_string ("style \"bluefish-small-close-button-style\"\n"
+                       "{\n"
+                          "GtkWidget::focus-padding = 0\n"
+                          "GtkWidget::focus-line-width = 0\n"
+                          "xthickness = 0\n"
+                          "ythickness = 0\n"
+                       "}\n"
+                       "widget \"*.bluefish-small-close-button\" style \"bluefish-small-close-button-style\"");
 
 	context = g_option_context_new(_(" [FILE(S)]"));
 #ifdef ENABLE_NLS

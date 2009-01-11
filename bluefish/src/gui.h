@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gui.h - global function for the GUI
  *
- * Copyright (C) 2002-2005 Olivier Sessink
+ * Copyright (C) 2002-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document);
 gboolean switch_to_document_by_uri(Tbfwin *bfwin,GFile *uri);
 void bfwin_docs_not_complete(Tbfwin *bfwin, gboolean increase);
 
-void go_to_line_win_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
+void gui_gotoline_frame_show(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void go_to_line_from_selection_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 
 void splash_screen_set_label(gchar *label);

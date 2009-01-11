@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * dialog_utils.c - dialog utility functions
  *
- * Copyright (C) 2005-2007 James Hayward and Olivier Sessink
+ * Copyright (C) 2005-2009 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,6 +25,37 @@
 #include "dialog_utils.h"
 #include "pixmap.h"
 
+
+static void
+button_set_style (GtkWidget *button,
+                  GtkStyle *previous_style,
+                  gpointer user_data)
+{
+  gint h, w;
+
+  gtk_icon_size_lookup_for_settings (gtk_widget_get_settings (button),
+                                     GTK_ICON_SIZE_MENU, &w, &h);
+
+  gtk_widget_set_size_request (button, w+2, h+2);
+}
+
+GtkWidget *
+bluefish_small_close_button_new (void)
+{
+  GtkWidget *button, *image;
+  
+  button = gtk_button_new ();
+  gtk_button_set_relief (GTK_BUTTON (button), GTK_RELIEF_NONE);
+  gtk_button_set_focus_on_click (GTK_BUTTON (button), FALSE);
+  gtk_widget_set_name (button, "bluefish-small-close-button");
+
+	image = gtk_image_new_from_stock (GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU);
+  gtk_button_set_image (GTK_BUTTON (button), image);
+
+  g_signal_connect (button, "style-set", G_CALLBACK (button_set_style), NULL);
+
+  return button;
+}
 
 /**
  * dialog_stock_button_new_in_table:
