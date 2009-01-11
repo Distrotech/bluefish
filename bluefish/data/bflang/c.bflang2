@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		c.bflang2
  
-		Copyright (C) 2008 Olivier Sessink
+		Copyright (C) 2008-2009 Olivier Sessink
 
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="C" matches="1289" contexts="6" table="9372">
+<bflang name="C" matches="1292" contexts="6" table="9387">
 <header>
 	<mime type="text/x-csrc"/>
 	<mime type="text/x-chdr"/>
@@ -467,6 +467,7 @@
 <element pattern="g_unicode_canonical_decomposition" />
 <element pattern="g_unichar_get_mirror_char" />
 <element pattern="g_unichar_get_script" />
+<element pattern="g_utf8_next_char" />
 <element pattern="g_utf8_get_char" />
 <element pattern="g_utf8_get_char_validated" />
 <element pattern="g_utf8_offset_to_pointer" />
@@ -1293,6 +1294,8 @@
 		<element pattern="gboolean" />
 		<element pattern="gchar" />
 		<element pattern="guchar" />
+		<element pattern="gunichar" />
+		<element pattern="gunichar2" />
 		<element pattern="gconstpointer" />
 		<element pattern="gpointer" />
 		<element pattern="gint" />

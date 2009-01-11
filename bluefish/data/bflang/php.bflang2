@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="PHP" table="32677" contexts="22" matches="4975">
+<bflang name="PHP" table="32679" contexts="22" matches="4975">
 <header>
 	<mime type="application/x-php"/>
 	<option name="allfunctions" default="1" description="All php functions" />
@@ -50,13 +50,13 @@
 <tag name="div" attributes="style,class,id,align" autocomplete_append="&gt;" />
 <tag name="p" attributes="style,class,id,align" autocomplete_append="&gt;" />
 <tag name="span" attributes="style,class,id,align" autocomplete_append="&gt;" />
-<tag name="img" highlight="tag" attributes="src,width,height,align,valign,border,alt" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;"/>
+<tag name="img" attributes="src,width,height,align,valign,border,alt" autocomplete_append=" src=&#34;&#34; width=&#34;&#34; height=&#34;&#34; alt=&#34;&#34; style=&#34;border:0;&#34; /&gt;"/>
 <tag name="i" attributes="style,class,id" autocomplete_append="&gt;" />
 <tag name="b" attributes="style,class,id" autocomplete_append="&gt;" />
 <tag name="em" attributes="style,class,id" autocomplete_append="&gt;" />
 <tag name="strong" attributes="style,class,id" autocomplete_append="&gt;" />
 <tag name="u" attributes="style,class,id" autocomplete_append="&gt;" />
-<tag name="a" highlight="tag" attributes="style,class,id,href,target" autocomplete_append=" href=&#34;&#34; &gt;" />
+<tag name="a" attributes="style,class,id,href,target" autocomplete_append=" href=&#34;&#34; &gt;" />
 <tag name="table" attributes="style,class,id" autocomplete_append="&gt;" />
 <tag name="th" attributes="style,class,id" autocomplete_append="&gt;" />
 <tag name="tr" attributes="style,class,id" autocomplete_append="&gt;" />
