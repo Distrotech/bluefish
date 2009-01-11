@@ -743,7 +743,7 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	/*g_array_free(matchstack,TRUE);*/
 #ifdef HL_PROFILING
 	stage4 = g_timer_elapsed(scanning.timer,NULL);
-	g_print("timing for this %d ms scanning run: %d, %d, %d, %d; loops=%d,chars=%d,blocks %d/%d (%d) contexts %d/%d (%d) scancache %d refcs %d,%d,%d\n"
+	g_print("timing for this %d ms scanning run: %d, %d, %d, %d; loops=%d,chars=%d,blocks %d/%d (%d) contexts %d/%d (%d) scancache %d refcs %d(%dKb),%d(%dKb),%d(%dKb)\n"
 		,(gint)(1000*stage4)
 		,(gint)(1000*stage1)
 		,(gint)(1000*stage2-stage1)
@@ -753,7 +753,9 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		,hl_profiling.numblockstart,hl_profiling.numblockend,hl_profiling.longest_blockstack
 		,hl_profiling.numcontextstart,hl_profiling.numcontextend,hl_profiling.longest_contextstack
 		,g_sequence_get_length(btv->scancache.stackcaches)
-		,hl_profiling.fblock_refcount,hl_profiling.fcontext_refcount,hl_profiling.fstack_refcount
+		,hl_profiling.fblock_refcount,(gint)(hl_profiling.fblock_refcount*sizeof(Tfoundblock)/1024.0)
+		,hl_profiling.fcontext_refcount,(gint)(hl_profiling.fcontext_refcount*sizeof(Tfoundcontext)/1024.0)
+		,hl_profiling.fstack_refcount,(gint)(hl_profiling.fstack_refcount*sizeof(Tfoundstack)/1024.0)
 		);
 #endif
 	/* tune the loops_per_timer, try to have 10 timer checks per loop, so we have around 10% deviation from the set interval */
