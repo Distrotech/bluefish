@@ -3212,12 +3212,13 @@ void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this
  *
  * Return value: void
  **/
-void doc_reload(Tdocument *doc) {
+void doc_reload(Tdocument *doc, gboolean warn_user) {
 	if ((doc->filename == NULL) || (!file_exists_and_readable(doc->filename))) {
 		statusbar_message(BFWIN(doc->bfwin),_("Unable to open file"), 2000);
 		return;
 	}
-	{
+	
+	if (warn_user) {
 		const gchar *buttons[] = { GTK_STOCK_CANCEL, GTK_STOCK_REVERT_TO_SAVED, NULL };
 		gint retval;
 		gchar *msgstr, *basename;
@@ -3229,22 +3230,23 @@ void doc_reload(Tdocument *doc) {
 																			buttons,
 																			_("Revert changes to last saved copy?"),
 																			msgstr);
-																			
-		if (retval == 1) {
-			GtkTextIter itstart, itend;		
 
-			gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-			gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
-	
-			doc_file_to_textbox(doc, doc->filename, FALSE, FALSE);
-			doc_unre_clear_all(doc);
-			doc_set_modified(doc, 0);
-			doc_set_stat_info(doc); /* also sets mtime field */
-		}
-		
 		g_free(basename);
-		g_free(msgstr);
+		g_free(msgstr);		
+																			
+		if (retval == 0)
+			return;		
 	}
+	
+	GtkTextIter itstart, itend;		
+
+	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+	gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
+
+	doc_file_to_textbox(doc, doc->filename, FALSE, FALSE);
+	doc_unre_clear_all(doc);
+	doc_set_modified(doc, 0);
+	doc_set_stat_info(doc); /* also sets mtime field */
 }
 
 /**
@@ -3301,7 +3303,7 @@ void doc_activate(Tdocument *doc) {
 		if (retval == 1) {
 			doc_set_stat_info(doc);
 		} else {
-			doc_reload(doc);
+			doc_reload(doc, FALSE);
 		}
 	}
 	

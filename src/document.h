@@ -78,7 +78,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
 void doc_new_with_new_file(Tbfwin *bfwin, gchar * new_filename);
 Tdocument *doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate, gboolean move_to_this_win);
 void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this_win);
-void doc_reload(Tdocument *doc);
+void doc_reload(Tdocument *doc, gboolean warn_user);
 void doc_activate(Tdocument *doc);
 void doc_force_activate(Tdocument *doc);
 /* callbacks for the menu and toolbars */

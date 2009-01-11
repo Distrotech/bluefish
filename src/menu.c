@@ -82,7 +82,7 @@ static void menu_file_operations_cb(Tbfwin *bfwin, guint callback_action, GtkWid
 	break;
 #endif
 	case 4:
-		doc_reload(bfwin->current_document);
+		doc_reload(bfwin->current_document, TRUE);
 	break;
 	case 5:
 		file_save_cb(NULL, bfwin);
