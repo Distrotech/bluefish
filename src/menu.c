@@ -78,7 +78,7 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		file_open_advanced_cb(NULL,bfwin);
 	break;
 	case 4:
-		doc_reload(bfwin->current_document,NULL);
+		doc_reload(bfwin->current_document, NULL, TRUE);
 	break;
 	case 5:
 		file_save_cb(NULL, bfwin);

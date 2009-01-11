@@ -2614,12 +2614,9 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
  *
  * Return value: void
  **/
-void doc_reload(Tdocument *doc, GFileInfo *newfinfo) {
+void doc_reload(Tdocument *doc, GFileInfo *newfinfo, gboolean warn_user) {
 	GtkTextIter itstart, itend, cursor;
 	gint cursorpos=-1;
-	gint retval;
-	const gchar *buttons[] = { GTK_STOCK_CANCEL, GTK_STOCK_REVERT_TO_SAVED, NULL };
-	gchar *msgstr, *basename;
 	
 	DEBUG_MSG("starting reload for %p\n",doc);
 	if ((doc->uri == NULL)/* || (!file_exists_and_readable(doc->uri))*/) {
@@ -2627,32 +2624,39 @@ void doc_reload(Tdocument *doc, GFileInfo *newfinfo) {
 		return;
 	}
 	
-	basename = g_file_get_basename(doc->uri);
-	msgstr = g_strdup_printf(_("If you revert \"%s\" to your last saved copy, your current changes will be permanently lost."), basename);
-	retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
-																		GTK_MESSAGE_WARNING,
-																		buttons,
-																		_("Revert changes to last saved copy?"),
-																		msgstr);
-	
-	if (retval == 1) {
-	 	/* store all bookmark positions, reload them later */
-		bmark_clean_for_doc(doc);
-		gtk_text_buffer_get_iter_at_mark(doc->buffer,&cursor,gtk_text_buffer_get_insert(doc->buffer));
-		cursorpos = gtk_text_iter_get_line(&cursor);
-		gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
-		gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
-		doc_set_status(doc, DOC_STATUS_LOADING);
-		bfwin_docs_not_complete(doc->bfwin, TRUE);
-		doc_set_modified(doc,FALSE);
-		g_object_unref(doc->fileinfo);
-		doc->fileinfo = newfinfo;
-		g_object_ref(doc->fileinfo);
-		file_doc_fill_from_uri(doc, doc->uri, doc->fileinfo, cursorpos);
+	if (warn_user) {
+		gint retval;
+		const gchar *buttons[] = { GTK_STOCK_CANCEL, GTK_STOCK_REVERT_TO_SAVED, NULL };
+		gchar *msgstr, *basename;
+		
+		basename = g_file_get_basename(doc->uri);
+		msgstr = g_strdup_printf(_("If you revert \"%s\" to your last saved copy, your current changes will be permanently lost."), basename);
+		retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window,
+																			GTK_MESSAGE_WARNING,
+																			buttons,
+																			_("Revert changes to last saved copy?"),
+																			msgstr);
+		
+		g_free(basename);
+		g_free(msgstr);
+
+		if (retval == 0)
+			return;
 	}
 	
-	g_free(basename);
-	g_free(msgstr);
+ 	/* store all bookmark positions, reload them later */
+	bmark_clean_for_doc(doc);
+	gtk_text_buffer_get_iter_at_mark(doc->buffer,&cursor,gtk_text_buffer_get_insert(doc->buffer));
+	cursorpos = gtk_text_iter_get_line(&cursor);
+	gtk_text_buffer_get_bounds(doc->buffer,&itstart,&itend);
+	gtk_text_buffer_delete(doc->buffer,&itstart,&itend);
+	doc_set_status(doc, DOC_STATUS_LOADING);
+	bfwin_docs_not_complete(doc->bfwin, TRUE);
+	doc_set_modified(doc,FALSE);
+	g_object_unref(doc->fileinfo);
+	doc->fileinfo = newfinfo;
+	g_object_ref(doc->fileinfo);
+	file_doc_fill_from_uri(doc, doc->uri, doc->fileinfo, cursorpos);
 }
 
 static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_info,GFileInfo *orig, GFileInfo *new, gpointer callback_data) {
@@ -2711,7 +2715,7 @@ static void doc_activate_modified_lcb(Tcheckmodified_status status,gint error_in
 			g_object_ref(doc->fileinfo);
 			doc_set_tooltip(doc);
 		} else if (retval == 1) { /* reload */
-			doc_reload(doc, new);
+			doc_reload(doc, new, FALSE);
 		} else { /* reload all modified documents */
 			file_reload_all_modified(doc->bfwin);
 		}
