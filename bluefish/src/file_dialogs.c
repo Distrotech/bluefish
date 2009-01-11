@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * file_dialogs.c - file dialogs
  *
- * Copyright (C) 2005,2006,2007,2008 Olivier Sessink
+ * Copyright (C) 2005-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -928,7 +928,7 @@ static void file_reload_all_modified_check_lcb(Tcheckmodified_status status,gint
 	if (status == CHECKMODIFIED_MODIFIED) {
 		DEBUG_MSG("file_reload_all_modified_check_lcb, reload %p\n",user_data);
 		
-		doc_reload(DOCUMENT(user_data), new);
+		doc_reload(DOCUMENT(user_data), new, FALSE);
 	}
 }
 
