@@ -220,16 +220,14 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 	
 	retval = g_file_replace_contents_finish(cns->uri,res,&etag,&error);
 	if (error) {
-		DEBUG_MSG("checkNsave_replace_async_lcb,error %s\n",error->message);
+		DEBUG_MSG("checkNsave_replace_async_lcb,error %d: %s\n",error->code,error->message);
 		if (error->code == G_IO_ERROR_WRONG_ETAG) {
 			if (cns->callback_func(CHECKANDSAVE_ERROR_MODIFIED,error->code, cns->callback_data) == CHECKNSAVE_CONT) {
 				g_file_replace_contents_async(cns->uri,cns->buffer->data,cns->buffer_size
 						,NULL,TRUE
 						,G_FILE_CREATE_NONE,NULL
 						,checkNsave_replace_async_lcb,cns);
-			} else {
-				/* abort */
-				checkNsave_cleanup(cns);
+				return;
 			}
 		} else if (error->code == G_IO_ERROR_CANT_CREATE_BACKUP) {
 			if (cns->callback_func(CHECKANDSAVE_ERROR_NOBACKUP, 0, cns->callback_data) == CHECKNSAVE_CONT) {
@@ -237,12 +235,30 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 						,cns->etag,FALSE
 						,G_FILE_CREATE_NONE,NULL
 						,checkNsave_replace_async_lcb,cns);
+				return;
+			} 
+		}
+#if !GLIB_CHECK_VERSION(2, 18, 0)	
+		else if (error->code == G_IO_ERROR_EXISTS && g_file_has_uri_scheme(cns->uri, "sftp")) {
+			/* there is  a bug in the GIO sftp module in glib version 2.18 that returns 'file exists error' 
+			if you request an async content_replace */
+			GError *error2=NULL;
+			g_file_replace_contents(cns->uri,cns->buffer->data,cns->buffer_size
+					,cns->etag,main_v->props.backup_file
+					, G_FILE_CREATE_NONE,NULL
+					,NULL, &error2);
+			if (error2) {
+				g_print("sync version returns error %d: %s\n",error->code,error->message);
+				cns->callback_func(CHECKANDSAVE_ERROR, 0, cns->callback_data);
+				g_error_free(error2);
 			} else {
-				/* abort */
-				checkNsave_cleanup(cns);
+				cns->callback_func(CHECKANDSAVE_FINISHED, 0, cns->callback_data);
 			}
-		} else {
+		}
+#endif
+		 else {
 			g_print("****************** checkNsave_replace_async_lcb() unhandled error %d: %s\n",error->code,error->message);
+			cns->callback_func(CHECKANDSAVE_ERROR, 0, cns->callback_data);
 		}
 		g_error_free(error);
 	} else {
@@ -260,8 +276,9 @@ static void checkNsave_replace_async_lcb(GObject *source_object,GAsyncResult *re
 		}
 #endif
 		cns->callback_func(CHECKANDSAVE_FINISHED, 0, cns->callback_data);
-		checkNsave_cleanup(cns);
+		
 	}
+	checkNsave_cleanup(cns);
 }
 
 gpointer file_checkNsave_uri_async(GFile *uri, GFileInfo *info, Trefcpointer *buffer, gsize buffer_size, gboolean check_modified, CheckNsaveAsyncCallback callback_func, gpointer callback_data) {
