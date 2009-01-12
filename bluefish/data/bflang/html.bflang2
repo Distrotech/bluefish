@@ -46,8 +46,8 @@
 	<highlight name="css-html-classid" style="keyword" />
 	<highlight name="css-property" style="special-keyword" />
 	<highlight name="css-value" style="value" />
-	<highlight name="js-comment" style="comment" />
 	<highlight name="css-comment" style="comment" />
+	<highlight name="js-comment" style="comment" />
 	<highlight name="html-comment" style="comment" />
 </header>
 <definition>
@@ -127,7 +127,9 @@
 				<element pattern="*/" ends_block="1" blockstartelement="css/*" highlight="css-comment" ends_context="1" />
 			</context>
 		</element>
-
+<!-- ________________________________________________________________________________________ -->
+<!--                     START of copy and paste from css.bflang2                             -->
+<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 		<group highlight="css-html-tag" autocomplete="1">
 			<element pattern="a"/>
 			<element pattern="abbr"/>
@@ -236,6 +238,9 @@
 			<element pattern="\.[a-z0-9._]+" is_regex="1" case_insens="1" />
 			<element pattern="#[a-z0-9._]+" is_regex="1" case_insens="1" />
 		</group>
+<!-- ________________________________________________________________________________________ -->
+<!--                     END of copy and paste from css.bflang2                             -->
+<!-- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ -->
 
 		<element id="css{" pattern="{" starts_block="1" highlight="brackets">
 			<context symbols=" &#9;&#10;&#13;{}.:&quot;';">
