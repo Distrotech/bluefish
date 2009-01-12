@@ -28,6 +28,7 @@
 
 #ifdef IN_BLUEFISH
 #include "bluefish.h"
+#include "bf_lib.h"
 #include "bookmark.h"
 #else
 #include "testapp.h"
@@ -671,6 +672,20 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 		gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(btv), gtk_text_buffer_get_insert(buffer));
 		return TRUE;
 	}
+
+	if (kevent->keyval == GDK_Tab && main_v->props.editor_indent_wspaces) {
+			GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));			
+			GtkTextMark* imark;
+			GtkTextIter iter;
+			gchar *string;
+			/* replace the tab with spaces if the user wants that */
+			string = bf_str_repeat(" ", main_v->props.editor_tab_width);
+			imark = gtk_text_buffer_get_insert(buffer);
+			gtk_text_buffer_get_iter_at_mark(buffer,&iter,imark);
+			gtk_text_buffer_insert(buffer,&iter,string,main_v->props.editor_tab_width);
+			g_free(string);
+			return TRUE;
+		}
 
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->key_press_event (widget, kevent);
 }

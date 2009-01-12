@@ -1548,71 +1548,6 @@ static void doc_buffer_insert_text_after_lcb(GtkTextBuffer *textbuffer,GtkTextIt
 #endif
 }*/
 
-static gboolean doc_view_key_press_lcb(GtkWidget *widget,GdkEventKey *kevent,Tdocument *doc) {
-	DEBUG_MSG("doc_view_key_press_lcb, keyval=%d, hardware_keycode=%d\n",kevent->keyval, kevent->hardware_keycode);
-	if (!(kevent->state & GDK_CONTROL_MASK) &&
-	       ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home) || (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End)) &&
-	       main_v->props.editor_smart_cursor) {
-                GtkTextMark* imark;
-                GtkTextIter  iter, currentpos, linestart;
-
-        		imark = gtk_text_buffer_get_insert (doc->buffer);
-        		gtk_text_buffer_get_iter_at_mark (doc->buffer, &currentpos, imark);
-
-        		iter = currentpos;
-
-        		if ((kevent->keyval == GDK_Home) || (kevent->keyval == GDK_KP_Home)) {
-                    gtk_text_iter_backward_cursor_positions (&iter, gtk_text_iter_get_line_offset (&iter));
-                    linestart = iter;
-
-                    while (g_unichar_isspace (gtk_text_iter_get_char (&iter)) && !gtk_text_iter_ends_line (&iter))
-                            gtk_text_iter_forward_char (&iter);
-
-                } else { /* (kevent->keyval == GDK_End) || (kevent->keyval == GDK_KP_End) */
-		            if (!gtk_text_iter_ends_line (&iter))
-		                gtk_text_iter_forward_to_line_end (&iter);
-
-		            linestart = iter;
-
-                    if (gtk_text_iter_is_end (&iter) && !gtk_text_iter_starts_line (&iter))
-                        gtk_text_iter_backward_char (&iter);
-
-		            while (g_unichar_isspace (gtk_text_iter_get_char (&iter)) && !gtk_text_iter_starts_line (&iter))
-			                gtk_text_iter_backward_char (&iter);
-
-                    if ((!gtk_text_iter_starts_line (&iter) || !gtk_text_iter_ends_line (&iter)) && !g_unichar_isspace (gtk_text_iter_get_char (&iter)))
-                        gtk_text_iter_forward_char (&iter);
-                }
-
-        		if (gtk_text_iter_compare (&currentpos, &iter) == 0)
-        			iter = linestart;
-
-        		if (kevent->state & GDK_SHIFT_MASK)
-        			gtk_text_buffer_move_mark (doc->buffer, imark, &iter);
-        		else {
-        			gtk_text_buffer_place_cursor (doc->buffer, &iter);
-        		}
-
-                gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW (doc->view), gtk_text_buffer_get_insert (doc->buffer));
-
-        		return TRUE;
-	}
-
-	if (kevent->keyval == GDK_Tab && main_v->props.editor_indent_wspaces) {
-		GtkTextMark* imark;
-		GtkTextIter iter;
-		gchar *string;
-		/* replace the tab with spaces if the user wants that */
-		string = bf_str_repeat(" ", main_v->props.editor_tab_width);
-		imark = gtk_text_buffer_get_insert(doc->buffer);
-		gtk_text_buffer_get_iter_at_mark(doc->buffer,&iter,imark);
-		gtk_text_buffer_insert(doc->buffer,&iter,string,main_v->props.editor_tab_width);
-		g_free(string);
-		return TRUE; /* we handled the event, stop the event from cascading further */
-	}
-	return FALSE; /* we didn't handle all of the event */
-}
-
 static void doc_buffer_delete_range_lcb(GtkTextBuffer *textbuffer,GtkTextIter * itstart,GtkTextIter * itend, Tdocument * doc) {
 	gchar *string;
 	string = gtk_text_buffer_get_text(doc->buffer, itstart, itend, TRUE);
@@ -2324,12 +2259,6 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 		G_CALLBACK(doc_buffer_mark_set_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->view), "toggle-overwrite",
 		G_CALLBACK(doc_view_toggle_overwrite_lcb), newdoc);
-/*	g_signal_connect(G_OBJECT(newdoc->view), "paste-clipboard",
-		G_CALLBACK(doc_paste_clipboard_lcb), newdoc);
-	g_signal_connect_after(G_OBJECT(newdoc->view), "button-release-event",
-		G_CALLBACK(doc_view_button_release_after_lcb), newdoc);*/
-	g_signal_connect(G_OBJECT(newdoc->view), "key-press-event",
-		G_CALLBACK(doc_view_key_press_lcb), newdoc);
 	g_signal_connect_after(G_OBJECT(newdoc->view), "populate-popup",
 		G_CALLBACK(doc_view_populate_popup_lcb), newdoc);
 
