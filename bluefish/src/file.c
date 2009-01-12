@@ -381,6 +381,11 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 					,openfile_async_mount_lcb,of);
 #else
 			g_print("TODO, CREATE GMOUNTOPERATION FOR BACKWARDS COMPATIBILITY WITH OLDER GTK?!?!\n");
+			g_file_mount_enclosing_volume(of->uri
+					,G_MOUNT_MOUNT_NONE
+					,NULL
+					,of->cancel
+					,openfile_async_mount_lcb,of);
 #endif
 		} else {
 			of->callback_func(OPENFILE_ERROR,error->code,buffer,size, of->callback_data);
