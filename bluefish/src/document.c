@@ -2213,6 +2213,8 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	BLUEFISH_TEXT_VIEW(newdoc->view)->doc = newdoc;
 	g_object_set(G_OBJECT(newdoc->view), "editable", !readonly, NULL);
 	bluefish_text_view_set_mimetype(BLUEFISH_TEXT_VIEW(newdoc->view), "text/plain");
+	newdoc->fileinfo = g_file_info_new();
+	g_file_info_set_content_type(newdoc->fileinfo, "text/plain");
 	scroll = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
 									   GTK_POLICY_AUTOMATIC,
@@ -2239,7 +2241,6 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->wrapstate = (bfwin->project) ? bfwin->project->word_wrap : main_v->props.word_wrap;
 	doc_set_wrap(newdoc);
 
-	doc_set_title(newdoc);
 	/* we initialize already with 0 , so we don't need these:
 	newdoc->need_highlighting = 0;
 	newdoc->uri = NULL;
@@ -2249,6 +2250,8 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->encoding = g_strdup( (bfwin->session->encoding) ? bfwin->session->encoding : main_v->props.newfile_default_encoding);
 	DEBUG_MSG("doc_new_backend, encoding is %s\n",newdoc->encoding);
 	newdoc->overwrite_mode = FALSE;
+	
+	doc_set_title(newdoc);
 	doc_bind_signals(newdoc);
 
 	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event",
