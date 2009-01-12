@@ -187,6 +187,7 @@ may not be used then...
 #define DBG_MARGIN DBG_NONE
 #define DBG_PARSING DBG_NONE
 #define DBG_BLOCKMATCH DBG_NONE
+#define DBG_TOOLTIP DBG_NONE
 
 #define NUMSCANCHARS 127 /* 128 is ascii, but the last character is never scanned (DEL)
 		and the Ttablerow has one more 16bit value. By setting this to 127 instead of 128

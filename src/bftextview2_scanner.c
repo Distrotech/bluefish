@@ -819,7 +819,7 @@ void scan_for_autocomp_prefix(BluefishTextView *btv,GtkTextIter *mstart,GtkTextI
 						g_queue_pop_head(contextstack);
 						num++;
 					}
-					*contextnum = GPOINTER_TO_INT(g_queue_peek_head(contextstack));
+					*contextnum = g_queue_get_length(contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(contextstack)): 1;
 				} else if (g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext > 0) {
 					DBG_AUTOCOMP("previous pos=%d had a match with a context change!\n",pos);
 					*contextnum = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
@@ -849,41 +849,41 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 	iter = *mstart;
 
 	contextstack = get_contextstack_at_position(btv, &iter);
-	if (g_queue_get_length(contextstack)>0)
-		*contextnum = GPOINTER_TO_INT(g_queue_peek_head(contextstack));
-	else
-		*contextnum = 1;
+	*contextnum = g_queue_get_length(contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(contextstack)): 1;
 	pos = g_array_index(btv->bflang->st->contexts,Tcontext, *contextnum).startstate;
 
 	gtk_text_buffer_get_end_iter(GTK_TEXT_VIEW(btv)->buffer,&end);
-	DBG_MSG("start scanning at offset %d with context %d and position %d\n",gtk_text_iter_get_offset(&iter),*contextnum,pos);
+	DBG_TOOLTIP("start scanning at offset %d with context %d and position %d\n",gtk_text_iter_get_offset(&iter),*contextnum,pos);
 	while (!gtk_text_iter_equal(&iter, &end)) {
 		gunichar uc;
 		uc = gtk_text_iter_get_char(&iter);
 		if (uc > 128) {
 			newpos = 0;
 		} else {
-			DBG_MSG("scanning %c\n",uc);
+			DBG_TOOLTIP("scanning %c\n",uc);
 			newpos = g_array_index(btv->bflang->st->table, Ttablerow, pos).row[uc];
 		}
 		if (newpos == 0 || uc == '\0') {
-			DBG_MSG("newpos=%d...\n",newpos);
+			DBG_TOOLTIP("newpos=%d...\n",newpos);
 			if (g_array_index(btv->bflang->st->table,Ttablerow, pos).match) {
 				DBG_MSG("found match %d, retthismatch=%d\n",g_array_index(btv->bflang->st->table,Ttablerow, pos).match,retthismatch);
 				if (retthismatch) {
 					*position = iter;
 					g_queue_free(contextstack);
+					DBG_TOOLTIP("return TRUE, mstart %d position %d\n",gtk_text_iter_get_offset(mstart),gtk_text_iter_get_offset(position));
 					return TRUE;
 				}
 				if (g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext < 0) {
 					gint num  = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
 					while (num != 0) {
-						*contextnum = GPOINTER_TO_INT(g_queue_pop_head(contextstack));
+						g_queue_pop_head(contextstack);
 						num++;
 					}
+					*contextnum = g_queue_get_length(contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(contextstack)): 1;
+					DBG_TOOLTIP("previous pos=%d had a match that popped the context to %d!\n",pos,*contextnum);
 				} else if (g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext > 0) {
-					DBG_MSG("previous pos=%d had a match with a context change!\n",pos);
 					*contextnum = g_array_index(btv->bflang->st->matches,Tpattern, g_array_index(btv->bflang->st->table,Ttablerow, pos).match).nextcontext;
+					DBG_TOOLTIP("previous pos=%d had a match that pushed the context to %d!\n",pos,*contextnum);
 					g_queue_push_head(contextstack, GINT_TO_POINTER(*contextnum));
 				}
 			}
@@ -897,8 +897,8 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 		}
 		pos = newpos;
 		if (gtk_text_iter_equal(&iter, position)) {
-			DBG_MSG("at position...\n");
-			if (gtk_text_iter_equal(&iter, mstart)) {
+			DBG_TOOLTIP("at cursor position..., scanning in context %d, pos %d (identstate=%d)\n",*contextnum,pos,g_array_index(btv->bflang->st->contexts,Tcontext, *contextnum).identstate);
+			if (gtk_text_iter_equal(&iter, mstart) || (pos==g_array_index(btv->bflang->st->contexts,Tcontext, *contextnum).identstate)) {
 				g_queue_free(contextstack);
 				return FALSE;
 			}

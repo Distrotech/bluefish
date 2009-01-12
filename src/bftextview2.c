@@ -862,19 +862,19 @@ static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint
 			gtk_text_buffer_get_iter_at_offset(GTK_TEXT_VIEW(btv)->buffer, &iter, offset);
 		} else {
 			gint bx, by, trailing;
-			gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT,x-(btv->margin_pixels_chars+btv->margin_pixels_block), y, &bx, &by);
+			gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT,x-(btv->margin_pixels_chars+btv->margin_pixels_block+btv->margin_pixels_symbol), y, &bx, &by);
 			gtk_text_view_get_iter_at_position(GTK_TEXT_VIEW(btv), &iter, &trailing, bx, by);
 		}
 		mstart=iter;
 		gtk_text_iter_set_line_offset(&mstart,0);
 		gtk_text_iter_forward_char(&iter);
-		DBG_MSG("scan for tooltip: start at %d, position=%d...\n",gtk_text_iter_get_offset(&mstart),gtk_text_iter_get_offset(&iter));
+		DBG_TOOLTIP("scan for tooltip: start at %d, position=%d...\n",gtk_text_iter_get_offset(&mstart),gtk_text_iter_get_offset(&iter));
 		if (scan_for_tooltip(btv,&mstart,&iter,&contextnum)) {
-			DBG_MSG("we have a match in context %d\n",contextnum);
+			DBG_TOOLTIP("we have a match in context %d, has_reference=%d\n",contextnum,(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).reference!=NULL));
 			if (g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).reference) {
 				gchar *value, *key = gtk_text_buffer_get_text(GTK_TEXT_VIEW(btv)->buffer,&mstart,&iter,TRUE);
 				value = g_hash_table_lookup(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).reference, key);
-				DBG_MSG("key=%s, value=%s\n",key,value);
+				DBG_TOOLTIP("key=%s, value=%s\n",key,value);
 				if (value) {
 					gtk_tooltip_set_markup(tooltip, value);
 					g_free(key);
