@@ -379,7 +379,7 @@ static Tfoundcontext *found_context_change(BluefishTextView * btv,GtkTextBuffer 
 		/* pop, but don't pop if there is nothing to pop (because of an error in the language file) */
 		while (num > 0 && scanning->contextstack->head) {
 			if (fcontext) {
-				g_print("pop multiple\n");
+				DBG_FCONTEXTREFCOUNT("pop multiple, refcount not returnedto calling function, unref!\n");
 				foundcontext_unref(fcontext, buffer);
 			} 
 			fcontext = g_queue_pop_head(scanning->contextstack);
