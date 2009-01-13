@@ -315,6 +315,12 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 		g_object_ref(finfo);
 		display_name = gfile_display_name(child_uri, finfo);
 		mime_type = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+		if (mime_type == NULL && g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY) {
+			/* GVFS SMB module on Ubuntu 8.10 returns NULL as FAST_CONTENT_TYPE, but it does set
+			the type (regular file or directory). In the case of a directory we manually set the 
+			mime type  */
+			mime_type = "inode/directory";
+		}
 		icon = g_file_info_get_icon(finfo);
 		gtk_tree_store_append(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore),
 							  newiter, parent);
@@ -828,7 +834,7 @@ static gboolean tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter,
 	DEBUG_MSG("tree_model_filter_func, model=%p and fb2=%p, name=%s, mime=%s, and uri=", model, fb2,
 			  name, mime_type);
 	DEBUG_URI(uri, TRUE);
-	if (mime_type && MIME_ISDIR(mime_type) != 0) {	/* file */
+	if (!mime_type || MIME_ISDIR(mime_type) != 0) {	/* file */
 		if (fb2->filebrowser_viewmode == viewmode_dual) {
 			/* in the two paned view we don't show files in the dir view */
 			retval = FALSE;
@@ -904,7 +910,7 @@ static gboolean file_list_filter_func(GtkTreeModel * model, GtkTreeIter * iter, 
 	if (!name)
 		return FALSE;
 
-	if (!mime_type || MIME_ISDIR(mime_type) == 0)
+	if (mime_type && MIME_ISDIR(mime_type) == 0)
 		retval = FALSE;
 
 	if (retval && !fb2->filebrowser_show_backup_files) {
