@@ -647,7 +647,7 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->tsd.italic_radio[1] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pd->tsd.italic_radio[0]), _("italic style"));
 	gtk_box_pack_start(GTK_BOX(vbox),pd->tsd.italic_radio[1], FALSE, FALSE, 0);
 	{
-		GList *tmplist = g_list_first(pd->lists[textstyles]);
+		GList *tmplist = g_list_first(pd->lists[textstyles]); /* the order of this list has a meaning !!! */
 		while (tmplist) {
 			gchar **strarr = (gchar **)tmplist->data;
 			if (count_array(strarr)==5) {
@@ -711,11 +711,20 @@ static void fill_hl_combo(Tprefdialog *pd) {
 	}
 }
 
+static gint fill_hl_tree_highlight_list_sort_lcb(gconstpointer a,gconstpointer b) {
+	gchar **arra=(gchar **)a, **arrb=(gchar **)b;
+	return g_strcmp0(arra[1],arrb[1]);
+}
+
+static gint fill_hl_tree_bflang_list_sort_lcb(gconstpointer a,gconstpointer b) {
+	return g_strcmp0(((Tbflang *)a)->name, ((Tbflang *)b)->name);
+}
+
 static void fill_hl_tree(Tprefdialog *pd) {
 	/* To fill the tree quickly, we create the parents (language names), and add the names with the corresponding
 	GtkTreeIter to a hashtable. Then we simply walk the GList and lookup the correct GtkTreeIter in the hashtable */
 	GHashTable *langiters;
-	GList *tmplist = g_list_first(langmgr_get_languages());
+	GList *tmplist = g_list_first(g_list_sort(langmgr_get_languages(), (GCompareFunc)fill_hl_tree_bflang_list_sort_lcb));
 	langiters = g_hash_table_new_full(g_str_hash,g_str_equal,NULL,g_free);
 	while (tmplist) {
 		GtkTreeIter *toplevel = g_new0(GtkTreeIter,1);
@@ -726,7 +735,7 @@ static void fill_hl_tree(Tprefdialog *pd) {
 		g_hash_table_insert(langiters,bflang->name,toplevel);
 		tmplist = g_list_next(tmplist);
 	}
-	tmplist = g_list_first(pd->lists[highlight_styles]);
+	tmplist = g_list_first(g_list_sort(pd->lists[highlight_styles], (GCompareFunc)fill_hl_tree_highlight_list_sort_lcb));
 	while (tmplist) {
 		GtkTreeIter *parent;
 		gchar **arr = tmplist->data;
@@ -744,7 +753,6 @@ static void fill_hl_tree(Tprefdialog *pd) {
 }
 
 static void hl_set_textstylecombo_by_text(Tprefdialog *pd, const gchar *text) {
-	g_print("hl_set_textstylecombo_by_text, text=%s\n",text);
 	if (text == NULL) {
 		gtk_combo_box_set_active(GTK_COMBO_BOX(pd->hld.textstyle),-1);
 	} else {
@@ -753,7 +761,7 @@ static void hl_set_textstylecombo_by_text(Tprefdialog *pd, const gchar *text) {
 		while (cont) {
 			gchar *name;
 			gtk_tree_model_get(GTK_TREE_MODEL(pd->hld.cstore),&iter,0,&name,-1);
-			g_print("hl_set_textstylecombo_by_text, compare %s and %s\n",text,name);
+			DEBUG_MSG("hl_set_textstylecombo_by_text, compare %s and %s\n",text,name);
 			if (strcmp(name,text)==0) {
 				gtk_combo_box_set_active_iter(GTK_COMBO_BOX(pd->hld.textstyle),&iter);
 				g_free(name);
@@ -785,7 +793,7 @@ static void hl_textstylecombo_changed(GtkComboBox *widget,Tprefdialog *pd) {
 static void hl_selection_changed_cb(GtkTreeSelection *selection, Tprefdialog *pd) {
 	GtkTreeIter iter;
 	GtkTreeModel *model;
-	g_print("hl_selection_changed_cb, started\n");
+	DEBUG_MSG("hl_selection_changed_cb, started\n");
 	if (gtk_tree_selection_get_selected(selection, &model, &iter)) {
 		GtkTreeIter parent;
 		if (gtk_tree_model_iter_parent (model, &parent, &iter)) {
