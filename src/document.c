@@ -1619,26 +1619,6 @@ void doc_get_iter_at_bevent(Tdocument *doc, GdkEventButton *bevent, GtkTextIter 
 	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), iter, xpos, ypos);
 }
 
-static gboolean doc_view_button_press_lcb(GtkWidget *widget,GdkEventButton *bevent, Tdocument *doc) {
-	DEBUG_MSG("doc_view_button_press_lcb, button %d\n", bevent->button);
-	if (bevent->button == 3) {
-		GtkTextIter iter;
-		doc_get_iter_at_bevent(doc, bevent, &iter);
-		bmark_store_bevent_location(doc, gtk_text_iter_get_offset(&iter));
-	}
-/* here we ask any plugins to do any processing */
-	if (main_v->doc_view_button_press_cbs) {
-		GSList *tmplist = main_v->doc_view_button_press_cbs;
-		while (tmplist) {
-			void *(* func)() = tmplist->data;
-			DEBUG_MSG("doc_view_button_press_lcb, calling plugin func %p\n", tmplist->data);
-			func(widget,bevent,doc);
-			tmplist = g_slist_next(tmplist);
-		}
-	}
-	return FALSE;
-}
-
 static void rpopup_add_bookmark_lcb(GtkWidget *widget, Tdocument *doc) {
 	bmark_add_at_bevent(doc);
 }
@@ -2254,8 +2234,6 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	doc_set_title(newdoc);
 	doc_bind_signals(newdoc);
 
-	g_signal_connect(G_OBJECT(newdoc->view), "button-press-event",
-		G_CALLBACK(doc_view_button_press_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "changed",
 		G_CALLBACK(doc_buffer_changed_lcb), newdoc);
 	g_signal_connect(G_OBJECT(newdoc->buffer), "mark-set",

@@ -30,6 +30,7 @@
 #include "bluefish.h"
 #include "bf_lib.h"
 #include "bookmark.h"
+#include "document.h"
 #else
 #include "testapp.h"
 #endif
@@ -784,6 +785,23 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 			return TRUE;
 		}
 	}*/
+	
+	if (event->button == 3) {
+		GtkTextIter iter;
+		doc_get_iter_at_bevent((Tdocument *) btv->doc, event, &iter);
+		bmark_store_bevent_location((Tdocument *) btv->doc, gtk_text_iter_get_offset(&iter));
+	}
+	/* here we ask any plugins to do any processing */
+	if (main_v->doc_view_button_press_cbs) {
+		GSList *tmplist = main_v->doc_view_button_press_cbs;
+		while (tmplist) {
+			void *(* func)() = tmplist->data;
+			DEBUG_MSG("doc_view_button_press_lcb, calling plugin func %p\n", tmplist->data);
+			func(widget, event, (Tdocument *) btv->doc);
+			tmplist = g_slist_next(tmplist);
+		}
+	}
+	
 	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->button_press_event (widget, event);
 }
 
