@@ -904,7 +904,7 @@ static gboolean file_list_filter_func(GtkTreeModel * model, GtkTreeIter * iter, 
 	if (!name)
 		return FALSE;
 
-	if (MIME_ISDIR(mime_type) == 0)
+	if (!mime_type || MIME_ISDIR(mime_type) == 0)
 		retval = FALSE;
 
 	if (retval && !fb2->filebrowser_show_backup_files) {
