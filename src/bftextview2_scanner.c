@@ -847,6 +847,9 @@ gboolean scan_for_tooltip(BluefishTextView *btv,GtkTextIter *mstart,GtkTextIter 
 	GQueue *contextstack;
 	/* get the current context */
 	iter = *mstart;
+	DBG_TOOLTIP("POSITION OFFSET=%d, need_update_offset=%d\n",gtk_text_iter_get_offset(position), btv->scancache.stackcache_need_update_charoffset);
+	if (btv->scancache.stackcache_need_update_charoffset > 0 && gtk_text_iter_get_offset(position) > btv->scancache.stackcache_need_update_charoffset)
+		return FALSE; 
 
 	contextstack = get_contextstack_at_position(btv, &iter);
 	*contextnum = g_queue_get_length(contextstack) ? GPOINTER_TO_INT(g_queue_peek_head(contextstack)): 1;

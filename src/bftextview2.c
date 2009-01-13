@@ -870,7 +870,7 @@ void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) 
 static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint y, gboolean keyboard_tip, GtkTooltip *tooltip) {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);	
 	
-	if (btv->bflang && btv->bflang->st && btv->enable_scanner && btv->scanner_idle==0) {
+	if (btv->bflang && btv->bflang->st && btv->enable_scanner && btv->scanner_idle==0 && main_v->props.show_tooltip_reference) {
 		GtkTextIter iter,mstart;
 		gint contextnum;
 		/* get position */

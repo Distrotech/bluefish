@@ -20,6 +20,7 @@
 
 #include <string.h>
 #include <gdk/gdkkeysyms.h>
+#include "bluefish.h"
 #include "bftextview2_scanner.h"
 #include "bftextview2_autocomp.h"
 
@@ -146,7 +147,7 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	if (!acw->context->reference)
+	if (!acw->context->reference || !main_v->props.show_autocomp_reference)
 		return;
 
 	if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
