@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="C" matches="1292" contexts="6" table="9387">
+<bflang name="C" matches="1293" contexts="6" table="9390">
 <header>
 	<mime type="text/x-csrc"/>
 	<mime type="text/x-chdr"/>
@@ -1001,6 +1001,7 @@
 <element pattern="g_slist_concat" />
 <element pattern="g_slist_foreach" />
 <element pattern="g_slist_last" />
+<element pattern="g_slist_next" />
 <element pattern="g_slist_nth" />
 <element pattern="g_slist_nth_data" />
 <element pattern="g_slist_find" />
