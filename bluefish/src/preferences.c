@@ -87,6 +87,8 @@ enum {
 	open_in_running_bluefish,     /* open commandline documents in already running session*/
 #endif /* WITH_MSG_QUEUE */
 	load_reference,
+	show_autocomp_reference,
+	show_tooltip_reference,
 	delay_full_scan,
 	autocomp_popup_mode,
 	reduced_scan_triggers,
@@ -1196,6 +1198,9 @@ static void preferences_apply(Tprefdialog *pd) {
 	string_apply(&main_v->props.image_thumbnailtype, GTK_COMBO(pd->prefs[image_thumbnailtype])->entry);
 	
 	main_v->props.autocomp_popup_mode = gtk_option_menu_get_history(GTK_OPTION_MENU(pd->prefs[autocomp_popup_mode]));
+	integer_apply(&main_v->props.load_reference, pd->prefs[load_reference], TRUE);
+	integer_apply(&main_v->props.show_autocomp_reference, pd->prefs[show_autocomp_reference], TRUE);
+	integer_apply(&main_v->props.show_tooltip_reference, pd->prefs[show_tooltip_reference], TRUE);
 
 	free_arraylist(main_v->props.plugin_config);
 	main_v->props.plugin_config = duplicate_arraylist(pd->lists[pluginconfig]);
@@ -1573,7 +1578,9 @@ static void preferences_dialog() {
 		gchar *autocompmodes[] = {N_("On keypress only"), N_("Delayed"),N_("Immediately"), NULL};
 		pd->prefs[autocomp_popup_mode] = boxed_optionmenu_with_value(_("Show the autocompletion popup window"), main_v->props.autocomp_popup_mode, vbox2, autocompmodes);
 	}
-
+	pd->prefs[load_reference] = boxed_checkbut_with_value(_("Load reference information from language file"), main_v->props.load_reference, vbox2);
+	pd->prefs[show_autocomp_reference] = boxed_checkbut_with_value(_("Show reference information in autocompletion pop-up"), main_v->props.show_autocomp_reference, vbox2);
+	pd->prefs[show_tooltip_reference] = boxed_checkbut_with_value(_("Show reference information in tooltip window"), main_v->props.show_tooltip_reference, vbox2);
 
 	frame = gtk_frame_new(_("Syntax highlighting"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);

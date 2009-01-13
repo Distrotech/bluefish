@@ -254,6 +254,8 @@ typedef struct {
 	gint block_folding_mode;
 	GList *highlight_styles;
 	gboolean load_reference;
+	gboolean show_autocomp_reference;
+	gboolean show_tooltip_reference;
 	gboolean delay_full_scan;
 	gint delay_scan_time;
 	gint autocomp_popup_mode;
