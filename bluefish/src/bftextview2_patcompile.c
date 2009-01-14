@@ -52,10 +52,15 @@ the character list [a-z]
 
 */
 
+static gint pointersort_compare(gconstpointer a, gconstpointer b) {
+	return a-b;
+}
+
 /* returns a list of tags that are used in this language */
 GList * bftextview2_scantable_rematch_highlights(Tscantable *st, const gchar *lang) {
 	int i=0;
-	GList *retlist=NULL;
+	GList *retlist=NULL, *tmplist;
+	gpointer temp=NULL;
 	for (i=0;i<(st->contexts->len);i++) {
 /*		g_print("context %d",i);
 		g_print(" has highlight %s\n",g_array_index(st->contexts, Tcontext, i).contexthighlight);*/
@@ -80,6 +85,25 @@ GList * bftextview2_scantable_rematch_highlights(Tscantable *st, const gchar *la
 				retlist = g_list_prepend(retlist, g_array_index(st->matches, Tpattern, i).blocktag);
 		}
 	}
+	
+	/* now remove all duplicate tags */
+	tmplist = retlist = g_list_sort(retlist,(GCompareFunc)pointersort_compare);
+	while (tmplist) {
+		if (tmplist->data == temp) {
+			GList *tofree = tmplist;
+			tmplist = tmplist->next;
+			/* duplicate ! */
+			tofree->prev->next = tmplist;
+			if (tmplist)
+				tmplist->prev = tofree->prev;
+			g_list_free_1(tofree);
+		} else {
+			/* not duplicate */
+			temp = tmplist->data;
+			tmplist = tmplist->next;
+		} 
+	}
+	
 	return retlist;
 }
 
