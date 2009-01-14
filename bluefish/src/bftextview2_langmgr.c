@@ -200,7 +200,8 @@ void langmgr_reload_user_highlights(void) {
 		Tbflang *bflang=tmplist->data;
 		if (bflang->st) {
 			/*g_print("langmgr_reload_user_highlights, bflang name %s\n",bflang->name);*/
-			bftextview2_scantable_rematch_highlights(bflang->st, bflang->name);
+			g_list_free(bflang->tags);
+			bflang->tags = bftextview2_scantable_rematch_highlights(bflang->st, bflang->name);
 		}
 		tmplist = g_list_next(tmplist);
 	}
@@ -858,6 +859,8 @@ static gpointer build_lang_thread(gpointer data)
 		print_scantable_stats(bflang->name,bflang->filename,bfparser->st);
 		/*print_DFA(bfparser->st, '&','Z');*/
 		/*print_DFA_subset(bfparser->st, "<PpIi>");*/
+		
+		bflang->tags = bftextview2_scantable_rematch_highlights(bfparser->st, bflang->name);
 	}
 	DBG_PARSING("build_lang_thread finished bflang=%p\n",bflang);
 	/* when done call mainloop */
