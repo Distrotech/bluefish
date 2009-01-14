@@ -25,10 +25,10 @@
 #include "bftextview2_langmgr.h"
 #include "bf_lib.h"
 /*
-we need real regex pattern support as well.
+we do regex pattern support as well.
 
 we don't do everything that pcre or posix regex patterns can
-do - these engines have features that cannot be done in a DFA
+do - these engines have features that cannot be done in a DFA (such as backtracking)
 
 There are several ways in which regex patterns can be simplified:
 
@@ -45,30 +45,42 @@ a(b|c)d == (abd|acd)
 
 [^a] == [b-z] (and all other ascii characters, for simplification I just use the alphabet)
 
-so we need to be able to compile:
+so at least we need to be able to compile:
 the OR construct: (|)
 the zero-or-more *
 the character list [a-z]
 
 */
 
-void bftextview2_scantable_rematch_highlights(Tscantable *st, const gchar *lang) {
+/* returns a list of tags that are used in this language */
+GList * bftextview2_scantable_rematch_highlights(Tscantable *st, const gchar *lang) {
 	int i=0;
+	GList *retlist=NULL;
 	for (i=0;i<(st->contexts->len);i++) {
 /*		g_print("context %d",i);
 		g_print(" has highlight %s\n",g_array_index(st->contexts, Tcontext, i).contexthighlight);*/
-		if (g_array_index(st->contexts, Tcontext, i).contexthighlight)
+		if (g_array_index(st->contexts, Tcontext, i).contexthighlight) {
 			g_array_index(st->contexts, Tcontext, i).contexttag = langmrg_lookup_tag_highlight(lang, g_array_index(st->contexts, Tcontext, i).contexthighlight);
+			if (g_array_index(st->contexts, Tcontext, i).contexttag)
+				retlist = g_list_prepend(retlist, g_array_index(st->contexts, Tcontext, i).contexttag);
+		}
 	}
 	for (i=0;i<(st->matches->len);i++) {
 /*		g_print("pattern %d",i);
 		g_print(" (%s)",g_array_index(st->matches, Tpattern, i).pattern);
 		g_print(" has selfhighlight %s and blockhighlight %s\n",g_array_index(st->matches, Tpattern, i).selfhighlight,g_array_index(st->matches, Tpattern, i).blockhighlight);*/
-		if (g_array_index(st->matches, Tpattern, i).selfhighlight)
+		if (g_array_index(st->matches, Tpattern, i).selfhighlight) {
 			g_array_index(st->matches, Tpattern, i).selftag = langmrg_lookup_tag_highlight(lang, g_array_index(st->matches, Tpattern, i).selfhighlight);
-		if (g_array_index(st->matches, Tpattern, i).blockhighlight)
+			if (g_array_index(st->matches, Tpattern, i).selftag)
+				retlist = g_list_prepend(retlist, g_array_index(st->matches, Tpattern, i).selftag);
+		}
+		if (g_array_index(st->matches, Tpattern, i).blockhighlight) {
 			g_array_index(st->matches, Tpattern, i).blocktag = langmrg_lookup_tag_highlight(lang, g_array_index(st->matches, Tpattern, i).blockhighlight);
+			if (g_array_index(st->matches, Tpattern, i).blocktag)
+				retlist = g_list_prepend(retlist, g_array_index(st->matches, Tpattern, i).blocktag);
+		}
 	}
+	return retlist;
 }
 
 /*static void print_characters(gchar *characters) {
@@ -471,8 +483,8 @@ gint16 new_context(Tscantable *st, const gchar *lang, gchar *symbols, const gcha
 	g_array_index(st->contexts, Tcontext, context).identstate = identstate;
 	g_array_index(st->contexts, Tcontext, context).autocomplete_case_insens = autocomplete_case_insens;
 	g_array_index(st->contexts, Tcontext, context).contexthighlight = contexthighlight;
-	if (contexthighlight) 
-		g_array_index(st->contexts, Tcontext, context).contexttag = langmrg_lookup_tag_highlight(lang, contexthighlight);
+	/*if (contexthighlight) 
+		g_array_index(st->contexts, Tcontext, context).contexttag = langmrg_lookup_tag_highlight(lang, contexthighlight);*/
 	g_array_set_size(st->table,st->table->len+2);
 
 	DBG_PATCOMPILE("new context %d has startstate %d, identstate %d and symbols %s\n",context, g_array_index(st->contexts, Tcontext, context).startstate, g_array_index(st->contexts, Tcontext, context).identstate,symbols);
@@ -561,6 +573,7 @@ static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang
 	g_array_index(st->matches, Tpattern, matchnum).case_insens = case_insens;
 	g_array_index(st->matches, Tpattern, matchnum).is_regex = is_regex;
 	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = selfhighlight;
+	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = blockhighlight;
 	g_array_index(st->matches, Tpattern, matchnum).autocomplete = autocomplete;
 	if (autocomplete) {
 		if (autocomplete_string)
@@ -568,11 +581,10 @@ static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang
 		else if (autocomplete_append)
 			g_array_index(st->matches, Tpattern, matchnum).autocomplete_string = g_strconcat(g_array_index(st->matches, Tpattern, matchnum).pattern, autocomplete_append, NULL);
 	}
-	if (selfhighlight)
-		g_array_index(st->matches, Tpattern, matchnum).selftag = langmrg_lookup_tag_highlight(lang, selfhighlight);
-	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = blockhighlight;
-	if (blockhighlight)
-		g_array_index(st->matches, Tpattern, matchnum).blocktag = langmrg_lookup_tag_highlight(lang, blockhighlight);
+	/*if (selfhighlight)
+		g_array_index(st->matches, Tpattern, matchnum).selftag = langmrg_lookup_tag_highlight(lang, selfhighlight);*/
+	/*if (blockhighlight)
+		g_array_index(st->matches, Tpattern, matchnum).blocktag = langmrg_lookup_tag_highlight(lang, blockhighlight);*/
 	return matchnum;
 }
 

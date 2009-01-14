@@ -255,11 +255,11 @@ typedef struct {
 /* scanning the text and caching the results */
 /*****************************************************************/
 typedef struct {
-	GtkTextMark *start1;
-	GtkTextMark *end1;
-	GtkTextMark *start2;
-	GtkTextMark *end2;
-	gint16 patternum;
+	GtkTextMark *start1; /* start of the 'start' pattern */
+	GtkTextMark *end1;  /* end of the 'start' pattern */
+	GtkTextMark *start2; /* start of the 'end' pattern */
+	GtkTextMark *end2; /* end of the 'end' pattern */
+	gint16 patternum; /* which pattern (number of the array element in scantable->matches) */
 	guint16 refcount; /* free on 0 */
 	guint8 folded;
 	guint8 foldable; /* perhaps on a single line ? */
@@ -274,9 +274,9 @@ typedef struct {
 						of the stack is copied into Tscancache */
 
 typedef struct {
-	GtkTextMark *start;
-	GtkTextMark *end;
-	gint16 context;
+	GtkTextMark *start; /* start of the context, the end of the match that has a contextchange */
+	GtkTextMark *end;/* end of the context, the end of the match that has a -1 contextchange */
+	gint16 context; /* number of the element in scantable->contexts */
 	guint16 refcount; /* free on 0 */
 } Tfoundcontext; /* once a start-of-context is found start is set
 						and the Tfoundcontext is added to the GtkTextMark as "context"
@@ -316,8 +316,10 @@ typedef struct {
 typedef struct {
 	gchar *name;
 	GList *mimetypes;
-	GList *langoptions; /* all options that can be enabled/disabled for this language */
-	GList *setoptions; /* all options that are enabled */
+	GList *langoptions; /* all options that can be enabled/disabled for this language and their default value (0 or 1) */
+	GList *setoptions; /* all options that are enabled have value '1' in this hashtable */
+	GList *tags; /* all tags used for highlighting in this language. we use this list when 
+						we want to remove all tags and want to re-highlight */
 	gchar *filename; /* the .bflang2 file */
 	Tscantable *st; /* NULL or complete */
 	gboolean no_st; /* no scantable, for Text, don't try to load the scantable if st=NULL */
