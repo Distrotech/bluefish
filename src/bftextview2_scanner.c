@@ -483,6 +483,7 @@ static gboolean bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuff
 			return FALSE;
 		}
 	}
+	DBG_SCANNING("first position that toggles needscanning is at %d\n",gtk_text_iter_get_offset(start));
 	/* find the end of the region */
 	*end = *start;
 	gtk_text_iter_forward_char(end);
@@ -494,6 +495,7 @@ static gboolean bftextview2_find_region2scan(BluefishTextView * btv, GtkTextBuff
 	}
 	/* now move start to the beginning of the line and end to the end of the line */
 	gtk_text_iter_set_line_offset(start,0);
+	DBG_SCANNING("set startposition to beginning of line, offset is now %d\n",gtk_text_iter_get_offset(start));
 	gtk_text_iter_forward_to_line_end(end);
 	gtk_text_iter_forward_char(end);
 	return TRUE;
@@ -558,6 +560,17 @@ static void remove_old_matches_at_iter(BluefishTextView *btv, GtkTextBuffer *buf
 	/ * TODO see if there are any old blockstack or context changes * /
 
 }*/
+#define REMOVE_SPECIFIC_TAGS
+
+#ifdef REMOVE_SPECIFIC_TAGS
+static void remove_old_highlighting(BluefishTextView *btv, GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end) {
+	GList *tmplist = g_list_first(btv->bflang->tags);
+	while (tmplist) {
+		gtk_text_buffer_remove_tag(buffer, (GtkTextTag *)tmplist->data, start, end);
+		tmplist = g_list_next(tmplist);
+	}
+}
+#endif
 
 static void remove_old_scan_results(BluefishTextView *btv, GtkTextBuffer *buffer, GtkTextIter *fromhere) {
 	GtkTextIter end;
@@ -566,8 +579,12 @@ static void remove_old_scan_results(BluefishTextView *btv, GtkTextBuffer *buffer
 
 	gtk_text_buffer_get_end_iter(buffer,&end);
 	DBG_SCANCACHE("remove_old_scan_results: remove tags from charoffset %d to %d\n",gtk_text_iter_get_offset(fromhere),gtk_text_iter_get_offset(&end));
+#ifdef REMOVE_SPECIFIC_TAGS
+	DBG_SCANNING("remove %d tags\n",g_list_length(btv->bflang->tags));
+	remove_old_highlighting(btv, buffer, fromhere, &end);
+#else
 	gtk_text_buffer_remove_all_tags(buffer,fromhere,&end);
-
+#endif
 	fakefstack.charoffset = gtk_text_iter_get_offset(fromhere);
 	sit1 = g_sequence_search(btv->scancache.stackcaches,&fakefstack,stackcache_compare_charoffset,NULL);
 	if (sit1 && !g_sequence_iter_is_end(sit1)) {
@@ -737,18 +754,21 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 			last_character_run = 1 - last_character_run;
 		}
 	} while ((normal_run || last_character_run) && (loop%loops_per_timer!=0 || g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL));
-	DBG_SCANNING("scanned up to position %d, (end=%d, orig_end=%d) which took %f microseconds\n",gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&end),gtk_text_iter_get_offset(&orig_end),g_timer_elapsed(scanning.timer,NULL));
+	DBG_SCANNING("scanned from %d to position %d, (end=%d, orig_end=%d) which took %f microseconds, loops_per_timer=%d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&end),gtk_text_iter_get_offset(&orig_end),g_timer_elapsed(scanning.timer,NULL),loops_per_timer);
+#ifdef REMOVE_SPECIFIC_TAGS
+	gtk_text_buffer_remove_tag(buffer, btv->needscanning, &start , &iter);
+#else 
 	gtk_text_buffer_apply_tag(buffer,btv->needscanning,&iter,&orig_end);
-
+#endif
 	/*g_array_free(matchstack,TRUE);*/
 #ifdef HL_PROFILING
 	stage4 = g_timer_elapsed(scanning.timer,NULL);
 	g_print("timing for this %d ms scanning run: %d, %d, %d, %d; loops=%d,chars=%d,blocks %d/%d (%d) contexts %d/%d (%d) scancache %d refcs %d(%dKb),%d(%dKb),%d(%dKb)\n"
-		,(gint)(1000*stage4)
-		,(gint)(1000*stage1)
-		,(gint)(1000*stage2-stage1)
-		,(gint)(1000*stage3-stage2)
-		,(gint)(1000*stage4-stage3)
+		,(gint)(1000.0*stage4)
+		,(gint)(1000.0*stage1)
+		,(gint)(1000.0*stage2-stage1)
+		,(gint)(1000.0*stage3-stage2)
+		,(gint)(1000.0*stage4-stage3)
 		,hl_profiling.numloops,hl_profiling.numchars
 		,hl_profiling.numblockstart,hl_profiling.numblockend,hl_profiling.longest_blockstack
 		,hl_profiling.numcontextstart,hl_profiling.numcontextend,hl_profiling.longest_contextstack

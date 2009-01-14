@@ -121,7 +121,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 					/* don't call timeout function again (run in idle) */
 					if (!btv->scanner_idle) {
 						DBG_DELAYSCANNING("schedule scan again in idle time\n");
-						btv->scanner_idle = g_idle_add(bftextview2_scanner_idle, btv);
+						btv->scanner_idle = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+50,bftextview2_scanner_idle, btv, NULL);
 					} else {
 						DBG_DELAYSCANNING("scan in idle is already scheduled\n");
 					}
@@ -136,6 +136,7 @@ static gboolean bftextview2_scanner_scan(BluefishTextView *btv, gboolean in_idle
 				/* get visible area and only scan the visible area */
 				gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(btv), &rect);
 				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(btv), &endvisible, rect.y + rect.height, NULL);
+				gtk_text_iter_forward_to_line_end(&endvisible);
 				DBG_DELAYSCANNING("not idle, call scan for visible area\n");
 				if (!bftextview2_run_scanner(btv, &endvisible)) {
 					DBG_DELAYSCANNING("finished scanning\n");
@@ -193,7 +194,7 @@ void bftextview2_schedule_scanning(BluefishTextView * btv) {
 		DBG_MSG("bftextview2_schedule_scanning, scheduling scanning function\n");
 		DBG_DELAYSCANNING("scheduling scanning in idle function\n");
 		/* G_PRIORITY_LOW IS 300 and G_PRIORITY_DEFAULT_IDLE is 200 */
-		btv->scanner_idle = g_idle_add_full(250,bftextview2_scanner_idle, btv,NULL);
+		btv->scanner_idle = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+50,bftextview2_scanner_idle, btv,NULL);
 	}
 }
 
