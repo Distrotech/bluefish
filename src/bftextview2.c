@@ -194,7 +194,7 @@ void bftextview2_schedule_scanning(BluefishTextView * btv) {
 		DBG_MSG("bftextview2_schedule_scanning, scheduling scanning function\n");
 		DBG_DELAYSCANNING("scheduling scanning in idle function\n");
 		/* G_PRIORITY_LOW IS 300 and G_PRIORITY_DEFAULT_IDLE is 200 */
-		btv->scanner_idle = g_idle_add_full(G_PRIORITY_DEFAULT_IDLE+50,bftextview2_scanner_idle, btv,NULL);
+		btv->scanner_idle = g_idle_add_full(G_PRIORITY_DEFAULT-50,bftextview2_scanner_idle, btv,NULL);
 	}
 }
 
