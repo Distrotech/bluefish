@@ -757,6 +757,10 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 	DBG_SCANNING("scanned from %d to position %d, (end=%d, orig_end=%d) which took %f microseconds, loops_per_timer=%d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&end),gtk_text_iter_get_offset(&orig_end),g_timer_elapsed(scanning.timer,NULL),loops_per_timer);
 #ifdef REMOVE_SPECIFIC_TAGS
 	gtk_text_buffer_remove_tag(buffer, btv->needscanning, &start , &iter);
+	
+	/* because we do not yet have an algorithm to find out where our previous scanning runs are still valid
+	we have to re-scan all the text up to the end */
+	gtk_text_buffer_apply_tag(buffer,btv->needscanning,&iter,&orig_end);
 #else 
 	gtk_text_buffer_apply_tag(buffer,btv->needscanning,&iter,&orig_end);
 #endif
