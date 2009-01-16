@@ -52,7 +52,7 @@ static gboolean bftextview2_user_idle_timer(gpointer data)
 	if ((elapsed + 20) >= USER_IDLE_EVENT_INTERVAL) {	/* avoid delaying again for less than 20 milliseconds */
 		DBG_AUTOCOMP("bftextview2_user_idle_timer, user is > %d milliseconds idle, autocomp=%d, mode=%d\n", elapsed,btv->autocomplete, main_v->props.autocomp_popup_mode);
 #ifdef IN_BLUEFISH
-		if (btv->autocomplete && main_v->props.autocomp_popup_mode == 1)
+		if (btv->autocomplete && main_v->props.autocomp_popup_mode == 0)
 #else
 		if (btv->autocomplete && autocomp_popup_mode == 1)
 #endif
@@ -76,7 +76,7 @@ static void bftextview2_reset_user_idle_timer(BluefishTextView * btv)
 	DBG_DELAYSCANNING("timer reset\n");
 	g_timer_start(btv->user_idle_timer);
 #ifdef IN_BLUEFISH
-	need_timeout_func = ((main_v->props.autocomp_popup_mode==1&&btv->autocomp)||main_v->props.delay_full_scan);
+	need_timeout_func = ((main_v->props.autocomp_popup_mode==0&&btv->autocomp)||main_v->props.delay_full_scan);
 #else
 	need_timeout_func = ((autocomp_popup_mode==1&&btv->autocomp)||delay_full_scan);
 #endif
@@ -327,7 +327,7 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
 #ifdef IN_BLUEFISH
-	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode == 2)) {
+	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode == 1)) {
 		autocomp_run(btv,FALSE);
 	}
 #else
@@ -615,7 +615,7 @@ static void bftextview2_delete_range_after_lcb(GtkTextBuffer * buffer, GtkTextIt
 										 GtkTextIter * oend, gpointer user_data)
 {
 	BluefishTextView *btv=user_data;
-	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode == 2)) {
+	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode == 1)) {
 		autocomp_run(btv,FALSE);
 	}
 }
@@ -630,7 +630,7 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 		}
 	}
 	btv->key_press_was_autocomplete = FALSE;
-	if (btv->enable_scanner && btv->autocomplete && (kevent->state & GDK_CONTROL_MASK) && kevent->keyval == ' ') {
+	if (btv->enable_scanner && (kevent->state & GDK_CONTROL_MASK) && kevent->keyval == ' ') {
 		autocomp_run(btv,TRUE);
 		return TRUE;
 	}
@@ -1000,6 +1000,7 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 	textview->linenumbers = main_v->props.view_line_numbers;
 	textview->showblocks = main_v->props.view_blocks;
 	textview->autoindent = main_v->props.autoindent;
+	textview->autocomplete=main_v->props.autocomplete;
 	textview->showsymbols=TRUE;
 #else
 	if (background_color) {
@@ -1010,8 +1011,7 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 #endif
 	textview->needscanning = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"_needscanning_");
 	textview->blockmatch = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"blockmatch");
-	textview->enable_scanner=FALSE;
-	textview->autocomplete=TRUE;	
+	textview->enable_scanner=FALSE;	
 	/*font_desc = pango_font_description_from_string("Monospace 10");
 	gtk_widget_modify_font(GTK_WIDGET(textview), font_desc);
 	pango_font_description_free(font_desc);*/
