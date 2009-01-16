@@ -65,9 +65,9 @@ nextcontext -1), we revert to the previous context
   scancache. Along with walking the lines we walk the GSequence and see if there are new
   blocks that can be folded.
 
-- the current scanning is based on Deterministic Finite Automata (DFA) just like the current
-unstable engine (see wikipedia for more info). The unstable engine alloc's each state in a
-separate memory block. This engine alloc's a large array for all states at once, so you can
+- the current scanning is based on Deterministic Finite Automata (DFA) just like the 1.1.6
+unstable engine (see wikipedia for more info). The 1.1.6 engine alloc's each state in a
+separate memory block. This new engine alloc's a large array for all states at once, so you can
 simply move trough the array instead of following pointers. Following the DFA is then as simple
 as state = table[state][character]; where state is just an integer position in the array, and
 character is the current character you're scanning. I hope the array will help to speed up
@@ -155,12 +155,6 @@ a -> state 1
 
 as you see, the scanner is stuck in state 1 (the identstate) if
 either on the start or on the end there is no symbol.
-
-TODO:
-a style may be defined differenty in multiple files, which is not very nice.
-- an alternative would be to have a separate file for all the default styles.
-in the end, many styles could be user-defined anyway and the pre-defined styles
-may not be used then...
 
 */
 

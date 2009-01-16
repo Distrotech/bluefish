@@ -206,6 +206,9 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 		bfwin->current_document->linenumberstate = GTK_CHECK_MENU_ITEM(widget)->active;
 		document_set_line_numbers(bfwin->current_document, bfwin->current_document->linenumberstate);
 		break;
+	case 3:
+		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->autocomplete = GTK_CHECK_MENU_ITEM(widget)->active;
+		break;
 	case 4:
 		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->autoindent = GTK_CHECK_MENU_ITEM(widget)->active;
 		break;
@@ -290,6 +293,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/_Increase Tabsize"), NULL, gui_change_tabsize, 1, "<Item>"},
 	{N_("/Document/_Decrease Tabsize"), NULL, gui_change_tabsize, 0, "<Item>"},
 	{N_("/Document/_Auto Indent"), NULL, toggle_doc_property, 4, "<ToggleItem>"},
+	{N_("/Document/_Auto completion popup"), NULL, toggle_doc_property, 3, "<ToggleItem>"},
 	{"/Document/sep1", NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/_Wrap"), NULL, toggle_doc_property, 1, "<ToggleItem>"},
 	{N_("/Document/_Line Numbers"), NULL, toggle_doc_property, 2, "<ToggleItem>"},

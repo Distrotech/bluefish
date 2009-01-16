@@ -258,7 +258,8 @@ typedef struct {
 	gboolean show_tooltip_reference;
 	gboolean delay_full_scan;
 	gint delay_scan_time;
-	gint autocomp_popup_mode;
+	gint autocomplete; /* whether or not to enable autocomplete by default for each new document */
+	gint autocomp_popup_mode; /* delayed or immediately */
 	gboolean reduced_scan_triggers;
 } Tproperties;
 

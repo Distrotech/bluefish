@@ -90,6 +90,7 @@ enum {
 	show_autocomp_reference,
 	show_tooltip_reference,
 	delay_full_scan,
+	autocomplete,
 	autocomp_popup_mode,
 	reduced_scan_triggers,
 	view_blocks,
@@ -1383,6 +1384,7 @@ static void preferences_dialog() {
 	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax"), main_v->props.defaulthighlight, vbox2);
 	pd->prefs[view_cline] = boxed_checkbut_with_value(_("Highlight current line"), main_v->props.view_cline, vbox2);
 	pd->prefs[view_blocks] = boxed_checkbut_with_value(_("Enable block folding"), main_v->props.view_blocks, vbox2);
+	pd->prefs[autocomplete] = boxed_checkbut_with_value(_("Enable automatic completion pop-up"), main_v->props.autocomplete, vbox2);
 	pd->prefs[view_mbhl] = boxed_checkbut_with_value(_("Highlight matching block begin-end"), main_v->props.view_mbhl, vbox2);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
@@ -1583,8 +1585,8 @@ static void preferences_dialog() {
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);
 
 	{
-		gchar *autocompmodes[] = {N_("On keypress only"), N_("Delayed"),N_("Immediately"), NULL};
-		pd->prefs[autocomp_popup_mode] = boxed_optionmenu_with_value(_("Show the autocompletion popup window"), main_v->props.autocomp_popup_mode, vbox2, autocompmodes);
+		gchar *autocompmodes[] = {N_("Delayed"),N_("Immediately"), NULL};
+		pd->prefs[autocomp_popup_mode] = boxed_optionmenu_with_value(_("Show the automatic completion pop-up window"), main_v->props.autocomp_popup_mode, vbox2, autocompmodes);
 	}
 	pd->prefs[load_reference] = boxed_checkbut_with_value(_("Load reference information from language file"), main_v->props.load_reference, vbox2);
 	pd->prefs[show_autocomp_reference] = boxed_checkbut_with_value(_("Show reference information in autocompletion pop-up"), main_v->props.show_autocomp_reference, vbox2);
