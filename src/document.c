@@ -2214,6 +2214,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	}
 	newdoc->tab_menu = gtk_label_new(NULL);
 	newdoc->tab_eventbox = gtk_event_box_new();
+	gtk_event_box_set_visible_window(GTK_EVENT_BOX(newdoc->tab_eventbox), FALSE);
 	gtk_misc_set_alignment(GTK_MISC(newdoc->tab_menu), 0,0);
 
 	doc_unre_init(newdoc);
@@ -2252,14 +2253,14 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	{
 		GtkWidget *hbox, *button;
 
-		hbox = gtk_hbox_new(FALSE, 4);
+		hbox = gtk_hbox_new(FALSE, 6);
 
 		button = bluefish_small_close_button_new();
 		g_signal_connect(button, "clicked", G_CALLBACK (doc_close_but_clicked_lcb), newdoc);
 
 		gtk_container_add(GTK_CONTAINER(newdoc->tab_eventbox), newdoc->tab_label);
 		gtk_box_pack_start(GTK_BOX(hbox), newdoc->tab_eventbox, TRUE, TRUE, 0);
-		gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 0);
+		gtk_box_pack_start(GTK_BOX(hbox), button, FALSE, FALSE, 2);
 		gtk_widget_show_all(hbox);
 		gtk_notebook_append_page_menu(GTK_NOTEBOOK(bfwin->notebook), scroll ,hbox, newdoc->tab_menu);
 		gtk_notebook_set_tab_reorderable(GTK_NOTEBOOK(bfwin->notebook), scroll, TRUE);
