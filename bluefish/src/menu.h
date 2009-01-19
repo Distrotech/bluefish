@@ -24,7 +24,7 @@
 
 void menu_current_document_set_toggle_wo_activate(Tbfwin *bfwin, gpointer filetype, gchar *encoding);
 void menu_create_main(Tbfwin *bfwin,GtkWidget *vbox);
-void add_to_recent_list(Tbfwin *bfwin,gchar *filename, gint closed_file, gboolean is_project);
+void add_to_recent_list(Tbfwin *bfwin,GFile *file, gint closed_file, gboolean is_project);
 GList *recent_menu_from_list(Tbfwin *bfwin, GList *startat, gboolean is_project);
 void recent_menu_init(Tbfwin *bfwin);
 void recent_menu_init_project(Tbfwin *bfwin);

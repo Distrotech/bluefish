@@ -251,7 +251,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	
 	retval = rcfile_save_project(bfwin->project, bfwin->project->uri);
 	DEBUG_MSG("project_save, retval=%d\n",retval);
-/* BUG TODO	add_to_recent_list(bfwin,bfwin->project->filename, FALSE, TRUE);*/
+	add_to_recent_list(bfwin,bfwin->project->uri, FALSE, TRUE);
 	return retval;
 }
 
@@ -288,7 +288,7 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 		g_free(prj);
 		return;
 	}
-	/* BUG TODO add_to_recent_list(bfwin,fromfilename, FALSE, TRUE); */
+	add_to_recent_list(bfwin,fromuri, FALSE, TRUE);
 	prj->uri = fromuri;
 	g_object_ref(fromuri);
 	if (bfwin->project == NULL && test_only_empty_doc_left(bfwin->documentlist)) {
@@ -421,7 +421,7 @@ gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 			DEBUG_MSG("project_save failed, returning\n");
 			return FALSE;
 		}
-		/*BUG TODO add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);*/
+		add_to_recent_list(bfwin,bfwin->project->uri, TRUE, TRUE);
 	}
 	if (test_only_empty_doc_left(bfwin->documentlist)) {
 		project_destroy(bfwin->project);

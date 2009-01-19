@@ -427,7 +427,7 @@ static GtkWidget *remove_menuitem_in_list_by_label(const gchar *labelstring, GLi
 }
 
 /* the result of this function can be added to the menuitem-list */
-static GtkWidget *create_dynamic_menuitem(Tbfwin *bfwin, gchar *menubasepath, const gchar *label, GCallback callback, gpointer data, gint menu_insert_offset) {
+static GtkWidget *create_dynamic_menuitem(Tbfwin *bfwin, const gchar *menubasepath, const gchar *label, GCallback callback, gpointer data, gint menu_insert_offset) {
 	GtkWidget *tmp, *menu;
 	GtkItemFactory *factory;
 
@@ -719,8 +719,8 @@ void recent_menu_init_project(Tbfwin *bfwin) {
  * This should be called when a new file is opened, i.e. from
  * file_open_cb, it adds a new entry which also appears in the
  * menu bar, and (if nessecary) deletes the last entry */
-void add_to_recent_list(Tbfwin *bfwin,gchar *filename, gint closed_file, gboolean is_project) {
-	DEBUG_MSG("add_to_recent_list, started for %s\n", filename);
+void add_to_recent_list(Tbfwin *bfwin, GFile *file, gint closed_file, gboolean is_project) {
+	gchar *filename = g_file_get_uri(file);
 	if (closed_file) {
 		GList *tmplist = g_list_first(main_v->bfwinlist);
 		while (tmplist) {
