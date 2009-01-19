@@ -194,10 +194,10 @@ gint return_num_untitled_documents(GList *doclist) {
  * adds a filename to the recently opened files list
  * will not add it to the menu, only to the list and the file
  **/
-void add_filename_to_history(Tbfwin *bfwin, gchar *filename) {
+void add_filename_to_history(Tbfwin *bfwin, GFile *file) {
 /*	gchar *dirname;*/
 
-	add_to_recent_list(bfwin, filename, 0, FALSE); /* the recent menu */
+	add_to_recent_list(bfwin, file, 0, FALSE); /* the recent menu */
 /*	dirname = g_path_get_dirname(filename);
 	DEBUG_MSG("add_filename_to_history, adding %s\n",dirname);
 	main_v->recent_directories = add_to_history_stringlist(main_v->recent_directories,dirname,FALSE,TRUE);
@@ -1970,9 +1970,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	bmark_clean_for_doc(doc);
 
 	if (doc->uri) {
-		gchar *curi = g_file_get_uri(doc->uri);
-		add_to_recent_list(doc->bfwin,curi, 1, FALSE);
-		g_free(curi);
+		add_to_recent_list(doc->bfwin,doc->uri, 1, FALSE);
 	}
 	gui_notebook_unbind_signals(BFWIN(doc->bfwin));
 
@@ -2404,7 +2402,7 @@ void doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean d
 		DEBUG_MSG("doc_new_from_uri, uri=%p, delay_activate=%d, focus_next_new_doc=%d\n",uri,delay_activate, bfwin->focus_next_new_doc);
 		file_doc_from_uri(bfwin, uri, finfo, goto_line, goto_offset, open_readonly);
 	}
-	add_filename_to_history(bfwin, tmpcuri);
+	add_filename_to_history(bfwin, uri);
 	session_set_opendir(bfwin, tmpcuri);
 	g_free(tmpcuri);
 }
