@@ -306,10 +306,13 @@ static gboolean parse_config_file(GHashTable * config_list, GFile * file)
 		tmpstring = (gchar *) tmplist->data;
 
 		if (tmpstring != NULL) {
-			gchar *key;
+			gchar *key, *tmp;
 			g_strchug(tmpstring);
 			DEBUG_MSG("parse_config_file, tmpstring=%s\n", tmpstring);
-			key = g_strndup(tmpstring, strchr(tmpstring,':')-tmpstring+1);
+			tmp = strchr(tmpstring,':');
+			if (!tmp)
+				break;
+			key = g_strndup(tmpstring, tmp-tmpstring+1);
 			tmpitem = g_hash_table_lookup(config_list, key);
 			g_free(key);
 			if (tmpitem) {
