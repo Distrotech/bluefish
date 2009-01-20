@@ -301,11 +301,10 @@ static gboolean parse_config_file(GHashTable * config_list, GFile * file)
 	DEBUG_MSG("parse_config_file, all the type 'l' and 'a' have been emptied\n");
 	DEBUG_MSG("parse_config_file, length rclist=%d\n", g_list_length(rclist));
 /* And now for parsing every line in the config file, first check if there is a valid identifier at the start. */
-	tmplist = g_list_first(rclist);
-	while (tmplist) {
+	tmplist ;
+	for (tmplist= g_list_first(rclist);tmplist;tmplist=g_list_next(tmplist)) {
 		tmpstring = (gchar *) tmplist->data;
-
-		if (tmpstring != NULL) {
+		if (tmpstring != NULL && tmpstring[0] != '\0') {
 			gchar *key, *tmp;
 			g_strchug(tmpstring);
 			DEBUG_MSG("parse_config_file, tmpstring=%s\n", tmpstring);
@@ -359,7 +358,6 @@ static gboolean parse_config_file(GHashTable * config_list, GFile * file)
 				}
 			}
 		}
-		tmplist = g_list_next(tmplist);
 	}
 	DEBUG_MSG("parse_config_file, parsed all entries, freeing list read from file\n");
 	free_stringlist(rclist);
