@@ -65,7 +65,7 @@ static void files_advanced_win_ok_clicked(Tfiles_advanced *tfs) {
   basedir = gtk_editable_get_chars (GTK_EDITABLE (tfs->basedir), 0, -1);
   baseuri = g_file_new_for_uri(basedir);
   content_filter = gtk_editable_get_chars(GTK_EDITABLE(GTK_COMBO(tfs->grep_pattern)->entry), 0, -1);
-  tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist,content_filter,TRUE,TRUE);
+  tfs->bfwin->session->searchlist = add_to_history_stringlist(tfs->bfwin->session->searchlist,content_filter,FALSE,TRUE);
 
   open_advanced(tfs->bfwin, baseuri, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->recursive))
       , gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(tfs->matchname))

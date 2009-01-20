@@ -229,14 +229,15 @@ static gint save_config_file(GHashTable * config_list, GFile * file)
 			if (tmpitem->type == 'm') max = tmpitem->len;
 			tmplist2 = g_list_last((GList *) * (void **) tmpitem->pointer);
 			while (tmplist2 != NULL && max != 0) {
-				tmpstring2 = (char *) tmplist2->data;
-				tmpstring = g_strdup_printf("%s %s", tmpitem->identifier, tmpstring2);
-				DEBUG_MSG("save_config_file, tmpstring(%p)=%s\n", tmpstring, tmpstring);
+				tmpstring2 = escape_string((char *) tmplist2->data, FALSE);
+				tmpstring = g_strconcat(tmpitem->identifier, " ", tmpstring2, NULL);
+				g_free(tmpstring2);
+				DEBUG_MSG("save_config_file, tmpstring(%p)=%s, orig was %s\n", tmpstring, tmpstring,(gchar *)tmplist2->data);
 				rclist = g_list_append(rclist, tmpstring);
 				tmplist2 = g_list_previous(tmplist2);
 				max--;
 #ifdef DEBUG
-				if (max ==0 && tmplist2 != NULL) DEBUG_MSG("save_config_file, limit reached!, next item would have been %s\n",(gchar *)tmplist2->data);
+				if (max ==0 && tmplist2 != NULL) g_print("save_config_file, limit reached!, next item would have been %s\n",(gchar *)tmplist2->data);
 #endif
 			}
 			} break;
@@ -332,14 +333,15 @@ static gboolean parse_config_file(GHashTable * config_list, GFile * file)
 					strcpy((char *) *(void **) tmpitem->pointer, tmpstring);
 					break;
 				case 'e':
-					tmpstring2 = unescape_string(tmpstring, FALSE); /* I wonder if that should be TRUE */
+					tmpstring2 = unescape_string(tmpstring, FALSE);
 					*(void **) tmpitem->pointer = (char *) realloc((char *) *(void **) tmpitem->pointer, strlen(tmpstring2) + 1);
 					strcpy((char *) *(void **) tmpitem->pointer, tmpstring2);
 					g_free(tmpstring2);
 					break;
 				case 'l':
 				case 'm':
-					tmpstring2 = g_strdup(tmpstring);
+					/*tmpstring2 = g_strdup(tmpstring);*/
+					tmpstring2 = unescape_string(tmpstring,FALSE);
 					* (void **) tmpitem->pointer = g_list_prepend((GList *) * (void **) tmpitem->pointer, tmpstring2);
 					DEBUG_MSG("parse_config_file, *(void **)tmpitem->pointer=%p\n", *(void **) tmpitem->pointer);
 					break;
