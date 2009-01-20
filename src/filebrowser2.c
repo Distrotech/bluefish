@@ -992,7 +992,7 @@ static void add_uri_to_recent_dirs(Tfilebrowser2 * fb2, GFile * uri)
 	tmp = g_file_get_uri(uri);
 
 	fb2->bfwin->session->recent_dirs =
-		add_to_history_stringlist(fb2->bfwin->session->recent_dirs, tmp, TRUE, TRUE);
+		add_to_history_stringlist(fb2->bfwin->session->recent_dirs, tmp, FALSE, TRUE);
 	g_free(tmp);
 }
 
@@ -1947,7 +1947,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 #endif
 
 	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_POINTER));
-	tmplist = g_list_first(fb2->bfwin->session->recent_dirs);
+	tmplist = g_list_last(fb2->bfwin->session->recent_dirs);
 	while (tmplist) {
 		GFile *uri;
 		gchar *name;
@@ -1962,7 +1962,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 							   DIR_URI_COLUMN, uri, -1);
 			g_free(name);
 		}
-		tmplist = g_list_next(tmplist);
+		tmplist = g_list_previous(tmplist);
 	}
 	/* then we rebuild the current uri */
 	tmp = g_file_dup(newcurdir);
@@ -2416,11 +2416,11 @@ void fb2_update_settings_from_session(Tbfwin * bfwin)
 			if (fb2->file_lfilter && fb2->filebrowser_viewmode == viewmode_dual)
 				gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
 		}
-		if (bfwin->session->recent_dirs
-			&& ((GList *) g_list_first(bfwin->session->recent_dirs))->data
-			&& strlen(((GList *) g_list_first(bfwin->session->recent_dirs))->data) > 0) {
+		if (bfwin->session->recent_dirs) {
+			const gchar *tmp = (gchar *)((GList *) g_list_last(bfwin->session->recent_dirs))->data;
 			/* the fb2_set_basedir function tests itself if  the basedir if changed, if not it does not refresh */
-			fb2_set_basedir(bfwin, ((GList *) g_list_first(bfwin->session->recent_dirs))->data);
+			if (tmp && tmp[0])
+				fb2_set_basedir(bfwin, tmp);
 		} else {
 			fb2_set_basedir(bfwin, NULL);
 		}

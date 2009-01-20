@@ -1312,7 +1312,7 @@ static void setup_new_snr2(TSNRWin *snrwin, const gchar *search_pattern, gboolea
 		LASTSNR2(bfwin->snr2)->replace_pattern = NULL;
 	}
 	LASTSNR2(bfwin->snr2)->search_pattern = g_strdup(search_pattern);
-	bfwin->session->searchlist = add_to_history_stringlist(bfwin->session->searchlist,LASTSNR2(bfwin->snr2)->search_pattern,TRUE,TRUE);
+	bfwin->session->searchlist = add_to_history_stringlist(bfwin->session->searchlist,LASTSNR2(bfwin->snr2)->search_pattern,FALSE,TRUE);
 	history = gtk_combo_box_get_model(GTK_COMBO_BOX(snrwin->search));
 	gtk_list_store_prepend(GTK_LIST_STORE(history), &iter);
 	gtk_list_store_set(GTK_LIST_STORE(history), &iter, 0, LASTSNR2(bfwin->snr2)->search_pattern, -1);
@@ -1326,7 +1326,7 @@ static void setup_new_snr2(TSNRWin *snrwin, const gchar *search_pattern, gboolea
 	LASTSNR2(bfwin->snr2)->endpos = -1;
 	if (replace_pattern) {
 		LASTSNR2(bfwin->snr2)->replace_pattern = g_strdup(replace_pattern);
-		bfwin->session->replacelist = add_to_history_stringlist(bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,TRUE,TRUE);
+		bfwin->session->replacelist = add_to_history_stringlist(bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,FALSE,TRUE);
 	}
 	main_v->globses.snr_select_match = LASTSNR2(bfwin->snr2)->select_match = select_match;
 	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;	
@@ -1675,12 +1675,12 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	table = dialog_table_in_vbox(numrows, 2, 6, GTK_DIALOG(snrwin->dialog)->vbox, FALSE, FALSE, 0);
 
 	history = gtk_list_store_new(1, G_TYPE_STRING);
-	list = g_list_first(bfwin->session->searchlist);
+	list = g_list_last(bfwin->session->searchlist);
 	while (list) {
 		DEBUG_MSG("snr_dialog_real: adding search history %s\n",(gchar *)list->data);
 		gtk_list_store_append(history, &iter);
 		gtk_list_store_set(history, &iter, 0, list->data, -1);
-		list = g_list_next(list);
+		list = g_list_previous(list);
 	}
     
 	snrwin->search = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
@@ -1694,12 +1694,12 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 
 	if (dialogType == BF_REPLACE_DIALOG) {
 		history = gtk_list_store_new(1, G_TYPE_STRING);
-		list = g_list_first(bfwin->session->replacelist);
+		list = g_list_last(bfwin->session->replacelist);
 		while (list) {
 			DEBUG_MSG("snr_dialog_real: adding replace history %s\n",(gchar *)list->data);
 			gtk_list_store_append(history, &iter);
 			gtk_list_store_set(history, &iter, 0, list->data, -1);
-			list = g_list_next(list);
+			list = g_list_previous(list);
 		}
 
 		snrwin->replace = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
