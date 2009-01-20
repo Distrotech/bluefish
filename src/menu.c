@@ -553,6 +553,7 @@ void menu_create_main(Tbfwin *bfwin, GtkWidget *vbox) {
 	gtk_widget_show(bfwin->menubar);
 	setup_toggle_item(item_factory, "/View/View Main Toolbar", bfwin->session->view_main_toolbar);
 	setup_toggle_item(item_factory, "/View/View Sidebar", bfwin->session->view_left_panel);
+	setup_toggle_item(item_factory, "/View/View Statusbar", bfwin->session->view_statusbar);
 	setup_toggle_item(item_factory, "/Document/Auto Indent", main_v->props.autoindent);
 	set_project_menu_widgets(bfwin, FALSE);
 	filetype_menu_rebuild(bfwin, item_factory);
