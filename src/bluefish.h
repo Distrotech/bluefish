@@ -184,18 +184,11 @@ typedef struct {
 	gint editor_indent_wspaces; /* indent with spaces, not tabs */
 	gchar *tab_font_string;		/* notebook tabs font */
 	
-	/* old entries */
-	GList *browsers; /* DEPRECATED browsers array ( <=1.0.1) */
-	GList *external_commands;	/* DEPRECATED external commands array ( <=1.0.1) */
-	GList *outputbox; /* DEPRECATED all outputbox commands ( <=1.0.1) */
 	/* new replacements: */
 	GList *external_command; /* array: name,command,is_default_browser */
 	GList *external_filter; /* array: name,command */
 	GList *external_outputbox; /* array:name,command,.......*/
 	
-	GList *cust_menu; 		/* DEPRECATED entries in the custom menu */
-	GList *cmenu_insert; /* custom menu inserts */
-	GList *cmenu_replace; /* custom menu replaces */	
 	gint defaulthighlight;		/* highlight documents by default */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint leave_to_window_manager; /* don't set any dimensions, leave all to window manager */

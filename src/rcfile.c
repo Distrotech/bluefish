@@ -302,7 +302,6 @@ static gboolean parse_config_file(GHashTable * config_list, GFile * file)
 	DEBUG_MSG("parse_config_file, all the type 'l' and 'a' have been emptied\n");
 	DEBUG_MSG("parse_config_file, length rclist=%d\n", g_list_length(rclist));
 /* And now for parsing every line in the config file, first check if there is a valid identifier at the start. */
-	tmplist ;
 	for (tmplist= g_list_first(rclist);tmplist;tmplist=g_list_next(tmplist)) {
 		tmpstring = (gchar *) tmplist->data;
 		if (tmpstring != NULL && tmpstring[0] != '\0') {
@@ -375,9 +374,6 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer   (&config_rc, &main_v->props.editor_smart_cursor, "editor_smart_cursor:", 1, TRUE);
 	init_prop_integer   (&config_rc, &main_v->props.editor_indent_wspaces, "editor_indent_wspaces:", 0, TRUE);
 	init_prop_string    (&config_rc, &main_v->props.tab_font_string, "tab_font_string:", "");
-	init_prop_arraylist (&config_rc, &main_v->props.browsers, "browsers:", 2, TRUE); /* deprecated (<= 1.0.1) */
-	init_prop_arraylist (&config_rc, &main_v->props.outputbox, "outputbox:", 7, TRUE); /* deprecated (<= 1.0.1) */
-	init_prop_arraylist (&config_rc, &main_v->props.external_commands, "external_commands:", 2, TRUE); /* deprecated (<= 1.0.1) */
 	init_prop_arraylist (&config_rc, &main_v->props.external_command, "external_command:", 3, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_filter, "external_filter:", 2, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_outputbox, "external_outputbox:", 7, TRUE);
