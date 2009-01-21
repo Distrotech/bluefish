@@ -264,8 +264,8 @@ typedef struct {
 	gint main_window_w;			/* main window width */
 	gint two_pane_filebrowser_height; /* position of the pane separater on the two paned file browser */
 	gint left_panel_width; 	/* width of filelist */
-	gint lasttime_filetypes; /* see above */
-	gint lasttime_encodings; /* see above */
+	/*gint lasttime_filetypes; / * see above */
+	/*gint lasttime_encodings; / * see above */
 	gint snr_select_match; /* if the search and replace should select anything found or just mark it */
 	gint bookmarks_default_store; /* 0= temporary by default, 1= permanent by default */
 	gint image_thumbnail_refresh_quality; /* 1=GDK_INTERP_BILINEAR, 0=GDK_INTERP_NEAREST*/
