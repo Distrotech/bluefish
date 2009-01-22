@@ -37,7 +37,7 @@
  */
 /*****************************************************/
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>    /* GDK_Return */
@@ -149,22 +149,26 @@ static void move_window_away_from_cursor(Tdocument *doc, GtkWindow *win, GtkText
 	}
 }
 
-static void snr2_doc_highlight_match(Tdocument *doc, GtkWindow *dialog, gint start, gint end) {
-	const gchar * tagname =  "snr2match";
-	GtkTextIter itstart, itend;
-	GdkRectangle visirect;
-	GtkTextIter visi_so, visi_eo;
+static void snr2_doc_tag_match(Tdocument *doc,GtkTextIter *itstart,GtkTextIter *itend) {
+	static const gchar * tagname = "snr2match";
 	GtkTextTag *tag;
-
-	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
-	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
-	
 	tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(doc->buffer), tagname);
 	if (!tag) {
 		tag = gtk_text_buffer_create_tag(doc->buffer, tagname, "background", "#FF0000", "foreground", "#000000", NULL);
 	}  
-	gtk_text_buffer_apply_tag(doc->buffer, tag, &itstart, &itend);
+	gtk_text_buffer_apply_tag(doc->buffer, tag, itstart, itend);
+}
 
+static void snr2_doc_highlight_match(Tdocument *doc, GtkWindow *dialog, gint start, gint end) {
+	GtkTextIter itstart, itend;
+	GdkRectangle visirect;
+	GtkTextIter visi_so, visi_eo;
+
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
+	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
+	
+	snr2_doc_tag_match(doc,&itstart,&itend);
+	
 	gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(doc->view),&visirect);
 	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_so, visirect.x, visirect.y);
 	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_eo, visirect.x + visirect.width, visirect.y + visirect.height);
@@ -441,15 +445,20 @@ Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_patte
  *
  * Return value: void
  **/
-void doc_show_result(Tdocument *document, GtkWindow *window, gint start, gint end, gboolean select_match) {
+void doc_show_result(Tdocument *doc, GtkWindow *window, gint start, gint end, gboolean select_match) {
 	DEBUG_MSG("doc_show_result, select from start=%d to end=%d\n",start, end);
-	if (document != BFWIN(document->bfwin)->current_document) {
-		switch_to_document_by_pointer(BFWIN(document->bfwin),document);
+	if (doc != BFWIN(doc->bfwin)->current_document) {
+		switch_to_document_by_pointer(BFWIN(doc->bfwin),doc);
 	}
-	if (select_match) {
-		doc_select_region(document, start, end, TRUE);
+	if (select_match) {	
+		GtkTextIter itstart,itend;
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
+		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
+
+		snr2_doc_tag_match(doc,&itstart,&itend);
+		doc_select_and_scroll(doc, &itstart, &itend,FALSE, TRUE);
 	} else {
-		snr2_doc_highlight_match(document, window, start,end);
+		snr2_doc_highlight_match(doc, window, start,end);
 	}
 }
 
@@ -877,6 +886,7 @@ static gboolean replace_current_match(Tbfwin *bfwin) {
 	GtkTextTag *tag;
 	gtk_text_buffer_get_iter_at_offset(bfwin->current_document->buffer,&itstart,LASTSNR2(bfwin->snr2)->result.start);
 	gtk_text_buffer_get_iter_at_offset(bfwin->current_document->buffer,&itend,LASTSNR2(bfwin->snr2)->result.end);
+	DEBUG_MSG("replace_current_match, get iters at %d and %d\n",LASTSNR2(bfwin->snr2)->result.start,LASTSNR2(bfwin->snr2)->result.end);
 	tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(bfwin->current_document->buffer),"snr2match");
 	if (gtk_text_iter_toggles_tag(&itstart, tag) && gtk_text_iter_toggles_tag(&itend, tag)) {
 		gchar *tmpstr;
@@ -925,6 +935,8 @@ static gboolean replace_current_match(Tbfwin *bfwin) {
 			LASTSNR2(bfwin->snr2)->endpos += lenadded;
 		}
 		return TRUE;
+	} else {
+		DEBUG_MSG("tag 'snr2match' is not toggled at these positions, ABORT REPLACE\n");
 	}
 	return FALSE;
 }
