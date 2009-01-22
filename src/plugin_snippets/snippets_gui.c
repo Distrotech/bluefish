@@ -407,7 +407,7 @@ static gboolean snippets_treetip_lcb(GtkWidget *widget,gint x,gint y,gboolean ke
 			DEBUG_MSG("snippets_treetip_lcb, found node %p for path %p\n",cur,path); 
 			if (cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
 				xmlChar *tooltip, *accelerator;
-				gchar *tooltip2=NULL, *accelerator2=NULL;
+				gchar *tooltip2=NULL, *accelerator2=NULL, *tmp=NULL;
 				tooltip = xmlGetProp(cur, (const xmlChar *)"tooltip");
 				accelerator = xmlGetProp(cur, (const xmlChar *)"accelerator");
 				if (tooltip) {
@@ -418,14 +418,18 @@ static gboolean snippets_treetip_lcb(GtkWidget *widget,gint x,gint y,gboolean ke
 					accelerator2 = g_markup_escape_text((gchar *)accelerator,-1);
 					xmlFree(accelerator);
 				}
-				if (tooltip && !accelerator) {
-					return tooltip2;
-				} else if (accelerator && !tooltip) {
-					return accelerator2;
-				} else if (tooltip && accelerator) {
+				if (tooltip2 && !accelerator2) {
+					gtk_tooltip_set_markup(tooltipwidget, tooltip2);
+					g_free(tooltip2);
+					return TRUE;
+				} else if (accelerator2 && !tooltip2) {
+					gtk_tooltip_set_markup(tooltipwidget, accelerator2);
+					g_free(accelerator2);
+					return TRUE;
+				} else if (tooltip2 && accelerator2) {
 					gchar *tmp;
 					tmp = g_strconcat(tooltip2, "\n", accelerator2, NULL);
-					gtk_tooltip_set_text(tooltipwidget, tmp);
+					gtk_tooltip_set_markup(tooltipwidget, tmp);
 					g_free(tooltip2);
 					g_free(accelerator2);
 					g_free(tmp);
@@ -438,44 +442,6 @@ static gboolean snippets_treetip_lcb(GtkWidget *widget,gint x,gint y,gboolean ke
 	}
 	return TRUE;
 }
-/*
-static gchar* snippets_treetip_lcb(gconstpointer bfwin, gconstpointer tree, gint x, gint y) {
-	if (snippets_v.doc) {
-		GtkTreePath *path;	
-		if (gtk_tree_view_get_path_at_pos(GTK_TREE_VIEW(tree), x, y, &path, NULL, NULL, NULL)) {
-			xmlNodePtr cur = snippetview_get_node_at_path(path);
-			DEBUG_MSG("snippets_treetip_lcb, found node %p for path %p\n",cur,path); 
-			if (cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
-				xmlChar *tooltip, *accelerator;
-				gchar *tooltip2=NULL, *accelerator2=NULL;
-				tooltip = xmlGetProp(cur, (const xmlChar *)"tooltip");
-				accelerator = xmlGetProp(cur, (const xmlChar *)"accelerator");
-				if (tooltip) {
-					tooltip2 = g_markup_escape_text((gchar *)tooltip,-1);
-					xmlFree(tooltip);
-				}
-				if (accelerator) {
-					accelerator2 = g_markup_escape_text((gchar *)accelerator,-1);
-					xmlFree(accelerator);
-				}
-				if (tooltip && !accelerator) {
-					return tooltip2;
-				} else if (accelerator && !tooltip) {
-					return accelerator2;
-				} else if (tooltip && accelerator) {
-					gchar *tmp;
-					tmp = g_strconcat(tooltip2, "\n", accelerator2, NULL);
-					g_free(tooltip2);
-					g_free(accelerator2);
-					return tmp;
-				}
-			}
-			gtk_tree_path_free(path);
-		}
-		return g_strdup(_("Click the right mouse button to add, edit or delete snippets."));
-	}
-	return NULL;
-}*/
 
 static void snippetview_drag_data_get_lcb(GtkWidget *widget, GdkDragContext *ctx,GtkSelectionData *data, guint info, guint time,gpointer user_data)  {
 	if (data->target == gdk_atom_intern("BLUEFISH_SNIPPET", FALSE)) {
