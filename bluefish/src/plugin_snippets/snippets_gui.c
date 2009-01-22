@@ -407,7 +407,7 @@ static gboolean snippets_treetip_lcb(GtkWidget *widget,gint x,gint y,gboolean ke
 			DEBUG_MSG("snippets_treetip_lcb, found node %p for path %p\n",cur,path); 
 			if (cur && xmlStrEqual(cur->name, (const xmlChar *)"leaf")) {
 				xmlChar *tooltip, *accelerator;
-				gchar *tooltip2=NULL, *accelerator2=NULL, *tmp=NULL;
+				gchar *tooltip2=NULL, *accelerator2=NULL;
 				tooltip = xmlGetProp(cur, (const xmlChar *)"tooltip");
 				accelerator = xmlGetProp(cur, (const xmlChar *)"accelerator");
 				if (tooltip) {
