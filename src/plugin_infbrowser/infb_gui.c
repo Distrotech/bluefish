@@ -551,7 +551,7 @@ void infb_sidepanel_initgui(Tbfwin *bfwin) {
 	win->saved = gtk_menu_tool_button_new(gtk_image_new_from_stock(GTK_STOCK_FLOPPY,GTK_ICON_SIZE_MENU),"");
 	g_signal_connect(G_OBJECT(win->saved),"clicked",G_CALLBACK(infb_save_clicked),win);
 	gtk_tool_item_set_tooltip(GTK_TOOL_ITEM(win->saved),main_v->tooltips,_("Save current view"),"");
-	gtk_menu_tool_button_set_arrow_tooltip(GTK_MENU_TOOL_BUTTON(win->saved),main_v->tooltips,_("Go to sekected fragment"),"");
+	gtk_menu_tool_button_set_arrow_tooltip(GTK_MENU_TOOL_BUTTON(win->saved),main_v->tooltips,_("Go to selected fragment"),"");
 	gtk_toolbar_insert(GTK_TOOLBAR(hbox),win->saved,3);
 
 
