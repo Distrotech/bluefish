@@ -1386,11 +1386,12 @@ gchar *bf_portable_time(const time_t *timep) {
 	retstr = g_strdup(ctime(timep));
 #else
 #ifdef HAVE_ASCTIME
-	retstr = g_strdup(asctime(locasltime(timep)));
+	retstr = g_strdup(asctime(localtime(timep)));
 #endif /* HAVE_ASCTIME */
 #endif /* HAVE_CTIME */
 #endif /* HAVE_ASCTIME_R */
 #endif /* HAVE_CTIME_R */
+	retstr[strlen(retstr) - 1] = '\0';
 	return retstr;
 }
 
