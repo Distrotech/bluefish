@@ -868,7 +868,7 @@ gint doc_get_max_offset(Tdocument *doc) {
 	return gtk_text_buffer_get_char_count(doc->buffer);
 }
 
-static void doc_select_and_scroll(Tdocument *doc, GtkTextIter *it1,
+void doc_select_and_scroll(Tdocument *doc, GtkTextIter *it1,
                                   GtkTextIter *it2, gboolean select_it1_line,
                                   gboolean do_scroll) {
 	GtkTextIter sit1=*it1, sit2=*it2;
@@ -906,12 +906,12 @@ static void doc_select_and_scroll(Tdocument *doc, GtkTextIter *it1,
  *
  * Return value: void
  **/
-void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll) {
+/*void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll) {
 	GtkTextIter itstart, itend;
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
 	doc_select_and_scroll(doc, &itstart, &itend,FALSE, do_scroll);
-}
+}*/
 
 /**
  * doc_select_line:

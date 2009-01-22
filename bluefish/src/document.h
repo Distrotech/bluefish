@@ -66,10 +66,13 @@ gboolean test_only_empty_doc_left(GList *doclist);
 #define doc_has_selection(doc) gtk_text_buffer_get_has_selection(((Tdocument *)doc)->buffer)
 void doc_set_status(Tdocument *doc, gint status);
 void doc_set_modified(Tdocument *doc, gint value);
+void doc_select_and_scroll(Tdocument *doc, GtkTextIter *it1,
+                                  GtkTextIter *it2, gboolean select_it1_line,
+                                  gboolean do_scroll);
 void doc_scroll_to_cursor(Tdocument *doc);
 gchar *doc_get_chars(Tdocument *doc, gint start, gint end);
 gint doc_get_max_offset(Tdocument *doc);
-void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll);
+/*void doc_select_region(Tdocument *doc, gint start, gint end, gboolean do_scroll);*/
 void doc_select_line(Tdocument *doc, gint line, gboolean do_scroll);
 void doc_select_line_by_offset(Tdocument *doc, gint offset, gboolean do_scroll);
 gboolean doc_get_selection(Tdocument *doc, gint *start, gint *end);

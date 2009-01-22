@@ -142,7 +142,7 @@ static gboolean spell_check_word(Tbfspell *bfspell, gchar * tocheck, GtkTextIter
 				gtk_text_buffer_move_mark(bfspell->doc->buffer,bfspell->so,itstart);
 				gtk_text_buffer_move_mark(bfspell->doc->buffer,bfspell->eo,itend);
 			}
-			doc_select_region(bfspell->doc, gtk_text_iter_get_offset(itstart),gtk_text_iter_get_offset(itend) , TRUE);
+			doc_select_and_scroll(bfspell->doc, itstart, itend,FALSE, TRUE);
 			bfspell->offset = -1;
 			gtk_entry_set_text(GTK_ENTRY(bfspell->incorrectword), tocheck);
 			gtk_entry_set_text(GTK_ENTRY(GTK_COMBO(bfspell->suggestions)->entry), "");
