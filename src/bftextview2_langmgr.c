@@ -723,7 +723,7 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 	/*g_free(highlight); stored in the structure */
 	g_free(class);
 	g_free(attrib_autocomplete_append);
-	g_free(attribhighlight);
+	/*g_free(attribhighlight);*/
 }
 
 static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *bfparser, GQueue *contextstack) {

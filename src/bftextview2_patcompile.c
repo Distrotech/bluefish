@@ -71,9 +71,9 @@ GList * bftextview2_scantable_rematch_highlights(Tscantable *st, const gchar *la
 		}
 	}
 	for (i=0;i<(st->matches->len);i++) {
-/*		g_print("pattern %d",i);
+		g_print("pattern %d",i);
 		g_print(" (%s)",g_array_index(st->matches, Tpattern, i).pattern);
-		g_print(" has selfhighlight %s and blockhighlight %s\n",g_array_index(st->matches, Tpattern, i).selfhighlight,g_array_index(st->matches, Tpattern, i).blockhighlight);*/
+		g_print(" has selfhighlight %s and blockhighlight %s\n",g_array_index(st->matches, Tpattern, i).selfhighlight,g_array_index(st->matches, Tpattern, i).blockhighlight);
 		if (g_array_index(st->matches, Tpattern, i).selfhighlight) {
 			g_array_index(st->matches, Tpattern, i).selftag = langmrg_lookup_tag_highlight(lang, g_array_index(st->matches, Tpattern, i).selfhighlight);
 			if (g_array_index(st->matches, Tpattern, i).selftag)
