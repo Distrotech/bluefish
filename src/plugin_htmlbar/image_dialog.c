@@ -274,9 +274,7 @@ bluefish_image_dialog_set_property (GObject *object,
 }
 
 static GObject *
-bluefish_image_dialog_create (GType type,
-															guint n_construct_properties,
-															GObjectConstructParam *construct_properties)
+bluefish_image_dialog_create (GType type, guint n_construct_properties, GObjectConstructParam *construct_properties)
 {
   BluefishImageDialogClass *klass = BLUEFISH_IMAGE_DIALOG_CLASS (g_type_class_peek (BLUEFISH_TYPE_IMAGE_DIALOG));
   GObjectClass *parent_class = G_OBJECT_CLASS (g_type_class_peek_parent (klass));
@@ -410,7 +408,7 @@ bluefish_image_dialog_create (GType type,
 	gtk_table_attach (GTK_TABLE (table), dialog->priv->custom, 1, 3, 5, 6, GTK_EXPAND|GTK_FILL, GTK_SHRINK, 0, 0);
 	dialog_mnemonic_label_in_table(_("Custo_m:"), dialog->priv->custom, table, 0, 1, 5, 6);
 	
-	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), frame, gtk_label_new (_("Strict")));
+	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), frame, gtk_label_new ("Strict"));
 	
 	vbox = gtk_vbox_new (FALSE, 6);	
 	gtk_container_set_border_width (GTK_CONTAINER (vbox), 6);
@@ -444,7 +442,7 @@ bluefish_image_dialog_create (GType type,
 	gtk_table_attach (GTK_TABLE (table), dialog->priv->vspace, 1, 2, 3, 4, GTK_FILL, GTK_SHRINK, 0, 0);
 	dialog_mnemonic_label_in_table(_("_Vspace:"), dialog->priv->vspace, table, 0, 1, 3, 4);
 	
-	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), frame, gtk_label_new (_("Transitional")));
+	gtk_notebook_append_page (GTK_NOTEBOOK (notebook), frame, gtk_label_new ("Transitional"));
 	
 	image_dialog_use_transitional_toggled (GTK_TOGGLE_BUTTON (dialog->priv->useTransitional), dialog);
 	
