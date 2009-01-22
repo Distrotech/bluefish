@@ -37,7 +37,7 @@
  */
 /*****************************************************/
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <gdk/gdkkeysyms.h>    /* GDK_Return */
@@ -1600,9 +1600,10 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 			ret = replace_doc_multiple(snrwin->bfwin,LASTSNR2(snrwin->bfwin->snr2)->search_pattern, LASTSNR2(snrwin->bfwin->snr2)->matchtype_option, LASTSNR2(snrwin->bfwin->snr2)->is_case_sens, startpos, endpos, LASTSNR2(snrwin->bfwin->snr2)->replace_pattern, snrwin->bfwin->current_document, LASTSNR2(snrwin->bfwin->snr2)->replacetype_option, LASTSNR2(snrwin->bfwin->snr2)->unescape, 0);
 		}
 		/* now update the count widget in the dialog */
-		LASTSNR2(snrwin->bfwin->snr2)->matches += ret;
-		LASTSNR2(snrwin->bfwin->snr2)->replaces += ret;
-		snr_update_count_label(snrwin);		
+		LASTSNR2(snrwin->bfwin->snr2)->matches = ret;
+		LASTSNR2(snrwin->bfwin->snr2)->replaces = ret;
+		snr_update_count_label(snrwin);
+		gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);		
 	break;
 	case SNR_RESPONSE_FIND_ALL:
 		ret = search_multiple(snrwin->bfwin, startpos, endpos);
