@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		java.bflang2
  
-		Copyright (C) 2008 Olivier Sessink
+		Copyright (C) 2008-2009 Olivier Sessink
 
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Java" matches="67" contexts="6" table="253">
+<bflang name="Java" matches="75" contexts="6" table="297">
 <header>
 	<mime type="text/x-java"/>
 	<highlight name="keyword" style="keyword" />
@@ -33,54 +33,67 @@
 	<highlight name="imports" style="preprocessor"  />
 </header>
 <definition>
-	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-<group autocomplete="1" highlight="keyword"> 
-<element pattern="assert" />
-<element pattern="break" />
-<element pattern="case" />
-<element pattern="catch" />
-<element pattern="continue" />
-<element pattern="default" />
-<element pattern="do" />
-<element pattern="else" />
-<element pattern="finally" />
-<element pattern="for" />
-<element pattern="goto" />
-<element pattern="if" />
-<element pattern="return" />
-<element pattern="switch" />
-<element pattern="throw" />
-<element pattern="throws" />
-<element pattern="try" />
-<element pattern="where" />
-<element pattern="while" />
+<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
+<group autocomplete="1" highlight="keyword"> 
+	<element pattern="assert" />
+	<element pattern="break" />
+	<element pattern="case" />
+	<element pattern="catch" />
+	<element pattern="const" />
+	<element pattern="continue" />
+	<element pattern="do" />
+	<element pattern="else" />
+	<element pattern="finally" />
+	<element pattern="for" />
+	<element pattern="goto" />
+	<element pattern="if" />
+	<element pattern="package" />
+	<element pattern="return" />
+	<element pattern="strictfp" />
+	<element pattern="switch" />
+	<element pattern="throw" />
+	<element pattern="throws" />
+	<element pattern="try" />
+	<element pattern="where" />
+	<element pattern="while" />
 </group>
+
 <group autocomplete="1" highlight="OO-keyword">
-<element pattern="new" />
-<element pattern="class" />
-<element pattern="super" />
-<element pattern="abstract" />
-<element pattern="final" />
-<element pattern="native" />
-<element pattern="private" />
-<element pattern="protected" />
-<element pattern="public" />
-<element pattern="static" />
-<element pattern="transient" />
-<element pattern="synchronized" />
-<element pattern="volatile" />
-<element pattern="extends" />
-<element pattern="implements" />
+	<element pattern="abstract" />
+	<element pattern="class" />
+	<element pattern="default" />
+	<element pattern="extends" />
+	<element pattern="final" />
+	<element pattern="implements" />
+	<element pattern="instanceof" />
+	<element pattern="interface" />
+	<element pattern="native" />
+	<element pattern="new" />
+	<element pattern="private" />
+	<element pattern="protected" />
+	<element pattern="public" />
+	<element pattern="static" />
+	<element pattern="super" />
+	<element pattern="synchronized" />
+	<element pattern="this" />
+	<element pattern="transient" />
+	<element pattern="volatile" />
 </group>
+
 <group autocomplete="1" highlight="type">
-<element pattern="int" />
-<element pattern="boolean" />
-<element pattern="double" />
-<element pattern="void" />
-<element pattern="float" />
-<element pattern="long" />
+	<element pattern="boolean" />
+	<element pattern="byte" />
+	<element pattern="char" />
+	<element pattern="double" />
+	<element pattern="enum" />
+	<element pattern="float" />
+	<element pattern="int" />
+	<element pattern="long" />
+	<element pattern="short" />
+	<element pattern="void" />
 </group>
+
 <element pattern="String" autocomplete="1" highlight="type" />
 <element pattern="Rectangle" autocomplete="1" highlight="type" />
 <element pattern="Color" autocomplete="1" highlight="type" />
@@ -103,23 +116,25 @@
 		<element pattern="'" highlight="string" ends_context="1" />
 	</context>
 </element>
-		<element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
-		<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
-		<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
-		<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
-		<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
-		<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
-		<element pattern="/*" starts_block="1" highlight="comment">
-			<context symbols="*/&#9;&#10;&#13;" highlight="comment">
-				<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
-			</context>
-		</element>
-		<element pattern="true" highlight="value"/>
-		<element pattern="false" highlight="value"/>
-		<element pattern="null" highlight="value"/>
-		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
-		<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
-		
+
+<element pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+<element pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+<element pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
+<element pattern="/*" starts_block="1" highlight="comment">
+	<context symbols="*/&#9;&#10;&#13;" highlight="comment">
+		<element pattern="*/" ends_block="1" blockstartelement="/*" highlight="comment" mayfold="1" ends_context="1" />
 	</context>
+</element>
+
+<element pattern="true" highlight="value"/>
+<element pattern="false" highlight="value"/>
+<element pattern="null" highlight="value"/>
+<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+<element pattern="//[^&#10;]+" is_regex="1" highlight="comment"/>
+		
+</context>
 </definition>
 </bflang>
