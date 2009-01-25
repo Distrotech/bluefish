@@ -187,13 +187,14 @@ void langmgr_reload_user_styles(void) {
 	}
 }
 
-static void langmgr_insert_user_option(gchar *lang,gchar *name,gchar *val) {
-	if (lang && name && val) {
-		g_hash_table_insert(langmgr.bflang_options,array_from_arglist(lang, name, NULL),g_strdup(val));
+static void langmgr_insert_user_option(gchar *lang,gchar *option,gchar *val) {
+	if (lang && option && val) {
+		g_print("insert %s %s: %s\n",lang,option,val);
+		g_hash_table_insert(langmgr.bflang_options,array_from_arglist(lang, option, NULL),g_strdup(val));
 	}
 }
 
-static void langmgr_reload_user_options(void) {
+void langmgr_reload_user_options(void) {
 	GList *tmplist;
 	g_hash_table_remove_all(langmgr.bflang_options);
 	for (tmplist = g_list_first(main_v->props.bflang_options);tmplist;tmplist=tmplist->next) {
@@ -201,11 +202,10 @@ static void langmgr_reload_user_options(void) {
 		langmgr_insert_user_option(arr[0],arr[1],arr[2]);
 	}
 	
-	/* we don't apply anything in this function */
+	/* we don't apply anything in this function (yet) */
 }
 
 static gchar *lookup_user_option(const gchar *lang, const gchar *option) {
-	g_print("lookup %s %s\n",lang,option);
 	if (lang && option) {
 		const gchar *arr[] = {lang, option, NULL};
 		return g_hash_table_lookup(langmgr.bflang_options, arr);
@@ -1088,7 +1088,6 @@ void langmgr_init(void) {
 	g_object_set(tag, "invisible", TRUE, NULL);
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
-
 	langmgr_reload_user_options();
 
 	langmgr_reload_user_styles();

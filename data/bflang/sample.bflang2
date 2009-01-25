@@ -17,7 +17,7 @@ the definition tag is parsed only on-demand. if a file of this type is opened --
 There can be multiple mime tags in the header section (for example C source and 
 C header files have a different mimetype and can be described by the same
 language file) -->
-	<mime type="application/x-php"/>
+	<mime type="fake/sample"/>
 <!-- <highlight name="NAME" style="STYLE"> defines which element-types that are defined in 
 the file, and which styles should be applied for each of these types. So if an element 
 in this file has attribute highlight="foo", this section should have <highlight name="foo"
