@@ -246,6 +246,7 @@ typedef struct {
 	gint view_blocks; /* show blocks on the left side by default */
 	gint block_folding_mode;
 	GList *highlight_styles;
+	GList *bflang_options; /* array with: lang_name, option_name, value */ 
 	gboolean load_reference;
 	gboolean show_autocomp_reference;
 	gboolean show_tooltip_reference;

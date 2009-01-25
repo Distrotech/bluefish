@@ -113,6 +113,7 @@ enum {
 	pluginconfig,
 	textstyles,
 	highlight_styles,
+	bflang_options,
 	lists_num_max
 };
 
@@ -145,13 +146,21 @@ typedef struct {
 
 enum {
 	NAMECOL,
-	WIDGETCOL
+	WIDGETCOL,
+	FUNCCOL,
+	DATACOL
 };
 
 typedef struct {
 	GtkListStore *lstore;
 	GtkWidget *lview;
 } Tplugindialog;
+
+typedef struct {
+	GtkTreeStore *lstore;
+	GtkWidget *lview;
+
+} Tbflangpref;
 
 typedef struct {
 	GtkWidget *prefs[property_num_max];
@@ -169,6 +178,7 @@ typedef struct {
 	Tlistpref ed;
 	Tlistpref od;
 	Tplugindialog pd;
+	Tbflangpref bld;
 } Tprefdialog;
 
 typedef enum {
@@ -1113,6 +1123,51 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_box_pack_start(GTK_BOX(hbox),but, FALSE, FALSE, 2);
 }
 
+/********* bflangdialog */
+static void bflang_1_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
+	pref_apply_change(pd->bld.lstore,2,1,path,newtext,2);
+}
+static void bflanggui_set_bflang(Tprefdialog *pd, gpointer data) {
+	Tbflang *bflang=data;
+	GList *tmplist = g_list_first(pd->lists[bflang_options]);
+	gtk_list_store_clear(pd->bld.lstore);
+	while (tmplist) {
+		gint arrcount;
+		gchar **strarr = (gchar **)tmplist->data;
+		arrcount = count_array(strarr);
+		if (arrcount==3 && strcmp(strarr[0],bflang->name)) {
+			GtkTreeIter iter;
+			gtk_list_store_append(GTK_LIST_STORE(pd->bld.lstore), &iter);
+			gtk_list_store_set(GTK_LIST_STORE(pd->bld.lstore), &iter
+				,0,strarr[0],1,strarr[1],2,strarr[2][0]!='1',3,strarr,-1);
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	g_print("bflang_set_bflang, set bflang %p",data);
+	g_print(" %s\n",((Tbflang *)data)->name);
+}
+
+static void create_bflang_gui(Tprefdialog *pd, GtkWidget *vbox1) {
+	GtkWidget *label,*scrolwin;
+	
+	pd->lists[bflang_options] = duplicate_arraylist(main_v->props.bflang_options);
+	pd->bld.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER);
+	pd->bld.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lstore));
+	
+	label = gtk_label_new(NULL);
+	gtk_label_set_markup(GTK_LABEL(label), _("<small>language dialog not yet ready..</small>"));
+	gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);
+	/* skip column 0, the language name */
+	pref_create_column(GTK_TREE_VIEW(pd->bld.lview), 1/* 1=text */, NULL, NULL, _("Option name"), 1);
+	pref_create_column(GTK_TREE_VIEW(pd->bld.lview), 2 /* 2=boolean */, G_CALLBACK(bflang_1_edited_lcb), pd, _("value"), 2);
+	
+	scrolwin = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
+	gtk_container_add(GTK_CONTAINER(scrolwin), pd->bld.lview);
+	
+	gtk_box_pack_start(GTK_BOX(vbox1),scrolwin, TRUE, TRUE, 2);
+}
+
 /**************************************/
 /* MAIN DIALOG FUNCTIONS              */
 /**************************************/
@@ -1303,11 +1358,16 @@ void preftree_cursor_changed_cb (GtkTreeView *treeview, gpointer user_data) {
 
 	gtk_tree_view_get_cursor(treeview,&path,NULL);
 	if ( path ) {
+		gpointer data=NULL;
+		void (*func) ();
 		gtk_tree_model_get_iter(GTK_TREE_MODEL(pd->nstore),&iter,path);
-		gtk_tree_model_get(GTK_TREE_MODEL(pd->nstore),&iter,WIDGETCOL,&child,-1);
+		gtk_tree_model_get(GTK_TREE_MODEL(pd->nstore),&iter,WIDGETCOL,&child,FUNCCOL,&func,DATACOL,&data,-1);
 		if ( child ) {
 			gtk_box_pack_start(GTK_BOX(pd->fixed),child,TRUE,TRUE,1);
 			gtk_widget_show_all(pd->fixed);
+			if (func && data) {
+				func(pd,data);
+			}
 		}
 		gtk_tree_path_free(path);
 	}
@@ -1319,12 +1379,13 @@ static void preferences_dialog() {
 	gchar *notebooktabpositions[] = {N_("left"), N_("right"), N_("top"), N_("bottom"), NULL};
 	gchar *panellocations[] = {N_("right"), N_("left"), NULL};
 	gchar *modified_check_types[] = {N_("Nothing"), N_("Modified time and file size"), N_("Modified time"), N_("File size"), NULL};
-	GtkWidget *dhbox;
+	GtkWidget *dhbox, *scrolwin;
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	GtkTreeIter auxit,iter;
 	GtkTreePath *path;
-
+	GList *tmplist,*poplist;
+	
 	if (main_v->prefdialog) {
 		pd = (Tprefdialog *)main_v->prefdialog;
 		/* bring window to focus ?? */
@@ -1338,9 +1399,12 @@ static void preferences_dialog() {
 	dvbox = gtk_vbox_new(FALSE, 5);
 	dhbox = gtk_hbox_new(FALSE, 5);
 	pd->fixed = gtk_hbox_new(FALSE,5);
-	pd->nstore = gtk_tree_store_new(2,G_TYPE_STRING,G_TYPE_POINTER);
+	pd->nstore = gtk_tree_store_new(4,G_TYPE_STRING,G_TYPE_POINTER,G_TYPE_POINTER,G_TYPE_POINTER);
 	pd->noteb = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->nstore));
-	gtk_box_pack_start(GTK_BOX(dhbox), pd->noteb, FALSE, FALSE, 5);
+	scrolwin = gtk_scrolled_window_new(NULL, NULL);
+	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
+	gtk_container_add(GTK_CONTAINER(scrolwin), pd->noteb);
+	gtk_box_pack_start(GTK_BOX(dhbox), scrolwin, FALSE, FALSE, 5);
 	gtk_box_pack_start(GTK_BOX(dhbox), pd->fixed, TRUE, TRUE, 5);
 	cell = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes("", cell, "text", NAMECOL, NULL);
@@ -1415,17 +1479,16 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	{
-		GList *tmplist, *poplist = NULL;
-		tmplist = g_list_first(main_v->globses.encodings);
-		while (tmplist) {
-			gchar **strarr = (gchar **)tmplist->data;
-			poplist = g_list_append(poplist, strarr[1]);
-			tmplist = g_list_next(tmplist);
-		}
-		pd->prefs[newfile_default_encoding] = prefs_combo(_("Default character set for new files"),main_v->props.newfile_default_encoding, vbox2, pd, poplist, TRUE);
-		g_list_free(poplist);
+	poplist = NULL;
+	tmplist = g_list_first(main_v->globses.encodings);
+	while (tmplist) {
+		gchar **strarr = (gchar **)tmplist->data;
+		poplist = g_list_append(poplist, strarr[1]);
+		tmplist = g_list_next(tmplist);
 	}
+	pd->prefs[newfile_default_encoding] = prefs_combo(_("Default character set for new files"),main_v->props.newfile_default_encoding, vbox2, pd, poplist, TRUE);
+	g_list_free(poplist);
+
 	pd->prefs[auto_set_encoding_meta] = boxed_checkbut_with_value(_("Auto set <meta> HTML tag on encoding change"), main_v->props.auto_set_encoding_meta, vbox2);
 
 	frame = gtk_frame_new(_("Backup"));
@@ -1515,12 +1578,10 @@ static void preferences_dialog() {
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 	pd->prefs[image_thumbnailstring] = prefs_string(_("Thumbnail suffix"), main_v->props.image_thumbnailstring, vbox2, pd, string_none);
-	{
-		GList *poplist = g_list_append(NULL, "png");
-		poplist = g_list_append(poplist, "jpeg");
-		pd->prefs[image_thumbnailtype] = prefs_combo(_("Thumbnail filetype"),main_v->props.image_thumbnailtype, vbox2, pd, poplist, FALSE);
-		g_list_free(poplist);
-	}
+	poplist = g_list_append(NULL, "png");
+	poplist = g_list_append(poplist, "jpeg");
+	pd->prefs[image_thumbnailtype] = prefs_combo(_("Thumbnail filetype"),main_v->props.image_thumbnailtype, vbox2, pd, poplist, FALSE);
+	g_list_free(poplist);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
@@ -1573,16 +1634,12 @@ static void preferences_dialog() {
 	vbox1 = gtk_vbox_new(FALSE, 5);
 
 	gtk_tree_store_append(pd->nstore, &iter, NULL);
-	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("Syntax scanning"), WIDGETCOL,vbox1,-1);
-
+	gtk_tree_store_set(pd->nstore, &iter, NAMECOL,_("Language support"), WIDGETCOL,vbox1,-1);
 
 	frame = gtk_frame_new(_("Advanced syntax scanning options"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_tree_store_append(pd->nstore, &auxit, &iter);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);
 
 	{
 		gchar *autocompmodes[] = {N_("Delayed"),N_("Immediately"), NULL};
@@ -1591,6 +1648,21 @@ static void preferences_dialog() {
 	pd->prefs[load_reference] = boxed_checkbut_with_value(_("Load reference information from language file"), main_v->props.load_reference, vbox2);
 	pd->prefs[show_autocomp_reference] = boxed_checkbut_with_value(_("Show reference information in autocompletion pop-up"), main_v->props.show_autocomp_reference, vbox2);
 	pd->prefs[show_tooltip_reference] = boxed_checkbut_with_value(_("Show reference information in tooltip window"), main_v->props.show_tooltip_reference, vbox2);
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	create_bflang_gui(pd, vbox1);
+
+	tmplist = g_list_first(g_list_sort(langmgr_get_languages(), (GCompareFunc)fill_hl_tree_bflang_list_sort_lcb));
+	while (tmplist) {
+		Tbflang *bflang = tmplist->data;
+		gtk_tree_store_append(pd->nstore, &auxit, &iter);
+		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,bflang->name, WIDGETCOL,vbox1, FUNCCOL, bflanggui_set_bflang, DATACOL, bflang,-1);
+		tmplist = g_list_next(tmplist);
+	}
+
+	vbox1 = gtk_vbox_new(FALSE, 5);
+	gtk_tree_store_append(pd->nstore, &auxit, &iter);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);
 
 	frame = gtk_frame_new(_("Syntax highlighting"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
