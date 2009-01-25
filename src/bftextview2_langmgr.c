@@ -205,6 +205,7 @@ static void langmgr_reload_user_options(void) {
 }
 
 static gchar *lookup_user_option(const gchar *lang, const gchar *option) {
+	g_print("lookup %s %s\n",lang,option);
 	if (lang && option) {
 		const gchar *arr[] = {lang, option, NULL};
 		return g_hash_table_lookup(langmgr.bflang_options, arr);
