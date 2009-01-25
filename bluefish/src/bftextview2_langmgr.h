@@ -22,6 +22,7 @@
 #define _BFTEXTVIEW2_LANGMGR_H_
 
 #include "bftextview2.h"
+void langmgr_reload_user_options(void);
 void langmgr_reload_user_styles(void);
 void langmgr_reload_user_highlights(void);
 GtkTextTag *langmrg_lookup_tag_highlight(const gchar *lang, const gchar *highlight);

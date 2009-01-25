@@ -158,8 +158,9 @@ typedef struct {
 
 typedef struct {
 	GtkTreeStore *lstore;
+	GtkTreeModelFilter *lfilter;
 	GtkWidget *lview;
-
+	Tbflang *curbflang;
 } Tbflangpref;
 
 typedef struct {
@@ -1124,27 +1125,39 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 }
 
 /********* bflangdialog */
-static void bflang_1_edited_lcb(GtkCellRendererText *cellrenderertext,gchar *path,gchar *newtext,Tprefdialog *pd) {
-	pref_apply_change(pd->bld.lstore,2,1,path,newtext,2);
+static void bflang_1_edited_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
+	gchar *val = g_strdup(cellrenderertoggle->active ? "0" : "1");
+	pref_apply_change(pd->bld.lstore,3,2,path,val,2);
+	g_free(val);
 }
 static void bflanggui_set_bflang(Tprefdialog *pd, gpointer data) {
 	Tbflang *bflang=data;
+	pd->bld.curbflang = bflang;
+	gtk_tree_model_filter_refilter(pd->bld.lfilter);
+}
+static gboolean bflang_gui_filter_func_lcb(GtkTreeModel *model,GtkTreeIter *iter,gpointer data) {
+	gchar *name;
+	Tprefdialog *pd =data;
+	gboolean visible=FALSE;
+	gtk_tree_model_get(model, iter, 0, &name, -1);
+	if (name && pd->bld.curbflang && strcmp(name, pd->bld.curbflang->name) == 0)
+		visible = TRUE;
+	g_free (name);
+	return visible;
+}
+static void fill_bflang_gui(Tprefdialog *pd) {
 	GList *tmplist = g_list_first(pd->lists[bflang_options]);
 	gtk_list_store_clear(pd->bld.lstore);
 	while (tmplist) {
-		gint arrcount;
 		gchar **strarr = (gchar **)tmplist->data;
-		arrcount = count_array(strarr);
-		if (arrcount==3 && strcmp(strarr[0],bflang->name)) {
+		if (count_array(strarr)==3) {
 			GtkTreeIter iter;
 			gtk_list_store_append(GTK_LIST_STORE(pd->bld.lstore), &iter);
 			gtk_list_store_set(GTK_LIST_STORE(pd->bld.lstore), &iter
-				,0,strarr[0],1,strarr[1],2,strarr[2][0]!='1',3,strarr,-1);
+				,0,strarr[0],1,strarr[1],2,strarr[2][0]=='1',3,strarr,-1);
 		}
 		tmplist = g_list_next(tmplist);
 	}
-	g_print("bflang_set_bflang, set bflang %p",data);
-	g_print(" %s\n",((Tbflang *)data)->name);
 }
 
 static void create_bflang_gui(Tprefdialog *pd, GtkWidget *vbox1) {
@@ -1152,7 +1165,9 @@ static void create_bflang_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	
 	pd->lists[bflang_options] = duplicate_arraylist(main_v->props.bflang_options);
 	pd->bld.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER);
-	pd->bld.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lstore));
+	pd->bld.lfilter = gtk_tree_model_filter_new(pd->bld.lstore,NULL);
+	gtk_tree_model_filter_set_visible_func(pd->bld.lfilter,bflang_gui_filter_func_lcb,pd,NULL);
+	pd->bld.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lfilter));
 	
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label), _("<small>language dialog not yet ready..</small>"));
@@ -1166,6 +1181,8 @@ static void create_bflang_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->bld.lview);
 	
 	gtk_box_pack_start(GTK_BOX(vbox1),scrolwin, TRUE, TRUE, 2);
+	
+	fill_bflang_gui(pd);
 }
 
 /**************************************/
@@ -1178,6 +1195,7 @@ static void preferences_destroy_lcb(GtkWidget * widget, Tprefdialog *pd) {
 
 	free_arraylist(pd->lists[textstyles]);
 	free_arraylist(pd->lists[highlight_styles]);
+	free_arraylist(pd->lists[bflang_options]);
 	pd->lists[highlight_styles] = NULL;
 	free_arraylist(pd->lists[extcommands]);
 	free_arraylist(pd->lists[extfilters]);
@@ -1284,7 +1302,11 @@ static void preferences_apply(Tprefdialog *pd) {
 	free_arraylist(main_v->props.highlight_styles);
 	main_v->props.highlight_styles = duplicate_arraylist(pd->lists[highlight_styles]);
 
+	free_arraylist(main_v->props.bflang_options);
+	main_v->props.bflang_options = duplicate_arraylist(pd->lists[bflang_options]);
+
 	/* apply the changes to highlighting patterns and filetypes to the running program */
+	langmgr_reload_user_options();
 	langmgr_reload_user_styles();
 	langmgr_reload_user_highlights();
 
