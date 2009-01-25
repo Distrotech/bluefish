@@ -310,8 +310,8 @@ typedef struct {
 typedef struct {
 	gchar *name;
 	GList *mimetypes;
-	GList *langoptions; /* all options that can be enabled/disabled for this language and their default value (0 or 1) */
-	GList *setoptions; /* all options that are enabled have value '1' in this hashtable */
+	/*GList *langoptions;*/ /* all options that can be enabled/disabled for this language and their default value (0 or 1) */
+	/*GList *setoptions;*/ /* all options that are enabled have value '1' in this hashtable */
 	GList *tags; /* all tags used for highlighting in this language. we use this list when 
 						we want to remove all tags and want to re-highlight */
 	gchar *filename; /* the .bflang2 file */

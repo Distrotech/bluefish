@@ -37,7 +37,7 @@
 typedef struct {
 	GHashTable *patterns;
 	GHashTable *contexts;
-	GHashTable *setoptions;
+	/*GHashTable *setoptions;*/
 	Tscantable *st; /* while not finished */
 	Tbflang *bflang;
 } Tbflangparsing;
@@ -50,6 +50,9 @@ typedef struct {
 	GHashTable *configured_styles; /* key: a NULL terminated char **array with first value the language name,
 											second value the highlight name, third NULL
 											and as value a gchar * with the name of the GtkTextTag to use */
+	GHashTable *bflang_options; /* key: a NULL terminated char **array with first value the language name,
+											second value the option name, third NULL
+											and as value a gchar * with the value of the option */
 } Tlangmgr;
 
 static Tlangmgr langmgr = {NULL,NULL,NULL};
@@ -184,6 +187,31 @@ void langmgr_reload_user_styles(void) {
 	}
 }
 
+static void langmgr_insert_user_option(gchar *lang,gchar *name,gchar *val) {
+	if (lang && name && val) {
+		g_hash_table_insert(langmgr.bflang_options,array_from_arglist(lang, name, NULL),g_strdup(val));
+	}
+}
+
+static void langmgr_reload_user_options(void) {
+	GList *tmplist;
+	g_hash_table_remove_all(langmgr.bflang_options);
+	for (tmplist = g_list_first(main_v->props.bflang_options);tmplist;tmplist=tmplist->next) {
+		gchar **arr = (gchar **)tmplist->data;
+		langmgr_insert_user_option(arr[0],arr[1],arr[2]);
+	}
+	
+	/* we don't apply anything in this function */
+}
+
+static gchar *lookup_user_option(const gchar *lang, const gchar *option) {
+	if (lang && option) {
+		const gchar *arr[] = {lang, option, NULL};
+		return g_hash_table_lookup(langmgr.bflang_options, arr);
+	}
+	return NULL;
+}
+
 void langmgr_reload_user_highlights(void) {
 	GList *tmplist;
 	g_hash_table_remove_all(langmgr.configured_styles);
@@ -194,7 +222,7 @@ void langmgr_reload_user_highlights(void) {
 			g_hash_table_insert(langmgr.configured_styles,array_from_arglist(arr[0], arr[1], NULL),g_strdup(arr[2]));
 		}
 	}
-	
+	/* now apply the changes */
 	tmplist = g_list_first(langmgr.bflang_list);
 	while (tmplist) {
 		Tbflang *bflang=tmplist->data;
@@ -253,7 +281,7 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	/* cleanup the parsing structure */
 	g_hash_table_destroy(bfparser->patterns);
 	g_hash_table_destroy(bfparser->contexts);
-	g_hash_table_destroy(bfparser->setoptions);
+	/*g_hash_table_destroy(bfparser->setoptions);*/
 	g_slice_free(Tbflangparsing,bfparser);
 	return FALSE;
 }
@@ -313,9 +341,11 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 				xmlFree(aname);
 			}
 			if (optionname) {
-				bflang->langoptions = g_list_prepend(bflang->langoptions, optionname);
-				if (defaultval) {
-					bflang->setoptions = g_list_prepend(bflang->setoptions, optionname);
+				gchar *val = lookup_user_option(bflang->name, optionname);
+				if (!val) {
+					/* not set by the user */
+					main_v->props.bflang_options = g_list_prepend(main_v->props.bflang_options,array_from_arglist(bflang->name,optionname,defaultval?"1":"0",NULL));
+					langmgr_insert_user_option(bflang->name,optionname,defaultval?"1":"0");
 				}
 			}
 		} else if (xmlStrEqual(name,(xmlChar *)"highlight")) {
@@ -369,6 +399,7 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 		,gchar *ih_autocomplete_append ,const gchar *ih_highlight
 		,gboolean ih_case_insens ,gboolean ih_is_regex ,gboolean ih_autocomplete) {
 	guint16 matchnum=0;
+	gchar *tmp;
 	gchar *pattern=NULL, *idref=NULL, *highlight=NULL, *blockstartelement=NULL, *blockhighlight=NULL, *class=NULL, *autocomplete_append=NULL, *autocomplete_string=NULL, *id=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE, is_empty, autocomplete=FALSE;
 	gint ends_context=0;
@@ -392,7 +423,8 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
 		xmlFree(aname);
 	}
-	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
+	tmp = lookup_user_option(bfparser->bflang->name,class);
+	if (!class || (tmp && tmp[0]=='1' )) {
 		if (idref && idref[0] && !id && !pattern) {
 			guint16 matchnum;
 			matchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, idref));
@@ -480,6 +512,7 @@ int stringcmp(const void *sp1, const void *sp2 ) {
 
 static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context, GQueue *contextstack
 		,gchar *ih_autocomplete_append ,gchar *ih_highlight,gchar *ih_attrib_autocomplete_append ,gchar *ih_attribhighlight) {
+	gchar *tmp;
 	gchar *tag=NULL, *idref=NULL, *highlight=NULL, *attributes=NULL, *attribhighlight=NULL,*class=NULL
 				, *autocomplete_append=NULL,*attrib_autocomplete_append=NULL,*id=NULL;
 	guint16 matchnum=0,innercontext=context;
@@ -501,7 +534,8 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"sgml_shorttag", &sgml_shorttag);
 		xmlFree(aname);
 	}
-	if (!class || g_hash_table_lookup(bfparser->setoptions,class)) {
+	tmp = lookup_user_option(bfparser->bflang->name,class);
+	if (!class || (tmp && tmp[0]=='1')) {
 		if (idref && idref[0] && !tag) {
 			guint16 matchnum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, idref));
 			if (!matchnum) {
@@ -659,6 +693,7 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 	gchar *autocomplete_append=NULL, *highlight=NULL, *class=NULL, *attrib_autocomplete_append=NULL, *attribhighlight=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, autocomplete=FALSE;
 	gint depth;
+	gchar *tmp;
 	if (xmlTextReaderIsEmptyElement(reader)) {
 		return;
 	}
@@ -675,8 +710,8 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"attribhighlight",&attribhighlight);
 		xmlFree(aname);
 	}
-
-	if (class && GPOINTER_TO_INT(g_hash_table_lookup(bfparser->setoptions,class))!=1){
+	tmp = lookup_user_option(bfparser->bflang->name,class);
+	if (class && tmp && tmp[0]!='1'){
 		DBG_PARSING("group disabled, class=%s, skip to end of group, my depth=%d\n",class,depth);
 		skip_to_end_tag(reader, depth);
 	} else {
@@ -796,11 +831,11 @@ static gpointer build_lang_thread(gpointer data)
 	bfparser = g_slice_new0(Tbflangparsing);
 	bfparser->patterns =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
 	bfparser->contexts =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
-	bfparser->setoptions =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
+	/*bfparser->setoptions =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);*/
 	bfparser->bflang = bflang;
-	for(tmplist = g_list_first(bfparser->bflang->setoptions);tmplist;tmplist=g_list_next(tmplist)) {
+	/*for(tmplist = g_list_first(bfparser->bflang->setoptions);tmplist;tmplist=g_list_next(tmplist)) {
 		g_hash_table_insert(bfparser->setoptions,g_strdup(tmplist->data),GINT_TO_POINTER(1));
-	}
+	}*/
 	bfparser->st = scantable_new(bflang->size_table,bflang->size_matches,bflang->size_contexts);
 
 	DBG_PARSING("build_lang_thread %p, started for %s\n",g_thread_self(),bfparser->bflang->filename);
@@ -1041,7 +1076,8 @@ void langmgr_init(void) {
 	langmgr.tagtable = gtk_text_tag_table_new();
 	langmgr.bflang_lookup = g_hash_table_new(g_str_hash,g_str_equal);
 	langmgr.load_reference = main_v->props.load_reference;
-	langmgr.configured_styles = g_hash_table_new_full(arr2_hash,arr2_equal,(GDestroyNotify)g_strfreev,g_free);
+	langmgr.configured_styles = g_hash_table_new_full(arr2_hash,arr2_equal,(GDestroyNotify)g_strfreev,g_free);	
+	langmgr.bflang_options = g_hash_table_new_full(arr2_hash,arr2_equal,(GDestroyNotify)g_strfreev,g_free);
 
 	tag = gtk_text_tag_new("_needscanning_");
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
@@ -1051,6 +1087,8 @@ void langmgr_init(void) {
 	g_object_set(tag, "invisible", TRUE, NULL);
 	gtk_text_tag_table_add(langmgr.tagtable, tag);
 	g_object_unref(tag);
+
+	langmgr_reload_user_options();
 
 	langmgr_reload_user_styles();
 	if (!gtk_text_tag_table_lookup(langmgr.tagtable,"blockmatch")) {
