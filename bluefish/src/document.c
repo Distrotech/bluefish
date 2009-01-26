@@ -2670,7 +2670,7 @@ void doc_activate(Tdocument *doc) {
 		DEBUG_MSG("doc_activate, not doing anything, doc=%p, last_avtivated_doc=%p, close_doc=%d\n",doc, BFWIN(doc->bfwin)->last_activated_doc, doc->action.close_doc);
 		return;
 	}
-	g_print("doc_activate for doc with view %p..\n",doc->view);
+	DEBUG_MSG("doc_activate for doc with view %p..\n",doc->view);
 	if (doc->status == DOC_STATUS_ERROR) {
 		const gchar *buttons[] = {_("_Retry"), _("Retry _all failed"),_("_Close"), _("Close all _failed"), NULL};
 		gchar *tmpstr;

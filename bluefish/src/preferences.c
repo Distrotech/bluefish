@@ -157,10 +157,10 @@ typedef struct {
 } Tplugindialog;
 
 typedef struct {
-	GtkTreeStore *lstore;
+	GtkListStore *lstore;
 	GtkTreeModelFilter *lfilter;
 	GtkWidget *lview;
-	GtkTreeStore *lstore2;
+	GtkListStore *lstore2;
 	GtkTreeModelFilter *lfilter2;
 	GtkWidget *lview2;
 	Tbflang *curbflang;
@@ -276,17 +276,17 @@ static void pref_apply_change(GtkListStore *lstore, gint pointerindex, gint type
 	gchar **strarr;
 	GtkTreeIter iter;
 	GtkTreePath* tpath = gtk_tree_path_new_from_string(path);
-	g_print("pref_apply_change, tpath %p\n",tpath);
+	DEBUG_MSG("pref_apply_change, tpath %p\n",tpath);
 	if (tpath && gtk_tree_model_get_iter(GTK_TREE_MODEL(lstore),&iter,tpath)) {
 		gtk_tree_model_get(GTK_TREE_MODEL(lstore), &iter, pointerindex, &strarr, -1);
-		g_print("pref_apply_change, lstore=%p, index=%d, type=%d, got strarr=%p\n",lstore,index,type,strarr);
+		DEBUG_MSG("pref_apply_change, lstore=%p, index=%d, type=%d, got strarr=%p\n",lstore,index,type,strarr);
 		if (type ==1) {
 			gtk_list_store_set(GTK_LIST_STORE(lstore),&iter,index,newval,-1);
 		} else {
 			gtk_list_store_set(GTK_LIST_STORE(lstore),&iter,index,(newval[0] == '1'),-1);
 		}
 		if (strarr[index]) {
-			g_print("pref_apply_change, old value for strarr[%d] was %s\n",index,strarr[index]);
+			DEBUG_MSG("pref_apply_change, old value for strarr[%d] was %s\n",index,strarr[index]);
 			g_free(strarr[index]);
 		}
 		if (type == 0) {
@@ -294,9 +294,9 @@ static void pref_apply_change(GtkListStore *lstore, gint pointerindex, gint type
 		} else {
 			strarr[index] = g_strdup(newval);
 		}
-		g_print("pref_apply_change, strarr[%d] now is %s\n",index,strarr[index]);
+		DEBUG_MSG("pref_apply_change, strarr[%d] now is %s\n",index,strarr[index]);
 	} else {
-		g_print("ERROR: path %s was not converted to tpath(%p) or iter (lstore=%p)\n",path,tpath,lstore);
+		DEBUG_MSG("ERROR: path %s was not converted to tpath(%p) or iter (lstore=%p)\n",path,tpath,lstore);
 	}
 	gtk_tree_path_free(tpath);
 }
@@ -1153,8 +1153,7 @@ static gchar *string_path_to_child_string_path(GtkTreeModelFilter *lfilter, cons
 static void bflang_1_edited_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
 	gchar *cpath, *val = g_strdup(cellrenderertoggle->active ? "0" : "1");
 	cpath = string_path_to_child_string_path(pd->bld.lfilter, path);
-	/*	BUG FIX THIS, a treemodelfilter is inbetween so path is not the path that can be used on the model!!!!!!!! */
-	pref_apply_change(pd->bld.lstore,3,2,cpath,val,2);
+	pref_apply_change(GTK_LIST_STORE(pd->bld.lstore),3,2,cpath,val,2);
 	g_free(val);
 	g_free(cpath);
 }
@@ -1169,7 +1168,7 @@ static void bflang_1_edited_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar 
 static void bflang_highlight_edited_lcb(GtkCellRendererCombo *combo,gchar *path,gchar *val,Tprefdialog *pd) {
 	gchar *cpath = string_path_to_child_string_path(pd->bld.lfilter2, path);
 	g_print("bflang_highlight_edited_lcb, val=%s\n",val);
-	pref_apply_change(pd->bld.lstore2, 3, 1/* 1 is text, not a combo */, cpath, val, 2);
+	pref_apply_change(GTK_LIST_STORE(pd->bld.lstore2), 3, 1/* 1 is text, not a combo */, cpath, val, 2);
 	g_free(cpath);
 }
 
@@ -1189,8 +1188,20 @@ static gboolean bflang_gui_filter_func_lcb(GtkTreeModel *model,GtkTreeIter *iter
 	g_free (name);
 	return visible;
 }
+static gint sort_array2_lcb(gconstpointer a,gconstpointer b) {
+	const gchar **arra=(const gchar **)a, **arrb=(const gchar **)b;
+	gint ret;
+	ret = (a!=NULL)-(b!=NULL);
+	if (ret==0) {
+		ret = g_strcmp0(arra[0],arrb[0]);
+		if (ret == 0) {
+			ret = g_strcmp0(arra[1],arrb[1]);
+		}
+	}
+	return ret;
+}
 static void fill_bflang_gui(Tprefdialog *pd) {
-	GList *tmplist = g_list_first(pd->lists[bflang_options]);
+	GList *tmplist = g_list_first(g_list_sort(pd->lists[bflang_options],sort_array2_lcb));
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
 		if (count_array(strarr)==3) {
@@ -1202,7 +1213,7 @@ static void fill_bflang_gui(Tprefdialog *pd) {
 		tmplist = g_list_next(tmplist);
 	}
 	
-	tmplist = g_list_first(pd->lists[highlight_styles]);
+	tmplist = g_list_first(g_list_sort(pd->lists[highlight_styles],sort_array2_lcb));
 	while (tmplist) {
 		gchar **strarr = (gchar **)tmplist->data;
 		/*g_print("found %s:%s:%s\n",strarr[0],strarr[1],strarr[2]);*/
@@ -1224,8 +1235,8 @@ static void create_bflang_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->lists[bflang_options] = duplicate_arraylist(main_v->props.bflang_options);
 	pd->lists[highlight_styles] = duplicate_arraylist(main_v->props.highlight_styles);
 	
-	pd->bld.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER);
-	pd->bld.lfilter = gtk_tree_model_filter_new(pd->bld.lstore,NULL);
+	pd->bld.lstore = gtk_list_store_new(4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER);
+	pd->bld.lfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(pd->bld.lstore),NULL);
 	gtk_tree_model_filter_set_visible_func(pd->bld.lfilter,bflang_gui_filter_func_lcb,pd,NULL);
 	pd->bld.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lfilter));
 	
@@ -1242,8 +1253,8 @@ static void create_bflang_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	
 	gtk_box_pack_start(GTK_BOX(vbox1),scrolwin, TRUE, TRUE, 2);
 	
-	pd->bld.lstore2 = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
-	pd->bld.lfilter2 = gtk_tree_model_filter_new(pd->bld.lstore2,NULL);
+	pd->bld.lstore2 = gtk_list_store_new(4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
+	pd->bld.lfilter2 = gtk_tree_model_filter_new(GTK_TREE_MODEL(pd->bld.lstore2),NULL);
 	gtk_tree_model_filter_set_visible_func(pd->bld.lfilter2,bflang_gui_filter_func_lcb,pd,NULL);
 	pd->bld.lview2 = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lfilter2));
 	

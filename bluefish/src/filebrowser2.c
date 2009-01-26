@@ -342,7 +342,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 				g_strfreev (names);
 			}
 		} else {
-			g_print("icon %p for '%s' is not themed, use icon name 'folder'\n",icon,display_name);
+			DEBUG_MSG("icon %p for '%s' is not themed, use icon name 'folder'\n",icon,display_name);
 			icon_name = g_strdup("folder");
 		}
 		gtk_tree_store_set(GTK_TREE_STORE(FB2CONFIG(main_v->fb2config)->filesystem_tstore), newiter,
