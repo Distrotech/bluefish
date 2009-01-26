@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * preferences.c - the preferences code
  *
- * Copyright (C) 2002-2008 Olivier Sessink
+ * Copyright (C) 2002-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -218,7 +218,7 @@ void pref_click_column  (GtkTreeViewColumn *treeviewcolumn, gpointer user_data) 
 	}
 }
 /* type 0/1=text, 2=toggle,3=radio, 4=non-editable combo */
-static GtkCellRenderer *pref_create_column(GtkTreeView *treeview, gint type, GCallback func, gpointer data, const gchar *title, gint num) {
+static GtkCellRenderer *pref_create_column(GtkTreeView *treeview, gint type, GCallback func, gpointer data, const gchar *title, gint num, gboolean collumn_hide_but) {
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 	GtkWidget *but;
@@ -248,15 +248,15 @@ static GtkCellRenderer *pref_create_column(GtkTreeView *treeview, gint type, GCa
 		}
 	}
 	column = gtk_tree_view_column_new_with_attributes(title, renderer,(type ==1) ? "text" : "active" ,num,NULL);
-
 	gtk_tree_view_column_set_clickable(GTK_TREE_VIEW_COLUMN(column),TRUE);
-	but = gtk_check_button_new_with_label(title);
-	g_object_set_data(G_OBJECT(but),"_title_",g_strdup(title));
-	gtk_widget_show(but);
-	gtk_tree_view_column_set_widget(GTK_TREE_VIEW_COLUMN(column),but);
-	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(but),TRUE);
-	g_signal_connect(G_OBJECT(column), "clicked", G_CALLBACK(pref_click_column), but);
-
+	if (collumn_hide_but) {
+		but = gtk_check_button_new_with_label(title);
+		g_object_set_data(G_OBJECT(but),"_title_",g_strdup(title));
+		gtk_widget_show(but);
+		gtk_tree_view_column_set_widget(GTK_TREE_VIEW_COLUMN(column),but);
+		gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(but),TRUE);
+		g_signal_connect(G_OBJECT(column), "clicked", G_CALLBACK(pref_click_column), but);
+	}
 	gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
 	return renderer;
 }
@@ -276,6 +276,7 @@ static void pref_apply_change(GtkListStore *lstore, gint pointerindex, gint type
 	gchar **strarr;
 	GtkTreeIter iter;
 	GtkTreePath* tpath = gtk_tree_path_new_from_string(path);
+	g_print("pref_apply_change, tpath %p\n",tpath);
 	if (tpath && gtk_tree_model_get_iter(GTK_TREE_MODEL(lstore),&iter,tpath)) {
 		gtk_tree_model_get(GTK_TREE_MODEL(lstore), &iter, pointerindex, &strarr, -1);
 		g_print("pref_apply_change, lstore=%p, index=%d, type=%d, got strarr=%p\n",lstore,index,type,strarr);
@@ -483,9 +484,9 @@ static void create_plugin_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->lists[pluginconfig] = duplicate_arraylist(main_v->props.plugin_config);
 	pd->pd.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_STRING,G_TYPE_POINTER);
 	pd->pd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->pd.lstore));
-	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 1, NULL, pd, _("Message"), 0);
-	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 2, G_CALLBACK(plugin_1_toggled_lcb), pd, _("Enabled"), 1);
-	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 1, NULL, pd, _("File"), 2);
+	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 1, NULL, pd, _("Message"), 0,FALSE);
+	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 2, G_CALLBACK(plugin_1_toggled_lcb), pd, _("Enabled"), 1,FALSE);
+	pref_create_column(GTK_TREE_VIEW(pd->pd.lview), 1, NULL, pd, _("File"), 2,FALSE);
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(scrolwin), pd->pd.lview);
@@ -639,7 +640,7 @@ static void create_textstyle_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->lists[textstyles] = duplicate_arraylist(main_v->props.textstyles);
 	pd->tsd.lstore = gtk_list_store_new (2,G_TYPE_STRING,G_TYPE_POINTER);
 	pd->tsd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->tsd.lstore));
-	pref_create_column(GTK_TREE_VIEW(pd->tsd.lview), 1, G_CALLBACK(textstyle_0_edited_lcb), pd, _("Label"), 0);
+	pref_create_column(GTK_TREE_VIEW(pd->tsd.lview), 1, G_CALLBACK(textstyle_0_edited_lcb), pd, _("Label"), 0,FALSE);
 	select = gtk_tree_view_get_selection(GTK_TREE_VIEW(pd->tsd.lview));
 	g_signal_connect(G_OBJECT(select), "changed",G_CALLBACK(textstyle_selection_changed_cb),pd);
 
@@ -713,6 +714,7 @@ in the liststore, we will have three columns:
 	2: the highlight type as stored in the bflang file
 	3: the gchar ** that should be updated if the option is changed
 */
+#ifdef OLD_HL_GUI 
 static void fill_hl_combo(Tprefdialog *pd) {
 	GList *tmplist;
 	GtkTreeIter iter;
@@ -885,7 +887,7 @@ static void create_hl_gui(Tprefdialog *pd, GtkWidget *mainbox) {
 	gtk_box_pack_start(GTK_BOX(vbox), pd->hld.textstyle, TRUE, FALSE, 2);
 
 }
-
+#endif /* OLD_HL_GUI */
 /************ external commands code ****************/
 
 static void set_extcommands_strarr_in_list(GtkTreeIter *iter, gchar **strarr, Tprefdialog *pd) {
@@ -923,9 +925,9 @@ static void create_extcommands_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->lists[extcommands] = duplicate_arraylist(main_v->props.external_command);
 	pd->bd.lstore = gtk_list_store_new (4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER);
 	pd->bd.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bd.lstore));
-	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 1, G_CALLBACK(extcommands_0_edited_lcb), pd, _("Label"), 0);
-	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 1, G_CALLBACK(extcommands_1_edited_lcb), pd, _("Command"), 1);
-	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 2, G_CALLBACK(extcommands_2_edited_lcb), pd, _("Default browser"), 2);
+	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 1, G_CALLBACK(extcommands_0_edited_lcb), pd, _("Label"), 0,FALSE);
+	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 1, G_CALLBACK(extcommands_1_edited_lcb), pd, _("Command"), 1,FALSE);
+	pref_create_column(GTK_TREE_VIEW(pd->bd.lview), 2, G_CALLBACK(extcommands_2_edited_lcb), pd, _("Default browser"), 2,FALSE);
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label), _("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n%s local filename (available for local files)\n%i temporary fifo for input, equals %s if the document is not modified and local\n%I temporary filename for input, equals %s if the document is not modified and local\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
 	gtk_box_pack_start(GTK_BOX(vbox1),label, FALSE, FALSE, 2);
@@ -993,8 +995,8 @@ static void create_filters_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->lists[extfilters] = duplicate_arraylist(main_v->props.external_filter);
 	pd->ed.lstore = gtk_list_store_new (3,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
 	pd->ed.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->ed.lstore));
-	pref_create_column(GTK_TREE_VIEW(pd->ed.lview), 1, G_CALLBACK(external_filter_0_edited_lcb), pd, _("Label"), 0);
-	pref_create_column(GTK_TREE_VIEW(pd->ed.lview), 1, G_CALLBACK(external_filter_1_edited_lcb), pd, _("Command"), 1);
+	pref_create_column(GTK_TREE_VIEW(pd->ed.lview), 1, G_CALLBACK(external_filter_0_edited_lcb), pd, _("Label"), 0,FALSE);
+	pref_create_column(GTK_TREE_VIEW(pd->ed.lview), 1, G_CALLBACK(external_filter_1_edited_lcb), pd, _("Command"), 1,FALSE);
 
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label), _("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n%s local filename (requires local file, cannot operate on selection)\n%i temporary fifo for input\n%I temporary filename for input\n<b>Output options</b>\nend with a | to read the output from the standard output\n%o temporary fifo\n%O temporary filename\n%t temporary filename for both input and output (for in-place-editing filters, cannot operate on selection)\n<b>Other options</b>\n%c local directory of file (requires local file)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
@@ -1084,13 +1086,13 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->lists[extoutputbox] = duplicate_arraylist(main_v->props.external_outputbox);
 	pd->od.lstore = gtk_list_store_new (8,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER);
 	pd->od.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->od.lstore));
-	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_0_edited_lcb), pd, _("Name"), 0);
-	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_1_edited_lcb), pd, _("Pattern"), 1);
-	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_2_edited_lcb), pd, _("File #"), 2);
-	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_3_edited_lcb), pd, _("Line #"), 3);
-	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_4_edited_lcb), pd, _("Output #"), 4);
-	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_5_edited_lcb), pd, _("Command"), 5);
-	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 2, G_CALLBACK(outputbox_6_toggled_lcb), pd, _("Show all output"), 6);
+	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_0_edited_lcb), pd, _("Name"), 0,TRUE);
+	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_1_edited_lcb), pd, _("Pattern"), 1,TRUE);
+	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_2_edited_lcb), pd, _("File #"), 2,TRUE);
+	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_3_edited_lcb), pd, _("Line #"), 3,TRUE);
+	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_4_edited_lcb), pd, _("Output #"), 4,TRUE);
+	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 1, G_CALLBACK(outputbox_5_edited_lcb), pd, _("Command"), 5,TRUE);
+	pref_create_column(GTK_TREE_VIEW(pd->od.lview), 2, G_CALLBACK(outputbox_6_toggled_lcb), pd, _("Show all output"), 6,TRUE);
 	label = gtk_label_new(NULL);
 	gtk_label_set_markup(GTK_LABEL(label), _("<small><b>Input options</b>\nstart with a | to send the input to the standard input\n%s local filename (available for local files)\n%i temporary fifo for input, equals %s if the document is not modified and local\n%I temporary filename for input, equals %s if the document is not modified and local\n<b>Output options</b>\nend with a | to read the output from the standard output\n%o temporary fifo\n%O temporary filename\n%t temporary filename for both input and output (for in-place-editing filters)\n<b>Other options</b>\n%c local directory of file (available for local files)\n%n filename without path (available for all titled files)\n%u URL (available for all titled files)\n%p preview URL if basedir and preview dir are set in project settings, else identical to %u</small>"));
 	gtk_box_pack_start(GTK_BOX(vbox1),label, FALSE, FALSE, 2);
@@ -1128,11 +1130,33 @@ static void create_outputbox_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 }
 
 /********* bflangdialog */
+static gchar *string_path_to_child_string_path(GtkTreeModelFilter *lfilter, const gchar *path) {
+	GtkTreePath* tpath, *ctpath;
+	gchar *ret;
+	tpath = gtk_tree_path_new_from_string(path);
+	if (!tpath) {
+		g_print("no tree path for string path %s\n",path);
+		return NULL;
+	}
+	ctpath = gtk_tree_model_filter_convert_path_to_child_path(lfilter,tpath);
+	gtk_tree_path_free(tpath);
+	if (!ctpath) {
+		g_print("no child path for string path %s\n",path);
+		return NULL;
+	}
+	ret = gtk_tree_path_to_string(ctpath);
+	gtk_tree_path_free(ctpath);
+	g_print("return child path %s for path %s\n",ret,path);
+	return ret;
+}
+
 static void bflang_1_edited_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar *path,Tprefdialog *pd) {
-	gchar *val = g_strdup(cellrenderertoggle->active ? "0" : "1");
+	gchar *cpath, *val = g_strdup(cellrenderertoggle->active ? "0" : "1");
+	cpath = string_path_to_child_string_path(pd->bld.lfilter, path);
 	/*	BUG FIX THIS, a treemodelfilter is inbetween so path is not the path that can be used on the model!!!!!!!! */
-	pref_apply_change(pd->bld.lstore,3,2,path,val,2);
+	pref_apply_change(pd->bld.lstore,3,2,cpath,val,2);
 	g_free(val);
+	g_free(cpath);
 }
 /*static void bflang_highlight_changed_lcb(GtkCellRendererCombo *combo,gchar *path,GtkTreeIter *new_iter,Tprefdialog *pd) {
 	gchar *val;
@@ -1141,23 +1165,12 @@ static void bflang_1_edited_lcb(GtkCellRendererToggle *cellrenderertoggle,gchar 
 	pref_apply_change(pd->bld.lstore2, 3, 4, path, val, 2);
 	g_free(val);
 }*/
+
 static void bflang_highlight_edited_lcb(GtkCellRendererCombo *combo,gchar *path,gchar *val,Tprefdialog *pd) {
-	GtkTreeIter iter;
-	GtkTreePath* tpath = gtk_tree_path_new_from_string(path);
-	if (tpath && gtk_tree_model_get_iter(GTK_TREE_MODEL(pd->bld.lfilter2),&iter,tpath)) {
-		GtkTreeIter citer;
-		gtk_tree_model_filter_convert_iter_to_child_iter(pd->bld.lfilter2,&citer,&iter);
-		gtk_list_store_set(GTK_LIST_STORE(pd->bld.lstore2),&citer,2,val,-1);
-
-/*	BUG FIX THIS	if (strarr[index]) {
-			g_print("pref_apply_change, old value for strarr[%d] was %s\n",index,strarr[index]);
-			g_free(strarr[index]);
-		}
-		strarr[index] = g_strdup(newval);*/
-	}
-
-	/*g_print("bflang_highlight_edited_lcb, val=%s\n",val);
-	pref_apply_change(pd->bld.lfilter2, 3, 1/ * 1 is text, not a combo * /, path, val, 2);*/
+	gchar *cpath = string_path_to_child_string_path(pd->bld.lfilter2, path);
+	g_print("bflang_highlight_edited_lcb, val=%s\n",val);
+	pref_apply_change(pd->bld.lstore2, 3, 1/* 1 is text, not a combo */, cpath, val, 2);
+	g_free(cpath);
 }
 
 static void bflanggui_set_bflang(Tprefdialog *pd, gpointer data) {
@@ -1220,8 +1233,8 @@ static void create_bflang_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_label_set_markup(GTK_LABEL(label), _("<small>language dialog not yet ready..</small>"));
 	gtk_box_pack_start(GTK_BOX(vbox1),label, TRUE, TRUE, 2);*/
 	/* skip column 0, the language name */
-	pref_create_column(GTK_TREE_VIEW(pd->bld.lview), 1/* 1=text */, NULL, NULL, _("Option name"), 1);
-	pref_create_column(GTK_TREE_VIEW(pd->bld.lview), 2 /* 2=boolean */, G_CALLBACK(bflang_1_edited_lcb), pd, _("value"), 2);
+	pref_create_column(GTK_TREE_VIEW(pd->bld.lview), 1/* 1=text */, NULL, NULL, _("Option name"), 1,FALSE);
+	pref_create_column(GTK_TREE_VIEW(pd->bld.lview), 2 /* 2=boolean */, G_CALLBACK(bflang_1_edited_lcb), pd, _("value"), 2,FALSE);
 	
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
@@ -1234,7 +1247,7 @@ static void create_bflang_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_tree_model_filter_set_visible_func(pd->bld.lfilter2,bflang_gui_filter_func_lcb,pd,NULL);
 	pd->bld.lview2 = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lfilter2));
 	
-	pref_create_column(GTK_TREE_VIEW(pd->bld.lview2), 1/* 1=text */, NULL, NULL, _("Highlight name"), 1);
+	pref_create_column(GTK_TREE_VIEW(pd->bld.lview2), 1/* 1=text */, NULL, NULL, _("Highlight name"), 1,FALSE);
 	renderer = gtk_cell_renderer_combo_new();
 	g_object_set(G_OBJECT(renderer), "model", pd->tsd.lstore/* the textstyle model */, "text-column", 0, "has-entry", FALSE, "editable", TRUE, NULL);
 	column = gtk_tree_view_column_new_with_attributes(_("Textstyle"), renderer, "text",2, NULL);
@@ -1741,14 +1754,14 @@ static void preferences_dialog() {
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	create_bflang_gui(pd, vbox1);
 
-	tmplist = g_list_first(g_list_sort(langmgr_get_languages(), (GCompareFunc)fill_hl_tree_bflang_list_sort_lcb));
+	tmplist = g_list_first(langmgr_get_languages());
 	while (tmplist) {
 		Tbflang *bflang = tmplist->data;
 		gtk_tree_store_append(pd->nstore, &auxit, &iter);
 		gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,bflang->name, WIDGETCOL,vbox1, FUNCCOL, bflanggui_set_bflang, DATACOL, bflang,-1);
 		tmplist = g_list_next(tmplist);
 	}
-
+	/*
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, &iter);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Syntax highlighting"), WIDGETCOL,vbox1,-1);
@@ -1757,7 +1770,7 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-	create_hl_gui(pd,vbox2);
+	create_hl_gui(pd,vbox2);*/
 
 	/* end, create buttons for dialog now */
 	{

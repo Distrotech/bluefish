@@ -23,6 +23,8 @@
 <bflang name="Bflang2" matches="111" contexts="19" table="723">
 <header>
 	<mime type="application/x-bluefish-language2"/>
+	<option name="load_reference" default="1" description="load reference data"/>
+	<option name="load_completion" default="1" description="load completion data"/>
 	<highlight name="tag" style="tag" />
 	<highlight name="pattern-tag" style="special-tag"  />
 	<highlight name="attribute" style="attribute"   />

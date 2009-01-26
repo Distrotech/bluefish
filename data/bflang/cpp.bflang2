@@ -26,7 +26,8 @@
 	<mime type="text/x-c++hdr"/>
 	<mime type="application/x-c++src"/>
 	<mime type="application/x-c++hdr"/>
-
+	<option name="load_reference" default="1" description="load reference data"/>
+	<option name="load_completion" default="1" description="load completion data"/>
 	<highlight name="keyword" style="keyword" />
 	<highlight name="storage keyword" style="special-keyword" />
 	<highlight name="brackets" style="brackets" />

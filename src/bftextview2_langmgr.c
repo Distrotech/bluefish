@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_langmgr.c
  *
- * Copyright (C) 2008 Olivier Sessink
+ * Copyright (C) 2008,2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,6 +40,8 @@ typedef struct {
 	/*GHashTable *setoptions;*/
 	Tscantable *st; /* while not finished */
 	Tbflang *bflang;
+	gboolean load_completion;
+	gboolean load_reference;
 } Tbflangparsing;
 
 typedef struct {
@@ -189,7 +191,7 @@ void langmgr_reload_user_styles(void) {
 
 static void langmgr_insert_user_option(gchar *lang,gchar *option,gchar *val) {
 	if (lang && option && val) {
-		g_print("insert %s %s: %s\n",lang,option,val);
+		/*g_print("insert %s %s: %s\n",lang,option,val);*/
 		g_hash_table_insert(langmgr.bflang_options,array_from_arglist(lang, option, NULL),g_strdup(val));
 	}
 }
@@ -205,7 +207,7 @@ void langmgr_reload_user_options(void) {
 	/* we don't apply anything in this function (yet) */
 }
 
-static gchar *lookup_user_option(const gchar *lang, const gchar *option) {
+static const gchar *lookup_user_option(const gchar *lang, const gchar *option) {
 	if (lang && option) {
 		const gchar *arr[] = {lang, option, NULL};
 		return g_hash_table_lookup(langmgr.bflang_options, arr);
@@ -258,7 +260,6 @@ static void foreachdoc_lcb(Tdocument *doc, gpointer data) {
 		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(doc->view));
 	}
 }
-
 #endif
 /* this is called in the mainloop again */
 static gboolean build_lang_finished_lcb(gpointer data)
@@ -342,7 +343,7 @@ static void process_header(xmlTextReaderPtr reader, Tbflang *bflang) {
 				xmlFree(aname);
 			}
 			if (optionname) {
-				gchar *val = lookup_user_option(bflang->name, optionname);
+				const gchar *val = lookup_user_option(bflang->name, optionname);
 				if (!val) {
 					/* not set by the user */
 					main_v->props.bflang_options = g_list_prepend(main_v->props.bflang_options,array_from_arglist(bflang->name,optionname,defaultval?"1":"0",NULL));
@@ -400,11 +401,13 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 		,gchar *ih_autocomplete_append ,const gchar *ih_highlight
 		,gboolean ih_case_insens ,gboolean ih_is_regex ,gboolean ih_autocomplete) {
 	guint16 matchnum=0;
-	gchar *tmp;
+	const gchar *tmp;
 	gchar *pattern=NULL, *idref=NULL, *highlight=NULL, *blockstartelement=NULL, *blockhighlight=NULL, *class=NULL, *autocomplete_append=NULL, *autocomplete_string=NULL, *id=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE, is_empty, autocomplete=FALSE;
 	gint ends_context=0;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
+	
+	
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"pattern",&pattern);
@@ -419,9 +422,11 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"ends_block", &ends_block);
 		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"case_insens", &case_insens);
 		set_integer_if_attribute_name(reader, aname, (xmlChar *)"ends_context", &ends_context);
-		set_boolean_if_attribute_name(reader, aname, (xmlChar *)"autocomplete", &autocomplete);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_string",&autocomplete_string);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
+		if (bfparser->load_completion) {
+			set_boolean_if_attribute_name(reader, aname, (xmlChar *)"autocomplete", &autocomplete);
+			set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_string",&autocomplete_string);
+			set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
+		}
 		xmlFree(aname);
 	}
 	tmp = lookup_user_option(bfparser->bflang->name,class);
@@ -465,7 +470,7 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 					} else if (xmlStrEqual(name,(xmlChar *)"reference")) {
 						DBG_PARSING("in pattern, found reference\n");
 						if (!xmlTextReaderIsEmptyElement(reader)) {
-							if (langmgr.load_reference)
+							if (langmgr.load_reference && bfparser->load_reference)
 								reference = (gchar *)xmlTextReaderReadInnerXml(reader);
 							DBG_PARSING("reference=%s\n",reference);
 							while (xmlTextReaderRead(reader)==1) {
@@ -513,7 +518,7 @@ int stringcmp(const void *sp1, const void *sp2 ) {
 
 static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context, GQueue *contextstack
 		,gchar *ih_autocomplete_append ,gchar *ih_highlight,gchar *ih_attrib_autocomplete_append ,gchar *ih_attribhighlight) {
-	gchar *tmp;
+	const gchar *tmp;
 	gchar *tag=NULL, *idref=NULL, *highlight=NULL, *attributes=NULL, *attribhighlight=NULL,*class=NULL
 				, *autocomplete_append=NULL,*attrib_autocomplete_append=NULL,*id=NULL;
 	guint16 matchnum=0,innercontext=context;
@@ -527,10 +532,12 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"name",&tag);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"highlight",&highlight);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
+		if (bfparser->load_completion) {
+			set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
+			set_string_if_attribute_name(reader,aname, (xmlChar *)"attrib_autocomplete_append", &attrib_autocomplete_append);
+		}
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"attribhighlight",&attribhighlight);
 		set_string_if_attribute_name(reader,aname, (xmlChar *)"attributes", &attributes);
-		set_string_if_attribute_name(reader,aname, (xmlChar *)"attrib_autocomplete_append", &attrib_autocomplete_append);
 		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"case_insens", &case_insens);
 		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"sgml_shorttag", &sgml_shorttag);
 		xmlFree(aname);
@@ -640,7 +647,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					xmlChar *name=xmlTextReaderName(reader);
 					if (xmlStrEqual(name,(xmlChar *)"reference")) {
 						if (!xmlTextReaderIsEmptyElement(reader)) {
-							if (langmgr.load_reference)
+							if (langmgr.load_reference && bfparser->load_reference)
 								reference = (gchar *)xmlTextReaderReadInnerXml(reader);
 							DBG_PARSING("reference=%s\n",reference);
 							while (xmlTextReaderRead(reader)==1) {
@@ -694,20 +701,22 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 	gchar *autocomplete_append=NULL, *highlight=NULL, *class=NULL, *attrib_autocomplete_append=NULL, *attribhighlight=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, autocomplete=FALSE;
 	gint depth;
-	gchar *tmp;
+	const gchar *tmp;
 	if (xmlTextReaderIsEmptyElement(reader)) {
 		return;
 	}
 	depth = xmlTextReaderDepth(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
 		xmlChar *aname = xmlTextReaderName(reader);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
+		if (bfparser->load_completion) {
+			set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
+			set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete",&autocomplete);
+			set_string_if_attribute_name(reader,aname,(xmlChar *)"attrib_autocomplete_append",&attrib_autocomplete_append);
+		}
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"highlight",&highlight);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
 		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"case_insens",&case_insens);
 		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"is_regex",&is_regex);
-		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete",&autocomplete);
-		set_string_if_attribute_name(reader,aname,(xmlChar *)"attrib_autocomplete_append",&attrib_autocomplete_append);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"attribhighlight",&attribhighlight);
 		xmlFree(aname);
 	}
@@ -773,7 +782,8 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"idref",&idref);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"symbols",&symbols);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"highlight",&highlight);
-		set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_case_insens",&autocomplete_case_insens);
+		if (bfparser->load_completion)
+			set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_case_insens",&autocomplete_case_insens);
 		xmlFree(aname);
 	}
 	DBG_PARSING("found <context> (empty=%d) with id=%s, idref=%s\n",is_empty, id, idref);
@@ -827,7 +837,7 @@ static gpointer build_lang_thread(gpointer data)
 	xmlTextReaderPtr reader;
 	Tbflang *bflang = data;
 	Tbflangparsing *bfparser;
-	GList *tmplist;
+	const gchar *tmp;
 	
 	bfparser = g_slice_new0(Tbflangparsing);
 	bfparser->patterns =  g_hash_table_new_full(g_str_hash,g_str_equal,g_free,NULL);
@@ -838,6 +848,11 @@ static gpointer build_lang_thread(gpointer data)
 		g_hash_table_insert(bfparser->setoptions,g_strdup(tmplist->data),GINT_TO_POINTER(1));
 	}*/
 	bfparser->st = scantable_new(bflang->size_table,bflang->size_matches,bflang->size_contexts);
+
+	tmp = lookup_user_option(bflang->name, "load_reference");
+	bfparser->load_reference = !(tmp && tmp[0]=='0');
+	tmp = lookup_user_option(bflang->name, "load_completion");
+	bfparser->load_completion = !(tmp && tmp[0]=='0');
 
 	DBG_PARSING("build_lang_thread %p, started for %s\n",g_thread_self(),bfparser->bflang->filename);
 	reader = xmlNewTextReaderFilename(bfparser->bflang->filename);
