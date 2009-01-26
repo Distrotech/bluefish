@@ -23,6 +23,8 @@
 <bflang name="ASP" matches="403" contexts="44" table="1275">
 <header>
 	<mime type="application/x-asp"/>
+	<option name="load_reference" default="1" description="load reference data"/>
+	<option name="load_completion" default="1" description="load completion data"/>
 	<highlight name="tag" style="tag"  />
 	<highlight name="attribute" style="attribute"  />
 	<highlight name="string" style="string"  />

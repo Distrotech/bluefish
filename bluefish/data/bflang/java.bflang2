@@ -23,6 +23,8 @@
 <bflang name="Java" matches="75" contexts="6" table="297">
 <header>
 	<mime type="text/x-java"/>
+	<option name="load_reference" default="1" description="load reference data"/>
+	<option name="load_completion" default="1" description="load completion data"/>
 	<highlight name="keyword" style="keyword" />
 	<highlight name="OO-keyword" style="special-keyword"  />
 	<highlight name="brackets" style="brackets"  />

@@ -27,6 +27,8 @@
 	<mime type="application/x-csrc"/>
 	<mime type="application/x-chdr"/>
 	<option name="glib" default="1" description="glib types and functions"/>
+	<option name="load_reference" default="1" description="load reference data"/>
+	<option name="load_completion" default="1" description="load completion data"/>
 	<highlight name="keyword" style="keyword" />
 	<highlight name="brackets" style="brackets" />
 	<highlight name="type" style="type" />

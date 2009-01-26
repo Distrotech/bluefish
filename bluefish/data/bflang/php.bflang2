@@ -23,7 +23,9 @@
 <bflang name="PHP" table="32679" contexts="22" matches="4975">
 <header>
 	<mime type="application/x-php"/>
-	<option name="allfunctions" default="1" description="All php functions" />
+	<option name="load_reference" default="1" description="load reference data"/>
+	<option name="load_completion" default="1" description="load completion data"/>
+	<option name="load_php_functions" default="1" description="All php functions" />
 	<highlight name="html-tag" style="tag"  />
 	<highlight name="php-block-tag" style="special-value"  />
 	<highlight name="html-attribute" style="attribute"   />
@@ -90,7 +92,7 @@
 <element pattern="&lt;?php" starts_block="1" highlight="php-block-tag">
 <context symbols="'&#34;(){}[];#:.,/?!$^*-+=&gt;&lt;&amp; &#9;&#10;&#13;" highlight="region">
 
-<group class="allfunctions" autocomplete="1" highlight="php-function">
+<group class="load_php_functions" autocomplete="1" highlight="php-function">
 <element pattern="dotnet_load" />
 <element pattern="apache_child_terminate" />
 <element pattern="apache_get_modules" />
