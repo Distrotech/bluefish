@@ -107,7 +107,7 @@ static void langmrg_create_style(const gchar *name, const gchar *fgcolor, const 
 	tag = gtk_text_tag_table_lookup(langmgr.tagtable,name);
 	if (!tag) {
 		tag = gtk_text_tag_new(name);
-		g_print("creating tag %p for new textstyle %s\n",tag,name);
+		DBG_MSG("creating tag %p for new textstyle %s\n",tag,name);
 		newtag=TRUE;
 	} /*else {
 		g_print("modyfying tag %p for textstyle %s\n",tag,name);
@@ -902,7 +902,7 @@ static gpointer build_lang_thread(gpointer data)
 	xmlFreeTextReader(reader);
 	/* do some final memory management */
 	if (bfparser->st) {
-		g_print("scantable final memory, realloc table %d, contexts %d, matches %d\n",bfparser->st->table->len, bfparser->st->contexts->len, bfparser->st->matches->len);
+		DBG_MSG("scantable final memory, realloc table %d, contexts %d, matches %d\n",bfparser->st->table->len, bfparser->st->contexts->len, bfparser->st->matches->len);
 		bfparser->st->table->data = g_realloc(bfparser->st->table->data, (bfparser->st->table->len+1)*sizeof(Ttablerow));
 		bfparser->st->contexts->data = g_realloc(bfparser->st->contexts->data, (bfparser->st->contexts->len+1)*sizeof(Tcontext));
 		bfparser->st->matches->data = g_realloc(bfparser->st->matches->data, (bfparser->st->matches->len+1)*sizeof(Tpattern));

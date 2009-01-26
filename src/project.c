@@ -339,7 +339,7 @@ static void project_open(Tbfwin *bfwin) {
 }
 
 static void project_destroy(Tproject *project) {
-	g_print("project_destroy, project=%p, project->session=%p\n",project,project->session);
+	DEBUG_MSG("project_destroy, project=%p, project->session=%p\n",project,project->session);
 	bookmark_data_cleanup(project->bmarkdata);
 	free_stringlist(project->files);
 	free_session(project->session);
