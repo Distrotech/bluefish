@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 1.1.0\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-01-03 23:32+0100\n"
+"POT-Creation-Date: 2009-01-27 20:48+0100\n"
 "PO-Revision-Date: 2006-11-25 19:58+0100\n"
 "Last-Translator: Daniel Leidert <daniel.leidert@wgdd.de>\n"
 "Language-Team: none\n"
@@ -1469,7 +1469,7 @@ msgstr "_Sprache:"
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
-#: src/plugin_htmlbar/image_dialog.c:411
+#: src/plugin_htmlbar/image_dialog.c:409
 msgid "Custo_m:"
 msgstr "Be_nutzerdefiniert:"
 
@@ -1534,7 +1534,7 @@ msgstr "Ausrichtun_g:"
 #: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
 #: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
 #: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
-#: src/plugin_htmlbar/image_dialog.c:399
+#: src/plugin_htmlbar/image_dialog.c:397
 msgid "Cl_ass:"
 msgstr "Kl_asse:"
 
@@ -1554,19 +1554,19 @@ msgid "Horizontal Rule"
 msgstr "Horizontale Linie"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:432
+#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Align:"
 msgstr "_Ausrichtung:"
 
 #: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
-#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:373
+#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:371
 msgid "_Height:"
 msgstr "_Höhe:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:364
+#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:362
 msgid "_Width:"
 msgstr "_Breite:"
 
@@ -1716,7 +1716,7 @@ msgid "_Add <frame> elements"
 msgstr "_Füge <frame>-Elemente hinzu"
 
 #: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
-#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:323
+#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:321
 msgid "_Source:"
 msgstr "_Quelle:"
 
@@ -1933,7 +1933,7 @@ msgstr "Füge Vorschau ein"
 msgid "Insert image"
 msgstr "Füge Bild ein"
 
-#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:343
+#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:341
 msgid "Preview"
 msgstr "Vorschau"
 
@@ -1945,7 +1945,7 @@ msgstr "B_ildquelle:"
 msgid "Hei_ght:"
 msgstr "Höhe:"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:407
+#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Usemap:"
 msgstr "_Imagemap:"
 
@@ -1953,11 +1953,11 @@ msgstr "_Imagemap:"
 msgid "Alternate _text:"
 msgstr "Alt-_Text:"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:441
+#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:439
 msgid "_Hspace:"
 msgstr "_Horizontaler Abstand:"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:445
+#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:443
 msgid "_Vspace:"
 msgstr "_Vertikaler Abstand:"
 
@@ -2013,60 +2013,50 @@ msgstr ""
 "%x: Thumbnail Breite  %y: Thumbnail Höhe\n"
 "%b: Originalgröße (Bytes)"
 
-#: src/plugin_htmlbar/image_dialog.c:380
+#: src/plugin_htmlbar/image_dialog.c:378
 #, fuzzy
 msgid "_Reset Dimensions"
 msgstr "Größen"
 
-#: src/plugin_htmlbar/image_dialog.c:391
+#: src/plugin_htmlbar/image_dialog.c:389
 #, fuzzy
 msgid "Alternate te_xt:"
 msgstr "Alt-_Text:"
 
-#: src/plugin_htmlbar/image_dialog.c:395
+#: src/plugin_htmlbar/image_dialog.c:393
 #, fuzzy
 msgid "_Long description:"
 msgstr "_Beschreibung"
 
-#: src/plugin_htmlbar/image_dialog.c:403
+#: src/plugin_htmlbar/image_dialog.c:401
 #, fuzzy
 msgid "I_D:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/image_dialog.c:413
-#, fuzzy
-msgid "Strict"
-msgstr "Script"
-
-#: src/plugin_htmlbar/image_dialog.c:422
+#: src/plugin_htmlbar/image_dialog.c:420
 msgid "_Use Transitional options"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:437
+#: src/plugin_htmlbar/image_dialog.c:435
 #, fuzzy
 msgid "_Border:"
 msgstr "_Rand:"
 
-#: src/plugin_htmlbar/image_dialog.c:447
-#, fuzzy
-msgid "Transitional"
-msgstr "Übersetzer"
-
-#: src/plugin_htmlbar/image_dialog.c:774
+#: src/plugin_htmlbar/image_dialog.c:772
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:779
+#: src/plugin_htmlbar/image_dialog.c:777
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:876
+#: src/plugin_htmlbar/image_dialog.c:874
 msgid ""
 "\n"
 "\n"
@@ -2074,18 +2064,18 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:979
+#: src/plugin_htmlbar/image_dialog.c:977
 #, fuzzy
 msgid "Select Image"
 msgstr "Datei wählen"
 
-#: src/plugin_htmlbar/image_dialog.c:987
+#: src/plugin_htmlbar/image_dialog.c:985
 #, fuzzy
 msgid "All images"
 msgstr "Bilder"
 
-#: src/plugin_htmlbar/image_dialog.c:1215
-#: src/plugin_htmlbar/image_dialog.c:1327
+#: src/plugin_htmlbar/image_dialog.c:1213
+#: src/plugin_htmlbar/image_dialog.c:1325
 #, fuzzy
 msgid "Insert Image"
 msgstr "Füge Bild ein"
@@ -2217,6 +2207,14 @@ msgstr "Quelle:"
 #: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
 msgstr "Grösse:"
+
+#, fuzzy
+#~ msgid "Strict"
+#~ msgstr "Script"
+
+#, fuzzy
+#~ msgid "Transitional"
+#~ msgstr "Übersetzer"
 
 #~ msgid "/Tags/Tearoff1"
 #~ msgstr "/Tags/Tearoff1"
