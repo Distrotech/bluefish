@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-01-03 23:32+0100\n"
+"POT-Creation-Date: 2009-01-27 20:48+0100\n"
 "PO-Revision-Date: 2004-11-27 22:43-0300\n"
 "Last-Translator: Takeshi HAMASAKI <hma@syd.odn.ne.jp>\n"
 "Language-Team: \n"
@@ -1477,7 +1477,7 @@ msgstr "言語(_L):"
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
-#: src/plugin_htmlbar/image_dialog.c:411
+#: src/plugin_htmlbar/image_dialog.c:409
 msgid "Custo_m:"
 msgstr "カスタム(_M):"
 
@@ -1542,7 +1542,7 @@ msgstr "配置(_G):"
 #: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
 #: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
 #: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
-#: src/plugin_htmlbar/image_dialog.c:399
+#: src/plugin_htmlbar/image_dialog.c:397
 msgid "Cl_ass:"
 msgstr "Cla_ss:"
 
@@ -1562,19 +1562,19 @@ msgid "Horizontal Rule"
 msgstr "水平線"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:432
+#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Align:"
 msgstr "配置(_A):"
 
 #: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
-#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:373
+#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:371
 msgid "_Height:"
 msgstr "高さ(_H):"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:364
+#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:362
 msgid "_Width:"
 msgstr "幅(_W):"
 
@@ -1726,7 +1726,7 @@ msgid "_Add <frame> elements"
 msgstr "<frame>要素を追加(_A)"
 
 #: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
-#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:323
+#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:321
 msgid "_Source:"
 msgstr "ソース(_S):"
 
@@ -1945,7 +1945,7 @@ msgstr "サムネイルでイメージを挿入"
 msgid "Insert image"
 msgstr "画像を挿入"
 
-#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:343
+#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:341
 msgid "Preview"
 msgstr "プレビュー"
 
@@ -1957,7 +1957,7 @@ msgstr "画像のある場所(_I):"
 msgid "Hei_ght:"
 msgstr "高さ(_G):"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:407
+#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Usemap:"
 msgstr "map利用(_U):"
 
@@ -1965,11 +1965,11 @@ msgstr "map利用(_U):"
 msgid "Alternate _text:"
 msgstr "代替テキスト(_T):"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:441
+#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:439
 msgid "_Hspace:"
 msgstr "横方向スペース(_H):"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:445
+#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:443
 msgid "_Vspace:"
 msgstr "縦方向スペース(_V):"
 
@@ -2025,61 +2025,51 @@ msgstr ""
 "%x: サムネイルの幅  %y: サムネイルの高さ\n"
 "%b: 元のファイルサイズ (バイト)"
 
-#: src/plugin_htmlbar/image_dialog.c:380
+#: src/plugin_htmlbar/image_dialog.c:378
 #, fuzzy
 msgid "_Reset Dimensions"
 msgstr "ウィンドウサイズ"
 
-#: src/plugin_htmlbar/image_dialog.c:391
+#: src/plugin_htmlbar/image_dialog.c:389
 #, fuzzy
 msgid "Alternate te_xt:"
 msgstr "代替テキスト(_T):"
 
-#: src/plugin_htmlbar/image_dialog.c:395
+#: src/plugin_htmlbar/image_dialog.c:393
 #, fuzzy
 msgid "_Long description:"
 msgstr "説明(_D):"
 
-#: src/plugin_htmlbar/image_dialog.c:403
+#: src/plugin_htmlbar/image_dialog.c:401
 #, fuzzy
 msgid "I_D:"
 msgstr "_ID:"
 
-#: src/plugin_htmlbar/image_dialog.c:413
-#, fuzzy
-msgid "Strict"
-msgstr "開始"
-
-#: src/plugin_htmlbar/image_dialog.c:422
+#: src/plugin_htmlbar/image_dialog.c:420
 #, fuzzy
 msgid "_Use Transitional options"
 msgstr "個人辞書の使用"
 
-#: src/plugin_htmlbar/image_dialog.c:437
+#: src/plugin_htmlbar/image_dialog.c:435
 #, fuzzy
 msgid "_Border:"
 msgstr "ボーダー(_R):"
 
-#: src/plugin_htmlbar/image_dialog.c:447
-#, fuzzy
-msgid "Transitional"
-msgstr "翻訳者たち"
-
-#: src/plugin_htmlbar/image_dialog.c:774
+#: src/plugin_htmlbar/image_dialog.c:772
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:779
+#: src/plugin_htmlbar/image_dialog.c:777
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:876
+#: src/plugin_htmlbar/image_dialog.c:874
 msgid ""
 "\n"
 "\n"
@@ -2087,18 +2077,18 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:979
+#: src/plugin_htmlbar/image_dialog.c:977
 #, fuzzy
 msgid "Select Image"
 msgstr "ファイル選択"
 
-#: src/plugin_htmlbar/image_dialog.c:987
+#: src/plugin_htmlbar/image_dialog.c:985
 #, fuzzy
 msgid "All images"
 msgstr "画像ファイル"
 
-#: src/plugin_htmlbar/image_dialog.c:1215
-#: src/plugin_htmlbar/image_dialog.c:1327
+#: src/plugin_htmlbar/image_dialog.c:1213
+#: src/plugin_htmlbar/image_dialog.c:1325
 #, fuzzy
 msgid "Insert Image"
 msgstr "画像を挿入"
@@ -2244,6 +2234,14 @@ msgstr "ソース:"
 #: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
 msgstr "サイズ:"
+
+#, fuzzy
+#~ msgid "Strict"
+#~ msgstr "開始"
+
+#, fuzzy
+#~ msgid "Transitional"
+#~ msgstr "翻訳者たち"
 
 #~ msgid "/Tags/Tearoff1"
 #~ msgstr "/タグ/Tearoff1"

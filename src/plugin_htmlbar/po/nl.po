@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish-unstable\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-01-03 23:32+0100\n"
+"POT-Creation-Date: 2009-01-27 20:48+0100\n"
 "PO-Revision-Date: 2007-08-22 17:11+0200\n"
 "Last-Translator: elve <elve@savage-elve.net>\n"
 "Language-Team: Dutch <nl@li.org>\n"
@@ -1472,7 +1472,7 @@ msgstr "Taal:"
 #: src/plugin_htmlbar/html_form.c:609 src/plugin_htmlbar/html_form.c:903
 #: src/plugin_htmlbar/html_table.c:101 src/plugin_htmlbar/html_table.c:253
 #: src/plugin_htmlbar/html_table.c:361 src/plugin_htmlbar/image.c:474
-#: src/plugin_htmlbar/image_dialog.c:411
+#: src/plugin_htmlbar/image_dialog.c:409
 msgid "Custo_m:"
 msgstr "Aangepast:"
 
@@ -1537,7 +1537,7 @@ msgstr "Uitlĳnen:"
 #: src/plugin_htmlbar/html.c:822 src/plugin_htmlbar/html.c:1058
 #: src/plugin_htmlbar/html_diag.c:373 src/plugin_htmlbar/html_table.c:91
 #: src/plugin_htmlbar/html_table.c:237 src/plugin_htmlbar/html_table.c:351
-#: src/plugin_htmlbar/image_dialog.c:399
+#: src/plugin_htmlbar/image_dialog.c:397
 msgid "Cl_ass:"
 msgstr "Klasse:"
 
@@ -1557,19 +1557,19 @@ msgid "Horizontal Rule"
 msgstr "Horizontale Lĳn"
 
 #: src/plugin_htmlbar/html.c:949 src/plugin_htmlbar/html.c:1746
-#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:432
+#: src/plugin_htmlbar/image.c:492 src/plugin_htmlbar/image_dialog.c:430
 msgid "_Align:"
 msgstr "Uitlĳnen:"
 
 #: src/plugin_htmlbar/html.c:956 src/plugin_htmlbar/html.c:1754
-#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:373
+#: src/plugin_htmlbar/html_table.c:387 src/plugin_htmlbar/image_dialog.c:371
 msgid "_Height:"
 msgstr "Hoogte:"
 
 #. gtk_spin_button_set_numeric (GTK_SPIN_BUTTON (spin2), 1);
 #: src/plugin_htmlbar/html.c:962 src/plugin_htmlbar/html.c:1750
 #: src/plugin_htmlbar/html_table.c:134 src/plugin_htmlbar/html_table.c:380
-#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:364
+#: src/plugin_htmlbar/image.c:450 src/plugin_htmlbar/image_dialog.c:362
 msgid "_Width:"
 msgstr "Breedte:"
 
@@ -1719,7 +1719,7 @@ msgid "_Add <frame> elements"
 msgstr "<frame> elementen toevoegen"
 
 #: src/plugin_htmlbar/html.c:1657 src/plugin_htmlbar/html.c:1742
-#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:323
+#: src/plugin_htmlbar/html.c:1801 src/plugin_htmlbar/image_dialog.c:321
 msgid "_Source:"
 msgstr "Bron:"
 
@@ -1935,7 +1935,7 @@ msgstr "Voeg voorbeeldafbeelding in"
 msgid "Insert image"
 msgstr "Afbeelding invoegen"
 
-#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:343
+#: src/plugin_htmlbar/image.c:420 src/plugin_htmlbar/image_dialog.c:341
 msgid "Preview"
 msgstr "Preview"
 
@@ -1947,7 +1947,7 @@ msgstr "Locatie van afbeelding:"
 msgid "Hei_ght:"
 msgstr "Hoogte:"
 
-#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:407
+#: src/plugin_htmlbar/image.c:462 src/plugin_htmlbar/image_dialog.c:405
 msgid "_Usemap:"
 msgstr "Aanklikbare afbeelding:"
 
@@ -1955,11 +1955,11 @@ msgstr "Aanklikbare afbeelding:"
 msgid "Alternate _text:"
 msgstr "Alternatieve tekst:"
 
-#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:441
+#: src/plugin_htmlbar/image.c:478 src/plugin_htmlbar/image_dialog.c:439
 msgid "_Hspace:"
 msgstr "Ruimte links/rechts:"
 
-#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:445
+#: src/plugin_htmlbar/image.c:482 src/plugin_htmlbar/image_dialog.c:443
 msgid "_Vspace:"
 msgstr "Ruimte onder/boven:"
 
@@ -2015,57 +2015,48 @@ msgstr ""
 "%x: voorbeeldafbeelding breedte  %y:voorbeeldafbeelding hoogte\n"
 "%b: originele  grootte (bytes)"
 
-#: src/plugin_htmlbar/image_dialog.c:380
+#: src/plugin_htmlbar/image_dialog.c:378
 msgid "_Reset Dimensions"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:391
+#: src/plugin_htmlbar/image_dialog.c:389
 #, fuzzy
 msgid "Alternate te_xt:"
 msgstr "Alternatieve tekst:"
 
-#: src/plugin_htmlbar/image_dialog.c:395
+#: src/plugin_htmlbar/image_dialog.c:393
 msgid "_Long description:"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:403
+#: src/plugin_htmlbar/image_dialog.c:401
 #, fuzzy
 msgid "I_D:"
 msgstr "ID:"
 
-#: src/plugin_htmlbar/image_dialog.c:413
-#, fuzzy
-msgid "Strict"
-msgstr "Script"
-
-#: src/plugin_htmlbar/image_dialog.c:422
+#: src/plugin_htmlbar/image_dialog.c:420
 msgid "_Use Transitional options"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:437
+#: src/plugin_htmlbar/image_dialog.c:435
 #, fuzzy
 msgid "_Border:"
 msgstr "Rand:"
 
-#: src/plugin_htmlbar/image_dialog.c:447
-msgid "Transitional"
-msgstr ""
-
-#: src/plugin_htmlbar/image_dialog.c:774
+#: src/plugin_htmlbar/image_dialog.c:772
 #, c-format
 msgid ""
 "\n"
 "%s"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:779
+#: src/plugin_htmlbar/image_dialog.c:777
 #, c-format
 msgid ""
 "\n"
 "%d x %d pixels"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:876
+#: src/plugin_htmlbar/image_dialog.c:874
 msgid ""
 "\n"
 "\n"
@@ -2073,17 +2064,17 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:979
+#: src/plugin_htmlbar/image_dialog.c:977
 #, fuzzy
 msgid "Select Image"
 msgstr "Keuzelĳst"
 
-#: src/plugin_htmlbar/image_dialog.c:987
+#: src/plugin_htmlbar/image_dialog.c:985
 msgid "All images"
 msgstr ""
 
-#: src/plugin_htmlbar/image_dialog.c:1215
-#: src/plugin_htmlbar/image_dialog.c:1327
+#: src/plugin_htmlbar/image_dialog.c:1213
+#: src/plugin_htmlbar/image_dialog.c:1325
 #, fuzzy
 msgid "Insert Image"
 msgstr "Afbeelding invoegen"
@@ -2215,3 +2206,7 @@ msgstr "Bron:"
 #: src/plugin_htmlbar/wizards.c:223
 msgid "Size:"
 msgstr "Grootte:"
+
+#, fuzzy
+#~ msgid "Strict"
+#~ msgstr "Script"
