@@ -3,7 +3,7 @@
 		Bluefish HTML Editor
 		bflang2.bflang2 $Revision$
  
-		Copyright (C) 2008 Olivier Sessink
+		Copyright (C) 2008-2009 Olivier Sessink
 
 		This program is free software; you can redistribute it and/or modify
 		it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.		
 -->
 
-<bflang name="Bflang2" matches="111" contexts="19" table="723">
+<bflang name="Bflang2" matches="120" contexts="20" table="767">
 <header>
 	<mime type="application/x-bluefish-language2"/>
 	<option name="load_reference" default="1" description="load reference data"/>
@@ -52,6 +52,9 @@
 		<element idref="entity" />
 		<tag name="mime" highlight="tag" autocomplete_append=" type=&quot;&quot; /&gt;" attributes="type" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 		<reference>The <i>mime</i> tag should have attribute <i>type</i> which has the mime type. The mime type is used to find the correct language definition for a file in the editor. There can be multiple mime tags in the heading section.</reference>
+		</tag>
+		<tag name="option" highlight="tag" autocomplete_append=" type=&quot;&quot; /&gt;" attributes="default,description,name" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+		<reference></reference>
 		</tag>
 		<tag name="highlight" highlight="tag" autocomplete_append=" name=&quot;&quot; style=&quot;&quot; /&gt;" attributes="name,style" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 		<reference>The <i>highlight</i> tag should have attributes <i>name</i> and <i>style</i>. The tag links the types of elements that can be highlighted (called <i>highlights</i>) and <i>styles</i> that are used by multiple languages. Default styles are hardcoded in bftexdtview2_langmgr.c A user may override each highlight / style combination in the configuration and may change the looks of each style.</reference>
