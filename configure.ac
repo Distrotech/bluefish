@@ -11,7 +11,7 @@ dnl ************************
 
 AC_PREREQ([2.59])
 
-AC_INIT([bluefish-unstable],[1.3.2],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
+AC_INIT([bluefish-unstable],[1.3.3],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 dnl The `-Wno-portability' value will suppress the GNU make warnings. Add it if necessary.
 AM_INIT_AUTOMAKE([1.8 -Wall])
 AC_CONFIG_SRCDIR(src/bluefish.c)
