@@ -170,7 +170,7 @@ int main(int argc, char *argv[])
 
 	if (project) {
 		tmpfile = g_file_new_for_commandline_arg(project);
-		projectfiles = g_list_append(projectfiles, g_file_get_parse_name(tmpfile));
+		projectfiles = g_list_append(projectfiles, g_file_get_uri(tmpfile));
 		g_object_unref(tmpfile);
 
 		/*
@@ -204,7 +204,7 @@ int main(int argc, char *argv[])
 		filearray = g_strv_length(files);
 		for (i = 0; i < filearray; ++i) {
 			tmpfile = g_file_new_for_commandline_arg(files[i]);
-			filenames = g_list_append(filenames, g_file_get_parse_name(tmpfile));
+			filenames = g_list_append(filenames, g_file_get_uri(tmpfile));
 			g_object_unref(tmpfile);
 
 			DEBUG_MSG("main, files[%d]=%s\n", i, files[i]);
@@ -299,7 +299,10 @@ int main(int argc, char *argv[])
 	if (projectfiles) {
 		GList *tmplist = g_list_first(projectfiles);
 		while (tmplist) {
-			project_open_from_file(firstbfwin, tmplist->data);
+			GFile *file;
+			file = g_file_new_for_uri((gchar *)tmplist->data);
+			project_open_from_file(firstbfwin, file);
+			g_object_unref(file);
 			tmplist = g_list_next(tmplist);
 		}
 	}
