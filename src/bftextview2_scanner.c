@@ -560,9 +560,6 @@ static void remove_old_matches_at_iter(BluefishTextView *btv, GtkTextBuffer *buf
 	/ * TODO see if there are any old blockstack or context changes * /
 
 }*/
-#define REMOVE_SPECIFIC_TAGS
-
-#ifdef REMOVE_SPECIFIC_TAGS
 static void remove_old_highlighting(BluefishTextView *btv, GtkTextBuffer *buffer, GtkTextIter *start, GtkTextIter *end) {
 	GList *tmplist = g_list_first(btv->bflang->tags);
 	while (tmplist) {
@@ -570,7 +567,6 @@ static void remove_old_highlighting(BluefishTextView *btv, GtkTextBuffer *buffer
 		tmplist = g_list_next(tmplist);
 	}
 }
-#endif
 
 static void remove_old_scan_results(BluefishTextView *btv, GtkTextBuffer *buffer, GtkTextIter *fromhere) {
 	GtkTextIter end;
@@ -579,12 +575,7 @@ static void remove_old_scan_results(BluefishTextView *btv, GtkTextBuffer *buffer
 
 	gtk_text_buffer_get_end_iter(buffer,&end);
 	DBG_SCANCACHE("remove_old_scan_results: remove tags from charoffset %d to %d\n",gtk_text_iter_get_offset(fromhere),gtk_text_iter_get_offset(&end));
-#ifdef REMOVE_SPECIFIC_TAGS
-	DBG_SCANNING("remove %d tags\n",g_list_length(btv->bflang->tags));
 	remove_old_highlighting(btv, buffer, fromhere, &end);
-#else
-	gtk_text_buffer_remove_all_tags(buffer,fromhere,&end);
-#endif
 	fakefstack.charoffset = gtk_text_iter_get_offset(fromhere);
 	sit1 = g_sequence_search(btv->scancache.stackcaches,&fakefstack,stackcache_compare_charoffset,NULL);
 	if (sit1 && !g_sequence_iter_is_end(sit1)) {
@@ -755,15 +746,11 @@ gboolean bftextview2_run_scanner(BluefishTextView * btv, GtkTextIter *visible_en
 		}
 	} while ((normal_run || last_character_run) && (loop%loops_per_timer!=0 || g_timer_elapsed(scanning.timer,NULL)<MAX_CONTINUOUS_SCANNING_INTERVAL));
 	DBG_SCANNING("scanned from %d to position %d, (end=%d, orig_end=%d) which took %f microseconds, loops_per_timer=%d\n",gtk_text_iter_get_offset(&start),gtk_text_iter_get_offset(&iter),gtk_text_iter_get_offset(&end),gtk_text_iter_get_offset(&orig_end),g_timer_elapsed(scanning.timer,NULL),loops_per_timer);
-#ifdef REMOVE_SPECIFIC_TAGS
 	gtk_text_buffer_remove_tag(buffer, btv->needscanning, &start , &iter);
 	
 	/* because we do not yet have an algorithm to find out where our previous scanning runs are still valid
 	we have to re-scan all the text up to the end */
 	gtk_text_buffer_apply_tag(buffer,btv->needscanning,&iter,&orig_end);
-#else 
-	gtk_text_buffer_apply_tag(buffer,btv->needscanning,&iter,&orig_end);
-#endif
 	/*g_array_free(matchstack,TRUE);*/
 #ifdef HL_PROFILING
 	stage4 = g_timer_elapsed(scanning.timer,NULL);
