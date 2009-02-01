@@ -30,14 +30,14 @@ set -e
 
 cat << EOF
 
-************************************************************************
+******************************************************************************
 You'll need all software packages listed in the file INSTALL plus the
 build-essential and devscripts packages. The script needs at least
 Debian Lenny (or newer) or Ubuntu Hardy (or newer).
 
 If the script fails for you, first check, if you have all necessary
 packages installed.
-************************************************************************
+******************************************************************************
 
 EOF
 
@@ -87,10 +87,10 @@ rm -rf ${DEB_SRC_DIR}
 
 cat << EOF
 
-************************************************************************
-You'll find the packages in ${TEMPDIR}. The directory is
-not automatically removed. You have to do this manually!
-************************************************************************
+******************************************************************************
+You'll find the packages in ${TEMPDIR}.
+The directory is not automatically removed. You have to do this manually!
+******************************************************************************
 
 EOF
 
