@@ -64,7 +64,7 @@ cd ${SVN_DIR}
 
 make dist-gzip VERSION=${SVN_UPSTREAM_VERSION}
 
-TEMPDIR=`mktemp -d -p .`
+TEMPDIR=`mktemp -d -p . ${DEB_SRC_DIR}.deb.XX`
 
 cd ${TEMPDIR}
 
@@ -81,6 +81,8 @@ dch -v ${SVN_UPSTREAM_VERSION}-0bf1 -D experimental "Automatically created Debia
 debuild -us -uc
 
 cd ..
+
+rm -rf ${DEB_SRC_DIR}
 
 
 cat << EOF
