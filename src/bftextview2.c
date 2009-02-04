@@ -563,22 +563,23 @@ static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpo
 		paint_margin(btv, event, &startvisible, &endvisible);
 		event_handled = TRUE;
 	} else {
-		 if (GTK_WIDGET_IS_SENSITIVE(btv) &&
-				 (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))) {
-			/* current line highlighting */
-			GdkRectangle rect;
-			gint w,w2;
-			GtkTextIter it;
-			GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-			gtk_text_buffer_get_iter_at_mark(buffer, &it, gtk_text_buffer_get_insert(buffer));
-			gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
-			gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, &w2);
-			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
-														  rect.x, rect.y, &rect.x, &rect.y);
-			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
-													  0, w, NULL, &w);
-			gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)],
-									   TRUE, rect.x, w, rect.width, w2);
+		 if (GTK_WIDGET_IS_SENSITIVE(btv)
+		  && (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT))
+			&& (main_v->props.view_cline)) {
+				/* current line highlighting */
+				GdkRectangle rect;
+				gint w,w2;
+				GtkTextIter it;
+				GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
+				gtk_text_buffer_get_iter_at_mark(buffer, &it, gtk_text_buffer_get_insert(buffer));
+				gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+				gtk_text_view_get_line_yrange(GTK_TEXT_VIEW(widget), &it, &w, &w2);
+				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
+															  rect.x, rect.y, &rect.x, &rect.y);
+				gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT,
+														  0, w, NULL, &w);
+				gdk_draw_rectangle(event->window, widget->style->bg_gc[GTK_WIDGET_STATE(widget)],
+										   TRUE, rect.x, w, rect.width, w2);
 		}
 		
 		if (GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->expose_event)
