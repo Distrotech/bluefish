@@ -70,7 +70,7 @@
 	<reference>This tag is not yet document in the language file</reference>
 </tag>
 
-<tag id="script" name="script" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="charset,defer,language,src,type" autocomplete_append="language=&quot;javascript&quot; &gt;" attribhighlight="attribute">
+<tag id="script" name="script" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="charset,defer,language,src,type" autocomplete_append=" type=&quot;text/javascript&quot; &gt;" attribhighlight="attribute">
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 		<element pattern="(" id="js(" starts_block="1" highlight="brackets" />
 		<element pattern=")" highlight="brackets" ends_block="1" blockstartelement="js(" />
