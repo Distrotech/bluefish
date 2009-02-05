@@ -618,6 +618,10 @@ static GtkTreeIter *fb2_build_dir(GFile * uri)
 	GFile *tmp, *parent_uri = NULL;
 	GtkTreeIter *parent = NULL;
 	tmp = uri;
+	
+	if (!uri)
+		return NULL;
+	
 	DEBUG_MSG("fb2_build_dir(uri=%p)\n", uri);
 	/* first find if any directory part of this uri exists already in the treestore */
 	g_object_ref(tmp);
@@ -649,7 +653,7 @@ static GtkTreeIter *fb2_build_dir(GFile * uri)
 		exit(123);
 	}
 #endif
-	{							/* now loop to create all directories in the treestore that were not in the treestore yet */
+	if (parent_uri) {							/* now loop to create all directories in the treestore that were not in the treestore yet */
 		gboolean done = g_file_equal(parent_uri, uri);
 		while (!done) {
 			GFile *tmp2 = uri;
@@ -658,6 +662,8 @@ static GtkTreeIter *fb2_build_dir(GFile * uri)
 			g_object_ref(tmp2);	/* both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
 			while (!gfile_uri_is_parent(parent_uri, tmp2, FALSE)) {
 				GFile *tmp3 = g_file_get_parent(tmp2);
+				if (!tmp3)
+					g_warning("tried to get parent for %s, parent_uri=%s, uri=%s\n",g_file_get_uri(tmp2),g_file_get_uri(parent_uri),g_file_get_uri(uri));
 				g_object_unref(tmp2);
 				tmp2 = tmp3;
 			}					/* after this loop both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
@@ -676,8 +682,8 @@ static GtkTreeIter *fb2_build_dir(GFile * uri)
 				done = TRUE;
 			}
 		}
-	}
-	g_object_unref(parent_uri);	/* no memory leaks in the uri's... (I hope) */
+		g_object_unref(parent_uri);	/* no memory leaks in the uri's... (I hope) */
+	} 	
 	return parent;
 }
 
@@ -2058,14 +2064,14 @@ static void fb2_set_basedir_backend(Tfilebrowser2 * fb2, GFile * uri)
  *
  *
  */
-void fb2_set_basedir(Tbfwin * bfwin, gchar * curi)
+void fb2_set_basedir(Tbfwin * bfwin, const gchar * curi)
 {
 	if (bfwin->fb2) {
 		Tfilebrowser2 *fb2 = bfwin->fb2;
 		if (curi) {
 			GFile *uri;
 
-			uri = g_file_new_for_uri(strip_trailing_slash(curi));
+			uri = g_file_new_for_uri(strip_trailing_slash((gchar *)curi));
 
 			if (uri) {
 				fb2_set_basedir_backend(fb2, uri);
