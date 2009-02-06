@@ -121,8 +121,8 @@ static GFile *fb2_uri_from_fspath(Tfilebrowser2 * fb2, GtkTreePath * fs_path);
 static void fb2_set_basedir_backend(Tfilebrowser2 * fb2, GFile * uri);
 static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode);
 /**************/
-
-static void DEBUG_GFILE(GFile * uri, gboolean newline) {
+#ifdef DEBUG
+static void debug_gfile(GFile * uri, gboolean newline) {
 	if (uri) {
 		gchar *name = g_file_get_uri(uri);
 		g_print("%s%s", name, newline?"\n":"");
@@ -131,7 +131,19 @@ static void DEBUG_GFILE(GFile * uri, gboolean newline) {
 		g_print("(GFile=NULL)%s", newline?"\n":"");
 	}
 }
+#endif
 
+#ifdef DEBUG
+#define DEBUG_GFILE debug_gfile
+#else /* not DEBUG */
+#ifdef __GNUC__
+#define DEBUG_GFILE(args...)
+ /**/
+#else/* notdef __GNUC__ */
+extern void g_none(gchar *first, ...);
+#define DEBUG_GFILE g_none
+#endif /* __GNUC__ */
+#endif /* DEBUG */
 
 static void DEBUG_DIRITER(GtkTreeIter * diriter)
 {
