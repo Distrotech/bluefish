@@ -334,7 +334,7 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 		const gchar *mime_type;
 		GIcon *icon;
 		gchar *icon_name = NULL;
-		newiter = g_new(GtkTreeIter, 1);
+		newiter = g_slice_new0(GtkTreeIter);
 		g_object_ref(child_uri);
 		g_object_ref(finfo);
 		display_name = gfile_display_name(child_uri, finfo);
@@ -375,7 +375,9 @@ static GtkTreeIter *fb2_add_filesystem_entry(GtkTreeIter * parent, GFile * child
 								   finfo, -1);
 
 		g_free(icon_name);
-		DEBUG_MSG("insert newiter in hashtable\n");
+		DEBUG_MSG("insert newiter %p in hashtable for child_uri %p\n",newiter,child_uri);
+		/* give it an extra reference for the hashtable */
+		g_object_ref(child_uri);
 		g_hash_table_insert(FB2CONFIG(main_v->fb2config)->filesystem_itable, child_uri, newiter);
 		DEBUG_MSG("load_subdirs=%d, finfo=%p\n", load_subdirs, finfo);
 		if (load_subdirs && g_file_info_get_file_type(finfo) == G_FILE_TYPE_DIRECTORY) {
@@ -416,6 +418,9 @@ static void fb2_treestore_delete_children_refresh1(GtkTreeStore * tstore, GtkTre
 				gtk_tree_model_get(GTK_TREE_MODEL(tstore), &this, URI_COLUMN, &d_uri,
 								   FILEINFO_COLUMN, &finfo, -1);
 				gtk_tree_store_remove(tstore, &this);
+				/* remove from hash table too! */
+				g_hash_table_remove(FB2CONFIG(main_v->fb2config)->filesystem_itable,d_uri);
+				
 				DEBUG_MSG("fb2_treestore_delete_children_refresh1, unref d_uri %p and finfo %p\n",
 						  d_uri, finfo);
 				g_object_unref(d_uri);
@@ -479,11 +484,13 @@ static void fb2_enumerate_next_files_lcb(GObject * source_object, GAsyncResult *
 	tmplist = g_list_first(list);
 	while (tmplist) {
 		GFileInfo *finfo = tmplist->data;
-		const gchar *name;
-		GFile *newchild;
 		if (g_file_info_has_attribute(finfo, G_FILE_ATTRIBUTE_STANDARD_NAME)) {
+			const gchar *name;
+			GFile *newchild;
 			name = g_file_info_get_name(finfo);
 			newchild = g_file_get_child(uir->uri, name);
+			DEBUG_MSG("adding newchild %p ",newchild);
+			DEBUG_GFILE(newchild,TRUE);
 			fb2_add_filesystem_entry(uir->parent, newchild, finfo, TRUE);
 			g_object_unref(newchild);
 		} else {
@@ -610,7 +617,7 @@ void fb2_refresh_dir_from_uri(GFile * dir)
 void fb2_refresh_parent_of_uri(GFile * child_uri)
 {
 	GFile *parent_uri;
-	DEBUG_MSG("fb2_refresh_parent_of_uri, started\n");
+	DEBUG_MSG("fb2_refresh_parent_of_uri, started for %p\n",child_uri);
 	parent_uri = g_file_get_parent(child_uri);
 	if (parent_uri) {
 		fb2_refresh_dir(parent_uri, NULL);
@@ -1389,6 +1396,10 @@ static void rename_not_open_file(Tbfwin * bfwin, GFile * olduri)
 			GFile *parent1, *parent2;
 			parent1 = g_file_get_parent(olduri);
 			parent2 = g_file_get_parent(newuri);
+			DEBUG_MSG("parent1=");
+			DEBUG_GFILE(parent1,FALSE);
+			DEBUG_MSG(", parent2=");
+			DEBUG_GFILE(parent2,TRUE);
 			if (parent1 && parent2 && !g_file_equal(parent1, parent2)) {
 				fb2_refresh_parent_of_uri(olduri);
 				fb2_refresh_parent_of_uri(newuri);
@@ -1440,13 +1451,21 @@ static void fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * nosele
 		DEBUG_MSG("fb2rpopup_new, baseuri=");
 		DEBUG_GFILE(baseuri,TRUE);
 		if (newisdir) {
-			GFile *newuri;
 			GError *error = NULL;
 			newuri = g_file_get_child(baseuri, _("New directory"));
+			if (!newuri) {
+				DEBUG_MSG("failed to create GFile for baseuri ???????????????????????????\n");
+				g_object_unref(baseuri);
+				return;
+			}
+			DEBUG_MSG("fb2rpopup_new, newuri=");
+			DEBUG_GFILE(newuri,TRUE);
 			done = g_file_make_directory(newuri, NULL, &error);
 			if (error) {
-				g_print("fb2rpopup_new, failed to create directory: %s\n",error->message);
+				gchar *tmp = g_file_get_uri(newuri);
+				g_print("fb2rpopup_new, failed to create directory %s: %s, done=%d\n",tmp,error->message,done);
 				g_error_free(error);
+				g_free(tmp);
 			}
 		} else {
 			gint counter = 0;
@@ -1484,6 +1503,7 @@ static void fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * nosele
 			}
 		}
 		if (done) {
+			g_print("calling for newuri %p %s\n",newuri,g_file_get_uri(newuri));
 			fb2_refresh_parent_of_uri(newuri);
 		}
 		g_object_unref(newuri);
@@ -2580,6 +2600,10 @@ static void uri_hash_destroy(gpointer data)
 {
 	g_object_unref((GObject *) data);
 }
+static void iter_value_destroy(gpointer data)
+{
+	g_slice_free(GtkTreeIter,data);
+}
 
 void fb2config_init(void)
 {
@@ -2592,7 +2616,7 @@ void fb2config_init(void)
 	main_v->fb2config = fb2config;
 
 	fb2config->filesystem_itable =
-		g_hash_table_new_full(g_file_hash, (GEqualFunc)g_file_equal, uri_hash_destroy, g_free);
+		g_hash_table_new_full(g_file_hash, (GEqualFunc)g_file_equal, uri_hash_destroy, iter_value_destroy);
 	fb2config->filesystem_tstore =
 		gtk_tree_store_new(N_COLUMNS, GDK_TYPE_PIXBUF, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER,
 						   G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_POINTER);
