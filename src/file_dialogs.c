@@ -504,7 +504,7 @@ static TcheckNsave_return doc_checkNsave_lcb(TcheckNsave_status status,gint erro
  *
  * Return value: gchar* with newly allocated string, or NULL on failure or abort
  **/
-gchar *ask_new_filename(Tbfwin *bfwin,gchar *old_curi, const gchar *gui_name, gboolean is_move) {
+gchar *ask_new_filename(Tbfwin *bfwin,const gchar *old_curi, const gchar *gui_name, gboolean is_move) {
   Tdocument *exdoc;
   GList *alldocs;
   gchar *new_curi = NULL;
