@@ -57,7 +57,7 @@ alex: g_hash_table_new(gnome_vfs_uri_hash, gnome_vfs_uri_hequal) is what you're 
 typedef struct {
 	GCancellable *cancel;
 	GFile *uri;
-	GFile *p_uri;
+	/*GFile *p_uri;*/
 	GFileEnumerator *gfe;
 	GtkTreeIter *parent;
 } Turi_in_refresh;
@@ -122,6 +122,17 @@ static void fb2_set_basedir_backend(Tfilebrowser2 * fb2, GFile * uri);
 static void fb2_set_viewmode_widgets(Tfilebrowser2 * fb2, gint viewmode);
 /**************/
 
+static void DEBUG_GFILE(GFile * uri, gboolean newline) {
+	if (uri) {
+		gchar *name = g_file_get_uri(uri);
+		g_print("%s%s", name, newline?"\n":"");
+		g_free(name);
+	} else {
+		g_print("(GFile=NULL)%s", newline?"\n":"");
+	}
+}
+
+
 static void DEBUG_DIRITER(GtkTreeIter * diriter)
 {
 	gchar *name;
@@ -129,7 +140,7 @@ static void DEBUG_DIRITER(GtkTreeIter * diriter)
 	gtk_tree_model_get(GTK_TREE_MODEL(FB2CONFIG(main_v->fb2config)->filesystem_tstore), diriter,
 					   FILENAME_COLUMN, &name, URI_COLUMN, &uri, -1);
 	DEBUG_MSG("DEBUG_DIRITER, iter(%p) has filename %s, uri ", diriter, name);
-	DEBUG_URI(uri, TRUE);
+	DEBUG_GFILE(uri, TRUE);
 	g_free(name);
 }
 
@@ -258,8 +269,9 @@ static void fb2_uri_in_refresh_cleanup(Turi_in_refresh * uir)
 	FB2CONFIG(main_v->fb2config)->uri_in_refresh =
 		g_list_remove(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
 	g_object_unref(uir->uri);
+	/*g_object_unref(uir->p_uri);*/
 	g_object_unref(uir->cancel);
-	g_free(uir);
+	g_slice_free(Turi_in_refresh,uir);
 }
 
 static GFileInfo *fake_directory_fileinfo(const gchar * name)
@@ -459,7 +471,7 @@ static void fb2_enumerate_next_files_lcb(GObject * source_object, GAsyncResult *
 		GFile *newchild;
 		if (g_file_info_has_attribute(finfo, G_FILE_ATTRIBUTE_STANDARD_NAME)) {
 			name = g_file_info_get_name(finfo);
-			newchild = g_file_get_child(uir->p_uri, name);
+			newchild = g_file_get_child(uir->uri, name);
 			fb2_add_filesystem_entry(uir->parent, newchild, finfo, TRUE);
 			g_object_unref(newchild);
 		} else {
@@ -485,7 +497,7 @@ static void fb2_enumerate_children_lcb(GObject * source_object, GAsyncResult * r
 {
 	Turi_in_refresh *uir = user_data;
 	GError *error = NULL;
-	uir->gfe = g_file_enumerate_children_finish(uir->p_uri, res, &error);
+	uir->gfe = g_file_enumerate_children_finish(uir->uri, res, &error);
 	if (uir->gfe) {
 		g_file_enumerator_next_files_async(uir->gfe, 40, G_PRIORITY_LOW, uir->cancel,
 										   fb2_enumerate_next_files_lcb, uir);
@@ -501,20 +513,21 @@ static void fb2_fill_dir_async(GtkTreeIter * parent, GFile * uri)
 		fb2_treestore_mark_children_refresh1(FB2CONFIG(main_v->fb2config)->filesystem_tstore,
 											 parent);
 
-		uir = g_new(Turi_in_refresh, 1);
+		uir = g_slice_new0(Turi_in_refresh);
 		uir->parent = parent;
-		uir->p_uri = uri;
+		/*uir->p_uri = uri;*/
 		uir->uri = uri;
 		g_object_ref(uir->uri);
+		/*g_object_ref(uir->p_uri);*/
 		DEBUG_MSG("fb2_fill_dir_async, opening ");
-		DEBUG_URI(uir->p_uri, TRUE);
+		DEBUG_GFILE(uir->uri, TRUE);
 		uir->cancel = g_cancellable_new();
-		g_file_enumerate_children_async(uir->p_uri,
+		g_file_enumerate_children_async(uir->uri,
 										"standard::name,standard::display-name,standard::fast-content-type,standard::icon,standard::edit-name,standard::is-backup,standard::is-hidden,standard::type",
 										G_FILE_QUERY_INFO_NONE, G_PRIORITY_LOW, uir->cancel,
 										fb2_enumerate_children_lcb, uir);
 		FB2CONFIG(main_v->fb2config)->uri_in_refresh =
-			g_list_prepend(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
+		g_list_prepend(FB2CONFIG(main_v->fb2config)->uri_in_refresh, uir);
 	}
 
 }
@@ -587,8 +600,10 @@ void fb2_refresh_parent_of_uri(GFile * child_uri)
 	GFile *parent_uri;
 	DEBUG_MSG("fb2_refresh_parent_of_uri, started\n");
 	parent_uri = g_file_get_parent(child_uri);
-	fb2_refresh_dir(parent_uri, NULL);
-	g_object_unref(parent_uri);
+	if (parent_uri) {
+		fb2_refresh_dir(parent_uri, NULL);
+		g_object_unref(parent_uri);
+	}
 }
 
 static gchar * get_toplevel_name(GFile *uri) {
@@ -662,8 +677,10 @@ static GtkTreeIter *fb2_build_dir(GFile * uri)
 			g_object_ref(tmp2);	/* both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
 			while (!gfile_uri_is_parent(parent_uri, tmp2, FALSE)) {
 				GFile *tmp3 = g_file_get_parent(tmp2);
-				if (!tmp3)
+				if (!tmp3) {
 					g_warning("tried to get parent for %s, parent_uri=%s, uri=%s\n",g_file_get_uri(tmp2),g_file_get_uri(parent_uri),g_file_get_uri(uri));
+					exit(123);
+				}
 				g_object_unref(tmp2);
 				tmp2 = tmp3;
 			}					/* after this loop both 'parent_uri'='tmp' and 'tmp2' are newly allocated */
@@ -674,9 +691,9 @@ static GtkTreeIter *fb2_build_dir(GFile * uri)
 			g_object_unref(parent_uri);
 			parent_uri = tmp2;	/* here 'parent_uri'='tmp2' is newly allocated */
 			DEBUG_MSG("new parent_uri=");
-			DEBUG_URI(parent_uri, FALSE);
+			DEBUG_GFILE(parent_uri, FALSE);
 			DEBUG_MSG(", requested uri=");
-			DEBUG_URI(uri, TRUE);
+			DEBUG_GFILE(uri, TRUE);
 			if (g_file_equal(parent_uri, uri)) {
 				DEBUG_MSG("exit loop\n");
 				done = TRUE;
@@ -839,7 +856,7 @@ static gboolean tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter,
 	}
 	DEBUG_MSG("tree_model_filter_func, model=%p and fb2=%p, name=%s, mime=%s, and uri=", model, fb2,
 			  name, mime_type);
-	DEBUG_URI(uri, TRUE);
+	DEBUG_GFILE(uri, TRUE);
 	if (!mime_type || MIME_ISDIR(mime_type) != 0) {	/* file */
 		if (fb2->filebrowser_viewmode == viewmode_dual) {
 			/* in the two paned view we don't show files in the dir view */
@@ -1360,11 +1377,13 @@ static void rename_not_open_file(Tbfwin * bfwin, GFile * olduri)
 			GFile *parent1, *parent2;
 			parent1 = g_file_get_parent(olduri);
 			parent2 = g_file_get_parent(newuri);
-			if (!g_file_equal(parent1, parent2)) {
+			if (parent1 && parent2 && !g_file_equal(parent1, parent2)) {
 				fb2_refresh_parent_of_uri(olduri);
 				fb2_refresh_parent_of_uri(newuri);
-			} else {
+			} else if (parent1) {
 				fb2_refresh_dir_from_uri(parent1);
+			} else if (parent2) {
+				fb2_refresh_dir_from_uri(parent2);
 			}
 			g_object_unref(parent1);
 			g_object_unref(parent2);
@@ -1380,32 +1399,36 @@ static void fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * nosele
 	GFile *baseuri = NULL;
 	if (fb2->last_popup_on_dir) {
 		baseuri = fb2_uri_from_dir_selection(fb2);
+		/* fb2_uri_from_dir_selection returns a pointer without an extra reference, so we ref it */
 		if (baseuri) {
 			g_object_ref(baseuri);
 			DEBUG_MSG("fb2rpopup_new, baseuri from dir selection=");
-			DEBUG_URI(baseuri,TRUE);
+			DEBUG_GFILE(baseuri,TRUE);
 		}
 	} else {
 		GFile *childuri = fb2_uri_from_file_selection(fb2,NULL);
+		/* fb2_uri_from_file_selection returns a pointer without an extra reference, so we ref it */
 		if (childuri) {
 			baseuri = g_file_get_parent(childuri);
 			DEBUG_MSG("fb2rpopup_new, baseuri from file selection=");
-			DEBUG_URI(baseuri,TRUE);
+			DEBUG_GFILE(baseuri,TRUE);
 		}
 	}
 	if (!baseuri) {
-		/* no selection, try the noselectionbaseuri */
+		/* no selection, try the noselectionbaseuri and give it an extra reference */
 		baseuri = noselectionbaseuri;
+		g_object_ref(baseuri);
 		DEBUG_MSG("fb2rpopup_new, baseuri from noselectionbaseuri=");
-		DEBUG_URI(baseuri,TRUE);
+		DEBUG_GFILE(baseuri,TRUE);
 	}
 
 	if (baseuri) {
 		GFile *newuri;
 		gboolean done = FALSE;
 		DEBUG_MSG("fb2rpopup_new, baseuri=");
-		DEBUG_URI(baseuri,TRUE);
+		DEBUG_GFILE(baseuri,TRUE);
 		if (newisdir) {
+			GFile *newuri;
 			GError *error = NULL;
 			newuri = g_file_get_child(baseuri, _("New directory"));
 			done = g_file_make_directory(newuri, NULL, &error);
@@ -1415,11 +1438,18 @@ static void fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * nosele
 			}
 		} else {
 			gint counter = 0;
-			gchar *filename = g_strdup(_("New file"));
-			while (counter < 100) {
+			gchar *filename;
+			do {
 				GFileOutputStream *gfos;
 				GError *error = NULL;
+				if (counter == 0)
+					filename = g_strdup(_("New file"));
+				else
+					filename = g_strdup_printf("%s%d",_("New file"),counter);
 				newuri = g_file_get_child(baseuri, filename);
+				g_free(filename);
+				DEBUG_MSG("fb2rpopup_new, newuri=");
+				DEBUG_GFILE(newuri,TRUE);
 				gfos = g_file_create(newuri, G_FILE_CREATE_NONE, NULL, &error);
 				if (gfos) {
 					g_output_stream_close((GOutputStream *)gfos, NULL, &error);
@@ -1427,6 +1457,7 @@ static void fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * nosele
 					counter = 100;
 				} else if (error && error->code == G_IO_ERROR_EXISTS) {
 					counter++;
+					g_object_unref(newuri);
 					g_error_free(error);
 				} else {
 					counter = 100;
@@ -1435,7 +1466,7 @@ static void fb2rpopup_new(Tfilebrowser2 * fb2, gboolean newisdir, GFile * nosele
 						g_error_free(error);
 					}
 				}
-			}
+			} while (counter < 100);
 			if (done) {
 				rename_not_open_file(fb2->bfwin, newuri);
 			}
@@ -1949,7 +1980,7 @@ static void dirmenu_set_curdir(Tfilebrowser2 * fb2, GFile * newcurdir)
 	g_object_ref(fb2->currentdir);
 #ifdef DEBUG
 	DEBUG_MSG("dirmenu_set_curdir, newcurdir=");
-	DEBUG_URI(newcurdir, TRUE);
+	DEBUG_GFILE(newcurdir, TRUE);
 #endif
 
 	fb2->dirmenu_m = GTK_TREE_MODEL(gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_POINTER));
@@ -2017,7 +2048,7 @@ static void dir_v_selection_changed_lcb(GtkTreeSelection * treeselection, Tfileb
 		gchar *mime_type;
 		gtk_tree_model_get(sort_model, &sort_iter, URI_COLUMN, &uri, TYPE_COLUMN, &mime_type, -1);
 		DEBUG_MSG("dir_v_selection_changed_lcb, mime_type=%s and uri=", mime_type);
-		DEBUG_URI(uri, TRUE);
+		DEBUG_GFILE(uri, TRUE);
 		if (uri && (mime_type && MIME_ISDIR(mime_type) == 0)) {
 			DEBUG_MSG("uri %p is directory, calling dirmenu_set_curdir\n", uri);
 			dirmenu_set_curdir(fb2, uri);
@@ -2494,7 +2525,7 @@ GtkWidget *fb2_init(Tbfwin * bfwin)
     }
     if (uri) {
       DEBUG_MSG("fb2_init, first build, and then set the basedir to ");
-      DEBUG_URI(uri, TRUE);
+      DEBUG_GFILE(uri, TRUE);
       fb2_build_dir(uri);
       {
         GtkTreePath *basedir = fb2_fspath_from_uri(fb2, uri);
@@ -2504,7 +2535,7 @@ GtkWidget *fb2_init(Tbfwin * bfwin)
         gtk_tree_path_free(basedir);
       }
       DEBUG_MSG("fb2_init, focus fb2->basedir ");
-      DEBUG_URI(fb2->basedir, TRUE);
+      DEBUG_GFILE(fb2->basedir, TRUE);
       fb2_focus_dir(fb2, fb2->basedir, FALSE);
       g_object_unref(uri);
     }
@@ -2565,7 +2596,7 @@ void fb2config_cleanup(void)
 		Turi_in_refresh *uir = tmplist->data;
 		g_cancellable_cancel(uir->cancel);
 		g_object_unref(uir->uri);
-		g_free(uir);
+		g_slice_free(Turi_in_refresh,uir);
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(FB2CONFIG(main_v->fb2config)->uri_in_refresh);
