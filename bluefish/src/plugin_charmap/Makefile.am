@@ -14,7 +14,9 @@ endif #ENABLE_CHARMAP_PLUGIN
 
 charmap_la_SOURCES = \
 	charmap.c \
-	charmap_gui.c
+	charmap.h \
+	charmap_gui.c \
+	charmap_gui.h
 
 charmap_la_CFLAGS = $(CHARMAP_PLUGIN_CFLAGS)
 charmap_la_LIBADD = $(CHARMAP_PLUGIN_LIBS)
