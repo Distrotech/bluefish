@@ -12,5 +12,6 @@
 
 typedef struct {
 	Tbfwin *bfwin;
+	GtkWidget *chaptersv;
 	GtkWidget *gcm;
 }Tcharmap;
