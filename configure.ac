@@ -257,30 +257,40 @@ else
 	AC_MSG_ERROR([libgnomeui >= 2.8 is required, please install libgnomeui-dev (package names may differ for different operating systems)])
 fi
 
-AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
-if test "x$PCRE_CONFIG" = "xno" ; then
-	AC_MSG_ERROR(pcre-config not found please install libpcre3-dev or similar)
-else 
-	LIBS="$LIBS `$PCRE_CONFIG --libs`"
-	CFLAGS="$CFLAGS `$PCRE_CONFIG --cflags`"
+echo -n "checking for pcre... "
+if pkg-config --exists libpcre ; then
+    LIBS="$LIBS `pkg-config --libs libpcre`"
+    CFLAGS="$CFLAGS `pkg-config --cflags libpcre`"
+    echo "yes"
+else
+    AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
+    if test "x$PCRE_CONFIG" = "xno" ; then
+	echo "no"
+        AC_MSG_ERROR(pcre-config/libpcre.pc not found. Please install libpcre3-dev or similar)
+    else 
+        LIBS="$LIBS `$PCRE_CONFIG --libs`"
+        CFLAGS="$CFLAGS `$PCRE_CONFIG --cflags`"
+	echo "yes"
+    fi
+fi
 
-	AC_CACHE_CHECK([libpcre was compiled with UTF-8 support],
-		[ac_cv_have_pcre_utf8_support],
-		[AC_RUN_IFELSE(
-			[AC_LANG_SOURCE(
-				 [[#include <pcre.h>
+AC_CACHE_CHECK(
+	[libpcre was compiled with UTF-8 support],
+	[ac_cv_have_pcre_utf8_support],
+	[AC_RUN_IFELSE(
+		[AC_LANG_SOURCE(
+			 [[#include <pcre.h>
 
-				   int main() {
-				     int t;
-				     return (pcre_config (PCRE_CONFIG_UTF8, &t) || !t);
-				   }]])],
-			[ac_cv_have_pcre_utf8_support="yes"],
-			[ac_cv_have_pcre_utf8_support="no"])])
-			
-	if test "$ac_cv_have_pcre_utf8_support" = "yes"; then
-		AC_DEFINE(HAVE_PCRE_UTF8)
-	fi
-
+			   int main() {
+			     int t;
+			     return (pcre_config (PCRE_CONFIG_UTF8, &t) || !t);
+			   }]])
+		],
+		[ac_cv_have_pcre_utf8_support="yes"],
+		[ac_cv_have_pcre_utf8_support="no"])]
+)
+if test "$ac_cv_have_pcre_utf8_support" = "yes"; then
+	AC_DEFINE(HAVE_PCRE_UTF8)
 fi
 
 AC_CHECK_LIB(posix4, nanosleep, 
