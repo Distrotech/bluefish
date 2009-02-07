@@ -2,8 +2,8 @@ dnl ************************
 dnl configure.ac
 dnl $Id: configure.ac,v 1.165 2008-08-20 03:42:57 jimh6583 Exp $
 dnl
-dnl Copyright (C) 2002-2008 Olivier Sessink
-dnl Copyright (C) 2006-2007 Daniel Leidert
+dnl Copyright (C) 2002-2009 Olivier Sessink
+dnl Copyright (C) 2006-2009 Daniel Leidert
 dnl
 dnl This file is free software. The copyright owner gives unlimited
 dnl permission to copy, distribute and modify it.
@@ -11,7 +11,7 @@ dnl ************************
 
 AC_PREREQ([2.59])
 
-AC_INIT([bluefish-unstable],[1.3.3],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
+AC_INIT([bluefish-unstable],[1.3.4],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
 dnl The `-Wno-portability' value will suppress the GNU make warnings. Add it if necessary.
 AM_INIT_AUTOMAKE([1.8 -Wall])
 AC_CONFIG_SRCDIR(src/bluefish.c)
@@ -356,7 +356,8 @@ gdk-pixbuf-2.0 \
 gdk-2.0 \
 gio-unix-2.0 >= 2.16 \
 gthread-2.0 \
-libxml-2.0"
+libxml-2.0 \
+gucharmap"
 
 # it is unclear to me if gio requires g_thread_init(), but if it does, we need to include gthread-2.0
 
@@ -537,6 +538,7 @@ AC_CONFIG_FILES([
 	src/pixmaps/Makefile
 	src/plugin_about/Makefile
 	src/plugin_about/po/Makefile.in
+	src/plugin_charmap/Makefile
 	src/plugin_entities/Makefile
 	src/plugin_entities/po/Makefile.in
 	src/plugin_htmlbar/Makefile
