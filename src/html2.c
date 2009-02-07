@@ -384,7 +384,9 @@ static void cs3d_ok_clicked_lcb(GtkWidget * widget, Tcs3_diag *diag) {
 			}
 		}
 		g_free(prev_selector);
-		stylebuf = g_strconcat(tmpbuf2, "}\n", NULL);
+		/* only append '}\n' in case there is content */
+		if (strlen(tmpbuf2) != 0)
+			stylebuf = g_strconcat(tmpbuf2, "}\n", NULL);
 		g_free(tmpbuf2);
 	}
 
