@@ -257,20 +257,19 @@ else
 	AC_MSG_ERROR([libgnomeui >= 2.8 is required, please install libgnomeui-dev (package names may differ for different operating systems)])
 fi
 
-echo -n "checking for pcre... "
+echo -n "checking for libpcre.pc... "
 if pkg-config --exists libpcre ; then
     LIBS="$LIBS `pkg-config --libs libpcre`"
     CFLAGS="$CFLAGS `pkg-config --cflags libpcre`"
     echo "yes"
 else
+    echo "no"
     AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
     if test "x$PCRE_CONFIG" = "xno" ; then
-	echo "no"
         AC_MSG_ERROR(pcre-config/libpcre.pc not found. Please install libpcre3-dev or similar)
     else 
         LIBS="$LIBS `$PCRE_CONFIG --libs`"
         CFLAGS="$CFLAGS `$PCRE_CONFIG --cflags`"
-	echo "yes"
     fi
 fi
 
