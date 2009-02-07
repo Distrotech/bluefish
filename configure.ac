@@ -522,8 +522,6 @@ fi
 dnl *******************************
 dnl   Manpage macros
 dnl *******************************
-BF_PROG_XMLLINT
-BF_PROG_XSLTPROC
 BF_PROG_MAN
 
 
@@ -537,7 +535,6 @@ AC_CONFIG_FILES([
 	data/bflib/Makefile
 	desktop-data/Makefile
 	images/Makefile
-	man/bf_entities.dtd
 	man/Makefile
 	po/Makefile.in
 	src/Makefile

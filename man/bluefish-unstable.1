@@ -1,84 +1,65 @@
-.\"     Title: bluefish\-unstable
-.\"    Author: Daniel Leidert <daniel.leidert@wgdd.de>
-.\" Generator: DocBook XSL Stylesheets v1.71.0 <http://docbook.sf.net/>
-.\"      Date: 09/12/2007
-.\"    Manual: Bluefish Documentation
-.\"    Source: Bluefish Editor 1.1.5
-.\"
-.TH "BLUEFISH\-UNSTABLE" "1" "09/12/2007" "Bluefish Editor 1.1.5" "Bluefish Documentation"
-.\" disable hyphenation
-.nh
-.\" disable justification (adjust text to left margin only)
-.ad l
+.TH "BLUEFISH\-UNSTABLE" "1" "2009-02-07" "Bluefish Editor 1.3" "User commands"
+
 .SH "NAME"
 bluefish\-unstable \- editor for experienced web designers and programmers
+
 .SH "SYNOPSIS"
-.HP 18
-\fBbluefish\-unstable\fR [\fB\-s\fR | \fB\-\-skiprootcheck\fR] [\fB\-n\fR | \fB\-\-newwindow\fR] [\fB\-p\fR\ \fIPROJECTFILE\fR | \fB\-\-project=\fR\fB\fIPROJECTFILE\fR\fR] [\fIFILE(S)\fR...]
-.HP 18
-\fBbluefish\-unstable\fR {[\fB\-?\fR\ |\ \fB\-\-help\fR] | \fB\-\-help\-all\fR | \fB\-\-help\-*\fR | [\fB\-v\fR\ |\ \fB\-\-Version\fR]}
+.B bluefish\-unstable
+.RB [ \-s | \-\-skiprootcheck ]
+.RB [ \-n | \-\-newwindow ]
+.RB [ \-p " \fIPROJECTFILE\fP | " \-\-project=\fIPROJECTFILE\fP " ]"
+.BI [ "FILE(S)..." ]
+.PP
+.B bluefish-unstable
+.RB {[ \-? | \-\-help | \-\-help\-all | \-\-help\-* "] | [" \-v | \-\-Version ]}
+
 .SH "DESCRIPTION"
 .PP
+.B bluefish-unstable
+is an open-source editor for experienced web designers and programmers,
+supporting many programming and markup languages, but focusing on creating
+dynamic and interactive websites.
 
-\fBbluefish\-unstable\fR
-is an open\-source editor for experienced web designers and programmers, supporting many programming and markup languages, but focusing on creating dynamic and interactive websites.
-.SH "OPTIONS"
+.SH OPTIONS
 .PP
-
-\fBbluefish\-unstable\fR
+.B bluefish-unstable
 currently supports the following options:
-.PP
-\fB\-n\fR, \fB\-\-newwindow\fR
-.RS 3n
+.TP
+.BR \-n ", " \-\-newwindow
 Open in a new window.
-.RE
-.PP
-\fB\-p \fR\fB\fIPROJECTFILE\fR\fR, \fB\-\-project=\fR\fB\fIPROJECTFILE\fR\fR
-.RS 3n
-Open a project.
-.RE
-.PP
-\fB\-s\fR, \fB\-\-skiprootcheck\fR
-.RS 3n
+.TP
+.BR \-s ", " \-\-skiprootcheck
 Skip root check.
-.RE
-.PP
-\fB\-?\fR, \fB\-\-help\fR
-.RS 3n
-Print application help screen.
-.RE
-.PP
-\fB\-\-help\-*\fR, \fB\-\-help\-all\fR
-.RS 3n
-Print all or just a group of help options. These options are not documented here. Instead see
-\fBgtk\-options\fR(7)
+.TP
+.BR "\-p \fIPROJECTFILE\fP" ", " "\-\-project=\fIPROJECTFILE\fP"
+Open a project (may be removed).
+.TP
+.BR \-? ", " \-\-help ", " \-\-help\-* ", " \-\-help\-all
+Print all or just a group of help options. Some of these options may be
+documented in
+.BR gtk-options (7)
 and
-\fBgnome\-otions\fR(7).
-.RE
-.PP
-\fB\-v\fR, \fB\-\-Version\fR
-.RS 3n
+.BR gnome-otions (7).
+.TP
+.BR \-v ", " \-\-Version
 Print version information.
-.RE
+
 .SH "SEE ALSO"
 .PP
+.BR gnome-otions (7),
+.BR gtk-options (7)
+.PP
+There is also a manual online at
+.IR \%http://bluefish.openoffice.nl/manual/ .
 
-\fBgnome\-options\fR(7),
-\fBgtk\-options\fR(7)
-.SH "AUTHORS"
-.PP
-\fBDaniel Leidert\fR <\&daniel.leidert@wgdd.de\&>
-.sp -1n
-.IP "" 3n
+.SH AUTHORS
+.TP
+.BR "Daniel Leidert" " <\&daniel.leidert@wgdd.de\&>"
 Author and editor.
-.PP
-\fBMich\(`ele Garoche\fR <\&michele.garoche@easyconnect.fr\&>
-.sp -1n
-.IP "" 3n
+.TP
+.BR "Michèle Garoche" " <\&michele.garoche@easyconnect.fr\&>"
 Author.
-.PP
-\fBDavide Puricelli\fR <\&evo@debian.org\&>
-.sp -1n
-.IP "" 3n
+.TP
+.BR "Davide Puricelli" " <\&evo@debian.org\&>"
 Original author of the manpage written for the Debian system.
 
