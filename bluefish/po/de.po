@@ -2,14 +2,14 @@
 # Copyright (C) 2000 Free Software Foundation, Inc.
 # Knud Franzkowiak <knud.franzkowiak@gmx.net>, 2000.
 # Roland Steinbach <roland@netzblick.de>, 2001-2004.
-# Daniel Leidert <daniel.leidert@wgdd.de>, 2007.
+# Daniel Leidert <daniel.leidert@wgdd.de>, 2007, 2009.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: bluefish 1.1.3\n"
+"Project-Id-Version: bluefish 1.3.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-02-01 09:12-0800\n"
-"PO-Revision-Date: 2007-01-05 03:54+0100\n"
+"POT-Creation-Date: 2009-02-07 22:15+0100\n"
+"PO-Revision-Date: 2009-01-18 00:47+0100\n"
 "Last-Translator: Roland Steinbach <roland@netzblick.de>\n"
 "Language-Team: None\n"
 "MIME-Version: 1.0\n"
@@ -136,13 +136,10 @@ msgid "Please <b>select the end marker</b> in the text below."
 msgstr ""
 
 #: ../src/blocksync.c:226
-#, fuzzy
 msgid ""
 "<span foreground=\"red\" weight=\"bold\">Please select the block of text to "
 "synchronize.</span>"
 msgstr ""
-"<span foreground=\"red\" weight=\"bold\">Nichts ausgewählt. Bitte zuerst "
-"einen Textblock selektieren.</span>"
 
 #: ../src/blocksync.c:240 ../src/blocksync.c:260
 #, fuzzy
@@ -213,24 +210,24 @@ msgid ""
 "Error parsing command line options. %s\n"
 "Please run: %s -?\n"
 msgstr ""
+"Fehler beim Parsen der Kommandozeile. %s\n"
+"Bitte führen Sie den folgenden Befehl aus: %s -?\n"
 
 #: ../src/bluefish.c:224
 msgid "loading plugins..."
-msgstr ""
+msgstr "Lade Plugins..."
 
 #: ../src/bluefish.c:246
-#, fuzzy
 msgid "reading language files..."
-msgstr "Erzeuge Hauptfenster..."
+msgstr "Lese Sprachdateien..."
 
 #: ../src/bluefish.c:251
 msgid "building file filters ..."
-msgstr ""
+msgstr "Erstelle Dateifilter..."
 
 #: ../src/bluefish.c:259
-#, fuzzy
 msgid "setting up bookmarks ..."
-msgstr "Alle Lesezeichen löschen."
+msgstr "Richte Lesezeichen ein..."
 
 #: ../src/bluefish.c:274
 msgid "creating main gui..."
@@ -331,28 +328,24 @@ msgid "/Show bookmark/Name"
 msgstr "/Lesezeichen anzeigen/Name"
 
 #: ../src/bookmark.c:879
-#, fuzzy
 msgid "First bookmark"
-msgstr "Bearbeite Lesezeichen"
+msgstr "Erstes Lesezeichen"
 
 #: ../src/bookmark.c:883
-#, fuzzy
 msgid "Previous bookmark"
-msgstr "Bearbeite Lesezeichen"
+msgstr "Vorheriges Lesezeichen"
 
 #: ../src/bookmark.c:887
-#, fuzzy
 msgid "Next bookmark"
-msgstr "Lesezeichen löschen."
+msgstr "Nächstes Lesezeichen"
 
 #: ../src/bookmark.c:891
-#, fuzzy
 msgid "Last bookmark"
-msgstr "Bearbeite Lesezeichen"
+msgstr "Letztes Lesezeichen"
 
 #: ../src/bookmark.c:1533 ../src/bookmark.c:1592
 msgid "Error adding bookmark"
-msgstr "Fehler beim Lesezeichen hinzufügen"
+msgstr "Fehler beim Hinzufügen des Lesezeichens"
 
 #: ../src/bookmark.c:1534 ../src/bookmark.c:1593
 msgid "Cannot add bookmarks to unsaved files."
@@ -448,9 +441,9 @@ msgid "Do not open"
 msgstr "Nicht öffnen"
 
 #: ../src/document.c:1023
-#, fuzzy, c-format
+#, c-format
 msgid " Ln: %d, Col: %d, Char: %d"
-msgstr "Z: %d, S: %d"
+msgstr " Z: %d, S: %d, Zeichen: %d"
 
 #: ../src/document.c:1025
 #, c-format
@@ -570,9 +563,8 @@ msgid "_Reload"
 msgstr "N_euladen"
 
 #: ../src/document.c:2602
-#, fuzzy
 msgid "Check and reload all documents"
-msgstr "In allen Dokumenten rückgängig machen"
+msgstr "Alle Dokumente prüfen und erneut laden"
 
 #: ../src/document.c:2610
 #, c-format
@@ -648,43 +640,40 @@ msgstr "Encoding"
 #: ../src/encodings_dialog.c:427
 #, fuzzy
 msgid "Encodings in _menu:"
-msgstr ""
-"\n"
-"Encoding: "
+msgstr "Kodierungen im _Menü:"
 
 #: ../src/encodings_dialog.c:511
 msgid "Add or remove document encodings"
-msgstr ""
+msgstr "Dokumentkodierungen entfernen oder hinzufügen"
 
-#: ../src/filebrowser2.c:207
+#: ../src/filebrowser2.c:230
 msgid "Set documentroot and webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:216
+#: ../src/filebrowser2.c:239
 msgid ""
 "The <i>documentroot</i> is the place where Bluefish finds the file,\n"
 "the <i>webroot</i> is the location where those same files can be viewed on "
 "the webserver"
 msgstr ""
 
-#: ../src/filebrowser2.c:223
-#, fuzzy
+#: ../src/filebrowser2.c:246
 msgid "Documentroot"
-msgstr "/_Dokument"
+msgstr ""
 
-#: ../src/filebrowser2.c:233
+#: ../src/filebrowser2.c:256
 msgid "Webroot"
 msgstr ""
 
-#: ../src/filebrowser2.c:1349
+#: ../src/filebrowser2.c:1391
 msgid "Could not rename\n"
 msgstr "Kann nicht umbenennen\n"
 
-#: ../src/filebrowser2.c:1404
+#: ../src/filebrowser2.c:1455
 msgid "New directory"
 msgstr "Neues Verzeichnis"
 
-#: ../src/filebrowser2.c:1412
+#: ../src/filebrowser2.c:1477 ../src/filebrowser2.c:1479
 msgid "New file"
 msgstr "Neue Datei"
 
@@ -696,7 +685,7 @@ msgstr "Neue Datei"
 #. * --> Sometimes you can have a file in many directories (e.g. Makefile.in, index.html)
 #. * and then this might give you more indication if this is indeed the file you wanted to delete
 #.
-#: ../src/filebrowser2.c:1520
+#: ../src/filebrowser2.c:1589
 #, c-format
 msgid ""
 "Are you sure you want to delete\n"
@@ -705,95 +694,95 @@ msgstr ""
 "Datei \"%s\"\n"
 "sicher löschen?"
 
-#: ../src/filebrowser2.c:1521
+#: ../src/filebrowser2.c:1590
 #, c-format
 msgid "If you delete %s, it will be permanently lost."
 msgstr "Die Datei %s wird dauerhaft gelöscht."
 
-#: ../src/filebrowser2.c:1666
+#: ../src/filebrowser2.c:1735
 msgid "/_Open"
 msgstr "/Ö_ffnen"
 
-#: ../src/filebrowser2.c:1667
+#: ../src/filebrowser2.c:1736
 msgid "/Open _Advanced..."
 msgstr "/Öffnen Er_weitert..."
 
-#: ../src/filebrowser2.c:1668
+#: ../src/filebrowser2.c:1737
 msgid "/Rena_me"
 msgstr "/U_mbenennen"
 
-#: ../src/filebrowser2.c:1669
+#: ../src/filebrowser2.c:1738
 msgid "/_Delete"
 msgstr "/_Löschen "
 
-#: ../src/filebrowser2.c:1671
+#: ../src/filebrowser2.c:1740
 msgid "/New _File"
 msgstr "/_Neue Datei"
 
-#: ../src/filebrowser2.c:1672
+#: ../src/filebrowser2.c:1741
 msgid "/_New Directory"
 msgstr "/Neues _Verzeichnis"
 
-#: ../src/filebrowser2.c:1674
+#: ../src/filebrowser2.c:1743
 msgid "/_Refresh"
 msgstr "/A_ktualisieren"
 
-#: ../src/filebrowser2.c:1675
+#: ../src/filebrowser2.c:1744
 msgid "/Follow active document"
 msgstr "/Aktiven Dokument folgen"
 
-#: ../src/filebrowser2.c:1676
+#: ../src/filebrowser2.c:1745
 msgid "/_Set as basedir"
 msgstr "/Al_s Basisverzeichnis setzen"
 
-#: ../src/filebrowser2.c:1677
+#: ../src/filebrowser2.c:1746
 #, fuzzy
 msgid "/Set as documentroot"
 msgstr "/Gehe/_Nächstes Dokument"
 
-#: ../src/filebrowser2.c:1679
+#: ../src/filebrowser2.c:1748
 msgid "/Show Full _Tree"
 msgstr "/_Gesamten Baum anzeigen"
 
-#: ../src/filebrowser2.c:1680
+#: ../src/filebrowser2.c:1749
 msgid "/Show hidden files"
 msgstr "/Versteckte Dateien anzeigen"
 
-#: ../src/filebrowser2.c:1681
+#: ../src/filebrowser2.c:1750
 msgid "/Show backup files"
 msgstr "/Sicherungsdateien anzeigen"
 
-#: ../src/filebrowser2.c:1682
+#: ../src/filebrowser2.c:1751
 #, fuzzy
 msgid "/View mode"
 msgstr "/_Ansicht"
 
-#: ../src/filebrowser2.c:1683
+#: ../src/filebrowser2.c:1752
 msgid "/View mode/Tree"
 msgstr ""
 
-#: ../src/filebrowser2.c:1684
+#: ../src/filebrowser2.c:1753
 msgid "/View mode/Dual"
 msgstr ""
 
-#: ../src/filebrowser2.c:1685
+#: ../src/filebrowser2.c:1754
 msgid "/View mode/Flat"
 msgstr ""
 
 #. Add filter submenu
-#: ../src/filebrowser2.c:1763
+#: ../src/filebrowser2.c:1832
 msgid "Filter"
 msgstr "Filter"
 
-#: ../src/filebrowser2.c:1789 ../src/filefilter.c:475
+#: ../src/filebrowser2.c:1858 ../src/filefilter.c:475
 msgid "Edit filter"
 msgstr "Filter bearbeiten"
 
-#: ../src/filebrowser2.c:1793
+#: ../src/filebrowser2.c:1862
 msgid "Delete filter"
 msgstr "Filter löschen"
 
-#: ../src/filebrowser2.c:1798
+#: ../src/filebrowser2.c:1867
 msgid "New filter"
 msgstr "Neuer Filter"
 
@@ -1773,15 +1762,13 @@ msgstr ""
 #. skip column 0, the language name
 #. 1=text
 #: ../src/preferences.c:1247
-#, fuzzy
 msgid "Option name"
-msgstr "Kein Name"
+msgstr ""
 
 #. 2=boolean
 #: ../src/preferences.c:1248
-#, fuzzy
 msgid "value"
-msgstr "Werte"
+msgstr ""
 
 #. 1=text
 #: ../src/preferences.c:1261
@@ -2460,7 +2447,7 @@ msgstr "Ersetze gefundenen Text mit"
 
 #: ../src/snr2.c:1732
 msgid "Sco_pe: "
-msgstr "Bereich: "
+msgstr "Bereic_h: "
 
 #: ../src/snr2.c:1736
 msgid "Where to look for the pattern."
@@ -2508,7 +2495,7 @@ msgstr "Nach einem Treffer nächste Suche in diesem Treffer beginnen"
 #
 #: ../src/snr2.c:1792
 msgid "Case sensitive _matching"
-msgstr "Groß- Kleinschreibung be_achten"
+msgstr "Groß- und Kleinschreibung be_achten"
 
 #: ../src/snr2.c:1795
 msgid "Only match if case (upper/lower) is identical."
@@ -2516,20 +2503,20 @@ msgstr "Nur finden falls Groß-/Kleinschreibung identisch ist"
 
 #: ../src/snr2.c:1797
 msgid "_Use escape chars"
-msgstr "Escape-Zeichen ben_utzen"
+msgstr "Fluchtzeichen ben_utzen"
 
+# Hm, this explanation seems to be weired.
 #: ../src/snr2.c:1800
 msgid "Unescape backslash escaped characters such as \\n, \\t etc."
-msgstr "Backslash-Escapte Zeichen wie \\n usw. unescapen"
+msgstr ""
 
 #: ../src/snr2.c:1802
-#, fuzzy
 msgid "_Select matches"
-msgstr "Dateien wählen"
+msgstr "_Treffer markieren"
 
 #: ../src/snr2.c:1805
 msgid "Select the matching text instead of just highlighting it"
-msgstr ""
+msgstr "Gefundene Treffer markieren, anstatt sie nur hervorzuheben"
 
 #: ../src/snr2.c:1807
 msgid "_Bookmark matches"
@@ -2565,610 +2552,8 @@ msgid "This change concerns multiple documents."
 msgstr "Diese Änderung betrifft mehrere Dokumente"
 
 #
-#~ msgid "Bluefish Project"
-#~ msgstr "Bluefish Projekt"
-
-#~ msgid "_Line number:"
-#~ msgstr "Zei_lennummer:"
-
-#~ msgid "From _selection"
-#~ msgstr "Aus Au_swahl"
-
-#~ msgid "Keep _dialog"
-#~ msgstr "_Dialog erhalten"
-
-#~ msgid "/Document/Auto Close H_TML tags"
-#~ msgstr "/Dokument/H_TML-Tags automatisch schließen"
-
-#~ msgid "/Document/Show _symbols"
-#~ msgstr "/Dokument/_Symbole anzeigen"
-
-#~ msgid "/Document/Document Ty_pe"
-#~ msgstr "/Dokument/Ty_p"
-
-#~ msgid "/Document/Document Type"
-#~ msgstr "/Dokument/Typ"
-
-#~ msgid "Editor"
-#~ msgstr "Editor"
-
-#
 #~ msgid "Syntax scanning"
 #~ msgstr "Syntax scannen"
 
 #~ msgid "Syntax highlighting"
 #~ msgstr "Syntaxhighlighting"
-
-#, fuzzy
-#~ msgid "On keypress only"
-#~ msgstr "Read-only Öffnen"
-
-#~ msgid "Expand all"
-#~ msgstr "Alles erweitern"
-
-#~ msgid "Collapse all"
-#~ msgstr "Alle verbergen"
-
-#~ msgid "parsing highlighting file..."
-#~ msgstr "Parse Highlighting-Datei..."
-
-#~ msgid "compiling highlighting patterns..."
-#~ msgstr "Kompiliere Highlight-Muster..."
-
-#~ msgid "don't change weight"
-#~ msgstr "Schriftschnitt nicht ändern"
-
-#~ msgid "force non-bold weight"
-#~ msgstr "Nicht fett"
-
-#~ msgid "don't change style"
-#~ msgstr "Stil nicht ändern"
-
-#~ msgid "force non-italic style"
-#~ msgstr "nicht-kursiv"
-
-#~ msgid "Line numbers by default"
-#~ msgstr "Zeilennummern"
-
-#~ msgid "Block folding view by default"
-#~ msgstr "Ansicht mit Wortumbruch als Standard"
-
-#~ msgid "Symbols view by default"
-#~ msgstr "Symbolansicht als Standard"
-
-#, fuzzy
-#~ msgid "Tag autoclose by default"
-#~ msgstr "Symbolansicht als Standard"
-
-#~ msgid "Undo history size"
-#~ msgstr "Historygröße"
-
-#~ msgid ""
-#~ "The backup prefix may contain a slash to indicate a directory component, "
-#~ "for example \".backup/\""
-#~ msgstr ""
-#~ "Das Sicherungskopie-Präfix kann einen Slash enthalten um ein Verzeichnis "
-#~ "anzugeben z.B. \".backup/\""
-
-#
-#~ msgid "Backup file prefix"
-#~ msgstr "Sicherungsdatei Präfix"
-
-#~ msgid "Backup file suffix"
-#~ msgstr "Sicherungsdatei Erweiterung"
-
-#~ msgid "Unknown icon"
-#~ msgstr "Unbekanntes Icon"
-
-#
-#~ msgid "Show right margin by default"
-#~ msgstr "Rechten Rand standardmäßig anzeigen"
-
-#~ msgid "Right margin at"
-#~ msgstr "Rechter Rand bei"
-
-#
-#~ msgid "whole document"
-#~ msgstr "Gesamtes Dokument"
-
-#~ msgid "visible area"
-#~ msgstr "Sichtbarer Bereich"
-
-#
-#~ msgid "Scan mode"
-#~ msgstr "Scanmodus"
-
-#~ msgid "Autocompletion key"
-#~ msgstr "Autovervollständigen-Taste"
-
-#, fuzzy
-#~ msgid "Load network DTD by default"
-#~ msgstr "Wortumbruch standardmäßig"
-
-#~ msgid " Add "
-#~ msgstr " Hinzufügen "
-
-#~ msgid " Update "
-#~ msgstr " Aktualisieren "
-
-#~ msgid " Delete "
-#~ msgstr " Löschen "
-
-#~ msgid " Up "
-#~ msgstr " Hoch "
-
-#~ msgid " Down "
-#~ msgstr " Runter "
-
-#~ msgid " Sort "
-#~ msgstr " Sortieren "
-
-#~ msgid "_Basedir:"
-#~ msgstr "_Basisverzeichnis:"
-
-#~ msgid "_Preview URL:"
-#~ msgstr "URL Vorschau:"
-
-#~ msgid "File size changed in file \n"
-#~ msgstr "Dateigröße geändert \n"
-
-#~ msgid "Bookmarks positions could be incorrect. Delete bookmarks?"
-#~ msgstr "Lesezeichenpositionen könnten fehlerhaft sein. Lesezeichen löschen?"
-
-#~ msgid "Show files in filter"
-#~ msgstr "Dateien im Filter anzeigen"
-
-#~ msgid "Use separate file and directory view"
-#~ msgstr "Separate Datei- und Verzeichnisansicht"
-
-#~ msgid "Servers"
-#~ msgstr "Server"
-
-#~ msgid "Remote servers"
-#~ msgstr "Entfernte Server"
-
-#~ msgid "Zope compatibility mode"
-#~ msgstr "Zope Kompatibilitätscode"
-
-#~ msgid "parsing custom menu file..."
-#~ msgstr "Parse benutzerdefiniertes Menü..."
-
-#~ msgid "Cannot load reference file %s\n"
-#~ msgstr "Kann Referenzdatei %s nicht laden\n"
-
-#~ msgid ""
-#~ "Bad root element in reference file %s\n"
-#~ "Should be <ref> or <r> and found %s"
-#~ msgstr ""
-#~ "Defektes Root-Element in Referenzdatei %s\n"
-#~ "Erwarteti: <ref> oder <r>, gefunden: %s"
-
-#~ msgid "Load error"
-#~ msgstr "Ladefehler"
-
-#~ msgid "Cannot load reference file, perhaps it is not well-formed."
-#~ msgstr ""
-#~ "Kann Referenzdatei nicht laden, möglicherweise kein korrektes Format"
-
-#~ msgid "Bad root element in reference file"
-#~ msgstr "Defektes Root-Element in Referenzdatei"
-
-#~ msgid ""
-#~ " \n"
-#~ "Should be <ref> or <r> "
-#~ msgstr ""
-#~ " \n"
-#~ "Sollte <ref> oder <r> sein"
-
-#~ msgid "Bad reference"
-#~ msgstr "Defekte Referenz"
-
-#~ msgid ""
-#~ "This is probably an old reference file. \n"
-#~ "Please update it to the new format."
-#~ msgstr ""
-#~ "Dies ist möglicherweise eine alte Referenzdatei.\n"
-#~ "Bitte auf neues Format updaten."
-
-#~ msgid "Loading reference"
-#~ msgstr "Lade Referenz"
-
-#~ msgid "Unloading reference"
-#~ msgstr "Entlade Referenz"
-
-#~ msgid " Freeing reference memory "
-#~ msgstr "Gebe Referenzspeicher frei"
-
-#~ msgid "Identifier"
-#~ msgstr "Identifikator"
-
-#~ msgid "Kind"
-#~ msgstr "Art"
-
-#~ msgid "Type"
-#~ msgstr "Typ"
-
-#~ msgid "Input type"
-#~ msgstr "Eingabetyp"
-
-#~ msgid "Required"
-#~ msgstr "Pflicht"
-
-#~ msgid "Insert syntax"
-#~ msgstr "Syntax einfügen"
-
-#~ msgid ""
-#~ "All elements:\n"
-#~ "%0,%1,... - value of parameter number 0,1,...%* - values of all "
-#~ "parameters\n"
-#~ "Tag element:\n"
-#~ "%_ - only non-empty attributes\n"
-#~ "%! - only required attributes\n"
-#~ "%~ - only non-empty OR required attributes."
-#~ msgstr ""
-#~ "Alle Elemente:\n"
-#~ "%0,%1,... - Werte der Parameter 0,1,...%* - Werte aller Parameter\n"
-#~ "Element:\n"
-#~ "%_ - nur nicht-leere Attribute\n"
-#~ "%! - nur Pflichtattribute\n"
-#~ "%~ - nur nicht-leere ODER Pflichtattribute."
-
-#~ msgid " ? "
-#~ msgstr " ? "
-
-#~ msgid "Help"
-#~ msgstr "Hilfe"
-
-#~ msgid "Properties"
-#~ msgstr "Eigenschaften"
-
-#~ msgid "Add property"
-#~ msgstr "Eigenschaft hinzufügen"
-
-#~ msgid "Add ref definition"
-#~ msgstr "Referenzdefinition hinzufügen"
-
-#~ msgid "TAG: "
-#~ msgstr "TAG: "
-
-#~ msgid "PARENT TAGS: "
-#~ msgstr "ELTERNTAGS: "
-
-#~ msgid "FUNCTION: "
-#~ msgstr "FUNKTION: "
-
-#~ msgid "RETURNS: "
-#~ msgstr "RÜCKGABEN: "
-
-#~ msgid "DEPENDENCIES: "
-#~ msgstr "ABHÄNGIGKEITEN: "
-
-#~ msgid "PROPERTY: "
-#~ msgstr "EIGENSCHAFT: "
-
-#~ msgid "SELECTOR: "
-#~ msgstr "AUSWAHL: "
-
-#~ msgid "VAR: "
-#~ msgstr "VAR: "
-
-#~ msgid "SNIPPET: "
-#~ msgstr "AUSSCHNITT: "
-
-#~ msgid "PARAMS:\n"
-#~ msgstr "PARAMETER:\n"
-
-#~ msgid "ATTRIBUTES:\n"
-#~ msgstr "ATTRIBUTE:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "NOTES:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "BEMERKUNGEN:\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "EXAMPLES:\n"
-#~ msgstr ""
-#~ "\n"
-#~ "BEISPIELE:\n"
-
-#~ msgid ""
-#~ "SEE ALSO:\n"
-#~ " "
-#~ msgstr ""
-#~ "SIEHE UNTER:\n"
-#~ " "
-
-#~ msgid "Choose colour"
-#~ msgstr "Farbe auswählen"
-
-#~ msgid "Error"
-#~ msgstr "Fehler"
-
-#~ msgid ""
-#~ "Perhaps you didn't load a library, or you did not select a library to "
-#~ "search in."
-#~ msgstr "Keine Referenz geladen oder keine Referenz zum Suchen ausgewählt."
-
-#~ msgid "Element %s not found"
-#~ msgstr "Element %s nicht gefunden"
-
-#~ msgid "Element search"
-#~ msgstr "Element suchen"
-
-#~ msgid "New library"
-#~ msgstr "Neue Bibliothek"
-
-#~ msgid "Library name"
-#~ msgstr "Bibliotheksname"
-
-#~ msgid "Library has to have a name."
-#~ msgstr "Bibliothek muss einen Namen haben."
-
-#~ msgid "This library is readonly."
-#~ msgstr "Diese Bibliothek ist schreibgeschützt"
-
-#~ msgid "Delete library?"
-#~ msgstr "Bibliothek löschen?"
-
-#~ msgid "You have to select a reference."
-#~ msgstr "Du musst eine Referenz auswählen."
-
-#~ msgid "Reference not loaded."
-#~ msgstr "Referenz nicht geladen"
-
-#~ msgid "Bad element"
-#~ msgstr "Defektes Element"
-
-#~ msgid "You can define notes for: library, group or element."
-#~ msgstr ""
-#~ "Du kannst Anmerkungen für Bibliotheken, Gruppen oder Elemente definieren."
-
-#~ msgid "New note"
-#~ msgstr "Neue Bemerkung"
-
-#~ msgid "Title"
-#~ msgstr "Titel"
-
-#~ msgid "Text"
-#~ msgstr "Text"
-
-#~ msgid "You can define group for: library or group."
-#~ msgstr "Du kannst Gruppen für Bibliotheken oder Gruppen definieren."
-
-#~ msgid "New group"
-#~ msgstr "Neue Gruppe"
-
-#~ msgid "New description def"
-#~ msgstr "Neue Beschreibungsdefinition"
-
-#~ msgid "Description text"
-#~ msgstr "Beschreibungstext"
-
-#~ msgid "New values def"
-#~ msgstr "Neue Werte"
-
-#~ msgid "Values separated by comma"
-#~ msgstr "Werte durch Komma getrennt"
-
-#~ msgid "Element has to have a name."
-#~ msgstr "Element muss einen Namen haben."
-
-#~ msgid "Missing value"
-#~ msgstr "Fehlender Wert"
-
-#~ msgid "Property has to have a name."
-#~ msgstr "Eigenschaft muss einen Namen haben"
-
-#~ msgid "Definitions"
-#~ msgstr "Definitionen"
-
-#~ msgid "New property"
-#~ msgstr "Neue Eigenschaft"
-
-#~ msgid "Please select library or group."
-#~ msgstr "Bitte Bibliothek oder Gruppe wählen"
-
-#~ msgid "New element"
-#~ msgstr "Neues Element"
-
-#~ msgid "Delete definition?"
-#~ msgstr "Definition löschen?"
-
-#~ msgid "This property is used by some elements. Cannot delete."
-#~ msgstr ""
-#~ "Diese Eigenschaft wird von einigen Elementen benutzt und kann nicht "
-#~ "gelöscht werden."
-
-#~ msgid "Please use delete library instead."
-#~ msgstr "Bitte stattdessen Bibliothek löschen benutzen."
-
-#~ msgid "Delete group"
-#~ msgstr "Gruppe löschen"
-
-#~ msgid "Not implemented yet"
-#~ msgstr "Noch nicht implementiert"
-
-#~ msgid "Delete group?"
-#~ msgstr "Gruppe löschen?"
-
-#~ msgid "Do you really want to delete current entity?"
-#~ msgstr "Aktuellen Eintrag wirklich löschen?"
-
-#~ msgid "Show info window"
-#~ msgstr "Zeige Info-Fenster"
-
-#~ msgid "Insert"
-#~ msgstr "Einfügen"
-
-#~ msgid "Show"
-#~ msgstr "Anzeigen"
-
-#~ msgid "Attributes/Parameters"
-#~ msgstr "Attribute/Parameter"
-
-#~ msgid "Notes"
-#~ msgstr "Bemerkung"
-
-#~ msgid "Examples"
-#~ msgstr "Beispiele"
-
-#~ msgid "Links"
-#~ msgstr "Links"
-
-#~ msgid "Rescan directories"
-#~ msgstr "Referenzdateien neu laden"
-
-#~ msgid "Edit"
-#~ msgstr "Bearbeiten"
-
-#~ msgid "Delete library"
-#~ msgstr "Bibliothek löschen"
-
-#~ msgid "New entity"
-#~ msgstr "Neuer Eintrag"
-
-#~ msgid "Note"
-#~ msgstr "Bemerkung"
-
-#~ msgid "Group"
-#~ msgstr "Gruppe"
-
-#~ msgid "Property definition"
-#~ msgstr "Eigenschaftsdefinition"
-
-#~ msgid "Description definition"
-#~ msgstr "Definitionsbeschreibung"
-
-#~ msgid "Element"
-#~ msgstr "Element"
-
-#~ msgid "Delete definition"
-#~ msgstr "Definition löschen"
-
-#~ msgid "Delete entity"
-#~ msgstr "Eintrag löschen"
-
-#~ msgid "Function reference"
-#~ msgstr "Funktionsreferenz"
-
-#~ msgid "/View/View _Custom Menu"
-#~ msgstr "/Ansicht/_Benutzerdefinierte Werkzeugleiste anzeigen"
-
-#~ msgid "This custom search and replace requires a selection"
-#~ msgstr ""
-#~ "Dieses benutzerdefinierte Suchen und Ersetzen erfordert eine Auswahl"
-
-#~ msgid "/_Custom menu"
-#~ msgstr "/_Benutzerdefiniertes Menü"
-
-#~ msgid "/Custom menu/Edit custom menu..."
-#~ msgstr "/Benutzerdefiniertes Menü/Bearbeiten..."
-
-#~ msgid "/Custom menu/Reset"
-#~ msgstr "/Benutzerdefiniertes Menü/Zurücksetzen"
-
-#~ msgid "/Custom menu/Load new"
-#~ msgstr "/Benutzerdefiniertes Menü/Neu Laden"
-
-#~ msgid "Search Pattern"
-#~ msgstr "Suchmuster"
-
-#~ msgid "Replace String"
-#~ msgstr "Ersetzender Text"
-
-#~ msgid "Formatstring Before"
-#~ msgstr "Formatstring vorher"
-
-#~ msgid "Formatstring After"
-#~ msgstr "Formatstring nachher"
-
-#~ msgid "The menupath you want to update does not exist yet"
-#~ msgstr "Der Menüpfad der bearbeitet werden soll existiert nicht."
-
-#~ msgid "Try 'add' instead."
-#~ msgstr "Versuchen Sie 'Hinzufügen'."
-
-#~ msgid "The menupath you want to add already exists."
-#~ msgstr "Der Menüpfad existiert bereits."
-
-#~ msgid "The menupath should start with a / character"
-#~ msgstr "Der Menüpfad muß mit einem / beginnen"
-
-#~ msgid "Custom Menu Editor"
-#~ msgstr "Benutzerdefinierter Menüeditor"
-
-#~ msgid "Add New Menu Entry"
-#~ msgstr "Neuen Menüeintrag hinzufügen"
-
-#~ msgid "Apply Changes"
-#~ msgstr "Änderungen übernehmen"
-
-#~ msgid "Delete Menu Entry"
-#~ msgstr "Menüeintrag löschen"
-
-#~ msgid "Close Discards Changes"
-#~ msgstr "Schließen verwirft Änderungen"
-
-#~ msgid "Save Changes and Exit"
-#~ msgstr "Änderungen Speichern und Beenden"
-
-#~ msgid "_Menu Path:"
-#~ msgstr "_Menüpfad"
-
-#~ msgid "Menu path"
-#~ msgstr "Menüpfad"
-
-#~ msgid "Number of _Variables:"
-#~ msgstr "Anzahl der _Variablen"
-
-#~ msgid "Variables"
-#~ msgstr "Variablen"
-
-#~ msgid "Custom Dialo_g"
-#~ msgstr "Benutzerdefinierter Dialo_g"
-
-#~ msgid "Custom Replace"
-#~ msgstr "Benutzerdefiniertes Ersetzen"
-
-#~ msgid "_Replace:"
-#~ msgstr "E_rsetzen:"
-
-#~ msgid "in current document"
-#~ msgstr "im aktuellen Dokument"
-
-#~ msgid "from cursor"
-#~ msgstr "ab Cursor"
-
-#~ msgid "in selection"
-#~ msgstr "In der Auswahl"
-
-#~ msgid "in all open documents"
-#~ msgstr "in allen offenen Dokumenten"
-
-#~ msgid "Matc_hing:"
-#~ msgstr "Matc_hing:"
-
-#~ msgid "normal"
-#~ msgstr "normal"
-
-#~ msgid "posix regular expressions"
-#~ msgstr "reguläre POSIX-Ausdrücke"
-
-#~ msgid "perl regular expressions"
-#~ msgstr "reguläre PERL-Ausdrücke"
-
-#~ msgid "Case Se_nsitive"
-#~ msgstr "Groß- Kleinschreibung beachten"
-
-#~ msgid "Reference library"
-#~ msgstr "Referenzbibliothek"
-
-#~ msgid "Info background color"
-#~ msgstr "Info Hintergrundfarbe"
-
-#~ msgid "Info foreground color"
-#~ msgstr "Info Vordergrundfarbe"
