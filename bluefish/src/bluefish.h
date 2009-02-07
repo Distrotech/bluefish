@@ -42,13 +42,13 @@
 #ifdef DEBUG
 #define DEBUG_MSG g_print
 #else /* not DEBUG */
-#ifdef __GNUC__
+#if defined(__GNUC__) || defined(__SUNPRO_C)
 #define DEBUG_MSG(args...)
  /**/
-#else/* notdef __GNUC__ */
+#else/* notdef __GNUC__ || __SUNPRO_C */
 extern void g_none(gchar *first, ...);
 #define DEBUG_MSG g_none
-#endif /* __GNUC__ */
+#endif /* __GNUC__ || __SUNPRO_C */
 #endif /* DEBUG */
 
 #ifdef ENABLE_NLS
