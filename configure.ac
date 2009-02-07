@@ -356,6 +356,20 @@ gio-unix-2.0 >= 2.16 \
 gthread-2.0 \
 libxml-2.0"
 
+PKG_CHECK_EXISTS(
+	[libpcre],
+	[BF_dependencies="$BF_dependencies libpcre"],
+	[
+	 AC_PATH_PROG([PCRE_CONFIG], [pcre-config], [no])
+	 if test "x$PCRE_CONFIG" = "xno" ; then
+	 	AC_MSG_ERROR([pcre-config/libpcre.pc not found. Install libpcre3-dev or similar.])
+	 else
+	 	LIBS="$LIBS `$PCRE_CONFIG --libs`"
+	 	CFLAGS="$CFLAGS `$PCRE_CONFIG --cflags`"
+	 fi
+	]
+)
+
 PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
 
 # optionally build the charmap plugin if gucharmap is available
@@ -368,14 +382,6 @@ PKG_CHECK_MODULES([CHARMAP_PLUGIN], [gucharmap],
 	]
 )
 AM_CONDITIONAL([ENABLE_CHARMAP_PLUGIN], [test "x$build_charmap_plugin" = "xyes"])
-
-AC_PATH_PROG([PCRE_CONFIG], [pcre-config], [no])
-if test "x$PCRE_CONFIG" = "xno" ; then
-	AC_MSG_ERROR([pcre-config not found - please install libpcre3-dev or similar])
-else
-	LIBS="$LIBS `$PCRE_CONFIG --libs`"
-	CFLAGS="$CFLAGS `$PCRE_CONFIG --cflags`"
-fi
 
 AC_SEARCH_LIBS([nanosleep], [posix4 rt])
 
