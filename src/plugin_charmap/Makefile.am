@@ -5,15 +5,19 @@ DISTCLEANFILES = @OPENBSD_3_8_FIX@
 
 MAINTAINERCLEANFILES = Makefile.in
 
-DEFS += -DLOCALEDIR=\"$(localedir)\" -DPKGDATADIR=\"$(pkgdatadir)\"
+DEFS += -DLOCALEDIR=\"$(localedir)\"
 
+if ENABLE_CHARMAP_PLUGIN
 charmapdir = $(pkglibdir)
 charmap_LTLIBRARIES = charmap.la
+endif #ENABLE_CHARMAP_PLUGIN
 
 charmap_la_SOURCES = \
 	charmap.c \
 	charmap_gui.c
 
+charmap_la_CFLAGS = $(CHARMAP_PLUGIN_CFLAGS)
+charmap_la_LIBADD = $(CHARMAP_PLUGIN_LIBS)
 charmap_la_LDFLAGS = -module -avoid-version
 
 if OS_WIN32
