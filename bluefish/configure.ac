@@ -44,8 +44,6 @@ case "$host" in
 		OPENBSD_3_8_FIX=config.status
 		AC_SUBST([OPENBSD_3_8_FIX])
 	;;
-	*)
-	;;	
 esac
 dnl if AM_PO_SUBDIRS is available use it (most recent systems)
 dnl else try to use the very old AM_WITH_NLS
@@ -91,8 +89,6 @@ case "$host_os" in
 	solaris*)
 		AC_DEFINE([PLATFORM_SOLARIS], [1], [Define to 1 if you have a Solaris OS.])
 		AC_MSG_NOTICE([platform is... Solaris])
-	;;
-	*)
 	;;
 esac
 
@@ -347,7 +343,9 @@ dnl ************************
 
 PKG_PROG_PKG_CONFIG
 
-BFREQ_required="gtk+-2.0 >= 2.12 \
+# it is unclear to me if gio requires g_thread_init(), but if it does, we need to include gthread-2.0
+BF_dependencies="\
+gtk+-2.0 >= 2.12 \
 gmodule-2.0 >= 2.12 \
 gobject-2.0 \
 glib-2.0 \
@@ -356,18 +354,20 @@ gdk-pixbuf-2.0 \
 gdk-2.0 \
 gio-unix-2.0 >= 2.16 \
 gthread-2.0 \
-libxml-2.0 \
-gucharmap"
+libxml-2.0"
 
-# it is unclear to me if gio requires g_thread_init(), but if it does, we need to include gthread-2.0
+PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
 
-PKG_CHECK_MODULES([BFREQ], [$BFREQ_required])
-
-if ( $PKG_CONFIG gio-2.0 --atleast-version=2.16 ) ; then
-	AC_DEFINE([HAVE_ATLEAST_GIO_2_16], [1], [Define to 1 if you have GIO >= 2.16.])
-	BFOPT_optional="gio-2.0 >= 2.16"
-	PKG_CHECK_MODULES([BFOPT], [$BFOPT_optional])
-fi
+# optionally build the charmap plugin if gucharmap is available
+PKG_CHECK_MODULES([CHARMAP_PLUGIN], [gucharmap],
+	[build_charmap_plugin=yes],
+	[
+	 build_charmap_plugin=no
+	 AC_MSG_WARN([Disabling the building of the charmap plugin.])
+	 AC_MSG_WARN([Install the gucharmap library/headers first.])
+	]
+)
+AM_CONDITIONAL([ENABLE_CHARMAP_PLUGIN], [test "x$build_charmap_plugin" = "xyes"])
 
 AC_PATH_PROG([PCRE_CONFIG], [pcre-config], [no])
 if test "x$PCRE_CONFIG" = "xno" ; then
@@ -489,8 +489,8 @@ dnl ************************
 dnl   Final Cflags/Libs
 dnl ************************
 
-CFLAGS="$CFLAGS $BFREQ_CFLAGS $BFOPT_CFLAGS"
-LIBS="$LIBS $BFREQ_LIBS $BFOPT_LIBS"
+CFLAGS="$CFLAGS $BLUEFISH_REQUIRED_CFLAGS"
+LIBS="$LIBS $BLUEFISH_REQUIRED_LIBS"
 
 
 dnl ************************
