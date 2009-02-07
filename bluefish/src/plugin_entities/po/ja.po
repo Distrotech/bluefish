@@ -3,15 +3,15 @@
 # Iwasa Kazmi <kzmi@ca2.so-net.ne.jp>, 2000.
 # Ryoichi INAGAKI <ryo1@bc.wakwak.com>, 2003.
 # Timothy Joko-Veltman <tim-oss@indigopixel.com>, 2004
-# Takeshi HAMASAKI <hma@syd.odn.ne.jp>, 2005
+# Takeshi HAMASAKI <hmatrjp@users.sourceforge.jp>, 2005-2009
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Bluefish gtk2-port\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
 "POT-Creation-Date: 2009-01-03 23:32+0100\n"
-"PO-Revision-Date: 2004-11-27 22:43-0300\n"
-"Last-Translator: Takeshi HAMASAKI <hma@syd.odn.ne.jp>\n"
+"PO-Revision-Date: 2009-01-30 18:19+0700\n"
+"Last-Translator: Takeshi Hamasaki <hmatrjp@users.sourceforge.jp>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,68 +19,69 @@ msgstr ""
 
 #: src/plugin_entities/entities.c:412
 msgid "Characters to entities"
-msgstr ""
+msgstr "実体参照から文字へ"
 
 #: src/plugin_entities/entities.c:412
 msgid "Entities to characters"
-msgstr ""
+msgstr "実体参照から文字へ"
 
 #: src/plugin_entities/entities.c:425
 msgid "In current document"
-msgstr ""
+msgstr "この文書内"
 
 #: src/plugin_entities/entities.c:426
 msgid "In selection"
-msgstr ""
+msgstr "選択範囲内"
 
 #: src/plugin_entities/entities.c:427
 msgid "In all documents"
-msgstr ""
+msgstr "開いているすべての文書内"
 
 #: src/plugin_entities/entities.c:428
 msgid "Sco_pe:"
-msgstr ""
+msgstr "範囲(_P):"
 
 #: src/plugin_entities/entities.c:432
 msgid "Convert numerical characters"
-msgstr ""
+msgstr "数字を変換する"
 
 #: src/plugin_entities/entities.c:439
 msgid "Convert _iso-8859-1 characters"
-msgstr ""
+msgstr "_Iso-8859-1 文字を変換する"
 
 #: src/plugin_entities/entities.c:443
 msgid "Convert _symbol characters"
-msgstr ""
+msgstr "記号文字を変換する(_S)"
 
 #: src/plugin_entities/entities.c:447
 msgid "Convert spe_cial characters"
-msgstr ""
+msgstr "特殊文字を変換する(_C)"
 
 #: src/plugin_entities/entities.c:451
 msgid "Convert _xml characters <>&"
-msgstr ""
+msgstr "_XML 文字 <>& を変換する "
 
 #: src/plugin_entities/entities.c:514
 msgid "/Edit/Replace special/Entities to characters"
-msgstr ""
+msgstr "/編集/置換 特殊/実体参照から文字へ"
 
 #: src/plugin_entities/entities.c:515
 msgid "/Edit/Replace special/Characters to entities"
-msgstr ""
+msgstr "/編集/置換 特殊/文字から実体参照へ"
 
 #: src/plugin_entities/entities.c:516
 msgid "/Edit/Replace special/URL encode selection"
-msgstr ""
+msgstr "/編集/置換 特殊/選択範囲をURLエンコード"
 
 #: src/plugin_entities/entities.c:517
 msgid "/Edit/Replace special/URL decode selection"
-msgstr ""
+msgstr "/編集/置換 特殊/選択範囲をURLデコード"
 
 #: src/plugin_entities/entities.c:518
 msgid "/Edit/Replace special/To Lowercase"
-msgstr ""
+msgstr "/編集/置換 特殊/小文字に変換"
 
 #: src/plugin_entities/entities.c:519
 msgid "/Edit/Replace special/To Uppercase"
-msgstr ""
+msgstr "/編集/置換 特殊/大文字に変換"
+
