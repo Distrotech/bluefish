@@ -238,6 +238,7 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 void set_project_menu_widgets(Tbfwin *bfwin, gboolean win_has_project) {
 	menuitem_set_sensitive(bfwin->menubar, "/Project/Save", win_has_project);
 	menuitem_set_sensitive(bfwin->menubar, "/Project/Save as...", win_has_project);
+	menuitem_set_sensitive(bfwin->menubar, "/Project/Close", win_has_project);
 	menuitem_set_sensitive(bfwin->menubar, "/Project/Save & close", win_has_project);
 	menuitem_set_sensitive(bfwin->menubar, "/Project/Edit Project Options...", win_has_project);
 }
@@ -355,12 +356,15 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
  * returns TRUE if the project is closed, 
  * returns FALSE if something went wrong or was cancelled
  */
-gboolean project_save_and_close(Tbfwin *bfwin) {
-	gboolean dont_save = FALSE;
+gboolean project_save_and_close(Tbfwin *bfwin, gboolean dont_save) {
+	/* if the project has not been saved, ignore the request to just close the project */
+	if (!bfwin->project->filename)
+		dont_save = FALSE;
 	while (!bfwin->project->filename) {
 		gchar *text;
 		gint retval;
 		const gchar *buttons[] = {_("Close _Without Saving"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
+		/* use dont_save here doesn't make sense for an unsaved project - does it? */
 		if (dont_save) {
 			break;
 		}
@@ -395,21 +399,24 @@ gboolean project_save_and_close(Tbfwin *bfwin) {
 	/* test if we should save */
 	if (!dont_save) {
 		gchar *backupfile = NULL;
+		DEBUG_MSG("project_save_and_close with saving the project\n");
 		if (!project_save(bfwin, FALSE)) {
 			DEBUG_MSG("project_save failed, returning\n");
 			return FALSE;
 		}
 		add_to_recent_list(bfwin,bfwin->project->filename, TRUE, TRUE);
 		
-        if (main_v->props.backup_cleanuponclose) {
-            backupfile = g_strconcat (bfwin->project->filename, main_v->props.backup_filestring, NULL);
-            if (file_exists_and_readable(backupfile)) {
-                gchar * ondiskencodingbckup = get_filename_on_disk_encoding(backupfile);
-                gnome_vfs_unlink(ondiskencodingbckup);
-                g_free (ondiskencodingbckup);
-            }
-            g_free (backupfile);
-        }
+		if (main_v->props.backup_cleanuponclose) {
+			backupfile = g_strconcat (bfwin->project->filename, main_v->props.backup_filestring, NULL);
+			if (file_exists_and_readable(backupfile)) {
+				gchar * ondiskencodingbckup = get_filename_on_disk_encoding(backupfile);
+				gnome_vfs_unlink(ondiskencodingbckup);
+				g_free (ondiskencodingbckup);
+			}
+			g_free (backupfile);
+		}
+	} else {
+		DEBUG_MSG("project_save_and_close without saving the project\n");
 	}
 	bfwin_close_all_documents(bfwin, TRUE);
 	if (!test_only_empty_doc_left(bfwin->documentlist)) {
@@ -647,12 +654,15 @@ void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		project_save(bfwin, TRUE);
 	break;
 	case 4:
-		project_save_and_close(bfwin);
+		project_save_and_close(bfwin, TRUE);
 	break;
 	case 5:
-		project_edit(bfwin);
+		project_save_and_close(bfwin, FALSE);
 	break;
 	case 6:
+		project_edit(bfwin);
+	break;
+	case 7:
 		if (bfwin->project) {
 			project_edit(NULL);
 		} else {

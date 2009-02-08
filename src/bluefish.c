@@ -301,7 +301,7 @@ void bluefish_exit_request() {
 	while (tmplist) {
 		/* if there is a project, we anyway want to save & close the project */
 		if (BFWIN(tmplist->data)->project) {
-			if (!project_save_and_close(BFWIN(tmplist->data))) {
+			if (!project_save_and_close(BFWIN(tmplist->data), FALSE)) {
 				/* cancelled or error! */
 				DEBUG_MSG("bluefish_exit_request, project_save_and_close returned FALSE\n");
 				return;

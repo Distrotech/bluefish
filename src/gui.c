@@ -1353,7 +1353,7 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	 * type dialogs. */
 	DEBUG_MSG("main_window_delete_event_lcb, started\n");
 	if (bfwin->project) {
-		return !project_save_and_close(bfwin);
+		return !project_save_and_close(bfwin, FALSE);
 	} else {
 		if (bfwin->documentlist && test_docs_modified(bfwin->documentlist)) {
 			DEBUG_MSG("main_window_delete_event_lcb, we have changed documents!\n");
