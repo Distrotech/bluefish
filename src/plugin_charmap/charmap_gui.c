@@ -49,14 +49,13 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 
 
 	model = gucharmap_script_chapters_model_new();	
-	/*cm->chaptersv = gucharmap_chapters_new_with_model(model);*/
 	cm->chaptersv = gtk_combo_box_new_with_model(model);
 	renderer = gtk_cell_renderer_text_new();
 	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(cm->chaptersv),renderer, TRUE);
 	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(cm->chaptersv), renderer, "text", 0, NULL);
 	g_signal_connect(G_OBJECT(cm->chaptersv), "changed",G_CALLBACK(chaptersv_changed_lcb),cm);
 	g_object_unref(model); 
-	gtk_box_pack_start(GTK_BOX(vbox),cm->chaptersv,FALSE,TRUE,4);
+	gtk_box_pack_start(GTK_BOX(vbox),cm->chaptersv,FALSE,TRUE,2);
 	
 	
 	cm->gcm = gucharmap_table_new();
@@ -64,7 +63,7 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	gucharmap_script_codepoint_list_set_script(gcpl,"Nko");
 	gucharmap_table_set_codepoint_list(cm->gcm,gcpl);
 	g_signal_connect(cm->gcm, "activate", G_CALLBACK(charmap_charmap_activate_lcb), cm);
-	
+	gtk_combo_box_set_active(cm->chaptersv,0);
 	/* these lines create a full gucharmap with vertical pane inside the sidebar
 	this is not a nice GUI	
 	chapters = gucharmap_script_chapters_new (); 
