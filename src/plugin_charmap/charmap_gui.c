@@ -16,6 +16,21 @@ static void charmap_charmap_activate_lcb(GucharmapTable  *chartable,gunichar wc,
 	doc_insert_two_strings(cm->bfwin->current_document, ubuf, NULL);
 }
 
+static void chaptersv_changed_lcb(GtkComboBox *combo, gpointer data) {
+	Tcharmap *cm = data;
+	GtkTreeIter iter;
+	if (gtk_combo_box_get_active_iter(combo, &iter)) {
+		gchar *name;
+		GtkTreeModel *model = gtk_combo_box_get_model(combo);
+		gtk_tree_model_get(model, &iter, 0, &name, -1);
+		GucharmapCodepointList * gcpl;
+		gcpl = gucharmap_script_codepoint_list_new();
+		gucharmap_script_codepoint_list_set_script(gcpl,name);
+		gucharmap_table_set_codepoint_list(cm->gcm,gcpl);
+		g_free(name);
+	}
+}
+
 void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	Tcharmap *cm;
 	GdkPixbuf *pixbuf;
@@ -24,7 +39,8 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	GtkWidget *chapters;
 	GtkTreeModel *model;
 	GucharmapCodepointList * gcpl;
-
+	GtkCellRenderer *renderer;
+	
 	vbox = gtk_vbox_new(FALSE,4);
 
 	cm = g_new0(Tcharmap,1);
@@ -33,7 +49,12 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 
 
 	model = gucharmap_script_chapters_model_new();	
-	cm->chaptersv = gucharmap_chapters_new_with_model(model);
+	/*cm->chaptersv = gucharmap_chapters_new_with_model(model);*/
+	cm->chaptersv = gtk_combo_box_new_with_model(model);
+	renderer = gtk_cell_renderer_text_new();
+	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(cm->chaptersv),renderer, TRUE);
+	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(cm->chaptersv), renderer, "text", 0, NULL);
+	g_signal_connect(G_OBJECT(cm->chaptersv), "changed",G_CALLBACK(chaptersv_changed_lcb),cm);
 	g_object_unref(model); 
 	gtk_box_pack_start(GTK_BOX(vbox),cm->chaptersv,FALSE,TRUE,4);
 	
