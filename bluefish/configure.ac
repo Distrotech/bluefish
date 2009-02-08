@@ -373,13 +373,26 @@ PKG_CHECK_EXISTS(
 PKG_CHECK_MODULES([BLUEFISH_REQUIRED], [$BF_dependencies])
 
 # optionally build the charmap plugin if gucharmap is available
-PKG_CHECK_MODULES([CHARMAP_PLUGIN], [gucharmap],
-	[build_charmap_plugin=yes],
+PKG_CHECK_MODULES(
+	[CHARMAP_PLUGIN],
+	[gucharmap-2],
 	[
-	 build_charmap_plugin=no
-	 AC_MSG_WARN([Disabling the building of the charmap plugin.])
-	 AC_MSG_WARN([Install the gucharmap library/headers first.])
-	]
+	 build_charmap_plugin=yes
+	 AC_DEFINE([HAVE_LIBGUCHARMAP_2], [1], [Define to 1 if you have the `gucharmap-2' library (-lgucharmap).])
+	],
+	[PKG_CHECK_MODULES(
+		[CHARMAP_PLUGIN],
+		[gucharmap],
+		[
+		 build_charmap_plugin=yes
+		 AC_DEFINE([HAVE_LIBGUCHARMAP], [1], [Define to 1 if you have the `gucharmap' library (-lgucharmap).])
+		],
+		[
+		 build_charmap_plugin=no
+		 AC_MSG_WARN([Disabling the building of the charmap plugin.])
+		 AC_MSG_WARN([Install the gucharmap(2) library/headers first.])
+		]
+	)]
 )
 AM_CONDITIONAL([ENABLE_CHARMAP_PLUGIN], [test "x$build_charmap_plugin" = "xyes"])
 
