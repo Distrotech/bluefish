@@ -297,7 +297,8 @@ AC_CHECK_LIB(posix4, nanosleep,
 	AC_DEFINE(HAVE_NANOSLEEP),
 	AC_CHECK_LIB(rt, nanosleep,
 		LIBS="$LIBS -lrt"
-		AC_DEFINE(HAVE_NANOSLEEP)
+		AC_DEFINE(HAVE_NANOSLEEP),
+		AC_MSG_ERROR(nanosleep not found/detected in -lrt/-lposix4. Please check config.log.)
 	)
 )
 
