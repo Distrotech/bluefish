@@ -78,7 +78,7 @@ svn export ${SVN_URL}/packages/debian/${DEB_NAME}/trunk/debian
 
 dch -v ${SVN_UPSTREAM_VERSION}-0bf1 -D experimental "Automatically created Debian package by make-deb.sh $Rev$."
 
-debuild -us -uc
+debuild -us -uc -b
 
 cd ..
 
