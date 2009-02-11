@@ -218,6 +218,12 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 		break;
 	case 6:
 		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->visible_spacing = GTK_CHECK_MENU_ITEM(widget)->active;
+		/*GdkRegion *region;
+		region = gdk_drawable_get_clip_region (widget->window);
+		gdk_window_invalidate_region(bfwin->current_document->view->window, region, TRUE);
+		gdk_window_process_updates(bfwin->current_document->view->window, TRUE);
+		gdk_region_destroy(region);
+		*/
 		break;
 	}
 }
