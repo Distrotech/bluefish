@@ -589,6 +589,71 @@ static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpo
 	return event_handled;
 }
 
+static void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible) {
+	GtkTextIter iter;
+	cairo_t *cr;
+	g_print("paint_spaces, called\n");
+	cr = gdk_cairo_create(event->window);
+	cairo_rectangle (cr,event->area.x, event->area.y,event->area.width, event->area.height);
+	cairo_set_line_width(cr, 1.0);
+	cairo_set_source_rgb(cr, 1, 0, 0);
+	iter = *startvisible;
+	while (!gtk_text_iter_equal(&iter,endvisible)) {
+		gunichar uc;
+		GdkRectangle rect;
+		gint x,y;
+		uc = gtk_text_iter_get_char(&iter);
+		cairo_save(cr);
+		switch (uc) {
+		case '\t':
+			/* draw tab */
+			gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv),&iter,&rect);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT,rect.x + rect.width / 2,rect.y+rect.height/2,&x,&y);
+			cairo_move_to(cr, x+4, y);
+			cairo_rel_line_to(cr,rect.width - 8, 0);
+			cairo_rel_line_to(cr,-3, -3);
+			cairo_move_to(cr, +3, +3);
+			cairo_rel_line_to(cr,-3, +3);
+			cairo_stroke(cr);
+			g_print("draw tab %d:%d\n",x,y);
+		break;
+		case 160:
+			/* draw nbsp */
+		break;
+		case ' ':
+		/*case '' other space characters in unicode ???? */ 
+			/* draw space */
+			gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv),&iter,&rect);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT,rect.x + rect.width / 2,rect.y+rect.height/2,&x,&y);
+			cairo_move_to(cr, x, y);
+			g_print("draw space %d:%d\n",x,y);
+			cairo_arc(cr, x, y, 0.8, 0, 2 * M_PI);
+			cairo_stroke(cr);
+		break;
+		default:
+		break;
+		}
+		cairo_restore(cr);
+		gtk_text_iter_forward_char(&iter);
+	}
+	
+	cairo_destroy(cr);
+}
+
+static gboolean bftextview2_expose_after_lcb(GtkWidget *widget, GdkEventExpose * event) {
+	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
+	g_print("bftextview2_expose_after_lcb, called\n");
+	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT)) {
+		GtkTextIter startvisible, endvisible;
+		GdkRectangle rect;
+		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
+		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &startvisible, rect.y, NULL);
+		gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &endvisible, rect.y + rect.height, NULL);
+		paint_spaces(btv,event,&startvisible,&endvisible);
+	}
+	return FALSE;
+}
+
 static void bftextview2_delete_range_lcb(GtkTextBuffer * buffer, GtkTextIter * obegin,
 										 GtkTextIter * oend, gpointer user_data)
 {
@@ -1043,6 +1108,6 @@ GtkWidget *bftextview2_new_with_buffer(GtkTextBuffer * buffer)
 	g_signal_connect(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_lcb),textview);
 	g_signal_connect_after(G_OBJECT(buffer), "delete-range", G_CALLBACK(bftextview2_delete_range_after_lcb),textview);
 	g_signal_connect_after(G_OBJECT(textview), "key-release-event", G_CALLBACK(bftextview2_key_release_lcb), textview);
-
+	g_signal_connect_after(G_OBJECT(textview), "expose-event", G_CALLBACK(bftextview2_expose_after_lcb), textview);
 	return GTK_WIDGET(textview);
 }
