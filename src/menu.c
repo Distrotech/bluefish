@@ -216,6 +216,9 @@ static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *
 		bfwin->current_document->blocksstate = GTK_CHECK_MENU_ITEM(widget)->active;
 		document_set_show_blocks(bfwin->current_document, bfwin->current_document->blocksstate);
 		break;
+	case 6:
+		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->visible_spacing = GTK_CHECK_MENU_ITEM(widget)->active;
+		break;
 	}
 }
 
@@ -293,11 +296,12 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/Document/_Increase Tabsize"), NULL, gui_change_tabsize, 1, "<Item>"},
 	{N_("/Document/_Decrease Tabsize"), NULL, gui_change_tabsize, 0, "<Item>"},
 	{N_("/Document/_Auto Indent"), NULL, toggle_doc_property, 4, "<ToggleItem>"},
-	{N_("/Document/_Auto completion popup"), NULL, toggle_doc_property, 3, "<ToggleItem>"},
+	{N_("/Document/Auto _completion popup"), NULL, toggle_doc_property, 3, "<ToggleItem>"},
 	{"/Document/sep1", NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/_Wrap"), NULL, toggle_doc_property, 1, "<ToggleItem>"},
 	{N_("/Document/_Line Numbers"), NULL, toggle_doc_property, 2, "<ToggleItem>"},
 	{N_("/Document/Show _blocks"), NULL, toggle_doc_property, 5, "<ToggleItem>"},
+	{N_("/Document/_Visible spacing"), NULL, toggle_doc_property, 6, "<ToggleItem>"},
 	{"/Document/sep2", NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/_Highlight Syntax"), NULL, doc_toggle_highlighting_cb, 1, "<ToggleItem>"},
 	{N_("/Document/_Update Highlighting"), "F5", doc_update_highlighting, 0, "<Item>"},

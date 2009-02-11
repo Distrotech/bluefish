@@ -365,6 +365,7 @@ struct _BluefishTextView {
 	gboolean linenumbers;
 	gboolean showblocks;
 	gboolean showsymbols;
+	gboolean visible_spacing;
 };
 
 struct _BluefishTextViewClass {
