@@ -643,7 +643,7 @@ static void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, GtkTextI
 static gboolean bftextview2_expose_after_lcb(GtkWidget *widget, GdkEventExpose * event) {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
 	g_print("bftextview2_expose_after_lcb, called\n");
-	if (event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT)) {
+	if (btv->visible_spacing && event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT)) {
 		GtkTextIter startvisible, endvisible;
 		GdkRectangle rect;
 		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(widget), &rect);
