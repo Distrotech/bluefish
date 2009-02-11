@@ -592,10 +592,9 @@ static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpo
 static void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible) {
 	GtkTextIter iter;
 	cairo_t *cr;
-	g_print("paint_spaces, called\n");
 	cr = gdk_cairo_create(event->window);
-	cairo_rectangle (cr,event->area.x, event->area.y,event->area.width, event->area.height);
-	cairo_set_line_width(cr, 1.0);
+	/*cairo_rectangle(cr,event->area.x, event->area.y,event->area.width, event->area.height);*/
+	cairo_set_line_width(cr, 0.75);
 	cairo_set_source_rgb(cr, 1, 0, 0);
 	iter = *startvisible;
 	while (!gtk_text_iter_equal(&iter,endvisible)) {
@@ -608,14 +607,12 @@ static void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, GtkTextI
 		case '\t':
 			/* draw tab */
 			gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv),&iter,&rect);
-			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT,rect.x + rect.width / 2,rect.y+rect.height/2,&x,&y);
-			cairo_move_to(cr, x+4, y);
-			cairo_rel_line_to(cr,rect.width - 8, 0);
-			cairo_rel_line_to(cr,-3, -3);
-			cairo_move_to(cr, +3, +3);
-			cairo_rel_line_to(cr,-3, +3);
-			cairo_stroke(cr);
-			g_print("draw tab %d:%d\n",x,y);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT,rect.x,rect.y+rect.height/1.5,&x,&y);
+			cairo_move_to(cr, x+3, y);
+			cairo_rel_line_to(cr,0, -3);
+			cairo_move_to(cr, x+3, y);
+			cairo_rel_line_to(cr,rect.width - 6, 0);
+			cairo_rel_line_to(cr,0, -3);
 		break;
 		case 160:
 			/* draw nbsp */
@@ -624,11 +621,9 @@ static void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, GtkTextI
 		/*case '' other space characters in unicode ???? */ 
 			/* draw space */
 			gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv),&iter,&rect);
-			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT,rect.x + rect.width / 2,rect.y+rect.height/2,&x,&y);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT,rect.x + rect.width / 2,rect.y+rect.height/1.5,&x,&y);
 			cairo_move_to(cr, x, y);
-			g_print("draw space %d:%d\n",x,y);
-			cairo_arc(cr, x, y, 0.8, 0, 2 * M_PI);
-			cairo_stroke(cr);
+			cairo_arc(cr, x, y, 0.75, 0, 2 * M_PI);
 		break;
 		default:
 		break;
@@ -636,13 +631,12 @@ static void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, GtkTextI
 		cairo_restore(cr);
 		gtk_text_iter_forward_char(&iter);
 	}
-	
+	cairo_stroke(cr);
 	cairo_destroy(cr);
 }
 
 static gboolean bftextview2_expose_after_lcb(GtkWidget *widget, GdkEventExpose * event) {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW(widget);
-	g_print("bftextview2_expose_after_lcb, called\n");
 	if (btv->visible_spacing && event->window == gtk_text_view_get_window(GTK_TEXT_VIEW(widget), GTK_TEXT_WINDOW_TEXT)) {
 		GtkTextIter startvisible, endvisible;
 		GdkRectangle rect;
