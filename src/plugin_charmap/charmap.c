@@ -22,22 +22,20 @@
 #include "charmap.h"
 #include "charmap_gui.h"
 
+Tcharmap charmap_v;
+
 static void charmap_init(void) {
 #ifdef ENABLE_NLS
   DEBUG_MSG("charmap_init, gettext domain-name=%s\n",PACKAGE"_plugin_charmap");
   bindtextdomain(PACKAGE"_plugin_charmap", LOCALEDIR);
   bind_textdomain_codeset(PACKAGE"_plugin_charmap", "UTF-8");
 #endif /* ENABLE_NLS */
-
+	charmap_v.lookup = g_hash_table_new_full(NULL /* == g_direct_hash() */,
+					NULL /* == g_direct_equal() */,
+					NULL,NULL);
 	main_v->sidepanel_initgui = g_slist_prepend(main_v->sidepanel_initgui,charmap_sidepanel_initgui);
 	main_v->sidepanel_destroygui = g_slist_prepend(main_v->sidepanel_destroygui,charmap_sidepanel_destroygui);
 }
-
-#ifdef ENABLE_NLS
-static gchar *charmap_menu_translate(const gchar * path, gpointer data) {
-  return _(path);
-}
-#endif /* ENABLE_NLS */
 
 static void charmap_initgui(Tbfwin* bfwin) {
 	
