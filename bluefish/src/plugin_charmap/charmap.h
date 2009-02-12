@@ -42,6 +42,7 @@ typedef struct {
 	Tbfwin *bfwin;
 	GtkWidget *chaptersv;
 	GtkWidget *gcm;
+	GtkWidget *entities;
 }Tcharmap;
 
 
