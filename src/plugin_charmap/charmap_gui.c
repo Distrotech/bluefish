@@ -56,18 +56,20 @@ static void chaptersv_changed_lcb(GtkComboBox *combo, gpointer data) {
 	if (gtk_combo_box_get_active_iter(combo, &iter)) {
 		gchar *name;
 		GucharmapCodepointList * gcpl;
+		GtkTreeModel *model;
 		
-		GtkTreeModel *model = gtk_combo_box_get_model(combo);
-		gtk_tree_model_get(model, &iter, 0, &name, -1);
+		model = gtk_combo_box_get_model(combo);
+		gcpl = gucharmap_chapters_model_get_codepoint_list(model,&iter);
+/*		gtk_tree_model_get(model, &iter, 0, &name, -1);
 		gcpl = gucharmap_script_codepoint_list_new();
-		gucharmap_script_codepoint_list_set_script(gcpl,name);
+		gucharmap_script_codepoint_list_set_script(gcpl,name);*/
 #ifdef HAVE_LIBGUCHARMAP		
 		gucharmap_table_set_codepoint_list(cm->gcm,gcpl);
 #endif
 #ifdef HAVE_LIBGUCHARMAP_2
 		gucharmap_chartable_set_codepoint_list (cm->gcm,gcpl);
 #endif 
-		g_free(name);
+/*		g_free(name);*/
 	}
 }
 
@@ -78,7 +80,7 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	GtkWidget *scrolwin, *vbox;
 	GtkWidget *chapters;
 	GtkTreeModel *model;
-	GucharmapCodepointList * gcpl;
+	/*GucharmapCodepointList * gcpl;*/
 	GtkCellRenderer *renderer;
 	
 	vbox = gtk_vbox_new(FALSE,4);
@@ -87,8 +89,8 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	cm->bfwin = bfwin;
 /*	g_hash_table_insert(snippets_v.lookup,bfwin,cm);*/
 
-
-	model = gucharmap_script_chapters_model_new();	
+	model = gucharmap_block_chapters_model_new();
+/*	model = gucharmap_script_chapters_model_new();*/	
 	cm->chaptersv = gtk_combo_box_new_with_model(model);
 	renderer = gtk_cell_renderer_text_new();
 	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(cm->chaptersv),renderer, TRUE);
@@ -102,8 +104,7 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 #ifdef HAVE_LIBGUCHARMAP_2
 	cm->gcm = gucharmap_chartable_new();
 #endif 
-	gcpl = gucharmap_script_codepoint_list_new();
-/*
+/*	gcpl = gucharmap_script_codepoint_list_new();
 	gucharmap_script_codepoint_list_set_script(gcpl,"Nko");
 	gucharmap_table_set_codepoint_list(cm->gcm,gcpl);*/
 	g_signal_connect(cm->gcm, "activate", G_CALLBACK(charmap_charmap_activate_lcb), cm);
