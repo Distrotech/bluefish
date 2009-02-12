@@ -20,11 +20,16 @@
 
 #include "charmap.h"
 #include "charmap_gui.h"
+#include "../document.h"
+#include "../gtk_easy.h"
+#include <gucharmap/gucharmap.h>
 
-#include <gucharmap/gucharmap.h> 
+#ifdef HAVE_LIBGUCHARMAP
+#include <gucharmap/gucharmap-block-chapters-model.h>
+#endif
 
 #ifdef __SUNPRO_C
-#pragma align 4 (my_pixbuf)
+#pragma align 4 (charmap_icon)
 #endif
 #ifdef __GNUC__
 static const guint8 charmap_icon[] __attribute__ ((__aligned__ (4))) = 
@@ -84,15 +89,17 @@ static const guint8 charmap_icon[] =
   "\250\245\215\374\376\373\1\246\250\245\205\374\376\373\204\316\320\315"
   "\216\374\376\373\1\246\250\245\214\374\376\373"};
 
-
-
-
 void charmap_sidepanel_destroygui(Tbfwin *bfwin) {
-	
+	Tcharmapwin *cm;
+	cm = g_hash_table_lookup(charmap_v.lookup,bfwin);
+	if (cm) {
+		/* hmm nothing to destroy except the widget ?!?!?!?!*/
+		g_free(cm);
+	}
 }
 
-static void insert_unichar(Tcharmap *cm, gunichar wc) {
-	if (gtk_toggle_button_get_active(cm->entities)) {
+static void insert_unichar(Tcharmapwin *cm, gunichar wc) {
+	if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(cm->entities))) {
 		gchar *buf = g_strdup_printf("&#%d;",wc);
 		g_print("charmap_plugin, clicked %s\n",buf);
 		doc_insert_two_strings(cm->bfwin->current_document, buf, NULL);
@@ -107,30 +114,29 @@ static void insert_unichar(Tcharmap *cm, gunichar wc) {
 
 #ifdef HAVE_LIBGUCHARMAP_2
 static void charmap_charmap_activate_lcb(GucharmapChartable *gucharmapchartable,gpointer data) {
-	insert_unichar((Tcharmap *)data, gucharmap_chartable_get_active_character(gucharmapchartable));
+	insert_unichar((Tcharmapwin *)data, gucharmap_chartable_get_active_character(gucharmapchartable));
 }
 #endif
 #ifdef HAVE_LIBGUCHARMAP
 static void charmap_charmap_activate_lcb(GtkWidget *chartable,gunichar wc,gpointer data) {
-	insert_unichar((Tcharmap *)data, wc);
+	insert_unichar((Tcharmapwin *)data, wc);
 }
 #endif
 
 static void chaptersv_changed_lcb(GtkComboBox *combo, gpointer data) {
-	Tcharmap *cm = data;
+	Tcharmapwin *cm = data;
 	GtkTreeIter iter;
 	if (gtk_combo_box_get_active_iter(combo, &iter)) {
-		gchar *name;
 		GucharmapCodepointList * gcpl;
 		GtkTreeModel *model;
 		
 		model = gtk_combo_box_get_model(combo);
-		gcpl = gucharmap_chapters_model_get_codepoint_list(model,&iter);
+		gcpl = gucharmap_chapters_model_get_codepoint_list((GucharmapChaptersModel *)model,&iter);
 /*		gtk_tree_model_get(model, &iter, 0, &name, -1);
 		gcpl = gucharmap_script_codepoint_list_new();
 		gucharmap_script_codepoint_list_set_script(gcpl,name);*/
 #ifdef HAVE_LIBGUCHARMAP		
-		gucharmap_table_set_codepoint_list(cm->gcm,gcpl);
+		gucharmap_table_set_codepoint_list((GucharmapTable *)cm->gcm,gcpl);
 #endif
 #ifdef HAVE_LIBGUCHARMAP_2
 		gucharmap_chartable_set_codepoint_list (cm->gcm,gcpl);
@@ -140,29 +146,26 @@ static void chaptersv_changed_lcb(GtkComboBox *combo, gpointer data) {
 }
 
 void charmap_sidepanel_initgui(Tbfwin *bfwin) {
-	Tcharmap *cm;
+	Tcharmapwin *cm;
 	GdkPixbuf *pixbuf;
 	GtkWidget *image;
 	GtkWidget *scrolwin, *vbox;
-	GtkWidget *chapters;
-	GtkTreeModel *model;
-	/*GucharmapCodepointList * gcpl;*/
 	GtkCellRenderer *renderer;
 	
 	vbox = gtk_vbox_new(FALSE,4);
 
-	cm = g_new0(Tcharmap,1);
+	cm = g_new0(Tcharmapwin,1);
 	cm->bfwin = bfwin;
-/*	g_hash_table_insert(snippets_v.lookup,bfwin,cm);*/
+	g_hash_table_insert(charmap_v.lookup,bfwin,cm);
 
-	model = gucharmap_block_chapters_model_new();
-/*	model = gucharmap_script_chapters_model_new();*/	
-	cm->chaptersv = gtk_combo_box_new_with_model(model);
+	charmap_v.model = GTK_TREE_MODEL(gucharmap_block_chapters_model_new());
+/*	charmap_v.model = gucharmap_script_chapters_model_new();*/	
+	cm->chaptersv = gtk_combo_box_new_with_model(charmap_v.model);
 	renderer = gtk_cell_renderer_text_new();
 	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(cm->chaptersv),renderer, TRUE);
 	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(cm->chaptersv), renderer, "text", 0, NULL);
 	g_signal_connect(G_OBJECT(cm->chaptersv), "changed",G_CALLBACK(chaptersv_changed_lcb),cm);
-	g_object_unref(model); 
+ 
 	gtk_box_pack_start(GTK_BOX(vbox),cm->chaptersv,FALSE,TRUE,2);
 #ifdef HAVE_LIBGUCHARMAP
 	cm->gcm = gucharmap_table_new();
@@ -170,22 +173,13 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 #ifdef HAVE_LIBGUCHARMAP_2
 	cm->gcm = gucharmap_chartable_new();
 #endif 
-/*	gcpl = gucharmap_script_codepoint_list_new();
-	gucharmap_script_codepoint_list_set_script(gcpl,"Nko");
-	gucharmap_table_set_codepoint_list(cm->gcm,gcpl);*/
 	g_signal_connect(cm->gcm, "activate", G_CALLBACK(charmap_charmap_activate_lcb), cm);
-	gtk_combo_box_set_active(cm->chaptersv,0);
-	/* these lines create a full gucharmap with vertical pane inside the sidebar
-	this is not a nice GUI	
-	chapters = gucharmap_script_chapters_new (); 
-	cm->gcm = gucharmap_charmap_new(chapters);
-	g_signal_connect (GUCHARMAP_CHARMAP(cm->gcm)->chartable, "activate", G_CALLBACK(charmap_charmap_activate_lcb), cm);
-	*/
-	
+	gtk_combo_box_set_active(GTK_COMBO_BOX(cm->chaptersv),0);
+
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
 #ifdef HAVE_LIBGUCHARMAP
-	gtk_scrolled_window_add_with_viewport(scrolwin, cm->gcm);
+	gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(scrolwin), cm->gcm);
 #endif
 #ifdef HAVE_LIBGUCHARMAP_2
 	gtk_container_add(GTK_CONTAINER(scrolwin), cm->gcm);
@@ -200,8 +194,5 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	g_object_unref(pixbuf);
 	
 	gtk_notebook_insert_page_menu(GTK_NOTEBOOK(bfwin->leftpanel_notebook),vbox,image,gtk_label_new(_("charmap")),2);
-
-	
-
 }
 

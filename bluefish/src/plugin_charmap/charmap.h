@@ -43,7 +43,13 @@ typedef struct {
 	GtkWidget *chaptersv;
 	GtkWidget *gcm;
 	GtkWidget *entities;
+}Tcharmapwin;
+
+typedef struct {
+	GHashTable* lookup; /* pointers are stored here */
+	GtkTreeModel *model;
 }Tcharmap;
 
+extern Tcharmap charmap_v;
 
 #endif /* __CHARMAP_H_  */
