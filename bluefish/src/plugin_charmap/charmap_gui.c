@@ -39,7 +39,7 @@ static void charmap_charmap_activate_lcb(GucharmapChartable *gucharmapchartable,
 
 #endif
 
-#ifdef HAVE_LIBGUCHARMAP_1
+#ifdef HAVE_LIBGUCHARMAP
 static void charmap_charmap_activate_lcb(GtkWidget *chartable,gunichar wc,gpointer data) {
 	Tcharmap *cm = data;
 	gchar ubuf[7];
@@ -55,14 +55,16 @@ static void chaptersv_changed_lcb(GtkComboBox *combo, gpointer data) {
 	GtkTreeIter iter;
 	if (gtk_combo_box_get_active_iter(combo, &iter)) {
 		gchar *name;
+		GucharmapCodepointList * gcpl;
+		
 		GtkTreeModel *model = gtk_combo_box_get_model(combo);
 		gtk_tree_model_get(model, &iter, 0, &name, -1);
-		GucharmapCodepointList * gcpl;
 		gcpl = gucharmap_script_codepoint_list_new();
 		gucharmap_script_codepoint_list_set_script(gcpl,name);
-#ifdef HAVE_LIBGUCHARMAP_1		
+#ifdef HAVE_LIBGUCHARMAP		
 		gucharmap_table_set_codepoint_list(cm->gcm,gcpl);
-#else
+#endif
+#ifdef HAVE_LIBGUCHARMAP_2
 		gucharmap_chartable_set_codepoint_list (cm->gcm,gcpl);
 #endif 
 		g_free(name);
@@ -94,9 +96,10 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	g_signal_connect(G_OBJECT(cm->chaptersv), "changed",G_CALLBACK(chaptersv_changed_lcb),cm);
 	g_object_unref(model); 
 	gtk_box_pack_start(GTK_BOX(vbox),cm->chaptersv,FALSE,TRUE,2);
-#ifdef HAVE_LIBGUCHARMAP_1
+#ifdef HAVE_LIBGUCHARMAP
 	cm->gcm = gucharmap_table_new();
-#else
+#endif
+#ifdef HAVE_LIBGUCHARMAP_2
 	cm->gcm = gucharmap_chartable_new();
 #endif 
 	gcpl = gucharmap_script_codepoint_list_new();
@@ -114,9 +117,10 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-#ifdef HAVE_LIBGUCHARMAP_1
+#ifdef HAVE_LIBGUCHARMAP
 	gtk_scrolled_window_add_with_viewport(scrolwin, cm->gcm);
-#else
+#endif
+#ifdef HAVE_LIBGUCHARMAP_2
 	gtk_container_add(GTK_CONTAINER(scrolwin), cm->gcm);
 #endif
 	gtk_box_pack_start(GTK_BOX(vbox),scrolwin,TRUE,TRUE,4);
