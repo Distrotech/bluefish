@@ -26,8 +26,8 @@
 void charmap_sidepanel_destroygui(Tbfwin *bfwin) {
 	
 }
-
-static void charmap_charmap_activate_lcb(GucharmapTable  *chartable,gunichar wc,gpointer data) {
+#ifdef HAVE_LIBGUCHARMAP_2
+static void charmap_charmap_activate_lcb(GtkWidget *chartable,gunichar wc,gpointer data) {
 	Tcharmap *cm = data;
 	gchar ubuf[7];
 
@@ -35,6 +35,19 @@ static void charmap_charmap_activate_lcb(GucharmapTable  *chartable,gunichar wc,
 	g_print("charmap_plugin, clicked %s\n",ubuf);
 	doc_insert_two_strings(cm->bfwin->current_document, ubuf, NULL);
 }
+
+#endif
+
+#ifdef HAVE_LIBGUCHARMAP_1
+static void charmap_charmap_activate_lcb(GtkWidget *chartable,gunichar wc,gpointer data) {
+	Tcharmap *cm = data;
+	gchar ubuf[7];
+
+	ubuf[g_unichar_to_utf8 (wc, ubuf)] = '\0';
+	g_print("charmap_plugin, clicked %s\n",ubuf);
+	doc_insert_two_strings(cm->bfwin->current_document, ubuf, NULL);
+}
+#endif
 
 static void chaptersv_changed_lcb(GtkComboBox *combo, gpointer data) {
 	Tcharmap *cm = data;
