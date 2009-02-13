@@ -238,6 +238,7 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 		if (BLUEFISH_TEXT_VIEW(widget)->showing_blockmatch) {
 			gtk_text_buffer_get_bounds(buffer, &it1, &it2);
 			gtk_text_buffer_remove_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
+			BLUEFISH_TEXT_VIEW(widget)->showing_blockmatch = FALSE;
 		}
 		DBG_SIGNALS("bftextview2_mark_set_lcb, 'insert' set at %d\n",gtk_text_iter_get_offset(location));		
 		if (fblock) {
