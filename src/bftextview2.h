@@ -351,6 +351,7 @@ struct _BluefishTextView {
 	GTimer *user_idle_timer;
 	guint user_idle; /* event ID for the timed function that handles user idle events such as autocompletion popups */
 	gpointer autocomp; /* a Tacwin* with the current autocompletion window */
+	gboolean showing_blockmatch;
 
 	/* next three are used for margin painting */
 	gint margin_pixels_per_char;
