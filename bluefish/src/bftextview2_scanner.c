@@ -251,7 +251,7 @@ void foundstack_free_lcb(gpointer data, gpointer btv) {
 #endif
 }
 
-static void add_to_scancache(BluefishTextView * btv,GtkTextBuffer *buffer,Tscanning *scanning, Tfoundblock *fblock, Tfoundcontext *fcontext) {
+static inline void add_to_scancache(BluefishTextView * btv,GtkTextBuffer *buffer,Tscanning *scanning, Tfoundblock *fblock, Tfoundcontext *fcontext) {
 	Tfoundstack *fstack;
 
 	fstack = g_slice_new0(Tfoundstack);
@@ -296,7 +296,7 @@ static void print_blockstack(BluefishTextView * btv, Tscanning *scanning) {
 	g_print("\n");
 }*/
 
-static Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
+static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
 	if (scanning->blockstack->length > 100) {
 		/* if a file has thousands of blockstarts this results in thousands of Tfoundblock structures, but 
 		worse: also thousands of copies of the blockstack in the scancache --> 1000 * 0.5 * 1000 queue elements.
@@ -327,7 +327,7 @@ static Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *b
 	}	
 }
 
-static Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
+static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
 	Tfoundblock *fblock=NULL;
 	DBG_BLOCKMATCH("found end of block with blockstartpattern %d\n",pat->blockstartpattern);
 #ifdef HL_PROFILING
@@ -368,7 +368,7 @@ static Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuffer *buf
 	return NULL;
 }
 
-static Tfoundcontext *found_context_change(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
+static inline Tfoundcontext *found_context_change(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
 	Tfoundcontext *fcontext=NULL;
 	/* check if we change up or down the stack */
 	if (pat->nextcontext < 0) {
@@ -413,7 +413,7 @@ static Tfoundcontext *found_context_change(BluefishTextView * btv,GtkTextBuffer 
 	}
 }
 
-static int found_match(BluefishTextView * btv, Tmatch match, Tscanning *scanning)
+static inline int found_match(BluefishTextView * btv, Tmatch match, Tscanning *scanning)
 {
 	GtkTextBuffer *buffer;
 	Tfoundblock *fblock=NULL;
