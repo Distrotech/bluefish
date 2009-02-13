@@ -207,14 +207,14 @@ static void bftextview2_get_iters_at_foundblock(GtkTextBuffer * buffer, Tfoundbl
 	gtk_text_buffer_get_iter_at_mark(buffer, it3, fblock->start2);
 	gtk_text_buffer_get_iter_at_mark(buffer, it4, fblock->end2);
 }
-
-static Tfoundblock *bftextview2_get_block_at_iter(GtkTextIter * it)
+/* this function is called from the mark_set signal
+which is a performsnce sensitive function */
+static inline Tfoundblock *bftextview2_get_block_at_iter(GtkTextIter * it)
 {
 	GSList *tmp, *lst = gtk_text_iter_get_marks(it);
-	gpointer ptr = NULL;
 	tmp = lst;
-
 	while (tmp) {
+		gpointer ptr = NULL;
 		ptr = g_object_get_data(G_OBJECT(tmp->data), "block");
 		if (ptr) {
 			g_slist_free(lst);
@@ -225,7 +225,9 @@ static Tfoundblock *bftextview2_get_block_at_iter(GtkTextIter * it)
 	g_slist_free(lst);
 	return NULL;
 }
-
+/* this function slows down scrolling when you hold the cursor pressed, because 
+it is called for every cursor position change. This function is therefore
+an ideal candidate for speed optimization */
 static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * location,
 									 GtkTextMark * arg2, gpointer widget)
 {
@@ -233,9 +235,11 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 	if (BLUEFISH_TEXT_VIEW(widget)->bflang && BLUEFISH_TEXT_VIEW(widget)->bflang->st && arg2 && gtk_text_buffer_get_insert(buffer) == arg2) {
 		GtkTextIter it1, it2;
 		Tfoundblock *fblock = bftextview2_get_block_at_iter(location);
-		gtk_text_buffer_get_bounds(buffer, &it1, &it2);
-		DBG_SIGNALS("bftextview2_mark_set_lcb, 'insert' set at %d\n",gtk_text_iter_get_offset(location));
-		gtk_text_buffer_remove_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
+		if (BLUEFISH_TEXT_VIEW(widget)->showing_blockmatch) {
+			gtk_text_buffer_get_bounds(buffer, &it1, &it2);
+			gtk_text_buffer_remove_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
+		}
+		DBG_SIGNALS("bftextview2_mark_set_lcb, 'insert' set at %d\n",gtk_text_iter_get_offset(location));		
 		if (fblock) {
 			GtkTextIter it3, it4;
 			if (fblock->start2) {
@@ -243,6 +247,7 @@ static void bftextview2_mark_set_lcb(GtkTextBuffer * buffer, GtkTextIter * locat
 				DBG_MSG("found a block to highlight the start (%d:%d) and end (%d:%d)\n",gtk_text_iter_get_offset(&it1),gtk_text_iter_get_offset(&it2),gtk_text_iter_get_offset(&it3),gtk_text_iter_get_offset(&it4));
 				gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it1, &it2);
 				gtk_text_buffer_apply_tag(buffer, BLUEFISH_TEXT_VIEW(widget)->blockmatch, &it3, &it4);
+				BLUEFISH_TEXT_VIEW(widget)->showing_blockmatch = TRUE;
 			} else {
 				DBG_MSG("block has no end - no matching\n");
 			}
