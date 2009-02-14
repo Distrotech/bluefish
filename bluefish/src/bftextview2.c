@@ -297,7 +297,7 @@ static void bftextview2_set_margin_size(BluefishTextView * btv)
 	gtk_text_view_set_border_window_size(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_LEFT, btv->margin_pixels_chars+btv->margin_pixels_block+btv->margin_pixels_symbol);
 }
 
-static gboolean char_in_allsymbols(BluefishTextView * btv, gunichar uc) {
+static inline gboolean char_in_allsymbols(BluefishTextView * btv, gunichar uc) {
 	if (uc > 127)
 		return FALSE;
 	if (btv->bflang && btv->bflang->st)
@@ -354,7 +354,7 @@ static void print_fstack(Tfoundstack * fstack)
 	DBG_MARGIN("\n");
 }
 
-static void paint_margin_expand(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
+static inline void paint_margin_expand(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
 /*	gtk_paint_box(GTK_WIDGET(btv)->style, event->window, GTK_STATE_ACTIVE,
 				  GTK_SHADOW_OUT, NULL, GTK_WIDGET(btv), NULL, 21, w + (height / 2 - 4), 9, 9);
 	gtk_paint_hline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
@@ -367,7 +367,7 @@ static void paint_margin_expand(BluefishTextView *btv,GdkEventExpose * event,gin
 	gdk_draw_line(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)],btv->margin_pixels_chars+btv->margin_pixels_symbol+3,w + (height / 2), btv->margin_pixels_chars+btv->margin_pixels_symbol+7,w + (height / 2));
 }
 
-static void paint_margin_collapse(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
+static inline void paint_margin_collapse(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
 /*	gtk_paint_box(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv),
 				  GTK_SHADOW_OUT, NULL, GTK_WIDGET(btv), NULL, 21, w + (height / 2 - 4), 9, 9);
 	gtk_paint_hline(GTK_WIDGET(btv)->style, event->window, GTK_WIDGET_STATE(btv), NULL,
@@ -398,7 +398,7 @@ static void paint_margin_line(BluefishTextView *btv,GdkEventExpose * event,gint 
 					GTK_WIDGET(btv), NULL, w, w + height, 25);*/
 }
 
-static void paint_margin_symbol(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
+static inline void paint_margin_symbol(BluefishTextView *btv,GdkEventExpose * event,gint w,gint height) {
 	gdk_draw_rectangle(GDK_DRAWABLE(event->window),GTK_WIDGET(btv)->style->fg_gc[GTK_WIDGET_STATE(btv)], TRUE,btv->margin_pixels_chars+2, w + (height / 2) - 4, 8,8);
 }
 
@@ -426,7 +426,7 @@ static Tfoundstack *get_next_foldable_block(BluefishTextView *btv,GSequenceIter 
 	return NULL;
 }*/
 
-static void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible)
+static inline void paint_margin(BluefishTextView *btv,GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible)
 {
 	Tfoundstack *fstack = NULL;
 	GSequenceIter *siter=NULL;
@@ -595,7 +595,7 @@ static gboolean bluefish_text_view_expose_event(GtkWidget * widget, GdkEventExpo
 	return event_handled;
 }
 
-static void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible) {
+static inline void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, GtkTextIter * startvisible, GtkTextIter * endvisible) {
 	GtkTextIter iter;
 	cairo_t *cr;
 	cr = gdk_cairo_create(event->window);
