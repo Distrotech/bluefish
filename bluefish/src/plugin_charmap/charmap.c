@@ -42,12 +42,13 @@ static void charmap_initgui(Tbfwin* bfwin) {
 }
 
 static void charmap_enforce_session(Tbfwin* bfwin) {
-	/*
+	Tcharmapsession *cms;
+	Tcharmapwin *cmw;
 	cms = g_hash_table_lookup(charmap_v.lookup,bfwin->session);
-	... = g_hash_table_lookup(charmap_v.lookup,bfwin);
-	if (cms && ...) {
-		charmap_gui_set_block(..., cms->charmap_block);
-	}*/
+	cmw = g_hash_table_lookup(charmap_v.lookup,bfwin);
+	if (cms && cmw) {
+		gtk_combo_box_set_active(GTK_COMBO_BOX(cmw->chaptersv),cms->charmap_block);
+	}
 }
 static void charmap_cleanup(void) {
 }
@@ -58,16 +59,20 @@ static void charmap_cleanup_gui(Tbfwin *bfwin) {
 static GHashTable *charmap_register_globses_config(GHashTable *configlist) {
   return configlist;
 }
-static GHashTable *charmap_register_session_config(GHashTable *configlist, Tsessionvars *session) {
-	/*
-	Tcharmapsession *cms;
-	cms = g_hash_table_lookup(charmap_v.lookup,session);
+
+Tcharmapsession *get_charmap_session(gpointer session) {
+	Tcharmapsession *cms = g_hash_table_lookup(charmap_v.lookup,session);
 	if (!cms) {
 		cms = g_new0(Tcharmapsession,1);
 		cms->charmap_block = TRUE;
 		g_hash_table_insert(htmlbar_v.lookup,session,cms);
-	}  
-	configlist = make_config_list_item(configlist, &cms->charmap_block, 'i', "charmap_block:", 0);*/
+	}
+	return cms;
+}
+
+static GHashTable *charmap_register_session_config(GHashTable *configlist, Tsessionvars *session) {
+	Tcharmapsession *cms = get_charmap_session(session);
+	configlist = make_config_list_item(configlist, &cms->charmap_block, 'i', "charmap_block:", 0);
 	return configlist;
 }
 

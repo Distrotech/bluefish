@@ -123,6 +123,11 @@ static void charmap_charmap_activate_lcb(GtkWidget *chartable,gunichar wc,gpoint
 }
 #endif
 
+void charmap_gui_set_block_int(Tcharmapwin *cm, int val) {
+	
+
+}
+
 static void chaptersv_changed_lcb(GtkComboBox *combo, gpointer data) {
 	Tcharmapwin *cm = data;
 	GtkTreeIter iter;
@@ -147,6 +152,7 @@ static void chaptersv_changed_lcb(GtkComboBox *combo, gpointer data) {
 
 void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	Tcharmapwin *cm;
+	Tcharmapsession *cms;
 	GdkPixbuf *pixbuf;
 	GtkWidget *image;
 	GtkWidget *scrolwin, *vbox;
@@ -157,8 +163,10 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	cm = g_new0(Tcharmapwin,1);
 	cm->bfwin = bfwin;
 	g_hash_table_insert(charmap_v.lookup,bfwin,cm);
-
-	charmap_v.model = GTK_TREE_MODEL(gucharmap_block_chapters_model_new());
+	cms = get_charmap_session(bfwin->session);
+	
+	if (!charmap_v.model)
+		charmap_v.model = GTK_TREE_MODEL(gucharmap_block_chapters_model_new());
 /*	charmap_v.model = gucharmap_script_chapters_model_new();*/	
 	cm->chaptersv = gtk_combo_box_new_with_model(charmap_v.model);
 	renderer = gtk_cell_renderer_text_new();
@@ -174,7 +182,7 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	cm->gcm = gucharmap_chartable_new();
 #endif 
 	g_signal_connect(cm->gcm, "activate", G_CALLBACK(charmap_charmap_activate_lcb), cm);
-	gtk_combo_box_set_active(GTK_COMBO_BOX(cm->chaptersv),0);
+	gtk_combo_box_set_active(GTK_COMBO_BOX(cm->chaptersv),cms->charmap_block);
 
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);

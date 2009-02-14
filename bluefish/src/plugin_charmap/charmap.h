@@ -46,10 +46,16 @@ typedef struct {
 }Tcharmapwin;
 
 typedef struct {
+	gint charmap_block;
+} Tcharmapsession;
+
+typedef struct {
 	GHashTable* lookup; /* pointers are stored here */
 	GtkTreeModel *model;
 }Tcharmap;
 
 extern Tcharmap charmap_v;
+
+Tcharmapsession *get_charmap_session(gpointer session);
 
 #endif /* __CHARMAP_H_  */
