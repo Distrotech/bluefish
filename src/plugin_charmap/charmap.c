@@ -18,10 +18,9 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-
 #include "charmap.h"
 #include "charmap_gui.h"
-
+#include "../rcfile.h"
 Tcharmap charmap_v;
 
 static void charmap_init(void) {
@@ -47,6 +46,7 @@ static void charmap_enforce_session(Tbfwin* bfwin) {
 	cms = g_hash_table_lookup(charmap_v.lookup,bfwin->session);
 	cmw = g_hash_table_lookup(charmap_v.lookup,bfwin);
 	if (cms && cmw) {
+		/*g_print("enforce session, set block %d\n",cms->charmap_block);*/
 		gtk_combo_box_set_active(GTK_COMBO_BOX(cmw->chaptersv),cms->charmap_block);
 	}
 }
@@ -65,7 +65,7 @@ Tcharmapsession *get_charmap_session(gpointer session) {
 	if (!cms) {
 		cms = g_new0(Tcharmapsession,1);
 		cms->charmap_block = TRUE;
-		g_hash_table_insert(htmlbar_v.lookup,session,cms);
+		g_hash_table_insert(charmap_v.lookup,session,cms);
 	}
 	return cms;
 }
