@@ -123,17 +123,13 @@ static void charmap_charmap_activate_lcb(GtkWidget *chartable,gunichar wc,gpoint
 }
 #endif
 
-void charmap_gui_set_block_int(Tcharmapwin *cm, int val) {
-	
-
-}
-
 static void chaptersv_changed_lcb(GtkComboBox *combo, gpointer data) {
 	Tcharmapwin *cm = data;
 	GtkTreeIter iter;
 	if (gtk_combo_box_get_active_iter(combo, &iter)) {
 		GucharmapCodepointList * gcpl;
 		GtkTreeModel *model;
+		Tcharmapsession *cms;
 		
 		model = gtk_combo_box_get_model(combo);
 		gcpl = gucharmap_chapters_model_get_codepoint_list((GucharmapChaptersModel *)model,&iter);
@@ -147,6 +143,9 @@ static void chaptersv_changed_lcb(GtkComboBox *combo, gpointer data) {
 		gucharmap_chartable_set_codepoint_list (cm->gcm,gcpl);
 #endif 
 /*		g_free(name);*/
+		cms = get_charmap_session(cm->bfwin->session);
+		cms->charmap_block = gtk_combo_box_get_active(combo);
+		/*g_print("save block %d\n",cms->charmap_block);*/
 	}
 }
 
@@ -182,7 +181,9 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	cm->gcm = gucharmap_chartable_new();
 #endif 
 	g_signal_connect(cm->gcm, "activate", G_CALLBACK(charmap_charmap_activate_lcb), cm);
+	/*g_print("activate block %d\n",cms->charmap_block);*/
 	gtk_combo_box_set_active(GTK_COMBO_BOX(cm->chaptersv),cms->charmap_block);
+	
 
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolwin), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
