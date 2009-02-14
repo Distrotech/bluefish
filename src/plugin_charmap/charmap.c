@@ -42,6 +42,12 @@ static void charmap_initgui(Tbfwin* bfwin) {
 }
 
 static void charmap_enforce_session(Tbfwin* bfwin) {
+	/*
+	cms = g_hash_table_lookup(charmap_v.lookup,bfwin->session);
+	... = g_hash_table_lookup(charmap_v.lookup,bfwin);
+	if (cms && ...) {
+		charmap_gui_set_block(..., cms->charmap_block);
+	}*/
 }
 static void charmap_cleanup(void) {
 }
@@ -53,7 +59,16 @@ static GHashTable *charmap_register_globses_config(GHashTable *configlist) {
   return configlist;
 }
 static GHashTable *charmap_register_session_config(GHashTable *configlist, Tsessionvars *session) {
-  return configlist;
+	/*
+	Tcharmapsession *cms;
+	cms = g_hash_table_lookup(charmap_v.lookup,session);
+	if (!cms) {
+		cms = g_new0(Tcharmapsession,1);
+		cms->charmap_block = TRUE;
+		g_hash_table_insert(htmlbar_v.lookup,session,cms);
+	}  
+	configlist = make_config_list_item(configlist, &cms->charmap_block, 'i', "charmap_block:", 0);*/
+	return configlist;
 }
 
 static TBluefishPlugin bfplugin = {
