@@ -251,6 +251,9 @@ void foundstack_free_lcb(gpointer data, gpointer btv) {
 #endif
 }
 
+#ifdef __GNUC__
+__inline__ 
+#endif
 static inline void add_to_scancache(BluefishTextView * btv,GtkTextBuffer *buffer,Tscanning *scanning, Tfoundblock *fblock, Tfoundcontext *fcontext) {
 	Tfoundstack *fstack;
 
@@ -296,6 +299,9 @@ static void print_blockstack(BluefishTextView * btv, Tscanning *scanning) {
 	g_print("\n");
 }*/
 
+#ifdef __GNUC__
+__inline__ 
+#endif
 static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning) {
 	if (scanning->blockstack->length > 100) {
 		/* if a file has thousands of blockstarts this results in thousands of Tfoundblock structures, but 
@@ -327,6 +333,9 @@ static inline Tfoundblock *found_start_of_block(BluefishTextView * btv,GtkTextBu
 	}	
 }
 
+#ifdef __GNUC__
+__inline__ 
+#endif
 static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
 	Tfoundblock *fblock=NULL;
 	DBG_BLOCKMATCH("found end of block with blockstartpattern %d\n",pat->blockstartpattern);
@@ -368,6 +377,9 @@ static inline Tfoundblock *found_end_of_block(BluefishTextView * btv,GtkTextBuff
 	return NULL;
 }
 
+#ifdef __GNUC__
+__inline__ 
+#endif
 static inline Tfoundcontext *found_context_change(BluefishTextView * btv,GtkTextBuffer *buffer, Tmatch match, Tscanning *scanning, Tpattern *pat) {
 	Tfoundcontext *fcontext=NULL;
 	/* check if we change up or down the stack */
@@ -413,6 +425,9 @@ static inline Tfoundcontext *found_context_change(BluefishTextView * btv,GtkText
 	}
 }
 
+#ifdef __GNUC__
+__inline__ 
+#endif
 static inline int found_match(BluefishTextView * btv, Tmatch match, Tscanning *scanning)
 {
 	GtkTextBuffer *buffer;
