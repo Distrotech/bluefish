@@ -354,7 +354,7 @@ static void openfile_async_mount_lcb(GObject *source_object,GAsyncResult *res,gp
 		/* open again */
 		g_file_load_contents_async(of->uri,of->cancel,openfile_async_lcb,of);
 	} else {
-		g_print("failed to mount!!\n");
+		g_print("failed to mount with error %d %s!!\n",error->code,error->message);
 		of->callback_func(OPENFILE_ERROR,error->code,NULL,0, of->callback_data);		
 	}
 }
@@ -381,6 +381,30 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 					,openfile_async_mount_lcb,of);
 #else
 			g_print("TODO, CREATE GMOUNTOPERATION FOR BACKWARDS COMPATIBILITY WITH OLDER GTK?!?!\n");
+			/* for anonymous ftp */
+			if (g_file_has_uri_scheme(of->uri,"ftp")) {
+				gchar *curi, *starthost;
+				/* check if there is a user name in the URI, if not, prepend anonymous@ in front of the URI */
+				curi = g_file_get_uri(of->uri);
+				if (strlen(curi)>8) {
+					gchar *endhost, *at;
+					starthost = curi+6; /* ftp:// is 6 bytes */
+					endhost = strchr(starthost,'/');
+					at = strchr(starthost,'@');
+					if ((!at) || (endhost && at > endhost)) {
+						gchar *newcuri;
+						GFile *nfile;
+						/* insert anonymous */
+						newcuri = g_strconcat("ftp://anonymous@",starthost,NULL);
+						g_print("newcuri=%s\n",newcuri);
+						nfile = g_file_new_for_uri(newcuri);
+						g_object_unref(of->uri);
+						of->uri = nfile;
+						g_free(newcuri);
+					}
+				}
+				g_free(curi);
+			} 
 			g_file_mount_enclosing_volume(of->uri
 					,G_MOUNT_MOUNT_NONE
 					,NULL
