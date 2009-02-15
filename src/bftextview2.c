@@ -621,8 +621,7 @@ static inline void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, G
 	GtkTextIter iter;
 	cairo_t *cr;
 	cr = gdk_cairo_create(event->window);
-	/*cairo_rectangle(cr,event->area.x, event->area.y,event->area.width, event->area.height);*/
-	cairo_set_line_width(cr, 0.75);
+	cairo_set_line_width(cr, 1.0);
 	cairo_set_source_rgb(cr, 1, 0, 0);
 	iter = *startvisible;
 	while (!gtk_text_iter_equal(&iter,endvisible)) {
@@ -644,17 +643,35 @@ static inline void paint_spaces(BluefishTextView *btv, GdkEventExpose * event, G
 		break;
 		case 160:
 			/* draw nbsp */
+			gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv),&iter,&rect);
+			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT,rect.x,rect.y+rect.height/1.5,&x,&y);
+			cairo_move_to(cr, x+1, y);
+			cairo_rel_line_to(cr,rect.width - 2, 0);
 		break;
 		case ' ':
-		/*case '' other space characters in unicode ???? */ 
+		case 8192:
+		case 8193:
+		case 8194:
+		case 8195:
+		case 8196:
+		case 8197:
+		case 8198:
+		case 8199:
+		case 8200:
+		case 8201:
+		case 8202:
+		case 8203:
+		case 8204:
+		case 8205:
+		case 12288:
 			/* draw space */
 			gtk_text_view_get_iter_location(GTK_TEXT_VIEW(btv),&iter,&rect);
 			gtk_text_view_buffer_to_window_coords(GTK_TEXT_VIEW(btv),GTK_TEXT_WINDOW_TEXT,rect.x + rect.width / 2,rect.y+rect.height/1.5,&x,&y);
 			cairo_move_to(cr, x, y);
 			cairo_arc(cr, x, y, 0.75, 0, 2 * M_PI);
 		break;
-		default:
-		break;
+/*		default:
+		break;*/
 		}
 		cairo_restore(cr);
 		gtk_text_iter_forward_char(&iter);
