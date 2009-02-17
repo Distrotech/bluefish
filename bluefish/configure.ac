@@ -382,7 +382,7 @@ PKG_CHECK_MODULES(
 	],
 	[PKG_CHECK_MODULES(
 		[CHARMAP_PLUGIN],
-		[gucharmap],
+		[gucharmap >> 2.20],
 		[
 		 build_charmap_plugin=yes
 		 AC_DEFINE([HAVE_LIBGUCHARMAP], [1], [Define to 1 if you have the `gucharmap' library (-lgucharmap).])
@@ -390,7 +390,7 @@ PKG_CHECK_MODULES(
 		[
 		 build_charmap_plugin=no
 		 AC_MSG_WARN([Disabling the building of the charmap plugin.])
-		 AC_MSG_WARN([Install the gucharmap(2) library/headers first.])
+		 AC_MSG_WARN([Install gucharmap/gucharmap2 (>> 2.20) library/headers to build the plugin.])
 		]
 	)]
 )
