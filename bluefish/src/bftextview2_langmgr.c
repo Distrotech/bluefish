@@ -868,8 +868,9 @@ static gpointer build_lang_thread(gpointer data)
 		DBG_PARSING("build_lang_thread, found %s\n",name);
 		if (xmlStrEqual(name,(xmlChar *)"header")) {
 			/* actually we can skip detection */
-			DBG_PARSING("processing <header>\n");
-			process_header(reader,bflang);
+			DBG_PARSING("skip <header>\n");
+			skip_to_end_tag(reader, xmlTextReaderDepth(reader));
+			/*process_header(reader,bflang);*/
 		} else if (xmlStrEqual(name,(xmlChar *)"definition")) {
 			if (xmlTextReaderIsEmptyElement(reader)) {
 				DBG_PARSING("empty <definition />\n");
