@@ -619,10 +619,12 @@ static GtkWidget *remove_recent_entry(Tbfwin *bfwin, const gchar *filename, gboo
 }
 
 static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
-	GFile *uri = g_file_parse_name(GTK_LABEL(GTK_BIN(widget)->child)->label);
-	project_open_from_file(bfwin, uri);
-	/* BUG TODO add_to_recent_list(bfwin,filename, 0, TRUE); */
-	g_object_unref(uri);
+	GFile *uri = g_file_new_for_uri(GTK_LABEL(GTK_BIN(widget)->child)->label);
+	if (uri) {
+		project_open_from_file(bfwin, uri);
+		add_to_recent_list(bfwin,uri, 0, TRUE);
+		g_object_unref(uri);
+	}
 }
 
 /* open_recent_file
@@ -630,9 +632,11 @@ static void open_recent_project_cb(GtkWidget *widget, Tbfwin *bfwin) {
  * has been selected. */
 static void open_recent_file_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	GFile *uri = g_file_new_for_uri(GTK_LABEL(GTK_BIN(widget)->child)->label);
-	doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1);
-	add_to_recent_list(bfwin,uri, 0, FALSE);
-	g_object_unref(uri);
+	if (uri) {
+		doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1);
+		add_to_recent_list(bfwin,uri, 0, FALSE);
+		g_object_unref(uri);
+	}
 }
 
 /* create_recent_entry
