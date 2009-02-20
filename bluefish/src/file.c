@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -369,6 +369,7 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 	
 	retval = g_file_load_contents_finish(of->uri,res,&buffer,&size,&etag,&error);
 	if (error) {
+		DEBUG_MSG("openfile_async_lcb, finished, received error code %d: %s\n",error->code,error->message);
 		if (error->code == G_IO_ERROR_NOT_MOUNTED) {
 #if GTK_CHECK_VERSION(2,14,0)
 			GMountOperation * gmo;
@@ -417,6 +418,7 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 		}
 		g_error_free(error);
 	} else {
+		DEBUG_MSG("openfile_async_lcb, finished, received %d bytes\n",size);
 		of->callback_func(OPENFILE_FINISHED,0,buffer,size, of->callback_data);
 		openfile_cleanup(of);
 		g_free(buffer);
@@ -435,6 +437,8 @@ static void process_ofqueue(gpointer data) {
 		of = ofqueue.todo->data;
 		ofqueue.todo = g_list_delete_link(ofqueue.todo, ofqueue.todo);
 		ofqueue.worknum++;
+		DEBUG_MSG("process_ofqueue, processing next uri %p ",of->uri);
+		DEBUG_URI(of->uri, TRUE);
 		g_file_load_contents_async(of->uri,of->cancel,openfile_async_lcb,of);
 	}
 }
