@@ -156,7 +156,10 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	GtkWidget *image;
 	GtkWidget *scrolwin, *vbox;
 	GtkCellRenderer *renderer;
-	
+#ifdef HAVE_LIBGUCHARMAP_2
+	PangoFontDescription *fontdesc;
+#endif
+ 
 	vbox = gtk_vbox_new(FALSE,4);
 
 	cm = g_new0(Tcharmapwin,1);
@@ -176,9 +179,13 @@ void charmap_sidepanel_initgui(Tbfwin *bfwin) {
 	gtk_box_pack_start(GTK_BOX(vbox),cm->chaptersv,FALSE,TRUE,2);
 #ifdef HAVE_LIBGUCHARMAP
 	cm->gcm = gucharmap_table_new();
+	gucharmap_table_set_font(cm->gcm, "sans 12");
 #endif
 #ifdef HAVE_LIBGUCHARMAP_2
 	cm->gcm = gucharmap_chartable_new();
+	fontdesc = pango_font_description_from_string("sans 12");
+	gucharmap_chartable_set_font_desc(cm->gcm, fontdesc);
+	pango_font_description_free(fontdesc); 
 #endif 
 	g_signal_connect(cm->gcm, "activate", G_CALLBACK(charmap_charmap_activate_lcb), cm);
 	/*g_print("activate block %d\n",cms->charmap_block);*/
