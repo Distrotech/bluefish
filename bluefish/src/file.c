@@ -857,6 +857,15 @@ static void open_adv_content_filter_lcb(Topenfile_status status,gint error_info,
 
 static void openadv_content_filter_file(Topenadv *oa, GFile *uri, GFileInfo* finfo) {
 	Topenadv_uri *oau;
+	Tdocument *tmpdoc;
+	GList *alldocs;
+	
+	/* don't content filter if the file is an already opened document */
+	alldocs = return_allwindows_documentlist();
+	tmpdoc = documentlist_return_document_from_uri(alldocs, uri);
+	g_list_free(alldocs);
+	if (tmpdoc)
+		return;
 	
 	oau = g_new0(Topenadv_uri,1);
 	oau->oa = oa;
