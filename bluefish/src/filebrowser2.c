@@ -867,7 +867,7 @@ static gboolean tree_model_filter_func(GtkTreeModel * model, GtkTreeIter * iter,
 
 	gtk_tree_model_get(GTK_TREE_MODEL(model), iter, FILENAME_COLUMN, &name, URI_COLUMN, &uri,
 					   TYPE_COLUMN, &mime_type, -1);
-	if (!name) {
+	if (!name || !uri) {
 		DEBUG_MSG
 			("tree_model_filter_func, model=%p, fb2=%p, item without name!!, uri=%p, mime_type=%s\n",
 			 model, fb2, uri, mime_type);
@@ -2158,6 +2158,8 @@ static void dirmenu_changed_lcb(GtkComboBox * widget, gpointer data)
 		GFile *uri;
 		DEBUG_MSG("dirmenu_changed_lcb. we have an active iter\n");
 		gtk_tree_model_get(GTK_TREE_MODEL(fb2->dirmenu_m), &iter, DIR_URI_COLUMN, &uri, -1);
+		if (!uri)
+			return;
 		g_object_ref(uri);
 		g_signal_handler_block(fb2->dirmenu_v, fb2->dirmenu_changed_signal);
 		if (fb2->basedir || fb2->filebrowser_viewmode == viewmode_flat) {
