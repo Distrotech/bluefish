@@ -67,13 +67,7 @@ void g_none(gchar * first, ...)
 void cb_print_version(const gchar * option_name, const gchar * value, gpointer data,
 					  GError ** error)
 {
-	char *version;
-
-	version =
-		g_strconcat(_("Bluefish Editor"), " ", VERSION, "\n",
-					_("Visit us at http://bluefish.openoffice.nl"), "\n", NULL);
-	g_print(version);
-	g_free(version);
+	g_print("%s %s\n%s\n",_("Bluefish Editor"),VERSION,_("Visit us at http://bluefish.openoffice.nl"));
 	exit(0);
 }
 
@@ -84,11 +78,9 @@ void cb_print_version(const gchar * option_name, const gchar * value, gpointer d
 int main(int argc, char *argv[])
 {
 	gboolean newwindow = FALSE, open_in_new_window = FALSE;
-	gchar **files = NULL, *project = NULL;
-	gint filearray, i;
-	GList *filenames = NULL, *projectfiles = NULL;
+	gchar **files = NULL;
+	GList *filenames = NULL;
 	Tbfwin *firstbfwin;
-	GFile *tmpfile;
 
 	GError *error = NULL;
 
@@ -100,8 +92,6 @@ int main(int argc, char *argv[])
 	const GOptionEntry options[] = {
 		{"newwindow", 'n', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &newwindow,
 		 N_("Open in a new window."), NULL},
-		{"project", 'p', G_OPTION_FLAG_FILENAME, G_OPTION_ARG_FILENAME, &project,
-		 N_("Open a project from the specified projectfile."), N_("PROJECTFILE")},
 		{"version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void *) cb_print_version,
 		 N_("Print version information."), NULL},
 		{G_OPTION_REMAINING, 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_FILENAME_ARRAY, &files,
@@ -161,53 +151,19 @@ int main(int argc, char *argv[])
 		open_in_new_window = 1;
 	}
 
-	if (project) {
-		tmpfile = g_file_new_for_commandline_arg(project);
-		projectfiles = g_list_append(projectfiles, g_file_get_uri(tmpfile));
-		g_object_unref(tmpfile);
-
-		/*
-		   TODO 1: Check if given file is a project-file.
-		   Maybe using gnome-vfs API and checking for application/bluefish-project.
-		   If not at least one project file was given, fail or print a warning?
-
-		   ATM: Nothing happens.
-
-
-		   TODO 2: suggestion, on what should happen using the following command:
-
-		   bluefish(-unstable) -p foo.bfproject bar.html foo.bar
-		   bluefish(-unstable) --project=foo.bfproject bar.html foo.bar
-
-		   or in general:
-
-		   bluefish(-unstable) [-p |--project=]projectfile [file(s)]
-
-		   1) first open project
-		   2) open the other files in the project
-
-		   this could be a good starting poitn, when you want to open a file inside the project,
-		   without seeing the whole tree (just see the project)
-		 */
-
-		DEBUG_MSG("main, project=%s\n", project);
-	}
-
 	if (files != NULL) {
-		filearray = g_strv_length(files);
-		for (i = 0; i < filearray; ++i) {
-			tmpfile = g_file_new_for_commandline_arg(files[i]);
-			filenames = g_list_append(filenames, g_file_get_uri(tmpfile));
-			g_object_unref(tmpfile);
-
-			DEBUG_MSG("main, files[%d]=%s\n", i, files[i]);
+		gchar **tmp = files;
+		while (*tmp) {
+			GFile *tmpfile = g_file_new_for_commandline_arg(*tmp);
+			filenames = g_list_append(filenames, tmpfile);
+			DEBUG_MSG("main, file=%s\n", *tmp);
+			tmp++;
 		}
 		g_strfreev(files);
 	}
 #ifdef WITH_MSG_QUEUE
-	if (((filenames || projectfiles) && main_v->props.open_in_running_bluefish)
-		|| open_in_new_window) {
-		msg_queue_start(filenames, projectfiles, open_in_new_window);
+	if ((filenames && main_v->props.open_in_running_bluefish) || open_in_new_window) {
+		/* BUG: filenames now contains GFile's msg_queue_start(filenames, projectfiles, open_in_new_window);*/
 	}
 #endif							/* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
@@ -258,7 +214,7 @@ int main(int argc, char *argv[])
 
 	main_v->bmarkdata = bookmark_data_new();
 #ifdef WITH_MSG_QUEUE
-	if (!filenames && !projectfiles && main_v->props.open_in_running_bluefish) {
+	if (!filenames && main_v->props.open_in_running_bluefish) {
 		msg_queue_start(NULL, NULL, open_in_new_window);
 	}
 #endif							/* WITH_MSG_QUEUE */
@@ -271,7 +227,17 @@ int main(int argc, char *argv[])
 	firstbfwin->session = main_v->session;
 	firstbfwin->bmarkdata = main_v->bmarkdata;
 	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
-	gui_create_main(firstbfwin, filenames);
+	gui_create_main(firstbfwin);
+
+	if (filenames) {
+		GList *tmplist = g_list_first(filenames);
+		DEBUG_MSG("main, we have filenames, load them\n");
+		firstbfwin->focus_next_new_doc = TRUE;
+		while (tmplist) {
+			file_handle((GFile *)tmplist->data, firstbfwin);
+			tmplist = g_list_next(tmplist);
+		}
+	}
 	bmark_reload(firstbfwin);
 
 #ifndef NOSPLASH
@@ -289,16 +255,6 @@ int main(int argc, char *argv[])
 	}
 
 	gui_show_main(firstbfwin);
-	if (projectfiles) {
-		GList *tmplist = g_list_first(projectfiles);
-		while (tmplist) {
-			GFile *file;
-			file = g_file_new_for_uri((gchar *)tmplist->data);
-			project_open_from_file(firstbfwin, file);
-			g_object_unref(file);
-			tmplist = g_list_next(tmplist);
-		}
-	}
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen) {
 		/*static struct timespec const req = { 0, 10000000}; */

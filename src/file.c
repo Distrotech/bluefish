@@ -28,6 +28,7 @@
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
+#include "project.h"
 #include "file.h"
 #include "filebrowser2.h"
 #include "file_dialogs.h"
@@ -1147,4 +1148,24 @@ void copy_files_async(Tbfwin *bfwin, GFile *destdir, gchar *sources) {
 	}
 	g_strfreev(splitted);
 	copy_uris_process_queue(cf);
+}
+
+void file_handle(GFile *uri, Tbfwin *bfwin) {
+	GFileInfo *finfo;
+	GError *error=NULL;
+	gchar *mime;
+	finfo = g_file_query_info(uri,"standard::fast-content-type",G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,NULL,&error);
+	if (error) {
+		g_print("file_handle got error %d: %s\n",error->code,error->message);
+		return;
+	}
+	mime = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
+	if (strcmp(mime, "application/x-bluefish-project")==0) {
+		project_open_from_file(bfwin, uri);
+	} else if (strncmp(mime, "image",5)==0) {
+		/* do something with the image */
+		g_print("file-handle, handling images is not yet implemented\n");
+	} else {
+		doc_new_from_uri(bfwin, uri, NULL, FALSE, FALSE, -1, -1);
+	}
 }

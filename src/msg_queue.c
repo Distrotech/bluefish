@@ -257,7 +257,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout) {
 					DEBUG_MSG("msg_queue_check, a new window is requested by PID=%d\n",otherpid);
 					if (otherpid != (int) getpid()) {
 						DEBUG_MSG("msg_queue_check, the PID is not ours, opening new window\n");
-						bfwin = gui_new_window(NULL, NULL);
+						bfwin = gui_new_window(NULL);
 					}
 				}
 			break;

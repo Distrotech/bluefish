@@ -266,6 +266,7 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 	Tbfwin *prwin;
 	Tproject *prj;
 	gboolean retval;
+	GSList *slist;
 
 	/* first we test if the project is already open */
 	prwin = project_is_open(fromuri);
@@ -292,31 +293,21 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 	prj->uri = fromuri;
 	g_object_ref(fromuri);
 	if (bfwin->project == NULL && test_only_empty_doc_left(bfwin->documentlist)) {
-		GSList *slist;
 		/* we will use this Bluefish window to open the project */
 		prwin = bfwin;
 		DEBUG_MSG("project_open_from_file, project %p will be in existing prwin=%p\n",prj,bfwin);
 		/* now we need to clean the session, and reset it to the session from the project */
 		/* free_session(bfwin->session); there is no session specific to a window anymore, only a global one*/
-		bfwin->session = prj->session;
-		prwin->project = prj;
-		prwin->bmarkdata = prj->bmarkdata;
-
-		setup_bfwin_for_project(bfwin);
-
-		DEBUG_MSG("project_open_from_file, calling docs_new_from_uris for existing prwin=%p\n",prwin);
-		slist = gslist_from_glist_reversed(prj->files);
-		docs_new_from_uris(prwin, slist, TRUE);
-		g_slist_free(slist);
 	} else {
 		/* we will open a new Bluefish window for this project */
 		DEBUG_MSG("project_open_from_file, we need a new window\n");
-		prwin = gui_new_window(prj->files, prj);
-		DEBUG_MSG("project_open_from_file, new window with files ready at prwin=%p\n",prwin);
-		prwin->project = prj;
-		prwin->session = prj->session;
-		setup_bfwin_for_project(prwin);
+		prwin = gui_new_window(prj);
 	}
+	slist = gslist_from_glist_reversed(prj->files);
+	docs_new_from_uris(prwin, slist, TRUE);
+	g_slist_free(slist);
+	DEBUG_MSG("project_open_from_file, new window with files ready at prwin=%p\n",prwin);
+	setup_bfwin_for_project(prwin);
 	set_project_menu_widgets(prwin, TRUE);
 	recent_menu_init_project(prwin);
 	DEBUG_MSG("project_open_from_file, done\n");
@@ -483,7 +474,7 @@ static void project_edit_ok_clicked_lcb(GtkWidget *widget, Tprojecteditor *pred)
 	integer_apply(&prj->word_wrap, pred->entries[word_wrap], TRUE);
 
 	if (pred->bfwin == NULL) {
-		pred->bfwin = gui_new_window(NULL, pred->project);
+		pred->bfwin = gui_new_window(pred->project);
 		pred->bfwin->session = pred->project->session;
 		setup_bfwin_for_project(pred->bfwin);
 	} else {
