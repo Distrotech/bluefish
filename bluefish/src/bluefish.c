@@ -83,8 +83,7 @@ void cb_print_version(const gchar * option_name, const gchar * value, gpointer d
 
 int main(int argc, char *argv[])
 {
-	gboolean newwindow = FALSE, skiprootcheck = FALSE, root_override = FALSE, open_in_new_window =
-		FALSE;
+	gboolean newwindow = FALSE, open_in_new_window = FALSE;
 	gchar **files = NULL, *project = NULL;
 	gint filearray, i;
 	GList *filenames = NULL, *projectfiles = NULL;
@@ -103,8 +102,6 @@ int main(int argc, char *argv[])
 		 N_("Open in a new window."), NULL},
 		{"project", 'p', G_OPTION_FLAG_FILENAME, G_OPTION_ARG_FILENAME, &project,
 		 N_("Open a project from the specified projectfile."), N_("PROJECTFILE")},
-		{"skiprootcheck", 's', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &skiprootcheck,
-		 N_("Skip root check."), NULL},
 		{"version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void *) cb_print_version,
 		 N_("Print version information."), NULL},
 		{G_OPTION_REMAINING, 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_FILENAME_ARRAY, &files,
@@ -162,10 +159,6 @@ int main(int argc, char *argv[])
 
 	if (newwindow) {
 		open_in_new_window = 1;
-	}
-
-	if (skiprootcheck) {
-		root_override = 1;
 	}
 
 	if (project) {
