@@ -859,9 +859,8 @@ static void gui_create_gotoline_frame(Tbfwin *bfwin) {
 	gtk_widget_show_all(hbox);
 }
 
-void gui_create_main(Tbfwin *bfwin, GList *filenames) {
+void gui_create_main(Tbfwin *bfwin) {
 	GtkWidget *vbox;
-	GList *tmplist;
 	DEBUG_MSG("gui_create_main, bfwin=%p, main_window_w=%d\n",bfwin,main_v->globses.main_window_w);
 #ifdef USER_IDLE_TIMER	
 	bfwin->idletimer = g_timer_new();
@@ -990,15 +989,6 @@ void gui_create_main(Tbfwin *bfwin, GList *filenames) {
 	/* everything is ready - we can start loading documents */
 	/* start to open an empty doc */
 	file_new_cb(NULL, bfwin);
-	if (filenames) {
-		tmplist = g_list_last(filenames);
-		bfwin->focus_next_new_doc = TRUE;
-		while (tmplist) {
-			doc_new_from_input(bfwin, tmplist->data, FALSE, (bfwin->project != NULL), -1);
-			tmplist = g_list_previous(tmplist);
-		}
-		DEBUG_MSG("gui_create_main, we have filenames, load them\n");
-	}
 
 /*	gtk_notebook_set_page(GTK_NOTEBOOK(bfwin->notebook), 0);*/
 	gtk_notebook_set_scrollable(GTK_NOTEBOOK(bfwin->notebook), TRUE);
@@ -1178,7 +1168,7 @@ void gui_toggle_hidewidget_cb(Tbfwin *bfwin,guint action,GtkWidget *widget) {
 	}
 }
 
-Tbfwin *gui_new_window(GList *filenames, Tproject *project) {
+Tbfwin *gui_new_window(Tproject *project) {
 	Tbfwin *bfwin = g_new0(Tbfwin,1);
 	if (project) {
 		bfwin->project = project;
@@ -1190,7 +1180,7 @@ Tbfwin *gui_new_window(GList *filenames, Tproject *project) {
 		bfwin->bmarkdata = main_v->bmarkdata;
 		DEBUG_MSG("gui_new_window, bfwin=%p, (from main_v)\n",bfwin);
 	}
-	gui_create_main(bfwin,filenames);
+	gui_create_main(bfwin);
 	/* never comment this out again Jim! */
 	main_v->bfwinlist = g_list_append(main_v->bfwinlist, bfwin);
 	gui_show_main(bfwin);
@@ -1200,7 +1190,7 @@ Tbfwin *gui_new_window(GList *filenames, Tproject *project) {
 void gui_window_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	switch (callback_action) {
 		case 1:
-			gui_new_window(NULL, NULL);
+			gui_new_window(NULL);
 		break;
 		case 2: /* close the window */
 			if (main_window_delete_event_lcb(NULL, NULL, bfwin) == FALSE) {

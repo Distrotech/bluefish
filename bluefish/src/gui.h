@@ -44,7 +44,7 @@ void gui_set_document_widgets(Tdocument *doc);
 
 void gui_notebook_bind_signals(Tbfwin *bfwin);
 void gui_notebook_unbind_signals(Tbfwin *bfwin);
-void gui_create_main(Tbfwin *bfwin, GList *filenames);
+void gui_create_main(Tbfwin *bfwin);
 void gui_show_main(Tbfwin *bfwin);
 void statusbar_message(Tbfwin *bfwin,gchar *message, gint time);
 gboolean bfwin_has_doc(Tbfwin *bfwin, Tdocument *doc);
@@ -59,6 +59,6 @@ void go_to_line_from_selection_cb(Tbfwin *bfwin,guint callback_action, GtkWidget
 void splash_screen_set_label(gchar *label);
 GtkWidget *start_splash_screen(void);
 
-Tbfwin *gui_new_window(GList *filenames, Tproject *project);
+Tbfwin *gui_new_window(Tproject *project);
 void gui_window_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 #endif /* __GUI_H_ */
