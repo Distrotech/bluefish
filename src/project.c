@@ -295,6 +295,7 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 	if (bfwin->project == NULL && test_only_empty_doc_left(bfwin->documentlist)) {
 		/* we will use this Bluefish window to open the project */
 		prwin = bfwin;
+		prwin->project = prj;
 		DEBUG_MSG("project_open_from_file, project %p will be in existing prwin=%p\n",prj,bfwin);
 		/* now we need to clean the session, and reset it to the session from the project */
 		/* free_session(bfwin->session); there is no session specific to a window anymore, only a global one*/

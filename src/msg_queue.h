@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * msg_queue.h - message queue handling
  *
- * Copyright (C) 2003-2006 Olivier Sessink
+ * Copyright (C) 2003-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@
 #ifndef __MSG_QUEUE_H_
 #define __MSG_QUEUE_H_
 
-void msg_queue_start(GList * filenames, GList *projectfiles, gboolean in_new_window);
+void msg_queue_start(GList * filenames, gboolean in_new_window);
 void msg_queue_cleanup(void);
 
 #endif /* __MSG_QUEUE_H_ */
