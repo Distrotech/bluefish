@@ -48,6 +48,7 @@
 #include "rcfile.h"				/* rcfile_parse_main() */
 #include "stringlist.h"			/* put_stringlist(), get_stringlist() */
 #include "filefilter.h"
+#include "file.h" /* file_handle() */
 
 /*********************************************/
 /* this var is global for all bluefish files */
@@ -77,7 +78,7 @@ void cb_print_version(const gchar * option_name, const gchar * value, gpointer d
 
 int main(int argc, char *argv[])
 {
-	gboolean newwindow = FALSE, open_in_new_window = FALSE;
+	gboolean curwindow = FALSE;
 	gchar **files = NULL;
 	GList *filenames = NULL;
 	Tbfwin *firstbfwin;
@@ -90,8 +91,8 @@ int main(int argc, char *argv[])
 
 	GOptionContext *context;
 	const GOptionEntry options[] = {
-		{"newwindow", 'n', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &newwindow,
-		 N_("Open in a new window."), NULL},
+		{"curwindow", 'c', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_NONE, &curwindow,
+		 N_("Open in current window."), NULL},
 		{"version", 'v', G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_CALLBACK, (void *) cb_print_version,
 		 N_("Print version information."), NULL},
 		{G_OPTION_REMAINING, 0, G_OPTION_FLAG_NO_ARG, G_OPTION_ARG_FILENAME_ARRAY, &files,
@@ -147,10 +148,6 @@ int main(int argc, char *argv[])
 	rcfile_check_directory();
 	rcfile_parse_main();
 
-	if (newwindow) {
-		open_in_new_window = 1;
-	}
-
 	if (files != NULL) {
 		gchar **tmp = files;
 		while (*tmp) {
@@ -162,8 +159,8 @@ int main(int argc, char *argv[])
 		g_strfreev(files);
 	}
 #ifdef WITH_MSG_QUEUE
-	if ((filenames && main_v->props.open_in_running_bluefish) || open_in_new_window) {
-		msg_queue_start(filenames, open_in_new_window);
+	if ((filenames && main_v->props.open_in_running_bluefish) || !curwindow) {
+		msg_queue_start(filenames, !curwindow);
 	}
 #endif							/* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
@@ -215,7 +212,7 @@ int main(int argc, char *argv[])
 	main_v->bmarkdata = bookmark_data_new();
 #ifdef WITH_MSG_QUEUE
 	if (!filenames && main_v->props.open_in_running_bluefish) {
-		msg_queue_start(NULL, open_in_new_window);
+		msg_queue_start(NULL, !curwindow);
 	}
 #endif							/* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
