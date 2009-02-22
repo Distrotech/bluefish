@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * msg_queue.c - message queue handling
  *
- * Copyright (C) 2003-2007 Olivier Sessink
+ * Copyright (C) 2003-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,17 +40,18 @@
 #include "gui.h" /* notebook_changed() */
 #include "document.h"
 #include "project.h"
+#include "file.h"
 
 #define BLUEFISH_MSG_QUEUE 9723476 /* randomly chosen number, I hope it is not used by other apps */
 #define MSQ_QUEUE_SIZE 1024
 #define MSQ_QUEUE_SMALL_SIZE 7
-#define MSQ_QUEUE_CHECK_TIME 300	/* miliseconds for gtk_timeout*/
+#define MSQ_QUEUE_CHECK_TIME 300	/* miliseconds for g_timeout_add(), 300 means 3 times a second */
 
 #define MSG_QUEUE_SEND_ALIVE 46070
 
 #define MSG_QUEUE_OPENFILE_LAST 46050
 #define MSG_QUEUE_OPENFILE 46040
-#define MSG_QUEUE_OPENPROJECT 46030
+/*#define MSG_QUEUE_OPENPROJECT 46030*/
 #define MSG_QUEUE_OPENNEWWIN 46020
 
 /* from man msgrcv: 'the first message on the queue with the lowest type less 
@@ -233,21 +234,25 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout) {
 			case MSG_QUEUE_OPENFILE_LAST:
 				is_last = TRUE;
 			/* don't break, we have to open file file */
-			case MSG_QUEUE_OPENFILE:
+			case MSG_QUEUE_OPENFILE: {
+				GFile *file;
 				DEBUG_MSG("msg_queue_check, a filename %s is received, is_last=%d\n", msgp.mtext,is_last);
-				doc_new_from_input(bfwin, msgp.mtext, !is_last, FALSE, -1);
+				file = g_file_new_for_commandline_arg(msgp.mtext);
+				/*doc_new_from_input(bfwin, msgp.mtext, !is_last, FALSE, -1);*/
+				file_handle(file, bfwin);
+				g_object_unref(file);
 				run_again = TRUE;	/* call myself again, there may have been multiple files */
-			break;
-			case MSG_QUEUE_OPENPROJECT:
+			} break;
+/*			case MSG_QUEUE_OPENPROJECT:
 				{
 					GFile *uri;
 					DEBUG_MSG("msg_queue_check, a project %s is received\n", msgp.mtext);
 					uri = g_file_new_for_commandline_arg(msgp.mtext);
 					project_open_from_file(bfwin, uri);
 					g_object_unref(uri);
-					run_again = TRUE;	/* call myself again, there may have been multiple projects */
+					run_again = TRUE;	/ * call myself again, there may have been multiple projects * /
 				}
-			break;
+			break;*/
 			case MSG_QUEUE_OPENNEWWIN:
 				{
 					/* now check if this is indeed send by another process
@@ -305,9 +310,12 @@ static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean 
 	
 	tmplist = g_list_first(names);
 	while (tmplist && success) {
+		gchar *curi;
 		gint retval;
-		gint len = strlen((gchar *) tmplist->data);
+		gint len;
 		
+		curi = g_file_get_uri((GFile *)tmplist->data);
+		len = strlen(curi);
 		/* we start with checking for keepalives */
 		if (!received_keepalive) {
 			if (msg_queue_check_alive(TRUE)) {
@@ -320,7 +328,7 @@ static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean 
 		}
 		
 		if (len < MSQ_QUEUE_SIZE - 1) {
-			strncpy(msgp.mtext, (gchar *) tmplist->data, MSQ_QUEUE_SIZE - 1);
+			strncpy(msgp.mtext, curi, MSQ_QUEUE_SIZE - 1);
 			
 			/* this is a bit of specific code for sending files, to notify the server process that the last file is coming */
 			if (tmplist->next == NULL && msgp.mtype == MSG_QUEUE_OPENFILE) {
@@ -358,6 +366,7 @@ static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean 
 				send_failure_cnt = 0;
 				tmplist = g_list_next(tmplist);
 			}
+			g_free(curi);
 		} else {
 			DEBUG_MSG("msg_queue_send_files, failed sending, length increased message size\n");
 			success = 0;
@@ -375,28 +384,9 @@ static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean 
 		DEBUG_MSG
 			("msg_queue_send_files, sending filenames complete and successfull, received_keepalive=%d\n",
 			 received_keepalive);
-/*		/ * all filenames send to other process, test if it is alive * /
-		if (received_keepalive) {
-			exit(0);
-		} else {
-			/ * the other process should have enough time to check the queue * /
-			/ * the macro is in milliseconds, usleep is microseconds * /
-			if (msg_queue_check_alive(TRUE)) {
-				/ * we did receive a keep alive message! * /
-				exit(0);
-			}
-		}*/
 		return received_keepalive;
 	}
 	return FALSE;
-}
-
-static gboolean msg_queue_send_files(GList * filenames, gboolean received_keepalive) {
-	return msg_queue_send_names(MSG_QUEUE_OPENFILE, filenames, received_keepalive);
-}
-
-static gboolean msg_queue_send_projects(GList * filenames, gboolean received_keepalive) {
-	return msg_queue_send_names(MSG_QUEUE_OPENPROJECT, filenames, received_keepalive);
 }
 
 /**
@@ -463,7 +453,7 @@ static void msg_queue_send_new_window(void) {
 	static struct timespec rem;
 	nanosleep(&req, &rem);
 */
-void msg_queue_start(GList * filenames, GList *projectfiles, gboolean open_new_window) {
+void msg_queue_start(GList * filenames, gboolean open_new_window) {
 	gboolean received_keepalive = FALSE;
 	gboolean queue_already_open;
 
@@ -475,13 +465,8 @@ void msg_queue_start(GList * filenames, GList *projectfiles, gboolean open_new_w
 			msg_queue_send_new_window();
 		}
 		/* if we have filenames to open, we start sending them now, else we just check if we have to be master or not */
-		if (filenames || projectfiles) {
-			if (filenames) {
-				received_keepalive = msg_queue_send_files(filenames, received_keepalive);
-			}
-			if (projectfiles) {
-				received_keepalive = msg_queue_send_projects(projectfiles, received_keepalive);
-			}
+		if (filenames) {
+			received_keepalive = msg_queue_send_names(MSG_QUEUE_OPENFILE, filenames, received_keepalive);
 			DEBUG_MSG("msg_queue_start, after sending files and projects, keepalive=%d\n",received_keepalive);
 		}
 		
@@ -496,7 +481,8 @@ void msg_queue_start(GList * filenames, GList *projectfiles, gboolean open_new_w
 				}
 				check_keepalive_cnt++;
 			}
-			if ((filenames || projectfiles || open_new_window) && received_keepalive) {
+			if ((filenames || 
+			open_new_window) && received_keepalive) {
 				DEBUG_MSG("msg_queue_start, we did send all our messages to an active queue, exiting!\n");
 				exit(0);
 			}
@@ -513,7 +499,7 @@ void msg_queue_start(GList * filenames, GList *projectfiles, gboolean open_new_w
 		msg_queue.server = TRUE;
 		DEBUG_MSG
 			("msg_queue_start, we opened the queue, or we didn't get a keepalive, we will be server!\n");
-		gtk_timeout_add(MSQ_QUEUE_CHECK_TIME, (GtkFunction)msg_queue_check, GINT_TO_POINTER(1));
+		g_timeout_add(MSQ_QUEUE_CHECK_TIME, (GSourceFunc)msg_queue_check, GINT_TO_POINTER(1));
 	} else {
 		DEBUG_MSG("msg_queue_start, we didn't open the queue, and we received a keepalive, further ignoring the mssage queue\n");
 	}
