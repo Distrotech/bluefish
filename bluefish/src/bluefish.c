@@ -204,16 +204,18 @@ int main(int argc, char *argv[])
 	if (main_v->props.show_splash_screen)
 		splash_screen_set_label(_("setting up bookmarks ..."));
 #endif							/* NOSPLASH */
-
+	g_print("1\n");
 	regcomp(&main_v->find_encoding,
 			"<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"text/x?html;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>",
 			REG_EXTENDED | REG_ICASE);
-
+	g_print("2\n");
 	main_v->bmarkdata = bookmark_data_new();
+	g_print("3\n");
 #ifdef WITH_MSG_QUEUE
-	if (!filenames && main_v->props.open_in_running_bluefish) {
+	if (!filenames && main_v->props.open_in_running_bluefish && curwindow) {
 		msg_queue_start(NULL, !curwindow);
 	}
+	g_print("4\n");
 #endif							/* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen)
