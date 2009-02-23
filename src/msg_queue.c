@@ -20,7 +20,7 @@
 
 #include <gtk/gtk.h>
 
-/* #define DEBUG */
+#define DEBUG
 
 #include "bluefish.h"
 
@@ -508,8 +508,11 @@ void msg_queue_start(GList * filenames, gboolean open_new_window) {
 void msg_queue_cleanup(void)
 {
 	if (msg_queue.functional && msg_queue.server) {
+		struct msqid_ds md; 
 		DEBUG_MSG("msg_queue_cleanup, removing msg_queue()\n");
-		msgctl(msg_queue.msgid, IPC_RMID, NULL);
+		if (msgctl(msg_queue.msgid, IPC_RMID, &md)!=0) {
+			DEBUG_MSG("msgctl() with IPC_RMID failed with errno %d\n",errno);
+		}
 	}
 }
 
