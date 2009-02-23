@@ -1674,15 +1674,6 @@ static void preferences_dialog() {
 	g_signal_connect(G_OBJECT(pd->prefs[leave_to_window_manager]), "toggled", G_CALLBACK(restore_dimensions_toggled_lcb), pd);
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
-	gtk_tree_store_append(pd->nstore, &auxit, &iter);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("File and directory view"), WIDGETCOL,vbox1,-1);
-
-	frame = gtk_frame_new(_("File and directory view"));
-	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
-	vbox2 = gtk_vbox_new(FALSE, 0);
-	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-
-	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
 	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Images"), WIDGETCOL,vbox1,-1);
 
