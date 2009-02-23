@@ -20,7 +20,7 @@
 
 #include <gtk/gtk.h>
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include "bluefish.h"
 
@@ -45,7 +45,10 @@
 #define BLUEFISH_MSG_QUEUE 9723476 /* randomly chosen number, I hope it is not used by other apps */
 #define MSQ_QUEUE_SIZE 1024
 #define MSQ_QUEUE_SMALL_SIZE 7
-#define MSQ_QUEUE_CHECK_TIME 300	/* miliseconds for g_timeout_add(), 300 means 3 times a second */
+#define MSQ_QUEUE_CHECK_TIME 500	/* miliseconds for g_timeout_add()
+												this is also the time that another process needs to wait
+												before it knows for sure that the master is dead. so this should
+												not be too slow, otherwise the other process will be slowed down. */
 
 #define MSG_QUEUE_SEND_ALIVE 46070
 
@@ -84,14 +87,17 @@ we just start, but we don't listen to the queue!
 typedef struct {
 	gboolean functional;
 	gboolean server;
+	gboolean received_keepalive;
 	int msgid;
 	GList *file_error_list;
+	GTimer *timer;
+
 } Tmsg_queue;
 
 /******************************/
 /* global var for this module */
 /******************************/
-Tmsg_queue msg_queue = { TRUE, FALSE, -1, NULL};
+Tmsg_queue msg_queue = { TRUE, FALSE, FALSE, -1, NULL};
 
 /**
  * msg_queue_check_alive:
@@ -100,7 +106,7 @@ Tmsg_queue msg_queue = { TRUE, FALSE, -1, NULL};
  * if we receive such a message, there must be another process 
  * active on this message queue
  */
-static gboolean msg_queue_check_alive(gboolean wait_first)
+static gboolean msg_queue_check_alive(void)
 {
 	struct small_msgbuf {
 		long mtype;
@@ -108,11 +114,11 @@ static gboolean msg_queue_check_alive(gboolean wait_first)
 	} small_msgp;
 	gchar *pid_string = g_strdup_printf("%d", (int) getpid());
 
-	if (wait_first) {
+	/*if (wait_first) {
 		static struct timespec const req = { 0, MSQ_QUEUE_CHECK_TIME * 1000000};
 		static struct timespec rem;
 		nanosleep(&req, &rem);
-	}
+	}*/
 
 	while (msgrcv
 		   (msg_queue.msgid, &small_msgp, MSQ_QUEUE_SMALL_SIZE * sizeof(char), MSG_QUEUE_SEND_ALIVE,
@@ -318,7 +324,7 @@ static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean 
 		len = strlen(curi);
 		/* we start with checking for keepalives */
 		if (!received_keepalive) {
-			if (msg_queue_check_alive(TRUE)) {
+			if (msg_queue_check_alive()) {
 				received_keepalive = TRUE;
 				DEBUG_MSG("msg_queue_send_files, received keepalive\n");
 			} else {
@@ -337,11 +343,13 @@ static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean 
 			}
 			retval =	msgsnd(msg_queue.msgid, (void *) &msgp, MSQ_QUEUE_SIZE * sizeof(char), IPC_NOWAIT);
 			if (retval == -1) {
-				DEBUG_MSG("msg_queue_send_files, failed sending, errno=%d\n", errno);
 				if (errno == EAGAIN) { /* EAGAIN = 11 */
-					struct timespec req = { 0, 20000000	/* nanoseconds */};
+					struct timespec req = { 0, 40000000	/* nanoseconds */};
 					static struct timespec rem;
-					if (num_files_sent > 10 ) req.tv_nsec = (2*req.tv_nsec);
+					if (received_keepalive && num_files_sent > 10) 
+						req.tv_nsec = (5*req.tv_nsec);
+					else if (num_files_sent > 10 ) req.tv_nsec = (2*req.tv_nsec);
+					DEBUG_MSG("msg_queue_send_files, failed sending with EAGAIN, sleep %f\n", ((gdouble)req.tv_nsec)/1000000000.0);
 					nanosleep(&req, &rem);
 					send_failure_cnt++;
 				} else {
@@ -354,7 +362,7 @@ static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean 
 					   process doesn't even get a chance of reply-ing. So as long as we 
 					   don't know a thing about it, we give it some time and check for
 					   a reply often */
-					if (msg_queue_check_alive(TRUE)) {
+					if (msg_queue_check_alive()) {
 						received_keepalive = TRUE;
 						DEBUG_MSG("msg_queue_send_files, received keepalive\n");
 					} else {
@@ -362,21 +370,21 @@ static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean 
 						DEBUG_MSG("msg_queue_send_files, no keepalive (try %d)\n", check_keepalive_cnt);
 					}
 				}
-				DEBUG_MSG("msg_queue_send_files, sending %s succeeded\n", (gchar *) tmplist->data);
+				DEBUG_MSG("msg_queue_send_files, sending %s succeeded\n", curi);
 				send_failure_cnt = 0;
 				tmplist = g_list_next(tmplist);
 			}
-			g_free(curi);
 		} else {
 			DEBUG_MSG("msg_queue_send_files, failed sending, length increased message size\n");
 			success = 0;
 		}
-		if ((check_keepalive_cnt > 5) || (send_failure_cnt > 60)) {
+		if ((check_keepalive_cnt > 500) || (send_failure_cnt > 60)) {
 			DEBUG_MSG
 				("msg_queue_send_files, too many tries, check_keepalive_cnt=%d, send_failure_cnt=%d\n",
 				 check_keepalive_cnt, send_failure_cnt);
 			success = 0;
 		}
+		g_free(curi);
 		num_files_sent++;
 	}
 	if (success) {
@@ -448,15 +456,20 @@ static void msg_queue_send_new_window(void) {
 	}
 }
 
+static void msg_queue_become_server(void) {
+	msg_queue.server = TRUE;
+	DEBUG_MSG("msg_queue_become_server, we will be server!\n");
+	g_timeout_add(MSQ_QUEUE_CHECK_TIME, (GSourceFunc)msg_queue_check, GINT_TO_POINTER(1));
+}
+
 /*
 	static struct timespec const req = { 0, 200000000};
 	static struct timespec rem;
 	nanosleep(&req, &rem);
 */
 void msg_queue_start(GList * filenames, gboolean open_new_window) {
-	gboolean received_keepalive = FALSE;
 	gboolean queue_already_open;
-
+	msg_queue.timer = g_timer_new();
 	DEBUG_MSG("msg_queue_start, open message queue\n");
 	queue_already_open = msg_queue_open();
 	if (queue_already_open && msg_queue.functional) {
@@ -466,53 +479,73 @@ void msg_queue_start(GList * filenames, gboolean open_new_window) {
 		}
 		/* if we have filenames to open, we start sending them now, else we just check if we have to be master or not */
 		if (filenames) {
-			received_keepalive = msg_queue_send_names(MSG_QUEUE_OPENFILE, filenames, received_keepalive);
-			DEBUG_MSG("msg_queue_start, after sending files and projects, keepalive=%d\n",received_keepalive);
+			msg_queue.received_keepalive = msg_queue_send_names(MSG_QUEUE_OPENFILE, filenames, msg_queue.received_keepalive);
+			DEBUG_MSG("msg_queue_start, after sending files and projects, keepalive=%d\n",msg_queue.received_keepalive);
+			if (msg_queue.received_keepalive) {
+				DEBUG_MSG("msg_queue_start, we did send all our messages to an active queue, exiting!\n");
+				exit(0);
+			}
 		}
 		
-		if (!received_keepalive) {
+/*		if (!received_keepalive) {
 			gint check_keepalive_cnt = 0;
-			/* if the message queue is still open and the process listening is killed
-			   we should be the server process --> we have to check if the process is still running */
-			while (!received_keepalive && check_keepalive_cnt < 10) {
+			/ * if the message queue is still open and the process listening is killed
+			   we should be the server process --> we have to check if the process is still running * /
+			while (!msg_queue.received_keepalive && check_keepalive_cnt < 10) {
 				DEBUG_MSG("msg_queue_start, no keepalive yet, check_keepalive_cnt=%d\n", check_keepalive_cnt);
 				if (msg_queue_check_alive(TRUE)) {
-					received_keepalive = TRUE;
+					msg_queue.received_keepalive = TRUE;
 				}
 				check_keepalive_cnt++;
 			}
 			if ((filenames || 
-			open_new_window) && received_keepalive) {
+			open_new_window) && msg_queue.received_keepalive) {
 				DEBUG_MSG("msg_queue_start, we did send all our messages to an active queue, exiting!\n");
 				exit(0);
 			}
 		} else {
 			DEBUG_MSG("msg_queue_start, we did send all our messages to an active queue, exiting!\n");
 			exit(0);
+		}*/
+	}
+	
+	/* if we opened the queue */
+	if (msg_queue.functional && !queue_already_open) {
+		msg_queue_become_server();
+	}
+}
+
+void msg_queue_check_server(gboolean last_check) {
+	if (msg_queue.functional && !msg_queue.server && !msg_queue.received_keepalive) {
+		if (last_check) {
+			gdouble remainder = (((gdouble)MSQ_QUEUE_CHECK_TIME)/1000.0) - g_timer_elapsed(msg_queue.timer,NULL);
+			DEBUG_MSG("start to here took %f seconds\n",g_timer_elapsed(msg_queue.timer,NULL));  
+			if (remainder > 0) {
+				/* wait for the remaining time */
+				struct timespec rem;
+				struct timespec req = { 0, (int)(1000000000.0 * remainder)};			
+				g_print("msg_queue_check_server, wait for %f seconds, %ld nanoseconds\n",remainder,req.tv_nsec);
+				nanosleep(&req, &rem);
+			}
+		}
+		msg_queue.received_keepalive = msg_queue_check_alive();
+		if (msg_queue.received_keepalive) {
+			DEBUG_MSG("msg_queue_check_server, we did send all our messages to an active queue, exiting!\n");
+			exit(0);
+		} else if (last_check) { /* still no keepalive on last_check */
+			msg_queue_become_server();
 		}
 	}
-
-	/* if (queue_already_open) */
-	/* if we opened the queue, or we did not get a keepalive */
-	if (msg_queue.functional
-		&& (!queue_already_open || (queue_already_open && !received_keepalive))) {
-		msg_queue.server = TRUE;
-		DEBUG_MSG
-			("msg_queue_start, we opened the queue, or we didn't get a keepalive, we will be server!\n");
-		g_timeout_add(MSQ_QUEUE_CHECK_TIME, (GSourceFunc)msg_queue_check, GINT_TO_POINTER(1));
-	} else {
-		DEBUG_MSG("msg_queue_start, we didn't open the queue, and we received a keepalive, further ignoring the mssage queue\n");
+	if (last_check) {
+		g_timer_destroy(msg_queue.timer);
 	}
 }
 
 void msg_queue_cleanup(void)
 {
 	if (msg_queue.functional && msg_queue.server) {
-		struct msqid_ds md; 
 		DEBUG_MSG("msg_queue_cleanup, removing msg_queue()\n");
-		if (msgctl(msg_queue.msgid, IPC_RMID, &md)!=0) {
-			DEBUG_MSG("msgctl() with IPC_RMID failed with errno %d\n",errno);
-		}
+		msgctl(msg_queue.msgid, IPC_RMID, NULL);
 	}
 }
 

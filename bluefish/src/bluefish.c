@@ -159,7 +159,9 @@ int main(int argc, char *argv[])
 		g_strfreev(files);
 	}
 #ifdef WITH_MSG_QUEUE
-	if ((filenames && main_v->props.open_in_running_bluefish) || !curwindow) {
+	/* start message queue as early as possible so a running bluefish process has a lot of 
+	time to respond to our request-alive request */
+	if (main_v->props.open_in_running_bluefish) {
 		msg_queue_start(filenames, !curwindow);
 	}
 #endif							/* WITH_MSG_QUEUE */
@@ -194,28 +196,24 @@ int main(int argc, char *argv[])
 	langmgr_init();
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen)
-		splash_screen_set_label(_("building file filters ..."));
+		splash_screen_set_label(_("building file browser ..."));
 #endif							/* NOSPLASH */
 
 	fb2config_init();			/* filebrowser2config */
 	filters_rebuild();
 	main_v->tooltips = gtk_tooltips_new();
-#ifndef NOSPLASH
-	if (main_v->props.show_splash_screen)
-		splash_screen_set_label(_("setting up bookmarks ..."));
-#endif							/* NOSPLASH */
-	g_print("1\n");
 	regcomp(&main_v->find_encoding,
 			"<meta[ \t\n\r\f]http-equiv[ \t\n\r\f]*=[ \t\n\r\f]*\"content-type\"[ \t\n\r\f]+content[ \t\n\r\f]*=[ \t\n\r\f]*\"text/x?html;[ \t\n\r\f]*charset=([a-z0-9_-]+)\"[ \t\n\r\f]*/?>",
 			REG_EXTENDED | REG_ICASE);
-	g_print("2\n");
 	main_v->bmarkdata = bookmark_data_new();
-	g_print("3\n");
 #ifdef WITH_MSG_QUEUE
-	if (!filenames && main_v->props.open_in_running_bluefish && curwindow) {
-		msg_queue_start(NULL, !curwindow);
+	if (main_v->props.open_in_running_bluefish) {
+#ifndef NOSPLASH
+		if (main_v->props.show_splash_screen)
+			splash_screen_set_label(_("checking for running bluefish process ..."));
+#endif							/* NOSPLASH */
+		msg_queue_check_server(FALSE);
 	}
-	g_print("4\n");
 #endif							/* WITH_MSG_QUEUE */
 #ifndef NOSPLASH
 	if (main_v->props.show_splash_screen)
@@ -252,6 +250,11 @@ int main(int argc, char *argv[])
 		gtk_accel_map_load(shortcutfilename);
 		g_free(shortcutfilename);
 	}
+#ifdef WITH_MSG_QUEUE
+	if (main_v->props.open_in_running_bluefish) {
+		msg_queue_check_server(TRUE);
+	}
+#endif
 
 	gui_show_main(firstbfwin);
 #ifndef NOSPLASH
