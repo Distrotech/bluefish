@@ -562,6 +562,7 @@ static GHashTable *return_globalsession_configlist(gboolean init_values) {
 	init_prop_arraylist (&config_rc, &main_v->globses.reference_files, "reference_files:", 2, init_values);
 	init_prop_limitedstringlist(&config_rc, &main_v->globses.recent_projects, "recent_projects:", main_v->props.max_recent_files, init_values);
 	init_prop_arraylist (&config_rc, &main_v->globses.encodings, "encodings:", 3, FALSE);
+	init_prop_integer   (&config_rc, &main_v->globses.msg_queue_poll_time,"msg_queue_poll_time:",500, init_values);
 	config_rc = bfplugins_register_globses_config(config_rc);
 	return config_rc;
 }
