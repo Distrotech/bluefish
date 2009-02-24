@@ -225,7 +225,11 @@ int main(int argc, char *argv[])
 	firstbfwin->bmarkdata = main_v->bmarkdata;
 	main_v->bfwinlist = g_list_append(NULL, firstbfwin);
 	gui_create_main(firstbfwin);
-
+#ifdef WITH_MSG_QUEUE
+	if (main_v->props.open_in_running_bluefish) {
+		msg_queue_check_server(FALSE);
+	}
+#endif
 	if (filenames) {
 		GList *tmplist = g_list_first(filenames);
 		DEBUG_MSG("main, we have filenames, load them\n");
