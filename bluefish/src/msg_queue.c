@@ -549,7 +549,7 @@ void msg_queue_check_server(gboolean last_check) {
 	if (msg_queue.functional && !msg_queue.server && !msg_queue.received_keepalive) {
 		if (last_check) {
 			gdouble remainder = (((gdouble)MSQ_QUEUE_CHECK_TIME)/1000.0) - g_timer_elapsed(msg_queue.timer,NULL);
-			DEBUG_MSG("start to here took %f seconds\n",g_timer_elapsed(msg_queue.timer,NULL));  
+			g_print("start to here took %f seconds\n",g_timer_elapsed(msg_queue.timer,NULL));  
 			if (remainder > 0) {
 				/* wait for the remaining time, sleep slightly longer --> 110% */
 				struct timespec rem;
@@ -577,6 +577,8 @@ void msg_queue_check_server(gboolean last_check) {
 		}
 	}
 	if (last_check) {
+		gdouble elapsed = g_timer_elapsed(msg_queue.timer,NULL);
+		main_v->globses.msg_queue_poll_time = (int) (((1000.0 * elapsed)+main_v->globses.msg_queue_poll_time)/2.0); 
 		g_timer_destroy(msg_queue.timer);
 	}
 }

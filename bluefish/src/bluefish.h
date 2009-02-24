@@ -278,6 +278,7 @@ typedef struct {
 	GList *reference_files; /* all reference files */
 	GList *recent_projects;
 	GList *encodings; /* all encodings you can choose from */
+	gint msg_queue_poll_time; /* milliseconds, automatically tuned to your system */
 } Tglobalsession;
 
 typedef struct {
