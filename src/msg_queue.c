@@ -45,7 +45,7 @@
 #define BLUEFISH_MSG_QUEUE 9723476 /* randomly chosen number, I hope it is not used by other apps */
 #define MSQ_QUEUE_SIZE 1024
 #define MSQ_QUEUE_SMALL_SIZE 7
-#define MSQ_QUEUE_CHECK_TIME 500	/* miliseconds for g_timeout_add()
+/*#define MSQ_QUEUE_CHECK_TIME 500*/	/* miliseconds for g_timeout_add()
 												this is also the time that another process needs to wait
 												before it knows for sure that the master is dead. so this should
 												not be too slow, otherwise the other process will be slowed down. */
@@ -91,12 +91,13 @@ typedef struct {
 	int msgid;
 	GList *list_pos;
 	GTimer *timer;
+	guint pollid;
 } Tmsg_queue;
 
 /******************************/
 /* global var for this module */
 /******************************/
-Tmsg_queue msg_queue = { TRUE, FALSE, FALSE, -1, NULL, NULL};
+Tmsg_queue msg_queue = { TRUE, FALSE, FALSE, -1, NULL, NULL,0};
 
 /**
  * msg_queue_check_alive:
@@ -485,8 +486,11 @@ static void msg_queue_request_alive(void)
 
 static void msg_queue_become_server(void) {
 	msg_queue.server = TRUE;
-	DEBUG_MSG("msg_queue_become_server, we will be server!\n");
-	g_timeout_add(MSQ_QUEUE_CHECK_TIME, (GSourceFunc)msg_queue_check, GINT_TO_POINTER(1));
+	DEBUG_MSG("msg_queue_become_server, we will be server! poll every %d milliseconds\n",main_v->globses.msg_queue_poll_time);
+	if (msg_queue.pollid) {
+		g_source_remove(msg_queue.pollid);	
+	}
+	msg_queue.pollid = g_timeout_add(MAX(MIN(main_v->globses.msg_queue_poll_time,250),750), (GSourceFunc)msg_queue_check, GINT_TO_POINTER(1));
 }
 
 /*
@@ -497,6 +501,7 @@ static void msg_queue_become_server(void) {
 void msg_queue_start(GList * filenames, gboolean open_new_window) {
 	gboolean queue_already_open;
 	msg_queue.timer = g_timer_new();
+	main_v->globses.msg_queue_poll_time = 500; /* a tuned value is set again later on in the process*/
 	DEBUG_MSG("msg_queue_start, open message queue\n");
 	queue_already_open = msg_queue_open();
 	if (queue_already_open && msg_queue.functional) {
@@ -546,9 +551,13 @@ void msg_queue_start(GList * filenames, gboolean open_new_window) {
 }
 
 void msg_queue_check_server(gboolean last_check) {
+	gdouble elapsed=0;
+	if (last_check) {
+		elapsed = g_timer_elapsed(msg_queue.timer,NULL);
+	}
 	if (msg_queue.functional && !msg_queue.server && !msg_queue.received_keepalive) {
 		if (last_check) {
-			gdouble remainder = (((gdouble)MSQ_QUEUE_CHECK_TIME)/1000.0) - g_timer_elapsed(msg_queue.timer,NULL);
+			gdouble remainder = (((gdouble)main_v->globses.msg_queue_poll_time)/1000.0) - elapsed;
 			g_print("start to here took %f seconds\n",g_timer_elapsed(msg_queue.timer,NULL));  
 			if (remainder > 0) {
 				/* wait for the remaining time, sleep slightly longer --> 110% */
@@ -576,10 +585,11 @@ void msg_queue_check_server(gboolean last_check) {
 		
 		}
 	}
-	if (last_check) {
-		gdouble elapsed = g_timer_elapsed(msg_queue.timer,NULL);
-		main_v->globses.msg_queue_poll_time = (int) (((1000.0 * elapsed)+main_v->globses.msg_queue_poll_time)/2.0); 
+	if (last_check) { /* auto-tune poll at an interval 90% of the startup interval */
+		main_v->globses.msg_queue_poll_time = (int) MAX(MIN(((900.0 * elapsed)+main_v->globses.msg_queue_poll_time)/2.0,750),200);
+		g_print("start to here took %d milliseconds, change poll queue timer to %d\n",(int)(elapsed*1000),main_v->globses.msg_queue_poll_time); 
 		g_timer_destroy(msg_queue.timer);
+		msg_queue_become_server();
 	}
 }
 
