@@ -89,15 +89,14 @@ typedef struct {
 	gboolean server;
 	gboolean received_keepalive;
 	int msgid;
-	GList *file_error_list;
+	GList *list_pos;
 	GTimer *timer;
-
 } Tmsg_queue;
 
 /******************************/
 /* global var for this module */
 /******************************/
-Tmsg_queue msg_queue = { TRUE, FALSE, FALSE, -1, NULL};
+Tmsg_queue msg_queue = { TRUE, FALSE, FALSE, -1, NULL, NULL};
 
 /**
  * msg_queue_check_alive:
@@ -119,7 +118,7 @@ static gboolean msg_queue_check_alive(void)
 		static struct timespec rem;
 		nanosleep(&req, &rem);
 	}*/
-
+	g_print("msg_queue_check_alive\n");
 	while (msgrcv
 		   (msg_queue.msgid, &small_msgp, MSQ_QUEUE_SMALL_SIZE * sizeof(char), MSG_QUEUE_SEND_ALIVE,
 			IPC_NOWAIT) != -1) {
@@ -203,7 +202,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout) {
 		char mtext[MSQ_QUEUE_SIZE];
 	} msgp;
 	gint retval;
-	gboolean run_again = TRUE;
+	gboolean run_again = TRUE, is_last = FALSE;
 	Tbfwin *bfwin;	
 	
 	if (main_v->bfwinlist == NULL || BFWIN(main_v->bfwinlist->data)->documentlist == NULL) {
@@ -215,8 +214,7 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout) {
 		return FALSE;
 	}
 	bfwin = BFWIN(g_list_last(main_v->bfwinlist)->data);
-	while (run_again) {
-		gboolean is_last = FALSE;
+	while (run_again && !is_last) {
 		run_again = FALSE;
 		
 		/* read all except MSG_QUEUE_SEND_ALIVE */
@@ -293,6 +291,52 @@ static gboolean msg_queue_check(gint started_by_gtk_timeout) {
 	return TRUE;
 }
 
+static int send_filename(GFile *file, gboolean is_last) {
+	gchar *curi;
+	gint len, retval;
+	struct msgbuf {
+		long mtype;
+		char mtext[MSQ_QUEUE_SIZE];
+	} msgp;	
+	curi = g_file_get_uri(file);
+	len = strlen(curi);
+	if (len >= MSQ_QUEUE_SIZE)
+		return -1;
+	
+	strncpy(msgp.mtext, curi, MSQ_QUEUE_SIZE - 1);
+	msgp.mtype = is_last ? MSG_QUEUE_OPENFILE_LAST : MSG_QUEUE_OPENFILE;
+	retval =	msgsnd(msg_queue.msgid, (void *) &msgp, MSQ_QUEUE_SIZE * sizeof(char), IPC_NOWAIT);
+	g_free(curi);
+	return retval;
+}
+static int msg_queue_send_new_window(void) {
+	int retval;
+	struct msgbuf {
+		long mtype;
+		char mtext[MSQ_QUEUE_SMALL_SIZE];
+	} small_msgp;
+	/* perhaps we should first check if the queue is alive */
+	gchar *pid_string = g_strdup_printf("%d", (int) getpid());
+	DEBUG_MSG("msg_queue_send_new_window, requesting new window using our PID %s!\n",pid_string);
+	small_msgp.mtype = MSG_QUEUE_OPENNEWWIN;
+	strncpy(small_msgp.mtext, pid_string, MSQ_QUEUE_SMALL_SIZE - 1);
+	retval = msgsnd(msg_queue.msgid,(void *) &small_msgp, MSQ_QUEUE_SMALL_SIZE * sizeof(char),IPC_NOWAIT);
+	return retval;
+}
+
+static gboolean msg_queue_send_remaining_files(void) {
+	while (msg_queue.list_pos != NULL) {
+		if (send_filename(msg_queue.list_pos->data, (msg_queue.list_pos->next ==NULL))==0) {
+			msg_queue.list_pos = msg_queue.list_pos->next;
+		} else {
+			g_print("msg_queue_send_remaining_files, %d files remaining\n",g_list_length(msg_queue.list_pos));
+			break;
+		}
+	}
+	
+	return (msg_queue.list_pos != NULL);
+}
+#ifdef DEPRECATED
 /**
  * msg_queue_send_names:
  *
@@ -396,7 +440,7 @@ static gboolean msg_queue_send_names(gint send_with_id, GList * names, gboolean 
 	}
 	return FALSE;
 }
-
+#endif /* DEPRECATED */
 /**
  * msg_queue_request_alive:
  *
@@ -439,23 +483,6 @@ static void msg_queue_request_alive(void)
 	}
 }
 
-static void msg_queue_send_new_window(void) {
-	int retval;
-	struct msgbuf {
-		long mtype;
-		char mtext[MSQ_QUEUE_SMALL_SIZE];
-	} small_msgp;
-	/* perhaps we should first check if the queue is alive */
-	gchar *pid_string = g_strdup_printf("%d", (int) getpid());
-	DEBUG_MSG("msg_queue_send_new_window, requesting new window using our PID %s!\n",pid_string);
-	small_msgp.mtype = MSG_QUEUE_OPENNEWWIN;
-	strncpy(small_msgp.mtext, pid_string, MSQ_QUEUE_SMALL_SIZE - 1);
-	retval = msgsnd(msg_queue.msgid,(void *) &small_msgp, MSQ_QUEUE_SMALL_SIZE * sizeof(char),IPC_NOWAIT);
-	if (retval == -1) {
-		/* hmm an error, we have to do some error handling here */
-	}
-}
-
 static void msg_queue_become_server(void) {
 	msg_queue.server = TRUE;
 	DEBUG_MSG("msg_queue_become_server, we will be server!\n");
@@ -478,13 +505,16 @@ void msg_queue_start(GList * filenames, gboolean open_new_window) {
 			msg_queue_send_new_window();
 		}
 		/* if we have filenames to open, we start sending them now, else we just check if we have to be master or not */
+		msg_queue.list_pos = filenames;
 		if (filenames) {
-			msg_queue.received_keepalive = msg_queue_send_names(MSG_QUEUE_OPENFILE, filenames, msg_queue.received_keepalive);
+			g_print("have %d files to send\n",g_list_length(filenames));
+			msg_queue_send_remaining_files();
+/*			msg_queue.received_keepalive = msg_queue_send_names(MSG_QUEUE_OPENFILE, filenames, msg_queue.received_keepalive);
 			DEBUG_MSG("msg_queue_start, after sending files and projects, keepalive=%d\n",msg_queue.received_keepalive);
 			if (msg_queue.received_keepalive) {
 				DEBUG_MSG("msg_queue_start, we did send all our messages to an active queue, exiting!\n");
 				exit(0);
-			}
+			}*/
 		}
 		
 /*		if (!received_keepalive) {
@@ -521,19 +551,29 @@ void msg_queue_check_server(gboolean last_check) {
 			gdouble remainder = (((gdouble)MSQ_QUEUE_CHECK_TIME)/1000.0) - g_timer_elapsed(msg_queue.timer,NULL);
 			DEBUG_MSG("start to here took %f seconds\n",g_timer_elapsed(msg_queue.timer,NULL));  
 			if (remainder > 0) {
-				/* wait for the remaining time */
+				/* wait for the remaining time, sleep slightly longer --> 110% */
 				struct timespec rem;
-				struct timespec req = { 0, (int)(1000000000.0 * remainder)};			
+				struct timespec req = { 0, (int)(1100000000.0 * remainder)};			
 				g_print("msg_queue_check_server, wait for %f seconds, %ld nanoseconds\n",remainder,req.tv_nsec);
 				nanosleep(&req, &rem);
 			}
 		}
 		msg_queue.received_keepalive = msg_queue_check_alive();
 		if (msg_queue.received_keepalive) {
+			/* now send all of the remaining files until we are done, then exit */
+			while (msg_queue_send_remaining_files()) {
+				struct timespec rem;
+				struct timespec req = { 0, (int)(250000000.0)};
+				g_print("sleep...\n");
+				nanosleep(&req, &rem);
+			}
 			DEBUG_MSG("msg_queue_check_server, we did send all our messages to an active queue, exiting!\n");
 			exit(0);
 		} else if (last_check) { /* still no keepalive on last_check */
 			msg_queue_become_server();
+		} else {
+			msg_queue_send_remaining_files();
+		
 		}
 	}
 	if (last_check) {
