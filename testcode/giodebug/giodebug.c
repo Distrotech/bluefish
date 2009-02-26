@@ -55,7 +55,8 @@ int main(int argc, char **argv) {
 	file = g_file_new_for_commandline_arg(argv[2]);
 	
 	if (strcmp(argv[1],"write")==0) {
-		char *buffer = "Hello world\n";
+		char *buffer = g_strdup("Hello world\n");
+		/* this creates a memor leak */
 		g_file_replace_contents_async(file,buffer,strlen(buffer),NULL,TRUE,0,NULL,replace_contents_async_lcb,file);
 	} else {
 		g_file_load_contents_async(file,NULL,load_contents_async_lcb,file);
