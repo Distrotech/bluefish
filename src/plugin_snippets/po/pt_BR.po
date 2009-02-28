@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bluefish 1.3.2\n"
 "Report-Msgid-Bugs-To: bluefish-dev@lists.ems.ru\n"
-"POT-Creation-Date: 2009-01-27 20:48+0100\n"
+"POT-Creation-Date: 2009-02-28 20:16+0100\n"
 "PO-Revision-Date: 2009-02-09 21:47-0300\n"
 "Last-Translator: Esfinge Metal <esfingemetal@gmail.com>\n"
 "Language-Team: \n"
@@ -116,8 +116,14 @@ msgid "PERL"
 msgstr "PERL"
 
 #: src/plugin_snippets/snippets_wizard.c:133
-msgid "Specify a search and a replace pattern. You may use %0, %1, ...%5 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right."
-msgstr "Especifique um padrão de busca e substituição. Você deve usar os espaços %0, %1, ...%5 para perguntar por valores quando você ativar esse item. Nomeie esses espaços adequadamente a direita."
+msgid ""
+"Specify a search and a replace pattern. You may use %0, %1, ...%5 "
+"placeholders to ask for values when you activate this item. Give these "
+"placeholders an appropriate name on the right."
+msgstr ""
+"Especifique um padrão de busca e substituição. Você deve usar os espaços %0, "
+"%1, ...%5 para perguntar por valores quando você ativar esse item. Nomeie "
+"esses espaços adequadamente a direita."
 
 #: src/plugin_snippets/snippets_wizard.c:140
 msgid "_Search for: "
@@ -148,16 +154,22 @@ msgid "_Use escape chars"
 msgstr "_Usar caracteres de escapamento"
 
 #: src/plugin_snippets/snippets_wizard.c:166
-msgid ""
-"Unescape backslash escaped characters such as \\n"
-", \\t etc."
-msgstr ""
-"Não escapar caracteres de barra invertida como \\n"
-", \\t etc."
+msgid "Unescape backslash escaped characters such as \\n, \\t etc."
+msgstr "Não escapar caracteres de barra invertida como \\n, \\t etc."
 
 #: src/plugin_snippets/snippets_wizard.c:339
-msgid "The <i>before</i> text will be inserted before the cursor position or the current selection, the <i>after</i> text will be inserted after the cursor position or the current selection. You may use %0, %1, ...%9 placeholders to ask for values when you activate this item. Give these placeholders an appropriate name on the right."
-msgstr "O texto <i>antes</i> será inserido antes da posição do cursor ou na atual seleção,o texto <i>depois</i> será inserido depois da posição do cursor ou na selecão atual.Você deve usar os espaços %0, %1, ...%9 para perguntar por valores quando você ativaresse item. Nomeie esses espaços adequadamente a direita."
+msgid ""
+"The <i>before</i> text will be inserted before the cursor position or the "
+"current selection, the <i>after</i> text will be inserted after the cursor "
+"position or the current selection. You may use %0, %1, ...%9 placeholders to "
+"ask for values when you activate this item. Give these placeholders an "
+"appropriate name on the right."
+msgstr ""
+"O texto <i>antes</i> será inserido antes da posição do cursor ou na atual "
+"seleção,o texto <i>depois</i> será inserido depois da posição do cursor ou "
+"na selecão atual.Você deve usar os espaços %0, %1, ...%9 para perguntar por "
+"valores quando você ativaresse item. Nomeie esses espaços adequadamente a "
+"direita."
 
 #: src/plugin_snippets/snippets_wizard.c:345
 msgid "<i>Before</i> text"
@@ -198,4 +210,3 @@ msgstr "Padrão de busca e substituição"
 #: src/plugin_snippets/snippets_wizard.c:721
 msgid "New snippet"
 msgstr "Novo snippet"
-
