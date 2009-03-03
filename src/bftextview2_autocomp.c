@@ -33,6 +33,7 @@ typedef struct {
 	GtkListStore *store;
 	GtkTreeView *tree;
 	GtkWidget *reflabel;
+	gint listwidth;
 } Tacwin;
 
 #define ACWIN(p) ((Tacwin *)(p))
@@ -156,16 +157,19 @@ static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 		if (key) {
 			gchar *string = g_hash_table_lookup(acw->context->reference,key);
 			if (string) {
+				GtkRequisition requisition;
 				DBG_AUTOCOMP("show %s\n",string);
 				gtk_label_set_markup(GTK_LABEL(acw->reflabel),string);
 				gtk_widget_show(acw->reflabel);
-				gtk_widget_set_size_request(acw->win, 300, 200);
+				gtk_widget_size_request(acw->reflabel,&requisition);
+				/*gtk_window_get_size(GTK_WINDOW(acw->win),&width,&height);*/
+				gtk_widget_set_size_request(acw->win, acw->listwidth+requisition.width+2, -1);
 				return;
 			}
 		}
 	}
 	gtk_widget_hide(acw->reflabel);
-	gtk_widget_set_size_request(acw->win, 150, 200);
+	gtk_widget_set_size_request(acw->win, acw->listwidth, -1);
 }
 
 static Tacwin *acwin_create(BluefishTextView *btv, guint16 context) {
@@ -208,12 +212,13 @@ static Tacwin *acwin_create(BluefishTextView *btv, guint16 context) {
 	gtk_container_add(GTK_CONTAINER(scroll), GTK_WIDGET(acw->tree));
 
 	hbox = gtk_hbox_new(FALSE,0);
-	gtk_box_pack_start(GTK_BOX(hbox),scroll,TRUE,TRUE,0);
+	gtk_box_pack_start(GTK_BOX(hbox),scroll,FALSE,TRUE,0);
 	acw->reflabel = gtk_label_new(NULL);
 	gtk_label_set_line_wrap(GTK_LABEL(acw->reflabel),TRUE);
+	gtk_misc_set_alignment(GTK_MISC(acw->reflabel),0.1,0.1);
 	gtk_box_pack_start(GTK_BOX(hbox),acw->reflabel,TRUE,TRUE,0);
 	gtk_container_add(GTK_CONTAINER(acw->win), hbox);
-	gtk_widget_set_size_request(acw->reflabel,150,-1);
+	/*gtk_widget_set_size_request(acw->reflabel,150,-1);*/
 	gtk_widget_show_all(scroll);
 	gtk_widget_show(hbox);
 	/*gtk_widget_set_size_request(GTK_WIDGET(acw->tree),100,200);*/
@@ -266,14 +271,14 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 	}
 	g_list_free(list);
 	if (longest) {
-		gint len,rowh,h,w;
+		gint len,rowh,h;
 		PangoLayout *panlay = gtk_widget_create_pango_layout(GTK_WIDGET(acw->tree), NULL);
 		pango_layout_set_markup(panlay,longest,-1);
 		pango_layout_get_pixel_size(panlay, &len, &rowh);
 		h = MIN(MAX((numitems+1)*rowh+8,150),350);
 		g_print("numitems=%d, rowh=%d, new height=%d\n",numitems,rowh,h);
-		w = len+20;
-		gtk_widget_set_size_request(GTK_WIDGET(acw->tree),w,h); /* ac_window */
+		acw->listwidth = len+20;
+		gtk_widget_set_size_request(GTK_WIDGET(acw->tree),acw->listwidth,h); /* ac_window */
 		g_free(longest);
 	}
 }
