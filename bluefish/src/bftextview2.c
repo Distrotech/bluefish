@@ -861,7 +861,7 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 		if (event->button == 1) {
 			gint x, y;
 			GtkTextIter it;
-			if (event->x >= btv->margin_pixels_chars) { /* get the offset that equals the folding area */
+			if (btv->showblocks && event->x >= btv->margin_pixels_chars) { /* get the offset that equals the folding area */
 				gtk_text_view_window_to_buffer_coords(GTK_TEXT_VIEW(btv), GTK_TEXT_WINDOW_TEXT, 0,
 													  event->y, &x, &y);
 				gtk_text_view_get_line_at_y(GTK_TEXT_VIEW(widget), &it, y, &x);
