@@ -3,7 +3,7 @@
 
 import xml.dom.minidom
 
-bflib = xml.dom.minidom.parse('/home/olivier/svnbluefish/data/bflib/bflib_css2.xml')
+references = {}
 
 def getText(parent):
 	rc = ""
@@ -46,8 +46,53 @@ def printchilds(node):
 		for child in node.childNodes:
 			printchilds(child)
 
+bflib = xml.dom.minidom.parse('/home/olivier/svnbluefish/data/bflib/bflib_css2.xml')
 for node in bflib.getElementsByTagName('element'):
 	name,data = getCssElement(node)
-	print name,data
+	if (name != None and len(data)>5):
+		references[name] = data
 
-#printchilds(bflib)		
+print 'have '+str(len(references))+' references'
+
+haveprops = {}		
+
+def element_has_reference(node):
+	for e in node.childNodes:
+		if (e.nodeType == e.ELEMENT_NODE and e.nodeName == 'reference'):
+			return True
+	return False
+
+def add_reference(node, pattern):
+	print 'add to '+pattern
+	child = bflang.createElement("reference")
+	txt = bflang.createTextNode(references[pattern])
+	child.appendChild(txt)
+	node.appendChild(child)
+
+def fill_css_references(node):
+	for child in node.childNodes:
+		if (child.nodeType == child.ELEMENT_NODE and child.nodeName == 'element'):
+			if (child.attributes and child.attributes.has_key('pattern')):
+				pattern = child.attributes['pattern'].value
+				haveprops[pattern] = True
+				if (not element_has_reference(child) and references.has_key(pattern)):
+					add_reference(child, pattern)
+
+def add_missing_patterns(node):
+	for key in references.keys():
+		if (not haveprops.has_key(key)):
+			print key, 'is missing'
+
+bflang = xml.dom.minidom.parse('/home/olivier/svnbluefish/data/bflang/css.bflang2')
+for node in bflang.getElementsByTagName('context'):
+	if (node.attributes and node.attributes.has_key('id') and node.attributes['id'].value == 'css_properties'):
+		fill_css_references(node)
+		add_missing_patterns(node)
+
+fp = open("css.bflang2","w")
+# writexml(self, writer, indent='', addindent='', newl='', encoding=None)
+bflang.writexml(fp)
+
+print 'have '+str(len(haveprops))+' properties'
+
+#print bflang.toxml()
