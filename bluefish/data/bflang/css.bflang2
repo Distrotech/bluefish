@@ -486,11 +486,28 @@
 				<element pattern="list-style-image" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="list-style-position" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="list-style-type" autocomplete="1" highlight="property" autocomplete_append=": "/>
-				<element pattern="margin" autocomplete="1" highlight="property" autocomplete_append=": "/>
-				<element pattern="margin-bottom" autocomplete="1" highlight="property" autocomplete_append=": "/>
-				<element pattern="margin-left" autocomplete="1" highlight="property" autocomplete_append=": "/>
-				<element pattern="margin-right" autocomplete="1" highlight="property" autocomplete_append=": "/>
-				<element pattern="margin-top" autocomplete="1" highlight="property" autocomplete_append=": "/>
+				<element pattern="margin" autocomplete="1" highlight="property" autocomplete_append=": ">
+				<reference>If there is only one value, it applies to all sides. If there are two values, the top and bottom margins are set to the first value and the right and left margins are set to the second. If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom is set to the third. If there are four values, they apply to the top, right, bottom, and left, respectively. </reference>
+				</element>
+				<element pattern="margin-bottom" autocomplete="1" highlight="property" autocomplete_append=": ">
+					<context id="width-length" symbols=" &#9;&#10;&#13;{}.;">
+						<element pattern="[0-9]+em" is_regex="1" highlight="value" autocomplete_string=" em;"/>
+						<element pattern="[0-9]+ex" is_regex="1" highlight="value" autocomplete_string=" ex;"/>
+						<element pattern="[0-9]+px" is_regex="1" highlight="value" autocomplete_string=" px;"/>
+						<element pattern="[0-9]+%" is_regex="1" highlight="value" autocomplete_string=" %;"/>
+						<element idref=";" />
+						<element idref="}" />
+					</context>
+				</element>
+				<element pattern="margin-left" autocomplete="1" highlight="property" autocomplete_append=": ">
+				<context idref="width-length"/>
+				</element>
+				<element pattern="margin-right" autocomplete="1" highlight="property" autocomplete_append=": ">
+				<context idref="width-length"/>
+				</element>
+				<element pattern="margin-top" autocomplete="1" highlight="property" autocomplete_append=": ">
+				<context idref="width-length"/>
+				</element>
 				<element pattern="max-height" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="max-width" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="min-height" autocomplete="1" highlight="property" autocomplete_append=": "/>
@@ -502,11 +519,21 @@
 				</element>
 				<element pattern="outline-style" autocomplete="1" highlight="property" autocomplete_append=": "/>
 				<element pattern="outline-width" autocomplete="1" highlight="property" autocomplete_append=": "/>
-				<element pattern="padding" autocomplete="1" highlight="property" autocomplete_append=": "/>
-				<element pattern="padding-bottom" autocomplete="1" highlight="property" autocomplete_append=": "/>
-				<element pattern="padding-left" autocomplete="1" highlight="property" autocomplete_append=": "/>
-				<element pattern="padding-right" autocomplete="1" highlight="property" autocomplete_append=": "/>
-				<element pattern="padding-top" autocomplete="1" highlight="property" autocomplete_append=": "/>
+				<element pattern="padding" autocomplete="1" highlight="property" autocomplete_append=": ">
+				<reference>If there is only one value, it applies to all sides. If there are two values, the top and bottom paddings are set to the first value and the right and left paddings are set to the second. If there are three values, the top is set to the first value, the left and right are set to the second, and the bottom is set to the third. If there are four values, they apply to the top, right, bottom, and left, respectively.</reference>
+				</element>
+				<element pattern="padding-bottom" autocomplete="1" highlight="property" autocomplete_append=": ">
+				<context idref="width-length"/>
+				</element>
+				<element pattern="padding-left" autocomplete="1" highlight="property" autocomplete_append=": ">
+				<context idref="width-length"/>
+				</element>
+				<element pattern="padding-right" autocomplete="1" highlight="property" autocomplete_append=": ">
+				<context idref="width-length"/>
+				</element>
+				<element pattern="padding-top" autocomplete="1" highlight="property" autocomplete_append=": ">
+				<context idref="width-length"/>
+				</element>
 				<element pattern="position" autocomplete="1" highlight="property" autocomplete_append=": ">
 					<reference><b>position</b>: The 'position' and 'float' properties determine which of the CSS2 positioning algorithms is used to calculate the position of a box</reference>
 					<context symbols=" &#9;&#10;&#13;{}.;">
