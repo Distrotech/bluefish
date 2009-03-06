@@ -53,14 +53,14 @@ static Tpixmap tp[] = {
 	{102, pixmap_view_in_browser},
  	{104, pixmap_bookmarks},
 	{105, pixmap_filetree},
-	{106, pixmap_fref},
+/*	{106, pixmap_fref},
 	{107, pixmap_frinfo},
 	{108, pixmap_frdialog},
-	{109, pixmap_frsearch},
+	{109, pixmap_frsearch},*/
 /*	{110, pixmap_indent},
 	{111, pixmap_unindent},*/
 	{112, pixmap_open_small},
-	{150, pixmap_prefseditor},
+/*	{150, pixmap_prefseditor},
 	{151, pixmap_prefsexternal},
 	{152, pixmap_prefsfiles},
 	{153, pixmap_prefsfiletypes},
@@ -68,9 +68,9 @@ static Tpixmap tp[] = {
 	{155, pixmap_prefsimages},
 	{156, pixmap_prefsinterface},
 	{157, pixmap_prefsoutputparser},
-	{158, pixmap_prefssyntax},
+	{158, pixmap_prefssyntax},*/
 	{159, pixmap_nothing},
-	{160, pixmap_frhide},
+/*	{160, pixmap_frhide},
 	{161, pixmap_frdialog2},
 	{162, pixmap_frlibrary},
 	{170, pixmap_frlibrary_ro},	
@@ -80,7 +80,7 @@ static Tpixmap tp[] = {
 	{166, pixmap_frtag},
 	{167, pixmap_frvar},
 	{168, pixmap_frcss},
-	{169, pixmap_frsnippet}
+	{169, pixmap_frsnippet}*/
 };
 
 static Tstockpixmap tsp[] = {
