@@ -1447,7 +1447,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 				gtk_list_store_append(store,&iter);
 				gtk_list_store_set(store,&iter,0,label,1,arr,-1);
 				g_free (label);
-				if (bfwin->session->encoding && strcmp(arr[1],bfwin->session->encoding)==0) {
+				if (have_seliter==FALSE && bfwin->session->encoding && strcmp(arr[1],bfwin->session->encoding)==0) {
 					seliter = iter;
 					have_seliter = TRUE;
 				}
