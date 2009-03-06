@@ -2482,19 +2482,21 @@ void fb2_update_settings_from_session(Tbfwin * bfwin)
 			fb2->filebrowser_show_backup_files = bfwin->session->filebrowser_show_backup_files;
 			need_refilter = TRUE;
 		}
+		if (bfwin->session->recent_dirs) {
+			const gchar *tmp = (gchar *)((GList *) g_list_last(bfwin->session->recent_dirs))->data;
+			/* the fb2_set_basedir function tests itself if  the basedir if changed, if not it does not refresh */
+			DEBUG_MSG("fb2_update_settings_from_session, set basedir %s\n",tmp);
+			if (tmp && tmp[0]) {
+				fb2_set_basedir(bfwin, tmp);
+			}
+		} else {
+			fb2_set_basedir(bfwin, NULL);
+		}
 		if (need_refilter) {
 			if (fb2->dir_tfilter)
 				gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->dir_tfilter));
 			if (fb2->file_lfilter && fb2->filebrowser_viewmode == viewmode_dual)
 				gtk_tree_model_filter_refilter(GTK_TREE_MODEL_FILTER(fb2->file_lfilter));
-		}
-		if (bfwin->session->recent_dirs) {
-			const gchar *tmp = (gchar *)((GList *) g_list_last(bfwin->session->recent_dirs))->data;
-			/* the fb2_set_basedir function tests itself if  the basedir if changed, if not it does not refresh */
-			if (tmp && tmp[0])
-				fb2_set_basedir(bfwin, tmp);
-		} else {
-			fb2_set_basedir(bfwin, NULL);
 		}
 	}
 }
