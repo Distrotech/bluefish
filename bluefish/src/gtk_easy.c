@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * gtk_easy.c
  *
- * Copyright (C) 1999-2008 Olivier Sessink
+ * Copyright (C) 1999-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1347,7 +1347,7 @@ GtkWidget * file_chooser_dialog(Tbfwin *bfwin, gchar *title, GtkFileChooserActio
 			else if (bfwin->session->opendir) gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),bfwin->session->opendir);
 		} else {
 			DEBUG_MSG("file_chooser_dialog, opendir=%s, localonly=%d\n",bfwin->session->opendir,localonly);
-			gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),bfwin->session->opendir);
+			if (bfwin->session->opendir) gtk_file_chooser_set_current_folder_uri(GTK_FILE_CHOOSER(dialog),bfwin->session->opendir);
 		}
 	}
 #ifdef DEBUG

@@ -105,7 +105,7 @@ Tdocument *doc_new(Tbfwin* bfwin, gboolean delay_activate);
 Tdocument *doc_new_loading_in_background(Tbfwin *bfwin, GFile *uri, GFileInfo *finfo, gboolean readonly);
 void doc_new_from_uri(Tbfwin *bfwin, GFile *opturi, GFileInfo *finfo, gboolean delay_activate, gboolean move_to_this_win, gint goto_line, gint goto_offset);
 void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gboolean move_to_this_win, gint goto_line);
-void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_win);
+/*void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_win);*/
 
 Tdocument *doc_new_with_file(Tbfwin *bfwin, gchar * filename, gboolean delay_activate, gboolean move_to_this_win);
 void docs_new_from_files(Tbfwin *bfwin, GList * file_list, gboolean move_to_this_win);

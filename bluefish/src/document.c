@@ -2428,7 +2428,7 @@ void doc_new_from_input(Tbfwin *bfwin, gchar *input, gboolean delay_activate, gb
 		g_object_unref(uri);
 	}
 }
-
+/*
 void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_win) {
 	GSList *tmpslist;
 	gboolean one_doc=(g_slist_length(urislist)==1);
@@ -2445,7 +2445,7 @@ void docs_new_from_uris(Tbfwin *bfwin, GSList *urislist, gboolean move_to_this_w
 		tmpslist = g_slist_next(tmpslist);
 	}
 	DEBUG_MSG("docs_new_from_uris, done, all documents loading in background\n");
-}
+}*/
 
 /**
  * docs_new_from_files:

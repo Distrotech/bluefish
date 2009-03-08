@@ -109,7 +109,7 @@ gchar *create_secure_dir_return_filename(void);
 /*void remove_secure_dir_and_filename(gchar *filename);*/
 /*gchar *buf_replace_char(gchar *buf, gint len, gchar srcchar, gchar destchar);*/
 void wordcount(gchar *text, guint *chars, guint *lines, guint *words);
-GSList *gslist_from_glist_reversed(GList *src);
+/*GSList *gslist_from_glist_reversed(GList *src);*/
 GList *glist_from_gslist(GSList *src);
 gchar *bf_portable_time(const time_t *timep);
 
