@@ -33,7 +33,7 @@
 	<highlight name="keyword" style="keyword" />
 	<highlight name="value" style="value"  />
 	<highlight name="function" style="function"  />
-	<highlight name="asp-comment" style="comment"  />
+	<highlight name="vbscript-comment" style="comment"  />
 	<highlight name="html-comment" style="comment"  />
 </header>
 <definition>
@@ -83,7 +83,7 @@
 <!-- <element pattern="&lt;script[ &#9;].+javascript.+&gt;" is_regex="1" case_insens="1" highlight="keyword"/> -->
 
 <element pattern="&lt;%" starts_block="1" highlight="region">
-	<context id="vbscript" autocomplete_case_insens="1" symbols=" '&#34;():.,/$#*-+=&gt;&lt;&amp; &#9;&#10;&#13;" highlight="region">
+	<context id="vbscript" autocomplete_case_insens="1" symbols=" '&#34;():.,/*-+=&gt;&lt;&amp; &#9;&#10;&#13;" highlight="region">
 		<group autocomplete="1" case_insens="1" highlight="keyword">
 		<element pattern="and" />
 		<element pattern="as" />
@@ -152,54 +152,66 @@
 		<element pattern="&#34;" highlight="string">
 			<context symbols="&#34;" highlight="string">
 				<element pattern="&#34;" highlight="string" ends_context="1" />
+				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;%" highlight="region" mayfold="1" />
 			</context>
 		</element>
 		
-		<element pattern="'" highlight="comment">
+		<element pattern="'" highlight="vbscript-comment">
 			<context symbols="%&gt;&#10;" highlight="comment">
 				<element pattern="&#10;" ends_context="1" />
 				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;%" highlight="region" mayfold="1" />
 			</context>
 		</element>
 		
-		<element pattern="for" case_insens="1" starts_block="1" mayfold="1" highlight="brackets" />
-		<element pattern="next" case_insens="1" ends_block="1" blockstartelement="for" mayfold="1" highlight="brackets" />
-		<element pattern="do" case_insens="1" starts_block="1" mayfold="1" highlight="brackets" />
-		<element pattern="loop" case_insens="1" ends_block="1" blockstartelement="do" mayfold="1" highlight="brackets" />
-		<element pattern="while" case_insens="1" starts_block="1" mayfold="1" highlight="brackets" />
-		<element pattern="wend" case_insens="1" ends_block="1" blockstartelement="while" mayfold="1" highlight="brackets" />
+		<element pattern="rem" case_insens="1" highlight="vbscript-comment">
+			<context symbols="%&gt;&#10;" highlight="comment">
+				<element pattern="&#10;" ends_context="1" />
+				<element pattern="%&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;%" highlight="region" mayfold="1" />
+			</context>
+		</element>
+		
+		<element pattern="exit[\ \t]+for" is_regex="1" case_insens="1" highlight="keyword" autocomplete="1" autocomplete_string="exit for" mayfold="1" />
+		<element pattern="exit[\ \t]+do" is_regex="1" case_insens="1" highlight="keyword" autocomplete="1" autocomplete_string="exit do" mayfold="1" />
+		<element pattern="exit[\ \t]+while" is_regex="1" case_insens="1" highlight="keyword" autocomplete="1" autocomplete_string="exit while" mayfold="1" />
 		<element pattern="exit[\ \t]+sub" is_regex="1" case_insens="1" highlight="keyword" autocomplete="1" autocomplete_string="exit sub" mayfold="1" />
-		<element pattern="sub" case_insens="1" starts_block="1" mayfold="1" highlight="brackets" />
-		<element pattern="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartelement="sub" autocomplete="1" autocomplete_string="end sub" mayfold="1" highlight="brackets" />
-
-		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
 		<element pattern="exit[\ \t]+function" is_regex="1" case_insens="1" highlight="keyword" autocomplete="1" autocomplete_string="exit function" mayfold="1" />
-		<element pattern="function" starts_block="1" case_insens="1" mayfold="1" highlight="brackets" />
-		<element pattern="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartelement="function" mayfold="1" highlight="brackets" autocomplete="1" autocomplete_string="end function" />
-		<element pattern="if" starts_block="1" is_regex="1" case_insens="1" mayfold="1" highlight="brackets" />
-		<element pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartelement="if[\ \t]+.then" mayfold="1" highlight="brackets" />
-		<element pattern="with" starts_block="1" case_insens="1" mayfold="1" highlight="brackets" />
-		<element pattern="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartelement="with" mayfold="1" highlight="brackets" autocomplete="1" autocomplete_string="end with" />
-		<element pattern="select" starts_block="1" case_insens="1" mayfold="1" highlight="brackets" />
-		<element pattern="end[\ \t]+select" is_regex="1" case_insens="1" ends_block="1" blockstartelement="select" mayfold="1" highlight="brackets" autocomplete="1" autocomplete_string="end select" />
+
+		<element pattern="for" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
+		<element pattern="next" case_insens="1" ends_block="1" blockstartelement="for" mayfold="1" highlight="keyword" />
+		<element pattern="do" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
+		<element pattern="loop" case_insens="1" ends_block="1" blockstartelement="do" mayfold="1" highlight="keyword" />
+		<element pattern="while" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
+		<element pattern="wend" case_insens="1" ends_block="1" blockstartelement="while" mayfold="1" highlight="keyword" />
+		<element pattern="sub" case_insens="1" starts_block="1" mayfold="1" highlight="keyword" />
+		<element pattern="end[\ \t]+sub" is_regex="1" case_insens="1" ends_block="1" blockstartelement="sub" autocomplete="1" autocomplete_string="end sub" mayfold="1" highlight="keyword" />
+		<element pattern="function" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
+		<element pattern="end[\ \t]+function" is_regex="1" case_insens="1" ends_block="1" blockstartelement="function" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end function" />
+		<element pattern="property" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
+		<element pattern="end[\ \t]+property" is_regex="1" case_insens="1" ends_block="1" blockstartelement="property" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end property" />
+<!--
+		<element pattern="if[\ \t].+[\ \t]then[\ \t]*&#10;&#13;" starts_block="1" is_regex="1" case_insens="1" mayfold="1" highlight="keyword" autocomplete_string="if" />
+		<element pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartelement="if[\ \t].+[\ \t]then[\ \t]*&#10;&#13;" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end if" />
+		<element pattern="if.+then[\ \t]*&#10;&#13;" starts_block="1" is_regex="1" case_insens="1" mayfold="1" highlight="keyword" autocomplete_string="if" />
+		<element pattern="end[\ \t]+if" is_regex="1" case_insens="1" ends_block="1" blockstartelement="if.+then[\ \t]*&#10;&#13;" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end if" />
+-->
+
+		<element pattern="with" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
+		<element pattern="end[\ \t]+with" is_regex="1" case_insens="1" ends_block="1" blockstartelement="with" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end with" />
+		<element pattern="select" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
+		<element pattern="end[\ \t]+select" is_regex="1" case_insens="1" ends_block="1" blockstartelement="select" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end select" />
+		<element pattern="class" starts_block="1" case_insens="1" mayfold="1" highlight="keyword" />
+		<element pattern="end[\ \t]+class" is_regex="1" case_insens="1" ends_block="1" blockstartelement="class" mayfold="1" highlight="keyword" autocomplete="1" autocomplete_string="end class" />
 
 		<element pattern="%&gt;" ends_block="1" blockstartelement="&lt;%" highlight="region" mayfold="1" ends_context="1" />
+		<element pattern="[0-9.]+" is_regex="1" highlight="value"/>
+
+		<element pattern="[a-z][a-z_0-9]*[\$%]?" is_regex="1" case_insens="1" highlight="variable"/>
 <!--
-		<element pattern="[a-z][a-z0-9_]*[$%]?" is_regex="1" case_insens="1" highlight="variable"/>
--->
 		<element pattern="[a-z][[a-z_0-9]*" is_regex="1" case_insens="1" highlight="variable"/>
-
-	</context>
-</element>
-
-
-<!--
-<element pattern="&lt;script.+javascript.+&gt;" is_regex="1" case_insens="1" starts_block="1" highlight="region">
-	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-		<element pattern="&lt;/script&gt;" is_regex="1" case_insens="1" ends_block="1" blockstartelement="&lt;script.+javascript.+&gt;" highlight="region" mayfold="1" ends_context="1" />
-	</context>
-</element>
 -->
+
+	</context>
+</element>
 
 <element pattern="&lt;!--" highlight="html-comment" starts_block="1">
 	<context symbols="-&gt; &#9;&#10;&#13;" highlight="html-comment">
