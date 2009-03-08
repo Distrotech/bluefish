@@ -229,11 +229,9 @@ void file_open_advanced_cb(GtkWidget * widget, Tbfwin * bfwin)
 static void file_open_ok_lcb(GtkDialog * dialog, gint response, Tbfwin * bfwin)
 {
 	if (response == GTK_RESPONSE_ACCEPT) {
-		GSList *slist;
+		GSList *slist, *tmpslist;
 		GtkComboBox *combo;
 		bfwin->focus_next_new_doc = TRUE;
-		slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
-
 		combo = g_object_get_data(G_OBJECT(dialog), "encodings");
 		if (combo) {
 			GtkTreeIter iter;
@@ -252,9 +250,26 @@ static void file_open_ok_lcb(GtkDialog * dialog, gint response, Tbfwin * bfwin)
 				DEBUG_MSG("file_open_ok_lcb, session encoding is set to %s\n", bfwin->session->encoding);
 			}
 		}
-		docs_new_from_uris(bfwin, slist, FALSE);
-		g_slist_foreach(slist, (GFunc) g_free, NULL);
+#if GTK_CHECK_VERSION(2,14,0)
+		tmpslist = slist = gtk_file_chooser_get_files(GTK_FILE_CHOOSER(dialog));
+		while (tmpslist) {
+			doc_new_from_uri(bfwin, (GFile *)tmpslist->data, NULL, (slist->next==NULL), FALSE, -1, -1);
+			g_object_unref((GFile *)tmpslist->data);
+			tmpslist = tmpslist->next;
+		}
 		g_slist_free(slist);
+#else
+		tmpslist = slist = gtk_file_chooser_get_uris(GTK_FILE_CHOOSER(dialog));
+		while (tmpslist) {
+			GFile *file;
+			file = g_file_new_for_uri((gchar *) tmpslist->data);
+			doc_new_from_uri(bfwin, file, NULL, (slist->next==NULL), FALSE, -1, -1);
+			g_object_unref(file);
+			g_free((gchar *) tmpslist->data);
+			tmpslist = tmpslist->next;
+		}
+		g_slist_free(slist);
+#endif
 	}
 	gtk_widget_destroy(GTK_WIDGET(dialog));
 }

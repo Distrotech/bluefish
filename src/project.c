@@ -266,7 +266,7 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 	Tbfwin *prwin;
 	Tproject *prj;
 	gboolean retval;
-	GSList *slist;
+	GList *tmplist;
 
 	/* first we test if the project is already open */
 	prwin = project_is_open(fromuri);
@@ -305,9 +305,17 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 		DEBUG_MSG("project_open_from_file, we need a new window\n");
 		prwin = gui_new_window(prj);
 	}
-	slist = gslist_from_glist_reversed(prj->files);
-	docs_new_from_uris(prwin, slist, TRUE);
-	g_slist_free(slist);
+	tmplist = g_list_last(prj->files);
+	while (tmplist) {
+		GFile *uri;
+		if (strstr ((gchar *) tmplist->data, "://") == NULL)
+			uri = g_file_new_for_path((gchar *) tmplist->data);
+		else
+			uri = g_file_new_for_uri((gchar *) tmplist->data);
+		doc_new_from_uri(bfwin, uri, NULL, (prj->files->next==NULL), TRUE, -1, -1);
+		g_object_unref(uri);
+		tmplist = g_list_previous(tmplist);
+	}
 	DEBUG_MSG("project_open_from_file, new window with files ready at prwin=%p\n",prwin);
 	setup_bfwin_for_project(prwin);
 	set_project_menu_widgets(prwin, TRUE);
