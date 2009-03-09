@@ -82,7 +82,7 @@
 	<element pattern="double"><reference><b></b> double is the big floating point storage type, which is 4 or 8 byte (32 or 64bits)</reference></element>
 </group>
 <group class="glib">
-<group  highlight="glib-function" autocomplete="1">
+<group  highlight="glib-function" autocomplete="1" autocomplete_append="();">
 <element pattern="glib_check_version" />
 <element pattern="g_atomic_int_get" />
 <element pattern="g_atomic_int_set" />
