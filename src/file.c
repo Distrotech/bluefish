@@ -1149,12 +1149,132 @@ void copy_files_async(Tbfwin *bfwin, GFile *destdir, gchar *sources) {
 	g_strfreev(splitted);
 	copy_uris_process_queue(cf);
 }
+#ifdef SYNC
+/* some experimental code to upload a site with GIO/GVFS */
 
+typedef struct {
+	GFile *basedir;
+	GFile *targetdir;
+	gint numworking;
+	GList *localfiles;
+	
+
+} Tsync;
+
+typedef struct {
+	GFileEnumerator *enmrt;
+
+} Tsync_walkdir;
+
+typedef struct {
+	GFileEnumerator *enmrt;
+	GFile *file
+
+} Tsync_needupdate;
+
+
+
+
+static void remote_cleanup(Tsync *sync) {
+	g_file_enumerate_children_async(dir,
+                                                         const char *attributes,
+                                                         GFileQueryInfoFlags flags,
+                                                         int io_priority,
+                                                         GCancellable *cancellable,
+                                                         GAsyncReadyCallback callback,
+                                                         gpointer user_data);
+
+}
+
+static void do_update_lcb(Tsync *sync) {
+gboolean            g_file_copy_finish                  (GFile *file,
+                                                         GAsyncResult *res,
+                                                      GError **error);
+	if () {
+		remote_cleanup();
+	}
+}
+
+static void do_update(Tsync *sync, GFile *uri) {
+g_file_copy_async                   (GFile *source,
+                                                         GFile *destination,
+                                                         GFileCopyFlags flags,
+                                                         int io_priority,
+                                                         GCancellable *cancellable,
+                                                         GFileProgressCallback progress_callback,
+                                                         gpointer progress_callback_data,
+                                                         GAsyncReadyCallback callback,
+                                                         gpointer user_data);
+}
+
+static void check_update_need_lcb(Tsync *sync) {
+	GFileInfo *         g_file_query_filesystem_info_finish (GFile *file,
+                                                         GAsyncResult *res,
+                                                         GError **error);
+}
+
+static void check_update_need(Tsync *sync, GFile *uri) {
+	g_file_query_filesystem_info_async  (GFile *file,
+                                                         const char *attributes,
+                                                         int io_priority,
+                                                         GCancellable *cancellable,
+                                                         GAsyncReadyCallback callback,
+                                                         gpointer user_data);
+}
+
+static void walk_local_directory_enumerate_next_files_lcb(Tsync *sync) {
+
+	check_update_need();
+
+
+	if () {
+		g_file_enumerator_close             (GFileEnumerator *enumerator,
+                                                         GCancellable *cancellable,
+                                                         GError **error);
+		g_object_unref();
+	} else {
+		g_file_enumerator_next_files_async  (GFileEnumerator *enumerator,
+                                                         int num_files,
+                                                         int io_priority,
+                                                         GCancellable *cancellable,
+                                                         GAsyncReadyCallback callback,
+                                                         gpointer user_data);
+	}
+}
+
+static void walk_local_directory_enumerate_lcb(Tsync *sync) {
+GFileEnumerator *   g_file_enumerate_children_finish    (GFile *file,
+                                                         GAsyncResult *res,
+                                                         GError **error);
+g_file_enumerator_next_files_async  (GFileEnumerator *enumerator,
+                                                         int num_files,
+                                                         int io_priority,
+                                                         GCancellable *cancellable,
+                                                         GAsyncReadyCallback callback,
+                                                         gpointer user_data);
+}
+
+static void walk_local_directory(Tsync *sync, GFile *dir) {
+	g_file_enumerate_children_async(dir,
+                                                         const char *attributes,
+                                                         GFileQueryInfoFlags flags,
+                                                         int io_priority,
+                                                         GCancellable *cancellable,
+                                                         GAsyncReadyCallback callback,
+                                                         gpointer user_data);
+}
+
+void sync_directory(GFile *basedir, gboolean only_newer) {
+
+	walk_local_directory();
+}
+
+#endif
 void file_handle(GFile *uri, Tbfwin *bfwin) {
 	GFileInfo *finfo;
 	GError *error=NULL;
 	gchar *mime;
-	finfo = g_file_query_info(uri,"standard::fast-content-type",G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS,NULL,&error);
+	finfo = g_file_query_info(uri,"standard::fast-content-type",G_FILE_QUERY_INFO_NONE,NULL,&error);
 	if (error) {
 		g_print("file_handle got error %d: %s\n",error->code,error->message);
 		return;
