@@ -1153,6 +1153,7 @@ void copy_files_async(Tbfwin *bfwin, GFile *destdir, gchar *sources) {
 /* some experimental code to upload a site with GIO/GVFS */
 
 typedef struct {
+	guint refcount;
 	GFile *basedir;
 	GFile *targetdir;
 	gint numworking;
@@ -1162,17 +1163,36 @@ typedef struct {
 } Tsync;
 
 typedef struct {
+	guint refcount;
+	Tsync *sync;
+	GFile *dir;
 	GFileEnumerator *enmrt;
 
 } Tsync_walkdir;
 
 typedef struct {
-	GFileEnumerator *enmrt;
-	GFile *file
-
+	guint refcount;
+	Tsync *sync;
+	GFile *local_uri;
+	GFileInfo *local_finfo;
+	GFile *remote_uri;
 } Tsync_needupdate;
 
+typedef struct {
+	guint refcount;
+	Tsync *sync;
+	GFile *local_uri;
+	GFile *remote_uri;
+} Tsync_update;
 
+
+GFile *remote_for_local(Tsync *sync,GFile *local) {
+	gchar *curi,*base,*target;
+	curi = g_file_get_uri(local);
+	base = g_file_get_uri(local);
+	target = g_file_get_uri(local);
+
+}
 
 
 static void remote_cleanup(Tsync *sync) {
@@ -1186,87 +1206,137 @@ static void remote_cleanup(Tsync *sync) {
 
 }
 
-static void do_update_lcb(Tsync *sync) {
-gboolean            g_file_copy_finish                  (GFile *file,
-                                                         GAsyncResult *res,
-                                                      GError **error);
+static void do_update_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	gboolean ret;
+	GError *error=NULL;
+	ret = g_file_copy_finish(su->local_uri,res,&error);
+	if (error) {
+		g_print("do_update_lcb got error %d %s\n",error->code,error->message);
+		g_error_free(error);
+	}
+	
 	if () {
 		remote_cleanup();
 	}
 }
 
-static void do_update(Tsync *sync, GFile *uri) {
-g_file_copy_async                   (GFile *source,
-                                                         GFile *destination,
-                                                         GFileCopyFlags flags,
-                                                         int io_priority,
-                                                         GCancellable *cancellable,
-                                                         GFileProgressCallback progress_callback,
-                                                         gpointer progress_callback_data,
-                                                         GAsyncReadyCallback callback,
-                                                         gpointer user_data);
+static void do_update(Tsync *sync, GFile *local_uri, GFile *remote_uri) {
+	Tsync_update *su = g_new0(Tsync_update,1);
+	su->sync = sync;
+	su->sync->refcount++;
+	su->local_uri = local_uri;
+	g_object_ref(su->local_uri);
+	su->remote_uri = remote_uri;
+	g_object_ref(su->remote_uri);
+	g_file_copy_async(su->local_uri,su->remote_uri,G_FILE_COPY_OVERWRITE,G_PRIORITY_LOW,NULL
+					,NULL,NULL,do_update_lcb,su);
 }
 
-static void check_update_need_lcb(Tsync *sync) {
-	GFileInfo *         g_file_query_filesystem_info_finish (GFile *file,
-                                                         GAsyncResult *res,
-                                                         GError **error);
-}
-
-static void check_update_need(Tsync *sync, GFile *uri) {
-	g_file_query_filesystem_info_async  (GFile *file,
-                                                         const char *attributes,
-                                                         int io_priority,
-                                                         GCancellable *cancellable,
-                                                         GAsyncReadyCallback callback,
-                                                         gpointer user_data);
-}
-
-static void walk_local_directory_enumerate_next_files_lcb(Tsync *sync) {
-
-	check_update_need();
-
-
-	if () {
-		g_file_enumerator_close             (GFileEnumerator *enumerator,
-                                                         GCancellable *cancellable,
-                                                         GError **error);
-		g_object_unref();
+static void check_update_need_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	Tsync_needupdate *snu= user_data;
+	GFileInfo *remote_finfo;
+	GError *error=NULL;
+	
+	remote_finfo = g_file_query_filesystem_info_finish (snu->remote_uri,res,&error);
+	if (error) {
+		if (error->code == G_FILE_ERROR_NOENT) { /* does not yet exist */
+			do_update(snu->sync,snu->local->uri,snu->remote_uri);
+		} else {
+			g_print("check_update_need_lcb got error %d %s\n",error->code,error->message);
+			g_error_free(error);
+		}
 	} else {
-		g_file_enumerator_next_files_async  (GFileEnumerator *enumerator,
-                                                         int num_files,
-                                                         int io_priority,
-                                                         GCancellable *cancellable,
-                                                         GAsyncReadyCallback callback,
-                                                         gpointer user_data);
+		GTimeVal remote_mtime,local_mtime;
+		g_file_info_get_modification_time(remote_finfo,&remote_mtime);
+		g_file_info_get_modification_time(local_finfo,&local_mtime);
+		if (g_file_info_get_size(remote_finfo)!=g_file_info_get_size(snu->local_finfo)
+					|| remote_mtime.tv_sec+remote_mtime.tv_usec <  local_mtime.tv_sec+local_mtime.tv_usec) {
+			do_update(snu->sync,snu->local_uri,snu->remote_uri);
+		}
+		g_object_unref(remote_finfo);
 	}
 }
 
-static void walk_local_directory_enumerate_lcb(Tsync *sync) {
-GFileEnumerator *   g_file_enumerate_children_finish    (GFile *file,
-                                                         GAsyncResult *res,
-                                                         GError **error);
-g_file_enumerator_next_files_async  (GFileEnumerator *enumerator,
-                                                         int num_files,
-                                                         int io_priority,
-                                                         GCancellable *cancellable,
-                                                         GAsyncReadyCallback callback,
-                                                         gpointer user_data);
+static void check_update_need(Tsync *sync, GFile *uri,GFileInfo *finfo) {
+	Tsync_needupdate *snu;
+	snu = g_new0(Tsync_needupdate,1);
+	snu->sync = sync;
+	snu->sync->refcount++;
+	snu->local_uri = uri;
+	g_object_ref(snu->uri);
+	snu->local_finfo = findo;
+	g_object_ref(snu->finfo);
+	snu->remote_uri = remote_for_local(snu->local_uri);
+	g_file_query_filesystem_info_async(snu->remote_uri,"standard::type,standard::display-name,standard::size,time::modified",
+					G_PRIORITY_LOW,NULL,check_update_need_lcb,snu);
+}
+
+static void walk_local_directory_enumerate_next_files_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	GList *list;
+	GError *error=NULL;
+	list = g_file_enumerator_next_files_finish (swd->enmrt,res,&error);
+	if (error) {
+		g_print("walk_local_directory_enumerate_next_files_lcb, got error %d: %s\n", error->code,error->message);
+		g_error_free(error);
+		error=NULL;
+		g_file_enumerator_close(swd->enmrt,NULL,&error);
+		if (error) {
+			g_print("walk_local_directory_enumerate_next_files_lcb, while closing got error %d: %s\n", error->code,error->message);
+		}
+		g_object_unref(swd->enmrt);
+
+	
+	} else {
+		if (list) {
+			GList *tmplist = g_list_first(list);
+			while (tmplist) {
+				GFileInfo *finfo = tmplist->data;
+				GFileType ft = g_file_info_get_file_type(finfo)
+				GFile *uri = g_file_get_child(swd->dir, g_file_info_get_name(finfo));
+				if (ft == G_FILE_TYPE_DIRECTORY) {
+					walk_local_directory(swd->sync, uri);
+				} else if (ft == G_FILE_TYPE_REGULAR) {
+					check_update_need(swd->sync,uri,finfo);
+				}
+				g_object_unref(uri);
+				g_object_unref(finfo);
+				tmplist = g_list_next(tmplist);
+			}
+			g_list_free(list);
+		}
+		g_file_enumerator_next_files_async(swd->enmrt,20,G_PRIORITY_LOW,NULL,walk_local_directory_enumerate_next_files_lcb,swd);
+	}
+}
+
+static void walk_local_directory_enumerate_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	GError *error=NULL;
+	swd->enmrt = g_file_enumerate_children_finish(swd->dir,res,&error);
+	if (error) {
+		g_print("walk_local_directory_enumerate_lcb, error %d=%s\n",error->code,error->message);
+		g_error_free(error);
+	} else {
+		g_file_enumerator_next_files_async(swd->enmrt,20,G_PRIORITY_LOW,NULL,walk_local_directory_enumerate_next_files_lcb,swd);
+	}
 }
 
 static void walk_local_directory(Tsync *sync, GFile *dir) {
-	g_file_enumerate_children_async(dir,
-                                                         const char *attributes,
-                                                         GFileQueryInfoFlags flags,
-                                                         int io_priority,
-                                                         GCancellable *cancellable,
-                                                         GAsyncReadyCallback callback,
-                                                         gpointer user_data);
+	Tsync_walkdir *swd = g_new0(Tsync_walkdir,1);
+	swd->sync = sync;
+	swd->sync->refcount++;
+	swd->dir = dir;
+	g_object_ref(swd->dir);
+	g_file_enumerate_children_async(dir,"standard::type,standard::display-name,standard::size,time::modified",
+					G_FILE_QUERY_INFO_NONE,G_PRIORITY_LOW,NULL,walk_local_directory_enumerate_lcb,swd);
 }
 
-void sync_directory(GFile *basedir, gboolean only_newer) {
-
-	walk_local_directory();
+void sync_directory(GFile *basedir, GFile *targetdir) {
+	Tsync *sync = g_new0(Tsync,1);
+	sync->refcount++;
+	sync->basedir = basedir;
+	g_object_ref(sync->basedir);
+	sync->targetdir = targetdir;
+	g_object_ref(sync->targetdir);
+	walk_local_directory(sync, sync->basedir);
 }
 
 #endif
@@ -1277,6 +1347,7 @@ void file_handle(GFile *uri, Tbfwin *bfwin) {
 	finfo = g_file_query_info(uri,"standard::fast-content-type",G_FILE_QUERY_INFO_NONE,NULL,&error);
 	if (error) {
 		g_print("file_handle got error %d: %s\n",error->code,error->message);
+		g_error_free(error);
 		return;
 	}
 	mime = g_file_info_get_attribute_string(finfo, G_FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE);
