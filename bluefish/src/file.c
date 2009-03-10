@@ -1149,10 +1149,7 @@ void copy_files_async(Tbfwin *bfwin, GFile *destdir, gchar *sources) {
 	g_strfreev(splitted);
 	copy_uris_process_queue(cf);
 }
-#define SYNC
-#ifdef SYNC
-/* some experimental code to upload a site with GIO/GVFS */
-
+/* code for local to remote synchronisation */
 typedef struct {
 	guint refcount;
 	GFile *basedir;
@@ -1281,7 +1278,7 @@ static void check_update_need_lcb(GObject *source_object,GAsyncResult *res,gpoin
 	
 	remote_finfo = g_file_query_filesystem_info_finish (snu->remote_uri,res,&error);
 	if (error) {
-		if (error->code == G_FILE_ERROR_NOENT) { /* file does not exist */
+		if (error->code == G_IO_ERROR_NOT_FOUND) { /* file does not exist */
 			do_update(snu->sync,snu->local_uri,snu->remote_uri);
 		} else {
 			g_print("check_update_need_lcb got error %d %s\n",error->code,error->message);
@@ -1294,6 +1291,8 @@ static void check_update_need_lcb(GObject *source_object,GAsyncResult *res,gpoin
 		if (g_file_info_get_size(remote_finfo)!=g_file_info_get_size(snu->local_finfo)
 					|| remote_mtime.tv_sec+remote_mtime.tv_usec <  local_mtime.tv_sec+local_mtime.tv_usec) {
 			do_update(snu->sync,snu->local_uri,snu->remote_uri);
+		} else {
+			g_print("no update needed\n");
 		}
 		g_object_unref(remote_finfo);
 	}
@@ -1310,8 +1309,8 @@ static void check_update_need(Tsync *sync, GFile *uri,GFileInfo *finfo) {
 	snu->local_finfo = finfo;
 	g_object_ref(snu->local_finfo);
 	snu->remote_uri = remote_for_local(snu->sync,snu->local_uri);
-	g_file_query_filesystem_info_async(snu->remote_uri,"standard::type,standard::display-name,standard::size,time::modified",
-					G_PRIORITY_LOW,NULL,check_update_need_lcb,snu);
+	g_file_query_info_async(snu->remote_uri,"standard::name,standard::type,standard::display-name,standard::size,time::modified",
+					G_FILE_QUERY_INFO_NONE,G_PRIORITY_LOW,NULL,check_update_need_lcb,snu);
 }
 
 
@@ -1380,21 +1379,42 @@ static void walk_local_directory(Tsync *sync, GFile *dir) {
 	swd->sync->refcount++;
 	swd->dir = dir;
 	g_object_ref(swd->dir);
-	g_file_enumerate_children_async(dir,"standard::type,standard::display-name,standard::size,time::modified",
+	g_file_enumerate_children_async(dir,"standard::name,standard::type,standard::display-name,standard::size,time::modified",
 					G_FILE_QUERY_INFO_NONE,G_PRIORITY_LOW,NULL,walk_local_directory_enumerate_lcb,swd);
 }
 
+static void sync_directory_mount_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
+	Tsync *sync = user_data;
+	GError *error=NULL;
+	g_file_mount_enclosing_volume_finish(sync->targetdir,res,&error);
+	if (error) {
+		if (error->code == G_IO_ERROR_ALREADY_MOUNTED) {
+			walk_local_directory(sync, sync->basedir);
+		} else {
+			g_print("sync_directory_mount_lcb, error %d=%s\n",error->code,error->message);
+		}
+		g_error_free(error);
+	} else {
+		walk_local_directory(sync, sync->basedir);
+	}
+	sync_unref(sync);
+}
+
 void sync_directory(GFile *basedir, GFile *targetdir) {
+	GMountOperation * gmo;
 	Tsync *sync = g_slice_new0(Tsync);
 	sync->refcount++;
 	sync->basedir = basedir;
 	g_object_ref(sync->basedir);
 	sync->targetdir = targetdir;
 	g_object_ref(sync->targetdir);
-	walk_local_directory(sync, sync->basedir);
+	
+	gmo = gtk_mount_operation_new(NULL);
+	g_file_mount_enclosing_volume(sync->targetdir,G_MOUNT_MOUNT_NONE,gmo,NULL,sync_directory_mount_lcb,sync);
 }
 
-#endif
+/* code to handle a file from the commandline, the filebrowser or from the message queue */
+
 void file_handle(GFile *uri, Tbfwin *bfwin) {
 	GFileInfo *finfo;
 	GError *error=NULL;

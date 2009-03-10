@@ -155,6 +155,16 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 31:
 		convert_identing(bfwin->current_document, FALSE);
 	break;
+/*	case 98:
+		{
+		GFile *tmp1,*tmp2;
+		tmp1 = g_file_new_for_uri("file:///tmp/testsync/");
+		tmp2 = g_file_new_for_uri("sftp://cort/tmp/testsync/");
+		sync_directory(tmp1, tmp2);
+		g_object_unref(tmp1);
+		g_object_unref(tmp2);
+		}
+	break;*/
 #ifdef HAVE_PYTHON
 	case 99:
 		{
@@ -252,6 +262,7 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Close Win_dow"), NULL, gui_window_menu_cb, 2, "<Item>"},
 	{"/File/sep4", NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Quit"), "<control>Q", bluefish_exit_request, 0, "<StockItem>", GTK_STOCK_QUIT},
+/*	{N_("/File/test sync"), NULL, menu_file_operations_cb, 98, "<Item>"},*/
 #ifdef HAVE_PYTHON
 	{"/File/sep5", NULL, NULL, 0, "<Separator>"},
 	{N_("/File/Run Python Script"), NULL, menu_file_operations_cb, 99, "<Item>"},
