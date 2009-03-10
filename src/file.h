@@ -124,5 +124,8 @@ void copy_uris_async(Tbfwin *bfwin, GFile *destdir, GSList *sources);
 void copy_files_async(Tbfwin *bfwin, GFile *destdir, gchar *sources);
 void file_doc_retry_uri(Tdocument *doc);
 void file_docs_from_uris(Tbfwin *bfwin, GSList *urislist);
+
+void sync_directory(GFile *basedir, GFile *targetdir);
+
 void file_handle(GFile *uri, Tbfwin *bfwin);
 #endif /* __FILE_H_ */
