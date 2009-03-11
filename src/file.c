@@ -1276,10 +1276,6 @@ static void do_update(Tsync *sync, GFile *local_uri, GFile *remote_uri) {
 					,NULL,NULL,do_update_lcb,su);
 }
 
-static void create_dir(Tsync *sync, GFile *local_dir, GFile *remote_dir) {
-	
-}
-
 static void check_update_need_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	Tsync_needupdate *snu= user_data;
 	GFileInfo *remote_finfo;
@@ -1288,8 +1284,15 @@ static void check_update_need_lcb(GObject *source_object,GAsyncResult *res,gpoin
 	remote_finfo = g_file_query_filesystem_info_finish (snu->remote_uri,res,&error);
 	if (error) {
 		if (error->code == G_IO_ERROR_NOT_FOUND) { /* file/dir does not exist */
+			g_error_free(error);
 			if (snu->is_dir) {
-				create_dir(snu->sync,snu->local_uri,snu->remote_uri);
+				error=NULL;
+				if (g_file_make_directory(snu->remote_uri,NULL,&error)) {
+					walk_local_directory(snu->sync, snu->local_uri);
+				} else if (error) {
+					g_print("check_update_need_lcb, while creating remote dir got error %d %s\n",error->code,error->message);
+					g_error_free(error);
+				}
 			} else {
 				do_update(snu->sync,snu->local_uri,snu->remote_uri);
 			}
