@@ -1159,9 +1159,11 @@ typedef struct {
 	GFile *basedir;
 	GFile *targetdir;
 	gint numworking;
-	GList *localfiles;
-	
-
+	GQueue queue_delete;
+	GQueue queue_copy;
+	GQueue queue_walkdir;
+	GQueue queue_needupdate;
+	GQueue queue_update;
 } Tsync;
 
 static void sync_unref(Tsync *sync) {
