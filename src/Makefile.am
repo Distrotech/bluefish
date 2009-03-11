@@ -67,6 +67,8 @@ bluefish_unstable_SOURCES = \
 	filefilter.h \
 	gtk_easy.c \
 	gtk_easy.h \
+	gtkmountoperation.c \
+	gtkmountoperation.h \
 	gui.c \
 	gui.h \
 	menu.c \
