@@ -1319,10 +1319,11 @@ static void check_update_need_lcb(GObject *source_object,GAsyncResult *res,gpoin
 	need_update_cleanup(snu);
 }
 
-static void check_update_need(Tsync *sync, GFile *uri,GFileInfo *finfo) {
+static void check_update_need(Tsync *sync, GFile *uri,GFileInfo *finfo, gboolean is_dir) {
 	Tsync_needupdate *snu;
 	snu = g_slice_new0(Tsync_needupdate);
 	snu->sync = sync;
+	snu->is_dir = is_dir;
 	snu->sync->refcount++;
 	snu->local_uri = uri;
 	g_object_ref(snu->local_uri);
@@ -1363,9 +1364,9 @@ static void walk_local_directory_enumerate_next_files_lcb(GObject *source_object
 				GFileType ft = g_file_info_get_file_type(finfo);
 				uri = g_file_get_child(swd->dir, g_file_info_get_name(finfo));
 				if (ft == G_FILE_TYPE_DIRECTORY) {
-					walk_local_directory(swd->sync, uri);
+					check_update_need(swd->sync,uri,finfo, TRUE);
 				} else if (ft == G_FILE_TYPE_REGULAR) {
-					check_update_need(swd->sync,uri,finfo);
+					check_update_need(swd->sync,uri,finfo, FALSE);
 				}
 				g_object_unref(uri);
 				g_object_unref(finfo);
