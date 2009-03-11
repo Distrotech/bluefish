@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/*#define DEBUG*/
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -35,6 +35,10 @@
 #include "gtk_easy.h"
 #include "gui.h"
 #include "stringlist.h"
+
+#if !GTK_CHECK_VERSION(2,14,0)
+#include "gtkmountoperation.h"
+#endif
 
 void DEBUG_URI(GFile * uri, gboolean newline)
 {
@@ -372,7 +376,7 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 	if (error) {
 		DEBUG_MSG("openfile_async_lcb, finished, received error code %d: %s\n",error->code,error->message);
 		if (error->code == G_IO_ERROR_NOT_MOUNTED) {
-#if GTK_CHECK_VERSION(2,14,0)
+#if 1
 			GMountOperation * gmo;
 			g_print("not mounted, try to mount!!\n");
 			gmo = gtk_mount_operation_new(of->bfwin?(GtkWindow *)of->bfwin->main_window:NULL); /* TODO, add bfwin to the Topenfile */
