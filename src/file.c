@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h> /* memcpy */
@@ -1169,7 +1169,7 @@ static void sync_unref(Tsync *sync) {
 	if (sync->refcount == 0) {
 		g_object_unref(sync->basedir);
 		g_object_unref(sync->targetdir);
-		
+		g_print("sync_unref, unreffing!\n");
 		g_slice_free(Tsync,sync);
 	}
 }
@@ -1178,12 +1178,14 @@ typedef struct {
 	Tsync *sync;
 	GFile *dir;
 	GFileEnumerator *enmrt;
+	GHashTable *localnames;
 } Tsync_walkdir;
 
 static void walk_directory_cleanup(Tsync_walkdir *swd) {
 	sync_unref(swd->sync);
 	g_object_unref(swd->dir);
 	g_object_unref(swd->enmrt);
+	g_hash_table_destroy(swd->localnames);
 	g_slice_free(Tsync_walkdir,swd);
 }
 
@@ -1225,7 +1227,7 @@ GFile *remote_for_local(Tsync *sync,GFile *local) {
 	base = g_file_get_uri(sync->basedir);
 	target = g_file_get_uri(sync->targetdir);
 	remote = g_strconcat(target,lcuri+strlen(base),NULL); 
-	g_print("remote_for_local,base=%s,target=%s,lcuri=%s,remote=%s\n",base,target,lcuri,remote);
+	/*g_print("remote_for_local,base=%s,target=%s,lcuri=%s,remote=%s\n",base,target,lcuri,remote);*/
 	uri = g_file_new_for_uri(remote);
 	g_free(lcuri);
 	g_free(base);
@@ -1350,7 +1352,7 @@ static void walk_local_directory_enumerate_next_files_lcb(GObject *source_object
 	Tsync_walkdir *swd = user_data;
 	GList *list;
 	GError *error=NULL;
-	list = g_file_enumerator_next_files_finish (swd->enmrt,res,&error);
+	list = g_file_enumerator_next_files_finish(swd->enmrt,res,&error);
 	if (error) {
 		g_print("walk_local_directory_enumerate_next_files_lcb, got error %d: %s\n", error->code,error->message);
 		g_error_free(error);
@@ -1360,14 +1362,17 @@ static void walk_local_directory_enumerate_next_files_lcb(GObject *source_object
 			GList *tmplist = g_list_first(list);
 			while (tmplist) {
 				GFileInfo *finfo = tmplist->data;
+				const gchar *name;
 				GFile *uri;
 				GFileType ft = g_file_info_get_file_type(finfo);
-				uri = g_file_get_child(swd->dir, g_file_info_get_name(finfo));
+				name = g_file_info_get_name(finfo);
+				uri = g_file_get_child(swd->dir, name);
 				if (ft == G_FILE_TYPE_DIRECTORY) {
 					check_update_need(swd->sync,uri,finfo, TRUE);
 				} else if (ft == G_FILE_TYPE_REGULAR) {
 					check_update_need(swd->sync,uri,finfo, FALSE);
 				}
+				g_hash_table_insert(swd->localnames, g_strdup(name),GINT_TO_POINTER(1));
 				g_object_unref(uri);
 				g_object_unref(finfo);
 				tmplist = g_list_next(tmplist);
@@ -1399,6 +1404,7 @@ static void walk_local_directory(Tsync *sync, GFile *dir) {
 	swd->sync->refcount++;
 	swd->dir = dir;
 	g_object_ref(swd->dir);
+	swd->localnames = g_hash_table_new_full(g_str_hash, g_str_equal,g_free,NULL);
 	g_file_enumerate_children_async(dir,"standard::name,standard::type,standard::display-name,standard::size,time::modified",
 					G_FILE_QUERY_INFO_NONE,G_PRIORITY_LOW,NULL,walk_local_directory_enumerate_lcb,swd);
 }
