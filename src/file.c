@@ -1188,6 +1188,7 @@ typedef struct {
 	GFile *local_uri;
 	GFileInfo *local_finfo;
 	GFile *remote_uri;
+	gboolean is_dir; 
 } Tsync_needupdate;
 
 static void need_update_cleanup(Tsync_needupdate *snu) {
@@ -1271,6 +1272,10 @@ static void do_update(Tsync *sync, GFile *local_uri, GFile *remote_uri) {
 					,NULL,NULL,do_update_lcb,su);
 }
 
+static void create_dir(Tsync *sync, GFile *local_dir, GFile *remote_dir) {
+	
+}
+
 static void check_update_need_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	Tsync_needupdate *snu= user_data;
 	GFileInfo *remote_finfo;
@@ -1278,21 +1283,29 @@ static void check_update_need_lcb(GObject *source_object,GAsyncResult *res,gpoin
 	
 	remote_finfo = g_file_query_filesystem_info_finish (snu->remote_uri,res,&error);
 	if (error) {
-		if (error->code == G_IO_ERROR_NOT_FOUND) { /* file does not exist */
-			do_update(snu->sync,snu->local_uri,snu->remote_uri);
+		if (error->code == G_IO_ERROR_NOT_FOUND) { /* file/dir does not exist */
+			if (snu->is_dir) {
+				create_dir(snu->sync,snu->local_uri,snu->remote_uri);
+			} else {
+				do_update(snu->sync,snu->local_uri,snu->remote_uri);
+			}
 		} else {
 			g_print("check_update_need_lcb got error %d %s\n",error->code,error->message);
 			g_error_free(error);
 		}
 	} else {
-		GTimeVal remote_mtime,local_mtime;
-		g_file_info_get_modification_time(remote_finfo,&remote_mtime);
-		g_file_info_get_modification_time(snu->local_finfo,&local_mtime);
-		if (g_file_info_get_size(remote_finfo)!=g_file_info_get_size(snu->local_finfo)
-					|| remote_mtime.tv_sec+remote_mtime.tv_usec <  local_mtime.tv_sec+local_mtime.tv_usec) {
-			do_update(snu->sync,snu->local_uri,snu->remote_uri);
+		if (snu->is_dir) {
+			walk_local_directory(snu->sync, snu->local_uri);
 		} else {
-			g_print("no update needed\n");
+			GTimeVal remote_mtime,local_mtime;
+			g_file_info_get_modification_time(remote_finfo,&remote_mtime);
+			g_file_info_get_modification_time(snu->local_finfo,&local_mtime);
+			if (g_file_info_get_size(remote_finfo)!=g_file_info_get_size(snu->local_finfo)
+						|| remote_mtime.tv_sec+remote_mtime.tv_usec <  local_mtime.tv_sec+local_mtime.tv_usec) {
+				do_update(snu->sync,snu->local_uri,snu->remote_uri);
+			} else {
+				g_print("no update needed\n");
+			}
 		}
 		g_object_unref(remote_finfo);
 	}
@@ -1312,7 +1325,6 @@ static void check_update_need(Tsync *sync, GFile *uri,GFileInfo *finfo) {
 	g_file_query_info_async(snu->remote_uri,"standard::name,standard::type,standard::display-name,standard::size,time::modified",
 					G_FILE_QUERY_INFO_NONE,G_PRIORITY_LOW,NULL,check_update_need_lcb,snu);
 }
-
 
 static void walk_local_directory_close_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	GError *error=NULL;
