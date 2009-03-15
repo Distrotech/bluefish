@@ -159,7 +159,7 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		{
 		GFile *tmp1,*tmp2;
 		tmp1 = g_file_new_for_uri("file:///tmp/local/");
-		tmp2 = g_file_new_for_uri("sftp://localhost/tmp/remote/");
+		tmp2 = g_file_new_for_uri("file:///tmp/remote/");
 		sync_directory(tmp1, tmp2);
 		g_object_unref(tmp1);
 		g_object_unref(tmp2);
