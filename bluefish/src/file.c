@@ -1200,6 +1200,9 @@ typedef struct {
 	Tqueue queue_delete;
 	Tqueue queue_need_update;
 	Tqueue queue_update;
+	guint num_found;
+	guint num_finished;
+	GTimer *timer;
 } Tsync;
 
 static void sync_unref(Tsync *sync) {
@@ -1207,6 +1210,7 @@ static void sync_unref(Tsync *sync) {
 	if (sync->refcount == 0) {
 		g_object_unref(sync->basedir);
 		g_object_unref(sync->targetdir);
+		g_timer_destroy(sync->timer);
 		g_print("sync_unref, unreffing!\n");
 		g_slice_free(Tsync,sync);
 	}
@@ -1309,6 +1313,8 @@ static void do_update_lcb(GObject *source_object,GAsyncResult *res,gpointer user
 	if () {
 		remote_cleanup();
 	}*/
+	su->sync->num_finished++;
+	g_print("%d%%: %d found, %d finished\n",(gint)(100.0*su->sync->num_finished/su->sync->num_found), su->sync->num_found,su->sync->num_finished);
 	queue_worker_ready(&su->sync->queue_update,do_update_run);
 	update_cleanup(su);
 }
@@ -1364,7 +1370,8 @@ static void check_update_need_lcb(GObject *source_object,GAsyncResult *res,gpoin
 						|| remote_mtime.tv_sec+remote_mtime.tv_usec <  local_mtime.tv_sec+local_mtime.tv_usec) {
 				do_update(snu->sync,snu->local_uri,snu->remote_uri);
 			} else {
-				g_print("no update needed\n");
+				snu->sync->num_finished++;
+				g_print("%d%%: %d found, %d finished\n",(gint)(100.0*snu->sync->num_finished/snu->sync->num_found), snu->sync->num_found,snu->sync->num_finished);
 			}
 		}
 		g_object_unref(remote_finfo);
@@ -1508,6 +1515,7 @@ static void walk_local_directory_enumerate_next_files_lcb(GObject *source_object
 						check_update_need(swd->sync,uri,finfo, TRUE);
 					} else if (ft == G_FILE_TYPE_REGULAR) {
 						check_update_need(swd->sync,uri,finfo, FALSE);
+						swd->sync->num_found++;
 					}
 					g_object_unref(uri);
 				}
@@ -1581,7 +1589,7 @@ void sync_directory(GFile *basedir, GFile *targetdir) {
 	queue_init(&sync->queue_delete,7);
 	queue_init(&sync->queue_need_update,8);
 	queue_init(&sync->queue_update,6);
-
+	sync->timer = g_timer_new();
 	sync->basedir = basedir;
 	g_object_ref(sync->basedir);
 	sync->targetdir = targetdir;

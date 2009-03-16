@@ -1020,3 +1020,55 @@ void file_reload_all_modified(Tbfwin * bfwin)
 		tmplist = g_list_next(tmplist);
 	}
 }
+
+typedef struct {
+	GtkWidget *dialog;
+	GtkWidget *entry_local;
+	GtkWidget *entry_remote;
+} Tsyncdialog;
+
+static void sync_dialog_response_lcb(GtkDialog *dialog,gint response_id,gpointer user_data) {
+	Tsyncdialog *sd = user_data;
+	g_print("sync_dialog_response_lcb, response=%d\n",response_id);
+	if (response_id > 0) { 
+		GFile *local, *remote;
+	
+		local = g_file_new_for_commandline_arg(gtk_entry_get_text(sd->entry_local));
+		remote = g_file_new_for_commandline_arg(gtk_entry_get_text(sd->entry_remote));
+		g_print("sync_dialog_response_lcb, local=%p,remote=%p\n",local,remote);
+		if (response_id==1) {
+			sync_directory(local, remote);
+		} else if (response_id == 2) {
+			sync_directory(remote, local);
+		}
+		g_object_unref(local);
+		g_object_unref(remote);
+	}
+	gtk_widget_destroy(sd->dialog);
+	g_free(sd);
+}
+
+void sync_dialog(Tbfwin *bfwin) {
+	Tsyncdialog *sd;
+	GtkBox *hbox;
+	sd = g_new0(Tsyncdialog,1);
+	sd->dialog = gtk_dialog_new_with_buttons(_("Synchronize files"),bfwin->main_window,GTK_DIALOG_DESTROY_WITH_PARENT
+				,_("Upload"),1,_("Download"),2,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
+	
+	hbox = gtk_hbox_new(FALSE,4);
+	sd->entry_local = gtk_entry_new();
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Local directory")), TRUE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_local, TRUE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(hbox), file_but_new2(sd->entry_local, 1, bfwin,GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), TRUE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), hbox, FALSE,FALSE,4);
+
+	hbox = gtk_hbox_new(FALSE,4);
+	sd->entry_remote = gtk_entry_new();
+	gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Remote directory")), TRUE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_remote, TRUE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(hbox), file_but_new2(sd->entry_remote, 1, bfwin,GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), TRUE,FALSE,4);
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), hbox, FALSE,FALSE,4);
+	
+	g_signal_connect(sd->dialog, "response", sync_dialog_response_lcb, sd);
+	gtk_widget_show_all(sd->dialog);
+}
