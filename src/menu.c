@@ -155,15 +155,8 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 	case 31:
 		convert_identing(bfwin->current_document, FALSE);
 	break;
-	case 98:
-		{
-		GFile *tmp1,*tmp2;
-		tmp1 = g_file_new_for_uri("file:///tmp/local/");
-		tmp2 = g_file_new_for_uri("file:///tmp/remote/");
-		sync_directory(tmp1, tmp2);
-		g_object_unref(tmp1);
-		g_object_unref(tmp2);
-		}
+	case 32:
+		sync_dialog(bfwin);
 	break;
 #ifdef HAVE_PYTHON
 	case 99:
@@ -253,6 +246,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Save _As..."), "<shift><control>S", menu_file_operations_cb, 6, "<StockItem>", GTK_STOCK_SAVE_AS},
 	{N_("/File/Sav_e All"), NULL, menu_file_operations_cb, 8, "<Item>"},
 	{N_("/File/Rever_t to Saved"), NULL, menu_file_operations_cb, 4, "<StockItem>", GTK_STOCK_REVERT_TO_SAVED},
+	{"/File/sepa", NULL, NULL, 0, "<Separator>"},
+	{N_("/File/Synchronize files"), NULL, menu_file_operations_cb, 32, "<Item>"},
 	{"/File/sep2", NULL, NULL, 0, "<Separator>"},	
 	{N_("/File/_Insert..."), NULL, file_insert_menucb, 1, "<Item>"},	
 	{N_("/File/Rena_me..."), "F2", menu_file_operations_cb, 7, "<Item>"},
@@ -262,7 +257,6 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/File/Close Win_dow"), NULL, gui_window_menu_cb, 2, "<Item>"},
 	{"/File/sep4", NULL, NULL, 0, "<Separator>"},
 	{N_("/File/_Quit"), "<control>Q", bluefish_exit_request, 0, "<StockItem>", GTK_STOCK_QUIT},
-	{N_("/File/test sync"), NULL, menu_file_operations_cb, 98, "<Item>"},
 #ifdef HAVE_PYTHON
 	{"/File/sep5", NULL, NULL, 0, "<Separator>"},
 	{N_("/File/Run Python Script"), NULL, menu_file_operations_cb, 99, "<Item>"},

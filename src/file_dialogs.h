@@ -39,4 +39,6 @@ void file_close_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 
 void file_new_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_reload_all_modified(Tbfwin *bfwin);
+
+void sync_dialog(Tbfwin *bfwin);
 #endif /* __FILEDIALOGS_H_ */
