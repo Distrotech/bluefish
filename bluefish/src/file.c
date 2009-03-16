@@ -1203,6 +1203,8 @@ typedef struct {
 	guint num_found;
 	guint num_finished;
 	GTimer *timer;
+	SyncProgressCallback progress_callback;
+	gpointer callback_data;
 } Tsync;
 
 static void sync_unref(Tsync *sync) {
@@ -1314,7 +1316,8 @@ static void do_update_lcb(GObject *source_object,GAsyncResult *res,gpointer user
 		remote_cleanup();
 	}*/
 	su->sync->num_finished++;
-	g_print("%d%%: %d found, %d finished\n",(gint)(100.0*su->sync->num_finished/su->sync->num_found), su->sync->num_found,su->sync->num_finished);
+	su->sync->progress_callback(su->sync->num_found,su->sync->num_finished,su->sync->callback_data);
+	/*g_print("%d%%: %d found, %d finished\n",(gint)(100.0*su->sync->num_finished/su->sync->num_found), su->sync->num_found,su->sync->num_finished);*/
 	queue_worker_ready(&su->sync->queue_update,do_update_run);
 	update_cleanup(su);
 }
@@ -1371,7 +1374,8 @@ static void check_update_need_lcb(GObject *source_object,GAsyncResult *res,gpoin
 				do_update(snu->sync,snu->local_uri,snu->remote_uri);
 			} else {
 				snu->sync->num_finished++;
-				g_print("%d%%: %d found, %d finished\n",(gint)(100.0*snu->sync->num_finished/snu->sync->num_found), snu->sync->num_found,snu->sync->num_finished);
+				snu->sync->progress_callback(snu->sync->num_found,snu->sync->num_finished,snu->sync->callback_data);
+				/*g_print("%d%%: %d found, %d finished\n",(gint)(100.0*snu->sync->num_finished/snu->sync->num_found), snu->sync->num_found,snu->sync->num_finished);*/
 			}
 		}
 		g_object_unref(remote_finfo);
@@ -1516,6 +1520,7 @@ static void walk_local_directory_enumerate_next_files_lcb(GObject *source_object
 					} else if (ft == G_FILE_TYPE_REGULAR) {
 						check_update_need(swd->sync,uri,finfo, FALSE);
 						swd->sync->num_found++;
+						swd->sync->progress_callback(swd->sync->num_found,swd->sync->num_finished,swd->sync->callback_data);
 					}
 					g_object_unref(uri);
 				}
@@ -1580,10 +1585,12 @@ static void sync_directory_mount_lcb(GObject *source_object,GAsyncResult *res,gp
 	sync_unref(sync);
 }
 
-void sync_directory(GFile *basedir, GFile *targetdir) {
+void sync_directory(GFile *basedir, GFile *targetdir, SyncProgressCallback progress_callback, gpointer callback_data) {
 	GMountOperation * gmo;
 	Tsync *sync = g_slice_new0(Tsync);
 	sync->refcount++;
+	sync->progress_callback = progress_callback;
+	sync->callback_data = callback_data;
 	queue_init(&sync->queue_walkdir_local,5);
 	queue_init(&sync->queue_walkdir_remote,4);
 	queue_init(&sync->queue_delete,7);

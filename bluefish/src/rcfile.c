@@ -585,6 +585,8 @@ static GHashTable *return_session_configlist(GHashTable *configlist, Tsessionvar
 	init_prop_limitedstringlist(&configlist, &session->recent_dirs, "recent_dirs:", main_v->props.max_dir_history, FALSE);
 	init_prop_string_with_escape(&configlist, &session->opendir, "opendir:", NULL);
 	init_prop_string_with_escape(&configlist, &session->savedir, "savedir:", NULL);
+	init_prop_string_with_escape(&configlist, &session->sync_local_uri, "sync_local_uri:", NULL);
+	init_prop_string_with_escape(&configlist, &session->sync_remote_uri, "sync_remote_uri:", NULL);
 	init_prop_string_with_escape(&configlist, &session->encoding, "encoding:", NULL);
 	init_prop_integer   (&configlist, &session->adv_open_matchname, "adv_open_matchname:", 1, FALSE);
 	init_prop_integer   (&configlist, &session->adv_open_recursive, "adv_open_recursive:", 0, FALSE);

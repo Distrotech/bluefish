@@ -1023,9 +1023,22 @@ void file_reload_all_modified(Tbfwin * bfwin)
 
 typedef struct {
 	GtkWidget *dialog;
+	Tbfwin *bfwin;
 	GtkWidget *entry_local;
 	GtkWidget *entry_remote;
+	GtkWidget *progress;
 } Tsyncdialog;
+
+static void sync_progress(gint total, gint done, gpointer user_data) {
+	if (total > 0) {
+		Tsyncdialog *sd = user_data;
+		gchar *text;
+		gtk_progress_bar_set_fraction(sd->progress,1.0*done/total);
+		text = g_strdup_printf("%d / %d",done,total);
+		gtk_progress_bar_set_text(sd->progress,text);
+		g_free(text);
+	}
+}
 
 static void sync_dialog_response_lcb(GtkDialog *dialog,gint response_id,gpointer user_data) {
 	Tsyncdialog *sd = user_data;
@@ -1033,27 +1046,34 @@ static void sync_dialog_response_lcb(GtkDialog *dialog,gint response_id,gpointer
 	if (response_id > 0) { 
 		GFile *local, *remote;
 	
-		local = g_file_new_for_commandline_arg(gtk_entry_get_text(sd->entry_local));
-		remote = g_file_new_for_commandline_arg(gtk_entry_get_text(sd->entry_remote));
+		local = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_local)));
+		remote = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_remote)));
 		g_print("sync_dialog_response_lcb, local=%p,remote=%p\n",local,remote);
 		if (response_id==1) {
-			sync_directory(local, remote);
+			sync_directory(local, remote, sync_progress, sd);
 		} else if (response_id == 2) {
-			sync_directory(remote, local);
+			sync_directory(remote, local, sync_progress, sd);
 		}
+		g_free(sd->bfwin->session->sync_local_uri);
+		sd->bfwin->session->sync_local_uri = g_file_get_uri(local);
+		g_free(sd->bfwin->session->sync_remote_uri);
+		sd->bfwin->session->sync_remote_uri = g_file_get_uri(remote);
+		
 		g_object_unref(local);
 		g_object_unref(remote);
+	} else {
+		gtk_widget_destroy(sd->dialog);
+		g_free(sd);
 	}
-	gtk_widget_destroy(sd->dialog);
-	g_free(sd);
 }
 
 void sync_dialog(Tbfwin *bfwin) {
 	Tsyncdialog *sd;
-	GtkBox *hbox;
+	GtkWidget *hbox;
 	sd = g_new0(Tsyncdialog,1);
-	sd->dialog = gtk_dialog_new_with_buttons(_("Synchronize files"),bfwin->main_window,GTK_DIALOG_DESTROY_WITH_PARENT
-				,_("Upload"),1,_("Download"),2,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
+	sd->bfwin = bfwin;
+	sd->dialog = gtk_dialog_new_with_buttons(_("Synchronize files"),GTK_WINDOW(bfwin->main_window),GTK_DIALOG_DESTROY_WITH_PARENT
+				,_("Upload"),1,_("Download"),2,GTK_STOCK_CLOSE,GTK_RESPONSE_CLOSE,NULL);
 	
 	hbox = gtk_hbox_new(FALSE,4);
 	sd->entry_local = gtk_entry_new();
@@ -1068,7 +1088,20 @@ void sync_dialog(Tbfwin *bfwin) {
 	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_remote, TRUE,FALSE,4);
 	gtk_box_pack_start(GTK_BOX(hbox), file_but_new2(sd->entry_remote, 1, bfwin,GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), TRUE,FALSE,4);
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), hbox, FALSE,FALSE,4);
+
+	sd->progress = gtk_progress_bar_new();
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), sd->progress, FALSE,FALSE,4);
 	
-	g_signal_connect(sd->dialog, "response", sync_dialog_response_lcb, sd);
+	if (bfwin->session->sync_local_uri && bfwin->session->sync_local_uri[0]!='\0') {
+		gtk_entry_set_text(GTK_ENTRY(sd->entry_local), bfwin->session->sync_local_uri);
+	} else if (bfwin->session->recent_dirs && bfwin->session->recent_dirs->data && *(gchar *)bfwin->session->recent_dirs->data != '\0') {
+		gtk_entry_set_text(GTK_ENTRY(sd->entry_local), bfwin->session->recent_dirs->data);
+	}
+
+	if (bfwin->session->sync_remote_uri && bfwin->session->sync_remote_uri[0]!='\0') {
+		gtk_entry_set_text(GTK_ENTRY(sd->entry_remote), bfwin->session->sync_remote_uri);
+	}
+	
+	g_signal_connect(sd->dialog, "response", G_CALLBACK(sync_dialog_response_lcb), sd);
 	gtk_widget_show_all(sd->dialog);
 }
