@@ -1202,7 +1202,7 @@ typedef struct {
 	Tqueue queue_update;
 	guint num_found;
 	guint num_finished;
-	GTimer *timer;
+	/*GTimer *timer;*/
 	SyncProgressCallback progress_callback;
 	gpointer callback_data;
 } Tsync;
@@ -1212,7 +1212,8 @@ static void sync_unref(Tsync *sync) {
 	if (sync->refcount == 0) {
 		g_object_unref(sync->basedir);
 		g_object_unref(sync->targetdir);
-		g_timer_destroy(sync->timer);
+		sync->progress_callback(-1,-1,sync->callback_data);
+		/*g_timer_destroy(sync->timer);*/
 		g_print("sync_unref, unreffing!\n");
 		g_slice_free(Tsync,sync);
 	}
@@ -1288,6 +1289,16 @@ GFile *remote_for_local(Tsync *sync,GFile *local) {
 	return uri;
 }
 
+static void progress_update(Tsync *sync) {
+/*	if (g_timer_elapsed(sync->timer,NULL) > 0.05) */
+	if (sync->num_found % 10==0 || (sync->num_found - sync->num_finished) % 10 == 0) 
+	{
+		sync->progress_callback(sync->num_found,sync->num_finished,sync->callback_data);
+/*		g_print("timer elapsed %f\n",g_timer_elapsed(sync->timer,NULL));
+		g_timer_start(sync->timer);*/
+	}
+}
+
 /*
 TODO
 static void remote_cleanup(Tsync *sync) {
@@ -1316,7 +1327,7 @@ static void do_update_lcb(GObject *source_object,GAsyncResult *res,gpointer user
 		remote_cleanup();
 	}*/
 	su->sync->num_finished++;
-	su->sync->progress_callback(su->sync->num_found,su->sync->num_finished,su->sync->callback_data);
+	progress_update(su->sync);
 	/*g_print("%d%%: %d found, %d finished\n",(gint)(100.0*su->sync->num_finished/su->sync->num_found), su->sync->num_found,su->sync->num_finished);*/
 	queue_worker_ready(&su->sync->queue_update,do_update_run);
 	update_cleanup(su);
@@ -1374,7 +1385,7 @@ static void check_update_need_lcb(GObject *source_object,GAsyncResult *res,gpoin
 				do_update(snu->sync,snu->local_uri,snu->remote_uri);
 			} else {
 				snu->sync->num_finished++;
-				snu->sync->progress_callback(snu->sync->num_found,snu->sync->num_finished,snu->sync->callback_data);
+				progress_update(snu->sync);
 				/*g_print("%d%%: %d found, %d finished\n",(gint)(100.0*snu->sync->num_finished/snu->sync->num_found), snu->sync->num_found,snu->sync->num_finished);*/
 			}
 		}
@@ -1520,7 +1531,7 @@ static void walk_local_directory_enumerate_next_files_lcb(GObject *source_object
 					} else if (ft == G_FILE_TYPE_REGULAR) {
 						check_update_need(swd->sync,uri,finfo, FALSE);
 						swd->sync->num_found++;
-						swd->sync->progress_callback(swd->sync->num_found,swd->sync->num_finished,swd->sync->callback_data);
+						progress_update(swd->sync);
 					}
 					g_object_unref(uri);
 				}
@@ -1596,7 +1607,7 @@ void sync_directory(GFile *basedir, GFile *targetdir, SyncProgressCallback progr
 	queue_init(&sync->queue_delete,7);
 	queue_init(&sync->queue_need_update,8);
 	queue_init(&sync->queue_update,6);
-	sync->timer = g_timer_new();
+	/*sync->timer = g_timer_new();*/
 	sync->basedir = basedir;
 	g_object_ref(sync->basedir);
 	sync->targetdir = targetdir;
