@@ -1027,16 +1027,22 @@ typedef struct {
 	GtkWidget *entry_local;
 	GtkWidget *entry_remote;
 	GtkWidget *progress;
+	gulong signal_id;
 } Tsyncdialog;
 
 static void sync_progress(gint total, gint done, gpointer user_data) {
+	Tsyncdialog *sd = user_data;
 	if (total > 0) {
-		Tsyncdialog *sd = user_data;
 		gchar *text;
 		gtk_progress_bar_set_fraction(sd->progress,1.0*done/total);
 		text = g_strdup_printf("%d / %d",done,total);
 		gtk_progress_bar_set_text(sd->progress,text);
+/*		g_print("%s\n",text);*/
 		g_free(text);
+	} else if (total == -1) {
+		gtk_progress_bar_set_fraction(sd->progress,1);
+		gtk_progress_bar_set_text(sd->progress,_("done"));
+		g_signal_handler_unblock(sd->dialog,sd->signal_id);
 	}
 }
 
@@ -1054,6 +1060,7 @@ static void sync_dialog_response_lcb(GtkDialog *dialog,gint response_id,gpointer
 		} else if (response_id == 2) {
 			sync_directory(remote, local, sync_progress, sd);
 		}
+		g_signal_handler_block(sd->dialog,sd->signal_id);
 		g_free(sd->bfwin->session->sync_local_uri);
 		sd->bfwin->session->sync_local_uri = g_file_get_uri(local);
 		g_free(sd->bfwin->session->sync_remote_uri);
@@ -1102,6 +1109,6 @@ void sync_dialog(Tbfwin *bfwin) {
 		gtk_entry_set_text(GTK_ENTRY(sd->entry_remote), bfwin->session->sync_remote_uri);
 	}
 	
-	g_signal_connect(sd->dialog, "response", G_CALLBACK(sync_dialog_response_lcb), sd);
+	sd->signal_id = g_signal_connect(sd->dialog, "response", G_CALLBACK(sync_dialog_response_lcb), sd);
 	gtk_widget_show_all(sd->dialog);
 }
