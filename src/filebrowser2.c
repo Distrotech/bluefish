@@ -1598,7 +1598,7 @@ static void fb2rpopup_delete(Tfilebrowser2 * fb2)
 			/* ref the uri, it is unreffed by the callback */
 			g_object_ref(uri);
 			g_print("fb2rpopup_delete, calling file_delete_file_async\n");
-			file_delete_file_async(uri, rcpopup_async_delete_lcb, uri);
+			file_delete_async(uri, FALSE, rcpopup_async_delete_lcb, uri);
 		}
 		g_free(filename);
 		g_free(fullpath);

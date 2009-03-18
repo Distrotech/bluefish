@@ -128,14 +128,65 @@ typedef struct {
 	DeleteAsyncCallback callback;
 	gpointer callback_data;
 	GFile *uri;
+	gboolean recursive;
 } Tdelete;
 
 static gboolean delete_async_finished_lcb(gpointer data) {
 	Tdelete *del = data;
-	del->callback(del->callback_data);
+	if (del->callback) {
+		del->callback(del->callback_data);
+	}
 	g_object_unref(del->uri);
 	g_free(del);
 	return FALSE;
+}
+
+static void delete_recursive(GFile *dir) {
+	GFileEnumerator *enumer;
+	GError *error=NULL;
+	GFileInfo *finfo;
+	
+	enumer = g_file_enumerate_children(dir,"standard::type,standard::name",0,NULL,&error);
+	if (!enumer|| error) {
+		return;
+	}
+	do {
+		finfo = g_file_enumerator_next_file(enumer,NULL,&error);
+		GFile *child;
+		const gchar *name;
+		if (error) {
+			g_print("delete_recursive, next file, got error %d %s\n",error->code,error->message);
+			g_error_free(error);
+			error=NULL;
+			break;
+		}
+		if (finfo) {
+			name = g_file_info_get_name(finfo);
+			if (strcmp(name,".")==0||strcmp(name,"..")==0) {
+				g_object_unref(finfo);
+				break;
+			} 
+			child = g_file_get_child(dir,g_file_info_get_name(finfo));
+			if (g_file_info_get_file_type(finfo)==G_FILE_TYPE_DIRECTORY) {
+				delete_recursive(child);
+			}
+			g_file_delete(child,NULL,&error);
+			if (error) {
+				g_print("delete_recursive, delete, got error %d %s\n",error->code,error->message);
+				g_error_free(error);
+				error=NULL;
+			}
+			g_object_unref(child);
+			g_object_unref(finfo);
+		}
+	} while (finfo && !error);
+	g_file_enumerator_close(enumer,NULL,&error);
+	if (error) {
+		g_print("delete_recursive, close enumer, got error %d %s\n",error->code,error->message);
+		g_error_free(error);
+		error=NULL;
+	}
+	g_object_unref(enumer);
 }
 
 static gboolean delete_async(GIOSchedulerJob *job,GCancellable *cancellable,gpointer user_data) {
@@ -143,7 +194,17 @@ static gboolean delete_async(GIOSchedulerJob *job,GCancellable *cancellable,gpoi
 	GError *error=NULL;	
 	g_file_delete(del->uri,NULL,&error);
 	if (error) {
-		g_print("delete_async, failed to delete: %s\n",error->message);
+		if (error->code == G_IO_ERROR_NOT_EMPTY && del->recursive) {
+			GError *err2=NULL;
+			delete_recursive(del->uri);
+			g_file_delete(del->uri,NULL,&err2);
+			if (err2) {
+				g_print("delete_async, after recursion failed to delete: %s\n",error->message);
+				g_error_free(err2);
+			}
+		} else {
+			g_print("delete_async, failed to delete: %s\n",error->message);
+		}
 		g_error_free(error);
 	}
 	g_idle_add_full(G_PRIORITY_LOW,delete_async_finished_lcb, del,NULL);
@@ -151,12 +212,13 @@ static gboolean delete_async(GIOSchedulerJob *job,GCancellable *cancellable,gpoi
 	return FALSE;
 }
 
-void file_delete_file_async(GFile *uri, DeleteAsyncCallback callback, gpointer callback_data) {
+void file_delete_async(GFile *uri, gboolean recursive, DeleteAsyncCallback callback, gpointer callback_data) {
 	Tdelete *del = g_new0(Tdelete,1);
 	g_object_ref(uri);
 	del->uri = uri;
 	del->callback = callback;
 	del->callback_data = callback_data;
+	del->recursive = recursive;
 	g_io_scheduler_push_job(delete_async, del,NULL,G_PRIORITY_LOW,NULL);
 }
 
@@ -1445,29 +1507,19 @@ static void walk_directory_remote_enumerate_next_files_lcb(GObject *source_objec
 				GFileInfo *finfo = tmplist->data;
 				const gchar *name;
 				
-				GFileType ft = g_file_info_get_file_type(finfo);
+/*				GFileType ft = g_file_info_get_file_type(finfo);*/
 				name = g_file_info_get_name(finfo);
 				if (g_hash_table_lookup(swd->localnames, name)==NULL) { /* . and .. are in the hash */
 					GFile *uri;
 					uri = g_file_get_child(swd->remote_dir, name);
-					if (ft == G_FILE_TYPE_DIRECTORY) {
-						g_print("recursive directory delete is not yet implemented\n");
-					} else if (ft == G_FILE_TYPE_REGULAR) {
-						error=NULL;
-						if (g_file_delete(uri,NULL,&error)) {
-							g_print("deleted %s\n",name);
-						} else if (error) {
-							g_print("walk_directory_remote_enumerate_next_files_lcb, on delete got error %d: %s\n", error->code,error->message);
-							g_error_free(error);
-						}
-					}
+					file_delete_async(uri, TRUE, NULL, NULL);
 					g_object_unref(uri);
 				}
 				g_object_unref(finfo);
 				tmplist = g_list_next(tmplist);
 			}
 			g_list_free(list);
-			g_file_enumerator_next_files_async(swd->renmrt,20,G_PRIORITY_LOW,NULL,walk_directory_remote_enumerate_next_files_lcb,swd);
+			g_file_enumerator_next_files_async(swd->renmrt,64,G_PRIORITY_LOW,NULL,walk_directory_remote_enumerate_next_files_lcb,swd);
 		} else {
 			/* finished */
 			g_file_enumerator_close_async(swd->renmrt, G_PRIORITY_LOW, NULL,walk_directory_remote_close_lcb, swd);
@@ -1483,7 +1535,7 @@ static void walk_directory_remote_enumerate_lcb(GObject *source_object,GAsyncRes
 		g_print("walk_local_directory_remote_enumerate_lcb, error %d=%s\n",error->code,error->message);
 		g_error_free(error);
 	} else {
-		g_file_enumerator_next_files_async(swd->renmrt,20,G_PRIORITY_LOW,NULL,walk_directory_remote_enumerate_next_files_lcb,swd);
+		g_file_enumerator_next_files_async(swd->renmrt,64,G_PRIORITY_LOW,NULL,walk_directory_remote_enumerate_next_files_lcb,swd);
 	}	
 }
 
@@ -1540,7 +1592,7 @@ static void walk_local_directory_enumerate_next_files_lcb(GObject *source_object
 				tmplist = g_list_next(tmplist);
 			}
 			g_list_free(list);
-			g_file_enumerator_next_files_async(swd->enmrt,20,G_PRIORITY_LOW,NULL,walk_local_directory_enumerate_next_files_lcb,swd);
+			g_file_enumerator_next_files_async(swd->enmrt,64,G_PRIORITY_LOW,NULL,walk_local_directory_enumerate_next_files_lcb,swd);
 		} else {
 			/* finished */
 			g_file_enumerator_close_async(swd->enmrt, G_PRIORITY_LOW, NULL,walk_local_directory_close_lcb, swd);
@@ -1556,7 +1608,7 @@ static void walk_local_directory_enumerate_lcb(GObject *source_object,GAsyncResu
 		g_print("walk_local_directory_enumerate_lcb, error %d=%s\n",error->code,error->message);
 		g_error_free(error);
 	} else {
-		g_file_enumerator_next_files_async(swd->enmrt,20,G_PRIORITY_LOW,NULL,walk_local_directory_enumerate_next_files_lcb,swd);
+		g_file_enumerator_next_files_async(swd->enmrt,64,G_PRIORITY_LOW,NULL,walk_local_directory_enumerate_next_files_lcb,swd);
 	}
 }
 
