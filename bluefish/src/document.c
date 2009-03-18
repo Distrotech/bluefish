@@ -2014,7 +2014,7 @@ void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 			backupuri = g_file_new_for_uri(tmp2);
 			g_free(tmp);
 			g_free(tmp2);
-			file_delete_file_async(backupuri, delete_backupfile_lcb, backupuri);
+			file_delete_async(backupuri, FALSE, delete_backupfile_lcb, backupuri);
 			g_object_unref(backupuri);
 		}
 		g_object_unref(doc->uri);

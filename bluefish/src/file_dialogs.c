@@ -482,7 +482,7 @@ gtk_label_get_text(GTK_LABEL(doc->tab_label)));
 		break;
 	case CHECKANDSAVE_FINISHED:
 		if (dsb->unlink_uri) {
-			file_delete_file_async(dsb->unlink_uri, docsavebackend_async_unlink_lcb, dsb);
+			file_delete_async(dsb->unlink_uri, FALSE, docsavebackend_async_unlink_lcb, dsb);
 		}
 		/* if the user wanted to close the doc we should do very diffferent things here !! */
 		doc->action.save = NULL;
