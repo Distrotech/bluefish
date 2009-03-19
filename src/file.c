@@ -1256,6 +1256,8 @@ typedef struct {
 	guint refcount;
 	GFile *basedir;
 	GFile *targetdir;
+	gboolean delete_deprecated;
+	gboolean include_hidden;
 	gint numworking;
 	Tqueue queue_walkdir_local;
 	Tqueue queue_walkdir_remote;
@@ -1555,7 +1557,11 @@ static void walk_local_directory_close_lcb(GObject *source_object,GAsyncResult *
 		g_error_free(error);
 	}
 	queue_worker_ready(&swd->sync->queue_walkdir_local,walk_local_directory_run);
-	queue_push(&swd->sync->queue_walkdir_remote,swd,walk_directory_remote_run);
+	if (swd->sync->delete_deprecated) {
+		queue_push(&swd->sync->queue_walkdir_remote,swd,walk_directory_remote_run);
+	} else {
+		walk_directory_cleanup(swd);
+	}
 }
 
 static void walk_local_directory_enumerate_next_files_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
@@ -1648,10 +1654,12 @@ static void sync_directory_mount_lcb(GObject *source_object,GAsyncResult *res,gp
 	sync_unref(sync);
 }
 
-void sync_directory(GFile *basedir, GFile *targetdir, SyncProgressCallback progress_callback, gpointer callback_data) {
+void sync_directory(GFile *basedir, GFile *targetdir, gboolean delete_deprecated, gboolean include_hidden, SyncProgressCallback progress_callback, gpointer callback_data) {
 	GMountOperation * gmo;
 	Tsync *sync = g_slice_new0(Tsync);
 	sync->refcount++;
+	sync->delete_deprecated = delete_deprecated;
+	sync->include_hidden = include_hidden;
 	sync->progress_callback = progress_callback;
 	sync->callback_data = callback_data;
 	queue_init(&sync->queue_walkdir_local,5);
