@@ -1026,6 +1026,8 @@ typedef struct {
 	Tbfwin *bfwin;
 	GtkWidget *entry_local;
 	GtkWidget *entry_remote;
+	GtkWidget *delete_deprecated;
+	GtkWidget *include_hidden;
 	GtkWidget *progress;
 	gulong signal_id;
 } Tsyncdialog;
@@ -1054,12 +1056,14 @@ static void sync_dialog_response_lcb(GtkDialog *dialog,gint response_id,gpointer
 	
 		local = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_local)));
 		remote = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_remote)));
-		g_print("sync_dialog_response_lcb, local=%p,remote=%p\n",local,remote);
 		if (response_id==1) {
-			sync_directory(local, remote, sync_progress, sd);
+			sync_directory(local, remote, gtk_toggle_button_get_active(sd->delete_deprecated), gtk_toggle_button_get_active(sd->include_hidden), sync_progress, sd);
 		} else if (response_id == 2) {
-			sync_directory(remote, local, sync_progress, sd);
+			sync_directory(remote, local, gtk_toggle_button_get_active(sd->delete_deprecated), gtk_toggle_button_get_active(sd->include_hidden), sync_progress, sd);
 		}
+		sd->bfwin->session->sync_delete_deprecated = gtk_toggle_button_get_active(sd->delete_deprecated);
+		sd->bfwin->session->sync_include_hidden = gtk_toggle_button_get_active(sd->delete_deprecated);
+		
 		g_signal_handler_block(sd->dialog,sd->signal_id);
 		g_free(sd->bfwin->session->sync_local_uri);
 		sd->bfwin->session->sync_local_uri = g_file_get_uri(local);
@@ -1095,6 +1099,9 @@ void sync_dialog(Tbfwin *bfwin) {
 	gtk_box_pack_start(GTK_BOX(hbox), sd->entry_remote, TRUE,FALSE,4);
 	gtk_box_pack_start(GTK_BOX(hbox), file_but_new2(sd->entry_remote, 1, bfwin,GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER), TRUE,FALSE,4);
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), hbox, FALSE,FALSE,4);
+	
+	sd->delete_deprecated = boxed_checkbut_with_value(_("Delete remote deprecated files"), bfwin->session->sync_delete_deprecated, GTK_DIALOG(sd->dialog)->vbox);
+	sd->include_hidden = boxed_checkbut_with_value(_("Include hidden files"), bfwin->session->sync_include_hidden, GTK_DIALOG(sd->dialog)->vbox);
 
 	sd->progress = gtk_progress_bar_new();
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(sd->dialog)->vbox), sd->progress, FALSE,FALSE,4);

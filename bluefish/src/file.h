@@ -126,7 +126,7 @@ void file_doc_retry_uri(Tdocument *doc);
 void file_docs_from_uris(Tbfwin *bfwin, GSList *urislist);
 
 typedef void (* SyncProgressCallback)(gint total, gint done, gpointer user_data);
-void sync_directory(GFile *basedir, GFile *targetdir, SyncProgressCallback progress_callback, gpointer callback_data);
+void sync_directory(GFile *basedir, GFile *targetdir, gboolean delete_deprecated, gboolean include_hidden, SyncProgressCallback progress_callback, gpointer callback_data);
 
 void file_handle(GFile *uri, Tbfwin *bfwin);
 #endif /* __FILE_H_ */

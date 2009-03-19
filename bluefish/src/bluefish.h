@@ -291,6 +291,8 @@ typedef struct {
 	gchar *savedir;
 	gchar *sync_local_uri;
 	gchar *sync_remote_uri;
+	gint sync_delete_deprecated;
+	gint sync_include_hidden;
 	gint adv_open_matchname;
 	gint adv_open_recursive;
 	gint bookmarks_filename_mode;    /* 0=FULLPATH, 1=DIR FROM BASE 2=BASENAME */
