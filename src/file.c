@@ -1727,7 +1727,16 @@ static gboolean walk_local_directory_job(GIOSchedulerJob *job,GCancellable *canc
 							if (g_file_info_get_file_type(rfinfo) == G_FILE_TYPE_DIRECTORY) {
 								delete_recursive(remote);
 							}
-							do_update(swd->sync,local,remote);
+							GTimeVal remote_mtime,local_mtime;
+							g_file_info_get_modification_time(rfinfo,&remote_mtime);
+							g_file_info_get_modification_time(finfo,&local_mtime);
+							if (g_file_info_get_size(rfinfo)!=g_file_info_get_size(finfo)
+										|| remote_mtime.tv_sec+remote_mtime.tv_usec <  local_mtime.tv_sec+local_mtime.tv_usec) {
+								do_update(swd->sync,local,remote);
+							} else {
+								swd->sync->num_finished++;
+								/*progress_update(snu->sync);*/
+							}
 						}
 						g_object_unref(rfinfo);
 					}
