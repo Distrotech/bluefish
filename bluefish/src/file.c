@@ -58,15 +58,18 @@ typedef struct {
 	/*guint task_id;*/ /* the event source id of the task running with g_timeout_add(), or 0 if no task is running */
 	guint max_worknum;
 	/*void (*activate_func) ();*/
+	GMutex *mutex;
 } Tqueue;
 
 static void queue_init(Tqueue *queue, guint max_worknum) {
 	queue->worknum=0;
 	queue->tail=queue->head=NULL;
 	queue->max_worknum=max_worknum;
+	queue->mutex = g_mutex_new();
 } 
 
 static void queue_run(Tqueue *queue, void (*activate_func) () )  {
+	/* THE QUEUE MUTEX SHOULD BE LOCKED WHEN CALLING THIS FUNCTION !!!!!!!!!!!!!!!!!!!!! */
 	if (queue->worknum < queue->max_worknum) {
 		while (queue->tail != NULL && queue->worknum < queue->max_worknum) {
 			GList *curlst = queue->tail;
@@ -84,15 +87,19 @@ static void queue_run(Tqueue *queue, void (*activate_func) () )  {
 }
 
 static void queue_worker_ready(Tqueue *queue, void (*activate_func) ()) {
+	g_mutex_lock(queue->mutex);
 	queue->worknum--;
 	queue_run(queue,activate_func);
+	g_mutex_unlock(queue->mutex);
 }
 
 static void queue_push(Tqueue *queue, gpointer item, void (*activate_func) ()) {
+	g_mutex_lock(queue->mutex);
 	queue->head = g_list_prepend(queue->head, item);
 	if (queue->tail==NULL)
 		queue->tail=queue->head;
 	queue_run(queue,activate_func);
+	g_mutex_unlock(queue->mutex);
 }
 /*
 static gboolean process_queue(gpointer data) {
@@ -1271,8 +1278,14 @@ typedef struct {
 	gpointer callback_data;
 } Tsync;
 
-static void sync_unref(Tsync *sync) {
+static void sync_unref(gpointer data) {
+	Tsync *sync = data;
 	sync->refcount--;
+	/*g_print("sync_unref, refcount=%d, q_update=%d/%d, q_local=%d/%d q_remote=%d/%d\n",sync->refcount
+				,g_list_length(sync->queue_update.head),sync->queue_update.worknum
+				,g_list_length(sync->queue_walkdir_local.head),sync->queue_walkdir_local.worknum
+				,g_list_length(sync->queue_walkdir_remote.head),sync->queue_walkdir_remote.worknum
+				);*/
 	if (sync->refcount == 0) {
 		g_object_unref(sync->basedir);
 		g_object_unref(sync->targetdir);
@@ -1296,6 +1309,7 @@ typedef struct {
 } Tsync_walkdir;
 
 static void walk_directory_cleanup(Tsync_walkdir *swd) {
+	/*g_print("walk_directory_cleanup, sync_unref\n");*/
 	sync_unref(swd->sync);
 	g_object_unref(swd->remote_dir);
 	g_object_unref(swd->local_dir);
@@ -1327,6 +1341,7 @@ typedef struct {
 } Tsync_update;
 
 static void update_cleanup(Tsync_update *su) {
+	/*g_print("update_cleanup, sync_unref\n");*/
 	sync_unref(su->sync);
 	g_object_unref(su->local_uri);
 	g_object_unref(su->remote_uri);
@@ -1351,14 +1366,15 @@ GFile *remote_for_local(Tsync *sync,GFile *local) {
 	return uri;
 }
 
-static void progress_update(Tsync *sync) {
+static void progress_update(gpointer data) {
+	Tsync *sync = data;
 /*	if (g_timer_elapsed(sync->timer,NULL) > 0.05) */
-	if (sync->num_found % 10==0 || (sync->num_found - sync->num_finished) % 10 == 0) 
-	{
+/*	if (sync->num_found % 10==0 || (sync->num_found - sync->num_finished) % 10 == 0) 
+	{*/
 		sync->progress_callback(sync->num_found,sync->num_finished,sync->callback_data);
 /*		g_print("timer elapsed %f\n",g_timer_elapsed(sync->timer,NULL));
 		g_timer_start(sync->timer);*/
-	}
+/*	}*/
 }
 
 /*
@@ -1383,11 +1399,6 @@ static void do_update_lcb(GObject *source_object,GAsyncResult *res,gpointer user
 		g_print("do_update_lcb got error %d %s\n",error->code,error->message);
 		g_error_free(error);
 	}
-	/*
-	TODO: remove all files that are locally not present ???
-	if () {
-		remote_cleanup();
-	}*/
 	su->sync->num_finished++;
 	progress_update(su->sync);
 	/*g_print("%d%%: %d found, %d finished\n",(gint)(100.0*su->sync->num_finished/su->sync->num_found), su->sync->num_found,su->sync->num_finished);*/
@@ -1535,6 +1546,13 @@ static void walk_directory_remote_enumerate_lcb(GObject *source_object,GAsyncRes
 	}	
 }*/
 
+static gboolean walk_directory_remote_job_finished(gpointer user_data) {
+	Tsync_walkdir *swd = user_data;
+	queue_worker_ready(&swd->sync->queue_walkdir_remote, walk_directory_remote_run);
+	walk_directory_cleanup(swd);
+	return FALSE;
+}
+
 static gboolean walk_directory_remote_job(GIOSchedulerJob *job,GCancellable *cancellable,gpointer user_data) {
 	Tsync_walkdir *swd = user_data;
 	GFileEnumerator *enumer;
@@ -1581,8 +1599,7 @@ static gboolean walk_directory_remote_job(GIOSchedulerJob *job,GCancellable *can
 		}
 		g_object_unref(enumer);
 	}
-	queue_worker_ready(&swd->sync->queue_walkdir_remote, walk_directory_remote_run);
-	walk_directory_cleanup(swd);
+	g_io_scheduler_job_send_to_mainloop(job, walk_directory_remote_job_finished, swd,NULL);
 	return FALSE;
 }
 
@@ -1665,6 +1682,20 @@ static void walk_local_directory_enumerate_lcb(GObject *source_object,GAsyncResu
 	}
 }*/
 
+static gboolean walk_local_directory_job_finished(gpointer user_data) {
+	Tsync_walkdir *swd = user_data;
+	queue_worker_ready(&swd->sync->queue_walkdir_local, walk_local_directory_run);
+	
+	if (swd->sync->delete_deprecated) {
+		queue_push(&swd->sync->queue_walkdir_remote,swd,walk_directory_remote_run);
+	}
+	progress_update(swd->sync);
+	if (!swd->sync->delete_deprecated) {
+		walk_directory_cleanup(swd);
+	}
+	return FALSE;
+}
+
 static gboolean walk_local_directory_job(GIOSchedulerJob *job,GCancellable *cancellable,gpointer user_data) {
 	Tsync_walkdir *swd = user_data;
 	GFileEnumerator *enumer;
@@ -1724,10 +1755,18 @@ static gboolean walk_local_directory_job(GIOSchedulerJob *job,GCancellable *canc
 							}
 							walk_local_directory(swd->sync, local, remote);
 						} else if (g_file_info_get_file_type(finfo) ==  G_FILE_TYPE_REGULAR) {
+							GTimeVal remote_mtime,local_mtime;
+							
 							if (g_file_info_get_file_type(rfinfo) == G_FILE_TYPE_DIRECTORY) {
 								delete_recursive(remote);
+								g_file_delete(remote,NULL,&error);
+								if (error) {
+									g_print("walk_local_directory_run_job, delete directory, got error %d: %s\n", error->code,error->message);
+									g_error_free(error);
+									error=NULL;
+								}
 							}
-							GTimeVal remote_mtime,local_mtime;
+							
 							g_file_info_get_modification_time(rfinfo,&remote_mtime);
 							g_file_info_get_modification_time(finfo,&local_mtime);
 							if (g_file_info_get_size(rfinfo)!=g_file_info_get_size(finfo)
@@ -1760,12 +1799,9 @@ static gboolean walk_local_directory_job(GIOSchedulerJob *job,GCancellable *canc
 		}
 		g_object_unref(enumer);
 	}
-	queue_worker_ready(&swd->sync->queue_walkdir_local, walk_local_directory_run);
-	if (swd->sync->delete_deprecated) {
-		queue_push(&swd->sync->queue_walkdir_remote,swd,walk_directory_remote_run);
-	} else {
-		walk_directory_cleanup(swd);
-	}
+
+	g_io_scheduler_job_send_to_mainloop(job, walk_local_directory_job_finished, swd, NULL);
+
 	return FALSE;
 }
 
