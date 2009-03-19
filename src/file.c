@@ -1666,6 +1666,92 @@ static void walk_local_directory_enumerate_lcb(GObject *source_object,GAsyncResu
 	}
 }
 
+static gboolean walk_local_directory_job(GIOSchedulerJob *job,GCancellable *cancellable,gpointer user_data) {
+	Tsync_walkdir *swd = user_data;
+	GFileEnumerator *enumer;
+	GError *error=NULL;
+	enumer = g_file_enumerate_children(swd->local_dir,"standard::name,standard::type,standard::display-name,standard::size,time::modified"
+							,G_FILE_QUERY_INFO_NONE,NULL,&error);
+	if (error) {
+		g_print("walk_local_directory_job, enumerate_children, error %d=%s\n",error->code,error->message);
+		g_error_free(error);
+	} else if (enumer) {
+		gboolean cont=TRUE;
+		while (cont) {
+			GFileInfo *finfo;
+			finfo = g_file_enumerator_next_file(enumer,NULL,&error);
+			if (error) {
+				g_print("walk_local_directory_job, enumerate_next_file, error %d=%s\n",error->code,error->message);
+				g_error_free(error);
+				error=NULL;
+			} else if (finfo) {
+				const gchar *name = g_file_info_get_name(finfo);
+				if (strcmp(name,"..")!=0 && strcmp(name,".")!=0) {
+					GFile *local, *remote;
+					GFileInfo *rfinfo;
+					local = g_file_get_child(swd->local_dir, name);
+					remote = remote_for_local(swd->sync,local);
+					rfinfo = g_file_query_info(remote,"standard::name,standard::type,standard::display-name,standard::size,time::modified"
+								,G_FILE_QUERY_INFO_NONE,NULL,&error);
+					if (error) {
+						if (error->code == G_IO_ERROR_NOT_FOUND) { /* file/dir does not exist */
+							g_error_free(error);
+							if (1 /* finfo is dir */ ) {
+								error=NULL;
+								if (g_file_make_directory(remote,NULL,&error)) {
+									walk_local_directory(swd->sync, local, remote);
+								} else if (error) {
+									g_print("check_update_need_lcb, while creating remote dir got error %d %s\n",error->code,error->message);
+									g_error_free(error);
+								}
+							} else {
+								do_update(snu->sync,snu->local_uri,snu->remote_uri);
+							}
+						} else {
+							g_print("walk_local_directory_enumerate_next_files_lcb, got error %d: %s\n", error->code,error->message);
+							g_error_free(error);
+						}
+					} else if (rfinfo) {
+					
+					
+					}
+					
+					if (ft == G_FILE_TYPE_DIRECTORY) {
+						check_update_need(swd->sync,uri,finfo, TRUE);
+					} else if (ft == G_FILE_TYPE_REGULAR) {
+						check_update_need(swd->sync,uri,finfo, FALSE);
+						swd->sync->num_found++;
+						progress_update(swd->sync);
+					}
+					g_object_unref(local);
+					g_object_unref(remote);
+				}
+				if (swd->sync->delete_deprecated) {
+					g_hash_table_insert(swd->localnames, g_strdup(name),GINT_TO_POINTER(1));
+				}
+				g_object_unref(finfo);
+			} else {
+				cont = FALSE;
+			}
+		}
+		g_file_enumerator_close(enumer,NULL,&error);
+		if (error) {
+			g_print("walk_local_directory_job, close_enumerator, error %d=%s\n",error->code,error->message);
+			g_error_free(error);
+		}
+		g_object_unref(enumer);
+	}
+	queue_worker_ready(&swd->sync->queue_walkdir_local, walk_local_directory_run);
+	if (swd->sync->delete_deprecated) {
+		queue_push(&swd->sync->queue_walkdir_remote,swd,walk_directory_remote_run);
+	} else {
+		walk_directory_cleanup(swd);
+	}
+	return FALSE;
+
+}
+
+
 static void walk_local_directory_run(gpointer data) {
 	Tsync_walkdir *swd = data;
 	g_file_enumerate_children_async(swd->local_dir,"standard::name,standard::type,standard::display-name,standard::size,time::modified",
