@@ -58,15 +58,19 @@ typedef struct {
 	/*guint task_id;*/ /* the event source id of the task running with g_timeout_add(), or 0 if no task is running */
 	guint max_worknum;
 	/*void (*activate_func) ();*/
-	GMutex *mutex;
+	GStaticMutex mutex;
 } Tqueue;
 
 static void queue_init(Tqueue *queue, guint max_worknum) {
 	queue->worknum=0;
 	queue->tail=queue->head=NULL;
 	queue->max_worknum=max_worknum;
-	queue->mutex = g_mutex_new();
-} 
+	g_static_mutex_init(&queue->mutex);
+}
+
+static void queue_cleanup(Tqueue *queue) {
+	g_static_mutex_free(&queue->mutex);
+}
 
 static void queue_run(Tqueue *queue, void (*activate_func) () )  {
 	/* THE QUEUE MUTEX SHOULD BE LOCKED WHEN CALLING THIS FUNCTION !!!!!!!!!!!!!!!!!!!!! */
@@ -87,19 +91,19 @@ static void queue_run(Tqueue *queue, void (*activate_func) () )  {
 }
 
 static void queue_worker_ready(Tqueue *queue, void (*activate_func) ()) {
-	g_mutex_lock(queue->mutex);
+	g_static_mutex_lock(&queue->mutex);
 	queue->worknum--;
 	queue_run(queue,activate_func);
-	g_mutex_unlock(queue->mutex);
+	g_static_mutex_unlock(&queue->mutex);
 }
 
 static void queue_push(Tqueue *queue, gpointer item, void (*activate_func) ()) {
-	g_mutex_lock(queue->mutex);
+	g_static_mutex_lock(&queue->mutex);
 	queue->head = g_list_prepend(queue->head, item);
 	if (queue->tail==NULL)
 		queue->tail=queue->head;
 	queue_run(queue,activate_func);
-	g_mutex_unlock(queue->mutex);
+	g_static_mutex_unlock(&queue->mutex);
 }
 /*
 static gboolean process_queue(gpointer data) {
@@ -1287,11 +1291,19 @@ static void sync_unref(gpointer data) {
 				,g_list_length(sync->queue_walkdir_remote.head),sync->queue_walkdir_remote.worknum
 				);*/
 	if (sync->refcount == 0) {
+		g_print("sync_unref, unreffing!\n");
 		g_object_unref(sync->basedir);
 		g_object_unref(sync->targetdir);
 		sync->progress_callback(-1,-1,sync->callback_data);
 		/*g_timer_destroy(sync->timer);*/
-		g_print("sync_unref, unreffing!\n");
+		g_print("sync_unref, refcount=%d, q_update=%d/%d, q_local=%d/%d q_remote=%d/%d\n",sync->refcount
+				,g_list_length(sync->queue_update.head),sync->queue_update.worknum
+				,g_list_length(sync->queue_walkdir_local.head),sync->queue_walkdir_local.worknum
+				,g_list_length(sync->queue_walkdir_remote.head),sync->queue_walkdir_remote.worknum
+				);
+		queue_cleanup(&sync->queue_walkdir_local);
+		queue_cleanup(&sync->queue_walkdir_remote);
+		queue_cleanup(&sync->queue_update);
 		g_slice_free(Tsync,sync);
 	}
 }
@@ -1412,6 +1424,12 @@ static void do_update_run(gpointer data) {
 					,NULL,NULL,do_update_lcb,su);	 
 }
 
+static gboolean do_update_push(gpointer data) {
+	Tsync_update *su = data;
+	queue_push(&su->sync->queue_update,su,do_update_run);
+	return FALSE;
+}
+
 static void do_update(Tsync *sync, GFile *local_uri, GFile *remote_uri) {
 	Tsync_update *su = g_slice_new0(Tsync_update);
 	su->sync = sync;
@@ -1420,8 +1438,9 @@ static void do_update(Tsync *sync, GFile *local_uri, GFile *remote_uri) {
 	g_object_ref(su->local_uri);
 	su->remote_uri = remote_uri;
 	g_object_ref(su->remote_uri);
-	queue_push(&sync->queue_update,su,do_update_run);
+	g_idle_add(do_update_push, su); /* use g_idle_add to escape from a possible thread */
 }
+
 /*
 static void check_update_need_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
 	Tsync_needupdate *snu= user_data;
@@ -1812,6 +1831,12 @@ static void walk_local_directory_run(gpointer data) {
 					G_FILE_QUERY_INFO_NONE,G_PRIORITY_LOW,NULL,walk_local_directory_enumerate_lcb,swd);*/
 }
 
+static gboolean walk_local_directory_push(gpointer data) {
+	Tsync_walkdir *swd = data;
+	queue_push(&swd->sync->queue_walkdir_local,swd,walk_local_directory_run);
+	return FALSE;
+}
+
 static void walk_local_directory(Tsync *sync, GFile *local_dir, GFile *remote_dir) {
 	Tsync_walkdir *swd = g_slice_new0(Tsync_walkdir);
 	swd->sync = sync;
@@ -1821,7 +1846,7 @@ static void walk_local_directory(Tsync *sync, GFile *local_dir, GFile *remote_di
 	swd->remote_dir = remote_dir;
 	g_object_ref(swd->remote_dir);
 	swd->localnames = g_hash_table_new_full(g_str_hash, g_str_equal,g_free,NULL);
-	queue_push(&sync->queue_walkdir_local,swd,walk_local_directory_run);
+	g_idle_add(walk_local_directory_push, swd); /* use g_idle_add to escape from a possible thread */
 }
 
 static void sync_directory_mount_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
@@ -1844,7 +1869,7 @@ static void sync_directory_mount_lcb(GObject *source_object,GAsyncResult *res,gp
 void sync_directory(GFile *basedir, GFile *targetdir, gboolean delete_deprecated, gboolean include_hidden, SyncProgressCallback progress_callback, gpointer callback_data) {
 	GMountOperation * gmo;
 	Tsync *sync = g_slice_new0(Tsync);
-	sync->refcount++;
+	sync->refcount=1;
 	sync->delete_deprecated = delete_deprecated;
 	sync->include_hidden = include_hidden;
 	sync->progress_callback = progress_callback;

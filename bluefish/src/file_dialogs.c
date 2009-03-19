@@ -1036,14 +1036,14 @@ static void sync_progress(gint total, gint done, gpointer user_data) {
 	Tsyncdialog *sd = user_data;
 	if (total > 0) {
 		gchar *text;
-		gtk_progress_bar_set_fraction(sd->progress,1.0*done/total);
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(sd->progress),1.0*done/total);
 		text = g_strdup_printf("%d / %d",done,total);
-		gtk_progress_bar_set_text(sd->progress,text);
+		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress),text);
 /*		g_print("%s\n",text);*/
 		g_free(text);
 	} else if (total == -1) {
-		gtk_progress_bar_set_fraction(sd->progress,1);
-		gtk_progress_bar_set_text(sd->progress,_("done"));
+		gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(sd->progress),1);
+		gtk_progress_bar_set_text(GTK_PROGRESS_BAR(sd->progress),_("done"));
 		g_signal_handler_unblock(sd->dialog,sd->signal_id);
 	}
 }
