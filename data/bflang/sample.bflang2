@@ -29,8 +29,13 @@ should use style 'comment' by default.
 -->
 	<highlight name="comment" style="comment" />
 
-<!-- <option> is currently unsupported --> 
-	<option name="allfunctions" default="1" description="All php functions" />
+<!-- <option> defines an option that can be set for this language --> 
+	<option name="allphpfunctions" default="1" description="All php functions" />
+<!-- this example adds the option 'allphpfunctions' to the language file
+if in the <definition> section of this file we have a <group class="allphpfunctions"> the user
+can enable/disable this complete section with this option  
+ -->	
+
 </header>
 <definition>
 <!-- within <definition> the actual language description is found. A language definition always
@@ -56,7 +61,7 @@ highlighted
 
 The optional attribute 'id' is used to define an identifier which can be used to re-use this context.
 
-To re-use a context, use <context id="IDENTIFIER" /> where IDENTIFIER refers to a previously defined 
+To re-use a context, use <context idref="IDENTIFIER" /> where IDENTIFIER refers to a previously defined 
 context. The file is parsed top to bottom.
 
 Within <context> there can be <element> <tag> and <group> tags.
@@ -73,6 +78,9 @@ only limited regular expression support. you may use
 - an inverted range such as [^0-9]
 - operators such as ? (zero or one), + (one or more), and * (zero or more)
 - subpatterns such as ab(fg)?
+-->
+<element pattern="'[^']*'" is_regex="1" highlight="string"/>
+<!--
 
 a pattern may be case insensitive, set case_insens="1"
 
@@ -210,6 +218,19 @@ supported attributes are:
 - class 
 -->
 
+<!-- 
+a special usage of <group is to allow the user to disable/enable a section of the file.
+if the <header> section has <option name="allphpfunctions" default="1" description="All php functions" />
+we can put this option into effect like this:  
+-->
+<group class="allphpfunctions">
+	<element pattern="mysql_query" />
+	<element pattern="mysql_fetch_row" />
+	<element pattern="mysql_fetch_array" />
+</group>
+
+
+<!-- --------------------- END OF DOCUMENTATION ------------------------------------------------ -->
 
 <element pattern="[0-9.]+" is_regex="1" highlight="value"/>
 <element pattern="TRUE" autocomplete="1" highlight="value"/>
