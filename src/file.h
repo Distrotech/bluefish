@@ -25,6 +25,8 @@
 
 void DEBUG_URI(GFile * uri, gboolean newline);
 
+void file_static_queues_init(void);
+
 typedef void (* DeleteAsyncCallback) (gpointer callback_data);
 void file_delete_async(GFile *uri, gboolean recursive, DeleteAsyncCallback callback, gpointer callback_data);
 typedef enum {

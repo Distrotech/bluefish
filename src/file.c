@@ -105,34 +105,13 @@ static void queue_push(Tqueue *queue, gpointer item, void (*activate_func) ()) {
 	queue_run(queue,activate_func);
 	g_static_mutex_unlock(&queue->mutex);
 }
-/*
-static gboolean process_queue(gpointer data) {
-	Tqueue *queue = (Tqueue *)data;
-	GList *lastlst = g_list_last(queue->todo);
-	while (lastlst != NULL && queue->worknum < queue->max_worknum) {
-		GList *curlst = lastlst;
-		lastlst = curlst->prev;
-		queue->todo = g_list_remove_link(queue->todo, curlst);
-		queue->activate_func(curlst->data);
-		g_list_free_1(curlst);
-	}
-	if (queue->todo == NULL) {
-		queue->task_id = 0;
-		return FALSE;
-	}
-	return TRUE;
+
+static Tqueue ofqueue;
+
+void file_static_queues_init(void) {
+	queue_init(&ofqueue, 32);
 }
 
-static void push_to_queue(Tqueue *queue, gpointer data) {
-	if (queue->worknum >= queue->max_worknum) {
-		queue->todo = g_list_append(queue->todo, data);
-		if (queue->task_id == 0) {
-			queue->task_id = g_timeout_add(250, process_queue, queue);
-		}
-	} else {
-		queue->activate_func(data);
-	}
-}*/
 
 /*************************** FILE DELETE ASYNC ******************************/
 typedef struct {
@@ -439,21 +418,23 @@ GFile *backup_uri_from_orig_uri(GFile * origuri) {
 }*/
 
 /*************************** OPEN FILE ASYNC ******************************/
-typedef struct {
+/*typedef struct {
 	GList *todo;
 	guint worknum;
 } Tofqueue;
 static Tofqueue ofqueue = {NULL,0};
 #define OF_MAX_WORKNUM 32
+static void process_ofqueue(gpointer data);*/
 
-static void process_ofqueue(gpointer data);
+static void openfile_run(gpointer data);
 
 static void openfile_cleanup(Topenfile *of) {
 	g_object_unref(of->uri);
 	g_object_unref(of->cancel);
 	g_free(of);
-	ofqueue.worknum--;
-	process_ofqueue(NULL);
+	/*ofqueue.worknum--;
+	process_ofqueue(NULL);*/
+	queue_worker_ready(&ofqueue, openfile_run);
 }
 void openfile_cancel(Topenfile *of) {
 	g_cancellable_cancel(of->cancel);
@@ -485,7 +466,6 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 	if (error) {
 		DEBUG_MSG("openfile_async_lcb, finished, received error code %d: %s\n",error->code,error->message);
 		if (error->code == G_IO_ERROR_NOT_MOUNTED) {
-#if 1
 			GMountOperation * gmo;
 			g_print("not mounted, try to mount!!\n");
 			gmo = gtk_mount_operation_new(of->bfwin?(GtkWindow *)of->bfwin->main_window:NULL); /* TODO, add bfwin to the Topenfile */
@@ -494,38 +474,6 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 					,gmo
 					,of->cancel
 					,openfile_async_mount_lcb,of);
-#else
-			g_print("TODO, CREATE GMOUNTOPERATION FOR BACKWARDS COMPATIBILITY WITH OLDER GTK?!?!\n");
-			/* for anonymous ftp */
-			if (g_file_has_uri_scheme(of->uri,"ftp")) {
-				gchar *curi, *starthost;
-				/* check if there is a user name in the URI, if not, prepend anonymous@ in front of the URI */
-				curi = g_file_get_uri(of->uri);
-				if (strlen(curi)>8) {
-					gchar *endhost, *at;
-					starthost = curi+6; /* ftp:// is 6 bytes */
-					endhost = strchr(starthost,'/');
-					at = strchr(starthost,'@');
-					if ((!at) || (endhost && at > endhost)) {
-						gchar *newcuri;
-						GFile *nfile;
-						/* insert anonymous */
-						newcuri = g_strconcat("ftp://anonymous@",starthost,NULL);
-						g_print("newcuri=%s\n",newcuri);
-						nfile = g_file_new_for_uri(newcuri);
-						g_object_unref(of->uri);
-						of->uri = nfile;
-						g_free(newcuri);
-					}
-				}
-				g_free(curi);
-			} 
-			g_file_mount_enclosing_volume(of->uri
-					,G_MOUNT_MOUNT_NONE
-					,NULL
-					,of->cancel
-					,openfile_async_mount_lcb,of);
-#endif
 		} else {
 			of->callback_func(OPENFILE_ERROR,error->code,buffer,size, of->callback_data);
 			g_free(buffer);
@@ -539,12 +487,17 @@ static void openfile_async_lcb(GObject *source_object,GAsyncResult *res,gpointer
 	}	
 }
 
-static void process_ofqueue(gpointer data) {
+static void openfile_run(gpointer data) {
+	Topenfile *of = data;
+	g_file_load_contents_async(of->uri,of->cancel,openfile_async_lcb,of);
+}
+
+/*static void process_ofqueue(gpointer data) {
 	Topenfile *of;
 	if (ofqueue.todo == NULL) {
 		return;
 	}
-	if (ofqueue.worknum > OF_MAX_WORKNUM) { /* load max OAD_MAX_WORKNUM directories simultaneously */
+	if (ofqueue.worknum > OF_MAX_WORKNUM) { / * load max OAD_MAX_WORKNUM directories simultaneously * /
 		return;
 	}
 	while (ofqueue.todo!=NULL && ofqueue.worknum <= OF_MAX_WORKNUM) {
@@ -555,7 +508,7 @@ static void process_ofqueue(gpointer data) {
 		DEBUG_URI(of->uri, TRUE);
 		g_file_load_contents_async(of->uri,of->cancel,openfile_async_lcb,of);
 	}
-}
+}*/
 
 Topenfile *file_openfile_uri_async(GFile *uri, Tbfwin *bfwin, OpenfileAsyncCallback callback_func, gpointer callback_data) {
 	Topenfile *of;
@@ -566,8 +519,9 @@ Topenfile *file_openfile_uri_async(GFile *uri, Tbfwin *bfwin, OpenfileAsyncCallb
 	of->bfwin = bfwin;
 	of->cancel = g_cancellable_new();
 	g_object_ref(of->uri);
-	ofqueue.todo = g_list_prepend(ofqueue.todo, of);
-	process_ofqueue(NULL);
+	queue_push(&ofqueue, of, openfile_run);
+/*	ofqueue.todo = g_list_prepend(ofqueue.todo, of);
+	process_ofqueue(NULL);*/
 	return of;
 }
 
