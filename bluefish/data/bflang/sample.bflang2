@@ -80,7 +80,7 @@ to highlight the pattern use attribute highlight="TYPE", where TYPE should be de
 section of the language file
 
 <element> may have attribute 'id' so this element may be referred to later. To re-use element 'foo' later in the file
-use <element id="foo" />
+use <element idref="foo" />
 -->
 
 <!-- next is a block detection example -->
