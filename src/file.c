@@ -107,9 +107,11 @@ static void queue_push(Tqueue *queue, gpointer item, void (*activate_func) ()) {
 }
 
 static Tqueue ofqueue;
+static Tqueue oadqueue;
 
 void file_static_queues_init(void) {
 	queue_init(&ofqueue, 32);
+	queue_init(&oadqueue, 16);
 }
 
 
@@ -813,17 +815,16 @@ void file_doc_from_uri(Tbfwin *bfwin, GFile *uri, GFileInfo *finfo, gint goto_li
 
 /*************************** OPEN ADVANCED ******************************/
 
-typedef struct {
+/*typedef struct {
 	GList *todo;
 	guint worknum;
-} Toadqueue; /* a queue of Topenadv_dir to avoid 'Too many open files' errors */
+} Toadqueue; / * a queue of Topenadv_dir to avoid 'Too many open files' errors * /
 
 static Toadqueue oadqueue = {NULL, 0};
 #define OAD_MAX_WORKNUM 16
-#define OAD_NUM_FILES_PER_CB 40
-static void process_oadqueue(gpointer data);
-
-#define LOAD_TIMER
+atic void process_oadqueue(gpointer data);*/
+#define OAD_NUM_FILES_PER_CB 64
+#undef LOAD_TIMER
 typedef struct {
 	guint refcount;
 	Tbfwin *bfwin;
@@ -947,6 +948,7 @@ static void openadv_content_filter_file(Topenadv *oa, GFile *uri, GFileInfo* fin
 }
 
 static void open_advanced_backend(Topenadv *oa, GFile *basedir);
+static void openadv_run(gpointer data);
 
 static void open_adv_load_directory_cleanup(Topenadv_dir *oad) {
 	DEBUG_MSG("open_adv_load_directory_cleanup %p\n", oad);
@@ -955,8 +957,9 @@ static void open_adv_load_directory_cleanup(Topenadv_dir *oad) {
 		g_object_unref(oad->gfe);
 	openadv_unref(oad->oa);
 	g_free(oad);
-	oadqueue.worknum--;
-	process_oadqueue(NULL);
+	queue_worker_ready(&oadqueue, openadv_run);
+/*	oadqueue.worknum--;
+	process_oadqueue(NULL);*/
 }
 
 static void enumerator_next_files_lcb(GObject *source_object,GAsyncResult *res,gpointer user_data) {
@@ -1042,12 +1045,20 @@ static void enumerate_children_lcb(GObject *source_object,GAsyncResult *res,gpoi
 	}
 }
 
+static void openadv_run(gpointer data) {
+	Topenadv_dir *oad = data;
+	g_file_enumerate_children_async(oad->basedir,BF_FILEINFO,0
+					,G_PRIORITY_DEFAULT+3 
+					,NULL
+					,enumerate_children_lcb,oad);
+}
+/*
 static void process_oadqueue(gpointer data) {
 	Topenadv_dir *oad;
 	if (oadqueue.todo == NULL) {
 		return;
 	}
-	if (oadqueue.worknum > OAD_MAX_WORKNUM) { /* load max OAD_MAX_WORKNUM directories simultaneously */
+	if (oadqueue.worknum > OAD_MAX_WORKNUM) { / * load max OAD_MAX_WORKNUM directories simultaneously * /
 		return;
 	}
 	while (oadqueue.todo!=NULL && oadqueue.worknum <= OAD_MAX_WORKNUM) {
@@ -1059,7 +1070,7 @@ static void process_oadqueue(gpointer data) {
 					,NULL
 					,enumerate_children_lcb,oad);
 	}
-}
+}*/
 
 static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 	Topenadv_dir *oad;
@@ -1071,8 +1082,9 @@ static void open_advanced_backend(Topenadv *oa, GFile *basedir) {
 
 	oad->basedir = basedir;
 	g_object_ref(oad->basedir);
-	oadqueue.todo = g_list_prepend(oadqueue.todo,oad);
-	process_oadqueue(NULL);
+	queue_push(&oadqueue, oad, openadv_run);
+	/*oadqueue.todo = g_list_prepend(oadqueue.todo,oad);
+	process_oadqueue(NULL);*/
 }
 
 void open_advanced(Tbfwin *bfwin, GFile *basedir, gboolean recursive, gboolean matchname, gchar *name_filter, gchar *content_filter, gboolean use_regex) {
