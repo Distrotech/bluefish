@@ -230,6 +230,7 @@ int main(int argc, char *argv[])
 		msg_queue_check_server(FALSE);
 	}
 #endif
+	file_static_queues_init();
 	if (filenames) {
 		GList *tmplist = g_list_first(filenames);
 		DEBUG_MSG("main, we have filenames, load them\n");
