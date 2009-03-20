@@ -1057,12 +1057,12 @@ static void sync_dialog_response_lcb(GtkDialog *dialog,gint response_id,gpointer
 		local = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_local)));
 		remote = g_file_new_for_commandline_arg(gtk_entry_get_text(GTK_ENTRY(sd->entry_remote)));
 		if (response_id==1) {
-			sync_directory(local, remote, gtk_toggle_button_get_active(sd->delete_deprecated), gtk_toggle_button_get_active(sd->include_hidden), sync_progress, sd);
+			sync_directory(local, remote, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->delete_deprecated)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden)), sync_progress, sd);
 		} else if (response_id == 2) {
-			sync_directory(remote, local, gtk_toggle_button_get_active(sd->delete_deprecated), gtk_toggle_button_get_active(sd->include_hidden), sync_progress, sd);
+			sync_directory(remote, local, gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->delete_deprecated)), gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden)), sync_progress, sd);
 		}
-		sd->bfwin->session->sync_delete_deprecated = gtk_toggle_button_get_active(sd->delete_deprecated);
-		sd->bfwin->session->sync_include_hidden = gtk_toggle_button_get_active(sd->delete_deprecated);
+		sd->bfwin->session->sync_delete_deprecated = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->delete_deprecated));
+		sd->bfwin->session->sync_include_hidden = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(sd->include_hidden));
 		
 		g_signal_handler_block(sd->dialog,sd->signal_id);
 		g_free(sd->bfwin->session->sync_local_uri);
