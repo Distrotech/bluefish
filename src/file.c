@@ -1735,7 +1735,7 @@ static gboolean walk_local_directory_job(GIOSchedulerJob *job,GCancellable *canc
 				error=NULL;
 			} else if (finfo) {
 				const gchar *name = g_file_info_get_name(finfo);
-				if (strcmp(name,"..")!=0 && strcmp(name,".")!=0) {
+				if (name && strcmp(name,"..")!=0 && strcmp(name,".")!=0 && (swd->sync->include_hidden || name[0]!='.')) {
 					GFile *local, *remote;
 					GFileInfo *rfinfo;
 					local = g_file_get_child(swd->local_dir, name);
