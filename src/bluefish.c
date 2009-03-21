@@ -142,7 +142,6 @@ int main(int argc, char *argv[])
 
 	xmlInitParser();
 
-	set_default_icon();
 	main_v = g_new0(Tmain, 1);
 	DEBUG_MSG("main, main_v is at %p\n", main_v);
 	rcfile_check_directory();
@@ -198,7 +197,7 @@ int main(int argc, char *argv[])
 	if (main_v->props.show_splash_screen)
 		splash_screen_set_label(_("building file browser ..."));
 #endif							/* NOSPLASH */
-
+	set_default_icon();
 	fb2config_init();			/* filebrowser2config */
 	filters_rebuild();
 	main_v->tooltips = gtk_tooltips_new();
