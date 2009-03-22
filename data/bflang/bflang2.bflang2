@@ -86,7 +86,7 @@
 			<reference>tag is added for convenience. Everything within tag is possible with a combination of multiple element and context tags.  </reference>
 				<context idref="innerpattern" />
 			</tag>
-			<tag name="group" id="group" highlight="tag" autocomplete_append="&gt;" attributes="highlight,autocomplete,autocomplete_append,class,case_insens,is_regex,attrib_autocomplete_append,attribhighlight" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
+			<tag name="group" id="group" highlight="tag" autocomplete_append="&gt;" attributes="highlight,autocomplete,autocomplete_append,class,case_insens,is_regex,attrib_autocomplete_append,attribhighlight,no_close" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;">
 			<reference>group is a tag that can be used to group multiple tags or multiple elements that share the same attribute values for the attributes highlight, autocomplete, autocomplete_append, class, case_insens, is_regex, attrib_autocomplete_append or attribhighlight. These attributes are then only set for the group tag, and not for the elements or tags immediately within this group tag.</reference>
 				<context id="group" symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 				<element idref="comment"/>
