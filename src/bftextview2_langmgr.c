@@ -575,6 +575,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			} else {
 				attrib_context_id = g_strdup("__internal_no_attribs__");
 			}
+#ifdef DISABLED
 			if (is_empty) {
 				/* we can only re-use an existing context for attributes
 				if the attributes are the same, both tags have the same
@@ -587,7 +588,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					g_print("HIT for %s\n",attrib_context_id);
 				}*/
 			}
-
+#endif
 			tmp = g_strconcat("<",tag,NULL);
 			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp,bfparser->bflang->name,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, context, contexttag, TRUE, FALSE, 0, TRUE,NULL,autocomplete_append?autocomplete_append:ih_autocomplete_append,NULL);
 			DBG_PARSING("insert tag %s into hash table with matchnum %d\n",id?id:tmp,matchnum);
@@ -631,9 +632,15 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					g_hash_table_insert(bfparser->contexts, g_strdup(internal_tag_string_s), GINT_TO_POINTER((gint)matchstring));
 				}
 
-				if (!sgml_shorttag)
-					add_keyword_to_scanning_table(bfparser->st, "/>", bfparser->bflang->name, highlight?highlight:ih_highlight, NULL, FALSE, FALSE, contexttag, -1, FALSE, TRUE, -1, FALSE,NULL,NULL,NULL);
-				starttagmatch = add_keyword_to_scanning_table(bfparser->st, ">", bfparser->bflang->name, highlight?highlight:ih_highlight, NULL, FALSE, FALSE, contexttag, -1, FALSE, FALSE, 0, FALSE,NULL,NULL,NULL);
+				if (!sgml_shorttag) {
+					guint16 tmpnum;
+					tmpnum = add_keyword_to_scanning_table(bfparser->st, "/>", bfparser->bflang->name, highlight?highlight:ih_highlight, NULL, FALSE, FALSE, contexttag, -1, FALSE, TRUE, -1, TRUE,NULL,NULL,NULL);
+					match_autocomplete_reference(bfparser->st,tmpnum,contexttag);
+				}
+				tmp = g_strconcat("</",tag,">",NULL);
+				starttagmatch = add_keyword_to_scanning_table(bfparser->st, ">", bfparser->bflang->name, highlight?highlight:ih_highlight, NULL, FALSE, FALSE, contexttag, -1, FALSE, FALSE, 0, TRUE,NULL,tmp,NULL);
+				g_free(tmp);
+				match_autocomplete_reference(bfparser->st,starttagmatch,contexttag);
 				g_hash_table_insert(bfparser->contexts, g_strdup(attrib_context_id), GINT_TO_POINTER(contexttag));
 			}
 			

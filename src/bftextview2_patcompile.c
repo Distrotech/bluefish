@@ -602,6 +602,7 @@ static guint16 new_match(Tscantable *st, const gchar *pattern, const gchar *lang
 	g_array_index(st->matches, Tpattern, matchnum).selfhighlight = selfhighlight;
 	g_array_index(st->matches, Tpattern, matchnum).blockhighlight = blockhighlight;
 	g_array_index(st->matches, Tpattern, matchnum).autocomplete = autocomplete;
+
 	if (autocomplete) {
 		if (autocomplete_string)
 			g_array_index(st->matches, Tpattern, matchnum).autocomplete_string = g_strdup(autocomplete_string);
