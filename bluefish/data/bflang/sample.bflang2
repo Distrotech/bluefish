@@ -177,12 +177,26 @@ needs a lot of configuration. That's why the convenience <tag was created.  -->
 <!--
 a <tag> may also start a new context just as <element> does
 -->
+<!-- next example shows autocompletion for tags -->
 <tag name="img" attributes="style,class,id,src,width,height" 
 		autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
 <!--
 a <tag> automatically autocompletes. it also has a 'autocomplete_append' attribute, but
 also an 'attrib_autocomplete_append' atribute.
 -->
+<!-- next example shows auto closing options for tags -->
+<tag name="br" no_close="1" />
+<!--
+a <tag> will automaticaly autoclose (if not disabled for the complete language file).
+some tags don't need a closing tag. use no_close="1"
+-->
+<!-- next example shows how to set SGML short tags -->
+<tag name="img" sgml_shorttag="1" />
+<!--
+in XML or XHTML a tag always needs to be closed, either <img /> or <img></img>
+in SGML <img> is also allowed. set sgml_shorttag="1" to enable this  
+-->
+
 <group highlight="keyword" autocomplete="1">
 	<element pattern="for"/>
 	<element pattern="while"/>

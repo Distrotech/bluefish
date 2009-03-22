@@ -523,7 +523,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 	gchar *tag=NULL, *idref=NULL, *highlight=NULL, *attributes=NULL, *attribhighlight=NULL,*class=NULL
 				, *autocomplete_append=NULL,*attrib_autocomplete_append=NULL,*id=NULL;
 	guint16 matchnum=0,innercontext=context;
-	gboolean is_empty, case_insens=FALSE,sgml_shorttag=FALSE;
+	gboolean is_empty, case_insens=FALSE,sgml_shorttag=FALSE,no_close=FALSE;
 	DBG_PARSING("processing tag...\n");
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	while (xmlTextReaderMoveToNextAttribute(reader)) {
@@ -541,6 +541,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 		set_string_if_attribute_name(reader,aname, (xmlChar *)"attributes", &attributes);
 		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"case_insens", &case_insens);
 		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"sgml_shorttag", &sgml_shorttag);
+		set_boolean_if_attribute_name(reader,aname, (xmlChar *)"no_close", &no_close);
 		xmlFree(aname);
 	}
 	tmp = lookup_user_option(bfparser->bflang->name,class);
@@ -597,7 +598,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			if (!contexttag) {
 				static const gchar *internal_tag_string_d = "__internal_tag_string_d__";
 				static const gchar *internal_tag_string_s = "__internal_tag_string_s__";
-				contexttag = new_context(bfparser->st, bfparser->bflang->name, ">\"=' \t\n\r", NULL, FALSE);
+				contexttag = new_context(bfparser->st, bfparser->bflang->name, "/>\"=' \t\n\r", NULL, FALSE);
 				match_set_nextcontext(bfparser->st, matchnum, contexttag);
 				if (attrib_arr) {
 					gchar**tmp2;
@@ -637,7 +638,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					match_autocomplete_reference(bfparser->st,tmpnum,contexttag);
 				}
 				tmp = g_strconcat("</",tag,">",NULL);
-				starttagmatch = add_keyword_to_scanning_table(bfparser->st, ">", bfparser->bflang->name, highlight?highlight:ih_highlight, NULL, FALSE, FALSE, contexttag, -1, FALSE, FALSE, 0, bfparser->autoclose_tags,NULL,tmp,NULL);
+				starttagmatch = add_keyword_to_scanning_table(bfparser->st, ">", bfparser->bflang->name, highlight?highlight:ih_highlight, NULL, FALSE, FALSE, contexttag, -1, FALSE, FALSE, 0, bfparser->autoclose_tags&&!no_close,NULL,tmp,NULL);
 				g_free(tmp);
 				match_autocomplete_reference(bfparser->st,starttagmatch,contexttag);
 				g_hash_table_insert(bfparser->contexts, g_strdup(attrib_context_id), GINT_TO_POINTER(contexttag));
