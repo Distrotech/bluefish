@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-/* #define DEBUG */
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h>
@@ -414,7 +414,7 @@ gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 		break;
 		default:
 		break;
-		}		
+		}
 	}
 	/* test if we should save */
 	if (!dont_save) {
@@ -428,11 +428,15 @@ gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 		project_destroy(bfwin->project);
 		setup_bfwin_for_nonproject(bfwin);
 	} else {
+		gboolean retval;
 		/* the last document that closes should close the window, and in the window-delete-event handler (in gui.c)
 		project_save_and_close() is called again, which will clean-up the memory */
 		DEBUG_MSG("project_save_and_close, documents are closing!, setting project->close to TRUE for project %p in bfwin %p\n", bfwin->project, bfwin);
-		bfwin->project->close = TRUE;
-		doc_close_multiple_backend(bfwin, close_win);
+		retval = doc_close_multiple_backend(bfwin, close_win);
+		if (retval) {
+			bfwin->project->close = TRUE;
+		}
+		return retval;
 	}
 	return TRUE;
 }

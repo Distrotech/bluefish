@@ -821,7 +821,7 @@ void file_save_all_cb(GtkWidget * widget, Tbfwin * bfwin)
 	}
 }
 
-void doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean close_window)
+gboolean doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean close_window)
 {
 	Tbfwin *bfwin = doc->bfwin;
 	if (doc->action.checkmodified)
@@ -839,7 +839,7 @@ void doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean
 		/* we will not cancel save operations, because it might corrupt the file, let 
 		   them just timeout */
 		DEBUG_MSG("doc_close_single_backend, cancelled load/info and set close_doc to TRUE, returning now\n");
-		return;
+		return FALSE;
 	}
 	if (doc_is_empty_non_modified_and_nameless(doc)
 		&& g_list_length(BFWIN(doc->bfwin)->documentlist) <= 1) {
@@ -866,7 +866,7 @@ void doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean
 			doc_destroy(doc, close_window || delay_activate);
 			break;
 		case 1:
-			return;
+			return FALSE;
 			break;
 		case 2:
 			doc_save_backend(doc, FALSE, FALSE, TRUE, close_window);
@@ -879,6 +879,7 @@ void doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean
 		gtk_widget_destroy(bfwin->main_window);
 	}
 	DEBUG_MSG("doc_close_single_backend, finished!\n");
+	return TRUE;
 }
 
 /**
@@ -895,15 +896,14 @@ void file_close_cb(GtkWidget * widget, Tbfwin * bfwin)
 	doc_close_single_backend(bfwin->current_document, FALSE, FALSE);
 }
 
-void doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window)
+gboolean doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window)
 {
 	GList *tmplist, *duplist;
 	Tdocument *tmpdoc;
 	gint retval = 1;			/* the defauilt value 1 means "close all" */
 
 	if (g_list_length(bfwin->documentlist) == 1) {
-		doc_close_single_backend(bfwin->current_document, FALSE, close_window);
-		return;
+		return doc_close_single_backend(bfwin->current_document, FALSE, close_window);
 	}
 	/* first a warning loop */
 	if (test_docs_modified(bfwin->documentlist)) {
@@ -913,10 +913,10 @@ void doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window)
 		retval =
 			message_dialog_new_multi(bfwin->main_window,
 									 GTK_MESSAGE_QUESTION, buttons,
-									 _("Multiple open files have been changed."),
+									 _("One or more open files have been changed."),
 									 _("If you don't save your changes they will be lost."));
 		if (retval == 2) {
-			return;
+			return FALSE;
 		}
 	}
 
@@ -957,6 +957,7 @@ void doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window)
     }
   }*/
 	DEBUG_MSG("doc_close_multiple_backend, finished\n");
+	return TRUE;
 }
 
 /**
