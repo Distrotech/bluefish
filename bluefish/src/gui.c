@@ -739,7 +739,7 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	DEBUG_MSG("main_window_delete_event_lcb, started for bfwin %p\n",bfwin);
 	if (bfwin->project) {
 		gboolean retval = project_save_and_close(bfwin, TRUE);
-		DEBUG_MSG("main_window_delete_event_lcb, after close project, return %d\n",retval);
+		DEBUG_MSG("main_window_delete_event_lcb, after close project, return %d\n",!retval);
 		/* BUG: after project close the bfwin might be free'd, which might cause a crash here
 		we have to find another way to find what to return...
 		 */
