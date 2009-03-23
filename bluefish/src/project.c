@@ -312,7 +312,7 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 			uri = g_file_new_for_path((gchar *) tmplist->data);
 		else
 			uri = g_file_new_for_uri((gchar *) tmplist->data);
-		doc_new_from_uri(bfwin, uri, NULL, (prj->files->next==NULL), TRUE, -1, -1);
+		doc_new_from_uri(prwin, uri, NULL, (prj->files->next==NULL), TRUE, -1, -1);
 		g_object_unref(uri);
 		tmplist = g_list_previous(tmplist);
 	}
