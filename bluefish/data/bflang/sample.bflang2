@@ -243,6 +243,25 @@ we can put this option into effect like this:
 	<element pattern="mysql_fetch_array" />
 </group>
 
+<!-- -------- OPTIMISATIONS ---------
+context re-use (<context idref=""/>) is more important than element or tag re-use 
+(<element idref=""/> or <tag idref=""/>). 
+
+element or tag re-use saves memory when the reference documentation is large, 
+and saves a few bytes when the same element/tag is used multiple times. 
+
+A re-used element is still compiled into every DFA table from every context it is 
+used in, and the DFA table uses most memory.
+
+context re-use saves more bytes: although the contexts themlseves are tiny, 
+the same DFA table is re-used when a context is re-used (and the DFA table 
+is the largest memory object, easily 500 times larger than the elements).
+
+As illustration here the sizes from html.bflang2
+table     7906 (1976.50 Kbytes) --- the DFA tables, compiled patterns for each context
+contexts   100 (4.69 Kbytes)    --- context metadata
+matches   1752 (123.19 Kbytes)  --- element/tag metadata
+--> 
 
 <!-- --------------------- END OF DOCUMENTATION ------------------------------------------------ -->
 
