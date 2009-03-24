@@ -781,9 +781,9 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 		break;
 		case 1:
 			DEBUG_MSG("main_window_delete_event_lcb, close all\n");
-			doc_close_multiple_backend(bfwin, TRUE);
+			/*doc_close_multiple_backend(bfwin, TRUE);*/
 			/* the last document that closes should close the window, so return TRUE */
-			return TRUE;
+			return FALSE;
 		break;
 		case 2:
 			DEBUG_MSG("main_window_delete_event_lcb, cancel\n");
