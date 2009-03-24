@@ -316,15 +316,9 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 	GtkTextIter start;
 	gint start_offset;
 	DBG_SIGNALS("bftextview2_insert_text_lcb, stringlen=%d\n", stringlen);
-#ifdef IN_BLUEFISH
 	if (!main_v->props.reduced_scan_triggers || stringlen > 1 || (stringlen==1 && char_in_allsymbols(btv, string[0]))) {
 		bftextview2_schedule_scanning(btv);
 	}
-#else
-	if (!reduced_scan_triggers || stringlen > 1 || (stringlen==1 && char_in_allsymbols(btv, string[0]))) {
-		bftextview2_schedule_scanning(btv);
-	}
-#endif
 	/* mark the text that is changed */
 	start = *iter;
 	gtk_text_iter_backward_chars(&start, stringlen);
@@ -337,15 +331,9 @@ static void bftextview2_insert_text_after_lcb(GtkTextBuffer * buffer, GtkTextIte
 		|| btv->scancache.stackcache_need_update_charoffset > start_offset) {
 		btv->scancache.stackcache_need_update_charoffset = start_offset;
 	}
-#ifdef IN_BLUEFISH
 	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || main_v->props.autocomp_popup_mode == 1)) {
 		autocomp_run(btv,FALSE);
 	}
-#else
-	if (btv->enable_scanner && btv->autocomplete && (btv->autocomp || autocomp_popup_mode == 2)) {
-		autocomp_run(btv,FALSE);
-	}
-#endif
 	bftextview2_reset_user_idle_timer(btv);
 	bftextview2_set_margin_size(btv);
 }
@@ -736,6 +724,7 @@ static gboolean bluefish_text_view_key_press_event(GtkWidget * widget, GdkEventK
 	}
 	btv->key_press_was_autocomplete = FALSE;
 	if (btv->enable_scanner && (kevent->state & GDK_CONTROL_MASK) && kevent->keyval == ' ') {
+		/* <ctrl><space> manually opens the auto completion */
 		autocomp_run(btv,TRUE);
 		return TRUE;
 	}

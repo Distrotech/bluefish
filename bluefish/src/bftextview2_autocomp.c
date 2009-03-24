@@ -309,11 +309,11 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 	GtkTextBuffer *buffer;
 	gint contextnum;
 	gunichar uc;
-	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 
 	if (!btv->bflang || !btv->bflang->st)
 		return;
 
+	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 	gtk_text_buffer_get_iter_at_mark(buffer,&cursorpos,gtk_text_buffer_get_insert(buffer));
 
 	iter = cursorpos;
