@@ -35,6 +35,13 @@ should use style 'comment' by default.
 if in the <definition> section of this file we have a <group class="allphpfunctions"> the user
 can enable/disable this complete section with this option  
  -->	
+<!-- there are a couple of hardcoded option names for options that the user may set --> 
+	<option name="load_reference" default="1" />
+	<!-- whether or not to load the reference data for this language -->
+	<option name="load_completion" default="1" />
+	<!-- whether or not to load the auto completion data for this language -->
+	<option name="autocomplete_tags" default="1" />
+	<!-- whether or not to close <tag> -->
 
 </header>
 <definition>
