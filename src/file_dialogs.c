@@ -846,7 +846,7 @@ gboolean doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboo
 		if (close_window) {
 			gtk_widget_destroy(BFWIN(doc->bfwin)->main_window);
 		}
-		return;
+		return TRUE;
 	}
 	if (doc->modified) {
 		const gchar *buttons[] = { _("Close _Without Saving"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE,
