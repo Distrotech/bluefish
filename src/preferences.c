@@ -44,7 +44,7 @@ enum {
 	editor_smart_cursor,
 	editor_indent_wspaces,
 	tab_font_string,              /* notebook tabs font */
-	defaulthighlight,             /* highlight documents by default */
+	/*defaulthighlight,*/             /* highlight documents by default */
 	transient_htdialogs,          /* set html dialogs transient ro the main window */
 	leave_to_window_manager,
 	restore_dimensions,
@@ -1318,11 +1318,12 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.word_wrap, pd->prefs[word_wrap], TRUE);
 	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);
 	integer_apply(&main_v->props.view_blocks, pd->prefs[view_blocks], TRUE);
+	integer_apply(&main_v->props.autocomplete, pd->prefs[autocomplete], TRUE);
 	integer_apply(&main_v->props.view_mbhl, pd->prefs[view_mbhl], TRUE);
 	integer_apply(&main_v->props.view_cline, pd->prefs[view_cline], TRUE);
 	string_apply(&main_v->props.editor_fg, pd->prefs[editor_fg]);
 	string_apply(&main_v->props.editor_bg, pd->prefs[editor_bg]);
-	integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);
+	/*integer_apply(&main_v->props.defaulthighlight, pd->prefs[defaulthighlight], TRUE);*/
 
 	integer_apply(&main_v->props.xhtml, pd->prefs[xhtml], TRUE);
 	if (main_v->props.xhtml) {
@@ -1558,7 +1559,7 @@ static void preferences_dialog() {
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap"), main_v->props.word_wrap, vbox2);
 	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Show line numbers"), main_v->props.view_line_numbers, vbox2);
 	
-	pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax"), main_v->props.defaulthighlight, vbox2);
+	/*pd->prefs[defaulthighlight] = boxed_checkbut_with_value(_("Highlight syntax"), main_v->props.defaulthighlight, vbox2);*/
 	pd->prefs[view_cline] = boxed_checkbut_with_value(_("Highlight current line"), main_v->props.view_cline, vbox2);
 	pd->prefs[view_blocks] = boxed_checkbut_with_value(_("Enable block folding"), main_v->props.view_blocks, vbox2);
 	pd->prefs[autocomplete] = boxed_checkbut_with_value(_("Enable automatic completion pop-up"), main_v->props.autocomplete, vbox2);

@@ -189,7 +189,7 @@ typedef struct {
 	GList *external_filter; /* array: name,command */
 	GList *external_outputbox; /* array:name,command,.......*/
 	
-	gint defaulthighlight;		/* highlight documents by default */
+	/*gint defaulthighlight;*/		/* highlight documents by default */
 	gint transient_htdialogs;  /* set html dialogs transient ro the main window */
 	gint leave_to_window_manager; /* don't set any dimensions, leave all to window manager */
 	gint restore_dimensions; /* use the dimensions as used the previous run */

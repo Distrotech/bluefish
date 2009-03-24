@@ -378,7 +378,7 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_arraylist (&config_rc, &main_v->props.external_filter, "external_filter:", 2, TRUE);
 	init_prop_arraylist (&config_rc, &main_v->props.external_outputbox, "external_outputbox:", 7, TRUE);
 
-	init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE);
+	/*init_prop_integer   (&config_rc, &main_v->props.defaulthighlight, "defaulthighlight:", 1, TRUE);*/
 	/* old type filetypes have a different count, they are converted below */
 	init_prop_integer   (&config_rc, &main_v->props.transient_htdialogs, "transient_htdialogs:", 1, TRUE);
 
