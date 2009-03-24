@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_autocomp.c
  *
- * Copyright (C) 2008 Olivier Sessink
+ * Copyright (C) 2008,2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -126,6 +126,13 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 			gtk_text_buffer_insert_at_cursor(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),ACWIN(btv->autocomp)->newprefix+strlen(ACWIN(btv->autocomp)->prefix),-1);
 		}
 		return TRUE;
+	break;
+	case GDK_Right:
+	case GDK_KP_Right:
+	case GDK_Left:
+	case GDK_KP_Left:
+		acwin_cleanup(btv);
+		return FALSE;
 	break;
 	case GDK_Escape:
 		acwin_cleanup(btv);

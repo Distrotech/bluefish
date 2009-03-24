@@ -1011,6 +1011,14 @@ static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint
 
 	return FALSE;
 }
+
+static gboolean bluefish_text_view_focus_out_event(GtkWidget *widget,GdkEventFocus *event) {
+	if (BLUEFISH_TEXT_VIEW(widget)->autocomp) {
+		autocomp_stop(BLUEFISH_TEXT_VIEW(widget));
+	}
+	return GTK_WIDGET_CLASS(bluefish_text_view_parent_class)->focus_out_event(widget, event);
+}
+
 static void bluefish_text_view_finalize(GObject *object) {
 	BluefishTextView *btv;
 	BluefishTextViewClass *klass;
@@ -1084,6 +1092,7 @@ static void bluefish_text_view_class_init(BluefishTextViewClass * klass)
 	widget_class->expose_event = bluefish_text_view_expose_event;
 	widget_class->key_press_event = bluefish_text_view_key_press_event;
 	widget_class->query_tooltip = bluefish_text_view_query_tooltip;
+	widget_class->focus_out_event = bluefish_text_view_focus_out_event;
 }
 
 static void bluefish_text_view_init(BluefishTextView * textview)
