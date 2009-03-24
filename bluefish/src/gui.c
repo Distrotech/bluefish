@@ -753,11 +753,10 @@ static void doc_save_all_close(Tbfwin *bfwin) {
 }
 
 gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *bfwin) {
-	/* If you return FALSE in the "delete_event" signal handler,
-	 * GTK will emit the "destroy" signal. Returning TRUE means
-	 * you don't want the window to be destroyed.
-	 * This is useful for popping up 'are you sure you want to quit?'
-	 * type dialogs. */
+	/*
+	If you return FALSE in the "delete_event" signal handler GTK will emit the "destroy" signal.
+	Returning TRUE means you handled the event, and it should not be further propagated
+	*/
 	DEBUG_MSG("main_window_delete_event_lcb, started for bfwin %p\n",bfwin);
 	if (!bfwin->documentlist) 
 		return FALSE;
@@ -777,22 +776,29 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 		switch (retval) {
 		case 0:
 			/* how to choose per file ? */
+			DEBUG_MSG("main_window_delete_event_lcb, per file\n");
 			return choose_per_file(bfwin);
 		break;
 		case 1:
+			DEBUG_MSG("main_window_delete_event_lcb, close all\n");
 			doc_close_multiple_backend(bfwin, TRUE);
 			/* the last document that closes should close the window, so return TRUE */
 			return TRUE;
 		break;
 		case 2:
-			return FALSE;
+			DEBUG_MSG("main_window_delete_event_lcb, cancel\n");
+			return TRUE;
 		break;
 		case 3:
+		default:
 			/* save all and close */
+			DEBUG_MSG("main_window_delete_event_lcb, save all\n");
 			doc_save_all_close(bfwin);
+			return TRUE;
 		break;
 		}
 	} else {
+		DEBUG_MSG("main_window_delete_event_lcb, nothing modified, close all\n");
 		doc_close_multiple_backend(bfwin, TRUE);
 		/* the last document that closes should close the window, so return TRUE */
 		return TRUE;
