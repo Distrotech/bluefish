@@ -731,27 +731,6 @@ void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	}
 }
 
-static gboolean choose_per_file(Tbfwin *bfwin) {
-	GList *duplist, *tmplist;
-	duplist = g_list_copy(bfwin->documentlist);
-	tmplist = g_list_first(duplist);
-	while (tmplist) {
-		Tdocument *tmpdoc = (Tdocument *) tmplist->data;
-		doc_close_single_backend(tmpdoc, TRUE, TRUE);
-		tmplist = g_list_next(tmplist);
-	}
-	g_list_free(duplist);
-}
-
-static void doc_save_all_close(Tbfwin *bfwin) {
-	GList *tmplist = g_list_first(bfwin->documentlist);
-	while (tmplist) {
-		Tdocument *tmpdoc = (Tdocument *) tmplist->data;
-		doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, TRUE);
-		tmplist = g_list_next(tmplist);
-	}
-}
-
 gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *bfwin) {
 	/*
 	If you return FALSE in the "delete_event" signal handler GTK will emit the "destroy" signal.
@@ -761,26 +740,23 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	if (!bfwin->documentlist) 
 		return FALSE;
 	
-	if (bfwin->project) {
-		project_save(bfwin, FALSE);
-		add_to_recent_list(bfwin,bfwin->project->uri, TRUE, TRUE);
-		bfwin->project->close=TRUE;
-	}
-	
 	if (have_modified_documents(bfwin->documentlist)) {
-		const gchar *buttons[] = { _("Choose per _File"), _("Close _All"), _("_Cancel"),_("_Save All"), NULL};
-		int retval = message_dialog_new_multi(bfwin->main_window,
-									 GTK_MESSAGE_QUESTION, buttons,
-									 _("One or more open files have been changed."),
-									 _("If you don't save your changes they will be lost."));
+		int retval = multiple_files_modified_dialog(bfwin);
 		switch (retval) {
 		case 0:
-			/* how to choose per file ? */
 			DEBUG_MSG("main_window_delete_event_lcb, per file\n");
-			return choose_per_file(bfwin);
+			project_save_and_mark_closed(bfwin);
+			if (choose_per_file(bfwin, TRUE)) {
+				return TRUE;
+			} else {
+				if (bfwin->project)
+					bfwin->project->close = FALSE;
+				return TRUE;
+			}
 		break;
 		case 1:
 			DEBUG_MSG("main_window_delete_event_lcb, close all\n");
+			project_save_and_mark_closed(bfwin);
 			/*doc_close_multiple_backend(bfwin, TRUE);*/
 			/* the last document that closes should close the window, so return TRUE */
 			return FALSE;
@@ -792,6 +768,7 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 		case 3:
 		default:
 			/* save all and close */
+			project_save_and_mark_closed(bfwin);
 			DEBUG_MSG("main_window_delete_event_lcb, save all\n");
 			doc_save_all_close(bfwin);
 			return TRUE;
@@ -799,6 +776,7 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 		}
 	} else {
 		DEBUG_MSG("main_window_delete_event_lcb, nothing modified, close all\n");
+		project_save_and_mark_closed(bfwin);
 		doc_close_multiple_backend(bfwin, TRUE);
 		/* the last document that closes should close the window, so return TRUE */
 		return TRUE;
