@@ -144,14 +144,18 @@ void alldocs_foreach(foreachdocfunc func, gpointer data) {
 	g_list_free(doclist);
 }
 
-gboolean have_modified_documents(GList *doclist) {
+gint have_modified_documents(GList *doclist) {
 	GList *tmplist = g_list_first(doclist);
+	gint count=0;
 	while (tmplist) {
-		if (DOCUMENT(tmplist->data)->modified) 
-			return TRUE;
+		if (DOCUMENT(tmplist->data)->modified) { 
+			count++;
+			if (count > 2)
+				return 2;
+		}
 		tmplist = g_list_next(tmplist);
 	}
-	return FALSE;
+	return count;
 }
 
 /**
