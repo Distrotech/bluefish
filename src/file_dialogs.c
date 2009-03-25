@@ -821,6 +821,64 @@ void file_save_all_cb(GtkWidget * widget, Tbfwin * bfwin)
 	}
 }
 
+void doc_save_all_close(Tbfwin *bfwin) {
+	GList *tmplist = g_list_first(bfwin->documentlist);
+	while (tmplist) {
+		Tdocument *tmpdoc = (Tdocument *) tmplist->data;
+		doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, TRUE);
+		tmplist = g_list_next(tmplist);
+	}
+}
+
+
+gint doc_modified_dialog(Tdocument * doc) {
+	const gchar *buttons[] = { _("Close _Without Saving"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE,NULL};
+	gchar *text;
+	gint retval;
+	text = g_strdup_printf(_("Save changes to \"%s\" before closing?"),
+							gtk_label_get_text(GTK_LABEL(doc->tab_label)));
+	retval = message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_QUESTION, buttons, text,
+									 _("If you don't save your changes they will be lost."));
+	g_free(text);
+	return retval;
+} 
+
+gint multiple_files_modified_dialog(Tbfwin *bfwin) {
+	const gchar *buttons[] = { _("Choose per _File"), _("Close _All"), _("_Cancel"),_("_Save All"), NULL};
+	int retval = message_dialog_new_multi(bfwin->main_window,
+								 GTK_MESSAGE_QUESTION, buttons,
+								 _("One or more open files have been changed."),
+								 _("If you don't save your changes they will be lost."));
+	return retval;
+}
+
+/* return TRUE if all are either closed or saved 
+return FALSE on cancel*/
+gboolean choose_per_file(Tbfwin *bfwin, gboolean close_window) {
+	GList *duplist, *tmplist;
+	duplist = g_list_copy(bfwin->documentlist);
+	tmplist = g_list_first(duplist);
+	while (tmplist) {
+		gint retval;
+		Tdocument *tmpdoc = (Tdocument *) tmplist->data;
+		retval = doc_modified_dialog(tmpdoc);
+		switch (retval) {
+		case 0: /* close */
+			doc_close_single_backend(tmpdoc, TRUE, close_window);
+		break;
+		case 1: /* cancel */
+			return FALSE;
+		break;
+		case 2: /* save */
+			doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, close_window);
+		break;
+		}
+		tmplist = g_list_next(tmplist);
+	}
+	g_list_free(duplist);
+	return TRUE;
+}
+
 gboolean doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboolean close_window)
 {
 	Tbfwin *bfwin = doc->bfwin;
@@ -849,18 +907,7 @@ gboolean doc_close_single_backend(Tdocument * doc, gboolean delay_activate, gboo
 		return TRUE;
 	}
 	if (doc->modified) {
-		const gchar *buttons[] = { _("Close _Without Saving"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE,
-			NULL
-		};
-		gchar *text;
-		gint retval;
-		text =
-			g_strdup_printf(_("Save changes to \"%s\" before closing?"),
-							gtk_label_get_text(GTK_LABEL(doc->tab_label)));
-		retval =
-			message_dialog_new_multi(BFWIN(doc->bfwin)->main_window, GTK_MESSAGE_QUESTION, buttons, text,
-									 _("If you don't save your changes they will be lost."));
-		g_free(text);
+		gint retval = doc_modified_dialog(doc);
 		switch (retval) {
 		case 0:
 			doc_destroy(doc, close_window || delay_activate);
@@ -907,14 +954,7 @@ gboolean doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window)
 	}
 	/* first a warning loop */
 	if (test_docs_modified(bfwin->documentlist)) {
-		const gchar *buttons[] = { _("Choose per _File"), _("Close _All"), _("_Cancel"),
-			_("_Save All"), NULL
-		};
-		retval =
-			message_dialog_new_multi(bfwin->main_window,
-									 GTK_MESSAGE_QUESTION, buttons,
-									 _("One or more open files have been changed."),
-									 _("If you don't save your changes they will be lost."));
+		retval = multiple_files_modified_dialog(bfwin);
 		if (retval == 2) {
 			return FALSE;
 		}

@@ -367,6 +367,14 @@ static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
 	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);
 }
 
+void project_save_and_mark_closed(Tbfwin *bfwin) {
+	if (bfwin->project) {
+		project_save(bfwin, FALSE);
+		add_to_recent_list(bfwin,bfwin->project->uri, TRUE, TRUE);
+		bfwin->project->close=TRUE;
+	}
+}
+
 /* 
  * returns TRUE if the project is closed, 
  * returns FALSE if something went wrong or was cancelled
