@@ -19,7 +19,7 @@
  */
 
 /* indented with indent -ts4 -kr -l110   */
-/* #define DEBUG */
+#define DEBUG
 
 #include <gtk/gtk.h>
 #include <string.h>				/* memcpy */
@@ -861,17 +861,25 @@ gboolean choose_per_file(Tbfwin *bfwin, gboolean close_window) {
 	while (tmplist) {
 		gint retval;
 		Tdocument *tmpdoc = (Tdocument *) tmplist->data;
-		retval = doc_modified_dialog(tmpdoc);
-		switch (retval) {
-		case 0: /* close */
+		DEBUG_MSG("choose_per_file, tmpdoc=%p\n",tmpdoc);
+		if (tmpdoc->modified) {
+			retval = doc_modified_dialog(tmpdoc);
+			switch (retval) {
+			case 0: /* close */
+				DEBUG_MSG("choose_per_file, call doc_close\n");
+				tmpdoc->modified = FALSE;
+				doc_close_single_backend(tmpdoc, TRUE, close_window);
+			break;
+			case 1: /* cancel */
+				return FALSE;
+			break;
+			case 2: /* save */
+				DEBUG_MSG("choose_per_file, call doc_save\n");
+				doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, close_window);
+			break;
+			}
+		} else {
 			doc_close_single_backend(tmpdoc, TRUE, close_window);
-		break;
-		case 1: /* cancel */
-			return FALSE;
-		break;
-		case 2: /* save */
-			doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, close_window);
-		break;
 		}
 		tmplist = g_list_next(tmplist);
 	}

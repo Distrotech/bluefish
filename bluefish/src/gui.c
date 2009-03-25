@@ -747,8 +747,10 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 			DEBUG_MSG("main_window_delete_event_lcb, per file\n");
 			project_save_and_mark_closed(bfwin);
 			if (choose_per_file(bfwin, TRUE)) {
+				DEBUG_MSG("main_window_delete_event_lcb, all saved or all closed, return TRUE\n");
 				return TRUE;
 			} else {
+				DEBUG_MSG("main_window_delete_event_lcb, cancelled!\n");
 				if (bfwin->project)
 					bfwin->project->close = FALSE;
 				return TRUE;
