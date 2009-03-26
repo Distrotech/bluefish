@@ -25,6 +25,8 @@
 gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win);
 void project_open_from_file(Tbfwin *bfwin, GFile *fromuri);
 void set_project_menu_widgets(Tbfwin *bfwin, gboolean win_has_project);
+void project_save_and_mark_closed(Tbfwin *bfwin);
+gboolean project_final_close(Tbfwin *bfwin, gboolean close_win);
 void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 
 #endif /* __PROJECT_H_  */
