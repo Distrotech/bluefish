@@ -364,25 +364,28 @@ void project_save_and_mark_closed(Tbfwin *bfwin) {
 	}
 }
 
+gboolean project_final_close(Tbfwin *bfwin, gboolean close_win) {
+	if (!bfwin->project)
+		return TRUE;
+	if (!close_win) {
+		add_to_recent_list(bfwin,bfwin->project->uri, TRUE, TRUE);
+	}
+	project_destroy(bfwin->project);
+	/* we should only set the window for nonproject if the window will keep alive*/
+	if (!close_win) {
+		setup_bfwin_for_nonproject(bfwin);
+	}
+	return TRUE;
+}
+
 /* 
  * returns TRUE if the project is closed, 
  * returns FALSE if something went wrong or was cancelled
  */
-gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
+/*gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 	if (!bfwin->project)
 		return TRUE;
 	DEBUG_MSG("project_save_and_close, bfwin=%p, project=%p, close_win=%d, project->close=%d\n",bfwin,bfwin->project,close_win,bfwin->project->close);
-	if (bfwin->project->close) {
-		if (!close_win) {
-			add_to_recent_list(bfwin,bfwin->project->uri, TRUE, TRUE);
-		}
-		project_destroy(bfwin->project);
-		/* we should only set the window for nonproject if the window will keep alive*/
-		if (!close_win) {
-			setup_bfwin_for_nonproject(bfwin);
-		}
-		return TRUE;
-	}
 	
 	project_save(bfwin, FALSE);
 
@@ -391,8 +394,8 @@ gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 		setup_bfwin_for_nonproject(bfwin);
 	} else {
 		gboolean retval;
-		/* the last document that closes should close the window, and in the window-delete-event handler (in gui.c)
-		project_save_and_close() is called again, which will clean-up the memory */
+		/ * the last document that closes should close the window, and in the window-delete-event handler (in gui.c)
+		project_save_and_close() is called again, which will clean-up the memory * /
 		DEBUG_MSG("project_save_and_close, documents are closing!, setting project->close to TRUE for project %p in bfwin %p\n", bfwin->project, bfwin);
 		retval = doc_close_multiple_backend(bfwin, close_win);
 		if (retval) {
@@ -401,7 +404,7 @@ gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
 		return retval;
 	}
 	return TRUE;
-}
+}*/
 
 typedef enum {
 	name,
@@ -613,7 +616,30 @@ void project_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 		project_save(bfwin, TRUE);
 	break;
 	case 4:
-		project_save_and_close(bfwin, (g_list_length(main_v->bfwinlist) > 1));
+		/* if there are multiple windows we can simply close the window, else we have to convert it to a non-project window */
+		if (main_v->bfwinlist && main_v->bfwinlist->next) {
+			main_window_delete_event_lcb(NULL,NULL,bfwin);
+		} else {
+			project_save_and_mark_closed(bfwin);
+			if (have_modified_documents(bfwin->documentlist)) {
+					Tclose_mode retval = multiple_files_modified_dialog(bfwin);
+				switch (retval) {
+				case close_mode_cancel:
+					return;
+				break;
+				case close_mode_per_file:
+					if (choose_per_file(bfwin, FALSE))
+						bfwin->project->close = TRUE;
+				break;
+				case close_mode_save_all:
+				case close_mode_close_all:
+					doc_close_multiple_backend(bfwin, FALSE, retval);
+				break;
+				}
+			} else {
+				doc_close_multiple_backend(bfwin, FALSE, close_mode_close_all);
+			}
+		}
 	break;
 	case 5:
 		project_edit(bfwin);

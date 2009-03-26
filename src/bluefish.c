@@ -295,28 +295,21 @@ void bluefish_exit_request()
 	/* if we have modified documents we have to do something, file_close_all_cb()
 	   does exactly want we want to do */
 	tmplist = return_allwindows_documentlist();
-	tmpb = (tmplist && test_docs_modified(tmplist));
+	tmpb = (tmplist && have_modified_documents(tmplist));
 	g_list_free(tmplist);
 	tmplist = g_list_first(main_v->bfwinlist);
 	while (tmplist) {
-		/* if there is a project, we anyway want to save & close the project */
-		if (BFWIN(tmplist->data)->project) {
-			if (!project_save_and_close(BFWIN(tmplist->data), FALSE)) {
-				/* cancelled or error! */
-				DEBUG_MSG("bluefish_exit_request, project_save_and_close returned FALSE\n");
-				return;
-			}
-		}
-		if (tmpb) {
+		main_window_delete_event_lcb(NULL,NULL,BFWIN(tmplist->data));
+/*		if (tmpb) {
 			file_close_all_cb(NULL, BFWIN(tmplist->data));
-		}
+		}*/
 		tmplist = g_list_next(tmplist);
 	}
 	/* if we still have modified documents we don't do a thing,
 	   if we don't have them we can quit */
 	if (tmpb) {
 		tmplist = return_allwindows_documentlist();
-		tmpb = (tmplist && test_docs_modified(tmplist));
+		tmpb = (tmplist && have_modified_documents(tmplist));
 		g_list_free(tmplist);
 		if (tmpb) {
 			return;
@@ -332,7 +325,6 @@ void bluefish_exit_request()
 
 	rcfile_save_global_session();
 
-	/* I don't understand why, but if I call gtk_main_quit here, the main() function does not continue after gtk_main(), very weird, so I'll call exit() here */
 	gtk_main_quit();
 	DEBUG_MSG("bluefish_exit_request, after gtk_main_quit()\n");
 }
