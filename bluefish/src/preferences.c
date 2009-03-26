@@ -1529,9 +1529,9 @@ static void preferences_dialog() {
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Editor options"), WIDGETCOL,vbox1,-1);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Editor settings"), WIDGETCOL,vbox1,-1);
 
-	frame = gtk_frame_new(_("Generic editor options"));
+	frame = gtk_frame_new(_("Generic editor settings"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
@@ -1547,10 +1547,10 @@ static void preferences_dialog() {
 
 	vbox1 = gtk_vbox_new(FALSE, 5);
 	gtk_tree_store_append(pd->nstore, &auxit, NULL);
-	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Editor defaults"), WIDGETCOL,vbox1,-1);
+	gtk_tree_store_set(pd->nstore, &auxit, NAMECOL,_("Initial editor settings"), WIDGETCOL,vbox1,-1);
 
 
-	frame = gtk_frame_new(_("Default values"));
+	frame = gtk_frame_new(_("Initial settings for new documents"));
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
@@ -1624,7 +1624,7 @@ static void preferences_dialog() {
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
 
 #ifdef WITH_MSG_QUEUE
-	pd->prefs[open_in_running_bluefish] = boxed_checkbut_with_value(_("Open files in already running bluefish window"),main_v->props.open_in_running_bluefish, vbox2);
+	pd->prefs[open_in_running_bluefish] = boxed_checkbut_with_value(_("Open commandline files in running bluefish process"),main_v->props.open_in_running_bluefish, vbox2);
 #endif /* WITH_MSG_QUEUE */
 	pd->prefs[modified_check_type] = boxed_optionmenu_with_value(_("File properties to check on disk for modifications"), main_v->props.modified_check_type, vbox2, modified_check_types);
 	pd->prefs[do_periodic_check] = boxed_checkbut_with_value(_("Periodically check if file is modified on disk"), main_v->props.do_periodic_check, vbox2);

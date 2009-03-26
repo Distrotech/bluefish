@@ -2904,8 +2904,9 @@ void all_documents_apply_settings() {
 	GList *tmplist = g_list_first(return_allwindows_documentlist());
 	while (tmplist){
 		Tdocument *doc = tmplist->data;
-		doc_set_tabsize(doc, main_v->props.editor_tab_width);
+		/*doc_set_tabsize(doc, main_v->props.editor_tab_width);*/
 		doc_set_font(doc, main_v->props.editor_font_string);
+		bluefish_text_view_set_colors(BLUEFISH_TEXT_VIEW(doc->view), main_v->props.editor_fg, main_v->props.editor_bg);
 		tmplist = g_list_next(tmplist);
 	}
 
