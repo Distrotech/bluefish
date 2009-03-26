@@ -451,7 +451,7 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 			if (blockstartelement) {
 				blockstartelementum = GPOINTER_TO_INT(g_hash_table_lookup(bfparser->patterns, blockstartelement));
 				if (!blockstartelementum) {
-					g_warning("blockstartelement %s is used in the language file but does not exist\n",blockstartelement);
+					g_warning("blockstartelement %s is referred to in the language file but it does not exist\n",blockstartelement);
 				}
 				DBG_PARSING("got blockstartelementum %d for blockstartelement %s, ends_block=%d\n",blockstartelementum,blockstartelement,ends_block);
 			}

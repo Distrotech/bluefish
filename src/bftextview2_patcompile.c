@@ -426,11 +426,12 @@ static void compile_limitedregex_to_DFA(Tscantable *st, gchar *input, gboolean c
 	DBG_PATCOMPILE("after compiling positionstack has length %d\n",g_queue_get_length(positions));
 	while ((g_queue_get_length(newpositions))) {
 		p = GPOINTER_TO_INT(g_queue_pop_head(newpositions));
-		if (g_array_index(st->table, Ttablerow, p).match != 0) {
-			g_warning("duplicate pattern %s and %s in context %d\n",input,g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, p).match).pattern,context);
-		} 
 		DBG_PATCOMPILE("mark state %d as possible end-state\n",p);
-		g_array_index(st->table, Ttablerow, p).match = matchnum;
+		if (g_array_index(st->table, Ttablerow, p).match != 0 && g_array_index(st->table, Ttablerow, p).match != matchnum) {
+			g_warning("overlapping patterns %s and %s in context %d\n",input,g_array_index(st->matches, Tpattern, g_array_index(st->table, Ttablerow, p).match).pattern,context);
+		} else {
+			g_array_index(st->table, Ttablerow, p).match = matchnum;
+		}
 	}
 	g_queue_free(positions);
 	g_queue_free(newpositions);
