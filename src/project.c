@@ -369,58 +369,23 @@ void project_save_and_mark_closed(Tbfwin *bfwin) {
  * returns FALSE if something went wrong or was cancelled
  */
 gboolean project_save_and_close(Tbfwin *bfwin, gboolean close_win) {
-	gboolean dont_save = FALSE;
+	if (!bfwin->project)
+		return TRUE;
 	DEBUG_MSG("project_save_and_close, bfwin=%p, project=%p, close_win=%d, project->close=%d\n",bfwin,bfwin->project,close_win,bfwin->project->close);
 	if (bfwin->project->close) {
+		if (!close_win) {
+			add_to_recent_list(bfwin,bfwin->project->uri, TRUE, TRUE);
+		}
 		project_destroy(bfwin->project);
 		/* we should only set the window for nonproject if the window will keep alive*/
-		if (!close_win)setup_bfwin_for_nonproject(bfwin);
+		if (!close_win) {
+			setup_bfwin_for_nonproject(bfwin);
+		}
 		return TRUE;
 	}
 	
-	while (!bfwin->project->uri) {
-		gchar *text;
-		gint retval;
-		const gchar *buttons[] = {_("Close _Without Saving"), GTK_STOCK_CANCEL, GTK_STOCK_SAVE, NULL};
-		if (dont_save) {
-			break;
-		}
-		DEBUG_MSG("project_save_and_close, project not named, getting action\n");
-		/* dialog */
+	project_save(bfwin, FALSE);
 
-		text = g_strdup(_("Save current project?"));
-		retval = message_dialog_new_multi(bfwin->main_window,
-													 GTK_MESSAGE_QUESTION,
-													 buttons,
-													 text,
-													 _("If you don't save your changes they will be lost."));
-		switch (retval) {
-		case 0:
-			/* don't save proj. save files, though */
-			DEBUG_MSG("project_save_and_close, don't save project, but save files\n");
-			dont_save = TRUE;
-		break;
-		case 1:
-			/* cancel */
-			DEBUG_MSG("project_save_and_close, not closing window any more");
-			return FALSE;
-		break;
-		case 2:
-			DEBUG_MSG("project_save_and_close, bringing up save project dialog\n");
-			dont_save = project_save(bfwin, FALSE);
-		break;
-		default:
-		break;
-		}
-	}
-	/* test if we should save */
-	if (!dont_save) {
-		if (!project_save(bfwin, FALSE)) {
-			DEBUG_MSG("project_save failed, returning\n");
-			return FALSE;
-		}
-		add_to_recent_list(bfwin,bfwin->project->uri, TRUE, TRUE);
-	}
 	if (test_only_empty_doc_left(bfwin->documentlist)) {
 		project_destroy(bfwin->project);
 		setup_bfwin_for_nonproject(bfwin);
