@@ -414,8 +414,8 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.allow_dep, "allow_the_use_of_font:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.format_by_context, "format_by_context:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.xhtml, "use_xhtml:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.insert_close_tag, "insert_close_tag:", 1, TRUE);
-	init_prop_integer(&config_rc, &main_v->props.close_tag_newline, "close_tag_newline:", 1, TRUE);
+/*	init_prop_integer(&config_rc, &main_v->props.insert_close_tag, "insert_close_tag:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.close_tag_newline, "close_tag_newline:", 1, TRUE);*/
 	init_prop_integer(&config_rc, &main_v->props.allow_ruby, "allow_the_use_of_ruby:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.force_dtd, "force_an_dtd:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.dtd_url, "url_in_dtd:", 0, TRUE);

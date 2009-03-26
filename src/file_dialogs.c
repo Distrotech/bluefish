@@ -19,7 +19,7 @@
  */
 
 /* indented with indent -ts4 -kr -l110   */
-#define DEBUG
+/*#define DEBUG*/
 
 #include <gtk/gtk.h>
 #include <string.h>				/* memcpy */
@@ -974,18 +974,12 @@ void doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window, Tclose_mo
 	tmplist = g_list_first(duplist);
 	while (tmplist) {
 		tmpdoc = (Tdocument *) tmplist->data;
-		switch (close_mode) {
-		/*case close_mode_per_file:
-			doc_close_single_backend(tmpdoc, TRUE, close_window);
-			break;*/
-		case close_mode_close_all:				/* close all */
+		if (close_mode == close_mode_close_all) {
 			/* fake that this document was not modified */
 			tmpdoc->modified = FALSE;
 			doc_close_single_backend(tmpdoc, TRUE, close_window);
-			break;
-		case close_mode_save_all:				/* save all */
+		} else if (close_mode == close_mode_save_all) {
 			doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, close_window);
-			break;
 		}
 		tmplist = g_list_next(tmplist);
 	}

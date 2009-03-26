@@ -39,6 +39,7 @@ void file_save_as_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_move_to_cb(GtkWidget * widget, Tbfwin *bfwin);
 void file_save_all_cb(GtkWidget * widget, Tbfwin *bfwin);
 
+void doc_save_all_close(Tbfwin *bfwin);
 gint doc_modified_dialog(Tdocument * doc);
 Tclose_mode multiple_files_modified_dialog(Tbfwin *bfwin);
 gboolean choose_per_file(Tbfwin *bfwin, gboolean close_window);

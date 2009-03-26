@@ -119,7 +119,7 @@ typedef struct {
 /********************************************************************/
 #define BFWIN(var) ((Tbfwin *)(var))
 #define DOCUMENT(var) ((Tdocument *)(var))
-#define CURDOC(bfwin) (bfwin->current_document)
+#define CURDOC(bfwin) ((Tdocument *)bfwin->current_document))
 
 typedef enum {
 	DOC_STATUS_ERROR,
@@ -222,8 +222,8 @@ typedef struct {
 	gint allow_dep;				/* allow <FONT>... */
 	gint format_by_context; 	/* use <strong> instead of <b>, <emphasis instead of <i> etc. (W3C reccomendation) */
 	gint xhtml;					/* write <br /> */
-	gint insert_close_tag; /* write a closingtag after a start tag */
-	gint close_tag_newline; /* insert the closing tag after a newline */
+/*	gint insert_close_tag;*/ /* write a closingtag after a start tag */
+/*	gint close_tag_newline;*/ /* insert the closing tag after a newline */
 	gint allow_ruby;			/* allow <ruby> */
 	gint force_dtd;				/* write <!DOCTYPE...> */
 	gint dtd_url;				/* URL in DTD */
