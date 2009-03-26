@@ -917,6 +917,19 @@ void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) 
 	}
 }
 
+void bluefish_text_view_set_colors(BluefishTextView * btv, const gchar *fg_color, const gchar *bg_color) {
+	if (bg_color) {
+		GdkColor color;
+		gdk_color_parse(bg_color, &color);
+		gtk_widget_modify_base(GTK_WIDGET(btv),GTK_STATE_NORMAL, &color);
+	}
+	if (fg_color) {
+		GdkColor color;
+		gdk_color_parse(fg_color, &color);
+		gtk_widget_modify_text(GTK_WIDGET(btv),GTK_STATE_NORMAL, &color);
+	}
+}
+
 static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint y, gboolean keyboard_tip, GtkTooltip *tooltip) {
 	BluefishTextView *btv = BLUEFISH_TEXT_VIEW (widget);	
 	
@@ -1044,16 +1057,7 @@ static void bluefish_text_view_init(BluefishTextView * textview)
 /*	PangoFontDescription *font_desc;*/
 	textview->user_idle_timer = g_timer_new();
 	textview->scancache.stackcaches = g_sequence_new(NULL);
-	if (main_v->props.editor_bg) {
-		GdkColor color;
-		gdk_color_parse(main_v->props.editor_bg, &color);
-		gtk_widget_modify_base(GTK_WIDGET(textview),GTK_STATE_NORMAL, &color);
-	}
-	if (main_v->props.editor_fg) {
-		GdkColor color;
-		gdk_color_parse(main_v->props.editor_fg, &color);
-		gtk_widget_modify_text(GTK_WIDGET(textview),GTK_STATE_NORMAL, &color);
-	}
+	bluefish_text_view_set_colors(textview, main_v->props.editor_fg, main_v->props.editor_bg);
 	textview->linenumbers = main_v->props.view_line_numbers;
 	textview->showblocks = main_v->props.view_blocks;
 	textview->autoindent = main_v->props.autoindent;

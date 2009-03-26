@@ -375,6 +375,8 @@ struct _BluefishTextViewClass {
 
 void bluefish_text_view_rescan(BluefishTextView * btv);
 void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime);
+void bluefish_text_view_set_colors(BluefishTextView * btv, const gchar *fg_color, const gchar *bg_color);
+
 GType bluefish_text_view_get_type (void);
 
 void bftextview2_schedule_scanning(BluefishTextView * btv);
