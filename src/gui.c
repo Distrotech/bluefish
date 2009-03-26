@@ -665,6 +665,16 @@ void gui_bfwin_periodic_check(Tbfwin *bfwin, gboolean enabled) {
 	}
 }
 
+void gui_apply_session(Tbfwin *bfwin) {
+	gui_set_main_toolbar_visible(bfwin, bfwin->session->view_main_toolbar, TRUE);
+	left_panel_show_hide_toggle(bfwin,FALSE,bfwin->session->view_left_panel, TRUE);
+	gui_statusbar_show_hide_toggle(bfwin, bfwin->session->view_statusbar, TRUE);
+	fb2_update_settings_from_session(bfwin);
+	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
+	/* force this session in the plugins */
+	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);
+}
+
 void gui_apply_settings(Tbfwin *bfwin) {
 	DEBUG_MSG("gui_apply_settings, started\n");
 	gtk_notebook_set_tab_pos(GTK_NOTEBOOK(bfwin->notebook),main_v->props.document_tabposition);
