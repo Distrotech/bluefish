@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * project.c - project functionality
  *
- * Copyright (C) 2003-2008 Olivier Sessink
+ * Copyright (C) 2003-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -108,6 +108,14 @@ static void update_project_filelist(Tbfwin *bfwin, Tproject *prj) {
 	free_urilist(tmplist);
 }
 
+
+void set_project_menu_widgets(Tbfwin *bfwin, gboolean win_has_project) {
+	menuitem_set_sensitive(bfwin->menubar, "/Project/Save", win_has_project);
+	menuitem_set_sensitive(bfwin->menubar, "/Project/Save as...", win_has_project);
+	menuitem_set_sensitive(bfwin->menubar, "/Project/Save & close", win_has_project);
+	menuitem_set_sensitive(bfwin->menubar, "/Project/Edit Project Options...", win_has_project);
+}
+
 static void setup_bfwin_for_project(Tbfwin *bfwin) {
 	DEBUG_MSG("setup_bfwin_for_project, bfwin=%p, bfwin->project=%p, bfwin->session=%p\n",bfwin,bfwin->project,bfwin->session);
 	DEBUG_MSG("setup_bfwin_for_project, bfwin->project->session=%p\n",bfwin->project->session);
@@ -115,16 +123,22 @@ static void setup_bfwin_for_project(Tbfwin *bfwin) {
 	bmark_set_store(bfwin);
 	bmark_reload(bfwin);
 
-	gui_set_main_toolbar_visible(bfwin, bfwin->session->view_main_toolbar, TRUE);
-	left_panel_show_hide_toggle(bfwin,FALSE,bfwin->session->view_left_panel, TRUE);
-	gui_statusbar_show_hide_toggle(bfwin, bfwin->session->view_statusbar, TRUE);
-	fb2_update_settings_from_session(bfwin);
-
-	recent_menu_from_list(bfwin, bfwin->project->session->recent_files, FALSE);
+	gui_apply_session(bfwin);
 	set_project_menu_widgets(bfwin, TRUE);
-	/* force this session in the plugins */
-	DEBUG_MSG("project.c: setup_bfwin_for_project: calling bfplugins_enforce_session for all plugins in %p\n",main_v->plugins);
-	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);
+}
+
+static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
+	DEBUG_MSG("setup_bfwin_for_nonproject, bfwin=%p\n",bfwin);
+	bfwin->session = main_v->session;
+	bfwin->bmarkdata = main_v->bmarkdata;
+	bfwin->project = NULL;
+	bmark_set_store(bfwin);
+	/* normally there is always a current_document, but this function might be called in the transition
+	after all documents are just closed */
+	if (bfwin->current_document) gui_set_title(bfwin, bfwin->current_document);
+
+	gui_apply_session(bfwin);
+	set_project_menu_widgets(bfwin, FALSE);
 }
 
 /* bfwin is allowed to be NULL for an empty project */
@@ -255,13 +269,6 @@ gboolean project_save(Tbfwin *bfwin, gboolean save_as) {
 	return retval;
 }
 
-void set_project_menu_widgets(Tbfwin *bfwin, gboolean win_has_project) {
-	menuitem_set_sensitive(bfwin->menubar, "/Project/Save", win_has_project);
-	menuitem_set_sensitive(bfwin->menubar, "/Project/Save as...", win_has_project);
-	menuitem_set_sensitive(bfwin->menubar, "/Project/Save & close", win_has_project);
-	menuitem_set_sensitive(bfwin->menubar, "/Project/Edit Project Options...", win_has_project);
-}
-
 void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 	Tbfwin *prwin;
 	Tproject *prj;
@@ -318,7 +325,6 @@ void project_open_from_file(Tbfwin *bfwin, GFile *fromuri) {
 	}
 	DEBUG_MSG("project_open_from_file, new window with files ready at prwin=%p\n",prwin);
 	setup_bfwin_for_project(prwin);
-	set_project_menu_widgets(prwin, TRUE);
 	recent_menu_init_project(prwin);
 	DEBUG_MSG("project_open_from_file, done\n");
 }
@@ -348,23 +354,6 @@ static void project_destroy(Tproject *project) {
 	g_free(project->name);
 	g_free(project->template);
 	g_free(project);
-}
-
-static void setup_bfwin_for_nonproject(Tbfwin *bfwin) {
-	DEBUG_MSG("setup_bfwin_for_nonproject, bfwin=%p\n",bfwin);
-	bfwin->session = main_v->session;
-	bfwin->bmarkdata = main_v->bmarkdata;
-	bfwin->project = NULL;
-	bmark_set_store(bfwin);
-	/* normally there is always a current_document, but this function might be called in the transition
-	after all documents are just closed */
-	if (bfwin->current_document) gui_set_title(bfwin, bfwin->current_document);
-	fb2_update_settings_from_session(bfwin);
-	recent_menu_from_list(bfwin, main_v->session->recent_files, FALSE);
-	set_project_menu_widgets(bfwin, FALSE);
-
-	/* force this session in the plugins */
-	g_slist_foreach(main_v->plugins, bfplugins_enforce_session, bfwin);
 }
 
 void project_save_and_mark_closed(Tbfwin *bfwin) {
