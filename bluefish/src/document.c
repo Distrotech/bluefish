@@ -614,32 +614,6 @@ gboolean doc_is_empty_non_modified_and_nameless(Tdocument *doc) {
 }
 
 /**
- * test_docs_modified:
- * @doclist: a #GList with documents
- *
- * this function will test if any documents in doclist are modified
- *
- * Return value: gboolean
- **/
-
-gboolean test_docs_modified(GList *doclist) {
-	GList *tmplist;
-	Tdocument *tmpdoc;
-
-	tmplist = g_list_first(doclist);
-	while (tmplist) {
-		tmpdoc = (Tdocument *) tmplist->data;
-#ifdef DEBUG
-		g_assert(tmpdoc);
-#endif
-		if (tmpdoc->modified) {
-			return TRUE;
-		}
-		tmplist = g_list_next(tmplist);
-	}
-	return FALSE;
-}
-/**
  * test_only_empty_doc_left:
  * @doclist: #GList* with all documents to test in
  *

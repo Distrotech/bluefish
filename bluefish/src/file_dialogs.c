@@ -25,6 +25,7 @@
 #include <string.h>				/* memcpy */
 #include <time.h>				/* strftime() */
 #include "bluefish.h"
+#include "file_dialogs.h"
 #include "bookmark.h"
 #include "dialog_utils.h"
 #include "document.h"
@@ -843,13 +844,13 @@ gint doc_modified_dialog(Tdocument * doc) {
 	return retval;
 } 
 
-gint multiple_files_modified_dialog(Tbfwin *bfwin) {
+Tclose_mode multiple_files_modified_dialog(Tbfwin *bfwin) {
 	const gchar *buttons[] = { _("Choose per _File"), _("Close _All"), _("_Cancel"),_("_Save All"), NULL};
 	int retval = message_dialog_new_multi(bfwin->main_window,
 								 GTK_MESSAGE_QUESTION, buttons,
 								 _("One or more open files have been changed."),
 								 _("If you don't save your changes they will be lost."));
-	return retval;
+	return (Tclose_mode)retval;
 }
 
 /* return TRUE if all are either closed or saved 
@@ -951,22 +952,20 @@ void file_close_cb(GtkWidget * widget, Tbfwin * bfwin)
 	doc_close_single_backend(bfwin->current_document, FALSE, FALSE);
 }
 
-gboolean doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window)
+void doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window, Tclose_mode close_mode)
 {
 	GList *tmplist, *duplist;
 	Tdocument *tmpdoc;
-	gint retval = 1;			/* the defauilt value 1 means "close all" */
 
-	if (g_list_length(bfwin->documentlist) == 1) {
+/*	if (g_list_length(bfwin->documentlist) == 1) {
 		return doc_close_single_backend(bfwin->current_document, FALSE, close_window);
 	}
-	/* first a warning loop */
-	if (test_docs_modified(bfwin->documentlist)) {
+	if (have_modified_documents(bfwin->documentlist)) {
 		retval = multiple_files_modified_dialog(bfwin);
 		if (retval == 2) {
 			return FALSE;
 		}
-	}
+	}*/
 
 	/* we duplicate the documentlist so we can safely walk trough the list, in 
 	   our duplicate list there is no chance that the list is changed during the time
@@ -975,37 +974,25 @@ gboolean doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window)
 	tmplist = g_list_first(duplist);
 	while (tmplist) {
 		tmpdoc = (Tdocument *) tmplist->data;
-		switch (retval) {
-		case 0:				/* choose per file */
+		switch (close_mode) {
+		/*case close_mode_per_file:
 			doc_close_single_backend(tmpdoc, TRUE, close_window);
-			break;
-		case 1:				/* close all */
+			break;*/
+		case close_mode_close_all:				/* close all */
 			/* fake that this document was not modified */
 			tmpdoc->modified = FALSE;
 			doc_close_single_backend(tmpdoc, TRUE, close_window);
 			break;
-		case 3:				/* save all */
+		case close_mode_save_all:				/* save all */
 			doc_save_backend(tmpdoc, FALSE, FALSE, TRUE, close_window);
 			break;
 		}
 		tmplist = g_list_next(tmplist);
 	}
 	g_list_free(duplist);
-	if (!close_window && retval != 2) {
-		notebook_changed(bfwin, -1);
-	}
-/*  if (retval == 1) {
-    if (close_window
-      && (bfwin->documentlist == NULL 
-        || (doc_is_empty_non_modified_and_nameless(bfwin->current_document) 
-          && g_list_length(bfwin->documentlist) <=1))) {
-      gtk_widget_destroy(bfwin->main_window);
-    } else {
-      notebook_changed(bfwin,-1);
-    }
-  }*/
 	DEBUG_MSG("doc_close_multiple_backend, finished\n");
-	return TRUE;
+	if (!close_window)
+		notebook_changed(bfwin, -1);
 }
 
 /**
@@ -1019,7 +1006,23 @@ gboolean doc_close_multiple_backend(Tbfwin * bfwin, gboolean close_window)
  **/
 void file_close_all_cb(GtkWidget * widget, Tbfwin * bfwin)
 {
-	doc_close_multiple_backend(bfwin, FALSE);
+	if (have_modified_documents(bfwin->documentlist)) {
+			Tclose_mode retval = multiple_files_modified_dialog(bfwin);
+		switch (retval) {
+		case close_mode_cancel:
+			return;
+		break;
+		case close_mode_per_file:
+			choose_per_file(bfwin, FALSE);
+		break;
+		case close_mode_save_all:
+		case close_mode_close_all:
+			doc_close_multiple_backend(bfwin, FALSE, retval);
+		break;
+		}
+	} else {
+		doc_close_multiple_backend(bfwin, FALSE, close_mode_close_all);
+	}
 }
 
 /**

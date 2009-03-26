@@ -122,7 +122,7 @@ void notebook_changed(Tbfwin *bfwin, gint newpage) {
 	}
 	if (doclistlen == 0) {
 		DEBUG_MSG("notebook_changed, doclistlen=%d, before doc_new()!\n",doclistlen);
-		if (bfwin->project && bfwin->project->close) project_save_and_close(bfwin, FALSE);
+		if (bfwin->project && bfwin->project->close) project_final_close(bfwin, FALSE);
 		bfwin->current_document = doc_new(bfwin,TRUE);
 		bfwin->last_notebook_page = 1;
 		DEBUG_MSG("notebook_changed, after doc_new(), returning\n");
@@ -719,7 +719,7 @@ static void gui_bfwin_cleanup(Tbfwin *bfwin) {
 void main_window_destroy_lcb(GtkWidget *widget,Tbfwin *bfwin) {
 	DEBUG_MSG("main_window_destroy_lcb, started for bfwin=%p, first cleanup any project (%p)\n",bfwin,bfwin->project);
 	if (bfwin->project) {
-		project_save_and_close(bfwin, TRUE);
+		project_final_close(bfwin, TRUE);
 	}
 	
 	DEBUG_MSG("main_window_destroy_lcb, will hide the window now\n");
@@ -751,9 +751,9 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 		return FALSE;
 	
 	if (have_modified_documents(bfwin->documentlist)) {
-		int retval = multiple_files_modified_dialog(bfwin);
+		Tclose_mode retval = multiple_files_modified_dialog(bfwin);
 		switch (retval) {
-		case 0:
+		case close_mode_per_file:
 			DEBUG_MSG("main_window_delete_event_lcb, per file\n");
 			project_save_and_mark_closed(bfwin);
 			if (choose_per_file(bfwin, TRUE)) {
@@ -766,18 +766,21 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 				return TRUE;
 			}
 		break;
-		case 1:
+		case close_mode_close_all:
 			DEBUG_MSG("main_window_delete_event_lcb, close all\n");
-			project_save_and_mark_closed(bfwin);
-			/*doc_close_multiple_backend(bfwin, TRUE);*/
+			if (bfwin->project) {
+				project_save_and_mark_closed(bfwin);
+			} else {
+				doc_close_multiple_backend(bfwin, TRUE, retval);
+			}
 			/* the last document that closes should close the window, so return TRUE */
 			return FALSE;
 		break;
-		case 2:
+		case close_mode_cancel:
 			DEBUG_MSG("main_window_delete_event_lcb, cancel\n");
 			return TRUE;
 		break;
-		case 3:
+		case close_mode_save_all:
 		default:
 			/* save all and close */
 			project_save_and_mark_closed(bfwin);
@@ -789,27 +792,11 @@ gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *
 	} else {
 		DEBUG_MSG("main_window_delete_event_lcb, nothing modified, close all\n");
 		project_save_and_mark_closed(bfwin);
-		doc_close_multiple_backend(bfwin, TRUE);
+		doc_close_multiple_backend(bfwin, TRUE, close_mode_close_all);
 		/* the last document that closes should close the window, so return TRUE */
 		return TRUE;
 	}
 
-/*	
-	if (bfwin->project) {
-		gboolean retval = project_save_and_close(bfwin, TRUE);
-		DEBUG_MSG("main_window_delete_event_lcb, after close project, return %d\n",!retval);
-		/ * BUG: after project close the bfwin might be free'd, which might cause a crash here
-		we have to find another way to find what to return...
-		 * /
-		return !retval;
-	} else {
-		if (bfwin->documentlist) {
-			doc_close_multiple_backend(bfwin, TRUE);
-			
-			return TRUE;
-		}
-	}
-	return FALSE;*/
 }
 
 static void gotoline_entry_insert_text(GtkEditable *editable, gchar *text, gint length, gint *position, gpointer data)

@@ -38,6 +38,7 @@ void left_panel_rebuild(Tbfwin *bfwin);
 void left_panel_show_hide_toggle(Tbfwin *bfwin,gboolean first_time, gboolean show, gboolean sync_menu);
 void gui_statusbar_show_hide_toggle(Tbfwin *bfwin, gboolean visible, gboolean sync_menu);
 void gui_set_title(Tbfwin *bfwin, Tdocument *doc);
+void gui_apply_session(Tbfwin *bfwin);
 void gui_apply_settings(Tbfwin *bfwin);
 void gui_set_undo_redo_widgets(Tbfwin *bfwin,gboolean undo, gboolean redo);
 void gui_set_document_widgets(Tdocument *doc);
@@ -52,7 +53,7 @@ gboolean switch_to_document_by_index(Tbfwin *bfwin,gint index);
 gboolean switch_to_document_by_pointer(Tbfwin *bfwin,Tdocument *document);
 gboolean switch_to_document_by_uri(Tbfwin *bfwin,GFile *uri);
 void bfwin_docs_not_complete(Tbfwin *bfwin, gboolean increase);
-
+gboolean main_window_delete_event_lcb(GtkWidget *widget,GdkEvent *event,Tbfwin *bfwin);
 void gui_gotoline_frame_show(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 void go_to_line_from_selection_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget);
 
