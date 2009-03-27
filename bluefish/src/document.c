@@ -598,6 +598,7 @@ void doc_font_size(Tdocument *doc, gint direction) {
 		font_desc = pango_font_description_from_string(main_v->props.editor_font_string);
 		gtk_widget_modify_font(doc->view, font_desc);
 		pango_font_description_free(font_desc);
+		BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char=0;
 	} else {
 		PangoFontDescription *font_desc;
 		PangoContext *pc;
@@ -613,6 +614,7 @@ void doc_font_size(Tdocument *doc, gint direction) {
 			pango_font_description_set_size(font_desc, size);
 		}
 		gtk_widget_modify_font(doc->view, font_desc);
+		BLUEFISH_TEXT_VIEW(doc->view)->margin_pixels_per_char=0;
 	}
 
 }
