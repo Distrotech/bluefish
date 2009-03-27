@@ -2158,6 +2158,28 @@ void document_set_show_blocks(Tdocument *doc, gboolean value) {
 	BLUEFISH_TEXT_VIEW(doc->view)->showblocks = value;
 }
 
+static gboolean doc_scroll_event_lcb(GtkWidget *widget,GdkEventScroll *event,gpointer user_data) {
+	if (event->state & GDK_CONTROL_MASK) {
+		PangoFontDescription *font_desc;
+		PangoContext *pc;
+		Tdocument *doc = user_data;
+		gint size;
+		
+		pc = gtk_widget_get_pango_context(doc->view);
+		font_desc = pango_context_get_font_description(pc);
+		size = pango_font_description_get_size(font_desc);
+		size = (int) (event->direction == GDK_SCROLL_UP) ? size*1.2 : size/1.2; 
+		if (pango_font_description_get_size_is_absolute(font_desc)) {
+			pango_font_description_set_absolute_size(font_desc, size);
+		} else {
+			pango_font_description_set_size(font_desc, size);
+		}
+		gtk_widget_modify_font(doc->view, font_desc);
+		return TRUE;
+	}
+	return FALSE;
+}
+
 static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean readonly) {
 	GtkWidget *scroll;
 	Tdocument *newdoc;
@@ -2182,6 +2204,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->fileinfo = g_file_info_new();
 	g_file_info_set_content_type(newdoc->fileinfo, "text/plain");
 	scroll = gtk_scrolled_window_new(NULL, NULL);
+	g_signal_connect(scroll, "scroll-event", doc_scroll_event_lcb, newdoc);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
 									   GTK_POLICY_AUTOMATIC,
 									   GTK_POLICY_AUTOMATIC);
