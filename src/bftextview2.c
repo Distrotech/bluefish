@@ -828,7 +828,8 @@ static gboolean bluefish_text_view_button_press_event(GtkWidget * widget, GdkEve
 				return TRUE;
 			}
 		}
-	}/* else if (event->button.button == 3) {
+	}	
+	/* else if (event->button.button == 3) {
 		if (event->button.x >= pt_blocks) {
 			gtk_menu_popup(GTK_MENU(BF_TEXTVIEW(widget)->fold_menu), NULL, NULL, NULL, NULL, 1,
 						   gtk_get_current_event_time());
