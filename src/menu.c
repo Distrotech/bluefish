@@ -199,37 +199,6 @@ static void encodings_dialog_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWid
 	bluefish_encodings_dialog_new (bfwin);
 }
 
-static void toggle_doc_property(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
-	switch(callback_action) {
-	case 1:
-		bfwin->current_document->wrapstate = GTK_CHECK_MENU_ITEM(widget)->active;
-		doc_set_wrap(bfwin->current_document);
-		break;
-	case 2:
-		bfwin->current_document->linenumberstate = GTK_CHECK_MENU_ITEM(widget)->active;
-		document_set_line_numbers(bfwin->current_document, bfwin->current_document->linenumberstate);
-		break;
-	case 3:
-		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->autocomplete = GTK_CHECK_MENU_ITEM(widget)->active;
-		break;
-	case 4:
-		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->autoindent = GTK_CHECK_MENU_ITEM(widget)->active;
-		break;
-	case 5:
-		bfwin->current_document->blocksstate = GTK_CHECK_MENU_ITEM(widget)->active;
-		document_set_show_blocks(bfwin->current_document, bfwin->current_document->blocksstate);
-		break;
-	case 6:
-		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->visible_spacing = GTK_CHECK_MENU_ITEM(widget)->active;
-		/*GdkRegion *region;
-		region = gdk_drawable_get_clip_region (widget->window);
-		gdk_window_invalidate_region(bfwin->current_document->view->window, region, TRUE);
-		gdk_region_destroy(region);
-		*/
-		break;
-	}
-}
-
 static GtkItemFactoryEntry menu_items[] = {
 	{N_("/_File"), NULL, NULL, 0, "<Branch>"},
 	{"/File/tearoff1", NULL, NULL, 0, "<Tearoff>"},
@@ -303,21 +272,31 @@ static GtkItemFactoryEntry menu_items[] = {
 	{N_("/View/View S_tatusbar"), NULL, gui_toggle_hidewidget_cb, 5, "<ToggleItem>"},
 	{N_("/_Document"), NULL, NULL, 0, "<Branch>"},
 	{"/Document/tearoff1", NULL, NULL, 0, "<Tearoff>"},
-	{N_("/Document/_Increase Tabsize"), NULL, gui_change_tabsize, 1, "<Item>"},
-	{N_("/Document/_Decrease Tabsize"), NULL, gui_change_tabsize, 0, "<Item>"},
-	{N_("/Document/_Auto Indent"), NULL, toggle_doc_property, 4, "<ToggleItem>"},
-	{N_("/Document/Auto _completion popup"), NULL, toggle_doc_property, 3, "<ToggleItem>"},
+	{N_("/Document/_Auto Indent"), NULL, doc_menu_lcb, 4, "<ToggleItem>"},
+	{N_("/Document/Auto _completion popup"), NULL, doc_menu_lcb, 3, "<ToggleItem>"},
+	{N_("/Document/_Wrap"), NULL, doc_menu_lcb, 1, "<ToggleItem>"},
+	{N_("/Document/_Line Numbers"), NULL, doc_menu_lcb, 2, "<ToggleItem>"},
+	{N_("/Document/Show _blocks"), NULL, doc_menu_lcb, 5, "<ToggleItem>"},
+	{N_("/Document/_Visible spacing"), NULL, doc_menu_lcb, 6, "<ToggleItem>"},
 	{"/Document/sep1", NULL, NULL, 0, "<Separator>"},
-	{N_("/Document/_Wrap"), NULL, toggle_doc_property, 1, "<ToggleItem>"},
-	{N_("/Document/_Line Numbers"), NULL, toggle_doc_property, 2, "<ToggleItem>"},
-	{N_("/Document/Show _blocks"), NULL, toggle_doc_property, 5, "<ToggleItem>"},
-	{N_("/Document/_Visible spacing"), NULL, toggle_doc_property, 6, "<ToggleItem>"},
+	{N_("/_Document/Tab size"), NULL, NULL, 0, "<Branch>"},
+	{"/Document/Tab size/tearoff1", NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Document/Tab size/_Increase"), NULL, doc_menu_lcb, 10, "<Item>"},
+	{N_("/Document/Tab size/_Decrease"), NULL, doc_menu_lcb, 11, "<Item>"},
+	{"/Document/Tab size/sep", NULL, NULL, 0, "<Separator>"},
+	{N_("/Document/Tab size/_Reset"), NULL, doc_menu_lcb, 12, "<Item>"},
+	{N_("/_Document/Font size"), NULL, NULL, 0, "<Branch>"},
+	{"/Document/Font size/tearoff1", NULL, NULL, 0, "<Tearoff>"},
+	{N_("/Document/Font size/_Increase"), NULL, doc_menu_lcb, 7, "<Item>"},
+	{N_("/Document/Font size/_Decrease"), NULL, doc_menu_lcb, 8, "<Item>"},
+	{"/Document/Font size/sep", NULL, NULL, 0, "<Separator>"},
+	{N_("/Document/Font size/_Reset"), NULL, doc_menu_lcb, 9, "<Item>"},
 	{"/Document/sep2", NULL, NULL, 0, "<Separator>"},
 	{N_("/Document/_Highlight Syntax"), NULL, doc_toggle_highlighting_cb, 1, "<ToggleItem>"},
 	{N_("/Document/_Update Highlighting"), "F5", doc_update_highlighting, 0, "<Item>"},
+	{N_("/Document/Language _mode"), NULL, NULL, 0, "<Branch>"},
+	{"/Document/Language mode/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{"/Document/sep3", NULL, NULL, 0, "<Separator>"},
-	{N_("/Document/Highlight _Mode"), NULL, NULL, 0, "<Branch>"},
-	{"/Document/Highlight Mode/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Document/Character _Encoding"), NULL, NULL, 0, "<Branch>"},
 	{"/Document/Character Encoding/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{"/Document/Character Encoding/sep4", NULL, NULL, 0, "<Separator>"},
@@ -522,9 +501,8 @@ void filetype_menu_rebuild(Tbfwin *bfwin,GtkItemFactory *item_factory) {
 		item_factory = gtk_item_factory_from_widget(bfwin->menubar);
 	}
 	DEBUG_MSG("filetype_menu_rebuild, adding filetypes in menu\n");
-	bfwin->menu_filetypes = NULL;
-	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Highlight Mode"));
-
+	bfwin->menu_filetypes = NULL; 
+	parent_menu = gtk_item_factory_get_widget(item_factory, N_("/Document/Language mode"));
 	tmplist = g_list_last(langmgr_get_languages());
 	while (tmplist) {
 		Tbflang *bflang = (Tbflang *)tmplist->data;
