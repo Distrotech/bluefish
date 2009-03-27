@@ -119,7 +119,7 @@ typedef struct {
 /********************************************************************/
 #define BFWIN(var) ((Tbfwin *)(var))
 #define DOCUMENT(var) ((Tdocument *)(var))
-#define CURDOC(bfwin) ((Tdocument *)bfwin->current_document))
+#define CURDOC(bfwin) ((Tdocument *)bfwin->current_document)
 
 typedef enum {
 	DOC_STATUS_ERROR,

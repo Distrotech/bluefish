@@ -522,13 +522,13 @@ static gint textview_calculate_real_tab_width(GtkWidget *textview, gint tab_size
 	if (tab_size <= 0)
 		return 0;
 
-	tab_string = g_malloc (tab_size + 1);
+	tab_string = g_malloc(tab_size + 1);
 	while (counter < tab_size) {
 		tab_string[counter] = ' ';
 		counter++;
 	}
 	tab_string[tab_size] = '\0';
-	tab_width =  widget_get_string_size(textview, tab_string);
+	tab_width = widget_get_string_size(textview, tab_string);
 	g_free(tab_string);
 /*	if (tab_width < 0) tab_width = 0;*/
 	return tab_width;
@@ -548,9 +548,9 @@ void doc_set_tabsize(Tdocument *doc, gint tabsize) {
 	PangoTabArray *tab_array;
 	gint pixels = textview_calculate_real_tab_width(GTK_WIDGET(doc->view), tabsize);
 	DEBUG_MSG("doc_set_tabsize, tabsize=%d, pixels=%d\n", tabsize, pixels);
-	tab_array = pango_tab_array_new (1, TRUE);
-	pango_tab_array_set_tab (tab_array, 0, PANGO_TAB_LEFT, pixels);
-	gtk_text_view_set_tabs (GTK_TEXT_VIEW (doc->view), tab_array);
+	tab_array = pango_tab_array_new(1, TRUE);
+	pango_tab_array_set_tab(tab_array, 0, PANGO_TAB_LEFT, pixels);
+	gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->view), tab_array);
 	pango_tab_array_free(tab_array);
 }
 
@@ -566,31 +566,57 @@ void doc_set_tabsize(Tdocument *doc, gint tabsize) {
  *
  * Return value: void
  **/
-void gui_change_tabsize(Tbfwin *bfwin,guint action,GtkWidget *widget) {
-	GList *tmplist;
+void doc_change_tabsize(Tdocument *doc,gint direction) {
 	PangoTabArray *tab_array;
-	gint pixels;
-	if (action == 1) {
-		main_v->props.editor_tab_width++;
+	PangoTabAlign align;
+	gint pixels, setsize;
+	
+	tab_array = gtk_text_view_get_tabs(GTK_TEXT_VIEW(doc->view));
+	if (tab_array) {
+		pango_tab_array_get_tab(tab_array,0,&align,&setsize);
+		g_print("doc_change_tabsize, setsize=%d\n",setsize);
 	} else {
-		main_v->props.editor_tab_width--;
+		tab_array = pango_tab_array_new(1, TRUE);
+		setsize = 8;
 	}
-	{
-		gchar *message = g_strdup_printf("Setting tabsize to %d", main_v->props.editor_tab_width);
-		statusbar_message(bfwin,message, 2000);
-		g_free(message);
+	if (direction == 0) {
+		setsize = main_v->props.editor_tab_width;
+	} else if (direction < 0){
+		setsize -= 1;
+	} else {
+		setsize += 1;
 	}
-	/* this should eventually be the total documentlist, not only for this window */
-	tmplist = g_list_first(bfwin->documentlist);
-	pixels = textview_calculate_real_tab_width(GTK_WIDGET(((Tdocument *)tmplist->data)->view), main_v->props.editor_tab_width);
-	tab_array = pango_tab_array_new (1, TRUE);
-	pango_tab_array_set_tab (tab_array, 0, PANGO_TAB_LEFT, pixels);
-	while (tmplist) {
-		gtk_text_view_set_tabs (GTK_TEXT_VIEW(((Tdocument *)tmplist->data)->view), tab_array);
-		tmplist = g_list_next(tmplist);
-	}
+	pixels = textview_calculate_real_tab_width(GTK_WIDGET(doc->view), main_v->props.editor_tab_width);
+	pango_tab_array_set_tab(tab_array, 0, PANGO_TAB_LEFT, setsize);
+	gtk_text_view_set_tabs(GTK_TEXT_VIEW(doc->view), tab_array);
 	pango_tab_array_free(tab_array);
 }
+
+void doc_font_size(Tdocument *doc, gint direction) {
+	if (direction == 0) {
+		PangoFontDescription *font_desc;
+		font_desc = pango_font_description_from_string(main_v->props.editor_font_string);
+		gtk_widget_modify_font(doc->view, font_desc);
+		pango_font_description_free(font_desc);
+	} else {
+		PangoFontDescription *font_desc;
+		PangoContext *pc;
+		gint size;
+		
+		pc = gtk_widget_get_pango_context(doc->view);
+		font_desc = pango_context_get_font_description(pc);
+		size = pango_font_description_get_size(font_desc);
+		size = (direction > 0) ? size*1.2 : size/1.2; 
+		if (pango_font_description_get_size_is_absolute(font_desc)) {
+			pango_font_description_set_absolute_size(font_desc, size);
+		} else {
+			pango_font_description_set_size(font_desc, size);
+		}
+		gtk_widget_modify_font(doc->view, font_desc);
+	}
+
+}
+
 /**
  * doc_is_empty_non_modified_and_nameless:
  * @doc: a #Tdocument
@@ -2160,21 +2186,8 @@ void document_set_show_blocks(Tdocument *doc, gboolean value) {
 
 static gboolean doc_scroll_event_lcb(GtkWidget *widget,GdkEventScroll *event,gpointer user_data) {
 	if (event->state & GDK_CONTROL_MASK) {
-		PangoFontDescription *font_desc;
-		PangoContext *pc;
 		Tdocument *doc = user_data;
-		gint size;
-		
-		pc = gtk_widget_get_pango_context(doc->view);
-		font_desc = pango_context_get_font_description(pc);
-		size = pango_font_description_get_size(font_desc);
-		size = (int) (event->direction == GDK_SCROLL_UP) ? size*1.2 : size/1.2; 
-		if (pango_font_description_get_size_is_absolute(font_desc)) {
-			pango_font_description_set_absolute_size(font_desc, size);
-		} else {
-			pango_font_description_set_size(font_desc, size);
-		}
-		gtk_widget_modify_font(doc->view, font_desc);
+		doc_font_size(doc, (event->direction == GDK_SCROLL_UP) ? 1 : -1);
 		return TRUE;
 	}
 	return FALSE;
@@ -3170,4 +3183,53 @@ static void new_floatingview(Tdocument *doc) {
 
 void file_floatingview_menu_cb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
 	new_floatingview(bfwin->current_document);
+}
+
+void doc_menu_lcb(Tbfwin *bfwin,guint callback_action, GtkWidget *widget) {
+	switch(callback_action) {
+	case 1:
+		bfwin->current_document->wrapstate = GTK_CHECK_MENU_ITEM(widget)->active;
+		doc_set_wrap(bfwin->current_document);
+		break;
+	case 2:
+		bfwin->current_document->linenumberstate = GTK_CHECK_MENU_ITEM(widget)->active;
+		document_set_line_numbers(bfwin->current_document, bfwin->current_document->linenumberstate);
+		break;
+	case 3:
+		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->autocomplete = GTK_CHECK_MENU_ITEM(widget)->active;
+		break;
+	case 4:
+		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->autoindent = GTK_CHECK_MENU_ITEM(widget)->active;
+		break;
+	case 5:
+		bfwin->current_document->blocksstate = GTK_CHECK_MENU_ITEM(widget)->active;
+		document_set_show_blocks(bfwin->current_document, bfwin->current_document->blocksstate);
+		break;
+	case 6:
+		BLUEFISH_TEXT_VIEW(bfwin->current_document->view)->visible_spacing = GTK_CHECK_MENU_ITEM(widget)->active;
+		/*GdkRegion *region;
+		region = gdk_drawable_get_clip_region (widget->window);
+		gdk_window_invalidate_region(bfwin->current_document->view->window, region, TRUE);
+		gdk_region_destroy(region);
+		*/
+		break;
+	case 7:
+		doc_font_size(CURDOC(bfwin), 1);
+	break;
+	case 8:
+		doc_font_size(CURDOC(bfwin), -1);
+	break;
+	case 9:
+		doc_font_size(CURDOC(bfwin), 0);
+	break;
+	case 10:
+		doc_change_tabsize(CURDOC(bfwin),1);
+	break;
+	case 11:
+		doc_change_tabsize(CURDOC(bfwin),-1);
+	break;
+	case 12:
+		doc_change_tabsize(CURDOC(bfwin),0);
+	break;
+	}
 }
