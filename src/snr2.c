@@ -135,9 +135,9 @@ static void move_window_away_from_cursor(Tdocument *doc, GtkWindow *win, GtkText
 	/* get window coordinates, try to include the decorations */
 	gdk_window_get_frame_extents(GTK_WIDGET(win)->window,&winrect);
 
-	doc_get_iter_location(doc, iter, &itrect);	
+	doc_get_iter_location(doc, iter, &itrect);
 	DEBUG_MSG("move_window_away_from_cursor, itx=%d-%d,ity=%d-%d, winx=%d-%d, winy=%d-%d\n",itrect.x,itrect.x+itrect.width,itrect.y,itrect.y+itrect.height,winrect.x,winrect.x+winrect.width,winrect.y,winrect.y+winrect.height);
-	if (itrect.x+itrect.width > winrect.x && itrect.x < winrect.x+winrect.width 
+	if (itrect.x+itrect.width > winrect.x && itrect.x < winrect.x+winrect.width
 				&& itrect.y + itrect.height > winrect.y && itrect.y < winrect.y+winrect.height ) {
 		if (itrect.y > winrect.height+48) { /* the 48 is there to avoid crashing into a top-menu-bar*/
 			DEBUG_MSG("move_window_away_from_cursor, move window up to %d,%d\n",winrect.x,itrect.y-winrect.height);
@@ -155,7 +155,7 @@ static void snr2_doc_tag_match(Tdocument *doc,GtkTextIter *itstart,GtkTextIter *
 	tag = gtk_text_tag_table_lookup(gtk_text_buffer_get_tag_table(doc->buffer), tagname);
 	if (!tag) {
 		tag = gtk_text_buffer_create_tag(doc->buffer, tagname, "background", "#FF0000", "foreground", "#000000", NULL);
-	}  
+	}
 	gtk_text_buffer_apply_tag(doc->buffer, tag, itstart, itend);
 }
 
@@ -166,9 +166,9 @@ static void snr2_doc_highlight_match(Tdocument *doc, GtkWindow *dialog, gint sta
 
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
-	
+
 	snr2_doc_tag_match(doc,&itstart,&itend);
-	
+
 	gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(doc->view),&visirect);
 	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_so, visirect.x, visirect.y);
 	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_eo, visirect.x + visirect.width, visirect.y + visirect.height);
@@ -195,18 +195,18 @@ static void snr2_doc_highlight_match(Tdocument *doc, GtkWindow *dialog, gint sta
 
 /**
  * search_backend:
- * @bfwin: #Tbfwin* 
+ * @bfwin: #Tbfwin*
  * @search_pattern: #gchar* to search pattern
  * @matchtype: see #Tmatch_types
  * @is_case_sens: If the search is case sensitive, #gint
  * @buf: #gchar* to the document buffer
  * @byte_offset: #guint where in the buffer the search should start, in bytes, not characters
  * @want_submatches: #gint
- * 
+ *
  * Performs an actual search in a supplied buffer (#gchar*, aka string).
  * NOTE: If want_submatches is set, tsearch_result->pmatch should be free`ed by the calling function!
  *
- * Return value: #Tsearch_result, contains both character and byte offsets, 
+ * Return value: #Tsearch_result, contains both character and byte offsets,
  * they are absolute values to the start of the provided buffer . Note values for start/end are set to -1 on error.
  **/
 Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gchar *buf, guint byte_offset, gboolean want_submatches) {
@@ -236,13 +236,13 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		if (retval != 0) {
 #define ERRORSTR_SIZE 300
 			gchar errorstr[ERRORSTR_SIZE], *errorstr2;
-			
+
 			regerror(retval,  &reg_pat, errorstr, ERRORSTR_SIZE);
 			errorstr2 = g_strconcat(_("Regular expression error: "), errorstr, NULL);
-			message_dialog_new(bfwin->main_window, 
-									 GTK_MESSAGE_WARNING, 
-							 	 	 GTK_BUTTONS_OK, 
-									 _("Search failed"), 
+			message_dialog_new(bfwin->main_window,
+									 GTK_MESSAGE_WARNING,
+							 	 	 GTK_BUTTONS_OK,
+									 _("Search failed"),
 									 errorstr2);
 			g_free(errorstr2);
 			/* error compiling the search_pattern, returning the default result set,
@@ -267,11 +267,11 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 			returnvalue.pmatch = pmatch;
 			returnvalue.nmatch = nmatch;
 			for (i=0;i<nmatch;i++) {
-				pmatch[i].rm_so += byte_offset; 
+				pmatch[i].rm_so += byte_offset;
 				pmatch[i].rm_eo += byte_offset;
 				DEBUG_MSG("search_backend, sub search_pattern %d so=%d, eo=%d\n", i, pmatch[i].rm_so, pmatch[i].rm_eo);
 			}
-			/* if want_submatches is set, pmatch should be 
+			/* if want_submatches is set, pmatch should be
 			free`ed by the calling function! */
 		} else {
 			g_free(pmatch);
@@ -287,10 +287,10 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		if (err) {
 			gchar *errstring;
 			errstring = g_strdup_printf(_("Regular expression error: %s at offset %d"), err, erroffset);
-			message_dialog_new(bfwin->main_window, 
-									 GTK_MESSAGE_WARNING, 
-							 	 	 GTK_BUTTONS_OK, 
-									 _("Search failed"), 
+			message_dialog_new(bfwin->main_window,
+									 GTK_MESSAGE_WARNING,
+							 	 	 GTK_BUTTONS_OK,
+									 _("Search failed"),
 									 errstring);
 			g_free(errstring);
 			return returnvalue;/* error compiling the search_pattern, returning the default result set,which is the 'nothing found' set */
@@ -322,7 +322,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 				}
 			}
 #endif
-			/* if want_submatches is set, pmatch should be 
+			/* if want_submatches is set, pmatch should be
 			free`ed by the calling function! */
 		}
 		pcre_free(pcre_c);
@@ -333,11 +333,11 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 		} else {
 			f = strncmp;
 		}
-		/* in a large (large number of replaces) search and replace, the length of the buffer 
+		/* in a large (large number of replaces) search and replace, the length of the buffer
 		is calculated *way* too often (for every replace once )..  */
 		/*buflen = strlen(buf);*/
 		patlen = strlen(search_pattern);
-		
+
 		/*for (i = byte_offset; i <= (buflen - patlen); i++) {*/
 		for (i = byte_offset; buf[i] != '\0'; i++) {
 			match = f(&buf[i], search_pattern, patlen);
@@ -347,9 +347,9 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 				break;
 			}
 		}
-		/* non regex part end */	
+		/* non regex part end */
 	}
-	
+
 	/* if we have a valid result, we now calculate the character offsets for this result */
 	if (returnvalue.bstart >= 0 && returnvalue.bend >= 0) {
 		if (returnvalue.bstart >= 0) {
@@ -398,7 +398,7 @@ Tsearch_result search_backend(Tbfwin *bfwin, gchar *search_pattern, Tmatch_types
 Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gboolean unescape, gboolean want_submatches) {
 	gchar *fulltext, *realpat;
 	Tsearch_result result;
-	
+
 	DEBUG_MSG("search_doc, started on document %p, startpos=%d, endpos=%d\n", document, startpos, endpos);
 	utf8_offset_cache_reset();
 	fulltext = doc_get_chars(document, startpos, endpos);
@@ -422,7 +422,7 @@ Tsearch_result search_doc(Tbfwin *bfwin,Tdocument *document, gchar *search_patte
 		LASTSNR2(bfwin->snr2)->doc = document;
 		if (matchtype != match_normal) {
 			/* BUG: copy the subpatterns */
-			
+
 		}
 	} else {
 		LASTSNR2(bfwin->snr2)->result.start = -1;
@@ -450,7 +450,7 @@ void doc_show_result(Tdocument *doc, GtkWindow *window, gint start, gint end, gb
 	if (doc != BFWIN(doc->bfwin)->current_document) {
 		switch_to_document_by_pointer(BFWIN(doc->bfwin),doc);
 	}
-	if (select_match) {	
+	if (select_match) {
 		GtkTextIter itstart,itend;
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
 		gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
@@ -486,7 +486,7 @@ Tsearch_all_result search_all(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types 
 	result_all.start = -1;
 	result_all.end = -1;
 	result_all.doc = NULL;
-	
+
 	if (LASTSNR2(bfwin->snr2)->doc) {
 		DEBUG_MSG("search_all, continuing previous search at doc %p\n",LASTSNR2(bfwin->snr2)->doc);
 		tmplist = g_list_find(bfwin->documentlist, LASTSNR2(bfwin->snr2)->doc);
@@ -524,7 +524,7 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
 	DEBUG_MSG("reg_replace, started for pattern='%s',standardescape=%d, offset=%d\n",replace_pattern,standardescape,offset);
 	if (result.nmatch <= 10) size = (result.nmatch == 0 ) ? 0 : result.nmatch;
 	else size= 10;
-	
+
 	tct = new_convert_table(size, standardescape);
 	for (i=0;i<size;i++) { /* \0 refers to the total pattern, so we have size+1 replace */
 		tct[i].my_int = i+48;
@@ -538,7 +538,7 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
 }
 
 /*
- * this function will parse the replace string and substitute the \0, \1 etc. with 
+ * this function will parse the replace string and substitute the \0, \1 etc. with
  * the subsearch_pattern matches from regexec()
  */
 /*static gchar *oldreg_replace(gchar *replace_pattern, gint offset, Tsearch_result result, Tdocument *doc) {
@@ -559,7 +559,7 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
 				g_free(tmpstr1);
 				g_free(tmpstr2);
 				from = ++to;
-				DEBUG_MSG("reg_replace, escaped backslash, newstring='%s'\n", newstring);			
+				DEBUG_MSG("reg_replace, escaped backslash, newstring='%s'\n", newstring);
 			} else if ((gint)*tmp1 >= 48 && (gint)*tmp1 <= 57) {
 				gint num = (gint)*tmp1 - 48;
 				tmpstr1 = newstring;
@@ -614,21 +614,21 @@ static gchar *reg_replace(gchar *replace_pattern, gint offset, Tsearch_result re
  * @offset: The difference between the buffer and the text widget because of previous replace actions, so the first char in buf is actually number offset in the text widget.
  * @replacetype: see #Treplace_types
  * @replacelen: #gint*, set to -1 to calculate this automatically.
- * 
+ *
  * This will perform a search and the actual replacement of data in the buffer.
  * Note that *buf is probably an offset in the documents buffer.
- * 
+ *
  * Return value: #Tsearch_result
  **/
 Tsearch_result replace_backend(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens
 			, gchar *buf, guint byte_offset, gchar *replace_pattern, Tdocument *doc, gint offset, Treplace_types replacetype
 			, gint *replacelen, gboolean unescape) {
-/* the offset in this function is the difference between the buffer and the text widget because of previous replace 
+/* the offset in this function is the difference between the buffer and the text widget because of previous replace
 actions, so the first char in buf is actually number offset in the text widget */
 /* replacelen -1 means there is no replacelen known yet, so we have to calculate it */
 	Tsearch_result result;
 	gchar *tmpstr=NULL, *realpat;
-	
+
 	if (unescape) {
 		realpat = unescape_string(search_pattern,FALSE);
 		DEBUG_MSG("replace_backend, realpat='%s'\n",realpat);
@@ -720,7 +720,7 @@ actions, so the first char in buf is actually number offset in the text widget *
  * Performs a single replace with the selected parameters, by calling replace_backend().
  * Calls doc_unre_new_group(doc) to make this action undoable.
  * Updates the internal last_snr2 struct, but the _caller_ is responsible for honouring this data.
- * 
+ *
  * Return value: #Tsearch_result
  **/
 Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype, gboolean unescape) {
@@ -749,7 +749,7 @@ Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_type
 
 	return result;
 }
- 
+
 /*****************************************************/
 
 /**
@@ -762,12 +762,12 @@ Tsearch_result replace_doc_once(Tbfwin *bfwin,gchar *search_pattern, Tmatch_type
  * @replace_pattern: #gchar* to replace pattern
  * @doc: a #Tdocument* to work on
  * @replacetype: see #Treplace_types
- * 
+ *
  * Performs a replace on all occurences of the pattern in the supplied document.
  * The doc's buffer will be modified.
  *
  * last_snr2 is reset with .start = .end = -1, and .doc = doc.
- * 
+ *
  * Return value: void
  **/
 static gint replace_doc_multiple(Tbfwin *bfwin,const gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, const gchar *replace_pattern, Tdocument *doc, Treplace_types replacetype, gboolean unescape, guint unre_action_id) {
@@ -805,7 +805,7 @@ static gint replace_doc_multiple(Tbfwin *bfwin,const gchar *search_pattern, Tmat
 	utf8_offset_cache_reset();
 	result = replace_backend(bfwin,realpats, matchtype, is_case_sens, fulltext, 0, realpatr, doc, offset, replacetype, &replacelen, realunesc);
 	while (result.end > 0) {
-		/* the 'buf_b_offset' is the location in the buffer, measured in bytes, where the next search has to start 
+		/* the 'buf_b_offset' is the location in the buffer, measured in bytes, where the next search has to start
 		 *
 		 * 'offset' is the number of characters after which our temporary buffer starts
 		 *
@@ -815,7 +815,7 @@ static gint replace_doc_multiple(Tbfwin *bfwin,const gchar *search_pattern, Tmat
 		}
 		if (LASTSNR2(bfwin->snr2)->overlapping_search || result.start == result.end) {
 			buf_b_offset = result.bstart + 1;
-			/* BUG: if the first following character is a multibute character, we should perhaps 
+			/* BUG: if the first following character is a multibute character, we should perhaps
 			add 2 or 3 to result.bstart */
 		} else {
 			buf_b_offset = result.bend;
@@ -855,10 +855,10 @@ static gint replace_doc_multiple(Tbfwin *bfwin,const gchar *search_pattern, Tmat
  * @replace_pattern: #gchar* to replace pattern
  * @replacetype: see #Treplace_types
  * @unescape: #gboolean if the pattern needs unescaping
- * 
+ *
  * Perform a replace_doc_multiple() with supplied data on all open documents.
  * This will replace all occurences of search_pattern in all documents.
- * 
+ *
  * Return value: void
  **/
 static gint replace_all(Tbfwin *bfwin,const gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, const gchar *replace_pattern, Treplace_types replacetype, gboolean unescape) {
@@ -877,7 +877,7 @@ static gint replace_all(Tbfwin *bfwin,const gchar *search_pattern, Tmatch_types 
  * replace_current_match:
  *
  *
- * for new dialog: 
+ * for new dialog:
  *
  * Return value: TRUE if found and replaced the match
  */
@@ -910,7 +910,7 @@ static gboolean replace_current_match(Tbfwin *bfwin) {
 		}
 		/* avoid new highlighting at this stage, so call the backend directly instead of the frontend function
 		this because the highlighting interferes with the selection
-		the better solution is to have the highlighting handle the selection better, 
+		the better solution is to have the highlighting handle the selection better,
 		the problem starts in document.c in get_positions() because the selection is not saved there
 		I don't know why the selection is gray, but that's basically the reason why it doesn't save the selection
 		 */
@@ -983,7 +983,7 @@ static gint search_doc_multiple_backend(Tbfwin *bfwin,Tdocument *document, gchar
  * @startat: #gint
  *
  * will search all, return the count, and if requested bookmark the matches
- * 
+ *
  */
 static gint search_multiple(Tbfwin *bfwin, gint startpos, gint endpos) {
 	gint count=0;
@@ -1032,7 +1032,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
 				g_free(text);
 			}
 
-		} 
+		}
 		return result;
 	}
 }
@@ -1047,7 +1047,7 @@ static Tsearch_result search_single_and_show(Tbfwin *bfwin, GtkWindow *dialog, g
  * @matchtype: #gint, 0 = normal, 1 = posix, 2 = perl
  * @is_case_sens: #gint
  * @replace_pattern: #gchar* to replace pattern.
- * @ unescape: #gboolean whether the patterns needs to be unescaped 
+ * @ unescape: #gboolean whether the patterns needs to be unescaped
  * Return value: void
  **/
 
@@ -1055,7 +1055,7 @@ void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
 							gint matchtype, gint is_case_sens, const gchar *replace_pattern,
 							gboolean unescape) {
 	DEBUG_MSG("snr2_run_extern_replace, search_pattern=%s, replace_pattern=%s, unescape=%d\n",search_pattern,replace_pattern,unescape);
-	
+
 	if (region == 3) { /* in all open files */
 		replace_all(BFWIN(doc->bfwin),search_pattern
 					, matchtype
@@ -1068,7 +1068,7 @@ void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
 		if (region == 1) {
 			startpos = doc_get_cursor_position(doc);
 		} else if (region == 2){
-			if (!doc_get_selection(doc,&startpos,&endpos)) {		
+			if (!doc_get_selection(doc,&startpos,&endpos)) {
 				return;
 			}
 		}
@@ -1078,7 +1078,7 @@ void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
 					, startpos, endpos, replace_pattern
 					, BFWIN(doc->bfwin)->current_document
 					, string
-					, unescape, 0 /* unre_id */);	
+					, unescape, 0 /* unre_id */);
 	}
 }
 
@@ -1090,14 +1090,14 @@ void snr2_run_extern_replace(Tdocument *doc, const gchar *search_pattern, gint r
  * @is_case_sens: #gint, case sensitive pattern?
  * @offset: #gint where to start searching
  *
- * Frontend for search_doc, calling it with supplied arguments 
- * 
+ * Frontend for search_doc, calling it with supplied arguments
+ *
  * Return value: #Tsearch_result_doc
  **/
 Tsearch_result doc_search_run_extern(Tdocument *doc, gchar *search_pattern, gint matchtype, gint is_case_sens, gint offset) {
 	/*Tbfwin *bfwin,Tdocument *document, gchar *search_pattern, Tmatch_types matchtype, gint is_case_sens, gint startpos, gint endpos, gboolean unescape, gboolean want_submatches*/
 	return search_doc(BFWIN(doc->bfwin),doc, search_pattern, matchtype, is_case_sens, offset, -1, FALSE, FALSE);
-} 
+}
 
 /*****************************************************/
 
@@ -1125,13 +1125,13 @@ static gint do_filename_curfile_replace(gchar *fulltext, Tsearch_result result, 
 		replacestring = create_relative_link_to(newfilename, olddirfile);
 		DEBUG_MSG("do_filename_change_replace, replacestring=%s, newfilename=%s\n", replacestring, newfilename);
 		/* code to actual replace it */
-		doc_replace_text(doc, replacestring, result.start + offset + 1 + changelen, result.end + offset + changelen -1);	
+		doc_replace_text(doc, replacestring, result.start + offset + 1 + changelen, result.end + offset + changelen -1);
 		change_lenght = strlen(replacestring) - strlen(possible_filename) + changelen;
 		DEBUG_MSG("do_filename_change_replace, replacestring=%s, possible_filename=%s\n", replacestring, possible_filename);
-		DEBUG_MSG("do_filename_change_replace, change_lenght=%d\n",change_lenght );		
-		g_free(replacestring); 
+		DEBUG_MSG("do_filename_change_replace, change_lenght=%d\n",change_lenght );
+		g_free(replacestring);
 	} else {
-		DEBUG_MSG("do_filename_change_replace, olddirfile=%s does NOT exist\n", olddirfile);  
+		DEBUG_MSG("do_filename_change_replace, olddirfile=%s does NOT exist\n", olddirfile);
 	}
 	g_free(possible_filename);
 	g_free(olddirfile);
@@ -1152,7 +1152,7 @@ static gint do_filename_otherfile_replace(gchar *fulltext, Tsearch_result result
 		eff_my_filename = most_efficient_filename(g_strdup(doc->filename));
 		replacestring = create_relative_link_to(eff_my_filename, newfilename);
 		doc_replace_text(doc, replacestring, result.start + offset + 1 + changelen, result.end + offset + changelen -1);
-		change_length = strlen(replacestring) - strlen(possible_filename) + changelen;		
+		change_length = strlen(replacestring) - strlen(possible_filename) + changelen;
 		g_free(eff_my_filename);
 		g_free(replacestring);
 	}
@@ -1166,8 +1166,8 @@ static gint do_filename_otherfile_replace(gchar *fulltext, Tsearch_result result
  * @oldfilename: Filename to change from.
  * @newfilename: Filename to change to.
  * @doc_has_newfilename: If *doc (blabla?)
- * 
- * 
+ *
+ *
  *
  * Return value: void
  **/
@@ -1237,7 +1237,7 @@ void update_encoding_meta_in_file(Tdocument *doc, gchar *encoding) {
 			DEBUG_MSG("update_encoding_meta_in_file, we have a match, nmatch=%d\n",result.nmatch);
 			if (result.nmatch > 2) {
 				gchar *offset;
-				
+
 				offset = g_utf8_offset_to_pointer(fulltext,result.pmatch[1].rm_so);
 				type = g_strndup(offset, result.pmatch[1].rm_eo - result.pmatch[1].rm_so);
 				offset = g_utf8_offset_to_pointer(fulltext,result.pmatch[2].rm_so);
@@ -1308,7 +1308,7 @@ enum {
 	SNR_RESPONSE_FIND_ALL
 };
 
-static void setup_new_snr2(TSNRWin *snrwin, const gchar *search_pattern, gboolean unescape, 
+static void setup_new_snr2(TSNRWin *snrwin, const gchar *search_pattern, gboolean unescape,
 		gboolean is_case_sens, gboolean overlapping_search, gboolean select_match,
 		gboolean bookmark, Tplace_types place_type, Tmatch_types match_type, Treplace_types replace_type,
 		gboolean replace, const gchar *replace_pattern) {
@@ -1341,7 +1341,7 @@ static void setup_new_snr2(TSNRWin *snrwin, const gchar *search_pattern, gboolea
 		bfwin->session->replacelist = add_to_history_stringlist(bfwin->session->replacelist,LASTSNR2(bfwin->snr2)->replace_pattern,FALSE,TRUE);
 	}
 	main_v->globses.snr_select_match = LASTSNR2(bfwin->snr2)->select_match = select_match;
-	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;	
+	LASTSNR2(bfwin->snr2)->bookmark_results = bookmark;
 	LASTSNR2(bfwin->snr2)->matches = 0;
 	LASTSNR2(bfwin->snr2)->replaces = 0;
 	LASTSNR2(bfwin->snr2)->doc = NULL;
@@ -1358,7 +1358,7 @@ static gboolean snr_focus_in_lcb(GtkWidget *widget, GdkEventFocus *event, TSNRWi
         LASTSNR2(snrwin->bfwin->snr2)->bookmark_results = FALSE;
         gtk_widget_set_sensitive (snrwin->bookmarks, FALSE);
     }
-       
+
     return FALSE;
 }
 
@@ -1394,7 +1394,7 @@ static void snr_combo_changed_reset_options(TSNRWin * snrwin)
 {
 	gint scope;
 	DEBUG_MSG("snr_combo_changed, called, resetting search\n");
-	
+
 	/* on any change we reset the current set of options */
 	LASTSNR2(snrwin->bfwin->snr2)->result.start = -1;
 	LASTSNR2(snrwin->bfwin->snr2)->matches = 0;
@@ -1417,7 +1417,7 @@ static void snr_combobox_changed(GtkComboBox * combobox, TSNRWin * snrwin)
 	    int replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
 	    gtk_widget_set_sensitive(snrwin->replace, (replacetype == string));
 	}
-	
+
 	snr_combo_changed_reset_options(snrwin);
 }
 
@@ -1441,14 +1441,14 @@ static void snr_comboboxentry_changed(GtkComboBoxEntry * comboboxentry, TSNRWin 
     		}
     	}
 	}
-	
+
 	snr_combo_changed_reset_options(snrwin);
 }
 
-static void snr_option_toggled(GtkToggleButton *togglebutton,gpointer user_data) 
+static void snr_option_toggled(GtkToggleButton *togglebutton,gpointer user_data)
 {
 	TSNRWin *snrwin = (TSNRWin *)user_data;
-	
+
 	LASTSNR2(snrwin->bfwin->snr2)->result.start = -1;
 	LASTSNR2(snrwin->bfwin->snr2)->matches = 0;
 	LASTSNR2(snrwin->bfwin->snr2)->replaces = 0;
@@ -1468,15 +1468,15 @@ static void snr_dialog_destroy(TSNRWin * snrwin)
 static void snr_dialog_save_position(TSNRWin * snrwin)
 {
 	gint x, y;
-	
+
 	snrwin->bfwin->session->snr_is_expanded =
 				gtk_expander_get_expanded(GTK_EXPANDER(snrwin->expander));
-	
+
 	gtk_window_get_position(GTK_WINDOW(snrwin->dialog), &x, &y);
-	
+
 	if (x < 0) x=0;
 	if (y < 0) y=0;
-	
+
 	snrwin->bfwin->session->snr_position_x = x;
 	snrwin->bfwin->session->snr_position_y = y;
 }
@@ -1488,19 +1488,19 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	Tbfwin *bfwin=snrwin->bfwin;
 	gint matchtype, replacetype=-1;
 	gint scope = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->scope));
-	
+
 	matchtype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->matchPattern));
-	search_pattern = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child)); 
+	search_pattern = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child));
 				/* gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->search));*/
 	DEBUG_MSG("snr_response_lcb, scope=%d, dialogtype=%d, response=%d\n",scope,snrwin->dialogType,response);
 
 	DEBUG_MSG("snr_response_lcb, search_pattern=%s\n",search_pattern);
 	if (snrwin->dialogType == BF_REPLACE_DIALOG) {
-		replace_pattern = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->replace)->child)); 
+		replace_pattern = gtk_entry_get_text(GTK_ENTRY(GTK_BIN(snrwin->replace)->child));
 					/* gtk_combo_box_get_active_text(GTK_COMBO_BOX(snrwin->replace));*/
 		replacetype = gtk_combo_box_get_active(GTK_COMBO_BOX(snrwin->replaceType));
 	}
-	
+
 	/* cleanup any leftovers of previous run */
 	if (response != SNR_RESPONSE_REPLACE && LASTSNR2(bfwin->snr2)->result.pmatch) {
 		g_free(LASTSNR2(bfwin->snr2)->result.pmatch);
@@ -1508,14 +1508,14 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 	}
 	if (response != GTK_RESPONSE_CLOSE) {
 		gtk_widget_hide(snrwin->warninglabel);
-	
-		/* now check if we started with the current option set already, if so we can continue it, if 
+
+		/* now check if we started with the current option set already, if so we can continue it, if
 		not we should setup a new set of options*/
-		
+
 		if (LASTSNR2(snrwin->bfwin->snr2)->result.start == -1) {
 			DEBUG_MSG("result.start == -1: setup new search\n");
 			/* snrwin->replaceType */
-			setup_new_snr2(snrwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active, 
+			setup_new_snr2(snrwin, search_pattern, GTK_TOGGLE_BUTTON(snrwin->escapeChars)->active,
 					GTK_TOGGLE_BUTTON(snrwin->matchCase)->active, GTK_TOGGLE_BUTTON(snrwin->overlappingMatches)->active, GTK_TOGGLE_BUTTON(snrwin->select_match)->active,
 					GTK_TOGGLE_BUTTON(snrwin->bookmarks)->active, scope, matchtype, replacetype, (snrwin->dialogType == BF_REPLACE_DIALOG), replace_pattern);
 			if (LASTSNR2(bfwin->snr2)->placetype_option==beginning) {
@@ -1603,7 +1603,7 @@ static void snr_response_lcb(GtkDialog * dialog, gint response, TSNRWin * snrwin
 		LASTSNR2(snrwin->bfwin->snr2)->matches = ret;
 		LASTSNR2(snrwin->bfwin->snr2)->replaces = ret;
 		snr_update_count_label(snrwin);
-		gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);		
+		gtk_widget_set_sensitive(snrwin->replaceButton, FALSE);
 	break;
 	case SNR_RESPONSE_FIND_ALL:
 		ret = search_multiple(snrwin->bfwin, startpos, endpos);
@@ -1695,7 +1695,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 		gtk_list_store_set(history, &iter, 0, list->data, -1);
 		list = g_list_previous(list);
 	}
-    
+
 	snrwin->search = gtk_combo_box_entry_new_with_model(GTK_TREE_MODEL(history), 0);
 	g_object_unref(history);
 	dialog_mnemonic_label_in_table(_("_Search for: "), snrwin->search, table, 0, 1, 0, 1);
@@ -1703,7 +1703,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 					 GTK_SHRINK, 0, 0);
 	g_signal_connect(snrwin->search, "changed", G_CALLBACK(snr_comboboxentry_changed), snrwin);
 	g_signal_connect(snrwin->search, "realize",G_CALLBACK(realize_combo_set_tooltip), _("The pattern to look for"));
-	g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))), "activate",G_CALLBACK(snr_combo_activate_lcb), snrwin);	
+	g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->search))), "activate",G_CALLBACK(snr_combo_activate_lcb), snrwin);
 
 	if (dialogType == BF_REPLACE_DIALOG) {
 		history = gtk_list_store_new(1, G_TYPE_STRING);
@@ -1724,7 +1724,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 		g_signal_connect(snrwin->replace, "realize",G_CALLBACK(realize_combo_set_tooltip), _("Replace matching text with"));
 		g_signal_connect(GTK_ENTRY(gtk_bin_get_child(GTK_BIN(snrwin->replace))), "activate",G_CALLBACK(snr_combo_activate_lcb), snrwin);
 	}
-	
+
 	snrwin->scope = gtk_combo_box_new_text();
 	for (i = 0; i < G_N_ELEMENTS(scope); i++) {
 		gtk_combo_box_append_text(GTK_COMBO_BOX(snrwin->scope), scope[i]);
@@ -1743,12 +1743,12 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	gtk_misc_set_alignment(GTK_MISC(snrwin->countlabel), 0.0f, 0.5f);
 	g_object_set(snrwin->countlabel, "single-line-mode", TRUE, NULL);
 	gtk_box_pack_start(GTK_BOX(vbox2),snrwin->countlabel,TRUE,TRUE,0);
-	
+
 	snrwin->warninglabel = gtk_label_new(NULL);
 	gtk_label_set_line_wrap(GTK_LABEL(snrwin->warninglabel),TRUE);
 	gtk_misc_set_alignment(GTK_MISC(snrwin->warninglabel), 0.0f, 0.5f);
 	gtk_box_pack_start(GTK_BOX(vbox2),snrwin->warninglabel,TRUE,TRUE,0);
-	
+
 	snrwin->expander = gtk_expander_new_with_mnemonic(_("<b>_Options</b>"));
 	gtk_expander_set_use_markup(GTK_EXPANDER(snrwin->expander), TRUE);
 	gtk_expander_set_spacing(GTK_EXPANDER(snrwin->expander), 6);
@@ -1769,7 +1769,7 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 					 GTK_SHRINK, 0, 0);
 	g_signal_connect(snrwin->matchPattern, "changed", G_CALLBACK(snr_combobox_changed), snrwin);
 	g_signal_connect(snrwin->matchPattern, "realize",G_CALLBACK(realize_combo_set_tooltip), _("How to interpret the pattern."));
-	
+
 	if (dialogType == BF_REPLACE_DIALOG) {
 		snrwin->replaceType = gtk_combo_box_new_text();
 		for (i = 0; i < G_N_ELEMENTS(replaceType); i++) {
@@ -1798,12 +1798,12 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->escapeChars, FALSE, FALSE, 0);
 	g_signal_connect(snrwin->escapeChars, "toggled", G_CALLBACK(snr_option_toggled), snrwin);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->escapeChars,_("Unescape backslash escaped characters such as \\n, \\t etc."),NULL);
-	
+
 	snrwin->select_match = gtk_check_button_new_with_mnemonic(_("_Select matches"));
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(snrwin->select_match),main_v->globses.snr_select_match);
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->select_match, FALSE, FALSE, 0);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->select_match,_("Select the matching text instead of just highlighting it"),NULL);
-	
+
 	snrwin->bookmarks = gtk_check_button_new_with_mnemonic(_("_Bookmark matches"));
 	gtk_box_pack_start(GTK_BOX(vbox2), snrwin->bookmarks, FALSE, FALSE, 0);
 	gtk_tooltips_set_tip(main_v->tooltips,snrwin->bookmarks,_("Create a bookmark for each match"),NULL);
@@ -1829,14 +1829,14 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 
     if (gtk_text_buffer_get_selection_bounds(bfwin->current_document->buffer, &start, &end)) {
         gchar * buffer = gtk_text_buffer_get_text(bfwin->current_document->buffer, &start, &end, FALSE);
-        
+
         if (strchr(buffer, '\n') == NULL) {
             gtk_entry_set_text(GTK_ENTRY(GTK_BIN(snrwin->search)->child), buffer);
             gtk_editable_select_region(GTK_EDITABLE(GTK_BIN(snrwin->search)->child), 0, -1);
         }
         if (buffer)    g_free(buffer);
     }
-	
+
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->scope), 0);
 	gtk_combo_box_set_active(GTK_COMBO_BOX(snrwin->matchPattern), 0);
 	if (dialogType == BF_REPLACE_DIALOG) {
@@ -1845,13 +1845,13 @@ static TSNRWin *snr_dialog_real(Tbfwin * bfwin, gint dialogType)
 	gtk_dialog_set_default_response(GTK_DIALOG(snrwin->dialog),SNR_RESPONSE_FIND);
 	DEBUG_MSG("snr_dialog_real: display the dialog\n");
 	gtk_widget_show(snrwin->dialog);
-	
+
 	if ((bfwin->session->snr_position_x >= 0) && (bfwin->session->snr_position_y >= 0) &&
 		(bfwin->session->snr_position_x < (gdk_screen_width()-50)) && (bfwin->session->snr_position_y < (gdk_screen_height()-50)))
 	{
 		gtk_window_move (GTK_WINDOW(snrwin->dialog), bfwin->session->snr_position_x, bfwin->session->snr_position_y);
 	}
-	
+
 	return snrwin;
 }
 
@@ -1882,9 +1882,9 @@ void search_from_selection(Tbfwin *bfwin) {
  * search_cb:
  * @widget: unused #GtkWidget*
  * @data: unused #gpointer
- * 
+ *
  * Show the search-dialog.
- * 
+ *
  * Return value: void
  **/
 void search_cb(GtkWidget *widget, Tbfwin *bfwin) {
@@ -1895,11 +1895,11 @@ void search_cb(GtkWidget *widget, Tbfwin *bfwin) {
  * replace_cb:
  * @widget: unused #GtkWidget*
  * @data: unused #gpointer
- * 
+ *
  * Show replace dialog.
- * 
+ *
  * Return value: void
- **/ 
+ **/
 void replace_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	snr_dialog_new(bfwin, BF_REPLACE_DIALOG);
 }
@@ -1909,11 +1909,11 @@ void replace_cb(GtkWidget *widget, Tbfwin *bfwin) {
  * search_again_cb:
  * @widget: unused #GtkWidget*
  * @data: unused #gpointer
- * 
+ *
  * Repeat last search, if any.
- * 
+ *
  * Return value: void
- **/ 
+ **/
 void search_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	gint startpos=0,endpos=-1;
 	Tsearch_result result;
@@ -1926,8 +1926,8 @@ void search_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 				startpos = LASTSNR2(bfwin->snr2)->result.end;
 			}
 		}
-	}	
-	
+	}
+
 	result = search_single_and_show(bfwin, NULL, startpos, endpos, FALSE);
 	if (result.end > 0) {
 		LASTSNR2(bfwin->snr2)->matches++;
@@ -1935,18 +1935,18 @@ void search_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 		TSNRWin *snrwin = snr_dialog_real(bfwin, BF_FIND_DIALOG);
 		gtk_label_set_markup(GTK_LABEL(snrwin->warninglabel),_("<span foreground=\"red\" weight=\"bold\">No more matches found, next search will continue at the beginning.</span>"));
 		gtk_widget_show(snrwin->warninglabel);
-	}	
+	}
 }
 
 /**
  * replace_again_cb:
  * @widget: unused #GtkWidget*
  * @data: unused #gpointer
- * 
+ *
  * Repeat last replace, if any.
- * 
+ *
  * Return value: void
- **/ 
+ **/
 void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 	gint startpos=0,endpos=-1;
 	Tsearch_result sret;
@@ -1963,6 +1963,11 @@ void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 			, bfwin->current_document, LASTSNR2(bfwin->snr2)->replacetype_option, LASTSNR2(bfwin->snr2)->unescape);
 }
 
+/*********************************************************************************************/
+/*********************************************************************************************/
+/****************************  independent replace functionality  ****************************/
+/*********************************************************************************************/
+/*********************************************************************************************/
 /* special replace: strip trailing spaces */
 /* use a very simple loop, one that knows whitespace, non-whitespace and a newline */
 void strip_trailing_spaces(Tdocument *doc) {
@@ -1992,6 +1997,36 @@ void strip_trailing_spaces(Tdocument *doc) {
 	}
 	g_free(buf);
 	doc_unre_new_group(doc);
+}
+
+void join_lines(Tdocument *doc) {
+	gint i=0,j,cstart,start,end,coffset=0;
+	gchar *buf;
+	
+	if (!doc_get_selection(doc, &start, &end)) {
+		start=0;
+		end=-1;
+	}
+	
+	buf = doc_get_chars(doc,start,end);
+	doc_unre_new_group(doc);
+	while (buf[i] != '\0') {
+		if (buf[i] == '\n' || buf[i] == '\r') {
+			cstart = utf8_byteoffset_to_charsoffset_cached(buf, i);
+			j=i+1;
+			while (buf[j]=='\r'||buf[j]=='\n')
+				j++;
+			doc_replace_text_backend(doc, " ", cstart+coffset, cstart+(j-i)+coffset);
+			coffset += (1 - (j-i));
+		}
+		i++;
+	}
+	g_free(buf);
+	doc_unre_new_group(doc);
+}
+
+void split_lines(Tdocument *doc) {
+
 }
 
 /* from spaces to tabs or from tabs to spaces */

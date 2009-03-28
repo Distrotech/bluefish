@@ -65,5 +65,7 @@ enum {
 void snr_dialog_new(Tbfwin * bfwin, gint dialogType);
 
 void strip_trailing_spaces(Tdocument *doc);
+void join_lines(Tdocument *doc);
+void split_lines(Tdocument *doc);
 void convert_identing(Tdocument *doc, gboolean to_tabs);
 #endif							/* __SNR_H_ */
