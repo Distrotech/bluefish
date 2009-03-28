@@ -2027,50 +2027,67 @@ void join_lines(Tdocument *doc) {
 }
 
 void split_lines(Tdocument *doc) {
-	GtkTextIter itstart,itend,iter;
-	gint requested_col=80, count=0;
-	gunichar uc;
-	gchar *indenting;
-	if (!gtk_text_buffer_get_selection_bounds(doc->buffer,&itstart,&itend)) {
-		gtk_text_buffer_get_bounds(doc->buffer, &itstart,&itend);
+	gint i=0,coffset,count=0,start,end;
+	gint startws=0, endws=0,n_indentinglen,requested_size; /* ws= whitespace */
+	gchar *buf,*tmp,*n_indenting;
+	
+	if (!doc_get_selection(doc, &start, &end)) {
+		start=0;
+		end=-1;
 	}
-	iter = itstart;
-	/* logic should become:
-	- ask for the number of characters, or use a fixed number, or use right-side of the textview?
-	- find indenting of first line
-	- walk through text, count column size (tabs count more!!)
-	- whenever the text is > requested column, find nearest word boundary
-	- insert newline + indenting */
+	
+	buf = doc_get_chars(doc,start,end);
+	coffset=start;
 	doc_unre_new_group(doc);
-
-	uc = gtk_text_iter_get_char(&iter);
-	while (uc == '\t' || uc == ' ') {
-		if (!gtk_text_iter_forward_char(&iter))
-			return;
-		uc = gtk_text_iter_get_char(&iter);
-		if (uc == '\t')
-			count += main_v->props.editor_tab_width;
-		else 
-			count++;
-	}
-	indenting = gtk_text_buffer_get_text(doc->buffer, &itstart, &iter, FALSE);
-	g_print("indenting=%s\n",indenting);
 	
-	while (!gtk_text_iter_equal(&iter,&itend)) {
-		if (count > requested_col) {
-			
-		
+	requested_size = 80;
+	
+	/* detect indenting */
+	while (buf[i] != '\0') {
+		if (!(buf[i]==' '||buf[i]=='\t'))
+			break;
+		i++;
+	}
+	tmp = g_strndup(buf,i);
+	n_indenting = g_strconcat("\n",tmp,NULL);
+	g_print("n_indenting=%s\n",n_indenting);
+	g_free(tmp);
+	n_indentinglen = strlen(n_indenting);
+	i=0;
+	while (buf[i] != '\0') {
+		if (count > requested_size) {
+			gint cstart,cend;
+			cstart = utf8_byteoffset_to_charsoffset_cached(buf, startws);
+			cend = utf8_byteoffset_to_charsoffset_cached(buf, endws);
+			doc_replace_text_backend(doc, n_indenting, cstart+coffset, cend+coffset);
+			coffset += (n_indentinglen - (cend-cstart));
 			count=0;
+			startws=i;
+			endws=i;
 		}
-		gtk_text_iter_forward_char(&iter);
-		uc = gtk_text_iter_get_char(&iter);
-		if (uc == '\t')
+		if (buf[i] == '\t') {
 			count += main_v->props.editor_tab_width;
-		else 
+			if (startws<endws) {
+				startws=i;
+			}
+		} else if (buf[i] == ' ') {
 			count++;
+			if (startws<=endws) {
+				startws=i;
+			}
+		} else if (buf[i]=='\n') {
+			count=0;
+			startws=i;
+			endws=i;
+		} else {
+			count++;/* BUG: unicode characters may contain multiple bytes */
+			if (startws>endws) {
+				endws=i;
+			}
+		}
+		i++;
 	}
-	
-	
+	g_free(buf);
 	doc_unre_new_group(doc);
 
 }
