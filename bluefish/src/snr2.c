@@ -2014,7 +2014,8 @@ void join_lines(Tdocument *doc) {
 		if (buf[i] == '\n' || buf[i] == '\r') {
 			cstart = utf8_byteoffset_to_charsoffset_cached(buf, i);
 			j=i+1;
-			while (buf[j]=='\r'||buf[j]=='\n')
+			/* remove indenting for the next line too */
+			while (buf[j]=='\r'||buf[j]=='\n'||buf[j]==' '||buf[j]=='\t')
 				j++;
 			doc_replace_text_backend(doc, " ", cstart+coffset, cstart+(j-i)+coffset);
 			coffset += (1 - (j-i));
