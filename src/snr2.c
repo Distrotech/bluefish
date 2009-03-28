@@ -2027,32 +2027,50 @@ void join_lines(Tdocument *doc) {
 }
 
 void split_lines(Tdocument *doc) {
-	gint i=0,start,end,coffset=0,count=0,cstart;
-	gchar *buf;
-	
-	if (!doc_get_selection(doc, &start, &end)) {
-		start=0;
-		end=-1;
+	GtkTextIter itstart,itend,iter;
+	gint requested_col=80, count=0;
+	gunichar uc;
+	gchar *indenting;
+	if (!gtk_text_buffer_get_selection_bounds(doc->buffer,&itstart,&itend)) {
+		gtk_text_buffer_get_bounds(doc->buffer, &itstart,&itend);
 	}
-	
-	buf = doc_get_chars(doc,start,end);
+	iter = itstart;
+	/* logic should become:
+	- ask for the number of characters, or use a fixed number, or use right-side of the textview?
+	- find indenting of first line
+	- walk through text, count column size (tabs count more!!)
+	- whenever the text is > requested column, find nearest word boundary
+	- insert newline + indenting */
 	doc_unre_new_group(doc);
-	while (buf[i] != '\0') {
-		if (buf[i] == '\n' || buf[i] == '\r')
-			count=0;
-		else
+
+	uc = gtk_text_iter_get_char(&iter);
+	while (uc == '\t' || uc == ' ') {
+		if (!gtk_text_iter_forward_char(&iter))
+			return;
+		uc = gtk_text_iter_get_char(&iter);
+		if (uc == '\t')
+			count += main_v->props.editor_tab_width;
+		else 
 			count++;
-		if (count > 80) {
-			GtkTextIter iter;
-			cstart = utf8_byteoffset_to_charsoffset_cached(buf, i);
-			gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, cstart+coffset);
-			gtk_text_buffer_insert(doc->buffer,&iter,"\n",-1);
-			coffset += 1;
+	}
+	indenting = gtk_text_buffer_get_text(doc->buffer, &itstart, &iter, FALSE);
+	g_print("indenting=%s\n",indenting);
+	
+	while (!gtk_text_iter_equal(&iter,&itend)) {
+		if (count > requested_col) {
+			
+		
 			count=0;
 		}
-		i++;
+		gtk_text_iter_forward_char(&iter);
+		uc = gtk_text_iter_get_char(&iter);
+		if (uc == '\t')
+			count += main_v->props.editor_tab_width;
+		else 
+			count++;
 	}
-	g_free(buf);
+	
+	
 	doc_unre_new_group(doc);
 
 }
