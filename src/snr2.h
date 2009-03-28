@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * snr2.h - the search 'n replace rewrite prototypes
  *
- * Copyright (C) 2000-2002 Olivier Sessink
+ * Copyright (C) 2000-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

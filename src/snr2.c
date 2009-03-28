@@ -2026,6 +2026,33 @@ void join_lines(Tdocument *doc) {
 }
 
 void split_lines(Tdocument *doc) {
+	gint i=0,start,end,coffset=0,count=0,cstart;
+	gchar *buf;
+	
+	if (!doc_get_selection(doc, &start, &end)) {
+		start=0;
+		end=-1;
+	}
+	
+	buf = doc_get_chars(doc,start,end);
+	doc_unre_new_group(doc);
+	while (buf[i] != '\0') {
+		if (buf[i] == '\n' || buf[i] == '\r')
+			count=0;
+		else
+			count++;
+		if (count > 80) {
+			GtkTextIter iter;
+			cstart = utf8_byteoffset_to_charsoffset_cached(buf, i);
+			gtk_text_buffer_get_iter_at_offset(doc->buffer, &iter, cstart+coffset);
+			gtk_text_buffer_insert(doc->buffer,&iter,"\n",-1);
+			coffset += 1;
+			count=0;
+		}
+		i++;
+	}
+	g_free(buf);
+	doc_unre_new_group(doc);
 
 }
 
