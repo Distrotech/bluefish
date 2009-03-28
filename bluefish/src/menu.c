@@ -147,16 +147,22 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		blocksync_dialog(bfwin);
 	break;
 	case 29:
-		strip_trailing_spaces(bfwin->current_document);
+		strip_trailing_spaces(CURDOC(bfwin));
 	break;
 	case 30:
-		convert_identing(bfwin->current_document, TRUE);
+		convert_identing(CURDOC(bfwin), TRUE);
 	break;
 	case 31:
-		convert_identing(bfwin->current_document, FALSE);
+		convert_identing(CURDOC(bfwin), FALSE);
 	break;
 	case 32:
 		sync_dialog(bfwin);
+	break;
+	case 33:
+		join_lines(CURDOC(bfwin));
+	break;
+	case 34:
+		split_lines(CURDOC(bfwin));
 	break;
 #ifdef HAVE_PYTHON
 	case 99:
@@ -252,6 +258,8 @@ static GtkItemFactoryEntry menu_items[] = {
 	{"/Edit/Replace special/tearoff1", NULL, NULL, 0, "<Tearoff>"},
 	{N_("/Edit/Replace special/Block sync"), NULL, menu_file_operations_cb, 28, "<Item>"},
 	{N_("/Edit/Replace special/Strip trailing whitespace"), NULL, menu_file_operations_cb, 29, "<Item>"},
+	{N_("/Edit/Replace special/Join lines"), NULL, menu_file_operations_cb, 33, "<Item>"},
+	{N_("/Edit/Replace special/Split lines"), NULL, menu_file_operations_cb, 34, "<Item>"},
 	{N_("/Edit/Replace special/Convert indenting to tabs"), NULL, menu_file_operations_cb, 30, "<Item>"},
 	{N_("/Edit/Replace special/Convert indenting to spaces"), NULL, menu_file_operations_cb, 31, "<Item>"},
 	{"/Edit/sep4", NULL, NULL, 0, "<Separator>"},
