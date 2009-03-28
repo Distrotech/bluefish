@@ -2,7 +2,7 @@
  * document.h - global function for document handling
  *
  * Copyright (C) 1998 Olivier Sessink and Chris Mazuc
- * Copyright (C) 1999-2008 Olivier Sessink
+ * Copyright (C) 1999-2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,8 +37,6 @@ enum {
 Tselectionsave *doc_save_selection(Tdocument *doc);
 void doc_restore_selection(Tselectionsave *selsave, gboolean only_if_no_selection);
 
-
-void autoclosing_init(void);
 GList *return_allwindows_documentlist(void);
 typedef void (*foreachdocfunc) (Tdocument *doc, gpointer data);
 void alldocs_foreach(foreachdocfunc func, gpointer data);
