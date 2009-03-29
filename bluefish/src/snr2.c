@@ -2000,14 +2000,14 @@ void strip_trailing_spaces(Tdocument *doc) {
 }
 
 void join_lines(Tdocument *doc) {
-	gint i=0,j,cstart,start,end,coffset=0;
+	gint i=0,j,cstart,start,end,coffset;
 	gchar *buf;
 	
 	if (!doc_get_selection(doc, &start, &end)) {
 		start=0;
 		end=-1;
 	}
-	
+	coffset=start;
 	buf = doc_get_chars(doc,start,end);
 	doc_unre_new_group(doc);
 	while (buf[i] != '\0') {
@@ -2028,8 +2028,8 @@ void join_lines(Tdocument *doc) {
 
 void split_lines(Tdocument *doc) {
 	gint i=0,coffset,count=0,start,end;
-	gint startws=0, endws=0,n_indentinglen,requested_size; /* ws= whitespace */
-	gchar *buf,*tmp,*n_indenting;
+	gint startws=0, endws=0,starti=0,endi=-1,requested_size; /* ws= whitespace, i=indenting */
+	gchar *buf;
 	
 	if (!doc_get_selection(doc, &start, &end)) {
 		start=0;
@@ -2041,29 +2041,25 @@ void split_lines(Tdocument *doc) {
 	doc_unre_new_group(doc);
 	
 	requested_size = 80;
-	
-	/* detect indenting */
-	while (buf[i] != '\0') {
-		if (!(buf[i]==' '||buf[i]=='\t'))
-			break;
-		i++;
-	}
-	tmp = g_strndup(buf,i);
-	n_indenting = g_strconcat("\n",tmp,NULL);
-	g_print("n_indenting=%s\n",n_indenting);
-	g_free(tmp);
-	n_indentinglen = strlen(n_indenting);
+
 	i=0;
 	while (buf[i] != '\0') {
 		if (count > requested_size) {
 			gint cstart,cend;
+			gchar *tmp,*n_indenting;
+			tmp = g_strndup(&buf[starti],endi-starti);
+/*			g_print("starti=%d,endi=%d,tmp=%s\n",starti,endi,tmp);*/
+			n_indenting = g_strconcat("\n",tmp,NULL);
+			g_free(tmp);
 			cstart = utf8_byteoffset_to_charsoffset_cached(buf, startws);
 			cend = utf8_byteoffset_to_charsoffset_cached(buf, endws);
+			/*g_print("startws=%d,endws=%d\n",startws,endws);*/
 			doc_replace_text_backend(doc, n_indenting, cstart+coffset, cend+coffset);
-			coffset += (n_indentinglen - (cend-cstart));
+			coffset += (strlen(n_indenting) - (cend-cstart));
 			count=0;
 			startws=i;
 			endws=i;
+			g_free(n_indenting);
 		}
 		if (buf[i] == '\t') {
 			count += main_v->props.editor_tab_width;
@@ -2077,11 +2073,14 @@ void split_lines(Tdocument *doc) {
 			}
 		} else if (buf[i]=='\n') {
 			count=0;
-			startws=i;
-			endws=i;
+			endws=startws=starti=i+1;
+			/*g_print("newline, i=%d, set starti=%d\n",i,starti);*/
 		} else {
 			count++;/* BUG: unicode characters may contain multiple bytes */
-			if (startws>endws) {
+			if (starti>endi) {
+				endi=i;
+				/*g_print("set endi to %d, starti=%d\n",endi,starti);*/
+			} else if (startws>endws) {
 				endws=i;
 			}
 		}
