@@ -2219,7 +2219,7 @@ static Tdocument *doc_new_backend(Tbfwin *bfwin, gboolean force_new, gboolean re
 	newdoc->fileinfo = g_file_info_new();
 	g_file_info_set_content_type(newdoc->fileinfo, "text/plain");
 	scroll = gtk_scrolled_window_new(NULL, NULL);
-	g_signal_connect(scroll, "scroll-event", doc_scroll_event_lcb, newdoc);
+	g_signal_connect(scroll, "scroll-event", G_CALLBACK(doc_scroll_event_lcb), newdoc);
 	gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll),
 									   GTK_POLICY_AUTOMATIC,
 									   GTK_POLICY_AUTOMATIC);

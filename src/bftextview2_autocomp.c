@@ -105,8 +105,10 @@ static gboolean acwin_move_selection(BluefishTextView *btv, gint keyval) {
 gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 {
 	DBG_AUTOCOMP("got keyval %c\n",event->keyval);
-	if (event->state & GDK_CONTROL_MASK || event->state & GDK_MOD1_MASK || event->state & GDK_MOD2_MASK)
+	if (event->state & GDK_CONTROL_MASK || event->state & GDK_MOD1_MASK) {
+		DBG_AUTOCOMP("a modifier is active (state=%d), don't handle the keypress\n",event->state);
 		return FALSE;
+	}
 	switch (event->keyval) {
 	case GDK_Return: {
 		GtkTreeSelection *selection;

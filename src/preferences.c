@@ -1228,7 +1228,7 @@ static void fill_bflang_gui(Tprefdialog *pd) {
 }
 
 static void create_bflang_gui(Tprefdialog *pd, GtkWidget *vbox1) {
-	GtkWidget *label,*scrolwin;
+	GtkWidget *scrolwin;
 	GtkTreeViewColumn *column;
 	GtkCellRenderer *renderer;
 	
@@ -1236,7 +1236,7 @@ static void create_bflang_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	pd->lists[highlight_styles] = duplicate_arraylist(main_v->props.highlight_styles);
 	
 	pd->bld.lstore = gtk_list_store_new(4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_BOOLEAN,G_TYPE_POINTER);
-	pd->bld.lfilter = gtk_tree_model_filter_new(GTK_TREE_MODEL(pd->bld.lstore),NULL);
+	pd->bld.lfilter = (GtkTreeModelFilter *)gtk_tree_model_filter_new(GTK_TREE_MODEL(pd->bld.lstore),NULL);
 	gtk_tree_model_filter_set_visible_func(pd->bld.lfilter,bflang_gui_filter_func_lcb,pd,NULL);
 	pd->bld.lview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lfilter));
 	
@@ -1254,7 +1254,7 @@ static void create_bflang_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	gtk_box_pack_start(GTK_BOX(vbox1),scrolwin, TRUE, TRUE, 2);
 	
 	pd->bld.lstore2 = gtk_list_store_new(4,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_POINTER);
-	pd->bld.lfilter2 = gtk_tree_model_filter_new(GTK_TREE_MODEL(pd->bld.lstore2),NULL);
+	pd->bld.lfilter2 = (GtkTreeModelFilter *)gtk_tree_model_filter_new(GTK_TREE_MODEL(pd->bld.lstore2),NULL);
 	gtk_tree_model_filter_set_visible_func(pd->bld.lfilter2,bflang_gui_filter_func_lcb,pd,NULL);
 	pd->bld.lview2 = gtk_tree_view_new_with_model(GTK_TREE_MODEL(pd->bld.lfilter2));
 	
@@ -1264,7 +1264,7 @@ static void create_bflang_gui(Tprefdialog *pd, GtkWidget *vbox1) {
 	column = gtk_tree_view_column_new_with_attributes(_("Textstyle"), renderer, "text",2, NULL);
 	gtk_tree_view_column_set_clickable(GTK_TREE_VIEW_COLUMN(column),TRUE);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(pd->bld.lview2), column);
-	g_signal_connect(G_OBJECT(renderer), "edited", bflang_highlight_edited_lcb, pd);
+	g_signal_connect(G_OBJECT(renderer), "edited", G_CALLBACK(bflang_highlight_edited_lcb), pd);
 	/*g_signal_connect(G_OBJECT(renderer), "changed", bflang_highlight_changed_lcb, pd);*/
 
 	scrolwin = gtk_scrolled_window_new(NULL, NULL);
