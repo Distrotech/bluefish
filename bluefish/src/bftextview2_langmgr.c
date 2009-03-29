@@ -1117,25 +1117,25 @@ void langmgr_init(void) {
 
 	langmgr_reload_user_styles();
 	if (!gtk_text_tag_table_lookup(langmgr.tagtable,"blockmatch")) {
-		static const gchar * arr[] = {"blockmatch","#FFFFFF","#FF0000","0","0",NULL};
+		const gchar * arr[] = {"blockmatch","#FFFFFF","#FF0000","0","0",NULL};
 		tag = gtk_text_tag_new("blockmatch");
 		g_object_set(tag, "background", "red", NULL);
 		g_object_set(tag, "foreground", "white", NULL);
 		gtk_text_tag_table_add(langmgr.tagtable, tag);
 		g_object_unref(tag);
-		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, duplicate_stringarray(arr));
+		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv(arr));
 	}
 	tag = gtk_text_tag_table_lookup(langmgr.tagtable,"foldheader");
 	if (tag) {
 		g_object_set(tag, "editable", FALSE, NULL);
 	} else {
-		static const gchar * arr[] = {"foldheader","","#99FF99","0","0",NULL};
+		const gchar * arr[] = {"foldheader","","#99FF99","0","0",NULL};
 		tag = gtk_text_tag_new("foldheader");
 		g_object_set(tag, "editable", FALSE, NULL);
 		g_object_set(tag, "background", "#99FF99", NULL);
 		gtk_text_tag_table_add(langmgr.tagtable, tag);
 		g_object_unref(tag);
-		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, duplicate_stringarray(arr));
+		main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv(arr));
 	} 	
 	for (tmplist = g_list_first(main_v->props.highlight_styles);tmplist;tmplist=tmplist->next) {
 		gchar **arr = (gchar **)tmplist->data;
