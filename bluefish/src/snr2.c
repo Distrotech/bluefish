@@ -2191,7 +2191,7 @@ void add_block_comment(Tdocument *doc, const gchar *so_commentstring, const gcha
 }
 
 void remove_block_comment(Tdocument *doc, const gchar *so_commentstring, const gchar *eo_commentstring) {
-	gint start,end,i=0,n=0,coffset;
+	gint start,end,i=0,n=0,coffset,eo_commentstring_len;
 	gint so=0,eo;
 	gchar *buf;
 	
@@ -2200,7 +2200,7 @@ void remove_block_comment(Tdocument *doc, const gchar *so_commentstring, const g
 		end=-1;
 	}
 	doc_unre_new_group(doc);
-	/* first see if there is an 'start of block' */
+	/* first see if there is an start-of-block */
 	buf = doc_get_chars(doc,start,end);
 	coffset=start;
 	
@@ -2224,13 +2224,42 @@ void remove_block_comment(Tdocument *doc, const gchar *so_commentstring, const g
 		gint cstart,cend;
 		cstart = utf8_byteoffset_to_charsoffset_cached(buf, so);
 		cend = so+strlen(so_commentstring);
-		doc_replace_text_backend(doc, NULL, cstart, cend);
+		doc_replace_text_backend(doc, NULL, coffset+cstart, coffset+cend);
 		coffset -= (cend-cstart); 
 	}
+	
+	/* now find the end-of-block */
+	i=strlen(buf)-1;
+	eo_commentstring_len = strlen(eo_commentstring)-1; 
+	n=eo_commentstring_len;
+	while (i>=0) {
+		if (n==eo_commentstring_len && (buf[i]==' '||buf[i]=='\n'||buf[i]=='\t')) {
+			/* do nothing */
+		} else if (buf[i]==eo_commentstring[n]) {
+			if (n==eo_commentstring_len) {
+				eo=n+1;
+			}
+			if (n==0) {
+				so = i;
+				break;
+			}
+			n--;	
+		} else {
+			break;
+		}
+		i--;
+	}
+	if (n==0) {
+		gint cstart,cend;
+		cstart = utf8_byteoffset_to_charsoffset_cached(buf, so);
+		cend = so+strlen(so_commentstring);
+		doc_replace_text_backend(doc, NULL, coffset+cstart, coffset+cend);
+	}
+	
 	g_free(buf);
 	doc_unre_new_group(doc);
 }
 
 void commentcode_test(Tdocument *doc) {
-	add_block_comment(doc,"/*","*/");
+	remove_block_comment(doc,"/*","*/");
 }
