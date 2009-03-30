@@ -2,7 +2,8 @@
  * snr2.c - rewrite of search 'n replace functions
  *
  * Copyright (C) 2000,2001,2002,2003,2004 Olivier Sessink
- * Copyright (C) 2005-2007 James Hayward and Olivier Sessink
+ * Copyright (C) 2005,2006,2007 James Hayward and Olivier Sessink
+ * Copyright (C) 2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -1972,7 +1973,16 @@ void replace_again_cb(GtkWidget *widget, Tbfwin *bfwin) {
 /* use a very simple loop, one that knows whitespace, non-whitespace and a newline */
 void strip_trailing_spaces(Tdocument *doc) {
 	gint i=0,wstart=0,coffset=0;
+	gint start,end;
 	gchar *buf = doc_get_chars(doc,0,-1);
+	
+	if (!doc_get_selection(doc, &start, &end)) {
+		start=0;
+		end=-1;
+	}
+	buf = doc_get_chars(doc,start,end);
+	coffset=start;
+	
 	doc_unre_new_group(doc);
 	while (buf[i] != '\0') {
 		switch (buf[i]) {
@@ -2131,4 +2141,96 @@ void convert_identing(Tdocument *doc, gboolean to_tabs) {
 	}
 	g_free(buf);
 	doc_unre_new_group(doc);
+}
+
+/* first try: add a line comment shell-style */
+void add_line_comment(Tdocument *doc, const gchar *commentstring) {
+	gint i=0,coffset,start,end, commentstring_len;
+	gchar *buf;
+	
+	if (!doc_get_selection(doc, &start, &end)) {
+		start=0;
+		end=-1;
+	} else {
+		start--; /* include a possible newline character if 
+			the selection started at te first character of a line */
+	}
+
+	commentstring_len = g_utf8_strlen(commentstring,-1);
+	
+	buf = doc_get_chars(doc,start,end);
+	coffset=start;
+	doc_unre_new_group(doc);
+	while (buf[i] != '\0') {
+		if (start==0 || (buf[i]=='\n' && buf[i+1]!='\0')) {
+			gint cstart;
+			cstart = utf8_byteoffset_to_charsoffset_cached(buf, i+1);
+			doc_replace_text_backend(doc, commentstring, coffset+cstart, coffset+cstart);
+			coffset += commentstring_len;
+		}
+		i++;
+	}
+	g_free(buf);
+	doc_unre_new_group(doc);
+}
+
+void add_block_comment(Tdocument *doc, const gchar *so_commentstring, const gchar *eo_commentstring) {
+	gint offset,start,end;
+	
+	if (!doc_get_selection(doc, &start, &end)) {
+		start=0;
+		end=-1;
+	}
+	doc_unre_new_group(doc);
+	
+	doc_replace_text_backend(doc, so_commentstring, start, start);
+	offset = g_utf8_strlen(so_commentstring,-1);
+	doc_replace_text_backend(doc, eo_commentstring, end+offset, end+offset);
+
+	doc_unre_new_group(doc);
+}
+
+void remove_block_comment(Tdocument *doc, const gchar *so_commentstring, const gchar *eo_commentstring) {
+	gint start,end,i=0,n=0,coffset;
+	gint so=0,eo;
+	gchar *buf;
+	
+	if (!doc_get_selection(doc, &start, &end)) {
+		start=0;
+		end=-1;
+	}
+	doc_unre_new_group(doc);
+	/* first see if there is an 'start of block' */
+	buf = doc_get_chars(doc,start,end);
+	coffset=start;
+	
+	while (buf[i] != '\0') {
+		if (n==0 && (buf[i]==' '||buf[i]=='\n'||buf[i]=='\t')) {
+			/* do nothing */
+		} else if (buf[i]==so_commentstring[n]) {
+			if (n==0)
+				so=i;
+			n++;
+			if (so_commentstring[n]=='\0') {
+				eo = i;
+				break;
+			}
+		} else {
+			break;
+		}
+		i++;
+	}
+	if (n == strlen(so_commentstring)) {
+		gint cstart,cend;
+		cstart = utf8_byteoffset_to_charsoffset_cached(buf, so);
+		cend = so+strlen(so_commentstring);
+		doc_replace_text_backend(doc, NULL, cstart, cend);
+		coffset -= (cend-cstart); 
+	}
+	g_free(buf);
+	doc_unre_new_group(doc);
+}
+
+void commentcode_test(Tdocument *doc) {
+	add_block_comment(doc,"/*","*/");
 }
