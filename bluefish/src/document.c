@@ -1129,7 +1129,7 @@ void doc_insert_text_backend(Tdocument *doc, const gchar * newstring, gint posit
 void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint start, gint end) {
 	doc_unbind_signals(doc);
 	/* delete region, and add that to undo/redo list */
-	{
+	if (end==-1 || end>start){
 		gchar *buf;
 		GtkTextIter itstart, itend;
 		DEBUG_MSG("doc_replace_text_backend, get iters at start %d and end %d\n", start, end);
@@ -1148,7 +1148,7 @@ void doc_replace_text_backend(Tdocument *doc, const gchar * newstring, gint star
 	}
 
 	/* add new text to this region, the buffer is changed so re-calculate itstart */
-	{
+	if (newstring && newstring[0] != '\0'){
 		GtkTextIter itstart;
 		gint insert = (end > start) ? start : end;
 		DEBUG_MSG("doc_replace_text_backend, set insert pos to %d\n", insert);
