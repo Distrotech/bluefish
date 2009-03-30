@@ -2143,7 +2143,6 @@ void convert_identing(Tdocument *doc, gboolean to_tabs) {
 	doc_unre_new_group(doc);
 }
 
-/* first try: add a line comment shell-style */
 void add_line_comment(Tdocument *doc, const gchar *commentstring) {
 	gint i=0,coffset,start,end, commentstring_len;
 	gchar *buf;
@@ -2162,7 +2161,7 @@ void add_line_comment(Tdocument *doc, const gchar *commentstring) {
 	coffset=start;
 	doc_unre_new_group(doc);
 	while (buf[i] != '\0') {
-		if (start==0 || (buf[i]=='\n' && buf[i+1]!='\0')) {
+		if (i==0 || (buf[i]=='\n' && buf[i+1]!='\0')) {
 			gint cstart;
 			cstart = utf8_byteoffset_to_charsoffset_cached(buf, i+1);
 			doc_replace_text_backend(doc, commentstring, coffset+cstart, coffset+cstart);
@@ -2171,6 +2170,35 @@ void add_line_comment(Tdocument *doc, const gchar *commentstring) {
 		i++;
 	}
 	g_free(buf);
+	doc_unre_new_group(doc);
+}
+
+void remove_line_comment(Tdocument *doc, const gchar *commentstring) {
+	gint start,end,commentstring_len,i=0,coffset;
+	gchar *buf;
+	gboolean newline;
+	if (!doc_get_selection(doc, &start, &end)) {
+		start=0;
+		end=-1;
+	}
+	commentstring_len=strlen(commentstring);
+	doc_unre_new_group(doc);
+	buf = doc_get_chars(doc,start,end);
+	coffset=start;
+	newline=TRUE;
+	while (buf[i] != '\0') {
+		if (buf[i]=='\n') {
+			newline=TRUE;
+		} else if (newline) {
+			if (strncmp(&buf[i], commentstring, commentstring_len)==0) {
+				gint cstart = utf8_byteoffset_to_charsoffset_cached(buf, i);
+				doc_replace_text_backend(doc, NULL, coffset+cstart, coffset+cstart+commentstring_len);
+				coffset -= commentstring_len;
+			}
+			newline=FALSE;
+		}
+		i++;
+	}
 	doc_unre_new_group(doc);
 }
 
@@ -2261,5 +2289,5 @@ void remove_block_comment(Tdocument *doc, const gchar *so_commentstring, const g
 }
 
 void commentcode_test(Tdocument *doc) {
-	remove_block_comment(doc,"/*","*/");
+	remove_line_comment(doc,"//");
 }
