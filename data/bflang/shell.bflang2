@@ -57,6 +57,14 @@
 	<element pattern="break" />
 	<element pattern="eval" />
 </group>
+
+<element id="{" pattern="{" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="}" ends_block="1" blockstartelement="{" highlight="brackets" />
+<element id="[" pattern="[" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern="]" ends_block="1" blockstartelement="[" highlight="brackets" />
+<element id="(" pattern="(" starts_block="1" mayfold="1" highlight="brackets" />
+<element pattern=")" ends_block="1" blockstartelement="(" highlight="brackets" />
+
 <element pattern="#[^&#10;&#13;]*" is_regex="1" highlight="comment"/>
 <element pattern="'[^']*'" is_regex="1" highlight="string"/>
 <element pattern="&quot;" highlight="string">
