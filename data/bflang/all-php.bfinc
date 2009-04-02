@@ -4782,12 +4782,6 @@ returns a result variable</reference></element>
 	</context>
 </element>
 
-<element pattern="//" highlight="php-comment">
-	<context id="line-comment" symbols="?&gt;&#10;&#13;" highlight="php-comment">
-		<element pattern="[&#10;&#13;]" is_regex="1" ends_context="1" />
-		<element pattern="?&gt;" ends_context="2" ends_block="1" blockstartelement="&lt;?php" highlight="php-block-tag" mayfold="1" />
-	</context>
-</element>
 <!-- there is a bug in the scanning engine such that a regex style pattern like (#|//) won't work. The reason is that
 there is special code if a pattern ends on a symbol. That code fails on the above pattern because both # and / are ends 
 for this pattern and both of them are a symbol. That's why we have a separate entry for # and for // -->
