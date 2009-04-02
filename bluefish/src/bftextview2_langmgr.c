@@ -400,12 +400,12 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 
 static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint16 context, GQueue *contextstack
 		,gchar *ih_autocomplete_append ,const gchar *ih_highlight
-		,gboolean ih_case_insens ,gboolean ih_is_regex ,gboolean ih_autocomplete) {
+		,gboolean ih_case_insens ,gboolean ih_is_regex ,gboolean ih_autocomplete, gint ih_autocomplete_backup_cursor) {
 	guint16 matchnum=0;
 	const gchar *tmp;
 	gchar *pattern=NULL, *idref=NULL, *highlight=NULL, *blockstartelement=NULL, *blockhighlight=NULL, *class=NULL, *autocomplete_append=NULL, *autocomplete_string=NULL, *id=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, starts_block=FALSE, ends_block=FALSE, is_empty, autocomplete=FALSE;
-	gint ends_context=0;
+	gint ends_context=0,autocomplete_backup_cursor=0;
 	is_empty = xmlTextReaderIsEmptyElement(reader);
 	
 	
@@ -427,6 +427,7 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 			set_boolean_if_attribute_name(reader, aname, (xmlChar *)"autocomplete", &autocomplete);
 			set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_string",&autocomplete_string);
 			set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
+			set_integer_if_attribute_name(reader, aname, (xmlChar *)"autocomplete_backup_cursor", &autocomplete_backup_cursor);
 		}
 		xmlFree(aname);
 	}
@@ -457,7 +458,10 @@ static guint16 process_scanning_element(xmlTextReaderPtr reader, Tbflangparsing 
 			}
 			matchnum = add_keyword_to_scanning_table(bfparser->st, pattern, bfparser->bflang->name, highlight?highlight:ih_highlight, blockhighlight,is_regex?is_regex:ih_is_regex,case_insens?case_insens:ih_case_insens, context, nextcontext
 					, starts_block, ends_block, blockstartelementum
-					,autocomplete?autocomplete:ih_autocomplete,autocomplete_string,autocomplete_append?autocomplete_append:ih_autocomplete_append, 0, NULL);
+					, autocomplete?autocomplete:ih_autocomplete,autocomplete_string
+					, autocomplete_append?autocomplete_append:ih_autocomplete_append
+					, autocomplete_backup_cursor?autocomplete_backup_cursor:ih_autocomplete_backup_cursor
+					, NULL);
 			DBG_PARSING("add matchnum %d to hash table for key %s, starts_block=%d\n",matchnum,pattern,starts_block);
 			g_hash_table_insert(bfparser->patterns, g_strdup(id?id:pattern), GINT_TO_POINTER((gint)matchnum));
 			/* now check if there is a deeper context */
@@ -704,10 +708,10 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 /* ih stands for InHerit */
 static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint context, GQueue *contextstack
 		,gchar *ih_autocomplete_append ,gchar *ih_highlight ,gchar *ih_class ,gchar *ih_attrib_autocomplete_append ,gchar *ih_attribhighlight
-		,gboolean ih_case_insens ,gboolean ih_is_regex ,gboolean ih_autocomplete, gint ih_autocomplete_backup_cursor) {
+		,gboolean ih_case_insens ,gboolean ih_is_regex ,gboolean ih_autocomplete, gint ih_autocomplete_backup_cursor, gint ih_attrib_autocomplete_backup_cursor) {
 	gchar *autocomplete_append=NULL, *highlight=NULL, *class=NULL, *attrib_autocomplete_append=NULL, *attribhighlight=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, autocomplete=FALSE;
-	gint autocomplete_backup_cursor=0;
+	gint autocomplete_backup_cursor=0,attrib_autocomplete_backup_cursor=0;
 	gint depth;
 	const gchar *tmp;
 	if (xmlTextReaderIsEmptyElement(reader)) {
@@ -721,6 +725,7 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 			set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete",&autocomplete);
 			set_string_if_attribute_name(reader,aname,(xmlChar *)"attrib_autocomplete_append",&attrib_autocomplete_append);
 			set_integer_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_backup_cursor",&autocomplete_backup_cursor);
+			set_integer_if_attribute_name(reader,aname,(xmlChar *)"attrib_autocomplete_backup_cursor",&attrib_autocomplete_backup_cursor);
 		}
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"highlight",&highlight);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
@@ -743,6 +748,7 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 						,case_insens?case_insens:ih_case_insens
 						,is_regex?is_regex:ih_is_regex
 						,autocomplete?autocomplete:ih_autocomplete
+						,autocomplete_backup_cursor?autocomplete_backup_cursor:ih_autocomplete_backup_cursor
 						);
 			} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
 				process_scanning_tag(reader,bfparser,context,contextstack
@@ -767,6 +773,7 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 							,is_regex?is_regex:ih_is_regex
 							,autocomplete?autocomplete:ih_autocomplete
 							,autocomplete_backup_cursor?autocomplete_backup_cursor:ih_autocomplete_backup_cursor
+							,attrib_autocomplete_backup_cursor?attrib_autocomplete_backup_cursor:ih_attrib_autocomplete_backup_cursor
 							 );
 				}
 			} else
@@ -822,11 +829,11 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		xmlChar *name = xmlTextReaderName(reader);
 		DBG_PARSING("parsing context, found node id %s\n",name);
 		if (xmlStrEqual(name,(xmlChar *)"element")) {
-			process_scanning_element(reader,bfparser,context,contextstack,NULL,NULL,FALSE,FALSE,FALSE);
+			process_scanning_element(reader,bfparser,context,contextstack,NULL,NULL,FALSE,FALSE,FALSE,0);
 		} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
 			process_scanning_tag(reader,bfparser,context,contextstack,NULL,NULL,NULL,NULL);
 		} else if (xmlStrEqual(name,(xmlChar *)"group")) {
-			process_scanning_group(reader,bfparser,context,contextstack,NULL,NULL,NULL,NULL,NULL,FALSE,FALSE,FALSE,0);
+			process_scanning_group(reader,bfparser,context,contextstack,NULL,NULL,NULL,NULL,NULL,FALSE,FALSE,FALSE,0,0);
 		} else if (xmlStrEqual(name,(xmlChar *)"context")) {
 			xmlFree(name);
 			DBG_PARSING("parsing context, end-of-context, return context %d\n",context);
