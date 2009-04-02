@@ -195,7 +195,7 @@ either on the start or on the end there is no symbol.
 typedef struct {
 	gboolean autocomplete_case_insens;
 	GCompletion* ac; /* autocompletion items in this context */
-	GHashTable *reference; /* reference help for each autocompletion item */
+	/*GHashTable *reference;*/ /* reference help for each autocompletion item */
 	GHashTable *patternhash; /* a hash table where the pattern and its autocompletion string are the keys, and an integer to the ID of the pattern is the value */
 	GtkTextTag *contexttag; /* if the context area itself needs some kind of style (to implement a string context for example) */
 	gchar *contexthighlight; /* the string that has the id for the highlight */

@@ -28,7 +28,7 @@
 #include <stdlib.h>         /* system() */
 #include <pcre.h>
 
-/*#define DEBUG*/
+#define DEBUG
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -1977,7 +1977,7 @@ static void delete_backupfile_lcb(gpointer data) {
 
 void doc_destroy(Tdocument * doc, gboolean delay_activation) {
 	Tbfwin *bfwin = BFWIN(doc->bfwin);
-
+	DEBUG_MSG("doc_destroy(%p,%d);\n",doc,delay_activation);
 	if (doc->status == DOC_STATUS_ERROR) {
 		bfwin_docs_not_complete(doc->bfwin, FALSE);
 	}

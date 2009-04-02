@@ -179,7 +179,7 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	if (!g_array_index(acw->btv->bflang->st->contexts, Tcontext, acw->contextnum).reference
+	if (!g_array_index(acw->btv->bflang->st->contexts, Tcontext, acw->contextnum).patternhash
 								|| !main_v->props.show_autocomp_reference)
 		return;
 
@@ -187,11 +187,11 @@ static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 		gchar *key;
 		gtk_tree_model_get(model,&iter,1,&key,-1);
 		if (key) {
-			gchar *string = g_hash_table_lookup(g_array_index(acw->btv->bflang->st->contexts, Tcontext, acw->contextnum).reference,key);
-			if (string) {
+			gint pattern_id = GPOINTER_TO_INT(g_hash_table_lookup(g_array_index(acw->btv->bflang->st->contexts, Tcontext, acw->contextnum).patternhash,key));
+			if (pattern_id && g_array_index(acw->btv->bflang->st->matches,Tpattern, pattern_id).reference) {
 				GtkRequisition requisition;
-				DBG_AUTOCOMP("show %s\n",string);
-				gtk_label_set_markup(GTK_LABEL(acw->reflabel),string);
+				DBG_AUTOCOMP("show %s\n",g_array_index(acw->btv->bflang->st->matches,Tpattern, pattern_id).reference);
+				gtk_label_set_markup(GTK_LABEL(acw->reflabel),g_array_index(acw->btv->bflang->st->matches,Tpattern, pattern_id).reference);
 				gtk_widget_show(acw->reflabel);
 				gtk_widget_size_request(acw->reflabel,&requisition);
 				/*gtk_window_get_size(GTK_WINDOW(acw->win),&width,&height);*/
