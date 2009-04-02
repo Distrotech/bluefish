@@ -28,7 +28,7 @@
 #include <stdlib.h>         /* system() */
 #include <pcre.h>
 
-#define DEBUG
+/*#define DEBUG*/
 
 #ifdef DEBUGPROFILING
 #include <sys/times.h>
@@ -888,8 +888,6 @@ void doc_select_and_scroll(Tdocument *doc, GtkTextIter *it1,
                                   GtkTextIter *it2, gboolean select_it1_line,
                                   gboolean do_scroll) {
 	GtkTextIter sit1=*it1, sit2=*it2;
-	GdkRectangle visirect;
-	GtkTextIter visi_so, visi_eo;
 
 	if (select_it1_line) {
 		sit2 = sit1;
@@ -898,15 +896,10 @@ void doc_select_and_scroll(Tdocument *doc, GtkTextIter *it1,
 	}
 	gtk_text_buffer_select_range(doc->buffer,&sit1,&sit2);
 	if (do_scroll) {
-		gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(doc->view),&visirect);
-		gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_so, visirect.x, visirect.y);
-		gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_eo, visirect.x + visirect.width, visirect.y + visirect.height);
-		/* in doc reload this works strange, there is no scrolling to the correct position...
+	/* in doc reload this works strange, there is no scrolling to the correct position...
 		perhaps this should be done in an idle callback so that the iter positions can be calculated?? */
-		if (!gtk_text_iter_in_range(&sit1,&visi_so,&visi_eo)) {
-			gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&sit1,0.25,TRUE,0.5,0.10);
-			gtk_widget_grab_focus(doc->view);
-		}
+		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&sit1,0.25,FALSE,0.5,0.10);
+		gtk_widget_grab_focus(doc->view);
 	}
 }
 

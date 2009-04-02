@@ -162,21 +162,13 @@ static void snr2_doc_tag_match(Tdocument *doc,GtkTextIter *itstart,GtkTextIter *
 
 static void snr2_doc_highlight_match(Tdocument *doc, GtkWindow *dialog, gint start, gint end) {
 	GtkTextIter itstart, itend;
-	GdkRectangle visirect;
-	GtkTextIter visi_so, visi_eo;
 
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itstart,start);
 	gtk_text_buffer_get_iter_at_offset(doc->buffer, &itend,end);
 
 	snr2_doc_tag_match(doc,&itstart,&itend);
 
-	gtk_text_view_get_visible_rect(GTK_TEXT_VIEW(doc->view),&visirect);
-	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_so, visirect.x, visirect.y);
-	gtk_text_view_get_iter_at_location(GTK_TEXT_VIEW(doc->view), &visi_eo, visirect.x + visirect.width, visirect.y + visirect.height);
-
-	if (!gtk_text_iter_in_range(&itstart,&visi_so,&visi_eo)) {
-		gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.0,TRUE,0.5,0.10);
-	}
+	gtk_text_view_scroll_to_iter(GTK_TEXT_VIEW(doc->view),&itstart,0.25,FALSE,0.5,0.10);
 	if (dialog) {
 		move_window_away_from_cursor(doc, dialog, &itstart);
 	}
