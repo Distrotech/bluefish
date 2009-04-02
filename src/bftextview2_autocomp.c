@@ -117,14 +117,21 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 		selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 		if (selection && gtk_tree_selection_get_selected(selection,&model,&it)) {
 			gchar *string;
+			GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 			guint pattern_id;
 			gtk_tree_model_get(model,&it,1,&string,-1);
 			DBG_AUTOCOMP("got string %s\n",string);
-			gtk_text_buffer_insert_at_cursor(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),string+strlen(ACWIN(btv->autocomp)->prefix),-1);
+			gtk_text_buffer_insert_at_cursor(buffer,string+strlen(ACWIN(btv->autocomp)->prefix),-1);
 			pattern_id = g_hash_table_lookup(ACWIN(btv->autocomp)->context->patternhash, string);
 			if (pattern_id) {
-				/*if (g_array_index(st->matches, Tpattern, matchnum).autocomplete_*/
-			
+				if (g_array_index(btv->bflang->st->matches, Tpattern, pattern_id).autocomplete_backup_cursor!=0) { 
+					GtkTextIter iter;
+					
+					gtk_text_buffer_get_iter_at_mark(buffer,&iter,gtk_text_buffer_get_insert(buffer));
+					if (gtk_text_iter_backward_chars(&iter,g_array_index(btv->bflang->st->matches, Tpattern, pattern_id).autocomplete_backup_cursor)) {
+						gtk_text_buffer_place_cursor(buffer, &iter);
+					}
+				}
 			}
 			g_free(string);
 		}
