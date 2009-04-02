@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2_patcompile.c
  *
- * Copyright (C) 2008 Olivier Sessink
+ * Copyright (C) 2008,2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -544,6 +544,12 @@ void match_set_nextcontext(Tscantable *st, guint16 matchnum, guint16 nextcontext
 }
 
 void match_autocomplete_reference(Tscantable *st,guint16 matchnum, guint16 context) {
+	
+	if (!g_array_index(st->contexts, Tcontext, context).patternhash) {
+		g_array_index(st->contexts, Tcontext, context).patternhash = g_hash_table_new(g_str_hash,g_str_equal);
+	}
+	g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).patternhash,g_array_index(st->matches, Tpattern, matchnum).pattern,GINT_TO_POINTER(matchnum));
+	
 	if (g_array_index(st->matches, Tpattern, matchnum).reference && !g_array_index(st->matches, Tpattern, matchnum).is_regex) {
 		if (!g_array_index(st->contexts, Tcontext, context).reference) {
 			DBG_PATCOMPILE("create hashtable for context %d\n",context);
@@ -573,6 +579,7 @@ void match_autocomplete_reference(Tscantable *st,guint16 matchnum, guint16 conte
 		g_list_free(list);
 		if (g_array_index(st->matches, Tpattern, matchnum).autocomplete_string && g_array_index(st->matches, Tpattern, matchnum).reference) {
 			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,g_array_index(st->matches, Tpattern, matchnum).autocomplete_string,g_array_index(st->matches, Tpattern, matchnum).reference);
+			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).patternhash,g_array_index(st->matches, Tpattern, matchnum).autocomplete_string,GINT_TO_POINTER(matchnum));
 		}
 	}
 }

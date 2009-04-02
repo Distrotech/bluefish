@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * bftextview2.h
  *
- * Copyright (C) 2008 Olivier Sessink
+ * Copyright (C) 2008,2009 Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -196,6 +196,7 @@ typedef struct {
 	gboolean autocomplete_case_insens;
 	GCompletion* ac; /* autocompletion items in this context */
 	GHashTable *reference; /* reference help for each autocompletion item */
+	GHashTable *patternhash; /* a hash table where the pattern and its autocompletion string are the keys, and an integer to the ID of the pattern is the value */
 	GtkTextTag *contexttag; /* if the context area itself needs some kind of style (to implement a string context for example) */
 	gchar *contexthighlight; /* the string that has the id for the highlight */
 	guint16 startstate; /* refers to the row number in scantable->table that is the start state for this context */
@@ -214,7 +215,7 @@ typedef struct {
 	gchar *pattern; /* the pattern itself. stored in the Tpattern so we can re-use it in another context */
 	gboolean autocomplete; /* whether or not this pattern should be added to the autocompletion; stored in the Tpattern so we can re-use it in another context */
 	gchar *autocomplete_string;
-
+	gint autocomplete_backup_cursor;
 	gchar *selfhighlight; /* a string with the highlight for this pattern. used when re-linking highlights and textstyles 
 							if the user changed any of these in the preferences */
 	gchar *blockhighlight; /* a string for the highlight corresponding to the  blocktag */
