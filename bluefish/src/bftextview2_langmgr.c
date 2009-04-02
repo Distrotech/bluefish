@@ -704,9 +704,10 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 /* ih stands for InHerit */
 static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfparser, gint context, GQueue *contextstack
 		,gchar *ih_autocomplete_append ,gchar *ih_highlight ,gchar *ih_class ,gchar *ih_attrib_autocomplete_append ,gchar *ih_attribhighlight
-		,gboolean ih_case_insens ,gboolean ih_is_regex ,gboolean ih_autocomplete) {
+		,gboolean ih_case_insens ,gboolean ih_is_regex ,gboolean ih_autocomplete, gint ih_autocomplete_backup_cursor) {
 	gchar *autocomplete_append=NULL, *highlight=NULL, *class=NULL, *attrib_autocomplete_append=NULL, *attribhighlight=NULL;
 	gboolean case_insens=FALSE, is_regex=FALSE, autocomplete=FALSE;
+	gint autocomplete_backup_cursor=0;
 	gint depth;
 	const gchar *tmp;
 	if (xmlTextReaderIsEmptyElement(reader)) {
@@ -719,6 +720,7 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 			set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
 			set_boolean_if_attribute_name(reader,aname,(xmlChar *)"autocomplete",&autocomplete);
 			set_string_if_attribute_name(reader,aname,(xmlChar *)"attrib_autocomplete_append",&attrib_autocomplete_append);
+			set_integer_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_backup_cursor",&autocomplete_backup_cursor);
 		}
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"highlight",&highlight);
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"class",&class);
@@ -764,6 +766,7 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 							,case_insens?case_insens:ih_case_insens
 							,is_regex?is_regex:ih_is_regex
 							,autocomplete?autocomplete:ih_autocomplete
+							,autocomplete_backup_cursor?autocomplete_backup_cursor:ih_autocomplete_backup_cursor
 							 );
 				}
 			} else
@@ -823,7 +826,7 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
 			process_scanning_tag(reader,bfparser,context,contextstack,NULL,NULL,NULL,NULL);
 		} else if (xmlStrEqual(name,(xmlChar *)"group")) {
-			process_scanning_group(reader,bfparser,context,contextstack,NULL,NULL,NULL,NULL,NULL,FALSE,FALSE,FALSE);
+			process_scanning_group(reader,bfparser,context,contextstack,NULL,NULL,NULL,NULL,NULL,FALSE,FALSE,FALSE,0);
 		} else if (xmlStrEqual(name,(xmlChar *)"context")) {
 			xmlFree(name);
 			DBG_PARSING("parsing context, end-of-context, return context %d\n",context);
