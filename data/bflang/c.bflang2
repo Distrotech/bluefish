@@ -44,30 +44,30 @@
 <group highlight="keyword" autocomplete="1">
 <element pattern="asm" />
 <element pattern="auto" />
-<element pattern="break" />
-<element pattern="case" />
+<element pattern="break" autocomplete_append=";"/>
+<element pattern="case" autocomplete_append=" :"  autocomplete_backup_cursor="1"/>
 <element pattern="const" />
-<element pattern="continue" />
-<element pattern="default" />
-<element pattern="do" />
-<element pattern="else" />
+<element pattern="continue" autocomplete_append=";" />
+<element pattern="default" autocomplete_append=":" />
+<element pattern="do" autocomplete_append=" {" />
+<element pattern="else" autocomplete_append=" {" />
 <element pattern="enum" />
 <element pattern="extern" />
-<element pattern="for" />
+<element pattern="for" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
 <element pattern="fortran" />
-<element pattern="goto" />
-<element pattern="if" />
+<element pattern="goto" autocomplete_append=" ;"  autocomplete_backup_cursor="1" />
+<element pattern="if" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
 <element pattern="inline" />
 <element pattern="register" />
 <element pattern="restrict" />
-<element pattern="return" />
+<element pattern="return" autocomplete_append=";" />
 <element pattern="sizeof" />
 <element pattern="static" />
 <element pattern="struct" />
-<element pattern="switch" />
+<element pattern="switch" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
 <element pattern="typedef" />
 <element pattern="volatile" />
-<element pattern="while" />
+<element pattern="while" autocomplete_append="() {"  autocomplete_backup_cursor="3" />
 </group>
 <group highlight="type" autocomplete="1">
 	<element pattern="bool"/>
@@ -82,7 +82,7 @@
 	<element pattern="double"><reference><b></b> double is the big floating point storage type, which is 4 or 8 byte (32 or 64bits)</reference></element>
 </group>
 <group class="glib">
-<group  highlight="glib-function" autocomplete="1" autocomplete_append="();">
+<group  highlight="glib-function" autocomplete="1" autocomplete_append="();" autocomplete_backup_cursor="2" >
 <element pattern="glib_check_version" />
 <element pattern="g_atomic_int_get" />
 <element pattern="g_atomic_int_set" />
