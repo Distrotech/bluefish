@@ -748,14 +748,14 @@
 	</context>
 </tag>
 
-<tag name="link" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" >
+<tag name="link" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2" >
 				<reference>This tag is not yet document in the language file</reference>
 			</tag>
 
 <tag name="body" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="alink,background,bgcolor,link,onload,onunload,text,vlink,&univ;,&i18n;">
 	<reference>This tag is not yet document in the language file</reference>
 </tag>
-		<group highlight="reference-external-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+		<group highlight="reference-external-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="a" case_insens="1" sgml_shorttag="1" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" >
 				<reference>The a tag inserts an anchor into a document</reference>
 			</tag>
@@ -767,7 +767,7 @@
 			</tag>
 			<tag name="param" case_insens="1" sgml_shorttag="1" attributes="id,name,value,valuetype,type" autocomplete_append=" name=&#34;&#34; &gt;" />
 		</group>
-		<group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+		<group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="abbr" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 				<reference>This tag is not yet document in the language file</reference>
 			</tag>
@@ -872,12 +872,12 @@
 				<reference>This tag is not yet document in the language file</reference>
 			</tag>			
 		</group>
-		<group highlight="deprecated-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+		<group highlight="deprecated-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="font" case_insens="1" sgml_shorttag="1" attributes="size,color,bgcolor,face">
 				<reference>This tag is not yet document in the language file</reference>
 			</tag>
 		</group>
-		<group highlight="form-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+		<group highlight="form-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="fieldset" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 				<reference>This tag is not yet document in the language file</reference>
 			</tag>
@@ -906,7 +906,7 @@
 				<reference>This tag is not yet document in the language file</reference>
 			</tag>
 		</group>
-		<group highlight="table-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">
+		<group highlight="table-tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="table" case_insens="1" sgml_shorttag="1" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" autocomplete_append=" summary=&quot;&quot; &gt;" >
 				<reference>This tag is not yet document in the language file</reference>
 			</tag>
