@@ -26,7 +26,7 @@
 
 
 typedef struct {
-	Tcontext *context;
+	BluefishTextView * btv;
 	gchar *prefix;
 	gchar *newprefix;
 	GtkWidget *win;
@@ -34,6 +34,7 @@ typedef struct {
 	GtkTreeView *tree;
 	GtkWidget *reflabel;
 	gint listwidth;
+	guint16 contextnum;
 } Tacwin;
 
 #define ACWIN(p) ((Tacwin *)(p))
@@ -119,20 +120,26 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 			gchar *string;
 			GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
 			guint pattern_id;
+			gint backup_chars=0;
 			gtk_tree_model_get(model,&it,1,&string,-1);
-			DBG_AUTOCOMP("got string %s\n",string);
-			gtk_text_buffer_insert_at_cursor(buffer,string+strlen(ACWIN(btv->autocomp)->prefix),-1);
-			pattern_id = g_hash_table_lookup(ACWIN(btv->autocomp)->context->patternhash, string);
-			if (pattern_id) {
-				if (g_array_index(btv->bflang->st->matches, Tpattern, pattern_id).autocomplete_backup_cursor!=0) { 
-					GtkTextIter iter;
-					
-					gtk_text_buffer_get_iter_at_mark(buffer,&iter,gtk_text_buffer_get_insert(buffer));
-					if (gtk_text_iter_backward_chars(&iter,g_array_index(btv->bflang->st->matches, Tpattern, pattern_id).autocomplete_backup_cursor)) {
-						gtk_text_buffer_place_cursor(buffer, &iter);
-					}
+			if (g_array_index(btv->bflang->st->contexts, Tcontext, ACWIN(btv->autocomp)->contextnum).patternhash) {
+				pattern_id = GPOINTER_TO_INT(g_hash_table_lookup(g_array_index(btv->bflang->st->contexts, Tcontext, ACWIN(btv->autocomp)->contextnum).patternhash, string));
+				DBG_AUTOCOMP("got pattern_id=%d\n",pattern_id);
+				if (pattern_id) {
+					backup_chars=g_array_index(btv->bflang->st->matches, Tpattern, pattern_id).autocomplete_backup_cursor;
 				}
 			}
+			
+			gtk_text_buffer_insert_at_cursor(buffer,string+strlen(ACWIN(btv->autocomp)->prefix),-1);
+			if (backup_chars!=0) { 
+				GtkTextIter iter;
+				gtk_text_buffer_get_iter_at_mark(buffer,&iter,gtk_text_buffer_get_insert(buffer));
+				if (gtk_text_iter_backward_chars(&iter,g_array_index(btv->bflang->st->matches, Tpattern, pattern_id).autocomplete_backup_cursor)) {
+					DBG_AUTOCOMP("move cursor %d chars back!\n",backup_chars);
+					gtk_text_buffer_place_cursor(buffer, &iter);
+				}
+			}
+
 			g_free(string);
 		}
 		acwin_cleanup(btv);
@@ -172,14 +179,15 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	if (!acw->context->reference || !main_v->props.show_autocomp_reference)
+	if (!g_array_index(acw->btv->bflang->st->contexts, Tcontext, acw->contextnum).reference
+								|| !main_v->props.show_autocomp_reference)
 		return;
 
 	if (gtk_tree_selection_get_selected(selection,&model,&iter)) {
 		gchar *key;
 		gtk_tree_model_get(model,&iter,1,&key,-1);
 		if (key) {
-			gchar *string = g_hash_table_lookup(acw->context->reference,key);
+			gchar *string = g_hash_table_lookup(g_array_index(acw->btv->bflang->st->contexts, Tcontext, acw->contextnum).reference,key);
 			if (string) {
 				GtkRequisition requisition;
 				DBG_AUTOCOMP("show %s\n",string);
@@ -204,7 +212,7 @@ static Tacwin *acwin_create(BluefishTextView *btv, guint16 context) {
 	GtkTreeSelection* selection;
 
 	acw = g_new0(Tacwin,1);
-	acw->context = &g_array_index(btv->bflang->st->contexts,Tcontext, context);
+	acw->btv = btv;
 	acw->win = gtk_window_new(GTK_WINDOW_POPUP);
 	gtk_widget_set_app_paintable(acw->win, TRUE);
 	gtk_window_set_resizable(GTK_WINDOW(acw->win), FALSE);
@@ -352,13 +360,12 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 		return;
 	}
 
-
 	if ((user_requested || !gtk_text_iter_equal(&iter,&cursorpos)) && g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac != NULL) {
 		/* we have a prefix or it is user requested, and we have a context with autocompletion */
 		gchar *newprefix, *prefix;
 		GList *items;
 
-		print_ac_items(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac);
+		/*print_ac_items(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac);*/
 
 		prefix = gtk_text_buffer_get_text(buffer,&iter,&cursorpos,TRUE);
 		items = g_completion_complete(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).ac,prefix,&newprefix);
@@ -375,6 +382,7 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 				g_free(ACWIN(btv->autocomp)->prefix);
 				g_free(ACWIN(btv->autocomp)->newprefix);
 				gtk_list_store_clear(ACWIN(btv->autocomp)->store);
+				ACWIN(btv->autocomp)->contextnum = contextnum;
 			}
 			ACWIN(btv->autocomp)->prefix = g_strdup(prefix);
 			ACWIN(btv->autocomp)->newprefix = g_strdup(newprefix);
