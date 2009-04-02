@@ -550,13 +550,13 @@ void match_autocomplete_reference(Tscantable *st,guint16 matchnum, guint16 conte
 	}
 	g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).patternhash,g_array_index(st->matches, Tpattern, matchnum).pattern,GINT_TO_POINTER(pattern_id));
 	
-	if (g_array_index(st->matches, Tpattern, matchnum).reference && !g_array_index(st->matches, Tpattern, matchnum).is_regex) {
+/*	if (g_array_index(st->matches, Tpattern, matchnum).reference && !g_array_index(st->matches, Tpattern, matchnum).is_regex) {
 		if (!g_array_index(st->contexts, Tcontext, context).reference) {
 			DBG_PATCOMPILE("create hashtable for context %d\n",context);
 			g_array_index(st->contexts, Tcontext, context).reference = g_hash_table_new(g_str_hash,g_str_equal);
 		}
 		g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,g_array_index(st->matches, Tpattern, matchnum).pattern,g_array_index(st->matches, Tpattern, matchnum).reference);
-	}
+	}*/
 
 	if (g_array_index(st->matches, Tpattern, matchnum).autocomplete) {
 		GList *list;
@@ -578,9 +578,9 @@ void match_autocomplete_reference(Tscantable *st,guint16 matchnum, guint16 conte
 		DBG_AUTOCOMP("adding %s to GCompletion\n",(gchar *)list->data);
 		g_list_free(list);
 		if (g_array_index(st->matches, Tpattern, matchnum).autocomplete_string) {
-			if (g_array_index(st->matches, Tpattern, matchnum).reference) {
+			/*if (g_array_index(st->matches, Tpattern, matchnum).reference) {
 				g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).reference,g_array_index(st->matches, Tpattern, matchnum).autocomplete_string,g_array_index(st->matches, Tpattern, matchnum).reference);
-			}
+			}*/
 			g_hash_table_insert(g_array_index(st->contexts, Tcontext, context).patternhash,g_array_index(st->matches, Tpattern, matchnum).autocomplete_string,GINT_TO_POINTER(pattern_id));
 		}
 	}

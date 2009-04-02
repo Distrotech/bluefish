@@ -1043,8 +1043,8 @@ static void bflang_cleanup_scantable(Tbflang *bflang) {
 	for (i=1;i<bflang->st->contexts->len;i++) {
 		if (g_array_index(bflang->st->contexts, Tcontext, i).ac)
 			g_completion_free(g_array_index(bflang->st->contexts, Tcontext, i).ac);
-		if (g_array_index(bflang->st->contexts, Tcontext, i).reference)
-			g_hash_table_destroy(g_array_index(bflang->st->contexts, Tcontext, i).reference);
+		if (g_array_index(bflang->st->contexts, Tcontext, i).patternhash)
+			g_hash_table_destroy(g_array_index(bflang->st->contexts, Tcontext, i).patternhash);
 		g_free(g_array_index(bflang->st->contexts, Tcontext, i).contexthighlight);
 	}
 	g_array_free(bflang->st->table, TRUE);
