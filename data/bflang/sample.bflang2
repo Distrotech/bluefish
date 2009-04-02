@@ -143,12 +143,13 @@ this element has ends_context=2 -->
 </element>
 
 <!-- next example shows autocompletion options -->
-<element pattern="while" highlight="keyword" autocomplete="1" autocomplete_append="() {"/>
+<element pattern="while" highlight="keyword" autocomplete="1" autocomplete_append="() {" autocomplete_backup_cursor="3"/>
 <!--
 an pattern may also be autocompletable. to enable this use autocomplete="1"
 often it is convenient if not only the pattern itself can be completed but some common
 characters are appended. use autocomplete_append="STRING" to define any characters that
-will be autocompleted
+will be autocompleted. The cursor position AFTER auto completion can be set back a couple
+of characters. This is defined by attribute autocomplete_backup_cursor
 
 a regular expession pattern may be autocompletable as well. but to autocomplete the pattern
 itself usually makes no sense because it matches various other patterns. use 
@@ -186,7 +187,7 @@ a <tag> may also start a new context just as <element> does
 -->
 <!-- next example shows autocompletion for tags -->
 <tag name="img" attributes="style,class,id,src,width,height" 
-		autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" />
+		autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2"/>
 <!--
 a <tag> automatically autocompletes. it also has a 'autocomplete_append' attribute, but
 also an 'attrib_autocomplete_append' atribute.
