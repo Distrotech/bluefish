@@ -117,9 +117,15 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 		selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 		if (selection && gtk_tree_selection_get_selected(selection,&model,&it)) {
 			gchar *string;
+			guint pattern_id;
 			gtk_tree_model_get(model,&it,1,&string,-1);
 			DBG_AUTOCOMP("got string %s\n",string);
 			gtk_text_buffer_insert_at_cursor(gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv)),string+strlen(ACWIN(btv->autocomp)->prefix),-1);
+			pattern_id = g_hash_table_lookup(ACWIN(btv->autocomp)->context->patternhash, string);
+			if (pattern_id) {
+				/*if (g_array_index(st->matches, Tpattern, matchnum).autocomplete_*/
+			
+			}
 			g_free(string);
 		}
 		acwin_cleanup(btv);
@@ -287,7 +293,7 @@ static void acwin_fill_tree(Tacwin *acw, GList *items) {
 		pango_layout_set_markup(panlay,longest,-1);
 		pango_layout_get_pixel_size(panlay, &len, &rowh);
 		h = MIN(MAX((numitems+1)*rowh+8,150),350);
-		g_print("numitems=%d, rowh=%d, new height=%d\n",numitems,rowh,h);
+		DBG_AUTOCOMP("numitems=%d, rowh=%d, new height=%d\n",numitems,rowh,h);
 		acw->listwidth = len+20;
 		gtk_widget_set_size_request(GTK_WIDGET(acw->tree),acw->listwidth,h); /* ac_window */
 		g_free(longest);
