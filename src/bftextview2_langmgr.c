@@ -522,10 +522,12 @@ int stringcmp(const void *sp1, const void *sp2 ) {
 }
 
 static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfparser, guint16 context, GQueue *contextstack
-		,gchar *ih_autocomplete_append ,gchar *ih_highlight,gchar *ih_attrib_autocomplete_append ,gchar *ih_attribhighlight) {
+		,gchar *ih_autocomplete_append ,gchar *ih_highlight,gchar *ih_attrib_autocomplete_append ,gchar *ih_attribhighlight,
+		gint ih_autocomplete_backup_cursor, gint ih_attrib_autocomplete_backup_cursor) {
 	const gchar *tmp;
 	gchar *tag=NULL, *idref=NULL, *highlight=NULL, *attributes=NULL, *attribhighlight=NULL,*class=NULL
 				, *autocomplete_append=NULL,*attrib_autocomplete_append=NULL,*id=NULL;
+	gint autocomplete_backup_cursor=0, attrib_autocomplete_backup_cursor=0;
 	guint16 matchnum=0,innercontext=context;
 	gboolean is_empty, case_insens=FALSE,sgml_shorttag=FALSE,no_close=FALSE;
 	DBG_PARSING("processing tag...\n");
@@ -540,6 +542,8 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 		if (bfparser->load_completion) {
 			set_string_if_attribute_name(reader,aname,(xmlChar *)"autocomplete_append",&autocomplete_append);
 			set_string_if_attribute_name(reader,aname, (xmlChar *)"attrib_autocomplete_append", &attrib_autocomplete_append);
+			set_integer_if_attribute_name(reader,aname, (xmlChar *)"autocomplete_backup_cursor", &autocomplete_backup_cursor);
+			set_integer_if_attribute_name(reader,aname, (xmlChar *)"attrib_autocomplete_backup_cursor", &attrib_autocomplete_backup_cursor);
 		}
 		set_string_if_attribute_name(reader,aname,(xmlChar *)"attribhighlight",&attribhighlight);
 		set_string_if_attribute_name(reader,aname, (xmlChar *)"attributes", &attributes);
@@ -594,7 +598,12 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 				}*/
 			}
 			tmp = g_strconcat("<",tag,NULL);
-			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp,bfparser->bflang->name,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, context, contexttag, TRUE, FALSE, 0, TRUE,NULL,autocomplete_append?autocomplete_append:ih_autocomplete_append,0,NULL);
+			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp,bfparser->bflang->name
+						,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, context
+						, contexttag, TRUE, FALSE, 0, TRUE,NULL
+						,autocomplete_append?autocomplete_append:ih_autocomplete_append
+						,autocomplete_backup_cursor?autocomplete_backup_cursor:ih_autocomplete_backup_cursor
+						,NULL);
 			DBG_PARSING("insert tag %s into hash table with matchnum %d\n",id?id:tmp,matchnum);
 			g_hash_table_insert(bfparser->patterns, g_strdup(id?id:tmp), GINT_TO_POINTER((gint)matchnum));
 			g_free(tmp);
@@ -609,7 +618,12 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 					
 					tmp2 = attrib_arr;
 					while (*tmp2) {
-						guint16 attrmatch = add_keyword_to_scanning_table(bfparser->st, *tmp2,bfparser->bflang->name,attribhighlight?attribhighlight:ih_attribhighlight,NULL, FALSE, TRUE, contexttag, 0, FALSE, FALSE, 0, TRUE,NULL,attrib_autocomplete_append?attrib_autocomplete_append:ih_attrib_autocomplete_append,0,NULL);
+						guint16 attrmatch = add_keyword_to_scanning_table(bfparser->st, *tmp2,bfparser->bflang->name
+									,attribhighlight?attribhighlight:ih_attribhighlight
+									,NULL, FALSE, TRUE, contexttag, 0, FALSE, FALSE, 0, TRUE,NULL
+									,attrib_autocomplete_append?attrib_autocomplete_append:ih_attrib_autocomplete_append
+									,attrib_autocomplete_backup_cursor?attrib_autocomplete_backup_cursor:ih_attrib_autocomplete_backup_cursor
+									,NULL);
 						match_autocomplete_reference(bfparser->st,attrmatch,contexttag);
 						tmp2++;
 					}
@@ -748,7 +762,7 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 						,case_insens?case_insens:ih_case_insens
 						,is_regex?is_regex:ih_is_regex
 						,autocomplete?autocomplete:ih_autocomplete
-						,autocomplete_backup_cursor?autocomplete_backup_cursor:ih_autocomplete_backup_cursor
+						,autocomplete_backup_cursor?autocomplete_backup_cursor:ih_autocomplete_backup_cursor						
 						);
 			} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
 				process_scanning_tag(reader,bfparser,context,contextstack
@@ -756,6 +770,8 @@ static void process_scanning_group(xmlTextReaderPtr reader, Tbflangparsing *bfpa
 						,highlight?highlight:ih_highlight
 						,attrib_autocomplete_append?attrib_autocomplete_append:ih_attrib_autocomplete_append
 						,attribhighlight?attribhighlight:ih_attribhighlight
+						,autocomplete_backup_cursor?autocomplete_backup_cursor:ih_autocomplete_backup_cursor
+						,attrib_autocomplete_backup_cursor?attrib_autocomplete_backup_cursor:ih_attrib_autocomplete_backup_cursor
 						);
 			} else if (xmlStrEqual(name,(xmlChar *)"group")) {
 				if (xmlTextReaderDepth(reader)==depth) {
@@ -831,7 +847,7 @@ static gint16 process_scanning_context(xmlTextReaderPtr reader, Tbflangparsing *
 		if (xmlStrEqual(name,(xmlChar *)"element")) {
 			process_scanning_element(reader,bfparser,context,contextstack,NULL,NULL,FALSE,FALSE,FALSE,0);
 		} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
-			process_scanning_tag(reader,bfparser,context,contextstack,NULL,NULL,NULL,NULL);
+			process_scanning_tag(reader,bfparser,context,contextstack,NULL,NULL,NULL,NULL,0,0);
 		} else if (xmlStrEqual(name,(xmlChar *)"group")) {
 			process_scanning_group(reader,bfparser,context,contextstack,NULL,NULL,NULL,NULL,NULL,FALSE,FALSE,FALSE,0,0);
 		} else if (xmlStrEqual(name,(xmlChar *)"context")) {
