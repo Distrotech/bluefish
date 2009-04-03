@@ -161,8 +161,6 @@ either on the start or on the end there is no symbol.
 #ifndef _BFTEXTVIEW2_H_
 #define _BFTEXTVIEW2_H_
 
-#define IN_BLUEFISH
-
 #include <gtk/gtk.h>
 
 #define DBG_NONE(args...)
