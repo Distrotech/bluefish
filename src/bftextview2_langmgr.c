@@ -28,11 +28,9 @@
 #include "bftextview2_langmgr.h"
 #include "bftextview2_patcompile.h"
 
-#ifdef IN_BLUEFISH
 #include "bluefish.h"
 #include "document.h"
 #include "stringlist.h"
-#endif
 
 typedef struct {
 	GHashTable *patterns;
@@ -256,13 +254,13 @@ GtkTextTag *langmrg_lookup_tag_highlight(const gchar *lang, const gchar *highlig
 	/*g_print("found tag %p for lang %s highlight %s\n",tag,lang,highlight);*/
 	return tag;
 }
-#ifdef IN_BLUEFISH
+
 static void foreachdoc_lcb(Tdocument *doc, gpointer data) {
 	if (BLUEFISH_TEXT_VIEW(doc->view)->bflang == data) {
 		bluefish_text_view_rescan(BLUEFISH_TEXT_VIEW(doc->view));
 	}
 }
-#endif
+
 /* this is called in the mainloop again */
 static gboolean build_lang_finished_lcb(gpointer data)
 {
@@ -276,11 +274,7 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	DBG_PARSING("build_lang_finished_lcb..\n");
 	/* now walk and rescan all documents that use this bflang */
 	if (bfparser->bflang->st) {
-#ifdef IN_BLUEFISH
 		alldocs_foreach(foreachdoc_lcb, bfparser->bflang);
-#else
-		testapp_rescan_bflang(bfparser->bflang);
-#endif
 	}
 	/* cleanup the parsing structure */
 	g_hash_table_destroy(bfparser->patterns);
