@@ -171,6 +171,7 @@ void langmgr_reload_user_styles(void) {
 			{"special-tag2","#005500","","1","",NULL},
 			{"special-tag3","#FF9900","","1","",NULL},
 			{"attribute","#000099","","","",NULL},
+			{"special-attribute","#FF0000","","","",NULL},
 			{"brackets","#000000","","1","0",NULL},
 			{"warning","#FF0000","","1","0",NULL},
 			{NULL,NULL,NULL,NULL,NULL,NULL}
