@@ -1,7 +1,7 @@
 /* Bluefish HTML Editor
  * image_dialog.c
  *
- * Copyright (C) 2008 James Hayward and Olivier Sessink
+ * Copyright (C) 2008,2009 James Hayward and Olivier Sessink
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -699,11 +699,13 @@ image_dialog_set_source (BluefishImageDialog *dialog)
 	gchar *relpath = NULL;
 	
 	if (dialog->priv->doc->uri != NULL) {
-		GFile *parent;
-		
-		parent = g_file_get_parent (dialog->priv->doc->uri);				
-		relpath = g_file_get_relative_path (parent, dialog->priv->fileuri);
-		g_object_unref (parent);		
+		gchar *curi1, *curi2;
+		curi1 = g_file_get_uri(dialog->priv->doc->uri);
+		curi2 = g_file_get_uri(dialog->priv->fileuri);
+		relpath = create_relative_link_to(curi1,curi2);
+		DEBUG_MSG("image_dialog_set_source, relpath=%s\n",relpath);
+		g_free(curi1);
+		g_free(curi2);		
 	}
 		
 	if (relpath)
@@ -716,7 +718,7 @@ image_dialog_set_source (BluefishImageDialog *dialog)
 																	 0, 0, NULL,
 																	 image_dialog_source_changed,
 																	 NULL);
-	
+	DEBUG_MSG("image_dialog_set_source, filename=%s\n",dialog->priv->filename);
 	gtk_entry_set_text (GTK_ENTRY (dialog->priv->source), dialog->priv->filename);
 	gtk_editable_set_position (GTK_EDITABLE (dialog->priv->source), -1);
 	
@@ -921,7 +923,7 @@ source_changed_or_activate (BluefishImageDialog *dialog,
 {
 	const gchar *filename = NULL;
 	gchar *tmp;
-	
+	DEBUG_MSG("source_changed_or_activate, started\n");
 	if (dialog->priv->preview)
 		image_dialog_remove_preview (dialog);
 	
@@ -930,8 +932,8 @@ source_changed_or_activate (BluefishImageDialog *dialog,
 			dialog->priv->fileuri = NULL;
 	}
 	
-  filename = gtk_entry_get_text (GTK_ENTRY (dialog->priv->source));
-  
+	filename = gtk_entry_get_text (GTK_ENTRY (dialog->priv->source));
+	DEBUG_MSG("source_changed_or_activate, filename=%s\n",filename);
 	if (filename && strlen (filename)) {
 		tmp = strstr (filename, "://");
 		if ((tmp == NULL && filename[0] != '/') && dialog->priv->doc->uri) {
