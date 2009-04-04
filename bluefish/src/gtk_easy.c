@@ -1177,7 +1177,8 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 				setfile = NULL;
 	} else if (setfile && setfile[0] != '/' && strchr(setfile, ':')==NULL && fb->bfwin && fb->bfwin->current_document->uri) {
 		/* if setfile is a relative name, we should try to make it a full path. relative names
-		cannot start with a slash or with a scheme (such as file://) */
+		cannot start with a slash or with a scheme (such as file://)
+		 */
 		GFile *parent = g_file_get_parent (fb->bfwin->current_document->uri);
 		GFile *newsetfile = g_file_resolve_relative_path(parent, setfile);
 		g_object_unref (parent);
@@ -1211,11 +1212,12 @@ static void file_but_clicked_lcb(GtkWidget * widget, Tfilebut *fb) {
 	if (tmpstring) {
 		if (!fb->fullpath && fb->bfwin) {
 			if (fb->bfwin->current_document->uri != NULL) {
-				GFile *tmpuri = g_file_new_for_uri(tmpstring);
-				GFile *parent = g_file_get_parent(fb->bfwin->current_document->uri);
-				tmp2string = g_file_get_relative_path(parent, tmpuri);
-				g_object_unref(tmpuri);
-				g_object_unref(parent);
+				gchar *doc_curi;
+				/* the function g_file_get_relative_path cannot create links that don't 
+				have the same prefix (relative links with ../../)*/
+				doc_curi = g_file_get_uri(fb->bfwin->current_document->uri);
+				tmp2string = create_relative_link_to(doc_curi, tmpstring);
+				g_free(doc_curi);
 				/* If tmp2string is NULL we need to return the full path */
 				if (tmp2string == NULL)
 					tmp2string = g_strdup(tmpstring);
