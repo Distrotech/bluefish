@@ -45,7 +45,7 @@ static TBluefishPlugin *load_plugin(const gchar *filename) {
 	
 	module = g_module_open(filename,0);
 	if (!module) {
-		DEBUG_MSG("load_plugin, failed to load %s with error %s\n",filename, g_module_error());
+		g_warning("failed to load plugin %s with error %s\n",filename, g_module_error());
 		return NULL;
 	}
 
