@@ -37,6 +37,7 @@ typedef struct {
 	GHashTable *contexts;
 	/*GHashTable *setoptions;*/
 	Tscantable *st; /* while not finished */
+	GList *comments; /* while not finished */
 	Tbflang *bflang;
 	gboolean load_completion;
 	gboolean load_reference;
@@ -267,6 +268,7 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	Tbflangparsing *bfparser=data;
 	if (bfparser->st) {
 		bfparser->bflang->st = bfparser->st;
+		bfparser->bflang->comments = bfparser->comments;
 	} else {
 		bfparser->bflang->no_st = TRUE;
 	}
@@ -925,6 +927,36 @@ static gpointer build_lang_thread(gpointer data)
 					break;
 				} else
 					DBG_PARSING("build_lang_thread, within <definition>, found %s\n",name2);
+				xmlFree(name2);
+			}
+		} else if (xmlStrEqual(name,(xmlChar *)"properties")) {
+			DBG_PARSING("processing <properties>\n");
+			while (xmlTextReaderRead(reader)==1) {
+				xmlChar *name2 = xmlTextReaderName(reader);
+				if (xmlStrEqual(name2,(xmlChar *)"comment")) {
+					gchar *type=NULL;
+					Tcomment *com = g_slice_new0(Tcomment);
+					while (xmlTextReaderMoveToNextAttribute(reader)) {
+						xmlChar *aname = xmlTextReaderName(reader);
+						set_string_if_attribute_name(reader,aname,(xmlChar *)"start", &com->so);
+						set_string_if_attribute_name(reader,aname,(xmlChar *)"end", &com->eo);
+						set_string_if_attribute_name(reader,aname,(xmlChar *)"type", &type);
+						xmlFree(aname);
+					}
+					if (com && com->so && type && (strcmp(type, "line")==0 || com->eo)) {
+						com->type=strcmp(type, "line")==0 ? comment_type_line : comment_type_block;
+						bfparser->comments = g_list_prepend(bfparser->comments, com);
+						DBG_PARSING("adding comment %s\n",com->so);
+					} else {
+						if (com->so) xmlFree(com->so);
+						if (com->eo) xmlFree(com->eo);
+						g_slice_free(Tcomment, com);
+					}
+					xmlFree(type);
+				} else if (xmlStrEqual(name2,(xmlChar *)"properties")) {
+					xmlFree(name2);
+					break;
+				}
 				xmlFree(name2);
 			}
 		}

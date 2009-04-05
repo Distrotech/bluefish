@@ -244,6 +244,18 @@ typedef struct {
 	GArray *matches; /* dynamic sized array of Tpattern */
 } Tscantable;
 
+
+typedef enum {
+	comment_type_block,
+	comment_type_line
+} Tcomment_type;
+
+typedef struct {
+	gchar *so;
+	gchar *eo;
+	Tcomment_type type;
+} Tcomment;
+
 /*****************************************************************/
 /* scanning the text and caching the results */
 /*****************************************************************/
@@ -315,6 +327,7 @@ typedef struct {
 						we want to remove all tags and want to re-highlight */
 	gchar *filename; /* the .bflang2 file */
 	Tscantable *st; /* NULL or complete */
+	GList *comments; /* NULL or complete */
 	gboolean no_st; /* no scantable, for Text, don't try to load the scantable if st=NULL */
 	gboolean parsing; /* set to TRUE when a thread is parsing the scantable already */
 	gint size_table;
