@@ -152,7 +152,7 @@ void langmgr_reload_user_styles(void) {
 		gint i=0;
 		/* init the textstyles, most important on the bottom
 		order of the items is {name, foreground, background, bold, italic} */
-		gchar *arr[][6] = {
+		const gchar *arr[][6] = {
 			{"preprocessor","#aaaa00","","0","0",NULL},
 			{"comment","#555555","","0","1",NULL},
 			{"string","#009900","","0","0",NULL},
@@ -176,7 +176,7 @@ void langmgr_reload_user_styles(void) {
 			{NULL,NULL,NULL,NULL,NULL,NULL}
 		};
 		while (arr[i][0]) {
-			main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, duplicate_stringarray(arr[i]));
+			main_v->props.textstyles = g_list_prepend(main_v->props.textstyles, g_strdupv((gchar **)arr[i]));
 			i++;
 		}
 	}

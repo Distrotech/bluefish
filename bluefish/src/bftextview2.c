@@ -900,6 +900,21 @@ void bluefish_text_view_rescan(BluefishTextView * btv) {
 	}
 }
 
+	/* returns TRUE if 
+	there is a selection and a comment start and end is inside the selection
+	OR no selection and cursor is inside a comment */
+gboolean bluefish_text_view_in_comment(BluefishTextView * btv) {
+	GtkTextIter its,ite;
+	GtkTextTag *comment_tag = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"comment");
+	if (gtk_text_buffer_get_selection_bounds(GTK_TEXT_VIEW(btv)->buffer,&its,&ite)) {
+		/* how to test ? */
+		return FALSE;
+	} else {
+		gtk_text_buffer_get_iter_at_mark(GTK_TEXT_VIEW(btv)->buffer, &its, gtk_text_buffer_get_insert(GTK_TEXT_VIEW(btv)->buffer));
+		return gtk_text_iter_has_tag(&its,comment_tag);
+	}
+}
+
 void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) {
 	GtkTextIter start,end;
 	GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
@@ -956,7 +971,7 @@ static gboolean bluefish_text_view_query_tooltip(GtkWidget *widget, gint x, gint
 			if (g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).patternhash) {
 				gint pattern_id;
 				gchar *key = gtk_text_buffer_get_text(GTK_TEXT_VIEW(btv)->buffer,&mstart,&iter,TRUE);
-				pattern_id = g_hash_table_lookup(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).patternhash, key); 
+				pattern_id = GPOINTER_TO_INT(g_hash_table_lookup(g_array_index(btv->bflang->st->contexts,Tcontext, contextnum).patternhash, key)); 
 				if (pattern_id && g_array_index(btv->bflang->st->matches,Tpattern, pattern_id).reference) {
 					DBG_TOOLTIP("key=%s, value=%s\n",key,g_array_index(btv->bflang->st->matches,Tpattern, pattern_id).reference);
 					gtk_tooltip_set_markup(tooltip, g_array_index(btv->bflang->st->matches,Tpattern, pattern_id).reference);
