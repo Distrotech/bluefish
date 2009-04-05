@@ -903,16 +903,26 @@ void bluefish_text_view_rescan(BluefishTextView * btv) {
 	/* returns TRUE if 
 	there is a selection and a comment start and end is inside the selection
 	OR no selection and cursor is inside a comment */
-gboolean bluefish_text_view_in_comment(BluefishTextView * btv) {
-	GtkTextIter its,ite;
+gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter *its, GtkTextIter *ite) {
+	GtkTextIter tmpits, tmpite;
 	GtkTextTag *comment_tag = gtk_text_tag_table_lookup(langmgr_get_tagtable(),"comment");
-	if (gtk_text_buffer_get_selection_bounds(GTK_TEXT_VIEW(btv)->buffer,&its,&ite)) {
+	if (gtk_text_buffer_get_selection_bounds(GTK_TEXT_VIEW(btv)->buffer,&tmpits,&tmpite)) {
 		/* how to test ? */
+		*its = tmpits;
+		*ite = tmpite;
 		return FALSE;
 	} else {
-		gtk_text_buffer_get_iter_at_mark(GTK_TEXT_VIEW(btv)->buffer, &its, gtk_text_buffer_get_insert(GTK_TEXT_VIEW(btv)->buffer));
-		return gtk_text_iter_has_tag(&its,comment_tag);
+		gboolean retval;
+		gtk_text_buffer_get_iter_at_mark(GTK_TEXT_VIEW(btv)->buffer, &tmpits, gtk_text_buffer_get_insert(GTK_TEXT_VIEW(btv)->buffer));
+		retval = gtk_text_iter_has_tag(&tmpits,comment_tag);
+		*ite = *its = tmpits;
+		if (retval) {
+			gtk_text_iter_forward_to_tag_toggle(ite,comment_tag);
+			gtk_text_iter_backward_to_tag_toggle(its,comment_tag);
+			return TRUE;
+		}
 	}
+	return FALSE;
 }
 
 void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime) {
