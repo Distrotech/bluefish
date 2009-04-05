@@ -39,6 +39,9 @@
 	<highlight name="glib-function" style="special-function" />
 	<highlight name="glib-type" style="special-type" />	
 </header>
+<properties>
+	<comment id="/**/" type="block" start="/*" end="*/" />
+</properties>
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 <group highlight="keyword" autocomplete="1">
