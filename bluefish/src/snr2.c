@@ -2135,17 +2135,13 @@ void convert_identing(Tdocument *doc, gboolean to_tabs) {
 	doc_unre_new_group(doc);
 }
 
-void add_line_comment(Tdocument *doc, const gchar *commentstring) {
-	gint i=0,coffset,start,end, commentstring_len;
+static void add_line_comment(Tdocument *doc, const gchar *commentstring, gint start, gint end) {
+	gint i=0,coffset,commentstring_len;
 	gchar *buf;
-	
-	if (!doc_get_selection(doc, &start, &end)) {
-		start=0;
-		end=-1;
-	} else {
+
+	if (start!=0)	
 		start--; /* include a possible newline character if 
 			the selection started at te first character of a line */
-	}
 
 	commentstring_len = g_utf8_strlen(commentstring,-1);
 	
@@ -2165,14 +2161,11 @@ void add_line_comment(Tdocument *doc, const gchar *commentstring) {
 	doc_unre_new_group(doc);
 }
 
-void remove_line_comment(Tdocument *doc, const gchar *commentstring) {
-	gint start,end,commentstring_len,i=0,coffset;
+static void remove_line_comment(Tdocument *doc, const gchar *commentstring, gint start, gint end) {
+	gint commentstring_len,i=0,coffset;
 	gchar *buf;
 	gboolean newline;
-	if (!doc_get_selection(doc, &start, &end)) {
-		start=0;
-		end=-1;
-	}
+
 	commentstring_len=strlen(commentstring);
 	doc_unre_new_group(doc);
 	buf = doc_get_chars(doc,start,end);
@@ -2194,13 +2187,9 @@ void remove_line_comment(Tdocument *doc, const gchar *commentstring) {
 	doc_unre_new_group(doc);
 }
 
-void add_block_comment(Tdocument *doc, const gchar *so_commentstring, const gchar *eo_commentstring) {
-	gint offset,start,end;
+static void add_block_comment(Tdocument *doc, const gchar *so_commentstring, const gchar *eo_commentstring, gint start, gint end) {
+	gint offset;
 	
-	if (!doc_get_selection(doc, &start, &end)) {
-		start=0;
-		end=-1;
-	}
 	doc_unre_new_group(doc);
 	
 	doc_replace_text_backend(doc, so_commentstring, start, start);
@@ -2210,15 +2199,11 @@ void add_block_comment(Tdocument *doc, const gchar *so_commentstring, const gcha
 	doc_unre_new_group(doc);
 }
 
-void remove_block_comment(Tdocument *doc, const gchar *so_commentstring, const gchar *eo_commentstring) {
-	gint start,end,i=0,n=0,coffset,eo_commentstring_len;
+static void remove_block_comment(Tdocument *doc, const gchar *so_commentstring, const gchar *eo_commentstring, gint start, gint end) {
+	gint i=0,n=0,coffset,eo_commentstring_len;
 	gint so=0,eo;
 	gchar *buf;
 	
-	if (!doc_get_selection(doc, &start, &end)) {
-		start=0;
-		end=-1;
-	}
 	doc_unre_new_group(doc);
 	/* first see if there is an start-of-block */
 	buf = doc_get_chars(doc,start,end);
@@ -2281,5 +2266,48 @@ void remove_block_comment(Tdocument *doc, const gchar *so_commentstring, const g
 }
 
 void commentcode_test(Tdocument *doc) {
-	remove_line_comment(doc,"//");
+	GtkTextIter its,ite;
+	gboolean ret;
+	
+	if (!BLUEFISH_TEXT_VIEW(doc->view)->bflang) {
+		g_print("commentcode_test, no bflang, returning\n");
+		return;
+	}
+	if (!BLUEFISH_TEXT_VIEW(doc->view)->bflang->line && !BLUEFISH_TEXT_VIEW(doc->view)->bflang->block) {
+		g_print("commentcode_test, no line or block in bflang %p, returning\n",BLUEFISH_TEXT_VIEW(doc->view)->bflang);
+		return;
+	}
+	
+	ret = bluefish_text_view_in_comment(doc->view, &its, &ite);
+	if (ret) {
+		/* TODO: find out which type of comment we are seeing */
+		
+	
+	} else {
+		if (gtk_text_buffer_get_has_selection(doc->buffer)) {
+			if (BLUEFISH_TEXT_VIEW(doc->view)->bflang->block 
+						&& (!BLUEFISH_TEXT_VIEW(doc->view)->bflang->line 
+								|| (gtk_text_iter_get_line(&its)!=gtk_text_iter_get_line(&ite)))) {
+				add_block_comment(doc, BLUEFISH_TEXT_VIEW(doc->view)->bflang->block->so
+							, BLUEFISH_TEXT_VIEW(doc->view)->bflang->block->eo
+							, gtk_text_iter_get_offset(&its)
+							, gtk_text_iter_get_offset(&ite));
+			} else if (BLUEFISH_TEXT_VIEW(doc->view)->bflang->line) {
+				add_line_comment(doc, BLUEFISH_TEXT_VIEW(doc->view)->bflang->line->so, gtk_text_iter_get_offset(&its),gtk_text_iter_get_offset(&ite));
+			}
+		 } else {
+		 	gtk_text_iter_set_line_offset(&its,0);
+		 	gtk_text_iter_forward_to_line_end(&ite);
+		 	if (gtk_text_iter_get_char(&ite)=='\n') 
+		 		gtk_text_iter_backward_char(&ite);
+		 	if (BLUEFISH_TEXT_VIEW(doc->view)->bflang->line) {
+		 		add_line_comment(doc, BLUEFISH_TEXT_VIEW(doc->view)->bflang->line->so, gtk_text_iter_get_offset(&its),gtk_text_iter_get_offset(&ite));
+		 	} else if (BLUEFISH_TEXT_VIEW(doc->view)->bflang->block) {
+				add_block_comment(doc, BLUEFISH_TEXT_VIEW(doc->view)->bflang->block->so
+							, BLUEFISH_TEXT_VIEW(doc->view)->bflang->block->eo
+							, gtk_text_iter_get_offset(&its)
+							, gtk_text_iter_get_offset(&ite));
+			}
+		}
+	}
 }

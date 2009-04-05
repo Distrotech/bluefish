@@ -38,6 +38,8 @@ typedef struct {
 	/*GHashTable *setoptions;*/
 	Tscantable *st; /* while not finished */
 	GList *comments; /* while not finished */
+	Tcomment *line; /* while not finished */
+	Tcomment *block;/* while not finished */
 	Tbflang *bflang;
 	gboolean load_completion;
 	gboolean load_reference;
@@ -269,6 +271,9 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	if (bfparser->st) {
 		bfparser->bflang->st = bfparser->st;
 		bfparser->bflang->comments = bfparser->comments;
+		bfparser->bflang->line = bfparser->line;
+		bfparser->bflang->block = bfparser->block;
+		g_print("build_lang_finished_lcb, bflang %p, line=%p, block=%p\n",bfparser->bflang, bfparser->bflang->line, bfparser->bflang->block);
 	} else {
 		bfparser->bflang->no_st = TRUE;
 	}
@@ -946,7 +951,11 @@ static gpointer build_lang_thread(gpointer data)
 					if (com && com->so && type && (strcmp(type, "line")==0 || com->eo)) {
 						com->type=strcmp(type, "line")==0 ? comment_type_line : comment_type_block;
 						bfparser->comments = g_list_prepend(bfparser->comments, com);
-						DBG_PARSING("adding comment %s\n",com->so);
+						if (com->type==comment_type_line && bfparser->line==NULL)
+							bfparser->line=com;
+						else if (com->type==comment_type_block && bfparser->block==NULL)
+							bfparser->block=com;
+						g_print("adding comment %s, line=%p, block=%p\n",com->so,bfparser->line,bfparser->block);
 					} else {
 						if (com->so) xmlFree(com->so);
 						if (com->eo) xmlFree(com->eo);
