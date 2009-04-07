@@ -654,7 +654,7 @@ void utf8_offset_cache_reset() {
  * 
  * Return value: guint with character offset
  **/
-guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset) {
+guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffset) {
 	guint retval;
 	gint i = UTF8_OFFSET_CACHE_SIZE-1;
 	if (byteoffset ==0) return 0;

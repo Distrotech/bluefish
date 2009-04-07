@@ -32,6 +32,10 @@
 	<highlight name="comment" style="comment"  />
 	<highlight name="imports" style="preprocessor"   />	
 </header>
+<properties>
+	<comment id="#" type="line" start="#" />
+</properties>
+
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 <element pattern="import[^&#10;&#13;]+" is_regex="1" highlight="imports" autocomplete_string="import"/>

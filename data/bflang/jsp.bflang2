@@ -37,6 +37,11 @@
 	<highlight name="tag" style="tag"  />
 	<highlight name="attribute" style="tag"  />
 </header>
+<properties>
+	<comment id="/**/" type="block" start="/*" end="*/" />
+	<comment id="//" type="line" start="//" />
+</properties>
+
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 <group highlight="tag" attribhighlight="attribute" autocomplete_append="&gt;" attrib_autocomplete_append="=&quot;&quot;">

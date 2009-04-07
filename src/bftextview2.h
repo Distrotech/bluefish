@@ -388,6 +388,7 @@ struct _BluefishTextViewClass {
 };
 
 void bluefish_text_view_rescan(BluefishTextView * btv);
+gboolean bluefish_text_view_in_comment(BluefishTextView * btv, GtkTextIter *its, GtkTextIter *ite);
 void bluefish_text_view_set_mimetype(BluefishTextView * btv, const gchar *mime);
 void bluefish_text_view_set_colors(BluefishTextView * btv, const gchar *fg_color, const gchar *bg_color);
 

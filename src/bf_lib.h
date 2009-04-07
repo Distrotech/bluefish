@@ -88,7 +88,7 @@ void free_convert_table(Tconvert_table *tct);
 #define utf8_byteoffset_to_charsoffset(string,byteoffset) g_utf8_pointer_to_offset(string, string+byteoffset)
 /*glong utf8_byteoffset_to_charsoffset(gchar *string, glong byteoffset);*/
 void utf8_offset_cache_reset();
-guint utf8_byteoffset_to_charsoffset_cached(gchar *string, glong byteoffset);
+guint utf8_byteoffset_to_charsoffset_cached(const gchar *string, glong byteoffset);
 
 gchar *strip_any_whitespace(gchar *string);
 gchar *trunc_on_char(gchar * string, gchar which_char);

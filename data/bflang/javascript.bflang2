@@ -32,6 +32,11 @@
 	<highlight name="string" style="string"  />
 	<highlight name="value" style="value"  />
 </header>
+<properties>
+	<comment id="/**/" type="block" start="/*" end="*/" />
+	<comment id="//" type="line" start="//" />
+</properties>
+
 <definition>
 	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
 
