@@ -2161,14 +2161,12 @@ static void add_line_comment(Tdocument *doc, const gchar *commentstring, gint st
 	doc_unre_new_group(doc);
 }
 
-static void remove_line_comment(Tdocument *doc, const gchar *commentstring, gint start, gint end) {
+static void remove_line_comment(Tdocument *doc, const gchar *buf, const gchar *commentstring, gint start, gint end) {
 	gint commentstring_len,i=0,coffset;
-	gchar *buf;
 	gboolean newline;
 
 	commentstring_len=strlen(commentstring);
 	doc_unre_new_group(doc);
-	buf = doc_get_chars(doc,start,end);
 	coffset=start;
 	newline=TRUE;
 	while (buf[i] != '\0') {
@@ -2199,14 +2197,12 @@ static void add_block_comment(Tdocument *doc, const gchar *so_commentstring, con
 	doc_unre_new_group(doc);
 }
 
-static void remove_block_comment(Tdocument *doc, const gchar *so_commentstring, const gchar *eo_commentstring, gint start, gint end) {
+static void remove_block_comment(Tdocument *doc, const gchar *buf, const gchar *so_commentstring, const gchar *eo_commentstring, gint start, gint end) {
 	gint i=0,n=0,coffset,eo_commentstring_len;
 	gint so=0,eo;
-	gchar *buf;
 	
 	doc_unre_new_group(doc);
 	/* first see if there is an start-of-block */
-	buf = doc_get_chars(doc,start,end);
 	coffset=start;
 	
 	while (buf[i] != '\0') {
@@ -2261,11 +2257,10 @@ static void remove_block_comment(Tdocument *doc, const gchar *so_commentstring, 
 		doc_replace_text_backend(doc, NULL, coffset+cstart, coffset+cend);
 	}
 	
-	g_free(buf);
 	doc_unre_new_group(doc);
 }
 
-void commentcode_test(Tdocument *doc) {
+void toggle_comment(Tdocument *doc) {
 	GtkTextIter its,ite;
 	gboolean ret;
 	
@@ -2278,11 +2273,23 @@ void commentcode_test(Tdocument *doc) {
 		return;
 	}
 	
-	ret = bluefish_text_view_in_comment(doc->view, &its, &ite);
+	ret = bluefish_text_view_in_comment(BLUEFISH_TEXT_VIEW(doc->view), &its, &ite);
 	if (ret) {
-		/* TODO: find out which type of comment we are seeing */
-		
-	
+		gchar *buf;
+		GList *tmplist = g_list_first(BLUEFISH_TEXT_VIEW(doc->view)->bflang->comments);
+		buf = gtk_text_buffer_get_text(doc->buffer, &its, &ite, FALSE);
+		while (tmplist) {
+			Tcomment *tmp = (Tcomment *)tmplist->data;
+			if (strncmp(tmp->so, buf, strlen(tmp->so))==0) {
+				if (tmp->type == comment_type_block)
+					remove_block_comment(doc, buf, tmp->so, tmp->eo, gtk_text_iter_get_offset(&its),gtk_text_iter_get_offset(&ite));
+				else
+					remove_line_comment(doc, buf, tmp->so, gtk_text_iter_get_offset(&its),gtk_text_iter_get_offset(&ite));
+				break;
+			}
+			tmplist=tmplist->next;
+		}
+		g_free(buf);
 	} else {
 		if (gtk_text_buffer_get_has_selection(doc->buffer)) {
 			if (BLUEFISH_TEXT_VIEW(doc->view)->bflang->block 

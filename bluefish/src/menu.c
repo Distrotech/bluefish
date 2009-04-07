@@ -165,7 +165,7 @@ static void menu_file_operations_cb(Tbfwin *bfwin,guint callback_action, GtkWidg
 		split_lines(CURDOC(bfwin));
 	break;
 	case 35:
-		commentcode_test(CURDOC(bfwin));
+		toggle_comment(CURDOC(bfwin));
 	break;
 #ifdef HAVE_PYTHON
 	case 99:

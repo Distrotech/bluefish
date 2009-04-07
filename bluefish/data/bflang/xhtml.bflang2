@@ -49,6 +49,10 @@
 	<highlight name="css-comment" style="comment" />
 	<highlight name="html-comment" style="comment" />
 </header>
+<properties>
+	<comment type="block" start="&lt;!--" end="--&gt;" />
+</properties>
+
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 <tag name="html" attributes="xmlns,version,&i18n;&xml;" highlight="tag" autocomplete_append=" xmlns=&quot;http://www.w3.org/1999/xhtml&quot; &gt;" />

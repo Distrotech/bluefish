@@ -61,6 +61,13 @@
 		</tag>		
 		</context>
 	</tag>
+	<tag name="properties" highlight="tag" autocomplete_append="&gt;&#10;&lt;/properties&gt;" autocomplete_backup_cursor="13">
+		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" >
+			<element idref="comment"/>
+			<element idref="entity" />
+			<tag name="comment" attributes="id,type,start,end" autocomplete_append=" type=&quot;&quot; start=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;"/>
+		</context>
+	</tag>
 	<tag name="definition" highlight="tag" autocomplete_append="&gt;">
 	<reference>The <i>definition</i> tag is the region of the language file that actually defines the language. This region is only loaded when a file of this type is opened in the editor.</reference>
 		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" >

@@ -68,4 +68,5 @@ void strip_trailing_spaces(Tdocument *doc);
 void join_lines(Tdocument *doc);
 void split_lines(Tdocument *doc);
 void convert_identing(Tdocument *doc, gboolean to_tabs);
+void toggle_comment(Tdocument *doc);
 #endif							/* __SNR_H_ */

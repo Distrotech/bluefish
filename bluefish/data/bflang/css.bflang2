@@ -34,6 +34,10 @@
 	<highlight name="string" style="string" />
 	<highlight name="value" style="value"   />
 </header>
+<properties>
+	<comment id="/**/" type="block" start="/*" end="*/" />
+	<comment id="//" type="line" start="//" />
+</properties>
 <definition>
 	<context symbols=" &#9;&#10;&#13;{}.,:#">
 		<group highlight="html-tag" autocomplete="1">

@@ -32,6 +32,9 @@
 	<highlight name="comment" style="comment"  />
 	<highlight name="=" style="brackets"  />
 </header>
+<properties>
+	<comment type="block" start="&lt;!--" end="--&gt;" />
+</properties>
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
 	<element id="startxml" pattern="&lt;?xml" highlight="xml-declaration" starts_block="1">
