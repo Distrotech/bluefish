@@ -65,7 +65,7 @@
 		<context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;" >
 			<element idref="comment"/>
 			<element idref="entity" />
-			<tag name="comment" attributes="id,type,start,end" autocomplete_append=" type=&quot;&quot; start=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;"/>
+			<tag id="tagcomment" name="comment" highlight="tag" attributes="id,type,start,end" autocomplete_append=" type=&quot;&quot; start=&quot;&quot; /&gt;" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;"/>
 		</context>
 	</tag>
 	<tag name="definition" highlight="tag" autocomplete_append="&gt;">
