@@ -2253,7 +2253,7 @@ static void remove_block_comment(Tdocument *doc, const gchar *buf, const gchar *
 	if (n==0) {
 		gint cstart,cend;
 		cstart = utf8_byteoffset_to_charsoffset_cached(buf, so);
-		cend = so+strlen(so_commentstring);
+		cend = so+strlen(eo_commentstring);
 		doc_replace_text_backend(doc, NULL, coffset+cstart, coffset+cend);
 	}
 	
@@ -2274,7 +2274,7 @@ void toggle_comment(Tdocument *doc) {
 	}
 	
 	ret = bluefish_text_view_in_comment(BLUEFISH_TEXT_VIEW(doc->view), &its, &ite);
-	if (ret) {
+	if (ret) { /* remove comment */
 		gchar *buf;
 		GList *tmplist = g_list_first(BLUEFISH_TEXT_VIEW(doc->view)->bflang->comments);
 		buf = gtk_text_buffer_get_text(doc->buffer, &its, &ite, FALSE);
@@ -2290,7 +2290,7 @@ void toggle_comment(Tdocument *doc) {
 			tmplist=tmplist->next;
 		}
 		g_free(buf);
-	} else {
+	} else { /* add comment */
 		if (gtk_text_buffer_get_has_selection(doc->buffer)) {
 			if (BLUEFISH_TEXT_VIEW(doc->view)->bflang->block 
 						&& (!BLUEFISH_TEXT_VIEW(doc->view)->bflang->line 
@@ -2305,8 +2305,8 @@ void toggle_comment(Tdocument *doc) {
 		 } else {
 		 	gtk_text_iter_set_line_offset(&its,0);
 		 	gtk_text_iter_forward_to_line_end(&ite);
-		 	if (gtk_text_iter_get_char(&ite)=='\n') 
-		 		gtk_text_iter_backward_char(&ite);
+		 	/*if (gtk_text_iter_get_char(&ite)=='\n') 
+		 		gtk_text_iter_backward_char(&ite);*/
 		 	if (BLUEFISH_TEXT_VIEW(doc->view)->bflang->line) {
 		 		add_line_comment(doc, BLUEFISH_TEXT_VIEW(doc->view)->bflang->line->so, gtk_text_iter_get_offset(&its),gtk_text_iter_get_offset(&ite));
 		 	} else if (BLUEFISH_TEXT_VIEW(doc->view)->bflang->block) {
