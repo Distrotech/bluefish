@@ -56,12 +56,13 @@ static gboolean acwin_move_selection(BluefishTextView *btv, gint keyval) {
 
 	selection = gtk_tree_view_get_selection(ACWIN(btv->autocomp)->tree);
 	if (gtk_tree_selection_get_selected(selection,&model,&it)) {
+		gboolean retval=TRUE;
 		gint i,rows=12, *indices=NULL;
 		path = gtk_tree_model_get_path(model, &it);
 		indices = gtk_tree_path_get_indices(path);
 		switch (keyval) {
 			case GDK_Up:	/* move the selection one up */
-				gtk_tree_path_prev(path);
+				retval = gtk_tree_path_prev(path);
 			break;
 			case GDK_Down:
 				gtk_tree_path_next(path);
@@ -93,9 +94,10 @@ static gboolean acwin_move_selection(BluefishTextView *btv, gint keyval) {
 		{
 			gtk_tree_selection_select_iter(selection, &it);
 			gtk_tree_view_scroll_to_cell(ACWIN(btv->autocomp)->tree, path, NULL, FALSE, 0, 0);
-		}
+		} else 
+			retval=FALSE;
 		gtk_tree_path_free(path);
-		return TRUE;
+		return retval;
 	} else {
 		/* set selection */
 
