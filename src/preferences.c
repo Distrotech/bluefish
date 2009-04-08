@@ -81,6 +81,7 @@ enum {
 	lowercase_tags,               /* use lowercase tags */
 	word_wrap,                    /* use wordwrap */
 	autoindent,                   /* autoindent code */
+	smartindent,
 	drop_at_drop_pos,             /* drop at drop position instead of cursor position */
 	link_management,              /* perform link management */
 #ifdef WITH_MSG_QUEUE
@@ -1315,6 +1316,8 @@ static void preferences_apply(Tprefdialog *pd) {
 	integer_apply(&main_v->props.editor_tab_width, pd->prefs[editor_tab_width], FALSE);
 	integer_apply(&main_v->props.editor_smart_cursor, pd->prefs[editor_smart_cursor], TRUE);
 	integer_apply(&main_v->props.editor_indent_wspaces, pd->prefs[editor_indent_wspaces], TRUE);
+	integer_apply(&main_v->props.smartindent, pd->prefs[smartindent], TRUE);
+	integer_apply(&main_v->props.autoindent, pd->prefs[autoindent], TRUE);
 	integer_apply(&main_v->props.word_wrap, pd->prefs[word_wrap], TRUE);
 	integer_apply(&main_v->props.view_line_numbers, pd->prefs[view_line_numbers], TRUE);
 	integer_apply(&main_v->props.view_blocks, pd->prefs[view_blocks], TRUE);
@@ -1541,6 +1544,7 @@ static void preferences_dialog() {
 	pd->prefs[editor_bg] = prefs_string(_("Background color"), main_v->props.editor_bg, vbox2, pd, string_color);
 	pd->prefs[editor_smart_cursor] = boxed_checkbut_with_value(_("Smart Home/End cursor positioning"), main_v->props.editor_smart_cursor, vbox2);
 	pd->prefs[editor_indent_wspaces] = boxed_checkbut_with_value(_("Use spaces to indent, not tabs"), main_v->props.editor_indent_wspaces, vbox2);
+	pd->prefs[smartindent] = boxed_checkbut_with_value(_("Smart auto indenting"), main_v->props.smartindent, vbox2);
 
 	pd->prefs[num_undo_levels] = prefs_integer(_("Number of actions in undo history"), main_v->props.num_undo_levels, vbox2, pd, 50, 10000);
 	pd->prefs[clear_undo_on_save] = boxed_checkbut_with_value(_("Clear undo history on save"), main_v->props.clear_undo_on_save, vbox2);
@@ -1554,7 +1558,7 @@ static void preferences_dialog() {
 	gtk_box_pack_start(GTK_BOX(vbox1), frame, FALSE, FALSE, 5);
 	vbox2 = gtk_vbox_new(FALSE, 0);
 	gtk_container_add(GTK_CONTAINER(frame), vbox2);
-
+	pd->prefs[autoindent] = boxed_checkbut_with_value(_("(Smart) Auto indenting"), main_v->props.autoindent, vbox2);
 	pd->prefs[editor_tab_width] = prefs_integer(_("Tab width"), main_v->props.editor_tab_width, vbox2, pd, 1, 50);
 	pd->prefs[word_wrap] = boxed_checkbut_with_value(_("Word wrap"), main_v->props.word_wrap, vbox2);
 	pd->prefs[view_line_numbers] = boxed_checkbut_with_value(_("Show line numbers"), main_v->props.view_line_numbers, vbox2);
