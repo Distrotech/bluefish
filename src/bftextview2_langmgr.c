@@ -40,6 +40,7 @@ typedef struct {
 	GList *comments; /* while not finished */
 	Tcomment *line; /* while not finished */
 	Tcomment *block;/* while not finished */
+	gchar *smartindentchars;
 	Tbflang *bflang;
 	gboolean load_completion;
 	gboolean load_reference;
@@ -277,6 +278,7 @@ static gboolean build_lang_finished_lcb(gpointer data)
 	} else {
 		bfparser->bflang->no_st = TRUE;
 	}
+	bfparser->bflang->smartindentchars = bfparser->smartindentchars;
 	bfparser->bflang->parsing=FALSE;
 	DBG_PARSING("build_lang_finished_lcb..\n");
 	/* now walk and rescan all documents that use this bflang */
@@ -962,6 +964,12 @@ static gpointer build_lang_thread(gpointer data)
 						g_slice_free(Tcomment, com);
 					}
 					xmlFree(type);
+				} else if (xmlStrEqual(name2,(xmlChar *)"smartindent")) {
+					while (xmlTextReaderMoveToNextAttribute(reader)) {
+						xmlChar *aname = xmlTextReaderName(reader);
+						set_string_if_attribute_name(reader,aname,(xmlChar *)"characters", &bfparser->smartindentchars);
+						xmlFree(aname);
+					}
 				} else if (xmlStrEqual(name2,(xmlChar *)"properties")) {
 					xmlFree(name2);
 					break;

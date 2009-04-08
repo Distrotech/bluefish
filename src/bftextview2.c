@@ -861,25 +861,50 @@ static gboolean bftextview2_key_release_lcb(GtkWidget *widget,GdkEventKey *keven
 	if (!btv->key_press_was_autocomplete && (kevent->keyval == GDK_Return || kevent->keyval == GDK_KP_Enter) && !(kevent->state & GDK_SHIFT_MASK || kevent->state & GDK_CONTROL_MASK || kevent->state & GDK_MOD1_MASK)) {
 		if (btv->autoindent) {
 			gchar *string, *indenting;
-			GtkTextMark* imark;
 			GtkTextIter itstart, itend;
 			GtkTextBuffer *buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(btv));
-			imark = gtk_text_buffer_get_insert(buffer);
-			gtk_text_buffer_get_iter_at_mark(buffer,&itend,imark);
+			gtk_text_buffer_get_iter_at_mark(buffer,&itend,gtk_text_buffer_get_insert(buffer));
 			itstart = itend;
 			/* set to the beginning of the previous line */
 			gtk_text_iter_backward_line(&itstart);
 			gtk_text_iter_set_line_index(&itstart, 0);
 			string = gtk_text_buffer_get_text(buffer,&itstart,&itend,TRUE);
 			if (string) {
+				gchar *remainder=NULL;
 				/* now count the indenting in this string */
+				g_print("string='%s'\n",string);
 				indenting = string;
 				while (*indenting == '\t' || *indenting == ' ') {
 					indenting++;
 				}
 				/* ending search, non-whitespace found, so terminate at this position */
-				*indenting = '\0';
-				if (strlen(string)) {
+				
+				if (*indenting!='\0') {
+					remainder = indenting+1;
+					*indenting = '\0';
+				}
+				g_print("remainder='%s'\n",remainder);
+				if (remainder && main_v->props.smartindent && btv->bflang && btv->bflang->smartindentchars) {
+					/* now look at the ending character, do we need to add an extra indent? */
+					gchar *newline = strrchr(remainder, '\n');
+					if (newline && newline>remainder) {
+						newline--;
+						g_print("last character before newline was '%c'\n",newline[0]);
+						if(strchr(btv->bflang->smartindentchars, newline[0])!=NULL) {
+							gchar *tmp, *tmp2;
+							if (main_v->props.editor_indent_wspaces)
+								tmp2 = bf_str_repeat(" ", main_v->props.editor_tab_width);
+							else 
+								tmp2 = g_strdup("	");
+							tmp = g_strconcat(string, tmp2,NULL);
+							g_free(string);
+							g_free(tmp2);
+							string = tmp;
+						}
+					}
+				}
+				
+				if (string && string[0]!='\0') {
 					gtk_text_buffer_insert(buffer,&itend,string,-1);
 				}
 				g_free(string);
