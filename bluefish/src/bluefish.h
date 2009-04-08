@@ -231,6 +231,7 @@ typedef struct {
 	gint lowercase_tags;		/* use lowercase tags */
 	gint word_wrap;				/* use wordwrap */
 	gint autoindent;			/* autoindent code */
+	gint smartindent; /* add extra indent in certain situations */
 	gint drop_at_drop_pos; 	/* drop at drop position instead of cursor position */
 	gint link_management; 	/* perform link management */
 	gint cont_highlight_update;	/* update the syntax highlighting continuous */

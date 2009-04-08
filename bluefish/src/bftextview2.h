@@ -330,6 +330,7 @@ typedef struct {
 	GList *comments; /* NULL or complete */
 	Tcomment *line; /* preferred line comment */
 	Tcomment *block; /* preferred block comment */
+	gchar *smartindentchars;
 	gboolean no_st; /* no scantable, for Text, don't try to load the scantable if st=NULL */
 	gboolean parsing; /* set to TRUE when a thread is parsing the scantable already */
 	gint size_table;

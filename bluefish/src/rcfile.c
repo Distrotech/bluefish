@@ -423,6 +423,7 @@ static GHashTable *props_init_main(GHashTable * config_rc)
 	init_prop_integer(&config_rc, &main_v->props.lowercase_tags, "lowercase_tags:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.word_wrap, "word_wrap:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.autoindent, "autoindent:", 1, TRUE);
+	init_prop_integer(&config_rc, &main_v->props.smartindent, "smartindent:", 1, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.drop_at_drop_pos, "drop_at_drop_position:", 0, TRUE);
 	init_prop_integer(&config_rc, &main_v->props.link_management, "link_management:", 1, TRUE);
 #ifdef WITH_MSG_QUEUE
