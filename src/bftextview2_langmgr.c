@@ -1001,7 +1001,7 @@ Tbflang *langmgr_get_bflang_for_mimetype(const gchar *mimetype) {
 		bflang->parsing=TRUE;
 		DBG_MSG("no scantable in %p, start thread\n",bflang);
 		/*thread = g_thread_create(build_lang_thread,bflang,FALSE,&error);*/
-		thread = g_thread_create_full(build_lang_thread,bflang,0,FALSE,TRUE,G_THREAD_PRIORITY_LOW,&error);
+		thread = g_thread_create_full(build_lang_thread,bflang,0,FALSE,FALSE,G_THREAD_PRIORITY_LOW,&error);
 		
 		if (error) {
 			DBG_PARSING("start thread, error\n");
