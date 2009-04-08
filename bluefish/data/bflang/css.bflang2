@@ -37,6 +37,7 @@
 <properties>
 	<comment id="/**/" type="block" start="/*" end="*/" />
 	<comment id="//" type="line" start="//" />
+	<smartindent characters="{" />
 </properties>
 <definition>
 	<context symbols=" &#9;&#10;&#13;{}.,:#">
