@@ -124,7 +124,9 @@ gboolean acwin_check_keypress(BluefishTextView *btv, GdkEventKey *event)
 			guint pattern_id;
 			gint backup_chars=0;
 			gtk_tree_model_get(model,&it,1,&string,-1);
+			/*g_print("context %d has patternhash %p, string=%s\n",ACWIN(btv->autocomp)->contextnum, g_array_index(btv->bflang->st->contexts, Tcontext, ACWIN(btv->autocomp)->contextnum).patternhash, string);*/
 			if (g_array_index(btv->bflang->st->contexts, Tcontext, ACWIN(btv->autocomp)->contextnum).patternhash) {
+				/*g_print("looking in context %d patternhash for '%s'\n",ACWIN(btv->autocomp)->contextnum, string);*/
 				pattern_id = GPOINTER_TO_INT(g_hash_table_lookup(g_array_index(btv->bflang->st->contexts, Tcontext, ACWIN(btv->autocomp)->contextnum).patternhash, string));
 				DBG_AUTOCOMP("got pattern_id=%d\n",pattern_id);
 				if (pattern_id) {
@@ -206,7 +208,7 @@ static void acw_selection_changed_lcb(GtkTreeSelection* selection,Tacwin *acw) {
 	gtk_widget_set_size_request(acw->win, acw->listwidth, -1);
 }
 
-static Tacwin *acwin_create(BluefishTextView *btv, guint16 context) {
+static Tacwin *acwin_create(BluefishTextView *btv) {
 	GtkCellRenderer *cell;
 	GtkTreeViewColumn *column;
 	GtkWidget *scroll, *vbar, *hbox;
@@ -379,13 +381,13 @@ void autocomp_run(BluefishTextView *btv, gboolean user_requested) {
 			GtkTreeIter it;
 			/* create the GUI */
 			if (!btv->autocomp) {
-				btv->autocomp = acwin_create(btv, contextnum);
+				btv->autocomp = acwin_create(btv);
 			} else {
 				g_free(ACWIN(btv->autocomp)->prefix);
 				g_free(ACWIN(btv->autocomp)->newprefix);
 				gtk_list_store_clear(ACWIN(btv->autocomp)->store);
-				ACWIN(btv->autocomp)->contextnum = contextnum;
 			}
+			ACWIN(btv->autocomp)->contextnum = contextnum;
 			ACWIN(btv->autocomp)->prefix = g_strdup(prefix);
 			ACWIN(btv->autocomp)->newprefix = g_strdup(newprefix);
 			acwin_fill_tree(ACWIN(btv->autocomp), items);
