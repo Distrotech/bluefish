@@ -64,7 +64,7 @@ cd ${SVN_DIR}
 
 make dist-gzip VERSION=${SVN_UPSTREAM_VERSION}
 
-TEMPDIR=`mktemp -d -p . ${DEB_SRC_DIR}.deb.XX`
+TEMPDIR=`mktemp -d -p . ${DEB_SRC_DIR}.deb.XXXXXX`
 
 cd ${TEMPDIR}
 
@@ -78,7 +78,7 @@ svn export ${SVN_URL}/packages/debian/${DEB_NAME}/trunk/debian
 
 dch -v ${SVN_UPSTREAM_VERSION}-0bf1 -D experimental "Automatically created Debian package by make-deb.sh $Rev$."
 
-debuild -us -uc -b
+debuild -us -uc -b $@
 
 cd ..
 
