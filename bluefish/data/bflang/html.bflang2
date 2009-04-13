@@ -36,7 +36,7 @@
 	<highlight name="reference-external-tag" style="special-tag" />
 	<highlight name="table-tag" style="special-tag2" />
 	<highlight name="form-tag" style="special-tag3" />
-	<highlight name="deprecated-tag" style="warning" />
+	<highlight name="Depreciated-tag" style="warning" />
 	<highlight name="attribute" style="attribute" />
 	<highlight name="string" style="string" />
 	<highlight name="entity" style="value" />
@@ -59,20 +59,20 @@
 
 <definition>
 <context symbols="&gt;&lt;&amp;; &#9;&#10;&#13;">
-<tag name="html" case_insens="1" sgml_shorttag="1" attributes="version,&i18n;" highlight="tag"  >
-	<reference>This tag is not yet document in the language file</reference>
+<tag name="html" case_insens="1" sgml_shorttag="1" attributes="version,&i18n;" highlight="tag" >
+	<reference>Defines an HTML document</reference>
 </tag>
-<tag name="head" case_insens="1" sgml_shorttag="1" attributes="profile,&i18n;" highlight="tag" >
-	<reference>This tag is not yet document in the language file</reference>
+<tag name="head" case_insens="1" sgml_shorttag="1" attributes="profile,&i18n;" highlight="tag">
+	<reference>Defines information about the document</reference>
 </tag>
 	<tag name="base" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="href,target" attribhighlight="attribute" autocomplete_append="&gt; &lt;/base&gt;" >
-	<reference>This tag is not yet document in the language file</reference>
+	<reference>Defines a default address or a default target for all links on a page</reference>
 </tag>
 	<tag name="meta" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="name,http-equiv,content,scheme,lang" attribhighlight="attribute" autocomplete_append=" &gt;" attrib_autocomplete_append="=&quot;&quot;" >
-	<reference>This tag is not yet document in the language file</reference>
+	<reference>Defines metadata about an HTML document</reference>
 </tag>
 	<tag name="title" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="&i18n;" attribhighlight="attribute" autocomplete_append="&gt; &lt;/title&gt;" >
-	<reference>This tag is not yet document in the language file</reference>
+	<reference>Defines the title of a document</reference>
 </tag>
 
 <tag id="script" name="script" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="charset,defer,language,src,type" autocomplete_append=" type=&quot;text/javascript&quot; &gt;" attribhighlight="attribute">
@@ -564,76 +564,76 @@
 					<context idref="box_offsets" />
 				</element>
 				<element pattern="line-height" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the distance between lines</reference>
 				</element>
 				<element pattern="list-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>A shorthand property for setting all of the properties for a list in one declaration</reference>
 				</element>
 				<element pattern="list-style-image" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets an image as the list-item marker</reference>
 				</element>
 				<element pattern="list-style-position" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets where the list-item marker is placed in the list</reference>
 				</element>
 				<element pattern="list-style-type" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the type of the list-item marker</reference>
 				</element>
 				<element pattern="margin" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>A shorthand property for setting the margin properties in one declaration</reference>
 				</element>
 				<element pattern="margin-bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the bottom margin of an element</reference>
 				</element>
 				<element pattern="margin-left" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the left margin of an element</reference>
 				</element>
 				<element pattern="margin-right" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the right margin of an element</reference>
 				</element>
 				<element pattern="margin-top" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the top margin of an element</reference>
 				</element>
 				<element pattern="max-height" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the maximum height of an element</reference>
 				</element>
 				<element pattern="max-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the maximum width of an element</reference>
 				</element>
 				<element pattern="min-height" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the minimum height of an element</reference>
 				</element>
 				<element pattern="min-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the minimum width of an element</reference>
 				</element>
 				<element pattern="overflow" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets what happens if the content of an element overflows its area</reference>
 				</element>
 				<element pattern="outline" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>A shorthand property for setting all the outline properties in one declaration</reference>
 				</element>
 				<element pattern="outline-color" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 					<context idref="color" />
 				</element>
 				<element pattern="outline-style" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the style of the outline around an element</reference>
 				</element>
 				<element pattern="outline-width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the width of the outline around an element</reference>
 				</element>
 				<element pattern="padding" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>A shorthand property for setting all of  the padding properties in one declaration</reference>
 				</element>
 				<element pattern="padding-bottom" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the bottom padding of an element</reference>
 				</element>
 				<element pattern="padding-left" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the left padding of an element</reference>
 				</element>
 				<element pattern="padding-right" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the right padding of an element</reference>
 				</element>
 				<element pattern="padding-top" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the top padding of an element</reference>
 				</element>
 				<element pattern="position" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 					<reference><b>position</b>: The 'position' and 'float' properties determine which of the CSS2 positioning algorithms is used to calculate the position of a box</reference>
@@ -652,14 +652,14 @@
 							<reference><b>fixed</b>: The box's position is calculated according to the 'absolute' model, but in addition, the box is fixed with respect to some reference. In the case of continuous media, the box is fixed with respect to the viewport (and doesn't move when scrolled). In the case of paged media, the box is fixed with respect to the page, even if that page is seen through a viewport (in the case of a print-preview, for example). Authors may wish to specify 'fixed' in a media-dependent way. For instance, an author may want a box to remain at the top of the viewport on the screen, but not at the top of each printed page.</reference>
 						</element>
 						<element pattern="inherit" autocomplete="1" highlight="css-value" autocomplete_append=";">
-							<reference>This css property is not yet document in the language file</reference>
+							<reference>Makes the value of a CSS property in an element the same as that of its parent element</reference>
 						</element>
 						<element idref=";" />
 						<element idref="}" />
 					</context>
 				</element>
 				<element pattern="quotes" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the type of quotation marks</reference>
 				</element>
 				<element pattern="right" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 					<context idref="box_offsets" />
@@ -716,10 +716,10 @@
 					<context idref="box_offsets" />
 				</element>
 				<element pattern="vertical-align" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the vertical alignment of an element</reference>
 				</element>
 				<element pattern="visibility" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets if an element should be visible or invisible</reference>
 				</element>
 				<element pattern="white-space" autocomplete="1" highlight="css-property" autocomplete_append=": ">
 					<reference><b>white-space</b> declares how whitespace inside the element is handled. Conforming user agents may ignore the 'white-space' property in author and user style sheets but must specify a value for it in the default style sheet.</reference>
@@ -732,10 +732,10 @@
 					</context>		
 				</element>
 				<element pattern="width" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the width of an element</reference>
 				</element>
 				<element pattern="z-index" autocomplete="1" highlight="css-property" autocomplete_append=": ">
-					<reference>This css property is not yet document in the language file</reference>
+					<reference>Sets the stack order of an element</reference>
 				</element>
 				<element pattern="/*" starts_block="1" highlight="comment">
 					<context symbols="*/&#9;&#10;&#13;" highlight="comment">
@@ -753,11 +753,11 @@
 </tag>
 
 <tag name="link" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="class,href,id,media,rel,rev,style,title,type" attribhighlight="attribute" autocomplete_append=" /&gt;" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2" >
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines the relationship between a document and an external resource </reference>
 			</tag>
 
 <tag name="body" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="alink,background,bgcolor,link,onload,onunload,text,vlink,&univ;,&i18n;">
-	<reference>This tag is not yet document in the language file</reference>
+	<reference>Defines the document's body</reference>
 </tag>
 		<group highlight="reference-external-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="a" case_insens="1" sgml_shorttag="1" attributes="accesskey,charset,coords,href,hreflang,name,onblur,onfocus,rel,rev,shape,tabindex,target,type,&univ;,&i18n;,&evnt;" autocomplete_append=" href=&#34;&#34; &gt;" >
@@ -767,173 +767,173 @@
 				<reference>The img tag inserts an image into a document</reference>
 			</tag>
 			<tag name="object" case_insens="1" sgml_shorttag="1" attributes="align,archive,border,classid,codebase,codetype,data,declare,height,hspace,name,standby,tabindex,type,usemap,vspace,width,&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an embedded object</reference>
 			</tag>
 			<tag name="param" case_insens="1" sgml_shorttag="1" attributes="id,name,value,valuetype,type" autocomplete_append=" name=&#34;&#34; &gt;" />
 		</group>
 		<group highlight="tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="abbr" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an embedded object</reference>
 			</tag>
 			<tag name="acronym" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an acronym</reference>
 			</tag>
 			<tag name="b" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;"/>
 			<tag name="blockquote" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,cite">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a long quotation</reference>
 			</tag>
-			<tag name="br" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;" >
-				<reference>This tag is not yet document in the language file</reference>
+			<tag name="br" case_insens="1" sgml_shorttag="1" no_close="1" attributes="&univ;">
+				<reference>Defines a single line break</reference>
 			</tag>
 			<tag name="code" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines computer code text</reference>
 			</tag>
 			<tag name="cite" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a citation</reference>
 			</tag>
 			<tag name="del" case_insens="1" sgml_shorttag="1"  attributes="&univ;,&i18n;,&evnt;,cite,datetime">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines deleted text</reference>
 			</tag>
 			<tag name="dfn" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a definition term</reference>
 			</tag>
 			<tag name="div" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a block section in a document</reference>
 			</tag>
 			<tag name="dl" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a definition list</reference>
 			</tag>
 			<tag name="em" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines emphasized text </reference>
 			</tag>
 			<tag name="i" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines italic text</reference>
 			</tag>
 			<tag name="ins" case_insens="1" sgml_shorttag="1"  attributes="&univ;,&i18n;,&evnt;,cite,datetime">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines inserted text</reference>
 			</tag>
 			<tag name="h1" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an HTML heading</reference>
 			</tag>
 			<tag name="h2" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an HTML heading</reference>
 			</tag>
 			<tag name="h3" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an HTML heading</reference>
 			</tag>
 			<tag name="h4" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an HTML heading</reference>
 			</tag>
 			<tag name="h5" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an HTML heading</reference>
 			</tag>
 			<tag name="h6" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an HTML heading</reference>
 			</tag>
-			<tag name="hr" case_insens="1" sgml_shorttag="1" attributes="&univ;"  >
-				<reference>This tag is not yet document in the language file</reference>
+			<tag name="hr" case_insens="1" sgml_shorttag="1" attributes="&univ;" >
+				<reference>Defines a horizontal line</reference>
 			</tag>
 			<tag name="kbd" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference><b>Depreciated.</b> Defines font, color, and size for text</reference>
 			</tag>
 			<tag name="li" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a list item</reference>
 			</tag>
 			<tag name="ol" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an ordered list</reference>
 			</tag>
 			<tag name="p" case_insens="1" sgml_shorttag="1" attributes="&univ;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a paragraph</reference>
 			</tag>
 			<tag name="pre" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines preformatted text</reference>
 			</tag>
 			<tag name="q" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a short quotation</reference>
 			</tag>
 			<tag name="samp" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines sample computer code</reference>
 			</tag>
 			<tag name="span" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a line section in a document</reference>
 			</tag>
 			<tag name="strong" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines strong text</reference>
 			</tag>
 			<tag name="sub" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines subscripted text</reference>
 			</tag>
 			<tag name="sup" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines superscripted text</reference>
 			</tag>
 			<tag name="u" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference><b>Depreciated.</b> Defines underlined text</reference>
 			</tag>
 			<tag name="ul" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an unordered list</reference>
 			</tag>
 			<tag name="var" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a variable part of a text</reference>
 			</tag>			
 		</group>
-		<group highlight="deprecated-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
+		<group highlight="Depreciated-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="font" case_insens="1" sgml_shorttag="1" attributes="size,color,bgcolor,face">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference><b>Depreciated.</b> Defines font, color, and size for text</reference>
 			</tag>
 		</group>
 		<group highlight="form-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="fieldset" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a border around elements in a form</reference>
 			</tag>
 			<tag name="form" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accept-charset,action,enctype,method,target,onreset,onsubmit">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an HTML form for user input</reference>
 			</tag>
 			<tag name="input" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an input control</reference>
 			</tag>
 			<tag name="label" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,for,onblur,onfocus">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a label for an input element</reference>
 			</tag>
 			<tag name="legend" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,align">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a caption for a fieldset element</reference>
 			</tag>
 			<tag name="optgroup" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,label,onselect">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>	Defines a group of related options in a select list</reference>
 			</tag>
 			<tag name="option" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,label,selected,value,onselect">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines an option in a select list</reference>
 			</tag>
 			<tag name="select" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,disabled,multiple,name,onblur,onchange,onfocus,onselect,size,tabindex">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a select list (drop-down list)</reference>
 			</tag>
 			<tag name="textarea" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;,accesskey,cols,disabled,name,readonly,rows,tabindex,onblur,onchange,onfocus,onselect">
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a multi-line text input control</reference>
 			</tag>
 		</group>
 		<group highlight="table-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="table" case_insens="1" sgml_shorttag="1" attributes="align,border,bgcolor,cellpadding,cellspacing,frame,rules,summary,width,&univ;,&i18n;,&evnt;" autocomplete_append=" summary=&quot;&quot; &gt;" >
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a table</reference>
 			</tag>
 			<tag name="caption" case_insens="1" sgml_shorttag="1" attributes="align,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a table caption</reference>
 			</tag>
 			<tag name="td" case_insens="1" sgml_shorttag="1" attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a cell in a table</reference>
 			</tag>
 			<tag name="th" case_insens="1" sgml_shorttag="1" attributes="abbr,align,axis,bgcolor,char,charoff,colspan,headers,height,nowrap,rowspan,scope,valign,width,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a header cell in a table</reference>
 			</tag>
 			<tag name="tr" case_insens="1" sgml_shorttag="1" attributes="align,bgcolor,char,charoff,valign,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Defines a row in a table</reference>
 			</tag>
 			<tag name="tbody" case_insens="1" sgml_shorttag="1" attributes="align,char,charoff,valign,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Groups the body content in a table</reference>
 			</tag>
 			<tag name="tfoot" case_insens="1" sgml_shorttag="1" attributes="align,char,charoff,valign,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Groups the footer content in a table</reference>
 			</tag>
 			<tag name="thead" case_insens="1" sgml_shorttag="1" attributes="align,char,charoff,valign,&univ;,&i18n;,&evnt;" >
-				<reference>This tag is not yet document in the language file</reference>
+				<reference>Groups the header content in a table</reference>
 			</tag>
 		</group>
 		<element pattern="&lt;!--" highlight="html-comment" starts_block="1">
