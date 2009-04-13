@@ -12,6 +12,10 @@ dnl ************************
 AC_PREREQ([2.59])
 
 AC_INIT([bluefish-unstable],[1.3.4],[http://bugzilla.gnome.org/buglist.cgi?product=bluefish])
+
+dnl Have to save them here!
+AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $@"], [The configure options used to compile bluefish.])
+
 dnl The `-Wno-portability' value will suppress the GNU make warnings. Add it if necessary.
 AM_INIT_AUTOMAKE([1.8 -Wall])
 AC_CONFIG_SRCDIR(src/bluefish.c)
@@ -20,7 +24,12 @@ AC_CANONICAL_HOST
 
 AC_REVISION($Revision$)
 
-AC_DEFINE_UNQUOTED([CONFIGURE_OPTIONS], ["$0 $*"], [The configure options used to compile bluefish.])
+svn_revision=`LANG=C svnversion -n .` || svn_revision="exported"
+if test "x$svn_revision" != "xexported"; then
+	AC_DEFINE_UNQUOTED([SVN_REVISION],["$svn_revision"],[The current SVN revision.])
+	AC_MSG_CHECKING([for SVN revision number])
+	AC_MSG_RESULT([$svn_revision])
+fi
 
 AM_MAINTAINER_MODE
 

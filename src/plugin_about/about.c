@@ -130,18 +130,7 @@ static void about_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget
   
   gchar *comments = g_strconcat(
       _("An open-source editor for experienced web designers and programmers, supporting many programming and markup languages, but focusing on creating dynamic and interactive websites."),
-      _("\n\nThis version of Bluefish was built with: "),
-#ifdef HAVE_LIBASPELL
-      _("libaspell support, "),
-#endif /* HAVE_LIBASPELL */
-#ifdef DEVELOPMENT
-      _("development checks support, "),
-#endif /* DEVELOPMENT */
-#ifdef ENABLE_NLS
-      _("i18n support, "),
-#endif /* ENABLE_NLS */
-      "...",
-      NULL);
+      _("\n\nThis version of Bluefish was built with: "), CONFIGURE_OPTIONS, NULL);
 
   /* Translators: This is a special message that shouldn't be translated
    * literally. It is used in the about box to give credits to
@@ -167,7 +156,11 @@ static void about_dialog_create(Tbfwin *bfwin, guint *callback_action, GtkWidget
   gtk_show_about_dialog (GTK_WINDOW (bfwin->main_window),
               "logo", logo,
               "name", PACKAGE,
-              "version", VERSION,
+#ifdef SVN_REVISION
+              "version", VERSION " rev" SVN_REVISION,
+#else /* SVN_REVISION */
+	      "version", VERSION,
+#endif /* SVN_REVISION */
               "comments", comments,
               "copyright", copyright,
               "license", license,
