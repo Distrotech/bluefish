@@ -36,7 +36,7 @@
 	<highlight name="reference-external-tag" style="special-tag" />
 	<highlight name="table-tag" style="special-tag2" />
 	<highlight name="form-tag" style="special-tag3" />
-	<highlight name="Depreciated-tag" style="warning" />
+	<highlight name="deprecated-tag" style="warning" />
 	<highlight name="attribute" style="attribute" />
 	<highlight name="string" style="string" />
 	<highlight name="entity" style="value" />
@@ -866,9 +866,6 @@
 			<tag name="sup" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 				<reference>Defines superscripted text</reference>
 			</tag>
-			<tag name="u" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
-				<reference><b>Depreciated.</b> Defines underlined text</reference>
-			</tag>
 			<tag name="ul" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
 				<reference>Defines an unordered list</reference>
 			</tag>
@@ -876,9 +873,18 @@
 				<reference>Defines a variable part of a text</reference>
 			</tag>			
 		</group>
-		<group highlight="Depreciated-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
+		<group highlight="deprecated-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
 			<tag name="font" case_insens="1" sgml_shorttag="1" attributes="size,color,bgcolor,face">
 				<reference><b>Depreciated.</b> Defines font, color, and size for text</reference>
+			</tag>
+			<tag name="u" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+				<reference><b>Depreciated.</b> Defines underlined text</reference>
+			</tag>
+			<tag name="s" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+				<reference><b>Depreciated.</b> Render strike-through style text.</reference>
+			</tag>
+			<tag name="strike" case_insens="1" sgml_shorttag="1" attributes="&univ;,&i18n;,&evnt;">
+				<reference><b>Depreciated.</b> Render strike-through style text.</reference>
 			</tag>
 		</group>
 		<group highlight="form-tag" attribhighlight="attribute" attrib_autocomplete_append="=&quot;&quot;" attrib_autocomplete_backup_cursor="2">
