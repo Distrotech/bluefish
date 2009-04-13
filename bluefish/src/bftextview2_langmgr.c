@@ -572,7 +572,7 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 			gchar **attrib_arr=NULL;
 			guint16 starttagmatch=0, endtagmatch,matchstring;
 			gint contexttag=0/*, contextstring*/;
-			gchar *tmp, *reference=NULL;
+			gchar *tmp,*reference=NULL;
 			
 			/* try to re-use the context of other tags. this is only possible if the other tags have exactly the same attribute set
 			we check this by sorting the attributes, concatenating them comma separated together, and using this as a hash key
@@ -602,12 +602,23 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 				}*/
 			}
 			tmp = g_strconcat("<",tag,NULL);
-			matchnum = add_keyword_to_scanning_table(bfparser->st, tmp,bfparser->bflang->name
-						,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, context
-						, contexttag, TRUE, FALSE, 0, TRUE,NULL
-						,autocomplete_append?autocomplete_append:ih_autocomplete_append
-						,autocomplete_backup_cursor?autocomplete_backup_cursor:ih_autocomplete_backup_cursor
-						,NULL);
+			if (autocomplete_append == NULL && ih_autocomplete_append == NULL) {
+				gchar *tmp2 = g_strconcat("></",tag,">",NULL);
+				matchnum = add_keyword_to_scanning_table(bfparser->st, tmp,bfparser->bflang->name
+							,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, context
+							, contexttag, TRUE, FALSE, 0, TRUE,NULL
+							,tmp2
+							,strlen(tag)+3
+							,NULL);
+				g_free(tmp2);
+			} else {
+				matchnum = add_keyword_to_scanning_table(bfparser->st, tmp,bfparser->bflang->name
+							,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, context
+							, contexttag, TRUE, FALSE, 0, TRUE,NULL
+							,autocomplete_append?autocomplete_append:ih_autocomplete_append
+							,autocomplete_backup_cursor?autocomplete_backup_cursor:ih_autocomplete_backup_cursor
+							,NULL);
+			}
 			DBG_PARSING("insert tag %s into hash table with matchnum %d\n",id?id:tmp,matchnum);
 			g_hash_table_insert(bfparser->patterns, g_strdup(id?id:tmp), GINT_TO_POINTER((gint)matchnum));
 			g_free(tmp);
