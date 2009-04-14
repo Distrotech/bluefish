@@ -699,6 +699,10 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 							}
 						}
 					} else if (xmlStrEqual(name,(xmlChar *)"context")) {
+						if (no_close) {
+							g_warning("tag %s has no_close=%d but specifies an inner context\n", tag, no_close);
+							no_close=FALSE;
+						}
 						innercontext = process_scanning_context(reader,bfparser,contextstack);
 						match_set_nextcontext(bfparser->st, starttagmatch, innercontext);
 					} else if (xmlStrEqual(name,(xmlChar *)"tag")) {
@@ -714,11 +718,13 @@ static guint16 process_scanning_tag(xmlTextReaderPtr reader, Tbflangparsing *bfp
 				xmlFree(reference);
 			}
 			match_autocomplete_reference(bfparser->st,matchnum,context);
-			tmp = g_strconcat("</",tag,">",NULL);
-			endtagmatch = add_keyword_to_scanning_table(bfparser->st, tmp, bfparser->bflang->name,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, innercontext, (innercontext==context)?0:-2, FALSE, TRUE, matchnum, TRUE,NULL,NULL,0,NULL);
-			match_autocomplete_reference(bfparser->st,endtagmatch,innercontext);
-			g_hash_table_insert(bfparser->patterns, g_strdup(tmp), GINT_TO_POINTER((gint)endtagmatch));
-			g_free(tmp);
+			if (!no_close) {
+				tmp = g_strconcat("</",tag,">",NULL);
+				endtagmatch = add_keyword_to_scanning_table(bfparser->st, tmp, bfparser->bflang->name,highlight?highlight:ih_highlight,NULL, FALSE, case_insens, innercontext, (innercontext==context)?0:-2, FALSE, TRUE, matchnum, TRUE,NULL,NULL,0,NULL);
+				match_autocomplete_reference(bfparser->st,endtagmatch,innercontext);
+				g_hash_table_insert(bfparser->patterns, g_strdup(tmp), GINT_TO_POINTER((gint)endtagmatch));
+				g_free(tmp);
+			}
 		}
 	}
 	g_free(id);
