@@ -21,6 +21,7 @@ bflang_DATA = \
 	html.bflang2 \
 	java.bflang2 \
 	javascript.bflang2 \
+	all-javascript.bfinc \
 	jsp.bflang2 \
 	perl.bflang2 \
 	php.bflang2 \
