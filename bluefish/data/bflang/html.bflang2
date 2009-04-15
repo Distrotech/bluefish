@@ -26,6 +26,7 @@
 	<!ENTITY evnt "onclick,ondblclick,onmousedown,onmouseup,onmouseover,onmousemove,onmouseout,onkeypress,onkeydown,onkeyup">
 	<!ENTITY css-selectors SYSTEM "css-selectors.bfinc">
 	<!ENTITY css-rules SYSTEM "css-rules.bfinc">
+	<!ENTITY all-javascript SYSTEM "all-javascript.bfinc">
 ]>
 
 <bflang name="Generic HTML" table="8423" contexts="111" matches="1852">
@@ -43,9 +44,12 @@
 	<highlight name="string" style="string" />
 	<highlight name="entity" style="value" />
 	<highlight name="brackets" style="brackets" />
-	<highlight name="js-keyword" style="keyword" />
-	<highlight name="js-value" style="value" />
-	<highlight name="js-function" style="function" />
+	<highlight name="js-keyword" style="keyword"  />
+	<highlight name="js-brackets" style="brackets"  />
+	<highlight name="js-type" style="type"  />
+	<highlight name="js-comment" style="comment"  />
+	<highlight name="js-string" style="string"  />
+	<highlight name="js-value" style="value"  />
 	<highlight name="css-brackets" style="brackets"  />
 	<highlight name="css-comment" style="comment" />
 	<highlight name="css-html-tag" style="tag"  />
@@ -55,7 +59,6 @@
 	<highlight name="css-string" style="string" />
 	<highlight name="css-value" style="value"   />
 	<highlight name="css-pseudo-element" style="keyword" />
-	<highlight name="js-comment" style="comment" />
 	<highlight name="html-comment" style="comment" />
 </header>
 <properties>
@@ -81,63 +84,8 @@
 </tag>
 
 <tag id="script" name="script" highlight="tag" case_insens="1" sgml_shorttag="1" attributes="charset,defer,language,src,type" autocomplete_append=" type=&quot;text/javascript&quot; &gt;" attribhighlight="attribute">
-	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;">
-		<element pattern="(" id="js(" starts_block="1" highlight="brackets" />
-		<element pattern=")" highlight="brackets" ends_block="1" blockstartelement="js(" />
-		<element pattern="{" id="js{" starts_block="1" highlight="brackets" />
-		<element pattern="}" highlight="brackets" ends_block="1" blockstartelement="js{" />
-		<element pattern="[" id="js[" starts_block="1" highlight="brackets" />
-		<element pattern="]" highlight="brackets" ends_block="1" blockstartelement="js[" />
-		<group highlight="js-keyword" autocomplete="1">
-			<element pattern="if" />
-			<element pattern="else" />
-			<element pattern="where" />
-			<element pattern="case" />
-			<element pattern="switch" />
-			<element pattern="break" />
-			<element pattern="return" />
-			<element pattern="while" />
-			<element pattern="for" />
-			<element pattern="function" />
-			<element pattern="var" />
-			<element pattern="new" />
-			<element pattern="try" />
-			<element pattern="catch" />
-			<element pattern="default" />
-		</group>
-		<group highlight="js-function" autocomplete="1">
-			<element pattern="getElementsByTagName" />
-			<element pattern="getElementsByTagName" />
-		</group>
-		<group highlight="js-value" autocomplete="1">
-			<element pattern="true" />
-			<element pattern="false" />
-			<element pattern="[0-9.]+" is_regex="1" autocomplete="0"/>
-		</group>
-		<element pattern="&#34;" highlight="string">
-			<context symbols="\&#34;" highlight="string">
-				<element pattern="\&#34;" highlight="string" />
-				<element pattern="&#34;" highlight="string" ends_context="1" />
-			</context>
-		</element>
-		<element pattern="'" highlight="string">
-			<context symbols="\'" highlight="string">
-				<element pattern="\." is_regex="1" highlight="string" />
-				<element pattern="'" highlight="string" ends_context="1" />
-			</context>
-		</element>
-		<element pattern="//" highlight="js-comment">
-			<context symbols="&#10;&#13;&gt;&lt; " highlight="js-comment">
-				<element pattern="[&#10;&#13;]" is_regex="1" highlight="js-comment" ends_context="1" />
-				<element pattern="&lt;/script&gt;" highlight="tag" ends_context="3" ends_block="1" blockstartelement="script"/>
-			</context>
-		</element>
-		<element id="js/*" pattern="/*" starts_block="1" highlight="js-comment">
-			<context symbols="*/&#9;&#10;&#13;&gt;&lt; " highlight="js-comment">
-				<element pattern="*/" ends_block="1" blockstartelement="js/*" highlight="js-comment" mayfold="1" ends_context="1" />
-				<element pattern="&lt;/script&gt;" highlight="tag" ends_context="3" ends_block="1" blockstartelement="script"/>
-			</context>
-		</element>
+	<context symbols=" ;(){}[]:\&#34;\\',&gt;&lt;*&amp;^%!+=-|/?#&#9;&#10;&#13;.">
+	&all-javascript;
 	</context>
 </tag>
 
